@@ -37,9 +37,11 @@ import {
   EQUIPMENT_SLOT_METAS,
   formatBonusBadges,
   ITEM_DB_MAP,
-  ITEMS_DB,
+  normalizeItemTier,
   RARITY_STYLE_MAP,
-  SCROLLS_ITEMS_DB,
+  TREASURE_COMPENDIUM_ITEMS,
+  TREASURE_VOLUME_METAS,
+  type TreasureVolumeKey,
 } from '../../data/itemsDb'
 import {
   canArtFitSlot,
@@ -53,13 +55,13 @@ import {
 import { useGameStore } from '../../store/useGameStore'
 import type {
   BagCategoryKey,
+  CompendiumTabKey,
   CompiledMartialArtRecord,
   CompiledNpcRecord,
   CompiledWeaponRecord,
   EquipmentSlotKey,
   EquipmentTier,
   GameItemDef,
-  ItemRarity,
   LearnedArtEntry,
   MartialArtSlotKey,
   MenuTabKey,
@@ -108,14 +110,17 @@ const WEAPON_SUB_CATEGORIES: WeaponSubCategory[] = [
   '奇门音兵',
 ]
 
-const MENU_NAV_ITEMS: Array<{
-  key: MenuTabKey
+interface NavItemMeta<K extends string> {
+  key: K
   numeral: string
   label: string
   seal: string
   subtitle: string
   badge: string
-}> = [
+}
+
+// 【行囊枢机】专属卷册（不含任何图鉴）
+const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
   {
     key: 'hero',
     numeral: '壹',
@@ -137,44 +142,20 @@ const MENU_NAV_ITEMS: Array<{
     numeral: '叁',
     label: '行囊四库',
     seal: '囊',
-    subtitle: '四分类行囊（典籍书画 · 丹药毒物 · 雅器百工 · 行囊杂物）及银两粮草补给、秘籍展卷研读',
-    badge: 'M1-0 已实装',
-  },
-  {
-    key: 'portraits',
-    numeral: '肆',
-    label: '群侠图鉴',
-    seal: '谱',
-    subtitle: '全量 1,000 位皇祐人物档案、3:4 等比画轴全身像对齐与高清点击放大品鉴（头像/全身双视图）',
-    badge: 'M0-3 已实装',
-  },
-  {
-    key: 'martialArts',
-    numeral: '伍',
-    label: '武学总纲',
-    seal: '典',
-    subtitle: '四阶十二品共 216 门天下武学全录、天阶前置校验词条、门派归属索引与主角习得状态标记',
-    badge: 'M0-3 已实装',
-  },
-  {
-    key: 'armory',
-    numeral: '陆',
-    label: '披挂总纲',
-    seal: '兵',
-    subtitle: '七槽披挂规制与第一卷《百兵谱》100 种武器全录（10天阶 · 20地阶 · 30良阶 · 40凡阶）及兵武共鸣',
-    badge: '百兵已定',
+    subtitle: '少侠随身四分类行囊（典籍书画 · 丹药毒物 · 雅器百工 · 行囊杂物）及银两粮草补给、展卷服食佩挂',
+    badge: '随身行囊',
   },
   {
     key: 'engineering',
-    numeral: '柒',
+    numeral: '肆',
     label: '工程与字典',
     seal: '枢',
-    subtitle: '静态资源按需懒加载遥测 + 跨分支标准 ID 字典（43地 / 30派+11组织 / 216功 / 100兵 / 1000人）',
+    subtitle: '静态资源按需懒加载遥测 + 跨分支标准 ID 字典（43地 / 30派+11组织 / 216功 / 100兵 / 180奇珍 / 1000人）',
     badge: 'M0-2 已实装',
   },
   {
     key: 'save',
-    numeral: '捌',
+    numeral: '伍',
     label: '存 档',
     seal: '录',
     subtitle: '多槽位 IndexedDB 卷宗持久化（含披挂、武学重数与四库行囊）、手札批注与 JSON 导出',
@@ -182,7 +163,7 @@ const MENU_NAV_ITEMS: Array<{
   },
   {
     key: 'load',
-    numeral: '玖',
+    numeral: '陆',
     label: '读 档',
     seal: '启',
     subtitle: '读取当前版本卷宗回溯三层空间与披挂武学现场，或从本地导入 .json 存档文件',
@@ -190,11 +171,47 @@ const MENU_NAV_ITEMS: Array<{
   },
   {
     key: 'settings',
-    numeral: '拾',
+    numeral: '柒',
     label: '设 置',
     seal: '律',
     subtitle: '皇祐雅乐坊（《东京梦华》背景配乐控制）、舆图显示偏好与牌匾标注调校',
     badge: '雅乐已启',
+  },
+]
+
+// 【图鉴】按钮专属卷册（统辖全部四大图鉴）
+const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
+  {
+    key: 'portraits',
+    numeral: '壹',
+    label: '群侠图鉴',
+    seal: '谱',
+    subtitle: '全量 1,000 位皇祐人物档案、3:4 等比画轴全身像对齐与高清点击放大品鉴（头像/全身双视图）',
+    badge: '1000人全录',
+  },
+  {
+    key: 'martialArts',
+    numeral: '贰',
+    label: '武学总纲',
+    seal: '典',
+    subtitle: '四阶十二品共 216 门天下武学全录、天阶前置校验词条、门派归属索引与主角习得状态标记',
+    badge: '216功全录',
+  },
+  {
+    key: 'armory',
+    numeral: '叁',
+    label: '披挂总纲',
+    seal: '兵',
+    subtitle: '七槽披挂规制与第一卷《百兵谱》100 种武器全录（10天阶 · 20地阶 · 30良阶 · 40凡阶）及兵武共鸣',
+    badge: '百兵已定',
+  },
+  {
+    key: 'treasures',
+    numeral: '肆',
+    label: '博物图鉴',
+    seal: '鉴',
+    subtitle: '皇祐三卷奇珍全录：卷壹《典籍书画》100卷 · 卷贰《丹药毒物》30品 · 卷叁《雅器百工》50件（共180品）',
+    badge: '180品全录',
   },
 ]
 
@@ -260,6 +277,8 @@ interface LightboxState {
 export function SystemMenuModal() {
   const menuOpen = useGameStore((s) => s.menuOpen)
   const activeMenuTab = useGameStore((s) => s.activeMenuTab)
+  const compendiumOpen = useGameStore((s) => s.compendiumOpen)
+  const activeCompendiumTab = useGameStore((s) => s.activeCompendiumTab)
   const dayCount = useGameStore((s) => s.dayCount)
   const shichenIdx = useGameStore((s) => s.shichenIdx)
   const viewMode = useGameStore((s) => s.viewMode)
@@ -293,8 +312,12 @@ export function SystemMenuModal() {
   const saveBusy = useGameStore((s) => s.saveBusy)
   const saveNotice = useGameStore((s) => s.saveNotice)
 
+  const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
+  const openCompendium = useGameStore((s) => s.openCompendium)
+  const closeCompendium = useGameStore((s) => s.closeCompendium)
+  const setCompendiumTab = useGameStore((s) => s.setCompendiumTab)
   const navigateToNpcLeafInCurrentRegion = useGameStore(
     (s) => s.navigateToNpcLeafInCurrentRegion,
   )
@@ -304,6 +327,7 @@ export function SystemMenuModal() {
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
   const unequipSlot = useGameStore((s) => s.unequipSlot)
   const acquireWeaponToBag = useGameStore((s) => s.acquireWeaponToBag)
+  const acquireItemToBag = useGameStore((s) => s.acquireItemToBag)
   const equipArtToSlot = useGameStore((s) => s.equipArtToSlot)
   const unequipArtSlot = useGameStore((s) => s.unequipArtSlot)
   const practiceLearnedArt = useGameStore((s) => s.practiceLearnedArt)
@@ -322,22 +346,15 @@ export function SystemMenuModal() {
   const audioCatalog = getAudioCatalogSummary()
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
-  // Selected equipment & martial art slot in Loadout Panel (Tab 2)
+  // Selected equipment & martial art slot in Loadout Panel (System Tab 2)
   const [selectedEquipSlot, setSelectedEquipSlot] = useState<EquipmentSlotKey>('weapon')
   const [selectedArtSlot, setSelectedArtSlot] = useState<MartialArtSlotKey>('neigong')
   const [inspectedLearnedArtId, setInspectedLearnedArtId] = useState<string>('MA-177')
 
-  // Selected item ID in Bag Panel (Tab 3) + 100 Scrolls Compendium sub-view
+  // Selected item ID in Bag Panel (System Tab 3 — personal inventory only)
   const [selectedBagItemId, setSelectedBagItemId] = useState<string | null>(null)
-  const [scrollViewMode, setScrollViewMode] = useState<'owned' | 'catalog'>('owned')
-  const [scrollTierFilter, setScrollTierFilter] = useState<'ALL' | ItemRarity>('ALL')
-  const [scrollSubTypeFilter, setScrollSubTypeFilter] = useState<string>('ALL')
-  const [scrollQuery, setScrollQuery] = useState<string>('')
-  const [selectedCatalogScrollId, setSelectedCatalogScrollId] = useState<string>(
-    () => SCROLLS_ITEMS_DB[0]?.id ?? 'ITM-SCR-001',
-  )
 
-  // 1,000 NPC Compendium filter state (Tab 4)
+  // 1,000 NPC Compendium filter state (Compendium Tab 1)
   const [npcQuery, setNpcQuery] = useState('')
   const [localNpcScope, setLocalNpcScope] = useState<string>('ALL_WITH_ART')
   const [npcRegionFilter, setNpcRegionFilter] = useState<string>('ALL')
@@ -374,7 +391,7 @@ export function SystemMenuModal() {
   // High-res portrait zoom lightbox modal state
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
 
-  // 216 Martial Arts Compendium filter state (Tab 5)
+  // 216 Martial Arts Compendium filter state (Compendium Tab 2)
   const [artQuery, setArtQuery] = useState('')
   const [artTierFilter, setArtTierFilter] = useState<string>('ALL')
   const [artCatFilter, setArtCatFilter] = useState<string>('ALL')
@@ -382,7 +399,7 @@ export function SystemMenuModal() {
     () => MARTIAL_ARTS_DB[0] ?? null,
   )
 
-  // 100 Weapons Armory Compendium filter state (Tab 6)
+  // 100 Weapons Armory Compendium filter state (Compendium Tab 3)
   const [wpnQuery, setWpnQuery] = useState('')
   const [wpnTierFilter, setWpnTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
   const [wpnTypeFilter, setWpnTypeFilter] = useState<'ALL' | WeaponSubCategory>('ALL')
@@ -390,13 +407,21 @@ export function SystemMenuModal() {
     () => WEAPONS_DB[0] ?? null,
   )
 
+  // 180 Treasures Compendium filter state (Compendium Tab 4: 典籍书画 100 + 丹药毒物 30 + 雅器百工 50)
+  const [treasureVolFilter, setTreasureVolFilter] = useState<'ALL' | TreasureVolumeKey>('ALL')
+  const [treasureTierFilter, setTreasureTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
+  const [treasureSubTypeFilter, setTreasureSubTypeFilter] = useState<string>('ALL')
+  const [treasureOwnedFilter, setTreasureOwnedFilter] = useState<'ALL' | 'OWNED' | 'UNOWNED'>(
+    'ALL',
+  )
+  const [treasureQuery, setTreasureQuery] = useState<string>('')
+  const [selectedTreasureId, setSelectedTreasureId] = useState<string>(
+    () => TREASURE_COMPENDIUM_ITEMS[0]?.id ?? 'ITM-SCR-001',
+  )
+
   // Save note state
   const [saveNoteDraft, setSaveNoteDraft] = useState('')
   const [importTargetSlot, setImportTargetSlot] = useState<SaveSlotId | 'DIRECT_LOAD'>('DIRECT_LOAD')
-
-  // Medicine & Poisons 30-item compendium toggle & tier filter (Tab 3 -> medicine)
-  const [medicineViewMode, setMedicineViewMode] = useState<'bag' | 'compendium'>('bag')
-  const [medicineTierFilter, setMedicineTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
 
   // Intercept ESC when portrait zoom lightbox is open so it closes lightbox first instead of whole menu
   useEffect(() => {
@@ -543,31 +568,115 @@ export function SystemMenuModal() {
     return m
   }, [inventory])
 
-  const scrollSubTypes = useMemo(() => {
+  const equippedItemIdSet = useMemo(() => {
     const s = new Set<string>()
-    for (const item of SCROLLS_ITEMS_DB) {
-      s.add(item.subType)
+    for (const id of Object.values(equipped)) {
+      if (id) s.add(id)
+    }
+    return s
+  }, [equipped])
+
+  const treasureCollectionStats = useMemo(() => {
+    const stats: Record<
+      'ALL' | TreasureVolumeKey,
+      { total: number; owned: number }
+    > = {
+      ALL: { total: 0, owned: 0 },
+      scrolls: { total: 0, owned: 0 },
+      medicine: { total: 0, owned: 0 },
+      tools: { total: 0, owned: 0 },
+    }
+    for (const item of TREASURE_COMPENDIUM_ITEMS) {
+      const cat = item.category as TreasureVolumeKey
+      const isOwned =
+        (ownedQtyMap.get(item.id) ?? 0) > 0 || equippedItemIdSet.has(item.id)
+      stats.ALL.total += 1
+      stats[cat].total += 1
+      if (isOwned) {
+        stats.ALL.owned += 1
+        stats[cat].owned += 1
+      }
+    }
+    return stats
+  }, [ownedQtyMap, equippedItemIdSet])
+
+  const treasureVolumeItems = useMemo(() => {
+    if (treasureVolFilter === 'ALL') return TREASURE_COMPENDIUM_ITEMS
+    return TREASURE_COMPENDIUM_ITEMS.filter((it) => it.category === treasureVolFilter)
+  }, [treasureVolFilter])
+
+  const treasureTierCounts = useMemo(() => {
+    const counts: Record<'ALL' | EquipmentTier, number> = {
+      ALL: treasureVolumeItems.length,
+      天阶: 0,
+      地阶: 0,
+      良阶: 0,
+      凡阶: 0,
+    }
+    for (const it of treasureVolumeItems) {
+      counts[normalizeItemTier(it.rarity)] += 1
+    }
+    return counts
+  }, [treasureVolumeItems])
+
+  const treasureSubTypes = useMemo(() => {
+    const s = new Set<string>()
+    for (const it of treasureVolumeItems) {
+      s.add(it.subType)
     }
     return Array.from(s)
-  }, [])
+  }, [treasureVolumeItems])
 
-  const filteredCatalogScrolls = useMemo(() => {
-    const q = scrollQuery.trim().toLowerCase()
-    return SCROLLS_ITEMS_DB.filter((item) => {
-      if (scrollTierFilter !== 'ALL' && item.rarity !== scrollTierFilter) return false
-      if (scrollSubTypeFilter !== 'ALL' && item.subType !== scrollSubTypeFilter) return false
+  const filteredTreasures = useMemo(() => {
+    const q = treasureQuery.trim().toLowerCase()
+    return treasureVolumeItems.filter((it) => {
+      if (treasureTierFilter !== 'ALL' && normalizeItemTier(it.rarity) !== treasureTierFilter) {
+        return false
+      }
+      if (treasureSubTypeFilter !== 'ALL' && it.subType !== treasureSubTypeFilter) {
+        return false
+      }
+      const isOwned =
+        (ownedQtyMap.get(it.id) ?? 0) > 0 || equippedItemIdSet.has(it.id)
+      if (treasureOwnedFilter === 'OWNED' && !isOwned) return false
+      if (treasureOwnedFilter === 'UNOWNED' && isOwned) return false
+
       if (!q) return true
+      const linkedArtName = it.useEffect?.learnArtId
+        ? (MARTIAL_ART_DB_MAP[it.useEffect.learnArtId]?.name.toLowerCase() ?? '')
+        : ''
       return (
-        item.id.toLowerCase().includes(q) ||
-        item.name.toLowerCase().includes(q) ||
-        item.subType.toLowerCase().includes(q) ||
-        item.desc.toLowerCase().includes(q) ||
-        (item.lore?.toLowerCase().includes(q) ?? false)
+        it.id.toLowerCase().includes(q) ||
+        it.name.toLowerCase().includes(q) ||
+        it.subType.toLowerCase().includes(q) ||
+        it.desc.toLowerCase().includes(q) ||
+        (it.lore?.toLowerCase().includes(q) ?? false) ||
+        (it.poisonEffect?.toLowerCase().includes(q) ?? false) ||
+        (it.useEffect?.learnArtHint?.toLowerCase().includes(q) ?? false) ||
+        linkedArtName.includes(q)
       )
     })
-  }, [scrollTierFilter, scrollSubTypeFilter, scrollQuery])
+  }, [
+    treasureVolumeItems,
+    treasureTierFilter,
+    treasureSubTypeFilter,
+    treasureOwnedFilter,
+    treasureQuery,
+    ownedQtyMap,
+    equippedItemIdSet,
+  ])
 
-  if (!menuOpen) return null
+  if (!menuOpen && !compendiumOpen) return null
+
+  const isCompendiumMode = compendiumOpen
+  const activeViewKey: MenuTabKey | CompendiumTabKey = isCompendiumMode
+    ? activeCompendiumTab
+    : activeMenuTab
+
+  const closeActiveModal = () => {
+    if (isCompendiumMode) closeCompendium()
+    else closeMenu()
+  }
 
   const curNode = NODE_MAP[currentNodeId] ?? WORLD_GRAPH.nodes[0]
   const activeRegionNode = NODE_MAP[activeRegionId] ?? curNode
@@ -578,8 +687,9 @@ export function SystemMenuModal() {
     ? BUILDING_DB_MAP[activeBuildingInteriorId]
     : null
 
-  const activeMeta =
-    MENU_NAV_ITEMS.find((m) => m.key === activeMenuTab) ?? MENU_NAV_ITEMS[0]
+  const activeMeta: NavItemMeta<string> = isCompendiumMode
+    ? (COMPENDIUM_NAV_ITEMS.find((m) => m.key === activeCompendiumTab) ?? COMPENDIUM_NAV_ITEMS[0])
+    : (SYSTEM_NAV_ITEMS.find((m) => m.key === activeMenuTab) ?? SYSTEM_NAV_ITEMS[0])
   const speedInfo = getEffectiveSpeed(
     { mountKey, qinggongBonus, ridingSkill, agility },
     'official',
@@ -632,101 +742,208 @@ export function SystemMenuModal() {
   const totalDefense = equipTotals.defense + artTotals.defense
   const equippedCount = Object.values(equipped).filter(Boolean).length
   const equippedArtCount = Object.values(equippedArts).filter(Boolean).length
+  const ownedWeaponsCount = WEAPONS_DB.filter(
+    (w) => equipped.weapon === w.id || (inventoryQtyMap.get(w.id) ?? 0) > 0,
+  ).length
 
   return (
     <div
-      id="game-menu-overlay"
+      id={isCompendiumMode ? 'compendium-menu-overlay' : 'game-menu-overlay'}
       onClick={(e) => {
-        if (e.target === e.currentTarget) closeMenu()
+        if (e.target === e.currentTarget) closeActiveModal()
       }}
       className="fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-2 sm:p-4 select-none"
     >
-      {/* 菜单主窗体：宽高均扩展为原来的 1.5 倍（1024px -> 1536px，650px -> 975px），并带视口自适应防溢出 */}
+      {/* 菜单主窗体：1.5 倍宽幅展卷规制（1536px × 975px），随视口自适应防溢出 */}
       <div className="w-[96vw] max-w-[1536px] h-[975px] max-h-[95vh] bg-[#f8f1e1] text-[#23180f] border-2 border-[#6e5233] rounded-lg shadow-2xl flex flex-col overflow-hidden">
-        {/* 顶部栏：金石朱印标题 + 快捷关闭 */}
-        <div className="shrink-0 bg-[#261910] text-[#fbf2e0] border-b-2 border-[#c89d54] px-6 py-3.5 flex items-center justify-between">
+        {/* 顶部栏：独立区分【万象图鉴】与【行囊枢机】 */}
+        <div
+          className={`shrink-0 text-[#fbf2e0] border-b-2 border-[#c89d54] px-6 py-3.5 flex items-center justify-between ${
+            isCompendiumMode
+              ? 'bg-gradient-to-r from-[#183329] via-[#1f4235] to-[#183329]'
+              : 'bg-[#261910]'
+          }`}
+        >
           <div className="flex items-center gap-3.5">
-            <span className="w-8 h-8 rounded bg-[#8f1d14] border border-[#f5cb5c]/70 flex items-center justify-center song-serif font-bold text-base text-[#fff7e6]">
-              枢
+            <span
+              className={`w-8 h-8 rounded border border-[#f5cb5c]/70 flex items-center justify-center song-serif font-bold text-base text-[#fff7e6] ${
+                isCompendiumMode ? 'bg-[#1f5c3a]' : 'bg-[#8f1d14]'
+              }`}
+            >
+              {isCompendiumMode ? '鉴' : '枢'}
             </span>
             <div>
               <div className="flex items-center gap-2.5">
                 <h2 className="song-serif font-bold text-lg tracking-widest text-amber-200">
-                  《北宋立志传》行囊枢机总览
+                  {isCompendiumMode
+                    ? '《北宋立志传》皇祐万象图鉴'
+                    : '《北宋立志传》行囊枢机总览'}
                 </h2>
-                <span className="px-2.5 py-0.5 rounded bg-[#47321d] border border-[#9e7b47]/60 text-xs text-[#f5dfb5]">
+                <span className="px-2.5 py-0.5 rounded bg-black/30 border border-[#c89d54]/50 text-xs text-[#f5dfb5]">
                   {activeMeta.numeral} · {activeMeta.label.replace(/\s+/g, '')}
                 </span>
               </div>
               <p className="text-xs text-[#d6c5a5] mt-0.5">
-                {formatSongDate(dayCount, shichenIdx)} · 主角总览 / 披挂武学 / 行囊四库独立成卷 · 按 ESC 返回舆图
+                {isCompendiumMode
+                  ? `${formatSongDate(dayCount, shichenIdx)} · 群侠千人谱 / 天下武学总纲 / 百兵谱 / 典籍丹毒雅器全鉴 · 按 G 或 ESC 返回舆图`
+                  : `${formatSongDate(dayCount, shichenIdx)} · 主角总览 / 披挂武学 / 行囊四库 / 卷宗存取 · 按 ESC 返回舆图`}
               </p>
             </div>
           </div>
           <button
             type="button"
-            onClick={closeMenu}
-            className="px-4 py-2 rounded bg-[#3d291a] hover:bg-[#8f1d14] text-[#fbf2e0] border border-[#c89d54]/60 text-xs sm:text-sm font-bold song-serif transition cursor-pointer"
+            onClick={closeActiveModal}
+            className="px-4 py-2 rounded bg-black/35 hover:bg-[#8f1d14] text-[#fbf2e0] border border-[#c89d54]/60 text-xs sm:text-sm font-bold song-serif transition cursor-pointer"
           >
             ✕ 返回江湖
           </button>
         </div>
 
-        {/* 主体：左侧导航栏 + 右侧独立模块舞台 */}
+        {/* 主体：左侧导航栏（严格按【图鉴】与【行囊枢机】分流） + 右侧独立模块舞台 */}
         <div className="flex-1 flex min-h-0">
           <nav className="w-60 shrink-0 bg-[#efe4cc] border-r border-[#bfa782] p-3.5 flex flex-col justify-between overflow-y-auto scroll-thin">
-            <div className="space-y-1.5">
-              {MENU_NAV_ITEMS.map((item) => {
-                const isAct = item.key === activeMenuTab
-                return (
-                  <button
-                    key={item.key}
-                    type="button"
-                    onClick={() => setMenuTab(item.key)}
-                    className={
-                      isAct
-                        ? 'w-full px-3.5 py-2.5 rounded-md border-2 border-[#f5cb5c] bg-[#8f1d14] text-[#fff8eb] text-left song-serif font-bold text-sm shadow-md transition flex items-center justify-between cursor-pointer'
-                        : 'w-full px-3.5 py-2.5 rounded-md border border-[#b59c77] bg-[#f8f1e1] hover:bg-[#e7d9bc] text-[#2b1a0e] text-left song-serif font-bold text-sm transition flex items-center justify-between cursor-pointer'
-                    }
-                  >
-                    <span className="flex items-center gap-2.5">
-                      <span className="w-5 text-center text-xs font-mono">{item.numeral}</span>
-                      <span>{item.label}</span>
-                    </span>
-                    <span className="text-xs opacity-75">▸</span>
-                  </button>
-                )
-              })}
-            </div>
+            {isCompendiumMode ? (
+              <div className="space-y-1.5">
+                {COMPENDIUM_NAV_ITEMS.map((item) => {
+                  const isAct = item.key === activeCompendiumTab
+                  return (
+                    <div key={item.key} className="space-y-1">
+                      <button
+                        type="button"
+                        onClick={() => setCompendiumTab(item.key)}
+                        className={
+                          isAct
+                            ? 'w-full px-3.5 py-2.5 rounded-md border-2 border-[#f5cb5c] bg-[#1f5c3a] text-[#fff8eb] text-left song-serif font-bold text-sm shadow-md transition flex items-center justify-between cursor-pointer'
+                            : 'w-full px-3.5 py-2.5 rounded-md border border-[#b59c77] bg-[#f8f1e1] hover:bg-[#e7d9bc] text-[#2b1a0e] text-left song-serif font-bold text-sm transition flex items-center justify-between cursor-pointer'
+                        }
+                      >
+                        <span className="flex items-center gap-2.5">
+                          <span className="w-5 text-center text-xs font-mono">{item.numeral}</span>
+                          <span>{item.label}</span>
+                        </span>
+                        <span className="text-xs opacity-75">▸</span>
+                      </button>
 
-            <div className="pt-3.5 mt-3.5 border-t border-[#c7b18e] text-xs text-[#5e472d] space-y-1.5">
-              <div className="flex justify-between">
-                <span>当前时辰</span>
-                <span className="font-semibold text-[#781710]">
-                  {formatSongDate(dayCount, shichenIdx).split(' · ').slice(-2).join(' · ')}
-                </span>
+                      {/* 博物图鉴三卷快捷分目：典籍书画 / 丹药毒物 / 雅器百工 */}
+                      {item.key === 'treasures' && (
+                        <div className="pl-3 space-y-1 pt-0.5">
+                          {TREASURE_VOLUME_METAS.map((vol) => {
+                            const isSubAct =
+                              activeCompendiumTab === 'treasures' && treasureVolFilter === vol.key
+                            const st = treasureCollectionStats[vol.key]
+                            return (
+                              <button
+                                key={vol.key}
+                                type="button"
+                                onClick={() => {
+                                  setCompendiumTab('treasures')
+                                  setTreasureVolFilter(vol.key)
+                                  setTreasureSubTypeFilter('ALL')
+                                }}
+                                className={`w-full px-2.5 py-1.5 rounded border text-left text-xs song-serif flex items-center justify-between transition cursor-pointer ${
+                                  isSubAct
+                                    ? 'bg-[#8f1d14] text-[#fff8eb] border-[#f5cb5c] font-bold shadow-xs'
+                                    : 'bg-[#faf4e6] hover:bg-[#e7d9bc] text-[#4a3219] border-[#cbb693]'
+                                }`}
+                              >
+                                <span className="truncate">
+                                  {vol.volNumeral} · {vol.label}
+                                </span>
+                                <span className="font-mono text-[10px] opacity-85">
+                                  {st.owned}/{st.total}
+                                </span>
+                              </button>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
-              <div className="flex justify-between gap-2">
-                <span className="shrink-0">所在地域</span>
-                <span className="font-semibold text-right truncate">{locationLabel}</span>
+            ) : (
+              <div className="space-y-1.5">
+                {SYSTEM_NAV_ITEMS.map((item) => {
+                  const isAct = item.key === activeMenuTab
+                  return (
+                    <button
+                      key={item.key}
+                      type="button"
+                      onClick={() => setMenuTab(item.key)}
+                      className={
+                        isAct
+                          ? 'w-full px-3.5 py-2.5 rounded-md border-2 border-[#f5cb5c] bg-[#8f1d14] text-[#fff8eb] text-left song-serif font-bold text-sm shadow-md transition flex items-center justify-between cursor-pointer'
+                          : 'w-full px-3.5 py-2.5 rounded-md border border-[#b59c77] bg-[#f8f1e1] hover:bg-[#e7d9bc] text-[#2b1a0e] text-left song-serif font-bold text-sm transition flex items-center justify-between cursor-pointer'
+                      }
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <span className="w-5 text-center text-xs font-mono">{item.numeral}</span>
+                        <span>{item.label}</span>
+                      </span>
+                      <span className="text-xs opacity-75">▸</span>
+                    </button>
+                  )
+                })}
               </div>
-              <div className="flex justify-between">
-                <span>随身披挂</span>
-                <span className="font-mono font-bold text-[#1b5132]">{equippedCount} / 7 槽</span>
+            )}
+
+            {isCompendiumMode ? (
+              <div className="pt-3.5 mt-3.5 border-t border-[#c7b18e] text-xs text-[#5e472d] space-y-1.5">
+                <div className="flex justify-between">
+                  <span>群侠名录</span>
+                  <span className="font-mono font-bold text-[#23180f]">
+                    {ID_REGISTRY.counts.npcs} 人
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span>所习武学</span>
+                  <span className="font-mono font-bold text-[#781710]">
+                    {learnedArts.length} / {ID_REGISTRY.counts.martialArts} 门
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span>百兵收录</span>
+                  <span className="font-mono font-bold text-[#52391e]">
+                    {ownedWeaponsCount} / {WEAPONS_DB.length} 兵
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span>博物收录</span>
+                  <span className="font-mono font-bold text-[#184f35]">
+                    {treasureCollectionStats.ALL.owned} / {treasureCollectionStats.ALL.total} 品
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span>运使武学</span>
-                <span className="font-mono font-bold text-[#781710]">
-                  {equippedArtCount} / 6 槽（习 {learnedArts.length} 门）
-                </span>
+            ) : (
+              <div className="pt-3.5 mt-3.5 border-t border-[#c7b18e] text-xs text-[#5e472d] space-y-1.5">
+                <div className="flex justify-between">
+                  <span>当前时辰</span>
+                  <span className="font-semibold text-[#781710]">
+                    {formatSongDate(dayCount, shichenIdx).split(' · ').slice(-2).join(' · ')}
+                  </span>
+                </div>
+                <div className="flex justify-between gap-2">
+                  <span className="shrink-0">所在地域</span>
+                  <span className="font-semibold text-right truncate">{locationLabel}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>随身披挂</span>
+                  <span className="font-mono font-bold text-[#1b5132]">{equippedCount} / 7 槽</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>运使武学</span>
+                  <span className="font-mono font-bold text-[#781710]">
+                    {equippedArtCount} / 6 槽（习 {learnedArts.length} 门）
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span>已懒加载</span>
+                  <span className="font-mono font-bold text-[#52391e]">
+                    {telemetry.loadedCount}/{ASSET_MANIFEST.summary.totalExtractedImageFiles}
+                  </span>
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span>已懒加载</span>
-                <span className="font-mono font-bold text-[#52391e]">
-                  {telemetry.loadedCount}/{ASSET_MANIFEST.summary.totalExtractedImageFiles}
-                </span>
-              </div>
-            </div>
+            )}
           </nav>
 
           {/* 右侧子面板动态内容舞台 */}
@@ -735,7 +952,11 @@ export function SystemMenuModal() {
               {/* 模块头 */}
               <div className="flex items-start justify-between border-b-2 border-[#cbb693] pb-3.5">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-md bg-[#8f1d14] border-2 border-[#f2c97d] text-[#fff8eb] flex items-center justify-center song-serif font-bold text-2xl shadow">
+                  <div
+                    className={`w-12 h-12 rounded-md border-2 border-[#f2c97d] text-[#fff8eb] flex items-center justify-center song-serif font-bold text-2xl shadow ${
+                      isCompendiumMode ? 'bg-[#1f5c3a]' : 'bg-[#8f1d14]'
+                    }`}
+                  >
                     {activeMeta.seal}
                   </div>
                   <div>
@@ -751,7 +972,7 @@ export function SystemMenuModal() {
               </div>
 
               {/* ==================== 壹：独立主角面板 ==================== */}
-              {activeMenuTab === 'hero' && (() => {
+              {activeViewKey === 'hero' && (() => {
                 const hpPct = Math.min(100, Math.round((hp / Math.max(1, maxHp)) * 100))
                 const mpPct = Math.min(100, Math.round((mp / Math.max(1, maxMp)) * 100))
                 const staPct = Math.min(100, Math.round((stamina / Math.max(1, maxStamina)) * 100))
@@ -1064,7 +1285,7 @@ export function SystemMenuModal() {
               })()}
 
               {/* ==================== 贰：披挂与武学面板（7槽随身装备 + 6槽运使武学 + 所习武学列表） ==================== */}
-              {activeMenuTab === 'loadout' && (() => {
+              {activeViewKey === 'loadout' && (() => {
                 // --- 上半卷：7槽装备逻辑 ---
                 const leftSlots = EQUIPMENT_SLOT_METAS.filter((m) => m.column === 'left')
                 const rightSlots = EQUIPMENT_SLOT_METAS.filter((m) => m.column === 'right')
@@ -1474,7 +1695,7 @@ export function SystemMenuModal() {
                             <div className="flex items-center gap-2.5">
                               <button
                                 type="button"
-                                onClick={() => setMenuTab('armory')}
+                                onClick={() => openCompendium('armory')}
                                 className="text-[#1f5c3a] font-bold underline cursor-pointer"
                               >
                                 百兵谱 100 兵图鉴 →
@@ -1552,7 +1773,7 @@ export function SystemMenuModal() {
                               </span>
                               <button
                                 type="button"
-                                onClick={() => setMenuTab('martialArts')}
+                                onClick={() => openCompendium('martialArts')}
                                 className="text-[11px] text-[#8f1d14] font-bold hover:underline cursor-pointer"
                               >
                                 查阅天下 216 武学总纲 →
@@ -1778,70 +1999,15 @@ export function SystemMenuModal() {
               })()}
 
               {/* ==================== 叁：行囊四库面板（典籍书画 / 丹药毒物 / 雅器百工 / 行囊杂物） ==================== */}
-              {activeMenuTab === 'bag' && (() => {
+              {activeViewKey === 'bag' && (() => {
                 const currentCatMeta =
                   BAG_CATEGORY_METAS.find((c) => c.key === activeBagCategory) ??
                   BAG_CATEGORY_METAS[0]
-                const isScrollCatalogMode =
-                  activeBagCategory === 'scrolls' && scrollViewMode === 'catalog'
-                const isMedTab = activeBagCategory === 'medicine'
-                const showMedCompendium = isMedTab && medicineViewMode === 'compendium'
-
-                const allMedicineDefs = isMedTab
-                  ? ITEMS_DB.filter((it) => it.category === 'medicine')
-                  : []
-
-                const rawDisplayList = showMedCompendium
-                  ? allMedicineDefs.map((def) => ({
-                      itemId: def.id,
-                      qty: ownedQtyMap.get(def.id) ?? 0,
-                      def,
-                    }))
-                  : bagItemsByCat.list
-
-                const displayList =
-                  isMedTab && medicineTierFilter !== 'ALL'
-                    ? rawDisplayList.filter((x) => x.def.rarity === medicineTierFilter)
-                    : rawDisplayList
-
-                const medTierCounts: Record<'ALL' | EquipmentTier, number> = {
-                  ALL: rawDisplayList.length,
-                  天阶: rawDisplayList.filter((x) => x.def.rarity === '天阶').length,
-                  地阶: rawDisplayList.filter((x) => x.def.rarity === '地阶').length,
-                  良阶: rawDisplayList.filter((x) => x.def.rarity === '良阶').length,
-                  凡阶: rawDisplayList.filter((x) => x.def.rarity === '凡阶').length,
-                }
-
-                const activeDisplayStack =
+                const displayList = bagItemsByCat.list
+                const activeStack =
                   displayList.find((x) => x.itemId === selectedBagItemId) ??
                   displayList[0] ??
                   null
-
-                const activeCatalogDef =
-                  filteredCatalogScrolls.find((x) => x.id === selectedCatalogScrollId) ??
-                  filteredCatalogScrolls[0] ??
-                  null
-
-                const activeStack: {
-                  itemId: string
-                  qty: number
-                  def: GameItemDef
-                  isCatalogPreview?: boolean
-                } | null = isScrollCatalogMode
-                  ? activeCatalogDef
-                    ? {
-                        itemId: activeCatalogDef.id,
-                        qty: ownedQtyMap.get(activeCatalogDef.id) ?? 0,
-                        def: activeCatalogDef,
-                        isCatalogPreview: (ownedQtyMap.get(activeCatalogDef.id) ?? 0) <= 0,
-                      }
-                    : null
-                  : activeDisplayStack
-                    ? {
-                        ...activeDisplayStack,
-                        isCatalogPreview: activeDisplayStack.qty <= 0,
-                      }
-                    : null
 
                 return (
                   <div className="space-y-4 text-xs sm:text-sm">
@@ -1885,7 +2051,7 @@ export function SystemMenuModal() {
                       </div>
                     </div>
 
-                    {/* 四大分类切换页签 */}
+                    {/* 四大分类切换页签（仅显示少侠随身持有的行囊物品） */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                       {BAG_CATEGORY_METAS.map((cat) => {
                         const isAct = cat.key === activeBagCategory
@@ -1923,11 +2089,7 @@ export function SystemMenuModal() {
                                     isAct ? 'text-amber-200/90' : 'text-[#6b5235]'
                                   }`}
                                 >
-                                  {cat.key === 'scrolls'
-                                    ? `四库卷${cat.numeral} · 百卷典录`
-                                    : cat.key === 'medicine'
-                                      ? `四库卷${cat.numeral} · 本草三十品`
-                                      : `四库卷${cat.numeral}`}
+                                  四库卷{cat.numeral} · 随身行囊
                                 </div>
                               </div>
                             </div>
@@ -1945,241 +2107,43 @@ export function SystemMenuModal() {
                       })}
                     </div>
 
-                    {/* 当前分类说明条 + 典籍书画百卷总录 / 丹药毒物本草毒经30品全鉴切换 */}
-                    <div className="px-3.5 py-2.5 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-2 text-xs text-[#52391e]">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span>
-                          <strong>【{currentCatMeta.label}】</strong>：{currentCatMeta.subtitle}
-                        </span>
-                        <div className="flex items-center gap-2">
-                          {activeBagCategory === 'scrolls' ? (
-                            <div className="inline-flex rounded border border-[#9e8462] overflow-hidden bg-[#faf3e3]">
-                              <button
-                                type="button"
-                                onClick={() => setScrollViewMode('owned')}
-                                className={`px-2.5 py-1 song-serif font-bold text-xs cursor-pointer transition ${
-                                  scrollViewMode === 'owned'
-                                    ? 'bg-[#8f1d14] text-[#fff8eb]'
-                                    : 'text-[#52391e] hover:bg-[#e5d6b8]'
-                                }`}
-                              >
-                                随身藏卷 ({bagItemsByCat.counts.scrolls})
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => setScrollViewMode('catalog')}
-                                className={`px-2.5 py-1 song-serif font-bold text-xs cursor-pointer transition border-l border-[#9e8462] ${
-                                  scrollViewMode === 'catalog'
-                                    ? 'bg-[#8f1d14] text-[#fff8eb]'
-                                    : 'text-[#52391e] hover:bg-[#e5d6b8]'
-                                }`}
-                              >
-                                皇祐百卷总录 ({SCROLLS_ITEMS_DB.length}卷)
-                              </button>
-                            </div>
-                          ) : isMedTab ? (
-                            <>
-                              <div className="inline-flex rounded border border-[#9e8462] overflow-hidden bg-[#faf3e3]">
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setMedicineViewMode('bag')
-                                    setSelectedBagItemId(null)
-                                  }}
-                                  className={`px-2.5 py-1 font-bold song-serif cursor-pointer transition ${
-                                    medicineViewMode === 'bag'
-                                      ? 'bg-[#8f1d14] text-[#fff8eb]'
-                                      : 'text-[#52391e] hover:bg-[#e7d9bc]'
-                                  }`}
-                                >
-                                  随身行囊 ({bagItemsByCat.counts.medicine})
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => {
-                                    setMedicineViewMode('compendium')
-                                    setSelectedBagItemId(null)
-                                  }}
-                                  className={`px-2.5 py-1 font-bold song-serif cursor-pointer transition border-l border-[#9e8462] ${
-                                    medicineViewMode === 'compendium'
-                                      ? 'bg-[#215744] text-[#fff8eb]'
-                                      : 'text-[#52391e] hover:bg-[#e7d9bc]'
-                                  }`}
-                                >
-                                  本草毒经全鉴 ({allMedicineDefs.length})
-                                </button>
-                              </div>
-                              <span className="font-mono">当前显示 {displayList.length} 种</span>
-                            </>
-                          ) : (
-                            <span className="font-mono">共 {bagItemsByCat.list.length} 种物品</span>
-                          )}
-                        </div>
+                    {/* 当前分类说明条 + 跳转至顶部独立【图鉴】菜单快捷入口 */}
+                    <div className="px-3.5 py-2.5 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-wrap items-center justify-between gap-2 text-xs text-[#52391e]">
+                      <span>
+                        <strong>【{currentCatMeta.label}】</strong>：{currentCatMeta.subtitle}
+                      </span>
+                      <div className="flex items-center gap-2.5">
+                        <span className="font-mono">随身持有 {displayList.length} 种物品</span>
+                        {activeBagCategory === 'scrolls' ||
+                        activeBagCategory === 'medicine' ||
+                        activeBagCategory === 'tools' ? (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setTreasureVolFilter(activeBagCategory)
+                              setTreasureSubTypeFilter('ALL')
+                              openCompendium('treasures')
+                            }}
+                            className="px-2.5 py-1 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#f5cb5c]/70 font-bold song-serif text-xs cursor-pointer transition"
+                          >
+                            前往【图鉴·博物图鉴】→
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => openCompendium('armory')}
+                            className="px-2.5 py-1 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#f5cb5c]/70 font-bold song-serif text-xs cursor-pointer transition"
+                          >
+                            前往【图鉴·披挂总纲】→
+                          </button>
+                        )}
                       </div>
-
-                      {isMedTab && (
-                        <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-[#d8c5a3]">
-                          <span className="text-[11px] text-[#6b5235] font-semibold mr-1">
-                            品阶检阅：
-                          </span>
-                          {(
-                            [
-                              { key: 'ALL', label: '全部品阶' },
-                              { key: '天阶', label: '天阶' },
-                              { key: '地阶', label: '地阶' },
-                              { key: '良阶', label: '良阶' },
-                              { key: '凡阶', label: '凡阶' },
-                            ] as const
-                          ).map((t) => {
-                            const active = medicineTierFilter === t.key
-                            return (
-                              <button
-                                key={t.key}
-                                type="button"
-                                onClick={() => {
-                                  setMedicineTierFilter(t.key)
-                                  setSelectedBagItemId(null)
-                                }}
-                                className={`px-2.5 py-0.5 rounded border text-[11px] font-bold cursor-pointer transition ${
-                                  active
-                                    ? 'bg-[#3d2812] text-amber-200 border-[#c89d54]'
-                                    : 'bg-[#faf3e3] text-[#52391e] border-[#bfa680] hover:bg-[#e7d9bc]'
-                                }`}
-                              >
-                                {t.label} ({medTierCounts[t.key]})
-                              </button>
-                            )
-                          })}
-                        </div>
-                      )}
                     </div>
 
-                    {/* 若开启【皇祐百卷总录】，展示四阶分级（10天/20地/30良/40凡）与书目检索栏 */}
-                    {isScrollCatalogMode && (
-                      <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-wrap items-center gap-2 text-xs">
-                        <div className="flex flex-wrap items-center gap-1.5">
-                          {(
-                            [
-                              { key: 'ALL', label: '全部百卷 (100)' },
-                              { key: '天阶', label: '天阶圣品 (10)' },
-                              { key: '地阶', label: '地阶珍本 (20)' },
-                              { key: '良阶', label: '良阶善本 (30)' },
-                              { key: '凡阶', label: '凡阶坊刻 (40)' },
-                            ] as const
-                          ).map((t) => {
-                            const active = scrollTierFilter === t.key
-                            return (
-                              <button
-                                key={t.key}
-                                type="button"
-                                onClick={() => setScrollTierFilter(t.key)}
-                                className={`px-2.5 py-1 rounded border font-bold song-serif cursor-pointer transition ${
-                                  active
-                                    ? 'bg-[#261910] text-amber-200 border-[#f5cb5c]'
-                                    : 'bg-[#faf3e3] text-[#4a3219] border-[#bfa680] hover:bg-[#e5d6b8]'
-                                }`}
-                              >
-                                {t.label}
-                              </button>
-                            )
-                          })}
-                        </div>
-
-                        <select
-                          value={scrollSubTypeFilter}
-                          onChange={(e) => setScrollSubTypeFilter(e.target.value)}
-                          className="px-2.5 py-1 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
-                        >
-                          <option value="ALL">全部典籍门类</option>
-                          {scrollSubTypes.map((st) => (
-                            <option key={st} value={st}>
-                              {st}
-                            </option>
-                          ))}
-                        </select>
-
-                        <input
-                          type="text"
-                          value={scrollQuery}
-                          onChange={(e) => setScrollQuery(e.target.value)}
-                          placeholder="检索卷号、书名、作者或题跋（如：兰亭、溪山、易筋、范仲淹、毕昇）…"
-                          className="flex-1 min-w-[200px] px-2.5 py-1 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
-                        />
-
-                        <span className="font-mono text-[#5e472d]">
-                          筛选 {filteredCatalogScrolls.length} / 100 卷
-                        </span>
-                      </div>
-                    )}
-
-                    {/* 下方主体：左侧物品可视化卡片网格 + 右侧物品检视与使用/穿戴操作台 */}
+                    {/* 下方主体：左侧随身物品卡片网格 + 右侧物品检视与使用/穿戴操作台 */}
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                       <div className="lg:col-span-7 bg-[#efe4cc]/70 border border-[#c8b28e] rounded-md p-3.5 min-h-[380px] max-h-[480px] overflow-y-auto scroll-thin">
-                        {isScrollCatalogMode ? (
-                          filteredCatalogScrolls.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                              {filteredCatalogScrolls.map((def) => {
-                                const isSel = activeStack?.itemId === def.id
-                                const ownedQty = ownedQtyMap.get(def.id) ?? 0
-                                const rStyle = RARITY_STYLE_MAP[def.rarity]
-                                return (
-                                  <button
-                                    key={def.id}
-                                    type="button"
-                                    onClick={() => setSelectedCatalogScrollId(def.id)}
-                                    className={`p-3 rounded-md border-2 text-left transition cursor-pointer flex items-start justify-between gap-2 ${
-                                      isSel
-                                        ? 'bg-[#fff9ec] border-[#8f1d14] ring-1 ring-[#8f1d14] shadow-md'
-                                        : `${rStyle.cardBg} ${rStyle.borderCls} hover:brightness-98`
-                                    }`}
-                                  >
-                                    <div className="flex items-start gap-2.5 min-w-0">
-                                      <div
-                                        className={`w-10 h-10 rounded border flex flex-col items-center justify-center shrink-0 ${rStyle.badgeBg} ${rStyle.badgeText} border-[#f5cb5c]/50`}
-                                      >
-                                        {renderBagCatIcon('scrolls', 'w-3.5 h-3.5')}
-                                        <span className="text-[9px] font-mono leading-none mt-0.5">
-                                          {def.id.slice(-3)}
-                                        </span>
-                                      </div>
-                                      <div className="min-w-0">
-                                        <div className="song-serif font-bold text-xs sm:text-sm text-[#23180f] truncate">
-                                          {def.name}
-                                        </div>
-                                        <div className="flex items-center gap-1.5 mt-1">
-                                          <span
-                                            className={`px-1.5 py-0.2 rounded text-[10px] font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
-                                          >
-                                            {def.rarity}
-                                          </span>
-                                          <span className="text-[11px] text-[#6b5235] truncate">
-                                            {def.subType}
-                                          </span>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    {ownedQty > 0 ? (
-                                      <span className="px-2 py-0.5 rounded bg-[#1f5c3a] text-[#fff8eb] font-mono font-bold text-[11px] shrink-0">
-                                        已藏×{ownedQty}
-                                      </span>
-                                    ) : (
-                                      <span className="px-1.5 py-0.5 rounded bg-[#efe4cc]/80 border border-[#c8b28e] font-mono text-[10px] text-[#7a6042] shrink-0">
-                                        {def.value}两
-                                      </span>
-                                    )}
-                                  </button>
-                                )
-                              })}
-                            </div>
-                          ) : (
-                            <div className="h-full flex flex-col items-center justify-center text-center text-[#7a6042] py-16">
-                              <div className="song-serif font-bold text-base">
-                                未检索到匹配的典籍书画
-                              </div>
-                              <div className="text-xs mt-1">请尝试切换品阶或清空检索词</div>
-                            </div>
-                          )
-                        ) : displayList.length > 0 ? (
+                        {displayList.length > 0 ? (
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             {displayList.map(({ itemId, qty, def }) => {
                               const isSel = activeStack?.itemId === itemId
@@ -2194,7 +2158,7 @@ export function SystemMenuModal() {
                                     isSel
                                       ? 'bg-[#fff9ec] border-[#8f1d14] ring-1 ring-[#8f1d14] shadow-md'
                                       : `${rStyle.cardBg} ${rStyle.borderCls} hover:brightness-98`
-                                  } ${qty === 0 ? 'opacity-85' : ''}`}
+                                  }`}
                                 >
                                   <div className="flex items-start gap-2.5 min-w-0">
                                     <div
@@ -2226,14 +2190,8 @@ export function SystemMenuModal() {
                                       </div>
                                     </div>
                                   </div>
-                                  <span
-                                    className={`px-2 py-0.5 rounded border font-mono font-bold text-xs shrink-0 ${
-                                      qty > 0
-                                        ? 'bg-[#efe4cc] border-[#c8b28e] text-[#23180f]'
-                                        : 'bg-[#e7dcc4]/70 border-[#c8b28e] text-[#8a7256]'
-                                    }`}
-                                  >
-                                    {qty > 0 ? `×${qty}` : '未持有'}
+                                  <span className="px-2 py-0.5 rounded border bg-[#efe4cc] border-[#c8b28e] text-[#23180f] font-mono font-bold text-xs shrink-0">
+                                    ×{qty}
                                   </span>
                                 </button>
                               )
@@ -2242,10 +2200,10 @@ export function SystemMenuModal() {
                         ) : (
                           <div className="h-full flex flex-col items-center justify-center text-center text-[#7a6042] py-16">
                             <div className="song-serif font-bold text-base">
-                              【{currentCatMeta.label}】当前筛选下暂无随身物品
+                              【{currentCatMeta.label}】暂无随身藏品
                             </div>
                             <div className="text-xs mt-1">
-                              游历各州书肆、药铺、铁冶坊或秘境奇遇可收入囊中
+                              游历各州书肆、药铺、铁冶坊或秘境奇遇可收入囊中（全谱名录请点击顶部【图鉴】查阅）
                             </div>
                           </div>
                         )}
@@ -2278,11 +2236,7 @@ export function SystemMenuModal() {
                                   </h4>
                                 </div>
                                 <div className="text-right font-mono text-xs text-[#6b5235] shrink-0">
-                                  <div>
-                                    {activeStack.qty > 0
-                                      ? `随身 ×${activeStack.qty}`
-                                      : '尚未收入行囊'}
-                                  </div>
+                                  <div>随身 ×{activeStack.qty}</div>
                                   <div className="text-[#7f1d1d] font-bold">
                                     估价 {activeStack.def.value} 两
                                   </div>
@@ -2383,7 +2337,7 @@ export function SystemMenuModal() {
                                               ]
                                             if (art) {
                                               setSelectedArt(art)
-                                              setMenuTab('martialArts')
+                                              openCompendium('martialArts')
                                             }
                                           }}
                                           className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d1b0] border border-[#9e8462] text-[11px] text-[#781710] font-semibold cursor-pointer"
@@ -2403,13 +2357,7 @@ export function SystemMenuModal() {
                             </div>
 
                             <div className="pt-3 border-t border-[#cbb693] flex items-center gap-2">
-                              {activeStack.isCatalogPreview ? (
-                                <div className="w-full py-2 px-3 text-center text-xs text-[#6b5235] bg-[#faf3e3] rounded border border-[#cbb693]">
-                                  {activeStack.def.category === 'scrolls'
-                                    ? '此卷现载于《皇祐百卷总录》，游历各州书院书肆、大相国寺或秘境奇遇可访得真本'
-                                    : '行囊尚未持有此物（可于各州熟药所、门派丹房、番市黑市或秘境寻获）'}
-                                </div>
-                              ) : activeStack.def.equipSlot ? (
+                              {activeStack.def.equipSlot ? (
                                 <>
                                   <button
                                     type="button"
@@ -2476,8 +2424,8 @@ export function SystemMenuModal() {
                 )
               })()}
 
-              {/* ==================== 肆：1,000 群侠图鉴（最末层常驻建筑 + 四维/三维/十艺全显 + 全身像品鉴） ==================== */}
-              {activeMenuTab === 'portraits' && (
+              {/* ==================== 图鉴壹：1,000 群侠图鉴（最末层常驻建筑 + 四维/三维/十艺全显 + 全身像品鉴） ==================== */}
+              {activeViewKey === 'portraits' && (
                 <div className="space-y-3.5 text-xs">
                   <div className="flex flex-wrap items-center gap-2.5 bg-[#efe4cc] p-3 rounded border border-[#c8b28e]">
                     <input
@@ -2689,7 +2637,7 @@ export function SystemMenuModal() {
                                           viewMode: 'world',
                                           selectedNodeId: selectedNpc.regionId,
                                         })
-                                        closeMenu()
+                                        closeActiveModal()
                                       }}
                                       className="px-2 py-0.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] text-[10px] cursor-pointer"
                                     >
@@ -2866,7 +2814,7 @@ export function SystemMenuModal() {
                                       onClick={() => {
                                         if (art) {
                                           setSelectedArt(art)
-                                          setMenuTab('martialArts')
+                                          setCompendiumTab('martialArts')
                                         }
                                       }}
                                       className="px-2 py-0.5 rounded bg-[#faf3e3] hover:bg-[#e5d6b8] border border-[#9e8462] text-[11px] text-[#781710] font-medium cursor-pointer"
@@ -2896,8 +2844,8 @@ export function SystemMenuModal() {
                 </div>
               )}
 
-              {/* ==================== 伍：216 门武学总纲 ==================== */}
-              {activeMenuTab === 'martialArts' && (
+              {/* ==================== 图鉴贰：216 门武学总纲 ==================== */}
+              {activeViewKey === 'martialArts' && (
                 <div className="space-y-3.5 text-xs">
                   <div className="flex flex-wrap items-center gap-2.5 bg-[#efe4cc] p-3 rounded border border-[#c8b28e]">
                     <input
@@ -3069,7 +3017,7 @@ export function SystemMenuModal() {
                                 type="button"
                                 onClick={() => {
                                   setInspectedLearnedArtId(selectedArt.id)
-                                  setMenuTab('loadout')
+                                  openMenu('loadout')
                                 }}
                                 className="px-2.5 py-1 rounded bg-[#1f5c3a] text-[#fff8eb] text-xs font-bold song-serif cursor-pointer"
                               >
@@ -3107,8 +3055,8 @@ export function SystemMenuModal() {
                 </div>
               )}
 
-              {/* ==================== 陆：披挂总纲（第一卷《百兵谱》100 种武器全录） ==================== */}
-              {activeMenuTab === 'armory' && (
+              {/* ==================== 图鉴叁：披挂总纲（第一卷《百兵谱》100 种武器全录） ==================== */}
+              {activeViewKey === 'armory' && (
                 <div className="space-y-3.5 text-xs">
                   {/* 七槽披挂总卷进度横幅 */}
                   <div className="p-3 rounded bg-[#efe4cc] border-2 border-[#b5986e] flex flex-wrap items-center justify-between gap-2">
@@ -3291,7 +3239,7 @@ export function SystemMenuModal() {
                                       viewMode: 'world',
                                       selectedNodeId: selectedWeapon.regionId,
                                     })
-                                    closeMenu()
+                                    closeActiveModal()
                                   }}
                                   className="px-2 py-0.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] text-[10px] cursor-pointer"
                                 >
@@ -3369,7 +3317,7 @@ export function SystemMenuModal() {
                                           onClick={() => {
                                             if (art) {
                                               setSelectedArt(art)
-                                              setMenuTab('martialArts')
+                                              setCompendiumTab('martialArts')
                                             }
                                           }}
                                           className="px-2 py-0.5 rounded bg-[#8f1d14]/10 hover:bg-[#8f1d14]/20 border border-[#8f1d14]/50 text-[11px] text-[#781710] font-medium cursor-pointer"
@@ -3451,7 +3399,7 @@ export function SystemMenuModal() {
                                   type="button"
                                   onClick={() => {
                                     setSelectedEquipSlot('weapon')
-                                    setMenuTab('loadout')
+                                    openMenu('loadout')
                                   }}
                                   className="px-2.5 py-1.5 rounded bg-[#261910] hover:bg-[#3d291a] text-amber-200 font-bold song-serif text-xs cursor-pointer"
                                 >
@@ -3467,8 +3415,656 @@ export function SystemMenuModal() {
                 </div>
               )}
 
-              {/* ==================== 柒：工程与标准 ID 字典监控 ==================== */}
-              {activeMenuTab === 'engineering' && (
+              {/* ==================== 图鉴肆：博物图鉴（典籍书画 100卷 · 丹药毒物 30品 · 雅器百工 50件） ==================== */}
+              {activeViewKey === 'treasures' && (() => {
+                const selectedTreasure =
+                  filteredTreasures.find((it) => it.id === selectedTreasureId) ??
+                  filteredTreasures[0] ??
+                  null
+                const allPct = Math.round(
+                  (treasureCollectionStats.ALL.owned /
+                    Math.max(1, treasureCollectionStats.ALL.total)) *
+                    100,
+                )
+
+                return (
+                  <div className="space-y-3.5 text-xs sm:text-sm">
+                    {/* 顶部总纲横幅与全馆收录进度 */}
+                    <div className="p-3.5 rounded bg-gradient-to-r from-[#261910] via-[#352215] to-[#261910] text-[#fbf2e0] border border-[#c89d54] shadow flex flex-wrap items-center justify-between gap-3">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="px-2 py-0.5 rounded bg-[#8f1d14] text-amber-200 border border-amber-300/60 font-bold song-serif text-xs">
+                            皇祐四库博物志
+                          </span>
+                          <h4 className="song-serif font-bold text-base sm:text-lg text-amber-200">
+                            典籍书画 · 丹药毒物 · 雅器百工全鉴（共 180 品）
+                          </h4>
+                        </div>
+                        <p className="text-xs text-[#dfd0b3]">
+                          统录北宋皇祐二年（1050）百卷秘籍墨宝、三十味灵丹奇毒与五十件传世雅器百工（全库合计：20天阶 · 35地阶 · 55良阶 · 70凡阶）
+                        </p>
+                      </div>
+
+                      <div className="min-w-[210px] bg-[#1a110a]/80 border border-[#8c6e46]/70 rounded px-3 py-2 space-y-1.5">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-[#dfcfb0] song-serif font-semibold">
+                            少侠当前博物收录
+                          </span>
+                          <span className="font-mono font-bold text-amber-300">
+                            {treasureCollectionStats.ALL.owned} / {treasureCollectionStats.ALL.total}{' '}
+                            品 ({allPct}%)
+                          </span>
+                        </div>
+                        <div className="w-full h-2 rounded-full bg-[#382618] overflow-hidden border border-black/40">
+                          <div
+                            className="h-full bg-gradient-to-r from-[#b45309] via-[#f59e0b] to-[#fde68a] transition-all duration-300"
+                            style={{ width: `${allPct}%` }}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 三大分卷 + 三卷合览切换卡 */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setTreasureVolFilter('ALL')
+                          setTreasureSubTypeFilter('ALL')
+                        }}
+                        className={`p-3 rounded-md border-2 text-left transition cursor-pointer flex flex-col justify-between gap-2 ${
+                          treasureVolFilter === 'ALL'
+                            ? 'bg-[#8f1d14] text-[#fff8eb] border-[#f5cb5c] shadow-md'
+                            : 'bg-[#efe4cc] hover:bg-[#e5d6b8] text-[#2b1a0e] border-[#c8b28e]'
+                        }`}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <span
+                              className={`w-8 h-8 rounded flex items-center justify-center font-bold song-serif text-sm shrink-0 ${
+                                treasureVolFilter === 'ALL'
+                                  ? 'bg-[#6b140d] text-amber-200 border border-amber-300/50'
+                                  : 'bg-[#faf3e3] text-[#8f1d14] border border-[#bfa680]'
+                              }`}
+                            >
+                              总
+                            </span>
+                            <div className="min-w-0">
+                              <div className="song-serif font-bold text-sm truncate">
+                                三卷合璧总览
+                              </div>
+                              <div
+                                className={`text-[11px] truncate ${
+                                  treasureVolFilter === 'ALL'
+                                    ? 'text-amber-200/90'
+                                    : 'text-[#6b5235]'
+                                }`}
+                              >
+                                20天 · 35地 · 55良 · 70凡
+                              </div>
+                            </div>
+                          </div>
+                          <span
+                            className={`px-2 py-0.5 rounded font-mono text-xs font-bold shrink-0 ${
+                              treasureVolFilter === 'ALL'
+                                ? 'bg-black/30 text-amber-200'
+                                : 'bg-[#faf3e3] text-[#52391e]'
+                            }`}
+                          >
+                            180品
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between text-[11px] font-mono pt-1 border-t border-current/15">
+                          <span>已收录 {treasureCollectionStats.ALL.owned} 品</span>
+                          <span>{allPct}%</span>
+                        </div>
+                      </button>
+
+                      {TREASURE_VOLUME_METAS.map((vol) => {
+                        const isAct = treasureVolFilter === vol.key
+                        const st = treasureCollectionStats[vol.key]
+                        const pct = Math.round((st.owned / Math.max(1, st.total)) * 100)
+                        const unit =
+                          vol.key === 'scrolls' ? '卷' : vol.key === 'medicine' ? '品' : '件'
+                        return (
+                          <button
+                            key={vol.key}
+                            type="button"
+                            onClick={() => {
+                              setTreasureVolFilter(vol.key)
+                              setTreasureSubTypeFilter('ALL')
+                            }}
+                            className={`p-3 rounded-md border-2 text-left transition cursor-pointer flex flex-col justify-between gap-2 ${
+                              isAct
+                                ? 'bg-[#8f1d14] text-[#fff8eb] border-[#f5cb5c] shadow-md'
+                                : 'bg-[#efe4cc] hover:bg-[#e5d6b8] text-[#2b1a0e] border-[#c8b28e]'
+                            }`}
+                          >
+                            <div className="flex items-start justify-between gap-2">
+                              <div className="flex items-center gap-2 min-w-0">
+                                <span
+                                  className={`w-8 h-8 rounded flex items-center justify-center shrink-0 ${
+                                    isAct
+                                      ? 'bg-[#6b140d] text-amber-200 border border-amber-300/50'
+                                      : 'bg-[#faf3e3] text-[#5c4024] border border-[#bfa680]'
+                                  }`}
+                                >
+                                  {renderBagCatIcon(vol.key, 'w-4 h-4')}
+                                </span>
+                                <div className="min-w-0">
+                                  <div className="song-serif font-bold text-sm truncate">
+                                    {vol.volNumeral} · {vol.label}
+                                  </div>
+                                  <div
+                                    className={`text-[11px] truncate ${
+                                      isAct ? 'text-amber-200/90' : 'text-[#6b5235]'
+                                    }`}
+                                  >
+                                    {vol.tierSummary}
+                                  </div>
+                                </div>
+                              </div>
+                              <span
+                                className={`px-2 py-0.5 rounded font-mono text-xs font-bold shrink-0 ${
+                                  isAct
+                                    ? 'bg-black/30 text-amber-200'
+                                    : 'bg-[#faf3e3] text-[#52391e]'
+                                }`}
+                              >
+                                {st.total}
+                                {unit}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between text-[11px] font-mono pt-1 border-t border-current/15">
+                              <span>
+                                已收录 {st.owned} / {st.total} {unit}
+                              </span>
+                              <span>{pct}%</span>
+                            </div>
+                          </button>
+                        )
+                      })}
+                    </div>
+
+                    {/* 多维检索与品阶/细类/收录状态筛选栏 */}
+                    <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-2.5 text-xs">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          <span className="text-[#5c4024] font-bold song-serif mr-0.5">
+                            四阶品级：
+                          </span>
+                          {(
+                            [
+                              { key: 'ALL', label: '全部品阶' },
+                              { key: '天阶', label: '天阶绝品' },
+                              { key: '地阶', label: '地阶珍品' },
+                              { key: '良阶', label: '良阶佳品' },
+                              { key: '凡阶', label: '凡阶常品' },
+                            ] as const
+                          ).map((t) => {
+                            const active = treasureTierFilter === t.key
+                            return (
+                              <button
+                                key={t.key}
+                                type="button"
+                                onClick={() => setTreasureTierFilter(t.key)}
+                                className={`px-2.5 py-1 rounded border font-bold song-serif cursor-pointer transition ${
+                                  active
+                                    ? 'bg-[#261910] text-amber-200 border-[#f5cb5c]'
+                                    : 'bg-[#faf3e3] text-[#4a3219] border-[#bfa680] hover:bg-[#e5d6b8]'
+                                }`}
+                              >
+                                {t.label} ({treasureTierCounts[t.key]})
+                              </button>
+                            )
+                          })}
+                        </div>
+
+                        {/* 收录状态过滤 */}
+                        <div className="inline-flex rounded border border-[#9e8462] overflow-hidden bg-[#faf3e3]">
+                          {(
+                            [
+                              { key: 'ALL', label: '全部图鉴' },
+                              { key: 'OWNED', label: '已收录' },
+                              { key: 'UNOWNED', label: '未收录' },
+                            ] as const
+                          ).map((o, idx) => {
+                            const active = treasureOwnedFilter === o.key
+                            return (
+                              <button
+                                key={o.key}
+                                type="button"
+                                onClick={() => setTreasureOwnedFilter(o.key)}
+                                className={`px-2.5 py-1 font-bold song-serif cursor-pointer transition ${
+                                  idx > 0 ? 'border-l border-[#9e8462]' : ''
+                                } ${
+                                  active
+                                    ? 'bg-[#215744] text-[#fff8eb]'
+                                    : 'text-[#52391e] hover:bg-[#e5d6b8]'
+                                }`}
+                              >
+                                {o.label}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#d8c5a3]">
+                        <select
+                          value={treasureSubTypeFilter}
+                          onChange={(e) => setTreasureSubTypeFilter(e.target.value)}
+                          className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
+                        >
+                          <option value="ALL">
+                            全部器物/典籍细类（{treasureSubTypes.length} 类）
+                          </option>
+                          {treasureSubTypes.map((st) => (
+                            <option key={st} value={st}>
+                              {st}
+                            </option>
+                          ))}
+                        </select>
+
+                        <input
+                          type="text"
+                          value={treasureQuery}
+                          onChange={(e) => setTreasureQuery(e.target.value)}
+                          placeholder="检索编号、名目、细类、考据典故、关联武学或药毒功效（如：九转、悲酥、兰亭、九霄环佩、活字、汝窑）…"
+                          className="flex-1 min-w-[220px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
+                        />
+
+                        {(treasureTierFilter !== 'ALL' ||
+                          treasureSubTypeFilter !== 'ALL' ||
+                          treasureOwnedFilter !== 'ALL' ||
+                          treasureQuery.trim() !== '') && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setTreasureTierFilter('ALL')
+                              setTreasureSubTypeFilter('ALL')
+                              setTreasureOwnedFilter('ALL')
+                              setTreasureQuery('')
+                            }}
+                            className="px-2.5 py-1.5 rounded bg-[#faf3e3] hover:bg-[#e5d6b8] border border-[#9e8462] text-[#781710] font-semibold cursor-pointer"
+                          >
+                            重置筛选
+                          </button>
+                        )}
+
+                        <span className="font-mono text-[#5e472d] ml-auto">
+                          当前筛选 <strong>{filteredTreasures.length}</strong> /{' '}
+                          {treasureVolumeItems.length} 品
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* 主体双栏：左 7 列图鉴名录卡片网格 + 右 5 列考据详录与品鉴操作 */}
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                      <div className="lg:col-span-7 bg-[#efe4cc]/70 border border-[#c8b28e] rounded-md p-3.5 min-h-[420px] max-h-[540px] overflow-y-auto scroll-thin">
+                        {filteredTreasures.length > 0 ? (
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            {filteredTreasures.map((def) => {
+                              const isSel = selectedTreasure?.id === def.id
+                              const inBagQty = ownedQtyMap.get(def.id) ?? 0
+                              const isEquipped = equippedItemIdSet.has(def.id)
+                              const normTier = normalizeItemTier(def.rarity)
+                              const rStyle = RARITY_STYLE_MAP[def.rarity]
+                              const isPurePoison = Boolean(def.poisonEffect && !def.useEffect)
+
+                              return (
+                                <button
+                                  key={def.id}
+                                  type="button"
+                                  onClick={() => setSelectedTreasureId(def.id)}
+                                  className={`p-3 rounded-md border-2 text-left transition cursor-pointer flex items-start justify-between gap-2 ${
+                                    isSel
+                                      ? 'bg-[#fff9ec] border-[#8f1d14] ring-1 ring-[#8f1d14] shadow-md'
+                                      : `${rStyle.cardBg} ${rStyle.borderCls} hover:brightness-98`
+                                  }`}
+                                >
+                                  <div className="flex items-start gap-2.5 min-w-0">
+                                    <div
+                                      className={`w-10 h-10 rounded border flex flex-col items-center justify-center shrink-0 ${rStyle.badgeBg} ${rStyle.badgeText} border-[#f5cb5c]/50`}
+                                    >
+                                      {renderBagCatIcon(def.category, 'w-3.5 h-3.5')}
+                                      <span className="text-[9px] font-mono leading-none mt-0.5">
+                                        {def.id.slice(-3)}
+                                      </span>
+                                    </div>
+                                    <div className="min-w-0">
+                                      <div className="song-serif font-bold text-xs sm:text-sm text-[#23180f] truncate">
+                                        {def.name}
+                                      </div>
+                                      <div className="flex items-center gap-1.5 mt-1 flex-wrap">
+                                        <span
+                                          className={`px-1.5 py-0.2 rounded text-[10px] font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
+                                        >
+                                          {normTier}
+                                        </span>
+                                        <span
+                                          className={`text-[11px] truncate ${
+                                            isPurePoison
+                                              ? 'text-[#6b21a8] font-semibold'
+                                              : 'text-[#6b5235]'
+                                          }`}
+                                        >
+                                          {def.subType}
+                                        </span>
+                                        {def.useEffect?.learnArtId && (
+                                          <span className="px-1 py-0.2 rounded bg-[#8f1d14]/15 text-[#8f1d14] text-[10px] font-bold">
+                                            秘籍
+                                          </span>
+                                        )}
+                                        {def.equipSlot && (
+                                          <span className="px-1 py-0.2 rounded bg-[#215744]/15 text-[#184f35] text-[10px] font-bold">
+                                            可佩
+                                          </span>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  <div className="flex flex-col items-end gap-1 shrink-0">
+                                    {isEquipped ? (
+                                      <span className="px-2 py-0.5 rounded bg-[#8f1d14] text-amber-200 font-mono font-bold text-[10px]">
+                                        已佩挂
+                                      </span>
+                                    ) : inBagQty > 0 ? (
+                                      <span className="px-2 py-0.5 rounded bg-[#1f5c3a] text-[#fff8eb] font-mono font-bold text-[10px]">
+                                        已藏×{inBagQty}
+                                      </span>
+                                    ) : (
+                                      <span className="px-1.5 py-0.5 rounded bg-[#efe4cc]/85 border border-[#c8b28e] font-mono text-[10px] text-[#7a6042]">
+                                        未收录
+                                      </span>
+                                    )}
+                                    <span className="font-mono text-[10px] text-[#6b5235]">
+                                      {def.value}两
+                                    </span>
+                                  </div>
+                                </button>
+                              )
+                            })}
+                          </div>
+                        ) : (
+                          <div className="h-full flex flex-col items-center justify-center text-center text-[#7a6042] py-16">
+                            <div className="song-serif font-bold text-base">
+                              未检索到符合条件的四库奇珍
+                            </div>
+                            <div className="text-xs mt-1">
+                              请尝试切换分卷、品阶或点击上方【重置筛选】
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* 右侧：考据详录、药理/武学/十艺效用与品鉴调取台 */}
+                      <div className="lg:col-span-5 bg-[#efe4cc] border border-[#c8b28e] rounded-md p-4 flex flex-col justify-between gap-3 max-h-[540px] overflow-y-auto scroll-thin">
+                        {selectedTreasure ? (() => {
+                          const def = selectedTreasure
+                          const normTier = normalizeItemTier(def.rarity)
+                          const rStyle = RARITY_STYLE_MAP[def.rarity]
+                          const inBagQty = ownedQtyMap.get(def.id) ?? 0
+                          const isEquipped = equippedItemIdSet.has(def.id)
+                          const volMeta = TREASURE_VOLUME_METAS.find(
+                            (v) => v.key === def.category,
+                          )
+                          const linkedArt = def.useEffect?.learnArtId
+                            ? MARTIAL_ART_DB_MAP[def.useEffect.learnArtId]
+                            : null
+                          const learnedInfo = linkedArt ? learnedMap.get(linkedArt.id) : undefined
+
+                          return (
+                            <>
+                              <div className="space-y-3">
+                                {/* 标题与品阶头栏 */}
+                                <div className="border-b border-[#cbb693] pb-2.5">
+                                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                      <span className="px-2 py-0.5 rounded bg-[#261910] text-amber-200 font-mono text-xs">
+                                        {def.id}
+                                      </span>
+                                      {volMeta && (
+                                        <span className="px-2 py-0.5 rounded bg-[#faf3e3] border border-[#bfa680] text-[#52391e] font-bold song-serif text-[11px]">
+                                          {volMeta.volNumeral}·{volMeta.label}
+                                        </span>
+                                      )}
+                                      <span
+                                        className={`px-2 py-0.5 rounded text-xs font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
+                                      >
+                                        {normTier}
+                                      </span>
+                                    </div>
+                                    <span className="text-xs font-semibold text-[#6b5235]">
+                                      {def.subType}
+                                    </span>
+                                  </div>
+
+                                  <h4 className="song-serif font-bold text-lg text-[#23180f] mt-1.5">
+                                    {def.name}
+                                  </h4>
+                                </div>
+
+                                {/* 三格规制摘要 */}
+                                <div className="grid grid-cols-3 gap-2 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-2 text-xs">
+                                  <div>
+                                    <div className="text-[10px] text-[#6b5235]">器物规制</div>
+                                    <strong className="song-serif text-[#23180f]">
+                                      {def.equipSlot
+                                        ? '可佩雅器'
+                                        : def.stackable
+                                          ? '叠放消耗'
+                                          : '秘藏孤品'}
+                                    </strong>
+                                  </div>
+                                  <div>
+                                    <div className="text-[10px] text-[#6b5235]">收录状态</div>
+                                    <strong
+                                      className={`font-mono ${
+                                        isEquipped
+                                          ? 'text-[#8f1d14]'
+                                          : inBagQty > 0
+                                            ? 'text-[#184f35]'
+                                            : 'text-[#7a6042]'
+                                      }`}
+                                    >
+                                      {isEquipped
+                                        ? '随身佩挂'
+                                        : inBagQty > 0
+                                          ? `囊藏 ×${inBagQty}`
+                                          : '尚未收录'}
+                                    </strong>
+                                  </div>
+                                  <div>
+                                    <div className="text-[10px] text-[#6b5235]">皇祐市估</div>
+                                    <strong className="font-mono text-[#7f1d1d]">
+                                      {def.value} 两
+                                    </strong>
+                                  </div>
+                                </div>
+
+                                {/* 详述与宋人考据题跋 */}
+                                <p className="text-xs sm:text-sm text-[#3d2b19] leading-relaxed">
+                                  {def.desc}
+                                </p>
+
+                                {def.lore && (
+                                  <div className="text-xs italic text-[#5e472d] bg-[#faf3e3] border-l-2 border-[#8f1d14] px-3 py-2 rounded-r leading-relaxed">
+                                    <span className="not-italic font-bold text-[#8f1d14] song-serif mr-1">
+                                      【博物考略】
+                                    </span>
+                                    {def.lore}
+                                  </div>
+                                )}
+
+                                {/* 佩挂属性加成（如名琴、玉枰、铜人等可佩雅器） */}
+                                {def.equipBonus && (
+                                  <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] space-y-1.5">
+                                    <div className="text-xs font-bold text-[#52391e] song-serif">
+                                      随身佩挂增益（可佩于【配饰壹 / 配饰贰】）：
+                                    </div>
+                                    <div className="flex flex-wrap gap-1.5">
+                                      {formatBonusBadges(def.equipBonus).map((b) => (
+                                        <span
+                                          key={b}
+                                          className="px-2 py-0.5 rounded bg-[#fff9ec] border border-[#bfa680] font-mono text-[11px] font-semibold text-[#7f1d1d]"
+                                        >
+                                          {b}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {/* 展卷研读 / 服食灵丹 / 把玩修习功效 */}
+                                {def.useEffect && (
+                                  <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] text-xs text-[#1b5132] font-medium leading-relaxed space-y-2">
+                                    <div>
+                                      <span className="font-bold song-serif text-[#134e32]">
+                                        {def.category === 'scrolls'
+                                          ? '展卷参悟功效：'
+                                          : def.category === 'medicine'
+                                            ? '服食药理功效：'
+                                            : '把玩修习功效：'}
+                                      </span>
+                                      {[
+                                        def.useEffect.maxHp
+                                          ? `气血上限 +${def.useEffect.maxHp}`
+                                          : null,
+                                        def.useEffect.maxMp
+                                          ? `内力上限 +${def.useEffect.maxMp}`
+                                          : null,
+                                        def.useEffect.maxStamina
+                                          ? `体能上限 +${def.useEffect.maxStamina}`
+                                          : null,
+                                        def.useEffect.hp ? `气血 +${def.useEffect.hp}` : null,
+                                        def.useEffect.mp ? `内力 +${def.useEffect.mp}` : null,
+                                        def.useEffect.stamina
+                                          ? `体能 +${def.useEffect.stamina}`
+                                          : null,
+                                        def.useEffect.agi ? `身法 +${def.useEffect.agi}` : null,
+                                        def.useEffect.res ? `抗性 +${def.useEffect.res}` : null,
+                                        def.useEffect.riding
+                                          ? `【骑术】+${def.useEffect.riding}`
+                                          : null,
+                                        def.useEffect.food
+                                          ? `粮草 +${def.useEffect.food}日份`
+                                          : null,
+                                        def.useEffect.skillGain
+                                          ? `【${def.useEffect.skillGain[0]}】+${def.useEffect.skillGain[1]}`
+                                          : null,
+                                        def.useEffect.learnArtHint ?? null,
+                                      ]
+                                        .filter(Boolean)
+                                        .join(' · ')}
+                                    </div>
+
+                                    {linkedArt && (
+                                      <div className="pt-1.5 border-t border-[#dfd0b3] flex items-center justify-between gap-2 flex-wrap">
+                                        <span className="text-[11px] text-[#52391e]">
+                                          关联武学：
+                                          <strong>{linkedArt.name}</strong>（{linkedArt.id} ·{' '}
+                                          {learnedInfo
+                                            ? `已习得第 ${learnedInfo.level} 重`
+                                            : '尚未习得'}
+                                          ）
+                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            setSelectedArt(linkedArt)
+                                            setCompendiumTab('martialArts')
+                                          }}
+                                          className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d1b0] border border-[#9e8462] text-[11px] text-[#781710] font-semibold cursor-pointer"
+                                        >
+                                          查阅武学总纲 →
+                                        </button>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+
+                                {/* 奇毒涂剂与毒理说明 */}
+                                {def.poisonEffect && (
+                                  <div className="p-2.5 rounded bg-[#f7eefb] border border-[#9d7bb8] text-xs text-[#4c1d6e] font-medium leading-relaxed">
+                                    <span className="font-bold song-serif">毒理与奇门效用：</span>
+                                    {def.poisonEffect}
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* 底部调度与直接互动栏 */}
+                              <div className="pt-3 border-t border-[#cbb693] flex flex-wrap items-center justify-between gap-2">
+                                {!def.stackable && (isEquipped || inBagQty > 0) ? (
+                                  <span className="text-xs font-bold text-[#184f35] song-serif">
+                                    ✓ {isEquipped ? '已随身佩挂中' : '已收录于少侠行囊'}
+                                  </span>
+                                ) : (
+                                  <button
+                                    type="button"
+                                    onClick={() => acquireItemToBag(def.id)}
+                                    className="px-3 py-1.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8ee] font-bold song-serif text-xs cursor-pointer transition shadow-sm"
+                                  >
+                                    {inBagQty > 0
+                                      ? `+ 再调取一份 (囊藏×${inBagQty})`
+                                      : '+ 调取入囊品鉴'}
+                                  </button>
+                                )}
+
+                                <div className="flex items-center gap-1.5 flex-wrap">
+                                  {def.equipSlot && inBagQty > 0 && !isEquipped && (
+                                    <button
+                                      type="button"
+                                      onClick={() => equipItemToSlot(def.id)}
+                                      className="px-2.5 py-1.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] font-bold song-serif text-xs cursor-pointer transition"
+                                    >
+                                      佩挂随身
+                                    </button>
+                                  )}
+                                  {def.useEffect && inBagQty > 0 && (
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        consumeInventoryItem(def.id, Boolean(def.equipSlot))
+                                      }
+                                      className="px-2.5 py-1.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs cursor-pointer transition"
+                                    >
+                                      {def.category === 'scrolls'
+                                        ? '展卷研读'
+                                        : def.category === 'medicine'
+                                          ? '立即服食'
+                                          : '把玩修习'}
+                                    </button>
+                                  )}
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setBagCategory(def.category)
+                                      setSelectedBagItemId(def.id)
+                                      openMenu('bag')
+                                    }}
+                                    className="px-2.5 py-1.5 rounded bg-[#261910] hover:bg-[#3d291a] text-amber-200 font-bold song-serif text-xs cursor-pointer transition"
+                                  >
+                                    前往行囊四库 →
+                                  </button>
+                                </div>
+                              </div>
+                            </>
+                          )
+                        })() : (
+                          <div className="h-full flex items-center justify-center text-center text-[#7a6042] py-12">
+                            请从左侧选择一件典籍、丹毒或雅器查阅考据详录
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })()}
+
+              {/* ==================== 肆：工程与标准 ID 字典监控 ==================== */}
+              {activeViewKey === 'engineering' && (
                 <div className="space-y-4 text-xs sm:text-sm">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
@@ -3561,8 +4157,8 @@ export function SystemMenuModal() {
                 </div>
               )}
 
-              {/* ==================== 柒 & 捌：真实多槽位存档 / 读档 ==================== */}
-              {(activeMenuTab === 'save' || activeMenuTab === 'load') && (
+              {/* ==================== 伍 & 陆：真实多槽位存档 / 读档 ==================== */}
+              {(activeViewKey === 'save' || activeViewKey === 'load') && (
                 <div className="space-y-3.5 text-xs sm:text-sm">
                   <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-wrap items-center justify-between gap-2.5">
                     <div>
@@ -3579,7 +4175,7 @@ export function SystemMenuModal() {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2">
-                      {activeMenuTab === 'save' ? (
+                      {activeViewKey === 'save' ? (
                         <>
                           <input
                             type="text"
@@ -3723,7 +4319,7 @@ export function SystemMenuModal() {
                           )}
 
                           <div className="flex flex-wrap items-center justify-end gap-2 pt-0.5 text-xs">
-                            {activeMenuTab === 'save' && !def.isAuto && (
+                            {activeViewKey === 'save' && !def.isAuto && (
                               <button
                                 type="button"
                                 disabled={saveBusy}
@@ -3771,8 +4367,8 @@ export function SystemMenuModal() {
                 </div>
               )}
 
-              {/* ==================== 玖：设置面板 ==================== */}
-              {activeMenuTab === 'settings' && (
+              {/* ==================== 柒：设置面板 ==================== */}
+              {activeViewKey === 'settings' && (
                 <div className="space-y-4 text-xs sm:text-sm">
                   <div className="p-4 rounded bg-[#efe4cc] border-2 border-[#b59769] space-y-3.5">
                     <div className="flex flex-wrap items-start justify-between gap-3">
@@ -3969,10 +4565,10 @@ export function SystemMenuModal() {
               </span>
               <button
                 type="button"
-                onClick={closeMenu}
+                onClick={closeActiveModal}
                 className="px-4 py-2 rounded bg-[#261910] hover:bg-[#3d291a] text-[#fbf2e0] font-bold song-serif transition cursor-pointer"
               >
-                收起菜单
+                {isCompendiumMode ? '收起图鉴' : '收起枢机'}
               </button>
             </div>
           </section>

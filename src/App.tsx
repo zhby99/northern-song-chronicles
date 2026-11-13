@@ -16,9 +16,12 @@ export function App() {
   const activeRegionId = useGameStore((s) => s.activeRegionId)
   const isTraveling = useGameStore((s) => s.traveling !== null)
   const menuOpen = useGameStore((s) => s.menuOpen)
+  const compendiumOpen = useGameStore((s) => s.compendiumOpen)
   const stepTravelTick = useGameStore((s) => s.stepTravelTick)
   const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
+  const openCompendium = useGameStore((s) => s.openCompendium)
+  const closeCompendium = useGameStore((s) => s.closeCompendium)
 
   // 启动时自动清除旧版浏览器残留存档库
   useEffect(() => {
@@ -30,27 +33,33 @@ export function App() {
     syncBgmSceneContext(viewMode, activeRegionId)
   }, [viewMode, activeRegionId])
 
-  // Global ESC shortcut for system menu & M shortcut for BGM toggle
+  // Global ESC shortcut for system/compendium menu, G for Compendium, & M for BGM toggle
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        if (menuOpen) closeMenu()
+        if (compendiumOpen) closeCompendium()
+        else if (menuOpen) closeMenu()
         else openMenu()
         return
       }
-      if (
-        (e.key === 'm' || e.key === 'M') &&
-        !e.ctrlKey &&
-        !e.metaKey &&
-        !e.altKey &&
-        !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
-      ) {
-        toggleBgmPlayback()
+      const isTypingTarget =
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        e.target instanceof HTMLSelectElement
+      if (!e.ctrlKey && !e.metaKey && !e.altKey && !isTypingTarget) {
+        if (e.key === 'g' || e.key === 'G') {
+          if (compendiumOpen) closeCompendium()
+          else openCompendium()
+          return
+        }
+        if (e.key === 'm' || e.key === 'M') {
+          toggleBgmPlayback()
+        }
       }
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [menuOpen, openMenu, closeMenu])
+  }, [menuOpen, compendiumOpen, openMenu, closeMenu, openCompendium, closeCompendium])
 
   // 九州山海行路时钟：每 0.25s 前进一步（一个时辰），一日十二时辰累计 3.0s
   useEffect(() => {

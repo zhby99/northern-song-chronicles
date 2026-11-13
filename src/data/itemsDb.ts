@@ -5,6 +5,7 @@ import type {
   CompiledWeaponRecord,
   EquipmentSlotKey,
   EquipmentStatBonus,
+  EquipmentTier,
   EquippedArtsMap,
   EquippedSlotsMap,
   GameItemDef,
@@ -16,6 +17,7 @@ import type {
 import { SCROLLS_ITEMS_DB } from './scrollsDb'
 
 export { SCROLLS_ITEMS_DB }
+export type TreasureVolumeKey = 'scrolls' | 'medicine' | 'tools'
 
 export const DEFAULT_HERO_TALENTS = {
   根骨: 72,
@@ -1463,6 +1465,59 @@ export const ITEMS_DB: GameItemDef[] = [...NON_EQUIPMENT_ITEMS, ...WEAPON_ITEMS_
 export const ITEM_DB_MAP: Record<string, GameItemDef> = Object.fromEntries(
   ITEMS_DB.map((it) => [it.id, it]),
 )
+
+export function normalizeItemTier(rarity: ItemRarity): EquipmentTier {
+  if (rarity === '良品') return '良阶'
+  if (rarity === '凡品') return '凡阶'
+  return rarity
+}
+
+export const MEDICINE_ITEMS_DB: GameItemDef[] = NON_EQUIPMENT_ITEMS.filter(
+  (it) => it.category === 'medicine',
+)
+
+export const TOOLS_ITEMS_DB: GameItemDef[] = NON_EQUIPMENT_ITEMS.filter(
+  (it) => it.category === 'tools',
+)
+
+export const TREASURE_COMPENDIUM_ITEMS: GameItemDef[] = NON_EQUIPMENT_ITEMS.filter(
+  (it): it is GameItemDef & { category: TreasureVolumeKey } =>
+    it.category === 'scrolls' || it.category === 'medicine' || it.category === 'tools',
+)
+
+export const TREASURE_VOLUME_METAS: Array<{
+  key: TreasureVolumeKey
+  volNumeral: string
+  label: string
+  seal: string
+  tierSummary: string
+  subtitle: string
+}> = [
+  {
+    key: 'scrolls',
+    volNumeral: '卷壹',
+    label: '典籍书画',
+    seal: '卷',
+    tierSummary: '10天阶 · 20地阶 · 30良阶 · 40凡阶',
+    subtitle: '武学秘籍残卷、法帖碑刻、五代北宋名家书画真迹、庆历经史兵书与琴棋清谱（共 100 卷）',
+  },
+  {
+    key: 'medicine',
+    volNumeral: '卷贰',
+    label: '丹药毒物',
+    seal: '丹',
+    tierSummary: '5天阶 · 5地阶 · 10良阶 · 10凡阶',
+    subtitle: '佛道镇派圣药、太医局宫廷方剂、皇祐熟药所丸散药膳与西域南疆奇毒暗器涂剂（共 30 品）',
+  },
+  {
+    key: 'tools',
+    volNumeral: '卷叁',
+    label: '雅器百工',
+    seal: '器',
+    tierSummary: '5天阶 · 10地阶 · 15良阶 · 20凡阶',
+    subtitle: '传世古琴纹枰、澄心端砚、名窑茶香雅具、活字水运天算重器与杏林百工器具（共 50 件）',
+  },
+]
 
 // 七槽初始状态：仅装备百兵谱凡阶上品【青萍游侠剑】，其余六槽置空待后续各卷披挂定稿
 export const DEFAULT_EQUIPPED_SLOTS: EquippedSlotsMap = {

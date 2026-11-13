@@ -8,13 +8,16 @@ export type MenuTabKey =
   | 'hero'
   | 'loadout'
   | 'bag'
-  | 'portraits'
-  | 'martialArts'
-  | 'armory'
   | 'engineering'
   | 'save'
   | 'load'
   | 'settings'
+
+export type CompendiumTabKey =
+  | 'portraits'
+  | 'martialArts'
+  | 'armory'
+  | 'treasures'
 
 export type TenArtKey =
   | '骑术'

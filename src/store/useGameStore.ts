@@ -1,12 +1,14 @@
 import { create } from 'zustand'
 import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, NPC_DB_MAP } from '../data/gameDb'
 import {
+  BAG_CATEGORY_METAS,
   canItemFitSlot,
   checkWeaponEquipRequirements,
   computeEquipmentTotals,
   DEFAULT_EQUIPPED_SLOTS,
   DEFAULT_INITIAL_INVENTORY,
   ITEM_DB_MAP,
+  normalizeItemTier,
 } from '../data/itemsDb'
 import {
   canArtFitSlot,
@@ -19,6 +21,7 @@ import type {
   ActionEffect,
   BagCategoryKey,
   CameraPan,
+  CompendiumTabKey,
   EquipmentSlotKey,
   EquippedArtsMap,
   EquippedSlotsMap,
@@ -232,6 +235,8 @@ export interface GameStoreState {
 
   menuOpen: boolean
   activeMenuTab: MenuTabKey
+  compendiumOpen: boolean
+  activeCompendiumTab: CompendiumTabKey
   inspectedNpcId: string | null
 
   // Save/Load state
@@ -276,6 +281,7 @@ export interface GameStoreState {
   equipItemToSlot: (itemId: string, targetSlot?: EquipmentSlotKey) => void
   unequipSlot: (slot: EquipmentSlotKey) => void
   acquireWeaponToBag: (weaponId: string) => void
+  acquireItemToBag: (itemId: string) => void
   equipArtToSlot: (artId: string, slot: MartialArtSlotKey) => void
   unequipArtSlot: (slot: MartialArtSlotKey) => void
   practiceLearnedArt: (artId: string) => void
@@ -294,10 +300,13 @@ export interface GameStoreState {
 
   toggleLogDrawer: () => void
   openMenu: (tab?: MenuTabKey) => void
-  openNpcDetailInCompendium: (npcId: string) => void
-  navigateToNpcLeafInCurrentRegion: (npcId: string) => void
   closeMenu: () => void
   setMenuTab: (tab: MenuTabKey) => void
+  openCompendium: (tab?: CompendiumTabKey) => void
+  closeCompendium: () => void
+  setCompendiumTab: (tab: CompendiumTabKey) => void
+  openNpcDetailInCompendium: (npcId: string) => void
+  navigateToNpcLeafInCurrentRegion: (npcId: string) => void
 
   // Save/Load actions
   buildSaveEnvelope: (slotId: SaveSlotId, note?: string) => GameSaveEnvelope
@@ -427,6 +436,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   menuOpen: false,
   activeMenuTab: 'hero',
+  compendiumOpen: false,
+  activeCompendiumTab: 'portraits',
   inspectedNpcId: null,
 
   saveSlots: {
@@ -931,6 +942,56 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           s.dayCount,
           '百兵品鉴',
           `自《百兵谱》调取【${def.name}（${def.weaponMeta.fullTier}·${def.weaponMeta.weaponType}）】入囊备用。`,
+          true,
+          s.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  acquireItemToBag: (itemId) => {
+    const s = get()
+    const def = ITEM_DB_MAP[itemId]
+    if (!def) return
+    const isEquipped = Object.values(s.equipped).includes(itemId)
+    const existingQty = s.inventory.find((x) => x.itemId === itemId)?.qty ?? 0
+
+    if (!def.stackable && (isEquipped || existingQty > 0)) {
+      set({
+        actionFeedback: {
+          text: `【${def.name}】已在少侠随身佩备或行囊之中！`,
+          tone: 'talk',
+        },
+      })
+      return
+    }
+    if (def.stackable && existingQty >= 99) {
+      set({
+        actionFeedback: {
+          text: `【${def.name}】随身携带数量已达上限（99件）！`,
+          tone: 'talk',
+        },
+      })
+      return
+    }
+
+    const catLabel =
+      BAG_CATEGORY_METAS.find((c) => c.key === def.category)?.label ?? '行囊四库'
+    const tierLabel = normalizeItemTier(def.rarity)
+    const nextInv = addItemToInventory(s.inventory, itemId, 1)
+
+    set({
+      inventory: nextInv,
+      actionFeedback: {
+        text: `已自《博物图鉴》调取${tierLabel}【${def.name}】收入【行囊四库 → ${catLabel}】！`,
+        tone: 'success',
+      },
+      logs: [
+        createLogEntry(
+          s.dayCount,
+          '博物品鉴',
+          `自《皇祐博物图鉴》调取【${def.name}（${tierLabel}·${def.subType}）】×1 收入${catLabel}栏。`,
           true,
           s.shichenIdx,
         ),
@@ -1807,6 +1868,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   openMenu: (tab) => {
     set((s) => ({
       menuOpen: true,
+      compendiumOpen: false,
       tooltip: null,
       saveNotice: null,
       activeMenuTab: tab ?? s.activeMenuTab,
@@ -1814,13 +1876,27 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     void get().refreshSaveSlots()
   },
 
+  openCompendium: (tab) => {
+    set((s) => ({
+      compendiumOpen: true,
+      menuOpen: false,
+      tooltip: null,
+      saveNotice: null,
+      activeCompendiumTab: tab ?? s.activeCompendiumTab,
+    }))
+  },
+
+  closeCompendium: () => set({ compendiumOpen: false, saveNotice: null }),
+  setCompendiumTab: (tab) => set({ activeCompendiumTab: tab, saveNotice: null }),
+
   openNpcDetailInCompendium: (npcId) => {
     set({
       inspectedNpcId: npcId,
-      menuOpen: true,
+      compendiumOpen: true,
+      menuOpen: false,
       tooltip: null,
       saveNotice: null,
-      activeMenuTab: 'portraits',
+      activeCompendiumTab: 'portraits',
     })
   },
 
@@ -1836,6 +1912,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (npc.assignedSpotId && bRecord.interior) {
       set({
         menuOpen: false,
+        compendiumOpen: false,
         saveNotice: null,
         tooltip: null,
         viewMode: 'building',
@@ -1852,6 +1929,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     } else {
       set({
         menuOpen: false,
+        compendiumOpen: false,
         saveNotice: null,
         tooltip: null,
         viewMode: 'region',
@@ -1868,7 +1946,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
   },
 
-  closeMenu: () => set({ menuOpen: false, saveNotice: null }),
+  closeMenu: () => set({ menuOpen: false, compendiumOpen: false, saveNotice: null }),
   setMenuTab: (tab) => {
     set({ activeMenuTab: tab, saveNotice: null })
     if (tab === 'save' || tab === 'load') {
@@ -1959,6 +2037,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       tooltip: null,
       actionFeedback: null,
       logs: restoredLogs,
+      compendiumOpen: false,
       menuOpen: !closeAfterLoad,
       saveNotice: closeAfterLoad
         ? null

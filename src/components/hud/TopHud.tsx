@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import {
+  BookOpen,
   Coins,
   Heart,
   Moon,
@@ -85,6 +86,7 @@ export function TopHud() {
   const regionScale = useGameStore((s) => s.regionPan.scale)
 
   const openMenu = useGameStore((s) => s.openMenu)
+  const openCompendium = useGameStore((s) => s.openCompendium)
   const handleUpperLevelBack = useGameStore((s) => s.handleUpperLevelBack)
   const toggleRegionLabels = useGameStore((s) => s.toggleRegionLabels)
   const enterRegionMap = useGameStore((s) => s.enterRegionMap)
@@ -471,6 +473,20 @@ export function TopHud() {
             <span>
               资源 {telemetry.loadedCount}/{ASSET_MANIFEST.summary.totalExtractedImageFiles} ·{' '}
               {formatByteSize(telemetry.loadedBytes)}
+            </span>
+          </button>
+
+          <button
+            id="compendium-menu-trigger"
+            type="button"
+            onClick={() => openCompendium()}
+            title="打开《皇祐万象图鉴》检阅群侠千人谱、216门武学总纲、百兵谱与典籍丹毒雅器博物图鉴（快捷键 G）"
+            className="px-3 py-1.5 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#e6be68] shadow transition flex items-center gap-1.5 font-bold song-serif text-xs sm:text-sm tracking-wide cursor-pointer"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-amber-200 shrink-0" />
+            <span>图鉴</span>
+            <span className="hidden sm:inline text-[10px] font-mono opacity-85 bg-black/30 px-1 py-0.5 rounded">
+              G
             </span>
           </button>
 
