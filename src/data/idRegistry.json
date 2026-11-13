@@ -509,7 +509,7 @@
         "MA-001",
         "MA-011",
         "MA-018",
-        "MA-037",
+        "MA-038",
         "MA-042",
         "MA-043",
         "MA-047",
@@ -742,7 +742,7 @@
       "martialArtIds": [
         "MA-013",
         "MA-031",
-        "MA-038",
+        "MA-039",
         "MA-115",
         "MA-139"
       ]
@@ -762,7 +762,7 @@
       "memberCount": 25,
       "martialArtIds": [
         "MA-021",
-        "MA-039",
+        "MA-040",
         "MA-046",
         "MA-063",
         "MA-069"
@@ -1779,8 +1779,8 @@
       "sectId": "SECT-20"
     },
     {
-      "id": "MA-037",
-      "code": "037",
+      "id": "MA-038",
+      "code": "038",
       "name": "少林九阳功",
       "cleanName": "少林九阳功",
       "fullTier": "地阶上品",
@@ -1788,8 +1788,8 @@
       "sectId": "SECT-01"
     },
     {
-      "id": "MA-038",
-      "code": "038",
+      "id": "MA-039",
+      "code": "039",
       "name": "玉女心经",
       "cleanName": "玉女心经",
       "fullTier": "地阶上品",
@@ -1797,8 +1797,8 @@
       "sectId": "SECT-11"
     },
     {
-      "id": "MA-039",
-      "code": "039",
+      "id": "MA-040",
+      "code": "040",
       "name": "碧海潮生功",
       "cleanName": "碧海潮生功",
       "fullTier": "地阶上品",
@@ -1806,8 +1806,8 @@
       "sectId": "SECT-12"
     },
     {
-      "id": "MA-040",
-      "code": "040",
+      "id": "MA-041",
+      "code": "041",
       "name": "神照内功",
       "cleanName": "神照内功",
       "fullTier": "地阶上品",
@@ -1829,7 +1829,7 @@
       "name": "大力金刚指",
       "cleanName": "大力金刚指",
       "fullTier": "地阶上品",
-      "category": "拳掌",
+      "category": "指法",
       "sectId": "SECT-01"
     },
     {
@@ -2000,7 +2000,7 @@
       "name": "拈花指",
       "cleanName": "拈花指",
       "fullTier": "地阶中品",
-      "category": "拳掌",
+      "category": "指法",
       "sectId": "SECT-01"
     },
     {
@@ -2009,7 +2009,7 @@
       "name": "兰花拂穴手",
       "cleanName": "兰花拂穴手",
       "fullTier": "地阶中品",
-      "category": "拳掌",
+      "category": "指法",
       "sectId": "SECT-12"
     },
     {
@@ -2018,7 +2018,7 @@
       "name": "抽髓掌",
       "cleanName": "抽髓掌",
       "fullTier": "地阶中品",
-      "category": "拳掌",
+      "category": "毒功",
       "sectId": "SECT-19"
     },
     {
@@ -2558,7 +2558,7 @@
       "name": "五毒砂掌",
       "cleanName": "五毒砂掌",
       "fullTier": "良品中品",
-      "category": "拳掌",
+      "category": "毒功",
       "sectId": "SECT-19"
     },
     {

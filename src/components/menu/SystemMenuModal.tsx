@@ -38,6 +38,7 @@ import {
   computeEquippedArtsTotals,
   computeSingleArtBonus,
   formatArtBonusBadges,
+  getArtExpRequired,
   getMasteryStageLabel,
   MARTIAL_ART_SLOT_METAS,
 } from '../../data/playerMartialArts'
@@ -760,7 +761,7 @@ export function SystemMenuModal() {
                           <div className="p-4 rounded-lg bg-[#efe4cc] border border-[#c8b28e] space-y-2.5">
                             <div className="song-serif font-bold text-sm text-[#23180f] border-b border-[#cbb693] pb-1.5 flex items-center justify-between">
                               <span>实战交锋属性（装备+武学实时合计）</span>
-                              <span className="text-[11px] text-[#8f1d14] font-mono">战棋核心</span>
+                              <span className="text-[11px] text-[#8f1d14] font-mono">回合交锋</span>
                             </div>
                             <div className="grid grid-cols-2 gap-2.5 text-xs">
                               <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693]">
@@ -1302,9 +1303,9 @@ export function SystemMenuModal() {
 
                           <div className="pt-2 border-t border-dashed border-[#cbb693]">
                             <div className="text-xs font-bold song-serif text-[#52391e] mb-2 flex items-center justify-between">
-                              <span>随身出战四招（拳掌 · 刀剑 · 长兵 · 奇门）</span>
+                              <span>随身出战四招（拳指 · 刀剑 · 枪棍 · 毒暗音）</span>
                               <span className="text-[11px] text-[#7a6042] font-normal">
-                                战棋交锋时可轮番施展的四门外功绝技
+                                回合交锋【出招】时可轮番施展的四门绝技
                               </span>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -1337,6 +1338,11 @@ export function SystemMenuModal() {
                                   entry.artId,
                                 )
                                 const rStyle = RARITY_STYLE_MAP[art.tier]
+                                const reqExp = getArtExpRequired(art, entry.level)
+                                const expPct =
+                                  entry.level >= 10 || reqExp <= 0
+                                    ? 100
+                                    : Math.min(100, Math.round((entry.exp / reqExp) * 100))
                                 return (
                                   <div
                                     key={entry.artId}
@@ -1368,12 +1374,14 @@ export function SystemMenuModal() {
                                           {art.category} · 第 {entry.level}/10 重（
                                           {getMasteryStageLabel(entry.level)}）
                                         </span>
-                                        <span className="font-mono">{entry.exp}%</span>
+                                        <span className="font-mono">
+                                          {entry.level >= 10 ? '圆满' : `${entry.exp}/${reqExp}`}
+                                        </span>
                                       </div>
                                       <div className="w-full h-1 bg-[#d8c5a3] rounded-full mt-1 overflow-hidden">
                                         <div
                                           className="h-full bg-[#8f1d14]"
-                                          style={{ width: `${entry.exp}%` }}
+                                          style={{ width: `${expPct}%` }}
                                         />
                                       </div>
                                     </div>
@@ -2170,8 +2178,8 @@ export function SystemMenuModal() {
                       className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
                     >
                       <option value="ALL">全部四阶 (216 门)</option>
-                      <option value="天阶">天阶绝学 (36 门)</option>
-                      <option value="地阶">地阶上乘 (60 门)</option>
+                      <option value="天阶">天阶绝学 (37 门)</option>
+                      <option value="地阶">地阶上乘 (59 门)</option>
                       <option value="良品">良品中坚 (60 门)</option>
                       <option value="凡品">凡品筑基 (60 门)</option>
                     </select>
@@ -2272,6 +2280,50 @@ export function SystemMenuModal() {
                           <p className="text-xs sm:text-sm text-[#3d2b19] leading-relaxed">
                             {selectedArt.description}
                           </p>
+
+                          {selectedArt.levels && selectedArt.levels.length >= 10 && (
+                            <div className="p-3 rounded bg-[#faf3e3] border border-[#cbb693] space-y-2">
+                              <div className="font-bold song-serif text-xs text-[#23180f] flex items-center justify-between">
+                                <span>一重入门 → 十重圆满数值</span>
+                                <span className="font-mono text-[10px] text-[#7a6042]">
+                                  满十重需熟练{' '}
+                                  {selectedArt.levels.reduce(
+                                    (s, x) => s + (x.expRequired ?? 0),
+                                    0,
+                                  )}
+                                </span>
+                              </div>
+                              <div className="flex flex-wrap gap-1.5">
+                                {formatArtBonusBadges(
+                                  computeSingleArtBonus(selectedArt, 10),
+                                ).map((badge) => (
+                                  <span
+                                    key={badge}
+                                    className="px-2 py-0.5 rounded bg-[#fffaf0] border border-[#bfa680] text-[11px] font-mono font-semibold text-[#1b5132]"
+                                  >
+                                    十重：{badge}
+                                  </span>
+                                ))}
+                              </div>
+                              {selectedArt.levels[9].specialEffects &&
+                                selectedArt.levels[9].specialEffects.length > 0 && (
+                                  <div className="pt-1 border-t border-dashed border-[#dccab0] space-y-1">
+                                    {selectedArt.levels[9].specialEffects.map((fx) => (
+                                      <div
+                                        key={fx.id}
+                                        className="text-[11px] text-[#781710] leading-relaxed"
+                                      >
+                                        <strong>
+                                          【{fx.name} +{fx.value}
+                                          {fx.unit}】
+                                        </strong>
+                                        ：{fx.desc}
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                            </div>
+                          )}
 
                           {learnedMap.has(selectedArt.id) && (
                             <div className="p-3 rounded bg-[#e1f0e8] border border-[#6aa384] flex items-center justify-between">

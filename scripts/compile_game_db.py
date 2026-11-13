@@ -737,6 +737,327 @@ def resolve_sect_for_origin(origin_text: str) -> str | None:
     return None
 
 
+
+def compute_martial_art_levels(art: dict[str, Any]) -> list[dict[str, Any]]:
+    # 严格锚定 CHARACTER_COMPENDIUM.md 六境十六阶人物实战四维基准：
+    # 习武者不入流肉身底子约：气血 250 / 内力 50 / 身法 15 / 抗性 8
+    # - 良品下品内功 10 重 -> 二流上品（HP 1600~2050, MP 1300~1750）
+    # - 良品中品内功 10 重 -> 一流下品（HP 2100~2650, MP 1800~2350）
+    # - 良品上品内功 10 重 -> 一流上品（HP 3400~4100, MP 3100~3900）
+    # - 地阶下品内功 10 重 -> 宗师下品（HP 4300~5000, MP 4100~4900）
+    # - 天阶上品内功 10 重 -> 大宗师上品（HP 9800~9999, MP 9800~9999）
+    sub_key = (art["tier"], art["subTier"])
+    code = art["code"]
+
+    neigong_benchmarks: dict[tuple[str, str], tuple[int, int, int]] = {
+        ("凡品", "下品"): (520, 600, 12),     # 10重 -> 三流上品
+        ("凡品", "中品"): (800, 900, 18),     # 10重 -> 二流下品
+        ("凡品", "上品"): (1120, 1220, 24),   # 10重 -> 二流中品
+        ("良品", "下品"): (1550, 1650, 30),   # 10重 -> 二流上品
+        ("良品", "中品"): (2100, 2200, 38),   # 10重 -> 一流下品
+        ("良品", "上品"): (3550, 3550, 52),   # 10重 -> 一流上品
+        ("地阶", "下品"): (4400, 4450, 58),   # 10重 -> 宗师下品
+        ("地阶", "中品"): (5500, 5550, 66),   # 10重 -> 宗师中品
+        ("地阶", "上品"): (6750, 6750, 74),   # 10重 -> 宗师上品
+        ("天阶", "下品"): (8000, 7850, 80),   # 10重 -> 大宗师下品
+        ("天阶", "中品"): (8900, 8650, 86),   # 10重 -> 大宗师中品
+        ("天阶", "上品"): (9850, 9650, 92),   # 10重 -> 大宗师上品
+    }
+
+    qinggong_benchmarks: dict[tuple[str, str], tuple[int, int]] = {
+        ("凡品", "下品"): (18, 0),
+        ("凡品", "中品"): (25, 0),
+        ("凡品", "上品"): (31, 0),
+        ("良品", "下品"): (38, 0),
+        ("良品", "中品"): (45, 0),
+        ("良品", "上品"): (56, 0),
+        ("地阶", "下品"): (62, 0),
+        ("地阶", "中品"): (67, 0),
+        ("地阶", "上品"): (72, 360),
+        ("天阶", "下品"): (76, 550),
+        ("天阶", "中品"): (80, 750),
+        ("天阶", "上品"): (83, 1050),
+    }
+
+    damage_benchmarks: dict[tuple[str, str], int] = {
+        ("凡品", "下品"): 110,
+        ("凡品", "中品"): 160,
+        ("凡品", "上品"): 220,
+        ("良品", "下品"): 300,
+        ("良品", "中品"): 410,
+        ("良品", "上品"): 560,
+        ("地阶", "下品"): 720,
+        ("地阶", "中品"): 900,
+        ("地阶", "上品"): 1120,
+        ("天阶", "下品"): 1400,
+        ("天阶", "中品"): 1700,
+        ("天阶", "上品"): 2050,
+    }
+
+    exp_tier_mult: dict[tuple[str, str], float] = {
+        ("凡品", "下品"): 1.0,
+        ("凡品", "中品"): 1.3,
+        ("凡品", "上品"): 1.7,
+        ("良品", "下品"): 2.4,
+        ("良品", "中品"): 3.2,
+        ("良品", "上品"): 4.5,
+        ("地阶", "下品"): 6.5,
+        ("地阶", "中品"): 8.5,
+        ("地阶", "上品"): 11.0,
+        ("天阶", "下品"): 15.0,
+        ("天阶", "中品"): 20.0,
+        ("天阶", "上品"): 26.0,
+    }
+
+    cat = art["category"]
+    name = art["cleanName"]
+    desc = art["description"]
+
+    base_max_mp = 0
+    base_max_hp = 0
+    base_agility = 0
+    base_resistance = 0
+    base_constitution = 0
+    base_charm = 0
+    base_phys = 0
+    base_poison = 0
+    base_sound = 0
+    base_hidden = 0
+
+    tier_rank = {
+        ("凡品", "下品"): 1, ("凡品", "中品"): 2, ("凡品", "上品"): 3,
+        ("良品", "下品"): 4, ("良品", "中品"): 5, ("良品", "上品"): 6,
+        ("地阶", "下品"): 7, ("地阶", "中品"): 8, ("地阶", "上品"): 9,
+        ("天阶", "下品"): 10, ("天阶", "中品"): 11, ("天阶", "上品"): 12,
+    }.get(sub_key, 1)
+
+    if cat == "内功":
+        ng_mp, ng_hp, ng_res = neigong_benchmarks[sub_key]
+        if code == "009":  # 八荒六合唯我独尊功：基础内力/气血上限额外提高 10%
+            base_max_mp = round(ng_mp * 1.10)
+            base_max_hp = round(ng_hp * 1.10)
+        elif any(k in name + desc for k in ("九阳", "龙象", "金刚", "铁布衫", "伏虎", "玄甲", "壮血", "扛鼎")):
+            base_max_hp = round(ng_hp * 1.04)
+            base_max_mp = round(ng_mp * 0.97)
+        elif any(k in name + desc for k in ("北冥", "小无相", "紫霞", "先天", "碧海", "莲华")):
+            base_max_mp = round(ng_mp * 1.04)
+            base_max_hp = round(ng_hp * 0.97)
+        else:
+            base_max_mp = ng_mp
+            base_max_hp = ng_hp
+
+        if any(k in name + desc for k in ("易筋", "洗髓", "金刚", "铁布衫", "玄甲", "龙象", "不坏", "伏虎", "罡气", "毒砂", "神照")):
+            base_resistance = round(ng_res * 1.05)
+        else:
+            base_resistance = round(ng_res * 0.85)
+
+        if any(k in name + desc for k in ("易筋", "洗髓", "先天", "九阴", "太玄", "龙象", "北冥", "八荒六合", "壮骨", "内壮")):
+            base_constitution = max(2, round(tier_rank * 1.25))
+        if any(k in name + desc for k in ("八荒六合", "北冥", "小无相", "玉女", "碧海", "莲华", "驻颜", "清心")):
+            base_charm = max(2, round(tier_rank * 1.15))
+
+    elif cat == "轻功":
+        base_agility, base_max_mp = qinggong_benchmarks[sub_key]
+        if code == "010":  # 凌波微步
+            base_max_mp = 1350
+        elif code == "036":  # 葵花残卷
+            base_agility += 3
+
+    elif cat in ("拳掌", "指法", "剑法", "刀法", "枪法", "棍棒"):
+        dmg = damage_benchmarks[sub_key]
+        if cat in ("刀法", "枪法"):
+            base_phys = round(dmg * 1.04)
+        elif cat == "指法":
+            base_phys = round(dmg * 1.02)
+        else:
+            base_phys = dmg
+    elif cat == "毒功":
+        base_poison = round(damage_benchmarks[sub_key] * 0.96)
+    elif cat == "音功":
+        base_sound = round(damage_benchmarks[sub_key] * 0.98)
+    elif cat == "暗器":
+        base_hidden = round(damage_benchmarks[sub_key] * 0.97)
+
+    # 37 门天阶武学专属特殊效果精确映射（001~019 定稿，020~037 严格降档克制）
+    tian_effects_map: dict[str, list[tuple[str, str, float, str, str]]] = {
+        # === 天阶上品 (001 ~ 010) ===
+        "001": [
+            ("formless_qi_wall", "无相气墙", 45, "%", "使敌方施加的所有伤害与所有特殊效果数值一律削减该比例（10重仅发挥55%效果）"),
+        ],
+        "002": [
+            ("beiming_drain", "北冥纳海", 25, "%", "交锋命中时吸取对手当前内力的该比例补充自身内力（超出自身上限部分溢出作废）"),
+        ],
+        "003": [
+            ("taixuan_amp", "诗仙太玄", 35, "%", "装配为主运内功时，所有出战招式的威力提升该比例"),
+        ],
+        "004": [
+            ("jiuyin_heal", "九阴疗伤", 10, "%", "每回合结束时自动回复自身气血上限的该比例"),
+            ("jiuyin_pierce", "摧坚破甲", 25, "%", "出战招式无视对手该比例的抗性与护体减伤"),
+        ],
+        "005": [
+            ("xianglong_stun", "亢龙震慑", 30, "%", "命中时有该概率震慑对手，使其下一回合无法【出招】只能【防御】"),
+        ],
+        "006": [
+            ("liumai_pierce", "无形气剑", 80, "%", "出招时无视对手该比例的物理防御与护体减伤"),
+        ],
+        "007": [
+            ("dugu_interrupt", "料敌机先", 35, "%", "当对手本回合也选择【出招】时无视身法必定先手结算，并有该概率直接看破打断其出招"),
+        ],
+        "008": [
+            ("douzhuan_high", "移星换斗（内力≥对手）", 50, "%", "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"),
+            ("douzhuan_low", "移星换斗（内力<对手）", 20, "%", "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"),
+        ],
+        "009": [
+            ("bahuang_dom", "唯我独尊（优势增伤）", 45, "%", "当自身当前气血高于对手时，造成的所有伤害提升该比例且免疫无法出招/封穴/逃跑拦截控制"),
+            ("bahuang_base", "唯我独尊（劣势保底）", 20, "%", "当自身当前气血不高于对手时，造成的基础伤害依然提升该比例"),
+        ],
+        "010": [
+            ("lingbo_dodge", "片叶不沾（常态闪避）", 20, "%", "受对手【出招】攻击时有该概率完全闪避本次伤害与附带特效"),
+            ("lingbo_def_dodge", "片叶不沾（防御翻倍）", 40, "%", "若本回合自身选择【防御】，完全闪避率翻倍提升至该比例"),
+        ],
+        # === 天阶中品 (011 ~ 022) ===
+        "011": [
+            ("xisui_ward", "诸邪辟易", 75, "%", "所受毒性/音律/暗器伤害减免该比例，且敌方施加的一切负面异常与扣内效果削减该比例"),
+        ],
+        "012": [
+            ("xiaowuxiang_amp", "无相催招（增威）", 25, "%", "装配为主运内功时，所有出战招式威力提升该比例"),
+            ("xiaowuxiang_save", "无相催招（省内）", 50, "%", "施展任何武学招式时的内力消耗降低该比例"),
+        ],
+        "013": [
+            ("xiantian_mp", "生生不息（回内）", 15, "%", "每回合结束自动恢复内力上限的该比例"),
+            ("xiantian_hp", "生生不息（回血）", 6, "%", "每回合结束自动恢复气血上限的该比例"),
+            ("xiantian_antipoison", "先天破邪", 50, "%", "面对使用毒功或吸内/化功类对手时，自身抗性额外提升该比例"),
+        ],
+        "014": [
+            ("zhemeishou_amp", "学无止境（每层增伤）", 7, "%", "每次施展后看破路数，对同一对手伤害永久叠加该比例（最多叠5层至+35%）"),
+            ("zhemeishou_red", "学无止境（每层减伤）", 5, "%", "每次施展后所受该对手招式伤害永久叠加减免该比例（最多叠5层至25%）"),
+        ],
+        "015": [
+            ("liuyang_leech", "阴阳相济", 30, "%", "将本次实际造成伤害的该比例转化为自身气血恢复，并驱散自身所有毒/封穴异常状态"),
+        ],
+        "016": [
+            ("dagou_slow", "绊缠八诀（降身法禁逃）", 35, "%", "命中使对手2回合内身法降低该比例且无法【逃跑】"),
+            ("dagou_bonus", "绊缠八诀（追击增伤）", 30, "%", "对已处于【绊缠】状态的对手造成的伤害额外提升该比例"),
+        ],
+        "017": [
+            ("taiji_guard", "柔云剑圈（减伤）", 25, "%", "施展此剑法时本回合获得剑圈守御，所受伤害减免该比例"),
+            ("taiji_sap", "化劲卸力（削内）", 5, "%", "命中后卸去对手该比例的当前内力"),
+        ],
+        "018": [
+            ("jingang_phys_red", "不坏金身（物理减伤）", 35, "%", "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"),
+            ("jingang_rebound", "不动明王（防御反震）", 30, "%", "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"),
+        ],
+        "019": [
+            ("huoyan_pen", "无形焰气（穿防）", 50, "%", "无视对手【防御】姿态的该比例额外减伤"),
+            ("huoyan_burn", "灼脉内伤", 25, "%", "额外附加本次物理伤害该比例的燥火内伤（仅受抗性减免，不受物理护体减免）"),
+        ],
+        "020": [
+            ("anran_despair", "黯然销魂", 6, "%", "自身每损失10%气血，此掌法伤害便提升该比例（残血最高+54%，低于八荒六合与太玄）"),
+        ],
+        "021": [
+            ("tanzhi_disarm", "惊雷震腕", 22, "%", "命中时有该概率弹出劲风打断敌手腕力，使其下一回合无法使用暗器与指法类武学"),
+        ],
+        "022": [
+            ("shenxing_dodge", "泥鳅滑步（常态闪避）", 12, "%", "受对手【出招】攻击时有该概率滑开完全闪避（低于凌波微步20%）"),
+            ("shenxing_escape", "溜之大吉（逃跑加成）", 35, "%", "选择【逃跑】时脱身成功率额外提升该比例"),
+        ],
+        # === 天阶下品 (023 ~ 037，数值严格低于天上/天中) ===
+        "023": [
+            ("yiyang_seal", "纯阳截脉", 15, "%", "命中时有该概率点穴使对手下一回合无法【出招】只能【防御】（低于降龙30%），并驱散自身1个中毒状态"),
+        ],
+        "024": [
+            ("xiangmo_crush", "雷霆破架", 28, "%", "若对手本回合选择【防御】，重杵砸穿架势使其受到的本次伤害提升该比例"),
+        ],
+        "025": [
+            ("canhe_pierce", "冷峭透甲", 35, "%", "无声指风透甲穿石，出招时无视对手该比例的物理防御与护体减伤（低于六脉神剑80%）"),
+        ],
+        "026": [
+            ("huagong_burn", "化散真气", 15, "%", "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"),
+            ("huagong_weak", "筋酥骨软", 15, "%", "使对手2回合内造成的所有伤害降低该比例"),
+        ],
+        "027": [
+            ("baihong_curve", "曲直如意", 60, "%", "掌力半途诡异转折，无视对手该比例的闪避率"),
+        ],
+        "028": [
+            ("longxiang_might", "龙象巨力", 18, "%", "装配为主运内功时，拳掌/刀法/枪法/棍棒招式威力提升该比例（低于小无相25%与太玄35%）"),
+        ],
+        "029": [
+            ("xuantie_crush", "重剑无锋", 24, "%", "当自身当前内力高于对手时，本次剑法伤害提升该比例（无保底加成）"),
+        ],
+        "030": [
+            ("zixia_stack", "紫气东来", 3, "%", "每回合蓄积1层紫霞真气，每层使招式伤害与护体减伤各提升该比例（最多叠5层至+15%）"),
+        ],
+        "031": [
+            ("yunv_double", "双剑合璧", 35, "%", "命中后有该概率紧接刺出第二剑（造成40%剑法伤害）"),
+        ],
+        "032": [
+            ("baoyu_lock", "梨花封路", 25, "%", "无视对手50%闪避率；若对手本回合选择【逃跑】，拦截其逃跑并额外造成该比例伤害"),
+        ],
+        "033": [
+            ("qixian_sap", "五音乱脉", 10, "%", "无形琴音直透耳膜，命中时震散对手该比例当前内力并无视【防御】姿态25%减伤"),
+        ],
+        "034": [
+            ("hujia_gap", "乘隙切脉", 22, "%", "专抓出招换气破绽——若对手本回合也选择【出招】，本次刀法伤害提升该比例"),
+        ],
+        "035": [
+            ("tiezhang_palm", "踏波掌势", 15, "%", "装配于轻功槽时，施展所有【拳掌】类武学的伤害提升该比例"),
+        ],
+        "036": [
+            ("kuihua_haste", "鬼魅电闪", 18, "%", "装配于轻功槽时，战斗中实战身法额外提升该比例（专注抢夺先手）"),
+        ],
+        "037": [
+            ("yangjia_carbine", "绝命回马枪", 25, "%", "当自身当前气血低于对手时触发回马枪，本次枪法伤害提升该比例"),
+        ],
+    }
+
+    effects_cfg = tian_effects_map.get(code, [])
+
+    level_ratios = [0.15, 0.22, 0.30, 0.39, 0.49, 0.60, 0.71, 0.82, 0.91, 1.00]
+    base_exp_steps = [100, 160, 240, 350, 500, 700, 980, 1380, 2000, 0]
+    exp_mult = exp_tier_mult[sub_key]
+
+    levels: list[dict[str, Any]] = []
+    for idx, lv in enumerate(range(1, 11)):
+        ratio = level_ratios[idx]
+        exp_needed = round(base_exp_steps[idx] * exp_mult / 10.0) * 10 if lv < 10 else 0
+        entry: dict[str, Any] = {
+            "level": lv,
+            "expRequired": exp_needed,
+        }
+        if base_max_mp:
+            entry["maxMp"] = max(1, round(base_max_mp * ratio))
+        if base_max_hp:
+            entry["maxHp"] = max(1, round(base_max_hp * ratio))
+        if base_agility:
+            entry["agility"] = max(1, round(base_agility * ratio))
+        if base_resistance:
+            entry["resistance"] = max(1, round(base_resistance * ratio))
+        if base_constitution:
+            entry["constitution"] = max(1, round(base_constitution * ratio))
+        if base_charm:
+            entry["charm"] = max(1, round(base_charm * ratio))
+        if base_phys:
+            entry["physicalDamage"] = max(1, round(base_phys * ratio))
+        if base_poison:
+            entry["poisonDamage"] = max(1, round(base_poison * ratio))
+        if base_sound:
+            entry["soundDamage"] = max(1, round(base_sound * ratio))
+        if base_hidden:
+            entry["hiddenWeaponDamage"] = max(1, round(base_hidden * ratio))
+        if effects_cfg:
+            entry["specialEffects"] = [
+                {
+                    "id": eid,
+                    "name": ename,
+                    "value": max(1, round(eval_max * ratio)),
+                    "unit": unit,
+                    "desc": edesc,
+                }
+                for eid, ename, eval_max, unit, edesc in effects_cfg
+            ]
+        levels.append(entry)
+    return levels
+
 def parse_martial_arts() -> list[dict[str, Any]]:
     ma_path = DOCS_DIR / "MARTIAL_ARTS_COMPENDIUM.md"
     lines = ma_path.read_text(encoding="utf-8").splitlines()
@@ -809,6 +1130,9 @@ def parse_martial_arts() -> list[dict[str, Any]]:
                     "statRequirements": [],
                 }
             )
+
+    for art in arts:
+        art["levels"] = compute_martial_art_levels(art)
 
     arts.sort(key=lambda x: int(x["code"]))
     if len(arts) != 216:

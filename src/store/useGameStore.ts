@@ -12,6 +12,7 @@ import {
   computeEquippedArtsTotals,
   DEFAULT_EQUIPPED_ARTS,
   DEFAULT_LEARNED_ARTS,
+  getArtExpRequired,
 } from '../data/playerMartialArts'
 import type {
   ActionEffect,
@@ -985,11 +986,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const oldTotals = computeEquippedArtsTotals(s.equippedArts, s.learnedArts)
     const nextLearned = s.learnedArts.map((x) => ({ ...x }))
     let nextLv = cur.level
+    const reqExp = getArtExpRequired(art, nextLv)
     let nextExp = cur.exp + 45
     let leveledUp = false
-    if (nextExp >= 100) {
+    if (reqExp > 0 && nextExp >= reqExp) {
       nextLv = Math.min(10, nextLv + 1)
-      nextExp = nextLv >= 10 ? 100 : nextExp - 100
+      nextExp = nextLv >= 10 ? 0 : nextExp - reqExp
       leveledUp = true
     }
     nextLearned[idx] = { artId, level: nextLv, exp: nextExp }
@@ -1002,6 +1004,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
     const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
+    const nextReqExp = getArtExpRequired(art, nextLv)
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
 
     set({
@@ -1022,7 +1025,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           leveledUp ? '武学突破' : '演武苦修',
           leveledUp
             ? `潜心演练【${art.name}】一个时辰（体能 -10），火候突破至第 ${nextLv} 重！`
-            : `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 ${nextExp}/100）。`,
+            : `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 ${nextExp}/${nextReqExp}）。`,
           leveledUp,
           clock.shichenIdx,
         ),

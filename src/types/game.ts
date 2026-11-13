@@ -251,6 +251,30 @@ export interface MartialArtStatReq {
   min: number
 }
 
+export interface MartialArtSpecialEffect {
+  id: string
+  name: string
+  value: number
+  unit: string
+  desc: string
+}
+
+export interface MartialArtLevelStats {
+  level: number
+  expRequired?: number
+  maxMp?: number
+  maxHp?: number
+  agility?: number
+  resistance?: number
+  constitution?: number
+  charm?: number
+  physicalDamage?: number
+  poisonDamage?: number
+  soundDamage?: number
+  hiddenWeaponDamage?: number
+  specialEffects?: MartialArtSpecialEffect[]
+}
+
 export interface CompiledMartialArtRecord {
   id: string
   code: string
@@ -265,6 +289,7 @@ export interface CompiledMartialArtRecord {
   description: string
   prerequisitesText: string | null
   statRequirements: MartialArtStatReq[]
+  levels?: MartialArtLevelStats[]
 }
 
 export interface NpcCombatStats {
