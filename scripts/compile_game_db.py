@@ -1411,7 +1411,7 @@ def parse_equip_bonus_tokens(raw_bonus: str) -> dict[str, Any]:
             bonus["res"] = v
         elif k == "骑术":
             bonus["riding"] = v
-        elif k in TEN_SKILLS_SET:
+        elif k in TEN_SKILLS_SET or k == "颜值":
             skills[k] = v
         else:
             raise ValueError(f"Unknown equipBonus token: {k!r} in {raw_bonus!r}")
@@ -2144,6 +2144,87 @@ def parse_npcs(
 # 7. 主编译流水线
 # ==============================================================================
 
+def parse_gear() -> list[dict[str, Any]]:
+    text = (DOCS_DIR / "EQUIPMENT_COMPENDIUM.md").read_text(encoding="utf-8")
+    gear_list: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+
+    slot_map = {
+        "ARM": "armor",
+        "BOT": "shoes",
+        "BOW": "bow",
+        "ACC": "accessory",
+    }
+
+    for line in text.splitlines():
+        s = line.strip()
+        m = re.match(r"^\|\s*`((?:ARM|BOT|BOW|ACC)-\d{3})`\s*\|", s)
+        if not m:
+            continue
+        cells = [c.strip() for c in s.strip("|").split("|")]
+        if len(cells) < 10:
+            continue
+
+        item_id = cells[0].strip("`").strip()
+        if item_id in seen_ids:
+            raise AssertionError(f"Duplicate gear ID: {item_id}")
+        seen_ids.add(item_id)
+
+        prefix = item_id.split("-")[0]
+        slot = slot_map[prefix]
+        name = re.sub(r"\*\*", "", cells[1]).strip()
+        tier = cells[2]
+        grade = cells[3]
+        sub_type = cells[4]
+        origin = cells[5]
+        val_m = re.search(r"(\d+)", cells[6])
+        value = int(val_m.group(1)) if val_m else 100
+        bonus_cell = cells[7]
+        desc_cell = cells[8]
+        req_cell = cells[9]
+
+        loc_part = origin.split("·", 1)[0].strip() if "·" in origin else origin.strip()
+        if loc_part not in LOCATION_RESOLUTION_MAP:
+            raise ValueError(f"[{item_id}] Unknown gear origin location: {loc_part!r}")
+        region_id, _, _ = LOCATION_RESOLUTION_MAP[loc_part]
+        sect_id = resolve_sect_for_origin(origin)
+        equip_bonus = parse_equip_bonus_tokens(bonus_cell)
+
+        tag_m = re.match(r"^【([^】]+)】(.*)$", desc_cell)
+        special_tag = tag_m.group(1).strip() if tag_m else None
+        description = tag_m.group(2).strip() if tag_m else desc_cell
+
+        prereq_text = None if req_cell in ("无", "-", "") else req_cell
+        stat_reqs = (
+            [{"stat": k.strip(), "min": int(v)} for k, v in re.findall(r"`([^`≥]+)≥(\d+)`", prereq_text)]
+            if prereq_text
+            else []
+        )
+
+        gear_list.append(
+            {
+                "id": item_id,
+                "name": name,
+                "slot": slot,
+                "tier": tier,
+                "grade": grade,
+                "subType": sub_type,
+                "origin": origin,
+                "regionId": region_id,
+                "sectId": sect_id,
+                "value": value,
+                "equipBonus": equip_bonus,
+                "specialTag": special_tag,
+                "description": description,
+                "prerequisitesText": prereq_text,
+                "statRequirements": stat_reqs,
+            }
+        )
+
+    assert len(gear_list) == 168, f"Expected 168 gear items, got {len(gear_list)}"
+    return gear_list
+
+
 def compile_all(do_normalize_docs: bool) -> None:
     if do_normalize_docs:
         norm_stats = normalize_markdown_docs()
@@ -2165,6 +2246,7 @@ def compile_all(do_normalize_docs: bool) -> None:
     martial_arts = parse_martial_arts()
     weapons = parse_weapons()
     mounts = parse_mounts()
+    gear = parse_gear()
 
     # 2) Compile Buildings (138 Specials + 130 City Bases = 268)
     buildings: list[dict[str, Any]] = []
@@ -2641,6 +2723,11 @@ def compile_all(do_normalize_docs: bool) -> None:
         if mnt["sectId"] is not None:
             assert mnt["sectId"] in faction_id_set, f"Invalid sectId on {mnt['id']}"
 
+    for g in gear:
+        assert g["regionId"] in region_id_set, f"Invalid regionId on {g['id']}"
+        if g["sectId"] is not None:
+            assert g["sectId"] in faction_id_set, f"Invalid sectId on {g['id']}"
+
     outputs = {
         "idRegistry.json": id_registry,
         "regions.json": regions,
@@ -2648,6 +2735,7 @@ def compile_all(do_normalize_docs: bool) -> None:
         "martial_arts.json": martial_arts,
         "weapons.json": weapons,
         "mounts.json": mounts,
+        "gear.json": gear,
         "npcs.json": npcs,
     }
 

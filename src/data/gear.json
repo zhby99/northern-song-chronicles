@@ -1,0 +1,3592 @@
+[
+  {
+    "id": "ARM-001",
+    "name": "金丝软猬宝甲",
+    "slot": "armor",
+    "tier": "天阶",
+    "grade": "上品",
+    "subType": "软甲",
+    "origin": "东海桃花岛",
+    "regionId": "taohuadao",
+    "sectId": "SECT-12",
+    "value": 2600,
+    "equipBonus": {
+      "defense": 185,
+      "maxHp": 420,
+      "res": 24
+    },
+    "specialTag": "刺猬反震",
+    "description": "东海桃花岛奇宝，织就金丝软猬，刀枪不入且近战反伤敌手。",
+    "prerequisitesText": "`根骨≥80`、`内力≥2400`",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 80
+      },
+      {
+        "stat": "内力",
+        "min": 2400
+      }
+    ]
+  },
+  {
+    "id": "ARM-002",
+    "name": "天山冰蚕玉缕衣",
+    "slot": "armor",
+    "tier": "天阶",
+    "grade": "上品",
+    "subType": "软甲",
+    "origin": "昆仑山（万山之祖）",
+    "regionId": "kunlun",
+    "sectId": null,
+    "value": 2550,
+    "equipBonus": {
+      "defense": 172,
+      "maxMp": 380,
+      "res": 28
+    },
+    "specialTag": "冰蚕护体",
+    "description": "天山万年冰蚕丝织就，水火不侵，大幅化解阴寒剧毒。",
+    "prerequisitesText": "`悟性≥80`、`抗性≥75`",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 80
+      },
+      {
+        "stat": "抗性",
+        "min": 75
+      }
+    ]
+  },
+  {
+    "id": "ARM-003",
+    "name": "大宋步人玄铁重铠",
+    "slot": "armor",
+    "tier": "天阶",
+    "grade": "中品",
+    "subType": "重甲",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 2100,
+    "equipBonus": {
+      "defense": 195,
+      "maxHp": 480
+    },
+    "specialTag": "禁军重防",
+    "description": "皇祐禁军最高规格冷锻重铠，全身铁叶千八百片，矢石难穿。",
+    "prerequisitesText": "`根骨≥82`、`气血≥2800`",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 82
+      },
+      {
+        "stat": "气血",
+        "min": 2800
+      }
+    ]
+  },
+  {
+    "id": "ARM-004",
+    "name": "少林达摩袈裟",
+    "slot": "armor",
+    "tier": "天阶",
+    "grade": "中品",
+    "subType": "僧衣",
+    "origin": "嵩山少林寺",
+    "regionId": "shaolin",
+    "sectId": "SECT-01",
+    "value": 2050,
+    "equipBonus": {
+      "defense": 165,
+      "maxMp": 360,
+      "skills": {
+        "经义": 10
+      }
+    },
+    "specialTag": "禅定金刚",
+    "description": "少林寺达摩祖师遗风宝衣，护体真气浑厚，百邪不侵。",
+    "prerequisitesText": "`经义≥78`、`内力≥2200`",
+    "statRequirements": [
+      {
+        "stat": "经义",
+        "min": 78
+      },
+      {
+        "stat": "内力",
+        "min": 2200
+      }
+    ]
+  },
+  {
+    "id": "ARM-005",
+    "name": "真武玄穹鹤氅",
+    "slot": "armor",
+    "tier": "天阶",
+    "grade": "下品",
+    "subType": "道袍",
+    "origin": "武当山",
+    "regionId": "wudangshan",
+    "sectId": "SECT-08",
+    "value": 1800,
+    "equipBonus": {
+      "defense": 150,
+      "maxMp": 340,
+      "agility": 12
+    },
+    "specialTag": "太极卸力",
+    "description": "武当真武道宗镇山仙衣，袖袍鼓荡间可卸去三成刚猛外劲。",
+    "prerequisitesText": "`悟性≥78`、`身法≥72`",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 78
+      },
+      {
+        "stat": "身法",
+        "min": 72
+      }
+    ]
+  },
+  {
+    "id": "ARM-006",
+    "name": "姑苏云锦星宿袍",
+    "slot": "armor",
+    "tier": "天阶",
+    "grade": "下品",
+    "subType": "儒衫",
+    "origin": "苏州府",
+    "regionId": "suzhou",
+    "sectId": null,
+    "value": 1780,
+    "equipBonus": {
+      "defense": 148,
+      "agility": 16,
+      "res": 22
+    },
+    "specialTag": "星移斗转",
+    "description": "姑苏燕子坞秘制云锦长袍，暗绣二十八宿，闪避腾挪如行云。",
+    "prerequisitesText": "`悟性≥76`、`颜值≥75`",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 76
+      },
+      {
+        "stat": "颜值",
+        "min": 75
+      }
+    ]
+  },
+  {
+    "id": "ARM-007",
+    "name": "西夏冷锻铁鹞铠",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "重甲",
+    "origin": "兴庆府",
+    "regionId": "xingqing_xixia",
+    "sectId": null,
+    "value": 1280,
+    "equipBonus": {
+      "defense": 135,
+      "maxHp": 280,
+      "res": 10
+    },
+    "specialTag": "铁鹞冲阵",
+    "description": "西夏冷锻重甲，专配铁鹞子精锐，极耐刀斧劈砍。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-008",
+    "name": "天波杨府亮银铠",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "重甲",
+    "origin": "太原府",
+    "regionId": "taiyuan",
+    "sectId": null,
+    "value": 1250,
+    "equipBonus": {
+      "defense": 130,
+      "maxHp": 260,
+      "riding": 8
+    },
+    "specialTag": "忠烈护心",
+    "description": "河东杨家将传世亮银甲，纵马驰骋沙场威风凛凛。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-009",
+    "name": "蜀中唐门墨蚕劲装",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "劲装",
+    "origin": "青城山 / 唐家堡",
+    "regionId": "qingcheng",
+    "sectId": "SECT-13",
+    "value": 1200,
+    "equipBonus": {
+      "defense": 110,
+      "agility": 18,
+      "res": 18
+    },
+    "specialTag": "暗影避毒",
+    "description": "唐门秘制墨蚕丝夜行衣，轻便隐蔽且防五毒侵染。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-010",
+    "name": "大理段氏锦绣龙袍",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "儒衫",
+    "origin": "阳苴咩城（大理）",
+    "regionId": "dali_city",
+    "sectId": "ORG-08",
+    "value": 1050,
+    "equipBonus": {
+      "defense": 108,
+      "maxMp": 240,
+      "skills": {
+        "颜值": 8
+      }
+    },
+    "specialTag": "天南贵胄",
+    "description": "大理皇室贡锦所制，华贵端庄，助长纯阳内息运转。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-011",
+    "name": "青城松纹八卦道袍",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "道袍",
+    "origin": "青城山 / 唐家堡",
+    "regionId": "qingcheng",
+    "sectId": "SECT-13",
+    "value": 980,
+    "equipBonus": {
+      "defense": 102,
+      "maxMp": 220,
+      "res": 14
+    },
+    "specialTag": "道法自然",
+    "description": "青城幽谷松纹道袍，冬暖夏凉，益于吐纳归元。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-012",
+    "name": "契丹狼裘金甲",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "重甲",
+    "origin": "临潢府",
+    "regionId": "linhuang_liao",
+    "sectId": null,
+    "value": 1020,
+    "equipBonus": {
+      "defense": 122,
+      "maxHp": 240,
+      "res": 12
+    },
+    "specialTag": "塞外御寒",
+    "description": "大辽御帐亲军金叶狼裘甲，不惧极北风雪。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-013",
+    "name": "峨眉素雪云裳",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "儒衫",
+    "origin": "峨眉山",
+    "regionId": "emeishan",
+    "sectId": "SECT-07",
+    "value": 960,
+    "equipBonus": {
+      "defense": 98,
+      "agility": 14,
+      "maxMp": 200
+    },
+    "specialTag": "金顶晴雪",
+    "description": "峨眉女侠常服，素白如雪，轻盈飘逸。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-014",
+    "name": "丐帮百结打狗衣",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 850,
+    "equipBonus": {
+      "defense": 95,
+      "maxHp": 220,
+      "agility": 10
+    },
+    "specialTag": "九袋威仪",
+    "description": "丐帮高阶长老百衲衣，看似破旧实则韧如牛筋。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-015",
+    "name": "华山紫霞剑客衫",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "下品",
+    "subType": "儒衫",
+    "origin": "华山",
+    "regionId": "tongguan",
+    "sectId": "SECT-05",
+    "value": 880,
+    "equipBonus": {
+      "defense": 92,
+      "maxMp": 180,
+      "agility": 12
+    },
+    "specialTag": "朝阳紫气",
+    "description": "华山剑宗紫霞锦衫，袖口束紧利落出剑。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-016",
+    "name": "点苍苍山白鹿氅",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "阳苴咩城（大理）",
+    "regionId": "dali_city",
+    "sectId": "ORG-08",
+    "value": 860,
+    "equipBonus": {
+      "defense": 90,
+      "agility": 14,
+      "res": 10
+    },
+    "specialTag": "洱海清风",
+    "description": "点苍名宿所着白鹿皮氅，轻捷灵动。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-017",
+    "name": "大宋禁军铁叶甲",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "重甲",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 540,
+    "equipBonus": {
+      "defense": 78,
+      "maxHp": 150
+    },
+    "specialTag": "禁军制式",
+    "description": "东京南北作坊精造铁叶甲，坚实耐用。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-018",
+    "name": "杭绸青衫儒士袍",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "儒衫",
+    "origin": "杭州府",
+    "regionId": "hangzhou",
+    "sectId": null,
+    "value": 520,
+    "equipBonus": {
+      "defense": 56,
+      "maxMp": 130,
+      "skills": {
+        "诗词": 5
+      }
+    },
+    "specialTag": "西湖文风",
+    "description": "杭州上等杭绸裁制，雅致飘逸。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-019",
+    "name": "河东边军锁子甲",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "重甲",
+    "origin": "太原府",
+    "regionId": "taiyuan",
+    "sectId": null,
+    "value": 550,
+    "equipBonus": {
+      "defense": 80,
+      "maxHp": 140
+    },
+    "specialTag": "晋阳铁冶",
+    "description": "河东铁冶监所造锁子连环甲，防箭矢刺击极佳。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-020",
+    "name": "嵩山少林灰布僧袍",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "僧衣",
+    "origin": "嵩山少林寺",
+    "regionId": "shaolin",
+    "sectId": "SECT-01",
+    "value": 480,
+    "equipBonus": {
+      "defense": 62,
+      "maxHp": 120,
+      "skills": {
+        "经义": 4
+      }
+    },
+    "specialTag": "禅武合一",
+    "description": "少林武僧常服，耐撕扯且利拳脚舒展。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-021",
+    "name": "六扇门皂隶公服",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "劲装",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 500,
+    "equipBonus": {
+      "defense": 64,
+      "agility": 8
+    },
+    "specialTag": "捕快威严",
+    "description": "六扇门精锐公服，内衬薄铁片护胸。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-022",
+    "name": "终南青布道袍",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "道袍",
+    "origin": "终南山",
+    "regionId": "zhongnanshan",
+    "sectId": "SECT-11",
+    "value": 420,
+    "equipBonus": {
+      "defense": 52,
+      "maxMp": 110
+    },
+    "specialTag": "全真古意",
+    "description": "终南山隐士道袍，宽袖飘然。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-023",
+    "name": "扬州盐帮水靠劲装",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "劲装",
+    "origin": "扬州府",
+    "regionId": "yangzhou",
+    "sectId": null,
+    "value": 410,
+    "equipBonus": {
+      "defense": 58,
+      "agility": 8
+    },
+    "specialTag": "江淮水战",
+    "description": "防水油布混纺劲装，入水不沉。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-024",
+    "name": "成都蜀锦长衫",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "儒衫",
+    "origin": "成都府",
+    "regionId": "chengdu",
+    "sectId": null,
+    "value": 460,
+    "equipBonus": {
+      "defense": 50,
+      "maxMp": 100,
+      "skills": {
+        "颜值": 4
+      }
+    },
+    "specialTag": "天府织锦",
+    "description": "蜀锦名品，色泽温润华美。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-025",
+    "name": "塞北皮毛战袍",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "劲装",
+    "origin": "雁门关",
+    "regionId": "yanmenguan",
+    "sectId": null,
+    "value": 430,
+    "equipBonus": {
+      "defense": 60,
+      "maxHp": 110,
+      "res": 6
+    },
+    "specialTag": "御风抗寒",
+    "description": "塞北熟羊皮缝制，抵御风沙寒气。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-026",
+    "name": "镇远镖局青色趟子服",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "劲装",
+    "origin": "泉州府",
+    "regionId": "quanzhou",
+    "sectId": null,
+    "value": 390,
+    "equipBonus": {
+      "defense": 55,
+      "maxHp": 100
+    },
+    "specialTag": "走镖护身",
+    "description": "闽海镖师制式短打，利落抗磨。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-027",
+    "name": "五溪苗疆百虫衣",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "潭州府",
+    "regionId": "tanzhou",
+    "sectId": null,
+    "value": 360,
+    "equipBonus": {
+      "defense": 48,
+      "res": 12
+    },
+    "specialTag": "辟瘴防蛊",
+    "description": "浸过草药汁的苗疆蓝布衣，防蛇虫叮咬。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-028",
+    "name": "洛阳金刀门劲装",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 350,
+    "equipBonus": {
+      "defense": 52,
+      "maxHp": 95
+    },
+    "specialTag": "金刀门徒",
+    "description": "洛阳王家武馆弟子服。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-029",
+    "name": "姑苏书院青衿衫",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "儒衫",
+    "origin": "苏州府",
+    "regionId": "suzhou",
+    "sectId": null,
+    "value": 340,
+    "equipBonus": {
+      "defense": 44,
+      "maxMp": 90,
+      "skills": {
+        "经义": 3
+      }
+    },
+    "specialTag": "江南士子",
+    "description": "江南士林常着青衿长衫。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-030",
+    "name": "吐蕃牦牛皮护胸",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "重甲",
+    "origin": "逻些（拉萨）",
+    "regionId": "luoxie_tubo",
+    "sectId": null,
+    "value": 370,
+    "equipBonus": {
+      "defense": 62,
+      "maxHp": 90
+    },
+    "specialTag": "雪域厚甲",
+    "description": "厚实牦牛皮鞣制，耐寒抗钝击。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-031",
+    "name": "沧州武馆练功短打",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "大名府",
+    "regionId": "daming",
+    "sectId": null,
+    "value": 320,
+    "equipBonus": {
+      "defense": 50,
+      "maxHp": 85
+    },
+    "specialTag": "河北拳脚",
+    "description": "粗厚斜纹棉布缝制，极耐摔打。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-032",
+    "name": "泉州海商番布衫",
+    "slot": "armor",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "儒衫",
+    "origin": "泉州府",
+    "regionId": "quanzhou",
+    "sectId": null,
+    "value": 330,
+    "equipBonus": {
+      "defense": 46,
+      "agility": 6
+    },
+    "specialTag": "刺桐海风",
+    "description": "轻薄透气的西洋番布短衫。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-033",
+    "name": "汴京巡城皂衣",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "劲装",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 160,
+    "equipBonus": {
+      "defense": 32,
+      "maxHp": 60
+    },
+    "specialTag": "市井巡防",
+    "description": "开封府巡夜厢军制式短衣。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-034",
+    "name": "青布侠客劲装",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "劲装",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 150,
+    "equipBonus": {
+      "defense": 30,
+      "agility": 4
+    },
+    "specialTag": "江湖初入",
+    "description": "游侠最常穿的青布束袖短打。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-035",
+    "name": "白麻书生澜衫",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "儒衫",
+    "origin": "江宁府",
+    "regionId": "jiangning",
+    "sectId": null,
+    "value": 145,
+    "equipBonus": {
+      "defense": 24,
+      "maxMp": 50
+    },
+    "specialTag": "国子生服",
+    "description": "北宋太学与州学士子常服。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-036",
+    "name": "灰麻僧衣",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "僧衣",
+    "origin": "嵩山少林寺",
+    "regionId": "shaolin",
+    "sectId": "SECT-01",
+    "value": 140,
+    "equipBonus": {
+      "defense": 26,
+      "maxHp": 55
+    },
+    "specialTag": "清修粗衣",
+    "description": "各地寺院普通僧侣常服。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-037",
+    "name": "青灰道袍",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "道袍",
+    "origin": "泰山",
+    "regionId": "taishan",
+    "sectId": "SECT-06",
+    "value": 140,
+    "equipBonus": {
+      "defense": 25,
+      "maxMp": 45
+    },
+    "specialTag": "道观常服",
+    "description": "普通道士日常着装。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-038",
+    "name": "熟牛皮护胸",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "重甲",
+    "origin": "太原府",
+    "regionId": "taiyuan",
+    "sectId": null,
+    "value": 170,
+    "equipBonus": {
+      "defense": 36,
+      "maxHp": 50
+    },
+    "specialTag": "简易皮甲",
+    "description": "猎户与边民自制的牛皮护心。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-039",
+    "name": "绿林黑布夜行衣",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "劲装",
+    "origin": "太行山绿林总寨",
+    "regionId": "taihang",
+    "sectId": "SECT-18",
+    "value": 155,
+    "equipBonus": {
+      "defense": 28,
+      "agility": 5
+    },
+    "specialTag": "山寨夜行",
+    "description": "太行山绿林好汉夜探常用。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-040",
+    "name": "漕帮短褐劲装",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "劲装",
+    "origin": "扬州府",
+    "regionId": "yangzhou",
+    "sectId": null,
+    "value": 145,
+    "equipBonus": {
+      "defense": 28,
+      "maxHp": 45
+    },
+    "specialTag": "运河纤夫",
+    "description": "耐水耐磨的麻布短褐。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-041",
+    "name": "粗布猎装",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "劲装",
+    "origin": "延安府",
+    "regionId": "yanan",
+    "sectId": null,
+    "value": 95,
+    "equipBonus": {
+      "defense": 22,
+      "maxHp": 40
+    },
+    "specialTag": "边塞猎户",
+    "description": "防风沙的粗麻皮边猎装。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-042",
+    "name": "江南竹布夏衫",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "儒衫",
+    "origin": "杭州府",
+    "regionId": "hangzhou",
+    "sectId": null,
+    "value": 90,
+    "equipBonus": {
+      "defense": 18,
+      "agility": 4
+    },
+    "specialTag": "清凉透风",
+    "description": "江南夏季常穿的竹纤维布衫。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-043",
+    "name": "蜀道油布雨衣",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "劲装",
+    "origin": "成都府",
+    "regionId": "chengdu",
+    "sectId": null,
+    "value": 100,
+    "equipBonus": {
+      "defense": 20,
+      "res": 4
+    },
+    "specialTag": "防雨防潮",
+    "description": "桐油涂抹的麻布斗篷短衣。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-044",
+    "name": "市井茶博士围裙衫",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "儒衫",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 85,
+    "equipBonus": {
+      "defense": 16,
+      "maxHp": 35
+    },
+    "specialTag": "汴京茶肆",
+    "description": "茶肆伙计常着麻布长衫。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-045",
+    "name": "辽东鹿皮坎肩",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "劲装",
+    "origin": "辽阳府",
+    "regionId": "liaoyang_liao",
+    "sectId": "SECT-20",
+    "value": 105,
+    "equipBonus": {
+      "defense": 24,
+      "maxHp": 35
+    },
+    "specialTag": "黑水猎装",
+    "description": "轻暖耐穿的关东鹿皮坎肩。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-046",
+    "name": "广州葛布短衫",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "儒衫",
+    "origin": "广州府",
+    "regionId": "guangzhou",
+    "sectId": null,
+    "value": 88,
+    "equipBonus": {
+      "defense": 18,
+      "agility": 3
+    },
+    "specialTag": "岭南葛布",
+    "description": "岭南湿热之地常着葛布衫。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-047",
+    "name": "大名府粗麻练功服",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "劲装",
+    "origin": "大名府",
+    "regionId": "daming",
+    "sectId": null,
+    "value": 92,
+    "equipBonus": {
+      "defense": 21,
+      "maxHp": 40
+    },
+    "specialTag": "枪棒武馆",
+    "description": "河北学徒练功粗布衣。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-048",
+    "name": "西夏牧民羊毛袍",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "儒衫",
+    "origin": "兴庆府",
+    "regionId": "xingqing_xixia",
+    "sectId": null,
+    "value": 96,
+    "equipBonus": {
+      "defense": 22,
+      "res": 3
+    },
+    "specialTag": "贺兰牧歌",
+    "description": "党项牧民常穿的厚羊毛袍。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-049",
+    "name": "市井粗麻短褐",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 45,
+    "equipBonus": {
+      "defense": 12,
+      "maxHp": 25
+    },
+    "specialTag": "平民常服",
+    "description": "北宋市井百姓最普通的粗麻短褐。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-050",
+    "name": "破旧百衲乞丐衣",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 35,
+    "equipBonus": {
+      "defense": 10,
+      "agility": 3
+    },
+    "specialTag": "草莽行乞",
+    "description": "补丁叠补丁，却意外轻便。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-051",
+    "name": "农夫蓑衣",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "洪州府",
+    "regionId": "hongzhou",
+    "sectId": null,
+    "value": 40,
+    "equipBonus": {
+      "defense": 14,
+      "res": 2
+    },
+    "specialTag": "烟雨江南",
+    "description": "棕榈丝编织的防雨蓑衣。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-052",
+    "name": "村塾旧儒衫",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "儒衫",
+    "origin": "潭州府",
+    "regionId": "tanzhou",
+    "sectId": null,
+    "value": 48,
+    "equipBonus": {
+      "defense": 10,
+      "maxMp": 25
+    },
+    "specialTag": "乡野蒙学",
+    "description": "洗得发白的旧青布儒衫。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-053",
+    "name": "行脚僧灰布袍",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "僧衣",
+    "origin": "泉州府",
+    "regionId": "quanzhou",
+    "sectId": null,
+    "value": 46,
+    "equipBonus": {
+      "defense": 12,
+      "maxHp": 20
+    },
+    "specialTag": "云游四方",
+    "description": "游方僧人常穿的旧灰布袍。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-054",
+    "name": "山野樵夫麻衣",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "泰山",
+    "regionId": "taishan",
+    "sectId": "SECT-06",
+    "value": 42,
+    "equipBonus": {
+      "defense": 13,
+      "maxHp": 20
+    },
+    "specialTag": "深山砍柴",
+    "description": "耐磨的粗麻山民衣。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-055",
+    "name": "渔家粗布短裤衫",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "劲装",
+    "origin": "广州府",
+    "regionId": "guangzhou",
+    "sectId": null,
+    "value": 40,
+    "equipBonus": {
+      "defense": 11,
+      "agility": 2
+    },
+    "specialTag": "南海渔民",
+    "description": "晒得褪色的粗麻短打。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ARM-056",
+    "name": "客栈杂役围衫",
+    "slot": "armor",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "儒衫",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 38,
+    "equipBonus": {
+      "defense": 10,
+      "maxHp": 18
+    },
+    "specialTag": "悦来客栈",
+    "description": "各地客栈跑堂伙计的布衫。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-001",
+    "name": "凌波微步履",
+    "slot": "shoes",
+    "tier": "天阶",
+    "grade": "上品",
+    "subType": "轻履",
+    "origin": "无量山 / 剑湖秘境",
+    "regionId": "wuliangshan",
+    "sectId": null,
+    "value": 2400,
+    "equipBonus": {
+      "agility": 32,
+      "maxMp": 180,
+      "maxStamina": 40
+    },
+    "specialTag": "踏雪无痕",
+    "description": "逍遥派凌波微步绝配云履，足底镶软玉，腾挪如履平地。",
+    "prerequisitesText": "`身法≥82`、`悟性≥80`",
+    "statRequirements": [
+      {
+        "stat": "身法",
+        "min": 82
+      },
+      {
+        "stat": "悟性",
+        "min": 80
+      }
+    ]
+  },
+  {
+    "id": "BOT-002",
+    "name": "神行百变云龙靴",
+    "slot": "shoes",
+    "tier": "天阶",
+    "grade": "中品",
+    "subType": "战靴",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 1950,
+    "equipBonus": {
+      "agility": 26,
+      "maxHp": 160,
+      "riding": 12
+    },
+    "specialTag": "日行千里",
+    "description": "取深海鲛皮与天山雪蚕丝缝制，轻若无物且护踝如铁。",
+    "prerequisitesText": "`身法≥78`、`体能≥160`",
+    "statRequirements": [
+      {
+        "stat": "身法",
+        "min": 78
+      },
+      {
+        "stat": "体能",
+        "min": 160
+      }
+    ]
+  },
+  {
+    "id": "BOT-003",
+    "name": "达摩一苇渡江履",
+    "slot": "shoes",
+    "tier": "天阶",
+    "grade": "下品",
+    "subType": "草鞋",
+    "origin": "嵩山少林寺",
+    "regionId": "shaolin",
+    "sectId": "SECT-01",
+    "value": 1720,
+    "equipBonus": {
+      "agility": 24,
+      "maxMp": 150,
+      "res": 16
+    },
+    "specialTag": "一苇渡江",
+    "description": "看似寻常蒲草编织，实则蕴含千年禅意，涉水登高如飞。",
+    "prerequisitesText": "`经义≥72`、`身法≥74`",
+    "statRequirements": [
+      {
+        "stat": "经义",
+        "min": 72
+      },
+      {
+        "stat": "身法",
+        "min": 74
+      }
+    ]
+  },
+  {
+    "id": "BOT-004",
+    "name": "天山踏雪无痕靴",
+    "slot": "shoes",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "战靴",
+    "origin": "昆仑山（万山之祖）",
+    "regionId": "kunlun",
+    "sectId": null,
+    "value": 1150,
+    "equipBonus": {
+      "agility": 20,
+      "res": 12,
+      "maxStamina": 25
+    },
+    "specialTag": "雪域疾行",
+    "description": "西域雪豹皮缝制，踏冰雪而不滑，登绝壁如履平地。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-005",
+    "name": "唐门鬼影追风履",
+    "slot": "shoes",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "轻履",
+    "origin": "青城山 / 唐家堡",
+    "regionId": "qingcheng",
+    "sectId": "SECT-13",
+    "value": 1120,
+    "equipBonus": {
+      "agility": 21,
+      "res": 10
+    },
+    "specialTag": "无声无息",
+    "description": "鞋底嵌吸音软木与机关倒钩，夜行潜伏毫无声响。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-006",
+    "name": "武当梯云纵鹤履",
+    "slot": "shoes",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "道履",
+    "origin": "武当山",
+    "regionId": "wudangshan",
+    "sectId": "SECT-08",
+    "value": 940,
+    "equipBonus": {
+      "agility": 18,
+      "maxMp": 100
+    },
+    "specialTag": "左脚踩右脚",
+    "description": "武当轻功弟子特制布履，轻灵弹韧。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-007",
+    "name": "契丹狼皮马靴",
+    "slot": "shoes",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "战靴",
+    "origin": "临潢府",
+    "regionId": "linhuang_liao",
+    "sectId": null,
+    "value": 920,
+    "equipBonus": {
+      "agility": 15,
+      "defense": 24,
+      "riding": 10
+    },
+    "specialTag": "控镫如飞",
+    "description": "大辽骑兵统领高筒马靴，夹马腹极稳。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-008",
+    "name": "丐帮千里草鞋",
+    "slot": "shoes",
+    "tier": "地阶",
+    "grade": "下品",
+    "subType": "草鞋",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 820,
+    "equipBonus": {
+      "agility": 17,
+      "maxStamina": 30
+    },
+    "specialTag": "日行百里",
+    "description": "韧草混麻筋编织，极耐长途跋涉。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-009",
+    "name": "大宋禁军牛皮战靴",
+    "slot": "shoes",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "战靴",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 480,
+    "equipBonus": {
+      "agility": 12,
+      "defense": 18
+    },
+    "specialTag": "军旅制式",
+    "description": "厚牛皮钉铁掌战靴，跋山涉水不磨脚。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-010",
+    "name": "姑苏云锦绣鞋",
+    "slot": "shoes",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "轻履",
+    "origin": "苏州府",
+    "regionId": "suzhou",
+    "sectId": null,
+    "value": 460,
+    "equipBonus": {
+      "agility": 13,
+      "skills": {
+        "颜值": 5
+      }
+    },
+    "specialTag": "江南雅履",
+    "description": "苏州绣娘手制，轻盈秀美。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-011",
+    "name": "华山飞檐快靴",
+    "slot": "shoes",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "轻履",
+    "origin": "华山",
+    "regionId": "tongguan",
+    "sectId": "SECT-05",
+    "value": 470,
+    "equipBonus": {
+      "agility": 14,
+      "maxStamina": 15
+    },
+    "specialTag": "峭壁登攀",
+    "description": "鞋底带细密防滑纹，利攀岩走壁。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-012",
+    "name": "河东铁掌马靴",
+    "slot": "shoes",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "战靴",
+    "origin": "太原府",
+    "regionId": "taiyuan",
+    "sectId": null,
+    "value": 390,
+    "equipBonus": {
+      "agility": 10,
+      "defense": 15,
+      "riding": 6
+    },
+    "specialTag": "晋阳边军",
+    "description": "加厚鞋尖，马战踢蹬皆宜。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-013",
+    "name": "峨眉青云道履",
+    "slot": "shoes",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "道履",
+    "origin": "峨眉山",
+    "regionId": "emeishan",
+    "sectId": "SECT-07",
+    "value": 380,
+    "equipBonus": {
+      "agility": 12,
+      "maxMp": 60
+    },
+    "specialTag": "蜀山清修",
+    "description": "千层布底，轻便透气。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-014",
+    "name": "扬州水靠防滑鞋",
+    "slot": "shoes",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "轻履",
+    "origin": "扬州府",
+    "regionId": "yangzhou",
+    "sectId": null,
+    "value": 360,
+    "equipBonus": {
+      "agility": 11,
+      "res": 6
+    },
+    "specialTag": "漕帮水战",
+    "description": "麻绳缠底，湿滑甲板站立如松。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-015",
+    "name": "镇远镖局牛筋快靴",
+    "slot": "shoes",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "战靴",
+    "origin": "泉州府",
+    "regionId": "quanzhou",
+    "sectId": null,
+    "value": 320,
+    "equipBonus": {
+      "agility": 10,
+      "maxStamina": 12
+    },
+    "specialTag": "走镖常备",
+    "description": "牛筋底耐磨耐走。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-016",
+    "name": "西夏沙地驼皮靴",
+    "slot": "shoes",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "战靴",
+    "origin": "兴庆府",
+    "regionId": "xingqing_xixia",
+    "sectId": null,
+    "value": 330,
+    "equipBonus": {
+      "agility": 10,
+      "res": 6
+    },
+    "specialTag": "大漠防沙",
+    "description": "高帮护踝，不进沙砾。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-017",
+    "name": "汴京千层底布鞋",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "轻履",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 140,
+    "equipBonus": {
+      "agility": 7,
+      "maxStamina": 10
+    },
+    "specialTag": "京城老字号",
+    "description": "纳千层棉布底，舒适养脚。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-018",
+    "name": "游侠青布快靴",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "战靴",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 150,
+    "equipBonus": {
+      "agility": 7,
+      "defense": 8
+    },
+    "specialTag": "江湖标配",
+    "description": "普通游侠最爱穿的软牛皮快靴。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-019",
+    "name": "儒生方头皂靴",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "轻履",
+    "origin": "江宁府",
+    "regionId": "jiangning",
+    "sectId": null,
+    "value": 135,
+    "equipBonus": {
+      "agility": 6,
+      "maxMp": 30
+    },
+    "specialTag": "太学士子",
+    "description": "北宋文人常着方头黑布靴。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-020",
+    "name": "僧侣芒鞋",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "草鞋",
+    "origin": "嵩山少林寺",
+    "regionId": "shaolin",
+    "sectId": "SECT-01",
+    "value": 120,
+    "equipBonus": {
+      "agility": 6,
+      "maxStamina": 12
+    },
+    "specialTag": "苦行行脚",
+    "description": "韧麻编织的僧侣芒鞋。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-021",
+    "name": "道士云头布履",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "道履",
+    "origin": "泰山",
+    "regionId": "taishan",
+    "sectId": "SECT-06",
+    "value": 95,
+    "equipBonus": {
+      "agility": 5,
+      "maxMp": 25
+    },
+    "specialTag": "道观常履",
+    "description": "云头纹布鞋。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-022",
+    "name": "塞北羊皮靴",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "战靴",
+    "origin": "延安府",
+    "regionId": "yanan",
+    "sectId": null,
+    "value": 100,
+    "equipBonus": {
+      "agility": 5,
+      "defense": 6
+    },
+    "specialTag": "边塞御寒",
+    "description": "内衬羊毛的皮靴。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-023",
+    "name": "江南油布雨屐",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "轻履",
+    "origin": "杭州府",
+    "regionId": "hangzhou",
+    "sectId": null,
+    "value": 85,
+    "equipBonus": {
+      "agility": 4,
+      "res": 4
+    },
+    "specialTag": "烟雨防滑",
+    "description": "木齿油布雨鞋。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-024",
+    "name": "蜀道麻筋草鞋",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "草鞋",
+    "origin": "成都府",
+    "regionId": "chengdu",
+    "sectId": null,
+    "value": 75,
+    "equipBonus": {
+      "agility": 5,
+      "maxStamina": 8
+    },
+    "specialTag": "巴蜀栈道",
+    "description": "抓地力极强的麻筋草鞋。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-025",
+    "name": "市井粗布鞋",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "轻履",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 40,
+    "equipBonus": {
+      "agility": 3
+    },
+    "specialTag": "平民常履",
+    "description": "最普通的粗布鞋。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-026",
+    "name": "山民蒲草鞋",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "草鞋",
+    "origin": "潭州府",
+    "regionId": "tanzhou",
+    "sectId": null,
+    "value": 30,
+    "equipBonus": {
+      "agility": 3,
+      "maxStamina": 5
+    },
+    "specialTag": "乡野编织",
+    "description": "蒲草编织的简易草鞋。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-027",
+    "name": "渔家光脚草履",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "草鞋",
+    "origin": "广州府",
+    "regionId": "guangzhou",
+    "sectId": null,
+    "value": 28,
+    "equipBonus": {
+      "agility": 2,
+      "maxStamina": 5
+    },
+    "specialTag": "南海渔村",
+    "description": "涉水耐泡的草履。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOT-028",
+    "name": "旧补丁布靴",
+    "slot": "shoes",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "战靴",
+    "origin": "大名府",
+    "regionId": "daming",
+    "sectId": null,
+    "value": 35,
+    "equipBonus": {
+      "agility": 2,
+      "defense": 3
+    },
+    "specialTag": "勉强蔽体",
+    "description": "打着补丁的旧布靴。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-001",
+    "name": "皇祐神臂御赐弩",
+    "slot": "bow",
+    "tier": "天阶",
+    "grade": "上品",
+    "subType": "神臂弩",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 2500,
+    "equipBonus": {
+      "attack": 195,
+      "agility": 14,
+      "res": 12
+    },
+    "specialTag": "百步穿杨",
+    "description": "大宋军器监秘制神臂弓弩原型，脚踏张弦，三百步外洞穿重甲。",
+    "prerequisitesText": "`根骨≥78`、`算术≥75`",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 78
+      },
+      {
+        "stat": "算术",
+        "min": 75
+      }
+    ]
+  },
+  {
+    "id": "BOW-002",
+    "name": "成吉思前世雕弓（天狼）",
+    "slot": "bow",
+    "tier": "天阶",
+    "grade": "中品",
+    "subType": "角弓",
+    "origin": "临潢府",
+    "regionId": "linhuang_liao",
+    "sectId": null,
+    "value": 2050,
+    "equipBonus": {
+      "attack": 182,
+      "agility": 16,
+      "riding": 14
+    },
+    "specialTag": "弯弓射雕",
+    "description": "塞北千年野牛角混紫檀木合制，满月如轮，骑射威震漠北。",
+    "prerequisitesText": "`根骨≥80`、`骑术≥70`",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 80
+      },
+      {
+        "stat": "骑术",
+        "min": 70
+      }
+    ]
+  },
+  {
+    "id": "BOW-003",
+    "name": "唐门追魂连珠机括弓",
+    "slot": "bow",
+    "tier": "天阶",
+    "grade": "下品",
+    "subType": "神臂弩",
+    "origin": "青城山 / 唐家堡",
+    "regionId": "qingcheng",
+    "sectId": "SECT-13",
+    "value": 1820,
+    "equipBonus": {
+      "attack": 168,
+      "agility": 20,
+      "res": 14
+    },
+    "specialTag": "三矢连发",
+    "description": "蜀中唐门精钢机簧连弩，瞬发三箭，封锁周身死角。",
+    "prerequisitesText": "`悟性≥78`、`算术≥80`",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 78
+      },
+      {
+        "stat": "算术",
+        "min": 80
+      }
+    ]
+  },
+  {
+    "id": "BOW-004",
+    "name": "西夏黑水重角弓",
+    "slot": "bow",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "角弓",
+    "origin": "兴庆府",
+    "regionId": "xingqing_xixia",
+    "sectId": null,
+    "value": 1180,
+    "equipBonus": {
+      "attack": 135,
+      "maxHp": 120
+    },
+    "specialTag": "破甲重矢",
+    "description": "西夏精锐骑兵所用强弓，拉满需三石之力，箭矢重若铁枪。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-005",
+    "name": "天波穿云射日弓",
+    "slot": "bow",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "长弓",
+    "origin": "太原府",
+    "regionId": "taiyuan",
+    "sectId": null,
+    "value": 1160,
+    "equipBonus": {
+      "attack": 130,
+      "agility": 12,
+      "riding": 8
+    },
+    "specialTag": "河东神射",
+    "description": "杨家将守卫雁门关所用精铁胎长弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-006",
+    "name": "大理点苍竹节弓",
+    "slot": "bow",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "长弓",
+    "origin": "阳苴咩城（大理）",
+    "regionId": "dali_city",
+    "sectId": "ORG-08",
+    "value": 950,
+    "equipBonus": {
+      "attack": 118,
+      "agility": 14
+    },
+    "specialTag": "滇南灵巧",
+    "description": "取苍山百年老竹合牛筋制弓，轻巧连射极快。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-007",
+    "name": "青唐吐蕃金丝角弓",
+    "slot": "bow",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "角弓",
+    "origin": "逻些（拉萨）",
+    "regionId": "luoxie_tubo",
+    "sectId": null,
+    "value": 940,
+    "equipBonus": {
+      "attack": 120,
+      "res": 10
+    },
+    "specialTag": "高原强弓",
+    "description": "吐蕃大将佩弓，弓背缠金丝防潮防裂。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-008",
+    "name": "太行绿林响箭长弓",
+    "slot": "bow",
+    "tier": "地阶",
+    "grade": "下品",
+    "subType": "长弓",
+    "origin": "太行山绿林总寨",
+    "regionId": "taihang",
+    "sectId": "SECT-18",
+    "value": 840,
+    "equipBonus": {
+      "attack": 110,
+      "agility": 10
+    },
+    "specialTag": "穿云响箭",
+    "description": "附带响镝的绿林强弓，百步外声震山谷。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-009",
+    "name": "大宋边军克敌弓",
+    "slot": "bow",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "长弓",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 500,
+    "equipBonus": {
+      "attack": 82,
+      "defense": 10
+    },
+    "specialTag": "宋军制式",
+    "description": "北宋边防步兵主力长弓，射程远且耐用。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-010",
+    "name": "河西桦木角弓",
+    "slot": "bow",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "角弓",
+    "origin": "延安府",
+    "regionId": "yanan",
+    "sectId": null,
+    "value": 490,
+    "equipBonus": {
+      "attack": 80,
+      "riding": 5
+    },
+    "specialTag": "马背轻弓",
+    "description": "河西走廊骑兵常备短角弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-011",
+    "name": "蜀中精铁手弩",
+    "slot": "bow",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "神臂弩",
+    "origin": "成都府",
+    "regionId": "chengdu",
+    "sectId": null,
+    "value": 510,
+    "equipBonus": {
+      "attack": 78,
+      "agility": 8
+    },
+    "specialTag": "袖箭强弩",
+    "description": "可单手激发的蜀中精工手弩。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-012",
+    "name": "辽东女真猎虎弓",
+    "slot": "bow",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "角弓",
+    "origin": "辽阳府",
+    "regionId": "liaoyang_liao",
+    "sectId": "SECT-20",
+    "value": 410,
+    "equipBonus": {
+      "attack": 72,
+      "maxHp": 60
+    },
+    "specialTag": "白山黑水",
+    "description": "女真猎手射虎强弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-013",
+    "name": "河北大名硬木弓",
+    "slot": "bow",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "长弓",
+    "origin": "大名府",
+    "regionId": "daming",
+    "sectId": null,
+    "value": 390,
+    "equipBonus": {
+      "attack": 70
+    },
+    "specialTag": "河北防线",
+    "description": "河北路乡勇校场标准硬弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-014",
+    "name": "五溪苗疆毒竹弩",
+    "slot": "bow",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "神臂弩",
+    "origin": "潭州府",
+    "regionId": "tanzhou",
+    "sectId": null,
+    "value": 420,
+    "equipBonus": {
+      "attack": 68,
+      "res": 8
+    },
+    "specialTag": "山林伏击",
+    "description": "竹筒机括小弩，箭镞常涂草药。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-015",
+    "name": "关中沙苑骑射弓",
+    "slot": "bow",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "角弓",
+    "origin": "京兆府",
+    "regionId": "changan",
+    "sectId": null,
+    "value": 350,
+    "equipBonus": {
+      "attack": 64,
+      "riding": 4
+    },
+    "specialTag": "关中马政",
+    "description": "沙苑监骑卒演武用弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-016",
+    "name": "闽海船头连弩",
+    "slot": "bow",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "神臂弩",
+    "origin": "泉州府",
+    "regionId": "quanzhou",
+    "sectId": null,
+    "value": 360,
+    "equipBonus": {
+      "attack": 65
+    },
+    "specialTag": "海防利器",
+    "description": "抗潮防锈的船用短弩。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-017",
+    "name": "山野猎户桑木弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "猎弓",
+    "origin": "泰山",
+    "regionId": "taishan",
+    "sectId": "SECT-06",
+    "value": 140,
+    "equipBonus": {
+      "attack": 42
+    },
+    "specialTag": "桑木韧弓",
+    "description": "山野猎户上等桑木猎弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-018",
+    "name": "大宋乡勇竹胎弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "长弓",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 135,
+    "equipBonus": {
+      "attack": 40
+    },
+    "specialTag": "州县民兵",
+    "description": "州府团练乡勇所用竹胎长弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-019",
+    "name": "塞北牧民短角弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "角弓",
+    "origin": "雁门关",
+    "regionId": "yanmenguan",
+    "sectId": null,
+    "value": 145,
+    "equipBonus": {
+      "attack": 43
+    },
+    "specialTag": "驱狼护羊",
+    "description": "塞北牧民防狼短弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-020",
+    "name": "川陕猎户竹弩",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "神臂弩",
+    "origin": "成都府",
+    "regionId": "chengdu",
+    "sectId": null,
+    "value": 148,
+    "equipBonus": {
+      "attack": 44
+    },
+    "specialTag": "栈道伏兽",
+    "description": "竹片制成的简易猎弩。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-021",
+    "name": "江南水乡弹弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "猎弓",
+    "origin": "杭州府",
+    "regionId": "hangzhou",
+    "sectId": null,
+    "value": 90,
+    "equipBonus": {
+      "attack": 32,
+      "agility": 3
+    },
+    "specialTag": "打鸟护园",
+    "description": "硬木制成的双股牛筋弹弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-022",
+    "name": "关洛镖局防盗短弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "猎弓",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 95,
+    "equipBonus": {
+      "attack": 34
+    },
+    "specialTag": "押镖示警",
+    "description": "体积小巧，挂于马鞍旁。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-023",
+    "name": "河东木胎弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "长弓",
+    "origin": "太原府",
+    "regionId": "taiyuan",
+    "sectId": null,
+    "value": 92,
+    "equipBonus": {
+      "attack": 33
+    },
+    "specialTag": "校场学徒",
+    "description": "新兵练习拉弓用的木胎弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-024",
+    "name": "岭南藤木猎弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "猎弓",
+    "origin": "广州府",
+    "regionId": "guangzhou",
+    "sectId": null,
+    "value": 88,
+    "equipBonus": {
+      "attack": 31
+    },
+    "specialTag": "南疆山林",
+    "description": "柔韧藤木制成的猎弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-025",
+    "name": "农家竹制小弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "猎弓",
+    "origin": "洪州府",
+    "regionId": "hongzhou",
+    "sectId": null,
+    "value": 40,
+    "equipBonus": {
+      "attack": 20
+    },
+    "specialTag": "驱雀护田",
+    "description": "竹片弯曲而成的简易小弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-026",
+    "name": "旧牛筋木弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "猎弓",
+    "origin": "大名府",
+    "regionId": "daming",
+    "sectId": null,
+    "value": 42,
+    "equipBonus": {
+      "attack": 21
+    },
+    "specialTag": "市井旧货",
+    "description": "弓弦略松的旧木弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-027",
+    "name": "乡野竹弹弓",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "猎弓",
+    "origin": "潭州府",
+    "regionId": "tanzhou",
+    "sectId": null,
+    "value": 30,
+    "equipBonus": {
+      "attack": 16,
+      "agility": 2
+    },
+    "specialTag": "顽童嬉戏",
+    "description": "寻常竹杈弹弓。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "BOW-028",
+    "name": "粗糙木弩",
+    "slot": "bow",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "神臂弩",
+    "origin": "延安府",
+    "regionId": "yanan",
+    "sectId": null,
+    "value": 45,
+    "equipBonus": {
+      "attack": 22
+    },
+    "specialTag": "边民自制",
+    "description": "木质机括简易弩。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-001",
+    "name": "和氏双龙暖玉佩",
+    "slot": "accessory",
+    "tier": "天阶",
+    "grade": "上品",
+    "subType": "玉佩",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 2600,
+    "equipBonus": {
+      "maxMp": 360,
+      "maxHp": 280,
+      "skills": {
+        "颜值": 12
+      }
+    },
+    "specialTag": "温润养脉",
+    "description": "宫廷秘藏上古羊脂暖玉雕双龙，佩之真气生生不息。",
+    "prerequisitesText": "`悟性≥80`、`颜值≥75`",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 80
+      },
+      {
+        "stat": "颜值",
+        "min": 75
+      }
+    ]
+  },
+  {
+    "id": "ACC-002",
+    "name": "大辽镇国黄金虎符",
+    "slot": "accessory",
+    "tier": "天阶",
+    "grade": "上品",
+    "subType": "信物",
+    "origin": "临潢府",
+    "regionId": "linhuang_liao",
+    "sectId": null,
+    "value": 2550,
+    "equipBonus": {
+      "attack": 65,
+      "defense": 55,
+      "riding": 18
+    },
+    "specialTag": "号令诸部",
+    "description": "大辽北院大王秘藏虎符，杀气凛然，大幅提振实战攻防。",
+    "prerequisitesText": "`根骨≥80`、`气血≥2600`",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 80
+      },
+      {
+        "stat": "气血",
+        "min": 2600
+      }
+    ]
+  },
+  {
+    "id": "ACC-003",
+    "name": "神木王鼎辟毒珠",
+    "slot": "accessory",
+    "tier": "天阶",
+    "grade": "中品",
+    "subType": "辟毒囊",
+    "origin": "延安府",
+    "regionId": "yanan",
+    "sectId": null,
+    "value": 2100,
+    "equipBonus": {
+      "res": 38,
+      "maxMp": 240
+    },
+    "specialTag": "百毒不侵",
+    "description": "西域秘宝凝炼之辟毒玄珠，可化解天下九成奇毒。",
+    "prerequisitesText": "`抗性≥75`",
+    "statRequirements": [
+      {
+        "stat": "抗性",
+        "min": 75
+      }
+    ]
+  },
+  {
+    "id": "ACC-004",
+    "name": "少林舍利伽蓝念珠",
+    "slot": "accessory",
+    "tier": "天阶",
+    "grade": "中品",
+    "subType": "佛珠",
+    "origin": "嵩山少林寺",
+    "regionId": "shaolin",
+    "sectId": "SECT-01",
+    "value": 2050,
+    "equipBonus": {
+      "maxMp": 320,
+      "res": 28,
+      "skills": {
+        "经义": 14
+      }
+    },
+    "specialTag": "梵音清心",
+    "description": "百八颗千年菩提子穿就，隐隐生出禅定护体灵光。",
+    "prerequisitesText": "`经义≥78`、`内力≥2200`",
+    "statRequirements": [
+      {
+        "stat": "经义",
+        "min": 78
+      },
+      {
+        "stat": "内力",
+        "min": 2200
+      }
+    ]
+  },
+  {
+    "id": "ACC-005",
+    "name": "天山七宝护心玄镜",
+    "slot": "accessory",
+    "tier": "天阶",
+    "grade": "下品",
+    "subType": "护心镜",
+    "origin": "昆仑山（万山之祖）",
+    "regionId": "kunlun",
+    "sectId": null,
+    "value": 1850,
+    "equipBonus": {
+      "defense": 88,
+      "maxHp": 300,
+      "res": 20
+    },
+    "specialTag": "玄铁护心",
+    "description": "天山寒铁混七宝熔铸，绝世重击亦难透心脉。",
+    "prerequisitesText": "`根骨≥76`、`气血≥2200`",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 76
+      },
+      {
+        "stat": "气血",
+        "min": 2200
+      }
+    ]
+  },
+  {
+    "id": "ACC-006",
+    "name": "逍遥青玉七弦扳指",
+    "slot": "accessory",
+    "tier": "天阶",
+    "grade": "下品",
+    "subType": "玉佩",
+    "origin": "无量山 / 剑湖秘境",
+    "regionId": "wuliangshan",
+    "sectId": null,
+    "value": 1800,
+    "equipBonus": {
+      "attack": 55,
+      "maxMp": 280,
+      "skills": {
+        "琴": 14
+      }
+    },
+    "specialTag": "指力通玄",
+    "description": "逍遥派掌门信物，增幅指法音功与内力流转。",
+    "prerequisitesText": "`悟性≥78`、`琴≥75`",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 78
+      },
+      {
+        "stat": "琴",
+        "min": 75
+      }
+    ]
+  },
+  {
+    "id": "ACC-007",
+    "name": "丐帮翡翠打狗令",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "信物",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 1220,
+    "equipBonus": {
+      "attack": 38,
+      "defense": 32,
+      "skills": {
+        "辩才": 10
+      }
+    },
+    "specialTag": "天下丐帮",
+    "description": "丐帮长老信物，行走江湖威望大增。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-008",
+    "name": "姑苏慕容家传玉玺印",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "玉佩",
+    "origin": "苏州府",
+    "regionId": "suzhou",
+    "sectId": null,
+    "value": 1250,
+    "equipBonus": {
+      "maxMp": 220,
+      "agility": 14,
+      "skills": {
+        "颜值": 8
+      }
+    },
+    "specialTag": "燕子坞珍藏",
+    "description": "前朝古玉所刻，灵气逼人。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-009",
+    "name": "天波府忠烈金牌",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "上品",
+    "subType": "信物",
+    "origin": "太原府",
+    "regionId": "taiyuan",
+    "sectId": null,
+    "value": 1180,
+    "equipBonus": {
+      "maxHp": 240,
+      "defense": 42,
+      "riding": 8
+    },
+    "specialTag": "杨家忠魂",
+    "description": "御赐忠烈金牌，佩戴者临阵气血翻涌不衰。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-010",
+    "name": "峨眉普贤金莲佩",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "玉佩",
+    "origin": "峨眉山",
+    "regionId": "emeishan",
+    "sectId": "SECT-07",
+    "value": 980,
+    "equipBonus": {
+      "maxMp": 190,
+      "res": 16
+    },
+    "specialTag": "佛光普照",
+    "description": "金顶秘制莲花佩，清心寡欲。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-011",
+    "name": "唐门百草辟毒香囊",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "辟毒囊",
+    "origin": "青城山 / 唐家堡",
+    "regionId": "qingcheng",
+    "sectId": "SECT-13",
+    "value": 960,
+    "equipBonus": {
+      "res": 24,
+      "agility": 10
+    },
+    "specialTag": "以毒攻毒",
+    "description": "蜀中唐门秘药香囊，防暗箭奇毒。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-012",
+    "name": "武当真武八卦铜镜",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "护心镜",
+    "origin": "武当山",
+    "regionId": "wudangshan",
+    "sectId": "SECT-08",
+    "value": 950,
+    "equipBonus": {
+      "defense": 48,
+      "maxMp": 160
+    },
+    "specialTag": "太极八卦",
+    "description": "道门护心铜镜，可偏转外力。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-013",
+    "name": "大理段氏紫金鱼袋",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "信物",
+    "origin": "阳苴咩城（大理）",
+    "regionId": "dali_city",
+    "sectId": "ORG-08",
+    "value": 1000,
+    "equipBonus": {
+      "maxMp": 180,
+      "skills": {
+        "颜值": 10,
+        "辩才": 6
+      }
+    },
+    "specialTag": "天南重臣",
+    "description": "大理皇室赏赐紫金鱼袋。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-014",
+    "name": "西夏一品堂玄铁令",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "下品",
+    "subType": "信物",
+    "origin": "兴庆府",
+    "regionId": "xingqing_xixia",
+    "sectId": null,
+    "value": 850,
+    "equipBonus": {
+      "attack": 32,
+      "res": 14
+    },
+    "specialTag": "西夏密令",
+    "description": "一品堂高手通行令牌。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-015",
+    "name": "五台山文殊慧珠",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "下品",
+    "subType": "佛珠",
+    "origin": "五台山清凉寺",
+    "regionId": "wutaishan",
+    "sectId": "SECT-03",
+    "value": 840,
+    "equipBonus": {
+      "maxMp": 150,
+      "skills": {
+        "经义": 10
+      }
+    },
+    "specialTag": "清凉圣境",
+    "description": "五台山高僧开光佛珠。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-016",
+    "name": "华山紫霞玉佩",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "下品",
+    "subType": "玉佩",
+    "origin": "华山",
+    "regionId": "tongguan",
+    "sectId": "SECT-05",
+    "value": 830,
+    "equipBonus": {
+      "attack": 28,
+      "agility": 12
+    },
+    "specialTag": "剑气凝神",
+    "description": "华山名宿佩玉，助剑意集中。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-017",
+    "name": "开封府包公青天玉佩",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "玉佩",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 520,
+    "equipBonus": {
+      "res": 12,
+      "skills": {
+        "辩才": 8
+      }
+    },
+    "specialTag": "铁面无私",
+    "description": "正气凛然之青玉佩。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-018",
+    "name": "六扇门精铜捕快腰牌",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "信物",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 480,
+    "equipBonus": {
+      "attack": 20,
+      "agility": 8
+    },
+    "specialTag": "皇祐捕头",
+    "description": "官府公干通行腰牌。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-019",
+    "name": "大相国寺檀香佛珠",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "佛珠",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 490,
+    "equipBonus": {
+      "maxMp": 110,
+      "skills": {
+        "经义": 6
+      }
+    },
+    "specialTag": "东京名刹",
+    "description": "老山檀香所制，静气凝神。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-020",
+    "name": "汴京精钢护心镜",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "护心镜",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 510,
+    "equipBonus": {
+      "defense": 32,
+      "maxHp": 100
+    },
+    "specialTag": "作坊精造",
+    "description": "贴身系于胸前，专防暗箭。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-021",
+    "name": "扬州二十四桥白玉簪",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "上品",
+    "subType": "玉佩",
+    "origin": "扬州府",
+    "regionId": "yangzhou",
+    "sectId": null,
+    "value": 500,
+    "equipBonus": {
+      "skills": {
+        "颜值": 8,
+        "诗词": 6
+      }
+    },
+    "specialTag": "风雅扬州",
+    "description": "名士文人雅聚常佩白玉簪。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-022",
+    "name": "成都百草堂雄黄香囊",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "辟毒囊",
+    "origin": "成都府",
+    "regionId": "chengdu",
+    "sectId": null,
+    "value": 410,
+    "equipBonus": {
+      "res": 14
+    },
+    "specialTag": "驱蛇辟瘴",
+    "description": "药王门秘制草药囊。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-023",
+    "name": "河东精铁护腕环",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "护心镜",
+    "origin": "太原府",
+    "regionId": "taiyuan",
+    "sectId": null,
+    "value": 390,
+    "equipBonus": {
+      "defense": 24,
+      "attack": 12
+    },
+    "specialTag": "边军铁器",
+    "description": "护腕防砍。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-024",
+    "name": "终南青玉道冠佩",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "玉佩",
+    "origin": "终南山",
+    "regionId": "zhongnanshan",
+    "sectId": "SECT-11",
+    "value": 400,
+    "equipBonus": {
+      "maxMp": 90,
+      "res": 6
+    },
+    "specialTag": "道骨仙风",
+    "description": "全真道士常佩青玉。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-025",
+    "name": "洛阳牡丹琉璃佩",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "玉佩",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 420,
+    "equipBonus": {
+      "maxMp": 80,
+      "skills": {
+        "颜值": 6
+      }
+    },
+    "specialTag": "洛阳花会",
+    "description": "琉璃精雕牡丹，艳丽雅致。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-026",
+    "name": "镇远镖局铁镖令",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "中品",
+    "subType": "信物",
+    "origin": "泉州府",
+    "regionId": "quanzhou",
+    "sectId": null,
+    "value": 380,
+    "equipBonus": {
+      "attack": 16,
+      "maxHp": 80
+    },
+    "specialTag": "江湖行镖",
+    "description": "各路绿林给三分薄面。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-027",
+    "name": "五溪苗疆银项圈",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "护心镜",
+    "origin": "潭州府",
+    "regionId": "tanzhou",
+    "sectId": null,
+    "value": 350,
+    "equipBonus": {
+      "defense": 18,
+      "res": 10
+    },
+    "specialTag": "苗银护颈",
+    "description": "纯银锻打，防毒虫兼护体。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-028",
+    "name": "吐蕃红珊瑚念珠",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "佛珠",
+    "origin": "逻些（拉萨）",
+    "regionId": "luoxie_tubo",
+    "sectId": null,
+    "value": 360,
+    "equipBonus": {
+      "maxMp": 80,
+      "maxHp": 70
+    },
+    "specialTag": "雪域红宝",
+    "description": "高原红珊瑚穿成。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-029",
+    "name": "杭州西湖莲花香囊",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "辟毒囊",
+    "origin": "杭州府",
+    "regionId": "hangzhou",
+    "sectId": null,
+    "value": 330,
+    "equipBonus": {
+      "res": 8,
+      "skills": {
+        "颜值": 4
+      }
+    },
+    "specialTag": "荷风清香",
+    "description": "干荷瓣配香料缝制。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-030",
+    "name": "江宁秦淮折扇坠",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "玉佩",
+    "origin": "江宁府",
+    "regionId": "jiangning",
+    "sectId": null,
+    "value": 340,
+    "equipBonus": {
+      "agility": 6,
+      "skills": {
+        "诗词": 4
+      }
+    },
+    "specialTag": "秦淮风月",
+    "description": "系于折扇末端的玉坠。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-031",
+    "name": "沧州武馆铜护心",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "护心镜",
+    "origin": "大名府",
+    "regionId": "daming",
+    "sectId": null,
+    "value": 320,
+    "equipBonus": {
+      "defense": 20,
+      "maxHp": 60
+    },
+    "specialTag": "演武护具",
+    "description": "比武切磋防内伤。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-032",
+    "name": "泉州波斯琉璃珠",
+    "slot": "accessory",
+    "tier": "良阶",
+    "grade": "下品",
+    "subType": "玉佩",
+    "origin": "泉州府",
+    "regionId": "quanzhou",
+    "sectId": null,
+    "value": 350,
+    "equipBonus": {
+      "skills": {
+        "颜值": 5,
+        "算术": 4
+      }
+    },
+    "specialTag": "刺桐海商",
+    "description": "西洋流入的七彩琉璃珠。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-033",
+    "name": "汴京青玉平安扣",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "玉佩",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 150,
+    "equipBonus": {
+      "maxHp": 55,
+      "defense": 10
+    },
+    "specialTag": "市井祈福",
+    "description": "开封玉器铺常见平安扣。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-034",
+    "name": "少林黄杨木佛珠",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "佛珠",
+    "origin": "嵩山少林寺",
+    "regionId": "shaolin",
+    "sectId": "SECT-01",
+    "value": 140,
+    "equipBonus": {
+      "maxMp": 45,
+      "skills": {
+        "经义": 3
+      }
+    },
+    "specialTag": "清修念珠",
+    "description": "黄杨木打磨，久盘生光。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-035",
+    "name": "白马寺艾草香囊",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "辟毒囊",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 130,
+    "equipBonus": {
+      "res": 7
+    },
+    "specialTag": "端午驱邪",
+    "description": "艾叶雄黄缝制。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-036",
+    "name": "游侠熟铁护心片",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "护心镜",
+    "origin": "太原府",
+    "regionId": "taiyuan",
+    "sectId": null,
+    "value": 155,
+    "equipBonus": {
+      "defense": 12,
+      "maxHp": 40
+    },
+    "specialTag": "走南闯北",
+    "description": "简易铁片护心镜。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-037",
+    "name": "州学铜印坠",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "信物",
+    "origin": "江宁府",
+    "regionId": "jiangning",
+    "sectId": null,
+    "value": 135,
+    "equipBonus": {
+      "maxMp": 40,
+      "skills": {
+        "诗词": 2
+      }
+    },
+    "specialTag": "文人雅意",
+    "description": "书生书囊挂坠。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-038",
+    "name": "塞北狼牙坠",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "信物",
+    "origin": "雁门关",
+    "regionId": "yanmenguan",
+    "sectId": null,
+    "value": 145,
+    "equipBonus": {
+      "attack": 10,
+      "maxHp": 35
+    },
+    "specialTag": "勇士象征",
+    "description": "塞北汉子佩带的野狼牙。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-039",
+    "name": "大理银雕手镯",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "护心镜",
+    "origin": "阳苴咩城（大理）",
+    "regionId": "dali_city",
+    "sectId": "ORG-08",
+    "value": 148,
+    "equipBonus": {
+      "defense": 10,
+      "skills": {
+        "颜值": 3
+      }
+    },
+    "specialTag": "滇南银匠",
+    "description": "花纹细密的银手镯。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-040",
+    "name": "蜀中竹雕折扇骨",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "上品",
+    "subType": "玉佩",
+    "origin": "成都府",
+    "regionId": "chengdu",
+    "sectId": null,
+    "value": 138,
+    "equipBonus": {
+      "agility": 4,
+      "skills": {
+        "画": 2
+      }
+    },
+    "specialTag": "巴蜀风雅",
+    "description": "轻巧竹扇骨。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-041",
+    "name": "市井红绳铜钱串",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "信物",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 90,
+    "equipBonus": {
+      "maxHp": 35,
+      "skills": {
+        "算术": 2
+      }
+    },
+    "specialTag": "招财进宝",
+    "description": "五帝铜钱红绳串。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-042",
+    "name": "道观桃木辟邪符",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "辟毒囊",
+    "origin": "泰山",
+    "regionId": "taishan",
+    "sectId": "SECT-06",
+    "value": 88,
+    "equipBonus": {
+      "res": 5,
+      "maxMp": 25
+    },
+    "specialTag": "镇宅护身",
+    "description": "雷击桃木刻符。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-043",
+    "name": "粗皮护腕",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "护心镜",
+    "origin": "大名府",
+    "regionId": "daming",
+    "sectId": null,
+    "value": 92,
+    "equipBonus": {
+      "defense": 8,
+      "attack": 5
+    },
+    "specialTag": "武馆学徒",
+    "description": "牛皮护腕。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-044",
+    "name": "江南桂花香包",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "辟毒囊",
+    "origin": "杭州府",
+    "regionId": "hangzhou",
+    "sectId": null,
+    "value": 85,
+    "equipBonus": {
+      "res": 4,
+      "skills": {
+        "颜值": 2
+      }
+    },
+    "specialTag": "西湖秋香",
+    "description": "干桂花缝制的小香包。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-045",
+    "name": "辽东野猪獠牙",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "信物",
+    "origin": "辽阳府",
+    "regionId": "liaoyang_liao",
+    "sectId": "SECT-20",
+    "value": 95,
+    "equipBonus": {
+      "attack": 8
+    },
+    "specialTag": "猎户战利品",
+    "description": "粗犷野猪獠牙坠。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-046",
+    "name": "青城松果挂坠",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "玉佩",
+    "origin": "青城山 / 唐家堡",
+    "regionId": "qingcheng",
+    "sectId": "SECT-13",
+    "value": 80,
+    "equipBonus": {
+      "maxMp": 30
+    },
+    "specialTag": "山林野趣",
+    "description": "道童自制松果挂件。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-047",
+    "name": "广州贝壳串",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "玉佩",
+    "origin": "广州府",
+    "regionId": "guangzhou",
+    "sectId": null,
+    "value": 82,
+    "equipBonus": {
+      "agility": 2,
+      "skills": {
+        "颜值": 3
+      }
+    },
+    "specialTag": "南海拾贝",
+    "description": "海边五彩贝壳串。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-048",
+    "name": "西夏牛角小号",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "中品",
+    "subType": "信物",
+    "origin": "兴庆府",
+    "regionId": "xingqing_xixia",
+    "sectId": null,
+    "value": 96,
+    "equipBonus": {
+      "maxHp": 30,
+      "riding": 2
+    },
+    "specialTag": "牧民联络",
+    "description": "吹奏联络的牛角小号。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-049",
+    "name": "粗麻平安绳",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "信物",
+    "origin": "开封府",
+    "regionId": "bianliang",
+    "sectId": "SECT-17",
+    "value": 35,
+    "equipBonus": {
+      "maxHp": 20
+    },
+    "specialTag": "慈母手中线",
+    "description": "最朴素的红麻绳。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-050",
+    "name": "木制小佛牌",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "佛珠",
+    "origin": "泉州府",
+    "regionId": "quanzhou",
+    "sectId": null,
+    "value": 38,
+    "equipBonus": {
+      "maxMp": 20
+    },
+    "specialTag": "普通护身",
+    "description": "木雕小佛像。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-051",
+    "name": "干艾叶草包",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "辟毒囊",
+    "origin": "潭州府",
+    "regionId": "tanzhou",
+    "sectId": null,
+    "value": 30,
+    "equipBonus": {
+      "res": 3
+    },
+    "specialTag": "防蚊驱虫",
+    "description": "乡野简易草包。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-052",
+    "name": "旧铜钱挂坠",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "信物",
+    "origin": "洛阳府",
+    "regionId": "luoyang",
+    "sectId": null,
+    "value": 32,
+    "equipBonus": {
+      "defense": 4
+    },
+    "specialTag": "一枚古钱",
+    "description": "串在腰间的开元通宝。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-053",
+    "name": "竹片护臂",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "护心镜",
+    "origin": "成都府",
+    "regionId": "chengdu",
+    "sectId": null,
+    "value": 36,
+    "equipBonus": {
+      "defense": 5
+    },
+    "specialTag": "简易护具",
+    "description": "竹片绑缚的护臂。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-054",
+    "name": "野山核桃手串",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "佛珠",
+    "origin": "太行山绿林总寨",
+    "regionId": "taihang",
+    "sectId": "SECT-18",
+    "value": 40,
+    "equipBonus": {
+      "maxHp": 18,
+      "agility": 1
+    },
+    "specialTag": "盘玩解闷",
+    "description": "山核桃穿成的手串。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-055",
+    "name": "粗陶小挂瓶",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "玉佩",
+    "origin": "洪州府",
+    "regionId": "hongzhou",
+    "sectId": null,
+    "value": 34,
+    "equipBonus": {
+      "maxMp": 15
+    },
+    "specialTag": "窑口次品",
+    "description": "陶土烧制的小挂瓶。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "ACC-056",
+    "name": "布条绑额",
+    "slot": "accessory",
+    "tier": "凡阶",
+    "grade": "下品",
+    "subType": "护心镜",
+    "origin": "大名府",
+    "regionId": "daming",
+    "sectId": null,
+    "value": 28,
+    "equipBonus": {
+      "maxHp": 15,
+      "agility": 1
+    },
+    "specialTag": "汗巾",
+    "description": "练武吸汗的粗布抹额。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  }
+]

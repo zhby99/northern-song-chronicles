@@ -1,7 +1,8 @@
-import { MARTIAL_ART_DB_MAP, MOUNT_DB_MAP, MOUNTS_DB, WEAPONS_DB } from './gameDb'
+import { GEAR_DB, MARTIAL_ART_DB_MAP, MOUNT_DB_MAP, MOUNTS_DB, WEAPONS_DB } from './gameDb'
 import { computeSingleArtBonus } from './playerMartialArts'
 import type {
   BagCategoryKey,
+  CompiledGearRecord,
   CompiledMountRecord,
   CompiledWeaponRecord,
   EquipmentSlotKey,
@@ -48,7 +49,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '弓 箭',
     shortLabel: '弓箭',
     seal: '射',
-    hint: '第四卷待定稿 · 猎弓角弓神臂远射',
+    hint: '强弓劲弩谱 28 种已定稿 · 猎弓角弓神臂远射',
     column: 'left',
   },
   {
@@ -56,7 +57,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '配饰壹',
     shortLabel: '配饰壹',
     seal: '佩',
-    hint: '第五卷待定稿 · 玉佩护心镜凝神护体',
+    hint: '玉佩奇珍谱 56 种已定稿 · 玉佩护心镜凝神护体',
     column: 'left',
   },
   {
@@ -64,7 +65,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '服 饰',
     shortLabel: '服饰',
     seal: '衣',
-    hint: '第二卷待定稿 · 劲装澜衫宝甲护佑气血',
+    hint: '衣甲服饰谱 56 种已定稿 · 劲装澜衫宝甲护佑气血',
     column: 'right',
   },
   {
@@ -72,7 +73,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '鞋 履',
     shortLabel: '鞋履',
     seal: '履',
-    hint: '第三卷待定稿 · 麻鞋快靴云履提振身法',
+    hint: '履靴行缠谱 28 种已定稿 · 麻鞋快靴云履提振身法',
     column: 'right',
   },
   {
@@ -80,7 +81,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '配饰贰',
     shortLabel: '配饰贰',
     seal: '饰',
-    hint: '第五卷待定稿 · 佛珠香囊信物抗性机缘',
+    hint: '玉佩奇珍谱 56 种已定稿 · 佛珠香囊信物抗性机缘',
     column: 'right',
   },
   {
@@ -1480,10 +1481,26 @@ export const MOUNT_ITEMS_DB: GameItemDef[] = MOUNTS_DB.map((m) => ({
   mountMeta: m,
 }))
 
+export const GEAR_ITEMS_DB: GameItemDef[] = GEAR_DB.map((g) => ({
+  id: g.id,
+  name: g.name,
+  category: 'misc' as const,
+  subType: g.subType,
+  rarity: g.tier === '天阶' ? '天阶' : g.tier === '地阶' ? '地阶' : g.tier === '良阶' ? '良品' : '凡品',
+  equipSlot: g.slot === 'accessory' ? 'accessory1' : g.slot,
+  stackable: false,
+  value: g.value,
+  desc: g.specialTag ? `【${g.specialTag}】${g.description}` : g.description,
+  lore: `${g.tier}${g.grade} · 产地：${g.origin}`,
+  equipBonus: g.equipBonus,
+  gearMeta: g,
+}))
+
 export const ITEMS_DB: GameItemDef[] = [
   ...NON_EQUIPMENT_ITEMS,
   ...WEAPON_ITEMS_DB,
   ...MOUNT_ITEMS_DB,
+  ...GEAR_ITEMS_DB,
 ]
 
 export const ITEM_DB_MAP: Record<string, GameItemDef> = Object.fromEntries(
@@ -1662,6 +1679,17 @@ export function checkWeaponEquipRequirements(
   details: EquipReqCheckDetail[]
 } {
   return checkStatRequirementList(weapon?.statRequirements, ctx)
+}
+
+export function checkGearEquipRequirements(
+  gear: CompiledGearRecord | undefined | null,
+  ctx: PlayerEquipCheckContext,
+): {
+  ok: boolean
+  details: EquipReqCheckDetail[]
+} {
+  if (!gear) return { ok: true, details: [] }
+  return checkStatRequirementList(gear.statRequirements, ctx)
 }
 
 export function checkMountEquipRequirements(

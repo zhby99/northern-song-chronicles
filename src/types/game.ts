@@ -634,7 +634,28 @@ export interface GameItemDef {
   useEffect?: ItemUseEffect
   weaponMeta?: CompiledWeaponRecord
   mountMeta?: CompiledMountRecord
+  gearMeta?: CompiledGearRecord
   poisonEffect?: string
+}
+
+export type GearSlotType = 'armor' | 'shoes' | 'bow' | 'accessory'
+
+export interface CompiledGearRecord {
+  id: string
+  name: string
+  slot: GearSlotType
+  tier: EquipmentTier
+  grade: string
+  subType: string
+  origin: string
+  regionId: string
+  sectId: string | null
+  value: number
+  equipBonus: EquipmentStatBonus
+  specialTag: string | null
+  description: string
+  prerequisitesText: string | null
+  statRequirements: MartialArtStatReq[]
 }
 
 export interface InventoryStack {

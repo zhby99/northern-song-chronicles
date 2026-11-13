@@ -54,6 +54,7 @@ import {
   MARTIAL_ART_SLOT_METAS,
 } from '../../data/playerMartialArts'
 import { useGameStore } from '../../store/useGameStore'
+import { GearCompendiumPanel } from './GearCompendiumPanel'
 import type {
   BagCategoryKey,
   CompendiumTabKey,
@@ -63,6 +64,7 @@ import type {
   EquipmentSlotKey,
   EquipmentTier,
   GameItemDef,
+  GearSlotType,
   LearnedArtEntry,
   MartialArtSlotKey,
   MenuTabKey,
@@ -340,6 +342,7 @@ export function SystemMenuModal() {
   const saveSlots = useGameStore((s) => s.saveSlots)
   const saveBusy = useGameStore((s) => s.saveBusy)
   const saveNotice = useGameStore((s) => s.saveNotice)
+  const [armorySubTab, setArmorySubTab] = useState<'weapons' | GearSlotType>('weapons')
 
   const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
@@ -3236,32 +3239,64 @@ export function SystemMenuModal() {
                 </div>
               )}
 
-              {/* ==================== 图鉴叁：披挂总纲（第一卷《百兵谱》100 种武器全录） ==================== */}
+              {/* ==================== 图鉴伍：披挂总纲（百兵 100 · 服饰 56 · 鞋履 28 · 弓箭 28 · 配饰 56） ==================== */}
               {activeViewKey === 'armory' && (
                 <div className="space-y-3.5 text-xs">
-                  {/* 七槽披挂总卷进度横幅 */}
-                  <div className="p-3 rounded bg-[#efe4cc] border-2 border-[#b5986e] flex flex-wrap items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="px-2 py-0.5 rounded bg-[#8f1d14] text-[#fff8eb] font-bold song-serif">
-                        皇祐披挂总典
-                      </span>
-                      <span className="song-serif font-bold text-xs sm:text-sm text-[#23180f]">
-                        第一卷《百兵谱》100 种武器已定稿（10 天阶 · 20 地阶 · 30 良阶 · 40 凡阶）
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-[11px] text-[#6b5235]">
-                        第六卷《名驹谱》28 种坐骑已独立成册
-                      </span>
+                  {/* 七槽披挂总卷进度横幅 + 五卷切换栏 */}
+                  <div className="p-3 rounded bg-[#efe4cc] border-2 border-[#b5986e] space-y-2.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="px-2 py-0.5 rounded bg-[#8f1d14] text-[#fff8eb] font-bold song-serif">
+                          皇祐披挂总典
+                        </span>
+                        <span className="song-serif font-bold text-xs sm:text-sm text-[#23180f]">
+                          七槽披挂全录（百兵 100 · 服饰 56 · 鞋履 28 · 弓箭 28 · 配饰 56 · 名驹 28）
+                        </span>
+                      </div>
                       <button
                         type="button"
                         onClick={() => setCompendiumTab('mounts')}
                         className="px-2.5 py-1 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#f5cb5c]/70 font-bold song-serif text-[11px] cursor-pointer transition"
                       >
-                        查阅【陆·坐骑图鉴 (28骑)】→
+                        前往陆·坐骑图鉴（28 骑）▸
                       </button>
                     </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {(
+                        [
+                          { key: 'weapons', label: '第一卷 · 百兵谱 (100)' },
+                          { key: 'armor', label: '第二卷 · 服饰谱 (56)' },
+                          { key: 'shoes', label: '第三卷 · 鞋履谱 (28)' },
+                          { key: 'bow', label: '第四卷 · 弓箭谱 (28)' },
+                          { key: 'accessory', label: '第五卷 · 配饰谱 (56)' },
+                        ] as const
+                      ).map((tab) => (
+                        <button
+                          key={tab.key}
+                          type="button"
+                          onClick={() => setArmorySubTab(tab.key)}
+                          className={`px-3 py-1.5 rounded font-bold song-serif text-xs border transition cursor-pointer ${
+                            armorySubTab === tab.key
+                              ? 'bg-[#8f1d14] text-amber-100 border-[#e6be68] shadow-sm'
+                              : 'bg-[#faf3e3] text-[#4a3520] border-[#cbb693] hover:bg-[#ead9b7]'
+                          }`}
+                        >
+                          {tab.label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
+
+                  {armorySubTab !== 'weapons' ? (
+                    <GearCompendiumPanel
+                      slotFilter={armorySubTab}
+                      onJumpToRegion={() => {
+                        setCompendiumTab('regions')
+                      }}
+                      onJumpToLoadout={() => setMenuTab('loadout')}
+                    />
+                  ) : (
+                    <>
 
                   {/* 检索与品阶/兵种筛选栏 */}
                   <div className="bg-[#efe4cc] p-3 rounded border border-[#c8b28e] space-y-2.5">
@@ -3624,6 +3659,8 @@ export function SystemMenuModal() {
                       })() : null}
                     </div>
                   </div>
+                    </>
+                  )}
                 </div>
               )}
 
