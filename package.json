@@ -5,11 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:db": "python3 scripts/compile_game_db.py",
-    "normalize:docs": "python3 scripts/compile_game_db.py --normalize-docs",
+    "build:db": "node scripts/run_py.mjs scripts/compile_game_db.py",
+    "normalize:docs": "node scripts/run_py.mjs scripts/compile_game_db.py --normalize-docs",
     "build": "tsc -b && vite build",
-    "build:artifact": "npm run build && python3 scripts/build_preview_artifact.py",
-    "archive:masters": "python3 scripts/archive_all_branch_assets.py",
+    "build:artifact": "npm run build && node scripts/run_py.mjs scripts/build_preview_artifact.py",
+    "archive:masters": "node scripts/run_py.mjs scripts/archive_all_branch_assets.py",
     "lint": "oxlint",
     "preview": "vite preview"
   },

@@ -17,7 +17,11 @@ import os
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
-from PIL import Image
+
+try:
+    from PIL import Image
+except ImportError:
+    Image = None  # type: ignore[assignment]
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DIST_ART_DIR = ROOT_DIR / "dist-artifact"
@@ -26,6 +30,9 @@ DEFAULT_OUT_PATH = DIST_ART_DIR / "northern_song_chronicles_m1_0.html"
 
 
 def compress_to_data_uri(img_path: Path, max_dim: int, quality: int) -> str:
+    if Image is None:
+        b64 = base64.b64encode(img_path.read_bytes()).decode("ascii")
+        return f"data:image/jpeg;base64,{b64}"
     with Image.open(img_path) as im:
         im = im.convert("RGB")
         w, h = im.size
@@ -41,7 +48,8 @@ def compress_to_data_uri(img_path: Path, max_dim: int, quality: int) -> str:
 def build_artifact_html(out_path: Path, skip_meta: bool = False) -> None:
     env = os.environ.copy()
     env["ARTIFACT_BUNDLE"] = "1"
-    subprocess.run(["npx", "vite", "build"], cwd=ROOT_DIR, env=env, check=True)
+    npx_bin = "npx.cmd" if os.name == "nt" else "npx"
+    subprocess.run([npx_bin, "vite", "build"], cwd=ROOT_DIR, env=env, check=True)
 
     css_files = sorted((DIST_ART_DIR / "assets").glob("*.css"))
     js_files = sorted((DIST_ART_DIR / "assets").glob("*.js"))
