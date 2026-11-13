@@ -4,6 +4,8 @@ import {
   Heart,
   Moon,
   Music,
+  SkipBack,
+  SkipForward,
   Sun,
   Volume2,
   VolumeX,
@@ -16,9 +18,11 @@ import type { LabelToggleKey } from '../../types/game'
 import { ASSET_MANIFEST, formatByteSize, useAssetTelemetry } from '../../utils/assetLoader'
 import {
   formatAudioTime,
-  getActiveBgmTrack,
-  getCurrentBgmChapter,
+  getActiveTrackItem,
+  playNextBgmTrack,
+  playPrevBgmTrack,
   seekBgmTo,
+  selectBgmTrackIndex,
   setBgmVolume,
   toggleBgmPlayback,
   useBgmState,
@@ -89,8 +93,7 @@ export function TopHud() {
 
   const telemetry = useAssetTelemetry()
   const bgm = useBgmState()
-  const activeTrack = getActiveBgmTrack()
-  const activeChapter = getCurrentBgmChapter(bgm.currentTime, activeTrack)
+  const activeTrackItem = getActiveTrackItem(bgm)
 
   useEffect(() => {
     const onDocClick = (e: MouseEvent) => {
@@ -285,7 +288,7 @@ export function TopHud() {
           </button>
         </div>
 
-        {/* 右区：雅乐匣(东京梦华 BGM) + 懒加载监控 + 枢机总菜单 */}
+        {/* 右区：雅乐匣(按场景/地区顺序轮播 BGM) + 懒加载监控 + 枢机总菜单 */}
         <div className="flex items-center gap-2 shrink-0">
           <div ref={bgmPopoverRef} className="relative flex items-center">
             <div className="flex items-center rounded bg-[#1a110a]/90 border border-[#c89d54]/60 overflow-hidden shadow">
@@ -294,8 +297,8 @@ export function TopHud() {
                 onClick={toggleBgmPlayback}
                 title={
                   bgm.enabled
-                    ? '点击暂停雅乐（快捷键 M）'
-                    : '点击奏响《东京梦华》背景雅乐（快捷键 M）'
+                    ? `点击暂停配乐（快捷键 M）· 当前：${bgm.playlist.sceneTitle}`
+                    : `点击开启配乐（快捷键 M）· 当前：${bgm.playlist.sceneTitle}`
                 }
                 className={`px-2 py-1.5 flex items-center gap-1.5 text-xs transition cursor-pointer ${
                   bgm.isPlaying
@@ -315,14 +318,19 @@ export function TopHud() {
                   <VolumeX className="w-3.5 h-3.5 shrink-0 text-[#9c8465]" />
                 )}
                 <span className="song-serif font-bold tracking-wide hidden md:inline">
-                  东京梦华
+                  {bgm.playlist.sceneTitle}
                 </span>
+                {bgm.playlist.tracks.length > 1 && (
+                  <span className="hidden lg:inline font-mono text-[10px] text-amber-300/85">
+                    {bgm.trackIndex + 1}/{bgm.playlist.tracks.length}
+                  </span>
+                )}
               </button>
 
               <button
                 type="button"
                 onClick={() => setBgmPopoverOpen((v) => !v)}
-                title="展开【皇祐雅乐匣】调节音量与品鉴五段乐章"
+                title="展开【皇祐雅乐匣】查看当前地域/大地图顺序歌单与音量"
                 className="px-1.5 py-1.5 border-l border-[#8c6e46]/45 text-[10px] text-[#e6d2b0] hover:bg-[#382719] transition cursor-pointer"
               >
                 ▾
@@ -336,14 +344,16 @@ export function TopHud() {
                     <div className="flex items-center gap-1.5">
                       <Music className="w-3.5 h-3.5 text-[#8f1d14]" />
                       <span className="song-serif font-bold text-sm text-[#52391e]">
-                        {activeTrack.title}
+                        {bgm.playlist.sceneTitle}
                       </span>
                       <span className="px-1.5 py-0.5 rounded bg-[#eadec6] border border-[#9e8462] text-[10px] font-mono text-[#4a3219]">
-                        {activeTrack.modeLabel}
+                        {bgm.playlist.tracks.length > 0
+                          ? `${bgm.trackIndex + 1}/${bgm.playlist.tracks.length}`
+                          : '空'}
                       </span>
                     </div>
                     <div className="text-[11px] text-[#6b5235] mt-0.5">
-                      {activeTrack.subtitle}
+                      {bgm.playlist.sceneSubtitle}
                     </div>
                   </div>
                   <button
@@ -359,47 +369,71 @@ export function TopHud() {
                   </button>
                 </div>
 
-                {/* 当前乐章进度与点选跳转 */}
+                {/* 当前曲目进度与 1, 2, 3... 顺序切歌 */}
                 <div className="bg-[#efe4cc] border border-[#c8b28e] rounded p-2 space-y-1.5">
                   <div className="flex items-center justify-between text-[11px]">
-                    <span className="song-serif font-bold text-[#781710]">
-                      {activeChapter.name}
+                    <span className="song-serif font-bold text-[#781710] truncate">
+                      {activeTrackItem ? `${activeTrackItem.label} · ${activeTrackItem.fileName}` : '暂无曲目'}
                     </span>
-                    <span className="font-mono text-[#5e472d]">
+                    <span className="font-mono text-[#5e472d] shrink-0">
                       {formatAudioTime(bgm.currentTime)} / {formatAudioTime(bgm.duration)}
                     </span>
                   </div>
-                  <div className="text-[11px] text-[#55422f]">{activeChapter.desc}</div>
-                  <input
-                    type="range"
-                    min={0}
-                    max={Math.max(1, Math.floor(bgm.duration))}
-                    step={1}
-                    value={Math.floor(bgm.currentTime)}
-                    onChange={(e) => seekBgmTo(Number(e.target.value))}
-                    className="w-full accent-[#8f1d14] cursor-pointer h-1.5"
-                  />
-                  <div className="grid grid-cols-5 gap-1 pt-0.5">
-                    {activeTrack.chapters.map((ch) => {
-                      const isCur = activeChapter.name === ch.name
-                      const shortTag = ch.name.split(' · ')[1] ?? ch.name
-                      return (
-                        <button
-                          key={ch.name}
-                          type="button"
-                          onClick={() => seekBgmTo(ch.startSec)}
-                          title={`跳转至【${ch.name}】：${ch.desc}`}
-                          className={`px-1 py-1 rounded text-[10px] song-serif border transition cursor-pointer truncate ${
-                            isCur
-                              ? 'bg-[#5c4024] text-[#fff8ee] border-[#3d2812] font-bold'
-                              : 'bg-[#faf3e3] text-[#4a3219] border-[#b8a07a] hover:bg-[#e5d6b8]'
-                          }`}
-                        >
-                          {shortTag}
-                        </button>
-                      )
-                    })}
+
+                  <div className="flex items-center gap-1.5">
+                    {bgm.playlist.tracks.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={playPrevBgmTrack}
+                        title="上一曲"
+                        className="p-1 rounded bg-[#faf3e3] hover:bg-[#e5d6b8] border border-[#b8a07a] text-[#4a3219] cursor-pointer"
+                      >
+                        <SkipBack className="w-3 h-3" />
+                      </button>
+                    )}
+                    <input
+                      type="range"
+                      min={0}
+                      max={Math.max(1, Math.floor(bgm.duration || 100))}
+                      step={1}
+                      value={Math.floor(bgm.currentTime)}
+                      onChange={(e) => seekBgmTo(Number(e.target.value))}
+                      className="flex-1 accent-[#8f1d14] cursor-pointer h-1.5"
+                    />
+                    {bgm.playlist.tracks.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={playNextBgmTrack}
+                        title="下一曲"
+                        className="p-1 rounded bg-[#faf3e3] hover:bg-[#e5d6b8] border border-[#b8a07a] text-[#4a3219] cursor-pointer"
+                      >
+                        <SkipForward className="w-3 h-3" />
+                      </button>
+                    )}
                   </div>
+
+                  {bgm.playlist.tracks.length > 0 && (
+                    <div className="flex flex-wrap gap-1 pt-0.5">
+                      {bgm.playlist.tracks.map((tr, idx) => {
+                        const isCur = idx === bgm.trackIndex
+                        return (
+                          <button
+                            key={tr.url}
+                            type="button"
+                            onClick={() => selectBgmTrackIndex(idx)}
+                            title={`播放 ${tr.label} (${tr.url})`}
+                            className={`px-2 py-1 rounded text-[10px] song-serif border transition cursor-pointer ${
+                              isCur
+                                ? 'bg-[#5c4024] text-[#fff8ee] border-[#3d2812] font-bold'
+                                : 'bg-[#faf3e3] text-[#4a3219] border-[#b8a07a] hover:bg-[#e5d6b8]'
+                            }`}
+                          >
+                            {tr.label}
+                          </button>
+                        )
+                      })}
+                    </div>
+                  )}
                 </div>
 
                 {/* 音量推子 */}
@@ -421,7 +455,7 @@ export function TopHud() {
                 </div>
 
                 <div className="text-[10px] text-[#6b5338] leading-relaxed border-t border-[#8c7353]/30 pt-1.5">
-                  {activeTrack.composerNote}（快捷键 <kbd className="font-mono">M</kbd> 一键静音/续播）
+                  自动读取对应目录 <code className="font-mono">1, 2, 3...</code> 按序循环播放；切换大地图与州府自动切歌（快捷键 <kbd className="font-mono">M</kbd> 静音）。
                 </div>
               </div>
             )}

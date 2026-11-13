@@ -51,6 +51,19 @@ async function main() {
     }
   }
 
+  function detectAudioMime(fileName, buf) {
+    // Detect MP4/M4A container header ('ftyp' at byte offset 4) even if named .mp3
+    if (buf.length >= 8 && buf.subarray(4, 8).toString('ascii') === 'ftyp') {
+      return 'audio/mp4'
+    }
+    const lower = fileName.toLowerCase()
+    if (lower.endsWith('.ogg')) return 'audio/ogg'
+    if (lower.endsWith('.m4a') || lower.endsWith('.mp4')) return 'audio/mp4'
+    if (lower.endsWith('.wav')) return 'audio/wav'
+    if (lower.endsWith('.aac')) return 'audio/aac'
+    return 'audio/mpeg'
+  }
+
   function collectAudioRecursive(dirAbs, relPrefix) {
     if (!fs.existsSync(dirAbs)) return
     const entries = fs.readdirSync(dirAbs, { withFileTypes: true }).sort((a, b) =>
@@ -61,9 +74,9 @@ async function main() {
       const relPath = `${relPrefix}/${entry.name}`
       if (entry.isDirectory()) {
         collectAudioRecursive(fullPath, relPath)
-      } else if (entry.isFile() && /\.(mp3|ogg)$/i.test(entry.name)) {
-        const mime = entry.name.toLowerCase().endsWith('.ogg') ? 'audio/ogg' : 'audio/mpeg'
+      } else if (entry.isFile() && /\.(mp3|m4a|ogg|wav|aac)$/i.test(entry.name)) {
         const buf = fs.readFileSync(fullPath)
+        const mime = detectAudioMime(entry.name, buf)
         assetPack[relPath] = `data:${mime};base64,${buf.toString('base64')}`
         assetCount += 1
       }

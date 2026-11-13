@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build:db": "node scripts/run_py.mjs scripts/compile_game_db.py",
-    "compose:bgm": "node scripts/run_py.mjs scripts/compose_dongjing_menghua_bgm.py",
     "normalize:docs": "node scripts/run_py.mjs scripts/compile_game_db.py --normalize-docs",
     "build": "tsc -b && vite build",
     "build:artifact": "node scripts/build_preview_artifact.mjs",

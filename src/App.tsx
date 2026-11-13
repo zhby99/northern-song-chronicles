@@ -8,20 +8,21 @@ import { RegionMapCanvas } from './components/map/RegionMapCanvas'
 import { WorldMapCanvas } from './components/map/WorldMapCanvas'
 import { SystemMenuModal } from './components/menu/SystemMenuModal'
 import { useGameStore } from './store/useGameStore'
-import { initBgmAutoStart, toggleBgmPlayback } from './utils/bgmManager'
+import { syncBgmSceneContext, toggleBgmPlayback } from './utils/bgmManager'
 
 export function App() {
   const viewMode = useGameStore((s) => s.viewMode)
+  const activeRegionId = useGameStore((s) => s.activeRegionId)
   const isTraveling = useGameStore((s) => s.traveling !== null)
   const menuOpen = useGameStore((s) => s.menuOpen)
   const stepTravelTick = useGameStore((s) => s.stepTravelTick)
   const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
 
-  // Initialize Northern Song BGM ("东京梦华") with browser gesture fallback
+  // Sync scene/region BGM playlist (world/1,2... vs regions/<id>/1,2...) automatically
   useEffect(() => {
-    initBgmAutoStart()
-  }, [])
+    syncBgmSceneContext(viewMode, activeRegionId)
+  }, [viewMode, activeRegionId])
 
   // Global ESC shortcut for system menu & M shortcut for BGM toggle
   useEffect(() => {

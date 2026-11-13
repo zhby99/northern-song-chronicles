@@ -1,10 +1,12 @@
 # 《北宋立志传》音频资源四分类目录 (`public/assets/audio/`)
 
-本目录存放游戏运行时按需加载的全部配乐资产（`.mp3` / `.ogg`），严格对齐 `src/data/idRegistry.json` 标准 ID，分为四大目录：
+本目录由 Vite 构建插件（`vite.config.ts` 中的 `northernSongAudioManifestPlugin`）与运行时引擎 `src/utils/bgmManager.ts` **自动扫描识别**。
 
-| 分类目录 | 用途说明 | 命名 / 子目录规范 |
+你只需将音频文件按 **`1.mp3`, `2.mp3`, `3.mp3`, `4.mp3`, `5.mp3`...** 命名放入对应目录，无需手改任何代码，游戏就会根据当前所在场景/州府，严格按数字顺序 `1 -> 2 -> 3 -> ... -> 1` 自动循环播放！
+
+| 分类目录 | 触发时机与回退规则 | 序号命名示例 |
 | :--- | :--- | :--- |
-| `world/` | **大地图背景乐**（天下舆图 / 四夷山海宏观行军配乐） | 例：`world/huayi_shanhai.mp3` |
-| `regions/<regionId>/` | **地区配乐**（38 州府、名山宗门与战略雄关专属背景乐） | 已按 38 地区标准 ID 建好子目录；如开封府（`REG-01 · bianliang`）：`regions/bianliang/dongjing_menghua.mp3` |
-| `characters/` | **人物配乐**（关键历史名臣与武林宗师登场/专属主题曲） | 推荐使用标准人物 ID 前缀，例：`characters/NPC-0001_zhaozhen.mp3` 或 `characters/qiaofeng.mp3` |
-| `events/` | **事件配乐**（奇遇、朝堂廷议、科举、8×8 战棋交锋、胜负结算等） | 例：`events/battle_skirmish.mp3`、`events/imperial_court.mp3` |
+| `world/` | **大地图背景乐**（处于天下舆图，或当前地区尚未放入专属配乐时自动回退） | `world/1.mp3`, `world/2.mp3`, `world/3.mp3`... |
+| `regions/<regionId>/` | **地区配乐**（进入 38 州府/宗门全景或城内建筑时自动切换并从 `1` 开始按序播放） | 开封府：`regions/bianliang/1.mp3`, `2.mp3`... |
+| `characters/<npcId>/` | **人物配乐**（触发关键历史名臣/大侠专属交互时高优先级切入） | `characters/NPC-0001/1.mp3` 或 `characters/qiaofeng/1.mp3` |
+| `events/<eventId>/` | **事件配乐**（触发奇遇、廷议、8×8 战棋交锋时最高优先级切入） | `events/battle/1.mp3`, `events/battle/2.mp3`... |
