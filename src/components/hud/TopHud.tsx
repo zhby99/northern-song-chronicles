@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { BUILDING_DB_MAP } from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { LabelToggleKey } from '../../types/game'
 import { ASSET_MANIFEST, formatByteSize, useAssetTelemetry } from '../../utils/assetLoader'
-import { BUILDING_PANORAMAS, NODE_MAP, REGIONAL_CONFIGS, WORLD_GRAPH } from '../../utils/mapMath'
+import { NODE_MAP, REGIONAL_CONFIGS, WORLD_GRAPH } from '../../utils/mapMath'
 
 const LABEL_MENU_ITEMS: Array<{
   key: LabelToggleKey
@@ -101,9 +102,9 @@ export function TopHud() {
 
   const regionNode = NODE_MAP[activeRegionId]
   const regionCfg = REGIONAL_CONFIGS[activeRegionId]
-  const buildingPano =
+  const activeBuilding =
     viewMode === 'building' && activeBuildingInteriorId
-      ? BUILDING_PANORAMAS[activeBuildingInteriorId]
+      ? (BUILDING_DB_MAP[activeBuildingInteriorId] ?? null)
       : null
 
   return (
@@ -267,7 +268,7 @@ export function TopHud() {
             >
               <span>←</span>
               <span>
-                {buildingPano
+                {activeBuilding
                   ? `步出建筑 · 返回【${regionNode?.name ?? '本州'}】全景`
                   : '出城 · 返回天下舆图'}
               </span>
@@ -276,18 +277,24 @@ export function TopHud() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="song-serif font-bold text-sm text-amber-300 tracking-wide">
-                  {buildingPano
-                    ? `${regionNode?.name ?? ''} > ★ ${buildingPano.name} — 建筑半3D全景图`
+                  {activeBuilding
+                    ? `${regionNode?.name ?? ''} > ★ ${activeBuilding.name} — ${
+                        activeBuilding.interior?.mode === 'image' ? '建筑半3D全景图' : '宋式营造矢量内景'
+                      }`
                     : `${regionNode?.code ? `${regionNode.code} · ` : ''}${regionNode?.name ?? ''} — 半3D全景互动舆图`}
                 </span>
                 <span className="px-2 py-0.5 rounded bg-[#4a3520] text-[#f5dfb5] text-[11px] border border-[#9e7b47]/50">
-                  {buildingPano ? '第三层级 · 建筑实景' : regionNode?.circuit}
+                  {activeBuilding
+                    ? activeBuilding.interior?.mode === 'image'
+                      ? '第三层级 · 手绘实景'
+                      : '第三层级 · 营造矢量卷'
+                    : regionNode?.circuit}
                 </span>
               </div>
               <div className="hidden 2xl:block text-[11px] text-[#dfcfb0] mt-0.5">
-                {buildingPano
-                  ? buildingPano.subtitle
-                  : `${regionCfg?.sceneSubtitle ?? ''}（滚轮缩放 · 左键拖拽平移 · 点击建筑入内）`}
+                {activeBuilding
+                  ? activeBuilding.interior?.subtitle
+                  : `${regionCfg?.sceneSubtitle ?? ''}（滚轮缩放 · 左键拖拽平移 · 点击特殊建筑入内）`}
               </div>
             </div>
           </div>

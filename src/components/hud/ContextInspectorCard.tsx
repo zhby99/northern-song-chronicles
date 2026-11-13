@@ -1,13 +1,18 @@
 import { useMemo } from 'react'
+import {
+  BUILDING_DB_MAP,
+  getCompiledNpcsByBuilding,
+  getCompiledNpcsByRegion,
+  REGION_DB_MAP,
+  resolveNpcByName,
+} from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { NodeNpc } from '../../types/game'
 import { recordAssetLoaded } from '../../utils/assetLoader'
 import {
-  BUILDING_PANORAMAS,
   findBestRoute,
   getRegionAllBuildings,
   NODE_MAP,
-  resolveCharacterByNpcName,
   WORLD_GRAPH,
 } from '../../utils/mapMath'
 
@@ -33,21 +38,80 @@ export function ContextInspectorCard() {
   const startJourney = useGameStore((s) => s.startJourney)
   const doBuildingAction = useGameStore((s) => s.doBuildingAction)
   const interactNpc = useGameStore((s) => s.interactNpc)
+  const openMenu = useGameStore((s) => s.openMenu)
 
-  const regionNpcs = useMemo<NodeNpc[]>(() => {
+  // Contextual NPCs from compiled 1,000-NPC DB + roaming masters
+  const { contextNpcs, totalNpcCount } = useMemo<{
+    contextNpcs: NodeNpc[]
+    totalNpcCount: number
+  }>(() => {
     const node = NODE_MAP[activeRegionId]
-    if (!node) return []
+    if (!node) return { contextNpcs: [], totalNpcCount: 0 }
+
+    const activeBldgId =
+      viewMode === 'building' && activeBuildingInteriorId
+        ? activeBuildingInteriorId
+        : selectedBuildingId
+
+    const dbList = activeBldgId
+      ? getCompiledNpcsByBuilding(activeBldgId)
+      : getCompiledNpcsByRegion(activeRegionId)
+
+    const fallbackRegionList = dbList.length > 0 ? dbList : getCompiledNpcsByRegion(activeRegionId)
+
+    // Handcrafted custom talk lines from worldGraph if present
+    const talkMap = new Map<string, string>()
+    for (const legacyNpc of node.npcs ?? []) {
+      const clean = legacyNpc.name.replace(/（.*?）|\(.*?\)/g, '').trim()
+      talkMap.set(clean, legacyNpc.talk)
+    }
+
     const roamingHere = roamingMasters.filter((m) => m.nodeId === node.id)
-    return [
-      ...(node.npcs ?? []),
-      ...roamingHere.map((m) => ({
+    const combined: NodeNpc[] = []
+    const seenNames = new Set<string>()
+
+    for (const m of roamingHere) {
+      const resolved = resolveNpcByName(m.name)
+      seenNames.add(m.name)
+      combined.push({
+        id: resolved?.id,
         name: m.name,
         title: `${m.sect} · 游历至此`,
         realm: m.realm,
-        talk: `“某游历至${node.name}，幸晤少侠，快哉！”`,
-      })),
-    ]
-  }, [activeRegionId, roamingMasters])
+        avatarUrl: resolved?.avatarUrl,
+        factionName: m.sect,
+        talk: `“某近日游历至${node.name}，幸晤少侠，当浮一大白！”`,
+      })
+    }
+
+    for (const c of fallbackRegionList) {
+      if (seenNames.has(c.name)) continue
+      seenNames.add(c.name)
+      const customTalk = talkMap.get(c.name)
+      combined.push({
+        id: c.id,
+        name: c.name,
+        title: `${c.factionName} · ${c.role}`,
+        realm: c.realm,
+        avatarUrl: c.avatarUrl,
+        factionName: c.factionName,
+        talk:
+          customTalk ??
+          `“在下${c.name}（${c.title}），常驻${c.locationLabel}，少侠若有暇不妨切磋论道。”`,
+      })
+    }
+
+    return {
+      contextNpcs: combined.slice(0, 6),
+      totalNpcCount: combined.length,
+    }
+  }, [
+    activeRegionId,
+    viewMode,
+    activeBuildingInteriorId,
+    selectedBuildingId,
+    roamingMasters,
+  ])
 
   // 1) World Map Node Inspector
   if (viewMode === 'world') {
@@ -72,6 +136,8 @@ export function ContextInspectorCard() {
           ? '名山秘境'
           : '战略雄关'
 
+    const regRecord = REGION_DB_MAP[node.id]
+
     return (
       <div
         id="floating-context-card"
@@ -88,7 +154,10 @@ export function ContextInspectorCard() {
                 {typeBadge}
               </span>
             </div>
-            <div className="text-[11px] text-[#6b5235] mt-0.5">{node.circuit}</div>
+            <div className="text-[11px] text-[#6b5235] mt-0.5">
+              {node.circuit}
+              {regRecord ? ` · 常驻群侠 ${regRecord.residentNpcIds.length} 人` : ''}
+            </div>
           </div>
           <button
             type="button"
@@ -163,14 +232,16 @@ export function ContextInspectorCard() {
   } | null = null
   let tierLabel = regionNode.name
 
-  if (
-    viewMode === 'building' &&
-    activeBuildingInteriorId &&
-    BUILDING_PANORAMAS[activeBuildingInteriorId]
-  ) {
-    const bPano = BUILDING_PANORAMAS[activeBuildingInteriorId]
-    tierLabel = bPano.name
-    const sp = selectedSpotId ? bPano.spots.find((s) => s.id === selectedSpotId) : null
+  const activeBldgRecord =
+    viewMode === 'building' && activeBuildingInteriorId
+      ? BUILDING_DB_MAP[activeBuildingInteriorId]
+      : null
+
+  if (activeBldgRecord && activeBldgRecord.interior) {
+    tierLabel = activeBldgRecord.name
+    const sp = selectedSpotId
+      ? activeBldgRecord.interior.spots.find((s) => s.id === selectedSpotId)
+      : null
     if (sp) {
       targetItem = {
         id: sp.id,
@@ -193,8 +264,10 @@ export function ContextInspectorCard() {
 
   if (!targetItem) return null
 
-  const activeHasSub =
-    viewMode === 'region' && targetItem.isSpecial && Boolean(BUILDING_PANORAMAS[targetItem.id])
+  const targetBuildingDb = viewMode === 'region' ? BUILDING_DB_MAP[targetItem.id] : null
+  const activeHasSub = Boolean(
+    viewMode === 'region' && targetItem.isSpecial && targetBuildingDb?.interior,
+  )
 
   return (
     <div
@@ -228,7 +301,8 @@ export function ContextInspectorCard() {
           onClick={() => enterBuildingMap(targetItem.id)}
           className="w-full px-3 py-2 rounded bg-[#8f1d14] hover:bg-[#a9251b] text-[#fff8eb] text-xs font-bold song-serif shadow transition cursor-pointer"
         >
-          进入【{targetItem.name}】半3D内景 →
+          进入【{targetItem.name}】
+          {targetBuildingDb?.interior?.mode === 'image' ? '半3D实景' : '宋式内院'} →
         </button>
       )}
 
@@ -260,73 +334,82 @@ export function ContextInspectorCard() {
         </div>
       )}
 
-      {regionNpcs.length > 0 && (
+      {contextNpcs.length > 0 && (
         <div className="pt-2 border-t border-[#cbb693] space-y-1.5">
-          <div className="text-[11px] font-bold song-serif text-[#5e472d]">
-            在此人物 ({regionNpcs.length})
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-bold song-serif text-[#5e472d]">
+              驻留人物 ({contextNpcs.length}
+              {totalNpcCount > contextNpcs.length ? ` / 共${totalNpcCount}` : ''})
+            </span>
+            {totalNpcCount > contextNpcs.length && (
+              <button
+                type="button"
+                onClick={() => openMenu('portraits')}
+                className="text-[10px] text-[#8f1d14] hover:underline font-semibold cursor-pointer"
+              >
+                全谱检索 →
+              </button>
+            )}
           </div>
           <div className="space-y-1.5">
-            {regionNpcs.map((p) => {
-              const matchedPortrait = resolveCharacterByNpcName(p.name)
-              return (
-                <div
-                  key={p.name}
-                  className="p-2 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-1.5"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-2 min-w-0">
-                      {matchedPortrait?.avatarUrl ? (
-                        <img
-                          src={matchedPortrait.avatarUrl}
-                          alt={p.name}
-                          loading="lazy"
-                          onLoad={() => {
-                            if (matchedPortrait.avatarUrl) {
-                              recordAssetLoaded(matchedPortrait.avatarUrl, 58000)
-                            }
-                          }}
-                          className="w-8 h-8 rounded object-cover border border-[#8c6e46] shrink-0 bg-[#2b1d12]"
-                        />
-                      ) : (
-                        <span className="w-8 h-8 rounded bg-[#5c4024] text-[#fff8ee] flex items-center justify-center song-serif font-bold text-xs shrink-0">
-                          {p.name.slice(0, 1)}
-                        </span>
-                      )}
-                      <div className="truncate">
-                        <div className="font-bold song-serif text-[#23180f] truncate">{p.name}</div>
-                        <div className="text-[10px] text-[#6b5235] truncate">{p.title}</div>
-                      </div>
+            {contextNpcs.map((p) => (
+              <div
+                key={p.id ?? p.name}
+                className="p-2 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-1.5"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 min-w-0">
+                    {p.avatarUrl ? (
+                      <img
+                        src={p.avatarUrl}
+                        alt={p.name}
+                        loading="lazy"
+                        onLoad={() => {
+                          if (p.avatarUrl) {
+                            recordAssetLoaded(p.avatarUrl, 58000)
+                          }
+                        }}
+                        className="w-8 h-8 rounded object-cover border border-[#8c6e46] shrink-0 bg-[#2b1d12]"
+                      />
+                    ) : (
+                      <span className="w-8 h-8 rounded bg-[#5c4024] text-[#fff8ee] flex items-center justify-center song-serif font-bold text-xs shrink-0">
+                        {p.name.slice(0, 1)}
+                      </span>
+                    )}
+                    <div className="truncate">
+                      <div className="font-bold song-serif text-[#23180f] truncate">{p.name}</div>
+                      <div className="text-[10px] text-[#6b5235] truncate">{p.title}</div>
                     </div>
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#dcc9a7] text-[#4a3219] shrink-0">
-                      {p.realm}
-                    </span>
                   </div>
-                  <div className="flex flex-wrap gap-1">
-                    <button
-                      type="button"
-                      onClick={() => interactNpc(p, 'talk')}
-                      className="px-2 py-0.5 rounded bg-[#7c4a1e] hover:bg-[#935824] text-[#fff8ee] text-[11px] cursor-pointer"
-                    >
-                      交谈
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => interactNpc(p, 'art')}
-                      className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
-                    >
-                      唱和
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => interactNpc(p, 'spar')}
-                      className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
-                    >
-                      讨教
-                    </button>
-                  </div>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#dcc9a7] text-[#4a3219] shrink-0">
+                    {p.realm}
+                  </span>
                 </div>
-              )
-            })}
+                <div className="flex flex-wrap gap-1">
+                  <button
+                    type="button"
+                    onClick={() => interactNpc(p, 'talk')}
+                    className="px-2 py-0.5 rounded bg-[#7c4a1e] hover:bg-[#935824] text-[#fff8ee] text-[11px] cursor-pointer"
+                  >
+                    交谈
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => interactNpc(p, 'art')}
+                    className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
+                  >
+                    唱和
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => interactNpc(p, 'spar')}
+                    className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
+                  >
+                    讨教
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       )}

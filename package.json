@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "build:db": "python3 scripts/compile_game_db.py",
+    "normalize:docs": "python3 scripts/compile_game_db.py --normalize-docs",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview"

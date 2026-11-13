@@ -1,0 +1,3393 @@
+{
+  "schemaVersion": "M0.3.0",
+  "counts": {
+    "regions": 38,
+    "majorSects": 20,
+    "otherOrganizations": 11,
+    "totalFactions": 31,
+    "specialBuildings": 123,
+    "specialBuildingsWithImage": 58,
+    "specialBuildingsWithSvgFallback": 65,
+    "cityBaseBuildings": 105,
+    "totalBuildings": 228,
+    "martialArts": 216,
+    "npcs": 1000,
+    "npcsWithAvatar": 51,
+    "npcsWithFullbody": 50
+  },
+  "regions": [
+    {
+      "id": "bianliang",
+      "standardCode": "REG-01",
+      "numericCode": "01",
+      "name": "开封府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "东京汴梁"
+      ],
+      "npcCount": 63,
+      "specialBuildingCount": 5
+    },
+    {
+      "id": "luoyang",
+      "standardCode": "REG-02",
+      "numericCode": "02",
+      "name": "洛阳府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "西京洛阳"
+      ],
+      "npcCount": 42,
+      "specialBuildingCount": 5
+    },
+    {
+      "id": "daming",
+      "standardCode": "REG-03",
+      "numericCode": "03",
+      "name": "大名府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "北京大名府"
+      ],
+      "npcCount": 32,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "zhending",
+      "standardCode": "REG-04",
+      "numericCode": "04",
+      "name": "真定府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 36,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "taiyuan",
+      "standardCode": "REG-05",
+      "numericCode": "05",
+      "name": "太原府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 40,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "changan",
+      "standardCode": "REG-06",
+      "numericCode": "06",
+      "name": "京兆府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "京兆长安"
+      ],
+      "npcCount": 45,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "yanan",
+      "standardCode": "REG-07",
+      "numericCode": "07",
+      "name": "延安府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "延州（延安）"
+      ],
+      "npcCount": 45,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "jinan",
+      "standardCode": "REG-08",
+      "numericCode": "08",
+      "name": "济南府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "青州 / 济南"
+      ],
+      "npcCount": 28,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "yangzhou",
+      "standardCode": "REG-09",
+      "numericCode": "09",
+      "name": "扬州府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "扬州"
+      ],
+      "npcCount": 37,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "jiangning",
+      "standardCode": "REG-10",
+      "numericCode": "10",
+      "name": "江宁府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 42,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "suzhou",
+      "standardCode": "REG-11",
+      "numericCode": "11",
+      "name": "苏州府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "苏州（平江）"
+      ],
+      "npcCount": 29,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "hangzhou",
+      "standardCode": "REG-12",
+      "numericCode": "12",
+      "name": "杭州府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "杭州（临安）"
+      ],
+      "npcCount": 41,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "chengdu",
+      "standardCode": "REG-13",
+      "numericCode": "13",
+      "name": "成都府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 48,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "xiangyang",
+      "standardCode": "REG-14",
+      "numericCode": "14",
+      "name": "襄阳府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "江陵 / 襄阳"
+      ],
+      "npcCount": 35,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "quanzhou",
+      "standardCode": "REG-15",
+      "numericCode": "15",
+      "name": "泉州府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "福州 / 泉州"
+      ],
+      "npcCount": 42,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "xijin_liao",
+      "standardCode": "REG-16",
+      "numericCode": "16",
+      "name": "析津府",
+      "type": "city",
+      "regime": "liao",
+      "legacyAliases": [
+        "南京析津府（幽州）"
+      ],
+      "npcCount": 9,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "dading_liao",
+      "standardCode": "REG-17",
+      "numericCode": "17",
+      "name": "大定府",
+      "type": "city",
+      "regime": "liao",
+      "legacyAliases": [
+        "中京大定府"
+      ],
+      "npcCount": 14,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "linhuang_liao",
+      "standardCode": "REG-18",
+      "numericCode": "18",
+      "name": "临潢府",
+      "type": "city",
+      "regime": "liao",
+      "legacyAliases": [
+        "上京临潢府"
+      ],
+      "npcCount": 14,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "xingqing_xixia",
+      "standardCode": "REG-19",
+      "numericCode": "19",
+      "name": "兴庆府",
+      "type": "city",
+      "regime": "xixia",
+      "legacyAliases": [
+        "兴庆府（银川）"
+      ],
+      "npcCount": 24,
+      "specialBuildingCount": 4
+    },
+    {
+      "id": "luoxie_tubo",
+      "standardCode": "REG-20",
+      "numericCode": "20",
+      "name": "逻些（拉萨）",
+      "type": "city",
+      "regime": "tubo",
+      "legacyAliases": [],
+      "npcCount": 15,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "dali_city",
+      "standardCode": "REG-21",
+      "numericCode": "21",
+      "name": "阳苴咩城（大理）",
+      "type": "city",
+      "regime": "dali",
+      "legacyAliases": [],
+      "npcCount": 20,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "kunlun",
+      "standardCode": "REG-22",
+      "numericCode": "22",
+      "name": "昆仑山（万山之祖）",
+      "type": "sect",
+      "regime": "wild",
+      "legacyAliases": [
+        "昆仑山"
+      ],
+      "npcCount": 16,
+      "specialBuildingCount": 4
+    },
+    {
+      "id": "shaolin",
+      "standardCode": "REG-23",
+      "numericCode": "23",
+      "name": "嵩山少林寺",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 33,
+      "specialBuildingCount": 4
+    },
+    {
+      "id": "yanmenguan",
+      "standardCode": "REG-24",
+      "numericCode": "24",
+      "name": "雁门关",
+      "type": "pass",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 21,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "wutaishan",
+      "standardCode": "REG-25",
+      "numericCode": "25",
+      "name": "五台山清凉寺",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [
+        "五台山"
+      ],
+      "npcCount": 9,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "taihang",
+      "standardCode": "REG-26",
+      "numericCode": "26",
+      "name": "太行山绿林总寨",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 6,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "tongguan",
+      "standardCode": "REG-27",
+      "numericCode": "27",
+      "name": "潼关 / 西岳华山",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [
+        "华山",
+        "潼关",
+        "潼关 / 西岳华山（华山）",
+        "潼关 / 西岳华山（潼关）"
+      ],
+      "npcCount": 38,
+      "specialBuildingCount": 4
+    },
+    {
+      "id": "zhongnanshan",
+      "standardCode": "REG-28",
+      "numericCode": "28",
+      "name": "终南山隐宗",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [
+        "终南山"
+      ],
+      "npcCount": 21,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "taishan",
+      "standardCode": "REG-29",
+      "numericCode": "29",
+      "name": "东岳泰山",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [
+        "泰山"
+      ],
+      "npcCount": 9,
+      "specialBuildingCount": 4
+    },
+    {
+      "id": "yanziwu",
+      "standardCode": "REG-30",
+      "numericCode": "30",
+      "name": "太湖燕子坞",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 13,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "taohuadao",
+      "standardCode": "REG-31",
+      "numericCode": "31",
+      "name": "东海桃花岛",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 8,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "jianmenguan",
+      "standardCode": "REG-32",
+      "numericCode": "32",
+      "name": "剑门关",
+      "type": "pass",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 28,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "qingcheng",
+      "standardCode": "REG-33",
+      "numericCode": "33",
+      "name": "青城山 / 唐家堡",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [
+        "唐家堡",
+        "青城山",
+        "青城山 / 唐家堡（唐家堡）",
+        "青城山 / 唐家堡（青城山）"
+      ],
+      "npcCount": 22,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "emeishan",
+      "standardCode": "REG-34",
+      "numericCode": "34",
+      "name": "蜀中峨眉山",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [
+        "峨眉山"
+      ],
+      "npcCount": 17,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "wuliangshan",
+      "standardCode": "REG-35",
+      "numericCode": "35",
+      "name": "无量山 / 剑湖秘境",
+      "type": "sect",
+      "regime": "dali",
+      "legacyAliases": [
+        "无量山"
+      ],
+      "npcCount": 14,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "wudangshan",
+      "standardCode": "REG-36",
+      "numericCode": "36",
+      "name": "武当山真武道宗",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [
+        "武当山"
+      ],
+      "npcCount": 12,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "tiezhangfeng",
+      "standardCode": "REG-37",
+      "numericCode": "37",
+      "name": "洞庭铁掌峰",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 10,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "nanshaolin",
+      "standardCode": "REG-38",
+      "numericCode": "38",
+      "name": "莆田南少林",
+      "type": "sect",
+      "regime": "song",
+      "legacyAliases": [],
+      "npcCount": 22,
+      "specialBuildingCount": 3
+    }
+  ],
+  "factions": [
+    {
+      "id": "SECT-01",
+      "name": "嵩山少林寺",
+      "shortName": "北少林",
+      "isMajorSect": true,
+      "group": "抗辽中流砥柱·名门正宗",
+      "stance": "抗辽护国",
+      "hqRegionId": "shaolin",
+      "aliases": [
+        "嵩山少林",
+        "少林寺",
+        "北少林",
+        "少林"
+      ],
+      "memberCount": 48,
+      "martialArtIds": [
+        "MA-001",
+        "MA-011",
+        "MA-018",
+        "MA-037",
+        "MA-041",
+        "MA-042",
+        "MA-046",
+        "MA-050",
+        "MA-056",
+        "MA-061",
+        "MA-062",
+        "MA-081",
+        "MA-092",
+        "MA-098",
+        "MA-101",
+        "MA-106",
+        "MA-110",
+        "MA-113",
+        "MA-141",
+        "MA-151",
+        "MA-157",
+        "MA-161"
+      ]
+    },
+    {
+      "id": "SECT-02",
+      "name": "丐帮",
+      "shortName": "丐帮",
+      "isMajorSect": true,
+      "group": "抗辽中流砥柱·名门正宗",
+      "stance": "抗辽护国",
+      "hqRegionId": "luoyang",
+      "aliases": [
+        "丐帮总舵",
+        "丐帮中原总舵"
+      ],
+      "memberCount": 71,
+      "martialArtIds": [
+        "MA-005",
+        "MA-016",
+        "MA-043",
+        "MA-052",
+        "MA-085",
+        "MA-162",
+        "MA-170"
+      ]
+    },
+    {
+      "id": "SECT-03",
+      "name": "五台山清凉寺",
+      "shortName": "清凉寺",
+      "isMajorSect": true,
+      "group": "抗辽中流砥柱·名门正宗",
+      "stance": "抗辽护国",
+      "hqRegionId": "wutaishan",
+      "aliases": [
+        "清凉寺",
+        "五台山"
+      ],
+      "memberCount": 25,
+      "martialArtIds": [
+        "MA-024",
+        "MA-074",
+        "MA-131"
+      ]
+    },
+    {
+      "id": "SECT-04",
+      "name": "莆田南少林",
+      "shortName": "南少林",
+      "isMajorSect": true,
+      "group": "抗辽中流砥柱·名门正宗",
+      "stance": "抗辽护国",
+      "hqRegionId": "nanshaolin",
+      "aliases": [
+        "南少林",
+        "福建南少林"
+      ],
+      "memberCount": 39,
+      "martialArtIds": [
+        "MA-079",
+        "MA-102"
+      ]
+    },
+    {
+      "id": "SECT-05",
+      "name": "华山派",
+      "shortName": "华山",
+      "isMajorSect": true,
+      "group": "抗辽中流砥柱·名门正宗",
+      "stance": "正道侠义",
+      "hqRegionId": "tongguan",
+      "aliases": [
+        "西岳华山派",
+        "华山剑宗"
+      ],
+      "memberCount": 39,
+      "martialArtIds": [
+        "MA-030",
+        "MA-047",
+        "MA-057",
+        "MA-067",
+        "MA-087",
+        "MA-105",
+        "MA-125",
+        "MA-145",
+        "MA-158",
+        "MA-165"
+      ]
+    },
+    {
+      "id": "SECT-06",
+      "name": "泰山派",
+      "shortName": "泰山",
+      "isMajorSect": true,
+      "group": "抗辽中流砥柱·名门正宗",
+      "stance": "正道侠义",
+      "hqRegionId": "taishan",
+      "aliases": [
+        "东岳泰山派"
+      ],
+      "memberCount": 25,
+      "martialArtIds": [
+        "MA-048",
+        "MA-088",
+        "MA-126",
+        "MA-166"
+      ]
+    },
+    {
+      "id": "SECT-07",
+      "name": "峨眉派",
+      "shortName": "峨眉",
+      "isMajorSect": true,
+      "group": "抗辽中流砥柱·名门正宗",
+      "stance": "正道侠义",
+      "hqRegionId": "emeishan",
+      "aliases": [
+        "蜀中峨眉派",
+        "峨眉"
+      ],
+      "memberCount": 36,
+      "martialArtIds": [
+        "MA-049",
+        "MA-078",
+        "MA-096",
+        "MA-099",
+        "MA-107",
+        "MA-133",
+        "MA-159"
+      ]
+    },
+    {
+      "id": "SECT-08",
+      "name": "真武道宗",
+      "shortName": "真武",
+      "isMajorSect": true,
+      "group": "抗辽中流砥柱·名门正宗",
+      "stance": "道法清正",
+      "hqRegionId": "wudangshan",
+      "aliases": [
+        "真武道宗（武当山道脉）",
+        "武当山道脉",
+        "武当山真武道宗"
+      ],
+      "memberCount": 37,
+      "martialArtIds": [
+        "MA-017",
+        "MA-055",
+        "MA-058",
+        "MA-066",
+        "MA-108",
+        "MA-123",
+        "MA-167"
+      ]
+    },
+    {
+      "id": "SECT-09",
+      "name": "逍遥派",
+      "shortName": "逍遥",
+      "isMajorSect": true,
+      "group": "隐世奇门·绝世传承",
+      "stance": "逍遥超然",
+      "hqRegionId": "wuliangshan",
+      "aliases": [
+        "天山灵鹫宫",
+        "逍遥派灵鹫宫"
+      ],
+      "memberCount": 33,
+      "martialArtIds": [
+        "MA-002",
+        "MA-009",
+        "MA-010",
+        "MA-012",
+        "MA-014",
+        "MA-015",
+        "MA-027",
+        "MA-033"
+      ]
+    },
+    {
+      "id": "SECT-10",
+      "name": "姑苏慕容氏",
+      "shortName": "慕容",
+      "isMajorSect": true,
+      "group": "隐世奇门·绝世传承",
+      "stance": "图谋复燕",
+      "hqRegionId": "yanziwu",
+      "aliases": [
+        "燕子坞慕容氏",
+        "姑苏慕容"
+      ],
+      "memberCount": 27,
+      "martialArtIds": [
+        "MA-008",
+        "MA-025",
+        "MA-070"
+      ]
+    },
+    {
+      "id": "SECT-11",
+      "name": "终南隐宗",
+      "shortName": "终南",
+      "isMajorSect": true,
+      "group": "隐世奇门·绝世传承",
+      "stance": "隐逸清修",
+      "hqRegionId": "zhongnanshan",
+      "aliases": [
+        "终南隐宗（活死人墓/全真前脉）",
+        "活死人墓",
+        "终南山道脉前传"
+      ],
+      "memberCount": 30,
+      "martialArtIds": [
+        "MA-013",
+        "MA-031",
+        "MA-038",
+        "MA-115",
+        "MA-139"
+      ]
+    },
+    {
+      "id": "SECT-12",
+      "name": "东海桃花岛",
+      "shortName": "桃花岛",
+      "isMajorSect": true,
+      "group": "隐世奇门·绝世传承",
+      "stance": "亦正亦邪",
+      "hqRegionId": "taohuadao",
+      "aliases": [
+        "东海桃花岛一脉",
+        "桃花岛"
+      ],
+      "memberCount": 25,
+      "martialArtIds": [
+        "MA-021",
+        "MA-039",
+        "MA-045",
+        "MA-063",
+        "MA-069"
+      ]
+    },
+    {
+      "id": "SECT-13",
+      "name": "蜀中唐门",
+      "shortName": "唐门",
+      "isMajorSect": true,
+      "group": "地域世家·霸道强宗",
+      "stance": "中立世家",
+      "hqRegionId": "qingcheng",
+      "aliases": [
+        "唐门",
+        "唐家堡"
+      ],
+      "memberCount": 31,
+      "martialArtIds": [
+        "MA-032",
+        "MA-053",
+        "MA-075",
+        "MA-093",
+        "MA-114",
+        "MA-134"
+      ]
+    },
+    {
+      "id": "SECT-14",
+      "name": "青城派",
+      "shortName": "青城",
+      "isMajorSect": true,
+      "group": "地域世家·霸道强宗",
+      "stance": "地域争锋",
+      "hqRegionId": "qingcheng",
+      "aliases": [
+        "青城山上清宫"
+      ],
+      "memberCount": 27,
+      "martialArtIds": [
+        "MA-068",
+        "MA-097",
+        "MA-104",
+        "MA-146"
+      ]
+    },
+    {
+      "id": "SECT-15",
+      "name": "铁掌帮",
+      "shortName": "铁掌",
+      "isMajorSect": true,
+      "group": "地域世家·霸道强宗",
+      "stance": "霸道绿林",
+      "hqRegionId": "tiezhangfeng",
+      "aliases": [
+        "洞庭铁掌帮"
+      ],
+      "memberCount": 29,
+      "martialArtIds": [
+        "MA-035",
+        "MA-044",
+        "MA-080",
+        "MA-116"
+      ]
+    },
+    {
+      "id": "SECT-16",
+      "name": "江淮漕帮",
+      "shortName": "漕帮",
+      "isMajorSect": true,
+      "group": "地域世家·霸道强宗",
+      "stance": "水陆商帮",
+      "hqRegionId": "yangzhou",
+      "aliases": [
+        "漕帮",
+        "淮南盐帮"
+      ],
+      "memberCount": 43,
+      "martialArtIds": [
+        "MA-091",
+        "MA-140"
+      ]
+    },
+    {
+      "id": "SECT-17",
+      "name": "开封府 / 六扇门",
+      "shortName": "六扇门",
+      "isMajorSect": true,
+      "group": "朝廷鹰犬·草莽与外邦渗透势力",
+      "stance": "庙堂护法",
+      "hqRegionId": "bianliang",
+      "aliases": [
+        "开封府 / 六扇门（含大内禁军武学）",
+        "六扇门",
+        "大内禁军"
+      ],
+      "memberCount": 57,
+      "martialArtIds": [
+        "MA-036",
+        "MA-082",
+        "MA-100",
+        "MA-119",
+        "MA-152"
+      ]
+    },
+    {
+      "id": "SECT-18",
+      "name": "太行/京东绿林盟",
+      "shortName": "绿林盟",
+      "isMajorSect": true,
+      "group": "朝廷鹰犬·草莽与外邦渗透势力",
+      "stance": "替天行道/反官",
+      "hqRegionId": "taihang",
+      "aliases": [
+        "太行/京东绿林盟（反官义军潜流）",
+        "太行绿林",
+        "京东绿林"
+      ],
+      "memberCount": 45,
+      "martialArtIds": [
+        "MA-117",
+        "MA-128",
+        "MA-149",
+        "MA-155",
+        "MA-174",
+        "MA-184",
+        "MA-187",
+        "MA-194"
+      ]
+    },
+    {
+      "id": "SECT-19",
+      "name": "星宿派",
+      "shortName": "星宿",
+      "isMajorSect": true,
+      "group": "朝廷鹰犬·草莽与外邦渗透势力",
+      "stance": "西域毒宗",
+      "hqRegionId": "kunlun",
+      "aliases": [
+        "星宿派（西域毒宗中原潜伏点）",
+        "星宿海"
+      ],
+      "memberCount": 35,
+      "martialArtIds": [
+        "MA-026",
+        "MA-054",
+        "MA-064",
+        "MA-124"
+      ]
+    },
+    {
+      "id": "SECT-20",
+      "name": "一品堂 / 辽国武林暗桩",
+      "shortName": "一品堂",
+      "isMajorSect": true,
+      "group": "朝廷鹰犬·草莽与外邦渗透势力",
+      "stance": "外邦敌对",
+      "hqRegionId": "xingqing_xixia",
+      "aliases": [
+        "西夏一品堂",
+        "辽国武林暗桩",
+        "一品堂 / 辽国武林暗桩（外邦敌对势力）"
+      ],
+      "memberCount": 59,
+      "martialArtIds": [
+        "MA-019",
+        "MA-028",
+        "MA-051",
+        "MA-072",
+        "MA-076",
+        "MA-130"
+      ]
+    },
+    {
+      "id": "ORG-01",
+      "name": "隐世散人",
+      "shortName": "散人",
+      "isMajorSect": false,
+      "group": "江湖散人与隐逸奇侠",
+      "stance": "自由中立",
+      "hqRegionId": null,
+      "aliases": [
+        "江湖散人",
+        "草莽散人"
+      ],
+      "memberCount": 124,
+      "martialArtIds": []
+    },
+    {
+      "id": "ORG-02",
+      "name": "大宋朝廷",
+      "shortName": "宋廷",
+      "isMajorSect": false,
+      "group": "庙堂政权与四夷王庭",
+      "stance": "大宋庙堂",
+      "hqRegionId": "bianliang",
+      "aliases": [
+        "北宋朝廷",
+        "大宋禁军"
+      ],
+      "memberCount": 48,
+      "martialArtIds": []
+    },
+    {
+      "id": "ORG-03",
+      "name": "大宋士林",
+      "shortName": "士林",
+      "isMajorSect": false,
+      "group": "儒林百工与杏林名宿",
+      "stance": "大宋儒林",
+      "hqRegionId": "luoyang",
+      "aliases": [
+        "洛学士林",
+        "太学儒林"
+      ],
+      "memberCount": 22,
+      "martialArtIds": []
+    },
+    {
+      "id": "ORG-04",
+      "name": "大宋百工",
+      "shortName": "百工",
+      "isMajorSect": false,
+      "group": "儒林百工与杏林名宿",
+      "stance": "科技匠造",
+      "hqRegionId": "bianliang",
+      "aliases": [
+        "百工匠作"
+      ],
+      "memberCount": 3,
+      "martialArtIds": []
+    },
+    {
+      "id": "ORG-05",
+      "name": "大宋医家",
+      "shortName": "杏林",
+      "isMajorSect": false,
+      "group": "儒林百工与杏林名宿",
+      "stance": "悬壶济世",
+      "hqRegionId": "bianliang",
+      "aliases": [
+        "太医局",
+        "医家"
+      ],
+      "memberCount": 2,
+      "martialArtIds": []
+    },
+    {
+      "id": "ORG-06",
+      "name": "大辽朝廷",
+      "shortName": "辽廷",
+      "isMajorSect": false,
+      "group": "庙堂政权与四夷王庭",
+      "stance": "契丹王庭",
+      "hqRegionId": "linhuang_liao",
+      "aliases": [
+        "契丹朝廷",
+        "大辽南院"
+      ],
+      "memberCount": 11,
+      "martialArtIds": []
+    },
+    {
+      "id": "ORG-07",
+      "name": "西夏朝廷",
+      "shortName": "夏廷",
+      "isMajorSect": false,
+      "group": "庙堂政权与四夷王庭",
+      "stance": "党项王庭",
+      "hqRegionId": "xingqing_xixia",
+      "aliases": [
+        "党项王庭"
+      ],
+      "memberCount": 4,
+      "martialArtIds": []
+    },
+    {
+      "id": "ORG-08",
+      "name": "大理皇室",
+      "shortName": "大理",
+      "isMajorSect": false,
+      "group": "庙堂政权与四夷王庭",
+      "stance": "南诏佛国",
+      "hqRegionId": "dali_city",
+      "aliases": [
+        "大理段氏",
+        "天龙寺"
+      ],
+      "memberCount": 14,
+      "martialArtIds": [
+        "MA-006",
+        "MA-023"
+      ]
+    },
+    {
+      "id": "ORG-09",
+      "name": "吐蕃诸部",
+      "shortName": "吐蕃",
+      "isMajorSect": false,
+      "group": "庙堂政权与四夷王庭",
+      "stance": "雪域密宗",
+      "hqRegionId": "luoxie_tubo",
+      "aliases": [
+        "青唐吐蕃",
+        "雪域密宗"
+      ],
+      "memberCount": 7,
+      "martialArtIds": []
+    },
+    {
+      "id": "ORG-10",
+      "name": "南疆势力",
+      "shortName": "南疆",
+      "isMajorSect": false,
+      "group": "边裔诸部",
+      "stance": "西南边裔",
+      "hqRegionId": "dali_city",
+      "aliases": [
+        "广源州侬氏",
+        "南疆诸洞"
+      ],
+      "memberCount": 3,
+      "martialArtIds": []
+    },
+    {
+      "id": "ORG-11",
+      "name": "塞外诸部",
+      "shortName": "塞外",
+      "isMajorSect": false,
+      "group": "边裔诸部",
+      "stance": "白山黑水",
+      "hqRegionId": "linhuang_liao",
+      "aliases": [
+        "生女真完颜部"
+      ],
+      "memberCount": 1,
+      "martialArtIds": []
+    }
+  ],
+  "locationAliasMap": {
+    "上京临潢府": {
+      "regionId": "linhuang_liao",
+      "canonicalLabel": "临潢府",
+      "subLocation": null
+    },
+    "东京汴梁": {
+      "regionId": "bianliang",
+      "canonicalLabel": "开封府",
+      "subLocation": null
+    },
+    "东岳泰山": {
+      "regionId": "taishan",
+      "canonicalLabel": "东岳泰山",
+      "subLocation": null
+    },
+    "东海桃花岛": {
+      "regionId": "taohuadao",
+      "canonicalLabel": "东海桃花岛",
+      "subLocation": null
+    },
+    "中京大定府": {
+      "regionId": "dading_liao",
+      "canonicalLabel": "大定府",
+      "subLocation": null
+    },
+    "临潢府": {
+      "regionId": "linhuang_liao",
+      "canonicalLabel": "临潢府",
+      "subLocation": null
+    },
+    "五台山": {
+      "regionId": "wutaishan",
+      "canonicalLabel": "五台山清凉寺",
+      "subLocation": null
+    },
+    "五台山清凉寺": {
+      "regionId": "wutaishan",
+      "canonicalLabel": "五台山清凉寺",
+      "subLocation": null
+    },
+    "京兆府": {
+      "regionId": "changan",
+      "canonicalLabel": "京兆府",
+      "subLocation": null
+    },
+    "京兆长安": {
+      "regionId": "changan",
+      "canonicalLabel": "京兆府",
+      "subLocation": null
+    },
+    "兴庆府": {
+      "regionId": "xingqing_xixia",
+      "canonicalLabel": "兴庆府",
+      "subLocation": null
+    },
+    "兴庆府（银川）": {
+      "regionId": "xingqing_xixia",
+      "canonicalLabel": "兴庆府",
+      "subLocation": null
+    },
+    "剑门关": {
+      "regionId": "jianmenguan",
+      "canonicalLabel": "剑门关",
+      "subLocation": null
+    },
+    "北京大名府": {
+      "regionId": "daming",
+      "canonicalLabel": "大名府",
+      "subLocation": null
+    },
+    "华山": {
+      "regionId": "tongguan",
+      "canonicalLabel": "潼关 / 西岳华山（华山）",
+      "subLocation": "西岳华山"
+    },
+    "南京析津府（幽州）": {
+      "regionId": "xijin_liao",
+      "canonicalLabel": "析津府",
+      "subLocation": null
+    },
+    "唐家堡": {
+      "regionId": "qingcheng",
+      "canonicalLabel": "青城山 / 唐家堡（唐家堡）",
+      "subLocation": "唐家堡"
+    },
+    "大名府": {
+      "regionId": "daming",
+      "canonicalLabel": "大名府",
+      "subLocation": null
+    },
+    "大定府": {
+      "regionId": "dading_liao",
+      "canonicalLabel": "大定府",
+      "subLocation": null
+    },
+    "太原府": {
+      "regionId": "taiyuan",
+      "canonicalLabel": "太原府",
+      "subLocation": null
+    },
+    "太湖燕子坞": {
+      "regionId": "yanziwu",
+      "canonicalLabel": "太湖燕子坞",
+      "subLocation": null
+    },
+    "太行山绿林总寨": {
+      "regionId": "taihang",
+      "canonicalLabel": "太行山绿林总寨",
+      "subLocation": null
+    },
+    "峨眉山": {
+      "regionId": "emeishan",
+      "canonicalLabel": "蜀中峨眉山",
+      "subLocation": null
+    },
+    "嵩山少林寺": {
+      "regionId": "shaolin",
+      "canonicalLabel": "嵩山少林寺",
+      "subLocation": null
+    },
+    "延安府": {
+      "regionId": "yanan",
+      "canonicalLabel": "延安府",
+      "subLocation": null
+    },
+    "延州（延安）": {
+      "regionId": "yanan",
+      "canonicalLabel": "延安府",
+      "subLocation": null
+    },
+    "开封府": {
+      "regionId": "bianliang",
+      "canonicalLabel": "开封府",
+      "subLocation": null
+    },
+    "成都府": {
+      "regionId": "chengdu",
+      "canonicalLabel": "成都府",
+      "subLocation": null
+    },
+    "扬州": {
+      "regionId": "yangzhou",
+      "canonicalLabel": "扬州府",
+      "subLocation": null
+    },
+    "扬州府": {
+      "regionId": "yangzhou",
+      "canonicalLabel": "扬州府",
+      "subLocation": null
+    },
+    "无量山": {
+      "regionId": "wuliangshan",
+      "canonicalLabel": "无量山 / 剑湖秘境",
+      "subLocation": null
+    },
+    "无量山 / 剑湖秘境": {
+      "regionId": "wuliangshan",
+      "canonicalLabel": "无量山 / 剑湖秘境",
+      "subLocation": null
+    },
+    "昆仑山": {
+      "regionId": "kunlun",
+      "canonicalLabel": "昆仑山（万山之祖）",
+      "subLocation": null
+    },
+    "昆仑山（万山之祖）": {
+      "regionId": "kunlun",
+      "canonicalLabel": "昆仑山（万山之祖）",
+      "subLocation": null
+    },
+    "杭州府": {
+      "regionId": "hangzhou",
+      "canonicalLabel": "杭州府",
+      "subLocation": null
+    },
+    "杭州（临安）": {
+      "regionId": "hangzhou",
+      "canonicalLabel": "杭州府",
+      "subLocation": null
+    },
+    "析津府": {
+      "regionId": "xijin_liao",
+      "canonicalLabel": "析津府",
+      "subLocation": null
+    },
+    "武当山": {
+      "regionId": "wudangshan",
+      "canonicalLabel": "武当山真武道宗",
+      "subLocation": null
+    },
+    "武当山真武道宗": {
+      "regionId": "wudangshan",
+      "canonicalLabel": "武当山真武道宗",
+      "subLocation": null
+    },
+    "江宁府": {
+      "regionId": "jiangning",
+      "canonicalLabel": "江宁府",
+      "subLocation": null
+    },
+    "江陵 / 襄阳": {
+      "regionId": "xiangyang",
+      "canonicalLabel": "襄阳府",
+      "subLocation": "江陵/襄阳"
+    },
+    "泉州府": {
+      "regionId": "quanzhou",
+      "canonicalLabel": "泉州府",
+      "subLocation": null
+    },
+    "泰山": {
+      "regionId": "taishan",
+      "canonicalLabel": "东岳泰山",
+      "subLocation": null
+    },
+    "洛阳府": {
+      "regionId": "luoyang",
+      "canonicalLabel": "洛阳府",
+      "subLocation": null
+    },
+    "洞庭铁掌峰": {
+      "regionId": "tiezhangfeng",
+      "canonicalLabel": "洞庭铁掌峰",
+      "subLocation": null
+    },
+    "济南府": {
+      "regionId": "jinan",
+      "canonicalLabel": "济南府",
+      "subLocation": null
+    },
+    "潼关": {
+      "regionId": "tongguan",
+      "canonicalLabel": "潼关 / 西岳华山（潼关）",
+      "subLocation": "潼关"
+    },
+    "潼关 / 西岳华山": {
+      "regionId": "tongguan",
+      "canonicalLabel": "潼关 / 西岳华山",
+      "subLocation": null
+    },
+    "潼关 / 西岳华山（华山）": {
+      "regionId": "tongguan",
+      "canonicalLabel": "潼关 / 西岳华山（华山）",
+      "subLocation": "西岳华山"
+    },
+    "潼关 / 西岳华山（潼关）": {
+      "regionId": "tongguan",
+      "canonicalLabel": "潼关 / 西岳华山（潼关）",
+      "subLocation": "潼关"
+    },
+    "真定府": {
+      "regionId": "zhending",
+      "canonicalLabel": "真定府",
+      "subLocation": null
+    },
+    "福州 / 泉州": {
+      "regionId": "quanzhou",
+      "canonicalLabel": "泉州府",
+      "subLocation": "福州/泉州"
+    },
+    "终南山": {
+      "regionId": "zhongnanshan",
+      "canonicalLabel": "终南山隐宗",
+      "subLocation": null
+    },
+    "终南山隐宗": {
+      "regionId": "zhongnanshan",
+      "canonicalLabel": "终南山隐宗",
+      "subLocation": null
+    },
+    "苏州府": {
+      "regionId": "suzhou",
+      "canonicalLabel": "苏州府",
+      "subLocation": null
+    },
+    "苏州（平江）": {
+      "regionId": "suzhou",
+      "canonicalLabel": "苏州府",
+      "subLocation": null
+    },
+    "莆田南少林": {
+      "regionId": "nanshaolin",
+      "canonicalLabel": "莆田南少林",
+      "subLocation": null
+    },
+    "蜀中峨眉山": {
+      "regionId": "emeishan",
+      "canonicalLabel": "蜀中峨眉山",
+      "subLocation": null
+    },
+    "襄阳府": {
+      "regionId": "xiangyang",
+      "canonicalLabel": "襄阳府",
+      "subLocation": null
+    },
+    "西京洛阳": {
+      "regionId": "luoyang",
+      "canonicalLabel": "洛阳府",
+      "subLocation": null
+    },
+    "逻些（拉萨）": {
+      "regionId": "luoxie_tubo",
+      "canonicalLabel": "逻些（拉萨）",
+      "subLocation": null
+    },
+    "阳苴咩城（大理）": {
+      "regionId": "dali_city",
+      "canonicalLabel": "阳苴咩城（大理）",
+      "subLocation": null
+    },
+    "雁门关": {
+      "regionId": "yanmenguan",
+      "canonicalLabel": "雁门关",
+      "subLocation": null
+    },
+    "青城山": {
+      "regionId": "qingcheng",
+      "canonicalLabel": "青城山 / 唐家堡（青城山）",
+      "subLocation": "青城山"
+    },
+    "青城山 / 唐家堡": {
+      "regionId": "qingcheng",
+      "canonicalLabel": "青城山 / 唐家堡",
+      "subLocation": null
+    },
+    "青城山 / 唐家堡（唐家堡）": {
+      "regionId": "qingcheng",
+      "canonicalLabel": "青城山 / 唐家堡（唐家堡）",
+      "subLocation": "唐家堡"
+    },
+    "青城山 / 唐家堡（青城山）": {
+      "regionId": "qingcheng",
+      "canonicalLabel": "青城山 / 唐家堡（青城山）",
+      "subLocation": "青城山"
+    },
+    "青州 / 济南": {
+      "regionId": "jinan",
+      "canonicalLabel": "济南府",
+      "subLocation": "青州/济南"
+    }
+  },
+  "martialArtIndex": [
+    {
+      "id": "MA-001",
+      "code": "001",
+      "name": "《易筋经》",
+      "cleanName": "易筋经",
+      "fullTier": "天阶上品",
+      "category": "内功",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-002",
+      "code": "002",
+      "name": "《北冥神功》",
+      "cleanName": "北冥神功",
+      "fullTier": "天阶上品",
+      "category": "内功",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-003",
+      "code": "003",
+      "name": "《太玄经》",
+      "cleanName": "太玄经",
+      "fullTier": "天阶上品",
+      "category": "内功/全系",
+      "sectId": null
+    },
+    {
+      "id": "MA-004",
+      "code": "004",
+      "name": "《九阴真经》",
+      "cleanName": "九阴真经",
+      "fullTier": "天阶上品",
+      "category": "内功/综合",
+      "sectId": null
+    },
+    {
+      "id": "MA-005",
+      "code": "005",
+      "name": "降龙十八掌",
+      "cleanName": "降龙十八掌",
+      "fullTier": "天阶上品",
+      "category": "拳掌",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "MA-006",
+      "code": "006",
+      "name": "六脉神剑",
+      "cleanName": "六脉神剑",
+      "fullTier": "天阶上品",
+      "category": "拳掌(指剑)",
+      "sectId": "ORG-08"
+    },
+    {
+      "id": "MA-007",
+      "code": "007",
+      "name": "独孤九剑",
+      "cleanName": "独孤九剑",
+      "fullTier": "天阶上品",
+      "category": "剑法",
+      "sectId": null
+    },
+    {
+      "id": "MA-008",
+      "code": "008",
+      "name": "斗转星移",
+      "cleanName": "斗转星移",
+      "fullTier": "天阶上品",
+      "category": "奇门/反制",
+      "sectId": "SECT-10"
+    },
+    {
+      "id": "MA-009",
+      "code": "009",
+      "name": "《八荒六合唯我独尊功》",
+      "cleanName": "八荒六合唯我独尊功",
+      "fullTier": "天阶上品",
+      "category": "内功",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-010",
+      "code": "010",
+      "name": "凌波微步",
+      "cleanName": "凌波微步",
+      "fullTier": "天阶上品",
+      "category": "轻功",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-011",
+      "code": "011",
+      "name": "《洗髓经》",
+      "cleanName": "洗髓经",
+      "fullTier": "天阶中品",
+      "category": "内功",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-012",
+      "code": "012",
+      "name": "《小无相功》",
+      "cleanName": "小无相功",
+      "fullTier": "天阶中品",
+      "category": "内功",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-013",
+      "code": "013",
+      "name": "《先天功》",
+      "cleanName": "先天功",
+      "fullTier": "天阶中品",
+      "category": "内功",
+      "sectId": "SECT-11"
+    },
+    {
+      "id": "MA-014",
+      "code": "014",
+      "name": "天山折梅手",
+      "cleanName": "天山折梅手",
+      "fullTier": "天阶中品",
+      "category": "拳掌",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-015",
+      "code": "015",
+      "name": "天山六阳掌",
+      "cleanName": "天山六阳掌",
+      "fullTier": "天阶中品",
+      "category": "拳掌",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-016",
+      "code": "016",
+      "name": "打狗棒法",
+      "cleanName": "打狗棒法",
+      "fullTier": "天阶中品",
+      "category": "长兵",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "MA-017",
+      "code": "017",
+      "name": "真武太极剑意",
+      "cleanName": "真武太极剑意",
+      "fullTier": "天阶中品",
+      "category": "剑法",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "MA-018",
+      "code": "018",
+      "name": "金刚不坏体神功",
+      "cleanName": "金刚不坏体神功",
+      "fullTier": "天阶中品",
+      "category": "内功/护体",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-019",
+      "code": "019",
+      "name": "火焰刀",
+      "cleanName": "火焰刀",
+      "fullTier": "天阶中品",
+      "category": "刀法(气刃)",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-020",
+      "code": "020",
+      "name": "黯然销魂掌",
+      "cleanName": "黯然销魂掌",
+      "fullTier": "天阶中品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-021",
+      "code": "021",
+      "name": "弹指神通",
+      "cleanName": "弹指神通",
+      "fullTier": "天阶中品",
+      "category": "奇门",
+      "sectId": "SECT-12"
+    },
+    {
+      "id": "MA-022",
+      "code": "022",
+      "name": "神行百变",
+      "cleanName": "神行百变",
+      "fullTier": "天阶中品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-023",
+      "code": "023",
+      "name": "一阳指",
+      "cleanName": "一阳指",
+      "fullTier": "天阶下品",
+      "category": "拳掌(指法)",
+      "sectId": "ORG-08"
+    },
+    {
+      "id": "MA-024",
+      "code": "024",
+      "name": "降魔杵法（大威德）",
+      "cleanName": "降魔杵法（大威德）",
+      "fullTier": "天阶下品",
+      "category": "长兵",
+      "sectId": "SECT-03"
+    },
+    {
+      "id": "MA-025",
+      "code": "025",
+      "name": "参合指",
+      "cleanName": "参合指",
+      "fullTier": "天阶下品",
+      "category": "拳掌(指法)",
+      "sectId": "SECT-10"
+    },
+    {
+      "id": "MA-026",
+      "code": "026",
+      "name": "《化功大法》",
+      "cleanName": "化功大法",
+      "fullTier": "天阶下品",
+      "category": "内功/毒功",
+      "sectId": "SECT-19"
+    },
+    {
+      "id": "MA-027",
+      "code": "027",
+      "name": "白虹掌力",
+      "cleanName": "白虹掌力",
+      "fullTier": "天阶下品",
+      "category": "拳掌",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-028",
+      "code": "028",
+      "name": "《龙象般若功》",
+      "cleanName": "龙象般若功",
+      "fullTier": "天阶下品",
+      "category": "内功",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-029",
+      "code": "029",
+      "name": "玄铁重剑法",
+      "cleanName": "玄铁重剑法",
+      "fullTier": "天阶下品",
+      "category": "剑法",
+      "sectId": null
+    },
+    {
+      "id": "MA-030",
+      "code": "030",
+      "name": "紫霞神功（先天太岳卷）",
+      "cleanName": "紫霞神功（先天太岳卷）",
+      "fullTier": "天阶下品",
+      "category": "内功",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-031",
+      "code": "031",
+      "name": "玉女素心剑法",
+      "cleanName": "玉女素心剑法",
+      "fullTier": "天阶下品",
+      "category": "剑法",
+      "sectId": "SECT-11"
+    },
+    {
+      "id": "MA-032",
+      "code": "032",
+      "name": "暴雨梨花针诀（唐门天机卷）",
+      "cleanName": "暴雨梨花针诀（唐门天机卷）",
+      "fullTier": "天阶下品",
+      "category": "奇门",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "MA-033",
+      "code": "033",
+      "name": "七弦无形剑",
+      "cleanName": "七弦无形剑",
+      "fullTier": "天阶下品",
+      "category": "奇门(音律)",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-034",
+      "code": "034",
+      "name": "胡家冷月刀（天脉篇）",
+      "cleanName": "胡家冷月刀（天脉篇）",
+      "fullTier": "天阶下品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-035",
+      "code": "035",
+      "name": "铁掌水上漂（绝顶合卷）",
+      "cleanName": "铁掌水上漂（绝顶合卷）",
+      "fullTier": "天阶下品",
+      "category": "轻功/掌法",
+      "sectId": "SECT-15"
+    },
+    {
+      "id": "MA-036",
+      "code": "036",
+      "name": "葵花残卷（大内秘藏前本）",
+      "cleanName": "葵花残卷（大内秘藏前本）",
+      "fullTier": "天阶下品",
+      "category": "轻功/奇门",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "MA-037",
+      "code": "037",
+      "name": "《少林九阳功》",
+      "cleanName": "少林九阳功",
+      "fullTier": "地阶上品",
+      "category": "内功",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-038",
+      "code": "038",
+      "name": "《玉女心经》",
+      "cleanName": "玉女心经",
+      "fullTier": "地阶上品",
+      "category": "内功",
+      "sectId": "SECT-11"
+    },
+    {
+      "id": "MA-039",
+      "code": "039",
+      "name": "《碧海潮生功》",
+      "cleanName": "碧海潮生功",
+      "fullTier": "地阶上品",
+      "category": "内功",
+      "sectId": "SECT-12"
+    },
+    {
+      "id": "MA-040",
+      "code": "040",
+      "name": "《神照内功》",
+      "cleanName": "神照内功",
+      "fullTier": "地阶上品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-041",
+      "code": "041",
+      "name": "般若掌",
+      "cleanName": "般若掌",
+      "fullTier": "地阶上品",
+      "category": "拳掌",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-042",
+      "code": "042",
+      "name": "大力金刚指",
+      "cleanName": "大力金刚指",
+      "fullTier": "地阶上品",
+      "category": "拳掌",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-043",
+      "code": "043",
+      "name": "擒龙功",
+      "cleanName": "擒龙功",
+      "fullTier": "地阶上品",
+      "category": "拳掌",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "MA-044",
+      "code": "044",
+      "name": "铁掌功",
+      "cleanName": "铁掌功",
+      "fullTier": "地阶上品",
+      "category": "拳掌",
+      "sectId": "SECT-15"
+    },
+    {
+      "id": "MA-045",
+      "code": "045",
+      "name": "折扇落英神剑掌",
+      "cleanName": "折扇落英神剑掌",
+      "fullTier": "地阶上品",
+      "category": "拳掌",
+      "sectId": "SECT-12"
+    },
+    {
+      "id": "MA-046",
+      "code": "046",
+      "name": "达摩剑法",
+      "cleanName": "达摩剑法",
+      "fullTier": "地阶上品",
+      "category": "剑法",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-047",
+      "code": "047",
+      "name": "太岳三青峰",
+      "cleanName": "太岳三青峰",
+      "fullTier": "地阶上品",
+      "category": "剑法",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-048",
+      "code": "048",
+      "name": "岱宗如何",
+      "cleanName": "岱宗如何",
+      "fullTier": "地阶上品",
+      "category": "剑法",
+      "sectId": "SECT-06"
+    },
+    {
+      "id": "MA-049",
+      "code": "049",
+      "name": "灭绝回风剑",
+      "cleanName": "灭绝回风剑",
+      "fullTier": "地阶上品",
+      "category": "剑法",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "MA-050",
+      "code": "050",
+      "name": "燃木刀法",
+      "cleanName": "燃木刀法",
+      "fullTier": "地阶上品",
+      "category": "刀法",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-051",
+      "code": "051",
+      "name": "杨家霸王枪",
+      "cleanName": "杨家霸王枪",
+      "fullTier": "地阶上品",
+      "category": "长兵",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-052",
+      "code": "052",
+      "name": "疯魔杖法",
+      "cleanName": "疯魔杖法",
+      "fullTier": "地阶上品",
+      "category": "长兵",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "MA-053",
+      "code": "053",
+      "name": "满天花雨",
+      "cleanName": "满天花雨",
+      "fullTier": "地阶上品",
+      "category": "奇门",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "MA-054",
+      "code": "054",
+      "name": "冰蚕毒掌",
+      "cleanName": "冰蚕毒掌",
+      "fullTier": "地阶上品",
+      "category": "拳掌/毒功",
+      "sectId": "SECT-19"
+    },
+    {
+      "id": "MA-055",
+      "code": "055",
+      "name": "梯云纵",
+      "cleanName": "梯云纵",
+      "fullTier": "地阶上品",
+      "category": "轻功",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "MA-056",
+      "code": "056",
+      "name": "一苇渡江",
+      "cleanName": "一苇渡江",
+      "fullTier": "地阶上品",
+      "category": "轻功",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-057",
+      "code": "057",
+      "name": "《混元功》",
+      "cleanName": "混元功",
+      "fullTier": "地阶中品",
+      "category": "内功",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-058",
+      "code": "058",
+      "name": "《太极混元桩》",
+      "cleanName": "太极混元桩",
+      "fullTier": "地阶中品",
+      "category": "内功",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "MA-059",
+      "code": "059",
+      "name": "《枯荣禅意功》",
+      "cleanName": "枯荣禅意功",
+      "fullTier": "地阶中品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-060",
+      "code": "060",
+      "name": "《蛤蟆敛息功》",
+      "cleanName": "蛤蟆敛息功",
+      "fullTier": "地阶中品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-061",
+      "code": "061",
+      "name": "龙爪手",
+      "cleanName": "龙爪手",
+      "fullTier": "地阶中品",
+      "category": "拳掌",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-062",
+      "code": "062",
+      "name": "拈花指",
+      "cleanName": "拈花指",
+      "fullTier": "地阶中品",
+      "category": "拳掌",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-063",
+      "code": "063",
+      "name": "兰花拂穴手",
+      "cleanName": "兰花拂穴手",
+      "fullTier": "地阶中品",
+      "category": "拳掌",
+      "sectId": "SECT-12"
+    },
+    {
+      "id": "MA-064",
+      "code": "064",
+      "name": "抽髓掌",
+      "cleanName": "抽髓掌",
+      "fullTier": "地阶中品",
+      "category": "拳掌",
+      "sectId": "SECT-19"
+    },
+    {
+      "id": "MA-065",
+      "code": "065",
+      "name": "大嵩阳神掌",
+      "cleanName": "大嵩阳神掌",
+      "fullTier": "地阶中品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-066",
+      "code": "066",
+      "name": "两仪剑法",
+      "cleanName": "两仪剑法",
+      "fullTier": "地阶中品",
+      "category": "剑法",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "MA-067",
+      "code": "067",
+      "name": "夺命连环三仙剑",
+      "cleanName": "夺命连环三仙剑",
+      "fullTier": "地阶中品",
+      "category": "剑法",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-068",
+      "code": "068",
+      "name": "松风辟邪剑（青城真卷）",
+      "cleanName": "松风辟邪剑（青城真卷）",
+      "fullTier": "地阶中品",
+      "category": "剑法",
+      "sectId": "SECT-14"
+    },
+    {
+      "id": "MA-069",
+      "code": "069",
+      "name": "玉箫剑法",
+      "cleanName": "玉箫剑法",
+      "fullTier": "地阶中品",
+      "category": "剑法/奇门",
+      "sectId": "SECT-12"
+    },
+    {
+      "id": "MA-070",
+      "code": "070",
+      "name": "慕容氏家传剑法",
+      "cleanName": "慕容氏家传剑法",
+      "fullTier": "地阶中品",
+      "category": "剑法",
+      "sectId": "SECT-10"
+    },
+    {
+      "id": "MA-071",
+      "code": "071",
+      "name": "血刀经刀法",
+      "cleanName": "血刀经刀法",
+      "fullTier": "地阶中品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-072",
+      "code": "072",
+      "name": "修罗刀",
+      "cleanName": "修罗刀",
+      "fullTier": "地阶中品",
+      "category": "刀法",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-073",
+      "code": "073",
+      "name": "岳氏沥泉枪前谱（常山龙胆枪）",
+      "cleanName": "岳氏沥泉枪前谱（常山龙胆枪）",
+      "fullTier": "地阶中品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-074",
+      "code": "074",
+      "name": "金刚伏魔杖",
+      "cleanName": "金刚伏魔杖",
+      "fullTier": "地阶中品",
+      "category": "长兵",
+      "sectId": "SECT-03"
+    },
+    {
+      "id": "MA-075",
+      "code": "075",
+      "name": "含沙射影",
+      "cleanName": "含沙射影",
+      "fullTier": "地阶中品",
+      "category": "奇门",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "MA-076",
+      "code": "076",
+      "name": "瞬息千里",
+      "cleanName": "瞬息千里",
+      "fullTier": "地阶中品",
+      "category": "轻功",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-077",
+      "code": "077",
+      "name": "《纯阳无极功》",
+      "cleanName": "纯阳无极功",
+      "fullTier": "地阶下品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-078",
+      "code": "078",
+      "name": "《大慈大悲禅功》",
+      "cleanName": "大慈大悲禅功",
+      "fullTier": "地阶下品",
+      "category": "内功",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "MA-079",
+      "code": "079",
+      "name": "《盘山铁布衫（大成）》",
+      "cleanName": "盘山铁布衫（大成）",
+      "fullTier": "地阶下品",
+      "category": "内功",
+      "sectId": "SECT-04"
+    },
+    {
+      "id": "MA-080",
+      "code": "080",
+      "name": "《毒砂百炼功》",
+      "cleanName": "毒砂百炼功",
+      "fullTier": "地阶下品",
+      "category": "内功",
+      "sectId": "SECT-15"
+    },
+    {
+      "id": "MA-081",
+      "code": "081",
+      "name": "一拍两散掌",
+      "cleanName": "一拍两散掌",
+      "fullTier": "地阶下品",
+      "category": "拳掌",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-082",
+      "code": "082",
+      "name": "鹰爪擒拿手",
+      "cleanName": "鹰爪擒拿手",
+      "fullTier": "地阶下品",
+      "category": "拳掌",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "MA-083",
+      "code": "083",
+      "name": "寒冰绵掌",
+      "cleanName": "寒冰绵掌",
+      "fullTier": "地阶下品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-084",
+      "code": "084",
+      "name": "催心掌",
+      "cleanName": "催心掌",
+      "fullTier": "地阶下品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-085",
+      "code": "085",
+      "name": "铜锤手",
+      "cleanName": "铜锤手",
+      "fullTier": "地阶下品",
+      "category": "拳掌",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "MA-086",
+      "code": "086",
+      "name": "无量剑诀",
+      "cleanName": "无量剑诀",
+      "fullTier": "地阶下品",
+      "category": "剑法",
+      "sectId": null
+    },
+    {
+      "id": "MA-087",
+      "code": "087",
+      "name": "希夷剑法",
+      "cleanName": "希夷剑法",
+      "fullTier": "地阶下品",
+      "category": "剑法",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-088",
+      "code": "088",
+      "name": "泰山十八盘",
+      "cleanName": "泰山十八盘",
+      "fullTier": "地阶下品",
+      "category": "剑法",
+      "sectId": "SECT-06"
+    },
+    {
+      "id": "MA-089",
+      "code": "089",
+      "name": "金乌刀法",
+      "cleanName": "金乌刀法",
+      "fullTier": "地阶下品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-090",
+      "code": "090",
+      "name": "胡汉八极刀",
+      "cleanName": "胡汉八极刀",
+      "fullTier": "地阶下品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-091",
+      "code": "091",
+      "name": "漕帮分水大枪",
+      "cleanName": "漕帮分水大枪",
+      "fullTier": "地阶下品",
+      "category": "长兵",
+      "sectId": "SECT-16"
+    },
+    {
+      "id": "MA-092",
+      "code": "092",
+      "name": "韦陀杵",
+      "cleanName": "韦陀杵",
+      "fullTier": "地阶下品",
+      "category": "长兵",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-093",
+      "code": "093",
+      "name": "子午透骨钉",
+      "cleanName": "子午透骨钉",
+      "fullTier": "地阶下品",
+      "category": "奇门",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "MA-094",
+      "code": "094",
+      "name": "裴将军诗剑帖（判官笔）",
+      "cleanName": "裴将军诗剑帖（判官笔）",
+      "fullTier": "地阶下品",
+      "category": "奇门",
+      "sectId": null
+    },
+    {
+      "id": "MA-095",
+      "code": "095",
+      "name": "八步赶蝉",
+      "cleanName": "八步赶蝉",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-096",
+      "code": "096",
+      "name": "踏雪无痕",
+      "cleanName": "踏雪无痕",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "MA-097",
+      "code": "097",
+      "name": "《紫阳吐纳功》",
+      "cleanName": "紫阳吐纳功",
+      "fullTier": "良品上品",
+      "category": "内功",
+      "sectId": "SECT-14"
+    },
+    {
+      "id": "MA-098",
+      "code": "098",
+      "name": "《罗汉伏虎功》",
+      "cleanName": "罗汉伏虎功",
+      "fullTier": "良品上品",
+      "category": "内功",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-099",
+      "code": "099",
+      "name": "《莲华静心诀》",
+      "cleanName": "莲华静心诀",
+      "fullTier": "良品上品",
+      "category": "内功",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "MA-100",
+      "code": "100",
+      "name": "《大内禁军玄甲劲》",
+      "cleanName": "大内禁军玄甲劲",
+      "fullTier": "良品上品",
+      "category": "内功",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "MA-101",
+      "code": "101",
+      "name": "散花掌",
+      "cleanName": "散花掌",
+      "fullTier": "良品上品",
+      "category": "拳掌",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-102",
+      "code": "102",
+      "name": "铁线拳",
+      "cleanName": "铁线拳",
+      "fullTier": "良品上品",
+      "category": "拳掌",
+      "sectId": "SECT-04"
+    },
+    {
+      "id": "MA-103",
+      "code": "103",
+      "name": "劈空掌",
+      "cleanName": "劈空掌",
+      "fullTier": "良品上品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-104",
+      "code": "104",
+      "name": "青城摧心掌",
+      "cleanName": "青城摧心掌",
+      "fullTier": "良品上品",
+      "category": "拳掌",
+      "sectId": "SECT-14"
+    },
+    {
+      "id": "MA-105",
+      "code": "105",
+      "name": "华山混元掌",
+      "cleanName": "华山混元掌",
+      "fullTier": "良品上品",
+      "category": "拳掌",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-106",
+      "code": "106",
+      "name": "伏魔剑",
+      "cleanName": "伏魔剑",
+      "fullTier": "良品上品",
+      "category": "剑法",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-107",
+      "code": "107",
+      "name": "芙蓉剑法",
+      "cleanName": "芙蓉剑法",
+      "fullTier": "良品上品",
+      "category": "剑法",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "MA-108",
+      "code": "108",
+      "name": "柔云剑术",
+      "cleanName": "柔云剑术",
+      "fullTier": "良品上品",
+      "category": "剑法",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "MA-109",
+      "code": "109",
+      "name": "洛阳金刀谱",
+      "cleanName": "洛阳金刀谱",
+      "fullTier": "良品上品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-110",
+      "code": "110",
+      "name": "慈悲刀法",
+      "cleanName": "慈悲刀法",
+      "fullTier": "良品上品",
+      "category": "刀法",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-111",
+      "code": "111",
+      "name": "雁门断魂刀",
+      "cleanName": "雁门断魂刀",
+      "fullTier": "良品上品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-112",
+      "code": "112",
+      "name": "六合大枪",
+      "cleanName": "六合大枪",
+      "fullTier": "良品上品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-113",
+      "code": "113",
+      "name": "普门杖法",
+      "cleanName": "普门杖法",
+      "fullTier": "良品上品",
+      "category": "长兵",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-114",
+      "code": "114",
+      "name": "追魂夺命镖",
+      "cleanName": "追魂夺命镖",
+      "fullTier": "良品上品",
+      "category": "奇门",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "MA-115",
+      "code": "115",
+      "name": "金雁功",
+      "cleanName": "金雁功",
+      "fullTier": "良品上品",
+      "category": "轻功",
+      "sectId": "SECT-11"
+    },
+    {
+      "id": "MA-116",
+      "code": "116",
+      "name": "水上漂（漕帮精修卷）",
+      "cleanName": "水上漂（漕帮精修卷）",
+      "fullTier": "良品上品",
+      "category": "轻功",
+      "sectId": "SECT-15"
+    },
+    {
+      "id": "MA-117",
+      "code": "117",
+      "name": "《太行罡气》",
+      "cleanName": "太行罡气",
+      "fullTier": "良品中品",
+      "category": "内功",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MA-118",
+      "code": "118",
+      "name": "《碧波心法》",
+      "cleanName": "碧波心法",
+      "fullTier": "良品中品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-119",
+      "code": "119",
+      "name": "《六扇门捕风诀》",
+      "cleanName": "六扇门捕风诀",
+      "fullTier": "良品中品",
+      "category": "内功",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "MA-120",
+      "code": "120",
+      "name": "《龟息功》",
+      "cleanName": "龟息功",
+      "fullTier": "良品中品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-121",
+      "code": "121",
+      "name": "八极崩拳",
+      "cleanName": "八极崩拳",
+      "fullTier": "良品中品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-122",
+      "code": "122",
+      "name": "虎爪绝户手",
+      "cleanName": "虎爪绝户手",
+      "fullTier": "良品中品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-123",
+      "code": "123",
+      "name": "绵掌",
+      "cleanName": "绵掌",
+      "fullTier": "良品中品",
+      "category": "拳掌",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "MA-124",
+      "code": "124",
+      "name": "五毒砂掌",
+      "cleanName": "五毒砂掌",
+      "fullTier": "良品中品",
+      "category": "拳掌",
+      "sectId": "SECT-19"
+    },
+    {
+      "id": "MA-125",
+      "code": "125",
+      "name": "落雁剑法",
+      "cleanName": "落雁剑法",
+      "fullTier": "良品中品",
+      "category": "剑法",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-126",
+      "code": "126",
+      "name": "五大夫剑",
+      "cleanName": "五大夫剑",
+      "fullTier": "良品中品",
+      "category": "剑法",
+      "sectId": "SECT-06"
+    },
+    {
+      "id": "MA-127",
+      "code": "127",
+      "name": "越女古剑术（江南传本）",
+      "cleanName": "越女古剑术（江南传本）",
+      "fullTier": "良品中品",
+      "category": "剑法",
+      "sectId": null
+    },
+    {
+      "id": "MA-128",
+      "code": "128",
+      "name": "狂风快刀",
+      "cleanName": "狂风快刀",
+      "fullTier": "良品中品",
+      "category": "刀法",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MA-129",
+      "code": "129",
+      "name": "奇门五虎断门刀",
+      "cleanName": "奇门五虎断门刀",
+      "fullTier": "良品中品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-130",
+      "code": "130",
+      "name": "西夏弯刀术",
+      "cleanName": "西夏弯刀术",
+      "fullTier": "良品中品",
+      "category": "刀法",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-131",
+      "code": "131",
+      "name": "五郎八卦棍",
+      "cleanName": "五郎八卦棍",
+      "fullTier": "良品中品",
+      "category": "长兵",
+      "sectId": "SECT-03"
+    },
+    {
+      "id": "MA-132",
+      "code": "132",
+      "name": "蛇矛百战枪",
+      "cleanName": "蛇矛百战枪",
+      "fullTier": "良品中品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-133",
+      "code": "133",
+      "name": "分水峨眉刺",
+      "cleanName": "分水峨眉刺",
+      "fullTier": "良品中品",
+      "category": "奇门",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "MA-134",
+      "code": "134",
+      "name": "毒蒺藜散手",
+      "cleanName": "毒蒺藜散手",
+      "fullTier": "良品中品",
+      "category": "奇门",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "MA-135",
+      "code": "135",
+      "name": "壁虎游墙功",
+      "cleanName": "壁虎游墙功",
+      "fullTier": "良品中品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-136",
+      "code": "136",
+      "name": "穿云纵",
+      "cleanName": "穿云纵",
+      "fullTier": "良品中品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-137",
+      "code": "137",
+      "name": "《铁砂内壮功》",
+      "cleanName": "铁砂内壮功",
+      "fullTier": "良品下品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-138",
+      "code": "138",
+      "name": "《五禽养生功》",
+      "cleanName": "五禽养生功",
+      "fullTier": "良品下品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-139",
+      "code": "139",
+      "name": "《全真大道筑基歌》",
+      "cleanName": "全真大道筑基歌",
+      "fullTier": "良品下品",
+      "category": "内功",
+      "sectId": "SECT-11"
+    },
+    {
+      "id": "MA-140",
+      "code": "140",
+      "name": "《鲸息水战诀》",
+      "cleanName": "鲸息水战诀",
+      "fullTier": "良品下品",
+      "category": "内功",
+      "sectId": "SECT-16"
+    },
+    {
+      "id": "MA-141",
+      "code": "141",
+      "name": "伏虎拳",
+      "cleanName": "伏虎拳",
+      "fullTier": "良品下品",
+      "category": "拳掌",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-142",
+      "code": "142",
+      "name": "通背拳",
+      "cleanName": "通背拳",
+      "fullTier": "良品下品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-143",
+      "code": "143",
+      "name": "翻天掌",
+      "cleanName": "翻天掌",
+      "fullTier": "良品下品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-144",
+      "code": "144",
+      "name": "鹰爪功",
+      "cleanName": "鹰爪功",
+      "fullTier": "良品下品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-145",
+      "code": "145",
+      "name": "养吾剑法",
+      "cleanName": "养吾剑法",
+      "fullTier": "良品下品",
+      "category": "剑法",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-146",
+      "code": "146",
+      "name": "青城松风剑",
+      "cleanName": "青城松风剑",
+      "fullTier": "良品下品",
+      "category": "剑法",
+      "sectId": "SECT-14"
+    },
+    {
+      "id": "MA-147",
+      "code": "147",
+      "name": "三才归元剑",
+      "cleanName": "三才归元剑",
+      "fullTier": "良品下品",
+      "category": "剑法",
+      "sectId": null
+    },
+    {
+      "id": "MA-148",
+      "code": "148",
+      "name": "八卦游身刀",
+      "cleanName": "八卦游身刀",
+      "fullTier": "良品下品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-149",
+      "code": "149",
+      "name": "鬼头大刀斩",
+      "cleanName": "鬼头大刀斩",
+      "fullTier": "良品下品",
+      "category": "刀法",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MA-150",
+      "code": "150",
+      "name": "契丹狼牙棒法",
+      "cleanName": "契丹狼牙棒法",
+      "fullTier": "良品下品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-151",
+      "code": "151",
+      "name": "少林齐眉棍",
+      "cleanName": "少林齐眉棍",
+      "fullTier": "良品下品",
+      "category": "长兵",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-152",
+      "code": "152",
+      "name": "点钢枪谱",
+      "cleanName": "点钢枪谱",
+      "fullTier": "良品下品",
+      "category": "长兵",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "MA-153",
+      "code": "153",
+      "name": "金钱镖",
+      "cleanName": "金钱镖",
+      "fullTier": "良品下品",
+      "category": "奇门",
+      "sectId": null
+    },
+    {
+      "id": "MA-154",
+      "code": "154",
+      "name": "折扇点穴功",
+      "cleanName": "折扇点穴功",
+      "fullTier": "良品下品",
+      "category": "奇门",
+      "sectId": null
+    },
+    {
+      "id": "MA-155",
+      "code": "155",
+      "name": "草上飞",
+      "cleanName": "草上飞",
+      "fullTier": "良品下品",
+      "category": "轻功",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MA-156",
+      "code": "156",
+      "name": "燕子三抄水",
+      "cleanName": "燕子三抄水",
+      "fullTier": "良品下品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-157",
+      "code": "157",
+      "name": "《少林小乘禅功》",
+      "cleanName": "少林小乘禅功",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-158",
+      "code": "158",
+      "name": "《华山基础心法》",
+      "cleanName": "华山基础心法",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-159",
+      "code": "159",
+      "name": "《峨眉吐纳术》",
+      "cleanName": "峨眉吐纳术",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "MA-160",
+      "code": "160",
+      "name": "《行军壮血功》",
+      "cleanName": "行军壮血功",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-161",
+      "code": "161",
+      "name": "罗汉拳",
+      "cleanName": "罗汉拳",
+      "fullTier": "凡品上品",
+      "category": "拳掌",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "MA-162",
+      "code": "162",
+      "name": "莲花掌",
+      "cleanName": "莲花掌",
+      "fullTier": "凡品上品",
+      "category": "拳掌",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "MA-163",
+      "code": "163",
+      "name": "劈山掌",
+      "cleanName": "劈山掌",
+      "fullTier": "凡品上品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-164",
+      "code": "164",
+      "name": "缠丝擒拿手",
+      "cleanName": "缠丝擒拿手",
+      "fullTier": "凡品上品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-165",
+      "code": "165",
+      "name": "华山剑法（入门十二式）",
+      "cleanName": "华山剑法（入门十二式）",
+      "fullTier": "凡品上品",
+      "category": "剑法",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-166",
+      "code": "166",
+      "name": "泰山剑法（筑基篇）",
+      "cleanName": "泰山剑法（筑基篇）",
+      "fullTier": "凡品上品",
+      "category": "剑法",
+      "sectId": "SECT-06"
+    },
+    {
+      "id": "MA-167",
+      "code": "167",
+      "name": "武当长剑",
+      "cleanName": "武当长剑",
+      "fullTier": "凡品上品",
+      "category": "剑法",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "MA-168",
+      "code": "168",
+      "name": "柳叶双刀",
+      "cleanName": "柳叶双刀",
+      "fullTier": "凡品上品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-169",
+      "code": "169",
+      "name": "六合刀",
+      "cleanName": "六合刀",
+      "fullTier": "凡品上品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-170",
+      "code": "170",
+      "name": "丐帮疯魔棍（入门篇）",
+      "cleanName": "丐帮疯魔棍（入门篇）",
+      "fullTier": "凡品上品",
+      "category": "长兵",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "MA-171",
+      "code": "171",
+      "name": "呼延硬鞭法（军中简本）",
+      "cleanName": "呼延硬鞭法（军中简本）",
+      "fullTier": "凡品上品",
+      "category": "奇门/长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-172",
+      "code": "172",
+      "name": "杨氏梨花枪（外传简谱）",
+      "cleanName": "杨氏梨花枪（外传简谱）",
+      "fullTier": "凡品上品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-173",
+      "code": "173",
+      "name": "甩手袖箭",
+      "cleanName": "甩手袖箭",
+      "fullTier": "凡品上品",
+      "category": "奇门",
+      "sectId": null
+    },
+    {
+      "id": "MA-174",
+      "code": "174",
+      "name": "蒙汗迷烟术",
+      "cleanName": "蒙汗迷烟术",
+      "fullTier": "凡品上品",
+      "category": "奇门",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MA-175",
+      "code": "175",
+      "name": "飞檐走壁",
+      "cleanName": "飞檐走壁",
+      "fullTier": "凡品上品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-176",
+      "code": "176",
+      "name": "陆地飞腾法",
+      "cleanName": "陆地飞腾法",
+      "fullTier": "凡品上品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-177",
+      "code": "177",
+      "name": "《周天引气诀》",
+      "cleanName": "周天引气诀",
+      "fullTier": "凡品中品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-178",
+      "code": "178",
+      "name": "《站桩壮骨法》",
+      "cleanName": "站桩壮骨法",
+      "fullTier": "凡品中品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-179",
+      "code": "179",
+      "name": "《清心静坐诀》",
+      "cleanName": "清心静坐诀",
+      "fullTier": "凡品中品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-180",
+      "code": "180",
+      "name": "太祖长拳",
+      "cleanName": "太祖长拳",
+      "fullTier": "凡品中品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-181",
+      "code": "181",
+      "name": "洪拳（岭南/闽南初传）",
+      "cleanName": "洪拳（岭南/闽南初传）",
+      "fullTier": "凡品中品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-182",
+      "code": "182",
+      "name": "查拳",
+      "cleanName": "查拳",
+      "fullTier": "凡品中品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-183",
+      "code": "183",
+      "name": "弹腿",
+      "cleanName": "弹腿",
+      "fullTier": "凡品中品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-184",
+      "code": "184",
+      "name": "铁砂掌（粗练）",
+      "cleanName": "铁砂掌（粗练）",
+      "fullTier": "凡品中品",
+      "category": "拳掌",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MA-185",
+      "code": "185",
+      "name": "青萍剑法",
+      "cleanName": "青萍剑法",
+      "fullTier": "凡品中品",
+      "category": "剑法",
+      "sectId": null
+    },
+    {
+      "id": "MA-186",
+      "code": "186",
+      "name": "三才剑",
+      "cleanName": "三才剑",
+      "fullTier": "凡品中品",
+      "category": "剑法",
+      "sectId": null
+    },
+    {
+      "id": "MA-187",
+      "code": "187",
+      "name": "泼风刀法",
+      "cleanName": "泼风刀法",
+      "fullTier": "凡品中品",
+      "category": "刀法",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MA-188",
+      "code": "188",
+      "name": "官制朴刀术",
+      "cleanName": "官制朴刀术",
+      "fullTier": "凡品中品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-189",
+      "code": "189",
+      "name": "杀猪断骨刀",
+      "cleanName": "杀猪断骨刀",
+      "fullTier": "凡品中品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-190",
+      "code": "190",
+      "name": "少林烧火棍",
+      "cleanName": "少林烧火棍",
+      "fullTier": "凡品中品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-191",
+      "code": "191",
+      "name": "漕工撑篙杆",
+      "cleanName": "漕工撑篙杆",
+      "fullTier": "凡品中品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-192",
+      "code": "192",
+      "name": "捕快锁链功",
+      "cleanName": "捕快锁链功",
+      "fullTier": "凡品中品",
+      "category": "奇门",
+      "sectId": null
+    },
+    {
+      "id": "MA-193",
+      "code": "193",
+      "name": "飞蝗石",
+      "cleanName": "飞蝗石",
+      "fullTier": "凡品中品",
+      "category": "奇门",
+      "sectId": null
+    },
+    {
+      "id": "MA-194",
+      "code": "194",
+      "name": "石灰迷眼包",
+      "cleanName": "石灰迷眼包",
+      "fullTier": "凡品中品",
+      "category": "奇门",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MA-195",
+      "code": "195",
+      "name": "提纵术",
+      "cleanName": "提纵术",
+      "fullTier": "凡品中品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-196",
+      "code": "196",
+      "name": "梅花桩步",
+      "cleanName": "梅花桩步",
+      "fullTier": "凡品中品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-197",
+      "code": "197",
+      "name": "《粗浅呼吸法》",
+      "cleanName": "粗浅呼吸法",
+      "fullTier": "凡品下品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-198",
+      "code": "198",
+      "name": "《挑夫扛鼎气》",
+      "cleanName": "挑夫扛鼎气",
+      "fullTier": "凡品下品",
+      "category": "内功",
+      "sectId": null
+    },
+    {
+      "id": "MA-199",
+      "code": "199",
+      "name": "市井王八拳",
+      "cleanName": "市井王八拳",
+      "fullTier": "凡品下品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-200",
+      "code": "200",
+      "name": "庄稼把式拳",
+      "cleanName": "庄稼把式拳",
+      "fullTier": "凡品下品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-201",
+      "code": "201",
+      "name": "醉汉跌扑手",
+      "cleanName": "醉汉跌扑手",
+      "fullTier": "凡品下品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-202",
+      "code": "202",
+      "name": "护院拦门掌",
+      "cleanName": "护院拦门掌",
+      "fullTier": "凡品下品",
+      "category": "拳掌",
+      "sectId": null
+    },
+    {
+      "id": "MA-203",
+      "code": "203",
+      "name": "杂耍花剑",
+      "cleanName": "杂耍花剑",
+      "fullTier": "凡品下品",
+      "category": "剑法",
+      "sectId": null
+    },
+    {
+      "id": "MA-204",
+      "code": "204",
+      "name": "基础刺击剑",
+      "cleanName": "基础刺击剑",
+      "fullTier": "凡品下品",
+      "category": "剑法",
+      "sectId": null
+    },
+    {
+      "id": "MA-205",
+      "code": "205",
+      "name": "柴刀乱披法",
+      "cleanName": "柴刀乱披法",
+      "fullTier": "凡品下品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-206",
+      "code": "206",
+      "name": "厨娘双菜刀",
+      "cleanName": "厨娘双菜刀",
+      "fullTier": "凡品下品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-207",
+      "code": "207",
+      "name": "山贼砍山刀",
+      "cleanName": "山贼砍山刀",
+      "fullTier": "凡品下品",
+      "category": "刀法",
+      "sectId": null
+    },
+    {
+      "id": "MA-208",
+      "code": "208",
+      "name": "猎户叉虎枪",
+      "cleanName": "猎户叉虎枪",
+      "fullTier": "凡品下品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-209",
+      "code": "209",
+      "name": "打狗竹棒（市井叫花）",
+      "cleanName": "打狗竹棒（市井叫花）",
+      "fullTier": "凡品下品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-210",
+      "code": "210",
+      "name": "扁担挑打术",
+      "cleanName": "扁担挑打术",
+      "fullTier": "凡品下品",
+      "category": "长兵",
+      "sectId": null
+    },
+    {
+      "id": "MA-211",
+      "code": "211",
+      "name": "更夫齐眉梆",
+      "cleanName": "更夫齐眉梆",
+      "fullTier": "凡品下品",
+      "category": "奇门/短棍",
+      "sectId": null
+    },
+    {
+      "id": "MA-212",
+      "code": "212",
+      "name": "铁算盘格挡",
+      "cleanName": "铁算盘格挡",
+      "fullTier": "凡品下品",
+      "category": "奇门",
+      "sectId": null
+    },
+    {
+      "id": "MA-213",
+      "code": "213",
+      "name": "弹弓打鸟术",
+      "cleanName": "弹弓打鸟术",
+      "fullTier": "凡品下品",
+      "category": "奇门",
+      "sectId": null
+    },
+    {
+      "id": "MA-214",
+      "code": "214",
+      "name": "渔网罩身手",
+      "cleanName": "渔网罩身手",
+      "fullTier": "凡品下品",
+      "category": "奇门",
+      "sectId": null
+    },
+    {
+      "id": "MA-215",
+      "code": "215",
+      "name": "疾跑赶路步",
+      "cleanName": "疾跑赶路步",
+      "fullTier": "凡品下品",
+      "category": "轻功",
+      "sectId": null
+    },
+    {
+      "id": "MA-216",
+      "code": "216",
+      "name": "翻滚躲闪步",
+      "cleanName": "翻滚躲闪步",
+      "fullTier": "凡品下品",
+      "category": "轻功",
+      "sectId": null
+    }
+  ]
+}

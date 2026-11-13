@@ -1,6 +1,20 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
+import {
+  BUILDING_DB_MAP,
+  FACTION_DB_MAP,
+  ID_REGISTRY,
+  MARTIAL_ART_DB_MAP,
+  MARTIAL_ARTS_DB,
+  NPCS_DB,
+} from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
-import type { MenuTabKey, MountKey, PortraitCharacter } from '../../types/game'
+import type {
+  CompiledMartialArtRecord,
+  CompiledNpcRecord,
+  MenuTabKey,
+  MountKey,
+  SaveSlotId,
+} from '../../types/game'
 import {
   ASSET_MANIFEST,
   formatByteSize,
@@ -11,9 +25,14 @@ import {
   formatSongDate,
   getEffectiveSpeed,
   NODE_MAP,
-  PORTRAIT_CATALOG,
   WORLD_GRAPH,
 } from '../../utils/mapMath'
+import {
+  downloadSaveAsJsonFile,
+  parseSaveJsonFile,
+  putSaveEnvelope,
+  SAVE_SLOT_DEFS,
+} from '../../utils/saveManager'
 
 const MENU_NAV_ITEMS: Array<{
   key: MenuTabKey
@@ -21,6 +40,7 @@ const MENU_NAV_ITEMS: Array<{
   label: string
   seal: string
   subtitle: string
+  implementedM0?: boolean
 }> = [
   {
     key: 'hero',
@@ -41,35 +61,48 @@ const MENU_NAV_ITEMS: Array<{
     numeral: '叁',
     label: '群侠图鉴',
     seal: '谱',
-    subtitle: '已合并群侠分支 240 位核心人物档案与 12 套门派母版立绘（按需懒加载）',
+    subtitle: 'M0-3 编译全量 1,000 位皇祐人物档案、38 州府标准地名对齐与立绘懒加载',
+    implementedM0: true,
+  },
+  {
+    key: 'martialArts',
+    numeral: '肆',
+    label: '武学总纲',
+    seal: '武',
+    subtitle: 'M0-3 编译四阶十二品共 216 门武学全录、天阶前置校验词条与门派归属索引',
+    implementedM0: true,
   },
   {
     key: 'engineering',
-    numeral: '肆',
-    label: '工程监控',
+    numeral: '伍',
+    label: '工程与字典',
     seal: '枢',
-    subtitle: 'M0-1 工程化拆解与静态资源按需懒加载（Lazy-Load）实时遥测面板',
+    subtitle: 'M0-1~M0-3 静态资源按需懒加载遥测 + 跨分支标准 ID 字典（38地/20派/216功/1000人）',
+    implementedM0: true,
   },
   {
     key: 'save',
-    numeral: '伍',
+    numeral: '陆',
     label: '存 档',
     seal: '录',
-    subtitle: '将当前皇祐纪年历法、所在地域与江湖经历封入卷宗（待 M0-4 接入）',
+    subtitle: 'M0-4 多槽位 IndexedDB 卷宗持久化、自定义手札批注与 JSON 存档文件导出',
+    implementedM0: true,
   },
   {
     key: 'load',
-    numeral: '陆',
+    numeral: '柒',
     label: '读 档',
     seal: '启',
-    subtitle: '调阅往昔手札卷宗，回溯关键江湖分歧（待 M0-4 接入）',
+    subtitle: 'M0-4 读取历史卷宗回溯三层空间现场，或从本地导入 .json 存档文件',
+    implementedM0: true,
   },
   {
     key: 'settings',
-    numeral: '柒',
+    numeral: '捌',
     label: '设 置',
     seal: '律',
     subtitle: '舆图显示偏好、牌匾标注开关与界面主题调校',
+    implementedM0: true,
   },
 ]
 
@@ -80,11 +113,26 @@ const QINGGONG_OPTIONS = [
   { label: '凌波微步 (+50%)', value: 0.5 },
 ]
 
+function formatSavedTime(iso: string): string {
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return iso
+  return d.toLocaleString('zh-CN', {
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  })
+}
+
 export function SystemMenuModal() {
   const menuOpen = useGameStore((s) => s.menuOpen)
   const activeMenuTab = useGameStore((s) => s.activeMenuTab)
   const dayCount = useGameStore((s) => s.dayCount)
   const viewMode = useGameStore((s) => s.viewMode)
+  const activeRegionId = useGameStore((s) => s.activeRegionId)
+  const activeBuildingInteriorId = useGameStore((s) => s.activeBuildingInteriorId)
   const currentNodeId = useGameStore((s) => s.currentNodeId)
   const hp = useGameStore((s) => s.hp)
   const mp = useGameStore((s) => s.mp)
@@ -97,6 +145,9 @@ export function SystemMenuModal() {
   const mountKey = useGameStore((s) => s.mountKey)
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const showRegionLabels = useGameStore((s) => s.showRegionLabels)
+  const saveSlots = useGameStore((s) => s.saveSlots)
+  const saveBusy = useGameStore((s) => s.saveBusy)
+  const saveNotice = useGameStore((s) => s.saveNotice)
 
   const closeMenu = useGameStore((s) => s.closeMenu)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
@@ -105,56 +156,121 @@ export function SystemMenuModal() {
   const replenishSupplies = useGameStore((s) => s.replenishSupplies)
   const toggleRegionLabels = useGameStore((s) => s.toggleRegionLabels)
   const setAllLabelToggles = useGameStore((s) => s.setAllLabelToggles)
+  const enterRegionMap = useGameStore((s) => s.enterRegionMap)
+  const buildSaveEnvelope = useGameStore((s) => s.buildSaveEnvelope)
+  const saveToSlot = useGameStore((s) => s.saveToSlot)
+  const loadFromEnvelope = useGameStore((s) => s.loadFromEnvelope)
+  const removeSaveSlot = useGameStore((s) => s.removeSaveSlot)
+  const setSaveNotice = useGameStore((s) => s.setSaveNotice)
 
   const telemetry = useAssetTelemetry()
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
-  // Portrait Gallery filter state
-  const [portraitQuery, setPortraitQuery] = useState('')
-  const [portraitCategory, setPortraitCategory] = useState<string>('ALL_WITH_ART')
-  const [selectedChar, setSelectedChar] = useState<PortraitCharacter | null>(
-    () => PORTRAIT_CATALOG.characters[0] ?? null,
+  // 1,000 NPC Compendium filter state
+  const [npcQuery, setNpcQuery] = useState('')
+  const [npcScope, setNpcScope] = useState<string>('ALL_WITH_ART')
+  const [npcRegionFilter, setNpcRegionFilter] = useState<string>('ALL')
+  const [npcFactionFilter, setNpcFactionFilter] = useState<string>('ALL')
+  const [selectedNpc, setSelectedNpc] = useState<CompiledNpcRecord | null>(
+    () => NPCS_DB[100] ?? NPCS_DB[0] ?? null,
   )
 
-  const categories = useMemo(() => {
-    const set = new Set<string>()
-    for (const c of PORTRAIT_CATALOG.characters) {
-      set.add(c.cat)
-    }
-    return Array.from(set)
-  }, [])
+  // 216 Martial Arts Compendium filter state
+  const [artQuery, setArtQuery] = useState('')
+  const [artTierFilter, setArtTierFilter] = useState<string>('ALL')
+  const [artCatFilter, setArtCatFilter] = useState<string>('ALL')
+  const [selectedArt, setSelectedArt] = useState<CompiledMartialArtRecord | null>(
+    () => MARTIAL_ARTS_DB[0] ?? null,
+  )
 
-  const filteredCharacters = useMemo(() => {
-    const q = portraitQuery.trim().toLowerCase()
-    return PORTRAIT_CATALOG.characters.filter((c) => {
-      if (portraitCategory === 'ALL_WITH_ART' && !c.avatarUrl && !c.fullbodyUrl) {
-        return false
-      }
-      if (
-        portraitCategory !== 'ALL' &&
-        portraitCategory !== 'ALL_WITH_ART' &&
-        c.cat !== portraitCategory
-      ) {
-        return false
-      }
+  // Save note state
+  const [saveNoteDraft, setSaveNoteDraft] = useState('')
+  const [importTargetSlot, setImportTargetSlot] = useState<SaveSlotId | 'DIRECT_LOAD'>('DIRECT_LOAD')
+
+  const filteredNpcs = useMemo(() => {
+    const q = npcQuery.trim().toLowerCase()
+    return NPCS_DB.filter((c) => {
+      if (npcScope === 'ALL_WITH_ART' && !c.avatarUrl && !c.fullbodyUrl) return false
+      if (npcScope === 'HISTORICAL' && c.category !== '历史名人') return false
+      if (npcScope === 'GRANDMASTER_MASTER' && c.realmRank > 6) return false
+      if (npcScope === 'FIRST_RATE' && (c.realmRank < 7 || c.realmRank > 9)) return false
+      if (npcScope === 'HERE' && c.regionId !== activeRegionId) return false
+
+      if (npcRegionFilter !== 'ALL' && c.regionId !== npcRegionFilter) return false
+      if (npcFactionFilter !== 'ALL' && c.factionId !== npcFactionFilter) return false
+
       if (!q) return true
       return (
+        c.id.toLowerCase().includes(q) ||
         c.name.toLowerCase().includes(q) ||
         c.title.toLowerCase().includes(q) ||
-        c.faction.toLowerCase().includes(q) ||
-        c.loc.toLowerCase().includes(q)
+        c.factionName.toLowerCase().includes(q) ||
+        c.locationLabel.toLowerCase().includes(q) ||
+        c.artsText.toLowerCase().includes(q)
       )
     })
-  }, [portraitQuery, portraitCategory])
+  }, [npcQuery, npcScope, npcRegionFilter, npcFactionFilter, activeRegionId])
+
+  const artCategories = useMemo(() => {
+    const s = new Set<string>()
+    for (const a of MARTIAL_ARTS_DB) {
+      s.add(a.category)
+    }
+    return Array.from(s)
+  }, [])
+
+  const filteredArts = useMemo(() => {
+    const q = artQuery.trim().toLowerCase()
+    return MARTIAL_ARTS_DB.filter((a) => {
+      if (artTierFilter !== 'ALL' && a.tier !== artTierFilter) return false
+      if (artCatFilter !== 'ALL' && a.category !== artCatFilter) return false
+      if (!q) return true
+      return (
+        a.id.toLowerCase().includes(q) ||
+        a.name.toLowerCase().includes(q) ||
+        a.origin.toLowerCase().includes(q) ||
+        a.description.toLowerCase().includes(q)
+      )
+    })
+  }, [artQuery, artTierFilter, artCatFilter])
 
   if (!menuOpen) return null
 
   const curNode = NODE_MAP[currentNodeId] ?? WORLD_GRAPH.nodes[0]
+  const activeRegionNode = NODE_MAP[activeRegionId] ?? curNode
+  const activeInteriorBldg = activeBuildingInteriorId
+    ? BUILDING_DB_MAP[activeBuildingInteriorId]
+    : null
+
   const activeMeta =
     MENU_NAV_ITEMS.find((m) => m.key === activeMenuTab) ?? MENU_NAV_ITEMS[0]
   const speedInfo = getEffectiveSpeed(
     { mountKey, qinggongBonus, ridingSkill, agility },
     'official',
   )
+
+  const handleImportFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    e.target.value = ''
+    if (!file) return
+    try {
+      const parsed = await parseSaveJsonFile(file)
+      if (importTargetSlot === 'DIRECT_LOAD') {
+        loadFromEnvelope(parsed, true)
+      } else {
+        const rebound = { ...parsed, slotId: importTargetSlot }
+        await putSaveEnvelope(rebound)
+        await useGameStore.getState().refreshSaveSlots()
+        setSaveNotice({
+          text: `已将外部卷宗【${file.name}】验证并导入至【${importTargetSlot.toUpperCase()}】，可随时点击读取！`,
+          tone: 'success',
+        })
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : '导入 JSON 卷宗失败'
+      setSaveNotice({ text: msg, tone: 'error' })
+    }
+  }
 
   return (
     <div
@@ -164,7 +280,7 @@ export function SystemMenuModal() {
       }}
       className="fixed inset-0 z-50 bg-black/65 flex items-center justify-center p-4 select-none"
     >
-      <div className="w-full max-w-5xl h-[620px] max-h-[90vh] bg-[#f8f1e1] text-[#23180f] border-2 border-[#6e5233] rounded-lg shadow-2xl flex flex-col overflow-hidden">
+      <div className="w-full max-w-5xl h-[650px] max-h-[92vh] bg-[#f8f1e1] text-[#23180f] border-2 border-[#6e5233] rounded-lg shadow-2xl flex flex-col overflow-hidden">
         {/* 顶部栏：金石朱印标题 + 快捷关闭 */}
         <div className="shrink-0 bg-[#261910] text-[#fbf2e0] border-b-2 border-[#c89d54] px-5 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -181,7 +297,7 @@ export function SystemMenuModal() {
                 </span>
               </div>
               <p className="text-[11px] text-[#d6c5a5]">
-                模块化前端工程 (M0-1) · 按 ESC 键或点击右上角返回舆图
+                工程底座收拢完毕 (M0-1 ~ M0-4) · 按 ESC 键或点击右上角返回舆图
               </p>
             </div>
           </div>
@@ -207,8 +323,8 @@ export function SystemMenuModal() {
                     onClick={() => setMenuTab(item.key)}
                     className={
                       isAct
-                        ? 'w-full px-3 py-2.5 rounded-md border-2 border-[#f5cb5c] bg-[#8f1d14] text-[#fff8eb] text-left song-serif font-bold text-sm shadow-md transition flex items-center justify-between cursor-pointer'
-                        : 'w-full px-3 py-2.5 rounded-md border border-[#b59c77] bg-[#f8f1e1] hover:bg-[#e7d9bc] text-[#2b1a0e] text-left song-serif font-bold text-sm transition flex items-center justify-between cursor-pointer'
+                        ? 'w-full px-3 py-2 rounded-md border-2 border-[#f5cb5c] bg-[#8f1d14] text-[#fff8eb] text-left song-serif font-bold text-sm shadow-md transition flex items-center justify-between cursor-pointer'
+                        : 'w-full px-3 py-2 rounded-md border border-[#b59c77] bg-[#f8f1e1] hover:bg-[#e7d9bc] text-[#2b1a0e] text-left song-serif font-bold text-sm transition flex items-center justify-between cursor-pointer'
                     }
                   >
                     <span className="flex items-center gap-2">
@@ -228,7 +344,11 @@ export function SystemMenuModal() {
               </div>
               <div className="flex justify-between">
                 <span>所在地域</span>
-                <span className="font-semibold">{curNode?.name}</span>
+                <span className="font-semibold">{activeRegionNode?.name}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>合流数据</span>
+                <span className="font-mono font-bold text-[#781710]">1000侠 / 216功</span>
               </div>
               <div className="flex justify-between">
                 <span>已懒加载</span>
@@ -256,15 +376,13 @@ export function SystemMenuModal() {
                   </div>
                 </div>
                 <span
-                  className={`px-2.5 py-1 rounded border text-[11px] font-semibold ${
-                    activeMenuTab === 'engineering' || activeMenuTab === 'portraits'
+                  className={`px-2.5 py-1 rounded border text-[11px] font-semibold shrink-0 ${
+                    activeMeta.implementedM0
                       ? 'bg-[#e1f0e8] border-[#6aa384] text-[#184f35]'
                       : 'bg-[#e8dac0] border-[#b89f78] text-[#52391e]'
                   }`}
                 >
-                  {activeMenuTab === 'engineering' || activeMenuTab === 'portraits'
-                    ? 'M0-1 已实装'
-                    : '玩法待深化设计'}
+                  {activeMeta.implementedM0 ? 'M0 已实装' : 'M1 玩法待深化'}
                 </span>
               </div>
 
@@ -292,7 +410,6 @@ export function SystemMenuModal() {
                     </div>
                   </div>
 
-                  {/* 通用十艺一览 */}
                   <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-2">
                     <div className="song-serif font-bold text-[#52391e]">
                       通用十艺修为（可在各州书院、樊楼、寺观演武场历练提升）
@@ -314,7 +431,6 @@ export function SystemMenuModal() {
                     </div>
                   </div>
 
-                  {/* 坐骑与轻功切换（直接影响大地图 Dijkstra 寻路耗时） */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
                     <label className="space-y-1 block">
                       <span className="font-bold song-serif text-[#52391e]">
@@ -352,7 +468,7 @@ export function SystemMenuModal() {
                   </div>
 
                   <div className="p-4 rounded-md border border-dashed border-[#bba37c] bg-[#f3ead6] text-center text-[#695036]">
-                    注：创角出身、武学招式搭配、经脉周天等深度养成玩法待后续阶段专项设计后接入。
+                    注：创角出身、武学招式装配（1内功+1轻功+4外功）等养成机制待 M1 阶段玩法定稿后接入。
                   </div>
                 </div>
               )}
@@ -400,51 +516,87 @@ export function SystemMenuModal() {
                       【背包道具与装备栏】模块容器已就绪
                     </div>
                     <p className="text-xs text-[#695036] max-w-lg mx-auto leading-relaxed">
-                      当前仅保留大地图行军所需的纹银与干粮补给。兵刃甲胄、丹药毒物、武学秘籍残卷等格位将在玩法细化后接入。
+                      当前仅保留大地图行军所需的纹银与干粮补给。兵刃甲胄、丹药毒物、武学秘籍残卷等格位将在 M1 玩法细化后接入。
                     </p>
                   </div>
                 </div>
               )}
 
-              {/* 3. 群侠图鉴（合并自人物分支，全部静态立绘按需懒加载） */}
+              {/* 3. 1,000 群侠图鉴（M0-2 地名归一 + M0-3 全量编译数据库） */}
               {activeMenuTab === 'portraits' && (
                 <div className="space-y-3 text-xs">
                   <div className="flex flex-wrap items-center gap-2 bg-[#efe4cc] p-2.5 rounded border border-[#c8b28e]">
                     <input
                       type="text"
-                      value={portraitQuery}
-                      onChange={(e) => setPortraitQuery(e.target.value)}
-                      placeholder="搜索姓名、字号、势力或驻地（如：包拯、展昭、乔峰、大理）…"
-                      className="flex-1 min-w-[200px] px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
+                      value={npcQuery}
+                      onChange={(e) => setNpcQuery(e.target.value)}
+                      placeholder="搜编号/姓名/字号/武学（如：NPC-0101、乔峰、包拯、六脉神剑）…"
+                      className="flex-1 min-w-[180px] px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
                     />
                     <select
-                      value={portraitCategory}
-                      onChange={(e) => setPortraitCategory(e.target.value)}
-                      className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
+                      value={npcScope}
+                      onChange={(e) => setNpcScope(e.target.value)}
+                      className="px-2 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
                     >
-                      <option value="ALL_WITH_ART">已有独立原画人物 (51)</option>
-                      <option value="ALL">全部名录档案 ({PORTRAIT_CATALOG.characters.length})</option>
-                      {categories.map((cat) => (
-                        <option key={cat} value={cat}>
-                          分类：{cat}
+                      <option value="ALL_WITH_ART">已有独立原画 ({ID_REGISTRY.counts.npcsWithAvatar})</option>
+                      <option value="ALL">全部千人名录 (1000)</option>
+                      <option value="HERE">当前地区：{activeRegionNode?.name}</option>
+                      <option value="HISTORICAL">庙堂四夷历史百杰 (100)</option>
+                      <option value="GRANDMASTER_MASTER">大宗师与宗师 (34)</option>
+                      <option value="FIRST_RATE">一流高手 (120)</option>
+                    </select>
+                    <select
+                      value={npcRegionFilter}
+                      onChange={(e) => setNpcRegionFilter(e.target.value)}
+                      className="px-2 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer max-w-[140px]"
+                    >
+                      <option value="ALL">全部 38 地区</option>
+                      {ID_REGISTRY.regions.map((r) => (
+                        <option key={r.id} value={r.id}>
+                          {r.numericCode}·{r.name} ({r.npcCount})
                         </option>
                       ))}
                     </select>
+                    <select
+                      value={npcFactionFilter}
+                      onChange={(e) => setNpcFactionFilter(e.target.value)}
+                      className="px-2 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer max-w-[150px]"
+                    >
+                      <option value="ALL">全部 20派+11势力</option>
+                      <optgroup label="二十大门派 (SECT-01..20)">
+                        {ID_REGISTRY.factions
+                          .filter((f) => f.isMajorSect)
+                          .map((f) => (
+                            <option key={f.id} value={f.id}>
+                              {f.id} {f.name} ({f.memberCount})
+                            </option>
+                          ))}
+                      </optgroup>
+                      <optgroup label="朝堂与四夷势力 (ORG-01..11)">
+                        {ID_REGISTRY.factions
+                          .filter((f) => !f.isMajorSect)
+                          .map((f) => (
+                            <option key={f.id} value={f.id}>
+                              {f.id} {f.name} ({f.memberCount})
+                            </option>
+                          ))}
+                      </optgroup>
+                    </select>
                     <span className="text-[11px] text-[#5e472d] font-mono">
-                      共 {filteredCharacters.length} 人
+                      命中 {filteredNpcs.length} 人
                     </span>
                   </div>
 
                   <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
-                    {/* 左侧懒加载头像网格 */}
-                    <div className="lg:col-span-7 max-h-[340px] overflow-y-auto scroll-thin pr-1 grid grid-cols-2 sm:grid-cols-3 gap-2">
-                      {filteredCharacters.map((c) => {
-                        const isSel = selectedChar?.id === c.id
+                    {/* 左侧懒加载人物列表（分页渲染前 180 条保持丝滑滚动） */}
+                    <div className="lg:col-span-7 max-h-[360px] overflow-y-auto scroll-thin pr-1 grid grid-cols-2 sm:grid-cols-3 gap-2 content-start">
+                      {filteredNpcs.slice(0, 180).map((c) => {
+                        const isSel = selectedNpc?.id === c.id
                         return (
                           <button
                             key={c.id}
                             type="button"
-                            onClick={() => setSelectedChar(c)}
+                            onClick={() => setSelectedNpc(c)}
                             className={`p-2 rounded border text-left transition flex items-center gap-2 cursor-pointer ${
                               isSel
                                 ? 'bg-[#8f1d14] text-[#fff8eb] border-[#f5cb5c] shadow'
@@ -462,8 +614,13 @@ export function SystemMenuModal() {
                                 className="w-10 h-10 rounded object-cover border border-[#bfa782] shrink-0 bg-[#2b1d12]"
                               />
                             ) : (
-                              <div className="w-10 h-10 rounded bg-[#5c4024] text-[#fff8ee] flex items-center justify-center song-serif font-bold text-sm shrink-0">
-                                {c.name.slice(0, 1)}
+                              <div className="w-10 h-10 rounded bg-[#4a321d] border border-[#9e7b47]/60 text-[#fff8ee] flex flex-col items-center justify-center shrink-0">
+                                <span className="song-serif font-bold text-xs leading-none">
+                                  {c.name.slice(0, 1)}
+                                </span>
+                                <span className="text-[8px] text-amber-200/90 mt-0.5">
+                                  {FACTION_DB_MAP[c.factionId]?.shortName ?? '群侠'}
+                                </span>
                               </div>
                             )}
                             <div className="min-w-0">
@@ -473,150 +630,359 @@ export function SystemMenuModal() {
                                   isSel ? 'text-amber-200' : 'text-[#6b5235]'
                                 }`}
                               >
-                                {c.faction}
+                                {c.locationLabel} · {c.realm}
                               </div>
                             </div>
                           </button>
                         )
                       })}
+                      {filteredNpcs.length > 180 && (
+                        <div className="col-span-full text-center py-2 text-[11px] text-[#6b5235]">
+                          当前显示前 180 条档案，可通过上方搜索框或地区/门派筛选器精确检索其余人物。
+                        </div>
+                      )}
                     </div>
 
-                    {/* 右侧选中人物立绘与生平详情 */}
-                    <div className="lg:col-span-5 p-3 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-col gap-2.5 max-h-[340px] overflow-y-auto scroll-thin">
-                      {selectedChar ? (
+                    {/* 右侧选中人物详情与标准 ID 关联 */}
+                    <div className="lg:col-span-5 p-3 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-col gap-2 max-h-[360px] overflow-y-auto scroll-thin">
+                      {selectedNpc ? (
                         <>
                           <div className="flex items-start justify-between gap-2 border-b border-[#cbb693] pb-2">
                             <div>
-                              <div className="song-serif font-bold text-base text-[#23180f]">
-                                {selectedChar.name}{' '}
-                                <span className="text-xs font-normal text-[#6b5235]">
-                                  · {selectedChar.title}
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-[#261910] text-amber-200">
+                                  {selectedNpc.id}
                                 </span>
+                                <span className="song-serif font-bold text-base text-[#23180f]">
+                                  {selectedNpc.name}
+                                </span>
+                                <span className="text-xs text-[#6b5235]">· {selectedNpc.title}</span>
                               </div>
-                              <div className="text-[11px] text-[#781710] font-medium mt-0.5">
-                                {selectedChar.faction} · {selectedChar.role}（{selectedChar.loc}）
+                              <div className="text-[11px] text-[#781710] font-medium mt-1">
+                                [{selectedNpc.factionId}] {selectedNpc.factionName} · {selectedNpc.role}（{selectedNpc.gender}·{selectedNpc.age}岁）
+                              </div>
+                              <div className="text-[11px] text-[#4a3219] mt-0.5 flex items-center gap-1.5 flex-wrap">
+                                <span>
+                                  常驻：<strong>{selectedNpc.locationLabel}</strong> (`{selectedNpc.regionId}`)
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    enterRegionMap(selectedNpc.regionId, true)
+                                    closeMenu()
+                                  }}
+                                  className="px-1.5 py-0.5 rounded bg-[#8f1d14] text-[#fff8eb] text-[10px] cursor-pointer"
+                                >
+                                  前往该地 →
+                                </button>
                               </div>
                             </div>
                             <span className="px-2 py-0.5 rounded bg-[#5c4024] text-[#fff8ee] text-[10px] shrink-0">
-                              {selectedChar.realm}
+                              {selectedNpc.realm}
                             </span>
                           </div>
 
-                          {selectedChar.fullbodyUrl && (
-                            <div className="w-full h-44 rounded bg-[#1e150e] border border-[#8c6e46] overflow-hidden flex items-center justify-center">
-                              <img
-                                src={selectedChar.fullbodyUrl}
-                                alt={`${selectedChar.name} 全身立绘`}
-                                loading="lazy"
-                                onLoad={() => {
-                                  if (selectedChar.fullbodyUrl) {
-                                    recordAssetLoaded(selectedChar.fullbodyUrl, 135000)
-                                  }
-                                }}
-                                className="max-h-full max-w-full object-contain"
-                              />
+                          {/* 独立全身立绘 或 门派母版立绘展示 */}
+                          <div className="w-full h-40 rounded bg-[#1e150e] border border-[#8c6e46] overflow-hidden flex items-center justify-center relative">
+                            <img
+                              src={selectedNpc.fullbodyUrl ?? selectedNpc.templateUrl}
+                              alt={`${selectedNpc.name} 立绘`}
+                              loading="lazy"
+                              onLoad={() => {
+                                const url = selectedNpc.fullbodyUrl ?? selectedNpc.templateUrl
+                                recordAssetLoaded(url, 125000)
+                              }}
+                              className="max-h-full max-w-full object-contain"
+                            />
+                            {!selectedNpc.fullbodyUrl && (
+                              <span className="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded bg-black/70 text-[10px] text-[#f5dfb5] border border-[#c89d54]/50">
+                                门派母版兜底立绘
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="grid grid-cols-4 gap-1 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-1.5 font-mono text-[11px]">
+                            <div>
+                              <div className="text-[10px] text-[#6b5235]">气血</div>
+                              <strong className="text-[#8f1d14]">{selectedNpc.stats.hp}</strong>
+                            </div>
+                            <div>
+                              <div className="text-[10px] text-[#6b5235]">内力</div>
+                              <strong className="text-[#1d473a]">{selectedNpc.stats.mp}</strong>
+                            </div>
+                            <div>
+                              <div className="text-[10px] text-[#6b5235]">身法</div>
+                              <strong>{selectedNpc.stats.agi}</strong>
+                            </div>
+                            <div>
+                              <div className="text-[10px] text-[#6b5235]">抗性</div>
+                              <strong>{selectedNpc.stats.res}</strong>
+                            </div>
+                          </div>
+
+                          {selectedNpc.knownArtIds.length > 0 && (
+                            <div className="space-y-1">
+                              <div className="text-[10px] font-bold text-[#5e472d]">
+                                关联标准武学 ID ({selectedNpc.knownArtIds.length})：
+                              </div>
+                              <div className="flex flex-wrap gap-1">
+                                {selectedNpc.knownArtIds.map((aid) => {
+                                  const art = MARTIAL_ART_DB_MAP[aid]
+                                  return (
+                                    <button
+                                      key={aid}
+                                      type="button"
+                                      onClick={() => {
+                                        if (art) {
+                                          setSelectedArt(art)
+                                          setMenuTab('martialArts')
+                                        }
+                                      }}
+                                      className="px-1.5 py-0.5 rounded bg-[#faf3e3] hover:bg-[#e5d6b8] border border-[#9e8462] text-[10px] text-[#781710] font-medium cursor-pointer"
+                                    >
+                                      {aid} · {art?.cleanName ?? aid}
+                                    </button>
+                                  )
+                                })}
+                              </div>
                             </div>
                           )}
 
-                          <div className="text-[11px] text-[#4a3219]">
-                            <strong>所修武学/技艺：</strong>
-                            {selectedChar.arts}
-                          </div>
+                          {selectedNpc.specialtyTags.length > 0 && (
+                            <div className="text-[11px] text-[#4a3219]">
+                              <strong>十艺/专长：</strong>
+                              {selectedNpc.specialtyTags.join('、')}
+                            </div>
+                          )}
+
                           <p className="text-[11px] text-[#3d2b19] leading-relaxed">
-                            {selectedChar.bio}
+                            {selectedNpc.bio}
                           </p>
                         </>
-                      ) : (
-                        <div className="text-center text-[#6b5235] py-12">
-                          请点击左侧人物查阅立绘与列传
-                        </div>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 </div>
               )}
 
-              {/* 4. M0-1 工程监控 */}
+              {/* 4. 216 门武学总纲（M0-3 编译数据库） */}
+              {activeMenuTab === 'martialArts' && (
+                <div className="space-y-3 text-xs">
+                  <div className="flex flex-wrap items-center gap-2 bg-[#efe4cc] p-2.5 rounded border border-[#c8b28e]">
+                    <input
+                      type="text"
+                      value={artQuery}
+                      onChange={(e) => setArtQuery(e.target.value)}
+                      placeholder="搜索武学编号、名称、所属宗门或描述（如：MA-001、降龙、凌波微步、少林）…"
+                      className="flex-1 min-w-[200px] px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
+                    />
+                    <select
+                      value={artTierFilter}
+                      onChange={(e) => setArtTierFilter(e.target.value)}
+                      className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
+                    >
+                      <option value="ALL">全部四阶 (216 门)</option>
+                      <option value="天阶">天阶绝学 (36 门)</option>
+                      <option value="地阶">地阶上乘 (60 门)</option>
+                      <option value="良品">良品中坚 (60 门)</option>
+                      <option value="凡品">凡品筑基 (60 门)</option>
+                    </select>
+                    <select
+                      value={artCatFilter}
+                      onChange={(e) => setArtCatFilter(e.target.value)}
+                      className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
+                    >
+                      <option value="ALL">全部兵刃/功体类别</option>
+                      {artCategories.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                    <span className="text-[11px] text-[#5e472d] font-mono">
+                      共 {filteredArts.length} 门
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
+                    <div className="lg:col-span-7 max-h-[360px] overflow-y-auto scroll-thin pr-1 grid grid-cols-1 sm:grid-cols-2 gap-2 content-start">
+                      {filteredArts.map((art) => {
+                        const isSel = selectedArt?.id === art.id
+                        const tierBadgeCls =
+                          art.tier === '天阶'
+                            ? 'bg-[#8f1d14] text-amber-200'
+                            : art.tier === '地阶'
+                              ? 'bg-[#5b3b73] text-[#fff8ee]'
+                              : art.tier === '良品'
+                                ? 'bg-[#1d473a] text-[#fff8ee]'
+                                : 'bg-[#5c4630] text-[#fff8ee]'
+                        return (
+                          <button
+                            key={art.id}
+                            type="button"
+                            onClick={() => setSelectedArt(art)}
+                            className={`p-2.5 rounded border text-left transition flex items-center justify-between gap-2 cursor-pointer ${
+                              isSel
+                                ? 'bg-[#261910] text-[#fff8eb] border-[#f5cb5c] shadow'
+                                : 'bg-[#efe4cc] hover:bg-[#e5d6b8] text-[#23180f] border-[#c8b28e]'
+                            }`}
+                          >
+                            <div className="min-w-0">
+                              <div className="flex items-center gap-1.5">
+                                <span className="font-mono text-[10px] opacity-80">{art.id}</span>
+                                <span className="song-serif font-bold truncate">{art.name}</span>
+                              </div>
+                              <div
+                                className={`text-[10px] truncate mt-0.5 ${
+                                  isSel ? 'text-[#d6c5a5]' : 'text-[#6b5235]'
+                                }`}
+                              >
+                                {art.category} · {art.origin}
+                              </div>
+                            </div>
+                            <span
+                              className={`px-1.5 py-0.5 rounded text-[10px] font-semibold shrink-0 ${tierBadgeCls}`}
+                            >
+                              {art.fullTier}
+                            </span>
+                          </button>
+                        )
+                      })}
+                    </div>
+
+                    <div className="lg:col-span-5 p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-col gap-2.5 max-h-[360px] overflow-y-auto scroll-thin">
+                      {selectedArt ? (
+                        <>
+                          <div className="border-b border-[#cbb693] pb-2">
+                            <div className="flex items-center justify-between">
+                              <span className="font-mono text-xs px-2 py-0.5 rounded bg-[#261910] text-amber-200">
+                                {selectedArt.id}
+                              </span>
+                              <span className="px-2 py-0.5 rounded bg-[#8f1d14] text-[#fff8eb] text-[11px] font-bold">
+                                {selectedArt.fullTier} · {selectedArt.category}
+                              </span>
+                            </div>
+                            <div className="song-serif font-bold text-base text-[#23180f] mt-1.5">
+                              {selectedArt.name}
+                            </div>
+                            <div className="text-[11px] text-[#6b5235] mt-0.5">
+                              传承渊源：{selectedArt.origin}
+                              {selectedArt.sectId
+                                ? `（标准门派 ID：${selectedArt.sectId}）`
+                                : '（江湖公共/奇遇传承）'}
+                            </div>
+                          </div>
+
+                          <p className="text-xs text-[#3d2b19] leading-relaxed">
+                            {selectedArt.description}
+                          </p>
+
+                          {selectedArt.prerequisitesText && (
+                            <div className="p-2.5 rounded bg-[#faf3e3] border border-[#b89f78] space-y-1.5">
+                              <div className="font-bold song-serif text-[#8f1d14]">
+                                天阶前置修行条件：
+                              </div>
+                              <div className="text-[11px] text-[#4a3219] leading-relaxed">
+                                {selectedArt.prerequisitesText}
+                              </div>
+                              {selectedArt.statRequirements.length > 0 && (
+                                <div className="flex flex-wrap gap-1 pt-1">
+                                  {selectedArt.statRequirements.map((req) => (
+                                    <span
+                                      key={req.stat}
+                                      className="px-1.5 py-0.5 rounded bg-[#efe4cc] border border-[#9e8462] font-mono text-[10px] text-[#23180f]"
+                                    >
+                                      {req.stat} ≥ {req.min}
+                                    </span>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </>
+                      ) : null}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 5. 工程与标准 ID 字典监控（M0-1 + M0-2 + M0-3 验收面板） */}
               {activeMenuTab === 'engineering' && (
-                <div className="space-y-4 text-xs">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e]">
-                      <div className="text-[#6b5033]">旧版单文件体积</div>
-                      <div className="font-mono font-bold text-base text-[#8f1d14] mt-0.5">
-                        {formatByteSize(
-                          ASSET_MANIFEST.legacySizes.northern_song_map_html_bytes +
-                            ASSET_MANIFEST.legacySizes.character_portrait_gallery_html_bytes,
-                        )}
-                      </div>
-                      <div className="text-[10px] text-[#6b5235]">Base64 硬编码阻塞解析</div>
-                    </div>
-
-                    <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e]">
-                      <div className="text-[#6b5033]">抽离静态图片总数</div>
+                <div className="space-y-3.5 text-xs">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+                    <div className="p-2.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
+                      <div className="text-[#6b5033]">标准地区 ID</div>
                       <div className="font-mono font-bold text-base text-[#23180f] mt-0.5">
-                        {ASSET_MANIFEST.summary.totalExtractedImageFiles} 张
+                        {ID_REGISTRY.counts.regions} 处 (`REG-01..38`)
                       </div>
-                      <div className="text-[10px] text-[#6b5235]">
-                        总计 {formatByteSize(ASSET_MANIFEST.summary.totalExtractedImageBytes)} 独立文件
+                      <div className="text-[10px] text-[#6b5235]">15宋城 + 6外城 + 17秘境雄关</div>
+                    </div>
+
+                    <div className="p-2.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
+                      <div className="text-[#6b5033]">门派与势力 ID</div>
+                      <div className="font-mono font-bold text-base text-[#23180f] mt-0.5">
+                        {ID_REGISTRY.counts.majorSects} 派 + {ID_REGISTRY.counts.otherOrganizations} 组织
+                      </div>
+                      <div className="text-[10px] text-[#6b5235]">`SECT-01..20` / `ORG-01..11`</div>
+                    </div>
+
+                    <div className="p-2.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
+                      <div className="text-[#6b5033]">武学与人物全库</div>
+                      <div className="font-mono font-bold text-base text-[#8f1d14] mt-0.5">
+                        {ID_REGISTRY.counts.martialArts} 功 · {ID_REGISTRY.counts.npcs} 人
+                      </div>
+                      <div className="text-[10px] text-[#1b5132] font-semibold">
+                        未解析悬空引用：0 处
                       </div>
                     </div>
 
-                    <div className="p-3 rounded bg-[#e3f1e8] border border-[#6ca384]">
-                      <div className="text-[#184f35] font-semibold">当前会话已按需加载</div>
+                    <div className="p-2.5 rounded bg-[#e3f1e8] border border-[#6ca384]">
+                      <div className="text-[#184f35] font-semibold">三层建筑内景全覆盖</div>
                       <div className="font-mono font-bold text-base text-[#134e32] mt-0.5">
-                        {telemetry.loadedCount} / {ASSET_MANIFEST.summary.totalExtractedImageFiles} 张
+                        {ID_REGISTRY.counts.specialBuildings} / {ID_REGISTRY.counts.specialBuildings} 座
                       </div>
                       <div className="text-[10px] text-[#246344]">
-                        实载流量：{formatByteSize(telemetry.loadedBytes)}
+                        {ID_REGISTRY.counts.specialBuildingsWithImage} 手绘JPG +{' '}
+                        {ID_REGISTRY.counts.specialBuildingsWithSvgFallback} 营造SVG兜底
                       </div>
-                    </div>
-
-                    <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e]">
-                      <div className="text-[#6b5033]">JS/JSON 内嵌 Base64</div>
-                      <div className="font-mono font-bold text-base text-[#1b5132] mt-0.5">
-                        0 Bytes
-                      </div>
-                      <div className="text-[10px] text-[#6b5235]">100% 静态资源解耦</div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
                     <div className="p-2.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
                       <div className="font-bold song-serif text-[#52391e]">
-                        地区半3D全景 (`public/assets/regions/`)
+                        旧版 HTML 内联体积 → 现包内 Base64
                       </div>
                       <div className="font-mono text-[#23180f] mt-1">
-                        {ASSET_MANIFEST.summary.regionPanoramasCount} 张 ·{' '}
-                        {formatByteSize(ASSET_MANIFEST.summary.regionPanoramasBytes)}
+                        {formatByteSize(
+                          ASSET_MANIFEST.legacySizes.northern_song_map_html_bytes +
+                            ASSET_MANIFEST.legacySizes.character_portrait_gallery_html_bytes,
+                        )}{' '}
+                        → <strong className="text-[#1b5132]">0 Bytes</strong>
                       </div>
                     </div>
                     <div className="p-2.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
                       <div className="font-bold song-serif text-[#52391e]">
-                        建筑室内全景 (`public/assets/buildings/`)
+                        当前会话按需懒加载静态原画
                       </div>
-                      <div className="font-mono text-[#23180f] mt-1">
-                        {ASSET_MANIFEST.summary.buildingPanoramasCount} 张 ·{' '}
-                        {formatByteSize(ASSET_MANIFEST.summary.buildingPanoramasBytes)}
+                      <div className="font-mono text-[#134e32] font-bold mt-1">
+                        {telemetry.loadedCount} / {ASSET_MANIFEST.summary.totalExtractedImageFiles} 张（
+                        {formatByteSize(telemetry.loadedBytes)}）
                       </div>
                     </div>
                     <div className="p-2.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
                       <div className="font-bold song-serif text-[#52391e]">
-                        人物头像/立绘/母版 (`public/assets/characters/`)
+                        可重复数据库编译脚本
                       </div>
-                      <div className="font-mono text-[#23180f] mt-1">
-                        {ASSET_MANIFEST.summary.characterAvatarsCount +
-                          ASSET_MANIFEST.summary.characterFullbodiesCount +
-                          ASSET_MANIFEST.summary.characterTemplatesCount}{' '}
-                        张 · {formatByteSize(ASSET_MANIFEST.summary.characterAssetsBytes)}
-                      </div>
+                      <div className="font-mono text-[#23180f] mt-1">`npm run build:db`</div>
                     </div>
                   </div>
 
                   <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-1.5">
                     <div className="font-bold song-serif text-[#52391e]">
-                      当前浏览器缓存已按需拉取的资源路径 ({telemetry.loadedUrls.length})
+                      当前浏览器已按需拉取的静态原画路径 ({telemetry.loadedUrls.length})
                     </div>
-                    <div className="max-h-32 overflow-y-auto scroll-thin bg-[#faf3e3] border border-[#cbb693] rounded p-2 font-mono text-[11px] space-y-0.5">
+                    <div className="max-h-28 overflow-y-auto scroll-thin bg-[#faf3e3] border border-[#cbb693] rounded p-2 font-mono text-[11px] space-y-0.5">
                       {telemetry.loadedUrls.length === 0 ? (
                         <div className="text-[#6b5235]">尚未加载任何大图资源</div>
                       ) : (
@@ -631,34 +997,210 @@ export function SystemMenuModal() {
                 </div>
               )}
 
-              {/* 5 & 6. 存档 / 读档（待 M0-4 接入） */}
+              {/* 6 & 7. 真实多槽位存档 / 读档（M0-4 IndexedDB + JSON 导入导出） */}
               {(activeMenuTab === 'save' || activeMenuTab === 'load') && (
-                <div className="space-y-4 text-xs">
-                  <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e] flex items-center justify-between">
-                    <span className="text-[#6b5033]">当前游戏状态锚点</span>
-                    <span className="font-semibold song-serif text-[#23180f]">
-                      {curNode?.name}（
-                      {viewMode === 'world'
-                        ? '天下舆图'
-                        : viewMode === 'building'
-                          ? '建筑半3D内景'
-                          : '地区半3D全景'}
-                      ）
-                    </span>
+                <div className="space-y-3 text-xs">
+                  {/* 顶部当前状态栏与 JSON 导入导出工具条 */}
+                  <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-wrap items-center justify-between gap-2">
+                    <div>
+                      <div className="text-[11px] text-[#6b5033]">当前实时时空锚点</div>
+                      <div className="font-bold song-serif text-sm text-[#23180f]">
+                        {formatSongDate(dayCount)} · {activeRegionNode?.name}（
+                        {viewMode === 'world'
+                          ? '第一层：天下山海舆图'
+                          : viewMode === 'building'
+                            ? `第三层：${activeInteriorBldg?.name ?? '建筑内景'}`
+                            : '第二层：地区半3D全景'}
+                        ）
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-2">
+                      {activeMenuTab === 'save' ? (
+                        <>
+                          <input
+                            type="text"
+                            value={saveNoteDraft}
+                            onChange={(e) => setSaveNoteDraft(e.target.value)}
+                            placeholder="可选：输入存档手札备注…"
+                            className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] w-48"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const snap = buildSaveEnvelope('slot-1', saveNoteDraft || '手动导出快照')
+                              downloadSaveAsJsonFile(snap)
+                              setSaveNotice({
+                                text: '已将当前实时进度导出为本地 .json 卷宗文件！',
+                                tone: 'success',
+                              })
+                            }}
+                            className="px-3 py-1.5 rounded bg-[#261910] hover:bg-[#3d291a] text-amber-200 border border-[#c89d54] font-bold song-serif cursor-pointer"
+                          >
+                            ⬇ 导出当前状态 (.json)
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <select
+                            value={importTargetSlot}
+                            onChange={(e) =>
+                              setImportTargetSlot(e.target.value as SaveSlotId | 'DIRECT_LOAD')
+                            }
+                            className="px-2 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
+                          >
+                            <option value="DIRECT_LOAD">导入后立即启封读取</option>
+                            {SAVE_SLOT_DEFS.filter((d) => !d.isAuto).map((d) => (
+                              <option key={d.slotId} value={d.slotId}>
+                                导入并存入：{d.label}
+                              </option>
+                            ))}
+                          </select>
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept=".json,application/json"
+                            onChange={handleImportFileChange}
+                            className="hidden"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            className="px-3 py-1.5 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] font-bold song-serif cursor-pointer shadow"
+                          >
+                            ⬆ 从本地导入存档 (.json)
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </div>
 
-                  <div className="p-6 rounded-md border-2 border-dashed border-[#bba37c] bg-[#f3ead6] text-center space-y-2">
-                    <div className="song-serif font-bold text-base text-[#52391e]">
-                      【{activeMeta.label.replace(/\s+/g, '')}】独立容器已预留（对应路线图 M0-4）
+                  {saveNotice && (
+                    <div
+                      className={`px-3 py-2 rounded border font-medium ${
+                        saveNotice.tone === 'error'
+                          ? 'bg-[#fee2e2] border-[#dc2626] text-[#7f1d1d]'
+                          : 'bg-[#e3f1e8] border-[#6ca384] text-[#134e32]'
+                      }`}
+                    >
+                      {saveNotice.text}
                     </div>
-                    <p className="text-xs text-[#695036] max-w-lg mx-auto leading-relaxed">
-                      状态目前已统一收敛至标准 Zustand Store（`src/store/useGameStore.ts`），待完成 M0-2/M0-3 数据表标准化与核心玩法定稿后，将在此接入多槽位 IndexedDB 持久化与 JSON 快照导入导出。
-                    </p>
+                  )}
+
+                  {/* 7 个存档槽位列表（1 自动槽 + 6 手动卷宗槽） */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 max-h-[340px] overflow-y-auto scroll-thin pr-1">
+                    {SAVE_SLOT_DEFS.map((def) => {
+                      const env = saveSlots[def.slotId]
+                      return (
+                        <div
+                          key={def.slotId}
+                          className={`p-3 rounded-md border flex flex-col justify-between gap-2 ${
+                            def.isAuto
+                              ? 'bg-[#efe8d8] border-[#9e8462] md:col-span-2'
+                              : 'bg-[#efe4cc] border-[#c8b28e]'
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <span
+                                className={`w-7 h-7 rounded flex items-center justify-center song-serif font-bold text-xs shrink-0 ${
+                                  env
+                                    ? 'bg-[#8f1d14] text-[#fff8eb] border border-[#f5cb5c]'
+                                    : 'bg-[#cbb693] text-[#5c4630]'
+                                }`}
+                              >
+                                {def.badge}
+                              </span>
+                              <div>
+                                <div className="song-serif font-bold text-sm text-[#23180f]">
+                                  {def.label}
+                                </div>
+                                {env ? (
+                                  <div className="text-[11px] text-[#781710] font-medium">
+                                    {env.summary.songDate} · {env.summary.regionName}
+                                    {env.summary.buildingName
+                                      ? ` > ${env.summary.buildingName}`
+                                      : env.summary.viewMode === 'world'
+                                        ? '（天下舆图）'
+                                        : '（地区全景）'}
+                                  </div>
+                                ) : (
+                                  <div className="text-[11px] text-[#7a6042]">空置卷宗 · 尚未封存记录</div>
+                                )}
+                              </div>
+                            </div>
+
+                            {env && (
+                              <span className="font-mono text-[10px] text-[#5e472d] shrink-0">
+                                {formatSavedTime(env.savedAt)}
+                              </span>
+                            )}
+                          </div>
+
+                          {env && (
+                            <div className="flex flex-wrap items-center justify-between gap-2 bg-[#faf3e3] border border-[#cbb693] rounded px-2.5 py-1.5 text-[11px]">
+                              <span className="font-mono text-[#3d2b19]">
+                                血 {env.summary.hp} · 内 {env.summary.mp} · 银 {env.summary.silver}两 · 粮{' '}
+                                {env.summary.food}份
+                              </span>
+                              {env.note && (
+                                <span className="text-[#6b5235] italic truncate max-w-[180px]">
+                                  “{env.note}”
+                                </span>
+                              )}
+                            </div>
+                          )}
+
+                          <div className="flex flex-wrap items-center justify-end gap-1.5 pt-0.5">
+                            {activeMenuTab === 'save' && !def.isAuto && (
+                              <button
+                                type="button"
+                                disabled={saveBusy}
+                                onClick={() => {
+                                  void saveToSlot(def.slotId, saveNoteDraft)
+                                  setSaveNoteDraft('')
+                                }}
+                                className="px-2.5 py-1 rounded bg-[#8f1d14] hover:bg-[#a9251b] text-[#fff8eb] font-bold song-serif cursor-pointer transition"
+                              >
+                                {env ? '覆盖封存' : '封入此卷'}
+                              </button>
+                            )}
+
+                            {env && (
+                              <>
+                                <button
+                                  type="button"
+                                  onClick={() => loadFromEnvelope(env, true)}
+                                  className="px-2.5 py-1 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] font-bold song-serif cursor-pointer transition"
+                                >
+                                  启封读取
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => downloadSaveAsJsonFile(env)}
+                                  className="px-2 py-1 rounded bg-[#faf3e3] hover:bg-[#e5d6b8] border border-[#9e8462] text-[#3d2812] cursor-pointer"
+                                >
+                                  导出JSON
+                                </button>
+                                <button
+                                  type="button"
+                                  disabled={saveBusy}
+                                  onClick={() => void removeSaveSlot(def.slotId)}
+                                  className="px-2 py-1 rounded bg-[#f8e8e6] hover:bg-[#f2cfcb] border border-[#c98a83] text-[#8f1d14] cursor-pointer"
+                                >
+                                  抹除
+                                </button>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
               )}
 
-              {/* 7. 设置面板 */}
+              {/* 8. 设置面板 */}
               {activeMenuTab === 'settings' && (
                 <div className="space-y-3 text-xs">
                   <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e] flex items-center justify-between">
@@ -710,7 +1252,9 @@ export function SystemMenuModal() {
             </div>
 
             <div className="pt-3 border-t border-[#d8c7a9] flex items-center justify-between text-xs text-[#6b5235]">
-              <span>工程路径：Vite + React 19 + TypeScript + Tailwind CSS v4 + Zustand</span>
+              <span>
+                工程架构：Vite 8 + React 19 + TypeScript 7 + Zustand 5 + IndexedDB 多槽位卷宗
+              </span>
               <button
                 type="button"
                 onClick={closeMenu}

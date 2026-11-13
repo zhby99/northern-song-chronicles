@@ -1,14 +1,15 @@
 import { useEffect, useMemo, useRef } from 'react'
+import { BUILDING_DB_MAP } from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
 import { useLazyImage } from '../../utils/assetLoader'
 import {
-  BUILDING_PANORAMAS,
   clientToSvgCoords,
   getRegionAllBuildings,
   getRegionViewBoxSize,
   NODE_MAP,
   REGIONAL_CONFIGS,
 } from '../../utils/mapMath'
+import { SvgBuildingInteriorFallback } from './SvgBuildingInteriorFallback'
 
 export function RegionMapCanvas() {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -43,13 +44,16 @@ export function RegionMapCanvas() {
 
   const regionNode = NODE_MAP[activeRegionId]
   const regionCfg = REGIONAL_CONFIGS[activeRegionId]
-  const buildingPano =
+  const activeBuildingRecord =
     viewMode === 'building' && activeBuildingInteriorId
-      ? BUILDING_PANORAMAS[activeBuildingInteriorId]
+      ? (BUILDING_DB_MAP[activeBuildingInteriorId] ?? null)
       : null
+  const activeInterior = activeBuildingRecord?.interior ?? null
 
   const [vw, vh] = getRegionViewBoxSize(viewMode, activeRegionId)
-  const targetPanoramaUri = buildingPano ? buildingPano.panoramaUri : regionCfg?.panoramaUri
+  const targetPanoramaUri = activeInterior
+    ? (activeInterior.panoramaUri ?? undefined)
+    : regionCfg?.panoramaUri
   const { status: imgStatus, loadedUrl } = useLazyImage(targetPanoramaUri)
 
   const sortedBuildings = useMemo(() => {
@@ -108,12 +112,12 @@ export function RegionMapCanvas() {
 
   if (!regionNode || !regionCfg) return null
 
-  const sceneTitle = buildingPano ? buildingPano.name : regionNode.name
+  const sceneTitle = activeBuildingRecord ? activeBuildingRecord.name : regionNode.name
 
   return (
     <div className="relative w-full h-full bg-[#1e1610]">
-      {/* 按需懒加载画卷状态遮罩（仅首次拉取该静态原画时短暂浮现，二次访问直接命中缓存） */}
-      {imgStatus === 'loading' && (
+      {/* 按需懒加载画卷状态遮罩（仅在需要拉取 JPG 原画且尚未命中缓存时浮现） */}
+      {targetPanoramaUri && imgStatus === 'loading' && (
         <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-[#1b130d]/80">
           <div className="px-6 py-4 rounded-md bg-[#f8f1e1] border-2 border-[#c89d54] shadow-2xl text-center space-y-1.5">
             <div className="song-serif font-bold text-base text-[#8f1d14] tracking-wider">
@@ -126,7 +130,7 @@ export function RegionMapCanvas() {
         </div>
       )}
 
-      {imgStatus === 'error' && (
+      {targetPanoramaUri && imgStatus === 'error' && (
         <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
           <div className="px-5 py-3 rounded bg-[#7f1d1d] text-[#fff8eb] border border-[#f5cb5c] text-xs song-serif">
             原画资源加载失败：{targetPanoramaUri}
@@ -175,14 +179,19 @@ export function RegionMapCanvas() {
             strokeOpacity={0.65}
           />
 
-          {loadedUrl && <image href={loadedUrl} x={0} y={0} width={vw} height={vh} />}
+          {/* 底图渲染：若有 JPG 原画则懒加载渲染；若为其余 65 座特殊建筑则渲染宋式《营造法式》矢量内景卷 */}
+          {activeBuildingRecord && activeInterior?.mode === 'svg_fallback' ? (
+            <SvgBuildingInteriorFallback building={activeBuildingRecord} width={vw} height={vh} />
+          ) : (
+            loadedUrl && <image href={loadedUrl} x={0} y={0} width={vw} height={vh} />
+          )}
 
-          {/* 第三层级：建筑内景图热区与出口 */}
-          {buildingPano ? (
+          {/* 第三层级：建筑内景图热区与出口（涵盖全部 123 座特殊建筑） */}
+          {activeBuildingRecord && activeInterior ? (
             <>
               {/* 出口热区 */}
               {(() => {
-                const eg = buildingPano.exitGate
+                const eg = activeInterior.exitGate
                 const gateText = `← ${eg.label}`
                 const gateW = Math.max(120, gateText.length * 11 + 24)
                 return (
@@ -236,7 +245,7 @@ export function RegionMapCanvas() {
 
               {/* 院落殿宇热区 */}
               <g id="building-spots-layer">
-                {buildingPano.spots.map((sp) => {
+                {activeInterior.spots.map((sp) => {
                   const isSelected = sp.id === selectedSpotId
                   const labelText = `★ ${sp.name}`
                   const plateW = Math.max(100, labelText.length * 11.2 + 22)
@@ -262,6 +271,7 @@ export function RegionMapCanvas() {
                             actLabel: sp.actLabel,
                             isSpecial: true,
                             isSpot: true,
+                            interiorMode: activeInterior.mode,
                           },
                         })
                       }}
@@ -402,7 +412,10 @@ export function RegionMapCanvas() {
               <g id="region-buildings-layer">
                 {sortedBuildings.map((b) => {
                   const isSelected = b.id === selectedBuildingId
-                  const hasSubPano = b.isSpecial && Boolean(BUILDING_PANORAMAS[b.id])
+                  const dbBuilding = BUILDING_DB_MAP[b.id]
+                  const interiorMode = dbBuilding?.interior?.mode ?? null
+                  const canEnterInterior = Boolean(b.isSpecial && interiorMode)
+
                   const fillColor = b.isSpecial ? '#f59e0b' : '#38bdf8'
                   const strokeColor = b.isSpecial ? '#fde047' : '#bae6fd'
                   const labelText = (b.isSpecial ? '★ ' : '') + b.name
@@ -417,7 +430,11 @@ export function RegionMapCanvas() {
                     : b.isSpecial
                       ? '#f6cf65'
                       : '#cbd5e1'
-                  const subTagText = hasSubPano ? `${b.tag} · 点击入内` : b.tag
+                  const subTagText = canEnterInterior
+                    ? interiorMode === 'image'
+                      ? `${b.tag} · 步入实景`
+                      : `${b.tag} · 步入内院`
+                    : b.tag
                   const subTagW = Math.max(64, subTagText.length * 8.6 + 16)
 
                   return (
@@ -437,6 +454,7 @@ export function RegionMapCanvas() {
                             desc: b.desc,
                             actLabel: b.actLabel,
                             isSpecial: b.isSpecial,
+                            interiorMode,
                           },
                         })
                       }}
@@ -445,7 +463,7 @@ export function RegionMapCanvas() {
                       onClick={(e) => {
                         if (dragRef.current?.moved) return
                         e.stopPropagation()
-                        if (hasSubPano) {
+                        if (canEnterInterior) {
                           enterBuildingMap(b.id)
                         } else {
                           selectRegionBuilding(b.id)
@@ -496,8 +514,8 @@ export function RegionMapCanvas() {
                                 width={subTagW}
                                 height={14}
                                 rx={7}
-                                fill="#fef3c7"
-                                stroke="#92400e"
+                                fill={interiorMode === 'image' ? '#fef3c7' : '#e6f4ec'}
+                                stroke={interiorMode === 'image' ? '#92400e' : '#246344'}
                                 strokeWidth={1.2}
                               />
                               <text
@@ -506,7 +524,7 @@ export function RegionMapCanvas() {
                                 textAnchor="middle"
                                 fontSize={8.6}
                                 fontWeight="bold"
-                                fill="#781710"
+                                fill={interiorMode === 'image' ? '#781710' : '#184f35'}
                               >
                                 {subTagText}
                               </text>

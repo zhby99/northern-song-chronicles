@@ -1,5 +1,6 @@
+import { REGION_DB_MAP } from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
-import { BUILDING_PANORAMAS, findBestRoute, WORLD_GRAPH } from '../../utils/mapMath'
+import { findBestRoute, WORLD_GRAPH } from '../../utils/mapMath'
 
 export function MapTooltip() {
   const tooltip = useGameStore((s) => s.tooltip)
@@ -34,7 +35,8 @@ export function MapTooltip() {
         })
       : null
     const roamingHere = roamingMasters.filter((m) => m.nodeId === node.id)
-    const npcTotal = (node.npcs?.length ?? 0) + roamingHere.length
+    const dbResidentCount = REGION_DB_MAP[node.id]?.residentNpcIds.length ?? 0
+    const npcTotal = dbResidentCount + roamingHere.length
 
     return (
       <div
@@ -75,8 +77,8 @@ export function MapTooltip() {
           ) : null}
 
           <div className="flex justify-between py-0.5">
-            <span className="text-[#5c4630]">驻留知名人物：</span>
-            <strong className="font-mono text-[#23180f]">{npcTotal} 位名宿</strong>
+            <span className="text-[#5c4630]">名录常驻与游历人物：</span>
+            <strong className="font-mono text-[#23180f]">{npcTotal} 位群侠名流</strong>
           </div>
 
           <div className="p-2 rounded bg-[#f2e8d2] border border-[#cbb997] text-[#3d2b19] leading-relaxed">
@@ -89,7 +91,7 @@ export function MapTooltip() {
   }
 
   const { item } = tooltip
-  const hasSubPano = !item.isSpot && item.isSpecial && Boolean(BUILDING_PANORAMAS[item.id])
+  const canEnterInterior = !item.isSpot && item.isSpecial && Boolean(item.interiorMode)
 
   return (
     <div
@@ -118,12 +120,14 @@ export function MapTooltip() {
         </div>
         <div
           className={`text-[11px] font-semibold ${
-            hasSubPano ? 'text-[#8f1d14]' : 'text-[#5c4630]'
+            canEnterInterior ? 'text-[#8f1d14]' : 'text-[#5c4630]'
           }`}
         >
-          {hasSubPano
-            ? `★ 点击直接切入【${item.name}】专属半3D全景图 →`
-            : '点击即可选中此建筑并开启修习互动'}
+          {canEnterInterior
+            ? item.interiorMode === 'image'
+              ? `★ 点击直接切入【${item.name}】专属半3D手绘实景 →`
+              : `★ 点击步入【${item.name}】宋式营造矢量内院 →`
+            : '点击即可选中此热区并开启修习互动'}
         </div>
       </div>
     </div>

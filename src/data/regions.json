@@ -1,0 +1,3064 @@
+[
+  {
+    "id": "bianliang",
+    "standardCode": "REG-01",
+    "numericCode": "01",
+    "name": "开封府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 京畿路（东京首善）",
+    "worldCoord": {
+      "x": 856.8,
+      "y": 379.9
+    },
+    "desc": "大宋东京帝都，八荒争凑，开封府尹包拯坐镇，八十万禁军教头云集。",
+    "windscapeLore": "大宋东京首善之都，三重方城格局（外城、内城、大内皇城），穿城而过的汴河上横跨虹桥巨舟，南北御街贯穿州桥夜市，灯火繁华冠绝寰宇。",
+    "rumor": "大内秘库昨夜似有黑衣奇士掠过，六扇门总捕司正全城戒严盘查。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "大内皇宫（藏葵花残卷）",
+      "大相国寺",
+      "樊楼（诗词琴艺雅集）",
+      "开封府衙"
+    ],
+    "sects": [
+      "17. 开封府 / 六扇门（含大内禁军武学）"
+    ],
+    "panoramaUri": "/assets/regions/bianliang.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "半3D青绿设色《东京汴梁清明全景图》— 直接点击画中宫城、府衙、樊楼、虹桥、相国寺与校场互动",
+    "gate": {
+      "label": "南薰城门（返回天下舆图）",
+      "pos": [
+        767,
+        685
+      ],
+      "poly": "635,667 761,559 899,677 890,766 641,766"
+    },
+    "specialBuildingIds": [
+      "bl_palace",
+      "bl_kaifengfu",
+      "bl_fanlou",
+      "bl_xiangguosi",
+      "bl_jinjun"
+    ],
+    "baseBuildingIds": [
+      "bianliang_base_tavern",
+      "bianliang_base_academy",
+      "bianliang_base_dojo",
+      "bianliang_base_yamen",
+      "bianliang_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0001",
+      "NPC-0002",
+      "NPC-0003",
+      "NPC-0004",
+      "NPC-0005",
+      "NPC-0006",
+      "NPC-0007",
+      "NPC-0012",
+      "NPC-0013",
+      "NPC-0014",
+      "NPC-0015",
+      "NPC-0018",
+      "NPC-0023",
+      "NPC-0030",
+      "NPC-0038",
+      "NPC-0043",
+      "NPC-0059",
+      "NPC-0060",
+      "NPC-0064",
+      "NPC-0065",
+      "NPC-0097",
+      "NPC-0132",
+      "NPC-0140",
+      "NPC-0141",
+      "NPC-0154",
+      "NPC-0177",
+      "NPC-0178",
+      "NPC-0210",
+      "NPC-0226",
+      "NPC-0227",
+      "NPC-0241",
+      "NPC-0252",
+      "NPC-0271",
+      "NPC-0273",
+      "NPC-0284",
+      "NPC-0297",
+      "NPC-0342",
+      "NPC-0345",
+      "NPC-0360",
+      "NPC-0378",
+      "NPC-0418",
+      "NPC-0462",
+      "NPC-0465",
+      "NPC-0479",
+      "NPC-0528",
+      "NPC-0556",
+      "NPC-0570",
+      "NPC-0605",
+      "NPC-0728",
+      "NPC-0770",
+      "NPC-0816",
+      "NPC-0819",
+      "NPC-0822",
+      "NPC-0826",
+      "NPC-0833",
+      "NPC-0860",
+      "NPC-0873",
+      "NPC-0897",
+      "NPC-0900",
+      "NPC-0901",
+      "NPC-0902",
+      "NPC-0964",
+      "NPC-0984"
+    ],
+    "legacyAliases": [
+      "东京汴梁"
+    ]
+  },
+  {
+    "id": "luoyang",
+    "standardCode": "REG-02",
+    "numericCode": "02",
+    "name": "洛阳府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 京西北路（西京重镇）",
+    "worldCoord": {
+      "x": 806.9,
+      "y": 383.7
+    },
+    "desc": "大宋西京文枢，文宗名士与武林耆宿汇聚，中原武林盟会常驻重镇，毗邻嵩山与丐帮总舵。",
+    "windscapeLore": "大宋西京重镇，北依邙山、南临洛水，天津晓月长桥卧波，城内名园牡丹锦簇、古刹梵音与书院弦歌交织。",
+    "rumor": "丐帮汪剑通帮主于洛阳府总舵广发英雄帖，商议大辽析津府南下暗探之事。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "白马寺",
+      "白马书院（修习经义策论）",
+      "洛阳牡丹园",
+      "金刀王家"
+    ],
+    "sects": [
+      "02. 丐帮（中原总舵）"
+    ],
+    "panoramaUri": "/assets/regions/luoyang.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "北邙南洛、天津晓月长桥卧波、牡丹名园与古刹交辉",
+    "gate": {
+      "label": "洛阳府定鼎门（返天下舆图）",
+      "pos": [
+        718,
+        610
+      ],
+      "poly": "595,622 745,512 835,595 835,710 705,745 595,685"
+    },
+    "specialBuildingIds": [
+      "ly_baimasi",
+      "ly_shuyuan",
+      "ly_peony",
+      "ly_gaibang",
+      "ly_jindao"
+    ],
+    "baseBuildingIds": [
+      "luoyang_base_yamen",
+      "luoyang_base_tavern",
+      "luoyang_base_inn",
+      "luoyang_base_dojo",
+      "luoyang_base_academy"
+    ],
+    "residentNpcIds": [
+      "NPC-0008",
+      "NPC-0016",
+      "NPC-0046",
+      "NPC-0049",
+      "NPC-0050",
+      "NPC-0069",
+      "NPC-0110",
+      "NPC-0111",
+      "NPC-0136",
+      "NPC-0138",
+      "NPC-0157",
+      "NPC-0159",
+      "NPC-0179",
+      "NPC-0186",
+      "NPC-0195",
+      "NPC-0196",
+      "NPC-0211",
+      "NPC-0243",
+      "NPC-0275",
+      "NPC-0288",
+      "NPC-0298",
+      "NPC-0316",
+      "NPC-0377",
+      "NPC-0380",
+      "NPC-0446",
+      "NPC-0499",
+      "NPC-0503",
+      "NPC-0510",
+      "NPC-0513",
+      "NPC-0551",
+      "NPC-0563",
+      "NPC-0604",
+      "NPC-0667",
+      "NPC-0679",
+      "NPC-0737",
+      "NPC-0768",
+      "NPC-0812",
+      "NPC-0837",
+      "NPC-0915",
+      "NPC-0970",
+      "NPC-0971",
+      "NPC-0999"
+    ],
+    "legacyAliases": [
+      "西京洛阳"
+    ]
+  },
+  {
+    "id": "daming",
+    "standardCode": "REG-03",
+    "numericCode": "03",
+    "name": "大名府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 河北东路（北京陪都）",
+    "worldCoord": {
+      "x": 876.4,
+      "y": 338.3
+    },
+    "desc": "北宋北京陪都抗辽门户，河北枪棒甲天下，庆历贝州王则起义余波暗流犹存。",
+    "windscapeLore": "大宋北京陪都，黄河北岸雄城巨防，高耸瓮城箭楼直面北方平野，城外黄河铁索浮桥水急浪高，军镇肃杀之气扑面。",
+    "rumor": "大名府外黄河渡口夜半常有绿林义军劫夺贪官生辰纲，官军屡剿不绝。",
+    "alert": true,
+    "factionType": "clan",
+    "landmarks": [
+      "北京留守行宫",
+      "黄河铁索渡",
+      "河北大校场"
+    ],
+    "sects": [
+      "18. 太行/京东绿林盟（河北分寨）"
+    ],
+    "panoramaUri": "/assets/regions/daming.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "黄河北岸抗辽陪都巨防、铁索浮桥惊涛拍岸",
+    "gate": {
+      "label": "大名府南瓮城（返天下舆图）",
+      "pos": [
+        812,
+        615
+      ],
+      "poly": "695,625 812,522 905,598 898,745 732,705"
+    },
+    "specialBuildingIds": [
+      "dm_palace",
+      "dm_ferry",
+      "dm_drill"
+    ],
+    "baseBuildingIds": [
+      "daming_base_yamen",
+      "daming_base_tavern",
+      "daming_base_dojo",
+      "daming_base_academy",
+      "daming_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0028",
+      "NPC-0039",
+      "NPC-0137",
+      "NPC-0229",
+      "NPC-0248",
+      "NPC-0293",
+      "NPC-0310",
+      "NPC-0423",
+      "NPC-0431",
+      "NPC-0478",
+      "NPC-0491",
+      "NPC-0536",
+      "NPC-0537",
+      "NPC-0562",
+      "NPC-0614",
+      "NPC-0617",
+      "NPC-0636",
+      "NPC-0660",
+      "NPC-0681",
+      "NPC-0701",
+      "NPC-0727",
+      "NPC-0729",
+      "NPC-0734",
+      "NPC-0762",
+      "NPC-0797",
+      "NPC-0868",
+      "NPC-0883",
+      "NPC-0899",
+      "NPC-0907",
+      "NPC-0926",
+      "NPC-0959",
+      "NPC-0967"
+    ],
+    "legacyAliases": [
+      "北京大名府"
+    ]
+  },
+  {
+    "id": "zhending",
+    "standardCode": "REG-04",
+    "numericCode": "04",
+    "name": "真定府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 河北西路",
+    "worldCoord": {
+      "x": 859.8,
+      "y": 289.4
+    },
+    "desc": "紧邻大辽析津府，宋辽边境榷场所在，胡汉游侠与北院密探交锋前沿。",
+    "windscapeLore": "西屏太行余脉、北望白沟界河，城内梵刹高阁耸立，北门外宋辽边境榷场驼马嘶鸣、胡汉商旅摩肩接踵。",
+    "rumor": "自析津府南下的契丹皮货商队中混入数名辽廷北院高手，真定府城门日夜盘查。",
+    "alert": true,
+    "factionType": "hostile",
+    "landmarks": [
+      "隆兴大佛寺",
+      "宋辽边境榷场",
+      "常山演武堂"
+    ],
+    "sects": [
+      "20. 辽国武林暗桩（榷场潜伏点）"
+    ],
+    "panoramaUri": "/assets/regions/zhending.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "西屏太行苍翠、北望辽境白沟河、边境榷场驼马如云",
+    "gate": {
+      "label": "真定府南关门（返天下舆图）",
+      "pos": [
+        735,
+        622
+      ],
+      "poly": "612,638 748,535 868,625 868,712 725,764 612,712"
+    },
+    "specialBuildingIds": [
+      "zd_longxing",
+      "zd_market",
+      "zd_spear"
+    ],
+    "baseBuildingIds": [
+      "zhending_base_yamen",
+      "zhending_base_tavern",
+      "zhending_base_inn",
+      "zhending_base_dojo",
+      "zhending_base_academy"
+    ],
+    "residentNpcIds": [
+      "NPC-0011",
+      "NPC-0036",
+      "NPC-0185",
+      "NPC-0269",
+      "NPC-0290",
+      "NPC-0301",
+      "NPC-0324",
+      "NPC-0335",
+      "NPC-0337",
+      "NPC-0338",
+      "NPC-0421",
+      "NPC-0474",
+      "NPC-0475",
+      "NPC-0489",
+      "NPC-0507",
+      "NPC-0531",
+      "NPC-0534",
+      "NPC-0549",
+      "NPC-0550",
+      "NPC-0603",
+      "NPC-0638",
+      "NPC-0656",
+      "NPC-0708",
+      "NPC-0720",
+      "NPC-0732",
+      "NPC-0733",
+      "NPC-0753",
+      "NPC-0764",
+      "NPC-0807",
+      "NPC-0834",
+      "NPC-0846",
+      "NPC-0850",
+      "NPC-0881",
+      "NPC-0921",
+      "NPC-0963",
+      "NPC-0980"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "taiyuan",
+    "standardCode": "REG-05",
+    "numericCode": "05",
+    "name": "太原府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 河东路",
+    "worldCoord": {
+      "x": 813.5,
+      "y": 300.3
+    },
+    "desc": "晋阳雄镇，北控雁门雄关，民风刚烈尚武，天下精铁名刃尽出河东。",
+    "windscapeLore": "东倚太行、西临汾水，晋阳古城墙垣如铁，炉火昼夜通红的铁冶作坊与苍翠古柏祠宇相映成趣。",
+    "rumor": "枢密副使狄青巡边太原府，河东铁冶监赶铸破甲神兵以备北疆。",
+    "alert": true,
+    "factionType": "orthodox",
+    "landmarks": [
+      "晋祠古柏",
+      "河东官营铁冶监",
+      "天波杨家旧祠"
+    ],
+    "sects": [
+      "03. 五台山清凉寺（毗邻）"
+    ],
+    "panoramaUri": "/assets/regions/taiyuan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "汾水晋阳雄镇、官营铁冶炉火冲天、古柏忠祠凛然",
+    "gate": {
+      "label": "太原府迎泽南门（返天下舆图）",
+      "pos": [
+        692,
+        608
+      ],
+      "poly": "595,668 692,518 808,595 798,742 595,698"
+    },
+    "specialBuildingIds": [
+      "ty_jinci",
+      "ty_iron",
+      "ty_yang"
+    ],
+    "baseBuildingIds": [
+      "taiyuan_base_yamen",
+      "taiyuan_base_tavern",
+      "taiyuan_base_dojo",
+      "taiyuan_base_academy",
+      "taiyuan_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0032",
+      "NPC-0035",
+      "NPC-0037",
+      "NPC-0042",
+      "NPC-0198",
+      "NPC-0228",
+      "NPC-0246",
+      "NPC-0251",
+      "NPC-0274",
+      "NPC-0303",
+      "NPC-0307",
+      "NPC-0318",
+      "NPC-0319",
+      "NPC-0381",
+      "NPC-0388",
+      "NPC-0395",
+      "NPC-0408",
+      "NPC-0414",
+      "NPC-0453",
+      "NPC-0473",
+      "NPC-0494",
+      "NPC-0548",
+      "NPC-0611",
+      "NPC-0615",
+      "NPC-0640",
+      "NPC-0730",
+      "NPC-0756",
+      "NPC-0774",
+      "NPC-0804",
+      "NPC-0808",
+      "NPC-0836",
+      "NPC-0848",
+      "NPC-0851",
+      "NPC-0871",
+      "NPC-0880",
+      "NPC-0887",
+      "NPC-0893",
+      "NPC-0906",
+      "NPC-0948",
+      "NPC-0974"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "changan",
+    "standardCode": "REG-06",
+    "numericCode": "06",
+    "name": "京兆府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 永兴军路（关中古都）",
+    "worldCoord": {
+      "x": 733.4,
+      "y": 394.6
+    },
+    "desc": "汉唐古长安故都，丝路起点，南依终南隐士，东据华岳潼关，西通昆仑雪域。",
+    "windscapeLore": "汉唐古长安故都残垣巨阙犹存，南望秦岭终南云海，城南雁塔高耸入云，城西胡商坊驼铃叮当、通往万里丝路。",
+    "rumor": "西市胡商自昆仑山麓带回一块奇寒玄冰，京兆府刀客剑豪竞相出价求购。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "慈恩寺大雁塔",
+      "终南草堂",
+      "西市胡商坊"
+    ],
+    "sects": [
+      "05. 华山派（邻近）",
+      "11. 终南隐宗（邻近）"
+    ],
+    "panoramaUri": "/assets/regions/changan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "汉唐故都宏阔坊市、南望秦岭终南云海、西市丝路驼铃",
+    "gate": {
+      "label": "京兆府明德门（返天下舆图）",
+      "pos": [
+        638,
+        618
+      ],
+      "poly": "522,585 668,492 785,592 778,705 568,755 522,685"
+    },
+    "specialBuildingIds": [
+      "ca_dayanta",
+      "ca_caotang",
+      "ca_xishi"
+    ],
+    "baseBuildingIds": [
+      "changan_base_yamen",
+      "changan_base_tavern",
+      "changan_base_academy",
+      "changan_base_dojo",
+      "changan_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0017",
+      "NPC-0040",
+      "NPC-0041",
+      "NPC-0045",
+      "NPC-0048",
+      "NPC-0100",
+      "NPC-0167",
+      "NPC-0215",
+      "NPC-0231",
+      "NPC-0285",
+      "NPC-0308",
+      "NPC-0323",
+      "NPC-0327",
+      "NPC-0328",
+      "NPC-0343",
+      "NPC-0409",
+      "NPC-0480",
+      "NPC-0485",
+      "NPC-0509",
+      "NPC-0511",
+      "NPC-0529",
+      "NPC-0541",
+      "NPC-0544",
+      "NPC-0576",
+      "NPC-0609",
+      "NPC-0637",
+      "NPC-0655",
+      "NPC-0663",
+      "NPC-0684",
+      "NPC-0702",
+      "NPC-0705",
+      "NPC-0723",
+      "NPC-0771",
+      "NPC-0773",
+      "NPC-0783",
+      "NPC-0802",
+      "NPC-0810",
+      "NPC-0841",
+      "NPC-0857",
+      "NPC-0876",
+      "NPC-0888",
+      "NPC-0890",
+      "NPC-0898",
+      "NPC-0968",
+      "NPC-0992"
+    ],
+    "legacyAliases": [
+      "京兆长安"
+    ]
+  },
+  {
+    "id": "yanan",
+    "standardCode": "REG-07",
+    "numericCode": "07",
+    "name": "延安府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 鄜延路",
+    "worldCoord": {
+      "x": 747.1,
+      "y": 330.2
+    },
+    "desc": "经略西夏最前线重镇，黄土烽燧连天，直面贺兰山兴庆府兵锋。",
+    "windscapeLore": "黄土高原沟壑纵横，延水与清涧河交汇，嘉岭山孤塔耸峙，漫山烽火台与铁甲边军营垒枕戈待旦。",
+    "rumor": "西夏兴庆府一品堂派出十余名番僧潜过横山，欲刺杀鄜延路边军主将。",
+    "alert": true,
+    "factionType": "hostile",
+    "landmarks": [
+      "嘉岭山宝塔",
+      "鄜延边军大营",
+      "番马黑市"
+    ],
+    "sects": [
+      "19. 星宿派（陕甘潜伏点）"
+    ],
+    "panoramaUri": "/assets/regions/yanan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "黄土高原延水交汇、嘉岭宝塔孤峙、鄜延边军烽燧连天",
+    "gate": {
+      "label": "延安府南关道（返天下舆图）",
+      "pos": [
+        698,
+        562
+      ],
+      "poly": "622,575 698,495 778,555 772,658 678,662 622,612"
+    },
+    "specialBuildingIds": [
+      "ya_pagoda",
+      "ya_camp",
+      "ya_blackmkt"
+    ],
+    "baseBuildingIds": [
+      "yanan_base_yamen",
+      "yanan_base_tavern",
+      "yanan_base_dojo",
+      "yanan_base_inn",
+      "yanan_base_academy"
+    ],
+    "residentNpcIds": [
+      "NPC-0031",
+      "NPC-0033",
+      "NPC-0034",
+      "NPC-0044",
+      "NPC-0122",
+      "NPC-0181",
+      "NPC-0262",
+      "NPC-0270",
+      "NPC-0272",
+      "NPC-0289",
+      "NPC-0294",
+      "NPC-0296",
+      "NPC-0358",
+      "NPC-0365",
+      "NPC-0366",
+      "NPC-0422",
+      "NPC-0432",
+      "NPC-0435",
+      "NPC-0437",
+      "NPC-0500",
+      "NPC-0506",
+      "NPC-0522",
+      "NPC-0524",
+      "NPC-0569",
+      "NPC-0577",
+      "NPC-0584",
+      "NPC-0591",
+      "NPC-0682",
+      "NPC-0683",
+      "NPC-0686",
+      "NPC-0693",
+      "NPC-0699",
+      "NPC-0703",
+      "NPC-0710",
+      "NPC-0744",
+      "NPC-0781",
+      "NPC-0805",
+      "NPC-0811",
+      "NPC-0814",
+      "NPC-0817",
+      "NPC-0911",
+      "NPC-0919",
+      "NPC-0927",
+      "NPC-0953",
+      "NPC-0969"
+    ],
+    "legacyAliases": [
+      "延州（延安）"
+    ]
+  },
+  {
+    "id": "jinan",
+    "standardCode": "REG-08",
+    "numericCode": "08",
+    "name": "济南府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 京东东路",
+    "worldCoord": {
+      "x": 916.3,
+      "y": 327.4
+    },
+    "desc": "齐鲁雄藩，清泉荷柳冠绝山东，富弼安抚京东活流民数十万，南依泰山，东扼沧海航道。",
+    "windscapeLore": "南枕泰岱余脉，城内清泉石上流、四面荷花三面柳，东通登州蓬莱沧海航道，气象雄浑温润。",
+    "rumor": "京东海商传言高丽国与大辽大定府使船频繁往来，齐鲁武林严防海寇借机生事。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "趵突泉",
+      "大明湖画舫",
+      "泰山岱庙"
+    ],
+    "sects": [
+      "06. 泰山派（邻近）",
+      "18. 京东水陆绿林大寨"
+    ],
+    "panoramaUri": "/assets/regions/jinan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "四面荷花三面柳、趵突清泉石上流、南枕泰岱东望渤海",
+    "gate": {
+      "label": "济南府历山门（返天下舆图）",
+      "pos": [
+        698,
+        622
+      ],
+      "poly": "568,652 715,528 815,598 808,718 665,764 568,718"
+    },
+    "specialBuildingIds": [
+      "jn_baotu",
+      "jn_daminghu",
+      "jn_daimiao"
+    ],
+    "baseBuildingIds": [
+      "jinan_base_yamen",
+      "jinan_base_tavern",
+      "jinan_base_academy",
+      "jinan_base_dojo",
+      "jinan_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0010",
+      "NPC-0052",
+      "NPC-0053",
+      "NPC-0066",
+      "NPC-0180",
+      "NPC-0204",
+      "NPC-0230",
+      "NPC-0267",
+      "NPC-0278",
+      "NPC-0309",
+      "NPC-0415",
+      "NPC-0426",
+      "NPC-0429",
+      "NPC-0439",
+      "NPC-0505",
+      "NPC-0523",
+      "NPC-0571",
+      "NPC-0583",
+      "NPC-0613",
+      "NPC-0696",
+      "NPC-0706",
+      "NPC-0714",
+      "NPC-0724",
+      "NPC-0791",
+      "NPC-0827",
+      "NPC-0843",
+      "NPC-0990",
+      "NPC-0996"
+    ],
+    "legacyAliases": [
+      "青州 / 济南"
+    ]
+  },
+  {
+    "id": "yangzhou",
+    "standardCode": "REG-09",
+    "numericCode": "09",
+    "name": "扬州府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 淮南东路",
+    "worldCoord": {
+      "x": 975.1,
+      "y": 438.9
+    },
+    "desc": "南北大运河咽喉，天下盐铁漕运转输中心，十里春风珠帘，盐帮漕帮林立。",
+    "windscapeLore": "大运河与长江交汇水城，千帆竞发、漕船遮天，二十四桥画舫红灯映水，盐栈银库鳞次栉比。",
+    "rumor": "欧阳修学士昔建平山堂词会余韵犹存，运河之上漕帮战船日夜巡航。",
+    "alert": false,
+    "factionType": "clan",
+    "landmarks": [
+      "运河钞关",
+      "二十四桥明月坊",
+      "淮南盐帮总堂"
+    ],
+    "sects": [
+      "16. 江淮漕帮（江淮总舵）"
+    ],
+    "panoramaUri": "/assets/regions/yangzhou.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "南北运河千帆竞渡、二十四桥明月红灯、两淮盐栈林立",
+    "gate": {
+      "label": "扬州府通泗门（返天下舆图）",
+      "pos": [
+        735,
+        650
+      ],
+      "poly": "610,635 745,515 845,610 835,760 645,760"
+    },
+    "specialBuildingIds": [
+      "yz_chaoguan",
+      "yz_24bridge",
+      "yz_salt"
+    ],
+    "baseBuildingIds": [
+      "yangzhou_base_yamen",
+      "yangzhou_base_tavern",
+      "yangzhou_base_academy",
+      "yangzhou_base_dojo",
+      "yangzhou_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0057",
+      "NPC-0146",
+      "NPC-0160",
+      "NPC-0171",
+      "NPC-0194",
+      "NPC-0224",
+      "NPC-0244",
+      "NPC-0277",
+      "NPC-0314",
+      "NPC-0321",
+      "NPC-0344",
+      "NPC-0370",
+      "NPC-0382",
+      "NPC-0386",
+      "NPC-0553",
+      "NPC-0567",
+      "NPC-0595",
+      "NPC-0597",
+      "NPC-0600",
+      "NPC-0633",
+      "NPC-0642",
+      "NPC-0647",
+      "NPC-0654",
+      "NPC-0661",
+      "NPC-0697",
+      "NPC-0722",
+      "NPC-0786",
+      "NPC-0809",
+      "NPC-0829",
+      "NPC-0831",
+      "NPC-0839",
+      "NPC-0847",
+      "NPC-0874",
+      "NPC-0905",
+      "NPC-0925",
+      "NPC-0972",
+      "NPC-0973"
+    ],
+    "legacyAliases": [
+      "扬州"
+    ]
+  },
+  {
+    "id": "jiangning",
+    "standardCode": "REG-10",
+    "numericCode": "10",
+    "name": "江宁府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 江南东路",
+    "worldCoord": {
+      "x": 957.4,
+      "y": 457.9
+    },
+    "desc": "六朝金粉古都，钟山龙蟠石城虎踞，江南世家大族与儒侠名宿聚居之地。",
+    "windscapeLore": "钟山龙蟠、石头虎踞，十里秦淮烟水迷离，六朝古刹红枫似火，尽显金陵王气与文枢风流。",
+    "rumor": "青年王安石于钟山纵论天下变法，秦淮画舫夜传七弦无形琴剑之音。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "秦淮画舫",
+      "栖霞古刹",
+      "石头城遗址"
+    ],
+    "sects": [
+      "江南剑庐（散人名脉）"
+    ],
+    "panoramaUri": "/assets/regions/jiangning.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "钟山龙蟠石城虎踞、十里秦淮灯影画舫、栖霞丹枫古刹",
+    "gate": {
+      "label": "江宁府聚宝南门（返天下舆图）",
+      "pos": [
+        735,
+        650
+      ],
+      "poly": "610,635 750,510 850,615 840,762 630,762"
+    },
+    "specialBuildingIds": [
+      "jn2_qinhuai",
+      "jn2_qixia",
+      "jn2_shitou"
+    ],
+    "baseBuildingIds": [
+      "jiangning_base_yamen",
+      "jiangning_base_academy",
+      "jiangning_base_tavern",
+      "jiangning_base_dojo",
+      "jiangning_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0019",
+      "NPC-0020",
+      "NPC-0062",
+      "NPC-0155",
+      "NPC-0197",
+      "NPC-0268",
+      "NPC-0281",
+      "NPC-0283",
+      "NPC-0295",
+      "NPC-0311",
+      "NPC-0325",
+      "NPC-0331",
+      "NPC-0348",
+      "NPC-0373",
+      "NPC-0397",
+      "NPC-0457",
+      "NPC-0461",
+      "NPC-0466",
+      "NPC-0538",
+      "NPC-0572",
+      "NPC-0585",
+      "NPC-0590",
+      "NPC-0619",
+      "NPC-0622",
+      "NPC-0634",
+      "NPC-0662",
+      "NPC-0672",
+      "NPC-0715",
+      "NPC-0731",
+      "NPC-0739",
+      "NPC-0778",
+      "NPC-0787",
+      "NPC-0801",
+      "NPC-0838",
+      "NPC-0840",
+      "NPC-0844",
+      "NPC-0856",
+      "NPC-0924",
+      "NPC-0958",
+      "NPC-0966",
+      "NPC-0993",
+      "NPC-0998"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "suzhou",
+    "standardCode": "REG-11",
+    "numericCode": "11",
+    "name": "苏州府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 两浙路",
+    "worldCoord": {
+      "x": 1013.5,
+      "y": 468.7
+    },
+    "desc": "江南水网园林冠绝天下，太湖三万六千顷烟波深处隐匿大燕慕容氏。",
+    "windscapeLore": "小桥流水人家、粉墙黛瓦园林错落，城外虎丘斜塔耸翠，西南太湖三万六千顷碧波直通燕子坞。",
+    "rumor": "范仲淹文正公归访苏州府，太湖之上“以彼之道还施彼身”传闻愈演愈烈。",
+    "alert": false,
+    "factionType": "hermit",
+    "landmarks": [
+      "虎丘剑池",
+      "寒山寺",
+      "太湖渡口"
+    ],
+    "sects": [
+      "10. 姑苏慕容氏（毗邻燕子坞）"
+    ],
+    "panoramaUri": "/assets/regions/suzhou.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "小桥流水粉墙黛瓦、虎丘斜塔剑池幽寒、西南烟波通太湖",
+    "gate": {
+      "label": "苏州府盘门水陆关（返天下舆图）",
+      "pos": [
+        730,
+        645
+      ],
+      "poly": "615,610 745,510 835,635 805,755 645,745"
+    },
+    "specialBuildingIds": [
+      "sz_huqiu",
+      "sz_hanshan",
+      "sz_taihu"
+    ],
+    "baseBuildingIds": [
+      "suzhou_base_yamen",
+      "suzhou_base_academy",
+      "suzhou_base_tavern",
+      "suzhou_base_dojo",
+      "suzhou_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0024",
+      "NPC-0051",
+      "NPC-0063",
+      "NPC-0099",
+      "NPC-0172",
+      "NPC-0174",
+      "NPC-0212",
+      "NPC-0213",
+      "NPC-0242",
+      "NPC-0247",
+      "NPC-0250",
+      "NPC-0317",
+      "NPC-0334",
+      "NPC-0436",
+      "NPC-0441",
+      "NPC-0532",
+      "NPC-0554",
+      "NPC-0618",
+      "NPC-0698",
+      "NPC-0761",
+      "NPC-0790",
+      "NPC-0882",
+      "NPC-0903",
+      "NPC-0916",
+      "NPC-0947",
+      "NPC-0965",
+      "NPC-0975",
+      "NPC-0979",
+      "NPC-0994"
+    ],
+    "legacyAliases": [
+      "苏州（平江）"
+    ]
+  },
+  {
+    "id": "hangzhou",
+    "standardCode": "REG-12",
+    "numericCode": "12",
+    "name": "杭州府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 两浙路",
+    "worldCoord": {
+      "x": 994.3,
+      "y": 506.8
+    },
+    "desc": "东南第一繁华州府，钱塘江潮涌连天，高丽、日本商舶云集，东海桃花岛出海口。",
+    "windscapeLore": "西子湖光山色三面云山一面城，东门外钱塘江惊涛拍岸，海港内高丽青瓷船与日本商舶桅樯如林。",
+    "rumor": "市舶司新泊三艘日本国博多商船与高丽青瓷船，携来海外奇巧倭刀与古琴谱。",
+    "alert": false,
+    "factionType": "hermit",
+    "landmarks": [
+      "西湖灵隐寺",
+      "钱塘观潮台",
+      "市舶司海港（通高丽扶桑海舶）"
+    ],
+    "sects": [
+      "12. 东海桃花岛一脉（外海）"
+    ],
+    "panoramaUri": "/assets/regions/hangzhou.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "西子湖光三面云山、钱塘怒潮卷雪、市舶海港通高丽扶桑",
+    "gate": {
+      "label": "杭州府凤山南门（返天下舆图）",
+      "pos": [
+        730,
+        640
+      ],
+      "poly": "600,625 750,505 845,605 825,755 620,750"
+    },
+    "specialBuildingIds": [
+      "hz_lingyin",
+      "hz_tide",
+      "hz_port"
+    ],
+    "baseBuildingIds": [
+      "hangzhou_base_yamen",
+      "hangzhou_base_tavern",
+      "hangzhou_base_academy",
+      "hangzhou_base_dojo",
+      "hangzhou_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0009",
+      "NPC-0058",
+      "NPC-0061",
+      "NPC-0098",
+      "NPC-0150",
+      "NPC-0217",
+      "NPC-0225",
+      "NPC-0249",
+      "NPC-0306",
+      "NPC-0312",
+      "NPC-0369",
+      "NPC-0383",
+      "NPC-0410",
+      "NPC-0443",
+      "NPC-0470",
+      "NPC-0501",
+      "NPC-0525",
+      "NPC-0543",
+      "NPC-0573",
+      "NPC-0592",
+      "NPC-0607",
+      "NPC-0671",
+      "NPC-0689",
+      "NPC-0716",
+      "NPC-0719",
+      "NPC-0741",
+      "NPC-0745",
+      "NPC-0796",
+      "NPC-0799",
+      "NPC-0852",
+      "NPC-0858",
+      "NPC-0865",
+      "NPC-0884",
+      "NPC-0910",
+      "NPC-0920",
+      "NPC-0928",
+      "NPC-0929",
+      "NPC-0960",
+      "NPC-0962",
+      "NPC-0983",
+      "NPC-0986"
+    ],
+    "legacyAliases": [
+      "杭州（临安）"
+    ]
+  },
+  {
+    "id": "chengdu",
+    "standardCode": "REG-13",
+    "numericCode": "13",
+    "name": "成都府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 成都府路",
+    "worldCoord": {
+      "x": 619.6,
+      "y": 492.4
+    },
+    "desc": "西川天府之国，交子流通，西接吐蕃茶马古道，南通大理阳苴咩城。",
+    "windscapeLore": "沃野千里、锦江碧水绕城，修竹掩映红墙古观，街市茶肆交子纸币流通，西望雪山、南接滇藏古道。",
+    "rumor": "川藏茶马商队自吐蕃逻些归来，称雪域密宗番僧正大批东下挑战中原武林。",
+    "alert": false,
+    "factionType": "clan",
+    "landmarks": [
+      "大慈寺",
+      "青羊道宫",
+      "锦江茶肆（川藏滇茶马集散）"
+    ],
+    "sects": [
+      "07. 峨眉派",
+      "13. 蜀中唐门",
+      "14. 青城派"
+    ],
+    "panoramaUri": "/assets/regions/chengdu.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "锦江碧水绕天府、翠竹掩映古寺道宫、交子茶肆通滇藏",
+    "gate": {
+      "label": "成都府锦官南门（返天下舆图）",
+      "pos": [
+        730,
+        625
+      ],
+      "poly": "610,600 755,500 845,595 825,735 645,730"
+    },
+    "specialBuildingIds": [
+      "cd_dacisi",
+      "cd_qingyang",
+      "cd_teahouse"
+    ],
+    "baseBuildingIds": [
+      "chengdu_base_yamen",
+      "chengdu_base_academy",
+      "chengdu_base_tavern",
+      "chengdu_base_dojo",
+      "chengdu_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0025",
+      "NPC-0027",
+      "NPC-0054",
+      "NPC-0055",
+      "NPC-0056",
+      "NPC-0067",
+      "NPC-0068",
+      "NPC-0175",
+      "NPC-0206",
+      "NPC-0219",
+      "NPC-0239",
+      "NPC-0266",
+      "NPC-0320",
+      "NPC-0330",
+      "NPC-0333",
+      "NPC-0346",
+      "NPC-0355",
+      "NPC-0357",
+      "NPC-0391",
+      "NPC-0455",
+      "NPC-0458",
+      "NPC-0468",
+      "NPC-0471",
+      "NPC-0482",
+      "NPC-0484",
+      "NPC-0493",
+      "NPC-0517",
+      "NPC-0526",
+      "NPC-0540",
+      "NPC-0566",
+      "NPC-0610",
+      "NPC-0625",
+      "NPC-0650",
+      "NPC-0668",
+      "NPC-0688",
+      "NPC-0712",
+      "NPC-0792",
+      "NPC-0800",
+      "NPC-0818",
+      "NPC-0825",
+      "NPC-0845",
+      "NPC-0849",
+      "NPC-0866",
+      "NPC-0875",
+      "NPC-0932",
+      "NPC-0943",
+      "NPC-0944",
+      "NPC-0985"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "xiangyang",
+    "standardCode": "REG-14",
+    "numericCode": "14",
+    "name": "襄阳府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 京西南路",
+    "worldCoord": {
+      "x": 808.6,
+      "y": 455.2
+    },
+    "desc": "七省通衢，汉水铁打咽喉，北望中原南控荆湖，自古荆楚豪侠仗义疏财之地。",
+    "windscapeLore": "汉水绕孤城，瓮城高墙横锁南北通衢，城西翠峰隆中修竹幽深，江面千帆竞渡直下荆湖。",
+    "rumor": "武当真武道宗与洞庭铁掌帮于汉水码头对峙，荆襄群豪纷纷赶来观战。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "襄阳雄城楼",
+      "古隆中草庐",
+      "汉水大码头"
+    ],
+    "sects": [
+      "08. 真武道宗（武当山）",
+      "15. 铁掌帮（洞庭）"
+    ],
+    "panoramaUri": "/assets/regions/xiangyang.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "汉水铁打孤城横锁南北、城西隆中翠竹幽深、千帆竞渡",
+    "gate": {
+      "label": "襄阳府南门岘山道（返天下舆图）",
+      "pos": [
+        735,
+        650
+      ],
+      "poly": "605,635 755,505 850,615 835,762 630,762"
+    },
+    "specialBuildingIds": [
+      "xy_wall",
+      "xy_longzhong",
+      "xy_dock"
+    ],
+    "baseBuildingIds": [
+      "xiangyang_base_yamen",
+      "xiangyang_base_tavern",
+      "xiangyang_base_dojo",
+      "xiangyang_base_academy",
+      "xiangyang_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0026",
+      "NPC-0029",
+      "NPC-0047",
+      "NPC-0070",
+      "NPC-0170",
+      "NPC-0209",
+      "NPC-0222",
+      "NPC-0245",
+      "NPC-0350",
+      "NPC-0352",
+      "NPC-0390",
+      "NPC-0393",
+      "NPC-0404",
+      "NPC-0416",
+      "NPC-0424",
+      "NPC-0451",
+      "NPC-0463",
+      "NPC-0486",
+      "NPC-0561",
+      "NPC-0578",
+      "NPC-0589",
+      "NPC-0623",
+      "NPC-0630",
+      "NPC-0664",
+      "NPC-0665",
+      "NPC-0675",
+      "NPC-0692",
+      "NPC-0694",
+      "NPC-0803",
+      "NPC-0832",
+      "NPC-0867",
+      "NPC-0894",
+      "NPC-0950",
+      "NPC-0955",
+      "NPC-0957"
+    ],
+    "legacyAliases": [
+      "江陵 / 襄阳"
+    ]
+  },
+  {
+    "id": "quanzhou",
+    "standardCode": "REG-15",
+    "numericCode": "15",
+    "name": "泉州府",
+    "type": "city",
+    "regime": "song",
+    "circuit": "北宋 · 福建路",
+    "worldCoord": {
+      "x": 962.3,
+      "y": 650
+    },
+    "desc": "闽海苍翠，刺桐港万国海商云集，隔海东望流求（台湾宝岛），南通交趾南海。",
+    "windscapeLore": "闽山苍翠榕荫满城，刺桐港红砖番坊古厝临海而筑，双石塔耸立晴空，隔台湾海峡东望流求宝岛苍山。",
+    "rumor": "岭南安南交界广源州侬智高异动频传，刺桐港海船亦常渡海赴流求（台湾岛）采药。",
+    "alert": true,
+    "factionType": "orthodox",
+    "landmarks": [
+      "开元寺东西双塔",
+      "武夷茶市",
+      "刺桐港番坊（望流求台湾海道）"
+    ],
+    "sects": [
+      "04. 莆田南少林",
+      "闽海镖盟"
+    ],
+    "panoramaUri": "/assets/regions/quanzhou.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "闽山苍翠刺桐红砖、双石塔镇海、隔海东望台湾流求宝岛",
+    "gate": {
+      "label": "刺桐涂门关（返天下舆图）",
+      "pos": [
+        735,
+        650
+      ],
+      "poly": "605,635 755,505 850,615 835,762 630,762"
+    },
+    "specialBuildingIds": [
+      "qz_kaiyuan",
+      "qz_tea",
+      "qz_port"
+    ],
+    "baseBuildingIds": [
+      "quanzhou_base_yamen",
+      "quanzhou_base_tavern",
+      "quanzhou_base_dojo",
+      "quanzhou_base_academy",
+      "quanzhou_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0021",
+      "NPC-0022",
+      "NPC-0094",
+      "NPC-0096",
+      "NPC-0107",
+      "NPC-0165",
+      "NPC-0264",
+      "NPC-0292",
+      "NPC-0300",
+      "NPC-0313",
+      "NPC-0349",
+      "NPC-0367",
+      "NPC-0374",
+      "NPC-0392",
+      "NPC-0400",
+      "NPC-0403",
+      "NPC-0405",
+      "NPC-0411",
+      "NPC-0425",
+      "NPC-0438",
+      "NPC-0464",
+      "NPC-0488",
+      "NPC-0559",
+      "NPC-0575",
+      "NPC-0586",
+      "NPC-0594",
+      "NPC-0596",
+      "NPC-0632",
+      "NPC-0669",
+      "NPC-0690",
+      "NPC-0717",
+      "NPC-0735",
+      "NPC-0740",
+      "NPC-0757",
+      "NPC-0759",
+      "NPC-0775",
+      "NPC-0776",
+      "NPC-0813",
+      "NPC-0892",
+      "NPC-0912",
+      "NPC-0976",
+      "NPC-0982"
+    ],
+    "legacyAliases": [
+      "福州 / 泉州"
+    ]
+  },
+  {
+    "id": "xijin_liao",
+    "standardCode": "REG-16",
+    "numericCode": "16",
+    "name": "析津府",
+    "type": "city",
+    "regime": "liao",
+    "circuit": "大辽 · 南京道（古幽州）",
+    "worldCoord": {
+      "x": 898.8,
+      "y": 240.5
+    },
+    "desc": "燕云十六州核心故都（大辽南京），契丹经略中原之南下咽喉，燕赵遗民日夜北望王师。",
+    "windscapeLore": "燕山脚下千年古幽州城（大辽南京），汉唐坊市旧貌与契丹毡帐军旗并存，北城重兵屯驻，城外燕京马市尘土蔽日。",
+    "rumor": "析津府元帅府秘召塞北群凶齐聚燕京，似欲南越白沟河与雁门关袭扰河北！",
+    "alert": true,
+    "factionType": "hostile",
+    "landmarks": [
+      "幽州悯忠寺",
+      "辽南京兵马元帅府",
+      "燕京榷马大市"
+    ],
+    "sects": [
+      "20. 辽国南院武林暗桩总枢"
+    ],
+    "panoramaUri": "/assets/regions/xijin_liao.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "燕山古幽州汉唐坊市与契丹毡帐军营交错、城外榷马尘飞",
+    "gate": {
+      "label": "析津府安远南门（返天下舆图）",
+      "pos": [
+        792,
+        622
+      ],
+      "poly": "648,648 828,505 948,618 948,708 758,764 648,722"
+    },
+    "specialBuildingIds": [
+      "xj_minzhong",
+      "xj_marshal",
+      "xj_horse"
+    ],
+    "baseBuildingIds": [
+      "xijin_liao_base_yamen",
+      "xijin_liao_base_tavern",
+      "xijin_liao_base_dojo",
+      "xijin_liao_base_academy",
+      "xijin_liao_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0072",
+      "NPC-0076",
+      "NPC-0079",
+      "NPC-0151",
+      "NPC-0184",
+      "NPC-0557",
+      "NPC-0726",
+      "NPC-0767",
+      "NPC-0854"
+    ],
+    "legacyAliases": [
+      "南京析津府（幽州）"
+    ]
+  },
+  {
+    "id": "dading_liao",
+    "standardCode": "REG-17",
+    "numericCode": "17",
+    "name": "大定府",
+    "type": "city",
+    "regime": "liao",
+    "circuit": "大辽 · 中京道",
+    "worldCoord": {
+      "x": 960.5,
+      "y": 195.1
+    },
+    "desc": "大辽中京陪都重镇，宋朝国信使臣北来必经之地，东接辽东高丽商路，胡汉杂处繁盛。",
+    "windscapeLore": "老哈河畔大辽中京陪都，仿开封府规制修筑汉城朱雀大街，白塔凌云，高丽使臣车队与女真皮货雪橇络绎不绝。",
+    "rumor": "高丽国使团与女真生部猛士同抵大定府献海东青，塞北摔跤刀客于大同驿设擂比武。",
+    "alert": false,
+    "factionType": "hostile",
+    "landmarks": [
+      "大定府大明宝塔",
+      "宋辽国信大同驿",
+      "松漠皇家围场"
+    ],
+    "sects": [
+      "大辽护国萨满武士团 / 辽东女真猎部"
+    ],
+    "panoramaUri": "/assets/regions/dading_liao.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "老哈河汉城长街、八角十三层大明巨塔凌云、北郊松漠围场",
+    "gate": {
+      "label": "大定府朱夏门（返天下舆图）",
+      "pos": [
+        712,
+        622
+      ],
+      "poly": "578,645 732,535 828,622 828,708 665,764 578,708"
+    },
+    "specialBuildingIds": [
+      "dd_pagoda",
+      "dd_envoy",
+      "dd_hunt"
+    ],
+    "baseBuildingIds": [
+      "dading_liao_base_yamen",
+      "dading_liao_base_tavern",
+      "dading_liao_base_dojo",
+      "dading_liao_base_academy",
+      "dading_liao_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0077",
+      "NPC-0078",
+      "NPC-0081",
+      "NPC-0189",
+      "NPC-0235",
+      "NPC-0351",
+      "NPC-0447",
+      "NPC-0469",
+      "NPC-0676",
+      "NPC-0711",
+      "NPC-0763",
+      "NPC-0780",
+      "NPC-0937",
+      "NPC-0956"
+    ],
+    "legacyAliases": [
+      "中京大定府"
+    ]
+  },
+  {
+    "id": "linhuang_liao",
+    "standardCode": "REG-18",
+    "numericCode": "18",
+    "name": "临潢府",
+    "type": "city",
+    "regime": "liao",
+    "circuit": "大辽 · 上京道（契丹龙庭）",
+    "worldCoord": {
+      "x": 958.2,
+      "y": 129.1
+    },
+    "desc": "契丹开国上京皇都，辽兴宗耶律宗真四时捺钵皇帐核心，北院护国绝顶高手云集。",
+    "windscapeLore": "西拉木伦河（潢水）北岸契丹上京龙兴皇都，“皇都”与“汉城”南北毗连，金色斡耳朵御帐连绵如云，铁骑拱卫。",
+    "rumor": "辽主耶律宗真刚自西征夏国班师回临潢府，重金悬赏能破丐帮降龙掌之绝世奇才！",
+    "alert": true,
+    "factionType": "hostile",
+    "landmarks": [
+      "大辽皇都金帐大内",
+      "潢水木叶山祭天坛",
+      "北院铁林军大营"
+    ],
+    "sects": [
+      "20. 辽廷北院护国武尊总坛"
+    ],
+    "panoramaUri": "/assets/regions/linhuang_liao.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "西拉木伦潢水草原、大辽金帐斡耳朵连绵、木叶圣山铁骑如云",
+    "gate": {
+      "label": "临潢府南捺钵山口（返天下舆图）",
+      "pos": [
+        528,
+        608
+      ],
+      "poly": "448,595 518,538 625,602 605,698 448,645"
+    },
+    "specialBuildingIds": [
+      "lh_goldtent",
+      "lh_altar",
+      "lh_ironcav"
+    ],
+    "baseBuildingIds": [
+      "linhuang_liao_base_yamen",
+      "linhuang_liao_base_tavern",
+      "linhuang_liao_base_dojo",
+      "linhuang_liao_base_academy",
+      "linhuang_liao_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0071",
+      "NPC-0073",
+      "NPC-0074",
+      "NPC-0075",
+      "NPC-0080",
+      "NPC-0121",
+      "NPC-0234",
+      "NPC-0433",
+      "NPC-0444",
+      "NPC-0515",
+      "NPC-0558",
+      "NPC-0685",
+      "NPC-0687",
+      "NPC-0896"
+    ],
+    "legacyAliases": [
+      "上京临潢府"
+    ]
+  },
+  {
+    "id": "xingqing_xixia",
+    "standardCode": "REG-19",
+    "numericCode": "19",
+    "name": "兴庆府",
+    "type": "city",
+    "regime": "xixia",
+    "circuit": "西夏 · 贺兰王都",
+    "worldCoord": {
+      "x": 676.2,
+      "y": 279.3
+    },
+    "desc": "背靠贺兰山、面朝黄河套的西夏党项王都，西夏一品堂总坛所在，网罗天下凶人番僧。",
+    "windscapeLore": "西倚巍峨贺兰山阙、东引黄河古灌渠，党项白塔琉璃宫阙映衬塞上大漠孤烟，城中番僧恶客横行。",
+    "rumor": "没藏太后主政兴庆府，一品堂广开招贤馆，凡献中原名门武学秘籍者皆赐黄金百斤！",
+    "alert": true,
+    "factionType": "hostile",
+    "landmarks": [
+      "西夏一品堂总堂",
+      "贺兰山皇家王陵",
+      "铁鹞子重骑大营（产西夏战马）"
+    ],
+    "sects": [
+      "20. 西夏一品堂（总坛）",
+      "19. 星宿派西域联络枢"
+    ],
+    "panoramaUri": "/assets/regions/xingqing_xixia.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "西倚巍峨贺兰山阙、东引黄河灌渠、党项白塔与大漠孤烟辉映",
+    "gate": {
+      "label": "兴庆府光化门（返天下舆图）",
+      "pos": [
+        735,
+        650
+      ],
+      "poly": "605,635 755,505 845,605 835,760 630,760"
+    },
+    "specialBuildingIds": [
+      "xq_yipin",
+      "xq_icecellar",
+      "xq_tombs",
+      "xq_tieyaozi"
+    ],
+    "baseBuildingIds": [
+      "xingqing_xixia_base_yamen",
+      "xingqing_xixia_base_tavern",
+      "xingqing_xixia_base_dojo",
+      "xingqing_xixia_base_academy",
+      "xingqing_xixia_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0082",
+      "NPC-0083",
+      "NPC-0084",
+      "NPC-0085",
+      "NPC-0103",
+      "NPC-0130",
+      "NPC-0152",
+      "NPC-0182",
+      "NPC-0183",
+      "NPC-0232",
+      "NPC-0233",
+      "NPC-0287",
+      "NPC-0347",
+      "NPC-0398",
+      "NPC-0399",
+      "NPC-0402",
+      "NPC-0412",
+      "NPC-0420",
+      "NPC-0492",
+      "NPC-0599",
+      "NPC-0721",
+      "NPC-0889",
+      "NPC-0938",
+      "NPC-0989"
+    ],
+    "legacyAliases": [
+      "兴庆府（银川）"
+    ]
+  },
+  {
+    "id": "luoxie_tubo",
+    "standardCode": "REG-20",
+    "numericCode": "20",
+    "name": "逻些（拉萨）",
+    "type": "city",
+    "regime": "tubo",
+    "circuit": "吐蕃 · 卫藏雪域",
+    "worldCoord": {
+      "x": 313,
+      "y": 520.4
+    },
+    "desc": "世界屋脊雅鲁藏布江畔的高原圣城，红山古宫矗立，密宗无上护法神功与火焰刀圣地。",
+    "windscapeLore": "海拔万尺雪域河谷，红山之上宫堡巍峨直插苍穹，金顶梵宇桑烟缭绕，远处连绵冰峰耀眼夺目。",
+    "rumor": "吐蕃大轮寺高僧正于逻些大昭寺闭关参悟无上火焰刀气，欲往大理天龙寺求借六脉剑谱。",
+    "alert": false,
+    "factionType": "clan",
+    "landmarks": [
+      "红山布达拉古宫",
+      "大昭圣寺金顶",
+      "雪域密宗辩经大坛"
+    ],
+    "sects": [
+      "吐蕃密宗护法脉（火焰刀 / 龙象般若功渊薮）"
+    ],
+    "panoramaUri": "/assets/regions/luoxie_tubo.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "世界屋脊连绵雪峰、红山布达拉古宫矗立苍穹、大昭金顶梵音",
+    "gate": {
+      "label": "逻些河谷唐蕃古道口（返天下舆图）",
+      "pos": [
+        985,
+        565
+      ],
+      "poly": "910,555 1015,485 1070,555 1045,645 940,655"
+    },
+    "specialBuildingIds": [
+      "lx_potala",
+      "lx_jokhang",
+      "lx_debate"
+    ],
+    "baseBuildingIds": [
+      "luoxie_tubo_base_yamen",
+      "luoxie_tubo_base_tavern",
+      "luoxie_tubo_base_dojo",
+      "luoxie_tubo_base_academy",
+      "luoxie_tubo_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0089",
+      "NPC-0090",
+      "NPC-0091",
+      "NPC-0092",
+      "NPC-0093",
+      "NPC-0113",
+      "NPC-0153",
+      "NPC-0332",
+      "NPC-0608",
+      "NPC-0616",
+      "NPC-0749",
+      "NPC-0752",
+      "NPC-0754",
+      "NPC-0765",
+      "NPC-0997"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "dali_city",
+    "standardCode": "REG-21",
+    "numericCode": "21",
+    "name": "阳苴咩城（大理）",
+    "type": "city",
+    "regime": "dali",
+    "circuit": "大理国 · 苍山洱海",
+    "worldCoord": {
+      "x": 519,
+      "y": 627.2
+    },
+    "desc": "背倚点苍十九峰、面朝洱海明月之佛国都城，大理段氏皇族以一阳指、六脉神剑名震天下。",
+    "windscapeLore": "背靠点苍山十九峰终年积雪，面朝洱海万顷碧波明月，三座白塔鼎足耸立，白族飞檐花甸四季如春。",
+    "rumor": "大理国主段思廉崇信佛法，天龙寺牟尼堂诸位高僧合参六脉神剑图谱以防吐蕃强邻。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "点苍崇圣寺三塔（天龙寺）",
+      "大理国皇宫镇南府",
+      "洱海茶马总集"
+    ],
+    "sects": [
+      "大理段氏 / 天龙寺（一阳指 · 六脉神剑圣地）"
+    ],
+    "panoramaUri": "/assets/regions/dali_city.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "西倚点苍十九峰积雪、东临洱海万顷明月、崇圣三塔映繁花",
+    "gate": {
+      "label": "阳苴咩龙尾南关（返天下舆图）",
+      "pos": [
+        735,
+        650
+      ],
+      "poly": "605,635 755,505 850,615 835,762 630,762"
+    },
+    "specialBuildingIds": [
+      "dl_tianlong",
+      "dl_palace",
+      "dl_chama"
+    ],
+    "baseBuildingIds": [
+      "dali_city_base_yamen",
+      "dali_city_base_tavern",
+      "dali_city_base_dojo",
+      "dali_city_base_academy",
+      "dali_city_base_inn"
+    ],
+    "residentNpcIds": [
+      "NPC-0086",
+      "NPC-0087",
+      "NPC-0088",
+      "NPC-0095",
+      "NPC-0108",
+      "NPC-0116",
+      "NPC-0143",
+      "NPC-0144",
+      "NPC-0236",
+      "NPC-0237",
+      "NPC-0238",
+      "NPC-0240",
+      "NPC-0258",
+      "NPC-0259",
+      "NPC-0260",
+      "NPC-0261",
+      "NPC-0449",
+      "NPC-0452",
+      "NPC-0700",
+      "NPC-0853"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "kunlun",
+    "standardCode": "REG-22",
+    "numericCode": "22",
+    "name": "昆仑山（万山之祖）",
+    "type": "sect",
+    "regime": "wild",
+    "circuit": "西域极境 · 瑶池雪巅",
+    "worldCoord": {
+      "x": 134.1,
+      "y": 345.1
+    },
+    "desc": "华夏万山之祖、百神所在，终年积雪千仞，冰川深处育有昆仑冰蚕与千年寒玉，隐世剑仙与星宿毒窟并存。",
+    "windscapeLore": "万仞冰川雪峰刺破云霄，翡翠瑶池冰湖半封，西侧幽谷毒雾紫泉蒸腾",
+    "rumor": "昆仑绝顶万年冰川崩裂一角，传说有西域奇人寻获雪山冰蚕，更见古剑仙遗刻天阶剑意！",
+    "alert": true,
+    "factionType": "hermit",
+    "landmarks": [
+      "昆仑瑶池冰窟（抗性试炼）",
+      "三圣剑仙幽谷",
+      "星宿海毒泉外脉（产冰蚕奇毒）"
+    ],
+    "sects": [
+      "19. 星宿派（西域祖庭源头）",
+      "昆仑上古剑仙隐脉"
+    ],
+    "panoramaUri": "/assets/regions/kunlun.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "万山之祖千仞雪巅、翡翠瑶池寒玉冰川、西谷星宿紫雾毒泉",
+    "gate": {
+      "label": "昆仑东麓玉门古道口（返天下舆图）",
+      "pos": [
+        772,
+        608
+      ],
+      "poly": "705,542 795,482 852,518 845,652 745,705 712,642"
+    },
+    "specialBuildingIds": [
+      "kl_yaochi",
+      "kl_swordvalley",
+      "kl_poison",
+      "kl_summit"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0102",
+      "NPC-0131",
+      "NPC-0190",
+      "NPC-0263",
+      "NPC-0265",
+      "NPC-0329",
+      "NPC-0362",
+      "NPC-0413",
+      "NPC-0445",
+      "NPC-0476",
+      "NPC-0497",
+      "NPC-0588",
+      "NPC-0621",
+      "NPC-0863",
+      "NPC-0917",
+      "NPC-0940"
+    ],
+    "legacyAliases": [
+      "昆仑山"
+    ]
+  },
+  {
+    "id": "shaolin",
+    "standardCode": "REG-23",
+    "numericCode": "23",
+    "name": "嵩山少林寺",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "京西北路 · 中岳",
+    "worldCoord": {
+      "x": 828.1,
+      "y": 393.5
+    },
+    "desc": "天下武学泰山北斗，玄字辈高僧辈出，七十二绝技与《易筋经》冠绝寰宇。",
+    "windscapeLore": "少室山叠翠千峰，红墙古柏掩映巍峨禅院，钟鼓梵音回荡山谷",
+    "rumor": "藏经阁夜半偶闻梵唱禅音，灰衣老僧扫叶无声，玄慈、玄苦诸僧正演练罗汉大阵。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "藏经阁",
+      "达摩面壁洞",
+      "十八铜人罗汉堂"
+    ],
+    "sects": [
+      "01. 嵩山少林寺"
+    ],
+    "panoramaUri": "/assets/regions/shaolin.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "少室山叠翠千峰、红墙古柏掩映巍峨禅院、晨钟暮鼓震群山",
+    "gate": {
+      "label": "少林寺山门牌坊（返天下舆图）",
+      "pos": [
+        785,
+        622
+      ],
+      "poly": "658,588 815,495 922,558 915,695 765,755 675,705"
+    },
+    "specialBuildingIds": [
+      "sl_cangjing",
+      "sl_damo",
+      "sl_luohan",
+      "sl_daxiong"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0101",
+      "NPC-0104",
+      "NPC-0105",
+      "NPC-0109",
+      "NPC-0112",
+      "NPC-0126",
+      "NPC-0127",
+      "NPC-0134",
+      "NPC-0135",
+      "NPC-0156",
+      "NPC-0158",
+      "NPC-0191",
+      "NPC-0192",
+      "NPC-0193",
+      "NPC-0254",
+      "NPC-0255",
+      "NPC-0315",
+      "NPC-0322",
+      "NPC-0356",
+      "NPC-0450",
+      "NPC-0483",
+      "NPC-0498",
+      "NPC-0627",
+      "NPC-0648",
+      "NPC-0673",
+      "NPC-0769",
+      "NPC-0782",
+      "NPC-0789",
+      "NPC-0830",
+      "NPC-0842",
+      "NPC-0861",
+      "NPC-0918",
+      "NPC-0951"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "yanmenguan",
+    "standardCode": "REG-24",
+    "numericCode": "24",
+    "name": "雁门关",
+    "type": "pass",
+    "regime": "song",
+    "circuit": "河东路 · 宋辽绝险",
+    "worldCoord": {
+      "x": 821.5,
+      "y": 260.3
+    },
+    "desc": "“天下九塞，雁门为首”，北通大辽析津府与大漠，胡汉恩仇核心舞台，绝壁千仞。",
+    "windscapeLore": "勾注山绝壁夹峙如门，长城烽燧蜿蜒脊梁，关外黄沙朔风凛冽",
+    "rumor": "探马急报！析津府契丹贵人携家眷护卫经雁门山道南行，中原群豪已秘密埋伏绝壁之上！",
+    "alert": true,
+    "factionType": "hostile",
+    "landmarks": [
+      "雁门绝壁",
+      "镇边李牧祠",
+      "乱石伏击谷"
+    ],
+    "sects": [
+      "胡汉交锋最前线 · 武林盟会圣地"
+    ],
+    "panoramaUri": "/assets/regions/yanmenguan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "勾注山千仞绝壁夹峙如门、长城烽燧蜿蜒、关外朔风黄沙漫天",
+    "gate": {
+      "label": "雁门南口代州道（返天下舆图）",
+      "pos": [
+        562,
+        578
+      ],
+      "poly": "465,595 545,472 678,552 678,655 588,718 465,642"
+    },
+    "specialBuildingIds": [
+      "ym_cliff",
+      "ym_limu",
+      "ym_tower"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0163",
+      "NPC-0253",
+      "NPC-0406",
+      "NPC-0456",
+      "NPC-0519",
+      "NPC-0546",
+      "NPC-0564",
+      "NPC-0579",
+      "NPC-0580",
+      "NPC-0639",
+      "NPC-0657",
+      "NPC-0709",
+      "NPC-0742",
+      "NPC-0746",
+      "NPC-0795",
+      "NPC-0855",
+      "NPC-0872",
+      "NPC-0879",
+      "NPC-0904",
+      "NPC-0935",
+      "NPC-0946"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "wutaishan",
+    "standardCode": "REG-25",
+    "numericCode": "25",
+    "name": "五台山清凉寺",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "河东路 · 佛门北宗",
+    "worldCoord": {
+      "x": 840.4,
+      "y": 268.5
+    },
+    "desc": "河东佛门圣地，地处抗辽最前线，寺内武僧精研金刚伏魔杖法与大威德降魔杵。",
+    "windscapeLore": "五峰如台直入云表，夏日犹带残雪清凉，梵刹金瓦庄严",
+    "rumor": "清凉寺神山上人闭关参研大威德降魔杵，护佑雁门边关百姓免遭辽骑劫掠。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "清凉主殿",
+      "杨五郎演棍台",
+      "边关遗孤院"
+    ],
+    "sects": [
+      "03. 五台山清凉寺"
+    ],
+    "panoramaUri": "/assets/regions/wutaishan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "五峰如台高耸云表、盛夏犹存清凉瑞雪、梵宇金瓦护佑河东",
+    "gate": {
+      "label": "五台山南山口（返天下舆图）",
+      "pos": [
+        775,
+        622
+      ],
+      "poly": "622,588 795,495 908,582 912,695 745,758 642,712"
+    },
+    "specialBuildingIds": [
+      "wt_main",
+      "wt_staff",
+      "wt_orphan"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0123",
+      "NPC-0162",
+      "NPC-0199",
+      "NPC-0304",
+      "NPC-0481",
+      "NPC-0504",
+      "NPC-0680",
+      "NPC-0755",
+      "NPC-0941"
+    ],
+    "legacyAliases": [
+      "五台山"
+    ]
+  },
+  {
+    "id": "taihang",
+    "standardCode": "REG-26",
+    "numericCode": "26",
+    "name": "太行山绿林总寨",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "河北河东交界 · 八百里太行",
+    "worldCoord": {
+      "x": 840.3,
+      "y": 324.7
+    },
+    "desc": "危峰摩天，王则起义余脉与河北山东绿林豪强结盟之地，反官草莽路线大本营。",
+    "windscapeLore": "八百里太行峭壁千仞，飞瀑断涧之上木石寨墙高悬“替天行道”大旗",
+    "rumor": "太行十八寨立起“替天行道”大旗，专劫河北贪官刮民脂膏之岁币银车。",
+    "alert": false,
+    "factionType": "clan",
+    "landmarks": [
+      "聚义忠义堂",
+      "飞狐断魂涧",
+      "藏金义仓"
+    ],
+    "sects": [
+      "18. 太行/京东绿林盟"
+    ],
+    "panoramaUri": "/assets/regions/taihang.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "八百里太行奇峰断涧、飞瀑铁索之上木石山寨高悬替天行道大旗",
+    "gate": {
+      "label": "太行山寨下山暗道（返天下舆图）",
+      "pos": [
+        725,
+        608
+      ],
+      "poly": "615,535 748,452 932,538 898,708 792,728 638,638"
+    },
+    "specialBuildingIds": [
+      "th_hall",
+      "th_bridge",
+      "th_vault"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0142",
+      "NPC-0341",
+      "NPC-0707",
+      "NPC-0895",
+      "NPC-0908",
+      "NPC-0923"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "tongguan",
+    "standardCode": "REG-27",
+    "numericCode": "27",
+    "name": "潼关 / 西岳华山",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "永兴军路 · 秦晋咽喉",
+    "worldCoord": {
+      "x": 765.3,
+      "y": 388
+    },
+    "desc": "黄河大折与西岳奇峰合璧之处，“自古华山一条路”，天下第一绝顶论剑胜地。",
+    "windscapeLore": "黄河咆哮东折撞击潼关雄城，南侧华山五峰如削、苍龙岭一线悬空",
+    "rumor": "华山玉女峰紫气东来，各路绝顶高手相约登顶一决“天下第一”名号。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "华山论剑绝顶",
+      "思过崖古洞",
+      "潼关天险城楼"
+    ],
+    "sects": [
+      "05. 华山派"
+    ],
+    "panoramaUri": "/assets/regions/tongguan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "黄河咆哮东折撞击潼关雄城、南侧西岳华山五峰如削苍龙悬空",
+    "gate": {
+      "label": "华山脚下玉泉院口（返天下舆图）",
+      "pos": [
+        818,
+        638
+      ],
+      "poly": "728,645 785,522 895,588 902,688 852,732 728,672"
+    },
+    "specialBuildingIds": [
+      "tg_summit",
+      "tg_zixia",
+      "tg_siguoya",
+      "tg_fort"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0118",
+      "NPC-0147",
+      "NPC-0166",
+      "NPC-0202",
+      "NPC-0203",
+      "NPC-0286",
+      "NPC-0363",
+      "NPC-0371",
+      "NPC-0372",
+      "NPC-0375",
+      "NPC-0387",
+      "NPC-0396",
+      "NPC-0427",
+      "NPC-0428",
+      "NPC-0434",
+      "NPC-0442",
+      "NPC-0448",
+      "NPC-0460",
+      "NPC-0487",
+      "NPC-0490",
+      "NPC-0581",
+      "NPC-0606",
+      "NPC-0624",
+      "NPC-0645",
+      "NPC-0747",
+      "NPC-0760",
+      "NPC-0785",
+      "NPC-0788",
+      "NPC-0806",
+      "NPC-0891",
+      "NPC-0913",
+      "NPC-0939",
+      "NPC-0949",
+      "NPC-0954",
+      "NPC-0977",
+      "NPC-0978",
+      "NPC-0991",
+      "NPC-1000"
+    ],
+    "legacyAliases": [
+      "华山",
+      "潼关",
+      "潼关 / 西岳华山（华山）",
+      "潼关 / 西岳华山（潼关）"
+    ]
+  },
+  {
+    "id": "zhongnanshan",
+    "standardCode": "REG-28",
+    "numericCode": "28",
+    "name": "终南山隐宗",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "永兴军路 · 秦岭幽谷",
+    "worldCoord": {
+      "x": 703.8,
+      "y": 417.9
+    },
+    "desc": "云深不知处之道门仙山与活死人墓前脉，轻功捕雀、剑法清冷，不涉庙堂。",
+    "windscapeLore": "秦岭太乙幽谷云雾缭绕，古柏深处清溪寒潭掩映重阳道观与古墓石门",
+    "rumor": "终南后山寒潭夜现双剑合璧寒光，非风姿俊雅、通晓诗词者莫能入谷。",
+    "alert": false,
+    "factionType": "hermit",
+    "landmarks": [
+      "活死人墓幽谷",
+      "重阳古观前脉",
+      "寒玉涧"
+    ],
+    "sects": [
+      "11. 终南隐宗"
+    ],
+    "panoramaUri": "/assets/regions/zhongnanshan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "秦岭太乙幽谷云海清溪、苍松古柏掩映道观与活死人墓石门",
+    "gate": {
+      "label": "终南山翠微山口（返天下舆图）",
+      "pos": [
+        735,
+        622
+      ],
+      "poly": "645,555 765,492 805,655 885,745 755,762 645,698"
+    },
+    "specialBuildingIds": [
+      "zn_tomb",
+      "zn_tao",
+      "zn_stream"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0114",
+      "NPC-0133",
+      "NPC-0173",
+      "NPC-0216",
+      "NPC-0276",
+      "NPC-0339",
+      "NPC-0454",
+      "NPC-0514",
+      "NPC-0530",
+      "NPC-0552",
+      "NPC-0593",
+      "NPC-0629",
+      "NPC-0649",
+      "NPC-0659",
+      "NPC-0677",
+      "NPC-0695",
+      "NPC-0736",
+      "NPC-0751",
+      "NPC-0766",
+      "NPC-0922",
+      "NPC-0931"
+    ],
+    "legacyAliases": [
+      "终南山"
+    ]
+  },
+  {
+    "id": "taishan",
+    "standardCode": "REG-29",
+    "numericCode": "29",
+    "name": "东岳泰山",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "京东东路 · 五岳独尊",
+    "worldCoord": {
+      "x": 920.9,
+      "y": 349.2
+    },
+    "desc": "五岳之首，封禅圣山，泰山派道门驻锡于此，剑势堂皇如千钧压顶。",
+    "windscapeLore": "十八盘千级石阶直通天门，云海日出金光万丈，五岳独尊气吞山河",
+    "rumor": "泰山派掌剑真人于玉皇顶观日出推演“岱宗如何”算术剑诀。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "玉皇顶封禅台",
+      "十八盘石阶",
+      "五大夫松亭"
+    ],
+    "sects": [
+      "06. 泰山派"
+    ],
+    "panoramaUri": "/assets/regions/taishan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "十八盘千级云梯直通南天门、东海日出金光万丈、五岳独尊",
+    "gate": {
+      "label": "泰山红门山口（返天下舆图）",
+      "pos": [
+        815,
+        635
+      ],
+      "poly": "702,608 855,505 938,552 982,705 835,762 695,725"
+    },
+    "specialBuildingIds": [
+      "ts_yuhuang",
+      "ts_daoyuan",
+      "ts_18pan",
+      "ts_pine"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0129",
+      "NPC-0168",
+      "NPC-0205",
+      "NPC-0302",
+      "NPC-0533",
+      "NPC-0535",
+      "NPC-0545",
+      "NPC-0870",
+      "NPC-0936"
+    ],
+    "legacyAliases": [
+      "泰山"
+    ]
+  },
+  {
+    "id": "yanziwu",
+    "standardCode": "REG-30",
+    "numericCode": "30",
+    "name": "太湖燕子坞",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "两浙路 · 水泊秘境",
+    "worldCoord": {
+      "x": 979.4,
+      "y": 485.9
+    },
+    "desc": "烟波太湖深处的水榭庄园，藏有还施水阁天下百家武学典籍。",
+    "windscapeLore": "万顷太湖荷叶田田，柳岸水榭画桥相连，轻舟穿梭芦苇迷津",
+    "rumor": "慕容氏少家主暗中北联大辽临潢府贵族，图谋搅乱中原兴复大燕。",
+    "alert": false,
+    "factionType": "hermit",
+    "landmarks": [
+      "还施水阁",
+      "听香水榭",
+      "参合庄"
+    ],
+    "sects": [
+      "10. 姑苏慕容氏"
+    ],
+    "panoramaUri": "/assets/regions/yanziwu.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "烟波太湖万顷荷叶芦洲、江南水榭画桥相连、暗藏百家武库",
+    "gate": {
+      "label": "燕子坞芦苇水津渡（返天下舆图）",
+      "pos": [
+        725,
+        622
+      ],
+      "poly": "612,665 772,532 902,555 952,685 785,758 612,695"
+    },
+    "specialBuildingIds": [
+      "yzw_huanshi",
+      "yzw_canhe",
+      "yzw_tingxiang"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0120",
+      "NPC-0145",
+      "NPC-0161",
+      "NPC-0214",
+      "NPC-0256",
+      "NPC-0257",
+      "NPC-0472",
+      "NPC-0598",
+      "NPC-0601",
+      "NPC-0658",
+      "NPC-0794",
+      "NPC-0878",
+      "NPC-0961"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "taohuadao",
+    "standardCode": "REG-31",
+    "numericCode": "31",
+    "name": "东海桃花岛",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "两浙外海 · 奇门仙岛",
+    "worldCoord": {
+      "x": 1046.3,
+      "y": 514.9
+    },
+    "desc": "孤悬东海舟山外洋之仙岛，东望日本九州，满岛桃花皆依奇门八卦排布。",
+    "windscapeLore": "碧波惊涛环抱奇石仙岛，漫山绯红桃林暗合九宫八卦，海风琴箫悠扬",
+    "rumor": "东海奇人以玉箫碧海潮生曲震退倭寇海船，不通奇门算术者登岛必迷。",
+    "alert": false,
+    "factionType": "hermit",
+    "landmarks": [
+      "八卦桃林大阵",
+      "弹指试剑亭",
+      "听涛琴庐"
+    ],
+    "sects": [
+      "12. 东海桃花岛一脉"
+    ],
+    "panoramaUri": "/assets/regions/taohuadao.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "东海碧波惊涛环抱奇礁仙岛、漫山绯红桃林暗合九宫八卦",
+    "gate": {
+      "label": "桃花滩海埠（返天下舆图）",
+      "pos": [
+        772,
+        650
+      ],
+      "poly": "692,606 742,575 866,625 972,695 935,735 815,672 762,698 730,652"
+    },
+    "specialBuildingIds": [
+      "thd_maze",
+      "thd_tanzhi",
+      "thd_qinlu"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0115",
+      "NPC-0282",
+      "NPC-0477",
+      "NPC-0542",
+      "NPC-0560",
+      "NPC-0644",
+      "NPC-0748",
+      "NPC-0824"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "jianmenguan",
+    "standardCode": "REG-32",
+    "numericCode": "32",
+    "name": "剑门关",
+    "type": "pass",
+    "regime": "song",
+    "circuit": "利州路 · 入蜀咽喉",
+    "worldCoord": {
+      "x": 654.5,
+      "y": 449.7
+    },
+    "desc": "“一夫当关，万夫莫开”，秦蜀古栈道绝险雄关。",
+    "windscapeLore": "大剑山七十二峰如利剑攒天，绝壁隘口一夫当关，古柏翠云夹道",
+    "rumor": "剑门鸟道险峻入云，轻功修为越高者翻越蜀道耗时越短。",
+    "alert": false,
+    "factionType": "clan",
+    "landmarks": [
+      "剑阁鸟道悬栈",
+      "翠云廊",
+      "雄关箭楼"
+    ],
+    "sects": [
+      "秦蜀交界战略要塞"
+    ],
+    "panoramaUri": "/assets/regions/jianmenguan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "大剑山七十二峰如剑攒天、绝壁隘口一夫当关、翠云古柏苍茫",
+    "gate": {
+      "label": "剑门南隘口（返天下舆图）",
+      "pos": [
+        602,
+        618
+      ],
+      "poly": "502,572 565,535 668,572 708,618 688,688 505,642"
+    },
+    "specialBuildingIds": [
+      "jm_plank",
+      "jm_gate",
+      "jm_pine"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0207",
+      "NPC-0221",
+      "NPC-0291",
+      "NPC-0299",
+      "NPC-0336",
+      "NPC-0359",
+      "NPC-0368",
+      "NPC-0385",
+      "NPC-0389",
+      "NPC-0394",
+      "NPC-0401",
+      "NPC-0407",
+      "NPC-0565",
+      "NPC-0635",
+      "NPC-0651",
+      "NPC-0653",
+      "NPC-0678",
+      "NPC-0704",
+      "NPC-0713",
+      "NPC-0738",
+      "NPC-0772",
+      "NPC-0779",
+      "NPC-0793",
+      "NPC-0835",
+      "NPC-0862",
+      "NPC-0869",
+      "NPC-0930",
+      "NPC-0942"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "qingcheng",
+    "standardCode": "REG-33",
+    "numericCode": "33",
+    "name": "青城山 / 唐家堡",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "成都府路 · 川西奇门",
+    "worldCoord": {
+      "x": 602.1,
+      "y": 482.3
+    },
+    "desc": "青城天下幽之道观与机关遍布的蜀中唐门世家比邻而居。",
+    "windscapeLore": "前山道观幽林蔽日，后谷竹海深处黑瓦碉楼机关密布、毒涧幽深",
+    "rumor": "唐家堡天机阁研成暴雨梨花针图纸，需极高算术造诣方可组装。",
+    "alert": false,
+    "factionType": "clan",
+    "landmarks": [
+      "上清宫松风殿",
+      "唐家堡天机阁",
+      "万毒涧"
+    ],
+    "sects": [
+      "13. 蜀中唐门",
+      "14. 青城派"
+    ],
+    "panoramaUri": "/assets/regions/qingcheng.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "前山青城幽林道观蔽日、后谷唐家堡黑瓦碉楼机关毒涧密布",
+    "gate": {
+      "label": "幽谷山道口（返天下舆图）",
+      "pos": [
+        448,
+        632
+      ],
+      "poly": "362,592 432,542 565,638 545,758 378,708"
+    },
+    "specialBuildingIds": [
+      "qc_shangqing",
+      "qc_tang",
+      "qc_poison"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0125",
+      "NPC-0139",
+      "NPC-0149",
+      "NPC-0218",
+      "NPC-0220",
+      "NPC-0354",
+      "NPC-0459",
+      "NPC-0467",
+      "NPC-0516",
+      "NPC-0574",
+      "NPC-0587",
+      "NPC-0612",
+      "NPC-0628",
+      "NPC-0670",
+      "NPC-0750",
+      "NPC-0777",
+      "NPC-0821",
+      "NPC-0859",
+      "NPC-0877",
+      "NPC-0933",
+      "NPC-0934",
+      "NPC-0981"
+    ],
+    "legacyAliases": [
+      "唐家堡",
+      "青城山",
+      "青城山 / 唐家堡（唐家堡）",
+      "青城山 / 唐家堡（青城山）"
+    ]
+  },
+  {
+    "id": "emeishan",
+    "standardCode": "REG-34",
+    "numericCode": "34",
+    "name": "蜀中峨眉山",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "成都府路 · 金顶仙山",
+    "worldCoord": {
+      "x": 598.4,
+      "y": 526.6
+    },
+    "desc": "峨眉天下秀，金顶佛光普照，剑掌轻灵清正，南扼入滇大理古道。",
+    "windscapeLore": "云海翻涌托起万丈金顶，佛光宝相庄严，古寺修竹飞瀑清音",
+    "rumor": "峨眉掌门神尼与大理天龙寺高僧互换佛经，共防西域毒宗南侵。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "金顶睹光台",
+      "万年古寺",
+      "洗象池剑坪"
+    ],
+    "sects": [
+      "07. 峨眉派"
+    ],
+    "panoramaUri": "/assets/regions/emeishan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "万丈金顶浮于云海之上、佛光宝相庄严、古寺修竹飞瀑清音",
+    "gate": {
+      "label": "接引山门（返天下舆图）",
+      "pos": [
+        765,
+        588
+      ],
+      "poly": "628,758 655,642 668,515 748,462 885,578 862,758"
+    },
+    "specialBuildingIds": [
+      "em_jinding",
+      "em_wannian",
+      "em_pond"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0128",
+      "NPC-0169",
+      "NPC-0340",
+      "NPC-0361",
+      "NPC-0376",
+      "NPC-0379",
+      "NPC-0384",
+      "NPC-0582",
+      "NPC-0602",
+      "NPC-0641",
+      "NPC-0652",
+      "NPC-0691",
+      "NPC-0725",
+      "NPC-0815",
+      "NPC-0864",
+      "NPC-0914",
+      "NPC-0987"
+    ],
+    "legacyAliases": [
+      "峨眉山"
+    ]
+  },
+  {
+    "id": "wuliangshan",
+    "standardCode": "REG-35",
+    "numericCode": "35",
+    "name": "无量山 / 剑湖秘境",
+    "type": "sect",
+    "regime": "dali",
+    "circuit": "大理南疆 · 澜沧秘境",
+    "worldCoord": {
+      "x": 531.1,
+      "y": 667.1
+    },
+    "desc": "大理国南境澜沧江畔奇山，南邻交趾安南，无量玉壁谷底暗藏逍遥派琅嬛玉洞！",
+    "windscapeLore": "澜沧江大峡谷飞瀑如练，千丈光滑玉壁映照剑影，谷底藤蔓掩映秘洞",
+    "rumor": "无量山谷底神仙姐姐玉像石室藏有《北冥神功》与《凌波微步》帛卷！",
+    "alert": false,
+    "factionType": "hermit",
+    "landmarks": [
+      "无量玉壁剑影",
+      "琅嬛福地玉洞",
+      "无量剑湖宫"
+    ],
+    "sects": [
+      "09. 逍遥派（秘境传承洞府）"
+    ],
+    "panoramaUri": "/assets/regions/wuliangshan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "澜沧大峡谷白练飞瀑直泻、千丈光滑玉壁映剑影、谷底秘洞藏仙踪",
+    "gate": {
+      "label": "澜沧峡谷口（返天下舆图）",
+      "pos": [
+        828,
+        632
+      ],
+      "poly": "715,638 782,535 858,505 882,592 1085,705 1062,742 812,625 768,668"
+    },
+    "specialBuildingIds": [
+      "wl_langhuan",
+      "wl_yubi",
+      "wl_palace"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0106",
+      "NPC-0187",
+      "NPC-0188",
+      "NPC-0305",
+      "NPC-0430",
+      "NPC-0495",
+      "NPC-0508",
+      "NPC-0521",
+      "NPC-0568",
+      "NPC-0626",
+      "NPC-0743",
+      "NPC-0823",
+      "NPC-0988",
+      "NPC-0995"
+    ],
+    "legacyAliases": [
+      "无量山"
+    ]
+  },
+  {
+    "id": "wudangshan",
+    "standardCode": "REG-36",
+    "numericCode": "36",
+    "name": "武当山真武道宗",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "京西南路 · 太和仙山",
+    "worldCoord": {
+      "x": 778.6,
+      "y": 441.6
+    },
+    "desc": "七十二峰朝大顶，真武道脉于此参悟阴阳动静、四两拨千斤至理。",
+    "windscapeLore": "七十二峰朝大顶，天柱峰金殿凌虚，松涛云海尽显道法自然",
+    "rumor": "真武道宗掌教闭关以道藏经义参合书法笔意，创制太极圆转剑意。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "紫霄道宫",
+      "太和绝顶真武殿",
+      "南岩试剑崖"
+    ],
+    "sects": [
+      "08. 真武道宗（武当道脉）"
+    ],
+    "panoramaUri": "/assets/regions/wudangshan.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "七十二峰朝大顶、天柱峰真武金殿凌虚、松涛云海尽显阴阳至理",
+    "gate": {
+      "label": "玄岳石坊山门（返天下舆图）",
+      "pos": [
+        718,
+        658
+      ],
+      "poly": "612,732 622,592 782,508 855,695 752,762"
+    },
+    "specialBuildingIds": [
+      "wd_golden",
+      "wd_zixiao",
+      "wd_nanyan"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0119",
+      "NPC-0148",
+      "NPC-0208",
+      "NPC-0326",
+      "NPC-0364",
+      "NPC-0419",
+      "NPC-0496",
+      "NPC-0502",
+      "NPC-0520",
+      "NPC-0527",
+      "NPC-0646",
+      "NPC-0820"
+    ],
+    "legacyAliases": [
+      "武当山"
+    ]
+  },
+  {
+    "id": "tiezhangfeng",
+    "standardCode": "REG-37",
+    "numericCode": "37",
+    "name": "洞庭铁掌峰",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "荆湖南北路 · 五指奇峰",
+    "worldCoord": {
+      "x": 811.7,
+      "y": 536.7
+    },
+    "desc": "洞庭湖畔五指奇峰，铁掌帮聚众数万称雄两湖水陆，帮风彪悍霸道。",
+    "windscapeLore": "八百里洞庭烟波接天，五指奇峰如巨掌擎空，水寨楼船旌旗猎猎",
+    "rumor": "铁掌帮主合参铁掌功与水上漂绝技，欲与北丐帮一争江湖大帮之名。",
+    "alert": false,
+    "factionType": "clan",
+    "landmarks": [
+      "铁掌总堂",
+      "五指中峰秘冢",
+      "洞庭水寨"
+    ],
+    "sects": [
+      "15. 铁掌帮"
+    ],
+    "panoramaUri": "/assets/regions/tiezhangfeng.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "八百里洞庭浩渺接天、五指奇峰如巨掌插云、水陆连营旌旗蔽日",
+    "gate": {
+      "label": "洞庭水寨渡口（返天下舆图）",
+      "pos": [
+        575,
+        628
+      ],
+      "poly": "425,598 618,498 815,638 638,762 465,688"
+    },
+    "specialBuildingIds": [
+      "tz_hall",
+      "tz_tomb",
+      "tz_water"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0117",
+      "NPC-0176",
+      "NPC-0223",
+      "NPC-0280",
+      "NPC-0539",
+      "NPC-0555",
+      "NPC-0666",
+      "NPC-0828",
+      "NPC-0885",
+      "NPC-0945"
+    ],
+    "legacyAliases": []
+  },
+  {
+    "id": "nanshaolin",
+    "standardCode": "REG-38",
+    "numericCode": "38",
+    "name": "莆田南少林",
+    "type": "sect",
+    "regime": "song",
+    "circuit": "福建路 · 九莲山祖庭",
+    "worldCoord": {
+      "x": 972.9,
+      "y": 629.1
+    },
+    "desc": "闽中九莲山武学祖庭，拳脚硬功刚猛绝伦，东瞰台湾海峡，镇守东南海疆。",
+    "windscapeLore": "闽中九莲山林壑幽深，盆地古刹气势雄浑，东瞰沧海波涛",
+    "rumor": "南少林高僧锤炼金刚不坏护体神功，抗性与气血冠绝东南。",
+    "alert": false,
+    "factionType": "orthodox",
+    "landmarks": [
+      "九莲大雄宝殿",
+      "千斤铁鼎炼体坪",
+      "木人巷"
+    ],
+    "sects": [
+      "04. 莆田南少林"
+    ],
+    "panoramaUri": "/assets/regions/nanshaolin.jpg",
+    "isoViewBox": [
+      1376,
+      768
+    ],
+    "sceneSubtitle": "闽中九莲山苍翠盆地、古刹演武坪铁鼎矗立、东瞰台湾海峡沧波",
+    "gate": {
+      "label": "九莲山门（返天下舆图）",
+      "pos": [
+        765,
+        625
+      ],
+      "poly": "648,758 672,585 772,498 918,605 882,758"
+    },
+    "specialBuildingIds": [
+      "nsl_main",
+      "nsl_tripod",
+      "nsl_wooden"
+    ],
+    "baseBuildingIds": [],
+    "residentNpcIds": [
+      "NPC-0124",
+      "NPC-0164",
+      "NPC-0200",
+      "NPC-0201",
+      "NPC-0279",
+      "NPC-0353",
+      "NPC-0417",
+      "NPC-0440",
+      "NPC-0512",
+      "NPC-0518",
+      "NPC-0547",
+      "NPC-0620",
+      "NPC-0631",
+      "NPC-0643",
+      "NPC-0674",
+      "NPC-0718",
+      "NPC-0758",
+      "NPC-0784",
+      "NPC-0798",
+      "NPC-0886",
+      "NPC-0909",
+      "NPC-0952"
+    ],
+    "legacyAliases": []
+  }
+]

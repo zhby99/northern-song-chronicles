@@ -1,7 +1,9 @@
 import { create } from 'zustand'
+import { BUILDING_DB_MAP } from '../data/gameDb'
 import type {
   ActionEffect,
   CameraPan,
+  GameSaveEnvelope,
   LabelToggleKey,
   LogEntry,
   MenuTabKey,
@@ -9,13 +11,14 @@ import type {
   NodeNpc,
   OverlayToggles,
   RoamingMaster,
+  SaveSlotId,
+  SerializableGameState,
   TooltipPayload,
   TravelState,
   ViewMode,
 } from '../types/game'
 import {
   ADJACENCY_MAP,
-  BUILDING_PANORAMAS,
   findBestRoute,
   formatSongDate,
   getRegionAllBuildings,
@@ -24,6 +27,11 @@ import {
   REGIONAL_CONFIGS,
   WORLD_GRAPH,
 } from '../utils/mapMath'
+import {
+  deleteSaveSlot,
+  listAllSaveEnvelopes,
+  putSaveEnvelope,
+} from '../utils/saveManager'
 
 const LABEL_KEYS: LabelToggleKey[] = ['cityLabels', 'sectPassLabels', 'masters', 'distance']
 
@@ -83,7 +91,7 @@ function createLogEntry(dayCount: number, tag: string, text: string, highlight =
   const datePart = formatSongDate(dayCount).split(' · ')[2] ?? '正月初一'
   nextLogSeq += 1
   return {
-    id: `log-${nextLogSeq}`,
+    id: `log-${Date.now()}-${nextLogSeq}`,
     date: datePart,
     tag,
     text,
@@ -127,6 +135,11 @@ export interface GameStoreState {
 
   menuOpen: boolean
   activeMenuTab: MenuTabKey
+
+  // M0-4 Save/Load state
+  saveSlots: Record<SaveSlotId, GameSaveEnvelope | null>
+  saveBusy: boolean
+  saveNotice: { text: string; tone: 'success' | 'error' } | null
 
   // Actions
   setTooltip: (payload: TooltipPayload | null) => void
@@ -175,6 +188,43 @@ export interface GameStoreState {
   openMenu: (tab?: MenuTabKey) => void
   closeMenu: () => void
   setMenuTab: (tab: MenuTabKey) => void
+
+  // M0-4 Save/Load actions
+  buildSaveEnvelope: (slotId: SaveSlotId, note?: string) => GameSaveEnvelope
+  refreshSaveSlots: () => Promise<void>
+  saveToSlot: (slotId: SaveSlotId, note?: string, silent?: boolean) => Promise<void>
+  loadFromEnvelope: (envelope: GameSaveEnvelope, closeAfterLoad?: boolean) => void
+  removeSaveSlot: (slotId: SaveSlotId) => Promise<void>
+  setSaveNotice: (notice: { text: string; tone: 'success' | 'error' } | null) => void
+}
+
+function extractSerializableState(s: GameStoreState): SerializableGameState {
+  return {
+    dayCount: s.dayCount,
+    viewMode: s.viewMode,
+    showRegionLabels: s.showRegionLabels,
+    activeRegionId: s.activeRegionId,
+    activeBuildingInteriorId: s.activeBuildingInteriorId,
+    selectedNodeId: s.selectedNodeId,
+    selectedBuildingId: s.selectedBuildingId,
+    selectedSpotId: s.selectedSpotId,
+    currentNodeId: s.currentNodeId,
+    mountKey: s.mountKey,
+    qinggongBonus: s.qinggongBonus,
+    ridingSkill: s.ridingSkill,
+    agility: s.agility,
+    silver: s.silver,
+    food: s.food,
+    hp: s.hp,
+    mp: s.mp,
+    res: s.res,
+    skills: { ...s.skills },
+    overlays: { ...s.overlays },
+    roamingMasters: s.roamingMasters.map((m) => ({ ...m })),
+    worldPan: { ...s.worldPan },
+    regionPan: { ...s.regionPan },
+    logs: s.logs.slice(0, 60),
+  }
 }
 
 export const useGameStore = create<GameStoreState>((set, get) => ({
@@ -228,14 +278,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   logs: [
     createLogEntry(
       1,
-      '工程架构',
-      '已完成 M0-1 工程化拆解：209 张静态原画抽离至 public/assets/ 并启用按需懒加载！',
+      '底座合流',
+      '已完成 M0 工程与数据收拢：38 地区、20 门派、216 武学与 1000 名群侠全量合流，支持全部 123 座特殊建筑步入内景与多槽位存读档！',
       true,
     ),
     createLogEntry(
       1,
       '东京展卷',
-      '当前驻留【开封府】半3D全景舆图。点击左上角可出城纵览三十八州山海，按 ESC 可开启枢机菜单与群侠图鉴。',
+      '当前驻留【开封府】半3D全景舆图。点击左上角可出城纵览三十八州山海，按 ESC 可开启枢机菜单、武学总纲与存读档卷宗。',
       true,
     ),
   ],
@@ -243,6 +293,18 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   menuOpen: false,
   activeMenuTab: 'hero',
+
+  saveSlots: {
+    autosave: null,
+    'slot-1': null,
+    'slot-2': null,
+    'slot-3': null,
+    'slot-4': null,
+    'slot-5': null,
+    'slot-6': null,
+  },
+  saveBusy: false,
+  saveNotice: null,
 
   setTooltip: (payload) => set({ tooltip: payload }),
   moveTooltip: (x, y) =>
@@ -272,7 +334,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       get().campStop()
     }
     const logs = logSwitch
-      ? [createLogEntry(s.dayCount, '地区切换', `展卷踏入【${node.name}】专属半3D全景互动地图。`, true), ...s.logs].slice(0, 60)
+      ? [
+          createLogEntry(
+            s.dayCount,
+            '地区切换',
+            `展卷踏入【${node.name}】专属半3D全景互动地图。`,
+            true,
+          ),
+          ...s.logs,
+        ].slice(0, 60)
       : s.logs
 
     set({
@@ -288,13 +358,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       actionFeedback: null,
       logs,
     })
+
+    if (logSwitch) {
+      void get().saveToSlot('autosave', `踏入${node.name}`, true)
+    }
   },
 
   enterBuildingMap: (bldgId) => {
     const s = get()
-    const bPano = BUILDING_PANORAMAS[bldgId]
+    const bRecord = BUILDING_DB_MAP[bldgId]
     const node = NODE_MAP[s.activeRegionId]
-    if (!bPano || !node) return
+    if (!bRecord || !bRecord.interior || !node) return
+    const modeDesc =
+      bRecord.interior.mode === 'image' ? '半3D手绘建筑内景图' : '宋式营造矢量内景卷'
     set({
       tooltip: null,
       viewMode: 'building',
@@ -307,7 +383,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         createLogEntry(
           s.dayCount,
           '踏入建筑',
-          `由【${node.name}】步入【${bPano.name}】专属半3D建筑内景图！`,
+          `由【${node.name}】步入【${bRecord.name}】（${modeDesc}）！`,
           true,
         ),
         ...s.logs,
@@ -319,8 +395,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     if (s.viewMode !== 'building') return
     const prevName =
-      (s.activeBuildingInteriorId && BUILDING_PANORAMAS[s.activeBuildingInteriorId]?.name) ||
-      '建筑'
+      (s.activeBuildingInteriorId && BUILDING_DB_MAP[s.activeBuildingInteriorId]?.name) || '建筑'
     const node = NODE_MAP[s.activeRegionId]
     set({
       tooltip: null,
@@ -427,15 +502,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const [vw, vh] = getRegionViewBoxSize(s.viewMode, s.activeRegionId)
     let target: { x: number; y: number } | null = null
 
-    if (
-      s.viewMode === 'building' &&
-      s.activeBuildingInteriorId &&
-      BUILDING_PANORAMAS[s.activeBuildingInteriorId]
-    ) {
-      const bPano = BUILDING_PANORAMAS[s.activeBuildingInteriorId]
-      target = s.selectedSpotId
-        ? (bPano.spots.find((sp) => sp.id === s.selectedSpotId) ?? null)
-        : null
+    if (s.viewMode === 'building' && s.activeBuildingInteriorId) {
+      const bInterior = BUILDING_DB_MAP[s.activeBuildingInteriorId]?.interior
+      if (bInterior) {
+        target = s.selectedSpotId
+          ? (bInterior.spots.find((sp) => sp.id === s.selectedSpotId) ?? null)
+          : null
+      }
     } else {
       const buildings = getRegionAllBuildings(s.activeRegionId)
       target = s.selectedBuildingId
@@ -587,6 +660,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       actionFeedback: { text: summary, tone: 'success' },
       logs: nextLogs.slice(0, 60),
     })
+
+    void get().saveToSlot('autosave', `${regionName} · ${item.name}`, true)
   },
 
   interactNpc: (npc, mode) => {
@@ -700,7 +775,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextMp = s.mp
     let nextRes = s.res
     const nextSkills = { ...s.skills }
-    let nextLogs = [...s.logs]
+    const nextLogs = [...s.logs]
     let nextMasters = s.roamingMasters
 
     if (dayAccumulator >= 1.0) {
@@ -782,6 +857,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           regionPan: { x: 0, y: 0, scale: 1 },
           logs: nextLogs.slice(0, 60),
         })
+        void get().saveToSlot('autosave', `策马抵达${destName}`, true)
         return
       }
 
@@ -854,13 +930,122 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   toggleLogDrawer: () => set((s) => ({ logDrawerOpen: !s.logDrawerOpen })),
 
-  openMenu: (tab) =>
+  openMenu: (tab) => {
     set((s) => ({
       menuOpen: true,
       tooltip: null,
+      saveNotice: null,
       activeMenuTab: tab ?? s.activeMenuTab,
-    })),
+    }))
+    void get().refreshSaveSlots()
+  },
 
-  closeMenu: () => set({ menuOpen: false }),
-  setMenuTab: (tab) => set({ activeMenuTab: tab }),
+  closeMenu: () => set({ menuOpen: false, saveNotice: null }),
+  setMenuTab: (tab) => {
+    set({ activeMenuTab: tab, saveNotice: null })
+    if (tab === 'save' || tab === 'load') {
+      void get().refreshSaveSlots()
+    }
+  },
+
+  buildSaveEnvelope: (slotId, note = '') => {
+    const s = get()
+    const st = extractSerializableState(s)
+    const regionName = NODE_MAP[st.activeRegionId]?.name ?? st.activeRegionId
+    const buildingName = st.activeBuildingInteriorId
+      ? (BUILDING_DB_MAP[st.activeBuildingInteriorId]?.name ?? null)
+      : null
+
+    return {
+      gameTitle: '北宋立志传',
+      schemaVersion: 'M0.4.0',
+      slotId,
+      savedAt: new Date().toISOString(),
+      note: note.trim(),
+      summary: {
+        songDate: formatSongDate(st.dayCount),
+        dayCount: st.dayCount,
+        regionId: st.activeRegionId,
+        regionName,
+        viewMode: st.viewMode,
+        buildingId: st.activeBuildingInteriorId,
+        buildingName,
+        hp: st.hp,
+        mp: st.mp,
+        silver: st.silver,
+        food: st.food,
+      },
+      state: st,
+    }
+  },
+
+  refreshSaveSlots: async () => {
+    const slots = await listAllSaveEnvelopes()
+    set({ saveSlots: slots })
+  },
+
+  saveToSlot: async (slotId, note = '', silent = false) => {
+    if (!silent) {
+      set({ saveBusy: true, saveNotice: null })
+    }
+    const envelope = get().buildSaveEnvelope(slotId, note)
+    const backend = await putSaveEnvelope(envelope)
+    const slots = await listAllSaveEnvelopes()
+    if (silent) {
+      set({ saveSlots: slots })
+    } else {
+      set({
+        saveBusy: false,
+        saveSlots: slots,
+        saveNotice: {
+          text: `已将当前江湖进度封入【${slotId === 'autosave' ? '自动卷宗' : slotId.toUpperCase()}】（存储引擎：${backend === 'indexeddb' ? 'IndexedDB' : 'localStorage'}）。`,
+          tone: 'success',
+        },
+      })
+    }
+  },
+
+  loadFromEnvelope: (envelope, closeAfterLoad = true) => {
+    const st = envelope.state
+    const restoredLogs = [
+      createLogEntry(
+        st.dayCount,
+        '卷宗启封',
+        `已读取存档【${envelope.summary.songDate} · ${envelope.summary.regionName}${envelope.summary.buildingName ? ` · ${envelope.summary.buildingName}` : ''}】。`,
+        true,
+      ),
+      ...st.logs,
+    ].slice(0, 60)
+
+    set({
+      ...st,
+      traveling: null,
+      tooltip: null,
+      actionFeedback: null,
+      logs: restoredLogs,
+      menuOpen: !closeAfterLoad,
+      saveNotice: closeAfterLoad
+        ? null
+        : {
+            text: `已成功回溯至【${envelope.summary.songDate} · ${envelope.summary.regionName}】！`,
+            tone: 'success',
+          },
+    })
+  },
+
+  removeSaveSlot: async (slotId) => {
+    set({ saveBusy: true, saveNotice: null })
+    await deleteSaveSlot(slotId)
+    const slots = await listAllSaveEnvelopes()
+    set({
+      saveBusy: false,
+      saveSlots: slots,
+      saveNotice: {
+        text: `已清空槽位【${slotId === 'autosave' ? '自动卷宗' : slotId.toUpperCase()}】。`,
+        tone: 'success',
+      },
+    })
+  },
+
+  setSaveNotice: (notice) => set({ saveNotice: notice }),
 }))
