@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP } from '../data/gameDb'
+import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, NPC_DB_MAP } from '../data/gameDb'
 import {
   canItemFitSlot,
   computeEquipmentTotals,
@@ -230,6 +230,7 @@ export interface GameStoreState {
 
   menuOpen: boolean
   activeMenuTab: MenuTabKey
+  inspectedNpcId: string | null
 
   // Save/Load state
   saveSlots: Record<SaveSlotId, GameSaveEnvelope | null>
@@ -290,6 +291,8 @@ export interface GameStoreState {
 
   toggleLogDrawer: () => void
   openMenu: (tab?: MenuTabKey) => void
+  openNpcDetailInCompendium: (npcId: string) => void
+  navigateToNpcLeafInCurrentRegion: (npcId: string) => void
   closeMenu: () => void
   setMenuTab: (tab: MenuTabKey) => void
 
@@ -421,6 +424,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   menuOpen: false,
   activeMenuTab: 'hero',
+  inspectedNpcId: null,
 
   saveSlots: {
     autosave: null,
@@ -1305,10 +1309,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
     if (mode === 'art') {
+      const civilKeys = ['算术', '经义', '策论', '诗词', '琴', '棋', '书', '画', '辩才'] as const
+      let primarySkill: (typeof civilKeys)[number] = '诗词'
+      let secondarySkill: (typeof civilKeys)[number] = '琴'
+      if (npc.tenArts) {
+        const sorted = [...civilKeys].sort(
+          (a, b) => (npc.tenArts?.[b] ?? 0) - (npc.tenArts?.[a] ?? 0),
+        )
+        primarySkill = sorted[0] ?? '诗词'
+        secondarySkill = sorted[1] ?? '琴'
+      }
+      const nextPrimaryVal = Math.min(100, (s.skills[primarySkill] ?? 45) + 2)
+      const nextSecondaryVal = Math.min(100, (s.skills[secondarySkill] ?? 45) + 1)
       const nextSkills = {
         ...s.skills,
-        诗词: Math.min(100, (s.skills['诗词'] ?? 55) + 2),
-        琴: Math.min(100, (s.skills['琴'] ?? 42) + 1),
+        [primarySkill]: nextPrimaryVal,
+        [secondarySkill]: nextSecondaryVal,
       }
       set({
         dayCount: clock.dayCount,
@@ -1316,7 +1332,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         stamina: Math.max(0, s.stamina - 6),
         skills: nextSkills,
         actionFeedback: {
-          text: `与 ${npc.name} 抚琴唱和半个时辰（体能 -6，【诗词】${nextSkills['诗词']}/100、【琴】${nextSkills['琴']}/100）。`,
+          text: `与 ${npc.name} 雅集论道半个时辰（体能 -6，【${primarySkill}】+2 现 ${nextPrimaryVal}/100、【${secondarySkill}】+1 现 ${nextSecondaryVal}/100）。`,
           tone: 'success',
         },
       })
@@ -1670,6 +1686,60 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       activeMenuTab: tab ?? s.activeMenuTab,
     }))
     void get().refreshSaveSlots()
+  },
+
+  openNpcDetailInCompendium: (npcId) => {
+    set({
+      inspectedNpcId: npcId,
+      menuOpen: true,
+      tooltip: null,
+      saveNotice: null,
+      activeMenuTab: 'portraits',
+    })
+  },
+
+  navigateToNpcLeafInCurrentRegion: (npcId) => {
+    const s = get()
+    const npc = NPC_DB_MAP[npcId]
+    if (!npc) return
+    if (s.currentNodeId !== npc.regionId || s.campPos || s.traveling) return
+
+    const bRecord = BUILDING_DB_MAP[npc.assignedBuildingId]
+    if (!bRecord) return
+
+    if (npc.assignedSpotId && bRecord.interior) {
+      set({
+        menuOpen: false,
+        saveNotice: null,
+        tooltip: null,
+        viewMode: 'building',
+        activeRegionId: npc.regionId,
+        activeBuildingInteriorId: bRecord.id,
+        selectedBuildingId: null,
+        selectedSpotId: npc.assignedSpotId,
+        regionPan: { x: 0, y: 0, scale: 1 },
+        actionFeedback: {
+          text: `已循名帖步入【${npc.fullLocationLabel}】，可与 ${npc.name} 交互。`,
+          tone: 'success',
+        },
+      })
+    } else {
+      set({
+        menuOpen: false,
+        saveNotice: null,
+        tooltip: null,
+        viewMode: 'region',
+        activeRegionId: npc.regionId,
+        activeBuildingInteriorId: null,
+        selectedSpotId: null,
+        selectedBuildingId: bRecord.id,
+        regionPan: { x: 0, y: 0, scale: 1 },
+        actionFeedback: {
+          text: `已循名帖前往【${npc.fullLocationLabel}】，可与 ${npc.name} 交互。`,
+          tone: 'success',
+        },
+      })
+    }
   },
 
   closeMenu: () => set({ menuOpen: false, saveNotice: null }),

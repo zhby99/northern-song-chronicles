@@ -22,7 +22,9 @@ import {
   ID_REGISTRY,
   MARTIAL_ART_DB_MAP,
   MARTIAL_ARTS_DB,
+  NPC_DB_MAP,
   NPCS_DB,
+  TEN_ART_KEYS,
 } from '../../data/gameDb'
 import {
   BAG_CATEGORY_METAS,
@@ -255,12 +257,17 @@ export function SystemMenuModal() {
   const inventory = useGameStore((s) => s.inventory)
   const activeBagCategory = useGameStore((s) => s.activeBagCategory)
   const showRegionLabels = useGameStore((s) => s.showRegionLabels)
+  const inspectedNpcId = useGameStore((s) => s.inspectedNpcId)
+  const traveling = useGameStore((s) => s.traveling)
   const saveSlots = useGameStore((s) => s.saveSlots)
   const saveBusy = useGameStore((s) => s.saveBusy)
   const saveNotice = useGameStore((s) => s.saveNotice)
 
   const closeMenu = useGameStore((s) => s.closeMenu)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
+  const navigateToNpcLeafInCurrentRegion = useGameStore(
+    (s) => s.navigateToNpcLeafInCurrentRegion,
+  )
   const replenishSupplies = useGameStore((s) => s.replenishSupplies)
   const restRecoverStamina = useGameStore((s) => s.restRecoverStamina)
   const setBagCategory = useGameStore((s) => s.setBagCategory)
@@ -294,12 +301,37 @@ export function SystemMenuModal() {
 
   // 1,000 NPC Compendium filter state (Tab 4)
   const [npcQuery, setNpcQuery] = useState('')
-  const [npcScope, setNpcScope] = useState<string>('ALL_WITH_ART')
+  const [localNpcScope, setLocalNpcScope] = useState<string>('ALL_WITH_ART')
   const [npcRegionFilter, setNpcRegionFilter] = useState<string>('ALL')
   const [npcFactionFilter, setNpcFactionFilter] = useState<string>('ALL')
-  const [selectedNpc, setSelectedNpc] = useState<CompiledNpcRecord | null>(
+  const [localSelectedNpc, setLocalSelectedNpc] = useState<CompiledNpcRecord | null>(
     () => NPCS_DB[100] ?? NPCS_DB[0] ?? null,
   )
+
+  const inspectedTarget = inspectedNpcId ? (NPC_DB_MAP[inspectedNpcId] ?? null) : null
+  const selectedNpc = inspectedTarget ?? localSelectedNpc
+  const npcScope =
+    inspectedTarget &&
+    !inspectedTarget.avatarUrl &&
+    !inspectedTarget.fullbodyUrl &&
+    localNpcScope === 'ALL_WITH_ART'
+      ? 'ALL'
+      : localNpcScope
+
+  const setSelectedNpc = (next: CompiledNpcRecord | null) => {
+    if (inspectedNpcId) {
+      useGameStore.setState({ inspectedNpcId: null })
+    }
+    setLocalSelectedNpc(next)
+  }
+
+  const setNpcScope = (nextScope: string) => {
+    if (inspectedNpcId && selectedNpc) {
+      setLocalSelectedNpc(selectedNpc)
+      useGameStore.setState({ inspectedNpcId: null })
+    }
+    setLocalNpcScope(nextScope)
+  }
 
   // High-res portrait zoom lightbox modal state
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
@@ -349,6 +381,9 @@ export function SystemMenuModal() {
         c.title.toLowerCase().includes(q) ||
         c.factionName.toLowerCase().includes(q) ||
         c.locationLabel.toLowerCase().includes(q) ||
+        c.fullLocationLabel.toLowerCase().includes(q) ||
+        c.assignedBuildingName.toLowerCase().includes(q) ||
+        (c.assignedSpotName?.toLowerCase().includes(q) ?? false) ||
         c.artsText.toLowerCase().includes(q)
       )
     })
@@ -441,7 +476,7 @@ export function SystemMenuModal() {
     setLightbox({
       url,
       title: `${npc.name} · ${npc.title}`,
-      subtitle: `[${npc.id}] ${npc.factionName} · ${npc.role} · ${npc.realm}（${kindLabel}）`,
+      subtitle: `[${npc.id}] ${npc.factionName} · ${npc.role} · ${npc.realm} · 常驻【${npc.fullLocationLabel}】（${kindLabel}）`,
       npc,
       mode: mode === 'avatar' && npc.avatarUrl ? 'avatar' : 'fullbody',
     })
@@ -1859,7 +1894,7 @@ export function SystemMenuModal() {
                 )
               })()}
 
-              {/* ==================== 肆：1,000 群侠图鉴（修复全身像尺寸统一 + 支持点击放大全屏品鉴） ==================== */}
+              {/* ==================== 肆：1,000 群侠图鉴（最末层常驻建筑 + 四维/三维/十艺全显 + 全身像品鉴） ==================== */}
               {activeMenuTab === 'portraits' && (
                 <div className="space-y-3.5 text-xs">
                   <div className="flex flex-wrap items-center gap-2.5 bg-[#efe4cc] p-3 rounded border border-[#c8b28e]">
@@ -1867,7 +1902,7 @@ export function SystemMenuModal() {
                       type="text"
                       value={npcQuery}
                       onChange={(e) => setNpcQuery(e.target.value)}
-                      placeholder="搜编号/姓名/字号/武学（如：NPC-0101、乔峰、包拯、六脉神剑）…"
+                      placeholder="搜编号/姓名/常驻殿宇/武学（如：NPC-0101、乔峰、垂拱殿、藏经阁、六脉神剑）…"
                       className="flex-1 min-w-[200px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
                     />
                     <select
@@ -1931,6 +1966,7 @@ export function SystemMenuModal() {
                     <div className="lg:col-span-7 h-[640px] max-h-[66vh] overflow-y-auto scroll-thin pr-1.5 grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2.5 content-start">
                       {filteredNpcs.slice(0, 200).map((c) => {
                         const isSel = selectedNpc?.id === c.id
+                        const leafLabel = c.assignedSpotName ?? c.assignedBuildingName
                         return (
                           <div
                             key={c.id}
@@ -1980,11 +2016,19 @@ export function SystemMenuModal() {
                                 {c.name}
                               </div>
                               <div
+                                title={c.fullLocationLabel}
                                 className={`text-[10px] truncate mt-0.5 ${
                                   isSel ? 'text-amber-200' : 'text-[#6b5235]'
                                 }`}
                               >
-                                {c.locationLabel} · {c.realm}
+                                {c.locationLabel} · {leafLabel}
+                              </div>
+                              <div
+                                className={`text-[10px] truncate ${
+                                  isSel ? 'text-amber-100/90' : 'text-[#7c5f3d]'
+                                }`}
+                              >
+                                {c.realm}
                               </div>
                             </div>
                           </div>
@@ -2028,24 +2072,39 @@ export function SystemMenuModal() {
                                   [{selectedNpc.factionId}] {selectedNpc.factionName} ·{' '}
                                   {selectedNpc.role}（{selectedNpc.gender}·{selectedNpc.age}岁）
                                 </div>
-                                <div className="text-xs text-[#4a3219] mt-1 flex items-center gap-1.5 flex-wrap">
-                                  <span>
-                                    常驻：<strong>{selectedNpc.locationLabel}</strong> (`
-                                    {selectedNpc.regionId}`)
-                                  </span>
-                                  <button
-                                    type="button"
-                                    onClick={() => {
-                                      useGameStore.setState({
-                                        viewMode: 'world',
-                                        selectedNodeId: selectedNpc.regionId,
-                                      })
-                                      closeMenu()
-                                    }}
-                                    className="px-2 py-0.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] text-[10px] cursor-pointer"
-                                  >
-                                    舆图寻路定位 →
-                                  </button>
+                                <div className="text-xs text-[#4a3219] mt-1 space-y-1">
+                                  <div>
+                                    常驻最末层：<strong>{selectedNpc.fullLocationLabel}</strong>（`
+                                    {selectedNpc.regionId}`）
+                                  </div>
+                                  <div className="flex items-center gap-1.5 flex-wrap">
+                                    {currentNodeId === selectedNpc.regionId &&
+                                      !campPos &&
+                                      !traveling && (
+                                        <button
+                                          type="button"
+                                          onClick={() =>
+                                            navigateToNpcLeafInCurrentRegion(selectedNpc.id)
+                                          }
+                                          className="px-2 py-0.5 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] text-[10px] font-semibold cursor-pointer"
+                                        >
+                                          直赴本城常驻殿宇 →
+                                        </button>
+                                      )}
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        useGameStore.setState({
+                                          viewMode: 'world',
+                                          selectedNodeId: selectedNpc.regionId,
+                                        })
+                                        closeMenu()
+                                      }}
+                                      className="px-2 py-0.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] text-[10px] cursor-pointer"
+                                    >
+                                      舆图寻路定位 →
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -2093,22 +2152,111 @@ export function SystemMenuModal() {
                             </div>
                           </div>
 
-                          <div className="shrink-0 grid grid-cols-4 gap-1.5 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-2 font-mono text-xs">
-                            <div>
-                              <div className="text-[10px] text-[#6b5235]">气血</div>
-                              <strong className="text-[#8f1d14]">{selectedNpc.stats.hp}</strong>
+                          {/* 1) 实战四维属性 */}
+                          <div className="shrink-0 bg-[#faf3e3] border border-[#cbb693] rounded p-2.5 space-y-1.5">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className="font-bold song-serif text-[#5e472d]">
+                                实战四维属性
+                              </span>
+                              <span className="text-[10px] text-[#7a5f3e]">战棋交锋结算维度</span>
                             </div>
-                            <div>
-                              <div className="text-[10px] text-[#6b5235]">内力</div>
-                              <strong className="text-[#1d473a]">{selectedNpc.stats.mp}</strong>
+                            <div className="grid grid-cols-4 gap-1.5 text-center font-mono text-xs">
+                              <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                                <div className="text-[10px] text-[#6b5235] font-sans">气血</div>
+                                <strong className="text-[#8f1d14]">{selectedNpc.stats.hp}</strong>
+                              </div>
+                              <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                                <div className="text-[10px] text-[#6b5235] font-sans">内力</div>
+                                <strong className="text-[#1d473a]">{selectedNpc.stats.mp}</strong>
+                              </div>
+                              <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                                <div className="text-[10px] text-[#6b5235] font-sans">身法</div>
+                                <strong>{selectedNpc.stats.agi}</strong>
+                              </div>
+                              <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                                <div className="text-[10px] text-[#6b5235] font-sans">抗性</div>
+                                <strong>{selectedNpc.stats.res}</strong>
+                              </div>
                             </div>
-                            <div>
-                              <div className="text-[10px] text-[#6b5235]">身法</div>
-                              <strong>{selectedNpc.stats.agi}</strong>
+                          </div>
+
+                          {/* 2) 先天三维禀赋（根骨 / 悟性 / 颜值） */}
+                          <div className="shrink-0 bg-[#faf3e3] border border-[#cbb693] rounded p-2.5 space-y-1.5">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className="font-bold song-serif text-[#5e472d]">
+                                先天三维禀赋
+                              </span>
+                              <span className="text-[10px] text-[#7a5f3e]">
+                                修炼瓶颈 · 奇遇 · 社交（不入战中伤害）
+                              </span>
                             </div>
-                            <div>
-                              <div className="text-[10px] text-[#6b5235]">抗性</div>
-                              <strong>{selectedNpc.stats.res}</strong>
+                            <div className="grid grid-cols-3 gap-1.5 text-center font-mono text-xs">
+                              <div className="bg-[#efe4cc] rounded py-1 px-1.5 border border-[#dcc9a7]">
+                                <div className="text-[10px] text-[#6b5235] font-sans">根骨</div>
+                                <strong className="text-[#781710]">
+                                  {selectedNpc.talents.bone}
+                                </strong>
+                                <span className="text-[10px] text-[#7a5f3e]">/100</span>
+                              </div>
+                              <div className="bg-[#efe4cc] rounded py-1 px-1.5 border border-[#dcc9a7]">
+                                <div className="text-[10px] text-[#6b5235] font-sans">悟性</div>
+                                <strong className="text-[#184f35]">
+                                  {selectedNpc.talents.comprehension}
+                                </strong>
+                                <span className="text-[10px] text-[#7a5f3e]">/100</span>
+                              </div>
+                              <div className="bg-[#efe4cc] rounded py-1 px-1.5 border border-[#dcc9a7]">
+                                <div className="text-[10px] text-[#6b5235] font-sans">颜值</div>
+                                <strong className="text-[#6d3b1a]">
+                                  {selectedNpc.talents.charm}
+                                </strong>
+                                <span className="text-[10px] text-[#7a5f3e]">/100</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* 3) 北宋十艺百工（0~100） */}
+                          <div className="shrink-0 bg-[#faf3e3] border border-[#cbb693] rounded p-2.5 space-y-1.5">
+                            <div className="flex items-center justify-between text-[11px]">
+                              <span className="font-bold song-serif text-[#5e472d]">
+                                十艺百工造诣
+                              </span>
+                              <span className="text-[10px] text-[#7a5f3e]">0~100 雅艺与实务专精</span>
+                            </div>
+                            <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5">
+                              {TEN_ART_KEYS.map((artKey) => {
+                                const score = selectedNpc.tenArts[artKey] ?? 0
+                                const isMastery = score >= 80
+                                return (
+                                  <div
+                                    key={artKey}
+                                    className={`p-1.5 rounded border text-center ${
+                                      isMastery
+                                        ? 'bg-[#f4e2c2] border-[#c48a35]'
+                                        : 'bg-[#efe4cc] border-[#dcc9a7]'
+                                    }`}
+                                  >
+                                    <div className="flex items-center justify-between text-[10px]">
+                                      <span className="text-[#5e472d] font-medium">{artKey}</span>
+                                      <strong
+                                        className={`font-mono ${
+                                          isMastery ? 'text-[#8f1d14]' : 'text-[#23180f]'
+                                        }`}
+                                      >
+                                        {score}
+                                      </strong>
+                                    </div>
+                                    <div className="mt-1 h-1 w-full rounded-full bg-[#d8c6a5] overflow-hidden">
+                                      <div
+                                        style={{ width: `${Math.min(100, Math.max(0, score))}%` }}
+                                        className={`h-full ${
+                                          isMastery ? 'bg-[#8f1d14]' : 'bg-[#6b5235]'
+                                        }`}
+                                      />
+                                    </div>
+                                  </div>
+                                )
+                              })}
                             </div>
                           </div>
 
@@ -2142,7 +2290,7 @@ export function SystemMenuModal() {
 
                           {selectedNpc.specialtyTags.length > 0 && (
                             <div className="shrink-0 text-xs text-[#4a3219]">
-                              <strong>十艺/专长：</strong>
+                              <strong>雅好/头衔标签：</strong>
                               {selectedNpc.specialtyTags.join('、')}
                             </div>
                           )}

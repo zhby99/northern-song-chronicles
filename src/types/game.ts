@@ -15,6 +15,26 @@ export type MenuTabKey =
   | 'load'
   | 'settings'
 
+export type TenArtKey =
+  | '骑术'
+  | '算术'
+  | '经义'
+  | '策论'
+  | '诗词'
+  | '琴'
+  | '棋'
+  | '书'
+  | '画'
+  | '辩才'
+
+export interface NpcTalents {
+  bone: number
+  comprehension: number
+  charm: number
+}
+
+export type NpcTenArts = Record<TenArtKey, number>
+
 export interface NodeNpc {
   id?: string
   name: string
@@ -23,6 +43,10 @@ export interface NodeNpc {
   talk: string
   avatarUrl?: string | null
   factionName?: string
+  stats?: NpcCombatStats
+  talents?: NpcTalents
+  tenArts?: NpcTenArts
+  fullLocationLabel?: string
 }
 
 export interface WorldNode {
@@ -165,6 +189,7 @@ export interface BuildingSpot {
   actLabel: string
   cost?: number
   effect: ActionEffect
+  residentNpcIds?: string[]
 }
 
 export interface BuildingPanorama {
@@ -288,12 +313,18 @@ export interface CompiledNpcRecord {
   regionId: string
   locationLabel: string
   subLocation: string | null
-  assignedBuildingId: string | null
+  assignedBuildingId: string
+  assignedBuildingName: string
+  assignedSpotId: string | null
+  assignedSpotName: string | null
+  fullLocationLabel: string
   realm: string
   majorRealm: string
   minorRealm: string | null
   realmRank: number
   stats: NpcCombatStats
+  talents: NpcTalents
+  tenArts: NpcTenArts
   artsText: string
   knownArtIds: string[]
   specialtyTags: string[]
@@ -328,6 +359,7 @@ export interface CanonicalIdRegistry {
     specialBuildingsWithSvgFallback: number
     cityBaseBuildings: number
     totalBuildings: number
+    interiorSubBuildings?: number
     martialArts: number
     npcs: number
     npcsWithAvatar: number
@@ -669,5 +701,6 @@ export type TooltipPayload =
         isSpecial: boolean
         isSpot?: boolean
         interiorMode?: BuildingInteriorMode | null
+        residentCount?: number
       }
     }

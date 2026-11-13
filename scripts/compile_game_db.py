@@ -667,13 +667,27 @@ def normalize_markdown_docs() -> dict[str, int]:
             raw_parts = ln.strip().strip("|").split("|")
             parts = [p.strip() for p in raw_parts]
             loc_str = parts[7]
-            if loc_str not in LOCATION_RESOLUTION_MAP:
-                raise ValueError(f"Unmapped location {loc_str!r} in line: {ln}")
-            _, canonical_display, _ = LOCATION_RESOLUTION_MAP[loc_str]
-            if loc_str != canonical_display:
-                parts[7] = canonical_display
-                stats["npc_locations_updated"] += 1
-                ln = "| " + " | ".join(parts) + " |"
+            if " > " in loc_str:
+                loc_segs = [s.strip() for s in loc_str.split(" > ")]
+                reg_raw = loc_segs[0]
+                if reg_raw not in LOCATION_RESOLUTION_MAP:
+                    raise ValueError(f"Unmapped region {reg_raw!r} in line: {ln}")
+                _, canonical_reg_display, _ = LOCATION_RESOLUTION_MAP[reg_raw]
+                # Keep clean region name without composite parenthetical suffix when building is explicit
+                clean_reg_name = re.sub(r"（华山）|（潼关）|（青城山）|（唐家堡）$", "", canonical_reg_display)
+                rebuilt_loc = " > ".join([clean_reg_name, *loc_segs[1:]])
+                if loc_str != rebuilt_loc:
+                    parts[7] = rebuilt_loc
+                    stats["npc_locations_updated"] += 1
+                    ln = "| " + " | ".join(parts) + " |"
+            else:
+                if loc_str not in LOCATION_RESOLUTION_MAP:
+                    raise ValueError(f"Unmapped location {loc_str!r} in line: {ln}")
+                _, canonical_display, _ = LOCATION_RESOLUTION_MAP[loc_str]
+                if loc_str != canonical_display:
+                    parts[7] = canonical_display
+                    stats["npc_locations_updated"] += 1
+                    ln = "| " + " | ".join(parts) + " |"
         new_cc_lines.append(ln)
 
     cc_path.write_text("\n".join(new_cc_lines) + "\n", encoding="utf-8")
@@ -857,6 +871,21 @@ def generate_svg_fallback_interior(
     SVG 矢量内景结构（含正殿/主位、偏厢/碑廊、演武/观景三处互动热区与山门/大门出口）。
     坐标系严格对齐 [1376, 768]。
     """
+    custom_svg_spot_titles: dict[str, tuple[tuple[str, str], tuple[str, str], tuple[str, str]]] = {
+        "sl_luohan": (("罗汉堂演武正殿", "百僧拆招"), ("十八铜人木桩廊", "刚猛淬骨"), ("东庑碑帖武库院", "拳棒参修")),
+        "wt_staff": (("五郎八卦演棍主台", "棍阵精要"), ("百兵石锁校武坪", "气血锤炼"), ("松风观云禅亭", "吐纳养气")),
+        "ts_daoyuan": (("东岳三清正殿", "道藏参玄"), ("东厢丹房碑廊", "古籍经义"), ("苍松石坪演剑院", "剑理拆招")),
+        "ts_18pan": (("升仙坊云梯主台", "盘道悟剑"), ("十八盘摩崖石刻廊", "观刻悟招"), ("南天门迎风剑坪", "轻身吐纳")),
+        "yzw_huanshi": (("还施水阁藏书正楼", "百家武库"), ("临水曲廊抄经轩", "博闻强识"), ("太湖烟波观风露台", "斗转参悟")),
+        "yzw_canhe": (("参合庄正堂议事厅", "世家威仪"), ("燕子坞书房秘档室", "兴复策论"), ("临湖九曲演武坪", "指剑拆招")),
+        "yzw_tingxiang": (("听香水榭主阁", "易容奇巧"), ("琴韵小筑曲桥台", "丝竹清音"), ("曼陀山茶幽径", "轻身养气")),
+        "jm_plank": (("猿猱鸟道悬空主栈", "蜀道天险"), ("绝壁索桥巡哨亭", "关防洞察"), ("临渊乱石试剑坪", "险峰炼胆")),
+        "wd_golden": (("太和紫金正殿", "真武道统"), ("铜铸配殿签房廊", "道经护心"), ("天柱绝顶观云台", "阴阳吐纳")),
+        "wd_zixiao": (("紫霄重檐主大殿", "太极参玄"), ("东庑丹鼎藏经阁", "医药道藏"), ("禹迹池畔太极坪", "以柔克刚")),
+        "tz_hall": (("铁掌帮聚义正堂", "霸道立威"), ("东厢军资刑堂", "帮规策算"), ("前坪百斤铁沙场", "铁掌淬炼")),
+        "nsl_wooden": (("百杰木人机关主巷", "破阵闯关"), ("东侧铜砂铁臂廊", "横练硬功"), ("九莲山门演武坪", "拳棍拆招")),
+    }
+
     kind_spot_titles: dict[str, tuple[tuple[str, str], tuple[str, str], tuple[str, str]]] = {
         "temple": (("大雄正殿 · 佛前蒲团", "禅心参悟"), ("东厢碑廊 · 藏经橱", "古籍经义"), ("钟鼓禅院 · 演武坪", "桩功吐纳")),
         "pagoda": (("宝塔底层 · 舍利地宫", "护体参修"), ("中层回廊 · 浮雕壁画", "观图悟道"), ("绝顶佛龛 · 凭栏远眺", "登高吐纳")),
@@ -876,9 +905,12 @@ def generate_svg_fallback_interior(
         "market": (("番坊正市 · 奇货堂", "四海商贸"), ("斗茶品香轩", "风雅博闻"), ("车马行栈 · 镖局坪", "江湖交游")),
     }
 
-    t1, t2, t3 = kind_spot_titles.get(
-        kind,
-        (("正堂核心区", tag or "秘境探索"), ("东侧偏殿廊庑", "博闻研习"), ("前庭演武坪", "吐纳修历")),
+    t1, t2, t3 = custom_svg_spot_titles.get(
+        bldg_id,
+        kind_spot_titles.get(
+            kind,
+            (("正堂核心区", tag or "秘境探索"), ("东侧偏殿廊庑", "博闻研习"), ("前庭演武坪", "吐纳修历")),
+        ),
     )
 
     # Secondary gentle effects for side spots (purely M0 exploration scaffold)
@@ -903,7 +935,7 @@ def generate_svg_fallback_interior(
         "spots": [
             {
                 "id": f"{bldg_id}_main",
-                "name": f"{bldg_name} · {t1[0]}",
+                "name": t1[0],
                 "tag": tag or t1[1],
                 "x": 688,
                 "y": 272,
@@ -942,8 +974,22 @@ def generate_svg_fallback_interior(
 
 
 # ==============================================================================
-# 6. [M0-3] 解析 1,000 名人物并关联立绘、武学 ID 与驻留建筑
+# 6. [M0-3 / M1] 解析 1,000 名人物并关联立绘、武学 ID、最末层驻留建筑与全量属性
 # ==============================================================================
+
+TEN_ARTS_CANONICAL_KEYS: tuple[str, ...] = (
+    "骑术",
+    "算术",
+    "经义",
+    "策论",
+    "诗词",
+    "琴",
+    "棋",
+    "书",
+    "画",
+    "辩才",
+)
+
 
 def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str) -> str:
     if faction_id in ("SECT-01", "SECT-03", "SECT-04") or "僧" in role or "禅" in role or "喇嘛" in role:
@@ -975,86 +1021,90 @@ def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str
     return "/assets/characters/templates/tpl_greenwood_hero_fb.jpg"
 
 
-def assign_npc_building(
+def resolve_npc_leaf_location(
     npc_id: str,
-    name: str,
-    role: str,
-    faction_id: str,
-    sub_location: str | None,
-    region_buildings: list[dict[str, Any]],
-) -> str | None:
-    if not region_buildings:
-        return None
+    raw_loc: str,
+    buildings_by_region: dict[str, list[dict[str, Any]]],
+) -> tuple[str, str, str | None, str, str, str | None, str | None, str]:
+    """
+    Parse `地区 > 基础建筑` or `地区 > 特殊建筑 > 子建筑` from CHARACTER_COMPENDIUM.md
+    and validate strictly against compiled leaf buildings/spots.
+    Returns:
+      (region_id, canonical_region_name, sub_loc, bldg_id, bldg_name, spot_id, spot_name, full_loc_label)
+    """
+    parts = [p.strip() for p in raw_loc.split(" > ") if p.strip()]
+    if len(parts) < 2 or len(parts) > 3:
+        raise ValueError(
+            f"[{npc_id}] Location must specify leaf building (`地区 > 基础建筑` or `地区 > 特殊建筑 > 子建筑`), got: {raw_loc!r}"
+        )
 
-    by_id = {b["id"]: b for b in region_buildings}
+    reg_raw = parts[0]
+    if reg_raw not in LOCATION_RESOLUTION_MAP:
+        raise ValueError(f"[{npc_id}] Unknown region {reg_raw!r} in {raw_loc!r}")
+    region_id, canonical_loc_label, sub_loc = LOCATION_RESOLUTION_MAP[reg_raw]
+    clean_region_name = re.sub(r"（华山）|（潼关）|（青城山）|（唐家堡）$", "", canonical_loc_label)
 
-    # Iconic named overrides first
-    explicit_building_overrides = {
-        "赵祯": "bl_palace",
-        "曹丹姝": "bl_palace",
-        "赵曙": "bl_palace",
-        "张清窈": "bl_palace",
-        "包拯": "bl_kaifeng",
-        "展昭": "bl_kaifeng",
-        "公孙策": "bl_kaifeng",
-        "法空": "sl_cangjing",
-        "慕容博": "sl_cangjing",
-        "萧远山": "sl_cangjing",
-        "玄慈": "sl_daxiong",
-        "玄澄": "sl_luohan",
-        "乔峰": "ly_gaibang",
-        "汪剑通": "ly_gaibang",
-        "无崖子": "wl_yudong",
-        "巫行云": "kl_yaochi",
-        "李秋水": "xq_bingjiao",
-        "枯荣": "dl_chongsheng",
-        "慕容复": "yz_canhe",
-    }
-    if name in explicit_building_overrides and explicit_building_overrides[name] in by_id:
-        return explicit_building_overrides[name]
+    reg_bldgs = buildings_by_region.get(region_id, [])
+    bldg_name_target = parts[1]
+    matched_bldg: dict[str, Any] | None = None
+    for b in reg_bldgs:
+        if b["name"] == bldg_name_target:
+            matched_bldg = b
+            break
+    if matched_bldg is None:
+        raise ValueError(
+            f"[{npc_id}] Building {bldg_name_target!r} not found in region {region_id} ({clean_region_name})"
+        )
 
-    # Sub-location routing for composite regions
-    if sub_location == "潼关":
-        for b in region_buildings:
-            if "潼关" in b["name"]:
-                return b["id"]
-    elif sub_location == "西岳华山":
-        cand = [b for b in region_buildings if "潼关" not in b["name"]]
-        if cand:
-            return cand[deterministic_int(npc_id, 0, len(cand) - 1)]["id"]
-    elif sub_location == "青城山":
-        for b in region_buildings:
-            if "青城" in b["name"]:
-                return b["id"]
-    elif sub_location == "唐家堡":
-        cand = [b for b in region_buildings if "唐" in b["name"]]
-        if cand:
-            return cand[deterministic_int(npc_id, 0, len(cand) - 1)]["id"]
+    # Infer sub_loc for composite regions
+    if region_id == "tongguan":
+        sub_loc = "潼关" if matched_bldg["id"] == "tg_fort" else "西岳华山"
+    elif region_id == "qingcheng":
+        sub_loc = "青城山" if matched_bldg["id"] == "qc_shangqing" else "唐家堡"
 
-    # Role / Faction keyword matching
-    specials = [b for b in region_buildings if b["isSpecial"]]
-    bases = [b for b in region_buildings if not b["isSpecial"]]
-
-    if faction_id == "SECT-17" or "捕" in role or "知" in role or "府" in role:
-        for b in region_buildings:
-            if b["kind"] == "yamen" or "府衙" in b["name"]:
-                return b["id"]
-    if faction_id == "ORG-02" and ("皇" in role or "相" in role or "枢密" in role):
-        for b in specials:
-            if b["kind"] == "palace":
-                return b["id"]
-    if faction_id == "ORG-03" or "书院" in role or "儒" in role or "学" in role:
-        for b in region_buildings:
-            if "书院" in b["name"] or b["id"].endswith("_base_academy"):
-                return b["id"]
-    if "军" in role or "将" in role or "帅" in role or "骑" in role:
-        for b in region_buildings:
-            if b["kind"] in ("camp", "fort"):
-                return b["id"]
-
-    pool = specials if specials else bases
-    idx = deterministic_int(npc_id, 0, len(pool) - 1)
-    return pool[idx]["id"]
+    if matched_bldg["interior"] is not None:
+        if len(parts) != 3:
+            raise ValueError(
+                f"[{npc_id}] Building {matched_bldg['name']!r} has interior sub-buildings; NPC must be assigned to a sub-building!"
+            )
+        spot_name_target = parts[2]
+        matched_spot: dict[str, Any] | None = None
+        for sp in matched_bldg["interior"]["spots"]:
+            if sp["name"] == spot_name_target:
+                matched_spot = sp
+                break
+        if matched_spot is None:
+            valid_names = [s["name"] for s in matched_bldg["interior"]["spots"]]
+            raise ValueError(
+                f"[{npc_id}] Sub-building {spot_name_target!r} not found in {matched_bldg['name']!r} (valid: {valid_names})"
+            )
+        full_label = f"{clean_region_name} > {matched_bldg['name']} > {matched_spot['name']}"
+        return (
+            region_id,
+            clean_region_name,
+            sub_loc,
+            matched_bldg["id"],
+            matched_bldg["name"],
+            matched_spot["id"],
+            matched_spot["name"],
+            full_label,
+        )
+    else:
+        if len(parts) != 2:
+            raise ValueError(
+                f"[{npc_id}] Base building {matched_bldg['name']!r} has no interior sub-buildings, got extra path in {raw_loc!r}"
+            )
+        full_label = f"{clean_region_name} > {matched_bldg['name']}"
+        return (
+            region_id,
+            clean_region_name,
+            sub_loc,
+            matched_bldg["id"],
+            matched_bldg["name"],
+            None,
+            None,
+            full_label,
+        )
 
 
 def parse_npcs(
@@ -1116,9 +1166,16 @@ def parse_npcs(
         raw_loc = cols[7].strip()
         realm = cols[8].replace("**", "").strip()
 
-        if raw_loc not in LOCATION_RESOLUTION_MAP:
-            raise ValueError(f"[{npc_id}] Unknown location: {raw_loc!r}")
-        region_id, canonical_loc_label, sub_loc = LOCATION_RESOLUTION_MAP[raw_loc]
+        (
+            region_id,
+            clean_region_name,
+            sub_loc,
+            assigned_bldg_id,
+            assigned_bldg_name,
+            assigned_spot_id,
+            assigned_spot_name,
+            full_loc_label,
+        ) = resolve_npc_leaf_location(npc_id, raw_loc, buildings_by_region)
 
         if faction_name not in FACTION_BY_NAME:
             raise ValueError(f"[{npc_id}] Unknown faction: {faction_name!r}")
@@ -1127,49 +1184,56 @@ def parse_npcs(
 
         if realm not in REALM_BENCHMARKS:
             raise ValueError(f"[{npc_id}] Unknown realm: {realm!r}")
-        hp_rng, mp_rng, agi_rng, res_rng, realm_rank = REALM_BENCHMARKS[realm]
-        major_realm = (
-            "不入流"
-            if realm == "不入流"
-            else realm[:-2]
-        )
+        _, _, _, _, realm_rank = REALM_BENCHMARKS[realm]
+        major_realm = "不入流" if realm == "不入流" else realm[:-2]
         minor_realm = None if realm == "不入流" else realm[-2:]
+
+        stat_parts = [int(x) for x in cols[9].strip("`").split("/")]
+        if len(stat_parts) != 4:
+            raise ValueError(f"[{npc_id}] Expected 4 combat stats, got {cols[9]!r}")
+        stats = {
+            "hp": stat_parts[0],
+            "mp": stat_parts[1],
+            "agi": stat_parts[2],
+            "res": stat_parts[3],
+            "isBenchmark": False,
+        }
+
+        talent_parts = [int(x) for x in cols[10].strip("`").split("/")]
+        if len(talent_parts) != 3:
+            raise ValueError(f"[{npc_id}] Expected 3 innate talents, got {cols[10]!r}")
+        for tv in talent_parts:
+            if not (1 <= tv <= 100):
+                raise ValueError(f"[{npc_id}] Talent value out of [1,100]: {tv}")
+        talents = {
+            "bone": talent_parts[0],
+            "comprehension": talent_parts[1],
+            "charm": talent_parts[2],
+        }
+
+        ten_art_parts = [int(x) for x in cols[11].strip("`").split("/")]
+        if len(ten_art_parts) != 10:
+            raise ValueError(f"[{npc_id}] Expected 10 arts values, got {cols[11]!r}")
+        for av in ten_art_parts:
+            if not (0 <= av <= 100):
+                raise ValueError(f"[{npc_id}] Ten-art value out of [0,100]: {av}")
+        ten_arts = {
+            TEN_ARTS_CANONICAL_KEYS[idx]: ten_art_parts[idx]
+            for idx in range(10)
+        }
 
         if num_idx <= 100:
             category = "历史名人"
-            arts_raw = cols[9]
-            bio = cols[10]
-            stats = {
-                "hp": deterministic_int(f"{npc_id}:hp", hp_rng[0], hp_rng[1]),
-                "mp": deterministic_int(f"{npc_id}:mp", mp_rng[0], mp_rng[1]),
-                "agi": deterministic_int(f"{npc_id}:agi", agi_rng[0], agi_rng[1]),
-                "res": deterministic_int(f"{npc_id}:res", res_rng[0], res_rng[1]),
-                "isBenchmark": True,
-            }
+            arts_raw = cols[12]
+            bio = cols[13]
         elif num_idx <= 240:
             category = "武林群侠"
-            stat_parts = [int(x) for x in cols[9].strip("`").split("/")]
-            arts_raw = cols[10]
-            bio = cols[11]
-            stats = {
-                "hp": stat_parts[0],
-                "mp": stat_parts[1],
-                "agi": stat_parts[2],
-                "res": stat_parts[3],
-                "isBenchmark": False,
-            }
+            arts_raw = cols[12]
+            bio = cols[13]
         else:
             category = "武林群侠"
-            stat_parts = [int(x) for x in cols[9].strip("`").split("/")]
-            arts_raw = cols[10]
-            bio = f"{faction_name}{role}，常年驻留或活动于{canonical_loc_label}一带，武道修为居【{realm}】，主修{arts_raw}。"
-            stats = {
-                "hp": stat_parts[0],
-                "mp": stat_parts[1],
-                "agi": stat_parts[2],
-                "res": stat_parts[3],
-                "isBenchmark": False,
-            }
+            arts_raw = cols[12]
+            bio = f"{faction_name}{role}，常驻【{full_loc_label}】，武道修为居【{realm}】，主修{arts_raw}。"
 
         # Resolve known martial art IDs vs Ten-Arts / specialty tags
         raw_tokens = [
@@ -1194,19 +1258,12 @@ def parse_npcs(
                 if matched_id not in known_art_ids:
                     known_art_ids.append(matched_id)
             else:
-                specialty_tags.append(tok)
+                if tok != "无":
+                    specialty_tags.append(tok)
 
         avatar_url = f"/assets/characters/avatars/{npc_id}.jpg" if npc_id in existing_avatars else None
         fullbody_url = f"/assets/characters/fullbody/{npc_id}.jpg" if npc_id in existing_fullbody else None
         template_url = pick_template_for_npc(faction_id, gender, role, category)
-        assigned_bldg_id = assign_npc_building(
-            npc_id,
-            name,
-            role,
-            faction_id,
-            sub_loc,
-            buildings_by_region.get(region_id, []),
-        )
 
         npcs.append(
             {
@@ -1220,14 +1277,20 @@ def parse_npcs(
                 "factionName": faction_name,
                 "role": role,
                 "regionId": region_id,
-                "locationLabel": canonical_loc_label,
+                "locationLabel": clean_region_name,
                 "subLocation": sub_loc,
                 "assignedBuildingId": assigned_bldg_id,
+                "assignedBuildingName": assigned_bldg_name,
+                "assignedSpotId": assigned_spot_id,
+                "assignedSpotName": assigned_spot_name,
+                "fullLocationLabel": full_loc_label,
                 "realm": realm,
                 "majorRealm": major_realm,
                 "minorRealm": minor_realm,
                 "realmRank": realm_rank,
                 "stats": stats,
+                "talents": talents,
+                "tenArts": ten_arts,
                 "artsText": arts_raw,
                 "knownArtIds": known_art_ids,
                 "specialtyTags": specialty_tags,
@@ -1282,12 +1345,13 @@ def compile_all(do_normalize_docs: bool) -> None:
             b_pano = building_panoramas.get(bid)
             has_pano_img = b_pano is not None
             if has_pano_img:
+                spots_copy = [{**s, "residentNpcIds": []} for s in b_pano["spots"]]
                 interior_data = {
                     "mode": "image",
                     "panoramaUri": b_pano["panoramaUri"],
                     "subtitle": b_pano["subtitle"],
                     "exitGate": b_pano["exitGate"],
-                    "spots": b_pano["spots"],
+                    "spots": spots_copy,
                 }
             else:
                 fb = generate_svg_fallback_interior(
@@ -1301,12 +1365,13 @@ def compile_all(do_normalize_docs: bool) -> None:
                     effect=sp["effect"],
                     region_name=region_name,
                 )
+                spots_copy = [{**s, "residentNpcIds": []} for s in fb["spots"]]
                 interior_data = {
                     "mode": "svg_fallback",
                     "panoramaUri": None,
                     "subtitle": fb["subtitle"],
                     "exitGate": fb["exitGate"],
-                    "spots": fb["spots"],
+                    "spots": spots_copy,
                 }
 
             b_record = {
@@ -1370,14 +1435,28 @@ def compile_all(do_normalize_docs: bool) -> None:
     # 3) Compile NPCs (1,000)
     npcs = parse_npcs(martial_arts, buildings_by_region)
 
-    # Back-populate residentNpcIds into buildings and regions
+    # Back-populate residentNpcIds into buildings, interior spots, and regions
     bldg_by_id = {b["id"]: b for b in buildings}
+    spot_by_id: dict[str, dict[str, Any]] = {}
+    for b in buildings:
+        if b["interior"] is not None:
+            for sp in b["interior"]["spots"]:
+                spot_by_id[sp["id"]] = sp
+
     npcs_by_region: dict[str, list[str]] = defaultdict(list)
     for npc in npcs:
         npcs_by_region[npc["regionId"]].append(npc["id"])
         abid = npc["assignedBuildingId"]
-        if abid and abid in bldg_by_id:
-            bldg_by_id[abid]["residentNpcIds"].append(npc["id"])
+        asid = npc["assignedSpotId"]
+        b_rec = bldg_by_id[abid]
+        b_rec["residentNpcIds"].append(npc["id"])
+        if b_rec["interior"] is not None:
+            assert asid is not None and asid in spot_by_id, (
+                f"NPC {npc['id']} in special building {abid} lacks valid assignedSpotId"
+            )
+            spot_by_id[asid]["residentNpcIds"].append(npc["id"])
+        else:
+            assert asid is None, f"NPC {npc['id']} in base building {abid} must have assignedSpotId=None"
 
     # 4) Compile Regions (38)
     aliases_by_region: dict[str, list[str]] = defaultdict(list)
@@ -1445,7 +1524,7 @@ def compile_all(do_normalize_docs: bool) -> None:
     svg_fallback_count = sum(1 for b in buildings if b["isSpecial"] and not b["hasPanoramaImage"])
 
     id_registry = {
-        "schemaVersion": "M0.3.0",
+        "schemaVersion": "M1.0.1",
         "counts": {
             "regions": len(regions),
             "majorSects": sum(1 for f in factions_enriched if f["isMajorSect"]),
@@ -1456,6 +1535,7 @@ def compile_all(do_normalize_docs: bool) -> None:
             "specialBuildingsWithSvgFallback": svg_fallback_count,
             "cityBaseBuildings": len(buildings) - special_count,
             "totalBuildings": len(buildings),
+            "interiorSubBuildings": len(spot_by_id),
             "martialArts": len(martial_arts),
             "npcs": len(npcs),
             "npcsWithAvatar": sum(1 for n in npcs if n["avatarUrl"]),
@@ -1504,6 +1584,10 @@ def compile_all(do_normalize_docs: bool) -> None:
         assert npc["regionId"] in region_id_set, f"Invalid regionId on {npc['id']}"
         assert npc["factionId"] in faction_id_set, f"Invalid factionId on {npc['id']}"
         assert npc["assignedBuildingId"] in bldg_id_set, f"Invalid assignedBuildingId on {npc['id']}"
+        if bldg_by_id[npc["assignedBuildingId"]]["interior"] is not None:
+            assert npc["assignedSpotId"] in spot_by_id, f"Invalid assignedSpotId on {npc['id']}"
+        else:
+            assert npc["assignedSpotId"] is None, f"Unexpected assignedSpotId on base building for {npc['id']}"
         for aid in npc["knownArtIds"]:
             assert aid in art_id_set, f"Invalid artId {aid} on {npc['id']}"
 
@@ -1527,10 +1611,10 @@ def compile_all(do_normalize_docs: bool) -> None:
     print(
         f"[OK] Summary: {len(regions)} regions | "
         f"20 sects + 11 orgs | "
-        f"{special_count} special buildings ({pano_img_count} JPG + {svg_fallback_count} SVG fallback) + "
+        f"{special_count} special buildings ({len(spot_by_id)} sub-spots) + "
         f"{len(buildings) - special_count} base buildings | "
         f"{len(martial_arts)} martial arts | "
-        f"{len(npcs)} NPCs (100% resolved)"
+        f"{len(npcs)} NPCs (100% leaf-assigned & full stats)"
     )
 
 
