@@ -630,19 +630,24 @@ export function TreasuresTab({
                         </div>
 
                         {linkedArt && (
-                          <div className="pt-1.5 border-t border-[#dfd0b3] flex items-center justify-between gap-2 flex-wrap">
-                            <span className="text-[11px] text-[#52391e]">
-                              关联武学：
-                              <strong>{linkedArt.name}</strong>（{linkedArt.id} ·{' '}
-                              {learnedInfo ? `已习得第 ${learnedInfo.level} 重` : '尚未习得'}）
-                            </span>
-                            <button
-                              type="button"
-                              onClick={() => onJumpToMartialArt(linkedArt)}
-                              className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d1b0] border border-[#9e8462] text-[11px] text-[#781710] font-semibold cursor-pointer"
-                            >
-                              查阅武学总纲 →
-                            </button>
+                          <div className="pt-1.5 border-t border-[#dfd0b3] space-y-1">
+                            <div className="flex items-center justify-between gap-2 flex-wrap">
+                              <span className="text-[11px] text-[#52391e]">
+                                关联武学：
+                                <strong>{linkedArt.name}</strong>（{linkedArt.id} ·{' '}
+                                {learnedInfo ? `已习得第 ${learnedInfo.level} 重` : '尚未习得'}）
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => onJumpToMartialArt(linkedArt)}
+                                className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d1b0] border border-[#9e8462] text-[11px] text-[#781710] font-semibold cursor-pointer"
+                              >
+                                查阅武学总纲 →
+                              </button>
+                            </div>
+                            <div className="text-[11px] text-[#7a6042]">
+                              注：武学秘籍仅限初次展卷领悟入门（第1重），后续熟练度与重数须凭演武精修提升。
+                            </div>
                           </div>
                         )}
                       </div>
@@ -683,18 +688,25 @@ export function TreasuresTab({
                           佩挂随身
                         </button>
                       )}
-                      {def.useEffect && inBagQty > 0 && (
-                        <button
-                          type="button"
-                          onClick={() => consumeInventoryItem(def.id, Boolean(def.equipSlot))}
-                          className="px-2.5 py-1.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs cursor-pointer transition"
-                        >
-                          {def.category === 'scrolls'
-                            ? '展卷研读'
-                            : def.category === 'medicine'
-                              ? '立即服食'
-                              : '把玩修习'}
-                        </button>
+                      {def.useEffect &&
+                        inBagQty > 0 &&
+                        !(def.useEffect.learnArtId && learnedInfo) && (
+                          <button
+                            type="button"
+                            onClick={() => consumeInventoryItem(def.id, Boolean(def.equipSlot))}
+                            className="px-2.5 py-1.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs cursor-pointer transition"
+                          >
+                            {def.category === 'scrolls'
+                              ? '展卷研读'
+                              : def.category === 'medicine'
+                                ? '立即服食'
+                                : '把玩修习'}
+                          </button>
+                        )}
+                      {def.useEffect?.learnArtId && learnedInfo && inBagQty > 0 && (
+                        <span className="px-2.5 py-1.5 rounded bg-[#e1f0e8] border border-[#6aa384] text-[#184f35] font-bold song-serif text-xs">
+                          已领悟入门（第{learnedInfo.level}重）
+                        </span>
                       )}
                       <button
                         type="button"

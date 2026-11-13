@@ -22,7 +22,9 @@ import {
   canArtFitSlot,
   DEFAULT_EQUIPPED_ARTS,
   DEFAULT_LEARNED_ARTS,
+  getArtExpRequired,
 } from '../data/playerMartialArts'
+import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from './heroStats'
 
 export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.3.0' as const
 
@@ -41,14 +43,14 @@ export const SAVE_SLOT_DEFS: Array<{
   { slotId: 'slot-6', label: '卷宗陆 · 开阳册', badge: '陆' },
 ]
 
-// 升级全新存储库命名并自动清理早期 M0/M1.0/M1.1 历史遗留存档
-const LEGACY_IDB_DB_NAMES = ['NorthernSongChroniclesDB']
-const LEGACY_LS_PREFIX = 'nsc_save_v1_'
+// 升级全新存储库命名并自动清理早期历史遗留存档
+const LEGACY_IDB_DB_NAMES = ['NorthernSongChroniclesDB', 'NorthernSongChroniclesSaves_v2']
+const LEGACY_LS_PREFIXES = ['nsc_save_v1_', 'nsc_save_v2_']
 
-const IDB_DB_NAME = 'NorthernSongChroniclesSaves_v2'
+const IDB_DB_NAME = 'NorthernSongChroniclesSaves_v3'
 const IDB_DB_VERSION = 1
 const IDB_STORE_NAME = 'saves'
-const LS_FALLBACK_PREFIX = 'nsc_save_v2_'
+const LS_FALLBACK_PREFIX = 'nsc_save_v3_'
 
 let idbPromise: Promise<IDBDatabase> | null = null
 let legacyPurged = false
@@ -62,7 +64,7 @@ export function purgeLegacySaveDatabases(): void {
       const keysToRemove: string[] = []
       for (let i = 0; i < localStorage.length; i += 1) {
         const k = localStorage.key(i)
-        if (k && k.startsWith(LEGACY_LS_PREFIX)) {
+        if (k && LEGACY_LS_PREFIXES.some((p) => k.startsWith(p))) {
           keysToRemove.push(k)
         }
       }
@@ -297,10 +299,16 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         !seen.has(entry.artId)
       ) {
         seen.add(entry.artId)
+        const artRec = MARTIAL_ART_DB_MAP[entry.artId]
         const lv =
           typeof entry.level === 'number' ? Math.max(1, Math.min(10, Math.floor(entry.level))) : 1
+        const reqExp = getArtExpRequired(artRec, lv)
         const xp =
-          typeof entry.exp === 'number' ? Math.max(0, Math.min(100, Math.floor(entry.exp))) : 0
+          lv >= 10 || reqExp <= 0
+            ? 0
+            : typeof entry.exp === 'number'
+              ? Math.max(0, Math.min(reqExp, Math.floor(entry.exp)))
+              : 0
         parsedArts.push({ artId: entry.artId, level: lv, exp: xp })
       }
     }
@@ -350,24 +358,26 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
       }))
   }
 
-  const mountItem = cleanEquipped.mount ? ITEM_DB_MAP[cleanEquipped.mount] : null
-  const derivedMountKey =
-    (mountItem?.mountMeta?.id as SerializableGameState['mountKey'] | undefined) ??
-    mountItem?.equipBonus?.mountKey ??
-    'walk'
+  const cleanBaseStats = sanitizeHeroBaseStats(st.baseStats)
+  const derived = deriveHeroEffectiveStats(
+    cleanBaseStats,
+    cleanEquipped,
+    cleanEquippedArts,
+    cleanLearnedArts,
+  )
 
-  const hpVal = typeof st.hp === 'number' ? Math.max(1, Math.floor(st.hp)) : 1200
-  const maxHpVal =
-    typeof st.maxHp === 'number' ? Math.max(hpVal, Math.floor(st.maxHp)) : Math.max(1395, hpVal)
-  const mpVal = typeof st.mp === 'number' ? Math.max(0, Math.floor(st.mp)) : 950
-  const maxMpVal =
-    typeof st.maxMp === 'number' ? Math.max(mpVal, Math.floor(st.maxMp)) : Math.max(1030, mpVal)
-  const maxStaminaVal =
-    typeof st.maxStamina === 'number' ? Math.max(20, Math.floor(st.maxStamina)) : 140
+  const hpVal =
+    typeof st.hp === 'number'
+      ? Math.min(derived.maxHp, Math.max(1, Math.floor(st.hp)))
+      : derived.maxHp
+  const mpVal =
+    typeof st.mp === 'number'
+      ? Math.min(derived.maxMp, Math.max(0, Math.floor(st.mp)))
+      : derived.maxMp
   const staminaVal =
     typeof st.stamina === 'number'
-      ? Math.min(maxStaminaVal, Math.max(0, Math.floor(st.stamina)))
-      : maxStaminaVal
+      ? Math.min(derived.maxStamina, Math.max(0, Math.floor(st.stamina)))
+      : derived.maxStamina
 
   let cleanCampPos: WildernessCamp | null = null
   if (
@@ -409,24 +419,21 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     selectedSpotId: typeof st.selectedSpotId === 'string' ? st.selectedSpotId : null,
     currentNodeId: st.currentNodeId,
     campPos: cleanCampPos,
-    mountKey: derivedMountKey,
-    qinggongBonus: typeof st.qinggongBonus === 'number' ? st.qinggongBonus : 0.15,
-    ridingSkill: typeof st.ridingSkill === 'number' ? st.ridingSkill : 45,
-    agility: typeof st.agility === 'number' ? st.agility : 65,
-    silver: typeof st.silver === 'number' ? st.silver : 120,
-    food: typeof st.food === 'number' ? st.food : 25,
+    baseStats: cleanBaseStats,
+    mountKey: derived.mountKey,
+    qinggongBonus: derived.qinggongBonus,
+    ridingSkill: derived.ridingSkill,
+    agility: derived.agility,
+    silver: typeof st.silver === 'number' ? Math.max(0, Math.floor(st.silver)) : 120,
+    food: typeof st.food === 'number' ? Math.max(0, Math.floor(st.food)) : 25,
     hp: hpVal,
-    maxHp: maxHpVal,
+    maxHp: derived.maxHp,
     mp: mpVal,
-    maxMp: maxMpVal,
+    maxMp: derived.maxMp,
     stamina: staminaVal,
-    maxStamina: maxStaminaVal,
-    res: typeof st.res === 'number' ? st.res : 40,
-    skills: isRecord(st.skills)
-      ? (Object.fromEntries(
-          Object.entries(st.skills).filter(([, v]) => typeof v === 'number'),
-        ) as Record<string, number>)
-      : {},
+    maxStamina: derived.maxStamina,
+    res: derived.res,
+    skills: derived.skills,
     equipped: cleanEquipped,
     learnedArts: cleanLearnedArts,
     equippedArts: cleanEquippedArts,

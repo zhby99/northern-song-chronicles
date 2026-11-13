@@ -22,6 +22,7 @@ interface BagTabProps {
   onOpenTreasureVolume: (vol: TreasureVolumeKey) => void
   onJumpToMartialArt: (art: CompiledMartialArtRecord) => void
   onJumpToEquipSlot: (slot: EquipmentSlotKey) => void
+  onJumpToPracticeArt: (artId: string) => void
 }
 
 export function BagTab({
@@ -30,10 +31,12 @@ export function BagTab({
   onOpenTreasureVolume,
   onJumpToMartialArt,
   onJumpToEquipSlot,
+  onJumpToPracticeArt,
 }: BagTabProps) {
   const silver = useGameStore((s) => s.silver)
   const food = useGameStore((s) => s.food)
   const inventory = useGameStore((s) => s.inventory)
+  const learnedArts = useGameStore((s) => s.learnedArts)
   const activeBagCategory = useGameStore((s) => s.activeBagCategory)
 
   const replenishSupplies = useGameStore((s) => s.replenishSupplies)
@@ -41,6 +44,14 @@ export function BagTab({
   const openCompendium = useGameStore((s) => s.openCompendium)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
   const consumeInventoryItem = useGameStore((s) => s.consumeInventoryItem)
+
+  const learnedMap = useMemo(() => {
+    const m = new Map<string, { level: number; exp: number }>()
+    for (const e of learnedArts) {
+      m.set(e.artId, { level: e.level, exp: e.exp })
+    }
+    return m
+  }, [learnedArts])
 
   const bagItemsByCat = useMemo(() => {
     const counts: Record<BagCategoryKey, number> = {
@@ -167,13 +178,22 @@ export function BagTab({
               前往【图鉴·博物图鉴】→
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={() => openCompendium('armory')}
-              className="px-2.5 py-1 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#f5cb5c]/70 font-bold song-serif text-xs cursor-pointer transition"
-            >
-              前往【图鉴·披挂总纲】→
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => openCompendium('armory')}
+                className="px-2.5 py-1 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#f5cb5c]/70 font-bold song-serif text-xs cursor-pointer transition"
+              >
+                【图鉴·披挂总纲】→
+              </button>
+              <button
+                type="button"
+                onClick={() => openCompendium('mounts')}
+                className="px-2.5 py-1 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#f5cb5c]/70 font-bold song-serif text-xs cursor-pointer transition"
+              >
+                【图鉴·坐骑图鉴】→
+              </button>
+            </div>
           )}
         </div>
       </div>
@@ -187,6 +207,9 @@ export function BagTab({
                 const isSel = activeStack?.itemId === itemId
                 const rStyle = RARITY_STYLE_MAP[def.rarity]
                 const isPoison = Boolean(def.poisonEffect && !def.useEffect)
+                const manualLearned = def.useEffect?.learnArtId
+                  ? learnedMap.get(def.useEffect.learnArtId)
+                  : undefined
                 return (
                   <button
                     key={itemId}
@@ -212,7 +235,7 @@ export function BagTab({
                         <div className="song-serif font-bold text-xs sm:text-sm text-[#23180f] truncate">
                           {def.name}
                         </div>
-                        <div className="flex items-center gap-1.5 mt-1">
+                        <div className="flex items-center gap-1.5 mt-1 flex-wrap">
                           <span
                             className={`px-1.5 py-0.2 rounded text-[10px] font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
                           >
@@ -225,6 +248,11 @@ export function BagTab({
                           >
                             {def.subType}
                           </span>
+                          {manualLearned && (
+                            <span className="px-1.5 py-0.2 rounded bg-[#e1f0e8] border border-[#6aa384] text-[#184f35] text-[10px] font-bold">
+                              已悟·{manualLearned.level}重
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -350,27 +378,36 @@ export function BagTab({
                     </div>
                     {activeStack.def.useEffect.learnArtId &&
                       MARTIAL_ART_DB_MAP[activeStack.def.useEffect.learnArtId] && (
-                        <div className="pt-1 border-t border-[#dfd0b3] flex items-center justify-between">
-                          <span className="text-[11px] text-[#52391e]">
-                            关联武学：
-                            <strong>
-                              {MARTIAL_ART_DB_MAP[activeStack.def.useEffect.learnArtId].name}
-                            </strong>
-                            （{activeStack.def.useEffect.learnArtId}）
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const art =
-                                MARTIAL_ART_DB_MAP[activeStack.def.useEffect!.learnArtId!]
-                              if (art) {
-                                onJumpToMartialArt(art)
-                              }
-                            }}
-                            className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d1b0] border border-[#9e8462] text-[11px] text-[#781710] font-semibold cursor-pointer"
-                          >
-                            查阅武学总纲 →
-                          </button>
+                        <div className="pt-1 border-t border-[#dfd0b3] space-y-1">
+                          <div className="flex items-center justify-between gap-2 flex-wrap">
+                            <span className="text-[11px] text-[#52391e]">
+                              关联武学：
+                              <strong>
+                                {MARTIAL_ART_DB_MAP[activeStack.def.useEffect.learnArtId].name}
+                              </strong>
+                              （{activeStack.def.useEffect.learnArtId} ·{' '}
+                              {learnedMap.has(activeStack.def.useEffect.learnArtId)
+                                ? `已习第 ${learnedMap.get(activeStack.def.useEffect.learnArtId)!.level} 重`
+                                : '尚未习得'}
+                              ）
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const art =
+                                  MARTIAL_ART_DB_MAP[activeStack.def.useEffect!.learnArtId!]
+                                if (art) {
+                                  onJumpToMartialArt(art)
+                                }
+                              }}
+                              className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d1b0] border border-[#9e8462] text-[11px] text-[#781710] font-semibold cursor-pointer"
+                            >
+                              查阅武学总纲 →
+                            </button>
+                          </div>
+                          <div className="text-[11px] text-[#7a6042]">
+                            秘籍仅限初次展卷领悟入门（第1重），后续熟练度须凭演武精修提升。
+                          </div>
                         </div>
                       )}
                   </div>
@@ -401,7 +438,7 @@ export function BagTab({
                         onClick={() => consumeInventoryItem(activeStack.itemId, true)}
                         className="px-3 py-2.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
                       >
-                        抚弄修习
+                        抚弄修习 (-6体能)
                       </button>
                     )}
                     <button
@@ -416,6 +453,15 @@ export function BagTab({
                       查看槽位
                     </button>
                   </>
+                ) : activeStack.def.useEffect?.learnArtId &&
+                  learnedMap.has(activeStack.def.useEffect.learnArtId) ? (
+                  <button
+                    type="button"
+                    onClick={() => onJumpToPracticeArt(activeStack.def.useEffect!.learnArtId!)}
+                    className="w-full px-3 py-2.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
+                  >
+                    已领悟入门 · 前往【披挂与武学】演练精修 →
+                  </button>
                 ) : activeStack.def.useEffect ? (
                   <button
                     type="button"
@@ -423,9 +469,11 @@ export function BagTab({
                     className="w-full px-3 py-2.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
                   >
                     {activeStack.def.category === 'scrolls'
-                      ? '展卷研读参悟'
+                      ? activeStack.def.useEffect.learnArtId
+                        ? '初次展卷领悟入门 (-6体能)'
+                        : '展卷研读修艺 (-6体能)'
                       : activeStack.def.category === 'tools'
-                        ? '把玩演练修习'
+                        ? '把玩演练修习 (-6体能)'
                         : '立即服食使用'}
                   </button>
                 ) : activeStack.def.poisonEffect ? (

@@ -27,7 +27,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
       res: 6,
       skillGain: ['经义', 5],
       learnArtId: 'MA-001',
-      learnArtHint: '参悟天阶上品禅门圣典《易筋经》（【经义】+5，已习得则大幅精进重数）',
+      learnArtHint: '初次展卷参悟天阶上品禅门圣典《易筋经》入门法要（【经义】+5）',
     },
   },
   {
@@ -918,7 +918,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     useEffect: {
       mp: 20,
       learnArtId: 'MA-180',
-      learnArtHint: '参悟《太祖长拳》精要（已习得则提升重数熟练度）',
+      learnArtHint: '初次展卷参悟《太祖长拳》入门精要',
     },
   },
   {

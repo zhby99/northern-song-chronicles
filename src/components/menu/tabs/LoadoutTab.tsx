@@ -2,10 +2,11 @@ import { useMemo, useState } from 'react'
 import { MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
 import {
   canItemFitSlot,
+  checkGearEquipRequirements,
+  checkMountEquipRequirements,
   checkWeaponEquipRequirements,
   computeEquipmentTotals,
   computeWeaponArtSynergy,
-  DEFAULT_HERO_TALENTS,
   EQUIPMENT_SLOT_METAS,
   formatBonusBadges,
   ITEM_DB_MAP,
@@ -44,6 +45,7 @@ export function LoadoutTab({
   inspectedLearnedArtId,
   onSelectInspectedArtId,
 }: LoadoutTabProps) {
+  const baseStats = useGameStore((s) => s.baseStats)
   const maxHp = useGameStore((s) => s.maxHp)
   const maxMp = useGameStore((s) => s.maxMp)
   const agility = useGameStore((s) => s.agility)
@@ -84,9 +86,9 @@ export function LoadoutTab({
       res,
       ridingSkill,
       skills,
-      talents: DEFAULT_HERO_TALENTS,
+      talents: baseStats.talents,
     }),
-    [maxHp, maxMp, agility, res, ridingSkill, skills],
+    [maxHp, maxMp, agility, res, ridingSkill, skills, baseStats.talents],
   )
   const learnedMap = useMemo(() => {
     const m = new Map<string, { level: number; exp: number }>()
@@ -331,7 +333,7 @@ export function LoadoutTab({
                     onClick={() => unequipSlot(activeSlotMeta.slot)}
                     className="px-2.5 py-1 rounded bg-[#7f1d1d] hover:bg-[#991b1b] text-[#fff8eb] font-bold song-serif text-xs cursor-pointer transition shadow-sm"
                   >
-                    卸下装备
+                    {activeSlotMeta.slot === 'mount' ? '下马卸鞍' : '卸下装备'}
                   </button>
                 )}
               </div>
@@ -340,7 +342,8 @@ export function LoadoutTab({
                 <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-1.5">
                   <div className="flex items-center justify-between gap-1.5">
                     <span className="song-serif font-bold text-xs sm:text-sm text-[#23180f]">
-                      当前穿戴：{activeEquippedDef.name}
+                      {activeSlotMeta.slot === 'mount' ? '当前乘骑' : '当前穿戴'}：
+                      {activeEquippedDef.name}
                     </span>
                     <span
                       className={`px-1.5 py-0.5 rounded text-[10px] font-bold shrink-0 ${
@@ -349,7 +352,11 @@ export function LoadoutTab({
                     >
                       {activeEquippedDef.weaponMeta
                         ? `${activeEquippedDef.weaponMeta.fullTier} · ${activeEquippedDef.weaponMeta.weaponType}`
-                        : activeEquippedDef.rarity}
+                        : activeEquippedDef.mountMeta
+                          ? `${activeEquippedDef.mountMeta.fullTier} · ${activeEquippedDef.mountMeta.breedCategory}`
+                          : activeEquippedDef.gearMeta
+                            ? `${activeEquippedDef.gearMeta.tier}${activeEquippedDef.gearMeta.grade} · ${activeEquippedDef.gearMeta.subType}`
+                            : activeEquippedDef.rarity}
                     </span>
                   </div>
                   {activeEquippedDef.weaponMeta && (
@@ -359,6 +366,25 @@ export function LoadoutTab({
                       {activeEquippedDef.weaponMeta.forceTrait}】
                       {activeEquippedDef.weaponMeta.specialTag
                         ? ` · 特效【${activeEquippedDef.weaponMeta.specialTag}】`
+                        : ''}
+                    </div>
+                  )}
+                  {activeEquippedDef.mountMeta && (
+                    <div className="text-[11px] text-[#6b5235] font-mono">
+                      编号 {activeEquippedDef.id} · 日行基础 {activeEquippedDef.mountMeta.baseSpeed}{' '}
+                      里 · 地貌【
+                      {activeEquippedDef.mountMeta.terrainTrait}+
+                      {activeEquippedDef.mountMeta.terrainBonusPct}%】
+                      {activeEquippedDef.mountMeta.specialTag
+                        ? ` · 神骏【${activeEquippedDef.mountMeta.specialTag}】`
+                        : ''}
+                    </div>
+                  )}
+                  {activeEquippedDef.gearMeta && (
+                    <div className="text-[11px] text-[#6b5235] font-mono">
+                      编号 {activeEquippedDef.id} · 产地【{activeEquippedDef.gearMeta.origin}】
+                      {activeEquippedDef.gearMeta.specialTag
+                        ? ` · 词条【${activeEquippedDef.gearMeta.specialTag}】`
                         : ''}
                     </div>
                   )}
@@ -396,8 +422,8 @@ export function LoadoutTab({
                 <div className="p-3 rounded border border-dashed border-[#bfa680] bg-[#f5ecd9] text-center text-[#6b5235] text-xs">
                   当前【{activeSlotMeta.shortLabel}】槽位空置。
                   {activeSlotMeta.slot === 'mount'
-                    ? '（未佩坐骑时大地图按徒步 60 里/日行军）'
-                    : '（本卷披挂留待后续扩充，百兵谱 100 种武器已先行定稿）'}
+                    ? '（未乘坐骑时大地图按【徒步急行 60 里/日】行军，可从下方或【图鉴·坐骑图鉴】选骑上鞍）'
+                    : '（可从下方随身行囊或【图鉴·披挂总纲】调取披挂穿佩）'}
                 </div>
               )}
 
@@ -411,7 +437,11 @@ export function LoadoutTab({
                 {compatibleBagItems.length > 0 ? (
                   <div className="space-y-1.5 max-h-44 overflow-y-auto scroll-thin pr-1">
                     {compatibleBagItems.map(({ itemId, qty, def }) => {
-                      const reqCheck = checkWeaponEquipRequirements(def.weaponMeta, playerEquipCtx)
+                      const reqCheck = def.mountMeta
+                        ? checkMountEquipRequirements(def.mountMeta, playerEquipCtx)
+                        : def.gearMeta
+                          ? checkGearEquipRequirements(def.gearMeta, playerEquipCtx)
+                          : checkWeaponEquipRequirements(def.weaponMeta, playerEquipCtx)
                       const unmetLabels = reqCheck.details
                         .filter((d) => !d.met)
                         .map((d) => `${d.stat}≥${d.min}(现${d.current})`)
@@ -432,7 +462,11 @@ export function LoadoutTab({
                               >
                                 {def.weaponMeta
                                   ? `${def.weaponMeta.fullTier}·${def.weaponMeta.weaponType}`
-                                  : def.rarity}
+                                  : def.mountMeta
+                                    ? `${def.mountMeta.fullTier}·${def.mountMeta.breedCategory}`
+                                    : def.gearMeta
+                                      ? `${def.gearMeta.tier}${def.gearMeta.grade}·${def.gearMeta.subType}`
+                                      : def.rarity}
                               </span>
                               {qty > 1 && (
                                 <span className="font-mono text-[10px] text-[#6b5235]">×{qty}</span>
@@ -443,7 +477,7 @@ export function LoadoutTab({
                             </div>
                             {!reqCheck.ok && (
                               <div className="text-[10px] text-[#b91c1c] mt-0.5">
-                                天阶门槛未达：{unmetLabels.join('、')}
+                                佩备门槛未达：{unmetLabels.join('、')}
                               </div>
                             )}
                           </div>
@@ -456,7 +490,11 @@ export function LoadoutTab({
                                 : 'bg-[#9a8262] hover:bg-[#7d684c] text-[#fff8eb]'
                             }`}
                           >
-                            {reqCheck.ok ? '装备' : '门槛受限'}
+                            {reqCheck.ok
+                              ? activeSlotMeta.slot === 'mount'
+                                ? '乘骑'
+                                : '装备'
+                              : '门槛受限'}
                           </button>
                         </div>
                       )
@@ -612,14 +650,23 @@ export function LoadoutTab({
                       </div>
                       <button
                         type="button"
+                        disabled={entry.level >= 10}
                         onClick={(e) => {
                           e.stopPropagation()
                           practiceLearnedArt(entry.artId)
                         }}
-                        title="消耗 10 点体能与 1 个时辰演练该武学，提升熟练度与重数"
-                        className="px-2 py-1 rounded bg-[#5c4024] hover:bg-[#78532f] text-[#fff8ee] text-[10px] font-bold song-serif shrink-0 cursor-pointer"
+                        title={
+                          entry.level >= 10
+                            ? '该武学已臻十重圆满化境'
+                            : '消耗 10 点体能与 1 个时辰演练该武学，提升熟练度与重数'
+                        }
+                        className={`px-2 py-1 rounded text-[10px] font-bold song-serif shrink-0 ${
+                          entry.level >= 10
+                            ? 'bg-[#d8c5a3] text-[#6b5235] cursor-not-allowed'
+                            : 'bg-[#5c4024] hover:bg-[#78532f] text-[#fff8ee] cursor-pointer'
+                        }`}
                       >
-                        演练
+                        {entry.level >= 10 ? '圆满' : '演练'}
                       </button>
                     </div>
                   )
@@ -750,15 +797,23 @@ export function LoadoutTab({
                     精修检视：{inspectedArt.name}（第 {inspectedEntry.level}/10 重）
                   </div>
                   <div className="text-[10px] text-[#6b5235] truncate">
-                    传承：{inspectedArt.origin} · 熟练度 {inspectedEntry.exp}/100
+                    传承：{inspectedArt.origin} ·{' '}
+                    {inspectedEntry.level >= 10
+                      ? '十重返璞归真（圆满）'
+                      : `熟练度 ${inspectedEntry.exp}/${getArtExpRequired(inspectedArt, inspectedEntry.level)}`}
                   </div>
                 </div>
                 <button
                   type="button"
+                  disabled={inspectedEntry.level >= 10}
                   onClick={() => practiceLearnedArt(inspectedEntry.artId)}
-                  className="px-2.5 py-1 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs shrink-0 cursor-pointer"
+                  className={`px-2.5 py-1 rounded font-bold song-serif text-xs shrink-0 ${
+                    inspectedEntry.level >= 10
+                      ? 'bg-[#d8c5a3] text-[#6b5235] cursor-not-allowed'
+                      : 'bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] cursor-pointer'
+                  }`}
                 >
-                  演武精修 (-10体能)
+                  {inspectedEntry.level >= 10 ? '十重圆满' : '演武精修 (-10体能)'}
                 </button>
               </div>
             )}

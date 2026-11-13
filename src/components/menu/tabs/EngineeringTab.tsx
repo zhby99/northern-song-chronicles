@@ -25,10 +25,10 @@ export function EngineeringTab() {
         </div>
 
         <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
-          <div className="text-[#6b5033]">武学 · 百兵 · 人物</div>
+          <div className="text-[#6b5033]">武学 · 百兵 · 名驹 · 人物</div>
           <div className="font-mono font-bold text-base sm:text-lg text-[#8f1d14] mt-0.5">
             {ID_REGISTRY.counts.martialArts} 功 · {ID_REGISTRY.counts.weapons} 兵 ·{' '}
-            {ID_REGISTRY.counts.npcs} 人
+            {ID_REGISTRY.counts.mounts} 骑 · {ID_REGISTRY.counts.npcs} 人
           </div>
           <div className="text-xs text-[#1b5132] font-semibold">未解析悬空引用：0 处</div>
         </div>

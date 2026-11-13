@@ -3,9 +3,9 @@ import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, NPC_DB_MAP } from '../data/gameDb'
 import {
   BAG_CATEGORY_METAS,
   canItemFitSlot,
+  checkGearEquipRequirements,
   checkMountEquipRequirements,
   checkWeaponEquipRequirements,
-  computeEquipmentTotals,
   DEFAULT_EQUIPPED_SLOTS,
   DEFAULT_INITIAL_INVENTORY,
   ITEM_DB_MAP,
@@ -13,7 +13,6 @@ import {
 } from '../data/itemsDb'
 import {
   canArtFitSlot,
-  computeEquippedArtsTotals,
   DEFAULT_EQUIPPED_ARTS,
   DEFAULT_LEARNED_ARTS,
   getArtExpRequired,
@@ -27,6 +26,7 @@ import type {
   EquippedArtsMap,
   EquippedSlotsMap,
   GameSaveEnvelope,
+  HeroBaseStats,
   InventoryStack,
   LabelToggleKey,
   LearnedArtEntry,
@@ -45,6 +45,13 @@ import type {
   WildernessCamp,
 } from '../types/game'
 import {
+  calcPracticeArtExpGain,
+  cloneHeroBaseStats,
+  DEFAULT_HERO_BASE_STATS,
+  deriveHeroEffectiveStats,
+  HERO_BASE_CAPS,
+} from '../utils/heroStats'
+import {
   ADJACENCY_MAP,
   findBestRoute,
   formatSongDate,
@@ -56,6 +63,7 @@ import {
   WORLD_GRAPH,
 } from '../utils/mapMath'
 import {
+  CURRENT_SAVE_SCHEMA_VERSION,
   deleteSaveSlot,
   listAllSaveEnvelopes,
   putSaveEnvelope,
@@ -74,8 +82,7 @@ interface RoadEventDef {
     stamina: number
     maxStamina: number
     silver: number
-    res: number
-    skills: Record<string, number>
+    baseStats: HeroBaseStats
   }) => void
 }
 
@@ -93,7 +100,10 @@ const ROAD_EVENTS: RoadEventDef[] = [
     msg: '古道茶寮偶遇游方高僧论及经义内息（内力 +25，经义 +1）。',
     apply: (d) => {
       d.mp = Math.min(d.maxMp, d.mp + 25)
-      d.skills['经义'] = Math.min(100, (d.skills['经义'] ?? 60) + 1)
+      d.baseStats.skills['经义'] = Math.min(
+        HERO_BASE_CAPS.civilSkill,
+        (d.baseStats.skills['经义'] ?? 60) + 1,
+      )
     },
   },
   {
@@ -105,16 +115,19 @@ const ROAD_EVENTS: RoadEventDef[] = [
   },
   {
     tag: '密探截杀',
-    msg: '荒野突遭一品堂/辽廷暗探毒箭伏击！凭护体抗性硬接并击退强敌（抗性 +2）。',
+    msg: '荒野突遭一品堂/辽廷暗探毒箭伏击！凭护体抗性硬接并击退强敌（抗性根基 +2）。',
     apply: (d) => {
-      d.res = Math.min(100, d.res + 2)
+      d.baseStats.res = Math.min(HERO_BASE_CAPS.res, d.baseStats.res + 2)
     },
   },
   {
     tag: '万里山河',
     msg: '策马纵览九州山海壮阔，胸襟大开，赋词一首（诗词 +2，体能 +10）。',
     apply: (d) => {
-      d.skills['诗词'] = Math.min(100, (d.skills['诗词'] ?? 55) + 2)
+      d.baseStats.skills['诗词'] = Math.min(
+        HERO_BASE_CAPS.civilSkill,
+        (d.baseStats.skills['诗词'] ?? 55) + 2,
+      )
       d.stamina = Math.min(d.maxStamina, d.stamina + 10)
     },
   },
@@ -182,8 +195,9 @@ function removeItemFromInventory(
   return next
 }
 
-const INITIAL_EQUIP_TOTALS = computeEquipmentTotals(DEFAULT_EQUIPPED_SLOTS)
-const INITIAL_ART_TOTALS = computeEquippedArtsTotals(
+const INITIAL_DERIVED_STATS = deriveHeroEffectiveStats(
+  DEFAULT_HERO_BASE_STATS,
+  DEFAULT_EQUIPPED_SLOTS,
   DEFAULT_EQUIPPED_ARTS,
   DEFAULT_LEARNED_ARTS,
 )
@@ -200,6 +214,7 @@ export interface GameStoreState {
   selectedSpotId: string | null
   currentNodeId: string
 
+  baseStats: HeroBaseStats
   mountKey: MountKey
   qinggongBonus: number
   ridingSkill: number
@@ -246,6 +261,7 @@ export interface GameStoreState {
   saveNotice: { text: string; tone: 'success' | 'error' } | null
 
   // Actions
+  clearActionFeedback: () => void
   setTooltip: (payload: TooltipPayload | null) => void
   moveTooltip: (x: number, y: number) => void
   clearFloatingSelection: () => void
@@ -331,6 +347,7 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     selectedSpotId: s.selectedSpotId,
     currentNodeId: s.currentNodeId,
     campPos: s.campPos ? { ...s.campPos } : null,
+    baseStats: cloneHeroBaseStats(s.baseStats),
     mountKey: s.mountKey,
     qinggongBonus: s.qinggongBonus,
     ridingSkill: s.ridingSkill,
@@ -369,30 +386,21 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   selectedSpotId: null,
   currentNodeId: 'bianliang',
 
-  mountKey: INITIAL_EQUIP_TOTALS.mountKey,
-  qinggongBonus: INITIAL_ART_TOTALS.qinggongBonus || 0.15,
-  ridingSkill: 45 + INITIAL_EQUIP_TOTALS.riding,
-  agility: 65 + INITIAL_EQUIP_TOTALS.agility + INITIAL_ART_TOTALS.agility,
+  baseStats: cloneHeroBaseStats(DEFAULT_HERO_BASE_STATS),
+  mountKey: INITIAL_DERIVED_STATS.mountKey,
+  qinggongBonus: INITIAL_DERIVED_STATS.qinggongBonus,
+  ridingSkill: INITIAL_DERIVED_STATS.ridingSkill,
+  agility: INITIAL_DERIVED_STATS.agility,
   silver: 5120,
   food: 25,
-  hp: 1200 + INITIAL_EQUIP_TOTALS.maxHp + INITIAL_ART_TOTALS.maxHp,
-  maxHp: 1200 + INITIAL_EQUIP_TOTALS.maxHp + INITIAL_ART_TOTALS.maxHp,
-  mp: 950 + INITIAL_EQUIP_TOTALS.maxMp + INITIAL_ART_TOTALS.maxMp,
-  maxMp: 950 + INITIAL_EQUIP_TOTALS.maxMp + INITIAL_ART_TOTALS.maxMp,
-  stamina: 100 + INITIAL_EQUIP_TOTALS.maxStamina,
-  maxStamina: 100 + INITIAL_EQUIP_TOTALS.maxStamina,
-  res: 40 + INITIAL_EQUIP_TOTALS.res + INITIAL_ART_TOTALS.res,
-  skills: {
-    算术: 52,
-    经义: 60,
-    策论: 48,
-    诗词: 55,
-    琴: 42,
-    棋: 50,
-    书: 46,
-    画: 40,
-    辩才: 64,
-  },
+  hp: INITIAL_DERIVED_STATS.maxHp,
+  maxHp: INITIAL_DERIVED_STATS.maxHp,
+  mp: INITIAL_DERIVED_STATS.maxMp,
+  maxMp: INITIAL_DERIVED_STATS.maxMp,
+  stamina: INITIAL_DERIVED_STATS.maxStamina,
+  maxStamina: INITIAL_DERIVED_STATS.maxStamina,
+  res: INITIAL_DERIVED_STATS.res,
+  skills: { ...INITIAL_DERIVED_STATS.skills },
 
   equipped: { ...DEFAULT_EQUIPPED_SLOTS },
   learnedArts: DEFAULT_LEARNED_ARTS.map((x) => ({ ...x })),
@@ -453,6 +461,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   saveBusy: false,
   saveNotice: null,
 
+  clearActionFeedback: () => set({ actionFeedback: null }),
   setTooltip: (payload) => set({ tooltip: payload }),
   moveTooltip: (x, y) =>
     set((s) => (s.tooltip ? { tooltip: { ...s.tooltip, x, y } } : s)),
@@ -765,6 +774,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         res: s.res,
         ridingSkill: s.ridingSkill,
         skills: s.skills,
+        talents: s.baseStats.talents,
       })
       if (!reqCheck.ok) {
         const unmetStr = reqCheck.details
@@ -786,6 +796,36 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
+    if (def.gearMeta) {
+      const reqCheck = checkGearEquipRequirements(def.gearMeta, {
+        maxHp: s.maxHp,
+        maxMp: s.maxMp,
+        agility: s.agility,
+        res: s.res,
+        ridingSkill: s.ridingSkill,
+        skills: s.skills,
+        talents: s.baseStats.talents,
+      })
+      if (!reqCheck.ok) {
+        const unmetStr = reqCheck.details
+          .filter((d) => !d.met)
+          .map((d) => `${d.stat} ${d.current}/${d.min}`)
+          .join('、')
+        const warnMsg = `难以穿佩${def.gearMeta.tier}${def.gearMeta.grade}重宝【${def.name}】！未达披挂门槛：${unmetStr}`
+        set({
+          actionFeedback: {
+            text: warnMsg,
+            tone: 'warn',
+          },
+          logs: [
+            createLogEntry(s.dayCount, '宝甲奇珍受限', warnMsg, true, s.shichenIdx),
+            ...s.logs,
+          ].slice(0, 60),
+        })
+        return
+      }
+    }
+
     if (def.mountMeta) {
       const reqCheck = checkMountEquipRequirements(def.mountMeta, {
         maxHp: s.maxHp,
@@ -794,6 +834,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         res: s.res,
         ridingSkill: s.ridingSkill,
         skills: s.skills,
+        talents: s.baseStats.talents,
       })
       if (!reqCheck.ok) {
         const unmetStr = reqCheck.details
@@ -830,48 +871,32 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const oldEquipId = s.equipped[slot]
     const nextInv = oldEquipId ? addItemToInventory(afterRemove, oldEquipId, 1) : afterRemove
 
-    const oldTotals = computeEquipmentTotals(s.equipped)
     const nextEquipped: EquippedSlotsMap = {
       ...s.equipped,
       [slot]: itemId,
     }
-    const newTotals = computeEquipmentTotals(nextEquipped)
-
-    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
-    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
-    const deltaMaxStamina = newTotals.maxStamina - oldTotals.maxStamina
-    const deltaAgi = newTotals.agility - oldTotals.agility
-    const deltaRes = newTotals.res - oldTotals.res
-    const deltaRiding = newTotals.riding - oldTotals.riding
-
-    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
-    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
-    const nextMaxStamina = Math.max(40, s.maxStamina + deltaMaxStamina)
-
-    const nextSkills = { ...s.skills }
-    const allSkillKeys = new Set([
-      ...Object.keys(oldTotals.skills),
-      ...Object.keys(newTotals.skills),
-    ])
-    for (const sk of allSkillKeys) {
-      const diff = (newTotals.skills[sk] ?? 0) - (oldTotals.skills[sk] ?? 0)
-      nextSkills[sk] = Math.max(0, Math.min(100, (nextSkills[sk] ?? 40) + diff))
-    }
+    const derived = deriveHeroEffectiveStats(
+      s.baseStats,
+      nextEquipped,
+      s.equippedArts,
+      s.learnedArts,
+    )
 
     set({
       equipped: nextEquipped,
       inventory: nextInv,
-      mountKey: newTotals.mountKey,
-      maxHp: nextMaxHp,
-      hp: Math.min(nextMaxHp, Math.max(1, s.hp + Math.max(0, deltaMaxHp))),
-      maxMp: nextMaxMp,
-      mp: Math.min(nextMaxMp, Math.max(0, s.mp + Math.max(0, deltaMaxMp))),
-      maxStamina: nextMaxStamina,
-      stamina: Math.min(nextMaxStamina, Math.max(0, s.stamina + Math.max(0, deltaMaxStamina))),
-      agility: Math.max(1, s.agility + deltaAgi),
-      res: Math.max(0, s.res + deltaRes),
-      ridingSkill: Math.max(0, s.ridingSkill + deltaRiding),
-      skills: nextSkills,
+      mountKey: derived.mountKey,
+      qinggongBonus: derived.qinggongBonus,
+      maxHp: derived.maxHp,
+      hp: Math.min(derived.maxHp, s.hp),
+      maxMp: derived.maxMp,
+      mp: Math.min(derived.maxMp, s.mp),
+      maxStamina: derived.maxStamina,
+      stamina: Math.min(derived.maxStamina, s.stamina),
+      agility: derived.agility,
+      res: derived.res,
+      ridingSkill: derived.ridingSkill,
+      skills: derived.skills,
       actionFeedback: {
         text: `已佩备【${def.name}】！`,
         tone: 'success',
@@ -895,45 +920,37 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (!oldItemId) return
     const oldDef = ITEM_DB_MAP[oldItemId]
 
-    const oldTotals = computeEquipmentTotals(s.equipped)
     const nextEquipped: EquippedSlotsMap = {
       ...s.equipped,
       [slot]: null,
     }
-    const newTotals = computeEquipmentTotals(nextEquipped)
     const nextInv = addItemToInventory(s.inventory, oldItemId, 1)
-
-    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
-    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
-    const deltaMaxStamina = newTotals.maxStamina - oldTotals.maxStamina
-    const deltaAgi = newTotals.agility - oldTotals.agility
-    const deltaRes = newTotals.res - oldTotals.res
-    const deltaRiding = newTotals.riding - oldTotals.riding
-
-    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
-    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
-    const nextMaxStamina = Math.max(40, s.maxStamina + deltaMaxStamina)
-
-    const nextSkills = { ...s.skills }
-    for (const [sk, val] of Object.entries(oldTotals.skills)) {
-      const diff = (newTotals.skills[sk] ?? 0) - val
-      nextSkills[sk] = Math.max(0, Math.min(100, (nextSkills[sk] ?? 40) + diff))
-    }
+    const derived = deriveHeroEffectiveStats(
+      s.baseStats,
+      nextEquipped,
+      s.equippedArts,
+      s.learnedArts,
+    )
 
     set({
       equipped: nextEquipped,
       inventory: nextInv,
-      mountKey: newTotals.mountKey,
-      maxHp: nextMaxHp,
-      hp: Math.min(nextMaxHp, s.hp),
-      maxMp: nextMaxMp,
-      mp: Math.min(nextMaxMp, s.mp),
-      maxStamina: nextMaxStamina,
-      stamina: Math.min(nextMaxStamina, s.stamina),
-      agility: Math.max(1, s.agility + deltaAgi),
-      res: Math.max(0, s.res + deltaRes),
-      ridingSkill: Math.max(0, s.ridingSkill + deltaRiding),
-      skills: nextSkills,
+      mountKey: derived.mountKey,
+      qinggongBonus: derived.qinggongBonus,
+      maxHp: derived.maxHp,
+      hp: Math.min(derived.maxHp, s.hp),
+      maxMp: derived.maxMp,
+      mp: Math.min(derived.maxMp, s.mp),
+      maxStamina: derived.maxStamina,
+      stamina: Math.min(derived.maxStamina, s.stamina),
+      agility: derived.agility,
+      res: derived.res,
+      ridingSkill: derived.ridingSkill,
+      skills: derived.skills,
+      actionFeedback: {
+        text: `已卸下【${oldDef?.name ?? oldItemId}】，角色自身属性根基毫发无损。`,
+        tone: 'talk',
+      },
       logs: [
         createLogEntry(
           s.dayCount,
@@ -1036,7 +1053,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (!art || !canArtFitSlot(art, slot)) return
     if (!s.learnedArts.some((x) => x.artId === artId)) return
 
-    const oldTotals = computeEquippedArtsTotals(s.equippedArts, s.learnedArts)
     const nextEquippedArts: EquippedArtsMap = { ...s.equippedArts }
 
     // Ensure the same martial art is not duplicated in two slots
@@ -1048,24 +1064,26 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const prevInSlot = s.equippedArts[slot]
     nextEquippedArts[slot] = artId
 
-    const newTotals = computeEquippedArtsTotals(nextEquippedArts, s.learnedArts)
-    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
-    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
-    const deltaAgi = newTotals.agility - oldTotals.agility
-    const deltaRes = newTotals.res - oldTotals.res
-
-    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
-    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
+    const derived = deriveHeroEffectiveStats(
+      s.baseStats,
+      s.equipped,
+      nextEquippedArts,
+      s.learnedArts,
+    )
 
     set({
       equippedArts: nextEquippedArts,
-      qinggongBonus: newTotals.qinggongBonus,
-      maxHp: nextMaxHp,
-      hp: Math.min(nextMaxHp, Math.max(1, s.hp + Math.max(0, deltaMaxHp))),
-      maxMp: nextMaxMp,
-      mp: Math.min(nextMaxMp, Math.max(0, s.mp + Math.max(0, deltaMaxMp))),
-      agility: Math.max(1, s.agility + deltaAgi),
-      res: Math.max(0, s.res + deltaRes),
+      qinggongBonus: derived.qinggongBonus,
+      maxHp: derived.maxHp,
+      hp: Math.min(derived.maxHp, s.hp),
+      maxMp: derived.maxMp,
+      mp: Math.min(derived.maxMp, s.mp),
+      agility: derived.agility,
+      res: derived.res,
+      actionFeedback: {
+        text: `已将【${art.name}】运使入槽！`,
+        tone: 'success',
+      },
       logs: [
         createLogEntry(
           s.dayCount,
@@ -1085,30 +1103,30 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (!oldArtId) return
     const oldArt = MARTIAL_ART_DB_MAP[oldArtId]
 
-    const oldTotals = computeEquippedArtsTotals(s.equippedArts, s.learnedArts)
     const nextEquippedArts: EquippedArtsMap = {
       ...s.equippedArts,
       [slot]: null,
     }
-    const newTotals = computeEquippedArtsTotals(nextEquippedArts, s.learnedArts)
-
-    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
-    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
-    const deltaAgi = newTotals.agility - oldTotals.agility
-    const deltaRes = newTotals.res - oldTotals.res
-
-    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
-    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
+    const derived = deriveHeroEffectiveStats(
+      s.baseStats,
+      s.equipped,
+      nextEquippedArts,
+      s.learnedArts,
+    )
 
     set({
       equippedArts: nextEquippedArts,
-      qinggongBonus: newTotals.qinggongBonus,
-      maxHp: nextMaxHp,
-      hp: Math.min(nextMaxHp, s.hp),
-      maxMp: nextMaxMp,
-      mp: Math.min(nextMaxMp, s.mp),
-      agility: Math.max(1, s.agility + deltaAgi),
-      res: Math.max(0, s.res + deltaRes),
+      qinggongBonus: derived.qinggongBonus,
+      maxHp: derived.maxHp,
+      hp: Math.min(derived.maxHp, s.hp),
+      maxMp: derived.maxMp,
+      mp: Math.min(derived.maxMp, s.mp),
+      agility: derived.agility,
+      res: derived.res,
+      actionFeedback: {
+        text: `已散去槽位上的【${oldArt?.name ?? oldArtId}】。`,
+        tone: 'talk',
+      },
       logs: [
         createLogEntry(
           s.dayCount,
@@ -1148,49 +1166,58 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
-    const oldTotals = computeEquippedArtsTotals(s.equippedArts, s.learnedArts)
+    const expGain = calcPracticeArtExpGain(art, s.baseStats.talents)
     const nextLearned = s.learnedArts.map((x) => ({ ...x }))
     let nextLv = cur.level
-    const reqExp = getArtExpRequired(art, nextLv)
-    let nextExp = cur.exp + 45
+    let nextExp = cur.exp + expGain
     let leveledUp = false
-    if (reqExp > 0 && nextExp >= reqExp) {
-      nextLv = Math.min(10, nextLv + 1)
-      nextExp = nextLv >= 10 ? 0 : nextExp - reqExp
+    while (nextLv < 10) {
+      const reqExp = getArtExpRequired(art, nextLv)
+      if (reqExp <= 0 || nextExp < reqExp) break
+      nextExp -= reqExp
+      nextLv += 1
       leveledUp = true
+    }
+    if (nextLv >= 10) {
+      nextExp = 0
     }
     nextLearned[idx] = { artId, level: nextLv, exp: nextExp }
 
-    const newTotals = computeEquippedArtsTotals(s.equippedArts, nextLearned)
-    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
-    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
-    const deltaAgi = newTotals.agility - oldTotals.agility
-    const deltaRes = newTotals.res - oldTotals.res
-
-    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
-    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
+    const derived = deriveHeroEffectiveStats(
+      s.baseStats,
+      s.equipped,
+      s.equippedArts,
+      nextLearned,
+    )
+    const deltaMaxHp = Math.max(0, derived.maxHp - s.maxHp)
+    const deltaMaxMp = Math.max(0, derived.maxMp - s.maxMp)
     const nextReqExp = getArtExpRequired(art, nextLv)
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+    const msgText = leveledUp
+      ? `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 +${expGain}），火候突破至第 ${nextLv} 重！`
+      : `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 +${expGain} → ${nextExp}/${nextReqExp}）。`
 
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
       stamina: Math.max(0, s.stamina - 10),
       learnedArts: nextLearned,
-      qinggongBonus: newTotals.qinggongBonus,
-      maxHp: nextMaxHp,
-      hp: Math.min(nextMaxHp, s.hp + Math.max(0, deltaMaxHp)),
-      maxMp: nextMaxMp,
-      mp: Math.min(nextMaxMp, s.mp + Math.max(0, deltaMaxMp)),
-      agility: Math.max(1, s.agility + deltaAgi),
-      res: Math.max(0, s.res + deltaRes),
+      qinggongBonus: derived.qinggongBonus,
+      maxHp: derived.maxHp,
+      hp: Math.min(derived.maxHp, s.hp + deltaMaxHp),
+      maxMp: derived.maxMp,
+      mp: Math.min(derived.maxMp, s.mp + deltaMaxMp),
+      agility: derived.agility,
+      res: derived.res,
+      actionFeedback: {
+        text: msgText,
+        tone: 'success',
+      },
       logs: [
         createLogEntry(
           clock.dayCount,
           leveledUp ? '武学突破' : '演武苦修',
-          leveledUp
-            ? `潜心演练【${art.name}】一个时辰（体能 -10），火候突破至第 ${nextLv} 重！`
-            : `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 ${nextExp}/${nextReqExp}）。`,
+          msgText,
           leveledUp,
           clock.shichenIdx,
         ),
@@ -1210,11 +1237,27 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const eff = def.useEffect
     if (!eff) return
 
-    const isNonStackableTool = def.category === 'tools' && !def.stackable
-    if (isNonStackableTool && s.stamina < 6 && !eff.stamina) {
+    // 铁律：武学秘籍只能用于初次学会入门（第 1 重），不可靠继续翻阅刷熟练度或重复领属性
+    if (eff.learnArtId && MARTIAL_ART_DB_MAP[eff.learnArtId]) {
+      const targetArt = MARTIAL_ART_DB_MAP[eff.learnArtId]
+      const alreadyLearned = s.learnedArts.some((x) => x.artId === eff.learnArtId)
+      if (alreadyLearned) {
+        set({
+          actionFeedback: {
+            text: `少侠已通晓【${targetArt.name}】入门心法！秘籍仅作初窥门径之用，无法靠重复翻阅提升熟练度，请赴【披挂与武学】演练精修。`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
+    }
+
+    const requiresStudyStamina =
+      (def.category === 'tools' || def.category === 'scrolls') && !def.stackable && !eff.stamina
+    if (requiresStudyStamina && s.stamina < 6) {
       set({
         actionFeedback: {
-          text: `把玩雅器潜心修习需耗费 6 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚！`,
+          text: `${def.category === 'scrolls' ? '展卷参悟典籍' : '把玩雅器修习'}需耗费 6 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚！`,
           tone: 'warn',
         },
       })
@@ -1227,19 +1270,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ? (removeItemFromInventory(s.inventory, itemId, 1) ?? s.inventory)
       : s.inventory
 
-    let nextHp = s.hp
-    let nextMaxHp = s.maxHp
-    let nextMp = s.mp
-    let nextMaxMp = s.maxMp
-    let nextStamina = isNonStackableTool && !eff.stamina ? Math.max(0, s.stamina - 6) : s.stamina
-    let nextMaxStamina = s.maxStamina
-    let nextAgi = s.agility
-    let nextRes = s.res
-    let nextRiding = s.ridingSkill
-    let nextFood = s.food
-    let nextQinggongBonus = s.qinggongBonus
+    const nextBaseStats = cloneHeroBaseStats(s.baseStats)
     let nextLearnedArts = s.learnedArts
-    const nextSkills = { ...s.skills }
+    let nextFood = s.food
     const notes: string[] = []
 
     const clock =
@@ -1249,79 +1282,93 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     if (eff.learnArtId && MARTIAL_ART_DB_MAP[eff.learnArtId]) {
       const targetArt = MARTIAL_ART_DB_MAP[eff.learnArtId]
-      const oldTotals = computeEquippedArtsTotals(s.equippedArts, s.learnedArts)
-      const cloned = s.learnedArts.map((x) => ({ ...x }))
-      const existIdx = cloned.findIndex((x) => x.artId === eff.learnArtId)
-      if (existIdx === -1) {
-        cloned.push({ artId: eff.learnArtId, level: 1, exp: 20 })
-        notes.push(`新习得武学【${targetArt.name}（第1重）】`)
-      } else if (cloned[existIdx].level < 10) {
-        let lv = cloned[existIdx].level
-        let xp = cloned[existIdx].exp + 50
-        if (xp >= 100) {
-          lv = Math.min(10, lv + 1)
-          xp = lv >= 10 ? 100 : xp - 100
-          notes.push(`【${targetArt.name}】突破至第 ${lv} 重`)
-        } else {
-          notes.push(`【${targetArt.name}】熟练度 +50`)
-        }
-        cloned[existIdx] = { artId: eff.learnArtId, level: lv, exp: xp }
-      }
-      nextLearnedArts = cloned
-      const newTotals = computeEquippedArtsTotals(s.equippedArts, nextLearnedArts)
-      nextMaxHp = Math.max(100, nextMaxHp + (newTotals.maxHp - oldTotals.maxHp))
-      nextMaxMp = Math.max(50, nextMaxMp + (newTotals.maxMp - oldTotals.maxMp))
-      nextAgi = Math.max(1, nextAgi + (newTotals.agility - oldTotals.agility))
-      nextRes = Math.max(0, nextRes + (newTotals.res - oldTotals.res))
-      nextQinggongBonus = newTotals.qinggongBonus
+      nextLearnedArts = [
+        ...s.learnedArts.map((x) => ({ ...x })),
+        { artId: eff.learnArtId, level: 1, exp: 0 },
+      ]
+      notes.push(`初窥门径，习得武学【${targetArt.name}（第1重）】`)
     }
 
     if (eff.maxHp) {
-      nextMaxHp += eff.maxHp
-      notes.push(`气血上限 +${eff.maxHp}`)
+      nextBaseStats.maxHp += eff.maxHp
+      notes.push(`气血根基上限 +${eff.maxHp}`)
     }
     if (eff.maxMp) {
-      nextMaxMp += eff.maxMp
-      notes.push(`内力上限 +${eff.maxMp}`)
+      nextBaseStats.maxMp += eff.maxMp
+      notes.push(`内力根基上限 +${eff.maxMp}`)
     }
     if (eff.maxStamina) {
-      nextMaxStamina += eff.maxStamina
-      notes.push(`体能上限 +${eff.maxStamina}`)
+      nextBaseStats.maxStamina += eff.maxStamina
+      notes.push(`体能根基上限 +${eff.maxStamina}`)
     }
     if (eff.agi) {
-      nextAgi += eff.agi
-      notes.push(`身法 +${eff.agi}`)
-    }
-    if (eff.hp) {
-      nextHp = Math.min(nextMaxHp, nextHp + eff.hp)
-      notes.push(`气血 +${eff.hp}`)
-    }
-    if (eff.mp) {
-      nextMp = Math.min(nextMaxMp, nextMp + eff.mp)
-      notes.push(`内力 +${eff.mp}`)
-    }
-    if (eff.stamina) {
-      nextStamina = Math.min(nextMaxStamina, nextStamina + eff.stamina)
-      notes.push(`体能 +${eff.stamina}`)
-    } else if (isNonStackableTool) {
-      notes.push('体能 -6')
+      const prev = nextBaseStats.agility
+      nextBaseStats.agility = Math.min(HERO_BASE_CAPS.agility, prev + eff.agi)
+      notes.push(
+        nextBaseStats.agility > prev
+          ? `身法根基 +${nextBaseStats.agility - prev}`
+          : `身法根基已臻上限 (${HERO_BASE_CAPS.agility})`,
+      )
     }
     if (eff.res) {
-      nextRes = Math.min(100, nextRes + eff.res)
-      notes.push(`抗性 +${eff.res}`)
+      const prev = nextBaseStats.res
+      nextBaseStats.res = Math.min(HERO_BASE_CAPS.res, prev + eff.res)
+      notes.push(
+        nextBaseStats.res > prev
+          ? `抗性根基 +${nextBaseStats.res - prev}`
+          : `抗性根基已臻上限 (${HERO_BASE_CAPS.res})`,
+      )
     }
     if (eff.riding) {
-      nextRiding = Math.min(120, nextRiding + eff.riding)
-      notes.push(`【骑术】+${eff.riding}`)
+      const prev = nextBaseStats.ridingSkill
+      nextBaseStats.ridingSkill = Math.min(HERO_BASE_CAPS.ridingSkill, prev + eff.riding)
+      notes.push(
+        nextBaseStats.ridingSkill > prev
+          ? `【骑术】+${nextBaseStats.ridingSkill - prev}`
+          : `【骑术】根基已满 (${HERO_BASE_CAPS.ridingSkill})`,
+      )
+    }
+    if (eff.skillGain) {
+      const [sk, gain] = eff.skillGain
+      const prev = nextBaseStats.skills[sk] ?? 40
+      nextBaseStats.skills[sk] = Math.min(HERO_BASE_CAPS.civilSkill, prev + gain)
+      notes.push(
+        nextBaseStats.skills[sk] > prev
+          ? `【${sk}】+${nextBaseStats.skills[sk] - prev}`
+          : `【${sk}】根基已满 (${HERO_BASE_CAPS.civilSkill})`,
+      )
     }
     if (eff.food) {
       nextFood += eff.food
       notes.push(`粮草 +${eff.food}日份`)
     }
-    if (eff.skillGain) {
-      const [sk, gain] = eff.skillGain
-      nextSkills[sk] = Math.min(100, (nextSkills[sk] ?? 40) + gain)
-      notes.push(`【${sk}】+${gain}`)
+
+    const derived = deriveHeroEffectiveStats(
+      nextBaseStats,
+      s.equipped,
+      s.equippedArts,
+      nextLearnedArts,
+    )
+
+    let nextHp = Math.min(derived.maxHp, s.hp)
+    let nextMp = Math.min(derived.maxMp, s.mp)
+    let nextStamina = requiresStudyStamina
+      ? Math.max(0, Math.min(derived.maxStamina, s.stamina) - 6)
+      : Math.min(derived.maxStamina, s.stamina)
+
+    if (eff.hp) {
+      nextHp = Math.min(derived.maxHp, nextHp + eff.hp)
+      notes.push(`气血 +${eff.hp}`)
+    }
+    if (eff.mp) {
+      nextMp = Math.min(derived.maxMp, nextMp + eff.mp)
+      notes.push(`内力 +${eff.mp}`)
+    }
+    if (eff.stamina) {
+      nextStamina = Math.min(derived.maxStamina, nextStamina + eff.stamina)
+      notes.push(`体能 +${eff.stamina}`)
+    } else if (requiresStudyStamina) {
+      notes.push('体能 -6')
     }
     if (eff.learnArtHint && !eff.learnArtId) {
       notes.push(eff.learnArtHint)
@@ -1338,19 +1385,21 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
       inventory: nextInv,
+      baseStats: nextBaseStats,
       learnedArts: nextLearnedArts,
-      qinggongBonus: nextQinggongBonus,
+      mountKey: derived.mountKey,
+      qinggongBonus: derived.qinggongBonus,
       hp: nextHp,
-      maxHp: nextMaxHp,
+      maxHp: derived.maxHp,
       mp: nextMp,
-      maxMp: nextMaxMp,
+      maxMp: derived.maxMp,
       stamina: nextStamina,
-      maxStamina: nextMaxStamina,
-      agility: nextAgi,
-      res: nextRes,
-      ridingSkill: nextRiding,
+      maxStamina: derived.maxStamina,
+      agility: derived.agility,
+      res: derived.res,
+      ridingSkill: derived.ridingSkill,
       food: nextFood,
-      skills: nextSkills,
+      skills: derived.skills,
       actionFeedback: {
         text: `${logTag}【${def.name}】：${notes.join('，')}。`,
         tone: 'success',
@@ -1394,15 +1443,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
 
     let nextSilver = s.silver - cost
-    let nextHp = s.hp
-    let nextMaxHp = s.maxHp
-    let nextMp = s.mp
-    let nextMaxMp = s.maxMp
-    let nextStamina = isRestInn ? s.maxStamina : Math.max(0, s.stamina - staminaCost)
-    let nextAgi = s.agility
-    let nextRes = s.res
-    let nextRiding = s.ridingSkill
-    const nextSkills = { ...s.skills }
+    const nextBaseStats = cloneHeroBaseStats(s.baseStats)
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, isRestInn ? 4 : 2)
     const nextDay = clock.dayCount
 
@@ -1410,45 +1451,68 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const gains: string[] = []
 
     if (eff.hp) {
-      nextMaxHp += Math.round(eff.hp * 0.25)
-      nextHp = Math.min(nextMaxHp, nextHp + eff.hp)
-      gains.push(`气血 +${eff.hp}`)
+      nextBaseStats.maxHp += Math.round(eff.hp * 0.25)
     }
     if (eff.mp) {
-      nextMaxMp += Math.round(eff.mp * 0.25)
-      nextMp = Math.min(nextMaxMp, nextMp + eff.mp)
-      gains.push(`内力 +${eff.mp}`)
-    }
-    if (isRestInn) {
-      nextHp = nextMaxHp
-      nextMp = nextMaxMp
-      gains.push(`体能全满 (${s.maxStamina})`)
-    } else {
-      gains.push(`体能 -${staminaCost}`)
+      nextBaseStats.maxMp += Math.round(eff.mp * 0.25)
     }
     if (eff.agi) {
-      nextAgi = Math.min(120, nextAgi + eff.agi)
-      gains.push(`身法 +${eff.agi}（现 ${nextAgi}）`)
+      nextBaseStats.agility = Math.min(HERO_BASE_CAPS.agility, nextBaseStats.agility + eff.agi)
     }
     if (eff.res) {
-      nextRes = Math.min(120, nextRes + eff.res)
-      gains.push(`抗性 +${eff.res}（现 ${nextRes}）`)
+      nextBaseStats.res = Math.min(HERO_BASE_CAPS.res, nextBaseStats.res + eff.res)
     }
     if (eff.riding) {
-      nextRiding = Math.min(120, nextRiding + eff.riding)
-      gains.push(`骑术 +${eff.riding}（现 ${nextRiding}）`)
+      nextBaseStats.ridingSkill = Math.min(
+        HERO_BASE_CAPS.ridingSkill,
+        nextBaseStats.ridingSkill + eff.riding,
+      )
     }
     if (eff.silver) {
       nextSilver += eff.silver
-      gains.push(`纹银 +${eff.silver} 两`)
     }
 
     const tuples = [eff.skill, eff.skill2, eff.skill3]
     for (const tup of tuples) {
       if (tup) {
         const [sName, delta] = tup
-        nextSkills[sName] = Math.min(100, (nextSkills[sName] ?? 40) + delta)
-        gains.push(`【${sName}】+${delta}（现 ${nextSkills[sName]}/100）`)
+        nextBaseStats.skills[sName] = Math.min(
+          HERO_BASE_CAPS.civilSkill,
+          (nextBaseStats.skills[sName] ?? 40) + delta,
+        )
+      }
+    }
+
+    const derived = deriveHeroEffectiveStats(
+      nextBaseStats,
+      s.equipped,
+      s.equippedArts,
+      s.learnedArts,
+    )
+
+    let nextHp = Math.min(derived.maxHp, s.hp + (eff.hp ?? 0))
+    let nextMp = Math.min(derived.maxMp, s.mp + (eff.mp ?? 0))
+    const nextStamina = isRestInn
+      ? derived.maxStamina
+      : Math.max(0, Math.min(derived.maxStamina, s.stamina) - staminaCost)
+
+    if (eff.hp) gains.push(`气血 +${eff.hp}`)
+    if (eff.mp) gains.push(`内力 +${eff.mp}`)
+    if (isRestInn) {
+      nextHp = derived.maxHp
+      nextMp = derived.maxMp
+      gains.push(`体能全满 (${derived.maxStamina})`)
+    } else {
+      gains.push(`体能 -${staminaCost}`)
+    }
+    if (eff.agi) gains.push(`身法 +${eff.agi}（现 ${derived.agility}）`)
+    if (eff.res) gains.push(`抗性 +${eff.res}（现 ${derived.res}）`)
+    if (eff.riding) gains.push(`骑术 +${eff.riding}（现 ${derived.ridingSkill}）`)
+    if (eff.silver) gains.push(`纹银 +${eff.silver} 两`)
+    for (const tup of tuples) {
+      if (tup) {
+        const [sName, delta] = tup
+        gains.push(`【${sName}】+${delta}（根基 ${nextBaseStats.skills[sName]}/100）`)
       }
     }
 
@@ -1487,15 +1551,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       dayCount: nextDay,
       shichenIdx: clock.shichenIdx,
       silver: nextSilver,
+      baseStats: nextBaseStats,
       hp: nextHp,
-      maxHp: nextMaxHp,
+      maxHp: derived.maxHp,
       mp: nextMp,
-      maxMp: nextMaxMp,
+      maxMp: derived.maxMp,
       stamina: nextStamina,
-      agility: nextAgi,
-      res: nextRes,
-      ridingSkill: nextRiding,
-      skills: nextSkills,
+      maxStamina: derived.maxStamina,
+      agility: derived.agility,
+      res: derived.res,
+      ridingSkill: derived.ridingSkill,
+      skills: derived.skills,
       roamingMasters: nextMasters,
       actionFeedback: { text: summary, tone: 'success' },
       logs: nextLogs.slice(0, 60),
@@ -1536,20 +1602,31 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         primarySkill = sorted[0] ?? '诗词'
         secondarySkill = sorted[1] ?? '琴'
       }
-      const nextPrimaryVal = Math.min(100, (s.skills[primarySkill] ?? 45) + 2)
-      const nextSecondaryVal = Math.min(100, (s.skills[secondarySkill] ?? 45) + 1)
-      const nextSkills = {
-        ...s.skills,
-        [primarySkill]: nextPrimaryVal,
-        [secondarySkill]: nextSecondaryVal,
-      }
+      const nextBaseStats = cloneHeroBaseStats(s.baseStats)
+      const nextPrimaryBase = Math.min(
+        HERO_BASE_CAPS.civilSkill,
+        (nextBaseStats.skills[primarySkill] ?? 45) + 2,
+      )
+      const nextSecondaryBase = Math.min(
+        HERO_BASE_CAPS.civilSkill,
+        (nextBaseStats.skills[secondarySkill] ?? 45) + 1,
+      )
+      nextBaseStats.skills[primarySkill] = nextPrimaryBase
+      nextBaseStats.skills[secondarySkill] = nextSecondaryBase
+      const derived = deriveHeroEffectiveStats(
+        nextBaseStats,
+        s.equipped,
+        s.equippedArts,
+        s.learnedArts,
+      )
       set({
         dayCount: clock.dayCount,
         shichenIdx: clock.shichenIdx,
         stamina: Math.max(0, s.stamina - 6),
-        skills: nextSkills,
+        baseStats: nextBaseStats,
+        skills: derived.skills,
         actionFeedback: {
-          text: `与 ${npc.name} 雅集论道半个时辰（体能 -6，【${primarySkill}】+2 现 ${nextPrimaryVal}/100、【${secondarySkill}】+1 现 ${nextSecondaryVal}/100）。`,
+          text: `与 ${npc.name} 雅集论道半个时辰（体能 -6，【${primarySkill}】+2 根基 ${nextPrimaryBase}/100、【${secondarySkill}】+1 根基 ${nextSecondaryBase}/100）。`,
           tone: 'success',
         },
       })
@@ -1564,15 +1641,23 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       })
       return
     }
-    const nextMaxMp = s.maxMp + 18
+    const nextBaseStats = cloneHeroBaseStats(s.baseStats)
+    nextBaseStats.maxMp += 18
+    const derived = deriveHeroEffectiveStats(
+      nextBaseStats,
+      s.equipped,
+      s.equippedArts,
+      s.learnedArts,
+    )
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
       stamina: Math.max(0, s.stamina - 10),
-      maxMp: nextMaxMp,
-      mp: Math.min(nextMaxMp, s.mp + 18),
+      baseStats: nextBaseStats,
+      maxMp: derived.maxMp,
+      mp: Math.min(derived.maxMp, s.mp + 18),
       actionFeedback: {
-        text: `向 ${npc.name}（${npc.realm}）请益实战拆招，内力修为 +18（体能 -10）！`,
+        text: `向 ${npc.name}（${npc.realm}）请益实战拆招，内力根基修为 +18（体能 -10）！`,
         tone: 'success',
       },
     })
@@ -1671,8 +1756,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextHp = s.hp
     let nextMp = s.mp
     let nextStamina = s.stamina
+    let nextBaseStats = s.baseStats
     let nextRes = s.res
-    const nextSkills = { ...s.skills }
+    let nextSkills = s.skills
     const nextLogs = [...s.logs]
     let nextMasters = s.roamingMasters
 
@@ -1690,6 +1776,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       if (Math.random() < 0.16) {
         const ev = ROAD_EVENTS[Math.floor(Math.random() * ROAD_EVENTS.length)]
         if (ev) {
+          const clonedBase = cloneHeroBaseStats(s.baseStats)
           const draft = {
             hp: nextHp,
             maxHp: s.maxHp,
@@ -1698,15 +1785,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             stamina: nextStamina,
             maxStamina: s.maxStamina,
             silver: nextSilver,
-            res: nextRes,
-            skills: nextSkills,
+            baseStats: clonedBase,
           }
           ev.apply(draft)
-          nextHp = draft.hp
-          nextMp = draft.mp
-          nextStamina = draft.stamina
+          const derived = deriveHeroEffectiveStats(
+            clonedBase,
+            s.equipped,
+            s.equippedArts,
+            s.learnedArts,
+          )
+          nextBaseStats = clonedBase
+          nextHp = Math.min(derived.maxHp, draft.hp)
+          nextMp = Math.min(derived.maxMp, draft.mp)
+          nextStamina = Math.min(derived.maxStamina, draft.stamina)
           nextSilver = draft.silver
-          nextRes = draft.res
+          nextRes = derived.res
+          nextSkills = derived.skills
           nextLogs.unshift(createLogEntry(nextDayCount, ev.tag, ev.msg, true, nextShichenIdx))
         }
       }
@@ -1752,6 +1846,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           shichenIdx: nextShichenIdx,
           food: nextFood,
           silver: nextSilver,
+          baseStats: nextBaseStats,
           hp: nextHp,
           mp: nextMp,
           stamina: nextStamina,
@@ -1789,6 +1884,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         shichenIdx: nextShichenIdx,
         food: nextFood,
         silver: nextSilver,
+        baseStats: nextBaseStats,
         hp: nextHp,
         mp: nextMp,
         stamina: nextStamina,
@@ -1813,6 +1909,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       shichenIdx: nextShichenIdx,
       food: nextFood,
       silver: nextSilver,
+      baseStats: nextBaseStats,
       hp: nextHp,
       mp: nextMp,
       stamina: nextStamina,
@@ -1996,7 +2093,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     return {
       gameTitle: '北宋立志传',
-      schemaVersion: 'M1.3.0',
+      schemaVersion: CURRENT_SAVE_SCHEMA_VERSION,
       slotId,
       savedAt: new Date().toISOString(),
       note: note.trim(),
@@ -2049,6 +2146,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   loadFromEnvelope: (envelope, closeAfterLoad = true) => {
     const st = envelope.state
+    const cleanBase = cloneHeroBaseStats(st.baseStats)
+    const derived = deriveHeroEffectiveStats(
+      cleanBase,
+      st.equipped,
+      st.equippedArts,
+      st.learnedArts,
+    )
     const restoredLogs = [
       createLogEntry(
         st.dayCount,
@@ -2062,6 +2166,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     set({
       ...st,
+      baseStats: cleanBase,
+      mountKey: derived.mountKey,
+      qinggongBonus: derived.qinggongBonus,
+      ridingSkill: derived.ridingSkill,
+      agility: derived.agility,
+      maxHp: derived.maxHp,
+      hp: Math.min(derived.maxHp, st.hp),
+      maxMp: derived.maxMp,
+      mp: Math.min(derived.maxMp, st.mp),
+      maxStamina: derived.maxStamina,
+      stamina: Math.min(derived.maxStamina, st.stamina),
+      res: derived.res,
+      skills: derived.skills,
       campPos: st.campPos ?? null,
       traveling: null,
       tooltip: null,

@@ -3,7 +3,6 @@ import { Check, Plus, Search, Shield, Sparkles } from 'lucide-react'
 import { GEAR_DB, REGION_DB_MAP } from '../../data/gameDb'
 import {
   checkGearEquipRequirements,
-  DEFAULT_HERO_TALENTS,
   formatBonusBadges,
 } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
@@ -52,6 +51,7 @@ export function GearCompendiumPanel({
   const [tierFilter, setTierFilter] = useState<'all' | EquipmentTier>('all')
   const [subTypeFilter, setSubTypeFilter] = useState<string>('all')
 
+  const baseStats = useGameStore((s) => s.baseStats)
   const inventory = useGameStore((s) => s.inventory)
   const equipped = useGameStore((s) => s.equipped)
   const maxHp = useGameStore((s) => s.maxHp)
@@ -181,7 +181,7 @@ export function GearCompendiumPanel({
             equipped.accessory2 === item.id
           const bonuses = formatBonusBadges(item.equipBonus)
           const reqCheck = checkGearEquipRequirements(item, {
-            talents: DEFAULT_HERO_TALENTS,
+            talents: baseStats.talents,
             maxHp,
             maxMp,
             agility,

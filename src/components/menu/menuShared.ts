@@ -58,7 +58,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     numeral: '肆',
     label: '工程与字典',
     seal: '枢',
-    subtitle: '静态资源按需懒加载遥测 + 跨分支标准 ID 字典（43地 / 30派+11组织 / 216功 / 100兵 / 180奇珍 / 1000人）',
+    subtitle: '静态资源按需懒加载遥测 + 跨分支标准 ID 字典（43地 / 30派+11组织 / 216功 / 100兵 / 28骑 / 180奇珍 / 1000人）',
     badge: 'M0-2 已实装',
   },
   {
@@ -66,8 +66,8 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     numeral: '伍',
     label: '存 档',
     seal: '录',
-    subtitle: '多槽位 IndexedDB 卷宗持久化（含披挂、武学重数与四库行囊）、手札批注与 JSON 导出',
-    badge: 'M1.2 卷宗',
+    subtitle: '多槽位 IndexedDB 卷宗持久化（含裸身根基、披挂、武学重数与四库行囊）、手札批注与 JSON 导出',
+    badge: 'M1.3 卷宗',
   },
   {
     key: 'load',
@@ -75,7 +75,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     label: '读 档',
     seal: '启',
     subtitle: '读取当前版本卷宗回溯三层空间与披挂武学现场，或从本地导入 .json 存档文件',
-    badge: 'M1.2 卷宗',
+    badge: 'M1.3 卷宗',
   },
   {
     key: 'settings',
@@ -87,7 +87,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
   },
 ]
 
-// 【图鉴】按钮专属卷册（统辖全部六大图鉴：地区 / 门派 / 群侠 / 武学 / 披挂 / 博物）
+// 【图鉴】按钮专属卷册（统辖全部七大图鉴：地区 / 门派 / 群侠 / 武学 / 披挂 / 坐骑 / 博物）
 export const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
   {
     key: 'regions',
@@ -126,12 +126,20 @@ export const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
     numeral: '伍',
     label: '披挂总纲',
     seal: '兵',
-    subtitle: '七槽披挂规制与第一卷《百兵谱》100 种武器全录（10天阶 · 20地阶 · 30良阶 · 40凡阶）及兵武共鸣',
-    badge: '百兵已定',
+    subtitle: '皇祐五卷披挂全录：百兵谱100 · 衣甲服饰谱56 · 履靴行缠谱28 · 强弓劲弩谱28 · 玉佩奇珍谱56 及兵武共鸣',
+    badge: '268披挂全录',
+  },
+  {
+    key: 'mounts',
+    numeral: '陆',
+    label: '坐骑图鉴',
+    seal: '驹',
+    subtitle: '第六卷《名驹鞍辔谱》28 种良驹全录（3天阶 · 5地阶 · 8良阶 · 12凡阶）、茶马榷场考据与专擅地貌脚力',
+    badge: '28骑全录',
   },
   {
     key: 'treasures',
-    numeral: '陆',
+    numeral: '柒',
     label: '博物图鉴',
     seal: '鉴',
     subtitle: '皇祐三卷奇珍全录：卷壹《典籍书画》100卷 · 卷贰《丹药毒物》30品 · 卷叁《雅器百工》50件（共180品）',

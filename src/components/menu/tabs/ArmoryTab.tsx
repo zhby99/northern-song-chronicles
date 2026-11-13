@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import { FACTION_DB_MAP, MARTIAL_ART_DB_MAP, WEAPONS_DB } from '../../../data/gameDb'
 import {
   checkWeaponEquipRequirements,
-  DEFAULT_HERO_TALENTS,
   formatBonusBadges,
   RARITY_STYLE_MAP,
 } from '../../../data/itemsDb'
@@ -10,9 +9,12 @@ import { useGameStore } from '../../../store/useGameStore'
 import type {
   CompiledMartialArtRecord,
   CompiledWeaponRecord,
+  EquipmentSlotKey,
   EquipmentTier,
+  GearSlotType,
   WeaponSubCategory,
 } from '../../../types/game'
+import { GearCompendiumPanel } from '../GearCompendiumPanel'
 import { WEAPON_SUB_CATEGORIES } from '../menuShared'
 
 interface ArmoryTabProps {
@@ -26,6 +28,8 @@ interface ArmoryTabProps {
   onJumpToSect: (sectId: string) => void
   onJumpToMartialArt: (art: CompiledMartialArtRecord) => void
   onJumpToWeaponLoadout: () => void
+  onJumpToGearLoadout: (slot: EquipmentSlotKey) => void
+  onJumpToMounts: () => void
   onCloseModal: () => void
 }
 
@@ -40,8 +44,11 @@ export function ArmoryTab({
   onJumpToSect,
   onJumpToMartialArt,
   onJumpToWeaponLoadout,
+  onJumpToGearLoadout,
+  onJumpToMounts,
   onCloseModal,
 }: ArmoryTabProps) {
+  const baseStats = useGameStore((s) => s.baseStats)
   const maxHp = useGameStore((s) => s.maxHp)
   const maxMp = useGameStore((s) => s.maxMp)
   const agility = useGameStore((s) => s.agility)
@@ -54,6 +61,7 @@ export function ArmoryTab({
   const acquireWeaponToBag = useGameStore((s) => s.acquireWeaponToBag)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
 
+  const [armorySubTab, setArmorySubTab] = useState<'weapons' | GearSlotType>('weapons')
   const [wpnQuery, setWpnQuery] = useState('')
 
   const playerEquipCtx = useMemo(
@@ -64,9 +72,9 @@ export function ArmoryTab({
       res,
       ridingSkill,
       skills,
-      talents: DEFAULT_HERO_TALENTS,
+      talents: baseStats.talents,
     }),
-    [maxHp, maxMp, agility, res, ridingSkill, skills],
+    [maxHp, maxMp, agility, res, ridingSkill, skills, baseStats.talents],
   )
 
   const inventoryQtyMap = useMemo(() => {
@@ -97,22 +105,62 @@ export function ArmoryTab({
 
   return (
     <div className="space-y-3.5 text-xs">
-      {/* 七槽披挂总卷进度横幅 */}
-      <div className="p-3 rounded bg-[#efe4cc] border-2 border-[#b5986e] flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="px-2 py-0.5 rounded bg-[#8f1d14] text-[#fff8eb] font-bold song-serif">
-            皇祐披挂总典
-          </span>
-          <span className="song-serif font-bold text-xs sm:text-sm text-[#23180f]">
-            第一卷《百兵谱》100 种武器已定稿（10 天阶 · 20 地阶 · 30 良阶 · 40 凡阶）
-          </span>
+      {/* 七槽披挂总卷进度横幅 + 五卷切换栏 */}
+      <div className="p-3 rounded bg-[#efe4cc] border-2 border-[#b5986e] space-y-2.5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="px-2 py-0.5 rounded bg-[#8f1d14] text-[#fff8eb] font-bold song-serif">
+              皇祐披挂总典
+            </span>
+            <span className="song-serif font-bold text-xs sm:text-sm text-[#23180f]">
+              七槽披挂全录（百兵 100 · 服饰 56 · 鞋履 28 · 弓箭 28 · 配饰 56 · 名驹 28）
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={onJumpToMounts}
+            className="px-2.5 py-1 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#f5cb5c]/70 font-bold song-serif text-[11px] cursor-pointer transition"
+          >
+            前往陆·坐骑图鉴（28 骑）▸
+          </button>
         </div>
-        <span className="text-[11px] text-[#6b5235]">
-          其余六槽（服饰 / 鞋履 / 弓箭 / 双配饰 / 坐骑）旧占位披挂已清空，待后续专卷录入
-        </span>
+        <div className="flex flex-wrap gap-1.5">
+          {(
+            [
+              { key: 'weapons', label: '第一卷 · 百兵谱 (100)' },
+              { key: 'armor', label: '第二卷 · 服饰谱 (56)' },
+              { key: 'shoes', label: '第三卷 · 鞋履谱 (28)' },
+              { key: 'bow', label: '第四卷 · 弓箭谱 (28)' },
+              { key: 'accessory', label: '第五卷 · 配饰谱 (56)' },
+            ] as const
+          ).map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => setArmorySubTab(tab.key)}
+              className={`px-3 py-1.5 rounded font-bold song-serif text-xs border transition cursor-pointer ${
+                armorySubTab === tab.key
+                  ? 'bg-[#8f1d14] text-amber-100 border-[#e6be68] shadow-sm'
+                  : 'bg-[#faf3e3] text-[#4a3520] border-[#cbb693] hover:bg-[#ead9b7]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* 检索与品阶/兵种筛选栏 */}
+      {armorySubTab !== 'weapons' ? (
+        <GearCompendiumPanel
+          slotFilter={armorySubTab}
+          onJumpToRegion={onJumpToRegion}
+          onJumpToLoadout={() =>
+            onJumpToGearLoadout(armorySubTab === 'accessory' ? 'accessory1' : armorySubTab)
+          }
+        />
+      ) : (
+        <>
+          {/* 检索与品阶/兵种筛选栏 */}
       <div className="bg-[#efe4cc] p-3 rounded border border-[#c8b28e] space-y-2.5">
         <div className="flex flex-wrap items-center gap-2.5">
           <input
@@ -456,6 +504,8 @@ export function ArmoryTab({
             : null}
         </div>
       </div>
+        </>
+      )}
     </div>
   )
 }

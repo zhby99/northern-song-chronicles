@@ -665,6 +665,23 @@ export interface InventoryStack {
 
 export type EquippedSlotsMap = Record<EquipmentSlotKey, string | null>
 
+export interface HeroTalents {
+  根骨: number
+  悟性: number
+  颜值: number
+}
+
+export interface HeroBaseStats {
+  talents: HeroTalents
+  maxHp: number
+  maxMp: number
+  maxStamina: number
+  agility: number
+  res: number
+  ridingSkill: number
+  skills: Record<string, number>
+}
+
 export interface SerializableGameState {
   dayCount: number
   shichenIdx: number
@@ -678,6 +695,7 @@ export interface SerializableGameState {
   currentNodeId: string
   campPos?: WildernessCamp | null
 
+  baseStats: HeroBaseStats
   mountKey: MountKey
   qinggongBonus: number
   ridingSkill: number

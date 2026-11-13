@@ -1,11 +1,7 @@
 import { useMemo } from 'react'
 import { Maximize2 } from 'lucide-react'
 import { MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
-import {
-  computeEquipmentTotals,
-  computeWeaponArtSynergy,
-  DEFAULT_HERO_TALENTS,
-} from '../../../data/itemsDb'
+import { computeEquipmentTotals, computeWeaponArtSynergy } from '../../../data/itemsDb'
 import { computeEquippedArtsTotals } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
 import { recordAssetLoaded, resolveAssetUrl } from '../../../utils/assetLoader'
@@ -18,6 +14,7 @@ interface HeroTabProps {
 }
 
 export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
+  const baseStats = useGameStore((s) => s.baseStats)
   const hp = useGameStore((s) => s.hp)
   const maxHp = useGameStore((s) => s.maxHp)
   const mp = useGameStore((s) => s.mp)
@@ -170,8 +167,8 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                     style={{ width: `${hpPct}%` }}
                   />
                 </div>
-                <div className="text-[11px] text-[#7a6042] mt-1">
-                  披挂 +{equipTotals.maxHp} · 武学 +{artTotals.maxHp}
+                <div className="text-[11px] text-[#7a6042] mt-1 font-mono">
+                  根基 {baseStats.maxHp} · 披挂 +{equipTotals.maxHp} · 武学 +{artTotals.maxHp}
                 </div>
               </div>
 
@@ -188,8 +185,8 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                     style={{ width: `${mpPct}%` }}
                   />
                 </div>
-                <div className="text-[11px] text-[#7a6042] mt-1">
-                  披挂 +{equipTotals.maxMp} · 武学 +{artTotals.maxMp}
+                <div className="text-[11px] text-[#7a6042] mt-1 font-mono">
+                  根基 {baseStats.maxMp} · 披挂 +{equipTotals.maxMp} · 武学 +{artTotals.maxMp}
                 </div>
               </div>
 
@@ -206,8 +203,8 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                     style={{ width: `${staPct}%` }}
                   />
                 </div>
-                <div className="text-[11px] text-[#7a6042] mt-1">
-                  历练演武与强行军消耗 · 披挂 +{equipTotals.maxStamina}
+                <div className="text-[11px] text-[#7a6042] mt-1 font-mono">
+                  根基 {baseStats.maxStamina} · 披挂 +{equipTotals.maxStamina}
                 </div>
               </div>
             </div>
@@ -217,7 +214,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="p-4 rounded-lg bg-[#efe4cc] border border-[#c8b28e] space-y-2.5">
               <div className="song-serif font-bold text-sm text-[#23180f] border-b border-[#cbb693] pb-1.5 flex items-center justify-between">
-                <span>实战交锋属性（装备+武学实时合计）</span>
+                <span>实战交锋属性（根基+披挂+武学实时派生）</span>
                 <span className="text-[11px] text-[#8f1d14] font-mono">回合交锋</span>
               </div>
               <div className="grid grid-cols-2 gap-2.5 text-xs">
@@ -247,15 +244,15 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   <div className="font-mono font-bold text-base text-[#23180f] mt-0.5">
                     {agility}
                   </div>
-                  <div className="text-[10px] text-[#7a6042]">
-                    鞋履+{equipTotals.agility} / 轻功+{artTotals.agility}
+                  <div className="text-[10px] text-[#7a6042] font-mono">
+                    根基{baseStats.agility} / 履+{equipTotals.agility} / 轻+{artTotals.agility}
                   </div>
                 </div>
                 <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693]">
                   <div className="text-[#6b5235]">周身抗性（毒寒火封）</div>
                   <div className="font-mono font-bold text-base text-[#5b3b73] mt-0.5">{res}</div>
-                  <div className="text-[10px] text-[#7a6042]">
-                    佩饰+{equipTotals.res} / 心法+{artTotals.res}
+                  <div className="text-[10px] text-[#7a6042] font-mono">
+                    根基{baseStats.res} / 饰+{equipTotals.res} / 内+{artTotals.res}
                   </div>
                 </div>
               </div>
@@ -271,21 +268,21 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693]">
                     <div className="text-xs text-[#6b5235] song-serif">根 骨</div>
                     <div className="font-mono font-bold text-lg text-[#781710] mt-0.5">
-                      {DEFAULT_HERO_TALENTS.根骨}
+                      {baseStats.talents.根骨}
                     </div>
-                    <div className="text-[10px] text-[#7a6042]">内外功周天倍率</div>
+                    <div className="text-[10px] text-[#7a6042]">内功周天演武倍率</div>
                   </div>
                   <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693]">
                     <div className="text-xs text-[#6b5235] song-serif">悟 性</div>
                     <div className="font-mono font-bold text-lg text-[#1e3a8a] mt-0.5">
-                      {DEFAULT_HERO_TALENTS.悟性}
+                      {baseStats.talents.悟性}
                     </div>
-                    <div className="text-[10px] text-[#7a6042]">秘籍参悟与拆招</div>
+                    <div className="text-[10px] text-[#7a6042]">外功轻功演练效率</div>
                   </div>
                   <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693]">
                     <div className="text-xs text-[#6b5235] song-serif">颜 值</div>
                     <div className="font-mono font-bold text-lg text-[#5b3b73] mt-0.5">
-                      {DEFAULT_HERO_TALENTS.颜值}
+                      {baseStats.talents.颜值}
                     </div>
                     <div className="text-[10px] text-[#7a6042]">结交印象与奇遇</div>
                   </div>
@@ -327,6 +324,11 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
           <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] text-center">
             <div className="text-xs text-[#6b5235] song-serif font-semibold">骑术</div>
             <strong className="font-mono text-base text-[#8f1d14]">{ridingSkill}</strong>
+            {equipTotals.riding > 0 && (
+              <div className="text-[10px] font-mono text-[#1b5132]">
+                根基{baseStats.ridingSkill} +{equipTotals.riding}
+              </div>
+            )}
             <div className="w-full h-1 bg-[#e2d3b9] rounded-full mt-1 overflow-hidden">
               <div
                 className="h-full bg-[#8f1d14]"
@@ -334,21 +336,30 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
               />
             </div>
           </div>
-          {Object.entries(skills).map(([k, v]) => (
-            <div
-              key={k}
-              className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] text-center"
-            >
-              <div className="text-xs text-[#6b5235] song-serif font-semibold">{k}</div>
-              <strong className="font-mono text-base text-[#23180f]">{v}</strong>
-              <div className="w-full h-1 bg-[#e2d3b9] rounded-full mt-1 overflow-hidden">
-                <div
-                  className="h-full bg-[#5c4024]"
-                  style={{ width: `${Math.min(100, v)}%` }}
-                />
+          {Object.entries(skills).map(([k, v]) => {
+            const eqSkillBonus = equipTotals.skills[k] ?? 0
+            const baseSkillVal = baseStats.skills[k] ?? v
+            return (
+              <div
+                key={k}
+                className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] text-center"
+              >
+                <div className="text-xs text-[#6b5235] song-serif font-semibold">{k}</div>
+                <strong className="font-mono text-base text-[#23180f]">{v}</strong>
+                {eqSkillBonus > 0 && (
+                  <div className="text-[10px] font-mono text-[#1b5132]">
+                    根基{baseSkillVal} +{eqSkillBonus}
+                  </div>
+                )}
+                <div className="w-full h-1 bg-[#e2d3b9] rounded-full mt-1 overflow-hidden">
+                  <div
+                    className="h-full bg-[#5c4024]"
+                    style={{ width: `${Math.min(100, v)}%` }}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>
