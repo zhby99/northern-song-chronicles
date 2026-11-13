@@ -302,6 +302,18 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         itemId: entry.itemId as string,
         qty: Math.floor(entry.qty as number),
       }))
+    // If an old M1.0 save only had legacy ITM-TOL-* tools that were deleted, seed the new default curio starter items
+    const hasAnyTools = cleanInventory.some((x) => ITEM_DB_MAP[x.itemId]?.category === 'tools')
+    const hadLegacyTol = st.inventory.some(
+      (entry) => isRecord(entry) && typeof entry.itemId === 'string' && entry.itemId.startsWith('ITM-TOL-'),
+    )
+    if (!hasAnyTools && hadLegacyTol) {
+      for (const starter of DEFAULT_INITIAL_INVENTORY) {
+        if (ITEM_DB_MAP[starter.itemId]?.category === 'tools') {
+          cleanInventory.push({ ...starter })
+        }
+      }
+    }
   }
 
   // Sync mountKey from equipped mount slot (when mount slot is empty, default to walk 60 里/日)

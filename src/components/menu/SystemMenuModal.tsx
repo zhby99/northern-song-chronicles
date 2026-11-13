@@ -1975,6 +1975,9 @@ export function SystemMenuModal() {
                                     activeStack.def.useEffect.res
                                       ? `抗性 +${activeStack.def.useEffect.res}`
                                       : null,
+                                    activeStack.def.useEffect.food
+                                      ? `粮草 +${activeStack.def.useEffect.food}日份`
+                                      : null,
                                     activeStack.def.useEffect.skillGain
                                       ? `【${activeStack.def.useEffect.skillGain[0]}】+${activeStack.def.useEffect.skillGain[1]}`
                                       : null,
@@ -1994,8 +1997,19 @@ export function SystemMenuModal() {
                                     onClick={() => equipItemToSlot(activeStack.itemId)}
                                     className="flex-1 px-3 py-2.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
                                   >
-                                    披挂上身 / 备鞍乘骑
+                                    {activeStack.def.category === 'tools'
+                                      ? '佩挂雅器随身'
+                                      : '披挂上身 / 备鞍乘骑'}
                                   </button>
+                                  {activeStack.def.useEffect && (
+                                    <button
+                                      type="button"
+                                      onClick={() => consumeInventoryItem(activeStack.itemId, true)}
+                                      className="px-3 py-2.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
+                                    >
+                                      抚弄修习
+                                    </button>
+                                  )}
                                   <button
                                     type="button"
                                     onClick={() => {
@@ -2017,7 +2031,9 @@ export function SystemMenuModal() {
                                 >
                                   {activeStack.def.category === 'scrolls'
                                     ? '展卷研读参悟'
-                                    : '立即服食使用'}
+                                    : activeStack.def.category === 'tools'
+                                      ? '把玩演练修习'
+                                      : '立即服食使用'}
                                 </button>
                               ) : (
                                 <div className="w-full py-2 text-center text-xs text-[#6b5235] bg-[#faf3e3] rounded border border-[#cbb693]">

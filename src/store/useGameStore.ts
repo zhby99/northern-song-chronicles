@@ -278,7 +278,7 @@ export interface GameStoreState {
   equipArtToSlot: (artId: string, slot: MartialArtSlotKey) => void
   unequipArtSlot: (slot: MartialArtSlotKey) => void
   practiceLearnedArt: (artId: string) => void
-  consumeInventoryItem: (itemId: string) => void
+  consumeInventoryItem: (itemId: string, forceUseEffect?: boolean) => void
 
   doBuildingAction: (item: {
     name: string
@@ -896,7 +896,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         createLogEntry(
           s.dayCount,
           '卸除佩备',
-          `已将【${oldDef?.name ?? oldItemId}】收入行囊杂物栏。`,
+          `已将【${oldDef?.name ?? oldItemId}】收入${oldDef?.category === 'tools' ? '雅器百工' : '行囊杂物'}栏。`,
           false,
           s.shichenIdx,
         ),
@@ -1105,18 +1105,29 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     })
   },
 
-  consumeInventoryItem: (itemId) => {
+  consumeInventoryItem: (itemId, forceUseEffect = false) => {
     const s = get()
     const def = ITEM_DB_MAP[itemId]
     if (!def) return
-    if (def.equipSlot) {
+    if (def.equipSlot && !forceUseEffect) {
       get().equipItemToSlot(itemId)
       return
     }
     const eff = def.useEffect
     if (!eff) return
 
-    // Consume stackable medicine/food; keep non-stackable books/scrolls after reading if desired, or consume medicine
+    const isNonStackableTool = def.category === 'tools' && !def.stackable
+    if (isNonStackableTool && s.stamina < 6 && !eff.stamina) {
+      set({
+        actionFeedback: {
+          text: `把玩雅器潜心修习需耗费 6 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    // Consume stackable medicine/food/consumable tools; keep non-stackable books/scrolls & durable curio tools
     const shouldConsume = def.category === 'medicine' || def.stackable
     const nextInv = shouldConsume
       ? (removeItemFromInventory(s.inventory, itemId, 1) ?? s.inventory)
@@ -1126,7 +1137,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextMaxHp = s.maxHp
     let nextMp = s.mp
     let nextMaxMp = s.maxMp
-    let nextStamina = s.stamina
+    let nextStamina = isNonStackableTool && !eff.stamina ? Math.max(0, s.stamina - 6) : s.stamina
     let nextAgi = s.agility
     let nextRes = s.res
     let nextFood = s.food
@@ -1134,6 +1145,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextLearnedArts = s.learnedArts
     const nextSkills = { ...s.skills }
     const notes: string[] = []
+
+    const clock =
+      def.category === 'tools' || def.category === 'scrolls'
+        ? advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+        : { dayCount: s.dayCount, shichenIdx: s.shichenIdx, daysAdded: 0 }
 
     if (eff.learnArtId && MARTIAL_ART_DB_MAP[eff.learnArtId]) {
       const targetArt = MARTIAL_ART_DB_MAP[eff.learnArtId]
@@ -1175,6 +1191,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (eff.stamina) {
       nextStamina = Math.min(s.maxStamina, nextStamina + eff.stamina)
       notes.push(`体能 +${eff.stamina}`)
+    } else if (isNonStackableTool) {
+      notes.push('体能 -6')
     }
     if (eff.res) {
       nextRes = Math.min(100, nextRes + eff.res)
@@ -1193,7 +1211,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       notes.push(eff.learnArtHint)
     }
 
+    const logTag =
+      def.category === 'scrolls'
+        ? '展卷研读'
+        : def.category === 'tools'
+          ? '雅器修习'
+          : '服食丹膳'
+
     set({
+      dayCount: clock.dayCount,
+      shichenIdx: clock.shichenIdx,
       inventory: nextInv,
       learnedArts: nextLearnedArts,
       qinggongBonus: nextQinggongBonus,
@@ -1206,13 +1233,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       res: nextRes,
       food: nextFood,
       skills: nextSkills,
+      actionFeedback: {
+        text: `${logTag}【${def.name}】：${notes.join('，')}。`,
+        tone: 'success',
+      },
       logs: [
         createLogEntry(
-          s.dayCount,
-          def.category === 'scrolls' ? '展卷研读' : '服食丹膳',
+          clock.dayCount,
+          logTag,
           `使用【${def.name}】：${notes.join('，')}。`,
           true,
-          s.shichenIdx,
+          clock.shichenIdx,
         ),
         ...s.logs,
       ].slice(0, 60),
