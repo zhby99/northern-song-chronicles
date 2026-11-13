@@ -18,9 +18,48 @@
 ## 常用开发命令
 
 ```bash
-npm run dev            # 启动本地开发服务器 (0.0.0.0:5173)
-npm run build:db       # 从 docs/*.md 重新编译结构化静态 JSON 数据库
-npm run normalize:docs # 幂等规范化 Markdown 设定文档地名与链接并重编数据库
-npm run lint           # 运行 oxlint 静态检查
-npm run build          # 运行 tsc -b 严格类型校验与 Vite 生产分包构建
+npm run dev              # 启动本地开发服务器 (0.0.0.0:5173)
+npm run build:db         # 从 docs/*.md 重新编译结构化静态 JSON 数据库
+npm run normalize:docs   # 幂等规范化 Markdown 设定文档地名与链接并重编数据库
+npm run archive:masters  # 归档全部跨分支原始 ~1MB 高清母版原画与设定文档
+npm run build:artifact   # 编译单文件离线可交互预览包 (northern_song_chronicles_m0.html)
+npm run lint             # 运行 oxlint 静态检查
+npm run build            # 运行 tsc -b 严格类型校验与 Vite 生产分包构建
 ```
+
+## 完整目录与素材清单
+
+```text
+northern-song-chronicles/
+├── docs/                           # 五大核心设定集与开发路线图
+│   ├── ROADMAP_AND_TODO.md         # 完整里程碑路线图与任务跟踪清单 (M0 ~ M6)
+│   ├── GAME_MECHANICS.md           # 核心机制、六维属性、内息运行与历史事件设定
+│   ├── MARTIAL_ARTS_COMPENDIUM.md  # 216 门武学全典（天/地/玄/黄四阶）
+│   ├── REGIONAL_MAPS_AND_BUILDINGS.md # 38 处疆域重镇与 123 座特殊建筑设定
+│   └── CHARACTER_COMPENDIUM.md     # 1,000 名北宋历史与江湖人物全录
+├── public/assets/                  # 运行时按需懒加载美术资源（共 209 张 JPG，30.6 MB）
+│   ├── regions/                    # 38 张州府名山俯视全景图
+│   ├── buildings/                  # 58 张核心建筑半3D内景图
+│   └── characters/                 # 113 张人物头像、全身立绘与门派群像模板
+├── assets_raw_masters/             # AI 生成未压缩 ~1MB 高清母版原画归档（共 204 张，208.7 MB）
+│   ├── MANIFEST.json               # 母版原画 SHA-256 校验、分类与来源分支索引清单
+│   ├── regions/                    # 州府与汴京多版本高清母版原图
+│   ├── buildings/                  # 特殊建筑高清母版原图
+│   └── characters/                 # 历史名臣、绝世高手与群像模板高清母版原图
+├── legacy_prototypes_and_tools/    # 早期各分支原型构建脚本与画师 Agent 提示词归档
+│   ├── agent_specs/                # 全景地图画师 & 宋画人物立绘画师 Agent 规范
+│   ├── map_generators/             # 疆域投影、地理路径与早期地图构建脚本
+│   ├── character_generators/       # 千人名录与立绘画廊构建脚本
+│   └── early_svg_prototype/        # 初版纯矢量北宋天下舆图原型
+├── scripts/                        # 现代工程构建与数据编译管线
+│   ├── compile_game_db.py          # Markdown -> JSON 零悬空引用数据库编译器
+│   ├── build_preview_artifact.py   # IIFE 内联单文件预览包打包器
+│   └── archive_all_branch_assets.py # 跨分支母版素材与设定集归档工具
+└── src/                            # 模块化 React 19 + TypeScript 7 + Zustand 5 源码
+    ├── components/                 # 三层地图画布、宋式建筑矢量兜底、HUD、武学与人物面板、存读档弹窗
+    ├── data/                       # 编译产出的 idRegistry / regions / buildings / martial_arts / npcs JSON
+    ├── store/                      # Zustand 全局状态管理与空间导航栈
+    ├── types/                      # 严格 TypeScript 领域数据接口
+    └── utils/                      # IndexedDB 多槽位存档管理器与静态图片懒加载器
+```
+

@@ -1,0 +1,1643 @@
+{
+  "totalMasterFiles": 204,
+  "totalBytes": 218791679,
+  "countsByCategory": {
+    "regions": 42,
+    "buildings": 60,
+    "characters": 102
+  },
+  "files": [
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/b3_em_jinding.jpg",
+      "originalFilename": "b3_em_jinding_1794533820265.jpg",
+      "sourceBrainRelativePath": "39d2d845e93ede0f5d32fb3ee8e78378/b3_em_jinding_1794533820265.jpg",
+      "bytes": 1099346,
+      "sha256": "281ca43fe11a517d38f007854ddbe26287dd7b61a15b795da1833b91c18e7ea1"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/b3_em_pond.jpg",
+      "originalFilename": "b3_em_pond_1794533861558.jpg",
+      "sourceBrainRelativePath": "39d2d845e93ede0f5d32fb3ee8e78378/b3_em_pond_1794533861558.jpg",
+      "bytes": 1096984,
+      "sha256": "c0d105d90bafd089b36e91e5215bdc18a2bca6eb9daed84f3c75d81cc5b01336"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/b3_em_wannian.jpg",
+      "originalFilename": "b3_em_wannian_1794533860581.jpg",
+      "sourceBrainRelativePath": "39d2d845e93ede0f5d32fb3ee8e78378/b3_em_wannian_1794533860581.jpg",
+      "bytes": 1286775,
+      "sha256": "d6b2249788956e38a600fab07f6a44b7195ed6ca26de6d7e46437048745c72e3"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/b3_qc_poison.jpg",
+      "originalFilename": "b3_qc_poison_1794533818841.jpg",
+      "sourceBrainRelativePath": "39d2d845e93ede0f5d32fb3ee8e78378/b3_qc_poison_1794533818841.jpg",
+      "bytes": 1176508,
+      "sha256": "44d2a0b7e8046e9bbe735da2a7fdaa68bc65ecdf11fcc6935fe47f34e7f0a9d5"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/b3_qc_shangqing.jpg",
+      "originalFilename": "b3_qc_shangqing_1794533788169.jpg",
+      "sourceBrainRelativePath": "39d2d845e93ede0f5d32fb3ee8e78378/b3_qc_shangqing_1794533788169.jpg",
+      "bytes": 1219283,
+      "sha256": "ac861497dced0048e1ab80c956e3cc58e2a6b9106b9e187f4beb9c7eb9a059a8"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/b3_qc_tang.jpg",
+      "originalFilename": "b3_qc_tang_1794533786405.jpg",
+      "sourceBrainRelativePath": "39d2d845e93ede0f5d32fb3ee8e78378/b3_qc_tang_1794533786405.jpg",
+      "bytes": 1305521,
+      "sha256": "ba3b37a89dcb255ccebdaaf315d26247c04d550a3a688b6ea845e393df0bc025"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/b3_wl_langhuan.jpg",
+      "originalFilename": "b3_wl_langhuan_1794533897914.jpg",
+      "sourceBrainRelativePath": "39d2d845e93ede0f5d32fb3ee8e78378/b3_wl_langhuan_1794533897914.jpg",
+      "bytes": 992683,
+      "sha256": "55bfcccbef84ab4dda932e0886a2021a6d4ff7c30c3d371b74584d78557092d7"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/b3_wl_yubi.jpg",
+      "originalFilename": "b3_wl_yubi_1794533896835.jpg",
+      "sourceBrainRelativePath": "39d2d845e93ede0f5d32fb3ee8e78378/b3_wl_yubi_1794533896835.jpg",
+      "bytes": 1061404,
+      "sha256": "d494bc09d32a4d3553ce781a1400a2657673bfd053778348d89aab81f9c95662"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/bai_yutang_avatar.jpg",
+      "originalFilename": "bai_yutang_avatar_1794504992027.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/bai_yutang_avatar_1794504992027.jpg",
+      "bytes": 1049777,
+      "sha256": "ce44e0541371d628998878494e15581d59c6f612accb86f54a26e558496e2579"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/bai_yutang_fullbody.jpg",
+      "originalFilename": "bai_yutang_fullbody_1794504991353.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/bai_yutang_fullbody_1794504991353.jpg",
+      "bytes": 1010744,
+      "sha256": "46b1b54858ce49f7ee84032ebe533f227a4ee191b4e1044bcd3a8bd52f6eb7e8"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/bao_zheng_avatar.jpg",
+      "originalFilename": "bao_zheng_avatar_1794504784989.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/bao_zheng_avatar_1794504784989.jpg",
+      "bytes": 997272,
+      "sha256": "51ee8f6136e545659822e21478075539a95ddd97e31ceafdaf2b40b8145b37e1"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/bao_zheng_fullbody.jpg",
+      "originalFilename": "bao_zheng_fullbody_1794504784444.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/bao_zheng_fullbody_1794504784444.jpg",
+      "bytes": 1026918,
+      "sha256": "5d96a9ac286b54309fef715c1da8cd4147dd8b035ecaca01c72935264780b69a"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bl_fanlou_iso.jpg",
+      "originalFilename": "bl_fanlou_iso_1794533054845.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/bl_fanlou_iso_1794533054845.jpg",
+      "bytes": 1234976,
+      "sha256": "2f2ef7c987a0eabba4938d12aa70a4e5a0f76c6246391d0f52306abd64974451"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bl_jinjun_iso.jpg",
+      "originalFilename": "bl_jinjun_iso_1794533084404.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/bl_jinjun_iso_1794533084404.jpg",
+      "bytes": 1222897,
+      "sha256": "6aabdf31b4fe0520181d41eb03790b5d7a3a4909c8f9018181a220ecadf69d68"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bl_kaifengfu_iso.jpg",
+      "originalFilename": "bl_kaifengfu_iso_1794533016859.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/bl_kaifengfu_iso_1794533016859.jpg",
+      "bytes": 1307083,
+      "sha256": "6e3ebc934bc83ee01277c5a25a7c77e3e67667213006710966f661eee83b55cb"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bl_palace_iso.jpg",
+      "originalFilename": "bl_palace_iso_1794533018097.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/bl_palace_iso_1794533018097.jpg",
+      "bytes": 1157949,
+      "sha256": "8a43915c2a4386e7ceb2371267e8245e2ac3c00bf583c393015dc71b9f9c9d73"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bl_xiangguosi_iso.jpg",
+      "originalFilename": "bl_xiangguosi_iso_1794533054905.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/bl_xiangguosi_iso_1794533054905.jpg",
+      "bytes": 1393678,
+      "sha256": "5a3a0686617a747208d7741aeb2ebea4427920465ee8232d412b97ab21f2bbdb"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/dd_envoy_raw.jpg",
+      "originalFilename": "dd_envoy_raw_1794533759313.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/dd_envoy_raw_1794533759313.jpg",
+      "bytes": 1274675,
+      "sha256": "e3fa6c80a21c15f2fa7a3720952c31045b8b35567345fc564e115de48247d080"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/dd_hunt_raw.jpg",
+      "originalFilename": "dd_hunt_raw_1794533758077.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/dd_hunt_raw_1794533758077.jpg",
+      "bytes": 1207902,
+      "sha256": "8724a5fd32e02f987bbe9f4ba226110c37986b21a31402be64fa6754488b7f39"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/dd_pagoda_raw.jpg",
+      "originalFilename": "dd_pagoda_raw_1794533717428.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/dd_pagoda_raw_1794533717428.jpg",
+      "bytes": 1270483,
+      "sha256": "b83708d7c694048adca6c7c8e876cf9e5e949ea21f0973076031d6a490a70cf7"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/di_qing_avatar.jpg",
+      "originalFilename": "di_qing_avatar_1794504784836.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/di_qing_avatar_1794504784836.jpg",
+      "bytes": 1049761,
+      "sha256": "dd0e0fd38ae4601ce9e4a4b555a5123bad7357ef656a73c5a8f615cace182b4c"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/di_qing_fullbody.jpg",
+      "originalFilename": "di_qing_fullbody_1794504784348.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/di_qing_fullbody_1794504784348.jpg",
+      "bytes": 990987,
+      "sha256": "a2edbe7dcfa3a5bb81dfe79b7e8c2df1d1716b0161ad15f655440581ee557fca"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/dm_drill_pano.jpg",
+      "originalFilename": "dm_drill_pano_1794533766992.jpg",
+      "sourceBrainRelativePath": "a68a2281be3bad28e89e3b422248c5ea/dm_drill_pano_1794533766992.jpg",
+      "bytes": 1069801,
+      "sha256": "037f7e0dd6354b77900e36386c147d9c701e1e22cafeae4c9a562de1ace2f32b"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/dm_ferry_pano.jpg",
+      "originalFilename": "dm_ferry_pano_1794533700355.jpg",
+      "sourceBrainRelativePath": "a68a2281be3bad28e89e3b422248c5ea/dm_ferry_pano_1794533700355.jpg",
+      "bytes": 1113443,
+      "sha256": "2faed802a30cb0677af3da915f50db92a543244f61e9f6978a3569e04c1bebf4"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/dm_palace_pano.jpg",
+      "originalFilename": "dm_palace_pano_1794533700071.jpg",
+      "sourceBrainRelativePath": "a68a2281be3bad28e89e3b422248c5ea/dm_palace_pano_1794533700071.jpg",
+      "bytes": 1030424,
+      "sha256": "ed4627cf8664350b617ed72c124010a0805d291dfeefa4773bf0022c824131e7"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/fan_zhongyan_avatar.jpg",
+      "originalFilename": "fan_zhongyan_avatar_1794504945422.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/fan_zhongyan_avatar_1794504945422.jpg",
+      "bytes": 974766,
+      "sha256": "66a645c248322bf769733e5c3ed006720c595835112d2c98ec5427e537c805b7"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/fan_zhongyan_fullbody.jpg",
+      "originalFilename": "fan_zhongyan_fullbody_1794504943031.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/fan_zhongyan_fullbody_1794504943031.jpg",
+      "bytes": 955245,
+      "sha256": "aeb050579b08882cc52db3c66682484432e1a64bf6b1781f8c041eff3017c6e9"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/huang_shang_avatar.jpg",
+      "originalFilename": "huang_shang_avatar_1794504941199.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/huang_shang_avatar_1794504941199.jpg",
+      "bytes": 842841,
+      "sha256": "889e7fd6fad5edc948b3b1dfe140cb34635973b94899e8eff98c0994364e331d"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/huang_shang_fullbody.jpg",
+      "originalFilename": "huang_shang_fullbody_1794504942394.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/huang_shang_fullbody_1794504942394.jpg",
+      "bytes": 1026935,
+      "sha256": "1a26f138bc12736671a0fe7e2692a30f6b15ed6a344c5496993bc81f8de2f759"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/jiumozhi_avatar.jpg",
+      "originalFilename": "jiumozhi_avatar_1794504896426.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/jiumozhi_avatar_1794504896426.jpg",
+      "bytes": 1152256,
+      "sha256": "ee5811434348522639e150445918d39e8d727c7c2b6a963bb1559f1242acba9a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/jiumozhi_fullbody.jpg",
+      "originalFilename": "jiumozhi_fullbody_1794504897452.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/jiumozhi_fullbody_1794504897452.jpg",
+      "bytes": 1097122,
+      "sha256": "4d29398966c719c174f618dec46df6e9ba23cd8bd71366cbbea8ca55424b6514"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/jn2_qinhuai_pano.jpg",
+      "originalFilename": "jn2_qinhuai_pano_1794533728856.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/jn2_qinhuai_pano_1794533728856.jpg",
+      "bytes": 1234166,
+      "sha256": "2f271de832e412cde91265775b22d270461546a11eaccb10fa81527dad9d5772"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/jn2_qixia_pano.jpg",
+      "originalFilename": "jn2_qixia_pano_1794533770377.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/jn2_qixia_pano_1794533770377.jpg",
+      "bytes": 1362446,
+      "sha256": "8c77cc2b4fffffa743cf123505fb945982c128a21122132a1f2c9fedc81ada04"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/jn2_shitou_pano.jpg",
+      "originalFilename": "jn2_shitou_pano_1794533818411.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/jn2_shitou_pano_1794533818411.jpg",
+      "bytes": 1239652,
+      "sha256": "8e31f0cdfe0d17adc7452c22a6997bd67c39f7de697cefe454f5b647860229c3"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/kaifeng_isometric_panorama.jpg",
+      "originalFilename": "kaifeng_isometric_panorama_1794505571480.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/kaifeng_isometric_panorama_1794505571480.jpg",
+      "bytes": 1250026,
+      "sha256": "fed733f7cabd2d958c4a8a0cb57a673132ad8392687b4906fbcf3d9635416010"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/kaifeng_panorama_clean.jpg",
+      "originalFilename": "kaifeng_panorama_clean_1794505594828.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/kaifeng_panorama_clean_1794505594828.jpg",
+      "bytes": 1053980,
+      "sha256": "aeaf402e5630aa72f0027745db88ef416dc30916434bccf477c2567759783147"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/kl_poison.jpg",
+      "originalFilename": "kl_poison_1794533834435.jpg",
+      "sourceBrainRelativePath": "7e0e4cfdff242088b208520f0931a3f3/kl_poison_1794533834435.jpg",
+      "bytes": 1149934,
+      "sha256": "a61d471ab5002199361ab96036a0aa112e488e20c910b6757a751d23ac0a1257"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/kl_summit.jpg",
+      "originalFilename": "kl_summit_1794533867805.jpg",
+      "sourceBrainRelativePath": "7e0e4cfdff242088b208520f0931a3f3/kl_summit_1794533867805.jpg",
+      "bytes": 1108922,
+      "sha256": "9a8546313dc389a0b8fb05b14dc1bc11a98283957f9151385230b575a598a658"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/kl_swordvalley.jpg",
+      "originalFilename": "kl_swordvalley_1794533791191.jpg",
+      "sourceBrainRelativePath": "7e0e4cfdff242088b208520f0931a3f3/kl_swordvalley_1794533791191.jpg",
+      "bytes": 1145800,
+      "sha256": "adcde149ac69f2246e06e62670db9a875a5f6b2d8a907f5f6ab5d823082d43a3"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/kl_yaochi.jpg",
+      "originalFilename": "kl_yaochi_1794533822984.jpg",
+      "sourceBrainRelativePath": "7e0e4cfdff242088b208520f0931a3f3/kl_yaochi_1794533822984.jpg",
+      "bytes": 1188293,
+      "sha256": "b227e2ccafc9bb3eab433d85faeb6c7659f3ec69519d36548357193507b80fab"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/lh_altar_raw.jpg",
+      "originalFilename": "lh_altar_raw_1794533796844.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/lh_altar_raw_1794533796844.jpg",
+      "bytes": 1145643,
+      "sha256": "7d01883bf2ae271cd4587473ff080bc949ff9f12496cdb899119ae12a7ab96b9"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/lh_goldtent_raw.jpg",
+      "originalFilename": "lh_goldtent_raw_1794533797286.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/lh_goldtent_raw_1794533797286.jpg",
+      "bytes": 1115489,
+      "sha256": "a3fbef3a51b1be92ec29b5a5ceaddf84425f96f8d1d04ab9135f7d74bcc9abed"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/lh_ironcav_raw.jpg",
+      "originalFilename": "lh_ironcav_raw_1794533844106.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/lh_ironcav_raw_1794533844106.jpg",
+      "bytes": 1099439,
+      "sha256": "3c5e1e1cac581f9a726cce20048311704da275bece24d49109cda10b9c66b7e7"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/li_qiushui_avatar.jpg",
+      "originalFilename": "li_qiushui_avatar_1794504631307.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/li_qiushui_avatar_1794504631307.jpg",
+      "bytes": 897255,
+      "sha256": "b5b2b42aa9f5a89ab14a3486f8e02b3659da043e909cf3ff4fc3e9dec69f016d"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/li_qiushui_fullbody.jpg",
+      "originalFilename": "li_qiushui_fullbody_1794504628006.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/li_qiushui_fullbody_1794504628006.jpg",
+      "bytes": 1016888,
+      "sha256": "d1c237318f9b5eb781059030d4273cd1173aa326004ba4e24a24d131e0d607c6"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/lin_chaoyao_avatar.jpg",
+      "originalFilename": "lin_chaoyao_avatar_1794504990708.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/lin_chaoyao_avatar_1794504990708.jpg",
+      "bytes": 934742,
+      "sha256": "b07e007736396dc23a83a22edacef55444912918d6642077e8d9c9bce865a274"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/lin_chaoyao_fullbody.jpg",
+      "originalFilename": "lin_chaoyao_fullbody_1794504992694.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/lin_chaoyao_fullbody_1794504992694.jpg",
+      "bytes": 911914,
+      "sha256": "d2e525df111fadc961a6abd1d369b513b83db0ec494bc27e3247313308c21ea3"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/ly_academy_iso.jpg",
+      "originalFilename": "ly_academy_iso_1794533121932.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/ly_academy_iso_1794533121932.jpg",
+      "bytes": 1301808,
+      "sha256": "11d3b8f0cd95a2297311364044962f2fb13c640678b88e2dcc7603adfd637291"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/ly_baima_iso.jpg",
+      "originalFilename": "ly_baima_iso_1794533088777.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/ly_baima_iso_1794533088777.jpg",
+      "bytes": 1276967,
+      "sha256": "1244356a8abf2ef4d4ac2c71a737186e5ac7235a473ffc4c158af040e1b9fea5"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/ly_gaibang_iso.jpg",
+      "originalFilename": "ly_gaibang_iso_1794533153690.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/ly_gaibang_iso_1794533153690.jpg",
+      "bytes": 1324944,
+      "sha256": "1861bb1bd35c7664a0720154820619cce7de68c14ea1fe3d1d0cc0c0a5f6d631"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/ly_peony_iso.jpg",
+      "originalFilename": "ly_peony_iso_1794533120369.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/ly_peony_iso_1794533120369.jpg",
+      "bytes": 1400881,
+      "sha256": "062c82b4bd7d4178b1c622eac32ab599adaafa94123136522c7170fbea1ad02e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/ly_wangjia_fullbleed.jpg",
+      "originalFilename": "ly_wangjia_fullbleed_1794533311285.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/ly_wangjia_fullbleed_1794533311285.jpg",
+      "bytes": 1433310,
+      "sha256": "ce3e2bb7c924171ced9683f0a18db136c41c30f35c7c07d744b10d45b0bdd5ed"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/ly_wangjia_iso.jpg",
+      "originalFilename": "ly_wangjia_iso_1794533156047.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/ly_wangjia_iso_1794533156047.jpg",
+      "bytes": 912745,
+      "sha256": "4d37ed9d6dc94336f10cee5106a4716e61c998b1317f93f678fec70a103ae0b2"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/murong_bo_avatar.jpg",
+      "originalFilename": "murong_bo_avatar_1794504684387.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/murong_bo_avatar_1794504684387.jpg",
+      "bytes": 868848,
+      "sha256": "c026d22aacecb77b5401d0895fdaf1bb8ac00ea0d8e18af9309d1d94bd795cbe"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/murong_bo_fullbody.jpg",
+      "originalFilename": "murong_bo_fullbody_1794504687365.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/murong_bo_fullbody_1794504687365.jpg",
+      "bytes": 949413,
+      "sha256": "11697cbdfc515fe4ae51f12d4745486788a12c7243378ce7b9a76a70706aeb3a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/murong_fu_avatar.jpg",
+      "originalFilename": "murong_fu_avatar_1794504742050.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/murong_fu_avatar_1794504742050.jpg",
+      "bytes": 870591,
+      "sha256": "2c03dc5fd04ad736c2049dcaaa7c693f0e00d30bcdd58612f8a095484788c057"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/murong_fu_fullbody.jpg",
+      "originalFilename": "murong_fu_fullbody_1794504742046.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/murong_fu_fullbody_1794504742046.jpg",
+      "bytes": 992097,
+      "sha256": "b1aa69651d1572a8d38cd17660ad4d7c152e69931417bca1747edd691d756bd0"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0002_av.jpg",
+      "originalFilename": "npc_0002_av_1794506994221.jpg",
+      "sourceBrainRelativePath": "a58862278bd63a8947911720b3ce2639/npc_0002_av_1794506994221.jpg",
+      "bytes": 984451,
+      "sha256": "0e24b57d491438be404cbe70a17bf64361fb43d6ae97c009b1e017f4a5815556"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0003_av.jpg",
+      "originalFilename": "npc_0003_av_1794506999070.jpg",
+      "sourceBrainRelativePath": "a58862278bd63a8947911720b3ce2639/npc_0003_av_1794506999070.jpg",
+      "bytes": 860652,
+      "sha256": "2bad7d181bfc6830deddd79a65698b1f11fec7aabb7dc3271dcbe6c7aead4120"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0003_fb.jpg",
+      "originalFilename": "npc_0003_fb_1794507003067.jpg",
+      "sourceBrainRelativePath": "a58862278bd63a8947911720b3ce2639/npc_0003_fb_1794507003067.jpg",
+      "bytes": 1035747,
+      "sha256": "b8d2bd28edc26ef6a1876b933337f12456afcafb3800586a094df4f156bf2492"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0004_av.jpg",
+      "originalFilename": "npc_0004_av_1794507002451.jpg",
+      "sourceBrainRelativePath": "a58862278bd63a8947911720b3ce2639/npc_0004_av_1794507002451.jpg",
+      "bytes": 1094456,
+      "sha256": "dfdacab3cd0ab97707f164c8ed90ab903ab83c4d784f157f8e0c84fd3be2a3e4"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0004_fb.jpg",
+      "originalFilename": "npc_0004_fb_1794507002858.jpg",
+      "sourceBrainRelativePath": "a58862278bd63a8947911720b3ce2639/npc_0004_fb_1794507002858.jpg",
+      "bytes": 1092266,
+      "sha256": "00c6eb90c02d783154ad4f8578750554e4108d64de86988913578a720a137f0a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0005_av.jpg",
+      "originalFilename": "npc_0005_av_1794507060452.jpg",
+      "sourceBrainRelativePath": "a58862278bd63a8947911720b3ce2639/npc_0005_av_1794507060452.jpg",
+      "bytes": 1076257,
+      "sha256": "19ea97f74388b5b2194e31ab065bc3837d2b28116ffaecf5f10986c66d8b015a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0005_fb.jpg",
+      "originalFilename": "npc_0005_fb_1794507069574.jpg",
+      "sourceBrainRelativePath": "a58862278bd63a8947911720b3ce2639/npc_0005_fb_1794507069574.jpg",
+      "bytes": 1122221,
+      "sha256": "3d8b2a743dc208c12f8ec809b2d45412faaf86f0e5e55c28cbcabf9ab9a2a99a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0006_av.jpg",
+      "originalFilename": "npc_0006_av_1794507066254.jpg",
+      "sourceBrainRelativePath": "a58862278bd63a8947911720b3ce2639/npc_0006_av_1794507066254.jpg",
+      "bytes": 1006365,
+      "sha256": "9136d9f600004f157685d31382fa510bc058c7990e2cefed2c8ce02cdd889446"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0006_fb.jpg",
+      "originalFilename": "npc_0006_fb_1794533411349.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/npc_0006_fb_1794533411349.jpg",
+      "bytes": 1074890,
+      "sha256": "030e301a07770282c8d9d6dc334f419b82f56feeac49801b205c3a77e0387906"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0008_av.jpg",
+      "originalFilename": "npc_0008_av_1794534344896.jpg",
+      "sourceBrainRelativePath": "5dcd35dbfbd4934eea45e19da522e3e8/npc_0008_av_1794534344896.jpg",
+      "bytes": 1166902,
+      "sha256": "bbe1c458ea9bf10dc335c538e27be0490ea701d800a9ff9da704a930b26f4f6e"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0012_av.jpg",
+      "originalFilename": "npc_0012_av_1794506997033.jpg",
+      "sourceBrainRelativePath": "a58862278bd63a8947911720b3ce2639/npc_0012_av_1794506997033.jpg",
+      "bytes": 878104,
+      "sha256": "d3b8771b7dc268650018984561971cb68e70a81483e0a9e9c259b6b02ce016ce"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0021_av.jpg",
+      "originalFilename": "npc_0021_av_1794507000968.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0021_av_1794507000968.jpg",
+      "bytes": 878713,
+      "sha256": "912a52af58fe916913aae21707f8bfbdf3d16a2bd125526d89f50af5d8fde1dc"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0021_fb.jpg",
+      "originalFilename": "npc_0021_fb_1794507006784.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0021_fb_1794507006784.jpg",
+      "bytes": 962057,
+      "sha256": "44414be93d4b97cdc0c62ac8d3657f4c92523fcf5b9cad98d300d9b346732a84"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0022_av.jpg",
+      "originalFilename": "npc_0022_av_1794507008645.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0022_av_1794507008645.jpg",
+      "bytes": 948201,
+      "sha256": "6d8582beec594d58ad15f992f99483db1404862ab8c89556696885bf1abc6797"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0022_fb.jpg",
+      "originalFilename": "npc_0022_fb_1794507013878.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0022_fb_1794507013878.jpg",
+      "bytes": 949943,
+      "sha256": "c3f9b1c3247baac4f1acb85d6f3ad2e9fc40acc738d6133a35dbdb2423c4a50f"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0023_av.jpg",
+      "originalFilename": "npc_0023_av_1794507012299.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0023_av_1794507012299.jpg",
+      "bytes": 1008468,
+      "sha256": "eeb024d37c313618276c7997d9308bdfaf35611ee8e3d5d118c855d8f217a460"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0023_fb.jpg",
+      "originalFilename": "npc_0023_fb_1794507013492.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0023_fb_1794507013492.jpg",
+      "bytes": 1015131,
+      "sha256": "37ed5797667b8c3fa8f1e554bfc337a04602c1639240e2926cef05fce003d31a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0024_av.jpg",
+      "originalFilename": "npc_0024_av_1794507047618.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0024_av_1794507047618.jpg",
+      "bytes": 1063215,
+      "sha256": "c5220b81a3e89aaddfb8bddab801831a1b8b116c496324ad975aa12ad3986ae0"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0024_fb.jpg",
+      "originalFilename": "npc_0024_fb_1794507053514.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0024_fb_1794507053514.jpg",
+      "bytes": 1145411,
+      "sha256": "3de4b5bd9641e5a424331986eadb83e9f1ebc871ef3c2ac7a47da7671bd5ab27"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0025_av.jpg",
+      "originalFilename": "npc_0025_av_1794507055805.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0025_av_1794507055805.jpg",
+      "bytes": 977023,
+      "sha256": "d30d74dda202f8b639a70d8475a0eb065c55421a64b2a1fdae67a8c34316f7c7"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0025_fb.jpg",
+      "originalFilename": "npc_0025_fb_1794507069644.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0025_fb_1794507069644.jpg",
+      "bytes": 1047507,
+      "sha256": "f11d4d0c2e61a7ea41bee2313823fd636e0df8b08c83f4233c5dab5073599fef"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0026_av.jpg",
+      "originalFilename": "npc_0026_av_1794507058819.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0026_av_1794507058819.jpg",
+      "bytes": 1012272,
+      "sha256": "5f8ed0ec191e410e76471fef8a6d570782807a76707d114d142542c065bc52f6"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0026_fb.jpg",
+      "originalFilename": "npc_0026_fb_1794507060795.jpg",
+      "sourceBrainRelativePath": "005c5674796eeeca8526a7f58f6d4667/npc_0026_fb_1794507060795.jpg",
+      "bytes": 1047734,
+      "sha256": "a02c56f0bc034f2a98f742c56264dd057decec2eda666d43f4a56baeda8ccb86"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0041_av.jpg",
+      "originalFilename": "npc_0041_av_1794507042138.jpg",
+      "sourceBrainRelativePath": "122e51aa6b5df6455815ef706b19f938/npc_0041_av_1794507042138.jpg",
+      "bytes": 881452,
+      "sha256": "1ea0df0f845c0e2a43c0fc307017a81a2d3a208ef6b90b966d1ceed7c42cda38"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0041_fb.jpg",
+      "originalFilename": "npc_0041_fb_1794507044978.jpg",
+      "sourceBrainRelativePath": "122e51aa6b5df6455815ef706b19f938/npc_0041_fb_1794507044978.jpg",
+      "bytes": 953510,
+      "sha256": "63694158ab6432c005a0643febcc9a623ba2e7728a0c7f12c86fa386bead8d93"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0042_av.jpg",
+      "originalFilename": "npc_0042_av_1794507048266.jpg",
+      "sourceBrainRelativePath": "122e51aa6b5df6455815ef706b19f938/npc_0042_av_1794507048266.jpg",
+      "bytes": 987053,
+      "sha256": "bb4242d551b71063361fe03bae4ab728a2f392efa20eb36560aaf257ad546ab3"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0042_fb.jpg",
+      "originalFilename": "npc_0042_fb_1794507058822.jpg",
+      "sourceBrainRelativePath": "122e51aa6b5df6455815ef706b19f938/npc_0042_fb_1794507058822.jpg",
+      "bytes": 998383,
+      "sha256": "3548bc4ce7406310bb782147f128ba9cd7b0d2a301ef636f7d9cd18b2855d9ab"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0043_av.jpg",
+      "originalFilename": "npc_0043_av_1794507050428.jpg",
+      "sourceBrainRelativePath": "122e51aa6b5df6455815ef706b19f938/npc_0043_av_1794507050428.jpg",
+      "bytes": 1019371,
+      "sha256": "a6f0b865d4868df68c991e74d624be36de77836c9be1b2aed356aea4756c2126"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0043_fb.jpg",
+      "originalFilename": "npc_0043_fb_1794507051562.jpg",
+      "sourceBrainRelativePath": "122e51aa6b5df6455815ef706b19f938/npc_0043_fb_1794507051562.jpg",
+      "bytes": 1069966,
+      "sha256": "c6b000e2f52f0720a8fd91914f27846e36614d83401f7c20cee4ded89c51ed43"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0044_fb.jpg",
+      "originalFilename": "npc_0044_fb_1794507096714.jpg",
+      "sourceBrainRelativePath": "122e51aa6b5df6455815ef706b19f938/npc_0044_fb_1794507096714.jpg",
+      "bytes": 903488,
+      "sha256": "a9dfd208333631da1b2015926e95192e1237b3ba510145efd768a1e4d55e2ddc"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0061_av.jpg",
+      "originalFilename": "npc_0061_av_1794507035708.jpg",
+      "sourceBrainRelativePath": "ea54ffb9214ff9360ac364e5d1c92e52/npc_0061_av_1794507035708.jpg",
+      "bytes": 978891,
+      "sha256": "1f9653c9c3c20cc2eba055a17f1527136b91fd781e2828033a20f58643e93603"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0061_fb.jpg",
+      "originalFilename": "npc_0061_fb_1794507040327.jpg",
+      "sourceBrainRelativePath": "ea54ffb9214ff9360ac364e5d1c92e52/npc_0061_fb_1794507040327.jpg",
+      "bytes": 1018443,
+      "sha256": "080584963f0986b904a61cd7565f2172c4c60f45bd181684de0e6d82a6c62e7a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0062_av.jpg",
+      "originalFilename": "npc_0062_av_1794507041619.jpg",
+      "sourceBrainRelativePath": "ea54ffb9214ff9360ac364e5d1c92e52/npc_0062_av_1794507041619.jpg",
+      "bytes": 840590,
+      "sha256": "729bba0fd827e6082460ca6a6a2e108762dfd4a66ad949b3ec54207050654f26"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0062_fb.jpg",
+      "originalFilename": "npc_0062_fb_1794507042883.jpg",
+      "sourceBrainRelativePath": "ea54ffb9214ff9360ac364e5d1c92e52/npc_0062_fb_1794507042883.jpg",
+      "bytes": 1008727,
+      "sha256": "bd5eb85ca75d6e3456e4f08e46cce6645270518d1b11b6d6dccdae2744b5738c"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0063_av.jpg",
+      "originalFilename": "npc_0063_av_1794507042981.jpg",
+      "sourceBrainRelativePath": "ea54ffb9214ff9360ac364e5d1c92e52/npc_0063_av_1794507042981.jpg",
+      "bytes": 909461,
+      "sha256": "3d84ea39bd55e9a5550ea9e6fec2691da8f01a9e1d24ab8cce2bfb6a5232a3d2"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0064_av.jpg",
+      "originalFilename": "npc_0064_av_1794507072746.jpg",
+      "sourceBrainRelativePath": "ea54ffb9214ff9360ac364e5d1c92e52/npc_0064_av_1794507072746.jpg",
+      "bytes": 878311,
+      "sha256": "5a7ad0d4cfe36866c0bbfbc1fd0e067b5c9298a1620b5148742067bf9be516c8"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0064_fb.jpg",
+      "originalFilename": "npc_0064_fb_1794507077605.jpg",
+      "sourceBrainRelativePath": "ea54ffb9214ff9360ac364e5d1c92e52/npc_0064_fb_1794507077605.jpg",
+      "bytes": 932764,
+      "sha256": "013ad7ec0870071525e63c91a335b8a83ae00a1c85e0d369599d4f34954d8ff7"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0065_fb.jpg",
+      "originalFilename": "npc_0065_fb_1794507088174.jpg",
+      "sourceBrainRelativePath": "ea54ffb9214ff9360ac364e5d1c92e52/npc_0065_fb_1794507088174.jpg",
+      "bytes": 948461,
+      "sha256": "54d1e92d6861f2e6c0921778f505523b05ee96e388d5fed704b05f70ced2e138"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0081_av.jpg",
+      "originalFilename": "npc_0081_av_1794507069541.jpg",
+      "sourceBrainRelativePath": "de168a790aee8da7ec5db2649caa16c8/npc_0081_av_1794507069541.jpg",
+      "bytes": 1066788,
+      "sha256": "6e11f91cd63f95fbe64f3f5d4f36859a03051e61ba08939bda8452ba802fa629"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0082_av.jpg",
+      "originalFilename": "npc_0082_av_1794507077533.jpg",
+      "sourceBrainRelativePath": "de168a790aee8da7ec5db2649caa16c8/npc_0082_av_1794507077533.jpg",
+      "bytes": 959555,
+      "sha256": "14c4f02bcde36f18d2f8652d88689b82e6ad6363ac1be8b678ae179d4ff106e5"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0082_fb.jpg",
+      "originalFilename": "npc_0082_fb_1794507082803.jpg",
+      "sourceBrainRelativePath": "de168a790aee8da7ec5db2649caa16c8/npc_0082_fb_1794507082803.jpg",
+      "bytes": 1013343,
+      "sha256": "12dfca8d6c7bcb24cc0411a9b5c3b9fba5c76980e6ef62f36e3f6d0705b93007"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0083_av.jpg",
+      "originalFilename": "npc_0083_av_1794507084805.jpg",
+      "sourceBrainRelativePath": "de168a790aee8da7ec5db2649caa16c8/npc_0083_av_1794507084805.jpg",
+      "bytes": 995143,
+      "sha256": "f9fa01a6873a838e975a0453caccfc3edfc01cabdce04be3ac069b93729bcc1a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0109_av.jpg",
+      "originalFilename": "npc_0109_av_1794507078631.jpg",
+      "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0109_av_1794507078631.jpg",
+      "bytes": 1005183,
+      "sha256": "4f8bf0b1163eed85299068e648195eb746c60710a1ef7f970972f69d3a70efc4"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0111_av.jpg",
+      "originalFilename": "npc_0111_av_1794507079138.jpg",
+      "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0111_av_1794507079138.jpg",
+      "bytes": 923687,
+      "sha256": "f58794e894e1814690d8f80c58869374cecc2f73f2a519148940d2a503c56e93"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0111_fb.jpg",
+      "originalFilename": "npc_0111_fb_1794507077279.jpg",
+      "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0111_fb_1794507077279.jpg",
+      "bytes": 1081621,
+      "sha256": "42d588b727f58d1c59519a3b1042a2591fccf08f617ab725a7da4e31f1684c0f"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0112_av.jpg",
+      "originalFilename": "npc_0112_av_1794507027641.jpg",
+      "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0112_av_1794507027641.jpg",
+      "bytes": 917774,
+      "sha256": "284aa9000902d22b0cd6fa2ae25260ec8f4d2aad7abdb5c1368d4d14193b54a1"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0115_av.jpg",
+      "originalFilename": "npc_0115_av_1794507030352.jpg",
+      "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0115_av_1794507030352.jpg",
+      "bytes": 867098,
+      "sha256": "b90a994f89dd56cd4911040fbdc0ca75c29da360c37217e8e9951171b1018d3a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0118_av.jpg",
+      "originalFilename": "npc_0118_av_1794507033810.jpg",
+      "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0118_av_1794507033810.jpg",
+      "bytes": 834856,
+      "sha256": "cbc21eb35d9b1c40435cd97b290e4956d40a402fdfe5bc70c85ca3df2569ad4b"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0121_av.jpg",
+      "originalFilename": "npc_0121_av_1794507040048.jpg",
+      "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0121_av_1794507040048.jpg",
+      "bytes": 928634,
+      "sha256": "cef6ab2424499f6b35dfdb4f4493d108a001f77ab7fe8a70b70ab30b6223fd36"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0125_av.jpg",
+      "originalFilename": "npc_0125_av_1794507034765.jpg",
+      "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0125_av_1794507034765.jpg",
+      "bytes": 844868,
+      "sha256": "9d0d524e4a4fa2e510977604556e12346891d35bf2bcdf5aecc91f83808288b7"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0128_av.jpg",
+      "originalFilename": "npc_0128_av_1794507037274.jpg",
+      "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0128_av_1794507037274.jpg",
+      "bytes": 857873,
+      "sha256": "f9a271ec09a86bdf71302ae096acfc3e1396c24425fd4fc5bc53353f5352e73c"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0142_av.jpg",
+      "originalFilename": "npc_0142_av_1794507085682.jpg",
+      "sourceBrainRelativePath": "c955aef4b92205b97a5f655932f30db1/npc_0142_av_1794507085682.jpg",
+      "bytes": 919371,
+      "sha256": "36113337af48191e6224e886a2ce269f635ba087f88a41270518ff8b40f7829c"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0144_av.jpg",
+      "originalFilename": "npc_0144_av_1794507091380.jpg",
+      "sourceBrainRelativePath": "c955aef4b92205b97a5f655932f30db1/npc_0144_av_1794507091380.jpg",
+      "bytes": 965810,
+      "sha256": "ce6a65d2a7c7d294ff7b47b708db76b2c24b05a3c5ff67d0efffccfd7438762d"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0144_fb.jpg",
+      "originalFilename": "npc_0144_fb_1794507089642.jpg",
+      "sourceBrainRelativePath": "c955aef4b92205b97a5f655932f30db1/npc_0144_fb_1794507089642.jpg",
+      "bytes": 995045,
+      "sha256": "8acf26439824ceadda5ceb876128f9ec7247eff0bf4a02c8c9755cbdb5656350"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/qiao_feng_avatar.jpg",
+      "originalFilename": "qiao_feng_avatar_1794504597431.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/qiao_feng_avatar_1794504597431.jpg",
+      "bytes": 799247,
+      "sha256": "09ea8c6a97ce9cab10eca6eaf824be57d28c4a4def2cf9dc2edddbf5a35c694e"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/qiao_feng_fullbody.jpg",
+      "originalFilename": "qiao_feng_fullbody_1794504595756.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/qiao_feng_fullbody_1794504595756.jpg",
+      "bytes": 1011159,
+      "sha256": "adf59894d8913c2f280c7cddead7381b7ff1b54efb487c02982f56c644ccbbf8"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_changan_clean_iso.jpg",
+      "originalFilename": "reg_changan_clean_iso_1794533168004.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_changan_clean_iso_1794533168004.jpg",
+      "bytes": 1393307,
+      "sha256": "b3ae4525fde31a371a5d2fa4e9f55150a432974e8510b56d477a869f92837720"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_changan_iso.jpg",
+      "originalFilename": "reg_changan_iso_1794533130216.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_changan_iso_1794533130216.jpg",
+      "bytes": 1285055,
+      "sha256": "af32fe909c1ac0be59a5b95a8fc07b9a66e819b0163600a825852c933af45bfb"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_chengdu_iso.jpg",
+      "originalFilename": "reg_chengdu_iso_1794533191362.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_chengdu_iso_1794533191362.jpg",
+      "bytes": 1105779,
+      "sha256": "3cc81818e1bd53537deeb1e123b17df517d8aef3712f5b1422ea3ed6a47006cf"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_dading_liao_iso.jpg",
+      "originalFilename": "reg_dading_liao_iso_1794533250170.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_dading_liao_iso_1794533250170.jpg",
+      "bytes": 1283680,
+      "sha256": "79fb4a420410adf4e19337965b08579a4d8bbf638acd783708d9b38ad56b6d11"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_dali_city_iso.jpg",
+      "originalFilename": "reg_dali_city_iso_1794533278737.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_dali_city_iso_1794533278737.jpg",
+      "bytes": 1093812,
+      "sha256": "bc61f91022d9824ff6da012607f7f3e1c0681bccbd77842d2652ce9eed8d82fa"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_daming_iso.jpg",
+      "originalFilename": "reg_daming_iso_1794533088339.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_daming_iso_1794533088339.jpg",
+      "bytes": 1352836,
+      "sha256": "9fd1843a2cd8b3475c80a9ade2b8659aff013d156548b78f9356e9f62ddde1ea"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_emeishan_iso.jpg",
+      "originalFilename": "reg_emeishan_iso_1794533158829.jpg",
+      "sourceBrainRelativePath": "36f3970cffdf661b7344d5d1ab885f43/reg_emeishan_iso_1794533158829.jpg",
+      "bytes": 981185,
+      "sha256": "17391f26f6d520c7cf74e4239bb3562fe33cb07835f302c76c4afb3cc3ffd301"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_hangzhou_iso.jpg",
+      "originalFilename": "reg_hangzhou_iso_1794533146844.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_hangzhou_iso_1794533146844.jpg",
+      "bytes": 1092115,
+      "sha256": "f503ed233e118556a02f1ef1f0c0d1d42fbab60091d302c238413f08317357fa"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_jiangning_iso.jpg",
+      "originalFilename": "reg_jiangning_iso_1794533107740.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_jiangning_iso_1794533107740.jpg",
+      "bytes": 1107767,
+      "sha256": "4f189e928b62b8ba6411d0646e4602b20495fd04904b027b6e86b67d84a7dd30"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_jianmenguan_iso.jpg",
+      "originalFilename": "reg_jianmenguan_iso_1794533107972.jpg",
+      "sourceBrainRelativePath": "36f3970cffdf661b7344d5d1ab885f43/reg_jianmenguan_iso_1794533107972.jpg",
+      "bytes": 1003693,
+      "sha256": "db565facb7cedcb835d9b70d50b1bc83700dd7b267c0a4a794c6e1508fdaa421"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_jinan_iso.jpg",
+      "originalFilename": "reg_jinan_iso_1794533203922.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_jinan_iso_1794533203922.jpg",
+      "bytes": 1263500,
+      "sha256": "487d3a3189ee6a11df58ad3b445c78c5027bfa55c7b310b9096740df5f5fc499"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_kunlun_iso.jpg",
+      "originalFilename": "reg_kunlun_iso_1794533056769.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_kunlun_iso_1794533056769.jpg",
+      "bytes": 1026536,
+      "sha256": "b0c28648c8888a63b3f440131b7f746b3bf2ddcf178024fe42c497b70b5cb2ba"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_linhuang_liao_iso.jpg",
+      "originalFilename": "reg_linhuang_liao_iso_1794533251489.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_linhuang_liao_iso_1794533251489.jpg",
+      "bytes": 1064899,
+      "sha256": "98f3911f184ddaa86d463be1f3b518d20207c7ce761530c9b4d5e11e1d3e3c2f"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_luoxie_tubo_iso.jpg",
+      "originalFilename": "reg_luoxie_tubo_iso_1794533275560.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_luoxie_tubo_iso_1794533275560.jpg",
+      "bytes": 1109590,
+      "sha256": "80da39712d57ef890642089a45a8f85fee136ba59eca0982d1e9c45e33c2d528"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_luoyang_iso.jpg",
+      "originalFilename": "reg_luoyang_iso_1794532916665.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/reg_luoyang_iso_1794532916665.jpg",
+      "bytes": 1346301,
+      "sha256": "5ad171279ad483e9e21b3dcd5baa35b6219794e943c1ae5aee5211ab650c6661"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_nanshaolin_iso.jpg",
+      "originalFilename": "reg_nanshaolin_iso_1794533282335.jpg",
+      "sourceBrainRelativePath": "36f3970cffdf661b7344d5d1ab885f43/reg_nanshaolin_iso_1794533282335.jpg",
+      "bytes": 1106445,
+      "sha256": "120ba9a67f6ae4d2d3101609aec81edde005dabe5ac0f6a329d1f77730e05450"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_qingcheng_iso.jpg",
+      "originalFilename": "reg_qingcheng_iso_1794533134412.jpg",
+      "sourceBrainRelativePath": "36f3970cffdf661b7344d5d1ab885f43/reg_qingcheng_iso_1794533134412.jpg",
+      "bytes": 1029619,
+      "sha256": "e570865a8a7ad6cde2c8123c2ea5d17ecb358e4cd7f8c06c642ee26675d96159"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_quanzhou_iso.jpg",
+      "originalFilename": "reg_quanzhou_iso_1794533231478.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_quanzhou_iso_1794533231478.jpg",
+      "bytes": 1091041,
+      "sha256": "5143b035a5de13dad630804ba76fa866197bfdb4593dffe07b7f8d4c70111f80"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_shaolin_iso.jpg",
+      "originalFilename": "reg_shaolin_iso_1794533056280.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_shaolin_iso_1794533056280.jpg",
+      "bytes": 1088575,
+      "sha256": "0d9119de3fb8f5a26e8df90aadb866d4ed50c216d51c5344aef2950c8b249af0"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_suzhou_iso.jpg",
+      "originalFilename": "reg_suzhou_iso_1794533146931.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_suzhou_iso_1794533146931.jpg",
+      "bytes": 1072737,
+      "sha256": "cc76de15ec9e60379cfa44fb256a39768101f74b065a55b255db6b36c9b3f81a"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_taihang_clean.jpg",
+      "originalFilename": "reg_taihang_clean_1794533199181.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_taihang_clean_1794533199181.jpg",
+      "bytes": 998273,
+      "sha256": "d0f33a119b3839eeb4c3215a87bfaa2ab31900c00c4266d4a8e009b33bf235a0"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_taihang_iso.jpg",
+      "originalFilename": "reg_taihang_iso_1794533164223.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_taihang_iso_1794533164223.jpg",
+      "bytes": 1032788,
+      "sha256": "599ac70b5f9fd55f9e300b21bd93579a8a23819c0206a79dd4afe62e9395360c"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_taishan_iso.jpg",
+      "originalFilename": "reg_taishan_iso_1794533238402.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_taishan_iso_1794533238402.jpg",
+      "bytes": 991524,
+      "sha256": "11da00bd2fa958eb6683344f8f4c07953bdb25f0cf4aec754c054ccb3210ebe7"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_taiyuan_iso.jpg",
+      "originalFilename": "reg_taiyuan_iso_1794533129475.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_taiyuan_iso_1794533129475.jpg",
+      "bytes": 1302188,
+      "sha256": "3282f25ae909c1f637e8f92ca50754167fa4098f62303762d3abab559bcc1aca"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_taohuadao_iso.jpg",
+      "originalFilename": "reg_taohuadao_iso_1794533086992.jpg",
+      "sourceBrainRelativePath": "36f3970cffdf661b7344d5d1ab885f43/reg_taohuadao_iso_1794533086992.jpg",
+      "bytes": 1071971,
+      "sha256": "125237b8ea53945ff8a0ea84cc506623b056f6d0e2dbacd0f2202a2cc5642f1f"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_tiezhangfeng_iso.jpg",
+      "originalFilename": "reg_tiezhangfeng_iso_1794533256670.jpg",
+      "sourceBrainRelativePath": "36f3970cffdf661b7344d5d1ab885f43/reg_tiezhangfeng_iso_1794533256670.jpg",
+      "bytes": 903382,
+      "sha256": "828fc8f27da5f37ce8a418a4b689158a92a3719837ee037ee2d69e19b4ec6078"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_tongguan_clean.jpg",
+      "originalFilename": "reg_tongguan_clean_1794533201231.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_tongguan_clean_1794533201231.jpg",
+      "bytes": 1017607,
+      "sha256": "e31ec6e9b570cb2a50241765a508b89fd8790c1ae355af1d05293bf8545cabb1"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_tongguan_iso.jpg",
+      "originalFilename": "reg_tongguan_iso_1794533167686.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_tongguan_iso_1794533167686.jpg",
+      "bytes": 1017752,
+      "sha256": "761d9e9f953c553c92c9579848ea1750afbfa5017b5da0bf65ad009b88862947"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_wudangshan_iso.jpg",
+      "originalFilename": "reg_wudangshan_iso_1794533217818.jpg",
+      "sourceBrainRelativePath": "36f3970cffdf661b7344d5d1ab885f43/reg_wudangshan_iso_1794533217818.jpg",
+      "bytes": 992689,
+      "sha256": "b5cfb0fa8357f5a89b039b1d5a6179f57e129c826b0cf794405ec4e72e40d80f"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_wuliangshan_iso.jpg",
+      "originalFilename": "reg_wuliangshan_iso_1794533189507.jpg",
+      "sourceBrainRelativePath": "36f3970cffdf661b7344d5d1ab885f43/reg_wuliangshan_iso_1794533189507.jpg",
+      "bytes": 1024731,
+      "sha256": "b13fe4b59b5fa70f2720d733a7027aecfadb74a828fc42398de1bc6dc6cde1d7"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_wutaishan_iso.jpg",
+      "originalFilename": "reg_wutaishan_iso_1794533094934.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_wutaishan_iso_1794533094934.jpg",
+      "bytes": 1027150,
+      "sha256": "e9d98b1df5e815cca84ce5ee46b9d064de729813a54d3ec268d69eff0dc804ae"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_xiangyang_iso.jpg",
+      "originalFilename": "reg_xiangyang_iso_1794533184329.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_xiangyang_iso_1794533184329.jpg",
+      "bytes": 1108888,
+      "sha256": "7a3c4690aab3ea441eb752a103ea18339f74a71bc03274223ebdc12a358872be"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_xijin_liao_iso.jpg",
+      "originalFilename": "reg_xijin_liao_iso_1794533206607.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_xijin_liao_iso_1794533206607.jpg",
+      "bytes": 1230497,
+      "sha256": "e7c6a69a432bd84f9b1dcddcf103397112dcd86a6f28479ae82a05252f550d4c"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_xingqing_xixia_iso.jpg",
+      "originalFilename": "reg_xingqing_xixia_iso_1794533229787.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_xingqing_xixia_iso_1794533229787.jpg",
+      "bytes": 1100377,
+      "sha256": "8693c5d573b9815cbf3317ec0c5546495e2c6c07fc5351dae34afdf6b5608e16"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_yanan_iso.jpg",
+      "originalFilename": "reg_yanan_iso_1794533168132.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_yanan_iso_1794533168132.jpg",
+      "bytes": 1226086,
+      "sha256": "e9051867608719c74cbed792821816ab405a28d3f1e68a7c9e8a4086f648c3ec"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_yangzhou_iso.jpg",
+      "originalFilename": "reg_yangzhou_iso_1794533105195.jpg",
+      "sourceBrainRelativePath": "112174180b89d216cd60b7489df9ffa7/reg_yangzhou_iso_1794533105195.jpg",
+      "bytes": 1117420,
+      "sha256": "df2af7cf391e33ef8ee0fb2b73bddac1a3cd81bd0a59ed2a6b5f5f13872e6b64"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_yanmenguan_iso.jpg",
+      "originalFilename": "reg_yanmenguan_iso_1794533122501.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_yanmenguan_iso_1794533122501.jpg",
+      "bytes": 1012776,
+      "sha256": "fae21ef1445469e3b8dff7748e2eb4e8ffa1148ad7937702b8d389e3b1ded1a3"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_yanziwu_iso.jpg",
+      "originalFilename": "reg_yanziwu_iso_1794533275302.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_yanziwu_iso_1794533275302.jpg",
+      "bytes": 996895,
+      "sha256": "6476ad8661b93d76fdd887937ce40bacbec532cb620848d27427d6526f8bfbd4"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_zhending_iso.jpg",
+      "originalFilename": "reg_zhending_iso_1794533089658.jpg",
+      "sourceBrainRelativePath": "af628ab615979de06aa203425f02e908/reg_zhending_iso_1794533089658.jpg",
+      "bytes": 1333786,
+      "sha256": "2298dec5031baf57c2f270bf10680c7c8c108d2255350eba8d3dc9339adc5446"
+    },
+    {
+      "category": "regions",
+      "archivePath": "assets_raw_masters/regions/reg_zhongnanshan_iso.jpg",
+      "originalFilename": "reg_zhongnanshan_iso_1794533238570.jpg",
+      "sourceBrainRelativePath": "82f593d69bec2664888ca4bc76d0c57d/reg_zhongnanshan_iso_1794533238570.jpg",
+      "bytes": 1031114,
+      "sha256": "69a7e0fa0fb1aa5aa189cb5c9e690ed074c2a7caebc16caed7837ff85c58a5fd"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/saodiseng_avatar.jpg",
+      "originalFilename": "saodiseng_avatar_1794504595875.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/saodiseng_avatar_1794504595875.jpg",
+      "bytes": 1035182,
+      "sha256": "ec9d611a8970818afb37fa176a2570a10b19ba663a4f6f0283b606f2eee61a1e"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/saodiseng_fullbody.jpg",
+      "originalFilename": "saodiseng_fullbody_1794504595961.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/saodiseng_fullbody_1794504595961.jpg",
+      "bytes": 1144409,
+      "sha256": "127041bd0780605096cc746a32aaea87e375683643b710b27abf3b79f7b4769f"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/sl_cangjing.jpg",
+      "originalFilename": "sl_cangjing_1794533878295.jpg",
+      "sourceBrainRelativePath": "7e0e4cfdff242088b208520f0931a3f3/sl_cangjing_1794533878295.jpg",
+      "bytes": 1254865,
+      "sha256": "d2b8a5494f38f2a08aaf232b2f4f78215422f4dc7cf741c6decc89583aba60cd"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/su_shi_avatar.jpg",
+      "originalFilename": "su_shi_avatar_1794504826340.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/su_shi_avatar_1794504826340.jpg",
+      "bytes": 1031264,
+      "sha256": "93cc0c4ce2db1c8323c35207bfd857bfa7aaba946fac71c3a2bb7838ffe8b7b4"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/su_shi_fullbody.jpg",
+      "originalFilename": "su_shi_fullbody_1794504826010.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/su_shi_fullbody_1794504826010.jpg",
+      "bytes": 1069424,
+      "sha256": "2e57e57a421ff6074cf73a0c27b26813ee2a7357766bd10e65abcde41f85d6d4"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/sz_hanshan_pano.jpg",
+      "originalFilename": "sz_hanshan_pano_1794533859026.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/sz_hanshan_pano_1794533859026.jpg",
+      "bytes": 1154383,
+      "sha256": "688aed40ccbe988c6659dd8c621c23044a51d96c02271c529bc1a483184b3d9c"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/sz_huqiu_pano.jpg",
+      "originalFilename": "sz_huqiu_pano_1794533814864.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/sz_huqiu_pano_1794533814864.jpg",
+      "bytes": 1030141,
+      "sha256": "1d3c7594815b328e493c5c9e6151db9ac51149d798f81a13a6bec7dd41aa7ea6"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/sz_taihu_pano.jpg",
+      "originalFilename": "sz_taihu_pano_1794533857025.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/sz_taihu_pano_1794533857025.jpg",
+      "bytes": 1011959,
+      "sha256": "c71d42a3a7e46a0585ec8539f130acaea40fdabdc1ae1fc988075b0425670d86"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/tg_fort.jpg",
+      "originalFilename": "tg_fort_1794533789150.jpg",
+      "sourceBrainRelativePath": "f8f2bd9af803d50d0c3118be32d3fbc4/tg_fort_1794533789150.jpg",
+      "bytes": 1253133,
+      "sha256": "6c5fc3f3bb21ccf5b722c71df481152a20580d0474503ab869c7a668b943f69b"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/tg_siguoya.jpg",
+      "originalFilename": "tg_siguoya_1794533789420.jpg",
+      "sourceBrainRelativePath": "f8f2bd9af803d50d0c3118be32d3fbc4/tg_siguoya_1794533789420.jpg",
+      "bytes": 1072934,
+      "sha256": "41f5cd0cdae59fd020006e10441f9801e5f467048861ad0218154db3d15e1f75"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/tg_summit.jpg",
+      "originalFilename": "tg_summit_1794533739977.jpg",
+      "sourceBrainRelativePath": "f8f2bd9af803d50d0c3118be32d3fbc4/tg_summit_1794533739977.jpg",
+      "bytes": 990154,
+      "sha256": "8d8a805d5ce11ab2a9b3b94bde37ed030e4bf08b3f662ce320348480dfbf72db"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/tg_zixia.jpg",
+      "originalFilename": "tg_zixia_1794533742693.jpg",
+      "sourceBrainRelativePath": "f8f2bd9af803d50d0c3118be32d3fbc4/tg_zixia_1794533742693.jpg",
+      "bytes": 1134816,
+      "sha256": "d1ea22ef282ef91ef4fd56328763860ccf00ca6299c5645d49c1849175db07c5"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tonglao_avatar.jpg",
+      "originalFilename": "tonglao_avatar_1794504628070.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tonglao_avatar_1794504628070.jpg",
+      "bytes": 1125693,
+      "sha256": "8d3ca4c824c5d253b77b5820d15b6177e6b0e252a9ac413bfcd9d1af44dee4b4"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tonglao_fullbody.jpg",
+      "originalFilename": "tonglao_fullbody_1794504631108.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tonglao_fullbody_1794504631108.jpg",
+      "bytes": 1115066,
+      "sha256": "ff8b6fa6da4c8a6e50dbd11bdee77650e4a253c77ff7177e317884123ebfdd1b"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_dali_prince_fb.jpg",
+      "originalFilename": "tpl_dali_prince_fb_1794505478833.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_dali_prince_fb_1794505478833.jpg",
+      "bytes": 932812,
+      "sha256": "d5b740d31f4beafb4e1862bd9355dc5714ef183e29f3d3de30d2a395de0945c6"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_emei_heroine_fb.jpg",
+      "originalFilename": "tpl_emei_heroine_fb_1794505477404.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_emei_heroine_fb_1794505477404.jpg",
+      "bytes": 1046184,
+      "sha256": "b4d1f28339315df098ebafdfb4b93a1f0cdc8d07d042e65db8d8476453852309"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_greenwood_hero_fb.jpg",
+      "originalFilename": "tpl_greenwood_hero_fb_1794505536976.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_greenwood_hero_fb_1794505536976.jpg",
+      "bytes": 947719,
+      "sha256": "ff79738e026a5e1a83e454bd4ac9d32aae99b0ed6d88de73b5d5512c9f1fdbe0"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_khitan_warrior_fb.jpg",
+      "originalFilename": "tpl_khitan_warrior_fb_1794505479357.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_khitan_warrior_fb_1794505479357.jpg",
+      "bytes": 1112539,
+      "sha256": "22161a4c23ec13bbc84f7529647f29a002d214a4b3372abdddfcca656649cc8b"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_shaolin_monk_fb.jpg",
+      "originalFilename": "tpl_shaolin_monk_fb_1794505421244.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_shaolin_monk_fb_1794505421244.jpg",
+      "bytes": 1074584,
+      "sha256": "d34936bbfb4af69a94e6346c90a0e7c71c2dc4281398faf67aef8cd712b595f8"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_song_empress_fb.jpg",
+      "originalFilename": "tpl_song_empress_fb_1794505420847.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_song_empress_fb_1794505420847.jpg",
+      "bytes": 1071232,
+      "sha256": "1818d135f29a01aa240287f03791c6265e5cd9a16a810ee8bcb80481c648ec53"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_song_physician_fb.jpg",
+      "originalFilename": "tpl_song_physician_fb_1794505535585.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_song_physician_fb_1794505535585.jpg",
+      "bytes": 1012275,
+      "sha256": "132b8001444c777bfc404dc6f43cfc0d1e12099de50b9ed2ff210bc00b8b567e"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_song_scholar_fb.jpg",
+      "originalFilename": "tpl_song_scholar_fb_1794505421291.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_song_scholar_fb_1794505421291.jpg",
+      "bytes": 1013948,
+      "sha256": "f39202689d883e1c8d0d6056d6d6bea7f9fbcafcafc1ebfa366615ca34826da1"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_taohua_master_fb.jpg",
+      "originalFilename": "tpl_taohua_master_fb_1794505535336.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_taohua_master_fb_1794505535336.jpg",
+      "bytes": 1097278,
+      "sha256": "88e9c9c9ce14aaf1a54448540d57ab6be423ba72b3ccf3d46032a1db2e68533d"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_taoist_master_fb.jpg",
+      "originalFilename": "tpl_taoist_master_fb_1794505422553.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_taoist_master_fb_1794505422553.jpg",
+      "bytes": 1020488,
+      "sha256": "f4cdf27f9dcd71eb76330af36aca4e06c3161eabd6848397b1d9b6a6222bc1fb"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_unorthodox_master_fb.jpg",
+      "originalFilename": "tpl_unorthodox_master_fb_1794505479575.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_unorthodox_master_fb_1794505479575.jpg",
+      "bytes": 921546,
+      "sha256": "7091c17aed38c991861ebaa362b22178fd2639bd4fb4c37050b03a73e4ea6fe6"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/tpl_woman_general_fb.jpg",
+      "originalFilename": "tpl_woman_general_fb_1794505537047.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/tpl_woman_general_fb_1794505537047.jpg",
+      "bytes": 995382,
+      "sha256": "f92519d9916db478815ce1f27fc070a84a37aec54a43ceb1aabde898c9701975"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/ts_yuhuang.jpg",
+      "originalFilename": "ts_yuhuang_1794533894328.jpg",
+      "sourceBrainRelativePath": "f8f2bd9af803d50d0c3118be32d3fbc4/ts_yuhuang_1794533894328.jpg",
+      "bytes": 1145967,
+      "sha256": "3012b80c8be8d9009d9e524f0d89db8ba3dd31010f87b82fa557acc8f8421461"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/ty_iron_pano.jpg",
+      "originalFilename": "ty_iron_pano_1794533894058.jpg",
+      "sourceBrainRelativePath": "a68a2281be3bad28e89e3b422248c5ea/ty_iron_pano_1794533894058.jpg",
+      "bytes": 1081401,
+      "sha256": "65470ee1eb6d0c6aed3eb716ae8246c8e8870a24ab36813194f641991bcc9c9c"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/ty_jinci_pano.jpg",
+      "originalFilename": "ty_jinci_pano_1794533890621.jpg",
+      "sourceBrainRelativePath": "a68a2281be3bad28e89e3b422248c5ea/ty_jinci_pano_1794533890621.jpg",
+      "bytes": 1077310,
+      "sha256": "a4208dd1b2ad901ad1056f9bb702d7332d283880a4189a9af9279a39d85c0821"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/wuyazi_avatar.jpg",
+      "originalFilename": "wuyazi_avatar_1794504895565.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/wuyazi_avatar_1794504895565.jpg",
+      "bytes": 977195,
+      "sha256": "1b496a5fb5c2d3a5f163c82ece9d7de83674deb77052e4b372c039a4df763923"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/wuyazi_fullbody.jpg",
+      "originalFilename": "wuyazi_fullbody_1794504896515.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/wuyazi_fullbody_1794504896515.jpg",
+      "bytes": 975043,
+      "sha256": "6e480b1b75cbc33c6fbe6b0b812b3b17c8be54045f54a7c04d8dbde27ed0d0a7"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/xiao_yuanshan_avatar.jpg",
+      "originalFilename": "xiao_yuanshan_avatar_1794504687064.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/xiao_yuanshan_avatar_1794504687064.jpg",
+      "bytes": 1029842,
+      "sha256": "09233af51d2418788961c96605f50f655b33122cb8a4299639db87f2d10fde4b"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/xiao_yuanshan_fullbody.jpg",
+      "originalFilename": "xiao_yuanshan_fullbody_1794504687563.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/xiao_yuanshan_fullbody_1794504687563.jpg",
+      "bytes": 1054649,
+      "sha256": "431c7506cfba8cc94ba410b140c656f1b77964abe8fca1b3d63e8d4c6def0011"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/xj_horse_raw.jpg",
+      "originalFilename": "xj_horse_raw_1794533716512.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/xj_horse_raw_1794533716512.jpg",
+      "bytes": 1089694,
+      "sha256": "f3ab2e59794ae1f8c8fff9321c43892097a7ce1e2dff6ed6d166a5a557011aa0"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/xj_marshal_raw.jpg",
+      "originalFilename": "xj_marshal_raw_1794533686447.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/xj_marshal_raw_1794533686447.jpg",
+      "bytes": 1189282,
+      "sha256": "a62694532d1c768e194ece6c8b71646394ae8e7913f084e7c06cdb44e86b222e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/xj_minzhong_raw.jpg",
+      "originalFilename": "xj_minzhong_raw_1794533686018.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/xj_minzhong_raw_1794533686018.jpg",
+      "bytes": 1338242,
+      "sha256": "46159076912efa27a0f414235f05bce5bf32eeb4c58c3e0e4385882d4ea7e497"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/xq_yipin_raw.jpg",
+      "originalFilename": "xq_yipin_raw_1794533846040.jpg",
+      "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/xq_yipin_raw_1794533846040.jpg",
+      "bytes": 1087893,
+      "sha256": "70c2e3944de5b239e17f7720787ae4f41f31d3f9a25d5da3c2312852ef31ba77"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/yz_24bridge_pano.jpg",
+      "originalFilename": "yz_24bridge_pano_1794533688375.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/yz_24bridge_pano_1794533688375.jpg",
+      "bytes": 1255384,
+      "sha256": "21b79cae1fb0492f8a92dec261b704ed2c104eda9792bf11cff91c8b44e98e93"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/yz_chaoguan_pano.jpg",
+      "originalFilename": "yz_chaoguan_pano_1794533686669.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/yz_chaoguan_pano_1794533686669.jpg",
+      "bytes": 1236292,
+      "sha256": "ae006734792b2c38ce13669b30abed8329dc4246c2f962fc0225ca6a9c6b4693"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/yz_salt_pano.jpg",
+      "originalFilename": "yz_salt_pano_1794533729563.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/yz_salt_pano_1794533729563.jpg",
+      "bytes": 1210645,
+      "sha256": "d16090d9d08e4603597f0345cd78ce4a579212aee4dc79f8e15ac1f3f7895027"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/yz_salt_v2_pano.jpg",
+      "originalFilename": "yz_salt_v2_pano_1794533769333.jpg",
+      "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/yz_salt_v2_pano_1794533769333.jpg",
+      "bytes": 1372480,
+      "sha256": "f78208883af03d78ceb04dcc6aa05843b497ee01b8d1cdee4057852bf6cde7bc"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/zd_longxing_pano.jpg",
+      "originalFilename": "zd_longxing_pano_1794533766606.jpg",
+      "sourceBrainRelativePath": "a68a2281be3bad28e89e3b422248c5ea/zd_longxing_pano_1794533766606.jpg",
+      "bytes": 1050747,
+      "sha256": "17876c786d70193089a0ebdacf359bb1e2c8c4d99d9afb6c37f6c769334abc1d"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/zd_market_pano.jpg",
+      "originalFilename": "zd_market_pano_1794533823373.jpg",
+      "sourceBrainRelativePath": "a68a2281be3bad28e89e3b422248c5ea/zd_market_pano_1794533823373.jpg",
+      "bytes": 1092560,
+      "sha256": "1e4f14cc148f1be4c9d05f2ff472642c5fdbdf45b3e3e88eadd38f8034c30f9e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/zd_spear_pano.jpg",
+      "originalFilename": "zd_spear_pano_1794533826667.jpg",
+      "sourceBrainRelativePath": "a68a2281be3bad28e89e3b422248c5ea/zd_spear_pano_1794533826667.jpg",
+      "bytes": 1034010,
+      "sha256": "4ae613fcfde2a82724e546a10b18632259f82018d4d6f16eb3b63a3c5ae138dc"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/zhan_zhao_avatar.jpg",
+      "originalFilename": "zhan_zhao_avatar_1794504834426.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/zhan_zhao_avatar_1794504834426.jpg",
+      "bytes": 977743,
+      "sha256": "d88152c764d89b7fa44a42d8eb7ca99489a54c914382cb6a9128ee16011b115e"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/zhan_zhao_fullbody.jpg",
+      "originalFilename": "zhan_zhao_fullbody_1794504826452.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/zhan_zhao_fullbody_1794504826452.jpg",
+      "bytes": 1026599,
+      "sha256": "8bf867c630e4d9129b5157cc4313b6724b11b8145de6626d2c1808adb676eb3b"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/zhao_zhen_avatar.jpg",
+      "originalFilename": "zhao_zhen_avatar_1794504745375.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/zhao_zhen_avatar_1794504745375.jpg",
+      "bytes": 1028318,
+      "sha256": "db0403cc7184d8909cf8f5fc8a9012cc4b9f7e3685ebce81162294450748c466"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/zhao_zhen_fullbody.jpg",
+      "originalFilename": "zhao_zhen_fullbody_1794504745936.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/zhao_zhen_fullbody_1794504745936.jpg",
+      "bytes": 1074536,
+      "sha256": "808a8f3d2c065426e9bf26a4a321276695eb1f1633d1425647985f7693d375d5"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/zn_stream.jpg",
+      "originalFilename": "zn_stream_1794533894160.jpg",
+      "sourceBrainRelativePath": "f8f2bd9af803d50d0c3118be32d3fbc4/zn_stream_1794533894160.jpg",
+      "bytes": 1310156,
+      "sha256": "7e9a12c099cbe4cb3a51fa4b5b7ed8c3cd8adcbe94db2f30a6d778dd435fe70a"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/zn_tao.jpg",
+      "originalFilename": "zn_tao_1794533838983.jpg",
+      "sourceBrainRelativePath": "f8f2bd9af803d50d0c3118be32d3fbc4/zn_tao_1794533838983.jpg",
+      "bytes": 1124489,
+      "sha256": "e51cdb7658a16d55294aa12d0a6df00ecd8e6c3a7d83a2069926efd95f1fdf33"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/zn_tomb.jpg",
+      "originalFilename": "zn_tomb_1794533841340.jpg",
+      "sourceBrainRelativePath": "f8f2bd9af803d50d0c3118be32d3fbc4/zn_tomb_1794533841340.jpg",
+      "bytes": 1198882,
+      "sha256": "0a91d0baa0be9dbd8ee9609b74e507947932e85480369810f3af488040e2282a"
+    }
+  ]
+}

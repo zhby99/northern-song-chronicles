@@ -1,0 +1,2484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>《北宋立志传》— 皇祐二年（1050）华夏山海全景舆图</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      user-select: none;
+    }
+    .song-serif {
+      font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
+    }
+    .ocean-backdrop {
+      background-color: #9cb4ba;
+      background-image:
+        radial-gradient(circle at 68% 42%, rgba(188, 211, 214, 0.55), transparent 58%),
+        radial-gradient(circle at 50% 50%, transparent 64%, rgba(56, 78, 86, 0.34) 100%);
+    }
+    .scroll-thin::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    .scroll-thin::-webkit-scrollbar-thumb {
+      background: rgba(120, 96, 68, 0.38);
+      border-radius: 9999px;
+    }
+    /* 100% 纯实色不透明悬停浮窗，彻底隔绝底层地图纹理干扰 */
+    .solid-map-tooltip {
+      background-color: #faf3e3 !important;
+      opacity: 1 !important;
+      backdrop-filter: none !important;
+      border: 2px solid #5c4024;
+      box-shadow: 0 12px 28px rgba(24, 16, 8, 0.48), 0 2px 6px rgba(24, 16, 8, 0.32);
+    }
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.92; }
+      75% { transform: scale(1.75); opacity: 0; }
+      100% { transform: scale(1.75); opacity: 0; }
+    }
+    .player-pulse {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: pulseRing 2.1s infinite ease-out;
+    }
+    @keyframes alertBlink {
+      0%, 100% { opacity: 0.88; }
+      50% { opacity: 0.25; }
+    }
+    .alert-ring {
+      animation: alertBlink 1.8s infinite ease-in-out;
+    }
+    .road-dash-water {
+      stroke-dasharray: 7 4;
+    }
+    .road-dash-steppe {
+      stroke-dasharray: 9 4;
+    }
+    .road-dash-mountain {
+      stroke-dasharray: 3 4;
+    }
+    .active-route-glow {
+      stroke-dasharray: 9 5;
+      animation: routeFlow 1.05s linear infinite;
+    }
+    @keyframes routeFlow {
+      to { stroke-dashoffset: -28; }
+    }
+    .lod-fade {
+      transition: opacity 0.22s ease;
+    }
+  </style>
+</head>
+<body class="bg-[var(--background)] text-[var(--foreground)] antialiased flex flex-col h-full">
+
+  <!-- 顶部：皇祐纪年历法、盘缠粮草与当前角色状态条 -->
+  <header class="shrink-0 bg-[var(--card)] border-b border-[var(--border)] px-4 py-2 flex flex-wrap items-center justify-between gap-3 z-20">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded border border-amber-800/40 bg-amber-900/15 flex items-center justify-center song-serif font-bold text-amber-800 dark:text-amber-400 text-base">
+        宋
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="song-serif font-bold text-base tracking-wider">《北宋立志传》华夏山海全景舆图</h1>
+          <span id="calendar-badge" class="px-2 py-0.5 text-xs rounded bg-amber-900/15 text-amber-900 dark:text-amber-300 border border-amber-800/30 font-medium song-serif">
+            皇祐二年 · 春 · 正月一日
+          </span>
+        </div>
+        <p class="text-xs text-[var(--muted-foreground)]">
+          当前驻地：<span id="header-location" class="font-semibold text-[var(--foreground)]">开封府（北宋·京畿路）</span>
+          <span class="mx-1.5 opacity-40">|</span>
+          行止状态：<span id="header-status" class="text-emerald-700 dark:text-emerald-400 font-medium">城内驻留</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- 角色关键出行与四维简报 -->
+    <div class="flex flex-wrap items-center gap-2 text-xs">
+      <div class="px-2.5 py-1 rounded bg-[var(--background)] border border-[var(--border)] flex items-center gap-2.5">
+        <span title="基础三维（不参与战斗结算）" class="text-[var(--muted-foreground)]">
+          天赋 <strong id="stat-talent" class="text-[var(--foreground)] font-mono">根72/悟84/颜78</strong>
+        </span>
+        <span class="opacity-30">|</span>
+        <span title="实战四维">气血 <strong id="stat-hp" class="text-rose-700 dark:text-rose-400 font-mono">1200</strong></span>
+        <span>内力 <strong id="stat-mp" class="text-sky-700 dark:text-sky-400 font-mono">950</strong></span>
+        <span>身法 <strong id="stat-agi" class="text-emerald-700 dark:text-emerald-400 font-mono">65</strong></span>
+        <span>抗性 <strong id="stat-res" class="text-amber-700 dark:text-amber-400 font-mono">40</strong></span>
+      </div>
+
+      <div class="px-2.5 py-1 rounded bg-[var(--background)] border border-[var(--border)] flex items-center gap-2.5">
+        <span>纹银：<strong id="res-silver" class="font-mono">120</strong> 两</span>
+        <span class="opacity-30">|</span>
+        <span>干粮：<strong id="res-food" class="font-mono">25</strong> 日份</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体双栏：左侧真实海岸线东亚全景舆图 + 右侧立志传行旅控制舱 -->
+  <div class="flex-1 flex min-h-0 relative overflow-hidden">
+
+    <!-- 左：华夏山海交互式 SVG 全景舆图 -->
+    <main id="map-viewport" class="flex-1 relative overflow-hidden ocean-backdrop cursor-grab active:cursor-grabbing">
+
+      <!-- 左上角：战略情报开关 + 地名文字分类下拉栏目 + 当前缩放层级状态提示（纯实色面板） -->
+      <div class="absolute top-3 left-3 z-30 flex flex-wrap items-center gap-1.5 bg-[#f8f1e1] text-[#2a1f16] border border-[#6e5539] rounded-md px-2.5 py-1.5 shadow-md text-xs">
+        <span class="song-serif font-bold text-[#52391e] mr-1">舆图谍报：</span>
+
+        <!-- 地名文字下拉栏目（收纳：城市、独立名山秘境与战略雄关、名侠踪迹、道路里程 四项独立开关） -->
+        <div id="labels-menu-container" class="relative">
+          <button id="labels-menu-trigger" onclick="toggleLabelsDropdown(event)" class="px-2.5 py-0.5 rounded border border-[#7c6344] bg-[#5c4024] text-[#fff8ee] font-medium transition flex items-center gap-1.5">
+            <span id="labels-trigger-text">地名文字 (3/4)</span>
+            <span id="labels-trigger-caret" class="text-[10px] opacity-85 transition-transform">▾</span>
+          </button>
+
+          <!-- 纯实色古风下拉子面板 -->
+          <div id="labels-dropdown-panel" class="hidden absolute left-0 top-full mt-1.5 w-64 bg-[#faf3e3] text-[#23180f] border-2 border-[#5c4024] rounded-md shadow-xl p-2.5 space-y-2 z-50">
+            <div class="flex items-center justify-between border-b border-[#8c7353]/40 pb-1.5">
+              <span class="song-serif font-bold text-[#52391e] text-xs">地图文字标注显示开关</span>
+              <div class="flex items-center gap-1 text-[11px]">
+                <button onclick="setAllLabelToggles(true)" class="px-1.5 py-0.5 rounded bg-[#eadec6] hover:bg-[#dfd0b2] border border-[#9e8462] text-[#3d2812] transition">全显</button>
+                <button onclick="setAllLabelToggles(false)" class="px-1.5 py-0.5 rounded bg-[#eadec6] hover:bg-[#dfd0b2] border border-[#9e8462] text-[#3d2812] transition">全隐(仅图标)</button>
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <!-- 1. 城市 -->
+              <button id="subtoggle-cityLabels" onclick="toggleOverlay('cityLabels')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded border border-[#9e8462] bg-[#efe5cd] hover:bg-[#e6d8b8] transition text-xs">
+                <span class="flex items-center gap-2 font-medium">
+                  <span class="inline-block w-2.5 h-2.5 bg-[#8f241e] border border-[#3a1d12] shrink-0"></span>
+                  <span>城市</span>
+                </span>
+                <span id="pill-cityLabels" class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#5c4024] text-[#fff8ee]">显示</span>
+              </button>
+
+              <!-- 2. 独立名山秘境与战略雄关 -->
+              <button id="subtoggle-sectPassLabels" onclick="toggleOverlay('sectPassLabels')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded border border-[#9e8462] bg-[#efe5cd] hover:bg-[#e6d8b8] transition text-xs">
+                <span class="flex items-center gap-2 font-medium">
+                  <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#285948] border border-[#143328] shrink-0"></span>
+                  <span>独立名山秘境与战略雄关</span>
+                </span>
+                <span id="pill-sectPassLabels" class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#5c4024] text-[#fff8ee]">显示</span>
+              </button>
+
+              <!-- 3. 名侠踪迹 -->
+              <button id="subtoggle-masters" onclick="toggleOverlay('masters')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded border border-[#9e8462] bg-[#efe5cd] hover:bg-[#e6d8b8] transition text-xs">
+                <span class="flex items-center gap-2 font-medium">
+                  <span class="inline-block w-2.5 h-2.5 rounded-full bg-[#1d473a] border border-[#0f2921] shrink-0"></span>
+                  <span>名侠踪迹</span>
+                </span>
+                <span id="pill-masters" class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#285647] text-[#fff8ee]">显示</span>
+              </button>
+
+              <!-- 4. 道路里程 -->
+              <button id="subtoggle-distance" onclick="toggleOverlay('distance')" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded border border-[#9e8462] bg-[#f6efe0] hover:bg-[#e6d8b8] transition text-xs">
+                <span class="flex items-center gap-2 font-medium">
+                  <span class="inline-block w-2.5 h-2.5 rounded-sm bg-[#6b4f2c] border border-[#3a2918] shrink-0"></span>
+                  <span>道路里程</span>
+                </span>
+                <span id="pill-distance" class="px-2 py-0.5 rounded text-[11px] font-semibold bg-[#d8cbb2] text-[#5c4630]">隐藏</span>
+              </button>
+            </div>
+
+            <div class="text-[11px] text-[#6b5338] pt-0.5 leading-snug">
+              注：关闭后地图仍保留各地区图标与悬停详情；缩小至 &lt;0.85× 时自动切换为列国国号总览。
+            </div>
+          </div>
+        </div>
+
+        <button id="layer-factions" onclick="toggleOverlay('factions')" class="px-2 py-0.5 rounded border border-[#7c6344] hover:bg-[#e8dcc4] transition">
+          门派与四国势力圈
+        </button>
+        <button id="layer-alerts" onclick="toggleOverlay('alerts')" class="px-2 py-0.5 rounded border border-[#7c6344] bg-[#992b2b] text-[#fff8ee] transition">
+          边关渗透警报
+        </button>
+        <span class="mx-1 text-[#8c7353]">|</span>
+        <span id="zoom-lod-badge" class="px-2 py-0.5 rounded bg-[#eadec6] border border-[#9e8462] text-[#4a3219] font-medium song-serif">
+          视距 1.00× · 详图（显示城池宗门）
+        </span>
+      </div>
+
+      <!-- 左下角：图例与缩放复位（纯实色面板） -->
+      <div class="absolute bottom-3 left-3 z-10 flex items-end gap-2">
+        <div class="bg-[#f8f1e1] text-[#2a1f16] border border-[#6e5539] rounded-md px-3 py-2 shadow-md text-xs space-y-1">
+          <div class="font-bold song-serif text-[#52391e] border-b border-[#8c7353]/40 pb-0.5 mb-1">《华夷山海全图》图例（滚轮缩小自动隐去地名、凸显列国疆界）</div>
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="flex items-center gap-1"><span class="inline-block w-2.5 h-2.5 bg-[#8f241e] border border-[#3a1d12]"></span> 北宋 15 城</span>
+            <span class="flex items-center gap-1"><span class="inline-block w-2.5 h-2.5 bg-[#5b3b73] border border-[#281836]"></span> 辽/夏/蕃/理 6 城</span>
+            <span class="flex items-center gap-1"><span class="inline-block w-2.5 h-2.5 rounded-full bg-[#285948] border border-[#143328]"></span> 名山宗门/昆仑</span>
+            <span class="flex items-center gap-1"><span class="inline-block w-2.5 h-2.5 rotate-45 bg-[#8a5219] border border-[#422508]"></span> 战略雄关</span>
+            <span class="flex items-center gap-1"><span class="inline-block w-4 h-0.5 bg-[#8e2f24]"></span> 列国疆界</span>
+            <span class="flex items-center gap-1"><span class="inline-block w-2.5 h-2.5 bg-[#9e8b6e] border border-[#5e4d36]"></span> 塞外未辟绝域（雕版云纹）</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-[11px] text-[#55422f]">
+            <span>── 官道 (1.0)</span>
+            <span>╌╌ 运河海路 (0.8)</span>
+            <span>─ - 塞外戈壁 (1.2)</span>
+            <span>┈┈ 崇山高原 (1.6)</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col bg-[#f8f1e1] text-[#2a1f16] border border-[#6e5539] rounded-md overflow-hidden shadow-md text-xs">
+          <button onclick="zoomBy(1.22)" title="放大舆图" class="px-2.5 py-1.5 hover:bg-[#e8dcc4] font-bold border-b border-[#8c7353]/40">+</button>
+          <button onclick="zoomBy(0.82)" title="缩小舆图（<0.85× 切换列国总览）" class="px-2.5 py-1.5 hover:bg-[#e8dcc4] font-bold border-b border-[#8c7353]/40">−</button>
+          <button onclick="focusZhongyuan()" title="聚焦中原" class="px-2 py-1 hover:bg-[#e8dcc4] border-b border-[#8c7353]/40 text-[11px]">中原</button>
+          <button onclick="focusMacroRegimes()" title="缩小至列国宏观总览" class="px-2 py-1 hover:bg-[#e8dcc4] border-b border-[#8c7353]/40 text-[11px] text-[#8f241e] font-semibold">列国</button>
+          <button onclick="resetView()" title="全景山海 (1.0×)" class="px-2 py-1 hover:bg-[#e8dcc4] text-[11px]">全图</button>
+        </div>
+      </div>
+
+      <!-- 行军途中顶部实时横幅（纯实色深檀木底） -->
+      <div id="travel-banner" class="hidden absolute top-14 left-1/2 -translate-x-1/2 z-20 bg-[#281e15] text-[#f7ebd2] border-2 border-[#c29b59] rounded-md px-4 py-2 shadow-xl flex items-center gap-4 text-xs">
+        <div>
+          <div class="song-serif font-bold text-amber-300" id="travel-route-title">正在赶往：洛阳府</div>
+          <div class="text-[#e6d8bc] mt-0.5" id="travel-progress-text">剩余里程：380 里 · 预计还需 2.4 日</div>
+        </div>
+        <button onclick="campStop()" class="px-2.5 py-1 rounded bg-amber-700 hover:bg-amber-600 text-white font-medium transition">
+          驻扎露营
+        </button>
+      </div>
+
+      <!-- 悬停浮窗 Tooltip：100% 纯实色不透明背景（solid-map-tooltip），绝不透底重叠 -->
+      <div id="map-tooltip" class="hidden pointer-events-none absolute z-40 w-80 solid-map-tooltip text-[#23180f] rounded-md p-3.5 text-xs">
+      </div>
+
+      <!-- 核心 SVG 华夏及东亚全景舆图画布 -->
+      <svg id="song-map-svg" viewBox="0 0 1600 1000" class="w-full h-full block">
+        <defs>
+          <!-- 海洋水波暗纹 -->
+          <pattern id="sea-wave-pattern" width="64" height="32" patternUnits="userSpaceOnUse">
+            <path d="M 8 16 Q 16 12 24 16 T 40 16 M 36 28 Q 44 24 52 18" fill="none" stroke="#6f8b92" stroke-width="0.8" stroke-opacity="0.34" />
+            <path d="M 24 6 Q 32 2 40 6 T 56 6" fill="none" stroke="#5e7c84" stroke-width="0.65" stroke-opacity="0.24" />
+          </pattern>
+
+          <!-- 禹迹计里画方格网 -->
+          <pattern id="grid-lines" width="80" height="80" patternUnits="userSpaceOnUse">
+            <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#8a7454" stroke-width="0.4" stroke-opacity="0.26" />
+          </pattern>
+
+          <!-- 未开放绝域：宋代雕版《山海舆图》古铜褐暗影 + 排线皴纹 + 祥云回纹装饰图案 -->
+          <pattern id="uncharted-brocade-pattern" width="72" height="72" patternUnits="userSpaceOnUse">
+            <!-- 沉稳茶褐宣纸暗影底色（告别大片刺眼空白黄地） -->
+            <rect width="72" height="72" fill="#9c896c" fill-opacity="0.62" />
+            <!-- 45度古籍版画细密斜排线纹理 -->
+            <path d="M -18,18 L 18,-18 M 0,36 L 36,0 M 0,72 L 72,0 M 36,72 L 72,36 M 54,90 L 90,54
+                     M -9,9 L 9,-9 M 0,18 L 18,0 M 0,54 L 54,0 M 18,72 L 72,18 M 54,72 L 72,54"
+                  stroke="#59462d" stroke-width="0.65" stroke-opacity="0.28" />
+            <!-- 交错古风祥云如意卷草暗纹（第一排） -->
+            <path d="M 10,24 C 10,17 18,17 20,22 C 22,15 33,15 35,22 C 38,18 44,20 43,25 C 42,29 36,29 33,28 L 15,28 C 11,28 10,26 10,24 Z"
+                  fill="#836f52" fill-opacity="0.32" stroke="#4d3b24" stroke-width="0.85" stroke-opacity="0.42" />
+            <path d="M 18,24 C 21,21 26,21 27,25" fill="none" stroke="#4d3b24" stroke-width="0.75" stroke-opacity="0.38" />
+            <!-- 交错古风祥云如意卷草暗纹（第二排错位） -->
+            <path d="M 42,58 C 42,51 50,51 52,56 C 54,49 65,49 67,56 C 70,52 76,54 75,59 C 74,63 68,63 65,62 L 47,62 C 43,62 42,60 42,58 Z"
+                  fill="#836f52" fill-opacity="0.32" stroke="#4d3b24" stroke-width="0.85" stroke-opacity="0.42" />
+            <!-- 古舆图回纹菱格星点装饰 -->
+            <g stroke="#4f3d26" stroke-width="0.7" stroke-opacity="0.36" fill="none">
+              <polygon points="56,22 61,17 66,22 61,27" />
+              <circle cx="61" cy="22" r="1.1" fill="#4f3d26" fill-opacity="0.36" />
+              <polygon points="20,56 25,51 30,56 25,61" />
+              <circle cx="25" cy="56" r="1.1" fill="#4f3d26" fill-opacity="0.36" />
+            </g>
+          </pattern>
+
+          <!-- 陆地裁剪蒙版（涵盖东亚大陆及海东诸岛，使未开放区域的雕版云纹严丝合缝贴合在陆地海岸线内） -->
+          <clipPath id="all-land-clip">
+            <path d="M 75.4,-32.6 C 394.6,-265.8 1030.4,-43.4 1315.1,-32.6 C 1599.8,-21.8 1362.7,-6.4 1369.7,16.3 C 1376.7,39.0 1361.5,49.2 1347.0,70.7 C 1332.5,92.2 1321.1,96.2 1303.8,114.1 C 1286.5,132.0 1286.2,142.0 1268.4,152.2 C 1250.6,162.4 1237.7,154.9 1223.1,160.3 C 1208.5,165.7 1210.5,170.0 1202.0,176.6 C 1193.5,183.2 1190.0,180.6 1184.6,190.2 C 1179.2,199.8 1184.6,208.1 1177.5,220.1 C 1170.4,232.1 1159.8,235.6 1152.2,244.6 C 1144.6,253.6 1140.3,253.7 1143.0,260.9 C 1145.7,268.1 1155.6,267.0 1164.5,277.2 C 1173.4,287.4 1177.2,295.2 1183.4,307.1 C 1189.6,319.0 1189.8,322.5 1192.8,331.5 C 1195.8,340.5 1196.5,340.0 1196.9,347.8 C 1197.3,355.6 1196.3,361.4 1194.4,366.8 C 1192.5,372.2 1193.3,369.3 1188.2,372.3 C 1183.1,375.3 1178.7,377.4 1171.0,380.4 C 1163.3,383.4 1161.5,382.9 1153.3,385.9 C 1145.1,388.9 1140.2,395.2 1133.6,394.0 C 1127.0,392.8 1124.1,389.4 1123.3,380.4 C 1122.5,371.4 1129.9,364.7 1129.9,353.3 C 1129.9,341.9 1123.2,339.0 1123.2,328.8 C 1123.2,318.6 1131.6,313.7 1130.0,307.1 C 1128.4,300.5 1124.5,301.3 1116.0,298.9 C 1107.5,296.5 1095.2,301.6 1091.3,296.2 C 1087.4,290.8 1098.2,284.7 1098.3,274.5 C 1098.4,264.3 1097.1,257.2 1091.6,250.0 C 1086.1,242.8 1082.7,242.4 1073.5,241.8 C 1064.3,241.2 1060.3,243.1 1050.0,247.3 C 1039.7,251.5 1036.6,255.5 1026.9,260.9 C 1017.2,266.3 1009.2,274.1 1005.7,271.7 C 1002.2,269.3 1007.3,260.8 1010.9,250.0 C 1014.5,239.2 1025.0,230.6 1022.1,222.8 C 1019.2,215.0 1008.5,211.1 997.7,214.7 C 986.9,218.3 981.3,229.5 973.2,239.1 C 965.1,248.7 969.5,252.8 961.1,258.2 C 952.7,263.6 942.1,259.4 935.0,263.6 C 927.9,267.8 927.8,271.2 929.0,277.2 C 930.2,283.2 934.6,286.0 940.6,290.8 C 946.6,295.6 952.3,293.5 956.4,298.9 C 960.5,304.3 953.0,314.0 959.4,315.2 C 965.8,316.4 973.9,306.1 985.5,304.3 C 997.1,302.5 1000.5,305.9 1012.3,307.1 C 1024.1,308.3 1034.1,306.2 1039.2,309.8 C 1044.3,313.4 1045.5,315.6 1035.6,323.4 C 1025.7,331.2 1008.2,335.6 994.4,345.1 C 980.6,354.6 978.5,357.8 973.0,366.8 C 967.5,375.8 964.9,376.9 969.3,385.9 C 973.7,394.9 984.5,396.8 993.1,407.6 C 1001.7,418.4 999.6,422.8 1008.3,434.8 C 1017.0,446.8 1027.7,451.2 1032.8,462.0 C 1037.9,472.8 1036.4,476.5 1031.7,483.7 C 1027.0,490.9 1013.1,489.8 1011.3,494.6 C 1009.5,499.4 1017.6,501.2 1023.5,505.4 C 1029.4,509.6 1035.6,506.4 1038.0,513.6 C 1040.4,520.8 1037.2,527.8 1034.6,538.0 C 1032.0,548.2 1031.5,549.6 1026.2,559.8 C 1020.9,570.0 1018.1,574.0 1010.7,584.2 C 1003.3,594.4 997.9,597.0 992.5,606.0 C 987.1,615.0 990.5,616.6 986.0,625.0 C 981.5,633.4 979.9,635.6 972.2,644.0 C 964.5,652.4 959.4,654.0 951.1,663.0 C 942.8,672.0 943.0,677.0 934.6,684.8 C 926.2,692.6 925.7,693.0 913.0,698.4 C 900.3,703.8 889.0,704.4 876.7,709.2 C 864.4,714.0 864.8,720.1 857.3,720.1 C 849.8,720.1 847.9,707.4 842.5,709.2 C 837.1,711.0 842.6,721.7 832.9,728.3 C 823.2,734.9 812.6,734.9 798.6,739.1 C 784.6,743.3 776.7,739.5 769.1,747.3 C 761.5,755.1 768.5,768.5 764.1,774.5 C 759.7,780.5 752.0,781.1 749.3,774.5 C 746.6,767.9 758.4,752.4 752.0,744.6 C 745.6,736.8 734.7,736.7 720.1,739.1 C 705.5,741.5 696.4,748.8 685.5,755.4 C 674.6,762.0 677.7,761.2 670.5,769.0 C 663.3,776.8 653.6,775.8 652.8,790.8 C 652.0,805.8 657.7,817.9 666.7,837.0 C 675.7,856.1 683.8,866.3 693.5,877.7 C 703.2,889.1 703.8,879.6 710.9,888.6 C 718.0,897.6 720.2,903.0 725.6,918.5 C 731.0,934.0 733.9,941.9 735.4,959.2 C 736.9,976.5 738.8,981.7 732.6,997.3 C 726.4,1012.9 720.5,1019.1 707.0,1029.9 C 693.5,1040.7 688.2,1033.0 671.3,1046.2 C 654.4,1059.4 641.3,1085.5 630.1,1089.7 C 618.9,1093.9 624.6,1076.0 620.2,1065.2 C 615.8,1054.4 622.9,1054.0 610.3,1040.8 C 597.7,1027.6 584.1,1022.7 562.8,1005.4 C 541.5,988.1 532.9,957.2 513.3,962.0 C 493.7,966.8 616.3,1012.9 473.5,1027.2 C 330.7,1041.5 -48.2,1260.4 -135.8,1027.2 C -223.4,794.0 -243.8,200.6 75.4,-32.6 Z" />
+            <path d="M 1035.9,639.1 C 1039.2,640.1 1043.4,642.3 1044.7,646.5 C 1046.0,650.7 1043.6,652.2 1041.8,658.2 C 1040.0,664.2 1039.1,665.4 1036.7,673.9 C 1034.3,682.4 1034.5,687.7 1031.1,697.0 C 1027.7,706.3 1023.7,708.7 1021.3,716.0 C 1018.9,723.3 1021.3,728.0 1020.1,730.4 C 1018.9,732.8 1019.1,731.1 1015.8,726.9 C 1012.5,722.7 1008.2,717.8 1005.0,711.4 C 1001.8,705.0 1001.9,704.6 1001.2,697.8 C 1000.5,691.0 1000.1,687.9 1002.0,680.7 C 1003.9,673.5 1006.0,671.8 1009.7,665.2 C 1013.4,658.6 1014.4,655.9 1018.8,650.8 C 1023.2,645.7 1025.7,644.4 1029.5,641.8 C 1033.3,639.2 1032.6,638.1 1035.9,639.1 Z" />
+            <path d="M 762.8,781.2 C 769.1,781.6 774.5,781.3 778.3,784.0 C 782.1,786.7 782.4,787.5 780.0,793.5 C 777.6,799.5 773.6,804.1 767.6,811.1 C 761.6,818.1 758.3,821.2 752.6,825.5 C 746.9,829.8 747.5,830.9 741.9,830.7 C 736.3,830.5 731.8,829.9 727.0,824.7 C 722.2,819.5 718.5,814.9 720.0,807.1 C 721.5,799.3 727.3,794.9 733.8,789.4 C 740.3,783.9 743.3,783.9 749.7,782.1 C 756.1,780.3 756.5,780.8 762.8,781.2 Z" />
+            <path d="M 1136.6,415.2 C 1140.4,414.8 1144.2,414.6 1145.9,416.3 C 1147.6,418.0 1147.7,421.2 1144.1,422.8 C 1140.5,424.4 1133.2,424.5 1129.7,423.4 C 1126.2,422.3 1126.9,419.7 1128.4,417.9 C 1129.9,416.1 1132.8,415.6 1136.6,415.2 Z" />
+            <path d="M 1191.5,596.5 C 1194.8,595.7 1196.3,600.1 1193.9,604.6 C 1191.5,609.1 1183.7,616.0 1180.4,616.8 C 1177.1,617.6 1176.4,612.7 1178.8,608.2 C 1181.2,603.7 1188.2,597.3 1191.5,596.5 Z" />
+            <path d="M 1417.4,198.4 C 1423.3,194.8 1427.3,195.1 1436.3,206.5 C 1445.3,217.9 1454.4,232.7 1458.4,250.0 C 1462.4,267.3 1456.4,269.7 1454.6,285.3 C 1452.8,300.9 1450.9,305.7 1450.3,320.7 C 1449.7,335.7 1455.2,341.4 1451.9,353.3 C 1448.6,365.2 1440.8,372.0 1435.4,375.0 C 1430.0,378.0 1431.8,364.4 1427.2,366.8 C 1422.6,369.2 1426.9,381.7 1414.6,385.9 C 1402.3,390.1 1385.5,379.3 1371.4,385.9 C 1357.3,392.5 1359.9,413.4 1350.7,415.8 C 1341.5,418.2 1339.7,403.3 1329.8,396.7 C 1319.9,390.1 1318.5,385.9 1305.5,385.9 C 1292.5,385.9 1285.6,393.1 1270.5,396.7 C 1255.4,400.3 1245.1,403.4 1237.0,402.2 C 1228.9,401.0 1226.5,399.7 1233.5,391.3 C 1240.5,382.9 1253.1,370.7 1268.7,364.1 C 1284.3,357.5 1290.2,362.6 1304.4,361.4 C 1318.6,360.2 1322.2,366.5 1333.4,358.7 C 1344.6,350.9 1348.2,337.5 1355.3,326.1 C 1362.4,314.7 1363.1,307.1 1365.5,307.1 C 1367.9,307.1 1359.0,328.5 1366.4,326.1 C 1373.8,323.7 1389.0,310.5 1399.1,296.2 C 1409.2,281.9 1410.1,277.0 1412.4,260.9 C 1414.7,244.8 1408.3,236.6 1409.4,222.8 C 1410.5,209.1 1411.5,202.0 1417.4,198.4 Z" />
+            <path d="M 1318.4,396.7 C 1319.7,402.7 1317.5,417.0 1312.5,421.2 C 1307.5,425.4 1302.0,412.8 1295.8,415.8 C 1289.6,418.8 1289.9,434.2 1284.4,434.8 C 1278.9,435.4 1270.8,425.7 1270.9,418.5 C 1271.0,411.3 1277.0,407.6 1284.9,402.2 C 1292.8,396.8 1299.2,395.2 1306.6,394.0 C 1314.0,392.8 1317.1,390.7 1318.4,396.7 Z" />
+            <path d="M 1237.3,404.9 C 1244.5,406.1 1250.4,405.6 1254.6,415.8 C 1258.8,426.0 1257.9,438.0 1256.3,451.1 C 1254.7,464.2 1253.5,469.5 1247.5,475.5 C 1241.5,481.5 1234.7,483.1 1229.1,478.3 C 1223.5,473.5 1226.8,465.8 1222.0,453.8 C 1217.2,441.8 1207.3,433.5 1207.3,423.9 C 1207.3,414.3 1215.3,414.5 1221.9,410.3 C 1228.5,406.1 1230.1,403.7 1237.3,404.9 Z" />
+            <path d="M 1417.6,92.4 C 1425.6,95.4 1437.3,113.9 1455.8,122.3 C 1474.3,130.7 1489.2,124.4 1501.7,130.4 C 1514.2,136.4 1516.3,142.9 1512.8,149.5 C 1509.3,156.1 1495.2,152.5 1485.8,160.3 C 1476.4,168.1 1483.4,181.2 1470.2,184.8 C 1457.0,188.4 1436.3,175.4 1425.7,176.6 C 1415.1,177.8 1426.8,185.4 1422.2,190.2 C 1417.6,195.0 1410.2,202.6 1404.6,198.4 C 1399.0,194.2 1396.8,182.0 1396.9,171.2 C 1397.0,160.4 1399.8,157.3 1405.1,149.5 C 1410.4,141.7 1418.0,144.9 1421.1,135.9 C 1424.2,126.9 1420.1,118.3 1419.3,108.7 C 1418.5,99.1 1409.6,89.4 1417.6,92.4 Z" />
+          </clipPath>
+
+          <!-- 未开放区域柔化羽化滤镜，让可探索区与未辟边荒之间有古地图墨晕过渡 -->
+          <filter id="fogFeather" x="-8%" y="-8%" width="116%" height="116%">
+            <feGaussianBlur stdDeviation="16" />
+          </filter>
+
+          <!-- SVG 遮罩：白色=覆盖未开放装饰暗影，黑色=游戏已覆盖可探索区域（宋、辽、西夏、吐蕃、大理、昆仑、桃花岛） -->
+          <mask id="uncharted-land-mask">
+            <rect x="-500" y="-400" width="2600" height="1900" fill="white" />
+            <!-- 游戏核心覆盖疆域多边形（西起昆仑山/逻些，北括西夏兴庆府/大辽临潢府，东抵胶东/江南/东海桃花岛/泉州，南括岭南北缘/大理无量山） -->
+            <path filter="url(#fogFeather)" fill="black"
+              d="M 88,312
+                 C 145,255 360,248 535,232
+                 C 625,222 652,208 742,175
+                 C 825,132 895,78 968,78
+                 C 1038,78 1072,148 1062,218
+                 C 1052,282 1055,355 1072,462
+                 C 1086,518 1078,568 1045,622
+                 C 1012,676 968,708 885,726
+                 C 795,742 722,732 645,716
+                 C 578,705 512,715 476,682
+                 C 432,642 365,588 272,562
+                 C 198,542 152,482 108,412
+                 C 78,368 68,335 88,312 Z" />
+          </mask>
+
+          <!-- 陆地宋画宣纸设色渐变（西北微暖、中原温润米白、江南微青翠） -->
+          <linearGradient id="landParchmentGrad" x1="12%" y1="18%" x2="78%" y2="84%">
+            <stop offset="0%" stop-color="#dfd0b2" />
+            <stop offset="38%" stop-color="#efe5cd" />
+            <stop offset="72%" stop-color="#e7dec6" />
+            <stop offset="100%" stop-color="#dbe0c5" />
+          </linearGradient>
+          <!-- 青藏/昆仑高寒雪域柔光 -->
+          <radialGradient id="plateauSnowGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f7f6f0" stop-opacity="0.65" />
+            <stop offset="65%" stop-color="#ded6c3" stop-opacity="0.32" />
+            <stop offset="100%" stop-color="#ded6c3" stop-opacity="0" />
+          </radialGradient>
+          <!-- 瀚海戈壁柔光 -->
+          <radialGradient id="desertGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#d5ba8a" stop-opacity="0.40" />
+            <stop offset="100%" stop-color="#d5ba8a" stop-opacity="0" />
+          </radialGradient>
+          <!-- 海岸浅滩外发光描边滤镜 -->
+          <filter id="coastalGlow" x="-5%" y="-5%" width="110%" height="110%">
+            <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#dce7e6" flood-opacity="0.85" />
+          </filter>
+          <!-- 宏观国名玉牌微阴影 -->
+          <filter id="regimeTitleHalo" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="1" stdDeviation="2.5" flood-color="#f8f1e1" flood-opacity="0.92" />
+          </filter>
+          <!-- 势力圈渐变 -->
+          <radialGradient id="factionGradOrthodox" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#2b6cb0" stop-opacity="0.28" />
+            <stop offset="100%" stop-color="#2b6cb0" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="factionGradHermit" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#2f855a" stop-opacity="0.30" />
+            <stop offset="100%" stop-color="#2f855a" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="factionGradClan" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#b7791f" stop-opacity="0.28" />
+            <stop offset="100%" stop-color="#b7791f" stop-opacity="0" />
+          </radialGradient>
+          <radialGradient id="factionGradHostile" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#9b2c2c" stop-opacity="0.30" />
+            <stop offset="100%" stop-color="#9b2c2c" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        <g id="map-pan-zoom-root">
+          <!-- 1. 沧溟碧海底层 + 海浪纹理 -->
+          <rect x="-500" y="-400" width="2600" height="1900" fill="#a7bfc4" />
+          <rect x="-500" y="-400" width="2600" height="1900" fill="url(#sea-wave-pattern)" />
+
+          <!-- 2. 真实经纬度投影：东亚大陆主体 + 朝鲜半岛 + 越南安南 + 台湾岛 + 海南岛 + 日本四大岛 + 济州/舟山/琉球 -->
+          <g filter="url(#coastalGlow)" stroke="#5c4932" stroke-linejoin="round">
+            <!-- 亚洲大陆（含辽东半岛、山东半岛、雷州半岛、朝鲜半岛、安南S形海岸） -->
+            <path d="M 75.4,-32.6 C 394.6,-265.8 1030.4,-43.4 1315.1,-32.6 C 1599.8,-21.8 1362.7,-6.4 1369.7,16.3 C 1376.7,39.0 1361.5,49.2 1347.0,70.7 C 1332.5,92.2 1321.1,96.2 1303.8,114.1 C 1286.5,132.0 1286.2,142.0 1268.4,152.2 C 1250.6,162.4 1237.7,154.9 1223.1,160.3 C 1208.5,165.7 1210.5,170.0 1202.0,176.6 C 1193.5,183.2 1190.0,180.6 1184.6,190.2 C 1179.2,199.8 1184.6,208.1 1177.5,220.1 C 1170.4,232.1 1159.8,235.6 1152.2,244.6 C 1144.6,253.6 1140.3,253.7 1143.0,260.9 C 1145.7,268.1 1155.6,267.0 1164.5,277.2 C 1173.4,287.4 1177.2,295.2 1183.4,307.1 C 1189.6,319.0 1189.8,322.5 1192.8,331.5 C 1195.8,340.5 1196.5,340.0 1196.9,347.8 C 1197.3,355.6 1196.3,361.4 1194.4,366.8 C 1192.5,372.2 1193.3,369.3 1188.2,372.3 C 1183.1,375.3 1178.7,377.4 1171.0,380.4 C 1163.3,383.4 1161.5,382.9 1153.3,385.9 C 1145.1,388.9 1140.2,395.2 1133.6,394.0 C 1127.0,392.8 1124.1,389.4 1123.3,380.4 C 1122.5,371.4 1129.9,364.7 1129.9,353.3 C 1129.9,341.9 1123.2,339.0 1123.2,328.8 C 1123.2,318.6 1131.6,313.7 1130.0,307.1 C 1128.4,300.5 1124.5,301.3 1116.0,298.9 C 1107.5,296.5 1095.2,301.6 1091.3,296.2 C 1087.4,290.8 1098.2,284.7 1098.3,274.5 C 1098.4,264.3 1097.1,257.2 1091.6,250.0 C 1086.1,242.8 1082.7,242.4 1073.5,241.8 C 1064.3,241.2 1060.3,243.1 1050.0,247.3 C 1039.7,251.5 1036.6,255.5 1026.9,260.9 C 1017.2,266.3 1009.2,274.1 1005.7,271.7 C 1002.2,269.3 1007.3,260.8 1010.9,250.0 C 1014.5,239.2 1025.0,230.6 1022.1,222.8 C 1019.2,215.0 1008.5,211.1 997.7,214.7 C 986.9,218.3 981.3,229.5 973.2,239.1 C 965.1,248.7 969.5,252.8 961.1,258.2 C 952.7,263.6 942.1,259.4 935.0,263.6 C 927.9,267.8 927.8,271.2 929.0,277.2 C 930.2,283.2 934.6,286.0 940.6,290.8 C 946.6,295.6 952.3,293.5 956.4,298.9 C 960.5,304.3 953.0,314.0 959.4,315.2 C 965.8,316.4 973.9,306.1 985.5,304.3 C 997.1,302.5 1000.5,305.9 1012.3,307.1 C 1024.1,308.3 1034.1,306.2 1039.2,309.8 C 1044.3,313.4 1045.5,315.6 1035.6,323.4 C 1025.7,331.2 1008.2,335.6 994.4,345.1 C 980.6,354.6 978.5,357.8 973.0,366.8 C 967.5,375.8 964.9,376.9 969.3,385.9 C 973.7,394.9 984.5,396.8 993.1,407.6 C 1001.7,418.4 999.6,422.8 1008.3,434.8 C 1017.0,446.8 1027.7,451.2 1032.8,462.0 C 1037.9,472.8 1036.4,476.5 1031.7,483.7 C 1027.0,490.9 1013.1,489.8 1011.3,494.6 C 1009.5,499.4 1017.6,501.2 1023.5,505.4 C 1029.4,509.6 1035.6,506.4 1038.0,513.6 C 1040.4,520.8 1037.2,527.8 1034.6,538.0 C 1032.0,548.2 1031.5,549.6 1026.2,559.8 C 1020.9,570.0 1018.1,574.0 1010.7,584.2 C 1003.3,594.4 997.9,597.0 992.5,606.0 C 987.1,615.0 990.5,616.6 986.0,625.0 C 981.5,633.4 979.9,635.6 972.2,644.0 C 964.5,652.4 959.4,654.0 951.1,663.0 C 942.8,672.0 943.0,677.0 934.6,684.8 C 926.2,692.6 925.7,693.0 913.0,698.4 C 900.3,703.8 889.0,704.4 876.7,709.2 C 864.4,714.0 864.8,720.1 857.3,720.1 C 849.8,720.1 847.9,707.4 842.5,709.2 C 837.1,711.0 842.6,721.7 832.9,728.3 C 823.2,734.9 812.6,734.9 798.6,739.1 C 784.6,743.3 776.7,739.5 769.1,747.3 C 761.5,755.1 768.5,768.5 764.1,774.5 C 759.7,780.5 752.0,781.1 749.3,774.5 C 746.6,767.9 758.4,752.4 752.0,744.6 C 745.6,736.8 734.7,736.7 720.1,739.1 C 705.5,741.5 696.4,748.8 685.5,755.4 C 674.6,762.0 677.7,761.2 670.5,769.0 C 663.3,776.8 653.6,775.8 652.8,790.8 C 652.0,805.8 657.7,817.9 666.7,837.0 C 675.7,856.1 683.8,866.3 693.5,877.7 C 703.2,889.1 703.8,879.6 710.9,888.6 C 718.0,897.6 720.2,903.0 725.6,918.5 C 731.0,934.0 733.9,941.9 735.4,959.2 C 736.9,976.5 738.8,981.7 732.6,997.3 C 726.4,1012.9 720.5,1019.1 707.0,1029.9 C 693.5,1040.7 688.2,1033.0 671.3,1046.2 C 654.4,1059.4 641.3,1085.5 630.1,1089.7 C 618.9,1093.9 624.6,1076.0 620.2,1065.2 C 615.8,1054.4 622.9,1054.0 610.3,1040.8 C 597.7,1027.6 584.1,1022.7 562.8,1005.4 C 541.5,988.1 532.9,957.2 513.3,962.0 C 493.7,966.8 616.3,1012.9 473.5,1027.2 C 330.7,1041.5 -48.2,1260.4 -135.8,1027.2 C -223.4,794.0 -243.8,200.6 75.4,-32.6 Z"
+                  fill="url(#landParchmentGrad)" stroke-width="1.6" />
+
+            <!-- 台湾岛（流求） -->
+            <path d="M 1035.9,639.1 C 1039.2,640.1 1043.4,642.3 1044.7,646.5 C 1046.0,650.7 1043.6,652.2 1041.8,658.2 C 1040.0,664.2 1039.1,665.4 1036.7,673.9 C 1034.3,682.4 1034.5,687.7 1031.1,697.0 C 1027.7,706.3 1023.7,708.7 1021.3,716.0 C 1018.9,723.3 1021.3,728.0 1020.1,730.4 C 1018.9,732.8 1019.1,731.1 1015.8,726.9 C 1012.5,722.7 1008.2,717.8 1005.0,711.4 C 1001.8,705.0 1001.9,704.6 1001.2,697.8 C 1000.5,691.0 1000.1,687.9 1002.0,680.7 C 1003.9,673.5 1006.0,671.8 1009.7,665.2 C 1013.4,658.6 1014.4,655.9 1018.8,650.8 C 1023.2,645.7 1025.7,644.4 1029.5,641.8 C 1033.3,639.2 1032.6,638.1 1035.9,639.1 Z"
+                  fill="#e4ddc3" stroke-width="1.4" />
+
+            <!-- 海南岛（琼州） -->
+            <path d="M 762.8,781.2 C 769.1,781.6 774.5,781.3 778.3,784.0 C 782.1,786.7 782.4,787.5 780.0,793.5 C 777.6,799.5 773.6,804.1 767.6,811.1 C 761.6,818.1 758.3,821.2 752.6,825.5 C 746.9,829.8 747.5,830.9 741.9,830.7 C 736.3,830.5 731.8,829.9 727.0,824.7 C 722.2,819.5 718.5,814.9 720.0,807.1 C 721.5,799.3 727.3,794.9 733.8,789.4 C 740.3,783.9 743.3,783.9 749.7,782.1 C 756.1,780.3 756.5,780.8 762.8,781.2 Z"
+                  fill="#e2ddc0" stroke-width="1.35" />
+
+            <!-- 济州岛（耽罗） -->
+            <path d="M 1136.6,415.2 C 1140.4,414.8 1144.2,414.6 1145.9,416.3 C 1147.6,418.0 1147.7,421.2 1144.1,422.8 C 1140.5,424.4 1133.2,424.5 1129.7,423.4 C 1126.2,422.3 1126.9,419.7 1128.4,417.9 C 1129.9,416.1 1132.8,415.6 1136.6,415.2 Z"
+                  fill="#e5dcc3" stroke-width="1.1" />
+
+            <!-- 舟山/桃花岛群岛 -->
+            <path d="M 1040.0,506.8 C 1042.2,506.0 1046.3,508.1 1047.7,510.3 C 1049.1,512.5 1048.6,516.0 1046.4,516.8 C 1044.2,517.6 1039.0,516.3 1037.6,514.1 C 1036.2,511.9 1037.8,507.6 1040.0,506.8 Z"
+                  fill="#e8dfc8" stroke-width="1.2" />
+
+            <!-- 琉球岛弧 -->
+            <path d="M 1191.5,596.5 C 1194.8,595.7 1196.3,600.1 1193.9,604.6 C 1191.5,609.1 1183.7,616.0 1180.4,616.8 C 1177.1,617.6 1176.4,612.7 1178.8,608.2 C 1181.2,603.7 1188.2,597.3 1191.5,596.5 Z"
+                  fill="#e5dcc3" stroke-width="1.0" />
+
+            <!-- 日本列岛：本州、四国、九州、北海道（虾夷） -->
+            <path d="M 1417.4,198.4 C 1423.3,194.8 1427.3,195.1 1436.3,206.5 C 1445.3,217.9 1454.4,232.7 1458.4,250.0 C 1462.4,267.3 1456.4,269.7 1454.6,285.3 C 1452.8,300.9 1450.9,305.7 1450.3,320.7 C 1449.7,335.7 1455.2,341.4 1451.9,353.3 C 1448.6,365.2 1440.8,372.0 1435.4,375.0 C 1430.0,378.0 1431.8,364.4 1427.2,366.8 C 1422.6,369.2 1426.9,381.7 1414.6,385.9 C 1402.3,390.1 1385.5,379.3 1371.4,385.9 C 1357.3,392.5 1359.9,413.4 1350.7,415.8 C 1341.5,418.2 1339.7,403.3 1329.8,396.7 C 1319.9,390.1 1318.5,385.9 1305.5,385.9 C 1292.5,385.9 1285.6,393.1 1270.5,396.7 C 1255.4,400.3 1245.1,403.4 1237.0,402.2 C 1228.9,401.0 1226.5,399.7 1233.5,391.3 C 1240.5,382.9 1253.1,370.7 1268.7,364.1 C 1284.3,357.5 1290.2,362.6 1304.4,361.4 C 1318.6,360.2 1322.2,366.5 1333.4,358.7 C 1344.6,350.9 1348.2,337.5 1355.3,326.1 C 1362.4,314.7 1363.1,307.1 1365.5,307.1 C 1367.9,307.1 1359.0,328.5 1366.4,326.1 C 1373.8,323.7 1389.0,310.5 1399.1,296.2 C 1409.2,281.9 1410.1,277.0 1412.4,260.9 C 1414.7,244.8 1408.3,236.6 1409.4,222.8 C 1410.5,209.1 1411.5,202.0 1417.4,198.4 Z"
+                  fill="#e4dac2" stroke-width="1.35" />
+            <path d="M 1318.4,396.7 C 1319.7,402.7 1317.5,417.0 1312.5,421.2 C 1307.5,425.4 1302.0,412.8 1295.8,415.8 C 1289.6,418.8 1289.9,434.2 1284.4,434.8 C 1278.9,435.4 1270.8,425.7 1270.9,418.5 C 1271.0,411.3 1277.0,407.6 1284.9,402.2 C 1292.8,396.8 1299.2,395.2 1306.6,394.0 C 1314.0,392.8 1317.1,390.7 1318.4,396.7 Z"
+                  fill="#e4dac2" stroke-width="1.2" />
+            <path d="M 1237.3,404.9 C 1244.5,406.1 1250.4,405.6 1254.6,415.8 C 1258.8,426.0 1257.9,438.0 1256.3,451.1 C 1254.7,464.2 1253.5,469.5 1247.5,475.5 C 1241.5,481.5 1234.7,483.1 1229.1,478.3 C 1223.5,473.5 1226.8,465.8 1222.0,453.8 C 1217.2,441.8 1207.3,433.5 1207.3,423.9 C 1207.3,414.3 1215.3,414.5 1221.9,410.3 C 1228.5,406.1 1230.1,403.7 1237.3,404.9 Z"
+                  fill="#e4dac2" stroke-width="1.25" />
+            <path d="M 1417.6,92.4 C 1425.6,95.4 1437.3,113.9 1455.8,122.3 C 1474.3,130.7 1489.2,124.4 1501.7,130.4 C 1514.2,136.4 1516.3,142.9 1512.8,149.5 C 1509.3,156.1 1495.2,152.5 1485.8,160.3 C 1476.4,168.1 1483.4,181.2 1470.2,184.8 C 1457.0,188.4 1436.3,175.4 1425.7,176.6 C 1415.1,177.8 1426.8,185.4 1422.2,190.2 C 1417.6,195.0 1410.2,202.6 1404.6,198.4 C 1399.0,194.2 1396.8,182.0 1396.9,171.2 C 1397.0,160.4 1399.8,157.3 1405.1,149.5 C 1410.4,141.7 1418.0,144.9 1421.1,135.9 C 1424.2,126.9 1420.1,118.3 1419.3,108.7 C 1418.5,99.1 1409.6,89.4 1417.6,92.4 Z"
+                  fill="#e4dac2" stroke-width="1.25" />
+          </g>
+
+          <!-- 3. 地形地貌晕染（青藏昆仑雪域、西北瀚海戈壁、计里画方格网） -->
+          <ellipse cx="285" cy="465" rx="240" ry="145" fill="url(#plateauSnowGrad)" pointer-events="none" />
+          <ellipse cx="445" cy="215" rx="250" ry="110" fill="url(#desertGrad)" pointer-events="none" />
+          <rect x="-400" y="-300" width="2400" height="1700" fill="url(#grid-lines)" pointer-events="none" />
+
+          <!-- 4. 游戏未覆盖边荒区域：雕版祥云回纹装饰暗影层（告别空白黄地，严丝合缝贴合陆地轮廓） -->
+          <g clip-path="url(#all-land-clip)" pointer-events="none">
+            <!-- 祥云斜纹雕版暗影主体 -->
+            <rect x="-500" y="-400" width="2600" height="1900" fill="url(#uncharted-brocade-pattern)" mask="url(#uncharted-land-mask)" />
+
+            <!-- 未开放边荒的古舆图山脉肌理与疆外水墨纹饰（填补北漠、西域、天竺、南洋、辽东白山黑水空白） -->
+            <g stroke="#54422b" stroke-width="1.2" stroke-opacity="0.48" fill="#8b785c" fill-opacity="0.35">
+              <!-- 漠北杭爱山 / 肯特山脉 -->
+              <path d="M 380,68 L 408,35 L 436,68 M 426,74 L 456,38 L 486,74 M 478,70 L 505,40 L 532,70 M 610,58 L 638,26 L 666,58 M 658,62 L 686,32 L 714,62" />
+              <!-- 西域天山与葱岭群峰 -->
+              <path d="M 28,158 L 58,118 L 88,158 M 76,164 L 108,120 L 140,164 M 128,158 L 158,124 L 188,158 M 215,148 L 245,114 L 275,148" />
+              <!-- 阿尔泰金山山脉 -->
+              <path d="M 245,58 L 274,22 L 304,58 M 294,65 L 325,28 L 355,65" />
+              <!-- 兴安岭与白山黑水林海群山 -->
+              <path d="M 1085,68 L 1112,32 L 1138,68 M 1128,76 L 1156,38 L 1184,76 M 1195,112 L 1222,78 L 1248,112" />
+              <!-- 西南天竺 / 缅甸若开山脉 -->
+              <path d="M 185,695 L 214,658 L 242,695 M 235,705 L 265,665 L 295,705 M 378,785 L 405,748 L 432,785 M 425,795 L 452,758 L 478,795" />
+              <!-- 安南长山山脉 -->
+              <path d="M 615,835 L 638,802 L 662,835 M 648,885 L 672,852 L 696,885" />
+            </g>
+
+            <!-- 游戏可探索边界内沿的古风细云气镶边 -->
+            <path d="M 88,312 C 145,255 360,248 535,232 C 625,222 652,208 742,175 C 825,132 895,78 968,78 C 1038,78 1072,148 1062,218 C 1052,282 1055,355 1072,462 C 1086,518 1078,568 1045,622 C 1012,676 968,708 885,726 C 795,742 722,732 645,716 C 578,705 512,715 476,682 C 432,642 365,588 272,562 C 198,542 152,482 108,412 C 78,368 68,335 88,312 Z"
+                  fill="none" stroke="#5e4930" stroke-width="1.4" stroke-dasharray="10 5 2 5" stroke-opacity="0.48" />
+
+            <!-- 未开放边荒古籍篆刻风地域题记（低对比度融入装饰暗影，消除大片留白感） -->
+            <g id="svg-layer-uncharted-titles" class="song-serif lod-fade" fill="#3f2f1d" fill-opacity="0.48">
+              <text x="515" y="115" font-size="18" font-weight="bold" letter-spacing="14" text-anchor="middle">漠 北 瀚 海 诸 部</text>
+              <text x="165" y="210" font-size="17" font-weight="bold" letter-spacing="10" text-anchor="middle">西 域 三 十 六 国</text>
+              <text x="1195" y="148" font-size="16" font-weight="bold" letter-spacing="8" text-anchor="middle">女 真 · 白 山 黑 水</text>
+              <text x="235" y="758" font-size="17" font-weight="bold" letter-spacing="12" text-anchor="middle">天 竺 诸 国</text>
+              <text x="535" y="868" font-size="16" font-weight="bold" letter-spacing="10" text-anchor="middle">蒲 甘 · 南 诏 外 徼</text>
+            </g>
+          </g>
+
+          <!-- 5. 经典古舆图水墨群峰皴法（可探索区名山脉络） -->
+          <g stroke="#7d684c" stroke-width="1.35" fill="#d3c4a6" fill-opacity="0.65" pointer-events="none">
+            <!-- 昆仑万山之祖雪峰群 -->
+            <path d="M 88,355 L 112,318 L 136,355 M 122,362 L 150,315 L 178,362 M 162,358 L 188,324 L 214,358 M 205,365 L 228,334 L 252,365" fill="#f3f1ea" />
+            <!-- 吐蕃冈底斯与喜马拉雅雪山 -->
+            <path d="M 195,555 L 222,518 L 248,555 M 242,565 L 270,522 L 298,565 M 292,568 L 320,528 L 348,568 M 342,565 L 368,530 L 394,565" fill="#f0ede4" />
+            <!-- 贺兰山与祁连山 -->
+            <path d="M 485,315 L 506,288 L 528,315 M 525,325 L 546,298 L 568,325 M 642,282 L 658,255 L 674,282" />
+            <!-- 秦岭与巴山蜀道 -->
+            <path d="M 675,418 L 696,392 L 716,418 M 712,420 L 732,395 L 752,420 M 562,472 L 584,444 L 606,472 M 552,555 L 574,525 L 596,555" />
+            <!-- 太行与燕山山脉 -->
+            <path d="M 818,325 L 835,296 L 852,325 M 825,288 L 842,262 L 858,288 M 868,232 L 888,206 L 908,232" />
+            <!-- 辽东长白山脉 -->
+            <path d="M 1105,212 L 1128,178 L 1152,212 M 1138,220 L 1158,192 L 1178,220" fill="#dad2be" />
+            <!-- 台湾中央山脉 -->
+            <path d="M 1014,688 L 1024,662 L 1034,688 M 1012,708 L 1022,684 L 1031,708" />
+            <!-- 日本富士山脉 -->
+            <path d="M 1388,372 L 1404,344 L 1420,372" fill="#e6e1d3" />
+          </g>
+
+          <!-- 6. 真实水系：黄河、长江、京杭汴河运河、汉水、珠江、辽河、澜沧江/湄公河、雅鲁藏布江与五大湖泊 -->
+          <g fill="none" stroke-linecap="round" pointer-events="none">
+            <!-- 黄河 -->
+            <path d="M 451.9,380.4 C 468.6,378.0 503.7,375.6 527.6,369.6 C 551.5,363.6 540.2,358.7 560.4,353.3 C 580.6,347.9 597.6,355.3 619.3,345.1 C 641.0,334.9 645.2,323.2 659.1,307.1 C 673.0,291.0 673.7,290.8 682.6,271.7 C 691.5,252.6 681.7,230.3 699.7,220.1 C 717.7,209.9 745.0,216.5 764.5,225.5 C 784.0,234.5 787.5,235.2 788.2,260.9 C 788.9,286.6 772.7,314.9 767.6,342.4 C 762.5,369.9 754.5,377.5 764.9,385.9 C 775.3,394.3 794.3,382.2 814.8,380.4 C 835.3,378.6 842.6,383.7 857.9,377.7 C 873.2,371.7 873.0,367.1 884.5,353.3 C 896.0,339.6 898.1,328.9 910.4,315.2 C 922.7,301.4 934.0,296.2 940.6,290.8"
+                  stroke="#7f9ea3" stroke-width="4.2" stroke-opacity="0.78" />
+            <!-- 长江 -->
+            <path d="M 341.3,413.0 C 359.3,419.6 389.6,418.4 423.0,442.9 C 456.4,467.4 471.4,491.0 493.1,524.5 C 514.8,558.0 501.9,577.8 521.8,595.1 C 541.7,612.4 560.0,614.1 583.5,603.3 C 607.0,592.5 608.2,564.2 628.7,546.2 C 649.2,528.2 654.6,534.3 676.6,521.7 C 698.6,509.1 704.6,495.7 728.9,489.1 C 753.2,482.5 769.2,485.8 787.2,491.8 C 805.2,497.8 795.1,515.7 810.5,516.3 C 825.9,516.9 837.1,495.2 857.2,494.6 C 877.3,494.0 884.1,517.2 902.0,513.6 C 919.9,510.0 925.5,491.5 938.4,478.3 C 951.3,465.1 952.3,459.8 960.7,453.8 C 969.1,447.8 962.9,448.1 976.8,451.1 C 990.7,454.1 1013.5,463.8 1023.9,467.4"
+                  stroke="#6b9299" stroke-width="4.8" stroke-opacity="0.80" />
+            <!-- 汴河大运河 -->
+            <path d="M 856.8,380.7 C 865.1,384.2 876.6,389.0 894.6,396.7 C 912.6,404.4 922.3,409.2 938.6,415.8 C 954.9,422.4 960.9,420.0 968.8,426.6 C 976.7,433.2 970.6,438.1 974.5,445.9 C 978.4,453.7 980.0,455.5 986.5,462.0 C 993.0,468.5 1002.2,466.4 1003.9,475.5 C 1005.6,484.6 996.3,497.3 994.2,503.5"
+                  stroke="#5d8991" stroke-width="2.6" stroke-dasharray="5 3" stroke-opacity="0.78" />
+            <!-- 汉水、珠江、辽河、澜沧江、雅鲁藏布江 -->
+            <path d="M 688.7,426.6 C 699.8,428.4 718.4,431.2 739.1,434.8 C 759.8,438.4 767.8,438.2 782.7,442.9 C 797.6,447.6 790.8,444.8 806.7,456.2 C 822.6,467.6 844.3,486.2 854.9,494.6"
+                  stroke="#769ba1" stroke-width="2.5" stroke-opacity="0.72" />
+            <path d="M 634.7,646.7 C 650.5,653.9 675.7,669.7 706.4,679.3 C 737.1,688.9 748.6,686.0 774.3,690.2 C 800.0,694.4 807.4,693.0 823.0,698.4 C 838.6,703.8 840.2,711.1 845.0,714.7"
+                  stroke="#769ba1" stroke-width="2.8" stroke-opacity="0.72" />
+            <path d="M 934.5,152.2 C 946.5,150.4 964.0,140.4 988.9,144.0 C 1013.8,147.6 1038.5,154.8 1047.9,168.5 C 1057.3,182.2 1038.9,195.7 1031.7,206.5 C 1024.5,217.3 1018.8,215.0 1015.2,217.4"
+                  stroke="#769ba1" stroke-width="2.4" stroke-opacity="0.68" />
+            <path d="M 399.2,451.1 C 413.1,467.2 441.4,492.2 462.6,524.5 C 483.8,556.8 482.6,567.9 495.4,597.8 C 508.2,627.7 513.2,630.4 520.6,660.3 C 528.0,690.2 520.2,705.6 529.2,733.7 C 538.2,761.8 540.7,756.3 561.4,788.0 C 582.1,819.7 604.6,840.0 623.5,877.7 C 642.4,915.4 645.5,925.1 647.1,959.2"
+                  stroke="#769ba1" stroke-width="2.4" stroke-opacity="0.55" />
+            <path d="M 158.1,516.3 C 178.4,519.3 216.0,526.9 250.3,529.9 C 284.6,532.9 282.6,531.7 313.8,529.9 C 345.0,528.1 372.1,515.1 392.3,521.7 C 412.5,528.3 402.5,551.4 405.4,559.8"
+                  stroke="#769ba1" stroke-width="2.4" stroke-opacity="0.68" />
+            <!-- 湖泊点缀：青海湖、洞庭湖、鄱阳湖、太湖、洱海 -->
+            <ellipse cx="535" cy="348" rx="13" ry="8" fill="#7fa5ab" fill-opacity="0.75" />
+            <ellipse cx="816" cy="524" rx="16" ry="9" fill="#7fa5ab" fill-opacity="0.75" />
+            <ellipse cx="896" cy="522" rx="12" ry="9" fill="#7fa5ab" fill-opacity="0.75" />
+            <ellipse cx="992" cy="480" rx="12" ry="8" fill="#7fa5ab" fill-opacity="0.75" />
+            <ellipse cx="514" cy="628" rx="5" ry="10" fill="#7fa5ab" fill-opacity="0.75" />
+          </g>
+
+          <!-- 7. 公元 1050 年列国疆界线（双层古法设色：底层温润米白玉带衬托 + 上层沉稳朱砂点划线，清晰分明而不突兀刺眼） -->
+          <g id="svg-layer-borders" fill="none" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+            <!-- 底层柔光色带（融合宣纸底色，起到古地图疆域晕染隔离作用） -->
+            <g id="border-halo-paths" stroke="#f5ebd4" stroke-width="6.2" stroke-opacity="0.68">
+              <!-- 宋辽白沟河—雁门界 -->
+              <path d="M 786.0,260.9 C 793.7,260.6 806.5,258.3 821.0,259.5 C 835.5,260.7 836.4,265.1 851.8,266.3 C 867.2,267.5 874.3,264.9 891.2,264.9 C 908.1,264.9 920.4,266.0 931.5,265.2" />
+              <!-- 宋夏横山—黄河套界 -->
+              <path d="M 612.7,342.4 C 626.1,341.2 650.2,342.4 673.5,337.0 C 696.8,331.6 698.0,328.7 718.8,317.9 C 739.6,307.1 753.4,300.5 768.2,288.0 C 783.0,275.5 782.1,266.9 786.0,260.9" />
+              <!-- 辽夏阴山—河套北界 -->
+              <path d="M 786.0,260.9 C 781.5,232.0 772.0,204.0 752.0,178.0" />
+              <!-- 西夏与河西吐蕃祁连界 -->
+              <path d="M 612.7,342.4 C 578.0,336.0 542.0,312.0 518.0,242.0" />
+              <!-- 宋与吐蕃陇右川西界 -->
+              <path d="M 612.7,342.4 C 608.5,355.6 601.7,374.1 593.6,402.2 C 585.5,430.3 582.7,441.4 576.0,470.1 C 569.3,498.8 566.0,518.9 563.2,532.6" />
+              <!-- 宋与大理大渡河—黔桂界 -->
+              <path d="M 563.2,532.6 C 569.0,542.2 574.8,552.2 589.5,576.1 C 604.2,600.0 612.4,612.6 630.0,641.3 C 647.6,670.0 652.8,685.0 669.4,706.5 C 686.0,728.0 697.5,731.9 705.4,739.1" />
+              <!-- 吐蕃与大理横断山澜沧界 -->
+              <path d="M 563.2,532.6 C 532.0,548.0 495.0,568.0 448.0,612.0" />
+              <!-- 辽与高丽鸭绿江界 -->
+              <path d="M 1075,242 L 1118,218 L 1152,244" />
+              <!-- 宋与交趾安南广源界 -->
+              <path d="M 630.0,641.3 C 642.0,695.0 658.0,735.0 676.0,762.0" />
+            </g>
+
+            <!-- 上层古雅朱砂褐国界主线（清晰易辨，端庄不刺眼） -->
+            <g id="border-main-paths" stroke="#8a2c22" stroke-width="2.4" stroke-dasharray="10 4 2.5 4" stroke-opacity="0.82">
+              <path d="M 786.0,260.9 C 793.7,260.6 806.5,258.3 821.0,259.5 C 835.5,260.7 836.4,265.1 851.8,266.3 C 867.2,267.5 874.3,264.9 891.2,264.9 C 908.1,264.9 920.4,266.0 931.5,265.2" />
+              <path d="M 612.7,342.4 C 626.1,341.2 650.2,342.4 673.5,337.0 C 696.8,331.6 698.0,328.7 718.8,317.9 C 739.6,307.1 753.4,300.5 768.2,288.0 C 783.0,275.5 782.1,266.9 786.0,260.9" />
+              <path d="M 786.0,260.9 C 781.5,232.0 772.0,204.0 752.0,178.0" />
+              <path d="M 612.7,342.4 C 578.0,336.0 542.0,312.0 518.0,242.0" />
+              <path d="M 612.7,342.4 C 608.5,355.6 601.7,374.1 593.6,402.2 C 585.5,430.3 582.7,441.4 576.0,470.1 C 569.3,498.8 566.0,518.9 563.2,532.6" />
+              <path d="M 563.2,532.6 C 569.0,542.2 574.8,552.2 589.5,576.1 C 604.2,600.0 612.4,612.6 630.0,641.3 C 647.6,670.0 652.8,685.0 669.4,706.5 C 686.0,728.0 697.5,731.9 705.4,739.1" />
+              <path d="M 563.2,532.6 C 532.0,548.0 495.0,568.0 448.0,612.0" />
+              <path d="M 1075,242 L 1118,218 L 1152,244" />
+              <path d="M 630.0,641.3 C 642.0,695.0 658.0,735.0 676.0,762.0" />
+            </g>
+          </g>
+
+          <!-- 8. 周边藩属海国与四海古风题字水印（详图下可见，极缩小时让位于大国国号） -->
+          <g id="svg-layer-minor-watermarks" class="song-serif lod-fade" pointer-events="none">
+            <text x="1152" y="318" fill="#3e2e1e" fill-opacity="0.62" font-size="14.5" font-weight="bold" writing-mode="tb" letter-spacing="4">高丽国</text>
+            <text x="692" y="875" fill="#3e2e1e" fill-opacity="0.58" font-size="14.5" font-weight="bold" writing-mode="tb" letter-spacing="4">交趾（安南）</text>
+            <text x="1055" y="688" fill="#3b2c1e" fill-opacity="0.68" font-size="13" font-weight="bold">流求</text>
+            <text x="752" y="812" fill="#3b2c1e" fill-opacity="0.65" font-size="12" font-weight="bold" text-anchor="middle">琼州</text>
+            <text x="1392" y="335" fill="#3e2e1e" fill-opacity="0.62" font-size="15.5" font-weight="bold" letter-spacing="6">日本国</text>
+            <text x="1455" y="152" fill="#3e2e1e" fill-opacity="0.52" font-size="12.5" font-weight="bold" letter-spacing="3">虾夷</text>
+            <text x="1135" y="555" fill="#385459" fill-opacity="0.52" font-size="20" font-weight="bold" letter-spacing="10">东 海</text>
+            <text x="875" y="848" fill="#385459" fill-opacity="0.52" font-size="20" font-weight="bold" letter-spacing="12">南 海</text>
+            <text x="1285" y="275" fill="#385459" fill-opacity="0.46" font-size="16" font-weight="bold" letter-spacing="6">鲸 海</text>
+          </g>
+
+          <!-- 9. 宏观政权国号层（宋、辽、西夏、吐蕃、大理）：在正常视距下作淡雅底纹，缩小舆图地名隐藏后醒目浮现 -->
+          <g id="svg-layer-macro-regimes" class="song-serif lod-fade" filter="url(#regimeTitleHalo)" pointer-events="none">
+            <!-- 大宋（北宋腹地中央） -->
+            <g transform="translate(868, 505)">
+              <text text-anchor="middle" fill="#7a1e18" font-size="54" font-weight="900" letter-spacing="26">宋</text>
+              <text y="28" text-anchor="middle" fill="#6b2920" font-size="15" font-weight="bold" letter-spacing="6" class="macro-sub">大宋皇朝</text>
+            </g>
+            <!-- 大辽（契丹幽蓟至潢水） -->
+            <g transform="translate(918, 178)">
+              <text text-anchor="middle" fill="#3d2652" font-size="48" font-weight="900" letter-spacing="22">辽</text>
+              <text y="26" text-anchor="middle" fill="#49315e" font-size="14.5" font-weight="bold" letter-spacing="5" class="macro-sub">大辽契丹</text>
+            </g>
+            <!-- 西夏（河套贺兰） -->
+            <g transform="translate(652, 266)">
+              <text text-anchor="middle" fill="#6e3516" font-size="38" font-weight="900" letter-spacing="12">西 夏</text>
+              <text y="23" text-anchor="middle" fill="#753d1e" font-size="13.5" font-weight="bold" letter-spacing="4" class="macro-sub">大白高国</text>
+            </g>
+            <!-- 吐蕃（青藏卫藏） -->
+            <g transform="translate(352, 476)">
+              <text text-anchor="middle" fill="#5c2336" font-size="38" font-weight="900" letter-spacing="14">吐 蕃</text>
+              <text y="23" text-anchor="middle" fill="#632b3e" font-size="13.5" font-weight="bold" letter-spacing="4" class="macro-sub">雪域诸部</text>
+            </g>
+            <!-- 大理（苍山洱海） -->
+            <g transform="translate(524, 622)">
+              <text text-anchor="middle" fill="#1d495c" font-size="34" font-weight="900" letter-spacing="10">大 理</text>
+              <text y="22" text-anchor="middle" fill="#235166" font-size="13" font-weight="bold" letter-spacing="4" class="macro-sub">段氏佛国</text>
+            </g>
+          </g>
+
+          <!-- 动态交互渲染层 -->
+          <g id="svg-layer-factions" class="hidden"></g>
+          <g id="svg-layer-edges" class="lod-fade"></g>
+          <g id="svg-layer-route"></g>
+          <g id="svg-layer-alerts" class="lod-fade"></g>
+          <g id="svg-layer-nodes"></g>
+          <g id="svg-layer-masters" class="lod-fade"></g>
+          <g id="svg-layer-player"></g>
+        </g>
+      </svg>
+    </main>
+
+    <!-- 右：立志传式控制舱 -->
+    <aside class="w-96 shrink-0 bg-[var(--card)] border-l border-[var(--border)] flex flex-col min-h-0 z-10">
+
+      <!-- 右上：坐骑与速度实时计算模块 -->
+      <section class="p-3.5 border-b border-[var(--border)] space-y-2.5">
+        <div class="flex items-center justify-between">
+          <h2 class="song-serif font-bold text-sm">脚力与行军测算</h2>
+          <span id="effective-speed-badge" class="text-xs font-mono px-2 py-0.5 rounded bg-amber-900/15 text-amber-800 dark:text-amber-300 border border-amber-800/25">
+            官道 158 里/日
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <label class="space-y-1">
+            <span class="text-[var(--muted-foreground)] block">当前坐骑 (V<sub>坐骑</sub>)</span>
+            <select id="mount-select" onchange="onMountOrSkillChange()" class="w-full px-2 py-1 rounded bg-[var(--background)] border border-[var(--border)] text-[var(--foreground)] text-xs">
+              <option value="walk">徒步急行 (60 里/日)</option>
+              <option value="horse" selected>河东健马 (120 里/日)</option>
+              <option value="xiXia">西夏战马 (220 里/日)</option>
+              <option value="ferghana">大宛汗血良驹 (300 里/日)</option>
+            </select>
+          </label>
+          <label class="space-y-1">
+            <span class="text-[var(--muted-foreground)] block">所修轻功品阶</span>
+            <select id="qinggong-select" onchange="onMountOrSkillChange()" class="w-full px-2 py-1 rounded bg-[var(--background)] border border-[var(--border)] text-[var(--foreground)] text-xs">
+              <option value="0.05">凡品·提纵术 (+5%)</option>
+              <option value="0.15" selected>良品·金雁功 (+15%)</option>
+              <option value="0.28">地阶·梯云纵 (+28%)</option>
+              <option value="0.45">天阶·凌波微步 (+45%)</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 text-xs pt-0.5">
+          <div>
+            <div class="flex justify-between text-[11px] text-[var(--muted-foreground)]">
+              <span>通用技能·骑术</span>
+              <span id="riding-val" class="font-mono text-[var(--foreground)]">45 / 100</span>
+            </div>
+            <input id="riding-slider" type="range" min="0" max="100" value="45" oninput="onMountOrSkillChange()" class="w-full accent-amber-700 h-1.5 cursor-pointer" />
+          </div>
+          <div>
+            <div class="flex justify-between text-[11px] text-[var(--muted-foreground)]">
+              <span>实战四维·身法</span>
+              <span id="agi-val" class="font-mono text-[var(--foreground)]">65 / 100</span>
+            </div>
+            <input id="agi-slider" type="range" min="10" max="100" value="65" oninput="onMountOrSkillChange()" class="w-full accent-emerald-700 h-1.5 cursor-pointer" />
+          </div>
+        </div>
+      </section>
+
+      <!-- 右中：当前选中节点详情与行动面板 -->
+      <section id="inspector-panel" class="flex-1 overflow-y-auto scroll-thin p-3.5 space-y-3">
+      </section>
+
+      <!-- 右下：皇祐江湖行记 -->
+      <section class="h-44 shrink-0 border-t border-[var(--border)] bg-[var(--background)] flex flex-col">
+        <div class="px-3 py-1.5 border-b border-[var(--border)] flex items-center justify-between text-xs">
+          <span class="song-serif font-bold text-[var(--muted-foreground)]">《大宋江湖行记》</span>
+          <button onclick="replenishSupplies()" class="text-[11px] text-amber-700 dark:text-amber-400 hover:underline">
+            市集补给干粮
+          </button>
+        </div>
+        <div id="event-log" class="flex-1 overflow-y-auto scroll-thin px-3 py-2 space-y-1.5 text-xs">
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <!-- 城内建筑 / 塞外王庭 / 宗门秘境 探索弹窗 -->
+  <div id="city-modal" class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
+    <div class="w-full max-w-3xl bg-[var(--card)] border border-[var(--border)] rounded-lg shadow-2xl overflow-hidden flex flex-col max-h-[86vh]">
+      <div class="px-4 py-3 border-b border-[var(--border)] flex items-center justify-between bg-amber-950/10">
+        <div>
+          <h3 id="modal-city-title" class="song-serif font-bold text-base">开封府 · 城池内景</h3>
+          <p id="modal-city-sub" class="text-xs text-[var(--muted-foreground)]"></p>
+        </div>
+        <button onclick="closeCityModal()" class="px-2.5 py-1 rounded border border-[var(--border)] hover:bg-[var(--background)] text-xs">
+          返回山海舆图
+        </button>
+      </div>
+
+      <div class="flex-1 grid grid-cols-12 min-h-0 overflow-hidden">
+        <div class="col-span-5 border-r border-[var(--border)] p-3.5 overflow-y-auto scroll-thin space-y-2.5">
+          <div class="text-xs font-bold song-serif text-[var(--muted-foreground)]">建筑与名胜地标入口</div>
+          <div id="modal-buildings-list" class="space-y-1.5"></div>
+        </div>
+
+        <div class="col-span-7 p-4 overflow-y-auto scroll-thin flex flex-col justify-between space-y-3">
+          <div id="modal-building-detail" class="space-y-3"></div>
+          <div id="modal-interaction-feedback" class="p-2.5 rounded bg-[var(--background)] border border-[var(--border)] text-xs text-[var(--muted-foreground)]">
+            选择左侧建筑或地标，即可查访在场武林名宿、修习通用十艺或参悟秘境机缘。
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // 1. 天下 21 座核心城市（大宋 15 城 + 大辽 3 城 + 西夏 1 城 统一三字府名，另含吐蕃 1 城 + 大理 1 城）
+    //    + 17 处名山宗门与战略雄关（含万山之祖昆仑山）—— 共 38 个真实地理投影节点
+    // =========================================================================
+    const NODES = [
+      // -------------------- （一）大宋境内 15 座主要城市（统一三字府名） --------------------
+      {
+        id: 'bianliang', code: '01', name: '开封府', type: 'city', regime: 'song', circuit: '北宋 · 京畿路（东京首善）', x: 856.8, y: 379.9,
+        desc: '大宋东京帝都，八荒争凑，开封府尹包拯坐镇，八十万禁军教头云集。',
+        landmarks: ['大内皇宫（藏葵花残卷）', '大相国寺', '樊楼（诗词琴艺雅集）', '开封府衙'],
+        sects: ['17. 开封府 / 六扇门（含大内禁军武学）'],
+        factionType: 'orthodox', alert: false,
+        rumor: '大内秘库昨夜似有黑衣奇士掠过，六扇门总捕司正全城戒严盘查。',
+        npcs: [
+          { name: '包拯', title: '开封府尹 · 龙图阁直学士', realm: '庙堂重臣（策论 96）', talk: '“皇祐盛世之下，河北冗兵与辽夏暗桩皆乃心腹之患，壮士可有良策？”' },
+          { name: '展昭', title: '御前四品带刀护卫 · 南侠', realm: '地阶上品（巨阙剑 / 袖箭）', talk: '“展某近日追查西夏一品堂刺客踪迹，少侠若往延安府、兴庆府，万望留神。”' },
+          { name: '周侗（青年）', title: '禁军枪棒都教头', realm: '地阶上品（六合大枪 / 沥泉枪意）', talk: '“河北枪棒甲天下，某愿倾囊相授有志北伐幽燕之少年英杰！”' }
+        ]
+      },
+      {
+        id: 'luoyang', code: '02', name: '洛阳府', type: 'city', regime: 'song', circuit: '北宋 · 京西北路（西京重镇）', x: 806.9, y: 383.7,
+        desc: '大宋西京文枢，文宗名士与武林耆宿汇聚，中原武林盟会常驻重镇，毗邻嵩山与丐帮总舵。',
+        landmarks: ['白马寺', '白马书院（修习经义策论）', '洛阳牡丹园', '金刀王家'],
+        sects: ['02. 丐帮（中原总舵）'],
+        factionType: 'orthodox', alert: false,
+        rumor: '丐帮汪剑通帮主于洛阳府总舵广发英雄帖，商议大辽析津府南下暗探之事。',
+        npcs: [
+          { name: '汪剑通', title: '丐帮帮主 · 剑髯大侠', realm: '天阶上品（降龙十八掌 / 打狗棒法）', talk: '“少林与我丐帮同气连枝，凡我华夏好儿郎，断不容契丹铁骑再窥黄河！”' },
+          { name: '司马光（青年）', title: '洛阳名儒 · 馆阁校勘', realm: '文宗名士（经义 94 / 书 88）', talk: '“历览前代兴衰，礼崩乐坏每自边患与内耗始，愿与君共论史鉴。”' }
+        ]
+      },
+      {
+        id: 'daming', code: '03', name: '大名府', type: 'city', regime: 'song', circuit: '北宋 · 河北东路（北京陪都）', x: 876.4, y: 338.3,
+        desc: '北宋北京陪都抗辽门户，河北枪棒甲天下，庆历贝州王则起义余波暗流犹存。',
+        landmarks: ['北京留守行宫', '黄河铁索渡', '河北大校场'],
+        sects: ['18. 太行/京东绿林盟（河北分寨）'],
+        factionType: 'clan', alert: true,
+        rumor: '大名府外黄河渡口夜半常有绿林义军劫夺贪官生辰纲，官军屡剿不绝。',
+        npcs: [
+          { name: '卢氏枪宗传人', title: '河北清河武盟盟主', realm: '地阶中品（六合大枪 / 八极崩拳）', talk: '“大名府直面大辽析津府，我辈习枪棒者，睡梦中亦枕戈待旦！”' }
+        ]
+      },
+      {
+        id: 'zhending', code: '04', name: '真定府', type: 'city', regime: 'song', circuit: '北宋 · 河北西路', x: 859.8, y: 289.4,
+        desc: '紧邻大辽析津府，宋辽边境榷场所在，胡汉游侠与北院密探交锋前沿。',
+        landmarks: ['隆兴大佛寺', '宋辽边境榷场', '常山演武堂'],
+        sects: ['20. 辽国武林暗桩（榷场潜伏点）'],
+        factionType: 'hostile', alert: true,
+        rumor: '自析津府南下的契丹皮货商队中混入数名辽廷北院高手，真定府城门日夜盘查。',
+        npcs: [
+          { name: '赵云泽', title: '常山枪派掌门', realm: '地阶中品（常山龙胆枪）', talk: '“由此向北三百余里便是大辽析津府，少侠若孤身入辽，务必乔装慎行！”' }
+        ]
+      },
+      {
+        id: 'taiyuan', code: '05', name: '太原府', type: 'city', regime: 'song', circuit: '北宋 · 河东路', x: 813.5, y: 300.3,
+        desc: '晋阳雄镇，北控雁门雄关，民风刚烈尚武，天下精铁名刃尽出河东。',
+        landmarks: ['晋祠古柏', '河东官营铁冶监', '天波杨家旧祠'],
+        sects: ['03. 五台山清凉寺（毗邻）'],
+        factionType: 'orthodox', alert: true,
+        rumor: '枢密副使狄青巡边太原府，河东铁冶监赶铸破甲神兵以备北疆。',
+        npcs: [
+          { name: '狄青', title: '枢密副使 · 面涅将军', realm: '地阶上品（杨家霸王枪 / 骑术 98）', talk: '“男儿立功塞外，当直捣兴庆府与临潢府！少侠骑术若精，可随某北巡雁门！”' }
+        ]
+      },
+      {
+        id: 'changan', code: '06', name: '京兆府', type: 'city', regime: 'song', circuit: '北宋 · 永兴军路（关中古都）', x: 733.4, y: 394.6,
+        desc: '汉唐古长安故都，丝路起点，南依终南隐士，东据华岳潼关，西通昆仑雪域。',
+        landmarks: ['慈恩寺大雁塔', '终南草堂', '西市胡商坊'],
+        sects: ['05. 华山派（邻近）', '11. 终南隐宗（邻近）'],
+        factionType: 'orthodox', alert: false,
+        rumor: '西市胡商自昆仑山麓带回一块奇寒玄冰，京兆府刀客剑豪竞相出价求购。',
+        npcs: [
+          { name: '关中纯阳老道', title: '吕祖剑脉传人', realm: '地阶上品（纯阳无极功）', talk: '“西出阳关至万山之祖昆仑，路途不下四千里，非汗血良驹与绝顶抗性不可轻往。”' }
+        ]
+      },
+      {
+        id: 'yanan', code: '07', name: '延安府', type: 'city', regime: 'song', circuit: '北宋 · 鄜延路', x: 747.1, y: 330.2,
+        desc: '经略西夏最前线重镇，黄土烽燧连天，直面贺兰山兴庆府兵锋。',
+        landmarks: ['嘉岭山宝塔', '鄜延边军大营', '番马黑市'],
+        sects: ['19. 星宿派（陕甘潜伏点）'],
+        factionType: 'hostile', alert: true,
+        rumor: '西夏兴庆府一品堂派出十余名番僧潜过横山，欲刺杀鄜延路边军主将。',
+        npcs: [
+          { name: '种家军少将军', title: '鄜延路环庆副总管', realm: '良品上品（雁门断魂刀 / 点钢枪谱）', talk: '“过延安府往西北塞漠行七百里便是西夏老巢兴庆府，沿途尽是党项游骑！”' }
+        ]
+      },
+      {
+        id: 'jinan', code: '08', name: '济南府', type: 'city', regime: 'song', circuit: '北宋 · 京东东路', x: 916.3, y: 327.4,
+        desc: '齐鲁雄藩，清泉荷柳冠绝山东，富弼安抚京东活流民数十万，南依泰山，东扼沧海航道。',
+        landmarks: ['趵突泉', '大明湖画舫', '泰山岱庙'],
+        sects: ['06. 泰山派（邻近）', '18. 京东水陆绿林大寨'],
+        factionType: 'orthodox', alert: false,
+        rumor: '京东海商传言高丽国与大辽大定府使船频繁往来，齐鲁武林严防海寇借机生事。',
+        npcs: [
+          { name: '富弼', title: '礼部侍郎 · 京东东路安抚使', realm: '庙堂名臣（策论 95 / 辩才 97）', talk: '“老夫昔年出使大辽大定府，深知契丹朝野虚实，少侠欲听塞北机宜否？”' }
+        ]
+      },
+      {
+        id: 'yangzhou', code: '09', name: '扬州府', type: 'city', regime: 'song', circuit: '北宋 · 淮南东路', x: 975.1, y: 438.9,
+        desc: '南北大运河咽喉，天下盐铁漕运转输中心，十里春风珠帘，盐帮漕帮林立。',
+        landmarks: ['运河钞关', '二十四桥明月坊', '淮南盐帮总堂'],
+        sects: ['16. 江淮漕帮（江淮总舵）'],
+        factionType: 'clan', alert: false,
+        rumor: '欧阳修学士昔建平山堂词会余韵犹存，运河之上漕帮战船日夜巡航。',
+        npcs: [
+          { name: '欧阳修', title: '翰林侍读学士', realm: '文坛宗主（诗词 99 / 经义 95）', talk: '“文章太守，挥毫万字，一饮千钟！小友若通诗词音律，何妨二十四桥一叙？”' }
+        ]
+      },
+      {
+        id: 'jiangning', code: '10', name: '江宁府', type: 'city', regime: 'song', circuit: '北宋 · 江南东路', x: 957.4, y: 457.9,
+        desc: '六朝金粉古都，钟山龙蟠石城虎踞，江南世家大族与儒侠名宿聚居之地。',
+        landmarks: ['秦淮画舫', '栖霞古刹', '石头城遗址'],
+        sects: ['江南剑庐（散人名脉）'],
+        factionType: 'orthodox', alert: false,
+        rumor: '青年王安石于钟山纵论天下变法，秦淮画舫夜传七弦无形琴剑之音。',
+        npcs: [
+          { name: '王安石（青年）', title: '江南新锐名臣', realm: '变法锐士（策论 96 / 经义 93）', talk: '“天变不足畏，祖宗不足法！大宋欲收燕云、制西夏，必先富国强兵！”' }
+        ]
+      },
+      {
+        id: 'suzhou', code: '11', name: '苏州府', type: 'city', regime: 'song', circuit: '北宋 · 两浙路', x: 1013.5, y: 468.7,
+        desc: '江南水网园林冠绝天下，太湖三万六千顷烟波深处隐匿大燕慕容氏。',
+        landmarks: ['虎丘剑池', '寒山寺', '太湖渡口'],
+        sects: ['10. 姑苏慕容氏（毗邻燕子坞）'],
+        factionType: 'hermit', alert: false,
+        rumor: '范仲淹文正公归访苏州府，太湖之上“以彼之道还施彼身”传闻愈演愈烈。',
+        npcs: [
+          { name: '范仲淹', title: '参知政事 · 文正公', realm: '士林领袖（策论 98 / 诗词 96）', talk: '“先天下之忧而忧，后天下之乐而乐。老夫一生最敬重为国守边的江湖豪杰。”' }
+        ]
+      },
+      {
+        id: 'hangzhou', code: '12', name: '杭州府', type: 'city', regime: 'song', circuit: '北宋 · 两浙路', x: 994.3, y: 506.8,
+        desc: '东南第一繁华州府，钱塘江潮涌连天，高丽、日本商舶云集，东海桃花岛出海口。',
+        landmarks: ['西湖灵隐寺', '钱塘观潮台', '市舶司海港（通高丽扶桑海舶）'],
+        sects: ['12. 东海桃花岛一脉（外海）'],
+        factionType: 'hermit', alert: false,
+        rumor: '市舶司新泊三艘日本国博多商船与高丽青瓷船，携来海外奇巧倭刀与古琴谱。',
+        npcs: [
+          { name: '柳永（暮年）', title: '屯田员外郎 · 词坛巨匠', realm: '风流词宗（诗词 98 / 琴 86）', talk: '“东南形胜，三吴都会，钱塘自古繁华！陪老朽痛饮三百杯！”' }
+        ]
+      },
+      {
+        id: 'chengdu', code: '13', name: '成都府', type: 'city', regime: 'song', circuit: '北宋 · 成都府路', x: 619.6, y: 492.4,
+        desc: '西川天府之国，交子流通，西接吐蕃茶马古道，南通大理阳苴咩城。',
+        landmarks: ['大慈寺', '青羊道宫', '锦江茶肆（川藏滇茶马集散）'],
+        sects: ['07. 峨眉派', '13. 蜀中唐门', '14. 青城派'],
+        factionType: 'clan', alert: false,
+        rumor: '川藏茶马商队自吐蕃逻些归来，称雪域密宗番僧正大批东下挑战中原武林。',
+        npcs: [
+          { name: '苏洵（携苏轼苏辙）', title: '眉山名儒', realm: '蜀中文豪（策论 92 / 诗词 95）', talk: '“蜀道北出剑门，西通吐蕃逻些，南达大理洱海，实乃西南天地枢机！”' }
+        ]
+      },
+      {
+        id: 'xiangyang', code: '14', name: '襄阳府', type: 'city', regime: 'song', circuit: '北宋 · 京西南路', x: 808.6, y: 455.2,
+        desc: '七省通衢，汉水铁打咽喉，北望中原南控荆湖，自古荆楚豪侠仗义疏财之地。',
+        landmarks: ['襄阳雄城楼', '古隆中草庐', '汉水大码头'],
+        sects: ['08. 真武道宗（武当山）', '15. 铁掌帮（洞庭）'],
+        factionType: 'orthodox', alert: false,
+        rumor: '武当真武道宗与洞庭铁掌帮于汉水码头对峙，荆襄群豪纷纷赶来观战。',
+        npcs: [
+          { name: '米氏书画名宿', title: '襄阳丹青狂士', realm: '书画名家（书 92 / 画 94）', talk: '“汉水烟波浩渺，最宜泼墨挥毫，悟得笔底龙蛇便可化入判官点穴笔！”' }
+        ]
+      },
+      {
+        id: 'quanzhou', code: '15', name: '泉州府', type: 'city', regime: 'song', circuit: '北宋 · 福建路', x: 962.3, y: 650.0,
+        desc: '闽海苍翠，刺桐港万国海商云集，隔海东望流求（台湾宝岛），南通交趾南海。',
+        landmarks: ['开元寺东西双塔', '武夷茶市', '刺桐港番坊（望流求台湾海道）'],
+        sects: ['04. 莆田南少林', '闽海镖盟'],
+        factionType: 'orthodox', alert: true,
+        rumor: '岭南安南交界广源州侬智高异动频传，刺桐港海船亦常渡海赴流求（台湾岛）采药。',
+        npcs: [
+          { name: '蔡襄', title: '端明殿学士 · 知泉州军州事', realm: '宋四家书宗（书 96 / 策论 88）', talk: '“刺桐港外百里沧波便是流求宝岛，更远则通日本、交趾与大食万国！”' }
+        ]
+      },
+
+      // -------------------- （二）四夷列国 6 座雄城（大辽 3 城、西夏 1 城统一三字府名） --------------------
+      {
+        id: 'xijin_liao', code: '16', name: '析津府', type: 'city', regime: 'liao', circuit: '大辽 · 南京道（古幽州）', x: 898.8, y: 240.5,
+        desc: '燕云十六州核心故都（大辽南京），契丹经略中原之南下咽喉，燕赵遗民日夜北望王师。',
+        landmarks: ['幽州悯忠寺', '辽南京兵马元帅府', '燕京榷马大市'],
+        sects: ['20. 辽国南院武林暗桩总枢'],
+        factionType: 'hostile', alert: true,
+        rumor: '析津府元帅府秘召塞北群凶齐聚燕京，似欲南越白沟河与雁门关袭扰河北！',
+        npcs: [
+          { name: '萧氏南院大王', title: '析津府留守 · 契丹名将', realm: '天阶下品（修罗刀 / 瞬息千里）', talk: '“幽燕之地归我大辽已逾百年，南朝汉儿纵有少林丐帮撑腰，岂敢越雷池一步？”' },
+          { name: '燕云铁匠遗老', title: '析津府汉人义士', realm: '良品上品（六合刀）', talk: '“壮士可是从南边开封府来的？老朽祖孙三代藏着城防暗道图，只盼王师北定！”' }
+        ]
+      },
+      {
+        id: 'dading_liao', code: '17', name: '大定府', type: 'city', regime: 'liao', circuit: '大辽 · 中京道', x: 960.5, y: 195.1,
+        desc: '大辽中京陪都重镇，宋朝国信使臣北来必经之地，东接辽东高丽商路，胡汉杂处繁盛。',
+        landmarks: ['大定府大明宝塔', '宋辽国信大同驿', '松漠皇家围场'],
+        sects: ['大辽护国萨满武士团 / 辽东女真猎部'],
+        factionType: 'hostile', alert: false,
+        rumor: '高丽国使团与女真生部猛士同抵大定府献海东青，塞北摔跤刀客于大同驿设擂比武。',
+        npcs: [
+          { name: '耶律国信副使', title: '大定府礼宾重臣', realm: '塞北名流（骑术 95 / 辩才 86）', talk: '“大定府大同驿专待南朝使节，少侠既通诗词辩才，何妨入席共饮马奶烈酒？”' },
+          { name: '完颜部少年猎手', title: '白山黑水女真勇士', realm: '地阶下品（契丹狼牙棒 / 骑术 96）', talk: '“契丹贵人欺我女真各部太甚！总有一日，白山黑水儿郎要教天下变色！”' }
+        ]
+      },
+      {
+        id: 'linhuang_liao', code: '18', name: '临潢府', type: 'city', regime: 'liao', circuit: '大辽 · 上京道（契丹龙庭）', x: 958.2, y: 129.1,
+        desc: '契丹开国上京皇都，辽兴宗耶律宗真四时捺钵皇帐核心，北院护国绝顶高手云集。',
+        landmarks: ['大辽皇都金帐大内', '潢水木叶山祭天坛', '北院铁林军大营'],
+        sects: ['20. 辽廷北院护国武尊总坛'],
+        factionType: 'hostile', alert: true,
+        rumor: '辽主耶律宗真刚自西征夏国班师回临潢府，重金悬赏能破丐帮降龙掌之绝世奇才！',
+        npcs: [
+          { name: '耶律宗真（辽兴宗）', title: '大辽天子 · 契丹国主', realm: '雄主风范（骑术 94 / 画 88）', talk: '“朕慕南朝书画诗词之雅，亦掌百万控弦铁骑！壮士若肯效命龙庭，立封北院大王！”' },
+          { name: '北院第一护国国师', title: '临潢府金帐武尊', realm: '天阶中品（龙象般若功 / 修罗刀）', talk: '“潢水草原之上，强者为尊！南朝少林高僧来了，也休想接住本座十龙十象一击！”' }
+        ]
+      },
+      {
+        id: 'xingqing_xixia', code: '19', name: '兴庆府', type: 'city', regime: 'xixia', circuit: '西夏 · 贺兰王都', x: 676.2, y: 279.3,
+        desc: '背靠贺兰山、面朝黄河套的西夏党项王都，西夏一品堂总坛所在，网罗天下凶人番僧。',
+        landmarks: ['西夏一品堂总堂', '贺兰山皇家王陵', '铁鹞子重骑大营（产西夏战马）'],
+        sects: ['20. 西夏一品堂（总坛）', '19. 星宿派西域联络枢'],
+        factionType: 'hostile', alert: true,
+        rumor: '没藏太后主政兴庆府，一品堂广开招贤馆，凡献中原名门武学秘籍者皆赐黄金百斤！',
+        npcs: [
+          { name: '一品堂征东大将军', title: '西夏皇族执掌统领', realm: '天阶下品（火焰刀 / 化功毒砂）', talk: '“贺兰山阙固若金汤！我一品堂汇聚吐蕃番僧、南海凶神与西域毒客，专克中原正道！”' },
+          { name: '西夏皇宫冰窖隐人', title: '逍遥派天山支脉潜影', realm: '天阶上品（八荒六合功 / 白虹掌力）', talk: '“兴庆府皇宫深处有一座寒玉冰窖，藏着连一品堂都不知晓的逍遥派惊天旧事……”' }
+        ]
+      },
+      {
+        id: 'luoxie_tubo', code: '20', name: '逻些（拉萨）', type: 'city', regime: 'tubo', circuit: '吐蕃 · 卫藏雪域', x: 313.0, y: 520.4,
+        desc: '世界屋脊雅鲁藏布江畔的高原圣城，红山古宫矗立，密宗无上护法神功与火焰刀圣地。',
+        landmarks: ['红山布达拉古宫', '大昭圣寺金顶', '雪域密宗辩经大坛'],
+        sects: ['吐蕃密宗护法脉（火焰刀 / 龙象般若功渊薮）'],
+        factionType: 'clan', alert: false,
+        rumor: '吐蕃大轮寺高僧正于逻些大昭寺闭关参悟无上火焰刀气，欲往大理天龙寺求借六脉剑谱。',
+        npcs: [
+          { name: '吐蕃护国法王前师', title: '密宗大轮明王宗主', realm: '天阶中品（火焰刀 / 龙象般若功）', talk: '“雪域高原缺氧酷寒，根骨与抗性不足之凡夫俗子，未入逻些城便已气绝！”' },
+          { name: '辩经院班智达', title: '卫藏佛学大德', realm: '梵汉高僧（经义 98 / 辩才 95）', talk: '“汉地禅宗与我雪域密乘俱探本来面目，施主经义若达九十，可上坛共参《洗髓》密义。”' }
+        ]
+      },
+      {
+        id: 'dali_city', code: '21', name: '阳苴咩城（大理）', type: 'city', regime: 'dali', circuit: '大理国 · 苍山洱海', x: 519.0, y: 627.2,
+        desc: '背倚点苍十九峰、面朝洱海明月之佛国都城，大理段氏皇族以一阳指、六脉神剑名震天下。',
+        landmarks: ['点苍崇圣寺三塔（天龙寺）', '大理国皇宫镇南府', '洱海茶马总集'],
+        sects: ['大理段氏 / 天龙寺（一阳指 · 六脉神剑圣地）'],
+        factionType: 'orthodox', alert: false,
+        rumor: '大理国主段思廉崇信佛法，天龙寺牟尼堂诸位高僧合参六脉神剑图谱以防吐蕃强邻。',
+        npcs: [
+          { name: '枯荣前辈神僧', title: '大理天龙寺牟尼堂首座', realm: '天阶上品（六脉神剑参悟 / 一阳指 / 枯荣禅功）', talk: '“六脉神剑并非真剑，乃以浑厚一阳指内力化作无形气剑，非内力四千五百以上不可强求。”' },
+          { name: '段氏皇叔镇南公', title: '大理国柱石名宿', realm: '天阶下品（一阳指大成）', talk: '“我大理与北宋素睦友邦，少侠远来苍山洱海，段某定当扫榻相迎！”' }
+        ]
+      },
+
+      // -------------------- （三）17 处名山宗门与战略雄关 --------------------
+      {
+        id: 'kunlun', name: '昆仑山（万山之祖）', type: 'sect', regime: 'wild', circuit: '西域极境 · 瑶池雪巅', x: 134.1, y: 345.1,
+        desc: '华夏万山之祖、百神所在，终年积雪千仞，冰川深处育有昆仑冰蚕与千年寒玉，隐世剑仙与星宿毒窟并存。',
+        landmarks: ['昆仑瑶池冰窟（抗性试炼）', '三圣剑仙幽谷', '星宿海毒泉外脉（产冰蚕奇毒）'],
+        sects: ['19. 星宿派（西域祖庭源头）', '昆仑上古剑仙隐脉'],
+        factionType: 'hermit', alert: true,
+        rumor: '昆仑绝顶万年冰川崩裂一角，传说有西域奇人寻获雪山冰蚕，更见古剑仙遗刻天阶剑意！',
+        npcs: [
+          { name: '昆仑白眉剑隐', title: '瑶池绝顶世外高人', realm: '天阶上品（太玄古剑意 / 琴棋双绝）', talk: '“万里西行登昆仑！世人皆贪恋红尘权禄，唯胸怀天地者方配观瑶池云海！”' },
+          { name: '丁春秋（青年初立）', title: '星宿海创派邪仙', realm: '天阶下品（化功大法 / 冰蚕毒掌）', talk: '“逍遥派老家伙偏心眼，待本仙在昆仑星宿海练成化功神毒，定叫中原群雄俯首称臣！”' }
+        ]
+      },
+      {
+        id: 'shaolin', name: '嵩山少林寺', type: 'sect', regime: 'song', circuit: '京西北路 · 中岳', x: 828.1, y: 393.5,
+        desc: '天下武学泰山北斗，玄字辈高僧辈出，七十二绝技与《易筋经》冠绝寰宇。',
+        landmarks: ['藏经阁', '达摩面壁洞', '十八铜人罗汉堂'],
+        sects: ['01. 嵩山少林寺'],
+        factionType: 'orthodox', alert: false,
+        rumor: '藏经阁夜半偶闻梵唱禅音，灰衣老僧扫叶无声，玄慈、玄苦诸僧正演练罗汉大阵。',
+        npcs: [
+          { name: '灵门方丈', title: '少林寺住持大和尚', realm: '天阶上品（易筋经 / 般若掌）', talk: '“阿弥陀佛，武学障即知见障，非佛法经义精湛者，强习七十二绝技必受戾气反噬。”' },
+          { name: '藏经阁扫地僧', title: '无名灰衣老僧', realm: '深不可测（三尺无形气墙）', talk: '“不论契丹汉人，只要胸怀慈悲佛法，皆可化解累世冤孽……”' }
+        ]
+      },
+      {
+        id: 'yanmenguan', name: '雁门关', type: 'pass', regime: 'song', circuit: '河东路 · 宋辽绝险', x: 821.5, y: 260.3,
+        desc: '“天下九塞，雁门为首”，北通大辽析津府与大漠，胡汉恩仇核心舞台，绝壁千仞。',
+        landmarks: ['雁门绝壁', '镇边李牧祠', '乱石伏击谷'],
+        sects: ['胡汉交锋最前线 · 武林盟会圣地'],
+        factionType: 'hostile', alert: true,
+        rumor: '探马急报！析津府契丹贵人携家眷护卫经雁门山道南行，中原群豪已秘密埋伏绝壁之上！',
+        npcs: [
+          { name: '雁门守关老将', title: '河东折冲都尉', realm: '良品上品（雁门断魂刀）', talk: '“出雁门关往东北便是大辽析津府，关外马贼与辽军暗骑遍地，壮士慎行！”' }
+        ]
+      },
+      {
+        id: 'wutaishan', name: '五台山清凉寺', type: 'sect', regime: 'song', circuit: '河东路 · 佛门北宗', x: 840.4, y: 268.5,
+        desc: '河东佛门圣地，地处抗辽最前线，寺内武僧精研金刚伏魔杖法与大威德降魔杵。',
+        landmarks: ['清凉主殿', '杨五郎演棍台', '边关遗孤院'],
+        sects: ['03. 五台山清凉寺'],
+        factionType: 'orthodox', alert: false,
+        rumor: '清凉寺神山上人闭关参研大威德降魔杵，护佑雁门边关百姓免遭辽骑劫掠。',
+        npcs: [
+          { name: '神山上人', title: '清凉寺住持', realm: '天阶下品（降魔杵法 / 金刚伏魔杖）', talk: '“菩萨低眉，金刚怒目！五台山与少林同护河东百姓周全。”' }
+        ]
+      },
+      {
+        id: 'taihang', name: '太行山绿林总寨', type: 'sect', regime: 'song', circuit: '河北河东交界 · 八百里太行', x: 840.3, y: 324.7,
+        desc: '危峰摩天，王则起义余脉与河北山东绿林豪强结盟之地，反官草莽路线大本营。',
+        landmarks: ['聚义忠义堂', '飞狐断魂涧', '藏金义仓'],
+        sects: ['18. 太行/京东绿林盟'],
+        factionType: 'clan', alert: false,
+        rumor: '太行十八寨立起“替天行道”大旗，专劫河北贪官刮民脂膏之岁币银车。',
+        npcs: [
+          { name: '太行总瓢把子', title: '绿林盟主', realm: '地阶中品（狂风快刀 / 太行罡气）', talk: '“朝廷惧辽畏夏，只知盘剥百姓，俺们绿林好汉偏要杀富济贫！”' }
+        ]
+      },
+      {
+        id: 'tongguan', name: '潼关 / 西岳华山', type: 'sect', regime: 'song', circuit: '永兴军路 · 秦晋咽喉', x: 765.3, y: 388.0,
+        desc: '黄河大折与西岳奇峰合璧之处，“自古华山一条路”，天下第一绝顶论剑胜地。',
+        landmarks: ['华山论剑绝顶', '思过崖古洞', '潼关天险城楼'],
+        sects: ['05. 华山派'],
+        factionType: 'orthodox', alert: false,
+        rumor: '华山玉女峰紫气东来，各路绝顶高手相约登顶一决“天下第一”名号。',
+        npcs: [
+          { name: '华山掌门宗师', title: '西岳剑主', realm: '天阶下品（紫霞神功 / 太岳三青峰）', talk: '“欲争天下第一，先过华山三青峰！”' }
+        ]
+      },
+      {
+        id: 'zhongnanshan', name: '终南山隐宗', type: 'sect', regime: 'song', circuit: '永兴军路 · 秦岭幽谷', x: 703.8, y: 417.9,
+        desc: '云深不知处之道门仙山与活死人墓前脉，轻功捕雀、剑法清冷，不涉庙堂。',
+        landmarks: ['活死人墓幽谷', '重阳古观前脉', '寒玉涧'],
+        sects: ['11. 终南隐宗'],
+        factionType: 'hermit', alert: false,
+        rumor: '终南后山寒潭夜现双剑合璧寒光，非风姿俊雅、通晓诗词者莫能入谷。',
+        npcs: [
+          { name: '终南白衣剑仙', title: '幽谷传人', realm: '天阶下品（玉女素心剑法 / 玉女心经）', talk: '“终南清净地，不纳俗世狂徒。”' }
+        ]
+      },
+      {
+        id: 'taishan', name: '东岳泰山', type: 'sect', regime: 'song', circuit: '京东东路 · 五岳独尊', x: 920.9, y: 349.2,
+        desc: '五岳之首，封禅圣山，泰山派道门驻锡于此，剑势堂皇如千钧压顶。',
+        landmarks: ['玉皇顶封禅台', '十八盘石阶', '五大夫松亭'],
+        sects: ['06. 泰山派'],
+        factionType: 'orthodox', alert: false,
+        rumor: '泰山派掌剑真人于玉皇顶观日出推演“岱宗如何”算术剑诀。',
+        npcs: [
+          { name: '天松子前辈', title: '泰山派宿老', realm: '地阶上品（岱宗如何 / 算术 82）', talk: '“算术不精者，终生难窥我派‘岱宗如何’必杀一剑之堂奥！”' }
+        ]
+      },
+      {
+        id: 'yanziwu', name: '太湖燕子坞', type: 'sect', regime: 'song', circuit: '两浙路 · 水泊秘境', x: 979.4, y: 485.9,
+        desc: '烟波太湖深处的水榭庄园，藏有还施水阁天下百家武学典籍。',
+        landmarks: ['还施水阁', '听香水榭', '参合庄'],
+        sects: ['10. 姑苏慕容氏'],
+        factionType: 'hermit', alert: false,
+        rumor: '慕容氏少家主暗中北联大辽临潢府贵族，图谋搅乱中原兴复大燕。',
+        npcs: [
+          { name: '慕容博（青年）', title: '燕子坞少家主', realm: '天阶上品（斗转星移 / 参合指）', talk: '“宋辽相争，蚌鹬相持，正乃大燕重光之良机……哈哈，少侠莫当真，戏言耳！”' }
+        ]
+      },
+      {
+        id: 'taohuadao', name: '东海桃花岛', type: 'sect', regime: 'song', circuit: '两浙外海 · 奇门仙岛', x: 1046.3, y: 514.9,
+        desc: '孤悬东海舟山外洋之仙岛，东望日本九州，满岛桃花皆依奇门八卦排布。',
+        landmarks: ['八卦桃林大阵', '弹指试剑亭', '听涛琴庐'],
+        sects: ['12. 东海桃花岛一脉'],
+        factionType: 'hermit', alert: false,
+        rumor: '东海奇人以玉箫碧海潮生曲震退倭寇海船，不通奇门算术者登岛必迷。',
+        npcs: [
+          { name: '桃花前隐主', title: '东海奇门宗师', realm: '天阶中品（弹指神通 / 算术 96 / 琴 95）', talk: '“算术破阵，琴音合道，二者缺一休入我桃花林！”' }
+        ]
+      },
+      {
+        id: 'jianmenguan', name: '剑门关', type: 'pass', regime: 'song', circuit: '利州路 · 入蜀咽喉', x: 654.5, y: 449.7,
+        desc: '“一夫当关，万夫莫开”，秦蜀古栈道绝险雄关。',
+        landmarks: ['剑阁鸟道悬栈', '翠云廊', '雄关箭楼'],
+        sects: ['秦蜀交界战略要塞'],
+        factionType: 'clan', alert: false,
+        rumor: '剑门鸟道险峻入云，轻功修为越高者翻越蜀道耗时越短。',
+        npcs: [
+          { name: '栈道独臂剑客', title: '守关隐侠', realm: '地阶中品（夺命连环三仙剑）', talk: '“过了剑门关便是天府成都府，再往西可上吐蕃雪域！”' }
+        ]
+      },
+      {
+        id: 'qingcheng', name: '青城山 / 唐家堡', type: 'sect', regime: 'song', circuit: '成都府路 · 川西奇门', x: 602.1, y: 482.3,
+        desc: '青城天下幽之道观与机关遍布的蜀中唐门世家比邻而居。',
+        landmarks: ['上清宫松风殿', '唐家堡天机阁', '万毒涧'],
+        sects: ['13. 蜀中唐门', '14. 青城派'],
+        factionType: 'clan', alert: false,
+        rumor: '唐家堡天机阁研成暴雨梨花针图纸，需极高算术造诣方可组装。',
+        npcs: [
+          { name: '唐门老太爷', title: '唐家堡宗主', realm: '天阶下品（暴雨梨花针诀 / 满天花雨）', talk: '“抗性未满七十者，连我唐家堡外围毒雾都走不过去！”' }
+        ]
+      },
+      {
+        id: 'emeishan', name: '蜀中峨眉山', type: 'sect', regime: 'song', circuit: '成都府路 · 金顶仙山', x: 598.4, y: 526.6,
+        desc: '峨眉天下秀，金顶佛光普照，剑掌轻灵清正，南扼入滇大理古道。',
+        landmarks: ['金顶睹光台', '万年古寺', '洗象池剑坪'],
+        sects: ['07. 峨眉派'],
+        factionType: 'orthodox', alert: false,
+        rumor: '峨眉掌门神尼与大理天龙寺高僧互换佛经，共防西域毒宗南侵。',
+        npcs: [
+          { name: '静玄前代神尼', title: '峨眉派掌门', realm: '地阶上品（灭绝回风剑 / 大慈大悲禅功）', talk: '“由此南行千余里即达大理阳苴咩城，沿途山高谷深，多备干粮。”' }
+        ]
+      },
+      {
+        id: 'wuliangshan', name: '无量山 / 剑湖秘境', type: 'sect', regime: 'dali', circuit: '大理南疆 · 澜沧秘境', x: 531.1, y: 667.1,
+        desc: '大理国南境澜沧江畔奇山，南邻交趾安南，无量玉壁谷底暗藏逍遥派琅嬛玉洞！',
+        landmarks: ['无量玉壁剑影', '琅嬛福地玉洞', '无量剑湖宫'],
+        sects: ['09. 逍遥派（秘境传承洞府）'],
+        factionType: 'hermit', alert: false,
+        rumor: '无量山谷底神仙姐姐玉像石室藏有《北冥神功》与《凌波微步》帛卷！',
+        npcs: [
+          { name: '逍遥派护洞执事', title: '函谷琴棋传人', realm: '天阶中品（小无相功 / 天山折梅手）', talk: '“颜值不足八十、悟性不通琴棋者，纵至玉像前亦难得真传！”' }
+        ]
+      },
+      {
+        id: 'wudangshan', name: '武当山真武道宗', type: 'sect', regime: 'song', circuit: '京西南路 · 太和仙山', x: 778.6, y: 441.6,
+        desc: '七十二峰朝大顶，真武道脉于此参悟阴阳动静、四两拨千斤至理。',
+        landmarks: ['紫霄道宫', '太和绝顶真武殿', '南岩试剑崖'],
+        sects: ['08. 真武道宗（武当道脉）'],
+        factionType: 'orthodox', alert: false,
+        rumor: '真武道宗掌教闭关以道藏经义参合书法笔意，创制太极圆转剑意。',
+        npcs: [
+          { name: '云鹤真人', title: '真武道宗掌教', realm: '天阶中品（真武太极剑意 / 梯云纵）', talk: '“天下至柔，驰骋天下之至坚。”' }
+        ]
+      },
+      {
+        id: 'tiezhangfeng', name: '洞庭铁掌峰', type: 'sect', regime: 'song', circuit: '荆湖南北路 · 五指奇峰', x: 811.7, y: 536.7,
+        desc: '洞庭湖畔五指奇峰，铁掌帮聚众数万称雄两湖水陆，帮风彪悍霸道。',
+        landmarks: ['铁掌总堂', '五指中峰秘冢', '洞庭水寨'],
+        sects: ['15. 铁掌帮'],
+        factionType: 'clan', alert: false,
+        rumor: '铁掌帮主合参铁掌功与水上漂绝技，欲与北丐帮一争江湖大帮之名。',
+        npcs: [
+          { name: '上官前代帮主', title: '铁掌帮宗主', realm: '天阶下品（铁掌水上漂）', talk: '“接得住老夫三掌而内腑不震者，两湖水道任尔通行！”' }
+        ]
+      },
+      {
+        id: 'nanshaolin', name: '莆田南少林', type: 'sect', regime: 'song', circuit: '福建路 · 九莲山祖庭', x: 972.9, y: 629.1,
+        desc: '闽中九莲山武学祖庭，拳脚硬功刚猛绝伦，东瞰台湾海峡，镇守东南海疆。',
+        landmarks: ['九莲大雄宝殿', '千斤铁鼎炼体坪', '木人巷'],
+        sects: ['04. 莆田南少林'],
+        factionType: 'orthodox', alert: false,
+        rumor: '南少林高僧锤炼金刚不坏护体神功，抗性与气血冠绝东南。',
+        npcs: [
+          { name: '至善前祖', title: '莆田南少林方丈', realm: '天阶中品（金刚不坏体 / 大力金刚指）', talk: '“根骨满九十者，方受得住我南少林金刚不坏体之禅火淬炼！”' }
+        ]
+      }
+    ];
+
+    // =========================================================================
+    // 2. 全景拓扑道路网
+    // =========================================================================
+    const EDGES = [
+      ['bianliang', 'luoyang', 380, 'official'],
+      ['bianliang', 'daming', 420, 'official'],
+      ['bianliang', 'jinan', 560, 'official'],
+      ['bianliang', 'yangzhou', 880, 'water'],
+      ['bianliang', 'xiangyang', 680, 'official'],
+      ['luoyang', 'shaolin', 110, 'mountain'],
+      ['shaolin', 'bianliang', 290, 'official'],
+      ['luoyang', 'tongguan', 340, 'official'],
+      ['luoyang', 'taiyuan', 660, 'mountain'],
+      ['luoyang', 'xiangyang', 590, 'official'],
+      ['daming', 'zhending', 390, 'official'],
+      ['daming', 'jinan', 340, 'official'],
+      ['daming', 'taihang', 240, 'mountain'],
+      ['taihang', 'taiyuan', 310, 'mountain'],
+      ['zhending', 'wutaishan', 260, 'mountain'],
+      ['zhending', 'taiyuan', 380, 'mountain'],
+      ['taiyuan', 'wutaishan', 230, 'mountain'],
+      ['taiyuan', 'yanmenguan', 310, 'mountain'],
+      ['wutaishan', 'yanmenguan', 190, 'mountain'],
+      ['taiyuan', 'yanan', 540, 'mountain'],
+
+      ['zhending', 'xijin_liao', 460, 'official'],
+      ['yanmenguan', 'xijin_liao', 520, 'steppe'],
+      ['xijin_liao', 'dading_liao', 760, 'steppe'],
+      ['dading_liao', 'linhuang_liao', 680, 'steppe'],
+      ['xijin_liao', 'linhuang_liao', 1280, 'steppe'],
+
+      ['yanan', 'xingqing_xixia', 720, 'steppe'],
+      ['taiyuan', 'xingqing_xixia', 1050, 'steppe'],
+      ['changan', 'xingqing_xixia', 1080, 'steppe'],
+      ['xingqing_xixia', 'kunlun', 2950, 'steppe'],
+      ['changan', 'kunlun', 3300, 'steppe'],
+      ['kunlun', 'luoxie_tubo', 1950, 'mountain'],
+      ['changan', 'luoxie_tubo', 2680, 'mountain'],
+
+      ['tongguan', 'changan', 260, 'official'],
+      ['changan', 'zhongnanshan', 95, 'mountain'],
+      ['changan', 'yanan', 620, 'official'],
+      ['changan', 'jianmenguan', 680, 'mountain'],
+      ['jianmenguan', 'chengdu', 460, 'mountain'],
+      ['chengdu', 'qingcheng', 120, 'mountain'],
+      ['chengdu', 'emeishan', 280, 'mountain'],
+      ['chengdu', 'luoxie_tubo', 2250, 'mountain'],
+      ['emeishan', 'dali_city', 1180, 'mountain'],
+      ['luoxie_tubo', 'dali_city', 1850, 'mountain'],
+      ['dali_city', 'wuliangshan', 290, 'mountain'],
+      ['chengdu', 'xiangyang', 1280, 'water'],
+
+      ['jinan', 'taishan', 130, 'mountain'],
+      ['taishan', 'yangzhou', 760, 'official'],
+      ['yangzhou', 'jiangning', 190, 'water'],
+      ['yangzhou', 'suzhou', 420, 'water'],
+      ['jiangning', 'suzhou', 380, 'water'],
+      ['jiangning', 'xiangyang', 980, 'water'],
+      ['suzhou', 'yanziwu', 85, 'water'],
+      ['suzhou', 'hangzhou', 290, 'water'],
+      ['hangzhou', 'taohuadao', 360, 'water'],
+      ['hangzhou', 'quanzhou', 1120, 'official'],
+      ['quanzhou', 'nanshaolin', 160, 'mountain'],
+
+      ['xiangyang', 'wudangshan', 280, 'mountain'],
+      ['wudangshan', 'changan', 640, 'mountain'],
+      ['xiangyang', 'tiezhangfeng', 430, 'water'],
+      ['tiezhangfeng', 'quanzhou', 1260, 'mountain'],
+      ['tiezhangfeng', 'dali_city', 1680, 'mountain']
+    ];
+
+    const TERRAIN_META = {
+      official: { name: '官道', coeff: 1.0, stroke: '#6b4c2a', width: 2.2, cls: '' },
+      water:    { name: '运河/海路', coeff: 0.8, stroke: '#2f6d78', width: 2.4, cls: 'road-dash-water' },
+      steppe:   { name: '塞外戈壁', coeff: 1.2, stroke: '#8c5327', width: 2.1, cls: 'road-dash-steppe' },
+      mountain: { name: '崇山高原', coeff: 1.6, stroke: '#5e3c23', width: 2.0, cls: 'road-dash-mountain' }
+    };
+
+    const MOUNTS = {
+      walk:     { name: '徒步急行', speed: 60 },
+      horse:    { name: '河东健马', speed: 120 },
+      xiXia:    { name: '西夏战马', speed: 220 },
+      ferghana: { name: '大宛汗血良驹', speed: 300 }
+    };
+
+    const REGIME_BADGE = {
+      song: { label: '北宋重镇', fill: '#8f241e', inner: '#ebd8b5' },
+      liao: { label: '大辽三京', fill: '#4c3566', inner: '#e4d6f5' },
+      xixia:{ label: '西夏王都', fill: '#7c3f1c', inner: '#f5dec4' },
+      tubo: { label: '吐蕃圣城', fill: '#6e2b42', inner: '#f5d5df' },
+      dali: { label: '大理都城', fill: '#25566b', inner: '#d4eef7' },
+      wild: { label: '万山绝域', fill: '#1f4d3d', inner: '#dff5ed' }
+    };
+
+    const ROAMING_MASTERS = [
+      { id: 'qiaofeng_mentor', name: '玄苦大师', sect: '少林罗汉堂', nodeId: 'shaolin', realm: '地阶上品' },
+      { id: 'murong_bo', name: '慕容氏暗影', sect: '太湖燕子坞', nodeId: 'xijin_liao', realm: '天阶上品' },
+      { id: 'jiumozhi_pre', name: '吐蕃明王使', sect: '逻些大轮寺', nodeId: 'luoxie_tubo', realm: '天阶中品' },
+      { id: 'duan_envoy', name: '大理段氏宗亲', sect: '阳苴咩天龙寺', nodeId: 'dali_city', realm: '天阶下品' },
+      { id: 'kunlun_sage', name: '昆仑采玉客', sect: '西域奇侠', nodeId: 'kunlun', realm: '地阶上品' },
+      { id: 'yipintang_ace', name: '一品堂四大恶首', sect: '兴庆府一品堂', nodeId: 'xingqing_xixia', realm: '地阶上品' }
+    ];
+
+    // =========================================================================
+    // 3. 状态与邻接表
+    // =========================================================================
+    const state = {
+      dayCount: 1,
+      currentNodeId: 'bianliang',
+      selectedNodeId: 'xijin_liao',
+      mountKey: 'horse',
+      qinggongBonus: 0.15,
+      ridingSkill: 45,
+      agility: 65,
+      silver: 120,
+      food: 25,
+      hp: 1200,
+      mp: 950,
+      res: 40,
+      skills: { 算术: 52, 经义: 60, 策论: 48, 诗词: 55, 琴: 42, 棋: 50, 书: 46, 画: 40, 辩才: 64 },
+      overlays: {
+        cityLabels: true,
+        sectPassLabels: true,
+        masters: true,
+        distance: false,
+        factions: false,
+        alerts: true
+      },
+      traveling: null,
+      pan: { x: 0, y: 0, scale: 1, dragging: false, startX: 0, startY: 0 }
+    };
+
+    const nodeMap = Object.fromEntries(NODES.map(n => [n.id, n]));
+    const adj = {};
+    NODES.forEach(n => { adj[n.id] = []; });
+    EDGES.forEach(([u, v, dist, terrain]) => {
+      adj[u].push({ to: v, dist, terrain });
+      adj[v].push({ to: u, dist, terrain });
+    });
+
+    // =========================================================================
+    // 4. 移动公式与 Dijkstra 最优路线计算
+    // =========================================================================
+    function getEffectiveSpeed(terrainType = 'official') {
+      const mount = MOUNTS[state.mountKey];
+      const T = TERRAIN_META[terrainType].coeff;
+      let modifier = 0;
+      if (state.mountKey === 'walk') {
+        modifier = state.qinggongBonus + (state.agility / 250);
+      } else if (terrainType === 'mountain') {
+        modifier = (state.ridingSkill / 250) + state.qinggongBonus * 0.9 + (state.agility / 500);
+      } else if (terrainType === 'steppe') {
+        modifier = (state.ridingSkill / 120) + state.qinggongBonus * 0.35;
+      } else {
+        modifier = (state.ridingSkill / 160) + state.qinggongBonus * 0.5;
+      }
+      const rawSpeed = mount.speed * (1 + modifier);
+      return {
+        baseDailyLi: Math.round(rawSpeed),
+        actualDailyLiOnTerrain: rawSpeed / T,
+        modifierPct: Math.round(modifier * 100)
+      };
+    }
+
+    function computeSegmentDays(dist, terrain) {
+      const { actualDailyLiOnTerrain } = getEffectiveSpeed(terrain);
+      return dist / actualDailyLiOnTerrain;
+    }
+
+    function findBestRoute(startId, targetId) {
+      if (startId === targetId) return { nodes: [startId], segments: [], totalLi: 0, totalDays: 0 };
+      const distDays = {};
+      const prev = {};
+      const visited = new Set();
+      NODES.forEach(n => { distDays[n.id] = Infinity; });
+      distDays[startId] = 0;
+
+      while (visited.size < NODES.length) {
+        let u = null;
+        let best = Infinity;
+        for (const id in distDays) {
+          if (!visited.has(id) && distDays[id] < best) {
+            best = distDays[id];
+            u = id;
+          }
+        }
+        if (!u || u === targetId) break;
+        visited.add(u);
+
+        for (const edge of adj[u]) {
+          if (visited.has(edge.to)) continue;
+          const stepDays = computeSegmentDays(edge.dist, edge.terrain);
+          const alt = distDays[u] + stepDays;
+          if (alt < distDays[edge.to]) {
+            distDays[edge.to] = alt;
+            prev[edge.to] = { from: u, dist: edge.dist, terrain: edge.terrain, days: stepDays };
+          }
+        }
+      }
+
+      const nodes = [];
+      const segments = [];
+      let curr = targetId;
+      if (!prev[curr]) return null;
+      while (curr !== startId) {
+        nodes.unshift(curr);
+        const p = prev[curr];
+        segments.unshift({ from: p.from, to: curr, dist: p.dist, terrain: p.terrain, days: p.days });
+        curr = p.from;
+      }
+      nodes.unshift(startId);
+      const totalLi = segments.reduce((s, seg) => s + seg.dist, 0);
+      const totalDays = segments.reduce((s, seg) => s + seg.days, 0);
+      return { nodes, segments, totalLi, totalDays };
+    }
+
+    // =========================================================================
+    // 5. 历法与日志
+    // =========================================================================
+    const MONTHS = ['正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月', '腊月'];
+    const SEASONS = ['春', '春', '春', '夏', '夏', '夏', '秋', '秋', '秋', '冬', '冬', '冬'];
+    const CN_DAYS = [
+      '', '一日', '二日', '三日', '四日', '五日', '六日', '七日', '八日', '九日', '十日',
+      '十一日', '十二日', '十三日', '十四日', '十五日', '十六日', '十七日', '十八日', '十九日', '二十日',
+      '廿一日', '廿二日', '廿三日', '廿四日', '廿五日', '廿六日', '廿七日', '廿八日', '廿九日', '三十日'
+    ];
+
+    function formatSongDate(dayTotal) {
+      const zeroIdx = dayTotal - 1;
+      const yearOffset = Math.floor(zeroIdx / 360);
+      const monthIdx = Math.floor((zeroIdx % 360) / 30);
+      const dayInMonth = (zeroIdx % 30) + 1;
+      const yearNames = ['皇祐二年', '皇祐三年', '皇祐四年', '皇祐五年'];
+      const yName = yearNames[Math.min(yearOffset, yearNames.length - 1)];
+      return `${yName} · ${SEASONS[monthIdx]} · ${MONTHS[monthIdx]}${CN_DAYS[dayInMonth]}`;
+    }
+
+    function addLog(tag, text, highlight = false) {
+      const box = document.getElementById('event-log');
+      const row = document.createElement('div');
+      row.className = `leading-relaxed ${highlight ? 'text-amber-800 dark:text-amber-300 font-medium' : 'text-[var(--foreground)]'}`;
+      row.innerHTML = `<span class="text-[11px] text-[var(--muted-foreground)] font-mono">[${formatSongDate(state.dayCount).split(' · ')[2]}]</span> <span class="font-semibold">[${tag}]</span> ${text}`;
+      box.prepend(row);
+    }
+
+    // =========================================================================
+    // 6. SVG 图层绘制与缩放语义显隐（Semantic Zoom LOD）
+    //    - 当缩放比例缩小时：自动隐藏城池、宗门、关隘地名与细碎名侠标签，
+    //      凸显“宋、辽、西夏、吐蕃、大理”列国国号与朱砂国界线！
+    // =========================================================================
+    const NS = 'http://www.w3.org/2000/svg';
+
+    function renderAllMapLayers() {
+      renderFactionLayer();
+      renderEdgesLayer();
+      renderRouteLayer();
+      renderAlertsLayer();
+      renderNodesLayer();
+      renderMastersLayer();
+      renderPlayerToken();
+      updateZoomLOD();
+      syncTopBar();
+    }
+
+    function renderFactionLayer() {
+      const g = document.getElementById('svg-layer-factions');
+      g.innerHTML = '';
+      g.classList.toggle('hidden', !state.overlays.factions);
+      if (!state.overlays.factions) return;
+
+      const gradMap = {
+        orthodox: 'url(#factionGradOrthodox)',
+        hermit: 'url(#factionGradHermit)',
+        clan: 'url(#factionGradClan)',
+        hostile: 'url(#factionGradHostile)'
+      };
+      NODES.forEach(n => {
+        const c = document.createElementNS(NS, 'circle');
+        c.setAttribute('cx', n.x);
+        c.setAttribute('cy', n.y);
+        c.setAttribute('r', n.type === 'city' ? 76 : 56);
+        c.setAttribute('fill', gradMap[n.factionType] || gradMap.orthodox);
+        g.appendChild(c);
+      });
+    }
+
+    function renderEdgesLayer() {
+      const g = document.getElementById('svg-layer-edges');
+      g.innerHTML = '';
+      EDGES.forEach(([u, v, dist, terrain]) => {
+        const nu = nodeMap[u], nv = nodeMap[v];
+        const meta = TERRAIN_META[terrain];
+        const line = document.createElementNS(NS, 'line');
+        line.setAttribute('x1', nu.x);
+        line.setAttribute('y1', nu.y);
+        line.setAttribute('x2', nv.x);
+        line.setAttribute('y2', nv.y);
+        line.setAttribute('stroke', meta.stroke);
+        line.setAttribute('stroke-width', meta.width);
+        line.setAttribute('stroke-opacity', '0.62');
+        if (meta.cls) line.setAttribute('class', meta.cls);
+        g.appendChild(line);
+
+        if (state.overlays.distance) {
+          const distGroup = document.createElementNS(NS, 'g');
+          distGroup.setAttribute('class', 'edge-dist-label lod-fade');
+          const mx = (nu.x + nv.x) / 2;
+          const my = (nu.y + nv.y) / 2;
+          const labelBg = document.createElementNS(NS, 'rect');
+          labelBg.setAttribute('x', mx - 20);
+          labelBg.setAttribute('y', my - 7);
+          labelBg.setAttribute('width', 40);
+          labelBg.setAttribute('height', 13);
+          labelBg.setAttribute('rx', 2);
+          labelBg.setAttribute('fill', '#faf2e1');
+          labelBg.setAttribute('stroke', '#8c7353');
+          labelBg.setAttribute('stroke-width', '0.5');
+          distGroup.appendChild(labelBg);
+
+          const txt = document.createElementNS(NS, 'text');
+          txt.setAttribute('x', mx);
+          txt.setAttribute('y', my + 2.5);
+          txt.setAttribute('text-anchor', 'middle');
+          txt.setAttribute('font-size', '8.5');
+          txt.setAttribute('font-weight', '600');
+          txt.setAttribute('fill', '#3a2918');
+          txt.textContent = `${dist}里`;
+          distGroup.appendChild(txt);
+          g.appendChild(distGroup);
+        }
+      });
+    }
+
+    function renderRouteLayer() {
+      const g = document.getElementById('svg-layer-route');
+      g.innerHTML = '';
+      const targetId = state.traveling ? state.traveling.targetId : state.selectedNodeId;
+      if (!targetId || targetId === state.currentNodeId) return;
+
+      const route = state.traveling ? state.traveling.route : findBestRoute(state.currentNodeId, targetId);
+      if (!route || !route.segments.length) return;
+
+      const points = route.nodes.map(id => `${nodeMap[id].x},${nodeMap[id].y}`).join(' ');
+      const glow = document.createElementNS(NS, 'polyline');
+      glow.setAttribute('points', points);
+      glow.setAttribute('fill', 'none');
+      glow.setAttribute('stroke', '#c42b1c');
+      glow.setAttribute('stroke-width', '4.2');
+      glow.setAttribute('stroke-linecap', 'round');
+      glow.setAttribute('stroke-linejoin', 'round');
+      glow.setAttribute('class', 'active-route-glow');
+      g.appendChild(glow);
+    }
+
+    function renderAlertsLayer() {
+      const g = document.getElementById('svg-layer-alerts');
+      g.innerHTML = '';
+      if (!state.overlays.alerts) return;
+
+      NODES.filter(n => n.alert).forEach(n => {
+        const ring = document.createElementNS(NS, 'circle');
+        ring.setAttribute('cx', n.x);
+        ring.setAttribute('cy', n.y);
+        ring.setAttribute('r', '19');
+        ring.setAttribute('fill', 'none');
+        ring.setAttribute('stroke', '#b8251e');
+        ring.setAttribute('stroke-width', '2');
+        ring.setAttribute('stroke-dasharray', '4 3');
+        ring.setAttribute('class', 'alert-ring');
+        g.appendChild(ring);
+      });
+    }
+
+    function renderNodesLayer() {
+      const g = document.getElementById('svg-layer-nodes');
+      g.innerHTML = '';
+
+      NODES.forEach(n => {
+        const group = document.createElementNS(NS, 'g');
+        const isCapital = ['bianliang', 'linhuang_liao', 'xingqing_xixia', 'luoxie_tubo', 'dali_city'].includes(n.id);
+        group.setAttribute('class', `cursor-pointer map-node-group node-kind-${n.type} ${isCapital ? 'node-capital' : ''}`);
+        group.setAttribute('transform', `translate(${n.x}, ${n.y})`);
+
+        const isSelected = state.selectedNodeId === n.id;
+        const isCurrent = state.currentNodeId === n.id && !state.traveling;
+
+        if (isSelected) {
+          const selHalo = document.createElementNS(NS, 'circle');
+          selHalo.setAttribute('r', '16');
+          selHalo.setAttribute('fill', '#d99b26');
+          selHalo.setAttribute('fill-opacity', '0.32');
+          selHalo.setAttribute('stroke', '#a8620a');
+          selHalo.setAttribute('stroke-width', '1.8');
+          group.appendChild(selHalo);
+        }
+
+        // 图标主体包裹在 .node-marker 中，支持缩小后轻度收敛
+        const markerWrap = document.createElementNS(NS, 'g');
+        markerWrap.setAttribute('class', 'node-marker lod-fade');
+
+        if (n.type === 'city') {
+          const regStyle = REGIME_BADGE[n.regime] || REGIME_BADGE.song;
+          const sz = isCapital ? 9.2 : 8.0;
+
+          const outer = document.createElementNS(NS, 'rect');
+          outer.setAttribute('x', -sz);
+          outer.setAttribute('y', -sz);
+          outer.setAttribute('width', sz * 2);
+          outer.setAttribute('height', sz * 2);
+          outer.setAttribute('rx', 2);
+          outer.setAttribute('fill', regStyle.fill);
+          outer.setAttribute('stroke', '#fbf4e4');
+          outer.setAttribute('stroke-width', '1.6');
+          markerWrap.appendChild(outer);
+
+          const inner = document.createElementNS(NS, 'rect');
+          inner.setAttribute('x', -3.8);
+          inner.setAttribute('y', -3.8);
+          inner.setAttribute('width', 7.6);
+          inner.setAttribute('height', 7.6);
+          inner.setAttribute('fill', isCapital ? '#f5cb5c' : regStyle.inner);
+          markerWrap.appendChild(inner);
+        } else if (n.type === 'sect') {
+          const isKunlun = n.id === 'kunlun';
+          const circle = document.createElementNS(NS, 'circle');
+          circle.setAttribute('r', isKunlun ? '9.5' : '7.2');
+          circle.setAttribute('fill', isKunlun ? '#1d566e' : '#285948');
+          circle.setAttribute('stroke', '#fbf4e4');
+          circle.setAttribute('stroke-width', '1.5');
+          markerWrap.appendChild(circle);
+
+          const dot = document.createElementNS(NS, 'circle');
+          dot.setAttribute('r', isKunlun ? '3.5' : '2.4');
+          dot.setAttribute('fill', isKunlun ? '#ffffff' : '#dfeee7');
+          markerWrap.appendChild(dot);
+        } else {
+          const diamond = document.createElementNS(NS, 'polygon');
+          diamond.setAttribute('points', '0,-9 9,0 0,9 -9,0');
+          diamond.setAttribute('fill', '#8c5119');
+          diamond.setAttribute('stroke', '#fbf4e4');
+          diamond.setAttribute('stroke-width', '1.5');
+          markerWrap.appendChild(diamond);
+        }
+        group.appendChild(markerWrap);
+
+        // 地名铭牌包裹在 .node-label-wrap 中，缩小到阈值以下自动平滑隐去
+        const labelWrap = document.createElementNS(NS, 'g');
+        labelWrap.setAttribute('class', `node-label-wrap label-kind-${n.type} lod-fade`);
+
+        const shortName = n.name.replace('（万山之祖）', '');
+        const boxW = shortName.length * 11 + 10;
+        const labelBg = document.createElementNS(NS, 'rect');
+        labelBg.setAttribute('x', -boxW / 2);
+        labelBg.setAttribute('y', 10.5);
+        labelBg.setAttribute('width', boxW);
+        labelBg.setAttribute('height', 15.5);
+        labelBg.setAttribute('rx', 3);
+        labelBg.setAttribute('fill', isCurrent ? '#3b2412' : '#fbf4e3');
+        labelBg.setAttribute('stroke', isSelected ? '#b56e12' : '#7a6345');
+        labelBg.setAttribute('stroke-width', isSelected ? '1.2' : '0.75');
+        labelWrap.appendChild(labelBg);
+
+        const label = document.createElementNS(NS, 'text');
+        label.setAttribute('x', 0);
+        label.setAttribute('y', 21.5);
+        label.setAttribute('text-anchor', 'middle');
+        label.setAttribute('font-size', n.type === 'city' ? '10.8' : '10');
+        label.setAttribute('font-weight', n.type === 'city' ? '700' : '600');
+        label.setAttribute('class', 'song-serif');
+        label.setAttribute('fill', isCurrent ? '#fde68a' : (n.regime && n.regime !== 'song' && n.type === 'city' ? '#3a224d' : '#24170e'));
+        label.textContent = shortName;
+        labelWrap.appendChild(label);
+
+        group.appendChild(labelWrap);
+
+        group.addEventListener('mouseenter', (ev) => showTooltip(ev, n));
+        group.addEventListener('mousemove', (ev) => moveTooltip(ev));
+        group.addEventListener('mouseleave', hideTooltip);
+        group.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          selectNode(n.id);
+        });
+
+        g.appendChild(group);
+      });
+    }
+
+    function renderMastersLayer() {
+      const g = document.getElementById('svg-layer-masters');
+      g.innerHTML = '';
+      if (!state.overlays.masters) return;
+
+      ROAMING_MASTERS.forEach((m, idx) => {
+        const n = nodeMap[m.nodeId];
+        if (!n) return;
+        const badge = document.createElementNS(NS, 'g');
+        const offsetX = (idx % 2 === 0 ? 16 : -16);
+        badge.setAttribute('transform', `translate(${n.x + offsetX}, ${n.y - 14})`);
+        badge.setAttribute('pointer-events', 'none');
+
+        const pill = document.createElementNS(NS, 'rect');
+        pill.setAttribute('x', -32);
+        pill.setAttribute('y', -8);
+        pill.setAttribute('width', 64);
+        pill.setAttribute('height', 13);
+        pill.setAttribute('rx', 6);
+        pill.setAttribute('fill', '#1d473a');
+        pill.setAttribute('stroke', '#e6f5ee');
+        pill.setAttribute('stroke-width', '0.85');
+        badge.appendChild(pill);
+
+        const t = document.createElementNS(NS, 'text');
+        t.setAttribute('x', 0);
+        t.setAttribute('y', 1.5);
+        t.setAttribute('text-anchor', 'middle');
+        t.setAttribute('font-size', '8.2');
+        t.setAttribute('fill', '#f0fdf4');
+        t.textContent = m.name;
+        badge.appendChild(t);
+
+        g.appendChild(badge);
+      });
+    }
+
+    function renderPlayerToken(customPos = null) {
+      const g = document.getElementById('svg-layer-player');
+      g.innerHTML = '';
+
+      let px, py;
+      if (customPos) {
+        px = customPos.x;
+        py = customPos.y;
+      } else {
+        const curr = nodeMap[state.currentNodeId];
+        px = curr.x;
+        py = curr.y;
+      }
+
+      const wrap = document.createElementNS(NS, 'g');
+      wrap.setAttribute('transform', `translate(${px}, ${py - 15})`);
+      wrap.setAttribute('pointer-events', 'none');
+
+      const pulse = document.createElementNS(NS, 'circle');
+      pulse.setAttribute('r', '12');
+      pulse.setAttribute('fill', 'none');
+      pulse.setAttribute('stroke', '#d97706');
+      pulse.setAttribute('stroke-width', '2.2');
+      pulse.setAttribute('class', 'player-pulse');
+      wrap.appendChild(pulse);
+
+      const token = document.createElementNS(NS, 'circle');
+      token.setAttribute('r', '10.5');
+      token.setAttribute('fill', '#b45309');
+      token.setAttribute('stroke', '#fffbeb');
+      token.setAttribute('stroke-width', '2');
+      wrap.appendChild(token);
+
+      const ch = document.createElementNS(NS, 'text');
+      ch.setAttribute('x', 0);
+      ch.setAttribute('y', 3.8);
+      ch.setAttribute('text-anchor', 'middle');
+      ch.setAttribute('font-size', '10.5');
+      ch.setAttribute('font-weight', 'bold');
+      ch.setAttribute('class', 'song-serif');
+      ch.setAttribute('fill', '#fffbeb');
+      ch.textContent = state.mountKey === 'walk' ? '侠' : '骑';
+      wrap.appendChild(ch);
+
+      g.appendChild(wrap);
+    }
+
+    // 核心：三级语义缩放控制 + 四项文字标注（城市 / 独立名山秘境与战略雄关 / 名侠踪迹 / 道路里程）独立开关
+    function updateZoomLOD() {
+      const s = state.pan.scale;
+      const isMacroZoom = s < 0.85;
+
+      // 1) 独立名山秘境与战略雄关文字：开启 sectPassLabels 且 s >= 0.94 时显示
+      const showMinorLabels = state.overlays.sectPassLabels && (s >= 0.94);
+      // 2) 城市文字：开启 cityLabels 且 s >= 0.85 时显示
+      const showCityLabels = state.overlays.cityLabels && !isMacroZoom;
+      // 是否所有地名文字均被用户手动关闭（仅图标模式）
+      const anyPlaceLabelOn = state.overlays.cityLabels || state.overlays.sectPassLabels;
+
+      document.querySelectorAll('.label-kind-sect, .label-kind-pass').forEach(el => {
+        el.style.opacity = showMinorLabels ? '1' : '0';
+        el.style.pointerEvents = showMinorLabels ? 'auto' : 'none';
+      });
+
+      document.querySelectorAll('.label-kind-city').forEach(el => {
+        el.style.opacity = showCityLabels ? '1' : '0';
+        el.style.pointerEvents = showCityLabels ? 'auto' : 'none';
+      });
+
+      // 节点图标透明度：非宏观列国视图下（s >= 0.85），无论是否关闭文字，始终清晰保留所有城市、名山秘境与雄关图标！
+      document.querySelectorAll('.map-node-group').forEach(group => {
+        const marker = group.querySelector('.node-marker');
+        if (!marker) return;
+        if (isMacroZoom) {
+          const isCap = group.classList.contains('node-capital');
+          const isCity = group.classList.contains('node-kind-city');
+          marker.style.opacity = isCap ? '0.92' : (isCity ? '0.52' : '0.25');
+        } else if (s < 0.94 && state.overlays.cityLabels) {
+          const isCity = group.classList.contains('node-kind-city');
+          marker.style.opacity = isCity ? '1' : '0.78';
+        } else {
+          marker.style.opacity = '1';
+        }
+      });
+
+      // 3) 名侠踪迹胶囊：由 state.overlays.masters 独立控制（缩小到宏观列国视图时自动隐去）
+      const mastersLayer = document.getElementById('svg-layer-masters');
+      if (mastersLayer) mastersLayer.style.opacity = (state.overlays.masters && !isMacroZoom) ? '1' : '0';
+
+      const alertsLayer = document.getElementById('svg-layer-alerts');
+      if (alertsLayer) alertsLayer.style.opacity = !isMacroZoom ? '1' : '0.3';
+
+      const edgesLayer = document.getElementById('svg-layer-edges');
+      if (edgesLayer) edgesLayer.style.opacity = !isMacroZoom ? '1' : '0.28';
+
+      // 4) 道路里程牌：由 state.overlays.distance 独立控制（缩小到宏观列国视图时自动隐去）
+      document.querySelectorAll('.edge-dist-label').forEach(el => {
+        el.style.opacity = (state.overlays.distance && !isMacroZoom) ? '1' : '0';
+      });
+
+      // 周边藩属与边荒题字：当城市与名山雄关文字全关时同步隐去，保持纯图标视图干净清爽
+      const minorWatermarks = document.getElementById('svg-layer-minor-watermarks');
+      if (minorWatermarks) minorWatermarks.style.opacity = anyPlaceLabelOn ? (!isMacroZoom ? '1' : '0.45') : '0';
+
+      const unchartedTitles = document.getElementById('svg-layer-uncharted-titles');
+      if (unchartedTitles) unchartedTitles.style.opacity = anyPlaceLabelOn ? '1' : '0';
+
+      // 宏观国号（宋、辽、西夏、吐蕃、大理）：缩小至 <0.85× 列国视图醒目浮现；详图全隐文字时隐藏底纹
+      const macroRegimes = document.getElementById('svg-layer-macro-regimes');
+      if (macroRegimes) {
+        if (isMacroZoom) {
+          macroRegimes.style.opacity = '0.94';
+        } else if (!anyPlaceLabelOn) {
+          macroRegimes.style.opacity = '0';
+        } else if (s < 0.94) {
+          macroRegimes.style.opacity = '0.52';
+        } else {
+          macroRegimes.style.opacity = '0.24';
+        }
+      }
+
+      // 国界线随缩小自适应线宽
+      const borderMain = document.getElementById('border-main-paths');
+      const borderHalo = document.getElementById('border-halo-paths');
+      if (borderMain && borderHalo) {
+        if (isMacroZoom) {
+          const inv = Math.min(1.55, 1 / s);
+          borderMain.setAttribute('stroke-width', (2.7 * inv).toFixed(2));
+          borderMain.setAttribute('stroke-opacity', '0.90');
+          borderHalo.setAttribute('stroke-width', (6.8 * inv).toFixed(2));
+          borderHalo.setAttribute('stroke-opacity', '0.78');
+        } else {
+          borderMain.setAttribute('stroke-width', '2.35');
+          borderMain.setAttribute('stroke-opacity', '0.80');
+          borderHalo.setAttribute('stroke-width', '6.0');
+          borderHalo.setAttribute('stroke-opacity', '0.66');
+        }
+      }
+
+      // 更新左上角视距提示徽章
+      const activeLabelCount = ['cityLabels', 'sectPassLabels', 'masters', 'distance'].filter(k => state.overlays[k]).length;
+      const badge = document.getElementById('zoom-lod-badge');
+      if (badge) {
+        if (isMacroZoom) {
+          badge.textContent = `视距 ${s.toFixed(2)}× · 列国总览（仅显国号疆界）`;
+          badge.className = 'px-2 py-0.5 rounded bg-[#8f241e] text-[#fff8ee] border border-[#5c1612] font-medium song-serif';
+        } else if (activeLabelCount === 0) {
+          badge.textContent = `视距 ${s.toFixed(2)}× · 纯净图标模式（无文字干扰）`;
+          badge.className = 'px-2 py-0.5 rounded bg-[#2d4a3e] text-[#fff8ee] border border-[#1a2e26] font-medium song-serif';
+        } else if (s < 0.94) {
+          badge.textContent = `视距 ${s.toFixed(2)}× · 州府中观（隐去山门关隘名）`;
+          badge.className = 'px-2 py-0.5 rounded bg-[#dfc9a3] text-[#3d2812] border border-[#8c6f46] font-medium song-serif';
+        } else {
+          badge.textContent = `视距 ${s.toFixed(2)}× · 山海详图（标注开启 ${activeLabelCount}/4）`;
+          badge.className = 'px-2 py-0.5 rounded bg-[#eadec6] text-[#4a3219] border border-[#9e8462] font-medium song-serif';
+        }
+      }
+    }
+
+    // =========================================================================
+    // 7. 纯实色不透明悬停浮窗（solid-map-tooltip）与右侧详情面板
+    // =========================================================================
+    function showTooltip(ev, node) {
+      const tip = document.getElementById('map-tooltip');
+      const route = findBestRoute(state.currentNodeId, node.id);
+      const roamingHere = ROAMING_MASTERS.filter(m => m.nodeId === node.id);
+      const npcTotal = (node.npcs ? node.npcs.length : 0) + roamingHere.length;
+
+      let distHtml = '';
+      if (node.id === state.currentNodeId && !state.traveling) {
+        distHtml = `<div class="px-2 py-1 rounded bg-[#e5efe9] text-[#1c543e] font-bold">● 少侠当前驻留于此</div>`;
+      } else if (route) {
+        distHtml = `
+          <div class="flex justify-between py-0.5 border-b border-[#d8cbb2]">
+            <span class="text-[#5c4630]">距离当前里程 (D)：</span>
+            <strong class="font-mono text-[#23180f]">${route.totalLi} 里</strong>
+          </div>
+          <div class="flex justify-between py-0.5 border-b border-[#d8cbb2]">
+            <span class="text-[#5c4630]">按${MOUNTS[state.mountKey].name}预计抵达：</span>
+            <strong class="text-[#9e2218] font-mono">${route.totalDays.toFixed(1)} 天</strong>
+          </div>
+        `;
+      }
+
+      tip.innerHTML = `
+        <div class="flex items-center justify-between bg-[#efe3c8] -mx-3.5 -mt-3.5 px-3.5 py-2 mb-2 rounded-t border-b border-[#b8a27e]">
+          <span class="song-serif font-bold text-sm text-[#2b1a0e]">${node.code ? node.code + ' · ' : ''}${node.name}</span>
+          <span class="px-2 py-0.5 rounded bg-[#5c4024] text-[#fff9ed] text-[11px] font-medium">${node.circuit}</span>
+        </div>
+        <div class="space-y-1.5 text-xs">
+          ${distHtml}
+          <div class="flex justify-between py-0.5">
+            <span class="text-[#5c4630]">驻留知名人物：</span>
+            <strong class="font-mono text-[#23180f]">${npcTotal} 位名宿</strong>
+          </div>
+          <div class="p-2 rounded bg-[#f2e8d2] border border-[#cbb997] text-[#3d2b19] leading-relaxed">
+            <span class="font-bold text-[#8f241e]">【江湖风闻】</span>${node.rumor}
+          </div>
+        </div>
+      `;
+      tip.classList.remove('hidden');
+      moveTooltip(ev);
+    }
+
+    function moveTooltip(ev) {
+      const tip = document.getElementById('map-tooltip');
+      const viewport = document.getElementById('map-viewport').getBoundingClientRect();
+      let left = ev.clientX - viewport.left + 18;
+      let top = ev.clientY - viewport.top + 18;
+      if (left + 335 > viewport.width) left = ev.clientX - viewport.left - 335;
+      if (top + 195 > viewport.height) top = ev.clientY - viewport.top - 195;
+      tip.style.left = `${Math.max(10, left)}px`;
+      tip.style.top = `${Math.max(10, top)}px`;
+    }
+
+    function hideTooltip() {
+      document.getElementById('map-tooltip').classList.add('hidden');
+    }
+
+    function selectNode(nodeId) {
+      state.selectedNodeId = nodeId;
+      renderAllMapLayers();
+      renderInspector();
+    }
+
+    function renderInspector() {
+      const box = document.getElementById('inspector-panel');
+      const node = nodeMap[state.selectedNodeId];
+      if (!node) return;
+
+      const isHere = state.currentNodeId === node.id && !state.traveling;
+      const route = findBestRoute(state.currentNodeId, node.id);
+      const roamingHere = ROAMING_MASTERS.filter(m => m.nodeId === node.id);
+
+      const typeBadge = node.type === 'city'
+        ? (REGIME_BADGE[node.regime]?.label || '天下名城')
+        : (node.type === 'sect' ? '名山宗门秘境' : '战略边塞雄关');
+
+      let routeCard = '';
+      if (isHere) {
+        routeCard = `
+          <div class="p-2.5 rounded bg-emerald-950/15 border border-emerald-700/30 flex items-center justify-between text-xs">
+            <span class="text-emerald-800 dark:text-emerald-300 font-medium">少侠当前正在此地驻留</span>
+            <button onclick="openCityModal('${node.id}')" class="px-3 py-1.5 rounded bg-amber-800 hover:bg-amber-700 text-amber-50 font-semibold song-serif transition">
+              ${node.type === 'city' ? '入城查访建筑' : '踏入秘境 / 关城'}
+            </button>
+          </div>
+        `;
+      } else if (route) {
+        const segSummary = route.segments.map(s => `${nodeMap[s.to].name}(${TERRAIN_META[s.terrain].name})`).join(' → ');
+        routeCard = `
+          <div class="p-2.5 rounded bg-[var(--background)] border border-[var(--border)] space-y-2 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="text-[var(--muted-foreground)]">规划总里程 (D)：<strong class="text-[var(--foreground)] font-mono">${route.totalLi}</strong> 里</span>
+              <span class="font-mono font-bold text-amber-700 dark:text-amber-400">预计 ${route.totalDays.toFixed(1)} 日抵达</span>
+            </div>
+            <div class="text-[11px] text-[var(--muted-foreground)] leading-snug">
+              途经路线：${nodeMap[state.currentNodeId].name} → ${segSummary}
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-[11px] text-[var(--muted-foreground)]">需耗干粮约 ${Math.max(1, Math.ceil(route.totalDays))} 日份</span>
+              <button ${state.traveling ? 'disabled' : ''} onclick="startJourney('${node.id}')"
+                class="px-3.5 py-1.5 rounded bg-[#8f241e] hover:bg-[#a82c25] disabled:opacity-45 text-white font-semibold song-serif transition">
+                ${state.traveling ? '行军途中...' : '策马出发'}
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      const landmarksHtml = node.landmarks.map(l =>
+        `<span class="px-2 py-0.5 rounded bg-[var(--background)] border border-[var(--border)] text-[11px]">${l}</span>`
+      ).join('');
+
+      const sectsHtml = node.sects.map(s =>
+        `<div class="text-xs text-amber-800 dark:text-amber-300 font-medium">· ${s}</div>`
+      ).join('');
+
+      const allNpcs = [
+        ...(node.npcs || []),
+        ...roamingHere.map(m => ({ name: m.name, title: `游历名宿 · ${m.sect}`, realm: m.realm }))
+      ];
+      const npcHtml = allNpcs.map(p => `
+        <div class="p-2 rounded bg-[var(--background)] border border-[var(--border)] flex items-center justify-between text-xs">
+          <div>
+            <div class="font-semibold">${p.name} <span class="text-[11px] font-normal text-[var(--muted-foreground)]">· ${p.title}</span></div>
+            <div class="text-[11px] text-[var(--muted-foreground)]">${p.realm}</div>
+          </div>
+          ${isHere ? `<button onclick="openCityModal('${node.id}')" class="px-2 py-0.5 rounded border border-[var(--border)] hover:bg-[var(--card)] text-[11px]">拜会</button>` : ''}
+        </div>
+      `).join('');
+
+      box.innerHTML = `
+        <div class="space-y-1">
+          <div class="flex items-center justify-between gap-2">
+            <h3 class="song-serif font-bold text-base">${node.code ? node.code + ' · ' : ''}${node.name}</h3>
+            <span class="text-[11px] px-2 py-0.5 rounded bg-amber-900/15 text-amber-800 dark:text-amber-300 border border-amber-800/25 shrink-0">${typeBadge}</span>
+          </div>
+          <div class="text-[11px] text-[var(--muted-foreground)]">${node.circuit}</div>
+          <p class="text-xs text-[var(--muted-foreground)] leading-relaxed pt-0.5">${node.desc}</p>
+        </div>
+
+        ${routeCard}
+
+        <div class="space-y-1.5">
+          <div class="text-xs font-bold song-serif text-[var(--muted-foreground)]">所属 / 邻近门派与势力</div>
+          <div class="space-y-0.5">${sectsHtml}</div>
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="text-xs font-bold song-serif text-[var(--muted-foreground)]">
+            ${node.type === 'city' ? '城池设施与独有地标' : '秘境山门地标'}
+          </div>
+          ${node.type === 'city' ? `<div class="text-[11px] text-[var(--muted-foreground)]">标配：官署/王庭 · 酒肆 · 驿馆/旅店 · 演武拳馆 · 书院/译经院</div>` : ''}
+          <div class="flex flex-wrap gap-1.5">${landmarksHtml}</div>
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="text-xs font-bold song-serif text-[var(--muted-foreground)]">在场知名人物 (${allNpcs.length})</div>
+          <div class="space-y-1.5">${npcHtml}</div>
+        </div>
+
+        <div class="p-2.5 rounded bg-amber-950/10 border border-amber-800/25 text-xs leading-relaxed">
+          <span class="font-bold text-amber-800 dark:text-amber-400">【近期传闻】</span>${node.rumor}
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 8. 逐日行进动画、塞外奇遇与月度演化
+    // =========================================================================
+    const ROAD_EVENTS = [
+      { tag: '胡商偶遇', msg: '途遇西域高昌驼队，购得天山雪莲散少许（气血 +35）。', fn: () => { state.hp += 35; } },
+      { tag: '名侠同行', msg: '古道茶寮偶遇游方高僧论及经义内息（内力 +25，经义 +1）。', fn: () => { state.mp += 25; state.skills.经义 = Math.min(100, state.skills.经义 + 1); } },
+      { tag: '绿林劫道', msg: '山道窜出剪径匪类，少侠弹指震飞匪首兵刃，缴获纹银 10 两！', fn: () => { state.silver += 10; } },
+      { tag: '密探截杀', msg: '荒野突遭一品堂/辽廷暗探毒箭伏击！凭护体抗性硬接并击退强敌（抗性 +2）。', fn: () => { state.res = Math.min(100, state.res + 2); } },
+      { tag: '万里山河', msg: '策马纵览九州山海壮阔，胸襟大开，赋词一首（诗词 +2）。', fn: () => { state.skills.诗词 = Math.min(100, state.skills.诗词 + 2); } }
+    ];
+
+    function startJourney(targetId) {
+      if (state.traveling) return;
+      const route = findBestRoute(state.currentNodeId, targetId);
+      if (!route || route.segments.length === 0) return;
+
+      if (state.food <= 0) {
+        addLog('粮尽警示', '行囊干粮已尽！请先点击右下角“市集补给干粮”再远征塞外。', true);
+        return;
+      }
+
+      state.traveling = {
+        targetId,
+        route,
+        segIdx: 0,
+        segProgressDays: 0,
+        dayAccumulator: 0
+      };
+
+      document.getElementById('travel-banner').classList.remove('hidden');
+      addLog('启程', `自【${nodeMap[state.currentNodeId].name}】策马出发，奔赴【${nodeMap[targetId].name}】（全程 ${route.totalLi} 里）。`, true);
+      renderInspector();
+
+      state.traveling.timer = setInterval(stepTravelTick, 220);
+    }
+
+    function stepTravelTick() {
+      const tr = state.traveling;
+      if (!tr) return;
+
+      const stepDay = 0.6;
+      const seg = tr.route.segments[tr.segIdx];
+      tr.segProgressDays += stepDay;
+      tr.dayAccumulator += stepDay;
+
+      const ratio = Math.min(1, tr.segProgressDays / seg.days);
+      const fromNode = nodeMap[seg.from];
+      const toNode = nodeMap[seg.to];
+      const curX = fromNode.x + (toNode.x - fromNode.x) * ratio;
+      const curY = fromNode.y + (toNode.y - fromNode.y) * ratio;
+      renderPlayerToken({ x: curX, y: curY });
+
+      if (tr.dayAccumulator >= 1.0) {
+        tr.dayAccumulator -= 1.0;
+        advanceOneDay(true);
+      }
+
+      let remLi = Math.round(seg.dist * (1 - ratio));
+      let remDays = Math.max(0, seg.days - tr.segProgressDays);
+      for (let i = tr.segIdx + 1; i < tr.route.segments.length; i++) {
+        remLi += tr.route.segments[i].dist;
+        remDays += tr.route.segments[i].days;
+      }
+      document.getElementById('travel-route-title').textContent =
+        `正在赶往：${nodeMap[tr.targetId].name}（当前：${TERRAIN_META[seg.terrain].name}）`;
+      document.getElementById('travel-progress-text').textContent =
+        `剩余里程：${remLi} 里 · 预计还需 ${remDays.toFixed(1)} 日`;
+
+      if (ratio >= 1) {
+        state.currentNodeId = seg.to;
+        tr.segIdx += 1;
+        tr.segProgressDays = 0;
+
+        if (tr.segIdx >= tr.route.segments.length) {
+          finishJourney(true);
+        } else {
+          addLog('途经', `途经要冲【${nodeMap[state.currentNodeId].name}】，换马饮水后继续前行。`);
+          renderRouteLayer();
+          renderNodesLayer();
+          updateZoomLOD();
+        }
+      }
+    }
+
+    function advanceOneDay(onRoad = false) {
+      state.dayCount += 1;
+      if (onRoad) {
+        if (state.food > 0) state.food -= 1;
+        else if (state.silver >= 2) state.silver -= 2;
+
+        if (Math.random() < 0.16) {
+          const ev = ROAD_EVENTS[Math.floor(Math.random() * ROAD_EVENTS.length)];
+          ev.fn();
+          addLog(ev.tag, ev.msg, true);
+        }
+      }
+
+      if ((state.dayCount - 1) % 30 === 0) {
+        runMonthlyWorldTick();
+      }
+      syncTopBar();
+    }
+
+    function runMonthlyWorldTick() {
+      ROAMING_MASTERS.forEach(m => {
+        const neighbors = adj[m.nodeId];
+        if (neighbors && neighbors.length > 0) {
+          const pick = neighbors[Math.floor(Math.random() * neighbors.length)];
+          m.nodeId = pick.to;
+        }
+      });
+      const sample = ROAMING_MASTERS[Math.floor(Math.random() * ROAMING_MASTERS.length)];
+      addLog('月度风云', `《天下江湖风闻录》更新：【${sample.name}】近日现身于【${nodeMap[sample.nodeId].name}】！`, true);
+      renderMastersLayer();
+      updateZoomLOD();
+    }
+
+    function campStop() {
+      if (!state.traveling) return;
+      const seg = state.traveling.route.segments[state.traveling.segIdx];
+      const ratio = state.traveling.segProgressDays / seg.days;
+      state.currentNodeId = ratio >= 0.5 ? seg.to : seg.from;
+      finishJourney(false);
+      addLog('驻扎露营', `少侠收缰驻马，就近于【${nodeMap[state.currentNodeId].name}】安营休整。`);
+    }
+
+    function finishJourney(reachedTarget) {
+      if (state.traveling && state.traveling.timer) {
+        clearInterval(state.traveling.timer);
+      }
+      const destName = nodeMap[state.currentNodeId].name;
+      state.traveling = null;
+      document.getElementById('travel-banner').classList.add('hidden');
+      state.selectedNodeId = state.currentNodeId;
+      if (reachedTarget) {
+        addLog('抵达', `千里风霜，顺利抵达【${destName}】！`, true);
+      }
+      renderAllMapLayers();
+      renderInspector();
+    }
+
+    // =========================================================================
+    // 9. 城市与秘境探索弹窗
+    // =========================================================================
+    function getCityBaseBuildings(regime) {
+      const isForeign = regime && regime !== 'song';
+      return [
+        { id: 'tavern', name: isForeign ? '胡姬酒肆 · 塞外风情' : '酒馆 · 醉仙楼', desc: '打听四国秘闻、结识豪侠番客、磨砺辩才。', actLabel: '痛饮纵论天下（辩才+2，耗银2两）', skill: '辩才', cost: 2 },
+        { id: 'academy', name: isForeign ? '译经院 / 国子讲堂' : '书院 · 崇文讲堂', desc: '研读佛道经藏与兵书策论，提升经义、策论。', actLabel: '研读典籍经卷（经义+2 / 策论+2）', skill: '经义', cost: 0 },
+        { id: 'dojo', name: isForeign ? '王庭演武大校场' : '拳馆 · 演武校场', desc: '锤炼实战气血、内力与骑射身法。', actLabel: '演武切磋吐纳（气血+25 / 内力+20）', skill: 'combat', cost: 0 },
+        { id: 'yamen', name: isForeign ? '番邦王庭官署' : '衙门 · 捕盗司', desc: '揭榜悬赏除害、查验通关文牒、赚取盘缠。', actLabel: '揭榜立功领赏（纹银+15两）', skill: 'bounty', cost: 0 },
+        { id: 'inn', name: isForeign ? '四方国信驿馆' : '旅店 · 悦来客栈', desc: '沐浴静养恢复伤势，淬炼寒暑奇毒抗性。', actLabel: '投宿静养调息（气血恢复 / 抗性+1，耗银3两）', skill: 'rest', cost: 3 }
+      ];
+    }
+
+    function openCityModal(nodeId) {
+      const node = nodeMap[nodeId];
+      if (!node) return;
+      document.getElementById('modal-city-title').textContent = `${node.name} · ${node.type === 'city' ? '城池内景' : '秘境山门'}`;
+      document.getElementById('modal-city-sub').textContent = `${node.circuit} — ${node.desc}`;
+
+      const listEl = document.getElementById('modal-buildings-list');
+      listEl.innerHTML = '';
+
+      const items = [];
+      if (node.type === 'city') {
+        getCityBaseBuildings(node.regime).forEach(b => items.push({ ...b, isLandmark: false }));
+      }
+      node.landmarks.forEach((lm, idx) => {
+        items.push({
+          id: `lm_${idx}`,
+          name: `【特殊地标】${lm}`,
+          desc: `位于${node.name}的独有名胜与武林机缘点，可在此拜会绝顶高人或参悟十艺神功。`,
+          actLabel: '寻幽探秘 / 参悟十艺机缘',
+          skill: 'art',
+          cost: 0,
+          isLandmark: true
+        });
+      });
+
+      items.forEach((item, i) => {
+        const btn = document.createElement('button');
+        btn.className = `w-full text-left p-2.5 rounded border transition text-xs ${
+          item.isLandmark
+            ? 'border-amber-700/40 bg-amber-950/10 hover:bg-amber-900/20'
+            : 'border-[var(--border)] bg-[var(--background)] hover:bg-[var(--card)]'
+        }`;
+        btn.innerHTML = `
+          <div class="font-bold song-serif">${item.name}</div>
+          <div class="text-[11px] text-[var(--muted-foreground)] truncate mt-0.5">${item.desc}</div>
+        `;
+        btn.onclick = () => renderBuildingInside(node, item);
+        listEl.appendChild(btn);
+        if (i === 0) renderBuildingInside(node, item);
+      });
+
+      document.getElementById('city-modal').classList.remove('hidden');
+    }
+
+    function renderBuildingInside(node, building) {
+      const box = document.getElementById('modal-building-detail');
+      const roamingHere = ROAMING_MASTERS.filter(m => m.nodeId === node.id);
+      const npcs = [
+        ...(node.npcs || []),
+        ...roamingHere.map(m => ({
+          name: m.name,
+          title: `${m.sect} · 游历至此`,
+          realm: m.realm,
+          talk: `“某万里游历至${node.name}，幸会少侠！”`
+        }))
+      ];
+
+      const npcCards = npcs.map((p, idx) => `
+        <div class="p-2.5 rounded bg-[var(--background)] border border-[var(--border)] space-y-1.5 text-xs">
+          <div class="flex items-center justify-between">
+            <span class="font-bold song-serif text-sm">${p.name}</span>
+            <span class="text-[11px] px-1.5 py-0.5 rounded bg-amber-900/15 text-amber-800 dark:text-amber-300">${p.realm}</span>
+          </div>
+          <div class="text-[11px] text-[var(--muted-foreground)]">${p.title}</div>
+          <div class="flex flex-wrap gap-1.5 pt-1">
+            <button onclick="interactNpc(${idx}, 'talk')" class="px-2 py-1 rounded bg-amber-800/90 hover:bg-amber-700 text-white text-[11px]">交谈论道</button>
+            <button onclick="interactNpc(${idx}, 'art')" class="px-2 py-1 rounded border border-[var(--border)] hover:bg-[var(--card)] text-[11px]">雅集唱和(诗词/琴棋)</button>
+            <button onclick="interactNpc(${idx}, 'spar')" class="px-2 py-1 rounded border border-[var(--border)] hover:bg-[var(--card)] text-[11px]">武艺讨教</button>
+          </div>
+        </div>
+      `).join('');
+
+      window.__currentModalNpcs = npcs;
+      window.__currentBuilding = building;
+
+      box.innerHTML = `
+        <div class="border-b border-[var(--border)] pb-2.5">
+          <div class="song-serif font-bold text-sm">${building.name}</div>
+          <p class="text-xs text-[var(--muted-foreground)] mt-0.5">${building.desc}</p>
+          <button onclick="doBuildingAction()" class="mt-2 px-3 py-1.5 rounded bg-emerald-800 hover:bg-emerald-700 text-white text-xs font-medium transition">
+            ${building.actLabel}
+          </button>
+        </div>
+        <div class="space-y-2">
+          <div class="text-xs font-bold song-serif text-[var(--muted-foreground)]">在场名宿与人物</div>
+          ${npcCards}
+        </div>
+      `;
+    }
+
+    function doBuildingAction() {
+      const b = window.__currentBuilding;
+      const fb = document.getElementById('modal-interaction-feedback');
+      if (b.cost > 0 && state.silver < b.cost) {
+        fb.innerHTML = `<span class="text-rose-600 font-semibold">囊中羞涩，纹银不足 ${b.cost} 两！</span>`;
+        return;
+      }
+      state.silver -= b.cost;
+      advanceOneDay(false);
+
+      if (b.skill === '辩才') {
+        state.skills.辩才 = Math.min(100, state.skills.辩才 + 2);
+        fb.innerHTML = `于酒肆与四方豪客纵论天下大势，<strong>【辩才】提升至 ${state.skills.辩才}/100</strong>。`;
+      } else if (b.skill === '经义') {
+        state.skills.经义 = Math.min(100, state.skills.经义 + 2);
+        state.skills.策论 = Math.min(100, state.skills.策论 + 2);
+        fb.innerHTML = `潜心研读经藏兵略，<strong>【经义】${state.skills.经义}/100、【策论】${state.skills.策论}/100</strong>。`;
+      } else if (b.skill === 'combat') {
+        state.hp += 25;
+        state.mp += 20;
+        fb.innerHTML = `在校场苦修吐纳拆招一日，实战四维<strong>【气血】升至 ${state.hp}、【内力】升至 ${state.mp}</strong>！`;
+      } else if (b.skill === 'bounty') {
+        state.silver += 15;
+        fb.innerHTML = `揭榜立功，获赏<strong>纹银 15 两</strong>！`;
+      } else if (b.skill === 'rest') {
+        state.hp += 15;
+        state.res = Math.min(100, state.res + 1);
+        fb.innerHTML = `调息静养一夜，<strong>【抗性】精进至 ${state.res}</strong>。`;
+      } else {
+        const arts = ['琴', '棋', '书', '画', '算术', '诗词'];
+        const pick = arts[Math.floor(Math.random() * arts.length)];
+        state.skills[pick] = Math.min(100, state.skills[pick] + 3);
+        fb.innerHTML = `探访名胜秘境，心有所悟，通用十艺<strong>【${pick}】提升至 ${state.skills[pick]}/100</strong>！`;
+      }
+      syncTopBar();
+    }
+
+    function interactNpc(idx, mode) {
+      const p = window.__currentModalNpcs[idx];
+      const fb = document.getElementById('modal-interaction-feedback');
+      if (mode === 'talk') {
+        fb.innerHTML = `<span class="font-bold text-amber-800 dark:text-amber-400">${p.name}：</span>${p.talk}`;
+      } else if (mode === 'art') {
+        state.skills.诗词 = Math.min(100, state.skills.诗词 + 1);
+        fb.innerHTML = `与 <strong>${p.name}</strong> 抚琴论棋，相谈甚欢（好感度提升，【诗词】${state.skills.诗词}/100）。`;
+      } else {
+        fb.innerHTML = `向 <strong>${p.name}</strong>（${p.realm}）讨教武学关窍，内力修为增长 +12！`;
+        state.mp += 12;
+        syncTopBar();
+      }
+    }
+
+    function closeCityModal() {
+      document.getElementById('city-modal').classList.add('hidden');
+    }
+
+    // =========================================================================
+    // 10. 控件联动、缩放拖拽与初始化
+    // =========================================================================
+    function onMountOrSkillChange() {
+      state.mountKey = document.getElementById('mount-select').value;
+      state.qinggongBonus = parseFloat(document.getElementById('qinggong-select').value);
+      state.ridingSkill = parseInt(document.getElementById('riding-slider').value, 10);
+      state.agility = parseInt(document.getElementById('agi-slider').value, 10);
+
+      document.getElementById('riding-val').textContent = `${state.ridingSkill} / 100`;
+      document.getElementById('agi-val').textContent = `${state.agility} / 100`;
+      document.getElementById('stat-agi').textContent = state.agility;
+
+      const { baseDailyLi, modifierPct } = getEffectiveSpeed('official');
+      document.getElementById('effective-speed-badge').textContent = `官道 ${baseDailyLi} 里/日 (+${modifierPct}%)`;
+
+      renderRouteLayer();
+      renderPlayerToken();
+      renderInspector();
+    }
+
+    const LABEL_MENU_KEYS = ['cityLabels', 'sectPassLabels', 'masters', 'distance'];
+
+    function toggleLabelsDropdown(ev) {
+      if (ev) ev.stopPropagation();
+      const panel = document.getElementById('labels-dropdown-panel');
+      const caret = document.getElementById('labels-trigger-caret');
+      const isHidden = panel.classList.toggle('hidden');
+      if (caret) caret.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
+    }
+
+    function setAllLabelToggles(val) {
+      LABEL_MENU_KEYS.forEach(k => { state.overlays[k] = val; });
+      syncLabelMenuUI();
+      renderAllMapLayers();
+    }
+
+    function syncLabelMenuUI() {
+      const pillActiveColor = {
+        cityLabels: 'bg-[#5c4024] text-[#fff8ee]',
+        sectPassLabels: 'bg-[#5c4024] text-[#fff8ee]',
+        masters: 'bg-[#285647] text-[#fff8ee]',
+        distance: 'bg-[#6b4f2c] text-[#fff8ee]'
+      };
+
+      LABEL_MENU_KEYS.forEach(k => {
+        const on = state.overlays[k];
+        const rowBtn = document.getElementById(`subtoggle-${k}`);
+        const pill = document.getElementById(`pill-${k}`);
+        if (rowBtn) {
+          rowBtn.className = `w-full flex items-center justify-between px-2.5 py-1.5 rounded border border-[#9e8462] transition text-xs ${
+            on ? 'bg-[#efe5cd] hover:bg-[#e6d8b8]' : 'bg-[#f6efe0] hover:bg-[#e6d8b8] opacity-85'
+          }`;
+        }
+        if (pill) {
+          pill.textContent = on ? '显示' : '隐藏';
+          pill.className = `px-2 py-0.5 rounded text-[11px] font-semibold ${
+            on ? pillActiveColor[k] : 'bg-[#d8cbb2] text-[#5c4630]'
+          }`;
+        }
+      });
+
+      const activeCount = LABEL_MENU_KEYS.filter(k => state.overlays[k]).length;
+      const triggerBtn = document.getElementById('labels-menu-trigger');
+      const triggerText = document.getElementById('labels-trigger-text');
+      if (triggerText) {
+        triggerText.textContent = activeCount === 0
+          ? '地名文字：全隐'
+          : `地名文字 (${activeCount}/4)`;
+      }
+      if (triggerBtn) {
+        triggerBtn.classList.toggle('bg-[#5c4024]', activeCount > 0);
+        triggerBtn.classList.toggle('text-[#fff8ee]', activeCount > 0);
+        triggerBtn.classList.toggle('hover:bg-[#e8dcc4]', activeCount === 0);
+      }
+    }
+
+    function toggleOverlay(key) {
+      state.overlays[key] = !state.overlays[key];
+      if (LABEL_MENU_KEYS.includes(key)) {
+        syncLabelMenuUI();
+        renderAllMapLayers();
+        return;
+      }
+      const btn = document.getElementById(`layer-${key}`);
+      const activeColors = {
+        factions: ['bg-[#3b5998]', 'text-[#fff8ee]'],
+        alerts:   ['bg-[#992b2b]', 'text-[#fff8ee]']
+      };
+      if (btn && activeColors[key]) {
+        activeColors[key].forEach(c => btn.classList.toggle(c, state.overlays[key]));
+      }
+      renderAllMapLayers();
+    }
+
+    function replenishSupplies() {
+      if (state.silver < 5) {
+        addLog('市集', '纹银不足 5 两，无法补给干粮！');
+        return;
+      }
+      state.silver -= 5;
+      state.food += 20;
+      syncTopBar();
+      addLog('补给', '花费 5 两纹银购入行军干粮 +20 日份（远赴昆仑、逻些请备足粮草）。');
+    }
+
+    function syncTopBar() {
+      const currNode = nodeMap[state.currentNodeId];
+      document.getElementById('calendar-badge').textContent = formatSongDate(state.dayCount);
+      document.getElementById('header-location').textContent = `${currNode.name}（${currNode.circuit}）`;
+      document.getElementById('header-status').textContent = state.traveling
+        ? `策马远行 → ${nodeMap[state.traveling.targetId].name}`
+        : '驻留待命';
+      document.getElementById('stat-hp').textContent = state.hp;
+      document.getElementById('stat-mp').textContent = state.mp;
+      document.getElementById('stat-agi').textContent = state.agility;
+      document.getElementById('stat-res').textContent = state.res;
+      document.getElementById('res-silver').textContent = state.silver;
+      document.getElementById('res-food').textContent = state.food;
+    }
+
+    function applyPanZoom() {
+      const root = document.getElementById('map-pan-zoom-root');
+      root.setAttribute('transform', `translate(${state.pan.x}, ${state.pan.y}) scale(${state.pan.scale})`);
+      updateZoomLOD();
+    }
+
+    function zoomBy(factor, cx = 800, cy = 500) {
+      const nextScale = Math.min(3.2, Math.max(0.56, state.pan.scale * factor));
+      const ratio = nextScale / state.pan.scale;
+      state.pan.x = cx - (cx - state.pan.x) * ratio;
+      state.pan.y = cy - (cy - state.pan.y) * ratio;
+      state.pan.scale = nextScale;
+      applyPanZoom();
+    }
+
+    function focusZhongyuan() {
+      state.pan = { x: -340, y: -165, scale: 1.48, dragging: false, startX: 0, startY: 0 };
+      applyPanZoom();
+    }
+
+    function focusMacroRegimes() {
+      state.pan = { x: 185, y: 112, scale: 0.74, dragging: false, startX: 0, startY: 0 };
+      applyPanZoom();
+    }
+
+    function resetView() {
+      state.pan = { x: 0, y: 0, scale: 1, dragging: false, startX: 0, startY: 0 };
+      applyPanZoom();
+    }
+
+    (function initMapInteractions() {
+      const vp = document.getElementById('map-viewport');
+      vp.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        const rect = vp.getBoundingClientRect();
+        const svgX = ((e.clientX - rect.left) / rect.width) * 1600;
+        const svgY = ((e.clientY - rect.top) / rect.height) * 1000;
+        zoomBy(e.deltaY < 0 ? 1.15 : 0.87, svgX, svgY);
+      }, { passive: false });
+
+      vp.addEventListener('mousedown', (e) => {
+        if (e.target.closest('button') || e.target.closest('#labels-dropdown-panel')) return;
+        state.pan.dragging = true;
+        state.pan.startX = e.clientX - state.pan.x;
+        state.pan.startY = e.clientY - state.pan.y;
+      });
+
+      // 点击下拉栏目外部区域自动收起“地名文字”子菜单
+      document.addEventListener('click', (e) => {
+        const menuWrap = document.getElementById('labels-menu-container');
+        const panel = document.getElementById('labels-dropdown-panel');
+        const caret = document.getElementById('labels-trigger-caret');
+        if (menuWrap && panel && !panel.classList.contains('hidden') && !menuWrap.contains(e.target)) {
+          panel.classList.add('hidden');
+          if (caret) caret.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!state.pan.dragging) return;
+        state.pan.x = e.clientX - state.pan.startX;
+        state.pan.y = e.clientY - state.pan.startY;
+        applyPanZoom();
+      });
+
+      window.addEventListener('mouseup', () => {
+        state.pan.dragging = false;
+      });
+
+      syncLabelMenuUI();
+      onMountOrSkillChange();
+      renderAllMapLayers();
+      renderInspector();
+      addLog('舆图修定', '大宋十五府、大辽三府与西夏兴庆府已统一规范为三字府名（开封府、洛阳府、大名府、真定府、太原府、京兆府、延安府、济南府、扬州府、江宁府、苏州府、杭州府、成都府、襄阳府、泉州府；析津府、大定府、临潢府；兴庆府），左上角【地名文字】支持四类文字标注独立开关！', true);
+    })();
+  </script>
+</body>
+</html>
