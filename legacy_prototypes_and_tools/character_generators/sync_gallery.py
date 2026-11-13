@@ -162,7 +162,7 @@ html = f"""<!DOCTYPE html>
     const filterCat = document.getElementById('filterCat');
     const filterStatus = document.getElementById('filterStatus');
     const countLabel = document.getElementById('countLabel');
-    let activeId = 'NPC-0061';
+    let activeId = 'NPC-0011';
 
     function selectChar(c) {{
       activeId = c.id;
@@ -222,7 +222,7 @@ html = f"""<!DOCTYPE html>
     searchInput.addEventListener('input', renderGrid);
     filterCat.addEventListener('change', renderGrid);
     filterStatus.addEventListener('change', renderGrid);
-    selectChar(CHARACTERS.find(x => x.id === 'NPC-0061') || CHARACTERS[0]);
+    selectChar(CHARACTERS.find(x => x.id === 'NPC-0011') || CHARACTERS[0]);
   </script>
 </body>
 </html>

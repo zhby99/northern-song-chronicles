@@ -13,7 +13,7 @@ import re
 import shutil
 from pathlib import Path
 
-PROJECT_ROOT = Path("/home/antigravity/northern-song-chronicles")
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 PUBLIC_ASSETS = PROJECT_ROOT / "public" / "assets"
 SRC_DATA = PROJECT_ROOT / "src" / "data"
 DOCS_DIR = PROJECT_ROOT / "docs"

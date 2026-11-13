@@ -14,7 +14,7 @@ import re
 import shutil
 from pathlib import Path
 
-REPO_ROOT = Path("/home/antigravity/northern-song-chronicles")
+REPO_ROOT = Path(__file__).resolve().parent.parent
 BRAIN_ROOT = Path("/home/antigravity/.gemini/jetski/brain")
 
 MASTERS_DIR = REPO_ROOT / "assets_raw_masters"
@@ -121,7 +121,7 @@ def archive_docs_and_legacy_tools() -> dict:
         / "v1/default/jetski_remote_agents_3p/7a9ed227-5322-4f0c-a97a-844dec45ddf7/ROADMAP_AND_TODO.md"
     )
     roadmap_dst = REPO_ROOT / "docs/ROADMAP_AND_TODO.md"
-    if roadmap_src.exists():
+    if roadmap_src.exists() and not roadmap_dst.exists():
         text = roadmap_src.read_text(encoding="utf-8")
         # Normalize cross-branch brain file:/// links to repo-relative links where applicable
         text = re.sub(

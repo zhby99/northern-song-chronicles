@@ -109,8 +109,8 @@
       "realm": "二流下品",
       "arts": "六合大枪、骑术、琴棋",
       "bio": "曹皇后之弟，性格冲淡和雅，精骑射枪棒，常奉命出使契丹，通晓北疆风物。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0007.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0007.jpg"
     },
     {
       "id": "NPC-0008",
@@ -126,7 +126,7 @@
       "arts": "呼延硬鞭法、骑术",
       "bio": "后周柴氏皇族外戚重臣，晚年退居洛阳，府中蓄养门客护院甚众，喜结交河朔豪杰。",
       "avatarUrl": "/assets/characters/avatars/NPC-0008.jpg",
-      "fullbodyUrl": null
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0008.jpg"
     },
     {
       "id": "NPC-0009",
@@ -157,8 +157,8 @@
       "realm": "不入流",
       "arts": "辩才、策论、经义",
       "bio": "两使契丹舌战辽主，不辱国体，在京东路青州活饥民数十万，天下士民与齐鲁绿林皆敬其高义。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0010.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0010.jpg"
     },
     {
       "id": "NPC-0011",
@@ -173,8 +173,8 @@
       "realm": "三流中品",
       "arts": "策论、骑术、点钢枪谱",
       "bio": "与范仲淹并称‘韩范’，现坐镇河北重镇整饬边军，器量宏伟，力主严防契丹南窥。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0011.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0011.jpg"
     },
     {
       "id": "NPC-0012",
@@ -221,8 +221,8 @@
       "realm": "三流下品",
       "arts": "策论、辩才、书",
       "bio": "平定贝州王则起义立下大功，位居相位，老成持重，善于弹压骄兵悍将与绿林潜流。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0014.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0014.jpg"
     },
     {
       "id": "NPC-0015",
@@ -237,8 +237,8 @@
       "realm": "不入流",
       "arts": "策论、算术、兵略",
       "bio": "久掌西北边务与枢密院兵权，知人善任，一手提拔狄青等寒门名将，号为‘天子御史’。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0015.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0015.jpg"
     },
     {
       "id": "NPC-0016",
@@ -253,8 +253,8 @@
       "realm": "不入流",
       "arts": "经义、书法、诗词",
       "bio": "清介正直，封驳侥幸内降无数，致仕后居南都与洛阳名园，门生故吏遍天下。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0016.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0016.jpg"
     },
     {
       "id": "NPC-0017",
@@ -269,8 +269,8 @@
       "realm": "不入流",
       "arts": "诗词、琴、算术、经义",
       "bio": "‘无可奈何花落去’词坛大家，神童宰相，此时镇守关中长安，礼贤下士，风雅绝伦。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0017.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0017.jpg"
     },
     {
       "id": "NPC-0018",
@@ -285,8 +285,8 @@
       "realm": "不入流",
       "arts": "经义、策论、算术、书",
       "bio": "砸缸神童已成朝廷清流干才，笃实严谨，博通古今史籍，于汴梁崇文院潜心编校。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0018.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0018.jpg"
     },
     {
       "id": "NPC-0019",
@@ -301,8 +301,8 @@
       "realm": "不入流",
       "arts": "策论、经义、诗词、辩才",
       "bio": "气节拗强，目光如炬，在两浙兴修水利初试锋芒，此时暂驻江宁省亲，胸怀变法强国大志。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0019.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0019.jpg"
     },
     {
       "id": "NPC-0020",
@@ -317,8 +317,8 @@
       "realm": "不入流",
       "arts": "经义、诗词、策论",
       "bio": "江右才子，文风古雅醇厚，深得欧阳修赏识，游学于江宁、汴梁书院之间。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0020.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0020.jpg"
     },
     {
       "id": "NPC-0021",
@@ -429,8 +429,8 @@
       "realm": "不入流",
       "arts": "算术、策论、经义",
       "bio": "过目不忘，精通国家盐铁财赋与蜀中防务，镇守成都时裁汰冗卒，安定西南。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0027.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0027.jpg"
     },
     {
       "id": "NPC-0028",
@@ -445,8 +445,8 @@
       "realm": "不入流",
       "arts": "经义、策论、算术",
       "bio": "前任宰相，博通经训，现坐镇陪都北京大名府，统筹黄河河防与河北东路军政。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0028.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0028.jpg"
     },
     {
       "id": "NPC-0029",
@@ -461,8 +461,8 @@
       "realm": "不入流",
       "arts": "诗词、经义、书",
       "bio": "‘红杏枝头春意闹’名句作者，修撰唐书，生活豪奢风流，夜宴秉烛挥毫。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0029.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0029.jpg"
     },
     {
       "id": "NPC-0030",
@@ -477,8 +477,8 @@
       "realm": "三流下品",
       "arts": "算术、医理、策论、折扇点穴功",
       "bio": "博学多才，精通医卜刑名与机关算学，久佐包拯于开封府勘破奇案，与六扇门关系密切。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0030.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0030.jpg"
     },
     {
       "id": "NPC-0031",
@@ -509,7 +509,7 @@
       "realm": "一流中品",
       "arts": "杨家霸王枪、大内禁军玄甲劲、骑术",
       "bio": "名将杨延昭之子，精通家传枪法与行军阵图，驻防河东抗击契丹与西夏，与丐帮少林皆有旧谊。",
-      "avatarUrl": null,
+      "avatarUrl": "/assets/characters/avatars/NPC-0032.jpg",
       "fullbodyUrl": null
     },
     {
@@ -589,8 +589,8 @@
       "realm": "二流中品",
       "arts": "官制朴刀术、骑术、算术",
       "bio": "豪迈豁达，深谙市易军需与城防战法，在雁门、麟州多次以少击众大破辽夏铁骑。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0037.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0037.jpg"
     },
     {
       "id": "NPC-0038",
@@ -605,8 +605,8 @@
       "realm": "二流上品",
       "arts": "六合大枪、骑术、大内禁军玄甲劲",
       "bio": "面黑魁梧，善射精枪，契丹使臣见之皆惊呼‘黑王相公’，统领禁军威震京师。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0038.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0038.jpg"
     },
     {
       "id": "NPC-0039",
@@ -621,8 +621,8 @@
       "realm": "二流中品",
       "arts": "六合刀、点钢枪谱、骑术",
       "bio": "身经百战，悍勇绝伦，曾生擒反军首领，驻守河北大名府弹压绿林盗匪。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0039.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0039.jpg"
     },
     {
       "id": "NPC-0040",
@@ -637,8 +637,8 @@
       "realm": "三流中品",
       "arts": "策论、骑术、官制朴刀术",
       "bio": "明敏果敢，习武知兵，治军严明，在关中与陕北一带极有威权。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0040.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0040.jpg"
     },
     {
       "id": "NPC-0041",
@@ -701,7 +701,7 @@
       "realm": "二流下品",
       "arts": "官制朴刀术、甩手袖箭、骑术",
       "bio": "久历西陲与岭南军阵，行事机警果断，执掌边关军情刺探与斥候营。",
-      "avatarUrl": null,
+      "avatarUrl": "/assets/characters/avatars/NPC-0044.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0044.jpg"
     },
     {
@@ -717,8 +717,8 @@
       "realm": "二流下品",
       "arts": "劈山掌、雁门断魂刀、骑术",
       "bio": "孤身深入陇山生羌部落筑水洛城，深得番汉百姓死力拥戴，豪侠任气。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0045.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0045.jpg"
     },
     {
       "id": "NPC-0046",
@@ -733,8 +733,8 @@
       "realm": "二流中品",
       "arts": "算术、棋、经义、八卦游身步",
       "bio": "隐居洛阳安乐窝，受华山陈抟一脉先天易数真传，精通梅花易数与皇极经世，奇门阵理冠绝当世。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0046.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0046.jpg"
     },
     {
       "id": "NPC-0047",
@@ -749,8 +749,8 @@
       "realm": "三流中品",
       "arts": "经义、琴、清心静坐诀",
       "bio": "作《太极图说》《爱莲说》，胸怀洒落如光风霁月，道学开山宗师，与武当道门亦常论阴阳太极。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0047.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0047.jpg"
     },
     {
       "id": "NPC-0048",
@@ -765,8 +765,8 @@
       "realm": "二流下品",
       "arts": "经义、策论、华山剑法、骑术",
       "bio": "少喜谈兵，曾欲结客取洮西之地，经范仲淹劝导转研儒道，立志‘为天地立心，为生民立命’，剑术亦颇精熟。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0048.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0048.jpg"
     },
     {
       "id": "NPC-0049",
@@ -781,8 +781,8 @@
       "realm": "三流下品",
       "arts": "经义、诗词、骑术",
       "bio": "随父受学于周敦颐，温润如玉，如坐春风，在洛阳白马书院潜心圣贤义理。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0049.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0049.jpg"
     },
     {
       "id": "NPC-0050",
@@ -797,8 +797,8 @@
       "realm": "不入流",
       "arts": "经义、策论、礼法",
       "bio": "程颢胞弟，年少而气宇严毅方正，于太学上书纵论王道，名动京洛学林。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0050.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0050.jpg"
     },
     {
       "id": "NPC-0051",
@@ -813,7 +813,7 @@
       "realm": "不入流",
       "arts": "经义、算术、琴、兵略",
       "bio": "主持湖州与苏州州学，首创‘经义斋’与‘治事斋’，门下弟子兼修水利、算学、边防与射御。",
-      "avatarUrl": null,
+      "avatarUrl": "/assets/characters/avatars/NPC-0051.jpg",
       "fullbodyUrl": null
     },
     {
@@ -1037,7 +1037,7 @@
       "realm": "不入流",
       "arts": "画、算术、机关",
       "bio": "名臣燕肃之子，家传指南车、记里鼓车与潮汐算法，山水画亦入妙品。",
-      "avatarUrl": null,
+      "avatarUrl": "/assets/characters/avatars/NPC-0065.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0065.jpg"
     },
     {
@@ -1294,7 +1294,7 @@
       "arts": "狂风快刀、八极崩拳、骑术",
       "bio": "白山黑水间崛起的雄杰，体魄如熊虎，不肯受辽廷编户束缚，往来大定府马市收购铁甲兵刃。",
       "avatarUrl": "/assets/characters/avatars/NPC-0081.jpg",
-      "fullbodyUrl": null
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0081.jpg"
     },
     {
       "id": "NPC-0082",
@@ -1326,7 +1326,7 @@
       "arts": "无",
       "bio": "元昊遗腹幼子，养于没藏氏府邸而登大宝，深宫王庭护卫重重。",
       "avatarUrl": "/assets/characters/avatars/NPC-0083.jpg",
-      "fullbodyUrl": null
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0083.jpg"
     },
     {
       "id": "NPC-0084",
