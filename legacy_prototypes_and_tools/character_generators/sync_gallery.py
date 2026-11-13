@@ -222,7 +222,7 @@ html = f"""<!DOCTYPE html>
     searchInput.addEventListener('input', renderGrid);
     filterCat.addEventListener('change', renderGrid);
     filterStatus.addEventListener('change', renderGrid);
-    selectChar(CHARACTERS.find(x => x.id === 'NPC-0011') || CHARACTERS[0]);
+    selectChar(CHARACTERS.find(x => x.id === 'NPC-0086') || CHARACTERS[0]);
   </script>
 </body>
 </html>
