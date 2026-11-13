@@ -442,7 +442,8 @@ export function RegionMapCanvas() {
                   const isSelected = b.id === selectedBuildingId
                   const dbBuilding = BUILDING_DB_MAP[b.id]
                   const interiorMode = dbBuilding?.interior?.mode ?? null
-                  const canEnterInterior = Boolean(b.isSpecial && interiorMode)
+                  const hasSubSpots = (dbBuilding?.interior?.spots.length ?? 0) > 0
+                  const canEnterInterior = Boolean(interiorMode)
 
                   const fillColor = b.isSpecial ? '#f59e0b' : '#38bdf8'
                   const strokeColor = b.isSpecial ? '#fde047' : '#bae6fd'
@@ -457,11 +458,15 @@ export function RegionMapCanvas() {
                     ? '#fbbf24'
                     : b.isSpecial
                       ? '#f6cf65'
-                      : '#cbd5e1'
+                      : canEnterInterior
+                        ? '#93c5fd'
+                        : '#cbd5e1'
                   const subTagText = canEnterInterior
                     ? interiorMode === 'image'
                       ? `${b.tag} · 步入实景`
-                      : `${b.tag} · 步入内院`
+                      : hasSubSpots
+                        ? `${b.tag} · 步入内院`
+                        : `${b.tag} · 步入堂内`
                     : b.tag
                   const subTagW = Math.max(64, subTagText.length * 8.6 + 16)
 
@@ -483,6 +488,7 @@ export function RegionMapCanvas() {
                             actLabel: b.actLabel,
                             isSpecial: b.isSpecial,
                             interiorMode,
+                            hasSubSpots,
                             residentCount: dbBuilding?.residentNpcIds.length ?? 0,
                           },
                         })
@@ -535,7 +541,7 @@ export function RegionMapCanvas() {
                             stroke="#1f1209"
                             strokeWidth={1.2}
                           />
-                          {b.isSpecial && (
+                          {canEnterInterior && (
                             <>
                               <rect
                                 x={-subTagW / 2}
@@ -543,8 +549,20 @@ export function RegionMapCanvas() {
                                 width={subTagW}
                                 height={14}
                                 rx={7}
-                                fill={interiorMode === 'image' ? '#fef3c7' : '#e6f4ec'}
-                                stroke={interiorMode === 'image' ? '#92400e' : '#246344'}
+                                fill={
+                                  !b.isSpecial
+                                    ? '#e0f2fe'
+                                    : interiorMode === 'image'
+                                      ? '#fef3c7'
+                                      : '#e6f4ec'
+                                }
+                                stroke={
+                                  !b.isSpecial
+                                    ? '#0369a1'
+                                    : interiorMode === 'image'
+                                      ? '#92400e'
+                                      : '#246344'
+                                }
                                 strokeWidth={1.2}
                               />
                               <text
@@ -553,7 +571,13 @@ export function RegionMapCanvas() {
                                 textAnchor="middle"
                                 fontSize={8.6}
                                 fontWeight="bold"
-                                fill={interiorMode === 'image' ? '#781710' : '#184f35'}
+                                fill={
+                                  !b.isSpecial
+                                    ? '#0c4a6e'
+                                    : interiorMode === 'image'
+                                      ? '#781710'
+                                      : '#184f35'
+                                }
                               >
                                 {subTagText}
                               </text>

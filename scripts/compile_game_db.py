@@ -1906,7 +1906,12 @@ def resolve_npc_leaf_location(
     elif region_id == "qingcheng":
         sub_loc = "青城山" if matched_bldg["id"] == "qc_shangqing" else "唐家堡"
 
-    if matched_bldg["interior"] is not None:
+    has_sub_spots = (
+        matched_bldg["interior"] is not None
+        and len(matched_bldg["interior"].get("spots", [])) > 0
+    )
+
+    if has_sub_spots:
         if len(parts) != 3:
             raise ValueError(
                 f"[{npc_id}] Building {matched_bldg['name']!r} has interior sub-buildings; NPC must be assigned to a sub-building!"
@@ -1936,7 +1941,7 @@ def resolve_npc_leaf_location(
     else:
         if len(parts) != 2:
             raise ValueError(
-                f"[{npc_id}] Base building {matched_bldg['name']!r} has no interior sub-buildings, got extra path in {raw_loc!r}"
+                f"[{npc_id}] Building {matched_bldg['name']!r} has no interior sub-buildings, got extra path in {raw_loc!r}"
             )
         full_label = f"{clean_region_name} > {matched_bldg['name']}"
         return (
@@ -2417,7 +2422,7 @@ def compile_all(do_normalize_docs: bool) -> None:
             buildings.append(b_record)
             buildings_by_region[region_id].append(b_record)
 
-        # City Base Buildings (5 per city * 21 cities = 105)
+        # City Base Buildings (121 total across 26 cities; tavern & inn have single-hall interiors with spots=[])
         if node["type"] == "city" and cfg.get("bases"):
             is_foreign = bool(node.get("regime") and node.get("regime") != "song")
             meta_map = CITY_BASE_META_FOREIGN if is_foreign else CITY_BASE_META_SONG
@@ -2427,6 +2432,33 @@ def compile_all(do_normalize_docs: bool) -> None:
                 default_name, bkind, btag, bdesc, bact, bcost, beff = meta_map[bkey]
                 bid = f"{region_id}_base_{bkey}"
                 bname = base.get("customName") or default_name
+                base_interior: dict[str, Any] | None = None
+                if bkey == "tavern":
+                    base_interior = {
+                        "mode": "svg_fallback",
+                        "panoramaUri": None,
+                        "subtitle": f"市井酒肆大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+                        "exitGate": {
+                            "label": f"步出酒肆（返回{region_name}全景）",
+                            "x": 688,
+                            "y": 698,
+                            "poly": "530,645 846,645 880,748 496,748",
+                        },
+                        "spots": [],
+                    }
+                elif bkey == "inn":
+                    base_interior = {
+                        "mode": "svg_fallback",
+                        "panoramaUri": None,
+                        "subtitle": f"车马客栈大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+                        "exitGate": {
+                            "label": f"步出客栈（返回{region_name}全景）",
+                            "x": 688,
+                            "y": 698,
+                            "poly": "530,645 846,645 880,748 496,748",
+                        },
+                        "spots": [],
+                    }
                 b_record = {
                     "id": bid,
                     "regionId": region_id,
@@ -2445,7 +2477,7 @@ def compile_all(do_normalize_docs: bool) -> None:
                     "cost": bcost,
                     "effect": beff,
                     "hasPanoramaImage": False,
-                    "interior": None,
+                    "interior": base_interior,
                     "residentNpcIds": [],
                 }
                 buildings.append(b_record)
@@ -2469,13 +2501,13 @@ def compile_all(do_normalize_docs: bool) -> None:
         asid = npc["assignedSpotId"]
         b_rec = bldg_by_id[abid]
         b_rec["residentNpcIds"].append(npc["id"])
-        if b_rec["interior"] is not None:
+        if b_rec["interior"] is not None and len(b_rec["interior"]["spots"]) > 0:
             assert asid is not None and asid in spot_by_id, (
-                f"NPC {npc['id']} in special building {abid} lacks valid assignedSpotId"
+                f"NPC {npc['id']} in multi-spot building {abid} lacks valid assignedSpotId"
             )
             spot_by_id[asid]["residentNpcIds"].append(npc["id"])
         else:
-            assert asid is None, f"NPC {npc['id']} in base building {abid} must have assignedSpotId=None"
+            assert asid is None, f"NPC {npc['id']} in single-hall/base building {abid} must have assignedSpotId=None"
 
     # 4) Compile Regions (38)
     aliases_by_region: dict[str, list[str]] = defaultdict(list)
@@ -2805,10 +2837,11 @@ def compile_all(do_normalize_docs: bool) -> None:
         assert npc["regionId"] in region_id_set, f"Invalid regionId on {npc['id']}"
         assert npc["factionId"] in faction_id_set, f"Invalid factionId on {npc['id']}"
         assert npc["assignedBuildingId"] in bldg_id_set, f"Invalid assignedBuildingId on {npc['id']}"
-        if bldg_by_id[npc["assignedBuildingId"]]["interior"] is not None:
+        b_inter = bldg_by_id[npc["assignedBuildingId"]]["interior"]
+        if b_inter is not None and len(b_inter.get("spots", [])) > 0:
             assert npc["assignedSpotId"] in spot_by_id, f"Invalid assignedSpotId on {npc['id']}"
         else:
-            assert npc["assignedSpotId"] is None, f"Unexpected assignedSpotId on base building for {npc['id']}"
+            assert npc["assignedSpotId"] is None, f"Unexpected assignedSpotId on base/single-hall building for {npc['id']}"
         for aid in npc["knownArtIds"]:
             assert aid in art_id_set, f"Invalid artId {aid} on {npc['id']}"
 
@@ -2900,11 +2933,14 @@ def compile_all(do_normalize_docs: bool) -> None:
         pc_path.write_text(json.dumps(pc_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"[M0-3] Synced src/data/portraitCatalog.json ({len(synced_chars)} characters)")
 
+    enterable_base_count = sum(
+        1 for b in buildings if not b["isSpecial"] and b["interior"] is not None
+    )
     print(
         f"[OK] Summary: {len(regions)} regions | "
         f"30 sects (20 major + 10 minor) + 11 orgs | "
         f"{special_count} special buildings ({len(spot_by_id)} sub-spots) + "
-        f"{len(buildings) - special_count} base buildings | "
+        f"{len(buildings) - special_count} base buildings ({enterable_base_count} single-hall taverns/inns) | "
         f"{len(martial_arts)} martial arts | "
         f"{len(weapons)} weapons (10天/20地/30良/40凡) | "
         f"{len(mounts)} mounts (3天/5地/8良/12凡) | "

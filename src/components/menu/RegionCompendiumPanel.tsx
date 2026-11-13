@@ -741,10 +741,15 @@ export function RegionCompendiumPanel({
                   {baseBuildings.map((b) => (
                     <span
                       key={b.id}
-                      className="px-2 py-1 rounded bg-[#faf4e6] border border-[#cbb693] text-[11px] text-[#3b2712]"
+                      className="px-2 py-1 rounded bg-[#faf4e6] border border-[#cbb693] text-[11px] text-[#3b2712] inline-flex items-center gap-1"
                     >
                       <strong className="song-serif">{b.name}</strong>
-                      <span className="font-mono text-[10px] text-[#6b5235] ml-1">
+                      {b.interior && (
+                        <span className="px-1 py-0.2 rounded bg-[#e0f2fe] text-[#0369a1] border border-[#7dd3fc] text-[10px] font-semibold">
+                          可步入大堂
+                        </span>
+                      )}
+                      <span className="font-mono text-[10px] text-[#6b5235]">
                         ({b.residentNpcIds.length}人)
                       </span>
                     </span>

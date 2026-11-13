@@ -70,6 +70,7 @@ export function ContextInspectorCard() {
   const actionFeedback = useGameStore((s) => s.actionFeedback)
 
   const clearFloatingSelection = useGameStore((s) => s.clearFloatingSelection)
+  const selectRegionBuilding = useGameStore((s) => s.selectRegionBuilding)
   const enterRegionMap = useGameStore((s) => s.enterRegionMap)
   const enterBuildingMap = useGameStore((s) => s.enterBuildingMap)
   const startJourney = useGameStore((s) => s.startJourney)
@@ -84,9 +85,10 @@ export function ContextInspectorCard() {
   } | null>(null)
 
   // Strict Leaf-Only NPC Resolution:
-  // Players ONLY encounter NPCs when clicking the deepest leaf building:
-  // 1) A base building in `region` view that has NO interior sub-buildings (`interior === null`)
-  // 2) A specific sub-building spot (`selectedSpotId`) inside `building` interior view
+  // Players ONLY encounter NPCs when at the deepest leaf level:
+  // 1) A base building in `region` view that cannot be entered (`interior === null`)
+  // 2) Inside a single-hall enterable building (`viewMode === 'building'` with `spots.length === 0`, e.g. city taverns & inns)
+  // 3) A specific sub-building spot (`selectedSpotId`) inside a multi-spot `building` interior view
   const { isLeafBuilding, contextNpcs } = useMemo<{
     isLeafBuilding: boolean
     contextNpcs: NodeNpc[]
@@ -94,23 +96,39 @@ export function ContextInspectorCard() {
     const node = NODE_MAP[activeRegionId]
     if (!node) return { isLeafBuilding: false, contextNpcs: [] }
 
+    const activeInterior = activeBuildingInteriorId
+      ? (BUILDING_DB_MAP[activeBuildingInteriorId]?.interior ?? null)
+      : null
+
     const isLeafBaseBuilding =
       viewMode === 'region' &&
       Boolean(selectedBuildingId) &&
       BUILDING_DB_MAP[selectedBuildingId ?? '']?.interior === null
 
+    const isLeafSingleHallInterior =
+      viewMode === 'building' &&
+      Boolean(activeBuildingInteriorId) &&
+      Boolean(activeInterior) &&
+      activeInterior!.spots.length === 0
+
     const isLeafInteriorSpot =
       viewMode === 'building' &&
       Boolean(activeBuildingInteriorId) &&
+      Boolean(activeInterior) &&
+      activeInterior!.spots.length > 0 &&
       Boolean(selectedSpotId)
 
-    if (!isLeafBaseBuilding && !isLeafInteriorSpot) {
+    if (!isLeafBaseBuilding && !isLeafSingleHallInterior && !isLeafInteriorSpot) {
       return { isLeafBuilding: false, contextNpcs: [] }
     }
 
+    const leafBuildingId = isLeafSingleHallInterior
+      ? activeBuildingInteriorId!
+      : selectedBuildingId!
+
     const leafNpcs = isLeafInteriorSpot
       ? getCompiledNpcsBySpot(selectedSpotId!)
-      : getCompiledNpcsByBuilding(selectedBuildingId!).filter((c) => !c.assignedSpotId)
+      : getCompiledNpcsByBuilding(leafBuildingId).filter((c) => !c.assignedSpotId)
 
     // Handcrafted custom talk lines from worldGraph if present
     const talkMap = new Map<string, string>()
@@ -132,7 +150,7 @@ export function ContextInspectorCard() {
           target.buildingId === activeBuildingInteriorId && target.spotId === selectedSpotId
         )
       }
-      return target.buildingId === selectedBuildingId && target.spotId === null
+      return target.buildingId === leafBuildingId && target.spotId === null
     })
 
     for (const m of roamingAtThisLeaf) {
@@ -316,20 +334,50 @@ export function ContextInspectorCard() {
       : null
 
   if (activeBldgRecord && activeBldgRecord.interior) {
-    tierLabel = activeBldgRecord.name
-    const sp = selectedSpotId
-      ? activeBldgRecord.interior.spots.find((s) => s.id === selectedSpotId)
-      : null
-    if (sp) {
+    if (activeBldgRecord.interior.spots.length === 0) {
+      if (selectedBuildingId !== activeBldgRecord.id) {
+        return (
+          <div className="absolute bottom-3.5 right-3.5 z-20 select-none">
+            <button
+              type="button"
+              onClick={() => selectRegionBuilding(activeBldgRecord.id)}
+              className="px-3.5 py-2 rounded-md bg-[#f8f1e1] hover:bg-[#efe3c8] text-[#23180f] border-2 border-[#6e5233] shadow-xl text-xs font-bold song-serif flex items-center gap-2 transition cursor-pointer"
+            >
+              <span className="text-[#8f1d14]">▣</span>
+              <span>
+                展开【{activeBldgRecord.name}】堂内交互与人物（{contextNpcs.length}人）
+              </span>
+            </button>
+          </div>
+        )
+      }
+      tierLabel = regionNode.name
       targetItem = {
-        id: sp.id,
-        name: sp.name,
-        tag: sp.tag,
-        desc: sp.desc,
-        actLabel: sp.actLabel,
-        cost: sp.cost,
-        effect: sp.effect,
-        isSpecial: true,
+        id: activeBldgRecord.id,
+        name: activeBldgRecord.name,
+        tag: activeBldgRecord.tag,
+        desc: activeBldgRecord.desc,
+        actLabel: activeBldgRecord.actLabel,
+        cost: activeBldgRecord.cost,
+        effect: activeBldgRecord.effect,
+        isSpecial: activeBldgRecord.isSpecial,
+      }
+    } else {
+      tierLabel = activeBldgRecord.name
+      const sp = selectedSpotId
+        ? activeBldgRecord.interior.spots.find((s) => s.id === selectedSpotId)
+        : null
+      if (sp) {
+        targetItem = {
+          id: sp.id,
+          name: sp.name,
+          tag: sp.tag,
+          desc: sp.desc,
+          actLabel: sp.actLabel,
+          cost: sp.cost,
+          effect: sp.effect,
+          isSpecial: true,
+        }
       }
     }
   } else {
@@ -343,9 +391,8 @@ export function ContextInspectorCard() {
   if (!targetItem) return null
 
   const targetBuildingDb = viewMode === 'region' ? BUILDING_DB_MAP[targetItem.id] : null
-  const activeHasSub = Boolean(
-    viewMode === 'region' && targetItem.isSpecial && targetBuildingDb?.interior,
-  )
+  const activeCanEnter = Boolean(viewMode === 'region' && targetBuildingDb?.interior)
+  const targetHasSubSpots = (targetBuildingDb?.interior?.spots.length ?? 0) > 0
 
   return (
     <div
@@ -373,18 +420,23 @@ export function ContextInspectorCard() {
 
       <p className="text-[#3d2b19] leading-relaxed">{targetItem.desc}</p>
 
-      {activeHasSub && (
+      {activeCanEnter && (
         <button
           type="button"
           onClick={() => enterBuildingMap(targetItem.id)}
           className="w-full px-3 py-2 rounded bg-[#8f1d14] hover:bg-[#a9251b] text-[#fff8eb] text-xs font-bold song-serif shadow transition cursor-pointer"
         >
           进入【{targetItem.name}】
-          {targetBuildingDb?.interior?.mode === 'image' ? '半3D实景' : '宋式内院'} →
+          {targetBuildingDb?.interior?.mode === 'image'
+            ? '半3D实景'
+            : targetHasSubSpots
+              ? '宋式内院'
+              : '市井大堂'}{' '}
+          →
         </button>
       )}
 
-      {!activeHasSub && (
+      {!activeCanEnter && (
         <button
           type="button"
           onClick={() =>
@@ -416,11 +468,23 @@ export function ContextInspectorCard() {
 
       {!isLeafBuilding ? (
         <div className="pt-2 border-t border-[#cbb693] text-[11px] text-[#6b5235] leading-relaxed">
-          此建筑内设多处殿宇/子建筑（院内共驻{' '}
-          <strong className="text-[#8f1d14]">
-            {targetBuildingDb?.residentNpcIds.length ?? 0}
-          </strong>{' '}
-          人），请步入内院并点选最末层子建筑寻访常驻人物。
+          {targetHasSubSpots ? (
+            <>
+              此建筑内设多处殿宇/子建筑（院内共驻{' '}
+              <strong className="text-[#8f1d14]">
+                {targetBuildingDb?.residentNpcIds.length ?? 0}
+              </strong>{' '}
+              人），请步入内院并点选最末层子建筑寻访常驻人物。
+            </>
+          ) : (
+            <>
+              此建筑为可步入的市井独堂实景（堂内共驻{' '}
+              <strong className="text-[#8f1d14]">
+                {targetBuildingDb?.residentNpcIds.length ?? 0}
+              </strong>{' '}
+              人，内无子建筑），请步入大堂互动与寻访人物。
+            </>
+          )}
         </div>
       ) : contextNpcs.length === 0 ? (
         <div className="pt-2 border-t border-[#cbb693] text-[11px] text-[#6b5235]">

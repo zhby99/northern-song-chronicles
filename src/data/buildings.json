@@ -606,7 +606,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《汴河虹桥 · 临水酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回开封府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0271",
       "NPC-0822",
@@ -730,7 +741,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《东市悦来客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回开封府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0897"
     ]
@@ -1439,7 +1461,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《洛水天津酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回洛阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0179",
       "NPC-0837"
@@ -1466,7 +1499,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《定鼎门迎宾客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回洛阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0243"
     ]
@@ -1974,7 +2018,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《黄河北岸临津酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回大名府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0431"
     ]
@@ -2041,7 +2096,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《南瓮城悦来客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回大名府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0868"
     ]
@@ -2437,7 +2503,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《燕赵悲歌大酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回真定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0338",
       "NPC-0603",
@@ -2465,7 +2542,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《南关迎客驿栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回真定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0656",
       "NPC-0834"
@@ -2908,7 +2996,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《晋阳杏花村酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回太原府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0274",
       "NPC-0611",
@@ -3004,7 +3103,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《迎泽门商旅大客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回太原府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0251",
       "NPC-0414",
@@ -3442,7 +3552,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《朱雀大街醉仙酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回京兆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -3533,7 +3654,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《明德门丝路迎宾栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回京兆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0576"
     ]
@@ -3937,7 +4069,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《延水塞上风雪酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回延安府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0927"
     ]
@@ -3990,7 +4133,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《边城驼铃安歇客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回延安府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -4525,7 +4679,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《鹊华烟雨临湖酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回济南府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0996"
     ]
@@ -4587,7 +4752,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《历下泉畔悦来客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回济南府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0309",
       "NPC-0613",
@@ -4981,7 +5157,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《运河临水酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回扬州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0194",
       "NPC-0847"
@@ -5070,7 +5257,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《通泗悦来客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回扬州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0382",
       "NPC-0386",
@@ -5495,7 +5693,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《乌衣巷秦淮酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回江宁府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0281",
       "NPC-0283",
@@ -5552,7 +5761,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《聚宝门客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回江宁府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0311",
       "NPC-0397",
@@ -5969,7 +6189,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《姑苏临河酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回苏州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0334",
       "NPC-0532",
@@ -6027,7 +6258,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《山塘水巷客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回苏州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0172"
     ]
@@ -6539,7 +6781,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《西湖楼外酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回杭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0058",
       "NPC-0410",
@@ -6609,7 +6862,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《凤山驿客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回杭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -7184,7 +7448,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《锦官红灯酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回成都府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0320",
       "NPC-0792"
@@ -7211,7 +7486,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《川藏骡马客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回成都府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0239",
       "NPC-0566"
@@ -7605,7 +7891,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《岘山临汉酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回襄阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0029",
       "NPC-0692",
@@ -7695,7 +7992,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《南关车马客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回襄阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0393",
       "NPC-0463",
@@ -8203,7 +8511,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《刺桐海商酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回泉州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0411",
       "NPC-0690"
@@ -8267,7 +8586,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《涂门番商客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回泉州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0676"
     ]
@@ -8621,7 +8951,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《幽州胡姬羊酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回析津府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -8706,7 +9047,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《安远门南北商驿客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回析津府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -9046,7 +9398,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《老哈河塞北马奶酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回大定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0763",
       "NPC-0937"
@@ -9132,7 +9495,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《朱夏门四方迎宾客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回大定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0956"
     ]
@@ -9482,7 +9856,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《潢水金杯烈酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回临潢府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -9565,7 +9950,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《捺钵古道皮货客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回临潢府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -10035,7 +10431,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《塞上胡姬酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回兴庆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -10118,7 +10525,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《贺兰驼铃客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回兴庆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -10479,7 +10897,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《八廓青稞酒馆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回逻些（拉萨）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0332",
       "NPC-0749"
@@ -10565,7 +10994,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《唐蕃牦牛驿栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回逻些（拉萨）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0754",
       "NPC-0765"
@@ -10940,7 +11380,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《百花曲靖酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回阳苴咩城（大理）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -11023,7 +11474,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《洱海迎宾馆驿》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回阳苴咩城（大理）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -17291,7 +17753,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《珠江海山楼酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回广州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0590",
       "NPC-0647"
@@ -17318,7 +17791,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《羊城四海番客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回广州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0446",
       "NPC-0456"
@@ -17836,7 +18320,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《橘洲潇湘酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回潭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0573",
       "NPC-0911"
@@ -17863,7 +18358,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《湘江悦来商栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回潭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -18254,7 +18760,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《南浦临江酒楼》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回洪州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0475",
       "NPC-0553"
@@ -18281,7 +18798,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《章江津口客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回洪州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0539",
       "NPC-0554",
@@ -18807,7 +19335,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《陇上胡姬琵琶酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回秦州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0550"
     ]
@@ -18833,7 +19372,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《天水关迎商客栈》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回秦州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0422",
       "NPC-0536"
@@ -19225,7 +19775,18 @@
       ]
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "市井酒肆大堂《太子河烧刀子酒肆》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+      "exitGate": {
+        "label": "步出酒肆（返回辽阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0899",
       "NPC-0905"
@@ -19252,7 +19813,18 @@
       "res": 1
     },
     "hasPanoramaImage": false,
-    "interior": null,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "车马客栈大堂《辽东皮货大车店》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+      "exitGate": {
+        "label": "步出客栈（返回辽阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0515",
       "NPC-0548"

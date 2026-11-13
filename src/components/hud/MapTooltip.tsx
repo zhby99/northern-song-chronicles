@@ -113,7 +113,8 @@ export function MapTooltip() {
   }
 
   const { item } = tooltip
-  const canEnterInterior = !item.isSpot && item.isSpecial && Boolean(item.interiorMode)
+  const canEnterInterior = !item.isSpot && Boolean(item.interiorMode)
+  const hasSubSpots = Boolean(item.hasSubSpots)
 
   return (
     <div
@@ -131,7 +132,13 @@ export function MapTooltip() {
             item.isSpecial ? 'bg-[#8f1d14]' : 'bg-[#355263]'
           } text-[#fff9ed] text-[11px] font-medium`}
         >
-          {item.isSpot ? '建筑内景热区' : item.isSpecial ? '特殊建筑' : '基础建筑'}
+          {item.isSpot
+            ? '建筑内景热区'
+            : item.isSpecial
+              ? '特殊建筑'
+              : canEnterInterior
+                ? '可步入坊市'
+                : '基础建筑'}
         </span>
       </div>
 
@@ -140,7 +147,11 @@ export function MapTooltip() {
         {typeof item.residentCount === 'number' && (
           <div className="flex justify-between py-0.5 border-y border-[#d8cbb2]">
             <span className="text-[#5c4630]">
-              {canEnterInterior ? '院内子建筑驻留人物：' : '本处常驻人物：'}
+              {canEnterInterior
+                ? hasSubSpots
+                  ? '院内子建筑驻留人物：'
+                  : '堂内常驻人物：'
+                : '本处常驻人物：'}
             </span>
             <strong className="font-mono text-[#23180f]">
               {item.residentCount > 0 ? `${item.residentCount} 位` : '暂无常驻'}
@@ -156,9 +167,11 @@ export function MapTooltip() {
           }`}
         >
           {canEnterInterior
-            ? item.interiorMode === 'image'
-              ? `★ 点击切入【${item.name}】实景，点选子建筑方可寻访人物 →`
-              : `★ 点击步入【${item.name}】内院，点选子建筑方可寻访人物 →`
+            ? hasSubSpots
+              ? item.interiorMode === 'image'
+                ? `★ 点击切入【${item.name}】实景，点选子建筑方可寻访人物 →`
+                : `★ 点击步入【${item.name}】内院，点选子建筑方可寻访人物 →`
+              : `点击步入【${item.name}】大堂（内无子建筑，入堂即可互动与寻访人物） →`
             : '点击选中此最末层建筑，开启修习与驻留人物互动'}
         </div>
       </div>

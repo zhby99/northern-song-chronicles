@@ -479,7 +479,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (s.viewMode === 'world') {
       set({ selectedNodeId: null, actionFeedback: null })
     } else if (s.viewMode === 'building') {
-      set({ selectedSpotId: null, actionFeedback: null })
+      set({ selectedSpotId: null, selectedBuildingId: null, actionFeedback: null })
     } else {
       set({ selectedBuildingId: null, actionFeedback: null })
     }
@@ -534,13 +534,18 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const bRecord = BUILDING_DB_MAP[bldgId]
     const node = NODE_MAP[s.activeRegionId]
     if (!bRecord || !bRecord.interior || !node) return
+    const hasSubSpots = bRecord.interior.spots.length > 0
     const modeDesc =
-      bRecord.interior.mode === 'image' ? '半3D手绘建筑内景图' : '宋式营造矢量内景卷'
+      bRecord.interior.mode === 'image'
+        ? '半3D手绘建筑内景图'
+        : hasSubSpots
+          ? '宋式营造矢量内景卷'
+          : '市井独堂实景（无子建筑）'
     set({
       tooltip: null,
       viewMode: 'building',
       activeBuildingInteriorId: bldgId,
-      selectedBuildingId: null,
+      selectedBuildingId: hasSubSpots ? null : bldgId,
       selectedSpotId: null,
       regionPan: { x: 0, y: 0, scale: 1 },
       actionFeedback: null,
@@ -670,9 +675,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (s.viewMode === 'building' && s.activeBuildingInteriorId) {
       const bInterior = BUILDING_DB_MAP[s.activeBuildingInteriorId]?.interior
       if (bInterior) {
-        target = s.selectedSpotId
-          ? (bInterior.spots.find((sp) => sp.id === s.selectedSpotId) ?? null)
-          : null
+        if (bInterior.spots.length === 0) {
+          target = { x: vw / 2, y: vh / 2 - 36 }
+        } else {
+          target = s.selectedSpotId
+            ? (bInterior.spots.find((sp) => sp.id === s.selectedSpotId) ?? null)
+            : null
+        }
       }
     } else {
       const buildings = getRegionAllBuildings(s.activeRegionId)
@@ -2103,6 +2112,23 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         regionPan: { x: 0, y: 0, scale: 1 },
         actionFeedback: {
           text: `已循名帖步入【${npc.fullLocationLabel}】，可与 ${npc.name} 交互。`,
+          tone: 'success',
+        },
+      })
+    } else if (bRecord.interior) {
+      set({
+        menuOpen: false,
+        compendiumOpen: false,
+        saveNotice: null,
+        tooltip: null,
+        viewMode: 'building',
+        activeRegionId: npc.regionId,
+        activeBuildingInteriorId: bRecord.id,
+        selectedBuildingId: bRecord.id,
+        selectedSpotId: null,
+        regionPan: { x: 0, y: 0, scale: 1 },
+        actionFeedback: {
+          text: `已循名帖步入【${npc.fullLocationLabel}】大堂，可与 ${npc.name} 交互。`,
           tone: 'success',
         },
       })

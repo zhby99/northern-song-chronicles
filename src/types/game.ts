@@ -915,6 +915,7 @@ export type TooltipPayload =
         isSpecial: boolean
         isSpot?: boolean
         interiorMode?: BuildingInteriorMode | null
+        hasSubSpots?: boolean
         residentCount?: number
       }
     }

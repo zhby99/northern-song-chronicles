@@ -669,14 +669,16 @@ const SceneSubNavBar = memo(function SceneSubNavBar() {
           <div className="flex items-center gap-2">
             <span className="song-serif font-bold text-xs sm:text-sm text-amber-300 tracking-wide">
               {activeBuilding
-                ? `${regionNode?.name ?? ''} > ★ ${activeBuilding.name}`
+                ? `${regionNode?.name ?? ''} > ${activeBuilding.isSpecial ? '★ ' : ''}${activeBuilding.name}`
                 : `${regionNode?.code ? `${regionNode.code} · ` : ''}${regionNode?.name ?? ''} — 半3D全景互动舆图`}
             </span>
             <span className="hidden md:inline px-2 py-0.5 rounded bg-[#4a3520] text-[#f5dfb5] text-[11px] border border-[#9e7b47]/50">
               {activeBuilding
                 ? activeBuilding.interior?.mode === 'image'
                   ? '第三层 · 手绘实景'
-                  : '第三层 · 营造矢量卷'
+                  : (activeBuilding.interior?.spots.length ?? 0) > 0
+                    ? '第三层 · 营造矢量卷'
+                    : '第三层 · 市井独堂实景'
                 : regionNode?.circuit}
             </span>
           </div>

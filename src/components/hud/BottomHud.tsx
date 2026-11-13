@@ -133,7 +133,7 @@ export function BottomHud() {
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="inline-block w-3 h-3 rounded-sm bg-[#355263] border border-[#d8cbb2]" />
-                城池基础建筑（官署/酒馆/武馆/书院/客栈）
+                城池基础建筑（酒馆/客栈可步入大堂 · 官署/武馆/书院点击交互）
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="inline-block w-3 h-3 rotate-45 bg-[#2d5a43] border border-[#e6f4ec]" />
