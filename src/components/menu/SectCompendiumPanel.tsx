@@ -46,11 +46,23 @@ interface SectCompendiumPanelProps {
 type TierFilterKey = 'ALL' | SectTierKind
 
 const TIER_FILTER_OPTIONS: Array<{ key: TierFilterKey; label: string }> = [
-  { key: 'ALL', label: '全录 41 势力' },
-  { key: '一流大派', label: '一流名门大派 (20)' },
-  { key: '二流门派', label: '二流世家武盟 (4)' },
-  { key: '三流小派', label: '三流市井武馆 (6)' },
-  { key: '朝堂与地域组织', label: '庙堂儒林与四夷 (11)' },
+  { key: 'ALL', label: `全录 ${ID_REGISTRY.factions.length} 势力` },
+  {
+    key: '一流大派',
+    label: `一流名门大派 (${ID_REGISTRY.factions.filter((f) => f.sectTier === '一流大派').length})`,
+  },
+  {
+    key: '二流门派',
+    label: `二流世家武盟 (${ID_REGISTRY.factions.filter((f) => f.sectTier === '二流门派').length})`,
+  },
+  {
+    key: '三流小派',
+    label: `三流市井武馆 (${ID_REGISTRY.factions.filter((f) => f.sectTier === '三流小派').length})`,
+  },
+  {
+    key: '朝堂与地域组织',
+    label: `庙堂儒林与四夷 (${ID_REGISTRY.factions.filter((f) => f.sectTier === '朝堂与地域组织').length})`,
+  },
 ]
 
 const TIER_BADGE_META: Record<SectTierKind, { badgeCls: string; shortTag: string }> = {
@@ -259,8 +271,8 @@ export function SectCompendiumPanel({
             </div>
             <p className="text-xs text-[#e5d5bc] mt-0.5">
               <strong>6 大三流市井武馆</strong>（零门槛筑基·打工攒银·5重圆满出师获《江湖举荐帖》） →{' '}
-              <strong>4 大二流世家镖盟</strong>（走镖督练·带艺投师保举） →{' '}
-              <strong>20 大一流泰山北斗</strong>（36 门天阶镇派绝学） +{' '}
+              <strong>6 大二流世家武盟</strong>（水陆漕运·绿林走镖·带艺投师保举） →{' '}
+              <strong>18 大一流泰山北斗</strong>（37 门天阶镇派与奇缘绝学） +{' '}
               <strong>11 大庙堂儒林四夷组织</strong>
             </p>
           </div>

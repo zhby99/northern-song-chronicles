@@ -1385,10 +1385,10 @@
     "tier": "天阶",
     "subTier": "上品",
     "fullTier": "天阶上品",
-    "category": "拳掌",
+    "category": "内功",
     "origin": "姑苏慕容氏",
     "sectId": "SECT-10",
-    "description": "慕容龙城所创借力打力绝技，能将对手袭来的兵刃内劲转换方位反击彼身，修至极处纵千军万马亦能移星换斗。",
+    "description": "慕容龙城所创借力打力无上内功心法，以浑厚内息牵引转换敌方兵刃内劲反击彼身，修至极处纵千军万马亦能移星换斗。",
     "prerequisitesText": "`悟性≥88`、`身法≥80`、`算术≥75`、`内力≥3000`；需阅览还施水阁百家武学典籍（识破各派路数）。",
     "statRequirements": [
       {
@@ -1412,210 +1412,230 @@
       {
         "level": 1,
         "expRequired": 2600,
-        "physicalDamage": 308,
+        "maxMp": 1537,
+        "maxHp": 1404,
+        "resistance": 12,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 8,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 3,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       },
       {
         "level": 2,
         "expRequired": 4160,
-        "physicalDamage": 451,
+        "maxMp": 2254,
+        "maxHp": 2059,
+        "resistance": 17,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 11,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 4,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       },
       {
         "level": 3,
         "expRequired": 6240,
-        "physicalDamage": 615,
+        "maxMp": 3073,
+        "maxHp": 2808,
+        "resistance": 23,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 15,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 6,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       },
       {
         "level": 4,
         "expRequired": 9100,
-        "physicalDamage": 800,
+        "maxMp": 3995,
+        "maxHp": 3650,
+        "resistance": 30,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 20,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 8,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       },
       {
         "level": 5,
         "expRequired": 13000,
-        "physicalDamage": 1004,
+        "maxMp": 5020,
+        "maxHp": 4586,
+        "resistance": 38,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 24,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 10,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       },
       {
         "level": 6,
         "expRequired": 18200,
-        "physicalDamage": 1230,
+        "maxMp": 6146,
+        "maxHp": 5616,
+        "resistance": 47,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 30,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 12,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       },
       {
         "level": 7,
         "expRequired": 25480,
-        "physicalDamage": 1456,
+        "maxMp": 7273,
+        "maxHp": 6646,
+        "resistance": 55,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 36,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 14,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       },
       {
         "level": 8,
         "expRequired": 35880,
-        "physicalDamage": 1681,
+        "maxMp": 8400,
+        "maxHp": 7675,
+        "resistance": 64,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 41,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 16,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       },
       {
         "level": 9,
         "expRequired": 52000,
-        "physicalDamage": 1866,
+        "maxMp": 9322,
+        "maxHp": 8518,
+        "resistance": 71,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 46,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 18,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       },
       {
         "level": 10,
         "expRequired": 0,
-        "physicalDamage": 2050,
+        "maxMp": 10244,
+        "maxHp": 9360,
+        "resistance": 78,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
             "value": 50,
             "unit": "%",
-            "desc": "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
             "value": 20,
             "unit": "%",
-            "desc": "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
         ]
       }
@@ -5499,10 +5519,10 @@
     "tier": "天阶",
     "subTier": "下品",
     "fullTier": "天阶下品",
-    "category": "毒功",
+    "category": "内功",
     "origin": "星宿派",
     "sectId": "SECT-19",
-    "description": "以剧毒蛇蝎奇草淬炼经脉，交掌之际以毒气化散敌方护体内力，使其筋酥骨软、任人宰割，阴狠歹毒。",
+    "description": "丁春秋所创星宿派镇派邪门内功，以剧毒蛇蝎奇草淬炼经脉蓄毒，交锋之际以毒气化散敌方护体内力，使其筋酥骨软、任人宰割。",
     "prerequisitesText": "`根骨≥75`、`抗性≥80（自身必先百毒缠身而不死）`；需先修成《抽髓掌》并采集西域五毒炼化。",
     "statRequirements": [
       {
@@ -5514,210 +5534,230 @@
       {
         "level": 1,
         "expRequired": 1500,
-        "poisonDamage": 202,
+        "maxMp": 1200,
+        "maxHp": 1178,
+        "resistance": 13,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 2,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 2,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       },
       {
         "level": 2,
         "expRequired": 2400,
-        "poisonDamage": 296,
+        "maxMp": 1760,
+        "maxHp": 1727,
+        "resistance": 18,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 3,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 3,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       },
       {
         "level": 3,
         "expRequired": 3600,
-        "poisonDamage": 403,
+        "maxMp": 2400,
+        "maxHp": 2355,
+        "resistance": 25,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 4,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 4,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       },
       {
         "level": 4,
         "expRequired": 5250,
-        "poisonDamage": 524,
+        "maxMp": 3120,
+        "maxHp": 3062,
+        "resistance": 33,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 6,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 6,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       },
       {
         "level": 5,
         "expRequired": 7500,
-        "poisonDamage": 659,
+        "maxMp": 3920,
+        "maxHp": 3846,
+        "resistance": 41,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 7,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 7,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       },
       {
         "level": 6,
         "expRequired": 10500,
-        "poisonDamage": 806,
+        "maxMp": 4800,
+        "maxHp": 4710,
+        "resistance": 50,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 9,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 9,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       },
       {
         "level": 7,
         "expRequired": 14700,
-        "poisonDamage": 954,
+        "maxMp": 5680,
+        "maxHp": 5574,
+        "resistance": 60,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 11,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 11,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       },
       {
         "level": 8,
         "expRequired": 20700,
-        "poisonDamage": 1102,
+        "maxMp": 6560,
+        "maxHp": 6437,
+        "resistance": 69,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 12,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 12,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       },
       {
         "level": 9,
         "expRequired": 30000,
-        "poisonDamage": 1223,
+        "maxMp": 7280,
+        "maxHp": 7144,
+        "resistance": 76,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 14,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 14,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       },
       {
         "level": 10,
         "expRequired": 0,
-        "poisonDamage": 1344,
+        "maxMp": 8000,
+        "maxHp": 7850,
+        "resistance": 84,
         "specialEffects": [
           {
             "id": "huagong_burn",
             "name": "化散真气",
             "value": 15,
             "unit": "%",
-            "desc": "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
+            "desc": "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"
           },
           {
             "id": "huagong_weak",
             "name": "筋酥骨软",
             "value": 15,
             "unit": "%",
-            "desc": "使对手2回合内造成的所有伤害降低该比例"
+            "desc": "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"
           }
         ]
       }
@@ -8056,6 +8096,103 @@
   {
     "id": "MA-042",
     "code": "042",
+    "name": "混天气功",
+    "cleanName": "混天气功",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "category": "内功",
+    "origin": "丐帮",
+    "sectId": "SECT-02",
+    "description": "丐帮历代帮主与传功长老秘传至刚内功，纳天地风雷浩气入丹田，血气澎湃如苍龙出海，最宜催动降龙掌与打狗棒绝学。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 1100,
+        "maxMp": 982,
+        "maxHp": 1053,
+        "resistance": 12,
+        "constitution": 2
+      },
+      {
+        "level": 2,
+        "expRequired": 1760,
+        "maxMp": 1441,
+        "maxHp": 1544,
+        "resistance": 17,
+        "constitution": 2
+      },
+      {
+        "level": 3,
+        "expRequired": 2640,
+        "maxMp": 1964,
+        "maxHp": 2106,
+        "resistance": 23,
+        "constitution": 3
+      },
+      {
+        "level": 4,
+        "expRequired": 3850,
+        "maxMp": 2554,
+        "maxHp": 2738,
+        "resistance": 30,
+        "constitution": 4
+      },
+      {
+        "level": 5,
+        "expRequired": 5500,
+        "maxMp": 3209,
+        "maxHp": 3440,
+        "resistance": 38,
+        "constitution": 5
+      },
+      {
+        "level": 6,
+        "expRequired": 7700,
+        "maxMp": 3929,
+        "maxHp": 4212,
+        "resistance": 47,
+        "constitution": 7
+      },
+      {
+        "level": 7,
+        "expRequired": 10780,
+        "maxMp": 4649,
+        "maxHp": 4984,
+        "resistance": 55,
+        "constitution": 8
+      },
+      {
+        "level": 8,
+        "expRequired": 15180,
+        "maxMp": 5369,
+        "maxHp": 5756,
+        "resistance": 64,
+        "constitution": 9
+      },
+      {
+        "level": 9,
+        "expRequired": 22000,
+        "maxMp": 5959,
+        "maxHp": 6388,
+        "resistance": 71,
+        "constitution": 10
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 6548,
+        "maxHp": 7020,
+        "resistance": 78,
+        "constitution": 11
+      }
+    ]
+  },
+  {
+    "id": "MA-043",
+    "code": "043",
     "name": "般若掌",
     "cleanName": "般若掌",
     "tier": "地阶",
@@ -8121,8 +8258,8 @@
     ]
   },
   {
-    "id": "MA-043",
-    "code": "043",
+    "id": "MA-044",
+    "code": "044",
     "name": "大力金刚指",
     "cleanName": "大力金刚指",
     "tier": "地阶",
@@ -8188,8 +8325,8 @@
     ]
   },
   {
-    "id": "MA-044",
-    "code": "044",
+    "id": "MA-045",
+    "code": "045",
     "name": "擒龙功",
     "cleanName": "擒龙功",
     "tier": "地阶",
@@ -8255,8 +8392,8 @@
     ]
   },
   {
-    "id": "MA-045",
-    "code": "045",
+    "id": "MA-046",
+    "code": "046",
     "name": "铁掌功",
     "cleanName": "铁掌功",
     "tier": "地阶",
@@ -8322,8 +8459,8 @@
     ]
   },
   {
-    "id": "MA-046",
-    "code": "046",
+    "id": "MA-047",
+    "code": "047",
     "name": "折扇落英神剑掌",
     "cleanName": "折扇落英神剑掌",
     "tier": "地阶",
@@ -8389,8 +8526,8 @@
     ]
   },
   {
-    "id": "MA-047",
-    "code": "047",
+    "id": "MA-048",
+    "code": "048",
     "name": "达摩剑法",
     "cleanName": "达摩剑法",
     "tier": "地阶",
@@ -8456,8 +8593,8 @@
     ]
   },
   {
-    "id": "MA-048",
-    "code": "048",
+    "id": "MA-049",
+    "code": "049",
     "name": "太岳三青峰",
     "cleanName": "太岳三青峰",
     "tier": "地阶",
@@ -8523,8 +8660,8 @@
     ]
   },
   {
-    "id": "MA-049",
-    "code": "049",
+    "id": "MA-050",
+    "code": "050",
     "name": "岱宗如何",
     "cleanName": "岱宗如何",
     "tier": "地阶",
@@ -8590,8 +8727,8 @@
     ]
   },
   {
-    "id": "MA-050",
-    "code": "050",
+    "id": "MA-051",
+    "code": "051",
     "name": "灭绝回风剑",
     "cleanName": "灭绝回风剑",
     "tier": "地阶",
@@ -8657,8 +8794,8 @@
     ]
   },
   {
-    "id": "MA-051",
-    "code": "051",
+    "id": "MA-052",
+    "code": "052",
     "name": "燃木刀法",
     "cleanName": "燃木刀法",
     "tier": "地阶",
@@ -8724,8 +8861,8 @@
     ]
   },
   {
-    "id": "MA-052",
-    "code": "052",
+    "id": "MA-053",
+    "code": "053",
     "name": "疯魔杖法",
     "cleanName": "疯魔杖法",
     "tier": "地阶",
@@ -8791,8 +8928,8 @@
     ]
   },
   {
-    "id": "MA-053",
-    "code": "053",
+    "id": "MA-054",
+    "code": "054",
     "name": "满天花雨",
     "cleanName": "满天花雨",
     "tier": "地阶",
@@ -8858,8 +8995,8 @@
     ]
   },
   {
-    "id": "MA-054",
-    "code": "054",
+    "id": "MA-055",
+    "code": "055",
     "name": "冰蚕毒掌",
     "cleanName": "冰蚕毒掌",
     "tier": "地阶",
@@ -8925,8 +9062,8 @@
     ]
   },
   {
-    "id": "MA-055",
-    "code": "055",
+    "id": "MA-056",
+    "code": "056",
     "name": "梯云纵",
     "cleanName": "梯云纵",
     "tier": "地阶",
@@ -9002,8 +9139,8 @@
     ]
   },
   {
-    "id": "MA-056",
-    "code": "056",
+    "id": "MA-057",
+    "code": "057",
     "name": "一苇渡江",
     "cleanName": "一苇渡江",
     "tier": "地阶",
@@ -9079,8 +9216,8 @@
     ]
   },
   {
-    "id": "MA-057",
-    "code": "057",
+    "id": "MA-058",
+    "code": "058",
     "name": "混元功",
     "cleanName": "混元功",
     "tier": "地阶",
@@ -9166,8 +9303,8 @@
     ]
   },
   {
-    "id": "MA-058",
-    "code": "058",
+    "id": "MA-059",
+    "code": "059",
     "name": "太极混元桩",
     "cleanName": "太极混元桩",
     "tier": "地阶",
@@ -9253,8 +9390,8 @@
     ]
   },
   {
-    "id": "MA-059",
-    "code": "059",
+    "id": "MA-060",
+    "code": "060",
     "name": "枯荣禅意功",
     "cleanName": "枯荣禅意功",
     "tier": "地阶",
@@ -9340,8 +9477,8 @@
     ]
   },
   {
-    "id": "MA-060",
-    "code": "060",
+    "id": "MA-061",
+    "code": "061",
     "name": "蛤蟆敛息功",
     "cleanName": "蛤蟆敛息功",
     "tier": "地阶",
@@ -9427,8 +9564,8 @@
     ]
   },
   {
-    "id": "MA-061",
-    "code": "061",
+    "id": "MA-062",
+    "code": "062",
     "name": "龙爪手",
     "cleanName": "龙爪手",
     "tier": "地阶",
@@ -9494,8 +9631,8 @@
     ]
   },
   {
-    "id": "MA-062",
-    "code": "062",
+    "id": "MA-063",
+    "code": "063",
     "name": "拈花指",
     "cleanName": "拈花指",
     "tier": "地阶",
@@ -9561,8 +9698,8 @@
     ]
   },
   {
-    "id": "MA-063",
-    "code": "063",
+    "id": "MA-064",
+    "code": "064",
     "name": "兰花拂穴手",
     "cleanName": "兰花拂穴手",
     "tier": "地阶",
@@ -9628,8 +9765,8 @@
     ]
   },
   {
-    "id": "MA-064",
-    "code": "064",
+    "id": "MA-065",
+    "code": "065",
     "name": "抽髓掌",
     "cleanName": "抽髓掌",
     "tier": "地阶",
@@ -9695,8 +9832,8 @@
     ]
   },
   {
-    "id": "MA-065",
-    "code": "065",
+    "id": "MA-066",
+    "code": "066",
     "name": "大嵩阳神掌",
     "cleanName": "大嵩阳神掌",
     "tier": "地阶",
@@ -9762,8 +9899,8 @@
     ]
   },
   {
-    "id": "MA-066",
-    "code": "066",
+    "id": "MA-067",
+    "code": "067",
     "name": "两仪剑法",
     "cleanName": "两仪剑法",
     "tier": "地阶",
@@ -9829,8 +9966,8 @@
     ]
   },
   {
-    "id": "MA-067",
-    "code": "067",
+    "id": "MA-068",
+    "code": "068",
     "name": "夺命连环三仙剑",
     "cleanName": "夺命连环三仙剑",
     "tier": "地阶",
@@ -9896,8 +10033,8 @@
     ]
   },
   {
-    "id": "MA-068",
-    "code": "068",
+    "id": "MA-069",
+    "code": "069",
     "name": "松风辟邪剑（青城真卷）",
     "cleanName": "松风辟邪剑（青城真卷）",
     "tier": "地阶",
@@ -9963,8 +10100,8 @@
     ]
   },
   {
-    "id": "MA-069",
-    "code": "069",
+    "id": "MA-070",
+    "code": "070",
     "name": "玉箫剑法",
     "cleanName": "玉箫剑法",
     "tier": "地阶",
@@ -10030,8 +10167,8 @@
     ]
   },
   {
-    "id": "MA-070",
-    "code": "070",
+    "id": "MA-071",
+    "code": "071",
     "name": "慕容氏家传剑法",
     "cleanName": "慕容氏家传剑法",
     "tier": "地阶",
@@ -10097,8 +10234,8 @@
     ]
   },
   {
-    "id": "MA-071",
-    "code": "071",
+    "id": "MA-072",
+    "code": "072",
     "name": "血刀经刀法",
     "cleanName": "血刀经刀法",
     "tier": "地阶",
@@ -10164,8 +10301,8 @@
     ]
   },
   {
-    "id": "MA-072",
-    "code": "072",
+    "id": "MA-073",
+    "code": "073",
     "name": "修罗刀",
     "cleanName": "修罗刀",
     "tier": "地阶",
@@ -10231,8 +10368,8 @@
     ]
   },
   {
-    "id": "MA-073",
-    "code": "073",
+    "id": "MA-074",
+    "code": "074",
     "name": "岳氏沥泉枪前谱（常山龙胆枪）",
     "cleanName": "岳氏沥泉枪前谱（常山龙胆枪）",
     "tier": "地阶",
@@ -10298,8 +10435,8 @@
     ]
   },
   {
-    "id": "MA-074",
-    "code": "074",
+    "id": "MA-075",
+    "code": "075",
     "name": "金刚伏魔杖",
     "cleanName": "金刚伏魔杖",
     "tier": "地阶",
@@ -10365,8 +10502,8 @@
     ]
   },
   {
-    "id": "MA-075",
-    "code": "075",
+    "id": "MA-076",
+    "code": "076",
     "name": "含沙射影",
     "cleanName": "含沙射影",
     "tier": "地阶",
@@ -10432,8 +10569,8 @@
     ]
   },
   {
-    "id": "MA-076",
-    "code": "076",
+    "id": "MA-077",
+    "code": "077",
     "name": "瞬息千里",
     "cleanName": "瞬息千里",
     "tier": "地阶",
@@ -10499,8 +10636,8 @@
     ]
   },
   {
-    "id": "MA-077",
-    "code": "077",
+    "id": "MA-078",
+    "code": "078",
     "name": "纯阳无极功",
     "cleanName": "纯阳无极功",
     "tier": "地阶",
@@ -10586,8 +10723,8 @@
     ]
   },
   {
-    "id": "MA-078",
-    "code": "078",
+    "id": "MA-079",
+    "code": "079",
     "name": "大慈大悲禅功",
     "cleanName": "大慈大悲禅功",
     "tier": "地阶",
@@ -10673,8 +10810,8 @@
     ]
   },
   {
-    "id": "MA-079",
-    "code": "079",
+    "id": "MA-080",
+    "code": "080",
     "name": "盘山铁布衫（大成）",
     "cleanName": "盘山铁布衫（大成）",
     "tier": "地阶",
@@ -10760,8 +10897,8 @@
     ]
   },
   {
-    "id": "MA-080",
-    "code": "080",
+    "id": "MA-081",
+    "code": "081",
     "name": "毒砂百炼功",
     "cleanName": "毒砂百炼功",
     "tier": "地阶",
@@ -10847,8 +10984,95 @@
     ]
   },
   {
-    "id": "MA-081",
-    "code": "081",
+    "id": "MA-082",
+    "code": "082",
+    "name": "天机万毒功",
+    "cleanName": "天机万毒功",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "内功",
+    "origin": "蜀中唐门",
+    "sectId": "SECT-13",
+    "description": "唐家堡内堂秘传心法，引万毒涧五石瘴气淬炼奇经八脉，内息幽冷凝练如丝，既可御针发簧，亦令自身百毒难侵。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 650,
+        "maxMp": 660,
+        "maxHp": 668,
+        "resistance": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 1040,
+        "maxMp": 968,
+        "maxHp": 979,
+        "resistance": 13
+      },
+      {
+        "level": 3,
+        "expRequired": 1560,
+        "maxMp": 1320,
+        "maxHp": 1335,
+        "resistance": 18
+      },
+      {
+        "level": 4,
+        "expRequired": 2280,
+        "maxMp": 1716,
+        "maxHp": 1736,
+        "resistance": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 3250,
+        "maxMp": 2156,
+        "maxHp": 2180,
+        "resistance": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 4550,
+        "maxMp": 2640,
+        "maxHp": 2670,
+        "resistance": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 6370,
+        "maxMp": 3124,
+        "maxHp": 3160,
+        "resistance": 43
+      },
+      {
+        "level": 8,
+        "expRequired": 8970,
+        "maxMp": 3608,
+        "maxHp": 3649,
+        "resistance": 50
+      },
+      {
+        "level": 9,
+        "expRequired": 13000,
+        "maxMp": 4004,
+        "maxHp": 4050,
+        "resistance": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 4400,
+        "maxHp": 4450,
+        "resistance": 61
+      }
+    ]
+  },
+  {
+    "id": "MA-083",
+    "code": "083",
     "name": "一拍两散掌",
     "cleanName": "一拍两散掌",
     "tier": "地阶",
@@ -10914,8 +11138,8 @@
     ]
   },
   {
-    "id": "MA-082",
-    "code": "082",
+    "id": "MA-084",
+    "code": "084",
     "name": "鹰爪擒拿手",
     "cleanName": "鹰爪擒拿手",
     "tier": "地阶",
@@ -10981,8 +11205,8 @@
     ]
   },
   {
-    "id": "MA-083",
-    "code": "083",
+    "id": "MA-085",
+    "code": "085",
     "name": "寒冰绵掌",
     "cleanName": "寒冰绵掌",
     "tier": "地阶",
@@ -11048,8 +11272,8 @@
     ]
   },
   {
-    "id": "MA-084",
-    "code": "084",
+    "id": "MA-086",
+    "code": "086",
     "name": "催心掌",
     "cleanName": "催心掌",
     "tier": "地阶",
@@ -11115,8 +11339,8 @@
     ]
   },
   {
-    "id": "MA-085",
-    "code": "085",
+    "id": "MA-087",
+    "code": "087",
     "name": "铜锤手",
     "cleanName": "铜锤手",
     "tier": "地阶",
@@ -11182,8 +11406,8 @@
     ]
   },
   {
-    "id": "MA-086",
-    "code": "086",
+    "id": "MA-088",
+    "code": "088",
     "name": "无量剑诀",
     "cleanName": "无量剑诀",
     "tier": "地阶",
@@ -11249,8 +11473,8 @@
     ]
   },
   {
-    "id": "MA-087",
-    "code": "087",
+    "id": "MA-089",
+    "code": "089",
     "name": "希夷剑法",
     "cleanName": "希夷剑法",
     "tier": "地阶",
@@ -11316,8 +11540,8 @@
     ]
   },
   {
-    "id": "MA-088",
-    "code": "088",
+    "id": "MA-090",
+    "code": "090",
     "name": "泰山十八盘",
     "cleanName": "泰山十八盘",
     "tier": "地阶",
@@ -11383,8 +11607,8 @@
     ]
   },
   {
-    "id": "MA-089",
-    "code": "089",
+    "id": "MA-091",
+    "code": "091",
     "name": "金乌刀法",
     "cleanName": "金乌刀法",
     "tier": "地阶",
@@ -11450,8 +11674,8 @@
     ]
   },
   {
-    "id": "MA-090",
-    "code": "090",
+    "id": "MA-092",
+    "code": "092",
     "name": "胡汉八极刀",
     "cleanName": "胡汉八极刀",
     "tier": "地阶",
@@ -11517,8 +11741,8 @@
     ]
   },
   {
-    "id": "MA-091",
-    "code": "091",
+    "id": "MA-093",
+    "code": "093",
     "name": "漕帮分水大枪",
     "cleanName": "漕帮分水大枪",
     "tier": "地阶",
@@ -11584,8 +11808,8 @@
     ]
   },
   {
-    "id": "MA-092",
-    "code": "092",
+    "id": "MA-094",
+    "code": "094",
     "name": "韦陀杵",
     "cleanName": "韦陀杵",
     "tier": "地阶",
@@ -11651,8 +11875,8 @@
     ]
   },
   {
-    "id": "MA-093",
-    "code": "093",
+    "id": "MA-095",
+    "code": "095",
     "name": "子午透骨钉",
     "cleanName": "子午透骨钉",
     "tier": "地阶",
@@ -11718,8 +11942,8 @@
     ]
   },
   {
-    "id": "MA-094",
-    "code": "094",
+    "id": "MA-096",
+    "code": "096",
     "name": "裴将军诗剑帖（判官笔）",
     "cleanName": "裴将军诗剑帖（判官笔）",
     "tier": "地阶",
@@ -11785,8 +12009,8 @@
     ]
   },
   {
-    "id": "MA-095",
-    "code": "095",
+    "id": "MA-097",
+    "code": "097",
     "name": "八步赶蝉",
     "cleanName": "八步赶蝉",
     "tier": "地阶",
@@ -11852,8 +12076,8 @@
     ]
   },
   {
-    "id": "MA-096",
-    "code": "096",
+    "id": "MA-098",
+    "code": "098",
     "name": "踏雪无痕",
     "cleanName": "踏雪无痕",
     "tier": "地阶",
@@ -11919,8 +12143,8 @@
     ]
   },
   {
-    "id": "MA-097",
-    "code": "097",
+    "id": "MA-099",
+    "code": "099",
     "name": "紫阳吐纳功",
     "cleanName": "紫阳吐纳功",
     "tier": "良品",
@@ -12006,8 +12230,8 @@
     ]
   },
   {
-    "id": "MA-098",
-    "code": "098",
+    "id": "MA-100",
+    "code": "100",
     "name": "罗汉伏虎功",
     "cleanName": "罗汉伏虎功",
     "tier": "良品",
@@ -12093,8 +12317,8 @@
     ]
   },
   {
-    "id": "MA-099",
-    "code": "099",
+    "id": "MA-101",
+    "code": "101",
     "name": "莲华静心诀",
     "cleanName": "莲华静心诀",
     "tier": "良品",
@@ -12190,8 +12414,8 @@
     ]
   },
   {
-    "id": "MA-100",
-    "code": "100",
+    "id": "MA-102",
+    "code": "102",
     "name": "大内禁军玄甲劲",
     "cleanName": "大内禁军玄甲劲",
     "tier": "良品",
@@ -12277,8 +12501,182 @@
     ]
   },
   {
-    "id": "MA-101",
-    "code": "101",
+    "id": "MA-103",
+    "code": "103",
+    "name": "太行罡气",
+    "cleanName": "太行罡气",
+    "tier": "良品",
+    "subTier": "上品",
+    "fullTier": "良品上品",
+    "category": "内功",
+    "origin": "太行绿林盟",
+    "sectId": "SECT-18",
+    "description": "北方绿林大豪秘传护体硬功，行气粗犷刚猛如太行山岳，饮烈酒后催动更添三分血气与筋骨抗性。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 450,
+        "maxMp": 517,
+        "maxHp": 554,
+        "resistance": 8
+      },
+      {
+        "level": 2,
+        "expRequired": 720,
+        "maxMp": 758,
+        "maxHp": 812,
+        "resistance": 12
+      },
+      {
+        "level": 3,
+        "expRequired": 1080,
+        "maxMp": 1033,
+        "maxHp": 1108,
+        "resistance": 16
+      },
+      {
+        "level": 4,
+        "expRequired": 1580,
+        "maxMp": 1343,
+        "maxHp": 1440,
+        "resistance": 21
+      },
+      {
+        "level": 5,
+        "expRequired": 2250,
+        "maxMp": 1688,
+        "maxHp": 1809,
+        "resistance": 27
+      },
+      {
+        "level": 6,
+        "expRequired": 3150,
+        "maxMp": 2066,
+        "maxHp": 2215,
+        "resistance": 33
+      },
+      {
+        "level": 7,
+        "expRequired": 4410,
+        "maxMp": 2445,
+        "maxHp": 2621,
+        "resistance": 39
+      },
+      {
+        "level": 8,
+        "expRequired": 6210,
+        "maxMp": 2824,
+        "maxHp": 3027,
+        "resistance": 45
+      },
+      {
+        "level": 9,
+        "expRequired": 9000,
+        "maxMp": 3134,
+        "maxHp": 3360,
+        "resistance": 50
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 3444,
+        "maxHp": 3692,
+        "resistance": 55
+      }
+    ]
+  },
+  {
+    "id": "MA-104",
+    "code": "104",
+    "name": "鲸息水战诀",
+    "cleanName": "鲸息水战诀",
+    "tier": "良品",
+    "subTier": "上品",
+    "fullTier": "良品上品",
+    "category": "内功",
+    "origin": "江淮漕帮/泉州海商",
+    "sectId": "SECT-16",
+    "description": "大运河漕帮与东南海商秘传水战内功，吐纳绵长如巨鲸吞海，舟楫激战中真气不绝且辟风湿瘴毒。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 450,
+        "maxMp": 532,
+        "maxHp": 532,
+        "resistance": 8
+      },
+      {
+        "level": 2,
+        "expRequired": 720,
+        "maxMp": 781,
+        "maxHp": 781,
+        "resistance": 12
+      },
+      {
+        "level": 3,
+        "expRequired": 1080,
+        "maxMp": 1065,
+        "maxHp": 1065,
+        "resistance": 16
+      },
+      {
+        "level": 4,
+        "expRequired": 1580,
+        "maxMp": 1384,
+        "maxHp": 1384,
+        "resistance": 21
+      },
+      {
+        "level": 5,
+        "expRequired": 2250,
+        "maxMp": 1740,
+        "maxHp": 1740,
+        "resistance": 27
+      },
+      {
+        "level": 6,
+        "expRequired": 3150,
+        "maxMp": 2130,
+        "maxHp": 2130,
+        "resistance": 33
+      },
+      {
+        "level": 7,
+        "expRequired": 4410,
+        "maxMp": 2520,
+        "maxHp": 2520,
+        "resistance": 39
+      },
+      {
+        "level": 8,
+        "expRequired": 6210,
+        "maxMp": 2911,
+        "maxHp": 2911,
+        "resistance": 45
+      },
+      {
+        "level": 9,
+        "expRequired": 9000,
+        "maxMp": 3230,
+        "maxHp": 3230,
+        "resistance": 50
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 3550,
+        "maxHp": 3550,
+        "resistance": 55
+      }
+    ]
+  },
+  {
+    "id": "MA-105",
+    "code": "105",
     "name": "散花掌",
     "cleanName": "散花掌",
     "tier": "良品",
@@ -12344,8 +12742,8 @@
     ]
   },
   {
-    "id": "MA-102",
-    "code": "102",
+    "id": "MA-106",
+    "code": "106",
     "name": "铁线拳",
     "cleanName": "铁线拳",
     "tier": "良品",
@@ -12411,8 +12809,8 @@
     ]
   },
   {
-    "id": "MA-103",
-    "code": "103",
+    "id": "MA-107",
+    "code": "107",
     "name": "劈空掌",
     "cleanName": "劈空掌",
     "tier": "良品",
@@ -12478,8 +12876,8 @@
     ]
   },
   {
-    "id": "MA-104",
-    "code": "104",
+    "id": "MA-108",
+    "code": "108",
     "name": "青城摧心掌",
     "cleanName": "青城摧心掌",
     "tier": "良品",
@@ -12545,8 +12943,8 @@
     ]
   },
   {
-    "id": "MA-105",
-    "code": "105",
+    "id": "MA-109",
+    "code": "109",
     "name": "华山混元掌",
     "cleanName": "华山混元掌",
     "tier": "良品",
@@ -12612,8 +13010,8 @@
     ]
   },
   {
-    "id": "MA-106",
-    "code": "106",
+    "id": "MA-110",
+    "code": "110",
     "name": "伏魔剑",
     "cleanName": "伏魔剑",
     "tier": "良品",
@@ -12679,8 +13077,8 @@
     ]
   },
   {
-    "id": "MA-107",
-    "code": "107",
+    "id": "MA-111",
+    "code": "111",
     "name": "芙蓉剑法",
     "cleanName": "芙蓉剑法",
     "tier": "良品",
@@ -12746,8 +13144,8 @@
     ]
   },
   {
-    "id": "MA-108",
-    "code": "108",
+    "id": "MA-112",
+    "code": "112",
     "name": "柔云剑术",
     "cleanName": "柔云剑术",
     "tier": "良品",
@@ -12813,8 +13211,8 @@
     ]
   },
   {
-    "id": "MA-109",
-    "code": "109",
+    "id": "MA-113",
+    "code": "113",
     "name": "洛阳金刀谱",
     "cleanName": "洛阳金刀谱",
     "tier": "良品",
@@ -12880,8 +13278,8 @@
     ]
   },
   {
-    "id": "MA-110",
-    "code": "110",
+    "id": "MA-114",
+    "code": "114",
     "name": "慈悲刀法",
     "cleanName": "慈悲刀法",
     "tier": "良品",
@@ -12947,8 +13345,8 @@
     ]
   },
   {
-    "id": "MA-111",
-    "code": "111",
+    "id": "MA-115",
+    "code": "115",
     "name": "雁门断魂刀",
     "cleanName": "雁门断魂刀",
     "tier": "良品",
@@ -13014,8 +13412,8 @@
     ]
   },
   {
-    "id": "MA-112",
-    "code": "112",
+    "id": "MA-116",
+    "code": "116",
     "name": "六合大枪",
     "cleanName": "六合大枪",
     "tier": "良品",
@@ -13081,8 +13479,8 @@
     ]
   },
   {
-    "id": "MA-113",
-    "code": "113",
+    "id": "MA-117",
+    "code": "117",
     "name": "普门杖法",
     "cleanName": "普门杖法",
     "tier": "良品",
@@ -13148,8 +13546,8 @@
     ]
   },
   {
-    "id": "MA-114",
-    "code": "114",
+    "id": "MA-118",
+    "code": "118",
     "name": "追魂夺命镖",
     "cleanName": "追魂夺命镖",
     "tier": "良品",
@@ -13215,8 +13613,8 @@
     ]
   },
   {
-    "id": "MA-115",
-    "code": "115",
+    "id": "MA-119",
+    "code": "119",
     "name": "金雁功",
     "cleanName": "金雁功",
     "tier": "良品",
@@ -13282,8 +13680,8 @@
     ]
   },
   {
-    "id": "MA-116",
-    "code": "116",
+    "id": "MA-120",
+    "code": "120",
     "name": "水上漂（漕帮精修卷）",
     "cleanName": "水上漂（漕帮精修卷）",
     "tier": "良品",
@@ -13349,95 +13747,8 @@
     ]
   },
   {
-    "id": "MA-117",
-    "code": "117",
-    "name": "太行罡气",
-    "cleanName": "太行罡气",
-    "tier": "良品",
-    "subTier": "中品",
-    "fullTier": "良品中品",
-    "category": "内功",
-    "origin": "太行绿林盟",
-    "sectId": "SECT-18",
-    "description": "北方绿林大豪吐纳硬功，粗犷豪迈，饮烈酒后催动更添三分血气。",
-    "prerequisitesText": null,
-    "statRequirements": [],
-    "levels": [
-      {
-        "level": 1,
-        "expRequired": 320,
-        "maxMp": 315,
-        "maxHp": 330,
-        "resistance": 6
-      },
-      {
-        "level": 2,
-        "expRequired": 510,
-        "maxMp": 462,
-        "maxHp": 484,
-        "resistance": 9
-      },
-      {
-        "level": 3,
-        "expRequired": 770,
-        "maxMp": 630,
-        "maxHp": 660,
-        "resistance": 12
-      },
-      {
-        "level": 4,
-        "expRequired": 1120,
-        "maxMp": 819,
-        "maxHp": 858,
-        "resistance": 16
-      },
-      {
-        "level": 5,
-        "expRequired": 1600,
-        "maxMp": 1029,
-        "maxHp": 1078,
-        "resistance": 20
-      },
-      {
-        "level": 6,
-        "expRequired": 2240,
-        "maxMp": 1260,
-        "maxHp": 1320,
-        "resistance": 24
-      },
-      {
-        "level": 7,
-        "expRequired": 3140,
-        "maxMp": 1491,
-        "maxHp": 1562,
-        "resistance": 28
-      },
-      {
-        "level": 8,
-        "expRequired": 4420,
-        "maxMp": 1722,
-        "maxHp": 1804,
-        "resistance": 33
-      },
-      {
-        "level": 9,
-        "expRequired": 6400,
-        "maxMp": 1911,
-        "maxHp": 2002,
-        "resistance": 36
-      },
-      {
-        "level": 10,
-        "expRequired": 0,
-        "maxMp": 2100,
-        "maxHp": 2200,
-        "resistance": 40
-      }
-    ]
-  },
-  {
-    "id": "MA-118",
-    "code": "118",
+    "id": "MA-121",
+    "code": "121",
     "name": "碧波心法",
     "cleanName": "碧波心法",
     "tier": "良品",
@@ -13523,8 +13834,8 @@
     ]
   },
   {
-    "id": "MA-119",
-    "code": "119",
+    "id": "MA-122",
+    "code": "122",
     "name": "六扇门捕风诀",
     "cleanName": "六扇门捕风诀",
     "tier": "良品",
@@ -13610,8 +13921,8 @@
     ]
   },
   {
-    "id": "MA-120",
-    "code": "120",
+    "id": "MA-123",
+    "code": "123",
     "name": "龟息功",
     "cleanName": "龟息功",
     "tier": "良品",
@@ -13697,8 +14008,8 @@
     ]
   },
   {
-    "id": "MA-121",
-    "code": "121",
+    "id": "MA-124",
+    "code": "124",
     "name": "八极崩拳",
     "cleanName": "八极崩拳",
     "tier": "良品",
@@ -13764,8 +14075,8 @@
     ]
   },
   {
-    "id": "MA-122",
-    "code": "122",
+    "id": "MA-125",
+    "code": "125",
     "name": "虎爪绝户手",
     "cleanName": "虎爪绝户手",
     "tier": "良品",
@@ -13831,8 +14142,8 @@
     ]
   },
   {
-    "id": "MA-123",
-    "code": "123",
+    "id": "MA-126",
+    "code": "126",
     "name": "绵掌",
     "cleanName": "绵掌",
     "tier": "良品",
@@ -13898,8 +14209,8 @@
     ]
   },
   {
-    "id": "MA-124",
-    "code": "124",
+    "id": "MA-127",
+    "code": "127",
     "name": "五毒砂掌",
     "cleanName": "五毒砂掌",
     "tier": "良品",
@@ -13965,8 +14276,8 @@
     ]
   },
   {
-    "id": "MA-125",
-    "code": "125",
+    "id": "MA-128",
+    "code": "128",
     "name": "落雁剑法",
     "cleanName": "落雁剑法",
     "tier": "良品",
@@ -14032,8 +14343,8 @@
     ]
   },
   {
-    "id": "MA-126",
-    "code": "126",
+    "id": "MA-129",
+    "code": "129",
     "name": "五大夫剑",
     "cleanName": "五大夫剑",
     "tier": "良品",
@@ -14099,8 +14410,8 @@
     ]
   },
   {
-    "id": "MA-127",
-    "code": "127",
+    "id": "MA-130",
+    "code": "130",
     "name": "越女古剑术（江南传本）",
     "cleanName": "越女古剑术（江南传本）",
     "tier": "良品",
@@ -14166,8 +14477,8 @@
     ]
   },
   {
-    "id": "MA-128",
-    "code": "128",
+    "id": "MA-131",
+    "code": "131",
     "name": "狂风快刀",
     "cleanName": "狂风快刀",
     "tier": "良品",
@@ -14233,8 +14544,8 @@
     ]
   },
   {
-    "id": "MA-129",
-    "code": "129",
+    "id": "MA-132",
+    "code": "132",
     "name": "奇门五虎断门刀",
     "cleanName": "奇门五虎断门刀",
     "tier": "良品",
@@ -14300,8 +14611,8 @@
     ]
   },
   {
-    "id": "MA-130",
-    "code": "130",
+    "id": "MA-133",
+    "code": "133",
     "name": "西夏弯刀术",
     "cleanName": "西夏弯刀术",
     "tier": "良品",
@@ -14367,8 +14678,8 @@
     ]
   },
   {
-    "id": "MA-131",
-    "code": "131",
+    "id": "MA-134",
+    "code": "134",
     "name": "五郎八卦棍",
     "cleanName": "五郎八卦棍",
     "tier": "良品",
@@ -14434,8 +14745,8 @@
     ]
   },
   {
-    "id": "MA-132",
-    "code": "132",
+    "id": "MA-135",
+    "code": "135",
     "name": "蛇矛百战枪",
     "cleanName": "蛇矛百战枪",
     "tier": "良品",
@@ -14501,8 +14812,8 @@
     ]
   },
   {
-    "id": "MA-133",
-    "code": "133",
+    "id": "MA-136",
+    "code": "136",
     "name": "分水峨眉刺",
     "cleanName": "分水峨眉刺",
     "tier": "良品",
@@ -14568,8 +14879,8 @@
     ]
   },
   {
-    "id": "MA-134",
-    "code": "134",
+    "id": "MA-137",
+    "code": "137",
     "name": "毒蒺藜散手",
     "cleanName": "毒蒺藜散手",
     "tier": "良品",
@@ -14635,8 +14946,8 @@
     ]
   },
   {
-    "id": "MA-135",
-    "code": "135",
+    "id": "MA-138",
+    "code": "138",
     "name": "壁虎游墙功",
     "cleanName": "壁虎游墙功",
     "tier": "良品",
@@ -14702,8 +15013,8 @@
     ]
   },
   {
-    "id": "MA-136",
-    "code": "136",
+    "id": "MA-139",
+    "code": "139",
     "name": "穿云纵",
     "cleanName": "穿云纵",
     "tier": "良品",
@@ -14769,8 +15080,8 @@
     ]
   },
   {
-    "id": "MA-137",
-    "code": "137",
+    "id": "MA-140",
+    "code": "140",
     "name": "铁砂内壮功",
     "cleanName": "铁砂内壮功",
     "tier": "良品",
@@ -14866,8 +15177,8 @@
     ]
   },
   {
-    "id": "MA-138",
-    "code": "138",
+    "id": "MA-141",
+    "code": "141",
     "name": "五禽养生功",
     "cleanName": "五禽养生功",
     "tier": "良品",
@@ -14953,8 +15264,8 @@
     ]
   },
   {
-    "id": "MA-139",
-    "code": "139",
+    "id": "MA-142",
+    "code": "142",
     "name": "全真大道筑基歌",
     "cleanName": "全真大道筑基歌",
     "tier": "良品",
@@ -15040,95 +15351,8 @@
     ]
   },
   {
-    "id": "MA-140",
-    "code": "140",
-    "name": "鲸息水战诀",
-    "cleanName": "鲸息水战诀",
-    "tier": "良品",
-    "subTier": "下品",
-    "fullTier": "良品下品",
-    "category": "内功",
-    "origin": "泉州海商/漕帮",
-    "sectId": "SECT-16",
-    "description": "东南沿海与大江水手内练法门，气力悠长，抗风湿瘴毒。",
-    "prerequisitesText": null,
-    "statRequirements": [],
-    "levels": [
-      {
-        "level": 1,
-        "expRequired": 240,
-        "maxMp": 232,
-        "maxHp": 248,
-        "resistance": 4
-      },
-      {
-        "level": 2,
-        "expRequired": 380,
-        "maxMp": 341,
-        "maxHp": 363,
-        "resistance": 6
-      },
-      {
-        "level": 3,
-        "expRequired": 580,
-        "maxMp": 465,
-        "maxHp": 495,
-        "resistance": 8
-      },
-      {
-        "level": 4,
-        "expRequired": 840,
-        "maxMp": 604,
-        "maxHp": 644,
-        "resistance": 10
-      },
-      {
-        "level": 5,
-        "expRequired": 1200,
-        "maxMp": 760,
-        "maxHp": 808,
-        "resistance": 13
-      },
-      {
-        "level": 6,
-        "expRequired": 1680,
-        "maxMp": 930,
-        "maxHp": 990,
-        "resistance": 16
-      },
-      {
-        "level": 7,
-        "expRequired": 2350,
-        "maxMp": 1100,
-        "maxHp": 1172,
-        "resistance": 18
-      },
-      {
-        "level": 8,
-        "expRequired": 3310,
-        "maxMp": 1271,
-        "maxHp": 1353,
-        "resistance": 21
-      },
-      {
-        "level": 9,
-        "expRequired": 4800,
-        "maxMp": 1410,
-        "maxHp": 1502,
-        "resistance": 24
-      },
-      {
-        "level": 10,
-        "expRequired": 0,
-        "maxMp": 1550,
-        "maxHp": 1650,
-        "resistance": 26
-      }
-    ]
-  },
-  {
-    "id": "MA-141",
-    "code": "141",
+    "id": "MA-143",
+    "code": "143",
     "name": "伏虎拳",
     "cleanName": "伏虎拳",
     "tier": "良品",
@@ -15194,8 +15418,8 @@
     ]
   },
   {
-    "id": "MA-142",
-    "code": "142",
+    "id": "MA-144",
+    "code": "144",
     "name": "通背拳",
     "cleanName": "通背拳",
     "tier": "良品",
@@ -15261,8 +15485,8 @@
     ]
   },
   {
-    "id": "MA-143",
-    "code": "143",
+    "id": "MA-145",
+    "code": "145",
     "name": "翻天掌",
     "cleanName": "翻天掌",
     "tier": "良品",
@@ -15328,8 +15552,8 @@
     ]
   },
   {
-    "id": "MA-144",
-    "code": "144",
+    "id": "MA-146",
+    "code": "146",
     "name": "鹰爪功",
     "cleanName": "鹰爪功",
     "tier": "良品",
@@ -15395,8 +15619,8 @@
     ]
   },
   {
-    "id": "MA-145",
-    "code": "145",
+    "id": "MA-147",
+    "code": "147",
     "name": "养吾剑法",
     "cleanName": "养吾剑法",
     "tier": "良品",
@@ -15462,8 +15686,8 @@
     ]
   },
   {
-    "id": "MA-146",
-    "code": "146",
+    "id": "MA-148",
+    "code": "148",
     "name": "青城松风剑",
     "cleanName": "青城松风剑",
     "tier": "良品",
@@ -15529,8 +15753,8 @@
     ]
   },
   {
-    "id": "MA-147",
-    "code": "147",
+    "id": "MA-149",
+    "code": "149",
     "name": "三才归元剑",
     "cleanName": "三才归元剑",
     "tier": "良品",
@@ -15596,8 +15820,8 @@
     ]
   },
   {
-    "id": "MA-148",
-    "code": "148",
+    "id": "MA-150",
+    "code": "150",
     "name": "八卦游身刀",
     "cleanName": "八卦游身刀",
     "tier": "良品",
@@ -15663,8 +15887,8 @@
     ]
   },
   {
-    "id": "MA-149",
-    "code": "149",
+    "id": "MA-151",
+    "code": "151",
     "name": "鬼头大刀斩",
     "cleanName": "鬼头大刀斩",
     "tier": "良品",
@@ -15730,8 +15954,8 @@
     ]
   },
   {
-    "id": "MA-150",
-    "code": "150",
+    "id": "MA-152",
+    "code": "152",
     "name": "契丹狼牙棒法",
     "cleanName": "契丹狼牙棒法",
     "tier": "良品",
@@ -15797,8 +16021,8 @@
     ]
   },
   {
-    "id": "MA-151",
-    "code": "151",
+    "id": "MA-153",
+    "code": "153",
     "name": "少林齐眉棍",
     "cleanName": "少林齐眉棍",
     "tier": "良品",
@@ -15864,8 +16088,8 @@
     ]
   },
   {
-    "id": "MA-152",
-    "code": "152",
+    "id": "MA-154",
+    "code": "154",
     "name": "点钢枪谱",
     "cleanName": "点钢枪谱",
     "tier": "良品",
@@ -15931,8 +16155,8 @@
     ]
   },
   {
-    "id": "MA-153",
-    "code": "153",
+    "id": "MA-155",
+    "code": "155",
     "name": "金钱镖",
     "cleanName": "金钱镖",
     "tier": "良品",
@@ -15998,8 +16222,8 @@
     ]
   },
   {
-    "id": "MA-154",
-    "code": "154",
+    "id": "MA-156",
+    "code": "156",
     "name": "折扇点穴功",
     "cleanName": "折扇点穴功",
     "tier": "良品",
@@ -16065,8 +16289,8 @@
     ]
   },
   {
-    "id": "MA-155",
-    "code": "155",
+    "id": "MA-157",
+    "code": "157",
     "name": "草上飞",
     "cleanName": "草上飞",
     "tier": "良品",
@@ -16132,8 +16356,8 @@
     ]
   },
   {
-    "id": "MA-156",
-    "code": "156",
+    "id": "MA-158",
+    "code": "158",
     "name": "燕子三抄水",
     "cleanName": "燕子三抄水",
     "tier": "良品",
@@ -16199,8 +16423,8 @@
     ]
   },
   {
-    "id": "MA-157",
-    "code": "157",
+    "id": "MA-159",
+    "code": "159",
     "name": "少林小乘禅功",
     "cleanName": "少林小乘禅功",
     "tier": "凡品",
@@ -16286,8 +16510,8 @@
     ]
   },
   {
-    "id": "MA-158",
-    "code": "158",
+    "id": "MA-160",
+    "code": "160",
     "name": "华山基础心法",
     "cleanName": "华山基础心法",
     "tier": "凡品",
@@ -16373,8 +16597,8 @@
     ]
   },
   {
-    "id": "MA-159",
-    "code": "159",
+    "id": "MA-161",
+    "code": "161",
     "name": "峨眉吐纳术",
     "cleanName": "峨眉吐纳术",
     "tier": "凡品",
@@ -16460,8 +16684,8 @@
     ]
   },
   {
-    "id": "MA-160",
-    "code": "160",
+    "id": "MA-162",
+    "code": "162",
     "name": "行军壮血功",
     "cleanName": "行军壮血功",
     "tier": "凡品",
@@ -16547,8 +16771,8 @@
     ]
   },
   {
-    "id": "MA-161",
-    "code": "161",
+    "id": "MA-163",
+    "code": "163",
     "name": "罗汉拳",
     "cleanName": "罗汉拳",
     "tier": "凡品",
@@ -16614,8 +16838,8 @@
     ]
   },
   {
-    "id": "MA-162",
-    "code": "162",
+    "id": "MA-164",
+    "code": "164",
     "name": "莲花掌",
     "cleanName": "莲花掌",
     "tier": "凡品",
@@ -16681,8 +16905,8 @@
     ]
   },
   {
-    "id": "MA-163",
-    "code": "163",
+    "id": "MA-165",
+    "code": "165",
     "name": "劈山掌",
     "cleanName": "劈山掌",
     "tier": "凡品",
@@ -16748,8 +16972,8 @@
     ]
   },
   {
-    "id": "MA-164",
-    "code": "164",
+    "id": "MA-166",
+    "code": "166",
     "name": "缠丝擒拿手",
     "cleanName": "缠丝擒拿手",
     "tier": "凡品",
@@ -16815,8 +17039,8 @@
     ]
   },
   {
-    "id": "MA-165",
-    "code": "165",
+    "id": "MA-167",
+    "code": "167",
     "name": "华山剑法（入门十二式）",
     "cleanName": "华山剑法（入门十二式）",
     "tier": "凡品",
@@ -16882,8 +17106,8 @@
     ]
   },
   {
-    "id": "MA-166",
-    "code": "166",
+    "id": "MA-168",
+    "code": "168",
     "name": "泰山剑法（筑基篇）",
     "cleanName": "泰山剑法（筑基篇）",
     "tier": "凡品",
@@ -16949,8 +17173,8 @@
     ]
   },
   {
-    "id": "MA-167",
-    "code": "167",
+    "id": "MA-169",
+    "code": "169",
     "name": "武当长剑",
     "cleanName": "武当长剑",
     "tier": "凡品",
@@ -17016,8 +17240,8 @@
     ]
   },
   {
-    "id": "MA-168",
-    "code": "168",
+    "id": "MA-170",
+    "code": "170",
     "name": "柳叶双刀",
     "cleanName": "柳叶双刀",
     "tier": "凡品",
@@ -17083,8 +17307,8 @@
     ]
   },
   {
-    "id": "MA-169",
-    "code": "169",
+    "id": "MA-171",
+    "code": "171",
     "name": "六合刀",
     "cleanName": "六合刀",
     "tier": "凡品",
@@ -17150,8 +17374,8 @@
     ]
   },
   {
-    "id": "MA-170",
-    "code": "170",
+    "id": "MA-172",
+    "code": "172",
     "name": "丐帮疯魔棍（入门篇）",
     "cleanName": "丐帮疯魔棍（入门篇）",
     "tier": "凡品",
@@ -17217,8 +17441,8 @@
     ]
   },
   {
-    "id": "MA-171",
-    "code": "171",
+    "id": "MA-173",
+    "code": "173",
     "name": "呼延硬鞭法（军中简本）",
     "cleanName": "呼延硬鞭法（军中简本）",
     "tier": "凡品",
@@ -17284,8 +17508,8 @@
     ]
   },
   {
-    "id": "MA-172",
-    "code": "172",
+    "id": "MA-174",
+    "code": "174",
     "name": "杨氏梨花枪（外传简谱）",
     "cleanName": "杨氏梨花枪（外传简谱）",
     "tier": "凡品",
@@ -17351,8 +17575,8 @@
     ]
   },
   {
-    "id": "MA-173",
-    "code": "173",
+    "id": "MA-175",
+    "code": "175",
     "name": "甩手袖箭",
     "cleanName": "甩手袖箭",
     "tier": "凡品",
@@ -17418,8 +17642,8 @@
     ]
   },
   {
-    "id": "MA-174",
-    "code": "174",
+    "id": "MA-176",
+    "code": "176",
     "name": "蒙汗迷烟术",
     "cleanName": "蒙汗迷烟术",
     "tier": "凡品",
@@ -17485,8 +17709,8 @@
     ]
   },
   {
-    "id": "MA-175",
-    "code": "175",
+    "id": "MA-177",
+    "code": "177",
     "name": "飞檐走壁",
     "cleanName": "飞檐走壁",
     "tier": "凡品",
@@ -17552,8 +17776,8 @@
     ]
   },
   {
-    "id": "MA-176",
-    "code": "176",
+    "id": "MA-178",
+    "code": "178",
     "name": "陆地飞腾法",
     "cleanName": "陆地飞腾法",
     "tier": "凡品",
@@ -17619,8 +17843,8 @@
     ]
   },
   {
-    "id": "MA-177",
-    "code": "177",
+    "id": "MA-179",
+    "code": "179",
     "name": "周天引气诀",
     "cleanName": "周天引气诀",
     "tier": "凡品",
@@ -17706,8 +17930,8 @@
     ]
   },
   {
-    "id": "MA-178",
-    "code": "178",
+    "id": "MA-180",
+    "code": "180",
     "name": "站桩壮骨法",
     "cleanName": "站桩壮骨法",
     "tier": "凡品",
@@ -17803,8 +18027,8 @@
     ]
   },
   {
-    "id": "MA-179",
-    "code": "179",
+    "id": "MA-181",
+    "code": "181",
     "name": "清心静坐诀",
     "cleanName": "清心静坐诀",
     "tier": "凡品",
@@ -17900,8 +18124,8 @@
     ]
   },
   {
-    "id": "MA-180",
-    "code": "180",
+    "id": "MA-182",
+    "code": "182",
     "name": "太祖长拳",
     "cleanName": "太祖长拳",
     "tier": "凡品",
@@ -17967,8 +18191,8 @@
     ]
   },
   {
-    "id": "MA-181",
-    "code": "181",
+    "id": "MA-183",
+    "code": "183",
     "name": "洪拳（岭南/闽南初传）",
     "cleanName": "洪拳（岭南/闽南初传）",
     "tier": "凡品",
@@ -18034,8 +18258,8 @@
     ]
   },
   {
-    "id": "MA-182",
-    "code": "182",
+    "id": "MA-184",
+    "code": "184",
     "name": "查拳",
     "cleanName": "查拳",
     "tier": "凡品",
@@ -18101,8 +18325,8 @@
     ]
   },
   {
-    "id": "MA-183",
-    "code": "183",
+    "id": "MA-185",
+    "code": "185",
     "name": "弹腿",
     "cleanName": "弹腿",
     "tier": "凡品",
@@ -18168,8 +18392,8 @@
     ]
   },
   {
-    "id": "MA-184",
-    "code": "184",
+    "id": "MA-186",
+    "code": "186",
     "name": "铁砂掌（粗练）",
     "cleanName": "铁砂掌（粗练）",
     "tier": "凡品",
@@ -18235,8 +18459,8 @@
     ]
   },
   {
-    "id": "MA-185",
-    "code": "185",
+    "id": "MA-187",
+    "code": "187",
     "name": "青萍剑法",
     "cleanName": "青萍剑法",
     "tier": "凡品",
@@ -18302,8 +18526,8 @@
     ]
   },
   {
-    "id": "MA-186",
-    "code": "186",
+    "id": "MA-188",
+    "code": "188",
     "name": "三才剑",
     "cleanName": "三才剑",
     "tier": "凡品",
@@ -18369,8 +18593,8 @@
     ]
   },
   {
-    "id": "MA-187",
-    "code": "187",
+    "id": "MA-189",
+    "code": "189",
     "name": "泼风刀法",
     "cleanName": "泼风刀法",
     "tier": "凡品",
@@ -18436,8 +18660,8 @@
     ]
   },
   {
-    "id": "MA-188",
-    "code": "188",
+    "id": "MA-190",
+    "code": "190",
     "name": "官制朴刀术",
     "cleanName": "官制朴刀术",
     "tier": "凡品",
@@ -18503,8 +18727,8 @@
     ]
   },
   {
-    "id": "MA-189",
-    "code": "189",
+    "id": "MA-191",
+    "code": "191",
     "name": "杀猪断骨刀",
     "cleanName": "杀猪断骨刀",
     "tier": "凡品",
@@ -18570,8 +18794,8 @@
     ]
   },
   {
-    "id": "MA-190",
-    "code": "190",
+    "id": "MA-192",
+    "code": "192",
     "name": "少林烧火棍",
     "cleanName": "少林烧火棍",
     "tier": "凡品",
@@ -18637,8 +18861,8 @@
     ]
   },
   {
-    "id": "MA-191",
-    "code": "191",
+    "id": "MA-193",
+    "code": "193",
     "name": "漕工撑篙杆",
     "cleanName": "漕工撑篙杆",
     "tier": "凡品",
@@ -18704,8 +18928,8 @@
     ]
   },
   {
-    "id": "MA-192",
-    "code": "192",
+    "id": "MA-194",
+    "code": "194",
     "name": "捕快锁链功",
     "cleanName": "捕快锁链功",
     "tier": "凡品",
@@ -18771,8 +18995,8 @@
     ]
   },
   {
-    "id": "MA-193",
-    "code": "193",
+    "id": "MA-195",
+    "code": "195",
     "name": "飞蝗石",
     "cleanName": "飞蝗石",
     "tier": "凡品",
@@ -18838,8 +19062,8 @@
     ]
   },
   {
-    "id": "MA-194",
-    "code": "194",
+    "id": "MA-196",
+    "code": "196",
     "name": "石灰迷眼包",
     "cleanName": "石灰迷眼包",
     "tier": "凡品",
@@ -18905,8 +19129,8 @@
     ]
   },
   {
-    "id": "MA-195",
-    "code": "195",
+    "id": "MA-197",
+    "code": "197",
     "name": "提纵术",
     "cleanName": "提纵术",
     "tier": "凡品",
@@ -18972,8 +19196,8 @@
     ]
   },
   {
-    "id": "MA-196",
-    "code": "196",
+    "id": "MA-198",
+    "code": "198",
     "name": "梅花桩步",
     "cleanName": "梅花桩步",
     "tier": "凡品",
@@ -19039,8 +19263,8 @@
     ]
   },
   {
-    "id": "MA-197",
-    "code": "197",
+    "id": "MA-199",
+    "code": "199",
     "name": "粗浅呼吸法",
     "cleanName": "粗浅呼吸法",
     "tier": "凡品",
@@ -19126,8 +19350,8 @@
     ]
   },
   {
-    "id": "MA-198",
-    "code": "198",
+    "id": "MA-200",
+    "code": "200",
     "name": "挑夫扛鼎气",
     "cleanName": "挑夫扛鼎气",
     "tier": "凡品",
@@ -19213,8 +19437,8 @@
     ]
   },
   {
-    "id": "MA-199",
-    "code": "199",
+    "id": "MA-201",
+    "code": "201",
     "name": "市井王八拳",
     "cleanName": "市井王八拳",
     "tier": "凡品",
@@ -19280,8 +19504,8 @@
     ]
   },
   {
-    "id": "MA-200",
-    "code": "200",
+    "id": "MA-202",
+    "code": "202",
     "name": "庄稼把式拳",
     "cleanName": "庄稼把式拳",
     "tier": "凡品",
@@ -19347,8 +19571,8 @@
     ]
   },
   {
-    "id": "MA-201",
-    "code": "201",
+    "id": "MA-203",
+    "code": "203",
     "name": "醉汉跌扑手",
     "cleanName": "醉汉跌扑手",
     "tier": "凡品",
@@ -19414,8 +19638,8 @@
     ]
   },
   {
-    "id": "MA-202",
-    "code": "202",
+    "id": "MA-204",
+    "code": "204",
     "name": "护院拦门掌",
     "cleanName": "护院拦门掌",
     "tier": "凡品",
@@ -19481,8 +19705,8 @@
     ]
   },
   {
-    "id": "MA-203",
-    "code": "203",
+    "id": "MA-205",
+    "code": "205",
     "name": "杂耍花剑",
     "cleanName": "杂耍花剑",
     "tier": "凡品",
@@ -19548,8 +19772,8 @@
     ]
   },
   {
-    "id": "MA-204",
-    "code": "204",
+    "id": "MA-206",
+    "code": "206",
     "name": "基础刺击剑",
     "cleanName": "基础刺击剑",
     "tier": "凡品",
@@ -19615,8 +19839,8 @@
     ]
   },
   {
-    "id": "MA-205",
-    "code": "205",
+    "id": "MA-207",
+    "code": "207",
     "name": "柴刀乱披法",
     "cleanName": "柴刀乱披法",
     "tier": "凡品",
@@ -19682,8 +19906,8 @@
     ]
   },
   {
-    "id": "MA-206",
-    "code": "206",
+    "id": "MA-208",
+    "code": "208",
     "name": "厨娘双菜刀",
     "cleanName": "厨娘双菜刀",
     "tier": "凡品",
@@ -19749,8 +19973,8 @@
     ]
   },
   {
-    "id": "MA-207",
-    "code": "207",
+    "id": "MA-209",
+    "code": "209",
     "name": "山贼砍山刀",
     "cleanName": "山贼砍山刀",
     "tier": "凡品",
@@ -19816,8 +20040,8 @@
     ]
   },
   {
-    "id": "MA-208",
-    "code": "208",
+    "id": "MA-210",
+    "code": "210",
     "name": "猎户叉虎枪",
     "cleanName": "猎户叉虎枪",
     "tier": "凡品",
@@ -19883,8 +20107,8 @@
     ]
   },
   {
-    "id": "MA-209",
-    "code": "209",
+    "id": "MA-211",
+    "code": "211",
     "name": "打狗竹棒（市井叫花）",
     "cleanName": "打狗竹棒（市井叫花）",
     "tier": "凡品",
@@ -19950,8 +20174,8 @@
     ]
   },
   {
-    "id": "MA-210",
-    "code": "210",
+    "id": "MA-212",
+    "code": "212",
     "name": "扁担挑打术",
     "cleanName": "扁担挑打术",
     "tier": "凡品",
@@ -20017,8 +20241,8 @@
     ]
   },
   {
-    "id": "MA-211",
-    "code": "211",
+    "id": "MA-213",
+    "code": "213",
     "name": "更夫齐眉梆",
     "cleanName": "更夫齐眉梆",
     "tier": "凡品",
@@ -20084,8 +20308,8 @@
     ]
   },
   {
-    "id": "MA-212",
-    "code": "212",
+    "id": "MA-214",
+    "code": "214",
     "name": "铁算盘格挡",
     "cleanName": "铁算盘格挡",
     "tier": "凡品",
@@ -20151,8 +20375,8 @@
     ]
   },
   {
-    "id": "MA-213",
-    "code": "213",
+    "id": "MA-215",
+    "code": "215",
     "name": "弹弓打鸟术",
     "cleanName": "弹弓打鸟术",
     "tier": "凡品",
@@ -20218,8 +20442,8 @@
     ]
   },
   {
-    "id": "MA-214",
-    "code": "214",
+    "id": "MA-216",
+    "code": "216",
     "name": "渔网罩身手",
     "cleanName": "渔网罩身手",
     "tier": "凡品",
@@ -20285,8 +20509,8 @@
     ]
   },
   {
-    "id": "MA-215",
-    "code": "215",
+    "id": "MA-217",
+    "code": "217",
     "name": "疾跑赶路步",
     "cleanName": "疾跑赶路步",
     "tier": "凡品",
@@ -20352,8 +20576,8 @@
     ]
   },
   {
-    "id": "MA-216",
-    "code": "216",
+    "id": "MA-218",
+    "code": "218",
     "name": "翻滚躲闪步",
     "cleanName": "翻滚躲闪步",
     "tier": "凡品",

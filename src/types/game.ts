@@ -762,7 +762,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M1.3.0'
+  schemaVersion: 'M1.3.1'
   slotId: SaveSlotId
   savedAt: string
   note: string

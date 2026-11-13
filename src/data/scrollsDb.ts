@@ -191,7 +191,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     useEffect: {
       mp: 90,
       res: 4,
-      learnArtId: 'MA-037',
+      learnArtId: 'MA-038',
       learnArtHint: '参悟地阶上品内功《少林九阳功》纯阳周天',
     },
   },
@@ -206,7 +206,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '终南山活死人墓秘传的轻灵内功素绢卷，行功时热气蒸腾需解衣散气，练成后身轻如燕、招式奇快无伦。',
     useEffect: {
       mp: 85,
-      learnArtId: 'MA-038',
+      learnArtId: 'MA-039',
       learnArtHint: '参悟地阶上品《玉女心经》阴柔妙谛',
     },
   },
@@ -222,7 +222,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     useEffect: {
       mp: 80,
       skillGain: ['琴', 4],
-      learnArtId: 'MA-039',
+      learnArtId: 'MA-040',
       learnArtHint: '参悟地阶上品《碧海潮生功》（【琴】+4）',
     },
   },
@@ -238,7 +238,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     lore: '汪剑通帮主批注：“非忠肝义胆、真气沛然者，莫授此卷。”',
     useEffect: {
       mp: 75,
-      learnArtId: 'MA-044',
+      learnArtId: 'MA-045',
       learnArtHint: '参悟丐帮地阶上品绝技《擒龙功》',
     },
   },
@@ -253,7 +253,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '荆襄武当道家高士绘于绵纸上的绝顶轻功图解，左脚踏右脚背借力直上青云，号称轻功中的轻功。',
     useEffect: {
       stamina: 30,
-      learnArtId: 'MA-055',
+      learnArtId: 'MA-056',
       learnArtHint: '参悟地阶上品轻功《梯云纵》提气凌虚法门',
     },
   },
@@ -268,7 +268,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '西岳华山派镇派上乘剑诀，取莲花、朝阳、落雁三峰险峻峭拔之势，一剑三连环，剑气森然逼人。',
     useEffect: {
       mp: 65,
-      learnArtId: 'MA-048',
+      learnArtId: 'MA-049',
       learnArtHint: '参悟华山派地阶上品绝剑《太岳三青峰》',
     },
   },
@@ -283,7 +283,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '荆楚铁掌峰秘藏玄铁夹板书册，详载刚猛霸道、开碑裂石的《铁掌功》十四路催劲毒砂火候。',
     useEffect: {
       hp: 80,
-      learnArtId: 'MA-045',
+      learnArtId: 'MA-046',
       learnArtHint: '参悟地阶上品刚猛绝学《铁掌功》',
     },
   },
@@ -298,7 +298,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '成都府外唐家堡秘不外传的机括手法真卷，一扬手间金针、铁莲子、袖箭铺天盖地封死敌手八方退路。',
     useEffect: {
       skillGain: ['算术', 3],
-      learnArtId: 'MA-053',
+      learnArtId: 'MA-054',
       learnArtHint: '参悟唐门地阶上品暗器绝学《满天花雨》（【算术】+3）',
     },
   },
@@ -313,7 +313,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '河北真定名宿融合古战阵槊法创制的百战神枪秘谱，大枪如神龙出水，横扫千军万马而锋芒不折。',
     useEffect: {
       riding: 3,
-      learnArtId: 'MA-073',
+      learnArtId: 'MA-074',
       learnArtHint: '参悟地阶中品枪术《岳氏沥泉枪前谱（常山龙胆枪）》',
     },
   },
@@ -328,7 +328,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '从颜真卿行草奇作《裴将军诗》中化出的点穴判官笔绝学，笔走龙蛇间兼备雷霆剑意与书法筋骨。',
     useEffect: {
       skillGain: ['书', 4],
-      learnArtId: 'MA-094',
+      learnArtId: 'MA-096',
       learnArtHint: '以书入武，参悟地阶奇学《裴将军诗剑帖（判官笔）》（【书】+4）',
     },
   },
@@ -487,7 +487,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '少林寺罗汉堂武僧进阶修习的护体内功图册，运功时隐现伏虎禅意，筋骨强健有力。',
     useEffect: {
       mp: 45,
-      learnArtId: 'MA-098',
+      learnArtId: 'MA-100',
       learnArtHint: '参悟良品上品内功《罗汉伏虎功》',
     },
   },
@@ -502,7 +502,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '汴京殿前司班直禁军将校专修的重甲呼吸吐纳法，披坚执锐久战不疲，最抗刀箭攒射。',
     useEffect: {
       hp: 60,
-      learnArtId: 'MA-100',
+      learnArtId: 'MA-102',
       learnArtHint: '参悟良品上品军阵内功《大内禁军玄甲劲》',
     },
   },
@@ -517,7 +517,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '川蜀峨眉山佛道兼修女冠与僧侣传习的清净内功卷，心若莲华不染尘埃，真气凝练绵长。',
     useEffect: {
       mp: 50,
-      learnArtId: 'MA-099',
+      learnArtId: 'MA-101',
       learnArtHint: '参悟良品上品内功《莲华静心诀》',
     },
   },
@@ -532,7 +532,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '洛阳金刀世家外传的刀法总诀拓本，刀势大开大合、刚猛沉雄，尽显中州名门气派。',
     useEffect: {
       mp: 30,
-      learnArtId: 'MA-109',
+      learnArtId: 'MA-113',
       learnArtHint: '参悟良品上品刀法《洛阳金刀谱》（佩备【洛阳九环金背刀】可触发绝配共鸣）',
     },
   },
@@ -547,7 +547,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '河东代州雁门关戍边老卒在血火厮杀中锤炼出的惨烈战刀谱，刀刀直奔马腿咽喉，绝无花哨虚招。',
     useEffect: {
       hp: 40,
-      learnArtId: 'MA-111',
+      learnArtId: 'MA-115',
       learnArtHint: '参悟良品上品边关杀招《雁门断魂刀》',
     },
   },
@@ -562,7 +562,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '关中道门秘传轻功佳构，摹塞外金雁斜飞掠空之姿，可一口真气凌空转折数次。',
     useEffect: {
       stamina: 20,
-      learnArtId: 'MA-115',
+      learnArtId: 'MA-119',
       learnArtHint: '参悟良品上品轻功《金雁功》',
     },
   },
@@ -577,7 +577,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '江淮漕帮水路香主踏浪渡河的独门轻功秘本，足尖点踏浮木芦苇即可飞渡汴河急流。',
     useEffect: {
       stamina: 20,
-      learnArtId: 'MA-116',
+      learnArtId: 'MA-120',
       learnArtHint: '参悟良品上品轻功《水上漂（漕帮精修卷）》',
     },
   },
@@ -592,7 +592,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '西岳华山落雁峰剑客所传进阶剑谱，剑势轻灵迅捷、忽高忽低，令敌手难测剑尖落点。',
     useEffect: {
       mp: 30,
-      learnArtId: 'MA-125',
+      learnArtId: 'MA-128',
       learnArtHint: '参悟良品中品剑术《落雁剑法》',
     },
   },
@@ -607,7 +607,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '吴越会稽民间流传的春秋古剑遗篇，剑路清丽曼妙，专为身形灵巧者以快打慢而设。',
     useEffect: {
       mp: 30,
-      learnArtId: 'MA-127',
+      learnArtId: 'MA-130',
       learnArtHint: '参悟良品中品古剑《越女古剑术（江南传本）》',
     },
   },
@@ -622,7 +622,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '相传天波杨府五郎延德于五台山出家后化枪为棍所创，棍影重重暗合八卦方位，专克契丹长槊。',
     useEffect: {
       hp: 40,
-      learnArtId: 'MA-131',
+      learnArtId: 'MA-134',
       learnArtHint: '参悟良品中品长兵绝技《五郎八卦棍》',
     },
   },
@@ -637,7 +637,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '河北沧州与京畿武师推崇的百兵之王枪谱，讲究心与意合、意与气合、气与力合，拦拿扎一气呵成。',
     useEffect: {
       riding: 2,
-      learnArtId: 'MA-112',
+      learnArtId: 'MA-116',
       learnArtHint: '参悟良品上品枪法《六合大枪》',
     },
   },
@@ -652,7 +652,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '开封府与刑部六扇门名捕闭气追踪、伏击悍匪的独门内息法门，耳目聪敏，夜行百里气息不乱。',
     useEffect: {
       stamina: 25,
-      learnArtId: 'MA-119',
+      learnArtId: 'MA-122',
       learnArtHint: '参悟良品中品内功《六扇门捕风诀》',
     },
   },
@@ -668,7 +668,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     useEffect: {
       hp: 55,
       mp: 35,
-      learnArtId: 'MA-138',
+      learnArtId: 'MA-141',
       learnArtHint: '参悟良品下品内功《五禽养生功》',
     },
   },
@@ -683,7 +683,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '江南与汴洛文士侠客喜爱的奇门点穴谱，合扇如判官笔认穴闭脉，开扇潇洒自若不失儒雅风流。',
     useEffect: {
       skillGain: ['诗词', 2],
-      learnArtId: 'MA-154',
+      learnArtId: 'MA-156',
       learnArtHint: '参悟良品下品奇门指法《折扇点穴功》（【诗词】+2）',
     },
   },
@@ -698,7 +698,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '江湖一流轻功筑基进阶谱，身形掠过水面或屋脊时足尖三度轻点借力，矫健如春燕剪水。',
     useEffect: {
       stamina: 20,
-      learnArtId: 'MA-156',
+      learnArtId: 'MA-158',
       learnArtHint: '参悟良品下品轻功《燕子三抄水》',
     },
   },
@@ -917,7 +917,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     lore: '相传宋太祖赵匡胤微时以此拳打遍京洛。',
     useEffect: {
       mp: 20,
-      learnArtId: 'MA-180',
+      learnArtId: 'MA-182',
       learnArtHint: '初次展卷参悟《太祖长拳》入门精要',
     },
   },
@@ -932,7 +932,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '少林寺外院俗家弟子入门必修拳法木刻小册，拳架稳固严整，一招一式皆具佛门护法正气。',
     useEffect: {
       hp: 25,
-      learnArtId: 'MA-161',
+      learnArtId: 'MA-163',
       learnArtHint: '参悟凡品上品拳法《罗汉拳》',
     },
   },
@@ -947,7 +947,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '大宋江湖流传最广的丹田吐纳入门小册，按子午流注导引微弱内息循任督初转，中正平和绝无走火之虞。',
     useEffect: {
       mp: 30,
-      learnArtId: 'MA-177',
+      learnArtId: 'MA-179',
       learnArtHint: '参悟基础内功《周天引气诀》',
     },
   },
@@ -962,7 +962,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '道门与民间剑客常备的入门剑术歌诀，剑招轻快灵便，刺挑挂抹循规蹈矩。',
     useEffect: {
       mp: 20,
-      learnArtId: 'MA-185',
+      learnArtId: 'MA-187',
       learnArtHint: '参悟凡品中品剑术《青萍剑法》',
     },
   },
@@ -977,7 +977,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '河东名将呼延赞传于禁军马步军的竹节钢鞭操典简钞本，专重砸锁破甲之巧劲。',
     useEffect: {
       skillGain: ['策论', 1],
-      learnArtId: 'MA-171',
+      learnArtId: 'MA-173',
       learnArtHint: '揣摩北宋军中《呼延硬鞭法（军中简本）》（【策论】+1）',
     },
   },
@@ -992,7 +992,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '代州民间乡勇仿天波杨府枪法抄录的外围筑基枪谱，枪花点点护住门户，颇具边塞遗风。',
     useEffect: {
       riding: 1,
-      learnArtId: 'MA-172',
+      learnArtId: 'MA-174',
       learnArtHint: '参悟凡品上品枪术《杨氏梨花枪（外传简谱）》',
     },
   },
@@ -1007,7 +1007,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '西岳华山外门剑童每日晨课演练的基础十二路剑招图解，白云出岫、有凤来仪初见雏形。',
     useEffect: {
       mp: 20,
-      learnArtId: 'MA-165',
+      learnArtId: 'MA-167',
       learnArtHint: '参悟《华山剑法（入门十二式）》',
     },
   },
@@ -1022,7 +1022,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '武当山下道观道童防身健体的长剑套路，讲究沉肩坠肘、剑随身转。',
     useEffect: {
       mp: 20,
-      learnArtId: 'MA-167',
+      learnArtId: 'MA-169',
       learnArtHint: '参悟《武当长剑》基础剑路',
     },
   },
@@ -1037,7 +1037,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '大宋各州丐帮低袋弟子在破庙传习的防身掌法，掌势翻飞如莲叶遮护周身。',
     useEffect: {
       hp: 20,
-      learnArtId: 'MA-162',
+      learnArtId: 'MA-164',
       learnArtHint: '参悟凡品上品掌法《莲花掌》',
     },
   },
@@ -1052,7 +1052,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '详载绑沙袋跑板壁、借飞爪翻越高墙大院的江湖轻身术小册，夜行侠客与捕快人手一卷。',
     useEffect: {
       stamina: 15,
-      learnArtId: 'MA-175',
+      learnArtId: 'MA-177',
       learnArtHint: '参悟凡品上品轻功《飞檐走壁》',
     },
   },
@@ -1067,7 +1067,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '大宋各州府禁厢军伍长传授新兵的壮气活血呼吸法，能耐风霜劳顿、增强皮肉气血。',
     useEffect: {
       hp: 35,
-      learnArtId: 'MA-160',
+      learnArtId: 'MA-162',
       learnArtHint: '参悟军旅筑基内功《行军壮血功》',
     },
   },
@@ -1082,7 +1082,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '各县弓手与巡检司土兵剿匪防盗的标准长柄朴刀劈砍图谱，朴实凶悍、易于速成。',
     useEffect: {
       hp: 20,
-      learnArtId: 'MA-188',
+      learnArtId: 'MA-190',
       learnArtHint: '参悟《官制朴刀术》实战招架',
     },
   },
@@ -1097,7 +1097,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '中原镖局趟子手与女侠喜习的双刀套路，双刀交错如春柳迎风，护身严密。',
     useEffect: {
       stamina: 10,
-      learnArtId: 'MA-168',
+      learnArtId: 'MA-170',
       learnArtHint: '参悟凡品上品刀法《柳叶双刀》',
     },
   },
@@ -1112,7 +1112,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '京畿与河北武馆常见的单刀筑基谱，缠头裹脑、劈砍撩挂步步沉稳。',
     useEffect: {
       hp: 20,
-      learnArtId: 'MA-169',
+      learnArtId: 'MA-171',
       learnArtHint: '参悟凡品上品刀法《六合刀》',
     },
   },
@@ -1127,7 +1127,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '“手是两扇门，全凭腿打人”，黄河两岸拳师启蒙必练的十路潭腿歌诀抄本。',
     useEffect: {
       stamina: 12,
-      learnArtId: 'MA-183',
+      learnArtId: 'MA-185',
       learnArtHint: '参悟凡品中品腿法《弹腿》',
     },
   },
@@ -1142,7 +1142,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '州县衙门老捕头总结的分筋错骨反关节拿人手法，专门生擒醉汉与毛贼。',
     useEffect: {
       mp: 15,
-      learnArtId: 'MA-164',
+      learnArtId: 'MA-166',
       learnArtHint: '参悟凡品上品拳掌《缠丝擒拿手》',
     },
   },
@@ -1157,7 +1157,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '走江湖单身客商暗藏护腕袖筒发射短箭的瞄准与发力诀窍，冷不防可救性命。',
     useEffect: {
       skillGain: ['算术', 1],
-      learnArtId: 'MA-173',
+      learnArtId: 'MA-175',
       learnArtHint: '参悟凡品上品暗器《甩手袖箭》（【算术】+1）',
     },
   },
@@ -1172,7 +1172,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '乡间武举人与护院教头立木桩锤炼下盘眼力的步法图册，走熟后下盘稳健、闪展灵活。',
     useEffect: {
       stamina: 12,
-      learnArtId: 'MA-196',
+      learnArtId: 'MA-198',
       learnArtHint: '参悟凡品中品轻功《梅花桩步》',
     },
   },
@@ -1187,7 +1187,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '拣取河滩鹅卵石以指腕寸劲破空击远的粗浅暗器练法，胜在随地可取、弹无虚发。',
     useEffect: {
       stamina: 10,
-      learnArtId: 'MA-193',
+      learnArtId: 'MA-195',
       learnArtHint: '参悟凡品中品暗器《飞蝗石》',
     },
   },
@@ -1203,7 +1203,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     useEffect: {
       mp: 25,
       res: 1,
-      learnArtId: 'MA-179',
+      learnArtId: 'MA-181',
       learnArtHint: '参悟凡品中品内功《清心静坐诀》',
     },
   },

@@ -136,27 +136,44 @@ export function PortraitsTab({
           className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer max-w-[195px]"
         >
           <option value="ALL">全部 30派+11势力</option>
-          <optgroup label="一流名门大派 (SECT-01..20)">
+          <optgroup
+            label={`一流名门大派 (${ID_REGISTRY.factions.filter((f) => f.sectTier === '一流大派').length})`}
+          >
             {ID_REGISTRY.factions
-              .filter((f) => f.isMajorSect)
+              .filter((f) => f.sectTier === '一流大派')
               .map((f) => (
                 <option key={f.id} value={f.id}>
                   {f.id} {f.name} ({f.memberCount})
                 </option>
               ))}
           </optgroup>
-          <optgroup label="二三流门派与武馆 (SECT-21..30)">
+          <optgroup
+            label={`二流世家武盟 (${ID_REGISTRY.factions.filter((f) => f.sectTier === '二流门派').length})`}
+          >
             {ID_REGISTRY.factions
-              .filter((f) => f.isMinorSect)
+              .filter((f) => f.sectTier === '二流门派')
               .map((f) => (
                 <option key={f.id} value={f.id}>
                   {f.id} {f.name} ({f.memberCount})
                 </option>
               ))}
           </optgroup>
-          <optgroup label="朝堂与四夷势力 (ORG-01..11)">
+          <optgroup
+            label={`三流市井武馆 (${ID_REGISTRY.factions.filter((f) => f.sectTier === '三流小派').length})`}
+          >
             {ID_REGISTRY.factions
-              .filter((f) => !f.isMajorSect && !f.isMinorSect)
+              .filter((f) => f.sectTier === '三流小派')
+              .map((f) => (
+                <option key={f.id} value={f.id}>
+                  {f.id} {f.name} ({f.memberCount})
+                </option>
+              ))}
+          </optgroup>
+          <optgroup
+            label={`朝堂与四夷势力 (${ID_REGISTRY.factions.filter((f) => f.sectTier === '朝堂与地域组织').length})`}
+          >
+            {ID_REGISTRY.factions
+              .filter((f) => f.sectTier === '朝堂与地域组织')
               .map((f) => (
                 <option key={f.id} value={f.id}>
                   {f.id} {f.name} ({f.memberCount})

@@ -105,7 +105,7 @@ export function SystemMenuModal() {
 
   // Cross-tab focus states for System Hub (Loadout & Bag)
   const [selectedEquipSlot, setSelectedEquipSlot] = useState<EquipmentSlotKey>('weapon')
-  const [inspectedLearnedArtId, setInspectedLearnedArtId] = useState<string>('MA-177')
+  const [inspectedLearnedArtId, setInspectedLearnedArtId] = useState<string>('MA-179')
   const [selectedBagItemId, setSelectedBagItemId] = useState<string | null>(null)
 
   // Cross-tab focus states for Compendium (Regions, Sects, Mounts, Portraits, Martial Arts, Armory, Treasures)
@@ -340,7 +340,7 @@ export function SystemMenuModal() {
               </div>
               <p className="text-xs text-[#d6c5a5] mt-0.5">
                 {isCompendiumMode
-                  ? `${formatSongDate(dayCount, shichenIdx)} · 舆地43境 / 武林30派+11势力 / 群侠千人谱 / 武学216功 / 披挂268件 / 名驹28骑 / 博物180品 · 按 G 或 ESC 返回舆图`
+                  ? `${formatSongDate(dayCount, shichenIdx)} · 舆地43境 / 武林30派+11势力 / 群侠千人谱 / 武学${ID_REGISTRY.counts.martialArts}功 / 披挂268件 / 名驹28骑 / 博物180品 · 按 G 或 ESC 返回舆图`
                   : `${formatSongDate(dayCount, shichenIdx)} · 主角总览 / 披挂武学 / 行囊四库 / 卷宗存取 · 按 ESC 返回舆图`}
               </p>
             </div>

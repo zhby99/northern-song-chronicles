@@ -26,7 +26,7 @@ import {
 } from '../data/playerMartialArts'
 import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from './heroStats'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.3.0' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.3.1' as const
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId

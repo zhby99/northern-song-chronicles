@@ -72,11 +72,19 @@ export function MartialArtsTab({
           onChange={(e) => onChangeArtTierFilter(e.target.value)}
           className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
         >
-          <option value="ALL">全部四阶 (216 门)</option>
-          <option value="天阶">天阶绝学 (37 门)</option>
-          <option value="地阶">地阶上乘 (59 门)</option>
-          <option value="良品">良品中坚 (60 门)</option>
-          <option value="凡品">凡品筑基 (60 门)</option>
+          <option value="ALL">全部四阶 ({MARTIAL_ARTS_DB.length} 门)</option>
+          <option value="天阶">
+            天阶绝学 ({MARTIAL_ARTS_DB.filter((a) => a.tier === '天阶').length} 门)
+          </option>
+          <option value="地阶">
+            地阶上乘 ({MARTIAL_ARTS_DB.filter((a) => a.tier === '地阶').length} 门)
+          </option>
+          <option value="良品">
+            良品中坚 ({MARTIAL_ARTS_DB.filter((a) => a.tier === '良品').length} 门)
+          </option>
+          <option value="凡品">
+            凡品筑基 ({MARTIAL_ARTS_DB.filter((a) => a.tier === '凡品').length} 门)
+          </option>
         </select>
         <select
           value={artCatFilter}

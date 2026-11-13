@@ -1659,7 +1659,7 @@
       "role": "前家主（假死潜伏藏经阁）",
       "loc": "嵩山少林寺",
       "realm": "宗师上品",
-      "arts": "斗转星移、参合指、般若掌、拈花指",
+      "arts": "《斗转星移》、参合指、般若掌、拈花指",
       "bio": "大燕皇室后裔，对外早已宣告‘暴病身亡’、灵柩安葬姑苏，实则假死脱身潜伏于少林寺藏经阁偷阅七十二绝技，暗中冷眼旁观宋辽风云，位列宗师上品。",
       "avatarUrl": "/assets/characters/avatars/NPC-0104.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0104.jpg"
@@ -1755,7 +1755,7 @@
       "role": "丐帮帮主",
       "loc": "洛阳府",
       "realm": "宗师中品",
-      "arts": "降龙十八掌、打狗棒法、擒龙功、太祖长拳",
+      "arts": "降龙十八掌、打狗棒法、《混天气功》、擒龙功、太祖长拳",
       "bio": "与慕容复并称‘北乔峰，南慕容’。师承少林玄苦与丐帮汪剑通，豪迈飒爽、义薄云天，接掌丐帮后率领十万帮众屡挫契丹与西夏一品堂，每逢强敌愈战愈勇，位列宗师中品。",
       "avatarUrl": "/assets/characters/avatars/NPC-0110.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0110.jpg"
@@ -1771,7 +1771,7 @@
       "role": "丐帮太上老帮主",
       "loc": "洛阳府",
       "realm": "宗师中品",
-      "arts": "降龙十八掌、打狗棒法、擒龙功、八步赶蝉",
+      "arts": "降龙十八掌、打狗棒法、《混天气功》、擒龙功、八步赶蝉",
       "bio": "丐帮前任帮主，经三大难题七大功劳考验后将帮主之位传予乔峰，退居洛阳总舵幕后养病，手中握有当年雁门关带头大哥遗留密信。",
       "avatarUrl": "/assets/characters/avatars/NPC-0111.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0111.jpg"
@@ -1883,7 +1883,7 @@
       "role": "华山派掌门",
       "loc": "潼关 / 西岳华山",
       "realm": "宗师中品",
-      "arts": "紫霞神功（先天太岳卷）、太岳三青峰、希夷剑法、八步赶蝉",
+      "arts": "《紫霞神功（先天太岳卷）》、太岳三青峰、希夷剑法、八步赶蝉",
       "bio": "西岳华山掌门，紫霞真气醇厚绵长，三尺青锋镇守关中潼关一线，门规严谨，侠名远播西北。",
       "avatarUrl": "/assets/characters/avatars/NPC-0118.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0118.jpg"
@@ -1915,7 +1915,7 @@
       "role": "姑苏慕容氏当代家主",
       "loc": "太湖燕子坞",
       "realm": "宗师下品",
-      "arts": "斗转星移、参合指、慕容氏家传剑法、八步赶蝉",
+      "arts": "《斗转星移》、参合指、慕容氏家传剑法、八步赶蝉",
       "bio": "慕容博之子，与乔峰并称‘北乔峰，南慕容’。面如冠玉、文武双全，以‘以彼之道，还施彼身’享誉天下，自幼在父亲假死后独撑燕子坞，奔走四方暗图兴复大燕，位列宗师下品。",
       "avatarUrl": "/assets/characters/avatars/NPC-0120.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0120.jpg"
@@ -1995,7 +1995,7 @@
       "role": "唐家堡老太爷",
       "loc": "青城山 / 唐家堡",
       "realm": "宗师下品",
-      "arts": "暴雨梨花针诀（唐门天机卷）、满天花雨、子午透骨钉",
+      "arts": "暴雨梨花针诀（唐门天机卷）、《天机万毒功》、满天花雨、子午透骨钉",
       "bio": "蜀中唐门执掌大权之老家主，喜怒不形于色，袖藏天机匣，巴蜀官匪两道闻其名皆退避三舍。",
       "avatarUrl": "/assets/characters/avatars/NPC-0125.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0125.jpg"
@@ -2171,7 +2171,7 @@
       "role": "丐帮副帮主",
       "loc": "洛阳府",
       "realm": "一流上品",
-      "arts": "锁喉擒拿手、擒龙功、八步赶蝉",
+      "arts": "《混天气功》、锁喉擒拿手、擒龙功、八步赶蝉",
       "bio": "丐帮副帮主，忠义刚正，辅佐帮主乔峰统辖帮务，家中藏有汪剑通临退前交付的带头大哥密信。",
       "avatarUrl": "/assets/characters/avatars/NPC-0136.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0136.jpg"
@@ -2379,7 +2379,7 @@
       "role": "唐家堡当代堡主",
       "loc": "青城山 / 唐家堡",
       "realm": "一流上品",
-      "arts": "满天花雨、含沙射影、子午透骨钉",
+      "arts": "《天机万毒功》、满天花雨、含沙射影、子午透骨钉",
       "bio": "唐鹤轩长子，双袖暗藏十八种淬毒机簧，心机深沉，主持唐门暗杀与毒药生意。",
       "avatarUrl": "/assets/characters/avatars/NPC-0149.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0149.jpg"

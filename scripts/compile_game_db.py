@@ -219,11 +219,11 @@ LOCATION_RESOLUTION_MAP: dict[str, tuple[str, str, str | None]] = {
 
 
 # ==============================================================================
-# 2. [M0-2] 30 武林门派 (20 一流大派 + 10 二三流门派) + 11 朝堂/地域势力标准字典
+# 2. [M0-2] 30 武林门派 (18 一流大派 + 12 二三流门派［6 二流 + 6 三流］) + 11 朝堂/地域势力标准字典
 # ==============================================================================
 
 CANONICAL_FACTIONS: list[dict[str, Any]] = [
-    # 20 个一流名门大派 (MARTIAL_ARTS_SECTS.md §2)
+    # 18 个一流名门大派 + 2 个编号保留但划归二流门派的水陆/绿林大帮 (MARTIAL_ARTS_SECTS.md §2~§3)
     {
         "id": "SECT-01",
         "name": "嵩山少林寺",
@@ -408,10 +408,10 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "id": "SECT-16",
         "name": "江淮漕帮",
         "shortName": "漕帮",
-        "isMajorSect": True,
-        "isMinorSect": False,
-        "sectTier": "一流大派",
-        "group": "地域世家·霸道强宗",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "二流门派",
+        "group": "二流世家·行业武盟",
         "stance": "水陆商帮",
         "hqRegionId": "yangzhou",
         "aliases": ["漕帮", "淮南盐帮"],
@@ -432,13 +432,13 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "id": "SECT-18",
         "name": "太行/京东绿林盟",
         "shortName": "绿林盟",
-        "isMajorSect": True,
-        "isMinorSect": False,
-        "sectTier": "一流大派",
-        "group": "朝廷鹰犬·草莽与外邦渗透势力",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "二流门派",
+        "group": "二流世家·行业武盟",
         "stance": "替天行道/反官",
         "hqRegionId": "taihang",
-        "aliases": ["太行/京东绿林盟（反官义军潜流）", "太行绿林", "京东绿林"],
+        "aliases": ["太行/京东绿林盟（反官义军潜流）", "太行绿林", "京东绿林", "太行绿林盟"],
     },
     {
         "id": "SECT-19",
@@ -464,7 +464,7 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "hqRegionId": "xingqing_xixia",
         "aliases": ["西夏一品堂", "辽国武林暗桩", "一品堂 / 辽国武林暗桩（外邦敌对势力）"],
     },
-    # 10 个初入江湖友好型二三流门派 (MARTIAL_ARTS_SECTS.md §3~§4)
+    # 其余 10 个初入江湖友好型二三流门派 (MARTIAL_ARTS_SECTS.md §3~§4)
     {
         "id": "SECT-21",
         "name": "洛阳金刀门",
@@ -1078,22 +1078,22 @@ def compute_martial_art_levels(art: dict[str, Any]) -> list[dict[str, Any]]:
         if code == "009":  # 八荒六合唯我独尊功：基础内力/气血上限额外提高 10%
             base_max_mp = round(ng_mp * 1.10)
             base_max_hp = round(ng_hp * 1.10)
-        elif any(k in name + desc for k in ("九阳", "龙象", "金刚", "铁布衫", "伏虎", "玄甲", "壮血", "扛鼎")):
+        elif any(k in name + desc for k in ("九阳", "混天", "龙象", "金刚", "铁布衫", "伏虎", "罡气", "玄甲", "壮血", "扛鼎")):
             base_max_hp = round(ng_hp * 1.04)
             base_max_mp = round(ng_mp * 0.97)
-        elif any(k in name + desc for k in ("北冥", "小无相", "紫霞", "先天", "碧海", "莲华")):
+        elif any(k in name + desc for k in ("北冥", "斗转", "小无相", "紫霞", "先天", "碧海", "莲华")):
             base_max_mp = round(ng_mp * 1.04)
             base_max_hp = round(ng_hp * 0.97)
         else:
             base_max_mp = ng_mp
             base_max_hp = ng_hp
 
-        if any(k in name + desc for k in ("易筋", "洗髓", "金刚", "铁布衫", "玄甲", "龙象", "不坏", "伏虎", "罡气", "毒砂", "神照")):
+        if any(k in name + desc for k in ("易筋", "洗髓", "金刚", "混天", "化功", "万毒", "铁布衫", "玄甲", "龙象", "不坏", "伏虎", "罡气", "鲸息", "毒砂", "神照")):
             base_resistance = round(ng_res * 1.05)
         else:
             base_resistance = round(ng_res * 0.85)
 
-        if any(k in name + desc for k in ("易筋", "洗髓", "先天", "九阴", "太玄", "龙象", "北冥", "八荒六合", "壮骨", "内壮")):
+        if any(k in name + desc for k in ("易筋", "洗髓", "先天", "九阴", "太玄", "混天", "龙象", "北冥", "八荒六合", "壮骨", "内壮")):
             base_constitution = max(2, round(tier_rank * 1.25))
         if any(k in name + desc for k in ("八荒六合", "北冥", "小无相", "玉女", "碧海", "莲华", "驻颜", "清心")):
             base_charm = max(2, round(tier_rank * 1.15))
@@ -1146,8 +1146,8 @@ def compute_martial_art_levels(art: dict[str, Any]) -> list[dict[str, Any]]:
             ("dugu_interrupt", "料敌机先", 35, "%", "当对手本回合也选择【出招】时无视身法必定先手结算，并有该概率直接看破打断其出招"),
         ],
         "008": [
-            ("douzhuan_high", "移星换斗（内力≥对手）", 50, "%", "对手【出招】且自身内力≥对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"),
-            ("douzhuan_low", "移星换斗（内力<对手）", 20, "%", "对手【出招】且自身内力<对手时，减免该比例伤害并将减免伤害与特效一并反击对手（对手未出招则仅造成60%基础伤）"),
+            ("douzhuan_high", "移星换斗（内力≥对手）", 50, "%", "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"),
+            ("douzhuan_low", "移星换斗（内力<对手）", 20, "%", "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"),
         ],
         "009": [
             ("bahuang_dom", "唯我独尊（优势增伤）", 45, "%", "当自身当前气血高于对手时，造成的所有伤害提升该比例且免疫无法出招/封穴/逃跑拦截控制"),
@@ -1214,8 +1214,8 @@ def compute_martial_art_levels(art: dict[str, Any]) -> list[dict[str, Any]]:
             ("canhe_pierce", "冷峭透甲", 35, "%", "无声指风透甲穿石，出招时无视对手该比例的物理防御与护体减伤（低于六脉神剑80%）"),
         ],
         "026": [
-            ("huagong_burn", "化散真气", 15, "%", "命中时以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"),
-            ("huagong_weak", "筋酥骨软", 15, "%", "使对手2回合内造成的所有伤害降低该比例"),
+            ("huagong_burn", "化散真气", 15, "%", "装配为主运内功时，交锋命中以奇毒焚毁化散对手当前内力的该比例（受对手抗性削减，低于北冥25%）"),
+            ("huagong_weak", "筋酥骨软", 15, "%", "装配为主运内功时，交锋命中使对手2回合内造成的所有伤害降低该比例"),
         ],
         "027": [
             ("baihong_curve", "曲直如意", 60, "%", "掌力半途诡异转折，无视对手该比例的闪避率"),
@@ -1377,8 +1377,8 @@ def parse_martial_arts() -> list[dict[str, Any]]:
         art["levels"] = compute_martial_art_levels(art)
 
     arts.sort(key=lambda x: int(x["code"]))
-    if len(arts) != 216:
-        raise AssertionError(f"Expected 216 martial arts, got {len(arts)}")
+    if len(arts) != 218:
+        raise AssertionError(f"Expected 218 martial arts, got {len(arts)}")
     return arts
 
 
@@ -2936,9 +2936,11 @@ def compile_all(do_normalize_docs: bool) -> None:
     enterable_base_count = sum(
         1 for b in buildings if not b["isSpecial"] and b["interior"] is not None
     )
+    major_cnt = sum(1 for f in factions_enriched if f["isMajorSect"])
+    minor_cnt = sum(1 for f in factions_enriched if f["isMinorSect"])
     print(
         f"[OK] Summary: {len(regions)} regions | "
-        f"30 sects (20 major + 10 minor) + 11 orgs | "
+        f"30 sects ({major_cnt} major + {minor_cnt} minor) + 11 orgs | "
         f"{special_count} special buildings ({len(spot_by_id)} sub-spots) + "
         f"{len(buildings) - special_count} base buildings ({enterable_base_count} single-hall taverns/inns) | "
         f"{len(martial_arts)} martial arts | "

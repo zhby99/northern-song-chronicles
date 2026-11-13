@@ -58,7 +58,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     numeral: '肆',
     label: '工程与字典',
     seal: '枢',
-    subtitle: '静态资源按需懒加载遥测 + 跨分支标准 ID 字典（43地 / 30派+11组织 / 216功 / 100兵 / 28骑 / 180奇珍 / 1000人）',
+    subtitle: '静态资源按需懒加载遥测 + 跨分支标准 ID 字典（43地 / 30派+11组织 / 218功 / 100兵 / 28骑 / 180奇珍 / 1000人）',
     badge: 'M0-2 已实装',
   },
   {
@@ -102,7 +102,7 @@ export const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
     numeral: '贰',
     label: '门派图鉴',
     seal: '宗',
-    subtitle: '天下三十武林门派三级金字塔（20一流大派 · 4二流世家 · 6三流武馆）及 11 大庙堂儒林四夷组织全典',
+    subtitle: '天下三十武林门派三级金字塔（18一流大派 · 6二流武盟 · 6三流武馆）及 11 大庙堂儒林四夷组织全典',
     badge: '30派+11势力',
   },
   {
@@ -118,8 +118,8 @@ export const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
     numeral: '肆',
     label: '武学总纲',
     seal: '典',
-    subtitle: '四阶十二品共 216 门天下武学全录、天阶前置校验词条、门派归属索引与主角习得状态标记',
-    badge: '216功全录',
+    subtitle: '四阶十二品共 218 门天下武学全录、天阶前置校验词条、门派归属索引与主角习得状态标记',
+    badge: '218功全录',
   },
   {
     key: 'armory',

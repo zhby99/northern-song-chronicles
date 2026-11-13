@@ -68,24 +68,24 @@ export const MARTIAL_ART_SLOT_METAS: Array<{
 
 export const DEFAULT_LEARNED_ARTS: LearnedArtEntry[] = [
   // 内功心法
-  { artId: 'MA-177', level: 4, exp: 35 }, // 周天引气诀（凡品中品·内功）
-  { artId: 'MA-138', level: 2, exp: 15 }, // 五禽养生功（良品下品·内功）
+  { artId: 'MA-179', level: 4, exp: 35 }, // 周天引气诀（凡品中品·内功）
+  { artId: 'MA-141', level: 2, exp: 15 }, // 五禽养生功（良品下品·内功）
   // 轻功身法
-  { artId: 'MA-175', level: 3, exp: 40 }, // 飞檐走壁（凡品上品·轻功）
-  { artId: 'MA-156', level: 2, exp: 10 }, // 燕子三抄水（良品下品·轻功）
+  { artId: 'MA-177', level: 3, exp: 40 }, // 飞檐走壁（凡品上品·轻功）
+  { artId: 'MA-158', level: 2, exp: 10 }, // 燕子三抄水（良品下品·轻功）
   // 外功与兵刃招式
-  { artId: 'MA-180', level: 5, exp: 60 }, // 太祖长拳（凡品中品·拳掌）
-  { artId: 'MA-185', level: 4, exp: 25 }, // 青萍剑法（凡品中品·剑法）
-  { artId: 'MA-171', level: 2, exp: 20 }, // 呼延硬鞭法（军中简本）（凡品上品·棍棒）
-  { artId: 'MA-154', level: 3, exp: 30 }, // 折扇点穴功（良品下品·指法）
+  { artId: 'MA-182', level: 5, exp: 60 }, // 太祖长拳（凡品中品·拳掌）
+  { artId: 'MA-187', level: 4, exp: 25 }, // 青萍剑法（凡品中品·剑法）
+  { artId: 'MA-173', level: 2, exp: 20 }, // 呼延硬鞭法（军中简本）（凡品上品·棍棒）
+  { artId: 'MA-156', level: 3, exp: 30 }, // 折扇点穴功（良品下品·指法）
 ]
 
 export const DEFAULT_EQUIPPED_ARTS: EquippedArtsMap = {
-  neigong: 'MA-177',
-  qinggong: 'MA-175',
-  move1: 'MA-180',
-  move2: 'MA-185',
-  move3: 'MA-154',
+  neigong: 'MA-179',
+  qinggong: 'MA-177',
+  move1: 'MA-182',
+  move2: 'MA-187',
+  move3: 'MA-156',
   move4: null,
 }
 

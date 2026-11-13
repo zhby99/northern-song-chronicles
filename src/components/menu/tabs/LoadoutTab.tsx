@@ -591,7 +591,7 @@ export function LoadoutTab({
                   onClick={() => openCompendium('martialArts')}
                   className="text-[11px] text-[#8f1d14] font-bold hover:underline cursor-pointer"
                 >
-                  查阅天下 216 武学总纲 →
+                  查阅天下 218 武学总纲 →
                 </button>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto scroll-thin pr-1">

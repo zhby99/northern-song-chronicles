@@ -55,9 +55,9 @@ northern-song-chronicles/
 │   ├── CHARACTER_COMPENDIUM.md          # 1000 人物图鉴、三维与十艺派系全录
 │   ├── EQUIPMENT_COMPENDIUM.md          # 皇祐披挂总纲（第一卷：百兵谱 100 种武器）
 │   ├── GAME_MECHANICS.md                # 历法时辰、体能资粮、七槽四库、同步盲选战斗与核心机制总纲
-│   ├── MARTIAL_ARTS_SECTS.md            # 30 武林门派（20 一流 + 10 二三流）与 11 庙堂四夷组织专卷
-│   ├── MARTIAL_ARTS_COMPENDIUM.md       # 216 门十一大类武学全典与天阶修习条件
-│   ├── MARTIAL_ARTS_STATS.md            # 216 门武学 1~10 重数值表与 37 门天阶战斗特效
+│   ├── MARTIAL_ARTS_SECTS.md            # 30 武林门派（18 一流 + 6 二流 + 6 三流）与 11 庙堂四夷组织专卷
+│   ├── MARTIAL_ARTS_COMPENDIUM.md       # 218 门十一大类武学全典与天阶修习条件
+│   ├── MARTIAL_ARTS_STATS.md            # 218 门武学 1~10 重数值表与 37 门天阶战斗特效
 │   ├── REGIONAL_MAPS_AND_BUILDINGS.md   # 43 州府名山区域与 138 座特殊建筑名录（总计 268 座建筑）
 │   ├── HANDOFF_CONTEXT.md               # 跨会话历史演进与工程避坑备忘
 │   └── ROADMAP_AND_TODO.md              # 开发里程碑与主线待办看板 (M0 ~ M5)
@@ -97,12 +97,12 @@ northern-song-chronicles/
 │   │   ├── buildings.json               # 138 座特殊地标 (414 子点位) + 130 座基础建筑设定 (共 268 座)
 │   │   ├── buildingPanoramas.json       # 建筑室内全景热区与视角绑定
 │   │   ├── npcs.json                    # 1000 名历史名仕与武林人物数据库 (100% 最末层挂载)
-│   │   ├── martial_arts.json            # 216 门十一大类四阶十二品武学与 1~10 重数值数据库
+│   │   ├── martial_arts.json            # 218 门十一大类四阶十二品武学与 1~10 重数值数据库
 │   │   ├── weapons.json                 # 100 种四阶十二品百兵谱数据库
 │   │   ├── regionalConfigs.json         # 43 处区域坐标与建筑点位配置
 │   │   ├── worldGraph.json              # 43 节点 79 边陆路、运河、塞外与蜀道节点连接拓扑
 │   │   ├── worldBaseSvg.ts              # 华夏及东亚山海海岸线矢量轮廓
-│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表 (43地/30派+11组织/216功/100兵/1000人)
+│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表 (43地/30派+11组织/218功/100兵/1000人)
 │   │   ├── assetManifest.json           # 生产资源清单索引
 │   │   └── portraitCatalog.json         # 人物立绘与模板映射表 (249 核心角色目录)
 │   │
