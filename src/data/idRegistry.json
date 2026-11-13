@@ -1448,7 +1448,7 @@
     {
       "id": "MA-001",
       "code": "001",
-      "name": "《易筋经》",
+      "name": "易筋经",
       "cleanName": "易筋经",
       "fullTier": "天阶上品",
       "category": "内功",
@@ -1457,7 +1457,7 @@
     {
       "id": "MA-002",
       "code": "002",
-      "name": "《北冥神功》",
+      "name": "北冥神功",
       "cleanName": "北冥神功",
       "fullTier": "天阶上品",
       "category": "内功",
@@ -1466,19 +1466,19 @@
     {
       "id": "MA-003",
       "code": "003",
-      "name": "《太玄经》",
+      "name": "太玄经",
       "cleanName": "太玄经",
       "fullTier": "天阶上品",
-      "category": "内功/全系",
+      "category": "内功",
       "sectId": null
     },
     {
       "id": "MA-004",
       "code": "004",
-      "name": "《九阴真经》",
+      "name": "九阴真经",
       "cleanName": "九阴真经",
       "fullTier": "天阶上品",
-      "category": "内功/综合",
+      "category": "内功",
       "sectId": null
     },
     {
@@ -1496,7 +1496,7 @@
       "name": "六脉神剑",
       "cleanName": "六脉神剑",
       "fullTier": "天阶上品",
-      "category": "拳掌(指剑)",
+      "category": "指法",
       "sectId": "ORG-08"
     },
     {
@@ -1514,13 +1514,13 @@
       "name": "斗转星移",
       "cleanName": "斗转星移",
       "fullTier": "天阶上品",
-      "category": "奇门/反制",
+      "category": "拳掌",
       "sectId": "SECT-10"
     },
     {
       "id": "MA-009",
       "code": "009",
-      "name": "《八荒六合唯我独尊功》",
+      "name": "八荒六合唯我独尊功",
       "cleanName": "八荒六合唯我独尊功",
       "fullTier": "天阶上品",
       "category": "内功",
@@ -1538,7 +1538,7 @@
     {
       "id": "MA-011",
       "code": "011",
-      "name": "《洗髓经》",
+      "name": "洗髓经",
       "cleanName": "洗髓经",
       "fullTier": "天阶中品",
       "category": "内功",
@@ -1547,7 +1547,7 @@
     {
       "id": "MA-012",
       "code": "012",
-      "name": "《小无相功》",
+      "name": "小无相功",
       "cleanName": "小无相功",
       "fullTier": "天阶中品",
       "category": "内功",
@@ -1556,7 +1556,7 @@
     {
       "id": "MA-013",
       "code": "013",
-      "name": "《先天功》",
+      "name": "先天功",
       "cleanName": "先天功",
       "fullTier": "天阶中品",
       "category": "内功",
@@ -1586,7 +1586,7 @@
       "name": "打狗棒法",
       "cleanName": "打狗棒法",
       "fullTier": "天阶中品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": "SECT-02"
     },
     {
@@ -1604,7 +1604,7 @@
       "name": "金刚不坏体神功",
       "cleanName": "金刚不坏体神功",
       "fullTier": "天阶中品",
-      "category": "内功/护体",
+      "category": "内功",
       "sectId": "SECT-01"
     },
     {
@@ -1613,7 +1613,7 @@
       "name": "火焰刀",
       "cleanName": "火焰刀",
       "fullTier": "天阶中品",
-      "category": "刀法(气刃)",
+      "category": "刀法",
       "sectId": "SECT-20"
     },
     {
@@ -1631,7 +1631,7 @@
       "name": "弹指神通",
       "cleanName": "弹指神通",
       "fullTier": "天阶中品",
-      "category": "奇门",
+      "category": "指法",
       "sectId": "SECT-12"
     },
     {
@@ -1649,7 +1649,7 @@
       "name": "一阳指",
       "cleanName": "一阳指",
       "fullTier": "天阶下品",
-      "category": "拳掌(指法)",
+      "category": "指法",
       "sectId": "ORG-08"
     },
     {
@@ -1658,7 +1658,7 @@
       "name": "降魔杵法（大威德）",
       "cleanName": "降魔杵法（大威德）",
       "fullTier": "天阶下品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": "SECT-03"
     },
     {
@@ -1667,16 +1667,16 @@
       "name": "参合指",
       "cleanName": "参合指",
       "fullTier": "天阶下品",
-      "category": "拳掌(指法)",
+      "category": "指法",
       "sectId": "SECT-10"
     },
     {
       "id": "MA-026",
       "code": "026",
-      "name": "《化功大法》",
+      "name": "化功大法",
       "cleanName": "化功大法",
       "fullTier": "天阶下品",
-      "category": "内功/毒功",
+      "category": "毒功",
       "sectId": "SECT-19"
     },
     {
@@ -1691,7 +1691,7 @@
     {
       "id": "MA-028",
       "code": "028",
-      "name": "《龙象般若功》",
+      "name": "龙象般若功",
       "cleanName": "龙象般若功",
       "fullTier": "天阶下品",
       "category": "内功",
@@ -1730,7 +1730,7 @@
       "name": "暴雨梨花针诀（唐门天机卷）",
       "cleanName": "暴雨梨花针诀（唐门天机卷）",
       "fullTier": "天阶下品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": "SECT-13"
     },
     {
@@ -1739,7 +1739,7 @@
       "name": "七弦无形剑",
       "cleanName": "七弦无形剑",
       "fullTier": "天阶下品",
-      "category": "奇门(音律)",
+      "category": "音功",
       "sectId": "SECT-09"
     },
     {
@@ -1757,7 +1757,7 @@
       "name": "铁掌水上漂（绝顶合卷）",
       "cleanName": "铁掌水上漂（绝顶合卷）",
       "fullTier": "天阶下品",
-      "category": "轻功/掌法",
+      "category": "轻功",
       "sectId": "SECT-15"
     },
     {
@@ -1766,13 +1766,13 @@
       "name": "葵花残卷（大内秘藏前本）",
       "cleanName": "葵花残卷（大内秘藏前本）",
       "fullTier": "天阶下品",
-      "category": "轻功/奇门",
+      "category": "轻功",
       "sectId": "SECT-17"
     },
     {
       "id": "MA-037",
       "code": "037",
-      "name": "《少林九阳功》",
+      "name": "少林九阳功",
       "cleanName": "少林九阳功",
       "fullTier": "地阶上品",
       "category": "内功",
@@ -1781,7 +1781,7 @@
     {
       "id": "MA-038",
       "code": "038",
-      "name": "《玉女心经》",
+      "name": "玉女心经",
       "cleanName": "玉女心经",
       "fullTier": "地阶上品",
       "category": "内功",
@@ -1790,7 +1790,7 @@
     {
       "id": "MA-039",
       "code": "039",
-      "name": "《碧海潮生功》",
+      "name": "碧海潮生功",
       "cleanName": "碧海潮生功",
       "fullTier": "地阶上品",
       "category": "内功",
@@ -1799,7 +1799,7 @@
     {
       "id": "MA-040",
       "code": "040",
-      "name": "《神照内功》",
+      "name": "神照内功",
       "cleanName": "神照内功",
       "fullTier": "地阶上品",
       "category": "内功",
@@ -1900,8 +1900,8 @@
       "code": "051",
       "name": "杨家霸王枪",
       "cleanName": "杨家霸王枪",
-      "fullTier": "地阶上品",
-      "category": "长兵",
+      "fullTier": "天阶下品",
+      "category": "枪法",
       "sectId": "SECT-20"
     },
     {
@@ -1910,7 +1910,7 @@
       "name": "疯魔杖法",
       "cleanName": "疯魔杖法",
       "fullTier": "地阶上品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": "SECT-02"
     },
     {
@@ -1919,7 +1919,7 @@
       "name": "满天花雨",
       "cleanName": "满天花雨",
       "fullTier": "地阶上品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": "SECT-13"
     },
     {
@@ -1928,7 +1928,7 @@
       "name": "冰蚕毒掌",
       "cleanName": "冰蚕毒掌",
       "fullTier": "地阶上品",
-      "category": "拳掌/毒功",
+      "category": "毒功",
       "sectId": "SECT-19"
     },
     {
@@ -1952,7 +1952,7 @@
     {
       "id": "MA-057",
       "code": "057",
-      "name": "《混元功》",
+      "name": "混元功",
       "cleanName": "混元功",
       "fullTier": "地阶中品",
       "category": "内功",
@@ -1961,7 +1961,7 @@
     {
       "id": "MA-058",
       "code": "058",
-      "name": "《太极混元桩》",
+      "name": "太极混元桩",
       "cleanName": "太极混元桩",
       "fullTier": "地阶中品",
       "category": "内功",
@@ -1970,7 +1970,7 @@
     {
       "id": "MA-059",
       "code": "059",
-      "name": "《枯荣禅意功》",
+      "name": "枯荣禅意功",
       "cleanName": "枯荣禅意功",
       "fullTier": "地阶中品",
       "category": "内功",
@@ -1979,7 +1979,7 @@
     {
       "id": "MA-060",
       "code": "060",
-      "name": "《蛤蟆敛息功》",
+      "name": "蛤蟆敛息功",
       "cleanName": "蛤蟆敛息功",
       "fullTier": "地阶中品",
       "category": "内功",
@@ -2063,7 +2063,7 @@
       "name": "玉箫剑法",
       "cleanName": "玉箫剑法",
       "fullTier": "地阶中品",
-      "category": "剑法/奇门",
+      "category": "剑法",
       "sectId": "SECT-12"
     },
     {
@@ -2099,7 +2099,7 @@
       "name": "岳氏沥泉枪前谱（常山龙胆枪）",
       "cleanName": "岳氏沥泉枪前谱（常山龙胆枪）",
       "fullTier": "地阶中品",
-      "category": "长兵",
+      "category": "枪法",
       "sectId": null
     },
     {
@@ -2108,7 +2108,7 @@
       "name": "金刚伏魔杖",
       "cleanName": "金刚伏魔杖",
       "fullTier": "地阶中品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": "SECT-03"
     },
     {
@@ -2117,7 +2117,7 @@
       "name": "含沙射影",
       "cleanName": "含沙射影",
       "fullTier": "地阶中品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": "SECT-13"
     },
     {
@@ -2132,7 +2132,7 @@
     {
       "id": "MA-077",
       "code": "077",
-      "name": "《纯阳无极功》",
+      "name": "纯阳无极功",
       "cleanName": "纯阳无极功",
       "fullTier": "地阶下品",
       "category": "内功",
@@ -2141,7 +2141,7 @@
     {
       "id": "MA-078",
       "code": "078",
-      "name": "《大慈大悲禅功》",
+      "name": "大慈大悲禅功",
       "cleanName": "大慈大悲禅功",
       "fullTier": "地阶下品",
       "category": "内功",
@@ -2150,7 +2150,7 @@
     {
       "id": "MA-079",
       "code": "079",
-      "name": "《盘山铁布衫（大成）》",
+      "name": "盘山铁布衫（大成）",
       "cleanName": "盘山铁布衫（大成）",
       "fullTier": "地阶下品",
       "category": "内功",
@@ -2159,7 +2159,7 @@
     {
       "id": "MA-080",
       "code": "080",
-      "name": "《毒砂百炼功》",
+      "name": "毒砂百炼功",
       "cleanName": "毒砂百炼功",
       "fullTier": "地阶下品",
       "category": "内功",
@@ -2261,7 +2261,7 @@
       "name": "漕帮分水大枪",
       "cleanName": "漕帮分水大枪",
       "fullTier": "地阶下品",
-      "category": "长兵",
+      "category": "枪法",
       "sectId": "SECT-16"
     },
     {
@@ -2270,7 +2270,7 @@
       "name": "韦陀杵",
       "cleanName": "韦陀杵",
       "fullTier": "地阶下品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": "SECT-01"
     },
     {
@@ -2279,7 +2279,7 @@
       "name": "子午透骨钉",
       "cleanName": "子午透骨钉",
       "fullTier": "地阶下品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": "SECT-13"
     },
     {
@@ -2288,7 +2288,7 @@
       "name": "裴将军诗剑帖（判官笔）",
       "cleanName": "裴将军诗剑帖（判官笔）",
       "fullTier": "地阶下品",
-      "category": "奇门",
+      "category": "剑法",
       "sectId": null
     },
     {
@@ -2312,7 +2312,7 @@
     {
       "id": "MA-097",
       "code": "097",
-      "name": "《紫阳吐纳功》",
+      "name": "紫阳吐纳功",
       "cleanName": "紫阳吐纳功",
       "fullTier": "良品上品",
       "category": "内功",
@@ -2321,7 +2321,7 @@
     {
       "id": "MA-098",
       "code": "098",
-      "name": "《罗汉伏虎功》",
+      "name": "罗汉伏虎功",
       "cleanName": "罗汉伏虎功",
       "fullTier": "良品上品",
       "category": "内功",
@@ -2330,7 +2330,7 @@
     {
       "id": "MA-099",
       "code": "099",
-      "name": "《莲华静心诀》",
+      "name": "莲华静心诀",
       "cleanName": "莲华静心诀",
       "fullTier": "良品上品",
       "category": "内功",
@@ -2339,7 +2339,7 @@
     {
       "id": "MA-100",
       "code": "100",
-      "name": "《大内禁军玄甲劲》",
+      "name": "大内禁军玄甲劲",
       "cleanName": "大内禁军玄甲劲",
       "fullTier": "良品上品",
       "category": "内功",
@@ -2450,7 +2450,7 @@
       "name": "六合大枪",
       "cleanName": "六合大枪",
       "fullTier": "良品上品",
-      "category": "长兵",
+      "category": "枪法",
       "sectId": null
     },
     {
@@ -2459,7 +2459,7 @@
       "name": "普门杖法",
       "cleanName": "普门杖法",
       "fullTier": "良品上品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": "SECT-01"
     },
     {
@@ -2468,7 +2468,7 @@
       "name": "追魂夺命镖",
       "cleanName": "追魂夺命镖",
       "fullTier": "良品上品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": "SECT-13"
     },
     {
@@ -2492,7 +2492,7 @@
     {
       "id": "MA-117",
       "code": "117",
-      "name": "《太行罡气》",
+      "name": "太行罡气",
       "cleanName": "太行罡气",
       "fullTier": "良品中品",
       "category": "内功",
@@ -2501,7 +2501,7 @@
     {
       "id": "MA-118",
       "code": "118",
-      "name": "《碧波心法》",
+      "name": "碧波心法",
       "cleanName": "碧波心法",
       "fullTier": "良品中品",
       "category": "内功",
@@ -2510,7 +2510,7 @@
     {
       "id": "MA-119",
       "code": "119",
-      "name": "《六扇门捕风诀》",
+      "name": "六扇门捕风诀",
       "cleanName": "六扇门捕风诀",
       "fullTier": "良品中品",
       "category": "内功",
@@ -2519,7 +2519,7 @@
     {
       "id": "MA-120",
       "code": "120",
-      "name": "《龟息功》",
+      "name": "龟息功",
       "cleanName": "龟息功",
       "fullTier": "良品中品",
       "category": "内功",
@@ -2621,7 +2621,7 @@
       "name": "五郎八卦棍",
       "cleanName": "五郎八卦棍",
       "fullTier": "良品中品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": "SECT-03"
     },
     {
@@ -2630,7 +2630,7 @@
       "name": "蛇矛百战枪",
       "cleanName": "蛇矛百战枪",
       "fullTier": "良品中品",
-      "category": "长兵",
+      "category": "枪法",
       "sectId": null
     },
     {
@@ -2639,7 +2639,7 @@
       "name": "分水峨眉刺",
       "cleanName": "分水峨眉刺",
       "fullTier": "良品中品",
-      "category": "奇门",
+      "category": "指法",
       "sectId": "SECT-07"
     },
     {
@@ -2648,7 +2648,7 @@
       "name": "毒蒺藜散手",
       "cleanName": "毒蒺藜散手",
       "fullTier": "良品中品",
-      "category": "奇门",
+      "category": "毒功",
       "sectId": "SECT-13"
     },
     {
@@ -2672,7 +2672,7 @@
     {
       "id": "MA-137",
       "code": "137",
-      "name": "《铁砂内壮功》",
+      "name": "铁砂内壮功",
       "cleanName": "铁砂内壮功",
       "fullTier": "良品下品",
       "category": "内功",
@@ -2681,7 +2681,7 @@
     {
       "id": "MA-138",
       "code": "138",
-      "name": "《五禽养生功》",
+      "name": "五禽养生功",
       "cleanName": "五禽养生功",
       "fullTier": "良品下品",
       "category": "内功",
@@ -2690,7 +2690,7 @@
     {
       "id": "MA-139",
       "code": "139",
-      "name": "《全真大道筑基歌》",
+      "name": "全真大道筑基歌",
       "cleanName": "全真大道筑基歌",
       "fullTier": "良品下品",
       "category": "内功",
@@ -2699,7 +2699,7 @@
     {
       "id": "MA-140",
       "code": "140",
-      "name": "《鲸息水战诀》",
+      "name": "鲸息水战诀",
       "cleanName": "鲸息水战诀",
       "fullTier": "良品下品",
       "category": "内功",
@@ -2792,7 +2792,7 @@
       "name": "契丹狼牙棒法",
       "cleanName": "契丹狼牙棒法",
       "fullTier": "良品下品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": null
     },
     {
@@ -2801,7 +2801,7 @@
       "name": "少林齐眉棍",
       "cleanName": "少林齐眉棍",
       "fullTier": "良品下品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": "SECT-01"
     },
     {
@@ -2810,7 +2810,7 @@
       "name": "点钢枪谱",
       "cleanName": "点钢枪谱",
       "fullTier": "良品下品",
-      "category": "长兵",
+      "category": "枪法",
       "sectId": "SECT-17"
     },
     {
@@ -2819,7 +2819,7 @@
       "name": "金钱镖",
       "cleanName": "金钱镖",
       "fullTier": "良品下品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": null
     },
     {
@@ -2828,7 +2828,7 @@
       "name": "折扇点穴功",
       "cleanName": "折扇点穴功",
       "fullTier": "良品下品",
-      "category": "奇门",
+      "category": "指法",
       "sectId": null
     },
     {
@@ -2852,7 +2852,7 @@
     {
       "id": "MA-157",
       "code": "157",
-      "name": "《少林小乘禅功》",
+      "name": "少林小乘禅功",
       "cleanName": "少林小乘禅功",
       "fullTier": "凡品上品",
       "category": "内功",
@@ -2861,7 +2861,7 @@
     {
       "id": "MA-158",
       "code": "158",
-      "name": "《华山基础心法》",
+      "name": "华山基础心法",
       "cleanName": "华山基础心法",
       "fullTier": "凡品上品",
       "category": "内功",
@@ -2870,7 +2870,7 @@
     {
       "id": "MA-159",
       "code": "159",
-      "name": "《峨眉吐纳术》",
+      "name": "峨眉吐纳术",
       "cleanName": "峨眉吐纳术",
       "fullTier": "凡品上品",
       "category": "内功",
@@ -2879,7 +2879,7 @@
     {
       "id": "MA-160",
       "code": "160",
-      "name": "《行军壮血功》",
+      "name": "行军壮血功",
       "cleanName": "行军壮血功",
       "fullTier": "凡品上品",
       "category": "内功",
@@ -2972,7 +2972,7 @@
       "name": "丐帮疯魔棍（入门篇）",
       "cleanName": "丐帮疯魔棍（入门篇）",
       "fullTier": "凡品上品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": "SECT-02"
     },
     {
@@ -2981,7 +2981,7 @@
       "name": "呼延硬鞭法（军中简本）",
       "cleanName": "呼延硬鞭法（军中简本）",
       "fullTier": "凡品上品",
-      "category": "奇门/长兵",
+      "category": "棍棒",
       "sectId": null
     },
     {
@@ -2990,7 +2990,7 @@
       "name": "杨氏梨花枪（外传简谱）",
       "cleanName": "杨氏梨花枪（外传简谱）",
       "fullTier": "凡品上品",
-      "category": "长兵",
+      "category": "枪法",
       "sectId": null
     },
     {
@@ -2999,7 +2999,7 @@
       "name": "甩手袖箭",
       "cleanName": "甩手袖箭",
       "fullTier": "凡品上品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": null
     },
     {
@@ -3008,7 +3008,7 @@
       "name": "蒙汗迷烟术",
       "cleanName": "蒙汗迷烟术",
       "fullTier": "凡品上品",
-      "category": "奇门",
+      "category": "毒功",
       "sectId": "SECT-18"
     },
     {
@@ -3032,7 +3032,7 @@
     {
       "id": "MA-177",
       "code": "177",
-      "name": "《周天引气诀》",
+      "name": "周天引气诀",
       "cleanName": "周天引气诀",
       "fullTier": "凡品中品",
       "category": "内功",
@@ -3041,7 +3041,7 @@
     {
       "id": "MA-178",
       "code": "178",
-      "name": "《站桩壮骨法》",
+      "name": "站桩壮骨法",
       "cleanName": "站桩壮骨法",
       "fullTier": "凡品中品",
       "category": "内功",
@@ -3050,7 +3050,7 @@
     {
       "id": "MA-179",
       "code": "179",
-      "name": "《清心静坐诀》",
+      "name": "清心静坐诀",
       "cleanName": "清心静坐诀",
       "fullTier": "凡品中品",
       "category": "内功",
@@ -3152,7 +3152,7 @@
       "name": "少林烧火棍",
       "cleanName": "少林烧火棍",
       "fullTier": "凡品中品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": null
     },
     {
@@ -3161,7 +3161,7 @@
       "name": "漕工撑篙杆",
       "cleanName": "漕工撑篙杆",
       "fullTier": "凡品中品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": null
     },
     {
@@ -3170,7 +3170,7 @@
       "name": "捕快锁链功",
       "cleanName": "捕快锁链功",
       "fullTier": "凡品中品",
-      "category": "奇门",
+      "category": "棍棒",
       "sectId": null
     },
     {
@@ -3179,7 +3179,7 @@
       "name": "飞蝗石",
       "cleanName": "飞蝗石",
       "fullTier": "凡品中品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": null
     },
     {
@@ -3188,7 +3188,7 @@
       "name": "石灰迷眼包",
       "cleanName": "石灰迷眼包",
       "fullTier": "凡品中品",
-      "category": "奇门",
+      "category": "毒功",
       "sectId": "SECT-18"
     },
     {
@@ -3212,7 +3212,7 @@
     {
       "id": "MA-197",
       "code": "197",
-      "name": "《粗浅呼吸法》",
+      "name": "粗浅呼吸法",
       "cleanName": "粗浅呼吸法",
       "fullTier": "凡品下品",
       "category": "内功",
@@ -3221,7 +3221,7 @@
     {
       "id": "MA-198",
       "code": "198",
-      "name": "《挑夫扛鼎气》",
+      "name": "挑夫扛鼎气",
       "cleanName": "挑夫扛鼎气",
       "fullTier": "凡品下品",
       "category": "内功",
@@ -3314,7 +3314,7 @@
       "name": "猎户叉虎枪",
       "cleanName": "猎户叉虎枪",
       "fullTier": "凡品下品",
-      "category": "长兵",
+      "category": "枪法",
       "sectId": null
     },
     {
@@ -3323,7 +3323,7 @@
       "name": "打狗竹棒（市井叫花）",
       "cleanName": "打狗竹棒（市井叫花）",
       "fullTier": "凡品下品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": null
     },
     {
@@ -3332,7 +3332,7 @@
       "name": "扁担挑打术",
       "cleanName": "扁担挑打术",
       "fullTier": "凡品下品",
-      "category": "长兵",
+      "category": "棍棒",
       "sectId": null
     },
     {
@@ -3341,7 +3341,7 @@
       "name": "更夫齐眉梆",
       "cleanName": "更夫齐眉梆",
       "fullTier": "凡品下品",
-      "category": "奇门/短棍",
+      "category": "棍棒",
       "sectId": null
     },
     {
@@ -3350,7 +3350,7 @@
       "name": "铁算盘格挡",
       "cleanName": "铁算盘格挡",
       "fullTier": "凡品下品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": null
     },
     {
@@ -3359,7 +3359,7 @@
       "name": "弹弓打鸟术",
       "cleanName": "弹弓打鸟术",
       "fullTier": "凡品下品",
-      "category": "奇门",
+      "category": "暗器",
       "sectId": null
     },
     {
@@ -3368,7 +3368,7 @@
       "name": "渔网罩身手",
       "cleanName": "渔网罩身手",
       "fullTier": "凡品下品",
-      "category": "奇门",
+      "category": "拳掌",
       "sectId": null
     },
     {
