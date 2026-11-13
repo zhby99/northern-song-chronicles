@@ -79,8 +79,14 @@ northern-song-chronicles/
 │   │   │   ├── RegionMapCanvas.tsx      # 43 处州府名山全景画布与 138 座建筑室内视图
 │   │   │   ├── SvgRegionPanoramaFallback.tsx   # 新辟 5 州府宋辽营造青绿等轴城郭矢量渲染器
 │   │   │   └── SvgBuildingInteriorFallback.tsx # 宋式《营造法式》室内建筑矢量渲染器
-│   │   └── menu/                        # 系统枢机弹窗
-│   │       └── SystemMenuModal.tsx      # 1.5× 十卷枢机弹窗 (主角/披挂武学/行囊四库/群侠/武学/披挂总纲/工程/存取档/设置)
+│   │   └── menu/                        # 行囊枢机与皇祐万象图鉴双模态弹窗模块
+│   │       ├── SystemMenuModal.tsx      # 1.5× 双模态总控容器 (行囊枢机7卷 + 万象图鉴6卷调度与跨卷深链)
+│   │       ├── RegionCompendiumPanel.tsx# 图鉴壹：43 地区山海舆地全鉴
+│   │       ├── SectCompendiumPanel.tsx  # 图鉴贰：30 武林门派与 11 庙堂四夷图鉴
+│   │       ├── PortraitLightbox.tsx     # 人物全身/头像与全景图高清放大品鉴灯箱
+│   │       ├── MenuIcons.tsx            # 七槽披挂、六槽武学与四库分类共享图标组件
+│   │       ├── menuShared.ts            # 导航卷目元数据与博物收录统计纯函数
+│   │       └── tabs/                    # 独立拆分的业务子面板 (Hero/Loadout/Bag/Portraits/MartialArts/Armory/Treasures/Engineering/SaveLoad/Settings)
 │   │
 │   ├── data/                            # 游戏全量静态结构化数据库
 │   │   ├── gameDb.ts                    # 数据库聚合导出与 O(1) 索引模块
