@@ -510,10 +510,10 @@
         "MA-011",
         "MA-018",
         "MA-037",
-        "MA-041",
         "MA-042",
-        "MA-046",
-        "MA-050",
+        "MA-043",
+        "MA-047",
+        "MA-051",
         "MA-056",
         "MA-061",
         "MA-062",
@@ -546,7 +546,7 @@
       "martialArtIds": [
         "MA-005",
         "MA-016",
-        "MA-043",
+        "MA-044",
         "MA-052",
         "MA-085",
         "MA-162",
@@ -605,7 +605,7 @@
       "memberCount": 39,
       "martialArtIds": [
         "MA-030",
-        "MA-047",
+        "MA-048",
         "MA-057",
         "MA-067",
         "MA-087",
@@ -629,7 +629,7 @@
       ],
       "memberCount": 25,
       "martialArtIds": [
-        "MA-048",
+        "MA-049",
         "MA-088",
         "MA-126",
         "MA-166"
@@ -649,7 +649,7 @@
       ],
       "memberCount": 36,
       "martialArtIds": [
-        "MA-049",
+        "MA-050",
         "MA-078",
         "MA-096",
         "MA-099",
@@ -763,7 +763,7 @@
       "martialArtIds": [
         "MA-021",
         "MA-039",
-        "MA-045",
+        "MA-046",
         "MA-063",
         "MA-069"
       ]
@@ -823,7 +823,7 @@
       "memberCount": 29,
       "martialArtIds": [
         "MA-035",
-        "MA-044",
+        "MA-045",
         "MA-080",
         "MA-116"
       ]
@@ -930,7 +930,7 @@
       "martialArtIds": [
         "MA-019",
         "MA-028",
-        "MA-051",
+        "MA-037",
         "MA-072",
         "MA-076",
         "MA-130"
@@ -1772,6 +1772,15 @@
     {
       "id": "MA-037",
       "code": "037",
+      "name": "杨家霸王枪",
+      "cleanName": "杨家霸王枪",
+      "fullTier": "天阶下品",
+      "category": "枪法",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-037",
+      "code": "037",
       "name": "少林九阳功",
       "cleanName": "少林九阳功",
       "fullTier": "地阶上品",
@@ -1806,8 +1815,8 @@
       "sectId": null
     },
     {
-      "id": "MA-041",
-      "code": "041",
+      "id": "MA-042",
+      "code": "042",
       "name": "般若掌",
       "cleanName": "般若掌",
       "fullTier": "地阶上品",
@@ -1815,8 +1824,8 @@
       "sectId": "SECT-01"
     },
     {
-      "id": "MA-042",
-      "code": "042",
+      "id": "MA-043",
+      "code": "043",
       "name": "大力金刚指",
       "cleanName": "大力金刚指",
       "fullTier": "地阶上品",
@@ -1824,8 +1833,8 @@
       "sectId": "SECT-01"
     },
     {
-      "id": "MA-043",
-      "code": "043",
+      "id": "MA-044",
+      "code": "044",
       "name": "擒龙功",
       "cleanName": "擒龙功",
       "fullTier": "地阶上品",
@@ -1833,8 +1842,8 @@
       "sectId": "SECT-02"
     },
     {
-      "id": "MA-044",
-      "code": "044",
+      "id": "MA-045",
+      "code": "045",
       "name": "铁掌功",
       "cleanName": "铁掌功",
       "fullTier": "地阶上品",
@@ -1842,8 +1851,8 @@
       "sectId": "SECT-15"
     },
     {
-      "id": "MA-045",
-      "code": "045",
+      "id": "MA-046",
+      "code": "046",
       "name": "折扇落英神剑掌",
       "cleanName": "折扇落英神剑掌",
       "fullTier": "地阶上品",
@@ -1851,8 +1860,8 @@
       "sectId": "SECT-12"
     },
     {
-      "id": "MA-046",
-      "code": "046",
+      "id": "MA-047",
+      "code": "047",
       "name": "达摩剑法",
       "cleanName": "达摩剑法",
       "fullTier": "地阶上品",
@@ -1860,8 +1869,8 @@
       "sectId": "SECT-01"
     },
     {
-      "id": "MA-047",
-      "code": "047",
+      "id": "MA-048",
+      "code": "048",
       "name": "太岳三青峰",
       "cleanName": "太岳三青峰",
       "fullTier": "地阶上品",
@@ -1869,8 +1878,8 @@
       "sectId": "SECT-05"
     },
     {
-      "id": "MA-048",
-      "code": "048",
+      "id": "MA-049",
+      "code": "049",
       "name": "岱宗如何",
       "cleanName": "岱宗如何",
       "fullTier": "地阶上品",
@@ -1878,8 +1887,8 @@
       "sectId": "SECT-06"
     },
     {
-      "id": "MA-049",
-      "code": "049",
+      "id": "MA-050",
+      "code": "050",
       "name": "灭绝回风剑",
       "cleanName": "灭绝回风剑",
       "fullTier": "地阶上品",
@@ -1887,22 +1896,13 @@
       "sectId": "SECT-07"
     },
     {
-      "id": "MA-050",
-      "code": "050",
+      "id": "MA-051",
+      "code": "051",
       "name": "燃木刀法",
       "cleanName": "燃木刀法",
       "fullTier": "地阶上品",
       "category": "刀法",
       "sectId": "SECT-01"
-    },
-    {
-      "id": "MA-051",
-      "code": "051",
-      "name": "杨家霸王枪",
-      "cleanName": "杨家霸王枪",
-      "fullTier": "天阶下品",
-      "category": "枪法",
-      "sectId": "SECT-20"
     },
     {
       "id": "MA-052",

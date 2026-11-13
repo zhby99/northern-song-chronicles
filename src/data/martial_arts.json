@@ -1046,6 +1046,34 @@
   {
     "id": "MA-037",
     "code": "037",
+    "name": "杨家霸王枪",
+    "cleanName": "杨家霸王枪",
+    "tier": "天阶",
+    "subTier": "下品",
+    "fullTier": "天阶下品",
+    "category": "枪法",
+    "origin": "河东/抗辽名将",
+    "sectId": "SECT-20",
+    "description": "天波杨府家传杀伐枪术，“回马枪”绝技名震北辽铁骑，战阵无双。",
+    "prerequisitesText": "`根骨≥82`、`气血≥3200`、`骑术≥80`；需先修成《六合大枪》或《杨氏梨花枪》。",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 82
+      },
+      {
+        "stat": "气血",
+        "min": 3200
+      },
+      {
+        "stat": "骑术",
+        "min": 80
+      }
+    ]
+  },
+  {
+    "id": "MA-037",
+    "code": "037",
     "name": "少林九阳功",
     "cleanName": "少林九阳功",
     "tier": "地阶",
@@ -1104,8 +1132,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-041",
-    "code": "041",
+    "id": "MA-042",
+    "code": "042",
     "name": "般若掌",
     "cleanName": "般若掌",
     "tier": "地阶",
@@ -1119,8 +1147,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-042",
-    "code": "042",
+    "id": "MA-043",
+    "code": "043",
     "name": "大力金刚指",
     "cleanName": "大力金刚指",
     "tier": "地阶",
@@ -1134,8 +1162,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-043",
-    "code": "043",
+    "id": "MA-044",
+    "code": "044",
     "name": "擒龙功",
     "cleanName": "擒龙功",
     "tier": "地阶",
@@ -1149,8 +1177,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-044",
-    "code": "044",
+    "id": "MA-045",
+    "code": "045",
     "name": "铁掌功",
     "cleanName": "铁掌功",
     "tier": "地阶",
@@ -1164,8 +1192,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-045",
-    "code": "045",
+    "id": "MA-046",
+    "code": "046",
     "name": "折扇落英神剑掌",
     "cleanName": "折扇落英神剑掌",
     "tier": "地阶",
@@ -1179,8 +1207,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-046",
-    "code": "046",
+    "id": "MA-047",
+    "code": "047",
     "name": "达摩剑法",
     "cleanName": "达摩剑法",
     "tier": "地阶",
@@ -1194,8 +1222,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-047",
-    "code": "047",
+    "id": "MA-048",
+    "code": "048",
     "name": "太岳三青峰",
     "cleanName": "太岳三青峰",
     "tier": "地阶",
@@ -1209,8 +1237,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-048",
-    "code": "048",
+    "id": "MA-049",
+    "code": "049",
     "name": "岱宗如何",
     "cleanName": "岱宗如何",
     "tier": "地阶",
@@ -1224,8 +1252,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-049",
-    "code": "049",
+    "id": "MA-050",
+    "code": "050",
     "name": "灭绝回风剑",
     "cleanName": "灭绝回风剑",
     "tier": "地阶",
@@ -1239,8 +1267,8 @@
     "statRequirements": []
   },
   {
-    "id": "MA-050",
-    "code": "050",
+    "id": "MA-051",
+    "code": "051",
     "name": "燃木刀法",
     "cleanName": "燃木刀法",
     "tier": "地阶",
@@ -1252,34 +1280,6 @@
     "description": "极快极烈之禅门刀法，出刀摩擦空气生热，劈砍枯木可令其焦黑生烟。",
     "prerequisitesText": null,
     "statRequirements": []
-  },
-  {
-    "id": "MA-051",
-    "code": "051",
-    "name": "杨家霸王枪",
-    "cleanName": "杨家霸王枪",
-    "tier": "天阶",
-    "subTier": "下品",
-    "fullTier": "天阶下品",
-    "category": "枪法",
-    "origin": "河东/抗辽名将",
-    "sectId": "SECT-20",
-    "description": "天波杨府家传杀伐枪术，“回马枪”绝技名震北辽铁骑，战阵无双。",
-    "prerequisitesText": "`根骨≥82`、`气血≥3200`、`骑术≥80`；需先修成《六合大枪》或《杨氏梨花枪》。",
-    "statRequirements": [
-      {
-        "stat": "根骨",
-        "min": 82
-      },
-      {
-        "stat": "气血",
-        "min": 3200
-      },
-      {
-        "stat": "骑术",
-        "min": 80
-      }
-    ]
   },
   {
     "id": "MA-052",
