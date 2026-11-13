@@ -11,6 +11,7 @@ node_modules
 dist
 dist-artifact
 dist-ssr
+northern_song_chronicles_*.html
 *.local
 
 # Editor directories and files
