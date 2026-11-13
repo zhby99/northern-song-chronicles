@@ -57,6 +57,15 @@ import {
   putSaveEnvelope,
   SAVE_SLOT_DEFS,
 } from '../../utils/saveManager'
+import {
+  formatAudioTime,
+  getActiveBgmTrack,
+  getCurrentBgmChapter,
+  seekBgmTo,
+  setBgmVolume,
+  toggleBgmPlayback,
+  useBgmState,
+} from '../../utils/bgmManager'
 
 const MENU_NAV_ITEMS: Array<{
   key: MenuTabKey
@@ -127,7 +136,7 @@ const MENU_NAV_ITEMS: Array<{
     numeral: '捌',
     label: '设 置',
     seal: '律',
-    subtitle: '舆图显示偏好、牌匾标注开关与界面主题调校',
+    subtitle: '皇祐雅乐坊（《东京梦华》背景配乐控制）、舆图显示偏好与牌匾标注调校',
     implementedM0: true,
   },
 ]
@@ -234,6 +243,9 @@ export function SystemMenuModal() {
   const setSaveNotice = useGameStore((s) => s.setSaveNotice)
 
   const telemetry = useAssetTelemetry()
+  const bgm = useBgmState()
+  const activeTrack = getActiveBgmTrack()
+  const activeChapter = getCurrentBgmChapter(bgm.currentTime, activeTrack)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
 
   // Selected equipment slot in Hero Panel
@@ -1848,6 +1860,111 @@ export function SystemMenuModal() {
               {/* 8. 设置面板 */}
               {activeMenuTab === 'settings' && (
                 <div className="space-y-3 text-xs">
+                  <div className="p-4 rounded bg-[#efe4cc] border-2 border-[#b59769] space-y-3">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold song-serif text-sm text-[#23180f]">
+                            皇祐雅乐坊 · {activeTrack.title}
+                          </span>
+                          <span className="px-2 py-0.5 rounded bg-[#faf3e3] border border-[#9e8462] text-[11px] font-mono text-[#52391e]">
+                            {activeTrack.modeLabel}
+                          </span>
+                        </div>
+                        <div className="text-[11px] text-[#6b5235] mt-0.5">
+                          {activeTrack.subtitle}
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={toggleBgmPlayback}
+                        className={`px-3.5 py-1.5 rounded font-bold song-serif cursor-pointer transition ${
+                          bgm.enabled
+                            ? 'bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb]'
+                            : 'bg-[#dfd0b2] hover:bg-[#d2c09d] border border-[#8c6e46] text-[#3d2812]'
+                        }`}
+                      >
+                        {bgm.isPlaying
+                          ? '当前：丝竹奏鸣中（点击静音）'
+                          : bgm.enabled
+                            ? '当前：待奏响（点击播放）'
+                            : '当前：已静音（点击开启）'}
+                      </button>
+                    </div>
+
+                    <div className="bg-[#faf3e3] border border-[#cbb693] rounded p-3 space-y-2">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="song-serif font-bold text-[#781710]">
+                          正在品鉴：{activeChapter.name} — {activeChapter.desc}
+                        </span>
+                        <span className="font-mono text-[#5e472d]">
+                          {formatAudioTime(bgm.currentTime)} / {formatAudioTime(bgm.duration)}
+                        </span>
+                      </div>
+
+                      <input
+                        type="range"
+                        min={0}
+                        max={Math.max(1, Math.floor(bgm.duration))}
+                        step={1}
+                        value={Math.floor(bgm.currentTime)}
+                        onChange={(e) => seekBgmTo(Number(e.target.value))}
+                        className="w-full accent-[#8f1d14] cursor-pointer h-1.5"
+                      />
+
+                      <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 pt-0.5">
+                        {activeTrack.chapters.map((ch) => {
+                          const isCur = activeChapter.name === ch.name
+                          return (
+                            <button
+                              key={ch.name}
+                              type="button"
+                              onClick={() => seekBgmTo(ch.startSec)}
+                              className={`px-2 py-1.5 rounded text-left border transition cursor-pointer ${
+                                isCur
+                                  ? 'bg-[#5c4024] text-[#fff8ee] border-[#3d2812]'
+                                  : 'bg-[#efe4cc] text-[#3d2812] border-[#b8a07a] hover:bg-[#e3d3b3]'
+                              }`}
+                            >
+                              <div className="song-serif font-bold text-[11px] truncate">
+                                {ch.name}
+                              </div>
+                              <div
+                                className={`text-[10px] font-mono ${
+                                  isCur ? 'text-amber-200' : 'text-[#6b5235]'
+                                }`}
+                              >
+                                {formatAudioTime(ch.startSec)} 起
+                              </div>
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                      <span className="song-serif font-bold text-[#3d2812] shrink-0">
+                        雅乐音量（快捷键 M 静音）：
+                      </span>
+                      <input
+                        type="range"
+                        min={0}
+                        max={100}
+                        value={Math.round(bgm.volume * 100)}
+                        onChange={(e) => setBgmVolume(Number(e.target.value) / 100)}
+                        className="flex-1 accent-[#5c4024] cursor-pointer"
+                      />
+                      <span className="font-mono font-bold text-[#52391e] w-10 text-right">
+                        {Math.round(bgm.volume * 100)}%
+                      </span>
+                    </div>
+
+                    <div className="text-[11px] text-[#6b5235] leading-relaxed">
+                      {activeTrack.composerNote}
+                    </div>
+                  </div>
+
                   <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e] flex items-center justify-between">
                     <div>
                       <div className="font-bold song-serif text-[#23180f]">

@@ -8,6 +8,7 @@ import { RegionMapCanvas } from './components/map/RegionMapCanvas'
 import { WorldMapCanvas } from './components/map/WorldMapCanvas'
 import { SystemMenuModal } from './components/menu/SystemMenuModal'
 import { useGameStore } from './store/useGameStore'
+import { initBgmAutoStart, toggleBgmPlayback } from './utils/bgmManager'
 
 export function App() {
   const viewMode = useGameStore((s) => s.viewMode)
@@ -17,12 +18,27 @@ export function App() {
   const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
 
-  // Global ESC shortcut for system menu
+  // Initialize Northern Song BGM ("东京梦华") with browser gesture fallback
+  useEffect(() => {
+    initBgmAutoStart()
+  }, [])
+
+  // Global ESC shortcut for system menu & M shortcut for BGM toggle
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         if (menuOpen) closeMenu()
         else openMenu()
+        return
+      }
+      if (
+        (e.key === 'm' || e.key === 'M') &&
+        !e.ctrlKey &&
+        !e.metaKey &&
+        !e.altKey &&
+        !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)
+      ) {
+        toggleBgmPlayback()
       }
     }
     window.addEventListener('keydown', onKeyDown)

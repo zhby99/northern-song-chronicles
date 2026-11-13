@@ -51,6 +51,20 @@ async function main() {
     }
   }
 
+  const audioFolder = path.join(PUBLIC_DIR, 'assets', 'audio')
+  if (fs.existsSync(audioFolder)) {
+    const audioFiles = fs
+      .readdirSync(audioFolder)
+      .filter((f) => f.toLowerCase().endsWith('.mp3'))
+      .sort()
+    for (const fileName of audioFiles) {
+      const buf = fs.readFileSync(path.join(audioFolder, fileName))
+      const webUrl = `/assets/audio/${fileName}`
+      assetPack[webUrl] = `data:audio/mpeg;base64,${buf.toString('base64')}`
+      assetCount += 1
+    }
+  }
+
   const assetsJson = JSON.stringify(assetPack).replace(/<\//g, '<\\/')
 
   const outHtml = `<!DOCTYPE html>
