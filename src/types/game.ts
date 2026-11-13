@@ -364,6 +364,7 @@ export interface CompiledNpcRecord {
   avatarUrl: string | null
   fullbodyUrl: string | null
   templateUrl: string
+  ownedArtifactIds?: string[]
 }
 
 export type SectTierKind = '一流大派' | '二流门派' | '三流小派' | '朝堂与地域组织'
@@ -658,6 +659,23 @@ export interface CompiledGearRecord {
   statRequirements: MartialArtStatReq[]
 }
 
+export type UniqueArtifactOwnerType = 'npc' | 'player' | 'unowned'
+
+export interface CompiledUniqueArtifactRecord {
+  itemId: string
+  itemName: string
+  tier: '天阶' | '地阶'
+  categoryLabel: string
+  ownerType: UniqueArtifactOwnerType
+  ownerNpcId: string | null
+  ownerNpcName: string | null
+  ownerNpcTitle: string | null
+  ownerFactionName: string | null
+  ownerRegionId: string | null
+  ownerLocationLabel: string | null
+  note: string
+}
+
 export interface InventoryStack {
   itemId: string
   qty: number
@@ -715,6 +733,7 @@ export interface SerializableGameState {
   learnedArts: LearnedArtEntry[]
   equippedArts: EquippedArtsMap
   inventory: InventoryStack[]
+  consumedUniqueIds?: string[]
 
   overlays: OverlayToggles
   roamingMasters: RoamingMaster[]

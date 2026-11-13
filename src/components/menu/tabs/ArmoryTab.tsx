@@ -1,5 +1,10 @@
 import { useMemo, useState } from 'react'
-import { FACTION_DB_MAP, MARTIAL_ART_DB_MAP, WEAPONS_DB } from '../../../data/gameDb'
+import {
+  FACTION_DB_MAP,
+  MARTIAL_ART_DB_MAP,
+  UNIQUE_ARTIFACT_MAP,
+  WEAPONS_DB,
+} from '../../../data/gameDb'
 import {
   checkWeaponEquipRequirements,
   formatBonusBadges,
@@ -16,8 +21,13 @@ import type {
 } from '../../../types/game'
 import { GearCompendiumPanel } from '../GearCompendiumPanel'
 import { WEAPON_SUB_CATEGORIES } from '../menuShared'
+import { UniqueOwnershipBadge, UniqueOwnershipBanner } from '../UniqueOwnershipBanner'
 
 interface ArmoryTabProps {
+  armorySubTab?: 'weapons' | GearSlotType
+  onChangeArmorySubTab?: (tab: 'weapons' | GearSlotType) => void
+  focusedGearId?: string | null
+  onClearFocusedGearId?: () => void
   selectedWeapon: CompiledWeaponRecord | null
   onSelectWeapon: (wpn: CompiledWeaponRecord) => void
   wpnTierFilter: 'ALL' | EquipmentTier
@@ -34,6 +44,10 @@ interface ArmoryTabProps {
 }
 
 export function ArmoryTab({
+  armorySubTab: controlledSubTab,
+  onChangeArmorySubTab,
+  focusedGearId,
+  onClearFocusedGearId,
   selectedWeapon,
   onSelectWeapon,
   wpnTierFilter,
@@ -61,7 +75,13 @@ export function ArmoryTab({
   const acquireWeaponToBag = useGameStore((s) => s.acquireWeaponToBag)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
 
-  const [armorySubTab, setArmorySubTab] = useState<'weapons' | GearSlotType>('weapons')
+  const [localSubTab, setLocalSubTab] = useState<'weapons' | GearSlotType>('weapons')
+  const armorySubTab = controlledSubTab ?? localSubTab
+  const setArmorySubTab = (next: 'weapons' | GearSlotType) => {
+    onClearFocusedGearId?.()
+    if (onChangeArmorySubTab) onChangeArmorySubTab(next)
+    else setLocalSubTab(next)
+  }
   const [wpnQuery, setWpnQuery] = useState('')
 
   const playerEquipCtx = useMemo(
@@ -91,6 +111,14 @@ export function ArmoryTab({
       if (wpnTierFilter !== 'ALL' && w.tier !== wpnTierFilter) return false
       if (wpnTypeFilter !== 'ALL' && w.weaponType !== wpnTypeFilter) return false
       if (!q) return true
+      const uRec = UNIQUE_ARTIFACT_MAP[w.id]
+      const ownerMatch = uRec
+        ? (uRec.ownerNpcName?.toLowerCase().includes(q) ?? false) ||
+          (uRec.ownerNpcTitle?.toLowerCase().includes(q) ?? false) ||
+          uRec.note.toLowerCase().includes(q) ||
+          (uRec.ownerType === 'unowned' && '无主'.includes(q)) ||
+          '孤品'.includes(q)
+        : false
       return (
         w.id.toLowerCase().includes(q) ||
         w.name.toLowerCase().includes(q) ||
@@ -98,7 +126,8 @@ export function ArmoryTab({
         w.originFull.toLowerCase().includes(q) ||
         w.locationLabel.toLowerCase().includes(q) ||
         (w.specialTag ?? '').toLowerCase().includes(q) ||
-        w.description.toLowerCase().includes(q)
+        w.description.toLowerCase().includes(q) ||
+        ownerMatch
       )
     })
   }, [wpnQuery, wpnTierFilter, wpnTypeFilter])
@@ -113,7 +142,7 @@ export function ArmoryTab({
               皇祐披挂总典
             </span>
             <span className="song-serif font-bold text-xs sm:text-sm text-[#23180f]">
-              七槽披挂全录（百兵 100 · 服饰 56 · 鞋履 28 · 弓箭 28 · 配饰 56 · 名驹 28）
+              七槽披挂全录（百兵 100 · 服饰 56 · 鞋履 28 · 弓箭 28 · 配饰 56 · 名驹 28 · 天地阶皆举世孤品）
             </span>
           </div>
           <button
@@ -152,7 +181,9 @@ export function ArmoryTab({
 
       {armorySubTab !== 'weapons' ? (
         <GearCompendiumPanel
+          key={`${armorySubTab}-${focusedGearId ?? 'all'}`}
           slotFilter={armorySubTab}
+          initialSearch={focusedGearId}
           onJumpToRegion={onJumpToRegion}
           onJumpToLoadout={() =>
             onJumpToGearLoadout(armorySubTab === 'accessory' ? 'accessory1' : armorySubTab)
@@ -167,7 +198,7 @@ export function ArmoryTab({
             type="text"
             value={wpnQuery}
             onChange={(e) => setWpnQuery(e.target.value)}
-            placeholder="搜索兵器编号、名称、锻造产地、词条或典故（如：WPN-001、冷锻、龙泉、打狗棒、开封府）…"
+            placeholder="搜索兵器编号、名称、当前归属人、无主、产地或典故（如：WPN-001、汪剑通、包拯、无主、打狗棒）…"
             className="flex-1 min-w-[220px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
           />
           <select
@@ -176,8 +207,8 @@ export function ArmoryTab({
             className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
           >
             <option value="ALL">全部四阶 (100 兵)</option>
-            <option value="天阶">天阶神兵 (10 兵)</option>
-            <option value="地阶">地阶名器 (20 兵)</option>
+            <option value="天阶">天阶神兵 (10 兵 · 孤品)</option>
+            <option value="地阶">地阶名器 (20 兵 · 孤品)</option>
             <option value="良阶">良阶精兵 (30 兵)</option>
             <option value="凡阶">凡阶制式 (40 兵)</option>
           </select>
@@ -255,6 +286,7 @@ export function ArmoryTab({
                         在囊中
                       </span>
                     )}
+                    <UniqueOwnershipBadge itemId={wpn.id} />
                   </div>
                   <div
                     className={`text-[11px] truncate mt-0.5 ${
@@ -344,6 +376,8 @@ export function ArmoryTab({
                         </button>
                       </div>
                     </div>
+
+                    <UniqueOwnershipBanner itemId={selectedWeapon.id} />
 
                     {/* 交锋规格与银两估值 */}
                     <div className="grid grid-cols-3 gap-2 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-2 text-xs">

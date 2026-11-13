@@ -1,9 +1,17 @@
-import { GEAR_DB, MARTIAL_ART_DB_MAP, MOUNT_DB_MAP, MOUNTS_DB, WEAPONS_DB } from './gameDb'
+import {
+  GEAR_DB,
+  MARTIAL_ART_DB_MAP,
+  MOUNT_DB_MAP,
+  MOUNTS_DB,
+  UNIQUE_ARTIFACT_MAP,
+  WEAPONS_DB,
+} from './gameDb'
 import { computeSingleArtBonus } from './playerMartialArts'
 import type {
   BagCategoryKey,
   CompiledGearRecord,
   CompiledMountRecord,
+  CompiledUniqueArtifactRecord,
   CompiledWeaponRecord,
   EquipmentSlotKey,
   EquipmentStatBonus,
@@ -197,7 +205,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '佛门圣药',
     rarity: '天阶',
-    stackable: true,
+    stackable: false,
     value: 920,
     desc: '嵩山少林寺药王院秘传百年的起死回生圣药，集千年雪莲、老山野参等三十六味灵药九转丹成，一颗便可贯通奇经、脱胎换骨。',
     lore: '少林寺每甲子仅成丹数枚，非护教大劫或武林存亡之际绝不轻赐。',
@@ -216,7 +224,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '道家仙丹',
     rarity: '天阶',
-    stackable: true,
+    stackable: false,
     value: 860,
     desc: '逍遥派与东海桃花岛一脉秘炼仙丹，采清晨九种奇花花瓣上之朝露配以瑶池灵草酿就，服之满口异香，真气生生不息。',
     lore: '无崖子与苏星河常以此丹调理内息，轻身明目，寒暑不侵。',
@@ -236,7 +244,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '万毒克星',
     rarity: '天阶',
-    stackable: true,
+    stackable: false,
     value: 960,
     desc: '以无量山剑湖秘境偶现之万毒之王“莽牯朱蛤”内丹辅以滇南灵草封炼而成，服后通体血脉澄澈，诸般瘴蛊奇毒莫能近身。',
     lore: '大理天龙寺枯荣大师曾言：得朱蛤真元者，纵入星宿毒海亦如履平地。',
@@ -253,7 +261,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '绝世奇毒',
     rarity: '天阶',
-    stackable: true,
+    stackable: false,
     value: 880,
     desc: '天山童姥巫行云独步西域的阴阳暗器奇毒，以昆仑寒玉匣封存薄如柳叶的酒水冰片，打入经脉后奇痒剧痛交作，求生不得、求死不能。',
     lore: '三十六洞七十二岛群豪闻“生死符”三字莫不魂飞魄散，唯有天山六阳掌真气可解。',
@@ -265,7 +273,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '绝世奇毒',
     rarity: '天阶',
-    stackable: true,
+    stackable: false,
     value: 850,
     desc: '星宿老仙丁春秋取昆仑毒泉五圣奇虫精炼的无色无味毒粉，微风拂动即悄然入体，中者连笑三声便气绝经断，诡谲莫测。',
     lore: '碧玉瓶塞刻有星宿海骷髅暗记，非抗性高绝或深谙毒理者不可轻启。',
@@ -279,7 +287,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '塞外灵丹',
     rarity: '地阶',
-    stackable: true,
+    stackable: false,
     value: 420,
     desc: '采自白山黑水深处的人形老山参王，经大辽太医局与塞外奇人秘法蜜炼，重伤垂危之际含服一丸可吊命回元、固本培气。',
     lore: '临潢府斡耳朵皇帐贡珍，塞北苦寒之地视若第二性命。',
@@ -296,7 +304,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '西域灵丹',
     rarity: '地阶',
-    stackable: true,
+    stackable: false,
     value: 390,
     desc: '撷昆仑万仞冰峰之巅的盛开雪莲，佐以寒潭灵泉炼就，丹丸晶莹如碧玉，可瞬间充盈枯竭丹田并涤除寒热内伤。',
     useEffect: {
@@ -312,7 +320,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '道门金丹',
     rarity: '地阶',
-    stackable: true,
+    stackable: false,
     value: 360,
     desc: '武当山真武道宗丹房依古法铅汞草木同炉炼制的紫金丹药，性温醇和，最宜突破内功瓶颈前宁神聚气、调和阴阳。',
     useEffect: {
@@ -330,7 +338,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '西夏奇毒',
     rarity: '地阶',
-    stackable: true,
+    stackable: false,
     value: 340,
     desc: '西夏兴庆府一品堂秘藏的无色奇毒，盛于双层乌金瓷瓶中。临阵迎风挥洒，敌手双目酸泪不止，周身内力一时酸麻溃散。',
     lore: '一品堂高手潜入中原刺探少林丐帮军情时，常以此物以寡敌众。',
@@ -342,7 +350,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     category: 'medicine',
     subType: '淬兵剧毒',
     rarity: '地阶',
-    stackable: true,
+    stackable: false,
     value: 330,
     desc: '蜀中唐家堡天机阁主唐无影督炼的乌黑毒膏，专供涂抹暗器刃口，见血封喉，纵是横练铁布衫高手擦破油皮亦难逃毒火攻心。',
     poisonEffect: '战阵淬毒 · 涂抹于兵刃弓矢之上，命中后附加深层七煞腐脉剧毒并削弱目标抗性',
@@ -1584,7 +1592,7 @@ export const DEFAULT_INITIAL_INVENTORY: InventoryStack[] = [
   { itemId: 'ITM-MED-124', qty: 4 },
   { itemId: 'ITM-MED-111', qty: 2 },
   { itemId: 'ITM-MED-114', qty: 1 },
-  { itemId: 'ITM-MED-109', qty: 1 },
+  { itemId: 'ITM-MED-119', qty: 1 },
   { itemId: 'ITM-MED-128', qty: 2 },
   // 雅器百工（开局随身常备新雅器代表）
   { itemId: 'ITM-CUR-016', qty: 1 },
@@ -1840,3 +1848,95 @@ export function formatBonusBadges(bonus?: EquipmentStatBonus): string[] {
   }
   return list
 }
+
+export interface LiveUniqueArtifactOwnership {
+  meta: CompiledUniqueArtifactRecord
+  liveStatus: 'player_equipped' | 'player_bag' | 'consumed' | 'npc' | 'unowned'
+  badgeLabel: string
+  ownerTitle: string
+  ownerSubtitle: string
+  ownerNpcId: string | null
+}
+
+export function resolveUniqueArtifactLiveOwnership(
+  itemId: string,
+  inventory: InventoryStack[],
+  equipped: EquippedSlotsMap,
+  consumedUniqueIds: string[] = [],
+): LiveUniqueArtifactOwnership | null {
+  const meta = UNIQUE_ARTIFACT_MAP[itemId]
+  if (!meta) return null
+
+  const isEquipped = Object.values(equipped).includes(itemId)
+  const inBag = inventory.some((st) => st.itemId === itemId && st.qty > 0)
+  const isConsumed = consumedUniqueIds.includes(itemId)
+
+  if (isEquipped) {
+    const origSuffix =
+      meta.ownerType === 'npc' && meta.ownerNpcName ? `（原属：${meta.ownerNpcName}）` : ''
+    return {
+      meta,
+      liveStatus: 'player_equipped',
+      badgeLabel: '归属：少侠（已披挂）',
+      ownerTitle: `少侠（主角随身披挂）${origSuffix}`,
+      ownerSubtitle: meta.note,
+      ownerNpcId: meta.ownerNpcId,
+    }
+  }
+
+  if (inBag) {
+    const origSuffix =
+      meta.ownerType === 'npc' && meta.ownerNpcName ? `（原属：${meta.ownerNpcName}）` : ''
+    return {
+      meta,
+      liveStatus: 'player_bag',
+      badgeLabel: '归属：少侠（囊藏）',
+      ownerTitle: `少侠（主角行囊珍藏）${origSuffix}`,
+      ownerSubtitle: meta.note,
+      ownerNpcId: meta.ownerNpcId,
+    }
+  }
+
+  if (isConsumed) {
+    return {
+      meta,
+      liveStatus: 'consumed',
+      badgeLabel: '已服食绝版',
+      ownerTitle: '已炼化绝迹（已由少侠服食吸收，举世再无第二枚）',
+      ownerSubtitle: meta.note,
+      ownerNpcId: meta.ownerNpcId,
+    }
+  }
+
+  if (meta.ownerType === 'npc' && meta.ownerNpcId && meta.ownerNpcName) {
+    return {
+      meta,
+      liveStatus: 'npc',
+      badgeLabel: `归属：${meta.ownerNpcName}`,
+      ownerTitle: `${meta.ownerNpcName}（${meta.ownerNpcTitle ?? '名宿'} · ${meta.ownerFactionName ?? '江湖'}）`,
+      ownerSubtitle: `驻地：${meta.ownerLocationLabel ?? '未知'} — ${meta.note}`,
+      ownerNpcId: meta.ownerNpcId,
+    }
+  }
+
+  if (meta.ownerType === 'player') {
+    return {
+      meta,
+      liveStatus: 'unowned',
+      badgeLabel: '无主孤品',
+      ownerTitle: '无主（少侠暂未持有）',
+      ownerSubtitle: meta.note,
+      ownerNpcId: null,
+    }
+  }
+
+  return {
+    meta,
+    liveStatus: 'unowned',
+    badgeLabel: '无主孤品',
+    ownerTitle: '无主 · 秘境遗珍待寻',
+    ownerSubtitle: meta.note,
+    ownerNpcId: null,
+  }
+}
+

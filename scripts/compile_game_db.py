@@ -1422,7 +1422,7 @@ def parse_equip_bonus_tokens(raw_bonus: str) -> dict[str, Any]:
 
 def parse_weapons() -> list[dict[str, Any]]:
     eq_path = DOCS_DIR / "EQUIPMENT_COMPENDIUM.md"
-    lines = eq_path.read_text(encoding="utf-8").splitlines()
+    lines = eq_path.read_text(encoding="utf-8").split("## 十、 天地阶孤品归属总录", 1)[0].splitlines()
 
     current_tier = ""
     current_sub_tier = ""
@@ -1543,7 +1543,7 @@ MOUNT_TERRAIN_TRAIT_MAP: dict[str, str | None] = {
 
 def parse_mounts() -> list[dict[str, Any]]:
     eq_path = DOCS_DIR / "EQUIPMENT_COMPENDIUM.md"
-    lines = eq_path.read_text(encoding="utf-8").splitlines()
+    lines = eq_path.read_text(encoding="utf-8").split("## 十、 天地阶孤品归属总录", 1)[0].splitlines()
 
     current_tier = ""
     current_sub_tier = ""
@@ -2145,7 +2145,7 @@ def parse_npcs(
 # ==============================================================================
 
 def parse_gear() -> list[dict[str, Any]]:
-    text = (DOCS_DIR / "EQUIPMENT_COMPENDIUM.md").read_text(encoding="utf-8")
+    text = (DOCS_DIR / "EQUIPMENT_COMPENDIUM.md").read_text(encoding="utf-8").split("## 十、 天地阶孤品归属总录", 1)[0]
     gear_list: list[dict[str, Any]] = []
     seen_ids: set[str] = set()
 
@@ -2223,6 +2223,97 @@ def parse_gear() -> list[dict[str, Any]]:
 
     assert len(gear_list) == 168, f"Expected 168 gear items, got {len(gear_list)}"
     return gear_list
+
+
+def parse_unique_artifacts(npcs_by_id: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    text = (DOCS_DIR / "EQUIPMENT_COMPENDIUM.md").read_text(encoding="utf-8")
+    marker = "## 十、 天地阶孤品归属总录"
+    if marker not in text:
+        raise AssertionError("Missing section 十、 天地阶孤品归属总录 in EQUIPMENT_COMPENDIUM.md")
+    sec_text = text.split(marker, 1)[1]
+
+    records: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+
+    for line in sec_text.splitlines():
+        s = line.strip()
+        m = re.match(r"^\|\s*`((?:WPN|ARM|BOT|BOW|ACC|MNT|ITM-SCR|ITM-MED|ITM-CUR)-\d{3})`\s*\|", s)
+        if not m:
+            continue
+        cells = [c.strip() for c in s.strip("|").split("|")]
+        if len(cells) < 7:
+            continue
+
+        item_id = cells[0].strip("`").strip()
+        if item_id in seen_ids:
+            raise AssertionError(f"Duplicate unique artifact ID: {item_id}")
+        seen_ids.add(item_id)
+
+        item_name = re.sub(r"\*\*", "", cells[1]).strip()
+        tier = cells[2]
+        if tier not in ("天阶", "地阶"):
+            raise AssertionError(f"Invalid tier {tier!r} on unique artifact {item_id}")
+        category_label = cells[3]
+        owner_spec = cells[4].strip("`").strip()
+        note = cells[6]
+
+        if owner_spec == "UNOWNED":
+            records.append(
+                {
+                    "itemId": item_id,
+                    "itemName": item_name,
+                    "tier": tier,
+                    "categoryLabel": category_label,
+                    "ownerType": "unowned",
+                    "ownerNpcId": None,
+                    "ownerNpcName": None,
+                    "ownerNpcTitle": None,
+                    "ownerFactionName": None,
+                    "ownerRegionId": None,
+                    "ownerLocationLabel": None,
+                    "note": note,
+                }
+            )
+        elif owner_spec == "PLAYER":
+            records.append(
+                {
+                    "itemId": item_id,
+                    "itemName": item_name,
+                    "tier": tier,
+                    "categoryLabel": category_label,
+                    "ownerType": "player",
+                    "ownerNpcId": None,
+                    "ownerNpcName": "少侠（主角）",
+                    "ownerNpcTitle": "初入江湖",
+                    "ownerFactionName": None,
+                    "ownerRegionId": None,
+                    "ownerLocationLabel": "随身持有",
+                    "note": note,
+                }
+            )
+        else:
+            if owner_spec not in npcs_by_id:
+                raise AssertionError(f"Unknown ownerNpcId {owner_spec!r} for unique artifact {item_id}")
+            npc = npcs_by_id[owner_spec]
+            records.append(
+                {
+                    "itemId": item_id,
+                    "itemName": item_name,
+                    "tier": tier,
+                    "categoryLabel": category_label,
+                    "ownerType": "npc",
+                    "ownerNpcId": owner_spec,
+                    "ownerNpcName": npc["name"],
+                    "ownerNpcTitle": npc["title"],
+                    "ownerFactionName": npc["factionName"],
+                    "ownerRegionId": npc["regionId"],
+                    "ownerLocationLabel": npc["fullLocationLabel"],
+                    "note": note,
+                }
+            )
+
+    assert len(records) == 141, f"Expected 141 unique Heaven/Earth artifacts, got {len(records)}"
+    return records
 
 
 def compile_all(do_normalize_docs: bool) -> None:
@@ -2728,6 +2819,14 @@ def compile_all(do_normalize_docs: bool) -> None:
         if g["sectId"] is not None:
             assert g["sectId"] in faction_id_set, f"Invalid sectId on {g['id']}"
 
+    npcs_by_id = {n["id"]: n for n in npcs}
+    for n in npcs:
+        n["ownedArtifactIds"] = []
+    unique_artifacts = parse_unique_artifacts(npcs_by_id)
+    for ua in unique_artifacts:
+        if ua["ownerType"] == "npc" and ua["ownerNpcId"]:
+            npcs_by_id[ua["ownerNpcId"]]["ownedArtifactIds"].append(ua["itemId"])
+
     outputs = {
         "idRegistry.json": id_registry,
         "regions.json": regions,
@@ -2736,6 +2835,7 @@ def compile_all(do_normalize_docs: bool) -> None:
         "weapons.json": weapons,
         "mounts.json": mounts,
         "gear.json": gear,
+        "uniqueArtifacts.json": unique_artifacts,
         "npcs.json": npcs,
     }
 

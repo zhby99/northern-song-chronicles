@@ -1,5 +1,10 @@
 import { create } from 'zustand'
-import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, NPC_DB_MAP } from '../data/gameDb'
+import {
+  BUILDING_DB_MAP,
+  MARTIAL_ART_DB_MAP,
+  NPC_DB_MAP,
+  UNIQUE_ARTIFACT_MAP,
+} from '../data/gameDb'
 import {
   BAG_CATEGORY_METAS,
   canItemFitSlot,
@@ -234,6 +239,7 @@ export interface GameStoreState {
   learnedArts: LearnedArtEntry[]
   equippedArts: EquippedArtsMap
   inventory: InventoryStack[]
+  consumedUniqueIds: string[]
   activeBagCategory: BagCategoryKey
 
   overlays: OverlayToggles
@@ -366,6 +372,7 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     learnedArts: s.learnedArts.map((x) => ({ ...x })),
     equippedArts: { ...s.equippedArts },
     inventory: s.inventory.map((x) => ({ ...x })),
+    consumedUniqueIds: [...s.consumedUniqueIds],
     overlays: { ...s.overlays },
     roamingMasters: s.roamingMasters.map((m) => ({ ...m })),
     worldPan: { ...s.worldPan },
@@ -406,6 +413,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   learnedArts: DEFAULT_LEARNED_ARTS.map((x) => ({ ...x })),
   equippedArts: { ...DEFAULT_EQUIPPED_ARTS },
   inventory: DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x })),
+  consumedUniqueIds: [],
   activeBagCategory: 'scrolls',
 
   overlays: {
@@ -856,6 +864,36 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
+    if (def.gearMeta) {
+      const reqCheck = checkGearEquipRequirements(def.gearMeta, {
+        maxHp: s.maxHp,
+        maxMp: s.maxMp,
+        agility: s.agility,
+        res: s.res,
+        ridingSkill: s.ridingSkill,
+        skills: s.skills,
+        talents: s.baseStats.talents,
+      })
+      if (!reqCheck.ok) {
+        const unmetStr = reqCheck.details
+          .filter((d) => !d.met)
+          .map((d) => `${d.stat} ${d.current}/${d.min}`)
+          .join('、')
+        const warnMsg = `难以佩备${def.gearMeta.tier}${def.gearMeta.grade}重宝【${def.name}】！未达佩备门槛：${unmetStr}`
+        set({
+          actionFeedback: {
+            text: warnMsg,
+            tone: 'warn',
+          },
+          logs: [
+            createLogEntry(s.dayCount, '佩备受阻', warnMsg, true, s.shichenIdx),
+            ...s.logs,
+          ].slice(0, 60),
+        })
+        return
+      }
+    }
+
     let slot: EquipmentSlotKey = def.equipSlot
     if (preferredSlot && canItemFitSlot(def, preferredSlot)) {
       slot = preferredSlot
@@ -1004,6 +1042,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const isEquipped = Object.values(s.equipped).includes(itemId)
     const existingQty = s.inventory.find((x) => x.itemId === itemId)?.qty ?? 0
 
+    if (s.consumedUniqueIds.includes(itemId)) {
+      set({
+        actionFeedback: {
+          text: `【${def.name}】乃天地孤品（举世仅此一件），已由少侠服食炼化，世间再无复本！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
     if (!def.stackable && (isEquipped || existingQty > 0)) {
       set({
         actionFeedback: {
@@ -1381,11 +1428,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           ? '雅器修习'
           : '服食丹膳'
 
+    const nextConsumedUnique =
+      shouldConsume && UNIQUE_ARTIFACT_MAP[itemId] && !s.consumedUniqueIds.includes(itemId)
+        ? [...s.consumedUniqueIds, itemId]
+        : s.consumedUniqueIds
+
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
       inventory: nextInv,
       baseStats: nextBaseStats,
+      consumedUniqueIds: nextConsumedUnique,
       learnedArts: nextLearnedArts,
       mountKey: derived.mountKey,
       qinggongBonus: derived.qinggongBonus,
@@ -2179,6 +2232,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       stamina: Math.min(derived.maxStamina, st.stamina),
       res: derived.res,
       skills: derived.skills,
+      consumedUniqueIds: st.consumedUniqueIds ?? [],
       campPos: st.campPos ?? null,
       traveling: null,
       tooltip: null,

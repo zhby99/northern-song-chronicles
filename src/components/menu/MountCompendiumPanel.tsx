@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { FACTION_DB_MAP, MOUNTS_DB } from '../../data/gameDb'
+import { FACTION_DB_MAP, MOUNTS_DB, UNIQUE_ARTIFACT_MAP } from '../../data/gameDb'
 import {
   checkMountEquipRequirements,
   formatBonusBadges,
@@ -16,6 +16,7 @@ import type {
   MountTerrainTrait,
 } from '../../types/game'
 import { WORLD_GRAPH } from '../../utils/mapMath'
+import { UniqueOwnershipBadge, UniqueOwnershipBanner } from './UniqueOwnershipBanner'
 
 const MOUNT_BREED_CATEGORIES: MountBreedCategory[] = [
   '西域神驹',
@@ -72,13 +73,23 @@ export function MountCompendiumPanel({
       if (mntTierFilter !== 'ALL' && m.tier !== mntTierFilter) return false
       if (mntBreedFilter !== 'ALL' && m.breedCategory !== mntBreedFilter) return false
       if (!q) return true
+      const uRec = UNIQUE_ARTIFACT_MAP[m.id]
+      const ownerMatch = uRec
+        ? (uRec.ownerNpcName?.toLowerCase().includes(q) ?? false) ||
+          (uRec.ownerNpcTitle?.toLowerCase().includes(q) ?? false) ||
+          uRec.note.toLowerCase().includes(q) ||
+          (uRec.ownerType === 'unowned' && '无主'.includes(q)) ||
+          (uRec.ownerType === 'player' && ('主角'.includes(q) || '少侠'.includes(q))) ||
+          '孤品'.includes(q)
+        : false
       return (
         m.id.toLowerCase().includes(q) ||
         m.name.toLowerCase().includes(q) ||
         m.breedCategory.toLowerCase().includes(q) ||
         m.originFull.toLowerCase().includes(q) ||
         m.terrainTrait.toLowerCase().includes(q) ||
-        m.description.toLowerCase().includes(q)
+        m.description.toLowerCase().includes(q) ||
+        ownerMatch
       )
     })
   }, [mntQuery, mntTierFilter, mntBreedFilter])
@@ -108,7 +119,7 @@ export function MountCompendiumPanel({
             第六卷 · 名驹鞍辔谱
           </span>
           <span className="song-serif font-bold text-xs sm:text-sm text-[#23180f]">
-            皇祐二十八骑全录（3 天阶 · 5 地阶 · 8 良阶 · 12 凡阶）
+            皇祐二十八骑全录（3 天阶 · 5 地阶［天地阶皆举世孤品］ · 8 良阶 · 12 凡阶）
           </span>
         </div>
         <div className="flex items-center gap-3 text-[11px] text-[#5e472d]">
@@ -128,7 +139,7 @@ export function MountCompendiumPanel({
             type="text"
             value={mntQuery}
             onChange={(e) => setMntQuery(e.target.value)}
-            placeholder="搜索名驹编号、马名、茶马产地、地形特质或典故（如：MNT-001、汗血、玉狮子、铁鹞、秦州、驴）…"
+            placeholder="搜索名驹编号、马名、当前归属人、无主、产地或特质（如：MNT-001、狄青、乔峰、无主、汗血）…"
             className="flex-1 min-w-[220px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
           />
           <select
@@ -137,8 +148,8 @@ export function MountCompendiumPanel({
             className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
           >
             <option value="ALL">全部四阶 (28 骑)</option>
-            <option value="天阶">天阶神驹 (3 骑)</option>
-            <option value="地阶">地阶名马 (5 骑)</option>
+            <option value="天阶">天阶神驹 (3 骑 · 孤品)</option>
+            <option value="地阶">地阶名马 (5 骑 · 孤品)</option>
             <option value="良阶">良阶骏马 (8 骑)</option>
             <option value="凡阶">凡阶鞍马骡驴 (12 骑)</option>
           </select>
@@ -218,6 +229,7 @@ export function MountCompendiumPanel({
                         在厩囊
                       </span>
                     )}
+                    <UniqueOwnershipBadge itemId={mnt.id} />
                   </div>
                   <div
                     className={`text-[11px] truncate mt-0.5 ${
@@ -299,6 +311,9 @@ export function MountCompendiumPanel({
                     </button>
                   </div>
                 </div>
+
+                {/* 天地阶孤品归属横幅 */}
+                <UniqueOwnershipBanner itemId={selectedMount.id} />
 
                 {/* 日行脚力与地貌规格 */}
                 <div className="grid grid-cols-3 gap-2 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-2 text-xs">

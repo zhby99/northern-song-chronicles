@@ -197,6 +197,7 @@ export type TreasureCollectionStats = Record<
 export function computeTreasureCollectionStats(
   inventory: InventoryStack[],
   equipped: Record<EquipmentSlotKey, string | null>,
+  consumedUniqueIds: string[] = [],
 ): TreasureCollectionStats {
   const ownedQtyMap = new Map<string, number>()
   for (const st of inventory) {
@@ -206,6 +207,7 @@ export function computeTreasureCollectionStats(
   for (const id of Object.values(equipped)) {
     if (id) equippedItemIdSet.add(id)
   }
+  const consumedSet = new Set<string>(consumedUniqueIds)
 
   const stats: TreasureCollectionStats = {
     ALL: { total: 0, owned: 0 },
@@ -215,7 +217,10 @@ export function computeTreasureCollectionStats(
   }
   for (const item of TREASURE_COMPENDIUM_ITEMS) {
     const cat = item.category as TreasureVolumeKey
-    const isOwned = (ownedQtyMap.get(item.id) ?? 0) > 0 || equippedItemIdSet.has(item.id)
+    const isOwned =
+      (ownedQtyMap.get(item.id) ?? 0) > 0 ||
+      equippedItemIdSet.has(item.id) ||
+      consumedSet.has(item.id)
     stats.ALL.total += 1
     stats[cat].total += 1
     if (isOwned) {

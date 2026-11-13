@@ -5,6 +5,7 @@ import rawMartialArts from './martial_arts.json'
 import rawMounts from './mounts.json'
 import rawNpcs from './npcs.json'
 import rawRegions from './regions.json'
+import rawUniqueArtifacts from './uniqueArtifacts.json'
 import rawWeapons from './weapons.json'
 import type {
   CanonicalFactionEntry,
@@ -15,6 +16,7 @@ import type {
   CompiledMountRecord,
   CompiledNpcRecord,
   CompiledRegionRecord,
+  CompiledUniqueArtifactRecord,
   CompiledWeaponRecord,
   RoamingMaster,
   TenArtKey,
@@ -40,6 +42,7 @@ export const MARTIAL_ARTS_DB = rawMartialArts as unknown as CompiledMartialArtRe
 export const WEAPONS_DB = rawWeapons as unknown as CompiledWeaponRecord[]
 export const MOUNTS_DB = rawMounts as unknown as CompiledMountRecord[]
 export const GEAR_DB = rawGear as unknown as CompiledGearRecord[]
+export const UNIQUE_ARTIFACTS_DB = rawUniqueArtifacts as unknown as CompiledUniqueArtifactRecord[]
 export const NPCS_DB = rawNpcs as unknown as CompiledNpcRecord[]
 
 export const REGION_DB_MAP: Record<string, CompiledRegionRecord> = Object.fromEntries(
@@ -64,6 +67,10 @@ export const MOUNT_DB_MAP: Record<string, CompiledMountRecord> = Object.fromEntr
 
 export const GEAR_DB_MAP: Record<string, CompiledGearRecord> = Object.fromEntries(
   GEAR_DB.map((g) => [g.id, g]),
+)
+
+export const UNIQUE_ARTIFACT_MAP: Record<string, CompiledUniqueArtifactRecord> = Object.fromEntries(
+  UNIQUE_ARTIFACTS_DB.map((u) => [u.itemId, u]),
 )
 
 export const NPC_DB_MAP: Record<string, CompiledNpcRecord> = Object.fromEntries(

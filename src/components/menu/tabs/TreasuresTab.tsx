@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
+import { MARTIAL_ART_DB_MAP, UNIQUE_ARTIFACT_MAP } from '../../../data/gameDb'
 import {
   formatBonusBadges,
   normalizeItemTier,
@@ -12,8 +12,11 @@ import { useGameStore } from '../../../store/useGameStore'
 import type { BagCategoryKey, CompiledMartialArtRecord, EquipmentTier } from '../../../types/game'
 import { BagCatIcon } from '../MenuIcons'
 import type { TreasureCollectionStats } from '../menuShared'
+import { UniqueOwnershipBadge, UniqueOwnershipBanner } from '../UniqueOwnershipBanner'
 
 interface TreasuresTabProps {
+  selectedTreasureId?: string
+  onSelectTreasureId?: (id: string) => void
   treasureVolFilter: 'ALL' | TreasureVolumeKey
   onChangeTreasureVolFilter: (vol: 'ALL' | TreasureVolumeKey) => void
   treasureSubTypeFilter: string
@@ -24,6 +27,8 @@ interface TreasuresTabProps {
 }
 
 export function TreasuresTab({
+  selectedTreasureId: controlledTreasureId,
+  onSelectTreasureId,
   treasureVolFilter,
   onChangeTreasureVolFilter,
   treasureSubTypeFilter,
@@ -35,6 +40,7 @@ export function TreasuresTab({
   const inventory = useGameStore((s) => s.inventory)
   const equipped = useGameStore((s) => s.equipped)
   const learnedArts = useGameStore((s) => s.learnedArts)
+  const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
   const acquireItemToBag = useGameStore((s) => s.acquireItemToBag)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
   const consumeInventoryItem = useGameStore((s) => s.consumeInventoryItem)
@@ -44,9 +50,14 @@ export function TreasuresTab({
     'ALL',
   )
   const [treasureQuery, setTreasureQuery] = useState<string>('')
-  const [selectedTreasureId, setSelectedTreasureId] = useState<string>(
+  const [localSelectedTreasureId, setLocalSelectedTreasureId] = useState<string>(
     () => TREASURE_COMPENDIUM_ITEMS[0]?.id ?? 'ITM-SCR-001',
   )
+  const selectedTreasureId = controlledTreasureId ?? localSelectedTreasureId
+  const setSelectedTreasureId = (nextId: string) => {
+    if (onSelectTreasureId) onSelectTreasureId(nextId)
+    else setLocalSelectedTreasureId(nextId)
+  }
 
   const ownedQtyMap = useMemo(() => {
     const m = new Map<string, number>()
@@ -63,6 +74,8 @@ export function TreasuresTab({
     }
     return s
   }, [equipped])
+
+  const consumedUniqueSet = useMemo(() => new Set(consumedUniqueIds), [consumedUniqueIds])
 
   const learnedMap = useMemo(() => {
     const m = new Map<string, { level: number; exp: number }>()
@@ -108,7 +121,10 @@ export function TreasuresTab({
       if (treasureSubTypeFilter !== 'ALL' && it.subType !== treasureSubTypeFilter) {
         return false
       }
-      const isOwned = (ownedQtyMap.get(it.id) ?? 0) > 0 || equippedItemIdSet.has(it.id)
+      const isOwned =
+        (ownedQtyMap.get(it.id) ?? 0) > 0 ||
+        equippedItemIdSet.has(it.id) ||
+        consumedUniqueSet.has(it.id)
       if (treasureOwnedFilter === 'OWNED' && !isOwned) return false
       if (treasureOwnedFilter === 'UNOWNED' && isOwned) return false
 
@@ -116,6 +132,14 @@ export function TreasuresTab({
       const linkedArtName = it.useEffect?.learnArtId
         ? (MARTIAL_ART_DB_MAP[it.useEffect.learnArtId]?.name.toLowerCase() ?? '')
         : ''
+      const uRec = UNIQUE_ARTIFACT_MAP[it.id]
+      const ownerMatch = uRec
+        ? (uRec.ownerNpcName?.toLowerCase().includes(q) ?? false) ||
+          (uRec.ownerNpcTitle?.toLowerCase().includes(q) ?? false) ||
+          uRec.note.toLowerCase().includes(q) ||
+          (uRec.ownerType === 'unowned' && '无主'.includes(q)) ||
+          '孤品'.includes(q)
+        : false
       return (
         it.id.toLowerCase().includes(q) ||
         it.name.toLowerCase().includes(q) ||
@@ -124,7 +148,8 @@ export function TreasuresTab({
         (it.lore?.toLowerCase().includes(q) ?? false) ||
         (it.poisonEffect?.toLowerCase().includes(q) ?? false) ||
         (it.useEffect?.learnArtHint?.toLowerCase().includes(q) ?? false) ||
-        linkedArtName.includes(q)
+        linkedArtName.includes(q) ||
+        ownerMatch
       )
     })
   }, [
@@ -135,6 +160,7 @@ export function TreasuresTab({
     treasureQuery,
     ownedQtyMap,
     equippedItemIdSet,
+    consumedUniqueSet,
   ])
 
   const selectedTreasure =
@@ -157,7 +183,7 @@ export function TreasuresTab({
             </h4>
           </div>
           <p className="text-xs text-[#dfd0b3]">
-            统录北宋皇祐二年（1050）百卷秘籍墨宝、三十味灵丹奇毒与五十件传世雅器百工（全库合计：20天阶 · 35地阶 · 55良阶 · 70凡阶）
+            统录北宋皇祐二年（1050）百卷秘籍墨宝、三十味灵丹奇毒与五十件传世雅器百工（全库合计：20天阶孤品 · 35地阶孤品 · 55良阶 · 70凡阶）
           </p>
         </div>
 
@@ -301,8 +327,8 @@ export function TreasuresTab({
             {(
               [
                 { key: 'ALL', label: '全部品阶' },
-                { key: '天阶', label: '天阶绝品' },
-                { key: '地阶', label: '地阶珍品' },
+                { key: '天阶', label: '天阶孤品' },
+                { key: '地阶', label: '地阶孤品' },
                 { key: '良阶', label: '良阶佳品' },
                 { key: '凡阶', label: '凡阶常品' },
               ] as const
@@ -373,7 +399,7 @@ export function TreasuresTab({
             type="text"
             value={treasureQuery}
             onChange={(e) => setTreasureQuery(e.target.value)}
-            placeholder="检索编号、名目、细类、考据典故、关联武学或药毒功效（如：九转、悲酥、兰亭、九霄环佩、活字、汝窑）…"
+            placeholder="检索编号、名目、当前归属人、无主、典故或功效（如：玄慈、无崖子、无主、九转、悲酥、兰亭、活字）…"
             className="flex-1 min-w-[220px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
           />
 
@@ -410,6 +436,7 @@ export function TreasuresTab({
                 const isSel = selectedTreasure?.id === def.id
                 const inBagQty = ownedQtyMap.get(def.id) ?? 0
                 const isEquipped = equippedItemIdSet.has(def.id)
+                const isConsumedUnique = consumedUniqueSet.has(def.id)
                 const normTier = normalizeItemTier(def.rarity)
                 const rStyle = RARITY_STYLE_MAP[def.rarity]
                 const isPurePoison = Boolean(def.poisonEffect && !def.useEffect)
@@ -461,6 +488,7 @@ export function TreasuresTab({
                               可佩
                             </span>
                           )}
+                          <UniqueOwnershipBadge itemId={def.id} />
                         </div>
                       </div>
                     </div>
@@ -472,7 +500,11 @@ export function TreasuresTab({
                         </span>
                       ) : inBagQty > 0 ? (
                         <span className="px-2 py-0.5 rounded bg-[#1f5c3a] text-[#fff8eb] font-mono font-bold text-[10px]">
-                          已藏×{inBagQty}
+                          {def.stackable ? `已藏×${inBagQty}` : '已收录'}
+                        </span>
+                      ) : isConsumedUnique ? (
+                        <span className="px-2 py-0.5 rounded bg-stone-700 text-stone-100 font-mono font-bold text-[10px]">
+                          已炼化
                         </span>
                       ) : (
                         <span className="px-1.5 py-0.5 rounded bg-[#efe4cc]/85 border border-[#c8b28e] font-mono text-[10px] text-[#7a6042]">
@@ -502,6 +534,7 @@ export function TreasuresTab({
               const rStyle = RARITY_STYLE_MAP[def.rarity]
               const inBagQty = ownedQtyMap.get(def.id) ?? 0
               const isEquipped = equippedItemIdSet.has(def.id)
+              const isConsumedUnique = consumedUniqueSet.has(def.id)
               const volMeta = TREASURE_VOLUME_METAS.find((v) => v.key === def.category)
               const linkedArt = def.useEffect?.learnArtId
                 ? MARTIAL_ART_DB_MAP[def.useEffect.learnArtId]
@@ -537,12 +570,14 @@ export function TreasuresTab({
                       </h4>
                     </div>
 
+                    <UniqueOwnershipBanner itemId={def.id} />
+
                     {/* 三格规制摘要 */}
                     <div className="grid grid-cols-3 gap-2 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-2 text-xs">
                       <div>
                         <div className="text-[10px] text-[#6b5235]">器物规制</div>
                         <strong className="song-serif text-[#23180f]">
-                          {def.equipSlot ? '可佩雅器' : def.stackable ? '叠放消耗' : '秘藏孤品'}
+                          {def.equipSlot ? '可佩雅器' : def.stackable ? '叠放消耗' : '举世孤品'}
                         </strong>
                       </div>
                       <div>
@@ -553,10 +588,20 @@ export function TreasuresTab({
                               ? 'text-[#8f1d14]'
                               : inBagQty > 0
                                 ? 'text-[#184f35]'
-                                : 'text-[#7a6042]'
+                                : isConsumedUnique
+                                  ? 'text-stone-700'
+                                  : 'text-[#7a6042]'
                           }`}
                         >
-                          {isEquipped ? '随身佩挂' : inBagQty > 0 ? `囊藏 ×${inBagQty}` : '尚未收录'}
+                          {isEquipped
+                            ? '随身佩挂'
+                            : inBagQty > 0
+                              ? def.stackable
+                                ? `囊藏 ×${inBagQty}`
+                                : '已收录囊中'
+                              : isConsumedUnique
+                                ? '已服食炼化'
+                                : '尚未收录'}
                         </strong>
                       </div>
                       <div>
@@ -666,7 +711,11 @@ export function TreasuresTab({
                   <div className="pt-3 border-t border-[#cbb693] flex flex-wrap items-center justify-between gap-2">
                     {!def.stackable && (isEquipped || inBagQty > 0) ? (
                       <span className="text-xs font-bold text-[#184f35] song-serif">
-                        ✓ {isEquipped ? '已随身佩挂中' : '已收录于少侠行囊'}
+                        ✓ {isEquipped ? '已随身佩挂中（举世孤品）' : '已收录于少侠行囊（举世孤品）'}
+                      </span>
+                    ) : !def.stackable && isConsumedUnique ? (
+                      <span className="text-xs font-bold text-stone-700 song-serif">
+                        ✓ 天地孤品已服食炼化（举世仅此一枚）
                       </span>
                     ) : (
                       <button

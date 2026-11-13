@@ -7,6 +7,12 @@ import {
   NPCS_DB,
   TEN_ART_KEYS,
 } from '../../../data/gameDb'
+import {
+  ITEM_DB_MAP,
+  normalizeItemTier,
+  RARITY_STYLE_MAP,
+  resolveUniqueArtifactLiveOwnership,
+} from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
 import type { CompiledMartialArtRecord, CompiledNpcRecord } from '../../../types/game'
 import { recordAssetLoaded, resolveAssetUrl } from '../../../utils/assetLoader'
@@ -20,6 +26,7 @@ interface PortraitsTabProps {
   onJumpToSect: (sectId: string) => void
   onJumpToRegion: (regionId: string) => void
   onJumpToMartialArt: (art: CompiledMartialArtRecord) => void
+  onJumpToArtifact?: (itemId: string) => void
   onOpenNpcLightbox: (npc: CompiledNpcRecord, mode: 'fullbody' | 'avatar') => void
   onCloseModal: () => void
 }
@@ -32,6 +39,7 @@ export function PortraitsTab({
   onJumpToSect,
   onJumpToRegion,
   onJumpToMartialArt,
+  onJumpToArtifact,
   onOpenNpcLightbox,
   onCloseModal,
 }: PortraitsTabProps) {
@@ -39,6 +47,9 @@ export function PortraitsTab({
   const currentNodeId = useGameStore((s) => s.currentNodeId)
   const campPos = useGameStore((s) => s.campPos)
   const traveling = useGameStore((s) => s.traveling)
+  const inventory = useGameStore((s) => s.inventory)
+  const equipped = useGameStore((s) => s.equipped)
+  const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
   const navigateToNpcLeafInCurrentRegion = useGameStore(
     (s) => s.navigateToNpcLeafInCurrentRegion,
   )
@@ -63,6 +74,11 @@ export function PortraitsTab({
       if (npcFactionFilter !== 'ALL' && c.factionId !== npcFactionFilter) return false
 
       if (!q) return true
+      const artifactMatch = (c.ownedArtifactIds ?? []).some(
+        (aid) =>
+          aid.toLowerCase().includes(q) ||
+          (ITEM_DB_MAP[aid]?.name.toLowerCase().includes(q) ?? false),
+      )
       return (
         c.id.toLowerCase().includes(q) ||
         c.name.toLowerCase().includes(q) ||
@@ -72,7 +88,8 @@ export function PortraitsTab({
         c.fullLocationLabel.toLowerCase().includes(q) ||
         c.assignedBuildingName.toLowerCase().includes(q) ||
         (c.assignedSpotName?.toLowerCase().includes(q) ?? false) ||
-        c.artsText.toLowerCase().includes(q)
+        c.artsText.toLowerCase().includes(q) ||
+        artifactMatch
       )
     })
   }, [npcQuery, npcScope, npcRegionFilter, npcFactionFilter, activeRegionId])
@@ -84,7 +101,7 @@ export function PortraitsTab({
           type="text"
           value={npcQuery}
           onChange={(e) => setNpcQuery(e.target.value)}
-          placeholder="搜编号/姓名/常驻殿宇/武学（如：NPC-0101、乔峰、垂拱殿、藏经阁、六脉神剑）…"
+          placeholder="搜编号/姓名/常驻殿宇/武学/执掌孤品（如：NPC-0101、乔峰、打狗棒、包拯、尚方剑）…"
           className="flex-1 min-w-[200px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
         />
         <select
@@ -201,7 +218,23 @@ export function PortraitsTab({
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
-                  <div className="song-serif font-bold text-xs sm:text-sm truncate">{c.name}</div>
+                  <div className="flex items-center gap-1 min-w-0">
+                    <span className="song-serif font-bold text-xs sm:text-sm truncate">
+                      {c.name}
+                    </span>
+                    {(c.ownedArtifactIds?.length ?? 0) > 0 && (
+                      <span
+                        className={`px-1 py-0.2 rounded text-[9px] font-mono font-bold shrink-0 ${
+                          isSel
+                            ? 'bg-amber-300/25 text-amber-100 border border-amber-200/50'
+                            : 'bg-[#4a1c17] text-[#ffe9b5]'
+                        }`}
+                        title={`执掌 ${c.ownedArtifactIds?.length} 件天地阶孤品重宝`}
+                      >
+                        宝×{c.ownedArtifactIds?.length}
+                      </span>
+                    )}
+                  </div>
                   <div
                     title={c.fullLocationLabel}
                     className={`text-[10px] truncate mt-0.5 ${
@@ -461,6 +494,61 @@ export function PortraitsTab({
                           className="px-2 py-0.5 rounded bg-[#faf3e3] hover:bg-[#e5d6b8] border border-[#9e8462] text-[11px] text-[#781710] font-medium cursor-pointer"
                         >
                           {aid} · {art?.cleanName ?? aid}
+                        </button>
+                      )
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {(selectedNpc.ownedArtifactIds?.length ?? 0) > 0 && (
+                <div className="shrink-0 bg-[#fdf5e4] border-2 border-[#c8963e] rounded p-2.5 space-y-1.5">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="font-bold song-serif text-[#781710]">
+                      执掌天地阶孤品重宝 ({selectedNpc.ownedArtifactIds?.length} 件)
+                    </span>
+                    <span className="text-[10px] text-[#7a5f3e]">举世唯一 · 点击查阅图鉴</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {(selectedNpc.ownedArtifactIds ?? []).map((aid) => {
+                      const def = ITEM_DB_MAP[aid]
+                      const tier = def ? normalizeItemTier(def.rarity) : '地阶'
+                      const rStyle = RARITY_STYLE_MAP[tier]
+                      const liveInfo = resolveUniqueArtifactLiveOwnership(
+                        aid,
+                        inventory,
+                        equipped,
+                        consumedUniqueIds,
+                      )
+                      const transferredNote =
+                        liveInfo?.liveStatus === 'player_equipped' ||
+                        liveInfo?.liveStatus === 'player_bag'
+                          ? '（已归少侠）'
+                          : liveInfo?.liveStatus === 'consumed'
+                            ? '（已炼化）'
+                            : ''
+                      return (
+                        <button
+                          key={aid}
+                          type="button"
+                          onClick={() => onJumpToArtifact?.(aid)}
+                          title={liveInfo?.ownerSubtitle ?? aid}
+                          className="px-2 py-1 rounded bg-[#fffaf0] hover:bg-[#f2e4c9] border border-[#b58c44] text-[11px] text-[#23180f] font-medium cursor-pointer flex items-center gap-1 transition"
+                        >
+                          <span
+                            className={`px-1 py-0.2 rounded text-[9px] font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
+                          >
+                            {tier}
+                          </span>
+                          <span className="song-serif font-bold text-[#781710]">
+                            {def?.name ?? aid}
+                          </span>
+                          {transferredNote && (
+                            <span className="text-[10px] text-[#185a3d] font-semibold">
+                              {transferredNote}
+                            </span>
+                          )}
+                          <span className="text-[10px] text-[#7a5f3e]">▸</span>
                         </button>
                       )
                     })}

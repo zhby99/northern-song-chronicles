@@ -1,15 +1,17 @@
 import { useMemo, useState } from 'react'
 import { Check, Plus, Search, Shield, Sparkles } from 'lucide-react'
-import { GEAR_DB, REGION_DB_MAP } from '../../data/gameDb'
+import { GEAR_DB, REGION_DB_MAP, UNIQUE_ARTIFACT_MAP } from '../../data/gameDb'
 import {
   checkGearEquipRequirements,
   formatBonusBadges,
 } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { CompiledGearRecord, EquipmentTier, GearSlotType } from '../../types/game'
+import { UniqueOwnershipBadge, UniqueOwnershipBanner } from './UniqueOwnershipBanner'
 
 interface GearCompendiumPanelProps {
   slotFilter: GearSlotType
+  initialSearch?: string | null
   onJumpToRegion?: (regionId: string) => void
   onJumpToLoadout?: () => void
 }
@@ -26,28 +28,29 @@ const TIER_BADGE_MAP: Record<EquipmentTier, string> = {
 const SLOT_TITLES: Record<GearSlotType, { title: string; subtitle: string }> = {
   armor: {
     title: '第二卷 · 衣甲服饰谱（56 件）',
-    subtitle: '6 天阶 · 10 地阶 · 16 良阶 · 24 凡阶 — 护体气血与抗性根基',
+    subtitle: '6 天阶 · 10 地阶（天地阶皆举世孤品） · 16 良阶 · 24 凡阶 — 护体气血与抗性根基',
   },
   shoes: {
     title: '第三卷 · 履靴行缠谱（28 双）',
-    subtitle: '3 天阶 · 5 地阶 · 8 良阶 · 12 凡阶 — 提振实战身法与行军耐力',
+    subtitle: '3 天阶 · 5 地阶（天地阶皆举世孤品） · 8 良阶 · 12 凡阶 — 提振实战身法与行军耐力',
   },
   bow: {
     title: '第四卷 · 强弓劲弩谱（28 具）',
-    subtitle: '3 天阶 · 5 地阶 · 8 良阶 · 12 凡阶 — 远射军械与破甲奇弩',
+    subtitle: '3 天阶 · 5 地阶（天地阶皆举世孤品） · 8 良阶 · 12 凡阶 — 远射军械与破甲奇弩',
   },
   accessory: {
     title: '第五卷 · 玉佩奇珍谱（56 件）',
-    subtitle: '6 天阶 · 10 地阶 · 16 良阶 · 24 凡阶 — 玉佩佛珠护心镜双槽奇珍',
+    subtitle: '6 天阶 · 10 地阶（天地阶皆举世孤品） · 16 良阶 · 24 凡阶 — 玉佩佛珠护心镜双槽奇珍',
   },
 }
 
 export function GearCompendiumPanel({
   slotFilter,
+  initialSearch,
   onJumpToRegion,
   onJumpToLoadout,
 }: GearCompendiumPanelProps) {
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState(() => initialSearch ?? '')
   const [tierFilter, setTierFilter] = useState<'all' | EquipmentTier>('all')
   const [subTypeFilter, setSubTypeFilter] = useState<string>('all')
 
@@ -60,6 +63,7 @@ export function GearCompendiumPanel({
   const res = useGameStore((s) => s.res)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const skills = useGameStore((s) => s.skills)
+  const acquireItemToBag = useGameStore((s) => s.acquireItemToBag)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
 
   const slotItems = useMemo(
@@ -79,11 +83,20 @@ export function GearCompendiumPanel({
       if (tierFilter !== 'all' && item.tier !== tierFilter) return false
       if (subTypeFilter !== 'all' && item.subType !== subTypeFilter) return false
       if (!kw) return true
+      const uRec = UNIQUE_ARTIFACT_MAP[item.id]
+      const ownerMatch = uRec
+        ? (uRec.ownerNpcName?.toLowerCase().includes(kw) ?? false) ||
+          (uRec.ownerNpcTitle?.toLowerCase().includes(kw) ?? false) ||
+          uRec.note.toLowerCase().includes(kw) ||
+          (uRec.ownerType === 'unowned' && '无主'.includes(kw)) ||
+          '孤品'.includes(kw)
+        : false
       return (
         item.name.toLowerCase().includes(kw) ||
         item.id.toLowerCase().includes(kw) ||
         item.origin.toLowerCase().includes(kw) ||
-        item.description.toLowerCase().includes(kw)
+        item.description.toLowerCase().includes(kw) ||
+        ownerMatch
       )
     })
   }, [slotItems, tierFilter, subTypeFilter, search])
@@ -100,6 +113,9 @@ export function GearCompendiumPanel({
   }, [inventory, equipped])
 
   const handleAcquireAndEquip = (item: CompiledGearRecord, equipNow: boolean) => {
+    if (!ownedSet.has(item.id)) {
+      acquireItemToBag(item.id)
+    }
     if (equipNow) {
       const targetSlot = item.slot === 'accessory' ? 'accessory1' : item.slot
       equipItemToSlot(item.id, targetSlot)
@@ -131,10 +147,19 @@ export function GearCompendiumPanel({
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="检索名称、编号、产地或特效..."
+            placeholder="检索名称、编号、产地、当前归属人或“无主 / 孤品”..."
             className="w-full pl-8 pr-3 py-1.5 rounded bg-white border border-[#cbb693] text-xs text-[#2a1d11] focus:outline-none focus:border-[#8f1d14]"
           />
         </div>
+        {search.trim() !== '' && (
+          <button
+            type="button"
+            onClick={() => setSearch('')}
+            className="px-2 py-1 rounded bg-[#faf3e3] hover:bg-[#ead9b7] border border-[#cbb693] text-xs text-[#781710] font-semibold cursor-pointer"
+          >
+            清空检索
+          </button>
+        )}
         <div className="flex flex-wrap gap-1">
           {TIER_FILTERS.map((t) => (
             <button
@@ -213,6 +238,7 @@ export function GearCompendiumPanel({
                       <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#f4ead5] text-[#52391e] border border-[#d6c3a3]">
                         {item.subType}
                       </span>
+                      <UniqueOwnershipBadge itemId={item.id} />
                     </div>
                     <h5 className="font-bold song-serif text-[#2a1d11] text-sm mt-1 flex items-center gap-1.5">
                       {item.name}
@@ -227,6 +253,12 @@ export function GearCompendiumPanel({
                     {item.value} 两
                   </div>
                 </div>
+
+                {(item.tier === '天阶' || item.tier === '地阶') && (
+                  <div className="mt-2">
+                    <UniqueOwnershipBanner itemId={item.id} />
+                  </div>
+                )}
 
                 {bonuses.length > 0 && (
                   <div className="flex flex-wrap gap-1 mt-1.5">

@@ -438,6 +438,9 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     learnedArts: cleanLearnedArts,
     equippedArts: cleanEquippedArts,
     inventory: cleanInventory,
+    consumedUniqueIds: Array.isArray(st.consumedUniqueIds)
+      ? st.consumedUniqueIds.filter((id): id is string => typeof id === 'string')
+      : [],
     overlays: isRecord(st.overlays)
       ? {
           cityLabels: Boolean(st.overlays.cityLabels ?? true),

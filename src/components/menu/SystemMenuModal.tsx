@@ -1,13 +1,15 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
+  GEAR_DB_MAP,
   ID_REGISTRY,
   MARTIAL_ARTS_DB,
   MOUNTS_DB,
   NPC_DB_MAP,
   NPCS_DB,
+  WEAPON_DB_MAP,
   WEAPONS_DB,
 } from '../../data/gameDb'
-import { TREASURE_VOLUME_METAS, type TreasureVolumeKey } from '../../data/itemsDb'
+import { ITEM_DB_MAP, TREASURE_VOLUME_METAS, type TreasureVolumeKey } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import type {
   CompendiumTabKey,
@@ -16,6 +18,7 @@ import type {
   CompiledWeaponRecord,
   EquipmentSlotKey,
   EquipmentTier,
+  GearSlotType,
   MenuTabKey,
   WeaponSubCategory,
 } from '../../types/game'
@@ -65,6 +68,7 @@ export function SystemMenuModal() {
   const learnedArts = useGameStore((s) => s.learnedArts)
   const equippedArts = useGameStore((s) => s.equippedArts)
   const inventory = useGameStore((s) => s.inventory)
+  const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
   const inspectedNpcId = useGameStore((s) => s.inspectedNpcId)
   const traveling = useGameStore((s) => s.traveling)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
@@ -128,12 +132,15 @@ export function SystemMenuModal() {
     () => MARTIAL_ARTS_DB[0] ?? null,
   )
 
+  const [armorySubTab, setArmorySubTab] = useState<'weapons' | GearSlotType>('weapons')
+  const [focusedGearId, setFocusedGearId] = useState<string | null>(null)
   const [wpnTierFilter, setWpnTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
   const [wpnTypeFilter, setWpnTypeFilter] = useState<'ALL' | WeaponSubCategory>('ALL')
   const [selectedWeapon, setSelectedWeapon] = useState<CompiledWeaponRecord | null>(
     () => WEAPONS_DB[0] ?? null,
   )
 
+  const [selectedTreasureId, setSelectedTreasureId] = useState<string>('ITM-SCR-001')
   const [treasureVolFilter, setTreasureVolFilter] = useState<'ALL' | TreasureVolumeKey>('ALL')
   const [treasureSubTypeFilter, setTreasureSubTypeFilter] = useState<string>('ALL')
 
@@ -164,8 +171,8 @@ export function SystemMenuModal() {
   }, [inventory])
 
   const treasureCollectionStats = useMemo(
-    () => computeTreasureCollectionStats(inventory, equipped),
-    [inventory, equipped],
+    () => computeTreasureCollectionStats(inventory, equipped, consumedUniqueIds),
+    [inventory, equipped, consumedUniqueIds],
   )
 
   const playerEquipCtx = useMemo(
@@ -223,10 +230,39 @@ export function SystemMenuModal() {
   }
 
   const jumpToCompendiumWeapon = (wpn: CompiledWeaponRecord) => {
+    setArmorySubTab('weapons')
+    setFocusedGearId(null)
     setSelectedWeapon(wpn)
     setWpnTierFilter('ALL')
     setWpnTypeFilter('ALL')
     openCompendium('armory')
+  }
+
+  const jumpToArtifactInCompendium = (itemId: string) => {
+    const wpn = WEAPON_DB_MAP[itemId]
+    if (wpn) {
+      jumpToCompendiumWeapon(wpn)
+      return
+    }
+    const gear = GEAR_DB_MAP[itemId]
+    if (gear) {
+      setArmorySubTab(gear.slot)
+      setFocusedGearId(itemId)
+      openCompendium('armory')
+      return
+    }
+    if (itemId.startsWith('MNT-')) {
+      setSelectedMountCompId(itemId)
+      openCompendium('mounts')
+      return
+    }
+    const def = ITEM_DB_MAP[itemId]
+    if (def && (def.category === 'scrolls' || def.category === 'medicine' || def.category === 'tools')) {
+      setTreasureVolFilter(def.category)
+      setTreasureSubTypeFilter('ALL')
+      setSelectedTreasureId(itemId)
+      openCompendium('treasures')
+    }
   }
 
   const locateRegionOnWorldMap = (regionId: string) => {
@@ -601,6 +637,7 @@ export function SystemMenuModal() {
                     setCompendiumTab('regions')
                   }}
                   onJumpToMartialArt={jumpToCompendiumArt}
+                  onJumpToArtifact={jumpToArtifactInCompendium}
                   onOpenNpcLightbox={openNpcLightbox}
                   onCloseModal={closeActiveModal}
                 />
@@ -623,6 +660,10 @@ export function SystemMenuModal() {
 
               {activeViewKey === 'armory' && (
                 <ArmoryTab
+                  armorySubTab={armorySubTab}
+                  onChangeArmorySubTab={setArmorySubTab}
+                  focusedGearId={focusedGearId}
+                  onClearFocusedGearId={() => setFocusedGearId(null)}
                   selectedWeapon={selectedWeapon}
                   onSelectWeapon={setSelectedWeapon}
                   wpnTierFilter={wpnTierFilter}
@@ -676,6 +717,8 @@ export function SystemMenuModal() {
 
               {activeViewKey === 'treasures' && (
                 <TreasuresTab
+                  selectedTreasureId={selectedTreasureId}
+                  onSelectTreasureId={setSelectedTreasureId}
                   treasureVolFilter={treasureVolFilter}
                   onChangeTreasureVolFilter={setTreasureVolFilter}
                   treasureSubTypeFilter={treasureSubTypeFilter}
