@@ -6,6 +6,7 @@ export function MapTooltip() {
   const tooltip = useGameStore((s) => s.tooltip)
   const currentNodeId = useGameStore((s) => s.currentNodeId)
   const traveling = useGameStore((s) => s.traveling)
+  const campPos = useGameStore((s) => s.campPos)
   const mountKey = useGameStore((s) => s.mountKey)
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
@@ -25,7 +26,7 @@ export function MapTooltip() {
 
   if (tooltip.kind === 'worldNode') {
     const { node } = tooltip
-    const isHere = node.id === currentNodeId && !traveling
+    const isHere = node.id === currentNodeId && !traveling && !campPos
     const route = !isHere
       ? findBestRoute(currentNodeId, node.id, {
           mountKey,

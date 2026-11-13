@@ -1346,12 +1346,24 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   startJourney: (targetId) => {
     const s = get()
     if (s.traveling) return
-    const route = findBestRoute(s.currentNodeId, targetId, {
+    let route = findBestRoute(s.currentNodeId, targetId, {
       mountKey: s.mountKey,
       qinggongBonus: s.qinggongBonus,
       ridingSkill: s.ridingSkill,
       agility: s.agility,
     })
+    if (s.campPos && targetId === s.currentNodeId) {
+      const targetNode = NODE_MAP[targetId]
+      const distPx = targetNode ? Math.hypot(targetNode.x - s.campPos.x, targetNode.y - s.campPos.y) : 40
+      const li = Math.max(10, Math.round(distPx * 3.5))
+      const days = Math.max(0.25, Number((li / 120).toFixed(2)))
+      route = {
+        nodes: [s.currentNodeId, targetId],
+        segments: [{ from: s.currentNodeId, to: targetId, dist: Math.round(distPx), terrain: 'official', days }],
+        totalLi: li,
+        totalDays: days,
+      }
+    }
     if (!route || route.segments.length === 0) return
 
     if (s.food <= 0) {
@@ -1591,11 +1603,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const seg = s.traveling.route.segments[s.traveling.segIdx]
     const fromName = seg ? (NODE_MAP[seg.from]?.name ?? seg.from) : '前站'
     const toName = seg ? (NODE_MAP[seg.to]?.name ?? seg.to) : '下一城'
-    const ratio = seg ? s.traveling.segProgressDays / seg.days : 0
-    const nearbyNodeId = seg ? (ratio >= 0.5 ? seg.to : seg.from) : s.currentNodeId
     set({
       traveling: null,
-      currentNodeId: nearbyNodeId,
       selectedNodeId: null,
       campPos: curPos,
       stamina: Math.min(s.maxStamina, s.stamina + 20),
