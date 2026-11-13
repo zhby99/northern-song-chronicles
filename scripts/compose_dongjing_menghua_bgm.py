@@ -771,7 +771,7 @@ def export_mp3(left: np.ndarray, right: np.ndarray, out_mp3_path: Path):
 
 def main():
     repo_root = Path(__file__).resolve().parent.parent
-    out_mp3 = repo_root / "public" / "assets" / "audio" / "dongjing_menghua.mp3"
+    out_mp3 = repo_root / "public" / "assets" / "audio" / "regions" / "bianliang" / "dongjing_menghua.mp3"
     print("[compose_bgm] 正在谱写并渲染北宋雅乐《东京梦华》(D宫清乐五声 · 32小节无缝循环)...")
     left, right = compose_dongjing_menghua()
     export_mp3(left, right, out_mp3)

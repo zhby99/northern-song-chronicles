@@ -1,8 +1,14 @@
 import { useSyncExternalStore } from 'react'
 import { recordAssetLoaded, resolveAssetUrl } from './assetLoader'
 
+export type BgmCategoryKey = 'world' | 'regions' | 'characters' | 'events'
+
 export interface BgmTrackDef {
   id: string
+  category: BgmCategoryKey
+  regionId?: string
+  characterId?: string
+  eventId?: string
   title: string
   subtitle: string
   composerNote: string
@@ -21,12 +27,14 @@ export interface BgmTrackDef {
 export const BGM_TRACKS: BgmTrackDef[] = [
   {
     id: 'dongjing_menghua',
+    category: 'regions',
+    regionId: 'bianliang',
     title: '《东京梦华》',
-    subtitle: '皇祐汴京主题雅乐 · 曲笛 / 洞箫 / 古筝 / 琵琶 / 编钟 / 笙',
+    subtitle: '开封府地区配乐 · 曲笛 / 洞箫 / 古筝 / 琵琶 / 编钟 / 笙',
     composerNote:
       '取意孟元老《东京梦华录》与仁宗皇祐盛景：以 D 宫清乐五声起兴，历「汴水晨钟」「御街春晓」「州桥夜市」「樊楼月影」而归于「梦回皇祐」，首尾无缝循环。',
     modeLabel: 'D宫清乐 · 75 BPM',
-    url: '/assets/audio/dongjing_menghua.mp3',
+    url: '/assets/audio/regions/bianliang/dongjing_menghua.mp3',
     durationSec: 102.4,
     approxBytes: 2048000,
     chapters: [

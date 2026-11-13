@@ -51,19 +51,26 @@ async function main() {
     }
   }
 
-  const audioFolder = path.join(PUBLIC_DIR, 'assets', 'audio')
-  if (fs.existsSync(audioFolder)) {
-    const audioFiles = fs
-      .readdirSync(audioFolder)
-      .filter((f) => f.toLowerCase().endsWith('.mp3'))
-      .sort()
-    for (const fileName of audioFiles) {
-      const buf = fs.readFileSync(path.join(audioFolder, fileName))
-      const webUrl = `/assets/audio/${fileName}`
-      assetPack[webUrl] = `data:audio/mpeg;base64,${buf.toString('base64')}`
-      assetCount += 1
+  function collectAudioRecursive(dirAbs, relPrefix) {
+    if (!fs.existsSync(dirAbs)) return
+    const entries = fs.readdirSync(dirAbs, { withFileTypes: true }).sort((a, b) =>
+      a.name.localeCompare(b.name),
+    )
+    for (const entry of entries) {
+      const fullPath = path.join(dirAbs, entry.name)
+      const relPath = `${relPrefix}/${entry.name}`
+      if (entry.isDirectory()) {
+        collectAudioRecursive(fullPath, relPath)
+      } else if (entry.isFile() && /\.(mp3|ogg)$/i.test(entry.name)) {
+        const mime = entry.name.toLowerCase().endsWith('.ogg') ? 'audio/ogg' : 'audio/mpeg'
+        const buf = fs.readFileSync(fullPath)
+        assetPack[relPath] = `data:${mime};base64,${buf.toString('base64')}`
+        assetCount += 1
+      }
     }
   }
+
+  collectAudioRecursive(path.join(PUBLIC_DIR, 'assets', 'audio'), '/assets/audio')
 
   const assetsJson = JSON.stringify(assetPack).replace(/<\//g, '<\\/')
 
