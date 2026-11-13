@@ -292,7 +292,7 @@ export function WorldMapCanvas() {
                   y2={nv.y}
                   stroke={meta.stroke}
                   strokeWidth={meta.width * markerScale}
-                  strokeOpacity={onRoute ? 0.86 : traveling ? 0.22 : 0.38}
+                  strokeOpacity={onRoute ? 0.16 : traveling ? 0.2 : 0.34}
                   className={meta.cls || undefined}
                 />
                 {hasActiveRoute && (overlays.distance || onRoute) && !isMacroZoom && (
@@ -307,9 +307,9 @@ export function WorldMapCanvas() {
                       width={38}
                       height={12.5}
                       rx={2}
-                      fill={onRoute ? '#fff5eb' : '#faf2e1'}
-                      stroke={onRoute ? '#b8251e' : '#8c7353'}
-                      strokeWidth={onRoute ? 0.75 : 0.5}
+                      fill={onRoute ? '#eef8f1' : '#faf2e1'}
+                      stroke={onRoute ? '#1e7e4e' : '#8c7353'}
+                      strokeWidth={onRoute ? 0.8 : 0.5}
                     />
                     <text
                       x={0}
@@ -317,7 +317,7 @@ export function WorldMapCanvas() {
                       textAnchor="middle"
                       fontSize={8.2}
                       fontWeight={onRoute ? 700 : 600}
-                      fill={onRoute ? '#8f1d14' : '#3a2918'}
+                      fill={onRoute ? '#145334' : '#3a2918'}
                     >
                       {dist}里
                     </text>
@@ -328,16 +328,22 @@ export function WorldMapCanvas() {
           })}
         </g>
 
-        {/* 12. 最优行军路线高亮 */}
+        {/* 12. 最优寻路/行军路线高亮（翠绿虚线） */}
         <g id="svg-layer-route" pointerEvents="none">
           {activeRoutePoints && (
             <polyline
               points={activeRoutePoints}
               fill="none"
-              stroke="#c42b1c"
-              strokeWidth={4.0 * markerScale}
+              stroke="#1e7e4e"
+              strokeWidth={3.6 * markerScale}
+              strokeDasharray={`${(8.5 * markerScale).toFixed(2)} ${(5.5 * markerScale).toFixed(2)}`}
               strokeLinecap="round"
               strokeLinejoin="round"
+              style={
+                {
+                  '--route-period': `${(28 * markerScale).toFixed(2)}px`,
+                } as React.CSSProperties
+              }
               className="active-route-glow"
             />
           )}

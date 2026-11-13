@@ -102,13 +102,13 @@
 }
 
 .active-route-glow {
-  stroke-dasharray: 9 5;
+  filter: drop-shadow(0 0 2px rgba(250, 243, 227, 0.9));
   animation: routeFlow 1.05s linear infinite;
 }
 
 @keyframes routeFlow {
   to {
-    stroke-dashoffset: -28;
+    stroke-dashoffset: calc(-1 * var(--route-period, 28px));
   }
 }
 
