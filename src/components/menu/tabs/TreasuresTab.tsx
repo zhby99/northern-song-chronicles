@@ -41,7 +41,6 @@ export function TreasuresTab({
   const equipped = useGameStore((s) => s.equipped)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
-  const acquireItemToBag = useGameStore((s) => s.acquireItemToBag)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
   const consumeInventoryItem = useGameStore((s) => s.consumeInventoryItem)
 
@@ -707,24 +706,24 @@ export function TreasuresTab({
                     )}
                   </div>
 
-                  {/* 底部调度与直接互动栏 */}
+                  {/* 底部收录状态与已持有物品操作栏（无凭空入囊作弊按钮） */}
                   <div className="pt-3 border-t border-[#cbb693] flex flex-wrap items-center justify-between gap-2">
-                    {!def.stackable && (isEquipped || inBagQty > 0) ? (
+                    {isEquipped ? (
+                      <span className="text-xs font-bold text-[#8f1d14] song-serif">
+                        ★ 当前已随身佩挂中{!def.stackable ? '（举世孤品）' : ''}
+                      </span>
+                    ) : inBagQty > 0 ? (
                       <span className="text-xs font-bold text-[#184f35] song-serif">
-                        ✓ {isEquipped ? '已随身佩挂中（举世孤品）' : '已收录于少侠行囊（举世孤品）'}
+                        ✓ 已收录于少侠行囊{def.stackable ? `（存有 ×${inBagQty}）` : '（举世孤品）'}
                       </span>
                     ) : !def.stackable && isConsumedUnique ? (
                       <span className="text-xs font-bold text-stone-700 song-serif">
                         ✓ 天地孤品已服食炼化（举世仅此一枚）
                       </span>
                     ) : (
-                      <button
-                        type="button"
-                        onClick={() => acquireItemToBag(def.id)}
-                        className="px-3 py-1.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8ee] font-bold song-serif text-xs cursor-pointer transition shadow-sm"
-                      >
-                        {inBagQty > 0 ? `+ 再调取一份 (囊藏×${inBagQty})` : '+ 调取入囊品鉴'}
-                      </button>
+                      <span className="text-xs text-[#6b5235] song-serif">
+                        尚未收录入囊（须经书肆药铺购置、秘境寻幽或名士相赠所得）
+                      </span>
                     )}
 
                     <div className="flex items-center gap-1.5 flex-wrap">

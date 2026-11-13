@@ -72,7 +72,6 @@ export function ArmoryTab({
   const equipped = useGameStore((s) => s.equipped)
   const inventory = useGameStore((s) => s.inventory)
 
-  const acquireWeaponToBag = useGameStore((s) => s.acquireWeaponToBag)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
 
   const [localSubTab, setLocalSubTab] = useState<'weapons' | GearSlotType>('weapons')
@@ -183,11 +182,13 @@ export function ArmoryTab({
         <GearCompendiumPanel
           key={`${armorySubTab}-${focusedGearId ?? 'all'}`}
           slotFilter={armorySubTab}
-          initialSearch={focusedGearId}
+          focusedGearId={focusedGearId}
           onJumpToRegion={onJumpToRegion}
+          onJumpToSect={onJumpToSect}
           onJumpToLoadout={() =>
             onJumpToGearLoadout(armorySubTab === 'accessory' ? 'accessory1' : armorySubTab)
           }
+          onCloseModal={onCloseModal}
         />
       ) : (
         <>
@@ -493,7 +494,7 @@ export function ArmoryTab({
                       </div>
                     )}
 
-                    {/* 试佩与行囊调度操作 */}
+                    {/* 持有状态与披挂跳转操作（无凭空入囊作弊按钮） */}
                     <div className="pt-2 border-t border-[#cbb693] flex flex-wrap items-center justify-between gap-2">
                       {isEquipped ? (
                         <span className="text-xs font-bold text-[#8f1d14] song-serif">
@@ -504,13 +505,9 @@ export function ArmoryTab({
                           ✓ 已在少侠【行囊杂物】中（存有 {inBagQty} 件）
                         </span>
                       ) : (
-                        <button
-                          type="button"
-                          onClick={() => acquireWeaponToBag(selectedWeapon.id)}
-                          className="px-3 py-1.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8ee] font-bold song-serif text-xs cursor-pointer transition shadow-sm"
-                        >
-                          + 调拨入囊试佩
-                        </button>
+                        <span className="text-xs text-[#6b5235] song-serif">
+                          尚未收入行囊（须经铁铺购置、名宿馈赠或江湖奇遇所得）
+                        </span>
                       )}
 
                       <div className="flex items-center gap-2">

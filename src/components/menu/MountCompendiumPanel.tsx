@@ -59,7 +59,6 @@ export function MountCompendiumPanel({
   onLocateRegionOnMap,
   onOpenLoadoutMountSlot,
 }: MountCompendiumPanelProps) {
-  const acquireItemToBag = useGameStore((s) => s.acquireItemToBag)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
   const unequipSlot = useGameStore((s) => s.unequipSlot)
 
@@ -402,7 +401,7 @@ export function MountCompendiumPanel({
                   </div>
                 )}
 
-                {/* 牵入行囊与立即乘骑操作 */}
+                {/* 持有状态展示与已持有乘骑操作（无凭空入囊作弊按钮） */}
                 <div className="pt-2 border-t border-[#cbb693] flex flex-wrap items-center justify-between gap-2">
                   {isEquipped ? (
                     <div className="flex items-center gap-2">
@@ -422,13 +421,9 @@ export function MountCompendiumPanel({
                       ✓ 已在少侠【行囊杂物】备用鞍厩中
                     </span>
                   ) : (
-                    <button
-                      type="button"
-                      onClick={() => acquireItemToBag(selectedMount.id)}
-                      className="px-3 py-1.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8ee] font-bold song-serif text-xs cursor-pointer transition shadow-sm"
-                    >
-                      + 牵入行囊试骑
-                    </button>
+                    <span className="text-xs text-[#6b5235] song-serif">
+                      尚未收入厩囊（须经榷场马市购置、名将馈赠或奇遇驯服所得）
+                    </span>
                   )}
 
                   <div className="flex items-center gap-2">
