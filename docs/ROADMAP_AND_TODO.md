@@ -13,10 +13,10 @@
 
 ### 当前暴露出的三大痛点
 1. **横向铺量远超纵向闭环**：已经铺开了 **1,000 名独立人物**、**216 门武学名录**、**38 张地区手绘全景图**、**58 张特殊建筑半 3D 内景图** 和 **100+ 张人物画作**，但玩家还无法“创建角色 → 习得并装备一门武功 → 打一场真正的 8×8 战棋 → 获得战利品存盘”。
-2. **多分支数据开始分叉**：
-   * 地图分支的 [GAME_MECHANICS.md](file:///shared/user/.gemini/jetski/brain/v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/GAME_MECHANICS.md) 已将宋辽夏 19 城统一为三字府名（如 `开封府`、`洛阳府`、`泉州府`）；
-   * 人物分支的 [CHARACTER_COMPENDIUM.md](file:///shared/user/.gemini/jetski/brain/v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/CHARACTER_COMPENDIUM.md) 中，1,000 名 NPC 的常驻地仍在使用旧地名（如 `东京汴梁`、`西京洛阳`、`福州 / 泉州`），且人物数据与立绘尚未接入主地图。
-3. **单文件 HTML + Base64 架构触顶**：[northern_song_map.html](file:///shared/user/.gemini/jetski/brain/v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/northern_song_map.html) 体积已膨胀至 **19.7 MB**，[character_portrait_gallery.html](file:///shared/user/.gemini/jetski/brain/v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/character_portrait_gallery.html) 达 **4.1 MB**。如果不拆分为模块化工程，后续根本无法塞入战棋引擎、1000 人动态状态与 LLM 接口。
+2. **多分支数据开始分叉**（注：已在 M0-2 完成合并）：
+   * 地图分支的 [GAME_MECHANICS.md](./GAME_MECHANICS.md) 已将宋辽夏 19 城统一为三字府名（如 `开封府`、`洛阳府`、`泉州府`）；
+   * 人物分支的 [CHARACTER_COMPENDIUM.md](./CHARACTER_COMPENDIUM.md) 中，1,000 名 NPC 的常驻地已完成归一并接入主地图。
+3. **单文件 HTML + Base64 架构触顶**（注：已在 M0-1 拆解为模块化工程）：早期单文件原型体积曾膨胀至 **19.7 MB** + **4.1 MB**，现已拆分为 `Vite 8 + React 19 + TypeScript 7` 模块化架构与 `public/assets/` 静态懒加载。
 
 ### 八大核心模块当前进度总览
 
@@ -70,7 +70,7 @@ flowchart LR
 > **阶段目标**：移除原型里的调试滑块，让玩家能正式开新档创角，在城市与门派中赚钱、买马、拜师、修炼十艺、习得并装备武功。
 
 - [ ] **[M1-1] 开局创角与出身系统**：制作新游戏创角流程（姓名、立绘选择、初始出身预设如【寒门游侠 / 将门遗孤 / 书院学子 / 塞外孤儿】、天赋三维 `根骨/悟性/颜值` 随机或分配、初始落脚城池选择）
-- [ ] **[M1-2] 216 门武学数值表定稿**：在保留 [MARTIAL_ARTS_COMPENDIUM.md](file:///shared/user/.gemini/jetski/brain/v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/MARTIAL_ARTS_COMPENDIUM.md) 设定基础上，批量补全每门武学的战斗与养成字段（基础威力、内力消耗、冷却回合、攻击距离与范围形状、刚柔阴阳劲力属性、异常状态附带、1~10 重成长收益、前置条件代码校验器）
+- [ ] **[M1-2] 216 门武学数值表定稿**：在保留 [MARTIAL_ARTS_COMPENDIUM.md](./MARTIAL_ARTS_COMPENDIUM.md) 设定基础上，批量补全每门武学的战斗与养成字段（基础威力、内力消耗、冷却回合、攻击距离与范围形状、刚柔阴阳劲力属性、异常状态附带、1~10 重成长收益、前置条件代码校验器）
 - [ ] **[M1-3] 角色面板与武学装配系统**：实装完整【侠客面板】——支持装配 **1 门主运内功 + 1 门轻功身法 + 最多 4 门出战外功/奇门招式**，实时重算实战四维（`气血/内力/身法/抗性`）与大地图移动速度
 - [ ] **[M1-4] 物品背包与商贸经济闭环**：设计核心道具表（干粮盘缠、金创/九花玉露等丹药、刀剑枪棍护具、大宛马/西夏战马、武学秘籍/残页），实装马市、铁匠铺、市集/番坊买卖与装备穿戴
 - [ ] **[M1-5] 建筑功能实装与门派拜师体系**：

@@ -1,8 +1,8 @@
 # 北宋群侠传 (Northern Song Chronicles) - 项目完整指南 (PROJECT_GUIDE)
 
-> **版本**：v1.0.0-phase3  
+> **版本**：v0.1.0-m0-complete  
 > **更新时间**：2026-11-12  
-> **项目根目录**：`/home/antigravity/zhby99/northern-song-chronicles`
+> **仓库标识**：`zhby99/northern-song-chronicles`
 
 ---
 
@@ -17,8 +17,8 @@
 
 ## 一、项目定位与架构总览
 
-本项目是一款以北宋熙宁-元丰年间为背景的国风开放世界沙盘武侠游戏。
-前端技术栈采用 **Vite + React 18 + TypeScript + Zustand + TailwindCSS / Lucide-React**，所有核心数据采用静态 JSON 数据库及全量离线打包架构。
+本项目是一款以**公元 1050 年（北宋仁宗皇祐二年 · 《天龙八部》黄金前传时代）**为背景的国风开放世界沙盘武侠 RPG（《北宋立志传》）。
+前端技术栈采用 **Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5 + Lucide-React**，所有核心数据采用由四大 Markdown 设定集确定性编译而成的静态 JSON 数据库，配合 `public/assets/` 按需懒加载与 `IndexedDB + localStorage` 双写多槽位存档架构。
 
 ### 架构分层
 ```mermaid
@@ -230,51 +230,20 @@ northern-song-chronicles/
 ### 3. 角色立绘与头像 (`public/assets/characters/` - 共 113 张)
 
 #### (1) 人物头像库 (`public/assets/characters/avatars/` - 51 张)
-- 历史名人与核心侠客：
-  - `NPC-0001.jpg` (赵顼 / 宋神宗)
-  - `NPC-0002.jpg` (王安石)
-  - `NPC-0003.jpg` (司马光)
-  - `NPC-0004.jpg` (苏轼)
-  - `NPC-0005.jpg` (章惇)
-  - `NPC-0006.jpg` (蔡京)
-  - `NPC-0008.jpg` (高太后 / 宣仁皇太后)
-  - `NPC-0009.jpg` (向太后)
-  - `NPC-0012.jpg` (苏辙)
-  - `NPC-0013.jpg` (黄庭坚)
-  - `NPC-0021.jpg` (种师道)
-  - `NPC-0022.jpg` (折克行)
-  - `NPC-0023.jpg` (狄咏)
-  - `NPC-0024.jpg` (李宪)
-  - `NPC-0025.jpg` (王厚)
-  - `NPC-0026.jpg` (苗授)
-  - `NPC-0031.jpg` (耶律洪基)
-  - `NPC-0041.jpg` (段正明)
-  - `NPC-0042.jpg` (段正淳)
-  - `NPC-0043.jpg` (高升泰)
-  - `NPC-0055.jpg` (李秋水)
-  - `NPC-0061.jpg` (乔峰 / 萧峰)
-  - `NPC-0062.jpg` (虚竹)
-  - `NPC-0063.jpg` (段誉)
-  - `NPC-0064.jpg` (慕容复)
-  - `NPC-0081.jpg` (扫地僧)
-  - `NPC-0082.jpg` (玄慈方丈)
-  - `NPC-0083.jpg` (玄难大师)
-  - `NPC-0101.jpg` ~ `NPC-0107.jpg` (段延庆、叶二娘、岳老三、云中鹤等四大恶人与西夏豪强)
-  - `NPC-0109.jpg` ~ `NPC-0144.jpg` (天山童姥、无崖子、萧远山、包不同、风波恶、鸠摩智、游坦之等宗师与豪杰)
+- **北宋皇室与朝堂名臣**：
+  - `NPC-0001.jpg` (赵祯 / 宋仁宗)、`NPC-0002.jpg` (曹丹姝 / 慈圣皇后)、`NPC-0003.jpg` (赵曙)、`NPC-0004.jpg` (高滔滔)、`NPC-0005.jpg` (张清窈 / 温成贵妃)、`NPC-0006.jpg` (赵允让)、`NPC-0008.jpg` (柴宗庆)
+  - `NPC-0009.jpg` (范仲淹)、`NPC-0012.jpg` (欧阳修)、`NPC-0013.jpg` (包拯)、`NPC-0021.jpg` (蔡襄)、`NPC-0022.jpg` (余靖)、`NPC-0023.jpg` (梅尧臣)、`NPC-0024.jpg` (苏舜钦)、`NPC-0025.jpg` (赵抃)、`NPC-0026.jpg` (唐介)、`NPC-0031.jpg` (狄青)
+  - `NPC-0041.jpg` (尹源)、`NPC-0042.jpg` (呼延丕显)、`NPC-0043.jpg` (高怀亮)、`NPC-0055.jpg` (苏轼)、`NPC-0061.jpg` (毕昇)、`NPC-0062.jpg` (苏颂)、`NPC-0063.jpg` (沈括)、`NPC-0064.jpg` (贾宪)
+- **四夷君臣**：
+  - `NPC-0081.jpg` (完颜乌古乃)、`NPC-0082.jpg` (没藏黑云 / 没藏太后)、`NPC-0083.jpg` (李谅祚 / 西夏毅宗)
+- **绝世大宗师与武林豪侠**：
+  - `NPC-0101.jpg` (法空 / 少林扫地僧)、`NPC-0102.jpg` (巫行云 / 天山童姥)、`NPC-0103.jpg` (李秋水)、`NPC-0104.jpg` (慕容博)、`NPC-0105.jpg` (萧远山)、`NPC-0106.jpg` (无崖子)、`NPC-0107.jpg` (黄裳)
+  - `NPC-0109.jpg` (玄澄)、`NPC-0110.jpg` (乔峰)、`NPC-0111.jpg` (汪剑通)、`NPC-0112.jpg` (玄慈)、`NPC-0113.jpg` (鸠摩智)、`NPC-0114.jpg` (林朝瑶)、`NPC-0115.jpg` (冯默岚)、`NPC-0118.jpg` (岳沧溟)、`NPC-0120.jpg` (慕容复)、`NPC-0121.jpg` (耶律惊鸿)、`NPC-0125.jpg` (唐鹤轩)、`NPC-0128.jpg` (云慧师太)
+  - `NPC-0140.jpg` (展昭)、`NPC-0141.jpg` (白玉堂)、`NPC-0142.jpg` (王重岳)、`NPC-0144.jpg` (本因 / 天龙方丈)
 
 #### (2) 人物全身立绘库 (`public/assets/characters/fullbody/` - 50 张)
-- 对应核心角色全身大图，包含：
-  - `NPC-0001.jpg` ~ `NPC-0006.jpg` (朝堂诸公与帝王立绘)
-  - `NPC-0009.jpg`, `NPC-0012.jpg`, `NPC-0013.jpg` (苏门学士与太后)
-  - `NPC-0021.jpg` ~ `NPC-0026.jpg` (西北西军名将威武铠甲立绘)
-  - `NPC-0031.jpg` (辽国皇帝御服立绘)
-  - `NPC-0041.jpg` ~ `NPC-0044.jpg` (大理皇族长袍立绘)
-  - `NPC-0055.jpg` (逍遥派李秋水绝美白衣立绘)
-  - `NPC-0061.jpg` ~ `NPC-0065.jpg` (乔峰、虚竹、段誉、慕容复、王语嫣全身立绘)
-  - `NPC-0082.jpg` (玄慈方丈袈裟立绘)
-  - `NPC-0101.jpg` ~ `NPC-0107.jpg` (四大恶人全身立绘)
-  - `NPC-0110.jpg` ~ `NPC-0144.jpg` (逍遥三老、萧远山、鸠摩智等武林至尊全身立绘)
-  - `NPC-0236.jpg` (隐士高人立绘)
+- 覆盖上述绝大多数核心角色全身大图（`NPC-0001`~`NPC-0006`、`NPC-0009`、`NPC-0012`~`NPC-0013`、`NPC-0021`~`NPC-0026`、`NPC-0031`、`NPC-0041`~`NPC-0043`、`NPC-0055`、`NPC-0061`~`NPC-0064`、`NPC-0082`、`NPC-0101`~`NPC-0107`、`NPC-0110`~`NPC-0115`、`NPC-0118`、`NPC-0120`~`NPC-0121`、`NPC-0125`、`NPC-0128`、`NPC-0140`~`NPC-0142`、`NPC-0144`），并额外包含：
+  - `NPC-0044.jpg` (石全彬)、`NPC-0065.jpg` (燕度)、`NPC-0236.jpg` (段正淳 / 镇南王)
 
 #### (3) 通用门派与职业全身模板 (`public/assets/characters/templates/` - 12 张)
 当 NPC 未分配唯一专属原画时，系统由 `assetLoader.ts` 自动降级映射至对应门派/身份模板：

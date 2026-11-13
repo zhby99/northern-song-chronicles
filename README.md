@@ -63,3 +63,14 @@ northern-song-chronicles/
     └── utils/                      # IndexedDB 多槽位存档管理器与静态图片懒加载器
 ```
 
+## Antigravity 本地版无缝接手说明
+
+本仓库已内置完整的 **Antigravity 本地版上下文记忆与专属技能包**，在本地 `git clone` 打开工作区后无需重新解释背景：
+
+- **自动加载规则**：[`AGENTS.md`](./AGENTS.md) 与 [`.gemini/GEMINI.md`](./.gemini/GEMINI.md) 会在每次开启新会话时自动注入公元 1050 年时空锚点、架构铁律与 M0→M5 进度。
+- **跨分支历史交接录**：[`docs/HANDOFF_CONTEXT.md`](./docs/HANDOFF_CONTEXT.md) 完整记录了前期多分支演进脉络、核心技术细节与避坑指南。
+- **内置快捷技能（在本地聊天框直接输入 `/` 调用）**：
+  - `/resume-context`：一键读取交接录与 [`docs/ROADMAP_AND_TODO.md`](./docs/ROADMAP_AND_TODO.md)，汇报当前进度并切入下一里程碑（当前推荐从 `M1-1` 开始）。
+  - `/rebuild-db`：修改 `docs/*.md` 设定文档后一键重编 `src/data/*.json` 并执行零悬空引用与类型检查。
+  - `/panorama-artist`：按北宋青绿工笔 2.5D 规范补绘场景/建筑全景图并校准点击热点。
+  - `/portrait-artist`：按宋代舆服考据与零复用铁律补绘人物 `1:1` 头像与 `3:4` 全身立绘。
