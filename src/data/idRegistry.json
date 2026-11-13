@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "M0.3.0",
+  "schemaVersion": "M1.1.0",
   "counts": {
     "regions": 38,
     "majorSects": 20,
@@ -10,10 +10,12 @@
     "specialBuildingsWithSvgFallback": 65,
     "cityBaseBuildings": 105,
     "totalBuildings": 228,
+    "interiorSubBuildings": 369,
     "martialArts": 216,
+    "weapons": 100,
     "npcs": 1000,
-    "npcsWithAvatar": 79,
-    "npcsWithFullbody": 77
+    "npcsWithAvatar": 128,
+    "npcsWithFullbody": 128
   },
   "regions": [
     {
@@ -3387,6 +3389,908 @@
       "cleanName": "翻滚躲闪步",
       "fullTier": "凡品下品",
       "category": "轻功",
+      "sectId": null
+    }
+  ],
+  "weaponIndex": [
+    {
+      "id": "WPN-001",
+      "code": "001",
+      "name": "玄铁重剑",
+      "fullTier": "天阶上品",
+      "weaponType": "剑",
+      "regionId": "jiangning",
+      "sectId": null
+    },
+    {
+      "id": "WPN-002",
+      "code": "002",
+      "name": "绿玉打狗棒",
+      "fullTier": "天阶上品",
+      "weaponType": "棍棒",
+      "regionId": "luoyang",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "WPN-003",
+      "code": "003",
+      "name": "暴雨梨花天机匣",
+      "fullTier": "天阶上品",
+      "weaponType": "暗器",
+      "regionId": "qingcheng",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "WPN-004",
+      "code": "004",
+      "name": "天波透甲金枪",
+      "fullTier": "天阶中品",
+      "weaponType": "枪",
+      "regionId": "taiyuan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-005",
+      "code": "005",
+      "name": "九霄环佩焦尾琴",
+      "fullTier": "天阶中品",
+      "weaponType": "奇门音兵",
+      "regionId": "wuliangshan",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "WPN-006",
+      "code": "006",
+      "name": "冷月凝霜宝刀",
+      "fullTier": "天阶中品",
+      "weaponType": "刀",
+      "regionId": "yanmenguan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-007",
+      "code": "007",
+      "name": "大威德金刚降魔杵",
+      "fullTier": "天阶下品",
+      "weaponType": "棍棒",
+      "regionId": "wutaishan",
+      "sectId": "SECT-03"
+    },
+    {
+      "id": "WPN-008",
+      "code": "008",
+      "name": "天山冰蚕丝掌套",
+      "fullTier": "天阶下品",
+      "weaponType": "拳掌护手",
+      "regionId": "kunlun",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "WPN-009",
+      "code": "009",
+      "name": "紫薇百炼软剑",
+      "fullTier": "天阶下品",
+      "weaponType": "剑",
+      "regionId": "yanziwu",
+      "sectId": "SECT-10"
+    },
+    {
+      "id": "WPN-010",
+      "code": "010",
+      "name": "东海碧玉洞箫",
+      "fullTier": "天阶下品",
+      "weaponType": "奇门音兵",
+      "regionId": "taohuadao",
+      "sectId": "SECT-12"
+    },
+    {
+      "id": "WPN-011",
+      "code": "011",
+      "name": "真武太阿古剑",
+      "fullTier": "地阶上品",
+      "weaponType": "剑",
+      "regionId": "wudangshan",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "WPN-012",
+      "code": "012",
+      "name": "夏国冷锻神剑",
+      "fullTier": "地阶上品",
+      "weaponType": "剑",
+      "regionId": "xingqing_xixia",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "WPN-013",
+      "code": "013",
+      "name": "少林燃木戒刀",
+      "fullTier": "地阶上品",
+      "weaponType": "刀",
+      "regionId": "shaolin",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "WPN-014",
+      "code": "014",
+      "name": "常山龙胆亮银枪",
+      "fullTier": "地阶上品",
+      "weaponType": "枪",
+      "regionId": "zhending",
+      "sectId": null
+    },
+    {
+      "id": "WPN-015",
+      "code": "015",
+      "name": "乌金大力金刚指环",
+      "fullTier": "地阶上品",
+      "weaponType": "拳掌护手",
+      "regionId": "nanshaolin",
+      "sectId": "SECT-04"
+    },
+    {
+      "id": "WPN-016",
+      "code": "016",
+      "name": "孔雀翎金机筒",
+      "fullTier": "地阶上品",
+      "weaponType": "暗器",
+      "regionId": "qingcheng",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "WPN-017",
+      "code": "017",
+      "name": "太岳紫霞长剑",
+      "fullTier": "地阶中品",
+      "weaponType": "剑",
+      "regionId": "tongguan",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "WPN-018",
+      "code": "018",
+      "name": "西域赤铜血刀",
+      "fullTier": "地阶中品",
+      "weaponType": "刀",
+      "regionId": "kunlun",
+      "sectId": null
+    },
+    {
+      "id": "WPN-019",
+      "code": "019",
+      "name": "燕云修罗斩马刀",
+      "fullTier": "地阶中品",
+      "weaponType": "刀",
+      "regionId": "xijin_liao",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "WPN-020",
+      "code": "020",
+      "name": "疯魔百炼浑铁杖",
+      "fullTier": "地阶中品",
+      "weaponType": "棍棒",
+      "regionId": "luoyang",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "WPN-021",
+      "code": "021",
+      "name": "铁掌毒砂玄铁腕",
+      "fullTier": "地阶中品",
+      "weaponType": "拳掌护手",
+      "regionId": "tiezhangfeng",
+      "sectId": "SECT-15"
+    },
+    {
+      "id": "WPN-022",
+      "code": "022",
+      "name": "含沙射影护腰机",
+      "fullTier": "地阶中品",
+      "weaponType": "暗器",
+      "regionId": "qingcheng",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "WPN-023",
+      "code": "023",
+      "name": "裴公龙蛇判官笔",
+      "fullTier": "地阶中品",
+      "weaponType": "奇门音兵",
+      "regionId": "luoyang",
+      "sectId": null
+    },
+    {
+      "id": "WPN-024",
+      "code": "024",
+      "name": "参合燕尾双剑",
+      "fullTier": "地阶下品",
+      "weaponType": "剑",
+      "regionId": "yanziwu",
+      "sectId": "SECT-10"
+    },
+    {
+      "id": "WPN-025",
+      "code": "025",
+      "name": "峨眉倚霞青锋",
+      "fullTier": "地阶下品",
+      "weaponType": "剑",
+      "regionId": "emeishan",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "WPN-026",
+      "code": "026",
+      "name": "点苍段氏金剑",
+      "fullTier": "地阶下品",
+      "weaponType": "剑",
+      "regionId": "dali_city",
+      "sectId": "ORG-08"
+    },
+    {
+      "id": "WPN-027",
+      "code": "027",
+      "name": "江淮翻江分水枪",
+      "fullTier": "地阶下品",
+      "weaponType": "枪",
+      "regionId": "yangzhou",
+      "sectId": "SECT-16"
+    },
+    {
+      "id": "WPN-028",
+      "code": "028",
+      "name": "少林韦陀伏魔杵",
+      "fullTier": "地阶下品",
+      "weaponType": "棍棒",
+      "regionId": "shaolin",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "WPN-029",
+      "code": "029",
+      "name": "星宿腐骨毒爪套",
+      "fullTier": "地阶下品",
+      "weaponType": "拳掌护手",
+      "regionId": "yanan",
+      "sectId": "SECT-19"
+    },
+    {
+      "id": "WPN-030",
+      "code": "030",
+      "name": "宣德紫金铁骨扇",
+      "fullTier": "地阶下品",
+      "weaponType": "奇门音兵",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-031",
+      "code": "031",
+      "name": "龙泉七星宝剑",
+      "fullTier": "良阶上品",
+      "weaponType": "剑",
+      "regionId": "hangzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-032",
+      "code": "032",
+      "name": "泰山岱宗厚背剑",
+      "fullTier": "良阶上品",
+      "weaponType": "剑",
+      "regionId": "taishan",
+      "sectId": "SECT-06"
+    },
+    {
+      "id": "WPN-033",
+      "code": "033",
+      "name": "洛阳九环金背刀",
+      "fullTier": "良阶上品",
+      "weaponType": "刀",
+      "regionId": "luoyang",
+      "sectId": null
+    },
+    {
+      "id": "WPN-034",
+      "code": "034",
+      "name": "晋阳百炼雁门刀",
+      "fullTier": "良阶上品",
+      "weaponType": "刀",
+      "regionId": "taiyuan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-035",
+      "code": "035",
+      "name": "大名六合浑铁枪",
+      "fullTier": "良阶上品",
+      "weaponType": "枪",
+      "regionId": "daming",
+      "sectId": null
+    },
+    {
+      "id": "WPN-036",
+      "code": "036",
+      "name": "五台八卦齐眉棍",
+      "fullTier": "良阶上品",
+      "weaponType": "棍棒",
+      "regionId": "wutaishan",
+      "sectId": "SECT-03"
+    },
+    {
+      "id": "WPN-037",
+      "code": "037",
+      "name": "六扇门鹰爪铁扣",
+      "fullTier": "良阶上品",
+      "weaponType": "拳掌护手",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-038",
+      "code": "038",
+      "name": "子午透骨钉囊",
+      "fullTier": "良阶上品",
+      "weaponType": "暗器",
+      "regionId": "qingcheng",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "WPN-039",
+      "code": "039",
+      "name": "绿绮桐木古琴",
+      "fullTier": "良阶上品",
+      "weaponType": "奇门音兵",
+      "regionId": "jiangning",
+      "sectId": null
+    },
+    {
+      "id": "WPN-040",
+      "code": "040",
+      "name": "峨眉分水双刺",
+      "fullTier": "良阶上品",
+      "weaponType": "奇门音兵",
+      "regionId": "emeishan",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "WPN-041",
+      "code": "041",
+      "name": "青城松风快剑",
+      "fullTier": "良阶中品",
+      "weaponType": "剑",
+      "regionId": "qingcheng",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "WPN-042",
+      "code": "042",
+      "name": "吴越鱼肠短剑",
+      "fullTier": "良阶中品",
+      "weaponType": "剑",
+      "regionId": "suzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-043",
+      "code": "043",
+      "name": "党项冷月弯刀",
+      "fullTier": "良阶中品",
+      "weaponType": "刀",
+      "regionId": "xingqing_xixia",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "WPN-044",
+      "code": "044",
+      "name": "大食乌兹镔铁刀",
+      "fullTier": "良阶中品",
+      "weaponType": "刀",
+      "regionId": "quanzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-045",
+      "code": "045",
+      "name": "荆楚丈八蛇矛",
+      "fullTier": "良阶中品",
+      "weaponType": "枪",
+      "regionId": "xiangyang",
+      "sectId": null
+    },
+    {
+      "id": "WPN-046",
+      "code": "046",
+      "name": "河东呼延熟铜鞭",
+      "fullTier": "良阶中品",
+      "weaponType": "棍棒",
+      "regionId": "taiyuan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-047",
+      "code": "047",
+      "name": "契丹重装狼牙棒",
+      "fullTier": "良阶中品",
+      "weaponType": "棍棒",
+      "regionId": "dading_liao",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "WPN-048",
+      "code": "048",
+      "name": "南少林铁线臂环",
+      "fullTier": "良阶中品",
+      "weaponType": "拳掌护手",
+      "regionId": "nanshaolin",
+      "sectId": "SECT-04"
+    },
+    {
+      "id": "WPN-049",
+      "code": "049",
+      "name": "闽海追魂连珠镖",
+      "fullTier": "良阶中品",
+      "weaponType": "暗器",
+      "regionId": "quanzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-050",
+      "code": "050",
+      "name": "西湖湘妃竹铁扇",
+      "fullTier": "良阶中品",
+      "weaponType": "奇门音兵",
+      "regionId": "hangzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-051",
+      "code": "051",
+      "name": "终南寒泉道剑",
+      "fullTier": "良阶下品",
+      "weaponType": "剑",
+      "regionId": "zhongnanshan",
+      "sectId": "SECT-11"
+    },
+    {
+      "id": "WPN-052",
+      "code": "052",
+      "name": "太行五虎断门刀",
+      "fullTier": "良阶下品",
+      "weaponType": "刀",
+      "regionId": "taihang",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "WPN-053",
+      "code": "053",
+      "name": "南北作坊点钢枪",
+      "fullTier": "良阶下品",
+      "weaponType": "枪",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-054",
+      "code": "054",
+      "name": "杨氏梨花白蜡枪",
+      "fullTier": "良阶下品",
+      "weaponType": "枪",
+      "regionId": "zhending",
+      "sectId": null
+    },
+    {
+      "id": "WPN-055",
+      "code": "055",
+      "name": "嵩山普门护法杖",
+      "fullTier": "良阶下品",
+      "weaponType": "棍棒",
+      "regionId": "shaolin",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "WPN-056",
+      "code": "056",
+      "name": "沧州八极崩山拳套",
+      "fullTier": "良阶下品",
+      "weaponType": "拳掌护手",
+      "regionId": "daming",
+      "sectId": null
+    },
+    {
+      "id": "WPN-057",
+      "code": "057",
+      "name": "苗疆五毒铁砂掌套",
+      "fullTier": "良阶下品",
+      "weaponType": "拳掌护手",
+      "regionId": "chengdu",
+      "sectId": null
+    },
+    {
+      "id": "WPN-058",
+      "code": "058",
+      "name": "川蜀毒蒺藜皮囊",
+      "fullTier": "良阶下品",
+      "weaponType": "暗器",
+      "regionId": "qingcheng",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "WPN-059",
+      "code": "059",
+      "name": "开封府缉盗铁尺",
+      "fullTier": "良阶下品",
+      "weaponType": "奇门音兵",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-060",
+      "code": "060",
+      "name": "徽州紫檀点穴笔",
+      "fullTier": "良阶下品",
+      "weaponType": "奇门音兵",
+      "regionId": "jiangning",
+      "sectId": null
+    },
+    {
+      "id": "WPN-061",
+      "code": "061",
+      "name": "青萍游侠剑",
+      "fullTier": "凡阶上品",
+      "weaponType": "剑",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-062",
+      "code": "062",
+      "name": "华山入门青钢剑",
+      "fullTier": "凡阶上品",
+      "weaponType": "剑",
+      "regionId": "tongguan",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "WPN-063",
+      "code": "063",
+      "name": "真武松纹道剑",
+      "fullTier": "凡阶上品",
+      "weaponType": "剑",
+      "regionId": "wudangshan",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "WPN-064",
+      "code": "064",
+      "name": "江南柳叶双刀",
+      "fullTier": "凡阶上品",
+      "weaponType": "刀",
+      "regionId": "suzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-065",
+      "code": "065",
+      "name": "关中六合大环刀",
+      "fullTier": "凡阶上品",
+      "weaponType": "刀",
+      "regionId": "changan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-066",
+      "code": "066",
+      "name": "宋军制式手刀",
+      "fullTier": "凡阶上品",
+      "weaponType": "刀",
+      "regionId": "yanan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-067",
+      "code": "067",
+      "name": "厢军制式长枪",
+      "fullTier": "凡阶上品",
+      "weaponType": "枪",
+      "regionId": "daming",
+      "sectId": null
+    },
+    {
+      "id": "WPN-068",
+      "code": "068",
+      "name": "少林白蜡齐眉棍",
+      "fullTier": "凡阶上品",
+      "weaponType": "棍棒",
+      "regionId": "shaolin",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "WPN-069",
+      "code": "069",
+      "name": "精铁缠腕护手",
+      "fullTier": "凡阶上品",
+      "weaponType": "拳掌护手",
+      "regionId": "taiyuan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-070",
+      "code": "070",
+      "name": "机簧甩手袖箭",
+      "fullTier": "凡阶上品",
+      "weaponType": "暗器",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-071",
+      "code": "071",
+      "name": "皇祐通宝飞镖袋",
+      "fullTier": "凡阶上品",
+      "weaponType": "暗器",
+      "regionId": "yangzhou",
+      "sectId": "SECT-16"
+    },
+    {
+      "id": "WPN-072",
+      "code": "072",
+      "name": "汴京铁骨纸扇",
+      "fullTier": "凡阶上品",
+      "weaponType": "奇门音兵",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-073",
+      "code": "073",
+      "name": "武馆三才铁剑",
+      "fullTier": "凡阶中品",
+      "weaponType": "剑",
+      "regionId": "jinan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-074",
+      "code": "074",
+      "name": "巴蜀窄刃刺剑",
+      "fullTier": "凡阶中品",
+      "weaponType": "剑",
+      "regionId": "chengdu",
+      "sectId": null
+    },
+    {
+      "id": "WPN-075",
+      "code": "075",
+      "name": "官制长柄朴刀",
+      "fullTier": "凡阶中品",
+      "weaponType": "刀",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-076",
+      "code": "076",
+      "name": "绿林泼风砍刀",
+      "fullTier": "凡阶中品",
+      "weaponType": "刀",
+      "regionId": "taihang",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "WPN-077",
+      "code": "077",
+      "name": "市井庖丁剔骨刀",
+      "fullTier": "凡阶中品",
+      "weaponType": "刀",
+      "regionId": "luoyang",
+      "sectId": null
+    },
+    {
+      "id": "WPN-078",
+      "code": "078",
+      "name": "江淮巡河钩镰枪",
+      "fullTier": "凡阶中品",
+      "weaponType": "枪",
+      "regionId": "yangzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-079",
+      "code": "079",
+      "name": "塞北牧民套马杆枪",
+      "fullTier": "凡阶中品",
+      "weaponType": "枪",
+      "regionId": "linhuang_liao",
+      "sectId": null
+    },
+    {
+      "id": "WPN-080",
+      "code": "080",
+      "name": "丐帮青竹防身棒",
+      "fullTier": "凡阶中品",
+      "weaponType": "棍棒",
+      "regionId": "luoyang",
+      "sectId": null
+    },
+    {
+      "id": "WPN-081",
+      "code": "081",
+      "name": "运河漕工铁头篙",
+      "fullTier": "凡阶中品",
+      "weaponType": "棍棒",
+      "regionId": "yangzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-082",
+      "code": "082",
+      "name": "衙门缉捕熟铁链",
+      "fullTier": "凡阶中品",
+      "weaponType": "棍棒",
+      "regionId": "zhending",
+      "sectId": null
+    },
+    {
+      "id": "WPN-083",
+      "code": "083",
+      "name": "生牛皮裹指拳带",
+      "fullTier": "凡阶中品",
+      "weaponType": "拳掌护手",
+      "regionId": "xiangyang",
+      "sectId": null
+    },
+    {
+      "id": "WPN-084",
+      "code": "084",
+      "name": "粗练铁砂护掌布",
+      "fullTier": "凡阶中品",
+      "weaponType": "拳掌护手",
+      "regionId": "jinan",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "WPN-085",
+      "code": "085",
+      "name": "鹅卵飞蝗石袋",
+      "fullTier": "凡阶中品",
+      "weaponType": "暗器",
+      "regionId": "jianmenguan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-086",
+      "code": "086",
+      "name": "账房黄铜铁算盘",
+      "fullTier": "凡阶中品",
+      "weaponType": "奇门音兵",
+      "regionId": "chengdu",
+      "sectId": null
+    },
+    {
+      "id": "WPN-087",
+      "code": "087",
+      "name": "瓦舍杂耍花剑",
+      "fullTier": "凡阶下品",
+      "weaponType": "剑",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-088",
+      "code": "088",
+      "name": "书院习礼桃木剑",
+      "fullTier": "凡阶下品",
+      "weaponType": "剑",
+      "regionId": "luoyang",
+      "sectId": null
+    },
+    {
+      "id": "WPN-089",
+      "code": "089",
+      "name": "无锋生铁钝剑",
+      "fullTier": "凡阶下品",
+      "weaponType": "剑",
+      "regionId": "taiyuan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-090",
+      "code": "090",
+      "name": "樵夫劈山柴刀",
+      "fullTier": "凡阶下品",
+      "weaponType": "刀",
+      "regionId": "zhongnanshan",
+      "sectId": "SECT-11"
+    },
+    {
+      "id": "WPN-091",
+      "code": "091",
+      "name": "酒肆庖厨双菜刀",
+      "fullTier": "凡阶下品",
+      "weaponType": "刀",
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "WPN-092",
+      "code": "092",
+      "name": "剪径缺口砍山刀",
+      "fullTier": "凡阶下品",
+      "weaponType": "刀",
+      "regionId": "jianmenguan",
+      "sectId": null
+    },
+    {
+      "id": "WPN-093",
+      "code": "093",
+      "name": "深山猎户叉虎枪",
+      "fullTier": "凡阶下品",
+      "weaponType": "枪",
+      "regionId": "emeishan",
+      "sectId": "SECT-07"
+    },
+    {
+      "id": "WPN-094",
+      "code": "094",
+      "name": "削尖毛竹硬枪",
+      "fullTier": "凡阶下品",
+      "weaponType": "枪",
+      "regionId": "quanzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-095",
+      "code": "095",
+      "name": "少室灶房烧火棍",
+      "fullTier": "凡阶下品",
+      "weaponType": "棍棒",
+      "regionId": "shaolin",
+      "sectId": "SECT-01"
+    },
+    {
+      "id": "WPN-096",
+      "code": "096",
+      "name": "货郎桑木扁担",
+      "fullTier": "凡阶下品",
+      "weaponType": "棍棒",
+      "regionId": "suzhou",
+      "sectId": null
+    },
+    {
+      "id": "WPN-097",
+      "code": "097",
+      "name": "巡夜更夫齐眉梆",
+      "fullTier": "凡阶下品",
+      "weaponType": "棍棒",
+      "regionId": "jiangning",
+      "sectId": null
+    },
+    {
+      "id": "WPN-098",
+      "code": "098",
+      "name": "叫花驱犬芦竹竿",
+      "fullTier": "凡阶下品",
+      "weaponType": "棍棒",
+      "regionId": "daming",
+      "sectId": null
+    },
+    {
+      "id": "WPN-099",
+      "code": "099",
+      "name": "码头力夫麻布护腕",
+      "fullTier": "凡阶下品",
+      "weaponType": "拳掌护手",
+      "regionId": "xiangyang",
+      "sectId": null
+    },
+    {
+      "id": "WPN-100",
+      "code": "100",
+      "name": "顽童牛筋木弹弓",
+      "fullTier": "凡阶下品",
+      "weaponType": "暗器",
+      "regionId": "hangzhou",
       "sectId": null
     }
   ]

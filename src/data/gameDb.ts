@@ -3,6 +3,7 @@ import rawIdRegistry from './idRegistry.json'
 import rawMartialArts from './martial_arts.json'
 import rawNpcs from './npcs.json'
 import rawRegions from './regions.json'
+import rawWeapons from './weapons.json'
 import type {
   CanonicalFactionEntry,
   CanonicalIdRegistry,
@@ -10,12 +11,29 @@ import type {
   CompiledMartialArtRecord,
   CompiledNpcRecord,
   CompiledRegionRecord,
+  CompiledWeaponRecord,
+  RoamingMaster,
+  TenArtKey,
 } from '../types/game'
+
+export const TEN_ART_KEYS: readonly TenArtKey[] = [
+  '骑术',
+  '算术',
+  '经义',
+  '策论',
+  '诗词',
+  '琴',
+  '棋',
+  '书',
+  '画',
+  '辩才',
+]
 
 export const ID_REGISTRY = rawIdRegistry as unknown as CanonicalIdRegistry
 export const REGIONS_DB = rawRegions as unknown as CompiledRegionRecord[]
 export const BUILDINGS_DB = rawBuildings as unknown as CompiledBuildingRecord[]
 export const MARTIAL_ARTS_DB = rawMartialArts as unknown as CompiledMartialArtRecord[]
+export const WEAPONS_DB = rawWeapons as unknown as CompiledWeaponRecord[]
 export const NPCS_DB = rawNpcs as unknown as CompiledNpcRecord[]
 
 export const REGION_DB_MAP: Record<string, CompiledRegionRecord> = Object.fromEntries(
@@ -30,6 +48,10 @@ export const MARTIAL_ART_DB_MAP: Record<string, CompiledMartialArtRecord> = Obje
   MARTIAL_ARTS_DB.map((m) => [m.id, m]),
 )
 
+export const WEAPON_DB_MAP: Record<string, CompiledWeaponRecord> = Object.fromEntries(
+  WEAPONS_DB.map((w) => [w.id, w]),
+)
+
 export const NPC_DB_MAP: Record<string, CompiledNpcRecord> = Object.fromEntries(
   NPCS_DB.map((n) => [n.id, n]),
 )
@@ -41,6 +63,7 @@ export const FACTION_DB_MAP: Record<string, CanonicalFactionEntry> = Object.from
 const npcByCleanName = new Map<string, CompiledNpcRecord>()
 const npcsByRegionId = new Map<string, CompiledNpcRecord[]>()
 const npcsByBuildingId = new Map<string, CompiledNpcRecord[]>()
+const npcsBySpotId = new Map<string, CompiledNpcRecord[]>()
 
 for (const npc of NPCS_DB) {
   npcByCleanName.set(npc.name, npc)
@@ -53,6 +76,12 @@ for (const npc of NPCS_DB) {
     const bList = npcsByBuildingId.get(npc.assignedBuildingId) ?? []
     bList.push(npc)
     npcsByBuildingId.set(npc.assignedBuildingId, bList)
+  }
+
+  if (npc.assignedSpotId) {
+    const sList = npcsBySpotId.get(npc.assignedSpotId) ?? []
+    sList.push(npc)
+    npcsBySpotId.set(npc.assignedSpotId, sList)
   }
 }
 
@@ -74,6 +103,9 @@ for (const [k, v] of npcsByRegionId.entries()) {
 for (const [k, v] of npcsByBuildingId.entries()) {
   npcsByBuildingId.set(k, sortNpcsForDisplay(v))
 }
+for (const [k, v] of npcsBySpotId.entries()) {
+  npcsBySpotId.set(k, sortNpcsForDisplay(v))
+}
 
 export function getCompiledNpcsByRegion(regionId: string): CompiledNpcRecord[] {
   return npcsByRegionId.get(regionId) ?? []
@@ -81,6 +113,45 @@ export function getCompiledNpcsByRegion(regionId: string): CompiledNpcRecord[] {
 
 export function getCompiledNpcsByBuilding(buildingId: string): CompiledNpcRecord[] {
   return npcsByBuildingId.get(buildingId) ?? []
+}
+
+export function getCompiledNpcsBySpot(spotId: string): CompiledNpcRecord[] {
+  return npcsBySpotId.get(spotId) ?? []
+}
+
+/**
+ * Resolve the exact leaf building / interior sub-building where a roaming master
+ * temporarily stays while visiting `master.nodeId`, ensuring roaming masters NEVER
+ * leak to city-wide or parent-building views.
+ */
+export function resolveRoamingMasterLeafTarget(master: RoamingMaster): {
+  buildingId: string
+  spotId: string | null
+} | null {
+  const reg = REGION_DB_MAP[master.nodeId]
+  if (!reg) return null
+
+  // In cities, roaming masters rest at the local tavern (or first base building)
+  if (reg.baseBuildingIds.length > 0) {
+    const tavernId = reg.baseBuildingIds.find((id) => id.endsWith('_base_tavern'))
+    return {
+      buildingId: tavernId ?? reg.baseBuildingIds[0],
+      spotId: null,
+    }
+  }
+
+  // In sect/pass regions (where all buildings are special buildings with interior spots),
+  // place them at a deterministic leaf spot of the first special building
+  const firstSpecId = reg.specialBuildingIds[0]
+  const specBldg = firstSpecId ? BUILDING_DB_MAP[firstSpecId] : null
+  const firstSpot = specBldg?.interior?.spots[0]
+  if (specBldg && firstSpot) {
+    return {
+      buildingId: specBldg.id,
+      spotId: firstSpot.id,
+    }
+  }
+  return null
 }
 
 export function resolveNpcByName(rawName: string): CompiledNpcRecord | null {

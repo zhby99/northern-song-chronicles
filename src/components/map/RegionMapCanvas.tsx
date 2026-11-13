@@ -247,11 +247,14 @@ export function RegionMapCanvas() {
               <g id="building-spots-layer">
                 {activeInterior.spots.map((sp) => {
                   const isSelected = sp.id === selectedSpotId
+                  const spotResidentCount = sp.residentNpcIds?.length ?? 0
+                  const spotTagLabel =
+                    spotResidentCount > 0 ? `${sp.tag} · ${spotResidentCount}人` : sp.tag
                   const labelText = `★ ${sp.name}`
                   const plateW = Math.max(100, labelText.length * 11.2 + 22)
                   const plateFill = isSelected ? '#2b180b' : '#8f1d14'
                   const plateStroke = isSelected ? '#fbbf24' : '#f6cf65'
-                  const tagW = Math.max(66, sp.tag.length * 9.2 + 16)
+                  const tagW = Math.max(66, spotTagLabel.length * 9.0 + 16)
 
                   return (
                     <g
@@ -272,6 +275,7 @@ export function RegionMapCanvas() {
                             isSpecial: true,
                             isSpot: true,
                             interiorMode: activeInterior.mode,
+                            residentCount: spotResidentCount,
                           },
                         })
                       }}
@@ -322,7 +326,7 @@ export function RegionMapCanvas() {
                             fontWeight="bold"
                             fill="#781710"
                           >
-                            {sp.tag}
+                            {spotTagLabel}
                           </text>
                           <rect
                             x={-plateW / 2}
@@ -455,6 +459,7 @@ export function RegionMapCanvas() {
                             actLabel: b.actLabel,
                             isSpecial: b.isSpecial,
                             interiorMode,
+                            residentCount: dbBuilding?.residentNpcIds.length ?? 0,
                           },
                         })
                       }}

@@ -1,0 +1,3886 @@
+[
+  {
+    "id": "WPN-001",
+    "code": "001",
+    "name": "玄铁重剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "天阶",
+    "subTier": "上品",
+    "fullTier": "天阶上品",
+    "regionId": "jiangning",
+    "locationLabel": "江宁府",
+    "origin": "江南古剑冢秘藏",
+    "originFull": "江宁府·江南古剑冢秘藏",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 2800,
+    "equipBonus": {
+      "attack": 230,
+      "defense": 35,
+      "maxHp": 360,
+      "maxMp": 280
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 35
+      }
+    ],
+    "signatureArtIds": [
+      "MA-029",
+      "MA-007"
+    ],
+    "specialTag": "【重剑无锋】",
+    "description": "【重剑无锋】剑魔前辈仗之横行天下的深谷玄铁重剑，重八八六十四斤，剑尖圆钝无刃，“重剑无锋，大巧不工”；正面劈击无视敌方28%护体防御，内力愈强剑势愈不可当。",
+    "prerequisitesText": "`根骨≥85`、`内力≥3200`、`气血≥3000`；非膂力真气雄浑绝伦者提之不起。",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 85
+      },
+      {
+        "stat": "内力",
+        "min": 3200
+      },
+      {
+        "stat": "气血",
+        "min": 3000
+      }
+    ]
+  },
+  {
+    "id": "WPN-002",
+    "code": "002",
+    "name": "绿玉打狗棒",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "天阶",
+    "subTier": "上品",
+    "fullTier": "天阶上品",
+    "regionId": "luoyang",
+    "locationLabel": "洛阳府",
+    "origin": "丐帮历代帮主信物",
+    "originFull": "洛阳府·丐帮历代帮主信物",
+    "sectId": "SECT-02",
+    "forceTrait": "奇巧",
+    "attackRange": 2,
+    "value": 2600,
+    "equipBonus": {
+      "attack": 205,
+      "defense": 42,
+      "agility": 16,
+      "maxMp": 220
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 35
+      }
+    ],
+    "signatureArtIds": [
+      "MA-016",
+      "MA-052"
+    ],
+    "specialTag": "【八诀镇帮】",
+    "description": "【八诀镇帮】通体莹碧如翡翠、柔韧不断之旷世奇竹，自宋初传至皇祐年间汪剑通手中，见棒如见帮主；施展棒法时招架反击率大增，专克强敌破绽。",
+    "prerequisitesText": "`悟性≥85`、`身法≥80`、`辩才≥70`；须深明绊劈缠戳八诀精义或获丐帮帮主亲授。",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 85
+      },
+      {
+        "stat": "身法",
+        "min": 80
+      },
+      {
+        "stat": "辩才",
+        "min": 70
+      }
+    ]
+  },
+  {
+    "id": "WPN-003",
+    "code": "003",
+    "name": "暴雨梨花天机匣",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "天阶",
+    "subTier": "上品",
+    "fullTier": "天阶上品",
+    "regionId": "qingcheng",
+    "locationLabel": "青城山 / 唐家堡",
+    "origin": "蜀中唐门镇族禁器",
+    "originFull": "青城山 / 唐家堡·蜀中唐门镇族禁器",
+    "sectId": "SECT-13",
+    "forceTrait": "奇巧",
+    "attackRange": 4,
+    "value": 2700,
+    "equipBonus": {
+      "attack": 220,
+      "agility": 22,
+      "res": 16
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 35
+      },
+      {
+        "category": "毒功",
+        "bonusPct": 20
+      }
+    ],
+    "signatureArtIds": [
+      "MA-032",
+      "MA-053"
+    ],
+    "specialTag": "【梨花攒射】",
+    "description": "【梨花攒射】唐家堡历代巧匠耗尽心血铸就之扁平银匣，内藏二十七道极精密机簧，一按枢机银针如暴雨倾盆，封死扇形死角并高概率截脉封穴。",
+    "prerequisitesText": "`悟性≥82`、`身法≥80`、`算术≥88`；须通晓天机簧括推演之术方可拆装激发。",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 82
+      },
+      {
+        "stat": "身法",
+        "min": 80
+      },
+      {
+        "stat": "算术",
+        "min": 88
+      }
+    ]
+  },
+  {
+    "id": "WPN-004",
+    "code": "004",
+    "name": "天波透甲金枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "天阶",
+    "subTier": "中品",
+    "fullTier": "天阶中品",
+    "regionId": "taiyuan",
+    "locationLabel": "太原府",
+    "origin": "天波杨府镇边圣器",
+    "originFull": "太原府·天波杨府镇边圣器",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 2100,
+    "equipBonus": {
+      "attack": 192,
+      "defense": 30,
+      "maxHp": 320,
+      "riding": 15
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 30
+      }
+    ],
+    "signatureArtIds": [
+      "MA-073",
+      "MA-112"
+    ],
+    "specialTag": "【回马破虏】",
+    "description": "【回马破虏】取雁门塞外陨铁混精金锻成枪尖、千年老柘木为杆，自杨业、杨延昭传至皇祐年间护佑河东；冲锋突刺贯通两格，对重甲骑兵有额外破甲重创。",
+    "prerequisitesText": "`根骨≥82`、`气血≥3200`、`骑术≥80`；非久历沙场或枪道通神者难驭其烈。",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 82
+      },
+      {
+        "stat": "气血",
+        "min": 3200
+      },
+      {
+        "stat": "骑术",
+        "min": 80
+      }
+    ]
+  },
+  {
+    "id": "WPN-005",
+    "code": "005",
+    "name": "九霄环佩焦尾琴",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "天阶",
+    "subTier": "中品",
+    "fullTier": "天阶中品",
+    "regionId": "wuliangshan",
+    "locationLabel": "无量山 / 剑湖秘境",
+    "origin": "逍遥派无崖子秘藏",
+    "originFull": "无量山 / 剑湖秘境·逍遥派无崖子秘藏",
+    "sectId": "SECT-09",
+    "forceTrait": "阴柔",
+    "attackRange": 3,
+    "value": 2000,
+    "equipBonus": {
+      "attack": 175,
+      "maxMp": 420,
+      "res": 20,
+      "skills": {
+        "琴": 12
+      }
+    },
+    "synergies": [
+      {
+        "category": "音功",
+        "bonusPct": 32
+      },
+      {
+        "category": "剑法",
+        "bonusPct": 18
+      }
+    ],
+    "signatureArtIds": [
+      "MA-033",
+      "MA-012"
+    ],
+    "specialTag": "【五音化剑】",
+    "description": "【五音化剑】取雷击千年桐木所斫旷世古琴，琴尾微焦而音透九霄，张以天山冰蚕韧弦；注内力抚奏时五音化作无形剑气，令三格内敌手内息翻涌紊乱。",
+    "prerequisitesText": "`悟性≥84`、`琴≥90`、`内力≥2600`；非琴道入神且内力醇厚者抚之反伤心脉。",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 84
+      },
+      {
+        "stat": "琴",
+        "min": 90
+      },
+      {
+        "stat": "内力",
+        "min": 2600
+      }
+    ]
+  },
+  {
+    "id": "WPN-006",
+    "code": "006",
+    "name": "冷月凝霜宝刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "天阶",
+    "subTier": "中品",
+    "fullTier": "天阶中品",
+    "regionId": "yanmenguan",
+    "locationLabel": "雁门关",
+    "origin": "塞北刀宗传世神刃",
+    "originFull": "雁门关·塞北刀宗传世神刃",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 1980,
+    "equipBonus": {
+      "attack": 188,
+      "agility": 15,
+      "res": 18
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 30
+      }
+    ],
+    "signatureArtIds": [
+      "MA-034",
+      "MA-089"
+    ],
+    "specialTag": "【月华寒芒】",
+    "description": "【月华寒芒】采极北玄冰寒铁融月华银精百炼成刀，出鞘森然生寒，劈削精铁毫无破空声息；切中敌招毫厘间隙时暴击杀伤倍增并附带寒霜迟滞。",
+    "prerequisitesText": "`悟性≥82`、`身法≥78`、`棋≥70`；须洞察局势毫巅方可人刀合一。",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 82
+      },
+      {
+        "stat": "身法",
+        "min": 78
+      },
+      {
+        "stat": "棋",
+        "min": 70
+      }
+    ]
+  },
+  {
+    "id": "WPN-007",
+    "code": "007",
+    "name": "大威德金刚降魔杵",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "天阶",
+    "subTier": "下品",
+    "fullTier": "天阶下品",
+    "regionId": "wutaishan",
+    "locationLabel": "五台山清凉寺",
+    "origin": "清凉寺护国镇寺佛宝",
+    "originFull": "五台山清凉寺·清凉寺护国镇寺佛宝",
+    "sectId": "SECT-03",
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 1680,
+    "equipBonus": {
+      "attack": 165,
+      "defense": 38,
+      "maxHp": 350,
+      "res": 16,
+      "skills": {
+        "经义": 8
+      }
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 26
+      }
+    ],
+    "signatureArtIds": [
+      "MA-024",
+      "MA-074"
+    ],
+    "specialTag": "【佛音雷霆】",
+    "description": "【佛音雷霆】吐蕃古格金铜与五台山陨铁合铸之百斤密乘重杵，杵端刻愤怒明王梵相；挥砸如雷霆轰顶，震荡周身相邻格敌手护体真气。",
+    "prerequisitesText": "`根骨≥85`、`气血≥3000`、`经义≥70`；佛法与天生神力缺一不可。",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 85
+      },
+      {
+        "stat": "气血",
+        "min": 3000
+      },
+      {
+        "stat": "经义",
+        "min": 70
+      }
+    ]
+  },
+  {
+    "id": "WPN-008",
+    "code": "008",
+    "name": "天山冰蚕丝掌套",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "天阶",
+    "subTier": "下品",
+    "fullTier": "天阶下品",
+    "regionId": "kunlun",
+    "locationLabel": "昆仑山（万山之祖）",
+    "origin": "逍遥派天山一脉秘宝",
+    "originFull": "昆仑山（万山之祖）·逍遥派天山一脉秘宝",
+    "sectId": "SECT-09",
+    "forceTrait": "阴柔",
+    "attackRange": 1,
+    "value": 1650,
+    "equipBonus": {
+      "attack": 152,
+      "maxMp": 320,
+      "res": 26,
+      "agility": 10
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 26
+      },
+      {
+        "category": "指法",
+        "bonusPct": 22
+      },
+      {
+        "category": "毒功",
+        "bonusPct": 22
+      }
+    ],
+    "signatureArtIds": [
+      "MA-014",
+      "MA-015",
+      "MA-054"
+    ],
+    "specialTag": "【冰蚕护脉】",
+    "description": "【冰蚕护脉】聚西域雪峰万年冰蚕吐丝织就，薄若蝉翼、晶莹透明，水火不侵且刀剑难损分毫；催发掌指招式时自带奇寒劲气，并可空手入白刃。",
+    "prerequisitesText": "`根骨≥78`、`悟性≥80`、`抗性≥75`；自身抗性不足者佩戴即受寒毒反噬。",
+    "statRequirements": [
+      {
+        "stat": "根骨",
+        "min": 78
+      },
+      {
+        "stat": "悟性",
+        "min": 80
+      },
+      {
+        "stat": "抗性",
+        "min": 75
+      }
+    ]
+  },
+  {
+    "id": "WPN-009",
+    "code": "009",
+    "name": "紫薇百炼软剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "天阶",
+    "subTier": "下品",
+    "fullTier": "天阶下品",
+    "regionId": "yanziwu",
+    "locationLabel": "太湖燕子坞",
+    "origin": "古剑秘藏/水阁奇珍",
+    "originFull": "太湖燕子坞·古剑秘藏/水阁奇珍",
+    "sectId": "SECT-10",
+    "forceTrait": "轻灵",
+    "attackRange": 2,
+    "value": 1620,
+    "equipBonus": {
+      "attack": 160,
+      "agility": 20,
+      "maxMp": 180
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 26
+      }
+    ],
+    "signatureArtIds": [
+      "MA-007",
+      "MA-031"
+    ],
+    "specialTag": "【紫电惊虹】",
+    "description": "【紫电惊虹】百炼柔钢锻若束腰软带，平时盘绕腰际，真气灌注刹那笔直如虹、吞吐闪烁；诡奇弧度可绕过敌方盾牌硬兵正面招架。",
+    "prerequisitesText": "`悟性≥82`、`身法≥82`、`内力≥2400`；身法稍滞或真气不纯则软剑反伤己身。",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 82
+      },
+      {
+        "stat": "身法",
+        "min": 82
+      },
+      {
+        "stat": "内力",
+        "min": 2400
+      }
+    ]
+  },
+  {
+    "id": "WPN-010",
+    "code": "010",
+    "name": "东海碧玉洞箫",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "天阶",
+    "subTier": "下品",
+    "fullTier": "天阶下品",
+    "regionId": "taohuadao",
+    "locationLabel": "东海桃花岛",
+    "origin": "桃花岛镇岛奇珍",
+    "originFull": "东海桃花岛·桃花岛镇岛奇珍",
+    "sectId": "SECT-12",
+    "forceTrait": "奇巧",
+    "attackRange": 2,
+    "value": 1580,
+    "equipBonus": {
+      "attack": 148,
+      "maxMp": 300,
+      "agility": 14,
+      "skills": {
+        "琴": 10,
+        "算术": 8
+      }
+    },
+    "synergies": [
+      {
+        "category": "音功",
+        "bonusPct": 26
+      },
+      {
+        "category": "指法",
+        "bonusPct": 24
+      },
+      {
+        "category": "剑法",
+        "bonusPct": 20
+      }
+    ],
+    "signatureArtIds": [
+      "MA-021",
+      "MA-069"
+    ],
+    "specialTag": "【碧海潮音】",
+    "description": "【碧海潮音】取东海深渊整块万年寒翠雕琢成箫，莹润通透却坚逾精钢；远可吹奏奇音扰乱敌方集气，近可代剑专点周身麻穴。",
+    "prerequisitesText": "`悟性≥80`、`颜值≥75`、`琴≥75`、`算术≥75`；须兼备东海奇门风仪与音律步算。",
+    "statRequirements": [
+      {
+        "stat": "悟性",
+        "min": 80
+      },
+      {
+        "stat": "颜值",
+        "min": 75
+      },
+      {
+        "stat": "琴",
+        "min": 75
+      },
+      {
+        "stat": "算术",
+        "min": 75
+      }
+    ]
+  },
+  {
+    "id": "WPN-011",
+    "code": "011",
+    "name": "真武太阿古剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "regionId": "wudangshan",
+    "locationLabel": "武当山真武道宗",
+    "origin": "太和金殿供奉名剑",
+    "originFull": "武当山真武道宗·太和金殿供奉名剑",
+    "sectId": "SECT-08",
+    "forceTrait": "阴柔",
+    "attackRange": 1,
+    "value": 980,
+    "equipBonus": {
+      "attack": 128,
+      "defense": 24,
+      "maxMp": 210,
+      "skills": {
+        "书": 6
+      }
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 22
+      }
+    ],
+    "signatureArtIds": [
+      "MA-017",
+      "MA-066"
+    ],
+    "specialTag": "【阴阳圆转】",
+    "description": "【阴阳圆转】武当山真武大帝殿传世古剑，剑身镌刻太极两仪血槽，重心浑成；运使道门绵柔剑术时借力卸力，防守反击浑然天成。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-012",
+    "code": "012",
+    "name": "夏国冷锻神剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "regionId": "xingqing_xixia",
+    "locationLabel": "兴庆府",
+    "origin": "西夏皇室冷锻国宝",
+    "originFull": "兴庆府·西夏皇室冷锻国宝",
+    "sectId": "SECT-20",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 960,
+    "equipBonus": {
+      "attack": 132,
+      "defense": 16,
+      "agility": 10
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 22
+      }
+    ],
+    "signatureArtIds": [
+      "MA-048",
+      "MA-067"
+    ],
+    "specialTag": "【党项冷锻】",
+    "description": "【党项冷锻】贺兰山皇家铁工以瘊子冷锻绝技锤打数万次而成，刃口青莹如冰，斩铁甲如削腐木，北宋朝野名臣武将皆叹为天下利剑之冠。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-013",
+    "code": "013",
+    "name": "少林燃木戒刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "regionId": "shaolin",
+    "locationLabel": "嵩山少林寺",
+    "origin": "达摩院首座加持宝刀",
+    "originFull": "嵩山少林寺·达摩院首座加持宝刀",
+    "sectId": "SECT-01",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 940,
+    "equipBonus": {
+      "attack": 130,
+      "maxHp": 220,
+      "res": 12,
+      "skills": {
+        "经义": 5
+      }
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 22
+      }
+    ],
+    "signatureArtIds": [
+      "MA-051",
+      "MA-019"
+    ],
+    "specialTag": "【禅火生烟】",
+    "description": "【禅火生烟】取天竺乌兹钢混嵩山精铁重锻的无尖阔背戒刀，刀身沉凝庄重；以浑厚佛门内力疾劈时刀刃摩擦空气炽热生烟，破除阴邪。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-014",
+    "code": "014",
+    "name": "常山龙胆亮银枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "regionId": "zhending",
+    "locationLabel": "真定府",
+    "origin": "常山枪派镇堂名枪",
+    "originFull": "真定府·常山枪派镇堂名枪",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 2,
+    "value": 950,
+    "equipBonus": {
+      "attack": 126,
+      "defense": 18,
+      "agility": 12,
+      "riding": 10
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 22
+      }
+    ],
+    "signatureArtIds": [
+      "MA-073",
+      "MA-112"
+    ],
+    "specialTag": "【银龙破阵】",
+    "description": "【银龙破阵】河北真定名匠采太行秘银与百炼精钢合铸，枪缨似火、枪尖如雪，抖动间寒星万点，专破北辽重装铁骑锁子甲。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-015",
+    "code": "015",
+    "name": "乌金大力金刚指环",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "regionId": "nanshaolin",
+    "locationLabel": "莆田南少林",
+    "origin": "九莲山镇寺硬功重宝",
+    "originFull": "莆田南少林·九莲山镇寺硬功重宝",
+    "sectId": "SECT-04",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 910,
+    "equipBonus": {
+      "attack": 118,
+      "defense": 22,
+      "maxHp": 240,
+      "res": 10
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 22
+      },
+      {
+        "category": "指法",
+        "bonusPct": 22
+      }
+    ],
+    "signatureArtIds": [
+      "MA-043",
+      "MA-061"
+    ],
+    "specialTag": "【金刚捏铁】",
+    "description": "【金刚捏铁】采闽中深山乌金重铁于千斤铁鼎炉火中精炼成五枚厚重指套，施展硬功指爪时无惧兵刃格架，能生生在精钢刀剑上捏出指痕。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-016",
+    "code": "016",
+    "name": "孔雀翎金机筒",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "regionId": "qingcheng",
+    "locationLabel": "青城山 / 唐家堡",
+    "origin": "唐家堡内堂秘宝",
+    "originFull": "青城山 / 唐家堡·唐家堡内堂秘宝",
+    "sectId": "SECT-13",
+    "forceTrait": "奇巧",
+    "attackRange": 3,
+    "value": 930,
+    "equipBonus": {
+      "attack": 124,
+      "agility": 16,
+      "skills": {
+        "算术": 6
+      }
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 22
+      }
+    ],
+    "signatureArtIds": [
+      "MA-053",
+      "MA-093"
+    ],
+    "specialTag": "【金屏夺目】",
+    "description": "【金屏夺目】纯金嵌翠雕铸之圆筒暗器匣，发动瞬间金芒绽放如孔雀开屏，趁敌目眩神迷之际数十枚细若牛毛的乌金针已透穴而入。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-017",
+    "code": "017",
+    "name": "太岳紫霞长剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "地阶",
+    "subTier": "中品",
+    "fullTier": "地阶中品",
+    "regionId": "tongguan",
+    "locationLabel": "潼关 / 西岳华山",
+    "origin": "华山玉女峰镇岳佩剑",
+    "originFull": "潼关 / 西岳华山·华山玉女峰镇岳佩剑",
+    "sectId": "SECT-05",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 760,
+    "equipBonus": {
+      "attack": 106,
+      "agility": 12,
+      "maxMp": 160
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 19
+      }
+    ],
+    "signatureArtIds": [
+      "MA-048",
+      "MA-087"
+    ],
+    "specialTag": "【太岳清霞】",
+    "description": "【太岳清霞】西岳华山历代掌门佩剑，引华山绝顶寒露淬锋，剑脊隐现淡淡紫晕，催运紫霞或混元真气时剑速陡增。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-018",
+    "code": "018",
+    "name": "西域赤铜血刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "地阶",
+    "subTier": "中品",
+    "fullTier": "地阶中品",
+    "regionId": "kunlun",
+    "locationLabel": "昆仑山（万山之祖）",
+    "origin": "西域雪山邪派凶刃",
+    "originFull": "昆仑山（万山之祖）·西域雪山邪派凶刃",
+    "sectId": null,
+    "forceTrait": "奇巧",
+    "attackRange": 1,
+    "value": 750,
+    "equipBonus": {
+      "attack": 110,
+      "agility": 10,
+      "res": 8
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 19
+      }
+    ],
+    "signatureArtIds": [
+      "MA-071",
+      "MA-072"
+    ],
+    "specialTag": "【诡道见血】",
+    "description": "【诡道见血】雪域软铁掺赤铜锻成的暗红弯软长刀，韧可束于腰带之内，出刀角度诡诞绝伦，每见鲜血刀锋愈显妖异顺滑。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-019",
+    "code": "019",
+    "name": "燕云修罗斩马刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "地阶",
+    "subTier": "中品",
+    "fullTier": "地阶中品",
+    "regionId": "xijin_liao",
+    "locationLabel": "析津府",
+    "origin": "辽南京元帅府重刃",
+    "originFull": "析津府·辽南京元帅府重刃",
+    "sectId": "SECT-20",
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 740,
+    "equipBonus": {
+      "attack": 108,
+      "maxHp": 200,
+      "riding": 8
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 19
+      }
+    ],
+    "signatureArtIds": [
+      "MA-072",
+      "MA-090"
+    ],
+    "specialTag": "【沙场修罗】",
+    "description": "【沙场修罗】幽燕铁匠为北辽铁林军统帅打造的双手长柄重刃，重达三十六斤，刀背厚实如脊，斩马破阵凶煞滔天。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-020",
+    "code": "020",
+    "name": "疯魔百炼浑铁杖",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "地阶",
+    "subTier": "中品",
+    "fullTier": "地阶中品",
+    "regionId": "luoyang",
+    "locationLabel": "洛阳府",
+    "origin": "丐帮护法长老重兵",
+    "originFull": "洛阳府·丐帮护法长老重兵",
+    "sectId": "SECT-02",
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 730,
+    "equipBonus": {
+      "attack": 105,
+      "defense": 20,
+      "maxHp": 220
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 19
+      }
+    ],
+    "signatureArtIds": [
+      "MA-052",
+      "MA-074"
+    ],
+    "specialTag": "【疯虎啸风】",
+    "description": "【疯虎啸风】通体生铁百炼而成的八十二斤重杖，杖首串挂六枚精钢响环，舞动起来风声鹤唳、以命搏命。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-021",
+    "code": "021",
+    "name": "铁掌毒砂玄铁腕",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "地阶",
+    "subTier": "中品",
+    "fullTier": "地阶中品",
+    "regionId": "tiezhangfeng",
+    "locationLabel": "洞庭铁掌峰",
+    "origin": "铁掌帮主亲传护腕",
+    "originFull": "洞庭铁掌峰·铁掌帮主亲传护腕",
+    "sectId": "SECT-15",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 720,
+    "equipBonus": {
+      "attack": 102,
+      "maxHp": 180,
+      "maxMp": 140,
+      "res": 12
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 19
+      },
+      {
+        "category": "毒功",
+        "bonusPct": 15
+      }
+    ],
+    "signatureArtIds": [
+      "MA-045",
+      "MA-080"
+    ],
+    "specialTag": "【毒砂焚脏】",
+    "description": "【毒砂焚脏】洞庭五指峰玄铁混五毒铁砂熔铸之沉重护腕，双掌翻飞间裹挟燥烈火毒，震碎敌手内腑。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-022",
+    "code": "022",
+    "name": "含沙射影护腰机",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "地阶",
+    "subTier": "中品",
+    "fullTier": "地阶中品",
+    "regionId": "qingcheng",
+    "locationLabel": "青城山 / 唐家堡",
+    "origin": "唐门贴身机括奇器",
+    "originFull": "青城山 / 唐家堡·唐门贴身机括奇器",
+    "sectId": "SECT-13",
+    "forceTrait": "奇巧",
+    "attackRange": 3,
+    "value": 710,
+    "equipBonus": {
+      "attack": 98,
+      "defense": 12,
+      "agility": 15
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 19
+      },
+      {
+        "category": "毒功",
+        "bonusPct": 14
+      }
+    ],
+    "signatureArtIds": [
+      "MA-075",
+      "MA-093"
+    ],
+    "specialTag": "【腰肋冷针】",
+    "description": "【腰肋冷针】嵌于犀皮软腰带内的十二道扁簧暗匣，与敌贴身错步瞬间叩动腰眼叩环，毒砂钢针无声透甲。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-023",
+    "code": "023",
+    "name": "裴公龙蛇判官笔",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "地阶",
+    "subTier": "中品",
+    "fullTier": "地阶中品",
+    "regionId": "luoyang",
+    "locationLabel": "洛阳府",
+    "origin": "西京书剑名宿家传",
+    "originFull": "洛阳府·西京书剑名宿家传",
+    "sectId": null,
+    "forceTrait": "奇巧",
+    "attackRange": 1,
+    "value": 725,
+    "equipBonus": {
+      "attack": 96,
+      "agility": 11,
+      "maxMp": 150,
+      "skills": {
+        "书": 9
+      }
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 18
+      },
+      {
+        "category": "指法",
+        "bonusPct": 18
+      }
+    ],
+    "signatureArtIds": [
+      "MA-094",
+      "MA-025"
+    ],
+    "specialTag": "【铁画银钩】",
+    "description": "【铁画银钩】取太原精镔铁铸就的一对尺八重笔，笔尖攒聚寒星，运笔如颜筋柳骨龙蛇竞走，专打手腕神门与周身大穴。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-024",
+    "code": "024",
+    "name": "参合燕尾双剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "regionId": "yanziwu",
+    "locationLabel": "太湖燕子坞",
+    "origin": "姑苏慕容氏家传名剑",
+    "originFull": "太湖燕子坞·姑苏慕容氏家传名剑",
+    "sectId": "SECT-10",
+    "forceTrait": "奇巧",
+    "attackRange": 1,
+    "value": 590,
+    "equipBonus": {
+      "attack": 88,
+      "defense": 16,
+      "agility": 12,
+      "maxMp": 120
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 16
+      }
+    ],
+    "signatureArtIds": [
+      "MA-070",
+      "MA-008"
+    ],
+    "specialTag": "【燕尾还施】",
+    "description": "【燕尾还施】太湖水榭秘藏雌雄双剑，护手呈飞燕剪水之形，双剑交错极善粘连牵引敌方兵刃力道。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-025",
+    "code": "025",
+    "name": "峨眉倚霞青锋",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "regionId": "emeishan",
+    "locationLabel": "蜀中峨眉山",
+    "origin": "峨眉金顶镇院宝剑",
+    "originFull": "蜀中峨眉山·峨眉金顶镇院宝剑",
+    "sectId": "SECT-07",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 580,
+    "equipBonus": {
+      "attack": 86,
+      "agility": 14,
+      "maxMp": 130,
+      "res": 8
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 16
+      }
+    ],
+    "signatureArtIds": [
+      "MA-050",
+      "MA-107"
+    ],
+    "specialTag": "【金顶流霞】",
+    "description": "【金顶流霞】取蜀山寒铁辅以万年寺古泉淬炼，剑身纤秀轻盈而韧性极佳，出剑如佛光破云，轻灵与凌厉兼备。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-026",
+    "code": "026",
+    "name": "点苍段氏金剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "regionId": "dali_city",
+    "locationLabel": "阳苴咩城（大理）",
+    "origin": "大理镇南王府御佩",
+    "originFull": "阳苴咩城（大理）·大理镇南王府御佩",
+    "sectId": "ORG-08",
+    "forceTrait": "中正",
+    "attackRange": 1,
+    "value": 600,
+    "equipBonus": {
+      "attack": 85,
+      "maxMp": 180,
+      "res": 10,
+      "skills": {
+        "经义": 6
+      }
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 16
+      },
+      {
+        "category": "指法",
+        "bonusPct": 16
+      }
+    ],
+    "signatureArtIds": [
+      "MA-023",
+      "MA-086"
+    ],
+    "specialTag": "【苍洱纯阳】",
+    "description": "【苍洱纯阳】大理皇室采点苍雪山精铜与百炼钢合铸，剑格镶嵌南诏琥珀，导引纯阳指力与剑气畅通无阻。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-027",
+    "code": "027",
+    "name": "江淮翻江分水枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "regionId": "yangzhou",
+    "locationLabel": "扬州府",
+    "origin": "江淮漕帮总舵镇水兵",
+    "originFull": "扬州府·江淮漕帮总舵镇水兵",
+    "sectId": "SECT-16",
+    "forceTrait": "奇巧",
+    "attackRange": 2,
+    "value": 570,
+    "equipBonus": {
+      "attack": 89,
+      "defense": 16,
+      "maxHp": 160
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 16
+      }
+    ],
+    "signatureArtIds": [
+      "MA-091",
+      "MA-132"
+    ],
+    "specialTag": "【蛟龙锁刃】",
+    "description": "【蛟龙锁刃】扬州运河总舵秘制精钢长枪，枪头两侧生有弯月倒钩分水刺，舟楫颠簸与水陆鏖战中可锁夺敌方长兵。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-028",
+    "code": "028",
+    "name": "少林韦陀伏魔杵",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "regionId": "shaolin",
+    "locationLabel": "嵩山少林寺",
+    "origin": "罗汉堂护寺重器",
+    "originFull": "嵩山少林寺·罗汉堂护寺重器",
+    "sectId": "SECT-01",
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 585,
+    "equipBonus": {
+      "attack": 90,
+      "defense": 20,
+      "maxHp": 190
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 16
+      }
+    ],
+    "signatureArtIds": [
+      "MA-092",
+      "MA-113"
+    ],
+    "specialTag": "【宝杵镇魔】",
+    "description": "【宝杵镇魔】少林罗汉堂武僧护寺熟铜包钢八棱重杵，重四十九斤，端严厚重，一杵轰落最克外家横练硬功。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-029",
+    "code": "029",
+    "name": "星宿腐骨毒爪套",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "regionId": "yanan",
+    "locationLabel": "延安府",
+    "origin": "星宿派中原潜伏点凶器",
+    "originFull": "延安府·星宿派中原潜伏点凶器",
+    "sectId": "SECT-19",
+    "forceTrait": "阴柔",
+    "attackRange": 1,
+    "value": 560,
+    "equipBonus": {
+      "attack": 82,
+      "maxMp": 120,
+      "res": 16
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 16
+      },
+      {
+        "category": "毒功",
+        "bonusPct": 18
+      }
+    ],
+    "signatureArtIds": [
+      "MA-064",
+      "MA-026"
+    ],
+    "specialTag": "【腥风蚀髓】",
+    "description": "【腥风蚀髓】以西域毒蝎蛇涎反复浸泡的乌铁弯钩护指，爪风腥臭刺鼻，抓破油皮即蚀损敌方护体真气。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-030",
+    "code": "030",
+    "name": "宣德紫金铁骨扇",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "大内皇宫宣德秘库御器",
+    "originFull": "开封府·大内皇宫宣德秘库御器",
+    "sectId": "SECT-17",
+    "forceTrait": "奇巧",
+    "attackRange": 1,
+    "value": 610,
+    "equipBonus": {
+      "attack": 80,
+      "defense": 15,
+      "agility": 10,
+      "skills": {
+        "诗词": 6,
+        "辩才": 6
+      }
+    },
+    "synergies": [
+      {
+        "category": "指法",
+        "bonusPct": 17
+      },
+      {
+        "category": "拳掌",
+        "bonusPct": 14
+      }
+    ],
+    "signatureArtIds": [
+      "MA-046",
+      "MA-154"
+    ],
+    "specialTag": "【御赐清风】",
+    "description": "【御赐清风】大内御匠以紫金混精钢锻成十六根扇骨，扇面绘宋院青绿山水；展开可格刀剑暗器，合拢点穴透骨三分。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-031",
+    "code": "031",
+    "name": "龙泉七星宝剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "hangzhou",
+    "locationLabel": "杭州府",
+    "origin": "两浙龙泉剑池名冶",
+    "originFull": "杭州府·两浙龙泉剑池名冶",
+    "sectId": null,
+    "forceTrait": "中正",
+    "attackRange": 1,
+    "value": 320,
+    "equipBonus": {
+      "attack": 66,
+      "agility": 8,
+      "maxMp": 80
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 14
+      }
+    ],
+    "signatureArtIds": [
+      "MA-106",
+      "MA-147"
+    ],
+    "specialTag": null,
+    "description": "括苍山龙泉古炉百炼精钢所铸，剑身嵌七颗黄铜星钉，弹指清鸣如秋水龙吟，江南名门剑客上选。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-032",
+    "code": "032",
+    "name": "泰山岱宗厚背剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "taishan",
+    "locationLabel": "东岳泰山",
+    "origin": "泰山派东岳道院精铸",
+    "originFull": "东岳泰山·泰山派东岳道院精铸",
+    "sectId": "SECT-06",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 310,
+    "equipBonus": {
+      "attack": 68,
+      "defense": 14,
+      "skills": {
+        "算术": 4
+      }
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 14
+      }
+    ],
+    "signatureArtIds": [
+      "MA-049",
+      "MA-088"
+    ],
+    "specialTag": null,
+    "description": "齐鲁百炼生熟铁合锻之阔身重剑，剑脊厚逾三指，剑势敦厚稳固如泰岳盘石。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-033",
+    "code": "033",
+    "name": "洛阳九环金背刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "luoyang",
+    "locationLabel": "洛阳府",
+    "origin": "金刀王家世传名刃",
+    "originFull": "洛阳府·金刀王家世传名刃",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 330,
+    "equipBonus": {
+      "attack": 70,
+      "defense": 10,
+      "maxHp": 120
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 14
+      }
+    ],
+    "signatureArtIds": [
+      "MA-109",
+      "MA-129"
+    ],
+    "specialTag": null,
+    "description": "西京金刀门标志兵刃，厚背镶金，刀脊穿挂九枚熟铜金环，挥劈时金环乱响慑敌心魂。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-034",
+    "code": "034",
+    "name": "晋阳百炼雁门刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "taiyuan",
+    "locationLabel": "太原府",
+    "origin": "河东官营铁冶监督造",
+    "originFull": "太原府·河东官营铁冶监督造",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 315,
+    "equipBonus": {
+      "attack": 69,
+      "maxHp": 110,
+      "riding": 5
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 14
+      }
+    ],
+    "signatureArtIds": [
+      "MA-111",
+      "MA-090"
+    ],
+    "specialTag": null,
+    "description": "太原铁冶监取晋阳好铁百炼成钢，刀身微弧而破甲力极强，乃河东抗辽边军将校梦寐以求之战刀。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-035",
+    "code": "035",
+    "name": "大名六合浑铁枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "daming",
+    "locationLabel": "大名府",
+    "origin": "河北武盟枪棒校场精锻",
+    "originFull": "大名府·河北武盟枪棒校场精锻",
+    "sectId": null,
+    "forceTrait": "中正",
+    "attackRange": 2,
+    "value": 310,
+    "equipBonus": {
+      "attack": 67,
+      "defense": 13,
+      "maxHp": 110
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 14
+      }
+    ],
+    "signatureArtIds": [
+      "MA-112",
+      "MA-152"
+    ],
+    "specialTag": null,
+    "description": "北京大名府枪棒名师监制，通体熟铁打造重十八斤，内三合外三合扎圈严密，攻守兼备。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-036",
+    "code": "036",
+    "name": "五台八卦齐眉棍",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "wutaishan",
+    "locationLabel": "五台山清凉寺",
+    "origin": "五台护边武僧精制",
+    "originFull": "五台山清凉寺·五台护边武僧精制",
+    "sectId": "SECT-03",
+    "forceTrait": "中正",
+    "attackRange": 2,
+    "value": 295,
+    "equipBonus": {
+      "attack": 64,
+      "defense": 15,
+      "maxHp": 120
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 14
+      }
+    ],
+    "signatureArtIds": [
+      "MA-131",
+      "MA-113"
+    ],
+    "specialTag": null,
+    "description": "精选五台山高寒铁桦木烘烤浸油，两端包裹八棱熟铜箍，挑打劈砸专克契丹骑兵弯刀。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-037",
+    "code": "037",
+    "name": "六扇门鹰爪铁扣",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "东京六扇门总捕司制式",
+    "originFull": "开封府·东京六扇门总捕司制式",
+    "sectId": "SECT-17",
+    "forceTrait": "奇巧",
+    "attackRange": 1,
+    "value": 290,
+    "equipBonus": {
+      "attack": 60,
+      "defense": 10,
+      "agility": 9
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 14
+      }
+    ],
+    "signatureArtIds": [
+      "MA-082",
+      "MA-144"
+    ],
+    "specialTag": null,
+    "description": "开封府名捕办案贴身精钢指节鹰扣，内衬软鹿皮，扣拿江洋悍匪脉门手腕十拿九稳。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-038",
+    "code": "038",
+    "name": "子午透骨钉囊",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "qingcheng",
+    "locationLabel": "青城山 / 唐家堡",
+    "origin": "唐门外堂精锐暗器",
+    "originFull": "青城山 / 唐家堡·唐门外堂精锐暗器",
+    "sectId": "SECT-13",
+    "forceTrait": "阴柔",
+    "attackRange": 3,
+    "value": 305,
+    "equipBonus": {
+      "attack": 65,
+      "agility": 11,
+      "res": 6
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 14
+      },
+      {
+        "category": "毒功",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-093",
+      "MA-114"
+    ],
+    "specialTag": null,
+    "description": "双层油鹿皮囊内藏三十六枚三寸乌钢透骨钉，钉尾螺旋破风，穿透护身软甲疾如流星。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-039",
+    "code": "039",
+    "name": "绿绮桐木古琴",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "jiangning",
+    "locationLabel": "江宁府",
+    "origin": "十里秦淮名匠斫制",
+    "originFull": "江宁府·十里秦淮名匠斫制",
+    "sectId": null,
+    "forceTrait": "阴柔",
+    "attackRange": 2,
+    "value": 325,
+    "equipBonus": {
+      "attack": 58,
+      "maxMp": 130,
+      "skills": {
+        "琴": 8,
+        "诗词": 4
+      }
+    },
+    "synergies": [
+      {
+        "category": "音功",
+        "bonusPct": 15
+      }
+    ],
+    "signatureArtIds": [
+      "MA-033"
+    ],
+    "specialTag": null,
+    "description": "金陵老琴师取百年梧桐良材斫成仲尼式七弦琴，冰弦柔韧可贯注内息，风雅会友与御敌兼擅。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-040",
+    "code": "040",
+    "name": "峨眉分水双刺",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "良阶",
+    "subTier": "上品",
+    "fullTier": "良阶上品",
+    "regionId": "emeishan",
+    "locationLabel": "蜀中峨眉山",
+    "origin": "峨眉水陆护法奇兵",
+    "originFull": "蜀中峨眉山·峨眉水陆护法奇兵",
+    "sectId": "SECT-07",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 285,
+    "equipBonus": {
+      "attack": 61,
+      "defense": 9,
+      "agility": 11
+    },
+    "synergies": [
+      {
+        "category": "指法",
+        "bonusPct": 14
+      },
+      {
+        "category": "剑法",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-133"
+    ],
+    "specialTag": null,
+    "description": "乌钢精锻尺二双头棱刺，中枢活环套于中指，翻腕旋转如飞轮，水战与贴身锁剑分外灵巧。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-041",
+    "code": "041",
+    "name": "青城松风快剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "qingcheng",
+    "locationLabel": "青城山 / 唐家堡",
+    "origin": "青城山道宫剑炉所铸",
+    "originFull": "青城山 / 唐家堡·青城山道宫剑炉所铸",
+    "sectId": "SECT-13",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 225,
+    "equipBonus": {
+      "attack": 52,
+      "agility": 9
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-068",
+      "MA-146"
+    ],
+    "specialTag": null,
+    "description": "巴蜀道家窄身薄刃快剑，剑重不足二斤半，出鞘疾刺如松间冷风掠影，专取咽喉手腕。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-042",
+    "code": "042",
+    "name": "吴越鱼肠短剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "suzhou",
+    "locationLabel": "苏州府",
+    "origin": "虎丘剑池古法锻打",
+    "originFull": "苏州府·虎丘剑池古法锻打",
+    "sectId": null,
+    "forceTrait": "奇巧",
+    "attackRange": 1,
+    "value": 230,
+    "equipBonus": {
+      "attack": 54,
+      "agility": 10
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-127"
+    ],
+    "specialTag": null,
+    "description": "姑苏名匠仿春秋吴越古风锻造的尺六短剑，水波暗纹隐现，欺入长兵怀中短打凌厉非凡。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-043",
+    "code": "043",
+    "name": "党项冷月弯刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "xingqing_xixia",
+    "locationLabel": "兴庆府",
+    "origin": "西夏一品堂精锐佩刀",
+    "originFull": "兴庆府·西夏一品堂精锐佩刀",
+    "sectId": "SECT-20",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 235,
+    "equipBonus": {
+      "attack": 55,
+      "agility": 7,
+      "riding": 4
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-130",
+      "MA-128"
+    ],
+    "specialTag": null,
+    "description": "贺兰山党项精骑与一品堂武士惯用新月弧刃快刀，借马速或旋转身法贴身抹削，诡异难防。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-044",
+    "code": "044",
+    "name": "大食乌兹镔铁刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "quanzhou",
+    "locationLabel": "泉州府",
+    "origin": "刺桐港万国番坊舶来品",
+    "originFull": "泉州府·刺桐港万国番坊舶来品",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 250,
+    "equipBonus": {
+      "attack": 56,
+      "defense": 6,
+      "res": 4
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-128",
+      "MA-148"
+    ],
+    "specialTag": null,
+    "description": "阿拉伯大食海商经泉州海港输入大宋的波斯花纹钢弯刀，刀面天然水波云纹，锋利坚韧。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-045",
+    "code": "045",
+    "name": "荆楚丈八蛇矛",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "xiangyang",
+    "locationLabel": "襄阳府",
+    "origin": "汉水百战豪侠重兵",
+    "originFull": "襄阳府·汉水百战豪侠重兵",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 240,
+    "equipBonus": {
+      "attack": 56,
+      "maxHp": 95
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-132"
+    ],
+    "specialTag": null,
+    "description": "矛尖弯曲如巨蟒游走，一刺一抽皆带撕裂暗劲，最善破开牛皮甲胄与藤牌阵。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-046",
+    "code": "046",
+    "name": "河东呼延熟铜鞭",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "taiyuan",
+    "locationLabel": "太原府",
+    "origin": "河东将门家传制式",
+    "originFull": "太原府·河东将门家传制式",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 220,
+    "equipBonus": {
+      "attack": 53,
+      "defense": 11,
+      "maxHp": 85,
+      "skills": {
+        "策论": 3
+      }
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-171"
+    ],
+    "specialTag": null,
+    "description": "仿宋初名将呼延赞铁鞭形制铸造的熟铜竹节硬鞭，无刃而四棱沉猛，专砸硬甲盾牌。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-047",
+    "code": "047",
+    "name": "契丹重装狼牙棒",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "dading_liao",
+    "locationLabel": "大定府",
+    "origin": "辽中京铁骑军械",
+    "originFull": "大定府·辽中京铁骑军械",
+    "sectId": "SECT-20",
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 225,
+    "equipBonus": {
+      "attack": 56,
+      "maxHp": 90
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-150"
+    ],
+    "specialTag": null,
+    "description": "北辽重甲武士马步冲阵凶器，纺锤棒头密布寸许精铁尖刺，磕擦即令护体真气震荡。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-048",
+    "code": "048",
+    "name": "南少林铁线臂环",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "nanshaolin",
+    "locationLabel": "莆田南少林",
+    "origin": "闽南武僧炼桥重具",
+    "originFull": "莆田南少林·闽南武僧炼桥重具",
+    "sectId": "SECT-04",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 215,
+    "equipBonus": {
+      "attack": 49,
+      "defense": 12,
+      "maxHp": 95
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-102",
+      "MA-141"
+    ],
+    "specialTag": null,
+    "description": "左右小臂各套六只熟铁重环，吐气开声双桥硬架刀劈斧砍，拳势沉雄威猛。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-049",
+    "code": "049",
+    "name": "闽海追魂连珠镖",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "quanzhou",
+    "locationLabel": "泉州府",
+    "origin": "闽海镖盟总镖头佩囊",
+    "originFull": "泉州府·闽海镖盟总镖头佩囊",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 3,
+    "value": 210,
+    "equipBonus": {
+      "attack": 50,
+      "agility": 9
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-114",
+      "MA-153"
+    ],
+    "specialTag": null,
+    "description": "精钢打磨的十二枚柳叶三棱脱手镖，镖尾系红绸定准，一扬手品字连珠封敌退路。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-050",
+    "code": "050",
+    "name": "西湖湘妃竹铁扇",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "良阶",
+    "subTier": "中品",
+    "fullTier": "良阶中品",
+    "regionId": "hangzhou",
+    "locationLabel": "杭州府",
+    "origin": "钱塘文士剑客雅兵",
+    "originFull": "杭州府·钱塘文士剑客雅兵",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 220,
+    "equipBonus": {
+      "attack": 47,
+      "defense": 8,
+      "agility": 7,
+      "skills": {
+        "诗词": 5,
+        "画": 4
+      }
+    },
+    "synergies": [
+      {
+        "category": "指法",
+        "bonusPct": 12
+      }
+    ],
+    "signatureArtIds": [
+      "MA-154",
+      "MA-046"
+    ],
+    "specialTag": null,
+    "description": "取潇湘泪竹镶包精铁内骨制成，扇面题苏梅新词，展扇潇洒风流，合扇疾点麻穴。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-051",
+    "code": "051",
+    "name": "终南寒泉道剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "zhongnanshan",
+    "locationLabel": "终南山隐宗",
+    "origin": "重阳古观前脉道院所铸",
+    "originFull": "终南山隐宗·重阳古观前脉道院所铸",
+    "sectId": "SECT-11",
+    "forceTrait": "中正",
+    "attackRange": 1,
+    "value": 155,
+    "equipBonus": {
+      "attack": 42,
+      "maxMp": 65,
+      "skills": {
+        "经义": 3
+      }
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-125",
+      "MA-145"
+    ],
+    "specialTag": null,
+    "description": "秦岭幽谷寒潭淬火之青钢道剑，云头剑格古朴端严，修道之人佩之宁神定气。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-052",
+    "code": "052",
+    "name": "太行五虎断门刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "taihang",
+    "locationLabel": "太行山绿林总寨",
+    "origin": "北方绿林头领重刀",
+    "originFull": "太行山绿林总寨·北方绿林头领重刀",
+    "sectId": "SECT-18",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 150,
+    "equipBonus": {
+      "attack": 44,
+      "maxHp": 80
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-129",
+      "MA-149"
+    ],
+    "specialTag": null,
+    "description": "太行山大寨铁炉锻打的宽背厚刃砍刀，刀沉力猛，劈山断门声势骇人。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-053",
+    "code": "053",
+    "name": "南北作坊点钢枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "东京官营南北作坊精制",
+    "originFull": "开封府·东京官营南北作坊精制",
+    "sectId": "SECT-17",
+    "forceTrait": "中正",
+    "attackRange": 2,
+    "value": 165,
+    "equipBonus": {
+      "attack": 43,
+      "defense": 8,
+      "riding": 4
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-152"
+    ],
+    "specialTag": null,
+    "description": "北宋朝廷南北作坊依皇祐军器格律打造的禁军都虞候制式点钢枪，四棱破甲枪尖寒芒凛冽。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-054",
+    "code": "054",
+    "name": "杨氏梨花白蜡枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "zhending",
+    "locationLabel": "真定府",
+    "origin": "河北民间名门枪铺",
+    "originFull": "真定府·河北民间名门枪铺",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 2,
+    "value": 150,
+    "equipBonus": {
+      "attack": 40,
+      "agility": 7
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-172"
+    ],
+    "specialTag": null,
+    "description": "精选冀中三年老白蜡杆配精钢小枪头，枪身弹抖如梨花瑞雪纷飞，灵巧迅捷。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-055",
+    "code": "055",
+    "name": "嵩山普门护法杖",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "shaolin",
+    "locationLabel": "嵩山少林寺",
+    "origin": "少林知客僧护院禅杖",
+    "originFull": "嵩山少林寺·少林知客僧护院禅杖",
+    "sectId": "SECT-01",
+    "forceTrait": "中正",
+    "attackRange": 2,
+    "value": 155,
+    "equipBonus": {
+      "attack": 39,
+      "defense": 11,
+      "maxHp": 75
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-113",
+      "MA-151"
+    ],
+    "specialTag": null,
+    "description": "坚木杖身两端包熟铁莲花箍，少林寺巡山护院僧人标配，守御严密不伤无辜性命。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-056",
+    "code": "056",
+    "name": "沧州八极崩山拳套",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "daming",
+    "locationLabel": "大名府",
+    "origin": "河北沧州拳师精制",
+    "originFull": "大名府·河北沧州拳师精制",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 145,
+    "equipBonus": {
+      "attack": 41,
+      "maxHp": 70
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-121",
+      "MA-142"
+    ],
+    "specialTag": null,
+    "description": "双层厚水牛皮镶嵌八颗熟铁平头钉，贴身靠打与崩拳寸劲发力时震透敌方护甲。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-057",
+    "code": "057",
+    "name": "苗疆五毒铁砂掌套",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "chengdu",
+    "locationLabel": "成都府",
+    "origin": "川西草药黑市秘制",
+    "originFull": "成都府·川西草药黑市秘制",
+    "sectId": null,
+    "forceTrait": "阴柔",
+    "attackRange": 1,
+    "value": 148,
+    "equipBonus": {
+      "attack": 38,
+      "res": 9
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 10
+      },
+      {
+        "category": "毒功",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-124"
+    ],
+    "specialTag": null,
+    "description": "毒药浸渍过的乌黑粗麻夹铁砂护掌，出掌带腥风，擦中皮肉即红肿麻痒。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-058",
+    "code": "058",
+    "name": "川蜀毒蒺藜皮囊",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "qingcheng",
+    "locationLabel": "青城山 / 唐家堡",
+    "origin": "蜀道镖客与奇门常备",
+    "originFull": "青城山 / 唐家堡·蜀道镖客与奇门常备",
+    "sectId": "SECT-13",
+    "forceTrait": "奇巧",
+    "attackRange": 3,
+    "value": 140,
+    "equipBonus": {
+      "attack": 39,
+      "agility": 6,
+      "res": 4
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 10
+      },
+      {
+        "category": "毒功",
+        "bonusPct": 10
+      }
+    ],
+    "signatureArtIds": [
+      "MA-134"
+    ],
+    "specialTag": null,
+    "description": "盛装二十四枚生铁四角刺蒺藜，尖端喂有川乌麻药，扬手撒地可阻截快马轻功追击。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-059",
+    "code": "059",
+    "name": "开封府缉盗铁尺",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "开封府衙马步都头佩器",
+    "originFull": "开封府·开封府衙马步都头佩器",
+    "sectId": "SECT-17",
+    "forceTrait": "中正",
+    "attackRange": 1,
+    "value": 150,
+    "equipBonus": {
+      "attack": 37,
+      "defense": 9,
+      "skills": {
+        "辩才": 3
+      }
+    },
+    "synergies": [
+      {
+        "category": "指法",
+        "bonusPct": 10
+      },
+      {
+        "category": "剑法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-082"
+    ],
+    "specialTag": null,
+    "description": "一对尺五六棱熟铁短尺，无锋无刃而分量极沉，专司格架凶徒利刃、敲打关节擒拿归案。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-060",
+    "code": "060",
+    "name": "徽州紫檀点穴笔",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "良阶",
+    "subTier": "下品",
+    "fullTier": "良阶下品",
+    "regionId": "jiangning",
+    "locationLabel": "江宁府",
+    "origin": "江南书剑名士随身器",
+    "originFull": "江宁府·江南书剑名士随身器",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 152,
+    "equipBonus": {
+      "attack": 36,
+      "agility": 6,
+      "skills": {
+        "书": 6
+      }
+    },
+    "synergies": [
+      {
+        "category": "指法",
+        "bonusPct": 10
+      },
+      {
+        "category": "剑法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-094",
+      "MA-154"
+    ],
+    "specialTag": null,
+    "description": "外包百年坚硬紫檀木、内贯百炼钢针芯，插于书生笔囊毫不惹眼，临敌点穴迅捷凌厉。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-061",
+    "code": "061",
+    "name": "青萍游侠剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "东京御街老字号刀剑铺",
+    "originFull": "开封府·东京御街老字号刀剑铺",
+    "sectId": "SECT-17",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 85,
+    "equipBonus": {
+      "attack": 30,
+      "agility": 4
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-185"
+    ],
+    "specialTag": null,
+    "description": "中原年轻游侠初涉江湖最趁手的三尺青钢剑，吞口铜装精细，拔剑寒光如水。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-062",
+    "code": "062",
+    "name": "华山入门青钢剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "tongguan",
+    "locationLabel": "潼关 / 西岳华山",
+    "origin": "华山脚下剑庐锻制",
+    "originFull": "潼关 / 西岳华山·华山脚下剑庐锻制",
+    "sectId": "SECT-05",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 82,
+    "equipBonus": {
+      "attack": 29,
+      "agility": 5
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-165"
+    ],
+    "specialTag": null,
+    "description": "西岳华山外门弟子标配窄身长剑，剑尖轻锐，最宜习练“白云出岫”等入门奇险剑招。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-063",
+    "code": "063",
+    "name": "真武松纹道剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "wudangshan",
+    "locationLabel": "武当山真武道宗",
+    "origin": "均州山城道门铁肆",
+    "originFull": "武当山真武道宗·均州山城道门铁肆",
+    "sectId": "SECT-08",
+    "forceTrait": "中正",
+    "attackRange": 1,
+    "value": 84,
+    "equipBonus": {
+      "attack": 28,
+      "defense": 4,
+      "maxMp": 35
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-167"
+    ],
+    "specialTag": null,
+    "description": "剑身锻出细密松皮暗纹，配黄铜太极剑首，动静合宜，道门弟子下山云游常佩。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-064",
+    "code": "064",
+    "name": "江南柳叶双刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "suzhou",
+    "locationLabel": "苏州府",
+    "origin": "平江河街铁铺精打",
+    "originFull": "苏州府·平江河街铁铺精打",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 80,
+    "equipBonus": {
+      "attack": 29,
+      "agility": 5
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-168"
+    ],
+    "specialTag": null,
+    "description": "一鞘双刀，刀叶窄弯如新柳拂波，双腕翻花护住周身，江南水路镖局与女侠常用。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-065",
+    "code": "065",
+    "name": "关中六合大环刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "changan",
+    "locationLabel": "京兆府",
+    "origin": "长安西市老铁坊",
+    "originFull": "京兆府·长安西市老铁坊",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 82,
+    "equipBonus": {
+      "attack": 31,
+      "defense": 4
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-169"
+    ],
+    "specialTag": null,
+    "description": "秦川刀客钟爱的厚背铁环单刀，招式堂堂正正，劈砍格架扎实耐用。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-066",
+    "code": "066",
+    "name": "宋军制式手刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "yanan",
+    "locationLabel": "延安府",
+    "origin": "鄜延路边军军器库",
+    "originFull": "延安府·鄜延路边军军器库",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 88,
+    "equipBonus": {
+      "attack": 32,
+      "maxHp": 45
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-111",
+      "MA-188"
+    ],
+    "specialTag": null,
+    "description": "严格依北宋皇祐初年颁行《武经总要》图谱锻造的短柄前宽军中手刀，破皮甲、耐磕碰。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-067",
+    "code": "067",
+    "name": "厢军制式长枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "daming",
+    "locationLabel": "大名府",
+    "origin": "河北州府军资库",
+    "originFull": "大名府·河北州府军资库",
+    "sectId": null,
+    "forceTrait": "中正",
+    "attackRange": 2,
+    "value": 76,
+    "equipBonus": {
+      "attack": 29,
+      "defense": 5
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-152"
+    ],
+    "specialTag": null,
+    "description": "九尺白木枪杆配生熟铁夹钢枪尖，大宋各州厢军步卒守城列阵标准长兵。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-068",
+    "code": "068",
+    "name": "少林白蜡齐眉棍",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "shaolin",
+    "locationLabel": "嵩山少林寺",
+    "origin": "少室山脚武僧寮房",
+    "originFull": "嵩山少林寺·少室山脚武僧寮房",
+    "sectId": "SECT-01",
+    "forceTrait": "中正",
+    "attackRange": 2,
+    "value": 72,
+    "equipBonus": {
+      "attack": 27,
+      "defense": 7,
+      "maxHp": 45
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-151"
+    ],
+    "specialTag": null,
+    "description": "立起恰与眉齐的精选老白蜡木棍，桐油反复浸润不裂不折，天下棍术正宗入门兵刃。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-069",
+    "code": "069",
+    "name": "精铁缠腕护手",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "taiyuan",
+    "locationLabel": "太原府",
+    "origin": "晋阳城南铁甲铺",
+    "originFull": "太原府·晋阳城南铁甲铺",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 74,
+    "equipBonus": {
+      "attack": 25,
+      "defense": 6,
+      "maxHp": 40
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-161",
+      "MA-163"
+    ],
+    "specialTag": null,
+    "description": "熟牛皮护腕外缀三排百炼熟铁鱼鳞片，拳掌交锋时既护脉门又增三分拳劲。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-070",
+    "code": "070",
+    "name": "机簧甩手袖箭",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "东京瓦舍暗器摊",
+    "originFull": "开封府·东京瓦舍暗器摊",
+    "sectId": "SECT-17",
+    "forceTrait": "奇巧",
+    "attackRange": 3,
+    "value": 86,
+    "equipBonus": {
+      "attack": 28,
+      "agility": 5
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-173"
+    ],
+    "specialTag": null,
+    "description": "八寸黄铜圆管内置钢簧短簇，绑缚于小臂衣袖之中，拱手揖礼之际骤发冷箭。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-071",
+    "code": "071",
+    "name": "皇祐通宝飞镖袋",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "yangzhou",
+    "locationLabel": "扬州府",
+    "origin": "淮南盐帮护院常备",
+    "originFull": "扬州府·淮南盐帮护院常备",
+    "sectId": "SECT-16",
+    "forceTrait": "轻灵",
+    "attackRange": 3,
+    "value": 75,
+    "equipBonus": {
+      "attack": 26,
+      "agility": 4,
+      "skills": {
+        "算术": 2
+      }
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-153"
+    ],
+    "specialTag": null,
+    "description": "取大宋新铸“皇祐通宝”铜钱将外缘锉磨锋利，一袋三十枚，随手拈发专取咽喉眼目。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-072",
+    "code": "072",
+    "name": "汴京铁骨纸扇",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "凡阶",
+    "subTier": "上品",
+    "fullTier": "凡阶上品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "大相国寺万姓交易市",
+    "originFull": "开封府·大相国寺万姓交易市",
+    "sectId": "SECT-17",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 78,
+    "equipBonus": {
+      "attack": 24,
+      "defense": 4,
+      "agility": 4,
+      "skills": {
+        "诗词": 2
+      }
+    },
+    "synergies": [
+      {
+        "category": "指法",
+        "bonusPct": 8
+      }
+    ],
+    "signatureArtIds": [
+      "MA-154"
+    ],
+    "specialTag": null,
+    "description": "外糊徽宣洒金纸、内藏熟铁扇骨，大相国寺每旬庙会畅销之物，书生游侠防身利器。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-073",
+    "code": "073",
+    "name": "武馆三才铁剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "jinan",
+    "locationLabel": "济南府",
+    "origin": "齐鲁城池演武拳馆",
+    "originFull": "济南府·齐鲁城池演武拳馆",
+    "sectId": null,
+    "forceTrait": "中正",
+    "attackRange": 1,
+    "value": 45,
+    "equipBonus": {
+      "attack": 20,
+      "defense": 2
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-186"
+    ],
+    "specialTag": null,
+    "description": "各地演武拳馆架上常备的生熟铁长剑，分量稍沉而坚固皮实，适合演练三才剑路。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-074",
+    "code": "074",
+    "name": "巴蜀窄刃刺剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "chengdu",
+    "locationLabel": "成都府",
+    "origin": "锦江铁器街坊",
+    "originFull": "成都府·锦江铁器街坊",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 48,
+    "equipBonus": {
+      "attack": 21,
+      "agility": 3
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-185"
+    ],
+    "specialTag": null,
+    "description": "蜀中民间游侠喜佩的窄身轻剑，收鞘如杖，茶肆窄巷遇袭时抽刺极快。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-075",
+    "code": "075",
+    "name": "官制长柄朴刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "各州县巡检司差役标配",
+    "originFull": "开封府·各州县巡检司差役标配",
+    "sectId": "SECT-17",
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 50,
+    "equipBonus": {
+      "attack": 22,
+      "maxHp": 30
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-188"
+    ],
+    "specialTag": null,
+    "description": "北宋民间与公门最常见的双手长柄宽刃朴刀，走州过府防匪打虎人人可携。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-076",
+    "code": "076",
+    "name": "绿林泼风砍刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "taihang",
+    "locationLabel": "太行山绿林总寨",
+    "origin": "山寨小炉匠锻打",
+    "originFull": "太行山绿林总寨·山寨小炉匠锻打",
+    "sectId": "SECT-18",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 46,
+    "equipBonus": {
+      "attack": 21,
+      "defense": 2
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-187"
+    ],
+    "specialTag": null,
+    "description": "山林草莽好汉混战常用的阔口弯背铁刀，挥舞如骤雨泼风，聊遮矢石。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-077",
+    "code": "077",
+    "name": "市井庖丁剔骨刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "luoyang",
+    "locationLabel": "洛阳府",
+    "origin": "西京南市鲜肉行",
+    "originFull": "洛阳府·西京南市鲜肉行",
+    "sectId": null,
+    "forceTrait": "奇巧",
+    "attackRange": 1,
+    "value": 42,
+    "equipBonus": {
+      "attack": 19,
+      "agility": 3
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-189"
+    ],
+    "specialTag": null,
+    "description": "屠户老手每日磨砺的夹钢尖头剔骨快刀，短小精悍，顺敌甲叶骨缝切入极准。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-078",
+    "code": "078",
+    "name": "江淮巡河钩镰枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "yangzhou",
+    "locationLabel": "扬州府",
+    "origin": "运河水栅巡防营",
+    "originFull": "扬州府·运河水栅巡防营",
+    "sectId": null,
+    "forceTrait": "奇巧",
+    "attackRange": 2,
+    "value": 48,
+    "equipBonus": {
+      "attack": 20,
+      "defense": 3
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-091"
+    ],
+    "specialTag": null,
+    "description": "枪头侧出弯钩铁刃，水路帮派与河防兵丁用于钩拉船舷、专破骑兵马腿。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-079",
+    "code": "079",
+    "name": "塞北牧民套马杆枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "linhuang_liao",
+    "locationLabel": "临潢府",
+    "origin": "潢水草原牧帐",
+    "originFull": "临潢府·潢水草原牧帐",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 2,
+    "value": 44,
+    "equipBonus": {
+      "attack": 18,
+      "riding": 3
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [],
+    "specialTag": null,
+    "description": "草原牧骑白桦长杆前端嵌三寸铁枪尖、尾系皮套索，驱狼护畜与马背轻刺两用。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-080",
+    "code": "080",
+    "name": "丐帮青竹防身棒",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "luoyang",
+    "locationLabel": "洛阳府",
+    "origin": "杏子林坛外门弟子制",
+    "originFull": "洛阳府·杏子林坛外门弟子制",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 2,
+    "value": 38,
+    "equipBonus": {
+      "attack": 18,
+      "defense": 3,
+      "agility": 2
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-170"
+    ],
+    "specialTag": null,
+    "description": "丐帮一至三袋弟子随身携带的四尺老青竹棒，竹节密实，轻巧耐打。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-081",
+    "code": "081",
+    "name": "运河漕工铁头篙",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "yangzhou",
+    "locationLabel": "扬州府",
+    "origin": "汴河钞关船坞",
+    "originFull": "扬州府·汴河钞关船坞",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 40,
+    "equipBonus": {
+      "attack": 19,
+      "maxHp": 25
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-191"
+    ],
+    "specialTag": null,
+    "description": "大运河粮船水手所用丈二毛竹撑篙，底端包尖铁套，码头争斗一扫一大片。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-082",
+    "code": "082",
+    "name": "衙门缉捕熟铁链",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "zhending",
+    "locationLabel": "真定府",
+    "origin": "州县捕房刑具铺",
+    "originFull": "真定府·州县捕房刑具铺",
+    "sectId": null,
+    "forceTrait": "奇巧",
+    "attackRange": 2,
+    "value": 45,
+    "equipBonus": {
+      "attack": 17,
+      "defense": 4
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-192"
+    ],
+    "specialTag": null,
+    "description": "六尺熟铁圆环缉盗锁链，抖动哗哗作响，州县快手捕快借之缠锁嫌犯手足。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-083",
+    "code": "083",
+    "name": "生牛皮裹指拳带",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "xiangyang",
+    "locationLabel": "襄阳府",
+    "origin": "荆襄武馆教头手作",
+    "originFull": "襄阳府·荆襄武馆教头手作",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 36,
+    "equipBonus": {
+      "attack": 16,
+      "maxHp": 30
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-180",
+      "MA-182"
+    ],
+    "specialTag": null,
+    "description": "桐油浸泡过的坚韧生牛皮长条，紧缠拳峰腕骨，练太祖长拳与八极冲拳不伤皮肉。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-084",
+    "code": "084",
+    "name": "粗练铁砂护掌布",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "jinan",
+    "locationLabel": "济南府",
+    "origin": "京东绿林把式房",
+    "originFull": "济南府·京东绿林把式房",
+    "sectId": "SECT-18",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 38,
+    "equipBonus": {
+      "attack": 18,
+      "res": 2
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-184"
+    ],
+    "specialTag": null,
+    "description": "双层粗帆布内缝细碎生铁砂粒，出掌拍击时平添几分刚燥火辣劲道。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-085",
+    "code": "085",
+    "name": "鹅卵飞蝗石袋",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "jianmenguan",
+    "locationLabel": "剑门关",
+    "origin": "嘉陵江滩山民拣选",
+    "originFull": "剑门关·嘉陵江滩山民拣选",
+    "sectId": null,
+    "forceTrait": "中正",
+    "attackRange": 3,
+    "value": 30,
+    "equipBonus": {
+      "attack": 16,
+      "agility": 2
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 6
+      }
+    ],
+    "signatureArtIds": [
+      "MA-193"
+    ],
+    "specialTag": null,
+    "description": "粗布囊内装二十枚溜圆坚硬的江滩鹅卵石，草莽好汉甩手急掷百步碎瓦。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-086",
+    "code": "086",
+    "name": "账房黄铜铁算盘",
+    "slot": "weapon",
+    "weaponType": "奇门音兵",
+    "tier": "凡阶",
+    "subTier": "中品",
+    "fullTier": "凡阶中品",
+    "regionId": "chengdu",
+    "locationLabel": "成都府",
+    "origin": "益州交子铺市易行",
+    "originFull": "成都府·益州交子铺市易行",
+    "sectId": null,
+    "forceTrait": "奇巧",
+    "attackRange": 1,
+    "value": 46,
+    "equipBonus": {
+      "attack": 15,
+      "defense": 4,
+      "skills": {
+        "算术": 4
+      }
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 6
+      },
+      {
+        "category": "指法",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-212"
+    ],
+    "specialTag": null,
+    "description": "黄铜包角、熟铁穿档的十三档沉重算盘，平时核算银钱交子，遇险架刀拍面颇为顺手。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-087",
+    "code": "087",
+    "name": "瓦舍杂耍花剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "东京州桥夜市百戏摊",
+    "originFull": "开封府·东京州桥夜市百戏摊",
+    "sectId": "SECT-17",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 18,
+    "equipBonus": {
+      "attack": 11,
+      "agility": 2
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-203"
+    ],
+    "specialTag": null,
+    "description": "勾栏瓦舍卖艺女子与杂耍艺人舞剑所用薄铁响剑，挥动嗡嗡脆响而难以破甲。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-088",
+    "code": "088",
+    "name": "书院习礼桃木剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "luoyang",
+    "locationLabel": "洛阳府",
+    "origin": "白马书院射圃木作",
+    "originFull": "洛阳府·白马书院射圃木作",
+    "sectId": null,
+    "forceTrait": "中正",
+    "attackRange": 1,
+    "value": 12,
+    "equipBonus": {
+      "attack": 9,
+      "skills": {
+        "经义": 1
+      }
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-204"
+    ],
+    "specialTag": null,
+    "description": "三年老桃木削磨光滑之习礼木剑，学子与初习剑道少年对练基础刺击不致见血。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-089",
+    "code": "089",
+    "name": "无锋生铁钝剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "taiyuan",
+    "locationLabel": "太原府",
+    "origin": "乡间农具铁炉粗打",
+    "originFull": "太原府·乡间农具铁炉粗打",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 16,
+    "equipBonus": {
+      "attack": 12
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-204"
+    ],
+    "specialTag": null,
+    "description": "乡野铁铺用生铁粗打而成的旧铁剑，刃口钝涩多缺印，全凭一股铁疙瘩分量砸人。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-090",
+    "code": "090",
+    "name": "樵夫劈山柴刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "zhongnanshan",
+    "locationLabel": "终南山隐宗",
+    "origin": "秦岭山脚农家自打",
+    "originFull": "终南山隐宗·秦岭山脚农家自打",
+    "sectId": "SECT-11",
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 15,
+    "equipBonus": {
+      "attack": 13
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-205"
+    ],
+    "specialTag": null,
+    "description": "终南与武夷山樵夫腰间常别的厚背弯嘴柴刀，砍树劈荆棘极为趁手。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-091",
+    "code": "091",
+    "name": "酒肆庖厨双菜刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "bianliang",
+    "locationLabel": "开封府",
+    "origin": "临街酒楼后厨",
+    "originFull": "开封府·临街酒楼后厨",
+    "sectId": "SECT-17",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 20,
+    "equipBonus": {
+      "attack": 14,
+      "agility": 1
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-206"
+    ],
+    "specialTag": null,
+    "description": "宋京酒肆厨娘案头剁肉切骨的一对黑铁方头菜刀，近身双刀乱剁亦叫泼皮胆寒。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-092",
+    "code": "092",
+    "name": "剪径缺口砍山刀",
+    "slot": "weapon",
+    "weaponType": "刀",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "jianmenguan",
+    "locationLabel": "剑门关",
+    "origin": "荒山野岭路匪遗落",
+    "originFull": "剑门关·荒山野岭路匪遗落",
+    "sectId": null,
+    "forceTrait": "刚猛",
+    "attackRange": 1,
+    "value": 14,
+    "equipBonus": {
+      "attack": 13
+    },
+    "synergies": [
+      {
+        "category": "刀法",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-207"
+    ],
+    "specialTag": null,
+    "description": "剪径小毛贼用来拦路吓唬客商的卷刃粗铁刀，刀脊斑驳生锈，胜在凶悍唬人。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-093",
+    "code": "093",
+    "name": "深山猎户叉虎枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "emeishan",
+    "locationLabel": "蜀中峨眉山",
+    "origin": "川西猎户山寨",
+    "originFull": "蜀中峨眉山·川西猎户山寨",
+    "sectId": "SECT-07",
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 22,
+    "equipBonus": {
+      "attack": 14,
+      "maxHp": 15
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-208"
+    ],
+    "specialTag": null,
+    "description": "山民进老林围猎野猪恶虎的双股生铁钢叉，叉柄粗实，抵住下盘稳扎猛刺。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-094",
+    "code": "094",
+    "name": "削尖毛竹硬枪",
+    "slot": "weapon",
+    "weaponType": "枪",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "quanzhou",
+    "locationLabel": "泉州府",
+    "origin": "闽南村社乡勇自制",
+    "originFull": "泉州府·闽南村社乡勇自制",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 2,
+    "value": 10,
+    "equipBonus": {
+      "attack": 11
+    },
+    "synergies": [
+      {
+        "category": "枪法",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [],
+    "specialTag": null,
+    "description": "砍取碗口粗老毛竹斜削出锋尖，再以桐油火烤硬化，山村乡勇防备海寇山贼之应急兵。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-095",
+    "code": "095",
+    "name": "少室灶房烧火棍",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "shaolin",
+    "locationLabel": "嵩山少林寺",
+    "origin": "古刹大寮柴房",
+    "originFull": "嵩山少林寺·古刹大寮柴房",
+    "sectId": "SECT-01",
+    "forceTrait": "刚猛",
+    "attackRange": 2,
+    "value": 12,
+    "equipBonus": {
+      "attack": 12,
+      "defense": 2
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-190"
+    ],
+    "specialTag": null,
+    "description": "寺庙大灶下拨火添柴熏得乌黑油亮的老枣木硬棍，看似烧火粗物，抡起颇有分量。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-096",
+    "code": "096",
+    "name": "货郎桑木扁担",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "suzhou",
+    "locationLabel": "苏州府",
+    "origin": "江南水乡走街货郎",
+    "originFull": "苏州府·江南水乡走街货郎",
+    "sectId": null,
+    "forceTrait": "中正",
+    "attackRange": 2,
+    "value": 14,
+    "equipBonus": {
+      "attack": 12,
+      "maxStamina": 10
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-210"
+    ],
+    "specialTag": null,
+    "description": "柔韧吃重的老桑木宽扁担，平日肩挑百斤南北杂货，遇强人劫道抽扁担横扫护身。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-097",
+    "code": "097",
+    "name": "巡夜更夫齐眉梆",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "jiangning",
+    "locationLabel": "江宁府",
+    "origin": "城坊甲保巡夜房",
+    "originFull": "江宁府·城坊甲保巡夜房",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 13,
+    "equipBonus": {
+      "attack": 10,
+      "defense": 2
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-211"
+    ],
+    "specialTag": null,
+    "description": "更夫半夜提灯打更所持硬檀木棒，长约三尺，顺手敲击小贼手腕麻筋。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-098",
+    "code": "098",
+    "name": "叫花驱犬芦竹竿",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "daming",
+    "locationLabel": "大名府",
+    "origin": "城外破庙流丐自折",
+    "originFull": "大名府·城外破庙流丐自折",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 2,
+    "value": 8,
+    "equipBonus": {
+      "attack": 9,
+      "agility": 1
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-209"
+    ],
+    "specialTag": null,
+    "description": "寻常流民讨饭时驱赶恶犬的细竹竿，虽一折易断，乱戳乱扫亦能阻敌近身。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-099",
+    "code": "099",
+    "name": "码头力夫麻布护腕",
+    "slot": "weapon",
+    "weaponType": "拳掌护手",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "xiangyang",
+    "locationLabel": "襄阳府",
+    "origin": "汉水大码头脚行",
+    "originFull": "襄阳府·汉水大码头脚行",
+    "sectId": null,
+    "forceTrait": "中正",
+    "attackRange": 1,
+    "value": 10,
+    "equipBonus": {
+      "attack": 8,
+      "maxHp": 15,
+      "maxStamina": 5
+    },
+    "synergies": [
+      {
+        "category": "拳掌",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-199",
+      "MA-200"
+    ],
+    "specialTag": null,
+    "description": "数层粗麻布密针缝合的宽护腕，码头苦力扛包防扭手腕、街头赤手肉搏之寻常护具。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  },
+  {
+    "id": "WPN-100",
+    "code": "100",
+    "name": "顽童牛筋木弹弓",
+    "slot": "weapon",
+    "weaponType": "暗器",
+    "tier": "凡阶",
+    "subTier": "下品",
+    "fullTier": "凡阶下品",
+    "regionId": "hangzhou",
+    "locationLabel": "杭州府",
+    "origin": "钱塘市井巷陌手作",
+    "originFull": "杭州府·钱塘市井巷陌手作",
+    "sectId": null,
+    "forceTrait": "轻灵",
+    "attackRange": 3,
+    "value": 12,
+    "equipBonus": {
+      "attack": 9,
+      "agility": 2
+    },
+    "synergies": [
+      {
+        "category": "暗器",
+        "bonusPct": 5
+      }
+    ],
+    "signatureArtIds": [
+      "MA-213"
+    ],
+    "specialTag": null,
+    "description": "老榆木树杈绑上双股熟牛筋皮兜，弹射泥丸或小铁珠打鸟击瓦，准头尚可。",
+    "prerequisitesText": null,
+    "statRequirements": []
+  }
+]

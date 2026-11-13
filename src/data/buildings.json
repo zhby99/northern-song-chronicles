@@ -49,7 +49,13 @@
               "经义",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0001",
+            "NPC-0002",
+            "NPC-0005",
+            "NPC-0014"
+          ]
         },
         {
           "id": "bl_palace_vault",
@@ -63,7 +69,14 @@
           "effect": {
             "agi": 2,
             "mp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0003",
+            "NPC-0006",
+            "NPC-0059",
+            "NPC-0060",
+            "NPC-0065"
+          ]
         },
         {
           "id": "bl_palace_watch",
@@ -77,7 +90,11 @@
           "effect": {
             "hp": 30,
             "res": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0004",
+            "NPC-0132"
+          ]
         }
       ]
     },
@@ -85,18 +102,14 @@
       "NPC-0001",
       "NPC-0002",
       "NPC-0003",
+      "NPC-0004",
       "NPC-0005",
+      "NPC-0006",
       "NPC-0014",
-      "NPC-0015",
-      "NPC-0018",
-      "NPC-0038",
+      "NPC-0059",
+      "NPC-0060",
       "NPC-0065",
-      "NPC-0177",
-      "NPC-0241",
-      "NPC-0465",
-      "NPC-0556",
-      "NPC-0570",
-      "NPC-0816"
+      "NPC-0132"
     ]
   },
   {
@@ -152,7 +165,12 @@
               "策论",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0013",
+            "NPC-0140",
+            "NPC-0964"
+          ]
         },
         {
           "id": "bl_kf_liushan",
@@ -166,7 +184,13 @@
           "effect": {
             "silver": 25,
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0178",
+            "NPC-0226",
+            "NPC-0284",
+            "NPC-0342"
+          ]
         },
         {
           "id": "bl_kf_archive",
@@ -186,36 +210,23 @@
               "经义",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0030",
+            "NPC-0227"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0006",
-      "NPC-0012",
       "NPC-0013",
       "NPC-0030",
-      "NPC-0060",
-      "NPC-0132",
       "NPC-0140",
-      "NPC-0154",
       "NPC-0178",
-      "NPC-0210",
       "NPC-0226",
       "NPC-0227",
-      "NPC-0252",
-      "NPC-0271",
-      "NPC-0273",
       "NPC-0284",
       "NPC-0342",
-      "NPC-0378",
-      "NPC-0528",
-      "NPC-0822",
-      "NPC-0826",
-      "NPC-0833",
-      "NPC-0860",
-      "NPC-0873",
-      "NPC-0902",
       "NPC-0964"
     ]
   },
@@ -276,7 +287,12 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0012",
+            "NPC-0241",
+            "NPC-0900"
+          ]
         },
         {
           "id": "bl_fl_terrace",
@@ -297,7 +313,12 @@
               "画",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0141",
+            "NPC-0770",
+            "NPC-0816"
+          ]
         },
         {
           "id": "bl_fl_cellar",
@@ -312,16 +333,25 @@
           "effect": {
             "hp": 35,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0297",
+            "NPC-0605",
+            "NPC-0819"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0012",
+      "NPC-0141",
+      "NPC-0241",
       "NPC-0297",
-      "NPC-0345",
-      "NPC-0462",
       "NPC-0605",
-      "NPC-0901"
+      "NPC-0770",
+      "NPC-0816",
+      "NPC-0819",
+      "NPC-0900"
     ]
   },
   {
@@ -378,7 +408,12 @@
           "effect": {
             "mp": 30,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0097",
+            "NPC-0360",
+            "NPC-0465"
+          ]
         },
         {
           "id": "bl_xg_pagoda",
@@ -392,7 +427,13 @@
           "effect": {
             "agi": 2,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0273",
+            "NPC-0378",
+            "NPC-0570",
+            "NPC-0902"
+          ]
         },
         {
           "id": "bl_xg_market",
@@ -413,17 +454,31 @@
               "画",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0023",
+            "NPC-0210",
+            "NPC-0418",
+            "NPC-0728",
+            "NPC-0901",
+            "NPC-0984"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0004",
+      "NPC-0023",
+      "NPC-0097",
+      "NPC-0210",
+      "NPC-0273",
+      "NPC-0360",
+      "NPC-0378",
       "NPC-0418",
-      "NPC-0479",
+      "NPC-0465",
+      "NPC-0570",
       "NPC-0728",
-      "NPC-0819",
-      "NPC-0900",
+      "NPC-0901",
+      "NPC-0902",
       "NPC-0984"
     ]
   },
@@ -474,7 +529,11 @@
               3
             ],
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0015",
+            "NPC-0038"
+          ]
         },
         {
           "id": "bl_jj_spear",
@@ -488,7 +547,11 @@
           "effect": {
             "hp": 40,
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0043",
+            "NPC-0154"
+          ]
         },
         {
           "id": "bl_jj_archery",
@@ -505,17 +568,23 @@
               4
             ],
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0007",
+            "NPC-0556",
+            "NPC-0826"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0007",
+      "NPC-0015",
+      "NPC-0038",
       "NPC-0043",
-      "NPC-0141",
-      "NPC-0360",
-      "NPC-0770",
-      "NPC-0897"
+      "NPC-0154",
+      "NPC-0556",
+      "NPC-0826"
     ]
   },
   {
@@ -542,7 +611,12 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0271",
+      "NPC-0462",
+      "NPC-0822",
+      "NPC-0833"
+    ]
   },
   {
     "id": "bianliang_base_academy",
@@ -577,10 +651,8 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0023",
-      "NPC-0059",
-      "NPC-0064",
-      "NPC-0097"
+      "NPC-0018",
+      "NPC-0064"
     ]
   },
   {
@@ -606,7 +678,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0252",
+      "NPC-0528"
+    ]
   },
   {
     "id": "bianliang_base_yamen",
@@ -633,7 +708,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0177",
+      "NPC-0860",
+      "NPC-0873"
+    ]
   },
   {
     "id": "bianliang_base_inn",
@@ -657,7 +736,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0345",
+      "NPC-0479",
+      "NPC-0897"
+    ]
   },
   {
     "id": "ly_baimasi",
@@ -706,7 +789,13 @@
           "effect": {
             "mp": 35,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0157",
+            "NPC-0377",
+            "NPC-0551",
+            "NPC-0999"
+          ]
         },
         {
           "id": "ly_bm_sutra",
@@ -723,7 +812,12 @@
               3
             ],
             "mp": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0275",
+            "NPC-0298",
+            "NPC-0679"
+          ]
         },
         {
           "id": "ly_bm_pagoda",
@@ -737,19 +831,26 @@
           "effect": {
             "mp": 30,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0069",
+            "NPC-0503",
+            "NPC-0604"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0138",
-      "NPC-0186",
-      "NPC-0196",
+      "NPC-0069",
+      "NPC-0157",
+      "NPC-0275",
       "NPC-0298",
-      "NPC-0499",
+      "NPC-0377",
+      "NPC-0503",
+      "NPC-0551",
       "NPC-0604",
-      "NPC-0837",
-      "NPC-0915"
+      "NPC-0679",
+      "NPC-0999"
     ]
   },
   {
@@ -808,7 +909,11 @@
               "策论",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0049",
+            "NPC-0513"
+          ]
         },
         {
           "id": "ly_sy_library",
@@ -828,7 +933,11 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0050",
+            "NPC-0211"
+          ]
         },
         {
           "id": "ly_sy_pavilion",
@@ -848,7 +957,11 @@
               "诗词",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0046",
+            "NPC-0138"
+          ]
         }
       ]
     },
@@ -856,13 +969,9 @@
       "NPC-0046",
       "NPC-0049",
       "NPC-0050",
+      "NPC-0138",
       "NPC-0211",
-      "NPC-0510",
-      "NPC-0513",
-      "NPC-0551",
-      "NPC-0667",
-      "NPC-0737",
-      "NPC-0971"
+      "NPC-0513"
     ]
   },
   {
@@ -922,7 +1031,10 @@
               "画",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0008"
+          ]
         },
         {
           "id": "ly_pn_greenhouse",
@@ -936,7 +1048,10 @@
           "effect": {
             "res": 3,
             "hp": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0563"
+          ]
         },
         {
           "id": "ly_pn_waterside",
@@ -956,18 +1071,17 @@
               "画",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0016"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0008",
       "NPC-0016",
-      "NPC-0136",
-      "NPC-0243",
-      "NPC-0377",
-      "NPC-0380",
-      "NPC-0679"
+      "NPC-0563"
     ]
   },
   {
@@ -1017,7 +1131,13 @@
           "effect": {
             "hp": 35,
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0110",
+            "NPC-0196",
+            "NPC-0812",
+            "NPC-0971"
+          ]
         },
         {
           "id": "ly_gb_arena",
@@ -1031,7 +1151,12 @@
           "effect": {
             "agi": 3,
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0136",
+            "NPC-0159",
+            "NPC-0446"
+          ]
         },
         {
           "id": "ly_gb_pigeon",
@@ -1051,18 +1176,28 @@
               "策论",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0111",
+            "NPC-0195",
+            "NPC-0380",
+            "NPC-0915"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0069",
       "NPC-0110",
       "NPC-0111",
-      "NPC-0157",
+      "NPC-0136",
+      "NPC-0159",
       "NPC-0195",
-      "NPC-0275",
-      "NPC-0316"
+      "NPC-0196",
+      "NPC-0380",
+      "NPC-0446",
+      "NPC-0812",
+      "NPC-0915",
+      "NPC-0971"
     ]
   },
   {
@@ -1112,7 +1247,10 @@
               3
             ],
             "silver": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0186"
+          ]
         },
         {
           "id": "ly_jd_courtyard",
@@ -1126,7 +1264,10 @@
           "effect": {
             "hp": 40,
             "mp": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0737"
+          ]
         },
         {
           "id": "ly_jd_blade_pav",
@@ -1140,16 +1281,19 @@
           "effect": {
             "agi": 2,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0316",
+            "NPC-0667"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0159",
-      "NPC-0446",
-      "NPC-0563",
-      "NPC-0812",
-      "NPC-0999"
+      "NPC-0186",
+      "NPC-0316",
+      "NPC-0667",
+      "NPC-0737"
     ]
   },
   {
@@ -1178,10 +1322,6 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0179",
-      "NPC-0288",
-      "NPC-0503",
-      "NPC-0768",
       "NPC-0970"
     ]
   },
@@ -1209,7 +1349,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0179",
+      "NPC-0837"
+    ]
   },
   {
     "id": "luoyang_base_inn",
@@ -1233,7 +1376,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0243",
+      "NPC-0510"
+    ]
   },
   {
     "id": "luoyang_base_dojo",
@@ -1258,7 +1404,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0288",
+      "NPC-0768"
+    ]
   },
   {
     "id": "luoyang_base_academy",
@@ -1292,7 +1441,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0499"
+    ]
   },
   {
     "id": "dm_palace",
@@ -1344,7 +1495,10 @@
               3
             ],
             "silver": 18
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0028"
+          ]
         },
         {
           "id": "dm_pl_sandtable",
@@ -1364,7 +1518,10 @@
               "策论",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0681"
+          ]
         },
         {
           "id": "dm_pl_garrison",
@@ -1378,21 +1535,17 @@
           "effect": {
             "hp": 30,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0039"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0137",
-      "NPC-0229",
-      "NPC-0491",
-      "NPC-0614",
-      "NPC-0660",
-      "NPC-0701",
-      "NPC-0868",
-      "NPC-0883",
-      "NPC-0899",
-      "NPC-0907"
+      "NPC-0028",
+      "NPC-0039",
+      "NPC-0681"
     ]
   },
   {
@@ -1439,7 +1592,11 @@
           "effect": {
             "agi": 3,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0536",
+            "NPC-0883"
+          ]
         },
         {
           "id": "dm_fr_fort",
@@ -1456,7 +1613,12 @@
               "策论",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0137",
+            "NPC-0797",
+            "NPC-0926"
+          ]
         },
         {
           "id": "dm_fr_wharf",
@@ -1473,18 +1635,22 @@
               3
             ],
             "silver": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0248",
+            "NPC-0762"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0636",
-      "NPC-0729",
-      "NPC-0734",
+      "NPC-0137",
+      "NPC-0248",
+      "NPC-0536",
       "NPC-0762",
       "NPC-0797",
-      "NPC-0926",
-      "NPC-0967"
+      "NPC-0883",
+      "NPC-0926"
     ]
   },
   {
@@ -1531,7 +1697,11 @@
           "effect": {
             "hp": 35,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0229",
+            "NPC-0636"
+          ]
         },
         {
           "id": "dm_dr_armory",
@@ -1548,7 +1718,11 @@
               2
             ],
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0310",
+            "NPC-0617"
+          ]
         },
         {
           "id": "dm_dr_poles",
@@ -1562,22 +1736,21 @@
           "effect": {
             "hp": 30,
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0478",
+            "NPC-0967"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0039",
-      "NPC-0248",
-      "NPC-0293",
+      "NPC-0229",
       "NPC-0310",
-      "NPC-0431",
       "NPC-0478",
-      "NPC-0536",
-      "NPC-0537",
-      "NPC-0562",
-      "NPC-0681",
-      "NPC-0959"
+      "NPC-0617",
+      "NPC-0636",
+      "NPC-0967"
     ]
   },
   {
@@ -1606,9 +1779,8 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0028",
       "NPC-0423",
-      "NPC-0617",
+      "NPC-0614",
       "NPC-0727"
     ]
   },
@@ -1636,7 +1808,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0431",
+      "NPC-0899"
+    ]
   },
   {
     "id": "daming_base_dojo",
@@ -1661,7 +1836,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0562",
+      "NPC-0907"
+    ]
   },
   {
     "id": "daming_base_academy",
@@ -1695,7 +1873,14 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0293",
+      "NPC-0491",
+      "NPC-0701",
+      "NPC-0729",
+      "NPC-0734",
+      "NPC-0959"
+    ]
   },
   {
     "id": "daming_base_inn",
@@ -1719,7 +1904,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0537",
+      "NPC-0660",
+      "NPC-0868"
+    ]
   },
   {
     "id": "zd_longxing",
@@ -1771,7 +1960,11 @@
               3
             ],
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0489",
+            "NPC-0850"
+          ]
         },
         {
           "id": "zd_lx_sutra",
@@ -1791,7 +1984,10 @@
               "经义",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0301"
+          ]
         },
         {
           "id": "zd_lx_stele",
@@ -1811,19 +2007,20 @@
               "画",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0534",
+            "NPC-0881"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0337",
-      "NPC-0474",
+      "NPC-0301",
       "NPC-0489",
-      "NPC-0708",
-      "NPC-0720",
-      "NPC-0764",
+      "NPC-0534",
       "NPC-0850",
-      "NPC-0963"
+      "NPC-0881"
     ]
   },
   {
@@ -1876,7 +2073,12 @@
               4
             ],
             "silver": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0474",
+            "NPC-0638",
+            "NPC-0753"
+          ]
         },
         {
           "id": "zd_mk_horse",
@@ -1894,7 +2096,11 @@
               4
             ],
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0269",
+            "NPC-0475"
+          ]
         },
         {
           "id": "zd_mk_bazaar",
@@ -1914,21 +2120,26 @@
               "策论",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0335",
+            "NPC-0337",
+            "NPC-0708",
+            "NPC-0921"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0185",
+      "NPC-0269",
       "NPC-0335",
-      "NPC-0534",
-      "NPC-0656",
-      "NPC-0733",
+      "NPC-0337",
+      "NPC-0474",
+      "NPC-0475",
+      "NPC-0638",
+      "NPC-0708",
       "NPC-0753",
-      "NPC-0834",
-      "NPC-0846",
-      "NPC-0921",
-      "NPC-0980"
+      "NPC-0921"
     ]
   },
   {
@@ -1978,7 +2189,11 @@
               "经义",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0036",
+            "NPC-0963"
+          ]
         },
         {
           "id": "zd_sp_yard",
@@ -1992,7 +2207,11 @@
           "effect": {
             "hp": 30,
             "agi": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0185",
+            "NPC-0980"
+          ]
         },
         {
           "id": "zd_sp_bamboo",
@@ -2006,19 +2225,21 @@
           "effect": {
             "agi": 4,
             "res": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0531",
+            "NPC-0720"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0269",
-      "NPC-0301",
-      "NPC-0338",
-      "NPC-0475",
+      "NPC-0036",
+      "NPC-0185",
       "NPC-0531",
-      "NPC-0550",
-      "NPC-0603",
-      "NPC-0881"
+      "NPC-0720",
+      "NPC-0963",
+      "NPC-0980"
     ]
   },
   {
@@ -2048,12 +2269,8 @@
     "interior": null,
     "residentNpcIds": [
       "NPC-0011",
-      "NPC-0290",
-      "NPC-0324",
-      "NPC-0421",
       "NPC-0507",
       "NPC-0549",
-      "NPC-0638",
       "NPC-0732",
       "NPC-0807"
     ]
@@ -2082,7 +2299,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0338",
+      "NPC-0603",
+      "NPC-0846"
+    ]
   },
   {
     "id": "zhending_base_inn",
@@ -2106,7 +2327,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0550",
+      "NPC-0656",
+      "NPC-0834"
+    ]
   },
   {
     "id": "zhending_base_dojo",
@@ -2132,7 +2357,9 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0036"
+      "NPC-0290",
+      "NPC-0324",
+      "NPC-0421"
     ]
   },
   {
@@ -2167,7 +2394,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0733",
+      "NPC-0764"
+    ]
   },
   {
     "id": "ty_jinci",
@@ -2222,7 +2452,12 @@
               "诗词",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0198",
+            "NPC-0408",
+            "NPC-0756"
+          ]
         },
         {
           "id": "ty_jc_cypress",
@@ -2239,7 +2474,12 @@
               4
             ],
             "mp": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0388",
+            "NPC-0395",
+            "NPC-0974"
+          ]
         },
         {
           "id": "ty_jc_spring",
@@ -2253,23 +2493,25 @@
           "effect": {
             "mp": 35,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0318",
+            "NPC-0615",
+            "NPC-0893"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0198",
-      "NPC-0307",
-      "NPC-0381",
+      "NPC-0318",
       "NPC-0388",
       "NPC-0395",
-      "NPC-0414",
-      "NPC-0494",
-      "NPC-0611",
+      "NPC-0408",
       "NPC-0615",
-      "NPC-0730",
-      "NPC-0871",
-      "NPC-0880"
+      "NPC-0756",
+      "NPC-0893",
+      "NPC-0974"
     ]
   },
   {
@@ -2316,7 +2558,11 @@
           "effect": {
             "res": 3,
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0246",
+            "NPC-0494"
+          ]
         },
         {
           "id": "ty_ir_forge",
@@ -2330,7 +2576,10 @@
           "effect": {
             "hp": 35,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0042"
+          ]
         },
         {
           "id": "ty_ir_armory",
@@ -2350,22 +2599,18 @@
               "策论",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0035"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0035",
+      "NPC-0042",
       "NPC-0246",
-      "NPC-0251",
-      "NPC-0274",
-      "NPC-0318",
-      "NPC-0453",
-      "NPC-0473",
-      "NPC-0548",
-      "NPC-0804",
-      "NPC-0808",
-      "NPC-0887",
-      "NPC-0974"
+      "NPC-0494"
     ]
   },
   {
@@ -2405,7 +2650,7 @@
       "spots": [
         {
           "id": "ty_yang_main",
-          "name": "天波杨家旧祠 · 正堂议事厅",
+          "name": "正堂议事厅",
           "tag": "一门忠烈",
           "x": 688,
           "y": 272,
@@ -2419,7 +2664,11 @@
               3
             ],
             "riding": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0032",
+            "NPC-0871"
+          ]
         },
         {
           "id": "ty_yang_east",
@@ -2437,7 +2686,10 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0836"
+          ]
         },
         {
           "id": "ty_yang_west",
@@ -2452,20 +2704,20 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0228",
+            "NPC-0804"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0640",
-      "NPC-0756",
-      "NPC-0774",
+      "NPC-0032",
+      "NPC-0228",
+      "NPC-0804",
       "NPC-0836",
-      "NPC-0848",
-      "NPC-0851",
-      "NPC-0893",
-      "NPC-0906",
-      "NPC-0948"
+      "NPC-0871"
     ]
   },
   {
@@ -2494,11 +2746,8 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0032",
-      "NPC-0035",
-      "NPC-0228",
-      "NPC-0303",
-      "NPC-0319"
+      "NPC-0037",
+      "NPC-0381"
     ]
   },
   {
@@ -2525,7 +2774,17 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0274",
+      "NPC-0307",
+      "NPC-0473",
+      "NPC-0611",
+      "NPC-0730",
+      "NPC-0774",
+      "NPC-0848",
+      "NPC-0851",
+      "NPC-0906"
+    ]
   },
   {
     "id": "taiyuan_base_dojo",
@@ -2551,9 +2810,9 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0037",
-      "NPC-0042",
-      "NPC-0408"
+      "NPC-0303",
+      "NPC-0319",
+      "NPC-0880"
     ]
   },
   {
@@ -2588,7 +2847,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0453",
+      "NPC-0948"
+    ]
   },
   {
     "id": "taiyuan_base_inn",
@@ -2612,7 +2874,14 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0251",
+      "NPC-0414",
+      "NPC-0548",
+      "NPC-0640",
+      "NPC-0808",
+      "NPC-0887"
+    ]
   },
   {
     "id": "ca_dayanta",
@@ -2654,7 +2923,7 @@
       "spots": [
         {
           "id": "ca_dayanta_main",
-          "name": "慈恩寺大雁塔 · 宝塔底层 · 舍利地宫",
+          "name": "宝塔底层 · 舍利地宫",
           "tag": "七级浮屠",
           "x": 688,
           "y": 272,
@@ -2671,7 +2940,13 @@
               "经义",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0529",
+            "NPC-0663",
+            "NPC-0810",
+            "NPC-0968"
+          ]
         },
         {
           "id": "ca_dayanta_east",
@@ -2689,7 +2964,13 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0100",
+            "NPC-0328",
+            "NPC-0609",
+            "NPC-0783"
+          ]
         },
         {
           "id": "ca_dayanta_west",
@@ -2704,18 +2985,26 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0327",
+            "NPC-0655",
+            "NPC-0857"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0215",
-      "NPC-0343",
-      "NPC-0480",
-      "NPC-0544",
-      "NPC-0576",
-      "NPC-0702",
-      "NPC-0876",
+      "NPC-0100",
+      "NPC-0327",
+      "NPC-0328",
+      "NPC-0529",
+      "NPC-0609",
+      "NPC-0655",
+      "NPC-0663",
+      "NPC-0783",
+      "NPC-0810",
+      "NPC-0857",
       "NPC-0968"
     ]
   },
@@ -2760,7 +3049,7 @@
       "spots": [
         {
           "id": "ca_caotang_main",
-          "name": "终南草堂（隐逸别业） · 主阁讲席 · 抚琴台",
+          "name": "主阁讲席 · 抚琴台",
           "tag": "纯阳琴剑",
           "x": 688,
           "y": 272,
@@ -2778,7 +3067,12 @@
               3
             ],
             "mp": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0509",
+            "NPC-0684",
+            "NPC-0702"
+          ]
         },
         {
           "id": "ca_caotang_east",
@@ -2799,7 +3093,13 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0285",
+            "NPC-0343",
+            "NPC-0480",
+            "NPC-0888"
+          ]
         },
         {
           "id": "ca_caotang_west",
@@ -2814,25 +3114,30 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0323",
+            "NPC-0409",
+            "NPC-0771",
+            "NPC-0802",
+            "NPC-0876"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0231",
       "NPC-0285",
-      "NPC-0327",
-      "NPC-0328",
+      "NPC-0323",
+      "NPC-0343",
+      "NPC-0409",
+      "NPC-0480",
       "NPC-0509",
-      "NPC-0511",
-      "NPC-0529",
-      "NPC-0541",
-      "NPC-0655",
       "NPC-0684",
+      "NPC-0702",
       "NPC-0771",
-      "NPC-0783",
-      "NPC-0890",
-      "NPC-0992"
+      "NPC-0802",
+      "NPC-0876",
+      "NPC-0888"
     ]
   },
   {
@@ -2872,7 +3177,7 @@
       "spots": [
         {
           "id": "ca_xishi_main",
-          "name": "西市胡商坊（丝路起点） · 番坊正市 · 奇货堂",
+          "name": "番坊正市 · 奇货堂",
           "tag": "西域奇珍",
           "x": 688,
           "y": 272,
@@ -2886,7 +3191,12 @@
               "算术",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0231",
+            "NPC-0705",
+            "NPC-0890"
+          ]
         },
         {
           "id": "ca_xishi_east",
@@ -2907,7 +3217,12 @@
               "辩才",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0215",
+            "NPC-0541",
+            "NPC-0544"
+          ]
         },
         {
           "id": "ca_xishi_west",
@@ -2922,24 +3237,23 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0167",
+            "NPC-0485"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0167",
-      "NPC-0323",
-      "NPC-0409",
+      "NPC-0215",
+      "NPC-0231",
       "NPC-0485",
-      "NPC-0609",
-      "NPC-0663",
+      "NPC-0541",
+      "NPC-0544",
       "NPC-0705",
-      "NPC-0723",
-      "NPC-0773",
-      "NPC-0802",
-      "NPC-0810",
-      "NPC-0857",
-      "NPC-0888"
+      "NPC-0890"
     ]
   },
   {
@@ -2970,7 +3284,6 @@
     "residentNpcIds": [
       "NPC-0017",
       "NPC-0040",
-      "NPC-0308",
       "NPC-0637",
       "NPC-0841",
       "NPC-0898"
@@ -3000,7 +3313,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0511"
+    ]
   },
   {
     "id": "changan_base_academy",
@@ -3037,7 +3352,8 @@
     "residentNpcIds": [
       "NPC-0041",
       "NPC-0048",
-      "NPC-0100"
+      "NPC-0773",
+      "NPC-0992"
     ]
   },
   {
@@ -3064,7 +3380,9 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0045"
+      "NPC-0045",
+      "NPC-0308",
+      "NPC-0723"
     ]
   },
   {
@@ -3089,7 +3407,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0576"
+    ]
   },
   {
     "id": "ya_pagoda",
@@ -3131,7 +3451,7 @@
       "spots": [
         {
           "id": "ya_pagoda_main",
-          "name": "嘉岭山宝塔 · 宝塔底层 · 舍利地宫",
+          "name": "宝塔底层 · 舍利地宫",
           "tag": "范公赋词",
           "x": 688,
           "y": 272,
@@ -3148,7 +3468,11 @@
               "策论",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0577",
+            "NPC-0682"
+          ]
         },
         {
           "id": "ya_pagoda_east",
@@ -3166,7 +3490,11 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0365",
+            "NPC-0693"
+          ]
         },
         {
           "id": "ya_pagoda_west",
@@ -3181,19 +3509,21 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0296",
+            "NPC-0817"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0181",
       "NPC-0296",
-      "NPC-0366",
-      "NPC-0435",
-      "NPC-0710",
-      "NPC-0781",
-      "NPC-0817",
-      "NPC-0919"
+      "NPC-0365",
+      "NPC-0577",
+      "NPC-0682",
+      "NPC-0693",
+      "NPC-0817"
     ]
   },
   {
@@ -3230,7 +3560,7 @@
       "spots": [
         {
           "id": "ya_camp_main",
-          "name": "鄜延边军大营 · 中军帅帐 · 沙盘台",
+          "name": "中军帅帐 · 沙盘台",
           "tag": "抗夏铁军",
           "x": 688,
           "y": 272,
@@ -3241,7 +3571,11 @@
           "effect": {
             "hp": 35,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0031",
+            "NPC-0272"
+          ]
         },
         {
           "id": "ya_camp_east",
@@ -3259,7 +3593,11 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0033",
+            "NPC-0294"
+          ]
         },
         {
           "id": "ya_camp_west",
@@ -3274,27 +3612,27 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0034",
+            "NPC-0437",
+            "NPC-0522",
+            "NPC-0699",
+            "NPC-0805"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0031",
       "NPC-0033",
       "NPC-0034",
-      "NPC-0044",
-      "NPC-0122",
-      "NPC-0262",
-      "NPC-0289",
-      "NPC-0358",
-      "NPC-0365",
-      "NPC-0432",
+      "NPC-0272",
+      "NPC-0294",
       "NPC-0437",
-      "NPC-0577",
-      "NPC-0591",
+      "NPC-0522",
       "NPC-0699",
-      "NPC-0703",
-      "NPC-0805",
-      "NPC-0911"
+      "NPC-0805"
     ]
   },
   {
@@ -3331,7 +3669,7 @@
       "spots": [
         {
           "id": "ya_blackmkt_main",
-          "name": "塞上番马黑市 · 番坊正市 · 奇货堂",
+          "name": "番坊正市 · 奇货堂",
           "tag": "良驹毒草",
           "x": 688,
           "y": 272,
@@ -3342,7 +3680,15 @@
           "effect": {
             "riding": 3,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0122",
+            "NPC-0289",
+            "NPC-0435",
+            "NPC-0703",
+            "NPC-0710",
+            "NPC-0919"
+          ]
         },
         {
           "id": "ya_blackmkt_east",
@@ -3363,7 +3709,15 @@
               "辩才",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0181",
+            "NPC-0422",
+            "NPC-0432",
+            "NPC-0524",
+            "NPC-0744",
+            "NPC-0969"
+          ]
         },
         {
           "id": "ya_blackmkt_west",
@@ -3378,20 +3732,35 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0262",
+            "NPC-0358",
+            "NPC-0591",
+            "NPC-0683",
+            "NPC-0811",
+            "NPC-0953"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0122",
+      "NPC-0181",
+      "NPC-0262",
+      "NPC-0289",
+      "NPC-0358",
       "NPC-0422",
+      "NPC-0432",
+      "NPC-0435",
       "NPC-0524",
-      "NPC-0584",
-      "NPC-0682",
+      "NPC-0591",
       "NPC-0683",
-      "NPC-0693",
+      "NPC-0703",
+      "NPC-0710",
       "NPC-0744",
       "NPC-0811",
-      "NPC-0927",
+      "NPC-0919",
       "NPC-0953",
       "NPC-0969"
     ]
@@ -3422,13 +3791,7 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0031",
-      "NPC-0270",
-      "NPC-0272",
-      "NPC-0294",
-      "NPC-0500",
-      "NPC-0506",
-      "NPC-0522",
+      "NPC-0044",
       "NPC-0569",
       "NPC-0686",
       "NPC-0814"
@@ -3458,7 +3821,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0911",
+      "NPC-0927"
+    ]
   },
   {
     "id": "yanan_base_dojo",
@@ -3483,7 +3849,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0270",
+      "NPC-0500",
+      "NPC-0506"
+    ]
   },
   {
     "id": "yanan_base_inn",
@@ -3507,7 +3877,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0366",
+      "NPC-0781"
+    ]
   },
   {
     "id": "yanan_base_academy",
@@ -3541,7 +3914,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0584"
+    ]
   },
   {
     "id": "jn_baotu",
@@ -3577,7 +3952,7 @@
       "spots": [
         {
           "id": "jn_baotu_main",
-          "name": "趵突泉（观澜榭） · 主阁讲席 · 抚琴台",
+          "name": "主阁讲席 · 抚琴台",
           "tag": "天下第一泉",
           "x": 688,
           "y": 272,
@@ -3588,7 +3963,10 @@
           "effect": {
             "mp": 30,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0066"
+          ]
         },
         {
           "id": "jn_baotu_east",
@@ -3609,7 +3987,11 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0278",
+            "NPC-0843"
+          ]
         },
         {
           "id": "jn_baotu_west",
@@ -3624,14 +4006,20 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0204",
+            "NPC-0706"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0267",
-      "NPC-0613",
-      "NPC-0714"
+      "NPC-0066",
+      "NPC-0204",
+      "NPC-0278",
+      "NPC-0706",
+      "NPC-0843"
     ]
   },
   {
@@ -3674,7 +4062,7 @@
       "spots": [
         {
           "id": "jn_daminghu_main",
-          "name": "大明湖画舫水榭 · 画舫主舱 · 丝竹席",
+          "name": "画舫主舱 · 丝竹席",
           "tag": "荷柳雅集",
           "x": 688,
           "y": 272,
@@ -3691,7 +4079,11 @@
               "琴",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0583",
+            "NPC-0791"
+          ]
         },
         {
           "id": "jn_daminghu_east",
@@ -3712,7 +4104,11 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0230",
+            "NPC-0429"
+          ]
         },
         {
           "id": "jn_daminghu_west",
@@ -3727,23 +4123,21 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0180",
+            "NPC-0990"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0066",
       "NPC-0180",
-      "NPC-0204",
-      "NPC-0278",
-      "NPC-0309",
-      "NPC-0505",
-      "NPC-0571",
+      "NPC-0230",
+      "NPC-0429",
       "NPC-0583",
-      "NPC-0696",
-      "NPC-0706",
-      "NPC-0724",
-      "NPC-0996"
+      "NPC-0791",
+      "NPC-0990"
     ]
   },
   {
@@ -3786,7 +4180,7 @@
       "spots": [
         {
           "id": "jn_daimiao_main",
-          "name": "泰山岱庙行祠 · 大雄正殿 · 佛前蒲团",
+          "name": "大雄正殿 · 佛前蒲团",
           "tag": "东岳祖庭",
           "x": 688,
           "y": 272,
@@ -3803,7 +4197,11 @@
               "书",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0267",
+            "NPC-0571"
+          ]
         },
         {
           "id": "jn_daimiao_east",
@@ -3821,7 +4219,11 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0052",
+            "NPC-0827"
+          ]
         },
         {
           "id": "jn_daimiao_west",
@@ -3836,18 +4238,21 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0053",
+            "NPC-0439"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0426",
+      "NPC-0052",
+      "NPC-0053",
+      "NPC-0267",
       "NPC-0439",
-      "NPC-0523",
-      "NPC-0791",
-      "NPC-0827",
-      "NPC-0843",
-      "NPC-0990"
+      "NPC-0571",
+      "NPC-0827"
     ]
   },
   {
@@ -3903,7 +4308,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0505",
+      "NPC-0996"
+    ]
   },
   {
     "id": "jinan_base_academy",
@@ -3938,8 +4346,8 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0052",
-      "NPC-0053"
+      "NPC-0426",
+      "NPC-0523"
     ]
   },
   {
@@ -3966,9 +4374,8 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0230",
       "NPC-0415",
-      "NPC-0429"
+      "NPC-0714"
     ]
   },
   {
@@ -3993,7 +4400,12 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0309",
+      "NPC-0613",
+      "NPC-0696",
+      "NPC-0724"
+    ]
   },
   {
     "id": "yz_chaoguan",
@@ -4046,7 +4458,12 @@
               3
             ],
             "silver": 18
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0244",
+            "NPC-0567",
+            "NPC-0661"
+          ]
         },
         {
           "id": "yz_cg_lock",
@@ -4060,7 +4477,11 @@
           "effect": {
             "agi": 2,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0160",
+            "NPC-0600"
+          ]
         },
         {
           "id": "yz_cg_ship",
@@ -4074,26 +4495,24 @@
           "effect": {
             "hp": 30,
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0146",
+            "NPC-0722",
+            "NPC-0831"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0146",
-      "NPC-0171",
-      "NPC-0224",
+      "NPC-0160",
       "NPC-0244",
-      "NPC-0314",
-      "NPC-0321",
-      "NPC-0344",
-      "NPC-0597",
-      "NPC-0633",
-      "NPC-0647",
-      "NPC-0697",
-      "NPC-0809",
-      "NPC-0831",
-      "NPC-0847",
-      "NPC-0925"
+      "NPC-0567",
+      "NPC-0600",
+      "NPC-0661",
+      "NPC-0722",
+      "NPC-0831"
     ]
   },
   {
@@ -4153,7 +4572,12 @@
               "琴",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0277",
+            "NPC-0829",
+            "NPC-0973"
+          ]
         },
         {
           "id": "yz_24_pavilion",
@@ -4173,7 +4597,12 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0171",
+            "NPC-0647",
+            "NPC-0972"
+          ]
         },
         {
           "id": "yz_24_boat",
@@ -4191,26 +4620,25 @@
               3
             ],
             "mp": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0057",
+            "NPC-0697",
+            "NPC-0925"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0194",
-      "NPC-0370",
-      "NPC-0382",
-      "NPC-0386",
-      "NPC-0553",
-      "NPC-0567",
-      "NPC-0600",
-      "NPC-0642",
-      "NPC-0654",
-      "NPC-0661",
-      "NPC-0722",
-      "NPC-0786",
-      "NPC-0839",
-      "NPC-0905",
-      "NPC-0972"
+      "NPC-0057",
+      "NPC-0171",
+      "NPC-0277",
+      "NPC-0647",
+      "NPC-0697",
+      "NPC-0829",
+      "NPC-0925",
+      "NPC-0972",
+      "NPC-0973"
     ]
   },
   {
@@ -4263,7 +4691,11 @@
               3
             ],
             "silver": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0224",
+            "NPC-0595"
+          ]
         },
         {
           "id": "yz_sl_granary",
@@ -4280,7 +4712,11 @@
               4
             ],
             "silver": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0344",
+            "NPC-0839"
+          ]
         },
         {
           "id": "yz_sl_arena",
@@ -4294,17 +4730,23 @@
           "effect": {
             "hp": 35,
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0321",
+            "NPC-0654",
+            "NPC-0809"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0160",
-      "NPC-0277",
+      "NPC-0224",
+      "NPC-0321",
+      "NPC-0344",
       "NPC-0595",
-      "NPC-0829",
-      "NPC-0874",
-      "NPC-0973"
+      "NPC-0654",
+      "NPC-0809",
+      "NPC-0839"
     ]
   },
   {
@@ -4332,7 +4774,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0597"
+    ]
   },
   {
     "id": "yangzhou_base_tavern",
@@ -4358,7 +4802,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0194",
+      "NPC-0370",
+      "NPC-0847"
+    ]
   },
   {
     "id": "yangzhou_base_academy",
@@ -4393,7 +4841,9 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0057"
+      "NPC-0633",
+      "NPC-0642",
+      "NPC-0905"
     ]
   },
   {
@@ -4419,7 +4869,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0314",
+      "NPC-0553",
+      "NPC-0874"
+    ]
   },
   {
     "id": "yangzhou_base_inn",
@@ -4443,7 +4897,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0382",
+      "NPC-0386",
+      "NPC-0786"
+    ]
   },
   {
     "id": "jn2_qinhuai",
@@ -4502,7 +4960,12 @@
               "琴",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0590",
+            "NPC-0739",
+            "NPC-0844"
+          ]
         },
         {
           "id": "jn2_qh_pavilion",
@@ -4522,7 +4985,11 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0268",
+            "NPC-0295"
+          ]
         },
         {
           "id": "jn2_qh_oct",
@@ -4539,20 +5006,22 @@
               3
             ],
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0197",
+            "NPC-0856"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0062",
-      "NPC-0155",
+      "NPC-0197",
       "NPC-0268",
       "NPC-0295",
-      "NPC-0325",
-      "NPC-0348",
       "NPC-0590",
-      "NPC-0672",
-      "NPC-0838"
+      "NPC-0739",
+      "NPC-0844",
+      "NPC-0856"
     ]
   },
   {
@@ -4602,7 +5071,10 @@
           "effect": {
             "mp": 35,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0993"
+          ]
         },
         {
           "id": "jn2_qx_grotto",
@@ -4619,7 +5091,10 @@
               3
             ],
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0731"
+          ]
         },
         {
           "id": "jn2_qx_sutra",
@@ -4639,17 +5114,17 @@
               "经义",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0062"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0283",
-      "NPC-0373",
-      "NPC-0461",
-      "NPC-0634",
-      "NPC-0966",
-      "NPC-0998"
+      "NPC-0062",
+      "NPC-0731",
+      "NPC-0993"
     ]
   },
   {
@@ -4696,7 +5171,12 @@
           "effect": {
             "agi": 4,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0461",
+            "NPC-0619",
+            "NPC-0801"
+          ]
         },
         {
           "id": "jn2_st_villa",
@@ -4710,7 +5190,12 @@
           "effect": {
             "hp": 30,
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0155",
+            "NPC-0585",
+            "NPC-0672"
+          ]
         },
         {
           "id": "jn2_st_forge",
@@ -4724,26 +5209,27 @@
           "effect": {
             "res": 3,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0331",
+            "NPC-0572",
+            "NPC-0622",
+            "NPC-0966"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0197",
-      "NPC-0281",
-      "NPC-0311",
-      "NPC-0397",
-      "NPC-0457",
+      "NPC-0155",
+      "NPC-0331",
+      "NPC-0461",
+      "NPC-0572",
+      "NPC-0585",
       "NPC-0619",
-      "NPC-0662",
-      "NPC-0715",
-      "NPC-0731",
-      "NPC-0739",
-      "NPC-0778",
-      "NPC-0787",
-      "NPC-0844",
-      "NPC-0856",
-      "NPC-0993"
+      "NPC-0622",
+      "NPC-0672",
+      "NPC-0801",
+      "NPC-0966"
     ]
   },
   {
@@ -4772,14 +5258,7 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0019",
-      "NPC-0331",
-      "NPC-0466",
-      "NPC-0538",
-      "NPC-0572",
-      "NPC-0585",
-      "NPC-0622",
-      "NPC-0801",
+      "NPC-0838",
       "NPC-0840",
       "NPC-0924",
       "NPC-0958"
@@ -4818,7 +5297,10 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0020"
+      "NPC-0019",
+      "NPC-0020",
+      "NPC-0325",
+      "NPC-0348"
     ]
   },
   {
@@ -4845,7 +5327,14 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0281",
+      "NPC-0283",
+      "NPC-0373",
+      "NPC-0457",
+      "NPC-0662",
+      "NPC-0778"
+    ]
   },
   {
     "id": "jiangning_base_dojo",
@@ -4870,7 +5359,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0466",
+      "NPC-0538",
+      "NPC-0787"
+    ]
   },
   {
     "id": "jiangning_base_inn",
@@ -4894,7 +5387,13 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0311",
+      "NPC-0397",
+      "NPC-0634",
+      "NPC-0715",
+      "NPC-0998"
+    ]
   },
   {
     "id": "sz_huqiu",
@@ -4944,7 +5443,12 @@
           "effect": {
             "agi": 3,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0317",
+            "NPC-0441",
+            "NPC-0979"
+          ]
         },
         {
           "id": "sz_hq_pool",
@@ -4961,7 +5465,11 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0242",
+            "NPC-0965"
+          ]
         },
         {
           "id": "sz_hq_stone",
@@ -4981,22 +5489,22 @@
               "诗词",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0063",
+            "NPC-0618"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0174",
+      "NPC-0063",
+      "NPC-0242",
       "NPC-0317",
-      "NPC-0334",
-      "NPC-0436",
       "NPC-0441",
-      "NPC-0532",
-      "NPC-0554",
-      "NPC-0698",
-      "NPC-0903",
+      "NPC-0618",
       "NPC-0965",
-      "NPC-0975"
+      "NPC-0979"
     ]
   },
   {
@@ -5052,7 +5560,10 @@
               3
             ],
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0099"
+          ]
         },
         {
           "id": "sz_hs_bell",
@@ -5066,7 +5577,10 @@
           "effect": {
             "mp": 35,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0882"
+          ]
         },
         {
           "id": "sz_hs_poetry",
@@ -5086,18 +5600,19 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0212",
+            "NPC-0903"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0172",
-      "NPC-0247",
-      "NPC-0250",
-      "NPC-0761",
-      "NPC-0790",
-      "NPC-0916",
-      "NPC-0979"
+      "NPC-0099",
+      "NPC-0212",
+      "NPC-0882",
+      "NPC-0903"
     ]
   },
   {
@@ -5144,7 +5659,11 @@
           "effect": {
             "agi": 4,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0247",
+            "NPC-0698"
+          ]
         },
         {
           "id": "sz_th_boat",
@@ -5164,7 +5683,10 @@
               "辩才",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0213"
+          ]
         },
         {
           "id": "sz_th_pavilion",
@@ -5181,17 +5703,18 @@
               "诗词",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0174"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0212",
-      "NPC-0242",
-      "NPC-0618",
-      "NPC-0882",
-      "NPC-0947",
-      "NPC-0994"
+      "NPC-0174",
+      "NPC-0213",
+      "NPC-0247",
+      "NPC-0698"
     ]
   },
   {
@@ -5219,7 +5742,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0554",
+      "NPC-0916"
+    ]
   },
   {
     "id": "suzhou_base_academy",
@@ -5255,9 +5781,7 @@
     "interior": null,
     "residentNpcIds": [
       "NPC-0024",
-      "NPC-0051",
-      "NPC-0063",
-      "NPC-0099"
+      "NPC-0051"
     ]
   },
   {
@@ -5284,7 +5808,13 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0334",
+      "NPC-0532",
+      "NPC-0790",
+      "NPC-0975",
+      "NPC-0994"
+    ]
   },
   {
     "id": "suzhou_base_dojo",
@@ -5310,7 +5840,9 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0213"
+      "NPC-0250",
+      "NPC-0761",
+      "NPC-0947"
     ]
   },
   {
@@ -5335,7 +5867,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0172",
+      "NPC-0436"
+    ]
   },
   {
     "id": "hz_lingyin",
@@ -5377,7 +5912,7 @@
       "spots": [
         {
           "id": "hz_lingyin_main",
-          "name": "西湖灵隐飞来峰 · 大雄正殿 · 佛前蒲团",
+          "name": "大雄正殿 · 佛前蒲团",
           "tag": "东南佛国",
           "x": 688,
           "y": 272,
@@ -5394,7 +5929,11 @@
               "经义",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0098",
+            "NPC-0920"
+          ]
         },
         {
           "id": "hz_lingyin_east",
@@ -5412,7 +5951,11 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0716",
+            "NPC-0745"
+          ]
         },
         {
           "id": "hz_lingyin_west",
@@ -5427,24 +5970,21 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0525",
+            "NPC-0929"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0061",
-      "NPC-0150",
-      "NPC-0249",
-      "NPC-0306",
-      "NPC-0369",
-      "NPC-0410",
-      "NPC-0543",
-      "NPC-0573",
-      "NPC-0607",
-      "NPC-0689",
-      "NPC-0719",
-      "NPC-0962",
-      "NPC-0983"
+      "NPC-0098",
+      "NPC-0525",
+      "NPC-0716",
+      "NPC-0745",
+      "NPC-0920",
+      "NPC-0929"
     ]
   },
   {
@@ -5481,7 +6021,7 @@
       "spots": [
         {
           "id": "hz_tide_main",
-          "name": "钱塘江观潮台 · 高楼雅座 · 凭栏席",
+          "name": "高楼雅座 · 凭栏席",
           "tag": "怒潮排空",
           "x": 688,
           "y": 272,
@@ -5492,7 +6032,14 @@
           "effect": {
             "mp": 38,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0249",
+            "NPC-0470",
+            "NPC-0671",
+            "NPC-0865",
+            "NPC-0910"
+          ]
         },
         {
           "id": "hz_tide_east",
@@ -5513,7 +6060,13 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0150",
+            "NPC-0443",
+            "NPC-0607",
+            "NPC-0719"
+          ]
         },
         {
           "id": "hz_tide_west",
@@ -5528,26 +6081,32 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0225",
+            "NPC-0383",
+            "NPC-0543",
+            "NPC-0884",
+            "NPC-0928"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0150",
       "NPC-0225",
+      "NPC-0249",
       "NPC-0383",
-      "NPC-0525",
-      "NPC-0592",
-      "NPC-0741",
-      "NPC-0745",
-      "NPC-0796",
-      "NPC-0799",
-      "NPC-0852",
+      "NPC-0443",
+      "NPC-0470",
+      "NPC-0543",
+      "NPC-0607",
+      "NPC-0671",
+      "NPC-0719",
+      "NPC-0865",
       "NPC-0884",
       "NPC-0910",
-      "NPC-0928",
-      "NPC-0929",
-      "NPC-0960",
-      "NPC-0986"
+      "NPC-0928"
     ]
   },
   {
@@ -5587,7 +6146,7 @@
       "spots": [
         {
           "id": "hz_port_main",
-          "name": "两浙市舶司海港 · 水寨望楼 · 钞关厅",
+          "name": "水寨望楼 · 钞关厅",
           "tag": "万国海舶",
           "x": 688,
           "y": 272,
@@ -5601,7 +6160,12 @@
               3
             ],
             "silver": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0217",
+            "NPC-0799",
+            "NPC-0852"
+          ]
         },
         {
           "id": "hz_port_east",
@@ -5622,7 +6186,11 @@
               "辩才",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0369",
+            "NPC-0741"
+          ]
         },
         {
           "id": "hz_port_west",
@@ -5637,21 +6205,22 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0306",
+            "NPC-0573"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0217",
-      "NPC-0312",
-      "NPC-0443",
-      "NPC-0470",
-      "NPC-0501",
-      "NPC-0671",
-      "NPC-0716",
-      "NPC-0858",
-      "NPC-0865",
-      "NPC-0920"
+      "NPC-0306",
+      "NPC-0369",
+      "NPC-0573",
+      "NPC-0741",
+      "NPC-0799",
+      "NPC-0852"
     ]
   },
   {
@@ -5707,7 +6276,13 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0058",
+      "NPC-0410",
+      "NPC-0592",
+      "NPC-0796",
+      "NPC-0983"
+    ]
   },
   {
     "id": "hangzhou_base_academy",
@@ -5742,8 +6317,11 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0058",
-      "NPC-0098"
+      "NPC-0061",
+      "NPC-0312",
+      "NPC-0501",
+      "NPC-0858",
+      "NPC-0960"
     ]
   },
   {
@@ -5769,7 +6347,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0962",
+      "NPC-0986"
+    ]
   },
   {
     "id": "hangzhou_base_inn",
@@ -5793,7 +6374,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0689"
+    ]
   },
   {
     "id": "cd_dacisi",
@@ -5835,7 +6418,7 @@
       "spots": [
         {
           "id": "cd_dacisi_main",
-          "name": "大慈寺（唐宋壁画阁） · 大雄正殿 · 佛前蒲团",
+          "name": "大雄正殿 · 佛前蒲团",
           "tag": "丹青冠世",
           "x": 688,
           "y": 272,
@@ -5852,7 +6435,14 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0206",
+            "NPC-0471",
+            "NPC-0484",
+            "NPC-0875",
+            "NPC-0943"
+          ]
         },
         {
           "id": "cd_dacisi_east",
@@ -5870,7 +6460,13 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0055",
+            "NPC-0357",
+            "NPC-0625",
+            "NPC-0668"
+          ]
         },
         {
           "id": "cd_dacisi_west",
@@ -5885,25 +6481,30 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0266",
+            "NPC-0333",
+            "NPC-0493",
+            "NPC-0800"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0067",
-      "NPC-0219",
-      "NPC-0239",
-      "NPC-0320",
+      "NPC-0055",
+      "NPC-0206",
+      "NPC-0266",
+      "NPC-0333",
       "NPC-0357",
-      "NPC-0391",
-      "NPC-0458",
-      "NPC-0517",
-      "NPC-0540",
-      "NPC-0566",
+      "NPC-0471",
+      "NPC-0484",
+      "NPC-0493",
+      "NPC-0625",
+      "NPC-0668",
       "NPC-0800",
-      "NPC-0818",
-      "NPC-0849",
-      "NPC-0932"
+      "NPC-0875",
+      "NPC-0943"
     ]
   },
   {
@@ -5943,7 +6544,7 @@
       "spots": [
         {
           "id": "cd_qingyang_main",
-          "name": "青羊道宫 · 主阁讲席 · 抚琴台",
+          "name": "主阁讲席 · 抚琴台",
           "tag": "川西道祖",
           "x": 688,
           "y": 272,
@@ -5957,7 +6558,13 @@
               "经义",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0067",
+            "NPC-0610",
+            "NPC-0818",
+            "NPC-0932"
+          ]
         },
         {
           "id": "cd_qingyang_east",
@@ -5978,7 +6585,12 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0056",
+            "NPC-0355",
+            "NPC-0688"
+          ]
         },
         {
           "id": "cd_qingyang_west",
@@ -5993,22 +6605,26 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0458",
+            "NPC-0712",
+            "NPC-0845"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0175",
-      "NPC-0206",
-      "NPC-0266",
-      "NPC-0330",
-      "NPC-0346",
-      "NPC-0455",
-      "NPC-0471",
-      "NPC-0484",
-      "NPC-0493",
-      "NPC-0668",
-      "NPC-0845"
+      "NPC-0056",
+      "NPC-0067",
+      "NPC-0355",
+      "NPC-0458",
+      "NPC-0610",
+      "NPC-0688",
+      "NPC-0712",
+      "NPC-0818",
+      "NPC-0845",
+      "NPC-0932"
     ]
   },
   {
@@ -6048,7 +6664,7 @@
       "spots": [
         {
           "id": "cd_teahouse_main",
-          "name": "锦江万里桥茶肆 · 高楼雅座 · 凭栏席",
+          "name": "高楼雅座 · 凭栏席",
           "tag": "川藏茶马",
           "x": 688,
           "y": 272,
@@ -6062,7 +6678,12 @@
               3
             ],
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0219",
+            "NPC-0455",
+            "NPC-0650"
+          ]
         },
         {
           "id": "cd_teahouse_east",
@@ -6083,7 +6704,12 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0068",
+            "NPC-0346",
+            "NPC-0849"
+          ]
         },
         {
           "id": "cd_teahouse_west",
@@ -6098,22 +6724,24 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0175",
+            "NPC-0391",
+            "NPC-0985"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0025",
-      "NPC-0333",
-      "NPC-0355",
-      "NPC-0610",
+      "NPC-0068",
+      "NPC-0175",
+      "NPC-0219",
+      "NPC-0346",
+      "NPC-0391",
+      "NPC-0455",
       "NPC-0650",
-      "NPC-0688",
-      "NPC-0712",
-      "NPC-0792",
-      "NPC-0866",
-      "NPC-0943",
-      "NPC-0944",
+      "NPC-0849",
       "NPC-0985"
     ]
   },
@@ -6143,12 +6771,10 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
+      "NPC-0025",
       "NPC-0027",
-      "NPC-0468",
       "NPC-0482",
-      "NPC-0526",
-      "NPC-0625",
-      "NPC-0825"
+      "NPC-0526"
     ]
   },
   {
@@ -6185,10 +6811,9 @@
     "interior": null,
     "residentNpcIds": [
       "NPC-0054",
-      "NPC-0055",
-      "NPC-0056",
-      "NPC-0068",
-      "NPC-0875"
+      "NPC-0517",
+      "NPC-0866",
+      "NPC-0944"
     ]
   },
   {
@@ -6215,7 +6840,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0320",
+      "NPC-0540",
+      "NPC-0792"
+    ]
   },
   {
     "id": "chengdu_base_dojo",
@@ -6240,7 +6869,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0330",
+      "NPC-0468",
+      "NPC-0825"
+    ]
   },
   {
     "id": "chengdu_base_inn",
@@ -6264,7 +6897,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0239",
+      "NPC-0566"
+    ]
   },
   {
     "id": "xy_wall",
@@ -6303,7 +6939,7 @@
       "spots": [
         {
           "id": "xy_wall_main",
-          "name": "襄阳铁打雄城楼 · 雄关箭楼 · 望胡台",
+          "name": "雄关箭楼 · 望胡台",
           "tag": "七省锁钥",
           "x": 688,
           "y": 272,
@@ -6317,7 +6953,10 @@
               3
             ],
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0070"
+          ]
         },
         {
           "id": "xy_wall_east",
@@ -6335,7 +6974,10 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0390"
+          ]
         },
         {
           "id": "xy_wall_west",
@@ -6350,17 +6992,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0245"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0209",
+      "NPC-0070",
       "NPC-0245",
-      "NPC-0390",
-      "NPC-0404",
-      "NPC-0589",
-      "NPC-0950"
+      "NPC-0390"
     ]
   },
   {
@@ -6403,7 +7045,7 @@
       "spots": [
         {
           "id": "xy_longzhong_main",
-          "name": "古隆中草庐（八阵石迹） · 主阁讲席 · 抚琴台",
+          "name": "主阁讲席 · 抚琴台",
           "tag": "武侯遗韵",
           "x": 688,
           "y": 272,
@@ -6420,7 +7062,13 @@
               "算术",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0047",
+            "NPC-0561",
+            "NPC-0664",
+            "NPC-0665"
+          ]
         },
         {
           "id": "xy_longzhong_east",
@@ -6441,7 +7089,13 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0350",
+            "NPC-0416",
+            "NPC-0451",
+            "NPC-0832"
+          ]
         },
         {
           "id": "xy_longzhong_west",
@@ -6456,18 +7110,33 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0170",
+            "NPC-0424",
+            "NPC-0589",
+            "NPC-0623",
+            "NPC-0867",
+            "NPC-0955"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0352",
-      "NPC-0578",
+      "NPC-0047",
+      "NPC-0170",
+      "NPC-0350",
+      "NPC-0416",
+      "NPC-0424",
+      "NPC-0451",
+      "NPC-0561",
+      "NPC-0589",
       "NPC-0623",
       "NPC-0664",
-      "NPC-0694",
-      "NPC-0803",
-      "NPC-0832"
+      "NPC-0665",
+      "NPC-0832",
+      "NPC-0867",
+      "NPC-0955"
     ]
   },
   {
@@ -6504,7 +7173,7 @@
       "spots": [
         {
           "id": "xy_dock_main",
-          "name": "汉水大码头 · 水寨望楼 · 钞关厅",
+          "name": "水寨望楼 · 钞关厅",
           "tag": "荆襄水道",
           "x": 688,
           "y": 272,
@@ -6515,7 +7184,11 @@
           "effect": {
             "agi": 3,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0222",
+            "NPC-0694"
+          ]
         },
         {
           "id": "xy_dock_east",
@@ -6536,7 +7209,11 @@
               "辩才",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0352",
+            "NPC-0486"
+          ]
         },
         {
           "id": "xy_dock_west",
@@ -6551,29 +7228,20 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0209",
+            "NPC-0957"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0026",
-      "NPC-0070",
-      "NPC-0170",
+      "NPC-0209",
       "NPC-0222",
-      "NPC-0350",
-      "NPC-0393",
-      "NPC-0416",
-      "NPC-0424",
-      "NPC-0451",
-      "NPC-0463",
+      "NPC-0352",
       "NPC-0486",
-      "NPC-0561",
-      "NPC-0630",
-      "NPC-0665",
-      "NPC-0675",
-      "NPC-0692",
-      "NPC-0867",
-      "NPC-0955",
+      "NPC-0694",
       "NPC-0957"
     ]
   },
@@ -6602,7 +7270,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0026"
+    ]
   },
   {
     "id": "xiangyang_base_tavern",
@@ -6628,7 +7298,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0029",
+      "NPC-0692",
+      "NPC-0950"
+    ]
   },
   {
     "id": "xiangyang_base_dojo",
@@ -6653,7 +7327,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0803"
+    ]
   },
   {
     "id": "xiangyang_base_academy",
@@ -6688,9 +7364,9 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0029",
-      "NPC-0047",
-      "NPC-0894"
+      "NPC-0404",
+      "NPC-0578",
+      "NPC-0630"
     ]
   },
   {
@@ -6715,7 +7391,12 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0393",
+      "NPC-0463",
+      "NPC-0675",
+      "NPC-0894"
+    ]
   },
   {
     "id": "qz_kaiyuan",
@@ -6754,7 +7435,7 @@
       "spots": [
         {
           "id": "qz_kaiyuan_main",
-          "name": "泉州开元寺东西双塔 · 宝塔底层 · 舍利地宫",
+          "name": "宝塔底层 · 舍利地宫",
           "tag": "镇国石塔",
           "x": 688,
           "y": 272,
@@ -6768,7 +7449,14 @@
               3
             ],
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0165",
+            "NPC-0374",
+            "NPC-0425",
+            "NPC-0669",
+            "NPC-0775"
+          ]
         },
         {
           "id": "qz_kaiyuan_east",
@@ -6786,7 +7474,13 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0107",
+            "NPC-0392",
+            "NPC-0559",
+            "NPC-0575"
+          ]
         },
         {
           "id": "qz_kaiyuan_west",
@@ -6801,25 +7495,32 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0292",
+            "NPC-0300",
+            "NPC-0464",
+            "NPC-0717",
+            "NPC-0982"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0094",
       "NPC-0107",
       "NPC-0165",
-      "NPC-0264",
+      "NPC-0292",
       "NPC-0300",
-      "NPC-0313",
+      "NPC-0374",
       "NPC-0392",
+      "NPC-0425",
       "NPC-0464",
-      "NPC-0488",
       "NPC-0559",
-      "NPC-0586",
+      "NPC-0575",
       "NPC-0669",
-      "NPC-0757",
-      "NPC-0776"
+      "NPC-0717",
+      "NPC-0775",
+      "NPC-0982"
     ]
   },
   {
@@ -6859,7 +7560,7 @@
       "spots": [
         {
           "id": "qz_tea_main",
-          "name": "武夷斗茶雅市 · 主阁讲席 · 抚琴台",
+          "name": "主阁讲席 · 抚琴台",
           "tag": "蔡公茶录",
           "x": 688,
           "y": 272,
@@ -6873,7 +7574,13 @@
               3
             ],
             "mp": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0021",
+            "NPC-0594",
+            "NPC-0596",
+            "NPC-0813"
+          ]
         },
         {
           "id": "qz_tea_east",
@@ -6894,7 +7601,12 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0367",
+            "NPC-0438",
+            "NPC-0735"
+          ]
         },
         {
           "id": "qz_tea_west",
@@ -6909,19 +7621,28 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0313",
+            "NPC-0403",
+            "NPC-0757",
+            "NPC-0976"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0292",
-      "NPC-0349",
+      "NPC-0021",
+      "NPC-0313",
       "NPC-0367",
-      "NPC-0400",
       "NPC-0403",
-      "NPC-0632",
+      "NPC-0438",
+      "NPC-0594",
+      "NPC-0596",
       "NPC-0735",
-      "NPC-0982"
+      "NPC-0757",
+      "NPC-0813",
+      "NPC-0976"
     ]
   },
   {
@@ -6958,7 +7679,7 @@
       "spots": [
         {
           "id": "qz_port_main",
-          "name": "刺桐港万国番坊（望流求海道） · 水寨望楼 · 钞关厅",
+          "name": "水寨望楼 · 钞关厅",
           "tag": "东望台湾",
           "x": 688,
           "y": 272,
@@ -6969,7 +7690,11 @@
           "effect": {
             "res": 3,
             "silver": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0405",
+            "NPC-0759"
+          ]
         },
         {
           "id": "qz_port_east",
@@ -6990,7 +7715,13 @@
               "辩才",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0264",
+            "NPC-0740",
+            "NPC-0892",
+            "NPC-0912"
+          ]
         },
         {
           "id": "qz_port_west",
@@ -7005,29 +7736,23 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0094",
+            "NPC-0776"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0022",
-      "NPC-0374",
+      "NPC-0094",
+      "NPC-0264",
       "NPC-0405",
-      "NPC-0411",
-      "NPC-0425",
-      "NPC-0438",
-      "NPC-0575",
-      "NPC-0594",
-      "NPC-0596",
-      "NPC-0690",
-      "NPC-0717",
       "NPC-0740",
       "NPC-0759",
-      "NPC-0775",
-      "NPC-0813",
+      "NPC-0776",
       "NPC-0892",
-      "NPC-0912",
-      "NPC-0976"
+      "NPC-0912"
     ]
   },
   {
@@ -7056,7 +7781,7 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0021"
+      "NPC-0022"
     ]
   },
   {
@@ -7083,7 +7808,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0096",
+      "NPC-0411",
+      "NPC-0690"
+    ]
   },
   {
     "id": "quanzhou_base_dojo",
@@ -7109,7 +7838,7 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0096"
+      "NPC-0632"
     ]
   },
   {
@@ -7144,7 +7873,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0349",
+      "NPC-0488"
+    ]
   },
   {
     "id": "quanzhou_base_inn",
@@ -7168,7 +7900,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0400",
+      "NPC-0586"
+    ]
   },
   {
     "id": "xj_minzhong",
@@ -7223,7 +7958,8 @@
               3
             ],
             "mp": 25
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "xj_mz_stele",
@@ -7243,7 +7979,8 @@
               "辩才",
               2
             ]
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "xj_mz_zen",
@@ -7260,13 +7997,12 @@
               4
             ],
             "agi": 1
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
-    "residentNpcIds": [
-      "NPC-0184"
-    ]
+    "residentNpcIds": []
   },
   {
     "id": "xj_marshal",
@@ -7315,7 +8051,10 @@
               3
             ],
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0072"
+          ]
         },
         {
           "id": "xj_ms_tower",
@@ -7329,7 +8068,10 @@
           "effect": {
             "agi": 3,
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0076"
+          ]
         },
         {
           "id": "xj_ms_arena",
@@ -7343,13 +8085,17 @@
           "effect": {
             "hp": 35,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0151"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0557",
-      "NPC-0726"
+      "NPC-0072",
+      "NPC-0076",
+      "NPC-0151"
     ]
   },
   {
@@ -7402,7 +8148,11 @@
               "算术",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0726",
+            "NPC-0854"
+          ]
         },
         {
           "id": "xj_hs_yamen",
@@ -7419,7 +8169,10 @@
               3
             ],
             "silver": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0557"
+          ]
         },
         {
           "id": "xj_hs_lasso",
@@ -7436,14 +8189,18 @@
               4
             ],
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0184",
+            "NPC-0767"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0072",
-      "NPC-0079",
-      "NPC-0151",
+      "NPC-0184",
+      "NPC-0557",
+      "NPC-0726",
       "NPC-0767",
       "NPC-0854"
     ]
@@ -7474,7 +8231,7 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0076"
+      "NPC-0079"
     ]
   },
   {
@@ -7630,7 +8387,10 @@
           "effect": {
             "mp": 35,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0189"
+          ]
         },
         {
           "id": "dd_pg_hall",
@@ -7647,7 +8407,8 @@
               3
             ],
             "mp": 25
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "dd_pg_bell",
@@ -7661,13 +8422,13 @@
           "effect": {
             "hp": 25,
             "res": 3
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0351",
-      "NPC-0763"
+      "NPC-0189"
     ]
   },
   {
@@ -7726,7 +8487,10 @@
               "策论",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0077"
+          ]
         },
         {
           "id": "dd_ev_courtyard",
@@ -7746,7 +8510,10 @@
               "琴",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0235"
+          ]
         },
         {
           "id": "dd_ev_caravan",
@@ -7765,17 +8532,17 @@
               "算术",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0081"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0077",
       "NPC-0081",
-      "NPC-0235",
-      "NPC-0469",
-      "NPC-0676",
-      "NPC-0780"
+      "NPC-0235"
     ]
   },
   {
@@ -7826,7 +8593,10 @@
               "骑术",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0078"
+          ]
         },
         {
           "id": "dd_ht_valley",
@@ -7843,7 +8613,10 @@
               4
             ],
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0351"
+          ]
         },
         {
           "id": "dd_ht_bonfire",
@@ -7857,16 +8630,17 @@
           "effect": {
             "hp": 35,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0447"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0078",
-      "NPC-0189",
-      "NPC-0447",
-      "NPC-0711",
-      "NPC-0937"
+      "NPC-0351",
+      "NPC-0447"
     ]
   },
   {
@@ -7920,7 +8694,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0763",
+      "NPC-0937"
+    ]
   },
   {
     "id": "dading_liao_base_dojo",
@@ -7945,7 +8722,11 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0469",
+      "NPC-0676",
+      "NPC-0780"
+    ]
   },
   {
     "id": "dading_liao_base_academy",
@@ -7980,7 +8761,7 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0956"
+      "NPC-0711"
     ]
   },
   {
@@ -8005,7 +8786,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0956"
+    ]
   },
   {
     "id": "lh_goldtent",
@@ -8057,7 +8840,11 @@
               3
             ],
             "mp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0071",
+            "NPC-0121"
+          ]
         },
         {
           "id": "lh_gt_weiqi",
@@ -8074,7 +8861,10 @@
               4
             ],
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0073"
+          ]
         },
         {
           "id": "lh_gt_wagons",
@@ -8091,11 +8881,16 @@
               3
             ],
             "silver": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0074"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0071",
+      "NPC-0073",
       "NPC-0074",
       "NPC-0121"
     ]
@@ -8144,7 +8939,8 @@
           "effect": {
             "mp": 35,
             "res": 3
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "lh_at_shrine",
@@ -8161,7 +8957,8 @@
               2
             ],
             "hp": 25
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "lh_at_shaman",
@@ -8175,18 +8972,12 @@
           "effect": {
             "res": 4,
             "hp": 30
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
-    "residentNpcIds": [
-      "NPC-0071",
-      "NPC-0080",
-      "NPC-0234",
-      "NPC-0433",
-      "NPC-0515",
-      "NPC-0685"
-    ]
+    "residentNpcIds": []
   },
   {
     "id": "lh_ironcav",
@@ -8238,7 +9029,12 @@
               "骑术",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0075",
+            "NPC-0234",
+            "NPC-0687"
+          ]
         },
         {
           "id": "lh_ic_charge",
@@ -8255,7 +9051,11 @@
               4
             ],
             "hp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0080",
+            "NPC-0515"
+          ]
         },
         {
           "id": "lh_ic_forge",
@@ -8269,15 +9069,24 @@
           "effect": {
             "hp": 30,
             "res": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0444",
+            "NPC-0558",
+            "NPC-0685",
+            "NPC-0896"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0073",
       "NPC-0075",
+      "NPC-0080",
+      "NPC-0234",
       "NPC-0444",
+      "NPC-0515",
       "NPC-0558",
+      "NPC-0685",
       "NPC-0687",
       "NPC-0896"
     ]
@@ -8416,7 +9225,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0433"
+    ]
   },
   {
     "id": "xq_yipin",
@@ -8462,7 +9273,11 @@
           "effect": {
             "mp": 35,
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0084",
+            "NPC-0130"
+          ]
         },
         {
           "id": "xq_yp_vault",
@@ -8476,7 +9291,14 @@
           "effect": {
             "agi": 3,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0152",
+            "NPC-0232",
+            "NPC-0287",
+            "NPC-0399",
+            "NPC-0599"
+          ]
         },
         {
           "id": "xq_yp_arena",
@@ -8490,18 +9312,24 @@
           "effect": {
             "hp": 35,
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0182",
+            "NPC-0183"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0084",
+      "NPC-0130",
       "NPC-0152",
+      "NPC-0182",
+      "NPC-0183",
+      "NPC-0232",
+      "NPC-0287",
       "NPC-0399",
-      "NPC-0420",
-      "NPC-0492",
-      "NPC-0599",
-      "NPC-0889",
-      "NPC-0989"
+      "NPC-0599"
     ]
   },
   {
@@ -8539,7 +9367,7 @@
       "spots": [
         {
           "id": "xq_icecellar_main",
-          "name": "西夏皇宫寒玉冰窖 · 幽谷石室 · 寒玉榻",
+          "name": "幽谷石室 · 寒玉榻",
           "tag": "逍遥旧迹",
           "x": 688,
           "y": 272,
@@ -8551,7 +9379,11 @@
             "res": 4,
             "agi": 3,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0103",
+            "NPC-0492"
+          ]
         },
         {
           "id": "xq_icecellar_east",
@@ -8569,7 +9401,11 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0233",
+            "NPC-0347"
+          ]
         },
         {
           "id": "xq_icecellar_west",
@@ -8584,15 +9420,19 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0398"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0084",
+      "NPC-0103",
       "NPC-0233",
-      "NPC-0287",
-      "NPC-0398"
+      "NPC-0347",
+      "NPC-0398",
+      "NPC-0492"
     ]
   },
   {
@@ -8635,7 +9475,7 @@
       "spots": [
         {
           "id": "xq_tombs_main",
-          "name": "贺兰山皇家王陵 · 宝塔底层 · 舍利地宫",
+          "name": "宝塔底层 · 舍利地宫",
           "tag": "塞上秘陵",
           "x": 688,
           "y": 272,
@@ -8652,7 +9492,10 @@
               "画",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0082"
+          ]
         },
         {
           "id": "xq_tombs_east",
@@ -8670,7 +9513,10 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0412"
+          ]
         },
         {
           "id": "xq_tombs_west",
@@ -8685,17 +9531,13 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0082",
-      "NPC-0083",
-      "NPC-0103",
-      "NPC-0130",
-      "NPC-0182",
-      "NPC-0347",
       "NPC-0412"
     ]
   },
@@ -8733,7 +9575,7 @@
       "spots": [
         {
           "id": "xq_tieyaozi_main",
-          "name": "铁鹞子重骑大营 · 中军帅帐 · 沙盘台",
+          "name": "中军帅帐 · 沙盘台",
           "tag": "西夏战马",
           "x": 688,
           "y": 272,
@@ -8744,7 +9586,11 @@
           "effect": {
             "riding": 4,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0085",
+            "NPC-0989"
+          ]
         },
         {
           "id": "xq_tieyaozi_east",
@@ -8762,7 +9608,10 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0721"
+          ]
         },
         {
           "id": "xq_tieyaozi_west",
@@ -8777,17 +9626,22 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0402",
+            "NPC-0889",
+            "NPC-0938"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0085",
-      "NPC-0183",
-      "NPC-0232",
       "NPC-0402",
       "NPC-0721",
-      "NPC-0938"
+      "NPC-0889",
+      "NPC-0938",
+      "NPC-0989"
     ]
   },
   {
@@ -8815,7 +9669,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0083"
+    ]
   },
   {
     "id": "xingqing_xixia_base_tavern",
@@ -8924,7 +9780,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0420"
+    ]
   },
   {
     "id": "lx_potala",
@@ -8960,7 +9818,7 @@
       "spots": [
         {
           "id": "lx_potala_main",
-          "name": "红山布达拉古宫 · 正殿丹墀 · 议政堂",
+          "name": "正殿丹墀 · 议政堂",
           "tag": "雪域圣宫",
           "x": 688,
           "y": 272,
@@ -8971,7 +9829,10 @@
           "effect": {
             "hp": 40,
             "res": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0089"
+          ]
         },
         {
           "id": "lx_potala_east",
@@ -8989,7 +9850,10 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0091"
+          ]
         },
         {
           "id": "lx_potala_west",
@@ -9004,13 +9868,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0090"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0089",
       "NPC-0090",
-      "NPC-0749"
+      "NPC-0091"
     ]
   },
   {
@@ -9050,7 +9918,7 @@
       "spots": [
         {
           "id": "lx_jokhang_main",
-          "name": "大昭圣寺金顶 · 大雄正殿 · 佛前蒲团",
+          "name": "大雄正殿 · 佛前蒲团",
           "tag": "火焰刀脉",
           "x": 688,
           "y": 272,
@@ -9064,7 +9932,10 @@
               "经义",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0093"
+          ]
         },
         {
           "id": "lx_jokhang_east",
@@ -9082,7 +9953,8 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "lx_jokhang_west",
@@ -9097,16 +9969,20 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0153",
+            "NPC-0616",
+            "NPC-0752"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0092",
       "NPC-0093",
-      "NPC-0608",
-      "NPC-0754",
-      "NPC-0997"
+      "NPC-0153",
+      "NPC-0616",
+      "NPC-0752"
     ]
   },
   {
@@ -9149,7 +10025,7 @@
       "spots": [
         {
           "id": "lx_debate_main",
-          "name": "雪域密宗辩经大坛 · 主阁讲席 · 抚琴台",
+          "name": "主阁讲席 · 抚琴台",
           "tag": "击掌辩经",
           "x": 688,
           "y": 272,
@@ -9166,7 +10042,10 @@
               "辩才",
               4
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0092"
+          ]
         },
         {
           "id": "lx_debate_east",
@@ -9187,7 +10066,10 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0113"
+          ]
         },
         {
           "id": "lx_debate_west",
@@ -9202,17 +10084,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0997"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0089",
-      "NPC-0091",
+      "NPC-0092",
       "NPC-0113",
-      "NPC-0153",
-      "NPC-0332",
-      "NPC-0765"
+      "NPC-0997"
     ]
   },
   {
@@ -9266,7 +10148,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0332",
+      "NPC-0749"
+    ]
   },
   {
     "id": "luoxie_tubo_base_dojo",
@@ -9292,8 +10177,7 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0616",
-      "NPC-0752"
+      "NPC-0608"
     ]
   },
   {
@@ -9352,7 +10236,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0754",
+      "NPC-0765"
+    ]
   },
   {
     "id": "dl_tianlong",
@@ -9391,7 +10278,7 @@
       "spots": [
         {
           "id": "dl_tianlong_main",
-          "name": "点苍崇圣寺三塔（天龙寺） · 宝塔底层 · 舍利地宫",
+          "name": "宝塔底层 · 舍利地宫",
           "tag": "六脉圣地",
           "x": 688,
           "y": 272,
@@ -9405,7 +10292,10 @@
               "经义",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0108"
+          ]
         },
         {
           "id": "dl_tianlong_east",
@@ -9423,7 +10313,11 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0144",
+            "NPC-0260"
+          ]
         },
         {
           "id": "dl_tianlong_west",
@@ -9438,16 +10332,20 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0116",
+            "NPC-0261"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0087",
       "NPC-0108",
+      "NPC-0116",
       "NPC-0144",
-      "NPC-0452",
-      "NPC-0700"
+      "NPC-0260",
+      "NPC-0261"
     ]
   },
   {
@@ -9487,7 +10385,7 @@
       "spots": [
         {
           "id": "dl_palace_main",
-          "name": "大理国皇宫·镇南王府 · 正殿丹墀 · 议政堂",
+          "name": "正殿丹墀 · 议政堂",
           "tag": "段氏皇族",
           "x": 688,
           "y": 272,
@@ -9501,7 +10399,11 @@
               3
             ],
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0086",
+            "NPC-0143"
+          ]
         },
         {
           "id": "dl_palace_east",
@@ -9519,7 +10421,11 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0236",
+            "NPC-0259"
+          ]
         },
         {
           "id": "dl_palace_west",
@@ -9534,15 +10440,25 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0088",
+            "NPC-0237",
+            "NPC-0238",
+            "NPC-0258"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0116",
-      "NPC-0240",
-      "NPC-0260",
-      "NPC-0853"
+      "NPC-0086",
+      "NPC-0088",
+      "NPC-0143",
+      "NPC-0236",
+      "NPC-0237",
+      "NPC-0238",
+      "NPC-0258",
+      "NPC-0259"
     ]
   },
   {
@@ -9579,7 +10495,7 @@
       "spots": [
         {
           "id": "dl_chama_main",
-          "name": "洱海茶马古道总集 · 番坊正市 · 奇货堂",
+          "name": "番坊正市 · 奇货堂",
           "tag": "滇藏花市",
           "x": 688,
           "y": 272,
@@ -9590,7 +10506,10 @@
           "effect": {
             "res": 3,
             "riding": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0095"
+          ]
         },
         {
           "id": "dl_chama_east",
@@ -9611,7 +10530,10 @@
               "辩才",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0452"
+          ]
         },
         {
           "id": "dl_chama_west",
@@ -9626,17 +10548,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0240"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0086",
       "NPC-0095",
-      "NPC-0143",
-      "NPC-0236",
-      "NPC-0261",
-      "NPC-0449"
+      "NPC-0240",
+      "NPC-0452"
     ]
   },
   {
@@ -9665,10 +10587,7 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0237",
-      "NPC-0238",
-      "NPC-0258",
-      "NPC-0259"
+      "NPC-0087"
     ]
   },
   {
@@ -9695,7 +10614,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0449"
+    ]
   },
   {
     "id": "dali_city_base_dojo",
@@ -9720,9 +10641,7 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": [
-      "NPC-0088"
-    ]
+    "residentNpcIds": []
   },
   {
     "id": "dali_city_base_academy",
@@ -9780,7 +10699,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0700",
+      "NPC-0853"
+    ]
   },
   {
     "id": "kl_yaochi",
@@ -9826,7 +10748,11 @@
           "effect": {
             "res": 5,
             "mp": 40
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0102",
+            "NPC-0917"
+          ]
         },
         {
           "id": "kl_yc_pool",
@@ -9840,7 +10766,11 @@
           "effect": {
             "hp": 35,
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0265",
+            "NPC-0413"
+          ]
         },
         {
           "id": "kl_yc_grotto",
@@ -9857,14 +10787,20 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0329",
+            "NPC-0940"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0102",
+      "NPC-0265",
       "NPC-0329",
-      "NPC-0362",
+      "NPC-0413",
+      "NPC-0917",
       "NPC-0940"
     ]
   },
@@ -9919,7 +10855,10 @@
           "effect": {
             "agi": 3,
             "mp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0131"
+          ]
         },
         {
           "id": "kl_sv_pavilion",
@@ -9939,7 +10878,10 @@
               "棋",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0476"
+          ]
         },
         {
           "id": "kl_sv_terrace",
@@ -9953,13 +10895,17 @@
           "effect": {
             "hp": 30,
             "agi": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0621"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0131",
-      "NPC-0917"
+      "NPC-0476",
+      "NPC-0621"
     ]
   },
   {
@@ -10006,7 +10952,11 @@
           "effect": {
             "res": 4,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0263",
+            "NPC-0497"
+          ]
         },
         {
           "id": "kl_ps_cave",
@@ -10020,7 +10970,11 @@
           "effect": {
             "res": 4,
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0190",
+            "NPC-0588"
+          ]
         },
         {
           "id": "kl_ps_pavilion",
@@ -10037,15 +10991,20 @@
               3
             ],
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0362",
+            "NPC-0863"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0190",
       "NPC-0263",
-      "NPC-0265",
+      "NPC-0362",
+      "NPC-0497",
       "NPC-0588",
-      "NPC-0621",
       "NPC-0863"
     ]
   },
@@ -10093,7 +11052,8 @@
           "effect": {
             "hp": 45,
             "mp": 35
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "kl_sm_que",
@@ -10113,7 +11073,10 @@
               "画",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0445"
+          ]
         },
         {
           "id": "kl_sm_cliff",
@@ -10127,16 +11090,13 @@
           "effect": {
             "res": 4,
             "agi": 3
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0190",
-      "NPC-0413",
-      "NPC-0445",
-      "NPC-0476",
-      "NPC-0497"
+      "NPC-0445"
     ]
   },
   {
@@ -10189,7 +11149,11 @@
               4
             ],
             "mp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0104",
+            "NPC-0648"
+          ]
         },
         {
           "id": "sl_cj_sweeper",
@@ -10203,7 +11167,11 @@
           "effect": {
             "mp": 45,
             "res": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0101",
+            "NPC-0830"
+          ]
         },
         {
           "id": "sl_cj_terrace",
@@ -10223,7 +11191,11 @@
               "书",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0105",
+            "NPC-0498"
+          ]
         }
       ]
     },
@@ -10231,14 +11203,9 @@
       "NPC-0101",
       "NPC-0104",
       "NPC-0105",
-      "NPC-0126",
-      "NPC-0134",
-      "NPC-0192",
-      "NPC-0254",
-      "NPC-0356",
-      "NPC-0483",
-      "NPC-0782",
-      "NPC-0842"
+      "NPC-0498",
+      "NPC-0648",
+      "NPC-0830"
     ]
   },
   {
@@ -10275,7 +11242,7 @@
       "spots": [
         {
           "id": "sl_damo_main",
-          "name": "达摩面壁石洞 · 幽谷石室 · 寒玉榻",
+          "name": "幽谷石室 · 寒玉榻",
           "tag": "九年面壁",
           "x": 688,
           "y": 272,
@@ -10286,7 +11253,11 @@
           "effect": {
             "mp": 40,
             "res": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0109",
+            "NPC-0322"
+          ]
         },
         {
           "id": "sl_damo_east",
@@ -10304,7 +11275,12 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0127",
+            "NPC-0255",
+            "NPC-0951"
+          ]
         },
         {
           "id": "sl_damo_west",
@@ -10319,21 +11295,24 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0135",
+            "NPC-0315",
+            "NPC-0450"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0109",
       "NPC-0127",
       "NPC-0135",
-      "NPC-0156",
-      "NPC-0158",
       "NPC-0255",
-      "NPC-0627",
-      "NPC-0648",
-      "NPC-0673",
-      "NPC-0830",
-      "NPC-0861"
+      "NPC-0315",
+      "NPC-0322",
+      "NPC-0450",
+      "NPC-0951"
     ]
   },
   {
@@ -10370,7 +11349,7 @@
       "spots": [
         {
           "id": "sl_luohan_main",
-          "name": "十八铜人罗汉堂 · 中军帅帐 · 沙盘台",
+          "name": "罗汉堂演武正殿",
           "tag": "闯阵试炼",
           "x": 688,
           "y": 272,
@@ -10381,12 +11360,19 @@
           "effect": {
             "hp": 40,
             "agi": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0126",
+            "NPC-0483",
+            "NPC-0769",
+            "NPC-0842",
+            "NPC-0861"
+          ]
         },
         {
           "id": "sl_luohan_east",
-          "name": "点将高台 · 旌旗阵",
-          "tag": "军阵气血",
+          "name": "十八铜人木桩廊",
+          "tag": "刚猛淬骨",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -10399,12 +11385,17 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0156",
+            "NPC-0254",
+            "NPC-0356"
+          ]
         },
         {
           "id": "sl_luohan_west",
-          "name": "辕门骑射场",
-          "tag": "弓马骑术",
+          "name": "东庑碑帖武库院",
+          "tag": "拳棒参修",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -10414,16 +11405,27 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0191",
+            "NPC-0192",
+            "NPC-0918"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0109",
-      "NPC-0498",
-      "NPC-0789",
-      "NPC-0918",
-      "NPC-0951"
+      "NPC-0126",
+      "NPC-0156",
+      "NPC-0191",
+      "NPC-0192",
+      "NPC-0254",
+      "NPC-0356",
+      "NPC-0483",
+      "NPC-0769",
+      "NPC-0842",
+      "NPC-0861",
+      "NPC-0918"
     ]
   },
   {
@@ -10466,7 +11468,7 @@
       "spots": [
         {
           "id": "sl_daxiong_main",
-          "name": "大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团",
+          "name": "大雄正殿 · 佛前蒲团",
           "tag": "泰山北斗",
           "x": 688,
           "y": 272,
@@ -10483,7 +11485,11 @@
               "辩才",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0112",
+            "NPC-0673"
+          ]
         },
         {
           "id": "sl_daxiong_east",
@@ -10501,7 +11507,11 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0158",
+            "NPC-0782"
+          ]
         },
         {
           "id": "sl_daxiong_west",
@@ -10516,18 +11526,25 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0134",
+            "NPC-0193",
+            "NPC-0627",
+            "NPC-0789"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0112",
-      "NPC-0191",
+      "NPC-0134",
+      "NPC-0158",
       "NPC-0193",
-      "NPC-0315",
-      "NPC-0322",
-      "NPC-0450",
-      "NPC-0769"
+      "NPC-0627",
+      "NPC-0673",
+      "NPC-0782",
+      "NPC-0789"
     ]
   },
   {
@@ -10568,7 +11585,7 @@
       "spots": [
         {
           "id": "ym_cliff_main",
-          "name": "雁门关外乱石绝壁 · 幽谷石室 · 寒玉榻",
+          "name": "幽谷石室 · 寒玉榻",
           "tag": "胡汉恩仇",
           "x": 688,
           "y": 272,
@@ -10583,7 +11600,11 @@
             ],
             "agi": 3,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0456",
+            "NPC-0946"
+          ]
         },
         {
           "id": "ym_cliff_east",
@@ -10601,7 +11622,11 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0564",
+            "NPC-0639"
+          ]
         },
         {
           "id": "ym_cliff_west",
@@ -10616,21 +11641,20 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0519",
+            "NPC-0709"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0163",
-      "NPC-0253",
-      "NPC-0546",
+      "NPC-0456",
+      "NPC-0519",
       "NPC-0564",
       "NPC-0639",
       "NPC-0709",
-      "NPC-0746",
-      "NPC-0795",
-      "NPC-0855",
-      "NPC-0935",
       "NPC-0946"
     ]
   },
@@ -10671,7 +11695,7 @@
       "spots": [
         {
           "id": "ym_limu_main",
-          "name": "镇边李牧武安君祠 · 大雄正殿 · 佛前蒲团",
+          "name": "大雄正殿 · 佛前蒲团",
           "tag": "千古名将",
           "x": 688,
           "y": 272,
@@ -10685,7 +11709,13 @@
               4
             ],
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0163",
+            "NPC-0746",
+            "NPC-0872",
+            "NPC-0935"
+          ]
         },
         {
           "id": "ym_limu_east",
@@ -10703,7 +11733,12 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0546",
+            "NPC-0855",
+            "NPC-0904"
+          ]
         },
         {
           "id": "ym_limu_west",
@@ -10718,16 +11753,26 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0406",
+            "NPC-0742",
+            "NPC-0795"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0456",
-      "NPC-0580",
-      "NPC-0657",
+      "NPC-0163",
+      "NPC-0406",
+      "NPC-0546",
       "NPC-0742",
-      "NPC-0879"
+      "NPC-0746",
+      "NPC-0795",
+      "NPC-0855",
+      "NPC-0872",
+      "NPC-0904",
+      "NPC-0935"
     ]
   },
   {
@@ -10764,7 +11809,7 @@
       "spots": [
         {
           "id": "ym_tower_main",
-          "name": "雁门雄关城楼 · 雄关箭楼 · 望胡台",
+          "name": "雄关箭楼 · 望胡台",
           "tag": "天下九塞首",
           "x": 688,
           "y": 272,
@@ -10775,7 +11820,11 @@
           "effect": {
             "hp": 35,
             "silver": 18
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0579",
+            "NPC-0657"
+          ]
         },
         {
           "id": "ym_tower_east",
@@ -10793,7 +11842,10 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0253"
+          ]
         },
         {
           "id": "ym_tower_west",
@@ -10808,16 +11860,20 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0580",
+            "NPC-0879"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0406",
-      "NPC-0519",
+      "NPC-0253",
       "NPC-0579",
-      "NPC-0872",
-      "NPC-0904"
+      "NPC-0580",
+      "NPC-0657",
+      "NPC-0879"
     ]
   },
   {
@@ -10857,7 +11913,7 @@
       "spots": [
         {
           "id": "wt_main_main",
-          "name": "清凉寺大雄主殿 · 大雄正殿 · 佛前蒲团",
+          "name": "大雄正殿 · 佛前蒲团",
           "tag": "文殊道场",
           "x": 688,
           "y": 272,
@@ -10871,7 +11927,11 @@
               3
             ],
             "mp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0123",
+            "NPC-0481"
+          ]
         },
         {
           "id": "wt_main_east",
@@ -10889,7 +11949,10 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0304"
+          ]
         },
         {
           "id": "wt_main_west",
@@ -10904,14 +11967,18 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0680",
+            "NPC-0755"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0123",
-      "NPC-0162",
-      "NPC-0199",
+      "NPC-0304",
+      "NPC-0481",
       "NPC-0680",
       "NPC-0755"
     ]
@@ -10950,7 +12017,7 @@
       "spots": [
         {
           "id": "wt_staff_main",
-          "name": "杨五郎演棍石台 · 中军帅帐 · 沙盘台",
+          "name": "五郎八卦演棍主台",
           "tag": "五郎八卦棍",
           "x": 688,
           "y": 272,
@@ -10961,12 +12028,15 @@
           "effect": {
             "hp": 38,
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0199"
+          ]
         },
         {
           "id": "wt_staff_east",
-          "name": "点将高台 · 旌旗阵",
-          "tag": "军阵气血",
+          "name": "百兵石锁校武坪",
+          "tag": "气血锤炼",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -10979,12 +12049,13 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "wt_staff_west",
-          "name": "辕门骑射场",
-          "tag": "弓马骑术",
+          "name": "松风观云禅亭",
+          "tag": "吐纳养气",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -10994,13 +12065,18 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0504",
+            "NPC-0941"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0481",
-      "NPC-0504"
+      "NPC-0199",
+      "NPC-0504",
+      "NPC-0941"
     ]
   },
   {
@@ -11040,7 +12116,7 @@
       "spots": [
         {
           "id": "wt_orphan_main",
-          "name": "边关遗孤慈济院 · 正堂议事厅",
+          "name": "正堂议事厅",
           "tag": "菩萨心肠",
           "x": 688,
           "y": 272,
@@ -11054,7 +12130,10 @@
               "辩才",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0162"
+          ]
         },
         {
           "id": "wt_orphan_east",
@@ -11072,7 +12151,8 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "wt_orphan_west",
@@ -11087,13 +12167,13 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0304",
-      "NPC-0941"
+      "NPC-0162"
     ]
   },
   {
@@ -11133,7 +12213,7 @@
       "spots": [
         {
           "id": "th_hall_main",
-          "name": "聚义忠义大堂 · 雄关箭楼 · 望胡台",
+          "name": "雄关箭楼 · 望胡台",
           "tag": "替天行道",
           "x": 688,
           "y": 272,
@@ -11147,7 +12227,10 @@
               4
             ],
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0142"
+          ]
         },
         {
           "id": "th_hall_east",
@@ -11165,7 +12248,8 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "th_hall_west",
@@ -11180,12 +12264,13 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0895"
+      "NPC-0142"
     ]
   },
   {
@@ -11222,7 +12307,7 @@
       "spots": [
         {
           "id": "th_bridge_main",
-          "name": "飞狐断魂索桥 · 水寨望楼 · 钞关厅",
+          "name": "水寨望楼 · 钞关厅",
           "tag": "千丈深涧",
           "x": 688,
           "y": 272,
@@ -11233,7 +12318,10 @@
           "effect": {
             "agi": 4,
             "mp": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0908"
+          ]
         },
         {
           "id": "th_bridge_east",
@@ -11254,7 +12342,10 @@
               "辩才",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0707"
+          ]
         },
         {
           "id": "th_bridge_west",
@@ -11269,12 +12360,14 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0923"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0142",
       "NPC-0707",
       "NPC-0908",
       "NPC-0923"
@@ -11317,7 +12410,7 @@
       "spots": [
         {
           "id": "th_vault_main",
-          "name": "太行藏金义仓 · 幽谷石室 · 寒玉榻",
+          "name": "幽谷石室 · 寒玉榻",
           "tag": "劫富济贫",
           "x": 688,
           "y": 272,
@@ -11331,7 +12424,10 @@
               3
             ],
             "silver": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0895"
+          ]
         },
         {
           "id": "th_vault_east",
@@ -11349,7 +12445,10 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0341"
+          ]
         },
         {
           "id": "th_vault_west",
@@ -11364,12 +12463,14 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0341"
+      "NPC-0341",
+      "NPC-0895"
     ]
   },
   {
@@ -11416,7 +12517,11 @@
           "effect": {
             "mp": 40,
             "agi": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0147",
+            "NPC-0581"
+          ]
         },
         {
           "id": "tg_sm_pine",
@@ -11436,7 +12541,10 @@
               "画",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0460"
+          ]
         },
         {
           "id": "tg_sm_chess",
@@ -11456,20 +12564,20 @@
               "算术",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0427",
+            "NPC-0949"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0147",
-      "NPC-0166",
-      "NPC-0371",
-      "NPC-0487",
+      "NPC-0427",
+      "NPC-0460",
       "NPC-0581",
-      "NPC-0806",
-      "NPC-0949",
-      "NPC-0954",
-      "NPC-0978"
+      "NPC-0949"
     ]
   },
   {
@@ -11522,7 +12630,11 @@
               3
             ],
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0118",
+            "NPC-0954"
+          ]
         },
         {
           "id": "tg_zx_terrace",
@@ -11536,7 +12648,11 @@
           "effect": {
             "mp": 40,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0202",
+            "NPC-0806"
+          ]
         },
         {
           "id": "tg_zx_spring",
@@ -11550,14 +12666,19 @@
           "effect": {
             "agi": 3,
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0166"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0118",
+      "NPC-0166",
       "NPC-0202",
-      "NPC-0427",
-      "NPC-0460"
+      "NPC-0806",
+      "NPC-0954"
     ]
   },
   {
@@ -11611,7 +12732,11 @@
             ],
             "agi": 3,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0375",
+            "NPC-0487"
+          ]
         },
         {
           "id": "tg_sg_ledge",
@@ -11625,7 +12750,11 @@
           "effect": {
             "agi": 3,
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0371",
+            "NPC-0760"
+          ]
         },
         {
           "id": "tg_sg_falls",
@@ -11639,15 +12768,21 @@
           "effect": {
             "res": 3,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0428",
+            "NPC-0978"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0118",
+      "NPC-0371",
       "NPC-0375",
       "NPC-0428",
-      "NPC-0760"
+      "NPC-0487",
+      "NPC-0760",
+      "NPC-0978"
     ]
   },
   {
@@ -11700,7 +12835,17 @@
               4
             ],
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0203",
+            "NPC-0372",
+            "NPC-0448",
+            "NPC-0624",
+            "NPC-0645",
+            "NPC-0891",
+            "NPC-0991",
+            "NPC-1000"
+          ]
         },
         {
           "id": "tg_ft_beacon",
@@ -11717,7 +12862,16 @@
               3
             ],
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0363",
+            "NPC-0396",
+            "NPC-0442",
+            "NPC-0606",
+            "NPC-0785",
+            "NPC-0788",
+            "NPC-0977"
+          ]
         },
         {
           "id": "tg_ft_yard",
@@ -11734,7 +12888,16 @@
               "算术",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0286",
+            "NPC-0387",
+            "NPC-0434",
+            "NPC-0490",
+            "NPC-0747",
+            "NPC-0913",
+            "NPC-0939"
+          ]
         }
       ]
     },
@@ -11808,7 +12971,11 @@
           "effect": {
             "mp": 42,
             "res": 4
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0114",
+            "NPC-0659"
+          ]
         },
         {
           "id": "zn_tb_sparrow",
@@ -11822,7 +12989,10 @@
           "effect": {
             "agi": 4,
             "hp": 20
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0173"
+          ]
         },
         {
           "id": "zn_tb_honey",
@@ -11836,16 +13006,18 @@
           "effect": {
             "hp": 30,
             "res": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0629"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0339",
-      "NPC-0649",
-      "NPC-0695",
-      "NPC-0766",
-      "NPC-0922"
+      "NPC-0114",
+      "NPC-0173",
+      "NPC-0629",
+      "NPC-0659"
     ]
   },
   {
@@ -11901,7 +13073,13 @@
               3
             ],
             "mp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0133",
+            "NPC-0454",
+            "NPC-0677",
+            "NPC-0751"
+          ]
         },
         {
           "id": "zn_to_dipper",
@@ -11918,7 +13096,12 @@
               3
             ],
             "agi": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0216",
+            "NPC-0276",
+            "NPC-0593"
+          ]
         },
         {
           "id": "zn_to_alchemy",
@@ -11935,18 +13118,28 @@
               3
             ],
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0339",
+            "NPC-0530",
+            "NPC-0695",
+            "NPC-0766"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0114",
+      "NPC-0133",
+      "NPC-0216",
+      "NPC-0276",
+      "NPC-0339",
       "NPC-0454",
       "NPC-0530",
-      "NPC-0629",
-      "NPC-0659",
-      "NPC-0736",
-      "NPC-0931"
+      "NPC-0593",
+      "NPC-0677",
+      "NPC-0695",
+      "NPC-0751",
+      "NPC-0766"
     ]
   },
   {
@@ -12002,7 +13195,11 @@
               4
             ],
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0649",
+            "NPC-0931"
+          ]
         },
         {
           "id": "zn_st_sword",
@@ -12019,7 +13216,10 @@
               "诗词",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0552"
+          ]
         },
         {
           "id": "zn_st_falls",
@@ -12036,20 +13236,22 @@
               3
             ],
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0514",
+            "NPC-0736",
+            "NPC-0922"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0133",
-      "NPC-0173",
-      "NPC-0216",
-      "NPC-0276",
       "NPC-0514",
       "NPC-0552",
-      "NPC-0593",
-      "NPC-0677",
-      "NPC-0751"
+      "NPC-0649",
+      "NPC-0736",
+      "NPC-0922",
+      "NPC-0931"
     ]
   },
   {
@@ -12102,7 +13304,10 @@
               4
             ],
             "hp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0129"
+          ]
         },
         {
           "id": "ts_yh_sunrise",
@@ -12119,7 +13324,8 @@
               "诗词",
               2
             ]
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "ts_yh_stele",
@@ -12139,14 +13345,16 @@
               "经义",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0302"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0168",
-      "NPC-0535",
-      "NPC-0870"
+      "NPC-0129",
+      "NPC-0302"
     ]
   },
   {
@@ -12186,7 +13394,7 @@
       "spots": [
         {
           "id": "ts_daoyuan_main",
-          "name": "泰山派东岳道院 · 大雄正殿 · 佛前蒲团",
+          "name": "东岳三清正殿",
           "tag": "岱宗如何",
           "x": 688,
           "y": 272,
@@ -12200,11 +13408,14 @@
               4
             ],
             "mp": 28
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0545"
+          ]
         },
         {
           "id": "ts_daoyuan_east",
-          "name": "东厢碑廊 · 藏经橱",
+          "name": "东厢丹房碑廊",
           "tag": "古籍经义",
           "x": 1072,
           "y": 438,
@@ -12218,12 +13429,15 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0533"
+          ]
         },
         {
           "id": "ts_daoyuan_west",
-          "name": "钟鼓禅院 · 演武坪",
-          "tag": "桩功吐纳",
+          "name": "苍松石坪演剑院",
+          "tag": "剑理拆招",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -12233,11 +13447,16 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0205"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0205",
+      "NPC-0533",
       "NPC-0545"
     ]
   },
@@ -12275,7 +13494,7 @@
       "spots": [
         {
           "id": "ts_18pan_main",
-          "name": "十八盘云梯石阶 · 中军帅帐 · 沙盘台",
+          "name": "升仙坊云梯主台",
           "tag": "千级石阶",
           "x": 688,
           "y": 272,
@@ -12286,12 +13505,15 @@
           "effect": {
             "agi": 3,
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0168"
+          ]
         },
         {
           "id": "ts_18pan_east",
-          "name": "点将高台 · 旌旗阵",
-          "tag": "军阵气血",
+          "name": "十八盘摩崖石刻廊",
+          "tag": "观刻悟招",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -12304,12 +13526,13 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "ts_18pan_west",
-          "name": "辕门骑射场",
-          "tag": "弓马骑术",
+          "name": "南天门迎风剑坪",
+          "tag": "轻身吐纳",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -12319,14 +13542,13 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0129",
-      "NPC-0533",
-      "NPC-0936"
+      "NPC-0168"
     ]
   },
   {
@@ -12369,7 +13591,7 @@
       "spots": [
         {
           "id": "ts_pine_main",
-          "name": "五大夫松观云亭 · 主阁讲席 · 抚琴台",
+          "name": "主阁讲席 · 抚琴台",
           "tag": "松涛抚琴",
           "x": 688,
           "y": 272,
@@ -12386,7 +13608,10 @@
               "琴",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0936"
+          ]
         },
         {
           "id": "ts_pine_east",
@@ -12407,7 +13632,10 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0870"
+          ]
         },
         {
           "id": "ts_pine_west",
@@ -12422,13 +13650,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0535"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0205",
-      "NPC-0302"
+      "NPC-0535",
+      "NPC-0870",
+      "NPC-0936"
     ]
   },
   {
@@ -12469,7 +13701,7 @@
       "spots": [
         {
           "id": "yzw_huanshi_main",
-          "name": "还施水阁（百家武学库） · 高楼雅座 · 凭栏席",
+          "name": "还施水阁藏书正楼",
           "tag": "百家典籍",
           "x": 688,
           "y": 272,
@@ -12484,12 +13716,16 @@
             ],
             "mp": 38,
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0472",
+            "NPC-0961"
+          ]
         },
         {
           "id": "yzw_huanshi_east",
-          "name": "飞桥灯廊 · 琴歌台",
-          "tag": "音律辩才",
+          "name": "临水曲廊抄经轩",
+          "tag": "博闻强识",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -12505,12 +13741,16 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0598",
+            "NPC-0794"
+          ]
         },
         {
           "id": "yzw_huanshi_west",
-          "name": "临街望楼 · 观风处",
-          "tag": "洞察四方",
+          "name": "太湖烟波观风露台",
+          "tag": "斗转参悟",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -12520,17 +13760,19 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0214"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0161",
       "NPC-0214",
-      "NPC-0257",
-      "NPC-0601",
+      "NPC-0472",
+      "NPC-0598",
       "NPC-0794",
-      "NPC-0878"
+      "NPC-0961"
     ]
   },
   {
@@ -12570,7 +13812,7 @@
       "spots": [
         {
           "id": "yzw_canhe_main",
-          "name": "参合庄议事正厅 · 正殿丹墀 · 议政堂",
+          "name": "参合庄正堂议事厅",
           "tag": "斗转星移",
           "x": 688,
           "y": 272,
@@ -12584,12 +13826,15 @@
               "辩才",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0120"
+          ]
         },
         {
           "id": "yzw_canhe_east",
-          "name": "东阁书房 · 秘档库",
-          "tag": "兵略策论",
+          "name": "燕子坞书房秘档室",
+          "tag": "兴复策论",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -12602,12 +13847,15 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0145"
+          ]
         },
         {
           "id": "yzw_canhe_west",
-          "name": "禁苑角楼 · 校射坪",
-          "tag": "守御演武",
+          "name": "临湖九曲演武坪",
+          "tag": "指剑拆招",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -12617,15 +13865,19 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0161",
+            "NPC-0878"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0120",
       "NPC-0145",
-      "NPC-0256",
-      "NPC-0472",
-      "NPC-0598"
+      "NPC-0161",
+      "NPC-0878"
     ]
   },
   {
@@ -12668,7 +13920,7 @@
       "spots": [
         {
           "id": "yzw_tingxiang_main",
-          "name": "听香水榭与曼陀花坞 · 名园主榭 · 赏芳亭",
+          "name": "听香水榭主阁",
           "tag": "茶花琴韵",
           "x": 688,
           "y": 272,
@@ -12685,12 +13937,16 @@
               "画",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0256",
+            "NPC-0601"
+          ]
         },
         {
           "id": "yzw_tingxiang_east",
-          "name": "奇石曲桥 · 琴棋台",
-          "tag": "纹枰品茗",
+          "name": "琴韵小筑曲桥台",
+          "tag": "丝竹清音",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -12706,12 +13962,15 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0257"
+          ]
         },
         {
           "id": "yzw_tingxiang_west",
-          "name": "竹影幽径 · 吐纳坪",
-          "tag": "清心养气",
+          "name": "曼陀山茶幽径",
+          "tag": "轻身养气",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -12721,14 +13980,18 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0658"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0120",
-      "NPC-0658",
-      "NPC-0961"
+      "NPC-0256",
+      "NPC-0257",
+      "NPC-0601",
+      "NPC-0658"
     ]
   },
   {
@@ -12768,7 +14031,7 @@
       "spots": [
         {
           "id": "thd_maze_main",
-          "name": "奇门八卦桃林大阵 · 名园主榭 · 赏芳亭",
+          "name": "名园主榭 · 赏芳亭",
           "tag": "五行奇门",
           "x": 688,
           "y": 272,
@@ -12782,7 +14045,10 @@
               5
             ],
             "agi": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0560"
+          ]
         },
         {
           "id": "thd_maze_east",
@@ -12803,7 +14069,10 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0644"
+          ]
         },
         {
           "id": "thd_maze_west",
@@ -12818,14 +14087,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0477"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0282",
-      "NPC-0748",
-      "NPC-0824"
+      "NPC-0477",
+      "NPC-0560",
+      "NPC-0644"
     ]
   },
   {
@@ -12862,7 +14134,7 @@
       "spots": [
         {
           "id": "thd_tanzhi_main",
-          "name": "弹指试剑海亭 · 主阁讲席 · 抚琴台",
+          "name": "主阁讲席 · 抚琴台",
           "tag": "惊涛试指",
           "x": 688,
           "y": 272,
@@ -12873,7 +14145,8 @@
           "effect": {
             "mp": 40,
             "agi": 2
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "thd_tanzhi_east",
@@ -12894,7 +14167,10 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0282"
+          ]
         },
         {
           "id": "thd_tanzhi_west",
@@ -12909,13 +14185,16 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0748"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0542",
-      "NPC-0560"
+      "NPC-0282",
+      "NPC-0748"
     ]
   },
   {
@@ -12958,7 +14237,7 @@
       "spots": [
         {
           "id": "thd_qinlu_main",
-          "name": "听涛碧海琴庐 · 高楼雅座 · 凭栏席",
+          "name": "高楼雅座 · 凭栏席",
           "tag": "琴箫合道",
           "x": 688,
           "y": 272,
@@ -12975,7 +14254,10 @@
               "棋",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0115"
+          ]
         },
         {
           "id": "thd_qinlu_east",
@@ -12996,7 +14278,10 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0542"
+          ]
         },
         {
           "id": "thd_qinlu_west",
@@ -13011,14 +14296,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0824"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0115",
-      "NPC-0477",
-      "NPC-0644"
+      "NPC-0542",
+      "NPC-0824"
     ]
   },
   {
@@ -13055,7 +14343,7 @@
       "spots": [
         {
           "id": "jm_plank_main",
-          "name": "剑阁鸟道悬空栈 · 水寨望楼 · 钞关厅",
+          "name": "猿猱鸟道悬空主栈",
           "tag": "猿猱愁度",
           "x": 688,
           "y": 272,
@@ -13066,12 +14354,16 @@
           "effect": {
             "agi": 4,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0207",
+            "NPC-0862"
+          ]
         },
         {
           "id": "jm_plank_east",
-          "name": "千帆栈桥 · 装卸埠",
-          "tag": "水陆豪客",
+          "name": "绝壁索桥巡哨亭",
+          "tag": "关防洞察",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -13087,12 +14379,16 @@
               "辩才",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0368",
+            "NPC-0678"
+          ]
         },
         {
           "id": "jm_plank_west",
-          "name": "临江演武船坞",
-          "tag": "踏浪轻身",
+          "name": "临渊乱石试剑坪",
+          "tag": "险峰炼胆",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -13102,21 +14398,21 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0385",
+            "NPC-0835"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0221",
-      "NPC-0359",
+      "NPC-0207",
       "NPC-0368",
-      "NPC-0394",
-      "NPC-0653",
-      "NPC-0779",
-      "NPC-0793",
-      "NPC-0869",
-      "NPC-0930",
-      "NPC-0942"
+      "NPC-0385",
+      "NPC-0678",
+      "NPC-0835",
+      "NPC-0862"
     ]
   },
   {
@@ -13153,7 +14449,7 @@
       "spots": [
         {
           "id": "jm_gate_main",
-          "name": "剑门雄关箭楼 · 雄关箭楼 · 望胡台",
+          "name": "雄关箭楼 · 望胡台",
           "tag": "一夫当关",
           "x": 688,
           "y": 272,
@@ -13164,7 +14460,12 @@
           "effect": {
             "mp": 30,
             "agi": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0221",
+            "NPC-0793",
+            "NPC-0942"
+          ]
         },
         {
           "id": "jm_gate_east",
@@ -13182,7 +14483,12 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0336",
+            "NPC-0635",
+            "NPC-0869"
+          ]
         },
         {
           "id": "jm_gate_west",
@@ -13197,20 +14503,25 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0407",
+            "NPC-0738",
+            "NPC-0930"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0291",
+      "NPC-0221",
       "NPC-0336",
       "NPC-0407",
-      "NPC-0565",
       "NPC-0635",
-      "NPC-0713",
       "NPC-0738",
-      "NPC-0835",
-      "NPC-0862"
+      "NPC-0793",
+      "NPC-0869",
+      "NPC-0930",
+      "NPC-0942"
     ]
   },
   {
@@ -13253,7 +14564,7 @@
       "spots": [
         {
           "id": "jm_pine_main",
-          "name": "翠云廊古柏驿亭 · 主阁讲席 · 抚琴台",
+          "name": "主阁讲席 · 抚琴台",
           "tag": "蜀道诗魂",
           "x": 688,
           "y": 272,
@@ -13270,7 +14581,14 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0389",
+            "NPC-0394",
+            "NPC-0565",
+            "NPC-0704",
+            "NPC-0779"
+          ]
         },
         {
           "id": "jm_pine_east",
@@ -13291,7 +14609,13 @@
               "琴",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0291",
+            "NPC-0299",
+            "NPC-0651",
+            "NPC-0772"
+          ]
         },
         {
           "id": "jm_pine_west",
@@ -13306,20 +14630,30 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0359",
+            "NPC-0401",
+            "NPC-0653",
+            "NPC-0713"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0207",
+      "NPC-0291",
       "NPC-0299",
-      "NPC-0385",
+      "NPC-0359",
       "NPC-0389",
+      "NPC-0394",
       "NPC-0401",
+      "NPC-0565",
       "NPC-0651",
-      "NPC-0678",
+      "NPC-0653",
       "NPC-0704",
-      "NPC-0772"
+      "NPC-0713",
+      "NPC-0772",
+      "NPC-0779"
     ]
   },
   {
@@ -13366,7 +14700,13 @@
           "effect": {
             "agi": 3,
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0139",
+            "NPC-0459",
+            "NPC-0587",
+            "NPC-0933"
+          ]
         },
         {
           "id": "qc_sq_wells",
@@ -13383,7 +14723,12 @@
               "经义",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0220",
+            "NPC-0574",
+            "NPC-0859"
+          ]
         },
         {
           "id": "qc_sq_cliff",
@@ -13403,7 +14748,12 @@
               "诗词",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0354",
+            "NPC-0516",
+            "NPC-0821"
+          ]
         }
       ]
     },
@@ -13470,7 +14820,11 @@
               4
             ],
             "agi": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0125",
+            "NPC-0777"
+          ]
         },
         {
           "id": "qc_tg_forge",
@@ -13490,7 +14844,10 @@
               "画",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0149"
+          ]
         },
         {
           "id": "qc_tg_arena",
@@ -13504,20 +14861,20 @@
           "effect": {
             "agi": 4,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0218",
+            "NPC-0670"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0125",
+      "NPC-0149",
       "NPC-0218",
-      "NPC-0612",
-      "NPC-0628",
       "NPC-0670",
-      "NPC-0750",
-      "NPC-0777",
-      "NPC-0877",
-      "NPC-0934",
-      "NPC-0981"
+      "NPC-0777"
     ]
   },
   {
@@ -13564,7 +14921,11 @@
           "effect": {
             "res": 4,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0628",
+            "NPC-0750"
+          ]
         },
         {
           "id": "qc_ps_cave",
@@ -13581,7 +14942,11 @@
               "算术",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0612",
+            "NPC-0877"
+          ]
         },
         {
           "id": "qc_ps_bridge",
@@ -13595,14 +14960,23 @@
           "effect": {
             "agi": 4,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0467",
+            "NPC-0934",
+            "NPC-0981"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0125",
-      "NPC-0149",
-      "NPC-0467"
+      "NPC-0467",
+      "NPC-0612",
+      "NPC-0628",
+      "NPC-0750",
+      "NPC-0877",
+      "NPC-0934",
+      "NPC-0981"
     ]
   },
   {
@@ -13655,7 +15029,11 @@
               "经义",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0384",
+            "NPC-0864"
+          ]
         },
         {
           "id": "em_jd_hall",
@@ -13672,7 +15050,11 @@
               4
             ],
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0128",
+            "NPC-0379"
+          ]
         },
         {
           "id": "em_jd_pavilion",
@@ -13686,17 +15068,21 @@
           "effect": {
             "agi": 3,
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0340",
+            "NPC-0641"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0169",
+      "NPC-0128",
       "NPC-0340",
-      "NPC-0361",
       "NPC-0379",
+      "NPC-0384",
       "NPC-0641",
-      "NPC-0691"
+      "NPC-0864"
     ]
   },
   {
@@ -13746,7 +15132,11 @@
               "经义",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0582",
+            "NPC-0602"
+          ]
         },
         {
           "id": "em_wn_courtyard",
@@ -13760,7 +15150,11 @@
           "effect": {
             "agi": 4,
             "hp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0169",
+            "NPC-0987"
+          ]
         },
         {
           "id": "em_wn_lotus",
@@ -13780,15 +15174,21 @@
               "诗词",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0361",
+            "NPC-0815"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0652",
-      "NPC-0725",
+      "NPC-0169",
+      "NPC-0361",
+      "NPC-0582",
+      "NPC-0602",
       "NPC-0815",
-      "NPC-0914"
+      "NPC-0987"
     ]
   },
   {
@@ -13838,7 +15238,10 @@
           "effect": {
             "mp": 35,
             "res": 2
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0691"
+          ]
         },
         {
           "id": "em_pd_monkey",
@@ -13852,7 +15255,11 @@
           "effect": {
             "agi": 4,
             "hp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0376",
+            "NPC-0725"
+          ]
         },
         {
           "id": "em_pd_qin",
@@ -13872,18 +15279,20 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0652",
+            "NPC-0914"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0128",
       "NPC-0376",
-      "NPC-0384",
-      "NPC-0582",
-      "NPC-0602",
-      "NPC-0864",
-      "NPC-0987"
+      "NPC-0652",
+      "NPC-0691",
+      "NPC-0725",
+      "NPC-0914"
     ]
   },
   {
@@ -13934,7 +15343,10 @@
           "effect": {
             "mp": 45,
             "agi": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0521"
+          ]
         },
         {
           "id": "wl_lh_library",
@@ -13954,7 +15366,10 @@
               "画",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0508"
+          ]
         },
         {
           "id": "wl_lh_bagua",
@@ -13971,18 +15386,19 @@
               "棋",
               4
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0106",
+            "NPC-0995"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0106",
-      "NPC-0187",
-      "NPC-0188",
-      "NPC-0305",
-      "NPC-0495",
+      "NPC-0508",
       "NPC-0521",
-      "NPC-0568"
+      "NPC-0995"
     ]
   },
   {
@@ -14032,7 +15448,11 @@
           "effect": {
             "agi": 4,
             "mp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0568",
+            "NPC-0626"
+          ]
         },
         {
           "id": "wl_yb_terrace",
@@ -14049,7 +15469,12 @@
               "辩才",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0495",
+            "NPC-0823",
+            "NPC-0988"
+          ]
         },
         {
           "id": "wl_yb_studio",
@@ -14069,14 +15494,21 @@
               "诗词",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0305",
+            "NPC-0743"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0430",
-      "NPC-0508",
+      "NPC-0305",
+      "NPC-0495",
+      "NPC-0568",
+      "NPC-0626",
       "NPC-0743",
+      "NPC-0823",
       "NPC-0988"
     ]
   },
@@ -14114,7 +15546,7 @@
       "spots": [
         {
           "id": "wl_palace_main",
-          "name": "无量剑湖宫 · 正殿丹墀 · 议政堂",
+          "name": "正殿丹墀 · 议政堂",
           "tag": "东西剑宗",
           "x": 688,
           "y": 272,
@@ -14125,7 +15557,10 @@
           "effect": {
             "hp": 30,
             "mp": 30
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0187"
+          ]
         },
         {
           "id": "wl_palace_east",
@@ -14143,7 +15578,10 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0188"
+          ]
         },
         {
           "id": "wl_palace_west",
@@ -14158,14 +15596,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0430"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0626",
-      "NPC-0823",
-      "NPC-0995"
+      "NPC-0187",
+      "NPC-0188",
+      "NPC-0430"
     ]
   },
   {
@@ -14205,7 +15646,7 @@
       "spots": [
         {
           "id": "wd_golden_main",
-          "name": "太和绝顶真武金殿 · 金顶正殿 · 密乘坛城",
+          "name": "太和紫金正殿",
           "tag": "万山来朝",
           "x": 688,
           "y": 272,
@@ -14219,12 +15660,15 @@
               "经义",
               3
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0119"
+          ]
         },
         {
           "id": "wd_golden_east",
-          "name": "转经长廊 · 唐卡壁画",
-          "tag": "经义护心",
+          "name": "铜铸配殿签房廊",
+          "tag": "道经护心",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -14237,12 +15681,16 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0364",
+            "NPC-0527"
+          ]
         },
         {
           "id": "wd_golden_west",
-          "name": "雪域露台 · 迎风吐纳",
-          "tag": "高原炼气",
+          "name": "天柱绝顶观云台",
+          "tag": "阴阳吐纳",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -14252,11 +15700,19 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0496"
+          ]
         }
       ]
     },
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-0119",
+      "NPC-0364",
+      "NPC-0496",
+      "NPC-0527"
+    ]
   },
   {
     "id": "wd_zixiao",
@@ -14292,7 +15748,7 @@
       "spots": [
         {
           "id": "wd_zixiao_main",
-          "name": "紫霄道宫丹房 · 大雄正殿 · 佛前蒲团",
+          "name": "紫霄重檐主大殿",
           "tag": "道藏丹鼎",
           "x": 688,
           "y": 272,
@@ -14303,12 +15759,16 @@
           "effect": {
             "hp": 35,
             "res": 3
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0148",
+            "NPC-0820"
+          ]
         },
         {
           "id": "wd_zixiao_east",
-          "name": "东厢碑廊 · 藏经橱",
-          "tag": "古籍经义",
+          "name": "东庑丹鼎藏经阁",
+          "tag": "医药道藏",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -14321,12 +15781,16 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0208",
+            "NPC-0646"
+          ]
         },
         {
           "id": "wd_zixiao_west",
-          "name": "钟鼓禅院 · 演武坪",
-          "tag": "桩功吐纳",
+          "name": "禹迹池畔太极坪",
+          "tag": "以柔克刚",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -14336,17 +15800,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0502"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0119",
+      "NPC-0148",
       "NPC-0208",
-      "NPC-0326",
-      "NPC-0419",
       "NPC-0502",
-      "NPC-0520",
       "NPC-0646",
       "NPC-0820"
     ]
@@ -14388,7 +15852,7 @@
       "spots": [
         {
           "id": "wd_nanyan_main",
-          "name": "南岩绝壁试剑崖 · 幽谷石室 · 寒玉榻",
+          "name": "幽谷石室 · 寒玉榻",
           "tag": "梯云纵步",
           "x": 688,
           "y": 272,
@@ -14402,7 +15866,10 @@
               "书",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0419"
+          ]
         },
         {
           "id": "wd_nanyan_east",
@@ -14420,7 +15887,10 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0326"
+          ]
         },
         {
           "id": "wd_nanyan_west",
@@ -14435,15 +15905,17 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0520"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0148",
-      "NPC-0364",
-      "NPC-0496",
-      "NPC-0527"
+      "NPC-0326",
+      "NPC-0419",
+      "NPC-0520"
     ]
   },
   {
@@ -14481,7 +15953,7 @@
       "spots": [
         {
           "id": "tz_hall_main",
-          "name": "铁掌帮聚义总堂 · 雄关箭楼 · 望胡台",
+          "name": "铁掌帮聚义正堂",
           "tag": "刚猛霸掌",
           "x": 688,
           "y": 272,
@@ -14493,12 +15965,15 @@
             "hp": 38,
             "res": 3,
             "mp": 25
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0117"
+          ]
         },
         {
           "id": "tz_hall_east",
-          "name": "瓮城屯兵校场",
-          "tag": "铁血演武",
+          "name": "东厢军资刑堂",
+          "tag": "帮规策算",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -14511,12 +15986,13 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "tz_hall_west",
-          "name": "古碑烽燧台",
-          "tag": "苍凉悟境",
+          "name": "前坪百斤铁沙场",
+          "tag": "铁掌淬炼",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -14526,13 +16002,13 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0117",
-      "NPC-0223"
+      "NPC-0117"
     ]
   },
   {
@@ -14576,7 +16052,7 @@
       "spots": [
         {
           "id": "tz_tomb_main",
-          "name": "五指中峰禁地秘冢 · 幽谷石室 · 寒玉榻",
+          "name": "幽谷石室 · 寒玉榻",
           "tag": "帮主禁地",
           "x": 688,
           "y": 272,
@@ -14594,7 +16070,8 @@
               3
             ],
             "agi": 2
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "tz_tomb_east",
@@ -14612,7 +16089,8 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": []
         },
         {
           "id": "tz_tomb_west",
@@ -14627,15 +16105,12 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": []
         }
       ]
     },
-    "residentNpcIds": [
-      "NPC-0176",
-      "NPC-0280",
-      "NPC-0885"
-    ]
+    "residentNpcIds": []
   },
   {
     "id": "tz_water",
@@ -14671,7 +16146,7 @@
       "spots": [
         {
           "id": "tz_water_main",
-          "name": "洞庭水陆连环寨 · 水寨望楼 · 钞关厅",
+          "name": "水寨望楼 · 钞关厅",
           "tag": "铁掌水上漂",
           "x": 688,
           "y": 272,
@@ -14682,7 +16157,12 @@
           "effect": {
             "agi": 4,
             "silver": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0176",
+            "NPC-0828",
+            "NPC-0945"
+          ]
         },
         {
           "id": "tz_water_east",
@@ -14703,7 +16183,12 @@
               "辩才",
               1
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0280",
+            "NPC-0539",
+            "NPC-0666"
+          ]
         },
         {
           "id": "tz_water_west",
@@ -14718,15 +16203,24 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0223",
+            "NPC-0555",
+            "NPC-0885"
+          ]
         }
       ]
     },
     "residentNpcIds": [
+      "NPC-0176",
+      "NPC-0223",
+      "NPC-0280",
       "NPC-0539",
       "NPC-0555",
       "NPC-0666",
       "NPC-0828",
+      "NPC-0885",
       "NPC-0945"
     ]
   },
@@ -14767,7 +16261,7 @@
       "spots": [
         {
           "id": "nsl_main_main",
-          "name": "九莲大雄宝殿 · 大雄正殿 · 佛前蒲团",
+          "name": "大雄正殿 · 佛前蒲团",
           "tag": "南宗祖庭",
           "x": 688,
           "y": 272,
@@ -14781,7 +16275,11 @@
               3
             ],
             "mp": 35
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0124",
+            "NPC-0784"
+          ]
         },
         {
           "id": "nsl_main_east",
@@ -14799,7 +16297,11 @@
               1
             ],
             "mp": 12
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0201",
+            "NPC-0798"
+          ]
         },
         {
           "id": "nsl_main_west",
@@ -14814,17 +16316,21 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0512",
+            "NPC-0547"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0124",
-      "NPC-0417",
+      "NPC-0201",
+      "NPC-0512",
       "NPC-0547",
-      "NPC-0620",
-      "NPC-0718",
-      "NPC-0952"
+      "NPC-0784",
+      "NPC-0798"
     ]
   },
   {
@@ -14861,7 +16367,7 @@
       "spots": [
         {
           "id": "nsl_tripod_main",
-          "name": "千斤铁鼎炼体坪 · 神炉主坊 · 铸剑台",
+          "name": "神炉主坊 · 铸剑台",
           "tag": "金刚不坏",
           "x": 688,
           "y": 272,
@@ -14872,7 +16378,12 @@
           "effect": {
             "hp": 45,
             "res": 4
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0164",
+            "NPC-0518",
+            "NPC-0886"
+          ]
         },
         {
           "id": "nsl_tripod_east",
@@ -14890,7 +16401,12 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0417",
+            "NPC-0674",
+            "NPC-0758"
+          ]
         },
         {
           "id": "nsl_tripod_west",
@@ -14905,18 +16421,23 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0279",
+            "NPC-0631"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0200",
+      "NPC-0164",
       "NPC-0279",
-      "NPC-0440",
+      "NPC-0417",
       "NPC-0518",
+      "NPC-0631",
       "NPC-0674",
       "NPC-0758",
-      "NPC-0798"
+      "NPC-0886"
     ]
   },
   {
@@ -14957,7 +16478,7 @@
       "spots": [
         {
           "id": "nsl_wooden_main",
-          "name": "南少林百杰木人巷 · 中军帅帐 · 沙盘台",
+          "name": "百杰木人机关主巷",
           "tag": "机关木人",
           "x": 688,
           "y": 272,
@@ -14972,12 +16493,17 @@
               "算术",
               2
             ]
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0200",
+            "NPC-0620",
+            "NPC-0909"
+          ]
         },
         {
           "id": "nsl_wooden_east",
-          "name": "点将高台 · 旌旗阵",
-          "tag": "军阵气血",
+          "name": "东侧铜砂铁臂廊",
+          "tag": "横练硬功",
           "x": 1072,
           "y": 438,
           "poly": "935,345 1215,345 1235,525 915,525",
@@ -14990,12 +16516,16 @@
               1
             ],
             "hp": 15
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0440",
+            "NPC-0718"
+          ]
         },
         {
           "id": "nsl_wooden_west",
-          "name": "辕门骑射场",
-          "tag": "弓马骑术",
+          "name": "九莲山门演武坪",
+          "tag": "拳棍拆招",
           "x": 304,
           "y": 438,
           "poly": "160,345 440,345 460,525 140,525",
@@ -15005,20 +16535,24 @@
           "effect": {
             "hp": 16,
             "agi": 1
-          }
+          },
+          "residentNpcIds": [
+            "NPC-0353",
+            "NPC-0643",
+            "NPC-0952"
+          ]
         }
       ]
     },
     "residentNpcIds": [
-      "NPC-0164",
-      "NPC-0201",
+      "NPC-0200",
       "NPC-0353",
-      "NPC-0512",
-      "NPC-0631",
+      "NPC-0440",
+      "NPC-0620",
       "NPC-0643",
-      "NPC-0784",
-      "NPC-0886",
-      "NPC-0909"
+      "NPC-0718",
+      "NPC-0909",
+      "NPC-0952"
     ]
   }
 ]

@@ -8,7 +8,9 @@ import type {
   MartialArtSlotKey,
   SaveSlotId,
   SerializableGameState,
+  TerrainType,
   ViewMode,
+  WildernessCamp,
 } from '../types/game'
 import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, REGION_DB_MAP } from '../data/gameDb'
 import {
@@ -227,7 +229,15 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     }
     for (const k of EQUIP_SLOT_KEYS) {
       const val = st.equipped[k]
-      cleanEquipped[k] = typeof val === 'string' && ITEM_DB_MAP[val] ? val : null
+      if (typeof val === 'string' && ITEM_DB_MAP[val]) {
+        cleanEquipped[k] = val
+      } else if (k === 'weapon' && val === 'ITM-EQP-WPN-001') {
+        cleanEquipped.weapon = 'WPN-061'
+      } else if (k === 'weapon' && val === 'ITM-EQP-WPN-002') {
+        cleanEquipped.weapon = 'WPN-068'
+      } else {
+        cleanEquipped[k] = null
+      }
     }
   }
 
@@ -277,6 +287,11 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     }
   }
 
+  const isLegacyScrollSchema =
+    raw.schemaVersion === 'M0.4.0' ||
+    raw.schemaVersion === 'M1.0.0' ||
+    raw.schemaVersion === 'M1.1.0'
+
   let cleanInventory: InventoryStack[] = DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x }))
   if (Array.isArray(st.inventory)) {
     cleanInventory = st.inventory
@@ -284,6 +299,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         (entry): entry is Record<string, unknown> =>
           isRecord(entry) &&
           typeof entry.itemId === 'string' &&
+          !(isLegacyScrollSchema && entry.itemId.startsWith('ITM-SCR-')) &&
           Boolean(ITEM_DB_MAP[entry.itemId]) &&
           typeof entry.qty === 'number' &&
           entry.qty > 0,
@@ -292,20 +308,23 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         itemId: entry.itemId as string,
         qty: Math.floor(entry.qty as number),
       }))
+    // If an old M1.0 save only had legacy ITM-TOL-* tools that were deleted, seed the new default curio starter items
+    const hasAnyTools = cleanInventory.some((x) => ITEM_DB_MAP[x.itemId]?.category === 'tools')
+    const hadLegacyTol = st.inventory.some(
+      (entry) => isRecord(entry) && typeof entry.itemId === 'string' && entry.itemId.startsWith('ITM-TOL-'),
+    )
+    if (!hasAnyTools && hadLegacyTol) {
+      for (const starter of DEFAULT_INITIAL_INVENTORY) {
+        if (ITEM_DB_MAP[starter.itemId]?.category === 'tools') {
+          cleanInventory.push({ ...starter })
+        }
+      }
+    }
   }
 
-  // Sync mountKey from equipped mount slot if present
+  // Sync mountKey from equipped mount slot (when mount slot is empty, default to walk 60 里/日)
   const mountItem = cleanEquipped.mount ? ITEM_DB_MAP[cleanEquipped.mount] : null
-  const derivedMountKey =
-    mountItem?.equipBonus?.mountKey ??
-    (cleanEquipped.mount === null && isRecord(st.equipped)
-      ? 'walk'
-      : st.mountKey === 'walk' ||
-          st.mountKey === 'horse' ||
-          st.mountKey === 'xiXia' ||
-          st.mountKey === 'ferghana'
-        ? st.mountKey
-        : 'horse')
+  const derivedMountKey = mountItem?.equipBonus?.mountKey ?? 'walk'
 
   const hpVal = typeof st.hp === 'number' ? Math.max(1, Math.floor(st.hp)) : 1200
   const maxHpVal =
@@ -320,6 +339,33 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
       ? Math.min(maxStaminaVal, Math.max(0, Math.floor(st.stamina)))
       : maxStaminaVal
 
+  let cleanCampPos: WildernessCamp | null = null
+  if (
+    isRecord(st.campPos) &&
+    typeof st.campPos.x === 'number' &&
+    typeof st.campPos.y === 'number' &&
+    typeof st.campPos.u === 'string' &&
+    Boolean(REGION_DB_MAP[st.campPos.u]) &&
+    typeof st.campPos.v === 'string' &&
+    Boolean(REGION_DB_MAP[st.campPos.v]) &&
+    typeof st.campPos.distU === 'number' &&
+    typeof st.campPos.distV === 'number' &&
+    (st.campPos.terrain === 'official' ||
+      st.campPos.terrain === 'water' ||
+      st.campPos.terrain === 'steppe' ||
+      st.campPos.terrain === 'mountain')
+  ) {
+    cleanCampPos = {
+      x: st.campPos.x,
+      y: st.campPos.y,
+      u: st.campPos.u,
+      v: st.campPos.v,
+      distU: Math.max(0, st.campPos.distU),
+      distV: Math.max(0, st.campPos.distV),
+      terrain: st.campPos.terrain as TerrainType,
+    }
+  }
+
   const cleanState: SerializableGameState = {
     dayCount: Math.floor(st.dayCount),
     shichenIdx:
@@ -332,6 +378,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     selectedBuildingId: typeof st.selectedBuildingId === 'string' ? st.selectedBuildingId : null,
     selectedSpotId: typeof st.selectedSpotId === 'string' ? st.selectedSpotId : null,
     currentNodeId: st.currentNodeId,
+    campPos: cleanCampPos,
     mountKey: derivedMountKey,
     qinggongBonus: typeof st.qinggongBonus === 'number' ? st.qinggongBonus : 0.15,
     ridingSkill: typeof st.ridingSkill === 'number' ? st.ridingSkill : 45,

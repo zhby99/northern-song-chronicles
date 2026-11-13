@@ -10,10 +10,31 @@ export type MenuTabKey =
   | 'bag'
   | 'portraits'
   | 'martialArts'
+  | 'armory'
   | 'engineering'
   | 'save'
   | 'load'
   | 'settings'
+
+export type TenArtKey =
+  | '骑术'
+  | '算术'
+  | '经义'
+  | '策论'
+  | '诗词'
+  | '琴'
+  | '棋'
+  | '书'
+  | '画'
+  | '辩才'
+
+export interface NpcTalents {
+  bone: number
+  comprehension: number
+  charm: number
+}
+
+export type NpcTenArts = Record<TenArtKey, number>
 
 export interface NodeNpc {
   id?: string
@@ -23,6 +44,10 @@ export interface NodeNpc {
   talk: string
   avatarUrl?: string | null
   factionName?: string
+  stats?: NpcCombatStats
+  talents?: NpcTalents
+  tenArts?: NpcTenArts
+  fullLocationLabel?: string
 }
 
 export interface WorldNode {
@@ -165,6 +190,7 @@ export interface BuildingSpot {
   actLabel: string
   cost?: number
   effect: ActionEffect
+  residentNpcIds?: string[]
 }
 
 export interface BuildingPanorama {
@@ -313,12 +339,18 @@ export interface CompiledNpcRecord {
   regionId: string
   locationLabel: string
   subLocation: string | null
-  assignedBuildingId: string | null
+  assignedBuildingId: string
+  assignedBuildingName: string
+  assignedSpotId: string | null
+  assignedSpotName: string | null
+  fullLocationLabel: string
   realm: string
   majorRealm: string
   minorRealm: string | null
   realmRank: number
   stats: NpcCombatStats
+  talents: NpcTalents
+  tenArts: NpcTenArts
   artsText: string
   knownArtIds: string[]
   specialtyTags: string[]
@@ -353,7 +385,9 @@ export interface CanonicalIdRegistry {
     specialBuildingsWithSvgFallback: number
     cityBaseBuildings: number
     totalBuildings: number
+    interiorSubBuildings?: number
     martialArts: number
+    weapons: number
     npcs: number
     npcsWithAvatar: number
     npcsWithFullbody: number
@@ -387,6 +421,15 @@ export interface CanonicalIdRegistry {
     category: string
     sectId: string | null
   }>
+  weaponIndex: Array<{
+    id: string
+    code: string
+    name: string
+    fullTier: string
+    weaponType: WeaponSubCategory
+    regionId: string
+    sectId: string | null
+  }>
 }
 
 // ============================================================================
@@ -403,7 +446,7 @@ export type SaveSlotId =
   | 'slot-6'
 
 // ============================================================================
-// [M1-0] Time (Shichen), Stamina, 7-Slot Equipment & 4-Category Bag Schemas
+// [M1-0 & M1-3] Time (Shichen), Stamina, 7-Slot Equipment, 100 Weapons & 4-Category Bag
 // ============================================================================
 
 export type EquipmentSlotKey =
@@ -417,7 +460,24 @@ export type EquipmentSlotKey =
 
 export type BagCategoryKey = 'scrolls' | 'medicine' | 'tools' | 'misc'
 
-export type ItemRarity = '天阶' | '地阶' | '良品' | '凡品'
+export type EquipmentTier = '天阶' | '地阶' | '良阶' | '凡阶'
+export type ItemRarity = '天阶' | '地阶' | '良阶' | '凡阶' | '良品' | '凡品'
+
+export type WeaponSubCategory =
+  | '剑'
+  | '刀'
+  | '枪'
+  | '棍棒'
+  | '拳掌护手'
+  | '暗器'
+  | '奇门音兵'
+
+export type WeaponForceTrait = '刚猛' | '阴柔' | '轻灵' | '奇巧' | '中正'
+
+export interface WeaponSynergyRule {
+  category: string
+  bonusPct: number
+}
 
 export interface EquipmentStatBonus {
   maxHp?: number
@@ -430,6 +490,32 @@ export interface EquipmentStatBonus {
   riding?: number
   mountKey?: MountKey
   skills?: Record<string, number>
+}
+
+export interface CompiledWeaponRecord {
+  id: string
+  code: string
+  name: string
+  slot: 'weapon'
+  weaponType: WeaponSubCategory
+  tier: EquipmentTier
+  subTier: MartialArtSubTier
+  fullTier: string
+  regionId: string
+  locationLabel: string
+  origin: string
+  originFull: string
+  sectId: string | null
+  forceTrait: WeaponForceTrait
+  attackRange: number
+  value: number
+  equipBonus: EquipmentStatBonus
+  synergies: WeaponSynergyRule[]
+  signatureArtIds: string[]
+  specialTag: string | null
+  description: string
+  prerequisitesText: string | null
+  statRequirements: MartialArtStatReq[]
 }
 
 export type MartialArtSlotKey =
@@ -452,7 +538,12 @@ export interface ItemUseEffect {
   hp?: number
   mp?: number
   stamina?: number
+  maxHp?: number
+  maxMp?: number
+  maxStamina?: number
+  agi?: number
   res?: number
+  riding?: number
   food?: number
   skillGain?: [string, number]
   learnArtId?: string
@@ -472,6 +563,8 @@ export interface GameItemDef {
   lore?: string
   equipBonus?: EquipmentStatBonus
   useEffect?: ItemUseEffect
+  weaponMeta?: CompiledWeaponRecord
+  poisonEffect?: string
 }
 
 export interface InventoryStack {
@@ -492,6 +585,7 @@ export interface SerializableGameState {
   selectedBuildingId: string | null
   selectedSpotId: string | null
   currentNodeId: string
+  campPos?: WildernessCamp | null
 
   mountKey: MountKey
   qinggongBonus: number
@@ -540,7 +634,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M0.4.0' | 'M1.0.0' | 'M1.1.0'
+  schemaVersion: 'M0.4.0' | 'M1.0.0' | 'M1.1.0' | 'M1.2.0'
   slotId: SaveSlotId
   savedAt: string
   note: string
@@ -618,12 +712,30 @@ export interface OverlayToggles {
 
 export type LabelToggleKey = 'cityLabels' | 'sectPassLabels' | 'masters' | 'distance'
 
+export interface WildernessCamp {
+  x: number
+  y: number
+  u: string
+  v: string
+  distU: number
+  distV: number
+  terrain: TerrainType
+}
+
 export interface RouteSegment {
   from: string
   to: string
   dist: number
   terrain: TerrainType
   days: number
+  fromCoords?: { x: number; y: number }
+  campEdge?: {
+    u: string
+    v: string
+    distU: number
+    distV: number
+    terrain: TerrainType
+  }
 }
 
 export interface ComputedRoute {
@@ -675,5 +787,6 @@ export type TooltipPayload =
         isSpecial: boolean
         isSpot?: boolean
         interiorMode?: BuildingInteriorMode | null
+        residentCount?: number
       }
     }

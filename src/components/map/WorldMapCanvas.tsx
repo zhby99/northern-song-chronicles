@@ -170,42 +170,74 @@ export function WorldMapCanvas() {
     if (traveling) {
       return traveling.route.segments.length > 0 ? traveling.route : null
     }
-    if (!selectedNodeId || selectedNodeId === currentNodeId) return null
-    const route = findBestRoute(currentNodeId, selectedNodeId, {
-      mountKey,
-      qinggongBonus,
-      ridingSkill,
-      agility,
-    })
+    if (!selectedNodeId || (selectedNodeId === currentNodeId && !campPos)) return null
+    const route = findBestRoute(
+      currentNodeId,
+      selectedNodeId,
+      {
+        mountKey,
+        qinggongBonus,
+        ridingSkill,
+        agility,
+      },
+      campPos,
+    )
     return route && route.segments.length > 0 ? route : null
-  }, [traveling, selectedNodeId, currentNodeId, mountKey, qinggongBonus, ridingSkill, agility])
+  }, [
+    traveling,
+    selectedNodeId,
+    currentNodeId,
+    campPos,
+    mountKey,
+    qinggongBonus,
+    ridingSkill,
+    agility,
+  ])
 
   const activeRoutePoints = useMemo(() => {
-    if (!activeRoute) return null
-    return activeRoute.nodes
-      .map((id) => {
-        const n = NODE_MAP[id]
-        return n ? `${n.x},${n.y}` : ''
-      })
-      .filter(Boolean)
-      .join(' ')
-  }, [activeRoute])
+    if (!activeRoute || activeRoute.segments.length === 0) return null
+    if (traveling) {
+      const pts: string[] = [`${traveling.playerPos.x},${traveling.playerPos.y}`]
+      for (let i = traveling.segIdx; i < traveling.route.segments.length; i++) {
+        const seg = traveling.route.segments[i]
+        const nt = seg ? NODE_MAP[seg.to] : undefined
+        if (nt) pts.push(`${nt.x},${nt.y}`)
+      }
+      return pts.length >= 2 ? pts.join(' ') : null
+    }
+    const pts: string[] = []
+    const firstSeg = activeRoute.segments[0]
+    if (firstSeg.fromCoords) {
+      pts.push(`${firstSeg.fromCoords.x},${firstSeg.fromCoords.y}`)
+    } else {
+      const n0 = NODE_MAP[firstSeg.from]
+      if (n0) pts.push(`${n0.x},${n0.y}`)
+    }
+    for (const seg of activeRoute.segments) {
+      const nt = NODE_MAP[seg.to]
+      if (nt) pts.push(`${nt.x},${nt.y}`)
+    }
+    return pts.length >= 2 ? pts.join(' ') : null
+  }, [activeRoute, traveling])
 
   const activeEdgeKeys = useMemo(() => {
     const keys = new Set<string>()
     if (!activeRoute) return keys
-    for (const seg of activeRoute.segments) {
+    const startIdx = traveling ? traveling.segIdx : 0
+    for (let i = startIdx; i < activeRoute.segments.length; i++) {
+      const seg = activeRoute.segments[i]
+      if (!seg) continue
       keys.add(`${seg.from}__${seg.to}`)
       keys.add(`${seg.to}__${seg.from}`)
     }
     return keys
-  }, [activeRoute])
+  }, [activeRoute, traveling])
 
   const hasActiveRoute = activeRoute !== null
 
   const playerCoords = useMemo(() => {
     if (traveling) return traveling.playerPos
-    if (campPos) return campPos
+    if (campPos) return { x: campPos.x, y: campPos.y }
     const curr = NODE_MAP[currentNodeId]
     return { x: curr?.x ?? 856.8, y: curr?.y ?? 379.9 }
   }, [traveling, campPos, currentNodeId])

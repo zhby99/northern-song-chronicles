@@ -510,7 +510,7 @@
       "arts": "杨家霸王枪、大内禁军玄甲劲、骑术",
       "bio": "名将杨延昭之子，精通家传枪法与行军阵图，驻防河东抗击契丹与西夏，与丐帮少林皆有旧谊。",
       "avatarUrl": "/assets/characters/avatars/NPC-0032.jpg",
-      "fullbodyUrl": null
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0032.jpg"
     },
     {
       "id": "NPC-0033",
@@ -525,8 +525,8 @@
       "realm": "二流上品",
       "arts": "雁门断魂刀、骑术、策论",
       "bio": "西北种家军中流砥柱，善抚羌部、巧施反间，筑青涧城扼守西夏咽喉，刀马娴熟。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0033.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0033.jpg"
     },
     {
       "id": "NPC-0034",
@@ -541,8 +541,8 @@
       "realm": "二流中品",
       "arts": "胡汉八极刀、点钢枪谱、骑术",
       "bio": "种家将后起之秀，胆略过人，敢孤军深入大漠奇袭西夏暗桩，锐气逼人。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0034.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0034.jpg"
     },
     {
       "id": "NPC-0035",
@@ -557,8 +557,8 @@
       "realm": "一流下品",
       "arts": "六合大枪、雁门断魂刀、骑术",
       "bio": "河东折家将当世统帅，世代据守府州孤城抗击辽夏，枪法刚猛，麾下儿郎皆百战死士。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0035.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0035.jpg"
     },
     {
       "id": "NPC-0036",
@@ -573,8 +573,8 @@
       "realm": "二流上品",
       "arts": "奇门五虎断门刀、点钢枪谱、策论",
       "bio": "沉毅有谋，通晓兵家奇正之变，随韩琦、范仲淹历练西北与河北边防，武艺精湛。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0036.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0036.jpg"
     },
     {
       "id": "NPC-0037",
@@ -814,7 +814,7 @@
       "arts": "经义、算术、琴、兵略",
       "bio": "主持湖州与苏州州学，首创‘经义斋’与‘治事斋’，门下弟子兼修水利、算学、边防与射御。",
       "avatarUrl": "/assets/characters/avatars/NPC-0051.jpg",
-      "fullbodyUrl": null
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0051.jpg"
     },
     {
       "id": "NPC-0052",
@@ -829,8 +829,8 @@
       "realm": "不入流",
       "arts": "经义、书、辩才",
       "bio": "隐居泰山讲学数十载，与泰山派道人比邻论道，北方学子奉为山斗。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0052.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0052.jpg"
     },
     {
       "id": "NPC-0053",
@@ -845,8 +845,8 @@
       "realm": "三流下品",
       "arts": "经义、辩才、少林齐眉棍",
       "bio": "刚直嫉恶，耕读泰山徂徕之下，常持大杖游历齐鲁，痛斥奸佞佛老之弊。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0053.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0053.jpg"
     },
     {
       "id": "NPC-0054",
@@ -861,8 +861,8 @@
       "realm": "三流下品",
       "arts": "策论、辩才、诗词、青萍剑法",
       "bio": "年二十七始发愤为学，精通战国纵横兵权之策，正在成都携二子读书论剑，准备东出巴蜀。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0054.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0054.jpg"
     },
     {
       "id": "NPC-0055",
@@ -893,8 +893,8 @@
       "realm": "不入流",
       "arts": "经义、诗词、清心静坐诀",
       "bio": "随父兄游学成都锦江畔，沉静早慧，深通老庄养生吐纳之理。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0056.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0056.jpg"
     },
     {
       "id": "NPC-0057",
@@ -909,8 +909,8 @@
       "realm": "不入流",
       "arts": "诗词、琴、音律",
       "bio": "‘凡有井水饮处，皆能歌柳词’，晚年漫游扬州、杭州、苏州秦淮画舫，乃青楼歌伎与风流侠客心中词仙。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0057.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0057.jpg"
     },
     {
       "id": "NPC-0058",
@@ -925,8 +925,8 @@
       "realm": "不入流",
       "arts": "诗词、琴、画",
       "bio": "‘云破月来花弄影’名家，年逾花甲仍神采奕奕，常于西湖画舫设雅集品评天下音律。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0058.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0058.jpg"
     },
     {
       "id": "NPC-0059",
@@ -941,8 +941,8 @@
       "realm": "三流中品",
       "arts": "策论、算术、行军壮血功",
       "bio": "奉敕编纂官修兵书《武经总要》，对天下火器、阵法、攻城器械与各路边军虚实了如指掌。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0059.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0059.jpg"
     },
     {
       "id": "NPC-0060",
@@ -957,8 +957,8 @@
       "realm": "不入流",
       "arts": "经义、算术、策论",
       "bio": "博学掌故，与曾公亮合修《武经总要》，深知朝廷武库秘藏。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0060.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0060.jpg"
     },
     {
       "id": "NPC-0061",
@@ -1053,8 +1053,8 @@
       "realm": "三流下品",
       "arts": "五禽养生功、医理、毒理辨识",
       "bio": "自幼随姑父学医于齐鲁，天资卓绝，精研五脏辨证与奇症汤药，常免费救治贫苦百姓与受伤侠客。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0066.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0066.jpg"
     },
     {
       "id": "NPC-0067",
@@ -1069,8 +1069,8 @@
       "realm": "三流下品",
       "arts": "五禽养生功、本草医毒",
       "bio": "隐于成都与青城峨眉山野采集百草，为编纂证类本草遍访巴蜀药农与唐门解毒偏方。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0067.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0067.jpg"
     },
     {
       "id": "NPC-0068",
@@ -1085,8 +1085,8 @@
       "realm": "三流中品",
       "arts": "画、诗词、折扇点穴功",
       "bio": "胸有成竹典故之主，画竹冠绝古今，剑法笔意皆藏竹节劲气，苏氏父子挚友。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0068.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0068.jpg"
     },
     {
       "id": "NPC-0069",
@@ -1101,8 +1101,8 @@
       "realm": "不入流",
       "arts": "画、经义",
       "bio": "游历嵩山、太行群峰写生，笔下北方崇山峻岭气象万千，常在少林、嵩山盘桓作画。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0069.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0069.jpg"
     },
     {
       "id": "NPC-0070",
@@ -1117,8 +1117,8 @@
       "realm": "二流下品",
       "arts": "官制朴刀术、书、画鉴赏",
       "bio": "骁勇善战之将门武官（名家米芾之父），酷爱搜集前代名家字画碑帖，宅邸藏珍甚丰。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0070.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0070.jpg"
     },
     {
       "id": "NPC-0071",
@@ -1133,8 +1133,8 @@
       "realm": "二流中品",
       "arts": "瞬息千里、契丹狼牙棒法、骑术、画",
       "bio": "在位二十年，好汉文化与丹青音律，趁西夏内乱数次亲征党项，同时暗遣密探经略中原武林。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0071.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0071.jpg"
     },
     {
       "id": "NPC-0072",
@@ -1149,8 +1149,8 @@
       "realm": "一流中品",
       "arts": "修罗刀、契丹狼牙棒法、骑术",
       "bio": "兴宗胞弟，勇猛绝伦，手握重兵驻防燕云南京道，野心勃勃，广揽契丹与汉地凶悍高手。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0072.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0072.jpg"
     },
     {
       "id": "NPC-0073",
@@ -1165,8 +1165,8 @@
       "realm": "二流下品",
       "arts": "契丹狼牙棒法、骑术、经义、诗词",
       "bio": "气度豪迈，崇尚汉唐诗书佛学，喜结交英雄猛士，常随捺钵大帐巡猎塞北。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0073.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0073.jpg"
     },
     {
       "id": "NPC-0074",
@@ -1181,8 +1181,8 @@
       "realm": "不入流",
       "arts": "策论、骑术",
       "bio": "权欲极重，虽经重熙政变后复迎回宫，其萧氏后族势力在辽廷上京、中京依然盘根错节。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0074.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0074.jpg"
     },
     {
       "id": "NPC-0075",
@@ -1197,8 +1197,8 @@
       "realm": "一流下品",
       "arts": "修罗刀、骑术、策论",
       "bio": "辽廷北院柱石，统辖契丹本部精锐铁骑与护国武士，熟谙塞外兵略。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0075.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0075.jpg"
     },
     {
       "id": "NPC-0076",
@@ -1213,8 +1213,8 @@
       "realm": "二流上品",
       "arts": "契丹狼牙棒法、骑术、策论",
       "bio": "契丹百战老帅，刚狠果决，刚刚统率大军征讨西夏归来，对宋境边防虎视眈眈。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0076.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0076.jpg"
     },
     {
       "id": "NPC-0077",
@@ -1229,8 +1229,8 @@
       "realm": "一流下品",
       "arts": "六合大枪、瞬息千里、骑术、策论",
       "bio": "辽国第一名臣良将，智勇双全，曾随刘六符使宋促成增币，治军威严仁信。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0077.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0077.jpg"
     },
     {
       "id": "NPC-0078",
@@ -1245,8 +1245,8 @@
       "realm": "二流中品",
       "arts": "西夏弯刀术、甩手袖箭、辩才",
       "bio": "出身寒微而机警善佞，心思阴鸷，正暗中执掌辽廷对宋境与女真诸部的刺探网。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0078.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0078.jpg"
     },
     {
       "id": "NPC-0079",
@@ -1261,8 +1261,8 @@
       "realm": "不入流",
       "arts": "辩才、策论、经义",
       "bio": "幽燕汉族大族领袖，足智多谋，主管大辽南院汉官事务与对宋交涉榷场。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0079.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0079.jpg"
     },
     {
       "id": "NPC-0080",
@@ -1277,8 +1277,8 @@
       "realm": "二流中品",
       "arts": "契丹狼牙棒法、骑术",
       "bio": "太后萧氏少弟，久掌捺钵御帐外围宿卫勇士，悍勇护短。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0080.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0080.jpg"
     },
     {
       "id": "NPC-0081",
@@ -1341,8 +1341,8 @@
       "realm": "一流下品",
       "arts": "修罗刀、西夏弯刀术、策论",
       "bio": "独揽西夏军政大权，击败辽军入侵，重金招揽中原恶人、吐蕃番僧与西域毒师入驻一品堂。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0084.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0084.jpg"
     },
     {
       "id": "NPC-0085",
@@ -1357,8 +1357,8 @@
       "realm": "二流上品",
       "arts": "胡汉八极刀、骑术",
       "bio": "党项铁鹞子重骑统帅，驻防横山与贺兰山一线，与延州狄青、种家军屡次血战。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0085.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0085.jpg"
     },
     {
       "id": "NPC-0086",
@@ -1373,8 +1373,8 @@
       "realm": "一流上品",
       "arts": "一阳指、枯荣禅意功、经义",
       "bio": "大理段氏中兴之主，段素兴被废后受国人拥立，崇佛爱民，一阳指修为已臻化境。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0086.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0086.jpg"
     },
     {
       "id": "NPC-0087",
@@ -1389,8 +1389,8 @@
       "realm": "一流下品",
       "arts": "无量剑诀、点钢枪谱、策论",
       "bio": "辅佐段思廉平定内乱之权臣名将，大权渐归高氏，然与皇室段氏同气连枝共卫苍洱。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0087.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0087.jpg"
     },
     {
       "id": "NPC-0088",
@@ -1405,8 +1405,8 @@
       "realm": "二流上品",
       "arts": "五毒砂掌、蛇矛百战枪、骑术",
       "bio": "驻守大理与川蜀、吐蕃交界要冲，骁勇桀骜，麾下多乌蛮白蛮精兵。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0088.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0088.jpg"
     },
     {
       "id": "NPC-0089",
@@ -1421,8 +1421,8 @@
       "realm": "一流中品",
       "arts": "金刚伏魔杖、龙象般若功(七层)、骑术",
       "bio": "吐蕃王室后裔，据守河湟与雪域通道，联宋抗夏，麾下高僧护法云集。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0089.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0089.jpg"
     },
     {
       "id": "NPC-0090",
@@ -1437,8 +1437,8 @@
       "realm": "二流上品",
       "arts": "狂风快刀、契丹狼牙棒法、骑术",
       "bio": "唃厮啰长子，独立统兵驻牧，勇悍善战，常与西夏及关中边将交锋交易。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0090.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0090.jpg"
     },
     {
       "id": "NPC-0091",
@@ -1453,8 +1453,8 @@
       "realm": "二流中品",
       "arts": "伏魔剑、骑术、辩才",
       "bio": "唃厮啰少子，精明强干，亲善大宋朝廷，常遣使护送贡马往来长安汴梁。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0091.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0091.jpg"
     },
     {
       "id": "NPC-0092",
@@ -1469,8 +1469,8 @@
       "realm": "宗师下品",
       "arts": "火焰刀、大慈大悲禅功、经义",
       "bio": "三次赴天竺求法归来的雪域译经巨匠，于逻些译经院讲授大手印与拙火定，佛学武理深不可测。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0092.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0092.jpg"
     },
     {
       "id": "NPC-0093",
@@ -1485,8 +1485,8 @@
       "realm": "一流上品",
       "arts": "洗髓经、拈花指、经义",
       "bio": "辅佐天竺高僧阿底峡弘传正法，戒律森严，慈悲定力令雪域各派折服。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0093.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0093.jpg"
     },
     {
       "id": "NPC-0094",
@@ -1501,8 +1501,8 @@
       "realm": "一流中品",
       "arts": "胡汉八极刀、五毒砂掌、策论",
       "bio": "雄踞南疆交趾边境，不甘臣服安南而欲内附大宋遭拒，正秘密招兵买马打造神兵，岭南山雨欲来。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0094.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0094.jpg"
     },
     {
       "id": "NPC-0095",
@@ -1517,8 +1517,8 @@
       "realm": "二流上品",
       "arts": "毒蒺藜散手、五毒砂掌、策论",
       "bio": "精明悍勇，熟谙南疆毒蛊与山地战法，往来大理茶马道暗购军械粮草。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0095.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0095.jpg"
     },
     {
       "id": "NPC-0096",
@@ -1533,8 +1533,8 @@
       "realm": "不入流",
       "arts": "策论、辩才、算术",
       "bio": "广州落第举子，屡试不第后投奔侬智高，熟知大宋东南与岭南城防虚实，力劝起兵图取两广。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0096.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0096.jpg"
     },
     {
       "id": "NPC-0097",
@@ -1549,8 +1549,8 @@
       "realm": "二流中品",
       "arts": "少林九阳功、散花掌、经义",
       "bio": "驻锡汴梁皇家寺院大相国寺，与欧阳修、富弼等朝臣论禅，亦为少林与京师沟通之桥梁。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0097.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0097.jpg"
     },
     {
       "id": "NPC-0098",
@@ -1565,8 +1565,8 @@
       "realm": "三流上品",
       "arts": "莲华静心诀、经义、辩才、书",
       "bio": "居杭州西湖灵隐寺著《辅教编》，主张儒释一贯，辩才无碍，江南僧俗莫不敬仰。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0098.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0098.jpg"
     },
     {
       "id": "NPC-0099",
@@ -1581,8 +1581,8 @@
       "realm": "二流下品",
       "arts": "少林小乘禅功、普门杖法、经义",
       "bio": "雪窦重显高足，于江浙开堂说法，机锋峻烈，江南名士与慕容氏门客亦常往听禅。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0099.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0099.jpg"
     },
     {
       "id": "NPC-0100",
@@ -1597,8 +1597,8 @@
       "realm": "不入流",
       "arts": "经义、书、画、骑术",
       "bio": "博通先秦钟鼎古文字与塞北山川地理，在长安搜访汉唐古碑，知识渊博冠绝馆阁。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0100.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0100.jpg"
     },
     {
       "id": "NPC-0101",
@@ -1725,8 +1725,8 @@
       "realm": "宗师上品",
       "arts": "六脉神剑、一阳指、《枯荣禅意功》",
       "bio": "大理崇圣寺（天龙寺）辈分最高之皇族高僧，面容半边如婴儿红润、半边如枯木死灰，参透枯荣禅机，镇守南疆佛国。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0108.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0108.jpg"
     },
     {
       "id": "NPC-0109",
@@ -1742,7 +1742,7 @@
       "arts": "《少林九阳功》、般若掌、大力金刚指、一拍两散掌、一苇渡江",
       "bio": "少林寺二百年来武功进境最快之奇才，兼通十三门少林绝技，佛门明面第一高手。",
       "avatarUrl": "/assets/characters/avatars/NPC-0109.jpg",
-      "fullbodyUrl": null
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0109.jpg"
     },
     {
       "id": "NPC-0110",
@@ -1853,8 +1853,8 @@
       "realm": "宗师中品",
       "arts": "一阳指、六脉神剑、《枯荣禅意功》",
       "bio": "大理皇室前辈宗王，出家天龙寺法号本观，一阳指已臻一品化境，常巡游无量山与巴蜀震慑南疆宵小。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0116.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0116.jpg"
     },
     {
       "id": "NPC-0117",
@@ -1869,7 +1869,7 @@
       "realm": "宗师中品",
       "arts": "铁掌水上漂（绝顶合卷）、铁掌功、《毒砂百炼功》",
       "bio": "盘踞荆楚洞庭铁掌峰之霸主，双掌力可裂碑碎石，水上漂轻功踏波横渡汉江，正邪莫敢轻捋虎须。",
-      "avatarUrl": null,
+      "avatarUrl": "/assets/characters/avatars/NPC-0117.jpg",
       "fullbodyUrl": null
     },
     {
@@ -1902,7 +1902,7 @@
       "arts": "真武太极剑意、《太极混元桩》、两仪剑法、梯云纵",
       "bio": "武当山紫霄宫掌教，鹤发童颜，深明老庄以柔克刚之妙，梯云纵与太极剑意独步汉水荆襄。",
       "avatarUrl": null,
-      "fullbodyUrl": null
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0119.jpg"
     },
     {
       "id": "NPC-0120",
@@ -2157,8 +2157,8 @@
       "realm": "一流上品",
       "arts": "一苇渡江、达摩剑法、《少林九阳功》",
       "bio": "轻功冠绝嵩少，曾提一口真气足踏芦苇横渡黄河天险，剑术古朴空灵。",
-      "avatarUrl": null,
-      "fullbodyUrl": null
+      "avatarUrl": "/assets/characters/avatars/NPC-0135.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0135.jpg"
     },
     {
       "id": "NPC-0136",
@@ -3773,7 +3773,7 @@
       "realm": "一流下品",
       "arts": "一阳指、无量剑诀、诗词",
       "bio": "大理镇南王，丰神俊朗、多情重义，一阳指与段家剑法造诣不俗，常游历中原江南。",
-      "avatarUrl": null,
+      "avatarUrl": "/assets/characters/avatars/NPC-0236.jpg",
       "fullbodyUrl": "/assets/characters/fullbody/NPC-0236.jpg"
     },
     {
