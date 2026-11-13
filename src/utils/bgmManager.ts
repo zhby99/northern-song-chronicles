@@ -50,7 +50,6 @@ export function resolveBgmPlaylistForState(params: {
 }): BgmPlaylistContext {
   const { viewMode, activeRegionId, overrideCharacterId, overrideEventId } = params
 
-  // 1. Highest priority: Event BGM override (if active and has files in events/<eventId>)
   if (overrideEventId) {
     const evTracks = audioManifest.events[overrideEventId] ?? []
     if (evTracks.length > 0) {
@@ -65,7 +64,6 @@ export function resolveBgmPlaylistForState(params: {
     }
   }
 
-  // 2. Character BGM override (if active and has files in characters/<characterId>)
   if (overrideCharacterId) {
     const chTracks = audioManifest.characters[overrideCharacterId] ?? []
     if (chTracks.length > 0) {
@@ -80,7 +78,6 @@ export function resolveBgmPlaylistForState(params: {
     }
   }
 
-  // 3. Region / Building view: play regions/<activeRegionId>/1, 2, 3... if available
   const worldTracks = toPlaylistItems(audioManifest.world)
   if (viewMode === 'region' || viewMode === 'building') {
     const regionName = REGION_DB_MAP[activeRegionId]?.name ?? activeRegionId
@@ -90,29 +87,33 @@ export function resolveBgmPlaylistForState(params: {
         playlistKey: `regions:${activeRegionId}`,
         category: 'regions',
         sceneTitle: `${regionName}配乐`,
-        sceneSubtitle: `地区专属曲库 · 共 ${regEntries.length} 首按序轮播`,
+        sceneSubtitle:
+          regEntries.length === 1
+            ? '地区专属配乐 · 无缝单曲循环'
+            : `地区专属曲库 · 共 ${regEntries.length} 首按序轮播`,
         isFallbackToWorld: false,
         tracks: toPlaylistItems(regEntries),
       }
     }
 
-    // Fallback cleanly to World Map BGM if this region has no tracks yet
     return {
       playlistKey: 'world',
       category: 'world',
       sceneTitle: '山海舆图配乐',
-      sceneSubtitle: `${regionName}暂未置入专属曲目 · 沿用大地图曲库 (${worldTracks.length} 首)`,
+      sceneSubtitle: `${regionName}暂未置入专属曲目 · 沿用大地图无缝循环曲`,
       isFallbackToWorld: true,
       tracks: worldTracks,
     }
   }
 
-  // 4. World Map view: play world/1, 2, 3... in order
   return {
     playlistKey: 'world',
     category: 'world',
     sceneTitle: '大地图背景乐',
-    sceneSubtitle: `天下舆图曲库 · 共 ${worldTracks.length} 首按序轮播`,
+    sceneSubtitle:
+      worldTracks.length === 1
+        ? '天下舆图高潮选段 · 无缝单曲循环'
+        : `天下舆图曲库 · 共 ${worldTracks.length} 首按序轮播`,
     isFallbackToWorld: false,
     tracks: worldTracks,
   }
@@ -157,17 +158,27 @@ function readInitialEnabled(): boolean {
   return true
 }
 
-let audioEl: HTMLAudioElement | null = null
+let audioCtx: AudioContext | null = null
+let masterGain: GainNode | null = null
+let activeSource: AudioBufferSourceNode | null = null
+let activeBuffer: AudioBuffer | null = null
+let activeBufferTrimStart = 0
+let activeBufferTrimEnd = 0
+let activeLoadToken = 0
+let playAnchorCtxTime = 0
+let pausedOffsetSec = 0
+let tickTimer: number | null = null
 let gestureListenersBound = false
+
+const decodedBufferCache = new Map<string, Promise<AudioBuffer>>()
+
 let overrideCharacterId: string | null = null
 let overrideEventId: string | null = null
 let lastSceneParams: { viewMode: ViewMode; activeRegionId: string } = {
   viewMode: 'region',
   activeRegionId: 'bianliang',
 }
-// Remember where the player left off in each playlist (optional resume index, starts at 0 = track 1)
 const playlistLastIndex = new Map<string, number>()
-
 const listeners = new Set<() => void>()
 
 let snapshot: BgmSnapshot = {
@@ -194,117 +205,216 @@ export function getActiveTrackItem(snap: BgmSnapshot = snapshot): BgmPlaylistIte
   return snap.playlist.tracks[safeIdx] ?? null
 }
 
-function loadCurrentTrackIntoAudio(autoPlayIfEnabled: boolean) {
-  const el = ensureAudioElement()
+function ensureAudioContext(): AudioContext | null {
+  if (typeof window === 'undefined') return null
+  if (!audioCtx) {
+    const Ctor =
+      window.AudioContext ||
+      (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+    if (!Ctor) return null
+    audioCtx = new Ctor()
+    masterGain = audioCtx.createGain()
+    masterGain.gain.value = snapshot.volume
+    masterGain.connect(audioCtx.destination)
+  }
+  return audioCtx
+}
+
+/**
+ * Find non-silent sample bounds to strip any browser MP3 decoder Delay/Padding frames
+ * so `loopStart` / `loopEnd` wraps with 0-sample gapless precision.
+ */
+function detectSeamlessLoopBounds(buf: AudioBuffer): { start: number; end: number } {
+  const ch0 = buf.getChannelData(0)
+  const ch1 = buf.numberOfChannels > 1 ? buf.getChannelData(1) : ch0
+  const len = buf.length
+  const threshold = 1e-4
+
+  let first = 0
+  // Only trim up to 60ms (MP3 encoder/decoder delay is typically 528..2257 samples)
+  const maxCheck = Math.min(len, Math.floor(buf.sampleRate * 0.06))
+  while (first < maxCheck && Math.abs(ch0[first]) < threshold && Math.abs(ch1[first]) < threshold) {
+    first += 1
+  }
+
+  let last = len - 1
+  const minEnd = Math.max(first + 1, len - maxCheck)
+  while (last > minEnd && Math.abs(ch0[last]) < threshold && Math.abs(ch1[last]) < threshold) {
+    last -= 1
+  }
+
+  return {
+    start: first / buf.sampleRate,
+    end: (last + 1) / buf.sampleRate,
+  }
+}
+
+function fetchAndDecodeBuffer(item: BgmPlaylistItem): Promise<AudioBuffer> {
+  const cached = decodedBufferCache.get(item.url)
+  if (cached) return cached
+
+  const ctx = ensureAudioContext()
+  if (!ctx) return Promise.reject(new Error('Web Audio unavailable'))
+
+  const promise = fetch(resolveAssetUrl(item.url))
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP ${res.status} loading ${item.url}`)
+      return res.arrayBuffer()
+    })
+    .then((arr) => ctx.decodeAudioData(arr))
+    .then((audioBuf) => {
+      recordAssetLoaded(item.url, item.bytes)
+      return audioBuf
+    })
+    .catch((err) => {
+      decodedBufferCache.delete(item.url)
+      throw err
+    })
+
+  decodedBufferCache.set(item.url, promise)
+  return promise
+}
+
+function stopActiveSourceNode() {
+  if (activeSource) {
+    activeSource.onended = null
+    try {
+      activeSource.stop()
+    } catch {
+      // already stopped
+    }
+    activeSource.disconnect()
+    activeSource = null
+  }
+}
+
+function updateProgressTimerState() {
+  if (typeof window === 'undefined') return
+  if (snapshot.isPlaying && tickTimer === null) {
+    tickTimer = window.setInterval(() => {
+      if (!audioCtx || !snapshot.isPlaying || !activeBuffer) return
+      const span = Math.max(0.1, activeBufferTrimEnd - activeBufferTrimStart)
+      const elapsed = Math.max(0, audioCtx.currentTime - playAnchorCtxTime)
+      snapshot.currentTime = snapshot.playlist.tracks.length === 1 ? elapsed % span : Math.min(span, elapsed)
+      snapshot.duration = span
+      emit()
+    }, 350)
+  } else if (!snapshot.isPlaying && tickTimer !== null) {
+    window.clearInterval(tickTimer)
+    tickTimer = null
+  }
+}
+
+function startBufferSourceFromOffset(offsetWithinTrimmedSec: number) {
+  const ctx = ensureAudioContext()
+  if (!ctx || !masterGain || !activeBuffer) return
+
+  stopActiveSourceNode()
+
+  const isSingleLoop = snapshot.playlist.tracks.length === 1
+  const span = Math.max(0.05, activeBufferTrimEnd - activeBufferTrimStart)
+  const safeOffset = ((offsetWithinTrimmedSec % span) + span) % span
+
+  const src = ctx.createBufferSource()
+  src.buffer = activeBuffer
+  src.loop = isSingleLoop
+  if (isSingleLoop) {
+    src.loopStart = activeBufferTrimStart
+    src.loopEnd = activeBufferTrimEnd
+  }
+
+  // Smooth 30ms micro fade-in on initial start/seek to eliminate any click from mid-waveform start;
+  // subsequent loop wraps inside BufferSourceNode stay at steady gain with 0-sample seamlessness!
+  const now = ctx.currentTime
+  masterGain.gain.cancelScheduledValues(now)
+  masterGain.gain.setValueAtTime(0.0001, now)
+  masterGain.gain.linearRampToValueAtTime(snapshot.volume, now + 0.03)
+
+  src.connect(masterGain)
+
+  if (!isSingleLoop) {
+    const tokenAtStart = activeLoadToken
+    src.onended = () => {
+      if (tokenAtStart !== activeLoadToken || !snapshot.enabled) return
+      const count = snapshot.playlist.tracks.length
+      if (count > 1) {
+        const nextIdx = (snapshot.trackIndex + 1) % count
+        snapshot.trackIndex = nextIdx
+        playlistLastIndex.set(snapshot.playlist.playlistKey, nextIdx)
+        pausedOffsetSec = 0
+        void loadAndPlayCurrentTrack(true)
+      }
+    }
+  }
+
+  src.start(0, activeBufferTrimStart + safeOffset)
+  activeSource = src
+  playAnchorCtxTime = now - safeOffset
+  pausedOffsetSec = safeOffset
+  snapshot.currentTime = safeOffset
+  snapshot.duration = span
+  snapshot.isPlaying = true
+  snapshot.awaitingGesture = false
+  updateProgressTimerState()
+  emit()
+}
+
+async function loadAndPlayCurrentTrack(autoPlay: boolean) {
   const item = getActiveTrackItem()
-  if (!el) return
+  const token = ++activeLoadToken
+
+  stopActiveSourceNode()
+  snapshot.isPlaying = false
+  updateProgressTimerState()
 
   if (!item) {
-    el.pause()
-    el.removeAttribute('src')
-    snapshot.isPlaying = false
+    activeBuffer = null
     snapshot.currentTime = 0
     snapshot.duration = 0
     emit()
     return
   }
 
-  const resolvedSrc = resolveAssetUrl(item.url)
-  // Single-track folder loops seamlessly; multi-track folder advances 1 -> 2 -> 3 -> ... -> 1 on 'ended'
-  el.loop = snapshot.playlist.tracks.length === 1
-  el.volume = snapshot.volume
+  const ctx = ensureAudioContext()
+  if (!ctx) return
 
-  if (el.getAttribute('data-track-url') !== item.url) {
-    el.setAttribute('data-track-url', item.url)
-    el.src = resolvedSrc
-    snapshot.currentTime = 0
-    snapshot.duration = 0
-  }
+  try {
+    const buf = await fetchAndDecodeBuffer(item)
+    if (token !== activeLoadToken) return
 
-  if (autoPlayIfEnabled && snapshot.enabled) {
-    el.play()
-      .then(() => {
-        snapshot.isPlaying = true
-        snapshot.awaitingGesture = false
-        unbindUnlockGesture()
-        emit()
-      })
-      .catch(() => {
-        snapshot.isPlaying = false
-        snapshot.awaitingGesture = true
-        bindUnlockGesture()
-        emit()
-      })
-  } else {
-    emit()
-  }
-}
+    activeBuffer = buf
+    const bounds = detectSeamlessLoopBounds(buf)
+    activeBufferTrimStart = bounds.start
+    activeBufferTrimEnd = bounds.end
+    snapshot.duration = Math.max(0.1, bounds.end - bounds.start)
 
-function ensureAudioElement(): HTMLAudioElement | null {
-  if (typeof window === 'undefined' || typeof Audio === 'undefined') return null
-  if (audioEl) return audioEl
-
-  const el = new Audio()
-  el.preload = 'auto'
-  el.volume = snapshot.volume
-
-  el.addEventListener('loadeddata', () => {
-    const item = getActiveTrackItem()
-    if (item) {
-      recordAssetLoaded(item.url, item.bytes)
-    }
-    if (Number.isFinite(el.duration) && el.duration > 0) {
-      snapshot.duration = el.duration
+    if (!autoPlay || !snapshot.enabled) {
       emit()
-    }
-  })
-
-  el.addEventListener('loadedmetadata', () => {
-    if (Number.isFinite(el.duration) && el.duration > 0) {
-      snapshot.duration = el.duration
-      emit()
-    }
-  })
-
-  el.addEventListener('play', () => {
-    snapshot.isPlaying = true
-    snapshot.awaitingGesture = false
-    emit()
-  })
-
-  el.addEventListener('pause', () => {
-    snapshot.isPlaying = false
-    emit()
-  })
-
-  el.addEventListener('ended', () => {
-    // Advance strictly in numerical order 1 -> 2 -> 3 -> ... -> 1
-    const count = snapshot.playlist.tracks.length
-    if (count <= 1) {
-      el.currentTime = 0
-      if (snapshot.enabled) {
-        void el.play().catch(() => {})
-      }
       return
     }
-    const nextIdx = (snapshot.trackIndex + 1) % count
-    snapshot.trackIndex = nextIdx
-    playlistLastIndex.set(snapshot.playlist.playlistKey, nextIdx)
-    loadCurrentTrackIntoAudio(true)
-  })
 
-  el.addEventListener('timeupdate', () => {
-    if (Math.abs(el.currentTime - snapshot.currentTime) >= 0.35 || el.currentTime < 0.4) {
-      snapshot.currentTime = el.currentTime
-      if (Number.isFinite(el.duration) && el.duration > 0) {
-        snapshot.duration = el.duration
+    if (ctx.state === 'suspended') {
+      try {
+        await ctx.resume()
+      } catch {
+        // Autoplay blocked until gesture
       }
+    }
+
+    if (ctx.state !== 'running') {
+      snapshot.awaitingGesture = true
+      bindUnlockGesture()
+      emit()
+      return
+    }
+
+    unbindUnlockGesture()
+    startBufferSourceFromOffset(pausedOffsetSec)
+  } catch {
+    if (token === activeLoadToken) {
       emit()
     }
-  })
-
-  audioEl = el
-  return el
+  }
 }
 
 function unbindUnlockGesture() {
@@ -319,18 +429,19 @@ function handleFirstUserGesture() {
     unbindUnlockGesture()
     return
   }
-  const el = ensureAudioElement()
-  if (!el || snapshot.playlist.tracks.length === 0) return
-  if (!el.getAttribute('data-track-url')) {
-    loadCurrentTrackIntoAudio(true)
-    return
-  }
-  el.play()
+  const ctx = ensureAudioContext()
+  if (!ctx) return
+  ctx
+    .resume()
     .then(() => {
-      snapshot.isPlaying = true
-      snapshot.awaitingGesture = false
-      unbindUnlockGesture()
-      emit()
+      if (ctx.state === 'running') {
+        unbindUnlockGesture()
+        if (activeBuffer && !snapshot.isPlaying) {
+          startBufferSourceFromOffset(pausedOffsetSec)
+        } else if (!activeBuffer) {
+          void loadAndPlayCurrentTrack(true)
+        }
+      }
     })
     .catch(() => {
       // wait for next valid gesture
@@ -344,12 +455,8 @@ function bindUnlockGesture() {
   window.addEventListener('keydown', handleFirstUserGesture, true)
 }
 
-/**
- * Sync BGM playlist with current game scene (world vs region/building).
- * When entering a new playlistKey (e.g., switching from Kaifeng `regions:bianliang` to World `world`),
- * starts from Track 1 (index 0) and plays sequentially 1 -> 2 -> 3...
- * Staying within the same playlistKey (e.g., entering a building inside Kaifeng, or moving between two regions that both fallback to `world`) keeps current playback uninterrupted!
- */
+let activeTrackUrlLoaded: string | null = null
+
 export function syncBgmSceneContext(viewMode: ViewMode, activeRegionId: string) {
   lastSceneParams = { viewMode, activeRegionId }
   const nextPlaylist = resolveBgmPlaylistForState({
@@ -362,16 +469,17 @@ export function syncBgmSceneContext(viewMode: ViewMode, activeRegionId: string) 
   const keyChanged = nextPlaylist.playlistKey !== snapshot.playlist.playlistKey
   snapshot.playlist = nextPlaylist
 
-  if (!keyChanged && audioEl && audioEl.getAttribute('data-track-url')) {
-    // Only subtitle may have updated (e.g. moving between two fallback regions)
+  const currentItem = getActiveTrackItem()
+  if (!keyChanged && currentItem && activeTrackUrlLoaded === currentItem.url) {
     emit()
     return
   }
 
-  // Always start from Track #1 (index 0) when switching into a new scene/region playlist
   snapshot.trackIndex = 0
+  pausedOffsetSec = 0
   playlistLastIndex.set(nextPlaylist.playlistKey, 0)
-  loadCurrentTrackIntoAudio(true)
+  activeTrackUrlLoaded = getActiveTrackItem()?.url ?? null
+  void loadAndPlayCurrentTrack(true)
 }
 
 export function setBgmOverride(opts: { characterId?: string | null; eventId?: string | null }) {
@@ -385,12 +493,14 @@ export function selectBgmTrackIndex(index: number) {
   if (count === 0) return
   const clamped = ((index % count) + count) % count
   snapshot.trackIndex = clamped
+  pausedOffsetSec = 0
   playlistLastIndex.set(snapshot.playlist.playlistKey, clamped)
+  activeTrackUrlLoaded = getActiveTrackItem()?.url ?? null
   if (!snapshot.enabled) {
     setBgmEnabled(true)
     return
   }
-  loadCurrentTrackIntoAudio(true)
+  void loadAndPlayCurrentTrack(true)
 }
 
 export function playNextBgmTrack() {
@@ -413,19 +523,25 @@ export function setBgmEnabled(enabled: boolean) {
     // ignore
   }
 
-  const el = ensureAudioElement()
   if (!enabled) {
+    if (audioCtx && snapshot.isPlaying && activeBuffer) {
+      const span = Math.max(0.1, activeBufferTrimEnd - activeBufferTrimStart)
+      pausedOffsetSec = Math.max(0, audioCtx.currentTime - playAnchorCtxTime) % span
+    }
+    stopActiveSourceNode()
+    snapshot.isPlaying = false
     snapshot.awaitingGesture = false
     unbindUnlockGesture()
-    if (el && !el.paused) {
-      el.pause()
-    }
-    snapshot.isPlaying = false
+    updateProgressTimerState()
     emit()
     return
   }
 
-  loadCurrentTrackIntoAudio(true)
+  if (activeBuffer && audioCtx && audioCtx.state === 'running') {
+    startBufferSourceFromOffset(pausedOffsetSec)
+  } else {
+    void loadAndPlayCurrentTrack(true)
+  }
 }
 
 export function setBgmVolume(volume: number) {
@@ -436,8 +552,8 @@ export function setBgmVolume(volume: number) {
   } catch {
     // ignore
   }
-  if (audioEl) {
-    audioEl.volume = clamped
+  if (masterGain && audioCtx) {
+    masterGain.gain.setTargetAtTime(clamped, audioCtx.currentTime, 0.02)
   }
   if (clamped > 0 && !snapshot.enabled) {
     setBgmEnabled(true)
@@ -447,23 +563,21 @@ export function setBgmVolume(volume: number) {
 }
 
 export function seekBgmTo(timeSec: number) {
-  const el = ensureAudioElement()
-  if (!el || snapshot.playlist.tracks.length === 0) return
-  const maxDur = snapshot.duration > 0 ? snapshot.duration - 0.1 : timeSec
+  if (snapshot.playlist.tracks.length === 0) return
+  const maxDur = snapshot.duration > 0 ? snapshot.duration - 0.05 : timeSec
   const target = Math.max(0, Math.min(maxDur, timeSec))
-  el.currentTime = target
+  pausedOffsetSec = target
   snapshot.currentTime = target
+
   if (!snapshot.enabled) {
     setBgmEnabled(true)
     return
   }
-  if (el.paused) {
-    void el.play().catch(() => {
-      snapshot.awaitingGesture = true
-      bindUnlockGesture()
-    })
+  if (activeBuffer && audioCtx && audioCtx.state === 'running') {
+    startBufferSourceFromOffset(target)
+  } else {
+    void loadAndPlayCurrentTrack(true)
   }
-  emit()
 }
 
 function subscribe(listener: () => void) {
