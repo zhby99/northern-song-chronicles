@@ -271,7 +271,6 @@ export function SystemMenuModal() {
   const consumeInventoryItem = useGameStore((s) => s.consumeInventoryItem)
   const toggleRegionLabels = useGameStore((s) => s.toggleRegionLabels)
   const setAllLabelToggles = useGameStore((s) => s.setAllLabelToggles)
-  const enterRegionMap = useGameStore((s) => s.enterRegionMap)
   const buildSaveEnvelope = useGameStore((s) => s.buildSaveEnvelope)
   const saveToSlot = useGameStore((s) => s.saveToSlot)
   const loadFromEnvelope = useGameStore((s) => s.loadFromEnvelope)
@@ -2033,12 +2032,15 @@ export function SystemMenuModal() {
                                   <button
                                     type="button"
                                     onClick={() => {
-                                      enterRegionMap(selectedNpc.regionId, true)
+                                      useGameStore.setState({
+                                        viewMode: 'world',
+                                        selectedNodeId: selectedNpc.regionId,
+                                      })
                                       closeMenu()
                                     }}
                                     className="px-2 py-0.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] text-[10px] cursor-pointer"
                                   >
-                                    前往该地 →
+                                    舆图寻路定位 →
                                   </button>
                                 </div>
                               </div>
