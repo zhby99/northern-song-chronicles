@@ -33,7 +33,7 @@ PUBLIC_DIR = ROOT_DIR / "public"
 
 
 # ==============================================================================
-# 1. [M0-2] 38 地区标准字典与旧地名归一表
+# 1. [M0-2] 43 地区标准字典与旧地名归一表
 # ==============================================================================
 
 CANONICAL_REGION_ORDER: list[tuple[str, str, str]] = [
@@ -78,6 +78,13 @@ CANONICAL_REGION_ORDER: list[tuple[str, str, str]] = [
     ("REG-36", "36", "wudangshan"),
     ("REG-37", "37", "tiezhangfeng"),
     ("REG-38", "38", "nanshaolin"),
+    # 39~42 新增四座大宋州府重镇（皇祐二年）
+    ("REG-39", "39", "guangzhou"),
+    ("REG-40", "40", "tanzhou"),
+    ("REG-41", "41", "hongzhou"),
+    ("REG-42", "42", "qinzhou"),
+    # 43 新增辽国东京道重镇
+    ("REG-43", "43", "liaoyang_liao"),
 ]
 
 # 任意旧地名 / 规范地名 -> (regionId, 规范文档展示名, subLocation)
@@ -188,20 +195,42 @@ LOCATION_RESOLUTION_MAP: dict[str, tuple[str, str, str | None]] = {
     "洞庭铁掌峰": ("tiezhangfeng", "洞庭铁掌峰", None),
     # 38 莆田南少林
     "莆田南少林": ("nanshaolin", "莆田南少林", None),
+    # 39 广州府
+    "广州": ("guangzhou", "广州府", None),
+    "羊城": ("guangzhou", "广州府", None),
+    "广州府": ("guangzhou", "广州府", None),
+    # 40 潭州府
+    "潭州": ("tanzhou", "潭州府", None),
+    "长沙": ("tanzhou", "潭州府", None),
+    "潭州府": ("tanzhou", "潭州府", None),
+    # 41 洪州府
+    "洪州": ("hongzhou", "洪州府", None),
+    "南昌": ("hongzhou", "洪州府", None),
+    "洪州府": ("hongzhou", "洪州府", None),
+    # 42 秦州府
+    "秦州": ("qinzhou", "秦州府", None),
+    "天水": ("qinzhou", "秦州府", None),
+    "秦州府": ("qinzhou", "秦州府", None),
+    # 43 辽阳府
+    "东京辽阳府": ("liaoyang_liao", "辽阳府", None),
+    "辽阳": ("liaoyang_liao", "辽阳府", None),
+    "辽阳府": ("liaoyang_liao", "辽阳府", None),
 }
 
 
 # ==============================================================================
-# 2. [M0-2] 20 大门派 + 11 朝堂/地域势力标准字典
+# 2. [M0-2] 30 武林门派 (20 一流大派 + 10 二三流门派) + 11 朝堂/地域势力标准字典
 # ==============================================================================
 
 CANONICAL_FACTIONS: list[dict[str, Any]] = [
-    # 20 个主要门派 (GAME_MECHANICS.md §4)
+    # 20 个一流名门大派 (MARTIAL_ARTS_SECTS.md §2)
     {
         "id": "SECT-01",
         "name": "嵩山少林寺",
         "shortName": "北少林",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "抗辽中流砥柱·名门正宗",
         "stance": "抗辽护国",
         "hqRegionId": "shaolin",
@@ -212,6 +241,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "丐帮",
         "shortName": "丐帮",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "抗辽中流砥柱·名门正宗",
         "stance": "抗辽护国",
         "hqRegionId": "luoyang",
@@ -222,6 +253,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "五台山清凉寺",
         "shortName": "清凉寺",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "抗辽中流砥柱·名门正宗",
         "stance": "抗辽护国",
         "hqRegionId": "wutaishan",
@@ -232,6 +265,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "莆田南少林",
         "shortName": "南少林",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "抗辽中流砥柱·名门正宗",
         "stance": "抗辽护国",
         "hqRegionId": "nanshaolin",
@@ -242,6 +277,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "华山派",
         "shortName": "华山",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "抗辽中流砥柱·名门正宗",
         "stance": "正道侠义",
         "hqRegionId": "tongguan",
@@ -252,6 +289,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "泰山派",
         "shortName": "泰山",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "抗辽中流砥柱·名门正宗",
         "stance": "正道侠义",
         "hqRegionId": "taishan",
@@ -262,6 +301,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "峨眉派",
         "shortName": "峨眉",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "抗辽中流砥柱·名门正宗",
         "stance": "正道侠义",
         "hqRegionId": "emeishan",
@@ -272,6 +313,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "真武道宗",
         "shortName": "真武",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "抗辽中流砥柱·名门正宗",
         "stance": "道法清正",
         "hqRegionId": "wudangshan",
@@ -282,6 +325,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "逍遥派",
         "shortName": "逍遥",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "隐世奇门·绝世传承",
         "stance": "逍遥超然",
         "hqRegionId": "wuliangshan",
@@ -292,6 +337,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "姑苏慕容氏",
         "shortName": "慕容",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "隐世奇门·绝世传承",
         "stance": "图谋复燕",
         "hqRegionId": "yanziwu",
@@ -302,6 +349,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "终南隐宗",
         "shortName": "终南",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "隐世奇门·绝世传承",
         "stance": "隐逸清修",
         "hqRegionId": "zhongnanshan",
@@ -312,6 +361,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "东海桃花岛",
         "shortName": "桃花岛",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "隐世奇门·绝世传承",
         "stance": "亦正亦邪",
         "hqRegionId": "taohuadao",
@@ -322,6 +373,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "蜀中唐门",
         "shortName": "唐门",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "地域世家·霸道强宗",
         "stance": "中立世家",
         "hqRegionId": "qingcheng",
@@ -332,6 +385,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "青城派",
         "shortName": "青城",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "地域世家·霸道强宗",
         "stance": "地域争锋",
         "hqRegionId": "qingcheng",
@@ -342,6 +397,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "铁掌帮",
         "shortName": "铁掌",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "地域世家·霸道强宗",
         "stance": "霸道绿林",
         "hqRegionId": "tiezhangfeng",
@@ -352,6 +409,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "江淮漕帮",
         "shortName": "漕帮",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "地域世家·霸道强宗",
         "stance": "水陆商帮",
         "hqRegionId": "yangzhou",
@@ -362,6 +421,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "开封府 / 六扇门",
         "shortName": "六扇门",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "朝廷鹰犬·草莽与外邦渗透势力",
         "stance": "庙堂护法",
         "hqRegionId": "bianliang",
@@ -372,6 +433,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "太行/京东绿林盟",
         "shortName": "绿林盟",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "朝廷鹰犬·草莽与外邦渗透势力",
         "stance": "替天行道/反官",
         "hqRegionId": "taihang",
@@ -382,6 +445,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "星宿派",
         "shortName": "星宿",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "朝廷鹰犬·草莽与外邦渗透势力",
         "stance": "西域毒宗",
         "hqRegionId": "kunlun",
@@ -392,10 +457,133 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "一品堂 / 辽国武林暗桩",
         "shortName": "一品堂",
         "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
         "group": "朝廷鹰犬·草莽与外邦渗透势力",
         "stance": "外邦敌对",
         "hqRegionId": "xingqing_xixia",
         "aliases": ["西夏一品堂", "辽国武林暗桩", "一品堂 / 辽国武林暗桩（外邦敌对势力）"],
+    },
+    # 10 个初入江湖友好型二三流门派 (MARTIAL_ARTS_SECTS.md §3~§4)
+    {
+        "id": "SECT-21",
+        "name": "洛阳金刀门",
+        "shortName": "金刀门",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "二流门派",
+        "group": "二流世家·行业武盟",
+        "stance": "正道世家",
+        "hqRegionId": "luoyang",
+        "aliases": ["金刀王家", "金刀门"],
+    },
+    {
+        "id": "SECT-22",
+        "name": "常山枪派",
+        "shortName": "常山枪",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "二流门派",
+        "group": "二流世家·行业武盟",
+        "stance": "抗辽义武",
+        "hqRegionId": "zhending",
+        "aliases": ["真定常山枪派", "常山枪"],
+    },
+    {
+        "id": "SECT-23",
+        "name": "沧州八极门",
+        "shortName": "八极门",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "二流门派",
+        "group": "二流世家·行业武盟",
+        "stance": "刚猛武馆",
+        "hqRegionId": "daming",
+        "aliases": ["八极门", "河北八极门"],
+    },
+    {
+        "id": "SECT-24",
+        "name": "闽海镇远镖局",
+        "shortName": "镇远镖局",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "二流门派",
+        "group": "二流世家·行业武盟",
+        "stance": "海陆商镖",
+        "hqRegionId": "quanzhou",
+        "aliases": ["镇远镖局", "泉州镇远镖局"],
+    },
+    {
+        "id": "SECT-25",
+        "name": "齐鲁查拳馆",
+        "shortName": "查拳馆",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "三流小派",
+        "group": "三流武馆·市井帮会",
+        "stance": "市井武馆",
+        "hqRegionId": "jinan",
+        "aliases": ["查拳馆", "济南查拳馆"],
+    },
+    {
+        "id": "SECT-26",
+        "name": "钱塘怒潮帮",
+        "shortName": "怒潮帮",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "三流小派",
+        "group": "三流武馆·市井帮会",
+        "stance": "水陆潮帮",
+        "hqRegionId": "hangzhou",
+        "aliases": ["怒潮帮", "钱塘潮帮"],
+    },
+    {
+        "id": "SECT-27",
+        "name": "岭南洪门武馆",
+        "shortName": "洪门武馆",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "三流小派",
+        "group": "三流武馆·市井帮会",
+        "stance": "市舶义勇",
+        "hqRegionId": "guangzhou",
+        "aliases": ["洪门武馆", "广州洪拳馆"],
+    },
+    {
+        "id": "SECT-28",
+        "name": "陇右金环刀堂",
+        "shortName": "金环刀堂",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "三流小派",
+        "group": "三流武馆·市井帮会",
+        "stance": "边塞趟马",
+        "hqRegionId": "qinzhou",
+        "aliases": ["金环刀堂", "秦州金环堂"],
+    },
+    {
+        "id": "SECT-29",
+        "name": "巴蜀百草药王门",
+        "shortName": "百草门",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "三流小派",
+        "group": "三流武馆·市井帮会",
+        "stance": "悬壶采药",
+        "hqRegionId": "chengdu",
+        "aliases": ["百草药王门", "百草门"],
+    },
+    {
+        "id": "SECT-30",
+        "name": "湘西五溪蛊寨",
+        "shortName": "五溪蛊寨",
+        "isMajorSect": False,
+        "isMinorSect": True,
+        "sectTier": "三流小派",
+        "group": "三流武馆·市井帮会",
+        "stance": "苗疆奇门",
+        "hqRegionId": "tanzhou",
+        "aliases": ["五溪蛊寨", "湘西蛊寨"],
     },
     # 11 个朝堂 / 士林 / 异域及散人阵营 (CHARACTER_COMPENDIUM.md)
     {
@@ -403,6 +591,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "隐世散人",
         "shortName": "散人",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "江湖散人与隐逸奇侠",
         "stance": "自由中立",
         "hqRegionId": None,
@@ -413,6 +603,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "大宋朝廷",
         "shortName": "宋廷",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "庙堂政权与四夷王庭",
         "stance": "大宋庙堂",
         "hqRegionId": "bianliang",
@@ -423,6 +615,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "大宋士林",
         "shortName": "士林",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "儒林百工与杏林名宿",
         "stance": "大宋儒林",
         "hqRegionId": "luoyang",
@@ -433,6 +627,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "大宋百工",
         "shortName": "百工",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "儒林百工与杏林名宿",
         "stance": "科技匠造",
         "hqRegionId": "bianliang",
@@ -443,6 +639,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "大宋医家",
         "shortName": "杏林",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "儒林百工与杏林名宿",
         "stance": "悬壶济世",
         "hqRegionId": "bianliang",
@@ -453,6 +651,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "大辽朝廷",
         "shortName": "辽廷",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "庙堂政权与四夷王庭",
         "stance": "契丹王庭",
         "hqRegionId": "linhuang_liao",
@@ -463,6 +663,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "西夏朝廷",
         "shortName": "夏廷",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "庙堂政权与四夷王庭",
         "stance": "党项王庭",
         "hqRegionId": "xingqing_xixia",
@@ -473,6 +675,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "大理皇室",
         "shortName": "大理",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "庙堂政权与四夷王庭",
         "stance": "南诏佛国",
         "hqRegionId": "dali_city",
@@ -483,6 +687,8 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "吐蕃诸部",
         "shortName": "吐蕃",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "庙堂政权与四夷王庭",
         "stance": "雪域密宗",
         "hqRegionId": "luoxie_tubo",
@@ -493,9 +699,11 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "南疆势力",
         "shortName": "南疆",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "边裔诸部",
         "stance": "西南边裔",
-        "hqRegionId": "dali_city",
+        "hqRegionId": "guangzhou",
         "aliases": ["广源州侬氏", "南疆诸洞"],
     },
     {
@@ -503,9 +711,11 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "name": "塞外诸部",
         "shortName": "塞外",
         "isMajorSect": False,
+        "isMinorSect": False,
+        "sectTier": "朝堂与地域组织",
         "group": "边裔诸部",
         "stance": "白山黑水",
-        "hqRegionId": "linhuang_liao",
+        "hqRegionId": "liaoyang_liao",
         "aliases": ["生女真完颜部"],
     },
 ]
@@ -718,6 +928,25 @@ def normalize_markdown_docs() -> dict[str, int]:
 # ==============================================================================
 
 def resolve_sect_for_origin(origin_text: str) -> str | None:
+    # Explicit minor-sect tags take precedence when not overshadowed by Tangmen's core dart art
+    if "唐门" in origin_text or "唐家堡" in origin_text:
+        return "SECT-13"
+    minor_rules = [
+        (["闽海镇远镖局"], "SECT-24"),
+        (["洛阳金刀门"], "SECT-21"),
+        (["常山枪派"], "SECT-22"),
+        (["沧州八极门"], "SECT-23"),
+        (["齐鲁查拳馆"], "SECT-25"),
+        (["钱塘怒潮帮"], "SECT-26"),
+        (["岭南洪门武馆"], "SECT-27"),
+        (["陇右金环刀堂"], "SECT-28"),
+        (["巴蜀百草药王门"], "SECT-29"),
+        (["湘西五溪蛊寨"], "SECT-30"),
+    ]
+    for keywords, sid in minor_rules:
+        if any(kw in origin_text for kw in keywords):
+            return sid
+
     rules = [
         (["嵩山少林", "北少林", "少林七十二", "少林达摩", "少林"], "SECT-01"),
         (["莆田南少林", "南少林"], "SECT-04"),
@@ -731,7 +960,6 @@ def resolve_sect_for_origin(origin_text: str) -> str | None:
         (["慕容", "燕子坞", "参合"], "SECT-10"),
         (["终南", "古墓", "活死人墓", "全真"], "SECT-11"),
         (["桃花岛"], "SECT-12"),
-        (["唐门", "唐家堡"], "SECT-13"),
         (["青城"], "SECT-14"),
         (["铁掌"], "SECT-15"),
         (["漕帮", "淮南盐帮", "水路"], "SECT-16"),
@@ -1359,6 +1587,22 @@ def generate_svg_fallback_interior(
         "wd_zixiao": (("紫霄重檐主大殿", "太极参玄"), ("东庑丹鼎藏经阁", "医药道藏"), ("禹迹池畔太极坪", "以柔克刚")),
         "tz_hall": (("铁掌帮聚义正堂", "霸道立威"), ("东厢军资刑堂", "帮规策算"), ("前坪百斤铁沙场", "铁掌淬炼")),
         "nsl_wooden": (("百杰木人机关主巷", "破阵闯关"), ("东侧铜砂铁臂廊", "横练硬功"), ("九莲山门演武坪", "拳棍拆招")),
+        # 5 New Cities (15 Special Buildings)
+        "gz_nanhai": (("祝融大殿 · 祭海正堂", "南海宗祠"), ("韩碑诗廊 · 铜鼓轩", "唐宋碑刻"), ("章丘浴日亭 · 洪门桩坪", "硬桥硬马")),
+        "gz_fanfang": (("番坊总署 · 香药奇珍堂", "万国互市"), ("怀圣光塔 · 望海台", "凭高观舶"), ("大食海商馆 · 译语轩", "四夷秘闻")),
+        "gz_yaozhou": (("九曜石轩 · 经制帅堂", "经略岭表"), ("仙湖曲桥 · 题石廊", "摩崖品诗"), ("百草药圃 · 辟瘴亭", "岭南灵草")),
+        "tzf_yuelu": (("岳麓讲堂 · 濂溪席", "太极理学"), ("御书藏经楼", "博通古今"), ("赫曦观江台", "潇湘吐纳")),
+        "tzf_tianxin": (("天心主阁 · 瞰湘楼", "楚南形胜"), ("古堞飞廊 · 藏兵室", "城防兵策"), ("橘洲望风露台", "迎风练步")),
+        "tzf_wuxi": (("五溪苗市 · 百草蛊堂", "苗疆奇货"), ("铜官窑彩绘坊", "丹青百工"), ("辰砂试毒石坪", "百毒淬体")),
+        "hzf_tengwang": (("滕王主阁 · 临江诗席", "江右文宗"), ("秋水长天画廊", "丹青琴韵"), ("章江吹笛露台", "凭栏吐纳")),
+        "hzf_xishan": (("玉隆正殿 · 净明道坛", "忠孝道脉"), ("许真君锁蛟铁柱井", "镇邪养气"), ("紫翠丹房松坪", "清心辟毒")),
+        "hzf_poyang": (("章江钞关 · 都水厅", "赣鄱水枢"), ("万斛漕船栈桥", "水陆商旅"), ("鄱阳楼船演武坞", "踏浪排枪")),
+        "qzf_chama": (("茶马榷场 · 勘合正堂", "川茶易马"), ("吐蕃青唐验马阑", "相马骑术"), ("丝路驼队行栈", "西域风闻")),
+        "qzf_maijishan": (("散花楼 · 凌空飞栈", "绝壁天梯"), ("千佛泥塑瑞应龛", "禅心佛艺"), ("东崖云雾试身台", "险崖轻身")),
+        "qzf_longyou": (("古塞石堡 · 金环聚义堂", "边关刀宗"), ("断碑烽火望夏台", "塞上军情"), ("黄沙校刀演武坪", "大环劈风")),
+        "lyf_yamen": (("东京留守正堂", "辽东军政"), ("渤海高丽四方宾馆", "东夷折冲"), ("铁林骁骑后校场", "弓马铁骑")),
+        "lyf_baita": (("广佑正殿 · 白塔地宫", "辽左佛刹"), ("八角密檐浮雕回廊", "契丹梵刻"), ("太子河望雪石坪", "朔气炼体")),
+        "lyf_ginseng": (("山参紫貂交易大堂", "关东奇珍"), ("海东青驯鹰场", "女真猎艺"), ("长白雪林试剑坪", "寒锋吐纳")),
     }
 
     kind_spot_titles: dict[str, tuple[tuple[str, str], tuple[str, str], tuple[str, str]]] = {
@@ -1469,7 +1713,7 @@ TEN_ARTS_CANONICAL_KEYS: tuple[str, ...] = (
 def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str) -> str:
     if faction_id in ("SECT-01", "SECT-03", "SECT-04") or "僧" in role or "禅" in role or "喇嘛" in role:
         return "/assets/characters/templates/tpl_shaolin_monk_fb.jpg"
-    if faction_id == "ORG-05" or "医" in role or "药" in role:
+    if faction_id in ("ORG-05", "SECT-29") or "医" in role or "药" in role:
         return "/assets/characters/templates/tpl_song_physician_fb.jpg"
     if faction_id == "ORG-08":
         return "/assets/characters/templates/tpl_dali_prince_fb.jpg"
@@ -1480,7 +1724,7 @@ def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str
             "后" in role or "妃" in role or "主" in role or "贵女" in role
         ):
             return "/assets/characters/templates/tpl_song_empress_fb.jpg"
-        if "将" in role or "帅" in role or "捕" in role or faction_id in ("SECT-17", "SECT-18"):
+        if "将" in role or "帅" in role or "捕" in role or faction_id in ("SECT-17", "SECT-18", "SECT-22", "SECT-24"):
             return "/assets/characters/templates/tpl_woman_general_fb.jpg"
         return "/assets/characters/templates/tpl_emei_heroine_fb.jpg"
     if category == "历史名人" or faction_id in ("ORG-02", "ORG-03", "ORG-04"):
@@ -1491,7 +1735,7 @@ def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str
         return "/assets/characters/templates/tpl_taoist_master_fb.jpg"
     if faction_id in ("SECT-09", "SECT-10", "SECT-12"):
         return "/assets/characters/templates/tpl_taohua_master_fb.jpg"
-    if faction_id in ("SECT-13", "SECT-19", "SECT-20"):
+    if faction_id in ("SECT-13", "SECT-19", "SECT-20", "SECT-30"):
         return "/assets/characters/templates/tpl_unorthodox_master_fb.jpg"
     return "/assets/characters/templates/tpl_greenwood_hero_fb.jpg"
 
@@ -1799,14 +2043,14 @@ def compile_all(do_normalize_docs: bool) -> None:
     lore_by_num = parse_region_doc_lore()
 
     wg_node_by_id = {n["id"]: n for n in world_graph["nodes"]}
-    if len(wg_node_by_id) != 38:
-        raise AssertionError(f"Expected 38 worldGraph nodes, got {len(wg_node_by_id)}")
+    if len(wg_node_by_id) != 43:
+        raise AssertionError(f"Expected 43 worldGraph nodes, got {len(wg_node_by_id)}")
 
     # 1) Compile Martial Arts (216) & Weapons (100)
     martial_arts = parse_martial_arts()
     weapons = parse_weapons()
 
-    # 2) Compile Buildings (123 Specials + 105 City Bases = 228)
+    # 2) Compile Buildings (138 Specials + 130 City Bases = 268)
     buildings: list[dict[str, Any]] = []
     buildings_by_region: dict[str, list[dict[str, Any]]] = defaultdict(list)
 
@@ -2004,7 +2248,9 @@ def compile_all(do_normalize_docs: bool) -> None:
         "counts": {
             "regions": len(regions),
             "majorSects": sum(1 for f in factions_enriched if f["isMajorSect"]),
-            "otherOrganizations": sum(1 for f in factions_enriched if not f["isMajorSect"]),
+            "minorSects": sum(1 for f in factions_enriched if f["isMinorSect"]),
+            "totalSects": sum(1 for f in factions_enriched if f["isMajorSect"] or f["isMinorSect"]),
+            "otherOrganizations": sum(1 for f in factions_enriched if not f["isMajorSect"] and not f["isMinorSect"]),
             "totalFactions": len(factions_enriched),
             "specialBuildings": special_count,
             "specialBuildingsWithImage": pano_img_count,
@@ -2105,9 +2351,51 @@ def compile_all(do_normalize_docs: bool) -> None:
         size_kb = os.path.getsize(out_path) / 1024
         print(f"[M0-3] Wrote src/data/{filename:18s} ({size_kb:7.1f} KB)")
 
+    # Sync portraitCatalog.json character metadata for 0001..0240 + minor sect leaders / regional anchors
+    pc_path = DATA_DIR / "portraitCatalog.json"
+    if pc_path.exists():
+        pc_data = json.loads(pc_path.read_text(encoding="utf-8"))
+        extra_pc_ids = {
+            "NPC-0264",
+            "NPC-0275",
+            "NPC-0286",
+            "NPC-0305",
+            "NPC-0306",
+            "NPC-0307",
+            "NPC-0313",
+            "NPC-0316",
+            "NPC-0337",
+        }
+        synced_chars = []
+        for npc in npcs:
+            n_num = int(npc["id"].split("-")[1])
+            if n_num <= 240 or npc["id"] in extra_pc_ids:
+                ch_entry: dict[str, Any] = {
+                    "id": npc["id"],
+                    "name": npc["name"],
+                    "title": npc["title"],
+                    "cat": npc["category"],
+                    "gender": npc["gender"],
+                    "age": npc["age"],
+                    "faction": npc["factionName"],
+                    "role": npc["role"],
+                    "loc": npc["locationLabel"],
+                    "realm": npc["realm"],
+                    "arts": npc["artsText"],
+                    "bio": npc["bio"],
+                }
+                if npc["avatarUrl"]:
+                    ch_entry["avatarUrl"] = npc["avatarUrl"]
+                if npc["fullbodyUrl"]:
+                    ch_entry["fullbodyUrl"] = npc["fullbodyUrl"]
+                synced_chars.append(ch_entry)
+        pc_data["characters"] = synced_chars
+        pc_path.write_text(json.dumps(pc_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"[M0-3] Synced src/data/portraitCatalog.json ({len(synced_chars)} characters)")
+
     print(
         f"[OK] Summary: {len(regions)} regions | "
-        f"20 sects + 11 orgs | "
+        f"30 sects (20 major + 10 minor) + 11 orgs | "
         f"{special_count} special buildings ({len(spot_by_id)} sub-spots) + "
         f"{len(buildings) - special_count} base buildings | "
         f"{len(martial_arts)} martial arts | "

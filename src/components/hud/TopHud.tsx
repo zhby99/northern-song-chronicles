@@ -669,10 +669,10 @@ export function TopHud() {
             <select
               value={activeRegionId}
               onChange={(e) => enterRegionMap(e.target.value, true)}
-              title="38处地区巡览切换"
+              title="43处地区巡览切换"
               className="px-2 py-1 rounded bg-[#fffaf0] border border-[#8c6e46] text-[#23180f] font-medium text-xs cursor-pointer"
             >
-              <optgroup label="大宋十五府（统一三字府名）">
+              <optgroup label="大宋十九府（统一三字府名）">
                 {groupedRegions.citiesSong.map((n) => (
                   <option key={n.id} value={n.id}>
                     {n.code ? `${n.code} · ` : ''}
@@ -680,7 +680,7 @@ export function TopHud() {
                   </option>
                 ))}
               </optgroup>
-              <optgroup label="辽·夏·吐蕃·大理六城">
+              <optgroup label="辽·夏·吐蕃·大理七城">
                 {groupedRegions.citiesForeign.map((n) => (
                   <option key={n.id} value={n.id}>
                     {n.code ? `${n.code} · ` : ''}

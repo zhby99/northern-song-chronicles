@@ -1,16 +1,18 @@
 {
   "schemaVersion": "M1.1.0",
   "counts": {
-    "regions": 38,
+    "regions": 43,
     "majorSects": 20,
+    "minorSects": 10,
+    "totalSects": 30,
     "otherOrganizations": 11,
-    "totalFactions": 31,
-    "specialBuildings": 123,
+    "totalFactions": 41,
+    "specialBuildings": 138,
     "specialBuildingsWithImage": 58,
-    "specialBuildingsWithSvgFallback": 65,
-    "cityBaseBuildings": 105,
-    "totalBuildings": 228,
-    "interiorSubBuildings": 369,
+    "specialBuildingsWithSvgFallback": 80,
+    "cityBaseBuildings": 130,
+    "totalBuildings": 268,
+    "interiorSubBuildings": 414,
     "martialArts": 216,
     "weapons": 100,
     "npcs": 1000,
@@ -28,7 +30,7 @@
       "legacyAliases": [
         "东京汴梁"
       ],
-      "npcCount": 63,
+      "npcCount": 58,
       "specialBuildingCount": 5
     },
     {
@@ -41,7 +43,7 @@
       "legacyAliases": [
         "西京洛阳"
       ],
-      "npcCount": 42,
+      "npcCount": 41,
       "specialBuildingCount": 5
     },
     {
@@ -54,7 +56,7 @@
       "legacyAliases": [
         "北京大名府"
       ],
-      "npcCount": 32,
+      "npcCount": 33,
       "specialBuildingCount": 3
     },
     {
@@ -65,7 +67,7 @@
       "type": "city",
       "regime": "song",
       "legacyAliases": [],
-      "npcCount": 36,
+      "npcCount": 35,
       "specialBuildingCount": 3
     },
     {
@@ -76,7 +78,7 @@
       "type": "city",
       "regime": "song",
       "legacyAliases": [],
-      "npcCount": 40,
+      "npcCount": 34,
       "specialBuildingCount": 3
     },
     {
@@ -89,7 +91,7 @@
       "legacyAliases": [
         "京兆长安"
       ],
-      "npcCount": 45,
+      "npcCount": 43,
       "specialBuildingCount": 3
     },
     {
@@ -102,7 +104,7 @@
       "legacyAliases": [
         "延州（延安）"
       ],
-      "npcCount": 45,
+      "npcCount": 35,
       "specialBuildingCount": 3
     },
     {
@@ -115,7 +117,7 @@
       "legacyAliases": [
         "青州 / 济南"
       ],
-      "npcCount": 28,
+      "npcCount": 32,
       "specialBuildingCount": 3
     },
     {
@@ -128,7 +130,7 @@
       "legacyAliases": [
         "扬州"
       ],
-      "npcCount": 37,
+      "npcCount": 28,
       "specialBuildingCount": 3
     },
     {
@@ -139,7 +141,7 @@
       "type": "city",
       "regime": "song",
       "legacyAliases": [],
-      "npcCount": 42,
+      "npcCount": 36,
       "specialBuildingCount": 3
     },
     {
@@ -152,7 +154,7 @@
       "legacyAliases": [
         "苏州（平江）"
       ],
-      "npcCount": 29,
+      "npcCount": 25,
       "specialBuildingCount": 3
     },
     {
@@ -165,7 +167,7 @@
       "legacyAliases": [
         "杭州（临安）"
       ],
-      "npcCount": 41,
+      "npcCount": 43,
       "specialBuildingCount": 3
     },
     {
@@ -176,7 +178,7 @@
       "type": "city",
       "regime": "song",
       "legacyAliases": [],
-      "npcCount": 48,
+      "npcCount": 51,
       "specialBuildingCount": 3
     },
     {
@@ -189,7 +191,7 @@
       "legacyAliases": [
         "江陵 / 襄阳"
       ],
-      "npcCount": 35,
+      "npcCount": 30,
       "specialBuildingCount": 3
     },
     {
@@ -202,7 +204,7 @@
       "legacyAliases": [
         "福州 / 泉州"
       ],
-      "npcCount": 42,
+      "npcCount": 39,
       "specialBuildingCount": 3
     },
     {
@@ -228,7 +230,7 @@
       "legacyAliases": [
         "中京大定府"
       ],
-      "npcCount": 14,
+      "npcCount": 6,
       "specialBuildingCount": 3
     },
     {
@@ -241,7 +243,7 @@
       "legacyAliases": [
         "上京临潢府"
       ],
-      "npcCount": 14,
+      "npcCount": 10,
       "specialBuildingCount": 3
     },
     {
@@ -254,7 +256,7 @@
       "legacyAliases": [
         "兴庆府（银川）"
       ],
-      "npcCount": 24,
+      "npcCount": 23,
       "specialBuildingCount": 4
     },
     {
@@ -265,7 +267,7 @@
       "type": "city",
       "regime": "tubo",
       "legacyAliases": [],
-      "npcCount": 15,
+      "npcCount": 12,
       "specialBuildingCount": 3
     },
     {
@@ -276,7 +278,7 @@
       "type": "city",
       "regime": "dali",
       "legacyAliases": [],
-      "npcCount": 20,
+      "npcCount": 16,
       "specialBuildingCount": 3
     },
     {
@@ -289,7 +291,7 @@
       "legacyAliases": [
         "昆仑山"
       ],
-      "npcCount": 16,
+      "npcCount": 14,
       "specialBuildingCount": 4
     },
     {
@@ -311,7 +313,7 @@
       "type": "pass",
       "regime": "song",
       "legacyAliases": [],
-      "npcCount": 21,
+      "npcCount": 13,
       "specialBuildingCount": 3
     },
     {
@@ -351,7 +353,7 @@
         "潼关 / 西岳华山（华山）",
         "潼关 / 西岳华山（潼关）"
       ],
-      "npcCount": 38,
+      "npcCount": 36,
       "specialBuildingCount": 4
     },
     {
@@ -410,7 +412,7 @@
       "type": "pass",
       "regime": "song",
       "legacyAliases": [],
-      "npcCount": 28,
+      "npcCount": 23,
       "specialBuildingCount": 3
     },
     {
@@ -426,7 +428,7 @@
         "青城山 / 唐家堡（唐家堡）",
         "青城山 / 唐家堡（青城山）"
       ],
-      "npcCount": 22,
+      "npcCount": 23,
       "specialBuildingCount": 3
     },
     {
@@ -452,7 +454,7 @@
       "legacyAliases": [
         "无量山"
       ],
-      "npcCount": 14,
+      "npcCount": 9,
       "specialBuildingCount": 3
     },
     {
@@ -489,6 +491,76 @@
       "legacyAliases": [],
       "npcCount": 22,
       "specialBuildingCount": 3
+    },
+    {
+      "id": "guangzhou",
+      "standardCode": "REG-39",
+      "numericCode": "39",
+      "name": "广州府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "广州",
+        "羊城"
+      ],
+      "npcCount": 18,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "tanzhou",
+      "standardCode": "REG-40",
+      "numericCode": "40",
+      "name": "潭州府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "潭州",
+        "长沙"
+      ],
+      "npcCount": 18,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "hongzhou",
+      "standardCode": "REG-41",
+      "numericCode": "41",
+      "name": "洪州府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "南昌",
+        "洪州"
+      ],
+      "npcCount": 16,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "qinzhou",
+      "standardCode": "REG-42",
+      "numericCode": "42",
+      "name": "秦州府",
+      "type": "city",
+      "regime": "song",
+      "legacyAliases": [
+        "天水",
+        "秦州"
+      ],
+      "npcCount": 18,
+      "specialBuildingCount": 3
+    },
+    {
+      "id": "liaoyang_liao",
+      "standardCode": "REG-43",
+      "numericCode": "43",
+      "name": "辽阳府",
+      "type": "city",
+      "regime": "liao",
+      "legacyAliases": [
+        "东京辽阳府",
+        "辽阳"
+      ],
+      "npcCount": 13,
+      "specialBuildingCount": 3
     }
   ],
   "factions": [
@@ -497,6 +569,8 @@
       "name": "嵩山少林寺",
       "shortName": "北少林",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "抗辽中流砥柱·名门正宗",
       "stance": "抗辽护国",
       "hqRegionId": "shaolin",
@@ -537,6 +611,8 @@
       "name": "丐帮",
       "shortName": "丐帮",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "抗辽中流砥柱·名门正宗",
       "stance": "抗辽护国",
       "hqRegionId": "luoyang",
@@ -560,6 +636,8 @@
       "name": "五台山清凉寺",
       "shortName": "清凉寺",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "抗辽中流砥柱·名门正宗",
       "stance": "抗辽护国",
       "hqRegionId": "wutaishan",
@@ -579,6 +657,8 @@
       "name": "莆田南少林",
       "shortName": "南少林",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "抗辽中流砥柱·名门正宗",
       "stance": "抗辽护国",
       "hqRegionId": "nanshaolin",
@@ -597,6 +677,8 @@
       "name": "华山派",
       "shortName": "华山",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "抗辽中流砥柱·名门正宗",
       "stance": "正道侠义",
       "hqRegionId": "tongguan",
@@ -623,6 +705,8 @@
       "name": "泰山派",
       "shortName": "泰山",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "抗辽中流砥柱·名门正宗",
       "stance": "正道侠义",
       "hqRegionId": "taishan",
@@ -642,6 +726,8 @@
       "name": "峨眉派",
       "shortName": "峨眉",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "抗辽中流砥柱·名门正宗",
       "stance": "正道侠义",
       "hqRegionId": "emeishan",
@@ -665,6 +751,8 @@
       "name": "真武道宗",
       "shortName": "真武",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "抗辽中流砥柱·名门正宗",
       "stance": "道法清正",
       "hqRegionId": "wudangshan",
@@ -689,6 +777,8 @@
       "name": "逍遥派",
       "shortName": "逍遥",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "隐世奇门·绝世传承",
       "stance": "逍遥超然",
       "hqRegionId": "wuliangshan",
@@ -713,6 +803,8 @@
       "name": "姑苏慕容氏",
       "shortName": "慕容",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "隐世奇门·绝世传承",
       "stance": "图谋复燕",
       "hqRegionId": "yanziwu",
@@ -732,6 +824,8 @@
       "name": "终南隐宗",
       "shortName": "终南",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "隐世奇门·绝世传承",
       "stance": "隐逸清修",
       "hqRegionId": "zhongnanshan",
@@ -754,6 +848,8 @@
       "name": "东海桃花岛",
       "shortName": "桃花岛",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "隐世奇门·绝世传承",
       "stance": "亦正亦邪",
       "hqRegionId": "taohuadao",
@@ -775,6 +871,8 @@
       "name": "蜀中唐门",
       "shortName": "唐门",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "地域世家·霸道强宗",
       "stance": "中立世家",
       "hqRegionId": "qingcheng",
@@ -797,6 +895,8 @@
       "name": "青城派",
       "shortName": "青城",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "地域世家·霸道强宗",
       "stance": "地域争锋",
       "hqRegionId": "qingcheng",
@@ -816,6 +916,8 @@
       "name": "铁掌帮",
       "shortName": "铁掌",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "地域世家·霸道强宗",
       "stance": "霸道绿林",
       "hqRegionId": "tiezhangfeng",
@@ -835,6 +937,8 @@
       "name": "江淮漕帮",
       "shortName": "漕帮",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "地域世家·霸道强宗",
       "stance": "水陆商帮",
       "hqRegionId": "yangzhou",
@@ -853,6 +957,8 @@
       "name": "开封府 / 六扇门",
       "shortName": "六扇门",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "朝廷鹰犬·草莽与外邦渗透势力",
       "stance": "庙堂护法",
       "hqRegionId": "bianliang",
@@ -875,6 +981,8 @@
       "name": "太行/京东绿林盟",
       "shortName": "绿林盟",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "朝廷鹰犬·草莽与外邦渗透势力",
       "stance": "替天行道/反官",
       "hqRegionId": "taihang",
@@ -900,6 +1008,8 @@
       "name": "星宿派",
       "shortName": "星宿",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "朝廷鹰犬·草莽与外邦渗透势力",
       "stance": "西域毒宗",
       "hqRegionId": "kunlun",
@@ -920,6 +1030,8 @@
       "name": "一品堂 / 辽国武林暗桩",
       "shortName": "一品堂",
       "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
       "group": "朝廷鹰犬·草莽与外邦渗透势力",
       "stance": "外邦敌对",
       "hqRegionId": "xingqing_xixia",
@@ -939,10 +1051,226 @@
       ]
     },
     {
+      "id": "SECT-21",
+      "name": "洛阳金刀门",
+      "shortName": "金刀门",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "二流门派",
+      "group": "二流世家·行业武盟",
+      "stance": "正道世家",
+      "hqRegionId": "luoyang",
+      "aliases": [
+        "金刀王家",
+        "金刀门"
+      ],
+      "memberCount": 9,
+      "martialArtIds": [
+        "MA-109",
+        "MA-129",
+        "MA-148",
+        "MA-169"
+      ]
+    },
+    {
+      "id": "SECT-22",
+      "name": "常山枪派",
+      "shortName": "常山枪",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "二流门派",
+      "group": "二流世家·行业武盟",
+      "stance": "抗辽义武",
+      "hqRegionId": "zhending",
+      "aliases": [
+        "真定常山枪派",
+        "常山枪"
+      ],
+      "memberCount": 9,
+      "martialArtIds": [
+        "MA-073",
+        "MA-172"
+      ]
+    },
+    {
+      "id": "SECT-23",
+      "name": "沧州八极门",
+      "shortName": "八极门",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "二流门派",
+      "group": "二流世家·行业武盟",
+      "stance": "刚猛武馆",
+      "hqRegionId": "daming",
+      "aliases": [
+        "八极门",
+        "河北八极门"
+      ],
+      "memberCount": 9,
+      "martialArtIds": [
+        "MA-112",
+        "MA-121",
+        "MA-142",
+        "MA-178",
+        "MA-183"
+      ]
+    },
+    {
+      "id": "SECT-24",
+      "name": "闽海镇远镖局",
+      "shortName": "镇远镖局",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "二流门派",
+      "group": "二流世家·行业武盟",
+      "stance": "海陆商镖",
+      "hqRegionId": "quanzhou",
+      "aliases": [
+        "镇远镖局",
+        "泉州镇远镖局"
+      ],
+      "memberCount": 9,
+      "martialArtIds": [
+        "MA-137",
+        "MA-144",
+        "MA-153",
+        "MA-168",
+        "MA-176"
+      ]
+    },
+    {
+      "id": "SECT-25",
+      "name": "齐鲁查拳馆",
+      "shortName": "查拳馆",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "三流小派",
+      "group": "三流武馆·市井帮会",
+      "stance": "市井武馆",
+      "hqRegionId": "jinan",
+      "aliases": [
+        "查拳馆",
+        "济南查拳馆"
+      ],
+      "memberCount": 8,
+      "martialArtIds": [
+        "MA-156",
+        "MA-180",
+        "MA-182",
+        "MA-196"
+      ]
+    },
+    {
+      "id": "SECT-26",
+      "name": "钱塘怒潮帮",
+      "shortName": "怒潮帮",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "三流小派",
+      "group": "三流武馆·市井帮会",
+      "stance": "水陆潮帮",
+      "hqRegionId": "hangzhou",
+      "aliases": [
+        "怒潮帮",
+        "钱塘潮帮"
+      ],
+      "memberCount": 8,
+      "martialArtIds": [
+        "MA-143",
+        "MA-198",
+        "MA-214"
+      ]
+    },
+    {
+      "id": "SECT-27",
+      "name": "岭南洪门武馆",
+      "shortName": "洪门武馆",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "三流小派",
+      "group": "三流武馆·市井帮会",
+      "stance": "市舶义勇",
+      "hqRegionId": "guangzhou",
+      "aliases": [
+        "洪门武馆",
+        "广州洪拳馆"
+      ],
+      "memberCount": 8,
+      "martialArtIds": [
+        "MA-181",
+        "MA-186",
+        "MA-200"
+      ]
+    },
+    {
+      "id": "SECT-28",
+      "name": "陇右金环刀堂",
+      "shortName": "金环刀堂",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "三流小派",
+      "group": "三流武馆·市井帮会",
+      "stance": "边塞趟马",
+      "hqRegionId": "qinzhou",
+      "aliases": [
+        "金环刀堂",
+        "秦州金环堂"
+      ],
+      "memberCount": 8,
+      "martialArtIds": [
+        "MA-090",
+        "MA-163",
+        "MA-188"
+      ]
+    },
+    {
+      "id": "SECT-29",
+      "name": "巴蜀百草药王门",
+      "shortName": "百草门",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "三流小派",
+      "group": "三流武馆·市井帮会",
+      "stance": "悬壶采药",
+      "hqRegionId": "chengdu",
+      "aliases": [
+        "百草药王门",
+        "百草门"
+      ],
+      "memberCount": 8,
+      "martialArtIds": [
+        "MA-138",
+        "MA-154",
+        "MA-179"
+      ]
+    },
+    {
+      "id": "SECT-30",
+      "name": "湘西五溪蛊寨",
+      "shortName": "五溪蛊寨",
+      "isMajorSect": false,
+      "isMinorSect": true,
+      "sectTier": "三流小派",
+      "group": "三流武馆·市井帮会",
+      "stance": "苗疆奇门",
+      "hqRegionId": "tanzhou",
+      "aliases": [
+        "五溪蛊寨",
+        "湘西蛊寨"
+      ],
+      "memberCount": 8,
+      "martialArtIds": [
+        "MA-084",
+        "MA-193"
+      ]
+    },
+    {
       "id": "ORG-01",
       "name": "隐世散人",
       "shortName": "散人",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "江湖散人与隐逸奇侠",
       "stance": "自由中立",
       "hqRegionId": null,
@@ -950,7 +1278,7 @@
         "江湖散人",
         "草莽散人"
       ],
-      "memberCount": 124,
+      "memberCount": 40,
       "martialArtIds": []
     },
     {
@@ -958,6 +1286,8 @@
       "name": "大宋朝廷",
       "shortName": "宋廷",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "庙堂政权与四夷王庭",
       "stance": "大宋庙堂",
       "hqRegionId": "bianliang",
@@ -973,6 +1303,8 @@
       "name": "大宋士林",
       "shortName": "士林",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "儒林百工与杏林名宿",
       "stance": "大宋儒林",
       "hqRegionId": "luoyang",
@@ -988,6 +1320,8 @@
       "name": "大宋百工",
       "shortName": "百工",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "儒林百工与杏林名宿",
       "stance": "科技匠造",
       "hqRegionId": "bianliang",
@@ -1002,6 +1336,8 @@
       "name": "大宋医家",
       "shortName": "杏林",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "儒林百工与杏林名宿",
       "stance": "悬壶济世",
       "hqRegionId": "bianliang",
@@ -1017,6 +1353,8 @@
       "name": "大辽朝廷",
       "shortName": "辽廷",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "庙堂政权与四夷王庭",
       "stance": "契丹王庭",
       "hqRegionId": "linhuang_liao",
@@ -1032,6 +1370,8 @@
       "name": "西夏朝廷",
       "shortName": "夏廷",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "庙堂政权与四夷王庭",
       "stance": "党项王庭",
       "hqRegionId": "xingqing_xixia",
@@ -1046,6 +1386,8 @@
       "name": "大理皇室",
       "shortName": "大理",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "庙堂政权与四夷王庭",
       "stance": "南诏佛国",
       "hqRegionId": "dali_city",
@@ -1064,6 +1406,8 @@
       "name": "吐蕃诸部",
       "shortName": "吐蕃",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "庙堂政权与四夷王庭",
       "stance": "雪域密宗",
       "hqRegionId": "luoxie_tubo",
@@ -1079,9 +1423,11 @@
       "name": "南疆势力",
       "shortName": "南疆",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "边裔诸部",
       "stance": "西南边裔",
-      "hqRegionId": "dali_city",
+      "hqRegionId": "guangzhou",
       "aliases": [
         "广源州侬氏",
         "南疆诸洞"
@@ -1094,9 +1440,11 @@
       "name": "塞外诸部",
       "shortName": "塞外",
       "isMajorSect": false,
+      "isMinorSect": false,
+      "sectTier": "朝堂与地域组织",
       "group": "边裔诸部",
       "stance": "白山黑水",
-      "hqRegionId": "linhuang_liao",
+      "hqRegionId": "liaoyang_liao",
       "aliases": [
         "生女真完颜部"
       ],
@@ -1113,6 +1461,11 @@
     "东京汴梁": {
       "regionId": "bianliang",
       "canonicalLabel": "开封府",
+      "subLocation": null
+    },
+    "东京辽阳府": {
+      "regionId": "liaoyang_liao",
+      "canonicalLabel": "辽阳府",
       "subLocation": null
     },
     "东岳泰山": {
@@ -1185,6 +1538,11 @@
       "canonicalLabel": "析津府",
       "subLocation": null
     },
+    "南昌": {
+      "regionId": "hongzhou",
+      "canonicalLabel": "洪州府",
+      "subLocation": null
+    },
     "唐家堡": {
       "regionId": "qingcheng",
       "canonicalLabel": "青城山 / 唐家堡（唐家堡）",
@@ -1198,6 +1556,11 @@
     "大定府": {
       "regionId": "dading_liao",
       "canonicalLabel": "大定府",
+      "subLocation": null
+    },
+    "天水": {
+      "regionId": "qinzhou",
+      "canonicalLabel": "秦州府",
       "subLocation": null
     },
     "太原府": {
@@ -1223,6 +1586,16 @@
     "嵩山少林寺": {
       "regionId": "shaolin",
       "canonicalLabel": "嵩山少林寺",
+      "subLocation": null
+    },
+    "广州": {
+      "regionId": "guangzhou",
+      "canonicalLabel": "广州府",
+      "subLocation": null
+    },
+    "广州府": {
+      "regionId": "guangzhou",
+      "canonicalLabel": "广州府",
       "subLocation": null
     },
     "延安府": {
@@ -1330,9 +1703,29 @@
       "canonicalLabel": "洞庭铁掌峰",
       "subLocation": null
     },
+    "洪州": {
+      "regionId": "hongzhou",
+      "canonicalLabel": "洪州府",
+      "subLocation": null
+    },
+    "洪州府": {
+      "regionId": "hongzhou",
+      "canonicalLabel": "洪州府",
+      "subLocation": null
+    },
     "济南府": {
       "regionId": "jinan",
       "canonicalLabel": "济南府",
+      "subLocation": null
+    },
+    "潭州": {
+      "regionId": "tanzhou",
+      "canonicalLabel": "潭州府",
+      "subLocation": null
+    },
+    "潭州府": {
+      "regionId": "tanzhou",
+      "canonicalLabel": "潭州府",
       "subLocation": null
     },
     "潼关": {
@@ -1365,6 +1758,16 @@
       "canonicalLabel": "泉州府",
       "subLocation": "福州/泉州"
     },
+    "秦州": {
+      "regionId": "qinzhou",
+      "canonicalLabel": "秦州府",
+      "subLocation": null
+    },
+    "秦州府": {
+      "regionId": "qinzhou",
+      "canonicalLabel": "秦州府",
+      "subLocation": null
+    },
     "终南山": {
       "regionId": "zhongnanshan",
       "canonicalLabel": "终南山隐宗",
@@ -1373,6 +1776,11 @@
     "终南山隐宗": {
       "regionId": "zhongnanshan",
       "canonicalLabel": "终南山隐宗",
+      "subLocation": null
+    },
+    "羊城": {
+      "regionId": "guangzhou",
+      "canonicalLabel": "广州府",
       "subLocation": null
     },
     "苏州府": {
@@ -1405,9 +1813,24 @@
       "canonicalLabel": "洛阳府",
       "subLocation": null
     },
+    "辽阳": {
+      "regionId": "liaoyang_liao",
+      "canonicalLabel": "辽阳府",
+      "subLocation": null
+    },
+    "辽阳府": {
+      "regionId": "liaoyang_liao",
+      "canonicalLabel": "辽阳府",
+      "subLocation": null
+    },
     "逻些（拉萨）": {
       "regionId": "luoxie_tubo",
       "canonicalLabel": "逻些（拉萨）",
+      "subLocation": null
+    },
+    "长沙": {
+      "regionId": "tanzhou",
+      "canonicalLabel": "潭州府",
       "subLocation": null
     },
     "阳苴咩城（大理）": {
@@ -2102,7 +2525,7 @@
       "cleanName": "岳氏沥泉枪前谱（常山龙胆枪）",
       "fullTier": "地阶中品",
       "category": "枪法",
-      "sectId": null
+      "sectId": "SECT-22"
     },
     {
       "id": "MA-074",
@@ -2201,7 +2624,7 @@
       "cleanName": "催心掌",
       "fullTier": "地阶下品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-30"
     },
     {
       "id": "MA-085",
@@ -2255,7 +2678,7 @@
       "cleanName": "胡汉八极刀",
       "fullTier": "地阶下品",
       "category": "刀法",
-      "sectId": null
+      "sectId": "SECT-28"
     },
     {
       "id": "MA-091",
@@ -2426,7 +2849,7 @@
       "cleanName": "洛阳金刀谱",
       "fullTier": "良品上品",
       "category": "刀法",
-      "sectId": null
+      "sectId": "SECT-21"
     },
     {
       "id": "MA-110",
@@ -2453,7 +2876,7 @@
       "cleanName": "六合大枪",
       "fullTier": "良品上品",
       "category": "枪法",
-      "sectId": null
+      "sectId": "SECT-23"
     },
     {
       "id": "MA-113",
@@ -2534,7 +2957,7 @@
       "cleanName": "八极崩拳",
       "fullTier": "良品中品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-23"
     },
     {
       "id": "MA-122",
@@ -2606,7 +3029,7 @@
       "cleanName": "奇门五虎断门刀",
       "fullTier": "良品中品",
       "category": "刀法",
-      "sectId": null
+      "sectId": "SECT-21"
     },
     {
       "id": "MA-130",
@@ -2678,7 +3101,7 @@
       "cleanName": "铁砂内壮功",
       "fullTier": "良品下品",
       "category": "内功",
-      "sectId": null
+      "sectId": "SECT-24"
     },
     {
       "id": "MA-138",
@@ -2687,7 +3110,7 @@
       "cleanName": "五禽养生功",
       "fullTier": "良品下品",
       "category": "内功",
-      "sectId": null
+      "sectId": "SECT-29"
     },
     {
       "id": "MA-139",
@@ -2723,7 +3146,7 @@
       "cleanName": "通背拳",
       "fullTier": "良品下品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-23"
     },
     {
       "id": "MA-143",
@@ -2732,7 +3155,7 @@
       "cleanName": "翻天掌",
       "fullTier": "良品下品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-26"
     },
     {
       "id": "MA-144",
@@ -2741,7 +3164,7 @@
       "cleanName": "鹰爪功",
       "fullTier": "良品下品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-24"
     },
     {
       "id": "MA-145",
@@ -2777,7 +3200,7 @@
       "cleanName": "八卦游身刀",
       "fullTier": "良品下品",
       "category": "刀法",
-      "sectId": null
+      "sectId": "SECT-21"
     },
     {
       "id": "MA-149",
@@ -2822,7 +3245,7 @@
       "cleanName": "金钱镖",
       "fullTier": "良品下品",
       "category": "暗器",
-      "sectId": null
+      "sectId": "SECT-24"
     },
     {
       "id": "MA-154",
@@ -2831,7 +3254,7 @@
       "cleanName": "折扇点穴功",
       "fullTier": "良品下品",
       "category": "指法",
-      "sectId": null
+      "sectId": "SECT-29"
     },
     {
       "id": "MA-155",
@@ -2849,7 +3272,7 @@
       "cleanName": "燕子三抄水",
       "fullTier": "良品下品",
       "category": "轻功",
-      "sectId": null
+      "sectId": "SECT-25"
     },
     {
       "id": "MA-157",
@@ -2912,7 +3335,7 @@
       "cleanName": "劈山掌",
       "fullTier": "凡品上品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-28"
     },
     {
       "id": "MA-164",
@@ -2957,7 +3380,7 @@
       "cleanName": "柳叶双刀",
       "fullTier": "凡品上品",
       "category": "刀法",
-      "sectId": null
+      "sectId": "SECT-24"
     },
     {
       "id": "MA-169",
@@ -2966,7 +3389,7 @@
       "cleanName": "六合刀",
       "fullTier": "凡品上品",
       "category": "刀法",
-      "sectId": null
+      "sectId": "SECT-21"
     },
     {
       "id": "MA-170",
@@ -2993,7 +3416,7 @@
       "cleanName": "杨氏梨花枪（外传简谱）",
       "fullTier": "凡品上品",
       "category": "枪法",
-      "sectId": null
+      "sectId": "SECT-22"
     },
     {
       "id": "MA-173",
@@ -3029,7 +3452,7 @@
       "cleanName": "陆地飞腾法",
       "fullTier": "凡品上品",
       "category": "轻功",
-      "sectId": null
+      "sectId": "SECT-24"
     },
     {
       "id": "MA-177",
@@ -3047,7 +3470,7 @@
       "cleanName": "站桩壮骨法",
       "fullTier": "凡品中品",
       "category": "内功",
-      "sectId": null
+      "sectId": "SECT-23"
     },
     {
       "id": "MA-179",
@@ -3056,7 +3479,7 @@
       "cleanName": "清心静坐诀",
       "fullTier": "凡品中品",
       "category": "内功",
-      "sectId": null
+      "sectId": "SECT-29"
     },
     {
       "id": "MA-180",
@@ -3065,7 +3488,7 @@
       "cleanName": "太祖长拳",
       "fullTier": "凡品中品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-25"
     },
     {
       "id": "MA-181",
@@ -3074,7 +3497,7 @@
       "cleanName": "洪拳（岭南/闽南初传）",
       "fullTier": "凡品中品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-27"
     },
     {
       "id": "MA-182",
@@ -3083,7 +3506,7 @@
       "cleanName": "查拳",
       "fullTier": "凡品中品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-25"
     },
     {
       "id": "MA-183",
@@ -3092,7 +3515,7 @@
       "cleanName": "弹腿",
       "fullTier": "凡品中品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-23"
     },
     {
       "id": "MA-184",
@@ -3119,7 +3542,7 @@
       "cleanName": "三才剑",
       "fullTier": "凡品中品",
       "category": "剑法",
-      "sectId": null
+      "sectId": "SECT-27"
     },
     {
       "id": "MA-187",
@@ -3137,7 +3560,7 @@
       "cleanName": "官制朴刀术",
       "fullTier": "凡品中品",
       "category": "刀法",
-      "sectId": null
+      "sectId": "SECT-28"
     },
     {
       "id": "MA-189",
@@ -3182,7 +3605,7 @@
       "cleanName": "飞蝗石",
       "fullTier": "凡品中品",
       "category": "暗器",
-      "sectId": null
+      "sectId": "SECT-30"
     },
     {
       "id": "MA-194",
@@ -3209,7 +3632,7 @@
       "cleanName": "梅花桩步",
       "fullTier": "凡品中品",
       "category": "轻功",
-      "sectId": null
+      "sectId": "SECT-25"
     },
     {
       "id": "MA-197",
@@ -3227,7 +3650,7 @@
       "cleanName": "挑夫扛鼎气",
       "fullTier": "凡品下品",
       "category": "内功",
-      "sectId": null
+      "sectId": "SECT-26"
     },
     {
       "id": "MA-199",
@@ -3245,7 +3668,7 @@
       "cleanName": "庄稼把式拳",
       "fullTier": "凡品下品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-27"
     },
     {
       "id": "MA-201",
@@ -3371,7 +3794,7 @@
       "cleanName": "渔网罩身手",
       "fullTier": "凡品下品",
       "category": "拳掌",
-      "sectId": null
+      "sectId": "SECT-26"
     },
     {
       "id": "MA-215",
@@ -3517,7 +3940,7 @@
       "fullTier": "地阶上品",
       "weaponType": "枪",
       "regionId": "zhending",
-      "sectId": null
+      "sectId": "SECT-22"
     },
     {
       "id": "WPN-015",

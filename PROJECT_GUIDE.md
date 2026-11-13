@@ -52,9 +52,11 @@ northern-song-chronicles/
 │
 ├── docs/                                # 游戏系统与数值策划设计文案
 │   ├── CHARACTER_COMPENDIUM.md          # 1000 人物图鉴与派系
+│   ├── EQUIPMENT_COMPENDIUM.md          # 皇祐披挂总纲（第一卷：百兵谱 100 种武器）
 │   ├── GAME_MECHANICS.md                # 历法时辰、体能资粮、七槽披挂、四库行囊与核心机制总纲
+│   ├── MARTIAL_ARTS_SECTS.md            # 30 武林门派（20 一流 + 10 二三流）与 11 庙堂四夷组织专卷
 │   ├── MARTIAL_ARTS_COMPENDIUM.md       # 216 门武学全典与天阶修习条件
-│   ├── REGIONAL_MAPS_AND_BUILDINGS.md   # 38 州府名山区域与 123 座特殊建筑名录
+│   ├── REGIONAL_MAPS_AND_BUILDINGS.md   # 43 州府名山区域与 138 座特殊建筑名录（总计 268 座建筑）
 │   └── ROADMAP_AND_TODO.md              # 开发里程碑与主线待办看板 (M0 ~ M5)
 │
 ├── src/                                 # 核心业务源码
@@ -71,23 +73,25 @@ northern-song-chronicles/
 │   │   │   └── TravelBanner.tsx         # 大地图逐日行军进度与随时扎营条
 │   │   ├── map/                         # 地图画布与交互组件
 │   │   │   ├── WorldMapCanvas.tsx       # 北宋华夏东亚全景舆图 (SVG 语义缩放沙盘)
-│   │   │   ├── RegionMapCanvas.tsx      # 38 处州府名山全景画布与 123 座建筑室内视图
+│   │   │   ├── RegionMapCanvas.tsx      # 43 处州府名山全景画布与 138 座建筑室内视图
+│   │   │   ├── SvgRegionPanoramaFallback.tsx   # 新辟州府宋辽营造青绿等轴城郭矢量渲染器
 │   │   │   └── SvgBuildingInteriorFallback.tsx # 宋式《营造法式》室内建筑矢量渲染器
 │   │   └── menu/                        # 系统枢机弹窗
-│   │       └── SystemMenuModal.tsx      # 五大页签枢机弹窗 (主角与七槽披挂/行囊四库/武学/群侠/存取档)
+│   │       └── SystemMenuModal.tsx      # 十卷枢机弹窗 (主角/披挂武学/行囊四库/群侠/武学/披挂总纲/工程/存取档/设置)
 │   │
 │   ├── data/                            # 游戏全量静态结构化数据库
 │   │   ├── gameDb.ts                    # 数据库聚合导出与索引模块
 │   │   ├── itemsDb.ts                   # 七槽位披挂定义、行囊四库元数据与宋风器物道具表
-│   │   ├── regions.json                 # 38 个区域州府与名山信息
-│   │   ├── buildings.json               # 123 座特殊地标 + 105 座基础建筑设定
+│   │   ├── regions.json                 # 43 个区域州府与名山信息
+│   │   ├── buildings.json               # 138 座特殊地标 + 130 座基础建筑设定 (共 268 座)
 │   │   ├── buildingPanoramas.json       # 建筑室内全景热区与视角绑定
 │   │   ├── npcs.json                    # 1000 名历史名仕与武林人物数据库
 │   │   ├── martial_arts.json            # 216 门四阶十二品武学数据库
-│   │   ├── regionalConfigs.json         # 区域坐标与建筑点位配置
-│   │   ├── worldGraph.json              # 陆路、运河、塞外与蜀道节点连接拓扑
+│   │   ├── weapons.json                 # 100 种四阶十二品百兵谱数据库
+│   │   ├── regionalConfigs.json         # 43 处区域坐标与建筑点位配置
+│   │   ├── worldGraph.json              # 43 节点 79 边陆路、运河、塞外与蜀道节点连接拓扑
 │   │   ├── worldBaseSvg.ts              # 华夏及东亚山海海岸线矢量轮廓
-│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表
+│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表 (43地/30派+11组织/216功/100兵/1000人)
 │   │   ├── assetManifest.json           # 生产资源清单索引
 │   │   └── portraitCatalog.json         # 人物立绘与模板映射表
 │   │

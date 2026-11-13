@@ -169,7 +169,7 @@ const MENU_NAV_ITEMS: Array<{
     numeral: '柒',
     label: '工程与字典',
     seal: '枢',
-    subtitle: '静态资源按需懒加载遥测 + 跨分支标准 ID 字典（38地 / 20派 / 216功 / 100兵 / 1000人）',
+    subtitle: '静态资源按需懒加载遥测 + 跨分支标准 ID 字典（43地 / 30派+11组织 / 216功 / 100兵 / 1000人）',
     badge: 'M0-2 已实装',
   },
   {
@@ -2506,7 +2506,7 @@ export function SystemMenuModal() {
                       onChange={(e) => setNpcRegionFilter(e.target.value)}
                       className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer max-w-[160px]"
                     >
-                      <option value="ALL">全部 38 地区</option>
+                      <option value="ALL">全部 {ID_REGISTRY.counts.regions} 地区</option>
                       {ID_REGISTRY.regions.map((r) => (
                         <option key={r.id} value={r.id}>
                           {r.numericCode}·{r.name} ({r.npcCount})
@@ -2516,10 +2516,10 @@ export function SystemMenuModal() {
                     <select
                       value={npcFactionFilter}
                       onChange={(e) => setNpcFactionFilter(e.target.value)}
-                      className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer max-w-[180px]"
+                      className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer max-w-[195px]"
                     >
-                      <option value="ALL">全部 20派+11势力</option>
-                      <optgroup label="二十大门派 (SECT-01..20)">
+                      <option value="ALL">全部 30派+11势力</option>
+                      <optgroup label="一流名门大派 (SECT-01..20)">
                         {ID_REGISTRY.factions
                           .filter((f) => f.isMajorSect)
                           .map((f) => (
@@ -2528,9 +2528,18 @@ export function SystemMenuModal() {
                             </option>
                           ))}
                       </optgroup>
+                      <optgroup label="二三流门派与武馆 (SECT-21..30)">
+                        {ID_REGISTRY.factions
+                          .filter((f) => f.isMinorSect)
+                          .map((f) => (
+                            <option key={f.id} value={f.id}>
+                              {f.id} {f.name} ({f.memberCount})
+                            </option>
+                          ))}
+                      </optgroup>
                       <optgroup label="朝堂与四夷势力 (ORG-01..11)">
                         {ID_REGISTRY.factions
-                          .filter((f) => !f.isMajorSect)
+                          .filter((f) => !f.isMajorSect && !f.isMinorSect)
                           .map((f) => (
                             <option key={f.id} value={f.id}>
                               {f.id} {f.name} ({f.memberCount})
@@ -3465,18 +3474,18 @@ export function SystemMenuModal() {
                     <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
                       <div className="text-[#6b5033]">标准地区 ID</div>
                       <div className="font-mono font-bold text-lg text-[#23180f] mt-0.5">
-                        {ID_REGISTRY.counts.regions} 处 (`REG-01..38`)
+                        {ID_REGISTRY.counts.regions} 处 (`REG-01..43`)
                       </div>
-                      <div className="text-xs text-[#6b5235]">15宋城 + 6外城 + 17秘境雄关</div>
+                      <div className="text-xs text-[#6b5235]">19宋城 + 7外城 + 17秘境雄关</div>
                     </div>
 
                     <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e]">
                       <div className="text-[#6b5033]">门派与势力 ID</div>
                       <div className="font-mono font-bold text-lg text-[#23180f] mt-0.5">
-                        {ID_REGISTRY.counts.majorSects} 派 + {ID_REGISTRY.counts.otherOrganizations}{' '}
-                        组织
+                        {ID_REGISTRY.counts.majorSects} 大派 + {ID_REGISTRY.counts.minorSects} 小派 +{' '}
+                        {ID_REGISTRY.counts.otherOrganizations} 组织
                       </div>
-                      <div className="text-xs text-[#6b5235]">`SECT-01..20` / `ORG-01..11`</div>
+                      <div className="text-xs text-[#6b5235]">`SECT-01..30` / `ORG-01..11`</div>
                     </div>
 
                     <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e]">

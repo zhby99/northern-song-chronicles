@@ -360,11 +360,15 @@ export interface CompiledNpcRecord {
   templateUrl: string
 }
 
+export type SectTierKind = '一流大派' | '二流门派' | '三流小派' | '朝堂与地域组织'
+
 export interface CanonicalFactionEntry {
   id: string
   name: string
   shortName: string
   isMajorSect: boolean
+  isMinorSect: boolean
+  sectTier: SectTierKind
   group: string
   stance: string
   hqRegionId: string | null
@@ -378,6 +382,8 @@ export interface CanonicalIdRegistry {
   counts: {
     regions: number
     majorSects: number
+    minorSects: number
+    totalSects: number
     otherOrganizations: number
     totalFactions: number
     specialBuildings: number

@@ -10,6 +10,7 @@ import {
   REGIONAL_CONFIGS,
 } from '../../utils/mapMath'
 import { SvgBuildingInteriorFallback } from './SvgBuildingInteriorFallback'
+import { SvgRegionPanoramaFallback } from './SvgRegionPanoramaFallback'
 
 export function RegionMapCanvas() {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -179,14 +180,23 @@ export function RegionMapCanvas() {
             strokeOpacity={0.65}
           />
 
-          {/* 底图渲染：若有 JPG 原画则懒加载渲染；若为其余 65 座特殊建筑则渲染宋式《营造法式》矢量内景卷 */}
+          {/* 底图渲染：若有 JPG 原画则懒加载渲染；新辟 5 州府渲染宋辽营造青绿矢量全景；未补图特殊建筑渲染《营造法式》矢量内景卷 */}
           {activeBuildingRecord && activeInterior?.mode === 'svg_fallback' ? (
             <SvgBuildingInteriorFallback building={activeBuildingRecord} width={vw} height={vh} />
+          ) : !activeBuildingRecord && !regionCfg.panoramaUri ? (
+            <SvgRegionPanoramaFallback
+              regionId={activeRegionId}
+              regionName={regionNode.name}
+              regime={regionNode.regime ?? 'song'}
+              circuit={regionNode.circuit}
+              width={vw}
+              height={vh}
+            />
           ) : (
             loadedUrl && <image href={loadedUrl} x={0} y={0} width={vw} height={vh} />
           )}
 
-          {/* 第三层级：建筑内景图热区与出口（涵盖全部 123 座特殊建筑） */}
+          {/* 第三层级：建筑内景图热区与出口（涵盖全部 138 座特殊建筑） */}
           {activeBuildingRecord && activeInterior ? (
             <>
               {/* 出口热区 */}
