@@ -14,6 +14,8 @@ export type MenuTabKey =
   | 'settings'
 
 export type CompendiumTabKey =
+  | 'regions'
+  | 'sects'
   | 'portraits'
   | 'martialArts'
   | 'armory'
@@ -376,8 +378,16 @@ export interface CanonicalFactionEntry {
   stance: string
   hqRegionId: string | null
   aliases: string[]
+  stanceMotto: string
+  hqDisplay: string
+  leaderNpcIds: string[]
+  coreBuildingIds: string[]
+  highestArtTier: string
+  summary: string
+  entryAndFeatures: string
   memberCount: number
   martialArtIds: string[]
+  weaponIds: string[]
 }
 
 export interface CanonicalIdRegistry {

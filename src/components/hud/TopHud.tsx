@@ -480,7 +480,7 @@ export function TopHud() {
             id="compendium-menu-trigger"
             type="button"
             onClick={() => openCompendium()}
-            title="打开《皇祐万象图鉴》检阅群侠千人谱、216门武学总纲、百兵谱与典籍丹毒雅器博物图鉴（快捷键 G）"
+            title="打开《皇祐万象图鉴》检阅地区图鉴(43地)、门派图鉴(30派+11势力)、群侠千人谱、216门武学总纲、百兵谱与博物图鉴（快捷键 G）"
             className="px-3 py-1.5 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#e6be68] shadow transition flex items-center gap-1.5 font-bold song-serif text-xs sm:text-sm tracking-wide cursor-pointer"
           >
             <BookOpen className="w-3.5 h-3.5 text-amber-200 shrink-0" />

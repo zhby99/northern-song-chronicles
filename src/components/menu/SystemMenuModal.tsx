@@ -99,6 +99,8 @@ import {
   toggleBgmPlayback,
   useBgmState,
 } from '../../utils/bgmManager'
+import { RegionCompendiumPanel } from './RegionCompendiumPanel'
+import { SectCompendiumPanel } from './SectCompendiumPanel'
 
 const WEAPON_SUB_CATEGORIES: WeaponSubCategory[] = [
   '剑',
@@ -179,11 +181,27 @@ const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
   },
 ]
 
-// 【图鉴】按钮专属卷册（统辖全部四大图鉴）
+// 【图鉴】按钮专属卷册（统辖全部六大图鉴：地区 / 门派 / 群侠 / 武学 / 披挂 / 博物）
 const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
   {
-    key: 'portraits',
+    key: 'regions',
     numeral: '壹',
+    label: '地区图鉴',
+    seal: '舆',
+    subtitle: '皇祐山海舆地全鉴：26座州府王都 + 17处名山秘境与雄关（共43地）、268座城郭殿宇、驿路网与风物风闻',
+    badge: '43地全录',
+  },
+  {
+    key: 'sects',
+    numeral: '贰',
+    label: '门派图鉴',
+    seal: '宗',
+    subtitle: '天下三十武林门派三级金字塔（20一流大派 · 4二流世家 · 6三流武馆）及 11 大庙堂儒林四夷组织全典',
+    badge: '30派+11势力',
+  },
+  {
+    key: 'portraits',
+    numeral: '叁',
     label: '群侠图鉴',
     seal: '谱',
     subtitle: '全量 1,000 位皇祐人物档案、3:4 等比画轴全身像对齐与高清点击放大品鉴（头像/全身双视图）',
@@ -191,7 +209,7 @@ const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
   },
   {
     key: 'martialArts',
-    numeral: '贰',
+    numeral: '肆',
     label: '武学总纲',
     seal: '典',
     subtitle: '四阶十二品共 216 门天下武学全录、天阶前置校验词条、门派归属索引与主角习得状态标记',
@@ -199,7 +217,7 @@ const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
   },
   {
     key: 'armory',
-    numeral: '叁',
+    numeral: '伍',
     label: '披挂总纲',
     seal: '兵',
     subtitle: '七槽披挂规制与第一卷《百兵谱》100 种武器全录（10天阶 · 20地阶 · 30良阶 · 40凡阶）及兵武共鸣',
@@ -207,7 +225,7 @@ const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
   },
   {
     key: 'treasures',
-    numeral: '肆',
+    numeral: '陆',
     label: '博物图鉴',
     seal: '鉴',
     subtitle: '皇祐三卷奇珍全录：卷壹《典籍书画》100卷 · 卷贰《丹药毒物》30品 · 卷叁《雅器百工》50件（共180品）',
@@ -354,7 +372,13 @@ export function SystemMenuModal() {
   // Selected item ID in Bag Panel (System Tab 3 — personal inventory only)
   const [selectedBagItemId, setSelectedBagItemId] = useState<string | null>(null)
 
-  // 1,000 NPC Compendium filter state (Compendium Tab 1)
+  // 43 Regions & 41 Sects/Organizations Compendium state (Compendium Tabs 1 & 2)
+  const [selectedRegionCompId, setSelectedRegionCompId] = useState<string>(
+    () => activeRegionId || 'bianliang',
+  )
+  const [selectedSectCompId, setSelectedSectCompId] = useState<string>('SECT-01')
+
+  // 1,000 NPC Compendium filter state (Compendium Tab 3)
   const [npcQuery, setNpcQuery] = useState('')
   const [localNpcScope, setLocalNpcScope] = useState<string>('ALL_WITH_ART')
   const [npcRegionFilter, setNpcRegionFilter] = useState<string>('ALL')
@@ -785,7 +809,7 @@ export function SystemMenuModal() {
               </div>
               <p className="text-xs text-[#d6c5a5] mt-0.5">
                 {isCompendiumMode
-                  ? `${formatSongDate(dayCount, shichenIdx)} · 群侠千人谱 / 天下武学总纲 / 百兵谱 / 典籍丹毒雅器全鉴 · 按 G 或 ESC 返回舆图`
+                  ? `${formatSongDate(dayCount, shichenIdx)} · 舆地43境 / 武林30派+11势力 / 群侠千人谱 / 武学216功 / 百兵谱 / 博物180品 · 按 G 或 ESC 返回舆图`
                   : `${formatSongDate(dayCount, shichenIdx)} · 主角总览 / 披挂武学 / 行囊四库 / 卷宗存取 · 按 ESC 返回舆图`}
               </p>
             </div>
@@ -888,7 +912,19 @@ export function SystemMenuModal() {
             )}
 
             {isCompendiumMode ? (
-              <div className="pt-3.5 mt-3.5 border-t border-[#c7b18e] text-xs text-[#5e472d] space-y-1.5">
+              <div className="pt-3 mt-3 border-t border-[#c7b18e] text-xs text-[#5e472d] space-y-1">
+                <div className="flex justify-between">
+                  <span>山海舆地</span>
+                  <span className="font-mono font-bold text-[#1f5c3a]">
+                    {ID_REGISTRY.counts.regions} 地 / {ID_REGISTRY.counts.totalBuildings} 建
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span>门派势力</span>
+                  <span className="font-mono font-bold text-[#8f1d14]">
+                    {ID_REGISTRY.counts.totalSects} 派 + {ID_REGISTRY.counts.otherOrganizations} 组织
+                  </span>
+                </div>
                 <div className="flex justify-between">
                   <span>群侠名录</span>
                   <span className="font-mono font-bold text-[#23180f]">
@@ -2424,7 +2460,89 @@ export function SystemMenuModal() {
                 )
               })()}
 
-              {/* ==================== 图鉴壹：1,000 群侠图鉴（最末层常驻建筑 + 四维/三维/十艺全显 + 全身像品鉴） ==================== */}
+              {/* ==================== 图鉴壹：43 地区图鉴（山海舆地全鉴） ==================== */}
+              {activeViewKey === 'regions' && (
+                <RegionCompendiumPanel
+                  selectedRegionId={selectedRegionCompId}
+                  onSelectRegionId={setSelectedRegionCompId}
+                  currentNodeId={currentNodeId}
+                  hasWildernessCamp={Boolean(campPos)}
+                  isTraveling={Boolean(traveling)}
+                  onJumpToSect={(sectId) => {
+                    setSelectedSectCompId(sectId)
+                    setCompendiumTab('sects')
+                  }}
+                  onJumpToNpc={(npc) => {
+                    setSelectedNpc(npc)
+                    if (!npc.avatarUrl && !npc.fullbodyUrl && localNpcScope === 'ALL_WITH_ART') {
+                      setLocalNpcScope('ALL')
+                    }
+                    setCompendiumTab('portraits')
+                  }}
+                  onJumpToWeapon={(wpn) => {
+                    setSelectedWeapon(wpn)
+                    setWpnTierFilter('ALL')
+                    setWpnTypeFilter('ALL')
+                    setCompendiumTab('armory')
+                  }}
+                  onLocateOnWorldMap={(regionId) => {
+                    useGameStore.setState({
+                      viewMode: 'world',
+                      selectedNodeId: regionId,
+                    })
+                    closeActiveModal()
+                  }}
+                  onEnterCurrentRegion={(regionId) => {
+                    useGameStore.getState().enterRegionMap(regionId, false)
+                    closeActiveModal()
+                  }}
+                  onOpenPanoramaLightbox={({ url, title, subtitle }) =>
+                    setLightbox({ url, title, subtitle })
+                  }
+                />
+              )}
+
+              {/* ==================== 图鉴贰：30 武林门派与 11 庙堂四夷图鉴 ==================== */}
+              {activeViewKey === 'sects' && (
+                <SectCompendiumPanel
+                  selectedFactionId={selectedSectCompId}
+                  onSelectFactionId={setSelectedSectCompId}
+                  learnedArtIds={new Set(learnedArts.map((e) => e.artId))}
+                  onJumpToRegion={(regionId) => {
+                    setSelectedRegionCompId(regionId)
+                    setCompendiumTab('regions')
+                  }}
+                  onJumpToNpc={(npc) => {
+                    setSelectedNpc(npc)
+                    if (!npc.avatarUrl && !npc.fullbodyUrl && localNpcScope === 'ALL_WITH_ART') {
+                      setLocalNpcScope('ALL')
+                    }
+                    setCompendiumTab('portraits')
+                  }}
+                  onJumpToArt={(art) => {
+                    setSelectedArt(art)
+                    setArtTierFilter('ALL')
+                    setArtCatFilter('ALL')
+                    setCompendiumTab('martialArts')
+                  }}
+                  onJumpToWeapon={(wpn) => {
+                    setSelectedWeapon(wpn)
+                    setWpnTierFilter('ALL')
+                    setWpnTypeFilter('ALL')
+                    setCompendiumTab('armory')
+                  }}
+                  onLocateOnWorldMap={(regionId) => {
+                    useGameStore.setState({
+                      viewMode: 'world',
+                      selectedNodeId: regionId,
+                    })
+                    closeActiveModal()
+                  }}
+                  onOpenPortraitLightbox={(npc, mode) => openNpcLightbox(npc, mode)}
+                />
+              )}
+
+              {/* ==================== 图鉴叁：1,000 群侠图鉴（最末层常驻建筑 + 四维/三维/十艺全显 + 全身像品鉴） ==================== */}
               {activeViewKey === 'portraits' && (
                 <div className="space-y-3.5 text-xs">
                   <div className="flex flex-wrap items-center gap-2.5 bg-[#efe4cc] p-3 rounded border border-[#c8b28e]">
@@ -2607,9 +2725,21 @@ export function SystemMenuModal() {
                                     · {selectedNpc.title}
                                   </span>
                                 </div>
-                                <div className="text-xs text-[#781710] font-medium mt-0.5">
-                                  [{selectedNpc.factionId}] {selectedNpc.factionName} ·{' '}
-                                  {selectedNpc.role}（{selectedNpc.gender}·{selectedNpc.age}岁）
+                                <div className="text-xs text-[#781710] font-medium mt-0.5 flex items-center gap-1.5 flex-wrap">
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setSelectedSectCompId(selectedNpc.factionId)
+                                      setCompendiumTab('sects')
+                                    }}
+                                    title="跳转至【贰 · 门派图鉴】查阅该门派/势力详录"
+                                    className="px-1.5 py-0.5 rounded bg-[#8f1d14]/10 hover:bg-[#8f1d14]/20 border border-[#8f1d14]/40 text-[#781710] font-semibold cursor-pointer transition"
+                                  >
+                                    [{selectedNpc.factionId}] {selectedNpc.factionName} ▸
+                                  </button>
+                                  <span>
+                                    · {selectedNpc.role}（{selectedNpc.gender}·{selectedNpc.age}岁）
+                                  </span>
                                 </div>
                                 <div className="text-xs text-[#4a3219] mt-1 space-y-1">
                                   <div>
@@ -2617,6 +2747,16 @@ export function SystemMenuModal() {
                                     {selectedNpc.regionId}`）
                                   </div>
                                   <div className="flex items-center gap-1.5 flex-wrap">
+                                    <button
+                                      type="button"
+                                      onClick={() => {
+                                        setSelectedRegionCompId(selectedNpc.regionId)
+                                        setCompendiumTab('regions')
+                                      }}
+                                      className="px-2 py-0.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8eb] text-[10px] font-semibold cursor-pointer"
+                                    >
+                                      地区图鉴 ▸
+                                    </button>
                                     {currentNodeId === selectedNpc.regionId &&
                                       !campPos &&
                                       !traveling && (
@@ -3232,6 +3372,28 @@ export function SystemMenuModal() {
                                   {selectedWeapon.regionId}`
                                   {sectEntry ? ` · ${sectEntry.shortName}` : ''}）
                                 </span>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedRegionCompId(selectedWeapon.regionId)
+                                    setCompendiumTab('regions')
+                                  }}
+                                  className="px-2 py-0.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8eb] text-[10px] font-semibold cursor-pointer"
+                                >
+                                  地区图鉴 ▸
+                                </button>
+                                {sectEntry && (
+                                  <button
+                                    type="button"
+                                    onClick={() => {
+                                      setSelectedSectCompId(sectEntry.id)
+                                      setCompendiumTab('sects')
+                                    }}
+                                    className="px-2 py-0.5 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] text-[10px] font-semibold cursor-pointer"
+                                  >
+                                    门派图鉴 ▸
+                                  </button>
+                                )}
                                 <button
                                   type="button"
                                   onClick={() => {

@@ -2221,21 +2221,194 @@ def compile_all(do_normalize_docs: bool) -> None:
             }
         )
 
-    # 5) Compile Canonical ID Registry (idRegistry.json)
+    # 5) Parse rich Sect & Organization lore from docs/MARTIAL_ARTS_SECTS.md & Compile idRegistry.json
+    sects_md_text = (DOCS_DIR / "MARTIAL_ARTS_SECTS.md").read_text(encoding="utf-8")
+    sect_table_meta: dict[str, dict[str, str]] = {}
+    org_table_meta: dict[str, dict[str, str]] = {}
+
+    for line in sects_md_text.splitlines():
+        raw_line = line.strip()
+        if raw_line.startswith("| `SECT-"):
+            cols = [c.strip() for c in raw_line.strip("|").split("|")]
+            if len(cols) >= 10:
+                sid_m = re.search(r"SECT-\d+", cols[0])
+                if sid_m:
+                    sect_table_meta[sid_m.group(0)] = {
+                        "tableStance": cols[4],
+                        "hqDisplay": cols[5].replace("`", ""),
+                        "buildingsRaw": cols[6],
+                        "leadersRaw": cols[7],
+                        "highestArtTier": cols[9],
+                    }
+        elif raw_line.startswith("| `ORG-"):
+            cols = [c.strip() for c in raw_line.strip("|").split("|")]
+            if len(cols) >= 6:
+                oid_m = re.search(r"ORG-\d+", cols[0])
+                if oid_m:
+                    org_table_meta[oid_m.group(0)] = {
+                        "hqDisplay": cols[3].replace("`", ""),
+                        "summaryRaw": cols[5],
+                    }
+
+    # Parse detailed markdown sections for SECT-01..30
+    sect_section_meta: dict[str, dict[str, Any]] = {}
+    sec_heading_re = re.compile(r"^#{3,4}\s+\d+\.\s+`(SECT-\d+)`\s+(.+)$", re.MULTILINE)
+    sec_matches = list(sec_heading_re.finditer(sects_md_text))
+    for idx_m, m_obj in enumerate(sec_matches):
+        sid = m_obj.group(1)
+        start_pos = m_obj.end()
+        end_pos = (
+            sec_matches[idx_m + 1].start()
+            if idx_m + 1 < len(sec_matches)
+            else sects_md_text.find("## 五、", start_pos)
+        )
+        block = sects_md_text[start_pos : end_pos if end_pos != -1 else len(sects_md_text)]
+
+        positioning = ""
+        hq_detail = ""
+        feature_lines: list[str] = []
+        in_features = False
+        bldg_ids_in_sec: list[str] = []
+
+        for bline in block.splitlines():
+            sline = bline.strip()
+            if not sline or sline == "---":
+                continue
+            is_sub_bullet = bline.startswith("  ")
+            if not is_sub_bullet and sline.startswith("* **门派品级与立场**："):
+                positioning = sline.split("：", 1)[1].strip()
+                in_features = False
+            elif not is_sub_bullet and sline.startswith("* **总舵驻地**："):
+                hq_detail = re.sub(r"[`*]", "", sline.split("：", 1)[1]).strip()
+                in_features = False
+            elif not is_sub_bullet and sline.startswith("* **专属") and "建筑" in sline:
+                in_features = False
+                for bm in re.findall(r"`([a-z0-9_]+)`", sline):
+                    if bm in bldg_by_id and bm not in bldg_ids_in_sec:
+                        bldg_ids_in_sec.append(bm)
+            elif not is_sub_bullet and "入门条件" in sline and sline.startswith("* **"):
+                in_features = True
+                after_colon = sline.split("：", 1)[1].strip() if "：" in sline else ""
+                if after_colon:
+                    feature_lines.append(re.sub(r"[`*]", "", after_colon))
+            elif not is_sub_bullet and sline.startswith("* **"):
+                in_features = False
+            elif is_sub_bullet:
+                for bm in re.findall(r"`([a-z0-9_]+)`", sline):
+                    if bm in bldg_by_id and bm not in bldg_ids_in_sec:
+                        bldg_ids_in_sec.append(bm)
+                if in_features:
+                    cleaned_sub = re.sub(r"^\*\s*", "", sline)
+                    cleaned_sub = re.sub(r"[`*]", "", cleaned_sub).strip()
+                    if cleaned_sub:
+                        feature_lines.append(cleaned_sub)
+
+        sect_section_meta[sid] = {
+            "positioning": re.sub(r"[`*]", "", positioning).strip(),
+            "hqDetail": hq_detail,
+            "buildingIds": bldg_ids_in_sec,
+            "entryAndFeatures": " ".join(feature_lines).strip(),
+        }
+
     npc_count_by_faction = Counter(n["factionId"] for n in npcs)
+    npcs_by_faction: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for n in npcs:
+        npcs_by_faction[n["factionId"]].append(n)
+
     arts_by_sect: dict[str, list[str]] = defaultdict(list)
     for ma in martial_arts:
         if ma["sectId"]:
             arts_by_sect[ma["sectId"]].append(ma["id"])
 
+    weapons_by_sect: dict[str, list[str]] = defaultdict(list)
+    for wpn in weapons:
+        if wpn["sectId"]:
+            weapons_by_sect[wpn["sectId"]].append(wpn["id"])
+
+    reg_by_id = {r["id"]: r for r in regions}
+
     factions_enriched = []
     for fac in CANONICAL_FACTIONS:
         fid = fac["id"]
+        hq_reg = reg_by_id.get(fac["hqRegionId"]) if fac["hqRegionId"] else None
+
+        if fid in sect_table_meta:
+            tmeta = sect_table_meta[fid]
+            smeta = sect_section_meta.get(fid, {})
+            leader_ids = [
+                nid for nid in re.findall(r"NPC-\d{4}", tmeta["leadersRaw"])
+                if any(x["id"] == nid for x in npcs)
+            ]
+            b_ids = list(smeta.get("buildingIds", []))
+            for bm in re.findall(r"`([a-z0-9_]+)`", tmeta["buildingsRaw"]):
+                if bm in bldg_by_id and bm not in b_ids:
+                    b_ids.append(bm)
+            summary_txt = smeta.get("positioning") or f"{fac['sectTier']} · {fac['group']}（{tmeta['tableStance']}）"
+            features_txt = smeta.get("entryAndFeatures") or (
+                "常规不可拜入，仅限特殊卧底线或历史奇遇交互。"
+                if fid == "SECT-20"
+                else summary_txt
+            )
+            hq_disp = smeta.get("hqDetail") or tmeta["hqDisplay"]
+            highest_tier = tmeta["highestArtTier"]
+            stance_motto = tmeta["tableStance"]
+        else:
+            ometa = org_table_meta.get(fid, {})
+            raw_sum = ometa.get("summaryRaw", "")
+            leader_ids = [
+                nid for nid in re.findall(r"NPC-\d{4}", raw_sum)
+                if any(x["id"] == nid for x in npcs)
+            ]
+            if not leader_ids:
+                fac_npcs_sorted = sorted(
+                    npcs_by_faction[fid], key=lambda x: (x["realmRank"], x["id"])
+                )
+                leader_ids = [x["id"] for x in fac_npcs_sorted[:3]]
+            b_ids = []
+            if hq_reg:
+                for bid in hq_reg["specialBuildingIds"][:2]:
+                    b_ids.append(bid)
+            clean_org_sum = re.sub(r"[`*]", "", raw_sum).strip()
+            summary_txt = f"{fac['group']} · {fac['stance']}"
+            features_txt = clean_org_sum or summary_txt
+            hq_disp = ometa.get("hqDisplay") or (
+                f"{hq_reg['standardCode']} {hq_reg['name']}" if hq_reg else "散居天下四十三地"
+            )
+            # Compute highest martial art tier known by members of this organization
+            best_ma_tier = "庙堂雅艺"
+            tier_rank_order = [
+                "天阶上品", "天阶中品", "天阶下品",
+                "地阶上品", "地阶中品", "地阶下品",
+                "良品上品", "良品中品", "良品下品",
+                "凡品上品", "凡品中品", "凡品下品",
+            ]
+            ma_by_id_local = {m["id"]: m for m in martial_arts}
+            known_tiers = {
+                ma_by_id_local[aid]["fullTier"]
+                for m_npc in npcs_by_faction[fid]
+                for aid in m_npc["knownArtIds"]
+                if aid in ma_by_id_local
+            }
+            for tr in tier_rank_order:
+                if tr in known_tiers:
+                    best_ma_tier = tr
+                    break
+            highest_tier = best_ma_tier
+            stance_motto = fac["stance"]
+
         factions_enriched.append(
             {
                 **fac,
+                "stanceMotto": stance_motto,
+                "hqDisplay": hq_disp,
+                "leaderNpcIds": leader_ids,
+                "coreBuildingIds": b_ids,
+                "highestArtTier": highest_tier,
+                "summary": summary_txt,
+                "entryAndFeatures": features_txt,
                 "memberCount": npc_count_by_faction[fid],
                 "martialArtIds": arts_by_sect[fid],
+                "weaponIds": weapons_by_sect[fid],
             }
         )
 

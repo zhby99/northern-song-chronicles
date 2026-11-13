@@ -437,7 +437,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   menuOpen: false,
   activeMenuTab: 'hero',
   compendiumOpen: false,
-  activeCompendiumTab: 'portraits',
+  activeCompendiumTab: 'regions',
   inspectedNpcId: null,
 
   saveSlots: {

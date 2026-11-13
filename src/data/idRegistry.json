@@ -580,6 +580,20 @@
         "北少林",
         "少林"
       ],
+      "stanceMotto": "护国抗辽·佛门魁首",
+      "hqDisplay": "REG-23 嵩山少林寺（邻近 REG-02 洛阳府）",
+      "leaderNpcIds": [
+        "NPC-0112"
+      ],
+      "coreBuildingIds": [
+        "sl_cangjing",
+        "sl_damo",
+        "sl_luohan",
+        "sl_daxiong"
+      ],
+      "highestArtTier": "天阶上品",
+      "summary": "一流大派 · 抗辽名门正宗（天下武学泰山北斗，与丐帮同气连枝共御契丹）",
+      "entryAndFeatures": "男弟子可剃度入外院或持《洛阳金刀门举荐帖》拜入俗家；极重 【经义】 与清规戒律，强练多门绝技须有深厚佛法化解戾气，否则易生走火入魔之患。",
       "memberCount": 48,
       "martialArtIds": [
         "MA-001",
@@ -604,6 +618,13 @@
         "MA-151",
         "MA-157",
         "MA-161"
+      ],
+      "weaponIds": [
+        "WPN-013",
+        "WPN-028",
+        "WPN-055",
+        "WPN-068",
+        "WPN-095"
       ]
     },
     {
@@ -620,6 +641,20 @@
         "丐帮总舵",
         "丐帮中原总舵"
       ],
+      "stanceMotto": "护国抗辽·侠义第一",
+      "hqDisplay": "REG-02 洛阳府（分舵遍布开封、大名、真定、扬州、江宁、洪州、潭州诸府）",
+      "leaderNpcIds": [
+        "NPC-0110",
+        "NPC-0111"
+      ],
+      "coreBuildingIds": [
+        "ly_gaibang",
+        "dm_ferry",
+        "zd_market"
+      ],
+      "highestArtTier": "天阶上品",
+      "summary": "一流大派 · 抗辽名门正宗（中原第一大帮，十万帮众耳目遍布天下四十三地）",
+      "entryAndFeatures": "不问出身贫富，唯重侠肝义胆与抗辽军功；实行独特的 “一袋至九袋弟子” 功勋晋升制，刺探辽夏军情、护送边关粮饷可飞速积攒袋位功绩。",
       "memberCount": 71,
       "martialArtIds": [
         "MA-005",
@@ -629,6 +664,10 @@
         "MA-085",
         "MA-162",
         "MA-170"
+      ],
+      "weaponIds": [
+        "WPN-002",
+        "WPN-020"
       ]
     },
     {
@@ -645,11 +684,28 @@
         "清凉寺",
         "五台山"
       ],
+      "stanceMotto": "边关慈悲·护国抗辽",
+      "hqDisplay": "REG-25 五台山清凉寺（紧邻 REG-05 太原府、REG-24 雁门关）",
+      "leaderNpcIds": [
+        "NPC-0123"
+      ],
+      "coreBuildingIds": [
+        "wt_main",
+        "wt_staff",
+        "wt_orphan"
+      ],
+      "highestArtTier": "天阶下品",
+      "summary": "一流大派 · 抗辽名门正宗（河东佛国护关禅宗，杨家将忠魂寄托之地）",
+      "entryAndFeatures": "地处宋辽交锋最前线，看重 【根骨】【经义】【医术】，常与常山枪派、太原天波旧祠联动护佑雁门边民。",
       "memberCount": 25,
       "martialArtIds": [
         "MA-024",
         "MA-074",
         "MA-131"
+      ],
+      "weaponIds": [
+        "WPN-007",
+        "WPN-036"
       ]
     },
     {
@@ -666,10 +722,27 @@
         "南少林",
         "福建南少林"
       ],
+      "stanceMotto": "镇海护民·禅武刚猛",
+      "hqDisplay": "REG-38 莆田南少林（毗邻 REG-15 泉州府）",
+      "leaderNpcIds": [
+        "NPC-0124"
+      ],
+      "coreBuildingIds": [
+        "nsl_main",
+        "nsl_tripod",
+        "nsl_wooden"
+      ],
+      "highestArtTier": "地阶下品",
+      "summary": "一流大派 · 抗辽名门正宗（闽海禅武祖庭，硬桥硬马镇守东南海疆）",
+      "entryAndFeatures": "炼体硬功冠绝江南，偏好高 【根骨】 弟子；持《闽海镇远镖局》或《岭南洪门武馆》举荐信可免初试入寺习艺。",
       "memberCount": 39,
       "martialArtIds": [
         "MA-079",
         "MA-102"
+      ],
+      "weaponIds": [
+        "WPN-015",
+        "WPN-048"
       ]
     },
     {
@@ -686,6 +759,20 @@
         "西岳华山派",
         "华山剑宗"
       ],
+      "stanceMotto": "关中侠义·剑气清正",
+      "hqDisplay": "REG-27 潼关 / 西岳华山（邻近 REG-06 京兆府）",
+      "leaderNpcIds": [
+        "NPC-0118"
+      ],
+      "coreBuildingIds": [
+        "tg_summit",
+        "tg_zixia",
+        "tg_siguoya",
+        "tg_fort"
+      ],
+      "highestArtTier": "天阶下品",
+      "summary": "一流大派 · 抗辽名门正宗（西岳奇险剑宗，关中秦晋侠士仰望之地）",
+      "entryAndFeatures": "剑气并重、阶梯最完整の名门剑派，看重 【悟性】 与 【身法】；思过崖石壁暗藏前人破尽五岳兵刃的奇缘。",
       "memberCount": 39,
       "martialArtIds": [
         "MA-030",
@@ -698,6 +785,10 @@
         "MA-145",
         "MA-158",
         "MA-165"
+      ],
+      "weaponIds": [
+        "WPN-017",
+        "WPN-062"
       ]
     },
     {
@@ -713,12 +804,29 @@
       "aliases": [
         "东岳泰山派"
       ],
+      "stanceMotto": "齐鲁正道·五岳公信",
+      "hqDisplay": "REG-29 东岳泰山（俯瞰 REG-08 济南府）",
+      "leaderNpcIds": [
+        "NPC-0129"
+      ],
+      "coreBuildingIds": [
+        "ts_yuhuang",
+        "ts_daoyuan",
+        "ts_18pan",
+        "ts_pine"
+      ],
+      "highestArtTier": "地阶上品",
+      "summary": "一流大派 · 抗辽名门正宗（五岳独尊东岳道门，齐鲁武林盟约仲裁者）",
+      "entryAndFeatures": "门风刚正古朴，济南府《齐鲁查拳馆》弟子圆满出师后最宜登十八盘拜入东岳道院改修上乘剑术。",
       "memberCount": 25,
       "martialArtIds": [
         "MA-049",
         "MA-088",
         "MA-126",
         "MA-166"
+      ],
+      "weaponIds": [
+        "WPN-032"
       ]
     },
     {
@@ -735,6 +843,19 @@
         "蜀中峨眉派",
         "峨眉"
       ],
+      "stanceMotto": "蜀中清正·佛道兼修",
+      "hqDisplay": "REG-34 蜀中峨眉山（紧邻 REG-13 成都府、REG-32 剑门关）",
+      "leaderNpcIds": [
+        "NPC-0128"
+      ],
+      "coreBuildingIds": [
+        "em_jinding",
+        "em_wannian",
+        "em_pond"
+      ],
+      "highestArtTier": "地阶上品",
+      "summary": "一流大派 · 抗辽名门正宗（川西佛道兼修大宗，清音剑影护佑巴蜀苍生）",
+      "entryAndFeatures": "兼收出家女尼与俗家男女侠士，偏好清雅聪慧之辈，成都府《巴蜀百草药王门》医徒常向万年寺进献灵药结缘。",
       "memberCount": 36,
       "martialArtIds": [
         "MA-050",
@@ -744,6 +865,11 @@
         "MA-107",
         "MA-133",
         "MA-159"
+      ],
+      "weaponIds": [
+        "WPN-025",
+        "WPN-040",
+        "WPN-093"
       ]
     },
     {
@@ -761,6 +887,19 @@
         "武当山道脉",
         "武当山真武道宗"
       ],
+      "stanceMotto": "道法自然·护世济民",
+      "hqDisplay": "REG-36 武当山真武道宗（邻近 REG-14 襄阳府）",
+      "leaderNpcIds": [
+        "NPC-0119"
+      ],
+      "coreBuildingIds": [
+        "wd_golden",
+        "wd_zixiao",
+        "wd_nanyan"
+      ],
+      "highestArtTier": "天阶中品",
+      "summary": "一流大派 · 抗辽名门正宗（北宋真武信仰鼎盛下的太和内家拳剑祖庭）",
+      "entryAndFeatures": "讲究阴阳动静、后发制人，内力特质偏柔和调和，极重 【经义（道藏）】 与 【悟性】，护体卸力冠绝当世。",
       "memberCount": 37,
       "martialArtIds": [
         "MA-017",
@@ -770,6 +909,10 @@
         "MA-108",
         "MA-123",
         "MA-167"
+      ],
+      "weaponIds": [
+        "WPN-011",
+        "WPN-063"
       ]
     },
     {
@@ -786,6 +929,20 @@
         "天山灵鹫宫",
         "逍遥派灵鹫宫"
       ],
+      "stanceMotto": "隐世逍遥·唯才是举",
+      "hqDisplay": "REG-35 无量山 / 剑湖秘境（支脉散见 REG-22 昆仑缥缈峰、REG-19 西夏王庭、REG-02 洛阳聪辩居与扬州苏杭）",
+      "leaderNpcIds": [
+        "NPC-0106"
+      ],
+      "coreBuildingIds": [
+        "wl_langhuan",
+        "wl_yubi",
+        "kl_yaochi",
+        "xq_icecellar"
+      ],
+      "highestArtTier": "天阶上品",
+      "summary": "一流大派 · 隐世奇门传承（融琴棋书画医卜百工于神功的旷世奇门）",
+      "entryAndFeatures": "无固定山门招徒，极重【悟性 ≥ 80】【颜值 ≥ 75】以及【棋 / 琴 / 画 / 医】十艺造诣；破解洛阳珍珑棋局或误入无量玉洞方得真传。",
       "memberCount": 33,
       "martialArtIds": [
         "MA-002",
@@ -796,6 +953,10 @@
         "MA-015",
         "MA-027",
         "MA-033"
+      ],
+      "weaponIds": [
+        "WPN-005",
+        "WPN-008"
       ]
     },
     {
@@ -812,11 +973,28 @@
         "燕子坞慕容氏",
         "姑苏慕容"
       ],
+      "stanceMotto": "潜谋兴燕·名门世家",
+      "hqDisplay": "REG-30 太湖燕子坞（紧邻 REG-11 苏州府）",
+      "leaderNpcIds": [
+        "NPC-0120"
+      ],
+      "coreBuildingIds": [
+        "yzw_huanshi",
+        "yzw_canhe",
+        "yzw_tingxiang"
+      ],
+      "highestArtTier": "天阶上品",
+      "summary": "一流大派 · 隐世奇门传承（鲜卑大燕皇裔，“南慕容”与“北乔峰”齐名，暗蓄复国大计）",
+      "entryAndFeatures": "家将制世家，看重 【悟性】、百家武学涉猎广度与天下权谋 【策论】【辩才】；获准步入还施水阁者可遍览各派武学图谱。",
       "memberCount": 27,
       "martialArtIds": [
         "MA-008",
         "MA-025",
         "MA-070"
+      ],
+      "weaponIds": [
+        "WPN-009",
+        "WPN-024"
       ]
     },
     {
@@ -834,6 +1012,20 @@
         "活死人墓",
         "终南山道脉前传"
       ],
+      "stanceMotto": "幽谷清隐·不问庙堂",
+      "hqDisplay": "REG-28 终南山隐宗（毗邻 REG-06 京兆府 ca_zhongnan 终南草堂）",
+      "leaderNpcIds": [
+        "NPC-0114",
+        "NPC-0133"
+      ],
+      "coreBuildingIds": [
+        "zn_tomb",
+        "zn_tao",
+        "zn_stream"
+      ],
+      "highestArtTier": "天阶中品",
+      "summary": "一流大派 · 隐世奇门传承（终南太乙幽谷双脉并立，轻灵冷冽超然物外）",
+      "entryAndFeatures": "古墓脉偏好高 【身法】【颜值】 且清心寡欲者，古观脉偏好高 【根骨】【经义】 者；寒玉涧苦修可大幅淬炼内息与寒冰抗性。",
       "memberCount": 30,
       "martialArtIds": [
         "MA-013",
@@ -841,6 +1033,10 @@
         "MA-039",
         "MA-115",
         "MA-139"
+      ],
+      "weaponIds": [
+        "WPN-051",
+        "WPN-090"
       ]
     },
     {
@@ -857,6 +1053,19 @@
         "东海桃花岛一脉",
         "桃花岛"
       ],
+      "stanceMotto": "亦正亦邪·率性风雅",
+      "hqDisplay": "REG-31 东海桃花岛（自 REG-12 杭州府两浙市舶司海港扬帆可达）",
+      "leaderNpcIds": [
+        "NPC-0115"
+      ],
+      "coreBuildingIds": [
+        "thd_maze",
+        "thd_tanzhi",
+        "thd_qinlu"
+      ],
+      "highestArtTier": "天阶中品",
+      "summary": "一流大派 · 隐世奇门传承（碧海仙岛奇门五绝前脉，视世俗礼法如无物）",
+      "entryAndFeatures": "登岛必先以 【算术】 破开奇门八卦桃林阵，习艺高度依赖 【琴】【诗词】【书】【画】 风雅修为。",
       "memberCount": 25,
       "martialArtIds": [
         "MA-021",
@@ -864,6 +1073,9 @@
         "MA-046",
         "MA-063",
         "MA-069"
+      ],
+      "weaponIds": [
+        "WPN-010"
       ]
     },
     {
@@ -880,6 +1092,18 @@
         "唐门",
         "唐家堡"
       ],
+      "stanceMotto": "家族至上·拿钱办事",
+      "hqDisplay": "REG-33 青城山 / 唐家堡（于 REG-13 成都府设有锦江暗桩）",
+      "leaderNpcIds": [
+        "NPC-0149"
+      ],
+      "coreBuildingIds": [
+        "qc_tang",
+        "qc_poison"
+      ],
+      "highestArtTier": "天阶下品",
+      "summary": "一流大派 · 地域世家强宗（巴蜀机括暗器与奇毒第一世家，正邪莫测）",
+      "entryAndFeatures": "外姓弟子仅能先入外房试毒制器，看重 【身法】【算术（机关）】【毒术】，战棋中擅长中远距淬毒风筝压制。",
       "memberCount": 31,
       "martialArtIds": [
         "MA-032",
@@ -888,6 +1112,14 @@
         "MA-093",
         "MA-114",
         "MA-134"
+      ],
+      "weaponIds": [
+        "WPN-003",
+        "WPN-016",
+        "WPN-022",
+        "WPN-038",
+        "WPN-041",
+        "WPN-058"
       ]
     },
     {
@@ -903,13 +1135,25 @@
       "aliases": [
         "青城山上清宫"
       ],
+      "stanceMotto": "川西争霸·剑走偏锋",
+      "hqDisplay": "REG-33 青城山 / 唐家堡（并扼守 REG-32 剑门关）",
+      "leaderNpcIds": [
+        "NPC-0139"
+      ],
+      "coreBuildingIds": [
+        "qc_shangqing"
+      ],
+      "highestArtTier": "地阶中品",
+      "summary": "一流大派 · 地域世家强宗（川西道门强宗，剑招迅捷诡辣，志在压倒峨眉称雄蜀道）",
+      "entryAndFeatures": "入门门槛较峨眉宽松，重快剑奇袭与阴劲破防，适合走亦正亦邪争霸路线的剑客。",
       "memberCount": 27,
       "martialArtIds": [
         "MA-068",
         "MA-097",
         "MA-104",
         "MA-146"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "SECT-15",
@@ -924,12 +1168,28 @@
       "aliases": [
         "洞庭铁掌帮"
       ],
+      "stanceMotto": "霸道枭雄·雄踞两湖",
+      "hqDisplay": "REG-37 洞庭铁掌峰（辐射 REG-14 襄阳府、REG-40 潭州府、REG-41 洪州府）",
+      "leaderNpcIds": [
+        "NPC-0117"
+      ],
+      "coreBuildingIds": [
+        "tz_hall",
+        "tz_tomb",
+        "tz_water"
+      ],
+      "highestArtTier": "天阶下品",
+      "summary": "一流大派 · 地域世家强宗（雄踞八百里洞庭与荆湘水陆的第一霸帮）",
+      "entryAndFeatures": "重 【根骨】 与骁勇悍气，掌力霸道绝伦，常与江淮漕帮及湘西五溪蛊寨在两湖水道既摩擦又交易。",
       "memberCount": 29,
       "martialArtIds": [
         "MA-035",
         "MA-045",
         "MA-080",
         "MA-116"
+      ],
+      "weaponIds": [
+        "WPN-021"
       ]
     },
     {
@@ -946,10 +1206,26 @@
         "漕帮",
         "淮南盐帮"
       ],
+      "stanceMotto": "官商两道·运河霸主",
+      "hqDisplay": "REG-09 扬州府（分舵贯通 REG-01 开封、REG-10 江宁、REG-11 苏州、REG-12 杭州、REG-41 洪州）",
+      "leaderNpcIds": [
+        "NPC-0146"
+      ],
+      "coreBuildingIds": [
+        "yz_chaoguan",
+        "yz_salt"
+      ],
+      "highestArtTier": "地阶下品",
+      "summary": "一流大派 · 地域世家强宗（扼控汴河淮扬南北运河命脉，黑白官商通吃）",
+      "entryAndFeatures": "钱粮最丰厚的江湖帮会，杭州《钱塘怒潮帮》与泉州《闽海镇远镖局》好手常获引荐入漕帮执掌一方水路香堂。",
       "memberCount": 43,
       "martialArtIds": [
         "MA-091",
         "MA-140"
+      ],
+      "weaponIds": [
+        "WPN-027",
+        "WPN-071"
       ]
     },
     {
@@ -967,6 +1243,20 @@
         "六扇门",
         "大内禁军"
       ],
+      "stanceMotto": "朝廷法度·皇城缉捕",
+      "hqDisplay": "REG-01 开封府（各州府衙门皆有缉捕巡检分司）",
+      "leaderNpcIds": [
+        "NPC-0140",
+        "NPC-0132"
+      ],
+      "coreBuildingIds": [
+        "bl_palace",
+        "bl_kaifengfu",
+        "bl_jinjun"
+      ],
+      "highestArtTier": "天阶下品",
+      "summary": "一流大派 · 朝廷体制武林力量（包龙图麾下侠义护卫、六扇门神捕与皇城司大内供奉并存）",
+      "entryAndFeatures": "须身家清白（无绿林恶名）并在各州府衙门完成悬赏缉盗立功，或凭《沧州八极门》《常山枪派》武举保荐入籍；领朝廷俸禄，专克绿林与辽夏密探。",
       "memberCount": 57,
       "martialArtIds": [
         "MA-036",
@@ -974,6 +1264,18 @@
         "MA-100",
         "MA-119",
         "MA-152"
+      ],
+      "weaponIds": [
+        "WPN-030",
+        "WPN-037",
+        "WPN-053",
+        "WPN-059",
+        "WPN-061",
+        "WPN-070",
+        "WPN-072",
+        "WPN-075",
+        "WPN-087",
+        "WPN-091"
       ]
     },
     {
@@ -991,6 +1293,19 @@
         "太行绿林",
         "京东绿林"
       ],
+      "stanceMotto": "替天行道·抗官劫富",
+      "hqDisplay": "REG-26 太行山绿林总寨（水陆分寨连结 REG-03 大名府、REG-08 济南府）",
+      "leaderNpcIds": [
+        "NPC-0142"
+      ],
+      "coreBuildingIds": [
+        "th_hall",
+        "th_bridge",
+        "th_vault"
+      ],
+      "highestArtTier": "良品中品",
+      "summary": "一流大派 · 草莽抗官同盟（庆历贝州起义余脉与河北山东十八寨绿林豪杰聚义盟）",
+      "entryAndFeatures": "“替天行道、反抗贪官”路线的核心大本营，接纳被官府通缉的豪杰，劫夺贪官纲银赈济流民。",
       "memberCount": 45,
       "martialArtIds": [
         "MA-117",
@@ -1001,6 +1316,11 @@
         "MA-184",
         "MA-187",
         "MA-194"
+      ],
+      "weaponIds": [
+        "WPN-052",
+        "WPN-076",
+        "WPN-084"
       ]
     },
     {
@@ -1017,12 +1337,26 @@
         "星宿派（西域毒宗中原潜伏点）",
         "星宿海"
       ],
+      "stanceMotto": "西域邪宗·弱肉强食",
+      "hqDisplay": "REG-22 昆仑山（星宿海毒泉外脉）（中原前哨潜伏于 REG-07 延安府、REG-06 京兆府、REG-19 兴庆府）",
+      "leaderNpcIds": [
+        "NPC-0122"
+      ],
+      "coreBuildingIds": [
+        "kl_poison"
+      ],
+      "highestArtTier": "天阶下品",
+      "summary": "一流大派 · 西域邪宗潜伏势力（门内丝竹吹捧、弱肉强食，专擅化功奇毒）",
+      "entryAndFeatures": "需极高 【辩才（阿谀奉承）】 与 【毒术】，正道声望大幅折损，但毒功消融敌方内力极为阴霸。",
       "memberCount": 35,
       "martialArtIds": [
         "MA-026",
         "MA-054",
         "MA-064",
         "MA-124"
+      ],
+      "weaponIds": [
+        "WPN-029"
       ]
     },
     {
@@ -1040,6 +1374,21 @@
         "辽国武林暗桩",
         "一品堂 / 辽国武林暗桩（外邦敌对势力）"
       ],
+      "stanceMotto": "辽夏鹰犬·敌国渗透",
+      "hqDisplay": "REG-19 兴庆府（西夏一品堂）与 REG-16 析津府 / REG-18 临潢府 / REG-43 辽阳府（大辽武林暗桩）",
+      "leaderNpcIds": [
+        "NPC-0121",
+        "NPC-0130"
+      ],
+      "coreBuildingIds": [
+        "xq_yipin",
+        "xq_tieyaozi",
+        "xj_marshal",
+        "lyf_yamen"
+      ],
+      "highestArtTier": "天阶中品",
+      "summary": "一流大派 · 外邦敌对渗透势力（西夏征东司一品堂与大辽南北院招揽的四方恶人、番僧与铁骑武尊，常规不可拜入，仅限特殊卧底线或投敌枭雄线）",
+      "entryAndFeatures": "常规不可拜入，仅限特殊卧底线或历史奇遇交互。",
       "memberCount": 59,
       "martialArtIds": [
         "MA-019",
@@ -1048,6 +1397,12 @@
         "MA-072",
         "MA-076",
         "MA-130"
+      ],
+      "weaponIds": [
+        "WPN-012",
+        "WPN-019",
+        "WPN-043",
+        "WPN-047"
       ]
     },
     {
@@ -1064,13 +1419,26 @@
         "金刀王家",
         "金刀门"
       ],
+      "stanceMotto": "中原名门·豪爽仗义",
+      "hqDisplay": "REG-02 洛阳府",
+      "leaderNpcIds": [
+        "NPC-0186"
+      ],
+      "coreBuildingIds": [
+        "ly_jindao",
+        "luoyang_base_dojo"
+      ],
+      "highestArtTier": "良品上品",
+      "summary": "二流门派 · 二流世家武盟（中原第一刀法世家，世代定居西京洛阳，急公好义、声誉卓著）",
+      "entryAndFeatures": "入门门槛：臂力扎实（根骨 ≥ 45）或持任意三流武馆《圆满出师帖》，无恶名案底即可拜入王家外院。 门派差事：护送洛阳牡丹贡品入京、清剿伊阙邙山剪径马贼、代王老爷子向各路名宿递送寿礼英雄帖。 高阶举荐：刀法大成且获王元霸赏识后，可获亲笔保举拜入 SECT-01 嵩山少林寺（俗家罗汉堂） 或结好 SECT-02 丐帮洛阳总舵。",
       "memberCount": 9,
       "martialArtIds": [
         "MA-109",
         "MA-129",
         "MA-148",
         "MA-169"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "SECT-22",
@@ -1086,10 +1454,25 @@
         "真定常山枪派",
         "常山枪"
       ],
+      "stanceMotto": "燕赵忠烈·助军抗辽",
+      "hqDisplay": "REG-04 真定府",
+      "leaderNpcIds": [
+        "NPC-0185"
+      ],
+      "coreBuildingIds": [
+        "zd_spear",
+        "zd_market"
+      ],
+      "highestArtTier": "地阶中品",
+      "summary": "二流门派 · 二流世家武盟（燕赵古风枪术名门，世代协助河北宋军操练长枪、猎杀契丹游骑）",
+      "entryAndFeatures": "入门门槛：心向抗辽大义，基础骑术或身法尚可（骑术 ≥ 15 或 根骨 ≥ 45），严拒与辽夏暗桩有染之人。 门派差事：真定榷场巡查辽谍、押运河北边军粮秣至太原/雁门关、白蜡杆点枪比武。 高阶举荐：立下抗辽边功后，赵括苍可修书保荐少侠前往 SECT-03 五台山清凉寺 参悟佛门伏魔长兵，或入开封 SECT-17 八十万禁军 / 六扇门 任枪棒武官。",
       "memberCount": 9,
       "martialArtIds": [
         "MA-073",
         "MA-172"
+      ],
+      "weaponIds": [
+        "WPN-014"
       ]
     },
     {
@@ -1106,6 +1489,18 @@
         "八极门",
         "河北八极门"
       ],
+      "stanceMotto": "刚猛护院·河北武风",
+      "hqDisplay": "REG-03 大名府（北京留守司陪都，辖沧州河北武风）",
+      "leaderNpcIds": [
+        "NPC-0275"
+      ],
+      "coreBuildingIds": [
+        "dm_drill",
+        "daming_base_dojo"
+      ],
+      "highestArtTier": "良品上品",
+      "summary": "二流门派 · 二流世家武盟（“文有太极安天下，武有八极定乾坤”前脉，黄河两岸头号护院与贴身硬打名门）",
+      "entryAndFeatures": "入门门槛：能吃苦站桩（消耗体能完成三日马步桩考校，或由济南《齐鲁查拳馆》举荐直入内堂）。 门派差事：北京留守行宫贵胄护院、黄河铁索渡口督护商队、与河北绿林好汉以武会友。 高阶举荐：可获保举投效大名府名臣贾昌朝幕府、转入 SECT-17 殿前司禁军教头场，或结交 SECT-18 太行绿林盟 义士。",
       "memberCount": 9,
       "martialArtIds": [
         "MA-112",
@@ -1113,7 +1508,8 @@
         "MA-142",
         "MA-178",
         "MA-183"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "SECT-24",
@@ -1129,6 +1525,18 @@
         "镇远镖局",
         "泉州镇远镖局"
       ],
+      "stanceMotto": "诚信走镖·四海通商",
+      "hqDisplay": "REG-15 泉州府（分号通联 REG-39 广州府、REG-12 杭州府、REG-41 洪州府）",
+      "leaderNpcIds": [
+        "NPC-0286"
+      ],
+      "coreBuildingIds": [
+        "quanzhou_base_dojo",
+        "qz_port"
+      ],
+      "highestArtTier": "良品下品",
+      "summary": "二流门派 · 二流世家武盟（东南沿海与闽粤赣商道第一大镖盟，兼通陆路红货押运与南海番舶护航）",
+      "entryAndFeatures": "入门门槛：为人守信，交纳少量押镖保银或由广州《岭南洪门武馆》/杭州《钱塘怒潮帮》引荐即可挂牌任趟子手。 门派差事：全游戏前期最赚钱的合法行当——押送武夷贡茶、大食龙涎香、景德镇青白瓷往返泉州、广州、洪州、杭州与开封，途中击退海寇山匪即可获丰厚镖银分红！ 高阶举荐：资深红旗镖头可获林镇海引荐拜入 SECT-04 莆田南少林 深造硬功，或转投 SECT-16 江淮漕帮 执掌远洋船队。",
       "memberCount": 9,
       "martialArtIds": [
         "MA-137",
@@ -1136,7 +1544,8 @@
         "MA-153",
         "MA-168",
         "MA-176"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "SECT-25",
@@ -1152,13 +1561,26 @@
         "查拳馆",
         "济南查拳馆"
       ],
+      "stanceMotto": "尚武敦厚·开门授徒",
+      "hqDisplay": "REG-08 济南府",
+      "leaderNpcIds": [
+        "NPC-0305"
+      ],
+      "coreBuildingIds": [
+        "jinan_base_dojo",
+        "jn_baotu"
+      ],
+      "highestArtTier": "良品下品",
+      "summary": "三流小派 · 三流市井武馆（山东地面口碑极佳的开门授徒武馆，拳脚舒展、腿法轻捷）",
+      "entryAndFeatures": "交纳 5 两束脩纹银 即可拜师入馆；日常可在馆内陪练富商子弟、巡护大明湖画舫赚取铜钱与干粮；出师后获荐直登 SECT-06 泰山派 或北上 SECT-23 沧州八极门。",
       "memberCount": 8,
       "martialArtIds": [
         "MA-156",
         "MA-180",
         "MA-182",
         "MA-196"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "SECT-26",
@@ -1174,12 +1596,26 @@
         "怒潮帮",
         "钱塘潮帮"
       ],
+      "stanceMotto": "弄潮义气·码头讨生",
+      "hqDisplay": "REG-12 杭州府",
+      "leaderNpcIds": [
+        "NPC-0306"
+      ],
+      "coreBuildingIds": [
+        "hz_tide",
+        "hangzhou_base_dojo",
+        "hz_port"
+      ],
+      "highestArtTier": "良品下品",
+      "summary": "三流小派 · 三流市井帮会（杭州钱塘江畔弄潮儿、纤夫与海港脚夫结成的义气水帮）",
+      "entryAndFeatures": "分文不取，只需在钱塘江畔帮码头搬运三担番货即可入帮；日常在市舶司海港卸货、下水打捞沉船瓷器赚钱；出师可获保举入 SECT-16 江淮漕帮 或出海寻访 SECT-12 东海桃花岛。",
       "memberCount": 8,
       "martialArtIds": [
         "MA-143",
         "MA-198",
         "MA-214"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "SECT-27",
@@ -1195,12 +1631,26 @@
         "洪门武馆",
         "广州洪拳馆"
       ],
+      "stanceMotto": "护港保境·硬桥硬马",
+      "hqDisplay": "REG-39 广州府",
+      "leaderNpcIds": [
+        "NPC-0307"
+      ],
+      "coreBuildingIds": [
+        "guangzhou_base_dojo",
+        "gz_nanhai",
+        "gz_fanfang"
+      ],
+      "highestArtTier": "凡品中品",
+      "summary": "三流小派 · 三流市井武馆（广州五羊城与扶胥古港最大的民间团练武馆，护商抗暴、硬桥硬马）",
+      "entryAndFeatures": "不拘资历，愿护佑番坊百姓者皆可入馆；日常差事包括 扶胥古港巡逻防盗、舞狮采青贺岁、协助经制使余靖幕府探听广源州边情；出师可获洪百川亲笔信北上拜入 SECT-04 莆田南少林 或 SECT-24 闽海镇远镖局。",
       "memberCount": 8,
       "martialArtIds": [
         "MA-181",
         "MA-186",
         "MA-200"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "SECT-28",
@@ -1216,12 +1666,26 @@
         "金环刀堂",
         "秦州金环堂"
       ],
+      "stanceMotto": "边塞豪侠·护马抗夏",
+      "hqDisplay": "REG-42 秦州府",
+      "leaderNpcIds": [
+        "NPC-0313"
+      ],
+      "coreBuildingIds": [
+        "qzf_longyou",
+        "qzf_chama",
+        "qinzhou_base_dojo"
+      ],
+      "highestArtTier": "地阶下品",
+      "summary": "三流小派 · 边塞武馆刀堂（秦州渭水茶马古道上的边塞刀客结社，护卫番汉马帮、痛击西夏游骑与马贼）",
+      "entryAndFeatures": "豪爽痛快，饮尽一碗秦州烈酒即可入堂；日常在 秦州官营茶马榷场相马驯驹（顺带提升【骑术】！）、押送蜀茶换购河曲良驹；出师后可东入 SECT-05 华山派、北投延安边军或西探昆仑大漠。",
       "memberCount": 8,
       "martialArtIds": [
         "MA-090",
         "MA-163",
         "MA-188"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "SECT-29",
@@ -1237,12 +1701,26 @@
         "百草药王门",
         "百草门"
       ],
+      "stanceMotto": "悬壶济世·医武同源",
+      "hqDisplay": "REG-13 成都府",
+      "leaderNpcIds": [
+        "NPC-0316"
+      ],
+      "coreBuildingIds": [
+        "chengdu_base_dojo",
+        "cd_qingyang",
+        "cd_teahouse"
+      ],
+      "highestArtTier": "良品下品",
+      "summary": "三流小派 · 医武小宗（成都锦江畔采药人、坐堂郎中与养生武师合建的杏林门户，悬壶济世、以医入武）",
+      "entryAndFeatures": "偏好心怀仁念或略通文墨者（悟性 ≥ 40 尤佳）；日常可 入蜀山采摘川芎附子、在药堂炮制金创药与行军散（自用卖钱两便，同步提升【医术】！）；出师后极受 SECT-07 峨眉派、SECT-09 逍遥神医薛慕华一脉 青睐。",
       "memberCount": 8,
       "martialArtIds": [
         "MA-138",
         "MA-154",
         "MA-179"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "SECT-30",
@@ -1258,11 +1736,24 @@
         "五溪蛊寨",
         "湘西蛊寨"
       ],
+      "stanceMotto": "苗疆诡奇·人不犯我",
+      "hqDisplay": "REG-40 潭州府",
+      "leaderNpcIds": [
+        "NPC-0337"
+      ],
+      "coreBuildingIds": [
+        "tzf_wuxi",
+        "tanzhou_base_dojo"
+      ],
+      "highestArtTier": "地阶下品",
+      "summary": "三流小派 · 南楚奇门苗寨（辰沅五溪苗瑶山民设于潭州湘江畔的互市分寨，善驭奇虫毒瘴、飞石猎兽，恩怨分明）",
+      "entryAndFeatures": "不拘中原礼教，替苗市驱逐欺行霸市的恶霸即可入寨；日常可 捕蛇炼制避瘴雄黄散、采集朱砂奇草（同步锤炼【毒术】与【抗性】）；出师后既可北上 SECT-15 洞庭铁掌峰、西入 SECT-13 蜀中唐门，亦可南游大理无量山。",
       "memberCount": 8,
       "martialArtIds": [
         "MA-084",
         "MA-193"
-      ]
+      ],
+      "weaponIds": []
     },
     {
       "id": "ORG-01",
@@ -1278,8 +1769,21 @@
         "江湖散人",
         "草莽散人"
       ],
+      "stanceMotto": "自由中立",
+      "hqDisplay": "散居天下诸城名山",
+      "leaderNpcIds": [
+        "NPC-0107",
+        "NPC-0141",
+        "NPC-0189",
+        "NPC-0264"
+      ],
+      "coreBuildingIds": [],
+      "highestArtTier": "天阶上品",
+      "summary": "江湖散人与隐逸奇侠 · 自由中立",
+      "entryAndFeatures": "万寿道藏校书官 黄裳 NPC-0107（泉州府）、锦毛鼠 白玉堂 NPC-0141（开封府）、无量剑东西宗 左子穆/辛双清、长白剑客 卓不凡 NPC-0189（辽阳府）、赤焰魔 端木元 NPC-0264（广州府）等独行奇侠。",
       "memberCount": 40,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     },
     {
       "id": "ORG-02",
@@ -1295,8 +1799,28 @@
         "北宋朝廷",
         "大宋禁军"
       ],
+      "stanceMotto": "大宋庙堂",
+      "hqDisplay": "REG-01 开封府",
+      "leaderNpcIds": [
+        "NPC-0001",
+        "NPC-0002",
+        "NPC-0009",
+        "NPC-0012",
+        "NPC-0013",
+        "NPC-0031",
+        "NPC-0022",
+        "NPC-0045"
+      ],
+      "coreBuildingIds": [
+        "bl_palace",
+        "bl_kaifengfu"
+      ],
+      "highestArtTier": "天阶下品",
+      "summary": "庙堂政权与四夷王庭 · 大宋庙堂",
+      "entryAndFeatures": "宋仁宗赵祯 NPC-0001、曹皇后 NPC-0002、范仲淹 NPC-0009（杭州府）、欧阳修 NPC-0012、包拯 NPC-0013、狄青 NPC-0031（真定/延安边防）、余靖 NPC-0022（广州府经制南疆）、刘沪 NPC-0045（秦州府水洛城名将）等名臣良将。",
       "memberCount": 48,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     },
     {
       "id": "ORG-03",
@@ -1312,8 +1836,25 @@
         "洛学士林",
         "太学儒林"
       ],
+      "stanceMotto": "大宋儒林",
+      "hqDisplay": "REG-01 开封府及诸书院",
+      "leaderNpcIds": [
+        "NPC-0020",
+        "NPC-0023",
+        "NPC-0024",
+        "NPC-0046",
+        "NPC-0047"
+      ],
+      "coreBuildingIds": [
+        "ly_baimasi",
+        "ly_shuyuan"
+      ],
+      "highestArtTier": "地阶上品",
+      "summary": "儒林百工与杏林名宿 · 大宋儒林",
+      "entryAndFeatures": "曾巩 NPC-0020（洪州府白鹿洞）、梅尧臣 NPC-0023、苏舜钦 NPC-0024（苏州府）、邵雍 NPC-0046（洛阳府）、周敦颐 NPC-0047（潭州府岳麓书院）、青年 苏轼 / 王安石 / 司马光 等，主司【经义】【策论】【诗词】【书】【画】论道唱和。",
       "memberCount": 22,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     },
     {
       "id": "ORG-04",
@@ -1328,8 +1869,23 @@
       "aliases": [
         "百工匠作"
       ],
+      "stanceMotto": "科技匠造",
+      "hqDisplay": "REG-01 开封府及诸坊",
+      "leaderNpcIds": [
+        "NPC-0061",
+        "NPC-0064",
+        "NPC-0069"
+      ],
+      "coreBuildingIds": [
+        "bl_palace",
+        "bl_kaifengfu"
+      ],
+      "highestArtTier": "庙堂雅艺",
+      "summary": "儒林百工与杏林名宿 · 科技匠造",
+      "entryAndFeatures": "活字印书大匠 毕昇 NPC-0061（杭州府）、天元算学大师 贾宪 NPC-0064（开封府）、山水画宗匠 郭熙 NPC-0069（洛阳府），主司【算术】【丹青】与奇巧百工秘卷鉴赏。",
       "memberCount": 3,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     },
     {
       "id": "ORG-05",
@@ -1345,8 +1901,22 @@
         "太医局",
         "医家"
       ],
+      "stanceMotto": "悬壶济世",
+      "hqDisplay": "济南府 / 成都府",
+      "leaderNpcIds": [
+        "NPC-0066",
+        "NPC-0067"
+      ],
+      "coreBuildingIds": [
+        "bl_palace",
+        "bl_kaifengfu"
+      ],
+      "highestArtTier": "良品下品",
+      "summary": "儒林百工与杏林名宿 · 悬壶济世",
+      "entryAndFeatures": "儿科青年神医 钱乙 NPC-0066（济南府）、《证类本草》医家 唐慎微 NPC-0067（成都府），传授高阶【医术】并救治重伤内损。",
       "memberCount": 2,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     },
     {
       "id": "ORG-06",
@@ -1362,8 +1932,24 @@
         "契丹朝廷",
         "大辽南院"
       ],
+      "stanceMotto": "契丹王庭",
+      "hqDisplay": "REG-18 临潢府（辖四京）",
+      "leaderNpcIds": [
+        "NPC-0071",
+        "NPC-0072",
+        "NPC-0077",
+        "NPC-0078"
+      ],
+      "coreBuildingIds": [
+        "lh_goldtent",
+        "lh_altar"
+      ],
+      "highestArtTier": "地阶上品",
+      "summary": "庙堂政权与四夷王庭 · 契丹王庭",
+      "entryAndFeatures": "辽兴宗耶律宗真 NPC-0071、皇太弟 耶律重元 NPC-0072（析津府）、东京留守 耶律仁先 NPC-0077（辽阳府）、暗探统领 耶律乙辛 NPC-0078（大定府）等契丹王庭权贵。",
       "memberCount": 11,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     },
     {
       "id": "ORG-07",
@@ -1378,8 +1964,24 @@
       "aliases": [
         "党项王庭"
       ],
+      "stanceMotto": "党项王庭",
+      "hqDisplay": "REG-19 兴庆府",
+      "leaderNpcIds": [
+        "NPC-0082",
+        "NPC-0083",
+        "NPC-0084",
+        "NPC-0085"
+      ],
+      "coreBuildingIds": [
+        "xq_yipin",
+        "xq_icecellar"
+      ],
+      "highestArtTier": "地阶中品",
+      "summary": "庙堂政权与四夷王庭 · 党项王庭",
+      "entryAndFeatures": "摄政 没藏太后 NPC-0082、幼主 李谅祚 NPC-0083、国相兼一品堂大东家 没藏讹庞 NPC-0084、右厢统帅 漫咩 NPC-0085。",
       "memberCount": 4,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     },
     {
       "id": "ORG-08",
@@ -1395,10 +1997,29 @@
         "大理段氏",
         "天龙寺"
       ],
+      "stanceMotto": "南诏佛国",
+      "hqDisplay": "REG-21 阳苴咩城（大理）",
+      "leaderNpcIds": [
+        "NPC-0086",
+        "NPC-0108",
+        "NPC-0143",
+        "NPC-0144",
+        "NPC-0236"
+      ],
+      "coreBuildingIds": [
+        "dl_tianlong",
+        "dl_palace"
+      ],
+      "highestArtTier": "天阶上品",
+      "summary": "庙堂政权与四夷王庭 · 南诏佛国",
+      "entryAndFeatures": "孝德帝 段思廉 NPC-0086、天龙寺 枯荣禅师 NPC-0108、皇储 段正明 NPC-0143、天龙方丈 本因 NPC-0144、镇南王 段正淳 NPC-0236，执掌皇室秘传 MA-006《六脉神剑》与 MA-023《一阳指》。",
       "memberCount": 14,
       "martialArtIds": [
         "MA-006",
         "MA-023"
+      ],
+      "weaponIds": [
+        "WPN-026"
       ]
     },
     {
@@ -1415,8 +2036,24 @@
         "青唐吐蕃",
         "雪域密宗"
       ],
+      "stanceMotto": "雪域密宗",
+      "hqDisplay": "REG-20 逻些（拉萨）",
+      "leaderNpcIds": [
+        "NPC-0089",
+        "NPC-0090",
+        "NPC-0092",
+        "NPC-0113"
+      ],
+      "coreBuildingIds": [
+        "lx_potala",
+        "lx_jokhang"
+      ],
+      "highestArtTier": "天阶中品",
+      "summary": "庙堂政权与四夷王庭 · 雪域密宗",
+      "entryAndFeatures": "青唐赞普 唃厮啰 NPC-0089、河州首领 瞎毡 NPC-0090（秦州府榷场互市）、大译师 玛尔巴 NPC-0092、护国法王 鸠摩智 NPC-0113（身负火焰刀与小无相功）。",
       "memberCount": 7,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     },
     {
       "id": "ORG-10",
@@ -1432,8 +2069,23 @@
         "广源州侬氏",
         "南疆诸洞"
       ],
+      "stanceMotto": "西南边裔",
+      "hqDisplay": "REG-39 广州府外徼",
+      "leaderNpcIds": [
+        "NPC-0094",
+        "NPC-0095",
+        "NPC-0096"
+      ],
+      "coreBuildingIds": [
+        "gz_nanhai",
+        "gz_fanfang"
+      ],
+      "highestArtTier": "地阶下品",
+      "summary": "边裔诸部 · 西南边裔",
+      "entryAndFeatures": "广源州首领 侬智高 NPC-0094（皇祐二年正于岭南蠢蠢欲动）、母 阿侬 NPC-0095、落第谋主 黄师宓 NPC-0096，构成岭南风云主线关键人物。",
       "memberCount": 3,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     },
     {
       "id": "ORG-11",
@@ -1448,8 +2100,21 @@
       "aliases": [
         "生女真完颜部"
       ],
+      "stanceMotto": "白山黑水",
+      "hqDisplay": "REG-43 辽阳府北境",
+      "leaderNpcIds": [
+        "NPC-0081"
+      ],
+      "coreBuildingIds": [
+        "lyf_yamen",
+        "lyf_baita"
+      ],
+      "highestArtTier": "良品中品",
+      "summary": "边裔诸部 · 白山黑水",
+      "entryAndFeatures": "长白山生女真完颜部首领 完颜乌古乃 NPC-0081（活动于辽阳府长白山参茸皮货互市，见证东北白山黑水潜龙初起）。",
       "memberCount": 1,
-      "martialArtIds": []
+      "martialArtIds": [],
+      "weaponIds": []
     }
   ],
   "locationAliasMap": {
