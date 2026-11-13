@@ -1,9 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  Coins,
+  Heart,
+  Moon,
+  Sun,
+  Wheat,
+  Zap,
+} from 'lucide-react'
 import { BUILDING_DB_MAP } from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { LabelToggleKey } from '../../types/game'
 import { ASSET_MANIFEST, formatByteSize, useAssetTelemetry } from '../../utils/assetLoader'
-import { NODE_MAP, REGIONAL_CONFIGS, WORLD_GRAPH } from '../../utils/mapMath'
+import { getSongDateParts, NODE_MAP, REGIONAL_CONFIGS, WORLD_GRAPH } from '../../utils/mapMath'
 
 const LABEL_MENU_ITEMS: Array<{
   key: LabelToggleKey
@@ -40,6 +48,15 @@ const LABEL_MENU_ITEMS: Array<{
 export function TopHud() {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement | null>(null)
+
+  const dayCount = useGameStore((s) => s.dayCount)
+  const shichenIdx = useGameStore((s) => s.shichenIdx)
+  const hp = useGameStore((s) => s.hp)
+  const maxHp = useGameStore((s) => s.maxHp)
+  const stamina = useGameStore((s) => s.stamina)
+  const maxStamina = useGameStore((s) => s.maxStamina)
+  const silver = useGameStore((s) => s.silver)
+  const food = useGameStore((s) => s.food)
 
   const viewMode = useGameStore((s) => s.viewMode)
   const activeRegionId = useGameStore((s) => s.activeRegionId)
@@ -80,10 +97,16 @@ export function TopHud() {
     return { citiesSong, citiesForeign, sectsAndPasses }
   }, [])
 
+  const dateParts = getSongDateParts(dayCount, shichenIdx)
+  const hpPct = Math.min(100, Math.max(0, Math.round((hp / Math.max(1, maxHp)) * 100)))
+  const staPct = Math.min(100, Math.max(0, Math.round((stamina / Math.max(1, maxStamina)) * 100)))
+  const isFoodLow = food <= 5
+  const isStaminaLow = staPct <= 25
+
   const activeLabelCount = LABEL_MENU_ITEMS.filter((it) => overlays[it.key]).length
   const isMacroZoom = worldScale < 0.85
 
-  let lodBadgeText = `视距 ${worldScale.toFixed(2)}× · 山海详图（标注开启 ${activeLabelCount}/4）`
+  let lodBadgeText = `视距 ${worldScale.toFixed(2)}× · 山海详图（标注 ${activeLabelCount}/4）`
   let lodBadgeCls =
     'px-2 py-0.5 rounded bg-[#eadec6] text-[#4a3219] border border-[#9e8462] font-medium song-serif'
   if (isMacroZoom) {
@@ -91,11 +114,11 @@ export function TopHud() {
     lodBadgeCls =
       'px-2 py-0.5 rounded bg-[#8f241e] text-[#fff8ee] border border-[#5c1612] font-medium song-serif'
   } else if (activeLabelCount === 0) {
-    lodBadgeText = `视距 ${worldScale.toFixed(2)}× · 纯净图标模式（无文字干扰）`
+    lodBadgeText = `视距 ${worldScale.toFixed(2)}× · 纯净图标模式`
     lodBadgeCls =
       'px-2 py-0.5 rounded bg-[#2d4a3e] text-[#fff8ee] border border-[#1a2e26] font-medium song-serif'
   } else if (worldScale < 0.94) {
-    lodBadgeText = `视距 ${worldScale.toFixed(2)}× · 州府中观（隐去山门关隘名）`
+    lodBadgeText = `视距 ${worldScale.toFixed(2)}× · 州府中观`
     lodBadgeCls =
       'px-2 py-0.5 rounded bg-[#dfc9a3] text-[#3d2812] border border-[#8c6f46] font-medium song-serif'
   }
@@ -109,40 +132,169 @@ export function TopHud() {
 
   return (
     <>
-      {/* 右上角：群侠图鉴快捷入口 + 系统菜单触发按钮 */}
-      <div className="absolute top-3.5 right-3.5 z-30 flex items-center gap-2">
-        <button
-          type="button"
-          onClick={() => openMenu('engineering')}
-          title="查看 M0-1 静态资源按需懒加载实时监控"
-          className="hidden md:flex items-center gap-1.5 px-2.5 py-2 rounded-md bg-[#261a10]/95 hover:bg-[#382719] text-[#f5dfb5] border border-[#c89d54]/70 shadow-lg text-xs font-mono cursor-pointer transition"
-        >
-          <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span>
-            懒加载 {telemetry.loadedCount}/{ASSET_MANIFEST.summary.totalExtractedImageFiles} ·{' '}
-            {formatByteSize(telemetry.loadedBytes)}
-          </span>
-        </button>
+      {/* ==================== 第一行：全局常驻顶部状态栏（年月日时辰 + 气血/体能 + 资金/粮草 + 菜单） ==================== */}
+      <header
+        id="global-status-topbar"
+        className="absolute top-0 inset-x-0 z-30 h-12 bg-gradient-to-b from-[#23170e] via-[#2b1d12] to-[#20150c] text-[#fbf2e0] border-b-2 border-[#c89d54] shadow-xl px-3.5 flex items-center justify-between gap-2 select-none"
+      >
+        {/* 左区：北宋皇祐纪年 · 年月日 · 十二时辰 */}
+        <div className="flex items-center gap-2.5 shrink-0">
+          <div className="w-7 h-7 rounded bg-[#8f1d14] border border-[#f5cb5c]/80 flex items-center justify-center song-serif font-bold text-xs text-[#fff8eb] shadow">
+            宋
+          </div>
+          <div className="flex items-center gap-2 bg-[#1a110a]/80 border border-[#8c6e46]/60 rounded px-2.5 py-1">
+            <span className="song-serif font-bold text-xs sm:text-sm text-amber-200 tracking-wide">
+              {dateParts.yearName} · {dateParts.monthName}
+              {dateParts.dayName}
+            </span>
+            <span className="text-[#8c6e46]">|</span>
+            <span
+              title={`${dateParts.shichen.name}（${dateParts.shichen.period} · ${dateParts.shichen.range}）`}
+              className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-bold song-serif border ${
+                dateParts.shichen.isNight
+                  ? 'bg-[#1e293b] text-indigo-200 border-indigo-400/40'
+                  : 'bg-[#5c3d1e] text-amber-200 border-amber-400/50'
+              }`}
+            >
+              {dateParts.shichen.isNight ? (
+                <Moon className="w-3 h-3 text-indigo-300" />
+              ) : (
+                <Sun className="w-3 h-3 text-amber-300" />
+              )}
+              <span>{dateParts.shichen.name}</span>
+              <span className="hidden xl:inline text-[10px] font-normal opacity-85">
+                ({dateParts.shichen.period})
+              </span>
+            </span>
+          </div>
+        </div>
 
-        <button
-          id="system-menu-trigger"
-          type="button"
-          onClick={() => openMenu()}
-          className="px-3.5 py-2 rounded-md bg-[#7f1d1d] hover:bg-[#991b1b] text-[#fff8eb] border-2 border-[#e6be68] shadow-xl transition flex items-center gap-2 font-bold song-serif text-sm tracking-wide cursor-pointer select-none"
-        >
-          <span>☰</span>
-          <span>菜单</span>
-          <span className="text-[10px] font-mono opacity-85 bg-black/30 px-1.5 py-0.5 rounded">
-            ESC
-          </span>
-        </button>
-      </div>
+        {/* 中区：主角基础状态（气血 + 体能）与 行军资粮（资金 + 粮草） */}
+        <div className="flex items-center gap-2 sm:gap-3.5 overflow-x-auto no-scrollbar">
+          {/* 气血 & 体能 (点击直达主角与装备面板) */}
+          <button
+            type="button"
+            onClick={() => openMenu('hero')}
+            title="点击打开【主角与装备面板】检视气血、体能与七槽披挂"
+            className="flex items-center gap-3 px-2.5 py-1 rounded bg-[#1a110a]/75 hover:bg-[#332215] border border-[#8c6e46]/60 transition cursor-pointer"
+          >
+            {/* 气血条 */}
+            <div className="flex items-center gap-1.5">
+              <Heart className="w-3.5 h-3.5 text-[#ef4444] fill-[#ef4444]/30 shrink-0" />
+              <div className="text-left">
+                <div className="flex items-center justify-between gap-2 text-[11px] leading-none">
+                  <span className="text-[#dfcfb0] song-serif font-semibold">气血</span>
+                  <span className="font-mono font-bold text-[#fca5a5]">
+                    {hp}/{maxHp}
+                  </span>
+                </div>
+                <div className="w-20 sm:w-24 h-1.5 rounded-full bg-[#3b231b] overflow-hidden mt-1 border border-black/40">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#991b1b] to-[#ef4444] transition-all duration-300"
+                    style={{ width: `${hpPct}%` }}
+                  />
+                </div>
+              </div>
+            </div>
 
+            <div className="h-5 w-px bg-[#6e5539]/50" />
+
+            {/* 体能条 */}
+            <div className="flex items-center gap-1.5">
+              <Zap
+                className={`w-3.5 h-3.5 shrink-0 ${
+                  isStaminaLow ? 'text-amber-400 animate-pulse' : 'text-emerald-400'
+                }`}
+              />
+              <div className="text-left">
+                <div className="flex items-center justify-between gap-2 text-[11px] leading-none">
+                  <span className="text-[#dfcfb0] song-serif font-semibold">体能</span>
+                  <span
+                    className={`font-mono font-bold ${
+                      isStaminaLow ? 'text-amber-300' : 'text-emerald-300'
+                    }`}
+                  >
+                    {stamina}/{maxStamina}
+                  </span>
+                </div>
+                <div className="w-20 sm:w-24 h-1.5 rounded-full bg-[#1a2e24] overflow-hidden mt-1 border border-black/40">
+                  <div
+                    className={`h-full transition-all duration-300 ${
+                      isStaminaLow
+                        ? 'bg-gradient-to-r from-[#b45309] to-[#f59e0b]'
+                        : 'bg-gradient-to-r from-[#059669] to-[#34d399]'
+                    }`}
+                    style={{ width: `${staPct}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          </button>
+
+          {/* 资金 & 粮草 (点击直达四分类背包) */}
+          <button
+            type="button"
+            onClick={() => openMenu('bag')}
+            title="点击打开【四分类行囊】管理银两、粮草、典籍丹药与百工器具"
+            className="flex items-center gap-2.5 px-2.5 py-1.5 rounded bg-[#1a110a]/75 hover:bg-[#332215] border border-[#8c6e46]/60 transition cursor-pointer text-xs"
+          >
+            <span className="flex items-center gap-1">
+              <Coins className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span className="text-[#dfcfb0] song-serif hidden sm:inline">资金</span>
+              <strong className="font-mono text-amber-300">{silver}两</strong>
+            </span>
+
+            <span className="text-[#6e5539]">|</span>
+
+            <span className="flex items-center gap-1">
+              <Wheat
+                className={`w-3.5 h-3.5 shrink-0 ${
+                  isFoodLow ? 'text-red-400 animate-pulse' : 'text-[#a3e635]'
+                }`}
+              />
+              <span className="text-[#dfcfb0] song-serif hidden sm:inline">粮草</span>
+              <strong className={`font-mono ${isFoodLow ? 'text-red-300' : 'text-[#d9f99d]'}`}>
+                {food}日份
+              </strong>
+            </span>
+          </button>
+        </div>
+
+        {/* 右区：懒加载监控 + 枢机总菜单 */}
+        <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={() => openMenu('engineering')}
+            title="查看静态资源按需懒加载实时监控"
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-[#1a110a]/90 hover:bg-[#382719] text-[#f5dfb5] border border-[#c89d54]/50 text-[11px] font-mono cursor-pointer transition"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-400" />
+            <span>
+              资源 {telemetry.loadedCount}/{ASSET_MANIFEST.summary.totalExtractedImageFiles} ·{' '}
+              {formatByteSize(telemetry.loadedBytes)}
+            </span>
+          </button>
+
+          <button
+            id="system-menu-trigger"
+            type="button"
+            onClick={() => openMenu()}
+            className="px-3 py-1.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] border border-[#e6be68] shadow transition flex items-center gap-1.5 font-bold song-serif text-xs sm:text-sm tracking-wide cursor-pointer"
+          >
+            <span>☰</span>
+            <span>行囊枢机</span>
+            <span className="hidden sm:inline text-[10px] font-mono opacity-85 bg-black/30 px-1 py-0.5 rounded">
+              ESC
+            </span>
+          </button>
+        </div>
+      </header>
+
+      {/* ==================== 第二行：场景上下文子导航条（位于常驻状态栏下方 top-14） ==================== */}
       {viewMode === 'world' ? (
-        /* 天下舆图左上角：战略情报开关 + 地名文字下拉栏 + LOD 视距状态 */
         <div
           id="world-top-hud"
-          className="absolute top-3.5 left-3.5 z-30 flex flex-wrap items-center gap-1.5 bg-[#f8f1e1] text-[#2a1f16] border border-[#6e5539] rounded-md px-2.5 py-1.5 shadow-md text-xs"
+          className="absolute top-14 left-3.5 z-20 flex flex-wrap items-center gap-1.5 bg-[#f8f1e1]/95 text-[#2a1f16] border border-[#6e5539] rounded-md px-2.5 py-1.5 shadow-md text-xs"
         >
           <span className="song-serif font-bold text-[#52391e] mr-1">舆图谍报：</span>
 
@@ -255,39 +407,36 @@ export function TopHud() {
           <span className={lodBadgeCls}>{lodBadgeText}</span>
         </div>
       ) : (
-        /* 地区 / 建筑全景顶部横幅 */
         <div
           id="region-top-hud"
-          className="absolute top-3.5 left-3.5 right-72 z-20 flex flex-wrap items-center gap-2 pointer-events-none"
+          className="absolute top-14 left-3.5 right-3.5 z-20 flex flex-wrap items-center justify-between gap-2 pointer-events-none"
         >
-          <div className="pointer-events-auto flex items-center gap-2.5 bg-[#261a10] text-[#fbf3e2] border-2 border-[#c89d54] rounded-md px-3.5 py-1.5 shadow-xl">
+          <div className="pointer-events-auto flex items-center gap-2.5 bg-[#261a10]/95 text-[#fbf3e2] border-2 border-[#c89d54] rounded-md px-3 py-1.5 shadow-xl">
             <button
               type="button"
               onClick={handleUpperLevelBack}
-              className="px-3 py-1 rounded bg-[#9c2a22] hover:bg-[#b8342b] text-[#fff9ef] font-bold song-serif text-xs border border-[#f2c97d]/60 shadow transition flex items-center gap-1 cursor-pointer"
+              className="px-2.5 py-1 rounded bg-[#9c2a22] hover:bg-[#b8342b] text-[#fff9ef] font-bold song-serif text-xs border border-[#f2c97d]/60 shadow transition flex items-center gap-1 cursor-pointer"
             >
               <span>←</span>
               <span>
                 {activeBuilding
-                  ? `步出建筑 · 返回【${regionNode?.name ?? '本州'}】全景`
-                  : '出城 · 返回天下舆图'}
+                  ? `步出建筑 · 返【${regionNode?.name ?? '本州'}】`
+                  : '出城 · 天下舆图'}
               </span>
             </button>
             <div className="h-5 w-px bg-[#8c6e46]/60" />
             <div>
               <div className="flex items-center gap-2">
-                <span className="song-serif font-bold text-sm text-amber-300 tracking-wide">
+                <span className="song-serif font-bold text-xs sm:text-sm text-amber-300 tracking-wide">
                   {activeBuilding
-                    ? `${regionNode?.name ?? ''} > ★ ${activeBuilding.name} — ${
-                        activeBuilding.interior?.mode === 'image' ? '建筑半3D全景图' : '宋式营造矢量内景'
-                      }`
+                    ? `${regionNode?.name ?? ''} > ★ ${activeBuilding.name}`
                     : `${regionNode?.code ? `${regionNode.code} · ` : ''}${regionNode?.name ?? ''} — 半3D全景互动舆图`}
                 </span>
-                <span className="px-2 py-0.5 rounded bg-[#4a3520] text-[#f5dfb5] text-[11px] border border-[#9e7b47]/50">
+                <span className="hidden md:inline px-2 py-0.5 rounded bg-[#4a3520] text-[#f5dfb5] text-[11px] border border-[#9e7b47]/50">
                   {activeBuilding
                     ? activeBuilding.interior?.mode === 'image'
-                      ? '第三层级 · 手绘实景'
-                      : '第三层级 · 营造矢量卷'
+                      ? '第三层 · 手绘实景'
+                      : '第三层 · 营造矢量卷'
                     : regionNode?.circuit}
                 </span>
               </div>
@@ -299,7 +448,7 @@ export function TopHud() {
             </div>
           </div>
 
-          <div className="pointer-events-auto flex items-center gap-2 bg-[#f8f1e1] text-[#2a1f16] border-2 border-[#6e5539] rounded-md px-2.5 py-1.5 shadow-lg text-xs">
+          <div className="pointer-events-auto flex items-center gap-2 bg-[#f8f1e1]/95 text-[#2a1f16] border-2 border-[#6e5539] rounded-md px-2.5 py-1.5 shadow-lg text-xs">
             <button
               type="button"
               onClick={toggleRegionLabels}
@@ -309,7 +458,7 @@ export function TopHud() {
                   : 'px-2 py-1 rounded bg-[#eadec6] text-[#3d2812] border border-[#8c6e46] font-medium text-xs hover:bg-[#dfd0b2] transition cursor-pointer'
               }
             >
-              {showRegionLabels ? '建筑牌匾：显示' : '建筑牌匾：隐藏（纯赏景）'}
+              {showRegionLabels ? '牌匾：显示' : '牌匾：隐藏'}
             </button>
 
             <span className="px-2 py-0.5 rounded bg-[#eadec6] border border-[#9e8462] text-[#4a3219] font-medium song-serif">

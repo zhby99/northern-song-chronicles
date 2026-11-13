@@ -4,6 +4,7 @@ import { formatSongDate } from '../../utils/mapMath'
 export function BottomHud() {
   const viewMode = useGameStore((s) => s.viewMode)
   const dayCount = useGameStore((s) => s.dayCount)
+  const shichenIdx = useGameStore((s) => s.shichenIdx)
   const logs = useGameStore((s) => s.logs)
   const logDrawerOpen = useGameStore((s) => s.logDrawerOpen)
 
@@ -25,7 +26,7 @@ export function BottomHud() {
             <div className="font-bold song-serif text-[#52391e] border-b border-[#8c7353]/40 pb-0.5 mb-1 flex items-center justify-between gap-4">
               <span>《华夷山海全图》图例（滚轮缩小自动隐去地名、凸显列国疆界）</span>
               <span className="font-mono text-[11px] text-[#8f1d14]">
-                {formatSongDate(dayCount)}
+                {formatSongDate(dayCount, shichenIdx)}
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -121,7 +122,7 @@ export function BottomHud() {
                 地区互动建筑图例（滚轮缩放 · 按住左键自由拖拽平移 · 点击建筑移步入内）
               </span>
               <span className="font-mono text-[11px] text-[#8f1d14]">
-                {formatSongDate(dayCount)}
+                {formatSongDate(dayCount, shichenIdx)}
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-3.5">

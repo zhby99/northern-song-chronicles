@@ -1,10 +1,18 @@
 import type {
+  EquipmentSlotKey,
+  EquippedSlotsMap,
   GameSaveEnvelope,
+  InventoryStack,
   SaveSlotId,
   SerializableGameState,
   ViewMode,
 } from '../types/game'
 import { BUILDING_DB_MAP, REGION_DB_MAP } from '../data/gameDb'
+import {
+  DEFAULT_EQUIPPED_SLOTS,
+  DEFAULT_INITIAL_INVENTORY,
+  ITEM_DB_MAP,
+} from '../data/itemsDb'
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -140,11 +148,25 @@ function isRecord(val: unknown): val is Record<string, unknown> {
 }
 
 const VALID_VIEW_MODES: ReadonlySet<ViewMode> = new Set(['world', 'region', 'building'])
+const EQUIP_SLOT_KEYS: EquipmentSlotKey[] = [
+  'weapon',
+  'armor',
+  'shoes',
+  'bow',
+  'accessory1',
+  'accessory2',
+  'mount',
+]
 
 export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   if (!isRecord(raw)) return null
   if (raw.gameTitle !== '北宋立志传') return null
-  if (typeof raw.schemaVersion !== 'string' || !raw.schemaVersion.startsWith('M0.')) return null
+  if (
+    typeof raw.schemaVersion !== 'string' ||
+    (!raw.schemaVersion.startsWith('M0.') && !raw.schemaVersion.startsWith('M1.'))
+  ) {
+    return null
+  }
   if (!isRecord(raw.summary) || !isRecord(raw.state)) return null
 
   const st = raw.state
@@ -175,8 +197,70 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     ? (raw.slotId as SaveSlotId)
     : 'slot-1'
 
+  let cleanEquipped: EquippedSlotsMap = { ...DEFAULT_EQUIPPED_SLOTS }
+  if (isRecord(st.equipped)) {
+    cleanEquipped = {
+      weapon: null,
+      armor: null,
+      shoes: null,
+      bow: null,
+      accessory1: null,
+      accessory2: null,
+      mount: null,
+    }
+    for (const k of EQUIP_SLOT_KEYS) {
+      const val = st.equipped[k]
+      cleanEquipped[k] = typeof val === 'string' && ITEM_DB_MAP[val] ? val : null
+    }
+  }
+
+  let cleanInventory: InventoryStack[] = DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x }))
+  if (Array.isArray(st.inventory)) {
+    cleanInventory = st.inventory
+      .filter(
+        (entry): entry is Record<string, unknown> =>
+          isRecord(entry) &&
+          typeof entry.itemId === 'string' &&
+          Boolean(ITEM_DB_MAP[entry.itemId]) &&
+          typeof entry.qty === 'number' &&
+          entry.qty > 0,
+      )
+      .map((entry) => ({
+        itemId: entry.itemId as string,
+        qty: Math.floor(entry.qty as number),
+      }))
+  }
+
+  // Sync mountKey from equipped mount slot if present
+  const mountItem = cleanEquipped.mount ? ITEM_DB_MAP[cleanEquipped.mount] : null
+  const derivedMountKey =
+    mountItem?.equipBonus?.mountKey ??
+    (cleanEquipped.mount === null && isRecord(st.equipped)
+      ? 'walk'
+      : st.mountKey === 'walk' ||
+          st.mountKey === 'horse' ||
+          st.mountKey === 'xiXia' ||
+          st.mountKey === 'ferghana'
+        ? st.mountKey
+        : 'horse')
+
+  const hpVal = typeof st.hp === 'number' ? Math.max(1, Math.floor(st.hp)) : 1200
+  const maxHpVal =
+    typeof st.maxHp === 'number' ? Math.max(hpVal, Math.floor(st.maxHp)) : Math.max(1395, hpVal)
+  const mpVal = typeof st.mp === 'number' ? Math.max(0, Math.floor(st.mp)) : 950
+  const maxMpVal =
+    typeof st.maxMp === 'number' ? Math.max(mpVal, Math.floor(st.maxMp)) : Math.max(1030, mpVal)
+  const maxStaminaVal =
+    typeof st.maxStamina === 'number' ? Math.max(20, Math.floor(st.maxStamina)) : 140
+  const staminaVal =
+    typeof st.stamina === 'number'
+      ? Math.min(maxStaminaVal, Math.max(0, Math.floor(st.stamina)))
+      : maxStaminaVal
+
   const cleanState: SerializableGameState = {
     dayCount: Math.floor(st.dayCount),
+    shichenIdx:
+      typeof st.shichenIdx === 'number' ? ((Math.floor(st.shichenIdx) % 12) + 12) % 12 : 4,
     viewMode: normalizedViewMode,
     showRegionLabels: Boolean(st.showRegionLabels ?? true),
     activeRegionId: st.activeRegionId,
@@ -185,26 +269,26 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     selectedBuildingId: typeof st.selectedBuildingId === 'string' ? st.selectedBuildingId : null,
     selectedSpotId: typeof st.selectedSpotId === 'string' ? st.selectedSpotId : null,
     currentNodeId: st.currentNodeId,
-    mountKey:
-      st.mountKey === 'walk' ||
-      st.mountKey === 'horse' ||
-      st.mountKey === 'xiXia' ||
-      st.mountKey === 'ferghana'
-        ? st.mountKey
-        : 'horse',
+    mountKey: derivedMountKey,
     qinggongBonus: typeof st.qinggongBonus === 'number' ? st.qinggongBonus : 0.15,
     ridingSkill: typeof st.ridingSkill === 'number' ? st.ridingSkill : 45,
     agility: typeof st.agility === 'number' ? st.agility : 65,
     silver: typeof st.silver === 'number' ? st.silver : 120,
     food: typeof st.food === 'number' ? st.food : 25,
-    hp: typeof st.hp === 'number' ? st.hp : 1200,
-    mp: typeof st.mp === 'number' ? st.mp : 950,
+    hp: hpVal,
+    maxHp: maxHpVal,
+    mp: mpVal,
+    maxMp: maxMpVal,
+    stamina: staminaVal,
+    maxStamina: maxStaminaVal,
     res: typeof st.res === 'number' ? st.res : 40,
     skills: isRecord(st.skills)
       ? (Object.fromEntries(
           Object.entries(st.skills).filter(([, v]) => typeof v === 'number'),
         ) as Record<string, number>)
       : {},
+    equipped: cleanEquipped,
+    inventory: cleanInventory,
     overlays: isRecord(st.overlays)
       ? {
           cityLabels: Boolean(st.overlays.cityLabels ?? true),
@@ -245,13 +329,14 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   const sum = raw.summary
   return {
     gameTitle: '北宋立志传',
-    schemaVersion: 'M0.4.0',
+    schemaVersion: 'M1.0.0',
     slotId,
     savedAt: typeof raw.savedAt === 'string' ? raw.savedAt : new Date().toISOString(),
     note: typeof raw.note === 'string' ? raw.note : '',
     summary: {
       songDate: typeof sum.songDate === 'string' ? sum.songDate : '皇祐二年',
       dayCount: cleanState.dayCount,
+      shichenIdx: cleanState.shichenIdx,
       regionId: cleanState.activeRegionId,
       regionName:
         typeof sum.regionName === 'string'
@@ -264,6 +349,9 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
           ? (BUILDING_DB_MAP[cleanState.activeBuildingInteriorId]?.name ?? null)
           : null,
       hp: cleanState.hp,
+      maxHp: cleanState.maxHp,
+      stamina: cleanState.stamina,
+      maxStamina: cleanState.maxStamina,
       mp: cleanState.mp,
       silver: cleanState.silver,
       food: cleanState.food,
@@ -298,7 +386,7 @@ export async function parseSaveJsonFile(file: File): Promise<GameSaveEnvelope> {
   }
   const validated = validateSaveEnvelope(parsed)
   if (!validated) {
-    throw new Error('非合法的《北宋立志传》M0.4 卷宗存档，或地区/状态字段校验未通过。')
+    throw new Error('非合法的《北宋立志传》卷宗存档（支持 M0.4 / M1.0），或状态校验未通过。')
   }
   return validated
 }

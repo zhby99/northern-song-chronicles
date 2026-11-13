@@ -9,20 +9,20 @@
 
 from __future__ import annotations
 
+import argparse
 import base64
 import io
 import json
 import os
 import subprocess
+from datetime import datetime, timezone
 from pathlib import Path
 from PIL import Image
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 DIST_ART_DIR = ROOT_DIR / "dist-artifact"
 PUBLIC_DIR = ROOT_DIR / "public"
-ARTIFACT_DIR = Path(
-    "/home/antigravity/.gemini/jetski/brain/v1/default/jetski_remote_agents_3p/7a9ed227-5322-4f0c-a97a-844dec45ddf7"
-)
+DEFAULT_OUT_PATH = DIST_ART_DIR / "northern_song_chronicles_m1_0.html"
 
 
 def compress_to_data_uri(img_path: Path, max_dim: int, quality: int) -> str:
@@ -38,7 +38,7 @@ def compress_to_data_uri(img_path: Path, max_dim: int, quality: int) -> str:
         return f"data:image/webp;base64,{b64}"
 
 
-def build_artifact_html() -> None:
+def build_artifact_html(out_path: Path, skip_meta: bool = False) -> None:
     env = os.environ.copy()
     env["ARTIFACT_BUNDLE"] = "1"
     subprocess.run(["npx", "vite", "build"], cwd=ROOT_DIR, env=env, check=True)
@@ -74,7 +74,7 @@ def build_artifact_html() -> None:
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>《北宋立志传》— Phase M0 完整工程互动预览</title>
+  <title>《北宋立志传》— M1-0 在线可交互单文件版</title>
   <style>
     html, body, #root {{
       width: 100%;
@@ -95,21 +95,26 @@ def build_artifact_html() -> None:
 </html>
 """
 
-    out_path = ARTIFACT_DIR / "northern_song_chronicles_m0.html"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(out_html, encoding="utf-8")
 
-    meta_path = ARTIFACT_DIR / "northern_song_chronicles_m0.html.metadata.json"
-    meta_payload = {
-        "summary": "《北宋立志传》Phase M0 完整工程离线可交互预览（含 38 州府全景、123 座特殊建筑内景、1000 群侠与 216 武学图鉴、多槽位 IndexedDB 存读档及 JSON 导入导出）。",
-        "updatedAt": "2026-11-13T04:12:00Z",
-        "requestFeedback": False,
-        "userFacing": True,
-    }
-    meta_path.write_text(json.dumps(meta_payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    if not skip_meta:
+        meta_path = Path(f"{out_path}.metadata.json")
+        meta_payload = {
+            "summary": "《北宋立志传》Phase M1-0 单文件自包含可交互 HTML 版本（含常驻顶部年月日十二时辰/气血体能/资金粮草状态栏、主角面板可视化七槽位披挂区、行囊四库分类体系、38 州府名山全景、123 座建筑室内及 1000 群侠图鉴）。",
+            "updatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+            "requestFeedback": False,
+            "userFacing": True,
+        }
+        meta_path.write_text(json.dumps(meta_payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
     size_mb = os.path.getsize(out_path) / (1024 * 1024)
     print(f"[OK] Built CSP-clean IIFE preview artifact: {out_path} ({size_mb:.2f} MB, {len(asset_pack)} WebP assets)")
 
 
 if __name__ == "__main__":
-    build_artifact_html()
+    parser = argparse.ArgumentParser(description="Build standalone CSP-clean HTML artifact")
+    parser.add_argument("--out", type=Path, default=DEFAULT_OUT_PATH, help="Output HTML file path")
+    parser.add_argument("--skip-meta", action="store_true", help="Do not write .metadata.json")
+    args = parser.parse_args()
+    build_artifact_html(args.out, skip_meta=args.skip_meta)

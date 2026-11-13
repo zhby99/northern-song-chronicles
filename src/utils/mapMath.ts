@@ -210,14 +210,46 @@ const CN_DAYS = [
   '三十日',
 ] as const
 
-export function formatSongDate(dayTotal: number): string {
+export const SHICHEN_LIST = [
+  { idx: 0, name: '子时', period: '夜半', range: '23:00-01:00', isNight: true },
+  { idx: 1, name: '丑时', period: '鸡鸣', range: '01:00-03:00', isNight: true },
+  { idx: 2, name: '寅时', period: '平旦', range: '03:00-05:00', isNight: true },
+  { idx: 3, name: '卯时', period: '日出', range: '05:00-07:00', isNight: false },
+  { idx: 4, name: '辰时', period: '食时', range: '07:00-09:00', isNight: false },
+  { idx: 5, name: '巳时', period: '隅中', range: '09:00-11:00', isNight: false },
+  { idx: 6, name: '午时', period: '日中', range: '11:00-13:00', isNight: false },
+  { idx: 7, name: '未时', period: '日昳', range: '13:00-15:00', isNight: false },
+  { idx: 8, name: '申时', period: '哺时', range: '15:00-17:00', isNight: false },
+  { idx: 9, name: '酉时', period: '日入', range: '17:00-19:00', isNight: false },
+  { idx: 10, name: '戌时', period: '黄昏', range: '19:00-21:00', isNight: true },
+  { idx: 11, name: '亥时', period: '人定', range: '21:00-23:00', isNight: true },
+] as const
+
+export function getSongDateParts(dayTotal: number, shichenIdx = 4) {
   const zeroIdx = Math.max(0, dayTotal - 1)
   const yearOffset = Math.floor(zeroIdx / 360)
   const monthIdx = Math.floor((zeroIdx % 360) / 30)
   const dayInMonth = (zeroIdx % 30) + 1
-  const yearNames = ['皇祐二年', '皇祐三年', '皇祐四年', '皇祐五年']
-  const yName = yearNames[Math.min(yearOffset, yearNames.length - 1)]
-  return `${yName} · ${SEASONS[monthIdx]} · ${MONTHS[monthIdx]}${CN_DAYS[dayInMonth]}`
+  const yearNames = ['皇祐二年', '皇祐三年', '皇祐四年', '皇祐五年', '至和元年', '至和二年']
+  const yearName = yearNames[Math.min(yearOffset, yearNames.length - 1)]
+  const normalizedShichen = ((Math.floor(shichenIdx) % 12) + 12) % 12
+  const shichen = SHICHEN_LIST[normalizedShichen]
+  return {
+    yearName,
+    season: SEASONS[monthIdx],
+    monthName: MONTHS[monthIdx],
+    dayName: CN_DAYS[dayInMonth],
+    monthDay: `${MONTHS[monthIdx]}${CN_DAYS[dayInMonth]}`,
+    shichen,
+  }
+}
+
+export function formatSongDate(dayTotal: number, shichenIdx?: number): string {
+  const p = getSongDateParts(dayTotal, shichenIdx ?? 4)
+  if (typeof shichenIdx === 'number') {
+    return `${p.yearName} · ${p.season} · ${p.monthDay} · ${p.shichen.name}`
+  }
+  return `${p.yearName} · ${p.season} · ${p.monthDay}`
 }
 
 interface BaseBuildingTemplate {

@@ -1,9 +1,20 @@
 import { create } from 'zustand'
 import { BUILDING_DB_MAP } from '../data/gameDb'
+import {
+  canItemFitSlot,
+  computeEquipmentTotals,
+  DEFAULT_EQUIPPED_SLOTS,
+  DEFAULT_INITIAL_INVENTORY,
+  ITEM_DB_MAP,
+} from '../data/itemsDb'
 import type {
   ActionEffect,
+  BagCategoryKey,
   CameraPan,
+  EquipmentSlotKey,
+  EquippedSlotsMap,
   GameSaveEnvelope,
+  InventoryStack,
   LabelToggleKey,
   LogEntry,
   MenuTabKey,
@@ -23,6 +34,7 @@ import {
   formatSongDate,
   getRegionAllBuildings,
   getRegionViewBoxSize,
+  getSongDateParts,
   NODE_MAP,
   REGIONAL_CONFIGS,
   WORLD_GRAPH,
@@ -40,7 +52,11 @@ interface RoadEventDef {
   msg: string
   apply: (draft: {
     hp: number
+    maxHp: number
     mp: number
+    maxMp: number
+    stamina: number
+    maxStamina: number
     silver: number
     res: number
     skills: Record<string, number>
@@ -50,24 +66,25 @@ interface RoadEventDef {
 const ROAD_EVENTS: RoadEventDef[] = [
   {
     tag: '胡商偶遇',
-    msg: '途遇西域高昌驼队，购得天山雪莲散少许（气血 +35）。',
+    msg: '途遇西域高昌驼队，购得天山雪莲散少许（气血 +45，体能 +15）。',
     apply: (d) => {
-      d.hp += 35
+      d.hp = Math.min(d.maxHp, d.hp + 45)
+      d.stamina = Math.min(d.maxStamina, d.stamina + 15)
     },
   },
   {
     tag: '名侠同行',
     msg: '古道茶寮偶遇游方高僧论及经义内息（内力 +25，经义 +1）。',
     apply: (d) => {
-      d.mp += 25
+      d.mp = Math.min(d.maxMp, d.mp + 25)
       d.skills['经义'] = Math.min(100, (d.skills['经义'] ?? 60) + 1)
     },
   },
   {
     tag: '绿林劫道',
-    msg: '山道窜出剪径匪类，少侠弹指震飞匪首兵刃，缴获纹银 10 两！',
+    msg: '山道窜出剪径匪类，少侠弹指震飞匪首兵刃，缴获纹银 12 两！',
     apply: (d) => {
-      d.silver += 10
+      d.silver += 12
     },
   },
   {
@@ -79,16 +96,27 @@ const ROAD_EVENTS: RoadEventDef[] = [
   },
   {
     tag: '万里山河',
-    msg: '策马纵览九州山海壮阔，胸襟大开，赋词一首（诗词 +2）。',
+    msg: '策马纵览九州山海壮阔，胸襟大开，赋词一首（诗词 +2，体能 +10）。',
     apply: (d) => {
       d.skills['诗词'] = Math.min(100, (d.skills['诗词'] ?? 55) + 2)
+      d.stamina = Math.min(d.maxStamina, d.stamina + 10)
     },
   },
 ]
 
 let nextLogSeq = 1
-function createLogEntry(dayCount: number, tag: string, text: string, highlight = false): LogEntry {
-  const datePart = formatSongDate(dayCount).split(' · ')[2] ?? '正月初一'
+function createLogEntry(
+  dayCount: number,
+  tag: string,
+  text: string,
+  highlight = false,
+  shichenIdx?: number,
+): LogEntry {
+  const parts = getSongDateParts(dayCount, shichenIdx ?? 4)
+  const datePart =
+    typeof shichenIdx === 'number'
+      ? `${parts.monthDay}·${parts.shichen.name}`
+      : parts.monthDay
   nextLogSeq += 1
   return {
     id: `log-${Date.now()}-${nextLogSeq}`,
@@ -99,8 +127,50 @@ function createLogEntry(dayCount: number, tag: string, text: string, highlight =
   }
 }
 
+function advanceShichenClock(dayCount: number, shichenIdx: number, deltaShichen: number) {
+  const total = shichenIdx + deltaShichen
+  const daysAdded = Math.floor(total / 12)
+  const nextShichen = ((total % 12) + 12) % 12
+  return {
+    dayCount: Math.max(1, dayCount + daysAdded),
+    shichenIdx: nextShichen,
+    daysAdded,
+  }
+}
+
+function addItemToInventory(list: InventoryStack[], itemId: string, qty = 1): InventoryStack[] {
+  const def = ITEM_DB_MAP[itemId]
+  if (!def || qty <= 0) return list
+  const next = list.map((x) => ({ ...x }))
+  const existing = next.find((x) => x.itemId === itemId)
+  if (existing) {
+    existing.qty += qty
+  } else {
+    next.push({ itemId, qty })
+  }
+  return next
+}
+
+function removeItemFromInventory(
+  list: InventoryStack[],
+  itemId: string,
+  qty = 1,
+): InventoryStack[] | null {
+  const idx = list.findIndex((x) => x.itemId === itemId)
+  if (idx === -1 || list[idx].qty < qty) return null
+  const next = list.map((x) => ({ ...x }))
+  next[idx].qty -= qty
+  if (next[idx].qty <= 0) {
+    next.splice(idx, 1)
+  }
+  return next
+}
+
+const INITIAL_EQUIP_TOTALS = computeEquipmentTotals(DEFAULT_EQUIPPED_SLOTS)
+
 export interface GameStoreState {
   dayCount: number
+  shichenIdx: number
   viewMode: ViewMode
   showRegionLabels: boolean
   activeRegionId: string
@@ -117,9 +187,17 @@ export interface GameStoreState {
   silver: number
   food: number
   hp: number
+  maxHp: number
   mp: number
+  maxMp: number
+  stamina: number
+  maxStamina: number
   res: number
   skills: Record<string, number>
+
+  equipped: EquippedSlotsMap
+  inventory: InventoryStack[]
+  activeBagCategory: BagCategoryKey
 
   overlays: OverlayToggles
   roamingMasters: RoamingMaster[]
@@ -136,7 +214,7 @@ export interface GameStoreState {
   menuOpen: boolean
   activeMenuTab: MenuTabKey
 
-  // M0-4 Save/Load state
+  // Save/Load state
   saveSlots: Record<SaveSlotId, GameSaveEnvelope | null>
   saveBusy: boolean
   saveNotice: { text: string; tone: 'success' | 'error' } | null
@@ -173,6 +251,12 @@ export interface GameStoreState {
   setMountKey: (mountKey: MountKey) => void
   setQinggongBonus: (bonus: number) => void
   replenishSupplies: () => void
+  restRecoverStamina: () => void
+  setBagCategory: (cat: BagCategoryKey) => void
+  equipItemToSlot: (itemId: string, targetSlot?: EquipmentSlotKey) => void
+  unequipSlot: (slot: EquipmentSlotKey) => void
+  consumeInventoryItem: (itemId: string) => void
+
   doBuildingAction: (item: {
     name: string
     cost?: number
@@ -189,7 +273,7 @@ export interface GameStoreState {
   closeMenu: () => void
   setMenuTab: (tab: MenuTabKey) => void
 
-  // M0-4 Save/Load actions
+  // Save/Load actions
   buildSaveEnvelope: (slotId: SaveSlotId, note?: string) => GameSaveEnvelope
   refreshSaveSlots: () => Promise<void>
   saveToSlot: (slotId: SaveSlotId, note?: string, silent?: boolean) => Promise<void>
@@ -201,6 +285,7 @@ export interface GameStoreState {
 function extractSerializableState(s: GameStoreState): SerializableGameState {
   return {
     dayCount: s.dayCount,
+    shichenIdx: s.shichenIdx,
     viewMode: s.viewMode,
     showRegionLabels: s.showRegionLabels,
     activeRegionId: s.activeRegionId,
@@ -216,9 +301,15 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     silver: s.silver,
     food: s.food,
     hp: s.hp,
+    maxHp: s.maxHp,
     mp: s.mp,
+    maxMp: s.maxMp,
+    stamina: s.stamina,
+    maxStamina: s.maxStamina,
     res: s.res,
     skills: { ...s.skills },
+    equipped: { ...s.equipped },
+    inventory: s.inventory.map((x) => ({ ...x })),
     overlays: { ...s.overlays },
     roamingMasters: s.roamingMasters.map((m) => ({ ...m })),
     worldPan: { ...s.worldPan },
@@ -229,6 +320,7 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
 
 export const useGameStore = create<GameStoreState>((set, get) => ({
   dayCount: 1,
+  shichenIdx: 4, // 辰时 (食时 07:00-09:00)
   viewMode: 'region',
   showRegionLabels: true,
   activeRegionId: 'bianliang',
@@ -238,15 +330,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   selectedSpotId: null,
   currentNodeId: 'bianliang',
 
-  mountKey: 'horse',
+  mountKey: INITIAL_EQUIP_TOTALS.mountKey,
   qinggongBonus: 0.15,
-  ridingSkill: 45,
-  agility: 65,
+  ridingSkill: 45 + INITIAL_EQUIP_TOTALS.riding,
+  agility: 65 + INITIAL_EQUIP_TOTALS.agility,
   silver: 120,
   food: 25,
-  hp: 1200,
-  mp: 950,
-  res: 40,
+  hp: 1200 + INITIAL_EQUIP_TOTALS.maxHp,
+  maxHp: 1200 + INITIAL_EQUIP_TOTALS.maxHp,
+  mp: 950 + INITIAL_EQUIP_TOTALS.maxMp,
+  maxMp: 950 + INITIAL_EQUIP_TOTALS.maxMp,
+  stamina: 100 + INITIAL_EQUIP_TOTALS.maxStamina,
+  maxStamina: 100 + INITIAL_EQUIP_TOTALS.maxStamina,
+  res: 40 + INITIAL_EQUIP_TOTALS.res,
   skills: {
     算术: 52,
     经义: 60,
@@ -258,6 +354,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     画: 40,
     辩才: 64,
   },
+
+  equipped: { ...DEFAULT_EQUIPPED_SLOTS },
+  inventory: DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x })),
+  activeBagCategory: 'scrolls',
 
   overlays: {
     cityLabels: true,
@@ -278,15 +378,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   logs: [
     createLogEntry(
       1,
-      '底座合流',
-      '已完成 M0 工程与数据收拢：38 地区、20 门派、216 武学与 1000 名群侠全量合流，支持全部 123 座特殊建筑步入内景与多槽位存读档！',
+      '行囊枢机',
+      '已实装 M1-0 顶部常驻历法时辰与气血/体能/银两/粮草状态栏、主角 7 槽位可视化装备台（含坐骑槽）与四大分类行囊！',
       true,
+      4,
     ),
     createLogEntry(
       1,
       '东京展卷',
-      '当前驻留【开封府】半3D全景舆图。点击左上角可出城纵览三十八州山海，按 ESC 可开启枢机菜单、武学总纲与存读档卷宗。',
+      '当前驻留【开封府】半3D全景舆图。点击顶部状态条或按 ESC 即可体验换装、服用丹药与研读典籍。',
       true,
+      4,
     ),
   ],
   logDrawerOpen: false,
@@ -540,15 +642,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   setMountKey: (mountKey) => set({ mountKey }),
   setQinggongBonus: (qinggongBonus) => set({ qinggongBonus }),
+  setBagCategory: (activeBagCategory) => set({ activeBagCategory }),
 
   replenishSupplies: () => {
     const s = get()
     if (s.silver < 5) {
       set({
-        logs: [createLogEntry(s.dayCount, '市集', '纹银不足 5 两，无法补给干粮！', true), ...s.logs].slice(
-          0,
-          60,
-        ),
+        logs: [
+          createLogEntry(s.dayCount, '市集', '纹银不足 5 两，无法补给干粮！', true, s.shichenIdx),
+          ...s.logs,
+        ].slice(0, 60),
       })
       return
     }
@@ -556,7 +659,256 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       silver: s.silver - 5,
       food: s.food + 20,
       logs: [
-        createLogEntry(s.dayCount, '补给', '花费 5 两纹银购入行军干粮 +20 日份。'),
+        createLogEntry(
+          s.dayCount,
+          '补给',
+          '花费 5 两纹银购入行军干粮 +20 日份。',
+          false,
+          s.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  restRecoverStamina: () => {
+    const s = get()
+    if (s.silver < 3) {
+      set({
+        actionFeedback: { text: '投宿小憩需纹银 3 两，当前银两不足！', tone: 'warn' },
+      })
+      return
+    }
+    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 3)
+    const nextHp = Math.min(s.maxHp, s.hp + 200)
+    const nextMp = Math.min(s.maxMp, s.mp + 120)
+    set({
+      dayCount: clock.dayCount,
+      shichenIdx: clock.shichenIdx,
+      silver: s.silver - 3,
+      hp: nextHp,
+      mp: nextMp,
+      stamina: s.maxStamina,
+      actionFeedback: {
+        text: '于客舍安睡三个时辰，体能全满，气血与内息尽数平复！',
+        tone: 'success',
+      },
+      logs: [
+        createLogEntry(
+          clock.dayCount,
+          '客舍调息',
+          `花费 3 两纹银小憩三个时辰，体能恢复至 ${s.maxStamina}/${s.maxStamina}。`,
+          false,
+          clock.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  equipItemToSlot: (itemId, preferredSlot) => {
+    const s = get()
+    const def = ITEM_DB_MAP[itemId]
+    if (!def || !def.equipSlot) return
+
+    let slot: EquipmentSlotKey = def.equipSlot
+    if (preferredSlot && canItemFitSlot(def, preferredSlot)) {
+      slot = preferredSlot
+    } else if (def.equipSlot === 'accessory1' || def.equipSlot === 'accessory2') {
+      if (!s.equipped.accessory1) slot = 'accessory1'
+      else if (!s.equipped.accessory2) slot = 'accessory2'
+      else slot = preferredSlot ?? 'accessory1'
+    }
+
+    const afterRemove = removeItemFromInventory(s.inventory, itemId, 1)
+    if (!afterRemove) return
+
+    const oldEquipId = s.equipped[slot]
+    const nextInv = oldEquipId ? addItemToInventory(afterRemove, oldEquipId, 1) : afterRemove
+
+    const oldTotals = computeEquipmentTotals(s.equipped)
+    const nextEquipped: EquippedSlotsMap = {
+      ...s.equipped,
+      [slot]: itemId,
+    }
+    const newTotals = computeEquipmentTotals(nextEquipped)
+
+    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
+    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
+    const deltaMaxStamina = newTotals.maxStamina - oldTotals.maxStamina
+    const deltaAgi = newTotals.agility - oldTotals.agility
+    const deltaRes = newTotals.res - oldTotals.res
+    const deltaRiding = newTotals.riding - oldTotals.riding
+
+    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
+    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
+    const nextMaxStamina = Math.max(40, s.maxStamina + deltaMaxStamina)
+
+    const nextSkills = { ...s.skills }
+    const allSkillKeys = new Set([
+      ...Object.keys(oldTotals.skills),
+      ...Object.keys(newTotals.skills),
+    ])
+    for (const sk of allSkillKeys) {
+      const diff = (newTotals.skills[sk] ?? 0) - (oldTotals.skills[sk] ?? 0)
+      nextSkills[sk] = Math.max(0, Math.min(100, (nextSkills[sk] ?? 40) + diff))
+    }
+
+    set({
+      equipped: nextEquipped,
+      inventory: nextInv,
+      mountKey: newTotals.mountKey,
+      maxHp: nextMaxHp,
+      hp: Math.min(nextMaxHp, Math.max(1, s.hp + Math.max(0, deltaMaxHp))),
+      maxMp: nextMaxMp,
+      mp: Math.min(nextMaxMp, Math.max(0, s.mp + Math.max(0, deltaMaxMp))),
+      maxStamina: nextMaxStamina,
+      stamina: Math.min(nextMaxStamina, Math.max(0, s.stamina + Math.max(0, deltaMaxStamina))),
+      agility: Math.max(1, s.agility + deltaAgi),
+      res: Math.max(0, s.res + deltaRes),
+      ridingSkill: Math.max(0, s.ridingSkill + deltaRiding),
+      skills: nextSkills,
+      logs: [
+        createLogEntry(
+          s.dayCount,
+          '披挂换装',
+          `已装备【${def.name}】${oldEquipId && ITEM_DB_MAP[oldEquipId] ? `（替换下 ${ITEM_DB_MAP[oldEquipId].name}）` : ''}。`,
+          false,
+          s.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  unequipSlot: (slot) => {
+    const s = get()
+    const oldItemId = s.equipped[slot]
+    if (!oldItemId) return
+    const oldDef = ITEM_DB_MAP[oldItemId]
+
+    const oldTotals = computeEquipmentTotals(s.equipped)
+    const nextEquipped: EquippedSlotsMap = {
+      ...s.equipped,
+      [slot]: null,
+    }
+    const newTotals = computeEquipmentTotals(nextEquipped)
+    const nextInv = addItemToInventory(s.inventory, oldItemId, 1)
+
+    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
+    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
+    const deltaMaxStamina = newTotals.maxStamina - oldTotals.maxStamina
+    const deltaAgi = newTotals.agility - oldTotals.agility
+    const deltaRes = newTotals.res - oldTotals.res
+    const deltaRiding = newTotals.riding - oldTotals.riding
+
+    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
+    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
+    const nextMaxStamina = Math.max(40, s.maxStamina + deltaMaxStamina)
+
+    const nextSkills = { ...s.skills }
+    for (const [sk, val] of Object.entries(oldTotals.skills)) {
+      const diff = (newTotals.skills[sk] ?? 0) - val
+      nextSkills[sk] = Math.max(0, Math.min(100, (nextSkills[sk] ?? 40) + diff))
+    }
+
+    set({
+      equipped: nextEquipped,
+      inventory: nextInv,
+      mountKey: newTotals.mountKey,
+      maxHp: nextMaxHp,
+      hp: Math.min(nextMaxHp, s.hp),
+      maxMp: nextMaxMp,
+      mp: Math.min(nextMaxMp, s.mp),
+      maxStamina: nextMaxStamina,
+      stamina: Math.min(nextMaxStamina, s.stamina),
+      agility: Math.max(1, s.agility + deltaAgi),
+      res: Math.max(0, s.res + deltaRes),
+      ridingSkill: Math.max(0, s.ridingSkill + deltaRiding),
+      skills: nextSkills,
+      logs: [
+        createLogEntry(
+          s.dayCount,
+          '卸除佩备',
+          `已将【${oldDef?.name ?? oldItemId}】收入行囊杂物栏。`,
+          false,
+          s.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  consumeInventoryItem: (itemId) => {
+    const s = get()
+    const def = ITEM_DB_MAP[itemId]
+    if (!def) return
+    if (def.equipSlot) {
+      get().equipItemToSlot(itemId)
+      return
+    }
+    const eff = def.useEffect
+    if (!eff) return
+
+    // Consume stackable medicine/food; keep non-stackable books/scrolls after reading if desired, or consume medicine
+    const shouldConsume = def.category === 'medicine' || def.stackable
+    const nextInv = shouldConsume
+      ? (removeItemFromInventory(s.inventory, itemId, 1) ?? s.inventory)
+      : s.inventory
+
+    let nextHp = s.hp
+    let nextMp = s.mp
+    let nextStamina = s.stamina
+    let nextRes = s.res
+    let nextFood = s.food
+    const nextSkills = { ...s.skills }
+    const notes: string[] = []
+
+    if (eff.hp) {
+      nextHp = Math.min(s.maxHp, nextHp + eff.hp)
+      notes.push(`气血 +${eff.hp}`)
+    }
+    if (eff.mp) {
+      nextMp = Math.min(s.maxMp, nextMp + eff.mp)
+      notes.push(`内力 +${eff.mp}`)
+    }
+    if (eff.stamina) {
+      nextStamina = Math.min(s.maxStamina, nextStamina + eff.stamina)
+      notes.push(`体能 +${eff.stamina}`)
+    }
+    if (eff.res) {
+      nextRes = Math.min(100, nextRes + eff.res)
+      notes.push(`抗性 +${eff.res}`)
+    }
+    if (eff.food) {
+      nextFood += eff.food
+      notes.push(`粮草 +${eff.food}日份`)
+    }
+    if (eff.skillGain) {
+      const [sk, gain] = eff.skillGain
+      nextSkills[sk] = Math.min(100, (nextSkills[sk] ?? 40) + gain)
+      notes.push(`【${sk}】+${gain}`)
+    }
+    if (eff.learnArtHint) {
+      notes.push(eff.learnArtHint)
+    }
+
+    set({
+      inventory: nextInv,
+      hp: nextHp,
+      mp: nextMp,
+      stamina: nextStamina,
+      res: nextRes,
+      food: nextFood,
+      skills: nextSkills,
+      logs: [
+        createLogEntry(
+          s.dayCount,
+          def.category === 'scrolls' ? '展卷研读' : '服食丹膳',
+          `使用【${def.name}】：${notes.join('，')}。`,
+          true,
+          s.shichenIdx,
+        ),
         ...s.logs,
       ].slice(0, 60),
     })
@@ -575,37 +927,62 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
+    const isRestInn = item.name.includes('客栈') || item.name.includes('馆驿')
+    const staminaCost = isRestInn ? 0 : 12
+    if (!isRestInn && s.stamina < staminaCost) {
+      set({
+        actionFeedback: {
+          text: `体能不支（当前 ${s.stamina}/${s.maxStamina}），请先赴客栈投宿调息或服用茯苓酥酪饼！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
     let nextSilver = s.silver - cost
     let nextHp = s.hp
+    let nextMaxHp = s.maxHp
     let nextMp = s.mp
+    let nextMaxMp = s.maxMp
+    let nextStamina = isRestInn ? s.maxStamina : Math.max(0, s.stamina - staminaCost)
     let nextAgi = s.agility
     let nextRes = s.res
     let nextRiding = s.ridingSkill
     const nextSkills = { ...s.skills }
-    const nextDay = s.dayCount + 1
+    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, isRestInn ? 4 : 2)
+    const nextDay = clock.dayCount
 
     const eff = item.effect
     const gains: string[] = []
 
     if (eff.hp) {
-      nextHp += eff.hp
-      gains.push(`气血 +${eff.hp}（现 ${nextHp}）`)
+      nextMaxHp += Math.round(eff.hp * 0.25)
+      nextHp = Math.min(nextMaxHp, nextHp + eff.hp)
+      gains.push(`气血 +${eff.hp}`)
     }
     if (eff.mp) {
-      nextMp += eff.mp
-      gains.push(`内力 +${eff.mp}（现 ${nextMp}）`)
+      nextMaxMp += Math.round(eff.mp * 0.25)
+      nextMp = Math.min(nextMaxMp, nextMp + eff.mp)
+      gains.push(`内力 +${eff.mp}`)
+    }
+    if (isRestInn) {
+      nextHp = nextMaxHp
+      nextMp = nextMaxMp
+      gains.push(`体能全满 (${s.maxStamina})`)
+    } else {
+      gains.push(`体能 -${staminaCost}`)
     }
     if (eff.agi) {
-      nextAgi = Math.min(100, nextAgi + eff.agi)
+      nextAgi = Math.min(120, nextAgi + eff.agi)
       gains.push(`身法 +${eff.agi}（现 ${nextAgi}）`)
     }
     if (eff.res) {
-      nextRes = Math.min(100, nextRes + eff.res)
+      nextRes = Math.min(120, nextRes + eff.res)
       gains.push(`抗性 +${eff.res}（现 ${nextRes}）`)
     }
     if (eff.riding) {
-      nextRiding = Math.min(100, nextRiding + eff.riding)
-      gains.push(`骑术 +${eff.riding}（现 ${nextRiding}/100）`)
+      nextRiding = Math.min(120, nextRiding + eff.riding)
+      gains.push(`骑术 +${eff.riding}（现 ${nextRiding}）`)
     }
     if (eff.silver) {
       nextSilver += eff.silver
@@ -621,12 +998,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
-    const summary = `于【${item.name}】潜心修历一日：${gains.join('、')}！`
+    const shichenLabel = getSongDateParts(nextDay, clock.shichenIdx).shichen.name
+    const summary = `于【${item.name}】修历至${shichenLabel}：${gains.join('、')}！`
     const regionName = NODE_MAP[s.activeRegionId]?.name ?? '江湖'
-    let nextLogs = [createLogEntry(nextDay, regionName, summary), ...s.logs]
+    let nextLogs = [
+      createLogEntry(nextDay, regionName, summary, false, clock.shichenIdx),
+      ...s.logs,
+    ]
     let nextMasters = s.roamingMasters
 
-    if ((nextDay - 1) % 30 === 0) {
+    if (clock.daysAdded > 0 && (nextDay - 1) % 30 === 0) {
       nextMasters = s.roamingMasters.map((m) => {
         const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
         if (neighbors.length === 0) return m
@@ -641,6 +1022,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             '月度风云',
             `《天下江湖风闻录》更新：【${sample.name}】近日现身于【${NODE_MAP[sample.nodeId]?.name ?? sample.nodeId}】！`,
             true,
+            clock.shichenIdx,
           ),
           ...nextLogs,
         ]
@@ -649,9 +1031,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     set({
       dayCount: nextDay,
+      shichenIdx: clock.shichenIdx,
       silver: nextSilver,
       hp: nextHp,
+      maxHp: nextMaxHp,
       mp: nextMp,
+      maxMp: nextMaxMp,
+      stamina: nextStamina,
       agility: nextAgi,
       res: nextRes,
       ridingSkill: nextRiding,
@@ -675,6 +1061,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       })
       return
     }
+    if (s.stamina < 6) {
+      set({
+        actionFeedback: {
+          text: `体能不足（需 6 点体能），请稍作调息或用膳后再与名宿切磋雅集。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
     if (mode === 'art') {
       const nextSkills = {
         ...s.skills,
@@ -682,18 +1078,35 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         琴: Math.min(100, (s.skills['琴'] ?? 42) + 1),
       }
       set({
+        dayCount: clock.dayCount,
+        shichenIdx: clock.shichenIdx,
+        stamina: Math.max(0, s.stamina - 6),
         skills: nextSkills,
         actionFeedback: {
-          text: `与 ${npc.name} 抚琴唱和、对弈品茗（【诗词】${nextSkills['诗词']}/100、【琴】${nextSkills['琴']}/100）。`,
+          text: `与 ${npc.name} 抚琴唱和半个时辰（体能 -6，【诗词】${nextSkills['诗词']}/100、【琴】${nextSkills['琴']}/100）。`,
           tone: 'success',
         },
       })
       return
     }
+    if (s.stamina < 10) {
+      set({
+        actionFeedback: {
+          text: `拆招切磋需耗费 10 点体能，请先调息恢复体能！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const nextMaxMp = s.maxMp + 18
     set({
-      mp: s.mp + 18,
+      dayCount: clock.dayCount,
+      shichenIdx: clock.shichenIdx,
+      stamina: Math.max(0, s.stamina - 10),
+      maxMp: nextMaxMp,
+      mp: Math.min(nextMaxMp, s.mp + 18),
       actionFeedback: {
-        text: `向 ${npc.name}（${npc.realm}）请益实战拆招，内力 +18！`,
+        text: `向 ${npc.name}（${npc.realm}）请益实战拆招，内力修为 +18（体能 -10）！`,
         tone: 'success',
       },
     })
@@ -716,8 +1129,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           createLogEntry(
             s.dayCount,
             '粮尽警示',
-            '行囊干粮已尽！请先开启【菜单 -> 背包】补给干粮再远征塞外。',
+            '行囊粮草已尽！请点击顶部状态栏【粮草】或开启背包补给后再远征。',
             true,
+            s.shichenIdx,
           ),
           ...s.logs,
         ].slice(0, 60),
@@ -745,6 +1159,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           '启程',
           `自【${currNode?.name ?? s.currentNodeId}】策马出发，奔赴【${targetNode?.name ?? targetId}】（全程 ${route.totalLi} 里）。`,
           true,
+          s.shichenIdx,
         ),
         ...s.logs,
       ].slice(0, 60),
@@ -768,11 +1183,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const curX = fromNode.x + (toNode.x - fromNode.x) * ratio
     const curY = fromNode.y + (toNode.y - fromNode.y) * ratio
 
+    const shichenSteps = Math.round(stepDay * 12)
+    const nextShichenIdx = (s.shichenIdx + shichenSteps) % 12
+
     let nextDayCount = s.dayCount
     let nextFood = s.food
     let nextSilver = s.silver
     let nextHp = s.hp
     let nextMp = s.mp
+    let nextStamina = s.stamina
     let nextRes = s.res
     const nextSkills = { ...s.skills }
     const nextLogs = [...s.logs]
@@ -781,15 +1200,24 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (dayAccumulator >= 1.0) {
       dayAccumulator -= 1.0
       nextDayCount += 1
-      if (nextFood > 0) nextFood -= 1
-      else if (nextSilver >= 2) nextSilver -= 2
+      if (nextFood > 0) {
+        nextFood -= 1
+        nextStamina = Math.max(15, nextStamina - 4)
+      } else {
+        if (nextSilver >= 2) nextSilver -= 2
+        nextStamina = Math.max(5, nextStamina - 14)
+      }
 
       if (Math.random() < 0.16) {
         const ev = ROAD_EVENTS[Math.floor(Math.random() * ROAD_EVENTS.length)]
         if (ev) {
           const draft = {
             hp: nextHp,
+            maxHp: s.maxHp,
             mp: nextMp,
+            maxMp: s.maxMp,
+            stamina: nextStamina,
+            maxStamina: s.maxStamina,
             silver: nextSilver,
             res: nextRes,
             skills: nextSkills,
@@ -797,9 +1225,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           ev.apply(draft)
           nextHp = draft.hp
           nextMp = draft.mp
+          nextStamina = draft.stamina
           nextSilver = draft.silver
           nextRes = draft.res
-          nextLogs.unshift(createLogEntry(nextDayCount, ev.tag, ev.msg, true))
+          nextLogs.unshift(createLogEntry(nextDayCount, ev.tag, ev.msg, true, nextShichenIdx))
         }
       }
 
@@ -818,6 +1247,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               '月度风云',
               `《天下江湖风闻录》更新：【${sample.name}】近日现身于【${NODE_MAP[sample.nodeId]?.name ?? sample.nodeId}】！`,
               true,
+              nextShichenIdx,
             ),
           )
         }
@@ -835,14 +1265,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             '抵达入图',
             `千里风霜，顺利抵达【${destName}】！主视口已按需展开【${destName}】半3D全景舆图。`,
             true,
+            nextShichenIdx,
           ),
         )
         set({
           dayCount: nextDayCount,
+          shichenIdx: nextShichenIdx,
           food: nextFood,
           silver: nextSilver,
           hp: nextHp,
           mp: nextMp,
+          stamina: nextStamina,
           res: nextRes,
           skills: nextSkills,
           roamingMasters: nextMasters,
@@ -866,15 +1299,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           nextDayCount,
           '途经',
           `途经要冲【${NODE_MAP[arrivedNodeId]?.name ?? arrivedNodeId}】，换马饮水后继续前行。`,
+          false,
+          nextShichenIdx,
         ),
       )
       segProgressDays = 0
       set({
         dayCount: nextDayCount,
+        shichenIdx: nextShichenIdx,
         food: nextFood,
         silver: nextSilver,
         hp: nextHp,
         mp: nextMp,
+        stamina: nextStamina,
         res: nextRes,
         skills: nextSkills,
         roamingMasters: nextMasters,
@@ -893,10 +1330,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     set({
       dayCount: nextDayCount,
+      shichenIdx: nextShichenIdx,
       food: nextFood,
       silver: nextSilver,
       hp: nextHp,
       mp: nextMp,
+      stamina: nextStamina,
       res: nextRes,
       skills: nextSkills,
       roamingMasters: nextMasters,
@@ -921,8 +1360,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       traveling: null,
       currentNodeId: stopNodeId,
       selectedNodeId: stopNodeId,
+      stamina: Math.min(s.maxStamina, s.stamina + 20),
       logs: [
-        createLogEntry(s.dayCount, '驻扎露营', `少侠收缰驻马，就近于【${stopName}】安营休整。`),
+        createLogEntry(
+          s.dayCount,
+          '驻扎露营',
+          `少侠收缰驻马，就近于【${stopName}】安营休整（体能 +20）。`,
+          false,
+          s.shichenIdx,
+        ),
         ...s.logs,
       ].slice(0, 60),
     })
@@ -958,19 +1404,23 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     return {
       gameTitle: '北宋立志传',
-      schemaVersion: 'M0.4.0',
+      schemaVersion: 'M1.0.0',
       slotId,
       savedAt: new Date().toISOString(),
       note: note.trim(),
       summary: {
-        songDate: formatSongDate(st.dayCount),
+        songDate: formatSongDate(st.dayCount, st.shichenIdx),
         dayCount: st.dayCount,
+        shichenIdx: st.shichenIdx,
         regionId: st.activeRegionId,
         regionName,
         viewMode: st.viewMode,
         buildingId: st.activeBuildingInteriorId,
         buildingName,
         hp: st.hp,
+        maxHp: st.maxHp,
+        stamina: st.stamina,
+        maxStamina: st.maxStamina,
         mp: st.mp,
         silver: st.silver,
         food: st.food,
@@ -1013,6 +1463,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         '卷宗启封',
         `已读取存档【${envelope.summary.songDate} · ${envelope.summary.regionName}${envelope.summary.buildingName ? ` · ${envelope.summary.buildingName}` : ''}】。`,
         true,
+        st.shichenIdx,
       ),
       ...st.logs,
     ].slice(0, 60)

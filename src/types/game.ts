@@ -376,8 +376,71 @@ export type SaveSlotId =
   | 'slot-5'
   | 'slot-6'
 
+// ============================================================================
+// [M1-0] Time (Shichen), Stamina, 7-Slot Equipment & 4-Category Bag Schemas
+// ============================================================================
+
+export type EquipmentSlotKey =
+  | 'weapon'
+  | 'armor'
+  | 'shoes'
+  | 'bow'
+  | 'accessory1'
+  | 'accessory2'
+  | 'mount'
+
+export type BagCategoryKey = 'scrolls' | 'medicine' | 'tools' | 'misc'
+
+export type ItemRarity = '天阶' | '地阶' | '良品' | '凡品'
+
+export interface EquipmentStatBonus {
+  maxHp?: number
+  maxMp?: number
+  maxStamina?: number
+  agility?: number
+  res?: number
+  attack?: number
+  defense?: number
+  riding?: number
+  mountKey?: MountKey
+  skills?: Record<string, number>
+}
+
+export interface ItemUseEffect {
+  hp?: number
+  mp?: number
+  stamina?: number
+  res?: number
+  food?: number
+  skillGain?: [string, number]
+  learnArtHint?: string
+}
+
+export interface GameItemDef {
+  id: string
+  name: string
+  category: BagCategoryKey
+  subType: string
+  rarity: ItemRarity
+  equipSlot?: EquipmentSlotKey
+  stackable: boolean
+  value: number
+  desc: string
+  lore?: string
+  equipBonus?: EquipmentStatBonus
+  useEffect?: ItemUseEffect
+}
+
+export interface InventoryStack {
+  itemId: string
+  qty: number
+}
+
+export type EquippedSlotsMap = Record<EquipmentSlotKey, string | null>
+
 export interface SerializableGameState {
   dayCount: number
+  shichenIdx: number
   viewMode: ViewMode
   showRegionLabels: boolean
   activeRegionId: string
@@ -394,9 +457,16 @@ export interface SerializableGameState {
   silver: number
   food: number
   hp: number
+  maxHp: number
   mp: number
+  maxMp: number
+  stamina: number
+  maxStamina: number
   res: number
   skills: Record<string, number>
+
+  equipped: EquippedSlotsMap
+  inventory: InventoryStack[]
 
   overlays: OverlayToggles
   roamingMasters: RoamingMaster[]
@@ -408,12 +478,16 @@ export interface SerializableGameState {
 export interface GameSaveSummary {
   songDate: string
   dayCount: number
+  shichenIdx?: number
   regionId: string
   regionName: string
   viewMode: ViewMode
   buildingId: string | null
   buildingName: string | null
   hp: number
+  maxHp?: number
+  stamina?: number
+  maxStamina?: number
   mp: number
   silver: number
   food: number
@@ -421,7 +495,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M0.4.0'
+  schemaVersion: 'M0.4.0' | 'M1.0.0'
   slotId: SaveSlotId
   savedAt: string
   note: string

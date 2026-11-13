@@ -24,7 +24,7 @@ export function TravelBanner() {
   return (
     <div
       id="travel-banner"
-      className="absolute top-14 left-1/2 -translate-x-1/2 z-30 bg-[#281e15] text-[#f7ebd2] border-2 border-[#c29b59] rounded-md px-4 py-2 shadow-xl flex items-center gap-4 text-xs"
+      className="absolute top-24 left-1/2 -translate-x-1/2 z-30 bg-[#281e15]/95 text-[#f7ebd2] border-2 border-[#c29b59] rounded-md px-4 py-2 shadow-xl flex items-center gap-4 text-xs"
     >
       <div>
         <div className="song-serif font-bold text-amber-300">

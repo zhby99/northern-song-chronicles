@@ -2,7 +2,7 @@
 
 公元 1050 年（宋仁宗皇祐二年）开放世界历史武侠 RPG 模块化前端工程。
 
-## 当前工程里程碑进度（Phase M0 全部完成）
+## 当前工程里程碑进度（Phase M0 全部完成 · Phase M1 进行中）
 - **[x] M0-1：初始化标准前端工程与静态资源解耦**
   - 技术栈：`Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5`
   - 静态原画抽离：从旧版 24.8 MB 单文件 HTML 原型无损抽离 **209 张独立 JPG 静态原画（30.64 MB）** 至 `public/assets/`，代码与 JSON 数据层内嵌 Base64 为 **0 Bytes**，按需懒加载。
@@ -14,6 +14,10 @@
 - **[x] M0-4：完整三层空间视图与多槽位存读档**
   - 全部 **123 座特殊建筑** 100% 支持步入第三层内景（58 座手绘 JPG 半3D全景 + 65 座宋式《营造法式》矢量内院 `SvgBuildingInteriorFallback.tsx` 兜底）。
   - `src/utils/saveManager.ts` 实装 `IndexedDB`（含 `localStorage` 双写兜底）多槽位存取档（1 自动卷宗 + 6 手动卷宗），支持自定义手札备注、三层空间现场无损还原及 `.json` 存档文件导出/导入校验。
+- **[x] M1-0：全局顶部状态栏（HUD）与主角七槽位披挂 / 行囊四库重构**
+  - **常驻顶部状态栏（`TopHud.tsx`）**：全场景常驻显示【年月日 + 十二时辰（子~亥昼夜流转）】、主角【气血（当前/上限）】、【体能（当前/上限）】、【资金（纹银）】与【粮草（干粮）】。
+  - **可视化七槽位披挂区（`SystemMenuModal.tsx`）**：在主角面板下方实装 **武器、服饰、鞋履、弓箭、配饰壹、配饰贰、坐骑** 七槽位纸娃娃布局，动态重算属性上限并直接联动大地图坐骑行军速度。
+  - **行囊四库与 `M1.0.0` 存档兼容（`itemsDb.ts` / `saveManager.ts`）**：建立 **典籍书画、丹药毒物、雅器百工、行囊杂物** 四分类背包及首批宋风器物库，支持穿卸、研读与服用，并无缝向后兼容 `M0.4.0` 旧存档。
 
 ## 常用开发命令
 
@@ -32,9 +36,9 @@ npm run build            # 运行 tsc -b 严格类型校验与 Vite 生产分包
 ```text
 northern-song-chronicles/
 ├── docs/                           # 五大核心设定集与开发路线图
-│   ├── ROADMAP_AND_TODO.md         # 完整里程碑路线图与任务跟踪清单 (M0 ~ M6)
-│   ├── GAME_MECHANICS.md           # 核心机制、六维属性、内息运行与历史事件设定
-│   ├── MARTIAL_ARTS_COMPENDIUM.md  # 216 门武学全典（天/地/玄/黄四阶）
+│   ├── ROADMAP_AND_TODO.md         # 完整里程碑路线图与任务跟踪清单 (M0 ~ M5)
+│   ├── GAME_MECHANICS.md           # 核心机制、时辰体能、七槽披挂、四库行囊与世界观总纲
+│   ├── MARTIAL_ARTS_COMPENDIUM.md  # 216 门武学全典（天/地/良/凡四阶十二品）
 │   ├── REGIONAL_MAPS_AND_BUILDINGS.md # 38 处疆域重镇与 123 座特殊建筑设定
 │   └── CHARACTER_COMPENDIUM.md     # 1,000 名北宋历史与江湖人物全录
 ├── public/assets/                  # 运行时按需懒加载美术资源（共 209 张 JPG，30.6 MB）
@@ -56,10 +60,10 @@ northern-song-chronicles/
 │   ├── build_preview_artifact.py   # IIFE 内联单文件预览包打包器
 │   └── archive_all_branch_assets.py # 跨分支母版素材与设定集归档工具
 └── src/                            # 模块化 React 19 + TypeScript 7 + Zustand 5 源码
-    ├── components/                 # 三层地图画布、宋式建筑矢量兜底、HUD、武学与人物面板、存读档弹窗
-    ├── data/                       # 编译产出的 idRegistry / regions / buildings / martial_arts / npcs JSON
-    ├── store/                      # Zustand 全局状态管理与空间导航栈
-    ├── types/                      # 严格 TypeScript 领域数据接口
-    └── utils/                      # IndexedDB 多槽位存档管理器与静态图片懒加载器
+    ├── components/                 # 三层地图画布、常驻顶部状态 HUD、七槽披挂与四库行囊枢机弹窗
+    ├── data/                       # 编译产出的 regions / buildings / martial_arts / npcs JSON 及 itemsDb.ts
+    ├── store/                      # Zustand 全局状态管理（历法时辰、生存属性、装备行囊、导航栈）
+    ├── types/                      # 严格 TypeScript 领域数据接口（含 M1.0.0 存档契约）
+    └── utils/                      # IndexedDB 多槽位存档管理器、十二时辰历法与静态图片懒加载器
 ```
 

@@ -1,6 +1,6 @@
-# 北宋群侠传 (Northern Song Chronicles) - 项目完整指南 (PROJECT_GUIDE)
+# 《北宋立志传》(Northern Song Chronicles) - 项目完整指南 (PROJECT_GUIDE)
 
-> **版本**：v1.0.0-phase3  
+> **版本**：v1.0.0-M1.0  
 > **更新时间**：2026-11-12  
 > **项目根目录**：`/home/antigravity/zhby99/northern-song-chronicles`
 
@@ -17,24 +17,24 @@
 
 ## 一、项目定位与架构总览
 
-本项目是一款以北宋熙宁-元丰年间为背景的国风开放世界沙盘武侠游戏。
-前端技术栈采用 **Vite + React 18 + TypeScript + Zustand + TailwindCSS / Lucide-React**，所有核心数据采用静态 JSON 数据库及全量离线打包架构。
+本项目是一款以**北宋仁宗皇祐二年（公元 1050 年）**为背景的国风开放世界历史人生模拟武侠 RPG。
+前端技术栈采用 **Vite 8 + React 19 + TypeScript 7 + Zustand 5 + Tailwind CSS v4 + Lucide-React**，所有核心数据采用静态 JSON 数据库及按需懒加载架构。
 
 ### 架构分层
 ```mermaid
 graph TD
-    A[index.html 入口] --> B[src/main.tsx]
-    B --> C[src/App.tsx 根视口]
-    C --> D[HUD 交互层 (TopHud, BottomHud, Inspector)]
-    C --> E[地图渲染层 (WorldMapCanvas, RegionMapCanvas)]
-    C --> F[全局弹窗层 (SystemMenuModal)]
+    A["index.html 入口"] --> B["src/main.tsx"]
+    B --> C["src/App.tsx 根视口"]
+    C --> D["HUD 交互层 (TopHud, BottomHud, ContextInspectorCard)"]
+    C --> E["地图渲染层 (WorldMapCanvas, RegionMapCanvas, Interior)"]
+    C --> F["全局枢机弹窗层 (SystemMenuModal: 七槽披挂 & 行囊四库)"]
     
-    D & E & F --> G[Zustand 状态机: src/store/useGameStore.ts]
-    G --> H[综合静态数据库: src/data/gameDb.ts]
-    H --> I[各大实体 JSON: regions, buildings, npcs, martial_arts, etc.]
+    D & E & F --> G["Zustand 状态机: src/store/useGameStore.ts"]
+    G --> H["综合静态数据库: src/data/gameDb.ts & src/data/itemsDb.ts"]
+    H --> I["各大实体 JSON: regions, buildings, npcs, martial_arts"]
     
-    E --> J[资源加载工具: src/utils/assetLoader.ts]
-    J --> K[public/assets 游戏生产素材库]
+    E --> J["资源懒加载工具: src/utils/assetLoader.ts"]
+    J --> K["public/assets 游戏生产素材库"]
 ```
 
 ---
@@ -48,58 +48,59 @@ northern-song-chronicles/
 ├── tsconfig.json / tsconfig.app.json    # TypeScript 配置
 ├── vite.config.ts                       # Vite 构建与服务配置
 ├── PROJECT_GUIDE.md                     # 本文档 (项目全局导引与资源索引)
-├── README.md                            # 项目简介
+├── README.md                            # 项目简介与里程碑概览
 │
 ├── docs/                                # 游戏系统与数值策划设计文案
 │   ├── CHARACTER_COMPENDIUM.md          # 1000 人物图鉴与派系
-│   ├── GAME_MECHANICS.md                # 养成、战斗、行商、官职核心机制
-│   ├── MARTIAL_ARTS_COMPENDIUM.md       # 门派武学大典与招式体系
-│   ├── REGIONAL_MAPS_AND_BUILDINGS.md   # 38 州府区域与 58 名胜建筑
-│   └── ROADMAP_AND_TODO.md              # 开发里程碑与待办
+│   ├── GAME_MECHANICS.md                # 历法时辰、体能资粮、七槽披挂、四库行囊与核心机制总纲
+│   ├── MARTIAL_ARTS_COMPENDIUM.md       # 216 门武学全典与天阶修习条件
+│   ├── REGIONAL_MAPS_AND_BUILDINGS.md   # 38 州府名山区域与 123 座特殊建筑名录
+│   └── ROADMAP_AND_TODO.md              # 开发里程碑与主线待办看板 (M0 ~ M5)
 │
 ├── src/                                 # 核心业务源码
 │   ├── main.tsx                         # 挂载入口
-│   ├── App.tsx                          # 主容器组件与视图分发器
-│   ├── index.css                        # 全局样式与自定义排版
+│   ├── App.tsx                          # 主容器组件与三层空间视图分发器
+│   ├── index.css                        # 全局样式与宋代古籍宣纸设色变量
 │   │
 │   ├── components/                      # React 视图组件库
 │   │   ├── hud/                         # 界面抬头显示与浮动信息
-│   │   │   ├── TopHud.tsx               # 顶部年号/时辰/铜钱/阅历栏
-│   │   │   ├── BottomHud.tsx            # 底部菜单切换与操作按键
-│   │   │   ├── ContextInspectorCard.tsx # 选定实体详细检查卡片 (人物/建筑)
-│   │   │   ├── MapTooltip.tsx           # 地图悬浮气泡
-│   │   │   └── TravelBanner.tsx         # 大地图旅行过渡动效条
+│   │   │   ├── TopHud.tsx               # 常驻顶部状态栏 (年月日十二时辰/气血/体能/资金/粮草) + 二级舆图控制条
+│   │   │   ├── BottomHud.tsx            # 底部江湖行记日志、门派威望与当前坐标底栏
+│   │   │   ├── ContextInspectorCard.tsx # 选定实体详细检视舱 (城池/建筑/驻留人物互动)
+│   │   │   ├── MapTooltip.tsx           # 地图悬浮纯实色笺纸浮窗
+│   │   │   └── TravelBanner.tsx         # 大地图逐日行军进度与随时扎营条
 │   │   ├── map/                         # 地图画布与交互组件
-│   │   │   ├── WorldMapCanvas.tsx       # 北宋天下大地图 (SVG 矢量沙盘)
-│   │   │   ├── RegionMapCanvas.tsx      # 区域州府 2.5D 等轴测全景画布
-│   │   │   └── SvgBuildingInteriorFallback.tsx # 室内建筑备用渲染器
-│   │   └── menu/                        # 系统弹窗
-│   │       └── SystemMenuModal.tsx      # 存档/读档/图鉴/设置弹窗
+│   │   │   ├── WorldMapCanvas.tsx       # 北宋华夏东亚全景舆图 (SVG 语义缩放沙盘)
+│   │   │   ├── RegionMapCanvas.tsx      # 38 处州府名山全景画布与 123 座建筑室内视图
+│   │   │   └── SvgBuildingInteriorFallback.tsx # 宋式《营造法式》室内建筑矢量渲染器
+│   │   └── menu/                        # 系统枢机弹窗
+│   │       └── SystemMenuModal.tsx      # 五大页签枢机弹窗 (主角与七槽披挂/行囊四库/武学/群侠/存取档)
 │   │
 │   ├── data/                            # 游戏全量静态结构化数据库
-│   │   ├── gameDb.ts                    # 数据库聚合导出模块 (GameDbFacade)
-│   │   ├── regions.json                 # 38 个区域州府信息
-│   │   ├── buildings.json               # 58 个地标建筑详细设定
-│   │   ├── buildingPanoramas.json       # 建筑室内/全景视角绑定
-│   │   ├── npcs.json                    # 历史名仕、武林豪杰与江湖角色
-│   │   ├── martial_arts.json            # 武功秘籍、内功、招式数据库
-│   │   ├── regionalConfigs.json         # 区域经济、势力倾向、特产配置
-│   │   ├── worldGraph.json              # 陆路、水路、关隘节点连接拓扑
-│   │   ├── worldBaseSvg.ts              # 大宋疆域与四方边境矢量轮廓
-│   │   ├── idRegistry.json              # 全局实体 ID 命名空间注册表
-│   │   ├── assetManifest.json           # 生产资源哈希与索引表
-│   │   └── portraitCatalog.json         # 人物立绘映射匹配表
+│   │   ├── gameDb.ts                    # 数据库聚合导出与索引模块
+│   │   ├── itemsDb.ts                   # 七槽位披挂定义、行囊四库元数据与宋风器物道具表
+│   │   ├── regions.json                 # 38 个区域州府与名山信息
+│   │   ├── buildings.json               # 123 座特殊地标 + 105 座基础建筑设定
+│   │   ├── buildingPanoramas.json       # 建筑室内全景热区与视角绑定
+│   │   ├── npcs.json                    # 1000 名历史名仕与武林人物数据库
+│   │   ├── martial_arts.json            # 216 门四阶十二品武学数据库
+│   │   ├── regionalConfigs.json         # 区域坐标与建筑点位配置
+│   │   ├── worldGraph.json              # 陆路、运河、塞外与蜀道节点连接拓扑
+│   │   ├── worldBaseSvg.ts              # 华夏及东亚山海海岸线矢量轮廓
+│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表
+│   │   ├── assetManifest.json           # 生产资源清单索引
+│   │   └── portraitCatalog.json         # 人物立绘与模板映射表
 │   │
 │   ├── store/                           # 全局状态管理
-│   │   └── useGameStore.ts              # Zustand 状态机 (主角、时间、位置、库存)
+│   │   └── useGameStore.ts              # Zustand 状态机 (历法时辰、气血体能、七槽装备、四库行囊、空间导航)
 │   │
 │   ├── types/                           # 全局 TypeScript 接口与类型定义
-│   │   └── game.ts                      # Region, Building, NPC, Item, Store 等类型
+│   │   └── game.ts                      # Region, Building, NPC, Equipment, Inventory, M1.0.0 存档等类型
 │   │
 │   └── utils/                           # 工具方法库
-│       ├── assetLoader.ts               # 图片素材路径解析与加载降级策略
-│       ├── mapMath.ts                   # 经纬度投影与等轴测坐标变换
-│       └── saveManager.ts               # 本地存档 LocalStorage 序列化/反序列化
+│       ├── assetLoader.ts               # 图片素材按需懒加载与字节监控工具
+│       ├── mapMath.ts                   # 十二时辰历法换算、Dijkstra 最短路径与坐骑速度公式
+│       └── saveManager.ts               # IndexedDB + LocalStorage 多槽位存取档与 JSON 导入导出校验
 │
 ├── public/                              # 生产运行资源静态目录 (被 Vite 直接托管)
 │   ├── icons.svg                        # 界面矢量图标集
@@ -138,24 +139,20 @@ northern-song-chronicles/
 
 ### 1. 状态管理 (`src/store/useGameStore.ts`)
 - **`useGameStore`**: 全局单一数据源，管理：
-  - `player`: 主角属性（姓名、出身、精力、气血、真气、道德、银两）。
-  - `worldTime`: 当前游戏时间（年号、月份、日子、时辰刻度）。
-  - `navigation`: 当前视图状态（`'world'` 天下大地图 / `'region'` 州府场景 / `'interior'` 建筑内部），当前选中州府 `currentRegionId` 与建筑 `currentBuildingId`。
-  - `travelState`: 旅途状态、耗时以及途经路线。
-  - 核心 Actions: `travelToRegion()`, `enterBuilding()`, `exitToRegion()`, `exitToWorld()`, `advanceTime()`, `saveGame()`, `loadGame()`。
+  - **历法与时辰**：`dayTotal`（自皇祐二年正月初一起算天数）与 `shichenIdx`（`0..11` 对应 `子~亥` 十二时辰）。
+  - **主角属性与生存资粮**：先天三维（`bone/insight/charm`）、实战与上限（`hp/maxHp`, `mp/maxMp`, `stamina/maxStamina`, `agility`, `res`）、资金 `silver`、粮草 `food` 与通用十艺 `skills`。
+  - **七槽位披挂与行囊四库**：`equipped`（`weapon`, `armor`, `shoes`, `bow`, `accessory1`, `accessory2`, `mount` 共 7 槽，第七槽自动同步 `mountKey` 行军速度）与 `inventory`（四库物品栈）。
+  - **三层空间导航与行军**：`viewMode`（`'world' | 'region' | 'interior'`）、`currentId`、`activeInteriorBuildingId`、`travel` 行军队列。
+  - **核心 Actions**：`equipItemToSlot()`, `unequipSlot()`, `consumeInventoryItem()`, `restRecoverStamina()`, `startTravelTo()`, `enterRegion()`, `enterBuildingInterior()`, `saveToSlot()`, `loadFromSlot()`。
 
-### 2. 数据库分发 (`src/data/gameDb.ts`)
-- **`gameDb`**: 聚合只读门面对象，提供快速检索 API：
-  - `getRegionById(id: string)`: 获取州府属性与附属建筑。
-  - `getBuildingById(id: string)`: 获取建筑功能、NPC及背景图。
-  - `getNpcById(id: string)`: 获取 NPC 身份、好感、武功与立绘。
-  - `getMartialArtById(id: string)`: 获取武学心法秘籍。
+### 2. 静态数据库与器物表 (`src/data/gameDb.ts` & `src/data/itemsDb.ts`)
+- **`gameDb.ts`**：导出 `REGIONS_DB`、`BUILDINGS_DB`、`MARTIAL_ARTS_DB`、`NPCS_DB` 及 O(1) 哈希索引 Map（`REGION_MAP`、`BUILDING_DB_MAP`、`NPC_BY_BUILDING_MAP` 等）。
+- **`itemsDb.ts`**：定义 7 槽位元数据 `EQUIPMENT_SLOT_METAS`、4 分类行囊元数据 `BAG_CATEGORY_METAS`、宋风器物道具表 `ITEMS_DB` 以及装备总加成计算器 `computeEquipmentTotals()`。
 
-### 3. 素材动态加载器 (`src/utils/assetLoader.ts`)
-- **`getRegionBackdropUrl(regionId: string)`**: 解析州府全景大图，支持回退到通用默认图。
-- **`getBuildingImageUrl(buildingId: string)`**: 获取建筑插画路径。
-- **`getCharacterAvatarUrl(avatarKey: string)`**: 根据 NPC 映射表或模版解析正方形头像。
-- **`getCharacterFullbodyUrl(fullbodyKey: string)`**: 解析角色全身高精度立绘。
+### 3. 素材动态加载与历法数学库 (`src/utils/assetLoader.ts` & `src/utils/mapMath.ts`)
+- **`useLazyImage(src)`**：按需懒加载当前视口原画并统计累计解码体积。
+- **`SHICHEN_LIST` / `getSongDateParts()` / `formatSongDate()`**：北宋皇祐历法与十二时辰昼夜换算。
+- **`findShortestPath()` / `getEffectiveSpeed()`**：基于装备栏第 7 槽【坐骑】与轻功/骑术修正计算真实地理行军速度与最短官道拓扑。
 
 ---
 
