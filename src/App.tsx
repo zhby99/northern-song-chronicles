@@ -46,12 +46,12 @@ export function App() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [menuOpen, openMenu, closeMenu])
 
-  // Road travel interval loop when traveling on World Map
+  // 九州山海行路时钟：每 0.25s 前进一步（一个时辰），一日十二时辰累计 3.0s
   useEffect(() => {
     if (!isTraveling) return
     const timer = window.setInterval(() => {
       stepTravelTick()
-    }, 220)
+    }, 250)
     return () => window.clearInterval(timer)
   }, [isTraveling, stepTravelTick])
 

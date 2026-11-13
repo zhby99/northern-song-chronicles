@@ -217,6 +217,7 @@ export interface GameStoreState {
   overlays: OverlayToggles
   roamingMasters: RoamingMaster[]
   traveling: TravelState | null
+  campPos: { x: number; y: number } | null
 
   worldPan: CameraPan
   regionPan: CameraPan
@@ -391,6 +392,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   },
   roamingMasters: WORLD_GRAPH.roamingMasters.map((m) => ({ ...m })),
   traveling: null,
+  campPos: null,
 
   worldPan: { x: 0, y: 0, scale: 1 },
   regionPan: { x: 0, y: 0, scale: 1 },
@@ -478,6 +480,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       selectedBuildingId: null,
       currentNodeId: nodeId,
       selectedNodeId: nodeId,
+      campPos: null,
       regionPan: { x: 0, y: 0, scale: 1 },
       actionFeedback: null,
       logs,
@@ -1369,17 +1372,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const currNode = NODE_MAP[s.currentNodeId]
     const targetNode = NODE_MAP[targetId]
+    const startPos = s.campPos ?? { x: currNode?.x ?? 856, y: currNode?.y ?? 380 }
     set({
       viewMode: 'world',
       tooltip: null,
       actionFeedback: null,
+      campPos: null,
       traveling: {
         targetId,
         route,
         segIdx: 0,
         segProgressDays: 0,
         dayAccumulator: 0,
-        playerPos: { x: currNode?.x ?? 856, y: currNode?.y ?? 380 },
+        playerPos: startPos,
       },
       logs: [
         createLogEntry(
@@ -1399,7 +1404,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const tr = s.traveling
     if (!tr) return
 
-    const stepDay = 0.6
+    // 行路时钟铁律：每 tick（0.25s）前进一步（整整一个时辰 = 1/12 日），一日十二时辰累计 3.0s
+    const stepDay = 1 / 12
     const seg = tr.route.segments[tr.segIdx]
     if (!seg) return
 
@@ -1411,8 +1417,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const curX = fromNode.x + (toNode.x - fromNode.x) * ratio
     const curY = fromNode.y + (toNode.y - fromNode.y) * ratio
 
-    const shichenSteps = Math.round(stepDay * 12)
-    const nextShichenIdx = (s.shichenIdx + shichenSteps) % 12
+    // 每一个 tick 推进恰好一个时辰
+    const nextShichenIdx = (s.shichenIdx + 1) % 12
 
     let nextDayCount = s.dayCount
     let nextFood = s.food
@@ -1508,6 +1514,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           skills: nextSkills,
           roamingMasters: nextMasters,
           traveling: null,
+          campPos: null,
           currentNodeId: arrivedNodeId,
           selectedNodeId: arrivedNodeId,
           activeRegionId: arrivedNodeId,
@@ -1580,20 +1587,23 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   campStop: () => {
     const s = get()
     if (!s.traveling) return
+    const curPos = s.traveling.playerPos
     const seg = s.traveling.route.segments[s.traveling.segIdx]
+    const fromName = seg ? (NODE_MAP[seg.from]?.name ?? seg.from) : '前站'
+    const toName = seg ? (NODE_MAP[seg.to]?.name ?? seg.to) : '下一城'
     const ratio = seg ? s.traveling.segProgressDays / seg.days : 0
-    const stopNodeId = seg ? (ratio >= 0.5 ? seg.to : seg.from) : s.currentNodeId
-    const stopName = NODE_MAP[stopNodeId]?.name ?? stopNodeId
+    const nearbyNodeId = seg ? (ratio >= 0.5 ? seg.to : seg.from) : s.currentNodeId
     set({
       traveling: null,
-      currentNodeId: stopNodeId,
-      selectedNodeId: stopNodeId,
+      currentNodeId: nearbyNodeId,
+      selectedNodeId: null,
+      campPos: curPos,
       stamina: Math.min(s.maxStamina, s.stamina + 20),
       logs: [
         createLogEntry(
           s.dayCount,
-          '驻扎露营',
-          `少侠收缰驻马，就近于【${stopName}】安营休整（体能 +20）。`,
+          '原地露营',
+          `少侠收缰驻马，于【${fromName}】至【${toName}】旷野中途原地安营扎寨（体能 +20）。`,
           false,
           s.shichenIdx,
         ),

@@ -25,6 +25,7 @@ export function ContextInspectorCard() {
   const selectedBuildingId = useGameStore((s) => s.selectedBuildingId)
   const selectedSpotId = useGameStore((s) => s.selectedSpotId)
   const traveling = useGameStore((s) => s.traveling)
+  const campPos = useGameStore((s) => s.campPos)
   const mountKey = useGameStore((s) => s.mountKey)
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
@@ -119,7 +120,7 @@ export function ContextInspectorCard() {
     const node = NODE_MAP[selectedNodeId]
     if (!node) return null
 
-    const isHere = currentNodeId === node.id
+    const isHere = currentNodeId === node.id && !campPos
     const route = !isHere
       ? findBestRoute(currentNodeId, node.id, {
           mountKey,
@@ -194,20 +195,13 @@ export function ContextInspectorCard() {
                 预计 {route.totalDays.toFixed(1)} 日
               </span>
             </div>
-            <div className="flex gap-2 pt-1">
+            <div className="pt-1">
               <button
                 type="button"
                 onClick={() => startJourney(node.id)}
-                className="flex-1 px-3 py-1.5 rounded bg-[#8f1d14] hover:bg-[#a9251b] text-[#fff8eb] font-bold song-serif shadow transition cursor-pointer"
+                className="w-full px-3 py-1.5 rounded bg-[#8f1d14] hover:bg-[#a9251b] text-[#fff8eb] font-bold song-serif shadow transition cursor-pointer"
               >
-                策马出发
-              </button>
-              <button
-                type="button"
-                onClick={() => enterRegionMap(node.id, true)}
-                className="px-2.5 py-1.5 rounded bg-[#efe5d0] hover:bg-[#e2d3b5] border border-[#9e8462] text-[#3d2812] font-semibold song-serif transition cursor-pointer"
-              >
-                直接入图
+                策马出发（全程 {route.totalLi} 里）
               </button>
             </div>
           </div>

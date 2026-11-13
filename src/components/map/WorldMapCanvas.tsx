@@ -49,6 +49,7 @@ export function WorldMapCanvas() {
   const agility = useGameStore((s) => s.agility)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
   const traveling = useGameStore((s) => s.traveling)
+  const campPos = useGameStore((s) => s.campPos)
 
   const setWorldPan = useGameStore((s) => s.setWorldPan)
   const zoomWorldBy = useGameStore((s) => s.zoomWorldBy)
@@ -204,9 +205,10 @@ export function WorldMapCanvas() {
 
   const playerCoords = useMemo(() => {
     if (traveling) return traveling.playerPos
+    if (campPos) return campPos
     const curr = NODE_MAP[currentNodeId]
     return { x: curr?.x ?? 856.8, y: curr?.y ?? 379.9 }
-  }, [traveling, currentNodeId])
+  }, [traveling, campPos, currentNodeId])
 
   const handleNodeHover = (e: React.MouseEvent, node: WorldNode) => {
     if (dragRef.current?.moved) return
@@ -378,7 +380,7 @@ export function WorldMapCanvas() {
           {WORLD_GRAPH.nodes.map((n) => {
             const isCapital = CAPITALS.has(n.id)
             const isSelected = selectedNodeId === n.id
-            const isCurrent = currentNodeId === n.id && !traveling
+            const isCurrent = currentNodeId === n.id && !traveling && !campPos
             const shortName = n.name.replace('（万山之祖）', '')
             const boxW = shortName.length * 10.5 + 9
 
@@ -405,7 +407,7 @@ export function WorldMapCanvas() {
                 onClick={(e) => {
                   if (dragRef.current?.moved) return
                   e.stopPropagation()
-                  if (currentNodeId === n.id && !traveling) {
+                  if (currentNodeId === n.id && !traveling && !campPos) {
                     enterRegionMap(n.id)
                   } else {
                     selectWorldNode(n.id)
@@ -546,11 +548,16 @@ export function WorldMapCanvas() {
             <circle
               r={11.2}
               fill="none"
-              stroke="#d97706"
+              stroke={campPos && !traveling ? '#059669' : '#d97706'}
               strokeWidth={2.0}
               className="player-pulse"
             />
-            <circle r={9.8} fill="#b45309" stroke="#fffbeb" strokeWidth={1.8} />
+            <circle
+              r={9.8}
+              fill={campPos && !traveling ? '#047857' : '#b45309'}
+              stroke="#fffbeb"
+              strokeWidth={1.8}
+            />
             <text
               x={0}
               y={3.5}
@@ -560,7 +567,7 @@ export function WorldMapCanvas() {
               className="song-serif"
               fill="#fffbeb"
             >
-              {mountKey === 'walk' ? '侠' : '骑'}
+              {campPos && !traveling ? '营' : mountKey === 'walk' ? '侠' : '骑'}
             </text>
           </g>
         </g>
