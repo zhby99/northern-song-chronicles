@@ -50,10 +50,12 @@ def strip_timestamp(filename: str) -> str:
 
 
 def archive_master_images() -> list[dict]:
-    if MASTERS_DIR.exists():
-        shutil.rmtree(MASTERS_DIR)
+    MASTERS_DIR.mkdir(parents=True, exist_ok=True)
     for sub in ("regions", "buildings", "characters"):
-        (MASTERS_DIR / sub).mkdir(parents=True, exist_ok=True)
+        sub_dir = MASTERS_DIR / sub
+        if sub_dir.exists():
+            shutil.rmtree(sub_dir)
+        sub_dir.mkdir(parents=True, exist_ok=True)
 
     discovered: list[tuple[str, Path, str]] = []
     for root, dirs, files in os.walk(BRAIN_ROOT):

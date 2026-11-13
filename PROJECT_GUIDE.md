@@ -18,7 +18,7 @@
 ## 一、项目定位与架构总览
 
 本项目是一款以**公元 1050 年（北宋仁宗皇祐二年 · 《天龙八部》黄金前传时代）**为背景的国风开放世界历史人生模拟武侠 RPG（《北宋立志传》）。
-前端技术栈采用 **Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5 + Lucide-React**，所有核心数据采用由七大 Markdown 设定专卷确定性编译而成的静态 JSON 数据库，配合 `public/assets/` 按需懒加载（364 张生产图片 + Web Audio 场景雅乐）与 `IndexedDB + localStorage` 多槽位存档架构（`M1.2.0` Schema）。
+前端技术栈采用 **Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5 + Lucide-React**，所有核心数据采用由七大 Markdown 设定专卷确定性编译而成的静态 JSON 数据库，配合 `public/assets/` 按需懒加载（366 张生产图片 + Web Audio 场景雅乐）与 `IndexedDB + localStorage` 多槽位存档架构（`M1.2.0` Schema）。
 
 ### 架构分层
 ```mermaid
@@ -118,16 +118,16 @@ northern-song-chronicles/
 │       ├── buildings/                   # 58 张地标建筑高清半3D内景图 (JPG)
 │       ├── regions/                     # 38 张区域州府等轴测全景底图 (JPG)
 │       ├── characters/                  # 人物立绘资源 (共 268 张 JPG)
-│       │   ├── avatars/                 # 128 张角色 1:1 正方头像 (100 历史名臣全员 + 28 武林宗师)
-│       │   ├── fullbody/                # 128 张角色 3:4 全身立绘 (100 历史名臣全员 + 28 武林宗师)
+│       │   ├── avatars/                 # 129 张角色 1:1 正方头像 (100 历史名臣全员 + 29 武林宗师)
+│       │   ├── fullbody/                # 129 张角色 3:4 全身立绘 (100 历史名臣全员 + 29 武林宗师)
 │       │   └── templates/               # 12 张门派/身份通用全身模板立绘
 │       └── audio/                       # 四分类自动扫描音频目录 (world / regions[43] / characters / events)
 │
-├── assets_raw_masters/                  # 原始高精度美术素材存档 (共 362 张，373.9 MB)
+├── assets_raw_masters/                  # 原始高精度美术素材存档 (共 364 张，373.9 MB)
 │   ├── MANIFEST.json                    # 原始素材 SHA-256 元数据清单
 │   ├── buildings/                       # 60 张原始建筑概念设计原图
 │   ├── regions/                         # 42 张原始区域全景原图
-│   └── characters/                      # 260 张原始角色立绘母版
+│   └── characters/                      # 262 张原始角色立绘母版
 │
 ├── scripts/                             # 项目构建、数据编译与资源维护自动化脚本
 │   ├── compile_game_db.py               # 七大 Markdown 设定集 -> JSON 零悬空引用编译器
@@ -166,7 +166,7 @@ northern-song-chronicles/
 
 ## 四、全量游戏素材清单与路径索引
 
-游戏生产图片素材共 **364 张 JPG**，均存放于 `/home/antigravity/zhby99/northern-song-chronicles/public/assets/`。
+游戏生产图片素材共 **366 张 JPG**，均存放于 `/home/antigravity/zhby99/northern-song-chronicles/public/assets/`。
 
 ### 1. 区域州府全景图 (`public/assets/regions/` - 共 38 张)
 绝对路径前缀：`/home/antigravity/zhby99/northern-song-chronicles/public/assets/regions/`
@@ -232,14 +232,14 @@ northern-song-chronicles/
 
 ---
 
-### 3. 角色立绘与头像 (`public/assets/characters/` - 共 268 张)
+### 3. 角色立绘与头像 (`public/assets/characters/` - 共 270 张)
 
 #### (1) 人物头像库 (`public/assets/characters/avatars/` - 128 张)
 - **北宋与四夷历史名臣巨匠全员（100 / 100 张）**：完整覆盖 `NPC-0001` ~ `NPC-0100` 全部公元 1050 年在世帝后、名臣良将、文学大家、科技巨匠与辽夏吐蕃大理女真君臣（宋仁宗、曹皇后、范仲淹、欧阳修、包拯、富弼、韩琦、文彦博、司马光、王安石、苏洵、苏轼、苏辙、周敦颐、邵雍、张载、二程、狄青、杨文广、毕昇、苏颂、沈括、贾宪、辽兴宗、萧挞里、没藏太后、段思廉、完颜乌古乃等）。
-- **绝世大宗师与武林名宿（28 张）**：覆盖 `NPC-0101`~`NPC-0107`（扫地僧法空、天山童姥、李秋水、慕容博、萧远山、无崖子、黄裳）、`NPC-0109`~`NPC-0115`（玄澄、乔峰、汪剑通、玄慈、鸠摩智、林朝瑶、冯默岚）、`NPC-0118`、`NPC-0120`~`NPC-0121`、`NPC-0125`、`NPC-0128`、`NPC-0140`~`NPC-0142`、`NPC-0144`、`NPC-0236`（段正淳）等核心武林人物。
+- **绝世大宗师与武林名宿（29 张）**：覆盖 `NPC-0101`~`NPC-0107`（扫地僧法空、天山童姥、李秋水、慕容博、萧远山、无崖子、黄裳）、`NPC-0109`~`NPC-0115`（玄澄、乔峰、汪剑通、玄慈、鸠摩智、林朝瑶、冯默岚）、`NPC-0118`、`NPC-0120`~`NPC-0121`、`NPC-0125`、`NPC-0128`、`NPC-0140`~`NPC-0142`、`NPC-0144`、`NPC-0236`（段正淳）等核心武林人物。
 
 #### (2) 人物全身立绘库 (`public/assets/characters/fullbody/` - 128 张)
-- 与上述 128 位角色严格一对一配对，全部采用 `3:4`（`768×1024`）标准宋画立轴全身构图（含 `NPC-0001` ~ `NPC-0100` 全员 100 张 + 武林核心名宿 28 张）。
+- 与上述 129 位角色严格一对一配对，全部采用 `3:4`（`768×1024`）标准宋画立轴全身构图（含 `NPC-0001` ~ `NPC-0100` 全员 100 张 + 武林核心名宿 29 张）。
 
 #### (3) 通用门派与职业全身模板 (`public/assets/characters/templates/` - 12 张)
 当其余二三流 NPC 尚未绘制唯一专属原画时，系统提供 12 套宋风门派/身份通用模板与古籍水墨名牌兜底：

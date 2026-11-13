@@ -19,12 +19,12 @@
 ## 二、 当前里程碑进度（Single Source of Truth）
 
 - **已完成阶段**：**Phase M0 全部完成 ✅ · Phase M1-0 / M1-2 / M1-3a / M1-3b / M3-1 已完成 ✅**
-  - `[M0-1]` 模块化前端工程：`Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5`，364 张运行时原画（38 地区全景 + 58 建筑内景 + 128 人物头像 + 128 人物全身像 + 12 门派模板）与 Web Audio 无缝循环 BGM 抽离至 `public/assets/` 按需懒加载，代码包内嵌 Base64 为 `0 Bytes`。
+  - `[M0-1]` 模块化前端工程：`Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5`，366 张运行时原画（38 地区全景 + 58 建筑内景 + 129 人物头像 + 129 人物全身像 + 12 门派模板）与 Web Audio 无缝循环 BGM 抽离至 `public/assets/` 按需懒加载，代码包内嵌 Base64 为 `0 Bytes`。
   - `[M0-2]` 全局唯一标准 ID 字典：`src/data/idRegistry.json`（43 地区 `REG-01..43`、30 武林门派 `SECT-01..30`［20 一流大派 + 10 二三流门派］、11 朝堂四夷组织 `ORG-01..11`、216 武学 `MA-001..216`、100 武器 `WPN-001..100`），1,000 名 NPC（`NPC-0001..1000`）100% 挂载至最末层建筑/子建筑，零悬空引用。
   - `[M0-3]` 结构化数据库编译管线：`scripts/compile_game_db.py`（`npm run build:db`）将 `docs/*.md` 七大设定专卷一键编译为 `src/data/*.json` 与快速索引门面 `src/data/gameDb.ts`。
   - `[M0-4]` 三层空间导航与存取档：`天下舆图 (world) -> 43 地区等轴全景 (region: 38 手绘 JPG + 5 新辟州府宋辽营造青绿 SVG 矢量兜底) -> 138 座特殊建筑内景 (building: 58 手绘 JPG + 80 宋式营造 SVG 矢量内院兜底)`；基于 `IndexedDB + localStorage` 实装 1 自动槽 + 6 手动槽存取档与 `.json` 存档导入导出（当前仅支持最新 `M1.2.0` Schema，开发期不保留旧版历史存档兼容包袱）。
   - `[M1-0 & M1-2 & M1-3a/b]` 全局顶部常驻状态栏（年月日十二时辰 + 气血/体能 + 资金/粮草）、1.5× 宽幅十卷枢机菜单（独立【壹·主角面板】【贰·披挂与武学：7 槽披挂 + 6 槽武学运使】【叁·行囊四库】）、216 门十一大类武学 1~10 重数值与 37 门天阶特效、100 种百兵谱武器、100 卷典籍书画、30 种丹药毒物与 50 件雅器百工全量入库。
-  - `[资产归档]` 跨分支 362 张未压缩高清母版原画归档于 `assets_raw_masters/`，早期原型脚本与画师 Agent 规范归档于 `legacy_prototypes_and_tools/`。
+  - `[资产归档]` 跨分支 364 张未压缩高清母版原画归档于 `assets_raw_masters/`，早期原型脚本与画师 Agent 规范归档于 `legacy_prototypes_and_tools/`。
 - **下一阶段切入点**：**Phase M1-1（开局创角与出身）→ M1-3c/M1-4（剩余披挂商贸与五建筑/30门派拜师）→ Phase M2（三择一同步盲选回合战斗）**
   - 详见 `docs/ROADMAP_AND_TODO.md` 中 `[M1-1]`、`[M1-3c]`、`[M1-4]` 与 `[M2-1..4]` 任务拆解。
 

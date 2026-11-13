@@ -5,14 +5,14 @@
 ## 当前工程里程碑进度（Phase M0 全部完成 · Phase M1 & M3-1 稳步推进中）
 - **[x] M0-1：模块化前端工程、静态原画懒加载与无缝雅乐引擎**
   - 技术栈：`Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5`
-  - 静态原画抽离：**364 张独立 JPG 生产原画（65.4 MB）** 存放于 `public/assets/` 按需懒加载，代码与 JSON 数据层内嵌 Base64 为 **0 Bytes**。
+  - 静态原画抽离：**366 张独立 JPG 生产原画（65.8 MB）** 存放于 `public/assets/` 按需懒加载，代码与 JSON 数据层内嵌 Base64 为 **0 Bytes**。
   - 皇祐雅乐坊：内置 Web Audio 无缝循环与 Vite 自动曲目扫描插件（`public/assets/audio/`），支持天下舆图与 43 地区场景配乐自动切换。
 - **[x] M0-2 & M0-3：全局唯一标准 ID 字典与七大设定集结构化编译**
   - 建立全局唯一标准字典（`src/data/idRegistry.json`）：**43 地区 ID**（`REG-01..43`：大宋 19 府 + 四夷 7 城 + 17 名山雄关）、**30 武林门派**（`SECT-01..30`：20 一流大派 + 10 二三流世家武馆）+ **11 朝堂四夷组织**（`ORG-01..11`）、**216 门武学**（`MA-001..216`）、**100 种百兵武器**（`WPN-001..100`）、**1,000 名历史与江湖人物**（`NPC-0001..1000`）。
   - `scripts/compile_game_db.py`（`npm run build:db`）一键解析七大 Markdown 设定专卷，生成严格类型校验的静态 JSON 数据库，外键悬空引用为 **0**。
 - **[x] M0-4 & M3-1：三层空间无缝漫游、千人最末层入驻与多槽位存取档**
   - 打通 `天下舆图 (world) -> 43 地区全景 (region: 38 手绘 JPG + 5 青绿营造 SVG) -> 138 座特殊建筑内景 (building: 58 手绘 JPG + 80 宋式营造 SVG)`，支持按时辰行军与旷野原地扎营。
-  - 1,000 名 NPC 全部具备实战四维、先天三维与十艺百工属性，并精确挂载至 43 地区最末层建筑与 414 处室内子点位；100 位历史名臣全员与 28 位武林宗师已实装独立头像与全身立绘（共 256 张人物原画）。
+  - 1,000 名 NPC 全部具备实战四维、先天三维与十艺百工属性，并精确挂载至 43 地区最末层建筑与 414 处室内子点位；100 位历史名臣全员与 29 位武林宗师已实装独立头像与全身立绘（共 258 张人物原画）。
   - `src/utils/saveManager.ts` 基于 `IndexedDB + localStorage` 提供 1 自动槽 + 6 手动槽存取档与 `.json` 导入导出（`M1.2.0` Schema）。
 - **[x] M1-0 & M1-2 & M1-3a/b：1.5× 十卷枢机菜单、216 武学重数特效与百兵四库**
   - **常驻顶部状态栏（`TopHud.tsx`）**：实时显示年月日十二时辰、气血/体能双进度条、纹银与行军干粮。
@@ -48,9 +48,9 @@ northern-song-chronicles/
 ├── public/assets/                     # 运行时按需懒加载生产资源
 │   ├── regions/                       # 38 张州府名山半3D等轴全景图 (JPG)
 │   ├── buildings/                     # 58 张特殊建筑半3D内景图 (JPG)
-│   ├── characters/                    # 268 张人物立绘资源 (128 头像 + 128 全身 + 12 门派模板)
+│   ├── characters/                    # 270 张人物立绘资源 (129 头像 + 129 全身 + 12 门派模板)
 │   └── audio/                         # 四分类场景配乐目录 (world / regions / characters / events)
-├── assets_raw_masters/                # 未压缩高清母版原画归档（共 362 张，373.9 MB + MANIFEST.json）
+├── assets_raw_masters/                # 未压缩高清母版原画归档（共 364 张，373.9 MB + MANIFEST.json）
 ├── legacy_prototypes_and_tools/       # 早期原型脚本与画师 Agent 提示词规范归档
 ├── scripts/                           # 数据编译 (compile_game_db.py) 与单文件构建脚本
 └── src/                               # 模块化 React 19 + TypeScript 7 + Zustand 5 源码

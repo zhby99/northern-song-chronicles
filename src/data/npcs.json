@@ -6865,7 +6865,7 @@
     "specialtyTags": [],
     "bio": "盘踞荆楚洞庭铁掌峰之霸主，双掌力可裂碑碎石，水上漂轻功踏波横渡汉江，正邪莫敢轻捋虎须。",
     "avatarUrl": "/assets/characters/avatars/NPC-0117.jpg",
-    "fullbodyUrl": null,
+    "fullbodyUrl": "/assets/characters/fullbody/NPC-0117.jpg",
     "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg"
   },
   {
@@ -6982,7 +6982,7 @@
     ],
     "specialtyTags": [],
     "bio": "武当山紫霄宫掌教，鹤发童颜，深明老庄以柔克刚之妙，梯云纵与太极剑意独步汉水荆襄。",
-    "avatarUrl": null,
+    "avatarUrl": "/assets/characters/avatars/NPC-0119.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0119.jpg",
     "templateUrl": "/assets/characters/templates/tpl_taoist_master_fb.jpg"
   },

@@ -1,10 +1,10 @@
 {
-  "totalMasterFiles": 362,
-  "totalBytes": 373934150,
+  "totalMasterFiles": 364,
+  "totalBytes": 375800092,
   "countsByCategory": {
     "regions": 42,
     "buildings": 60,
-    "characters": 260
+    "characters": 262
   },
   "files": [
     {
@@ -2073,11 +2073,27 @@
     },
     {
       "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0117_fb.jpg",
+      "originalFilename": "npc_0117_fb_1794588380653.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/npc_0117_fb_1794588380653.jpg",
+      "bytes": 913404,
+      "sha256": "b661b9383c9873d17e4c33b103b6766406bb9c7e298215c4595e1d259e19f9a1"
+    },
+    {
+      "category": "characters",
       "archivePath": "assets_raw_masters/characters/npc_0118_av.jpg",
       "originalFilename": "npc_0118_av_1794507033810.jpg",
       "sourceBrainRelativePath": "24dbed919af248a6ec495edc582739ca/npc_0118_av_1794507033810.jpg",
       "bytes": 834856,
       "sha256": "cbc21eb35d9b1c40435cd97b290e4956d40a402fdfe5bc70c85ca3df2569ad4b"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0119_av.jpg",
+      "originalFilename": "npc_0119_av_1794588429303.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/npc_0119_av_1794588429303.jpg",
+      "bytes": 952538,
+      "sha256": "97be9675adbfc31e0753b0eabf7aa5be056bc141bfc0262b1e38a279998cfba6"
     },
     {
       "category": "characters",
