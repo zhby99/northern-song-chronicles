@@ -229,7 +229,15 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     }
     for (const k of EQUIP_SLOT_KEYS) {
       const val = st.equipped[k]
-      cleanEquipped[k] = typeof val === 'string' && ITEM_DB_MAP[val] ? val : null
+      if (typeof val === 'string' && ITEM_DB_MAP[val]) {
+        cleanEquipped[k] = val
+      } else if (k === 'weapon' && val === 'ITM-EQP-WPN-001') {
+        cleanEquipped.weapon = 'WPN-061'
+      } else if (k === 'weapon' && val === 'ITM-EQP-WPN-002') {
+        cleanEquipped.weapon = 'WPN-068'
+      } else {
+        cleanEquipped[k] = null
+      }
     }
   }
 
@@ -296,18 +304,9 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
       }))
   }
 
-  // Sync mountKey from equipped mount slot if present
+  // Sync mountKey from equipped mount slot (when mount slot is empty, default to walk 60 里/日)
   const mountItem = cleanEquipped.mount ? ITEM_DB_MAP[cleanEquipped.mount] : null
-  const derivedMountKey =
-    mountItem?.equipBonus?.mountKey ??
-    (cleanEquipped.mount === null && isRecord(st.equipped)
-      ? 'walk'
-      : st.mountKey === 'walk' ||
-          st.mountKey === 'horse' ||
-          st.mountKey === 'xiXia' ||
-          st.mountKey === 'ferghana'
-        ? st.mountKey
-        : 'horse')
+  const derivedMountKey = mountItem?.equipBonus?.mountKey ?? 'walk'
 
   const hpVal = typeof st.hp === 'number' ? Math.max(1, Math.floor(st.hp)) : 1200
   const maxHpVal =

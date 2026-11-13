@@ -1,12 +1,24 @@
+import { MARTIAL_ART_DB_MAP, WEAPONS_DB } from './gameDb'
+import { computeSingleArtBonus } from './playerMartialArts'
 import type {
   BagCategoryKey,
+  CompiledWeaponRecord,
   EquipmentSlotKey,
   EquipmentStatBonus,
+  EquippedArtsMap,
   EquippedSlotsMap,
   GameItemDef,
   InventoryStack,
   ItemRarity,
+  LearnedArtEntry,
+  MartialArtSlotKey,
 } from '../types/game'
+
+export const DEFAULT_HERO_TALENTS = {
+  根骨: 72,
+  悟性: 84,
+  颜值: 78,
+} as const
 
 export const EQUIPMENT_SLOT_METAS: Array<{
   slot: EquipmentSlotKey
@@ -21,7 +33,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '武 器',
     shortLabel: '武器',
     seal: '兵',
-    hint: '刀剑枪棍扇 · 增幅外功杀伤',
+    hint: '百兵谱 100 种已定稿 · 增幅外功杀伤与武学共鸣',
     column: 'left',
   },
   {
@@ -29,7 +41,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '弓 箭',
     shortLabel: '弓箭',
     seal: '射',
-    hint: '猎弓角弓劲弩 · 远程百步穿杨',
+    hint: '第四卷待定稿 · 猎弓角弓神臂远射',
     column: 'left',
   },
   {
@@ -37,7 +49,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '配饰壹',
     shortLabel: '配饰壹',
     seal: '佩',
-    hint: '玉佩护心宝镜 · 凝神定气护体',
+    hint: '第五卷待定稿 · 玉佩护心镜凝神护体',
     column: 'left',
   },
   {
@@ -45,7 +57,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '服 饰',
     shortLabel: '服饰',
     seal: '衣',
-    hint: '劲装澜衫软甲 · 护佑周身气血',
+    hint: '第二卷待定稿 · 劲装澜衫宝甲护佑气血',
     column: 'right',
   },
   {
@@ -53,7 +65,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '鞋 履',
     shortLabel: '鞋履',
     seal: '履',
-    hint: '麻鞋快靴云履 · 提振轻功身法',
+    hint: '第三卷待定稿 · 麻鞋快靴云履提振身法',
     column: 'right',
   },
   {
@@ -61,7 +73,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '配饰贰',
     shortLabel: '配饰贰',
     seal: '饰',
-    hint: '佛珠扳指腰牌 · 奇门抗性机缘',
+    hint: '第五卷待定稿 · 佛珠香囊信物抗性机缘',
     column: 'right',
   },
   {
@@ -69,7 +81,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '坐 骑',
     shortLabel: '坐骑',
     seal: '骑',
-    hint: '健马西夏战驹汗血 · 决定千里行军脚力',
+    hint: '第六卷待定稿 · 空置时默认徒步 60 里/日',
     column: 'bottom',
   },
 ]
@@ -107,7 +119,7 @@ export const BAG_CATEGORY_METAS: Array<{
     numeral: '肆',
     label: '行囊杂物',
     seal: '杂',
-    subtitle: '随身备用兵甲衣履坐骑契券、关防路引、门派信物与四海奇珍',
+    subtitle: '随身备用百兵武器、后续各卷披挂、关防路引、门派信物与四海奇珍',
   },
 ]
 
@@ -135,6 +147,20 @@ export const RARITY_STYLE_MAP: Record<
     cardBg: 'bg-gradient-to-br from-[#faf3ff] to-[#ebe0f5]',
     glowText: 'text-[#5b3b73]',
   },
+  良阶: {
+    badgeBg: 'bg-[#215744]',
+    badgeText: 'text-[#ecfdf5]',
+    borderCls: 'border-[#3f856b]',
+    cardBg: 'bg-gradient-to-br from-[#f2fbf7] to-[#dceee6]',
+    glowText: 'text-[#1c4d3b]',
+  },
+  凡阶: {
+    badgeBg: 'bg-[#6b5338]',
+    badgeText: 'text-[#fbf4e6]',
+    borderCls: 'border-[#9e8462]',
+    cardBg: 'bg-[#faf3e3]',
+    glowText: 'text-[#52391e]',
+  },
   良品: {
     badgeBg: 'bg-[#215744]',
     badgeText: 'text-[#ecfdf5]',
@@ -151,7 +177,7 @@ export const RARITY_STYLE_MAP: Record<
   },
 }
 
-export const ITEMS_DB: GameItemDef[] = [
+const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
   // ==================== 1. 典籍书画 (scrolls) ====================
   {
     id: 'ITM-SCR-001',
@@ -196,7 +222,7 @@ export const ITEMS_DB: GameItemDef[] = [
     useEffect: {
       mp: 25,
       learnArtId: 'MA-109',
-      learnArtHint: '领悟良品上品刀法《洛阳金刀谱》，可于【披挂与武学】面板装配出战！',
+      learnArtHint: '领悟良品上品刀法《洛阳金刀谱》，佩备【洛阳九环金刀】可触发绝配共鸣！',
     },
   },
   {
@@ -349,240 +375,7 @@ export const ITEMS_DB: GameItemDef[] = [
     desc: '北宋市易行掌柜与阵法术士常用的随身算筹，推演钱粮账目与奇门方位不可或缺。',
   },
 
-  // ==================== 4. 行囊杂物 & 7槽装备 (misc) ====================
-  // 武器 (weapon)
-  {
-    id: 'ITM-EQP-WPN-001',
-    name: '晋阳百炼青钢剑',
-    category: 'misc',
-    subType: '装备 · 武器',
-    rarity: '良品',
-    equipSlot: 'weapon',
-    stackable: false,
-    value: 95,
-    desc: '河东太原铁冶监精铁百炼打造的长剑，剑脊挺拔，寒光如水，江湖少侠趁手兵刃。',
-    equipBonus: {
-      attack: 28,
-      agility: 3,
-    },
-  },
-  {
-    id: 'ITM-EQP-WPN-002',
-    name: '齐眉熟铜哨棒',
-    category: 'misc',
-    subType: '装备 · 武器',
-    rarity: '凡品',
-    equipSlot: 'weapon',
-    stackable: false,
-    value: 35,
-    desc: '包裹熟铜箍的白蜡杆哨棒，走州过府防身打虎常用，势大力沉。',
-    equipBonus: {
-      attack: 18,
-      maxHp: 60,
-    },
-  },
-
-  // 服饰 (armor)
-  {
-    id: 'ITM-EQP-ARM-001',
-    name: '玄青劲装箭袖袍',
-    category: 'misc',
-    subType: '装备 · 服饰',
-    rarity: '凡品',
-    equipSlot: 'armor',
-    stackable: false,
-    value: 42,
-    desc: '利落耐脏的北宋江湖窄袖劲装，内衬细密棉麻，兼顾防风御寒与拳脚施展。',
-    equipBonus: {
-      maxHp: 120,
-      defense: 15,
-      maxStamina: 10,
-    },
-  },
-  {
-    id: 'ITM-EQP-ARM-002',
-    name: '杭绸暗纹儒衫',
-    category: 'misc',
-    subType: '装备 · 服饰',
-    rarity: '良品',
-    equipSlot: 'armor',
-    stackable: false,
-    value: 88,
-    desc: '余杭上等丝绸裁就的圆领澜衫，温润儒雅，出入书院樊楼颇添风仪。',
-    equipBonus: {
-      maxHp: 80,
-      defense: 10,
-      res: 4,
-      skills: { 诗词: 3, 辩才: 3 },
-    },
-  },
-
-  // 鞋履 (shoes)
-  {
-    id: 'ITM-EQP-SHO-001',
-    name: '千层牛筋快靴',
-    category: 'misc',
-    subType: '装备 · 鞋履',
-    rarity: '凡品',
-    equipSlot: 'shoes',
-    stackable: false,
-    value: 36,
-    desc: '熟牛皮配千层麻底缝制的轻便快靴，日行百里不伤脚力。',
-    equipBonus: {
-      agility: 6,
-      maxStamina: 15,
-    },
-  },
-  {
-    id: 'ITM-EQP-SHO-002',
-    name: '踏雪鹿皮轻云履',
-    category: 'misc',
-    subType: '装备 · 鞋履',
-    rarity: '良品',
-    equipSlot: 'shoes',
-    stackable: false,
-    value: 110,
-    desc: '塞北软鹿皮内嵌轻蚕丝精制而成，落地悄无声息，施展轻功如虎添翼。',
-    equipBonus: {
-      agility: 12,
-      maxStamina: 20,
-    },
-  },
-
-  // 弓箭 (bow)
-  {
-    id: 'ITM-EQP-BOW-001',
-    name: '神臂桦木猎弓',
-    category: 'misc',
-    subType: '装备 · 弓箭',
-    rarity: '凡品',
-    equipSlot: 'bow',
-    stackable: false,
-    value: 50,
-    desc: '桑木胎贴桦皮制成的轻便猎弓，附狼牙羽箭一壶，山林射猎与守御流寇颇为实用。',
-    equipBonus: {
-      attack: 14,
-      agility: 2,
-    },
-  },
-  {
-    id: 'ITM-EQP-BOW-002',
-    name: '河西牛角良弓',
-    category: 'misc',
-    subType: '装备 · 弓箭',
-    rarity: '良品',
-    equipSlot: 'bow',
-    stackable: false,
-    value: 125,
-    desc: '鄜延边军仿党项角弓规制督造的复合强弓，弓弦崩响如雷，破甲力极强。',
-    equipBonus: {
-      attack: 26,
-      riding: 4,
-    },
-  },
-
-  // 配饰 (accessory1 / accessory2)
-  {
-    id: 'ITM-EQP-ACC-001',
-    name: '和田青白双鱼佩',
-    category: 'misc',
-    subType: '装备 · 配饰',
-    rarity: '良品',
-    equipSlot: 'accessory1',
-    stackable: false,
-    value: 90,
-    desc: '温润剔透的西域和田青白玉佩，贴身佩戴有宁心静气、抵御外邪之效。',
-    equipBonus: {
-      maxMp: 80,
-      res: 6,
-    },
-  },
-  {
-    id: 'ITM-EQP-ACC-002',
-    name: '精铜护心宝镜',
-    category: 'misc',
-    subType: '装备 · 配饰',
-    rarity: '凡品',
-    equipSlot: 'accessory2',
-    stackable: false,
-    value: 45,
-    desc: '武林行脚客常系于胸前的弧面熟铜镜，关键时刻可格挡暗器毒针。',
-    equipBonus: {
-      maxHp: 75,
-      defense: 10,
-      res: 3,
-    },
-  },
-  {
-    id: 'ITM-EQP-ACC-003',
-    name: '五台山菩提念珠',
-    category: 'misc',
-    subType: '装备 · 配饰',
-    rarity: '良品',
-    equipSlot: 'accessory1',
-    stackable: false,
-    value: 80,
-    desc: '清凉寺高僧加持过的一百零八颗星月菩提珠，檀香幽远，清心寡欲。',
-    equipBonus: {
-      maxMp: 110,
-      res: 8,
-      skills: { 经义: 4 },
-    },
-  },
-
-  // 坐骑 (mount)
-  {
-    id: 'ITM-EQP-MNT-001',
-    name: '中原健马 · 枣红骢',
-    category: 'misc',
-    subType: '装备 · 坐骑',
-    rarity: '凡品',
-    equipSlot: 'mount',
-    stackable: false,
-    value: 120,
-    desc: '骨骼匀称的黄河流域良马，性情温驯耐力绵长，官道日行百二十里。',
-    equipBonus: {
-      mountKey: 'horse',
-      riding: 5,
-      maxStamina: 15,
-    },
-  },
-  {
-    id: 'ITM-EQP-MNT-002',
-    name: '河曲西夏战马 · 乌云踏雪',
-    category: 'misc',
-    subType: '装备 · 坐骑',
-    rarity: '地阶',
-    equipSlot: 'mount',
-    stackable: false,
-    value: 360,
-    desc: '产自塞上河曲草滩的党项铁骑良驹，四蹄雪白如踏霜雪，日行二百二十里。',
-    equipBonus: {
-      mountKey: 'xiXia',
-      riding: 12,
-      agility: 4,
-      maxStamina: 25,
-    },
-  },
-  {
-    id: 'ITM-EQP-MNT-003',
-    name: '大宛汗血神驹 · 赤电',
-    category: 'misc',
-    subType: '装备 · 坐骑',
-    rarity: '天阶',
-    equipSlot: 'mount',
-    stackable: false,
-    value: 980,
-    desc: '西域万里丝路偶现的绝世天马，疾驰时肩颈汗出如血，瞬息千里，万金难求。',
-    equipBonus: {
-      mountKey: 'ferghana',
-      riding: 20,
-      agility: 8,
-      maxStamina: 40,
-    },
-  },
-
-  // 纯杂物 / 信物
+  // ==================== 4. 行囊杂物 · 路引信物 (misc) ====================
   {
     id: 'ITM-MSC-001',
     name: '开封府通关勘合路引',
@@ -605,18 +398,37 @@ export const ITEMS_DB: GameItemDef[] = [
   },
 ]
 
+// 将《披挂总纲·百兵谱》编译生成的 100 种武器（10天/20地/30良/40凡）映射为统一物品定义（旧 14 件占位披挂已全部移除）
+export const WEAPON_ITEMS_DB: GameItemDef[] = WEAPONS_DB.map((w) => ({
+  id: w.id,
+  name: w.name,
+  category: 'misc',
+  subType: `披挂 · 武器（${w.weaponType}）`,
+  rarity: w.tier,
+  equipSlot: 'weapon',
+  stackable: false,
+  value: w.value,
+  desc: w.description,
+  lore: `${w.originFull} · 劲力【${w.forceTrait}】 · 射程 ${w.attackRange} 格`,
+  equipBonus: w.equipBonus,
+  weaponMeta: w,
+}))
+
+export const ITEMS_DB: GameItemDef[] = [...NON_EQUIPMENT_ITEMS, ...WEAPON_ITEMS_DB]
+
 export const ITEM_DB_MAP: Record<string, GameItemDef> = Object.fromEntries(
   ITEMS_DB.map((it) => [it.id, it]),
 )
 
+// 七槽初始状态：仅装备百兵谱凡阶上品【青萍游侠剑】，其余六槽置空待后续各卷披挂定稿
 export const DEFAULT_EQUIPPED_SLOTS: EquippedSlotsMap = {
-  weapon: 'ITM-EQP-WPN-001',
-  armor: 'ITM-EQP-ARM-001',
-  shoes: 'ITM-EQP-SHO-001',
-  bow: 'ITM-EQP-BOW-001',
-  accessory1: 'ITM-EQP-ACC-001',
+  weapon: 'WPN-061',
+  armor: null,
+  shoes: null,
+  bow: null,
+  accessory1: null,
   accessory2: null,
-  mount: 'ITM-EQP-MNT-001',
+  mount: null,
 }
 
 export const DEFAULT_INITIAL_INVENTORY: InventoryStack[] = [
@@ -636,11 +448,10 @@ export const DEFAULT_INITIAL_INVENTORY: InventoryStack[] = [
   { itemId: 'ITM-TOL-002', qty: 1 },
   { itemId: 'ITM-TOL-003', qty: 1 },
   { itemId: 'ITM-TOL-004', qty: 1 },
-  // 行囊杂物（含备用装备供测试穿卸替换）
-  { itemId: 'ITM-EQP-ARM-002', qty: 1 },
-  { itemId: 'ITM-EQP-SHO-002', qty: 1 },
-  { itemId: 'ITM-EQP-ACC-002', qty: 1 },
-  { itemId: 'ITM-EQP-MNT-002', qty: 1 },
+  // 行囊杂物（含 3 把不同类别的百兵谱备用兵刃，便于测试换装与兵武共鸣）
+  { itemId: 'WPN-068', qty: 1 }, // 少林白蜡齐眉棍（凡阶上品·棍棒）
+  { itemId: 'WPN-072', qty: 1 }, // 汴京铁骨纸扇（凡阶上品·奇门音兵，绝配折扇点穴功）
+  { itemId: 'WPN-033', qty: 1 }, // 洛阳九环金背刀（良阶上品·刀，绝配洛阳金刀谱）
   { itemId: 'ITM-MSC-001', qty: 1 },
   { itemId: 'ITM-MSC-002', qty: 1 },
 ]
@@ -655,6 +466,126 @@ export function canItemFitSlot(item: GameItemDef, targetSlot: EquipmentSlotKey):
     return true
   }
   return item.equipSlot === targetSlot
+}
+
+export interface PlayerEquipCheckContext {
+  maxHp: number
+  maxMp: number
+  agility: number
+  res: number
+  ridingSkill: number
+  skills: Record<string, number>
+  talents?: {
+    根骨: number
+    悟性: number
+    颜值: number
+  }
+}
+
+export interface EquipReqCheckDetail {
+  stat: string
+  min: number
+  current: number
+  met: boolean
+}
+
+export function checkWeaponEquipRequirements(
+  weapon: CompiledWeaponRecord | undefined | null,
+  ctx: PlayerEquipCheckContext,
+): {
+  ok: boolean
+  details: EquipReqCheckDetail[]
+} {
+  if (!weapon || weapon.statRequirements.length === 0) {
+    return { ok: true, details: [] }
+  }
+  const talents = ctx.talents ?? DEFAULT_HERO_TALENTS
+  const details: EquipReqCheckDetail[] = weapon.statRequirements.map((req) => {
+    let current = 0
+    if (req.stat === '根骨') current = talents.根骨
+    else if (req.stat === '悟性') current = talents.悟性
+    else if (req.stat === '颜值') current = talents.颜值
+    else if (req.stat === '气血') current = ctx.maxHp
+    else if (req.stat === '内力') current = ctx.maxMp
+    else if (req.stat === '身法') current = ctx.agility
+    else if (req.stat === '抗性') current = ctx.res
+    else if (req.stat === '骑术') current = ctx.ridingSkill
+    else current = ctx.skills[req.stat] ?? 0
+
+    return {
+      stat: req.stat,
+      min: req.min,
+      current,
+      met: current >= req.min,
+    }
+  })
+
+  return {
+    ok: details.every((d) => d.met),
+    details,
+  }
+}
+
+export interface WeaponSynergyMatchItem {
+  slot: MartialArtSlotKey
+  artId: string
+  artName: string
+  category: string
+  pct: number
+  isSignature: boolean
+  bonusAttack: number
+}
+
+export function computeWeaponArtSynergy(
+  weaponId: string | null | undefined,
+  equippedArts: EquippedArtsMap,
+  learnedArts: LearnedArtEntry[],
+): {
+  totalSynergyAttack: number
+  matches: WeaponSynergyMatchItem[]
+} {
+  if (!weaponId) return { totalSynergyAttack: 0, matches: [] }
+  const def = ITEM_DB_MAP[weaponId]
+  const wpn = def?.weaponMeta
+  if (!wpn) return { totalSynergyAttack: 0, matches: [] }
+
+  const lvMap = new Map<string, number>()
+  for (const e of learnedArts) {
+    lvMap.set(e.artId, e.level)
+  }
+
+  const moveSlots: MartialArtSlotKey[] = ['move1', 'move2', 'move3', 'move4']
+  const matches: WeaponSynergyMatchItem[] = []
+  let totalSynergyAttack = 0
+
+  for (const slot of moveSlots) {
+    const aid = equippedArts[slot]
+    if (!aid) continue
+    const art = MARTIAL_ART_DB_MAP[aid]
+    if (!art) continue
+
+    const catRule = wpn.synergies.find((s) => art.category.includes(s.category))
+    const isSig = wpn.signatureArtIds.includes(aid)
+    if (!catRule && !isSig) continue
+
+    const pct = (catRule?.bonusPct ?? 0) + (isSig ? 12 : 0)
+    const lv = lvMap.get(aid) ?? 1
+    const baseArtBonus = computeSingleArtBonus(art, lv, slot)
+    const bonusAttack = Math.max(2, Math.round((baseArtBonus.attack + (wpn.equipBonus.attack ?? 0) * 0.35) * (pct / 100)))
+
+    totalSynergyAttack += bonusAttack
+    matches.push({
+      slot,
+      artId: aid,
+      artName: art.cleanName,
+      category: art.category,
+      pct,
+      isSignature: isSig,
+      bonusAttack,
+    })
+  }
+
+  return { totalSynergyAttack, matches }
 }
 
 export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<

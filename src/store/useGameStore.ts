@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, NPC_DB_MAP } from '../data/gameDb'
 import {
   canItemFitSlot,
+  checkWeaponEquipRequirements,
   computeEquipmentTotals,
   DEFAULT_EQUIPPED_SLOTS,
   DEFAULT_INITIAL_INVENTORY,
@@ -273,6 +274,7 @@ export interface GameStoreState {
   setBagCategory: (cat: BagCategoryKey) => void
   equipItemToSlot: (itemId: string, targetSlot?: EquipmentSlotKey) => void
   unequipSlot: (slot: EquipmentSlotKey) => void
+  acquireWeaponToBag: (weaponId: string) => void
   equipArtToSlot: (artId: string, slot: MartialArtSlotKey) => void
   unequipArtSlot: (slot: MartialArtSlotKey) => void
   practiceLearnedArt: (artId: string) => void
@@ -407,8 +409,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   logs: [
     createLogEntry(
       1,
-      '行囊枢机',
-      '已实装独立【主角面板】、【披挂与武学（7槽装备 + 6槽武学运使修炼）】与【行囊四库】三大核心卷宗！',
+      '百兵入典',
+      '已清空旧版占位披挂，正式载入《皇祐披挂总纲 · 百兵谱》100 种武器（10天阶 · 20地阶 · 30良阶 · 40凡阶）与兵武共鸣系统！',
       true,
       4,
     ),
@@ -742,6 +744,35 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const def = ITEM_DB_MAP[itemId]
     if (!def || !def.equipSlot) return
 
+    if (def.weaponMeta) {
+      const reqCheck = checkWeaponEquipRequirements(def.weaponMeta, {
+        maxHp: s.maxHp,
+        maxMp: s.maxMp,
+        agility: s.agility,
+        res: s.res,
+        ridingSkill: s.ridingSkill,
+        skills: s.skills,
+      })
+      if (!reqCheck.ok) {
+        const unmetStr = reqCheck.details
+          .filter((d) => !d.met)
+          .map((d) => `${d.stat} ${d.current}/${d.min}`)
+          .join('、')
+        const warnMsg = `难以驾驭${def.weaponMeta.fullTier}神兵【${def.name}】！未达佩备门槛：${unmetStr}`
+        set({
+          actionFeedback: {
+            text: warnMsg,
+            tone: 'warn',
+          },
+          logs: [
+            createLogEntry(s.dayCount, '神兵反噬', warnMsg, true, s.shichenIdx),
+            ...s.logs,
+          ].slice(0, 60),
+        })
+        return
+      }
+    }
+
     let slot: EquipmentSlotKey = def.equipSlot
     if (preferredSlot && canItemFitSlot(def, preferredSlot)) {
       slot = preferredSlot
@@ -799,6 +830,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       res: Math.max(0, s.res + deltaRes),
       ridingSkill: Math.max(0, s.ridingSkill + deltaRiding),
       skills: nextSkills,
+      actionFeedback: {
+        text: `已佩备【${def.name}】！`,
+        tone: 'success',
+      },
       logs: [
         createLogEntry(
           s.dayCount,
@@ -863,6 +898,39 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           '卸除佩备',
           `已将【${oldDef?.name ?? oldItemId}】收入行囊杂物栏。`,
           false,
+          s.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  acquireWeaponToBag: (weaponId) => {
+    const s = get()
+    const def = ITEM_DB_MAP[weaponId]
+    if (!def || !def.weaponMeta) return
+    if (s.equipped.weapon === weaponId || s.inventory.some((x) => x.itemId === weaponId)) {
+      set({
+        actionFeedback: {
+          text: `【${def.name}】已在少侠随身佩备或行囊之中！`,
+          tone: 'talk',
+        },
+      })
+      return
+    }
+    const nextInv = addItemToInventory(s.inventory, weaponId, 1)
+    set({
+      inventory: nextInv,
+      actionFeedback: {
+        text: `已将${def.weaponMeta.fullTier}兵刃【${def.name}】收入【行囊四库 → 行囊杂物】！`,
+        tone: 'success',
+      },
+      logs: [
+        createLogEntry(
+          s.dayCount,
+          '百兵品鉴',
+          `自《百兵谱》调取【${def.name}（${def.weaponMeta.fullTier}·${def.weaponMeta.weaponType}）】入囊备用。`,
+          true,
           s.shichenIdx,
         ),
         ...s.logs,

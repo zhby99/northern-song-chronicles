@@ -10,6 +10,7 @@ export type MenuTabKey =
   | 'bag'
   | 'portraits'
   | 'martialArts'
+  | 'armory'
   | 'engineering'
   | 'save'
   | 'load'
@@ -361,6 +362,7 @@ export interface CanonicalIdRegistry {
     totalBuildings: number
     interiorSubBuildings?: number
     martialArts: number
+    weapons: number
     npcs: number
     npcsWithAvatar: number
     npcsWithFullbody: number
@@ -394,6 +396,15 @@ export interface CanonicalIdRegistry {
     category: string
     sectId: string | null
   }>
+  weaponIndex: Array<{
+    id: string
+    code: string
+    name: string
+    fullTier: string
+    weaponType: WeaponSubCategory
+    regionId: string
+    sectId: string | null
+  }>
 }
 
 // ============================================================================
@@ -410,7 +421,7 @@ export type SaveSlotId =
   | 'slot-6'
 
 // ============================================================================
-// [M1-0] Time (Shichen), Stamina, 7-Slot Equipment & 4-Category Bag Schemas
+// [M1-0 & M1-3] Time (Shichen), Stamina, 7-Slot Equipment, 100 Weapons & 4-Category Bag
 // ============================================================================
 
 export type EquipmentSlotKey =
@@ -424,7 +435,24 @@ export type EquipmentSlotKey =
 
 export type BagCategoryKey = 'scrolls' | 'medicine' | 'tools' | 'misc'
 
-export type ItemRarity = '天阶' | '地阶' | '良品' | '凡品'
+export type EquipmentTier = '天阶' | '地阶' | '良阶' | '凡阶'
+export type ItemRarity = '天阶' | '地阶' | '良阶' | '凡阶' | '良品' | '凡品'
+
+export type WeaponSubCategory =
+  | '剑'
+  | '刀'
+  | '枪'
+  | '棍棒'
+  | '拳掌护手'
+  | '暗器'
+  | '奇门音兵'
+
+export type WeaponForceTrait = '刚猛' | '阴柔' | '轻灵' | '奇巧' | '中正'
+
+export interface WeaponSynergyRule {
+  category: string
+  bonusPct: number
+}
 
 export interface EquipmentStatBonus {
   maxHp?: number
@@ -437,6 +465,32 @@ export interface EquipmentStatBonus {
   riding?: number
   mountKey?: MountKey
   skills?: Record<string, number>
+}
+
+export interface CompiledWeaponRecord {
+  id: string
+  code: string
+  name: string
+  slot: 'weapon'
+  weaponType: WeaponSubCategory
+  tier: EquipmentTier
+  subTier: MartialArtSubTier
+  fullTier: string
+  regionId: string
+  locationLabel: string
+  origin: string
+  originFull: string
+  sectId: string | null
+  forceTrait: WeaponForceTrait
+  attackRange: number
+  value: number
+  equipBonus: EquipmentStatBonus
+  synergies: WeaponSynergyRule[]
+  signatureArtIds: string[]
+  specialTag: string | null
+  description: string
+  prerequisitesText: string | null
+  statRequirements: MartialArtStatReq[]
 }
 
 export type MartialArtSlotKey =
@@ -479,6 +533,7 @@ export interface GameItemDef {
   lore?: string
   equipBonus?: EquipmentStatBonus
   useEffect?: ItemUseEffect
+  weaponMeta?: CompiledWeaponRecord
 }
 
 export interface InventoryStack {

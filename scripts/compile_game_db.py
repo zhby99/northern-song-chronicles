@@ -831,6 +831,157 @@ def parse_martial_arts() -> list[dict[str, Any]]:
 
 
 # ==============================================================================
+# 4b. [M1-3] 解析 100 种武器披挂 (EQUIPMENT_COMPENDIUM.md)
+# ==============================================================================
+
+TEN_SKILLS_SET = {"算术", "经义", "策论", "诗词", "琴", "棋", "书", "画", "辩才"}
+
+
+def parse_equip_bonus_tokens(raw_bonus: str) -> dict[str, Any]:
+    bonus: dict[str, Any] = {}
+    skills: dict[str, int] = {}
+    for token_key, val_str in re.findall(r"`([^`+]+)\+(\d+)`", raw_bonus):
+        k = token_key.strip()
+        v = int(val_str)
+        if k == "攻":
+            bonus["attack"] = v
+        elif k == "防":
+            bonus["defense"] = v
+        elif k == "气血":
+            bonus["maxHp"] = v
+        elif k == "内力":
+            bonus["maxMp"] = v
+        elif k == "体能":
+            bonus["maxStamina"] = v
+        elif k == "身法":
+            bonus["agility"] = v
+        elif k == "抗性":
+            bonus["res"] = v
+        elif k == "骑术":
+            bonus["riding"] = v
+        elif k in TEN_SKILLS_SET:
+            skills[k] = v
+        else:
+            raise ValueError(f"Unknown equipBonus token: {k!r} in {raw_bonus!r}")
+    if skills:
+        bonus["skills"] = skills
+    return bonus
+
+
+def parse_weapons() -> list[dict[str, Any]]:
+    eq_path = DOCS_DIR / "EQUIPMENT_COMPENDIUM.md"
+    lines = eq_path.read_text(encoding="utf-8").splitlines()
+
+    current_tier = ""
+    current_sub_tier = ""
+    weapons: list[dict[str, Any]] = []
+
+    sub_heading_re = re.compile(r"^###\s+\d+\.\d+\s+(天阶|地阶|良阶|凡阶)(上品|中品|下品)")
+    req_token_re = re.compile(r"`([^`]+?)≥(\d+)`")
+    syn_pair_re = re.compile(r"([\u4e00-\u9fa5]+)\+(\d+)%")
+    ma_id_re = re.compile(r"`(MA-\d{3})`")
+    effect_title_re = re.compile(r"^(【[^】]+】)")
+
+    for ln in lines:
+        m_sub = sub_heading_re.match(ln)
+        if m_sub:
+            current_tier = m_sub.group(1)
+            current_sub_tier = m_sub.group(2)
+            continue
+
+        if not re.match(r"^\|\s*`WPN-\d{3}`\s*\|", ln):
+            continue
+
+        cols = [c.strip() for c in ln.strip().strip("|").split("|")]
+        if len(cols) not in (9, 10):
+            raise ValueError(f"Unexpected column count ({len(cols)}) in weapon row: {ln}")
+
+        wpn_id = cols[0].strip("`").strip()
+        code = wpn_id.split("-")[1]
+        name = cols[1].replace("**", "").strip()
+        wtype = cols[2].strip()
+        origin_full = cols[3].strip()
+        force_rng = cols[4].strip()
+        val = int(cols[5].strip())
+        bonus_raw = cols[6].strip()
+        syn_raw = cols[7].strip()
+        desc_raw = cols[8].strip()
+        prereq_raw = cols[9].strip() if len(cols) == 10 else None
+
+        # Resolve regionId + origin detail
+        if "·" in origin_full:
+            loc_part, origin_detail = origin_full.split("·", 1)
+        else:
+            loc_part, origin_detail = origin_full, origin_full
+        loc_part = loc_part.strip()
+        if loc_part not in LOCATION_RESOLUTION_MAP:
+            raise ValueError(f"[{wpn_id}] Unknown weapon origin location: {loc_part!r}")
+        region_id, canonical_loc_label, _ = LOCATION_RESOLUTION_MAP[loc_part]
+        sect_id = resolve_sect_for_origin(origin_full)
+
+        # Parse forceTrait & attackRange (e.g. "刚猛·1格")
+        m_fr = re.match(r"^([^·]+)·(\d+)格$", force_rng)
+        if not m_fr:
+            raise ValueError(f"[{wpn_id}] Invalid force/range cell: {force_rng!r}")
+        force_trait = m_fr.group(1).strip()
+        attack_range = int(m_fr.group(2))
+
+        equip_bonus = parse_equip_bonus_tokens(bonus_raw)
+        synergies = [
+            {"category": cat_name, "bonusPct": int(pct)}
+            for cat_name, pct in syn_pair_re.findall(syn_raw)
+        ]
+        sig_art_ids = ma_id_re.findall(syn_raw)
+
+        m_eff = effect_title_re.match(desc_raw)
+        special_tag = m_eff.group(1) if m_eff else None
+
+        stat_reqs = (
+            [{"stat": k.strip(), "min": int(v)} for k, v in req_token_re.findall(prereq_raw)]
+            if prereq_raw
+            else []
+        )
+
+        weapons.append(
+            {
+                "id": wpn_id,
+                "code": code,
+                "name": name,
+                "slot": "weapon",
+                "weaponType": wtype,
+                "tier": current_tier,
+                "subTier": current_sub_tier,
+                "fullTier": f"{current_tier}{current_sub_tier}",
+                "regionId": region_id,
+                "locationLabel": canonical_loc_label,
+                "origin": origin_detail.strip(),
+                "originFull": origin_full,
+                "sectId": sect_id,
+                "forceTrait": force_trait,
+                "attackRange": attack_range,
+                "value": val,
+                "equipBonus": equip_bonus,
+                "synergies": synergies,
+                "signatureArtIds": sig_art_ids,
+                "specialTag": special_tag,
+                "description": desc_raw,
+                "prerequisitesText": prereq_raw,
+                "statRequirements": stat_reqs,
+            }
+        )
+
+    weapons.sort(key=lambda x: int(x["code"]))
+    if len(weapons) != 100:
+        raise AssertionError(f"Expected 100 weapons, got {len(weapons)}")
+    tier_counts = Counter(w["tier"] for w in weapons)
+    expected_tiers = {"天阶": 10, "地阶": 20, "良阶": 30, "凡阶": 40}
+    if dict(tier_counts) != expected_tiers:
+        raise AssertionError(f"Weapon tier counts mismatch: {dict(tier_counts)} != {expected_tiers}")
+    return weapons
+
+
+
+# ==============================================================================
 # 5. [M0-3] 解析 38 地区风貌与生成 SVG 室内兜底热区
 # ==============================================================================
 
@@ -1327,8 +1478,9 @@ def compile_all(do_normalize_docs: bool) -> None:
     if len(wg_node_by_id) != 38:
         raise AssertionError(f"Expected 38 worldGraph nodes, got {len(wg_node_by_id)}")
 
-    # 1) Compile Martial Arts (216)
+    # 1) Compile Martial Arts (216) & Weapons (100)
     martial_arts = parse_martial_arts()
+    weapons = parse_weapons()
 
     # 2) Compile Buildings (123 Specials + 105 City Bases = 228)
     buildings: list[dict[str, Any]] = []
@@ -1524,7 +1676,7 @@ def compile_all(do_normalize_docs: bool) -> None:
     svg_fallback_count = sum(1 for b in buildings if b["isSpecial"] and not b["hasPanoramaImage"])
 
     id_registry = {
-        "schemaVersion": "M1.0.1",
+        "schemaVersion": "M1.1.0",
         "counts": {
             "regions": len(regions),
             "majorSects": sum(1 for f in factions_enriched if f["isMajorSect"]),
@@ -1537,6 +1689,7 @@ def compile_all(do_normalize_docs: bool) -> None:
             "totalBuildings": len(buildings),
             "interiorSubBuildings": len(spot_by_id),
             "martialArts": len(martial_arts),
+            "weapons": len(weapons),
             "npcs": len(npcs),
             "npcsWithAvatar": sum(1 for n in npcs if n["avatarUrl"]),
             "npcsWithFullbody": sum(1 for n in npcs if n["fullbodyUrl"]),
@@ -1572,6 +1725,18 @@ def compile_all(do_normalize_docs: bool) -> None:
             }
             for ma in martial_arts
         ],
+        "weaponIndex": [
+            {
+                "id": w["id"],
+                "code": w["code"],
+                "name": w["name"],
+                "fullTier": w["fullTier"],
+                "weaponType": w["weaponType"],
+                "regionId": w["regionId"],
+                "sectId": w["sectId"],
+            }
+            for w in weapons
+        ],
     }
 
     # Verify zero unresolved references & zero Base64 strings
@@ -1591,11 +1756,19 @@ def compile_all(do_normalize_docs: bool) -> None:
         for aid in npc["knownArtIds"]:
             assert aid in art_id_set, f"Invalid artId {aid} on {npc['id']}"
 
+    for wpn in weapons:
+        assert wpn["regionId"] in region_id_set, f"Invalid regionId on {wpn['id']}"
+        if wpn["sectId"] is not None:
+            assert wpn["sectId"] in faction_id_set, f"Invalid sectId on {wpn['id']}"
+        for sig_aid in wpn["signatureArtIds"]:
+            assert sig_aid in art_id_set, f"Invalid signatureArtId {sig_aid} on {wpn['id']}"
+
     outputs = {
         "idRegistry.json": id_registry,
         "regions.json": regions,
         "buildings.json": buildings,
         "martial_arts.json": martial_arts,
+        "weapons.json": weapons,
         "npcs.json": npcs,
     }
 
@@ -1614,6 +1787,7 @@ def compile_all(do_normalize_docs: bool) -> None:
         f"{special_count} special buildings ({len(spot_by_id)} sub-spots) + "
         f"{len(buildings) - special_count} base buildings | "
         f"{len(martial_arts)} martial arts | "
+        f"{len(weapons)} weapons (10天/20地/30良/40凡) | "
         f"{len(npcs)} NPCs (100% leaf-assigned & full stats)"
     )
 
