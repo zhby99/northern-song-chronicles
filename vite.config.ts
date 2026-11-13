@@ -9,7 +9,9 @@ const VIRTUAL_AUDIO_MANIFEST_ID = 'virtual:audio-manifest'
 const RESOLVED_VIRTUAL_AUDIO_MANIFEST_ID = '\0virtual:audio-manifest'
 
 const VIRTUAL_NPCS_PART1_ID = 'virtual:npcs-part1'
+const RESOLVED_VIRTUAL_NPCS_PART1_ID = '\0virtual:npcs-part1'
 const VIRTUAL_NPCS_PART2_ID = 'virtual:npcs-part2'
+const RESOLVED_VIRTUAL_NPCS_PART2_ID = '\0virtual:npcs-part2'
 
 export interface ScannedAudioTrack {
   url: string
@@ -190,11 +192,9 @@ function scanAudioManifest(rootDir: string): ScannedAudioManifest {
 
 function northernSongVirtualDataPlugin(): Plugin {
   let rootDir = process.cwd()
-  let resolvedPart1Id = '/src/data/__virtual_npcs_part1.json'
-  let resolvedPart2Id = '/src/data/__virtual_npcs_part2.json'
   let cachedNpcsRaw: string | null = null
-  let cachedNpcsHalf1Json = '[]'
-  let cachedNpcsHalf2Json = '[]'
+  let cachedNpcsHalf1Module = 'export default [];'
+  let cachedNpcsHalf2Module = 'export default [];'
 
   const loadNpcHalves = () => {
     const npcsPath = path.join(rootDir, 'src', 'data', 'npcs.json')
@@ -202,24 +202,22 @@ function northernSongVirtualDataPlugin(): Plugin {
     if (raw !== cachedNpcsRaw) {
       const all = JSON.parse(raw) as unknown[]
       const mid = Math.ceil(all.length / 2)
-      cachedNpcsHalf1Json = JSON.stringify(all.slice(0, mid))
-      cachedNpcsHalf2Json = JSON.stringify(all.slice(mid))
+      cachedNpcsHalf1Module = `export default ${JSON.stringify(all.slice(0, mid))};`
+      cachedNpcsHalf2Module = `export default ${JSON.stringify(all.slice(mid))};`
       cachedNpcsRaw = raw
     }
-    return { half1Json: cachedNpcsHalf1Json, half2Json: cachedNpcsHalf2Json }
+    return { half1Module: cachedNpcsHalf1Module, half2Module: cachedNpcsHalf2Module }
   }
 
   return {
     name: 'northern-song-virtual-data',
     configResolved(cfg) {
       rootDir = cfg.root
-      resolvedPart1Id = path.join(rootDir, 'src', 'data', '__virtual_npcs_part1.json')
-      resolvedPart2Id = path.join(rootDir, 'src', 'data', '__virtual_npcs_part2.json')
     },
     resolveId(id) {
       if (id === VIRTUAL_AUDIO_MANIFEST_ID) return RESOLVED_VIRTUAL_AUDIO_MANIFEST_ID
-      if (id === VIRTUAL_NPCS_PART1_ID) return resolvedPart1Id
-      if (id === VIRTUAL_NPCS_PART2_ID) return resolvedPart2Id
+      if (id === VIRTUAL_NPCS_PART1_ID) return RESOLVED_VIRTUAL_NPCS_PART1_ID
+      if (id === VIRTUAL_NPCS_PART2_ID) return RESOLVED_VIRTUAL_NPCS_PART2_ID
       return null
     },
     load(id) {
@@ -227,11 +225,11 @@ function northernSongVirtualDataPlugin(): Plugin {
         const manifest = scanAudioManifest(rootDir)
         return `export default ${JSON.stringify(manifest, null, 2)};`
       }
-      if (id === resolvedPart1Id) {
-        return loadNpcHalves().half1Json
+      if (id === RESOLVED_VIRTUAL_NPCS_PART1_ID) {
+        return loadNpcHalves().half1Module
       }
-      if (id === resolvedPart2Id) {
-        return loadNpcHalves().half2Json
+      if (id === RESOLVED_VIRTUAL_NPCS_PART2_ID) {
+        return loadNpcHalves().half2Module
       }
       return null
     },
@@ -241,7 +239,8 @@ function northernSongVirtualDataPlugin(): Plugin {
       server.watcher.add([audioRoot, npcsPath])
 
       const onFsEvent = (changedPath: string) => {
-        if (changedPath.includes(path.join('public', 'assets', 'audio'))) {
+        const normChanged = changedPath.replace(/\\/g, '/')
+        if (normChanged.includes('/public/assets/audio/')) {
           const mod = server.moduleGraph.getModuleById(RESOLVED_VIRTUAL_AUDIO_MANIFEST_ID)
           if (mod) {
             server.moduleGraph.invalidateModule(mod)
@@ -249,7 +248,7 @@ function northernSongVirtualDataPlugin(): Plugin {
           }
         } else if (path.resolve(changedPath) === path.resolve(npcsPath)) {
           cachedNpcsRaw = null
-          for (const vid of [resolvedPart1Id, resolvedPart2Id]) {
+          for (const vid of [RESOLVED_VIRTUAL_NPCS_PART1_ID, RESOLVED_VIRTUAL_NPCS_PART2_ID]) {
             const mod = server.moduleGraph.getModuleById(vid)
             if (mod) server.moduleGraph.invalidateModule(mod)
           }
@@ -289,41 +288,42 @@ export default defineConfig({
         rollupOptions: {
           output: {
             manualChunks(id) {
-              if (id.includes('node_modules')) {
+              const normId = id.replace(/\\/g, '/')
+              if (normId.includes('node_modules')) {
                 return 'vendor'
               }
-              if (id.includes('__virtual_npcs_part1')) {
+              if (normId.includes('virtual:npcs-part1')) {
                 return 'data-npcs-1'
               }
-              if (id.includes('__virtual_npcs_part2')) {
+              if (normId.includes('virtual:npcs-part2')) {
                 return 'data-npcs-2'
               }
               if (
-                id.includes('/src/data/martial_arts.json') ||
-                id.includes('/src/data/idRegistry.json')
+                normId.includes('/src/data/martial_arts.json') ||
+                normId.includes('/src/data/idRegistry.json')
               ) {
                 return 'data-compendium'
               }
               if (
-                id.includes('/src/data/regions.json') ||
-                id.includes('/src/data/buildings.json')
+                normId.includes('/src/data/regions.json') ||
+                normId.includes('/src/data/buildings.json')
               ) {
                 return 'data-buildings'
               }
               if (
-                id.includes('/src/data/weapons.json') ||
-                id.includes('/src/data/gear.json') ||
-                id.includes('/src/data/mounts.json') ||
-                id.includes('/src/data/uniqueArtifacts.json') ||
-                id.includes('/src/data/scrollsDb.ts')
+                normId.includes('/src/data/weapons.json') ||
+                normId.includes('/src/data/gear.json') ||
+                normId.includes('/src/data/mounts.json') ||
+                normId.includes('/src/data/uniqueArtifacts.json') ||
+                normId.includes('/src/data/scrollsDb.ts')
               ) {
                 return 'data-equipment'
               }
               if (
-                id.includes('/src/data/worldGraph.json') ||
-                id.includes('/src/data/regionalConfigs.json') ||
-                id.includes('/src/data/buildingPanoramas.json') ||
-                id.includes('/src/data/portraitCatalog.json')
+                normId.includes('/src/data/worldGraph.json') ||
+                normId.includes('/src/data/regionalConfigs.json') ||
+                normId.includes('/src/data/buildingPanoramas.json') ||
+                normId.includes('/src/data/portraitCatalog.json')
               ) {
                 return 'data-world'
               }
