@@ -358,18 +358,18 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
       ? {
           cityLabels: Boolean(st.overlays.cityLabels ?? true),
           sectPassLabels: Boolean(st.overlays.sectPassLabels ?? true),
-          masters: Boolean(st.overlays.masters ?? true),
+          masters: Boolean(st.overlays.masters ?? false),
           distance: Boolean(st.overlays.distance ?? false),
           factions: Boolean(st.overlays.factions ?? false),
-          alerts: Boolean(st.overlays.alerts ?? true),
+          alerts: Boolean(st.overlays.alerts ?? false),
         }
       : {
           cityLabels: true,
           sectPassLabels: true,
-          masters: true,
+          masters: false,
           distance: false,
           factions: false,
-          alerts: true,
+          alerts: false,
         },
     roamingMasters: Array.isArray(st.roamingMasters)
       ? (st.roamingMasters as SerializableGameState['roamingMasters'])

@@ -60,6 +60,7 @@ export function BottomHud() {
               <span>╌╌ 运河海路 (0.8)</span>
               <span>─ - 塞外戈壁 (1.2)</span>
               <span>┈┈ 崇山高原 (1.6)</span>
+              <span className="text-[#8f1d14]/85 font-medium">（寻路/行路时显现连线）</span>
             </div>
           </div>
 

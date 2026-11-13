@@ -576,7 +576,7 @@ export function TopHud() {
                 </div>
 
                 <div className="text-[11px] text-[#6b5338] pt-0.5 leading-snug">
-                  注：关闭后地图仍保留各地区图标与悬停详情；缩小至 &lt;0.85× 时自动切换为列国国号总览。
+                  注：放大舆图时城池与地区图标文字保持 1.0× 舒适尺寸不膨胀；各城连线仅于点选异地寻路或行路时显现。
                 </div>
               </div>
             )}
