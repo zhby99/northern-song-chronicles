@@ -2,7 +2,7 @@ export type NodeKind = 'city' | 'sect' | 'pass'
 export type RegimeKey = 'song' | 'liao' | 'xixia' | 'tubo' | 'dali' | 'wild'
 export type FactionKind = 'orthodox' | 'hermit' | 'clan' | 'hostile'
 export type TerrainType = 'official' | 'water' | 'steppe' | 'mountain'
-export type MountKey = 'walk' | 'horse' | 'xiXia' | 'ferghana'
+export type MountKey = 'walk' | `MNT-${string}`
 export type ViewMode = 'world' | 'region' | 'building'
 export type MenuTabKey =
   | 'hero'
@@ -19,6 +19,7 @@ export type CompendiumTabKey =
   | 'portraits'
   | 'martialArts'
   | 'armory'
+  | 'mounts'
   | 'treasures'
 
 export type TenArtKey =
@@ -106,7 +107,7 @@ export interface WorldGraphData {
   nodes: WorldNode[]
   edges: WorldEdgeTuple[]
   terrainMeta: Record<TerrainType, TerrainMeta>
-  mounts: Record<MountKey, MountMeta>
+  mounts: Record<'walk', MountMeta>
   regimeBadge: Record<RegimeKey, RegimeBadgeMeta>
   roamingMasters: RoamingMaster[]
 }
@@ -407,6 +408,7 @@ export interface CanonicalIdRegistry {
     interiorSubBuildings?: number
     martialArts: number
     weapons: number
+    mounts: number
     npcs: number
     npcsWithAvatar: number
     npcsWithFullbody: number
@@ -449,6 +451,16 @@ export interface CanonicalIdRegistry {
     regionId: string
     sectId: string | null
   }>
+  mountIndex: Array<{
+    id: string
+    code: string
+    name: string
+    fullTier: string
+    breedCategory: MountBreedCategory
+    baseSpeed: number
+    regionId: string
+    sectId: string | null
+  }>
 }
 
 // ============================================================================
@@ -465,7 +477,7 @@ export type SaveSlotId =
   | 'slot-6'
 
 // ============================================================================
-// [M1-0 & M1-3] Time (Shichen), Stamina, 7-Slot Equipment, 100 Weapons & 4-Category Bag
+// [M1-0 & M1-3] Time (Shichen), Stamina, 7-Slot Equipment, 100 Weapons, 28 Mounts & 4-Category Bag
 // ============================================================================
 
 export type EquipmentSlotKey =
@@ -490,6 +502,18 @@ export type WeaponSubCategory =
   | '拳掌护手'
   | '暗器'
   | '奇门音兵'
+
+export type MountBreedCategory =
+  | '西域神驹'
+  | '塞北北马'
+  | '党项夏马'
+  | '青唐番马'
+  | '西南山骏'
+  | '中原官马'
+  | '市井骡驴'
+
+export type MountTerrainTrait = '踏平川' | '驰大漠' | '逾险峰' | '渡烟波' | '全地形'
+export type MountFavoredTerrain = TerrainType | 'all'
 
 export type WeaponForceTrait = '刚猛' | '阴柔' | '轻灵' | '奇巧' | '中正'
 
@@ -531,6 +555,32 @@ export interface CompiledWeaponRecord {
   equipBonus: EquipmentStatBonus
   synergies: WeaponSynergyRule[]
   signatureArtIds: string[]
+  specialTag: string | null
+  description: string
+  prerequisitesText: string | null
+  statRequirements: MartialArtStatReq[]
+}
+
+export interface CompiledMountRecord {
+  id: string
+  code: string
+  name: string
+  slot: 'mount'
+  breedCategory: MountBreedCategory
+  tier: EquipmentTier
+  subTier: MartialArtSubTier
+  fullTier: string
+  regionId: string
+  locationLabel: string
+  origin: string
+  originFull: string
+  sectId: string | null
+  baseSpeed: number
+  terrainTrait: MountTerrainTrait
+  favoredTerrain: MountFavoredTerrain
+  terrainBonusPct: number
+  value: number
+  equipBonus: EquipmentStatBonus
   specialTag: string | null
   description: string
   prerequisitesText: string | null
@@ -583,6 +633,7 @@ export interface GameItemDef {
   equipBonus?: EquipmentStatBonus
   useEffect?: ItemUseEffect
   weaponMeta?: CompiledWeaponRecord
+  mountMeta?: CompiledMountRecord
   poisonEffect?: string
 }
 
@@ -653,7 +704,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M1.2.0'
+  schemaVersion: 'M1.3.0'
   slotId: SaveSlotId
   savedAt: string
   note: string

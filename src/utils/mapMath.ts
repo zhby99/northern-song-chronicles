@@ -1,4 +1,5 @@
 import rawBuildingPanoramas from '../data/buildingPanoramas.json'
+import { MOUNT_DB_MAP } from '../data/gameDb'
 import rawPortraitCatalog from '../data/portraitCatalog.json'
 import rawRegionalConfigs from '../data/regionalConfigs.json'
 import rawWorldGraph from '../data/worldGraph.json'
@@ -7,6 +8,7 @@ import type {
   BaseBuildingKey,
   BuildingItem,
   BuildingPanorama,
+  CompiledMountRecord,
   ComputedRoute,
   MountKey,
   PortraitCatalogData,
@@ -57,6 +59,37 @@ export function resolveCharacterByNpcName(npcName: string): PortraitCharacter | 
   return portraitByCleanName.get(clean) ?? portraitByCleanName.get(npcName) ?? null
 }
 
+export interface ResolvedMountMeta {
+  key: MountKey
+  name: string
+  speed: number
+  isMounted: boolean
+  mountRecord: CompiledMountRecord | null
+}
+
+export function resolveMountMeta(mountKey?: MountKey | string | null): ResolvedMountMeta {
+  if (mountKey && mountKey !== 'walk') {
+    const rec = MOUNT_DB_MAP[mountKey]
+    if (rec) {
+      return {
+        key: rec.id as MountKey,
+        name: rec.name,
+        speed: rec.baseSpeed,
+        isMounted: true,
+        mountRecord: rec,
+      }
+    }
+  }
+  const walkMeta = WORLD_GRAPH.mounts.walk
+  return {
+    key: 'walk',
+    name: walkMeta.name,
+    speed: walkMeta.speed,
+    isMounted: false,
+    mountRecord: null,
+  }
+}
+
 export interface SpeedParams {
   mountKey: MountKey
   qinggongBonus: number
@@ -65,23 +98,31 @@ export interface SpeedParams {
 }
 
 export function getEffectiveSpeed(params: SpeedParams, terrainType: TerrainType = 'official') {
-  const mount = WORLD_GRAPH.mounts[params.mountKey]
+  const mount = resolveMountMeta(params.mountKey)
   const T = WORLD_GRAPH.terrainMeta[terrainType].coeff
   let modifier = 0
-  if (params.mountKey === 'walk') {
+  if (!mount.isMounted) {
     modifier = params.qinggongBonus + params.agility / 250
-  } else if (terrainType === 'mountain') {
-    modifier = params.ridingSkill / 250 + params.qinggongBonus * 0.9 + params.agility / 500
-  } else if (terrainType === 'steppe') {
-    modifier = params.ridingSkill / 120 + params.qinggongBonus * 0.35
   } else {
-    modifier = params.ridingSkill / 160 + params.qinggongBonus * 0.5
+    if (terrainType === 'mountain') {
+      modifier = params.ridingSkill / 250 + params.qinggongBonus * 0.9 + params.agility / 500
+    } else if (terrainType === 'steppe') {
+      modifier = params.ridingSkill / 120 + params.qinggongBonus * 0.35
+    } else {
+      modifier = params.ridingSkill / 160 + params.qinggongBonus * 0.5
+    }
+    const rec = mount.mountRecord
+    if (rec && (rec.favoredTerrain === 'all' || rec.favoredTerrain === terrainType)) {
+      modifier += rec.terrainBonusPct / 100
+    }
   }
   const rawSpeed = mount.speed * (1 + modifier)
   return {
     baseDailyLi: Math.round(rawSpeed),
     actualDailyLiOnTerrain: rawSpeed / T,
     modifierPct: Math.round(modifier * 100),
+    mountName: mount.name,
+    mountBaseSpeed: mount.speed,
   }
 }
 

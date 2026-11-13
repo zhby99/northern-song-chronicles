@@ -1903,18 +1903,6 @@
     "walk": {
       "name": "徒步急行",
       "speed": 60
-    },
-    "horse": {
-      "name": "河东健马",
-      "speed": 120
-    },
-    "xiXia": {
-      "name": "西夏战马",
-      "speed": 220
-    },
-    "ferghana": {
-      "name": "大宛汗血良驹",
-      "speed": 300
     }
   },
   "regimeBadge": {

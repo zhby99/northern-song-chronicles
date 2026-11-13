@@ -15,6 +15,7 @@
     "interiorSubBuildings": 414,
     "martialArts": 216,
     "weapons": 100,
+    "mounts": 28,
     "npcs": 1000,
     "npcsWithAvatar": 129,
     "npcsWithFullbody": 129
@@ -5379,6 +5380,288 @@
       "fullTier": "凡阶下品",
       "weaponType": "暗器",
       "regionId": "hangzhou",
+      "sectId": null
+    }
+  ],
+  "mountIndex": [
+    {
+      "id": "MNT-001",
+      "code": "001",
+      "name": "大宛汗血追风骥",
+      "fullTier": "天阶上品",
+      "breedCategory": "西域神驹",
+      "baseSpeed": 380,
+      "regionId": "kunlun",
+      "sectId": null
+    },
+    {
+      "id": "MNT-002",
+      "code": "002",
+      "name": "照夜凝霜玉狮子",
+      "fullTier": "天阶中品",
+      "breedCategory": "塞北北马",
+      "baseSpeed": 355,
+      "regionId": "linhuang_liao",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MNT-003",
+      "code": "003",
+      "name": "乌云踏雪铁鹞王",
+      "fullTier": "天阶下品",
+      "breedCategory": "党项夏马",
+      "baseSpeed": 335,
+      "regionId": "xingqing_xixia",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MNT-004",
+      "code": "004",
+      "name": "玉津园御赐龙骧骢",
+      "fullTier": "地阶上品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 285,
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "MNT-005",
+      "code": "005",
+      "name": "青唐唃厮啰金翼驹",
+      "fullTier": "地阶上品",
+      "breedCategory": "青唐番马",
+      "baseSpeed": 275,
+      "regionId": "luoxie_tubo",
+      "sectId": "ORG-09"
+    },
+    {
+      "id": "MNT-006",
+      "code": "006",
+      "name": "天波万里烟云照",
+      "fullTier": "地阶中品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 260,
+      "regionId": "taiyuan",
+      "sectId": null
+    },
+    {
+      "id": "MNT-007",
+      "code": "007",
+      "name": "点苍蹑云雪山骢",
+      "fullTier": "地阶中品",
+      "breedCategory": "西南山骏",
+      "baseSpeed": 255,
+      "regionId": "dali_city",
+      "sectId": "ORG-08"
+    },
+    {
+      "id": "MNT-008",
+      "code": "008",
+      "name": "长白虎斑踏雪豹",
+      "fullTier": "地阶下品",
+      "breedCategory": "塞北北马",
+      "baseSpeed": 242,
+      "regionId": "liaoyang_liao",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MNT-009",
+      "code": "009",
+      "name": "秦州茶马上等河曲驹",
+      "fullTier": "良阶上品",
+      "breedCategory": "青唐番马",
+      "baseSpeed": 215,
+      "regionId": "qinzhou",
+      "sectId": null
+    },
+    {
+      "id": "MNT-010",
+      "code": "010",
+      "name": "横山党项善驰青马",
+      "fullTier": "良阶上品",
+      "breedCategory": "党项夏马",
+      "baseSpeed": 208,
+      "regionId": "yanan",
+      "sectId": null
+    },
+    {
+      "id": "MNT-011",
+      "code": "011",
+      "name": "契丹铁林乌骓马",
+      "fullTier": "良阶上品",
+      "breedCategory": "塞北北马",
+      "baseSpeed": 202,
+      "regionId": "dading_liao",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MNT-012",
+      "code": "012",
+      "name": "大名沙苑群牧精骑",
+      "fullTier": "良阶中品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 192,
+      "regionId": "daming",
+      "sectId": null
+    },
+    {
+      "id": "MNT-013",
+      "code": "013",
+      "name": "雁门塞外黄骠战马",
+      "fullTier": "良阶中品",
+      "breedCategory": "塞北北马",
+      "baseSpeed": 185,
+      "regionId": "yanmenguan",
+      "sectId": null
+    },
+    {
+      "id": "MNT-014",
+      "code": "014",
+      "name": "乌蒙山涧铁蹄骏",
+      "fullTier": "良阶中品",
+      "breedCategory": "西南山骏",
+      "baseSpeed": 178,
+      "regionId": "chengdu",
+      "sectId": null
+    },
+    {
+      "id": "MNT-015",
+      "code": "015",
+      "name": "真定金字牌急脚快马",
+      "fullTier": "良阶下品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 172,
+      "regionId": "zhending",
+      "sectId": null
+    },
+    {
+      "id": "MNT-016",
+      "code": "016",
+      "name": "闽海镇远走镖千里驹",
+      "fullTier": "良阶下品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 166,
+      "regionId": "quanzhou",
+      "sectId": "SECT-24"
+    },
+    {
+      "id": "MNT-017",
+      "code": "017",
+      "name": "汴京驿传红缨官马",
+      "fullTier": "凡阶上品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 145,
+      "regionId": "bianliang",
+      "sectId": "SECT-17"
+    },
+    {
+      "id": "MNT-018",
+      "code": "018",
+      "name": "关中秦川高头枣骝",
+      "fullTier": "凡阶上品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 140,
+      "regionId": "changan",
+      "sectId": null
+    },
+    {
+      "id": "MNT-019",
+      "code": "019",
+      "name": "河东晋阳挽弓健马",
+      "fullTier": "凡阶上品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 136,
+      "regionId": "taiyuan",
+      "sectId": null
+    },
+    {
+      "id": "MNT-020",
+      "code": "020",
+      "name": "析津幽燕白鬃走马",
+      "fullTier": "凡阶上品",
+      "breedCategory": "塞北北马",
+      "baseSpeed": 132,
+      "regionId": "xijin_liao",
+      "sectId": null
+    },
+    {
+      "id": "MNT-021",
+      "code": "021",
+      "name": "太行绿林草上青",
+      "fullTier": "凡阶中品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 124,
+      "regionId": "taihang",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MNT-022",
+      "code": "022",
+      "name": "淮南盐道负重挽马",
+      "fullTier": "凡阶中品",
+      "breedCategory": "中原官马",
+      "baseSpeed": 118,
+      "regionId": "yangzhou",
+      "sectId": null
+    },
+    {
+      "id": "MNT-023",
+      "code": "023",
+      "name": "江南烟雨踏花青骢",
+      "fullTier": "凡阶中品",
+      "breedCategory": "西南山骏",
+      "baseSpeed": 115,
+      "regionId": "suzhou",
+      "sectId": null
+    },
+    {
+      "id": "MNT-024",
+      "code": "024",
+      "name": "川西剑阁栈道矮马",
+      "fullTier": "凡阶中品",
+      "breedCategory": "西南山骏",
+      "baseSpeed": 110,
+      "regionId": "jianmenguan",
+      "sectId": null
+    },
+    {
+      "id": "MNT-025",
+      "code": "025",
+      "name": "湘西五溪藤鞍山马",
+      "fullTier": "凡阶下品",
+      "breedCategory": "西南山骏",
+      "baseSpeed": 105,
+      "regionId": "tanzhou",
+      "sectId": null
+    },
+    {
+      "id": "MNT-026",
+      "code": "026",
+      "name": "陇右驮茶大黑骡",
+      "fullTier": "凡阶下品",
+      "breedCategory": "市井骡驴",
+      "baseSpeed": 102,
+      "regionId": "qinzhou",
+      "sectId": null
+    },
+    {
+      "id": "MNT-027",
+      "code": "027",
+      "name": "齐鲁赶集长耳快驴",
+      "fullTier": "凡阶下品",
+      "breedCategory": "市井骡驴",
+      "baseSpeed": 96,
+      "regionId": "jinan",
+      "sectId": null
+    },
+    {
+      "id": "MNT-028",
+      "code": "028",
+      "name": "洛阳倒骑青毛小叫驴",
+      "fullTier": "凡阶下品",
+      "breedCategory": "市井骡驴",
+      "baseSpeed": 90,
+      "regionId": "luoyang",
       "sectId": null
     }
   ]

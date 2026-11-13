@@ -24,7 +24,7 @@ import {
   DEFAULT_LEARNED_ARTS,
 } from '../data/playerMartialArts'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.2.0' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.3.0' as const
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -351,7 +351,10 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   }
 
   const mountItem = cleanEquipped.mount ? ITEM_DB_MAP[cleanEquipped.mount] : null
-  const derivedMountKey = mountItem?.equipBonus?.mountKey ?? 'walk'
+  const derivedMountKey =
+    (mountItem?.mountMeta?.id as SerializableGameState['mountKey'] | undefined) ??
+    mountItem?.equipBonus?.mountKey ??
+    'walk'
 
   const hpVal = typeof st.hp === 'number' ? Math.max(1, Math.floor(st.hp)) : 1200
   const maxHpVal =

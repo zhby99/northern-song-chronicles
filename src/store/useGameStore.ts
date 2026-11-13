@@ -3,6 +3,7 @@ import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, NPC_DB_MAP } from '../data/gameDb'
 import {
   BAG_CATEGORY_METAS,
   canItemFitSlot,
+  checkMountEquipRequirements,
   checkWeaponEquipRequirements,
   computeEquipmentTotals,
   DEFAULT_EQUIPPED_SLOTS,
@@ -372,7 +373,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   qinggongBonus: INITIAL_ART_TOTALS.qinggongBonus || 0.15,
   ridingSkill: 45 + INITIAL_EQUIP_TOTALS.riding,
   agility: 65 + INITIAL_EQUIP_TOTALS.agility + INITIAL_ART_TOTALS.agility,
-  silver: 120,
+  silver: 5120,
   food: 25,
   hp: 1200 + INITIAL_EQUIP_TOTALS.maxHp + INITIAL_ART_TOTALS.maxHp,
   maxHp: 1200 + INITIAL_EQUIP_TOTALS.maxHp + INITIAL_ART_TOTALS.maxHp,
@@ -778,6 +779,35 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           },
           logs: [
             createLogEntry(s.dayCount, '神兵反噬', warnMsg, true, s.shichenIdx),
+            ...s.logs,
+          ].slice(0, 60),
+        })
+        return
+      }
+    }
+
+    if (def.mountMeta) {
+      const reqCheck = checkMountEquipRequirements(def.mountMeta, {
+        maxHp: s.maxHp,
+        maxMp: s.maxMp,
+        agility: s.agility,
+        res: s.res,
+        ridingSkill: s.ridingSkill,
+        skills: s.skills,
+      })
+      if (!reqCheck.ok) {
+        const unmetStr = reqCheck.details
+          .filter((d) => !d.met)
+          .map((d) => `${d.stat} ${d.current}/${d.min}`)
+          .join('、')
+        const warnMsg = `难以驯服${def.mountMeta.fullTier}烈马【${def.name}】！未达乘骑门槛：${unmetStr}`
+        set({
+          actionFeedback: {
+            text: warnMsg,
+            tone: 'warn',
+          },
+          logs: [
+            createLogEntry(s.dayCount, '神驹不受羁勒', warnMsg, true, s.shichenIdx),
             ...s.logs,
           ].slice(0, 60),
         })
@@ -1966,7 +1996,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     return {
       gameTitle: '北宋立志传',
-      schemaVersion: 'M1.2.0',
+      schemaVersion: 'M1.3.0',
       slotId,
       savedAt: new Date().toISOString(),
       note: note.trim(),

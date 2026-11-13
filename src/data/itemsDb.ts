@@ -1,7 +1,8 @@
-import { MARTIAL_ART_DB_MAP, WEAPONS_DB } from './gameDb'
+import { MARTIAL_ART_DB_MAP, MOUNT_DB_MAP, MOUNTS_DB, WEAPONS_DB } from './gameDb'
 import { computeSingleArtBonus } from './playerMartialArts'
 import type {
   BagCategoryKey,
+  CompiledMountRecord,
   CompiledWeaponRecord,
   EquipmentSlotKey,
   EquipmentStatBonus,
@@ -13,6 +14,7 @@ import type {
   ItemRarity,
   LearnedArtEntry,
   MartialArtSlotKey,
+  MountKey,
 } from '../types/game'
 import { SCROLLS_ITEMS_DB } from './scrollsDb'
 
@@ -86,7 +88,7 @@ export const EQUIPMENT_SLOT_METAS: Array<{
     label: '坐 骑',
     shortLabel: '坐骑',
     seal: '骑',
-    hint: '第六卷待定稿 · 空置时默认徒步 60 里/日',
+    hint: '名驹谱 28 种已定稿 · 空置时徒步急行 60 里/日',
     column: 'bottom',
   },
 ]
@@ -124,7 +126,7 @@ export const BAG_CATEGORY_METAS: Array<{
     numeral: '肆',
     label: '行囊杂物',
     seal: '杂',
-    subtitle: '随身备用百兵武器、后续各卷披挂、关防路引、门派信物与四海奇珍',
+    subtitle: '随身备用百兵武器、名驹鞍辔坐骑、后续各卷披挂、关防路引、门派信物与四海奇珍',
   },
 ]
 
@@ -1460,7 +1462,29 @@ export const WEAPON_ITEMS_DB: GameItemDef[] = WEAPONS_DB.map((w) => ({
   weaponMeta: w,
 }))
 
-export const ITEMS_DB: GameItemDef[] = [...NON_EQUIPMENT_ITEMS, ...WEAPON_ITEMS_DB]
+export const MOUNT_ITEMS_DB: GameItemDef[] = MOUNTS_DB.map((m) => ({
+  id: m.id,
+  name: m.name,
+  category: 'misc',
+  subType: `披挂 · 坐骑（${m.breedCategory}）`,
+  rarity: m.tier,
+  equipSlot: 'mount',
+  stackable: false,
+  value: m.value,
+  desc: m.description,
+  lore: `${m.originFull} · 日行基础 ${m.baseSpeed} 里 · 地貌【${m.terrainTrait}+${m.terrainBonusPct}%】`,
+  equipBonus: {
+    ...m.equipBonus,
+    mountKey: m.id as MountKey,
+  },
+  mountMeta: m,
+}))
+
+export const ITEMS_DB: GameItemDef[] = [
+  ...NON_EQUIPMENT_ITEMS,
+  ...WEAPON_ITEMS_DB,
+  ...MOUNT_ITEMS_DB,
+]
 
 export const ITEM_DB_MAP: Record<string, GameItemDef> = Object.fromEntries(
   ITEMS_DB.map((it) => [it.id, it]),
@@ -1519,7 +1543,7 @@ export const TREASURE_VOLUME_METAS: Array<{
   },
 ]
 
-// 七槽初始状态：仅装备百兵谱凡阶上品【青萍游侠剑】，其余六槽置空待后续各卷披挂定稿
+// 七槽初始状态：佩备凡阶上品【青萍游侠剑】并乘骑天阶上品名驹【大宛汗血追风骥】（MNT-001）便于测试千里行军与换骑
 export const DEFAULT_EQUIPPED_SLOTS: EquippedSlotsMap = {
   weapon: 'WPN-061',
   armor: null,
@@ -1527,7 +1551,7 @@ export const DEFAULT_EQUIPPED_SLOTS: EquippedSlotsMap = {
   bow: null,
   accessory1: null,
   accessory2: null,
-  mount: null,
+  mount: 'MNT-001',
 }
 
 export const DEFAULT_INITIAL_INVENTORY: InventoryStack[] = [
@@ -1551,10 +1575,11 @@ export const DEFAULT_INITIAL_INVENTORY: InventoryStack[] = [
   { itemId: 'ITM-CUR-033', qty: 1 },
   { itemId: 'ITM-CUR-037', qty: 1 },
   { itemId: 'ITM-CUR-049', qty: 2 },
-  // 行囊杂物（含 3 把不同类别的百兵谱备用兵刃，便于测试换装与兵武共鸣）
+  // 行囊杂物（含 3 把备用兵刃 + 1 匹秦州茶马良驹备用换乘）
   { itemId: 'WPN-068', qty: 1 }, // 少林白蜡齐眉棍（凡阶上品·棍棒）
   { itemId: 'WPN-072', qty: 1 }, // 汴京铁骨纸扇（凡阶上品·奇门音兵，绝配折扇点穴功）
   { itemId: 'WPN-033', qty: 1 }, // 洛阳九环金背刀（良阶上品·刀，绝配洛阳金刀谱）
+  { itemId: 'MNT-009', qty: 1 }, // 秦州茶马上等河曲驹（良阶上品·青唐番马，便于测试换骑对比）
   { itemId: 'ITM-MSC-001', qty: 1 },
   { itemId: 'ITM-MSC-002', qty: 1 },
 ]
@@ -1592,18 +1617,18 @@ export interface EquipReqCheckDetail {
   met: boolean
 }
 
-export function checkWeaponEquipRequirements(
-  weapon: CompiledWeaponRecord | undefined | null,
+export function checkStatRequirementList(
+  statRequirements: Array<{ stat: string; min: number }> | undefined | null,
   ctx: PlayerEquipCheckContext,
 ): {
   ok: boolean
   details: EquipReqCheckDetail[]
 } {
-  if (!weapon || weapon.statRequirements.length === 0) {
+  if (!statRequirements || statRequirements.length === 0) {
     return { ok: true, details: [] }
   }
   const talents = ctx.talents ?? DEFAULT_HERO_TALENTS
-  const details: EquipReqCheckDetail[] = weapon.statRequirements.map((req) => {
+  const details: EquipReqCheckDetail[] = statRequirements.map((req) => {
     let current = 0
     if (req.stat === '根骨') current = talents.根骨
     else if (req.stat === '悟性') current = talents.悟性
@@ -1627,6 +1652,26 @@ export function checkWeaponEquipRequirements(
     ok: details.every((d) => d.met),
     details,
   }
+}
+
+export function checkWeaponEquipRequirements(
+  weapon: CompiledWeaponRecord | undefined | null,
+  ctx: PlayerEquipCheckContext,
+): {
+  ok: boolean
+  details: EquipReqCheckDetail[]
+} {
+  return checkStatRequirementList(weapon?.statRequirements, ctx)
+}
+
+export function checkMountEquipRequirements(
+  mount: CompiledMountRecord | undefined | null,
+  ctx: PlayerEquipCheckContext,
+): {
+  ok: boolean
+  details: EquipReqCheckDetail[]
+} {
+  return checkStatRequirementList(mount?.statRequirements, ctx)
 }
 
 export interface WeaponSynergyMatchItem {
@@ -1694,7 +1739,7 @@ export function computeWeaponArtSynergy(
 export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
   Omit<EquipmentStatBonus, 'mountKey' | 'skills'>
 > & {
-  mountKey: NonNullable<EquipmentStatBonus['mountKey']>
+  mountKey: MountKey
   skills: Record<string, number>
 } {
   const totals = {
@@ -1706,7 +1751,7 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
     attack: 0,
     defense: 0,
     riding: 0,
-    mountKey: 'walk' as NonNullable<EquipmentStatBonus['mountKey']>,
+    mountKey: 'walk' as MountKey,
     skills: {} as Record<string, number>,
   }
 
@@ -1725,8 +1770,12 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
     totals.attack += b.attack ?? 0
     totals.defense += b.defense ?? 0
     totals.riding += b.riding ?? 0
-    if (slot === 'mount' && b.mountKey) {
-      totals.mountKey = b.mountKey
+    if (slot === 'mount') {
+      if (def.mountMeta) {
+        totals.mountKey = def.mountMeta.id as MountKey
+      } else if (b.mountKey) {
+        totals.mountKey = b.mountKey
+      }
     }
     if (b.skills) {
       for (const [k, v] of Object.entries(b.skills)) {
@@ -1749,9 +1798,12 @@ export function formatBonusBadges(bonus?: EquipmentStatBonus): string[] {
   if (bonus.agility) list.push(`身法 +${bonus.agility}`)
   if (bonus.res) list.push(`抗性 +${bonus.res}`)
   if (bonus.riding) list.push(`骑术 +${bonus.riding}`)
-  if (bonus.mountKey) {
-    const speedMap = { walk: 60, horse: 120, xiXia: 220, ferghana: 300 }
-    list.push(`日行基础 ${speedMap[bonus.mountKey]} 里`)
+  if (bonus.mountKey && bonus.mountKey !== 'walk') {
+    const mRec = MOUNT_DB_MAP[bonus.mountKey]
+    if (mRec) {
+      list.push(`日行基础 ${mRec.baseSpeed} 里`)
+      list.push(`${mRec.terrainTrait} +${mRec.terrainBonusPct}%`)
+    }
   }
   if (bonus.skills) {
     for (const [k, v] of Object.entries(bonus.skills)) {

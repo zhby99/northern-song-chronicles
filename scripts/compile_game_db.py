@@ -1532,6 +1532,121 @@ def parse_weapons() -> list[dict[str, Any]]:
     return weapons
 
 
+MOUNT_TERRAIN_TRAIT_MAP: dict[str, str | None] = {
+    "踏平川": "official",
+    "驰大漠": "steppe",
+    "逾险峰": "mountain",
+    "渡烟波": "water",
+    "全地形": "all",
+}
+
+
+def parse_mounts() -> list[dict[str, Any]]:
+    eq_path = DOCS_DIR / "EQUIPMENT_COMPENDIUM.md"
+    lines = eq_path.read_text(encoding="utf-8").splitlines()
+
+    current_tier = ""
+    current_sub_tier = ""
+    mounts: list[dict[str, Any]] = []
+
+    sub_heading_re = re.compile(r"^###\s+5\.\d+\s+(天阶|地阶|良阶|凡阶)(上品|中品|下品)")
+    req_token_re = re.compile(r"`([^`]+?)≥(\d+)`")
+    effect_title_re = re.compile(r"^【([^】]+)】")
+
+    for ln in lines:
+        m_sub = sub_heading_re.match(ln)
+        if m_sub:
+            current_tier = m_sub.group(1)
+            current_sub_tier = m_sub.group(2)
+            continue
+
+        if not re.match(r"^\|\s*`MNT-\d{3}`\s*\|", ln):
+            continue
+
+        cols = [c.strip() for c in ln.strip().strip("|").split("|")]
+        if len(cols) not in (8, 9):
+            raise ValueError(f"Unexpected column count ({len(cols)}) in mount row: {ln}")
+
+        mnt_id = cols[0].strip("`").strip()
+        code = mnt_id.split("-")[1]
+        name = cols[1].replace("**", "").strip()
+        breed_category = cols[2].strip()
+        origin_full = cols[3].strip()
+        speed_trait_raw = cols[4].strip()
+        val = int(cols[5].strip())
+        bonus_raw = cols[6].strip()
+        desc_raw = cols[7].strip()
+        prereq_raw = cols[8].strip() if len(cols) == 9 else None
+
+        if "·" in origin_full:
+            loc_part, origin_detail = origin_full.split("·", 1)
+        else:
+            loc_part, origin_detail = origin_full, origin_full
+        loc_part = loc_part.strip()
+        if loc_part not in LOCATION_RESOLUTION_MAP:
+            raise ValueError(f"[{mnt_id}] Unknown mount origin location: {loc_part!r}")
+        region_id, canonical_loc_label, _ = LOCATION_RESOLUTION_MAP[loc_part]
+        sect_id = resolve_sect_for_origin(origin_full)
+
+        # Parse speed & terrain trait (e.g. "380里·全地形+18%")
+        m_st = re.match(r"^(\d+)里·([^+]+)\+(\d+)%$", speed_trait_raw)
+        if not m_st:
+            raise ValueError(f"[{mnt_id}] Invalid speed/terrain trait cell: {speed_trait_raw!r}")
+        base_speed = int(m_st.group(1))
+        terrain_trait = m_st.group(2).strip()
+        terrain_bonus_pct = int(m_st.group(3))
+        if terrain_trait not in MOUNT_TERRAIN_TRAIT_MAP:
+            raise ValueError(f"[{mnt_id}] Unknown terrain trait: {terrain_trait!r}")
+        favored_terrain = MOUNT_TERRAIN_TRAIT_MAP[terrain_trait]
+
+        equip_bonus = parse_equip_bonus_tokens(bonus_raw)
+        m_eff = effect_title_re.match(desc_raw)
+        special_tag = m_eff.group(1) if m_eff else None
+
+        stat_reqs = (
+            [{"stat": k.strip(), "min": int(v)} for k, v in req_token_re.findall(prereq_raw)]
+            if prereq_raw
+            else []
+        )
+
+        mounts.append(
+            {
+                "id": mnt_id,
+                "code": code,
+                "name": name,
+                "slot": "mount",
+                "breedCategory": breed_category,
+                "tier": current_tier,
+                "subTier": current_sub_tier,
+                "fullTier": f"{current_tier}{current_sub_tier}",
+                "regionId": region_id,
+                "locationLabel": canonical_loc_label,
+                "origin": origin_detail.strip(),
+                "originFull": origin_full,
+                "sectId": sect_id,
+                "baseSpeed": base_speed,
+                "terrainTrait": terrain_trait,
+                "favoredTerrain": favored_terrain,
+                "terrainBonusPct": terrain_bonus_pct,
+                "value": val,
+                "equipBonus": equip_bonus,
+                "specialTag": special_tag,
+                "description": desc_raw,
+                "prerequisitesText": prereq_raw,
+                "statRequirements": stat_reqs,
+            }
+        )
+
+    mounts.sort(key=lambda x: int(x["code"]))
+    if len(mounts) != 28:
+        raise AssertionError(f"Expected 28 mounts, got {len(mounts)}")
+    tier_counts = Counter(m["tier"] for m in mounts)
+    expected_tiers = {"天阶": 3, "地阶": 5, "良阶": 8, "凡阶": 12}
+    if dict(tier_counts) != expected_tiers:
+        raise AssertionError(f"Mount tier counts mismatch: {dict(tier_counts)} != {expected_tiers}")
+    return mounts
+
+
 
 # ==============================================================================
 # 5. [M0-3] 解析 38 地区风貌与生成 SVG 室内兜底热区
@@ -2046,9 +2161,10 @@ def compile_all(do_normalize_docs: bool) -> None:
     if len(wg_node_by_id) != 43:
         raise AssertionError(f"Expected 43 worldGraph nodes, got {len(wg_node_by_id)}")
 
-    # 1) Compile Martial Arts (216) & Weapons (100)
+    # 1) Compile Martial Arts (216), Weapons (100) & Mounts (28)
     martial_arts = parse_martial_arts()
     weapons = parse_weapons()
+    mounts = parse_mounts()
 
     # 2) Compile Buildings (138 Specials + 130 City Bases = 268)
     buildings: list[dict[str, Any]] = []
@@ -2433,6 +2549,7 @@ def compile_all(do_normalize_docs: bool) -> None:
             "interiorSubBuildings": len(spot_by_id),
             "martialArts": len(martial_arts),
             "weapons": len(weapons),
+            "mounts": len(mounts),
             "npcs": len(npcs),
             "npcsWithAvatar": sum(1 for n in npcs if n["avatarUrl"]),
             "npcsWithFullbody": sum(1 for n in npcs if n["fullbodyUrl"]),
@@ -2480,6 +2597,19 @@ def compile_all(do_normalize_docs: bool) -> None:
             }
             for w in weapons
         ],
+        "mountIndex": [
+            {
+                "id": m["id"],
+                "code": m["code"],
+                "name": m["name"],
+                "fullTier": m["fullTier"],
+                "breedCategory": m["breedCategory"],
+                "baseSpeed": m["baseSpeed"],
+                "regionId": m["regionId"],
+                "sectId": m["sectId"],
+            }
+            for m in mounts
+        ],
     }
 
     # Verify zero unresolved references & zero Base64 strings
@@ -2506,12 +2636,18 @@ def compile_all(do_normalize_docs: bool) -> None:
         for sig_aid in wpn["signatureArtIds"]:
             assert sig_aid in art_id_set, f"Invalid signatureArtId {sig_aid} on {wpn['id']}"
 
+    for mnt in mounts:
+        assert mnt["regionId"] in region_id_set, f"Invalid regionId on {mnt['id']}"
+        if mnt["sectId"] is not None:
+            assert mnt["sectId"] in faction_id_set, f"Invalid sectId on {mnt['id']}"
+
     outputs = {
         "idRegistry.json": id_registry,
         "regions.json": regions,
         "buildings.json": buildings,
         "martial_arts.json": martial_arts,
         "weapons.json": weapons,
+        "mounts.json": mounts,
         "npcs.json": npcs,
     }
 
@@ -2573,6 +2709,7 @@ def compile_all(do_normalize_docs: bool) -> None:
         f"{len(buildings) - special_count} base buildings | "
         f"{len(martial_arts)} martial arts | "
         f"{len(weapons)} weapons (10天/20地/30良/40凡) | "
+        f"{len(mounts)} mounts (3天/5地/8良/12凡) | "
         f"{len(npcs)} NPCs (100% leaf-assigned & full stats)"
     )
 

@@ -9,7 +9,7 @@ import {
 import { computeEquippedArtsTotals } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
 import { recordAssetLoaded, resolveAssetUrl } from '../../../utils/assetLoader'
-import { getEffectiveSpeed, WORLD_GRAPH } from '../../../utils/mapMath'
+import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
 import type { LightboxState } from '../menuShared'
 
 interface HeroTabProps {
@@ -299,7 +299,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   <strong className="font-mono text-[#1b5132] ml-1">
                     {speedInfo.baseDailyLi} 里/日（+{speedInfo.modifierPct}%）
                   </strong>
-                  <span className="text-[#7a6042] ml-2">[{WORLD_GRAPH.mounts[mountKey].name}]</span>
+                  <span className="text-[#7a6042] ml-2">[{resolveMountMeta(mountKey).name}]</span>
                 </div>
                 <div className="text-[#52391e]">
                   主运：{mainNeigong ? mainNeigong.cleanName : '未运内功'} ·{' '}

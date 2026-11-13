@@ -1,6 +1,6 @@
 import { REGION_DB_MAP } from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
-import { findBestRoute, WORLD_GRAPH } from '../../utils/mapMath'
+import { findBestRoute, resolveMountMeta } from '../../utils/mapMath'
 
 export function MapTooltip() {
   const tooltip = useGameStore((s) => s.tooltip)
@@ -43,6 +43,7 @@ export function MapTooltip() {
     const roamingHere = roamingMasters.filter((m) => m.nodeId === node.id)
     const dbResidentCount = REGION_DB_MAP[node.id]?.residentNpcIds.length ?? 0
     const npcTotal = dbResidentCount + roamingHere.length
+    const mountMeta = resolveMountMeta(mountKey)
 
     return (
       <div
@@ -73,7 +74,7 @@ export function MapTooltip() {
               </div>
               <div className="flex justify-between py-0.5 border-b border-[#d8cbb2]">
                 <span className="text-[#5c4630]">
-                  按{WORLD_GRAPH.mounts[mountKey].name}预计抵达：
+                  按【{mountMeta.name}】预计抵达：
                 </span>
                 <strong className="text-[#9e2218] font-mono">
                   {route.totalDays.toFixed(1)} 天

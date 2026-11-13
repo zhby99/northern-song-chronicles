@@ -21,6 +21,7 @@ import {
   MARTIAL_ART_SLOT_METAS,
 } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
+import { resolveMountMeta } from '../../../utils/mapMath'
 import type {
   CompiledMartialArtRecord,
   EquipmentSlotKey,
@@ -28,7 +29,6 @@ import type {
   MartialArtSlotKey,
 } from '../../../types/game'
 import { recordAssetLoaded, resolveAssetUrl } from '../../../utils/assetLoader'
-import { WORLD_GRAPH } from '../../../utils/mapMath'
 import { ArtSlotIcon, SlotIcon } from '../MenuIcons'
 
 interface LoadoutTabProps {
@@ -297,7 +297,7 @@ export function LoadoutTab({
                   攻+{equipTotals.attack + weaponSynergy.totalSynergyAttack} · 防+
                   {equipTotals.defense}
                 </div>
-                <div className="text-[10px] text-[#52391e]">{WORLD_GRAPH.mounts[mountKey].name}</div>
+                <div className="text-[10px] text-[#52391e]">{resolveMountMeta(mountKey).name}</div>
               </div>
 
               <div className="sm:col-span-4 space-y-2">
