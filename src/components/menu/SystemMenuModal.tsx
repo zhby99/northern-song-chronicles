@@ -38,6 +38,7 @@ import {
   formatBonusBadges,
   ITEM_DB_MAP,
   RARITY_STYLE_MAP,
+  SCROLLS_ITEMS_DB,
 } from '../../data/itemsDb'
 import {
   canArtFitSlot,
@@ -55,6 +56,8 @@ import type {
   CompiledWeaponRecord,
   EquipmentSlotKey,
   EquipmentTier,
+  GameItemDef,
+  ItemRarity,
   LearnedArtEntry,
   MartialArtSlotKey,
   MenuTabKey,
@@ -322,8 +325,15 @@ export function SystemMenuModal() {
   const [selectedArtSlot, setSelectedArtSlot] = useState<MartialArtSlotKey>('neigong')
   const [inspectedLearnedArtId, setInspectedLearnedArtId] = useState<string>('MA-177')
 
-  // Selected item ID in Bag Panel (Tab 3)
+  // Selected item ID in Bag Panel (Tab 3) + 100 Scrolls Compendium sub-view
   const [selectedBagItemId, setSelectedBagItemId] = useState<string | null>(null)
+  const [scrollViewMode, setScrollViewMode] = useState<'owned' | 'catalog'>('owned')
+  const [scrollTierFilter, setScrollTierFilter] = useState<'ALL' | ItemRarity>('ALL')
+  const [scrollSubTypeFilter, setScrollSubTypeFilter] = useState<string>('ALL')
+  const [scrollQuery, setScrollQuery] = useState<string>('')
+  const [selectedCatalogScrollId, setSelectedCatalogScrollId] = useState<string>(
+    () => SCROLLS_ITEMS_DB[0]?.id ?? 'ITM-SCR-001',
+  )
 
   // 1,000 NPC Compendium filter state (Tab 4)
   const [npcQuery, setNpcQuery] = useState('')
@@ -507,7 +517,7 @@ export function SystemMenuModal() {
       tools: 0,
       misc: 0,
     }
-    const list: Array<{ itemId: string; qty: number; def: (typeof ITEM_DB_MAP)[string] }> = []
+    const list: Array<{ itemId: string; qty: number; def: GameItemDef }> = []
     for (const st of inventory) {
       const def = ITEM_DB_MAP[st.itemId]
       if (!def) continue
@@ -518,6 +528,38 @@ export function SystemMenuModal() {
     }
     return { counts, list }
   }, [inventory, activeBagCategory])
+
+  const ownedQtyMap = useMemo(() => {
+    const m = new Map<string, number>()
+    for (const st of inventory) {
+      m.set(st.itemId, st.qty)
+    }
+    return m
+  }, [inventory])
+
+  const scrollSubTypes = useMemo(() => {
+    const s = new Set<string>()
+    for (const item of SCROLLS_ITEMS_DB) {
+      s.add(item.subType)
+    }
+    return Array.from(s)
+  }, [])
+
+  const filteredCatalogScrolls = useMemo(() => {
+    const q = scrollQuery.trim().toLowerCase()
+    return SCROLLS_ITEMS_DB.filter((item) => {
+      if (scrollTierFilter !== 'ALL' && item.rarity !== scrollTierFilter) return false
+      if (scrollSubTypeFilter !== 'ALL' && item.subType !== scrollSubTypeFilter) return false
+      if (!q) return true
+      return (
+        item.id.toLowerCase().includes(q) ||
+        item.name.toLowerCase().includes(q) ||
+        item.subType.toLowerCase().includes(q) ||
+        item.desc.toLowerCase().includes(q) ||
+        (item.lore?.toLowerCase().includes(q) ?? false)
+      )
+    })
+  }, [scrollTierFilter, scrollSubTypeFilter, scrollQuery])
 
   if (!menuOpen) return null
 
@@ -1727,10 +1769,34 @@ export function SystemMenuModal() {
                 const currentCatMeta =
                   BAG_CATEGORY_METAS.find((c) => c.key === activeBagCategory) ??
                   BAG_CATEGORY_METAS[0]
-                const activeStack =
+                const isScrollCatalogMode =
+                  activeBagCategory === 'scrolls' && scrollViewMode === 'catalog'
+
+                const activeOwnedStack =
                   bagItemsByCat.list.find((x) => x.itemId === selectedBagItemId) ??
                   bagItemsByCat.list[0] ??
                   null
+
+                const activeCatalogDef =
+                  filteredCatalogScrolls.find((x) => x.id === selectedCatalogScrollId) ??
+                  filteredCatalogScrolls[0] ??
+                  null
+
+                const activeStack: {
+                  itemId: string
+                  qty: number
+                  def: GameItemDef
+                  isCatalogPreview?: boolean
+                } | null = isScrollCatalogMode
+                  ? activeCatalogDef
+                    ? {
+                        itemId: activeCatalogDef.id,
+                        qty: ownedQtyMap.get(activeCatalogDef.id) ?? 0,
+                        def: activeCatalogDef,
+                        isCatalogPreview: (ownedQtyMap.get(activeCatalogDef.id) ?? 0) <= 0,
+                      }
+                    : null
+                  : activeOwnedStack
 
                 return (
                   <div className="space-y-4 text-xs sm:text-sm">
@@ -1812,7 +1878,9 @@ export function SystemMenuModal() {
                                     isAct ? 'text-amber-200/90' : 'text-[#6b5235]'
                                   }`}
                                 >
-                                  四库卷{cat.numeral}
+                                  {cat.key === 'scrolls'
+                                    ? `四库卷${cat.numeral} · 百卷典录`
+                                    : `四库卷${cat.numeral}`}
                                 </div>
                               </div>
                             </div>
@@ -1830,18 +1898,169 @@ export function SystemMenuModal() {
                       })}
                     </div>
 
-                    {/* 当前分类说明条 */}
-                    <div className="px-3.5 py-2 rounded bg-[#efe4cc] border border-[#c8b28e] flex items-center justify-between text-xs text-[#52391e]">
+                    {/* 当前分类说明条 + 典籍书画【随身藏卷 / 皇祐百卷总录】切换 */}
+                    <div className="px-3.5 py-2.5 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-wrap items-center justify-between gap-2 text-xs text-[#52391e]">
                       <span>
                         <strong>【{currentCatMeta.label}】</strong>：{currentCatMeta.subtitle}
                       </span>
-                      <span className="font-mono">共 {bagItemsByCat.list.length} 种物品</span>
+                      <div className="flex items-center gap-2">
+                        {activeBagCategory === 'scrolls' ? (
+                          <div className="inline-flex rounded border border-[#9e8462] overflow-hidden bg-[#faf3e3]">
+                            <button
+                              type="button"
+                              onClick={() => setScrollViewMode('owned')}
+                              className={`px-2.5 py-1 song-serif font-bold text-xs cursor-pointer transition ${
+                                scrollViewMode === 'owned'
+                                  ? 'bg-[#8f1d14] text-[#fff8eb]'
+                                  : 'text-[#52391e] hover:bg-[#e5d6b8]'
+                              }`}
+                            >
+                              随身藏卷 ({bagItemsByCat.counts.scrolls})
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => setScrollViewMode('catalog')}
+                              className={`px-2.5 py-1 song-serif font-bold text-xs cursor-pointer transition ${
+                                scrollViewMode === 'catalog'
+                                  ? 'bg-[#8f1d14] text-[#fff8eb]'
+                                  : 'text-[#52391e] hover:bg-[#e5d6b8]'
+                              }`}
+                            >
+                              皇祐百卷总录 ({SCROLLS_ITEMS_DB.length}卷)
+                            </button>
+                          </div>
+                        ) : (
+                          <span className="font-mono">共 {bagItemsByCat.list.length} 种物品</span>
+                        )}
+                      </div>
                     </div>
+
+                    {/* 若开启【皇祐百卷总录】，展示四阶分级（10天/20地/30良/40凡）与书目检索栏 */}
+                    {isScrollCatalogMode && (
+                      <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-wrap items-center gap-2 text-xs">
+                        <div className="flex flex-wrap items-center gap-1.5">
+                          {(
+                            [
+                              { key: 'ALL', label: '全部百卷 (100)' },
+                              { key: '天阶', label: '天阶圣品 (10)' },
+                              { key: '地阶', label: '地阶珍本 (20)' },
+                              { key: '良阶', label: '良阶善本 (30)' },
+                              { key: '凡阶', label: '凡阶坊刻 (40)' },
+                            ] as const
+                          ).map((t) => {
+                            const active = scrollTierFilter === t.key
+                            return (
+                              <button
+                                key={t.key}
+                                type="button"
+                                onClick={() => setScrollTierFilter(t.key)}
+                                className={`px-2.5 py-1 rounded border font-bold song-serif cursor-pointer transition ${
+                                  active
+                                    ? 'bg-[#261910] text-amber-200 border-[#f5cb5c]'
+                                    : 'bg-[#faf3e3] text-[#4a3219] border-[#bfa680] hover:bg-[#e5d6b8]'
+                                }`}
+                              >
+                                {t.label}
+                              </button>
+                            )
+                          })}
+                        </div>
+
+                        <select
+                          value={scrollSubTypeFilter}
+                          onChange={(e) => setScrollSubTypeFilter(e.target.value)}
+                          className="px-2.5 py-1 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
+                        >
+                          <option value="ALL">全部典籍门类</option>
+                          {scrollSubTypes.map((st) => (
+                            <option key={st} value={st}>
+                              {st}
+                            </option>
+                          ))}
+                        </select>
+
+                        <input
+                          type="text"
+                          value={scrollQuery}
+                          onChange={(e) => setScrollQuery(e.target.value)}
+                          placeholder="检索卷号、书名、作者或题跋（如：兰亭、溪山、易筋、范仲淹、毕昇）…"
+                          className="flex-1 min-w-[200px] px-2.5 py-1 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
+                        />
+
+                        <span className="font-mono text-[#5e472d]">
+                          筛选 {filteredCatalogScrolls.length} / 100 卷
+                        </span>
+                      </div>
+                    )}
 
                     {/* 下方主体：左侧物品可视化卡片网格 + 右侧物品检视与使用/穿戴操作台 */}
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                       <div className="lg:col-span-7 bg-[#efe4cc]/70 border border-[#c8b28e] rounded-md p-3.5 min-h-[380px] max-h-[480px] overflow-y-auto scroll-thin">
-                        {bagItemsByCat.list.length > 0 ? (
+                        {isScrollCatalogMode ? (
+                          filteredCatalogScrolls.length > 0 ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                              {filteredCatalogScrolls.map((def) => {
+                                const isSel = activeStack?.itemId === def.id
+                                const ownedQty = ownedQtyMap.get(def.id) ?? 0
+                                const rStyle = RARITY_STYLE_MAP[def.rarity]
+                                return (
+                                  <button
+                                    key={def.id}
+                                    type="button"
+                                    onClick={() => setSelectedCatalogScrollId(def.id)}
+                                    className={`p-3 rounded-md border-2 text-left transition cursor-pointer flex items-start justify-between gap-2 ${
+                                      isSel
+                                        ? 'bg-[#fff9ec] border-[#8f1d14] ring-1 ring-[#8f1d14] shadow-md'
+                                        : `${rStyle.cardBg} ${rStyle.borderCls} hover:brightness-98`
+                                    }`}
+                                  >
+                                    <div className="flex items-start gap-2.5 min-w-0">
+                                      <div
+                                        className={`w-10 h-10 rounded border flex flex-col items-center justify-center shrink-0 ${rStyle.badgeBg} ${rStyle.badgeText} border-[#f5cb5c]/50`}
+                                      >
+                                        {renderBagCatIcon('scrolls', 'w-3.5 h-3.5')}
+                                        <span className="text-[9px] font-mono leading-none mt-0.5">
+                                          {def.id.slice(-3)}
+                                        </span>
+                                      </div>
+                                      <div className="min-w-0">
+                                        <div className="song-serif font-bold text-xs sm:text-sm text-[#23180f] truncate">
+                                          {def.name}
+                                        </div>
+                                        <div className="flex items-center gap-1.5 mt-1">
+                                          <span
+                                            className={`px-1.5 py-0.2 rounded text-[10px] font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
+                                          >
+                                            {def.rarity}
+                                          </span>
+                                          <span className="text-[11px] text-[#6b5235] truncate">
+                                            {def.subType}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {ownedQty > 0 ? (
+                                      <span className="px-2 py-0.5 rounded bg-[#1f5c3a] text-[#fff8eb] font-mono font-bold text-[11px] shrink-0">
+                                        已藏×{ownedQty}
+                                      </span>
+                                    ) : (
+                                      <span className="px-1.5 py-0.5 rounded bg-[#efe4cc]/80 border border-[#c8b28e] font-mono text-[10px] text-[#7a6042] shrink-0">
+                                        {def.value}两
+                                      </span>
+                                    )}
+                                  </button>
+                                )
+                              })}
+                            </div>
+                          ) : (
+                            <div className="h-full flex flex-col items-center justify-center text-center text-[#7a6042] py-16">
+                              <div className="song-serif font-bold text-base">
+                                未检索到匹配的典籍书画
+                              </div>
+                              <div className="text-xs mt-1">请尝试切换品阶或清空检索词</div>
+                            </div>
+                          )
+                        ) : bagItemsByCat.list.length > 0 ? (
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                             {bagItemsByCat.list.map(({ itemId, qty, def }) => {
                               const isSel = activeStack?.itemId === itemId
@@ -1891,7 +2110,7 @@ export function SystemMenuModal() {
                         ) : (
                           <div className="h-full flex flex-col items-center justify-center text-center text-[#7a6042] py-16">
                             <div className="song-serif font-bold text-base">
-                              【{currentCatMeta.label}】分栏暂无物品
+                              【{currentCatMeta.label}】分栏暂无随身物品
                             </div>
                             <div className="text-xs mt-1">
                               游历各州书肆、药铺、铁冶坊或秘境奇遇可收入囊中
@@ -1907,7 +2126,10 @@ export function SystemMenuModal() {
                             <div className="space-y-3">
                               <div className="flex items-start justify-between gap-2 border-b border-[#cbb693] pb-2.5">
                                 <div>
-                                  <div className="flex items-center gap-1.5">
+                                  <div className="flex items-center gap-1.5 flex-wrap">
+                                    <span className="px-1.5 py-0.5 rounded bg-[#261910] text-amber-200 font-mono text-[10px]">
+                                      {activeStack.def.id}
+                                    </span>
                                     <span
                                       className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                                         RARITY_STYLE_MAP[activeStack.def.rarity].badgeBg
@@ -1923,8 +2145,12 @@ export function SystemMenuModal() {
                                     {activeStack.def.name}
                                   </h4>
                                 </div>
-                                <div className="text-right font-mono text-xs text-[#6b5235]">
-                                  <div>数量 ×{activeStack.qty}</div>
+                                <div className="text-right font-mono text-xs text-[#6b5235] shrink-0">
+                                  <div>
+                                    {activeStack.qty > 0
+                                      ? `随身 ×${activeStack.qty}`
+                                      : '尚未收入行囊'}
+                                  </div>
                                   <div className="text-[#7f1d1d] font-bold">
                                     估价 {activeStack.def.value} 两
                                   </div>
@@ -1960,37 +2186,78 @@ export function SystemMenuModal() {
                               )}
 
                               {activeStack.def.useEffect && (
-                                <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] text-xs text-[#1b5132] font-medium leading-relaxed">
-                                  功效：
-                                  {[
-                                    activeStack.def.useEffect.hp
-                                      ? `气血 +${activeStack.def.useEffect.hp}`
-                                      : null,
-                                    activeStack.def.useEffect.mp
-                                      ? `内力 +${activeStack.def.useEffect.mp}`
-                                      : null,
-                                    activeStack.def.useEffect.stamina
-                                      ? `体能 +${activeStack.def.useEffect.stamina}`
-                                      : null,
-                                    activeStack.def.useEffect.res
-                                      ? `抗性 +${activeStack.def.useEffect.res}`
-                                      : null,
-                                    activeStack.def.useEffect.food
-                                      ? `粮草 +${activeStack.def.useEffect.food}日份`
-                                      : null,
-                                    activeStack.def.useEffect.skillGain
-                                      ? `【${activeStack.def.useEffect.skillGain[0]}】+${activeStack.def.useEffect.skillGain[1]}`
-                                      : null,
-                                    activeStack.def.useEffect.learnArtHint ?? null,
-                                  ]
-                                    .filter(Boolean)
-                                    .join(' · ')}
+                                <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] text-xs text-[#1b5132] font-medium leading-relaxed space-y-1.5">
+                                  <div>
+                                    研读/使用功效：
+                                    {[
+                                      activeStack.def.useEffect.hp
+                                        ? `气血 +${activeStack.def.useEffect.hp}`
+                                        : null,
+                                      activeStack.def.useEffect.mp
+                                        ? `内力 +${activeStack.def.useEffect.mp}`
+                                        : null,
+                                      activeStack.def.useEffect.stamina
+                                        ? `体能 +${activeStack.def.useEffect.stamina}`
+                                        : null,
+                                      activeStack.def.useEffect.res
+                                        ? `抗性 +${activeStack.def.useEffect.res}`
+                                        : null,
+                                      activeStack.def.useEffect.riding
+                                        ? `【骑术】+${activeStack.def.useEffect.riding}`
+                                        : null,
+                                      activeStack.def.useEffect.food
+                                        ? `粮草 +${activeStack.def.useEffect.food}日份`
+                                        : null,
+                                      activeStack.def.useEffect.skillGain
+                                        ? `【${activeStack.def.useEffect.skillGain[0]}】+${activeStack.def.useEffect.skillGain[1]}`
+                                        : null,
+                                      activeStack.def.useEffect.learnArtHint ?? null,
+                                    ]
+                                      .filter(Boolean)
+                                      .join(' · ')}
+                                  </div>
+                                  {activeStack.def.useEffect.learnArtId &&
+                                    MARTIAL_ART_DB_MAP[activeStack.def.useEffect.learnArtId] && (
+                                      <div className="pt-1 border-t border-[#dfd0b3] flex items-center justify-between">
+                                        <span className="text-[11px] text-[#52391e]">
+                                          关联武学：
+                                          <strong>
+                                            {
+                                              MARTIAL_ART_DB_MAP[
+                                                activeStack.def.useEffect.learnArtId
+                                              ].name
+                                            }
+                                          </strong>
+                                          （{activeStack.def.useEffect.learnArtId}）
+                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={() => {
+                                            const art =
+                                              MARTIAL_ART_DB_MAP[
+                                                activeStack.def.useEffect!.learnArtId!
+                                              ]
+                                            if (art) {
+                                              setSelectedArt(art)
+                                              setMenuTab('martialArts')
+                                            }
+                                          }}
+                                          className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d1b0] border border-[#9e8462] text-[11px] text-[#781710] font-semibold cursor-pointer"
+                                        >
+                                          查阅武学总纲 →
+                                        </button>
+                                      </div>
+                                    )}
                                 </div>
                               )}
                             </div>
 
                             <div className="pt-3 border-t border-[#cbb693] flex items-center gap-2">
-                              {activeStack.def.equipSlot ? (
+                              {activeStack.isCatalogPreview ? (
+                                <div className="w-full py-2 px-3 text-center text-xs text-[#6b5235] bg-[#faf3e3] rounded border border-[#cbb693]">
+                                  此卷现载于《皇祐百卷总录》，游历各州书院书肆、大相国寺或秘境奇遇可访得真本
+                                </div>
+                              ) : activeStack.def.equipSlot ? (
                                 <>
                                   <button
                                     type="button"

@@ -1140,6 +1140,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextStamina = isNonStackableTool && !eff.stamina ? Math.max(0, s.stamina - 6) : s.stamina
     let nextAgi = s.agility
     let nextRes = s.res
+    let nextRiding = s.ridingSkill
     let nextFood = s.food
     let nextQinggongBonus = s.qinggongBonus
     let nextLearnedArts = s.learnedArts
@@ -1198,6 +1199,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextRes = Math.min(100, nextRes + eff.res)
       notes.push(`抗性 +${eff.res}`)
     }
+    if (eff.riding) {
+      nextRiding = Math.min(120, nextRiding + eff.riding)
+      notes.push(`【骑术】+${eff.riding}`)
+    }
     if (eff.food) {
       nextFood += eff.food
       notes.push(`粮草 +${eff.food}日份`)
@@ -1231,6 +1236,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       stamina: nextStamina,
       agility: nextAgi,
       res: nextRes,
+      ridingSkill: nextRiding,
       food: nextFood,
       skills: nextSkills,
       actionFeedback: {
@@ -1861,7 +1867,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     return {
       gameTitle: '北宋立志传',
-      schemaVersion: 'M1.1.0',
+      schemaVersion: 'M1.2.0',
       slotId,
       savedAt: new Date().toISOString(),
       note: note.trim(),

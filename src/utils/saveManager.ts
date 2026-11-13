@@ -287,6 +287,11 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     }
   }
 
+  const isLegacyScrollSchema =
+    raw.schemaVersion === 'M0.4.0' ||
+    raw.schemaVersion === 'M1.0.0' ||
+    raw.schemaVersion === 'M1.1.0'
+
   let cleanInventory: InventoryStack[] = DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x }))
   if (Array.isArray(st.inventory)) {
     cleanInventory = st.inventory
@@ -294,6 +299,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         (entry): entry is Record<string, unknown> =>
           isRecord(entry) &&
           typeof entry.itemId === 'string' &&
+          !(isLegacyScrollSchema && entry.itemId.startsWith('ITM-SCR-')) &&
           Boolean(ITEM_DB_MAP[entry.itemId]) &&
           typeof entry.qty === 'number' &&
           entry.qty > 0,

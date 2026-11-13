@@ -13,6 +13,9 @@ import type {
   LearnedArtEntry,
   MartialArtSlotKey,
 } from '../types/game'
+import { SCROLLS_ITEMS_DB } from './scrollsDb'
+
+export { SCROLLS_ITEMS_DB }
 
 export const DEFAULT_HERO_TALENTS = {
   根骨: 72,
@@ -98,7 +101,7 @@ export const BAG_CATEGORY_METAS: Array<{
     numeral: '壹',
     label: '典籍书画',
     seal: '卷',
-    subtitle: '武学秘籍残卷、儒释道经史典籍、北宋名家字画碑帖',
+    subtitle: '百卷秘藏：武学秘籍残卷、法帖碑刻、名家书画、经史兵书与百工琴棋谱（10天阶·20地阶·30良阶·40凡阶）',
   },
   {
     key: 'medicine',
@@ -178,92 +181,8 @@ export const RARITY_STYLE_MAP: Record<
 }
 
 const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
-  // ==================== 1. 典籍书画 (scrolls) ====================
-  {
-    id: 'ITM-SCR-001',
-    name: '《太祖长拳谱》手抄本',
-    category: 'scrolls',
-    subType: '武学秘籍',
-    rarity: '凡品',
-    stackable: false,
-    value: 25,
-    desc: '大宋军中与市井武馆广为流传的筑基拳谱，招式堂堂正正，最宜锤炼筋骨根基。',
-    lore: '相传宋太祖赵匡胤微时以此三十二势长拳打遍京洛。',
-    useEffect: {
-      mp: 20,
-      learnArtId: 'MA-180',
-      learnArtHint: '参悟《太祖长拳》精要（已习得则提升该武学重数熟练度）',
-    },
-  },
-  {
-    id: 'ITM-SCR-002',
-    name: '《呼延家传鞭枪残页》',
-    category: 'scrolls',
-    subType: '武学残卷',
-    rarity: '良品',
-    stackable: true,
-    value: 60,
-    desc: '记载河东名将呼延赞军阵枪鞭发力法门的残损绢页，字迹苍劲凛冽。',
-    useEffect: {
-      skillGain: ['策论', 2],
-      learnArtId: 'MA-171',
-      learnArtHint: '揣摩北宋军阵枪鞭法门，精进《呼延硬鞭法》（【策论】+2）',
-    },
-  },
-  {
-    id: 'ITM-SCR-006',
-    name: '《洛阳金刀谱》拓本',
-    category: 'scrolls',
-    subType: '武学秘籍',
-    rarity: '良品',
-    stackable: false,
-    value: 85,
-    desc: '洛阳金刀王家外传的刀法总诀拓本，刀势大开大合，展卷研读可领悟金刀门刀意。',
-    useEffect: {
-      mp: 25,
-      learnArtId: 'MA-109',
-      learnArtHint: '领悟良品上品刀法《洛阳金刀谱》，佩备【洛阳九环金刀】可触发绝配共鸣！',
-    },
-  },
-  {
-    id: 'ITM-SCR-003',
-    name: '《庆历正气策论集》',
-    category: 'scrolls',
-    subType: '经史典籍',
-    rarity: '良品',
-    stackable: false,
-    value: 45,
-    desc: '辑录范仲淹、欧阳修、富弼诸公在庆历年间的奏议文章，汴京太学士子人手一册。',
-    useEffect: {
-      skillGain: ['经义', 2],
-    },
-  },
-  {
-    id: 'ITM-SCR-004',
-    name: '《汴河春晓图》摹卷',
-    category: 'scrolls',
-    subType: '名家书画',
-    rarity: '地阶',
-    stackable: false,
-    value: 140,
-    desc: '大相国寺书画市淘得的青绿山水手卷，舟楫虹桥纤毫毕现，极受江南与东京名士追捧。',
-    useEffect: {
-      skillGain: ['画', 3],
-    },
-  },
-  {
-    id: 'ITM-SCR-005',
-    name: '《柳屯田新词钞》',
-    category: 'scrolls',
-    subType: '诗词唱本',
-    rarity: '凡品',
-    stackable: false,
-    value: 18,
-    desc: '樊楼歌妓传唱的柳三变词集，“凡有井水饮处，皆能歌柳词”。',
-    useEffect: {
-      skillGain: ['诗词', 2],
-    },
-  },
+  // ==================== 1. 典籍书画 (scrolls · 100 卷：10天阶 / 20地阶 / 30良阶 / 40凡阶) ====================
+  ...SCROLLS_ITEMS_DB,
 
   // ==================== 2. 丹药毒物 (medicine) ====================
   {
@@ -1195,12 +1114,13 @@ export const DEFAULT_EQUIPPED_SLOTS: EquippedSlotsMap = {
 }
 
 export const DEFAULT_INITIAL_INVENTORY: InventoryStack[] = [
-  // 典籍书画
-  { itemId: 'ITM-SCR-001', qty: 1 },
-  { itemId: 'ITM-SCR-002', qty: 2 },
-  { itemId: 'ITM-SCR-006', qty: 1 },
-  { itemId: 'ITM-SCR-003', qty: 1 },
-  { itemId: 'ITM-SCR-004', qty: 1 },
+  // 典籍书画（开局随身筑基秘籍与大宋风雅诗文舆图）
+  { itemId: 'ITM-SCR-061', qty: 1 }, // 《太祖长拳谱》手抄本（凡品）
+  { itemId: 'ITM-SCR-065', qty: 2 }, // 《呼延硬鞭法》军中简本（凡品）
+  { itemId: 'ITM-SCR-081', qty: 1 }, // 《柳屯田乐章集》樊楼新唱钞本（凡品）
+  { itemId: 'ITM-SCR-089', qty: 1 }, // 《大宋皇祐九域驿程道里图》折叠册（凡品）
+  { itemId: 'ITM-SCR-034', qty: 1 }, // 《洛阳金刀谱》拓本（良品）
+  { itemId: 'ITM-SCR-046', qty: 1 }, // 范仲淹《答手诏条陈十事》庆历政书刻本（良品）
   // 丹药毒物
   { itemId: 'ITM-MED-001', qty: 3 },
   { itemId: 'ITM-MED-002', qty: 2 },

@@ -514,6 +514,7 @@ export interface ItemUseEffect {
   mp?: number
   stamina?: number
   res?: number
+  riding?: number
   food?: number
   skillGain?: [string, number]
   learnArtId?: string
@@ -603,7 +604,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M0.4.0' | 'M1.0.0' | 'M1.1.0'
+  schemaVersion: 'M0.4.0' | 'M1.0.0' | 'M1.1.0' | 'M1.2.0'
   slotId: SaveSlotId
   savedAt: string
   note: string
