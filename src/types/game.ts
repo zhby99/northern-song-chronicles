@@ -6,6 +6,7 @@ export type MountKey = 'walk' | 'horse' | 'xiXia' | 'ferghana'
 export type ViewMode = 'world' | 'region' | 'building'
 export type MenuTabKey =
   | 'hero'
+  | 'loadout'
   | 'bag'
   | 'portraits'
   | 'martialArts'
@@ -406,6 +407,22 @@ export interface EquipmentStatBonus {
   skills?: Record<string, number>
 }
 
+export type MartialArtSlotKey =
+  | 'neigong'
+  | 'qinggong'
+  | 'move1'
+  | 'move2'
+  | 'move3'
+  | 'move4'
+
+export interface LearnedArtEntry {
+  artId: string
+  level: number // 1 ~ 10 重
+  exp: number // 0 ~ 100 当前重熟练度
+}
+
+export type EquippedArtsMap = Record<MartialArtSlotKey, string | null>
+
 export interface ItemUseEffect {
   hp?: number
   mp?: number
@@ -413,6 +430,7 @@ export interface ItemUseEffect {
   res?: number
   food?: number
   skillGain?: [string, number]
+  learnArtId?: string
   learnArtHint?: string
 }
 
@@ -466,6 +484,8 @@ export interface SerializableGameState {
   skills: Record<string, number>
 
   equipped: EquippedSlotsMap
+  learnedArts: LearnedArtEntry[]
+  equippedArts: EquippedArtsMap
   inventory: InventoryStack[]
 
   overlays: OverlayToggles
@@ -495,7 +515,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M0.4.0' | 'M1.0.0'
+  schemaVersion: 'M0.4.0' | 'M1.0.0' | 'M1.1.0'
   slotId: SaveSlotId
   savedAt: string
   note: string

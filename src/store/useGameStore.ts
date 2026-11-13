@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { BUILDING_DB_MAP } from '../data/gameDb'
+import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP } from '../data/gameDb'
 import {
   canItemFitSlot,
   computeEquipmentTotals,
@@ -7,16 +7,25 @@ import {
   DEFAULT_INITIAL_INVENTORY,
   ITEM_DB_MAP,
 } from '../data/itemsDb'
+import {
+  canArtFitSlot,
+  computeEquippedArtsTotals,
+  DEFAULT_EQUIPPED_ARTS,
+  DEFAULT_LEARNED_ARTS,
+} from '../data/playerMartialArts'
 import type {
   ActionEffect,
   BagCategoryKey,
   CameraPan,
   EquipmentSlotKey,
+  EquippedArtsMap,
   EquippedSlotsMap,
   GameSaveEnvelope,
   InventoryStack,
   LabelToggleKey,
+  LearnedArtEntry,
   LogEntry,
+  MartialArtSlotKey,
   MenuTabKey,
   MountKey,
   NodeNpc,
@@ -167,6 +176,10 @@ function removeItemFromInventory(
 }
 
 const INITIAL_EQUIP_TOTALS = computeEquipmentTotals(DEFAULT_EQUIPPED_SLOTS)
+const INITIAL_ART_TOTALS = computeEquippedArtsTotals(
+  DEFAULT_EQUIPPED_ARTS,
+  DEFAULT_LEARNED_ARTS,
+)
 
 export interface GameStoreState {
   dayCount: number
@@ -196,6 +209,8 @@ export interface GameStoreState {
   skills: Record<string, number>
 
   equipped: EquippedSlotsMap
+  learnedArts: LearnedArtEntry[]
+  equippedArts: EquippedArtsMap
   inventory: InventoryStack[]
   activeBagCategory: BagCategoryKey
 
@@ -255,6 +270,9 @@ export interface GameStoreState {
   setBagCategory: (cat: BagCategoryKey) => void
   equipItemToSlot: (itemId: string, targetSlot?: EquipmentSlotKey) => void
   unequipSlot: (slot: EquipmentSlotKey) => void
+  equipArtToSlot: (artId: string, slot: MartialArtSlotKey) => void
+  unequipArtSlot: (slot: MartialArtSlotKey) => void
+  practiceLearnedArt: (artId: string) => void
   consumeInventoryItem: (itemId: string) => void
 
   doBuildingAction: (item: {
@@ -309,6 +327,8 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     res: s.res,
     skills: { ...s.skills },
     equipped: { ...s.equipped },
+    learnedArts: s.learnedArts.map((x) => ({ ...x })),
+    equippedArts: { ...s.equippedArts },
     inventory: s.inventory.map((x) => ({ ...x })),
     overlays: { ...s.overlays },
     roamingMasters: s.roamingMasters.map((m) => ({ ...m })),
@@ -331,18 +351,18 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   currentNodeId: 'bianliang',
 
   mountKey: INITIAL_EQUIP_TOTALS.mountKey,
-  qinggongBonus: 0.15,
+  qinggongBonus: INITIAL_ART_TOTALS.qinggongBonus || 0.15,
   ridingSkill: 45 + INITIAL_EQUIP_TOTALS.riding,
-  agility: 65 + INITIAL_EQUIP_TOTALS.agility,
+  agility: 65 + INITIAL_EQUIP_TOTALS.agility + INITIAL_ART_TOTALS.agility,
   silver: 120,
   food: 25,
-  hp: 1200 + INITIAL_EQUIP_TOTALS.maxHp,
-  maxHp: 1200 + INITIAL_EQUIP_TOTALS.maxHp,
-  mp: 950 + INITIAL_EQUIP_TOTALS.maxMp,
-  maxMp: 950 + INITIAL_EQUIP_TOTALS.maxMp,
+  hp: 1200 + INITIAL_EQUIP_TOTALS.maxHp + INITIAL_ART_TOTALS.maxHp,
+  maxHp: 1200 + INITIAL_EQUIP_TOTALS.maxHp + INITIAL_ART_TOTALS.maxHp,
+  mp: 950 + INITIAL_EQUIP_TOTALS.maxMp + INITIAL_ART_TOTALS.maxMp,
+  maxMp: 950 + INITIAL_EQUIP_TOTALS.maxMp + INITIAL_ART_TOTALS.maxMp,
   stamina: 100 + INITIAL_EQUIP_TOTALS.maxStamina,
   maxStamina: 100 + INITIAL_EQUIP_TOTALS.maxStamina,
-  res: 40 + INITIAL_EQUIP_TOTALS.res,
+  res: 40 + INITIAL_EQUIP_TOTALS.res + INITIAL_ART_TOTALS.res,
   skills: {
     算术: 52,
     经义: 60,
@@ -356,6 +376,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   },
 
   equipped: { ...DEFAULT_EQUIPPED_SLOTS },
+  learnedArts: DEFAULT_LEARNED_ARTS.map((x) => ({ ...x })),
+  equippedArts: { ...DEFAULT_EQUIPPED_ARTS },
   inventory: DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x })),
   activeBagCategory: 'scrolls',
 
@@ -379,14 +401,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     createLogEntry(
       1,
       '行囊枢机',
-      '已实装 M1-0 顶部常驻历法时辰与气血/体能/银两/粮草状态栏、主角 7 槽位可视化装备台（含坐骑槽）与四大分类行囊！',
+      '已实装独立【主角面板】、【披挂与武学（7槽装备 + 6槽武学运使修炼）】与【行囊四库】三大核心卷宗！',
       true,
       4,
     ),
     createLogEntry(
       1,
       '东京展卷',
-      '当前驻留【开封府】半3D全景舆图。点击顶部状态条或按 ESC 即可体验换装、服用丹药与研读典籍。',
+      '当前驻留【开封府】半3D全景舆图。点击顶部状态条或按 ESC 即可检视主角属性、调配武学披挂与行囊器物。',
       true,
       4,
     ),
@@ -839,6 +861,173 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     })
   },
 
+  equipArtToSlot: (artId, slot) => {
+    const s = get()
+    const art = MARTIAL_ART_DB_MAP[artId]
+    if (!art || !canArtFitSlot(art, slot)) return
+    if (!s.learnedArts.some((x) => x.artId === artId)) return
+
+    const oldTotals = computeEquippedArtsTotals(s.equippedArts, s.learnedArts)
+    const nextEquippedArts: EquippedArtsMap = { ...s.equippedArts }
+
+    // Ensure the same martial art is not duplicated in two slots
+    for (const k of Object.keys(nextEquippedArts) as MartialArtSlotKey[]) {
+      if (nextEquippedArts[k] === artId) {
+        nextEquippedArts[k] = null
+      }
+    }
+    const prevInSlot = s.equippedArts[slot]
+    nextEquippedArts[slot] = artId
+
+    const newTotals = computeEquippedArtsTotals(nextEquippedArts, s.learnedArts)
+    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
+    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
+    const deltaAgi = newTotals.agility - oldTotals.agility
+    const deltaRes = newTotals.res - oldTotals.res
+
+    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
+    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
+
+    set({
+      equippedArts: nextEquippedArts,
+      qinggongBonus: newTotals.qinggongBonus,
+      maxHp: nextMaxHp,
+      hp: Math.min(nextMaxHp, Math.max(1, s.hp + Math.max(0, deltaMaxHp))),
+      maxMp: nextMaxMp,
+      mp: Math.min(nextMaxMp, Math.max(0, s.mp + Math.max(0, deltaMaxMp))),
+      agility: Math.max(1, s.agility + deltaAgi),
+      res: Math.max(0, s.res + deltaRes),
+      logs: [
+        createLogEntry(
+          s.dayCount,
+          '武学配招',
+          `已将【${art.name}】运使至武学槽位${prevInSlot && prevInSlot !== artId && MARTIAL_ART_DB_MAP[prevInSlot] ? `（替换下 ${MARTIAL_ART_DB_MAP[prevInSlot].name}）` : ''}。`,
+          false,
+          s.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  unequipArtSlot: (slot) => {
+    const s = get()
+    const oldArtId = s.equippedArts[slot]
+    if (!oldArtId) return
+    const oldArt = MARTIAL_ART_DB_MAP[oldArtId]
+
+    const oldTotals = computeEquippedArtsTotals(s.equippedArts, s.learnedArts)
+    const nextEquippedArts: EquippedArtsMap = {
+      ...s.equippedArts,
+      [slot]: null,
+    }
+    const newTotals = computeEquippedArtsTotals(nextEquippedArts, s.learnedArts)
+
+    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
+    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
+    const deltaAgi = newTotals.agility - oldTotals.agility
+    const deltaRes = newTotals.res - oldTotals.res
+
+    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
+    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
+
+    set({
+      equippedArts: nextEquippedArts,
+      qinggongBonus: newTotals.qinggongBonus,
+      maxHp: nextMaxHp,
+      hp: Math.min(nextMaxHp, s.hp),
+      maxMp: nextMaxMp,
+      mp: Math.min(nextMaxMp, s.mp),
+      agility: Math.max(1, s.agility + deltaAgi),
+      res: Math.max(0, s.res + deltaRes),
+      logs: [
+        createLogEntry(
+          s.dayCount,
+          '收功卸招',
+          `已散去槽位上的【${oldArt?.name ?? oldArtId}】。`,
+          false,
+          s.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  practiceLearnedArt: (artId) => {
+    const s = get()
+    const art = MARTIAL_ART_DB_MAP[artId]
+    const idx = s.learnedArts.findIndex((x) => x.artId === artId)
+    if (!art || idx === -1) return
+
+    const cur = s.learnedArts[idx]
+    if (cur.level >= 10) {
+      set({
+        actionFeedback: {
+          text: `【${art.name}】已臻十重返璞归真之境，无需再演武苦修！`,
+          tone: 'success',
+        },
+      })
+      return
+    }
+    if (s.stamina < 10) {
+      set({
+        actionFeedback: {
+          text: `演武精修需耗费 10 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息或服用茶食！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const oldTotals = computeEquippedArtsTotals(s.equippedArts, s.learnedArts)
+    const nextLearned = s.learnedArts.map((x) => ({ ...x }))
+    let nextLv = cur.level
+    let nextExp = cur.exp + 45
+    let leveledUp = false
+    if (nextExp >= 100) {
+      nextLv = Math.min(10, nextLv + 1)
+      nextExp = nextLv >= 10 ? 100 : nextExp - 100
+      leveledUp = true
+    }
+    nextLearned[idx] = { artId, level: nextLv, exp: nextExp }
+
+    const newTotals = computeEquippedArtsTotals(s.equippedArts, nextLearned)
+    const deltaMaxHp = newTotals.maxHp - oldTotals.maxHp
+    const deltaMaxMp = newTotals.maxMp - oldTotals.maxMp
+    const deltaAgi = newTotals.agility - oldTotals.agility
+    const deltaRes = newTotals.res - oldTotals.res
+
+    const nextMaxHp = Math.max(100, s.maxHp + deltaMaxHp)
+    const nextMaxMp = Math.max(50, s.maxMp + deltaMaxMp)
+    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+
+    set({
+      dayCount: clock.dayCount,
+      shichenIdx: clock.shichenIdx,
+      stamina: Math.max(0, s.stamina - 10),
+      learnedArts: nextLearned,
+      qinggongBonus: newTotals.qinggongBonus,
+      maxHp: nextMaxHp,
+      hp: Math.min(nextMaxHp, s.hp + Math.max(0, deltaMaxHp)),
+      maxMp: nextMaxMp,
+      mp: Math.min(nextMaxMp, s.mp + Math.max(0, deltaMaxMp)),
+      agility: Math.max(1, s.agility + deltaAgi),
+      res: Math.max(0, s.res + deltaRes),
+      logs: [
+        createLogEntry(
+          clock.dayCount,
+          leveledUp ? '武学突破' : '演武苦修',
+          leveledUp
+            ? `潜心演练【${art.name}】一个时辰（体能 -10），火候突破至第 ${nextLv} 重！`
+            : `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 ${nextExp}/100）。`,
+          leveledUp,
+          clock.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
   consumeInventoryItem: (itemId) => {
     const s = get()
     const def = ITEM_DB_MAP[itemId]
@@ -857,19 +1046,53 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       : s.inventory
 
     let nextHp = s.hp
+    let nextMaxHp = s.maxHp
     let nextMp = s.mp
+    let nextMaxMp = s.maxMp
     let nextStamina = s.stamina
+    let nextAgi = s.agility
     let nextRes = s.res
     let nextFood = s.food
+    let nextQinggongBonus = s.qinggongBonus
+    let nextLearnedArts = s.learnedArts
     const nextSkills = { ...s.skills }
     const notes: string[] = []
 
+    if (eff.learnArtId && MARTIAL_ART_DB_MAP[eff.learnArtId]) {
+      const targetArt = MARTIAL_ART_DB_MAP[eff.learnArtId]
+      const oldTotals = computeEquippedArtsTotals(s.equippedArts, s.learnedArts)
+      const cloned = s.learnedArts.map((x) => ({ ...x }))
+      const existIdx = cloned.findIndex((x) => x.artId === eff.learnArtId)
+      if (existIdx === -1) {
+        cloned.push({ artId: eff.learnArtId, level: 1, exp: 20 })
+        notes.push(`新习得武学【${targetArt.name}（第1重）】`)
+      } else if (cloned[existIdx].level < 10) {
+        let lv = cloned[existIdx].level
+        let xp = cloned[existIdx].exp + 50
+        if (xp >= 100) {
+          lv = Math.min(10, lv + 1)
+          xp = lv >= 10 ? 100 : xp - 100
+          notes.push(`【${targetArt.name}】突破至第 ${lv} 重`)
+        } else {
+          notes.push(`【${targetArt.name}】熟练度 +50`)
+        }
+        cloned[existIdx] = { artId: eff.learnArtId, level: lv, exp: xp }
+      }
+      nextLearnedArts = cloned
+      const newTotals = computeEquippedArtsTotals(s.equippedArts, nextLearnedArts)
+      nextMaxHp = Math.max(100, nextMaxHp + (newTotals.maxHp - oldTotals.maxHp))
+      nextMaxMp = Math.max(50, nextMaxMp + (newTotals.maxMp - oldTotals.maxMp))
+      nextAgi = Math.max(1, nextAgi + (newTotals.agility - oldTotals.agility))
+      nextRes = Math.max(0, nextRes + (newTotals.res - oldTotals.res))
+      nextQinggongBonus = newTotals.qinggongBonus
+    }
+
     if (eff.hp) {
-      nextHp = Math.min(s.maxHp, nextHp + eff.hp)
+      nextHp = Math.min(nextMaxHp, nextHp + eff.hp)
       notes.push(`气血 +${eff.hp}`)
     }
     if (eff.mp) {
-      nextMp = Math.min(s.maxMp, nextMp + eff.mp)
+      nextMp = Math.min(nextMaxMp, nextMp + eff.mp)
       notes.push(`内力 +${eff.mp}`)
     }
     if (eff.stamina) {
@@ -889,15 +1112,20 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextSkills[sk] = Math.min(100, (nextSkills[sk] ?? 40) + gain)
       notes.push(`【${sk}】+${gain}`)
     }
-    if (eff.learnArtHint) {
+    if (eff.learnArtHint && !eff.learnArtId) {
       notes.push(eff.learnArtHint)
     }
 
     set({
       inventory: nextInv,
+      learnedArts: nextLearnedArts,
+      qinggongBonus: nextQinggongBonus,
       hp: nextHp,
+      maxHp: nextMaxHp,
       mp: nextMp,
+      maxMp: nextMaxMp,
       stamina: nextStamina,
+      agility: nextAgi,
       res: nextRes,
       food: nextFood,
       skills: nextSkills,
@@ -1404,7 +1632,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     return {
       gameTitle: '北宋立志传',
-      schemaVersion: 'M1.0.0',
+      schemaVersion: 'M1.1.0',
       slotId,
       savedAt: new Date().toISOString(),
       note: note.trim(),

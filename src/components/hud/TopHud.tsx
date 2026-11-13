@@ -199,11 +199,11 @@ export function TopHud() {
 
         {/* 中区：主角基础状态（气血 + 体能）与 行军资粮（资金 + 粮草） */}
         <div className="flex items-center gap-2 sm:gap-3.5 overflow-x-auto no-scrollbar">
-          {/* 气血 & 体能 (点击直达主角与装备面板) */}
+          {/* 气血 & 体能 (点击直达主角面板) */}
           <button
             type="button"
             onClick={() => openMenu('hero')}
-            title="点击打开【主角与装备面板】检视气血、体能与七槽披挂"
+            title="点击打开【主角面板】检视气血、体能、先天三维与十艺修为"
             className="flex items-center gap-3 px-2.5 py-1 rounded bg-[#1a110a]/75 hover:bg-[#332215] border border-[#8c6e46]/60 transition cursor-pointer"
           >
             {/* 气血条 */}

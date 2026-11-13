@@ -1,18 +1,26 @@
 import type {
   EquipmentSlotKey,
+  EquippedArtsMap,
   EquippedSlotsMap,
   GameSaveEnvelope,
   InventoryStack,
+  LearnedArtEntry,
+  MartialArtSlotKey,
   SaveSlotId,
   SerializableGameState,
   ViewMode,
 } from '../types/game'
-import { BUILDING_DB_MAP, REGION_DB_MAP } from '../data/gameDb'
+import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, REGION_DB_MAP } from '../data/gameDb'
 import {
   DEFAULT_EQUIPPED_SLOTS,
   DEFAULT_INITIAL_INVENTORY,
   ITEM_DB_MAP,
 } from '../data/itemsDb'
+import {
+  canArtFitSlot,
+  DEFAULT_EQUIPPED_ARTS,
+  DEFAULT_LEARNED_ARTS,
+} from '../data/playerMartialArts'
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -158,6 +166,15 @@ const EQUIP_SLOT_KEYS: EquipmentSlotKey[] = [
   'mount',
 ]
 
+const ART_SLOT_KEYS: MartialArtSlotKey[] = [
+  'neigong',
+  'qinggong',
+  'move1',
+  'move2',
+  'move3',
+  'move4',
+]
+
 export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   if (!isRecord(raw)) return null
   if (raw.gameTitle !== '北宋立志传') return null
@@ -211,6 +228,52 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     for (const k of EQUIP_SLOT_KEYS) {
       const val = st.equipped[k]
       cleanEquipped[k] = typeof val === 'string' && ITEM_DB_MAP[val] ? val : null
+    }
+  }
+
+  let cleanLearnedArts: LearnedArtEntry[] = DEFAULT_LEARNED_ARTS.map((x) => ({ ...x }))
+  if (Array.isArray(st.learnedArts)) {
+    const seen = new Set<string>()
+    const parsedArts: LearnedArtEntry[] = []
+    for (const entry of st.learnedArts) {
+      if (
+        isRecord(entry) &&
+        typeof entry.artId === 'string' &&
+        Boolean(MARTIAL_ART_DB_MAP[entry.artId]) &&
+        !seen.has(entry.artId)
+      ) {
+        seen.add(entry.artId)
+        const lv = typeof entry.level === 'number' ? Math.max(1, Math.min(10, Math.floor(entry.level))) : 1
+        const xp = typeof entry.exp === 'number' ? Math.max(0, Math.min(100, Math.floor(entry.exp))) : 0
+        parsedArts.push({ artId: entry.artId, level: lv, exp: xp })
+      }
+    }
+    if (parsedArts.length > 0) {
+      cleanLearnedArts = parsedArts
+    }
+  }
+
+  const learnedSet = new Set(cleanLearnedArts.map((a) => a.artId))
+  let cleanEquippedArts: EquippedArtsMap = { ...DEFAULT_EQUIPPED_ARTS }
+  if (isRecord(st.equippedArts)) {
+    cleanEquippedArts = {
+      neigong: null,
+      qinggong: null,
+      move1: null,
+      move2: null,
+      move3: null,
+      move4: null,
+    }
+    const usedArts = new Set<string>()
+    for (const k of ART_SLOT_KEYS) {
+      const val = st.equippedArts[k]
+      if (typeof val === 'string' && learnedSet.has(val) && !usedArts.has(val)) {
+        const artRec = MARTIAL_ART_DB_MAP[val]
+        if (artRec && canArtFitSlot(artRec, k)) {
+          cleanEquippedArts[k] = val
+          usedArts.add(val)
+        }
+      }
     }
   }
 
@@ -288,6 +351,8 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         ) as Record<string, number>)
       : {},
     equipped: cleanEquipped,
+    learnedArts: cleanLearnedArts,
+    equippedArts: cleanEquippedArts,
     inventory: cleanInventory,
     overlays: isRecord(st.overlays)
       ? {
@@ -329,7 +394,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   const sum = raw.summary
   return {
     gameTitle: '北宋立志传',
-    schemaVersion: 'M1.0.0',
+    schemaVersion: 'M1.1.0',
     slotId,
     savedAt: typeof raw.savedAt === 'string' ? raw.savedAt : new Date().toISOString(),
     note: typeof raw.note === 'string' ? raw.note : '',

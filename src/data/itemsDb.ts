@@ -165,7 +165,8 @@ export const ITEMS_DB: GameItemDef[] = [
     lore: '相传宋太祖赵匡胤微时以此三十二势长拳打遍京洛。',
     useEffect: {
       mp: 20,
-      learnArtHint: '研读拳谱心有所悟（内力 +20；完整武学装配将于 M1-3 开放）',
+      learnArtId: 'MA-180',
+      learnArtHint: '参悟《太祖长拳》精要（已习得则提升该武学重数熟练度）',
     },
   },
   {
@@ -179,7 +180,23 @@ export const ITEMS_DB: GameItemDef[] = [
     desc: '记载河东名将呼延赞军阵枪鞭发力法门的残损绢页，字迹苍劲凛冽。',
     useEffect: {
       skillGain: ['策论', 2],
-      learnArtHint: '揣摩北宋军阵枪法要旨，兵事眼界大开（【策论】+2）',
+      learnArtId: 'MA-171',
+      learnArtHint: '揣摩北宋军阵枪鞭法门，精进《呼延硬鞭法》（【策论】+2）',
+    },
+  },
+  {
+    id: 'ITM-SCR-006',
+    name: '《洛阳金刀谱》拓本',
+    category: 'scrolls',
+    subType: '武学秘籍',
+    rarity: '良品',
+    stackable: false,
+    value: 85,
+    desc: '洛阳金刀王家外传的刀法总诀拓本，刀势大开大合，展卷研读可领悟金刀门刀意。',
+    useEffect: {
+      mp: 25,
+      learnArtId: 'MA-109',
+      learnArtHint: '领悟良品上品刀法《洛阳金刀谱》，可于【披挂与武学】面板装配出战！',
     },
   },
   {
@@ -606,6 +623,7 @@ export const DEFAULT_INITIAL_INVENTORY: InventoryStack[] = [
   // 典籍书画
   { itemId: 'ITM-SCR-001', qty: 1 },
   { itemId: 'ITM-SCR-002', qty: 2 },
+  { itemId: 'ITM-SCR-006', qty: 1 },
   { itemId: 'ITM-SCR-003', qty: 1 },
   { itemId: 'ITM-SCR-004', qty: 1 },
   // 丹药毒物
