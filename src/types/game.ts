@@ -513,6 +513,10 @@ export interface ItemUseEffect {
   hp?: number
   mp?: number
   stamina?: number
+  maxHp?: number
+  maxMp?: number
+  maxStamina?: number
+  agi?: number
   res?: number
   riding?: number
   food?: number
@@ -535,6 +539,7 @@ export interface GameItemDef {
   equipBonus?: EquipmentStatBonus
   useEffect?: ItemUseEffect
   weaponMeta?: CompiledWeaponRecord
+  poisonEffect?: string
 }
 
 export interface InventoryStack {

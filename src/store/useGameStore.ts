@@ -1138,6 +1138,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextMp = s.mp
     let nextMaxMp = s.maxMp
     let nextStamina = isNonStackableTool && !eff.stamina ? Math.max(0, s.stamina - 6) : s.stamina
+    let nextMaxStamina = s.maxStamina
     let nextAgi = s.agility
     let nextRes = s.res
     let nextRiding = s.ridingSkill
@@ -1181,6 +1182,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextQinggongBonus = newTotals.qinggongBonus
     }
 
+    if (eff.maxHp) {
+      nextMaxHp += eff.maxHp
+      notes.push(`气血上限 +${eff.maxHp}`)
+    }
+    if (eff.maxMp) {
+      nextMaxMp += eff.maxMp
+      notes.push(`内力上限 +${eff.maxMp}`)
+    }
+    if (eff.maxStamina) {
+      nextMaxStamina += eff.maxStamina
+      notes.push(`体能上限 +${eff.maxStamina}`)
+    }
+    if (eff.agi) {
+      nextAgi += eff.agi
+      notes.push(`身法 +${eff.agi}`)
+    }
     if (eff.hp) {
       nextHp = Math.min(nextMaxHp, nextHp + eff.hp)
       notes.push(`气血 +${eff.hp}`)
@@ -1190,7 +1207,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       notes.push(`内力 +${eff.mp}`)
     }
     if (eff.stamina) {
-      nextStamina = Math.min(s.maxStamina, nextStamina + eff.stamina)
+      nextStamina = Math.min(nextMaxStamina, nextStamina + eff.stamina)
       notes.push(`体能 +${eff.stamina}`)
     } else if (isNonStackableTool) {
       notes.push('体能 -6')
@@ -1234,6 +1251,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       mp: nextMp,
       maxMp: nextMaxMp,
       stamina: nextStamina,
+      maxStamina: nextMaxStamina,
       agility: nextAgi,
       res: nextRes,
       ridingSkill: nextRiding,

@@ -37,6 +37,7 @@ import {
   EQUIPMENT_SLOT_METAS,
   formatBonusBadges,
   ITEM_DB_MAP,
+  ITEMS_DB,
   RARITY_STYLE_MAP,
   SCROLLS_ITEMS_DB,
 } from '../../data/itemsDb'
@@ -391,6 +392,10 @@ export function SystemMenuModal() {
   // Save note state
   const [saveNoteDraft, setSaveNoteDraft] = useState('')
   const [importTargetSlot, setImportTargetSlot] = useState<SaveSlotId | 'DIRECT_LOAD'>('DIRECT_LOAD')
+
+  // Medicine & Poisons 30-item compendium toggle & tier filter (Tab 3 -> medicine)
+  const [medicineViewMode, setMedicineViewMode] = useState<'bag' | 'compendium'>('bag')
+  const [medicineTierFilter, setMedicineTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
 
   // Intercept ESC when portrait zoom lightbox is open so it closes lightbox first instead of whole menu
   useEffect(() => {
@@ -1771,10 +1776,37 @@ export function SystemMenuModal() {
                   BAG_CATEGORY_METAS[0]
                 const isScrollCatalogMode =
                   activeBagCategory === 'scrolls' && scrollViewMode === 'catalog'
+                const isMedTab = activeBagCategory === 'medicine'
+                const showMedCompendium = isMedTab && medicineViewMode === 'compendium'
 
-                const activeOwnedStack =
-                  bagItemsByCat.list.find((x) => x.itemId === selectedBagItemId) ??
-                  bagItemsByCat.list[0] ??
+                const allMedicineDefs = isMedTab
+                  ? ITEMS_DB.filter((it) => it.category === 'medicine')
+                  : []
+
+                const rawDisplayList = showMedCompendium
+                  ? allMedicineDefs.map((def) => ({
+                      itemId: def.id,
+                      qty: ownedQtyMap.get(def.id) ?? 0,
+                      def,
+                    }))
+                  : bagItemsByCat.list
+
+                const displayList =
+                  isMedTab && medicineTierFilter !== 'ALL'
+                    ? rawDisplayList.filter((x) => x.def.rarity === medicineTierFilter)
+                    : rawDisplayList
+
+                const medTierCounts: Record<'ALL' | EquipmentTier, number> = {
+                  ALL: rawDisplayList.length,
+                  天阶: rawDisplayList.filter((x) => x.def.rarity === '天阶').length,
+                  地阶: rawDisplayList.filter((x) => x.def.rarity === '地阶').length,
+                  良阶: rawDisplayList.filter((x) => x.def.rarity === '良阶').length,
+                  凡阶: rawDisplayList.filter((x) => x.def.rarity === '凡阶').length,
+                }
+
+                const activeDisplayStack =
+                  displayList.find((x) => x.itemId === selectedBagItemId) ??
+                  displayList[0] ??
                   null
 
                 const activeCatalogDef =
@@ -1796,7 +1828,12 @@ export function SystemMenuModal() {
                         isCatalogPreview: (ownedQtyMap.get(activeCatalogDef.id) ?? 0) <= 0,
                       }
                     : null
-                  : activeOwnedStack
+                  : activeDisplayStack
+                    ? {
+                        ...activeDisplayStack,
+                        isCatalogPreview: activeDisplayStack.qty <= 0,
+                      }
+                    : null
 
                 return (
                   <div className="space-y-4 text-xs sm:text-sm">
@@ -1880,7 +1917,9 @@ export function SystemMenuModal() {
                                 >
                                   {cat.key === 'scrolls'
                                     ? `四库卷${cat.numeral} · 百卷典录`
-                                    : `四库卷${cat.numeral}`}
+                                    : cat.key === 'medicine'
+                                      ? `四库卷${cat.numeral} · 本草三十品`
+                                      : `四库卷${cat.numeral}`}
                                 </div>
                               </div>
                             </div>
@@ -1898,41 +1937,113 @@ export function SystemMenuModal() {
                       })}
                     </div>
 
-                    {/* 当前分类说明条 + 典籍书画【随身藏卷 / 皇祐百卷总录】切换 */}
-                    <div className="px-3.5 py-2.5 rounded bg-[#efe4cc] border border-[#c8b28e] flex flex-wrap items-center justify-between gap-2 text-xs text-[#52391e]">
-                      <span>
-                        <strong>【{currentCatMeta.label}】</strong>：{currentCatMeta.subtitle}
-                      </span>
-                      <div className="flex items-center gap-2">
-                        {activeBagCategory === 'scrolls' ? (
-                          <div className="inline-flex rounded border border-[#9e8462] overflow-hidden bg-[#faf3e3]">
-                            <button
-                              type="button"
-                              onClick={() => setScrollViewMode('owned')}
-                              className={`px-2.5 py-1 song-serif font-bold text-xs cursor-pointer transition ${
-                                scrollViewMode === 'owned'
-                                  ? 'bg-[#8f1d14] text-[#fff8eb]'
-                                  : 'text-[#52391e] hover:bg-[#e5d6b8]'
-                              }`}
-                            >
-                              随身藏卷 ({bagItemsByCat.counts.scrolls})
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setScrollViewMode('catalog')}
-                              className={`px-2.5 py-1 song-serif font-bold text-xs cursor-pointer transition ${
-                                scrollViewMode === 'catalog'
-                                  ? 'bg-[#8f1d14] text-[#fff8eb]'
-                                  : 'text-[#52391e] hover:bg-[#e5d6b8]'
-                              }`}
-                            >
-                              皇祐百卷总录 ({SCROLLS_ITEMS_DB.length}卷)
-                            </button>
-                          </div>
-                        ) : (
-                          <span className="font-mono">共 {bagItemsByCat.list.length} 种物品</span>
-                        )}
+                    {/* 当前分类说明条 + 典籍书画百卷总录 / 丹药毒物本草毒经30品全鉴切换 */}
+                    <div className="px-3.5 py-2.5 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-2 text-xs text-[#52391e]">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <span>
+                          <strong>【{currentCatMeta.label}】</strong>：{currentCatMeta.subtitle}
+                        </span>
+                        <div className="flex items-center gap-2">
+                          {activeBagCategory === 'scrolls' ? (
+                            <div className="inline-flex rounded border border-[#9e8462] overflow-hidden bg-[#faf3e3]">
+                              <button
+                                type="button"
+                                onClick={() => setScrollViewMode('owned')}
+                                className={`px-2.5 py-1 song-serif font-bold text-xs cursor-pointer transition ${
+                                  scrollViewMode === 'owned'
+                                    ? 'bg-[#8f1d14] text-[#fff8eb]'
+                                    : 'text-[#52391e] hover:bg-[#e5d6b8]'
+                                }`}
+                              >
+                                随身藏卷 ({bagItemsByCat.counts.scrolls})
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setScrollViewMode('catalog')}
+                                className={`px-2.5 py-1 song-serif font-bold text-xs cursor-pointer transition border-l border-[#9e8462] ${
+                                  scrollViewMode === 'catalog'
+                                    ? 'bg-[#8f1d14] text-[#fff8eb]'
+                                    : 'text-[#52391e] hover:bg-[#e5d6b8]'
+                                }`}
+                              >
+                                皇祐百卷总录 ({SCROLLS_ITEMS_DB.length}卷)
+                              </button>
+                            </div>
+                          ) : isMedTab ? (
+                            <>
+                              <div className="inline-flex rounded border border-[#9e8462] overflow-hidden bg-[#faf3e3]">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setMedicineViewMode('bag')
+                                    setSelectedBagItemId(null)
+                                  }}
+                                  className={`px-2.5 py-1 font-bold song-serif cursor-pointer transition ${
+                                    medicineViewMode === 'bag'
+                                      ? 'bg-[#8f1d14] text-[#fff8eb]'
+                                      : 'text-[#52391e] hover:bg-[#e7d9bc]'
+                                  }`}
+                                >
+                                  随身行囊 ({bagItemsByCat.counts.medicine})
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setMedicineViewMode('compendium')
+                                    setSelectedBagItemId(null)
+                                  }}
+                                  className={`px-2.5 py-1 font-bold song-serif cursor-pointer transition border-l border-[#9e8462] ${
+                                    medicineViewMode === 'compendium'
+                                      ? 'bg-[#215744] text-[#fff8eb]'
+                                      : 'text-[#52391e] hover:bg-[#e7d9bc]'
+                                  }`}
+                                >
+                                  本草毒经全鉴 ({allMedicineDefs.length})
+                                </button>
+                              </div>
+                              <span className="font-mono">当前显示 {displayList.length} 种</span>
+                            </>
+                          ) : (
+                            <span className="font-mono">共 {bagItemsByCat.list.length} 种物品</span>
+                          )}
+                        </div>
                       </div>
+
+                      {isMedTab && (
+                        <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-[#d8c5a3]">
+                          <span className="text-[11px] text-[#6b5235] font-semibold mr-1">
+                            品阶检阅：
+                          </span>
+                          {(
+                            [
+                              { key: 'ALL', label: '全部品阶' },
+                              { key: '天阶', label: '天阶' },
+                              { key: '地阶', label: '地阶' },
+                              { key: '良阶', label: '良阶' },
+                              { key: '凡阶', label: '凡阶' },
+                            ] as const
+                          ).map((t) => {
+                            const active = medicineTierFilter === t.key
+                            return (
+                              <button
+                                key={t.key}
+                                type="button"
+                                onClick={() => {
+                                  setMedicineTierFilter(t.key)
+                                  setSelectedBagItemId(null)
+                                }}
+                                className={`px-2.5 py-0.5 rounded border text-[11px] font-bold cursor-pointer transition ${
+                                  active
+                                    ? 'bg-[#3d2812] text-amber-200 border-[#c89d54]'
+                                    : 'bg-[#faf3e3] text-[#52391e] border-[#bfa680] hover:bg-[#e7d9bc]'
+                                }`}
+                              >
+                                {t.label} ({medTierCounts[t.key]})
+                              </button>
+                            )
+                          })}
+                        </div>
+                      )}
                     </div>
 
                     {/* 若开启【皇祐百卷总录】，展示四阶分级（10天/20地/30良/40凡）与书目检索栏 */}
@@ -2060,11 +2171,12 @@ export function SystemMenuModal() {
                               <div className="text-xs mt-1">请尝试切换品阶或清空检索词</div>
                             </div>
                           )
-                        ) : bagItemsByCat.list.length > 0 ? (
+                        ) : displayList.length > 0 ? (
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                            {bagItemsByCat.list.map(({ itemId, qty, def }) => {
+                            {displayList.map(({ itemId, qty, def }) => {
                               const isSel = activeStack?.itemId === itemId
                               const rStyle = RARITY_STYLE_MAP[def.rarity]
+                              const isPoison = Boolean(def.poisonEffect && !def.useEffect)
                               return (
                                 <button
                                   key={itemId}
@@ -2074,7 +2186,7 @@ export function SystemMenuModal() {
                                     isSel
                                       ? 'bg-[#fff9ec] border-[#8f1d14] ring-1 ring-[#8f1d14] shadow-md'
                                       : `${rStyle.cardBg} ${rStyle.borderCls} hover:brightness-98`
-                                  }`}
+                                  } ${qty === 0 ? 'opacity-85' : ''}`}
                                 >
                                   <div className="flex items-start gap-2.5 min-w-0">
                                     <div
@@ -2094,14 +2206,26 @@ export function SystemMenuModal() {
                                         >
                                           {def.rarity}
                                         </span>
-                                        <span className="text-[11px] text-[#6b5235] truncate">
+                                        <span
+                                          className={`text-[11px] truncate ${
+                                            isPoison
+                                              ? 'text-[#6b21a8] font-semibold'
+                                              : 'text-[#6b5235]'
+                                          }`}
+                                        >
                                           {def.subType}
                                         </span>
                                       </div>
                                     </div>
                                   </div>
-                                  <span className="px-2 py-0.5 rounded bg-[#efe4cc] border border-[#c8b28e] font-mono font-bold text-xs text-[#23180f] shrink-0">
-                                    ×{qty}
+                                  <span
+                                    className={`px-2 py-0.5 rounded border font-mono font-bold text-xs shrink-0 ${
+                                      qty > 0
+                                        ? 'bg-[#efe4cc] border-[#c8b28e] text-[#23180f]'
+                                        : 'bg-[#e7dcc4]/70 border-[#c8b28e] text-[#8a7256]'
+                                    }`}
+                                  >
+                                    {qty > 0 ? `×${qty}` : '未持有'}
                                   </span>
                                 </button>
                               )
@@ -2110,7 +2234,7 @@ export function SystemMenuModal() {
                         ) : (
                           <div className="h-full flex flex-col items-center justify-center text-center text-[#7a6042] py-16">
                             <div className="song-serif font-bold text-base">
-                              【{currentCatMeta.label}】分栏暂无随身物品
+                              【{currentCatMeta.label}】当前筛选下暂无随身物品
                             </div>
                             <div className="text-xs mt-1">
                               游历各州书肆、药铺、铁冶坊或秘境奇遇可收入囊中
@@ -2188,8 +2312,17 @@ export function SystemMenuModal() {
                               {activeStack.def.useEffect && (
                                 <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] text-xs text-[#1b5132] font-medium leading-relaxed space-y-1.5">
                                   <div>
-                                    研读/使用功效：
+                                    研读/服食/使用功效：
                                     {[
+                                      activeStack.def.useEffect.maxHp
+                                        ? `气血上限 +${activeStack.def.useEffect.maxHp}`
+                                        : null,
+                                      activeStack.def.useEffect.maxMp
+                                        ? `内力上限 +${activeStack.def.useEffect.maxMp}`
+                                        : null,
+                                      activeStack.def.useEffect.maxStamina
+                                        ? `体能上限 +${activeStack.def.useEffect.maxStamina}`
+                                        : null,
                                       activeStack.def.useEffect.hp
                                         ? `气血 +${activeStack.def.useEffect.hp}`
                                         : null,
@@ -2198,6 +2331,9 @@ export function SystemMenuModal() {
                                         : null,
                                       activeStack.def.useEffect.stamina
                                         ? `体能 +${activeStack.def.useEffect.stamina}`
+                                        : null,
+                                      activeStack.def.useEffect.agi
+                                        ? `身法 +${activeStack.def.useEffect.agi}`
                                         : null,
                                       activeStack.def.useEffect.res
                                         ? `抗性 +${activeStack.def.useEffect.res}`
@@ -2250,12 +2386,20 @@ export function SystemMenuModal() {
                                     )}
                                 </div>
                               )}
+
+                              {activeStack.def.poisonEffect && (
+                                <div className="p-2.5 rounded bg-[#f7eefb] border border-[#9d7bb8] text-xs text-[#4c1d6e] font-medium leading-relaxed">
+                                  毒理效用：{activeStack.def.poisonEffect}
+                                </div>
+                              )}
                             </div>
 
                             <div className="pt-3 border-t border-[#cbb693] flex items-center gap-2">
                               {activeStack.isCatalogPreview ? (
                                 <div className="w-full py-2 px-3 text-center text-xs text-[#6b5235] bg-[#faf3e3] rounded border border-[#cbb693]">
-                                  此卷现载于《皇祐百卷总录》，游历各州书院书肆、大相国寺或秘境奇遇可访得真本
+                                  {activeStack.def.category === 'scrolls'
+                                    ? '此卷现载于《皇祐百卷总录》，游历各州书院书肆、大相国寺或秘境奇遇可访得真本'
+                                    : '行囊尚未持有此物（可于各州熟药所、门派丹房、番市黑市或秘境寻获）'}
                                 </div>
                               ) : activeStack.def.equipSlot ? (
                                 <>
@@ -2302,6 +2446,10 @@ export function SystemMenuModal() {
                                       ? '把玩演练修习'
                                       : '立即服食使用'}
                                 </button>
+                              ) : activeStack.def.poisonEffect ? (
+                                <div className="w-full py-2 text-center text-xs text-[#4c1d6e] bg-[#f7eefb] rounded border border-[#9d7bb8] font-medium">
+                                  奇门毒物 · 不可直接内服（供战棋交锋施毒、淬炼兵刃或暗算剧情使用）
+                                </div>
                               ) : (
                                 <div className="w-full py-2 text-center text-xs text-[#6b5235] bg-[#faf3e3] rounded border border-[#cbb693]">
                                   随身常备器具/凭证（在特定雅集、奇遇或关隘自动生效）
