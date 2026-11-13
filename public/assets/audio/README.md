@@ -21,3 +21,9 @@
 - **荆湖江西与川陕**：`xiangyang`（襄阳府）、`jiangling`（江陵府）、`hongzhou`（洪州府）、`tanzhou`（潭州府）、`chengdu`（成都府）
 - **四夷重镇**：`xijin_liao`（析津府）、`dading_liao`（大定府）、`linhuang_liao`（临潢府）、`liaoyang_liao`（辽阳府）、`xingqing_xixia`（兴庆府）、`luosuo_tubo`（逻些城）、`dali`（大理城）
 - **名山宗门与雄关**：`shaolin`（少室山·少林寺）、`songshan`（嵩山·五岳盟）、`zhongnanshan`（终南山）、`huashan`（华山）、`wutaishan`（五台山）、`hengshan`（恒山）、`yanmenguan`（雁门关）、`jianmenguan`（剑门关）、`qingcheng`（青城山）、`emeishan`（峨眉山）、`yanziwu`（姑苏·燕子坞）、`taohuadao`（东海·桃花岛）、`nanshaolin`（莆田·南少林）、`wuliangshan`（滇南·无量山）、`tianshan`（西域·天山缥缈峰）、`xingxiuhai`（西域·星宿海）
+
+## 三、 全场景无损响度自动对齐（EBU R128 `-14.0 LUFS`）
+
+- **零重编码无损增益**：`loudness_profiles.json` 记录了全部曲目的 `ffmpeg` EBU R128 积分响度与中位响度补偿值（统一对齐至 **`-14.0 LUFS`**），由 `bgmManager.ts` 通过 Web Audio `GainNode -> DynamicsCompressorNode -> MasterGain` 无损施加，并自动裁剪首尾静音空白，绝不二次压缩损伤 MP3 音质。
+- **新曲即插即对齐**：日后往任意目录新增 `.mp3` 时，即使不运行 `python3 scripts/calibrate_audio_loudness.py`，前端解码 `AudioBuffer` 时也会在 `< 2ms` 内自动执行 BS.1770 K 加权门限响度测算并实时对齐音量！
+

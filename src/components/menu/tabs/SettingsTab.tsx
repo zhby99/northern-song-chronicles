@@ -130,21 +130,38 @@ export function SettingsTab() {
           )}
         </div>
 
-        <div className="flex items-center gap-3">
-          <span className="song-serif font-bold text-[#3d2812] shrink-0">
-            雅乐音量（快捷键 M 静音）：
-          </span>
-          <input
-            type="range"
-            min={0}
-            max={100}
-            value={Math.round(bgm.volume * 100)}
-            onChange={(e) => setBgmVolume(Number(e.target.value) / 100)}
-            className="flex-1 accent-[#5c4024] cursor-pointer"
-          />
-          <span className="font-mono font-bold text-[#52391e] w-12 text-right">
-            {Math.round(bgm.volume * 100)}%
-          </span>
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-3">
+            <span className="song-serif font-bold text-[#3d2812] shrink-0">
+              雅乐音量（快捷键 M 静音）：
+            </span>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={Math.round(bgm.volume * 100)}
+              onChange={(e) => setBgmVolume(Number(e.target.value) / 100)}
+              className="flex-1 accent-[#5c4024] cursor-pointer"
+            />
+            <span className="font-mono font-bold text-[#52391e] w-12 text-right">
+              {Math.round(bgm.volume * 100)}%
+            </span>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#5e472d]">
+            <span>
+              EBU R128 全场景响度对齐已启用（基准 <strong>-14.0 LUFS</strong> + 防削波母带限制器）
+            </span>
+            {activeTrackItem && (
+              <span className="font-mono px-2 py-0.5 rounded bg-[#faf3e3] border border-[#cbb693] text-[#4a3219]">
+                原始{' '}
+                {bgm.activeIntegratedLufs !== null
+                  ? `${bgm.activeIntegratedLufs.toFixed(1)} LUFS`
+                  : '实时测算'}{' '}
+                → 自动补偿 {bgm.activeGainDb >= 0 ? `+${bgm.activeGainDb.toFixed(1)}` : bgm.activeGainDb.toFixed(1)} dB
+              </span>
+            )}
+          </div>
         </div>
 
         <div className="text-xs text-[#6b5235] leading-relaxed flex flex-wrap items-center justify-between gap-2 border-t border-[#c8b28e] pt-2">

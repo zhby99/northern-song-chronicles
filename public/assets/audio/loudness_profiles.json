@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "targetLufs": -14.0,
+  "tracks": {
+    "/assets/audio/regions/bianliang/1.mp3": {
+      "integratedLufs": -11.8,
+      "medianLufs": -11.83,
+      "truePeakDb": 1.16,
+      "lraLu": 5.7,
+      "gainDb": -2.19
+    },
+    "/assets/audio/regions/dali_city/1.mp3": {
+      "integratedLufs": -17.2,
+      "medianLufs": -17.32,
+      "truePeakDb": -6.62,
+      "lraLu": 3.7,
+      "gainDb": 3.24
+    },
+    "/assets/audio/regions/jiangning/1.mp3": {
+      "integratedLufs": -13.37,
+      "medianLufs": -12.93,
+      "truePeakDb": -0.42,
+      "lraLu": 11.1,
+      "gainDb": -0.63
+    },
+    "/assets/audio/regions/kunlun/1.mp3": {
+      "integratedLufs": -8.35,
+      "medianLufs": -8.69,
+      "truePeakDb": 0.37,
+      "lraLu": 5.1,
+      "gainDb": -5.53
+    },
+    "/assets/audio/regions/luoxie_tubo/1.mp3": {
+      "integratedLufs": -20.02,
+      "medianLufs": -22.34,
+      "truePeakDb": -1.57,
+      "lraLu": 11.8,
+      "gainDb": 6.83
+    },
+    "/assets/audio/regions/taihang/1.mp3": {
+      "integratedLufs": -19.91,
+      "medianLufs": -19.72,
+      "truePeakDb": -4.37,
+      "lraLu": 3.2,
+      "gainDb": 5.91
+    },
+    "/assets/audio/regions/taishan/1.mp3": {
+      "integratedLufs": -13.99,
+      "medianLufs": -14.03,
+      "truePeakDb": -1.89,
+      "lraLu": 6.7,
+      "gainDb": 0.0
+    },
+    "/assets/audio/regions/tiezhangfeng/1.mp3": {
+      "integratedLufs": -15.27,
+      "medianLufs": -15.38,
+      "truePeakDb": -0.46,
+      "lraLu": 5.7,
+      "gainDb": 1.31
+    },
+    "/assets/audio/regions/tongguan/1.mp3": {
+      "integratedLufs": -19.65,
+      "medianLufs": -19.09,
+      "truePeakDb": -7.76,
+      "lraLu": 6.6,
+      "gainDb": 5.65
+    },
+    "/assets/audio/regions/wudangshan/1.mp3": {
+      "integratedLufs": -18.49,
+      "medianLufs": -19.59,
+      "truePeakDb": -0.43,
+      "lraLu": 9.8,
+      "gainDb": 4.87
+    },
+    "/assets/audio/regions/yangzhou/1.mp3": {
+      "integratedLufs": -15.21,
+      "medianLufs": -14.98,
+      "truePeakDb": -0.49,
+      "lraLu": 6.0,
+      "gainDb": 1.21
+    },
+    "/assets/audio/regions/zhongnanshan/1.mp3": {
+      "integratedLufs": -15.26,
+      "medianLufs": -18.86,
+      "truePeakDb": 1.76,
+      "lraLu": 13.0,
+      "gainDb": 2.52
+    },
+    "/assets/audio/shared/chan_monasteries.mp3": {
+      "integratedLufs": -9.8,
+      "medianLufs": -9.73,
+      "truePeakDb": -0.73,
+      "lraLu": 2.7,
+      "gainDb": -4.2
+    },
+    "/assets/audio/shared/hangzhou_eastsea.mp3": {
+      "integratedLufs": -11.11,
+      "medianLufs": -11.0,
+      "truePeakDb": 0.09,
+      "lraLu": 4.7,
+      "gainDb": -2.89
+    },
+    "/assets/audio/shared/liao_capitals.mp3": {
+      "integratedLufs": -12.62,
+      "medianLufs": -14.35,
+      "truePeakDb": 0.29,
+      "lraLu": 18.8,
+      "gainDb": -0.77
+    },
+    "/assets/audio/shared/northern_prefectures.mp3": {
+      "integratedLufs": -10.3,
+      "medianLufs": -10.28,
+      "truePeakDb": 1.05,
+      "lraLu": 4.9,
+      "gainDb": -3.7
+    },
+    "/assets/audio/shared/northwest_frontier.mp3": {
+      "integratedLufs": -17.1,
+      "medianLufs": -19.29,
+      "truePeakDb": -1.75,
+      "lraLu": 14.1,
+      "gainDb": 3.87
+    },
+    "/assets/audio/shared/southern_metropolis.mp3": {
+      "integratedLufs": -9.96,
+      "medianLufs": -10.09,
+      "truePeakDb": 0.08,
+      "lraLu": 7.8,
+      "gainDb": -3.99
+    },
+    "/assets/audio/shared/southwest_sects.mp3": {
+      "integratedLufs": -19.4,
+      "medianLufs": -19.52,
+      "truePeakDb": 0.06,
+      "lraLu": 5.0,
+      "gainDb": 5.44
+    },
+    "/assets/audio/shared/suzhou_taihu.mp3": {
+      "integratedLufs": -12.57,
+      "medianLufs": -12.86,
+      "truePeakDb": 0.93,
+      "lraLu": 6.2,
+      "gainDb": -1.33
+    },
+    "/assets/audio/world/1.mp3": {
+      "integratedLufs": -8.68,
+      "medianLufs": -8.72,
+      "truePeakDb": -0.2,
+      "lraLu": 1.1,
+      "gainDb": -5.3
+    }
+  }
+}

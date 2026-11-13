@@ -7,6 +7,8 @@ declare module 'virtual:audio-manifest' {
     bytes: number
     sharedThemeId?: string
     sharedThemeTitle?: string
+    gainDb?: number
+    integratedLufs?: number
   }
 
   export interface VirtualAudioManifest {

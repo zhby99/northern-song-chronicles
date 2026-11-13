@@ -21,6 +21,8 @@ export interface ScannedAudioTrack {
   bytes: number
   sharedThemeId?: string
   sharedThemeTitle?: string
+  gainDb?: number
+  integratedLufs?: number
 }
 
 export interface ScannedAudioManifest {
@@ -40,6 +42,19 @@ interface SharedRegionThemeEntry {
 
 interface SharedRegionThemesFile {
   themes?: SharedRegionThemeEntry[]
+}
+
+interface LoudnessProfileEntry {
+  integratedLufs: number
+  medianLufs?: number
+  truePeakDb?: number
+  lraLu?: number
+  gainDb: number
+}
+
+interface LoudnessProfilesFile {
+  targetLufs?: number
+  tracks?: Record<string, LoudnessProfileEntry>
 }
 
 const AUDIO_EXT_RE = /\.(mp3|m4a|ogg|wav|aac|flac)$/i
@@ -155,6 +170,24 @@ function applySharedRegionThemes(
   }
 }
 
+function applyLoudnessProfiles(audioRoot: string, allTracks: ScannedAudioTrack[]): void {
+  const profilePath = path.join(audioRoot, 'loudness_profiles.json')
+  if (!fs.existsSync(profilePath)) return
+  try {
+    const parsed = JSON.parse(fs.readFileSync(profilePath, 'utf-8')) as LoudnessProfilesFile
+    const table = parsed.tracks ?? {}
+    for (const track of allTracks) {
+      const prof = table[track.url]
+      if (prof && typeof prof.gainDb === 'number') {
+        track.gainDb = prof.gainDb
+        track.integratedLufs = prof.integratedLufs
+      }
+    }
+  } catch {
+    // Ignore malformed loudness profile file
+  }
+}
+
 function scanAudioManifest(rootDir: string): ScannedAudioManifest {
   const audioRoot = path.join(rootDir, 'public', 'assets', 'audio')
   const world = readTrackListInDir(path.join(audioRoot, 'world'), '/assets/audio/world')
@@ -169,17 +202,29 @@ function scanAudioManifest(rootDir: string): ScannedAudioManifest {
   )
   const events = readGroupedAudioCategory(path.join(audioRoot, 'events'), '/assets/audio/events')
 
+  const allTrackRefs: ScannedAudioTrack[] = [...world]
   const uniqueUrls = new Set<string>()
   for (const t of world) uniqueUrls.add(t.url)
   for (const list of Object.values(regions)) {
-    for (const t of list) uniqueUrls.add(t.url)
+    for (const t of list) {
+      uniqueUrls.add(t.url)
+      allTrackRefs.push(t)
+    }
   }
   for (const list of Object.values(characters)) {
-    for (const t of list) uniqueUrls.add(t.url)
+    for (const t of list) {
+      uniqueUrls.add(t.url)
+      allTrackRefs.push(t)
+    }
   }
   for (const list of Object.values(events)) {
-    for (const t of list) uniqueUrls.add(t.url)
+    for (const t of list) {
+      uniqueUrls.add(t.url)
+      allTrackRefs.push(t)
+    }
   }
+
+  applyLoudnessProfiles(audioRoot, allTrackRefs)
 
   return {
     world,

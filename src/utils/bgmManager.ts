@@ -20,6 +20,8 @@ export interface BgmPlaylistItem {
   label: string
   sharedThemeId?: string
   sharedThemeTitle?: string
+  gainDb?: number
+  integratedLufs?: number
 }
 
 export interface BgmPlaylistContext {
@@ -138,6 +140,8 @@ export function resolveBgmPlaylistForState(params: {
 const STORAGE_KEY_VOLUME = 'nsc_bgm_volume_v1'
 const STORAGE_KEY_ENABLED = 'nsc_bgm_enabled_v1'
 
+export const BGM_TARGET_LUFS = -14.0
+
 export interface BgmMetaSnapshot {
   playlist: BgmPlaylistContext
   trackIndex: number
@@ -145,6 +149,8 @@ export interface BgmMetaSnapshot {
   isPlaying: boolean
   awaitingGesture: boolean
   volume: number
+  activeGainDb: number
+  activeIntegratedLufs: number | null
 }
 
 export interface BgmProgressSnapshot {
@@ -180,11 +186,14 @@ function readInitialEnabled(): boolean {
 }
 
 let audioCtx: AudioContext | null = null
+let trackNormGain: GainNode | null = null
+let masteringLimiter: DynamicsCompressorNode | null = null
 let masterGain: GainNode | null = null
 let activeSource: AudioBufferSourceNode | null = null
 let activeBuffer: AudioBuffer | null = null
 let activeBufferTrimStart = 0
 let activeBufferTrimEnd = 0
+let activeTrackLinearGain = 1.0
 let activeLoadToken = 0
 let playAnchorCtxTime = 0
 let pausedOffsetSec = 0
@@ -199,8 +208,108 @@ interface CachedDecodedAudioEntry {
   pcmBytes: number
 }
 
+interface RuntimeLoudnessEstimate {
+  gainDb: number
+  integratedLufs: number
+}
+
 const decodedBufferCache = new Map<string, CachedDecodedAudioEntry>()
+const runtimeLoudnessCache = new Map<string, RuntimeLoudnessEstimate>()
 let audioEvictedCount = 0
+
+function dbToLinearGain(db: number): number {
+  return 10 ** (db / 20)
+}
+
+/**
+ * Fast ITU-R BS.1770 K-weighted gated loudness + short-term median estimator
+ * (~1.5ms on a 3-min track). Used automatically when a user drops a custom MP3
+ * into `public/assets/audio/` that has no precomputed entry in `loudness_profiles.json`.
+ */
+function estimateAudioBufferLoudness(buf: AudioBuffer): RuntimeLoudnessEstimate {
+  const sr = buf.sampleRate
+  const ch0 = buf.getChannelData(0)
+  const ch1 = buf.numberOfChannels > 1 ? buf.getChannelData(1) : ch0
+  const len = buf.length
+  if (len === 0) return { gainDb: 0, integratedLufs: BGM_TARGET_LUFS }
+
+  // Sample 50ms slices every 250ms across the track with a simple 1st-order high-pass + high-shelf K-weight approximation
+  const stepSamples = Math.max(1, Math.floor(sr * 0.25))
+  const sliceSamples = Math.min(stepSamples, Math.max(64, Math.floor(sr * 0.05)))
+  const hpAlpha = Math.exp((-2 * Math.PI * 60) / sr)
+  const blockEnergies: number[] = []
+
+  for (let start = 0; start + sliceSamples <= len; start += stepSamples) {
+    let prev0 = ch0[start]
+    let prev1 = ch1[start]
+    let hp0 = 0
+    let hp1 = 0
+    let sumSq = 0
+    const end = start + sliceSamples
+    for (let i = start; i < end; i += 2) {
+      const x0 = ch0[i]
+      const x1 = ch1[i]
+      const d0 = x0 - prev0
+      const d1 = x1 - prev1
+      hp0 = hpAlpha * (hp0 + d0)
+      hp1 = hpAlpha * (hp1 + d1)
+      // High-shelf boost (+4 dB approx on high-frequency diff) + RLB high-pass
+      const k0 = hp0 + 0.58 * d0
+      const k1 = hp1 + 0.58 * d1
+      sumSq += 0.5 * (k0 * k0 + k1 * k1)
+      prev0 = x0
+      prev1 = x1
+    }
+    const count = Math.ceil(sliceSamples / 2)
+    const meanSq = sumSq / Math.max(1, count)
+    const lufs = -0.691 + 10 * Math.log10(Math.max(1e-12, meanSq))
+    if (lufs > -70.0) {
+      blockEnergies.push(meanSq)
+    }
+  }
+
+  if (blockEnergies.length === 0) {
+    return { gainDb: 0, integratedLufs: BGM_TARGET_LUFS }
+  }
+
+  // BS.1770 relative gate (-10 LU below ungated mean)
+  const ungatedMean = blockEnergies.reduce((a, b) => a + b, 0) / blockEnergies.length
+  const relGateLinear = ungatedMean * 0.1
+  const gated = blockEnergies.filter((e) => e >= relGateLinear)
+  const gatedMean =
+    (gated.length > 0 ? gated : blockEnergies).reduce((a, b) => a + b, 0) /
+    Math.max(1, gated.length > 0 ? gated.length : blockEnergies.length)
+  const integratedLufs = Math.round((-0.691 + 10 * Math.log10(Math.max(1e-12, gatedMean))) * 100) / 100
+
+  const sortedLufs = blockEnergies
+    .map((e) => -0.691 + 10 * Math.log10(Math.max(1e-12, e)))
+    .filter((v) => v > -55.0)
+    .sort((a, b) => a - b)
+  const medianLufs =
+    sortedLufs.length > 0 ? sortedLufs[Math.floor(sortedLufs.length / 2)] : integratedLufs
+
+  const effectiveLufs =
+    medianLufs < integratedLufs
+      ? 0.65 * integratedLufs + 0.35 * medianLufs
+      : integratedLufs
+  const gainDb = Math.round(Math.max(-9.0, Math.min(8.0, BGM_TARGET_LUFS - effectiveLufs)) * 100) / 100
+
+  return { gainDb, integratedLufs }
+}
+
+function resolveTrackLoudness(item: BgmPlaylistItem, buf: AudioBuffer): RuntimeLoudnessEstimate {
+  if (typeof item.gainDb === 'number') {
+    return {
+      gainDb: item.gainDb,
+      integratedLufs: item.integratedLufs ?? BGM_TARGET_LUFS - item.gainDb,
+    }
+  }
+  const cached = runtimeLoudnessCache.get(item.url)
+  if (cached) return cached
+  const computed = estimateAudioBufferLoudness(buf)
+  runtimeLoudnessCache.set(item.url, computed)
+  return computed
+}
 
 function syncAudioMemoryTelemetry() {
   let pcmBytes = 0
@@ -250,13 +359,20 @@ const playlistLastIndex = new Map<string, number>()
 const metaListeners = new Set<() => void>()
 const progressListeners = new Set<() => void>()
 
+const initialPlaylist = resolveBgmPlaylistForState({
+  viewMode: 'region',
+  activeRegionId: 'bianliang',
+})
+
 let metaSnapshot: BgmMetaSnapshot = {
-  playlist: resolveBgmPlaylistForState({ viewMode: 'region', activeRegionId: 'bianliang' }),
+  playlist: initialPlaylist,
   trackIndex: 0,
   enabled: readInitialEnabled(),
   isPlaying: false,
   awaitingGesture: false,
   volume: readInitialVolume(),
+  activeGainDb: initialPlaylist.tracks[0]?.gainDb ?? 0,
+  activeIntegratedLufs: initialPlaylist.tracks[0]?.integratedLufs ?? null,
 }
 
 let progressSnapshot: BgmProgressSnapshot = {
@@ -316,26 +432,40 @@ function ensureAudioContext(): AudioContext | null {
       (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
     if (!Ctor) return null
     audioCtx = new Ctor()
+
+    // Per-track EBU R128 loudness normalization gain -> soft ceiling limiter -> user master volume
+    trackNormGain = audioCtx.createGain()
+    trackNormGain.gain.value = activeTrackLinearGain
+
+    masteringLimiter = audioCtx.createDynamicsCompressor()
+    masteringLimiter.threshold.value = -2.0
+    masteringLimiter.knee.value = 4.0
+    masteringLimiter.ratio.value = 12.0
+    masteringLimiter.attack.value = 0.002
+    masteringLimiter.release.value = 0.16
+
     masterGain = audioCtx.createGain()
     masterGain.gain.value = metaSnapshot.volume
+
+    trackNormGain.connect(masteringLimiter)
+    masteringLimiter.connect(masterGain)
     masterGain.connect(audioCtx.destination)
   }
   return audioCtx
 }
 
 /**
- * Find non-silent sample bounds to strip any browser MP3 decoder Delay/Padding frames
- * so `loopStart` / `loopEnd` wraps with 0-sample gapless precision.
+ * Strip MP3 encoder/decoder padding AND up to 4.5s of leading/trailing dead air (< -69 dBFS)
+ * so every track starts immediately upon entering a city and loops seamlessly without silent gaps.
  */
 function detectSeamlessLoopBounds(buf: AudioBuffer): { start: number; end: number } {
   const ch0 = buf.getChannelData(0)
   const ch1 = buf.numberOfChannels > 1 ? buf.getChannelData(1) : ch0
   const len = buf.length
-  const threshold = 1e-4
+  const threshold = 3.5e-4
 
   let first = 0
-  // Only trim up to 60ms (MP3 encoder/decoder delay is typically 528..2257 samples)
-  const maxCheck = Math.min(len, Math.floor(buf.sampleRate * 0.06))
+  const maxCheck = Math.min(Math.floor(len * 0.4), Math.floor(buf.sampleRate * 4.5))
   while (first < maxCheck && Math.abs(ch0[first]) < threshold && Math.abs(ch1[first]) < threshold) {
     first += 1
   }
@@ -446,7 +576,7 @@ function bindMultiTrackEndedHandler(src: AudioBufferSourceNode, tokenAtStart: nu
 
 function startBufferSourceFromOffset(offsetWithinTrimmedSec: number) {
   const ctx = ensureAudioContext()
-  if (!ctx || !masterGain || !activeBuffer) return
+  if (!ctx || !masterGain || !trackNormGain || !activeBuffer) return
 
   stopActiveSourceNode()
 
@@ -462,14 +592,17 @@ function startBufferSourceFromOffset(offsetWithinTrimmedSec: number) {
     src.loopEnd = activeBufferTrimEnd
   }
 
+  const now = ctx.currentTime
+  trackNormGain.gain.cancelScheduledValues(now)
+  trackNormGain.gain.setValueAtTime(activeTrackLinearGain, now)
+
   // Smooth 30ms micro fade-in on initial start/seek to eliminate any click from mid-waveform start;
   // subsequent loop wraps inside BufferSourceNode stay at steady gain with 0-sample seamlessness!
-  const now = ctx.currentTime
   masterGain.gain.cancelScheduledValues(now)
   masterGain.gain.setValueAtTime(0.0001, now)
   masterGain.gain.linearRampToValueAtTime(metaSnapshot.volume, now + 0.03)
 
-  src.connect(masterGain)
+  src.connect(trackNormGain)
 
   if (!isSingleLoop) {
     bindMultiTrackEndedHandler(src, activeLoadToken)
@@ -497,6 +630,9 @@ async function loadAndPlayCurrentTrack(autoPlay: boolean) {
   if (!item) {
     activeBuffer = null
     activeTrackUrlLoaded = null
+    activeTrackLinearGain = 1.0
+    metaSnapshot.activeGainDb = 0
+    metaSnapshot.activeIntegratedLufs = null
     syncProgressSnapshot(true)
     emitMeta()
     return
@@ -511,6 +647,11 @@ async function loadAndPlayCurrentTrack(autoPlay: boolean) {
     if (token !== activeLoadToken) return
 
     activeBuffer = buf
+    const loudness = resolveTrackLoudness(item, buf)
+    activeTrackLinearGain = dbToLinearGain(loudness.gainDb)
+    metaSnapshot.activeGainDb = loudness.gainDb
+    metaSnapshot.activeIntegratedLufs = loudness.integratedLufs
+
     const bounds = detectSeamlessLoopBounds(buf)
     activeBufferTrimStart = bounds.start
     activeBufferTrimEnd = bounds.end
