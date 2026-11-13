@@ -15,8 +15,8 @@ import {
 } from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
 import type { CompiledMartialArtRecord, CompiledNpcRecord } from '../../../types/game'
-import { recordAssetLoaded, resolveAssetUrl } from '../../../utils/assetLoader'
 import { NODE_MAP, WORLD_GRAPH } from '../../../utils/mapMath'
+import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 
 interface PortraitsTabProps {
   selectedNpc: CompiledNpcRecord | null
@@ -177,6 +177,7 @@ export function PortraitsTab({
               <div
                 key={c.id}
                 onClick={() => onSelectNpc(c)}
+                style={{ contentVisibility: 'auto', containIntrinsicSize: '0 68px' }}
                 className={`p-2.5 rounded-md border text-left transition flex items-center gap-2.5 cursor-pointer ${
                   isSel
                     ? 'bg-[#8f1d14] text-[#fff8eb] border-[#f5cb5c] shadow-md'
@@ -184,19 +185,16 @@ export function PortraitsTab({
                 }`}
               >
                 {c.avatarUrl ? (
-                  <img
-                    src={resolveAssetUrl(c.avatarUrl)}
+                  <ManagedAssetImg
+                    url={c.avatarUrl}
                     alt={c.name}
-                    loading="lazy"
+                    viewportLazy
                     onClick={(e) => {
                       e.stopPropagation()
                       onSelectNpc(c)
                       onOpenNpcLightbox(c, 'avatar')
                     }}
                     title="点击放大查看人物立绘"
-                    onLoad={() => {
-                      if (c.avatarUrl) recordAssetLoaded(c.avatarUrl, 58000)
-                    }}
                     className="w-12 h-12 rounded object-cover object-top border border-[#bfa782] shrink-0 bg-[#2b1d12] hover:ring-2 hover:ring-amber-300 cursor-zoom-in"
                   />
                 ) : (
@@ -268,12 +266,12 @@ export function PortraitsTab({
               <div className="shrink-0 flex items-start justify-between gap-2 border-b border-[#cbb693] pb-2.5">
                 <div className="flex items-start gap-2.5 min-w-0">
                   {selectedNpc.avatarUrl && (
-                    <img
-                      src={resolveAssetUrl(selectedNpc.avatarUrl)}
+                    <ManagedAssetImg
+                      url={selectedNpc.avatarUrl}
                       alt={`${selectedNpc.name} 头像`}
                       onClick={() => onOpenNpcLightbox(selectedNpc, 'avatar')}
                       title="点击放大查看高清头像"
-                      className="w-12 h-12 rounded border border-[#8c6e46] object-cover shrink-0 cursor-zoom-in hover:ring-2 hover:ring-[#8f1d14]"
+                      className="w-12 h-12 rounded border border-[#8c6e46] object-cover shrink-0 bg-[#2b1d12] cursor-zoom-in hover:ring-2 hover:ring-[#8f1d14]"
                     />
                   )}
                   <div className="min-w-0">
@@ -357,15 +355,10 @@ export function PortraitsTab({
                   title="点击放大品鉴高清全身绘像"
                   className="w-[240px] h-[320px] rounded overflow-hidden relative group cursor-zoom-in bg-[#24180f] shadow-lg border border-[#c89d54]/40"
                 >
-                  <img
+                  <ManagedAssetImg
                     key={selectedNpc.id}
-                    src={resolveAssetUrl(selectedNpc.fullbodyUrl ?? selectedNpc.templateUrl)}
+                    url={selectedNpc.fullbodyUrl ?? selectedNpc.templateUrl}
                     alt={`${selectedNpc.name} 全身立绘`}
-                    loading="lazy"
-                    onLoad={() => {
-                      const url = selectedNpc.fullbodyUrl ?? selectedNpc.templateUrl
-                      recordAssetLoaded(url, 125000)
-                    }}
                     className="w-full h-full object-cover object-top group-hover:scale-[1.03] transition-transform duration-300"
                   />
                   <span className="absolute top-2 right-2 px-2 py-1 rounded bg-black/75 text-[#fff8eb] text-[11px] flex items-center gap-1 border border-[#c89d54]/50 shadow">

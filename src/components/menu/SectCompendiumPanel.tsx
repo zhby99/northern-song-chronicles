@@ -29,7 +29,7 @@ import type {
   CompiledWeaponRecord,
   SectTierKind,
 } from '../../types/game'
-import { recordAssetLoaded, resolveAssetUrl } from '../../utils/assetLoader'
+import { ManagedAssetImg } from '../common/ManagedAssetImg'
 
 interface SectCompendiumPanelProps {
   selectedFactionId: string
@@ -423,18 +423,10 @@ export function SectCompendiumPanel({
                 title="点击放大品鉴掌门/首脑立绘与门派衣冠"
                 className="w-32 sm:w-36 aspect-[3/4] shrink-0 rounded-md overflow-hidden border-2 border-[#c89d54] bg-[#1e140c] relative group cursor-zoom-in self-center sm:self-start shadow"
               >
-                <img
-                  src={resolveAssetUrl(
-                    representativeNpc.fullbodyUrl ?? representativeNpc.templateUrl,
-                  )}
+                <ManagedAssetImg
+                  key={representativeNpc.id}
+                  url={representativeNpc.fullbodyUrl ?? representativeNpc.templateUrl}
                   alt={representativeNpc.name}
-                  loading="lazy"
-                  onLoad={() =>
-                    recordAssetLoaded(
-                      representativeNpc.fullbodyUrl ?? representativeNpc.templateUrl,
-                      110000,
-                    )
-                  }
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent px-2 py-1.5 text-center">
@@ -729,12 +721,11 @@ export function SectCompendiumPanel({
                     }`}
                   >
                     {npc.avatarUrl ? (
-                      <img
-                        src={resolveAssetUrl(npc.avatarUrl)}
+                      <ManagedAssetImg
+                        url={npc.avatarUrl}
                         alt={npc.name}
-                        loading="lazy"
-                        onLoad={() => recordAssetLoaded(npc.avatarUrl!, 48000)}
-                        className="w-9 h-9 rounded-full object-cover border border-[#8c6e46] shrink-0"
+                        viewportLazy
+                        className="w-9 h-9 rounded-full object-cover border border-[#8c6e46] shrink-0 bg-[#2b1d12]"
                       />
                     ) : (
                       <div className="w-9 h-9 rounded-full bg-[#3b2712] text-amber-200 border border-[#c89d54] flex items-center justify-center song-serif font-bold text-xs shrink-0">

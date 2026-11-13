@@ -11,7 +11,7 @@ import {
   Users,
   ZoomIn,
 } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { lazy, Suspense, useMemo, useState } from 'react'
 import {
   BUILDING_DB_MAP,
   ID_REGISTRY,
@@ -28,9 +28,14 @@ import type {
   NodeKind,
   RegimeKey,
 } from '../../types/game'
-import { recordAssetLoaded, resolveAssetUrl } from '../../utils/assetLoader'
 import { ADJACENCY_MAP, NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
-import { SvgRegionPanoramaFallback } from '../map/SvgRegionPanoramaFallback'
+import { ManagedAssetImg } from '../common/ManagedAssetImg'
+
+const SvgRegionPanoramaFallback = lazy(() =>
+  import('../map/SvgRegionPanoramaFallback').then((m) => ({
+    default: m.SvgRegionPanoramaFallback,
+  })),
+)
 
 interface RegionCompendiumPanelProps {
   selectedRegionId: string
@@ -526,11 +531,10 @@ export function RegionCompendiumPanel({
                 title="点击放大品鉴高清全景画卷"
                 className="relative aspect-[16/9] w-full overflow-hidden cursor-zoom-in"
               >
-                <img
-                  src={resolveAssetUrl(activeRegion.panoramaUri)}
+                <ManagedAssetImg
+                  key={activeRegion.id}
+                  url={activeRegion.panoramaUri}
                   alt={activeRegion.name}
-                  loading="lazy"
-                  onLoad={() => recordAssetLoaded(activeRegion.panoramaUri, 195000)}
                   className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
                 />
                 <div className="absolute bottom-2 right-2 px-2.5 py-1 rounded bg-black/75 text-[#fff8eb] border border-[#c89d54]/70 text-[11px] song-serif flex items-center gap-1.5">
@@ -545,14 +549,16 @@ export function RegionCompendiumPanel({
                   className="w-full h-full block"
                   preserveAspectRatio="xMidYMid slice"
                 >
-                  <SvgRegionPanoramaFallback
-                    regionId={activeRegion.id}
-                    regionName={activeRegion.name}
-                    regime={activeRegion.regime}
-                    circuit={activeRegion.circuit}
-                    width={vw}
-                    height={vh}
-                  />
+                  <Suspense fallback={null}>
+                    <SvgRegionPanoramaFallback
+                      regionId={activeRegion.id}
+                      regionName={activeRegion.name}
+                      regime={activeRegion.regime}
+                      circuit={activeRegion.circuit}
+                      width={vw}
+                      height={vh}
+                    />
+                  </Suspense>
                 </svg>
                 <div className="absolute top-2 right-2 px-2.5 py-1 rounded bg-black/75 text-amber-200 border border-[#c89d54]/70 text-[11px] song-serif">
                   《营造法式》青绿山水矢量长卷
@@ -792,12 +798,11 @@ export function RegionCompendiumPanel({
                   className="p-2 rounded bg-[#fffdf8] hover:bg-[#eadcc2] border border-[#cbb693] text-left flex items-center gap-2 transition cursor-pointer"
                 >
                   {npc.avatarUrl ? (
-                    <img
-                      src={resolveAssetUrl(npc.avatarUrl)}
+                    <ManagedAssetImg
+                      url={npc.avatarUrl}
                       alt={npc.name}
-                      loading="lazy"
-                      onLoad={() => recordAssetLoaded(npc.avatarUrl!, 48000)}
-                      className="w-9 h-9 rounded-full object-cover border border-[#8c6e46] shrink-0"
+                      viewportLazy
+                      className="w-9 h-9 rounded-full object-cover border border-[#8c6e46] shrink-0 bg-[#2b1d12]"
                     />
                   ) : (
                     <div className="w-9 h-9 rounded-full bg-[#3b2712] text-amber-200 border border-[#c89d54] flex items-center justify-center song-serif font-bold text-xs shrink-0">

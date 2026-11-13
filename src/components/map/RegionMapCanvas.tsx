@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useRef } from 'react'
 import { BUILDING_DB_MAP } from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
 import { useLazyImage } from '../../utils/assetLoader'
@@ -9,8 +9,18 @@ import {
   NODE_MAP,
   REGIONAL_CONFIGS,
 } from '../../utils/mapMath'
-import { SvgBuildingInteriorFallback } from './SvgBuildingInteriorFallback'
-import { SvgRegionPanoramaFallback } from './SvgRegionPanoramaFallback'
+
+const SvgBuildingInteriorFallback = lazy(() =>
+  import('./SvgBuildingInteriorFallback').then((m) => ({
+    default: m.SvgBuildingInteriorFallback,
+  })),
+)
+
+const SvgRegionPanoramaFallback = lazy(() =>
+  import('./SvgRegionPanoramaFallback').then((m) => ({
+    default: m.SvgRegionPanoramaFallback,
+  })),
+)
 
 export function RegionMapCanvas() {
   const svgRef = useRef<SVGSVGElement | null>(null)
@@ -182,16 +192,20 @@ export function RegionMapCanvas() {
 
           {/* 底图渲染：若有 JPG 原画则懒加载渲染；新辟 5 州府渲染宋辽营造青绿矢量全景；未补图特殊建筑渲染《营造法式》矢量内景卷 */}
           {activeBuildingRecord && activeInterior?.mode === 'svg_fallback' ? (
-            <SvgBuildingInteriorFallback building={activeBuildingRecord} width={vw} height={vh} />
+            <Suspense fallback={null}>
+              <SvgBuildingInteriorFallback building={activeBuildingRecord} width={vw} height={vh} />
+            </Suspense>
           ) : !activeBuildingRecord && !regionCfg.panoramaUri ? (
-            <SvgRegionPanoramaFallback
-              regionId={activeRegionId}
-              regionName={regionNode.name}
-              regime={regionNode.regime ?? 'song'}
-              circuit={regionNode.circuit}
-              width={vw}
-              height={vh}
-            />
+            <Suspense fallback={null}>
+              <SvgRegionPanoramaFallback
+                regionId={activeRegionId}
+                regionName={regionNode.name}
+                regime={regionNode.regime ?? 'song'}
+                circuit={regionNode.circuit}
+                width={vw}
+                height={vh}
+              />
+            </Suspense>
           ) : (
             loadedUrl && <image href={loadedUrl} x={0} y={0} width={vw} height={vh} />
           )}

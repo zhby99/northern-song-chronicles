@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, memo, Suspense, useEffect, useMemo, useState } from 'react'
 import {
   GEAR_DB_MAP,
   ID_REGISTRY,
@@ -22,7 +22,7 @@ import type {
   MenuTabKey,
   WeaponSubCategory,
 } from '../../types/game'
-import { ASSET_MANIFEST, useAssetTelemetry } from '../../utils/assetLoader'
+import { useAssetTelemetry } from '../../utils/assetLoader'
 import { formatSongDate, NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
 import {
   buildNpcLightboxState,
@@ -32,20 +32,41 @@ import {
   type NavItemMeta,
   SYSTEM_NAV_ITEMS,
 } from './menuShared'
-import { MountCompendiumPanel } from './MountCompendiumPanel'
 import { PortraitLightbox } from './PortraitLightbox'
-import { RegionCompendiumPanel } from './RegionCompendiumPanel'
-import { SectCompendiumPanel } from './SectCompendiumPanel'
-import { ArmoryTab } from './tabs/ArmoryTab'
-import { BagTab } from './tabs/BagTab'
-import { EngineeringTab } from './tabs/EngineeringTab'
-import { HeroTab } from './tabs/HeroTab'
-import { LoadoutTab } from './tabs/LoadoutTab'
-import { MartialArtsTab } from './tabs/MartialArtsTab'
-import { PortraitsTab } from './tabs/PortraitsTab'
-import { SaveLoadTab } from './tabs/SaveLoadTab'
-import { SettingsTab } from './tabs/SettingsTab'
-import { TreasuresTab } from './tabs/TreasuresTab'
+
+const MountCompendiumPanel = lazy(() =>
+  import('./MountCompendiumPanel').then((m) => ({ default: m.MountCompendiumPanel })),
+)
+const RegionCompendiumPanel = lazy(() =>
+  import('./RegionCompendiumPanel').then((m) => ({ default: m.RegionCompendiumPanel })),
+)
+const SectCompendiumPanel = lazy(() =>
+  import('./SectCompendiumPanel').then((m) => ({ default: m.SectCompendiumPanel })),
+)
+const ArmoryTab = lazy(() => import('./tabs/ArmoryTab').then((m) => ({ default: m.ArmoryTab })))
+const BagTab = lazy(() => import('./tabs/BagTab').then((m) => ({ default: m.BagTab })))
+const EngineeringTab = lazy(() =>
+  import('./tabs/EngineeringTab').then((m) => ({ default: m.EngineeringTab })),
+)
+const HeroTab = lazy(() => import('./tabs/HeroTab').then((m) => ({ default: m.HeroTab })))
+const LoadoutTab = lazy(() =>
+  import('./tabs/LoadoutTab').then((m) => ({ default: m.LoadoutTab })),
+)
+const MartialArtsTab = lazy(() =>
+  import('./tabs/MartialArtsTab').then((m) => ({ default: m.MartialArtsTab })),
+)
+const PortraitsTab = lazy(() =>
+  import('./tabs/PortraitsTab').then((m) => ({ default: m.PortraitsTab })),
+)
+const SaveLoadTab = lazy(() =>
+  import('./tabs/SaveLoadTab').then((m) => ({ default: m.SaveLoadTab })),
+)
+const SettingsTab = lazy(() =>
+  import('./tabs/SettingsTab').then((m) => ({ default: m.SettingsTab })),
+)
+const TreasuresTab = lazy(() =>
+  import('./tabs/TreasuresTab').then((m) => ({ default: m.TreasuresTab })),
+)
 
 export function SystemMenuModal() {
   const menuOpen = useGameStore((s) => s.menuOpen)
@@ -81,8 +102,6 @@ export function SystemMenuModal() {
   const setCompendiumTab = useGameStore((s) => s.setCompendiumTab)
   const setBagCategory = useGameStore((s) => s.setBagCategory)
   const clearActionFeedback = useGameStore((s) => s.clearActionFeedback)
-
-  const telemetry = useAssetTelemetry()
 
   // Cross-tab focus states for System Hub (Loadout & Bag)
   const [selectedEquipSlot, setSelectedEquipSlot] = useState<EquipmentSlotKey>('weapon')
@@ -490,12 +509,7 @@ export function SystemMenuModal() {
                     {equippedArtCount} / 6 槽（习 {learnedArts.length} 门）
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span>已懒加载</span>
-                  <span className="font-mono font-bold text-[#52391e]">
-                    {telemetry.loadedCount}/{ASSET_MANIFEST.summary.totalExtractedImageFiles}
-                  </span>
-                </div>
+                <SidebarAssetSummaryLine />
               </div>
             )}
           </nav>
@@ -547,199 +561,207 @@ export function SystemMenuModal() {
                 </div>
               )}
 
-              {activeViewKey === 'hero' && (
-                <HeroTab locationLabel={locationLabel} onOpenLightbox={setLightbox} />
-              )}
+              <Suspense
+                fallback={
+                  <div className="py-16 text-center text-sm song-serif text-[#6b5235]">
+                    正在展卷调阅典籍……
+                  </div>
+                }
+              >
+                {activeViewKey === 'hero' && (
+                  <HeroTab locationLabel={locationLabel} onOpenLightbox={setLightbox} />
+                )}
 
-              {activeViewKey === 'loadout' && (
-                <LoadoutTab
-                  selectedEquipSlot={selectedEquipSlot}
-                  onSelectEquipSlot={setSelectedEquipSlot}
-                  inspectedLearnedArtId={inspectedLearnedArtId}
-                  onSelectInspectedArtId={setInspectedLearnedArtId}
-                />
-              )}
+                {activeViewKey === 'loadout' && (
+                  <LoadoutTab
+                    selectedEquipSlot={selectedEquipSlot}
+                    onSelectEquipSlot={setSelectedEquipSlot}
+                    inspectedLearnedArtId={inspectedLearnedArtId}
+                    onSelectInspectedArtId={setInspectedLearnedArtId}
+                  />
+                )}
 
-              {activeViewKey === 'bag' && (
-                <BagTab
-                  selectedBagItemId={selectedBagItemId}
-                  onSelectBagItemId={setSelectedBagItemId}
-                  onOpenTreasureVolume={(vol) => {
-                    setTreasureVolFilter(vol)
-                    setTreasureSubTypeFilter('ALL')
-                    openCompendium('treasures')
-                  }}
-                  onJumpToMartialArt={jumpToCompendiumArt}
-                  onJumpToEquipSlot={(slot) => {
-                    setSelectedEquipSlot(slot)
-                    setMenuTab('loadout')
-                  }}
-                  onJumpToPracticeArt={(artId) => {
-                    setInspectedLearnedArtId(artId)
-                    setMenuTab('loadout')
-                  }}
-                />
-              )}
+                {activeViewKey === 'bag' && (
+                  <BagTab
+                    selectedBagItemId={selectedBagItemId}
+                    onSelectBagItemId={setSelectedBagItemId}
+                    onOpenTreasureVolume={(vol) => {
+                      setTreasureVolFilter(vol)
+                      setTreasureSubTypeFilter('ALL')
+                      openCompendium('treasures')
+                    }}
+                    onJumpToMartialArt={jumpToCompendiumArt}
+                    onJumpToEquipSlot={(slot) => {
+                      setSelectedEquipSlot(slot)
+                      setMenuTab('loadout')
+                    }}
+                    onJumpToPracticeArt={(artId) => {
+                      setInspectedLearnedArtId(artId)
+                      setMenuTab('loadout')
+                    }}
+                  />
+                )}
 
-              {activeViewKey === 'regions' && (
-                <RegionCompendiumPanel
-                  selectedRegionId={selectedRegionCompId}
-                  onSelectRegionId={setSelectedRegionCompId}
-                  currentNodeId={currentNodeId}
-                  hasWildernessCamp={Boolean(campPos)}
-                  isTraveling={Boolean(traveling)}
-                  onJumpToSect={(sectId) => {
-                    setSelectedSectCompId(sectId)
-                    setCompendiumTab('sects')
-                  }}
-                  onJumpToNpc={jumpToCompendiumNpc}
-                  onJumpToWeapon={jumpToCompendiumWeapon}
-                  onLocateOnWorldMap={locateRegionOnWorldMap}
-                  onEnterCurrentRegion={(regionId) => {
-                    useGameStore.getState().enterRegionMap(regionId, false)
-                    closeActiveModal()
-                  }}
-                  onOpenPanoramaLightbox={({ url, title, subtitle }) =>
-                    setLightbox({ url, title, subtitle })
-                  }
-                />
-              )}
+                {activeViewKey === 'regions' && (
+                  <RegionCompendiumPanel
+                    selectedRegionId={selectedRegionCompId}
+                    onSelectRegionId={setSelectedRegionCompId}
+                    currentNodeId={currentNodeId}
+                    hasWildernessCamp={Boolean(campPos)}
+                    isTraveling={Boolean(traveling)}
+                    onJumpToSect={(sectId) => {
+                      setSelectedSectCompId(sectId)
+                      setCompendiumTab('sects')
+                    }}
+                    onJumpToNpc={jumpToCompendiumNpc}
+                    onJumpToWeapon={jumpToCompendiumWeapon}
+                    onLocateOnWorldMap={locateRegionOnWorldMap}
+                    onEnterCurrentRegion={(regionId) => {
+                      useGameStore.getState().enterRegionMap(regionId, false)
+                      closeActiveModal()
+                    }}
+                    onOpenPanoramaLightbox={({ url, title, subtitle }) =>
+                      setLightbox({ url, title, subtitle })
+                    }
+                  />
+                )}
 
-              {activeViewKey === 'sects' && (
-                <SectCompendiumPanel
-                  selectedFactionId={selectedSectCompId}
-                  onSelectFactionId={setSelectedSectCompId}
-                  learnedArtIds={learnedArtIds}
-                  onJumpToRegion={(regionId) => {
-                    setSelectedRegionCompId(regionId)
-                    setCompendiumTab('regions')
-                  }}
-                  onJumpToNpc={jumpToCompendiumNpc}
-                  onJumpToArt={jumpToCompendiumArt}
-                  onJumpToWeapon={jumpToCompendiumWeapon}
-                  onLocateOnWorldMap={locateRegionOnWorldMap}
-                  onOpenPortraitLightbox={openNpcLightbox}
-                />
-              )}
+                {activeViewKey === 'sects' && (
+                  <SectCompendiumPanel
+                    selectedFactionId={selectedSectCompId}
+                    onSelectFactionId={setSelectedSectCompId}
+                    learnedArtIds={learnedArtIds}
+                    onJumpToRegion={(regionId) => {
+                      setSelectedRegionCompId(regionId)
+                      setCompendiumTab('regions')
+                    }}
+                    onJumpToNpc={jumpToCompendiumNpc}
+                    onJumpToArt={jumpToCompendiumArt}
+                    onJumpToWeapon={jumpToCompendiumWeapon}
+                    onLocateOnWorldMap={locateRegionOnWorldMap}
+                    onOpenPortraitLightbox={openNpcLightbox}
+                  />
+                )}
 
-              {activeViewKey === 'portraits' && (
-                <PortraitsTab
-                  selectedNpc={selectedNpc}
-                  onSelectNpc={setSelectedNpc}
-                  npcScope={npcScope}
-                  onChangeNpcScope={setNpcScope}
-                  onJumpToSect={(sectId) => {
-                    setSelectedSectCompId(sectId)
-                    setCompendiumTab('sects')
-                  }}
-                  onJumpToRegion={(regionId) => {
-                    setSelectedRegionCompId(regionId)
-                    setCompendiumTab('regions')
-                  }}
-                  onJumpToMartialArt={jumpToCompendiumArt}
-                  onJumpToArtifact={jumpToArtifactInCompendium}
-                  onOpenNpcLightbox={openNpcLightbox}
-                  onCloseModal={closeActiveModal}
-                />
-              )}
+                {activeViewKey === 'portraits' && (
+                  <PortraitsTab
+                    selectedNpc={selectedNpc}
+                    onSelectNpc={setSelectedNpc}
+                    npcScope={npcScope}
+                    onChangeNpcScope={setNpcScope}
+                    onJumpToSect={(sectId) => {
+                      setSelectedSectCompId(sectId)
+                      setCompendiumTab('sects')
+                    }}
+                    onJumpToRegion={(regionId) => {
+                      setSelectedRegionCompId(regionId)
+                      setCompendiumTab('regions')
+                    }}
+                    onJumpToMartialArt={jumpToCompendiumArt}
+                    onJumpToArtifact={jumpToArtifactInCompendium}
+                    onOpenNpcLightbox={openNpcLightbox}
+                    onCloseModal={closeActiveModal}
+                  />
+                )}
 
-              {activeViewKey === 'martialArts' && (
-                <MartialArtsTab
-                  selectedArt={selectedArt}
-                  onSelectArt={setSelectedArt}
-                  artTierFilter={artTierFilter}
-                  onChangeArtTierFilter={setArtTierFilter}
-                  artCatFilter={artCatFilter}
-                  onChangeArtCatFilter={setArtCatFilter}
-                  onJumpToLoadoutArt={(artId) => {
-                    setInspectedLearnedArtId(artId)
-                    openMenu('loadout')
-                  }}
-                />
-              )}
+                {activeViewKey === 'martialArts' && (
+                  <MartialArtsTab
+                    selectedArt={selectedArt}
+                    onSelectArt={setSelectedArt}
+                    artTierFilter={artTierFilter}
+                    onChangeArtTierFilter={setArtTierFilter}
+                    artCatFilter={artCatFilter}
+                    onChangeArtCatFilter={setArtCatFilter}
+                    onJumpToLoadoutArt={(artId) => {
+                      setInspectedLearnedArtId(artId)
+                      openMenu('loadout')
+                    }}
+                  />
+                )}
 
-              {activeViewKey === 'armory' && (
-                <ArmoryTab
-                  armorySubTab={armorySubTab}
-                  onChangeArmorySubTab={setArmorySubTab}
-                  focusedGearId={focusedGearId}
-                  onClearFocusedGearId={() => setFocusedGearId(null)}
-                  selectedWeapon={selectedWeapon}
-                  onSelectWeapon={setSelectedWeapon}
-                  wpnTierFilter={wpnTierFilter}
-                  onChangeWpnTierFilter={setWpnTierFilter}
-                  wpnTypeFilter={wpnTypeFilter}
-                  onChangeWpnTypeFilter={setWpnTypeFilter}
-                  onJumpToRegion={(regionId) => {
-                    setSelectedRegionCompId(regionId)
-                    setCompendiumTab('regions')
-                  }}
-                  onJumpToSect={(sectId) => {
-                    setSelectedSectCompId(sectId)
-                    setCompendiumTab('sects')
-                  }}
-                  onJumpToMartialArt={jumpToCompendiumArt}
-                  onJumpToWeaponLoadout={() => {
-                    setSelectedEquipSlot('weapon')
-                    openMenu('loadout')
-                  }}
-                  onJumpToGearLoadout={(slot) => {
-                    setSelectedEquipSlot(slot)
-                    openMenu('loadout')
-                  }}
-                  onJumpToMounts={() => setCompendiumTab('mounts')}
-                  onCloseModal={closeActiveModal}
-                />
-              )}
+                {activeViewKey === 'armory' && (
+                  <ArmoryTab
+                    armorySubTab={armorySubTab}
+                    onChangeArmorySubTab={setArmorySubTab}
+                    focusedGearId={focusedGearId}
+                    onClearFocusedGearId={() => setFocusedGearId(null)}
+                    selectedWeapon={selectedWeapon}
+                    onSelectWeapon={setSelectedWeapon}
+                    wpnTierFilter={wpnTierFilter}
+                    onChangeWpnTierFilter={setWpnTierFilter}
+                    wpnTypeFilter={wpnTypeFilter}
+                    onChangeWpnTypeFilter={setWpnTypeFilter}
+                    onJumpToRegion={(regionId) => {
+                      setSelectedRegionCompId(regionId)
+                      setCompendiumTab('regions')
+                    }}
+                    onJumpToSect={(sectId) => {
+                      setSelectedSectCompId(sectId)
+                      setCompendiumTab('sects')
+                    }}
+                    onJumpToMartialArt={jumpToCompendiumArt}
+                    onJumpToWeaponLoadout={() => {
+                      setSelectedEquipSlot('weapon')
+                      openMenu('loadout')
+                    }}
+                    onJumpToGearLoadout={(slot) => {
+                      setSelectedEquipSlot(slot)
+                      openMenu('loadout')
+                    }}
+                    onJumpToMounts={() => setCompendiumTab('mounts')}
+                    onCloseModal={closeActiveModal}
+                  />
+                )}
 
-              {activeViewKey === 'mounts' && (
-                <MountCompendiumPanel
-                  selectedMountId={selectedMountCompId}
-                  onSelectMount={setSelectedMountCompId}
-                  equippedMountId={equipped.mount}
-                  inventoryQtyMap={inventoryQtyMap}
-                  playerEquipCtx={playerEquipCtx}
-                  onOpenRegionInCompendium={(regionId) => {
-                    setSelectedRegionCompId(regionId)
-                    setCompendiumTab('regions')
-                  }}
-                  onOpenSectInCompendium={(sectId) => {
-                    setSelectedSectCompId(sectId)
-                    setCompendiumTab('sects')
-                  }}
-                  onLocateRegionOnMap={locateRegionOnWorldMap}
-                  onOpenLoadoutMountSlot={(slot, tab) => {
-                    setSelectedEquipSlot(slot)
-                    openMenu(tab)
-                  }}
-                />
-              )}
+                {activeViewKey === 'mounts' && (
+                  <MountCompendiumPanel
+                    selectedMountId={selectedMountCompId}
+                    onSelectMount={setSelectedMountCompId}
+                    equippedMountId={equipped.mount}
+                    inventoryQtyMap={inventoryQtyMap}
+                    playerEquipCtx={playerEquipCtx}
+                    onOpenRegionInCompendium={(regionId) => {
+                      setSelectedRegionCompId(regionId)
+                      setCompendiumTab('regions')
+                    }}
+                    onOpenSectInCompendium={(sectId) => {
+                      setSelectedSectCompId(sectId)
+                      setCompendiumTab('sects')
+                    }}
+                    onLocateRegionOnMap={locateRegionOnWorldMap}
+                    onOpenLoadoutMountSlot={(slot, tab) => {
+                      setSelectedEquipSlot(slot)
+                      openMenu(tab)
+                    }}
+                  />
+                )}
 
-              {activeViewKey === 'treasures' && (
-                <TreasuresTab
-                  selectedTreasureId={selectedTreasureId}
-                  onSelectTreasureId={setSelectedTreasureId}
-                  treasureVolFilter={treasureVolFilter}
-                  onChangeTreasureVolFilter={setTreasureVolFilter}
-                  treasureSubTypeFilter={treasureSubTypeFilter}
-                  onChangeTreasureSubTypeFilter={setTreasureSubTypeFilter}
-                  treasureCollectionStats={treasureCollectionStats}
-                  onJumpToMartialArt={jumpToCompendiumArt}
-                  onJumpToBagItem={(category, itemId) => {
-                    setBagCategory(category)
-                    setSelectedBagItemId(itemId)
-                    openMenu('bag')
-                  }}
-                />
-              )}
+                {activeViewKey === 'treasures' && (
+                  <TreasuresTab
+                    selectedTreasureId={selectedTreasureId}
+                    onSelectTreasureId={setSelectedTreasureId}
+                    treasureVolFilter={treasureVolFilter}
+                    onChangeTreasureVolFilter={setTreasureVolFilter}
+                    treasureSubTypeFilter={treasureSubTypeFilter}
+                    onChangeTreasureSubTypeFilter={setTreasureSubTypeFilter}
+                    treasureCollectionStats={treasureCollectionStats}
+                    onJumpToMartialArt={jumpToCompendiumArt}
+                    onJumpToBagItem={(category, itemId) => {
+                      setBagCategory(category)
+                      setSelectedBagItemId(itemId)
+                      openMenu('bag')
+                    }}
+                  />
+                )}
 
-              {activeViewKey === 'engineering' && <EngineeringTab />}
+                {activeViewKey === 'engineering' && <EngineeringTab />}
 
-              {(activeViewKey === 'save' || activeViewKey === 'load') && (
-                <SaveLoadTab mode={activeViewKey} locationLabel={locationLabel} />
-              )}
+                {(activeViewKey === 'save' || activeViewKey === 'load') && (
+                  <SaveLoadTab mode={activeViewKey} locationLabel={locationLabel} />
+                )}
 
-              {activeViewKey === 'settings' && <SettingsTab />}
+                {activeViewKey === 'settings' && <SettingsTab />}
+              </Suspense>
             </div>
 
             <div className="pt-3.5 border-t border-[#d8c7a9] flex items-center justify-between text-xs text-[#6b5235]">
@@ -766,3 +788,15 @@ export function SystemMenuModal() {
     </div>
   )
 }
+
+const SidebarAssetSummaryLine = memo(function SidebarAssetSummaryLine() {
+  const telemetry = useAssetTelemetry()
+  return (
+    <div className="flex justify-between">
+      <span>驻留缓存</span>
+      <span className="font-mono font-bold text-[#52391e]">
+        {telemetry.residentImageCount}图 · {telemetry.audioCachedCount}/{telemetry.audioMaxCap}曲
+      </span>
+    </div>
+  )
+})

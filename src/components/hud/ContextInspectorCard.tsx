@@ -16,13 +16,13 @@ import type {
   NpcTenArts,
   RoamingMaster,
 } from '../../types/game'
-import { recordAssetLoaded, resolveAssetUrl } from '../../utils/assetLoader'
 import {
   findBestRoute,
   getRegionAllBuildings,
   NODE_MAP,
   WORLD_GRAPH,
 } from '../../utils/mapMath'
+import { ManagedAssetImg } from '../common/ManagedAssetImg'
 
 function buildRoamingFallbackStats(m: RoamingMaster): {
   stats: NpcCombatStats
@@ -448,15 +448,10 @@ export function ContextInspectorCard() {
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 min-w-0">
                       {p.avatarUrl ? (
-                        <img
-                          src={resolveAssetUrl(p.avatarUrl)}
+                        <ManagedAssetImg
+                          url={p.avatarUrl}
                           alt={p.name}
-                          loading="lazy"
-                          onLoad={() => {
-                            if (p.avatarUrl) {
-                              recordAssetLoaded(p.avatarUrl, 58000)
-                            }
-                          }}
+                          viewportLazy
                           className="w-8 h-8 rounded object-cover border border-[#8c6e46] shrink-0 bg-[#2b1d12]"
                         />
                       ) : (

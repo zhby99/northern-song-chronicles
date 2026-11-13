@@ -29,7 +29,7 @@ import type {
   LearnedArtEntry,
   MartialArtSlotKey,
 } from '../../../types/game'
-import { recordAssetLoaded, resolveAssetUrl } from '../../../utils/assetLoader'
+import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 import { ArtSlotIcon, SlotIcon } from '../MenuIcons'
 
 interface LoadoutTabProps {
@@ -283,12 +283,9 @@ export function LoadoutTab({
 
               <div className="sm:col-span-3 flex flex-col items-center justify-center py-2.5 px-2 rounded-md bg-gradient-to-b from-[#f2e6ce] to-[#e6d5b5] border border-[#c8b28e] text-center">
                 <div className="w-24 h-32 rounded border border-[#9e8462] overflow-hidden bg-[#261910] shadow relative">
-                  <img
-                    src={resolveAssetUrl('/assets/characters/templates/tpl_song_scholar_fb.jpg')}
+                  <ManagedAssetImg
+                    url="/assets/characters/templates/tpl_song_scholar_fb.jpg"
                     alt="少侠披挂立绘"
-                    onLoad={() =>
-                      recordAssetLoaded('/assets/characters/templates/tpl_song_scholar_fb.jpg')
-                    }
                     className="w-full h-full object-cover object-top opacity-95"
                   />
                   <span className="absolute bottom-0 inset-x-0 bg-black/70 text-[#f5dfb5] text-[10px] py-0.5 song-serif">

@@ -1,0 +1,106 @@
+{
+  "description": "同曲共享映射表：若 regions/<regionId>/ 下未放入独立音频文件，则自动关联以下共享曲目；一旦在对应地区目录放入 1.mp3 等文件，将自动优先使用独立曲目。",
+  "themes": [
+    {
+      "themeId": "northern_prefectures",
+      "title": "河朔京畿雄州雅乐",
+      "tracks": [
+        "northern_prefectures.mp3"
+      ],
+      "regions": [
+        "luoyang",
+        "changan",
+        "daming",
+        "jinan",
+        "zhending"
+      ]
+    },
+    {
+      "themeId": "southern_metropolis",
+      "title": "江南巴蜀南海繁华弦歌",
+      "tracks": [
+        "southern_metropolis.mp3"
+      ],
+      "regions": [
+        "chengdu",
+        "guangzhou",
+        "hongzhou",
+        "quanzhou",
+        "tanzhou",
+        "xiangyang"
+      ]
+    },
+    {
+      "themeId": "liao_capitals",
+      "title": "大辽四京朔漠胡笳",
+      "tracks": [
+        "liao_capitals.mp3"
+      ],
+      "regions": [
+        "xijin_liao",
+        "dading_liao",
+        "liaoyang_liao",
+        "linhuang_liao"
+      ]
+    },
+    {
+      "themeId": "southwest_sects",
+      "title": "巴蜀滇南仙山云韶",
+      "tracks": [
+        "southwest_sects.mp3"
+      ],
+      "regions": [
+        "emeishan",
+        "qingcheng",
+        "wuliangshan"
+      ]
+    },
+    {
+      "themeId": "hangzhou_eastsea",
+      "title": "钱塘烟柳东海潮音",
+      "tracks": [
+        "hangzhou_eastsea.mp3"
+      ],
+      "regions": [
+        "hangzhou",
+        "taohuadao"
+      ]
+    },
+    {
+      "themeId": "chan_monasteries",
+      "title": "名山古刹禅林梵音",
+      "tracks": [
+        "chan_monasteries.mp3"
+      ],
+      "regions": [
+        "shaolin",
+        "nanshaolin",
+        "wutaishan"
+      ]
+    },
+    {
+      "themeId": "northwest_frontier",
+      "title": "秦晋西夏边塞羌笛",
+      "tracks": [
+        "northwest_frontier.mp3"
+      ],
+      "regions": [
+        "xingqing_xixia",
+        "qinzhou",
+        "taiyuan",
+        "yanan"
+      ]
+    },
+    {
+      "themeId": "suzhou_taihu",
+      "title": "姑苏太湖水榭清商",
+      "tracks": [
+        "suzhou_taihu.mp3"
+      ],
+      "regions": [
+        "suzhou",
+        "yanziwu"
+      ]
+    }
+  ]
+}

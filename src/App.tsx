@@ -1,15 +1,21 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { BottomHud } from './components/hud/BottomHud'
 import { ContextInspectorCard } from './components/hud/ContextInspectorCard'
 import { MapTooltip } from './components/hud/MapTooltip'
 import { TopHud } from './components/hud/TopHud'
 import { TravelBanner } from './components/hud/TravelBanner'
 import { RegionMapCanvas } from './components/map/RegionMapCanvas'
-import { WorldMapCanvas } from './components/map/WorldMapCanvas'
-import { SystemMenuModal } from './components/menu/SystemMenuModal'
 import { useGameStore } from './store/useGameStore'
 import { syncBgmSceneContext, toggleBgmPlayback } from './utils/bgmManager'
 import { purgeLegacySaveDatabases } from './utils/saveManager'
+
+const WorldMapCanvas = lazy(() =>
+  import('./components/map/WorldMapCanvas').then((m) => ({ default: m.WorldMapCanvas })),
+)
+
+const SystemMenuModal = lazy(() =>
+  import('./components/menu/SystemMenuModal').then((m) => ({ default: m.SystemMenuModal })),
+)
 
 export function App() {
   const viewMode = useGameStore((s) => s.viewMode)
@@ -23,9 +29,13 @@ export function App() {
   const openCompendium = useGameStore((s) => s.openCompendium)
   const closeCompendium = useGameStore((s) => s.closeCompendium)
 
-  // 启动时自动清除旧版浏览器残留存档库
+  // 启动时自动清除旧版浏览器残留存档库，并在首屏空闲后静默预热菜单壳层
   useEffect(() => {
     purgeLegacySaveDatabases()
+    const timer = window.setTimeout(() => {
+      void import('./components/menu/SystemMenuModal')
+    }, 1500)
+    return () => window.clearTimeout(timer)
   }, [])
 
   // Sync scene/region BGM playlist (world/1,2... vs regions/<id>/1,2...) automatically
@@ -78,12 +88,29 @@ export function App() {
       <TopHud />
       <TravelBanner />
 
-      {viewMode === 'world' ? <WorldMapCanvas /> : <RegionMapCanvas />}
+      {viewMode === 'world' ? (
+        <Suspense
+          fallback={
+            <div className="w-full h-full flex items-center justify-center bg-[#1b130d] text-[#f5dfb5] song-serif text-sm">
+              正在铺展《皇祐九州山海舆图》……
+            </div>
+          }
+        >
+          <WorldMapCanvas />
+        </Suspense>
+      ) : (
+        <RegionMapCanvas />
+      )}
 
       <BottomHud />
       <ContextInspectorCard />
       <MapTooltip />
-      <SystemMenuModal />
+
+      {(menuOpen || compendiumOpen) && (
+        <Suspense fallback={null}>
+          <SystemMenuModal />
+        </Suspense>
+      )}
     </main>
   )
 }

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { REGION_DB_MAP } from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
 import { findBestRoute, resolveMountMeta } from '../../utils/mapMath'
@@ -13,6 +14,38 @@ export function MapTooltip() {
   const agility = useGameStore((s) => s.agility)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
 
+  const hoveredWorldNodeId = tooltip?.kind === 'worldNode' ? tooltip.node.id : null
+  const isHere = Boolean(
+    hoveredWorldNodeId && hoveredWorldNodeId === currentNodeId && !traveling && !campPos,
+  )
+
+  const route = useMemo(() => {
+    if (!hoveredWorldNodeId || isHere) return null
+    return findBestRoute(
+      currentNodeId,
+      hoveredWorldNodeId,
+      {
+        mountKey,
+        qinggongBonus,
+        ridingSkill,
+        agility,
+      },
+      campPos,
+    )
+  }, [hoveredWorldNodeId, isHere, currentNodeId, mountKey, qinggongBonus, ridingSkill, agility, campPos])
+
+  const npcTotal = useMemo(() => {
+    if (!hoveredWorldNodeId) return 0
+    let roamingCount = 0
+    for (const m of roamingMasters) {
+      if (m.nodeId === hoveredWorldNodeId) roamingCount += 1
+    }
+    const dbResidentCount = REGION_DB_MAP[hoveredWorldNodeId]?.residentNpcIds.length ?? 0
+    return dbResidentCount + roamingCount
+  }, [hoveredWorldNodeId, roamingMasters])
+
+  const mountMeta = useMemo(() => resolveMountMeta(mountKey), [mountKey])
+
   if (!tooltip) return null
 
   const vw = typeof window !== 'undefined' ? window.innerWidth : 1440
@@ -26,24 +59,6 @@ export function MapTooltip() {
 
   if (tooltip.kind === 'worldNode') {
     const { node } = tooltip
-    const isHere = node.id === currentNodeId && !traveling && !campPos
-    const route = !isHere
-      ? findBestRoute(
-          currentNodeId,
-          node.id,
-          {
-            mountKey,
-            qinggongBonus,
-            ridingSkill,
-            agility,
-          },
-          campPos,
-        )
-      : null
-    const roamingHere = roamingMasters.filter((m) => m.nodeId === node.id)
-    const dbResidentCount = REGION_DB_MAP[node.id]?.residentNpcIds.length ?? 0
-    const npcTotal = dbResidentCount + roamingHere.length
-    const mountMeta = resolveMountMeta(mountKey)
 
     return (
       <div

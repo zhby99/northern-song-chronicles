@@ -149,13 +149,16 @@ export function SettingsTab() {
 
         <div className="text-xs text-[#6b5235] leading-relaxed flex flex-wrap items-center justify-between gap-2 border-t border-[#c8b28e] pt-2">
           <span>
-            已自动扫描音频曲库：大地图 <strong>{audioCatalog.worldTracks}</strong> 首 · 地区专属{' '}
-            <strong>{audioCatalog.totalRegionTracks}</strong> 首（覆盖{' '}
-            {audioCatalog.regionCountWithMusic}/43 地） · 人物{' '}
+            已扫描曲库：独立音轨去重后共 <strong>{audioCatalog.uniqueTrackCount}</strong> 首 · 大地图{' '}
+            <strong>{audioCatalog.worldTracks}</strong> 首 · 地区覆盖{' '}
+            <strong>{audioCatalog.regionCountWithMusic}/43</strong> 地（含{' '}
+            {audioCatalog.sharedRegionCount} 地跨州同曲不断曲） · 人物{' '}
             <strong>{audioCatalog.totalCharacterTracks}</strong> 首 · 事件{' '}
             <strong>{audioCatalog.totalEventTracks}</strong> 首
           </span>
-          <span className="font-mono text-[11px]">规则：按 1, 2, 3, 4, 5... 顺序自动循环</span>
+          <span className="font-mono text-[11px]">
+            规则：regions/&lt;地区&gt;/1.mp3 自动优先覆盖共享曲
+          </span>
         </div>
       </div>
 

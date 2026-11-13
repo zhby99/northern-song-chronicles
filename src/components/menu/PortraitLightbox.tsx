@@ -1,6 +1,6 @@
 import { X } from 'lucide-react'
 import type { CompiledNpcRecord } from '../../types/game'
-import { recordAssetLoaded, resolveAssetUrl } from '../../utils/assetLoader'
+import { useLazyImage } from '../../utils/assetLoader'
 import type { LightboxState } from './menuShared'
 
 interface PortraitLightboxProps {
@@ -14,6 +14,8 @@ export function PortraitLightbox({
   onClose,
   onSwitchNpcMode,
 }: PortraitLightboxProps) {
+  const { status, loadedUrl } = useLazyImage(lightbox?.url)
+
   if (!lightbox) return null
 
   return (
@@ -78,12 +80,18 @@ export function PortraitLightbox({
           title="点击画面任意处收起大图"
           className="flex-1 min-h-0 p-4 bg-[#140d08] flex items-center justify-center overflow-auto cursor-zoom-out"
         >
-          <img
-            src={resolveAssetUrl(lightbox.url)}
-            alt={lightbox.title}
-            onLoad={() => recordAssetLoaded(lightbox.url, 125000)}
-            className="max-h-[76vh] max-w-full w-auto h-auto object-contain rounded border border-[#c89d54]/50 shadow-2xl"
-          />
+          {loadedUrl ? (
+            <img
+              src={loadedUrl}
+              alt={lightbox.title}
+              decoding="async"
+              className="max-h-[76vh] max-w-full w-auto h-auto object-contain rounded border border-[#c89d54]/50 shadow-2xl"
+            />
+          ) : (
+            <div className="py-24 px-12 text-sm song-serif text-[#d6c5a5]">
+              {status === 'error' ? '画卷加载失败' : '正在展卷调阅高清丹青……'}
+            </div>
+          )}
         </div>
       </div>
     </div>

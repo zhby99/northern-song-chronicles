@@ -5,6 +5,8 @@ declare module 'virtual:audio-manifest' {
     stem: string
     order: number
     bytes: number
+    sharedThemeId?: string
+    sharedThemeTitle?: string
   }
 
   export interface VirtualAudioManifest {
@@ -12,8 +14,21 @@ declare module 'virtual:audio-manifest' {
     regions: Record<string, VirtualAudioTrackEntry[]>
     characters: Record<string, VirtualAudioTrackEntry[]>
     events: Record<string, VirtualAudioTrackEntry[]>
+    uniqueTrackCount: number
   }
 
   const manifest: VirtualAudioManifest
   export default manifest
+}
+
+declare module 'virtual:npcs-part1' {
+  import type { CompiledNpcRecord } from './types/game'
+  const npcsPart1: CompiledNpcRecord[]
+  export default npcsPart1
+}
+
+declare module 'virtual:npcs-part2' {
+  import type { CompiledNpcRecord } from './types/game'
+  const npcsPart2: CompiledNpcRecord[]
+  export default npcsPart2
 }

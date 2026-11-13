@@ -1,8 +1,13 @@
-import { useSyncExternalStore } from 'react'
+import { useMemo, useSyncExternalStore } from 'react'
 import audioManifest, { type VirtualAudioTrackEntry } from 'virtual:audio-manifest'
 import { REGION_DB_MAP } from '../data/gameDb'
 import type { ViewMode } from '../types/game'
-import { recordAssetLoaded, resolveAssetUrl } from './assetLoader'
+import {
+  recordAssetLoaded,
+  registerIdleAudioPurger,
+  reportAudioBufferTelemetry,
+  resolveAssetUrl,
+} from './assetLoader'
 
 export type BgmCategoryKey = 'world' | 'regions' | 'characters' | 'events'
 
@@ -13,6 +18,8 @@ export interface BgmPlaylistItem {
   order: number
   bytes: number
   label: string
+  sharedThemeId?: string
+  sharedThemeTitle?: string
 }
 
 export interface BgmPlaylistContext {
@@ -26,10 +33,17 @@ export interface BgmPlaylistContext {
 
 const CN_NUMERALS = ['零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖', '拾']
 
-function formatTrackOrdinal(idxZeroBased: number, stem: string): string {
+function formatTrackOrdinal(
+  idxZeroBased: number,
+  stem: string,
+  sharedThemeTitle?: string,
+): string {
   const n = idxZeroBased + 1
+  const cn = n <= 10 ? CN_NUMERALS[n] : String(n)
+  if (sharedThemeTitle) {
+    return `第${cn}曲 · ${sharedThemeTitle}`
+  }
   if (/^\d+$/.test(stem)) {
-    const cn = n <= 10 ? CN_NUMERALS[n] : String(n)
     return `第${cn}曲 (${stem})`
   }
   return `第${n}曲 · ${stem}`
@@ -38,7 +52,7 @@ function formatTrackOrdinal(idxZeroBased: number, stem: string): string {
 function toPlaylistItems(entries: VirtualAudioTrackEntry[]): BgmPlaylistItem[] {
   return entries.map((entry, idx) => ({
     ...entry,
-    label: formatTrackOrdinal(idx, entry.stem),
+    label: formatTrackOrdinal(idx, entry.stem, entry.sharedThemeTitle),
   }))
 }
 
@@ -83,12 +97,14 @@ export function resolveBgmPlaylistForState(params: {
     const regionName = REGION_DB_MAP[activeRegionId]?.name ?? activeRegionId
     const regEntries = audioManifest.regions[activeRegionId] ?? []
     if (regEntries.length > 0) {
+      const sharedTitle = regEntries[0]?.sharedThemeTitle
       return {
         playlistKey: `regions:${activeRegionId}`,
         category: 'regions',
         sceneTitle: `${regionName}配乐`,
-        sceneSubtitle:
-          regEntries.length === 1
+        sceneSubtitle: sharedTitle
+          ? `跨州同曲雅乐（${sharedTitle}）· 同曲切境不断曲`
+          : regEntries.length === 1
             ? '地区专属配乐 · 无缝单曲循环'
             : `地区专属曲库 · 共 ${regEntries.length} 首按序轮播`,
         isFallbackToWorld: false,
@@ -122,16 +138,21 @@ export function resolveBgmPlaylistForState(params: {
 const STORAGE_KEY_VOLUME = 'nsc_bgm_volume_v1'
 const STORAGE_KEY_ENABLED = 'nsc_bgm_enabled_v1'
 
-export interface BgmSnapshot {
+export interface BgmMetaSnapshot {
   playlist: BgmPlaylistContext
   trackIndex: number
   enabled: boolean
   isPlaying: boolean
   awaitingGesture: boolean
   volume: number
+}
+
+export interface BgmProgressSnapshot {
   currentTime: number
   duration: number
 }
+
+export interface BgmSnapshot extends BgmMetaSnapshot, BgmProgressSnapshot {}
 
 function readInitialVolume(): number {
   try {
@@ -169,8 +190,54 @@ let playAnchorCtxTime = 0
 let pausedOffsetSec = 0
 let tickTimer: number | null = null
 let gestureListenersBound = false
+let activeTrackUrlLoaded: string | null = null
 
-const decodedBufferCache = new Map<string, Promise<AudioBuffer>>()
+const MAX_DECODED_AUDIO_BUFFERS = 3
+
+interface CachedDecodedAudioEntry {
+  promise: Promise<AudioBuffer>
+  pcmBytes: number
+}
+
+const decodedBufferCache = new Map<string, CachedDecodedAudioEntry>()
+let audioEvictedCount = 0
+
+function syncAudioMemoryTelemetry() {
+  let pcmBytes = 0
+  const cachedUrls: string[] = []
+  for (const [url, entry] of decodedBufferCache.entries()) {
+    pcmBytes += entry.pcmBytes
+    cachedUrls.push(url)
+  }
+  reportAudioBufferTelemetry({
+    cachedCount: decodedBufferCache.size,
+    maxCap: MAX_DECODED_AUDIO_BUFFERS,
+    pcmBytes,
+    evictedCount: audioEvictedCount,
+    cachedUrls,
+  })
+}
+
+function evictOverflowAudioBuffers(forceAllIdle = false): number {
+  let freed = 0
+  for (const url of Array.from(decodedBufferCache.keys())) {
+    if (!forceAllIdle && decodedBufferCache.size <= MAX_DECODED_AUDIO_BUFFERS) {
+      break
+    }
+    if (url === activeTrackUrlLoaded) {
+      continue
+    }
+    decodedBufferCache.delete(url)
+    audioEvictedCount += 1
+    freed += 1
+  }
+  if (freed > 0) {
+    syncAudioMemoryTelemetry()
+  }
+  return freed
+}
+
+registerIdleAudioPurger(() => evictOverflowAudioBuffers(true))
 
 let overrideCharacterId: string | null = null
 let overrideEventId: string | null = null
@@ -179,27 +246,63 @@ let lastSceneParams: { viewMode: ViewMode; activeRegionId: string } = {
   activeRegionId: 'bianliang',
 }
 const playlistLastIndex = new Map<string, number>()
-const listeners = new Set<() => void>()
 
-let snapshot: BgmSnapshot = {
+const metaListeners = new Set<() => void>()
+const progressListeners = new Set<() => void>()
+
+let metaSnapshot: BgmMetaSnapshot = {
   playlist: resolveBgmPlaylistForState({ viewMode: 'region', activeRegionId: 'bianliang' }),
   trackIndex: 0,
   enabled: readInitialEnabled(),
   isPlaying: false,
   awaitingGesture: false,
   volume: readInitialVolume(),
+}
+
+let progressSnapshot: BgmProgressSnapshot = {
   currentTime: 0,
   duration: 0,
 }
 
-function emit() {
-  snapshot = { ...snapshot }
-  for (const fn of listeners) {
+function emitMeta() {
+  metaSnapshot = { ...metaSnapshot }
+  for (const fn of metaListeners) {
     fn()
   }
 }
 
-export function getActiveTrackItem(snap: BgmSnapshot = snapshot): BgmPlaylistItem | null {
+function computeLiveProgress(): BgmProgressSnapshot {
+  if (!activeBuffer) {
+    return { currentTime: 0, duration: 0 }
+  }
+  const span = Math.max(0.1, activeBufferTrimEnd - activeBufferTrimStart)
+  if (audioCtx && metaSnapshot.isPlaying) {
+    const elapsed = Math.max(0, audioCtx.currentTime - playAnchorCtxTime)
+    const cur =
+      metaSnapshot.playlist.tracks.length === 1 ? elapsed % span : Math.min(span, elapsed)
+    return { currentTime: cur, duration: span }
+  }
+  return {
+    currentTime: Math.min(span, Math.max(0, pausedOffsetSec)),
+    duration: span,
+  }
+}
+
+function syncProgressSnapshot(forceEmit = false) {
+  const next = computeLiveProgress()
+  const changedSec =
+    Math.floor(next.currentTime) !== Math.floor(progressSnapshot.currentTime) ||
+    Math.floor(next.duration) !== Math.floor(progressSnapshot.duration)
+  if (!forceEmit && !changedSec) return
+  progressSnapshot = next
+  for (const fn of progressListeners) {
+    fn()
+  }
+}
+
+export function getActiveTrackItem(
+  snap: Pick<BgmMetaSnapshot, 'playlist' | 'trackIndex'> = metaSnapshot,
+): BgmPlaylistItem | null {
   if (snap.playlist.tracks.length === 0) return null
   const safeIdx = Math.min(snap.playlist.tracks.length - 1, Math.max(0, snap.trackIndex))
   return snap.playlist.tracks[safeIdx] ?? null
@@ -214,7 +317,7 @@ function ensureAudioContext(): AudioContext | null {
     if (!Ctor) return null
     audioCtx = new Ctor()
     masterGain = audioCtx.createGain()
-    masterGain.gain.value = snapshot.volume
+    masterGain.gain.value = metaSnapshot.volume
     masterGain.connect(audioCtx.destination)
   }
   return audioCtx
@@ -251,28 +354,45 @@ function detectSeamlessLoopBounds(buf: AudioBuffer): { start: number; end: numbe
 
 function fetchAndDecodeBuffer(item: BgmPlaylistItem): Promise<AudioBuffer> {
   const cached = decodedBufferCache.get(item.url)
-  if (cached) return cached
+  if (cached) {
+    // Refresh LRU position so most recently played tracks stay resident
+    decodedBufferCache.delete(item.url)
+    decodedBufferCache.set(item.url, cached)
+    syncAudioMemoryTelemetry()
+    return cached.promise
+  }
 
   const ctx = ensureAudioContext()
   if (!ctx) return Promise.reject(new Error('Web Audio unavailable'))
 
-  const promise = fetch(resolveAssetUrl(item.url))
+  const entry: CachedDecodedAudioEntry = {
+    promise: Promise.resolve(null as unknown as AudioBuffer),
+    pcmBytes: 0,
+  }
+
+  entry.promise = fetch(resolveAssetUrl(item.url))
     .then((res) => {
       if (!res.ok) throw new Error(`HTTP ${res.status} loading ${item.url}`)
       return res.arrayBuffer()
     })
     .then((arr) => ctx.decodeAudioData(arr))
     .then((audioBuf) => {
+      entry.pcmBytes = audioBuf.length * audioBuf.numberOfChannels * 4
       recordAssetLoaded(item.url, item.bytes)
+      evictOverflowAudioBuffers(false)
+      syncAudioMemoryTelemetry()
       return audioBuf
     })
     .catch((err) => {
       decodedBufferCache.delete(item.url)
+      syncAudioMemoryTelemetry()
       throw err
     })
 
-  decodedBufferCache.set(item.url, promise)
-  return promise
+  decodedBufferCache.set(item.url, entry)
+  evictOverflowAudioBuffers(false)
+  syncAudioMemoryTelemetry()
+  return entry.promise
 }
 
 function stopActiveSourceNode() {
@@ -288,20 +408,39 @@ function stopActiveSourceNode() {
   }
 }
 
+/**
+ * Progress timer runs ONLY when audio is playing AND at least one UI progress bar
+ * (`TopBgmWidget` open popover or `SettingsTab`) is actively mounted!
+ * When the popover is closed, 0 timers run in the background and TopHud never re-renders.
+ */
 function updateProgressTimerState() {
   if (typeof window === 'undefined') return
-  if (snapshot.isPlaying && tickTimer === null) {
+  const shouldTick = metaSnapshot.isPlaying && progressListeners.size > 0
+  if (shouldTick && tickTimer === null) {
     tickTimer = window.setInterval(() => {
-      if (!audioCtx || !snapshot.isPlaying || !activeBuffer) return
-      const span = Math.max(0.1, activeBufferTrimEnd - activeBufferTrimStart)
-      const elapsed = Math.max(0, audioCtx.currentTime - playAnchorCtxTime)
-      snapshot.currentTime = snapshot.playlist.tracks.length === 1 ? elapsed % span : Math.min(span, elapsed)
-      snapshot.duration = span
-      emit()
-    }, 350)
-  } else if (!snapshot.isPlaying && tickTimer !== null) {
+      if (!audioCtx || !metaSnapshot.isPlaying || !activeBuffer || progressListeners.size === 0) {
+        return
+      }
+      syncProgressSnapshot(false)
+    }, 500)
+  } else if (!shouldTick && tickTimer !== null) {
     window.clearInterval(tickTimer)
     tickTimer = null
+  }
+}
+
+function bindMultiTrackEndedHandler(src: AudioBufferSourceNode, tokenAtStart: number) {
+  src.onended = () => {
+    if (tokenAtStart !== activeLoadToken || !metaSnapshot.enabled) return
+    const count = metaSnapshot.playlist.tracks.length
+    if (count > 1) {
+      const nextIdx = (metaSnapshot.trackIndex + 1) % count
+      metaSnapshot.trackIndex = nextIdx
+      playlistLastIndex.set(metaSnapshot.playlist.playlistKey, nextIdx)
+      pausedOffsetSec = 0
+      activeTrackUrlLoaded = getActiveTrackItem()?.url ?? null
+      void loadAndPlayCurrentTrack(true)
+    }
   }
 }
 
@@ -311,7 +450,7 @@ function startBufferSourceFromOffset(offsetWithinTrimmedSec: number) {
 
   stopActiveSourceNode()
 
-  const isSingleLoop = snapshot.playlist.tracks.length === 1
+  const isSingleLoop = metaSnapshot.playlist.tracks.length === 1
   const span = Math.max(0.05, activeBufferTrimEnd - activeBufferTrimStart)
   const safeOffset = ((offsetWithinTrimmedSec % span) + span) % span
 
@@ -328,35 +467,23 @@ function startBufferSourceFromOffset(offsetWithinTrimmedSec: number) {
   const now = ctx.currentTime
   masterGain.gain.cancelScheduledValues(now)
   masterGain.gain.setValueAtTime(0.0001, now)
-  masterGain.gain.linearRampToValueAtTime(snapshot.volume, now + 0.03)
+  masterGain.gain.linearRampToValueAtTime(metaSnapshot.volume, now + 0.03)
 
   src.connect(masterGain)
 
   if (!isSingleLoop) {
-    const tokenAtStart = activeLoadToken
-    src.onended = () => {
-      if (tokenAtStart !== activeLoadToken || !snapshot.enabled) return
-      const count = snapshot.playlist.tracks.length
-      if (count > 1) {
-        const nextIdx = (snapshot.trackIndex + 1) % count
-        snapshot.trackIndex = nextIdx
-        playlistLastIndex.set(snapshot.playlist.playlistKey, nextIdx)
-        pausedOffsetSec = 0
-        void loadAndPlayCurrentTrack(true)
-      }
-    }
+    bindMultiTrackEndedHandler(src, activeLoadToken)
   }
 
   src.start(0, activeBufferTrimStart + safeOffset)
   activeSource = src
   playAnchorCtxTime = now - safeOffset
   pausedOffsetSec = safeOffset
-  snapshot.currentTime = safeOffset
-  snapshot.duration = span
-  snapshot.isPlaying = true
-  snapshot.awaitingGesture = false
+  metaSnapshot.isPlaying = true
+  metaSnapshot.awaitingGesture = false
   updateProgressTimerState()
-  emit()
+  syncProgressSnapshot(true)
+  emitMeta()
 }
 
 async function loadAndPlayCurrentTrack(autoPlay: boolean) {
@@ -364,17 +491,18 @@ async function loadAndPlayCurrentTrack(autoPlay: boolean) {
   const token = ++activeLoadToken
 
   stopActiveSourceNode()
-  snapshot.isPlaying = false
+  metaSnapshot.isPlaying = false
   updateProgressTimerState()
 
   if (!item) {
     activeBuffer = null
-    snapshot.currentTime = 0
-    snapshot.duration = 0
-    emit()
+    activeTrackUrlLoaded = null
+    syncProgressSnapshot(true)
+    emitMeta()
     return
   }
 
+  activeTrackUrlLoaded = item.url
   const ctx = ensureAudioContext()
   if (!ctx) return
 
@@ -386,10 +514,10 @@ async function loadAndPlayCurrentTrack(autoPlay: boolean) {
     const bounds = detectSeamlessLoopBounds(buf)
     activeBufferTrimStart = bounds.start
     activeBufferTrimEnd = bounds.end
-    snapshot.duration = Math.max(0.1, bounds.end - bounds.start)
+    syncProgressSnapshot(true)
 
-    if (!autoPlay || !snapshot.enabled) {
-      emit()
+    if (!autoPlay || !metaSnapshot.enabled) {
+      emitMeta()
       return
     }
 
@@ -402,9 +530,9 @@ async function loadAndPlayCurrentTrack(autoPlay: boolean) {
     }
 
     if (ctx.state !== 'running') {
-      snapshot.awaitingGesture = true
+      metaSnapshot.awaitingGesture = true
       bindUnlockGesture()
-      emit()
+      emitMeta()
       return
     }
 
@@ -412,7 +540,7 @@ async function loadAndPlayCurrentTrack(autoPlay: boolean) {
     startBufferSourceFromOffset(pausedOffsetSec)
   } catch {
     if (token === activeLoadToken) {
-      emit()
+      emitMeta()
     }
   }
 }
@@ -425,7 +553,7 @@ function unbindUnlockGesture() {
 }
 
 function handleFirstUserGesture() {
-  if (!snapshot.enabled) {
+  if (!metaSnapshot.enabled) {
     unbindUnlockGesture()
     return
   }
@@ -436,7 +564,7 @@ function handleFirstUserGesture() {
     .then(() => {
       if (ctx.state === 'running') {
         unbindUnlockGesture()
-        if (activeBuffer && !snapshot.isPlaying) {
+        if (activeBuffer && !metaSnapshot.isPlaying) {
           startBufferSourceFromOffset(pausedOffsetSec)
         } else if (!activeBuffer) {
           void loadAndPlayCurrentTrack(true)
@@ -455,8 +583,6 @@ function bindUnlockGesture() {
   window.addEventListener('keydown', handleFirstUserGesture, true)
 }
 
-let activeTrackUrlLoaded: string | null = null
-
 export function syncBgmSceneContext(viewMode: ViewMode, activeRegionId: string) {
   lastSceneParams = { viewMode, activeRegionId }
   const nextPlaylist = resolveBgmPlaylistForState({
@@ -466,16 +592,50 @@ export function syncBgmSceneContext(viewMode: ViewMode, activeRegionId: string) 
     overrideEventId,
   })
 
-  const keyChanged = nextPlaylist.playlistKey !== snapshot.playlist.playlistKey
-  snapshot.playlist = nextPlaylist
+  const keyChanged = nextPlaylist.playlistKey !== metaSnapshot.playlist.playlistKey
+  if (!keyChanged) {
+    const currentItem = getActiveTrackItem()
+    if (currentItem && activeTrackUrlLoaded === currentItem.url) {
+      metaSnapshot.playlist = nextPlaylist
+      emitMeta()
+      return
+    }
+  }
 
-  const currentItem = getActiveTrackItem()
-  if (!keyChanged && currentItem && activeTrackUrlLoaded === currentItem.url) {
-    emit()
+  // 同曲共享不断曲：若新场景/新州府歌单中包含当前正在播放（或已解码待奏）的同一音轨 URL，
+  // 直接更新歌单标题与曲目索引，保持当前播放采样点无缝续播！
+  const sameTrackIdx =
+    activeTrackUrlLoaded !== null
+      ? nextPlaylist.tracks.findIndex((t) => t.url === activeTrackUrlLoaded)
+      : -1
+
+  if (
+    sameTrackIdx !== -1 &&
+    (metaSnapshot.isPlaying ||
+      activeBuffer !== null ||
+      decodedBufferCache.has(activeTrackUrlLoaded!))
+  ) {
+    metaSnapshot.playlist = nextPlaylist
+    metaSnapshot.trackIndex = sameTrackIdx
+    playlistLastIndex.set(nextPlaylist.playlistKey, sameTrackIdx)
+
+    if (activeSource && activeBuffer) {
+      const isSingleLoop = nextPlaylist.tracks.length === 1
+      activeSource.loop = isSingleLoop
+      if (isSingleLoop) {
+        activeSource.loopStart = activeBufferTrimStart
+        activeSource.loopEnd = activeBufferTrimEnd
+        activeSource.onended = null
+      } else {
+        bindMultiTrackEndedHandler(activeSource, activeLoadToken)
+      }
+    }
+    emitMeta()
     return
   }
 
-  snapshot.trackIndex = 0
+  metaSnapshot.playlist = nextPlaylist
+  metaSnapshot.trackIndex = 0
   pausedOffsetSec = 0
   playlistLastIndex.set(nextPlaylist.playlistKey, 0)
   activeTrackUrlLoaded = getActiveTrackItem()?.url ?? null
@@ -489,14 +649,14 @@ export function setBgmOverride(opts: { characterId?: string | null; eventId?: st
 }
 
 export function selectBgmTrackIndex(index: number) {
-  const count = snapshot.playlist.tracks.length
+  const count = metaSnapshot.playlist.tracks.length
   if (count === 0) return
   const clamped = ((index % count) + count) % count
-  snapshot.trackIndex = clamped
+  metaSnapshot.trackIndex = clamped
   pausedOffsetSec = 0
-  playlistLastIndex.set(snapshot.playlist.playlistKey, clamped)
+  playlistLastIndex.set(metaSnapshot.playlist.playlistKey, clamped)
   activeTrackUrlLoaded = getActiveTrackItem()?.url ?? null
-  if (!snapshot.enabled) {
+  if (!metaSnapshot.enabled) {
     setBgmEnabled(true)
     return
   }
@@ -504,19 +664,19 @@ export function selectBgmTrackIndex(index: number) {
 }
 
 export function playNextBgmTrack() {
-  selectBgmTrackIndex(snapshot.trackIndex + 1)
+  selectBgmTrackIndex(metaSnapshot.trackIndex + 1)
 }
 
 export function playPrevBgmTrack() {
-  selectBgmTrackIndex(snapshot.trackIndex - 1)
+  selectBgmTrackIndex(metaSnapshot.trackIndex - 1)
 }
 
 export function toggleBgmPlayback() {
-  setBgmEnabled(!snapshot.enabled)
+  setBgmEnabled(!metaSnapshot.enabled)
 }
 
 export function setBgmEnabled(enabled: boolean) {
-  snapshot.enabled = enabled
+  metaSnapshot.enabled = enabled
   try {
     localStorage.setItem(STORAGE_KEY_ENABLED, enabled ? '1' : '0')
   } catch {
@@ -524,16 +684,17 @@ export function setBgmEnabled(enabled: boolean) {
   }
 
   if (!enabled) {
-    if (audioCtx && snapshot.isPlaying && activeBuffer) {
+    if (audioCtx && metaSnapshot.isPlaying && activeBuffer) {
       const span = Math.max(0.1, activeBufferTrimEnd - activeBufferTrimStart)
       pausedOffsetSec = Math.max(0, audioCtx.currentTime - playAnchorCtxTime) % span
     }
     stopActiveSourceNode()
-    snapshot.isPlaying = false
-    snapshot.awaitingGesture = false
+    metaSnapshot.isPlaying = false
+    metaSnapshot.awaitingGesture = false
     unbindUnlockGesture()
     updateProgressTimerState()
-    emit()
+    syncProgressSnapshot(true)
+    emitMeta()
     return
   }
 
@@ -546,7 +707,7 @@ export function setBgmEnabled(enabled: boolean) {
 
 export function setBgmVolume(volume: number) {
   const clamped = Math.min(1, Math.max(0, volume))
-  snapshot.volume = clamped
+  metaSnapshot.volume = clamped
   try {
     localStorage.setItem(STORAGE_KEY_VOLUME, clamped.toFixed(2))
   } catch {
@@ -555,44 +716,82 @@ export function setBgmVolume(volume: number) {
   if (masterGain && audioCtx) {
     masterGain.gain.setTargetAtTime(clamped, audioCtx.currentTime, 0.02)
   }
-  if (clamped > 0 && !snapshot.enabled) {
+  if (clamped > 0 && !metaSnapshot.enabled) {
     setBgmEnabled(true)
     return
   }
-  emit()
+  emitMeta()
 }
 
 export function seekBgmTo(timeSec: number) {
-  if (snapshot.playlist.tracks.length === 0) return
-  const maxDur = snapshot.duration > 0 ? snapshot.duration - 0.05 : timeSec
+  if (metaSnapshot.playlist.tracks.length === 0) return
+  const liveDur = computeLiveProgress().duration
+  const maxDur = liveDur > 0 ? liveDur - 0.05 : timeSec
   const target = Math.max(0, Math.min(maxDur, timeSec))
   pausedOffsetSec = target
-  snapshot.currentTime = target
 
-  if (!snapshot.enabled) {
+  if (!metaSnapshot.enabled) {
     setBgmEnabled(true)
     return
   }
   if (activeBuffer && audioCtx && audioCtx.state === 'running') {
     startBufferSourceFromOffset(target)
   } else {
+    syncProgressSnapshot(true)
     void loadAndPlayCurrentTrack(true)
   }
 }
 
-function subscribe(listener: () => void) {
-  listeners.add(listener)
+function subscribeMeta(listener: () => void) {
+  metaListeners.add(listener)
   return () => {
-    listeners.delete(listener)
+    metaListeners.delete(listener)
   }
 }
 
-function getSnapshot(): BgmSnapshot {
-  return snapshot
+function getMetaSnapshot(): BgmMetaSnapshot {
+  return metaSnapshot
+}
+
+function subscribeProgress(listener: () => void) {
+  const wasEmpty = progressListeners.size === 0
+  progressListeners.add(listener)
+  if (wasEmpty) {
+    progressSnapshot = computeLiveProgress()
+    updateProgressTimerState()
+  }
+  return () => {
+    progressListeners.delete(listener)
+    if (progressListeners.size === 0) {
+      updateProgressTimerState()
+    }
+  }
+}
+
+function getProgressSnapshot(): BgmProgressSnapshot {
+  return progressSnapshot
+}
+
+/**
+ * Low-frequency BGM metadata subscription (0 Hz during steady playback).
+ * Ideal for TopHud so background music NEVER triggers TopHud re-renders!
+ */
+export function useBgmMetaState(): BgmMetaSnapshot {
+  return useSyncExternalStore(subscribeMeta, getMetaSnapshot)
+}
+
+/**
+ * On-demand 1s playback progress subscription.
+ * Only activates a timer while at least one progress bar UI is mounted.
+ */
+export function useBgmProgress(): BgmProgressSnapshot {
+  return useSyncExternalStore(subscribeProgress, getProgressSnapshot)
 }
 
 export function useBgmState(): BgmSnapshot {
-  return useSyncExternalStore(subscribe, getSnapshot)
+  const meta = useBgmMetaState()
+  const progress = useBgmProgress()
+  return useMemo(() => ({ ...meta, ...progress }), [meta, progress])
 }
 
 export function formatAudioTime(sec: number): string {
@@ -609,6 +808,9 @@ export function getAudioCatalogSummary() {
     (acc, list) => acc + list.length,
     0,
   )
+  const sharedRegionCount = Object.values(audioManifest.regions).filter((list) =>
+    Boolean(list[0]?.sharedThemeId),
+  ).length
   const totalCharacterTracks = Object.values(audioManifest.characters).reduce(
     (acc, list) => acc + list.length,
     0,
@@ -620,6 +822,8 @@ export function getAudioCatalogSummary() {
   return {
     worldTracks: audioManifest.world.length,
     regionCountWithMusic,
+    sharedRegionCount,
+    uniqueTrackCount: audioManifest.uniqueTrackCount,
     totalRegionTracks,
     totalCharacterTracks,
     totalEventTracks,

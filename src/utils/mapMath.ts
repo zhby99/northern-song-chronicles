@@ -131,12 +131,43 @@ export function computeSegmentDays(dist: number, terrain: TerrainType, params: S
   return dist / actualDailyLiOnTerrain
 }
 
+const MAX_ROUTE_CACHE_ENTRIES = 512
+const routeCache = new Map<string, ComputedRoute | null>()
+
+function buildRouteCacheKey(
+  startId: string,
+  targetId: string,
+  params: SpeedParams,
+  camp?: WildernessCamp | null,
+): string {
+  const campKey = camp
+    ? `${camp.u}:${camp.v}:${camp.distU}:${camp.distV}:${camp.terrain}:${camp.x.toFixed(1)}:${camp.y.toFixed(1)}`
+    : ''
+  return `${startId}|${targetId}|${params.mountKey}|${params.qinggongBonus.toFixed(4)}|${params.ridingSkill}|${params.agility}|${campKey}`
+}
+
+function setBoundedRouteCache(key: string, value: ComputedRoute | null): ComputedRoute | null {
+  if (routeCache.size >= MAX_ROUTE_CACHE_ENTRIES) {
+    const oldestKey = routeCache.keys().next().value
+    if (oldestKey !== undefined) {
+      routeCache.delete(oldestKey)
+    }
+  }
+  routeCache.set(key, value)
+  return value
+}
+
 export function findBestRoute(
   startId: string,
   targetId: string,
   params: SpeedParams,
   camp?: WildernessCamp | null,
 ): ComputedRoute | null {
+  const cacheKey = buildRouteCacheKey(startId, targetId, params, camp)
+  if (routeCache.has(cacheKey)) {
+    return routeCache.get(cacheKey) ?? null
+  }
+
   if (camp) {
     const buildViaEndpoint = (
       endpointId: string,
@@ -178,13 +209,18 @@ export function findBestRoute(
     const viaU = buildViaEndpoint(camp.u, camp.distU)
     const viaV = buildViaEndpoint(camp.v, camp.distV)
     if (viaU && viaV) {
-      return viaU.totalDays <= viaV.totalDays ? viaU : viaV
+      return setBoundedRouteCache(cacheKey, viaU.totalDays <= viaV.totalDays ? viaU : viaV)
     }
-    return viaU ?? viaV
+    return setBoundedRouteCache(cacheKey, viaU ?? viaV)
   }
 
   if (startId === targetId) {
-    return { nodes: [startId], segments: [], totalLi: 0, totalDays: 0 }
+    return setBoundedRouteCache(cacheKey, {
+      nodes: [startId],
+      segments: [],
+      totalLi: 0,
+      totalDays: 0,
+    })
   }
 
   const distDays: Record<string, number> = {}
@@ -227,7 +263,7 @@ export function findBestRoute(
     }
   }
 
-  if (!prev[targetId]) return null
+  if (!prev[targetId]) return setBoundedRouteCache(cacheKey, null)
 
   const nodes: string[] = []
   const segments: ComputedRoute['segments'] = []
@@ -248,7 +284,7 @@ export function findBestRoute(
 
   const totalLi = segments.reduce((sum, seg) => sum + seg.dist, 0)
   const totalDays = segments.reduce((sum, seg) => sum + seg.days, 0)
-  return { nodes, segments, totalLi, totalDays }
+  return setBoundedRouteCache(cacheKey, { nodes, segments, totalLi, totalDays })
 }
 
 const MONTHS = [

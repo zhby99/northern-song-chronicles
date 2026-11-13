@@ -3,7 +3,8 @@ import rawGear from './gear.json'
 import rawIdRegistry from './idRegistry.json'
 import rawMartialArts from './martial_arts.json'
 import rawMounts from './mounts.json'
-import rawNpcs from './npcs.json'
+import rawNpcsPart1 from 'virtual:npcs-part1'
+import rawNpcsPart2 from 'virtual:npcs-part2'
 import rawRegions from './regions.json'
 import rawUniqueArtifacts from './uniqueArtifacts.json'
 import rawWeapons from './weapons.json'
@@ -43,7 +44,7 @@ export const WEAPONS_DB = rawWeapons as unknown as CompiledWeaponRecord[]
 export const MOUNTS_DB = rawMounts as unknown as CompiledMountRecord[]
 export const GEAR_DB = rawGear as unknown as CompiledGearRecord[]
 export const UNIQUE_ARTIFACTS_DB = rawUniqueArtifacts as unknown as CompiledUniqueArtifactRecord[]
-export const NPCS_DB = rawNpcs as unknown as CompiledNpcRecord[]
+export const NPCS_DB: CompiledNpcRecord[] = [...rawNpcsPart1, ...rawNpcsPart2]
 
 export const REGION_DB_MAP: Record<string, CompiledRegionRecord> = Object.fromEntries(
   REGIONS_DB.map((r) => [r.id, r]),

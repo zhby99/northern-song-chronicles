@@ -4,8 +4,8 @@ import { MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
 import { computeEquipmentTotals, computeWeaponArtSynergy } from '../../../data/itemsDb'
 import { computeEquippedArtsTotals } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
-import { recordAssetLoaded, resolveAssetUrl } from '../../../utils/assetLoader'
 import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
+import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 import type { LightboxState } from '../menuShared'
 
 interface HeroTabProps {
@@ -99,10 +99,9 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
             }}
             className="w-full aspect-[3/4] max-h-[380px] mx-auto rounded-md bg-[#1e150e] border-2 border-[#8c6e46] overflow-hidden relative group cursor-zoom-in shadow-md flex items-center justify-center"
           >
-            <img
-              src={resolveAssetUrl(heroImgUrl)}
+            <ManagedAssetImg
+              url={heroImgUrl}
               alt="少侠全身像"
-              onLoad={() => recordAssetLoaded(heroImgUrl)}
               className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
             />
             <span className="absolute top-2 right-2 px-2 py-1 rounded bg-black/70 text-[#fff8eb] text-[11px] flex items-center gap-1 opacity-85 group-hover:opacity-100 transition">
