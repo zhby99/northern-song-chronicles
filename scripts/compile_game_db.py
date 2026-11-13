@@ -1718,6 +1718,16 @@ def generate_svg_fallback_interior(
         "lyf_yamen": (("东京留守正堂", "辽东军政"), ("渤海高丽四方宾馆", "东夷折冲"), ("铁林骁骑后校场", "弓马铁骑")),
         "lyf_baita": (("广佑正殿 · 白塔地宫", "辽左佛刹"), ("八角密檐浮雕回廊", "契丹梵刻"), ("太子河望雪石坪", "朔气炼体")),
         "lyf_ginseng": (("山参紫貂交易大堂", "关东奇珍"), ("海东青驯鹰场", "女真猎艺"), ("长白雪林试剑坪", "寒锋吐纳")),
+        # 9 Minor-Sect Headquarters & Branch Halls (SECT-21 ~ SECT-30)
+        "ly_zhenwu": (("振武讲堂 · 考刀正厅", "金刀外院"), ("百刃刀谱碑廊", "刀理筑基"), ("九环大刀石锁坪", "河洛演武")),
+        "dm_baji": (("八极忠义讲武正堂", "刚猛护院"), ("千斤铁锁秘传室", "桩功心要"), ("铁山靠木桩校场", "跺脚震州")),
+        "qz_zhenyuan": (("威远正堂 · 签押总厅", "红货承镖"), ("四海镖银账房库", "海陆走镖"), ("金钱镖梅花靶坪", "百步穿杨")),
+        "jn_chaquan": (("查拳正堂 · 授艺厅", "开门授徒"), ("齐鲁拳谱藏书厢", "长拳宗风"), ("九宫梅花桩沙袋坪", "燕子抄水")),
+        "hz_nuchao": (("怒潮聚义水香堂", "弄潮义气"), ("铁锚纤索器械房", "海港讨生"), ("扛鼎石锁撒网坪", "踏浪练胆")),
+        "gz_hongmen": (("五羊洪门忠义正堂", "护港团练"), ("南拳铁桥药酒房", "跌打壮骨"), ("狮头高桩木人坪", "硬桥硬马")),
+        "qzf_jinhuan": (("金环刀堂议事厅", "丝路护马"), ("茶马镖旗兵甲房", "边塞整备"), ("朴刀马步黄沙坪", "饮酒演刀")),
+        "cd_baicao": (("百草悬壶问诊正堂", "医武济世"), ("千味川药晾晒廊", "本草炮制"), ("五禽导引点穴院", "认穴养气")),
+        "tzf_wuxidojo": (("五溪苗汉聚义讲堂", "南楚奇门"), ("朱砂雄黄百草厢", "辟瘴炼药"), ("飞蝗石奇门演武坪", "飞石猎兽")),
     }
 
     kind_spot_titles: dict[str, tuple[tuple[str, str], tuple[str, str], tuple[str, str]]] = {
@@ -2339,7 +2349,7 @@ def compile_all(do_normalize_docs: bool) -> None:
     mounts = parse_mounts()
     gear = parse_gear()
 
-    # 2) Compile Buildings (138 Specials + 130 City Bases = 268)
+    # 2) Compile Buildings (147 Specials + 121 City Bases = 268)
     buildings: list[dict[str, Any]] = []
     buildings_by_region: dict[str, list[dict[str, Any]]] = defaultdict(list)
 

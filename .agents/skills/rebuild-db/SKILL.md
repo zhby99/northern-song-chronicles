@@ -17,7 +17,7 @@ description: 从 docs/*.md 七大设定专卷重新编译结构化 JSON 游戏�
    ```bash
    npm run build:db
    ```
-   - 确认输出中 43 地区（`regions.json`）、30 门派 + 11 组织（`idRegistry.json`）、268 座建筑（`buildings.json`：138 特殊 + 130 基础）、216 武学（`martial_arts.json`）、100 百兵（`weapons.json`）、1,000 名 NPC（`npcs.json`）编译成功，且**悬空外键引用数为 0**。
+   - 确认输出中 43 地区（`regions.json`）、30 门派 + 11 组织（`idRegistry.json`）、268 座建筑（`buildings.json`：147 特殊 + 121 基础）、216 武学（`martial_arts.json`）、100 百兵（`weapons.json`）、1,000 名 NPC（`npcs.json`）编译成功，且**悬空外键引用数为 0**。
 3. **静态检查与生产构建校验**：
    ```bash
    npm run lint && npm run build

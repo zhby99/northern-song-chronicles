@@ -404,11 +404,27 @@ export function SvgRegionPanoramaFallback({
         trimFill={pal.roofTrim}
       />
 
-      {/* 中下区五座基础坊市院落（对齐 [270,442] / [688,428] / [1102,442] / [388,585] / [988,585]） */}
+      {/* 中下区五座坊市院落（对齐 [270,442] / [688,428] / [1102,442] / [388,585] / [988,585]；广/潭/秦三城武馆已升格为特殊宗门驻地） */}
       <IsoHall cx={270} cy={442} scale={0.82} roofFill={pal.roofBase} trimFill="#c8b08a" />
       <IsoHall cx={688} cy={428} scale={0.86} roofFill={pal.roofBase} trimFill={pal.roofTrim} />
       <IsoHall cx={1102} cy={442} scale={0.82} roofFill={pal.roofBase} trimFill="#c8b08a" />
-      <IsoHall cx={388} cy={585} scale={0.8} roofFill={pal.roofBase} trimFill="#c8b08a" />
+      <IsoHall
+        cx={388}
+        cy={585}
+        scale={
+          regionId === 'guangzhou' || regionId === 'qinzhou' || regionId === 'tanzhou' ? 0.88 : 0.8
+        }
+        roofFill={
+          regionId === 'guangzhou' || regionId === 'qinzhou' || regionId === 'tanzhou'
+            ? pal.roofSpecial
+            : pal.roofBase
+        }
+        trimFill={
+          regionId === 'guangzhou' || regionId === 'qinzhou' || regionId === 'tanzhou'
+            ? pal.roofTrim
+            : '#c8b08a'
+        }
+      />
       <IsoHall cx={988} cy={585} scale={0.8} roofFill={pal.roofBase} trimFill="#c8b08a" />
 
       {/* 南门谯楼与出城通道（对齐 [688, 692]） */}

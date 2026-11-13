@@ -163,13 +163,13 @@
       "ly_shuyuan",
       "ly_peony",
       "ly_gaibang",
-      "ly_jindao"
+      "ly_jindao",
+      "ly_zhenwu"
     ],
     "baseBuildingIds": [
       "luoyang_base_yamen",
       "luoyang_base_tavern",
       "luoyang_base_inn",
-      "luoyang_base_dojo",
       "luoyang_base_academy"
     ],
     "residentNpcIds": [
@@ -262,12 +262,12 @@
     "specialBuildingIds": [
       "dm_palace",
       "dm_ferry",
-      "dm_drill"
+      "dm_drill",
+      "dm_baji"
     ],
     "baseBuildingIds": [
       "daming_base_yamen",
       "daming_base_tavern",
-      "daming_base_dojo",
       "daming_base_academy",
       "daming_base_inn"
     ],
@@ -727,13 +727,13 @@
     "specialBuildingIds": [
       "jn_baotu",
       "jn_daminghu",
-      "jn_daimiao"
+      "jn_daimiao",
+      "jn_chaquan"
     ],
     "baseBuildingIds": [
       "jinan_base_yamen",
       "jinan_base_tavern",
       "jinan_base_academy",
-      "jinan_base_dojo",
       "jinan_base_inn"
     ],
     "residentNpcIds": [
@@ -1075,13 +1075,13 @@
     "specialBuildingIds": [
       "hz_lingyin",
       "hz_tide",
-      "hz_port"
+      "hz_port",
+      "hz_nuchao"
     ],
     "baseBuildingIds": [
       "hangzhou_base_yamen",
       "hangzhou_base_tavern",
       "hangzhou_base_academy",
-      "hangzhou_base_dojo",
       "hangzhou_base_inn"
     ],
     "residentNpcIds": [
@@ -1178,13 +1178,13 @@
     "specialBuildingIds": [
       "cd_dacisi",
       "cd_qingyang",
-      "cd_teahouse"
+      "cd_teahouse",
+      "cd_baicao"
     ],
     "baseBuildingIds": [
       "chengdu_base_yamen",
       "chengdu_base_academy",
       "chengdu_base_tavern",
-      "chengdu_base_dojo",
       "chengdu_base_inn"
     ],
     "residentNpcIds": [
@@ -1374,12 +1374,12 @@
     "specialBuildingIds": [
       "qz_kaiyuan",
       "qz_tea",
-      "qz_port"
+      "qz_port",
+      "qz_zhenyuan"
     ],
     "baseBuildingIds": [
       "quanzhou_base_yamen",
       "quanzhou_base_tavern",
-      "quanzhou_base_dojo",
       "quanzhou_base_academy",
       "quanzhou_base_inn"
     ],
@@ -3028,13 +3028,13 @@
     "specialBuildingIds": [
       "gz_nanhai",
       "gz_fanfang",
-      "gz_yaozhou"
+      "gz_yaozhou",
+      "gz_hongmen"
     ],
     "baseBuildingIds": [
       "guangzhou_base_yamen",
       "guangzhou_base_tavern",
       "guangzhou_base_inn",
-      "guangzhou_base_dojo",
       "guangzhou_base_academy"
     ],
     "residentNpcIds": [
@@ -3105,13 +3105,13 @@
     "specialBuildingIds": [
       "tzf_yuelu",
       "tzf_tianxin",
-      "tzf_wuxi"
+      "tzf_wuxi",
+      "tzf_wuxidojo"
     ],
     "baseBuildingIds": [
       "tanzhou_base_yamen",
       "tanzhou_base_tavern",
       "tanzhou_base_inn",
-      "tanzhou_base_dojo",
       "tanzhou_base_academy"
     ],
     "residentNpcIds": [
@@ -3257,13 +3257,13 @@
     "specialBuildingIds": [
       "qzf_chama",
       "qzf_maijishan",
-      "qzf_longyou"
+      "qzf_longyou",
+      "qzf_jinhuan"
     ],
     "baseBuildingIds": [
       "qinzhou_base_yamen",
       "qinzhou_base_tavern",
       "qinzhou_base_inn",
-      "qinzhou_base_dojo",
       "qinzhou_base_academy"
     ],
     "residentNpcIds": [

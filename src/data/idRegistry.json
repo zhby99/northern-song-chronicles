@@ -7,12 +7,12 @@
     "totalSects": 30,
     "otherOrganizations": 11,
     "totalFactions": 41,
-    "specialBuildings": 138,
+    "specialBuildings": 147,
     "specialBuildingsWithImage": 58,
-    "specialBuildingsWithSvgFallback": 80,
-    "cityBaseBuildings": 130,
+    "specialBuildingsWithSvgFallback": 89,
+    "cityBaseBuildings": 121,
     "totalBuildings": 268,
-    "interiorSubBuildings": 414,
+    "interiorSubBuildings": 441,
     "martialArts": 216,
     "weapons": 100,
     "mounts": 28,
@@ -45,7 +45,7 @@
         "西京洛阳"
       ],
       "npcCount": 41,
-      "specialBuildingCount": 5
+      "specialBuildingCount": 6
     },
     {
       "id": "daming",
@@ -58,7 +58,7 @@
         "北京大名府"
       ],
       "npcCount": 33,
-      "specialBuildingCount": 3
+      "specialBuildingCount": 4
     },
     {
       "id": "zhending",
@@ -119,7 +119,7 @@
         "青州 / 济南"
       ],
       "npcCount": 32,
-      "specialBuildingCount": 3
+      "specialBuildingCount": 4
     },
     {
       "id": "yangzhou",
@@ -169,7 +169,7 @@
         "杭州（临安）"
       ],
       "npcCount": 43,
-      "specialBuildingCount": 3
+      "specialBuildingCount": 4
     },
     {
       "id": "chengdu",
@@ -180,7 +180,7 @@
       "regime": "song",
       "legacyAliases": [],
       "npcCount": 51,
-      "specialBuildingCount": 3
+      "specialBuildingCount": 4
     },
     {
       "id": "xiangyang",
@@ -206,7 +206,7 @@
         "福州 / 泉州"
       ],
       "npcCount": 39,
-      "specialBuildingCount": 3
+      "specialBuildingCount": 4
     },
     {
       "id": "xijin_liao",
@@ -505,7 +505,7 @@
         "羊城"
       ],
       "npcCount": 18,
-      "specialBuildingCount": 3
+      "specialBuildingCount": 4
     },
     {
       "id": "tanzhou",
@@ -519,7 +519,7 @@
         "长沙"
       ],
       "npcCount": 18,
-      "specialBuildingCount": 3
+      "specialBuildingCount": 4
     },
     {
       "id": "hongzhou",
@@ -547,7 +547,7 @@
         "秦州"
       ],
       "npcCount": 18,
-      "specialBuildingCount": 3
+      "specialBuildingCount": 4
     },
     {
       "id": "liaoyang_liao",
@@ -1427,7 +1427,7 @@
       ],
       "coreBuildingIds": [
         "ly_jindao",
-        "luoyang_base_dojo"
+        "ly_zhenwu"
       ],
       "highestArtTier": "良品上品",
       "summary": "二流门派 · 二流世家武盟（中原第一刀法世家，世代定居西京洛阳，急公好义、声誉卓著）",
@@ -1497,7 +1497,7 @@
       ],
       "coreBuildingIds": [
         "dm_drill",
-        "daming_base_dojo"
+        "dm_baji"
       ],
       "highestArtTier": "良品上品",
       "summary": "二流门派 · 二流世家武盟（“文有太极安天下，武有八极定乾坤”前脉，黄河两岸头号护院与贴身硬打名门）",
@@ -1532,7 +1532,7 @@
         "NPC-0286"
       ],
       "coreBuildingIds": [
-        "quanzhou_base_dojo",
+        "qz_zhenyuan",
         "qz_port"
       ],
       "highestArtTier": "良品下品",
@@ -1568,7 +1568,7 @@
         "NPC-0305"
       ],
       "coreBuildingIds": [
-        "jinan_base_dojo",
+        "jn_chaquan",
         "jn_baotu"
       ],
       "highestArtTier": "良品下品",
@@ -1604,7 +1604,7 @@
       ],
       "coreBuildingIds": [
         "hz_tide",
-        "hangzhou_base_dojo",
+        "hz_nuchao",
         "hz_port"
       ],
       "highestArtTier": "良品下品",
@@ -1638,7 +1638,7 @@
         "NPC-0307"
       ],
       "coreBuildingIds": [
-        "guangzhou_base_dojo",
+        "gz_hongmen",
         "gz_nanhai",
         "gz_fanfang"
       ],
@@ -1674,8 +1674,8 @@
       ],
       "coreBuildingIds": [
         "qzf_longyou",
-        "qzf_chama",
-        "qinzhou_base_dojo"
+        "qzf_jinhuan",
+        "qzf_chama"
       ],
       "highestArtTier": "地阶下品",
       "summary": "三流小派 · 边塞武馆刀堂（秦州渭水茶马古道上的边塞刀客结社，护卫番汉马帮、痛击西夏游骑与马贼）",
@@ -1708,7 +1708,7 @@
         "NPC-0316"
       ],
       "coreBuildingIds": [
-        "chengdu_base_dojo",
+        "cd_baicao",
         "cd_qingyang",
         "cd_teahouse"
       ],
@@ -1744,7 +1744,7 @@
       ],
       "coreBuildingIds": [
         "tzf_wuxi",
-        "tanzhou_base_dojo"
+        "tzf_wuxidojo"
       ],
       "highestArtTier": "地阶下品",
       "summary": "三流小派 · 南楚奇门苗寨（辰沅五溪苗瑶山民设于潭州湘江畔的互市分寨，善驭奇虫毒瘴、飞石猎兽，恩怨分明）",

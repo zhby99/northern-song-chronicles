@@ -1252,8 +1252,7 @@
           },
           "residentNpcIds": [
             "NPC-0329",
-            "NPC-0737",
-            "NPC-0781"
+            "NPC-0737"
           ]
         },
         {
@@ -1270,7 +1269,6 @@
             "mp": 25
           },
           "residentNpcIds": [
-            "NPC-0406",
             "NPC-0510",
             "NPC-0667"
           ]
@@ -1280,13 +1278,112 @@
     "residentNpcIds": [
       "NPC-0186",
       "NPC-0329",
-      "NPC-0406",
       "NPC-0452",
       "NPC-0510",
       "NPC-0564",
       "NPC-0667",
       "NPC-0700",
-      "NPC-0737",
+      "NPC-0737"
+    ]
+  },
+  {
+    "id": "ly_zhenwu",
+    "regionId": "luoyang",
+    "regionCode": "REG-02",
+    "regionName": "洛阳府",
+    "name": "河洛振武拳馆",
+    "kind": "camp",
+    "isSpecial": true,
+    "order": 6,
+    "x": 102,
+    "y": 625,
+    "poly": "12,615 138,538 228,608 98,698",
+    "tag": "金刀外院",
+    "desc": "洛阳金刀门设于西京坊市的挂牌外院讲武堂，门下教头在此考校新晋刀徒、指点河洛子弟刀法筑基。",
+    "actLabel": "外院刀桩拆招（气血+28 / 内力+22 / 身法+1）",
+    "cost": 0,
+    "effect": {
+      "hp": 28,
+      "mp": 22,
+      "agi": 1
+    },
+    "hasPanoramaImage": false,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "宋式营造矢量内景《河洛振武拳馆》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回洛阳府全景",
+      "exitGate": {
+        "label": "步出正门（返回洛阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": [
+        {
+          "id": "ly_zhenwu_main",
+          "name": "振武讲堂 · 考刀正厅",
+          "tag": "金刀外院",
+          "x": 688,
+          "y": 272,
+          "poly": "470,155 906,155 942,355 434,355",
+          "desc": "洛阳金刀门设于西京坊市的挂牌外院讲武堂，门下教头在此考校新晋刀徒、指点河洛子弟刀法筑基。",
+          "actLabel": "外院刀桩拆招（气血+28 / 内力+22 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 28,
+            "mp": 22,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0406"
+          ]
+        },
+        {
+          "id": "ly_zhenwu_east",
+          "name": "百刃刀谱碑廊",
+          "tag": "刀理筑基",
+          "x": 1072,
+          "y": 438,
+          "poly": "935,345 1215,345 1235,525 915,525",
+          "desc": "位于【河洛振武拳馆】侧翼的幽静廊庑与藏卷之所，可在此观摩碑刻图谱、静心吐纳。",
+          "actLabel": "观摩古刻潜修一日（轻度进益）",
+          "cost": 0,
+          "effect": {
+            "skill": [
+              "策论",
+              1
+            ],
+            "hp": 15
+          },
+          "residentNpcIds": [
+            "NPC-0781"
+          ]
+        },
+        {
+          "id": "ly_zhenwu_west",
+          "name": "九环大刀石锁坪",
+          "tag": "河洛演武",
+          "x": 304,
+          "y": 438,
+          "poly": "160,345 440,345 460,525 140,525",
+          "desc": "位于【河洛振武拳馆】前庭偏侧的开阔石坪，往来门人豪客常在此活动筋骨、切磋步法。",
+          "actLabel": "演练步法调匀呼吸（气血+16 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 16,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0288",
+            "NPC-0768"
+          ]
+        }
+      ]
+    },
+    "residentNpcIds": [
+      "NPC-0288",
+      "NPC-0406",
+      "NPC-0768",
       "NPC-0781"
     ]
   },
@@ -1298,7 +1395,7 @@
     "name": "西京河南府衙",
     "kind": "yamen",
     "isSpecial": false,
-    "order": 6,
+    "order": 7,
     "x": 238,
     "y": 175,
     "poly": "125,188 308,82 465,155 252,272",
@@ -1327,7 +1424,7 @@
     "name": "洛水天津酒楼",
     "kind": "tower",
     "isSpecial": false,
-    "order": 7,
+    "order": 8,
     "x": 822,
     "y": 292,
     "poly": "742,288 842,226 892,278 805,352",
@@ -1356,7 +1453,7 @@
     "name": "定鼎门迎宾客栈",
     "kind": "manor",
     "isSpecial": false,
-    "order": 8,
+    "order": 9,
     "x": 918,
     "y": 652,
     "poly": "838,635 925,582 1012,652 945,718",
@@ -1372,34 +1469,6 @@
     "interior": null,
     "residentNpcIds": [
       "NPC-0243"
-    ]
-  },
-  {
-    "id": "luoyang_base_dojo",
-    "regionId": "luoyang",
-    "regionCode": "REG-02",
-    "regionName": "洛阳府",
-    "name": "河洛振武拳馆",
-    "kind": "camp",
-    "isSpecial": false,
-    "order": 9,
-    "x": 102,
-    "y": 625,
-    "poly": "12,615 138,538 228,608 98,698",
-    "tag": "实战锤炼",
-    "desc": "设梅花桩、石锁箭垛与比武擂台，可锤炼实战气血、内力与身法。",
-    "actLabel": "桩功吐纳拆招（气血+28 / 内力+22 / 身法+1）",
-    "cost": 0,
-    "effect": {
-      "hp": 28,
-      "mp": 22,
-      "agi": 1
-    },
-    "hasPanoramaImage": false,
-    "interior": null,
-    "residentNpcIds": [
-      "NPC-0288",
-      "NPC-0768"
     ]
   },
   {
@@ -1712,9 +1781,7 @@
           },
           "residentNpcIds": [
             "NPC-0310",
-            "NPC-0366",
             "NPC-0430",
-            "NPC-0586",
             "NPC-0617"
           ]
         },
@@ -1743,17 +1810,116 @@
       "NPC-0229",
       "NPC-0275",
       "NPC-0310",
-      "NPC-0366",
       "NPC-0430",
       "NPC-0461",
       "NPC-0478",
       "NPC-0513",
-      "NPC-0586",
       "NPC-0617",
       "NPC-0636",
       "NPC-0711",
       "NPC-0853",
       "NPC-0967"
+    ]
+  },
+  {
+    "id": "dm_baji",
+    "regionId": "daming",
+    "regionCode": "REG-03",
+    "regionName": "大名府",
+    "name": "沧州八极分馆 · 讲武堂",
+    "kind": "camp",
+    "isSpecial": true,
+    "order": 4,
+    "x": 852,
+    "y": 492,
+    "poly": "728,485 848,408 985,482 895,568 748,518",
+    "tag": "八极总馆",
+    "desc": "沧州八极门设于大名府陪都的核心讲武总馆，院内排布千斤石锁与铁山靠木桩，专授河北子弟站桩崩拳硬功。",
+    "actLabel": "八极桩功靠打（气血+30 / 内力+20 / 抗性+1）",
+    "cost": 0,
+    "effect": {
+      "hp": 30,
+      "mp": 20,
+      "res": 1
+    },
+    "hasPanoramaImage": false,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "宋式营造矢量内景《沧州八极分馆 · 讲武堂》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回大名府全景",
+      "exitGate": {
+        "label": "步出正门（返回大名府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": [
+        {
+          "id": "dm_baji_main",
+          "name": "八极忠义讲武正堂",
+          "tag": "八极总馆",
+          "x": 688,
+          "y": 272,
+          "poly": "470,155 906,155 942,355 434,355",
+          "desc": "沧州八极门设于大名府陪都的核心讲武总馆，院内排布千斤石锁与铁山靠木桩，专授河北子弟站桩崩拳硬功。",
+          "actLabel": "八极桩功靠打（气血+30 / 内力+20 / 抗性+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 30,
+            "mp": 20,
+            "res": 1
+          },
+          "residentNpcIds": [
+            "NPC-0366"
+          ]
+        },
+        {
+          "id": "dm_baji_east",
+          "name": "千斤铁锁秘传室",
+          "tag": "桩功心要",
+          "x": 1072,
+          "y": 438,
+          "poly": "935,345 1215,345 1235,525 915,525",
+          "desc": "位于【沧州八极分馆 · 讲武堂】侧翼的幽静廊庑与藏卷之所，可在此观摩碑刻图谱、静心吐纳。",
+          "actLabel": "观摩古刻潜修一日（轻度进益）",
+          "cost": 0,
+          "effect": {
+            "skill": [
+              "策论",
+              1
+            ],
+            "hp": 15
+          },
+          "residentNpcIds": [
+            "NPC-0586"
+          ]
+        },
+        {
+          "id": "dm_baji_west",
+          "name": "铁山靠木桩校场",
+          "tag": "跺脚震州",
+          "x": 304,
+          "y": 438,
+          "poly": "160,345 440,345 460,525 140,525",
+          "desc": "位于【沧州八极分馆 · 讲武堂】前庭偏侧的开阔石坪，往来门人豪客常在此活动筋骨、切磋步法。",
+          "actLabel": "演练步法调匀呼吸（气血+16 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 16,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0651",
+            "NPC-0907"
+          ]
+        }
+      ]
+    },
+    "residentNpcIds": [
+      "NPC-0366",
+      "NPC-0586",
+      "NPC-0651",
+      "NPC-0907"
     ]
   },
   {
@@ -1764,7 +1930,7 @@
     "name": "大名府留守司衙",
     "kind": "yamen",
     "isSpecial": false,
-    "order": 4,
+    "order": 5,
     "x": 452,
     "y": 325,
     "poly": "312,282 415,222 562,302 475,405 342,338",
@@ -1793,7 +1959,7 @@
     "name": "黄河北岸临津酒楼",
     "kind": "tower",
     "isSpecial": false,
-    "order": 5,
+    "order": 6,
     "x": 318,
     "y": 428,
     "poly": "210,378 288,332 442,415 375,488 232,422",
@@ -1811,34 +1977,6 @@
     "interior": null,
     "residentNpcIds": [
       "NPC-0431"
-    ]
-  },
-  {
-    "id": "daming_base_dojo",
-    "regionId": "daming",
-    "regionCode": "REG-03",
-    "regionName": "大名府",
-    "name": "沧州八极分馆 · 讲武堂",
-    "kind": "camp",
-    "isSpecial": false,
-    "order": 6,
-    "x": 852,
-    "y": 492,
-    "poly": "728,485 848,408 985,482 895,568 748,518",
-    "tag": "实战锤炼",
-    "desc": "设梅花桩、石锁箭垛与比武擂台，可锤炼实战气血、内力与身法。",
-    "actLabel": "桩功吐纳拆招（气血+28 / 内力+22 / 身法+1）",
-    "cost": 0,
-    "effect": {
-      "hp": 28,
-      "mp": 22,
-      "agi": 1
-    },
-    "hasPanoramaImage": false,
-    "interior": null,
-    "residentNpcIds": [
-      "NPC-0651",
-      "NPC-0907"
     ]
   },
   {
@@ -4235,6 +4373,107 @@
     ]
   },
   {
+    "id": "jn_chaquan",
+    "regionId": "jinan",
+    "regionCode": "REG-08",
+    "regionName": "济南府",
+    "name": "齐鲁查拳总馆",
+    "kind": "camp",
+    "isSpecial": true,
+    "order": 4,
+    "x": 82,
+    "y": 648,
+    "poly": "4,615 95,552 162,638 68,715 4,675",
+    "tag": "齐鲁名馆",
+    "desc": "山东地面口碑卓著的齐鲁查拳派总馆，青砖大院内设九宫梅花桩阵与沙袋棚，开门广授太祖长拳与燕子抄水轻功。",
+    "actLabel": "演练查拳弹腿与梅花桩（身法+2 / 气血+26）",
+    "cost": 0,
+    "effect": {
+      "agi": 2,
+      "hp": 26
+    },
+    "hasPanoramaImage": false,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "宋式营造矢量内景《齐鲁查拳总馆》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回济南府全景",
+      "exitGate": {
+        "label": "步出正门（返回济南府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": [
+        {
+          "id": "jn_chaquan_main",
+          "name": "查拳正堂 · 授艺厅",
+          "tag": "齐鲁名馆",
+          "x": 688,
+          "y": 272,
+          "poly": "470,155 906,155 942,355 434,355",
+          "desc": "山东地面口碑卓著的齐鲁查拳派总馆，青砖大院内设九宫梅花桩阵与沙袋棚，开门广授太祖长拳与燕子抄水轻功。",
+          "actLabel": "演练查拳弹腿与梅花桩（身法+2 / 气血+26）",
+          "cost": 0,
+          "effect": {
+            "agi": 2,
+            "hp": 26
+          },
+          "residentNpcIds": [
+            "NPC-0305"
+          ]
+        },
+        {
+          "id": "jn_chaquan_east",
+          "name": "齐鲁拳谱藏书厢",
+          "tag": "长拳宗风",
+          "x": 1072,
+          "y": 438,
+          "poly": "935,345 1215,345 1235,525 915,525",
+          "desc": "位于【齐鲁查拳总馆】侧翼的幽静廊庑与藏卷之所，可在此观摩碑刻图谱、静心吐纳。",
+          "actLabel": "观摩古刻潜修一日（轻度进益）",
+          "cost": 0,
+          "effect": {
+            "skill": [
+              "策论",
+              1
+            ],
+            "hp": 15
+          },
+          "residentNpcIds": [
+            "NPC-0436",
+            "NPC-0528"
+          ]
+        },
+        {
+          "id": "jn_chaquan_west",
+          "name": "九宫梅花桩沙袋坪",
+          "tag": "燕子抄水",
+          "x": 304,
+          "y": 438,
+          "poly": "160,345 440,345 460,525 140,525",
+          "desc": "位于【齐鲁查拳总馆】前庭偏侧的开阔石坪，往来门人豪客常在此活动筋骨、切磋步法。",
+          "actLabel": "演练步法调匀呼吸（气血+16 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 16,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0415",
+            "NPC-0604"
+          ]
+        }
+      ]
+    },
+    "residentNpcIds": [
+      "NPC-0305",
+      "NPC-0415",
+      "NPC-0436",
+      "NPC-0528",
+      "NPC-0604"
+    ]
+  },
+  {
     "id": "jinan_base_yamen",
     "regionId": "jinan",
     "regionCode": "REG-08",
@@ -4242,7 +4481,7 @@
     "name": "京东东路齐州府衙",
     "kind": "yamen",
     "isSpecial": false,
-    "order": 4,
+    "order": 5,
     "x": 362,
     "y": 568,
     "poly": "195,575 368,478 518,558 322,662 195,602",
@@ -4271,7 +4510,7 @@
     "name": "鹊华烟雨临湖酒楼",
     "kind": "tower",
     "isSpecial": false,
-    "order": 5,
+    "order": 6,
     "x": 612,
     "y": 448,
     "poly": "512,418 618,355 738,432 632,518 512,455",
@@ -4299,7 +4538,7 @@
     "name": "泺源稷下书院",
     "kind": "pavilion",
     "isSpecial": false,
-    "order": 6,
+    "order": 7,
     "x": 1075,
     "y": 298,
     "poly": "955,298 1128,218 1212,285 1038,378",
@@ -4325,37 +4564,6 @@
     "interior": null,
     "residentNpcIds": [
       "NPC-0523"
-    ]
-  },
-  {
-    "id": "jinan_base_dojo",
-    "regionId": "jinan",
-    "regionCode": "REG-08",
-    "regionName": "济南府",
-    "name": "齐鲁查拳总馆",
-    "kind": "camp",
-    "isSpecial": false,
-    "order": 7,
-    "x": 82,
-    "y": 648,
-    "poly": "4,615 95,552 162,638 68,715 4,675",
-    "tag": "实战锤炼",
-    "desc": "设梅花桩、石锁箭垛与比武擂台，可锤炼实战气血、内力与身法。",
-    "actLabel": "桩功吐纳拆招（气血+28 / 内力+22 / 身法+1）",
-    "cost": 0,
-    "effect": {
-      "hp": 28,
-      "mp": 22,
-      "agi": 1
-    },
-    "hasPanoramaImage": false,
-    "interior": null,
-    "residentNpcIds": [
-      "NPC-0305",
-      "NPC-0415",
-      "NPC-0436",
-      "NPC-0528",
-      "NPC-0604"
     ]
   },
   {
@@ -6016,7 +6224,6 @@
             "NPC-0150",
             "NPC-0373",
             "NPC-0443",
-            "NPC-0534",
             "NPC-0607",
             "NPC-0719"
           ]
@@ -6055,7 +6262,6 @@
       "NPC-0383",
       "NPC-0443",
       "NPC-0470",
-      "NPC-0534",
       "NPC-0543",
       "NPC-0605",
       "NPC-0607",
@@ -6180,6 +6386,108 @@
     ]
   },
   {
+    "id": "hz_nuchao",
+    "regionId": "hangzhou",
+    "regionCode": "REG-12",
+    "regionName": "杭州府",
+    "name": "钱塘怒潮演武馆",
+    "kind": "dock",
+    "isSpecial": true,
+    "order": 4,
+    "x": 500,
+    "y": 510,
+    "poly": "370,515 480,445 675,515 520,605",
+    "tag": "怒潮香堂",
+    "desc": "钱塘怒潮帮设于杭州城内的水陆聚义演武堂，帮中弄潮好手与海港力夫在此打熬扛鼎气力、演练撒网擒拿绝活。",
+    "actLabel": "扛鼎石锁锤炼水战劲（气血+32 / 内力+20）",
+    "cost": 0,
+    "effect": {
+      "hp": 32,
+      "mp": 20
+    },
+    "hasPanoramaImage": false,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "宋式营造矢量内景《钱塘怒潮演武馆》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回杭州府全景",
+      "exitGate": {
+        "label": "步出正门（返回杭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": [
+        {
+          "id": "hz_nuchao_main",
+          "name": "怒潮聚义水香堂",
+          "tag": "怒潮香堂",
+          "x": 688,
+          "y": 272,
+          "poly": "470,155 906,155 942,355 434,355",
+          "desc": "钱塘怒潮帮设于杭州城内的水陆聚义演武堂，帮中弄潮好手与海港力夫在此打熬扛鼎气力、演练撒网擒拿绝活。",
+          "actLabel": "扛鼎石锁锤炼水战劲（气血+32 / 内力+20）",
+          "cost": 0,
+          "effect": {
+            "hp": 32,
+            "mp": 20
+          },
+          "residentNpcIds": [
+            "NPC-0534"
+          ]
+        },
+        {
+          "id": "hz_nuchao_east",
+          "name": "铁锚纤索器械房",
+          "tag": "海港讨生",
+          "x": 1072,
+          "y": 438,
+          "poly": "935,345 1215,345 1235,525 915,525",
+          "desc": "位于【钱塘怒潮演武馆】侧翼的幽静廊庑与藏卷之所，可在此观摩碑刻图谱、静心吐纳。",
+          "actLabel": "观摩古刻潜修一日（轻度进益）",
+          "cost": 0,
+          "effect": {
+            "skill": [
+              "算术",
+              1
+            ],
+            "skill2": [
+              "辩才",
+              1
+            ]
+          },
+          "residentNpcIds": [
+            "NPC-0742"
+          ]
+        },
+        {
+          "id": "hz_nuchao_west",
+          "name": "扛鼎石锁撒网坪",
+          "tag": "踏浪练胆",
+          "x": 304,
+          "y": 438,
+          "poly": "160,345 440,345 460,525 140,525",
+          "desc": "位于【钱塘怒潮演武馆】前庭偏侧的开阔石坪，往来门人豪客常在此活动筋骨、切磋步法。",
+          "actLabel": "演练步法调匀呼吸（气血+16 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 16,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0962",
+            "NPC-0986"
+          ]
+        }
+      ]
+    },
+    "residentNpcIds": [
+      "NPC-0534",
+      "NPC-0742",
+      "NPC-0962",
+      "NPC-0986"
+    ]
+  },
+  {
     "id": "hangzhou_base_yamen",
     "regionId": "hangzhou",
     "regionCode": "REG-12",
@@ -6187,7 +6495,7 @@
     "name": "杭州府衙",
     "kind": "yamen",
     "isSpecial": false,
-    "order": 4,
+    "order": 5,
     "x": 770,
     "y": 370,
     "poly": "590,345 780,250 970,360 795,465",
@@ -6216,7 +6524,7 @@
     "name": "西湖楼外酒肆",
     "kind": "tower",
     "isSpecial": false,
-    "order": 5,
+    "order": 6,
     "x": 380,
     "y": 425,
     "poly": "260,455 510,335 555,390 325,510",
@@ -6248,7 +6556,7 @@
     "name": "万松湖山书院",
     "kind": "pavilion",
     "isSpecial": false,
-    "order": 6,
+    "order": 7,
     "x": 720,
     "y": 135,
     "poly": "570,130 735,45 885,135 735,215",
@@ -6278,35 +6586,6 @@
       "NPC-0501",
       "NPC-0858",
       "NPC-0960"
-    ]
-  },
-  {
-    "id": "hangzhou_base_dojo",
-    "regionId": "hangzhou",
-    "regionCode": "REG-12",
-    "regionName": "杭州府",
-    "name": "钱塘怒潮演武馆",
-    "kind": "camp",
-    "isSpecial": false,
-    "order": 7,
-    "x": 500,
-    "y": 510,
-    "poly": "370,515 480,445 675,515 520,605",
-    "tag": "实战锤炼",
-    "desc": "设梅花桩、石锁箭垛与比武擂台，可锤炼实战气血、内力与身法。",
-    "actLabel": "桩功吐纳拆招（气血+28 / 内力+22 / 身法+1）",
-    "cost": 0,
-    "effect": {
-      "hp": 28,
-      "mp": 22,
-      "agi": 1
-    },
-    "hasPanoramaImage": false,
-    "interior": null,
-    "residentNpcIds": [
-      "NPC-0742",
-      "NPC-0962",
-      "NPC-0986"
     ]
   },
   {
@@ -6687,7 +6966,6 @@
           "residentNpcIds": [
             "NPC-0175",
             "NPC-0391",
-            "NPC-0447",
             "NPC-0762",
             "NPC-0985"
           ]
@@ -6701,11 +6979,116 @@
       "NPC-0346",
       "NPC-0391",
       "NPC-0403",
-      "NPC-0447",
       "NPC-0650",
       "NPC-0762",
       "NPC-0849",
       "NPC-0985"
+    ]
+  },
+  {
+    "id": "cd_baicao",
+    "regionId": "chengdu",
+    "regionCode": "REG-13",
+    "regionName": "成都府",
+    "name": "西川百草药武堂",
+    "kind": "garden",
+    "isSpecial": true,
+    "order": 4,
+    "x": 1140,
+    "y": 450,
+    "poly": "985,440 1125,355 1290,440 1150,535",
+    "tag": "医武同源",
+    "desc": "巴蜀百草药王门总堂，前堂百眼药柜悬壶济世、晾晒川产灵草，后院传授华佗五禽导引术与折扇认穴推拿。",
+    "actLabel": "炮制百草习五禽导引（气血+28 / 内力+22 / 抗性+1）",
+    "cost": 0,
+    "effect": {
+      "hp": 28,
+      "mp": 22,
+      "res": 1
+    },
+    "hasPanoramaImage": false,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "宋式营造矢量内景《西川百草药武堂》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回成都府全景",
+      "exitGate": {
+        "label": "步出正门（返回成都府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": [
+        {
+          "id": "cd_baicao_main",
+          "name": "百草悬壶问诊正堂",
+          "tag": "医武同源",
+          "x": 688,
+          "y": 272,
+          "poly": "470,155 906,155 942,355 434,355",
+          "desc": "巴蜀百草药王门总堂，前堂百眼药柜悬壶济世、晾晒川产灵草，后院传授华佗五禽导引术与折扇认穴推拿。",
+          "actLabel": "炮制百草习五禽导引（气血+28 / 内力+22 / 抗性+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 28,
+            "mp": 22,
+            "res": 1
+          },
+          "residentNpcIds": [
+            "NPC-0316",
+            "NPC-0330"
+          ]
+        },
+        {
+          "id": "cd_baicao_east",
+          "name": "千味川药晾晒廊",
+          "tag": "本草炮制",
+          "x": 1072,
+          "y": 438,
+          "poly": "935,345 1215,345 1235,525 915,525",
+          "desc": "位于【西川百草药武堂】侧翼的幽静廊庑与藏卷之所，可在此观摩碑刻图谱、静心吐纳。",
+          "actLabel": "观摩古刻潜修一日（轻度进益）",
+          "cost": 0,
+          "effect": {
+            "skill": [
+              "诗词",
+              1
+            ],
+            "skill2": [
+              "琴",
+              1
+            ]
+          },
+          "residentNpcIds": [
+            "NPC-0630"
+          ]
+        },
+        {
+          "id": "cd_baicao_west",
+          "name": "五禽导引点穴院",
+          "tag": "认穴养气",
+          "x": 304,
+          "y": 438,
+          "poly": "160,345 440,345 460,525 140,525",
+          "desc": "位于【西川百草药武堂】前庭偏侧的开阔石坪，往来门人豪客常在此活动筋骨、切磋步法。",
+          "actLabel": "演练步法调匀呼吸（气血+16 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 16,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0447",
+            "NPC-0825"
+          ]
+        }
+      ]
+    },
+    "residentNpcIds": [
+      "NPC-0316",
+      "NPC-0330",
+      "NPC-0447",
+      "NPC-0630",
+      "NPC-0825"
     ]
   },
   {
@@ -6716,7 +7099,7 @@
     "name": "成都府衙",
     "kind": "yamen",
     "isSpecial": false,
-    "order": 4,
+    "order": 5,
     "x": 635,
     "y": 225,
     "poly": "475,180 615,85 845,220 635,345",
@@ -6747,7 +7130,7 @@
     "name": "文翁石室书院",
     "kind": "pavilion",
     "isSpecial": false,
-    "order": 5,
+    "order": 6,
     "x": 735,
     "y": 95,
     "poly": "610,75 780,15 890,75 780,165",
@@ -6786,7 +7169,7 @@
     "name": "锦官红灯酒楼",
     "kind": "tower",
     "isSpecial": false,
-    "order": 6,
+    "order": 7,
     "x": 890,
     "y": 345,
     "poly": "775,325 915,255 1060,330 985,435 815,405",
@@ -6805,36 +7188,6 @@
     "residentNpcIds": [
       "NPC-0320",
       "NPC-0792"
-    ]
-  },
-  {
-    "id": "chengdu_base_dojo",
-    "regionId": "chengdu",
-    "regionCode": "REG-13",
-    "regionName": "成都府",
-    "name": "西川百草药武堂",
-    "kind": "camp",
-    "isSpecial": false,
-    "order": 7,
-    "x": 1140,
-    "y": 450,
-    "poly": "985,440 1125,355 1290,440 1150,535",
-    "tag": "实战锤炼",
-    "desc": "设梅花桩、石锁箭垛与比武擂台，可锤炼实战气血、内力与身法。",
-    "actLabel": "桩功吐纳拆招（气血+28 / 内力+22 / 身法+1）",
-    "cost": 0,
-    "effect": {
-      "hp": 28,
-      "mp": 22,
-      "agi": 1
-    },
-    "hasPanoramaImage": false,
-    "interior": null,
-    "residentNpcIds": [
-      "NPC-0316",
-      "NPC-0330",
-      "NPC-0630",
-      "NPC-0825"
     ]
   },
   {
@@ -7638,8 +7991,6 @@
             "silver": 15
           },
           "residentNpcIds": [
-            "NPC-0369",
-            "NPC-0469",
             "NPC-0521",
             "NPC-0597",
             "NPC-0869"
@@ -7694,9 +8045,7 @@
       ]
     },
     "residentNpcIds": [
-      "NPC-0369",
       "NPC-0435",
-      "NPC-0469",
       "NPC-0521",
       "NPC-0597",
       "NPC-0714",
@@ -7708,6 +8057,103 @@
     ]
   },
   {
+    "id": "qz_zhenyuan",
+    "regionId": "quanzhou",
+    "regionCode": "REG-15",
+    "regionName": "泉州府",
+    "name": "闽海镇远总镖局",
+    "kind": "manor",
+    "isSpecial": true,
+    "order": 4,
+    "x": 1125,
+    "y": 580,
+    "poly": "930,535 1065,455 1335,580 1160,695",
+    "tag": "东南镖盟",
+    "desc": "东南沿海第一大镖局总号，正院高竖丈八趟子金字镖旗，内设红货签押总厅、账房镖银库与梅花暗器靶场。",
+    "actLabel": "演练金钱镖与护镖步（身法+2 / 气血+25）",
+    "cost": 0,
+    "effect": {
+      "agi": 2,
+      "hp": 25
+    },
+    "hasPanoramaImage": false,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "宋式营造矢量内景《闽海镇远总镖局》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回泉州府全景",
+      "exitGate": {
+        "label": "步出正门（返回泉州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": [
+        {
+          "id": "qz_zhenyuan_main",
+          "name": "威远正堂 · 签押总厅",
+          "tag": "东南镖盟",
+          "x": 688,
+          "y": 272,
+          "poly": "470,155 906,155 942,355 434,355",
+          "desc": "东南沿海第一大镖局总号，正院高竖丈八趟子金字镖旗，内设红货签押总厅、账房镖银库与梅花暗器靶场。",
+          "actLabel": "演练金钱镖与护镖步（身法+2 / 气血+25）",
+          "cost": 0,
+          "effect": {
+            "agi": 2,
+            "hp": 25
+          },
+          "residentNpcIds": [
+            "NPC-0286"
+          ]
+        },
+        {
+          "id": "qz_zhenyuan_east",
+          "name": "四海镖银账房库",
+          "tag": "海陆走镖",
+          "x": 1072,
+          "y": 438,
+          "poly": "935,345 1215,345 1235,525 915,525",
+          "desc": "位于【闽海镇远总镖局】侧翼的幽静廊庑与藏卷之所，可在此观摩碑刻图谱、静心吐纳。",
+          "actLabel": "观摩古刻潜修一日（轻度进益）",
+          "cost": 0,
+          "effect": {
+            "skill": [
+              "经义",
+              1
+            ],
+            "mp": 12
+          },
+          "residentNpcIds": [
+            "NPC-0369"
+          ]
+        },
+        {
+          "id": "qz_zhenyuan_west",
+          "name": "金钱镖梅花靶坪",
+          "tag": "百步穿杨",
+          "x": 304,
+          "y": 438,
+          "poly": "160,345 440,345 460,525 140,525",
+          "desc": "位于【闽海镇远总镖局】前庭偏侧的开阔石坪，往来门人豪客常在此活动筋骨、切磋步法。",
+          "actLabel": "演练步法调匀呼吸（气血+16 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 16,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0469"
+          ]
+        }
+      ]
+    },
+    "residentNpcIds": [
+      "NPC-0286",
+      "NPC-0369",
+      "NPC-0469"
+    ]
+  },
+  {
     "id": "quanzhou_base_yamen",
     "regionId": "quanzhou",
     "regionCode": "REG-15",
@@ -7715,7 +8161,7 @@
     "name": "泉州府衙",
     "kind": "yamen",
     "isSpecial": false,
-    "order": 4,
+    "order": 5,
     "x": 195,
     "y": 460,
     "poly": "15,405 185,280 450,415 230,540",
@@ -7742,7 +8188,7 @@
     "name": "刺桐海商酒肆",
     "kind": "tower",
     "isSpecial": false,
-    "order": 5,
+    "order": 6,
     "x": 965,
     "y": 495,
     "poly": "930,455 1005,400 1370,485 1370,555 1295,525",
@@ -7761,33 +8207,6 @@
     "residentNpcIds": [
       "NPC-0411",
       "NPC-0690"
-    ]
-  },
-  {
-    "id": "quanzhou_base_dojo",
-    "regionId": "quanzhou",
-    "regionCode": "REG-15",
-    "regionName": "泉州府",
-    "name": "闽海镇远总镖局",
-    "kind": "camp",
-    "isSpecial": false,
-    "order": 6,
-    "x": 1125,
-    "y": 580,
-    "poly": "930,535 1065,455 1335,580 1160,695",
-    "tag": "实战锤炼",
-    "desc": "设梅花桩、石锁箭垛与比武擂台，可锤炼实战气血、内力与身法。",
-    "actLabel": "桩功吐纳拆招（气血+28 / 内力+22 / 身法+1）",
-    "cost": 0,
-    "effect": {
-      "hp": 28,
-      "mp": 22,
-      "agi": 1
-    },
-    "hasPanoramaImage": false,
-    "interior": null,
-    "residentNpcIds": [
-      "NPC-0286"
     ]
   },
   {
@@ -16582,11 +17001,7 @@
               1
             ]
           },
-          "residentNpcIds": [
-            "NPC-0390",
-            "NPC-0495",
-            "NPC-0537"
-          ]
+          "residentNpcIds": []
         },
         {
           "id": "gz_fanfang_west",
@@ -16614,9 +17029,6 @@
       "NPC-0094",
       "NPC-0096",
       "NPC-0264",
-      "NPC-0390",
-      "NPC-0495",
-      "NPC-0537",
       "NPC-0595",
       "NPC-0608"
     ]
@@ -16733,6 +17145,103 @@
     ]
   },
   {
+    "id": "gz_hongmen",
+    "regionId": "guangzhou",
+    "regionCode": "REG-39",
+    "regionName": "广州府",
+    "name": "岭南洪门演武馆",
+    "kind": "camp",
+    "isSpecial": true,
+    "order": 4,
+    "x": 388,
+    "y": 585,
+    "poly": "252,535 512,535 532,635 236,635",
+    "tag": "五羊铁桥",
+    "desc": "广州五羊城最大的民间团练武馆，正院遍设南少林木人桩、百斤石锁与舞狮采青梅花高桩，硬桥硬马威震珠江。",
+    "actLabel": "木人桩沉桥扎马（气血+30 / 抗性+2）",
+    "cost": 0,
+    "effect": {
+      "hp": 30,
+      "res": 2
+    },
+    "hasPanoramaImage": false,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "宋式营造矢量内景《岭南洪门演武馆》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回广州府全景",
+      "exitGate": {
+        "label": "步出正门（返回广州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": [
+        {
+          "id": "gz_hongmen_main",
+          "name": "五羊洪门忠义正堂",
+          "tag": "五羊铁桥",
+          "x": 688,
+          "y": 272,
+          "poly": "470,155 906,155 942,355 434,355",
+          "desc": "广州五羊城最大的民间团练武馆，正院遍设南少林木人桩、百斤石锁与舞狮采青梅花高桩，硬桥硬马威震珠江。",
+          "actLabel": "木人桩沉桥扎马（气血+30 / 抗性+2）",
+          "cost": 0,
+          "effect": {
+            "hp": 30,
+            "res": 2
+          },
+          "residentNpcIds": [
+            "NPC-0390"
+          ]
+        },
+        {
+          "id": "gz_hongmen_east",
+          "name": "南拳铁桥药酒房",
+          "tag": "跌打壮骨",
+          "x": 1072,
+          "y": 438,
+          "poly": "935,345 1215,345 1235,525 915,525",
+          "desc": "位于【岭南洪门演武馆】侧翼的幽静廊庑与藏卷之所，可在此观摩碑刻图谱、静心吐纳。",
+          "actLabel": "观摩古刻潜修一日（轻度进益）",
+          "cost": 0,
+          "effect": {
+            "skill": [
+              "策论",
+              1
+            ],
+            "hp": 15
+          },
+          "residentNpcIds": [
+            "NPC-0495"
+          ]
+        },
+        {
+          "id": "gz_hongmen_west",
+          "name": "狮头高桩木人坪",
+          "tag": "硬桥硬马",
+          "x": 304,
+          "y": 438,
+          "poly": "160,345 440,345 460,525 140,525",
+          "desc": "位于【岭南洪门演武馆】前庭偏侧的开阔石坪，往来门人豪客常在此活动筋骨、切磋步法。",
+          "actLabel": "演练步法调匀呼吸（气血+16 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 16,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0537"
+          ]
+        }
+      ]
+    },
+    "residentNpcIds": [
+      "NPC-0390",
+      "NPC-0495",
+      "NPC-0537"
+    ]
+  },
+  {
     "id": "guangzhou_base_yamen",
     "regionId": "guangzhou",
     "regionCode": "REG-39",
@@ -16740,7 +17249,7 @@
     "name": "广州府衙 · 市舶巡检司",
     "kind": "yamen",
     "isSpecial": false,
-    "order": 4,
+    "order": 5,
     "x": 270,
     "y": 442,
     "poly": "155,392 365,392 388,492 142,492",
@@ -16767,7 +17276,7 @@
     "name": "珠江海山楼酒肆",
     "kind": "tower",
     "isSpecial": false,
-    "order": 5,
+    "order": 6,
     "x": 688,
     "y": 428,
     "poly": "572,378 804,378 824,478 552,478",
@@ -16796,7 +17305,7 @@
     "name": "羊城四海番客栈",
     "kind": "manor",
     "isSpecial": false,
-    "order": 6,
+    "order": 7,
     "x": 1102,
     "y": 442,
     "poly": "988,392 1212,392 1232,492 968,492",
@@ -16814,31 +17323,6 @@
       "NPC-0446",
       "NPC-0456"
     ]
-  },
-  {
-    "id": "guangzhou_base_dojo",
-    "regionId": "guangzhou",
-    "regionCode": "REG-39",
-    "regionName": "广州府",
-    "name": "岭南洪门演武馆",
-    "kind": "camp",
-    "isSpecial": false,
-    "order": 7,
-    "x": 388,
-    "y": 585,
-    "poly": "252,535 512,535 532,635 236,635",
-    "tag": "实战锤炼",
-    "desc": "设梅花桩、石锁箭垛与比武擂台，可锤炼实战气血、内力与身法。",
-    "actLabel": "桩功吐纳拆招（气血+28 / 内力+22 / 身法+1）",
-    "cost": 0,
-    "effect": {
-      "hp": 28,
-      "mp": 22,
-      "agi": 1
-    },
-    "hasPanoramaImage": false,
-    "interior": null,
-    "residentNpcIds": []
   },
   {
     "id": "guangzhou_base_academy",
@@ -17148,9 +17632,7 @@
           },
           "residentNpcIds": [
             "NPC-0337",
-            "NPC-0508",
-            "NPC-0632",
-            "NPC-0780"
+            "NPC-0508"
           ]
         },
         {
@@ -17200,7 +17682,104 @@
       "NPC-0337",
       "NPC-0405",
       "NPC-0449",
-      "NPC-0508",
+      "NPC-0508"
+    ]
+  },
+  {
+    "id": "tzf_wuxidojo",
+    "regionId": "tanzhou",
+    "regionCode": "REG-40",
+    "regionName": "潭州府",
+    "name": "潭州五溪讲武堂",
+    "kind": "camp",
+    "isSpecial": true,
+    "order": 4,
+    "x": 388,
+    "y": 585,
+    "poly": "252,535 512,535 532,635 236,635",
+    "tag": "苗汉演武",
+    "desc": "湘西五溪蛊寨设于潭州城南的分堂武馆，苗汉武师在此切磋飞蝗石暗器、试炼避瘴雄黄药散与奇门掌脚。",
+    "actLabel": "演练飞石掌脚与辟瘴功（身法+2 / 抗性+2 / 气血+20）",
+    "cost": 0,
+    "effect": {
+      "agi": 2,
+      "res": 2,
+      "hp": 20
+    },
+    "hasPanoramaImage": false,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "宋式营造矢量内景《潭州五溪讲武堂》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回潭州府全景",
+      "exitGate": {
+        "label": "步出正门（返回潭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": [
+        {
+          "id": "tzf_wuxidojo_main",
+          "name": "五溪苗汉聚义讲堂",
+          "tag": "苗汉演武",
+          "x": 688,
+          "y": 272,
+          "poly": "470,155 906,155 942,355 434,355",
+          "desc": "湘西五溪蛊寨设于潭州城南的分堂武馆，苗汉武师在此切磋飞蝗石暗器、试炼避瘴雄黄药散与奇门掌脚。",
+          "actLabel": "演练飞石掌脚与辟瘴功（身法+2 / 抗性+2 / 气血+20）",
+          "cost": 0,
+          "effect": {
+            "agi": 2,
+            "res": 2,
+            "hp": 20
+          },
+          "residentNpcIds": [
+            "NPC-0632"
+          ]
+        },
+        {
+          "id": "tzf_wuxidojo_east",
+          "name": "朱砂雄黄百草厢",
+          "tag": "辟瘴炼药",
+          "x": 1072,
+          "y": 438,
+          "poly": "935,345 1215,345 1235,525 915,525",
+          "desc": "位于【潭州五溪讲武堂】侧翼的幽静廊庑与藏卷之所，可在此观摩碑刻图谱、静心吐纳。",
+          "actLabel": "观摩古刻潜修一日（轻度进益）",
+          "cost": 0,
+          "effect": {
+            "skill": [
+              "策论",
+              1
+            ],
+            "hp": 15
+          },
+          "residentNpcIds": [
+            "NPC-0780"
+          ]
+        },
+        {
+          "id": "tzf_wuxidojo_west",
+          "name": "飞蝗石奇门演武坪",
+          "tag": "飞石猎兽",
+          "x": 304,
+          "y": 438,
+          "poly": "160,345 440,345 460,525 140,525",
+          "desc": "位于【潭州五溪讲武堂】前庭偏侧的开阔石坪，往来门人豪客常在此活动筋骨、切磋步法。",
+          "actLabel": "演练步法调匀呼吸（气血+16 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 16,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0563"
+          ]
+        }
+      ]
+    },
+    "residentNpcIds": [
+      "NPC-0563",
       "NPC-0632",
       "NPC-0780"
     ]
@@ -17213,7 +17792,7 @@
     "name": "潭州府衙 · 荆湖安抚司",
     "kind": "yamen",
     "isSpecial": false,
-    "order": 4,
+    "order": 5,
     "x": 270,
     "y": 442,
     "poly": "155,392 365,392 388,492 142,492",
@@ -17242,7 +17821,7 @@
     "name": "橘洲潇湘酒楼",
     "kind": "tower",
     "isSpecial": false,
-    "order": 5,
+    "order": 6,
     "x": 688,
     "y": 428,
     "poly": "572,378 804,378 824,478 552,478",
@@ -17271,7 +17850,7 @@
     "name": "湘江悦来商栈",
     "kind": "manor",
     "isSpecial": false,
-    "order": 6,
+    "order": 7,
     "x": 1102,
     "y": 442,
     "poly": "988,392 1212,392 1232,492 968,492",
@@ -17286,33 +17865,6 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": []
-  },
-  {
-    "id": "tanzhou_base_dojo",
-    "regionId": "tanzhou",
-    "regionCode": "REG-40",
-    "regionName": "潭州府",
-    "name": "潭州演武讲武堂",
-    "kind": "camp",
-    "isSpecial": false,
-    "order": 7,
-    "x": 388,
-    "y": 585,
-    "poly": "252,535 512,535 532,635 236,635",
-    "tag": "实战锤炼",
-    "desc": "设梅花桩、石锁箭垛与比武擂台，可锤炼实战气血、内力与身法。",
-    "actLabel": "桩功吐纳拆招（气血+28 / 内力+22 / 身法+1）",
-    "cost": 0,
-    "effect": {
-      "hp": 28,
-      "mp": 22,
-      "agi": 1
-    },
-    "hasPanoramaImage": false,
-    "interior": null,
-    "residentNpcIds": [
-      "NPC-0563"
-    ]
   },
   {
     "id": "tanzhou_base_academy",
@@ -17878,7 +18430,6 @@
           "residentNpcIds": [
             "NPC-0090",
             "NPC-0522",
-            "NPC-0614",
             "NPC-0761"
           ]
         },
@@ -17907,7 +18458,6 @@
       "NPC-0445",
       "NPC-0507",
       "NPC-0522",
-      "NPC-0614",
       "NPC-0616",
       "NPC-0761"
     ]
@@ -18107,6 +18657,105 @@
     ]
   },
   {
+    "id": "qzf_jinhuan",
+    "regionId": "qinzhou",
+    "regionCode": "REG-42",
+    "regionName": "秦州府",
+    "name": "陇右金环演武场",
+    "kind": "fort",
+    "isSpecial": true,
+    "order": 4,
+    "x": 388,
+    "y": 585,
+    "poly": "252,535 512,535 532,635 236,635",
+    "tag": "边塞刀堂",
+    "desc": "陇右金环刀堂在秦州城内设立的趟马刀客校场，专供丝路护马好汉演练官制朴刀、相马整备驼队镖旗。",
+    "actLabel": "边塞大环刀劈风演武（气血+30 / 骑术+2）",
+    "cost": 0,
+    "effect": {
+      "hp": 30,
+      "riding": 2
+    },
+    "hasPanoramaImage": false,
+    "interior": {
+      "mode": "svg_fallback",
+      "panoramaUri": null,
+      "subtitle": "宋式营造矢量内景《陇右金环演武场》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回秦州府全景",
+      "exitGate": {
+        "label": "步出正门（返回秦州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": [
+        {
+          "id": "qzf_jinhuan_main",
+          "name": "金环刀堂议事厅",
+          "tag": "边塞刀堂",
+          "x": 688,
+          "y": 272,
+          "poly": "470,155 906,155 942,355 434,355",
+          "desc": "陇右金环刀堂在秦州城内设立的趟马刀客校场，专供丝路护马好汉演练官制朴刀、相马整备驼队镖旗。",
+          "actLabel": "边塞大环刀劈风演武（气血+30 / 骑术+2）",
+          "cost": 0,
+          "effect": {
+            "hp": 30,
+            "riding": 2
+          },
+          "residentNpcIds": [
+            "NPC-0614"
+          ]
+        },
+        {
+          "id": "qzf_jinhuan_east",
+          "name": "茶马镖旗兵甲房",
+          "tag": "边塞整备",
+          "x": 1072,
+          "y": 438,
+          "poly": "935,345 1215,345 1235,525 915,525",
+          "desc": "位于【陇右金环演武场】侧翼的幽静廊庑与藏卷之所，可在此观摩碑刻图谱、静心吐纳。",
+          "actLabel": "观摩古刻潜修一日（轻度进益）",
+          "cost": 0,
+          "effect": {
+            "skill": [
+              "策论",
+              1
+            ],
+            "hp": 15
+          },
+          "residentNpcIds": [
+            "NPC-0639",
+            "NPC-0930"
+          ]
+        },
+        {
+          "id": "qzf_jinhuan_west",
+          "name": "朴刀马步黄沙坪",
+          "tag": "饮酒演刀",
+          "x": 304,
+          "y": 438,
+          "poly": "160,345 440,345 460,525 140,525",
+          "desc": "位于【陇右金环演武场】前庭偏侧的开阔石坪，往来门人豪客常在此活动筋骨、切磋步法。",
+          "actLabel": "演练步法调匀呼吸（气血+16 / 身法+1）",
+          "cost": 0,
+          "effect": {
+            "hp": 16,
+            "agi": 1
+          },
+          "residentNpcIds": [
+            "NPC-0556"
+          ]
+        }
+      ]
+    },
+    "residentNpcIds": [
+      "NPC-0556",
+      "NPC-0614",
+      "NPC-0639",
+      "NPC-0930"
+    ]
+  },
+  {
     "id": "qinzhou_base_yamen",
     "regionId": "qinzhou",
     "regionCode": "REG-42",
@@ -18114,7 +18763,7 @@
     "name": "秦州府衙 · 秦凤经略安抚司",
     "kind": "yamen",
     "isSpecial": false,
-    "order": 4,
+    "order": 5,
     "x": 270,
     "y": 442,
     "poly": "155,392 365,392 388,492 142,492",
@@ -18143,7 +18792,7 @@
     "name": "陇上胡姬琵琶酒肆",
     "kind": "tower",
     "isSpecial": false,
-    "order": 5,
+    "order": 6,
     "x": 688,
     "y": 428,
     "poly": "572,378 804,378 824,478 552,478",
@@ -18171,7 +18820,7 @@
     "name": "天水关迎商客栈",
     "kind": "manor",
     "isSpecial": false,
-    "order": 6,
+    "order": 7,
     "x": 1102,
     "y": 442,
     "poly": "988,392 1212,392 1232,492 968,492",
@@ -18188,35 +18837,6 @@
     "residentNpcIds": [
       "NPC-0422",
       "NPC-0536"
-    ]
-  },
-  {
-    "id": "qinzhou_base_dojo",
-    "regionId": "qinzhou",
-    "regionCode": "REG-42",
-    "regionName": "秦州府",
-    "name": "陇右金环演武场",
-    "kind": "camp",
-    "isSpecial": false,
-    "order": 7,
-    "x": 388,
-    "y": 585,
-    "poly": "252,535 512,535 532,635 236,635",
-    "tag": "实战锤炼",
-    "desc": "设梅花桩、石锁箭垛与比武擂台，可锤炼实战气血、内力与身法。",
-    "actLabel": "桩功吐纳拆招（气血+28 / 内力+22 / 身法+1）",
-    "cost": 0,
-    "effect": {
-      "hp": 28,
-      "mp": 22,
-      "agi": 1
-    },
-    "hasPanoramaImage": false,
-    "interior": null,
-    "residentNpcIds": [
-      "NPC-0556",
-      "NPC-0639",
-      "NPC-0930"
     ]
   },
   {

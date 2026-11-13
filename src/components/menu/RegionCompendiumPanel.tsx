@@ -273,7 +273,7 @@ export function RegionCompendiumPanel({
               统辖天下 <strong>{totalCitiesCount}</strong> 座州府王都与{' '}
               <strong>{REGIONS_DB.length - totalCitiesCount}</strong> 处名山秘境雄关 · 共计{' '}
               <strong>{ID_REGISTRY.counts.specialBuildings}</strong> 座特殊地标建筑（含{' '}
-              {ID_REGISTRY.counts.interiorSubBuildings ?? 414} 处内景子院）+{' '}
+              {ID_REGISTRY.counts.interiorSubBuildings ?? 441} 处内景子院）+{' '}
               <strong>{ID_REGISTRY.counts.cityBaseBuildings}</strong> 座市井基础建筑 ·{' '}
               {handPaintedCount} 幅手绘青绿全景 + {REGIONS_DB.length - handPaintedCount} 幅宋辽营造矢量长卷
             </p>
