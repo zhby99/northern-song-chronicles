@@ -56,6 +56,20 @@ export function isAssetCached(url: string | null | undefined): boolean {
   return loadedUrls.has(url)
 }
 
+declare global {
+  interface Window {
+    __NSC_ASSET_PACK__?: Record<string, string>
+  }
+}
+
+export function resolveAssetUrl(url: string): string {
+  if (!url) return url
+  if (typeof window !== 'undefined' && window.__NSC_ASSET_PACK__?.[url]) {
+    return window.__NSC_ASSET_PACK__[url]
+  }
+  return url
+}
+
 export function preloadImage(url: string): Promise<void> {
   if (!url || loadedUrls.has(url)) {
     return Promise.resolve()
@@ -75,7 +89,7 @@ export function preloadImage(url: string): Promise<void> {
       inflightRequests.delete(url)
       reject(new Error(`Failed to load asset: ${url}`))
     }
-    img.src = url
+    img.src = resolveAssetUrl(url)
   })
 
   inflightRequests.set(url, promise)
@@ -108,7 +122,7 @@ export function useLazyImage(url: string | null | undefined): {
   }, [url])
 
   if (!url) return { status: 'idle', loadedUrl: null }
-  if (loadedUrls.has(url)) return { status: 'loaded', loadedUrl: url }
+  if (loadedUrls.has(url)) return { status: 'loaded', loadedUrl: resolveAssetUrl(url) }
   if (errorUrl === url) return { status: 'error', loadedUrl: null }
   return { status: 'loading', loadedUrl: null }
 }

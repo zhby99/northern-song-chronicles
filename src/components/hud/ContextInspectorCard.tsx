@@ -8,7 +8,7 @@ import {
 } from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { NodeNpc } from '../../types/game'
-import { recordAssetLoaded } from '../../utils/assetLoader'
+import { recordAssetLoaded, resolveAssetUrl } from '../../utils/assetLoader'
 import {
   findBestRoute,
   getRegionAllBuildings,
@@ -361,7 +361,7 @@ export function ContextInspectorCard() {
                   <div className="flex items-center gap-2 min-w-0">
                     {p.avatarUrl ? (
                       <img
-                        src={p.avatarUrl}
+                        src={resolveAssetUrl(p.avatarUrl)}
                         alt={p.name}
                         loading="lazy"
                         onLoad={() => {

@@ -19,6 +19,7 @@ import {
   ASSET_MANIFEST,
   formatByteSize,
   recordAssetLoaded,
+  resolveAssetUrl,
   useAssetTelemetry,
 } from '../../utils/assetLoader'
 import {
@@ -605,7 +606,7 @@ export function SystemMenuModal() {
                           >
                             {c.avatarUrl ? (
                               <img
-                                src={c.avatarUrl}
+                                src={resolveAssetUrl(c.avatarUrl)}
                                 alt={c.name}
                                 loading="lazy"
                                 onLoad={() => {
@@ -685,7 +686,9 @@ export function SystemMenuModal() {
                           {/* 独立全身立绘 或 门派母版立绘展示 */}
                           <div className="w-full h-40 rounded bg-[#1e150e] border border-[#8c6e46] overflow-hidden flex items-center justify-center relative">
                             <img
-                              src={selectedNpc.fullbodyUrl ?? selectedNpc.templateUrl}
+                              src={resolveAssetUrl(
+                                selectedNpc.fullbodyUrl ?? selectedNpc.templateUrl,
+                              )}
                               alt={`${selectedNpc.name} 立绘`}
                               loading="lazy"
                               onLoad={() => {
