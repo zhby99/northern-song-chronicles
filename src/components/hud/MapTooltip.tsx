@@ -28,12 +28,17 @@ export function MapTooltip() {
     const { node } = tooltip
     const isHere = node.id === currentNodeId && !traveling && !campPos
     const route = !isHere
-      ? findBestRoute(currentNodeId, node.id, {
-          mountKey,
-          qinggongBonus,
-          ridingSkill,
-          agility,
-        })
+      ? findBestRoute(
+          currentNodeId,
+          node.id,
+          {
+            mountKey,
+            qinggongBonus,
+            ridingSkill,
+            agility,
+          },
+          campPos,
+        )
       : null
     const roamingHere = roamingMasters.filter((m) => m.nodeId === node.id)
     const dbResidentCount = REGION_DB_MAP[node.id]?.residentNpcIds.length ?? 0

@@ -8,7 +8,9 @@ import type {
   MartialArtSlotKey,
   SaveSlotId,
   SerializableGameState,
+  TerrainType,
   ViewMode,
+  WildernessCamp,
 } from '../types/game'
 import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, REGION_DB_MAP } from '../data/gameDb'
 import {
@@ -320,6 +322,33 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
       ? Math.min(maxStaminaVal, Math.max(0, Math.floor(st.stamina)))
       : maxStaminaVal
 
+  let cleanCampPos: WildernessCamp | null = null
+  if (
+    isRecord(st.campPos) &&
+    typeof st.campPos.x === 'number' &&
+    typeof st.campPos.y === 'number' &&
+    typeof st.campPos.u === 'string' &&
+    Boolean(REGION_DB_MAP[st.campPos.u]) &&
+    typeof st.campPos.v === 'string' &&
+    Boolean(REGION_DB_MAP[st.campPos.v]) &&
+    typeof st.campPos.distU === 'number' &&
+    typeof st.campPos.distV === 'number' &&
+    (st.campPos.terrain === 'official' ||
+      st.campPos.terrain === 'water' ||
+      st.campPos.terrain === 'steppe' ||
+      st.campPos.terrain === 'mountain')
+  ) {
+    cleanCampPos = {
+      x: st.campPos.x,
+      y: st.campPos.y,
+      u: st.campPos.u,
+      v: st.campPos.v,
+      distU: Math.max(0, st.campPos.distU),
+      distV: Math.max(0, st.campPos.distV),
+      terrain: st.campPos.terrain as TerrainType,
+    }
+  }
+
   const cleanState: SerializableGameState = {
     dayCount: Math.floor(st.dayCount),
     shichenIdx:
@@ -332,6 +361,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     selectedBuildingId: typeof st.selectedBuildingId === 'string' ? st.selectedBuildingId : null,
     selectedSpotId: typeof st.selectedSpotId === 'string' ? st.selectedSpotId : null,
     currentNodeId: st.currentNodeId,
+    campPos: cleanCampPos,
     mountKey: derivedMountKey,
     qinggongBonus: typeof st.qinggongBonus === 'number' ? st.qinggongBonus : 0.15,
     ridingSkill: typeof st.ridingSkill === 'number' ? st.ridingSkill : 45,

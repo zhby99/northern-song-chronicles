@@ -13,7 +13,9 @@ import type {
   PortraitCharacter,
   RegimeKey,
   RegionConfig,
+  RouteSegment,
   TerrainType,
+  WildernessCamp,
   WorldGraphData,
   WorldNode,
 } from '../types/game'
@@ -92,7 +94,54 @@ export function findBestRoute(
   startId: string,
   targetId: string,
   params: SpeedParams,
+  camp?: WildernessCamp | null,
 ): ComputedRoute | null {
+  if (camp) {
+    const buildViaEndpoint = (
+      endpointId: string,
+      rawDistToEndpoint: number,
+    ): ComputedRoute | null => {
+      const firstDist = Math.max(1, Math.round(rawDistToEndpoint))
+      const firstDays = Math.max(
+        1 / 12,
+        computeSegmentDays(Math.max(1, rawDistToEndpoint), camp.terrain, params),
+      )
+      const rest =
+        endpointId === targetId
+          ? { nodes: [endpointId], segments: [], totalLi: 0, totalDays: 0 }
+          : findBestRoute(endpointId, targetId, params, null)
+      if (!rest) return null
+      const firstSeg: RouteSegment = {
+        from: '__camp__',
+        to: endpointId,
+        dist: firstDist,
+        terrain: camp.terrain,
+        days: firstDays,
+        fromCoords: { x: camp.x, y: camp.y },
+        campEdge: {
+          u: camp.u,
+          v: camp.v,
+          distU: camp.distU,
+          distV: camp.distV,
+          terrain: camp.terrain,
+        },
+      }
+      return {
+        nodes: ['__camp__', ...rest.nodes],
+        segments: [firstSeg, ...rest.segments],
+        totalLi: firstDist + rest.totalLi,
+        totalDays: firstDays + rest.totalDays,
+      }
+    }
+
+    const viaU = buildViaEndpoint(camp.u, camp.distU)
+    const viaV = buildViaEndpoint(camp.v, camp.distV)
+    if (viaU && viaV) {
+      return viaU.totalDays <= viaV.totalDays ? viaU : viaV
+    }
+    return viaU ?? viaV
+  }
+
   if (startId === targetId) {
     return { nodes: [startId], segments: [], totalLi: 0, totalDays: 0 }
   }

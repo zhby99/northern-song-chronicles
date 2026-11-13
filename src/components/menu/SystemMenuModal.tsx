@@ -234,6 +234,7 @@ export function SystemMenuModal() {
   const activeRegionId = useGameStore((s) => s.activeRegionId)
   const activeBuildingInteriorId = useGameStore((s) => s.activeBuildingInteriorId)
   const currentNodeId = useGameStore((s) => s.currentNodeId)
+  const campPos = useGameStore((s) => s.campPos)
   const hp = useGameStore((s) => s.hp)
   const maxHp = useGameStore((s) => s.maxHp)
   const mp = useGameStore((s) => s.mp)
@@ -412,6 +413,9 @@ export function SystemMenuModal() {
 
   const curNode = NODE_MAP[currentNodeId] ?? WORLD_GRAPH.nodes[0]
   const activeRegionNode = NODE_MAP[activeRegionId] ?? curNode
+  const locationLabel = campPos
+    ? `${NODE_MAP[campPos.u]?.name ?? campPos.u}—${NODE_MAP[campPos.v]?.name ?? campPos.v}旷野营地`
+    : (activeRegionNode?.name ?? '')
   const activeInteriorBldg = activeBuildingInteriorId
     ? BUILDING_DB_MAP[activeBuildingInteriorId]
     : null
@@ -544,9 +548,9 @@ export function SystemMenuModal() {
                   {formatSongDate(dayCount, shichenIdx).split(' · ').slice(-2).join(' · ')}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span>所在地域</span>
-                <span className="font-semibold">{activeRegionNode?.name}</span>
+              <div className="flex justify-between gap-2">
+                <span className="shrink-0">所在地域</span>
+                <span className="font-semibold text-right truncate">{locationLabel}</span>
               </div>
               <div className="flex justify-between">
                 <span>随身披挂</span>
@@ -628,7 +632,7 @@ export function SystemMenuModal() {
                             setLightbox({
                               url: heroImgUrl,
                               title: '江湖少侠 · 行侠全身绘像',
-                              subtitle: `皇祐二年驻足【${activeRegionNode?.name}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
+                              subtitle: `皇祐二年驻足【${locationLabel}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
                             })
                           }
                           onKeyDown={(e) => {
@@ -636,7 +640,7 @@ export function SystemMenuModal() {
                               setLightbox({
                                 url: heroImgUrl,
                                 title: '江湖少侠 · 行侠全身绘像',
-                                subtitle: `皇祐二年驻足【${activeRegionNode?.name}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
+                                subtitle: `皇祐二年驻足【${locationLabel}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
                               })
                             }
                           }}
@@ -652,9 +656,9 @@ export function SystemMenuModal() {
                             <Maximize2 className="w-3 h-3 text-amber-300" />
                             <span>点击放大</span>
                           </span>
-                          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-3 py-2 text-[#f5dfb5] text-xs flex items-center justify-between">
-                            <span className="song-serif font-bold">
-                              驻留：{activeRegionNode?.name}
+                          <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent px-3 py-2 text-[#f5dfb5] text-xs flex items-center justify-between gap-2">
+                            <span className="song-serif font-bold truncate">
+                              驻留：{locationLabel}
                             </span>
                             <span className="font-mono text-amber-200">
                               银 {silver}两 · 粮 {food}份
@@ -2420,7 +2424,7 @@ export function SystemMenuModal() {
                     <div>
                       <div className="text-xs text-[#6b5033]">当前实时时空锚点</div>
                       <div className="font-bold song-serif text-base text-[#23180f]">
-                        {formatSongDate(dayCount, shichenIdx)} · {activeRegionNode?.name}（
+                        {formatSongDate(dayCount, shichenIdx)} · {locationLabel}（
                         {viewMode === 'world'
                           ? '第一层：天下山海舆图'
                           : viewMode === 'building'

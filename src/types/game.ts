@@ -467,6 +467,7 @@ export interface SerializableGameState {
   selectedBuildingId: string | null
   selectedSpotId: string | null
   currentNodeId: string
+  campPos?: WildernessCamp | null
 
   mountKey: MountKey
   qinggongBonus: number
@@ -593,12 +594,30 @@ export interface OverlayToggles {
 
 export type LabelToggleKey = 'cityLabels' | 'sectPassLabels' | 'masters' | 'distance'
 
+export interface WildernessCamp {
+  x: number
+  y: number
+  u: string
+  v: string
+  distU: number
+  distV: number
+  terrain: TerrainType
+}
+
 export interface RouteSegment {
   from: string
   to: string
   dist: number
   terrain: TerrainType
   days: number
+  fromCoords?: { x: number; y: number }
+  campEdge?: {
+    u: string
+    v: string
+    distU: number
+    distV: number
+    terrain: TerrainType
+  }
 }
 
 export interface ComputedRoute {

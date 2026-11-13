@@ -122,12 +122,17 @@ export function ContextInspectorCard() {
 
     const isHere = currentNodeId === node.id && !campPos
     const route = !isHere
-      ? findBestRoute(currentNodeId, node.id, {
-          mountKey,
-          qinggongBonus,
-          ridingSkill,
-          agility,
-        })
+      ? findBestRoute(
+          currentNodeId,
+          node.id,
+          {
+            mountKey,
+            qinggongBonus,
+            ridingSkill,
+            agility,
+          },
+          campPos,
+        )
       : null
 
     const typeBadge =

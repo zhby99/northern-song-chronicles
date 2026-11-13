@@ -36,6 +36,7 @@ import type {
   TooltipPayload,
   TravelState,
   ViewMode,
+  WildernessCamp,
 } from '../types/game'
 import {
   ADJACENCY_MAP,
@@ -217,7 +218,7 @@ export interface GameStoreState {
   overlays: OverlayToggles
   roamingMasters: RoamingMaster[]
   traveling: TravelState | null
-  campPos: { x: number; y: number } | null
+  campPos: WildernessCamp | null
 
   worldPan: CameraPan
   regionPan: CameraPan
@@ -313,6 +314,7 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     selectedBuildingId: s.selectedBuildingId,
     selectedSpotId: s.selectedSpotId,
     currentNodeId: s.currentNodeId,
+    campPos: s.campPos ? { ...s.campPos } : null,
     mountKey: s.mountKey,
     qinggongBonus: s.qinggongBonus,
     ridingSkill: s.ridingSkill,
@@ -1346,24 +1348,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   startJourney: (targetId) => {
     const s = get()
     if (s.traveling) return
-    let route = findBestRoute(s.currentNodeId, targetId, {
-      mountKey: s.mountKey,
-      qinggongBonus: s.qinggongBonus,
-      ridingSkill: s.ridingSkill,
-      agility: s.agility,
-    })
-    if (s.campPos && targetId === s.currentNodeId) {
-      const targetNode = NODE_MAP[targetId]
-      const distPx = targetNode ? Math.hypot(targetNode.x - s.campPos.x, targetNode.y - s.campPos.y) : 40
-      const li = Math.max(10, Math.round(distPx * 3.5))
-      const days = Math.max(0.25, Number((li / 120).toFixed(2)))
-      route = {
-        nodes: [s.currentNodeId, targetId],
-        segments: [{ from: s.currentNodeId, to: targetId, dist: Math.round(distPx), terrain: 'official', days }],
-        totalLi: li,
-        totalDays: days,
-      }
-    }
+    const route = findBestRoute(
+      s.currentNodeId,
+      targetId,
+      {
+        mountKey: s.mountKey,
+        qinggongBonus: s.qinggongBonus,
+        ridingSkill: s.ridingSkill,
+        agility: s.agility,
+      },
+      s.campPos,
+    )
     if (!route || route.segments.length === 0) return
 
     if (s.food <= 0) {
@@ -1384,7 +1379,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const currNode = NODE_MAP[s.currentNodeId]
     const targetNode = NODE_MAP[targetId]
-    const startPos = s.campPos ?? { x: currNode?.x ?? 856, y: currNode?.y ?? 380 }
+    const wasCamped = Boolean(s.campPos)
+    const startPos = s.campPos
+      ? { x: s.campPos.x, y: s.campPos.y }
+      : { x: currNode?.x ?? 856, y: currNode?.y ?? 380 }
     set({
       viewMode: 'world',
       tooltip: null,
@@ -1402,7 +1400,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         createLogEntry(
           s.dayCount,
           '启程',
-          `自【${currNode?.name ?? s.currentNodeId}】策马出发，奔赴【${targetNode?.name ?? targetId}】（全程 ${route.totalLi} 里）。`,
+          wasCamped
+            ? `拔营启程，自旷野营地策马直奔【${targetNode?.name ?? targetId}】（全程 ${route.totalLi} 里）。`
+            : `自【${currNode?.name ?? s.currentNodeId}】策马出发，奔赴【${targetNode?.name ?? targetId}】（全程 ${route.totalLi} 里）。`,
           true,
           s.shichenIdx,
         ),
@@ -1424,10 +1424,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let segProgressDays = tr.segProgressDays + stepDay
     let dayAccumulator = tr.dayAccumulator + stepDay
     const ratio = Math.min(1, segProgressDays / seg.days)
-    const fromNode = NODE_MAP[seg.from]
+    const fromPos = seg.fromCoords ?? NODE_MAP[seg.from]
     const toNode = NODE_MAP[seg.to]
-    const curX = fromNode.x + (toNode.x - fromNode.x) * ratio
-    const curY = fromNode.y + (toNode.y - fromNode.y) * ratio
+    const curX = fromPos.x + (toNode.x - fromPos.x) * ratio
+    const curY = fromPos.y + (toNode.y - fromPos.y) * ratio
 
     // 每一个 tick 推进恰好一个时辰
     const nextShichenIdx = (s.shichenIdx + 1) % 12
@@ -1601,18 +1601,57 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (!s.traveling) return
     const curPos = s.traveling.playerPos
     const seg = s.traveling.route.segments[s.traveling.segIdx]
-    const fromName = seg ? (NODE_MAP[seg.from]?.name ?? seg.from) : '前站'
-    const toName = seg ? (NODE_MAP[seg.to]?.name ?? seg.to) : '下一城'
+    if (!seg) return
+
+    const r = Math.min(1, Math.max(0, s.traveling.segProgressDays / seg.days))
+    let camp: WildernessCamp
+    if (seg.campEdge) {
+      const { u, v, distU, distV, terrain } = seg.campEdge
+      if (seg.to === v) {
+        camp = {
+          x: curPos.x,
+          y: curPos.y,
+          u,
+          v,
+          distU: distU + distV * r,
+          distV: distV * (1 - r),
+          terrain,
+        }
+      } else {
+        camp = {
+          x: curPos.x,
+          y: curPos.y,
+          u,
+          v,
+          distU: distU * (1 - r),
+          distV: distV + distU * r,
+          terrain,
+        }
+      }
+    } else {
+      camp = {
+        x: curPos.x,
+        y: curPos.y,
+        u: seg.from,
+        v: seg.to,
+        distU: seg.dist * r,
+        distV: seg.dist * (1 - r),
+        terrain: seg.terrain,
+      }
+    }
+
+    const fromName = NODE_MAP[camp.u]?.name ?? camp.u
+    const toName = NODE_MAP[camp.v]?.name ?? camp.v
     set({
       traveling: null,
       selectedNodeId: null,
-      campPos: curPos,
+      campPos: camp,
       stamina: Math.min(s.maxStamina, s.stamina + 20),
       logs: [
         createLogEntry(
           s.dayCount,
           '原地露营',
-          `少侠收缰驻马，于【${fromName}】至【${toName}】旷野中途原地安营扎寨（体能 +20）。`,
+          `少侠收缰驻马，于【${fromName}】至【${toName}】旷野中途原地安营扎寨（距${fromName} ${Math.round(camp.distU)} 里 · 距${toName} ${Math.round(camp.distV)} 里，体能 +20）。`,
           false,
           s.shichenIdx,
         ),
@@ -1644,7 +1683,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   buildSaveEnvelope: (slotId, note = '') => {
     const s = get()
     const st = extractSerializableState(s)
-    const regionName = NODE_MAP[st.activeRegionId]?.name ?? st.activeRegionId
+    const regionName = st.campPos
+      ? `${NODE_MAP[st.campPos.u]?.name ?? st.campPos.u}—${NODE_MAP[st.campPos.v]?.name ?? st.campPos.v}旷野营地`
+      : (NODE_MAP[st.activeRegionId]?.name ?? st.activeRegionId)
     const buildingName = st.activeBuildingInteriorId
       ? (BUILDING_DB_MAP[st.activeBuildingInteriorId]?.name ?? null)
       : null
@@ -1717,6 +1758,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     set({
       ...st,
+      campPos: st.campPos ?? null,
       traveling: null,
       tooltip: null,
       actionFeedback: null,
