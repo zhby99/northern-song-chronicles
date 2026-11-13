@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --parchment-light: #faf3e3;
+    --parchment-base: #f8f1e1;
+    --parchment-warm: #efe4cc;
+    --ink-primary: #23180f;
+    --ink-muted: #6b5235;
+    --cinnabar-seal: #8f1d14;
+    --bronze-border: #6e5233;
+    --gold-trim: #c89d54;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    user-select: none;
+  }
+}
+
+.song-serif {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
+}
+
+.ocean-backdrop {
+  background-color: #9cb4ba;
+  background-image:
+    radial-gradient(circle at 68% 42%, rgba(188, 211, 214, 0.55), transparent 58%),
+    radial-gradient(circle at 50% 50%, transparent 64%, rgba(56, 78, 86, 0.34) 100%);
+}
+
+.scroll-thin::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(120, 96, 68, 0.38);
+  border-radius: 9999px;
+}
+
+/* 100% 纯实色不透明悬停浮窗，彻底隔绝底层地图纹理干扰 */
+.solid-map-tooltip {
+  background-color: #faf3e3 !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  border: 2px solid #5c4024;
+  box-shadow: 0 12px 28px rgba(24, 16, 8, 0.48), 0 2px 6px rgba(24, 16, 8, 0.32);
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.92;
+  }
+  75% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.75);
+    opacity: 0;
+  }
+}
+
+.player-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulseRing 2.1s infinite ease-out;
+}
+
+@keyframes alertBlink {
+  0%,
+  100% {
+    opacity: 0.88;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.alert-ring {
+  animation: alertBlink 1.8s infinite ease-in-out;
+}
+
+.road-dash-water {
+  stroke-dasharray: 7 4;
+}
+
+.road-dash-steppe {
+  stroke-dasharray: 9 4;
+}
+
+.road-dash-mountain {
+  stroke-dasharray: 3 4;
+}
+
+.active-route-glow {
+  stroke-dasharray: 9 5;
+  animation: routeFlow 1.05s linear infinite;
+}
+
+@keyframes routeFlow {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+
+.lod-fade {
+  transition: opacity 0.22s ease;
+}
+
+@keyframes landmarkGlow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 5px rgba(217, 119, 6, 0.72));
+  }
+  50% {
+    filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.96));
+  }
+}
+
+.special-bldg-glow {
+  animation: landmarkGlow 2.4s infinite ease-in-out;
+}
+
+.iso-poly-hotspot {
+  pointer-events: all;
+  transition:
+    fill-opacity 0.18s ease,
+    stroke-opacity 0.18s ease,
+    stroke-width 0.18s ease,
+    filter 0.18s ease;
+}
+
+.iso-hotspot-group:hover .iso-poly-hotspot {
+  fill-opacity: 0.24 !important;
+  stroke-opacity: 0.96 !important;
+  stroke-width: 3px !important;
+  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.85));
+}
+
+.iso-plaque {
+  transition: filter 0.18s ease;
+}
+
+.iso-hotspot-group:hover .iso-plaque {
+  filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.95)) brightness(1.08);
+}

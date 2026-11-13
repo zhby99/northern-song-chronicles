@@ -1,0 +1,623 @@
+{
+  "generatedBy": "scripts/extract_legacy_assets.py",
+  "legacySizes": {
+    "northern_song_map_html_bytes": 20682865,
+    "character_portrait_gallery_html_bytes": 4369168
+  },
+  "summary": {
+    "regionPanoramasCount": 38,
+    "regionPanoramasBytes": 6146750,
+    "buildingPanoramasCount": 58,
+    "buildingPanoramasBytes": 9070182,
+    "characterAvatarsCount": 51,
+    "characterFullbodiesCount": 50,
+    "characterTemplatesCount": 12,
+    "characterAssetsBytes": 15420436,
+    "totalExtractedImageFiles": 209,
+    "totalExtractedImageBytes": 30637368
+  },
+  "regions": [
+    {
+      "id": "bianliang",
+      "url": "/assets/regions/bianliang.jpg",
+      "bytes": 158276
+    },
+    {
+      "id": "luoyang",
+      "url": "/assets/regions/luoyang.jpg",
+      "bytes": 195098
+    },
+    {
+      "id": "daming",
+      "url": "/assets/regions/daming.jpg",
+      "bytes": 185468
+    },
+    {
+      "id": "zhending",
+      "url": "/assets/regions/zhending.jpg",
+      "bytes": 194952
+    },
+    {
+      "id": "taiyuan",
+      "url": "/assets/regions/taiyuan.jpg",
+      "bytes": 182526
+    },
+    {
+      "id": "changan",
+      "url": "/assets/regions/changan.jpg",
+      "bytes": 205656
+    },
+    {
+      "id": "yanan",
+      "url": "/assets/regions/yanan.jpg",
+      "bytes": 144970
+    },
+    {
+      "id": "jinan",
+      "url": "/assets/regions/jinan.jpg",
+      "bytes": 168550
+    },
+    {
+      "id": "yangzhou",
+      "url": "/assets/regions/yangzhou.jpg",
+      "bytes": 196126
+    },
+    {
+      "id": "jiangning",
+      "url": "/assets/regions/jiangning.jpg",
+      "bytes": 185290
+    },
+    {
+      "id": "suzhou",
+      "url": "/assets/regions/suzhou.jpg",
+      "bytes": 170624
+    },
+    {
+      "id": "hangzhou",
+      "url": "/assets/regions/hangzhou.jpg",
+      "bytes": 179428
+    },
+    {
+      "id": "chengdu",
+      "url": "/assets/regions/chengdu.jpg",
+      "bytes": 185042
+    },
+    {
+      "id": "xiangyang",
+      "url": "/assets/regions/xiangyang.jpg",
+      "bytes": 188688
+    },
+    {
+      "id": "quanzhou",
+      "url": "/assets/regions/quanzhou.jpg",
+      "bytes": 179806
+    },
+    {
+      "id": "xijin_liao",
+      "url": "/assets/regions/xijin_liao.jpg",
+      "bytes": 161170
+    },
+    {
+      "id": "dading_liao",
+      "url": "/assets/regions/dading_liao.jpg",
+      "bytes": 172340
+    },
+    {
+      "id": "linhuang_liao",
+      "url": "/assets/regions/linhuang_liao.jpg",
+      "bytes": 115334
+    },
+    {
+      "id": "xingqing_xixia",
+      "url": "/assets/regions/xingqing_xixia.jpg",
+      "bytes": 183396
+    },
+    {
+      "id": "luoxie_tubo",
+      "url": "/assets/regions/luoxie_tubo.jpg",
+      "bytes": 184144
+    },
+    {
+      "id": "dali_city",
+      "url": "/assets/regions/dali_city.jpg",
+      "bytes": 178742
+    },
+    {
+      "id": "kunlun",
+      "url": "/assets/regions/kunlun.jpg",
+      "bytes": 144806
+    },
+    {
+      "id": "shaolin",
+      "url": "/assets/regions/shaolin.jpg",
+      "bytes": 180140
+    },
+    {
+      "id": "yanmenguan",
+      "url": "/assets/regions/yanmenguan.jpg",
+      "bytes": 141314
+    },
+    {
+      "id": "wutaishan",
+      "url": "/assets/regions/wutaishan.jpg",
+      "bytes": 145568
+    },
+    {
+      "id": "taihang",
+      "url": "/assets/regions/taihang.jpg",
+      "bytes": 132662
+    },
+    {
+      "id": "tongguan",
+      "url": "/assets/regions/tongguan.jpg",
+      "bytes": 138302
+    },
+    {
+      "id": "zhongnanshan",
+      "url": "/assets/regions/zhongnanshan.jpg",
+      "bytes": 151542
+    },
+    {
+      "id": "taishan",
+      "url": "/assets/regions/taishan.jpg",
+      "bytes": 132154
+    },
+    {
+      "id": "yanziwu",
+      "url": "/assets/regions/yanziwu.jpg",
+      "bytes": 133540
+    },
+    {
+      "id": "taohuadao",
+      "url": "/assets/regions/taohuadao.jpg",
+      "bytes": 155570
+    },
+    {
+      "id": "jianmenguan",
+      "url": "/assets/regions/jianmenguan.jpg",
+      "bytes": 132616
+    },
+    {
+      "id": "qingcheng",
+      "url": "/assets/regions/qingcheng.jpg",
+      "bytes": 144276
+    },
+    {
+      "id": "emeishan",
+      "url": "/assets/regions/emeishan.jpg",
+      "bytes": 132418
+    },
+    {
+      "id": "wuliangshan",
+      "url": "/assets/regions/wuliangshan.jpg",
+      "bytes": 147732
+    },
+    {
+      "id": "wudangshan",
+      "url": "/assets/regions/wudangshan.jpg",
+      "bytes": 132228
+    },
+    {
+      "id": "tiezhangfeng",
+      "url": "/assets/regions/tiezhangfeng.jpg",
+      "bytes": 100970
+    },
+    {
+      "id": "nanshaolin",
+      "url": "/assets/regions/nanshaolin.jpg",
+      "bytes": 185286
+    }
+  ],
+  "buildings": [
+    {
+      "id": "bl_palace",
+      "regionId": "bianliang",
+      "url": "/assets/buildings/bl_palace.jpg",
+      "bytes": 140596
+    },
+    {
+      "id": "bl_kaifengfu",
+      "regionId": "bianliang",
+      "url": "/assets/buildings/bl_kaifengfu.jpg",
+      "bytes": 182634
+    },
+    {
+      "id": "bl_fanlou",
+      "regionId": "bianliang",
+      "url": "/assets/buildings/bl_fanlou.jpg",
+      "bytes": 153688
+    },
+    {
+      "id": "bl_xiangguosi",
+      "regionId": "bianliang",
+      "url": "/assets/buildings/bl_xiangguosi.jpg",
+      "bytes": 218474
+    },
+    {
+      "id": "bl_jinjun",
+      "regionId": "bianliang",
+      "url": "/assets/buildings/bl_jinjun.jpg",
+      "bytes": 153874
+    },
+    {
+      "id": "ly_baimasi",
+      "regionId": "luoyang",
+      "url": "/assets/buildings/ly_baimasi.jpg",
+      "bytes": 172708
+    },
+    {
+      "id": "ly_shuyuan",
+      "regionId": "luoyang",
+      "url": "/assets/buildings/ly_shuyuan.jpg",
+      "bytes": 187510
+    },
+    {
+      "id": "ly_peony",
+      "regionId": "luoyang",
+      "url": "/assets/buildings/ly_peony.jpg",
+      "bytes": 216710
+    },
+    {
+      "id": "ly_gaibang",
+      "regionId": "luoyang",
+      "url": "/assets/buildings/ly_gaibang.jpg",
+      "bytes": 176636
+    },
+    {
+      "id": "ly_jindao",
+      "regionId": "luoyang",
+      "url": "/assets/buildings/ly_jindao.jpg",
+      "bytes": 221710
+    },
+    {
+      "id": "dm_palace",
+      "regionId": "daming",
+      "url": "/assets/buildings/dm_palace.jpg",
+      "bytes": 153770
+    },
+    {
+      "id": "dm_ferry",
+      "regionId": "daming",
+      "url": "/assets/buildings/dm_ferry.jpg",
+      "bytes": 193352
+    },
+    {
+      "id": "dm_drill",
+      "regionId": "daming",
+      "url": "/assets/buildings/dm_drill.jpg",
+      "bytes": 171846
+    },
+    {
+      "id": "zd_longxing",
+      "regionId": "zhending",
+      "url": "/assets/buildings/zd_longxing.jpg",
+      "bytes": 166702
+    },
+    {
+      "id": "zd_market",
+      "regionId": "zhending",
+      "url": "/assets/buildings/zd_market.jpg",
+      "bytes": 176864
+    },
+    {
+      "id": "zd_spear",
+      "regionId": "zhending",
+      "url": "/assets/buildings/zd_spear.jpg",
+      "bytes": 167372
+    },
+    {
+      "id": "ty_jinci",
+      "regionId": "taiyuan",
+      "url": "/assets/buildings/ty_jinci.jpg",
+      "bytes": 176950
+    },
+    {
+      "id": "ty_iron",
+      "regionId": "taiyuan",
+      "url": "/assets/buildings/ty_iron.jpg",
+      "bytes": 184012
+    },
+    {
+      "id": "yz_chaoguan",
+      "regionId": "yangzhou",
+      "url": "/assets/buildings/yz_chaoguan.jpg",
+      "bytes": 162254
+    },
+    {
+      "id": "yz_24bridge",
+      "regionId": "yangzhou",
+      "url": "/assets/buildings/yz_24bridge.jpg",
+      "bytes": 169136
+    },
+    {
+      "id": "yz_salt",
+      "regionId": "yangzhou",
+      "url": "/assets/buildings/yz_salt.jpg",
+      "bytes": 213236
+    },
+    {
+      "id": "jn2_qinhuai",
+      "regionId": "jiangning",
+      "url": "/assets/buildings/jn2_qinhuai.jpg",
+      "bytes": 164004
+    },
+    {
+      "id": "jn2_qixia",
+      "regionId": "jiangning",
+      "url": "/assets/buildings/jn2_qixia.jpg",
+      "bytes": 192056
+    },
+    {
+      "id": "jn2_shitou",
+      "regionId": "jiangning",
+      "url": "/assets/buildings/jn2_shitou.jpg",
+      "bytes": 160436
+    },
+    {
+      "id": "sz_huqiu",
+      "regionId": "suzhou",
+      "url": "/assets/buildings/sz_huqiu.jpg",
+      "bytes": 106824
+    },
+    {
+      "id": "sz_hanshan",
+      "regionId": "suzhou",
+      "url": "/assets/buildings/sz_hanshan.jpg",
+      "bytes": 135672
+    },
+    {
+      "id": "sz_taihu",
+      "regionId": "suzhou",
+      "url": "/assets/buildings/sz_taihu.jpg",
+      "bytes": 103652
+    },
+    {
+      "id": "xj_minzhong",
+      "regionId": "xijin_liao",
+      "url": "/assets/buildings/xj_minzhong.jpg",
+      "bytes": 188760
+    },
+    {
+      "id": "xj_marshal",
+      "regionId": "xijin_liao",
+      "url": "/assets/buildings/xj_marshal.jpg",
+      "bytes": 147656
+    },
+    {
+      "id": "xj_horse",
+      "regionId": "xijin_liao",
+      "url": "/assets/buildings/xj_horse.jpg",
+      "bytes": 110328
+    },
+    {
+      "id": "dd_pagoda",
+      "regionId": "dading_liao",
+      "url": "/assets/buildings/dd_pagoda.jpg",
+      "bytes": 178920
+    },
+    {
+      "id": "dd_envoy",
+      "regionId": "dading_liao",
+      "url": "/assets/buildings/dd_envoy.jpg",
+      "bytes": 170654
+    },
+    {
+      "id": "dd_hunt",
+      "regionId": "dading_liao",
+      "url": "/assets/buildings/dd_hunt.jpg",
+      "bytes": 143848
+    },
+    {
+      "id": "lh_goldtent",
+      "regionId": "linhuang_liao",
+      "url": "/assets/buildings/lh_goldtent.jpg",
+      "bytes": 122690
+    },
+    {
+      "id": "lh_altar",
+      "regionId": "linhuang_liao",
+      "url": "/assets/buildings/lh_altar.jpg",
+      "bytes": 139836
+    },
+    {
+      "id": "lh_ironcav",
+      "regionId": "linhuang_liao",
+      "url": "/assets/buildings/lh_ironcav.jpg",
+      "bytes": 117386
+    },
+    {
+      "id": "xq_yipin",
+      "regionId": "xingqing_xixia",
+      "url": "/assets/buildings/xq_yipin.jpg",
+      "bytes": 118902
+    },
+    {
+      "id": "kl_yaochi",
+      "regionId": "kunlun",
+      "url": "/assets/buildings/kl_yaochi.jpg",
+      "bytes": 150022
+    },
+    {
+      "id": "kl_swordvalley",
+      "regionId": "kunlun",
+      "url": "/assets/buildings/kl_swordvalley.jpg",
+      "bytes": 145966
+    },
+    {
+      "id": "kl_poison",
+      "regionId": "kunlun",
+      "url": "/assets/buildings/kl_poison.jpg",
+      "bytes": 138774
+    },
+    {
+      "id": "kl_summit",
+      "regionId": "kunlun",
+      "url": "/assets/buildings/kl_summit.jpg",
+      "bytes": 125520
+    },
+    {
+      "id": "sl_cangjing",
+      "regionId": "shaolin",
+      "url": "/assets/buildings/sl_cangjing.jpg",
+      "bytes": 168518
+    },
+    {
+      "id": "tg_summit",
+      "regionId": "tongguan",
+      "url": "/assets/buildings/tg_summit.jpg",
+      "bytes": 96882
+    },
+    {
+      "id": "tg_zixia",
+      "regionId": "tongguan",
+      "url": "/assets/buildings/tg_zixia.jpg",
+      "bytes": 133636
+    },
+    {
+      "id": "tg_siguoya",
+      "regionId": "tongguan",
+      "url": "/assets/buildings/tg_siguoya.jpg",
+      "bytes": 112678
+    },
+    {
+      "id": "tg_fort",
+      "regionId": "tongguan",
+      "url": "/assets/buildings/tg_fort.jpg",
+      "bytes": 163842
+    },
+    {
+      "id": "zn_tomb",
+      "regionId": "zhongnanshan",
+      "url": "/assets/buildings/zn_tomb.jpg",
+      "bytes": 159514
+    },
+    {
+      "id": "zn_tao",
+      "regionId": "zhongnanshan",
+      "url": "/assets/buildings/zn_tao.jpg",
+      "bytes": 135962
+    },
+    {
+      "id": "zn_stream",
+      "regionId": "zhongnanshan",
+      "url": "/assets/buildings/zn_stream.jpg",
+      "bytes": 193874
+    },
+    {
+      "id": "ts_yuhuang",
+      "regionId": "taishan",
+      "url": "/assets/buildings/ts_yuhuang.jpg",
+      "bytes": 133878
+    },
+    {
+      "id": "qc_shangqing",
+      "regionId": "qingcheng",
+      "url": "/assets/buildings/qc_shangqing.jpg",
+      "bytes": 161704
+    },
+    {
+      "id": "qc_tang",
+      "regionId": "qingcheng",
+      "url": "/assets/buildings/qc_tang.jpg",
+      "bytes": 183908
+    },
+    {
+      "id": "qc_poison",
+      "regionId": "qingcheng",
+      "url": "/assets/buildings/qc_poison.jpg",
+      "bytes": 150088
+    },
+    {
+      "id": "em_jinding",
+      "regionId": "emeishan",
+      "url": "/assets/buildings/em_jinding.jpg",
+      "bytes": 132350
+    },
+    {
+      "id": "em_wannian",
+      "regionId": "emeishan",
+      "url": "/assets/buildings/em_wannian.jpg",
+      "bytes": 177068
+    },
+    {
+      "id": "em_pond",
+      "regionId": "emeishan",
+      "url": "/assets/buildings/em_pond.jpg",
+      "bytes": 125042
+    },
+    {
+      "id": "wl_langhuan",
+      "regionId": "wuliangshan",
+      "url": "/assets/buildings/wl_langhuan.jpg",
+      "bytes": 99896
+    },
+    {
+      "id": "wl_yubi",
+      "regionId": "wuliangshan",
+      "url": "/assets/buildings/wl_yubi.jpg",
+      "bytes": 119402
+    }
+  ],
+  "templates": [
+    {
+      "id": "tpl_dali_prince_fb",
+      "url": "/assets/characters/templates/tpl_dali_prince_fb.jpg",
+      "bytes": 932812
+    },
+    {
+      "id": "tpl_emei_heroine_fb",
+      "url": "/assets/characters/templates/tpl_emei_heroine_fb.jpg",
+      "bytes": 1046184
+    },
+    {
+      "id": "tpl_greenwood_hero_fb",
+      "url": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
+      "bytes": 947719
+    },
+    {
+      "id": "tpl_khitan_warrior_fb",
+      "url": "/assets/characters/templates/tpl_khitan_warrior_fb.jpg",
+      "bytes": 1112539
+    },
+    {
+      "id": "tpl_shaolin_monk_fb",
+      "url": "/assets/characters/templates/tpl_shaolin_monk_fb.jpg",
+      "bytes": 1074584
+    },
+    {
+      "id": "tpl_song_empress_fb",
+      "url": "/assets/characters/templates/tpl_song_empress_fb.jpg",
+      "bytes": 1071232
+    },
+    {
+      "id": "tpl_song_physician_fb",
+      "url": "/assets/characters/templates/tpl_song_physician_fb.jpg",
+      "bytes": 1012275
+    },
+    {
+      "id": "tpl_song_scholar_fb",
+      "url": "/assets/characters/templates/tpl_song_scholar_fb.jpg",
+      "bytes": 1013948
+    },
+    {
+      "id": "tpl_taohua_master_fb",
+      "url": "/assets/characters/templates/tpl_taohua_master_fb.jpg",
+      "bytes": 1097278
+    },
+    {
+      "id": "tpl_taoist_master_fb",
+      "url": "/assets/characters/templates/tpl_taoist_master_fb.jpg",
+      "bytes": 1020488
+    },
+    {
+      "id": "tpl_unorthodox_master_fb",
+      "url": "/assets/characters/templates/tpl_unorthodox_master_fb.jpg",
+      "bytes": 921546
+    },
+    {
+      "id": "tpl_woman_general_fb",
+      "url": "/assets/characters/templates/tpl_woman_general_fb.jpg",
+      "bytes": 995382
+    }
+  ]
+}
