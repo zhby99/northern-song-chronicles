@@ -178,15 +178,15 @@ const MENU_NAV_ITEMS: Array<{
     label: '存 档',
     seal: '录',
     subtitle: '多槽位 IndexedDB 卷宗持久化（含披挂、武学重数与四库行囊）、手札批注与 JSON 导出',
-    badge: 'M1.1 卷宗',
+    badge: 'M1.2 卷宗',
   },
   {
     key: 'load',
     numeral: '玖',
     label: '读 档',
     seal: '启',
-    subtitle: '读取历史卷宗回溯三层空间与披挂武学现场，或从本地导入 .json 存档文件',
-    badge: 'M1.1 卷宗',
+    subtitle: '读取当前版本卷宗回溯三层空间与披挂武学现场，或从本地导入 .json 存档文件',
+    badge: 'M1.2 卷宗',
   },
   {
     key: 'settings',

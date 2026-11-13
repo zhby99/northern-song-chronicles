@@ -24,6 +24,8 @@ import {
   DEFAULT_LEARNED_ARTS,
 } from '../data/playerMartialArts'
 
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.2.0' as const
+
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
   label: string
@@ -39,14 +41,52 @@ export const SAVE_SLOT_DEFS: Array<{
   { slotId: 'slot-6', label: '卷宗陆 · 开阳册', badge: '陆' },
 ]
 
-const IDB_DB_NAME = 'NorthernSongChroniclesDB'
+// 升级全新存储库命名并自动清理早期 M0/M1.0/M1.1 历史遗留存档
+const LEGACY_IDB_DB_NAMES = ['NorthernSongChroniclesDB']
+const LEGACY_LS_PREFIX = 'nsc_save_v1_'
+
+const IDB_DB_NAME = 'NorthernSongChroniclesSaves_v2'
 const IDB_DB_VERSION = 1
 const IDB_STORE_NAME = 'saves'
-const LS_FALLBACK_PREFIX = 'nsc_save_v1_'
+const LS_FALLBACK_PREFIX = 'nsc_save_v2_'
 
 let idbPromise: Promise<IDBDatabase> | null = null
+let legacyPurged = false
+
+export function purgeLegacySaveDatabases(): void {
+  if (legacyPurged) return
+  legacyPurged = true
+
+  try {
+    if (typeof localStorage !== 'undefined') {
+      const keysToRemove: string[] = []
+      for (let i = 0; i < localStorage.length; i += 1) {
+        const k = localStorage.key(i)
+        if (k && k.startsWith(LEGACY_LS_PREFIX)) {
+          keysToRemove.push(k)
+        }
+      }
+      for (const k of keysToRemove) {
+        localStorage.removeItem(k)
+      }
+    }
+  } catch {
+    // ignore storage errors
+  }
+
+  try {
+    if (typeof indexedDB !== 'undefined') {
+      for (const legacyDb of LEGACY_IDB_DB_NAMES) {
+        indexedDB.deleteDatabase(legacyDb)
+      }
+    }
+  } catch {
+    // ignore indexedDB errors
+  }
+}
 
 function openSaveDatabase(): Promise<IDBDatabase> {
+  purgeLegacySaveDatabases()
   if (typeof indexedDB === 'undefined') {
     return Promise.reject(new Error('IndexedDB unavailable'))
   }
@@ -69,8 +109,9 @@ function openSaveDatabase(): Promise<IDBDatabase> {
   return idbPromise
 }
 
-export async function putSaveEnvelope(envelope: GameSaveEnvelope): Promise<'indexeddb' | 'localstorage'> {
-  // Always mirror compact metadata/snapshot to localStorage as backup if quota permits
+export async function putSaveEnvelope(
+  envelope: GameSaveEnvelope,
+): Promise<'indexeddb' | 'localstorage'> {
   try {
     localStorage.setItem(`${LS_FALLBACK_PREFIX}${envelope.slotId}`, JSON.stringify(envelope))
   } catch {
@@ -102,8 +143,11 @@ export async function getSaveEnvelope(slotId: SaveSlotId): Promise<GameSaveEnvel
       req.onsuccess = () => resolve(req.result ?? null)
       req.onerror = () => reject(req.error ?? new Error('IndexedDB get failed'))
     })
-    const validated = validateSaveEnvelope(record)
-    if (validated) return validated
+    if (record !== null) {
+      const validated = validateSaveEnvelope(record)
+      if (validated) return validated
+      await deleteSaveSlot(slotId)
+    }
   } catch {
     // Fallback to localStorage
   }
@@ -111,13 +155,18 @@ export async function getSaveEnvelope(slotId: SaveSlotId): Promise<GameSaveEnvel
   try {
     const raw = localStorage.getItem(`${LS_FALLBACK_PREFIX}${slotId}`)
     if (!raw) return null
-    return validateSaveEnvelope(JSON.parse(raw))
+    const validated = validateSaveEnvelope(JSON.parse(raw))
+    if (!validated) {
+      localStorage.removeItem(`${LS_FALLBACK_PREFIX}${slotId}`)
+    }
+    return validated
   } catch {
     return null
   }
 }
 
 export async function listAllSaveEnvelopes(): Promise<Record<SaveSlotId, GameSaveEnvelope | null>> {
+  purgeLegacySaveDatabases()
   const result: Record<SaveSlotId, GameSaveEnvelope | null> = {
     autosave: null,
     'slot-1': null,
@@ -153,6 +202,13 @@ export async function deleteSaveSlot(slotId: SaveSlotId): Promise<void> {
   }
 }
 
+export async function clearAllSaveSlots(): Promise<void> {
+  purgeLegacySaveDatabases()
+  for (const def of SAVE_SLOT_DEFS) {
+    await deleteSaveSlot(def.slotId)
+  }
+}
+
 function isRecord(val: unknown): val is Record<string, unknown> {
   return typeof val === 'object' && val !== null && !Array.isArray(val)
 }
@@ -180,10 +236,7 @@ const ART_SLOT_KEYS: MartialArtSlotKey[] = [
 export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   if (!isRecord(raw)) return null
   if (raw.gameTitle !== '北宋立志传') return null
-  if (
-    typeof raw.schemaVersion !== 'string' ||
-    (!raw.schemaVersion.startsWith('M0.') && !raw.schemaVersion.startsWith('M1.'))
-  ) {
+  if (raw.schemaVersion !== CURRENT_SAVE_SCHEMA_VERSION) {
     return null
   }
   if (!isRecord(raw.summary) || !isRecord(raw.state)) return null
@@ -200,7 +253,6 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     return null
   }
 
-  // Validate interior building ID if saved inside Tier-3 building view
   let normalizedViewMode = st.viewMode as ViewMode
   let normalizedInteriorId =
     typeof st.activeBuildingInteriorId === 'string' ? st.activeBuildingInteriorId : null
@@ -229,15 +281,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     }
     for (const k of EQUIP_SLOT_KEYS) {
       const val = st.equipped[k]
-      if (typeof val === 'string' && ITEM_DB_MAP[val]) {
-        cleanEquipped[k] = val
-      } else if (k === 'weapon' && val === 'ITM-EQP-WPN-001') {
-        cleanEquipped.weapon = 'WPN-061'
-      } else if (k === 'weapon' && val === 'ITM-EQP-WPN-002') {
-        cleanEquipped.weapon = 'WPN-068'
-      } else {
-        cleanEquipped[k] = null
-      }
+      cleanEquipped[k] = typeof val === 'string' && ITEM_DB_MAP[val] ? val : null
     }
   }
 
@@ -253,8 +297,10 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         !seen.has(entry.artId)
       ) {
         seen.add(entry.artId)
-        const lv = typeof entry.level === 'number' ? Math.max(1, Math.min(10, Math.floor(entry.level))) : 1
-        const xp = typeof entry.exp === 'number' ? Math.max(0, Math.min(100, Math.floor(entry.exp))) : 0
+        const lv =
+          typeof entry.level === 'number' ? Math.max(1, Math.min(10, Math.floor(entry.level))) : 1
+        const xp =
+          typeof entry.exp === 'number' ? Math.max(0, Math.min(100, Math.floor(entry.exp))) : 0
         parsedArts.push({ artId: entry.artId, level: lv, exp: xp })
       }
     }
@@ -287,11 +333,6 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     }
   }
 
-  const isLegacyScrollSchema =
-    raw.schemaVersion === 'M0.4.0' ||
-    raw.schemaVersion === 'M1.0.0' ||
-    raw.schemaVersion === 'M1.1.0'
-
   let cleanInventory: InventoryStack[] = DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x }))
   if (Array.isArray(st.inventory)) {
     cleanInventory = st.inventory
@@ -299,7 +340,6 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         (entry): entry is Record<string, unknown> =>
           isRecord(entry) &&
           typeof entry.itemId === 'string' &&
-          !(isLegacyScrollSchema && entry.itemId.startsWith('ITM-SCR-')) &&
           Boolean(ITEM_DB_MAP[entry.itemId]) &&
           typeof entry.qty === 'number' &&
           entry.qty > 0,
@@ -308,21 +348,8 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         itemId: entry.itemId as string,
         qty: Math.floor(entry.qty as number),
       }))
-    // If an old M1.0 save only had legacy ITM-TOL-* tools that were deleted, seed the new default curio starter items
-    const hasAnyTools = cleanInventory.some((x) => ITEM_DB_MAP[x.itemId]?.category === 'tools')
-    const hadLegacyTol = st.inventory.some(
-      (entry) => isRecord(entry) && typeof entry.itemId === 'string' && entry.itemId.startsWith('ITM-TOL-'),
-    )
-    if (!hasAnyTools && hadLegacyTol) {
-      for (const starter of DEFAULT_INITIAL_INVENTORY) {
-        if (ITEM_DB_MAP[starter.itemId]?.category === 'tools') {
-          cleanInventory.push({ ...starter })
-        }
-      }
-    }
   }
 
-  // Sync mountKey from equipped mount slot (when mount slot is empty, default to walk 60 里/日)
   const mountItem = cleanEquipped.mount ? ITEM_DB_MAP[cleanEquipped.mount] : null
   const derivedMountKey = mountItem?.equipBonus?.mountKey ?? 'walk'
 
@@ -441,7 +468,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   const sum = raw.summary
   return {
     gameTitle: '北宋立志传',
-    schemaVersion: 'M1.1.0',
+    schemaVersion: CURRENT_SAVE_SCHEMA_VERSION,
     slotId,
     savedAt: typeof raw.savedAt === 'string' ? raw.savedAt : new Date().toISOString(),
     note: typeof raw.note === 'string' ? raw.note : '',
@@ -498,7 +525,9 @@ export async function parseSaveJsonFile(file: File): Promise<GameSaveEnvelope> {
   }
   const validated = validateSaveEnvelope(parsed)
   if (!validated) {
-    throw new Error('非合法的《北宋立志传》卷宗存档（支持 M0.4 / M1.0），或状态校验未通过。')
+    throw new Error(
+      `非当前版本的《北宋立志传》卷宗存档（仅支持 ${CURRENT_SAVE_SCHEMA_VERSION}），旧版测试存档已停用。`,
+    )
   }
   return validated
 }

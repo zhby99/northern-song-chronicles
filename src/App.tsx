@@ -9,6 +9,7 @@ import { WorldMapCanvas } from './components/map/WorldMapCanvas'
 import { SystemMenuModal } from './components/menu/SystemMenuModal'
 import { useGameStore } from './store/useGameStore'
 import { syncBgmSceneContext, toggleBgmPlayback } from './utils/bgmManager'
+import { purgeLegacySaveDatabases } from './utils/saveManager'
 
 export function App() {
   const viewMode = useGameStore((s) => s.viewMode)
@@ -18,6 +19,11 @@ export function App() {
   const stepTravelTick = useGameStore((s) => s.stepTravelTick)
   const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
+
+  // 启动时自动清除旧版浏览器残留存档库
+  useEffect(() => {
+    purgeLegacySaveDatabases()
+  }, [])
 
   // Sync scene/region BGM playlist (world/1,2... vs regions/<id>/1,2...) automatically
   useEffect(() => {
