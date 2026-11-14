@@ -9,12 +9,12 @@
     "regionPanoramasBytes": 6146750,
     "buildingPanoramasCount": 58,
     "buildingPanoramasBytes": 9070182,
-    "characterAvatarsCount": 224,
-    "characterFullbodiesCount": 223,
+    "characterAvatarsCount": 249,
+    "characterFullbodiesCount": 249,
     "characterTemplatesCount": 12,
-    "characterAssetsBytes": 81137629,
-    "totalExtractedImageFiles": 555,
-    "totalExtractedImageBytes": 96354561
+    "characterAssetsBytes": 89314045,
+    "totalExtractedImageFiles": 606,
+    "totalExtractedImageBytes": 104530977
   },
   "regions": [
     {

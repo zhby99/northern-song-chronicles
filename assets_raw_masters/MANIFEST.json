@@ -1,10 +1,10 @@
 {
-  "totalMasterFiles": 561,
-  "totalBytes": 570452732,
+  "totalMasterFiles": 617,
+  "totalBytes": 626130583,
   "countsByCategory": {
     "regions": 42,
     "buildings": 60,
-    "characters": 459
+    "characters": 515
   },
   "files": [
     {
@@ -3369,6 +3369,38 @@
     },
     {
       "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0200_av.jpg",
+      "originalFilename": "npc_0200_av_1794632357980.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0200_av_1794632357980.jpg",
+      "bytes": 927455,
+      "sha256": "0357b4485c6cc01fda926ecb5369e8bf581a145c0f397886c2bc638095e4165e"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0200_fb.jpg",
+      "originalFilename": "npc_0200_fb_1794632361707.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0200_fb_1794632361707.jpg",
+      "bytes": 998772,
+      "sha256": "14c172465fbceb53cdd8f37dc32e7eeade8bb6a45f1ae65f1b72feb2f35876cc"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0201_av.jpg",
+      "originalFilename": "npc_0201_av_1794632361055.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0201_av_1794632361055.jpg",
+      "bytes": 881374,
+      "sha256": "10d276425838943696643f9334b11e187bfbadb47907e5646460b8256a141151"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0201_fb.jpg",
+      "originalFilename": "npc_0201_fb_1794632395874.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0201_fb_1794632395874.jpg",
+      "bytes": 1070193,
+      "sha256": "8b80049f98d2d26744a875c2eb873bdb7a92b6a9449c136d0107466fd9e74822"
+    },
+    {
+      "category": "characters",
       "archivePath": "assets_raw_masters/characters/npc_0202_av.jpg",
       "originalFilename": "npc_0202_av_1794614260872.jpg",
       "sourceBrainRelativePath": "2a5cb583047097041819bb8ad8414f04/npc_0202_av_1794614260872.jpg",
@@ -3745,11 +3777,427 @@
     },
     {
       "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0225_fb.jpg",
+      "originalFilename": "npc_0225_fb_1794632256370.jpg",
+      "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/npc_0225_fb_1794632256370.jpg",
+      "bytes": 957457,
+      "sha256": "99c82dc66f8c6edc71fd49362c329e4e65e8c1f8788e93e5a995ccb029a13f2c"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0226_av.jpg",
+      "originalFilename": "npc_0226_av_1794632397202.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0226_av_1794632397202.jpg",
+      "bytes": 897941,
+      "sha256": "778636944f10fbf832d6e5f87da8eef8cf1aa5f55b8f66367db17cde9ebd115d"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0226_fb.jpg",
+      "originalFilename": "npc_0226_fb_1794632399568.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0226_fb_1794632399568.jpg",
+      "bytes": 954290,
+      "sha256": "8f7dc0828e99d62a4649e5c71b9b6923003cc542199017d261ea3a2ba7d83694"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0227_av.jpg",
+      "originalFilename": "npc_0227_av_1794632440996.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0227_av_1794632440996.jpg",
+      "bytes": 827862,
+      "sha256": "c6b8254258d5fc9459f2f67312afe0bfa9b77d31dd75ab0dfd135c507429f84d"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0227_fb.jpg",
+      "originalFilename": "npc_0227_fb_1794632445809.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0227_fb_1794632445809.jpg",
+      "bytes": 935593,
+      "sha256": "412e686512e49f38f7608a6e8281e0abf34acbe2834d3f861c718bfafd85f4b1"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0228_av.jpg",
+      "originalFilename": "npc_0228_av_1794632446974.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0228_av_1794632446974.jpg",
+      "bytes": 1115132,
+      "sha256": "d088084d93f2451e3658b8fa392124a7fc627efe119dcfb79cdb08be22af1d36"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0228_fb.jpg",
+      "originalFilename": "npc_0228_fb_1794632483754.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0228_fb_1794632483754.jpg",
+      "bytes": 1029405,
+      "sha256": "854d56f701a8e39d829196458183174e7ee182fe6f5f108ad59ce3b19138597d"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0228_fb_1794632541324.jpg",
+      "originalFilename": "npc_0228_fb_1794632541324.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0228_fb_1794632541324.jpg",
+      "bytes": 1121414,
+      "sha256": "3e794ecd13ef5739beb0a60641a0fa491221974691fff930f1a527d4e76a39c0"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0229_av.jpg",
+      "originalFilename": "npc_0229_av_1794632485265.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0229_av_1794632485265.jpg",
+      "bytes": 1090745,
+      "sha256": "e0a3685a74b1eafc274af3e076b9dcd89173519fc2afa0bad542715e4a7826c3"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0229_fb.jpg",
+      "originalFilename": "npc_0229_fb_1794632486673.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0229_fb_1794632486673.jpg",
+      "bytes": 1002076,
+      "sha256": "d09a7876344c6fc2b37738915c9404f13daf6a9799627110710eb45a6ef25cde"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0230_av.jpg",
+      "originalFilename": "npc_0230_av_1794632575809.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0230_av_1794632575809.jpg",
+      "bytes": 987502,
+      "sha256": "8f864871c4096f86a3e4ab9b4d9f85af99e4c3f970757737ebf0c1bd9e726471"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0230_fb.jpg",
+      "originalFilename": "npc_0230_fb_1794632549095.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0230_fb_1794632549095.jpg",
+      "bytes": 1074503,
+      "sha256": "b721abafa0f8c75a1f0e1300c4e74bbb2d8f6423463eaf2c4125ae5e1a0f36e1"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0231_av.jpg",
+      "originalFilename": "npc_0231_av_1794632622685.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0231_av_1794632622685.jpg",
+      "bytes": 1081292,
+      "sha256": "c98fcef7171eed36f2eafbc738b35fa1320e968e764b8b32f77bf4e588d924d3"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0231_fb.jpg",
+      "originalFilename": "npc_0231_fb_1794632633468.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0231_fb_1794632633468.jpg",
+      "bytes": 1008641,
+      "sha256": "adac1692169a5d83b7b0f359a80264b136a661f25d99ff9af1fa2a8b535ac9b6"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0231_fb_1794632695443.jpg",
+      "originalFilename": "npc_0231_fb_1794632695443.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0231_fb_1794632695443.jpg",
+      "bytes": 1001618,
+      "sha256": "5635ec0d5424a71b30d9c81f58c0508527453478ce86913c8ba9badfbdc25275"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0232_av.jpg",
+      "originalFilename": "npc_0232_av_1794632372576.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0232_av_1794632372576.jpg",
+      "bytes": 849067,
+      "sha256": "5eaf90285a49fedd492db4a79deb53609f4ec01d9518bf10df6f6a2c14e11619"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0232_fb.jpg",
+      "originalFilename": "npc_0232_fb_1794632375847.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0232_fb_1794632375847.jpg",
+      "bytes": 956570,
+      "sha256": "da249c0fee7490c6863101c5c06f9b3e84a4183b8016a22f2928725ad4fc03b8"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0233_av.jpg",
+      "originalFilename": "npc_0233_av_1794632375301.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0233_av_1794632375301.jpg",
+      "bytes": 876292,
+      "sha256": "1c0f72ac1db70c698d617fc6de23d1a01e70bbb014554161cbf9debbc59a5774"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0233_fb.jpg",
+      "originalFilename": "npc_0233_fb_1794632446253.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0233_fb_1794632446253.jpg",
+      "bytes": 942154,
+      "sha256": "9f897a88cb717730fe9d41e1edef39a7f9e5840bc239fdb9a53172ab0faa1894"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0234_av.jpg",
+      "originalFilename": "npc_0234_av_1794632436819.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0234_av_1794632436819.jpg",
+      "bytes": 1009413,
+      "sha256": "613e4c08fd7a0299ae4e0d4f8a860d34add9f32437f3575ddb39033ad2376e37"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0234_fb.jpg",
+      "originalFilename": "npc_0234_fb_1794632434320.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0234_fb_1794632434320.jpg",
+      "bytes": 1069672,
+      "sha256": "fa9965a1fa89c2d90d42145bcaaf084b854b507f7f8f1c06955f110936f8ac4a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0235_av.jpg",
+      "originalFilename": "npc_0235_av_1794632492623.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0235_av_1794632492623.jpg",
+      "bytes": 930750,
+      "sha256": "8f2c12b0be9e48c8d7f5380f94142b764208bf41ecde7d6edf0b53d45b1a5885"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0235_fb.jpg",
+      "originalFilename": "npc_0235_fb_1794632497988.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0235_fb_1794632497988.jpg",
+      "bytes": 949532,
+      "sha256": "48096da100ba238fedced6855c2ce874057e0b53761cfa90282f428a9f1a04fc"
+    },
+    {
+      "category": "characters",
       "archivePath": "assets_raw_masters/characters/npc_0236_av.jpg",
       "originalFilename": "npc_0236_av_1794579277350.jpg",
       "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/npc_0236_av_1794579277350.jpg",
       "bytes": 889146,
       "sha256": "eadd75509278c40cb3699df7feceb38df3866a1ac1bb2de36dc71915d0eca488"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0237_av.jpg",
+      "originalFilename": "npc_0237_av_1794632498139.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0237_av_1794632498139.jpg",
+      "bytes": 925166,
+      "sha256": "6748241ac8d3292505c07319389938d889296f2bceedaf7fac19f50354344d49"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0237_fb.jpg",
+      "originalFilename": "npc_0237_fb_1794632548562.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0237_fb_1794632548562.jpg",
+      "bytes": 996518,
+      "sha256": "6b8d30507bffde14f52f5b6b3aefc3343a2218f3549c77162791cd5dec7aea99"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0238_av.jpg",
+      "originalFilename": "npc_0238_av_1794632551807.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0238_av_1794632551807.jpg",
+      "bytes": 956993,
+      "sha256": "49df3cdb557bc8da3abed9a2a24067cc2ca66a5fb8beced39b7764d93a54e416"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0238_fb.jpg",
+      "originalFilename": "npc_0238_fb_1794632551970.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0238_fb_1794632551970.jpg",
+      "bytes": 1038525,
+      "sha256": "098c9b8af2415a0c607566919682cbc50677d122ed84839d6a9442c565195804"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0239_av.jpg",
+      "originalFilename": "npc_0239_av_1794632606894.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0239_av_1794632606894.jpg",
+      "bytes": 980491,
+      "sha256": "7878ed9aa04c1d9f81c9af4c45693654f824563943a247d4bd4887e4f5f6af86"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0239_fb.jpg",
+      "originalFilename": "npc_0239_fb_1794632610574.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0239_fb_1794632610574.jpg",
+      "bytes": 1033856,
+      "sha256": "1d47887bde6e5d5c7d78ef7b715c5b703b9a9b80441f6225c44713e2bf6f4d81"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0240_av.jpg",
+      "originalFilename": "npc_0240_av_1794632606692.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0240_av_1794632606692.jpg",
+      "bytes": 1073849,
+      "sha256": "5e7ba97422739d50512348910cedfa308e939b6ad0b129e252106e9494d94c0d"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0240_fb.jpg",
+      "originalFilename": "npc_0240_fb_1794632665686.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0240_fb_1794632665686.jpg",
+      "bytes": 1120524,
+      "sha256": "f3e41b0a360928d329b8526dec4f2bab93c63d8ca766f9cb3a38af44dffae400"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0240_fb_1794632716578.jpg",
+      "originalFilename": "npc_0240_fb_1794632716578.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0240_fb_1794632716578.jpg",
+      "bytes": 1014036,
+      "sha256": "af706967cd314700702d8e527499bafc68a7b135393b6412355f2a71d294e58a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0264_av.jpg",
+      "originalFilename": "npc_0264_av_1794632653412.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0264_av_1794632653412.jpg",
+      "bytes": 894941,
+      "sha256": "8557ea0136a0e0ffdc89e9e0d9182de5791593440cd04b82527ead5778d9d6d6"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0264_fb.jpg",
+      "originalFilename": "npc_0264_fb_1794632702570.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0264_fb_1794632702570.jpg",
+      "bytes": 957764,
+      "sha256": "0ed98de2cbe9debaa689b6688d562692760b579a97b8e46509ef3508b81f5faa"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0275_av.jpg",
+      "originalFilename": "npc_0275_av_1794632700851.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0275_av_1794632700851.jpg",
+      "bytes": 1006409,
+      "sha256": "c6f0c85585cb7f0ee1cd5fbae2b60c4fcbb30f932470afb9fcf3c0ddafe9cb2c"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0275_fb.jpg",
+      "originalFilename": "npc_0275_fb_1794632764022.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0275_fb_1794632764022.jpg",
+      "bytes": 1029164,
+      "sha256": "08540a9845a78cd3f0e8d8c0e5351f5eb8d74d15f211e3e649f955e44a05c43e"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0286_av.jpg",
+      "originalFilename": "npc_0286_av_1794632761004.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0286_av_1794632761004.jpg",
+      "bytes": 1002513,
+      "sha256": "3dcadb320dd457f49b37240c9cc76cb93a31ee7f60fad0b72226deb54df7638e"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0286_fb.jpg",
+      "originalFilename": "npc_0286_fb_1794632760437.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0286_fb_1794632760437.jpg",
+      "bytes": 991763,
+      "sha256": "f8df8bf99704d318025346ee10fd3256adb43d5dd21526954630e52c5237de4c"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0305_av.jpg",
+      "originalFilename": "npc_0305_av_1794632816339.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0305_av_1794632816339.jpg",
+      "bytes": 1003526,
+      "sha256": "17b7d871ea0ebf5b4a29d33be033bd4d2f67e68f608466dc87a016ec80cf89cd"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0305_av_1794632865369.jpg",
+      "originalFilename": "npc_0305_av_1794632865369.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0305_av_1794632865369.jpg",
+      "bytes": 1054053,
+      "sha256": "93cd127fcbfaa216036394cabd9b2e338ee222f88959960efb35e70787c9e2bc"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0305_fb.jpg",
+      "originalFilename": "npc_0305_fb_1794632821091.jpg",
+      "sourceBrainRelativePath": "6e95b0d23c1256c061f2e672380b54c4/npc_0305_fb_1794632821091.jpg",
+      "bytes": 992018,
+      "sha256": "c9f948fc360cdbe9402393887debc14d5f505e9b3bd02a39fe718a92fcb7e46a"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0306_av.jpg",
+      "originalFilename": "npc_0306_av_1794632674500.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0306_av_1794632674500.jpg",
+      "bytes": 1033442,
+      "sha256": "95be794de762ad7e363525abe9a61593018ad4b18a374d2e190d958b70c396da"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0306_fb.jpg",
+      "originalFilename": "npc_0306_fb_1794632677118.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0306_fb_1794632677118.jpg",
+      "bytes": 1024736,
+      "sha256": "11172967fea28cd6971e44a3190341360e23e4845d75673022f06d122a923407"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0307_av.jpg",
+      "originalFilename": "npc_0307_av_1794632721618.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0307_av_1794632721618.jpg",
+      "bytes": 983144,
+      "sha256": "c67ba511931ea45a96b882fd6eb7fc42cf9e46d97fd8f5edff4b2838d6c7bd3b"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0307_av_1794632766773.jpg",
+      "originalFilename": "npc_0307_av_1794632766773.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0307_av_1794632766773.jpg",
+      "bytes": 1009632,
+      "sha256": "4a98259e0e8a44afe0ee26b5da96f8a7cee524e0150b26f54b3ea88d97d70b4b"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0307_fb.jpg",
+      "originalFilename": "npc_0307_fb_1794632723096.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0307_fb_1794632723096.jpg",
+      "bytes": 964357,
+      "sha256": "b899cce4bd30e9ca17456d4e09669a7fc2f82e31bb0df0bf454de4ff8478642e"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0313_av.jpg",
+      "originalFilename": "npc_0313_av_1794632769408.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0313_av_1794632769408.jpg",
+      "bytes": 993156,
+      "sha256": "fa4176888f338b61f0935b100d03e5ca59c10f2784d4c2de1bd06b3edd51805f"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0313_fb.jpg",
+      "originalFilename": "npc_0313_fb_1794632770598.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0313_fb_1794632770598.jpg",
+      "bytes": 1104068,
+      "sha256": "2c46d40ffda539813d9a0e86efa1a8461e618a5d0298cae223ae342fb98701e1"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0316_av.jpg",
+      "originalFilename": "npc_0316_av_1794632836855.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0316_av_1794632836855.jpg",
+      "bytes": 920277,
+      "sha256": "7c9893d869d3204c5c128217e034995833d66a9b8bd4a6859f9c3250fc0b93d8"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0316_fb.jpg",
+      "originalFilename": "npc_0316_fb_1794632820000.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0316_fb_1794632820000.jpg",
+      "bytes": 933677,
+      "sha256": "11876ee3f1950f8d5a3af5fda4d1c71c2b9ac69e9f2f5ee6fbb87b6dcdba0ba3"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0337_av.jpg",
+      "originalFilename": "npc_0337_av_1794632821077.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0337_av_1794632821077.jpg",
+      "bytes": 1066737,
+      "sha256": "750e2077aa99fa3f7d2bfcb7cce55f0da56f8377ce4d6023410ea175b2b78f4d"
+    },
+    {
+      "category": "characters",
+      "archivePath": "assets_raw_masters/characters/npc_0337_fb.jpg",
+      "originalFilename": "npc_0337_fb_1794632900189.jpg",
+      "sourceBrainRelativePath": "4b986dd76b0b81c6d01ef2612cdcad30/npc_0337_fb_1794632900189.jpg",
+      "bytes": 1025801,
+      "sha256": "a3fb5772e4bf754658e4529ea3acfc2f76dd3846ba4b157a811887d943241154"
     },
     {
       "category": "characters",
