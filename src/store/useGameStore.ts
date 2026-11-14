@@ -15,7 +15,6 @@ import {
   checkMountEquipRequirements,
   checkWeaponEquipRequirements,
   DEFAULT_EQUIPPED_SLOTS,
-  DEFAULT_INITIAL_INVENTORY,
   ITEM_DB_MAP,
   normalizeItemTier,
 } from '../data/itemsDb'
@@ -301,6 +300,7 @@ export interface GameStoreState {
   completeCharacterCreation: (payload: {
     name: string
     portraitId: string
+    silver: number
     baseStats: HeroBaseStats
   }) => void
   shichenIdx: number
@@ -896,9 +896,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   playerName: '无名少侠',
   playerPortraitId: 'hero_04_swordsman',
   playerAge: 12,
-  completeCharacterCreation: ({ name, portraitId, baseStats }) => {
+  completeCharacterCreation: ({ name, portraitId, silver, baseStats }) => {
     const s = get()
     const finalName = name.trim() || '无名少侠'
+    const finalSilver = Math.max(0, Math.floor(silver))
     const cleanBase = cloneHeroBaseStats(baseStats)
     const starterEquipped: EquippedSlotsMap = {
       weapon: null,
@@ -909,19 +910,31 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       accessory2: 'ACC-049', // 粗麻平安绳
       mount: null,
     }
+    const emptyEquippedArts: EquippedArtsMap = {
+      neigong: null,
+      qinggong: null,
+      move1: null,
+      move2: null,
+      move3: null,
+      move4: null,
+    }
     const derived = deriveHeroEffectiveStats(
       cleanBase,
       starterEquipped,
-      s.equippedArts,
-      s.learnedArts,
+      emptyEquippedArts,
+      [],
     )
     set({
       characterCreated: true,
       playerName: finalName,
       playerPortraitId: portraitId,
       playerAge: 12,
+      silver: finalSilver,
       baseStats: cleanBase,
       equipped: starterEquipped,
+      learnedArts: [],
+      equippedArts: emptyEquippedArts,
+      inventory: [],
       mountKey: derived.mountKey,
       qinggongBonus: derived.qinggongBonus,
       ridingSkill: derived.ridingSkill,
@@ -942,7 +955,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         createLogEntry(
           1,
           '皇祐二年 · 初入汴京',
-          `年方十二的「${finalName}」身着市井茶博士围裙衫、足踏市井粗布鞋，怀揣旧铜钱挂坠与粗麻平安绳，自开封府踏入江湖。`,
+          `年方十二的「${finalName}」身着市井茶博士围裙衫、足踏市井粗布鞋，怀揣旧铜钱挂坠、粗麻平安绳与 ${finalSilver} 两银钱，自开封府踏入江湖。`,
           true,
           4,
         ),
@@ -969,7 +982,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   combatExp: 80,
   renown: 0,
   chivalry: 0,
-  silver: 5120,
+  silver: 500,
   food: 25,
   hp: INITIAL_DERIVED_STATS.maxHp,
   maxHp: INITIAL_DERIVED_STATS.maxHp,
@@ -979,9 +992,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   skills: { ...INITIAL_DERIVED_STATS.skills },
 
   equipped: { ...DEFAULT_EQUIPPED_SLOTS },
-  learnedArts: DEFAULT_LEARNED_ARTS.map((x) => ({ ...x })),
-  equippedArts: { ...DEFAULT_EQUIPPED_ARTS },
-  inventory: DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x })),
+  learnedArts: [],
+  equippedArts: {
+    neigong: null,
+    qinggong: null,
+    move1: null,
+    move2: null,
+    move3: null,
+    move4: null,
+  },
+  inventory: [],
   consumedUniqueIds: [],
   activeBagCategory: 'scrolls',
 
@@ -3654,8 +3674,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   restartAfterGameOver: () => {
     const freshBase = cloneHeroBaseStats(DEFAULT_HERO_BASE_STATS)
     const freshEquip = { ...DEFAULT_EQUIPPED_SLOTS }
-    const freshLearned = DEFAULT_LEARNED_ARTS.map((x) => ({ ...x }))
-    const freshEqArts = { ...DEFAULT_EQUIPPED_ARTS }
+    const freshLearned: LearnedArtEntry[] = []
+    const freshEqArts: EquippedArtsMap = {
+      neigong: null,
+      qinggong: null,
+      move1: null,
+      move2: null,
+      move3: null,
+      move4: null,
+    }
     const derived = deriveHeroEffectiveStats(freshBase, freshEquip, freshEqArts, freshLearned)
 
     set({
@@ -3680,7 +3707,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       combatExp: 80,
       renown: 0,
       chivalry: 0,
-      silver: 5120,
+      silver: 500,
       food: 25,
       hp: derived.maxHp,
       maxHp: derived.maxHp,
@@ -3691,7 +3718,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       equipped: freshEquip,
       learnedArts: freshLearned,
       equippedArts: freshEqArts,
-      inventory: DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x })),
+      inventory: [],
       consumedUniqueIds: [],
       npcFavor: {},
       sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),

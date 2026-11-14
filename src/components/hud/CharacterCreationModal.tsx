@@ -88,6 +88,7 @@ export function CharacterCreationModal() {
 
   const [name, setName] = useState<string>(() => generateRandomHeroName())
   const [portraitId, setPortraitId] = useState<string>(PROTAGONIST_PORTRAITS[3].id)
+  const [silver, setSilver] = useState<number>(500)
   const [stats, setStats] = useState<HeroBaseStats>(() =>
     cloneHeroBaseStats(DEFAULT_HERO_BASE_STATS),
   )
@@ -110,10 +111,12 @@ export function CharacterCreationModal() {
 
   const applyPreset = (mode: 'default' | 'balanced' | 'genius') => {
     if (mode === 'default') {
+      setSilver(500)
       setStats(cloneHeroBaseStats(DEFAULT_HERO_BASE_STATS))
       return
     }
     if (mode === 'balanced') {
+      setSilver(2000)
       setStats({
         talents: { 根骨: 65, 悟性: 65, 颜值: 65 },
         maxHp: 360,
@@ -135,6 +138,7 @@ export function CharacterCreationModal() {
       })
       return
     }
+    setSilver(10000)
     setStats({
       talents: { 根骨: 95, 悟性: 95, 颜值: 90 },
       maxHp: 800,
@@ -160,6 +164,7 @@ export function CharacterCreationModal() {
     completeCharacterCreation({
       name: name.trim() || '无名少侠',
       portraitId,
+      silver,
       baseStats: stats,
     })
   }
@@ -390,6 +395,14 @@ export function CharacterCreationModal() {
                   min={0}
                   max={100}
                   onChange={(v) => setStats((p) => ({ ...p, res: v }))}
+                />
+                <StatSliderRow
+                  label="初始银两"
+                  value={silver}
+                  min={0}
+                  max={20000}
+                  step={50}
+                  onChange={setSilver}
                 />
               </div>
             </div>
