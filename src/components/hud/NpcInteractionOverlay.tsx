@@ -7,7 +7,7 @@ import {
 import { ITEM_DB_MAP } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { TenArtKey } from '../../types/game'
-import { ManagedAssetImg } from '../common/ManagedAssetImg'
+import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 const TEN_ART_KEYS: TenArtKey[] = [
   '骑术',
@@ -150,17 +150,13 @@ export function NpcInteractionOverlay() {
           <div
             className="relative max-h-[82vh] max-w-[90vw] flex items-end justify-center"
             style={{
-              WebkitMaskImage:
-                'radial-gradient(ellipse 68% 82% at 50% 46%, rgba(0,0,0,1) 48%, rgba(0,0,0,0.65) 72%, rgba(0,0,0,0) 96%)',
-              maskImage:
-                'radial-gradient(ellipse 68% 82% at 50% 46%, rgba(0,0,0,1) 48%, rgba(0,0,0,0.65) 72%, rgba(0,0,0,0) 96%)',
-              filter: 'drop-shadow(0 20px 38px rgba(0, 0, 0, 0.85))',
+              filter: 'drop-shadow(0 18px 34px rgba(0, 0, 0, 0.8))',
             }}
           >
-            <ManagedAssetImg
+            <CutoutPortraitImg
               url={portraitUrl}
               alt={npc.name}
-              className="max-h-[78vh] w-auto object-contain rounded-t-2xl"
+              className="max-h-[78vh] w-auto object-contain"
             />
           </div>
         ) : (
