@@ -1,9 +1,9 @@
 {
-  "totalMasterFiles": 682,
-  "totalBytes": 692443614,
+  "totalMasterFiles": 762,
+  "totalBytes": 785569330,
   "countsByCategory": {
     "regions": 48,
-    "buildings": 81,
+    "buildings": 161,
     "characters": 553
   },
   "files": [
@@ -142,6 +142,550 @@
       "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/165aeb2d-47c6-4ae8-9373-51acdcc9d87b/bl_xiangguosi_iso_1794533054905.jpg",
       "bytes": 1393678,
       "sha256": "5a3a0686617a747208d7741aeb2ebea4427920465ee8232d412b97ab21f2bbdb"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ca_caotang.jpg",
+      "originalFilename": "bld_ca_caotang_1794650422433.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_ca_caotang_1794650422433.jpg",
+      "bytes": 1220019,
+      "sha256": "ce3d0276d3a5a023f9961f42f8c502508f51399cfd16b1c9920cbf32d7f2d856"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ca_dayanta.jpg",
+      "originalFilename": "bld_ca_dayanta_1794650423199.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_ca_dayanta_1794650423199.jpg",
+      "bytes": 1127481,
+      "sha256": "101d8319e8068c25c82992da910a5735ddf7191f08e6494722e1a1ded761adf2"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ca_xishi.jpg",
+      "originalFilename": "bld_ca_xishi_1794650441550.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_ca_xishi_1794650441550.jpg",
+      "bytes": 1211244,
+      "sha256": "f9110affbbefc7e89e05098dbc113a926a9d6b26a75b41ef3ecca7b831c376fa"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_dl_chama.jpg",
+      "originalFilename": "bld_dl_chama_1794650563866.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_dl_chama_1794650563866.jpg",
+      "bytes": 1137134,
+      "sha256": "2c2167af34048f74ae8ae5008fb980d171a3149089c0f16f99cd8a4097baad7d"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_dl_palace.jpg",
+      "originalFilename": "bld_dl_palace_1794650615623.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_dl_palace_1794650615623.jpg",
+      "bytes": 1173558,
+      "sha256": "59e3d39878a72c72f996fa104cb02ccf5e7e273547f3f84d316ec600132de3c9"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_dl_tianlong.jpg",
+      "originalFilename": "bld_dl_tianlong_1794650614529.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_dl_tianlong_1794650614529.jpg",
+      "bytes": 1132791,
+      "sha256": "0d1f582be3f7e30b5a2524fc8fb7cd5a5848c5e18222aa564dfc9a8d7d51887d"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_dm_baji.jpg",
+      "originalFilename": "bld_dm_baji_1794650424221.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_dm_baji_1794650424221.jpg",
+      "bytes": 1181610,
+      "sha256": "7ae8c11806c1123378bbb08a5a01f47e960fafb032795eda498fc01ce74df428"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_gz_nanhai.jpg",
+      "originalFilename": "bld_gz_nanhai_1794650809138.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_gz_nanhai_1794650809138.jpg",
+      "bytes": 1136093,
+      "sha256": "71c9a42de8efb52e7e880cd7d3aa6cf90fc13e75b02bc40bf268c84b20e81e2c"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_jm_pine.jpg",
+      "originalFilename": "bld_jm_pine_1794650730241.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_jm_pine_1794650730241.jpg",
+      "bytes": 1158057,
+      "sha256": "6c74bca05e70b96d028a3be278ed40d97584cb7a1057ce2c1fc4d107e3cf0204"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_jn_baotu.jpg",
+      "originalFilename": "bld_jn_baotu_1794650445617.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_jn_baotu_1794650445617.jpg",
+      "bytes": 1165102,
+      "sha256": "23f884952d23e555a32a177d38d121b4a891faef5802ca3247d10892d6144eb2"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_jn_daimiao.jpg",
+      "originalFilename": "bld_jn_daimiao_1794650476008.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_jn_daimiao_1794650476008.jpg",
+      "bytes": 1178760,
+      "sha256": "3b1e9bba8c7b02c0e88577e65b52cd4042772fa8e2d4c6965aa42cf4ffaaa954"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_jn_daminghu.jpg",
+      "originalFilename": "bld_jn_daminghu_1794650452690.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_jn_daminghu_1794650452690.jpg",
+      "bytes": 1153755,
+      "sha256": "988758ac8c958fc446d2b5bcf4a1dd9ca8161a61aeb4b54c0797ac922b9b5b78"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_lx_debate.jpg",
+      "originalFilename": "bld_lx_debate_1794650620979.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_lx_debate_1794650620979.jpg",
+      "bytes": 1265471,
+      "sha256": "c86cc7727e20fce312dab533c722acb43bf5c7bc60eb159118dcfea05e4d8f1d"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_lx_jokhang.jpg",
+      "originalFilename": "bld_lx_jokhang_1794650612043.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_lx_jokhang_1794650612043.jpg",
+      "bytes": 1143203,
+      "sha256": "944dd089cf7a463aa619f64e84ca3e3a9f0d09f3366ea67a4ae1e077a7f5e224"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_lx_potala.jpg",
+      "originalFilename": "bld_lx_potala_1794650593203.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_lx_potala_1794650593203.jpg",
+      "bytes": 1082402,
+      "sha256": "f0934b2a6b87377b9b4a4106818eec9b3ced0ef56c1a0029f0a40642b8170e8d"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ly_zhenwu.jpg",
+      "originalFilename": "bld_ly_zhenwu_1794650419238.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_ly_zhenwu_1794650419238.jpg",
+      "bytes": 1216372,
+      "sha256": "8dc860de9bab0cef7ff7e4bb252a98278a8fff17dd1546f4da447835687d08ef"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_nsl_main.jpg",
+      "originalFilename": "bld_nsl_main_1794650806159.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_nsl_main_1794650806159.jpg",
+      "bytes": 1185163,
+      "sha256": "e716f756702c487b4982c6652c576bf2176767ed1dc7f38681567a799fd3171b"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_nsl_tripod.jpg",
+      "originalFilename": "bld_nsl_tripod_1794650807679.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_nsl_tripod_1794650807679.jpg",
+      "bytes": 1177105,
+      "sha256": "5ee8f3d9462b594eef55b79d2cfb9974376a92ae2dfe6207bca1983d35de350e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_nsl_wooden.jpg",
+      "originalFilename": "bld_nsl_wooden_1794650808922.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_nsl_wooden_1794650808922.jpg",
+      "bytes": 1173569,
+      "sha256": "3f36ccbb4ea6e7e88bfd1430f6cdb840778729219d4a3cd27e09782985752aed"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_qz_kaiyuan.jpg",
+      "originalFilename": "bld_qz_kaiyuan_1794650562621.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_qz_kaiyuan_1794650562621.jpg",
+      "bytes": 1149628,
+      "sha256": "ae7653b01154dbf4db53a528544436e732aecb57d74e6fada29a00916bb0f39e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_qz_port.jpg",
+      "originalFilename": "bld_qz_port_1794650565508.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_qz_port_1794650565508.jpg",
+      "bytes": 1152493,
+      "sha256": "8a4acdd18439e924ecbe7720e8745b3fbac4c5e4da30d3e6a0c5835a6e68c59b"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_qz_tea.jpg",
+      "originalFilename": "bld_qz_tea_1794650563346.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_qz_tea_1794650563346.jpg",
+      "bytes": 1231201,
+      "sha256": "04c70b5eaaf4a86a038993aeba4bfa4171fc0943ed463c871b6b856cb8c51bd3"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_qz_zhenyuan.jpg",
+      "originalFilename": "bld_qz_zhenyuan_1794650567231.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_qz_zhenyuan_1794650567231.jpg",
+      "bytes": 1197240,
+      "sha256": "3ef1a1fa838c41ee39be607b32e3e193a692ee65488729af66557515055ad32e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_sl_damo.jpg",
+      "originalFilename": "bld_sl_damo_1794650557474.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_sl_damo_1794650557474.jpg",
+      "bytes": 1091936,
+      "sha256": "0d8a552d03933de5aaf3e84148969b62f6830edfc150ac3f4af402a525166995"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_sl_daxiong.jpg",
+      "originalFilename": "bld_sl_daxiong_1794650573250.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_sl_daxiong_1794650573250.jpg",
+      "bytes": 1170545,
+      "sha256": "83a901892a8dc4b454b550dcdee491f7fa64e2262d7e8a41b359cf532cefb633"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_sl_luohan.jpg",
+      "originalFilename": "bld_sl_luohan_1794650563235.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_sl_luohan_1794650563235.jpg",
+      "bytes": 1227079,
+      "sha256": "5e6001f22216b4b77a86a6a2b2cb945f2363948e4c7f91159b30e1f5937ca90c"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_th_bridge.jpg",
+      "originalFilename": "bld_th_bridge_1794650655491.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_th_bridge_1794650655491.jpg",
+      "bytes": 1021437,
+      "sha256": "de47ed4748a89575733494b46dc0b434c565f519b7122165386520807ceb744a"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_th_hall.jpg",
+      "originalFilename": "bld_th_hall_1794650652962.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_th_hall_1794650652962.jpg",
+      "bytes": 1161807,
+      "sha256": "95d17297ad8a6cd1dc2e2374b5fa86f6cf5845313ac8a07014af3aa417720f82"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ty_yang.jpg",
+      "originalFilename": "bld_ty_yang_1794650421087.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_ty_yang_1794650421087.jpg",
+      "bytes": 1100937,
+      "sha256": "740a2a6b605c93f481d6e99a3bf7e3658d2147798be1f9a8ccd7ef10171aa11a"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_tz_hall.jpg",
+      "originalFilename": "bld_tz_hall_1794650786650.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_tz_hall_1794650786650.jpg",
+      "bytes": 1124182,
+      "sha256": "6d4f8730f1672e29b6bf56c6c37b825dff31c768ca1971e4ad11d4316b828cd7"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_tz_tomb.jpg",
+      "originalFilename": "bld_tz_tomb_1794650757079.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_tz_tomb_1794650757079.jpg",
+      "bytes": 1135985,
+      "sha256": "ee12b0c81bef32dc1b0ae87ec9d076778b73d596bd153949b5384f83f4eea3e7"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_tz_water.jpg",
+      "originalFilename": "bld_tz_water_1794650754063.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_tz_water_1794650754063.jpg",
+      "bytes": 1036722,
+      "sha256": "b95e44ceb1836081e6cc2d9538cc46980f5c665a778ba1de1514fb424370a258"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_wd_golden.jpg",
+      "originalFilename": "bld_wd_golden_1794650731781.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_wd_golden_1794650731781.jpg",
+      "bytes": 1060036,
+      "sha256": "3cc04cb2b0bce328b59452302cb6a93a598587083c9af722baf5a543bfe32367"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_wd_nanyan.jpg",
+      "originalFilename": "bld_wd_nanyan_1794650752917.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_wd_nanyan_1794650752917.jpg",
+      "bytes": 1094879,
+      "sha256": "0dfd00548915b216fa50cd72b026ee85b39a4781b2db1d0f94b1633661de5a0f"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_wd_zixiao.jpg",
+      "originalFilename": "bld_wd_zixiao_1794650735002.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_wd_zixiao_1794650735002.jpg",
+      "bytes": 1278504,
+      "sha256": "7bce16e7c09c0ee9cff6ed1d4e98ee5d8ca99df9234d765919d06ea2a46e0c65"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_wl_palace.jpg",
+      "originalFilename": "bld_wl_palace_1794650730123.jpg",
+      "sourceBrainRelativePath": "6aad88153be2d960d835f6e37a3ae198/bld_wl_palace_1794650730123.jpg",
+      "bytes": 1119085,
+      "sha256": "3d63c6302e758f0f6ba40ae6ffe69ae5745282e2a079d7c18102798bd3e73f75"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_wt_main.jpg",
+      "originalFilename": "bld_wt_main_1794650595947.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_wt_main_1794650595947.jpg",
+      "bytes": 1187966,
+      "sha256": "690e0236f454cab4f21506c475b4fa7bcc90d9056d218d2d8c0330acf5ad4f3e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_wt_orphan.jpg",
+      "originalFilename": "bld_wt_orphan_1794650633516.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_wt_orphan_1794650633516.jpg",
+      "bytes": 1217911,
+      "sha256": "2539c927e1bbcdc35b4a11909a6e8bb7506c3fdcad3bff2034a448c5992c633e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_wt_staff.jpg",
+      "originalFilename": "bld_wt_staff_1794650632628.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_wt_staff_1794650632628.jpg",
+      "bytes": 1123116,
+      "sha256": "1967eeebf53e1597d083f6716925b671f1a9914ed07bfb0e33f85d86080632c7"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_xq_icecellar.jpg",
+      "originalFilename": "bld_xq_icecellar_1794650590926.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_xq_icecellar_1794650590926.jpg",
+      "bytes": 1087715,
+      "sha256": "cee2e503f72a34a7b5c068bf9cec13788063cee103fab9416734158f3d6cf79b"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_xq_tieyaozi.jpg",
+      "originalFilename": "bld_xq_tieyaozi_1794650593805.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_xq_tieyaozi_1794650593805.jpg",
+      "bytes": 1223958,
+      "sha256": "95bf916a07d74ea3f75e1523f4e67a1ab081244f39df40c70c6adaa9ba60937d"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_xq_tombs.jpg",
+      "originalFilename": "bld_xq_tombs_1794650569351.jpg",
+      "sourceBrainRelativePath": "ec652a2eccc47a1ebd7f5b203e9fc617/bld_xq_tombs_1794650569351.jpg",
+      "bytes": 1127569,
+      "sha256": "0d61e6b9173b837ce0f235fb0030eedc746279b82465b83f67f02dbfc1d58a9c"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ya_blackmkt.jpg",
+      "originalFilename": "bld_ya_blackmkt_1794650447097.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_ya_blackmkt_1794650447097.jpg",
+      "bytes": 1124041,
+      "sha256": "ed507a082809163a572cd0eab9a9a36cd3788b73d1be63a2e34020845a2ec891"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ya_camp.jpg",
+      "originalFilename": "bld_ya_camp_1794650449672.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_ya_camp_1794650449672.jpg",
+      "bytes": 1146675,
+      "sha256": "508d11666535c038121bf12abd9f62b603b88c5d17c6a5a1f0017e64841ece2a"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ya_pagoda.jpg",
+      "originalFilename": "bld_ya_pagoda_1794650444192.jpg",
+      "sourceBrainRelativePath": "7f475e72da5fbb3d18445b2cb6825614/bld_ya_pagoda_1794650444192.jpg",
+      "bytes": 1070737,
+      "sha256": "ef12bca7ad0673ad867e996fe3a30a9e32c005036af9f5632e8c58593d68cf39"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ym_cliff.jpg",
+      "originalFilename": "bld_ym_cliff_1794650594517.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_ym_cliff_1794650594517.jpg",
+      "bytes": 1068906,
+      "sha256": "b7a583f76a719eeaa13a7197403ea2577907980e17ddec7fda09ce7fbae5574f"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ym_limu.jpg",
+      "originalFilename": "bld_ym_limu_1794650614741.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_ym_limu_1794650614741.jpg",
+      "bytes": 1137021,
+      "sha256": "d195c2c686c6df56c79048c6c08d14b68125dca7654c1726018bf4a9ac66c8eb"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bld_ym_tower.jpg",
+      "originalFilename": "bld_ym_tower_1794650614182.jpg",
+      "sourceBrainRelativePath": "7637df52db80859b2b100e14387c62be/bld_ym_tower_1794650614182.jpg",
+      "bytes": 1162245,
+      "sha256": "aece0d09ceef04cae069367eae3818a99866971d6a548c6d1116b5cb970c489c"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_gz_fanfang.jpg",
+      "originalFilename": "bldg_gz_fanfang_1794650874058.jpg",
+      "sourceBrainRelativePath": "e6bb74a862892ebfb028cacf375c9368/bldg_gz_fanfang_1794650874058.jpg",
+      "bytes": 1292045,
+      "sha256": "09c20c362e13200404ef4772ab4d546ea584c3b4fa79fe9e4cd92db5d4cbffeb"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_gz_hongmen.jpg",
+      "originalFilename": "bldg_gz_hongmen_1794650872733.jpg",
+      "sourceBrainRelativePath": "e6bb74a862892ebfb028cacf375c9368/bldg_gz_hongmen_1794650872733.jpg",
+      "bytes": 1259259,
+      "sha256": "ac875dc5387a16b54057129b1225c33c80deef816f38a3a8a058b5126608720f"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_gz_yaozhou.jpg",
+      "originalFilename": "bldg_gz_yaozhou_1794650873379.jpg",
+      "sourceBrainRelativePath": "e6bb74a862892ebfb028cacf375c9368/bldg_gz_yaozhou_1794650873379.jpg",
+      "bytes": 1272133,
+      "sha256": "02a37749b2184199a442e138a7ea3b7f6d203801760391edae55d5abed488810"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_jm_gate.jpg",
+      "originalFilename": "bldg_jm_gate_1794650723295.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_jm_gate_1794650723295.jpg",
+      "bytes": 1179899,
+      "sha256": "386a841a03a4c21b0596eeef8c146473aff150d42ca597e4422c326a7f0da003"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_jm_plank.jpg",
+      "originalFilename": "bldg_jm_plank_1794650719551.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_jm_plank_1794650719551.jpg",
+      "bytes": 1096783,
+      "sha256": "7a10043c0183f75f9384cf693fb59b40d19b36c28da04649d2b3f094a939fe1d"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_jm_plank_v2.jpg",
+      "originalFilename": "bldg_jm_plank_v2_1794650743280.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_jm_plank_v2_1794650743280.jpg",
+      "bytes": 1134362,
+      "sha256": "54b26559901846a3b2d35c90504771255dd2c53bab5b02a02efe547664d1731a"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_th_vault.jpg",
+      "originalFilename": "bldg_th_vault_1794650696133.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_th_vault_1794650696133.jpg",
+      "bytes": 1078870,
+      "sha256": "f72d3851ad414fa6ea05ddc1d4739d4adb39406135e45dff97720438563f1f33"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_thd_maze.jpg",
+      "originalFilename": "bldg_thd_maze_1794650718619.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_thd_maze_1794650718619.jpg",
+      "bytes": 1155109,
+      "sha256": "ca625474333d636814fd91d2fc8a129e7ab8266e74f4da06d347991fb5f6adda"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_thd_qinlu.jpg",
+      "originalFilename": "bldg_thd_qinlu_1794650719059.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_thd_qinlu_1794650719059.jpg",
+      "bytes": 1206281,
+      "sha256": "31d03e967693f32e956bfe63a28e441a9ff7e485ae7ad26a156ff6c2fc825839"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_thd_tanzhi.jpg",
+      "originalFilename": "bldg_thd_tanzhi_1794650718809.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_thd_tanzhi_1794650718809.jpg",
+      "bytes": 1108468,
+      "sha256": "bf9f18b6888a27402b5fb2db9fc8cac2dadf15020eadda576fbb848798358513"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_ts_18pan.jpg",
+      "originalFilename": "bldg_ts_18pan_1794650693856.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_ts_18pan_1794650693856.jpg",
+      "bytes": 959235,
+      "sha256": "e34cc554c7024175527c11e1004db063e939bf8649fec0ebcb1dfe4923127408"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_ts_daoyuan.jpg",
+      "originalFilename": "bldg_ts_daoyuan_1794650697566.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_ts_daoyuan_1794650697566.jpg",
+      "bytes": 1179248,
+      "sha256": "c31488d6852ad1be417ab70fc9f5f9c9a5ea7be42b11ec2c5efcf925c4d725c4"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_ts_pine.jpg",
+      "originalFilename": "bldg_ts_pine_1794650697879.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_ts_pine_1794650697879.jpg",
+      "bytes": 1075216,
+      "sha256": "6274259ff724dace381c73d437649fbc39a34466c9aaffdb1750a52e7462f825"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_yzw_canhe.jpg",
+      "originalFilename": "bldg_yzw_canhe_1794650698183.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_yzw_canhe_1794650698183.jpg",
+      "bytes": 1222528,
+      "sha256": "e324ef5f949f819775fcb173cb4d334f8131a27b0c4006c9f593ef6821adf154"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_yzw_huanshi.jpg",
+      "originalFilename": "bldg_yzw_huanshi_1794650698790.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_yzw_huanshi_1794650698790.jpg",
+      "bytes": 1074147,
+      "sha256": "da64296851b47be591c9c4fa3ad4b276482379dbd648eca0a6b94cd0f754e0f2"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/bldg_yzw_tingxiang.jpg",
+      "originalFilename": "bldg_yzw_tingxiang_1794650717762.jpg",
+      "sourceBrainRelativePath": "67ca9b7d36b68c6af43fc8f36413506e/bldg_yzw_tingxiang_1794650717762.jpg",
+      "bytes": 1172980,
+      "sha256": "ff22312723a9243e06d74be84e7d630ab7a53fb98171a1fc831f8b689e1871b8"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/cd_baicao_hall.jpg",
+      "originalFilename": "cd_baicao_hall_1794650471826.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/cd_baicao_hall_1794650471826.jpg",
+      "bytes": 1281027,
+      "sha256": "3af3ea280dfe84904eba9d7516eafb77ba3cd7e3cf2ed78fa1a2ebb767a62859"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/cd_dacisi_temple.jpg",
+      "originalFilename": "cd_dacisi_temple_1794650448591.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/cd_dacisi_temple_1794650448591.jpg",
+      "bytes": 1338296,
+      "sha256": "b0bb2565964e169aab00e00620ce16f76c4b6ea8d5e3f2194f3e58ba08ba01df"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/cd_qingyang_palace.jpg",
+      "originalFilename": "cd_qingyang_palace_1794650448629.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/cd_qingyang_palace_1794650448629.jpg",
+      "bytes": 1205925,
+      "sha256": "4d2f4a4b9f417164af2704ae6fcead685ffe5f2986fc8ee60f6042baff88e60e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/cd_teahouse_bridge.jpg",
+      "originalFilename": "cd_teahouse_bridge_1794650448809.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/cd_teahouse_bridge_1794650448809.jpg",
+      "bytes": 1282591,
+      "sha256": "4f51e3b57ce86d9b5d8d810d897c2537b31f587e615f2338dc504c7b836eab86"
     },
     {
       "category": "buildings",
@@ -408,6 +952,46 @@
       "sha256": "1a26f138bc12736671a0fe7e2692a30f6b15ed6a344c5496993bc81f8de2f759"
     },
     {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hz_lingyin_peak.jpg",
+      "originalFilename": "hz_lingyin_peak_1794650422486.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/hz_lingyin_peak_1794650422486.jpg",
+      "bytes": 1158237,
+      "sha256": "01cd060776dc98f41afb3f2b3da98b4f4b8d751a4dbcac0223a77765d6013b6e"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hz_nuchao_hall.jpg",
+      "originalFilename": "hz_nuchao_hall_1794650449832.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/hz_nuchao_hall_1794650449832.jpg",
+      "bytes": 1234347,
+      "sha256": "e9184b5bf56273ff75432dc61d58cfd1bebbcee96d564132ee1e1e5fa8575ef6"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hz_port_harbor.jpg",
+      "originalFilename": "hz_port_harbor_1794650426307.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/hz_port_harbor_1794650426307.jpg",
+      "bytes": 1193638,
+      "sha256": "1511d9af811be13932f0e1601472f8fa11b71847e4e8e8a61a27c080ca2c6afc"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hz_tide_terrace.jpg",
+      "originalFilename": "hz_tide_terrace_1794650425578.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/hz_tide_terrace_1794650425578.jpg",
+      "bytes": 1184057,
+      "sha256": "de9bb42646bcb1fe814ed1ae184f498eeaaf5a43ee4da439c3b61af1b4c3c443"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hzf_poyang.jpg",
+      "originalFilename": "hzf_poyang_1794650874823.jpg",
+      "sourceBrainRelativePath": "cc88130c99566dda37348553b4784020/hzf_poyang_1794650874823.jpg",
+      "bytes": 1111411,
+      "sha256": "49466132c2660fded3b4f1ef922889dc81c29813355f3625fa88ad83ae32ba7d"
+    },
+    {
       "category": "characters",
       "archivePath": "assets_raw_masters/characters/jiumozhi_avatar.jpg",
       "originalFilename": "jiumozhi_avatar_1794504896426.jpg",
@@ -446,6 +1030,14 @@
       "sourceBrainRelativePath": "7cfa57fad9ed0459c01eb215a07d2dc5/jn2_shitou_pano_1794533818411.jpg",
       "bytes": 1239652,
       "sha256": "8e31f0cdfe0d17adc7452c22a6997bd67c39f7de697cefe454f5b647860229c3"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/jn_chaquan_hall.jpg",
+      "originalFilename": "jn_chaquan_hall_1794650420438.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/jn_chaquan_hall_1794650420438.jpg",
+      "bytes": 1170817,
+      "sha256": "0c63f299e437622e6de89cd9c8e1c80c1a7260f0dee52539fe55ff422353a492"
     },
     {
       "category": "regions",
@@ -4384,6 +4976,30 @@
       "sha256": "adf59894d8913c2f280c7cddead7381b7ff1b54efb487c02982f56c644ccbbf8"
     },
     {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/qzf_chama.jpg",
+      "originalFilename": "qzf_chama_1794650874132.jpg",
+      "sourceBrainRelativePath": "cc88130c99566dda37348553b4784020/qzf_chama_1794650874132.jpg",
+      "bytes": 1120935,
+      "sha256": "e3d0bf8e00290242b9972a2f74c00b239050929ac8742fbb1620549bb53301a6"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/qzf_longyou.jpg",
+      "originalFilename": "qzf_longyou_1794650895816.jpg",
+      "sourceBrainRelativePath": "cc88130c99566dda37348553b4784020/qzf_longyou_1794650895816.jpg",
+      "bytes": 1209201,
+      "sha256": "7a247fb5e80313a7f14d95401fe559d86bd792573e35f3dedfdc3610040c8641"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/qzf_maijishan.jpg",
+      "originalFilename": "qzf_maijishan_1794650894150.jpg",
+      "sourceBrainRelativePath": "cc88130c99566dda37348553b4784020/qzf_maijishan_1794650894150.jpg",
+      "bytes": 1292883,
+      "sha256": "fcae2d05f8e0edfcb966fba9c5e74d22e38ba5fb2b6729a89731e8be3bd8ce0a"
+    },
+    {
       "category": "regions",
       "archivePath": "assets_raw_masters/regions/reg_changan_clean_iso.jpg",
       "originalFilename": "reg_changan_clean_iso_1794533168004.jpg",
@@ -5350,6 +5966,30 @@
       "sourceBrainRelativePath": "e86800e1e9e4915bdcf4ca80b0366f92/xq_yipin_raw_1794533846040.jpg",
       "bytes": 1087893,
       "sha256": "70c2e3944de5b239e17f7720787ae4f41f31d3f9a25d5da3c2312852ef31ba77"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/xy_dock_wharf.jpg",
+      "originalFilename": "xy_dock_wharf_1794650472327.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/xy_dock_wharf_1794650472327.jpg",
+      "bytes": 1263144,
+      "sha256": "a3c513c986729cabbf295dcb55d06bc883f483e2b6a9bf6459037262149cdcd5"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/xy_longzhong_cottage.jpg",
+      "originalFilename": "xy_longzhong_cottage_1794650473738.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/xy_longzhong_cottage_1794650473738.jpg",
+      "bytes": 1193885,
+      "sha256": "b8157f1192b2faaa1213d6af01834a14170831e9b39879347856f79f202a0b82"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/xy_wall_fortress.jpg",
+      "originalFilename": "xy_wall_fortress_1794650472407.jpg",
+      "sourceBrainRelativePath": "a9d8d0d7f2b1e6d05c196ec3e8456c4e/xy_wall_fortress_1794650472407.jpg",
+      "bytes": 1168314,
+      "sha256": "0044f15b67dfe0ac45d60f85be23823b263b415148b95b74e74bd870851e12ab"
     },
     {
       "category": "buildings",
