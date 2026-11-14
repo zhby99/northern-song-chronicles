@@ -139,13 +139,6 @@
     filter 0.18s ease;
 }
 
-.iso-hotspot-group:hover .iso-poly-hotspot {
-  fill-opacity: 0.24 !important;
-  stroke-opacity: 0.96 !important;
-  stroke-width: 3px !important;
-  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.85));
-}
-
 .iso-plaque {
   transition: filter 0.18s ease;
 }
