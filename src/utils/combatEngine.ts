@@ -67,11 +67,57 @@ export interface CombatLogEntry {
   text: string
 }
 
+export type CombatVfxCategory =
+  | 'sword'
+  | 'blade'
+  | 'palm'
+  | 'finger'
+  | 'polearm'
+  | 'hidden'
+  | 'sonic'
+  | 'poison'
+  | 'guard'
+  | 'heal'
+  | 'escape'
+
+export interface CombatFloatingPopup {
+  id: string
+  side: 'player' | 'npc'
+  text: string
+  subText?: string
+  style: 'damage' | 'crit' | 'dodge' | 'heal' | 'mp' | 'special' | 'guard' | 'debuff'
+}
+
+export interface CombatRoundBeat {
+  id: string
+  kind: 'reveal' | 'attack' | 'dodge' | 'item' | 'escape' | 'status' | 'end'
+  actorSide?: 'player' | 'npc'
+  targetSide?: 'player' | 'npc'
+  bannerTitle?: string
+  bannerSubtitle?: string
+  vfxCategory?: CombatVfxCategory
+  isHeavenTier?: boolean
+  isCrit?: boolean
+  isGuarded?: boolean
+  shakeLevel?: 0 | 1 | 2 | 3
+  popups: CombatFloatingPopup[]
+  logs: CombatLogEntry[]
+  playerHp: number
+  playerMp: number
+  npcHp: number
+  npcMp: number
+}
+
 export interface CombatRoundSummary {
   round: number
   playerChoiceLabel: string
   npcChoiceLabel: string
   firstMover: 'player' | 'npc'
+  initialPlayerHp: number
+  initialPlayerMp: number
+  initialNpcHp: number
+  initialNpcMp: number
+  beats: CombatRoundBeat[]
   events: CombatLogEntry[]
 }
 
@@ -659,8 +705,64 @@ export function resolveCombatRound(
   const round = session.round
   const player = cloneCombatant(session.player)
   const npc = cloneCombatant(session.npc)
+  const initialPlayerHp = player.hp
+  const initialPlayerMp = player.mp
+  const initialNpcHp = npc.hp
+  const initialNpcMp = npc.mp
+
   const npcChoice = chooseNpcCombatAction(npc, player)
   const roundEvents: CombatLogEntry[] = []
+  const beats: CombatRoundBeat[] = []
+  let logCursor = 0
+  let popupSeq = 0
+
+  const nextPopupId = () => {
+    popupSeq += 1
+    return `pop-${round}-${popupSeq}`
+  }
+
+  const flushBeat = (
+    meta: Omit<
+      CombatRoundBeat,
+      'id' | 'logs' | 'playerHp' | 'playerMp' | 'npcHp' | 'npcMp'
+    >,
+  ) => {
+    const sliced = roundEvents.slice(logCursor)
+    logCursor = roundEvents.length
+    beats.push({
+      ...meta,
+      id: `beat-${round}-${beats.length + 1}`,
+      logs: sliced,
+      playerHp: player.hp,
+      playerMp: player.mp,
+      npcHp: npc.hp,
+      npcMp: npc.mp,
+    })
+  }
+
+  const mapArtCategoryToVfx = (cat: string): CombatVfxCategory => {
+    switch (cat) {
+      case '剑法':
+        return 'sword'
+      case '刀法':
+        return 'blade'
+      case '拳掌':
+        return 'palm'
+      case '指法':
+        return 'finger'
+      case '枪法':
+      case '棍棒':
+        return 'polearm'
+      case '暗器':
+        return 'hidden'
+      case '音功':
+        return 'sonic'
+      case '毒功':
+        return 'poison'
+      default:
+        return 'palm'
+    }
+  }
 
   // 回合初：紫霞神功叠层 & 清除上回合一次性受控标记（已在本回合选招时生效）
   for (const f of [player, npc]) {
@@ -729,19 +831,45 @@ export function resolveCombatRound(
     ),
   )
 
+  const revealPopups: CombatFloatingPopup[] = []
+
   // 若选择【防御】，重置连招限制，且本回合不耗内力、不回血回内
   if (playerChoice.type === 'defend') {
     player.lastUsedArtId = null
     roundEvents.push(
       makeLog(round, 'player', `少侠沉腰坐马敛气守御，门户严密（本回合不耗内力，所受伤害减半）。`),
     )
+    revealPopups.push({
+      id: nextPopupId(),
+      side: 'player',
+      text: '沉腰守御',
+      subText: '受创减半',
+      style: 'guard',
+    })
   }
   if (npcChoice.type === 'defend') {
     npc.lastUsedArtId = null
     roundEvents.push(
       makeLog(round, 'enemy', `${npc.name}凝神敛息摆出守御架势，滴水不漏（所受伤害减半）。`),
     )
+    revealPopups.push({
+      id: nextPopupId(),
+      side: 'npc',
+      text: '凝神守御',
+      subText: '受创减半',
+      style: 'guard',
+    })
   }
+
+  flushBeat({
+    kind: 'reveal',
+    actorSide: firstMover,
+    bannerTitle: `第 ${round} 合 · 亮招交锋`,
+    bannerSubtitle: `${firstMover === 'player' ? '少侠' : npc.name}抢得先手 ${initReason}`,
+    vfxCategory:
+      playerChoice.type === 'defend' || npcChoice.type === 'defend' ? 'guard' : undefined,
+    popups: revealPopups,
+  })
 
   const interruptedIds = new Set<string>()
   let escapedSuccess = false
@@ -764,6 +892,8 @@ export function resolveCombatRound(
 
   for (const step of actionQueue) {
     const { actor, target, choice, targetChoice } = step
+    const actorSide: 'player' | 'npc' = actor.isPlayer ? 'player' : 'npc'
+    const targetSide: 'player' | 'npc' = target.isPlayer ? 'player' : 'npc'
     if (actor.hp <= 0 || target.hp <= 0 || escapedSuccess) break
     if (interruptedIds.has(actor.id)) continue
 
@@ -775,6 +905,22 @@ export function resolveCombatRound(
         roundEvents.push(
           makeLog(round, 'special', `${actor.name}欲抽身退走，奈何${escCheck.reason}！`),
         )
+        flushBeat({
+          kind: 'escape',
+          actorSide,
+          targetSide,
+          bannerTitle: '抽身受阻',
+          bannerSubtitle: escCheck.reason ?? '身法受制',
+          vfxCategory: 'escape',
+          popups: [
+            {
+              id: nextPopupId(),
+              side: actorSide,
+              text: '脱身受阻！',
+              style: 'debuff',
+            },
+          ],
+        })
         continue
       }
       const chance = computeEscapeChancePreview(actor, target)
@@ -788,6 +934,22 @@ export function resolveCombatRound(
             `${actor.name}虚晃一招纵身掠出战圈（身法比拼脱身率 ${Math.round(finalEscapeChance * 100)}% 成功），双方罢手收招！`,
           ),
         )
+        flushBeat({
+          kind: 'escape',
+          actorSide,
+          targetSide,
+          bannerTitle: '虚晃一招 · 飘然脱身',
+          bannerSubtitle: `轻功掠出战圈（成功率 ${Math.round(finalEscapeChance * 100)}%）`,
+          vfxCategory: 'escape',
+          popups: [
+            {
+              id: nextPopupId(),
+              side: actorSide,
+              text: '飘然脱战！',
+              style: 'dodge',
+            },
+          ],
+        })
         break
       } else {
         roundEvents.push(
@@ -797,6 +959,22 @@ export function resolveCombatRound(
             `${actor.name}纵身欲退，却被${target.name}欺身封住去路（脱身率 ${Math.round(finalEscapeChance * 100)}% 未果）！`,
           ),
         )
+        flushBeat({
+          kind: 'escape',
+          actorSide,
+          targetSide,
+          bannerTitle: '抽身未果',
+          bannerSubtitle: `${target.name}欺身封死退路`,
+          vfxCategory: 'escape',
+          popups: [
+            {
+              id: nextPopupId(),
+              side: actorSide,
+              text: '脱战未果！',
+              style: 'debuff',
+            },
+          ],
+        })
         continue
       }
     }
@@ -871,9 +1049,33 @@ export function resolveCombatRound(
         if (mpLost > 0) extraNotes.push(`蚀散 ${mpLost} 内力`)
         extraNotes.push(`迟缓 -${target.slowPct}% / 滞气 -${target.weakPct}%`)
 
+        const poisonPopups: CombatFloatingPopup[] = [
+          {
+            id: nextPopupId(),
+            side: targetSide,
+            text: `-${pDmg}`,
+            subText: `奇毒·${itemDef.name}`,
+            style: 'debuff',
+          },
+        ]
+        if (mpLost > 0) {
+          poisonPopups.push({
+            id: nextPopupId(),
+            side: targetSide,
+            text: `-${mpLost} 内力`,
+            style: 'mp',
+          })
+        }
+
         if (target.hp > 0 && stunProb > 0 && Math.random() < stunProb) {
           target.stunnedNextRound = true
           extraNotes.push('麻痹封脉（下回合禁出招）')
+          poisonPopups.push({
+            id: nextPopupId(),
+            side: targetSide,
+            text: '麻痹封脉！',
+            style: 'special',
+          })
         }
 
         roundEvents.push(
@@ -885,12 +1087,24 @@ export function resolveCombatRound(
             )}）！`,
           ),
         )
+        flushBeat({
+          kind: 'attack',
+          actorSide,
+          targetSide,
+          bannerTitle: `奇毒 · ${itemDef.name}`,
+          bannerSubtitle: extraNotes.join(' · '),
+          vfxCategory: 'poison',
+          isHeavenTier: itemDef.rarity === '天阶',
+          shakeLevel: itemDef.rarity === '天阶' ? 2 : 1,
+          popups: poisonPopups,
+        })
         continue
       }
 
       const eff = itemDef.useEffect
       if (eff) {
         const notes: string[] = []
+        const itemPopups: CombatFloatingPopup[] = []
         if (eff.maxHp) {
           actor.maxHp += eff.maxHp
           notes.push(`气血上限 +${eff.maxHp}`)
@@ -910,19 +1124,53 @@ export function resolveCombatRound(
         if (eff.hp) {
           const before = actor.hp
           actor.hp = Math.min(actor.maxHp, actor.hp + eff.hp)
-          notes.push(`气血 +${actor.hp - before}`)
+          const gainedHp = actor.hp - before
+          notes.push(`气血 +${gainedHp}`)
+          if (gainedHp > 0) {
+            itemPopups.push({
+              id: nextPopupId(),
+              side: actorSide,
+              text: `+${gainedHp}`,
+              subText: '气血回春',
+              style: 'heal',
+            })
+          }
         }
         if (eff.mp) {
           const before = actor.mp
           actor.mp = Math.min(actor.maxMp, actor.mp + eff.mp)
-          notes.push(`内力 +${actor.mp - before}`)
+          const gainedMp = actor.mp - before
+          notes.push(`内力 +${gainedMp}`)
+          if (gainedMp > 0) {
+            itemPopups.push({
+              id: nextPopupId(),
+              side: actorSide,
+              text: `+${gainedMp} 内力`,
+              style: 'mp',
+            })
+          }
         }
         if ((eff.res && eff.res >= 2) || itemDef.rarity === '天阶') {
           if (actor.slowTurns > 0 || actor.weakTurns > 0) {
             actor.slowTurns = 0
             actor.weakTurns = 0
             notes.push('涤除体内滞涩奇毒')
+            itemPopups.push({
+              id: nextPopupId(),
+              side: actorSide,
+              text: '百毒涤清！',
+              style: 'special',
+            })
           }
+        }
+        if (itemPopups.length === 0) {
+          itemPopups.push({
+            id: nextPopupId(),
+            side: actorSide,
+            text: itemDef.name,
+            subText: '药力周流',
+            style: 'heal',
+          })
         }
         roundEvents.push(
           makeLog(
@@ -933,6 +1181,14 @@ export function resolveCombatRound(
             }）！`,
           ),
         )
+        flushBeat({
+          kind: 'item',
+          actorSide,
+          bannerTitle: `服丹 · ${itemDef.name}`,
+          bannerSubtitle: notes.join(' · ') || '药力周流百骸',
+          vfxCategory: 'heal',
+          popups: itemPopups,
+        })
       }
       continue
     }
@@ -953,6 +1209,7 @@ export function resolveCombatRound(
 
     const level = getLearnedLevel(actor.learnedArts, art.id)
     const { damage: moveDmg, kind, subTypeLabel } = getArtRawDamageAndKind(art, level)
+    const moveVfx = mapArtCategoryToVfx(art.category)
     const actorNgFx = getSlotEffectsMap(actor, 'neigong')
     const targetNgFx = getSlotEffectsMap(target, 'neigong')
     const actorQgFx = getSlotEffectsMap(actor, 'qinggong')
@@ -1005,14 +1262,33 @@ export function resolveCombatRound(
           )}%）`,
         ),
       )
+      flushBeat({
+        kind: 'dodge',
+        actorSide,
+        targetSide,
+        bannerTitle: `《${art.cleanName}》`,
+        bannerSubtitle: `${target.name}展开${qgName}掠影闪开！`,
+        vfxCategory: moveVfx,
+        popups: [
+          {
+            id: nextPopupId(),
+            side: targetSide,
+            text: '掠影闪避！',
+            subText: qgName,
+            style: 'dodge',
+          },
+        ],
+      })
       continue
     }
 
     // 独孤九剑看破打断检定
+    let didInterruptMove = false
     if (targetChoice.type === 'move' && moveFx.dugu_interrupt) {
       const targetImmune = Boolean(targetNgFx.bahuang_dom && target.hp > actor.hp)
       if (!targetImmune && Math.random() < moveFx.dugu_interrupt / 100) {
         interruptedIds.add(target.id)
+        didInterruptMove = true
         roundEvents.push(
           makeLog(
             round,
@@ -1179,6 +1455,32 @@ export function resolveCombatRound(
       actor.hp = Math.max(0, actor.hp - reboundDmg)
     }
 
+    const attackPopups: CombatFloatingPopup[] = [
+      {
+        id: nextPopupId(),
+        side: targetSide,
+        text: `-${totalTargetLoss}`,
+        subText: roll.isCrit
+          ? `暴击 · ${roll.tag}`
+          : isTargetDefending
+            ? '守御格挡'
+            : burnExtra > 0
+              ? `含灼脉 ${burnExtra}`
+              : roll.tag,
+        style: roll.isCrit ? 'crit' : isTargetDefending ? 'guard' : 'damage',
+      },
+    ]
+
+    if (didInterruptMove) {
+      attackPopups.push({
+        id: nextPopupId(),
+        side: targetSide,
+        text: '破招瓦解！',
+        subText: '独孤九剑',
+        style: 'special',
+      })
+    }
+
     roundEvents.push(
       makeLog(
         round,
@@ -1193,6 +1495,13 @@ export function resolveCombatRound(
 
     if (reboundDmg > 0) {
       roundEvents.push(makeLog(round, 'special', `${target.name}运起${reboundLabel}！`))
+      attackPopups.push({
+        id: nextPopupId(),
+        side: actorSide,
+        text: `-${reboundDmg}`,
+        subText: targetNgFx.douzhuan_high ? '斗转反击' : '金刚反震',
+        style: 'special',
+      })
     }
 
     // 玉女素心剑法：双剑合璧追击
@@ -1206,6 +1515,13 @@ export function resolveCombatRound(
           `《玉女素心剑法》双剑合璧紧随刺出第二剑，再伤${target.name} ${secondHit} 点气血！`,
         ),
       )
+      attackPopups.push({
+        id: nextPopupId(),
+        side: targetSide,
+        text: `-${secondHit}`,
+        subText: '双剑合璧',
+        style: 'special',
+      })
     }
 
     // 7. 命中附加特效（吸内 / 化功 / 吸血 / 封穴震慑 / 绊缠）
@@ -1227,6 +1543,13 @@ export function resolveCombatRound(
             `${actor.name}《北冥神功》北冥纳海吸取${target.name} ${drained} 点真气纳为己用！`,
           ),
         )
+        attackPopups.push({
+          id: nextPopupId(),
+          side: actorSide,
+          text: `+${drained} 吸内`,
+          subText: '北冥纳海',
+          style: 'mp',
+        })
       }
     }
 
@@ -1238,6 +1561,13 @@ export function resolveCombatRound(
         roundEvents.push(
           makeLog(round, 'special', `${actor.name}《化功大法》奇毒焚散${target.name} ${burned} 点真气！`),
         )
+        attackPopups.push({
+          id: nextPopupId(),
+          side: targetSide,
+          text: `-${burned} 内力`,
+          subText: '化功焚脉',
+          style: 'debuff',
+        })
       }
       if (actorNgFx.huagong_weak) {
         target.weakTurns = 2
@@ -1264,6 +1594,13 @@ export function resolveCombatRound(
       roundEvents.push(
         makeLog(round, 'special', `${actor.name}《天山六阳掌》阴阳相济回血 ${healed} 点并涤荡体内滞气！`),
       )
+      attackPopups.push({
+        id: nextPopupId(),
+        side: actorSide,
+        text: `+${healed}`,
+        subText: '阴阳回血',
+        style: 'heal',
+      })
     }
 
     if (!targetControlImmune && target.hp > 0) {
@@ -1272,17 +1609,37 @@ export function resolveCombatRound(
         roundEvents.push(
           makeLog(round, 'special', `亢龙有悔掌威浩荡！${target.name}气血翻涌受震慑，下回合无法出招！`),
         )
+        attackPopups.push({
+          id: nextPopupId(),
+          side: targetSide,
+          text: '亢龙震慑！',
+          subText: '下合禁招',
+          style: 'debuff',
+        })
       } else if (moveFx.yiyang_seal && Math.random() < moveFx.yiyang_seal / 100) {
         target.stunnedNextRound = true
         roundEvents.push(
           makeLog(round, 'special', `《一阳指》纯阳指力点中要穴！${target.name}下回合无法出招！`),
         )
+        attackPopups.push({
+          id: nextPopupId(),
+          side: targetSide,
+          text: '点穴封脉！',
+          subText: '下合禁招',
+          style: 'debuff',
+        })
       }
       if (moveFx.tanzhi_disarm && Math.random() < moveFx.tanzhi_disarm / 100) {
         target.disarmedNextRound = true
         roundEvents.push(
           makeLog(round, 'special', `《弹指神通》惊雷震腕！${target.name}下回合无法施展指法与暗器！`),
         )
+        attackPopups.push({
+          id: nextPopupId(),
+          side: targetSide,
+          text: '惊雷震腕！',
+          style: 'debuff',
+        })
       }
       if (moveFx.dagou_slow) {
         target.slowTurns = 2
@@ -1294,18 +1651,48 @@ export function resolveCombatRound(
             `《打狗棒法》绊缠字诀缠住双足！${target.name}两回合内身法降低 ${target.slowPct}% 且无法逃跑！`,
           ),
         )
+        attackPopups.push({
+          id: nextPopupId(),
+          side: targetSide,
+          text: `绊缠 -${target.slowPct}%`,
+          subText: '封锁脱战',
+          style: 'debuff',
+        })
       }
     }
+
+    flushBeat({
+      kind: 'attack',
+      actorSide,
+      targetSide,
+      bannerTitle: `《${art.cleanName}》`,
+      bannerSubtitle: `【${roll.tag} ×${roll.multiplier.toFixed(2)}】${subTypeLabel}`,
+      vfxCategory: moveVfx,
+      isHeavenTier: art.tier === '天阶',
+      isCrit: roll.isCrit,
+      isGuarded: isTargetDefending,
+      shakeLevel: roll.isCrit ? 3 : art.tier === '天阶' ? 2 : 1,
+      popups: attackPopups,
+    })
   }
 
   // 回合末：九阴疗伤 / 先天功生生不息 & 状态回合递减
+  const statusPopups: CombatFloatingPopup[] = []
   if (!escapedSuccess && player.hp > 0 && npc.hp > 0) {
     for (const f of [player, npc]) {
+      const fSide: 'player' | 'npc' = f.isPlayer ? 'player' : 'npc'
       const ngFx = getSlotEffectsMap(f, 'neigong')
       if (ngFx.jiuyin_heal) {
         const heal = Math.max(1, Math.round((f.maxHp * ngFx.jiuyin_heal) / 100))
         f.hp = Math.min(f.maxHp, f.hp + heal)
         roundEvents.push(makeLog(round, 'special', `${f.name}《九阴真经》疗伤篇流转，回复 ${heal} 点气血。`))
+        statusPopups.push({
+          id: nextPopupId(),
+          side: fSide,
+          text: `+${heal}`,
+          subText: '九阴疗伤',
+          style: 'heal',
+        })
       }
       if (ngFx.xiantian_hp || ngFx.xiantian_mp) {
         const hpGain = ngFx.xiantian_hp ? Math.max(1, Math.round((f.maxHp * ngFx.xiantian_hp) / 100)) : 0
@@ -1319,10 +1706,26 @@ export function resolveCombatRound(
             `${f.name}《先天功》生生不息吐纳，回复 ${hpGain} 气血、${mpGain} 内力。`,
           ),
         )
+        statusPopups.push({
+          id: nextPopupId(),
+          side: fSide,
+          text: `+${hpGain} 血 / +${mpGain} 内`,
+          subText: '先天吐纳',
+          style: 'heal',
+        })
       }
       if (f.slowTurns > 0) f.slowTurns -= 1
       if (f.weakTurns > 0) f.weakTurns -= 1
     }
+  }
+  if (statusPopups.length > 0) {
+    flushBeat({
+      kind: 'status',
+      bannerTitle: '周天吐纳 · 生生不息',
+      bannerSubtitle: '上乘内功运转周天修复经脉',
+      vfxCategory: 'heal',
+      popups: statusPopups,
+    })
   }
 
   // 判定胜负结果
@@ -1367,6 +1770,23 @@ export function resolveCombatRound(
     )
   }
 
+  if (outcome !== 'ongoing' && logCursor < roundEvents.length) {
+    flushBeat({
+      kind: 'end',
+      actorSide: outcome === 'player_win' ? 'player' : outcome === 'npc_win' ? 'npc' : undefined,
+      bannerTitle:
+        outcome === 'player_win'
+          ? '承让 · 武林凯旋'
+          : outcome === 'draw'
+            ? '秋色平分 · 不分伯仲'
+            : outcome === 'escaped'
+              ? '虚晃一招 · 飘然脱身'
+              : '点到为止 · 抱拳退让',
+      bannerSubtitle: `共历 ${round} 合拆招定音`,
+      popups: [],
+    })
+  }
+
   return {
     ...session,
     round: outcome === 'ongoing' ? round + 1 : round,
@@ -1379,6 +1799,11 @@ export function resolveCombatRound(
       playerChoiceLabel: pLabel,
       npcChoiceLabel: nLabel,
       firstMover,
+      initialPlayerHp,
+      initialPlayerMp,
+      initialNpcHp,
+      initialNpcMp,
+      beats,
       events: roundEvents,
     },
   }

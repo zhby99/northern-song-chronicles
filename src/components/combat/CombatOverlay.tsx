@@ -1,5 +1,16 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
-import { HelpCircle, Package, Shield, Skull, Sparkles, Wind, X } from 'lucide-react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  FastForward,
+  HelpCircle,
+  Package,
+  Shield,
+  Skull,
+  Sparkles,
+  Volume2,
+  VolumeX,
+  Wind,
+  X,
+} from 'lucide-react'
 import {
   BUILDING_DB_MAP,
   MARTIAL_ART_DB_MAP,
@@ -25,10 +36,24 @@ import {
   MOVE_SLOT_KEYS,
   type CombatantState,
   type CombatLogEntry,
+  type CombatRoundBeat,
   type MoveSlotKey,
 } from '../../utils/combatEngine'
+import {
+  playSfxAttackImpact,
+  playSfxCombatEnd,
+  playSfxCombatStart,
+  playSfxDodge,
+  playSfxGuardStance,
+  playSfxHealMedicine,
+  playSfxRevealChoices,
+  playSfxSpecialPulse,
+  toggleCombatSfxEnabled,
+  useCombatSfxEnabled,
+} from '../../utils/combatSfx'
 import { NODE_MAP, REGIONAL_CONFIGS } from '../../utils/mapMath'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
+import { CombatVfxStage } from './CombatVfxStage'
 
 const SvgBuildingInteriorFallback = lazy(() =>
   import('../map/SvgBuildingInteriorFallback').then((m) => ({
@@ -132,10 +157,150 @@ export function CombatOverlay() {
   const submitCombatAction = useGameStore((s) => s.submitCombatAction)
   const finishCombatSession = useGameStore((s) => s.finishCombatSession)
 
+  const sfxEnabled = useCombatSfxEnabled()
   const [showRulesHelp, setShowRulesHelp] = useState(false)
   const [bagOpen, setBagOpen] = useState(false)
   const [bagFilter, setBagFilter] = useState<BagFilterMode>('all')
+  const [fastMode, setFastMode] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('nsc_combat_fast_v1') === '1'
+    } catch {
+      return false
+    }
+  })
+
+  // 分镜演武进度（在渲染阶段直接按 roundKey 对齐首拍，避免 effect 内同步 setState）
+  const [beatProgress, setBeatProgress] = useState<{
+    roundKey: string
+    beatIdx: number
+    done: boolean
+  }>({ roundKey: '', beatIdx: 0, done: true })
+  const lastStartedSessionIdRef = useRef<string | null>(null)
   const logContainerRef = useRef<HTMLDivElement | null>(null)
+
+  const currentRoundKey = session?.lastRoundSummary
+    ? `${session.sessionId}:r${session.lastRoundSummary.round}`
+    : null
+  const currentBeats = session?.lastRoundSummary?.beats ?? []
+  const currentBeatIdx = currentRoundKey
+    ? beatProgress.roundKey === currentRoundKey
+      ? beatProgress.beatIdx
+      : 0
+    : 0
+  const isRoundDone =
+    !currentRoundKey ||
+    currentBeats.length === 0 ||
+    (beatProgress.roundKey === currentRoundKey && beatProgress.done) ||
+    currentBeatIdx >= currentBeats.length
+  const isAnimating = !isRoundDone
+  const activeBeat: CombatRoundBeat | null = isAnimating
+    ? (currentBeats[currentBeatIdx] ?? null)
+    : null
+
+  const toggleFastMode = useCallback(() => {
+    setFastMode((prev) => {
+      const next = !prev
+      try {
+        localStorage.setItem('nsc_combat_fast_v1', next ? '1' : '0')
+      } catch {
+        // ignore
+      }
+      return next
+    })
+  }, [])
+
+  const skipChoreography = useCallback(() => {
+    if (!session || !currentRoundKey) return
+    if (session.outcome !== 'ongoing') {
+      playSfxCombatEnd(session.outcome)
+    }
+    setBeatProgress({
+      roundKey: currentRoundKey,
+      beatIdx: currentBeats.length,
+      done: true,
+    })
+  }, [session, currentRoundKey, currentBeats.length])
+
+  // 开战拔剑战鼓声（仅同步外部 Web Audio）
+  useEffect(() => {
+    if (!session) {
+      lastStartedSessionIdRef.current = null
+      return
+    }
+    if (lastStartedSessionIdRef.current !== session.sessionId) {
+      lastStartedSessionIdRef.current = session.sessionId
+      playSfxCombatStart()
+    }
+  }, [session])
+
+  // 逐拍推进演武定时器与武侠音效触发
+  useEffect(() => {
+    if (!isAnimating || !activeBeat || !currentRoundKey || !session) return
+
+    if (activeBeat.kind === 'reveal') {
+      playSfxRevealChoices()
+      if (activeBeat.vfxCategory === 'guard') {
+        playSfxGuardStance()
+      }
+    } else if (activeBeat.kind === 'attack') {
+      playSfxAttackImpact(activeBeat.vfxCategory ?? 'palm', {
+        isCrit: activeBeat.isCrit,
+        isGuarded: activeBeat.isGuarded,
+        isHeavenTier: activeBeat.isHeavenTier,
+      })
+    } else if (activeBeat.kind === 'dodge' || activeBeat.kind === 'escape') {
+      playSfxDodge()
+    } else if (activeBeat.kind === 'item') {
+      playSfxHealMedicine()
+    } else if (activeBeat.kind === 'status') {
+      playSfxSpecialPulse()
+    } else if (activeBeat.kind === 'end' && session.outcome !== 'ongoing') {
+      playSfxCombatEnd(session.outcome)
+    }
+
+    const baseMs =
+      activeBeat.kind === 'reveal'
+        ? 390
+        : activeBeat.kind === 'attack'
+          ? activeBeat.isCrit
+            ? 740
+            : 650
+          : activeBeat.kind === 'dodge'
+            ? 540
+            : activeBeat.kind === 'end'
+              ? 560
+              : 480
+    const waitMs = Math.max(190, Math.round(baseMs * (fastMode ? 0.52 : 1.0)))
+
+    const timer = window.setTimeout(() => {
+      if (currentBeatIdx + 1 < currentBeats.length) {
+        setBeatProgress({
+          roundKey: currentRoundKey,
+          beatIdx: currentBeatIdx + 1,
+          done: false,
+        })
+      } else {
+        if (session.outcome !== 'ongoing' && activeBeat.kind !== 'end') {
+          playSfxCombatEnd(session.outcome)
+        }
+        setBeatProgress({
+          roundKey: currentRoundKey,
+          beatIdx: currentBeats.length,
+          done: true,
+        })
+      }
+    }, waitMs)
+
+    return () => window.clearTimeout(timer)
+  }, [
+    isAnimating,
+    activeBeat,
+    currentRoundKey,
+    currentBeatIdx,
+    currentBeats.length,
+    session,
+    fastMode,
+  ])
 
   // 解析双方交战所在的建筑实景（优先当前内景建筑 -> NPC 所属建筑 -> 当前选中建筑）
   const duelBuilding = useMemo(() => {
@@ -222,19 +387,44 @@ export function CombatOverlay() {
     [session],
   )
 
-  // 自动滚动战报至最新回合
+  // 分镜流式战报：演武期间逐拍追加，增强临场节奏感
+  const visibleLogs = useMemo(() => {
+    if (!session) return []
+    if (!isAnimating || !session.lastRoundSummary) {
+      return session.logs
+    }
+    const prevCount = Math.max(
+      0,
+      session.logs.length - session.lastRoundSummary.events.length,
+    )
+    const baseLogs = session.logs.slice(0, prevCount)
+    const revealedLogs = session.lastRoundSummary.beats
+      .slice(0, currentBeatIdx + 1)
+      .flatMap((b) => b.logs)
+    return [...baseLogs, ...revealedLogs]
+  }, [session, isAnimating, currentBeatIdx])
+
+  // 自动滚动战报至最新分镜行
   useEffect(() => {
     const el = logContainerRef.current
     if (el) {
       el.scrollTop = el.scrollHeight
     }
-  }, [session?.logs.length])
+  }, [visibleLogs.length])
 
-  // 键盘快捷键：1~4 出招，5/D 守御，6/E 脱战，B 开关行囊；结束时 Enter/Space/Esc 收招
+  // 键盘快捷键：演武中 Space/Enter 跳过演出；待命时 1~4 出招，5/D 守御，6/E 脱战，B 行囊；终局 Enter/Space/Esc 收招
   useEffect(() => {
     if (!session) return
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return
+      if (isAnimating) {
+        if (e.key === ' ' || e.key === 'Enter') {
+          e.preventDefault()
+          e.stopPropagation()
+          skipChoreography()
+        }
+        return
+      }
       if (session.outcome !== 'ongoing') {
         if (e.key === 'Enter' || e.key === ' ' || e.key === 'Escape') {
           e.preventDefault()
@@ -276,24 +466,38 @@ export function CombatOverlay() {
     }
     window.addEventListener('keydown', onKeyDown, true)
     return () => window.removeEventListener('keydown', onKeyDown, true)
-  }, [session, bagOpen, moveOptions, escapeStatus.allowed, submitCombatAction, finishCombatSession])
+  }, [
+    session,
+    isAnimating,
+    bagOpen,
+    moveOptions,
+    escapeStatus.allowed,
+    skipChoreography,
+    submitCombatAction,
+    finishCombatSession,
+  ])
 
   if (!session) return null
 
   const { player, npc, lastRoundSummary, outcome } = session
+  const shownPlayerHp = activeBeat ? activeBeat.playerHp : player.hp
+  const shownPlayerMp = activeBeat ? activeBeat.playerMp : player.mp
+  const shownNpcHp = activeBeat ? activeBeat.npcHp : npc.hp
+  const shownNpcMp = activeBeat ? activeBeat.npcMp : npc.mp
+
   const playerEffAgi = computeEffectiveAgility(player)
   const npcEffAgi = computeEffectiveAgility(npc)
   const agiDiff = playerEffAgi - npcEffAgi
   const playerDodgePct = Math.round(computeDodgeChancePreview(player, npc, false) * 100)
   const npcDodgePct = Math.round(computeDodgeChancePreview(npc, player, false) * 100)
-  const playerQiDrivePct = Math.round((Math.sqrt(Math.max(0, player.mp)) / 50) * 100)
-  const npcQiDrivePct = Math.round((Math.sqrt(Math.max(0, npc.mp)) / 50) * 100)
+  const playerQiDrivePct = Math.round((Math.sqrt(Math.max(0, shownPlayerMp)) / 50) * 100)
+  const npcQiDrivePct = Math.round((Math.sqrt(Math.max(0, shownNpcMp)) / 50) * 100)
   const playerNgFx = getSlotEffectsMap(player, 'neigong')
 
-  const pHpPct = Math.max(0, Math.min(100, Math.round((player.hp / Math.max(1, player.maxHp)) * 100)))
-  const pMpPct = Math.max(0, Math.min(100, Math.round((player.mp / Math.max(1, player.maxMp)) * 100)))
-  const nHpPct = Math.max(0, Math.min(100, Math.round((npc.hp / Math.max(1, npc.maxHp)) * 100)))
-  const nMpPct = Math.max(0, Math.min(100, Math.round((npc.mp / Math.max(1, npc.maxMp)) * 100)))
+  const pHpPct = Math.max(0, Math.min(100, Math.round((shownPlayerHp / Math.max(1, player.maxHp)) * 100)))
+  const pMpPct = Math.max(0, Math.min(100, Math.round((shownPlayerMp / Math.max(1, player.maxMp)) * 100)))
+  const nHpPct = Math.max(0, Math.min(100, Math.round((shownNpcHp / Math.max(1, npc.maxHp)) * 100)))
+  const nMpPct = Math.max(0, Math.min(100, Math.round((shownNpcMp / Math.max(1, npc.maxMp)) * 100)))
 
   const pNeigong = player.equippedArts.neigong ? MARTIAL_ART_DB_MAP[player.equippedArts.neigong] : null
   const pNeigongLv = getLearnedLevel(player.learnedArts, player.equippedArts.neigong)
@@ -311,85 +515,211 @@ export function CombatOverlay() {
     submitCombatAction({ type: 'item', itemId })
   }
 
+  // 立绘动态位移与滤镜：突进挥击 / 受创仰退红闪 / 轻功滑步残影
+  const isPlayerLunging =
+    (activeBeat?.kind === 'attack' || activeBeat?.kind === 'dodge') &&
+    activeBeat.actorSide === 'player'
+  const isNpcLunging =
+    (activeBeat?.kind === 'attack' || activeBeat?.kind === 'dodge') &&
+    activeBeat.actorSide === 'npc'
+  const isPlayerHit = activeBeat?.kind === 'attack' && activeBeat.targetSide === 'player'
+  const isNpcHit = activeBeat?.kind === 'attack' && activeBeat.targetSide === 'npc'
+  const isPlayerDodging = activeBeat?.kind === 'dodge' && activeBeat.targetSide === 'player'
+  const isNpcDodging = activeBeat?.kind === 'dodge' && activeBeat.targetSide === 'npc'
+
+  const shakeAnim =
+    activeBeat?.shakeLevel === 3
+      ? 'cbtShakeHeavy 380ms cubic-bezier(0.36,0.07,0.19,0.97)'
+      : activeBeat?.shakeLevel === 2
+        ? 'cbtShakeMed 300ms cubic-bezier(0.36,0.07,0.19,0.97)'
+        : activeBeat?.shakeLevel === 1
+          ? 'cbtShakeLight 240ms ease-out'
+          : undefined
+
   return (
     <div
       className="fixed inset-0 z-45 pointer-events-auto select-none overflow-hidden text-[#f5e7cb]"
       role="dialog"
       aria-label="武林回合交锋"
     >
-      {/* 0. 所在建筑实景背景层（景深柔焦虚化，烘托前景 3x 对峙立绘与宋韵空间感） */}
-      <div className="absolute inset-0 z-0 overflow-hidden bg-[#241a12]">
-        {loadedBgUrl ? (
-          <img
-            src={loadedBgUrl}
-            alt={sceneTitle}
-            className="w-full h-full object-cover object-center blur-[6px] scale-105 brightness-95"
-            decoding="async"
-          />
-        ) : duelBuilding ? (
-          <Suspense fallback={null}>
-            <svg
-              viewBox="0 0 1600 900"
-              preserveAspectRatio="xMidYMid slice"
-              className="w-full h-full block blur-[6px] scale-105 brightness-95"
-            >
-              <SvgBuildingInteriorFallback building={duelBuilding} width={1600} height={900} />
-            </svg>
-          </Suspense>
-        ) : null}
+      {/* 震屏关键帧 */}
+      <style>{`
+        @keyframes cbtShakeLight {
+          0%, 100% { transform: translate3d(0, 0, 0); }
+          25% { transform: translate3d(-5px, 3px, 0); }
+          50% { transform: translate3d(5px, -3px, 0); }
+          75% { transform: translate3d(-3px, 2px, 0); }
+        }
+        @keyframes cbtShakeMed {
+          0%, 100% { transform: translate3d(0, 0, 0); }
+          18% { transform: translate3d(-10px, 6px, 0); }
+          36% { transform: translate3d(10px, -6px, 0); }
+          54% { transform: translate3d(-7px, 4px, 0); }
+          72% { transform: translate3d(6px, -3px, 0); }
+        }
+        @keyframes cbtShakeHeavy {
+          0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+          15% { transform: translate3d(-16px, 9px, 0) scale(1.015); }
+          30% { transform: translate3d(15px, -9px, 0) scale(1.015); }
+          48% { transform: translate3d(-11px, 6px, 0) scale(1.008); }
+          68% { transform: translate3d(9px, -5px, 0) scale(1.004); }
+          85% { transform: translate3d(-4px, 3px, 0) scale(1); }
+        }
+      `}</style>
 
-        {/* 顶底轻柔暗角衬托牌匾与战报文字 */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#120b06]/70 via-[#120b06]/25 to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#100905]/90 via-[#120b06]/45 to-transparent" />
-      </div>
+      {/* 震屏舞台包裹层（暴击/天阶重击时触发电影感镜头震颤） */}
+      <div
+        key={activeBeat?.shakeLevel ? `shake-${activeBeat.id}` : 'shake-idle'}
+        className="absolute inset-0"
+        style={shakeAnim ? { animation: shakeAnim } : undefined}
+      >
+        {/* 0. 所在建筑实景背景层（景深柔焦虚化，烘托前景 3x 对峙立绘与宋韵空间感） */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-[#241a12]">
+          {loadedBgUrl ? (
+            <img
+              src={loadedBgUrl}
+              alt={sceneTitle}
+              className="w-full h-full object-cover object-center blur-[6px] scale-105 brightness-95"
+              decoding="async"
+            />
+          ) : duelBuilding ? (
+            <Suspense fallback={null}>
+              <svg
+                viewBox="0 0 1600 900"
+                preserveAspectRatio="xMidYMid slice"
+                className="w-full h-full block blur-[6px] scale-105 brightness-95"
+              >
+                <SvgBuildingInteriorFallback building={duelBuilding} width={1600} height={900} />
+              </svg>
+            </Suspense>
+          ) : null}
 
-      {/* 1. 左右 3x 巨幅等比全身立绘对峙舞台（立于建筑庭院地面之上） */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-[118px] h-[72vh] min-h-[420px] max-h-[780px] z-10 flex items-end justify-between px-[4vw] lg:px-[10vw] xl:px-[13vw]">
-        {/* 左立绘：少侠 */}
-        <div
-          className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center transition-transform duration-300"
-          style={{
-            filter: 'drop-shadow(0 18px 32px rgba(0, 0, 0, 0.78))',
-          }}
-        >
-          <CutoutPortraitImg
-            url={player.portraitUrl}
-            alt={player.name}
-            className="object-contain object-bottom"
-            style={{
-              height: '96%',
-              maxHeight: '100%',
-              width: 'auto',
-              maxWidth: '40vw',
-            }}
-          />
+          {/* 顶底轻柔暗角衬托牌匾与战报文字 */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#120b06]/70 via-[#120b06]/25 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#100905]/90 via-[#120b06]/45 to-transparent" />
         </div>
 
-        {/* 右立绘：对手名宿 */}
-        <div
-          className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center transition-transform duration-300"
-          style={{
-            filter: 'drop-shadow(0 18px 32px rgba(0, 0, 0, 0.78))',
-          }}
-        >
-          <CutoutPortraitImg
-            url={npc.portraitUrl}
-            alt={npc.name}
-            className="object-contain object-bottom"
+        {/* 1. 左右 3x 巨幅等比全身立绘对峙舞台（支持突进冲锋、受创红闪震退、轻功掠影残影） */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-[118px] h-[72vh] min-h-[420px] max-h-[780px] z-10 flex items-end justify-between px-[4vw] lg:px-[10vw] xl:px-[13vw]">
+          {/* 左立绘：少侠 */}
+          <div
+            className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center transition-all duration-200 ease-out"
             style={{
-              height: '96%',
-              maxHeight: '100%',
-              width: 'auto',
-              maxWidth: '40vw',
+              zIndex: isPlayerLunging ? 20 : 10,
+              transform: isPlayerLunging
+                ? 'translate3d(9vw, -8px, 0) scale(1.07)'
+                : isPlayerHit
+                  ? 'translate3d(-30px, 6px, 0) rotate(-2.5deg) scale(0.97)'
+                  : isPlayerDodging
+                    ? 'translate3d(-48px, -12px, 0) scale(1.02)'
+                    : !isAnimating && outcome === 'npc_win'
+                      ? 'translate3d(-16px, 10px, 0) scale(0.96)'
+                      : 'translate3d(0, 0, 0) scale(1)',
+              filter: isPlayerHit
+                ? 'brightness(1.38) sepia(0.35) saturate(2.2) hue-rotate(-25deg) drop-shadow(0 0 28px rgba(239, 68, 68, 0.9))'
+                : isPlayerLunging
+                  ? 'drop-shadow(0 16px 36px rgba(251, 191, 36, 0.58))'
+                  : 'drop-shadow(0 18px 32px rgba(0, 0, 0, 0.78))',
+              opacity: !isAnimating && outcome === 'npc_win' ? 0.78 : 1,
             }}
-          />
+          >
+            {/* 轻功闪避青色残影 */}
+            {isPlayerDodging && (
+              <CutoutPortraitImg
+                url={player.portraitUrl}
+                alt=""
+                className="absolute bottom-0 object-contain object-bottom opacity-40 pointer-events-none"
+                style={{
+                  height: '96%',
+                  maxHeight: '100%',
+                  width: 'auto',
+                  maxWidth: '40vw',
+                  transform: 'translateX(44px)',
+                  filter: 'hue-rotate(155deg) saturate(2.2) brightness(1.3)',
+                }}
+              />
+            )}
+            <CutoutPortraitImg
+              url={player.portraitUrl}
+              alt={player.name}
+              className="object-contain object-bottom"
+              style={{
+                height: '96%',
+                maxHeight: '100%',
+                width: 'auto',
+                maxWidth: '40vw',
+              }}
+            />
+          </div>
+
+          {/* 右立绘：对手名宿 */}
+          <div
+            className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center transition-all duration-200 ease-out"
+            style={{
+              zIndex: isNpcLunging ? 20 : 10,
+              transform: isNpcLunging
+                ? 'translate3d(-9vw, -8px, 0) scale(1.07)'
+                : isNpcHit
+                  ? 'translate3d(30px, 6px, 0) rotate(2.5deg) scale(0.97)'
+                  : isNpcDodging
+                    ? 'translate3d(48px, -12px, 0) scale(1.02)'
+                    : !isAnimating && outcome === 'player_win'
+                      ? 'translate3d(16px, 10px, 0) scale(0.96)'
+                      : 'translate3d(0, 0, 0) scale(1)',
+              filter: isNpcHit
+                ? 'brightness(1.38) sepia(0.35) saturate(2.2) hue-rotate(-25deg) drop-shadow(0 0 28px rgba(239, 68, 68, 0.9))'
+                : isNpcLunging
+                  ? 'drop-shadow(0 16px 36px rgba(251, 191, 36, 0.58))'
+                  : 'drop-shadow(0 18px 32px rgba(0, 0, 0, 0.78))',
+              opacity: !isAnimating && outcome === 'player_win' ? 0.78 : 1,
+            }}
+          >
+            {/* 对手轻功闪避残影 */}
+            {isNpcDodging && (
+              <CutoutPortraitImg
+                url={npc.portraitUrl}
+                alt=""
+                className="absolute bottom-0 object-contain object-bottom opacity-40 pointer-events-none"
+                style={{
+                  height: '96%',
+                  maxHeight: '100%',
+                  width: 'auto',
+                  maxWidth: '40vw',
+                  transform: 'translateX(-44px)',
+                  filter: 'hue-rotate(155deg) saturate(2.2) brightness(1.3)',
+                }}
+              />
+            )}
+            <CutoutPortraitImg
+              url={npc.portraitUrl}
+              alt={npc.name}
+              className="object-contain object-bottom"
+              style={{
+                height: '96%',
+                maxHeight: '100%',
+                width: 'auto',
+                maxWidth: '40vw',
+              }}
+            />
+          </div>
         </div>
       </div>
+
+      {/* 1.5 刀光剑影 / 罡风掌印 / 水墨招式唱名 / 暴击飘字特效层 */}
+      <CombatVfxStage
+        activeBeat={activeBeat}
+        playerName={player.name}
+        npcName={npc.name}
+      />
 
       {/* 2. 顶部三段式浮空交锋铭牌（左：少侠血内+七槽披挂+背包按钮 | 中：建筑与回合牌 | 右：对手情报） */}
       <div className="relative z-20 px-3 sm:px-5 pt-2.5 flex flex-col lg:flex-row items-stretch lg:items-start justify-between gap-2.5 pointer-events-none">
         {/* 左上：少侠状态与披挂匣 */}
-        <section className="pointer-events-auto w-full lg:w-[370px] xl:w-[405px] rounded-xl border border-[#d4a455]/55 bg-[#17100a]/82 backdrop-blur-md p-3 shadow-2xl space-y-2">
+        <section
+          className={`pointer-events-auto w-full lg:w-[370px] xl:w-[405px] rounded-xl border bg-[#17100a]/82 backdrop-blur-md p-3 shadow-2xl space-y-2 transition-colors ${
+            isPlayerHit ? 'border-[#ff6b57]' : 'border-[#d4a455]/55'
+          }`}
+        >
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-1.5 min-w-0">
               <span className="song-serif text-base font-bold text-[#fff0d4] tracking-wide">
@@ -403,7 +733,7 @@ export function CombatOverlay() {
               </span>
             </div>
 
-            {outcome === 'ongoing' && (
+            {outcome === 'ongoing' && !isAnimating && (
               <button
                 type="button"
                 onClick={() => setBagOpen((v) => !v)}
@@ -420,18 +750,25 @@ export function CombatOverlay() {
             )}
           </div>
 
-          {/* 气血与内力条 */}
+          {/* 气血与内力条（带格斗级白金残影缓冲掉血条） */}
           <div className="space-y-1.5">
             <div>
               <div className="flex justify-between text-[11px] mb-0.5">
                 <span className="text-[#f5bdb3] font-medium">气血</span>
                 <span className="font-mono text-[#ffe8e3]">
-                  {player.hp} / {player.maxHp} ({pHpPct}%)
+                  {shownPlayerHp} / {player.maxHp} ({pHpPct}%)
                 </span>
               </div>
-              <div className="h-2.5 rounded-full bg-[#2e1310] border border-[#8c352b]/70 overflow-hidden">
+              <div className="relative h-2.5 rounded-full bg-[#2e1310] border border-[#8c352b]/70 overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-[#991f15] via-[#cf382b] to-[#f06254] transition-all duration-300"
+                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#fde68a] to-[#fca5a5] opacity-90"
+                  style={{
+                    width: `${pHpPct}%`,
+                    transition: 'width 680ms cubic-bezier(0.22, 1, 0.36, 1) 140ms',
+                  }}
+                />
+                <div
+                  className="relative h-full bg-gradient-to-r from-[#991f15] via-[#cf382b] to-[#f06254] transition-all duration-150 ease-out"
                   style={{ width: `${pHpPct}%` }}
                 />
               </div>
@@ -443,12 +780,12 @@ export function CombatOverlay() {
                   内力 <span className="text-[10px] text-[#84bed9]">（催劲 +{playerQiDrivePct}%）</span>
                 </span>
                 <span className="font-mono text-[#dff4fc]">
-                  {player.mp} / {player.maxMp}
+                  {shownPlayerMp} / {player.maxMp}
                 </span>
               </div>
               <div className="h-2.5 rounded-full bg-[#102530] border border-[#2f6e8f]/70 overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-[#1c5978] via-[#2d87b0] to-[#52bce8] transition-all duration-300"
+                  className="h-full bg-gradient-to-r from-[#1c5978] via-[#2d87b0] to-[#52bce8] transition-all duration-200"
                   style={{ width: `${pMpPct}%` }}
                 />
               </div>
@@ -500,15 +837,46 @@ export function CombatOverlay() {
           <FighterStatusBadges fighter={player} />
         </section>
 
-        {/* 中上：所在建筑匾额 + 回合计数 + 法则速查 */}
+        {/* 中上：所在建筑匾额 + 回合计数 + 音效/倍速/法则控制条 */}
         <div className="pointer-events-auto flex flex-col items-center gap-1.5 shrink-0">
-          <div className="px-4 py-1.5 rounded-full bg-[#1a110a]/84 backdrop-blur-md border border-[#d4a455]/70 shadow-xl flex items-center gap-3">
+          <div className="px-4 py-1.5 rounded-full bg-[#1a110a]/84 backdrop-blur-md border border-[#d4a455]/70 shadow-xl flex items-center gap-2.5">
             <span className="px-2 py-0.5 rounded bg-[#7d1d14] border border-[#eba45e]/70 song-serif text-[11px] font-bold text-[#ffebc2]">
               {session.mode === 'spar' ? '点到为止' : '江湖死斗'}
             </span>
             <span className="song-serif text-sm font-bold text-[#ffe09e] tracking-wider">
-              【{sceneTitle}】 · 第 {session.round} / {session.maxRounds} 合
+              【{sceneTitle}】 · 第 {isAnimating && lastRoundSummary ? lastRoundSummary.round : session.round} / {session.maxRounds} 合
             </span>
+
+            {/* 演武音效开关 */}
+            <button
+              type="button"
+              onClick={() => toggleCombatSfxEnabled()}
+              className={`px-2 py-0.5 rounded-full border text-[11px] flex items-center gap-1 transition cursor-pointer ${
+                sfxEnabled
+                  ? 'bg-[#2c2013] border-[#d4a455]/60 text-[#ffe3ad] hover:bg-[#3d2c1a]'
+                  : 'bg-[#1f1710] border-[#6e5a40]/40 text-[#9c8669] hover:text-[#d4be9e]'
+              }`}
+              title={sfxEnabled ? '点击关闭武侠交锋音效' : '点击开启武侠交锋音效'}
+            >
+              {sfxEnabled ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
+              <span className="hidden sm:inline">{sfxEnabled ? '音效开' : '静音'}</span>
+            </button>
+
+            {/* 1x / 2x 演武倍速 */}
+            <button
+              type="button"
+              onClick={toggleFastMode}
+              className={`px-2 py-0.5 rounded-full border text-[11px] font-mono flex items-center gap-0.5 transition cursor-pointer ${
+                fastMode
+                  ? 'bg-[#5c2b09] border-[#fbbf24] text-[#fef08a]'
+                  : 'bg-[#24180e] border-[#a8844c]/50 text-[#e0c8a4] hover:bg-[#362415]'
+              }`}
+              title="切换拆招演出速度（1x 临场电影感 / 2x 疾速拆招）"
+            >
+              <FastForward className="w-3 h-3" />
+              <span>{fastMode ? '2x' : '1x'}</span>
+            </button>
+
             <button
               type="button"
               onClick={() => setShowRulesHelp((v) => !v)}
@@ -547,7 +915,11 @@ export function CombatOverlay() {
         </div>
 
         {/* 右上：对手状态与四招情报 */}
-        <section className="pointer-events-auto w-full lg:w-[370px] xl:w-[405px] rounded-xl border border-[#d4a455]/55 bg-[#17100a]/82 backdrop-blur-md p-3 shadow-2xl space-y-2">
+        <section
+          className={`pointer-events-auto w-full lg:w-[370px] xl:w-[405px] rounded-xl border bg-[#17100a]/82 backdrop-blur-md p-3 shadow-2xl space-y-2 transition-colors ${
+            isNpcHit ? 'border-[#ff6b57]' : 'border-[#d4a455]/55'
+          }`}
+        >
           <div className="flex items-center justify-between gap-2">
             <span className="px-2 py-0.5 rounded bg-[#26190f] border border-[#96774d]/50 text-[10px] text-[#e6d2b3] shrink-0">
               兵刃：{npcWeapon ? npcWeapon.name : '徒手空拳'}
@@ -567,18 +939,25 @@ export function CombatOverlay() {
             </div>
           </div>
 
-          {/* 对手气血与内力条 */}
+          {/* 对手气血与内力条（带格斗级白金残影缓冲掉血条） */}
           <div className="space-y-1.5">
             <div>
               <div className="flex justify-between text-[11px] mb-0.5">
                 <span className="font-mono text-[#ffe8e3]">
-                  {npc.hp} / {npc.maxHp} ({nHpPct}%)
+                  {shownNpcHp} / {npc.maxHp} ({nHpPct}%)
                 </span>
                 <span className="text-[#f5bdb3] font-medium">气血</span>
               </div>
-              <div className="h-2.5 rounded-full bg-[#2e1310] border border-[#8c352b]/70 overflow-hidden">
+              <div className="relative h-2.5 rounded-full bg-[#2e1310] border border-[#8c352b]/70 overflow-hidden">
                 <div
-                  className="h-full ml-auto bg-gradient-to-l from-[#991f15] via-[#cf382b] to-[#f06254] transition-all duration-300"
+                  className="absolute inset-y-0 right-0 bg-gradient-to-l from-[#fde68a] to-[#fca5a5] opacity-90"
+                  style={{
+                    width: `${nHpPct}%`,
+                    transition: 'width 680ms cubic-bezier(0.22, 1, 0.36, 1) 140ms',
+                  }}
+                />
+                <div
+                  className="relative h-full ml-auto bg-gradient-to-l from-[#991f15] via-[#cf382b] to-[#f06254] transition-all duration-150 ease-out"
                   style={{ width: `${nHpPct}%` }}
                 />
               </div>
@@ -587,7 +966,7 @@ export function CombatOverlay() {
             <div>
               <div className="flex justify-between text-[11px] mb-0.5">
                 <span className="font-mono text-[#dff4fc]">
-                  {npc.mp} / {npc.maxMp}
+                  {shownNpcMp} / {npc.maxMp}
                 </span>
                 <span className="text-[#a6dbf2] font-medium">
                   <span className="text-[10px] text-[#84bed9]">（催劲 +{npcQiDrivePct}%）</span> 内力
@@ -595,7 +974,7 @@ export function CombatOverlay() {
               </div>
               <div className="h-2.5 rounded-full bg-[#102530] border border-[#2f6e8f]/70 overflow-hidden">
                 <div
-                  className="h-full ml-auto bg-gradient-to-l from-[#1c5978] via-[#2d87b0] to-[#52bce8] transition-all duration-300"
+                  className="h-full ml-auto bg-gradient-to-l from-[#1c5978] via-[#2d87b0] to-[#52bce8] transition-all duration-200"
                   style={{ width: `${nMpPct}%` }}
                 />
               </div>
@@ -813,7 +1192,7 @@ export function CombatOverlay() {
             ref={logContainerRef}
             className="max-h-[116px] overflow-y-auto px-3 py-1.5 space-y-1"
           >
-            {session.logs.map((entry) => (
+            {visibleLogs.map((entry) => (
               <div
                 key={entry.id}
                 className={`px-2.5 py-1 rounded text-xs leading-snug ${getLogRowStyle(entry.tone)}`}
@@ -827,9 +1206,32 @@ export function CombatOverlay() {
           </div>
         </div>
 
-        {/* 底部操作指令台（4 外功 + 守御 + 行囊丹毒 + 抽身脱战） */}
+        {/* 底部操作指令台（演武期间显示跳过条；待命时显示 4 外功 + 守御 + 行囊丹毒 + 抽身脱战） */}
         <div className="pointer-events-auto w-full max-w-7xl">
-          {outcome === 'ongoing' ? (
+          {isAnimating ? (
+            <button
+              type="button"
+              onClick={skipChoreography}
+              className="w-full min-h-[76px] rounded-xl border border-[#e6b968]/75 bg-gradient-to-r from-[#24160c]/90 via-[#3b2212]/92 to-[#24160c]/90 hover:border-[#fde047] backdrop-blur-md px-5 py-3 shadow-2xl flex items-center justify-between gap-4 cursor-pointer transition"
+            >
+              <div className="flex items-center gap-3 text-left">
+                <span className="px-2.5 py-1 rounded bg-[#7c2d12] border border-[#fbbf24]/70 text-xs font-bold song-serif text-[#fef3c7] animate-pulse">
+                  拆招演武中
+                </span>
+                <div>
+                  <div className="song-serif text-sm font-bold text-[#ffebc2]">
+                    {activeBeat?.bannerTitle ?? '双方交手拆招'}
+                  </div>
+                  <div className="text-xs text-[#d6be99]">
+                    {activeBeat?.bannerSubtitle ?? '金铁交鸣，真气激荡'}
+                  </div>
+                </div>
+              </div>
+              <span className="px-3 py-1.5 rounded-lg bg-black/45 border border-[#d4a455]/60 text-xs text-[#ffe3ad] shrink-0">
+                点击此处或按 [Space] 跳过演出 ⏭
+              </span>
+            </button>
+          ) : outcome === 'ongoing' ? (
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
               {moveOptions.map((opt) => {
                 const shortcut = SLOT_SHORTCUT_LABELS[opt.slot]
