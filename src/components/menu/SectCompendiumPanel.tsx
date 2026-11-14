@@ -732,9 +732,9 @@ export function SectCompendiumPanel({
                         : 'bg-[#fffdf8] hover:bg-[#eadcc2] border-[#cbb693]'
                     }`}
                   >
-                    {npc.avatarUrl ? (
+                    {(npc.avatarUrl ?? npc.templateAvatarUrl) ? (
                       <ManagedAssetImg
-                        url={npc.avatarUrl}
+                        url={(npc.avatarUrl ?? npc.templateAvatarUrl)!}
                         alt={npc.name}
                         viewportLazy
                         className="w-9 h-9 rounded-full object-cover border border-[#8c6e46] shrink-0 bg-[#2b1d12]"

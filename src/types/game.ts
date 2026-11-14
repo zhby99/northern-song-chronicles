@@ -364,6 +364,7 @@ export interface CompiledNpcRecord {
   avatarUrl: string | null
   fullbodyUrl: string | null
   templateUrl: string
+  templateAvatarUrl?: string | null
   ownedArtifactIds?: string[]
   equippedArts: EquippedArtsMap
   learnedArts: LearnedArtEntry[]

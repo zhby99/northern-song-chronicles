@@ -204,9 +204,9 @@ export function PortraitsTab({
                     : 'bg-[#efe4cc] hover:bg-[#e5d6b8] text-[#23180f] border-[#c8b28e]'
                 }`}
               >
-                {c.avatarUrl ? (
+                {(c.avatarUrl ?? c.templateAvatarUrl) ? (
                   <ManagedAssetImg
-                    url={c.avatarUrl}
+                    url={(c.avatarUrl ?? c.templateAvatarUrl)!}
                     alt={c.name}
                     viewportLazy
                     onClick={(e) => {
@@ -285,9 +285,9 @@ export function PortraitsTab({
             <>
               <div className="shrink-0 flex items-start justify-between gap-2 border-b border-[#cbb693] pb-2.5">
                 <div className="flex items-start gap-2.5 min-w-0">
-                  {selectedNpc.avatarUrl && (
+                  {(selectedNpc.avatarUrl ?? selectedNpc.templateAvatarUrl) && (
                     <ManagedAssetImg
-                      url={selectedNpc.avatarUrl}
+                      url={(selectedNpc.avatarUrl ?? selectedNpc.templateAvatarUrl)!}
                       alt={`${selectedNpc.name} 头像`}
                       onClick={() => onOpenNpcLightbox(selectedNpc, 'avatar')}
                       title="点击放大查看高清头像"

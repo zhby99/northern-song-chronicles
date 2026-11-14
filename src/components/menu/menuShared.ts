@@ -172,11 +172,14 @@ export function buildNpcLightboxState(
   npc: CompiledNpcRecord,
   mode: 'fullbody' | 'avatar',
 ): LightboxState {
+  const effectiveAvatar = npc.avatarUrl ?? npc.templateAvatarUrl
   const url =
-    mode === 'avatar' && npc.avatarUrl ? npc.avatarUrl : (npc.fullbodyUrl ?? npc.templateUrl)
+    mode === 'avatar' && effectiveAvatar ? effectiveAvatar : (npc.fullbodyUrl ?? npc.templateUrl)
   const kindLabel =
-    mode === 'avatar' && npc.avatarUrl
-      ? '独立半身头像'
+    mode === 'avatar' && effectiveAvatar
+      ? npc.avatarUrl
+        ? '独立半身头像'
+        : '门派母版半身头像'
       : npc.fullbodyUrl
         ? '独立全身立绘原画'
         : '门派身份母版全身像'
@@ -185,7 +188,7 @@ export function buildNpcLightboxState(
     title: `${npc.name} · ${npc.title}`,
     subtitle: `[${npc.id}] ${npc.factionName} · ${npc.role} · ${npc.realm} · 常驻【${npc.fullLocationLabel}】（${kindLabel}）`,
     npc,
-    mode: mode === 'avatar' && npc.avatarUrl ? 'avatar' : 'fullbody',
+    mode: mode === 'avatar' && effectiveAvatar ? 'avatar' : 'fullbody',
   }
 }
 

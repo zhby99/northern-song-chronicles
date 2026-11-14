@@ -802,9 +802,9 @@ export function RegionCompendiumPanel({
                   onClick={() => onJumpToNpc(npc)}
                   className="p-2 rounded bg-[#fffdf8] hover:bg-[#eadcc2] border border-[#cbb693] text-left flex items-center gap-2 transition cursor-pointer"
                 >
-                  {npc.avatarUrl ? (
+                  {(npc.avatarUrl ?? npc.templateAvatarUrl) ? (
                     <ManagedAssetImg
-                      url={npc.avatarUrl}
+                      url={(npc.avatarUrl ?? npc.templateAvatarUrl)!}
                       alt={npc.name}
                       viewportLazy
                       className="w-9 h-9 rounded-full object-cover border border-[#8c6e46] shrink-0 bg-[#2b1d12]"

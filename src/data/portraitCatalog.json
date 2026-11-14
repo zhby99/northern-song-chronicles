@@ -3987,9 +3987,29 @@
   ],
   "templates": [
     {
+      "id": "tpl_caobang_av",
+      "url": "/assets/characters/templates/tpl_caobang_av.jpg",
+      "bytes": 86325
+    },
+    {
+      "id": "tpl_caobang_fb",
+      "url": "/assets/characters/templates/tpl_caobang_fb.jpg",
+      "bytes": 249015
+    },
+    {
       "id": "tpl_dali_prince_fb",
       "url": "/assets/characters/templates/tpl_dali_prince_fb.jpg",
       "bytes": 932812
+    },
+    {
+      "id": "tpl_emei_female_av",
+      "url": "/assets/characters/templates/tpl_emei_female_av.jpg",
+      "bytes": 77152
+    },
+    {
+      "id": "tpl_emei_female_fb",
+      "url": "/assets/characters/templates/tpl_emei_female_fb.jpg",
+      "bytes": 259013
     },
     {
       "id": "tpl_emei_heroine_fb",
@@ -3997,14 +4017,64 @@
       "bytes": 1046184
     },
     {
+      "id": "tpl_emei_male_av",
+      "url": "/assets/characters/templates/tpl_emei_male_av.jpg",
+      "bytes": 72937
+    },
+    {
+      "id": "tpl_emei_male_fb",
+      "url": "/assets/characters/templates/tpl_emei_male_fb.jpg",
+      "bytes": 193474
+    },
+    {
+      "id": "tpl_gaibang_av",
+      "url": "/assets/characters/templates/tpl_gaibang_av.jpg",
+      "bytes": 93508
+    },
+    {
+      "id": "tpl_gaibang_fb",
+      "url": "/assets/characters/templates/tpl_gaibang_fb.jpg",
+      "bytes": 311258
+    },
+    {
       "id": "tpl_greenwood_hero_fb",
       "url": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
       "bytes": 947719
     },
     {
+      "id": "tpl_greenwood_sect_av",
+      "url": "/assets/characters/templates/tpl_greenwood_sect_av.jpg",
+      "bytes": 80955
+    },
+    {
+      "id": "tpl_greenwood_sect_fb",
+      "url": "/assets/characters/templates/tpl_greenwood_sect_fb.jpg",
+      "bytes": 279816
+    },
+    {
+      "id": "tpl_huashan_av",
+      "url": "/assets/characters/templates/tpl_huashan_av.jpg",
+      "bytes": 92543
+    },
+    {
+      "id": "tpl_huashan_fb",
+      "url": "/assets/characters/templates/tpl_huashan_fb.jpg",
+      "bytes": 239594
+    },
+    {
       "id": "tpl_khitan_warrior_fb",
       "url": "/assets/characters/templates/tpl_khitan_warrior_fb.jpg",
       "bytes": 1112539
+    },
+    {
+      "id": "tpl_qingcheng_av",
+      "url": "/assets/characters/templates/tpl_qingcheng_av.jpg",
+      "bytes": 96687
+    },
+    {
+      "id": "tpl_qingcheng_fb",
+      "url": "/assets/characters/templates/tpl_qingcheng_fb.jpg",
+      "bytes": 300315
     },
     {
       "id": "tpl_shaolin_monk_fb",
@@ -4027,6 +4097,26 @@
       "bytes": 1013948
     },
     {
+      "id": "tpl_taishan_av",
+      "url": "/assets/characters/templates/tpl_taishan_av.jpg",
+      "bytes": 95276
+    },
+    {
+      "id": "tpl_taishan_fb",
+      "url": "/assets/characters/templates/tpl_taishan_fb.jpg",
+      "bytes": 243352
+    },
+    {
+      "id": "tpl_tangmen_av",
+      "url": "/assets/characters/templates/tpl_tangmen_av.jpg",
+      "bytes": 79969
+    },
+    {
+      "id": "tpl_tangmen_fb",
+      "url": "/assets/characters/templates/tpl_tangmen_fb.jpg",
+      "bytes": 207578
+    },
+    {
       "id": "tpl_taohua_master_fb",
       "url": "/assets/characters/templates/tpl_taohua_master_fb.jpg",
       "bytes": 1097278
@@ -4037,6 +4127,16 @@
       "bytes": 1020488
     },
     {
+      "id": "tpl_tiezhang_av",
+      "url": "/assets/characters/templates/tpl_tiezhang_av.jpg",
+      "bytes": 95094
+    },
+    {
+      "id": "tpl_tiezhang_fb",
+      "url": "/assets/characters/templates/tpl_tiezhang_fb.jpg",
+      "bytes": 235451
+    },
+    {
       "id": "tpl_unorthodox_master_fb",
       "url": "/assets/characters/templates/tpl_unorthodox_master_fb.jpg",
       "bytes": 921546
@@ -4045,6 +4145,36 @@
       "id": "tpl_woman_general_fb",
       "url": "/assets/characters/templates/tpl_woman_general_fb.jpg",
       "bytes": 995382
+    },
+    {
+      "id": "tpl_wuxiguzhai_av",
+      "url": "/assets/characters/templates/tpl_wuxiguzhai_av.jpg",
+      "bytes": 85319
+    },
+    {
+      "id": "tpl_wuxiguzhai_fb",
+      "url": "/assets/characters/templates/tpl_wuxiguzhai_fb.jpg",
+      "bytes": 281151
+    },
+    {
+      "id": "tpl_xingxiu_av",
+      "url": "/assets/characters/templates/tpl_xingxiu_av.jpg",
+      "bytes": 80978
+    },
+    {
+      "id": "tpl_xingxiu_fb",
+      "url": "/assets/characters/templates/tpl_xingxiu_fb.jpg",
+      "bytes": 209059
+    },
+    {
+      "id": "tpl_zhongnan_av",
+      "url": "/assets/characters/templates/tpl_zhongnan_av.jpg",
+      "bytes": 87929
+    },
+    {
+      "id": "tpl_zhongnan_fb",
+      "url": "/assets/characters/templates/tpl_zhongnan_fb.jpg",
+      "bytes": 242253
     }
   ]
 }

@@ -1843,34 +1843,116 @@ TEN_ARTS_CANONICAL_KEYS: tuple[str, ...] = (
 )
 
 
-def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str) -> str:
+SECT_DEDICATED_TEMPLATES: dict[str, tuple[str, str]] = {
+    "SECT-18": (
+        "/assets/characters/templates/tpl_greenwood_sect_fb.jpg",
+        "/assets/characters/templates/tpl_greenwood_sect_av.jpg",
+    ),
+    "SECT-16": (
+        "/assets/characters/templates/tpl_caobang_fb.jpg",
+        "/assets/characters/templates/tpl_caobang_av.jpg",
+    ),
+    "SECT-15": (
+        "/assets/characters/templates/tpl_tiezhang_fb.jpg",
+        "/assets/characters/templates/tpl_tiezhang_av.jpg",
+    ),
+    "SECT-02": (
+        "/assets/characters/templates/tpl_gaibang_fb.jpg",
+        "/assets/characters/templates/tpl_gaibang_av.jpg",
+    ),
+    "SECT-20": (
+        "/assets/characters/templates/tpl_yipintang_fb.jpg",
+        "/assets/characters/templates/tpl_yipintang_av.jpg",
+    ),
+    "SECT-08": (
+        "/assets/characters/templates/tpl_wudang_fb.jpg",
+        "/assets/characters/templates/tpl_wudang_av.jpg",
+    ),
+    "SECT-06": (
+        "/assets/characters/templates/tpl_taishan_fb.jpg",
+        "/assets/characters/templates/tpl_taishan_av.jpg",
+    ),
+    "SECT-05": (
+        "/assets/characters/templates/tpl_huashan_fb.jpg",
+        "/assets/characters/templates/tpl_huashan_av.jpg",
+    ),
+    "SECT-14": (
+        "/assets/characters/templates/tpl_qingcheng_fb.jpg",
+        "/assets/characters/templates/tpl_qingcheng_av.jpg",
+    ),
+    "SECT-11": (
+        "/assets/characters/templates/tpl_zhongnan_fb.jpg",
+        "/assets/characters/templates/tpl_zhongnan_av.jpg",
+    ),
+    "SECT-19": (
+        "/assets/characters/templates/tpl_xingxiu_fb.jpg",
+        "/assets/characters/templates/tpl_xingxiu_av.jpg",
+    ),
+    "SECT-13": (
+        "/assets/characters/templates/tpl_tangmen_fb.jpg",
+        "/assets/characters/templates/tpl_tangmen_av.jpg",
+    ),
+    "SECT-30": (
+        "/assets/characters/templates/tpl_wuxiguzhai_fb.jpg",
+        "/assets/characters/templates/tpl_wuxiguzhai_av.jpg",
+    ),
+}
+
+
+def _existing_pair(fb_url: str, av_url: str) -> tuple[str, str] | None:
+    if (PUBLIC_DIR / fb_url.lstrip("/")).exists() and (PUBLIC_DIR / av_url.lstrip("/")).exists():
+        return fb_url, av_url
+    return None
+
+
+def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str) -> tuple[str, str | None]:
+    if faction_id == "SECT-07":
+        if gender == "男":
+            pair = _existing_pair(
+                "/assets/characters/templates/tpl_emei_male_fb.jpg",
+                "/assets/characters/templates/tpl_emei_male_av.jpg",
+            )
+            if pair:
+                return pair
+        else:
+            pair = _existing_pair(
+                "/assets/characters/templates/tpl_emei_female_fb.jpg",
+                "/assets/characters/templates/tpl_emei_female_av.jpg",
+            )
+            if pair:
+                return pair
+    if faction_id in SECT_DEDICATED_TEMPLATES:
+        fb_url, av_url = SECT_DEDICATED_TEMPLATES[faction_id]
+        pair = _existing_pair(fb_url, av_url)
+        if pair:
+            return pair
     if faction_id in ("SECT-01", "SECT-03", "SECT-04") or "僧" in role or "禅" in role or "喇嘛" in role:
-        return "/assets/characters/templates/tpl_shaolin_monk_fb.jpg"
+        return "/assets/characters/templates/tpl_shaolin_monk_fb.jpg", None
     if faction_id in ("ORG-05", "SECT-29") or "医" in role or "药" in role:
-        return "/assets/characters/templates/tpl_song_physician_fb.jpg"
+        return "/assets/characters/templates/tpl_song_physician_fb.jpg", None
     if faction_id == "ORG-08":
-        return "/assets/characters/templates/tpl_dali_prince_fb.jpg"
+        return "/assets/characters/templates/tpl_dali_prince_fb.jpg", None
     if faction_id in ("ORG-06", "ORG-07", "ORG-09", "ORG-11", "SECT-20") and gender == "男":
-        return "/assets/characters/templates/tpl_khitan_warrior_fb.jpg"
+        return "/assets/characters/templates/tpl_khitan_warrior_fb.jpg", None
     if gender == "女":
         if faction_id in ("ORG-02", "ORG-06", "ORG-07", "ORG-08") and (
             "后" in role or "妃" in role or "主" in role or "贵女" in role
         ):
-            return "/assets/characters/templates/tpl_song_empress_fb.jpg"
+            return "/assets/characters/templates/tpl_song_empress_fb.jpg", None
         if "将" in role or "帅" in role or "捕" in role or faction_id in ("SECT-17", "SECT-18", "SECT-22", "SECT-24"):
-            return "/assets/characters/templates/tpl_woman_general_fb.jpg"
-        return "/assets/characters/templates/tpl_emei_heroine_fb.jpg"
+            return "/assets/characters/templates/tpl_woman_general_fb.jpg", None
+        return "/assets/characters/templates/tpl_emei_heroine_fb.jpg", None
     if category == "历史名人" or faction_id in ("ORG-02", "ORG-03", "ORG-04"):
         if "将" in role or "帅" in role or "军" in role or "指挥" in role:
-            return "/assets/characters/templates/tpl_greenwood_hero_fb.jpg"
-        return "/assets/characters/templates/tpl_song_scholar_fb.jpg"
+            return "/assets/characters/templates/tpl_greenwood_hero_fb.jpg", None
+        return "/assets/characters/templates/tpl_song_scholar_fb.jpg", None
     if faction_id in ("SECT-06", "SECT-08", "SECT-11", "SECT-14"):
-        return "/assets/characters/templates/tpl_taoist_master_fb.jpg"
+        return "/assets/characters/templates/tpl_taoist_master_fb.jpg", None
     if faction_id in ("SECT-09", "SECT-10", "SECT-12"):
-        return "/assets/characters/templates/tpl_taohua_master_fb.jpg"
+        return "/assets/characters/templates/tpl_taohua_master_fb.jpg", None
     if faction_id in ("SECT-13", "SECT-19", "SECT-20", "SECT-30"):
-        return "/assets/characters/templates/tpl_unorthodox_master_fb.jpg"
-    return "/assets/characters/templates/tpl_greenwood_hero_fb.jpg"
+        return "/assets/characters/templates/tpl_unorthodox_master_fb.jpg", None
+    return "/assets/characters/templates/tpl_greenwood_hero_fb.jpg", None
 
 
 def resolve_npc_leaf_location(
@@ -2120,7 +2202,7 @@ def parse_npcs(
 
         avatar_url = f"/assets/characters/avatars/{npc_id}.jpg" if npc_id in existing_avatars else None
         fullbody_url = f"/assets/characters/fullbody/{npc_id}.jpg" if npc_id in existing_fullbody else None
-        template_url = pick_template_for_npc(faction_id, gender, role, category)
+        template_url, template_avatar_url = pick_template_for_npc(faction_id, gender, role, category)
 
         npcs.append(
             {
@@ -2155,6 +2237,7 @@ def parse_npcs(
                 "avatarUrl": avatar_url,
                 "fullbodyUrl": fullbody_url,
                 "templateUrl": template_url,
+                "templateAvatarUrl": template_avatar_url,
             }
         )
 
@@ -3417,8 +3500,20 @@ def compile_all(do_normalize_docs: bool) -> None:
                     ch_entry["fullbodyUrl"] = npc["fullbodyUrl"]
                 synced_chars.append(ch_entry)
         pc_data["characters"] = synced_chars
+        tpl_dir = PUBLIC_DIR / "assets" / "characters" / "templates"
+        if tpl_dir.exists():
+            pc_data["templates"] = [
+                {
+                    "id": p.stem,
+                    "url": f"/assets/characters/templates/{p.name}",
+                    "bytes": p.stat().st_size,
+                }
+                for p in sorted(tpl_dir.glob("*.jpg"))
+            ]
         pc_path.write_text(json.dumps(pc_data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print(f"[M0-3] Synced src/data/portraitCatalog.json ({len(synced_chars)} characters)")
+        print(
+            f"[M0-3] Synced src/data/portraitCatalog.json ({len(synced_chars)} characters, {len(pc_data.get('templates', []))} templates)"
+        )
 
     enterable_base_count = sum(
         1 for b in buildings if not b["isSpecial"] and b["interior"] is not None

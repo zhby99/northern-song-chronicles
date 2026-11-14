@@ -37,7 +37,7 @@ export function PortraitLightbox({
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            {lightbox.npc && lightbox.npc.avatarUrl && (
+            {lightbox.npc && (lightbox.npc.avatarUrl || lightbox.npc.templateAvatarUrl) && (
               <div className="flex items-center rounded overflow-hidden border border-[#c89d54]/60 text-xs">
                 <button
                   type="button"
