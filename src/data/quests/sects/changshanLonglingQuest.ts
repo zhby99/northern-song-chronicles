@@ -197,19 +197,35 @@ const OPENING_EFFECTS: QuestEffect[] = [
       beats: [
         {
           speaker: { kind: 'narrator' },
-          text: '深夜雨冷，常山演武堂山门紧闭。香火缭绕的龙胆枪脉宗祠正堂内，掌门赵括苍（NPC-0185）端坐太师椅，边军都监郭逵（NPC-0036）与演武首座凌寒（NPC-0345）分立左右。',
+          text: '皇祐二年的冬末，真定府夜雨寒冽，砸在常山演武堂的青瓦上发出密匝匝的冷响。山门早早落了双闩，唯有宗祠正堂内两盏牛油巨烛摇曳着昏黄的光影，将赵顺平侯牌位照得肃穆森严。',
+        },
+        {
+          speaker: { kind: 'narrator' },
+          text: '掌门赵括苍（NPC-0185）按剑端坐太师椅，面色沉凝如铁；左侧立着真定路边军都监郭逵（NPC-0036），玄甲未卸，肩头还沾着未干的雨珠；右侧则是演武首座凌寒（NPC-0345），手中托着一块紫檀木盘。',
         },
         {
           speaker: { kind: 'npc', npcId: 'NPC-0345' },
-          text: '“今日在宋辽边境榷场扣下一匹走私契丹骏马，从马鞍夹层中搜出这枚幽州悯忠寺铜牌，并半张血书——『南牧图成，速毁于燕。』”',
+          text: '“师弟且看。今日午后，我在宋辽边境榷场扣下一匹走私契丹骏马。马贩子嘴硬，我却从他那副双层驼革马鞍的夹层里，拆出这枚幽州悯忠寺铜牌——还有这半张浸透干血的麻布。”',
+        },
+        {
+          speaker: { kind: 'narrator' },
+          text: '凌寒揭开油纸，铜牌背面刻着唐代悯忠寺的莲花暗纹，麻布上八个字铁画银钩，却因写字之人指力衰竭而末尾拖出一道长长的血痕：「南牧图成，速毁于燕。」',
         },
         {
           speaker: { kind: 'npc', npcId: 'NPC-0036' },
-          text: '“辽南京武林统制萧远风已秘密绘成《南牧山川策》，若秋后辽军南侵，河北塘泺要害尽在敌手。此事干系重大，须先随我赴真定府都部署衙密见韩琦韩安抚使。”',
+          text: '“不瞒你与赵掌门，定州与真定府的细作营早有耳目报称：辽南京武林统制萧远风（NPC-0184）近两年遍访燕云山川、暗中测绘我河北塘泺水网与真定府城防虚实，已绘成一卷《南牧山川策》。”',
+        },
+        {
+          speaker: { kind: 'npc', npcId: 'NPC-0036' },
+          text: '“秋高马肥之日，辽骑若按此图南下直扑白沟河，真定与河朔数州危矣！只是朝廷尚守澶渊旧盟，官军一卒不可北渡拒马河。此事须得由江湖人乔装潜入析津府，赶在秋前将正本焚毁！”',
         },
         {
           speaker: { kind: 'npc', npcId: 'NPC-0185' },
-          text: '“你入我内堂以来枪法日进，今夜便授你这枚【悯忠寺血迹铜牌】。记住：此去燕云不得暴露大宋与常山旗号，一切唯『无名』二字。”',
+          text: '“你入我常山内堂以来，昼夜苦练龙胆枪意，筋骨已堪大任。今夜便由你接下这枚【悯忠寺血迹铜牌】，随郭都监先赴真定府都部署衙密见韩琦韩安抚使。”',
+        },
+        {
+          speaker: { kind: 'npc', npcId: 'NPC-0185' },
+          text: '“切记！出得真定北门，你我再无师徒名分。此行不得暴露大宋官身，亦不可亮常山枪派旗号——白沟寒星之下，万事唯『无名』二字！”',
         },
       ],
       onFinishEffects: [
@@ -270,11 +286,23 @@ const MARSHAL_XIAO_COMBAT_EFFECTS: QuestEffect[] = [
           beats: [
             {
               speaker: { kind: 'narrator' },
-              text: '枪影交错间，东侧马厩火势轰然炸响！郭逵连掷三枚霹雳烟幕弹，浓烟瞬间吞没了萧远风的铁枪寒芒。',
+              text: '四合硬撼，你的虎口已被震裂，鲜血顺着枪杆滴落青砖，而萧远风（NPC-0184）的镔铁长枪却愈发沉重如山。正值危殆之际，元帅府东侧马厩轰然炸起冲天火柱！',
+            },
+            {
+              speaker: { kind: 'narrator' },
+              text: '窗棂破响，三枚裹着硫磺硝石的霹雳烟幕弹凌空飞入签押房！浓黑刺鼻的烟雾瞬间吞没了烛火与萧远风凌厉的眼神。',
+            },
+            {
+              speaker: { kind: 'npc', npcId: 'NPC-0184' },
+              text: '“南蛮鼠辈，竟敢烧我《南牧山川策》正本！传令铁林骑封锁四门——就算追到桑干河、雁门关，本统制也要把你们碎尸万段！”',
             },
             {
               speaker: { kind: 'npc', npcId: 'NPC-0036' },
-              text: '“正本已化飞灰，速随我西折奔雁门关！萧远风必率铁林精锐死追！”',
+              text: '（郭逵一把扯住你的臂膀翻出矮墙，牵过两匹早已备好的乌骓快马）“正本已化飞灰，副本在我贴身夹袄里！幽州东门已被封死，随我西折直奔雁门关！”',
+            },
+            {
+              speaker: { kind: 'player' },
+              text: '“萧远风枪法如狂澜，绝非寻常辽将……郭都监先走，若他率铁骑追至雁门关外，我们便在乱石绝壁间再分生死！”',
             },
           ],
           onFinishEffects: [
@@ -295,9 +323,22 @@ const MARSHAL_XIAO_COMBAT_EFFECTS: QuestEffect[] = [
     onLose: [
       { type: 'healPlayer', hpPct: 20, mpPct: 20 },
       {
-        type: 'toast',
-        text: '被萧远风铁枪震退，幸得郭逵策马救回，调息后再入元帅府焚图！',
-        tone: 'warn',
+        type: 'openScene',
+        scene: {
+          id: 'scene_cs_marshal_lose',
+          title: '铁枪震退 · 暂避幽州巷陌',
+          subtitle: '辽南京兵马元帅府外',
+          beats: [
+            {
+              speaker: { kind: 'narrator' },
+              text: '萧远风一记「铁骑踏冰」横扫千军，将你震飞撞破窗棂！幸好郭逵在院外连发袖箭逼退追兵，架着你滚入暗巷脱身。',
+            },
+            {
+              speaker: { kind: 'npc', npcId: 'NPC-0036' },
+              text: '“一流中品的高手果然非同小可！此人枪势极沉，切莫与其正面硬拼力气，只需守住门户撑过四合，待我烟幕一响便走。先调息养伤，我们再杀回去！”',
+            },
+          ],
+        },
       },
     ],
   },
@@ -326,11 +367,23 @@ const CLIFF_WIN_A_EFFECTS: QuestEffect[] = [
       beats: [
         {
           speaker: { kind: 'narrator' },
-          text: '激战正酣之际，关内忽然响起一阵龙吟般的马嘶！赵括苍（NPC-0185）与白烈山（NPC-0635）率常山精锐杀出关外，内外夹击将辽军铁林骑冲散！',
+          text: '你孤身立于两块丈余高的风化巨石之间，手中长枪舞成一团银雾，将辽军铁林百夫长与游骑精锐死死挡在狭口之外。寒风卷着雪沫割面如刀，甲衣早已结满冰霜。',
+        },
+        {
+          speaker: { kind: 'narrator' },
+          text: '激战正酣之际，雁门雄关内忽然响起一阵龙吟般的马嘶！关门洞开，一队玄甲银枪骑如怒涛般奔涌而出——正是掌门赵括苍（NPC-0185）亲率副掌门白烈山（NPC-0635）与常山精锐杀出关外接应！',
+        },
+        {
+          speaker: { kind: 'npc', npcId: 'NPC-0635' },
+          text: '“师侄莫慌，常山弟子在此！契丹狗贼，且尝尝我常山龙胆连环枪！”',
+        },
+        {
+          speaker: { kind: 'narrator' },
+          text: '内外夹击之下，辽军铁林骑阵脚大乱，丢下十余具尸首仓皇北遁。萧远风见大势已去，只得勒马驻足于十里外雪坡，遥遥朝你抱拳冷哼一声，调转马头消失在风雪之中。',
         },
         {
           speaker: { kind: 'npc', npcId: 'NPC-0185' },
-          text: '“干得好！郭都监已携《南牧山川策》副本安全入关，我等速回真定府向韩安抚使复命！”',
+          text: '“干得好！郭都监已携《南牧山川策》副本与南院暗桩名录安全入关。此地不宜久留，我等立刻拔营南返真定府，赴隆兴大佛寺向韩安抚使复命！”',
         },
       ],
     },
@@ -362,11 +415,27 @@ const CLIFF_WIN_B_EFFECTS: QuestEffect[] = [
       beats: [
         {
           speaker: { kind: 'narrator' },
-          text: '你凭一杆长枪死死钉在绝壁窄口，硬生生接下萧远风四合猛攻！身后最后一名幽州白发老者终于踉跄跨入李牧祠门槛。',
+          text: '百余名须发皆白的幽州遗老相互搀扶着，深一脚浅一脚地在齐膝积雪中向李牧祠挪动。盲眼老僧将那卷《南牧山川策》副本死死抱在怀里，一步三回头。',
+        },
+        {
+          speaker: { kind: 'narrator' },
+          text: '而你独自一人横枪立在绝壁窄口，面对盛怒追至的萧远风（NPC-0184）与辽军铁林百夫长！每一次铁枪相交都似炸响惊雷，虎口鲜血顺着冻僵的腕骨凝成冰柱，你却如生根磐石般一步不退！',
+        },
+        {
+          speaker: { kind: 'npc', npcId: 'NPC-0184' },
+          text: '“好一个狂徒！为了这群百年遗老，竟敢以残躯硬撼我辽南京铁枪四合而不倒——你究竟是赵氏哪一脉的传人？”',
+        },
+        {
+          speaker: { kind: 'player' },
+          text: '“无名小卒，大宋常山一枪客罢了！背后是百年不改汉家衣冠的父老，今日便是死，也不教胡骑跨过这半步！”',
+        },
+        {
+          speaker: { kind: 'narrator' },
+          text: '就在第四合枪尖将将抵住你咽喉的刹那，最后一名白发老者终于踉跄跨入镇边李牧武安君祠门槛！关内杀声震天，赵括苍（NPC-0185）与白烈山（NPC-0635）率常山精锐怒马冲出，生生将萧远风逼退三丈！',
         },
         {
           speaker: { kind: 'npc', npcId: 'NPC-0185' },
-          text: '“好一个常山义士！今日你不仅保住了燕云密报，更保住了百余名不肯剃发易服的汉家遗老！萧远风，滚回幽州去吧！”',
+          text: '（赵括苍勒马扶住摇摇欲坠的你，眼眶微红）“好一个常山义士！今日你不仅保住了燕云密报，更保住了百余名不肯剃发易服的汉家遗老！这等骨气，足令天下英雄汗颜！”',
         },
       ],
     },
@@ -545,8 +614,20 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
               subtitle: '真定府都部署衙',
               beats: [
                 {
+                  speaker: { kind: 'narrator' },
+                  text: '真定府都部署衙后堂屏退了所有亲随与书吏，唯余案头一卷摊开的《河北塘泺舆图》与半盏冷茶。韩琦（NPC-0011）身着青衫常服，眉宇间却透着经略西北、镇抚河朔的铁血威仪。',
+                },
+                {
+                  speaker: { kind: 'narrator' },
+                  text: '他接过你呈上的【悯忠寺血迹铜牌】，指腹在「南牧图成，速毁于燕」八字上缓缓摩挲良久，方才抬眼望向你与郭逵。',
+                },
+                {
                   speaker: { kind: 'npc', npcId: 'NPC-0011' },
-                  text: '“澶渊之盟不可轻破。此去幽州若败，朝廷与真定府皆不会认账，只以『私越边关流寇』论处。你可还敢往？”',
+                  text: '“景德元年澶渊定盟，至今四十六载，朝野方得休养生息。此盟不可轻破——纵使明知萧远风在幽州磨刀霍霍，大宋官军亦绝不可先越白沟河半步。”',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0011' },
+                  text: '“故而本帅有言在先：此去析津府焚毁《南牧山川策》，若能成功，功劳簿上不会有你的名字；若不幸事败被擒，朝廷与真定府皆不会认账，只会依律以『私越边关流寇』论处！你可还敢往？”',
                 },
               ],
               choices: [
@@ -565,6 +646,24 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                       questId: QUEST_ID,
                       stepId: 'yanjing_horse_market',
                     },
+                    {
+                      type: 'openScene',
+                      scene: {
+                        id: 'scene_cs_hanqi_bold_reply',
+                        title: '无名赴义 · 韩琦赠银',
+                        subtitle: '真定府都部署衙',
+                        beats: [
+                          {
+                            speaker: { kind: 'npc', npcId: 'NPC-0011' },
+                            text: '“好一个『常山弟子岂惜此身』！昔年赵子龙单骑救主，今日你孤身入燕——取我私库五十两散碎纹银作盘缠，切记不可用官银锭！”',
+                          },
+                          {
+                            speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                            text: '“安抚使放心，末将已备好定州马贩的文书与两匹塞外骒马。明日五更出北门，直奔析津府燕京榷马大市！”',
+                          },
+                        ],
+                      },
+                    },
                   ],
                 },
                 {
@@ -582,6 +681,24 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                       type: 'setQuestStep',
                       questId: QUEST_ID,
                       stepId: 'yanjing_horse_market',
+                    },
+                    {
+                      type: 'openScene',
+                      scene: {
+                        id: 'scene_cs_hanqi_pragmatic_reply',
+                        title: '沉稳受命 · 密议北行',
+                        subtitle: '真定府都部署衙',
+                        beats: [
+                          {
+                            speaker: { kind: 'npc', npcId: 'NPC-0011' },
+                            text: '“不骄不躁，深明朝堂权衡之道。有你在郭都监身侧谋划，本帅亦能少悬半颗心。这五十两私库散银你且收下。”',
+                          },
+                          {
+                            speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                            text: '“好！临机应变最重冷静，我等乔装马商北上析津府，第一步便是闯过燕京榷马大市的辽人盘查！”',
+                          },
+                        ],
+                      },
                     },
                   ],
                 },
@@ -611,10 +728,26 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
           { type: 'addFlagNumber', flag: 'sect_relation_SECT-23', delta: 10 },
           { type: 'modifyRenown', delta: 20, reason: '联络燕云义勇暗桩' },
           {
-            type: 'toast',
-            text: '秦乾（NPC-0642）暗授【幽州夜禁换防图】！秦乾好感 +15，沧州八极门关系 +10，声望 +20。',
-            tone: 'success',
-            logTag: '燕云暗桩',
+            type: 'openScene',
+            scene: {
+              id: 'scene_cs_qinqian_secret',
+              title: '节点 2-2 · 义勇拳馆暗桩',
+              subtitle: '析津府 · 燕云遗民义勇拳馆',
+              beats: [
+                {
+                  speaker: { kind: 'narrator' },
+                  text: '拳馆后院木桩林立，几个汉家少年正在寒风中默默扎马练拳。你扣响门环三长两短，低声吐出沧州八极门暗语：「铁锁横江，白沟饮马。」',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0642' },
+                  text: '（秦乾手腕一抖，将手中齐眉短棍收于身后，眼神瞬间锐利如鹰，旋即化作久别重逢的激昂）“真是从真定来的同道！我在这幽州城潜伏八年，还以为关内早已忘了咱们！”',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0642' },
+                  text: '“萧远风的兵马元帅府戒备森严，三步一暗哨。这是我这半年冒死摸清的【幽州夜禁换防图】，子时三刻东侧角门换防有一炷香的空档——拿着它，务必把那张害人的南牧图烧成灰！”',
+                },
+              ],
+            },
           },
         ],
       },
@@ -649,18 +782,46 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
               { type: 'modifyRenown', delta: 15, reason: '榷场查账识破私马暗账' },
               { type: 'addArtExp', amount: 200 },
               {
-                type: 'toast',
-                text: '算术查账得手！起获【幽燕马市通行暗记】，算术 +3、声望 +15、武学熟练度 +200。',
-                tone: 'success',
-                logTag: '榷场查账',
+                type: 'openScene',
+                scene: {
+                  id: 'scene_cs_market_audit_win',
+                  title: '节点 1-2 · 榷场查账',
+                  subtitle: '真定府 · 宋辽边境榷场 > 榷场平准司衡算官署',
+                  beats: [
+                    {
+                      speaker: { kind: 'narrator' },
+                      text: '衡算官署内堆满了厚如砖块的契丹马市流水账册。凌寒（NPC-0345）将扣下的那批私马票据摊在案上，与你逐行对核草料损耗与税银折算。',
+                    },
+                    {
+                      speaker: { kind: 'player' },
+                      text: '“凌师兄且看这七笔『北庭青骡』的税脚——骡价不过八贯，这账上的回扣却按战马二十贯折算！这行暗码正是幽燕马市暗桩的接洽印记！”',
+                    },
+                    {
+                      speaker: { kind: 'npc', npcId: 'NPC-0345' },
+                      text: '“好眼力！果然从那马贩子暗格里搜出这枚【幽燕马市通行暗记】。带去析津府，过辽人马市盘查时能省去好大一番口舌！”',
+                    },
+                  ],
+                },
               },
             ],
             elseEffects: [
               {
-                type: 'toast',
-                text: '走私账目隐晦难辨（算术不足 45），未能起获暗记，须凭真本事闯燕京马市！',
-                tone: 'warn',
-                logTag: '榷场查账',
+                type: 'openScene',
+                scene: {
+                  id: 'scene_cs_market_audit_fail',
+                  title: '节点 1-2 · 账海难寻',
+                  subtitle: '真定府 · 宋辽边境榷场 > 榷场平准司衡算官署',
+                  beats: [
+                    {
+                      speaker: { kind: 'narrator' },
+                      text: '案上契丹文与汉文夹杂的流水账册密密麻麻，虚实难辨。你与凌寒翻检半个时辰，终因算术火候尚浅未能理出暗账头绪。',
+                    },
+                    {
+                      speaker: { kind: 'npc', npcId: 'NPC-0345' },
+                      text: '“罢了，既然查不出暗记，北上燕京马市时便只能靠你的口才、相马真本事或是手中长枪硬闯了！万事小心。”',
+                    },
+                  ],
+                },
               },
             ],
           },
@@ -689,11 +850,23 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
             scene: {
               id: 'scene_cs_horse_market',
               title: '节点 2-1 · 燕京马市盘查',
-              subtitle: '析津府 · 燕京榷马大市',
+              subtitle: '析津府 · 燕京榷马大市 > 塞北千驷相马围栏',
               beats: [
                 {
+                  speaker: { kind: 'narrator' },
+                  text: '幽州城西的燕京榷马大市人声鼎沸，千余匹来自阴山、松漠的战马在木栅栏内嘶鸣刨蹄，驼铃声与契丹牧人的呼喝混杂在凛冽的北风里。大市四周箭楼高耸，辽南京留守司的游骑每隔半刻便纵马巡行一遭。郭逵（NPC-0036）压低毡帽、披着一件油渍斑斑的羊皮袄牵着两匹骒马在前，你扮作伙计挑着马料担紧随其后，长枪早已拆成三段暗藏在草料捆中。',
+                },
+                {
+                  speaker: { kind: 'narrator' },
+                  text: '刚入千驷相马围栏，一队佩刀辽卒忽然横矛拦住去路。为首的辽国暗桩完颜鹏豪（NPC-0767）身着半旧皮甲，鹰目如电地扫过马群，手中牛皮马鞭直指你牵着的枣红骒马，冷笑一声逼近半步。',
+                },
+                {
                   speaker: { kind: 'npc', npcId: 'NPC-0767' },
-                  text: '“慢着！这批骒马的牙口与烙印不对劲，你们两个定州口音的马贩到底从哪条道摸进燕京的？”',
+                  text: '“慢着！这批骒马的牙口与烙印不对劲——河北官马才会剪去左耳一寸！你们两个定州口音的马贩到底从哪条道摸进燕京的？把路引、牙行票据和马籍勘合统统拿出来！”',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                  text: '（郭逵不动声色地将手按在腰间马刀柄上，压低嗓音向你递了个眼色）“看你了：若能凭行话与马市暗记骗过这厮最好；若露了马脚，便趁巡骑未至，就在草料垛后干脆利落做了他们！”',
                 },
               ],
               choices: [
@@ -736,10 +909,26 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 5 },
                         { type: 'setQuestStep', questId: QUEST_ID, stepId: 'minzhong_temple' },
                         {
-                          type: 'toast',
-                          text: '无伤混过盘查！骑术/辩才 +3，武学熟练度 +350，郭逵好感 +5。',
-                          tone: 'success',
-                          logTag: '燕京马市',
+                          type: 'openScene',
+                          scene: {
+                            id: 'scene_cs_horse_bluff_win',
+                            title: '机变周旋 · 混入幽州',
+                            subtitle: '析津府 · 燕京榷马大市',
+                            beats: [
+                              {
+                                speaker: { kind: 'player' },
+                                text: '“官爷好眼力，却看岔了行当！这叫『白沟剪耳青』，专给南院贵人拉车用的。您瞧这马蹄铁的七星钉——不信您去问东角牙行的老胡！”',
+                              },
+                              {
+                                speaker: { kind: 'npc', npcId: 'NPC-0767' },
+                                text: '（完颜鹏豪半信半疑地打量你一番，见你行话纯熟、神色丝毫不乱，终究摆了摆手）“滚进去吧！安分卖完马就走，别在燕京城里乱晃！”',
+                              },
+                              {
+                                speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                                text: '（待辽卒走远，郭逵低声赞道）“好险，若非你镇定周旋，咱们此刻已在围栏里动刀了。趁夜色前往幽州悯忠寺！”',
+                              },
+                            ],
+                          },
                         },
                       ],
                       elseEffects: [
@@ -756,10 +945,22 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                             { type: 'giveSilver', amount: 35, reason: '缴获辽暗桩银两' },
                             { type: 'setQuestStep', questId: QUEST_ID, stepId: 'minzhong_temple' },
                             {
-                              type: 'toast',
-                              text: '强闯灭口得手！武学熟练度 +600、气血上限 +15、缴获纹银 +35 两。',
-                              tone: 'success',
-                              logTag: '燕京马市',
+                              type: 'openScene',
+                              scene: {
+                                id: 'scene_cs_horse_combat_win',
+                                title: '雷霆灭口 · 隐入夜色',
+                                subtitle: '析津府 · 燕京榷马大市',
+                                beats: [
+                                  {
+                                    speaker: { kind: 'narrator' },
+                                    text: '行话露了破绽，完颜鹏豪眼神骤寒，伸手便往怀里掏骨哨！千钧一发之际，你肩头一抖震散草料捆，长枪短柄如毒龙出洞，抢在他吹哨前点碎其腕骨，数合间将他与两名辽卒尽数劈翻在草料垛后，连半声惊呼都未曾漏出围栏！',
+                                  },
+                                  {
+                                    speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                                    text: '“手脚利落！把尸首拖进马槽盖上干草，这三十五两契丹碎银权作盘缠。趁巡城游骑未至，速赴幽州悯忠寺！”',
+                                  },
+                                ],
+                              },
                             },
                           ],
                         },
@@ -786,10 +987,22 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                         { type: 'giveSilver', amount: 35, reason: '缴获辽暗桩银两' },
                         { type: 'setQuestStep', questId: QUEST_ID, stepId: 'minzhong_temple' },
                         {
-                          type: 'toast',
-                          text: '斩杀辽国马市暗桩！武学熟练度 +600、气血上限 +15、纹银 +35 两。',
-                          tone: 'success',
-                          logTag: '燕京马市',
+                          type: 'openScene',
+                          scene: {
+                            id: 'scene_cs_horse_force_win',
+                            title: '围栏血战 · 夺路而去',
+                            subtitle: '析津府 · 燕京榷马大市',
+                            beats: [
+                              {
+                                speaker: { kind: 'narrator' },
+                                text: '不等完颜鹏豪拔刀，你已暴喝一声挑飞草料担，长枪连刺三朵寒星！郭逵亦同时掣出腰间短刀横截退路，两人左右合击，转瞬便将三名辽国暗桩格杀于千驷围栏的阴影之中，马群受惊嘶鸣恰好掩盖了兵刃交击之声！',
+                              },
+                              {
+                                speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                                text: '“将腰牌与碎银搜走！此地血腥气很快会引来辽军巡骑，不可久留，走西角小巷直赴悯忠寺！”',
+                              },
+                            ],
+                          },
                         },
                       ],
                     },
@@ -826,11 +1039,23 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
               beats: [
                 {
                   speaker: { kind: 'narrator' },
-                  text: '唐碑冷月下，数位百年不改宽袍博带的幽州遗老与一名盲眼老僧迎上前来。你抱枪行出「常山持枪礼」，老僧浑浊的眼眶顿时湿润。',
+                  text: '千年古刹幽州悯忠寺静卧于寒月之下，唐碑残碣在风中肃立。偏殿掩门之内，十余位须发皆白、却依然身着宽袍大袖汉家旧服的燕云遗老正围炉低语。',
+                },
+                {
+                  speaker: { kind: 'narrator' },
+                  text: '见你怀中亮出【悯忠寺血迹铜牌】，稳稳行出一记「常山持枪礼」，殿中诸老齐齐起身回礼。为首一位双目失明的老僧颤巍巍走近，伸出布满老茧的手轻轻抚过你的枪杆。',
                 },
                 {
                   speaker: { kind: 'custom', name: '悯忠寺盲眼老僧', title: '燕云遗老' },
-                  text: '“《南牧山川策》副本与南院暗桩名录在此。只是……老朽代幽州十万父老问少侠一句：官家兵马，何时再过桑干河？”',
+                  text: '“百余年了……自石晋割让燕云十六州，这幽州城里便再未见过真定常山的正统枪礼！那日送出铜牌的义士已遭萧远风毒手，临终前托我将这卷冒死誊抄的《南牧山川策》副本与南院暗桩名录交予你们。”',
+                },
+                {
+                  speaker: { kind: 'custom', name: '悯忠寺盲眼老僧', title: '燕云遗老' },
+                  text: '“只是正本仍锁在辽南京兵马元帅府签押房内！若不将正本焚毁，秋后辽军照样南下。但在你们动身之前……老朽代幽州十万不肯忘本的汉家父老问少侠一句：”',
+                },
+                {
+                  speaker: { kind: 'custom', name: '悯忠寺盲眼老僧', title: '燕云遗老' },
+                  text: '“大宋官家的王师铁骑……究竟何时，才能再过桑干河啊？”',
                 },
               ],
               choices: [
@@ -844,6 +1069,24 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                     { type: 'addArtExp', amount: 300 },
                     { type: 'giveItem', itemId: 'ITM-ACC-001', qty: 1 },
                     ...MINZHONG_AFTER_EFFECTS,
+                    {
+                      type: 'openScene',
+                      scene: {
+                        id: 'scene_cs_minzhong_vow_reply',
+                        title: '古刹授佩 · 龙胆不绝',
+                        subtitle: '析津府 · 幽州悯忠寺',
+                        beats: [
+                          {
+                            speaker: { kind: 'custom', name: '悯忠寺盲眼老僧', title: '燕云遗老' },
+                            text: '“好一句『只要常山枪不断，燕云终有归日』！这枚【燕云遗老护身玉佩】随老朽半生，今夜赠予少侠挡灾避邪——去吧，把元帅府那张《南牧山川策》烧成飞灰！”',
+                          },
+                          {
+                            speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                            text: '“诸位老丈暂且隐蔽佛龛之后。子时已近，我先赴元帅府东侧马厩备好火油与霹雳烟幕弹，你趁乱潜入签押房！”',
+                          },
+                        ],
+                      },
+                    },
                   ],
                 },
                 {
@@ -856,6 +1099,24 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 5 },
                     { type: 'setFlag', flag: 'cs_longling_route_b', value: true },
                     ...MINZHONG_AFTER_EFFECTS,
+                    {
+                      type: 'openScene',
+                      scene: {
+                        id: 'scene_cs_minzhong_escort_reply',
+                        title: '义诺千金 · 暗约西行',
+                        subtitle: '析津府 · 幽州悯忠寺',
+                        beats: [
+                          {
+                            speaker: { kind: 'custom', name: '悯忠寺盲眼老僧', title: '燕云遗老' },
+                            text: '（盲眼老僧长叹一声，却挺直了脊梁）“少侠肯以实言相告，老朽便知你不是虚言欺世之辈！既如此，我等百余名遗老今晚便收拾行装，若幽州事泄，定于西门外白沟古道候你！”',
+                          },
+                          {
+                            speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                            text: '“带百余老弱突围绝非易事，但既已应承，我郭逵也绝不皱眉！走，先去辽南京兵马元帅府烧了正本！”',
+                          },
+                        ],
+                      },
+                    },
                   ],
                 },
               ],
@@ -951,10 +1212,22 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
               { type: 'addArtExp', amount: 400 },
               { type: 'modifyBaseStat', key: 'agility', delta: 2 },
               {
-                type: 'toast',
-                text: '绝壁灵光一现！武学熟练度 +400、实战身法 +2，枪意大涨！',
-                tone: 'success',
-                logTag: '绝壁悟枪',
+                type: 'openScene',
+                scene: {
+                  id: 'scene_cs_cliff_epiphany',
+                  title: '绝壁刻痕 · 枪意通玄',
+                  subtitle: '雁门关外乱石绝壁',
+                  beats: [
+                    {
+                      speaker: { kind: 'narrator' },
+                      text: '逃至雁门关外乱石绝壁之下，你偶然抬头，只见十余丈高的青黑石壁上布满了前代边军枪客留下的深深枪痕——横扫如铁画、直刺如悬针，竟与常山龙胆枪脉暗合！',
+                    },
+                    {
+                      speaker: { kind: 'player' },
+                      text: '“原来『回马断后』并非死守一隅，而是借石壁回震之力步步换位……我悟了！”',
+                    },
+                  ],
+                },
               },
             ],
             elseEffects: [
@@ -993,7 +1266,15 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
               beats: [
                 {
                   speaker: { kind: 'narrator' },
-                  text: '雁门雄关遥遥在望，身后却马蹄如雷——萧远风亲率辽军铁林精锐截断退路！',
+                  text: '雁门雄关的烽火台与灰青色关墙已遥遥在望，天际却忽然卷起一阵黄沙！身后山道传出地动山摇般的铁骑轰鸣——辽南京武林统制萧远风（NPC-0184）亲率辽军铁林精锐连夜狂追五百里，竟在乱石绝壁前的狭口彻底截断了退路！马蹄踏碎积雪，黑压压的铁甲如乌云压顶般涌来。',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0184' },
+                  text: '“宋狗休走！白沟夜袭之仇，悯忠寺焚书之恨，今日在这雁门乱石坡一并清算！把《南牧山川策》副本交出来，本统制尚可留你们全尸！”',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                  text: '“前面便是雁门关狭口，关上宋军箭楼已亮起火把！若被铁林骑缠住，密图副本就送不进关内——你快做决断：是斩将夺路护我先行，还是背水死守保住所有幽州遗老！”',
                 },
               ],
               choices: [
@@ -1032,9 +1313,22 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                       onLose: [
                         { type: 'healPlayer', hpPct: 20, mpPct: 20 },
                         {
-                          type: 'toast',
-                          text: '未能撑满四合！整顿伤势后再试死守，或暂择路线 A 突围入关。',
-                          tone: 'warn',
+                          type: 'openScene',
+                          scene: {
+                            id: 'scene_cs_cliff_lose_b',
+                            title: '绝壁受创 · 暂退狭口',
+                            subtitle: '雁门关外乱石绝壁',
+                            beats: [
+                              {
+                                speaker: { kind: 'narrator' },
+                                text: '萧远风纵使带伤，余威仍如猛虎！你被一枪扫中肩甲跌回乱石堆中，幸得白烈山隔涧放箭掩护方才保住性命。',
+                              },
+                              {
+                                speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                                text: '“先服药调息！若实在撑不住他四合猛攻，亦可先择路线 A 斩杀百夫长突围入关！”',
+                              },
+                            ],
+                          },
                         },
                       ],
                     },
@@ -1090,8 +1384,32 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
               subtitle: '真定府 · 隆兴大佛寺 > 大悲千手观音三层宝阁',
               beats: [
                 {
+                  speaker: { kind: 'narrator' },
+                  text: '真定隆兴寺大悲阁高逾七丈，四十二臂千手铜像垂目俯瞰着暮色中的滹沱河。木梯幽暗，香烟缭绕在宋初营造的斗拱梁枋之间。韩琦（NPC-0011）独自立在三层回廊的雕花木窗前，手中捧着那份早已泛黄的秘密行动名录，郭逵（NPC-0036）则按刀守在梯口。',
+                },
+                {
                   speaker: { kind: 'npc', npcId: 'NPC-0011' },
-                  text: '“白沟寒星照无名。此纸行动名录今日付之一炬，然官家密案之中已记下你这一桩首功——来日无论五台佛门还是殿前禁军，本帅定为你作保！”',
+                  text: '“自你与郭都监自白沟雪夜动身，至今月余。幽州南牧图已入真定枢密密档，萧远风折损了半数铁林精锐，连辽南京留守司也不得不连夜易防——可这上面的名字，却一个也不能留。”',
+                },
+                {
+                  speaker: { kind: 'player' },
+                  text: '“安抚使的意思是……”',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0011' },
+                  text: '“皇祐二年的今天，朝廷尚需与契丹维系檀渊旧约，北边万不可因一道密谍折子再起全面刀兵。若这份名录落入主和或政敌手中，便是‘私越边关、挑衅邻邦’的死罪。唯有今日在大悲菩萨面前付之一炬，才能保住你、保住常山枪派，也保住那些幽州遗老的后半生。”',
+                },
+                {
+                  speaker: { kind: 'narrator' },
+                  text: '韩琦从香案取来铜炉炭火，将那张写满潜入者姓名、代号与接应暗桩的澄心堂纸一角凑近炉口。火舌倏忽舔舐纸缘，墨字在橙红火光中卷曲化灰，随高阁穿堂风散作漫天轻尘。郭逵沉声取出一个沉甸甸的牛皮银囊，推到你面前。',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0036' },
+                  text: '“二百两定州军府私库纹银，权作修缮兵甲之资。名录虽毁，可白沟寒星之下谁曾流血，我郭逵记在心里，韩公亦已在递呈官家的绝密御批折子上，为你记下头等无名首功！”',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0011' },
+                  text: '“白沟寒星照无名。去吧，回常山演武堂去——来日无论五台佛门还是殿前禁军，本帅定为你作保！真定城头的风雪，记着你的名字。”',
                 },
               ],
             },
@@ -1142,8 +1460,32 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
               subtitle: '真定府 · 常山演武堂 > 常山龙胆枪脉宗祠正堂',
               beats: [
                 {
+                  speaker: { kind: 'narrator' },
+                  text: '再回常山演武堂时，宗祠正堂已燃起三牲九礼的高香。汉顺平侯赵云的檀木牌位前，两列火盆将青砖照得通明。掌门赵括苍（NPC-0185）、演武首座凌寒（NPC-0345）、边军都监郭逵（NPC-0036）以及先行赶回真定的雁门神箭白烈山分列左右，整座常山内堂弟子鸦雀无声。',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0345' },
+                  text: '“白沟风雪夜，幽州古寺钟；雁门绝壁前，孤枪断铁林！此番北上，我常山弟子未辱先祖‘一身是胆’四字，更未曾牵连宗门与大宋边防半毫！”',
+                },
+                {
+                  speaker: { kind: 'narrator' },
+                  text: '赵括苍走上神龛前，双手捧下一具长逾八尺的黑漆紫檀枪匣，又从怀中取出一卷用油布与红绸重重包裹的古旧绢本。启匣瞬间，一杆通体寒光凛冽的亮银长枪跃入眼帘——枪锋三棱透骨，枪颈镌着两行蝇头篆文：“白沟寒星，龙胆常山。”',
+                },
+                {
                   speaker: { kind: 'npc', npcId: 'NPC-0185' },
-                  text: '“自今日起，这杆【常山龙胆亮银枪】与《岳氏沥泉枪前谱（常山龙胆枪）》便托付予你！望你持此神兵与【常山·定州联合举荐信】，护我大宋北疆山河无恙！”',
+                  text: '“这杆【常山龙胆亮银枪】，乃是历代内堂首席持之护国的镇派神兵；这卷《岳氏沥泉枪前谱（常山龙胆枪）》，更是先祖自三国乱世传下、经五代兵火仅存的孤本绝学！你于雁门绝壁生死一线间所悟出的‘绝壁寒星枪意’，正与谱中第七势‘孤胆破围’暗合！”',
+                },
+                {
+                  speaker: { kind: 'player' },
+                  text: '“弟子拜受先祖遗泽！此枪在手，必不使幽燕胡马越雷池一步！”',
+                },
+                {
+                  speaker: { kind: 'narrator' },
+                  text: '你单膝跪地，双手接过亮银长枪与秘谱。枪身入手冰寒沉凝，内息顺着枪杆涌入经脉，丹田与百会间顿时如星河倾泻，气血、内力、身法与抗性齐齐攀上一层新境！郭逵亦上前一步，将一封盖有真定府安抚使大印与常山掌门印信的【常山·定州联合举荐信】系于你腰间。',
+                },
+                {
+                  speaker: { kind: 'npc', npcId: 'NPC-0185' },
+                  text: '“自今日起，这杆【常山龙胆亮银枪】与《常山龙胆枪》便托付予你！望你持此神兵与【常山·定州联合举荐信】，护我大宋北疆山河无恙——天下虽大，常山永远是你的后盾！”',
                 },
               ],
             },

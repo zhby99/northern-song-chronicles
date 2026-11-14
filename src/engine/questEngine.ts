@@ -154,6 +154,8 @@ export interface QuestEvalContext {
   dayCount: number
   shichenIdx: number
   silver: number
+  renown?: number
+  chivalry?: number
   food: number
   hp: number
   maxHp: number
@@ -264,6 +266,24 @@ export function evaluateQuestCondition(
       return {
         passed: false,
         reason: `需纹银 ≥ ${cond.min} 两（当前 ${ctx.silver} 两）`,
+      }
+    }
+
+    case 'renownAtLeast': {
+      const cur = ctx.renown ?? 0
+      if (cur >= cond.min) return { passed: true, reason: null }
+      return {
+        passed: false,
+        reason: `需江湖声望 ≥ ${cond.min}（当前 ${cur}）`,
+      }
+    }
+
+    case 'chivalryAtLeast': {
+      const cur = ctx.chivalry ?? 0
+      if (cur >= cond.min) return { passed: true, reason: null }
+      return {
+        passed: false,
+        reason: `需江湖侠义 ≥ ${cond.min}（当前 ${cur}）`,
       }
     }
 

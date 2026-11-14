@@ -90,6 +90,8 @@ export type QuestCondition =
       min: number
     }
   | { type: 'silverAtLeast'; min: number }
+  | { type: 'renownAtLeast'; min: number }
+  | { type: 'chivalryAtLeast'; min: number }
   | { type: 'hasItem'; itemId: string; qty?: number }
   | { type: 'learnedArtAtLeast'; artId: string; minLevel: number }
   | { type: 'inSect'; sectId: string | null; minRank?: SectRankLevel }
