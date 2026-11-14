@@ -316,10 +316,10 @@ export function RegionMapCanvas() {
                       <polygon
                         points={sp.poly}
                         fill="#f59e0b"
-                        fillOpacity={isSelected ? 0.26 : 0}
+                        fillOpacity={0}
                         stroke="#fde047"
-                        strokeWidth={isSelected ? 3.2 : 0}
-                        strokeOpacity={isSelected ? 0.96 : 0}
+                        strokeWidth={0}
+                        strokeOpacity={0}
                         strokeLinejoin="round"
                         className="iso-poly-hotspot"
                       />
@@ -511,10 +511,10 @@ export function RegionMapCanvas() {
                         <polygon
                           points={b.poly}
                           fill={fillColor}
-                          fillOpacity={isSelected ? 0.24 : 0}
+                          fillOpacity={0}
                           stroke={strokeColor}
-                          strokeWidth={isSelected ? 3.2 : 0}
-                          strokeOpacity={isSelected ? 0.96 : 0}
+                          strokeWidth={0}
+                          strokeOpacity={0}
                           strokeLinejoin="round"
                           className="iso-poly-hotspot"
                         />
@@ -524,10 +524,10 @@ export function RegionMapCanvas() {
                           cy={b.y}
                           r={36}
                           fill={fillColor}
-                          fillOpacity={isSelected ? 0.24 : 0}
+                          fillOpacity={0}
                           stroke={strokeColor}
-                          strokeWidth={isSelected ? 3.2 : 0}
-                          strokeOpacity={isSelected ? 0.96 : 0}
+                          strokeWidth={0}
+                          strokeOpacity={0}
                           className="iso-poly-hotspot"
                         />
                       )}
