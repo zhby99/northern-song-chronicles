@@ -129,9 +129,12 @@ import {
   DEFAULT_PLAYER_SECT_STATE,
   evaluateSectEntry,
   evaluateSectPromotion,
+  generateMinorSectTask,
   getChangshanMonthlyStipend,
+  getSectLeaderNpcId,
   getSectRankTitle,
   getSectTeachableArts,
+  isMinorOrSecondTierSect,
   isSongAlignedNpc,
   isSongOfficialForRobbery,
   KAIFENG_RECOMMENDATION_ITEM_ID,
@@ -140,6 +143,7 @@ import {
   SECT_ENTRY_GEAR_GIFTS,
   spawnAnnualLiaoSpy,
 } from '../utils/sectMechanics'
+import { estimateHeroRealm } from '../utils/realmUtils'
 import { SPOT_SHOPS_BY_SPOT_ID } from '../data/spotShops'
 
 const LABEL_KEYS: LabelToggleKey[] = ['cityLabels', 'sectPassLabels', 'masters', 'distance']
@@ -414,6 +418,10 @@ export interface GameStoreState {
   acceptToumingzhuang: (npc?: NodeNpc) => void
   performSectDuty: (npc?: NodeNpc) => void
   promoteSectRank: () => void
+  acceptSectTask: () => void
+  abandonSectTask: () => void
+  completeSectTaskStep: () => void
+  turnInSectTask: () => void
   bribeForReferral: (npc: NodeNpc) => void
   claimKaifengRecommendation: (npc?: NodeNpc) => void
   learnSectMartialArt: (artId: string) => void
@@ -3119,6 +3127,24 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       extraLogText += `（同门印证获门派功绩 +12，现 ${nextSectState.contribution}）`
     }
 
+    // 二三流门派「武艺教学」切磋任务完成判定
+    if (
+      session.mode === 'spar' &&
+      session.outcome === 'player_win' &&
+      nextSectState.activeSectTask?.kind === 'martial_coaching' &&
+      !nextSectState.activeSectTask.completedStep
+    ) {
+      const task = nextSectState.activeSectTask
+      const matchedTarget =
+        (session.targetNpcNode.id && session.targetNpcNode.id === task.traineeNpcId) ||
+        (!session.targetNpcNode.id && session.targetNpcNode.name === task.traineeNpcName)
+      if (matchedTarget) {
+        nextSectState.activeSectTask = { ...task, completedStep: true }
+        extraLogTag = '宗门教学'
+        extraLogText += `（已完成宗门任务【${task.title}】切磋指点！请回【${task.sectName}】向掌门【${task.leaderName}】复命）`
+      }
+    }
+
     // 绿林盟「纳投名状」劫官胜利（非声明式 hook 调用时的直通兜底）
     if (!qHook && session.duelStakes === 'rob_official' && session.outcome === 'player_win') {
       nextSilver += 60
@@ -3347,6 +3373,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       activeLiaoSpy: evalRes.allowOfficialTransferFromChangshan
         ? null
         : s.sectState.activeLiaoSpy,
+      activeSectTask: null,
     }
 
     // 同步完结对应的入门剧情任务链（若曾开启）
@@ -3455,6 +3482,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         rankLabel: '无门无派',
         contribution: 0,
         activeLiaoSpy: null,
+        activeSectTask: null,
         liaoSuspicionDebuff: true,
       }
       const nextQuest = cloneQuestRuntimeState(s.questState)
@@ -3479,6 +3507,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       rank: 1,
       rankLabel: '无门无派',
       contribution: 0,
+      activeSectTask: null,
     }
     const msg = `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
     set({
@@ -3591,15 +3620,25 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     const sectId = s.sectState.sectId
     if (!sectId) return
+    const heroRealm = estimateHeroRealm(s.maxHp, s.maxMp)
     const promo = evaluateSectPromotion({
       sectId,
       currentRank: s.sectState.rank,
-      contribution: s.sectState.contribution,
-      learnedArts: s.learnedArts,
+      dayCount: s.dayCount,
+      joinedDay: s.sectState.joinedDay,
+      heroRealmRank: heroRealm.rank,
+      heroRealmLabel: heroRealm.label,
+      npcFavor: s.npcFavor,
     })
     if (!promo) {
       set({
-        actionFeedback: { text: '少侠已位列本门最高掌门尊位！', tone: 'success' },
+        actionFeedback: {
+          text:
+            s.sectState.rank >= 5
+              ? '少侠已位列本门最高掌门尊位！'
+              : '已达常规晋升最高阶（第4阶），不可通过常规晋升成为门派掌门！',
+          tone: 'warn',
+        },
       })
       return
     }
@@ -3616,7 +3655,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       rank: promo.targetRank,
       rankLabel: promo.targetRankLabel,
     }
-    let msg = `功勋卓著！少侠于【${factionName}】正式晋升为第 ${promo.targetRank} 阶【${promo.targetRankLabel}】！`
+    let msg = `功勋与资历俱备！少侠于【${factionName}】正式晋升为第 ${promo.targetRank} 阶【${promo.targetRankLabel}】！`
     if (sectId === 'SECT-22' && promo.targetRank === 3) {
       msg += ' 已达【演武教习】职阶，现可向掌门或首座领取《开封府推荐信》！'
     }
@@ -3626,6 +3665,146 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       actionFeedback: { text: msg, tone: 'success' },
       logs: [
         createLogEntry(s.dayCount, '门派晋升', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  acceptSectTask: () => {
+    const s = get()
+    const sectId = s.sectState.sectId
+    if (!sectId || !isMinorOrSecondTierSect(sectId)) {
+      set({
+        actionFeedback: { text: '仅二流与三流门派可向掌门领取此类宗门任务！', tone: 'warn' },
+      })
+      return
+    }
+    if (s.sectState.activeSectTask) {
+      set({
+        actionFeedback: {
+          text: `少侠尚有未完成的宗门任务【${s.sectState.activeSectTask.title}】，请先完成或放弃！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const leaderNpcId = getSectLeaderNpcId(sectId)
+    if (!leaderNpcId) {
+      set({
+        actionFeedback: { text: '本门掌门暂未现身，无法指派宗门任务。', tone: 'warn' },
+      })
+      return
+    }
+    const heroRealm = estimateHeroRealm(s.maxHp, s.maxMp)
+    const task = generateMinorSectTask({
+      sectId,
+      dayCount: s.dayCount,
+      heroRealmRank: heroRealm.rank,
+      leaderNpcId,
+    })
+    if (!task) {
+      set({
+        actionFeedback: { text: '掌门沉吟片刻，今日暂无紧要差遣。', tone: 'warn' },
+      })
+      return
+    }
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      activeSectTask: task,
+    }
+    const msg = `接取宗门任务【${task.title}】：${task.summary}`
+    set({
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '宗门任务', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  abandonSectTask: () => {
+    const s = get()
+    const task = s.sectState.activeSectTask
+    if (!task) return
+    const curFavor = s.npcFavor[task.leaderNpcId] ?? INITIAL_NPC_FAVOR
+    const nextFavorVal = Math.max(MIN_NPC_FAVOR, curFavor - 5)
+    const nextFavor = {
+      ...s.npcFavor,
+      [task.leaderNpcId]: nextFavorVal,
+    }
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      activeSectTask: null,
+    }
+    const msg = `少侠放弃了宗门任务【${task.title}】，掌门【${task.leaderName}】略有失望（好感度 -5，现 ${nextFavorVal}）。`
+    set({
+      sectState: nextSect,
+      npcFavor: nextFavor,
+      actionFeedback: { text: msg, tone: 'warn' },
+      logs: [
+        createLogEntry(s.dayCount, '放弃差遣', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  completeSectTaskStep: () => {
+    const s = get()
+    const task = s.sectState.activeSectTask
+    if (!task || task.completedStep) return
+    if (task.kind !== 'deliver_letter' && task.kind !== 'gather_intel') return
+
+    const updatedTask = { ...task, completedStep: true }
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      activeSectTask: updatedTask,
+    }
+
+    let msg = ''
+    if (task.kind === 'deliver_letter') {
+      msg = `已将掌门【${task.leaderName}】的师门密信亲手交予【${task.targetNpcName}】！请速回【${task.sectName}】向掌门复命交差。`
+    } else {
+      msg = `自【${task.tempNpcName}】处探得情报「${task.intelTitle}」：${task.intelText} 请回【${task.sectName}】向掌门【${task.leaderName}】复命！`
+    }
+
+    set({
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '宗门任务', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  turnInSectTask: () => {
+    const s = get()
+    const task = s.sectState.activeSectTask
+    if (!task) return
+    if (!task.completedStep) {
+      set({
+        actionFeedback: { text: '该宗门任务尚未达成目标，尚不可向掌门交差！', tone: 'warn' },
+      })
+      return
+    }
+    const curFavor = s.npcFavor[task.leaderNpcId] ?? INITIAL_NPC_FAVOR
+    const nextFavorVal = Math.min(MAX_NPC_FAVOR, curFavor + 10)
+    const nextFavor = {
+      ...s.npcFavor,
+      [task.leaderNpcId]: nextFavorVal,
+    }
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      activeSectTask: null,
+    }
+    const msg = `向掌门【${task.leaderName}】圆满交差【${task.title}】！掌门甚为嘉许（好感度 +10，现 ${nextFavorVal}）。`
+    set({
+      sectState: nextSect,
+      npcFavor: nextFavor,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '宗门交差', msg, true, s.shichenIdx),
         ...s.logs,
       ].slice(0, 60),
     })

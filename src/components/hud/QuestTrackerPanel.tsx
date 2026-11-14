@@ -50,7 +50,8 @@ export function QuestTrackerPanel() {
     [questState.activeQuests],
   )
   const activeSpy = sectState.sectId === 'SECT-22' ? sectState.activeLiaoSpy : null
-  const totalActiveCount = activeList.length + (activeSpy ? 1 : 0)
+  const activeSectTask = sectState.activeSectTask
+  const totalActiveCount = activeList.length + (activeSpy ? 1 : 0) + (activeSectTask ? 1 : 0)
 
   const topOffsetClass = viewMode === 'world' ? 'top-[56px]' : 'top-[96px]'
 
@@ -147,6 +148,52 @@ export function QuestTrackerPanel() {
               </div>
             )
           })()}
+
+          {/* 二三流门派：宗门任务 */}
+          {activeSectTask && (
+            <div className="p-2.5 rounded bg-[#271b10]/90 border border-[#a88754]/70 space-y-1.5">
+              <div className="flex items-center justify-between gap-1.5">
+                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#1f4d3b] text-[#e7f7ef]">
+                  宗门任务
+                </span>
+                <span
+                  className={`text-[10px] font-bold ${
+                    activeSectTask.completedStep ? 'text-emerald-300' : 'text-amber-200'
+                  }`}
+                >
+                  {activeSectTask.completedStep ? '待向掌门交差' : '进行中'}
+                </span>
+              </div>
+
+              <div className="song-serif font-bold text-[13px] text-amber-100 leading-snug">
+                {activeSectTask.title}
+              </div>
+
+              <div className="text-[11px] text-[#e7d6b8] leading-relaxed">
+                {activeSectTask.completedStep
+                  ? `已完成目标！请回【${activeSectTask.sectName}】向掌门【${activeSectTask.leaderName}】交差（好感 +10）。`
+                  : activeSectTask.summary}
+              </div>
+
+              {!activeSectTask.completedStep && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    locateQuestTargetOnMap({
+                      regionId: activeSectTask.regionId,
+                      buildingId: activeSectTask.buildingId,
+                      spotId: activeSectTask.spotId ?? undefined,
+                      customLabel: `${activeSectTask.regionName} · ${activeSectTask.buildingName}`,
+                    })
+                  }
+                  className="w-full py-1 px-2 rounded bg-[#1f4d3b] hover:bg-[#27614a] text-[#fff6e5] text-[11px] font-bold song-serif flex items-center justify-center gap-1 cursor-pointer"
+                >
+                  <Compass className="w-3 h-3" />
+                  <span>舆图指引：{activeSectTask.regionName}</span>
+                </button>
+              )}
+            </div>
+          )}
 
           {/* 进行中的声明式任务链 */}
           {activeList.map((prog) => {

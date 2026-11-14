@@ -24,12 +24,15 @@ import {
   evaluateSectEntry,
   evaluateSectPromotion,
   getChangshanMonthlyStipend,
+  getSectLeaderNpcId,
   getSectTeachableArts,
   isJoinableSectFaction,
+  isMinorOrSecondTierSect,
   isSongOfficialForRobbery,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
 } from '../../utils/sectMechanics'
+import { estimateHeroRealm } from '../../utils/realmUtils'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 const CATEGORY_LABEL_MAP: Record<string, string> = Object.fromEntries(
@@ -81,6 +84,10 @@ export function NpcInteractionOverlay() {
   const acceptToumingzhuang = useGameStore((s) => s.acceptToumingzhuang)
   const performSectDuty = useGameStore((s) => s.performSectDuty)
   const promoteSectRank = useGameStore((s) => s.promoteSectRank)
+  const acceptSectTask = useGameStore((s) => s.acceptSectTask)
+  const abandonSectTask = useGameStore((s) => s.abandonSectTask)
+  const completeSectTaskStep = useGameStore((s) => s.completeSectTaskStep)
+  const turnInSectTask = useGameStore((s) => s.turnInSectTask)
   const bribeForReferral = useGameStore((s) => s.bribeForReferral)
   const claimKaifengRecommendation = useGameStore((s) => s.claimKaifengRecommendation)
   const learnSectMartialArt = useGameStore((s) => s.learnSectMartialArt)
@@ -285,15 +292,47 @@ export function NpcInteractionOverlay() {
         })
       : null
 
+  const heroRealm = estimateHeroRealm(maxHp, maxMp)
   const promoEval =
     targetFactionId && isPlayerInThisSect
       ? evaluateSectPromotion({
           sectId: targetFactionId,
           currentRank: sectState.rank,
-          contribution: sectState.contribution,
-          learnedArts,
+          dayCount,
+          joinedDay: sectState.joinedDay,
+          heroRealmRank: heroRealm.rank,
+          heroRealmLabel: heroRealm.label,
+          npcFavor: npcFavorMap,
         })
       : null
+
+  const resolvedNpcId = npc.id ?? dbRecord?.id
+  const isSectLeaderNpc = Boolean(
+    isPlayerInThisSect &&
+      targetFactionId &&
+      resolvedNpcId &&
+      resolvedNpcId === getSectLeaderNpcId(targetFactionId),
+  )
+  const activeSectTask = sectState.activeSectTask
+  const canDeliverSectLetter = Boolean(
+    activeSectTask &&
+      !activeSectTask.completedStep &&
+      activeSectTask.kind === 'deliver_letter' &&
+      resolvedNpcId === activeSectTask.targetNpcId,
+  )
+  const canGatherSectIntel = Boolean(
+    activeSectTask &&
+      !activeSectTask.completedStep &&
+      activeSectTask.kind === 'gather_intel' &&
+      npc.id === `SECT_INTEL_${activeSectTask.id}`,
+  )
+  const isSectCoachingTrainee = Boolean(
+    activeSectTask &&
+      !activeSectTask.completedStep &&
+      activeSectTask.kind === 'martial_coaching' &&
+      (resolvedNpcId === activeSectTask.traineeNpcId ||
+        (!resolvedNpcId && npc.name === activeSectTask.traineeNpcName)),
+  )
 
   const referralBribeCfg = targetFactionId
     ? REFERRAL_BRIBE_BY_SOURCE_SECT[targetFactionId]
@@ -759,7 +798,9 @@ export function NpcInteractionOverlay() {
                       <p className="text-xs text-[#6b5235] mt-0.5">
                         {promoEval
                           ? promoEval.reason
-                          : '少侠已登临本门第5阶【掌门】绝顶尊位，可修习本门镇派天阶上品绝学！'}
+                          : sectState.rank >= 5
+                            ? '少侠已登临本门第5阶【掌门】绝顶尊位，可修习本门镇派天阶上品绝学！'
+                            : '少侠已达常规晋升最高阶（第4阶），掌门之位不可通过常规晋升获得。'}
                       </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
@@ -773,19 +814,93 @@ export function NpcInteractionOverlay() {
                       {promoEval && (
                         <button
                           type="button"
+                          disabled={Boolean(promoEval.isFirstTierPendingDesign)}
                           onClick={() => promoteSectRank()}
-                          className={`px-3.5 py-1.5 rounded-lg text-xs font-bold border cursor-pointer ${
-                            promoEval.canPromote
-                              ? 'bg-[#1f4d3b] hover:bg-[#28634c] border-[#8fc7ae] text-[#fff8ee]'
-                              : 'bg-[#8c7b65]/60 border-[#a89882] text-[#f7eedc]'
+                          className={`px-3.5 py-1.5 rounded-lg text-xs font-bold border ${
+                            promoEval.isFirstTierPendingDesign
+                              ? 'bg-[#8c7b65]/40 border-[#a89882] text-[#f7eedc]/80 cursor-not-allowed'
+                              : promoEval.canPromote
+                                ? 'bg-[#1f4d3b] hover:bg-[#28634c] border-[#8fc7ae] text-[#fff8ee] cursor-pointer'
+                                : 'bg-[#8c7b65]/60 border-[#a89882] text-[#f7eedc] cursor-pointer'
                           }`}
                         >
-                          晋升【{promoEval.targetRankLabel}】
+                          {promoEval.isFirstTierPendingDesign
+                            ? '一流晋升待实装'
+                            : `晋升【${promoEval.targetRankLabel}】`}
                         </button>
                       )}
                     </div>
                   </div>
                 </div>
+
+                {/* 二流/三流门派：掌门宗门任务（送信 / 酒馆情报 / 武艺教学） */}
+                {targetFactionId && isMinorOrSecondTierSect(targetFactionId) && (
+                  <div className="p-3.5 rounded-lg bg-[#faf3e3] border border-[#b59461] space-y-2">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <div className="font-bold text-[#5c3d1e] song-serif text-sm sm:text-base">
+                          宗门任务（掌门亲派差遣）
+                        </div>
+                        <div className="text-xs text-[#6b5235] mt-0.5">
+                          完成一次宗门任务可获掌门好感 +10；放弃任务则降低 5 点好感。
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        {!activeSectTask ? (
+                          isSectLeaderNpc ? (
+                            <button
+                              type="button"
+                              onClick={() => acceptSectTask()}
+                              className="px-3.5 py-1.5 rounded-lg bg-[#1f4d3b] hover:bg-[#28634c] border border-[#8fc7ae] text-[#fff8ee] text-xs font-bold cursor-pointer"
+                            >
+                              领取宗门任务
+                            </button>
+                          ) : (
+                            <span className="text-xs px-2.5 py-1 rounded bg-[#efe4cc] border border-[#cbb693] text-[#6b5235]">
+                              请向本门掌门领取宗门任务
+                            </span>
+                          )
+                        ) : (
+                          <>
+                            {isSectLeaderNpc && activeSectTask.completedStep && (
+                              <button
+                                type="button"
+                                onClick={() => turnInSectTask()}
+                                className="px-3.5 py-1.5 rounded-lg bg-[#1f4d3b] hover:bg-[#28634c] border border-[#8fc7ae] text-[#fff8ee] text-xs font-bold cursor-pointer"
+                              >
+                                向掌门交差（好感+10）
+                              </button>
+                            )}
+                            {isSectLeaderNpc && (
+                              <button
+                                type="button"
+                                onClick={() => abandonSectTask()}
+                                className="px-3 py-1.5 rounded-lg bg-[#781710]/90 hover:bg-[#961f16] border border-[#d49a6a] text-[#fff8ee] text-xs font-medium cursor-pointer"
+                              >
+                                放弃任务（好感-5）
+                              </button>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                    {activeSectTask && (
+                      <div
+                        className={`px-3 py-2 rounded border text-xs leading-relaxed ${
+                          activeSectTask.completedStep
+                            ? 'bg-[#e2f2e8] border-[#82b99d] text-[#1b5132]'
+                            : 'bg-[#f4ebd9] border-[#cbb693] text-[#4a3219]'
+                        }`}
+                      >
+                        <div className="font-bold">
+                          【{activeSectTask.title}】
+                          {activeSectTask.completedStep ? '（已完成，请向掌门复命）' : '（进行中）'}
+                        </div>
+                        <div className="mt-0.5">{activeSectTask.summary}</div>
+                      </div>
+                    )}
+                  </div>
+                )}
 
                 {/* 三流门派向二流门派贿赂求取举荐帖专属栏 */}
                 {referralBribeCfg && (
@@ -1156,9 +1271,13 @@ export function NpcInteractionOverlay() {
               <button
                 type="button"
                 onClick={handleSpar}
-                className="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-[#6b3a19]/95 hover:bg-[#82471f] border border-[#d49a6a] text-[#fff8ee] shadow-md transition-colors cursor-pointer"
+                className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors cursor-pointer ${
+                  isSectCoachingTrainee
+                    ? 'bg-[#1f4d3b] hover:bg-[#28634c] border-[#9fd0b4] text-[#fff8ee] font-bold'
+                    : 'bg-[#6b3a19]/95 hover:bg-[#82471f] border-[#d49a6a] text-[#fff8ee]'
+                }`}
               >
-                切磋
+                {isSectCoachingTrainee ? '切磋（宗门教学）' : '切磋'}
               </button>
               <button
                 type="button"
@@ -1210,6 +1329,34 @@ export function NpcInteractionOverlay() {
               </button>
             )
           })}
+
+          {canDeliverSectLetter && (
+            <button
+              type="button"
+              onClick={() => {
+                setSubPanel('none')
+                setDialogueText(null)
+                completeSectTaskStep()
+              }}
+              className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#1f4d3b] hover:bg-[#28634c] border-2 border-[#9fd0b4] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
+            >
+              交付师门密信
+            </button>
+          )}
+
+          {canGatherSectIntel && (
+            <button
+              type="button"
+              onClick={() => {
+                setSubPanel('none')
+                setDialogueText(null)
+                completeSectTaskStep()
+              }}
+              className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#1f4d3b] hover:bg-[#28634c] border-2 border-[#9fd0b4] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
+            >
+              打探掌门所需情报
+            </button>
+          )}
 
           {canRobForToumingzhuang && (
             <button

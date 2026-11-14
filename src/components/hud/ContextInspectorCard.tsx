@@ -34,7 +34,11 @@ import {
   NODE_MAP,
   WORLD_GRAPH,
 } from '../../utils/mapMath'
-import { buildNodeNpcFromLiaoSpy } from '../../utils/sectMechanics'
+import {
+  buildNodeNpcFromLiaoSpy,
+  buildNodeNpcFromSectTaskIntel,
+  buildNodeNpcFromSectTaskTrainee,
+} from '../../utils/sectMechanics'
 import { ManagedAssetImg } from '../common/ManagedAssetImg'
 
 function buildRoamingFallbackStats(m: RoamingMaster): {
@@ -192,6 +196,26 @@ export function ContextInspectorCard() {
       }
     }
 
+    // Dynamic Sect Task temporary NPC (gather_intel informant or temporary martial_coaching trainee)
+    const sectTask = sectState.activeSectTask
+    if (
+      sectTask &&
+      !sectTask.completedStep &&
+      sectTask.regionId === node.id &&
+      sectTask.buildingId === resolvedLeafBuildingId &&
+      (sectTask.spotId ?? null) === resolvedLeafSpotId
+    ) {
+      if (sectTask.kind === 'gather_intel') {
+        const intelNpc = buildNodeNpcFromSectTaskIntel(sectTask)
+        seenNames.add(intelNpc.name)
+        combined.push(intelNpc)
+      } else if (sectTask.kind === 'martial_coaching' && sectTask.traineeIsTemp) {
+        const traineeNpc = buildNodeNpcFromSectTaskTrainee(sectTask)
+        seenNames.add(traineeNpc.name)
+        combined.push(traineeNpc)
+      }
+    }
+
     // Dynamic Quest Actors spawned by declarative QuestEffect ('spawnDynamicActor')
     for (const dynActor of questState.dynamicActors) {
       if (dynActor.regionId !== node.id) continue
@@ -280,6 +304,7 @@ export function ContextInspectorCard() {
     selectedSpotId,
     roamingMasters,
     sectState.activeLiaoSpy,
+    sectState.activeSectTask,
     questState.dynamicActors,
   ])
 

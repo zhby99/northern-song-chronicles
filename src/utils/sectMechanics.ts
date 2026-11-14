@@ -1,25 +1,30 @@
 import {
+  BUILDINGS_DB,
   BUILDING_DB_MAP,
   FACTION_DB_MAP,
   MARTIAL_ARTS_DB,
   NPCS_DB,
   NPC_DB_MAP,
   REGION_DB_MAP,
+  WORLD_GRAPH,
 } from '../data/gameDb'
 import { DEFAULT_EQUIPPED_SLOTS } from '../data/itemsDb'
 import type {
   ActiveLiaoSpyMission,
+  ActiveSectTask,
   CanonicalFactionEntry,
   CompiledMartialArtRecord,
   CompiledNpcRecord,
   HeroBaseStats,
   InventoryStack,
-  LearnedArtEntry,
   NodeNpc,
   PlayerSectState,
   SectRankLevel,
+  SectTaskKind,
 } from '../types/game'
+import { findBestRoute } from './mapMath'
 import { INITIAL_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
+import { parseRealmTier } from './realmUtils'
 
 export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
   sectId: null,
@@ -35,6 +40,7 @@ export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
   claimedKaifengLetter: false,
   lastLiaoSpyMissionYear: 0,
   activeLiaoSpy: null,
+  activeSectTask: null,
 }
 
 export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): PlayerSectState {
@@ -72,6 +78,7 @@ export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): Play
         ? Math.max(0, Math.floor(st.lastLiaoSpyMissionYear))
         : 0,
     activeLiaoSpy: st.activeLiaoSpy ? { ...st.activeLiaoSpy } : null,
+    activeSectTask: st.activeSectTask ? { ...st.activeSectTask } : null,
   }
 }
 
@@ -541,61 +548,376 @@ export function canPlayerLearnSectArt(
   return effectivePlayerRank >= requiredRank
 }
 
+export function isMinorOrSecondTierSect(sectId?: string | null): boolean {
+  if (!sectId) return false
+  const f = FACTION_DB_MAP[sectId]
+  return f?.sectTier === '二流门派' || f?.sectTier === '三流小派'
+}
+
+export function getSectLeaderNpcId(sectId?: string | null): string | null {
+  if (!sectId) return null
+  const f = FACTION_DB_MAP[sectId]
+  return f?.leaderNpcIds?.[0] ?? null
+}
+
 /**
- * Promotion requirements within a sect (Lv.1 -> Lv.2 -> Lv.3 -> Lv.4 -> Lv.5).
+ * Promotion requirements within a sect (Lv.1 -> Lv.2 -> Lv.3 -> Lv.4).
+ * 不可通过常规晋升成为掌门 (Lv.5)。
  */
 export interface PromotionRequirementInfo {
   targetRank: SectRankLevel
   targetRankLabel: string
-  requiredContribution: number
-  requiredSectArtLevel: number
   canPromote: boolean
   reason: string
+  isFirstTierPendingDesign?: boolean
 }
 
 export function evaluateSectPromotion(params: {
   sectId: string
   currentRank: SectRankLevel
-  contribution: number
-  learnedArts: LearnedArtEntry[]
+  dayCount: number
+  joinedDay: number
+  heroRealmRank: number
+  heroRealmLabel: string
+  npcFavor: Record<string, number>
 }): PromotionRequirementInfo | null {
-  const { sectId, currentRank, contribution, learnedArts } = params
-  if (currentRank >= 5) return null
+  const {
+    sectId,
+    currentRank,
+    dayCount,
+    joinedDay,
+    heroRealmRank,
+    heroRealmLabel,
+    npcFavor,
+  } = params
+
+  // 禁止通过常规晋升成为门派掌门（Lv.5）
+  if (currentRank >= 4) return null
 
   const targetRank = (currentRank + 1) as SectRankLevel
   const targetRankLabel = getSectRankTitle(sectId, targetRank)
+  const faction = FACTION_DB_MAP[sectId]
 
-  const thresholds: Record<2 | 3 | 4 | 5, { contrib: number; artLv: number }> = {
-    2: { contrib: 60, artLv: 2 },
-    3: { contrib: 150, artLv: 4 },
-    4: { contrib: 280, artLv: 6 },
-    5: { contrib: 480, artLv: 8 },
+  if (!faction || (faction.sectTier !== '二流门派' && faction.sectTier !== '三流小派')) {
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      isFirstTierPendingDesign: true,
+      reason: `【${faction?.name ?? sectId}】乃一流宗门，专属晋升考核体系将于后续单独实装（且掌门之位不可通过常规晋升获得）。`,
+    }
   }
-  const req = thresholds[targetRank as 2 | 3 | 4 | 5]
 
-  const sectArtSet = new Set(getSectTeachableArts(sectId).map((x) => x.art.id))
-  const maxSectArtLv = learnedArts
-    .filter((e) => sectArtSet.has(e.artId))
-    .reduce((acc, cur) => Math.max(acc, cur.level), 0)
+  const leaderId = getSectLeaderNpcId(sectId)
+  const leaderName = (leaderId ? NPC_DB_MAP[leaderId]?.name : null) ?? '掌门'
+  const leaderFavor = leaderId ? (npcFavor[leaderId] ?? INITIAL_NPC_FAVOR) : INITIAL_NPC_FAVOR
+  const daysInSect = Math.max(0, dayCount - joinedDay)
 
+  const thresholds: Record<
+    2 | 3 | 4,
+    { minRealmRank: number; minRealmLabel: string; minDays: number; minFavor: number }
+  > = {
+    2: { minRealmRank: 2, minRealmLabel: '三流中品', minDays: 60, minFavor: 20 },
+    3: { minRealmRank: 4, minRealmLabel: '二流下品', minDays: 365, minFavor: 50 },
+    4: { minRealmRank: 6, minRealmLabel: '二流上品', minDays: 730, minFavor: 80 },
+  }
+
+  const req = thresholds[targetRank as 2 | 3 | 4]
   const missing: string[] = []
-  if (contribution < req.contrib) {
-    missing.push(`门派功绩 ${contribution}/${req.contrib}`)
+  if (heroRealmRank < req.minRealmRank) {
+    missing.push(`境界须达【${req.minRealmLabel}】（当前【${heroRealmLabel}】）`)
   }
-  if (maxSectArtLv < req.artLv) {
-    missing.push(`至少一门本门武学修至第 ${req.artLv} 重（当前最高 ${maxSectArtLv} 重）`)
+  if (daysInSect < req.minDays) {
+    missing.push(`在派天数 ${daysInSect}/${req.minDays} 天`)
+  }
+  if (leaderFavor < req.minFavor) {
+    missing.push(`掌门【${leaderName}】好感度 ${leaderFavor}/${req.minFavor}`)
   }
 
   return {
     targetRank,
     targetRankLabel,
-    requiredContribution: req.contrib,
-    requiredSectArtLevel: req.artLv,
     canPromote: missing.length === 0,
     reason:
       missing.length === 0
-        ? `功绩与武学火候皆已齐备，可晋升为【${targetRankLabel}】！`
+        ? `境界（${heroRealmLabel}）、资历（在派 ${daysInSect} 天）与掌门好感（${leaderFavor}）皆已齐备，可晋升为【${targetRankLabel}】！`
         : `晋升【${targetRankLabel}】尚缺：${missing.join('、')}`,
+  }
+}
+
+interface IntelTemplate {
+  title: string
+  tempNpcName: string
+  tempNpcTitle: string
+  tempNpcTalk: string
+  intelText: string
+}
+
+const SECT_INTEL_TEMPLATES: IntelTemplate[] = [
+  {
+    title: '官道盐铁私运与绿林风声',
+    tempNpcName: '老赵头',
+    tempNpcTitle: '跑江湖老脚夫',
+    tempNpcTalk: '“客官可是问最近官道上的风声？嘿，喝了这碗浊酒，老汉便与你透个实底……”',
+    intelText:
+      '近半月京东与河北官道私盐贩子颇为活跃，太行山几股绿林好汉正暗中截道，押镖行商须绕行大路或备足人手。',
+  },
+  {
+    title: '邻近州府粮价与茶马行情',
+    tempNpcName: '钱算盘',
+    tempNpcTitle: '行脚杂货掌柜',
+    tempNpcTalk: '“小老儿刚从西边州府赶货回来，各州仓廪价目门儿清，客官问这作甚？”',
+    intelText:
+      '关中与河东军需征调趋紧，糙米与药草市价看涨两成，而江南丝茶经运河源源北上，牙行铺面正暗囤货源。',
+  },
+  {
+    title: '边关谍影与北辽游骑动向',
+    tempNpcName: '焦老卒',
+    tempNpcTitle: '退伍边军老校',
+    tempNpcTalk: '“莫看俺腿脚不利索，边镇上的袍泽隔三岔五还捎信来呢……”',
+    intelText:
+      '近来有不少操燕云口音、扮作皮货商的汉子频繁出入北境榷场与州府酒肆，疑为北辽暗桩探听宋军换防虚实。',
+  },
+  {
+    title: '各派名宿近期行踪秘闻',
+    tempNpcName: '白衣醒客',
+    tempNpcTitle: '酒肆说书人',
+    tempNpcTalk: '“茶馆酒楼本就是江湖耳目所在，这位少侠想打听哪路英雄的行踪？”',
+    intelText:
+      '听闻少林与丐帮近日各有高徒南下中原巡查，江南燕子坞与蜀中唐家堡亦似有信使往来，江湖怕是要起风波。',
+  },
+  {
+    title: '地方豪强与水陆帮会动向',
+    tempNpcName: '吴老大',
+    tempNpcTitle: '卸货老船工',
+    tempNpcTalk: '“码头上的风吹草动，瞒不过俺们这些整日踩跳板讨生活的汉子。”',
+    intelText:
+      '运河沿岸几处水陆码头的帮派头目近来频繁聚首，似乎在重划地盘暗桩与护送规矩，各路门户宜早作防备。',
+  },
+  {
+    title: '药材奇珍与古刹异动传闻',
+    tempNpcName: '葛半仙',
+    tempNpcTitle: '云游草药郎中',
+    tempNpcTalk: '“山野采药最讲究看天色闻风声，前日我在山麓歇脚时，倒真听见一件奇事……”',
+    intelText:
+      '近日深山野市偶有年份极佳的川芎、雪莲与陈年药酒现世，同时数座古寺名山夜半常有练功破风声，似有隐世高人现身。',
+  },
+]
+
+function getRouteDistanceLi(fromRegionId: string, toRegionId: string): number | null {
+  if (fromRegionId === toRegionId) return 0
+  const route = findBestRoute(
+    fromRegionId,
+    toRegionId,
+    { mountKey: 'foot', agility: 30, ridingSkill: 0 },
+    null,
+  )
+  return route ? route.totalLi : null
+}
+
+/**
+ * 为二流/三流门派生成随机宗门任务（送信 <=2500里 / 酒馆情报 / 武艺教学切磋）
+ */
+export function generateMinorSectTask(params: {
+  sectId: string
+  dayCount: number
+  heroRealmRank: number
+  leaderNpcId: string
+}): ActiveSectTask | null {
+  const { sectId, dayCount, heroRealmRank, leaderNpcId } = params
+  const faction = FACTION_DB_MAP[sectId]
+  const leader = NPC_DB_MAP[leaderNpcId]
+  if (!faction || !leader) return null
+
+  const originRegionId = faction.hqRegionId || leader.regionId
+  const cityNodes = WORLD_GRAPH.nodes.filter((n) => n.type === 'city')
+
+  // 预先筛选距离 <= 2500 里的其他城池
+  const nearbyCities: Array<{ id: string; name: string; distLi: number }> = []
+  for (const city of cityNodes) {
+    if (city.id === originRegionId) continue
+    const dist = getRouteDistanceLi(originRegionId, city.id)
+    if (dist !== null && dist > 0 && dist <= 2500) {
+      nearbyCities.push({ id: city.id, name: city.name, distLi: dist })
+    }
+  }
+
+  const candidateKinds: SectTaskKind[] = ['martial_coaching']
+  if (nearbyCities.length > 0) {
+    candidateKinds.push('deliver_letter', 'gather_intel')
+  }
+  const kind = candidateKinds[Math.floor(Math.random() * candidateKinds.length)]!
+  const taskId = `SECT_TASK_${sectId}_${dayCount}_${Math.floor(Math.random() * 10000)}`
+
+  if (kind === 'deliver_letter' && nearbyCities.length > 0) {
+    // 从距离 <= 2500 里的城池随机挑一个有在世 NPC 的目标
+    const shuffled = [...nearbyCities].sort(() => Math.random() - 0.5)
+    for (const city of shuffled) {
+      const candidates = NPCS_DB.filter(
+        (n) => n.regionId === city.id && n.id !== leaderNpcId && n.buildingId,
+      )
+      if (candidates.length === 0) continue
+      const target = candidates[Math.floor(Math.random() * candidates.length)]!
+      return {
+        id: taskId,
+        sectId,
+        sectName: faction.name,
+        leaderNpcId,
+        leaderName: leader.name,
+        kind: 'deliver_letter',
+        title: `代师送信 · 赴${city.name}`,
+        summary: `代【${leader.name}】将一封师门密信送往【${city.name} · ${target.buildingName}${target.spotName ? ` · ${target.spotName}` : ''}】，亲手交予【${target.name}】（路程约 ${city.distLi} 里）。`,
+        completedStep: false,
+        targetNpcId: target.id,
+        targetNpcName: target.name,
+        regionId: target.regionId,
+        regionName: target.regionName,
+        buildingId: target.buildingId,
+        buildingName: target.buildingName,
+        spotId: target.spotId,
+        spotName: target.spotName,
+        distanceLi: city.distLi,
+        acceptedDay: dayCount,
+      }
+    }
+  }
+
+  if (kind === 'gather_intel' && nearbyCities.length > 0) {
+    const tavernCities = nearbyCities
+      .map((city) => {
+        const tavern = BUILDINGS_DB.find(
+          (b) => b.regionId === city.id && !b.isSpecial && b.id.endsWith('_base_tavern'),
+        )
+        return tavern ? { city, tavern } : null
+      })
+      .filter((x): x is { city: { id: string; name: string; distLi: number }; tavern: (typeof BUILDINGS_DB)[number] } => x !== null)
+
+    if (tavernCities.length > 0) {
+      const picked = tavernCities[Math.floor(Math.random() * tavernCities.length)]!
+      const tpl = SECT_INTEL_TEMPLATES[Math.floor(Math.random() * SECT_INTEL_TEMPLATES.length)]!
+      return {
+        id: taskId,
+        sectId,
+        sectName: faction.name,
+        leaderNpcId,
+        leaderName: leader.name,
+        kind: 'gather_intel',
+        title: `探听情报 · ${picked.city.name}`,
+        summary: `前往【${picked.city.name} · ${picked.tavern.name}】，寻找线人【${tpl.tempNpcName}（${tpl.tempNpcTitle}）】打探「${tpl.title}」（路程约 ${picked.city.distLi} 里）。`,
+        completedStep: false,
+        intelTitle: tpl.title,
+        intelText: tpl.intelText,
+        tempNpcName: tpl.tempNpcName,
+        tempNpcTitle: tpl.tempNpcTitle,
+        tempNpcTalk: tpl.tempNpcTalk,
+        regionId: picked.city.id,
+        regionName: picked.city.name,
+        buildingId: picked.tavern.id,
+        buildingName: picked.tavern.name,
+        spotId: null,
+        spotName: null,
+        distanceLi: picked.city.distLi,
+        acceptedDay: dayCount,
+      }
+    }
+  }
+
+  // 默认 / 武艺教学：筛选境界低于主角的同门弟子
+  const weakerMates = NPCS_DB.filter((n) => {
+    if (n.factionId !== sectId || n.id === leaderNpcId) return false
+    const r = parseRealmTier(n.realm).rank
+    return r < heroRealmRank
+  })
+
+  if (weakerMates.length > 0) {
+    const mate = weakerMates[Math.floor(Math.random() * weakerMates.length)]!
+    return {
+      id: taskId,
+      sectId,
+      sectName: faction.name,
+      leaderNpcId,
+      leaderName: leader.name,
+      kind: 'martial_coaching',
+      title: `武艺教学 · 指点${mate.name}`,
+      summary: `受【${leader.name}】所托，前往【${mate.regionName} · ${mate.buildingName}${mate.spotName ? ` · ${mate.spotName}` : ''}】与同门弟子【${mate.name}（${mate.realm}）】切磋并获胜，指点其武艺破绽。`,
+      completedStep: false,
+      traineeNpcId: mate.id,
+      traineeNpcName: mate.name,
+      traineeRealm: mate.realm,
+      traineeIsTemp: false,
+      regionId: mate.regionId,
+      regionName: mate.regionName,
+      buildingId: mate.buildingId,
+      buildingName: mate.buildingName,
+      spotId: mate.spotId,
+      spotName: mate.spotName,
+      acceptedDay: dayCount,
+    }
+  }
+
+  // 若门派内无更低境界弟子，则在掌门所在驻地刷新一名不入流新晋小弟子用于教学切磋
+  const tempTraineeName = `${faction.shortName || '本门'}新进弟子`
+  return {
+    id: taskId,
+    sectId,
+    sectName: faction.name,
+    leaderNpcId,
+    leaderName: leader.name,
+    kind: 'martial_coaching',
+    title: `武艺教学 · 指点${tempTraineeName}`,
+    summary: `受【${leader.name}】所托，在【${leader.regionName} · ${leader.buildingName}${leader.spotName ? ` · ${leader.spotName}` : ''}】与新入门的【${tempTraineeName}（不入流）】切磋并获胜，指点其入门拳脚。`,
+    completedStep: false,
+    traineeNpcId: `SECT_TRAINEE_${taskId}`,
+    traineeNpcName: tempTraineeName,
+    traineeRealm: '不入流',
+    traineeIsTemp: true,
+    traineeStats: { hp: 220, mp: 80, agi: 16, res: 8, isBenchmark: false },
+    regionId: leader.regionId,
+    regionName: leader.regionName,
+    buildingId: leader.buildingId,
+    buildingName: leader.buildingName,
+    spotId: leader.spotId,
+    spotName: leader.spotName,
+    acceptedDay: dayCount,
+  }
+}
+
+export function buildNodeNpcFromSectTaskIntel(task: ActiveSectTask): NodeNpc {
+  return {
+    id: `SECT_INTEL_${task.id}`,
+    name: task.tempNpcName || '酒肆线人',
+    title: `${task.tempNpcTitle || '江湖百晓生'} · 宗门情报线人`,
+    realm: '不入流',
+    factionId: 'ORG-01',
+    factionName: '江湖散人',
+    avatarUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    stats: { hp: 260, mp: 90, agi: 18, res: 10, isBenchmark: false },
+    talents: { bone: 40, comprehension: 55, charm: 45 },
+    fullLocationLabel: `${task.regionName} > ${task.buildingName}`,
+    questBadgeLabel: '情报线人',
+    talk: task.tempNpcTalk || '“这位少侠可是受贵派掌门之托前来打探风声？”',
+  }
+}
+
+export function buildNodeNpcFromSectTaskTrainee(task: ActiveSectTask): NodeNpc {
+  const faction = FACTION_DB_MAP[task.sectId]
+  return {
+    id: task.traineeNpcId || `SECT_TRAINEE_${task.id}`,
+    name: task.traineeNpcName || '新进弟子',
+    title: `${task.sectName} · 初入门徒`,
+    realm: task.traineeRealm || '不入流',
+    factionId: task.sectId,
+    factionName: faction?.name || task.sectName,
+    sectRank: 1,
+    sectRankLabel: getSectRankTitle(task.sectId, 1),
+    avatarUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    stats: task.traineeStats ?? { hp: 220, mp: 80, agi: 16, res: 8, isBenchmark: false },
+    talents: { bone: 35, comprehension: 35, charm: 40 },
+    fullLocationLabel: `${task.regionName} > ${task.buildingName}${task.spotName ? ` > ${task.spotName}` : ''}`,
+    questBadgeLabel: '教学弟子',
+    talk: '“师兄/师姐请手下留情，弟子愿领教几招！”',
   }
 }
 

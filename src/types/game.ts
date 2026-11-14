@@ -778,6 +778,44 @@ export interface ActiveLiaoSpyMission {
   equipped: EquippedSlotsMap
 }
 
+export type SectTaskKind = 'deliver_letter' | 'gather_intel' | 'martial_coaching'
+
+export interface ActiveSectTask {
+  id: string
+  sectId: string
+  sectName: string
+  leaderNpcId: string
+  leaderName: string
+  kind: SectTaskKind
+  title: string
+  summary: string
+  completedStep: boolean
+  // 送信目标
+  targetNpcId?: string
+  targetNpcName?: string
+  // 获取情报（酒馆临时 NPC）
+  intelTitle?: string
+  intelText?: string
+  tempNpcName?: string
+  tempNpcTitle?: string
+  tempNpcTalk?: string
+  // 武艺教学（切磋低境界同门）
+  traineeNpcId?: string
+  traineeNpcName?: string
+  traineeRealm?: string
+  traineeIsTemp?: boolean
+  traineeStats?: NpcCombatStats
+  // 目标位置
+  regionId: string
+  regionName: string
+  buildingId: string
+  buildingName: string
+  spotId: string | null
+  spotName: string | null
+  distanceLi?: number
+  acceptedDay: number
+}
+
 export interface PlayerSectState {
   sectId: string | null
   rank: SectRankLevel
@@ -792,6 +830,7 @@ export interface PlayerSectState {
   claimedKaifengLetter: boolean
   lastLiaoSpyMissionYear: number
   activeLiaoSpy: ActiveLiaoSpyMission | null
+  activeSectTask: ActiveSectTask | null
 }
 
 export interface GameOverState {
