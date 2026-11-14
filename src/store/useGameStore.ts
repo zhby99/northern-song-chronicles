@@ -932,6 +932,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       mp: derived.maxMp,
       res: derived.res,
       skills: derived.skills,
+      artExps: {},
+      artMilestoneFlags: [],
       viewMode: 'region',
       activeRegionId: 'bianliang',
       currentNodeId: 'bianliang',
@@ -6201,14 +6203,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
-    const derived = computeDerivedHeroStats({
-      baseStats: nextBase,
-      equipped: s.equipped,
-      learnedArts: s.learnedArts,
-      activeInnerArtId: s.activeInnerArtId,
-      activeQinggongId: s.activeQinggongId,
-      activeSkillIds: s.activeSkillIds,
-    })
+    const derived = deriveHeroEffectiveStats(
+      nextBase,
+      s.equipped,
+      s.equippedArts,
+      s.learnedArts,
+    )
 
     const nextDay = s.dayCount + days
     const levelNote =
