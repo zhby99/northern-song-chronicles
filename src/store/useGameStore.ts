@@ -256,6 +256,7 @@ export interface GameStoreState {
   logDrawerOpen: boolean
 
   menuOpen: boolean
+  activeNpcInteraction: NodeNpc | null
   activeMenuTab: MenuTabKey
   compendiumOpen: boolean
   activeCompendiumTab: CompendiumTabKey
@@ -323,6 +324,9 @@ export interface GameStoreState {
 
   toggleLogDrawer: () => void
   openMenu: (tab?: MenuTabKey) => void
+  openNpcInteraction: (npc: NodeNpc) => void
+  closeNpcInteraction: () => void
+  giftNpcItem: (npc: NodeNpc, itemId: string) => void
   closeMenu: () => void
   setMenuTab: (tab: MenuTabKey) => void
   openCompendium: (tab?: CompendiumTabKey) => void
@@ -452,6 +456,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   logDrawerOpen: false,
 
   menuOpen: false,
+  activeNpcInteraction: null,
   activeMenuTab: 'hero',
   compendiumOpen: false,
   activeCompendiumTab: 'regions',
@@ -2053,6 +2058,35 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   },
 
   toggleLogDrawer: () => set((s) => ({ logDrawerOpen: !s.logDrawerOpen })),
+
+  openNpcInteraction: (npc) => {
+    set({
+      activeNpcInteraction: npc,
+      tooltip: null,
+    })
+  },
+
+  closeNpcInteraction: () => {
+    set({ activeNpcInteraction: null })
+  },
+
+  giftNpcItem: (npc, itemId) => {
+    const s = get()
+    const item = ITEM_DB_MAP[itemId]
+    if (!item) return
+    const existing = s.inventory.find((st) => st.itemId === itemId && st.qty > 0)
+    if (!existing) return
+    const nextInventory = s.inventory
+      .map((st) => (st.itemId === itemId ? { ...st, qty: st.qty - 1 } : st))
+      .filter((st) => st.qty > 0)
+    set({
+      inventory: nextInventory,
+      actionFeedback: {
+        text: `向【${npc.name}】赠予「${item.name}」，${npc.name}欣然收下，言谈间亲近了几分。`,
+        tone: 'success',
+      },
+    })
+  },
 
   openMenu: (tab) => {
     set((s) => ({

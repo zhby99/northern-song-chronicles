@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import { BottomHud } from './components/hud/BottomHud'
 import { ContextInspectorCard } from './components/hud/ContextInspectorCard'
 import { MapTooltip } from './components/hud/MapTooltip'
+import { NpcInteractionOverlay } from './components/hud/NpcInteractionOverlay'
 import { TopHud } from './components/hud/TopHud'
 import { TravelBanner } from './components/hud/TravelBanner'
 import { RegionMapCanvas } from './components/map/RegionMapCanvas'
@@ -23,11 +24,13 @@ export function App() {
   const isTraveling = useGameStore((s) => s.traveling !== null)
   const menuOpen = useGameStore((s) => s.menuOpen)
   const compendiumOpen = useGameStore((s) => s.compendiumOpen)
+  const activeNpcInteraction = useGameStore((s) => s.activeNpcInteraction)
   const stepTravelTick = useGameStore((s) => s.stepTravelTick)
   const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
   const openCompendium = useGameStore((s) => s.openCompendium)
   const closeCompendium = useGameStore((s) => s.closeCompendium)
+  const closeNpcInteraction = useGameStore((s) => s.closeNpcInteraction)
 
   // 启动时自动清除旧版浏览器残留存档库，并在首屏空闲后静默预热菜单壳层
   useEffect(() => {
@@ -47,7 +50,8 @@ export function App() {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        if (compendiumOpen) closeCompendium()
+        if (activeNpcInteraction) closeNpcInteraction()
+        else if (compendiumOpen) closeCompendium()
         else if (menuOpen) closeMenu()
         else openMenu()
         return
@@ -69,7 +73,16 @@ export function App() {
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [menuOpen, compendiumOpen, openMenu, closeMenu, openCompendium, closeCompendium])
+  }, [
+    menuOpen,
+    compendiumOpen,
+    activeNpcInteraction,
+    openMenu,
+    closeMenu,
+    openCompendium,
+    closeCompendium,
+    closeNpcInteraction,
+  ])
 
   // 九州山海行路时钟：每 0.25s 前进一步（一个时辰），一日十二时辰累计 3.0s
   useEffect(() => {
@@ -105,6 +118,7 @@ export function App() {
       <BottomHud />
       <ContextInspectorCard />
       <MapTooltip />
+      <NpcInteractionOverlay />
 
       {(menuOpen || compendiumOpen) && (
         <Suspense fallback={null}>

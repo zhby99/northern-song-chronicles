@@ -76,6 +76,7 @@ export function ContextInspectorCard() {
   const startJourney = useGameStore((s) => s.startJourney)
   const doBuildingAction = useGameStore((s) => s.doBuildingAction)
   const interactNpc = useGameStore((s) => s.interactNpc)
+  const openNpcInteraction = useGameStore((s) => s.openNpcInteraction)
   const openNpcDetailInCompendium = useGameStore((s) => s.openNpcDetailInCompendium)
 
   const currentContextKey = `${viewMode}:${activeRegionId}:${activeBuildingInteriorId ?? ''}:${selectedBuildingId ?? ''}:${selectedSpotId ?? ''}`
@@ -509,7 +510,12 @@ export function ContextInspectorCard() {
                   key={npcKey}
                   className="p-2 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-1.5"
                 >
-                  <div className="flex items-center justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={() => openNpcInteraction(p)}
+                    title={`点击与【${p.name}】交互`}
+                    className="w-full text-left flex items-center justify-between gap-2 p-1 -m-1 rounded hover:bg-[#e4d3b0] transition-colors cursor-pointer"
+                  >
                     <div className="flex items-center gap-2 min-w-0">
                       {p.avatarUrl ? (
                         <ManagedAssetImg
@@ -533,7 +539,7 @@ export function ContextInspectorCard() {
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#dcc9a7] text-[#4a3219] shrink-0">
                       {p.realm}
                     </span>
-                  </div>
+                  </button>
 
                   {/* 紧凑属性速览条（四维 + 先天三维） */}
                   {p.stats && p.talents && (
