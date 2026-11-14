@@ -174,20 +174,25 @@ export function CombatOverlay() {
   const [showRulesHelp, setShowRulesHelp] = useState(false)
   const [bagOpen, setBagOpen] = useState(false)
   const [bagFilter, setBagFilter] = useState<BagFilterMode>('all')
-  const [fastMode, setFastMode] = useState<boolean>(() => {
+  const [paceMode, setPaceMode] = useState<'slow' | 'normal' | 'fast'>(() => {
     try {
-      return localStorage.getItem('nsc_combat_fast_v1') === '1'
+      const saved = localStorage.getItem('nsc_combat_pace_v2')
+      if (saved === 'slow' || saved === 'normal' || saved === 'fast') return saved
     } catch {
-      return false
+      // ignore
     }
+    return 'normal'
   })
 
-  // 分镜演武进度（在渲染阶段直接按 roundKey 对齐首拍，避免 effect 内同步 setState）
+  const paceScale = paceMode === 'slow' ? 1.42 : paceMode === 'fast' ? 0.56 : 1.0
+
+  // 分镜演武进度：包含 subPhase ('impact' 出招交锋定格 -> 'settle' 收招归位对峙留白)，让先手收势站稳后后手再起招
   const [beatProgress, setBeatProgress] = useState<{
     roundKey: string
     beatIdx: number
+    subPhase: 'impact' | 'settle'
     done: boolean
-  }>({ roundKey: '', beatIdx: 0, done: true })
+  }>({ roundKey: '', beatIdx: 0, subPhase: 'impact', done: true })
   const lastStartedSessionIdRef = useRef<string | null>(null)
   const logContainerRef = useRef<HTMLDivElement | null>(null)
 
@@ -200,6 +205,10 @@ export function CombatOverlay() {
       ? beatProgress.beatIdx
       : 0
     : 0
+  const currentSubPhase: 'impact' | 'settle' =
+    currentRoundKey && beatProgress.roundKey === currentRoundKey
+      ? beatProgress.subPhase
+      : 'impact'
   const isRoundDone =
     !currentRoundKey ||
     currentBeats.length === 0 ||
@@ -223,11 +232,11 @@ export function CombatOverlay() {
         liveShownNpcHp / Math.max(1, session.npc.maxHp) <= 0.32),
   )
 
-  const toggleFastMode = useCallback(() => {
-    setFastMode((prev) => {
-      const next = !prev
+  const cyclePaceMode = useCallback(() => {
+    setPaceMode((prev) => {
+      const next = prev === 'normal' ? 'slow' : prev === 'slow' ? 'fast' : 'normal'
       try {
-        localStorage.setItem('nsc_combat_fast_v1', next ? '1' : '0')
+        localStorage.setItem('nsc_combat_pace_v2', next)
       } catch {
         // ignore
       }
@@ -243,6 +252,7 @@ export function CombatOverlay() {
     setBeatProgress({
       roundKey: currentRoundKey,
       beatIdx: currentBeats.length,
+      subPhase: 'impact',
       done: true,
     })
   }, [session, currentRoundKey, currentBeats.length])
@@ -280,57 +290,94 @@ export function CombatOverlay() {
     }
   }, [session])
 
-  // 逐拍推进演武定时器与武侠音效触发 + 重击侧链闪避混音 (Sidechain Ducking)
+  // 逐拍推进演武定时器（含「突进交锋 impact -> 收势归位留白 settle」双段呼吸节奏）与武侠音效触发
   useEffect(() => {
     if (!isAnimating || !activeBeat || !currentRoundKey || !session) return
 
-    if (activeBeat.kind === 'reveal') {
-      playSfxRevealChoices()
-      if (activeBeat.vfxCategory === 'guard') {
-        playSfxGuardStance()
+    const hasSettleBreather =
+      activeBeat.kind === 'attack' ||
+      activeBeat.kind === 'dodge' ||
+      activeBeat.kind === 'escape'
+
+    // 音效与重击侧链闪避仅在出招交锋首半拍 ('impact') 触发一次
+    if (currentSubPhase === 'impact') {
+      if (activeBeat.kind === 'reveal') {
+        playSfxRevealChoices()
+        if (activeBeat.vfxCategory === 'guard') {
+          playSfxGuardStance()
+        }
+      } else if (activeBeat.kind === 'attack') {
+        duckBgmForImpact(
+          activeBeat.isCrit || activeBeat.isHeavenTier || activeBeat.shakeLevel === 3
+            ? 'heavy'
+            : activeBeat.isGuarded || activeBeat.shakeLevel === 2
+              ? 'medium'
+              : 'light',
+        )
+        playSfxAttackImpact(activeBeat.vfxCategory ?? 'palm', {
+          isCrit: activeBeat.isCrit,
+          isGuarded: activeBeat.isGuarded,
+          isHeavenTier: activeBeat.isHeavenTier,
+        })
+      } else if (activeBeat.kind === 'dodge' || activeBeat.kind === 'escape') {
+        playSfxDodge()
+      } else if (activeBeat.kind === 'item') {
+        playSfxHealMedicine()
+      } else if (activeBeat.kind === 'status') {
+        playSfxSpecialPulse()
+      } else if (activeBeat.kind === 'end' && session.outcome !== 'ongoing') {
+        playSfxCombatEnd(session.outcome)
       }
-    } else if (activeBeat.kind === 'attack') {
-      duckBgmForImpact(
-        activeBeat.isCrit || activeBeat.isHeavenTier || activeBeat.shakeLevel === 3
-          ? 'heavy'
-          : activeBeat.isGuarded || activeBeat.shakeLevel === 2
-            ? 'medium'
-            : 'light',
-      )
-      playSfxAttackImpact(activeBeat.vfxCategory ?? 'palm', {
-        isCrit: activeBeat.isCrit,
-        isGuarded: activeBeat.isGuarded,
-        isHeavenTier: activeBeat.isHeavenTier,
-      })
-    } else if (activeBeat.kind === 'dodge' || activeBeat.kind === 'escape') {
-      playSfxDodge()
-    } else if (activeBeat.kind === 'item') {
-      playSfxHealMedicine()
-    } else if (activeBeat.kind === 'status') {
-      playSfxSpecialPulse()
-    } else if (activeBeat.kind === 'end' && session.outcome !== 'ongoing') {
-      playSfxCombatEnd(session.outcome)
     }
 
-    const baseMs =
-      activeBeat.kind === 'reveal'
-        ? 390
-        : activeBeat.kind === 'attack'
-          ? activeBeat.isCrit
-            ? 740
-            : 650
-          : activeBeat.kind === 'dodge'
-            ? 540
+    const isHeavyBeat = Boolean(
+      activeBeat.isCrit || activeBeat.isHeavenTier || activeBeat.popups.length >= 2,
+    )
+
+    let baseMs: number
+    if (hasSettleBreather && currentSubPhase === 'impact') {
+      // 上半拍：踏步欺身、刀光掌印与受创硬直定格
+      baseMs =
+        activeBeat.kind === 'attack'
+          ? isHeavyBeat
+            ? 1220
+            : 1040
+          : 920
+    } else if (hasSettleBreather && currentSubPhase === 'settle') {
+      // 下半拍：立绘潇洒收招退回原位，留足近 1 秒气口看清招式横披、飘字与掉血条，再轮到对方起手！
+      baseMs =
+        activeBeat.kind === 'attack'
+          ? isHeavyBeat
+            ? 1040
+            : 880
+          : 740
+    } else {
+      // 单段分镜：双盲亮牌定先后手 / 服丹施毒 / 内功调息 / 胜败收束
+      baseMs =
+        activeBeat.kind === 'reveal'
+          ? 1260
+          : activeBeat.kind === 'item'
+            ? 1520
             : activeBeat.kind === 'end'
-              ? 560
-              : 480
-    const waitMs = Math.max(190, Math.round(baseMs * (fastMode ? 0.52 : 1.0)))
+              ? 1460
+              : 1300
+    }
+
+    const waitMs = Math.max(260, Math.round(baseMs * paceScale))
 
     const timer = window.setTimeout(() => {
-      if (currentBeatIdx + 1 < currentBeats.length) {
+      if (hasSettleBreather && currentSubPhase === 'impact') {
+        setBeatProgress({
+          roundKey: currentRoundKey,
+          beatIdx: currentBeatIdx,
+          subPhase: 'settle',
+          done: false,
+        })
+      } else if (currentBeatIdx + 1 < currentBeats.length) {
         setBeatProgress({
           roundKey: currentRoundKey,
           beatIdx: currentBeatIdx + 1,
+          subPhase: 'impact',
           done: false,
         })
       } else {
@@ -340,6 +387,7 @@ export function CombatOverlay() {
         setBeatProgress({
           roundKey: currentRoundKey,
           beatIdx: currentBeats.length,
+          subPhase: 'impact',
           done: true,
         })
       }
@@ -351,9 +399,10 @@ export function CombatOverlay() {
     activeBeat,
     currentRoundKey,
     currentBeatIdx,
+    currentSubPhase,
     currentBeats.length,
     session,
-    fastMode,
+    paceScale,
   ])
 
   // 解析双方交战所在的建筑实景（优先当前内景建筑 -> NPC 所属建筑 -> 当前选中建筑）
@@ -569,26 +618,38 @@ export function CombatOverlay() {
     submitCombatAction({ type: 'item', itemId })
   }
 
-  // 立绘动态位移与滤镜：突进挥击 / 受创仰退红闪 / 轻功滑步残影
+  // 立绘动态位移与滤镜：上半拍 ('impact') 突进挥击/受创红闪/轻功残影 -> 下半拍 ('settle') 从容收招退回原位对峙留白
+  const isImpactPose = currentSubPhase === 'impact'
   const isPlayerLunging =
+    isImpactPose &&
     (activeBeat?.kind === 'attack' || activeBeat?.kind === 'dodge') &&
     activeBeat.actorSide === 'player'
   const isNpcLunging =
+    isImpactPose &&
     (activeBeat?.kind === 'attack' || activeBeat?.kind === 'dodge') &&
     activeBeat.actorSide === 'npc'
-  const isPlayerHit = activeBeat?.kind === 'attack' && activeBeat.targetSide === 'player'
-  const isNpcHit = activeBeat?.kind === 'attack' && activeBeat.targetSide === 'npc'
-  const isPlayerDodging = activeBeat?.kind === 'dodge' && activeBeat.targetSide === 'player'
-  const isNpcDodging = activeBeat?.kind === 'dodge' && activeBeat.targetSide === 'npc'
+  const isPlayerHit =
+    isImpactPose && activeBeat?.kind === 'attack' && activeBeat.targetSide === 'player'
+  const isNpcHit =
+    isImpactPose && activeBeat?.kind === 'attack' && activeBeat.targetSide === 'npc'
+  const isPlayerDodging =
+    isImpactPose && activeBeat?.kind === 'dodge' && activeBeat.targetSide === 'player'
+  const isNpcDodging =
+    isImpactPose && activeBeat?.kind === 'dodge' && activeBeat.targetSide === 'npc'
+  const portraitTransitionCss = isImpactPose
+    ? 'transform 280ms cubic-bezier(0.22, 1, 0.36, 1), filter 220ms ease-out, opacity 240ms ease-out'
+    : 'transform 540ms cubic-bezier(0.25, 1, 0.5, 1), filter 420ms ease-out, opacity 320ms ease-out'
 
   const shakeAnim =
-    activeBeat?.shakeLevel === 3
-      ? 'cbtShakeHeavy 380ms cubic-bezier(0.36,0.07,0.19,0.97)'
-      : activeBeat?.shakeLevel === 2
-        ? 'cbtShakeMed 300ms cubic-bezier(0.36,0.07,0.19,0.97)'
-        : activeBeat?.shakeLevel === 1
-          ? 'cbtShakeLight 240ms ease-out'
-          : undefined
+    !isImpactPose
+      ? undefined
+      : activeBeat?.shakeLevel === 3
+        ? 'cbtShakeHeavy 440ms cubic-bezier(0.36,0.07,0.19,0.97)'
+        : activeBeat?.shakeLevel === 2
+          ? 'cbtShakeMed 340ms cubic-bezier(0.36,0.07,0.19,0.97)'
+          : activeBeat?.shakeLevel === 1
+            ? 'cbtShakeLight 260ms ease-out'
+            : undefined
 
   return (
     <div
@@ -623,7 +684,7 @@ export function CombatOverlay() {
 
       {/* 震屏舞台包裹层（暴击/天阶重击时触发电影感镜头震颤） */}
       <div
-        key={activeBeat?.shakeLevel ? `shake-${activeBeat.id}` : 'shake-idle'}
+        key={isImpactPose && activeBeat?.shakeLevel ? `shake-${activeBeat.id}` : 'shake-idle'}
         className="absolute inset-0"
         style={shakeAnim ? { animation: shakeAnim } : undefined}
       >
@@ -653,13 +714,14 @@ export function CombatOverlay() {
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#100905]/90 via-[#120b06]/45 to-transparent" />
         </div>
 
-        {/* 1. 左右 3x 巨幅等比全身立绘对峙舞台（支持突进冲锋、受创红闪震退、轻功掠影残影） */}
+        {/* 1. 左右 3x 巨幅等比全身立绘对峙舞台（上半拍突进交锋 -> 下半拍潇洒收招回阵站稳） */}
         <div className="pointer-events-none absolute inset-x-0 bottom-[118px] h-[72vh] min-h-[420px] max-h-[780px] z-10 flex items-end justify-between px-[4vw] lg:px-[10vw] xl:px-[13vw]">
           {/* 左立绘：少侠 */}
           <div
-            className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center transition-all duration-200 ease-out"
+            className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center"
             style={{
               zIndex: isPlayerLunging ? 20 : 10,
+              transition: portraitTransitionCss,
               transform: isPlayerLunging
                 ? 'translate3d(9vw, -8px, 0) scale(1.07)'
                 : isPlayerHit
@@ -708,9 +770,10 @@ export function CombatOverlay() {
 
           {/* 右立绘：对手名宿 */}
           <div
-            className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center transition-all duration-200 ease-out"
+            className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center"
             style={{
               zIndex: isNpcLunging ? 20 : 10,
+              transition: portraitTransitionCss,
               transform: isNpcLunging
                 ? 'translate3d(-9vw, -8px, 0) scale(1.07)'
                 : isNpcHit
@@ -764,6 +827,7 @@ export function CombatOverlay() {
         activeBeat={activeBeat}
         playerName={player.name}
         npcName={npc.name}
+        paceScale={paceScale}
       />
 
       {/* 2. 顶部三段式浮空交锋铭牌（左：少侠血内+七槽披挂+背包按钮 | 中：建筑与回合牌 | 右：对手情报） */}
@@ -818,7 +882,7 @@ export function CombatOverlay() {
                   className="absolute inset-y-0 left-0 bg-gradient-to-r from-[#fde68a] to-[#fca5a5] opacity-90"
                   style={{
                     width: `${pHpPct}%`,
-                    transition: 'width 680ms cubic-bezier(0.22, 1, 0.36, 1) 140ms',
+                    transition: 'width 1150ms cubic-bezier(0.22, 1, 0.36, 1) 280ms',
                   }}
                 />
                 <div
@@ -945,19 +1009,23 @@ export function CombatOverlay() {
               <span className="hidden sm:inline">{sfxEnabled ? '音效开' : '静音'}</span>
             </button>
 
-            {/* 1x / 2x 演武倍速 */}
+            {/* 三档演武节奏：1x 标准 / 0.7x 慢品 / 1.8x 疾速 */}
             <button
               type="button"
-              onClick={toggleFastMode}
-              className={`px-2 py-0.5 rounded-full border text-[11px] font-mono flex items-center gap-0.5 transition cursor-pointer ${
-                fastMode
-                  ? 'bg-[#5c2b09] border-[#fbbf24] text-[#fef08a]'
-                  : 'bg-[#24180e] border-[#a8844c]/50 text-[#e0c8a4] hover:bg-[#362415]'
+              onClick={cyclePaceMode}
+              className={`px-2.5 py-0.5 rounded-full border text-[11px] flex items-center gap-1 transition cursor-pointer ${
+                paceMode === 'slow'
+                  ? 'bg-[#173628] border-[#6ee7b7]/80 text-[#d1fae5]'
+                  : paceMode === 'fast'
+                    ? 'bg-[#5c2b09] border-[#fbbf24] text-[#fef08a]'
+                    : 'bg-[#24180e] border-[#a8844c]/60 text-[#e8d3b2] hover:bg-[#362415]'
               }`}
-              title="切换拆招演出速度（1x 临场电影感 / 2x 疾速拆招）"
+              title="点击切换拆招演出节奏：标准（从容留白） -> 慢品（细看一招一式） -> 疾速（熟练快刷）"
             >
               <FastForward className="w-3 h-3" />
-              <span>{fastMode ? '2x' : '1x'}</span>
+              <span>
+                {paceMode === 'slow' ? '慢品' : paceMode === 'fast' ? '疾速' : '标准'}
+              </span>
             </button>
 
             <button
@@ -1036,7 +1104,7 @@ export function CombatOverlay() {
                   className="absolute inset-y-0 right-0 bg-gradient-to-l from-[#fde68a] to-[#fca5a5] opacity-90"
                   style={{
                     width: `${nHpPct}%`,
-                    transition: 'width 680ms cubic-bezier(0.22, 1, 0.36, 1) 140ms',
+                    transition: 'width 1150ms cubic-bezier(0.22, 1, 0.36, 1) 280ms',
                   }}
                 />
                 <div

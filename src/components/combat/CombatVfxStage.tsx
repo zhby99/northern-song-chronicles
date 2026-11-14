@@ -4,6 +4,7 @@ interface CombatVfxStageProps {
   activeBeat: CombatRoundBeat | null
   playerName: string
   npcName: string
+  paceScale?: number
 }
 
 function getPopupColorClasses(style: CombatFloatingPopup['style']): string {
@@ -27,8 +28,23 @@ function getPopupColorClasses(style: CombatFloatingPopup['style']): string {
   }
 }
 
-export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxStageProps) {
+export function CombatVfxStage({
+  activeBeat,
+  playerName,
+  npcName,
+  paceScale = 1,
+}: CombatVfxStageProps) {
   if (!activeBeat) return null
+
+  const bannerDurMs = Math.round(
+    (activeBeat.kind === 'reveal' ? 1180 : activeBeat.isCrit || activeBeat.isHeavenTier ? 2050 : 1720) *
+      paceScale,
+  )
+  const slashDurMs = Math.round(920 * paceScale)
+  const shockDurMs = Math.round(980 * paceScale)
+  const popupDurMs = Math.round(1660 * paceScale)
+  const popupStaggerMs = Math.round(135 * paceScale)
+  const critFlashDurMs = Math.round(560 * paceScale)
 
   const isPlayerTarget = activeBeat.targetSide === 'player'
   const isNpcTarget = activeBeat.targetSide === 'npc'
@@ -50,33 +66,36 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
 
   return (
     <>
-      {/* 关键帧动画定义（纯 GPU transform + opacity，60fps 丝滑无卡顿） */}
+      {/* 关键帧动画定义（拉长悬停可读区间，让玩家从容看清招式名、刀光与伤害数字） */}
       <style>{`
         @keyframes cbtSlashSweep {
           0% { opacity: 0; transform: scale(0.45) rotate(-18deg); }
-          22% { opacity: 1; transform: scale(1.06) rotate(2deg); }
-          100% { opacity: 0; transform: scale(1.22) rotate(8deg); }
+          18% { opacity: 1; transform: scale(1.05) rotate(1deg); }
+          56% { opacity: 0.92; transform: scale(1.12) rotate(4deg); }
+          100% { opacity: 0; transform: scale(1.24) rotate(8deg); }
         }
         @keyframes cbtShockRing {
           0% { opacity: 0.95; transform: scale(0.28); }
-          65% { opacity: 0.75; transform: scale(1.08); }
-          100% { opacity: 0; transform: scale(1.38); }
+          25% { opacity: 0.95; transform: scale(0.96); }
+          62% { opacity: 0.78; transform: scale(1.1); }
+          100% { opacity: 0; transform: scale(1.36); }
         }
         @keyframes cbtPopupFloat {
           0% { opacity: 0; transform: translateY(22px) scale(0.65); }
-          20% { opacity: 1; transform: translateY(-6px) scale(1.12); }
-          36% { opacity: 1; transform: translateY(-12px) scale(1.0); }
-          82% { opacity: 1; transform: translateY(-28px) scale(1.0); }
-          100% { opacity: 0; transform: translateY(-44px) scale(0.94); }
+          13% { opacity: 1; transform: translateY(-6px) scale(1.12); }
+          24% { opacity: 1; transform: translateY(-12px) scale(1.0); }
+          85% { opacity: 1; transform: translateY(-24px) scale(1.0); }
+          100% { opacity: 0; transform: translateY(-40px) scale(0.95); }
         }
         @keyframes cbtBannerSlam {
-          0% { opacity: 0; transform: translateY(-14px) scale(1.18); }
-          22% { opacity: 1; transform: translateY(0) scale(1); }
-          86% { opacity: 1; transform: translateY(0) scale(1); }
-          100% { opacity: 0; transform: translateY(-6px) scale(0.97); }
+          0% { opacity: 0; transform: translateY(-14px) scale(1.16); }
+          14% { opacity: 1; transform: translateY(0) scale(1); }
+          87% { opacity: 1; transform: translateY(0) scale(1); }
+          100% { opacity: 0; transform: translateY(-6px) scale(0.98); }
         }
         @keyframes cbtCritFlash {
           0% { opacity: 0.72; }
+          40% { opacity: 0.45; }
           100% { opacity: 0; }
         }
       `}</style>
@@ -90,7 +109,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             background: activeBeat.isCrit
               ? 'radial-gradient(circle at center, rgba(255,235,150,0.18) 0%, rgba(185,28,28,0.42) 100%)'
               : 'radial-gradient(circle at center, rgba(253,224,71,0.14) 0%, rgba(180,83,9,0.32) 100%)',
-            animation: 'cbtCritFlash 340ms ease-out forwards',
+            animation: `cbtCritFlash ${critFlashDurMs}ms ease-out forwards`,
           }}
         />
       )}
@@ -100,7 +119,9 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
         <div
           key={`banner-${activeBeat.id}`}
           className="pointer-events-none fixed inset-x-0 top-[148px] sm:top-[132px] z-30 flex justify-center px-4"
-          style={{ animation: 'cbtBannerSlam 560ms cubic-bezier(0.16, 1, 0.3, 1) forwards' }}
+          style={{
+            animation: `cbtBannerSlam ${bannerDurMs}ms cubic-bezier(0.16, 1, 0.3, 1) forwards`,
+          }}
         >
           <div
             className={`px-6 py-2 rounded-full border-2 shadow-2xl backdrop-blur-md text-center ${
@@ -161,7 +182,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 240 240"
               className="absolute inset-0 w-full h-full"
-              style={{ animation: 'cbtShockRing 520ms ease-out forwards' }}
+              style={{ animation: `cbtShockRing ${shockDurMs}ms ease-out forwards` }}
             >
               <circle
                 cx="120"
@@ -188,7 +209,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 260 260"
               className="w-full h-full"
-              style={{ animation: 'cbtSlashSweep 440ms ease-out forwards' }}
+              style={{ animation: `cbtSlashSweep ${slashDurMs}ms ease-out forwards` }}
             >
               <defs>
                 <linearGradient id="swordGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -220,7 +241,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 260 260"
               className="w-full h-full"
-              style={{ animation: 'cbtSlashSweep 460ms ease-out forwards' }}
+              style={{ animation: `cbtSlashSweep ${slashDurMs}ms ease-out forwards` }}
             >
               <defs>
                 <linearGradient id="bladeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -248,7 +269,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 260 260"
               className="w-full h-full"
-              style={{ animation: 'cbtShockRing 480ms ease-out forwards' }}
+              style={{ animation: `cbtShockRing ${shockDurMs}ms ease-out forwards` }}
             >
               <circle
                 cx="130"
@@ -275,7 +296,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 260 260"
               className="w-full h-full"
-              style={{ animation: 'cbtSlashSweep 400ms ease-out forwards' }}
+              style={{ animation: `cbtSlashSweep ${slashDurMs}ms ease-out forwards` }}
             >
               <line
                 x1="12"
@@ -311,7 +332,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 260 260"
               className="w-full h-full"
-              style={{ animation: 'cbtSlashSweep 450ms ease-out forwards' }}
+              style={{ animation: `cbtSlashSweep ${slashDurMs}ms ease-out forwards` }}
             >
               <ellipse
                 cx="130"
@@ -340,7 +361,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 260 260"
               className="w-full h-full"
-              style={{ animation: 'cbtSlashSweep 420ms ease-out forwards' }}
+              style={{ animation: `cbtSlashSweep ${slashDurMs}ms ease-out forwards` }}
             >
               {[
                 [24, 78, 206, 108],
@@ -370,7 +391,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 260 260"
               className="w-full h-full"
-              style={{ animation: 'cbtShockRing 520ms ease-out forwards' }}
+              style={{ animation: `cbtShockRing ${shockDurMs}ms ease-out forwards` }}
             >
               <circle cx="130" cy="130" r="96" fill="none" stroke="#5eead4" strokeWidth="4" />
               <circle cx="130" cy="130" r="68" fill="none" stroke="#99f6e4" strokeWidth="3.5" />
@@ -383,7 +404,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 260 260"
               className="w-full h-full"
-              style={{ animation: 'cbtShockRing 520ms ease-out forwards' }}
+              style={{ animation: `cbtShockRing ${shockDurMs}ms ease-out forwards` }}
             >
               <circle
                 cx="130"
@@ -410,7 +431,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
             <svg
               viewBox="0 0 260 260"
               className="w-full h-full"
-              style={{ animation: 'cbtShockRing 560ms ease-out forwards' }}
+              style={{ animation: `cbtShockRing ${shockDurMs}ms ease-out forwards` }}
             >
               <circle
                 cx="130"
@@ -444,7 +465,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
               key={pop.id}
               className="flex flex-col items-center text-center"
               style={{
-                animation: `cbtPopupFloat 660ms cubic-bezier(0.22, 1, 0.36, 1) ${idx * 70}ms both`,
+                animation: `cbtPopupFloat ${popupDurMs}ms cubic-bezier(0.22, 1, 0.36, 1) ${idx * popupStaggerMs}ms both`,
               }}
             >
               <span className={`song-serif tracking-wider ${getPopupColorClasses(pop.style)}`}>
@@ -471,7 +492,7 @@ export function CombatVfxStage({ activeBeat, playerName, npcName }: CombatVfxSta
               key={pop.id}
               className="flex flex-col items-center text-center"
               style={{
-                animation: `cbtPopupFloat 660ms cubic-bezier(0.22, 1, 0.36, 1) ${idx * 70}ms both`,
+                animation: `cbtPopupFloat ${popupDurMs}ms cubic-bezier(0.22, 1, 0.36, 1) ${idx * popupStaggerMs}ms both`,
               }}
             >
               <span className={`song-serif tracking-wider ${getPopupColorClasses(pop.style)}`}>
