@@ -48,7 +48,8 @@
         "stat": "气血",
         "min": 3000
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_001.jpg"
   },
   {
     "id": "WPN-002",
@@ -99,7 +100,8 @@
         "stat": "辩才",
         "min": 70
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_002.jpg"
   },
   {
     "id": "WPN-003",
@@ -153,7 +155,8 @@
         "stat": "算术",
         "min": 88
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_003.jpg"
   },
   {
     "id": "WPN-004",
@@ -204,7 +207,8 @@
         "stat": "骑术",
         "min": 80
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_004.jpg"
   },
   {
     "id": "WPN-005",
@@ -261,7 +265,8 @@
         "stat": "内力",
         "min": 2600
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_005.jpg"
   },
   {
     "id": "WPN-006",
@@ -311,7 +316,8 @@
         "stat": "棋",
         "min": 70
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_006.jpg"
   },
   {
     "id": "WPN-007",
@@ -365,7 +371,8 @@
         "stat": "经义",
         "min": 70
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_007.jpg"
   },
   {
     "id": "WPN-008",
@@ -425,7 +432,8 @@
         "stat": "抗性",
         "min": 75
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_008.jpg"
   },
   {
     "id": "WPN-009",
@@ -475,7 +483,8 @@
         "stat": "内力",
         "min": 2400
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_009.jpg"
   },
   {
     "id": "WPN-010",
@@ -541,7 +550,8 @@
         "stat": "算术",
         "min": 75
       }
-    ]
+    ],
+    "iconUrl": "/assets/items/weapons/wpn_010.jpg"
   },
   {
     "id": "WPN-011",
@@ -581,7 +591,8 @@
     "specialTag": "【阴阳圆转】",
     "description": "【阴阳圆转】武当山真武大帝殿传世古剑，剑身镌刻太极两仪血槽，重心浑成；运使道门绵柔剑术时借力卸力，防守反击浑然天成。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_011.jpg"
   },
   {
     "id": "WPN-012",
@@ -618,7 +629,8 @@
     "specialTag": "【党项冷锻】",
     "description": "【党项冷锻】贺兰山皇家铁工以瘊子冷锻绝技锤打数万次而成，刃口青莹如冰，斩铁甲如削腐木，北宋朝野名臣武将皆叹为天下利剑之冠。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_012.jpg"
   },
   {
     "id": "WPN-013",
@@ -658,7 +670,8 @@
     "specialTag": "【禅火生烟】",
     "description": "【禅火生烟】取天竺乌兹钢混嵩山精铁重锻的无尖阔背戒刀，刀身沉凝庄重；以浑厚佛门内力疾劈时刀刃摩擦空气炽热生烟，破除阴邪。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_013.jpg"
   },
   {
     "id": "WPN-014",
@@ -696,7 +709,8 @@
     "specialTag": "【银龙破阵】",
     "description": "【银龙破阵】河北真定名匠采太行秘银与百炼精钢合铸，枪缨似火、枪尖如雪，抖动间寒星万点，专破北辽重装铁骑锁子甲。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_014.jpg"
   },
   {
     "id": "WPN-015",
@@ -738,7 +752,8 @@
     "specialTag": "【金刚捏铁】",
     "description": "【金刚捏铁】采闽中深山乌金重铁于千斤铁鼎炉火中精炼成五枚厚重指套，施展硬功指爪时无惧兵刃格架，能生生在精钢刀剑上捏出指痕。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_015.jpg"
   },
   {
     "id": "WPN-016",
@@ -777,7 +792,8 @@
     "specialTag": "【金屏夺目】",
     "description": "【金屏夺目】纯金嵌翠雕铸之圆筒暗器匣，发动瞬间金芒绽放如孔雀开屏，趁敌目眩神迷之际数十枚细若牛毛的乌金针已透穴而入。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_016.jpg"
   },
   {
     "id": "WPN-017",
@@ -814,7 +830,8 @@
     "specialTag": "【太岳清霞】",
     "description": "【太岳清霞】西岳华山历代掌门佩剑，引华山绝顶寒露淬锋，剑脊隐现淡淡紫晕，催运紫霞或混元真气时剑速陡增。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_017.jpg"
   },
   {
     "id": "WPN-018",
@@ -851,7 +868,8 @@
     "specialTag": "【诡道见血】",
     "description": "【诡道见血】雪域软铁掺赤铜锻成的暗红弯软长刀，韧可束于腰带之内，出刀角度诡诞绝伦，每见鲜血刀锋愈显妖异顺滑。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_018.jpg"
   },
   {
     "id": "WPN-019",
@@ -888,7 +906,8 @@
     "specialTag": "【沙场修罗】",
     "description": "【沙场修罗】幽燕铁匠为北辽铁林军统帅打造的双手长柄重刃，重达三十六斤，刀背厚实如脊，斩马破阵凶煞滔天。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_019.jpg"
   },
   {
     "id": "WPN-020",
@@ -925,7 +944,8 @@
     "specialTag": "【疯虎啸风】",
     "description": "【疯虎啸风】通体生铁百炼而成的八十二斤重杖，杖首串挂六枚精钢响环，舞动起来风声鹤唳、以命搏命。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_020.jpg"
   },
   {
     "id": "WPN-021",
@@ -967,7 +987,8 @@
     "specialTag": "【毒砂焚脏】",
     "description": "【毒砂焚脏】洞庭五指峰玄铁混五毒铁砂熔铸之沉重护腕，双掌翻飞间裹挟燥烈火毒，震碎敌手内腑。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_021.jpg"
   },
   {
     "id": "WPN-022",
@@ -1008,7 +1029,8 @@
     "specialTag": "【腰肋冷针】",
     "description": "【腰肋冷针】嵌于犀皮软腰带内的十二道扁簧暗匣，与敌贴身错步瞬间叩动腰眼叩环，毒砂钢针无声透甲。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_022.jpg"
   },
   {
     "id": "WPN-023",
@@ -1052,7 +1074,8 @@
     "specialTag": "【铁画银钩】",
     "description": "【铁画银钩】取太原精镔铁铸就的一对尺八重笔，笔尖攒聚寒星，运笔如颜筋柳骨龙蛇竞走，专打手腕神门与周身大穴。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_023.jpg"
   },
   {
     "id": "WPN-024",
@@ -1090,7 +1113,8 @@
     "specialTag": "【燕尾还施】",
     "description": "【燕尾还施】太湖水榭秘藏雌雄双剑，护手呈飞燕剪水之形，双剑交错极善粘连牵引敌方兵刃力道。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_024.jpg"
   },
   {
     "id": "WPN-025",
@@ -1128,7 +1152,8 @@
     "specialTag": "【金顶流霞】",
     "description": "【金顶流霞】取蜀山寒铁辅以万年寺古泉淬炼，剑身纤秀轻盈而韧性极佳，出剑如佛光破云，轻灵与凌厉兼备。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_025.jpg"
   },
   {
     "id": "WPN-026",
@@ -1172,7 +1197,8 @@
     "specialTag": "【苍洱纯阳】",
     "description": "【苍洱纯阳】大理皇室采点苍雪山精铜与百炼钢合铸，剑格镶嵌南诏琥珀，导引纯阳指力与剑气畅通无阻。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_026.jpg"
   },
   {
     "id": "WPN-027",
@@ -1209,7 +1235,8 @@
     "specialTag": "【蛟龙锁刃】",
     "description": "【蛟龙锁刃】扬州运河总舵秘制精钢长枪，枪头两侧生有弯月倒钩分水刺，舟楫颠簸与水陆鏖战中可锁夺敌方长兵。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_027.jpg"
   },
   {
     "id": "WPN-028",
@@ -1246,7 +1273,8 @@
     "specialTag": "【宝杵镇魔】",
     "description": "【宝杵镇魔】少林罗汉堂武僧护寺熟铜包钢八棱重杵，重四十九斤，端严厚重，一杵轰落最克外家横练硬功。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_028.jpg"
   },
   {
     "id": "WPN-029",
@@ -1287,7 +1315,8 @@
     "specialTag": "【腥风蚀髓】",
     "description": "【腥风蚀髓】以西域毒蝎蛇涎反复浸泡的乌铁弯钩护指，爪风腥臭刺鼻，抓破油皮即蚀损敌方护体真气。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_029.jpg"
   },
   {
     "id": "WPN-030",
@@ -1332,7 +1361,8 @@
     "specialTag": "【御赐清风】",
     "description": "【御赐清风】大内御匠以紫金混精钢锻成十六根扇骨，扇面绘宋院青绿山水；展开可格刀剑暗器，合拢点穴透骨三分。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_030.jpg"
   },
   {
     "id": "WPN-031",
@@ -1369,7 +1399,8 @@
     "specialTag": null,
     "description": "括苍山龙泉古炉百炼精钢所铸，剑身嵌七颗黄铜星钉，弹指清鸣如秋水龙吟，江南名门剑客上选。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_031.jpg"
   },
   {
     "id": "WPN-032",
@@ -1408,7 +1439,8 @@
     "specialTag": null,
     "description": "齐鲁百炼生熟铁合锻之阔身重剑，剑脊厚逾三指，剑势敦厚稳固如泰岳盘石。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_032.jpg"
   },
   {
     "id": "WPN-033",
@@ -1445,7 +1477,8 @@
     "specialTag": null,
     "description": "西京金刀门标志兵刃，厚背镶金，刀脊穿挂九枚熟铜金环，挥劈时金环乱响慑敌心魂。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_033.jpg"
   },
   {
     "id": "WPN-034",
@@ -1482,7 +1515,8 @@
     "specialTag": null,
     "description": "太原铁冶监取晋阳好铁百炼成钢，刀身微弧而破甲力极强，乃河东抗辽边军将校梦寐以求之战刀。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_034.jpg"
   },
   {
     "id": "WPN-035",
@@ -1519,7 +1553,8 @@
     "specialTag": null,
     "description": "北京大名府枪棒名师监制，通体熟铁打造重十八斤，内三合外三合扎圈严密，攻守兼备。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_035.jpg"
   },
   {
     "id": "WPN-036",
@@ -1556,7 +1591,8 @@
     "specialTag": null,
     "description": "精选五台山高寒铁桦木烘烤浸油，两端包裹八棱熟铜箍，挑打劈砸专克契丹骑兵弯刀。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_036.jpg"
   },
   {
     "id": "WPN-037",
@@ -1593,7 +1629,8 @@
     "specialTag": null,
     "description": "开封府名捕办案贴身精钢指节鹰扣，内衬软鹿皮，扣拿江洋悍匪脉门手腕十拿九稳。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_037.jpg"
   },
   {
     "id": "WPN-038",
@@ -1634,7 +1671,8 @@
     "specialTag": null,
     "description": "双层油鹿皮囊内藏三十六枚三寸乌钢透骨钉，钉尾螺旋破风，穿透护身软甲疾如流星。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_038.jpg"
   },
   {
     "id": "WPN-039",
@@ -1673,7 +1711,8 @@
     "specialTag": null,
     "description": "金陵老琴师取百年梧桐良材斫成仲尼式七弦琴，冰弦柔韧可贯注内息，风雅会友与御敌兼擅。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_039.jpg"
   },
   {
     "id": "WPN-040",
@@ -1713,7 +1752,8 @@
     "specialTag": null,
     "description": "乌钢精锻尺二双头棱刺，中枢活环套于中指，翻腕旋转如飞轮，水战与贴身锁剑分外灵巧。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_040.jpg"
   },
   {
     "id": "WPN-041",
@@ -1749,7 +1789,8 @@
     "specialTag": null,
     "description": "巴蜀道家窄身薄刃快剑，剑重不足二斤半，出鞘疾刺如松间冷风掠影，专取咽喉手腕。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_041.jpg"
   },
   {
     "id": "WPN-042",
@@ -1784,7 +1825,8 @@
     "specialTag": null,
     "description": "姑苏名匠仿春秋吴越古风锻造的尺六短剑，水波暗纹隐现，欺入长兵怀中短打凌厉非凡。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_042.jpg"
   },
   {
     "id": "WPN-043",
@@ -1821,7 +1863,8 @@
     "specialTag": null,
     "description": "贺兰山党项精骑与一品堂武士惯用新月弧刃快刀，借马速或旋转身法贴身抹削，诡异难防。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_043.jpg"
   },
   {
     "id": "WPN-044",
@@ -1858,7 +1901,8 @@
     "specialTag": null,
     "description": "阿拉伯大食海商经泉州海港输入大宋的波斯花纹钢弯刀，刀面天然水波云纹，锋利坚韧。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_044.jpg"
   },
   {
     "id": "WPN-045",
@@ -1893,7 +1937,8 @@
     "specialTag": null,
     "description": "矛尖弯曲如巨蟒游走，一刺一抽皆带撕裂暗劲，最善破开牛皮甲胄与藤牌阵。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_045.jpg"
   },
   {
     "id": "WPN-046",
@@ -1932,7 +1977,8 @@
     "specialTag": null,
     "description": "仿宋初名将呼延赞铁鞭形制铸造的熟铜竹节硬鞭，无刃而四棱沉猛，专砸硬甲盾牌。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_046.jpg"
   },
   {
     "id": "WPN-047",
@@ -1967,7 +2013,8 @@
     "specialTag": null,
     "description": "北辽重甲武士马步冲阵凶器，纺锤棒头密布寸许精铁尖刺，磕擦即令护体真气震荡。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_047.jpg"
   },
   {
     "id": "WPN-048",
@@ -2004,7 +2051,8 @@
     "specialTag": null,
     "description": "左右小臂各套六只熟铁重环，吐气开声双桥硬架刀劈斧砍，拳势沉雄威猛。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_048.jpg"
   },
   {
     "id": "WPN-049",
@@ -2040,7 +2088,8 @@
     "specialTag": null,
     "description": "精钢打磨的十二枚柳叶三棱脱手镖，镖尾系红绸定准，一扬手品字连珠封敌退路。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_049.jpg"
   },
   {
     "id": "WPN-050",
@@ -2081,7 +2130,8 @@
     "specialTag": null,
     "description": "取潇湘泪竹镶包精铁内骨制成，扇面题苏梅新词，展扇潇洒风流，合扇疾点麻穴。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_050.jpg"
   },
   {
     "id": "WPN-051",
@@ -2120,7 +2170,8 @@
     "specialTag": null,
     "description": "秦岭幽谷寒潭淬火之青钢道剑，云头剑格古朴端严，修道之人佩之宁神定气。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_051.jpg"
   },
   {
     "id": "WPN-052",
@@ -2156,7 +2207,8 @@
     "specialTag": null,
     "description": "太行山大寨铁炉锻打的宽背厚刃砍刀，刀沉力猛，劈山断门声势骇人。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_052.jpg"
   },
   {
     "id": "WPN-053",
@@ -2192,7 +2244,8 @@
     "specialTag": null,
     "description": "北宋朝廷南北作坊依皇祐军器格律打造的禁军都虞候制式点钢枪，四棱破甲枪尖寒芒凛冽。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_053.jpg"
   },
   {
     "id": "WPN-054",
@@ -2227,7 +2280,8 @@
     "specialTag": null,
     "description": "精选冀中三年老白蜡杆配精钢小枪头，枪身弹抖如梨花瑞雪纷飞，灵巧迅捷。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_054.jpg"
   },
   {
     "id": "WPN-055",
@@ -2264,7 +2318,8 @@
     "specialTag": null,
     "description": "坚木杖身两端包熟铁莲花箍，少林寺巡山护院僧人标配，守御严密不伤无辜性命。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_055.jpg"
   },
   {
     "id": "WPN-056",
@@ -2300,7 +2355,8 @@
     "specialTag": null,
     "description": "双层厚水牛皮镶嵌八颗熟铁平头钉，贴身靠打与崩拳寸劲发力时震透敌方护甲。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_056.jpg"
   },
   {
     "id": "WPN-057",
@@ -2339,7 +2395,8 @@
     "specialTag": null,
     "description": "毒药浸渍过的乌黑粗麻夹铁砂护掌，出掌带腥风，擦中皮肉即红肿麻痒。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_057.jpg"
   },
   {
     "id": "WPN-058",
@@ -2379,7 +2436,8 @@
     "specialTag": null,
     "description": "盛装二十四枚生铁四角刺蒺藜，尖端喂有川乌麻药，扬手撒地可阻截快马轻功追击。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_058.jpg"
   },
   {
     "id": "WPN-059",
@@ -2421,7 +2479,8 @@
     "specialTag": null,
     "description": "一对尺五六棱熟铁短尺，无锋无刃而分量极沉，专司格架凶徒利刃、敲打关节擒拿归案。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_059.jpg"
   },
   {
     "id": "WPN-060",
@@ -2464,7 +2523,8 @@
     "specialTag": null,
     "description": "外包百年坚硬紫檀木、内贯百炼钢针芯，插于书生笔囊毫不惹眼，临敌点穴迅捷凌厉。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_060.jpg"
   },
   {
     "id": "WPN-061",
@@ -2499,7 +2559,8 @@
     "specialTag": null,
     "description": "中原年轻游侠初涉江湖最趁手的三尺青钢剑，吞口铜装精细，拔剑寒光如水。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_061.jpg"
   },
   {
     "id": "WPN-062",
@@ -2534,7 +2595,8 @@
     "specialTag": null,
     "description": "西岳华山外门弟子标配窄身长剑，剑尖轻锐，最宜习练“白云出岫”等入门奇险剑招。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_062.jpg"
   },
   {
     "id": "WPN-063",
@@ -2570,7 +2632,8 @@
     "specialTag": null,
     "description": "剑身锻出细密松皮暗纹，配黄铜太极剑首，动静合宜，道门弟子下山云游常佩。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": "/assets/items/weapons/wpn_063.jpg"
   },
   {
     "id": "WPN-064",
@@ -2605,7 +2668,8 @@
     "specialTag": null,
     "description": "一鞘双刀，刀叶窄弯如新柳拂波，双腕翻花护住周身，江南水路镖局与女侠常用。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-065",
@@ -2640,7 +2704,8 @@
     "specialTag": null,
     "description": "秦川刀客钟爱的厚背铁环单刀，招式堂堂正正，劈砍格架扎实耐用。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-066",
@@ -2676,7 +2741,8 @@
     "specialTag": null,
     "description": "严格依北宋皇祐初年颁行《武经总要》图谱锻造的短柄前宽军中手刀，破皮甲、耐磕碰。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-067",
@@ -2711,7 +2777,8 @@
     "specialTag": null,
     "description": "九尺白木枪杆配生熟铁夹钢枪尖，大宋各州厢军步卒守城列阵标准长兵。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-068",
@@ -2747,7 +2814,8 @@
     "specialTag": null,
     "description": "立起恰与眉齐的精选老白蜡木棍，桐油反复浸润不裂不折，天下棍术正宗入门兵刃。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-069",
@@ -2784,7 +2852,8 @@
     "specialTag": null,
     "description": "熟牛皮护腕外缀三排百炼熟铁鱼鳞片，拳掌交锋时既护脉门又增三分拳劲。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-070",
@@ -2819,7 +2888,8 @@
     "specialTag": null,
     "description": "八寸黄铜圆管内置钢簧短簇，绑缚于小臂衣袖之中，拱手揖礼之际骤发冷箭。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-071",
@@ -2857,7 +2927,8 @@
     "specialTag": null,
     "description": "取大宋新铸“皇祐通宝”铜钱将外缘锉磨锋利，一袋三十枚，随手拈发专取咽喉眼目。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-072",
@@ -2896,7 +2967,8 @@
     "specialTag": null,
     "description": "外糊徽宣洒金纸、内藏熟铁扇骨，大相国寺每旬庙会畅销之物，书生游侠防身利器。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-073",
@@ -2931,7 +3003,8 @@
     "specialTag": null,
     "description": "各地演武拳馆架上常备的生熟铁长剑，分量稍沉而坚固皮实，适合演练三才剑路。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-074",
@@ -2966,7 +3039,8 @@
     "specialTag": null,
     "description": "蜀中民间游侠喜佩的窄身轻剑，收鞘如杖，茶肆窄巷遇袭时抽刺极快。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-075",
@@ -3001,7 +3075,8 @@
     "specialTag": null,
     "description": "北宋民间与公门最常见的双手长柄宽刃朴刀，走州过府防匪打虎人人可携。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-076",
@@ -3036,7 +3111,8 @@
     "specialTag": null,
     "description": "山林草莽好汉混战常用的阔口弯背铁刀，挥舞如骤雨泼风，聊遮矢石。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-077",
@@ -3071,7 +3147,8 @@
     "specialTag": null,
     "description": "屠户老手每日磨砺的夹钢尖头剔骨快刀，短小精悍，顺敌甲叶骨缝切入极准。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-078",
@@ -3106,7 +3183,8 @@
     "specialTag": null,
     "description": "枪头侧出弯钩铁刃，水路帮派与河防兵丁用于钩拉船舷、专破骑兵马腿。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-079",
@@ -3139,7 +3217,8 @@
     "specialTag": null,
     "description": "草原牧骑白桦长杆前端嵌三寸铁枪尖、尾系皮套索，驱狼护畜与马背轻刺两用。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-080",
@@ -3175,7 +3254,8 @@
     "specialTag": null,
     "description": "丐帮一至三袋弟子随身携带的四尺老青竹棒，竹节密实，轻巧耐打。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-081",
@@ -3210,7 +3290,8 @@
     "specialTag": null,
     "description": "大运河粮船水手所用丈二毛竹撑篙，底端包尖铁套，码头争斗一扫一大片。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-082",
@@ -3245,7 +3326,8 @@
     "specialTag": null,
     "description": "六尺熟铁圆环缉盗锁链，抖动哗哗作响，州县快手捕快借之缠锁嫌犯手足。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-083",
@@ -3281,7 +3363,8 @@
     "specialTag": null,
     "description": "桐油浸泡过的坚韧生牛皮长条，紧缠拳峰腕骨，练太祖长拳与八极冲拳不伤皮肉。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-084",
@@ -3316,7 +3399,8 @@
     "specialTag": null,
     "description": "双层粗帆布内缝细碎生铁砂粒，出掌拍击时平添几分刚燥火辣劲道。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-085",
@@ -3351,7 +3435,8 @@
     "specialTag": null,
     "description": "粗布囊内装二十枚溜圆坚硬的江滩鹅卵石，草莽好汉甩手急掷百步碎瓦。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-086",
@@ -3393,7 +3478,8 @@
     "specialTag": null,
     "description": "黄铜包角、熟铁穿档的十三档沉重算盘，平时核算银钱交子，遇险架刀拍面颇为顺手。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-087",
@@ -3428,7 +3514,8 @@
     "specialTag": null,
     "description": "勾栏瓦舍卖艺女子与杂耍艺人舞剑所用薄铁响剑，挥动嗡嗡脆响而难以破甲。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-088",
@@ -3465,7 +3552,8 @@
     "specialTag": null,
     "description": "三年老桃木削磨光滑之习礼木剑，学子与初习剑道少年对练基础刺击不致见血。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-089",
@@ -3499,7 +3587,8 @@
     "specialTag": null,
     "description": "乡野铁铺用生铁粗打而成的旧铁剑，刃口钝涩多缺印，全凭一股铁疙瘩分量砸人。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-090",
@@ -3533,7 +3622,8 @@
     "specialTag": null,
     "description": "终南与武夷山樵夫腰间常别的厚背弯嘴柴刀，砍树劈荆棘极为趁手。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-091",
@@ -3568,7 +3658,8 @@
     "specialTag": null,
     "description": "宋京酒肆厨娘案头剁肉切骨的一对黑铁方头菜刀，近身双刀乱剁亦叫泼皮胆寒。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-092",
@@ -3602,7 +3693,8 @@
     "specialTag": null,
     "description": "剪径小毛贼用来拦路吓唬客商的卷刃粗铁刀，刀脊斑驳生锈，胜在凶悍唬人。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-093",
@@ -3637,7 +3729,8 @@
     "specialTag": null,
     "description": "山民进老林围猎野猪恶虎的双股生铁钢叉，叉柄粗实，抵住下盘稳扎猛刺。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-094",
@@ -3669,7 +3762,8 @@
     "specialTag": null,
     "description": "砍取碗口粗老毛竹斜削出锋尖，再以桐油火烤硬化，山村乡勇防备海寇山贼之应急兵。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-095",
@@ -3704,7 +3798,8 @@
     "specialTag": null,
     "description": "寺庙大灶下拨火添柴熏得乌黑油亮的老枣木硬棍，看似烧火粗物，抡起颇有分量。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-096",
@@ -3739,7 +3834,8 @@
     "specialTag": null,
     "description": "柔韧吃重的老桑木宽扁担，平日肩挑百斤南北杂货，遇强人劫道抽扁担横扫护身。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-097",
@@ -3774,7 +3870,8 @@
     "specialTag": null,
     "description": "更夫半夜提灯打更所持硬檀木棒，长约三尺，顺手敲击小贼手腕麻筋。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-098",
@@ -3809,7 +3906,8 @@
     "specialTag": null,
     "description": "寻常流民讨饭时驱赶恶犬的细竹竿，虽一折易断，乱戳乱扫亦能阻敌近身。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-099",
@@ -3845,7 +3943,8 @@
     "specialTag": null,
     "description": "数层粗麻布密针缝合的宽护腕，码头苦力扛包防扭手腕、街头赤手肉搏之寻常护具。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "WPN-100",
@@ -3880,6 +3979,7 @@
     "specialTag": null,
     "description": "老榆木树杈绑上双股熟牛筋皮兜，弹射泥丸或小铁珠打鸟击瓦，准头尚可。",
     "prerequisitesText": null,
-    "statRequirements": []
+    "statRequirements": [],
+    "iconUrl": null
   }
 ]

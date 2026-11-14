@@ -624,6 +624,7 @@ export interface CompiledWeaponRecord {
   description: string
   prerequisitesText: string | null
   statRequirements: MartialArtStatReq[]
+  iconUrl?: string | null
 }
 
 export interface CompiledMountRecord {

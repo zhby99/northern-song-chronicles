@@ -1612,6 +1612,8 @@ def parse_weapons() -> list[dict[str, Any]]:
             else []
         )
 
+        wpn_icon_rel = f"assets/items/weapons/wpn_{code}.jpg"
+        wpn_icon_url = f"/{wpn_icon_rel}" if (PUBLIC_DIR / wpn_icon_rel).exists() else None
         weapons.append(
             {
                 "id": wpn_id,
@@ -1637,6 +1639,7 @@ def parse_weapons() -> list[dict[str, Any]]:
                 "description": desc_raw,
                 "prerequisitesText": prereq_raw,
                 "statRequirements": stat_reqs,
+                "iconUrl": wpn_icon_url,
             }
         )
 
