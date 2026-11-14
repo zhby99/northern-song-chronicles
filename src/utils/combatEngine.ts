@@ -129,6 +129,7 @@ export type DuelStakesKind =
   | 'rob_official'
   | 'zhan_zhao_arrest'
   | 'liao_spy_duel'
+  | 'sect_tournament'
 
 export interface CombatSessionState {
   sessionId: string

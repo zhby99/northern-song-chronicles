@@ -11,6 +11,7 @@ import { DEFAULT_EQUIPPED_SLOTS } from '../data/itemsDb'
 import type {
   ActiveLiaoSpyMission,
   ActiveSectTask,
+  ActiveSectTournament,
   CanonicalFactionEntry,
   CompiledMartialArtRecord,
   CompiledNpcRecord,
@@ -20,6 +21,7 @@ import type {
   PlayerSectState,
   SectRankLevel,
   SectTaskKind,
+  SectTournamentOpponent,
 } from '../types/game'
 import { findBestRoute, WORLD_GRAPH } from './mapMath'
 import { INITIAL_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
@@ -40,6 +42,9 @@ export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
   lastLiaoSpyMissionYear: 0,
   activeLiaoSpy: null,
   activeSectTask: null,
+  lastTournamentYear: 0,
+  wonSectTournament: false,
+  activeSectTournament: null,
 }
 
 export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): PlayerSectState {
@@ -78,6 +83,21 @@ export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): Play
         : 0,
     activeLiaoSpy: st.activeLiaoSpy ? { ...st.activeLiaoSpy } : null,
     activeSectTask: st.activeSectTask ? { ...st.activeSectTask } : null,
+    lastTournamentYear:
+      typeof st.lastTournamentYear === 'number'
+        ? Math.max(0, Math.floor(st.lastTournamentYear))
+        : 0,
+    wonSectTournament: Boolean(st.wonSectTournament),
+    activeSectTournament: st.activeSectTournament
+      ? {
+          ...st.activeSectTournament,
+          opponents: [...st.activeSectTournament.opponents] as [
+            SectTournamentOpponent,
+            SectTournamentOpponent,
+            SectTournamentOpponent,
+          ],
+        }
+      : null,
   }
 }
 
@@ -553,6 +573,203 @@ export function isMinorOrSecondTierSect(sectId?: string | null): boolean {
   return f?.sectTier === '二流门派' || f?.sectTier === '三流小派'
 }
 
+/**
+ * 除开封府/六扇门 (SECT-17) 外，所有三流、二流与一流门派均可向掌门领取宗门任务
+ */
+export function canReceiveSectLeaderTask(sectId?: string | null): boolean {
+  if (!sectId || sectId === 'SECT-17') return false
+  const f = FACTION_DB_MAP[sectId]
+  if (!f) return false
+  return f.sectTier === '一流大派' || f.sectTier === '二流门派' || f.sectTier === '三流小派'
+}
+
+/**
+ * 道门与名山剑派（6派）：每年二月一日宗门大比 + 专属晋升规则（暂开放至 Lv.3）
+ */
+export const DAO_SWORD_SECT_IDS = new Set([
+  'SECT-05', // 华山派
+  'SECT-06', // 泰山派
+  'SECT-07', // 峨眉派
+  'SECT-08', // 真武道宗
+  'SECT-11', // 终南隐宗
+  'SECT-14', // 青城派
+])
+
+export const SECT_TOURNAMENT_TOKEN_ITEM_ID = 'ITM-MSC-014'
+
+export function isDaoSwordSect(sectId?: string | null): boolean {
+  return Boolean(sectId && DAO_SWORD_SECT_IDS.has(sectId))
+}
+
+export function getSectTournamentDateInfo(dayCount: number): {
+  yearIndex: number
+  isTournamentDay: boolean
+} {
+  const zeroIdx = Math.max(0, Math.floor(dayCount) - 1)
+  const yearIndex = Math.floor(zeroIdx / 360) + 1
+  const dayOfYear = zeroIdx % 360
+  // 每年 360 天，每月初一为 0, 30, 60... 二月初一即 dayOfYear === 30
+  return {
+    yearIndex,
+    isTournamentDay: dayOfYear === 30,
+  }
+}
+
+const TOURNAMENT_ROUND_SPECS: Array<{
+  realm: SectTournamentOpponent['realm']
+  minRank: number
+  maxRank: number
+  hpRange: [number, number]
+  mpRange: [number, number]
+  agiRange: [number, number]
+  resRange: [number, number]
+}> = [
+  {
+    realm: '三流中品',
+    minRank: 1,
+    maxRank: 3,
+    hpRange: [480, 660],
+    mpRange: [260, 420],
+    agiRange: [24, 32],
+    resRange: [12, 19],
+  },
+  {
+    realm: '二流下品',
+    minRank: 3,
+    maxRank: 5,
+    hpRange: [920, 1180],
+    mpRange: [680, 920],
+    agiRange: [36, 44],
+    resRange: [22, 31],
+  },
+  {
+    realm: '二流上品',
+    minRank: 5,
+    maxRank: 6,
+    hpRange: [1480, 1820],
+    mpRange: [1300, 1620],
+    agiRange: [48, 56],
+    resRange: [34, 42],
+  },
+]
+
+const TOURNAMENT_SURNAMES = ['凌', '慕', '沈', '陆', '谢', '程', '宋', '温', '苏', '柳', '顾', '孟']
+const TOURNAMENT_GIVEN = ['清风', '明月', '玄机', '子虚', '飞白', '长空', '知微', '云舒', '鹤鸣', '松涛', '若水', '寒星']
+
+export function generateSectTournament(
+  sectId: string,
+  yearIndex: number,
+): ActiveSectTournament | null {
+  const faction = FACTION_DB_MAP[sectId]
+  if (!faction || !isDaoSwordSect(sectId)) return null
+  const leaderId = getSectLeaderNpcId(sectId)
+
+  const pool = NPCS_DB.filter((n) => {
+    if (n.factionId !== sectId || n.id === leaderId) return false
+    const r = parseRealmTier(n.realm).rank
+    return r >= 1 && r <= 6
+  })
+  const usedIds = new Set<string>()
+  const opponents: SectTournamentOpponent[] = []
+
+  for (let i = 0; i < 3; i += 1) {
+    const spec = TOURNAMENT_ROUND_SPECS[i]!
+    const matching = pool.filter((n) => {
+      if (usedIds.has(n.id)) return false
+      const r = parseRealmTier(n.realm).rank
+      return r >= spec.minRank && r <= spec.maxRank
+    })
+    const picked =
+      matching.length > 0 ? matching[Math.floor(Math.random() * matching.length)]! : null
+
+    if (picked) {
+      usedIds.add(picked.id)
+      opponents.push({
+        npcId: picked.id,
+        name: picked.name,
+        title: `${faction.name} · 大比弟子`,
+        realm: (parseRealmTier(picked.realm).label as SectTournamentOpponent['realm']) || spec.realm,
+        stats: { ...picked.stats },
+      })
+    } else {
+      const surname = TOURNAMENT_SURNAMES[(yearIndex * 3 + i) % TOURNAMENT_SURNAMES.length]!
+      const given = TOURNAMENT_GIVEN[(Math.floor(Math.random() * TOURNAMENT_GIVEN.length) + i) % TOURNAMENT_GIVEN.length]!
+      opponents.push({
+        npcId: `SECT_TOURNEY_${sectId}_Y${yearIndex}_R${i + 1}`,
+        name: `${surname}${given}`,
+        title: `${faction.name} · 大比弟子`,
+        realm: spec.realm,
+        stats: {
+          hp: randomIntInclusive(spec.hpRange[0], spec.hpRange[1]),
+          mp: randomIntInclusive(spec.mpRange[0], spec.mpRange[1]),
+          agi: randomIntInclusive(spec.agiRange[0], spec.agiRange[1]),
+          res: randomIntInclusive(spec.resRange[0], spec.resRange[1]),
+          isBenchmark: false,
+        },
+      })
+    }
+  }
+
+  return {
+    sectId,
+    sectName: faction.name,
+    yearIndex,
+    round: 1,
+    opponents: opponents as [
+      SectTournamentOpponent,
+      SectTournamentOpponent,
+      SectTournamentOpponent,
+    ],
+  }
+}
+
+export function buildNodeNpcFromTournamentOpponent(
+  sectId: string,
+  opp: SectTournamentOpponent,
+  round: 1 | 2 | 3,
+): NodeNpc {
+  const dbNpc = NPC_DB_MAP[opp.npcId]
+  const faction = FACTION_DB_MAP[sectId]
+  const roundName = round === 1 ? '八强战' : round === 2 ? '四强半决赛' : '决赛夺魁战'
+  if (dbNpc) {
+    return {
+      id: dbNpc.id,
+      name: dbNpc.name,
+      title: `${faction?.name ?? ''} · 宗门大比（${roundName}）`,
+      realm: dbNpc.realm,
+      factionId: dbNpc.factionId,
+      factionName: dbNpc.factionName,
+      sectRank: dbNpc.sectRank,
+      sectRankLabel: dbNpc.sectRankLabel,
+      avatarUrl: dbNpc.avatarUrl ?? dbNpc.templateAvatarUrl,
+      portraitUrl: dbNpc.fullbodyUrl ?? dbNpc.templateUrl,
+      stats: dbNpc.stats,
+      talents: dbNpc.talents,
+      tenArts: dbNpc.tenArts,
+      fullLocationLabel: dbNpc.fullLocationLabel,
+      equippedArts: dbNpc.equippedArts,
+      learnedArts: dbNpc.learnedArts,
+      equipped: dbNpc.equipped,
+      talk: `“宗门大比【${roundName}】，请师兄/师弟赐教！”`,
+    }
+  }
+  return {
+    id: opp.npcId,
+    name: opp.name,
+    title: `${opp.title}（${roundName}）`,
+    realm: opp.realm,
+    factionId: sectId,
+    factionName: faction?.name ?? '本门',
+    sectRank: round,
+    sectRankLabel: getSectRankTitle(sectId, round as SectRankLevel),
+    avatarUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
+    stats: opp.stats,
+    talents: { bone: 45, comprehension: 48, charm: 45 },
+    talk: `“宗门大比【${roundName}】，请同门赐教！”`,
+  }
+}
+
 export function getSectLeaderNpcId(sectId?: string | null): string | null {
   if (!sectId) return null
   const f = FACTION_DB_MAP[sectId]
@@ -579,6 +796,8 @@ export function evaluateSectPromotion(params: {
   heroRealmRank: number
   heroRealmLabel: string
   npcFavor: Record<string, number>
+  wonSectTournament?: boolean
+  hasTournamentToken?: boolean
 }): PromotionRequirementInfo | null {
   const {
     sectId,
@@ -588,6 +807,8 @@ export function evaluateSectPromotion(params: {
     heroRealmRank,
     heroRealmLabel,
     npcFavor,
+    wonSectTournament,
+    hasTournamentToken,
   } = params
 
   // 禁止通过常规晋升成为门派掌门（Lv.5）
@@ -596,6 +817,58 @@ export function evaluateSectPromotion(params: {
   const targetRank = (currentRank + 1) as SectRankLevel
   const targetRankLabel = getSectRankTitle(sectId, targetRank)
   const faction = FACTION_DB_MAP[sectId]
+
+  const leaderId = getSectLeaderNpcId(sectId)
+  const leaderName = (leaderId ? NPC_DB_MAP[leaderId]?.name : null) ?? '掌门'
+  const leaderFavor = leaderId ? (npcFavor[leaderId] ?? INITIAL_NPC_FAVOR) : INITIAL_NPC_FAVOR
+  const daysInSect = Math.max(0, dayCount - joinedDay)
+
+  // 道门与名山剑派（6派）：Lv.1->Lv.2, Lv.2->Lv.3；Lv.4 暂不开放
+  if (faction && isDaoSwordSect(sectId)) {
+    if (currentRank >= 3) {
+      return {
+        targetRank,
+        targetRankLabel,
+        canPromote: false,
+        isFirstTierPendingDesign: true,
+        reason: `【${faction.name}】第4阶【${targetRankLabel}】晋升任务线将于后续单独设计开放（且掌门之位不可通过常规晋升获得）。`,
+      }
+    }
+    const missing: string[] = []
+    if (targetRank === 2) {
+      if (heroRealmRank < 3) {
+        missing.push(`境界须达【三流上品】（当前【${heroRealmLabel}】）`)
+      }
+      if (daysInSect < 120) {
+        missing.push(`在派天数 ${daysInSect}/120 天`)
+      }
+      if (leaderFavor < 20) {
+        missing.push(`掌门【${leaderName}】好感度 ${leaderFavor}/20`)
+      }
+    } else if (targetRank === 3) {
+      if (heroRealmRank < 6) {
+        missing.push(`境界须达【二流上品】（当前【${heroRealmLabel}】）`)
+      }
+      if (daysInSect < 730) {
+        missing.push(`在派天数 ${daysInSect}/730 天`)
+      }
+      if (leaderFavor < 60) {
+        missing.push(`掌门【${leaderName}】好感度 ${leaderFavor}/60`)
+      }
+      if (!wonSectTournament && !hasTournamentToken) {
+        missing.push('须曾夺得【宗门大比】第一名并持有《宗门大比冠军信物》')
+      }
+    }
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: missing.length === 0,
+      reason:
+        missing.length === 0
+          ? `境界（${heroRealmLabel}）、资历（在派 ${daysInSect} 天）与掌门好感（${leaderFavor}）皆已齐备，可晋升为【${targetRankLabel}】！`
+          : `晋升【${targetRankLabel}】尚缺：${missing.join('、')}`,
+    }
+  }
 
   if (!faction || (faction.sectTier !== '二流门派' && faction.sectTier !== '三流小派')) {
     return {
@@ -606,11 +879,6 @@ export function evaluateSectPromotion(params: {
       reason: `【${faction?.name ?? sectId}】乃一流宗门，专属晋升考核体系将于后续单独实装（且掌门之位不可通过常规晋升获得）。`,
     }
   }
-
-  const leaderId = getSectLeaderNpcId(sectId)
-  const leaderName = (leaderId ? NPC_DB_MAP[leaderId]?.name : null) ?? '掌门'
-  const leaderFavor = leaderId ? (npcFavor[leaderId] ?? INITIAL_NPC_FAVOR) : INITIAL_NPC_FAVOR
-  const daysInSect = Math.max(0, dayCount - joinedDay)
 
   const thresholds: Record<
     2 | 3 | 4,

@@ -122,25 +122,30 @@ import {
 import {
   applySongLiaoSuspicionFavorPenalty,
   buildNodeNpcFromLiaoSpy,
+  buildNodeNpcFromTournamentOpponent,
   buildZhanZhaoArrestNodeNpc,
   canPlayerLearnSectArt,
+  canReceiveSectLeaderTask,
   CHANGSHAN_ADULT_AGE,
   clonePlayerSectState,
   DEFAULT_PLAYER_SECT_STATE,
   evaluateSectEntry,
   evaluateSectPromotion,
   generateMinorSectTask,
+  generateSectTournament,
   getChangshanMonthlyStipend,
   getSectLeaderNpcId,
   getSectRankTitle,
   getSectTeachableArts,
-  isMinorOrSecondTierSect,
+  getSectTournamentDateInfo,
+  isDaoSwordSect,
   isSongAlignedNpc,
   isSongOfficialForRobbery,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   LIAO_SPY_HALF_YEAR_DAYS,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
   SECT_ENTRY_GEAR_GIFTS,
+  SECT_TOURNAMENT_TOKEN_ITEM_ID,
   spawnAnnualLiaoSpy,
 } from '../utils/sectMechanics'
 import { estimateHeroRealm } from '../utils/realmUtils'
@@ -422,6 +427,8 @@ export interface GameStoreState {
   abandonSectTask: () => void
   completeSectTaskStep: () => void
   turnInSectTask: () => void
+  startSectTournament: () => void
+  continueSectTournamentRound: () => void
   bribeForReferral: (npc: NodeNpc) => void
   claimKaifengRecommendation: (npc?: NodeNpc) => void
   learnSectMartialArt: (artId: string) => void
@@ -3108,11 +3115,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     // 2. 存活结算（切磋/剧情试炼/撑回合任意结局 或 生死对决获胜/平局/脱逃）
     const res = computeCombatSettlement(s, session)
     let nextSilver = s.silver
+    let nextInventory = s.inventory
     const nextSectState = clonePlayerSectState(s.sectState)
     const nextQuestState = cloneQuestRuntimeState(s.questState)
     let extraLogText = res.logText
     let extraLogTag = res.logTag
     let triggerKaifengZhanZhao = false
+    let nextTournamentOpponent: NodeNpc | null = null
+    let finalHp = res.nextHp
+    let finalMp = res.nextMp
 
     // 同门切磋获胜积攒微末功绩
     const dbTarget =
@@ -3181,6 +3192,55 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       extraLogText = `少侠竟在东京街头力挫御前四品带刀护卫「南侠」展昭（战斗经验 +${res.combatExpGain}），杀出重围！然朝廷黑名单未消，再度踏入开封仍将遭展昭截杀！`
     }
 
+    // 道门与名山剑派「宗门大比」1v1 淘汰赛结算
+    if (session.duelStakes === 'sect_tournament' && nextSectState.activeSectTournament) {
+      const tourney = nextSectState.activeSectTournament
+      if (session.outcome === 'player_win') {
+        if (tourney.round < 3) {
+          const nextRound = (tourney.round + 1) as 2 | 3
+          nextSectState.activeSectTournament = { ...tourney, round: nextRound }
+          finalHp = res.derived.maxHp
+          finalMp = res.derived.maxMp
+          const nextOpp = tourney.opponents[nextRound - 1]!
+          nextTournamentOpponent = buildNodeNpcFromTournamentOpponent(
+            tourney.sectId,
+            nextOpp,
+            nextRound,
+          )
+          extraLogTag = '宗门大比'
+          extraLogText = `宗门大比第 ${tourney.round} 轮力克【${session.npc.name}】，成功晋级${nextRound === 2 ? '四强' : '决赛'}！经演武场调息恢复后，迎战下一位同门【${nextOpp.name}】！`
+        } else {
+          // 连胜三轮夺魁
+          nextSectState.activeSectTournament = null
+          nextSectState.wonSectTournament = true
+          nextInventory = addItemToInventory(nextInventory, SECT_TOURNAMENT_TOKEN_ITEM_ID, 1)
+          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-111', 1)
+          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-113', 1)
+          nextSilver += 50
+          extraLogTag = '大比夺魁'
+          extraLogText = `连克三阵，力压群雄！少侠夺得【${tourney.sectName}】第 ${tourney.yearIndex} 届宗门大比冠军！获赐《宗门大比冠军信物》×1、嵩山少林小还丹 ×1、太医局紫雪神丹 ×1、纹银 +50 两！`
+        }
+      } else {
+        // 止步当前轮次，发放对应名次奖励
+        nextSectState.activeSectTournament = null
+        extraLogTag = '宗门大比'
+        if (tourney.round === 1) {
+          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-122', 1)
+          nextSilver += 10
+          extraLogText = `宗门大比首轮止步八强，宗门赐予慰勉：熟药所行军跌打丸 ×1、纹银 +10 两。`
+        } else if (tourney.round === 2) {
+          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-122', 1)
+          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-123', 1)
+          nextSilver += 20
+          extraLogText = `宗门大比闯入四强，惜败于半决赛！宗门赐予嘉奖：熟药所行军跌打丸 ×1、太乙回气清心散 ×1、纹银 +20 两。`
+        } else {
+          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-111', 1)
+          nextSilver += 35
+          extraLogText = `宗门大比杀入决赛，惜居亚军！宗门赐予厚赏：嵩山少林小还丹 ×1、纹银 +35 两。`
+        }
+      }
+    }
+
     set({
       activeCombat: null,
       activeNpcInteraction:
@@ -3189,6 +3249,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           : s.activeNpcInteraction,
       combatExp: res.nextCombatExp,
       silver: nextSilver,
+      inventory: nextInventory,
       sectState: nextSectState,
       questState: nextQuestState,
       baseStats: res.nextBaseStats,
@@ -3201,9 +3262,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       res: res.derived.res,
       skills: res.derived.skills,
       maxHp: res.derived.maxHp,
-      hp: res.nextHp,
+      hp: finalHp,
       maxMp: res.derived.maxMp,
-      mp: res.nextMp,
+      mp: finalMp,
       actionFeedback: {
         text: extraLogText,
         tone: session.outcome === 'npc_win' || session.outcome === 'escaped' ? 'warn' : 'success',
@@ -3219,6 +3280,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         ...s.logs,
       ].slice(0, 60),
     })
+
+    if (nextTournamentOpponent) {
+      get().startNpcCombat(nextTournamentOpponent, 'spar', 'sect_tournament', true)
+      return
+    }
 
     // 3. 若挂载了声明式剧情战后回调钩子，按结局分支执行 QuestEffect[]
     if (qHook) {
@@ -3374,6 +3440,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         ? null
         : s.sectState.activeLiaoSpy,
       activeSectTask: null,
+      wonSectTournament: false,
+      activeSectTournament: null,
     }
 
     // 同步完结对应的入门剧情任务链（若曾开启）
@@ -3508,6 +3576,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       rankLabel: '无门无派',
       contribution: 0,
       activeSectTask: null,
+      wonSectTournament: false,
+      activeSectTournament: null,
     }
     const msg = `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
     set({
@@ -3621,6 +3691,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const sectId = s.sectState.sectId
     if (!sectId) return
     const heroRealm = estimateHeroRealm(s.maxHp, s.maxMp)
+    const hasTournamentToken = s.inventory.some(
+      (st) => st.itemId === SECT_TOURNAMENT_TOKEN_ITEM_ID && st.qty > 0,
+    )
     const promo = evaluateSectPromotion({
       sectId,
       currentRank: s.sectState.rank,
@@ -3629,6 +3702,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       heroRealmRank: heroRealm.rank,
       heroRealmLabel: heroRealm.label,
       npcFavor: s.npcFavor,
+      wonSectTournament: s.sectState.wonSectTournament,
+      hasTournamentToken,
     })
     if (!promo) {
       set({
@@ -3670,12 +3745,83 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     })
   },
 
+  startSectTournament: () => {
+    const s = get()
+    const sectId = s.sectState.sectId
+    if (!sectId || !isDaoSwordSect(sectId)) {
+      set({
+        actionFeedback: { text: '仅道门与名山剑派弟子可参加本门宗门大比！', tone: 'warn' },
+      })
+      return
+    }
+    if (s.sectState.activeSectTournament) {
+      get().continueSectTournamentRound()
+      return
+    }
+    const { yearIndex, isTournamentDay } = getSectTournamentDateInfo(s.dayCount)
+    if (!isTournamentDay) {
+      set({
+        actionFeedback: {
+          text: '宗门大比定于每年【二月一日】举行，今日非大比之期！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    if (s.sectState.lastTournamentYear >= yearIndex) {
+      set({
+        actionFeedback: { text: '少侠本年度已参加过宗门大比，请待来年二月一日！', tone: 'warn' },
+      })
+      return
+    }
+    const heroRealm = estimateHeroRealm(s.maxHp, s.maxMp)
+    if (heroRealm.rank < 1 || heroRealm.rank > 6) {
+      set({
+        actionFeedback: {
+          text: `宗门大比限三流或二流境界弟子报名（当前境界【${heroRealm.label}】）。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const tourney = generateSectTournament(sectId, yearIndex)
+    if (!tourney) return
+
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      lastTournamentYear: yearIndex,
+      activeSectTournament: tourney,
+    }
+    const firstOpp = tourney.opponents[0]!
+    const oppNode = buildNodeNpcFromTournamentOpponent(sectId, firstOpp, 1)
+    const msg = `报名参加【${tourney.sectName}】第 ${yearIndex} 届宗门大比！八强战首轮迎战同门【${firstOpp.name}（${firstOpp.realm}）】！`
+    set({
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '宗门大比', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+    get().startNpcCombat(oppNode, 'spar', 'sect_tournament', true)
+  },
+
+  continueSectTournamentRound: () => {
+    const s = get()
+    const tourney = s.sectState.activeSectTournament
+    if (!tourney) return
+    const opp = tourney.opponents[tourney.round - 1]
+    if (!opp) return
+    const oppNode = buildNodeNpcFromTournamentOpponent(tourney.sectId, opp, tourney.round)
+    get().startNpcCombat(oppNode, 'spar', 'sect_tournament', true)
+  },
+
   acceptSectTask: () => {
     const s = get()
     const sectId = s.sectState.sectId
-    if (!sectId || !isMinorOrSecondTierSect(sectId)) {
+    if (!sectId || !canReceiveSectLeaderTask(sectId)) {
       set({
-        actionFeedback: { text: '仅二流与三流门派可向掌门领取此类宗门任务！', tone: 'warn' },
+        actionFeedback: { text: '除开封府/六扇门外，各武林门派皆可向掌门领取宗门任务！', tone: 'warn' },
       })
       return
     }

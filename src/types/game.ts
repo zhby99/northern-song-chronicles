@@ -816,6 +816,22 @@ export interface ActiveSectTask {
   acceptedDay: number
 }
 
+export interface SectTournamentOpponent {
+  npcId: string
+  name: string
+  title: string
+  realm: '三流下品' | '三流中品' | '三流上品' | '二流下品' | '二流中品' | '二流上品'
+  stats: NpcCombatStats
+}
+
+export interface ActiveSectTournament {
+  sectId: string
+  sectName: string
+  yearIndex: number
+  round: 1 | 2 | 3
+  opponents: [SectTournamentOpponent, SectTournamentOpponent, SectTournamentOpponent]
+}
+
 export interface PlayerSectState {
   sectId: string | null
   rank: SectRankLevel
@@ -831,6 +847,9 @@ export interface PlayerSectState {
   lastLiaoSpyMissionYear: number
   activeLiaoSpy: ActiveLiaoSpyMission | null
   activeSectTask: ActiveSectTask | null
+  lastTournamentYear: number
+  wonSectTournament: boolean
+  activeSectTournament: ActiveSectTournament | null
 }
 
 export interface GameOverState {

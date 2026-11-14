@@ -20,17 +20,20 @@ import { deriveNpcEffectiveStats, getHeroAge } from '../../utils/heroStats'
 import { INITIAL_NPC_FAVOR, getNpcFavorProfile } from '../../utils/npcFavor'
 import {
   canPlayerLearnSectArt,
+  canReceiveSectLeaderTask,
   CHANGSHAN_ADULT_AGE,
   evaluateSectEntry,
   evaluateSectPromotion,
   getChangshanMonthlyStipend,
   getSectLeaderNpcId,
   getSectTeachableArts,
+  getSectTournamentDateInfo,
+  isDaoSwordSect,
   isJoinableSectFaction,
-  isMinorOrSecondTierSect,
   isSongOfficialForRobbery,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
+  SECT_TOURNAMENT_TOKEN_ITEM_ID,
 } from '../../utils/sectMechanics'
 import { estimateHeroRealm } from '../../utils/realmUtils'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
@@ -88,6 +91,8 @@ export function NpcInteractionOverlay() {
   const abandonSectTask = useGameStore((s) => s.abandonSectTask)
   const completeSectTaskStep = useGameStore((s) => s.completeSectTaskStep)
   const turnInSectTask = useGameStore((s) => s.turnInSectTask)
+  const startSectTournament = useGameStore((s) => s.startSectTournament)
+  const continueSectTournamentRound = useGameStore((s) => s.continueSectTournamentRound)
   const bribeForReferral = useGameStore((s) => s.bribeForReferral)
   const claimKaifengRecommendation = useGameStore((s) => s.claimKaifengRecommendation)
   const learnSectMartialArt = useGameStore((s) => s.learnSectMartialArt)
@@ -293,6 +298,9 @@ export function NpcInteractionOverlay() {
       : null
 
   const heroRealm = estimateHeroRealm(maxHp, maxMp)
+  const hasTournamentToken = inventory.some(
+    (st) => st.itemId === SECT_TOURNAMENT_TOKEN_ITEM_ID && st.qty > 0,
+  )
   const promoEval =
     targetFactionId && isPlayerInThisSect
       ? evaluateSectPromotion({
@@ -303,6 +311,8 @@ export function NpcInteractionOverlay() {
           heroRealmRank: heroRealm.rank,
           heroRealmLabel: heroRealm.label,
           npcFavor: npcFavorMap,
+          wonSectTournament: sectState.wonSectTournament,
+          hasTournamentToken,
         })
       : null
 
@@ -833,8 +843,82 @@ export function NpcInteractionOverlay() {
                   </div>
                 </div>
 
-                {/* 二流/三流门派：掌门宗门任务（送信 / 酒馆情报 / 武艺教学） */}
-                {targetFactionId && isMinorOrSecondTierSect(targetFactionId) && (
+                {/* 道门与名山剑派：一年一度宗门大比（每年二月一日） */}
+                {targetFactionId && isDaoSwordSect(targetFactionId) && (() => {
+                  const tInfo = getSectTournamentDateInfo(dayCount)
+                  const activeTourney = sectState.activeSectTournament
+                  const realmEligible = heroRealm.rank >= 1 && heroRealm.rank <= 6
+                  const alreadyEnteredThisYear = sectState.lastTournamentYear >= tInfo.yearIndex
+                  const canRegister =
+                    !activeTourney &&
+                    tInfo.isTournamentDay &&
+                    !alreadyEnteredThisYear &&
+                    realmEligible
+                  const roundLabel =
+                    activeTourney?.round === 1
+                      ? '八强战'
+                      : activeTourney?.round === 2
+                        ? '四强半决赛'
+                        : '决赛夺魁战'
+                  return (
+                    <div className="p-3.5 rounded-lg bg-[#faf3e3] border border-[#b59461] space-y-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                          <div className="font-bold text-[#5c3d1e] song-serif text-sm sm:text-base">
+                            一年一度宗门大比（每年二月一日）
+                          </div>
+                          <div className="text-xs text-[#6b5235] mt-0.5">
+                            限三流与二流境界同门报名，共 8 人 1v1 三轮淘汰赛（八强 → 四强 → 决赛）。夺魁可获《宗门大比冠军信物》及丹药银钱奖励。
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          {activeTourney ? (
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSubPanel('none')
+                                continueSectTournamentRound()
+                              }}
+                              className="px-3.5 py-1.5 rounded-lg bg-[#1f4d3b] hover:bg-[#28634c] border border-[#8fc7ae] text-[#fff8ee] text-xs font-bold cursor-pointer"
+                            >
+                              出战宗门大比 · {roundLabel}
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              disabled={!canRegister}
+                              onClick={() => {
+                                setSubPanel('none')
+                                startSectTournament()
+                              }}
+                              className={`px-3.5 py-1.5 rounded-lg text-xs font-bold border ${
+                                canRegister
+                                  ? 'bg-[#1f4d3b] hover:bg-[#28634c] border-[#8fc7ae] text-[#fff8ee] cursor-pointer'
+                                  : 'bg-[#8c7b65]/45 border-[#a89882] text-[#f7eedc]/85 cursor-not-allowed'
+                              }`}
+                            >
+                              {!tInfo.isTournamentDay
+                                ? '非二月一日（未到比试之期）'
+                                : alreadyEnteredThisYear
+                                  ? '本年度已参赛'
+                                  : !realmEligible
+                                    ? '仅限三流/二流境界报名'
+                                    : '报名参加宗门大比'}
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                      {(sectState.wonSectTournament || hasTournamentToken) && (
+                        <div className="text-xs text-[#1b5132] bg-[#e2f2e8] border border-[#82b99d] rounded px-2.5 py-1">
+                          ✓ 少侠已曾夺得宗门大比冠军并持有《宗门大比冠军信物》，满足晋升第3阶真传弟子的比武凭证要求。
+                        </div>
+                      )}
+                    </div>
+                  )
+                })()}
+
+                {/* 武林门派（除开封府/六扇门外）：掌门宗门任务（送信 / 酒馆情报 / 武艺教学） */}
+                {targetFactionId && canReceiveSectLeaderTask(targetFactionId) && (
                   <div className="p-3.5 rounded-lg bg-[#faf3e3] border border-[#b59461] space-y-2">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div>

@@ -1551,6 +1551,16 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     desc: '真定府安抚使韩琦密保与常山枪派掌门赵括苍联名签押之功勋荐信，可凭此解锁【五台山清凉寺】或【殿前司禁军 / 六扇门】高阶晋升通道。',
   },
   {
+    id: 'ITM-MSC-014',
+    name: '宗门大比冠军信物',
+    category: 'misc',
+    subType: '宗门信物',
+    rarity: '良阶',
+    stackable: true,
+    value: 25,
+    desc: '道门与名山剑派一年一度二月一日宗门大比夺魁后由掌门亲授之玉牌信物，乃门中同辈翘楚的明证，亦是晋升本门第3阶真传弟子的必备凭证。',
+  },
+  {
     id: 'ITM-ACC-001',
     name: '燕云遗老护身玉佩',
     category: 'misc',
