@@ -1,4 +1,9 @@
+import type { CSSProperties } from 'react'
+import cutoutMetricsJson from '../../data/cutoutMetrics.json'
 import { useLazyImage } from '../../utils/assetLoader'
+
+const CUTOUT_HEIGHT_PCT_BY_URL: Record<string, number> = cutoutMetricsJson
+const DEFAULT_CUTOUT_HEIGHT_PCT = 88
 
 /**
  * Maps a fullbody or template portrait URL (`/assets/characters/{fullbody,templates}/<name>.jpg`)
@@ -24,9 +29,10 @@ interface CutoutPortraitImgProps {
   url: string
   alt: string
   className?: string
+  style?: CSSProperties
 }
 
-export function CutoutPortraitImg({ url, alt, className }: CutoutPortraitImgProps) {
+export function CutoutPortraitImg({ url, alt, className, style }: CutoutPortraitImgProps) {
   const cutoutUrl = resolveCutoutPortraitUrl(url)
   const { loadedUrl } = useLazyImage(cutoutUrl)
 
@@ -41,5 +47,21 @@ export function CutoutPortraitImg({ url, alt, className }: CutoutPortraitImgProp
     )
   }
 
-  return <img src={loadedUrl} alt={alt} className={className} decoding="async" />
+  const heightPct =
+    (cutoutUrl ? CUTOUT_HEIGHT_PCT_BY_URL[cutoutUrl] : undefined) ?? DEFAULT_CUTOUT_HEIGHT_PCT
+
+  return (
+    <img
+      src={loadedUrl}
+      alt={alt}
+      className={className}
+      style={{
+        height: `${heightPct}%`,
+        width: 'auto',
+        maxWidth: '88vw',
+        ...style,
+      }}
+      decoding="async"
+    />
+  )
 }

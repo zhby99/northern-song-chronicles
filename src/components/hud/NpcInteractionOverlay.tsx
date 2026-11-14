@@ -133,7 +133,7 @@ export function NpcInteractionOverlay() {
         }`}
       >
         <div
-          className="relative h-full max-w-[90vw] flex items-end justify-center"
+          className="relative h-full w-full max-w-[90vw] flex items-end justify-center"
           style={{
             filter: 'drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75))',
           }}
@@ -141,7 +141,7 @@ export function NpcInteractionOverlay() {
           <CutoutPortraitImg
             url={portraitUrl}
             alt={npc.name}
-            className="max-h-full w-auto object-contain"
+            className="object-contain select-none"
           />
         </div>
       </div>

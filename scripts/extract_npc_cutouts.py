@@ -11,6 +11,7 @@ Outputs:
 
 from __future__ import annotations
 
+import json
 import os
 import sys
 import time
@@ -23,20 +24,77 @@ os.environ.setdefault("MKL_NUM_THREADS", "1")
 
 import numpy as np
 from PIL import Image
-from rembg import new_session, remove
-from scipy.ndimage import binary_fill_holes, gaussian_filter, label
 
 ROOT = Path(__file__).resolve().parent.parent
 CHARS_DIR = ROOT / "public" / "assets" / "characters"
 OUT_DIR = CHARS_DIR / "cutouts"
+METRICS_JSON = ROOT / "src" / "data" / "cutoutMetrics.json"
 
 _S_ISNET = None
 _S_U2NET = None
 
 
+def compute_height_pct(im: Image.Image) -> float:
+    """
+    Compute normalized stage height percentage (73.0..98.0) for a cropped character cutout
+    so characters of varying intrinsic pixel dimensions, poses (leaping, seated on lotus
+    pedestal, wide cape/aura), and vertical weapon/plume overhangs render at consistent
+    visual body/head proportions.
+    """
+    arr = np.array(im.convert("RGBA"))
+    a = arr[:, :, 3] > 96
+    h, w = a.shape
+    opaque_px = float(a.sum())
+    if opaque_px < 100 or h < 10:
+        return 88.0
+
+    row_w = a.sum(axis=1)
+    pos_rw = row_w[row_w > 0]
+    ref_rw = float(np.percentile(pos_rw, 85)) if len(pos_rw) else float(w)
+
+    # Detect thin vertical weapons/plumes/flames rising above the character's head/hat
+    body_rows = np.where(row_w >= max(8.0, ref_rw * 0.24))[0]
+    raw_top_ext = float(body_rows[0]) / float(h) if len(body_rows) >= 10 else 0.0
+    aspect = float(w) / float(h)
+    top_ext = min(raw_top_ext, 0.06 if aspect > 0.88 else 0.26)
+
+    body_h = float(h) * (1.0 - top_ext)
+    eq = float(np.sqrt(opaque_px)) / max(1.0, body_h)
+
+    target_body_pct = 88.0
+    if eq > 0.56:
+        target_body_pct *= (0.56 / eq) ** 0.55
+    elif eq < 0.45:
+        target_body_pct *= min(1.045, (0.45 / eq) ** 0.25)
+
+    bbox_pct = target_body_pct / (1.0 - min(0.22, top_ext * 0.88))
+    return round(float(np.clip(bbox_pct, 73.0, 98.0)), 1)
+
+
+def write_cutout_metrics() -> int:
+    metrics: dict[str, float] = {}
+    for sub in ("fullbody", "templates"):
+        sub_dir = OUT_DIR / sub
+        if not sub_dir.exists():
+            continue
+        for p in sorted(sub_dir.glob("*.webp")):
+            with Image.open(p) as im:
+                url = f"/assets/characters/cutouts/{sub}/{p.name}"
+                metrics[url] = compute_height_pct(im)
+
+    METRICS_JSON.parent.mkdir(parents=True, exist_ok=True)
+    METRICS_JSON.write_text(
+        json.dumps(metrics, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    print(f"Wrote {len(metrics)} normalized cutout scale entries to {METRICS_JSON.relative_to(ROOT)}")
+    return len(metrics)
+
+
 def _init_worker() -> None:
     global _S_ISNET, _S_U2NET
     import onnxruntime as ort
+    from rembg import new_session
 
     sess_opts = ort.SessionOptions()
     sess_opts.intra_op_num_threads = 1
@@ -46,6 +104,9 @@ def _init_worker() -> None:
 
 
 def _process_one(task: tuple[str, str]) -> tuple[str, bool, str]:
+    from rembg import remove
+    from scipy.ndimage import binary_fill_holes, gaussian_filter, label
+
     src_str, dst_str = task
     src = Path(src_str)
     dst = Path(dst_str)
@@ -95,6 +156,10 @@ def _process_one(task: tuple[str, str]) -> tuple[str, bool, str]:
 
 
 def main() -> int:
+    if "--metrics-only" in sys.argv:
+        write_cutout_metrics()
+        return 0
+
     force = "--force" in sys.argv
     tasks: list[tuple[str, str]] = []
     for sub in ("fullbody", "templates"):
@@ -109,6 +174,7 @@ def main() -> int:
 
     if not tasks:
         print("All cutouts already up to date.")
+        write_cutout_metrics()
         return 0
 
     workers = min(2, os.cpu_count() or 1)
@@ -138,6 +204,7 @@ def main() -> int:
         f"Completed {done - failed}/{len(tasks)} cutouts in {time.time() - t0:.1f}s.",
         flush=True,
     )
+    write_cutout_metrics()
     return 1 if failed else 0
 
 
