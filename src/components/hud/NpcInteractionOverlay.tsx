@@ -208,7 +208,7 @@ export function NpcInteractionOverlay() {
 
             {/* 各个维度数值 */}
             {stats && talents && (() => {
-              const eff = compiledNpc ? deriveNpcEffectiveStats(compiledNpc) : null
+              const eff = dbRecord ? deriveNpcEffectiveStats(dbRecord) : null
               return (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
@@ -293,16 +293,16 @@ export function NpcInteractionOverlay() {
             )}
 
             {/* 武学情况（6槽）与披挂情况（7槽） */}
-            {compiledNpc && (
+            {dbRecord && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
                   <div className="font-bold text-[#5c3d1e] song-serif">六槽运使武学</div>
                   <div className="space-y-1">
                     {MARTIAL_ART_SLOT_METAS.map((meta) => {
-                      const aid = compiledNpc.equippedArts[meta.slot]
+                      const aid = dbRecord.equippedArts[meta.slot]
                       const art = aid ? MARTIAL_ART_DB_MAP[aid] : null
                       const lv =
-                        compiledNpc.learnedArts.find((e) => e.artId === aid)?.level ?? 1
+                        dbRecord.learnedArts.find((e) => e.artId === aid)?.level ?? 1
                       return (
                         <div
                           key={meta.slot}
@@ -331,7 +331,7 @@ export function NpcInteractionOverlay() {
                   <div className="font-bold text-[#5c3d1e] song-serif">七槽随身披挂</div>
                   <div className="space-y-1">
                     {EQUIPMENT_SLOT_METAS.map((meta) => {
-                      const iid = compiledNpc.equipped[meta.slot]
+                      const iid = dbRecord.equipped[meta.slot]
                       const item = iid ? ITEM_DB_MAP[iid] : null
                       const tier = item ? normalizeItemTier(item.rarity) : null
                       const rStyle = tier ? RARITY_STYLE_MAP[tier] : null
