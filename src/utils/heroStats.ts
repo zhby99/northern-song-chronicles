@@ -32,6 +32,14 @@ export const CIVIL_ART_KEYS = [
 
 export const DAILY_INN_LODGING_COST = 3
 
+export const INITIAL_HERO_AGE = 12
+export const DAYS_PER_YEAR = 360
+
+export function getHeroAge(dayCount: number): number {
+  const zeroIdx = Math.max(0, Math.floor(dayCount) - 1)
+  return INITIAL_HERO_AGE + Math.floor(zeroIdx / DAYS_PER_YEAR)
+}
+
 export const HERO_BASE_CAPS = {
   minMaxHp: 100,
   minMaxMp: 50,

@@ -275,9 +275,72 @@ const LIAO_SPY_ROSTER = [
   { name: '拔里苍狼', title: '燕京虎符密使' },
 ]
 
-export function spawnAnnualLiaoSpy(yearIndex: number, currentDay: number): ActiveLiaoSpyMission {
-  const locPick = YANYUN_SPY_LOCATIONS[(yearIndex - 1) % YANYUN_SPY_LOCATIONS.length]!
-  const spyIdentity = LIAO_SPY_ROSTER[(yearIndex - 1) % LIAO_SPY_ROSTER.length]!
+export const CHANGSHAN_ADULT_AGE = 18
+export const LIAO_SPY_HALF_YEAR_DAYS = 180
+
+interface LiaoSpyStrengthTier {
+  realm: '三流中品' | '三流上品' | '二流下品' | '二流中品'
+  hpRange: [number, number]
+  mpRange: [number, number]
+  agiRange: [number, number]
+  resRange: [number, number]
+  artLevel: number
+  isSecondTier: boolean
+}
+
+const LIAO_SPY_STRENGTH_TIERS: readonly LiaoSpyStrengthTier[] = [
+  {
+    realm: '三流中品',
+    hpRange: [500, 680],
+    mpRange: [240, 400],
+    agiRange: [26, 34],
+    resRange: [13, 21],
+    artLevel: 3,
+    isSecondTier: false,
+  },
+  {
+    realm: '三流上品',
+    hpRange: [701, 919],
+    mpRange: [422, 649],
+    agiRange: [32, 40],
+    resRange: [18, 26],
+    artLevel: 4,
+    isSecondTier: false,
+  },
+  {
+    realm: '二流下品',
+    hpRange: [951, 1217],
+    mpRange: [680, 927],
+    agiRange: [38, 46],
+    resRange: [24, 33],
+    artLevel: 5,
+    isSecondTier: true,
+  },
+  {
+    realm: '二流中品',
+    hpRange: [1255, 1579],
+    mpRange: [966, 1275],
+    agiRange: [44, 52],
+    resRange: [30, 39],
+    artLevel: 6,
+    isSecondTier: true,
+  },
+]
+
+function randomIntInclusive(min: number, max: number): number {
+  return min + Math.floor(Math.random() * (max - min + 1))
+}
+
+export function spawnAnnualLiaoSpy(periodIndex: number, currentDay: number): ActiveLiaoSpyMission {
+  const locPick =
+    YANYUN_SPY_LOCATIONS[Math.floor(Math.random() * YANYUN_SPY_LOCATIONS.length)] ??
+    YANYUN_SPY_LOCATIONS[0]!
+  const spyIdentity =
+    LIAO_SPY_ROSTER[(periodIndex - 1 + Math.floor(Math.random() * LIAO_SPY_ROSTER.length)) % LIAO_SPY_ROSTER.length] ??
+    LIAO_SPY_ROSTER[0]!
+  const strengthTier =
+    LIAO_SPY_STRENGTH_TIERS[Math.floor(Math.random() * LIAO_SPY_STRENGTH_TIERS.length)] ??
+    LIAO_SPY_STRENGTH_TIERS[0]!
 
   const reg = REGION_DB_MAP[locPick.regionId]
   const bldg = BUILDING_DB_MAP[locPick.buildingId]
@@ -286,17 +349,15 @@ export function spawnAnnualLiaoSpy(yearIndex: number, currentDay: number): Activ
       ? (bldg.interior.spots.find((s) => s.id === locPick.spotId) ?? null)
       : null
 
-  const tierStep = Math.min(4, Math.max(0, yearIndex - 1))
-  const artLevel = Math.min(7, 2 + tierStep)
-
-  const qinggongId = tierStep >= 2 ? 'MA-077' : 'MA-177'
-  const move2Id = tierStep >= 2 ? 'MA-073' : 'MA-207'
-  const weaponId = tierStep >= 2 ? 'WPN-047' : 'WPN-066'
+  const artLevel = strengthTier.artLevel
+  const qinggongId = strengthTier.isSecondTier ? 'MA-077' : 'MA-177'
+  const move2Id = strengthTier.isSecondTier ? 'MA-073' : 'MA-207'
+  const weaponId = strengthTier.isSecondTier ? 'WPN-047' : 'WPN-066'
 
   return {
-    yearIndex,
-    deadlineDay: currentDay + 360,
-    npcId: `DYN-LIAO-SPY-Y${yearIndex}`,
+    yearIndex: periodIndex,
+    deadlineDay: currentDay + LIAO_SPY_HALF_YEAR_DAYS,
+    npcId: `DYN-LIAO-SPY-P${periodIndex}`,
     name: spyIdentity.name,
     title: spyIdentity.title,
     regionId: locPick.regionId,
@@ -305,12 +366,12 @@ export function spawnAnnualLiaoSpy(yearIndex: number, currentDay: number): Activ
     buildingName: bldg?.name ?? '幽州胡姬羊酒楼',
     spotId: locPick.spotId,
     spotName: spot?.name ?? null,
-    realm: tierStep >= 2 ? '二流好手' : '三流好手',
+    realm: strengthTier.realm,
     stats: {
-      hp: 460 + tierStep * 180,
-      mp: 280 + tierStep * 120,
-      agi: 24 + tierStep * 4,
-      res: 14 + tierStep * 4,
+      hp: randomIntInclusive(strengthTier.hpRange[0], strengthTier.hpRange[1]),
+      mp: randomIntInclusive(strengthTier.mpRange[0], strengthTier.mpRange[1]),
+      agi: randomIntInclusive(strengthTier.agiRange[0], strengthTier.agiRange[1]),
+      res: randomIntInclusive(strengthTier.resRange[0], strengthTier.resRange[1]),
       isBenchmark: false,
     },
     equippedArts: {
@@ -836,7 +897,7 @@ export function evaluateSectEntry(params: {
 
   if (targetSectId === 'SECT-22') {
     const reqSummary =
-      '免束脩直接参军入伍（按月领军饷；每年强制赴燕云城池与辽谍生死对决一次；升任演武教习可领开封府推荐信；主动退派获【通辽】恶名，大宋众人好感 -30）'
+      '免束脩直接参军入伍（未满18岁暂免诛谍且不领军饷；年满18岁起按月领军饷，且每半年强制赴燕云城池与三流中至二流中辽谍生死对决一次；升任演武教习可领开封府推荐信；主动退派获【通辽】恶名，大宋众人好感 -30）'
     if (sectState.songCourtBlacklisted) {
       return {
         canJoin: false,

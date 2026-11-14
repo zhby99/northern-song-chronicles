@@ -2,29 +2,30 @@ export interface RealmTier {
   rank: number
   label: string
   minAvg: number
+  minMp: number
   majorGroup: '不入流' | '三流' | '二流' | '一流' | '宗师' | '大宗师'
 }
 
 /**
- * 北宋江湖十六阶武学境界体系（阈值严格校准自 src/data/npcs.json 1,000 名 NPC 的 (hp + mp) / 2 实测分布）
+ * 北宋江湖十六阶武学境界体系（内力上限 minMp 与综合阈值严格校准自 src/data/npcs.json 1,000 名 NPC 实测分布）
  */
 export const REALM_TIERS: readonly RealmTier[] = [
-  { rank: 0, label: '不入流', minAvg: 0, majorGroup: '不入流' },
-  { rank: 1, label: '三流下品', minAvg: 210, majorGroup: '三流' },
-  { rank: 2, label: '三流中品', minAvg: 365, majorGroup: '三流' },
-  { rank: 3, label: '三流上品', minAvg: 555, majorGroup: '三流' },
-  { rank: 4, label: '二流下品', minAvg: 800, majorGroup: '二流' },
-  { rank: 5, label: '二流中品', minAvg: 1110, majorGroup: '二流' },
-  { rank: 6, label: '二流上品', minAvg: 1435, majorGroup: '二流' },
-  { rank: 7, label: '一流下品', minAvg: 1930, majorGroup: '一流' },
-  { rank: 8, label: '一流中品', minAvg: 2500, majorGroup: '一流' },
-  { rank: 9, label: '一流上品', minAvg: 3200, majorGroup: '一流' },
-  { rank: 10, label: '宗师下品', minAvg: 4150, majorGroup: '宗师' },
-  { rank: 11, label: '宗师中品', minAvg: 5020, majorGroup: '宗师' },
-  { rank: 12, label: '宗师上品', minAvg: 6260, majorGroup: '宗师' },
-  { rank: 13, label: '大宗师下品', minAvg: 7600, majorGroup: '大宗师' },
-  { rank: 14, label: '大宗师中品', minAvg: 8550, majorGroup: '大宗师' },
-  { rank: 15, label: '大宗师上品', minAvg: 9500, majorGroup: '大宗师' },
+  { rank: 0, label: '不入流', minAvg: 0, minMp: 0, majorGroup: '不入流' },
+  { rank: 1, label: '三流下品', minAvg: 210, minMp: 100, majorGroup: '三流' },
+  { rank: 2, label: '三流中品', minAvg: 365, minMp: 240, majorGroup: '三流' },
+  { rank: 3, label: '三流上品', minAvg: 555, minMp: 420, majorGroup: '三流' },
+  { rank: 4, label: '二流下品', minAvg: 800, minMp: 680, majorGroup: '二流' },
+  { rank: 5, label: '二流中品', minAvg: 1110, minMp: 960, majorGroup: '二流' },
+  { rank: 6, label: '二流上品', minAvg: 1435, minMp: 1300, majorGroup: '二流' },
+  { rank: 7, label: '一流下品', minAvg: 1930, minMp: 1800, majorGroup: '一流' },
+  { rank: 8, label: '一流中品', minAvg: 2500, minMp: 2400, majorGroup: '一流' },
+  { rank: 9, label: '一流上品', minAvg: 3200, minMp: 3100, majorGroup: '一流' },
+  { rank: 10, label: '宗师下品', minAvg: 4150, minMp: 4100, majorGroup: '宗师' },
+  { rank: 11, label: '宗师中品', minAvg: 5020, minMp: 5000, majorGroup: '宗师' },
+  { rank: 12, label: '宗师上品', minAvg: 6260, minMp: 6300, majorGroup: '宗师' },
+  { rank: 13, label: '大宗师下品', minAvg: 7600, minMp: 8000, majorGroup: '大宗师' },
+  { rank: 14, label: '大宗师中品', minAvg: 8550, minMp: 9000, majorGroup: '大宗师' },
+  { rank: 15, label: '大宗师上品', minAvg: 9500, minMp: 9900, majorGroup: '大宗师' },
 ] as const
 
 const ALIAS_TO_RANK: Record<string, number> = {
@@ -74,14 +75,24 @@ const ALIAS_TO_RANK: Record<string, number> = {
   绝世宗师: 15,
 }
 
-export function estimateHeroRealm(maxHp: number, maxMp: number): RealmTier {
-  const avg = (maxHp + maxMp) / 2
+export function estimateHeroRealmByMp(maxMp: number): RealmTier {
+  const safeMp = Math.max(0, Math.floor(maxMp))
   for (let i = REALM_TIERS.length - 1; i >= 0; i -= 1) {
-    if (avg >= REALM_TIERS[i].minAvg) {
+    if (safeMp >= REALM_TIERS[i].minMp) {
       return REALM_TIERS[i]
     }
   }
   return REALM_TIERS[0]
+}
+
+export function getNextRealmTier(currentRank: number): RealmTier | null {
+  const nextIdx = currentRank + 1
+  if (nextIdx < 0 || nextIdx >= REALM_TIERS.length) return null
+  return REALM_TIERS[nextIdx]
+}
+
+export function estimateHeroRealm(_maxHp: number, maxMp: number): RealmTier {
+  return estimateHeroRealmByMp(maxMp)
 }
 
 export function parseRealmTier(label?: string | null): RealmTier {

@@ -148,7 +148,7 @@ export function QuestsTab() {
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex flex-wrap items-center gap-2">
                     <span className="px-2 py-0.5 rounded text-xs font-bold bg-[#8f1d14] text-[#fff8ee]">
-                      年度强制军令
+                      半年度强制军令
                     </span>
                     <span className="font-bold song-serif text-base text-[#781710]">
                       燕云锄奸 · 诛杀辽国密谍【{activeSpy.name}】

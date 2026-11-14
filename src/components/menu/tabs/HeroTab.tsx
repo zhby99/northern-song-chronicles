@@ -7,11 +7,12 @@ import { useGameStore } from '../../../store/useGameStore'
 import {
   calcDailyExpByCategory,
   DAILY_INN_LODGING_COST,
+  getHeroAge,
   isPlayerInOwnSectRegion,
 } from '../../../utils/heroStats'
 import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
-import { estimateHeroRealm } from '../../../utils/realmUtils'
-import { getChangshanMonthlyStipend } from '../../../utils/sectMechanics'
+import { estimateHeroRealmByMp, getNextRealmTier } from '../../../utils/realmUtils'
+import { CHANGSHAN_ADULT_AGE, getChangshanMonthlyStipend } from '../../../utils/sectMechanics'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 import type { LightboxState } from '../menuShared'
 
@@ -21,6 +22,7 @@ interface HeroTabProps {
 }
 
 export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
+  const dayCount = useGameStore((s) => s.dayCount)
   const baseStats = useGameStore((s) => s.baseStats)
   const hp = useGameStore((s) => s.hp)
   const maxHp = useGameStore((s) => s.maxHp)
@@ -43,6 +45,10 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const sectState = useGameStore((s) => s.sectState)
   const restRecoverStamina = useGameStore((s) => s.restRecoverStamina)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
+
+  const heroAge = getHeroAge(dayCount)
+  const heroRealm = estimateHeroRealmByMp(maxMp)
+  const nextRealm = getNextRealmTier(heroRealm.rank)
 
   const equipTotals = useMemo(() => computeEquipmentTotals(equipped), [equipped])
   const artTotals = useMemo(
@@ -80,7 +86,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
     onOpenLightbox({
       url: heroImgUrl,
       title: '江湖少侠 · 行侠全身绘像',
-      subtitle: `皇祐二年驻足【${locationLabel}】 · 门派【${currentSectName}·${sectState.rankLabel}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
+      subtitle: `年方${heroAge}岁 · 驻足【${locationLabel}】 · 武学境界【${heroRealm.label}】 · 门派【${currentSectName}·${sectState.rankLabel}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
     })
 
   return (
@@ -100,13 +106,35 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
               </h4>
             </div>
             <div className="text-right text-xs text-[#6b5235]">
-              <div>骨龄：十八岁</div>
-              <div className="font-semibold text-[#781710]">
+              <div className="font-semibold text-[#3d2814]">年龄：{heroAge} 岁</div>
+              <div
+                className="font-semibold text-[#781710]"
+                title={
+                  nextRealm
+                    ? `依据内力上限（${maxMp}）精准评定；内力上限达 ${nextRealm.minMp} 可晋入【${nextRealm.label}】`
+                    : `依据内力上限（${maxMp}）精准评定，已臻当世绝顶`
+                }
+              >
                 {sectState.sectId
-                  ? `第${sectState.rank}阶 · 功绩${sectState.contribution} · ${estimateHeroRealm(maxHp, maxMp).label}`
-                  : `境界：${estimateHeroRealm(maxHp, maxMp).label}`}
+                  ? `第${sectState.rank}阶 · 功绩${sectState.contribution} · ${heroRealm.label}`
+                  : `境界：${heroRealm.label}`}
               </div>
             </div>
+          </div>
+
+          {/* 武学境界精准定位卡（依据内力上限评定） */}
+          <div className="px-2.5 py-2 rounded bg-[#faf3e3] border border-[#cbb693] flex items-center justify-between gap-2 text-xs">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[#6b5235]">武学境界</span>
+              <span className="px-2 py-0.5 rounded bg-[#781710] text-[#fff8eb] font-bold song-serif">
+                {heroRealm.label}
+              </span>
+            </div>
+            <span className="text-[11px] font-mono text-[#5c3d1e]">
+              {nextRealm
+                ? `内力 ${maxMp}/${nextRealm.minMp} → ${nextRealm.label}`
+                : `内力 ${maxMp} · 当世绝顶`}
+            </span>
           </div>
 
           {/* 门派军饷 / 朝廷通缉 / 通辽嫌疑 / 燕云辽谍军令速览 */}
@@ -119,16 +147,24 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                 <div className="flex items-center justify-between text-[#1f4d3b] font-medium">
                   <span>常山边军月饷</span>
                   <span className="font-mono font-bold">
-                    {getChangshanMonthlyStipend(sectState.rank)} 两/月
+                    {heroAge < CHANGSHAN_ADULT_AGE
+                      ? '未满18岁暂不领饷'
+                      : `${getChangshanMonthlyStipend(sectState.rank)} 两/月`}
                   </span>
+                </div>
+              )}
+              {sectState.sectId === 'SECT-22' && heroAge < CHANGSHAN_ADULT_AGE && !sectState.activeLiaoSpy && (
+                <div className="px-2 py-1 rounded bg-[#e8f0eb] border border-[#a9c7b5] text-[#1f4d3b] leading-snug">
+                  未满十八岁暂免燕云诛谍军令，专心练枪筑基。
                 </div>
               )}
               {sectState.activeLiaoSpy && (
                 <div className="px-2 py-1 rounded bg-[#f8e3e1] border border-[#d69891] text-[#781710] leading-snug">
-                  <strong>【年度诛谍军令】</strong>燕云【
+                  <strong>【半年诛谍军令】</strong>燕云【
                   {sectState.activeLiaoSpy.regionName} ·{' '}
                   {sectState.activeLiaoSpy.buildingName}】诛杀辽谍【
-                  {sectState.activeLiaoSpy.name}】（第{sectState.activeLiaoSpy.deadlineDay}日前）
+                  {sectState.activeLiaoSpy.name} · {sectState.activeLiaoSpy.realm}】（第
+                  {sectState.activeLiaoSpy.deadlineDay}日前）
                 </div>
               )}
               {sectState.toumingzhuangState === 'accepted' && (

@@ -16,10 +16,11 @@ import { MARTIAL_ART_SLOT_METAS } from '../../data/playerMartialArts'
 import { getAvailableNpcQuestActions } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import type { TenArtKey } from '../../types/game'
-import { deriveNpcEffectiveStats } from '../../utils/heroStats'
+import { deriveNpcEffectiveStats, getHeroAge } from '../../utils/heroStats'
 import { INITIAL_NPC_FAVOR, getNpcFavorProfile } from '../../utils/npcFavor'
 import {
   canPlayerLearnSectArt,
+  CHANGSHAN_ADULT_AGE,
   evaluateSectEntry,
   evaluateSectPromotion,
   getChangshanMonthlyStipend,
@@ -815,25 +816,29 @@ export function NpcInteractionOverlay() {
                   </div>
                 )}
 
-                {/* 常山枪派（参军制）专属军饷、年度诛杀辽谍军令与开封府推荐信 */}
-                {targetFactionId === 'SECT-22' && (
+                {/* 常山枪派（参军制）专属军饷、半年度诛杀辽谍军令与开封府推荐信 */}
+                {targetFactionId === 'SECT-22' && (() => {
+                  const heroAge = getHeroAge(dayCount)
+                  return (
                   <div className="p-3.5 rounded-lg bg-[#faf3e3] border-2 border-[#8f1d14]/70 space-y-2.5">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div className="font-bold text-[#781710] song-serif text-sm sm:text-base">
                         河北边军·常山枪派军籍要务
                       </div>
                       <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#1f4d3b] text-[#e7f7ef]">
-                        月度军饷：{getChangshanMonthlyStipend(sectState.rank)} 两纹银 / 月
+                        {heroAge < CHANGSHAN_ADULT_AGE
+                          ? '月度军饷：未满18岁暂不领饷'
+                          : `月度军饷：${getChangshanMonthlyStipend(sectState.rank)} 两纹银 / 月`}
                       </span>
                     </div>
 
                     {sectState.activeLiaoSpy ? (
                       <div className="px-3 py-2 rounded bg-[#f8e3e1] border border-[#d69891] text-[#781710] text-xs leading-relaxed">
                         <strong>
-                          【第 {sectState.activeLiaoSpy.yearIndex} 年度死斗军令】
+                          【第 {sectState.activeLiaoSpy.yearIndex} 期半年度死斗军令】
                         </strong>{' '}
                         辽国北院密谍【{sectState.activeLiaoSpy.name}】（
-                        {sectState.activeLiaoSpy.title}）现潜伏于燕云【
+                        {sectState.activeLiaoSpy.title} · {sectState.activeLiaoSpy.realm}）现潜伏于燕云【
                         {sectState.activeLiaoSpy.regionName} ·{' '}
                         {sectState.activeLiaoSpy.buildingName}
                         {sectState.activeLiaoSpy.spotName
@@ -842,9 +847,13 @@ export function NpcInteractionOverlay() {
                         】！须于第 {sectState.activeLiaoSpy.deadlineDay}{' '}
                         日前赶赴燕云将其诛杀，逾期辽谍将主动截杀！
                       </div>
+                    ) : heroAge < CHANGSHAN_ADULT_AGE ? (
+                      <div className="px-3 py-1.5 rounded bg-[#e8f0eb] border border-[#a9c7b5] text-[#1f4d3b] text-xs">
+                        少侠年方 {heroAge} 岁（未满十八），暂免燕云诛杀辽谍军令，专心练枪筑基；年满十八岁后每半年须领受一次诛谍军令。
+                      </div>
                     ) : (
                       <div className="px-3 py-1.5 rounded bg-[#e2f2e8] border border-[#9fd0b4] text-[#1b5132] text-xs">
-                        本年度燕云诛杀辽谍军令已圆满交令，静候次年军帖。
+                        本期半年度燕云诛杀辽谍军令已圆满交令，静候下半年度军帖。
                       </div>
                     )}
 
@@ -872,7 +881,8 @@ export function NpcInteractionOverlay() {
                       </button>
                     </div>
                   </div>
-                )}
+                  )
+                })()}
               </div>
             )}
 

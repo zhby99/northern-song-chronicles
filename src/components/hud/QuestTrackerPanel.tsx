@@ -77,7 +77,7 @@ export function QuestTrackerPanel() {
 
         <div className="flex items-center gap-1.5 shrink-0">
           <span
-            title="依据少侠当前气血与内力上限综合评定的武学境界"
+            title="依据少侠当前内力上限精准评定的武学境界"
             className="px-1.5 py-0.5 rounded bg-[#3b2715] border border-[#a88754]/60 text-[10px] text-amber-200 font-semibold"
           >
             {playerRealm.label}
@@ -96,7 +96,7 @@ export function QuestTrackerPanel() {
       {/* 面板内容 */}
       {!collapsed && (
         <div className="max-h-[40vh] overflow-y-auto p-2.5 space-y-2.5 text-xs">
-          {/* 常山枪派年度辽谍军令 */}
+          {/* 常山枪派半年度辽谍军令 */}
           {activeSpy && (() => {
             const readiness = assessQuestRealmReadiness(maxHp, maxMp, undefined, activeSpy.realm)
             const remainDays = Math.max(0, activeSpy.deadlineDay - dayCount)
@@ -104,7 +104,7 @@ export function QuestTrackerPanel() {
               <div className="p-2.5 rounded bg-[#2c1512]/90 border border-[#c25b4e]/75 space-y-1.5">
                 <div className="flex items-center justify-between gap-1.5">
                   <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#8f1d14] text-[#fff8ee]">
-                    年度军令
+                    半年军令
                   </span>
                   <span className="text-[10px] font-mono text-rose-200 font-bold">
                     限期剩 {remainDays} 日

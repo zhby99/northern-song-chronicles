@@ -79,6 +79,7 @@ import {
   DAILY_INN_LODGING_COST,
   DEFAULT_HERO_BASE_STATS,
   deriveHeroEffectiveStats,
+  getHeroAge,
   HERO_BASE_CAPS,
   isPlayerInOwnSectRegion,
   resolveCultivationVenue,
@@ -120,6 +121,7 @@ import {
   buildNodeNpcFromLiaoSpy,
   buildZhanZhaoArrestNodeNpc,
   canPlayerLearnSectArt,
+  CHANGSHAN_ADULT_AGE,
   clonePlayerSectState,
   DEFAULT_PLAYER_SECT_STATE,
   evaluateSectEntry,
@@ -130,6 +132,7 @@ import {
   isSongAlignedNpc,
   isSongOfficialForRobbery,
   KAIFENG_RECOMMENDATION_ITEM_ID,
+  LIAO_SPY_HALF_YEAR_DAYS,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
   spawnAnnualLiaoSpy,
 } from '../utils/sectMechanics'
@@ -465,50 +468,58 @@ function applyDayProgressionSectHooks(params: {
   let overdueSpyAmbush: NodeNpc | null = null
 
   if (nextSect.sectId === 'SECT-22') {
+    const heroAge = getHeroAge(params.nextDayCount)
     const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
-    if (curMonthIdx > nextSect.lastStipendMonth) {
-      const months = curMonthIdx - nextSect.lastStipendMonth
-      const perMonth = getChangshanMonthlyStipend(nextSect.rank)
-      const totalStipend = perMonth * months
-      nextSilver += totalStipend
-      nextSect.lastStipendMonth = curMonthIdx
-      nextLogs.unshift(
-        createLogEntry(
-          params.nextDayCount,
-          '常山军饷',
-          `河北边军按月支放【常山枪派 · ${nextSect.rankLabel}】月度军饷 +${totalStipend} 两纹银！`,
-          true,
-          params.shichenIdx,
-        ),
-      )
-    }
-
-    if (nextSect.activeLiaoSpy && params.nextDayCount > nextSect.activeLiaoSpy.deadlineDay) {
-      overdueSpyAmbush = buildNodeNpcFromLiaoSpy(nextSect.activeLiaoSpy)
-      nextLogs.unshift(
-        createLogEntry(
-          params.nextDayCount,
-          '军令逾限',
-          `年度锄奸军令期限已至！潜伏燕云之辽国密谍【${nextSect.activeLiaoSpy.name}】反追踪而至，展开不死不休截杀！`,
-          true,
-          params.shichenIdx,
-        ),
-      )
+    if (heroAge < CHANGSHAN_ADULT_AGE) {
+      // 未满18岁暂不支领军饷，亦不派发燕云诛谍军令
+      if (curMonthIdx > nextSect.lastStipendMonth) {
+        nextSect.lastStipendMonth = curMonthIdx
+      }
     } else {
-      const curYearIdx = Math.floor((params.nextDayCount - 1) / 360) + 1
-      if (!nextSect.activeLiaoSpy && curYearIdx > nextSect.lastLiaoSpyMissionYear) {
-        const spy = spawnAnnualLiaoSpy(curYearIdx, params.nextDayCount)
-        nextSect.lastLiaoSpyMissionYear = curYearIdx
-        nextSect.activeLiaoSpy = spy
+      if (curMonthIdx > nextSect.lastStipendMonth) {
+        const months = curMonthIdx - nextSect.lastStipendMonth
+        const perMonth = getChangshanMonthlyStipend(nextSect.rank)
+        const totalStipend = perMonth * months
+        nextSilver += totalStipend
+        nextSect.lastStipendMonth = curMonthIdx
         nextLogs.unshift(
           createLogEntry(
             params.nextDayCount,
-            '燕云锄奸',
-            `【常山枪派第${curYearIdx}年度强制军令】辽国密谍【${spy.name}（${spy.title}）】现踪燕云【${spy.regionName} · ${spy.buildingName}】！须于第 ${spy.deadlineDay} 日前寻获并生死决战诛除！`,
+            '常山军饷',
+            `河北边军按月支放【常山枪派 · ${nextSect.rankLabel}】月度军饷 +${totalStipend} 两纹银！`,
             true,
             params.shichenIdx,
           ),
         )
+      }
+
+      if (nextSect.activeLiaoSpy && params.nextDayCount > nextSect.activeLiaoSpy.deadlineDay) {
+        overdueSpyAmbush = buildNodeNpcFromLiaoSpy(nextSect.activeLiaoSpy)
+        nextLogs.unshift(
+          createLogEntry(
+            params.nextDayCount,
+            '军令逾限',
+            `半年度锄奸军令期限已至！潜伏燕云之辽国密谍【${nextSect.activeLiaoSpy.name}】反追踪而至，展开不死不休截杀！`,
+            true,
+            params.shichenIdx,
+          ),
+        )
+      } else {
+        const curHalfYearIdx = Math.floor((params.nextDayCount - 1) / LIAO_SPY_HALF_YEAR_DAYS) + 1
+        if (!nextSect.activeLiaoSpy && curHalfYearIdx > nextSect.lastLiaoSpyMissionYear) {
+          const spy = spawnAnnualLiaoSpy(curHalfYearIdx, params.nextDayCount)
+          nextSect.lastLiaoSpyMissionYear = curHalfYearIdx
+          nextSect.activeLiaoSpy = spy
+          nextLogs.unshift(
+            createLogEntry(
+              params.nextDayCount,
+              '燕云锄奸',
+              `【常山枪派第${curHalfYearIdx}期半年度强制军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】现踪燕云【${spy.regionName} · ${spy.buildingName}】！须于第 ${spy.deadlineDay} 日前寻获并生死决战诛除！`,
+              true,
+              params.shichenIdx,
+            ),
+          )
+        }
       }
     }
   }
@@ -2959,13 +2970,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
-    // 常山枪派「年度燕云锄奸」诛杀辽谍胜利
+    // 常山枪派「半年度燕云锄奸」诛杀辽谍胜利
     if (session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win') {
       nextSectState.activeLiaoSpy = null
       nextSectState.contribution += 100
       nextSilver += 50
       extraLogTag = '燕云锄奸'
-      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派年度军令，获门派功绩 +100（现 ${nextSectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +50 两！`
+      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派半年度军令，获门派功绩 +100（现 ${nextSectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +50 两！`
     }
 
     // 若从展昭剑下侥幸获胜
@@ -3151,7 +3162,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
 
     const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
-    const curYearIdx = Math.floor((s.dayCount - 1) / 360) + 1
+    const curHalfYearIdx = Math.floor((s.dayCount - 1) / LIAO_SPY_HALF_YEAR_DAYS) + 1
+    const heroAge = getHeroAge(s.dayCount)
     const nextSect: PlayerSectState = {
       ...clonePlayerSectState(s.sectState),
       sectId: targetSectId,
@@ -3205,17 +3217,21 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       feedbackMsg = `由【${originName}】呈验《${letterName}》，正式奉调入职【${faction.name} · ${evalRes.startingRankLabel}】（正当保举调任）！`
     }
 
-    // 常山枪派：投军即刻派发本年度燕云诛谍强制军令
+    // 常山枪派：年满18岁方可领饷并接半年度燕云诛谍强制军令
     if (targetSectId === 'SECT-22') {
-      const stipendAmt = getChangshanMonthlyStipend(nextSect.rank)
-      feedbackMsg += ` 每满一月可领边军饷银 ${stipendAmt} 两。`
-      if (!nextSect.activeLiaoSpy && nextSect.lastLiaoSpyMissionYear < curYearIdx) {
-        const spy = spawnAnnualLiaoSpy(curYearIdx, s.dayCount)
-        nextSect.lastLiaoSpyMissionYear = curYearIdx
-        nextSect.activeLiaoSpy = spy
-        const spyMsg = `【常山年度强制军令】辽国密谍【${spy.name}（${spy.title}）】已潜入燕云【${spy.regionName} · ${spy.buildingName}】！请于第 ${spy.deadlineDay} 日前寻获并开启生死对决！`
-        feedbackMsg += ` ${spyMsg}`
-        newLogs.push(createLogEntry(s.dayCount, '燕云锄奸', spyMsg, true, s.shichenIdx))
+      if (heroAge < CHANGSHAN_ADULT_AGE) {
+        feedbackMsg += `（少侠年方${heroAge}岁未满十八，暂免燕云诛谍军令，亦暂不支领边军月饷；待年满十八岁后按月领饷并每半年领受一次诛谍军令）`
+      } else {
+        const stipendAmt = getChangshanMonthlyStipend(nextSect.rank)
+        feedbackMsg += ` 每满一月可领边军饷银 ${stipendAmt} 两。`
+        if (!nextSect.activeLiaoSpy && nextSect.lastLiaoSpyMissionYear < curHalfYearIdx) {
+          const spy = spawnAnnualLiaoSpy(curHalfYearIdx, s.dayCount)
+          nextSect.lastLiaoSpyMissionYear = curHalfYearIdx
+          nextSect.activeLiaoSpy = spy
+          const spyMsg = `【常山半年度强制军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】已潜入燕云【${spy.regionName} · ${spy.buildingName}】！请于第 ${spy.deadlineDay} 日前寻获并开启生死对决！`
+          feedbackMsg += ` ${spyMsg}`
+          newLogs.push(createLogEntry(s.dayCount, '燕云锄奸', spyMsg, true, s.shichenIdx))
+        }
       }
     }
 
@@ -3913,7 +3929,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             eff.rank ?? (faction.acceptsOuterDisciple === false ? 2 : 1)
           const rankLabel = getSectRankTitle(eff.sectId, startRank)
           const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
-          const curYearIdx = Math.floor((s.dayCount - 1) / 360) + 1
+          const curHalfYearIdx = Math.floor((s.dayCount - 1) / LIAO_SPY_HALF_YEAR_DAYS) + 1
+          const heroAge = getHeroAge(s.dayCount)
 
           const nextSect: PlayerSectState = {
             ...clonePlayerSectState(s.sectState),
@@ -3926,9 +3943,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             activeLiaoSpy: eff.allowOfficialTransfer ? null : s.sectState.activeLiaoSpy,
           }
 
-          if (eff.sectId === 'SECT-22' && !nextSect.activeLiaoSpy && nextSect.lastLiaoSpyMissionYear < curYearIdx) {
-            nextSect.lastLiaoSpyMissionYear = curYearIdx
-            nextSect.activeLiaoSpy = spawnAnnualLiaoSpy(curYearIdx, s.dayCount)
+          if (
+            eff.sectId === 'SECT-22' &&
+            heroAge >= CHANGSHAN_ADULT_AGE &&
+            !nextSect.activeLiaoSpy &&
+            nextSect.lastLiaoSpyMissionYear < curHalfYearIdx
+          ) {
+            nextSect.lastLiaoSpyMissionYear = curHalfYearIdx
+            nextSect.activeLiaoSpy = spawnAnnualLiaoSpy(curHalfYearIdx, s.dayCount)
           }
 
           const msg = `正式拜入【${faction.name}】，授职第 ${startRank} 阶【${rankLabel}】！`
