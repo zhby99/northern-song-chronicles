@@ -966,3 +966,13 @@ export function evaluateSectEntry(params: {
     blockedReason: `【${faction.name}】乃当世一流宗门${noOuterHint}，专属入门任务链将于下一卷开启，敬请先历练三流与二流门派！`,
   }
 }
+
+/**
+ * Standard equipment & weapons automatically granted upon joining specific sects.
+ */
+export const SECT_ENTRY_GEAR_GIFTS: Record<string, string[]> = {
+  'SECT-22': ['WPN-067'], // 常山枪派：厢军制式长枪
+  'SECT-17': ['ACC-018', 'ARM-033', 'BOT-017'], // 开封府/六扇门：六扇门精铜捕快腰牌、汴京巡城皂衣、汴京千层底布鞋
+  'SECT-23': ['ACC-031', 'ARM-031'], // 沧州八极门：沧州武馆铜护心、沧州武馆练功短打
+}
+

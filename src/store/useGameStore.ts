@@ -134,8 +134,10 @@ import {
   KAIFENG_RECOMMENDATION_ITEM_ID,
   LIAO_SPY_HALF_YEAR_DAYS,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
+  SECT_ENTRY_GEAR_GIFTS,
   spawnAnnualLiaoSpy,
 } from '../utils/sectMechanics'
+import { SPOT_SHOPS_BY_SPOT_ID } from '../data/spotShops'
 
 const LABEL_KEYS: LabelToggleKey[] = ['cityLabels', 'sectPassLabels', 'masters', 'distance']
 
@@ -388,6 +390,7 @@ export interface GameStoreState {
     cost?: number
     effect: ActionEffect
   }) => void
+  buySpotShopItem: (spotId: string, itemId: string) => void
   interactNpc: (npc: NodeNpc, mode: 'talk' | 'art' | 'spar') => void
   startNpcCombat: (
     npc: NodeNpc,
@@ -2614,6 +2617,62 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     void get().saveToSlot('autosave', `${regionName} · ${item.name}`, true)
   },
 
+  buySpotShopItem: (spotId, itemId) => {
+    const s = get()
+    const shop = SPOT_SHOPS_BY_SPOT_ID[spotId]
+    if (!shop) return
+
+    if (s.campPos || s.currentNodeId !== shop.regionId) {
+      const regName = NODE_MAP[shop.regionId]?.name ?? shop.regionId
+      set({
+        actionFeedback: {
+          text: `须亲临【${regName}】方可在【${shop.title}】采办交易！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    if (shop.requiredSectId && s.sectState.sectId !== shop.requiredSectId) {
+      const reqSectName = FACTION_DB_MAP[shop.requiredSectId]?.name ?? shop.requiredSectId
+      set({
+        actionFeedback: {
+          text: `【${shop.title}】乃内部甲仗重地，仅限【${reqSectName}】弟子/成员采办！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const entry = shop.items.find((x) => x.itemId === itemId)
+    const itemDef = ITEM_DB_MAP[itemId]
+    if (!entry || !itemDef) return
+
+    if (s.silver < entry.price) {
+      set({
+        actionFeedback: {
+          text: `纹银不足！购置【${itemDef.name}】需 ${entry.price} 两银子（当前仅余 ${s.silver} 两）。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const nextSilver = s.silver - entry.price
+    const nextInv = addItemToInventory(s.inventory, itemId, 1)
+    const msg = `在【${shop.title}】花费 ${entry.price} 两银子购得【${itemDef.name}】×1，已收入行囊。`
+
+    set({
+      silver: nextSilver,
+      inventory: nextInv,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '商贸采办', msg, false, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
   interactNpc: (npc, mode) => {
     const s = get()
     if (mode === 'talk') {
@@ -3233,6 +3292,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           newLogs.push(createLogEntry(s.dayCount, '燕云锄奸', spyMsg, true, s.shichenIdx))
         }
       }
+    }
+
+    const entryGiftIds = SECT_ENTRY_GEAR_GIFTS[targetSectId] ?? []
+    const grantedGiftNames: string[] = []
+    for (const gid of entryGiftIds) {
+      const def = ITEM_DB_MAP[gid]
+      if (def) {
+        nextInv = addItemToInventory(nextInv, gid, 1)
+        grantedGiftNames.push(`【${def.name}】`)
+      }
+    }
+    if (grantedGiftNames.length > 0) {
+      feedbackMsg += ` 入门获赐制式披挂：${grantedGiftNames.join('、')}！`
     }
 
     newLogs.push(
@@ -4024,8 +4096,24 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             nextSect.activeLiaoSpy = spawnAnnualLiaoSpy(curHalfYearIdx, s.dayCount)
           }
 
-          const msg = `正式拜入【${faction.name}】，授职第 ${startRank} 阶【${rankLabel}】！`
+          let nextInv = s.inventory
+          const entryGiftIds = SECT_ENTRY_GEAR_GIFTS[eff.sectId] ?? []
+          const grantedGiftNames: string[] = []
+          for (const gid of entryGiftIds) {
+            const def = ITEM_DB_MAP[gid]
+            if (def) {
+              nextInv = addItemToInventory(nextInv, gid, 1)
+              grantedGiftNames.push(`【${def.name}】`)
+            }
+          }
+
+          const giftSuffix =
+            grantedGiftNames.length > 0
+              ? ` 入门获赐制式披挂：${grantedGiftNames.join('、')}！`
+              : ''
+          const msg = `正式拜入【${faction.name}】，授职第 ${startRank} 阶【${rankLabel}】！${giftSuffix}`
           set({
+            inventory: nextInv,
             sectState: nextSect,
             actionFeedback: { text: msg, tone: 'success' },
             logs: [

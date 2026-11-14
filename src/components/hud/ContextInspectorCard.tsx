@@ -13,6 +13,8 @@ import {
   buildNodeNpcFromDynamicActor,
   getAvailableSpotQuestActions,
 } from '../../engine/questEngine'
+import { ITEM_DB_MAP } from '../../data/itemsDb'
+import { SPOT_SHOPS_BY_SPOT_ID } from '../../data/spotShops'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import type {
   NodeNpc,
@@ -102,6 +104,7 @@ export function ContextInspectorCard() {
   const enterBuildingMap = useGameStore((s) => s.enterBuildingMap)
   const startJourney = useGameStore((s) => s.startJourney)
   const doBuildingAction = useGameStore((s) => s.doBuildingAction)
+  const buySpotShopItem = useGameStore((s) => s.buySpotShopItem)
   const runQuestEffects = useGameStore((s) => s.runQuestEffects)
   const interactNpc = useGameStore((s) => s.interactNpc)
   const startNpcCombat = useGameStore((s) => s.startNpcCombat)
@@ -682,6 +685,103 @@ export function ContextInspectorCard() {
               }）→`}
         </button>
       )}
+
+      {(() => {
+        const activeShop = leafSpotId ? SPOT_SHOPS_BY_SPOT_ID[leafSpotId] : undefined
+        if (!activeShop) return null
+        const reqSectName = activeShop.requiredSectId
+          ? (FACTION_DB_MAP[activeShop.requiredSectId]?.name ?? activeShop.requiredSectId)
+          : null
+        const sectEligible = !activeShop.requiredSectId || sectState.sectId === activeShop.requiredSectId
+        const shopRegName = NODE_MAP[activeShop.regionId]?.name ?? activeShop.regionId
+        const canTradeHere = isAtCurrentRegion && sectEligible
+
+        return (
+          <div className="p-2.5 rounded-md bg-[#f5e7cb] border-2 border-[#b58742] space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <div className="text-xs font-bold song-serif text-[#781710]">
+                  ⚖ {activeShop.title}
+                </div>
+                <div className="text-[10px] text-[#6b5235]">{activeShop.subtitle}</div>
+              </div>
+              <span className="text-[11px] font-mono font-bold text-[#6b4614] shrink-0">
+                现银 {silver} 两
+              </span>
+            </div>
+
+            {!isAtCurrentRegion && (
+              <div className="text-[11px] text-[#8f1d14] bg-[#efe4cc] px-2 py-1 rounded border border-[#d6b38b]">
+                🔒 须亲临【{shopRegName}】方可在此采办交易
+              </div>
+            )}
+            {isAtCurrentRegion && !sectEligible && reqSectName && (
+              <div className="text-[11px] text-[#8f1d14] bg-[#efe4cc] px-2 py-1 rounded border border-[#d6b38b]">
+                🔒 内部甲仗重地，仅限【{reqSectName}】弟子/成员购置
+              </div>
+            )}
+
+            <div className="space-y-1.5 max-h-60 overflow-y-auto scroll-thin pr-0.5">
+              {activeShop.items.map((entry) => {
+                const def = ITEM_DB_MAP[entry.itemId]
+                if (!def) return null
+                const ownedQty =
+                  inventory.find((st) => st.itemId === entry.itemId)?.qty ?? 0
+                const affordable = silver >= entry.price
+                const btnEnabled = canTradeHere && affordable
+                const mnt = def.mountMeta
+                const bonusParts: string[] = []
+                if (mnt) {
+                  bonusParts.push(`脚力${mnt.baseSpeed}`)
+                  bonusParts.push(`${mnt.terrainTrait}+${mnt.terrainBonusPct}%`)
+                } else if (def.equipBonus) {
+                  if (def.equipBonus.attack) bonusParts.push(`攻+${def.equipBonus.attack}`)
+                  if (def.equipBonus.defense) bonusParts.push(`防+${def.equipBonus.defense}`)
+                  if (def.equipBonus.maxHp) bonusParts.push(`血+${def.equipBonus.maxHp}`)
+                  if (def.equipBonus.maxMp) bonusParts.push(`内+${def.equipBonus.maxMp}`)
+                  if (def.equipBonus.agility) bonusParts.push(`身+${def.equipBonus.agility}`)
+                  if (def.equipBonus.res) bonusParts.push(`抗+${def.equipBonus.res}`)
+                }
+                return (
+                  <div
+                    key={entry.itemId}
+                    className="flex items-center justify-between gap-2 p-2 rounded bg-[#faf3e3] border border-[#cbb693]"
+                  >
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="font-bold song-serif text-xs text-[#23180f]">
+                          {def.name}
+                        </span>
+                        {ownedQty > 0 && (
+                          <span className="text-[9px] px-1 py-0.2 rounded bg-[#1f4d3b]/15 text-[#1f4d3b] font-mono">
+                            已藏×{ownedQty}
+                          </span>
+                        )}
+                      </div>
+                      <div className="text-[10px] text-[#6b5235] truncate">
+                        {entry.note ?? def.subType}
+                        {bonusParts.length > 0 ? ` · ${bonusParts.join(' ')}` : ''}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      disabled={!btnEnabled}
+                      onClick={() => buySpotShopItem(activeShop.spotId, entry.itemId)}
+                      className={`px-2.5 py-1 rounded text-[11px] font-bold song-serif shrink-0 transition ${
+                        btnEnabled
+                          ? 'bg-[#781710] hover:bg-[#931e15] text-[#fff8ee] cursor-pointer shadow-sm'
+                          : 'bg-[#c9bba3] text-[#7a6d5a] cursor-not-allowed'
+                      }`}
+                    >
+                      {entry.price} 两购置
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )
+      })()}
 
       {actionFeedback && (
         <div
