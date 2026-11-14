@@ -176,7 +176,19 @@ export function LoadoutTab({
   const activeEquippedArt = activeEquippedArtId ? MARTIAL_ART_DB_MAP[activeEquippedArtId] : null
   const activeEquippedArtMastery = activeEquippedArtId ? learnedMap.get(activeEquippedArtId) : null
 
-  const compatibleLearnedArts = learnedArts
+  const sortedLearnedArts = useMemo(() => {
+    return [...learnedArts].sort((a, b) => {
+      const artA = MARTIAL_ART_DB_MAP[a.artId]
+      const artB = MARTIAL_ART_DB_MAP[b.artId]
+      const rankA = artA ? getArtTierRank(artA) : 0
+      const rankB = artB ? getArtTierRank(artB) : 0
+      if (rankB !== rankA) return rankB - rankA
+      if (b.level !== a.level) return b.level - a.level
+      return (artA?.name ?? a.artId).localeCompare(artB?.name ?? b.artId, 'zh-Hans-CN')
+    })
+  }, [learnedArts])
+
+  const compatibleLearnedArts = sortedLearnedArts
     .map((entry) => ({
       ...entry,
       art: MARTIAL_ART_DB_MAP[entry.artId],
@@ -187,7 +199,7 @@ export function LoadoutTab({
     )
 
   const inspectedEntry =
-    learnedArts.find((x) => x.artId === inspectedLearnedArtId) ?? learnedArts[0]
+    sortedLearnedArts.find((x) => x.artId === inspectedLearnedArtId) ?? sortedLearnedArts[0]
   const inspectedArt = inspectedEntry ? MARTIAL_ART_DB_MAP[inspectedEntry.artId] : null
 
   const renderVisualSlotCard = (meta: (typeof EQUIPMENT_SLOT_METAS)[number]) => {
@@ -709,7 +721,7 @@ export function LoadoutTab({
                 </button>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-52 overflow-y-auto scroll-thin pr-1">
-                {learnedArts.map((entry) => {
+                {sortedLearnedArts.map((entry) => {
                   const art = MARTIAL_ART_DB_MAP[entry.artId]
                   if (!art) return null
                   const isInspected = inspectedEntry?.artId === entry.artId
