@@ -19,7 +19,7 @@ function resolveCutoutPortraitUrl(portraitUrl: string | null | undefined): {
   if (portraitUrl.includes('/assets/characters/cutouts/')) {
     return { targetUrl: portraitUrl, isCutout: true }
   }
-  const match = /^\/assets\/characters\/(fullbody|templates)\/([^/.]+)\.[a-z0-9]+$/i.exec(
+  const match = /^\/assets\/characters\/(fullbody|templates|protagonists)\/([^/.]+)\.[a-z0-9]+$/i.exec(
     portraitUrl,
   )
   if (match) {

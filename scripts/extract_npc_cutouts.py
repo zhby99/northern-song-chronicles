@@ -73,7 +73,7 @@ def compute_height_pct(im: Image.Image) -> float:
 
 def write_cutout_metrics() -> int:
     metrics: dict[str, float] = {}
-    for sub in ("fullbody", "templates"):
+    for sub in ("fullbody", "templates", "protagonists"):
         sub_dir = OUT_DIR / sub
         if not sub_dir.exists():
             continue
@@ -162,13 +162,13 @@ def main() -> int:
 
     force = "--force" in sys.argv
     tasks: list[tuple[str, str]] = []
-    for sub in ("fullbody", "templates"):
+    for sub in ("fullbody", "templates", "protagonists"):
         src_dir = CHARS_DIR / sub
         dst_dir = OUT_DIR / sub
         if not src_dir.exists():
             continue
         for p in sorted(src_dir.glob("*.jpg")):
-            if sub == "templates" and not p.stem.endswith("_fb"):
+            if sub in ("templates", "protagonists") and not p.stem.endswith("_fb"):
                 continue
             dst = dst_dir / f"{p.stem}.webp"
             if force or not dst.exists():
