@@ -13,6 +13,7 @@ import {
 } from '../../data/itemsDb'
 import { MARTIAL_ART_SLOT_METAS } from '../../data/playerMartialArts'
 import { useGameStore } from '../../store/useGameStore'
+import { INITIAL_NPC_FAVOR, getNpcFavorProfile } from '../../utils/npcFavor'
 import type { TenArtKey } from '../../types/game'
 import { deriveNpcEffectiveStats } from '../../utils/heroStats'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
@@ -42,6 +43,7 @@ export function NpcInteractionOverlay() {
   const interactNpc = useGameStore((s) => s.interactNpc)
   const giftNpcItem = useGameStore((s) => s.giftNpcItem)
   const inventory = useGameStore((s) => s.inventory)
+  const npcFavorMap = useGameStore((s) => s.npcFavor)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
 
   const [subPanel, setSubPanel] = useState<SubPanelMode>('none')
@@ -148,30 +150,47 @@ export function NpcInteractionOverlay() {
 
       {/* 子面板：人物面板（各个维度数值、武学情况、披挂情况） */}
       {subPanel === 'panel' && (
-        <div className="relative z-20 w-[min(92vw,680px)] lg:self-end lg:mr-10 max-h-[60vh] mb-3 rounded-xl bg-[#f7eedc]/97 border-2 border-[#8c6e46] shadow-2xl overflow-hidden flex flex-col">
-          <div className="px-4 py-2.5 bg-[#3d2814] text-[#f5dfb5] flex items-center justify-between border-b border-[#8c6e46]">
-            <div className="flex items-center gap-2.5">
-              <span className="text-base font-bold song-serif">{npc.name}</span>
-              <span className="text-xs px-2 py-0.5 rounded bg-[#6b4823] text-[#fde8c8]">
+        <div className="relative z-20 w-[min(94vw,1160px)] lg:self-end lg:mr-8 max-h-[82vh] mb-3 rounded-xl bg-[#f7eedc]/97 border-2 border-[#8c6e46] shadow-2xl overflow-hidden flex flex-col">
+          <div className="px-5 py-3 bg-[#3d2814] text-[#f5dfb5] flex items-center justify-between border-b border-[#8c6e46]">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-xl font-bold song-serif">{npc.name}</span>
+              <span className="text-sm px-2.5 py-0.5 rounded bg-[#6b4823] text-[#fde8c8]">
                 {roleName}
               </span>
-              <span className="text-xs px-2 py-0.5 rounded bg-[#781710] text-[#fff3df]">
+              <span className="text-sm px-2.5 py-0.5 rounded bg-[#781710] text-[#fff3df]">
                 {realmName}
               </span>
-              <span className="text-xs text-[#d6be96]">{factionName}</span>
+              <span className="text-sm text-[#d6be96]">{factionName}</span>
+              <span className="text-sm px-2.5 py-0.5 rounded bg-[#1f4d3b] text-[#e7f7ef] font-mono">
+                好感度 {npcFavorMap[npc.id ?? npc.name] ?? INITIAL_NPC_FAVOR}/100
+              </span>
             </div>
             <button
               type="button"
               onClick={() => setSubPanel('none')}
-              className="text-xs px-2 py-0.5 rounded bg-[#5c3d1e] hover:bg-[#785129] text-[#f5dfb5] cursor-pointer"
+              className="text-sm px-3 py-1 rounded bg-[#5c3d1e] hover:bg-[#785129] text-[#f5dfb5] cursor-pointer"
             >
               收起
             </button>
           </div>
 
-          <div className="p-4 overflow-y-auto scroll-thin space-y-4 text-xs text-[#2d1e10]">
+          <div className="p-5 overflow-y-auto scroll-thin space-y-4 text-sm text-[#2d1e10]">
+            {(() => {
+              const favorProf = getNpcFavorProfile(npc)
+              return (
+                <div className="flex flex-wrap items-center gap-2.5 px-3.5 py-2 rounded bg-[#efe4cc] border border-[#cbb693]">
+                  <span className="font-bold text-[#5c3d1e]">好感偏好：</span>
+                  <span className="px-2 py-0.5 rounded bg-[#e2f2e8] text-[#1b5132] border border-[#9fd0b4] text-xs font-medium">
+                    喜好（2.0×）：{favorProf.likes.join('、')}
+                  </span>
+                  <span className="px-2 py-0.5 rounded bg-[#f8e3e1] text-[#8f1d14] border border-[#dfaba6] text-xs font-medium">
+                    厌恶（0.2×）：{favorProf.dislikes.join('、')}
+                  </span>
+                </div>
+              )
+            })()}
             {bio && (
-              <p className="px-3 py-2 rounded bg-[#efe4cc] border border-[#cbb693] text-[#4a3219] leading-relaxed">
+              <p className="px-3.5 py-2.5 rounded bg-[#efe4cc] border border-[#cbb693] text-[#4a3219] leading-relaxed">
                 {bio}
               </p>
             )}

@@ -398,14 +398,14 @@ export function ContextInspectorCard() {
   return (
     <div
       id="floating-context-card"
-      className="absolute bottom-3.5 right-3.5 z-20 w-80 sm:w-[356px] max-h-[72vh] overflow-y-auto scroll-thin bg-[#f8f1e1] text-[#23180f] border-2 border-[#6e5233] rounded-md p-3.5 shadow-2xl space-y-2.5 text-xs select-none"
+      className="absolute bottom-3.5 right-3.5 z-20 w-[min(92vw,700px)] max-h-[84vh] overflow-y-auto scroll-thin bg-[#f8f1e1] text-[#23180f] border-2 border-[#6e5233] rounded-lg p-5 shadow-2xl space-y-3.5 text-sm select-none"
     >
-      <div className="flex items-start justify-between gap-2 border-b border-[#cbb693] pb-2">
+      <div className="flex items-start justify-between gap-2 border-b border-[#cbb693] pb-3">
         <div>
-          <div className="text-[10px] text-[#6b5235] font-semibold">
+          <div className="text-xs text-[#6b5235] font-semibold">
             {tierLabel} · {targetItem.tag || '建筑互动'}
           </div>
-          <div className="song-serif font-bold text-sm text-[#23180f] mt-0.5">
+          <div className="song-serif font-bold text-lg text-[#23180f] mt-0.5">
             {targetItem.isSpecial ? '★ ' : ''}
             {targetItem.name}
           </div>
@@ -413,7 +413,7 @@ export function ContextInspectorCard() {
         <button
           type="button"
           onClick={clearFloatingSelection}
-          className="px-1.5 py-0.5 rounded hover:bg-[#e5d7bc] text-[#5e472d] font-bold cursor-pointer"
+          className="px-2.5 py-1 rounded hover:bg-[#e5d7bc] text-[#5e472d] text-base font-bold cursor-pointer"
         >
           ✕
         </button>

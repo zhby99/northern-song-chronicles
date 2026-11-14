@@ -73,6 +73,11 @@ import {
   listAllSaveEnvelopes,
   putSaveEnvelope,
 } from '../utils/saveManager'
+import {
+  INITIAL_NPC_FAVOR,
+  computeGiftFavorGain,
+  getNpcFavorProfile,
+} from '../utils/npcFavor'
 
 const LABEL_KEYS: LabelToggleKey[] = ['cityLabels', 'sectPassLabels', 'masters', 'distance']
 
@@ -324,6 +329,7 @@ export interface GameStoreState {
 
   toggleLogDrawer: () => void
   openMenu: (tab?: MenuTabKey) => void
+  npcFavor: Record<string, number>
   openNpcInteraction: (npc: NodeNpc) => void
   closeNpcInteraction: () => void
   giftNpcItem: (npc: NodeNpc, itemId: string) => void
@@ -2059,6 +2065,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   toggleLogDrawer: () => set((s) => ({ logDrawerOpen: !s.logDrawerOpen })),
 
+  npcFavor: {},
+
   openNpcInteraction: (npc) => {
     set({
       activeNpcInteraction: npc,
@@ -2079,11 +2087,28 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const nextInventory = s.inventory
       .map((st) => (st.itemId === itemId ? { ...st, qty: st.qty - 1 } : st))
       .filter((st) => st.qty > 0)
+
+    const npcKey = npc.id ?? npc.name
+    const currentFavor = s.npcFavor[npcKey] ?? INITIAL_NPC_FAVOR
+    const profile = getNpcFavorProfile(npc)
+    const res = computeGiftFavorGain(currentFavor, item, profile)
+
+    const reactionText =
+      res.reaction === 'liked'
+        ? `${npc.name}见是心爱之物「${res.giftCategory}」，大喜过望（好感度 +${res.favorGain}，2.0×）。`
+        : res.reaction === 'disliked'
+          ? `${npc.name}对「${res.giftCategory}」素来厌恶，只得勉强收下（好感度 +${res.favorGain}，0.2×）。`
+          : `${npc.name}欣然收下，言谈间亲近了几分（好感度 +${res.favorGain}）。`
+
     set({
       inventory: nextInventory,
+      npcFavor: {
+        ...s.npcFavor,
+        [npcKey]: res.nextFavor,
+      },
       actionFeedback: {
-        text: `向【${npc.name}】赠予「${item.name}」，${npc.name}欣然收下，言谈间亲近了几分。`,
-        tone: 'success',
+        text: `向【${npc.name}】赠予「${item.name}」（价值${item.value}两），${reactionText} 当前好感度：${res.nextFavor}/100。`,
+        tone: res.reaction === 'disliked' ? 'warn' : 'success',
       },
     })
   },
