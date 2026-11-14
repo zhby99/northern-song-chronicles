@@ -2554,13 +2554,20 @@ def populate_npc_loadouts(
         used_ids.update(move_ids)
 
         if neigong_id is None:
+            def _ng_allowed(a: dict[str, Any]) -> bool:
+                if realm_rank >= 13:
+                    return a["tier"] == "凡品" or (a["tier"] == "良品" and a.get("subTier") == "下品")
+                if realm_rank >= 10:
+                    return a["tier"] in ("凡品", "良品") or (a["tier"] == "地阶" and a.get("subTier") == "下品")
+                return True
+
             picked = pick_from_pool(
-                [a for a in sect_arts if a["category"] == "内功"],
+                [a for a in sect_arts if a["category"] == "内功" and _ng_allowed(a)],
                 pref_tiers,
                 used_ids,
                 npc_num,
             ) or pick_from_pool(
-                [a for a in generic_arts if a["category"] == "内功"],
+                [a for a in generic_arts if a["category"] == "内功" and _ng_allowed(a)],
                 pref_tiers,
                 used_ids,
                 npc_num,
@@ -2703,15 +2710,77 @@ def populate_npc_loadouts(
                 calc_hp += b.get("maxHp", 0)
                 calc_mp += b.get("maxMp", 0)
 
+        # 3.5) 心法不契合微调（替换后再由下方 1~10 重自动寻优）
+        first_class_ng_upgrades = {
+            "NPC-0141": "MA-058",  # 白玉堂 -> 混元功(地阶中品)
+            "NPC-0186": "MA-058",  # 王元霸 -> 混元功(地阶中品)
+            "NPC-0185": "MA-102",  # 赵括苍 -> 大内禁军玄甲劲(地阶下品)
+            "NPC-0031": "MA-102",  # 狄青 -> 大内禁军玄甲劲(地阶下品)
+            "NPC-0145": "MA-058",  # 邓百川 -> 混元功(地阶中品)
+            "NPC-0172": "MA-058",  # 薛慕华 -> 混元功(地阶中品)
+            "NPC-0179": "MA-102",  # 赵烈风 -> 大内禁军玄甲劲(地阶下品)
+            "NPC-0072": "MA-058",  # 耶律重元 -> 混元功(地阶中品)
+            "NPC-0193": "MA-041",  # 玄净 -> 罗汉伏虎功(良品上品)
+            "NPC-0094": "MA-058",  # 侬智高 -> 混元功(地阶中品)
+            "NPC-0178": "MA-102",  # 韩破虏 -> 大内禁军玄甲劲(地阶下品)
+            "NPC-0081": "MA-058",  # 完颜乌古乃 -> 混元功(地阶中品)
+            "NPC-0190": "MA-058",  # 乌老大 -> 混元功(地阶中品)
+            # 二流/三流/不入流心法不契合替换
+            "NPC-0275": "MA-102",  # 卢铁山 -> 大内禁军玄甲劲(地阶下品)
+            "NPC-0296": "MA-058",  # 成松青 -> 混元功(地阶中品)
+            "NPC-0252": "MA-102",  # 杨排风 -> 大内禁军玄甲劲(地阶下品)
+            "NPC-0833": "MA-199", "NPC-0822": "MA-199", "NPC-0790": "MA-199",
+            "NPC-0829": "MA-199", "NPC-0001": "MA-199", "NPC-0847": "MA-199",
+            "NPC-0778": "MA-199", "NPC-0748": "MA-199", "NPC-0824": "MA-199",
+            "NPC-0799": "MA-199", "NPC-0741": "MA-199", "NPC-0796": "MA-199",
+            "NPC-0898": "MA-199", "NPC-0018": "MA-199", "NPC-0894": "MA-199",
+            "NPC-0662": "MA-199", "NPC-0936": "MA-199", "NPC-0690": "MA-199",
+            "NPC-0958": "MA-199", "NPC-0906": "MA-199",
+        }
+        if npc["id"] in first_class_ng_upgrades:
+            new_ng = first_class_ng_upgrades[npc["id"]]
+            old_ng = neigong_id
+            neigong_id = new_ng
+            equipped_arts["neigong"] = new_ng
+            if new_ng not in lv_map:
+                learned_arts.append({"artId": new_ng, "level": 1, "exp": 0})
+                lv_map[new_ng] = 1
+            if old_ng and old_ng in art_by_id:
+                old_st = art_by_id[old_ng]["levels"][lv_map.get(old_ng, 1) - 1]
+                new_st = art_by_id[new_ng]["levels"][lv_map.get(new_ng, 1) - 1]
+                calc_hp = calc_hp - old_st.get("maxHp", 0) + new_st.get("maxHp", 0)
+                calc_mp = calc_mp - old_st.get("maxMp", 0) + new_st.get("maxMp", 0)
+
         preset_hp = npc.get("stats", {}).get("hp", 0)
         preset_mp = npc.get("stats", {}).get("mp", 0)
-        avg_excess = ((calc_hp - preset_hp) + (calc_mp - preset_mp)) / 2.0
-        drop_lv = 2 if avg_excess >= 2000 else (1 if avg_excess >= 1000 else 0)
-        if drop_lv > 0 and neigong_id:
+        if realm_rank >= 7 and neigong_id and neigong_id in art_by_id:
+            ng_lv_cur = lv_map.get(neigong_id, 1)
+            ng_st_cur = art_by_id[neigong_id]["levels"][ng_lv_cur - 1]
+            base_hp_no_ng = calc_hp - ng_st_cur.get("maxHp", 0)
+            base_mp_no_ng = calc_mp - ng_st_cur.get("maxMp", 0)
+            best_lv = ng_lv_cur
+            best_diff = float("inf")
+            for cand_lv in range(1, 11):
+                cand_st = art_by_id[neigong_id]["levels"][cand_lv - 1]
+                d = abs(
+                    ((base_hp_no_ng + cand_st.get("maxHp", 0)) - preset_hp)
+                    + ((base_mp_no_ng + cand_st.get("maxMp", 0)) - preset_mp)
+                ) / 2.0
+                if d < best_diff:
+                    best_diff = d
+                    best_lv = cand_lv
             for e in learned_arts:
                 if e["artId"] == neigong_id:
-                    e["level"] = max(1, e["level"] - drop_lv)
+                    e["level"] = best_lv
                     break
+        else:
+            avg_excess = ((calc_hp - preset_hp) + (calc_mp - preset_mp)) / 2.0
+            drop_lv = 2 if avg_excess >= 2000 else (1 if avg_excess >= 1000 else 0)
+            if drop_lv > 0 and neigong_id:
+                for e in learned_arts:
+                    if e["artId"] == neigong_id:
+                        e["level"] = max(1, e["level"] - drop_lv)
+                        break
 
         # 4) 指定宗师内功微调
         if npc["id"] == "NPC-0105":  # 萧远山：少林九阳功 10 重
@@ -2724,7 +2793,7 @@ def populate_npc_loadouts(
                     break
             if not found:
                 learned_arts.append({"artId": "MA-038", "level": 10, "exp": 0})
-        elif npc["id"] in ("NPC-0108", "NPC-0119", "NPC-0116", "NPC-0117", "NPC-0125", "NPC-0132") and neigong_id:
+        elif npc["id"] in ("NPC-0108", "NPC-0119", "NPC-0117", "NPC-0125", "NPC-0132", "NPC-0128") and neigong_id:
             for e in learned_arts:
                 if e["artId"] == neigong_id:
                     e["level"] = min(10, e["level"] + 1)
