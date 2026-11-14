@@ -69,7 +69,7 @@ import type {
   ViewMode,
   WildernessCamp,
 } from '../types/game'
-import type { TenArtKey } from '../types/game'
+import type { CultivationSpeedStep, TenArtKey } from '../types/game'
 import {
   computeDailyArtExpGain,
   getArtLevelFromExp,
@@ -507,6 +507,8 @@ export interface GameStoreState {
     envMultiplier: number,
     dailySilverCost: number,
   ) => void
+  cultivationSpeedStep: CultivationSpeedStep
+  setCultivationSpeedStep: (step: CultivationSpeedStep) => void
 }
 
 function applyDayProgressionSectHooks(params: {
@@ -2280,24 +2282,31 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     const session = s.cultivationSession
     if (!session || s.gameOver || s.activeCombat || s.activeStoryScene) return
+    const speedStep = s.cultivationSpeedStep ?? 1
 
     if (session.kind === 'ten_art' && session.tenArtKey) {
       const artKey = session.tenArtKey
-      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+      const remainTarget = Math.max(1, session.targetShichens - session.shichensElapsed)
+      const deltaShichen = Math.min(speedStep, remainTarget)
+      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, deltaShichen)
       const nextDayCount = clock.dayCount
       const nextShichenIdx = clock.shichenIdx
-      const nextShichensElapsed = session.shichensElapsed + 1
+      const nextShichensElapsed = session.shichensElapsed + deltaShichen
 
       let nextSilver = s.silver
       let nextSilverSpent = session.silverSpent
       let stopNote: string | null = null
 
-      if (clock.daysAdded > 0 && session.dailySilverCost > 0) {
-        if (nextSilver < session.dailySilverCost) {
+      const prevFullDays = Math.floor(session.shichensElapsed / 12)
+      const nextFullDays = Math.floor(nextShichensElapsed / 12)
+      const silverDaysToPay = Math.max(0, nextFullDays - prevFullDays)
+      if (silverDaysToPay > 0 && session.dailySilverCost > 0) {
+        const neededSilver = session.dailySilverCost * silverDaysToPay
+        if (nextSilver < neededSilver) {
           stopNote = '随身银两不足，修行提前结束'
         } else {
-          nextSilver -= session.dailySilverCost
-          nextSilverSpent += session.dailySilverCost
+          nextSilver -= neededSilver
+          nextSilverSpent += neededSilver
         }
       }
 
@@ -2455,10 +2464,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
 
     if (session.kind === 'scripture') {
-      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 12)
+      const remainTarget = Math.max(1, session.targetShichens - session.shichensElapsed)
+      const deltaShichen = Math.min(speedStep, remainTarget)
+      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, deltaShichen)
       const nextDayCount = clock.dayCount
       const nextShichenIdx = clock.shichenIdx
-      const nextShichensElapsed = session.shichensElapsed + 12
+      const nextShichensElapsed = session.shichensElapsed + deltaShichen
 
       let nextSectState = s.sectState
       let nextLogs = s.logs
@@ -2665,30 +2676,43 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
+    const remainTarget =
+      session.mode === 'until_breakthrough'
+        ? speedStep
+        : Math.max(1, session.targetShichens - session.shichensElapsed)
+    const deltaShichen = Math.min(speedStep, remainTarget)
+
     let nextSilver = s.silver
     let nextFood = s.food
     let nextSilverSpent = session.silverSpent
     let nextFoodSpent = session.foodSpent
 
-    if (session.shichensElapsed % 12 === 0) {
-      if (session.dailySilverCost > 0 && nextSilver < session.dailySilverCost) {
+    const nextShichensElapsedPreview = session.shichensElapsed + deltaShichen
+    const prevPaidDays = session.shichensElapsed === 0 ? 0 : Math.ceil(session.shichensElapsed / 12)
+    const nextPaidDays = Math.ceil(nextShichensElapsedPreview / 12)
+    const daysToPay = Math.max(0, nextPaidDays - prevPaidDays)
+
+    if (daysToPay > 0) {
+      const silverNeeded = session.dailySilverCost * daysToPay
+      const foodNeeded = session.dailyFoodCost * daysToPay
+      if (silverNeeded > 0 && nextSilver < silverNeeded) {
         finalize('纹银不足支付后续宿费，提前收功出关')
         return
       }
-      if (session.dailyFoodCost > 0 && nextFood < session.dailyFoodCost) {
+      if (foodNeeded > 0 && nextFood < foodNeeded) {
         finalize('行囊干粮耗尽，提前收功拔营')
         return
       }
-      nextSilver -= session.dailySilverCost
-      nextFood -= session.dailyFoodCost
-      nextSilverSpent += session.dailySilverCost
-      nextFoodSpent += session.dailyFoodCost
+      nextSilver -= silverNeeded
+      nextFood -= foodNeeded
+      nextSilverSpent += silverNeeded
+      nextFoodSpent += foodNeeded
     }
 
-    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, deltaShichen)
     const nextDayCount = clock.dayCount
     const nextShichenIdx = clock.shichenIdx
-    const nextShichensElapsed = session.shichensElapsed + 1
+    const nextShichensElapsed = session.shichensElapsed + deltaShichen
 
     const targetFloor = Math.round((session.dailyGain * nextShichensElapsed) / 12)
     const deltaExp = Math.max(0, targetFloor - session.settledExpFloor)
@@ -6542,4 +6566,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     return { ok: true, message: fullMessage }
   },
+
+  cultivationSpeedStep: 1,
+  setCultivationSpeedStep: (step) => set({ cultivationSpeedStep: step }),
 }))

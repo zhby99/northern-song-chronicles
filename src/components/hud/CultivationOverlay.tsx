@@ -1,17 +1,27 @@
 import { MARTIAL_ART_DB_MAP } from '../../data/gameDb'
 import { getArtExpRequired } from '../../data/playerMartialArts'
 import { useGameStore } from '../../store/useGameStore'
+import type { CultivationSpeedStep } from '../../types/game'
 import {
   getArtStageLabel,
   getExpForArtLevel,
   MAX_ART_EXP,
 } from '../../utils/artsProgression'
 
+const SPEED_OPTIONS: Array<{ step: CultivationSpeedStep; label: string; desc: string }> = [
+  { step: 1, label: '1x', desc: '0.1秒/时辰' },
+  { step: 3, label: '3x', desc: '0.1秒/3时辰' },
+  { step: 6, label: '6x', desc: '0.1秒/半日' },
+  { step: 12, label: '12x', desc: '0.1秒/1日' },
+]
+
 export function CultivationOverlay() {
   const session = useGameStore((s) => s.cultivationSession)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const baseStats = useGameStore((s) => s.baseStats)
   const artExps = useGameStore((s) => s.artExps)
+  const speedStep = useGameStore((s) => s.cultivationSpeedStep)
+  const setSpeedStep = useGameStore((s) => s.setCultivationSpeedStep)
   const stopCultivationEarly = useGameStore((s) => s.stopCultivationEarly)
 
   if (!session) return null
@@ -166,20 +176,45 @@ export function CultivationOverlay() {
             </div>
           </div>
 
+          {/* 修行/闭关速度调节 */}
+          <div className="mt-3 flex w-full items-center justify-between gap-2 rounded-lg border border-[#6e5233]/50 bg-[#181009]/60 px-3 py-2 text-[11px]">
+            <span className="text-[#c89d54] shrink-0">推演速度</span>
+            <div className="flex flex-wrap items-center justify-end gap-1">
+              {SPEED_OPTIONS.map((opt) => {
+                const active = speedStep === opt.step
+                return (
+                  <button
+                    key={opt.step}
+                    type="button"
+                    onClick={() => setSpeedStep(opt.step)}
+                    className={`cursor-pointer rounded px-2 py-0.5 text-[10px] font-semibold transition ${
+                      active
+                        ? 'border border-[#e6b86a] bg-[#8c541f] text-[#fff6e0] shadow-sm'
+                        : 'border border-[#6e5233]/60 bg-[#2a1d12] text-[#c7b08a] hover:bg-[#3a2819]'
+                    }`}
+                    title={opt.desc}
+                  >
+                    {opt.desc}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
           <button
             type="button"
             onClick={stopCultivationEarly}
-            className="mt-5 cursor-pointer rounded-lg border border-[#c89d54]/80 bg-[#5e2318] px-6 py-2 text-xs font-semibold tracking-wider text-[#fde6b8] shadow transition hover:bg-[#7c2d1e] active:scale-[0.98]"
+            className="mt-4 cursor-pointer rounded-lg border border-[#c89d54]/80 bg-[#5e2318] px-6 py-2 text-xs font-semibold tracking-wider text-[#fde6b8] shadow transition hover:bg-[#7c2d1e] active:scale-[0.98]"
           >
             {isTenArt ? '结束修行 (ESC)' : '收功出关 (ESC)'}
           </button>
 
           <p className="mt-2.5 text-[11px] text-[#a98f68]">
-            {isScripture
-              ? '每 0.2 秒走过 1 天（1 秒过 5 天），按 '
-              : isTenArt
-                ? '每 0.1 秒走过一个时辰（1.2 秒一日），按 '
-                : '每 0.125 秒走过一个时辰（1.5 秒一日），按 '}
+            当前{' '}
+            <span className="text-[#fde6b8] font-medium">
+              {SPEED_OPTIONS.find((o) => o.step === speedStep)?.desc ?? '0.1秒/时辰'}
+            </span>
+            ，按{' '}
             <kbd className="rounded border border-[#6e5233] bg-[#2a1d12] px-1.5 py-0.5 text-[10px] text-[#fde6b8]">
               ESC
             </kbd>

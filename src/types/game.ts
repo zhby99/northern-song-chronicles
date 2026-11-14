@@ -509,6 +509,7 @@ export type SaveSlotId =
 
 export type CultivationVenueKind = 'sect_grounds' | 'inn' | 'wilderness_camp'
 export type CultivationDurationMode = 1 | 3 | 7 | 10 | 30 | 'until_breakthrough'
+export type CultivationSpeedStep = 1 | 3 | 6 | 12
 
 export interface CultivationVenueStatus {
   venue: CultivationVenueKind | null

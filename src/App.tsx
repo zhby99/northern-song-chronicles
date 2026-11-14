@@ -30,9 +30,6 @@ export function App() {
   const activeRegionId = useGameStore((s) => s.activeRegionId)
   const isTraveling = useGameStore((s) => s.traveling !== null)
   const isCultivating = useGameStore((s) => s.cultivationSession !== null)
-  const cultivationKind = useGameStore(
-    (s) => s.cultivationSession?.kind ?? 'martial_art',
-  )
   const menuOpen = useGameStore((s) => s.menuOpen)
   const activeMenuTab = useGameStore((s) => s.activeMenuTab)
   const compendiumOpen = useGameStore((s) => s.compendiumOpen)
@@ -137,20 +134,14 @@ export function App() {
     return () => window.clearInterval(timer)
   }, [isTraveling, gameOver, activeCombat, activeStoryScene, stepTravelTick])
 
-  // 闭关吐纳时钟：武学每 0.125s 走 1 时辰；十艺修行每 0.1s 走 1 时辰；藏经阁研读每 0.2s 走 1 天
+  // 闭关吐纳与十艺修行时钟：每 0.1s 走一步（可于弹窗内调节 1 时辰 ~ 1 日/0.1s）
   useEffect(() => {
     if (!isCultivating || gameOver || activeCombat || activeStoryScene) return
-    const tickMs =
-      cultivationKind === 'scripture'
-        ? 200
-        : cultivationKind === 'ten_art'
-          ? 100
-          : 125
     const timer = window.setInterval(() => {
       stepCultivationTick()
-    }, tickMs)
+    }, 100)
     return () => window.clearInterval(timer)
-  }, [isCultivating, cultivationKind, gameOver, activeCombat, activeStoryScene, stepCultivationTick])
+  }, [isCultivating, gameOver, activeCombat, activeStoryScene, stepCultivationTick])
 
   return (
     <main
