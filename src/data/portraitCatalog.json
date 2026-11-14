@@ -3987,6 +3987,46 @@
   ],
   "templates": [
     {
+      "id": "tpl_baicao_female_av",
+      "url": "/assets/characters/templates/tpl_baicao_female_av.jpg",
+      "bytes": 83010
+    },
+    {
+      "id": "tpl_baicao_female_fb",
+      "url": "/assets/characters/templates/tpl_baicao_female_fb.jpg",
+      "bytes": 266934
+    },
+    {
+      "id": "tpl_baicao_male_av",
+      "url": "/assets/characters/templates/tpl_baicao_male_av.jpg",
+      "bytes": 77305
+    },
+    {
+      "id": "tpl_baicao_male_fb",
+      "url": "/assets/characters/templates/tpl_baicao_male_fb.jpg",
+      "bytes": 266112
+    },
+    {
+      "id": "tpl_baji_female_av",
+      "url": "/assets/characters/templates/tpl_baji_female_av.jpg",
+      "bytes": 79732
+    },
+    {
+      "id": "tpl_baji_female_fb",
+      "url": "/assets/characters/templates/tpl_baji_female_fb.jpg",
+      "bytes": 192684
+    },
+    {
+      "id": "tpl_baji_male_av",
+      "url": "/assets/characters/templates/tpl_baji_male_av.jpg",
+      "bytes": 90550
+    },
+    {
+      "id": "tpl_baji_male_fb",
+      "url": "/assets/characters/templates/tpl_baji_male_fb.jpg",
+      "bytes": 188565
+    },
+    {
       "id": "tpl_caobang_av",
       "url": "/assets/characters/templates/tpl_caobang_av.jpg",
       "bytes": 86325
@@ -3997,9 +4037,69 @@
       "bytes": 249015
     },
     {
+      "id": "tpl_caobang_female_av",
+      "url": "/assets/characters/templates/tpl_caobang_female_av.jpg",
+      "bytes": 79567
+    },
+    {
+      "id": "tpl_caobang_female_fb",
+      "url": "/assets/characters/templates/tpl_caobang_female_fb.jpg",
+      "bytes": 245397
+    },
+    {
+      "id": "tpl_changshan_female_av",
+      "url": "/assets/characters/templates/tpl_changshan_female_av.jpg",
+      "bytes": 85938
+    },
+    {
+      "id": "tpl_changshan_female_fb",
+      "url": "/assets/characters/templates/tpl_changshan_female_fb.jpg",
+      "bytes": 201496
+    },
+    {
+      "id": "tpl_changshan_male_av",
+      "url": "/assets/characters/templates/tpl_changshan_male_av.jpg",
+      "bytes": 85190
+    },
+    {
+      "id": "tpl_changshan_male_fb",
+      "url": "/assets/characters/templates/tpl_changshan_male_fb.jpg",
+      "bytes": 247409
+    },
+    {
+      "id": "tpl_chaquan_female_av",
+      "url": "/assets/characters/templates/tpl_chaquan_female_av.jpg",
+      "bytes": 83223
+    },
+    {
+      "id": "tpl_chaquan_female_fb",
+      "url": "/assets/characters/templates/tpl_chaquan_female_fb.jpg",
+      "bytes": 229289
+    },
+    {
+      "id": "tpl_chaquan_male_av",
+      "url": "/assets/characters/templates/tpl_chaquan_male_av.jpg",
+      "bytes": 85722
+    },
+    {
+      "id": "tpl_chaquan_male_fb",
+      "url": "/assets/characters/templates/tpl_chaquan_male_fb.jpg",
+      "bytes": 222140
+    },
+    {
       "id": "tpl_dali_prince_fb",
       "url": "/assets/characters/templates/tpl_dali_prince_fb.jpg",
       "bytes": 932812
+    },
+    {
+      "id": "tpl_dali_royal_male_av",
+      "url": "/assets/characters/templates/tpl_dali_royal_male_av.jpg",
+      "bytes": 90211
+    },
+    {
+      "id": "tpl_dali_royal_male_fb",
+      "url": "/assets/characters/templates/tpl_dali_royal_male_fb.jpg",
+      "bytes": 192911
     },
     {
       "id": "tpl_emei_female_av",
@@ -4037,6 +4137,16 @@
       "bytes": 311258
     },
     {
+      "id": "tpl_gaibang_female_av",
+      "url": "/assets/characters/templates/tpl_gaibang_female_av.jpg",
+      "bytes": 89527
+    },
+    {
+      "id": "tpl_gaibang_female_fb",
+      "url": "/assets/characters/templates/tpl_gaibang_female_fb.jpg",
+      "bytes": 197132
+    },
+    {
       "id": "tpl_greenwood_hero_fb",
       "url": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
       "bytes": 947719
@@ -4052,6 +4162,36 @@
       "bytes": 279816
     },
     {
+      "id": "tpl_greenwood_sect_female_av",
+      "url": "/assets/characters/templates/tpl_greenwood_sect_female_av.jpg",
+      "bytes": 91244
+    },
+    {
+      "id": "tpl_greenwood_sect_female_fb",
+      "url": "/assets/characters/templates/tpl_greenwood_sect_female_fb.jpg",
+      "bytes": 243395
+    },
+    {
+      "id": "tpl_hongmen_female_av",
+      "url": "/assets/characters/templates/tpl_hongmen_female_av.jpg",
+      "bytes": 79049
+    },
+    {
+      "id": "tpl_hongmen_female_fb",
+      "url": "/assets/characters/templates/tpl_hongmen_female_fb.jpg",
+      "bytes": 200375
+    },
+    {
+      "id": "tpl_hongmen_male_av",
+      "url": "/assets/characters/templates/tpl_hongmen_male_av.jpg",
+      "bytes": 94259
+    },
+    {
+      "id": "tpl_hongmen_male_fb",
+      "url": "/assets/characters/templates/tpl_hongmen_male_fb.jpg",
+      "bytes": 151893
+    },
+    {
       "id": "tpl_huashan_av",
       "url": "/assets/characters/templates/tpl_huashan_av.jpg",
       "bytes": 92543
@@ -4062,9 +4202,94 @@
       "bytes": 239594
     },
     {
+      "id": "tpl_huashan_female_av",
+      "url": "/assets/characters/templates/tpl_huashan_female_av.jpg",
+      "bytes": 76267
+    },
+    {
+      "id": "tpl_huashan_female_fb",
+      "url": "/assets/characters/templates/tpl_huashan_female_fb.jpg",
+      "bytes": 260342
+    },
+    {
+      "id": "tpl_jindaomen_male_av",
+      "url": "/assets/characters/templates/tpl_jindaomen_male_av.jpg",
+      "bytes": 93702
+    },
+    {
+      "id": "tpl_jindaomen_male_fb",
+      "url": "/assets/characters/templates/tpl_jindaomen_male_fb.jpg",
+      "bytes": 210691
+    },
+    {
+      "id": "tpl_jinhuan_male_av",
+      "url": "/assets/characters/templates/tpl_jinhuan_male_av.jpg",
+      "bytes": 91887
+    },
+    {
       "id": "tpl_khitan_warrior_fb",
       "url": "/assets/characters/templates/tpl_khitan_warrior_fb.jpg",
       "bytes": 1112539
+    },
+    {
+      "id": "tpl_liushenmen_female_av",
+      "url": "/assets/characters/templates/tpl_liushenmen_female_av.jpg",
+      "bytes": 84802
+    },
+    {
+      "id": "tpl_liushenmen_female_fb",
+      "url": "/assets/characters/templates/tpl_liushenmen_female_fb.jpg",
+      "bytes": 238116
+    },
+    {
+      "id": "tpl_liushenmen_male_av",
+      "url": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+      "bytes": 75159
+    },
+    {
+      "id": "tpl_liushenmen_male_fb",
+      "url": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+      "bytes": 187499
+    },
+    {
+      "id": "tpl_murong_female_av",
+      "url": "/assets/characters/templates/tpl_murong_female_av.jpg",
+      "bytes": 69295
+    },
+    {
+      "id": "tpl_murong_female_fb",
+      "url": "/assets/characters/templates/tpl_murong_female_fb.jpg",
+      "bytes": 245372
+    },
+    {
+      "id": "tpl_murong_male_av",
+      "url": "/assets/characters/templates/tpl_murong_male_av.jpg",
+      "bytes": 90127
+    },
+    {
+      "id": "tpl_murong_male_fb",
+      "url": "/assets/characters/templates/tpl_murong_male_fb.jpg",
+      "bytes": 201920
+    },
+    {
+      "id": "tpl_nanshaolin_male_av",
+      "url": "/assets/characters/templates/tpl_nanshaolin_male_av.jpg",
+      "bytes": 100659
+    },
+    {
+      "id": "tpl_nanshaolin_male_fb",
+      "url": "/assets/characters/templates/tpl_nanshaolin_male_fb.jpg",
+      "bytes": 291545
+    },
+    {
+      "id": "tpl_qiantang_male_av",
+      "url": "/assets/characters/templates/tpl_qiantang_male_av.jpg",
+      "bytes": 103635
+    },
+    {
+      "id": "tpl_qiantang_male_fb",
+      "url": "/assets/characters/templates/tpl_qiantang_male_fb.jpg",
+      "bytes": 252496
     },
     {
       "id": "tpl_qingcheng_av",
@@ -4077,9 +4302,49 @@
       "bytes": 300315
     },
     {
+      "id": "tpl_qingcheng_female_av",
+      "url": "/assets/characters/templates/tpl_qingcheng_female_av.jpg",
+      "bytes": 84423
+    },
+    {
+      "id": "tpl_qingcheng_female_fb",
+      "url": "/assets/characters/templates/tpl_qingcheng_female_fb.jpg",
+      "bytes": 215788
+    },
+    {
+      "id": "tpl_sanren_female_av",
+      "url": "/assets/characters/templates/tpl_sanren_female_av.jpg",
+      "bytes": 92917
+    },
+    {
+      "id": "tpl_sanren_female_fb",
+      "url": "/assets/characters/templates/tpl_sanren_female_fb.jpg",
+      "bytes": 229620
+    },
+    {
+      "id": "tpl_sanren_male_av",
+      "url": "/assets/characters/templates/tpl_sanren_male_av.jpg",
+      "bytes": 87371
+    },
+    {
+      "id": "tpl_sanren_male_fb",
+      "url": "/assets/characters/templates/tpl_sanren_male_fb.jpg",
+      "bytes": 216049
+    },
+    {
       "id": "tpl_shaolin_monk_fb",
       "url": "/assets/characters/templates/tpl_shaolin_monk_fb.jpg",
       "bytes": 1074584
+    },
+    {
+      "id": "tpl_shaolin_songshan_male_av",
+      "url": "/assets/characters/templates/tpl_shaolin_songshan_male_av.jpg",
+      "bytes": 81083
+    },
+    {
+      "id": "tpl_shaolin_songshan_male_fb",
+      "url": "/assets/characters/templates/tpl_shaolin_songshan_male_fb.jpg",
+      "bytes": 279997
     },
     {
       "id": "tpl_song_empress_fb",
@@ -4107,6 +4372,16 @@
       "bytes": 243352
     },
     {
+      "id": "tpl_taishan_female_av",
+      "url": "/assets/characters/templates/tpl_taishan_female_av.jpg",
+      "bytes": 84361
+    },
+    {
+      "id": "tpl_taishan_female_fb",
+      "url": "/assets/characters/templates/tpl_taishan_female_fb.jpg",
+      "bytes": 261100
+    },
+    {
       "id": "tpl_tangmen_av",
       "url": "/assets/characters/templates/tpl_tangmen_av.jpg",
       "bytes": 79969
@@ -4117,9 +4392,39 @@
       "bytes": 207578
     },
     {
+      "id": "tpl_tangmen_male_av",
+      "url": "/assets/characters/templates/tpl_tangmen_male_av.jpg",
+      "bytes": 88762
+    },
+    {
+      "id": "tpl_tangmen_male_fb",
+      "url": "/assets/characters/templates/tpl_tangmen_male_fb.jpg",
+      "bytes": 208592
+    },
+    {
       "id": "tpl_taohua_master_fb",
       "url": "/assets/characters/templates/tpl_taohua_master_fb.jpg",
       "bytes": 1097278
+    },
+    {
+      "id": "tpl_taohuadao_female_av",
+      "url": "/assets/characters/templates/tpl_taohuadao_female_av.jpg",
+      "bytes": 95860
+    },
+    {
+      "id": "tpl_taohuadao_female_fb",
+      "url": "/assets/characters/templates/tpl_taohuadao_female_fb.jpg",
+      "bytes": 256318
+    },
+    {
+      "id": "tpl_taohuadao_male_av",
+      "url": "/assets/characters/templates/tpl_taohuadao_male_av.jpg",
+      "bytes": 80816
+    },
+    {
+      "id": "tpl_taohuadao_male_fb",
+      "url": "/assets/characters/templates/tpl_taohuadao_male_fb.jpg",
+      "bytes": 288692
     },
     {
       "id": "tpl_taoist_master_fb",
@@ -4137,6 +4442,16 @@
       "bytes": 235451
     },
     {
+      "id": "tpl_tiezhang_female_av",
+      "url": "/assets/characters/templates/tpl_tiezhang_female_av.jpg",
+      "bytes": 95571
+    },
+    {
+      "id": "tpl_tiezhang_female_fb",
+      "url": "/assets/characters/templates/tpl_tiezhang_female_fb.jpg",
+      "bytes": 253865
+    },
+    {
       "id": "tpl_unorthodox_master_fb",
       "url": "/assets/characters/templates/tpl_unorthodox_master_fb.jpg",
       "bytes": 921546
@@ -4145,6 +4460,36 @@
       "id": "tpl_woman_general_fb",
       "url": "/assets/characters/templates/tpl_woman_general_fb.jpg",
       "bytes": 995382
+    },
+    {
+      "id": "tpl_wudang_av",
+      "url": "/assets/characters/templates/tpl_wudang_av.jpg",
+      "bytes": 78545
+    },
+    {
+      "id": "tpl_wudang_fb",
+      "url": "/assets/characters/templates/tpl_wudang_fb.jpg",
+      "bytes": 227412
+    },
+    {
+      "id": "tpl_wudang_female_av",
+      "url": "/assets/characters/templates/tpl_wudang_female_av.jpg",
+      "bytes": 70956
+    },
+    {
+      "id": "tpl_wudang_female_fb",
+      "url": "/assets/characters/templates/tpl_wudang_female_fb.jpg",
+      "bytes": 274033
+    },
+    {
+      "id": "tpl_wutai_monk_male_av",
+      "url": "/assets/characters/templates/tpl_wutai_monk_male_av.jpg",
+      "bytes": 83172
+    },
+    {
+      "id": "tpl_wutai_monk_male_fb",
+      "url": "/assets/characters/templates/tpl_wutai_monk_male_fb.jpg",
+      "bytes": 204406
     },
     {
       "id": "tpl_wuxiguzhai_av",
@@ -4157,6 +4502,36 @@
       "bytes": 281151
     },
     {
+      "id": "tpl_wuxiguzhai_male_av",
+      "url": "/assets/characters/templates/tpl_wuxiguzhai_male_av.jpg",
+      "bytes": 99784
+    },
+    {
+      "id": "tpl_wuxiguzhai_male_fb",
+      "url": "/assets/characters/templates/tpl_wuxiguzhai_male_fb.jpg",
+      "bytes": 274359
+    },
+    {
+      "id": "tpl_xiaoyao_female_av",
+      "url": "/assets/characters/templates/tpl_xiaoyao_female_av.jpg",
+      "bytes": 71132
+    },
+    {
+      "id": "tpl_xiaoyao_female_fb",
+      "url": "/assets/characters/templates/tpl_xiaoyao_female_fb.jpg",
+      "bytes": 239976
+    },
+    {
+      "id": "tpl_xiaoyao_male_av",
+      "url": "/assets/characters/templates/tpl_xiaoyao_male_av.jpg",
+      "bytes": 76484
+    },
+    {
+      "id": "tpl_xiaoyao_male_fb",
+      "url": "/assets/characters/templates/tpl_xiaoyao_male_fb.jpg",
+      "bytes": 236635
+    },
+    {
       "id": "tpl_xingxiu_av",
       "url": "/assets/characters/templates/tpl_xingxiu_av.jpg",
       "bytes": 80978
@@ -4167,6 +4542,46 @@
       "bytes": 209059
     },
     {
+      "id": "tpl_xingxiu_female_av",
+      "url": "/assets/characters/templates/tpl_xingxiu_female_av.jpg",
+      "bytes": 84263
+    },
+    {
+      "id": "tpl_xingxiu_female_fb",
+      "url": "/assets/characters/templates/tpl_xingxiu_female_fb.jpg",
+      "bytes": 168759
+    },
+    {
+      "id": "tpl_yipintang_av",
+      "url": "/assets/characters/templates/tpl_yipintang_av.jpg",
+      "bytes": 99751
+    },
+    {
+      "id": "tpl_yipintang_fb",
+      "url": "/assets/characters/templates/tpl_yipintang_fb.jpg",
+      "bytes": 266993
+    },
+    {
+      "id": "tpl_yipintang_female_av",
+      "url": "/assets/characters/templates/tpl_yipintang_female_av.jpg",
+      "bytes": 73925
+    },
+    {
+      "id": "tpl_yipintang_female_fb",
+      "url": "/assets/characters/templates/tpl_yipintang_female_fb.jpg",
+      "bytes": 186879
+    },
+    {
+      "id": "tpl_zhenyuan_male_av",
+      "url": "/assets/characters/templates/tpl_zhenyuan_male_av.jpg",
+      "bytes": 97329
+    },
+    {
+      "id": "tpl_zhenyuan_male_fb",
+      "url": "/assets/characters/templates/tpl_zhenyuan_male_fb.jpg",
+      "bytes": 255661
+    },
+    {
       "id": "tpl_zhongnan_av",
       "url": "/assets/characters/templates/tpl_zhongnan_av.jpg",
       "bytes": 87929
@@ -4175,6 +4590,16 @@
       "id": "tpl_zhongnan_fb",
       "url": "/assets/characters/templates/tpl_zhongnan_fb.jpg",
       "bytes": 242253
+    },
+    {
+      "id": "tpl_zhongnan_female_av",
+      "url": "/assets/characters/templates/tpl_zhongnan_female_av.jpg",
+      "bytes": 92335
+    },
+    {
+      "id": "tpl_zhongnan_female_fb",
+      "url": "/assets/characters/templates/tpl_zhongnan_female_fb.jpg",
+      "bytes": 254534
     }
   ]
 }

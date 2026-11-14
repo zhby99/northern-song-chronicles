@@ -1953,59 +1953,66 @@ TEN_ARTS_CANONICAL_KEYS: tuple[str, ...] = (
 )
 
 
-SECT_DEDICATED_TEMPLATES: dict[str, tuple[str, str]] = {
-    "SECT-18": (
-        "/assets/characters/templates/tpl_greenwood_sect_fb.jpg",
-        "/assets/characters/templates/tpl_greenwood_sect_av.jpg",
-    ),
-    "SECT-16": (
-        "/assets/characters/templates/tpl_caobang_fb.jpg",
-        "/assets/characters/templates/tpl_caobang_av.jpg",
-    ),
-    "SECT-15": (
-        "/assets/characters/templates/tpl_tiezhang_fb.jpg",
-        "/assets/characters/templates/tpl_tiezhang_av.jpg",
-    ),
-    "SECT-02": (
-        "/assets/characters/templates/tpl_gaibang_fb.jpg",
-        "/assets/characters/templates/tpl_gaibang_av.jpg",
-    ),
-    "SECT-20": (
-        "/assets/characters/templates/tpl_yipintang_fb.jpg",
-        "/assets/characters/templates/tpl_yipintang_av.jpg",
-    ),
-    "SECT-08": (
-        "/assets/characters/templates/tpl_wudang_fb.jpg",
-        "/assets/characters/templates/tpl_wudang_av.jpg",
-    ),
-    "SECT-06": (
-        "/assets/characters/templates/tpl_taishan_fb.jpg",
-        "/assets/characters/templates/tpl_taishan_av.jpg",
-    ),
-    "SECT-05": (
-        "/assets/characters/templates/tpl_huashan_fb.jpg",
-        "/assets/characters/templates/tpl_huashan_av.jpg",
-    ),
-    "SECT-14": (
-        "/assets/characters/templates/tpl_qingcheng_fb.jpg",
-        "/assets/characters/templates/tpl_qingcheng_av.jpg",
-    ),
-    "SECT-11": (
-        "/assets/characters/templates/tpl_zhongnan_fb.jpg",
-        "/assets/characters/templates/tpl_zhongnan_av.jpg",
-    ),
-    "SECT-19": (
-        "/assets/characters/templates/tpl_xingxiu_fb.jpg",
-        "/assets/characters/templates/tpl_xingxiu_av.jpg",
-    ),
-    "SECT-13": (
-        "/assets/characters/templates/tpl_tangmen_fb.jpg",
-        "/assets/characters/templates/tpl_tangmen_av.jpg",
-    ),
-    "SECT-30": (
-        "/assets/characters/templates/tpl_wuxiguzhai_fb.jpg",
-        "/assets/characters/templates/tpl_wuxiguzhai_av.jpg",
-    ),
+SECT_GENDERED_TEMPLATES: dict[tuple[str, str], tuple[str, str]] = {
+    # 15 requested sects (male + female where non-zero)
+    ("SECT-02", "男"): ("/assets/characters/templates/tpl_gaibang_fb.jpg", "/assets/characters/templates/tpl_gaibang_av.jpg"),
+    ("SECT-02", "女"): ("/assets/characters/templates/tpl_gaibang_female_fb.jpg", "/assets/characters/templates/tpl_gaibang_female_av.jpg"),
+    ("SECT-05", "男"): ("/assets/characters/templates/tpl_huashan_fb.jpg", "/assets/characters/templates/tpl_huashan_av.jpg"),
+    ("SECT-05", "女"): ("/assets/characters/templates/tpl_huashan_female_fb.jpg", "/assets/characters/templates/tpl_huashan_female_av.jpg"),
+    ("SECT-06", "男"): ("/assets/characters/templates/tpl_taishan_fb.jpg", "/assets/characters/templates/tpl_taishan_av.jpg"),
+    ("SECT-06", "女"): ("/assets/characters/templates/tpl_taishan_female_fb.jpg", "/assets/characters/templates/tpl_taishan_female_av.jpg"),
+    ("SECT-07", "男"): ("/assets/characters/templates/tpl_emei_male_fb.jpg", "/assets/characters/templates/tpl_emei_male_av.jpg"),
+    ("SECT-07", "女"): ("/assets/characters/templates/tpl_emei_female_fb.jpg", "/assets/characters/templates/tpl_emei_female_av.jpg"),
+    ("SECT-08", "男"): ("/assets/characters/templates/tpl_wudang_fb.jpg", "/assets/characters/templates/tpl_wudang_av.jpg"),
+    ("SECT-08", "女"): ("/assets/characters/templates/tpl_wudang_female_fb.jpg", "/assets/characters/templates/tpl_wudang_female_av.jpg"),
+    ("SECT-11", "男"): ("/assets/characters/templates/tpl_zhongnan_fb.jpg", "/assets/characters/templates/tpl_zhongnan_av.jpg"),
+    ("SECT-11", "女"): ("/assets/characters/templates/tpl_zhongnan_female_fb.jpg", "/assets/characters/templates/tpl_zhongnan_female_av.jpg"),
+    ("SECT-13", "男"): ("/assets/characters/templates/tpl_tangmen_male_fb.jpg", "/assets/characters/templates/tpl_tangmen_male_av.jpg"),
+    ("SECT-13", "女"): ("/assets/characters/templates/tpl_tangmen_fb.jpg", "/assets/characters/templates/tpl_tangmen_av.jpg"),
+    ("SECT-14", "男"): ("/assets/characters/templates/tpl_qingcheng_fb.jpg", "/assets/characters/templates/tpl_qingcheng_av.jpg"),
+    ("SECT-14", "女"): ("/assets/characters/templates/tpl_qingcheng_female_fb.jpg", "/assets/characters/templates/tpl_qingcheng_female_av.jpg"),
+    ("SECT-15", "男"): ("/assets/characters/templates/tpl_tiezhang_fb.jpg", "/assets/characters/templates/tpl_tiezhang_av.jpg"),
+    ("SECT-15", "女"): ("/assets/characters/templates/tpl_tiezhang_female_fb.jpg", "/assets/characters/templates/tpl_tiezhang_female_av.jpg"),
+    ("SECT-16", "男"): ("/assets/characters/templates/tpl_caobang_fb.jpg", "/assets/characters/templates/tpl_caobang_av.jpg"),
+    ("SECT-16", "女"): ("/assets/characters/templates/tpl_caobang_female_fb.jpg", "/assets/characters/templates/tpl_caobang_female_av.jpg"),
+    ("SECT-18", "男"): ("/assets/characters/templates/tpl_greenwood_sect_fb.jpg", "/assets/characters/templates/tpl_greenwood_sect_av.jpg"),
+    ("SECT-18", "女"): ("/assets/characters/templates/tpl_greenwood_sect_female_fb.jpg", "/assets/characters/templates/tpl_greenwood_sect_female_av.jpg"),
+    ("SECT-19", "男"): ("/assets/characters/templates/tpl_xingxiu_fb.jpg", "/assets/characters/templates/tpl_xingxiu_av.jpg"),
+    ("SECT-19", "女"): ("/assets/characters/templates/tpl_xingxiu_female_fb.jpg", "/assets/characters/templates/tpl_xingxiu_female_av.jpg"),
+    ("SECT-20", "男"): ("/assets/characters/templates/tpl_yipintang_fb.jpg", "/assets/characters/templates/tpl_yipintang_av.jpg"),
+    ("SECT-20", "女"): ("/assets/characters/templates/tpl_yipintang_female_fb.jpg", "/assets/characters/templates/tpl_yipintang_female_av.jpg"),
+    ("SECT-30", "男"): ("/assets/characters/templates/tpl_wuxiguzhai_male_fb.jpg", "/assets/characters/templates/tpl_wuxiguzhai_male_av.jpg"),
+    ("SECT-30", "女"): ("/assets/characters/templates/tpl_wuxiguzhai_fb.jpg", "/assets/characters/templates/tpl_wuxiguzhai_av.jpg"),
+    # Remaining 15 sects + orgs (non-zero genders)
+    ("SECT-01", "男"): ("/assets/characters/templates/tpl_shaolin_songshan_male_fb.jpg", "/assets/characters/templates/tpl_shaolin_songshan_male_av.jpg"),
+    ("SECT-03", "男"): ("/assets/characters/templates/tpl_wutai_monk_male_fb.jpg", "/assets/characters/templates/tpl_wutai_monk_male_av.jpg"),
+    ("SECT-04", "男"): ("/assets/characters/templates/tpl_nanshaolin_male_fb.jpg", "/assets/characters/templates/tpl_nanshaolin_male_av.jpg"),
+    ("SECT-09", "男"): ("/assets/characters/templates/tpl_xiaoyao_male_fb.jpg", "/assets/characters/templates/tpl_xiaoyao_male_av.jpg"),
+    ("SECT-09", "女"): ("/assets/characters/templates/tpl_xiaoyao_female_fb.jpg", "/assets/characters/templates/tpl_xiaoyao_female_av.jpg"),
+    ("SECT-10", "男"): ("/assets/characters/templates/tpl_murong_male_fb.jpg", "/assets/characters/templates/tpl_murong_male_av.jpg"),
+    ("SECT-10", "女"): ("/assets/characters/templates/tpl_murong_female_fb.jpg", "/assets/characters/templates/tpl_murong_female_av.jpg"),
+    ("SECT-12", "男"): ("/assets/characters/templates/tpl_taohuadao_male_fb.jpg", "/assets/characters/templates/tpl_taohuadao_male_av.jpg"),
+    ("SECT-12", "女"): ("/assets/characters/templates/tpl_taohuadao_female_fb.jpg", "/assets/characters/templates/tpl_taohuadao_female_av.jpg"),
+    ("SECT-17", "男"): ("/assets/characters/templates/tpl_liushenmen_male_fb.jpg", "/assets/characters/templates/tpl_liushenmen_male_av.jpg"),
+    ("SECT-17", "女"): ("/assets/characters/templates/tpl_liushenmen_female_fb.jpg", "/assets/characters/templates/tpl_liushenmen_female_av.jpg"),
+    ("SECT-21", "男"): ("/assets/characters/templates/tpl_jindaomen_male_fb.jpg", "/assets/characters/templates/tpl_jindaomen_male_av.jpg"),
+    ("SECT-22", "男"): ("/assets/characters/templates/tpl_changshan_male_fb.jpg", "/assets/characters/templates/tpl_changshan_male_av.jpg"),
+    ("SECT-22", "女"): ("/assets/characters/templates/tpl_changshan_female_fb.jpg", "/assets/characters/templates/tpl_changshan_female_av.jpg"),
+    ("SECT-23", "男"): ("/assets/characters/templates/tpl_baji_male_fb.jpg", "/assets/characters/templates/tpl_baji_male_av.jpg"),
+    ("SECT-23", "女"): ("/assets/characters/templates/tpl_baji_female_fb.jpg", "/assets/characters/templates/tpl_baji_female_av.jpg"),
+    ("SECT-24", "男"): ("/assets/characters/templates/tpl_zhenyuan_male_fb.jpg", "/assets/characters/templates/tpl_zhenyuan_male_av.jpg"),
+    ("SECT-25", "男"): ("/assets/characters/templates/tpl_chaquan_male_fb.jpg", "/assets/characters/templates/tpl_chaquan_male_av.jpg"),
+    ("SECT-25", "女"): ("/assets/characters/templates/tpl_chaquan_female_fb.jpg", "/assets/characters/templates/tpl_chaquan_female_av.jpg"),
+    ("SECT-26", "男"): ("/assets/characters/templates/tpl_qiantang_male_fb.jpg", "/assets/characters/templates/tpl_qiantang_male_av.jpg"),
+    ("SECT-27", "男"): ("/assets/characters/templates/tpl_hongmen_male_fb.jpg", "/assets/characters/templates/tpl_hongmen_male_av.jpg"),
+    ("SECT-27", "女"): ("/assets/characters/templates/tpl_hongmen_female_fb.jpg", "/assets/characters/templates/tpl_hongmen_female_av.jpg"),
+    ("SECT-28", "男"): ("/assets/characters/templates/tpl_jinhuan_male_fb.jpg", "/assets/characters/templates/tpl_jinhuan_male_av.jpg"),
+    ("SECT-29", "男"): ("/assets/characters/templates/tpl_baicao_male_fb.jpg", "/assets/characters/templates/tpl_baicao_male_av.jpg"),
+    ("SECT-29", "女"): ("/assets/characters/templates/tpl_baicao_female_fb.jpg", "/assets/characters/templates/tpl_baicao_female_av.jpg"),
+    ("ORG-01", "男"): ("/assets/characters/templates/tpl_sanren_male_fb.jpg", "/assets/characters/templates/tpl_sanren_male_av.jpg"),
+    ("ORG-01", "女"): ("/assets/characters/templates/tpl_sanren_female_fb.jpg", "/assets/characters/templates/tpl_sanren_female_av.jpg"),
+    ("ORG-02", "女"): ("/assets/characters/templates/tpl_song_court_female_fb.jpg", "/assets/characters/templates/tpl_song_court_female_av.jpg"),
+    ("ORG-08", "男"): ("/assets/characters/templates/tpl_dali_royal_male_fb.jpg", "/assets/characters/templates/tpl_dali_royal_male_av.jpg"),
 }
 
 
@@ -2016,23 +2023,9 @@ def _existing_pair(fb_url: str, av_url: str) -> tuple[str, str] | None:
 
 
 def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str) -> tuple[str, str | None]:
-    if faction_id == "SECT-07":
-        if gender == "男":
-            pair = _existing_pair(
-                "/assets/characters/templates/tpl_emei_male_fb.jpg",
-                "/assets/characters/templates/tpl_emei_male_av.jpg",
-            )
-            if pair:
-                return pair
-        else:
-            pair = _existing_pair(
-                "/assets/characters/templates/tpl_emei_female_fb.jpg",
-                "/assets/characters/templates/tpl_emei_female_av.jpg",
-            )
-            if pair:
-                return pair
-    if faction_id in SECT_DEDICATED_TEMPLATES:
-        fb_url, av_url = SECT_DEDICATED_TEMPLATES[faction_id]
+    key = (faction_id, gender)
+    if key in SECT_GENDERED_TEMPLATES:
+        fb_url, av_url = SECT_GENDERED_TEMPLATES[key]
         pair = _existing_pair(fb_url, av_url)
         if pair:
             return pair

@@ -17946,10 +17946,10 @@
       ],
       "mp": 18
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/tzf_yuelu.jpg",
       "subtitle": "宋式营造矢量内景《岳麓书院》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回潭州府全景",
       "exitGate": {
         "label": "步出正门（返回潭州府全景）",
@@ -18046,10 +18046,10 @@
       ],
       "agi": 1
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/tzf_tianxin.jpg",
       "subtitle": "宋式营造矢量内景《湘江天心阁》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回潭州府全景",
       "exitGate": {
         "label": "步出正门（返回潭州府全景）",
@@ -18163,10 +18163,10 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/tzf_wuxi.jpg",
       "subtitle": "宋式营造矢量内景《铜官窑与五溪苗市》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回潭州府全景",
       "exitGate": {
         "label": "步出正门（返回潭州府全景）",
@@ -18271,10 +18271,10 @@
       "res": 2,
       "hp": 20
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/tzf_wuxidojo.jpg",
       "subtitle": "宋式营造矢量内景《潭州五溪讲武堂》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回潭州府全景",
       "exitGate": {
         "label": "步出正门（返回潭州府全景）",
@@ -18513,10 +18513,10 @@
         3
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/hzf_tengwang.jpg",
       "subtitle": "宋式营造矢量内景《滕王阁》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回洪州府全景",
       "exitGate": {
         "label": "步出正门（返回洪州府全景）",
@@ -18618,10 +18618,10 @@
       "mp": 30,
       "res": 1
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/hzf_xishan.jpg",
       "subtitle": "宋式营造矢量内景《西山玉隆万寿宫》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回洪州府全景",
       "exitGate": {
         "label": "步出正门（返回洪州府全景）",
@@ -19192,10 +19192,10 @@
       "hp": 35,
       "res": 1
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/qzf_longyou.jpg",
       "subtitle": "宋式营造矢量内景《陇右古战场烽燧（金环刀堂）》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回秦州府全景",
       "exitGate": {
         "label": "步出正门（返回秦州府全景）",
@@ -19289,10 +19289,10 @@
       "hp": 30,
       "riding": 2
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/qzf_jinhuan.jpg",
       "subtitle": "宋式营造矢量内景《陇右金环演武场》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回秦州府全景",
       "exitGate": {
         "label": "步出正门（返回秦州府全景）",
@@ -19533,10 +19533,10 @@
       ],
       "riding": 3
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/lyf_yamen.jpg",
       "subtitle": "宋式营造矢量内景《大辽东京留守衙署》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回辽阳府全景",
       "exitGate": {
         "label": "步出正门（返回辽阳府全景）",
@@ -19633,10 +19633,10 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/lyf_baita.jpg",
       "subtitle": "宋式营造矢量内景《辽阳白塔（广佑寺）》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回辽阳府全景",
       "exitGate": {
         "label": "步出正门（返回辽阳府全景）",
@@ -19734,10 +19734,10 @@
       "hp": 30,
       "silver": 18
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/lyf_ginseng.jpg",
       "subtitle": "宋式营造矢量内景《长白山参茸皮货互市》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回辽阳府全景",
       "exitGate": {
         "label": "步出正门（返回辽阳府全景）",
