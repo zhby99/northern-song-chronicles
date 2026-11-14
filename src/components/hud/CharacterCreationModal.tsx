@@ -42,12 +42,12 @@ function StatSliderRow({
 }: StatSliderRowProps) {
   const clamp = (n: number) => Math.max(min, Math.min(max, n))
   return (
-    <div className="flex items-center gap-2 text-xs">
-      <span className="w-16 shrink-0 font-semibold text-[#3d2814]">{label}</span>
+    <div className="flex items-center gap-3 text-xl sm:text-2xl">
+      <span className="w-28 sm:w-32 shrink-0 font-semibold text-[#3d2814]">{label}</span>
       <button
         type="button"
         onClick={() => onChange(clamp(value - step))}
-        className="w-5 h-5 rounded border border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] flex items-center justify-center font-bold leading-none"
+        className="w-9 h-9 rounded-md border-2 border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] flex items-center justify-center font-bold leading-none text-2xl shrink-0"
       >
         -
       </button>
@@ -58,12 +58,12 @@ function StatSliderRow({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        className="flex-1 accent-[#8f1d14] cursor-pointer h-1.5"
+        className="flex-1 accent-[#8f1d14] cursor-pointer h-3 min-w-[80px]"
       />
       <button
         type="button"
         onClick={() => onChange(clamp(value + step))}
-        className="w-5 h-5 rounded border border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] flex items-center justify-center font-bold leading-none"
+        className="w-9 h-9 rounded-md border-2 border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] flex items-center justify-center font-bold leading-none text-2xl shrink-0"
       >
         +
       </button>
@@ -76,7 +76,7 @@ function StatSliderRow({
           const parsed = Number(e.target.value)
           if (!Number.isNaN(parsed)) onChange(clamp(Math.round(parsed)))
         }}
-        className="w-14 px-1.5 py-0.5 text-right rounded border border-[#cbb693] bg-[#fffdf7] text-[#23180f] font-mono font-semibold"
+        className="w-24 px-2 py-1 text-right rounded-md border-2 border-[#cbb693] bg-[#fffdf7] text-[#23180f] font-mono font-semibold text-xl sm:text-2xl shrink-0"
       />
     </div>
   )
@@ -170,37 +170,37 @@ export function CharacterCreationModal() {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#140e09]/85 backdrop-blur-sm p-3 sm:p-6 overflow-y-auto">
-      <div className="w-full max-w-5xl rounded-xl border-2 border-[#b5986e] bg-[#f4ead5] shadow-2xl overflow-hidden flex flex-col max-h-[94vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#140e09]/85 backdrop-blur-sm p-2 sm:p-4 overflow-y-auto">
+      <div className="w-[96vw] max-w-[2048px] h-[95vh] max-h-[96vh] rounded-2xl border-4 border-[#b5986e] bg-[#f4ead5] shadow-2xl overflow-hidden flex flex-col">
         {/* 顶部标题栏 */}
-        <div className="px-5 py-3.5 bg-gradient-to-r from-[#2c1d11] via-[#412817] to-[#2c1d11] border-b-2 border-[#b5986e] flex items-center justify-between gap-3">
+        <div className="px-7 py-5 bg-gradient-to-r from-[#2c1d11] via-[#412817] to-[#2c1d11] border-b-4 border-[#b5986e] flex items-center justify-between gap-4">
           <div>
-            <h2 className="song-serif text-xl sm:text-2xl font-bold text-[#f7e7c4] tracking-wider">
+            <h2 className="song-serif text-4xl sm:text-5xl font-bold text-[#f7e7c4] tracking-wider">
               北宋立志传 · 少侠立籍
             </h2>
-            <p className="text-[11px] sm:text-xs text-[#d6be96] mt-0.5">
+            <p className="text-lg sm:text-2xl text-[#d6be96] mt-1.5">
               公元 1050 年（宋仁宗皇祐二年 · 正月初一）· 测试阶段全属性自由定制
             </p>
           </div>
-          <span className="px-2.5 py-1 rounded bg-[#8f1d14] border border-[#d6be96]/50 text-[#fff8eb] text-xs font-semibold shrink-0">
+          <span className="px-5 py-2.5 rounded-lg bg-[#8f1d14] border-2 border-[#d6be96]/50 text-[#fff8eb] text-xl sm:text-2xl font-semibold shrink-0">
             初始地：开封府
           </span>
         </div>
 
         {/* 主体内容区 */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-5 grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <div className="flex-1 overflow-y-auto p-5 sm:p-7 grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* 左侧：肖像 10 选 1 + 全身预览 + 固定出身 */}
-          <div className="lg:col-span-5 flex flex-col gap-3">
-            <div className="bg-[#efe4cc] border border-[#cbb693] rounded-lg p-3">
-              <div className="flex items-center justify-between mb-2">
-                <span className="song-serif font-bold text-sm text-[#23180f]">
+          <div className="lg:col-span-5 flex flex-col gap-5">
+            <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5">
+              <div className="flex items-center justify-between mb-3">
+                <span className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f]">
                   一、择选容貌（十选一）
                 </span>
-                <span className="text-xs font-semibold text-[#781710]">
+                <span className="text-xl sm:text-2xl font-semibold text-[#781710]">
                   当前：{activePortrait.label}
                 </span>
               </div>
-              <div className="grid grid-cols-5 gap-2">
+              <div className="grid grid-cols-5 gap-3">
                 {PROTAGONIST_PORTRAITS.map((p) => {
                   const selected = p.id === portraitId
                   return (
@@ -209,9 +209,9 @@ export function CharacterCreationModal() {
                       type="button"
                       onClick={() => setPortraitId(p.id)}
                       title={p.label}
-                      className={`group relative rounded-md overflow-hidden border-2 transition-all ${
+                      className={`group relative rounded-lg overflow-hidden border-2 transition-all ${
                         selected
-                          ? 'border-[#8f1d14] ring-2 ring-[#8f1d14]/40 scale-[1.03]'
+                          ? 'border-[#8f1d14] ring-4 ring-[#8f1d14]/40 scale-[1.03]'
                           : 'border-[#cbb693] hover:border-[#8f1d14]/60'
                       }`}
                     >
@@ -221,7 +221,7 @@ export function CharacterCreationModal() {
                         className="w-full aspect-square object-cover"
                       />
                       <div
-                        className={`text-[10px] text-center py-0.5 truncate px-0.5 ${
+                        className={`text-sm sm:text-lg text-center py-1 truncate px-1 ${
                           selected
                             ? 'bg-[#8f1d14] text-[#fff8eb] font-bold'
                             : 'bg-[#e7d7b8]/90 text-[#3d2814]'
@@ -236,46 +236,48 @@ export function CharacterCreationModal() {
             </div>
 
             {/* 全身立绘预览 + 固定信息 */}
-            <div className="bg-[#efe4cc] border border-[#cbb693] rounded-lg p-3 flex gap-3 items-stretch flex-1">
-              <div className="w-32 sm:w-36 shrink-0 rounded-md overflow-hidden border border-[#b5986e] bg-[#dfd0b1]">
+            <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 flex gap-5 items-stretch flex-1">
+              <div className="w-48 sm:w-60 shrink-0 rounded-lg overflow-hidden border-2 border-[#b5986e] bg-[#dfd0b1]">
                 <img
                   src={activePortrait.fullbodyUrl}
                   alt={activePortrait.label}
                   className="w-full h-full object-cover object-top"
                 />
               </div>
-              <div className="flex-1 flex flex-col justify-between text-xs space-y-2">
-                <div className="space-y-1.5">
-                  <div className="font-bold song-serif text-sm text-[#23180f] border-b border-[#cbb693] pb-1">
+              <div className="flex-1 flex flex-col justify-between text-xl sm:text-2xl space-y-4">
+                <div className="space-y-3">
+                  <div className="font-bold song-serif text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
                     立籍简录
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between gap-2">
                     <span className="text-[#6b5235]">年龄</span>
                     <span className="font-bold text-[#781710]">12 岁（固定开局）</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between gap-2">
                     <span className="text-[#6b5235]">启程之地</span>
                     <span className="font-bold text-[#23180f]">开封府（汴梁）</span>
                   </div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between gap-2">
                     <span className="text-[#6b5235]">门派出身</span>
                     <span className="font-semibold text-[#3d2814]">寒门布衣 · 无门无派</span>
                   </div>
                 </div>
 
-                <div className="bg-[#faf3e3] border border-[#cbb693] rounded p-2 space-y-1">
-                  <div className="font-semibold text-[#3d2814]">初始行装（自动披挂）</div>
-                  <div className="flex flex-wrap gap-1 text-[11px]">
-                    <span className="px-1.5 py-0.5 rounded bg-[#e8d8b7] text-[#3d2814]">
+                <div className="bg-[#faf3e3] border-2 border-[#cbb693] rounded-lg p-3.5 space-y-2">
+                  <div className="font-semibold text-[#3d2814] text-xl sm:text-2xl">
+                    初始行装（自动披挂）
+                  </div>
+                  <div className="flex flex-wrap gap-2 text-lg sm:text-xl">
+                    <span className="px-3 py-1 rounded-md bg-[#e8d8b7] text-[#3d2814]">
                       市井茶博士围裙衫
                     </span>
-                    <span className="px-1.5 py-0.5 rounded bg-[#e8d8b7] text-[#3d2814]">
+                    <span className="px-3 py-1 rounded-md bg-[#e8d8b7] text-[#3d2814]">
                       市井粗布鞋
                     </span>
-                    <span className="px-1.5 py-0.5 rounded bg-[#e8d8b7] text-[#3d2814]">
+                    <span className="px-3 py-1 rounded-md bg-[#e8d8b7] text-[#3d2814]">
                       旧铜钱挂坠
                     </span>
-                    <span className="px-1.5 py-0.5 rounded bg-[#e8d8b7] text-[#3d2814]">
+                    <span className="px-3 py-1 rounded-md bg-[#e8d8b7] text-[#3d2814]">
                       粗麻平安绳
                     </span>
                   </div>
@@ -285,11 +287,11 @@ export function CharacterCreationModal() {
           </div>
 
           {/* 右侧：姓名 + 全属性自由调整 */}
-          <div className="lg:col-span-7 flex flex-col gap-3">
+          <div className="lg:col-span-7 flex flex-col gap-5">
             {/* 姓名与快捷预设 */}
-            <div className="bg-[#efe4cc] border border-[#cbb693] rounded-lg p-3 flex flex-wrap items-center justify-between gap-2">
-              <div className="flex items-center gap-2 flex-1 min-w-[220px]">
-                <label className="song-serif font-bold text-sm text-[#23180f] shrink-0">
+            <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-3 flex-1 min-w-[320px]">
+                <label className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] shrink-0">
                   二、少侠尊姓大名
                 </label>
                 <input
@@ -298,35 +300,35 @@ export function CharacterCreationModal() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="请输入姓名..."
-                  className="flex-1 px-2.5 py-1 rounded border border-[#b5986e] bg-[#fffdf7] text-sm font-bold text-[#23180f] focus:outline-none focus:border-[#8f1d14]"
+                  className="flex-1 px-4 py-2 rounded-lg border-2 border-[#b5986e] bg-[#fffdf7] text-2xl sm:text-3xl font-bold text-[#23180f] focus:outline-none focus:border-[#8f1d14] min-w-[140px]"
                 />
                 <button
                   type="button"
                   onClick={() => setName(generateRandomHeroName())}
-                  className="px-2.5 py-1 rounded border border-[#8f1d14] bg-[#faf3e3] text-[#8f1d14] hover:bg-[#8f1d14] hover:text-[#fff8eb] text-xs font-semibold transition-colors shrink-0"
+                  className="px-4 py-2 rounded-lg border-2 border-[#8f1d14] bg-[#faf3e3] text-[#8f1d14] hover:bg-[#8f1d14] hover:text-[#fff8eb] text-xl sm:text-2xl font-semibold transition-colors shrink-0"
                 >
                   随机姓名
                 </button>
               </div>
-              <div className="flex items-center gap-1.5 text-[11px]">
+              <div className="flex items-center gap-2 text-lg sm:text-xl">
                 <button
                   type="button"
                   onClick={() => applyPreset('default')}
-                  className="px-2 py-1 rounded border border-[#b5986e] bg-[#faf3e3] text-[#3d2814] hover:bg-[#e8d8b7]"
+                  className="px-3.5 py-2 rounded-lg border-2 border-[#b5986e] bg-[#faf3e3] text-[#3d2814] hover:bg-[#e8d8b7] font-semibold"
                 >
                   默认
                 </button>
                 <button
                   type="button"
                   onClick={() => applyPreset('balanced')}
-                  className="px-2 py-1 rounded border border-[#b5986e] bg-[#faf3e3] text-[#3d2814] hover:bg-[#e8d8b7]"
+                  className="px-3.5 py-2 rounded-lg border-2 border-[#b5986e] bg-[#faf3e3] text-[#3d2814] hover:bg-[#e8d8b7] font-semibold"
                 >
                   均衡
                 </button>
                 <button
                   type="button"
                   onClick={() => applyPreset('genius')}
-                  className="px-2 py-1 rounded border border-[#8f1d14]/60 bg-[#faf3e3] text-[#781710] hover:bg-[#f2dec0]"
+                  className="px-3.5 py-2 rounded-lg border-2 border-[#8f1d14]/60 bg-[#faf3e3] text-[#781710] hover:bg-[#f2dec0] font-semibold"
                 >
                   奇才
                 </button>
@@ -334,9 +336,9 @@ export function CharacterCreationModal() {
             </div>
 
             {/* 先天禀赋 & 实战根基 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="bg-[#efe4cc] border border-[#cbb693] rounded-lg p-3 space-y-2">
-                <div className="song-serif font-bold text-sm text-[#23180f] border-b border-[#cbb693] pb-1">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 space-y-3.5">
+                <div className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
                   三、先天禀赋（1~100）
                 </div>
                 <StatSliderRow
@@ -362,8 +364,8 @@ export function CharacterCreationModal() {
                 />
               </div>
 
-              <div className="bg-[#efe4cc] border border-[#cbb693] rounded-lg p-3 space-y-2">
-                <div className="song-serif font-bold text-sm text-[#23180f] border-b border-[#cbb693] pb-1">
+              <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 space-y-3.5">
+                <div className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
                   四、实战根基（额外加值）
                 </div>
                 <StatSliderRow
@@ -408,11 +410,11 @@ export function CharacterCreationModal() {
             </div>
 
             {/* 十艺百工 */}
-            <div className="bg-[#efe4cc] border border-[#cbb693] rounded-lg p-3 space-y-2">
-              <div className="song-serif font-bold text-sm text-[#23180f] border-b border-[#cbb693] pb-1">
+            <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 space-y-3.5">
+              <div className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
                 五、十艺百工（0~100）
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-x-6 gap-y-3.5">
                 <StatSliderRow
                   label="骑术"
                   value={stats.ridingSkill}
@@ -436,22 +438,22 @@ export function CharacterCreationModal() {
         </div>
 
         {/* 底部确认按钮 */}
-        <div className="px-5 py-3 bg-[#e7d7b8] border-t border-[#cbb693] flex items-center justify-between gap-3">
-          <div className="text-xs text-[#6b5235] hidden sm:block">
-            提示：当前为测试阶段，所有先天禀赋、实战根基与十艺百工均可自由调整。
+        <div className="px-7 py-4 bg-[#e7d7b8] border-t-2 border-[#cbb693] flex items-center justify-between gap-4">
+          <div className="text-lg sm:text-xl text-[#6b5235] hidden md:block">
+            提示：当前为测试阶段，所有先天禀赋、实战根基、银两与十艺百工均可自由调整。
           </div>
-          <div className="ml-auto flex items-center gap-2.5">
+          <div className="ml-auto flex items-center gap-4">
             <button
               type="button"
               onClick={() => openMenu('load')}
-              className="px-4 py-2.5 rounded-lg bg-[#faf3e3] hover:bg-[#efe4cc] text-[#4a321a] song-serif font-bold text-sm border border-[#b5986e] transition-colors"
+              className="px-6 py-3 rounded-xl bg-[#faf3e3] hover:bg-[#efe4cc] text-[#4a321a] song-serif font-bold text-xl sm:text-2xl border-2 border-[#b5986e] transition-colors"
             >
               读取旧档
             </button>
             <button
               type="button"
               onClick={handleStart}
-              className="px-6 py-2.5 rounded-lg bg-[#8f1d14] hover:bg-[#a62318] text-[#fff8eb] song-serif font-bold text-base shadow-md border border-[#d6be96]/60 transition-transform active:scale-95"
+              className="px-8 py-3 rounded-xl bg-[#8f1d14] hover:bg-[#a62318] text-[#fff8eb] song-serif font-bold text-2xl sm:text-3xl shadow-lg border-2 border-[#d6be96]/60 transition-transform active:scale-95"
             >
               踏入江湖 · 启程开封
             </button>
