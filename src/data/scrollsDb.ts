@@ -19,7 +19,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '天阶',
     stackable: false,
-    value: 1800,
+    value: 756,
     desc: '嵩山少林寺藏经阁秘传的贝叶梵夹古卷，以梵汉双语详载脱胎换骨、易筋洗髓的无上禅门内功法要。',
     lore: '相传菩提达摩于少室山面壁九年所留，非佛法修为与根骨俱臻绝顶者不可强参。',
     useEffect: {
@@ -37,7 +37,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '天阶',
     stackable: false,
-    value: 1750,
+    value: 735,
     desc: '北宋逍遥派秘藏于大理无量山玉洞的洁白绸卷，前半卷绘北冥海纳百川行气图，后半卷按周易六十四卦布列步法。',
     lore: '卷末题有“穷发之北有冥海者，天池也”，墨迹飘逸绝尘，暗合庄生逍遥游之旨。',
     useEffect: {
@@ -54,7 +54,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '天阶',
     stackable: false,
-    value: 1700,
+    value: 714,
     desc: '朝廷搜访天下道家遗书编校秘藏的孤本手稿，于道藏阴阳互济、刚柔相生之理中推演出旷世武学总纲。',
     lore: '“天之道，损有余而补不足”，字里行间尽是勘破生死玄关的大宗师气象。',
     useEffect: {
@@ -72,7 +72,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '天阶',
     stackable: false,
-    value: 1680,
+    value: 706,
     desc: '剑魔前辈晚年以剑代笔刻于乌绢之上的剑理孤卷，但求有进无退、料敌机先，破尽天下刀枪剑戟诸般招式。',
     lore: '通篇不泥一招一式，唯重“无招胜有招”五字真诀，悟性稍逊者展卷如观天书。',
     useEffect: {
@@ -89,7 +89,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '天阶',
     stackable: false,
-    value: 1720,
+    value: 722,
     desc: '大理点苍山天龙寺镇寺之宝摹本，以朱墨金泥详绘手太阴肺经至手太阳小肠经六路无形剑气运行法度。',
     lore: '非大理段氏皇族或内力浩瀚如渊海者莫能催动分毫，展卷时隐闻剑气铮鸣。',
     useEffect: {
@@ -106,7 +106,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '法帖碑刻',
     rarity: '天阶',
     stackable: false,
-    value: 1600,
+    value: 672,
     desc: '庆历年间定州民间偶出之唐摹欧阳询勒石原拓，锋芒骨肉纤毫毕现，大宋书坛奉为“天下第一行书”真魂所系。',
     lore: '宋仁宗朝名臣韩琦镇定武时秘藏珍赏，片纸足抵百镒黄金，临之可通笔阵入剑之妙。',
     useEffect: {
@@ -121,7 +121,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '天阶',
     stackable: false,
-    value: 1650,
+    value: 693,
     desc: '关陕画圣范中立毕生心血巨制，主峰突兀迎面如泰山压顶，雨点皴苍劲雄浑，树叶间暗藏“范宽”二字款识。',
     lore: '北宋画院赞其“得山之骨，与山传神”，凝神观摩三日，胸中自生万壑雷霆气象。',
     useEffect: {
@@ -136,7 +136,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '法帖碑刻',
     rarity: '天阶',
     stackable: false,
-    value: 1520,
+    value: 638,
     desc: '宋太宗淳化三年诏命王著编次内府历代帝王名臣法书，以南唐澄心堂纸、李廷珪墨精拓赐予近臣之皇家祖帖。',
     lore: '汇聚钟繇、二王、张旭、怀素历代笔法大成，皇祐年间原枣木版已毁于宫火，存世寥若晨星。',
     useEffect: {
@@ -151,7 +151,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '兵书舆图',
     rarity: '天阶',
     stackable: false,
-    value: 1580,
+    value: 664,
     desc: '仁宗康定至庆历年间诏命曾公亮、丁度历时数载编纂成书的皇家军事百科巨典，备载阵法、边防、攻城器械与火药猛火油真方。',
     lore: '皇祐二年深锁汴京崇文院秘阁，严禁私传出境，西夏与大辽密探悬千金而不可得。',
     useEffect: {
@@ -166,7 +166,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '天阶',
     stackable: false,
-    value: 1560,
+    value: 655,
     desc: '南唐画院待诏顾闳中奉后主李煜密旨目识心记绘就的设色长卷，分琵琶独奏、观舞、宴间小憩、清吹、散宴五段。',
     lore: '开宝平江南后入藏大宋秘府，人物神情眉宇间尽显乱世名臣自污避祸之孤愤微旨。',
     useEffect: {
@@ -185,7 +185,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 520,
+    value: 198,
     desc: '嵩山少林达摩院首座一脉手录的上乘纯阳内功图诀，内息绵密醇厚，百毒寒邪难侵周身大穴。',
     lore: '皇祐年间玄慈、玄澄诸高僧皆以此功筑就佛门金刚根基。',
     useEffect: {
@@ -202,7 +202,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 540,
+    value: 205,
     desc: '终南山活死人墓秘传的轻灵内功素绢卷，行功时热气蒸腾需解衣散气，练成后身轻如燕、招式奇快无伦。',
     useEffect: {
       mp: 85,
@@ -217,7 +217,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 560,
+    value: 213,
     desc: '东海桃花岛一脉以工尺古谱融合奇门内息撰成的音功秘卷，大海浩渺万里无波，实则暗流汹涌、动人心魄。',
     useEffect: {
       mp: 80,
@@ -233,7 +233,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 550,
+    value: 209,
     desc: '天下第一大帮历代帮主口传心授的隔空控物奇功秘札，以内家吸摄罡劲凌空夺人兵刃，威震契丹铁骑。',
     lore: '汪剑通帮主批注：“非忠肝义胆、真气沛然者，莫授此卷。”',
     useEffect: {
@@ -249,7 +249,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 510,
+    value: 194,
     desc: '荆襄武当道家高士绘于绵纸上的绝顶轻功图解，左脚踏右脚背借力直上青云，号称轻功中的轻功。',
     useEffect: {
       mp: 60,
@@ -264,7 +264,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 490,
+    value: 186,
     desc: '西岳华山派镇派上乘剑诀，取莲花、朝阳、落雁三峰险峻峭拔之势，一剑三连环，剑气森然逼人。',
     useEffect: {
       mp: 65,
@@ -279,7 +279,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 500,
+    value: 190,
     desc: '荆楚铁掌峰秘藏玄铁夹板书册，详载刚猛霸道、开碑裂石的《铁掌功》十四路催劲毒砂火候。',
     useEffect: {
       hp: 80,
@@ -294,7 +294,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 480,
+    value: 182,
     desc: '成都府外唐家堡秘不外传的机括手法真卷，一扬手间金针、铁莲子、袖箭铺天盖地封死敌手八方退路。',
     useEffect: {
       skillGain: ['算术', 3],
@@ -309,7 +309,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 460,
+    value: 175,
     desc: '河北真定名宿融合古战阵槊法创制的百战神枪秘谱，大枪如神龙出水，横扫千军万马而锋芒不折。',
     useEffect: {
       riding: 3,
@@ -324,7 +324,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '地阶',
     stackable: false,
-    value: 450,
+    value: 171,
     desc: '从颜真卿行草奇作《裴将军诗》中化出的点穴判官笔绝学，笔走龙蛇间兼备雷霆剑意与书法筋骨。',
     useEffect: {
       skillGain: ['书', 4],
@@ -339,7 +339,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '地阶',
     stackable: false,
-    value: 620,
+    value: 260,
     desc: '庆历六年九月十五日范希文于邓州花洲书院应滕子京之请亲笔挥就的行书手卷，字字铿锵，浩气充塞天地。',
     lore: '“先天下之忧而忧，后天下之乐而乐”，大宋士林仁人志士无不奉若圭臬。',
     useEffect: {
@@ -354,7 +354,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '地阶',
     stackable: false,
-    value: 580,
+    value: 220,
     desc: '宋初营丘画派宗师李成与王晓合绘寒林荒原古碑奇景，枯枝蟹爪苍劲凄清，骑骡老者驻足仰观残碑。',
     lore: '北宋山水“三家鼎峙”之首，惜墨如金，气象萧疏旷远。',
     useEffect: {
@@ -368,7 +368,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '地阶',
     stackable: false,
-    value: 560,
+    value: 213,
     desc: '江南山水鼻祖董北苑代表真迹，以披麻皴与点子皴写出江南烟雨平淡天真之态，渔舟洲渚隐现云水间。',
     useEffect: {
       skillGain: ['画', 6],
@@ -381,7 +381,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '法帖碑刻',
     rarity: '地阶',
     stackable: false,
-    value: 590,
+    value: 224,
     desc: '盛唐颜鲁公追祭常山死节侄儿季明之悲愤绝笔宋内府精摹卷，涂抹改窜处血泪交融，被尊为“天下第二行书”。',
     lore: '欧阳修集古录跋赞其忠义郁勃之气溢于楮墨，观之令人凛然生抗虏死节之心。',
     useEffect: {
@@ -396,7 +396,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '百工图谱',
     rarity: '地阶',
     stackable: false,
-    value: 530,
+    value: 201,
     desc: '布衣巨匠毕昇于庆历至皇祐年间总结胶泥刻字、火烧令坚、松脂蜡纸灰排版刷印工艺的亲笔图说手稿。',
     lore: '“若止印三二本，未为简易；若印数十百千本，则极为神速”，开人类活字印刷万世先河。',
     useEffect: {
@@ -410,7 +410,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '百工图谱',
     rarity: '地阶',
     stackable: false,
-    value: 490,
+    value: 186,
     desc: '皇祐年间左班殿直贾宪撰著的北宋算学巅峰手稿，首创“立成释锁平方法”与增乘开方三角阵图（贾宪三角）。',
     lore: '大宋天算奇门高人皆借此图推演九宫八卦阵眼变幻。',
     useEffect: {
@@ -424,7 +424,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '经史典籍',
     rarity: '地阶',
     stackable: false,
-    value: 540,
+    value: 205,
     desc: '醉翁欧阳永叔秉春秋笔法私修梁唐晋汉周五代乱世兴亡之书，“呜呼”发端苍凉沉郁，痛陈武夫乱政与燕云沦陷之鉴。',
     useEffect: {
       skillGain: ['经义', 6],
@@ -437,7 +437,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '百工图谱',
     rarity: '地阶',
     stackable: false,
-    value: 500,
+    value: 190,
     desc: '翰林医官院王怀隐等奉敕编修的北宋官修方书巨著，收录秘方一万六千八百余首，辨证施治与解毒救急靡不毕备。',
     useEffect: {
       hp: 150,
@@ -452,7 +452,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '琴棋清谱',
     rarity: '地阶',
     stackable: false,
-    value: 510,
+    value: 194,
     desc: '承自魏晋嵇叔夜刑场绝响的唐宫旧藏减字古琴谱，全曲四十五段杀伐激荡，如聂政刺韩相，戈矛纵横。',
     useEffect: {
       mp: 50,
@@ -466,7 +466,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '琴棋清谱',
     rarity: '地阶',
     stackable: false,
-    value: 480,
+    value: 182,
     desc: '辑录棋待诏名家棋诀与皇祐国手对局精解的纹枰秘籍，内含“烂柯遗局”与奇门征子杀法。',
     useEffect: {
       skillGain: ['棋', 7],
@@ -483,7 +483,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 145,
+    value: 51,
     desc: '少林寺罗汉堂武僧进阶修习的护体内功图册，运功时隐现伏虎禅意，筋骨强健有力。',
     useEffect: {
       mp: 45,
@@ -498,7 +498,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 155,
+    value: 65,
     desc: '汴京殿前司班直禁军将校专修的重甲呼吸吐纳法，披坚执锐久战不疲，最抗刀箭攒射。',
     useEffect: {
       hp: 60,
@@ -513,7 +513,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 140,
+    value: 49,
     desc: '川蜀峨眉山佛道兼修女冠与僧侣传习的清净内功卷，心若莲华不染尘埃，真气凝练绵长。',
     useEffect: {
       mp: 50,
@@ -528,7 +528,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 135,
+    value: 47,
     desc: '洛阳金刀世家外传的刀法总诀拓本，刀势大开大合、刚猛沉雄，尽显中州名门气派。',
     useEffect: {
       mp: 30,
@@ -543,7 +543,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 140,
+    value: 49,
     desc: '河东代州雁门关戍边老卒在血火厮杀中锤炼出的惨烈战刀谱，刀刀直奔马腿咽喉，绝无花哨虚招。',
     useEffect: {
       hp: 40,
@@ -558,7 +558,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 150,
+    value: 52,
     desc: '关中道门秘传轻功佳构，摹塞外金雁斜飞掠空之姿，可一口真气凌空转折数次。',
     useEffect: {
       mp: 40,
@@ -573,7 +573,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 145,
+    value: 51,
     desc: '江淮漕帮水路香主踏浪渡河的独门轻功秘本，足尖点踏浮木芦苇即可飞渡汴河急流。',
     useEffect: {
       mp: 40,
@@ -588,7 +588,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 125,
+    value: 44,
     desc: '西岳华山落雁峰剑客所传进阶剑谱，剑势轻灵迅捷、忽高忽低，令敌手难测剑尖落点。',
     useEffect: {
       mp: 30,
@@ -603,7 +603,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学残卷',
     rarity: '良阶',
     stackable: false,
-    value: 130,
+    value: 46,
     desc: '吴越会稽民间流传的春秋古剑遗篇，剑路清丽曼妙，专为身形灵巧者以快打慢而设。',
     useEffect: {
       mp: 30,
@@ -618,7 +618,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 135,
+    value: 47,
     desc: '相传天波杨府五郎延德于五台山出家后化枪为棍所创，棍影重重暗合八卦方位，专克契丹长槊。',
     useEffect: {
       hp: 40,
@@ -633,7 +633,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 140,
+    value: 49,
     desc: '河北沧州与京畿武师推崇的百兵之王枪谱，讲究心与意合、意与气合、气与力合，拦拿扎一气呵成。',
     useEffect: {
       riding: 2,
@@ -648,7 +648,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 120,
+    value: 42,
     desc: '开封府与刑部六扇门名捕闭气追踪、伏击悍匪的独门内息法门，耳目聪敏，夜行百里气息不乱。',
     useEffect: {
       mp: 45,
@@ -663,7 +663,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 110,
+    value: 38,
     desc: '摹虎、鹿、熊、猿、鸟五禽神态导引吐纳的养生古功卷，常习可调和五脏气血、延年祛疾。',
     useEffect: {
       hp: 55,
@@ -679,7 +679,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 115,
+    value: 40,
     desc: '江南与汴洛文士侠客喜爱的奇门点穴谱，合扇如判官笔认穴闭脉，开扇潇洒自若不失儒雅风流。',
     useEffect: {
       skillGain: ['诗词', 2],
@@ -694,7 +694,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '良阶',
     stackable: false,
-    value: 110,
+    value: 38,
     desc: '江湖一流轻功筑基进阶谱，身形掠过水面或屋脊时足尖三度轻点借力，矫健如春燕剪水。',
     useEffect: {
       mp: 35,
@@ -709,7 +709,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '经史典籍',
     rarity: '良阶',
     stackable: false,
-    value: 95,
+    value: 33,
     desc: '庆历三年范仲淹任参知政事时呈奏仁宗皇帝的新政纲领：明黜陟、抑侥幸、精贡举、择长官、厚农桑。',
     lore: '虽庆历新政旋起旋罢，此卷仍是皇祐年间天下经世士子案头必读政书。',
     useEffect: {
@@ -723,7 +723,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '经史典籍',
     rarity: '良阶',
     stackable: false,
-    value: 105,
+    value: 37,
     desc: '庆历二年富彦国两使契丹、于辽兴宗帐前慷慨陈词力拒割地之实录钞本，言辞锋利，大涨宋人志气。',
     useEffect: {
       skillGain: ['辩才', 4],
@@ -736,7 +736,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '法帖碑刻',
     rarity: '良阶',
     stackable: false,
-    value: 88,
+    value: 31,
     desc: '国子监直讲徂徕先生石介颂扬范、富、韩、欧阳诸贤而痛斥奸邪的长诗碑拓，字势奇崛雄健。',
     useEffect: {
       skillGain: ['经义', 3],
@@ -749,7 +749,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '法帖碑刻',
     rarity: '良阶',
     stackable: false,
-    value: 98,
+    value: 34,
     desc: '庆历六年欧阳永叔知滁州时所作千古名篇拓本，二十一个“也”字跌宕流转，山水之乐尽在言外。',
     useEffect: {
       skillGain: ['诗词', 4],
@@ -762,7 +762,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '法帖碑刻',
     rarity: '良阶',
     stackable: false,
-    value: 108,
+    value: 38,
     desc: '“宋四家”先驱蔡君谟入闽经略泉州水陆津梁之楷书手札，字体端庄温润，兼具桥梁营造算度之妙。',
     useEffect: {
       skillGain: ['书', 4],
@@ -775,7 +775,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '诗词唱本',
     rarity: '良阶',
     stackable: false,
-    value: 85,
+    value: 30,
     desc: '北宋诗文革新大家梅圣俞诗集，一洗西昆浮艳铅华，以平淡古雅写民生疾苦与山川真趣。',
     useEffect: {
       skillGain: ['诗词', 4],
@@ -788,7 +788,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '良阶',
     stackable: false,
-    value: 96,
+    value: 34,
     desc: '苏子美罢官退居苏州沧浪亭所书手卷，豪放狂逸，兼得怀素草书神髓与江湖散人旷达之风。',
     useEffect: {
       skillGain: ['书', 3],
@@ -802,7 +802,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '诗词唱本',
     rarity: '良阶',
     stackable: false,
-    value: 92,
+    value: 32,
     desc: '太平宰相晏同叔词集，“无可奈何花落去，似曾相识燕归来”，温润秀洁，尽显北宋名臣雍容气度。',
     useEffect: {
       skillGain: ['诗词', 4],
@@ -815,7 +815,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '经史典籍',
     rarity: '良阶',
     stackable: false,
-    value: 90,
+    value: 31,
     desc: '安定先生胡瑗分设“经义”与“治事”（兵学、水利、算历）两斋育才之实学讲义，开宋代理学与经世教育先声。',
     useEffect: {
       skillGain: ['经义', 4],
@@ -828,7 +828,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '经史典籍',
     rarity: '良阶',
     stackable: false,
-    value: 88,
+    value: 31,
     desc: '泰山先生孙明复隐居泰山十年治《春秋》之名著，倡大一统尊王攘夷大义，深得范仲淹推重。',
     useEffect: {
       skillGain: ['经义', 4],
@@ -841,7 +841,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '百工图谱',
     rarity: '良阶',
     stackable: false,
-    value: 105,
+    value: 37,
     desc: '北宋通才名臣燕肃创制溢水消差“莲花漏”与复原齿轮“指南车”的精密机械结构墨线图册。',
     useEffect: {
       skillGain: ['算术', 4],
@@ -854,7 +854,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '良阶',
     stackable: false,
-    value: 112,
+    value: 39,
     desc: '长安狂逸画师许道宁醉后挥毫之作，峰峦峭拔直插云霄，江面空阔孤舟横渡，张士逊曾赠诗激赏。',
     useEffect: {
       skillGain: ['画', 4],
@@ -867,7 +867,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '良阶',
     stackable: false,
-    value: 108,
+    value: 38,
     desc: '长沙画师易元吉深入荆湖万山观察猿猱獐鹿百态绘就的灵动写生卷，猿臂腾跃之势竟与轻功身法暗合。',
     useEffect: {
       mp: 25,
@@ -881,7 +881,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '琴棋清谱',
     rarity: '良阶',
     stackable: false,
-    value: 95,
+    value: 33,
     desc: '江南琴人泛舟潇湘、望九嶷云水翻涌而谱写的七弦琴曲清本，泛音空灵缥缈，抚之涤荡胸中尘虑。',
     useEffect: {
       mp: 30,
@@ -895,7 +895,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '琴棋清谱',
     rarity: '良阶',
     stackable: false,
-    value: 94,
+    value: 33,
     desc: '北宋张拟仿《孙子兵法》十三篇体例撰成的围棋理论经典，论布局、得算、权舆、合战精辟入里。',
     useEffect: {
       skillGain: ['棋', 4],
@@ -912,7 +912,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 28,
+    value: 17,
     desc: '大宋军中与市井武馆广为流传的三十二势筑基拳谱，招式堂堂正正，最宜少年侠客锤炼筋骨根基。',
     lore: '相传宋太祖赵匡胤微时以此拳打遍京洛。',
     useEffect: {
@@ -928,7 +928,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 35,
+    value: 18,
     desc: '少林寺外院俗家弟子入门必修拳法木刻小册，拳架稳固严整，一招一式皆具佛门护法正气。',
     useEffect: {
       hp: 25,
@@ -943,7 +943,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 30,
+    value: 18,
     desc: '大宋江湖流传最广的丹田吐纳入门小册，按子午流注导引微弱内息循任督初转，中正平和绝无走火之虞。',
     useEffect: {
       mp: 30,
@@ -958,7 +958,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 32,
+    value: 18,
     desc: '道门与民间剑客常备的入门剑术歌诀，剑招轻快灵便，刺挑挂抹循规蹈矩。',
     useEffect: {
       mp: 20,
@@ -973,7 +973,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学残卷',
     rarity: '凡阶',
     stackable: true,
-    value: 38,
+    value: 18,
     desc: '河东名将呼延赞传于禁军马步军的竹节钢鞭操典简钞本，专重砸锁破甲之巧劲。',
     useEffect: {
       skillGain: ['策论', 1],
@@ -988,7 +988,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学残卷',
     rarity: '凡阶',
     stackable: true,
-    value: 40,
+    value: 18,
     desc: '代州民间乡勇仿天波杨府枪法抄录的外围筑基枪谱，枪花点点护住门户，颇具边塞遗风。',
     useEffect: {
       riding: 1,
@@ -1003,7 +1003,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 36,
+    value: 18,
     desc: '西岳华山外门剑童每日晨课演练的基础十二路剑招图解，白云出岫、有凤来仪初见雏形。',
     useEffect: {
       mp: 20,
@@ -1018,7 +1018,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 36,
+    value: 18,
     desc: '武当山下道观道童防身健体的长剑套路，讲究沉肩坠肘、剑随身转。',
     useEffect: {
       mp: 20,
@@ -1033,7 +1033,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 34,
+    value: 18,
     desc: '大宋各州丐帮低袋弟子在破庙传习的防身掌法，掌势翻飞如莲叶遮护周身。',
     useEffect: {
       hp: 20,
@@ -1048,7 +1048,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 38,
+    value: 18,
     desc: '详载绑沙袋跑板壁、借飞爪翻越高墙大院的江湖轻身术小册，夜行侠客与捕快人手一卷。',
     useEffect: {
       mp: 20,
@@ -1063,7 +1063,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 32,
+    value: 18,
     desc: '大宋各州府禁厢军伍长传授新兵的壮气活血呼吸法，能耐风霜劳顿、增强皮肉气血。',
     useEffect: {
       hp: 35,
@@ -1078,7 +1078,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 26,
+    value: 16,
     desc: '各县弓手与巡检司土兵剿匪防盗的标准长柄朴刀劈砍图谱，朴实凶悍、易于速成。',
     useEffect: {
       hp: 20,
@@ -1093,7 +1093,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 35,
+    value: 18,
     desc: '中原镖局趟子手与女侠喜习的双刀套路，双刀交错如春柳迎风，护身严密。',
     useEffect: {
       mp: 18,
@@ -1108,7 +1108,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 33,
+    value: 18,
     desc: '京畿与河北武馆常见的单刀筑基谱，缠头裹脑、劈砍撩挂步步沉稳。',
     useEffect: {
       hp: 20,
@@ -1123,7 +1123,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 25,
+    value: 15,
     desc: '“手是两扇门，全凭腿打人”，黄河两岸拳师启蒙必练的十路潭腿歌诀抄本。',
     useEffect: {
       hp: 22,
@@ -1138,7 +1138,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 34,
+    value: 18,
     desc: '州县衙门老捕头总结的分筋错骨反关节拿人手法，专门生擒醉汉与毛贼。',
     useEffect: {
       mp: 15,
@@ -1153,7 +1153,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 36,
+    value: 18,
     desc: '走江湖单身客商暗藏护腕袖筒发射短箭的瞄准与发力诀窍，冷不防可救性命。',
     useEffect: {
       skillGain: ['算术', 1],
@@ -1168,7 +1168,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 26,
+    value: 16,
     desc: '乡间武举人与护院教头立木桩锤炼下盘眼力的步法图册，走熟后下盘稳健、闪展灵活。',
     useEffect: {
       mp: 18,
@@ -1183,7 +1183,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 22,
+    value: 13,
     desc: '拣取河滩鹅卵石以指腕寸劲破空击远的粗浅暗器练法，胜在随地可取、弹无虚发。',
     useEffect: {
       mp: 15,
@@ -1198,7 +1198,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '武学秘籍',
     rarity: '凡阶',
     stackable: false,
-    value: 24,
+    value: 14,
     desc: '大相国寺与各地宫观免费施印的静坐调息小册，凝神屏虑可平复躁血、微增丹田内息。',
     useEffect: {
       mp: 25,
@@ -1214,7 +1214,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '诗词唱本',
     rarity: '凡阶',
     stackable: false,
-    value: 20,
+    value: 12,
     desc: '汴京樊楼与秦淮歌馆歌妓传唱不衰的柳三变俚俗慢词钞本，“凡有井水饮处，皆能歌柳词”。',
     useEffect: {
       skillGain: ['诗词', 2],
@@ -1227,7 +1227,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '诗词唱本',
     rarity: '凡阶',
     stackable: false,
-    value: 22,
+    value: 13,
     desc: '因“云破月来花弄影”三句绝唱名动汴洛的都官郎中张子野词选，工于音律造语。',
     useEffect: {
       skillGain: ['诗词', 2],
@@ -1240,7 +1240,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '诗词唱本',
     rarity: '凡阶',
     stackable: false,
-    value: 24,
+    value: 14,
     desc: '杭州孤山隐士“梅妻鹤子”林君复遗诗薄册，“疏影横斜水清浅，暗香浮动月黄昏”清绝尘寰。',
     useEffect: {
       skillGain: ['诗词', 2],
@@ -1253,7 +1253,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '蒙学杂书',
     rarity: '凡阶',
     stackable: true,
-    value: 10,
+    value: 6,
     desc: '以“赵钱孙李”尊国姓开篇的宋初识字蒙书，纸页微黄，江南与中原州县童蒙人人诵读。',
     useEffect: {
       skillGain: ['经义', 1],
@@ -1266,7 +1266,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '经史典籍',
     rarity: '凡阶',
     stackable: false,
-    value: 28,
+    value: 17,
     desc: '大宋真宗朝陈彭年等奉诏重修的官定音韵标准书，举子应试作赋押韵必携案头。',
     useEffect: {
       skillGain: ['诗词', 2],
@@ -1279,7 +1279,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '经史典籍',
     rarity: '凡阶',
     stackable: false,
-    value: 26,
+    value: 16,
     desc: '汴京相国寺书摊热销的窄幅小字工具书，专为科场士子查检诗赋平仄官韵而印。',
     useEffect: {
       skillGain: ['经义', 2],
@@ -1292,7 +1292,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '百工图谱',
     rarity: '凡阶',
     stackable: false,
-    value: 30,
+    value: 18,
     desc: '详论建安龙凤团茶色香味、炙茶碾茶点茶斗茶及建盏兔毫鉴赏之风雅小品。',
     useEffect: {
       mp: 25,
@@ -1306,7 +1306,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '百工图谱',
     rarity: '凡阶',
     stackable: false,
-    value: 25,
+    value: 15,
     desc: '欧阳永叔任西京留守推官时遍访洛阳名园，详记姚黄、魏紫等二十四种绝品牡丹栽培风俗之雅书。',
     useEffect: {
       skillGain: ['画', 2],
@@ -1319,7 +1319,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '兵书舆图',
     rarity: '凡阶',
     stackable: false,
-    value: 32,
+    value: 18,
     desc: '绘有大宋十五路州府驿站、渡口津梁与里程宿头信息的行商舆图册，走南闯北极其实用。',
     useEffect: {
       riding: 1,
@@ -1333,7 +1333,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '蒙学杂书',
     rarity: '凡阶',
     stackable: true,
-    value: 15,
+    value: 9,
     desc: '桑家瓦子说书艺人霍四究辈底本抄册，演说三分汉魏英雄攻伐故事，市井茶坊听客如堵。',
     useEffect: {
       skillGain: ['辩才', 2],
@@ -1346,7 +1346,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '蒙学杂书',
     rarity: '凡阶',
     stackable: true,
-    value: 16,
+    value: 10,
     desc: '勾栏瓦舍艺人讲史底本，演绎后周太祖与本朝艺祖皇帝马上得天下之民间传奇，口吻生动犀利。',
     useEffect: {
       skillGain: ['辩才', 2],
@@ -1359,7 +1359,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '凡阶',
     stackable: true,
-    value: 14,
+    value: 8,
     desc: '岁末东京纸马铺雕版套印的镇宅钟进士捉鬼图，设色鲜亮浓烈，可观北宋民间雕版画工。',
     useEffect: {
       skillGain: ['画', 1],
@@ -1372,7 +1372,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '法帖碑刻',
     rarity: '凡阶',
     stackable: true,
-    value: 12,
+    value: 7,
     desc: '福建建阳麻沙镇书坊以榕木版快印的真草二体《千字文》，纸薄价廉，供寒门学童描红习字。',
     useEffect: {
       skillGain: ['书', 2],
@@ -1385,7 +1385,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '百工图谱',
     rarity: '凡阶',
     stackable: false,
-    value: 26,
+    value: 16,
     desc: '市易行与盐铁账房学徒必学的筹算读本，内载“物不知数（韩信点兵）”与鸡兔同笼捷法。',
     useEffect: {
       skillGain: ['算术', 2],
@@ -1398,7 +1398,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '百工图谱',
     rarity: '凡阶',
     stackable: false,
-    value: 30,
+    value: 18,
     desc: '秦州与河曲茶马互市牙人秘藏的相马歌诀图册，教你观齿龄、辨旋毛、识大宛党项良驹骨相。',
     useEffect: {
       riding: 2,
@@ -1411,7 +1411,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '琴棋清谱',
     rarity: '凡阶',
     stackable: false,
-    value: 22,
+    value: 13,
     desc: '渭城朝雨送客西出阳关的通俗丝竹唱谱，陕西延安、秦州边关酒肆戌客闻之无不落泪。',
     useEffect: {
       skillGain: ['琴', 2],
@@ -1424,7 +1424,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '琴棋清谱',
     rarity: '凡阶',
     stackable: false,
-    value: 22,
+    value: 13,
     desc: '州桥茶肆棋摊棋待诏学徒整理的让先与边角定式三十六图，最宜围棋初学入门拆解。',
     useEffect: {
       skillGain: ['棋', 2],
@@ -1437,7 +1437,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '经史典籍',
     rarity: '凡阶',
     stackable: false,
-    value: 28,
+    value: 17,
     desc: '摘录《重详定刑统》中关津盘诘、江湖械斗、捕亡自首诸条律疏，熟读可于公堂据理雄辩。',
     useEffect: {
       skillGain: ['辩才', 2],
@@ -1450,7 +1450,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '经史典籍',
     rarity: '凡阶',
     stackable: false,
-    value: 28,
+    value: 17,
     desc: '辑录何承矩以来河北塘泺防辽水田兴修方略的州学士子抄本，兼涉农田沟洫与限制契丹骑兵驰突之策。',
     useEffect: {
       skillGain: ['策论', 2],
@@ -1463,7 +1463,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     subType: '名家书画',
     rarity: '凡阶',
     stackable: false,
-    value: 24,
+    value: 14,
     desc: '汴京民间画工白描淡彩绘就的元宵鳌山灯火、金明池争标夺锦、重阳菊会十二页风俗册页。',
     useEffect: {
       skillGain: ['画', 2],

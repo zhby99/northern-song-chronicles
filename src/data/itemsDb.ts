@@ -206,7 +206,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '佛门圣药',
     rarity: '天阶',
     stackable: false,
-    value: 920,
+    value: 386,
     desc: '嵩山少林寺药王院秘传百年的起死回生圣药，集千年雪莲、老山野参等三十六味灵药九转丹成，一颗便可贯通奇经、脱胎换骨。',
     lore: '少林寺每甲子仅成丹数枚，非护教大劫或武林存亡之际绝不轻赐。',
     useEffect: {
@@ -224,7 +224,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '道家仙丹',
     rarity: '天阶',
     stackable: false,
-    value: 860,
+    value: 361,
     desc: '逍遥派与东海桃花岛一脉秘炼仙丹，采清晨九种奇花花瓣上之朝露配以瑶池灵草酿就，服之满口异香，真气生生不息。',
     lore: '无崖子与苏星河常以此丹调理内息，轻身明目，寒暑不侵。',
     useEffect: {
@@ -243,7 +243,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '万毒克星',
     rarity: '天阶',
     stackable: false,
-    value: 960,
+    value: 403,
     desc: '以无量山剑湖秘境偶现之万毒之王“莽牯朱蛤”内丹辅以滇南灵草封炼而成，服后通体血脉澄澈，诸般瘴蛊奇毒莫能近身。',
     lore: '大理天龙寺枯荣大师曾言：得朱蛤真元者，纵入星宿毒海亦如履平地。',
     useEffect: {
@@ -260,7 +260,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '绝世奇毒',
     rarity: '天阶',
     stackable: false,
-    value: 880,
+    value: 370,
     desc: '天山童姥巫行云独步西域的阴阳暗器奇毒，以昆仑寒玉匣封存薄如柳叶的酒水冰片，打入经脉后奇痒剧痛交作，求生不得、求死不能。',
     lore: '三十六洞七十二岛群豪闻“生死符”三字莫不魂飞魄散，唯有天山六阳掌真气可解。',
     poisonEffect: '战阵奇毒 · 种入敌身令其真气逆乱、攻防暴跌，每回合持续噬血封脉（无视常规护甲）',
@@ -272,7 +272,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '绝世奇毒',
     rarity: '天阶',
     stackable: false,
-    value: 850,
+    value: 357,
     desc: '星宿老仙丁春秋取昆仑毒泉五圣奇虫精炼的无色无味毒粉，微风拂动即悄然入体，中者连笑三声便气绝经断，诡谲莫测。',
     lore: '碧玉瓶塞刻有星宿海骷髅暗记，非抗性高绝或深谙毒理者不可轻启。',
     poisonEffect: '战阵奇毒 · 范围暗算奇毒，令目标心脉痉挛、三回合内接连触发剧烈毒伤与定身失神',
@@ -286,7 +286,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '塞外灵丹',
     rarity: '地阶',
     stackable: false,
-    value: 420,
+    value: 160,
     desc: '采自白山黑水深处的人形老山参王，经大辽太医局与塞外奇人秘法蜜炼，重伤垂危之际含服一丸可吊命回元、固本培气。',
     lore: '临潢府斡耳朵皇帐贡珍，塞北苦寒之地视若第二性命。',
     useEffect: {
@@ -302,7 +302,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '西域灵丹',
     rarity: '地阶',
     stackable: false,
-    value: 390,
+    value: 148,
     desc: '撷昆仑万仞冰峰之巅的盛开雪莲，佐以寒潭灵泉炼就，丹丸晶莹如碧玉，可瞬间充盈枯竭丹田并涤除寒热内伤。',
     useEffect: {
       maxMp: 100,
@@ -318,7 +318,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '道门金丹',
     rarity: '地阶',
     stackable: false,
-    value: 360,
+    value: 137,
     desc: '武当山真武道宗丹房依古法铅汞草木同炉炼制的紫金丹药，性温醇和，最宜突破内功瓶颈前宁神聚气、调和阴阳。',
     useEffect: {
       maxHp: 50,
@@ -335,7 +335,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '西夏奇毒',
     rarity: '地阶',
     stackable: false,
-    value: 340,
+    value: 129,
     desc: '西夏兴庆府一品堂秘藏的无色奇毒，盛于双层乌金瓷瓶中。临阵迎风挥洒，敌手双目酸泪不止，周身内力一时酸麻溃散。',
     lore: '一品堂高手潜入中原刺探少林丐帮军情时，常以此物以寡敌众。',
     poisonEffect: '战阵奇毒 · 化作无形毒雾笼罩敌阵，大幅削减敌方内力与身法集气，令其难以施展绝学',
@@ -347,7 +347,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '淬兵剧毒',
     rarity: '地阶',
     stackable: false,
-    value: 330,
+    value: 125,
     desc: '蜀中唐家堡天机阁主唐无影督炼的乌黑毒膏，专供涂抹暗器刃口，见血封喉，纵是横练铁布衫高手擦破油皮亦难逃毒火攻心。',
     poisonEffect: '战阵淬毒 · 涂抹于兵刃弓矢之上，命中后附加深层七煞腐脉剧毒并削弱目标抗性',
   },
@@ -360,7 +360,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '佛门灵丹',
     rarity: '良阶',
     stackable: true,
-    value: 95,
+    value: 33,
     desc: '少林药局玄生大师监制的随身良药，药香清冽，兼具活血化瘀与回补丹田真气之效，正道侠客远行常备。',
     useEffect: {
       hp: 380,
@@ -374,7 +374,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '接骨圣膏',
     rarity: '良阶',
     stackable: true,
-    value: 88,
+    value: 31,
     desc: '江南“阎王敌”薛慕华传出的外敷内服两用伤药，色泽碧绿清香扑鼻，专治刀剑重创与筋断骨折，生肌奇快。',
     useEffect: {
       hp: 540,
@@ -387,7 +387,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '御局成药',
     rarity: '良阶',
     stackable: true,
-    value: 105,
+    value: 37,
     desc: '开封府翰林医官院依《太平圣惠方》精制的名贵凉药，以犀角、羚羊角、朱砂与寒水石入药，清心除烦、镇压走火入魔与热毒。',
     lore: '仁宗皇帝诏令太医局刊印医方惠民，此丹在京师熟药所亦偶有售卖。',
     useEffect: {
@@ -403,7 +403,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '御贡茗膳',
     rarity: '良阶',
     stackable: true,
-    value: 110,
+    value: 38,
     desc: '建安北苑御茶园督造的上等研膏团茶，茶面浮雕龙凤祥纹。煎点一瓯雪沫乳花，顿觉胸臆开阔、真气澄澈，文思泉涌。',
     lore: '欧阳修、蔡襄诸公极爱此茗，北宋士大夫斗茶雅集无出其右。',
     useEffect: {
@@ -419,7 +419,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '名山奇药',
     rarity: '良阶',
     stackable: true,
-    value: 92,
+    value: 32,
     desc: '蜀中峨眉派采金顶雪水、川贝与黑熊胆汁配制的护心良药，服之清肝明目、强健气血，尤善化解巴蜀与岭南湿瘴。',
     useEffect: {
       hp: 360,
@@ -434,7 +434,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '镇国灵药',
     rarity: '良阶',
     stackable: true,
-    value: 98,
+    value: 34,
     desc: '阳苴咩城大理皇室供奉以南诏犀角粉、三七与紫金莲炼制的辟毒丸药，行走无量山与南疆毒林必备之护身丹。',
     useEffect: {
       hp: 220,
@@ -449,7 +449,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '苗疆蛊毒',
     rarity: '良阶',
     stackable: true,
-    value: 115,
+    value: 40,
     desc: '广源州与南疆十万大山巫蛊师秘养金蚕蛊蜕研磨之碧绿细粉，着肤即蚀，令敌手气血蚕食、内息滞涩。',
     poisonEffect: '战阵蛊毒 · 扬洒后附着敌身，每回合吸蚀气血并迟滞其移动步数',
   },
@@ -460,7 +460,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '西域毒物',
     rarity: '良阶',
     stackable: true,
-    value: 108,
+    value: 38,
     desc: '星宿派门人摘星子等在陕北塞外暗炼的腥臭毒砂，以油皮小囊封装，掷出炸裂后毒烟弥漫，沾者皮肉溃烂。',
     poisonEffect: '战阵毒器 · 投掷覆盖十字格区域，造成外功毒伤并留下恶臭毒障区域',
   },
@@ -471,7 +471,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '奇门毒液',
     rarity: '良阶',
     stackable: true,
-    value: 85,
+    value: 30,
     desc: '捕江南太湖与岭南赤练毒蛇取腺毒熬制的猩红毒液，绿林好汉与邪派刺客常涂于飞刀袖箭之上，中者伤口火辣麻木。',
     poisonEffect: '战阵淬毒 · 提升兵刃或弓箭本场首次命中的破防毒伤，令对手身法骤降',
   },
@@ -482,7 +482,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '迷药奇香',
     rarity: '良阶',
     stackable: true,
-    value: 90,
+    value: 31,
     desc: '取洋金花（曼陀罗）、川乌与西域迷迭香精细配伍的绯色香粉，混入酒水或迎风弹指，可令寻常武夫头重脚轻、昏沉欲睡。',
     poisonEffect: '战阵迷香 · 干扰敌方神智，大幅降低目标闪避率与集气速度',
   },
@@ -495,7 +495,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '外敷伤药',
     rarity: '凡阶',
     stackable: true,
-    value: 15,
+    value: 9,
     desc: '河北、陕西四路大宋禁军标配的止血生肌药粉，以龙骨、血竭、乳香研末，刀箭皮肉外伤敷之立止流血。',
     useEffect: {
       hp: 180,
@@ -508,7 +508,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '官局常药',
     rarity: '凡阶',
     stackable: true,
-    value: 22,
+    value: 13,
     desc: '各地州府官办惠民熟药所平价售卖的黑褐色蜜丸，专治拳脚切磋留下的青紫瘀伤与筋骨酸痛。',
     useEffect: {
       hp: 250,
@@ -521,7 +521,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '回气散剂',
     rarity: '凡阶',
     stackable: true,
-    value: 24,
+    value: 14,
     desc: '市井药铺与道观常备的补气散剂，以黄芪、党参、麦冬入药，温水送服可缓缓平复演武消耗的丹田真气。',
     useEffect: {
       mp: 160,
@@ -534,7 +534,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '药膳茶食',
     rarity: '凡阶',
     stackable: true,
-    value: 10,
+    value: 6,
     desc: '开封府州桥夜市热卖的养生药膳糕饼，糅合云茯苓粉、牛乳酪与蜜枣烘成，香甜软糯，可补气血并充抵一日干粮。',
     useEffect: {
       hp: 110,
@@ -548,7 +548,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '消暑熟水',
     rarity: '凡阶',
     stackable: true,
-    value: 12,
+    value: 7,
     desc: '北宋街头茶坊竹筒盛卖的时令药饮，以紫苏叶、陈皮、甘草煎煮冰镇，生津止渴、提神益气。',
     lore: '汴京苦夏与秋燥之时，街巷挑担叫卖“香饮子”之声彻夜不绝。',
     useEffect: {
@@ -563,7 +563,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '军旅肉糜',
     rarity: '凡阶',
     stackable: true,
-    value: 18,
+    value: 11,
     desc: '河东雁门关与塞外商队常备的椒盐牛脯杂粮压缩肉丸，耐储抗饿，吞服数枚既壮气血又可充抵两日口粮。',
     useEffect: {
       hp: 120,
@@ -577,7 +577,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '防毒常药',
     rarity: '凡阶',
     stackable: true,
-    value: 20,
+    value: 12,
     desc: '取端午陈艾、明雄黄与苍术研配的药包，既可冲服祛除体内轻微蛇虫寒湿，亦可略微稳固周身抗毒根基。',
     useEffect: {
       hp: 110,
@@ -591,7 +591,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '绿林迷药',
     rarity: '凡阶',
     stackable: true,
-    value: 26,
+    value: 16,
     desc: '太行山与京东绿林黑店惯用的粗制麻沸迷药，油纸包封，下在浊酒肉汤之中可令大意行客浑身酸软、人事不知。',
     poisonEffect: '战阵迷药 · 令缺乏防备的低抗性目标短暂眩晕迟缓',
   },
@@ -602,7 +602,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '下九流暗器',
     rarity: '凡阶',
     stackable: true,
-    value: 14,
+    value: 8,
     desc: '市井泼皮与草莽匪类贴身暗藏的生石灰混川椒细末，危急时迎面扬出迷人双目，虽非名门正派所齿，却往往能死里逃生。',
     poisonEffect: '战阵阴招 · 近身扬洒致盲敌手，大幅削减其下一次攻击命中率',
   },
@@ -613,7 +613,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '山野毒草',
     rarity: '凡阶',
     stackable: true,
-    value: 28,
+    value: 17,
     desc: '采秦岭与巴山野生毒乌头、断肠草根晒干碾成的灰褐毒末，毒性猛烈燥急，常被山贼猎户用来涂抹陷阱竹签与猎矢。',
     poisonEffect: '战阵淬毒 · 附着轻度乌头麻痹毒素，令目标每回合流失少量气血',
   },
@@ -628,7 +628,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '天阶',
     equipSlot: 'accessory1',
     stackable: false,
-    value: 1200,
+    value: 504,
     desc: '盛唐西蜀雷氏家族巅峰之作，伏羲式桐面杉底，蚌徽金岳，崩霆裂石而余韵绕梁三日。抚之可引天地清气入脉，修习琴道与音律武学一日千里。',
     lore: '琴腹龙池内镌贞元款识，皇祐年间秘藏于洛阳名园与汴京清客秘阁之间，万金不换。',
     equipBonus: {
@@ -650,7 +650,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '天阶',
     equipSlot: 'accessory2',
     stackable: false,
-    value: 1150,
+    value: 483,
     desc: '整块昆仑羊脂暖玉琢就十九道纹枰，配以天山玄冰黑曜与南海白琲三百六十一子。落子声如清泉击磬，蕴藏无崖子一脉奇门弈理玄机。',
     lore: '传自逍遥派天山隐脉，星宿与大理国手毕生梦寐一观的纹枰至宝。',
     equipBonus: {
@@ -672,7 +672,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '天阶',
     equipSlot: 'accessory1',
     stackable: false,
-    value: 1080,
+    value: 454,
     desc: '紫檀描金百宝匣，内藏南唐后主李煜内府遗珍澄心堂纸、廷珪龙纹墨、宣州诸葛散卓笔与水岩大西洞金星端砚，四绝合璧，下笔如有神助。',
     lore: '欧阳修、梅尧臣曾作诗盛赞澄心堂纸“百金不许市一枚”，世间仅存寥寥数匣。',
     equipBonus: {
@@ -693,7 +693,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '天阶',
     equipSlot: 'accessory2',
     stackable: false,
-    value: 1120,
+    value: 470,
     desc: '北宋天算大家苏颂早年精研制成的缩微青铜擒纵水运星盘，昼夜自转不爽毫厘，可推演二十八宿分野、九宫八门与天下山川险易。',
     lore: '皇祐年间太史局与江南巧匠秘传之奇器，开后世水运仪象台之先声。',
     equipBonus: {
@@ -715,7 +715,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '天阶',
     equipSlot: 'accessory1',
     stackable: false,
-    value: 1050,
+    value: 441,
     desc: '布衣巨匠毕昇于庆历年间创制的火烧胶泥活字母模全匣，配松脂蜡版与铁范界栏，“若印数十百千本，则极为神速”，承载大宋文明火种。',
     lore: '沈括诸辈叹为神技之百工冠冕，持之与天下鸿儒名臣论学无不肃然起敬。',
     equipBonus: {
@@ -739,7 +739,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '地阶',
     equipSlot: 'accessory2',
     stackable: false,
-    value: 460,
+    value: 175,
     desc: '雨过天青云破处，釉色温润如凝脂，开片细密似蝉翼冰裂。焚龙涎沉水于琴侧，清心涤虑，外邪难侵。',
     lore: '北宋汝州窑口秘烧贡器雏制，士林清赏奉为瓷中魁首。',
     equipBonus: {
@@ -760,7 +760,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '香茗重器',
     rarity: '地阶',
     stackable: false,
-    value: 380,
+    value: 144,
     desc: '建州黑釉银丝兔毫盏镶鎏金口沿，配北苑银丝茶筅与鎏金汤提点茶瓶。点汤击拂，乳花咬盏久聚不散。',
     lore: '蔡襄《茶录》所推崇之北宋斗茶绝配，汴京樊楼与江南雅集尽显名士风流。',
     useEffect: {
@@ -776,7 +776,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '地阶',
     equipSlot: 'accessory1',
     stackable: false,
-    value: 410,
+    value: 156,
     desc: '宣州制笔世家诸葛高精制散卓长锋紫毫，尖、齐、圆、健四德俱备，兼通怀素狂草笔意与点穴判官指劲。',
     equipBonus: {
       agility: 5,
@@ -795,7 +795,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '文房雅器',
     rarity: '地阶',
     stackable: false,
-    value: 390,
+    value: 148,
     desc: '婺源龙尾山深坑所采眉子纹奇石，金星点点，发墨如油而呵气成云，严冬寒夜亦不冰涸。',
     useEffect: {
       mp: 55,
@@ -810,7 +810,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '地阶',
     equipSlot: 'accessory1',
     stackable: false,
-    value: 440,
+    value: 167,
     desc: '东海孤岛海底温玉雕琢而成的九节洞箫，翠色欲滴。灌注内息吹奏时声若龙吟海啸，乱敌心神而宁己真元。',
     lore: '隐含东海奇门音律一脉法度，非内力醇厚且谙熟宫商者不能尽展其威。',
     equipBonus: {
@@ -831,7 +831,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '地阶',
     equipSlot: 'accessory2',
     stackable: false,
-    value: 420,
+    value: 160,
     desc: '依北宋算学名家贾宪《黄帝九章算经细草》规制打造的紫檀梁框和田青玉珠算具，瞬息可演粮饷漕运与奇门遁甲生克。',
     equipBonus: {
       maxMp: 75,
@@ -851,7 +851,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '地阶',
     equipSlot: 'accessory2',
     stackable: false,
-    value: 450,
+    value: 171,
     desc: '以天然慈石磨针横贯灯芯浮于青铜水盏，外圈精刻二十四山向与天干地支，大漠风沙或桃花迷阵中皆可辨明微茫生门。',
     equipBonus: {
       maxHp: 90,
@@ -872,7 +872,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '地阶',
     equipSlot: 'accessory2',
     stackable: false,
-    value: 480,
+    value: 182,
     desc: '仿翰林医官王惟一所铸天圣针灸铜人精缩而成的鎏金经络铜偶，附乌金毫针三十六枚，十二正经与奇经八脉穴道纤毫毕现。',
     lore: '不仅可悬壶济世活人无数，更对行功冲穴、化解封穴奇毒大有裨益。',
     equipBonus: {
@@ -893,7 +893,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '奇门百工',
     rarity: '地阶',
     stackable: false,
-    value: 430,
+    value: 163,
     desc: '川西唐家堡外门大匠耗时三年制成的七重鲁班簧锁暗匣，非依九宫步序推演不可启闭，内设淬毒簧片与精巧机括拆解图机。',
     useEffect: {
       mp: 40,
@@ -908,7 +908,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '地阶',
     equipSlot: 'accessory2',
     stackable: false,
-    value: 410,
+    value: 156,
     desc: '贺兰山铁鹞子精锐将领秘用的冷锻减重错金马镫、嚼铁与鲨鱼皮鞍桥组件，配于良驹之上可令人马如臂使指，驰射稳若磐石。',
     equipBonus: {
       maxHp: 80,
@@ -931,7 +931,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '良品',
     equipSlot: 'accessory1',
     stackable: false,
-    value: 145,
+    value: 51,
     desc: '取兰考陈年阳面梧桐木斫制的标准仲尼式古琴，鹿角霜灰胎黑漆，音色清亮松透，士子游侠携琴访友之佳品。',
     equipBonus: {
       maxMp: 55,
@@ -949,7 +949,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '纹枰弈具',
     rarity: '良品',
     stackable: false,
-    value: 135,
+    value: 47,
     desc: '折叠式乐清黄杨木棋盘，配大理永昌府秘窑烧制的黑白云子，对光迎视黑子碧绿透亮、白子温润如玉。',
     useEffect: {
       mp: 30,
@@ -963,7 +963,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '文房雅器',
     rarity: '良品',
     stackable: false,
-    value: 115,
+    value: 40,
     desc: '歙州制墨名家潘谷取黄山古松烟和麝香冰片杵捣万次而成，“摸索便知潘谷墨”，墨香清冽醒神，历百年不褪。',
     useEffect: {
       mp: 25,
@@ -977,7 +977,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '文房雅器',
     rarity: '良品',
     stackable: false,
-    value: 110,
+    value: 38,
     desc: '浙西湖州笔工精选冬月黄鼠狼尾毫配湘妃斑竹管精制，笔锋劲健挺拔，临摹颜柳碑帖与点染山石皴法皆宜。',
     useEffect: {
       mp: 25,
@@ -991,7 +991,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '丹青画具',
     rarity: '良品',
     stackable: false,
-    value: 130,
+    value: 46,
     desc: '苏州府画苑专供的十二格蛤蜊白螺碟，盛满研磨细腻的石青、石绿、朱砂、雌黄与泥金，绘制千里山河长卷必不可少。',
     useEffect: {
       mp: 25,
@@ -1005,7 +1005,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '宴饮雅器',
     rarity: '良品',
     stackable: false,
-    value: 140,
+    value: 49,
     desc: '越窑千峰翠色莲瓣注子配温碗，盛琥珀美酒置于热水碗中恒温馥郁，与豪杰名士把酒言欢最能畅抒胸臆。',
     useEffect: {
       hp: 40,
@@ -1020,7 +1020,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '文房清供',
     rarity: '良品',
     stackable: false,
-    value: 150,
+    value: 52,
     desc: '河北真定府曲阳定窑烧制的甜白釉剔花香盒与书斋腕枕，釉白如雪，刀法流丽，案头清供倍添儒雅气度。',
     useEffect: {
       mp: 35,
@@ -1035,7 +1035,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '良品',
     equipSlot: 'accessory2',
     stackable: false,
-    value: 135,
+    value: 47,
     desc: '京兆府同官黄堡镇耀州窑精品，橄榄青釉晶莹，镂空山峦炉盖青烟袅袅如仙山云海，静坐吐纳有助凝炼真气。',
     equipBonus: {
       maxMp: 50,
@@ -1054,7 +1054,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '丝竹雅器',
     rarity: '良品',
     stackable: false,
-    value: 120,
+    value: 42,
     desc: '采邙山背阴七年老紫竹阴干制成，管身嵌细密银丝缠枝纹，音韵苍凉悠远，夜宿关塞吹奏尤动边声。',
     useEffect: {
       mp: 30,
@@ -1069,7 +1069,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '良品',
     equipSlot: 'accessory2',
     stackable: false,
-    value: 145,
+    value: 51,
     desc: '老山檀香木扇柄配蝉翼熟绢，正反同针异色双面精绣寒雀梅竹，轻摇暗香浮动，出入秦淮西湖名园风采翩然。',
     equipBonus: {
       maxMp: 45,
@@ -1088,7 +1088,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '文房雅器',
     rarity: '良品',
     stackable: false,
-    value: 125,
+    value: 44,
     desc: '大宋少府监文思院巧匠铸造的瑞兽辟邪鎏金铜镇纸成对，分量沉凝，铺展巨幅行军舆图或挥毫长卷纹丝不动。',
     useEffect: {
       mp: 20,
@@ -1102,7 +1102,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '筹算百工',
     rarity: '良品',
     stackable: false,
-    value: 118,
+    value: 41,
     desc: '花梨木圆筒内藏南海象牙精车算筹一百二十枚，以朱漆玄漆区分正负数理（正算赤，负算黑），市易司大掌柜与军需官不离身之物。',
     useEffect: {
       mp: 25,
@@ -1116,7 +1116,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '杏林百工',
     rarity: '良品',
     stackable: false,
-    value: 128,
+    value: 45,
     desc: '便携樟木药箱，内置精铸熟铜船形药碾、象牙杆毫厘戥子秤与细目罗筛，深山采得灵芝雪莲可就地炮制成散。',
     useEffect: {
       hp: 110,
@@ -1130,7 +1130,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '金石百工',
     rarity: '良品',
     stackable: false,
-    value: 122,
+    value: 43,
     desc: '太原名匠打制的平口、斜刃、圆杆篆刻钢刀八柄，附青田冻石方章与福建漳州八宝印泥，金石治印腕力暗通指剑劲道。',
     useEffect: {
       mp: 30,
@@ -1144,7 +1144,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '天算百工',
     rarity: '良品',
     stackable: false,
-    value: 155,
+    value: 65,
     desc: '大宋边军将佐踏勘山川险隘专用的黄铜比例分规、铅坠水准仪与缩尺铜矩，绘山川道里分毫不差。',
     useEffect: {
       mp: 25,
@@ -1160,7 +1160,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '丝竹器具',
     rarity: '凡品',
     stackable: false,
-    value: 32,
+    value: 18,
     desc: '潇湘水畔泪痕斑竹削制的轻巧牧笛，粘贴苇膜后音色清脆嘹亮，走江湖者常插于腰间自娱解闷。',
     useEffect: {
       mp: 20,
@@ -1174,7 +1174,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '纹枰弈具',
     rarity: '凡品',
     stackable: false,
-    value: 35,
+    value: 18,
     desc: '市井棋待诏与茶坊酒肆最常见的楸木折盘，配白蛤壳与乌石磨制的棋子，随时可席地摆下一局残棋。',
     useEffect: {
       mp: 20,
@@ -1188,7 +1188,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '文房器具',
     rarity: '凡品',
     stackable: false,
-    value: 24,
+    value: 14,
     desc: '寻常书生案头必备的山兔脊毫毛笔两支，弹性适中，抄录书卷尺牍耐用顺手。',
     useEffect: {
       skillGain: ['书', 1],
@@ -1201,7 +1201,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '文房器具',
     rarity: '凡品',
     stackable: true,
-    value: 18,
+    value: 11,
     desc: '河北易水流域流传手艺压制的实用乌墨，墨色匀净黝黑，州县书铺皆有售卖。',
     useEffect: {
       skillGain: ['书', 1],
@@ -1214,7 +1214,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '文房器具',
     rarity: '凡品',
     stackable: true,
-    value: 20,
+    value: 12,
     desc: '浙东剡溪嫩竹沤制抄造的洁白竹纸，质地滑润受墨，最宜诗词唱和与书信往还。',
     useEffect: {
       skillGain: ['诗词', 1],
@@ -1227,7 +1227,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '文房器具',
     rarity: '凡品',
     stackable: false,
-    value: 28,
+    value: 17,
     desc: '河东绛州汾水绢滤细泥入窑烧制的素面砚台，质坚如石而轻便易携，寒士游学行囊常备。',
     useEffect: {
       skillGain: ['画', 1],
@@ -1240,7 +1240,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '筹算百工',
     rarity: '凡品',
     stackable: false,
-    value: 22,
+    value: 13,
     desc: '粗麻布囊盛装削制齐整的老苦竹算筹百二十根，行商贩卒盘算银钱斤两的吃饭家伙。',
     useEffect: {
       skillGain: ['算术', 1],
@@ -1253,7 +1253,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '筹算百工',
     rarity: '凡品',
     stackable: false,
-    value: 30,
+    value: 18,
     desc: '北方杜梨木车珠穿竹档制成的十三档算盘，拨动噼啪清脆，客栈账房与粮行人人皆用。',
     useEffect: {
       skillGain: ['算术', 1],
@@ -1266,7 +1266,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '书院器具',
     rarity: '凡品',
     stackable: false,
-    value: 25,
+    value: 15,
     desc: '蒙学塾师与书院斋长案头的黄杨镇纸戒尺配三峰木笔架，晨读经史时以朱砂句读批注。',
     useEffect: {
       skillGain: ['经义', 1],
@@ -1279,7 +1279,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '风雅器具',
     rarity: '凡品',
     stackable: false,
-    value: 26,
+    value: 16,
     desc: '杭州扇市热销的细竹骨洒金纸折扇，开合潇洒，高谈阔论间摇扇助势颇添三分辩士风采。',
     useEffect: {
       skillGain: ['辩才', 1],
@@ -1292,7 +1292,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '茶酒器具',
     rarity: '凡品',
     stackable: false,
-    value: 36,
+    value: 18,
     desc: '饶州景德镇民窑烧制的影青瓷一壶四盏，青白淡雅，透光见影，野店歇脚烹茶待客极佳。',
     useEffect: {
       mp: 35,
@@ -1305,7 +1305,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '茶酒器具',
     rarity: '凡品',
     stackable: false,
-    value: 28,
+    value: 17,
     desc: '河北磁州观台窑白釉黑彩扁葫芦瓶，腹书“醉眠芳草”四字，系红绒绳挂于鞍旁，豪气干云。',
     useEffect: {
       hp: 45,
@@ -1319,7 +1319,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '日用百工',
     rarity: '凡品',
     stackable: false,
-    value: 34,
+    value: 18,
     desc: '双层镂空万字纹小铜炉，冬日可置红萝炭暖手，平日可压梅花香篆安神驱蚊。',
     useEffect: {
       mp: 35,
@@ -1332,7 +1332,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '营造百工',
     rarity: '凡品',
     stackable: false,
-    value: 30,
+    value: 18,
     desc: '大宋营造匠人随身帆布袋，内装木雕墨斗、黄铜矩尺与手锛凿子，修缮营寨舟车不可或缺。',
     useEffect: {
       skillGain: ['算术', 1],
@@ -1345,7 +1345,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '杏林百工',
     rarity: '凡品',
     stackable: false,
-    value: 26,
+    value: 16,
     desc: '熟铁弯头鹤嘴小锄配青竹背篓，攀爬嵩山、峨眉、长白险峰采掘野生草药不伤根须。',
     useEffect: {
       hp: 65,
@@ -1358,7 +1358,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '杏林百工',
     rarity: '凡品',
     stackable: false,
-    value: 22,
+    value: 13,
     desc: '厚重敦实的生铁小药臼，行伍与走方医人常用来捣碎金创草药外敷止血。',
     useEffect: {
       hp: 55,
@@ -1371,7 +1371,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '鞍辔百工',
     rarity: '凡品',
     stackable: false,
-    value: 32,
+    value: 18,
     desc: '边关马夫与老镖师必备的铁齿马刷、刮汗板与弯头修蹄刀，每日刷洗照料坐骑可免马失前蹄之虞。',
     useEffect: {
       riding: 1,
@@ -1384,7 +1384,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '渔樵百工',
     rarity: '凡品',
     stackable: false,
-    value: 24,
+    value: 14,
     desc: '太湖与汴河垂钓翁常用的三节插接细竹竿、桐油蚕丝线与柳条鱼篓，闲暇临渊垂钓亦是养气之道。',
     useEffect: {
       mp: 20,
@@ -1398,7 +1398,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '行旅百工',
     rarity: '凡品',
     stackable: true,
-    value: 15,
+    value: 9,
     desc: '牛角弯壳火镰配白火石、艾绒及密封竹管火折子，一吹即燃，荒野露宿与幽暗秘窟探查必备。',
     useEffect: {
       hp: 40,
@@ -1411,7 +1411,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '行旅百工',
     rarity: '凡品',
     stackable: false,
-    value: 38,
+    value: 18,
     desc: '桐油熟布蒙面的竹骨双肩书箱，顶设遮阳避雨小棚，配黄铜横栓鱼形锁，赶考举子与游侠远行护书防潮利器。',
     useEffect: {
       mp: 20,
@@ -1427,7 +1427,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '官府文书',
     rarity: '凡品',
     stackable: false,
-    value: 10,
+    value: 6,
     desc: '盖有京畿路官印的行旅文牒，出入大宋各州雄关城门免受盘诘。',
   },
   {
@@ -1437,7 +1437,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '商贸奇珍',
     rarity: '良品',
     stackable: true,
-    value: 50,
+    value: 18,
     desc: '益州成都府交子务印制的铁钱楮券，通行川陕京洛各大商号，携带轻便。',
   },
   {
@@ -1447,7 +1447,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '门派信物',
     rarity: '良品',
     stackable: false,
-    value: 20,
+    value: 12,
     desc: '盖有钱塘怒潮帮副帮主私印的水路保荐信函，凭此帖可赴扬州等地拜入【江淮漕帮】。',
   },
   {
@@ -1457,7 +1457,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '门派信物',
     rarity: '良品',
     stackable: false,
-    value: 20,
+    value: 12,
     desc: '齐鲁查拳馆金牌总教头亲笔签发的武林保荐帖，凭此帖可赴大名府拜入【沧州八极门】。',
   },
   {
@@ -1467,7 +1467,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '门派信物',
     rarity: '良品',
     stackable: false,
-    value: 20,
+    value: 12,
     desc: '岭南洪门武馆金牌总教头出具的海陆武师举荐帖，凭此帖可赴泉州府投效【闽海镇远镖局】。',
   },
   {
@@ -1477,7 +1477,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '门派信物',
     rarity: '地阶',
     stackable: false,
-    value: 80,
+    value: 28,
     desc: '真定府【常山枪派】为立下抗辽边功的演武教习修书之保荐公函，凭此信可赴东京投效【开封府 / 六扇门】。',
   },
   {
@@ -1487,7 +1487,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '门派信物',
     rarity: '地阶',
     stackable: false,
-    value: 120,
+    value: 42,
     desc: '判大名府兼北京留守贾昌朝亲笔签押的保举公函，盛赞少侠勘破黄河铁索断江大案、夜守沙盘全歼契丹铁林死士之奇功。凭此信可赴东京直接投效一流公门【开封府 / 六扇门】授第2阶【捕头都头】（沧州八极门弟子亦可奉调转入）。',
   },
   {
@@ -1497,7 +1497,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '门派信物',
     rarity: '良品',
     stackable: false,
-    value: 60,
+    value: 21,
     desc: '沧州八极门总馆主卢铁山亲授之玄铁门令，正面镌「忠义千钧」四字。凭此令可免《齐鲁查拳馆举荐帖》，在大名府直接破格拜入【沧州八极门】授第2阶【内堂武师】。',
   },
   {
@@ -1507,7 +1507,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '机密军图',
     rarity: '地阶',
     stackable: false,
-    value: 200,
+    value: 76,
     desc: '自北京留守行宫沙盘阁暗格盗出的河朔塘泺水寨与界河布防密图残卷，乃大宋北门命脉所系，若携往北庭恐掀起滔天巨浪。',
   },
   {
@@ -1517,7 +1517,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '门派信物',
     rarity: '良品',
     stackable: false,
-    value: 40,
+    value: 18,
     desc: '自真定府宋辽边境榷场马鞍夹层搜出的幽州悯忠寺暗桩铜牌，背面附半张血书「南牧图成，速毁于燕。」乃《白沟寒星·幽州无名卷》关键凭证。',
   },
   {
@@ -1527,7 +1527,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '暗桩凭证',
     rarity: '良品',
     stackable: false,
-    value: 50,
+    value: 18,
     desc: '核查真定府榷场走私马商账册后起获的北庭马市暗记木符，凭此可令析津府燕京榷马大市盘查阈值大幅降低。',
   },
   {
@@ -1537,7 +1537,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '密谍图录',
     rarity: '良品',
     stackable: false,
-    value: 80,
+    value: 28,
     desc: '潜伏析津府的沧州八极门弟子秦乾手绘之幽州夜禁巡逻换防时刻图，潜入辽南京兵马元帅府时可精准避开暗哨。',
   },
   {
@@ -1547,7 +1547,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     subType: '宗门荐信',
     rarity: '地阶',
     stackable: false,
-    value: 150,
+    value: 52,
     desc: '真定府安抚使韩琦密保与常山枪派掌门赵括苍联名签押之功勋荐信，可凭此解锁【五台山清凉寺】或【殿前司禁军 / 六扇门】高阶晋升通道。',
   },
   {
@@ -1558,7 +1558,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '良品',
     equipSlot: 'accessory1',
     stackable: false,
-    value: 120,
+    value: 42,
     desc: '幽州悯忠寺百年不改汉家衣冠的燕云遗老相赠之古玉佩，温润沉厚，佩之可固本培元。',
     equipBonus: { res: 5 },
   },

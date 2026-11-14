@@ -15,7 +15,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 2800,
+    "value": 880,
     "equipBonus": {
       "attack": 230,
       "defense": 35,
@@ -66,7 +66,7 @@
     "sectId": "SECT-02",
     "forceTrait": "奇巧",
     "attackRange": 2,
-    "value": 2600,
+    "value": 700,
     "equipBonus": {
       "attack": 205,
       "defense": 42,
@@ -117,7 +117,7 @@
     "sectId": "SECT-13",
     "forceTrait": "奇巧",
     "attackRange": 4,
-    "value": 2700,
+    "value": 790,
     "equipBonus": {
       "attack": 220,
       "agility": 22,
@@ -171,7 +171,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 2100,
+    "value": 620,
     "equipBonus": {
       "attack": 192,
       "defense": 30,
@@ -222,7 +222,7 @@
     "sectId": "SECT-09",
     "forceTrait": "阴柔",
     "attackRange": 3,
-    "value": 2000,
+    "value": 520,
     "equipBonus": {
       "attack": 175,
       "maxMp": 420,
@@ -279,7 +279,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 1980,
+    "value": 500,
     "equipBonus": {
       "attack": 188,
       "agility": 15,
@@ -329,7 +329,7 @@
     "sectId": "SECT-03",
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 1680,
+    "value": 460,
     "equipBonus": {
       "attack": 165,
       "defense": 38,
@@ -383,7 +383,7 @@
     "sectId": "SECT-09",
     "forceTrait": "阴柔",
     "attackRange": 1,
-    "value": 1650,
+    "value": 436,
     "equipBonus": {
       "attack": 152,
       "maxMp": 320,
@@ -443,7 +443,7 @@
     "sectId": "SECT-10",
     "forceTrait": "轻灵",
     "attackRange": 2,
-    "value": 1620,
+    "value": 412,
     "equipBonus": {
       "attack": 160,
       "agility": 20,
@@ -493,7 +493,7 @@
     "sectId": "SECT-12",
     "forceTrait": "奇巧",
     "attackRange": 2,
-    "value": 1580,
+    "value": 380,
     "equipBonus": {
       "attack": 148,
       "maxMp": 300,
@@ -559,7 +559,7 @@
     "sectId": "SECT-08",
     "forceTrait": "阴柔",
     "attackRange": 1,
-    "value": 980,
+    "value": 280,
     "equipBonus": {
       "attack": 128,
       "defense": 24,
@@ -599,7 +599,7 @@
     "sectId": "SECT-20",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 960,
+    "value": 263,
     "equipBonus": {
       "attack": 132,
       "defense": 16,
@@ -636,7 +636,7 @@
     "sectId": "SECT-01",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 940,
+    "value": 246,
     "equipBonus": {
       "attack": 130,
       "maxHp": 220,
@@ -676,7 +676,7 @@
     "sectId": "SECT-22",
     "forceTrait": "轻灵",
     "attackRange": 2,
-    "value": 950,
+    "value": 254,
     "equipBonus": {
       "attack": 126,
       "defense": 18,
@@ -714,7 +714,7 @@
     "sectId": "SECT-04",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 910,
+    "value": 220,
     "equipBonus": {
       "attack": 118,
       "defense": 22,
@@ -756,7 +756,7 @@
     "sectId": "SECT-13",
     "forceTrait": "奇巧",
     "attackRange": 3,
-    "value": 930,
+    "value": 237,
     "equipBonus": {
       "attack": 124,
       "agility": 16,
@@ -795,7 +795,7 @@
     "sectId": "SECT-05",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 760,
+    "value": 200,
     "equipBonus": {
       "attack": 106,
       "agility": 12,
@@ -832,7 +832,7 @@
     "sectId": null,
     "forceTrait": "奇巧",
     "attackRange": 1,
-    "value": 750,
+    "value": 192,
     "equipBonus": {
       "attack": 110,
       "agility": 10,
@@ -869,7 +869,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 740,
+    "value": 184,
     "equipBonus": {
       "attack": 108,
       "maxHp": 200,
@@ -906,7 +906,7 @@
     "sectId": "SECT-02",
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 730,
+    "value": 176,
     "equipBonus": {
       "attack": 105,
       "defense": 20,
@@ -943,7 +943,7 @@
     "sectId": "SECT-15",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 720,
+    "value": 168,
     "equipBonus": {
       "attack": 102,
       "maxHp": 180,
@@ -985,7 +985,7 @@
     "sectId": "SECT-13",
     "forceTrait": "奇巧",
     "attackRange": 3,
-    "value": 710,
+    "value": 160,
     "equipBonus": {
       "attack": 98,
       "defense": 12,
@@ -1026,7 +1026,7 @@
     "sectId": null,
     "forceTrait": "奇巧",
     "attackRange": 1,
-    "value": 725,
+    "value": 172,
     "equipBonus": {
       "attack": 96,
       "agility": 11,
@@ -1070,7 +1070,7 @@
     "sectId": "SECT-10",
     "forceTrait": "奇巧",
     "attackRange": 1,
-    "value": 590,
+    "value": 138,
     "equipBonus": {
       "attack": 88,
       "defense": 16,
@@ -1108,7 +1108,7 @@
     "sectId": "SECT-07",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 580,
+    "value": 132,
     "equipBonus": {
       "attack": 86,
       "agility": 14,
@@ -1146,7 +1146,7 @@
     "sectId": "ORG-08",
     "forceTrait": "中正",
     "attackRange": 1,
-    "value": 600,
+    "value": 144,
     "equipBonus": {
       "attack": 85,
       "maxMp": 180,
@@ -1190,7 +1190,7 @@
     "sectId": "SECT-16",
     "forceTrait": "奇巧",
     "attackRange": 2,
-    "value": 570,
+    "value": 126,
     "equipBonus": {
       "attack": 89,
       "defense": 16,
@@ -1227,7 +1227,7 @@
     "sectId": "SECT-01",
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 585,
+    "value": 135,
     "equipBonus": {
       "attack": 90,
       "defense": 20,
@@ -1264,7 +1264,7 @@
     "sectId": "SECT-19",
     "forceTrait": "阴柔",
     "attackRange": 1,
-    "value": 560,
+    "value": 120,
     "equipBonus": {
       "attack": 82,
       "maxMp": 120,
@@ -1305,7 +1305,7 @@
     "sectId": "SECT-17",
     "forceTrait": "奇巧",
     "attackRange": 1,
-    "value": 610,
+    "value": 150,
     "equipBonus": {
       "attack": 80,
       "defense": 15,
@@ -1350,7 +1350,7 @@
     "sectId": null,
     "forceTrait": "中正",
     "attackRange": 1,
-    "value": 320,
+    "value": 81,
     "equipBonus": {
       "attack": 66,
       "agility": 8,
@@ -1387,7 +1387,7 @@
     "sectId": "SECT-06",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 310,
+    "value": 76,
     "equipBonus": {
       "attack": 68,
       "defense": 14,
@@ -1426,7 +1426,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 330,
+    "value": 85,
     "equipBonus": {
       "attack": 70,
       "defense": 10,
@@ -1463,7 +1463,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 315,
+    "value": 78,
     "equipBonus": {
       "attack": 69,
       "maxHp": 110,
@@ -1500,7 +1500,7 @@
     "sectId": null,
     "forceTrait": "中正",
     "attackRange": 2,
-    "value": 310,
+    "value": 76,
     "equipBonus": {
       "attack": 67,
       "defense": 13,
@@ -1537,7 +1537,7 @@
     "sectId": "SECT-03",
     "forceTrait": "中正",
     "attackRange": 2,
-    "value": 295,
+    "value": 69,
     "equipBonus": {
       "attack": 64,
       "defense": 15,
@@ -1574,7 +1574,7 @@
     "sectId": "SECT-17",
     "forceTrait": "奇巧",
     "attackRange": 1,
-    "value": 290,
+    "value": 67,
     "equipBonus": {
       "attack": 60,
       "defense": 10,
@@ -1611,7 +1611,7 @@
     "sectId": "SECT-13",
     "forceTrait": "阴柔",
     "attackRange": 3,
-    "value": 305,
+    "value": 74,
     "equipBonus": {
       "attack": 65,
       "agility": 11,
@@ -1652,7 +1652,7 @@
     "sectId": null,
     "forceTrait": "阴柔",
     "attackRange": 2,
-    "value": 325,
+    "value": 83,
     "equipBonus": {
       "attack": 58,
       "maxMp": 130,
@@ -1691,7 +1691,7 @@
     "sectId": "SECT-07",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 285,
+    "value": 65,
     "equipBonus": {
       "attack": 61,
       "defense": 9,
@@ -1731,7 +1731,7 @@
     "sectId": "SECT-13",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 225,
+    "value": 51,
     "equipBonus": {
       "attack": 52,
       "agility": 9
@@ -1767,7 +1767,7 @@
     "sectId": null,
     "forceTrait": "奇巧",
     "attackRange": 1,
-    "value": 230,
+    "value": 52,
     "equipBonus": {
       "attack": 54,
       "agility": 10
@@ -1802,7 +1802,7 @@
     "sectId": "SECT-20",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 235,
+    "value": 54,
     "equipBonus": {
       "attack": 55,
       "agility": 7,
@@ -1839,7 +1839,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 250,
+    "value": 60,
     "equipBonus": {
       "attack": 56,
       "defense": 6,
@@ -1876,7 +1876,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 240,
+    "value": 56,
     "equipBonus": {
       "attack": 56,
       "maxHp": 95
@@ -1911,7 +1911,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 220,
+    "value": 49,
     "equipBonus": {
       "attack": 53,
       "defense": 11,
@@ -1950,7 +1950,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 225,
+    "value": 51,
     "equipBonus": {
       "attack": 56,
       "maxHp": 90
@@ -1985,7 +1985,7 @@
     "sectId": "SECT-04",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 215,
+    "value": 47,
     "equipBonus": {
       "attack": 49,
       "defense": 12,
@@ -2022,7 +2022,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 3,
-    "value": 210,
+    "value": 45,
     "equipBonus": {
       "attack": 50,
       "agility": 9
@@ -2058,7 +2058,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 220,
+    "value": 49,
     "equipBonus": {
       "attack": 47,
       "defense": 8,
@@ -2099,7 +2099,7 @@
     "sectId": "SECT-11",
     "forceTrait": "中正",
     "attackRange": 1,
-    "value": 155,
+    "value": 36,
     "equipBonus": {
       "attack": 42,
       "maxMp": 65,
@@ -2138,7 +2138,7 @@
     "sectId": "SECT-18",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 150,
+    "value": 34,
     "equipBonus": {
       "attack": 44,
       "maxHp": 80
@@ -2174,7 +2174,7 @@
     "sectId": "SECT-17",
     "forceTrait": "中正",
     "attackRange": 2,
-    "value": 165,
+    "value": 35,
     "equipBonus": {
       "attack": 43,
       "defense": 8,
@@ -2210,7 +2210,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 2,
-    "value": 150,
+    "value": 34,
     "equipBonus": {
       "attack": 40,
       "agility": 7
@@ -2245,7 +2245,7 @@
     "sectId": "SECT-01",
     "forceTrait": "中正",
     "attackRange": 2,
-    "value": 155,
+    "value": 36,
     "equipBonus": {
       "attack": 39,
       "defense": 11,
@@ -2282,7 +2282,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 145,
+    "value": 32,
     "equipBonus": {
       "attack": 41,
       "maxHp": 70
@@ -2318,7 +2318,7 @@
     "sectId": null,
     "forceTrait": "阴柔",
     "attackRange": 1,
-    "value": 148,
+    "value": 33,
     "equipBonus": {
       "attack": 38,
       "res": 9
@@ -2357,7 +2357,7 @@
     "sectId": "SECT-13",
     "forceTrait": "奇巧",
     "attackRange": 3,
-    "value": 140,
+    "value": 30,
     "equipBonus": {
       "attack": 39,
       "agility": 6,
@@ -2397,7 +2397,7 @@
     "sectId": "SECT-17",
     "forceTrait": "中正",
     "attackRange": 1,
-    "value": 150,
+    "value": 34,
     "equipBonus": {
       "attack": 37,
       "defense": 9,
@@ -2439,7 +2439,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 152,
+    "value": 35,
     "equipBonus": {
       "attack": 36,
       "agility": 6,
@@ -2482,7 +2482,7 @@
     "sectId": "SECT-17",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 85,
+    "value": 22,
     "equipBonus": {
       "attack": 30,
       "agility": 4
@@ -2517,7 +2517,7 @@
     "sectId": "SECT-05",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 82,
+    "value": 20,
     "equipBonus": {
       "attack": 29,
       "agility": 5
@@ -2552,7 +2552,7 @@
     "sectId": "SECT-08",
     "forceTrait": "中正",
     "attackRange": 1,
-    "value": 84,
+    "value": 22,
     "equipBonus": {
       "attack": 28,
       "defense": 4,
@@ -2588,7 +2588,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 80,
+    "value": 19,
     "equipBonus": {
       "attack": 29,
       "agility": 5
@@ -2623,7 +2623,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 82,
+    "value": 20,
     "equipBonus": {
       "attack": 31,
       "defense": 4
@@ -2658,7 +2658,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 88,
+    "value": 24,
     "equipBonus": {
       "attack": 32,
       "maxHp": 45
@@ -2694,7 +2694,7 @@
     "sectId": null,
     "forceTrait": "中正",
     "attackRange": 2,
-    "value": 76,
+    "value": 18,
     "equipBonus": {
       "attack": 29,
       "defense": 5
@@ -2729,7 +2729,7 @@
     "sectId": "SECT-01",
     "forceTrait": "中正",
     "attackRange": 2,
-    "value": 72,
+    "value": 14,
     "equipBonus": {
       "attack": 27,
       "defense": 7,
@@ -2765,7 +2765,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 74,
+    "value": 15,
     "equipBonus": {
       "attack": 25,
       "defense": 6,
@@ -2802,7 +2802,7 @@
     "sectId": "SECT-17",
     "forceTrait": "奇巧",
     "attackRange": 3,
-    "value": 86,
+    "value": 23,
     "equipBonus": {
       "attack": 28,
       "agility": 5
@@ -2837,7 +2837,7 @@
     "sectId": "SECT-16",
     "forceTrait": "轻灵",
     "attackRange": 3,
-    "value": 75,
+    "value": 16,
     "equipBonus": {
       "attack": 26,
       "agility": 4,
@@ -2875,7 +2875,7 @@
     "sectId": "SECT-17",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 78,
+    "value": 18,
     "equipBonus": {
       "attack": 24,
       "defense": 4,
@@ -2914,7 +2914,7 @@
     "sectId": null,
     "forceTrait": "中正",
     "attackRange": 1,
-    "value": 45,
+    "value": 11,
     "equipBonus": {
       "attack": 20,
       "defense": 2
@@ -2949,7 +2949,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 48,
+    "value": 12,
     "equipBonus": {
       "attack": 21,
       "agility": 3
@@ -2984,7 +2984,7 @@
     "sectId": "SECT-17",
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 50,
+    "value": 12,
     "equipBonus": {
       "attack": 22,
       "maxHp": 30
@@ -3019,7 +3019,7 @@
     "sectId": "SECT-18",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 46,
+    "value": 11,
     "equipBonus": {
       "attack": 21,
       "defense": 2
@@ -3054,7 +3054,7 @@
     "sectId": null,
     "forceTrait": "奇巧",
     "attackRange": 1,
-    "value": 42,
+    "value": 10,
     "equipBonus": {
       "attack": 19,
       "agility": 3
@@ -3089,7 +3089,7 @@
     "sectId": null,
     "forceTrait": "奇巧",
     "attackRange": 2,
-    "value": 48,
+    "value": 12,
     "equipBonus": {
       "attack": 20,
       "defense": 3
@@ -3124,7 +3124,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 2,
-    "value": 44,
+    "value": 10,
     "equipBonus": {
       "attack": 18,
       "riding": 3
@@ -3157,7 +3157,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 2,
-    "value": 38,
+    "value": 9,
     "equipBonus": {
       "attack": 18,
       "defense": 3,
@@ -3193,7 +3193,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 40,
+    "value": 10,
     "equipBonus": {
       "attack": 19,
       "maxHp": 25
@@ -3228,7 +3228,7 @@
     "sectId": null,
     "forceTrait": "奇巧",
     "attackRange": 2,
-    "value": 45,
+    "value": 11,
     "equipBonus": {
       "attack": 17,
       "defense": 4
@@ -3263,7 +3263,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 36,
+    "value": 8,
     "equipBonus": {
       "attack": 16,
       "maxHp": 30
@@ -3299,7 +3299,7 @@
     "sectId": "SECT-18",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 38,
+    "value": 9,
     "equipBonus": {
       "attack": 18,
       "res": 2
@@ -3334,7 +3334,7 @@
     "sectId": null,
     "forceTrait": "中正",
     "attackRange": 3,
-    "value": 30,
+    "value": 7,
     "equipBonus": {
       "attack": 16,
       "agility": 2
@@ -3369,7 +3369,7 @@
     "sectId": null,
     "forceTrait": "奇巧",
     "attackRange": 1,
-    "value": 46,
+    "value": 11,
     "equipBonus": {
       "attack": 15,
       "defense": 4,
@@ -3411,7 +3411,7 @@
     "sectId": "SECT-17",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 18,
+    "value": 5,
     "equipBonus": {
       "attack": 11,
       "agility": 2
@@ -3446,7 +3446,7 @@
     "sectId": null,
     "forceTrait": "中正",
     "attackRange": 1,
-    "value": 12,
+    "value": 4,
     "equipBonus": {
       "attack": 9,
       "skills": {
@@ -3483,7 +3483,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 16,
+    "value": 5,
     "equipBonus": {
       "attack": 12
     },
@@ -3517,7 +3517,7 @@
     "sectId": "SECT-11",
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 15,
+    "value": 4,
     "equipBonus": {
       "attack": 13
     },
@@ -3551,7 +3551,7 @@
     "sectId": "SECT-17",
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 20,
+    "value": 6,
     "equipBonus": {
       "attack": 14,
       "agility": 1
@@ -3586,7 +3586,7 @@
     "sectId": null,
     "forceTrait": "刚猛",
     "attackRange": 1,
-    "value": 14,
+    "value": 4,
     "equipBonus": {
       "attack": 13
     },
@@ -3620,7 +3620,7 @@
     "sectId": "SECT-07",
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 22,
+    "value": 6,
     "equipBonus": {
       "attack": 14,
       "maxHp": 15
@@ -3655,7 +3655,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 2,
-    "value": 10,
+    "value": 3,
     "equipBonus": {
       "attack": 11
     },
@@ -3687,7 +3687,7 @@
     "sectId": "SECT-01",
     "forceTrait": "刚猛",
     "attackRange": 2,
-    "value": 12,
+    "value": 4,
     "equipBonus": {
       "attack": 12,
       "defense": 2
@@ -3722,7 +3722,7 @@
     "sectId": null,
     "forceTrait": "中正",
     "attackRange": 2,
-    "value": 14,
+    "value": 4,
     "equipBonus": {
       "attack": 12,
       "maxHp": 20
@@ -3757,7 +3757,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 1,
-    "value": 13,
+    "value": 4,
     "equipBonus": {
       "attack": 10,
       "defense": 2
@@ -3792,7 +3792,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 2,
-    "value": 8,
+    "value": 3,
     "equipBonus": {
       "attack": 9,
       "agility": 1
@@ -3827,7 +3827,7 @@
     "sectId": null,
     "forceTrait": "中正",
     "attackRange": 1,
-    "value": 10,
+    "value": 3,
     "equipBonus": {
       "attack": 8,
       "maxHp": 25
@@ -3863,7 +3863,7 @@
     "sectId": null,
     "forceTrait": "轻灵",
     "attackRange": 3,
-    "value": 12,
+    "value": 4,
     "equipBonus": {
       "attack": 9,
       "agility": 2

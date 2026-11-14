@@ -17,7 +17,7 @@
     "terrainTrait": "全地形",
     "favoredTerrain": "all",
     "terrainBonusPct": 18,
-    "value": 3200,
+    "value": 1500,
     "equipBonus": {
       "maxHp": 325,
       "agility": 14,
@@ -60,7 +60,7 @@
     "terrainTrait": "驰大漠",
     "favoredTerrain": "steppe",
     "terrainBonusPct": 22,
-    "value": 2850,
+    "value": 1225,
     "equipBonus": {
       "maxHp": 290,
       "agility": 16,
@@ -103,7 +103,7 @@
     "terrainTrait": "驰大漠",
     "favoredTerrain": "steppe",
     "terrainBonusPct": 18,
-    "value": 2600,
+    "value": 975,
     "equipBonus": {
       "maxHp": 380,
       "defense": 28,
@@ -146,7 +146,7 @@
     "terrainTrait": "踏平川",
     "favoredTerrain": "official",
     "terrainBonusPct": 18,
-    "value": 1480,
+    "value": 720,
     "equipBonus": {
       "maxHp": 242,
       "defense": 16,
@@ -178,7 +178,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 20,
-    "value": 1380,
+    "value": 600,
     "equipBonus": {
       "maxHp": 255,
       "res": 16,
@@ -207,7 +207,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 15,
-    "value": 1180,
+    "value": 560,
     "equipBonus": {
       "maxHp": 260,
       "defense": 18,
@@ -239,7 +239,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 18,
-    "value": 1120,
+    "value": 480,
     "equipBonus": {
       "maxHp": 205,
       "agility": 12,
@@ -268,7 +268,7 @@
     "terrainTrait": "驰大漠",
     "favoredTerrain": "steppe",
     "terrainBonusPct": 15,
-    "value": 980,
+    "value": 415,
     "equipBonus": {
       "maxHp": 223,
       "agility": 9,
@@ -298,7 +298,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 12,
-    "value": 520,
+    "value": 300,
     "equipBonus": {
       "maxHp": 159,
       "res": 8,
@@ -327,7 +327,7 @@
     "terrainTrait": "驰大漠",
     "favoredTerrain": "steppe",
     "terrainBonusPct": 12,
-    "value": 490,
+    "value": 264,
     "equipBonus": {
       "maxHp": 147,
       "agility": 8,
@@ -356,7 +356,7 @@
     "terrainTrait": "驰大漠",
     "favoredTerrain": "steppe",
     "terrainBonusPct": 14,
-    "value": 470,
+    "value": 240,
     "equipBonus": {
       "maxHp": 167,
       "defense": 10,
@@ -385,7 +385,7 @@
     "terrainTrait": "踏平川",
     "favoredTerrain": "official",
     "terrainBonusPct": 12,
-    "value": 380,
+    "value": 200,
     "equipBonus": {
       "maxHp": 135,
       "defense": 8,
@@ -414,7 +414,7 @@
     "terrainTrait": "驰大漠",
     "favoredTerrain": "steppe",
     "terrainBonusPct": 10,
-    "value": 355,
+    "value": 150,
     "equipBonus": {
       "maxHp": 138,
       "defense": 7,
@@ -443,7 +443,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 14,
-    "value": 340,
+    "value": 150,
     "equipBonus": {
       "maxHp": 125,
       "agility": 6,
@@ -472,7 +472,7 @@
     "terrainTrait": "踏平川",
     "favoredTerrain": "official",
     "terrainBonusPct": 14,
-    "value": 290,
+    "value": 100,
     "equipBonus": {
       "maxHp": 112,
       "agility": 6,
@@ -501,7 +501,7 @@
     "terrainTrait": "渡烟波",
     "favoredTerrain": "water",
     "terrainBonusPct": 12,
-    "value": 275,
+    "value": 90,
     "equipBonus": {
       "maxHp": 113,
       "res": 5,
@@ -530,7 +530,7 @@
     "terrainTrait": "踏平川",
     "favoredTerrain": "official",
     "terrainBonusPct": 10,
-    "value": 165,
+    "value": 50,
     "equipBonus": {
       "maxHp": 85,
       "riding": 4
@@ -558,7 +558,7 @@
     "terrainTrait": "踏平川",
     "favoredTerrain": "official",
     "terrainBonusPct": 8,
-    "value": 155,
+    "value": 51,
     "equipBonus": {
       "maxHp": 89,
       "defense": 4,
@@ -587,7 +587,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 8,
-    "value": 148,
+    "value": 50,
     "equipBonus": {
       "maxHp": 92,
       "riding": 4
@@ -615,7 +615,7 @@
     "terrainTrait": "驰大漠",
     "favoredTerrain": "steppe",
     "terrainBonusPct": 8,
-    "value": 142,
+    "value": 50,
     "equipBonus": {
       "maxHp": 79,
       "agility": 3,
@@ -644,7 +644,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 10,
-    "value": 108,
+    "value": 30,
     "equipBonus": {
       "maxHp": 67,
       "agility": 3,
@@ -673,7 +673,7 @@
     "terrainTrait": "渡烟波",
     "favoredTerrain": "water",
     "terrainBonusPct": 8,
-    "value": 98,
+    "value": 29,
     "equipBonus": {
       "maxHp": 80,
       "riding": 2
@@ -701,7 +701,7 @@
     "terrainTrait": "渡烟波",
     "favoredTerrain": "water",
     "terrainBonusPct": 10,
-    "value": 105,
+    "value": 32,
     "equipBonus": {
       "maxHp": 55,
       "riding": 2,
@@ -732,7 +732,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 12,
-    "value": 92,
+    "value": 26,
     "equipBonus": {
       "maxHp": 64,
       "riding": 2
@@ -760,7 +760,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 8,
-    "value": 68,
+    "value": 18,
     "equipBonus": {
       "maxHp": 50,
       "res": 2,
@@ -789,7 +789,7 @@
     "terrainTrait": "逾险峰",
     "favoredTerrain": "mountain",
     "terrainBonusPct": 10,
-    "value": 62,
+    "value": 17,
     "equipBonus": {
       "maxHp": 61,
       "riding": 1
@@ -817,7 +817,7 @@
     "terrainTrait": "踏平川",
     "favoredTerrain": "official",
     "terrainBonusPct": 6,
-    "value": 42,
+    "value": 15,
     "equipBonus": {
       "maxHp": 35,
       "skills": {
@@ -847,7 +847,7 @@
     "terrainTrait": "踏平川",
     "favoredTerrain": "official",
     "terrainBonusPct": 5,
-    "value": 28,
+    "value": 15,
     "equipBonus": {
       "maxHp": 28,
       "skills": {

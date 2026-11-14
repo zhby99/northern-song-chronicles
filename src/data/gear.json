@@ -9,7 +9,7 @@
     "origin": "东海桃花岛",
     "regionId": "taohuadao",
     "sectId": "SECT-12",
-    "value": 2600,
+    "value": 820,
     "equipBonus": {
       "defense": 185,
       "maxHp": 420,
@@ -39,7 +39,7 @@
     "origin": "昆仑山（万山之祖）",
     "regionId": "kunlun",
     "sectId": null,
-    "value": 2550,
+    "value": 680,
     "equipBonus": {
       "defense": 172,
       "maxMp": 380,
@@ -69,7 +69,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 2100,
+    "value": 620,
     "equipBonus": {
       "defense": 195,
       "maxHp": 480
@@ -98,7 +98,7 @@
     "origin": "嵩山少林寺",
     "regionId": "shaolin",
     "sectId": "SECT-01",
-    "value": 2050,
+    "value": 500,
     "equipBonus": {
       "defense": 165,
       "maxMp": 360,
@@ -130,7 +130,7 @@
     "origin": "武当山",
     "regionId": "wudangshan",
     "sectId": "SECT-08",
-    "value": 1800,
+    "value": 460,
     "equipBonus": {
       "defense": 150,
       "maxMp": 340,
@@ -160,7 +160,7 @@
     "origin": "苏州府",
     "regionId": "suzhou",
     "sectId": null,
-    "value": 1780,
+    "value": 380,
     "equipBonus": {
       "defense": 148,
       "agility": 16,
@@ -190,7 +190,7 @@
     "origin": "兴庆府",
     "regionId": "xingqing_xixia",
     "sectId": null,
-    "value": 1280,
+    "value": 280,
     "equipBonus": {
       "defense": 135,
       "maxHp": 280,
@@ -211,7 +211,7 @@
     "origin": "太原府",
     "regionId": "taiyuan",
     "sectId": null,
-    "value": 1250,
+    "value": 256,
     "equipBonus": {
       "defense": 130,
       "maxHp": 260,
@@ -232,7 +232,7 @@
     "origin": "青城山 / 唐家堡",
     "regionId": "qingcheng",
     "sectId": "SECT-13",
-    "value": 1200,
+    "value": 215,
     "equipBonus": {
       "defense": 110,
       "agility": 18,
@@ -253,7 +253,7 @@
     "origin": "阳苴咩城（大理）",
     "regionId": "dali_city",
     "sectId": "ORG-08",
-    "value": 1050,
+    "value": 200,
     "equipBonus": {
       "defense": 108,
       "maxMp": 240,
@@ -276,7 +276,7 @@
     "origin": "青城山 / 唐家堡",
     "regionId": "qingcheng",
     "sectId": "SECT-13",
-    "value": 980,
+    "value": 165,
     "equipBonus": {
       "defense": 102,
       "maxMp": 220,
@@ -297,7 +297,7 @@
     "origin": "临潢府",
     "regionId": "linhuang_liao",
     "sectId": null,
-    "value": 1020,
+    "value": 185,
     "equipBonus": {
       "defense": 122,
       "maxHp": 240,
@@ -318,7 +318,7 @@
     "origin": "峨眉山",
     "regionId": "emeishan",
     "sectId": "SECT-07",
-    "value": 960,
+    "value": 155,
     "equipBonus": {
       "defense": 98,
       "agility": 14,
@@ -339,7 +339,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 850,
+    "value": 110,
     "equipBonus": {
       "defense": 95,
       "maxHp": 220,
@@ -360,7 +360,7 @@
     "origin": "华山",
     "regionId": "tongguan",
     "sectId": "SECT-05",
-    "value": 880,
+    "value": 145,
     "equipBonus": {
       "defense": 92,
       "maxMp": 180,
@@ -381,7 +381,7 @@
     "origin": "阳苴咩城（大理）",
     "regionId": "dali_city",
     "sectId": "ORG-08",
-    "value": 860,
+    "value": 122,
     "equipBonus": {
       "defense": 90,
       "agility": 14,
@@ -402,7 +402,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 540,
+    "value": 70,
     "equipBonus": {
       "defense": 78,
       "maxHp": 150
@@ -422,7 +422,7 @@
     "origin": "杭州府",
     "regionId": "hangzhou",
     "sectId": null,
-    "value": 520,
+    "value": 69,
     "equipBonus": {
       "defense": 56,
       "maxMp": 130,
@@ -445,7 +445,7 @@
     "origin": "太原府",
     "regionId": "taiyuan",
     "sectId": null,
-    "value": 550,
+    "value": 75,
     "equipBonus": {
       "defense": 80,
       "maxHp": 140
@@ -465,7 +465,7 @@
     "origin": "嵩山少林寺",
     "regionId": "shaolin",
     "sectId": "SECT-01",
-    "value": 480,
+    "value": 60,
     "equipBonus": {
       "defense": 62,
       "maxHp": 120,
@@ -488,7 +488,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 500,
+    "value": 64,
     "equipBonus": {
       "defense": 64,
       "agility": 8
@@ -508,7 +508,7 @@
     "origin": "终南山",
     "regionId": "zhongnanshan",
     "sectId": "SECT-11",
-    "value": 420,
+    "value": 49,
     "equipBonus": {
       "defense": 52,
       "maxMp": 110
@@ -528,7 +528,7 @@
     "origin": "扬州府",
     "regionId": "yangzhou",
     "sectId": null,
-    "value": 410,
+    "value": 47,
     "equipBonus": {
       "defense": 58,
       "agility": 8
@@ -548,7 +548,7 @@
     "origin": "成都府",
     "regionId": "chengdu",
     "sectId": null,
-    "value": 460,
+    "value": 56,
     "equipBonus": {
       "defense": 50,
       "maxMp": 100,
@@ -571,7 +571,7 @@
     "origin": "雁门关",
     "regionId": "yanmenguan",
     "sectId": null,
-    "value": 430,
+    "value": 51,
     "equipBonus": {
       "defense": 60,
       "maxHp": 110,
@@ -592,7 +592,7 @@
     "origin": "泉州府",
     "regionId": "quanzhou",
     "sectId": null,
-    "value": 390,
+    "value": 44,
     "equipBonus": {
       "defense": 55,
       "maxHp": 100
@@ -612,7 +612,7 @@
     "origin": "潭州府",
     "regionId": "tanzhou",
     "sectId": null,
-    "value": 360,
+    "value": 38,
     "equipBonus": {
       "defense": 48,
       "res": 12
@@ -632,7 +632,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 350,
+    "value": 36,
     "equipBonus": {
       "defense": 52,
       "maxHp": 95
@@ -652,7 +652,7 @@
     "origin": "苏州府",
     "regionId": "suzhou",
     "sectId": null,
-    "value": 340,
+    "value": 34,
     "equipBonus": {
       "defense": 44,
       "maxMp": 90,
@@ -675,7 +675,7 @@
     "origin": "逻些（拉萨）",
     "regionId": "luoxie_tubo",
     "sectId": null,
-    "value": 370,
+    "value": 40,
     "equipBonus": {
       "defense": 62,
       "maxHp": 90
@@ -695,7 +695,7 @@
     "origin": "大名府",
     "regionId": "daming",
     "sectId": null,
-    "value": 320,
+    "value": 32,
     "equipBonus": {
       "defense": 50,
       "maxHp": 85
@@ -715,7 +715,7 @@
     "origin": "泉州府",
     "regionId": "quanzhou",
     "sectId": null,
-    "value": 330,
+    "value": 32,
     "equipBonus": {
       "defense": 46,
       "agility": 6
@@ -735,7 +735,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 160,
+    "value": 20,
     "equipBonus": {
       "defense": 32,
       "maxHp": 60
@@ -755,7 +755,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 150,
+    "value": 21,
     "equipBonus": {
       "defense": 30,
       "agility": 4
@@ -775,7 +775,7 @@
     "origin": "江宁府",
     "regionId": "jiangning",
     "sectId": null,
-    "value": 145,
+    "value": 19,
     "equipBonus": {
       "defense": 24,
       "maxMp": 50
@@ -795,7 +795,7 @@
     "origin": "嵩山少林寺",
     "regionId": "shaolin",
     "sectId": "SECT-01",
-    "value": 140,
+    "value": 18,
     "equipBonus": {
       "defense": 26,
       "maxHp": 55
@@ -815,7 +815,7 @@
     "origin": "泰山",
     "regionId": "taishan",
     "sectId": "SECT-06",
-    "value": 140,
+    "value": 18,
     "equipBonus": {
       "defense": 25,
       "maxMp": 45
@@ -835,7 +835,7 @@
     "origin": "太原府",
     "regionId": "taiyuan",
     "sectId": null,
-    "value": 170,
+    "value": 26,
     "equipBonus": {
       "defense": 36,
       "maxHp": 50
@@ -855,7 +855,7 @@
     "origin": "太行山绿林总寨",
     "regionId": "taihang",
     "sectId": "SECT-18",
-    "value": 155,
+    "value": 22,
     "equipBonus": {
       "defense": 28,
       "agility": 5
@@ -875,7 +875,7 @@
     "origin": "扬州府",
     "regionId": "yangzhou",
     "sectId": null,
-    "value": 145,
+    "value": 19,
     "equipBonus": {
       "defense": 28,
       "maxHp": 45
@@ -895,7 +895,7 @@
     "origin": "延安府",
     "regionId": "yanan",
     "sectId": null,
-    "value": 95,
+    "value": 12,
     "equipBonus": {
       "defense": 22,
       "maxHp": 40
@@ -915,7 +915,7 @@
     "origin": "杭州府",
     "regionId": "hangzhou",
     "sectId": null,
-    "value": 90,
+    "value": 11,
     "equipBonus": {
       "defense": 18,
       "agility": 4
@@ -935,7 +935,7 @@
     "origin": "成都府",
     "regionId": "chengdu",
     "sectId": null,
-    "value": 100,
+    "value": 13,
     "equipBonus": {
       "defense": 20,
       "res": 4
@@ -955,7 +955,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 85,
+    "value": 10,
     "equipBonus": {
       "defense": 16,
       "maxHp": 35
@@ -975,7 +975,7 @@
     "origin": "辽阳府",
     "regionId": "liaoyang_liao",
     "sectId": null,
-    "value": 105,
+    "value": 14,
     "equipBonus": {
       "defense": 24,
       "maxHp": 35
@@ -995,7 +995,7 @@
     "origin": "广州府",
     "regionId": "guangzhou",
     "sectId": null,
-    "value": 88,
+    "value": 11,
     "equipBonus": {
       "defense": 18,
       "agility": 3
@@ -1015,7 +1015,7 @@
     "origin": "大名府",
     "regionId": "daming",
     "sectId": null,
-    "value": 92,
+    "value": 11,
     "equipBonus": {
       "defense": 21,
       "maxHp": 40
@@ -1035,7 +1035,7 @@
     "origin": "兴庆府",
     "regionId": "xingqing_xixia",
     "sectId": null,
-    "value": 96,
+    "value": 12,
     "equipBonus": {
       "defense": 22,
       "res": 3
@@ -1055,7 +1055,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 45,
+    "value": 6,
     "equipBonus": {
       "defense": 12,
       "maxHp": 25
@@ -1075,7 +1075,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 35,
+    "value": 4,
     "equipBonus": {
       "defense": 10,
       "agility": 3
@@ -1095,7 +1095,7 @@
     "origin": "洪州府",
     "regionId": "hongzhou",
     "sectId": null,
-    "value": 40,
+    "value": 5,
     "equipBonus": {
       "defense": 14,
       "res": 2
@@ -1115,7 +1115,7 @@
     "origin": "潭州府",
     "regionId": "tanzhou",
     "sectId": null,
-    "value": 48,
+    "value": 6,
     "equipBonus": {
       "defense": 10,
       "maxMp": 25
@@ -1135,7 +1135,7 @@
     "origin": "泉州府",
     "regionId": "quanzhou",
     "sectId": null,
-    "value": 46,
+    "value": 6,
     "equipBonus": {
       "defense": 12,
       "maxHp": 20
@@ -1155,7 +1155,7 @@
     "origin": "泰山",
     "regionId": "taishan",
     "sectId": "SECT-06",
-    "value": 42,
+    "value": 5,
     "equipBonus": {
       "defense": 13,
       "maxHp": 20
@@ -1175,7 +1175,7 @@
     "origin": "广州府",
     "regionId": "guangzhou",
     "sectId": null,
-    "value": 40,
+    "value": 5,
     "equipBonus": {
       "defense": 11,
       "agility": 2
@@ -1195,7 +1195,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 38,
+    "value": 4,
     "equipBonus": {
       "defense": 10,
       "maxHp": 18
@@ -1215,7 +1215,7 @@
     "origin": "无量山 / 剑湖秘境",
     "regionId": "wuliangshan",
     "sectId": null,
-    "value": 2400,
+    "value": 560,
     "equipBonus": {
       "agility": 32,
       "maxMp": 180,
@@ -1245,7 +1245,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 1950,
+    "value": 410,
     "equipBonus": {
       "agility": 26,
       "maxHp": 160,
@@ -1275,7 +1275,7 @@
     "origin": "嵩山少林寺",
     "regionId": "shaolin",
     "sectId": "SECT-01",
-    "value": 1720,
+    "value": 310,
     "equipBonus": {
       "agility": 24,
       "maxMp": 150,
@@ -1305,7 +1305,7 @@
     "origin": "昆仑山（万山之祖）",
     "regionId": "kunlun",
     "sectId": null,
-    "value": 1150,
+    "value": 195,
     "equipBonus": {
       "agility": 20,
       "res": 12,
@@ -1326,7 +1326,7 @@
     "origin": "青城山 / 唐家堡",
     "regionId": "qingcheng",
     "sectId": "SECT-13",
-    "value": 1120,
+    "value": 150,
     "equipBonus": {
       "agility": 21,
       "res": 10
@@ -1346,7 +1346,7 @@
     "origin": "武当山",
     "regionId": "wudangshan",
     "sectId": "SECT-08",
-    "value": 940,
+    "value": 140,
     "equipBonus": {
       "agility": 18,
       "maxMp": 100
@@ -1366,7 +1366,7 @@
     "origin": "临潢府",
     "regionId": "linhuang_liao",
     "sectId": null,
-    "value": 920,
+    "value": 110,
     "equipBonus": {
       "agility": 15,
       "defense": 24,
@@ -1387,7 +1387,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 820,
+    "value": 88,
     "equipBonus": {
       "agility": 17,
       "maxHp": 100
@@ -1407,7 +1407,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 480,
+    "value": 35,
     "equipBonus": {
       "agility": 12,
       "defense": 18
@@ -1427,7 +1427,7 @@
     "origin": "苏州府",
     "regionId": "suzhou",
     "sectId": null,
-    "value": 460,
+    "value": 32,
     "equipBonus": {
       "agility": 13,
       "skills": {
@@ -1449,7 +1449,7 @@
     "origin": "华山",
     "regionId": "tongguan",
     "sectId": "SECT-05",
-    "value": 470,
+    "value": 36,
     "equipBonus": {
       "agility": 14,
       "maxHp": 55
@@ -1469,7 +1469,7 @@
     "origin": "太原府",
     "regionId": "taiyuan",
     "sectId": null,
-    "value": 390,
+    "value": 31,
     "equipBonus": {
       "agility": 10,
       "defense": 15,
@@ -1490,7 +1490,7 @@
     "origin": "峨眉山",
     "regionId": "emeishan",
     "sectId": "SECT-07",
-    "value": 380,
+    "value": 29,
     "equipBonus": {
       "agility": 12,
       "maxMp": 60
@@ -1510,7 +1510,7 @@
     "origin": "扬州府",
     "regionId": "yangzhou",
     "sectId": null,
-    "value": 360,
+    "value": 25,
     "equipBonus": {
       "agility": 11,
       "res": 6
@@ -1530,7 +1530,7 @@
     "origin": "泉州府",
     "regionId": "quanzhou",
     "sectId": null,
-    "value": 320,
+    "value": 18,
     "equipBonus": {
       "agility": 10,
       "maxHp": 45
@@ -1550,7 +1550,7 @@
     "origin": "兴庆府",
     "regionId": "xingqing_xixia",
     "sectId": null,
-    "value": 330,
+    "value": 24,
     "equipBonus": {
       "agility": 10,
       "res": 6
@@ -1570,7 +1570,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 140,
+    "value": 12,
     "equipBonus": {
       "agility": 7,
       "maxHp": 35
@@ -1590,7 +1590,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 150,
+    "value": 16,
     "equipBonus": {
       "agility": 7,
       "defense": 8
@@ -1610,7 +1610,7 @@
     "origin": "江宁府",
     "regionId": "jiangning",
     "sectId": null,
-    "value": 135,
+    "value": 14,
     "equipBonus": {
       "agility": 6,
       "maxMp": 30
@@ -1630,7 +1630,7 @@
     "origin": "嵩山少林寺",
     "regionId": "shaolin",
     "sectId": "SECT-01",
-    "value": 120,
+    "value": 11,
     "equipBonus": {
       "agility": 6,
       "maxHp": 40
@@ -1650,7 +1650,7 @@
     "origin": "泰山",
     "regionId": "taishan",
     "sectId": "SECT-06",
-    "value": 95,
+    "value": 8,
     "equipBonus": {
       "agility": 5,
       "maxMp": 25
@@ -1670,7 +1670,7 @@
     "origin": "延安府",
     "regionId": "yanan",
     "sectId": null,
-    "value": 100,
+    "value": 9,
     "equipBonus": {
       "agility": 5,
       "defense": 6
@@ -1690,7 +1690,7 @@
     "origin": "杭州府",
     "regionId": "hangzhou",
     "sectId": null,
-    "value": 85,
+    "value": 7,
     "equipBonus": {
       "agility": 4,
       "res": 4
@@ -1710,7 +1710,7 @@
     "origin": "成都府",
     "regionId": "chengdu",
     "sectId": null,
-    "value": 75,
+    "value": 5,
     "equipBonus": {
       "agility": 5,
       "maxHp": 28
@@ -1730,7 +1730,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 40,
+    "value": 4,
     "equipBonus": {
       "agility": 3
     },
@@ -1749,7 +1749,7 @@
     "origin": "潭州府",
     "regionId": "tanzhou",
     "sectId": null,
-    "value": 30,
+    "value": 2,
     "equipBonus": {
       "agility": 3,
       "maxHp": 18
@@ -1769,7 +1769,7 @@
     "origin": "广州府",
     "regionId": "guangzhou",
     "sectId": null,
-    "value": 28,
+    "value": 2,
     "equipBonus": {
       "agility": 2,
       "maxHp": 16
@@ -1789,7 +1789,7 @@
     "origin": "大名府",
     "regionId": "daming",
     "sectId": null,
-    "value": 35,
+    "value": 3,
     "equipBonus": {
       "agility": 2,
       "defense": 3
@@ -1809,7 +1809,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 2500,
+    "value": 520,
     "equipBonus": {
       "attack": 195,
       "agility": 14,
@@ -1839,7 +1839,7 @@
     "origin": "临潢府",
     "regionId": "linhuang_liao",
     "sectId": null,
-    "value": 2050,
+    "value": 380,
     "equipBonus": {
       "attack": 182,
       "agility": 16,
@@ -1869,7 +1869,7 @@
     "origin": "青城山 / 唐家堡",
     "regionId": "qingcheng",
     "sectId": "SECT-13",
-    "value": 1820,
+    "value": 280,
     "equipBonus": {
       "attack": 168,
       "agility": 20,
@@ -1899,7 +1899,7 @@
     "origin": "兴庆府",
     "regionId": "xingqing_xixia",
     "sectId": null,
-    "value": 1180,
+    "value": 175,
     "equipBonus": {
       "attack": 135,
       "maxHp": 120
@@ -1919,7 +1919,7 @@
     "origin": "太原府",
     "regionId": "taiyuan",
     "sectId": null,
-    "value": 1160,
+    "value": 135,
     "equipBonus": {
       "attack": 130,
       "agility": 12,
@@ -1940,7 +1940,7 @@
     "origin": "阳苴咩城（大理）",
     "regionId": "dali_city",
     "sectId": "ORG-08",
-    "value": 950,
+    "value": 125,
     "equipBonus": {
       "attack": 118,
       "agility": 14
@@ -1960,7 +1960,7 @@
     "origin": "逻些（拉萨）",
     "regionId": "luoxie_tubo",
     "sectId": null,
-    "value": 940,
+    "value": 95,
     "equipBonus": {
       "attack": 120,
       "res": 10
@@ -1980,7 +1980,7 @@
     "origin": "太行山绿林总寨",
     "regionId": "taihang",
     "sectId": "SECT-18",
-    "value": 840,
+    "value": 78,
     "equipBonus": {
       "attack": 110,
       "agility": 10
@@ -2000,7 +2000,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 500,
+    "value": 25,
     "equipBonus": {
       "attack": 82,
       "defense": 10
@@ -2020,7 +2020,7 @@
     "origin": "延安府",
     "regionId": "yanan",
     "sectId": null,
-    "value": 490,
+    "value": 24,
     "equipBonus": {
       "attack": 80,
       "riding": 5
@@ -2040,7 +2040,7 @@
     "origin": "成都府",
     "regionId": "chengdu",
     "sectId": null,
-    "value": 510,
+    "value": 30,
     "equipBonus": {
       "attack": 78,
       "agility": 8
@@ -2060,7 +2060,7 @@
     "origin": "辽阳府",
     "regionId": "liaoyang_liao",
     "sectId": null,
-    "value": 410,
+    "value": 22,
     "equipBonus": {
       "attack": 72,
       "maxHp": 60
@@ -2080,7 +2080,7 @@
     "origin": "大名府",
     "regionId": "daming",
     "sectId": null,
-    "value": 390,
+    "value": 19,
     "equipBonus": {
       "attack": 70
     },
@@ -2099,7 +2099,7 @@
     "origin": "潭州府",
     "regionId": "tanzhou",
     "sectId": null,
-    "value": 420,
+    "value": 23,
     "equipBonus": {
       "attack": 68,
       "res": 8
@@ -2119,7 +2119,7 @@
     "origin": "京兆府",
     "regionId": "changan",
     "sectId": null,
-    "value": 350,
+    "value": 14,
     "equipBonus": {
       "attack": 64,
       "riding": 4
@@ -2139,7 +2139,7 @@
     "origin": "泉州府",
     "regionId": "quanzhou",
     "sectId": null,
-    "value": 360,
+    "value": 18,
     "equipBonus": {
       "attack": 65
     },
@@ -2158,7 +2158,7 @@
     "origin": "泰山",
     "regionId": "taishan",
     "sectId": "SECT-06",
-    "value": 140,
+    "value": 11,
     "equipBonus": {
       "attack": 42
     },
@@ -2177,7 +2177,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 135,
+    "value": 9,
     "equipBonus": {
       "attack": 40
     },
@@ -2196,7 +2196,7 @@
     "origin": "雁门关",
     "regionId": "yanmenguan",
     "sectId": null,
-    "value": 145,
+    "value": 12,
     "equipBonus": {
       "attack": 43
     },
@@ -2215,7 +2215,7 @@
     "origin": "成都府",
     "regionId": "chengdu",
     "sectId": null,
-    "value": 148,
+    "value": 13,
     "equipBonus": {
       "attack": 44
     },
@@ -2234,7 +2234,7 @@
     "origin": "杭州府",
     "regionId": "hangzhou",
     "sectId": null,
-    "value": 90,
+    "value": 6,
     "equipBonus": {
       "attack": 32,
       "agility": 3
@@ -2254,7 +2254,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 95,
+    "value": 8,
     "equipBonus": {
       "attack": 34
     },
@@ -2273,7 +2273,7 @@
     "origin": "太原府",
     "regionId": "taiyuan",
     "sectId": null,
-    "value": 92,
+    "value": 7,
     "equipBonus": {
       "attack": 33
     },
@@ -2292,7 +2292,7 @@
     "origin": "广州府",
     "regionId": "guangzhou",
     "sectId": null,
-    "value": 88,
+    "value": 5,
     "equipBonus": {
       "attack": 31
     },
@@ -2311,7 +2311,7 @@
     "origin": "洪州府",
     "regionId": "hongzhou",
     "sectId": null,
-    "value": 40,
+    "value": 3,
     "equipBonus": {
       "attack": 20
     },
@@ -2330,7 +2330,7 @@
     "origin": "大名府",
     "regionId": "daming",
     "sectId": null,
-    "value": 42,
+    "value": 4,
     "equipBonus": {
       "attack": 21
     },
@@ -2349,7 +2349,7 @@
     "origin": "潭州府",
     "regionId": "tanzhou",
     "sectId": null,
-    "value": 30,
+    "value": 2,
     "equipBonus": {
       "attack": 16,
       "agility": 2
@@ -2369,7 +2369,7 @@
     "origin": "延安府",
     "regionId": "yanan",
     "sectId": null,
-    "value": 45,
+    "value": 4,
     "equipBonus": {
       "attack": 22
     },
@@ -2388,7 +2388,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 2600,
+    "value": 720,
     "equipBonus": {
       "maxMp": 360,
       "maxHp": 280,
@@ -2420,7 +2420,7 @@
     "origin": "临潢府",
     "regionId": "linhuang_liao",
     "sectId": null,
-    "value": 2550,
+    "value": 580,
     "equipBonus": {
       "attack": 65,
       "defense": 55,
@@ -2450,7 +2450,7 @@
     "origin": "延安府",
     "regionId": "yanan",
     "sectId": null,
-    "value": 2100,
+    "value": 520,
     "equipBonus": {
       "res": 38,
       "maxMp": 240
@@ -2475,7 +2475,7 @@
     "origin": "嵩山少林寺",
     "regionId": "shaolin",
     "sectId": "SECT-01",
-    "value": 2050,
+    "value": 420,
     "equipBonus": {
       "maxMp": 320,
       "res": 28,
@@ -2507,7 +2507,7 @@
     "origin": "昆仑山（万山之祖）",
     "regionId": "kunlun",
     "sectId": null,
-    "value": 1850,
+    "value": 390,
     "equipBonus": {
       "defense": 88,
       "maxHp": 300,
@@ -2537,7 +2537,7 @@
     "origin": "无量山 / 剑湖秘境",
     "regionId": "wuliangshan",
     "sectId": null,
-    "value": 1800,
+    "value": 320,
     "equipBonus": {
       "attack": 55,
       "maxMp": 280,
@@ -2569,7 +2569,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 1220,
+    "value": 204,
     "equipBonus": {
       "attack": 38,
       "defense": 32,
@@ -2592,7 +2592,7 @@
     "origin": "苏州府",
     "regionId": "suzhou",
     "sectId": null,
-    "value": 1250,
+    "value": 225,
     "equipBonus": {
       "maxMp": 220,
       "agility": 14,
@@ -2615,7 +2615,7 @@
     "origin": "太原府",
     "regionId": "taiyuan",
     "sectId": null,
-    "value": 1180,
+    "value": 175,
     "equipBonus": {
       "maxHp": 240,
       "defense": 42,
@@ -2636,7 +2636,7 @@
     "origin": "峨眉山",
     "regionId": "emeishan",
     "sectId": "SECT-07",
-    "value": 980,
+    "value": 146,
     "equipBonus": {
       "maxMp": 190,
       "res": 16
@@ -2656,7 +2656,7 @@
     "origin": "青城山 / 唐家堡",
     "regionId": "qingcheng",
     "sectId": "SECT-13",
-    "value": 960,
+    "value": 132,
     "equipBonus": {
       "res": 24,
       "agility": 10
@@ -2676,7 +2676,7 @@
     "origin": "武当山",
     "regionId": "wudangshan",
     "sectId": "SECT-08",
-    "value": 950,
+    "value": 125,
     "equipBonus": {
       "defense": 48,
       "maxMp": 160
@@ -2696,7 +2696,7 @@
     "origin": "阳苴咩城（大理）",
     "regionId": "dali_city",
     "sectId": "ORG-08",
-    "value": 1000,
+    "value": 160,
     "equipBonus": {
       "maxMp": 180,
       "skills": {
@@ -2719,7 +2719,7 @@
     "origin": "兴庆府",
     "regionId": "xingqing_xixia",
     "sectId": null,
-    "value": 850,
+    "value": 115,
     "equipBonus": {
       "attack": 32,
       "res": 14
@@ -2739,7 +2739,7 @@
     "origin": "五台山清凉寺",
     "regionId": "wutaishan",
     "sectId": "SECT-03",
-    "value": 840,
+    "value": 100,
     "equipBonus": {
       "maxMp": 150,
       "skills": {
@@ -2761,7 +2761,7 @@
     "origin": "华山",
     "regionId": "tongguan",
     "sectId": "SECT-05",
-    "value": 830,
+    "value": 85,
     "equipBonus": {
       "attack": 28,
       "agility": 12
@@ -2781,7 +2781,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 520,
+    "value": 40,
     "equipBonus": {
       "res": 12,
       "skills": {
@@ -2803,7 +2803,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 480,
+    "value": 35,
     "equipBonus": {
       "attack": 20,
       "agility": 8
@@ -2823,7 +2823,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 490,
+    "value": 34,
     "equipBonus": {
       "maxMp": 110,
       "skills": {
@@ -2845,7 +2845,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 510,
+    "value": 35,
     "equipBonus": {
       "defense": 32,
       "maxHp": 100
@@ -2865,7 +2865,7 @@
     "origin": "扬州府",
     "regionId": "yangzhou",
     "sectId": null,
-    "value": 500,
+    "value": 36,
     "equipBonus": {
       "skills": {
         "颜值": 8,
@@ -2887,7 +2887,7 @@
     "origin": "成都府",
     "regionId": "chengdu",
     "sectId": null,
-    "value": 410,
+    "value": 30,
     "equipBonus": {
       "res": 14
     },
@@ -2906,7 +2906,7 @@
     "origin": "太原府",
     "regionId": "taiyuan",
     "sectId": null,
-    "value": 390,
+    "value": 26,
     "equipBonus": {
       "defense": 24,
       "attack": 12
@@ -2926,7 +2926,7 @@
     "origin": "终南山",
     "regionId": "zhongnanshan",
     "sectId": "SECT-11",
-    "value": 400,
+    "value": 28,
     "equipBonus": {
       "maxMp": 90,
       "res": 6
@@ -2946,7 +2946,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 420,
+    "value": 31,
     "equipBonus": {
       "maxMp": 80,
       "skills": {
@@ -2968,7 +2968,7 @@
     "origin": "泉州府",
     "regionId": "quanzhou",
     "sectId": null,
-    "value": 380,
+    "value": 25,
     "equipBonus": {
       "attack": 16,
       "maxHp": 80
@@ -2988,7 +2988,7 @@
     "origin": "潭州府",
     "regionId": "tanzhou",
     "sectId": null,
-    "value": 350,
+    "value": 22,
     "equipBonus": {
       "defense": 18,
       "res": 10
@@ -3008,7 +3008,7 @@
     "origin": "逻些（拉萨）",
     "regionId": "luoxie_tubo",
     "sectId": null,
-    "value": 360,
+    "value": 24,
     "equipBonus": {
       "maxMp": 80,
       "maxHp": 70
@@ -3028,7 +3028,7 @@
     "origin": "杭州府",
     "regionId": "hangzhou",
     "sectId": null,
-    "value": 330,
+    "value": 20,
     "equipBonus": {
       "res": 8,
       "skills": {
@@ -3050,7 +3050,7 @@
     "origin": "江宁府",
     "regionId": "jiangning",
     "sectId": null,
-    "value": 340,
+    "value": 21,
     "equipBonus": {
       "agility": 6,
       "skills": {
@@ -3072,7 +3072,7 @@
     "origin": "大名府",
     "regionId": "daming",
     "sectId": null,
-    "value": 320,
+    "value": 20,
     "equipBonus": {
       "defense": 20,
       "maxHp": 60
@@ -3092,7 +3092,7 @@
     "origin": "泉州府",
     "regionId": "quanzhou",
     "sectId": null,
-    "value": 350,
+    "value": 22,
     "equipBonus": {
       "skills": {
         "颜值": 5,
@@ -3114,7 +3114,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 150,
+    "value": 15,
     "equipBonus": {
       "maxHp": 55,
       "defense": 10
@@ -3134,7 +3134,7 @@
     "origin": "嵩山少林寺",
     "regionId": "shaolin",
     "sectId": "SECT-01",
-    "value": 140,
+    "value": 13,
     "equipBonus": {
       "maxMp": 45,
       "skills": {
@@ -3156,7 +3156,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 130,
+    "value": 11,
     "equipBonus": {
       "res": 7
     },
@@ -3175,7 +3175,7 @@
     "origin": "太原府",
     "regionId": "taiyuan",
     "sectId": null,
-    "value": 155,
+    "value": 16,
     "equipBonus": {
       "defense": 12,
       "maxHp": 40
@@ -3195,7 +3195,7 @@
     "origin": "江宁府",
     "regionId": "jiangning",
     "sectId": null,
-    "value": 135,
+    "value": 12,
     "equipBonus": {
       "maxMp": 40,
       "skills": {
@@ -3217,7 +3217,7 @@
     "origin": "雁门关",
     "regionId": "yanmenguan",
     "sectId": null,
-    "value": 145,
+    "value": 14,
     "equipBonus": {
       "attack": 10,
       "maxHp": 35
@@ -3237,7 +3237,7 @@
     "origin": "阳苴咩城（大理）",
     "regionId": "dali_city",
     "sectId": "ORG-08",
-    "value": 148,
+    "value": 15,
     "equipBonus": {
       "defense": 10,
       "skills": {
@@ -3259,7 +3259,7 @@
     "origin": "成都府",
     "regionId": "chengdu",
     "sectId": null,
-    "value": 138,
+    "value": 13,
     "equipBonus": {
       "agility": 4,
       "skills": {
@@ -3281,7 +3281,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 90,
+    "value": 8,
     "equipBonus": {
       "maxHp": 35,
       "skills": {
@@ -3303,7 +3303,7 @@
     "origin": "泰山",
     "regionId": "taishan",
     "sectId": "SECT-06",
-    "value": 88,
+    "value": 7,
     "equipBonus": {
       "res": 5,
       "maxMp": 25
@@ -3323,7 +3323,7 @@
     "origin": "大名府",
     "regionId": "daming",
     "sectId": null,
-    "value": 92,
+    "value": 8,
     "equipBonus": {
       "defense": 8,
       "attack": 5
@@ -3343,7 +3343,7 @@
     "origin": "杭州府",
     "regionId": "hangzhou",
     "sectId": null,
-    "value": 85,
+    "value": 6,
     "equipBonus": {
       "res": 4,
       "skills": {
@@ -3365,7 +3365,7 @@
     "origin": "辽阳府",
     "regionId": "liaoyang_liao",
     "sectId": null,
-    "value": 95,
+    "value": 9,
     "equipBonus": {
       "attack": 8
     },
@@ -3384,7 +3384,7 @@
     "origin": "青城山 / 唐家堡",
     "regionId": "qingcheng",
     "sectId": "SECT-13",
-    "value": 80,
+    "value": 5,
     "equipBonus": {
       "maxMp": 30
     },
@@ -3403,7 +3403,7 @@
     "origin": "广州府",
     "regionId": "guangzhou",
     "sectId": null,
-    "value": 82,
+    "value": 6,
     "equipBonus": {
       "agility": 2,
       "skills": {
@@ -3425,7 +3425,7 @@
     "origin": "兴庆府",
     "regionId": "xingqing_xixia",
     "sectId": null,
-    "value": 96,
+    "value": 9,
     "equipBonus": {
       "maxHp": 30,
       "riding": 2
@@ -3445,7 +3445,7 @@
     "origin": "开封府",
     "regionId": "bianliang",
     "sectId": "SECT-17",
-    "value": 35,
+    "value": 3,
     "equipBonus": {
       "maxHp": 20
     },
@@ -3464,7 +3464,7 @@
     "origin": "泉州府",
     "regionId": "quanzhou",
     "sectId": null,
-    "value": 38,
+    "value": 4,
     "equipBonus": {
       "maxMp": 20
     },
@@ -3483,7 +3483,7 @@
     "origin": "潭州府",
     "regionId": "tanzhou",
     "sectId": null,
-    "value": 30,
+    "value": 2,
     "equipBonus": {
       "res": 3
     },
@@ -3502,7 +3502,7 @@
     "origin": "洛阳府",
     "regionId": "luoyang",
     "sectId": null,
-    "value": 32,
+    "value": 3,
     "equipBonus": {
       "defense": 4
     },
@@ -3521,7 +3521,7 @@
     "origin": "成都府",
     "regionId": "chengdu",
     "sectId": null,
-    "value": 36,
+    "value": 3,
     "equipBonus": {
       "defense": 5
     },
@@ -3540,7 +3540,7 @@
     "origin": "太行山绿林总寨",
     "regionId": "taihang",
     "sectId": "SECT-18",
-    "value": 40,
+    "value": 4,
     "equipBonus": {
       "maxHp": 18,
       "agility": 1
@@ -3560,7 +3560,7 @@
     "origin": "洪州府",
     "regionId": "hongzhou",
     "sectId": null,
-    "value": 34,
+    "value": 3,
     "equipBonus": {
       "maxMp": 15
     },
@@ -3579,7 +3579,7 @@
     "origin": "大名府",
     "regionId": "daming",
     "sectId": null,
-    "value": 28,
+    "value": 2,
     "equipBonus": {
       "maxHp": 15,
       "agility": 1
