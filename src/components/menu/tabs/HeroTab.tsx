@@ -29,6 +29,8 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const mp = useGameStore((s) => s.mp)
   const maxMp = useGameStore((s) => s.maxMp)
   const combatExp = useGameStore((s) => s.combatExp)
+  const renown = useGameStore((s) => s.renown)
+  const chivalry = useGameStore((s) => s.chivalry)
   const currentNodeId = useGameStore((s) => s.currentNodeId)
   const campPos = useGameStore((s) => s.campPos)
   const agility = useGameStore((s) => s.agility)
@@ -135,6 +137,24 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                 ? `内力 ${maxMp}/${nextRealm.minMp} → ${nextRealm.label}`
                 : `内力 ${maxMp} · 当世绝顶`}
             </span>
+          </div>
+
+          {/* 江湖声望与江湖侠义 */}
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="px-2.5 py-1.5 rounded bg-[#faf3e3] border border-[#cbb693] flex items-center justify-between">
+              <span className="text-[#6b5235] song-serif font-semibold">江湖声望</span>
+              <span className="font-mono font-bold text-[#781710]">{renown}</span>
+            </div>
+            <div className="px-2.5 py-1.5 rounded bg-[#faf3e3] border border-[#cbb693] flex items-center justify-between">
+              <span className="text-[#6b5235] song-serif font-semibold">江湖侠义</span>
+              <span
+                className={`font-mono font-bold ${
+                  chivalry < 0 ? 'text-[#8f1d14]' : 'text-[#1f4d3b]'
+                }`}
+              >
+                {chivalry}
+              </span>
+            </div>
           </div>
 
           {/* 门派军饷 / 朝廷通缉 / 通辽嫌疑 / 燕云辽谍军令速览 */}

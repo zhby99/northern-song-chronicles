@@ -29,7 +29,7 @@ import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from './heroStats'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
 import { clonePlayerSectState } from './sectMechanics'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.0' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.1' as const
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -381,6 +381,14 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     typeof st.combatExp === 'number' && Number.isFinite(st.combatExp)
       ? Math.max(0, Math.floor(st.combatExp))
       : 0
+  const renownVal =
+    typeof st.renown === 'number' && Number.isFinite(st.renown)
+      ? Math.max(0, Math.floor(st.renown))
+      : 0
+  const chivalryVal =
+    typeof st.chivalry === 'number' && Number.isFinite(st.chivalry)
+      ? Math.floor(st.chivalry)
+      : 0
 
   let cleanCampPos: WildernessCamp | null = null
   if (
@@ -428,6 +436,8 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     ridingSkill: derived.ridingSkill,
     agility: derived.agility,
     combatExp: combatExpVal,
+    renown: renownVal,
+    chivalry: chivalryVal,
     silver: typeof st.silver === 'number' ? Math.max(0, Math.floor(st.silver)) : 120,
     food: typeof st.food === 'number' ? Math.max(0, Math.floor(st.food)) : 25,
     hp: hpVal,

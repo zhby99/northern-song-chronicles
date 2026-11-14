@@ -230,6 +230,8 @@ export type QuestEffect =
   | { type: 'giveSilver'; amount: number; reason?: string }
   | { type: 'giveFood'; amount: number }
   | { type: 'giveCombatExp'; amount: number; reason?: string }
+  | { type: 'modifyRenown'; delta: number; reason?: string }
+  | { type: 'modifyChivalry'; delta: number; reason?: string }
   | { type: 'giveItem'; itemId: string; qty?: number }
   | { type: 'removeItem'; itemId: string; qty?: number }
   | { type: 'modifyTalent'; key: keyof HeroTalents; delta: number }

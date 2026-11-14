@@ -50,6 +50,8 @@ export function QuestsTab() {
   const dayCount = useGameStore((s) => s.dayCount)
   const maxHp = useGameStore((s) => s.maxHp)
   const maxMp = useGameStore((s) => s.maxMp)
+  const renown = useGameStore((s) => s.renown)
+  const chivalry = useGameStore((s) => s.chivalry)
   const sectState = useGameStore((s) => s.sectState)
   const questState = useGameStore((s) => s.questState)
   const locateQuestTargetOnMap = useGameStore((s) => s.locateQuestTargetOnMap)
@@ -125,6 +127,15 @@ export function QuestsTab() {
         <div className="flex flex-wrap items-center gap-2 text-xs text-[#6b5235]">
           <span className="px-2 py-0.5 rounded bg-[#faf3e3] border border-[#cbb693] text-[#781710] font-bold">
             当前修为：{playerRealm.label}
+          </span>
+          <span className="px-2 py-0.5 rounded bg-[#faf3e3] border border-[#cbb693] text-[#5c3d1e] font-bold">
+            江湖声望：<span className="font-mono text-[#781710]">{renown}</span>
+          </span>
+          <span className="px-2 py-0.5 rounded bg-[#faf3e3] border border-[#cbb693] text-[#5c3d1e] font-bold">
+            江湖侠义：
+            <span className={`font-mono ${chivalry < 0 ? 'text-[#8f1d14]' : 'text-[#1f4d3b]'}`}>
+              {chivalry}
+            </span>
           </span>
           <span>
             师门隶属：
@@ -432,6 +443,34 @@ export function QuestsTab() {
       {/* 子页签 3：江湖因果与门规声名 */}
       {subTab === 'causal' && (
         <div className="space-y-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="p-3.5 rounded-lg border bg-[#faf3e3] border-[#cbb693]">
+              <div className="font-bold song-serif text-sm flex items-center justify-between">
+                <span>江湖声望</span>
+                <span className="text-base font-mono font-bold text-[#781710]">{renown}</span>
+              </div>
+              <p className="text-xs text-[#5c4024] mt-1.5 leading-relaxed">
+                游历四方、扬名立万所积之名望，初始为 0；行大义、破大案、扬威擂台皆可令声名远播朝野。
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-lg border bg-[#faf3e3] border-[#cbb693]">
+              <div className="font-bold song-serif text-sm flex items-center justify-between">
+                <span>江湖侠义</span>
+                <span
+                  className={`text-base font-mono font-bold ${
+                    chivalry < 0 ? 'text-[#8f1d14]' : 'text-[#1f4d3b]'
+                  }`}
+                >
+                  {chivalry}
+                </span>
+              </div>
+              <p className="text-xs text-[#5c4024] mt-1.5 leading-relaxed">
+                立身处世之侠气节义，初始为 0；济困扶危、忠义护民则增，劫掠暗算、背信弃义则损。
+              </p>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div
               className={`p-3.5 rounded-lg border ${

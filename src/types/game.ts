@@ -821,6 +821,8 @@ export interface SerializableGameState {
   ridingSkill: number
   agility: number
   combatExp: number
+  renown: number
+  chivalry: number
   silver: number
   food: number
   hp: number
@@ -866,7 +868,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M1.5.0'
+  schemaVersion: 'M1.5.1'
   slotId: SaveSlotId
   savedAt: string
   note: string

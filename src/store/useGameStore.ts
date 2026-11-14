@@ -294,6 +294,8 @@ export interface GameStoreState {
   ridingSkill: number
   agility: number
   combatExp: number
+  renown: number
+  chivalry: number
   silver: number
   food: number
   hp: number
@@ -767,6 +769,8 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     ridingSkill: s.ridingSkill,
     agility: s.agility,
     combatExp: s.combatExp,
+    renown: s.renown,
+    chivalry: s.chivalry,
     silver: s.silver,
     food: s.food,
     hp: s.hp,
@@ -854,6 +858,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   ridingSkill: INITIAL_DERIVED_STATS.ridingSkill,
   agility: INITIAL_DERIVED_STATS.agility,
   combatExp: 80,
+  renown: 0,
+  chivalry: 0,
   silver: 5120,
   food: 25,
   hp: INITIAL_DERIVED_STATS.maxHp,
@@ -3253,6 +3259,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ridingSkill: derived.ridingSkill,
       agility: derived.agility,
       combatExp: 80,
+      renown: 0,
+      chivalry: 0,
       silver: 5120,
       food: 25,
       hp: derived.maxHp,
@@ -3983,6 +3991,52 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
         case 'giveCombatExp': {
           set({ combatExp: Math.max(0, s.combatExp + eff.amount) })
+          break
+        }
+
+        case 'modifyRenown': {
+          const nextRenown = Math.max(0, s.renown + eff.delta)
+          const sign = eff.delta >= 0 ? `+${eff.delta}` : `${eff.delta}`
+          const reason = eff.reason ? `（${eff.reason}）` : ''
+          set({
+            renown: nextRenown,
+            logs:
+              eff.delta !== 0
+                ? [
+                    createLogEntry(
+                      s.dayCount,
+                      '声名远播',
+                      `江湖声望 ${sign}${reason}，当前 ${nextRenown} 点。`,
+                      true,
+                      s.shichenIdx,
+                    ),
+                    ...s.logs,
+                  ].slice(0, 60)
+                : s.logs,
+          })
+          break
+        }
+
+        case 'modifyChivalry': {
+          const nextChivalry = s.chivalry + eff.delta
+          const sign = eff.delta >= 0 ? `+${eff.delta}` : `${eff.delta}`
+          const reason = eff.reason ? `（${eff.reason}）` : ''
+          set({
+            chivalry: nextChivalry,
+            logs:
+              eff.delta !== 0
+                ? [
+                    createLogEntry(
+                      s.dayCount,
+                      '侠义之举',
+                      `江湖侠义 ${sign}${reason}，当前 ${nextChivalry} 点。`,
+                      true,
+                      s.shichenIdx,
+                    ),
+                    ...s.logs,
+                  ].slice(0, 60)
+                : s.logs,
+          })
           break
         }
 
@@ -5380,6 +5434,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ridingSkill: derived.ridingSkill,
       agility: derived.agility,
       combatExp: Math.max(0, Math.floor(st.combatExp ?? 0)),
+      renown: Math.max(0, Math.floor(st.renown ?? 0)),
+      chivalry: Math.floor(st.chivalry ?? 0),
       maxHp: derived.maxHp,
       hp: Math.min(derived.maxHp, st.hp),
       maxMp: derived.maxMp,

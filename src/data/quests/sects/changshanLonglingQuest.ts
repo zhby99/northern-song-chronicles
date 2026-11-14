@@ -308,6 +308,8 @@ const CLIFF_WIN_A_EFFECTS: QuestEffect[] = [
   { type: 'modifyBaseStat', key: 'maxHp', delta: 35 },
   { type: 'modifyBaseStat', key: 'maxMp', delta: 40 },
   { type: 'modifyBaseStat', key: 'agility', delta: 4 },
+  { type: 'modifyRenown', delta: 20, reason: '雁门关外退敌保图' },
+  { type: 'modifyChivalry', delta: 50, reason: '孤身断后护送密图' },
   { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 15 },
   { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0635' }, delta: 20 },
   {
@@ -341,7 +343,8 @@ const CLIFF_WIN_B_EFFECTS: QuestEffect[] = [
   { type: 'modifyBaseStat', key: 'maxMp', delta: 60 },
   { type: 'modifyBaseStat', key: 'agility', delta: 6 },
   { type: 'modifyBaseStat', key: 'res', delta: 5 },
-  { type: 'addFlagNumber', flag: 'chivalry', delta: 100 },
+  { type: 'modifyRenown', delta: 20, reason: '绝壁力撼辽将萧远风' },
+  { type: 'modifyChivalry', delta: 100, reason: '背水死战全员护送燕云遗老' },
   { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0185' }, delta: 25 },
   { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 20 },
   { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0635' }, delta: 25 },
@@ -556,7 +559,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0011' }, delta: 10 },
                     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 5 },
                     { type: 'giveSilver', amount: 50, reason: '韩琦私库盘缠' },
-                    { type: 'addFlagNumber', flag: 'chivalry', delta: 20 },
+                    { type: 'modifyChivalry', delta: 20, reason: '常山忠胆赴燕云' },
                     {
                       type: 'setQuestStep',
                       questId: QUEST_ID,
@@ -567,13 +570,14 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_hanqi_pragmatic',
                   label: '【沉稳务实】既为守土安民，功名何足挂齿。请安抚使示下。',
-                  subLabel: '韩琦好感 +5、郭逵好感 +10、纹银 +50 两、策论 +3',
+                  subLabel: '韩琦好感 +5、郭逵好感 +10、纹银 +50 两、策论 +3、江湖声望 +15',
                   tone: 'jade',
                   effects: [
                     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0011' }, delta: 5 },
                     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 10 },
                     { type: 'giveSilver', amount: 50, reason: '韩琦私库盘缠' },
                     { type: 'modifySkill', key: '策论', delta: 3 },
+                    { type: 'modifyRenown', delta: 15, reason: '沉稳受命定州幕府' },
                     {
                       type: 'setQuestStep',
                       questId: QUEST_ID,
@@ -605,7 +609,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
           { type: 'giveItem', itemId: 'ITM-MSC-012', qty: 1 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0642' }, delta: 15 },
           { type: 'addFlagNumber', flag: 'sect_relation_SECT-23', delta: 10 },
-          { type: 'addFlagNumber', flag: 'renown', delta: 20 },
+          { type: 'modifyRenown', delta: 20, reason: '联络燕云义勇暗桩' },
           {
             type: 'toast',
             text: '秦乾（NPC-0642）暗授【幽州夜禁换防图】！秦乾好感 +15，沧州八极门关系 +10，声望 +20。',
@@ -642,7 +646,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
             thenEffects: [
               { type: 'giveItem', itemId: 'ITM-MSC-011', qty: 1 },
               { type: 'modifySkill', key: '算术', delta: 3 },
-              { type: 'addFlagNumber', flag: 'renown', delta: 15 },
+              { type: 'modifyRenown', delta: 15, reason: '榷场查账识破私马暗账' },
               { type: 'addArtExp', amount: 200 },
               {
                 type: 'toast',
@@ -836,7 +840,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                   subLabel: '侠义 +30、武学熟练度 +300、获【燕云遗老护身玉佩】（抗性 +5）',
                   tone: 'gold',
                   effects: [
-                    { type: 'addFlagNumber', flag: 'chivalry', delta: 30 },
+                    { type: 'modifyChivalry', delta: 30, reason: '悯忠寺立誓承志' },
                     { type: 'addArtExp', amount: 300 },
                     { type: 'giveItem', itemId: 'ITM-ACC-001', qty: 1 },
                     ...MINZHONG_AFTER_EFFECTS,
@@ -848,7 +852,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                   subLabel: '侠义 +50、郭逵好感 +5（解锁第三幕【路线 B：全员死保】）',
                   tone: 'primary',
                   effects: [
-                    { type: 'addFlagNumber', flag: 'chivalry', delta: 50 },
+                    { type: 'modifyChivalry', delta: 50, reason: '悯忠寺许诺死保燕云遗老' },
                     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 5 },
                     { type: 'setFlag', flag: 'cs_longling_route_b', value: true },
                     ...MINZHONG_AFTER_EFFECTS,
@@ -1072,7 +1076,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
           },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 15 },
           { type: 'giveSilver', amount: 200, reason: '定州军府私库密赏' },
-          { type: 'addFlagNumber', flag: 'renown', delta: 80 },
+          { type: 'modifyRenown', delta: 80, reason: '观音阁焚名记无名首功' },
           {
             type: 'setQuestStep',
             questId: QUEST_ID,
