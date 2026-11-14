@@ -12,6 +12,7 @@ import { useGameStore } from '../../../store/useGameStore'
 import type { BagCategoryKey, CompiledMartialArtRecord, EquipmentTier } from '../../../types/game'
 import { BagCatIcon } from '../MenuIcons'
 import type { TreasureCollectionStats } from '../menuShared'
+import { ItemAcquisitionBanner } from '../ItemAcquisitionBanner'
 import { UniqueOwnershipBadge, UniqueOwnershipBanner } from '../UniqueOwnershipBanner'
 
 interface TreasuresTabProps {
@@ -570,6 +571,7 @@ export function TreasuresTab({
                     </div>
 
                     <UniqueOwnershipBanner itemId={def.id} />
+                    <ItemAcquisitionBanner itemId={def.id} />
 
                     {/* 三格规制摘要 */}
                     <div className="grid grid-cols-3 gap-2 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-2 text-xs">

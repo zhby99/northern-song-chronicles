@@ -25,6 +25,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "BOT-009", price: 25, note: "鞋履 · 禁军牛皮战靴" },
       { itemId: "ARM-017", price: 50, note: "服饰 · 禁军铁叶重甲" },
       { itemId: "WPN-053", price: 25, note: "兵器 · 南北作坊精锻点钢枪" },
+      { itemId: "ITM-MED-121", price: 9, note: "凡阶 · 外敷伤药" },
     ],
   },
   {
@@ -47,6 +48,8 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "BOW-018", price: 9, note: "凡阶上品 · 长弓" },
       { itemId: "ACC-017", price: 40, note: "良阶上品 · 玉佩" },
       { itemId: "ACC-018", price: 35, note: "良阶上品 · 信物" },
+      { itemId: "ITM-SCR-098", price: 85, note: "凡阶 · 经史典籍" },
+      { itemId: "ITM-MED-122", price: 13, note: "凡阶 · 官局常药" },
     ],
   },
   {
@@ -64,6 +67,35 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "MNT-021", price: 30, note: "凡阶中品 · 华北（太行）" },
       { itemId: "MNT-027", price: 15, note: "凡阶下品 · 华北（齐鲁）" },
       { itemId: "MNT-028", price: 15, note: "凡阶下品 · 华北（洛阳）" },
+      { itemId: "ITM-SCR-095", price: 90, note: "凡阶 · 百工图谱" },
+      { itemId: "ITM-CUR-047", price: 18, note: "凡品 · 鞍辔百工" },
+    ],
+  },
+  {
+    spotId: "bianliang_base_academy",
+    regionId: "bianliang",
+    title: "御街崇文书院雅肆",
+    subtitle: "太学士子与文人墨客聚散之地 · 经史策论典籍与文房雅器置办",
+    items: [
+      { itemId: "ITM-SCR-046", price: 165, note: "良阶 · 经史典籍" },
+      { itemId: "ITM-SCR-048", price: 155, note: "良阶 · 法帖碑刻" },
+      { itemId: "ITM-SCR-056", price: 185, note: "良阶 · 百工图谱" },
+      { itemId: "ITM-SCR-085", price: 85, note: "凡阶 · 经史典籍" },
+      { itemId: "ITM-SCR-086", price: 80, note: "凡阶 · 经史典籍" },
+      { itemId: "ITM-CUR-026", price: 44, note: "良品 · 文房雅器" },
+      { itemId: "ITM-CUR-027", price: 41, note: "良品 · 筹算百工" },
+      { itemId: "ITM-CUR-039", price: 15, note: "凡品 · 书院器具" },
+    ],
+  },
+  {
+    spotId: "bianliang_base_tavern",
+    regionId: "bianliang",
+    title: "汴河虹桥食肆茶坊",
+    subtitle: "东京市井美食饮子与樊楼词本集散处",
+    items: [
+      { itemId: "ITM-SCR-081", price: 60, note: "凡阶 · 诗词唱本" },
+      { itemId: "ITM-MED-124", price: 6, note: "凡阶 · 药膳茶食" },
+      { itemId: "ITM-MED-125", price: 7, note: "凡阶 · 消暑熟水" },
     ],
   },
   {
@@ -87,6 +119,22 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ACC-041", price: 8, note: "凡阶中品 · 信物" },
       { itemId: "ACC-049", price: 3, note: "凡阶下品 · 信物" },
       { itemId: "MNT-017", price: 50, note: "凡阶上品 · 中原官马" },
+      { itemId: "ITM-SCR-051", price: 150, note: "良阶 · 诗词唱本" },
+      { itemId: "ITM-SCR-053", price: 160, note: "良阶 · 诗词唱本" },
+      { itemId: "ITM-SCR-089", price: 90, note: "凡阶 · 兵书舆图" },
+      { itemId: "ITM-SCR-090", price: 45, note: "凡阶 · 蒙学杂书" },
+      { itemId: "ITM-SCR-091", price: 50, note: "凡阶 · 蒙学杂书" },
+      { itemId: "ITM-SCR-092", price: 40, note: "凡阶 · 名家书画" },
+      { itemId: "ITM-SCR-098", price: 85, note: "凡阶 · 经史典籍" },
+      { itemId: "ITM-SCR-100", price: 70, note: "凡阶 · 名家书画" },
+      { itemId: "ITM-MED-113", price: 37, note: "良阶 · 御局成药" },
+      { itemId: "ITM-MED-122", price: 13, note: "凡阶 · 官局常药" },
+      { itemId: "ITM-MED-123", price: 14, note: "凡阶 · 回气散剂" },
+      { itemId: "ITM-CUR-030", price: 65, note: "良品 · 天算百工" },
+      { itemId: "ITM-CUR-032", price: 18, note: "凡品 · 纹枰弈具" },
+      { itemId: "ITM-CUR-043", price: 18, note: "凡品 · 日用百工" },
+      { itemId: "ITM-CUR-049", price: 9, note: "凡品 · 行旅百工" },
+      { itemId: "ITM-CUR-050", price: 18, note: "凡品 · 行旅百工" },
     ],
   },
   {
@@ -98,6 +146,9 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "WPN-065", price: 20, note: "凡阶上品 · 器物" },
       { itemId: "BOW-015", price: 14, note: "良阶下品 · 角弓" },
       { itemId: "MNT-018", price: 51, note: "凡阶上品 · 中原官马" },
+      { itemId: "ITM-SCR-057", price: 195, note: "良阶 · 名家书画" },
+      { itemId: "ITM-MED-118", price: 38, note: "良阶 · 西域毒物" },
+      { itemId: "ITM-CUR-023", price: 47, note: "良品 · 香茗雅器" },
     ],
   },
   {
@@ -118,6 +169,11 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ACC-040", price: 13, note: "凡阶上品 · 玉佩" },
       { itemId: "ACC-053", price: 3, note: "凡阶下品 · 护心镜" },
       { itemId: "MNT-014", price: 150, note: "良阶中品 · 西南山骏" },
+      { itemId: "ITM-MED-112", price: 31, note: "良阶 · 接骨圣膏" },
+      { itemId: "ITM-MED-130", price: 17, note: "凡阶 · 山野毒草" },
+      { itemId: "ITM-CUR-028", price: 45, note: "良品 · 杏林百工" },
+      { itemId: "ITM-CUR-045", price: 16, note: "凡品 · 杏林百工" },
+      { itemId: "ITM-CUR-046", price: 13, note: "凡品 · 杏林百工" },
     ],
   },
   {
@@ -149,6 +205,19 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ACC-043", price: 8, note: "凡阶中品 · 护心镜" },
       { itemId: "ACC-056", price: 2, note: "凡阶下品 · 护心镜" },
       { itemId: "MNT-012", price: 200, note: "良阶中品 · 中原官马" },
+      { itemId: "ITM-SCR-099", price: 85, note: "凡阶 · 经史典籍" },
+      { itemId: "ITM-MED-129", price: 8, note: "凡阶 · 下九流暗器" },
+      { itemId: "ITM-CUR-042", price: 17, note: "凡品 · 茶酒器具" },
+    ],
+  },
+  {
+    spotId: "dl_chama_main",
+    regionId: "dali_city",
+    title: "洱海茶马古道奇货堂",
+    subtitle: "滇南茶马古道总集 · 永昌云子与南诏灵药集散",
+    items: [
+      { itemId: "ITM-MED-116", price: 34, note: "良阶 · 镇国灵药" },
+      { itemId: "ITM-CUR-017", price: 47, note: "良品 · 纹枰弈具" },
     ],
   },
   {
@@ -159,6 +228,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
     requiredSectId: "ORG-08",
     items: [
       { itemId: "ACC-039", price: 15, note: "凡阶上品 · 护心镜" },
+      { itemId: "ITM-MED-116", price: 34, note: "良阶 · 镇国灵药" },
     ],
   },
   {
@@ -171,6 +241,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "WPN-040", price: 65, note: "良阶上品 · 器物" },
       { itemId: "WPN-093", price: 6, note: "凡阶下品 · 器物" },
       { itemId: "BOT-013", price: 29, note: "良阶中品 · 道履" },
+      { itemId: "ITM-MED-115", price: 32, note: "良阶 · 名山奇药" },
     ],
   },
   {
@@ -184,6 +255,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "BOT-027", price: 2, note: "凡阶下品 · 草鞋" },
       { itemId: "BOW-024", price: 5, note: "凡阶中品 · 猎弓" },
       { itemId: "ACC-047", price: 6, note: "凡阶中品 · 玉佩" },
+      { itemId: "ITM-MED-127", price: 12, note: "凡阶 · 防毒常药" },
     ],
   },
   {
@@ -195,6 +267,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ARM-051", price: 5, note: "凡阶下品 · 劲装" },
       { itemId: "BOW-025", price: 3, note: "凡阶下品 · 猎弓" },
       { itemId: "ACC-055", price: 3, note: "凡阶下品 · 玉佩" },
+      { itemId: "ITM-CUR-041", price: 18, note: "凡品 · 茶酒器具" },
     ],
   },
   {
@@ -212,6 +285,15 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "BOW-021", price: 6, note: "凡阶中品 · 猎弓" },
       { itemId: "ACC-029", price: 20, note: "良阶下品 · 辟毒囊" },
       { itemId: "ACC-044", price: 6, note: "凡阶中品 · 辟毒囊" },
+      { itemId: "ITM-SCR-082", price: 65, note: "凡阶 · 诗词唱本" },
+      { itemId: "ITM-SCR-083", price: 70, note: "凡阶 · 诗词唱本" },
+      { itemId: "ITM-SCR-084", price: 30, note: "凡阶 · 蒙学杂书" },
+      { itemId: "ITM-SCR-094", price: 80, note: "凡阶 · 百工图谱" },
+      { itemId: "ITM-SCR-097", price: 65, note: "凡阶 · 琴棋清谱" },
+      { itemId: "ITM-CUR-019", price: 38, note: "良品 · 文房雅器" },
+      { itemId: "ITM-CUR-021", price: 49, note: "良品 · 宴饮雅器" },
+      { itemId: "ITM-CUR-035", price: 12, note: "凡品 · 文房器具" },
+      { itemId: "ITM-CUR-040", price: 16, note: "凡品 · 风雅器具" },
     ],
   },
   {
@@ -227,6 +309,8 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "BOT-019", price: 14, note: "凡阶上品 · 轻履" },
       { itemId: "ACC-030", price: 21, note: "良阶下品 · 玉佩" },
       { itemId: "ACC-037", price: 12, note: "凡阶上品 · 信物" },
+      { itemId: "ITM-CUR-018", price: 40, note: "良品 · 文房雅器" },
+      { itemId: "ITM-CUR-033", price: 14, note: "凡品 · 文房器具" },
     ],
   },
   {
@@ -237,6 +321,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
     items: [
       { itemId: "WPN-073", price: 11, note: "凡阶中品 · 器物" },
       { itemId: "MNT-027", price: 15, note: "凡阶下品 · 市井骡驴" },
+      { itemId: "ITM-SCR-055", price: 155, note: "良阶 · 经史典籍" },
     ],
   },
   {
@@ -299,6 +384,9 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ACC-035", price: 11, note: "凡阶上品 · 辟毒囊" },
       { itemId: "ACC-052", price: 3, note: "凡阶下品 · 信物" },
       { itemId: "MNT-028", price: 15, note: "凡阶下品 · 市井骡驴" },
+      { itemId: "ITM-SCR-060", price: 165, note: "良阶 · 琴棋清谱" },
+      { itemId: "ITM-SCR-088", price: 75, note: "凡阶 · 百工图谱" },
+      { itemId: "ITM-CUR-024", price: 42, note: "良品 · 丝竹雅器" },
     ],
   },
   {
@@ -322,6 +410,16 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "WPN-041", price: 51, note: "良阶中品 · 器物" },
       { itemId: "WPN-058", price: 30, note: "良阶下品 · 器物" },
       { itemId: "ACC-046", price: 5, note: "凡阶中品 · 玉佩" },
+      { itemId: "ITM-MED-119", price: 30, note: "良阶 · 奇门毒液" },
+    ],
+  },
+  {
+    spotId: "qinzhou_base_tavern",
+    regionId: "qinzhou",
+    title: "陇上胡姬琵琶酒肆",
+    subtitle: "边塞乐舞工尺谱与行旅酒肆",
+    items: [
+      { itemId: "ITM-SCR-096", price: 65, note: "凡阶 · 琴棋清谱" },
     ],
   },
   {
@@ -342,6 +440,11 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ACC-032", price: 22, note: "良阶下品 · 玉佩" },
       { itemId: "ACC-050", price: 4, note: "凡阶下品 · 佛珠" },
       { itemId: "MNT-016", price: 90, note: "良阶下品 · 中原官马" },
+      { itemId: "ITM-SCR-050", price: 190, note: "良阶 · 法帖碑刻" },
+      { itemId: "ITM-SCR-087", price: 90, note: "凡阶 · 百工图谱" },
+      { itemId: "ITM-SCR-093", price: 35, note: "凡阶 · 法帖碑刻" },
+      { itemId: "ITM-MED-114", price: 38, note: "良阶 · 御贡茗膳" },
+      { itemId: "ITM-CUR-044", price: 18, note: "凡品 · 营造百工" },
     ],
   },
   {
@@ -352,6 +455,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
     items: [
       { itemId: "MNT-009", price: 300, note: "良阶上品 · 青唐番马" },
       { itemId: "MNT-026", price: 17, note: "凡阶下品 · 市井骡驴" },
+      { itemId: "ITM-SCR-095", price: 90, note: "凡阶 · 百工图谱" },
     ],
   },
   {
@@ -368,6 +472,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ARM-036", price: 18, note: "凡阶上品 · 僧衣" },
       { itemId: "BOT-020", price: 11, note: "凡阶上品 · 草鞋" },
       { itemId: "ACC-034", price: 13, note: "凡阶上品 · 佛珠" },
+      { itemId: "ITM-MED-111", price: 33, note: "良阶 · 佛门灵丹" },
     ],
   },
   {
@@ -382,6 +487,11 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ARM-029", price: 34, note: "良阶下品 · 儒衫" },
       { itemId: "BOT-010", price: 32, note: "良阶上品 · 轻履" },
       { itemId: "MNT-023", price: 32, note: "凡阶中品 · 西南山骏" },
+      { itemId: "ITM-SCR-052", price: 170, note: "良阶 · 名家书画" },
+      { itemId: "ITM-SCR-054", price: 155, note: "良阶 · 经史典籍" },
+      { itemId: "ITM-MED-120", price: 31, note: "良阶 · 迷药奇香" },
+      { itemId: "ITM-CUR-020", price: 46, note: "良品 · 丹青画具" },
+      { itemId: "ITM-CUR-025", price: 51, note: "良品 · 风雅佩具" },
     ],
   },
   {
@@ -398,6 +508,12 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ACC-027", price: 22, note: "良阶下品 · 护心镜" },
       { itemId: "ACC-051", price: 2, note: "凡阶下品 · 辟毒囊" },
       { itemId: "MNT-025", price: 18, note: "凡阶下品 · 西南山骏" },
+      { itemId: "ITM-SCR-058", price: 190, note: "良阶 · 名家书画" },
+      { itemId: "ITM-SCR-059", price: 165, note: "良阶 · 琴棋清谱" },
+      { itemId: "ITM-MED-117", price: 40, note: "良阶 · 苗疆蛊毒" },
+      { itemId: "ITM-MED-127", price: 12, note: "凡阶 · 防毒常药" },
+      { itemId: "ITM-CUR-016", price: 51, note: "良品 · 丝竹雅器" },
+      { itemId: "ITM-CUR-031", price: 18, note: "凡品 · 丝竹器具" },
     ],
   },
   {
@@ -424,6 +540,8 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ARM-039", price: 22, note: "凡阶上品 · 劲装" },
       { itemId: "ACC-054", price: 4, note: "凡阶下品 · 佛珠" },
       { itemId: "MNT-021", price: 30, note: "凡阶中品 · 中原官马" },
+      { itemId: "ITM-MED-128", price: 16, note: "凡阶 · 绿林迷药" },
+      { itemId: "ITM-MED-129", price: 8, note: "凡阶 · 下九流暗器" },
     ],
   },
   {
@@ -439,6 +557,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "BOT-021", price: 8, note: "凡阶中品 · 道履" },
       { itemId: "BOW-017", price: 11, note: "凡阶上品 · 猎弓" },
       { itemId: "ACC-042", price: 7, note: "凡阶中品 · 辟毒囊" },
+      { itemId: "ITM-SCR-055", price: 155, note: "良阶 · 经史典籍" },
     ],
   },
   {
@@ -458,6 +577,8 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ACC-023", price: 26, note: "良阶中品 · 护心镜" },
       { itemId: "ACC-036", price: 16, note: "凡阶上品 · 护心镜" },
       { itemId: "MNT-019", price: 50, note: "凡阶上品 · 中原官马" },
+      { itemId: "ITM-CUR-029", price: 43, note: "良品 · 金石百工" },
+      { itemId: "ITM-CUR-036", price: 17, note: "凡品 · 文房器具" },
     ],
   },
   {
@@ -519,6 +640,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
     requiredSectId: "SECT-20",
     items: [
       { itemId: "WPN-043", price: 54, note: "良阶中品 · 器物" },
+      { itemId: "ITM-MED-118", price: 38, note: "良阶 · 西域毒物" },
     ],
   },
   {
@@ -533,6 +655,16 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "BOW-010", price: 24, note: "良阶上品 · 角弓" },
       { itemId: "BOW-028", price: 4, note: "凡阶下品 · 神臂弩" },
       { itemId: "MNT-010", price: 264, note: "良阶上品 · 党项夏马" },
+      { itemId: "ITM-MED-121", price: 9, note: "凡阶 · 外敷伤药" },
+    ],
+  },
+  {
+    spotId: "yangzhou_base_academy",
+    regionId: "yangzhou",
+    title: "安定胡公书院",
+    subtitle: "淮南名儒讲学碑刻拓片书肆",
+    items: [
+      { itemId: "ITM-SCR-049", price: 170, note: "良阶 · 法帖碑刻" },
     ],
   },
   {
@@ -545,6 +677,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "BOW-019", price: 12, note: "凡阶上品 · 角弓" },
       { itemId: "ACC-038", price: 14, note: "凡阶上品 · 信物" },
       { itemId: "MNT-013", price: 150, note: "良阶中品 · 塞北北马" },
+      { itemId: "ITM-MED-126", price: 11, note: "凡阶 · 军旅肉糜" },
     ],
   },
   {
@@ -560,6 +693,9 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "BOT-014", price: 25, note: "良阶中品 · 轻履" },
       { itemId: "ACC-021", price: 36, note: "良阶上品 · 玉佩" },
       { itemId: "MNT-022", price: 29, note: "凡阶中品 · 中原官马" },
+      { itemId: "ITM-CUR-037", price: 13, note: "凡品 · 筹算百工" },
+      { itemId: "ITM-CUR-038", price: 18, note: "凡品 · 筹算百工" },
+      { itemId: "ITM-CUR-048", price: 14, note: "凡品 · 渔樵百工" },
     ],
   },
   {
@@ -581,6 +717,11 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "WPN-054", price: 34, note: "良阶下品 · 器物" },
       { itemId: "WPN-082", price: 11, note: "凡阶中品 · 器物" },
       { itemId: "MNT-015", price: 100, note: "良阶下品 · 中原官马" },
+      { itemId: "ITM-SCR-047", price: 185, note: "良阶 · 经史典籍" },
+      { itemId: "ITM-MED-126", price: 11, note: "凡阶 · 军旅肉糜" },
+      { itemId: "ITM-CUR-022", price: 52, note: "良品 · 文房清供" },
+      { itemId: "ITM-CUR-034", price: 11, note: "凡品 · 文房器具" },
+      { itemId: "ITM-CUR-049", price: 9, note: "凡品 · 行旅百工" },
     ],
   },
   {
