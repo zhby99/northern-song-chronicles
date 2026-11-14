@@ -508,14 +508,11 @@ export function ContextInspectorCard() {
               return (
                 <div
                   key={npcKey}
-                  className="p-2 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-1.5"
+                  onClick={() => openNpcInteraction(p)}
+                  title={`点击拜会【${p.name}】`}
+                  className="p-2 rounded bg-[#efe4cc] hover:bg-[#e8d9bb] border border-[#c8b28e] hover:border-[#9e7b47] transition-colors space-y-1.5 cursor-pointer"
                 >
-                  <button
-                    type="button"
-                    onClick={() => openNpcInteraction(p)}
-                    title={`点击与【${p.name}】交互`}
-                    className="w-full text-left flex items-center justify-between gap-2 p-1 -m-1 rounded hover:bg-[#e4d3b0] transition-colors cursor-pointer"
-                  >
+                  <div className="w-full text-left flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2 min-w-0">
                       {p.avatarUrl ? (
                         <ManagedAssetImg
@@ -539,7 +536,7 @@ export function ContextInspectorCard() {
                     <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#dcc9a7] text-[#4a3219] shrink-0">
                       {p.realm}
                     </span>
-                  </button>
+                  </div>
 
                   {/* 紧凑属性速览条（四维 + 先天三维） */}
                   {p.stats && p.talents && (
@@ -622,7 +619,17 @@ export function ContextInspectorCard() {
                     </div>
                   )}
 
-                  <div className="flex flex-wrap items-center gap-1">
+                  <div
+                    className="flex flex-wrap items-center gap-1"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => openNpcInteraction(p)}
+                      className="px-2 py-0.5 rounded bg-[#781710] hover:bg-[#931e15] text-[#fff8ee] text-[11px] font-medium cursor-pointer"
+                    >
+                      拜会交互
+                    </button>
                     <button
                       type="button"
                       onClick={() => interactNpc(p, 'talk')}

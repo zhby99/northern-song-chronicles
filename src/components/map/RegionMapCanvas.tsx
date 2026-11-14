@@ -52,6 +52,7 @@ export function RegionMapCanvas() {
   const clearFloatingSelection = useGameStore((s) => s.clearFloatingSelection)
   const setTooltip = useGameStore((s) => s.setTooltip)
   const moveTooltip = useGameStore((s) => s.moveTooltip)
+  const hasNpcInteraction = useGameStore((s) => s.activeNpcInteraction !== null)
 
   const regionNode = NODE_MAP[activeRegionId]
   const regionCfg = REGIONAL_CONFIGS[activeRegionId]
@@ -210,8 +211,9 @@ export function RegionMapCanvas() {
             loadedUrl && <image href={loadedUrl} x={0} y={0} width={vw} height={vh} />
           )}
 
-          {/* 第三层级：建筑内景图热区与出口（涵盖全部 138 座特殊建筑） */}
-          {activeBuildingRecord && activeInterior ? (
+          {/* 第三层级：建筑内景图热区与出口（人物交互界面开启时隐去热区线框与牌匾，仅保留纯净场景画卷） */}
+          {!hasNpcInteraction &&
+            (activeBuildingRecord && activeInterior ? (
             <>
               {/* 出口热区 */}
               {(() => {
@@ -611,7 +613,7 @@ export function RegionMapCanvas() {
                 })}
               </g>
             </>
-          )}
+          ))}
         </g>
       </svg>
     </div>

@@ -2,9 +2,10 @@ import { useMemo, useState } from 'react'
 import {
   MARTIAL_ART_DB_MAP,
   NPC_DB_MAP,
-  UNIQUE_ARTIFACT_MAP,
+  resolveNpcByName,
 } from '../../data/gameDb'
 import {
+  BAG_CATEGORY_METAS,
   EQUIPMENT_SLOT_METAS,
   ITEM_DB_MAP,
   normalizeItemTier,
@@ -15,6 +16,10 @@ import { useGameStore } from '../../store/useGameStore'
 import type { TenArtKey } from '../../types/game'
 import { deriveNpcEffectiveStats } from '../../utils/heroStats'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
+
+const CATEGORY_LABEL_MAP: Record<string, string> = Object.fromEntries(
+  BAG_CATEGORY_METAS.map((m) => [m.key, m.label]),
+)
 
 const TEN_ART_KEYS: TenArtKey[] = [
   '骑术',
@@ -42,13 +47,19 @@ export function NpcInteractionOverlay() {
   const [subPanel, setSubPanel] = useState<SubPanelMode>('none')
   const [dialogueText, setDialogueText] = useState<string | null>(null)
 
-  const dbRecord = useMemo(
-    () => (npc?.id ? NPC_DB_MAP[npc.id] : undefined),
-    [npc?.id],
-  )
+  const dbRecord = useMemo(() => {
+    if (!npc) return undefined
+    if (npc.id && NPC_DB_MAP[npc.id]) return NPC_DB_MAP[npc.id]
+    return (
+      resolveNpcByName(npc.name) ??
+      resolveNpcByName(npc.name.replace(/大师$/, ''))
+    )
+  }, [npc])
 
   const portraitUrl =
-    dbRecord?.fullbodyUrl ?? dbRecord?.templateUrl ?? npc?.avatarUrl ?? null
+    dbRecord?.fullbodyUrl ??
+    dbRecord?.templateUrl ??
+    '/assets/characters/templates/tpl_song_scholar_fb.jpg'
 
   const stats = dbRecord?.stats ?? npc?.stats
   const talents = dbRecord?.talents ?? npc?.talents
@@ -57,42 +68,6 @@ export function NpcInteractionOverlay() {
   const roleName = dbRecord?.role ?? npc?.title ?? ''
   const realmName = dbRecord?.realm ?? npc?.realm ?? '不入流'
   const bio = dbRecord?.bio
-
-  const knownArts = useMemo(() => {
-    if (!dbRecord?.knownArtIds?.length) return []
-    return dbRecord.knownArtIds
-      .map((id) => MARTIAL_ART_DB_MAP[id])
-      .filter((a): a is NonNullable<typeof a> => Boolean(a))
-  }, [dbRecord])
-
-  const ownedArtifacts = useMemo(() => {
-    if (!dbRecord?.ownedArtifactIds?.length) return []
-    return dbRecord.ownedArtifactIds
-      .map((id) => {
-        const unique = UNIQUE_ARTIFACT_MAP[id]
-        const item = ITEM_DB_MAP[id]
-        if (item) {
-          return {
-            id,
-            name: item.name,
-            category: item.category,
-            tier: item.rarity,
-            desc: item.desc,
-          }
-        }
-        if (unique) {
-          return {
-            id,
-            name: unique.itemName,
-            category: unique.categoryLabel,
-            tier: unique.tier,
-            desc: unique.note,
-          }
-        }
-        return null
-      })
-      .filter((x): x is NonNullable<typeof x> => Boolean(x))
-  }, [dbRecord])
 
   const giftableItems = useMemo(() => {
     return inventory
@@ -145,40 +120,35 @@ export function NpcInteractionOverlay() {
       role="dialog"
       aria-label={`${npc.name}交互`}
     >
-      {/* 半透明暗角遮罩：保留当前建筑/地区背景透出，突出立绘人物 */}
+      {/* 轻薄暗角遮罩：完整保留当前地区/建筑背景，仅在底部衬托对话与交互按钮 */}
       <div
-        className="absolute inset-0 bg-gradient-to-t from-[#120c07]/90 via-[#120c07]/25 to-[#120c07]/45 transition-opacity"
+        className="absolute inset-0 bg-gradient-to-t from-[#120c07]/76 via-transparent to-[#120c07]/12 transition-opacity"
         onClick={closeNpcInteraction}
       />
 
-      {/* 抠图感全身立绘：羽化边缘融入当前场景背景 */}
-      <div className="relative z-10 flex-1 w-full flex items-end justify-center pointer-events-none overflow-hidden pb-24">
-        {portraitUrl ? (
-          <div
-            className="relative max-h-[82vh] max-w-[90vw] flex items-end justify-center"
-            style={{
-              filter: 'drop-shadow(0 18px 34px rgba(0, 0, 0, 0.8))',
-            }}
-          >
-            <CutoutPortraitImg
-              url={portraitUrl}
-              alt={npc.name}
-              className="max-h-[78vh] w-auto object-contain"
-            />
-          </div>
-        ) : (
-          <div className="mb-12 w-44 h-64 rounded-2xl bg-[#3a2614]/85 border-2 border-[#c8a97e]/60 flex flex-col items-center justify-center shadow-2xl">
-            <span className="text-6xl song-serif font-bold text-[#f5dfb5]">
-              {npc.name.slice(0, 1)}
-            </span>
-            <span className="mt-3 text-xs text-[#d6be96]">{npc.title}</span>
-          </div>
-        )}
+      {/* 已剥离立绘背景的人物主体：独立层固定在当前场景前，展开子面板时平滑左移并排展示 */}
+      <div
+        className={`absolute inset-x-0 top-12 bottom-28 z-10 flex items-end justify-center pointer-events-none transition-transform duration-300 ${
+          subPanel !== 'none' ? 'lg:-translate-x-[21vw]' : ''
+        }`}
+      >
+        <div
+          className="relative h-full max-w-[90vw] flex items-end justify-center"
+          style={{
+            filter: 'drop-shadow(0 14px 28px rgba(0, 0, 0, 0.75))',
+          }}
+        >
+          <CutoutPortraitImg
+            url={portraitUrl}
+            alt={npc.name}
+            className="max-h-full w-auto object-contain"
+          />
+        </div>
       </div>
 
       {/* 子面板：人物面板（各个维度数值、武学情况、披挂情况） */}
       {subPanel === 'panel' && (
-        <div className="relative z-20 w-[min(92vw,760px)] max-h-[62vh] mb-3 rounded-xl bg-[#f7eedc]/97 border-2 border-[#8c6e46] shadow-2xl overflow-hidden flex flex-col">
+        <div className="relative z-20 w-[min(92vw,680px)] lg:self-end lg:mr-10 max-h-[60vh] mb-3 rounded-xl bg-[#f7eedc]/97 border-2 border-[#8c6e46] shadow-2xl overflow-hidden flex flex-col">
           <div className="px-4 py-2.5 bg-[#3d2814] text-[#f5dfb5] flex items-center justify-between border-b border-[#8c6e46]">
             <div className="flex items-center gap-2.5">
               <span className="text-base font-bold song-serif">{npc.name}</span>
@@ -368,7 +338,7 @@ export function NpcInteractionOverlay() {
 
       {/* 子面板：送礼行囊选择 */}
       {subPanel === 'gift' && (
-        <div className="relative z-20 w-[min(92vw,560px)] max-h-[46vh] mb-3 rounded-xl bg-[#f7eedc]/97 border-2 border-[#8c6e46] shadow-2xl overflow-hidden flex flex-col">
+        <div className="relative z-20 w-[min(92vw,560px)] lg:self-end lg:mr-10 max-h-[52vh] mb-3 rounded-xl bg-[#f7eedc]/97 border-2 border-[#8c6e46] shadow-2xl overflow-hidden flex flex-col">
           <div className="px-4 py-2 bg-[#3d2814] text-[#f5dfb5] flex items-center justify-between border-b border-[#8c6e46]">
             <span className="text-sm font-bold song-serif">
               向【{npc.name}】赠礼（择一行囊物什）
@@ -399,7 +369,7 @@ export function NpcInteractionOverlay() {
                       {item.name}
                     </div>
                     <div className="text-[10px] text-[#6b5235] truncate">
-                      {item.category} · {item.rarity}
+                      {CATEGORY_LABEL_MAP[item.category] ?? item.category} · {item.rarity}
                     </div>
                   </div>
                   <span className="text-[11px] font-mono px-1.5 py-0.5 rounded bg-[#faf3e3] border border-[#dcc9a7] text-[#4a3219] shrink-0">

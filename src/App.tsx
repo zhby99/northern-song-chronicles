@@ -115,10 +115,14 @@ export function App() {
         <RegionMapCanvas />
       )}
 
-      <BottomHud />
-      <ContextInspectorCard />
+      {!activeNpcInteraction && <BottomHud />}
+      {!activeNpcInteraction && <ContextInspectorCard />}
       <MapTooltip />
-      <NpcInteractionOverlay />
+      {activeNpcInteraction && (
+        <NpcInteractionOverlay
+          key={activeNpcInteraction.id ?? activeNpcInteraction.name}
+        />
+      )}
 
       {(menuOpen || compendiumOpen) && (
         <Suspense fallback={null}>
