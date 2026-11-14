@@ -2968,13 +2968,24 @@ def compile_all(do_normalize_docs: bool) -> None:
                     region_name=region_name,
                 )
                 spots_copy = [{**s, "residentNpcIds": []} for s in fb["spots"]]
-                interior_data = {
-                    "mode": "svg_fallback",
-                    "panoramaUri": None,
-                    "subtitle": fb["subtitle"],
-                    "exitGate": fb["exitGate"],
-                    "spots": spots_copy,
-                }
+                disk_jpg = PUBLIC_DIR / "assets" / "buildings" / f"{bid}.jpg"
+                if disk_jpg.exists():
+                    has_pano_img = True
+                    interior_data = {
+                        "mode": "image",
+                        "panoramaUri": f"/assets/buildings/{bid}.jpg",
+                        "subtitle": fb["subtitle"],
+                        "exitGate": fb["exitGate"],
+                        "spots": spots_copy,
+                    }
+                else:
+                    interior_data = {
+                        "mode": "svg_fallback",
+                        "panoramaUri": None,
+                        "subtitle": fb["subtitle"],
+                        "exitGate": fb["exitGate"],
+                        "spots": spots_copy,
+                    }
 
             b_record = {
                 "id": bid,

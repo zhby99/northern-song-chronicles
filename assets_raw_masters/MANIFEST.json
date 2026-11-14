@@ -1,9 +1,9 @@
 {
-  "totalMasterFiles": 661,
-  "totalBytes": 673533507,
+  "totalMasterFiles": 682,
+  "totalBytes": 692443614,
   "countsByCategory": {
     "regions": 48,
-    "buildings": 60,
+    "buildings": 81,
     "characters": 553
   },
   "files": [
@@ -222,6 +222,174 @@
       "sourceBrainRelativePath": "v1/default/jetski_remote_agents_3p/222a70e6-fab2-424a-aeea-38a28a2e1fd7/fan_zhongyan_fullbody_1794504943031.jpg",
       "bytes": 955245,
       "sha256": "aeb050579b08882cc52db3c66682484432e1a64bf6b1781f8c041eff3017c6e9"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_01_av.jpg",
+      "originalFilename": "hero_01_av_1794650273845.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_01_av_1794650273845.jpg",
+      "bytes": 891367,
+      "sha256": "2ea001e3316997208a627b8fd82ea69b1337a92fc10357854b5884c8a37d9ee9"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_01_fb.jpg",
+      "originalFilename": "hero_01_fb_1794650274465.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_01_fb_1794650274465.jpg",
+      "bytes": 864840,
+      "sha256": "2a6a9665afe69ba81103bebb228303598a15e311af7d6a163cf85320ab911e2f"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_02_av.jpg",
+      "originalFilename": "hero_02_av_1794650274141.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_02_av_1794650274141.jpg",
+      "bytes": 863677,
+      "sha256": "761d1cb089a0597e8d49d0500146f78224bfe4e6b3113d1c2424f1f2c099c7b4"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_02_fb.jpg",
+      "originalFilename": "hero_02_fb_1794650275432.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_02_fb_1794650275432.jpg",
+      "bytes": 984254,
+      "sha256": "f875ea2648a510ba07a2d3deb52a05a041d62cbf4e0af03b7764f55b810d26bf"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_02_fb_1794650293499.jpg",
+      "originalFilename": "hero_02_fb_1794650293499.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_02_fb_1794650293499.jpg",
+      "bytes": 797271,
+      "sha256": "767e3c7b3df1687578692bf1be9ce5069dd1e71541a9356d76b9a3b9867d3cd3"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_03_av.jpg",
+      "originalFilename": "hero_03_av_1794650293803.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_03_av_1794650293803.jpg",
+      "bytes": 955207,
+      "sha256": "348e7089831aa0600a81d1ece3f67e922bc3ab79b29190e7d271bde4ee0f9ee3"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_03_fb.jpg",
+      "originalFilename": "hero_03_fb_1794650299040.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_03_fb_1794650299040.jpg",
+      "bytes": 843763,
+      "sha256": "27d7d0bd4f5195691228ed3f9c5d34a1f7d76636d8c2c357a8956c7e907d9138"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_04_av.jpg",
+      "originalFilename": "hero_04_av_1794650297054.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_04_av_1794650297054.jpg",
+      "bytes": 743777,
+      "sha256": "cf7390ed11a0cdd2f8e97fc89a589fc8ec35b51744e6eea6925508a8e8b53387"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_04_fb.jpg",
+      "originalFilename": "hero_04_fb_1794650318587.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_04_fb_1794650318587.jpg",
+      "bytes": 830687,
+      "sha256": "3a45392c7d821b9cf4ec6c492b4b78fd3887b64dbb64ddd2174e1e3ffef90766"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_05_av.jpg",
+      "originalFilename": "hero_05_av_1794650319263.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_05_av_1794650319263.jpg",
+      "bytes": 948957,
+      "sha256": "240028dde8b14fd0f20a4428fda108d89d01a6531eb9842181b625aaac186050"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_05_fb.jpg",
+      "originalFilename": "hero_05_fb_1794650321212.jpg",
+      "sourceBrainRelativePath": "ae7e19f0d7835133b069b933e6fa156d/hero_05_fb_1794650321212.jpg",
+      "bytes": 887655,
+      "sha256": "d9a9c27c37adc9986f329456eca5edb2a1f4e7c5b0c99849a75f1c4d8d7f8b0b"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_06_physician_av.jpg",
+      "originalFilename": "hero_06_physician_av_1794650273354.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_06_physician_av_1794650273354.jpg",
+      "bytes": 980209,
+      "sha256": "a2fa63f94680c00cc09cdaeb31f574c8d5f5df901d2e1e6c5a633e70cd890cd3"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_06_physician_fb.jpg",
+      "originalFilename": "hero_06_physician_fb_1794650298591.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_06_physician_fb_1794650298591.jpg",
+      "bytes": 893104,
+      "sha256": "3c9bd663325f5fd643e7e9151636668141839e590d871a2464ed2b6b4eb239e8"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_07_tangmen_av.jpg",
+      "originalFilename": "hero_07_tangmen_av_1794650275687.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_07_tangmen_av_1794650275687.jpg",
+      "bytes": 955060,
+      "sha256": "ab18a30b8fc501466633e45c7e7c236c5fe47552b22f75b3d211be8f7067e3d7"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_07_tangmen_fb.jpg",
+      "originalFilename": "hero_07_tangmen_fb_1794650300364.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_07_tangmen_fb_1794650300364.jpg",
+      "bytes": 893198,
+      "sha256": "1b4baabf44b5ecfd8549f1bb400c77dddc4da4eb084a787b85fa9e50f00a8052"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_08_guard_av.jpg",
+      "originalFilename": "hero_08_guard_av_1794650276842.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_08_guard_av_1794650276842.jpg",
+      "bytes": 850938,
+      "sha256": "58b614e2795d020a0472bc882eb979073892de73a821dadddfb1a430a0acb05b"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_08_guard_fb.jpg",
+      "originalFilename": "hero_08_guard_fb_1794650300945.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_08_guard_fb_1794650300945.jpg",
+      "bytes": 861473,
+      "sha256": "7e4c80bb6f117fb4b56349439a5fb595c4910d8f8d931a98744984b732eb6d7d"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_09_scholar_av.jpg",
+      "originalFilename": "hero_09_scholar_av_1794650277693.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_09_scholar_av_1794650277693.jpg",
+      "bytes": 878151,
+      "sha256": "7f93b2352efa805896c9904e20ad51e23c57df9227487ad6b9fc67ebd5b89826"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_09_scholar_fb.jpg",
+      "originalFilename": "hero_09_scholar_fb_1794650303514.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_09_scholar_fb_1794650303514.jpg",
+      "bytes": 860024,
+      "sha256": "57acaecef9df7b31479ea3100a1acdc37b0bd0b3b88c40ee55838660ce292e57"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_10_noble_av.jpg",
+      "originalFilename": "hero_10_noble_av_1794650276109.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_10_noble_av_1794650276109.jpg",
+      "bytes": 1063833,
+      "sha256": "6e5b810e42cb78ba1892690c3b57217358d5e2e3583902a3dc6afc5848ce248b"
+    },
+    {
+      "category": "buildings",
+      "archivePath": "assets_raw_masters/buildings/hero_10_noble_fb.jpg",
+      "originalFilename": "hero_10_noble_fb_1794650304720.jpg",
+      "sourceBrainRelativePath": "1ff310142e862bbb294dcf8509af65a4/hero_10_noble_fb_1794650304720.jpg",
+      "bytes": 1062662,
+      "sha256": "31a5a8c6db8daa4ba34898114322e5198d6b3a0ce7ad2d6274b51f7188d96463"
     },
     {
       "category": "characters",

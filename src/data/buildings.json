@@ -1329,10 +1329,10 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/ly_zhenwu.jpg",
       "subtitle": "宋式营造矢量内景《河洛振武拳馆》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回洛阳府全景",
       "exitGate": {
         "label": "步出正门（返回洛阳府全景）",
@@ -1886,10 +1886,10 @@
       "mp": 20,
       "res": 1
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/dm_baji.jpg",
       "subtitle": "宋式营造矢量内景《沧州八极分馆 · 讲武堂》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回大名府全景",
       "exitGate": {
         "label": "步出正门（返回大名府全景）",
@@ -2859,10 +2859,10 @@
       ],
       "riding": 3
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/ty_yang.jpg",
       "subtitle": "宋式营造矢量内景《天波杨家旧祠》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回太原府全景",
       "exitGate": {
         "label": "步出正门（返回太原府全景）",
@@ -3149,10 +3149,10 @@
         3
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/ca_dayanta.jpg",
       "subtitle": "宋式营造矢量内景《慈恩寺大雁塔》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回京兆府全景",
       "exitGate": {
         "label": "步出正门（返回京兆府全景）",
@@ -3275,10 +3275,10 @@
       ],
       "mp": 20
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/ca_caotang.jpg",
       "subtitle": "宋式营造矢量内景《终南草堂（隐逸别业）》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回京兆府全景",
       "exitGate": {
         "label": "步出正门（返回京兆府全景）",
@@ -3403,10 +3403,10 @@
         3
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/ca_xishi.jpg",
       "subtitle": "宋式营造矢量内景《西市胡商坊（丝路起点）》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回京兆府全景",
       "exitGate": {
         "label": "步出正门（返回京兆府全景）",
@@ -3696,10 +3696,10 @@
         3
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/ya_pagoda.jpg",
       "subtitle": "宋式营造矢量内景《嘉岭山宝塔》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回延安府全景",
       "exitGate": {
         "label": "步出正门（返回延安府全景）",
@@ -3803,10 +3803,10 @@
       "hp": 35,
       "mp": 25
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/ya_camp.jpg",
       "subtitle": "宋式营造矢量内景《鄜延边军大营》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回延安府全景",
       "exitGate": {
         "label": "步出正门（返回延安府全景）",
@@ -3908,10 +3908,10 @@
       "riding": 3,
       "res": 2
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/ya_blackmkt.jpg",
       "subtitle": "宋式营造矢量内景《塞上番马黑市》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回延安府全景",
       "exitGate": {
         "label": "步出正门（返回延安府全景）",
@@ -4203,10 +4203,10 @@
       "mp": 30,
       "res": 2
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/jn_baotu.jpg",
       "subtitle": "宋式营造矢量内景《趵突泉（观澜榭）》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回济南府全景",
       "exitGate": {
         "label": "步出正门（返回济南府全景）",
@@ -4319,10 +4319,10 @@
         3
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/jn_daminghu.jpg",
       "subtitle": "宋式营造矢量内景《大明湖画舫水榭》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回济南府全景",
       "exitGate": {
         "label": "步出正门（返回济南府全景）",
@@ -4437,10 +4437,10 @@
         3
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/jn_daimiao.jpg",
       "subtitle": "宋式营造矢量内景《泰山岱庙行祠》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回济南府全景",
       "exitGate": {
         "label": "步出正门（返回济南府全景）",
@@ -4546,10 +4546,10 @@
       "agi": 2,
       "hp": 26
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/jn_chaquan.jpg",
       "subtitle": "宋式营造矢量内景《齐鲁查拳总馆》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回济南府全景",
       "exitGate": {
         "label": "步出正门（返回济南府全景）",
@@ -6300,10 +6300,10 @@
         3
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/hz_lingyin.jpg",
       "subtitle": "宋式营造矢量内景《西湖灵隐飞来峰》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回杭州府全景",
       "exitGate": {
         "label": "步出正门（返回杭州府全景）",
@@ -6407,10 +6407,10 @@
       "mp": 38,
       "hp": 25
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/hz_tide.jpg",
       "subtitle": "宋式营造矢量内景《钱塘江观潮台》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回杭州府全景",
       "exitGate": {
         "label": "步出正门（返回杭州府全景）",
@@ -6538,10 +6538,10 @@
       ],
       "silver": 20
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/hz_port.jpg",
       "subtitle": "宋式营造矢量内景《两浙市舶司海港》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回杭州府全景",
       "exitGate": {
         "label": "步出正门（返回杭州府全景）",
@@ -6647,10 +6647,10 @@
       "hp": 32,
       "mp": 20
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/hz_nuchao.jpg",
       "subtitle": "宋式营造矢量内景《钱塘怒潮演武馆》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回杭州府全景",
       "exitGate": {
         "label": "步出正门（返回杭州府全景）",
@@ -6902,10 +6902,10 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/cd_dacisi.jpg",
       "subtitle": "宋式营造矢量内景《大慈寺（唐宋壁画阁）》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回成都府全景",
       "exitGate": {
         "label": "步出正门（返回成都府全景）",
@@ -7028,10 +7028,10 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/cd_qingyang.jpg",
       "subtitle": "宋式营造矢量内景《青羊道宫》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回成都府全景",
       "exitGate": {
         "label": "步出正门（返回成都府全景）",
@@ -7152,10 +7152,10 @@
       ],
       "res": 2
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/cd_teahouse.jpg",
       "subtitle": "宋式营造矢量内景《锦江万里桥茶肆》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回成都府全景",
       "exitGate": {
         "label": "步出正门（返回成都府全景）",
@@ -7270,10 +7270,10 @@
       "mp": 22,
       "res": 1
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/cd_baicao.jpg",
       "subtitle": "宋式营造矢量内景《西川百草药武堂》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回成都府全景",
       "exitGate": {
         "label": "步出正门（返回成都府全景）",
@@ -7526,10 +7526,10 @@
       ],
       "hp": 25
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/xy_wall.jpg",
       "subtitle": "宋式营造矢量内景《襄阳铁打雄城楼》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回襄阳府全景",
       "exitGate": {
         "label": "步出正门（返回襄阳府全景）",
@@ -7629,10 +7629,10 @@
         3
       ]
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/xy_longzhong.jpg",
       "subtitle": "宋式营造矢量内景《古隆中草庐（八阵石迹）》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回襄阳府全景",
       "exitGate": {
         "label": "步出正门（返回襄阳府全景）",
@@ -7755,10 +7755,10 @@
       "agi": 3,
       "mp": 25
     },
-    "hasPanoramaImage": false,
+    "hasPanoramaImage": true,
     "interior": {
-      "mode": "svg_fallback",
-      "panoramaUri": null,
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/xy_dock.jpg",
       "subtitle": "宋式营造矢量内景《汉水大码头》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回襄阳府全景",
       "exitGate": {
         "label": "步出正门（返回襄阳府全景）",

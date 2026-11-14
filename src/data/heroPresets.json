@@ -1,0 +1,102 @@
+[
+  {
+    "id": "hero_01_assassin",
+    "name": "影阁夜行者",
+    "archetype": "刺客",
+    "weapons": "短刃 / 袖箭",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_01_assassin_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_01_assassin_fb.jpg",
+    "summary": "冷白肤色与暗纹墨色面罩下的清冷少年，哑光夜行劲装配双短匕首与袖箭护腕，身法迅捷如夜猫。"
+  },
+  {
+    "id": "hero_02_shaolin",
+    "name": "达摩院少年武僧",
+    "archetype": "少林佛子",
+    "weapons": "齐眉棍 / 佛珠",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_02_shaolin_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_02_shaolin_fb.jpg",
+    "summary": "眉目澄澈的清俊少年武僧，斜披赤红袈裟与修身短打僧衣，颈挂沉香念珠，单手斜握包浆齐眉熟铜棍。"
+  },
+  {
+    "id": "hero_03_spearman",
+    "name": "边军少年将军",
+    "archetype": "长枪骑士",
+    "weapons": "亮银长枪 / 轻甲",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_03_spearman_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_03_spearman_fb.jpg",
+    "summary": "高束赤带黑马尾、身披轻量化银鳞甲配鲜红战袍与短披风，持丈余亮银红缨长枪，意气风发。"
+  },
+  {
+    "id": "hero_04_swordsman",
+    "name": "名门小师弟",
+    "archetype": "剑客",
+    "weapons": "青锋长剑",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_04_swordsman_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_04_swordsman_fb.jpg",
+    "summary": "半束白玉发冠、月白配天青流云剑袍，腰佩温玉，手持修长青锋长剑，清雅俊逸如少年剑仙。"
+  },
+  {
+    "id": "hero_05_sabre",
+    "name": "塞外野性少年",
+    "archetype": "刀客",
+    "weapons": "塞外弯刀",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_05_sabre_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_05_sabre_fb.jpg",
+    "summary": "小麦肤色与狼尾碎发编银饰狼牙，敞怀深棕无袖皮甲配狼皮腰毡，斜挎塞外弯刀，桀骜如荒原幼狼。"
+  },
+  {
+    "id": "hero_06_physician",
+    "name": "药王谷病弱天才",
+    "archetype": "药师",
+    "weapons": "银针 / 药箱",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_06_physician_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_06_physician_fb.jpg",
+    "summary": "苍白清瘦、青竹簪挽发配细金丝半框眼镜，竹青渐变长衫束袖挂青花药瓶，背负藤编药箱，指夹寒光银针。"
+  },
+  {
+    "id": "hero_07_tangmen",
+    "name": "蜀中世家奇才",
+    "archetype": "唐门暗器少主",
+    "weapons": "千机匣 / 暴雨梨花针",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_07_tangmen_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_07_tangmen_fb.jpg",
+    "summary": "暗银发冠高马尾配银链，玄黑暗紫燕尾劲装与机关护腕，背负可展开暗银千机匣，冷艳而致命。"
+  },
+  {
+    "id": "hero_08_guard",
+    "name": "皇城司少年密探",
+    "archetype": "锦衣暗卫",
+    "weapons": "绣春刀 / 手弩",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_08_guard_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_08_guard_fb.jpg",
+    "summary": "玄铁半面鬼面具配黑金云蟒飞鱼服与短大氅，腰佩制式绣春刀与袖珍手弩，身姿笔直肃杀。"
+  },
+  {
+    "id": "hero_09_scholar",
+    "name": "白衣江湖游侠文士",
+    "archetype": "侠气书生",
+    "weapons": "铁骨扇 / 判官笔",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_09_scholar_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_09_scholar_fb.jpg",
+    "summary": "青玉簪半束发、月白窄袖劲衫外罩墨青薄纱，腰挂墨玉与酒葫芦，手持乌木铁骨判官笔，水墨剑气纵横。"
+  },
+  {
+    "id": "hero_10_noble",
+    "name": "皇城第一阔少",
+    "archetype": "纨绔公子",
+    "weapons": "鎏金折扇 / 金丝软鞭",
+    "age": 17,
+    "avatarUrl": "/assets/characters/protagonists/hero_10_noble_av.jpg",
+    "fullbodyUrl": "/assets/characters/protagonists/hero_10_noble_fb.jpg",
+    "summary": "嵌红宝垂珠金冠、绯红鎏金锦缎华服配雪白毛领披风，腰佩成串美玉金铃，手持鎏金玄铁折扇，风流傲娇。"
+  }
+]
