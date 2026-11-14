@@ -77,10 +77,10 @@ export const DEFAULT_HERO_BASE_STATS: HeroBaseStats = {
 export function cloneHeroBaseStats(base: HeroBaseStats = DEFAULT_HERO_BASE_STATS): HeroBaseStats {
   return {
     talents: { ...base.talents },
-    maxHp: 0,
-    maxMp: 0,
-    agility: 0,
-    res: 0,
+    maxHp: base.maxHp ?? 0,
+    maxMp: base.maxMp ?? 0,
+    agility: base.agility ?? 0,
+    res: base.res ?? 0,
     ridingSkill: base.ridingSkill,
     skills: { ...base.skills },
   }
@@ -168,10 +168,13 @@ export function deriveHeroEffectiveStats(
   return {
     mountKey: equipTotals.mountKey,
     qinggongBonus: artTotals.qinggongBonus,
-    maxHp: Math.max(HERO_BASE_CAPS.minMaxHp, equipTotals.maxHp + artTotals.maxHp),
-    maxMp: Math.max(0, equipTotals.maxMp + artTotals.maxMp),
-    agility: Math.max(1, equipTotals.agility + artTotals.agility),
-    res: Math.max(0, equipTotals.res + artTotals.res),
+    maxHp: Math.max(
+      HERO_BASE_CAPS.minMaxHp,
+      (baseStats.maxHp ?? 0) + equipTotals.maxHp + artTotals.maxHp,
+    ),
+    maxMp: Math.max(0, (baseStats.maxMp ?? 0) + equipTotals.maxMp + artTotals.maxMp),
+    agility: Math.max(1, (baseStats.agility ?? 0) + equipTotals.agility + artTotals.agility),
+    res: Math.max(0, (baseStats.res ?? 0) + equipTotals.res + artTotals.res),
     ridingSkill: Math.max(0, baseStats.ridingSkill + equipTotals.riding),
     skills,
   }

@@ -281,6 +281,17 @@ export function evaluateQuestCondition(
       }
     }
 
+    case 'learnedArtAtLeast': {
+      const entry = ctx.learnedArts.find((x) => x.artId === cond.artId)
+      const curLv = entry?.level ?? 0
+      if (curLv >= cond.minLevel) return { passed: true, reason: null }
+      const artName = MARTIAL_ART_DB_MAP[cond.artId]?.cleanName ?? cond.artId
+      return {
+        passed: false,
+        reason: `需习得《${artName}》≥ 第 ${cond.minLevel} 重（当前第 ${curLv} 重）`,
+      }
+    }
+
     case 'inSect': {
       if (cond.sectId === null) {
         if (!ctx.sectState.sectId) return { passed: true, reason: null }

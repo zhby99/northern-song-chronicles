@@ -3877,6 +3877,30 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           break
         }
 
+        case 'modifyBaseStat': {
+          const nextBase = cloneHeroBaseStats(s.baseStats)
+          if (eff.key === 'maxHp') nextBase.maxHp = Math.max(100, nextBase.maxHp + eff.delta)
+          else if (eff.key === 'maxMp') nextBase.maxMp = Math.max(50, nextBase.maxMp + eff.delta)
+          else if (eff.key === 'agility') nextBase.agility = Math.max(10, nextBase.agility + eff.delta)
+          else if (eff.key === 'res') nextBase.res = Math.max(0, nextBase.res + eff.delta)
+          const derived = deriveHeroEffectiveStats(
+            nextBase,
+            s.equipped,
+            s.equippedArts,
+            s.learnedArts,
+          )
+          set({
+            baseStats: nextBase,
+            maxHp: derived.maxHp,
+            hp: Math.min(derived.maxHp, s.hp + (eff.key === 'maxHp' && eff.delta > 0 ? eff.delta : 0)),
+            maxMp: derived.maxMp,
+            mp: Math.min(derived.maxMp, s.mp + (eff.key === 'maxMp' && eff.delta > 0 ? eff.delta : 0)),
+            agility: derived.agility,
+            res: derived.res,
+          })
+          break
+        }
+
         case 'healPlayer': {
           const addHp = eff.hpPct ? Math.round(s.maxHp * (eff.hpPct / 100)) : 0
           const addMp = eff.mpPct ? Math.round(s.maxMp * (eff.mpPct / 100)) : 0
@@ -3891,12 +3915,18 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           const art = MARTIAL_ART_DB_MAP[eff.artId]
           if (!art) break
           const targetLv = Math.max(1, Math.min(10, eff.level ?? 1))
+          const initExp = Math.max(0, eff.exp ?? 0)
           const nextLearned = s.learnedArts.map((x) => ({ ...x }))
           const idx = nextLearned.findIndex((x) => x.artId === eff.artId)
           if (idx === -1) {
-            nextLearned.push({ artId: eff.artId, level: targetLv, exp: 0 })
-          } else if (targetLv > nextLearned[idx]!.level) {
-            nextLearned[idx] = { artId: eff.artId, level: targetLv, exp: 0 }
+            nextLearned.push({ artId: eff.artId, level: targetLv, exp: initExp })
+          } else {
+            const prev = nextLearned[idx]!
+            nextLearned[idx] = {
+              artId: eff.artId,
+              level: Math.max(prev.level, targetLv),
+              exp: prev.exp + initExp,
+            }
           }
           const derived = deriveHeroEffectiveStats(
             s.baseStats,
@@ -3904,7 +3934,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             s.equippedArts,
             nextLearned,
           )
-          const msg = `剧情传功：领悟${art.fullTier}${art.category}《${art.cleanName}》（第 ${targetLv} 重）！`
+          const msg = `剧情传功：领悟${art.fullTier}${art.category}《${art.cleanName}》（第 ${targetLv} 重${
+            initExp > 0 ? `，初始熟练度 +${initExp}` : ''
+          }）！`
           set({
             learnedArts: nextLearned,
             maxHp: derived.maxHp,
@@ -3916,6 +3948,45 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             qinggongBonus: derived.qinggongBonus,
             logs: [
               createLogEntry(s.dayCount, '绝学传授', msg, true, s.shichenIdx),
+              ...s.logs,
+            ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'addArtExp': {
+          const amount = Math.max(0, Math.round(eff.amount))
+          if (amount <= 0) break
+          const nextLearned = s.learnedArts.map((x) => ({ ...x }))
+          let targetId = eff.artId
+          if (!targetId) {
+            targetId =
+              s.equippedArts.move1 ??
+              s.equippedArts.neigong ??
+              s.equippedArts.qinggong ??
+              s.equippedArts.move2 ??
+              s.equippedArts.move3 ??
+              s.equippedArts.move4 ??
+              nextLearned[0]?.artId
+          }
+          if (!targetId) break
+          const idx = nextLearned.findIndex((x) => x.artId === targetId)
+          if (idx === -1) break
+          nextLearned[idx] = {
+            ...nextLearned[idx]!,
+            exp: nextLearned[idx]!.exp + amount,
+          }
+          const artName = MARTIAL_ART_DB_MAP[targetId]?.cleanName ?? targetId
+          set({
+            learnedArts: nextLearned,
+            logs: [
+              createLogEntry(
+                s.dayCount,
+                '武学精进',
+                `实战感悟：《${artName}》熟练度 +${amount}！`,
+                false,
+                s.shichenIdx,
+              ),
               ...s.logs,
             ].slice(0, 60),
           })

@@ -1,5 +1,6 @@
 import type { QuestDefinition } from '../../types/quest'
 import { DAMING_BAJI_QUESTS } from './cities/damingBajiQuest'
+import { CHANGSHAN_LONGLING_QUESTS } from './sects/changshanLonglingQuest'
 import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
 
 /**
@@ -9,6 +10,7 @@ import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
  */
 export const QUEST_REGISTRY: QuestDefinition[] = [
   ...SECOND_TIER_QUESTS,
+  ...CHANGSHAN_LONGLING_QUESTS,
   ...DAMING_BAJI_QUESTS,
 ]
 
@@ -34,7 +36,7 @@ export function registerExtraQuests(extra: QuestDefinition[]): void {
 
 export function resetRegisteredQuests(): void {
   QUEST_REGISTRY.length = 0
-  QUEST_REGISTRY.push(...SECOND_TIER_QUESTS, ...DAMING_BAJI_QUESTS)
+  QUEST_REGISTRY.push(...SECOND_TIER_QUESTS, ...CHANGSHAN_LONGLING_QUESTS, ...DAMING_BAJI_QUESTS)
   for (const k of Object.keys(QUEST_MAP)) {
     delete QUEST_MAP[k]
   }

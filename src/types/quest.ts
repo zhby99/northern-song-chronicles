@@ -91,6 +91,7 @@ export type QuestCondition =
     }
   | { type: 'silverAtLeast'; min: number }
   | { type: 'hasItem'; itemId: string; qty?: number }
+  | { type: 'learnedArtAtLeast'; artId: string; minLevel: number }
   | { type: 'inSect'; sectId: string | null; minRank?: SectRankLevel }
   | { type: 'notInAnySect'; allowTransferFromSectId?: string }
   | {
@@ -233,8 +234,14 @@ export type QuestEffect =
   | { type: 'removeItem'; itemId: string; qty?: number }
   | { type: 'modifyTalent'; key: keyof HeroTalents; delta: number }
   | { type: 'modifySkill'; key: TenArtKey; delta: number }
+  | {
+      type: 'modifyBaseStat'
+      key: 'maxHp' | 'maxMp' | 'agility' | 'res'
+      delta: number
+    }
   | { type: 'healPlayer'; hpPct?: number; mpPct?: number }
-  | { type: 'teachMartialArt'; artId: string; level?: number }
+  | { type: 'teachMartialArt'; artId: string; level?: number; exp?: number }
+  | { type: 'addArtExp'; amount: number; artId?: string }
   | {
       type: 'joinSect'
       sectId: string
