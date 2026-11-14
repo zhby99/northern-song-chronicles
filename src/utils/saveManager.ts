@@ -29,7 +29,7 @@ import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from './heroStats'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
 import { clonePlayerSectState } from './sectMechanics'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.4.1' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.0' as const
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -377,10 +377,10 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     typeof st.mp === 'number'
       ? Math.min(derived.maxMp, Math.max(0, Math.floor(st.mp)))
       : derived.maxMp
-  const staminaVal =
-    typeof st.stamina === 'number'
-      ? Math.min(derived.maxStamina, Math.max(0, Math.floor(st.stamina)))
-      : derived.maxStamina
+  const combatExpVal =
+    typeof st.combatExp === 'number' && Number.isFinite(st.combatExp)
+      ? Math.max(0, Math.floor(st.combatExp))
+      : 0
 
   let cleanCampPos: WildernessCamp | null = null
   if (
@@ -427,14 +427,13 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     qinggongBonus: derived.qinggongBonus,
     ridingSkill: derived.ridingSkill,
     agility: derived.agility,
+    combatExp: combatExpVal,
     silver: typeof st.silver === 'number' ? Math.max(0, Math.floor(st.silver)) : 120,
     food: typeof st.food === 'number' ? Math.max(0, Math.floor(st.food)) : 25,
     hp: hpVal,
     maxHp: derived.maxHp,
     mp: mpVal,
     maxMp: derived.maxMp,
-    stamina: staminaVal,
-    maxStamina: derived.maxStamina,
     res: derived.res,
     skills: derived.skills,
     equipped: cleanEquipped,
@@ -521,9 +520,9 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
           : null,
       hp: cleanState.hp,
       maxHp: cleanState.maxHp,
-      stamina: cleanState.stamina,
-      maxStamina: cleanState.maxStamina,
       mp: cleanState.mp,
+      maxMp: cleanState.maxMp,
+      combatExp: cleanState.combatExp,
       silver: cleanState.silver,
       food: cleanState.food,
     },

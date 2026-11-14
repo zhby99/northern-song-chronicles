@@ -19,8 +19,7 @@
     "terrainBonusPct": 18,
     "value": 3200,
     "equipBonus": {
-      "maxHp": 280,
-      "maxStamina": 45,
+      "maxHp": 325,
       "agility": 14,
       "res": 10,
       "riding": 18
@@ -63,8 +62,7 @@
     "terrainBonusPct": 22,
     "value": 2850,
     "equipBonus": {
-      "maxHp": 250,
-      "maxStamina": 40,
+      "maxHp": 290,
       "agility": 16,
       "defense": 18,
       "riding": 16
@@ -107,8 +105,7 @@
     "terrainBonusPct": 18,
     "value": 2600,
     "equipBonus": {
-      "maxHp": 340,
-      "maxStamina": 42,
+      "maxHp": 380,
       "defense": 28,
       "res": 14,
       "riding": 15
@@ -151,8 +148,7 @@
     "terrainBonusPct": 18,
     "value": 1480,
     "equipBonus": {
-      "maxHp": 210,
-      "maxStamina": 32,
+      "maxHp": 242,
       "defense": 16,
       "riding": 12,
       "skills": {
@@ -184,8 +180,7 @@
     "terrainBonusPct": 20,
     "value": 1380,
     "equipBonus": {
-      "maxHp": 220,
-      "maxStamina": 35,
+      "maxHp": 255,
       "res": 16,
       "riding": 12
     },
@@ -214,8 +209,7 @@
     "terrainBonusPct": 15,
     "value": 1180,
     "equipBonus": {
-      "maxHp": 230,
-      "maxStamina": 30,
+      "maxHp": 260,
       "defense": 18,
       "riding": 11,
       "skills": {
@@ -247,8 +241,7 @@
     "terrainBonusPct": 18,
     "value": 1120,
     "equipBonus": {
-      "maxHp": 175,
-      "maxStamina": 30,
+      "maxHp": 205,
       "agility": 12,
       "riding": 10
     },
@@ -277,8 +270,7 @@
     "terrainBonusPct": 15,
     "value": 980,
     "equipBonus": {
-      "maxHp": 195,
-      "maxStamina": 28,
+      "maxHp": 223,
       "agility": 9,
       "res": 12,
       "riding": 10
@@ -308,8 +300,7 @@
     "terrainBonusPct": 12,
     "value": 520,
     "equipBonus": {
-      "maxHp": 135,
-      "maxStamina": 24,
+      "maxHp": 159,
       "res": 8,
       "riding": 8
     },
@@ -338,8 +329,7 @@
     "terrainBonusPct": 12,
     "value": 490,
     "equipBonus": {
-      "maxHp": 125,
-      "maxStamina": 22,
+      "maxHp": 147,
       "agility": 8,
       "riding": 8
     },
@@ -368,8 +358,7 @@
     "terrainBonusPct": 14,
     "value": 470,
     "equipBonus": {
-      "maxHp": 145,
-      "maxStamina": 22,
+      "maxHp": 167,
       "defense": 10,
       "riding": 7
     },
@@ -398,8 +387,7 @@
     "terrainBonusPct": 12,
     "value": 380,
     "equipBonus": {
-      "maxHp": 115,
-      "maxStamina": 20,
+      "maxHp": 135,
       "defense": 8,
       "riding": 7
     },
@@ -428,8 +416,7 @@
     "terrainBonusPct": 10,
     "value": 355,
     "equipBonus": {
-      "maxHp": 120,
-      "maxStamina": 18,
+      "maxHp": 138,
       "defense": 7,
       "riding": 6
     },
@@ -458,8 +445,7 @@
     "terrainBonusPct": 14,
     "value": 340,
     "equipBonus": {
-      "maxHp": 105,
-      "maxStamina": 20,
+      "maxHp": 125,
       "agility": 6,
       "riding": 6
     },
@@ -488,8 +474,7 @@
     "terrainBonusPct": 14,
     "value": 290,
     "equipBonus": {
-      "maxHp": 90,
-      "maxStamina": 22,
+      "maxHp": 112,
       "agility": 6,
       "riding": 5
     },
@@ -518,8 +503,7 @@
     "terrainBonusPct": 12,
     "value": 275,
     "equipBonus": {
-      "maxHp": 95,
-      "maxStamina": 18,
+      "maxHp": 113,
       "res": 5,
       "riding": 5
     },
@@ -548,8 +532,7 @@
     "terrainBonusPct": 10,
     "value": 165,
     "equipBonus": {
-      "maxHp": 70,
-      "maxStamina": 15,
+      "maxHp": 85,
       "riding": 4
     },
     "specialTag": null,
@@ -577,8 +560,7 @@
     "terrainBonusPct": 8,
     "value": 155,
     "equipBonus": {
-      "maxHp": 75,
-      "maxStamina": 14,
+      "maxHp": 89,
       "defense": 4,
       "riding": 4
     },
@@ -607,8 +589,7 @@
     "terrainBonusPct": 8,
     "value": 148,
     "equipBonus": {
-      "maxHp": 80,
-      "maxStamina": 12,
+      "maxHp": 92,
       "riding": 4
     },
     "specialTag": null,
@@ -636,8 +617,7 @@
     "terrainBonusPct": 8,
     "value": 142,
     "equipBonus": {
-      "maxHp": 65,
-      "maxStamina": 14,
+      "maxHp": 79,
       "agility": 3,
       "riding": 4
     },
@@ -666,8 +646,7 @@
     "terrainBonusPct": 10,
     "value": 108,
     "equipBonus": {
-      "maxHp": 55,
-      "maxStamina": 12,
+      "maxHp": 67,
       "agility": 3,
       "riding": 3
     },
@@ -696,8 +675,7 @@
     "terrainBonusPct": 8,
     "value": 98,
     "equipBonus": {
-      "maxHp": 65,
-      "maxStamina": 15,
+      "maxHp": 80,
       "riding": 2
     },
     "specialTag": null,
@@ -725,8 +703,7 @@
     "terrainBonusPct": 10,
     "value": 105,
     "equipBonus": {
-      "maxHp": 45,
-      "maxStamina": 10,
+      "maxHp": 55,
       "riding": 2,
       "skills": {
         "诗词": 2
@@ -757,8 +734,7 @@
     "terrainBonusPct": 12,
     "value": 92,
     "equipBonus": {
-      "maxHp": 50,
-      "maxStamina": 14,
+      "maxHp": 64,
       "riding": 2
     },
     "specialTag": null,
@@ -786,8 +762,7 @@
     "terrainBonusPct": 8,
     "value": 68,
     "equipBonus": {
-      "maxHp": 40,
-      "maxStamina": 10,
+      "maxHp": 50,
       "res": 2,
       "riding": 1
     },
@@ -816,8 +791,7 @@
     "terrainBonusPct": 10,
     "value": 62,
     "equipBonus": {
-      "maxHp": 45,
-      "maxStamina": 16,
+      "maxHp": 61,
       "riding": 1
     },
     "specialTag": null,
@@ -845,8 +819,7 @@
     "terrainBonusPct": 6,
     "value": 42,
     "equipBonus": {
-      "maxHp": 25,
-      "maxStamina": 10,
+      "maxHp": 35,
       "skills": {
         "算术": 1
       }
@@ -876,8 +849,7 @@
     "terrainBonusPct": 5,
     "value": 28,
     "equipBonus": {
-      "maxHp": 20,
-      "maxStamina": 8,
+      "maxHp": 28,
       "skills": {
         "诗词": 2
       }

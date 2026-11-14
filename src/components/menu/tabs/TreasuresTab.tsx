@@ -654,12 +654,8 @@ export function TreasuresTab({
                           {[
                             def.useEffect.maxHp ? `气血上限 +${def.useEffect.maxHp}` : null,
                             def.useEffect.maxMp ? `内力上限 +${def.useEffect.maxMp}` : null,
-                            def.useEffect.maxStamina
-                              ? `体能上限 +${def.useEffect.maxStamina}`
-                              : null,
                             def.useEffect.hp ? `气血 +${def.useEffect.hp}` : null,
                             def.useEffect.mp ? `内力 +${def.useEffect.mp}` : null,
-                            def.useEffect.stamina ? `体能 +${def.useEffect.stamina}` : null,
                             def.useEffect.agi ? `身法 +${def.useEffect.agi}` : null,
                             def.useEffect.res ? `抗性 +${def.useEffect.res}` : null,
                             def.useEffect.riding ? `【骑术】+${def.useEffect.riding}` : null,

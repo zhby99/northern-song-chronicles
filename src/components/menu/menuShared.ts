@@ -34,7 +34,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     numeral: '壹',
     label: '主角面板',
     seal: '侠',
-    subtitle: '少侠全身立绘、生存气血体能、实战四维总览、先天三维禀赋、官道脚力与北宋十艺百工修为',
+    subtitle: '少侠全身立绘、生存气血内息、战斗经验、实战四维总览、先天三维禀赋、官道脚力与北宋十艺百工修为',
     badge: 'M1-0 已实装',
   },
   {
@@ -42,8 +42,8 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     numeral: '贰',
     label: '披挂与武学',
     seal: '武',
-    subtitle: '7 槽位可视化随身披挂（含兵武共鸣）+ 6 槽位运使武学（主运内功 · 轻功身法 · 四门出战招式）与所习武学演练',
-    badge: '百兵共鸣',
+    subtitle: '7 槽位可视化随身披挂（含兵武共鸣）+ 6 槽位运使武学（主运内功 · 轻功身法 · 四门出战招式）与按日闭关破境',
+    badge: '闭关破境',
   },
   {
     key: 'bag',
@@ -74,8 +74,8 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     numeral: '陆',
     label: '存 档',
     seal: '录',
-    subtitle: '多槽位 IndexedDB 卷宗持久化（含裸身根基、披挂、武学重数、门派与任务链状态）、手札批注与 JSON 导出',
-    badge: 'M1.4 卷宗',
+    subtitle: '多槽位 IndexedDB 卷宗持久化（含裸身根基、战斗经验、披挂、武学重数、门派与任务链状态）、手札批注与 JSON 导出',
+    badge: 'M1.5 卷宗',
   },
   {
     key: 'load',
@@ -83,7 +83,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     label: '读 档',
     seal: '启',
     subtitle: '读取当前版本卷宗回溯三层空间、披挂武学与剧情任务现场，或从本地导入 .json 存档文件',
-    badge: 'M1.4 卷宗',
+    badge: 'M1.5 卷宗',
   },
   {
     key: 'settings',

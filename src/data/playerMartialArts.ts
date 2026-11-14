@@ -68,16 +68,16 @@ export const MARTIAL_ART_SLOT_METAS: Array<{
 
 export const DEFAULT_LEARNED_ARTS: LearnedArtEntry[] = [
   // 内功心法
-  { artId: 'MA-179', level: 4, exp: 35 }, // 周天引气诀（凡品中品·内功）
-  { artId: 'MA-141', level: 2, exp: 15 }, // 五禽养生功（良品下品·内功）
+  { artId: 'MA-179', level: 4, exp: 12000 }, // 周天引气诀（凡品中品·内功）
+  { artId: 'MA-141', level: 2, exp: 9500 }, // 五禽养生功（良品下品·内功）
   // 轻功身法
-  { artId: 'MA-177', level: 3, exp: 40 }, // 飞檐走壁（凡品上品·轻功）
-  { artId: 'MA-158', level: 2, exp: 10 }, // 燕子三抄水（良品下品·轻功）
+  { artId: 'MA-177', level: 3, exp: 4800 }, // 飞檐走壁（凡品上品·轻功）
+  { artId: 'MA-158', level: 2, exp: 3200 }, // 燕子三抄水（良品下品·轻功）
   // 外功与兵刃招式
-  { artId: 'MA-182', level: 5, exp: 60 }, // 太祖长拳（凡品中品·拳掌）
-  { artId: 'MA-187', level: 4, exp: 25 }, // 青萍剑法（凡品中品·剑法）
-  { artId: 'MA-173', level: 2, exp: 20 }, // 呼延硬鞭法（军中简本）（凡品上品·棍棒）
-  { artId: 'MA-156', level: 3, exp: 30 }, // 折扇点穴功（良品下品·指法）
+  { artId: 'MA-182', level: 5, exp: 5200 }, // 太祖长拳（凡品中品·拳掌）
+  { artId: 'MA-187', level: 4, exp: 4100 }, // 青萍剑法（凡品中品·剑法）
+  { artId: 'MA-173', level: 2, exp: 2600 }, // 呼延硬鞭法（军中简本）（凡品上品·棍棒）
+  { artId: 'MA-156', level: 3, exp: 5400 }, // 折扇点穴功（良品下品·指法）
 ]
 
 export const DEFAULT_EQUIPPED_ARTS: EquippedArtsMap = {
@@ -120,7 +120,16 @@ export function getArtExpRequired(art: CompiledMartialArtRecord, level: number):
   if (lvStats?.expRequired && lvStats.expRequired > 0) {
     return lvStats.expRequired
   }
-  return level >= 10 ? 0 : 100
+  return level >= 10 ? 0 : 10000
+}
+
+export function getArtCombatExpRequired(art: CompiledMartialArtRecord, level: number): number {
+  if (level >= 10) return 0
+  const lvStats = getArtLevelStats(art, level)
+  if (typeof lvStats?.combatExpRequired === 'number' && lvStats.combatExpRequired > 0) {
+    return lvStats.combatExpRequired
+  }
+  return 0
 }
 
 export interface ArtSlotBonus {

@@ -23,6 +23,7 @@ import {
   canArtFitSlot,
   DEFAULT_EQUIPPED_ARTS,
   DEFAULT_LEARNED_ARTS,
+  getArtCombatExpRequired,
   getArtExpRequired,
 } from '../data/playerMartialArts'
 import { QUEST_MAP } from '../data/quests'
@@ -39,6 +40,7 @@ import type {
   BagCategoryKey,
   CameraPan,
   CompendiumTabKey,
+  CultivationDurationMode,
   EquipmentSlotKey,
   EquippedArtsMap,
   EquippedSlotsMap,
@@ -71,11 +73,14 @@ import type {
   QuestTargetLocationHint,
 } from '../types/quest'
 import {
-  calcPracticeArtExpGain,
+  calcDailyCultivationExpGain,
   cloneHeroBaseStats,
+  DAILY_INN_LODGING_COST,
   DEFAULT_HERO_BASE_STATS,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
+  isPlayerInOwnSectRegion,
+  resolveCultivationVenue,
 } from '../utils/heroStats'
 import {
   ADJACENCY_MAP,
@@ -138,8 +143,7 @@ interface RoadEventDef {
     maxHp: number
     mp: number
     maxMp: number
-    stamina: number
-    maxStamina: number
+    combatExp: number
     silver: number
     baseStats: HeroBaseStats
   }) => void
@@ -148,10 +152,10 @@ interface RoadEventDef {
 const ROAD_EVENTS: RoadEventDef[] = [
   {
     tag: '胡商偶遇',
-    msg: '途遇西域高昌驼队，购得天山雪莲散少许（气血 +45，体能 +15）。',
+    msg: '途遇西域高昌驼队，购得天山雪莲散少许（气血 +45，内力 +30）。',
     apply: (d) => {
       d.hp = Math.min(d.maxHp, d.hp + 45)
-      d.stamina = Math.min(d.maxStamina, d.stamina + 15)
+      d.mp = Math.min(d.maxMp, d.mp + 30)
     },
   },
   {
@@ -167,27 +171,29 @@ const ROAD_EVENTS: RoadEventDef[] = [
   },
   {
     tag: '绿林劫道',
-    msg: '山道窜出剪径匪类，少侠弹指震飞匪首兵刃，缴获纹银 12 两！',
+    msg: '山道窜出剪径匪类，少侠弹指震飞匪首兵刃，缴获纹银 12 两（战斗经验 +15）！',
     apply: (d) => {
       d.silver += 12
+      d.combatExp += 15
     },
   },
   {
     tag: '密探截杀',
-    msg: '荒野突遭一品堂/辽廷暗探毒箭伏击！少侠运起护体真气震飞冷箭并击退强敌，缴获密囊纹银 18 两。',
+    msg: '荒野突遭一品堂/辽廷暗探毒箭伏击！少侠运起护体真气震飞冷箭并击退强敌，缴获密囊纹银 18 两（战斗经验 +20）。',
     apply: (d) => {
       d.silver += 18
+      d.combatExp += 20
     },
   },
   {
     tag: '万里山河',
-    msg: '策马纵览九州山海壮阔，胸襟大开，赋词一首（诗词 +2，体能 +10）。',
+    msg: '策马纵览九州山海壮阔，胸襟大开，赋词一首（诗词 +2，内力 +20）。',
     apply: (d) => {
       d.baseStats.skills['诗词'] = Math.min(
         HERO_BASE_CAPS.civilSkill,
         (d.baseStats.skills['诗词'] ?? 55) + 2,
       )
-      d.stamina = Math.min(d.maxStamina, d.stamina + 10)
+      d.mp = Math.min(d.maxMp, d.mp + 20)
     },
   },
 ]
@@ -278,14 +284,13 @@ export interface GameStoreState {
   qinggongBonus: number
   ridingSkill: number
   agility: number
+  combatExp: number
   silver: number
   food: number
   hp: number
   maxHp: number
   mp: number
   maxMp: number
-  stamina: number
-  maxStamina: number
   res: number
   skills: Record<string, number>
 
@@ -367,7 +372,8 @@ export interface GameStoreState {
   acquireItemToBag: (itemId: string) => void
   equipArtToSlot: (artId: string, slot: MartialArtSlotKey) => void
   unequipArtSlot: (slot: MartialArtSlotKey) => void
-  practiceLearnedArt: (artId: string) => void
+  cultivateLearnedArt: (artId: string, mode?: CultivationDurationMode) => void
+  breakthroughLearnedArt: (artId: string) => void
   consumeInventoryItem: (itemId: string, forceUseEffect?: boolean) => void
 
   doBuildingAction: (item: {
@@ -529,9 +535,16 @@ function grantArtProficiency(
   let nextLv = cur.level
   let nextExp = cur.exp + gain
   let leveledUp = false
+  let hitCombatExpGate = false
   while (nextLv < 10) {
     const reqExp = getArtExpRequired(art, nextLv)
     if (reqExp <= 0 || nextExp < reqExp) break
+    const reqCombatExp = getArtCombatExpRequired(art, nextLv)
+    if (reqCombatExp > 0) {
+      nextExp = reqExp
+      hitCombatExpGate = true
+      break
+    }
     nextExp -= reqExp
     nextLv += 1
     leveledUp = true
@@ -542,7 +555,9 @@ function grantArtProficiency(
   return {
     note: leveledUp
       ? `《${art.cleanName}》突破至第${nextLv}重`
-      : `《${art.cleanName}》熟练 +${gain}`,
+      : hitCombatExpGate
+        ? `《${art.cleanName}》第${nextLv}重火候已满（待战经破境）`
+        : `《${art.cleanName}》熟练 +${gain}`,
     leveledUp,
   }
 }
@@ -550,7 +565,7 @@ function grantArtProficiency(
 function computeCombatSettlement(
   s: Pick<
     GameStoreState,
-    'baseStats' | 'equipped' | 'equippedArts' | 'learnedArts' | 'npcFavor'
+    'baseStats' | 'combatExp' | 'equipped' | 'equippedArts' | 'learnedArts' | 'npcFavor'
   >,
   session: CombatSessionState,
 ) {
@@ -560,6 +575,31 @@ function computeCombatSettlement(
   const outcome = session.outcome
 
   const isStrongOpponent = session.npc.maxMp >= session.player.maxMp * 0.85
+  const oppMp = session.npc.maxMp
+  const tierCombatBase =
+    oppMp < 450 ? 15 : oppMp < 950 ? 22 : oppMp < 1800 ? 30 : oppMp < 3200 ? 40 : 50
+
+  let combatExpGain = 0
+  if (session.mode === 'spar') {
+    if (outcome === 'player_win') {
+      combatExpGain = Math.max(15, Math.round(tierCombatBase * (isStrongOpponent ? 1.0 : 0.85)))
+    } else if (outcome === 'draw') {
+      combatExpGain = Math.max(10, Math.round(tierCombatBase * 0.6))
+    } else if (outcome === 'npc_win') {
+      combatExpGain = Math.max(6, Math.round(tierCombatBase * 0.4))
+    }
+  } else {
+    if (outcome === 'player_win') {
+      combatExpGain = Math.round(tierCombatBase * 2.0)
+      if (session.duelStakes === 'liao_spy_duel') combatExpGain += 80
+      else if (session.duelStakes === 'rob_official') combatExpGain += 60
+      else if (session.duelStakes === 'zhan_zhao_arrest') combatExpGain += 100
+    } else if (outcome === 'draw') {
+      combatExpGain = Math.max(15, Math.round(tierCombatBase * 1.0))
+    }
+  }
+  const nextCombatExp = s.combatExp + combatExpGain
+
   const expMult =
     outcome === 'player_win'
       ? isStrongOpponent
@@ -583,8 +623,8 @@ function computeCombatSettlement(
   for (const artId of practicedArtIds) {
     const art = MARTIAL_ART_DB_MAP[artId]
     if (!art) continue
-    const baseExp = calcPracticeArtExpGain(art, s.baseStats.talents)
-    const gain = Math.max(4, Math.round(baseExp * expMult))
+    const baseDaily = calcDailyCultivationExpGain(art, s.baseStats.talents, 1.0)
+    const gain = Math.max(20, Math.round(baseDaily * 0.5 * expMult))
     const res = grantArtProficiency(nextLearnedArts, artId, gain)
     if (res.note && !res.note.includes('已臻第10重圆满')) {
       artGainNotes.push(res.note)
@@ -632,6 +672,9 @@ function computeCombatSettlement(
   )
 
   const summaryParts: string[] = []
+  if (combatExpGain > 0) {
+    summaryParts.push(`战斗经验 +${combatExpGain}（现 ${nextCombatExp}）`)
+  }
   if (artGainNotes.length > 0) {
     summaryParts.push(artGainNotes.join('、'))
   }
@@ -670,6 +713,8 @@ function computeCombatSettlement(
   return {
     nextBaseStats,
     nextLearnedArts,
+    nextCombatExp,
+    combatExpGain,
     derived,
     nextHp,
     nextMp,
@@ -699,14 +744,13 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     qinggongBonus: s.qinggongBonus,
     ridingSkill: s.ridingSkill,
     agility: s.agility,
+    combatExp: s.combatExp,
     silver: s.silver,
     food: s.food,
     hp: s.hp,
     maxHp: s.maxHp,
     mp: s.mp,
     maxMp: s.maxMp,
-    stamina: s.stamina,
-    maxStamina: s.maxStamina,
     res: s.res,
     skills: { ...s.skills },
     equipped: { ...s.equipped },
@@ -787,14 +831,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   qinggongBonus: INITIAL_DERIVED_STATS.qinggongBonus,
   ridingSkill: INITIAL_DERIVED_STATS.ridingSkill,
   agility: INITIAL_DERIVED_STATS.agility,
+  combatExp: 80,
   silver: 5120,
   food: 25,
   hp: INITIAL_DERIVED_STATS.maxHp,
   maxHp: INITIAL_DERIVED_STATS.maxHp,
   mp: INITIAL_DERIVED_STATS.maxMp,
   maxMp: INITIAL_DERIVED_STATS.maxMp,
-  stamina: INITIAL_DERIVED_STATS.maxStamina,
-  maxStamina: INITIAL_DERIVED_STATS.maxStamina,
   res: INITIAL_DERIVED_STATS.res,
   skills: { ...INITIAL_DERIVED_STATS.skills },
 
@@ -1206,23 +1249,26 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   restRecoverStamina: () => {
     const s = get()
-    if (s.silver < 3) {
+    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
+    const lodgingCost = inOwnSectCity ? 0 : DAILY_INN_LODGING_COST
+    if (lodgingCost > 0 && s.silver < lodgingCost) {
       set({
-        actionFeedback: { text: '投宿小憩需纹银 3 两，当前银两不足！', tone: 'warn' },
+        actionFeedback: {
+          text: `异乡客舍投宿调息需纹银 ${lodgingCost} 两，当前银两不足！`,
+          tone: 'warn',
+        },
       })
       return
     }
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 3)
-    const nextHp = Math.min(s.maxHp, s.hp + 200)
-    const nextMp = Math.min(s.maxMp, s.mp + 120)
+    const nextHp = s.maxHp
+    const nextMp = s.maxMp
+    const logTitle = inOwnSectCity ? '师门调息' : '客舍调息'
+    const logMsg = inOwnSectCity
+      ? '于本门驻地静室安睡调息三个时辰（师门驻地免宿费），周身气血与真气内息尽数充盈！'
+      : `花费 ${lodgingCost} 两纹银于客舍安睡三个时辰，周身气血与真气内息尽数平复充盈！`
     const baseLogs = [
-      createLogEntry(
-        clock.dayCount,
-        '客舍调息',
-        `花费 3 两纹银小憩三个时辰，体能恢复至 ${s.maxStamina}/${s.maxStamina}。`,
-        false,
-        clock.shichenIdx,
-      ),
+      createLogEntry(clock.dayCount, logTitle, logMsg, false, clock.shichenIdx),
       ...s.logs,
     ]
     const dayHook =
@@ -1230,12 +1276,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         ? applyDayProgressionSectHooks({
             nextDayCount: clock.dayCount,
             shichenIdx: clock.shichenIdx,
-            silver: s.silver - 3,
+            silver: s.silver - lodgingCost,
             sectState: s.sectState,
             logs: baseLogs,
           })
         : {
-            silver: s.silver - 3,
+            silver: s.silver - lodgingCost,
             sectState: s.sectState,
             logs: baseLogs,
             overdueSpyAmbush: null,
@@ -1247,9 +1293,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       sectState: dayHook.sectState,
       hp: nextHp,
       mp: nextMp,
-      stamina: s.maxStamina,
       actionFeedback: {
-        text: '于客舍安睡三个时辰，体能全满，气血与内息尽数平复！',
+        text: logMsg,
         tone: 'success',
       },
       logs: dayHook.logs.slice(0, 60),
@@ -1354,36 +1399,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
-    if (def.gearMeta) {
-      const reqCheck = checkGearEquipRequirements(def.gearMeta, {
-        maxHp: s.maxHp,
-        maxMp: s.maxMp,
-        agility: s.agility,
-        res: s.res,
-        ridingSkill: s.ridingSkill,
-        skills: s.skills,
-        talents: s.baseStats.talents,
-      })
-      if (!reqCheck.ok) {
-        const unmetStr = reqCheck.details
-          .filter((d) => !d.met)
-          .map((d) => `${d.stat} ${d.current}/${d.min}`)
-          .join('、')
-        const warnMsg = `难以佩备${def.gearMeta.tier}${def.gearMeta.grade}重宝【${def.name}】！未达佩备门槛：${unmetStr}`
-        set({
-          actionFeedback: {
-            text: warnMsg,
-            tone: 'warn',
-          },
-          logs: [
-            createLogEntry(s.dayCount, '佩备受阻', warnMsg, true, s.shichenIdx),
-            ...s.logs,
-          ].slice(0, 60),
-        })
-        return
-      }
-    }
-
     let slot: EquipmentSlotKey = def.equipSlot
     if (preferredSlot && canItemFitSlot(def, preferredSlot)) {
       slot = preferredSlot
@@ -1419,8 +1434,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       hp: Math.min(derived.maxHp, s.hp),
       maxMp: derived.maxMp,
       mp: Math.min(derived.maxMp, s.mp),
-      maxStamina: derived.maxStamina,
-      stamina: Math.min(derived.maxStamina, s.stamina),
       agility: derived.agility,
       res: derived.res,
       ridingSkill: derived.ridingSkill,
@@ -1469,8 +1482,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       hp: Math.min(derived.maxHp, s.hp),
       maxMp: derived.maxMp,
       mp: Math.min(derived.maxMp, s.mp),
-      maxStamina: derived.maxStamina,
-      stamina: Math.min(derived.maxStamina, s.stamina),
       agility: derived.agility,
       res: derived.res,
       ridingSkill: derived.ridingSkill,
@@ -1677,47 +1688,49 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     })
   },
 
-  practiceLearnedArt: (artId) => {
+  breakthroughLearnedArt: (artId) => {
     const s = get()
     const art = MARTIAL_ART_DB_MAP[artId]
     const idx = s.learnedArts.findIndex((x) => x.artId === artId)
     if (!art || idx === -1) return
 
-    const cur = s.learnedArts[idx]
+    const cur = s.learnedArts[idx]!
     if (cur.level >= 10) {
       set({
         actionFeedback: {
-          text: `【${art.name}】已臻十重返璞归真之境，无需再演武苦修！`,
+          text: `【${art.name}】已臻十重返璞归真之境！`,
           tone: 'success',
         },
       })
       return
     }
-    if (s.stamina < 10) {
+
+    const reqExp = getArtExpRequired(art, cur.level)
+    if (cur.exp < reqExp) {
       set({
         actionFeedback: {
-          text: `演武精修需耗费 10 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息或服用茶食！`,
+          text: `【${art.name}】当前熟练度 ${cur.exp.toLocaleString()}/${reqExp.toLocaleString()}，尚未修满第 ${cur.level} 重火候，请先闭关修炼！`,
           tone: 'warn',
         },
       })
       return
     }
 
-    const expGain = calcPracticeArtExpGain(art, s.baseStats.talents)
+    const reqCombatExp = getArtCombatExpRequired(art, cur.level)
+    if (s.combatExp < reqCombatExp) {
+      set({
+        actionFeedback: {
+          text: `战斗经验不足！《${art.cleanName}》突破至第 ${cur.level + 1} 重需消耗 ${reqCombatExp} 点战斗经验（当前 ${s.combatExp} 点），请通过切磋、决战、门派当差或衙门缉凶积攒！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const nextLv = cur.level + 1
+    const nextExp = nextLv >= 10 ? 0 : Math.max(0, cur.exp - reqExp)
+    const nextCombatExp = s.combatExp - reqCombatExp
     const nextLearned = s.learnedArts.map((x) => ({ ...x }))
-    let nextLv = cur.level
-    let nextExp = cur.exp + expGain
-    let leveledUp = false
-    while (nextLv < 10) {
-      const reqExp = getArtExpRequired(art, nextLv)
-      if (reqExp <= 0 || nextExp < reqExp) break
-      nextExp -= reqExp
-      nextLv += 1
-      leveledUp = true
-    }
-    if (nextLv >= 10) {
-      nextExp = 0
-    }
     nextLearned[idx] = { artId, level: nextLv, exp: nextExp }
 
     const derived = deriveHeroEffectiveStats(
@@ -1728,39 +1741,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     )
     const deltaMaxHp = Math.max(0, derived.maxHp - s.maxHp)
     const deltaMaxMp = Math.max(0, derived.maxMp - s.maxMp)
-    const nextReqExp = getArtExpRequired(art, nextLv)
-    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
-    const msgText = leveledUp
-      ? `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 +${expGain}），火候突破至第 ${nextLv} 重！`
-      : `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 +${expGain} → ${nextExp}/${nextReqExp}）。`
-
-    const baseLogs = [
-      createLogEntry(
-        clock.dayCount,
-        leveledUp ? '武学突破' : '演武苦修',
-        msgText,
-        leveledUp,
-        clock.shichenIdx,
-      ),
-      ...s.logs,
-    ]
-    const dayHook =
-      clock.daysAdded > 0
-        ? applyDayProgressionSectHooks({
-            nextDayCount: clock.dayCount,
-            shichenIdx: clock.shichenIdx,
-            silver: s.silver,
-            sectState: s.sectState,
-            logs: baseLogs,
-          })
-        : { silver: s.silver, sectState: s.sectState, logs: baseLogs, overdueSpyAmbush: null }
+    const msgText =
+      reqCombatExp > 0
+        ? `以实战武道印证心法（消耗战斗经验 ${reqCombatExp} 点，余 ${nextCombatExp}），【${art.name}】豁然贯通，破境升至第 ${nextLv} 重！`
+        : `水到渠成！【${art.name}】顺利突破至第 ${nextLv} 重！`
 
     set({
-      dayCount: clock.dayCount,
-      shichenIdx: clock.shichenIdx,
-      silver: dayHook.silver,
-      sectState: dayHook.sectState,
-      stamina: Math.max(0, s.stamina - 10),
+      combatExp: nextCombatExp,
       learnedArts: nextLearned,
       qinggongBonus: derived.qinggongBonus,
       maxHp: derived.maxHp,
@@ -1773,10 +1760,280 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         text: msgText,
         tone: 'success',
       },
-      logs: dayHook.logs.slice(0, 60),
+      logs: [
+        createLogEntry(s.dayCount, '武学破境', msgText, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
     })
-    if (dayHook.overdueSpyAmbush) {
-      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+  },
+
+  cultivateLearnedArt: (artId, mode = 1) => {
+    const s = get()
+    const art = MARTIAL_ART_DB_MAP[artId]
+    const idx = s.learnedArts.findIndex((x) => x.artId === artId)
+    if (!art || idx === -1) return
+
+    const cur = s.learnedArts[idx]!
+    if (cur.level >= 10) {
+      set({
+        actionFeedback: {
+          text: `【${art.name}】已臻十重返璞归真之境，无需再闭关苦修！`,
+          tone: 'success',
+        },
+      })
+      return
+    }
+
+    const initReqExp = getArtExpRequired(art, cur.level)
+    const initReqCombat = getArtCombatExpRequired(art, cur.level)
+    if (cur.exp >= initReqExp) {
+      if (s.combatExp >= initReqCombat) {
+        get().breakthroughLearnedArt(artId)
+        return
+      }
+      set({
+        actionFeedback: {
+          text: `《${art.cleanName}》第 ${cur.level} 重火候已满！破境升入第 ${cur.level + 1} 重需消耗 ${initReqCombat} 点战斗经验（当前 ${s.combatExp} 点），请先出关实战历练！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const venueStatus = resolveCultivationVenue({
+      traveling: Boolean(s.traveling),
+      campPos: s.campPos,
+      viewMode: s.viewMode,
+      currentNodeId: s.currentNodeId,
+      activeRegionId: s.activeRegionId,
+      activeBuildingInteriorId: s.activeBuildingInteriorId,
+      selectedBuildingId: s.selectedBuildingId,
+      sectId: s.sectState.sectId,
+    })
+
+    if (!venueStatus.venue) {
+      set({
+        actionFeedback: {
+          text:
+            venueStatus.blockedReason ??
+            '只能在【客栈】、【本门派演武场】或大地图【野外扎营】发起闭关修炼！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    if (venueStatus.dailySilverCost > 0 && s.silver < venueStatus.dailySilverCost) {
+      set({
+        actionFeedback: {
+          text: `客栈闭关每日需宿费 ${venueStatus.dailySilverCost} 两纹银（当前 ${s.silver} 两），银两不足无法闭关！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    if (venueStatus.dailyFoodCost > 0 && s.food < venueStatus.dailyFoodCost) {
+      set({
+        actionFeedback: {
+          text: `野外扎营闭关每日需消耗 ${venueStatus.dailyFoodCost} 份行军干粮，当前粮草已尽！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const targetDays = mode === 'until_breakthrough' ? 3600 : mode
+    const dailyGain = calcDailyCultivationExpGain(
+      art,
+      s.baseStats.talents,
+      venueStatus.multiplier,
+    )
+
+    let daysSpent = 0
+    let silverSpent = 0
+    let foodSpent = 0
+    let totalExpGained = 0
+    let combatExpSpent = 0
+    const startLv = cur.level
+    let nextLv = cur.level
+    let nextExp = cur.exp
+    let nextCombatExp = s.combatExp
+    let nextDayCount = s.dayCount
+    let nextSilver = s.silver
+    let nextFood = s.food
+    let nextSectState = clonePlayerSectState(s.sectState)
+    let nextLogs = [...s.logs]
+    let nextMasters = s.roamingMasters
+    let overdueSpyAmbush: NodeNpc | null = null
+    let stopNote: string | null = null
+
+    for (let d = 0; d < targetDays; d += 1) {
+      if (venueStatus.dailySilverCost > 0 && nextSilver < venueStatus.dailySilverCost) {
+        stopNote = '纹银不足支付后续宿费，提前收功出关'
+        break
+      }
+      if (venueStatus.dailyFoodCost > 0 && nextFood < venueStatus.dailyFoodCost) {
+        stopNote = '行囊干粮耗尽，提前收功拔营'
+        break
+      }
+
+      nextSilver -= venueStatus.dailySilverCost
+      nextFood -= venueStatus.dailyFoodCost
+      silverSpent += venueStatus.dailySilverCost
+      foodSpent += venueStatus.dailyFoodCost
+      daysSpent += 1
+      nextDayCount += 1
+      nextExp += dailyGain
+      totalExpGained += dailyGain
+
+      if ((nextDayCount - 1) % 30 === 0) {
+        nextMasters = nextMasters.map((m) => {
+          const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
+          if (neighbors.length === 0) return m
+          const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
+          return { ...m, nodeId: pick!.to }
+        })
+        const sample = nextMasters[Math.floor(Math.random() * nextMasters.length)]
+        if (sample) {
+          nextLogs = [
+            createLogEntry(
+              nextDayCount,
+              '月度风云',
+              `《天下江湖风闻录》更新：【${sample.name}】近日现身于【${NODE_MAP[sample.nodeId]?.name ?? sample.nodeId}】！`,
+              true,
+              s.shichenIdx,
+            ),
+            ...nextLogs,
+          ]
+        }
+      }
+
+      const dayHook = applyDayProgressionSectHooks({
+        nextDayCount,
+        shichenIdx: s.shichenIdx,
+        silver: nextSilver,
+        sectState: nextSectState,
+        logs: nextLogs,
+      })
+      nextSilver = dayHook.silver
+      nextSectState = dayHook.sectState
+      nextLogs = dayHook.logs
+      overdueSpyAmbush = dayHook.overdueSpyAmbush
+
+      let hitBottleneck = false
+      let brokeThroughToday = false
+      while (nextLv < 10) {
+        const stepReqExp = getArtExpRequired(art, nextLv)
+        if (stepReqExp <= 0 || nextExp < stepReqExp) break
+        const stepReqCombat = getArtCombatExpRequired(art, nextLv)
+        if (nextCombatExp >= stepReqCombat) {
+          nextCombatExp -= stepReqCombat
+          combatExpSpent += stepReqCombat
+          nextExp -= stepReqExp
+          nextLv += 1
+          brokeThroughToday = true
+        } else {
+          const overflow = nextExp - stepReqExp
+          nextExp = stepReqExp
+          totalExpGained = Math.max(0, totalExpGained - overflow)
+          hitBottleneck = true
+          stopNote = `第 ${nextLv} 重火候圆满，待积攒 ${stepReqCombat} 点战斗经验破境（当前 ${nextCombatExp}）`
+          break
+        }
+      }
+
+      if (nextLv >= 10) {
+        nextExp = 0
+        break
+      }
+      if (hitBottleneck) break
+      if (mode === 'until_breakthrough' && brokeThroughToday) break
+      if (overdueSpyAmbush) {
+        stopNote = '边关锄奸军令期限已至，被迫提前收功应战'
+        break
+      }
+    }
+
+    if (daysSpent <= 0) return
+
+    const nextLearned = s.learnedArts.map((x) => ({ ...x }))
+    nextLearned[idx] = { artId, level: nextLv, exp: nextExp }
+
+    const derived = deriveHeroEffectiveStats(
+      s.baseStats,
+      s.equipped,
+      s.equippedArts,
+      nextLearned,
+    )
+    const leveledUp = nextLv > startLv
+    const nextHp =
+      venueStatus.venue === 'wilderness_camp'
+        ? Math.min(derived.maxHp, s.hp + Math.round(derived.maxHp * 0.4 * daysSpent))
+        : derived.maxHp
+    const nextMp =
+      venueStatus.venue === 'wilderness_camp'
+        ? Math.min(derived.maxMp, s.mp + Math.round(derived.maxMp * 0.4 * daysSpent))
+        : derived.maxMp
+
+    const costParts: string[] = []
+    if (silverSpent > 0) costParts.push(`宿费 -${silverSpent}两`)
+    else if (foodSpent > 0) costParts.push(`干粮 -${foodSpent}份`)
+    else costParts.push('师门驻地免费')
+    if (combatExpSpent > 0) costParts.push(`破境耗战经 ${combatExpSpent}`)
+
+    const nextReqExp = getArtExpRequired(art, nextLv)
+    const progressPart =
+      nextLv >= 10
+        ? '已臻第 10 重返璞归真大圆满！'
+        : leveledUp
+          ? `突破至第 ${nextLv} 重（${nextExp.toLocaleString()}/${nextReqExp.toLocaleString()}）！`
+          : `第 ${nextLv} 重（${nextExp.toLocaleString()}/${nextReqExp.toLocaleString()}）`
+
+    const msgText = `于【${venueStatus.venueLabel}】闭关潜修【${art.name}】${daysSpent} 天（${costParts.join(' · ')} · 熟练度 +${totalExpGained.toLocaleString()}）：${progressPart}${stopNote ? ` [${stopNote}]` : ''}`
+
+    nextLogs = [
+      createLogEntry(
+        nextDayCount,
+        leveledUp ? '闭关突破' : '闭关苦修',
+        msgText,
+        leveledUp || Boolean(stopNote),
+        s.shichenIdx,
+      ),
+      ...nextLogs,
+    ].slice(0, 60)
+
+    set({
+      dayCount: nextDayCount,
+      silver: nextSilver,
+      food: nextFood,
+      combatExp: nextCombatExp,
+      sectState: nextSectState,
+      roamingMasters: nextMasters,
+      learnedArts: nextLearned,
+      qinggongBonus: derived.qinggongBonus,
+      maxHp: derived.maxHp,
+      hp: nextHp,
+      maxMp: derived.maxMp,
+      mp: nextMp,
+      agility: derived.agility,
+      res: derived.res,
+      actionFeedback: {
+        text: msgText,
+        tone: stopNote && !leveledUp ? 'warn' : 'success',
+      },
+      logs: nextLogs,
+    })
+
+    get().checkExpiredQuestDeadlines()
+
+    if (overdueSpyAmbush) {
+      get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+      return
+    }
+
+    if (daysSpent >= 7 || leveledUp) {
+      void get().saveToSlot('autosave', `闭关潜修${art.cleanName}`, true)
     }
   },
 
@@ -1798,24 +2055,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       if (alreadyLearned) {
         set({
           actionFeedback: {
-            text: `少侠已通晓【${targetArt.name}】入门心法！秘籍仅作初窥门径之用，无法靠重复翻阅提升熟练度，请赴【披挂与武学】演练精修。`,
+            text: `少侠已通晓【${targetArt.name}】入门心法！秘籍仅作初窥门径之用，无法靠重复翻阅提升熟练度，请赴【披挂与武学】按日闭关精修。`,
             tone: 'warn',
           },
         })
         return
       }
-    }
-
-    const requiresStudyStamina =
-      (def.category === 'tools' || def.category === 'scrolls') && !def.stackable && !eff.stamina
-    if (requiresStudyStamina && s.stamina < 6) {
-      set({
-        actionFeedback: {
-          text: `${def.category === 'scrolls' ? '展卷参悟典籍' : '把玩雅器修习'}需耗费 6 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚！`,
-          tone: 'warn',
-        },
-      })
-      return
     }
 
     // Consume stackable medicine/food/consumable tools; keep non-stackable books/scrolls & durable curio tools
@@ -1849,10 +2094,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       notes.push(ngRes.note ? `灵药催动周天（${ngRes.note}）` : '药力化入丹田周天')
     }
 
-    if (eff.maxStamina) {
-      nextBaseStats.maxStamina += eff.maxStamina
-      notes.push(`体能上限 +${eff.maxStamina}`)
-    }
     if (eff.agi && eff.agi > 0) {
       const qgRes = grantArtProficiency(nextLearnedArts, s.equippedArts.qinggong, eff.agi * 18)
       notes.push(qgRes.note ? `药力轻健经络（${qgRes.note}）` : '药力贯通足三阳经')
@@ -1890,9 +2131,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     let nextHp = Math.min(derived.maxHp, s.hp)
     let nextMp = Math.min(derived.maxMp, s.mp)
-    let nextStamina = requiresStudyStamina
-      ? Math.max(0, Math.min(derived.maxStamina, s.stamina) - 6)
-      : Math.min(derived.maxStamina, s.stamina)
 
     if (eff.hp) {
       nextHp = Math.min(derived.maxHp, nextHp + eff.hp)
@@ -1902,14 +2140,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextMp = Math.min(derived.maxMp, nextMp + eff.mp)
       notes.push(`内力 +${eff.mp}`)
     }
-    if (eff.stamina) {
-      nextStamina = Math.min(derived.maxStamina, nextStamina + eff.stamina)
-      notes.push(`体能 +${eff.stamina}`)
-    } else if (requiresStudyStamina) {
-      notes.push('体能 -6')
-    }
     if (eff.learnArtHint && !eff.learnArtId) {
       notes.push(eff.learnArtHint)
+    }
+
+    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
+    const lodgingFee =
+      clock.daysAdded > 0 && !inOwnSectCity && !s.campPos
+        ? Math.min(s.silver, DAILY_INN_LODGING_COST * clock.daysAdded)
+        : 0
+    if (lodgingFee > 0) {
+      notes.push(`异乡宿费 -${lodgingFee}两`)
     }
 
     const logTag =
@@ -1939,11 +2180,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         ? applyDayProgressionSectHooks({
             nextDayCount: clock.dayCount,
             shichenIdx: clock.shichenIdx,
-            silver: s.silver,
+            silver: s.silver - lodgingFee,
             sectState: s.sectState,
             logs: baseLogs,
           })
-        : { silver: s.silver, sectState: s.sectState, logs: baseLogs, overdueSpyAmbush: null }
+        : {
+            silver: s.silver - lodgingFee,
+            sectState: s.sectState,
+            logs: baseLogs,
+            overdueSpyAmbush: null,
+          }
 
     set({
       dayCount: clock.dayCount,
@@ -1960,8 +2206,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       maxHp: derived.maxHp,
       mp: nextMp,
       maxMp: derived.maxMp,
-      stamina: nextStamina,
-      maxStamina: derived.maxStamina,
       agility: derived.agility,
       res: derived.res,
       ridingSkill: derived.ridingSkill,
@@ -1980,7 +2224,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   doBuildingAction: (item) => {
     const s = get()
-    const cost = item.cost ?? 0
+    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
+    const isRestInn =
+      item.name.includes('客栈') ||
+      item.name.includes('馆驿') ||
+      item.name.includes('驿馆') ||
+      item.name.includes('客舍')
+    const cost = isRestInn && inOwnSectCity ? 0 : (item.cost ?? 0)
     if (cost > 0 && s.silver < cost) {
       set({
         actionFeedback: {
@@ -1991,19 +2241,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
-    const isRestInn = item.name.includes('客栈') || item.name.includes('馆驿')
-    const staminaCost = isRestInn ? 0 : 12
-    if (!isRestInn && s.stamina < staminaCost) {
-      set({
-        actionFeedback: {
-          text: `体能不支（当前 ${s.stamina}/${s.maxStamina}），请先赴客栈投宿调息或服用茯苓酥酪饼！`,
-          tone: 'warn',
-        },
-      })
-      return
-    }
-
     let nextSilver = s.silver - cost
+    let nextCombatExp = s.combatExp
     const nextBaseStats = cloneHeroBaseStats(s.baseStats)
     const nextLearnedArts = s.learnedArts.map((x) => ({ ...x }))
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, isRestInn ? 4 : 2)
@@ -2011,6 +2250,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const eff = item.effect
     const gains: string[] = []
+
+    if (isRestInn) {
+      gains.push(inOwnSectCity ? '师门驻地免宿费' : `住店宿费 -${cost}两`)
+    }
 
     const neigongSpotExp =
       (!isRestInn && eff.mp ? Math.round(eff.mp * 0.6) : 0) + (eff.res ? eff.res * 12 : 0)
@@ -2034,6 +2277,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextSilver += eff.silver
     }
 
+    // 衙门悬赏缉凶与校场武馆演武额外奖励战斗经验
+    let buildingCombatExp = 0
+    if (/衙门|府衙|巡检|枢密|帅司|六扇门/.test(item.name)) {
+      buildingCombatExp = 45
+    } else if (/演武|校场|武馆|拳馆|镖局|讲武|铜人|木人/.test(item.name)) {
+      buildingCombatExp = 35
+    }
+    if (buildingCombatExp > 0) {
+      nextCombatExp += buildingCombatExp
+    }
+
     const tuples = [eff.skill, eff.skill2, eff.skill3]
     for (const tup of tuples) {
       if (tup) {
@@ -2054,18 +2308,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     let nextHp = Math.min(derived.maxHp, s.hp + (eff.hp ?? 0))
     let nextMp = Math.min(derived.maxMp, s.mp + (eff.mp ?? 0))
-    const nextStamina = isRestInn
-      ? derived.maxStamina
-      : Math.max(0, Math.min(derived.maxStamina, s.stamina) - staminaCost)
 
-    if (eff.hp) gains.push(`气血恢复 +${eff.hp}`)
-    if (eff.mp) gains.push(`内力调息 +${eff.mp}`)
     if (isRestInn) {
       nextHp = derived.maxHp
       nextMp = derived.maxMp
-      gains.push(`体能全满 (${derived.maxStamina})`)
+      gains.push('气血与内息全满')
     } else {
-      gains.push(`体能 -${staminaCost}`)
+      if (eff.hp) gains.push(`气血恢复 +${eff.hp}`)
+      if (eff.mp) gains.push(`内力调息 +${eff.mp}`)
+    }
+    if (buildingCombatExp > 0) {
+      gains.push(`战斗经验 +${buildingCombatExp}（现 ${nextCombatExp}）`)
     }
     if (ngSpotRes.note) gains.push(ngSpotRes.note)
     if (qgSpotRes.note) gains.push(qgSpotRes.note)
@@ -2075,6 +2328,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       if (tup) {
         const [sName, delta] = tup
         gains.push(`【${sName}】+${delta}（根基 ${nextBaseStats.skills[sName]}/100）`)
+      }
+    }
+
+    if (!isRestInn && clock.daysAdded > 0 && !inOwnSectCity) {
+      const lodgingFee = Math.min(nextSilver, DAILY_INN_LODGING_COST * clock.daysAdded)
+      if (lodgingFee > 0) {
+        nextSilver -= lodgingFee
+        gains.push(`跨日异乡宿费 -${lodgingFee}两`)
       }
     }
 
@@ -2092,7 +2353,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
         if (neighbors.length === 0) return m
         const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
-        return { ...m, nodeId: pick.to }
+        return { ...m, nodeId: pick!.to }
       })
       const sample = nextMasters[Math.floor(Math.random() * nextMasters.length)]
       if (sample) {
@@ -2123,6 +2384,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       dayCount: nextDay,
       shichenIdx: clock.shichenIdx,
+      combatExp: nextCombatExp,
       silver: dayHook.silver,
       sectState: dayHook.sectState,
       baseStats: nextBaseStats,
@@ -2133,8 +2395,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       maxHp: derived.maxHp,
       mp: nextMp,
       maxMp: derived.maxMp,
-      stamina: nextStamina,
-      maxStamina: derived.maxStamina,
       agility: derived.agility,
       res: derived.res,
       ridingSkill: derived.ridingSkill,
@@ -2167,15 +2427,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       get().startNpcCombat(npc, 'spar')
       return
     }
-    if (s.stamina < 6) {
-      set({
-        actionFeedback: {
-          text: `体能不足（需 6 点体能），请稍作调息或用膳后再与名宿雅集论道。`,
-          tone: 'warn',
-        },
-      })
-      return
-    }
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
     const civilKeys = ['算术', '经义', '策论', '诗词', '琴', '棋', '书', '画', '辩才'] as const
     let primarySkill: (typeof civilKeys)[number] = '诗词'
@@ -2204,16 +2455,26 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       s.equippedArts,
       s.learnedArts,
     )
+    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
+    const lodgingFee =
+      clock.daysAdded > 0 && !inOwnSectCity
+        ? Math.min(s.silver, DAILY_INN_LODGING_COST * clock.daysAdded)
+        : 0
     const dayHook =
       clock.daysAdded > 0
         ? applyDayProgressionSectHooks({
             nextDayCount: clock.dayCount,
             shichenIdx: clock.shichenIdx,
-            silver: s.silver,
+            silver: s.silver - lodgingFee,
             sectState: s.sectState,
             logs: s.logs,
           })
-        : { silver: s.silver, sectState: s.sectState, logs: s.logs, overdueSpyAmbush: null }
+        : {
+            silver: s.silver - lodgingFee,
+            sectState: s.sectState,
+            logs: s.logs,
+            overdueSpyAmbush: null,
+          }
 
     set({
       dayCount: clock.dayCount,
@@ -2221,11 +2482,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       silver: dayHook.silver,
       sectState: dayHook.sectState,
       logs: dayHook.logs.slice(0, 60),
-      stamina: Math.max(0, s.stamina - 6),
       baseStats: nextBaseStats,
       skills: derived.skills,
       actionFeedback: {
-        text: `与 ${npc.name} 雅集论道半个时辰（体能 -6，【${primarySkill}】+2 根基 ${nextPrimaryBase}/100、【${secondarySkill}】+1 根基 ${nextSecondaryBase}/100）。`,
+        text: `与 ${npc.name} 雅集论道一个时辰（【${primarySkill}】+2 根基 ${nextPrimaryBase}/100、【${secondarySkill}】+1 根基 ${nextSecondaryBase}/100${lodgingFee > 0 ? ` · 异乡宿费 -${lodgingFee}两` : ''}）。`,
         tone: 'success',
       },
     })
@@ -2259,28 +2519,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
-    if (!forceMandatory) {
-      if (s.stamina < 10) {
-        set({
-          actionFeedback: {
-            text: `登台拆招需耗费 10 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚或用膳恢复！`,
-            tone: 'warn',
-          },
-        })
-        return
-      }
-      if (s.hp <= 1) {
-        set({
-          actionFeedback: {
-            text: `少侠当前气血奄奄一息（${s.hp}/${s.maxHp}），请先服食伤药或调息恢复气血后再与名宿交手！`,
-            tone: 'warn',
-          },
-        })
-        return
-      }
+    if (!forceMandatory && s.hp <= 1) {
+      set({
+        actionFeedback: {
+          text: `少侠当前气血奄奄一息（${s.hp}/${s.maxHp}），请先服食伤药或调息恢复气血后再与名宿交手！`,
+          tone: 'warn',
+        },
+      })
+      return
     }
 
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
+    const lodgingFee =
+      !forceMandatory && clock.daysAdded > 0 && !inOwnSectCity && !s.campPos
+        ? Math.min(s.silver, DAILY_INN_LODGING_COST * clock.daysAdded)
+        : 0
     const startHp = Math.max(1, s.hp)
     const playerCombatant = buildPlayerCombatant({
       hp: startHp,
@@ -2300,7 +2554,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
-      stamina: forceMandatory ? s.stamina : Math.max(0, s.stamina - 10),
+      silver: s.silver - lodgingFee,
       activeCombat: session,
       menuOpen: false,
       compendiumOpen: false,
@@ -2318,7 +2572,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextLearnedArts = s.learnedArts
     let nextConsumedUniqueIds = s.consumedUniqueIds
     let nextFood = s.food
-    let nextStamina = s.stamina
 
     if (choice.type === 'item') {
       const def = ITEM_DB_MAP[choice.itemId]
@@ -2346,7 +2599,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         if (eff.agi && eff.agi > 0) {
           grantArtProficiency(clonedArts, s.equippedArts.qinggong, eff.agi * 18)
         }
-        if (eff.maxStamina) cloned.maxStamina += eff.maxStamina
         if (eff.skillGain) {
           const [sk, gain] = eff.skillGain
           cloned.skills[sk] = Math.min(
@@ -2355,15 +2607,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           )
         }
         if (eff.food) nextFood += eff.food
-        if (eff.stamina) {
-          const derivedTmp = deriveHeroEffectiveStats(
-            cloned,
-            s.equipped,
-            s.equippedArts,
-            clonedArts,
-          )
-          nextStamina = Math.min(derivedTmp.maxStamina, s.stamina + eff.stamina)
-        }
         nextBaseStats = cloned
         nextLearnedArts = clonedArts
       }
@@ -2404,7 +2647,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       learnedArts: nextLearnedArts,
       consumedUniqueIds: nextConsumedUniqueIds,
       food: nextFood,
-      stamina: nextStamina,
     })
   },
 
@@ -2520,7 +2762,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         }
       }
       extraLogTag = '投名状成'
-      extraLogText = `劫掠大宋官员【${session.npc.name}】得手，夺得官银 +60 两，已完成绿林【纳投名状】！⚠️ 少侠已被列入大宋朝廷黑名单：其他城池无碍，一旦进入【开封府】必遭南侠展昭挑战缉斩！`
+      extraLogText = `劫掠大宋官员【${session.npc.name}】得手，夺得官银 +60 两、战斗经验 +${res.combatExpGain}，已完成绿林【纳投名状】！⚠️ 少侠已被列入大宋朝廷黑名单：其他城池无碍，一旦进入【开封府】必遭南侠展昭挑战缉斩！`
       if (s.activeRegionId === 'bianliang') {
         triggerKaifengZhanZhao = true
       }
@@ -2532,13 +2774,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextSectState.contribution += 100
       nextSilver += 50
       extraLogTag = '燕云锄奸'
-      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派年度军令，获门派功绩 +100（现 ${nextSectState.contribution}）、犒赏纹银 +50 两！`
+      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派年度军令，获门派功绩 +100（现 ${nextSectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +50 两！`
     }
 
     // 若从展昭剑下侥幸获胜
     if (session.duelStakes === 'zhan_zhao_arrest' && session.outcome === 'player_win') {
       extraLogTag = '震动东京'
-      extraLogText = `少侠竟在东京街头力挫御前四品带刀护卫「南侠」展昭，杀出重围！然朝廷黑名单未消，再度踏入开封仍将遭展昭截杀！`
+      extraLogText = `少侠竟在东京街头力挫御前四品带刀护卫「南侠」展昭（战斗经验 +${res.combatExpGain}），杀出重围！然朝廷黑名单未消，再度踏入开封仍将遭展昭截杀！`
     }
 
     set({
@@ -2547,6 +2789,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         qHook || (session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win')
           ? null
           : s.activeNpcInteraction,
+      combatExp: res.nextCombatExp,
       silver: nextSilver,
       sectState: nextSectState,
       questState: nextQuestState,
@@ -2563,8 +2806,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       hp: res.nextHp,
       maxMp: res.derived.maxMp,
       mp: res.nextMp,
-      maxStamina: res.derived.maxStamina,
-      stamina: Math.min(res.derived.maxStamina, s.stamina),
       actionFeedback: {
         text: extraLogText,
         tone: session.outcome === 'npc_win' || session.outcome === 'escaped' ? 'warn' : 'success',
@@ -2644,14 +2885,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       qinggongBonus: derived.qinggongBonus,
       ridingSkill: derived.ridingSkill,
       agility: derived.agility,
+      combatExp: 80,
       silver: 5120,
       food: 25,
       hp: derived.maxHp,
       maxHp: derived.maxHp,
       mp: derived.maxMp,
       maxMp: derived.maxMp,
-      stamina: derived.maxStamina,
-      maxStamina: derived.maxStamina,
       res: derived.res,
       skills: { ...derived.skills },
       equipped: freshEquip,
@@ -2900,24 +3140,23 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     const sectId = s.sectState.sectId
     if (!sectId) return
-    if (s.stamina < 10) {
-      set({
-        actionFeedback: {
-          text: `门派当差演武需耗费 10 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚！`,
-          tone: 'warn',
-        },
-      })
-      return
-    }
+
     const factionName = FACTION_DB_MAP[sectId]?.name ?? sectId
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 2)
     const contribGain = 35
+    const combatExpGain = 40
     const silverReward = 8
+    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, sectId)
+    const lodgingFee =
+      clock.daysAdded > 0 && !inOwnSectCity
+        ? Math.min(s.silver + silverReward, DAILY_INN_LODGING_COST * clock.daysAdded)
+        : 0
 
     const updatedSect = clonePlayerSectState(s.sectState)
     updatedSect.contribution += contribGain
+    const nextCombatExp = s.combatExp + combatExpGain
 
-    const msg = `于【${factionName}】${npc ? `随 ${npc.name} ` : ''}校场当差值守两个时辰（体能 -10），门派功绩 +${contribGain}（现 ${updatedSect.contribution}），津贴纹银 +${silverReward} 两！`
+    const msg = `于【${factionName}】${npc ? `随 ${npc.name} ` : ''}校场当差巡防两个时辰：门派功绩 +${contribGain}（现 ${updatedSect.contribution}）、战斗经验 +${combatExpGain}（现 ${nextCombatExp}）、津贴纹银 +${silverReward} 两${lodgingFee > 0 ? `（异乡宿费 -${lodgingFee} 两）` : ''}！`
     const baseLogs = [
       createLogEntry(clock.dayCount, '门派当差', msg, false, clock.shichenIdx),
       ...s.logs,
@@ -2927,12 +3166,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         ? applyDayProgressionSectHooks({
             nextDayCount: clock.dayCount,
             shichenIdx: clock.shichenIdx,
-            silver: s.silver + silverReward,
+            silver: s.silver + silverReward - lodgingFee,
             sectState: updatedSect,
             logs: baseLogs,
           })
         : {
-            silver: s.silver + silverReward,
+            silver: s.silver + silverReward - lodgingFee,
             sectState: updatedSect,
             logs: baseLogs,
             overdueSpyAmbush: null,
@@ -2941,7 +3180,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
-      stamina: Math.max(0, s.stamina - 10),
+      combatExp: nextCombatExp,
       silver: dayHook.silver,
       sectState: dayHook.sectState,
       actionFeedback: { text: msg, tone: 'success' },
@@ -3264,15 +3503,29 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           const nextQuest = cloneQuestRuntimeState(s.questState)
           delete nextQuest.activeQuests[eff.questId]
           const prevComp = nextQuest.completedQuests[eff.questId]
+          const outcomeStr = eff.outcome ?? 'completed'
           nextQuest.completedQuests[eff.questId] = {
             questId: eff.questId,
-            outcome: eff.outcome ?? 'completed',
+            outcome: outcomeStr,
             completedDay: s.dayCount,
             count: (prevComp?.count ?? 0) + 1,
           }
-          const msg = `圆满了结江湖卷宗《${qDef?.title ?? eff.questId}》！`
+          const isSuccessOutcome = outcomeStr !== 'failed' && outcomeStr !== 'abandoned'
+          const combatExpBonus =
+            typeof eff.combatExp === 'number'
+              ? eff.combatExp
+              : isSuccessOutcome
+                ? qDef?.category === 'main_story'
+                  ? 120
+                  : 60
+                : 0
+          const nextCombatExp = Math.max(0, s.combatExp + combatExpBonus)
+          const msg = `圆满了结江湖卷宗《${qDef?.title ?? eff.questId}》${
+            combatExpBonus > 0 ? `（战斗经验 +${combatExpBonus}，现 ${nextCombatExp}）` : ''
+          }！`
           set({
             questState: nextQuest,
+            combatExp: nextCombatExp,
             actionFeedback: eff.silent ? s.actionFeedback : { text: msg, tone: 'success' },
             logs: eff.silent
               ? s.logs
@@ -3343,6 +3596,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           break
         }
 
+        case 'giveCombatExp': {
+          set({ combatExp: Math.max(0, s.combatExp + eff.amount) })
+          break
+        }
+
         case 'giveItem': {
           const nextInv = addItemToInventory(s.inventory, eff.itemId, eff.qty ?? 1)
           set({ inventory: nextInv })
@@ -3376,8 +3634,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             hp: Math.min(derived.maxHp, s.hp),
             maxMp: derived.maxMp,
             mp: Math.min(derived.maxMp, s.mp),
-            maxStamina: derived.maxStamina,
-            stamina: Math.min(derived.maxStamina, s.stamina),
             agility: derived.agility,
             res: derived.res,
             skills: derived.skills,
@@ -3416,13 +3672,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         case 'healPlayer': {
           const addHp = eff.hpPct ? Math.round(s.maxHp * (eff.hpPct / 100)) : 0
           const addMp = eff.mpPct ? Math.round(s.maxMp * (eff.mpPct / 100)) : 0
-          const addStam = eff.staminaPct
-            ? Math.round(s.maxStamina * (eff.staminaPct / 100))
-            : 0
           set({
             hp: Math.max(1, Math.min(s.maxHp, s.hp + addHp)),
             mp: Math.max(0, Math.min(s.maxMp, s.mp + addMp)),
-            stamina: Math.max(0, Math.min(s.maxStamina, s.stamina + addStam)),
           })
           break
         }
@@ -4063,9 +4315,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextDayCount = s.dayCount
     let nextFood = s.food
     let nextSilver = s.silver
+    let nextCombatExp = s.combatExp
     let nextHp = s.hp
     let nextMp = s.mp
-    let nextStamina = s.stamina
     let nextBaseStats = s.baseStats
     let nextRes = s.res
     let nextSkills = s.skills
@@ -4081,10 +4333,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       crossedDayBoundary = true
       if (nextFood > 0) {
         nextFood -= 1
-        nextStamina = Math.max(15, nextStamina - 4)
+      } else if (nextSilver >= DAILY_INN_LODGING_COST) {
+        nextSilver -= DAILY_INN_LODGING_COST
       } else {
-        if (nextSilver >= 2) nextSilver -= 2
-        nextStamina = Math.max(5, nextStamina - 14)
+        nextHp = Math.max(1, Math.round(nextHp * 0.9))
+        nextMp = Math.max(0, Math.round(nextMp * 0.9))
       }
 
       if (Math.random() < 0.16) {
@@ -4096,8 +4349,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             maxHp: s.maxHp,
             mp: nextMp,
             maxMp: s.maxMp,
-            stamina: nextStamina,
-            maxStamina: s.maxStamina,
+            combatExp: nextCombatExp,
             silver: nextSilver,
             baseStats: clonedBase,
           }
@@ -4111,7 +4363,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           nextBaseStats = clonedBase
           nextHp = Math.min(derived.maxHp, draft.hp)
           nextMp = Math.min(derived.maxMp, draft.mp)
-          nextStamina = Math.min(derived.maxStamina, draft.stamina)
+          nextCombatExp = draft.combatExp
           nextSilver = draft.silver
           nextRes = derived.res
           nextSkills = derived.skills
@@ -4168,11 +4420,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           shichenIdx: nextShichenIdx,
           food: nextFood,
           silver: nextSilver,
+          combatExp: nextCombatExp,
           sectState: nextSectState,
           baseStats: nextBaseStats,
           hp: nextHp,
           mp: nextMp,
-          stamina: nextStamina,
           res: nextRes,
           skills: nextSkills,
           roamingMasters: nextMasters,
@@ -4218,11 +4470,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           shichenIdx: nextShichenIdx,
           food: nextFood,
           silver: nextSilver,
+          combatExp: nextCombatExp,
           sectState: nextSectState,
           baseStats: nextBaseStats,
           hp: nextHp,
           mp: nextMp,
-          stamina: nextStamina,
           res: nextRes,
           skills: nextSkills,
           roamingMasters: nextMasters,
@@ -4270,11 +4522,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         shichenIdx: nextShichenIdx,
         food: nextFood,
         silver: nextSilver,
+        combatExp: nextCombatExp,
         sectState: nextSectState,
         baseStats: nextBaseStats,
         hp: nextHp,
         mp: nextMp,
-        stamina: nextStamina,
         res: nextRes,
         skills: nextSkills,
         roamingMasters: nextMasters,
@@ -4317,11 +4569,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       shichenIdx: nextShichenIdx,
       food: nextFood,
       silver: nextSilver,
+      combatExp: nextCombatExp,
       sectState: nextSectState,
       baseStats: nextBaseStats,
       hp: nextHp,
       mp: nextMp,
-      stamina: nextStamina,
       res: nextRes,
       skills: nextSkills,
       roamingMasters: nextMasters,
@@ -4390,12 +4642,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       traveling: null,
       selectedNodeId: null,
       campPos: camp,
-      stamina: Math.min(s.maxStamina, s.stamina + 20),
       logs: [
         createLogEntry(
           s.dayCount,
           '原地露营',
-          `少侠收缰驻马，于【${fromName}】至【${toName}】旷野中途原地安营扎寨（距${fromName} ${Math.round(camp.distU)} 里 · 距${toName} ${Math.round(camp.distV)} 里，体能 +20）。`,
+          `少侠收缰驻马，于【${fromName}】至【${toName}】旷野中途原地安营扎寨（距${fromName} ${Math.round(camp.distU)} 里 · 距${toName} ${Math.round(camp.distV)} 里，可就地开启野外扎营闭关）。`,
           false,
           s.shichenIdx,
         ),
@@ -4587,9 +4838,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         buildingName,
         hp: st.hp,
         maxHp: st.maxHp,
-        stamina: st.stamina,
-        maxStamina: st.maxStamina,
         mp: st.mp,
+        maxMp: st.maxMp,
+        combatExp: st.combatExp,
         silver: st.silver,
         food: st.food,
       },
@@ -4650,12 +4901,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       qinggongBonus: derived.qinggongBonus,
       ridingSkill: derived.ridingSkill,
       agility: derived.agility,
+      combatExp: Math.max(0, Math.floor(st.combatExp ?? 0)),
       maxHp: derived.maxHp,
       hp: Math.min(derived.maxHp, st.hp),
       maxMp: derived.maxMp,
       mp: Math.min(derived.maxMp, st.mp),
-      maxStamina: derived.maxStamina,
-      stamina: Math.min(derived.maxStamina, st.stamina),
       res: derived.res,
       skills: derived.skills,
       consumedUniqueIds: st.consumedUniqueIds ?? [],

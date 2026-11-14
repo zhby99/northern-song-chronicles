@@ -4,6 +4,11 @@ import { FACTION_DB_MAP, MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
 import { computeEquipmentTotals, computeWeaponArtSynergy } from '../../../data/itemsDb'
 import { computeEquippedArtsTotals } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
+import {
+  calcDailyExpByCategory,
+  DAILY_INN_LODGING_COST,
+  isPlayerInOwnSectRegion,
+} from '../../../utils/heroStats'
 import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
 import { estimateHeroRealm } from '../../../utils/realmUtils'
 import { getChangshanMonthlyStipend } from '../../../utils/sectMechanics'
@@ -21,8 +26,9 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const maxHp = useGameStore((s) => s.maxHp)
   const mp = useGameStore((s) => s.mp)
   const maxMp = useGameStore((s) => s.maxMp)
-  const stamina = useGameStore((s) => s.stamina)
-  const maxStamina = useGameStore((s) => s.maxStamina)
+  const combatExp = useGameStore((s) => s.combatExp)
+  const currentNodeId = useGameStore((s) => s.currentNodeId)
+  const campPos = useGameStore((s) => s.campPos)
   const agility = useGameStore((s) => s.agility)
   const res = useGameStore((s) => s.res)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
@@ -59,7 +65,10 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
 
   const hpPct = Math.min(100, Math.round((hp / Math.max(1, maxHp)) * 100))
   const mpPct = Math.min(100, Math.round((mp / Math.max(1, maxMp)) * 100))
-  const staPct = Math.min(100, Math.round((stamina / Math.max(1, maxStamina)) * 100))
+  const inOwnSectCity = isPlayerInOwnSectRegion(currentNodeId, campPos, sectState.sectId)
+  const dailyNeigongExp = calcDailyExpByCategory(true, baseStats.talents, 1.0)
+  const dailyOuterExp = calcDailyExpByCategory(false, baseStats.talents, 1.0)
+
   const mainNeigong = equippedArts.neigong ? MARTIAL_ART_DB_MAP[equippedArts.neigong] : null
   const mainQinggong = equippedArts.qinggong ? MARTIAL_ART_DB_MAP[equippedArts.qinggong] : null
   const heroImgUrl = '/assets/characters/templates/tpl_song_scholar_fb.jpg'
@@ -186,21 +195,27 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
           </div>
         </div>
 
-        {/* 右侧：生存三维条、实战四维、先天三维禀赋、行军脚力与当前运功速览 */}
+        {/* 右侧：生存气血内力与战斗经验、实战四维、先天三维禀赋、行军脚力与当前运功速览 */}
         <div className="lg:col-span-8 flex flex-col justify-between gap-4">
-          {/* 1) 气血 / 内力 / 体能 进度条与调息 */}
+          {/* 1) 气血 / 内力 / 战斗经验 与住宿调息 */}
           <div className="p-4 rounded-lg bg-[#efe4cc] border border-[#c8b28e] space-y-3">
-            <div className="flex items-center justify-between border-b border-[#cbb693] pb-2">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#cbb693] pb-2">
               <span className="song-serif font-bold text-base text-[#23180f]">
-                周身气血 · 真气内息 · 日常体能
+                周身气血 · 真气内息 · 战斗经验
               </span>
               <button
                 type="button"
                 onClick={restRecoverStamina}
-                title="花费 3 两纹银于客舍小憩三个时辰，回满体能并平复气血内息"
+                title={
+                  inOwnSectCity
+                    ? '身处本门驻地所在州府，免费于师门寮房调息回满气血内息'
+                    : `非师门驻地须花费 ${DAILY_INN_LODGING_COST} 两纹银住店调息，回满气血与内息`
+                }
                 className="px-3 py-1 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] text-xs font-bold song-serif cursor-pointer shadow-sm transition"
               >
-                客舍调息（3两银 · 回满体能）
+                {inOwnSectCity
+                  ? '师门调息（驻地免费 · 回满气血内息）'
+                  : `客舍调息（${DAILY_INN_LODGING_COST}两银 · 回满气血内息）`}
               </button>
             </div>
 
@@ -241,21 +256,18 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                 </div>
               </div>
 
-              <div className="p-3 rounded bg-[#faf3e3] border border-[#cbb693]">
-                <div className="flex justify-between text-xs mb-1.5">
-                  <span className="font-bold text-[#6b5033] song-serif">体能（精力）</span>
-                  <span className="font-mono font-bold text-[#185a37]">
-                    {stamina} / {maxStamina}
+              <div className="p-3 rounded bg-[#faf3e3] border border-[#cbb693] flex flex-col justify-between">
+                <div className="flex justify-between text-xs mb-1">
+                  <span className="font-bold text-[#6b5033] song-serif">战斗经验（破境）</span>
+                  <span className="font-mono font-bold text-[#781710]">
+                    {combatExp.toLocaleString()} 点
                   </span>
                 </div>
-                <div className="w-full h-2.5 rounded-full bg-[#dccab0] overflow-hidden">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#047857] to-[#10b981]"
-                    style={{ width: `${staPct}%` }}
-                  />
+                <div className="text-[11px] text-[#52391e] font-mono">
+                  禀赋单日闭关：内+{dailyNeigongExp} / 外轻+{dailyOuterExp}
                 </div>
-                <div className="text-[11px] text-[#7a6042] mt-1 font-mono">
-                  日常体魄 {baseStats.maxStamina} · 披挂 +{equipTotals.maxStamina}
+                <div className="text-[10px] text-[#7a6042] mt-1">
+                  切磋/决战/当差/缉凶获取 · 良/地/天阶破境必需
                 </div>
               </div>
             </div>

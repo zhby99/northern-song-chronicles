@@ -96,7 +96,7 @@ export function BagTab({
           <div>
             <div className="text-[#6b5033] font-bold song-serif text-sm">行军粮草（干粮）</div>
             <div className="text-xs text-[#7a6042] mt-0.5">
-              大地图远征每行一日消耗 1 份，断粮将大幅损耗体能
+              大地图远征与野外扎营闭关每日消耗 1 份干粮
             </div>
           </div>
           <div className="flex items-center gap-3">
@@ -344,17 +344,11 @@ export function BagTab({
                         activeStack.def.useEffect.maxMp
                           ? `内力上限 +${activeStack.def.useEffect.maxMp}`
                           : null,
-                        activeStack.def.useEffect.maxStamina
-                          ? `体能上限 +${activeStack.def.useEffect.maxStamina}`
-                          : null,
                         activeStack.def.useEffect.hp
                           ? `气血 +${activeStack.def.useEffect.hp}`
                           : null,
                         activeStack.def.useEffect.mp
                           ? `内力 +${activeStack.def.useEffect.mp}`
-                          : null,
-                        activeStack.def.useEffect.stamina
-                          ? `体能 +${activeStack.def.useEffect.stamina}`
                           : null,
                         activeStack.def.useEffect.agi
                           ? `身法 +${activeStack.def.useEffect.agi}`
@@ -406,7 +400,7 @@ export function BagTab({
                             </button>
                           </div>
                           <div className="text-[11px] text-[#7a6042]">
-                            秘籍仅限初次展卷领悟入门（第1重），后续熟练度须凭演武精修提升。
+                            秘籍仅限初次展卷领悟入门（第1重），后续熟练度须凭按日闭关精修提升。
                           </div>
                         </div>
                       )}
@@ -438,7 +432,7 @@ export function BagTab({
                         onClick={() => consumeInventoryItem(activeStack.itemId, true)}
                         className="px-3 py-2.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
                       >
-                        抚弄修习 (-6体能)
+                        抚弄修习
                       </button>
                     )}
                     <button
@@ -460,7 +454,7 @@ export function BagTab({
                     onClick={() => onJumpToPracticeArt(activeStack.def.useEffect!.learnArtId!)}
                     className="w-full px-3 py-2.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
                   >
-                    已领悟入门 · 前往【披挂与武学】演练精修 →
+                    已领悟入门 · 前往【披挂与武学】闭关精修 →
                   </button>
                 ) : activeStack.def.useEffect ? (
                   <button
@@ -470,10 +464,10 @@ export function BagTab({
                   >
                     {activeStack.def.category === 'scrolls'
                       ? activeStack.def.useEffect.learnArtId
-                        ? '初次展卷领悟入门 (-6体能)'
-                        : '展卷研读修艺 (-6体能)'
+                        ? '初次展卷领悟入门'
+                        : '展卷研读修艺'
                       : activeStack.def.category === 'tools'
-                        ? '把玩演练修习 (-6体能)'
+                        ? '把玩演练修习'
                         : '立即服食使用'}
                   </button>
                 ) : activeStack.def.poisonEffect ? (

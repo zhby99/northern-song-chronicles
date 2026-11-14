@@ -204,11 +204,11 @@ export function SaveLoadTab({ mode, locationLabel }: SaveLoadTabProps) {
               {env && (
                 <div className="flex flex-wrap items-center justify-between gap-2 bg-[#faf3e3] border border-[#cbb693] rounded px-3 py-1.5 text-xs">
                   <span className="font-mono text-[#3d2b19]">
-                    血 {env.summary.hp}
-                    {typeof env.summary.stamina === 'number'
-                      ? ` · 体 ${env.summary.stamina}`
+                    血 {env.summary.hp} · 内 {env.summary.mp}
+                    {typeof env.summary.combatExp === 'number'
+                      ? ` · 战经 ${env.summary.combatExp}`
                       : ''}{' '}
-                    · 内 {env.summary.mp} · 银 {env.summary.silver}两 · 粮 {env.summary.food}份
+                    · 银 {env.summary.silver}两 · 粮 {env.summary.food}份
                   </span>
                   {env.note && (
                     <span className="text-[#6b5235] italic truncate max-w-[220px]">

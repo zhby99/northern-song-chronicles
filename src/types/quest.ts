@@ -216,17 +216,24 @@ export type QuestEffect =
       varsPatch?: Record<string, QuestPrimitiveValue>
       silent?: boolean
     }
-  | { type: 'completeQuest'; questId: string; outcome?: string; silent?: boolean }
+  | {
+      type: 'completeQuest'
+      questId: string
+      outcome?: string
+      combatExp?: number
+      silent?: boolean
+    }
   | { type: 'abandonQuest'; questId: string; silent?: boolean }
   | { type: 'setFlag'; flag: string; value: QuestPrimitiveValue }
   | { type: 'addFlagNumber'; flag: string; delta: number }
   | { type: 'giveSilver'; amount: number; reason?: string }
   | { type: 'giveFood'; amount: number }
+  | { type: 'giveCombatExp'; amount: number; reason?: string }
   | { type: 'giveItem'; itemId: string; qty?: number }
   | { type: 'removeItem'; itemId: string; qty?: number }
   | { type: 'modifyTalent'; key: keyof HeroTalents; delta: number }
   | { type: 'modifySkill'; key: TenArtKey; delta: number }
-  | { type: 'healPlayer'; hpPct?: number; mpPct?: number; staminaPct?: number }
+  | { type: 'healPlayer'; hpPct?: number; mpPct?: number }
   | { type: 'teachMartialArt'; artId: string; level?: number }
   | {
       type: 'joinSect'

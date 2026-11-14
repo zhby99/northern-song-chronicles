@@ -3725,7 +3725,7 @@
     "value": 14,
     "equipBonus": {
       "attack": 12,
-      "maxStamina": 10
+      "maxHp": 20
     },
     "synergies": [
       {
@@ -3830,8 +3830,7 @@
     "value": 10,
     "equipBonus": {
       "attack": 8,
-      "maxHp": 15,
-      "maxStamina": 5
+      "maxHp": 25
     },
     "synergies": [
       {

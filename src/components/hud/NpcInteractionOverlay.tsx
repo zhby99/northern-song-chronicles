@@ -767,7 +767,7 @@ export function NpcInteractionOverlay() {
                         onClick={() => performSectDuty()}
                         className="px-3.5 py-1.5 rounded-lg bg-[#5c3d1e] hover:bg-[#734c26] border border-[#b59461] text-[#fff8ee] text-xs font-medium cursor-pointer"
                       >
-                        门派当差（体能-15 · 功绩+35）
+                        门派当差（功绩+35 · 战经+40 · 津贴+8两）
                       </button>
                       {promoEval && (
                         <button

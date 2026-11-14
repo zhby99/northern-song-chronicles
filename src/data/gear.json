@@ -1219,7 +1219,7 @@
     "equipBonus": {
       "agility": 32,
       "maxMp": 180,
-      "maxStamina": 40
+      "maxHp": 120
     },
     "specialTag": "踏雪无痕",
     "description": "逍遥派凌波微步绝配云履，足底镶软玉，腾挪如履平地。",
@@ -1253,15 +1253,15 @@
     },
     "specialTag": "日行千里",
     "description": "取深海鲛皮与天山雪蚕丝缝制，轻若无物且护踝如铁。",
-    "prerequisitesText": "`身法≥78`、`体能≥160`",
+    "prerequisitesText": "`身法≥78`、`骑术≥60`",
     "statRequirements": [
       {
         "stat": "身法",
         "min": 78
       },
       {
-        "stat": "体能",
-        "min": 160
+        "stat": "骑术",
+        "min": 60
       }
     ]
   },
@@ -1309,7 +1309,7 @@
     "equipBonus": {
       "agility": 20,
       "res": 12,
-      "maxStamina": 25
+      "maxHp": 90
     },
     "specialTag": "雪域疾行",
     "description": "西域雪豹皮缝制，踏冰雪而不滑，登绝壁如履平地。",
@@ -1390,7 +1390,7 @@
     "value": 820,
     "equipBonus": {
       "agility": 17,
-      "maxStamina": 30
+      "maxHp": 100
     },
     "specialTag": "日行百里",
     "description": "韧草混麻筋编织，极耐长途跋涉。",
@@ -1452,7 +1452,7 @@
     "value": 470,
     "equipBonus": {
       "agility": 14,
-      "maxStamina": 15
+      "maxHp": 55
     },
     "specialTag": "峭壁登攀",
     "description": "鞋底带细密防滑纹，利攀岩走壁。",
@@ -1533,7 +1533,7 @@
     "value": 320,
     "equipBonus": {
       "agility": 10,
-      "maxStamina": 12
+      "maxHp": 45
     },
     "specialTag": "走镖常备",
     "description": "牛筋底耐磨耐走。",
@@ -1573,7 +1573,7 @@
     "value": 140,
     "equipBonus": {
       "agility": 7,
-      "maxStamina": 10
+      "maxHp": 35
     },
     "specialTag": "京城老字号",
     "description": "纳千层棉布底，舒适养脚。",
@@ -1633,7 +1633,7 @@
     "value": 120,
     "equipBonus": {
       "agility": 6,
-      "maxStamina": 12
+      "maxHp": 40
     },
     "specialTag": "苦行行脚",
     "description": "韧麻编织的僧侣芒鞋。",
@@ -1713,7 +1713,7 @@
     "value": 75,
     "equipBonus": {
       "agility": 5,
-      "maxStamina": 8
+      "maxHp": 28
     },
     "specialTag": "巴蜀栈道",
     "description": "抓地力极强的麻筋草鞋。",
@@ -1752,7 +1752,7 @@
     "value": 30,
     "equipBonus": {
       "agility": 3,
-      "maxStamina": 5
+      "maxHp": 18
     },
     "specialTag": "乡野编织",
     "description": "蒲草编织的简易草鞋。",
@@ -1772,7 +1772,7 @@
     "value": 28,
     "equipBonus": {
       "agility": 2,
-      "maxStamina": 5
+      "maxHp": 16
     },
     "specialTag": "南海渔村",
     "description": "涉水耐泡的草履。",

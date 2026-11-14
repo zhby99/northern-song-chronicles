@@ -8,6 +8,7 @@ import {
   SkipBack,
   SkipForward,
   Sun,
+  Swords,
   Volume2,
   VolumeX,
   Wheat,
@@ -107,29 +108,29 @@ const TopClockBadge = memo(function TopClockBadge() {
 })
 
 /**
- * 隔离组件 2：主角气血、体能与行军资粮条
+ * 隔离组件 2：主角气血、真气内力、战斗经验与行军资粮条
  */
 const TopHeroVitalsBar = memo(function TopHeroVitalsBar() {
   const hp = useGameStore((s) => s.hp)
   const maxHp = useGameStore((s) => s.maxHp)
-  const stamina = useGameStore((s) => s.stamina)
-  const maxStamina = useGameStore((s) => s.maxStamina)
+  const mp = useGameStore((s) => s.mp)
+  const maxMp = useGameStore((s) => s.maxMp)
+  const combatExp = useGameStore((s) => s.combatExp)
   const silver = useGameStore((s) => s.silver)
   const food = useGameStore((s) => s.food)
   const openMenu = useGameStore((s) => s.openMenu)
 
   const hpPct = Math.min(100, Math.max(0, Math.round((hp / Math.max(1, maxHp)) * 100)))
-  const staPct = Math.min(100, Math.max(0, Math.round((stamina / Math.max(1, maxStamina)) * 100)))
+  const mpPct = Math.min(100, Math.max(0, Math.round((mp / Math.max(1, maxMp)) * 100)))
   const isFoodLow = food <= 5
-  const isStaminaLow = staPct <= 25
 
   return (
     <div className="flex items-center gap-2 sm:gap-3.5 overflow-x-auto no-scrollbar">
-      {/* 气血 & 体能 (点击直达主角面板) */}
+      {/* 气血 & 内力 & 战斗经验 (点击直达主角面板) */}
       <button
         type="button"
         onClick={() => openMenu('hero')}
-        title="点击打开【主角面板】检视气血、体能、先天三维与十艺修为"
+        title="点击打开【主角面板】检视气血、内力、战斗经验、先天三维与十艺修为"
         className="flex items-center gap-3 px-2.5 py-1 rounded bg-[#1a110a]/75 hover:bg-[#332215] border border-[#8c6e46]/60 transition cursor-pointer"
       >
         <div className="flex items-center gap-1.5">
@@ -153,33 +154,29 @@ const TopHeroVitalsBar = memo(function TopHeroVitalsBar() {
         <div className="h-5 w-px bg-[#6e5539]/50" />
 
         <div className="flex items-center gap-1.5">
-          <Zap
-            className={`w-3.5 h-3.5 shrink-0 ${
-              isStaminaLow ? 'text-amber-400 animate-pulse' : 'text-emerald-400'
-            }`}
-          />
+          <Zap className="w-3.5 h-3.5 shrink-0 text-sky-400" />
           <div className="text-left">
             <div className="flex items-center justify-between gap-2 text-[11px] leading-none">
-              <span className="text-[#dfcfb0] song-serif font-semibold">体能</span>
-              <span
-                className={`font-mono font-bold ${
-                  isStaminaLow ? 'text-amber-300' : 'text-emerald-300'
-                }`}
-              >
-                {stamina}/{maxStamina}
+              <span className="text-[#dfcfb0] song-serif font-semibold">内力</span>
+              <span className="font-mono font-bold text-sky-300">
+                {mp}/{maxMp}
               </span>
             </div>
-            <div className="w-20 sm:w-24 h-1.5 rounded-full bg-[#1a2e24] overflow-hidden mt-1 border border-black/40">
+            <div className="w-20 sm:w-24 h-1.5 rounded-full bg-[#152438] overflow-hidden mt-1 border border-black/40">
               <div
-                className={`h-full transition-all duration-300 ${
-                  isStaminaLow
-                    ? 'bg-gradient-to-r from-[#b45309] to-[#f59e0b]'
-                    : 'bg-gradient-to-r from-[#059669] to-[#34d399]'
-                }`}
-                style={{ width: `${staPct}%` }}
+                className="h-full bg-gradient-to-r from-[#1d4ed8] to-[#38bdf8] transition-all duration-300"
+                style={{ width: `${mpPct}%` }}
               />
             </div>
           </div>
+        </div>
+
+        <div className="hidden md:block h-5 w-px bg-[#6e5539]/50" />
+
+        <div className="hidden md:flex items-center gap-1 text-xs">
+          <Swords className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+          <span className="text-[#dfcfb0] song-serif">战经</span>
+          <strong className="font-mono text-amber-200">{combatExp}</strong>
         </div>
       </button>
 

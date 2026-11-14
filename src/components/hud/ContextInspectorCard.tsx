@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import {
   BUILDING_DB_MAP,
+  FACTION_DB_MAP,
   getCompiledNpcsByBuilding,
   getCompiledNpcsBySpot,
   REGION_DB_MAP,
@@ -20,6 +21,11 @@ import type {
   NpcTenArts,
   RoamingMaster,
 } from '../../types/game'
+import {
+  DAILY_INN_LODGING_COST,
+  isInnBuildingRecord,
+  isPlayerInOwnSectRegion,
+} from '../../utils/heroStats'
 import {
   findBestRoute,
   getRegionAllBuildings,
@@ -101,6 +107,7 @@ export function ContextInspectorCard() {
   const startNpcCombat = useGameStore((s) => s.startNpcCombat)
   const openNpcInteraction = useGameStore((s) => s.openNpcInteraction)
   const openNpcDetailInCompendium = useGameStore((s) => s.openNpcDetailInCompendium)
+  const openMenu = useGameStore((s) => s.openMenu)
 
   const currentContextKey = `${viewMode}:${activeRegionId}:${activeBuildingInteriorId ?? ''}:${selectedBuildingId ?? ''}:${selectedSpotId ?? ''}`
   const [expandedEntry, setExpandedEntry] = useState<{
@@ -326,8 +333,39 @@ export function ContextInspectorCard() {
     questState,
   ])
 
-  // 1) World Map Node Inspector
+  // 1) World Map Node Inspector (or Wilderness Camp Inspector)
   if (viewMode === 'world') {
+    if (!selectedNodeId && !traveling && campPos) {
+      const nodeU = NODE_MAP[campPos.u]
+      const nodeV = NODE_MAP[campPos.v]
+      return (
+        <div
+          id="floating-context-card"
+          className="absolute bottom-3.5 right-3.5 z-20 w-80 bg-[#f8f1e1] text-[#23180f] border-2 border-[#6e5233] rounded-md p-3.5 shadow-2xl space-y-2.5 text-xs select-none"
+        >
+          <div className="flex items-center justify-between border-b border-[#cbb693] pb-2">
+            <span className="song-serif font-bold text-sm text-[#23180f]">
+              ⛺ 旷野行辕营地
+            </span>
+            <span className="px-1.5 py-0.5 rounded bg-[#215744] text-[#fff8ee] text-[10px]">
+              野外扎营中
+            </span>
+          </div>
+          <p className="text-[#3d2b19] leading-relaxed">
+            当前驻扎于【{nodeU?.name ?? campPos.u}】（距 {Math.round(campPos.distU)} 里）至【
+            {nodeV?.name ?? campPos.v}】（距 {Math.round(campPos.distV)} 里）驿道途中。可点选任意城池拔营续行，或就地篝火闭关精修武学。
+          </p>
+          <button
+            type="button"
+            onClick={() => openMenu('loadout')}
+            className="w-full px-3 py-2 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif shadow transition cursor-pointer"
+          >
+            营地闭关修炼（耗粮 1 份/日 · 效率 85%）→
+          </button>
+        </div>
+      )
+    }
+
     if (!selectedNodeId || traveling) return null
     const node = NODE_MAP[selectedNodeId]
     if (!node) return null
@@ -509,6 +547,20 @@ export function ContextInspectorCard() {
   const activeCanEnter = Boolean(viewMode === 'region' && targetBuildingDb?.interior)
   const targetHasSubSpots = (targetBuildingDb?.interior?.spots.length ?? 0) > 0
 
+  const inspectedRootBldg = activeBldgRecord ?? targetBuildingDb
+  const playerFaction = sectState.sectId ? FACTION_DB_MAP[sectState.sectId] : null
+  const isAtCurrentRegion = currentNodeId === activeRegionId && !campPos
+  const isOwnSectGrounds = Boolean(
+    isAtCurrentRegion &&
+      inspectedRootBldg &&
+      playerFaction &&
+      playerFaction.coreBuildingIds.includes(inspectedRootBldg.id),
+  )
+  const isInnVenue = Boolean(
+    isAtCurrentRegion && !isOwnSectGrounds && isInnBuildingRecord(inspectedRootBldg),
+  )
+  const inOwnSectCity = isPlayerInOwnSectRegion(currentNodeId, campPos, sectState.sectId)
+
   return (
     <div
       id="floating-context-card"
@@ -615,6 +667,20 @@ export function ContextInspectorCard() {
             })}
           </div>
         </div>
+      )}
+
+      {(isOwnSectGrounds || isInnVenue) && (
+        <button
+          type="button"
+          onClick={() => openMenu('loadout')}
+          className="w-full px-3 py-2 rounded bg-[#5c3d1e] hover:bg-[#734c26] border border-[#c89d54]/70 text-[#fff8eb] text-xs font-bold song-serif shadow transition cursor-pointer"
+        >
+          {isOwnSectGrounds
+            ? '在此发起闭关修炼（师门演武场 · 效率 125% · 免宿费）→'
+            : `在此发起闭关修炼（客栈闭关 · 效率 100% · ${
+                inOwnSectCity ? '师门驻地免宿费' : `${DAILY_INN_LODGING_COST} 两/日`
+              }）→`}
+        </button>
       )}
 
       {actionFeedback && (

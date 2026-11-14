@@ -1,3 +1,4 @@
+import { BUILDING_DB_MAP, FACTION_DB_MAP } from '../data/gameDb'
 import {
   computeEquipmentTotals,
   computeWeaponArtSynergy,
@@ -5,12 +6,16 @@ import {
 } from '../data/itemsDb'
 import { computeEquippedArtsTotals, isArtNeigong } from '../data/playerMartialArts'
 import type {
+  CompiledBuildingRecord,
   CompiledMartialArtRecord,
+  CultivationVenueStatus,
   EquippedArtsMap,
   EquippedSlotsMap,
   HeroBaseStats,
   LearnedArtEntry,
   MountKey,
+  ViewMode,
+  WildernessCamp,
 } from '../types/game'
 
 export const CIVIL_ART_KEYS = [
@@ -25,10 +30,11 @@ export const CIVIL_ART_KEYS = [
   '辩才',
 ] as const
 
+export const DAILY_INN_LODGING_COST = 3
+
 export const HERO_BASE_CAPS = {
   minMaxHp: 100,
   minMaxMp: 50,
-  minMaxStamina: 40,
   agility: 120,
   res: 120,
   ridingSkill: 100,
@@ -44,7 +50,6 @@ export const DEFAULT_HERO_BASE_STATS: HeroBaseStats = {
   },
   maxHp: 0,
   maxMp: 0,
-  maxStamina: 100,
   agility: 0,
   res: 0,
   ridingSkill: 45,
@@ -66,7 +71,6 @@ export function cloneHeroBaseStats(base: HeroBaseStats = DEFAULT_HERO_BASE_STATS
     talents: { ...base.talents },
     maxHp: 0,
     maxMp: 0,
-    maxStamina: base.maxStamina,
     agility: 0,
     res: 0,
     ridingSkill: base.ridingSkill,
@@ -112,7 +116,6 @@ export function sanitizeHeroBaseStats(raw: unknown): HeroBaseStats {
     },
     maxHp: 0,
     maxMp: 0,
-    maxStamina: clampInt(rec.maxStamina, HERO_BASE_CAPS.minMaxStamina, 999, def.maxStamina),
     agility: 0,
     res: 0,
     ridingSkill: clampInt(rec.ridingSkill, 0, HERO_BASE_CAPS.ridingSkill, def.ridingSkill),
@@ -125,7 +128,6 @@ export interface DerivedHeroEffectiveStats {
   qinggongBonus: number
   maxHp: number
   maxMp: number
-  maxStamina: number
   agility: number
   res: number
   ridingSkill: number
@@ -134,7 +136,7 @@ export interface DerivedHeroEffectiveStats {
 
 /**
  * 纯函数派生：实战交锋属性（气血/内力/身法/抗性/攻防）无裸身根基，100% 由【6槽运使武学 + 7槽披挂】实时合成；
- * 非战斗养成维度（日常体能、骑术、十艺百工）由角色修为与披挂叠加。
+ * 非战斗养成维度（骑术、十艺百工）由角色修为与披挂叠加。
  */
 export function deriveHeroEffectiveStats(
   baseStats: HeroBaseStats,
@@ -160,10 +162,6 @@ export function deriveHeroEffectiveStats(
     qinggongBonus: artTotals.qinggongBonus,
     maxHp: Math.max(HERO_BASE_CAPS.minMaxHp, equipTotals.maxHp + artTotals.maxHp),
     maxMp: Math.max(0, equipTotals.maxMp + artTotals.maxMp),
-    maxStamina: Math.max(
-      HERO_BASE_CAPS.minMaxStamina,
-      baseStats.maxStamina + equipTotals.maxStamina,
-    ),
     agility: Math.max(1, equipTotals.agility + artTotals.agility),
     res: Math.max(0, equipTotals.res + artTotals.res),
     ridingSkill: Math.max(0, baseStats.ridingSkill + equipTotals.riding),
@@ -172,17 +170,141 @@ export function deriveHeroEffectiveStats(
 }
 
 /**
- * 演武精修单次（1时辰 / 10体能）熟练度获取公式：
- * 内功受【根骨】主引（70%根骨 + 30%悟性），轻功与外功受【悟性】主引（70%悟性 + 30%根骨）。
+ * 按日闭关修炼单日熟练度获取公式（强天赋四次方区分）：
+ * - 内功加权禀赋 T = 0.7 * 根骨 + 0.3 * 悟性
+ * - 轻功与外功加权禀赋 T = 0.7 * 悟性 + 0.3 * 根骨
+ * - 禀赋系数 M_禀赋 = 0.2 + 4 * (T / 100)^4
+ * - 单日获取 E_day = round(100 * M_禀赋 * M_场所)
  */
-export function calcPracticeArtExpGain(
-  art: CompiledMartialArtRecord,
+export function calcDailyExpByCategory(
+  isNeigong: boolean,
   talents: HeroBaseStats['talents'],
+  venueMultiplier = 1.0,
 ): number {
-  const weightedTalent = isArtNeigong(art)
+  const t = isNeigong
     ? talents.根骨 * 0.7 + talents.悟性 * 0.3
     : talents.悟性 * 0.7 + talents.根骨 * 0.3
-  return Math.max(30, Math.round(50 * (0.55 + weightedTalent / 100)))
+  const talentMult = 0.2 + 4 * Math.pow(t / 100, 4)
+  return Math.max(1, Math.round(100 * talentMult * venueMultiplier))
+}
+
+export function calcDailyCultivationExpGain(
+  art: CompiledMartialArtRecord,
+  talents: HeroBaseStats['talents'],
+  venueMultiplier = 1.0,
+): number {
+  return calcDailyExpByCategory(isArtNeigong(art), talents, venueMultiplier)
+}
+
+export function isPlayerInOwnSectRegion(
+  currentNodeId: string,
+  campPos: WildernessCamp | null | undefined,
+  sectId: string | null | undefined,
+): boolean {
+  if (campPos || !sectId) return false
+  const faction = FACTION_DB_MAP[sectId]
+  if (!faction?.hqRegionId) return false
+  return currentNodeId === faction.hqRegionId
+}
+
+export function isInnBuildingRecord(bldg: CompiledBuildingRecord | null | undefined): boolean {
+  if (!bldg) return false
+  return (
+    bldg.id.endsWith('_base_inn') ||
+    bldg.name.includes('客栈') ||
+    bldg.name.includes('馆驿') ||
+    bldg.name.includes('驿馆') ||
+    bldg.name.includes('客舍')
+  )
+}
+
+export interface ResolveCultivationVenueInput {
+  traveling: boolean
+  campPos: WildernessCamp | null | undefined
+  viewMode: ViewMode
+  currentNodeId: string
+  activeRegionId: string
+  activeBuildingInteriorId: string | null
+  selectedBuildingId: string | null
+  sectId: string | null | undefined
+}
+
+export function resolveCultivationVenue(
+  input: ResolveCultivationVenueInput,
+): CultivationVenueStatus {
+  const isOwnSectCity = isPlayerInOwnSectRegion(input.currentNodeId, input.campPos, input.sectId)
+
+  if (input.traveling) {
+    return {
+      venue: null,
+      venueLabel: '行军途中（不可闭关）',
+      multiplier: 1.0,
+      dailySilverCost: 0,
+      dailyFoodCost: 0,
+      isOwnSectCity,
+      blockedReason: '正在官道行军赶路途中，请先【驻扎露营】或抵达城池后再行闭关！',
+    }
+  }
+
+  if (input.campPos) {
+    return {
+      venue: 'wilderness_camp',
+      venueLabel: '旷野扎营闭关',
+      multiplier: 0.85,
+      dailySilverCost: 0,
+      dailyFoodCost: 1,
+      isOwnSectCity: false,
+      blockedReason: null,
+    }
+  }
+
+  const faction = input.sectId ? FACTION_DB_MAP[input.sectId] : null
+  const isViewingCurrentRegion =
+    input.viewMode !== 'world' && input.activeRegionId === input.currentNodeId
+  const effectiveBuildingId = isViewingCurrentRegion
+    ? (input.activeBuildingInteriorId ?? input.selectedBuildingId)
+    : null
+  const bldg = effectiveBuildingId ? BUILDING_DB_MAP[effectiveBuildingId] : null
+
+  if (
+    bldg &&
+    bldg.regionId === input.currentNodeId &&
+    faction &&
+    faction.coreBuildingIds.includes(bldg.id)
+  ) {
+    return {
+      venue: 'sect_grounds',
+      venueLabel: `${faction.shortName || faction.name} · 师门演武场`,
+      multiplier: 1.25,
+      dailySilverCost: 0,
+      dailyFoodCost: 0,
+      isOwnSectCity,
+      blockedReason: null,
+    }
+  }
+
+  if (bldg && bldg.regionId === input.currentNodeId && isInnBuildingRecord(bldg)) {
+    return {
+      venue: 'inn',
+      venueLabel: isOwnSectCity ? `${bldg.name}（师门驻地免宿费）` : `${bldg.name}（客栈闭关）`,
+      multiplier: 1.0,
+      dailySilverCost: isOwnSectCity ? 0 : DAILY_INN_LODGING_COST,
+      dailyFoodCost: 0,
+      isOwnSectCity,
+      blockedReason: null,
+    }
+  }
+
+  return {
+    venue: null,
+    venueLabel: '未处于闭关场所',
+    multiplier: 1.0,
+    dailySilverCost: isOwnSectCity ? 0 : DAILY_INN_LODGING_COST,
+    dailyFoodCost: 0,
+    isOwnSectCity,
+    blockedReason:
+      '只能在城池【客栈/馆驿】、【本门派演武驻地】或大地图【野外扎营】三类场所发起闭关修炼！',
+  }
 }
 
 export interface DerivedNpcEffectiveStats {

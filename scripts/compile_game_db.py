@@ -1036,19 +1036,34 @@ def compute_martial_art_levels(art: dict[str, Any]) -> list[dict[str, Any]]:
         ("天阶", "上品"): 2050,
     }
 
-    exp_tier_mult: dict[tuple[str, str], float] = {
-        ("凡品", "下品"): 1.0,
-        ("凡品", "中品"): 1.3,
-        ("凡品", "上品"): 1.7,
-        ("良品", "下品"): 2.4,
-        ("良品", "中品"): 3.2,
-        ("良品", "上品"): 4.5,
-        ("地阶", "下品"): 6.5,
-        ("地阶", "中品"): 8.5,
-        ("地阶", "上品"): 11.0,
-        ("天阶", "下品"): 15.0,
-        ("天阶", "中品"): 20.0,
-        ("天阶", "上品"): 26.0,
+    neigong_total_exp: dict[tuple[str, str], int] = {
+        ("凡品", "下品"): 300000,
+        ("凡品", "中品"): 390000,
+        ("凡品", "上品"): 480000,
+        ("良品", "下品"): 570000,
+        ("良品", "中品"): 660000,
+        ("良品", "上品"): 780000,
+        ("地阶", "下品"): 900000,
+        ("地阶", "中品"): 1020000,
+        ("地阶", "上品"): 1140000,
+        ("天阶", "下品"): 1260000,
+        ("天阶", "中品"): 1380000,
+        ("天阶", "上品"): 1500000,
+    }
+
+    combat_exp_steps_by_tier: dict[tuple[str, str], list[int]] = {
+        ("凡品", "下品"): [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ("凡品", "中品"): [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ("凡品", "上品"): [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ("良品", "下品"): [10, 15, 20, 25, 30, 35, 40, 45, 50, 0],
+        ("良品", "中品"): [10, 15, 20, 30, 35, 45, 50, 60, 65, 0],
+        ("良品", "上品"): [15, 20, 25, 35, 40, 50, 60, 70, 85, 0],
+        ("地阶", "下品"): [25, 35, 45, 60, 75, 90, 110, 130, 150, 0],
+        ("地阶", "中品"): [30, 40, 55, 75, 95, 115, 135, 160, 195, 0],
+        ("地阶", "上品"): [35, 50, 65, 90, 115, 140, 165, 195, 225, 0],
+        ("天阶", "下品"): [60, 85, 110, 145, 180, 220, 265, 315, 370, 0],
+        ("天阶", "中品"): [75, 105, 135, 180, 225, 275, 330, 395, 480, 0],
+        ("天阶", "上品"): [90, 125, 165, 220, 275, 335, 400, 480, 610, 0],
     }
 
     cat = art["category"]
@@ -1257,16 +1272,20 @@ def compute_martial_art_levels(art: dict[str, Any]) -> list[dict[str, Any]]:
     effects_cfg = tian_effects_map.get(code, [])
 
     level_ratios = [0.15, 0.22, 0.30, 0.39, 0.49, 0.60, 0.71, 0.82, 0.91, 1.00]
-    base_exp_steps = [100, 160, 240, 350, 500, 700, 980, 1380, 2000, 0]
-    exp_mult = exp_tier_mult[sub_key]
+    # 1->5重占 35% (6.5% + 8.0% + 9.5% + 11.0%)，5->10重占 65% (12.0% + 12.5% + 13.0% + 13.5% + 14.0%)
+    step_weights = [0.065, 0.080, 0.095, 0.110, 0.120, 0.125, 0.130, 0.135, 0.140, 0.0]
+    total_exp = neigong_total_exp[sub_key] if cat == "内功" else (neigong_total_exp[sub_key] // 3)
+    combat_exp_steps = combat_exp_steps_by_tier[sub_key]
 
     levels: list[dict[str, Any]] = []
     for idx, lv in enumerate(range(1, 11)):
         ratio = level_ratios[idx]
-        exp_needed = round(base_exp_steps[idx] * exp_mult / 10.0) * 10 if lv < 10 else 0
+        exp_needed = round(total_exp * step_weights[idx]) if lv < 10 else 0
+        combat_exp_needed = combat_exp_steps[idx] if lv < 10 else 0
         entry: dict[str, Any] = {
             "level": lv,
             "expRequired": exp_needed,
+            "combatExpRequired": combat_exp_needed,
         }
         if base_max_mp:
             entry["maxMp"] = max(1, round(base_max_mp * ratio))
@@ -1432,8 +1451,6 @@ def parse_equip_bonus_tokens(raw_bonus: str) -> dict[str, Any]:
             bonus["maxHp"] = v
         elif k == "内力":
             bonus["maxMp"] = v
-        elif k == "体能":
-            bonus["maxStamina"] = v
         elif k == "身法":
             bonus["agility"] = v
         elif k == "抗性":
@@ -3546,6 +3563,88 @@ def compile_all(do_normalize_docs: bool) -> None:
         out_path.write_text(serialized, encoding="utf-8")
         size_kb = os.path.getsize(out_path) / 1024
         print(f"[M0-3] Wrote src/data/{filename:18s} ({size_kb:7.1f} KB)")
+
+    # Keep docs/MARTIAL_ARTS_STATS.md 100% synchronized with compiled martial_arts levels
+    stats_doc_path = DOCS_DIR / "MARTIAL_ARTS_STATS.md"
+    if stats_doc_path.exists():
+        raw_doc = stats_doc_path.read_text(encoding="utf-8")
+        header_part = raw_doc.split("\n## 天阶上品", 1)[0]
+        stat_cols_order = [
+            ("maxMp", "内力上限"),
+            ("maxHp", "气血上限"),
+            ("agility", "身法"),
+            ("resistance", "抗性"),
+            ("constitution", "根骨"),
+            ("charm", "颜值"),
+            ("physicalDamage", "物理伤害"),
+            ("poisonDamage", "毒性伤害"),
+            ("soundDamage", "音律伤害"),
+            ("hiddenWeaponDamage", "暗器伤害"),
+        ]
+        md_lines = [
+            header_part.rstrip(),
+            "",
+            "> **三、武学闭关经验与战斗经验破境标尺**：",
+            "> - **每日闭关基准公式**：$E_{\\text{day}} = 100 \\times \\left(0.2 + 4 \\times \\left(\\frac{T}{100}\\right)^4\\right) \\times M_{\\text{场所}}$（内功 $T=0.7\\text{根骨}+0.3\\text{悟性}$，轻功/外功 $T=0.7\\text{悟性}+0.3\\text{根骨}$；本门演武场 `1.25x` 免宿费、客栈 `1.0x`［本门城市免宿费/外埠3两/日］、野外扎营 `0.85x`［1份干粮/日］）。",
+            "> - **四阶十二品满十重总熟练度**：内功 `300,000`（凡品下品）~ `1,500,000`（天阶上品，双90奇才约15年圆满）；轻功与外功统一为同品阶内功的 **`1/3`**（`100,000` ~ `500,000`）。",
+            "> - **平滑重数分布**：`1→5 重` 占总熟练度的 **`35%`**（`6.5% / 8.0% / 9.5% / 11.0%`），`5→10 重` 占 **`65%`**（`12.0% / 12.5% / 13.0% / 13.5% / 14.0%`）。",
+            "> - **战斗经验破境**：凡品突破无需战斗经验；良品满十重累计需 `270 / 330 / 400` 战斗经验；地阶累计需 `720 / 900 / 1,080`；天阶累计需 `1,750 / 2,200 / 2,700`。",
+            "",
+        ]
+        tier_order = [
+            "天阶上品", "天阶中品", "天阶下品",
+            "地阶上品", "地阶中品", "地阶下品",
+            "良品上品", "良品中品", "良品下品",
+            "凡品上品", "凡品中品", "凡品下品",
+        ]
+        by_full_tier: dict[str, list[dict[str, Any]]] = {ft: [] for ft in tier_order}
+        for ma in martial_arts:
+            by_full_tier.setdefault(ma["fullTier"], []).append(ma)
+
+        for ft in tier_order:
+            group_arts = by_full_tier.get(ft, [])
+            if not group_arts:
+                continue
+            md_lines.append(f"## {ft}")
+            md_lines.append("")
+            for ma in group_arts:
+                lvs = ma["levels"]
+                tot_exp = sum(lv.get("expRequired", 0) for lv in lvs)
+                tot_cexp = sum(lv.get("combatExpRequired", 0) for lv in lvs)
+                cexp_tag = f" · 累计需战斗经验 `{tot_cexp}`" if tot_cexp > 0 else " · 免战斗经验破境"
+                md_lines.append(
+                    f"### {ma['code']}. {ma['cleanName']}（{ma['category']} · {ma['origin']} · 满十重累计需熟练度 `{tot_exp}`{cexp_tag}）"
+                )
+                md_lines.append("")
+                lv10 = lvs[-1]
+                active_cols = [(k, label) for k, label in stat_cols_order if k in lv10]
+                has_fx = bool(lv10.get("specialEffects"))
+                headers = ["重数", "升下一重需熟练", "破境需战斗经验"] + [lbl for _, lbl in active_cols]
+                if has_fx:
+                    headers.append("特殊效果")
+                md_lines.append("| " + " | ".join(headers) + " |")
+                md_lines.append("| " + " | ".join([":---:"] * len(headers)) + " |")
+                for lv_entry in lvs:
+                    lv_num = lv_entry["level"]
+                    exp_cell = "已臻圆满" if lv_num >= 10 else str(lv_entry["expRequired"])
+                    cexp_val = lv_entry.get("combatExpRequired", 0)
+                    cexp_cell = "—" if lv_num >= 10 else (str(cexp_val) if cexp_val > 0 else "0")
+                    row_cells = [f"第{lv_num}重", exp_cell, cexp_cell]
+                    for k, _ in active_cols:
+                        row_cells.append(f"+{lv_entry.get(k, 0)}")
+                    if has_fx:
+                        fx_str = "；".join(
+                            f"**{fx['name']} +{fx['value']}{fx['unit']}**（{fx['desc']}）"
+                            for fx in lv_entry.get("specialEffects", [])
+                        )
+                        row_cells.append(fx_str)
+                    md_lines.append("| " + " | ".join(row_cells) + " |")
+                md_lines.append("")
+        # Avoid duplicating section 三 if re-run
+        clean_header = header_part.split("\n> **三、武学闭关经验与战斗经验破境标尺**", 1)[0].rstrip()
+        md_lines[0] = clean_header
+        stats_doc_path.write_text("\n".join(md_lines).rstrip() + "\n", encoding="utf-8")
+        print(f"[M0-3] Synced docs/MARTIAL_ARTS_STATS.md ({len(martial_arts)} martial arts)")
 
     # Sync portraitCatalog.json character metadata for 0001..0240 + minor sect leaders / regional anchors
     pc_path = DATA_DIR / "portraitCatalog.json"

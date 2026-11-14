@@ -121,7 +121,7 @@ export const BAG_CATEGORY_METAS: Array<{
     numeral: '贰',
     label: '丹药毒物',
     seal: '丹',
-    subtitle: '疗伤回气金创灵丹、恢复体能药膳、奇门毒粉与解毒丸散',
+    subtitle: '疗伤回气金创灵丹、调息固本药膳、奇门毒粉与解毒丸散',
   },
   {
     key: 'tools',
@@ -214,7 +214,6 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
       maxMp: 220,
       hp: 1500,
       mp: 1200,
-      stamina: 80,
       res: 8,
     },
   },
@@ -229,11 +228,10 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     desc: '逍遥派与东海桃花岛一脉秘炼仙丹，采清晨九种奇花花瓣上之朝露配以瑶池灵草酿就，服之满口异香，真气生生不息。',
     lore: '无崖子与苏星河常以此丹调理内息，轻身明目，寒暑不侵。',
     useEffect: {
-      maxMp: 200,
-      maxStamina: 20,
+      maxHp: 120,
+      maxMp: 220,
       hp: 900,
       mp: 1400,
-      stamina: 100,
       agi: 4,
       res: 6,
     },
@@ -294,8 +292,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     useEffect: {
       maxHp: 90,
       hp: 950,
-      mp: 400,
-      stamina: 50,
+      mp: 450,
     },
   },
   {
@@ -327,8 +324,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
       maxHp: 50,
       maxMp: 60,
       hp: 520,
-      mp: 620,
-      stamina: 40,
+      mp: 660,
       res: 5,
     },
   },
@@ -365,11 +361,10 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '良阶',
     stackable: true,
     value: 95,
-    desc: '少林药局玄生大师监制的随身良药，药香清冽，兼具活血化瘀、回补真气与提振体能之效，正道侠客远行常备。',
+    desc: '少林药局玄生大师监制的随身良药，药香清冽，兼具活血化瘀与回补丹田真气之效，正道侠客远行常备。',
     useEffect: {
       hp: 380,
-      mp: 180,
-      stamina: 30,
+      mp: 220,
     },
   },
   {
@@ -382,8 +377,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 88,
     desc: '江南“阎王敌”薛慕华传出的外敷内服两用伤药，色泽碧绿清香扑鼻，专治刀剑重创与筋断骨折，生肌奇快。',
     useEffect: {
-      hp: 520,
-      stamina: 15,
+      hp: 540,
     },
   },
   {
@@ -410,11 +404,11 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '良阶',
     stackable: true,
     value: 110,
-    desc: '建安北苑御茶园督造的上等研膏团茶，茶面浮雕龙凤祥纹。煎点一瓯雪沫乳花，顿觉胸臆开阔、劳顿尽消，文思泉涌。',
+    desc: '建安北苑御茶园督造的上等研膏团茶，茶面浮雕龙凤祥纹。煎点一瓯雪沫乳花，顿觉胸臆开阔、真气澄澈，文思泉涌。',
     lore: '欧阳修、蔡襄诸公极爱此茗，北宋士大夫斗茶雅集无出其右。',
     useEffect: {
-      mp: 140,
-      stamina: 85,
+      hp: 120,
+      mp: 240,
       skillGain: ['诗词', 2],
     },
   },
@@ -428,8 +422,8 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 92,
     desc: '蜀中峨眉派采金顶雪水、川贝与黑熊胆汁配制的护心良药，服之清肝明目、强健气血，尤善化解巴蜀与岭南湿瘴。',
     useEffect: {
-      hp: 340,
-      stamina: 25,
+      hp: 360,
+      mp: 80,
       res: 4,
     },
   },
@@ -517,8 +511,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 22,
     desc: '各地州府官办惠民熟药所平价售卖的黑褐色蜜丸，专治拳脚切磋留下的青紫瘀伤与筋骨酸痛。',
     useEffect: {
-      hp: 240,
-      stamina: 10,
+      hp: 250,
     },
   },
   {
@@ -542,10 +535,10 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '凡阶',
     stackable: true,
     value: 10,
-    desc: '开封府州桥夜市热卖的养生药膳糕饼，糅合云茯苓粉、牛乳酪与蜜枣烘成，香甜软糯，最解江湖奔波饥乏。',
+    desc: '开封府州桥夜市热卖的养生药膳糕饼，糅合云茯苓粉、牛乳酪与蜜枣烘成，香甜软糯，可补气血并充抵一日干粮。',
     useEffect: {
-      stamina: 45,
-      hp: 50,
+      hp: 110,
+      food: 1,
     },
   },
   {
@@ -556,11 +549,11 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '凡阶',
     stackable: true,
     value: 12,
-    desc: '北宋街头茶坊竹筒盛卖的时令药饮，以紫苏叶、陈皮、甘草煎煮冰镇，生津止渴、提神醒脑。',
+    desc: '北宋街头茶坊竹筒盛卖的时令药饮，以紫苏叶、陈皮、甘草煎煮冰镇，生津止渴、提神益气。',
     lore: '汴京苦夏与秋燥之时，街巷挑担叫卖“香饮子”之声彻夜不绝。',
     useEffect: {
-      stamina: 35,
-      mp: 60,
+      hp: 50,
+      mp: 110,
     },
   },
   {
@@ -571,10 +564,9 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '凡阶',
     stackable: true,
     value: 18,
-    desc: '河东雁门关与塞外商队常备的椒盐牛脯杂粮压缩肉丸，耐储抗饿，吞服数枚既补体能又可充抵两日口粮。',
+    desc: '河东雁门关与塞外商队常备的椒盐牛脯杂粮压缩肉丸，耐储抗饿，吞服数枚既壮气血又可充抵两日口粮。',
     useEffect: {
-      stamina: 50,
-      hp: 60,
+      hp: 120,
       food: 2,
     },
   },
@@ -588,8 +580,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 20,
     desc: '取端午陈艾、明雄黄与苍术研配的药包，既可冲服祛除体内轻微蛇虫寒湿，亦可略微稳固周身抗毒根基。',
     useEffect: {
-      hp: 90,
-      stamina: 15,
+      hp: 110,
       res: 2,
     },
   },
@@ -648,7 +639,6 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     },
     useEffect: {
       mp: 120,
-      stamina: 15,
       skillGain: ['琴', 4],
     },
   },
@@ -729,13 +719,13 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     desc: '布衣巨匠毕昇于庆历年间创制的火烧胶泥活字母模全匣，配松脂蜡版与铁范界栏，“若印数十百千本，则极为神速”，承载大宋文明火种。',
     lore: '沈括诸辈叹为神技之百工冠冕，持之与天下鸿儒名臣论学无不肃然起敬。',
     equipBonus: {
+      maxHp: 120,
       maxMp: 150,
-      maxStamina: 25,
       res: 10,
       skills: { 经义: 12, 辩才: 12, 策论: 8 },
     },
     useEffect: {
-      stamina: 20,
+      mp: 75,
       skillGain: ['经义', 4],
     },
   },
@@ -774,8 +764,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     desc: '建州黑釉银丝兔毫盏镶鎏金口沿，配北苑银丝茶筅与鎏金汤提点茶瓶。点汤击拂，乳花咬盏久聚不散。',
     lore: '蔡襄《茶录》所推崇之北宋斗茶绝配，汴京樊楼与江南雅集尽显名士风流。',
     useEffect: {
-      stamina: 28,
-      mp: 45,
+      mp: 75,
       skillGain: ['诗词', 3],
     },
   },
@@ -850,7 +839,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
       skills: { 算术: 10, 策论: 6 },
     },
     useEffect: {
-      stamina: 15,
+      mp: 45,
       skillGain: ['算术', 3],
     },
   },
@@ -865,13 +854,13 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 450,
     desc: '以天然慈石磨针横贯灯芯浮于青铜水盏，外圈精刻二十四山向与天干地支，大漠风沙或桃花迷阵中皆可辨明微茫生门。',
     equipBonus: {
-      maxStamina: 25,
+      maxHp: 90,
       agility: 6,
       riding: 6,
       skills: { 算术: 8, 画: 5 },
     },
     useEffect: {
-      stamina: 20,
+      mp: 50,
       skillGain: ['策论', 3],
     },
   },
@@ -893,9 +882,8 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
       skills: { 经义: 6 },
     },
     useEffect: {
-      hp: 150,
-      mp: 60,
-      stamina: 15,
+      hp: 160,
+      mp: 75,
     },
   },
   {
@@ -923,13 +911,13 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 410,
     desc: '贺兰山铁鹞子精锐将领秘用的冷锻减重错金马镫、嚼铁与鲨鱼皮鞍桥组件，配于良驹之上可令人马如臂使指，驰射稳若磐石。',
     equipBonus: {
+      maxHp: 80,
       riding: 14,
       agility: 5,
-      maxStamina: 20,
       skills: { 策论: 5 },
     },
     useEffect: {
-      stamina: 20,
+      hp: 60,
       skillGain: ['策论', 2],
     },
   },
@@ -1020,7 +1008,8 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 140,
     desc: '越窑千峰翠色莲瓣注子配温碗，盛琥珀美酒置于热水碗中恒温馥郁，与豪杰名士把酒言欢最能畅抒胸臆。',
     useEffect: {
-      stamina: 22,
+      hp: 40,
+      mp: 30,
       skillGain: ['辩才', 2],
     },
   },
@@ -1034,7 +1023,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 150,
     desc: '河北真定府曲阳定窑烧制的甜白釉剔花香盒与书斋腕枕，釉白如雪，刀法流丽，案头清供倍添儒雅气度。',
     useEffect: {
-      stamina: 20,
+      mp: 35,
       skillGain: ['诗词', 2],
     },
   },
@@ -1083,12 +1072,12 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 145,
     desc: '老山檀香木扇柄配蝉翼熟绢，正反同针异色双面精绣寒雀梅竹，轻摇暗香浮动，出入秦淮西湖名园风采翩然。',
     equipBonus: {
+      maxMp: 45,
       agility: 4,
-      maxStamina: 15,
       skills: { 诗词: 5, 辩才: 4 },
     },
     useEffect: {
-      stamina: 15,
+      mp: 25,
       skillGain: ['诗词', 2],
     },
   },
@@ -1116,7 +1105,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 118,
     desc: '花梨木圆筒内藏南海象牙精车算筹一百二十枚，以朱漆玄漆区分正负数理（正算赤，负算黑），市易司大掌柜与军需官不离身之物。',
     useEffect: {
-      stamina: 12,
+      mp: 25,
       skillGain: ['算术', 2],
     },
   },
@@ -1130,8 +1119,8 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 128,
     desc: '便携樟木药箱，内置精铸熟铜船形药碾、象牙杆毫厘戥子秤与细目罗筛，深山采得灵芝雪莲可就地炮制成散。',
     useEffect: {
-      hp: 90,
-      stamina: 15,
+      hp: 110,
+      mp: 25,
     },
   },
   {
@@ -1158,7 +1147,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 155,
     desc: '大宋边军将佐踏勘山川险隘专用的黄铜比例分规、铅坠水准仪与缩尺铜矩，绘山川道里分毫不差。',
     useEffect: {
-      stamina: 15,
+      mp: 25,
       skillGain: ['策论', 2],
     },
   },
@@ -1174,7 +1163,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 32,
     desc: '潇湘水畔泪痕斑竹削制的轻巧牧笛，粘贴苇膜后音色清脆嘹亮，走江湖者常插于腰间自娱解闷。',
     useEffect: {
-      stamina: 10,
+      mp: 20,
       skillGain: ['琴', 1],
     },
   },
@@ -1188,7 +1177,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 35,
     desc: '市井棋待诏与茶坊酒肆最常见的楸木折盘，配白蛤壳与乌石磨制的棋子，随时可席地摆下一局残棋。',
     useEffect: {
-      stamina: 10,
+      mp: 20,
       skillGain: ['棋', 1],
     },
   },
@@ -1306,7 +1295,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 36,
     desc: '饶州景德镇民窑烧制的影青瓷一壶四盏，青白淡雅，透光见影，野店歇脚烹茶待客极佳。',
     useEffect: {
-      stamina: 16,
+      mp: 35,
     },
   },
   {
@@ -1319,8 +1308,8 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 28,
     desc: '河北磁州观台窑白釉黑彩扁葫芦瓶，腹书“醉眠芳草”四字，系红绒绳挂于鞍旁，豪气干云。',
     useEffect: {
-      stamina: 15,
-      hp: 30,
+      hp: 45,
+      mp: 20,
     },
   },
   {
@@ -1333,8 +1322,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 34,
     desc: '双层镂空万字纹小铜炉，冬日可置红萝炭暖手，平日可压梅花香篆安神驱蚊。',
     useEffect: {
-      mp: 20,
-      stamina: 10,
+      mp: 35,
     },
   },
   {
@@ -1360,8 +1348,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 26,
     desc: '熟铁弯头鹤嘴小锄配青竹背篓，攀爬嵩山、峨眉、长白险峰采掘野生草药不伤根须。',
     useEffect: {
-      hp: 45,
-      stamina: 10,
+      hp: 65,
     },
   },
   {
@@ -1387,7 +1374,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 32,
     desc: '边关马夫与老镖师必备的铁齿马刷、刮汗板与弯头修蹄刀，每日刷洗照料坐骑可免马失前蹄之虞。',
     useEffect: {
-      stamina: 15,
+      riding: 1,
     },
   },
   {
@@ -1400,7 +1387,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 24,
     desc: '太湖与汴河垂钓翁常用的三节插接细竹竿、桐油蚕丝线与柳条鱼篓，闲暇临渊垂钓亦是养气之道。',
     useEffect: {
-      stamina: 14,
+      mp: 20,
       food: 2,
     },
   },
@@ -1414,7 +1401,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 15,
     desc: '牛角弯壳火镰配白火石、艾绒及密封竹管火折子，一吹即燃，荒野露宿与幽暗秘窟探查必备。',
     useEffect: {
-      stamina: 12,
+      hp: 40,
     },
   },
   {
@@ -1427,7 +1414,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 38,
     desc: '桐油熟布蒙面的竹骨双肩书箱，顶设遮阳避雨小棚，配黄铜横栓鱼形锁，赶考举子与游侠远行护书防潮利器。',
     useEffect: {
-      stamina: 15,
+      mp: 20,
       skillGain: ['经义', 1],
     },
   },
@@ -1851,7 +1838,6 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
   const totals = {
     maxHp: 0,
     maxMp: 0,
-    maxStamina: 0,
     agility: 0,
     res: 0,
     attack: 0,
@@ -1870,7 +1856,6 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
 
     totals.maxHp += b.maxHp ?? 0
     totals.maxMp += b.maxMp ?? 0
-    totals.maxStamina += b.maxStamina ?? 0
     totals.agility += b.agility ?? 0
     totals.res += b.res ?? 0
     totals.attack += b.attack ?? 0
@@ -1900,7 +1885,6 @@ export function formatBonusBadges(bonus?: EquipmentStatBonus): string[] {
   if (bonus.defense) list.push(`周身护甲 +${bonus.defense}`)
   if (bonus.maxHp) list.push(`气血上限 +${bonus.maxHp}`)
   if (bonus.maxMp) list.push(`内力上限 +${bonus.maxMp}`)
-  if (bonus.maxStamina) list.push(`体能上限 +${bonus.maxStamina}`)
   if (bonus.agility) list.push(`身法 +${bonus.agility}`)
   if (bonus.res) list.push(`抗性 +${bonus.res}`)
   if (bonus.riding) list.push(`骑术 +${bonus.riding}`)

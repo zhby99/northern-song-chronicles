@@ -186,11 +186,22 @@ export function MartialArtsTab({
 
               {selectedArt.levels && selectedArt.levels.length >= 10 && (
                 <div className="p-3 rounded bg-[#faf3e3] border border-[#cbb693] space-y-2">
-                  <div className="font-bold song-serif text-xs text-[#23180f] flex items-center justify-between">
+                  <div className="font-bold song-serif text-xs text-[#23180f] flex flex-wrap items-center justify-between gap-1">
                     <span>一重入门 → 十重圆满数值</span>
                     <span className="font-mono text-[10px] text-[#7a6042]">
-                      满十重需熟练{' '}
-                      {selectedArt.levels.reduce((s, x) => s + (x.expRequired ?? 0), 0)}
+                      满重需熟练{' '}
+                      {selectedArt.levels
+                        .reduce((s, x) => s + (x.expRequired ?? 0), 0)
+                        .toLocaleString()}{' '}
+                      ·{' '}
+                      {selectedArt.levels.reduce(
+                        (s, x) => s + (x.combatExpRequired ?? 0),
+                        0,
+                      ) > 0
+                        ? `破境战经 ${selectedArt.levels
+                            .reduce((s, x) => s + (x.combatExpRequired ?? 0), 0)
+                            .toLocaleString()}`
+                        : '凡品破境免战经'}
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-1.5">
@@ -201,6 +212,22 @@ export function MartialArtsTab({
                       >
                         十重：{badge}
                       </span>
+                    ))}
+                  </div>
+                  <div className="pt-1 border-t border-dashed border-[#dccab0] grid grid-cols-3 gap-1 text-[10px] font-mono text-[#52391e]">
+                    {selectedArt.levels.slice(0, 9).map((lv) => (
+                      <div
+                        key={lv.level}
+                        className="px-1.5 py-0.5 rounded bg-[#efe4cc]/70 flex items-center justify-between"
+                      >
+                        <span>
+                          {lv.level}→{lv.level + 1}重
+                        </span>
+                        <span>
+                          {Math.round((lv.expRequired ?? 0) / 1000)}k
+                          {(lv.combatExpRequired ?? 0) > 0 ? `/${lv.combatExpRequired}战` : ''}
+                        </span>
+                      </div>
                     ))}
                   </div>
                   {selectedArt.levels[9].specialEffects &&
@@ -230,7 +257,7 @@ export function MartialArtsTab({
                     onClick={() => onJumpToLoadoutArt(selectedArt.id)}
                     className="px-2.5 py-1 rounded bg-[#1f5c3a] text-[#fff8eb] text-xs font-bold song-serif cursor-pointer"
                   >
-                    前往运使演练 →
+                    前往闭关运使 →
                   </button>
                 </div>
               )}

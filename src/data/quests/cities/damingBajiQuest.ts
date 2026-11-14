@@ -282,7 +282,7 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
           introText:
             '乌古乃双目凶光暴涨，两柄辽东寒铁重斧挟风雷之势劈面砸落——正是契丹铁林军破甲绝技！撑过五合逼出其北庭步法！',
           onWin: [
-            { type: 'healPlayer', hpPct: 60, mpPct: 60, staminaPct: 50 },
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
             { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0275' }, delta: 25 },
             { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0028' }, delta: 15 },
             {
@@ -327,7 +327,7 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
             },
           ],
           onLose: [
-            { type: 'healPlayer', hpPct: 60, mpPct: 50, staminaPct: 50 },
+            { type: 'healPlayer', hpPct: 60, mpPct: 50 },
             { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0275' }, delta: 10 },
             {
               type: 'setQuestStep',
@@ -675,11 +675,11 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
               introText:
                 '耶律裂山挥动寒铁重斧狂劈而来，然而其左肋换气死角早已被你在校场一眼看破——会同卢铁山一举拿下此獠！',
               onWin: [
-                { type: 'healPlayer', hpPct: 100, mpPct: 100, staminaPct: 100 },
+                { type: 'healPlayer', hpPct: 100, mpPct: 100 },
                 { type: 'openScene', scene: SCENE_DAMING_VICTORY_CHOICE },
               ],
               onLose: [
-                { type: 'healPlayer', hpPct: 60, mpPct: 60, staminaPct: 60 },
+                { type: 'healPlayer', hpPct: 60, mpPct: 60 },
                 {
                   type: 'openScene',
                   scene: {
@@ -712,11 +712,11 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
               introText:
                 '契丹北院铁林千夫长耶律裂山须发怒张，六十四斤辽东寒铁重斧卷起刺骨罡风——此战关乎河朔安危！',
               onWin: [
-                { type: 'healPlayer', hpPct: 100, mpPct: 100, staminaPct: 100 },
+                { type: 'healPlayer', hpPct: 100, mpPct: 100 },
                 { type: 'openScene', scene: SCENE_DAMING_VICTORY_CHOICE },
               ],
               onLose: [
-                { type: 'healPlayer', hpPct: 60, mpPct: 60, staminaPct: 60 },
+                { type: 'healPlayer', hpPct: 60, mpPct: 60 },
                 {
                   type: 'openScene',
                   scene: {
@@ -1397,7 +1397,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                       rule: 'story_trial',
                       introText: '北侠欧阳春抚髯朗笑，随手折下一截芦苇代刀，气势如黄河奔雷般压来！',
                       onWin: [
-                        { type: 'healPlayer', hpPct: 50, mpPct: 50, staminaPct: 40 },
+                        { type: 'healPlayer', hpPct: 50, mpPct: 50 },
                         {
                           type: 'modifyNpcFavor',
                           target: { kind: 'npc', npcId: 'NPC-0248' },
@@ -1422,7 +1422,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                         },
                       ],
                       onLose: [
-                        { type: 'healPlayer', hpPct: 50, mpPct: 50, staminaPct: 40 },
+                        { type: 'healPlayer', hpPct: 50, mpPct: 50 },
                         {
                           type: 'modifyNpcFavor',
                           target: { kind: 'npc', npcId: 'NPC-0248' },
@@ -1834,7 +1834,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                       introText:
                         '焦三斧抡起板斧恶狠狠劈来，招数虽凶却满身酒色虚浮之气——痛快将其轰下八角擂台！',
                       onWin: [
-                        { type: 'healPlayer', hpPct: 45, mpPct: 45, staminaPct: 40 },
+                        { type: 'healPlayer', hpPct: 45, mpPct: 45 },
                         {
                           type: 'modifyNpcFavor',
                           target: { kind: 'npc', npcId: 'NPC-0275' },
@@ -1848,7 +1848,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                         { type: 'openScene', scene: SCENE_LEITAI_BOUT_TWO },
                       ],
                       onLose: [
-                        { type: 'healPlayer', hpPct: 50, mpPct: 50, staminaPct: 40 },
+                        { type: 'healPlayer', hpPct: 50, mpPct: 50 },
                         {
                           type: 'openScene',
                           scene: {
@@ -2121,7 +2121,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                       rule: 'story_trial',
                       forbidEscapeReason: '八角擂台万众瞩目，头阵岂能怯战！',
                       onWin: [
-                        { type: 'healPlayer', hpPct: 45, mpPct: 45, staminaPct: 40 },
+                        { type: 'healPlayer', hpPct: 45, mpPct: 45 },
                         {
                           type: 'modifyNpcFavor',
                           target: { kind: 'npc', npcId: 'NPC-0275' },
@@ -2130,7 +2130,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                         { type: 'openScene', scene: SCENE_LEITAI_BOUT_TWO },
                       ],
                       onLose: [
-                        { type: 'healPlayer', hpPct: 50, mpPct: 50, staminaPct: 40 },
+                        { type: 'healPlayer', hpPct: 50, mpPct: 50 },
                         { type: 'openScene', scene: SCENE_LEITAI_BOUT_TWO },
                       ],
                     },
@@ -2189,7 +2189,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
               },
             ],
           },
-          { type: 'healPlayer', hpPct: 50, mpPct: 50, staminaPct: 50 },
+          { type: 'healPlayer', hpPct: 50, mpPct: 50 },
           { type: 'setFlag', flag: 'dm_sandtable_ambush_started', value: true },
           { type: 'openScene', scene: SCENE_MIDNIGHT_SANDTABLE_CLIMAX },
         ],

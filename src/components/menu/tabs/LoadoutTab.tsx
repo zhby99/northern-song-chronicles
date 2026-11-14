@@ -17,11 +17,17 @@ import {
   computeEquippedArtsTotals,
   computeSingleArtBonus,
   formatArtBonusBadges,
+  getArtCombatExpRequired,
   getArtExpRequired,
   getMasteryStageLabel,
   MARTIAL_ART_SLOT_METAS,
 } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
+import {
+  calcDailyCultivationExpGain,
+  calcDailyExpByCategory,
+  resolveCultivationVenue,
+} from '../../../utils/heroStats'
 import { resolveMountMeta } from '../../../utils/mapMath'
 import type {
   CompiledMartialArtRecord,
@@ -51,23 +57,68 @@ export function LoadoutTab({
   const agility = useGameStore((s) => s.agility)
   const res = useGameStore((s) => s.res)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
+  const combatExp = useGameStore((s) => s.combatExp)
+  const silver = useGameStore((s) => s.silver)
+  const food = useGameStore((s) => s.food)
   const skills = useGameStore((s) => s.skills)
   const mountKey = useGameStore((s) => s.mountKey)
   const equipped = useGameStore((s) => s.equipped)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const equippedArts = useGameStore((s) => s.equippedArts)
   const inventory = useGameStore((s) => s.inventory)
+  const traveling = useGameStore((s) => s.traveling)
+  const campPos = useGameStore((s) => s.campPos)
+  const viewMode = useGameStore((s) => s.viewMode)
+  const currentNodeId = useGameStore((s) => s.currentNodeId)
+  const activeRegionId = useGameStore((s) => s.activeRegionId)
+  const activeBuildingInteriorId = useGameStore((s) => s.activeBuildingInteriorId)
+  const selectedBuildingId = useGameStore((s) => s.selectedBuildingId)
+  const sectState = useGameStore((s) => s.sectState)
+  const actionFeedback = useGameStore((s) => s.actionFeedback)
 
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
   const unequipSlot = useGameStore((s) => s.unequipSlot)
   const equipArtToSlot = useGameStore((s) => s.equipArtToSlot)
   const unequipArtSlot = useGameStore((s) => s.unequipArtSlot)
-  const practiceLearnedArt = useGameStore((s) => s.practiceLearnedArt)
+  const cultivateLearnedArt = useGameStore((s) => s.cultivateLearnedArt)
+  const breakthroughLearnedArt = useGameStore((s) => s.breakthroughLearnedArt)
   const openCompendium = useGameStore((s) => s.openCompendium)
   const setBagCategory = useGameStore((s) => s.setBagCategory)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
 
   const [selectedArtSlot, setSelectedArtSlot] = useState<MartialArtSlotKey>('neigong')
+
+  const venueStatus = useMemo(
+    () =>
+      resolveCultivationVenue({
+        traveling: Boolean(traveling),
+        campPos,
+        viewMode,
+        currentNodeId,
+        activeRegionId,
+        activeBuildingInteriorId,
+        selectedBuildingId,
+        sectId: sectState.sectId,
+      }),
+    [
+      traveling,
+      campPos,
+      viewMode,
+      currentNodeId,
+      activeRegionId,
+      activeBuildingInteriorId,
+      selectedBuildingId,
+      sectState.sectId,
+    ],
+  )
+  const dailyNeigongRate = useMemo(
+    () => calcDailyExpByCategory(true, baseStats.talents, venueStatus.multiplier),
+    [baseStats.talents, venueStatus.multiplier],
+  )
+  const dailyOuterRate = useMemo(
+    () => calcDailyExpByCategory(false, baseStats.talents, venueStatus.multiplier),
+    [baseStats.talents, venueStatus.multiplier],
+  )
 
   const equipTotals = useMemo(() => computeEquipmentTotals(equipped), [equipped])
   const artTotals = useMemo(
@@ -531,15 +582,15 @@ export function LoadoutTab({
         </div>
       </div>
 
-      {/* 二、 6 槽位主角武学运使与所习武学演练区 */}
+      {/* 二、 6 槽位主角武学运使与按日闭关破境区 */}
       <div className="p-4 rounded-lg bg-[#efe4cc] border-2 border-[#8c6e46] space-y-4 shadow-inner">
         <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#cbb693] pb-2">
           <div className="flex items-center gap-2">
             <span className="px-2 py-0.5 rounded bg-[#261910] text-amber-200 song-serif font-bold text-xs border border-[#c89d54]/60">
-              下卷 · 武学修为
+              下卷 · 武学闭关与配招
             </span>
             <span className="song-serif font-bold text-sm sm:text-base text-[#23180f]">
-              少侠武学配招（1 主运内功 + 1 轻功身法 + 4 出战招式）与所习功法火候
+              少侠武学配招（1 主运内功 + 1 轻功身法 + 4 出战招式）与按日闭关破境
             </span>
           </div>
           <span className="text-xs text-[#781710] font-mono font-semibold">
@@ -547,6 +598,63 @@ export function LoadoutTab({
             {artTotals.maxMp} · 身法+{artTotals.agility} · 轻功+
             {Math.round(artTotals.qinggongBonus * 100)}%
           </span>
+        </div>
+
+        {/* 闭关场所核验与单日进境/战斗经验通栏 */}
+        <div
+          className={`p-3 rounded-md border flex flex-col gap-2 ${
+            venueStatus.venue
+              ? 'bg-[#eef6f1] border-[#6aa384] text-[#184f35]'
+              : 'bg-[#fdf3e7] border-[#c58b38] text-[#781710]'
+          }`}
+        >
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span
+                className={`px-2 py-0.5 rounded text-[11px] font-bold song-serif ${
+                  venueStatus.venue
+                    ? 'bg-[#1f5c3a] text-[#fff8eb]'
+                    : 'bg-[#8f1d14] text-[#fff8eb]'
+                }`}
+              >
+                {venueStatus.venue ? `可闭关 · ${venueStatus.venueLabel}` : '不可闭关'}
+              </span>
+              <span className="text-xs font-medium">
+                {venueStatus.venue ? (
+                  <>
+                    场所倍率 <strong>{Math.round(venueStatus.multiplier * 100)}%</strong> ·{' '}
+                    {venueStatus.dailyFoodCost > 0
+                      ? `每日耗粮 ${venueStatus.dailyFoodCost} 份（现余 ${food} 份）`
+                      : venueStatus.dailySilverCost > 0
+                        ? `每日客栈宿费 ${venueStatus.dailySilverCost} 两（现余 ${silver} 两）`
+                        : '师门驻地免住宿银两'}
+                  </>
+                ) : (
+                  venueStatus.blockedReason
+                )}
+              </span>
+            </div>
+            <div className="flex items-center gap-3 font-mono text-xs shrink-0">
+              <span className="text-[#3d2b19]">
+                单日熟练：内功 <strong>+{dailyNeigongRate}</strong>/天 · 外轻{' '}
+                <strong>+{dailyOuterRate}</strong>/天
+              </span>
+              <span className="px-2 py-0.5 rounded bg-[#261910] text-amber-200 font-bold">
+                战斗经验：{combatExp.toLocaleString()} 点
+              </span>
+            </div>
+          </div>
+          {actionFeedback && (
+            <div
+              className={`text-[11px] px-2.5 py-1 rounded border ${
+                actionFeedback.tone === 'warn'
+                  ? 'bg-[#f8e3e1] border-[#d69891] text-[#781710] font-semibold'
+                  : 'bg-[#fffaf0] border-[#cbb693] text-[#1b5132]'
+              }`}
+            >
+              {actionFeedback.text}
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
@@ -580,11 +688,11 @@ export function LoadoutTab({
               </div>
             </div>
 
-            {/* 已习得全部武学名录（含重数进度与演练按钮） */}
+            {/* 已习得全部武学名录（含重数进度与闭关/破境按钮） */}
             <div className="pt-2.5 border-t border-[#cbb693] space-y-2">
               <div className="flex items-center justify-between">
                 <span className="song-serif font-bold text-xs sm:text-sm text-[#23180f]">
-                  少侠已习得武学全表（共 {learnedArts.length} 门 · 点击检视或演武精修）
+                  少侠已习得武学全表（共 {learnedArts.length} 门 · 点击检视或按日闭关）
                 </span>
                 <button
                   type="button"
@@ -594,7 +702,7 @@ export function LoadoutTab({
                   查阅天下 242 武学总纲 →
                 </button>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-48 overflow-y-auto scroll-thin pr-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-52 overflow-y-auto scroll-thin pr-1">
                 {learnedArts.map((entry) => {
                   const art = MARTIAL_ART_DB_MAP[entry.artId]
                   if (!art) return null
@@ -602,6 +710,9 @@ export function LoadoutTab({
                   const isEquippedAnywhere = Object.values(equippedArts).includes(entry.artId)
                   const rStyle = RARITY_STYLE_MAP[art.tier]
                   const reqExp = getArtExpRequired(art, entry.level)
+                  const reqCombatExp = getArtCombatExpRequired(art, entry.level)
+                  const readyToBreak = entry.level < 10 && entry.exp >= reqExp
+                  const canAffordBreak = combatExp >= reqCombatExp
                   const expPct =
                     entry.level >= 10 || reqExp <= 0
                       ? 100
@@ -621,7 +732,7 @@ export function LoadoutTab({
                           <span
                             className={`px-1.5 py-0.2 rounded text-[9px] font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
                           >
-                            {art.tier}
+                            {art.fullTier}
                           </span>
                           <span className="song-serif font-bold text-xs text-[#23180f] truncate">
                             {art.name}
@@ -634,37 +745,68 @@ export function LoadoutTab({
                         </div>
                         <div className="flex items-center justify-between text-[10px] text-[#6b5235] mt-1">
                           <span>
-                            {art.category} · 第 {entry.level}/10 重（
-                            {getMasteryStageLabel(entry.level)}）
+                            {art.category} · {entry.level}/10重（{getMasteryStageLabel(entry.level)}）
                           </span>
                           <span className="font-mono">
-                            {entry.level >= 10 ? '圆满' : `${entry.exp}/${reqExp}`}
+                            {entry.level >= 10
+                              ? '圆满'
+                              : `${entry.exp.toLocaleString()}/${reqExp.toLocaleString()}`}
                           </span>
                         </div>
                         <div className="w-full h-1 bg-[#d8c5a3] rounded-full mt-1 overflow-hidden">
-                          <div className="h-full bg-[#8f1d14]" style={{ width: `${expPct}%` }} />
+                          <div
+                            className={`h-full ${readyToBreak ? 'bg-[#1f5c3a]' : 'bg-[#8f1d14]'}`}
+                            style={{ width: `${expPct}%` }}
+                          />
                         </div>
                       </div>
-                      <button
-                        type="button"
-                        disabled={entry.level >= 10}
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          practiceLearnedArt(entry.artId)
-                        }}
-                        title={
-                          entry.level >= 10
-                            ? '该武学已臻十重圆满化境'
-                            : '消耗 10 点体能与 1 个时辰演练该武学，提升熟练度与重数'
-                        }
-                        className={`px-2 py-1 rounded text-[10px] font-bold song-serif shrink-0 ${
-                          entry.level >= 10
-                            ? 'bg-[#d8c5a3] text-[#6b5235] cursor-not-allowed'
-                            : 'bg-[#5c4024] hover:bg-[#78532f] text-[#fff8ee] cursor-pointer'
-                        }`}
-                      >
-                        {entry.level >= 10 ? '圆满' : '演练'}
-                      </button>
+                      {entry.level >= 10 ? (
+                        <span className="px-2 py-1 rounded text-[10px] font-bold song-serif shrink-0 bg-[#d8c5a3] text-[#6b5235]">
+                          圆满
+                        </span>
+                      ) : readyToBreak ? (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onSelectInspectedArtId(entry.artId)
+                            breakthroughLearnedArt(entry.artId)
+                          }}
+                          title={
+                            canAffordBreak
+                              ? `消耗 ${reqCombatExp} 点战斗经验冲破至第 ${entry.level + 1} 重`
+                              : `破境需 ${reqCombatExp} 点战斗经验（当前 ${combatExp} 点）`
+                          }
+                          className={`px-2 py-1 rounded text-[10px] font-bold song-serif shrink-0 cursor-pointer ${
+                            canAffordBreak
+                              ? 'bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb]'
+                              : 'bg-[#9a6b28] hover:bg-[#7d561e] text-[#fff8eb]'
+                          }`}
+                        >
+                          破境({reqCombatExp}战)
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            onSelectInspectedArtId(entry.artId)
+                            cultivateLearnedArt(entry.artId, 1)
+                          }}
+                          title={
+                            venueStatus.venue
+                              ? `于【${venueStatus.venueLabel}】闭关精修 1 天`
+                              : (venueStatus.blockedReason ?? '未在闭关场所')
+                          }
+                          className={`px-2 py-1 rounded text-[10px] font-bold song-serif shrink-0 cursor-pointer ${
+                            venueStatus.venue
+                              ? 'bg-[#5c4024] hover:bg-[#78532f] text-[#fff8ee]'
+                              : 'bg-[#bfa680] text-[#52391e]'
+                          }`}
+                        >
+                          闭关1天
+                        </button>
+                      )}
                     </div>
                   )
                 })}
@@ -672,7 +814,7 @@ export function LoadoutTab({
             </div>
           </div>
 
-          {/* 右：当前选中武学槽位配置 & 武学心法详录 */}
+          {/* 右：当前选中武学槽位配置 & 按日闭关破境控制台 */}
           <div className="lg:col-span-5 bg-[#faf4e6] border border-[#cbb693] rounded-md p-3.5 flex flex-col justify-between gap-3">
             <div className="space-y-2.5">
               <div className="flex items-center justify-between border-b border-[#dccab0] pb-2">
@@ -742,7 +884,7 @@ export function LoadoutTab({
                     适配 {compatibleLearnedArts.length} 门
                   </span>
                 </div>
-                <div className="space-y-1.5 max-h-44 overflow-y-auto scroll-thin pr-1">
+                <div className="space-y-1.5 max-h-40 overflow-y-auto scroll-thin pr-1">
                   {compatibleLearnedArts.map(({ artId, level, art }) => {
                     const isCurSlot = equippedArts[activeArtSlotMeta.slot] === artId
                     const bonusBadges = formatArtBonusBadges(
@@ -786,34 +928,119 @@ export function LoadoutTab({
               </div>
             </div>
 
-            {/* 底部检视武学快速演练条 */}
-            {inspectedArt && inspectedEntry && (
-              <div className="p-2.5 rounded bg-[#efe4cc] border border-[#c8b28e] flex items-center justify-between gap-2">
-                <div className="min-w-0">
-                  <div className="song-serif font-bold text-xs text-[#23180f] truncate">
-                    精修检视：{inspectedArt.name}（第 {inspectedEntry.level}/10 重）
+            {/* 底部检视武学：按日闭关精修 & 战斗经验破境控制台 */}
+            {inspectedArt && inspectedEntry && (() => {
+              const reqExp = getArtExpRequired(inspectedArt, inspectedEntry.level)
+              const reqCombatExp = getArtCombatExpRequired(inspectedArt, inspectedEntry.level)
+              const singleDayGain = calcDailyCultivationExpGain(
+                inspectedArt,
+                baseStats.talents,
+                venueStatus.multiplier,
+              )
+              const isMaxLevel = inspectedEntry.level >= 10
+              const isReadyBreak = !isMaxLevel && inspectedEntry.exp >= reqExp
+              const daysNeeded = isMaxLevel
+                ? 0
+                : Math.max(1, Math.ceil((reqExp - inspectedEntry.exp) / Math.max(1, singleDayGain)))
+              return (
+                <div className="p-3 rounded bg-[#efe4cc] border border-[#c8b28e] space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="song-serif font-bold text-xs text-[#23180f] truncate">
+                      闭关精修：{inspectedArt.name}（{inspectedArt.fullTier} · 第{' '}
+                      {inspectedEntry.level}/10 重）
+                    </div>
+                    {!isMaxLevel && (
+                      <span className="font-mono text-[10px] text-[#1b5132] font-bold shrink-0">
+                        +{singleDayGain}/天
+                      </span>
+                    )}
                   </div>
-                  <div className="text-[10px] text-[#6b5235] truncate">
-                    传承：{inspectedArt.origin} ·{' '}
-                    {inspectedEntry.level >= 10
-                      ? '十重返璞归真（圆满）'
-                      : `熟练度 ${inspectedEntry.exp}/${getArtExpRequired(inspectedArt, inspectedEntry.level)}`}
+                  <div className="flex flex-wrap items-center justify-between gap-1 text-[10px] text-[#52391e] font-mono">
+                    <span>
+                      {isMaxLevel
+                        ? '十重返璞归真（圆满化境）'
+                        : `熟练 ${inspectedEntry.exp.toLocaleString()} / ${reqExp.toLocaleString()}（约需 ${daysNeeded} 天）`}
+                    </span>
+                    {!isMaxLevel && (
+                      <span className="text-[#781710] font-semibold">
+                        {reqCombatExp > 0
+                          ? `破境战经 ${reqCombatExp}（现 ${combatExp}）`
+                          : '凡品免战经自动连破'}
+                      </span>
+                    )}
                   </div>
+
+                  {isMaxLevel ? (
+                    <div className="w-full py-1.5 rounded bg-[#d8c5a3] text-center text-[#52391e] font-bold song-serif text-xs">
+                      已臻十重圆满化境
+                    </div>
+                  ) : isReadyBreak ? (
+                    <button
+                      type="button"
+                      onClick={() => breakthroughLearnedArt(inspectedEntry.artId)}
+                      className={`w-full py-2 rounded font-bold song-serif text-xs shadow cursor-pointer transition ${
+                        combatExp >= reqCombatExp
+                          ? 'bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb]'
+                          : 'bg-[#9a6b28] hover:bg-[#7d561e] text-[#fff8eb]'
+                      }`}
+                    >
+                      {combatExp >= reqCombatExp
+                        ? `冲关破境 → 晋入第 ${inspectedEntry.level + 1} 重（消耗 ${reqCombatExp} 战经）`
+                        : `战斗经验不足（破境需 ${reqCombatExp} 点，当前 ${combatExp} 点）`}
+                    </button>
+                  ) : (
+                    <div className="grid grid-cols-4 gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => cultivateLearnedArt(inspectedEntry.artId, 1)}
+                        className={`py-1.5 rounded font-bold song-serif text-[11px] cursor-pointer transition ${
+                          venueStatus.venue
+                            ? 'bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb]'
+                            : 'bg-[#bfa680] text-[#52391e]'
+                        }`}
+                      >
+                        闭关 1天
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => cultivateLearnedArt(inspectedEntry.artId, 7)}
+                        className={`py-1.5 rounded font-bold song-serif text-[11px] cursor-pointer transition ${
+                          venueStatus.venue
+                            ? 'bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb]'
+                            : 'bg-[#bfa680] text-[#52391e]'
+                        }`}
+                      >
+                        闭关 7天
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => cultivateLearnedArt(inspectedEntry.artId, 30)}
+                        className={`py-1.5 rounded font-bold song-serif text-[11px] cursor-pointer transition ${
+                          venueStatus.venue
+                            ? 'bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb]'
+                            : 'bg-[#bfa680] text-[#52391e]'
+                        }`}
+                      >
+                        闭关 30天
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          cultivateLearnedArt(inspectedEntry.artId, 'until_breakthrough')
+                        }
+                        className={`py-1.5 rounded font-bold song-serif text-[11px] cursor-pointer transition ${
+                          venueStatus.venue
+                            ? 'bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb]'
+                            : 'bg-[#bfa680] text-[#52391e]'
+                        }`}
+                      >
+                        闭关至破境
+                      </button>
+                    </div>
+                  )}
                 </div>
-                <button
-                  type="button"
-                  disabled={inspectedEntry.level >= 10}
-                  onClick={() => practiceLearnedArt(inspectedEntry.artId)}
-                  className={`px-2.5 py-1 rounded font-bold song-serif text-xs shrink-0 ${
-                    inspectedEntry.level >= 10
-                      ? 'bg-[#d8c5a3] text-[#6b5235] cursor-not-allowed'
-                      : 'bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] cursor-pointer'
-                  }`}
-                >
-                  {inspectedEntry.level >= 10 ? '十重圆满' : '演武精修 (-10体能)'}
-                </button>
-              </div>
-            )}
+              )
+            })()}
           </div>
         </div>
       </div>

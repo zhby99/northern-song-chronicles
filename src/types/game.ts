@@ -307,6 +307,7 @@ export interface MartialArtSpecialEffect {
 export interface MartialArtLevelStats {
   level: number
   expRequired?: number
+  combatExpRequired?: number
   maxMp?: number
   maxHp?: number
   agility?: number
@@ -502,8 +503,21 @@ export type SaveSlotId =
   | 'slot-6'
 
 // ============================================================================
-// [M1-0 & M1-3] Time (Shichen), Stamina, 7-Slot Equipment, 100 Weapons, 28 Mounts & 4-Category Bag
+// [M1-0 & M1-3] Time (Shichen), Combat Exp, 7-Slot Equipment, 100 Weapons, 28 Mounts & 4-Category Bag
 // ============================================================================
+
+export type CultivationVenueKind = 'sect_grounds' | 'inn' | 'wilderness_camp'
+export type CultivationDurationMode = 1 | 7 | 30 | 'until_breakthrough'
+
+export interface CultivationVenueStatus {
+  venue: CultivationVenueKind | null
+  venueLabel: string
+  multiplier: number
+  dailySilverCost: number
+  dailyFoodCost: number
+  isOwnSectCity: boolean
+  blockedReason: string | null
+}
 
 export type EquipmentSlotKey =
   | 'weapon'
@@ -550,7 +564,6 @@ export interface WeaponSynergyRule {
 export interface EquipmentStatBonus {
   maxHp?: number
   maxMp?: number
-  maxStamina?: number
   agility?: number
   res?: number
   attack?: number
@@ -623,7 +636,7 @@ export type MartialArtSlotKey =
 export interface LearnedArtEntry {
   artId: string
   level: number // 1 ~ 10 重
-  exp: number // 0 ~ 100 当前重熟练度
+  exp: number // 当前重累计熟练度
 }
 
 export type EquippedArtsMap = Record<MartialArtSlotKey, string | null>
@@ -631,10 +644,8 @@ export type EquippedArtsMap = Record<MartialArtSlotKey, string | null>
 export interface ItemUseEffect {
   hp?: number
   mp?: number
-  stamina?: number
   maxHp?: number
   maxMp?: number
-  maxStamina?: number
   agi?: number
   res?: number
   riding?: number
@@ -717,7 +728,6 @@ export interface HeroBaseStats {
   talents: HeroTalents
   maxHp: number
   maxMp: number
-  maxStamina: number
   agility: number
   res: number
   ridingSkill: number
@@ -787,14 +797,13 @@ export interface SerializableGameState {
   qinggongBonus: number
   ridingSkill: number
   agility: number
+  combatExp: number
   silver: number
   food: number
   hp: number
   maxHp: number
   mp: number
   maxMp: number
-  stamina: number
-  maxStamina: number
   res: number
   skills: Record<string, number>
 
@@ -825,16 +834,16 @@ export interface GameSaveSummary {
   buildingName: string | null
   hp: number
   maxHp?: number
-  stamina?: number
-  maxStamina?: number
   mp: number
+  maxMp?: number
+  combatExp?: number
   silver: number
   food: number
 }
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M1.4.1'
+  schemaVersion: 'M1.5.0'
   slotId: SaveSlotId
   savedAt: string
   note: string

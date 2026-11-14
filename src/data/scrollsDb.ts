@@ -252,7 +252,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 510,
     desc: '荆襄武当道家高士绘于绵纸上的绝顶轻功图解，左脚踏右脚背借力直上青云，号称轻功中的轻功。',
     useEffect: {
-      stamina: 30,
+      mp: 60,
       learnArtId: 'MA-056',
       learnArtHint: '参悟地阶上品轻功《梯云纵》提气凌虚法门',
     },
@@ -561,7 +561,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 150,
     desc: '关中道门秘传轻功佳构，摹塞外金雁斜飞掠空之姿，可一口真气凌空转折数次。',
     useEffect: {
-      stamina: 20,
+      mp: 40,
       learnArtId: 'MA-119',
       learnArtHint: '参悟良品上品轻功《金雁功》',
     },
@@ -576,7 +576,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 145,
     desc: '江淮漕帮水路香主踏浪渡河的独门轻功秘本，足尖点踏浮木芦苇即可飞渡汴河急流。',
     useEffect: {
-      stamina: 20,
+      mp: 40,
       learnArtId: 'MA-120',
       learnArtHint: '参悟良品上品轻功《水上漂（漕帮精修卷）》',
     },
@@ -651,7 +651,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 120,
     desc: '开封府与刑部六扇门名捕闭气追踪、伏击悍匪的独门内息法门，耳目聪敏，夜行百里气息不乱。',
     useEffect: {
-      stamina: 25,
+      mp: 45,
       learnArtId: 'MA-122',
       learnArtHint: '参悟良品中品内功《六扇门捕风诀》',
     },
@@ -697,7 +697,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 110,
     desc: '江湖一流轻功筑基进阶谱，身形掠过水面或屋脊时足尖三度轻点借力，矫健如春燕剪水。',
     useEffect: {
-      stamina: 20,
+      mp: 35,
       learnArtId: 'MA-158',
       learnArtHint: '参悟良品下品轻功《燕子三抄水》',
     },
@@ -870,7 +870,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 108,
     desc: '长沙画师易元吉深入荆湖万山观察猿猱獐鹿百态绘就的灵动写生卷，猿臂腾跃之势竟与轻功身法暗合。',
     useEffect: {
-      stamina: 15,
+      mp: 25,
       skillGain: ['画', 4],
     },
   },
@@ -1051,7 +1051,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 38,
     desc: '详载绑沙袋跑板壁、借飞爪翻越高墙大院的江湖轻身术小册，夜行侠客与捕快人手一卷。',
     useEffect: {
-      stamina: 15,
+      mp: 20,
       learnArtId: 'MA-177',
       learnArtHint: '参悟凡品上品轻功《飞檐走壁》',
     },
@@ -1096,7 +1096,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 35,
     desc: '中原镖局趟子手与女侠喜习的双刀套路，双刀交错如春柳迎风，护身严密。',
     useEffect: {
-      stamina: 10,
+      mp: 18,
       learnArtId: 'MA-170',
       learnArtHint: '参悟凡品上品刀法《柳叶双刀》',
     },
@@ -1126,7 +1126,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 25,
     desc: '“手是两扇门，全凭腿打人”，黄河两岸拳师启蒙必练的十路潭腿歌诀抄本。',
     useEffect: {
-      stamina: 12,
+      hp: 22,
       learnArtId: 'MA-185',
       learnArtHint: '参悟凡品中品腿法《弹腿》',
     },
@@ -1171,7 +1171,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 26,
     desc: '乡间武举人与护院教头立木桩锤炼下盘眼力的步法图册，走熟后下盘稳健、闪展灵活。',
     useEffect: {
-      stamina: 12,
+      mp: 18,
       learnArtId: 'MA-198',
       learnArtHint: '参悟凡品中品轻功《梅花桩步》',
     },
@@ -1186,7 +1186,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 22,
     desc: '拣取河滩鹅卵石以指腕寸劲破空击远的粗浅暗器练法，胜在随地可取、弹无虚发。',
     useEffect: {
-      stamina: 10,
+      mp: 15,
       learnArtId: 'MA-195',
       learnArtHint: '参悟凡品中品暗器《飞蝗石》',
     },
@@ -1295,7 +1295,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 30,
     desc: '详论建安龙凤团茶色香味、炙茶碾茶点茶斗茶及建盏兔毫鉴赏之风雅小品。',
     useEffect: {
-      stamina: 20,
+      mp: 25,
       skillGain: ['琴', 1],
     },
   },
