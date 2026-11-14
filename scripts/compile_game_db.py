@@ -1146,8 +1146,8 @@ def compute_martial_art_levels(art: dict[str, Any]) -> list[dict[str, Any]]:
             ("dugu_interrupt", "料敌机先", 35, "%", "当对手本回合也选择【出招】时无视身法必定先手结算，并有该概率直接看破打断其出招"),
         ],
         "008": [
-            ("douzhuan_high", "移星换斗（内力≥对手）", 50, "%", "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"),
-            ("douzhuan_low", "移星换斗（内力<对手）", 20, "%", "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"),
+            ("douzhuan_high", "移星换斗（内力≥对手）", 35, "%", "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"),
+            ("douzhuan_low", "移星换斗（内力<对手）", 15, "%", "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"),
         ],
         "009": [
             ("bahuang_dom", "唯我独尊（优势增伤）", 45, "%", "当自身当前气血高于对手时，造成的所有伤害提升该比例且免疫无法出招/封穴/逃跑拦截控制"),
@@ -1374,7 +1374,11 @@ def parse_martial_arts() -> list[dict[str, Any]]:
             )
 
     for art in arts:
-        if art["id"] == "MA-060":
+        if art["id"] == "MA-008":
+            art["tier"] = "天阶"
+            art["subTier"] = "中品"
+            art["fullTier"] = "天阶中品"
+        elif art["id"] == "MA-060":
             art["tier"] = "地阶"
             art["subTier"] = "上品"
             art["fullTier"] = "地阶上品"
@@ -2866,16 +2870,16 @@ def populate_npc_loadouts(
                         break
 
         # 4) 指定宗师内功微调
-        if npc["id"] == "NPC-0105":  # 萧远山：少林九阳功 10 重
-            equipped_arts["neigong"] = "MA-038"
+        if npc["id"] == "NPC-0105":  # 萧远山：金刚不坏体神功 8 重
+            equipped_arts["neigong"] = "MA-018"
             found = False
             for e in learned_arts:
-                if e["artId"] == "MA-038":
-                    e["level"] = 10
+                if e["artId"] == "MA-018":
+                    e["level"] = 8
                     found = True
                     break
             if not found:
-                learned_arts.append({"artId": "MA-038", "level": 10, "exp": 0})
+                learned_arts.append({"artId": "MA-018", "level": 8, "exp": 0})
         elif npc["id"] in ("NPC-0108", "NPC-0119", "NPC-0117", "NPC-0125", "NPC-0132", "NPC-0128") and neigong_id:
             for e in learned_arts:
                 if e["artId"] == neigong_id:

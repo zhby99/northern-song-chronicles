@@ -1383,8 +1383,8 @@
     "name": "斗转星移",
     "cleanName": "斗转星移",
     "tier": "天阶",
-    "subTier": "上品",
-    "fullTier": "天阶上品",
+    "subTier": "中品",
+    "fullTier": "天阶中品",
     "category": "内功",
     "origin": "姑苏慕容氏",
     "sectId": "SECT-10",
@@ -1411,10 +1411,33 @@
     "levels": [
       {
         "level": 1,
-        "expRequired": 2600,
-        "maxMp": 1537,
-        "maxHp": 1404,
-        "resistance": 12,
+        "expRequired": 2000,
+        "maxMp": 1388,
+        "maxHp": 1258,
+        "resistance": 11,
+        "specialEffects": [
+          {
+            "id": "douzhuan_high",
+            "name": "移星换斗（内力≥对手）",
+            "value": 5,
+            "unit": "%",
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
+          },
+          {
+            "id": "douzhuan_low",
+            "name": "移星换斗（内力<对手）",
+            "value": 2,
+            "unit": "%",
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
+          }
+        ]
+      },
+      {
+        "level": 2,
+        "expRequired": 3200,
+        "maxMp": 2036,
+        "maxHp": 1846,
+        "resistance": 16,
         "specialEffects": [
           {
             "id": "douzhuan_high",
@@ -1433,16 +1456,16 @@
         ]
       },
       {
-        "level": 2,
-        "expRequired": 4160,
-        "maxMp": 2254,
-        "maxHp": 2059,
-        "resistance": 17,
+        "level": 3,
+        "expRequired": 4800,
+        "maxMp": 2777,
+        "maxHp": 2517,
+        "resistance": 22,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
-            "value": 11,
+            "value": 10,
             "unit": "%",
             "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
@@ -1456,16 +1479,16 @@
         ]
       },
       {
-        "level": 3,
-        "expRequired": 6240,
-        "maxMp": 3073,
-        "maxHp": 2808,
-        "resistance": 23,
+        "level": 4,
+        "expRequired": 7000,
+        "maxMp": 3610,
+        "maxHp": 3272,
+        "resistance": 28,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
-            "value": 15,
+            "value": 14,
             "unit": "%",
             "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
@@ -1479,46 +1502,23 @@
         ]
       },
       {
-        "level": 4,
-        "expRequired": 9100,
-        "maxMp": 3995,
-        "maxHp": 3650,
-        "resistance": 30,
-        "specialEffects": [
-          {
-            "id": "douzhuan_high",
-            "name": "移星换斗（内力≥对手）",
-            "value": 20,
-            "unit": "%",
-            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
-          },
-          {
-            "id": "douzhuan_low",
-            "name": "移星换斗（内力<对手）",
-            "value": 8,
-            "unit": "%",
-            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
-          }
-        ]
-      },
-      {
         "level": 5,
-        "expRequired": 13000,
-        "maxMp": 5020,
-        "maxHp": 4586,
-        "resistance": 38,
+        "expRequired": 10000,
+        "maxMp": 4535,
+        "maxHp": 4111,
+        "resistance": 36,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
-            "value": 24,
+            "value": 17,
             "unit": "%",
             "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
-            "value": 10,
+            "value": 7,
             "unit": "%",
             "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
@@ -1526,15 +1526,61 @@
       },
       {
         "level": 6,
-        "expRequired": 18200,
-        "maxMp": 6146,
-        "maxHp": 5616,
-        "resistance": 47,
+        "expRequired": 14000,
+        "maxMp": 5554,
+        "maxHp": 5034,
+        "resistance": 44,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
-            "value": 30,
+            "value": 21,
+            "unit": "%",
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
+          },
+          {
+            "id": "douzhuan_low",
+            "name": "移星换斗（内力<对手）",
+            "value": 9,
+            "unit": "%",
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
+          }
+        ]
+      },
+      {
+        "level": 7,
+        "expRequired": 19600,
+        "maxMp": 6572,
+        "maxHp": 5957,
+        "resistance": 52,
+        "specialEffects": [
+          {
+            "id": "douzhuan_high",
+            "name": "移星换斗（内力≥对手）",
+            "value": 25,
+            "unit": "%",
+            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
+          },
+          {
+            "id": "douzhuan_low",
+            "name": "移星换斗（内力<对手）",
+            "value": 11,
+            "unit": "%",
+            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
+          }
+        ]
+      },
+      {
+        "level": 8,
+        "expRequired": 27600,
+        "maxMp": 7590,
+        "maxHp": 6880,
+        "resistance": 60,
+        "specialEffects": [
+          {
+            "id": "douzhuan_high",
+            "name": "移星换斗（内力≥对手）",
+            "value": 29,
             "unit": "%",
             "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
@@ -1548,16 +1594,16 @@
         ]
       },
       {
-        "level": 7,
-        "expRequired": 25480,
-        "maxMp": 7273,
-        "maxHp": 6646,
-        "resistance": 55,
+        "level": 9,
+        "expRequired": 40000,
+        "maxMp": 8423,
+        "maxHp": 7635,
+        "resistance": 66,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
-            "value": 36,
+            "value": 32,
             "unit": "%",
             "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
@@ -1571,69 +1617,23 @@
         ]
       },
       {
-        "level": 8,
-        "expRequired": 35880,
-        "maxMp": 8400,
-        "maxHp": 7675,
-        "resistance": 64,
-        "specialEffects": [
-          {
-            "id": "douzhuan_high",
-            "name": "移星换斗（内力≥对手）",
-            "value": 41,
-            "unit": "%",
-            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
-          },
-          {
-            "id": "douzhuan_low",
-            "name": "移星换斗（内力<对手）",
-            "value": 16,
-            "unit": "%",
-            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
-          }
-        ]
-      },
-      {
-        "level": 9,
-        "expRequired": 52000,
-        "maxMp": 9322,
-        "maxHp": 8518,
-        "resistance": 71,
-        "specialEffects": [
-          {
-            "id": "douzhuan_high",
-            "name": "移星换斗（内力≥对手）",
-            "value": 46,
-            "unit": "%",
-            "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
-          },
-          {
-            "id": "douzhuan_low",
-            "name": "移星换斗（内力<对手）",
-            "value": 18,
-            "unit": "%",
-            "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
-          }
-        ]
-      },
-      {
         "level": 10,
         "expRequired": 0,
-        "maxMp": 10244,
-        "maxHp": 9360,
-        "resistance": 78,
+        "maxMp": 9256,
+        "maxHp": 8390,
+        "resistance": 73,
         "specialEffects": [
           {
             "id": "douzhuan_high",
             "name": "移星换斗（内力≥对手）",
-            "value": 50,
+            "value": 35,
             "unit": "%",
             "desc": "装配为主运内功时，对手【出招】且自身内力≥对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           },
           {
             "id": "douzhuan_low",
             "name": "移星换斗（内力<对手）",
-            "value": 20,
+            "value": 15,
             "unit": "%",
             "desc": "装配为主运内功时，对手【出招】且自身内力<对手，减免该比例伤害并将减免伤害与特效一并反击对手"
           }
