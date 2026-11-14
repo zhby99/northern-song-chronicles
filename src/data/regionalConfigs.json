@@ -3673,12 +3673,12 @@
     "bases": []
   },
   "guangzhou": {
-    "theme": "iso_svg_fallback",
+    "theme": "iso_panorama_image",
     "isoViewBox": [
       1376,
       768
     ],
-    "panoramaUri": "",
+    "panoramaUri": "/assets/regions/guangzhou.jpg",
     "sceneSubtitle": "宋式青绿等轴《羊城珠江扶胥千帆图》— 点击南海神庙、番坊光塔、药洲幕府与洪门武馆互动",
     "gateLabel": "羊城海山楼城门（返回天下舆图）",
     "gatePos": [
@@ -3793,12 +3793,12 @@
     ]
   },
   "tanzhou": {
-    "theme": "iso_svg_fallback",
+    "theme": "iso_panorama_image",
     "isoViewBox": [
       1376,
       768
     ],
-    "panoramaUri": "",
+    "panoramaUri": "/assets/regions/tanzhou.jpg",
     "sceneSubtitle": "宋式青绿等轴《潇湘岳麓烟雨全景图》— 点击岳麓书院、湘江天心阁、铜官五溪苗市互动",
     "gateLabel": "潭州湘春门（返回天下舆图）",
     "gatePos": [
@@ -3917,12 +3917,12 @@
     ]
   },
   "hongzhou": {
-    "theme": "iso_svg_fallback",
+    "theme": "iso_panorama_image",
     "isoViewBox": [
       1376,
       768
     ],
-    "panoramaUri": "",
+    "panoramaUri": "/assets/regions/hongzhou.jpg",
     "sceneSubtitle": "宋式青绿等轴《南昌滕王高阁江天图》— 点击滕王阁、西山玉隆万寿宫、鄱阳水津互动",
     "gateLabel": "洪州广润门（返回天下舆图）",
     "gatePos": [
@@ -4025,12 +4025,12 @@
     ]
   },
   "qinzhou": {
-    "theme": "iso_svg_fallback",
+    "theme": "iso_panorama_image",
     "isoViewBox": [
       1376,
       768
     ],
-    "panoramaUri": "",
+    "panoramaUri": "/assets/regions/qinzhou.jpg",
     "sceneSubtitle": "宋式青绿等轴《秦州陇右茶马雄关图》— 点击官营茶马榷场、麦积山石窟、陇右金环刀堂互动",
     "gateLabel": "秦州伏羲城门（返回天下舆图）",
     "gatePos": [
@@ -4142,12 +4142,12 @@
     ]
   },
   "liaoyang_liao": {
-    "theme": "iso_svg_fallback",
+    "theme": "iso_panorama_image",
     "isoViewBox": [
       1376,
       768
     ],
-    "panoramaUri": "",
+    "panoramaUri": "/assets/regions/liaoyang_liao.jpg",
     "sceneSubtitle": "契丹风貌等轴《大辽东京白塔林海图》— 点击东京留守司、辽阳白塔、长白参茸互市互动",
     "gateLabel": "辽阳迎阳门（返回天下舆图）",
     "gatePos": [

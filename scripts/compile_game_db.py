@@ -2907,32 +2907,43 @@ def compile_all(do_normalize_docs: bool) -> None:
                 bid = f"{region_id}_base_{bkey}"
                 bname = base.get("customName") or default_name
                 base_interior: dict[str, Any] | None = None
-                if bkey == "tavern":
-                    base_interior = {
-                        "mode": "svg_fallback",
-                        "panoramaUri": None,
-                        "subtitle": f"市井酒肆大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
-                        "exitGate": {
-                            "label": f"步出酒肆（返回{region_name}全景）",
-                            "x": 688,
-                            "y": 698,
-                            "poly": "530,645 846,645 880,748 496,748",
-                        },
-                        "spots": [],
-                    }
-                elif bkey == "inn":
-                    base_interior = {
-                        "mode": "svg_fallback",
-                        "panoramaUri": None,
-                        "subtitle": f"车马客栈大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
-                        "exitGate": {
-                            "label": f"步出客栈（返回{region_name}全景）",
-                            "x": 688,
-                            "y": 698,
-                            "poly": "530,645 846,645 880,748 496,748",
-                        },
-                        "spots": [],
-                    }
+                has_base_pano = False
+                if bkey in ("tavern", "inn"):
+                    regime = node.get("regime") or "song"
+                    if regime in ("xixia", "tubo", "liao", "dali"):
+                        tpl_region = regime
+                    elif region_id in ("bianliang", "luoyang", "daming", "zhending", "taiyuan", "changan", "yanan", "jinan", "qinzhou"):
+                        tpl_region = "song_north"
+                    else:
+                        tpl_region = "song_south"
+                    tpl_uri = f"/assets/buildings/templates/{bkey}_{tpl_region}.jpg"
+                    has_base_pano = True
+                    if bkey == "tavern":
+                        base_interior = {
+                            "mode": "image",
+                            "panoramaUri": tpl_uri,
+                            "subtitle": f"市井酒肆大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+                            "exitGate": {
+                                "label": f"步出酒肆（返回{region_name}全景）",
+                                "x": 688,
+                                "y": 698,
+                                "poly": "530,645 846,645 880,748 496,748",
+                            },
+                            "spots": [],
+                        }
+                    else:
+                        base_interior = {
+                            "mode": "image",
+                            "panoramaUri": tpl_uri,
+                            "subtitle": f"车马客栈大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+                            "exitGate": {
+                                "label": f"步出客栈（返回{region_name}全景）",
+                                "x": 688,
+                                "y": 698,
+                                "poly": "530,645 846,645 880,748 496,748",
+                            },
+                            "spots": [],
+                        }
                 b_record = {
                     "id": bid,
                     "regionId": region_id,
@@ -2950,7 +2961,7 @@ def compile_all(do_normalize_docs: bool) -> None:
                     "actLabel": bact,
                     "cost": bcost,
                     "effect": beff,
-                    "hasPanoramaImage": False,
+                    "hasPanoramaImage": has_base_pano,
                     "interior": base_interior,
                     "residentNpcIds": [],
                 }
