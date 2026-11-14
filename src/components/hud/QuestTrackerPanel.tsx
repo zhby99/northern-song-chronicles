@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { ChevronDown, ChevronUp, Compass, ScrollText, ShieldAlert } from 'lucide-react'
 import { REGION_DB_MAP } from '../../data/gameDb'
-import { QUEST_MAP, QUEST_REGISTRY } from '../../data/quests'
+import { QUEST_MAP } from '../../data/quests'
 import { useGameStore } from '../../store/useGameStore'
 import type { QuestCategoryKey, QuestPrimitiveValue } from '../../types/quest'
 import {
@@ -34,8 +34,6 @@ function getDamingClueSummary(flags: Record<string, QuestPrimitiveValue>) {
 
 export function QuestTrackerPanel() {
   const viewMode = useGameStore((s) => s.viewMode)
-  const activeRegionId = useGameStore((s) => s.activeRegionId)
-  const currentNodeId = useGameStore((s) => s.currentNodeId)
   const dayCount = useGameStore((s) => s.dayCount)
   const maxHp = useGameStore((s) => s.maxHp)
   const maxMp = useGameStore((s) => s.maxMp)
@@ -53,20 +51,6 @@ export function QuestTrackerPanel() {
   )
   const activeSpy = sectState.sectId === 'SECT-22' ? sectState.activeLiaoSpy : null
   const totalActiveCount = activeList.length + (activeSpy ? 1 : 0)
-
-  const discoverableQuests = useMemo(() => {
-    if (totalActiveCount > 0) return []
-    const focusRegionId = viewMode === 'world' ? currentNodeId : activeRegionId
-    return QUEST_REGISTRY.filter(
-      (q) => !questState.activeQuests[q.id] && !questState.completedQuests[q.id],
-    )
-      .sort((a, b) => {
-        const aLocal = a.regionId === focusRegionId || a.startLocation?.regionId === focusRegionId ? 0 : 1
-        const bLocal = b.regionId === focusRegionId || b.startLocation?.regionId === focusRegionId ? 0 : 1
-        return aLocal - bLocal
-      })
-      .slice(0, 3)
-  }, [totalActiveCount, viewMode, currentNodeId, activeRegionId, questState.activeQuests, questState.completedQuests])
 
   const topOffsetClass = viewMode === 'world' ? 'top-[56px]' : 'top-[96px]'
 
@@ -279,48 +263,10 @@ export function QuestTrackerPanel() {
             )
           })}
 
-          {/* 无进行中任务时：展示可触发江湖传闻 */}
+          {/* 无进行中任务时：保持精简提示 */}
           {totalActiveCount === 0 && (
-            <div className="space-y-2">
-              <div className="text-[11px] text-[#cbb693] leading-relaxed">
-                当前尚无在手卷宗，以下为四方江湖可接取传闻：
-              </div>
-              {discoverableQuests.map((q) => {
-                const readiness = assessQuestRealmReadiness(
-                  maxHp,
-                  maxMp,
-                  q.recommendedRealm,
-                  q.maxOpponentRealm,
-                )
-                return (
-                  <div
-                    key={q.id}
-                    className="p-2 rounded bg-[#271b10]/85 border border-[#8c6e46]/45 space-y-1"
-                  >
-                    <div className="flex items-center justify-between gap-1.5">
-                      <span className="song-serif font-bold text-xs text-amber-100 truncate">
-                        《{q.title}》
-                      </span>
-                      <span className={`px-1.5 py-0.2 rounded border text-[10px] shrink-0 ${READINESS_PILL[readiness.status]}`}>
-                        建议 {readiness.recommendedRealm.label}
-                      </span>
-                    </div>
-                    <div className="text-[11px] text-[#d9c7a5] leading-snug">
-                      {q.startHint ?? q.summary}
-                    </div>
-                    {q.startLocation && (
-                      <button
-                        type="button"
-                        onClick={() => locateQuestTargetOnMap(q.startLocation!)}
-                        className="w-full py-1 px-2 rounded bg-[#3f2a17] hover:bg-[#523820] text-amber-200 text-[10px] font-semibold flex items-center justify-center gap-1 cursor-pointer"
-                      >
-                        <Compass className="w-3 h-3" />
-                        <span>指引：{q.startLocation.customLabel ?? q.startLocation.regionId}</span>
-                      </button>
-                    )}
-                  </div>
-                )
-              })}
+            <div className="py-2 px-1 text-[11px] text-[#cbb693] text-center leading-relaxed">
+              当前暂无已承接的任务，可按 <kbd className="px-1 py-0.5 rounded bg-[#332212] border border-[#8c6e46]/50 text-amber-200 font-mono text-[10px]">J</kbd> 在《江湖纪事》中查阅江湖传闻。
             </div>
           )}
 
