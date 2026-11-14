@@ -164,6 +164,7 @@ export interface QuestEvalContext {
   maxMp: number
   agility: number
   res: number
+  ridingSkill?: number
   baseStats: HeroBaseStats
   skills?: Record<string, number>
   inventory: InventoryStack[]
@@ -245,7 +246,10 @@ export function evaluateQuestCondition(
     }
 
     case 'skillAtLeast': {
-      const cur = ctx.skills?.[cond.key] ?? ctx.baseStats.skills[cond.key] ?? 0
+      const cur =
+        cond.key === '骑术'
+          ? (ctx.ridingSkill ?? ctx.baseStats.ridingSkill ?? 0)
+          : (ctx.skills?.[cond.key] ?? ctx.baseStats.skills[cond.key] ?? 0)
       if (cur >= cond.min) return { passed: true, reason: null }
       return {
         passed: false,

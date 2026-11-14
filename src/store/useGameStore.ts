@@ -892,6 +892,7 @@ export function buildStoreEvalContext(
     | 'maxMp'
     | 'agility'
     | 'res'
+    | 'ridingSkill'
     | 'baseStats'
     | 'skills'
     | 'inventory'
@@ -915,6 +916,7 @@ export function buildStoreEvalContext(
     maxMp: s.maxMp,
     agility: s.agility,
     res: s.res,
+    ridingSkill: s.ridingSkill,
     baseStats: s.baseStats,
     skills: s.skills,
     inventory: s.inventory,

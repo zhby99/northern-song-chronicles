@@ -19,6 +19,7 @@ export function StorySceneModal() {
   const maxMp = useGameStore((s) => s.maxMp)
   const agility = useGameStore((s) => s.agility)
   const res = useGameStore((s) => s.res)
+  const ridingSkill = useGameStore((s) => s.ridingSkill)
   const baseStats = useGameStore((s) => s.baseStats)
   const skills = useGameStore((s) => s.skills)
   const inventory = useGameStore((s) => s.inventory)
@@ -48,6 +49,7 @@ export function StorySceneModal() {
           maxMp,
           agility,
           res,
+          ridingSkill,
           baseStats,
           skills,
           inventory,
@@ -71,6 +73,7 @@ export function StorySceneModal() {
       maxMp,
       agility,
       res,
+      ridingSkill,
       baseStats,
       skills,
       inventory,
