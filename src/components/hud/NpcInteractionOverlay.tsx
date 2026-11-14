@@ -4,9 +4,16 @@ import {
   NPC_DB_MAP,
   UNIQUE_ARTIFACT_MAP,
 } from '../../data/gameDb'
-import { ITEM_DB_MAP } from '../../data/itemsDb'
+import {
+  EQUIPMENT_SLOT_METAS,
+  ITEM_DB_MAP,
+  normalizeItemTier,
+  RARITY_STYLE_MAP,
+} from '../../data/itemsDb'
+import { MARTIAL_ART_SLOT_METAS } from '../../data/playerMartialArts'
 import { useGameStore } from '../../store/useGameStore'
 import type { TenArtKey } from '../../types/game'
+import { deriveNpcEffectiveStats } from '../../utils/heroStats'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 const TEN_ART_KEYS: TenArtKey[] = [
@@ -200,29 +207,42 @@ export function NpcInteractionOverlay() {
             )}
 
             {/* 各个维度数值 */}
-            {stats && talents && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
-                  <div className="font-bold text-[#5c3d1e] song-serif">四维实战属性</div>
-                  <div className="grid grid-cols-4 gap-1.5 text-center font-mono">
-                    <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
-                      <span className="block text-[10px] text-[#6b5235]">气血</span>
-                      <strong className="text-[#8f1d14] text-sm">{stats.hp}</strong>
+            {stats && talents && (() => {
+              const eff = compiledNpc ? deriveNpcEffectiveStats(compiledNpc) : null
+              return (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-[#5c3d1e] song-serif">实战交锋属性</span>
+                      <span className="text-[10px] text-[#7a5f3e]">武学+披挂实时派生</span>
                     </div>
-                    <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
-                      <span className="block text-[10px] text-[#6b5235]">内力</span>
-                      <strong className="text-[#1d473a] text-sm">{stats.mp}</strong>
-                    </div>
-                    <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
-                      <span className="block text-[10px] text-[#6b5235]">身法</span>
-                      <strong className="text-sm">{stats.agi}</strong>
-                    </div>
-                    <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
-                      <span className="block text-[10px] text-[#6b5235]">抗性</span>
-                      <strong className="text-sm">{stats.res}</strong>
+                    <div className="grid grid-cols-3 gap-1.5 text-center font-mono">
+                      <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
+                        <span className="block text-[10px] text-[#6b5235]">气血</span>
+                        <strong className="text-[#8f1d14] text-sm">{eff ? eff.maxHp : stats.hp}</strong>
+                      </div>
+                      <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
+                        <span className="block text-[10px] text-[#6b5235]">内力</span>
+                        <strong className="text-[#1d473a] text-sm">{eff ? eff.maxMp : stats.mp}</strong>
+                      </div>
+                      <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
+                        <span className="block text-[10px] text-[#6b5235]">身法</span>
+                        <strong className="text-sm">{eff ? eff.agility : stats.agi}</strong>
+                      </div>
+                      <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
+                        <span className="block text-[10px] text-[#6b5235]">抗性</span>
+                        <strong className="text-sm">{eff ? eff.res : stats.res}</strong>
+                      </div>
+                      <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
+                        <span className="block text-[10px] text-[#6b5235]">外功杀伤</span>
+                        <strong className="text-[#8f1d14] text-sm">+{eff ? eff.totalAttack : 0}</strong>
+                      </div>
+                      <div className="bg-[#faf3e3] rounded py-1 border border-[#dcc9a7]">
+                        <span className="block text-[10px] text-[#6b5235]">护体防御</span>
+                        <strong className="text-[#1b5132] text-sm">+{eff ? eff.totalDefense : 0}</strong>
+                      </div>
                     </div>
                   </div>
-                </div>
 
                 <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
                   <div className="font-bold text-[#5c3d1e] song-serif">先天三维禀赋</div>
@@ -241,8 +261,9 @@ export function NpcInteractionOverlay() {
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
+                </div>
+              )
+            })()}
 
             {/* 十艺百工 */}
             {tenArts && (
@@ -271,72 +292,76 @@ export function NpcInteractionOverlay() {
               </div>
             )}
 
-            {/* 武学情况与披挂情况 */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
-                <div className="font-bold text-[#5c3d1e] song-serif">
-                  武学情况 ({knownArts.length})
-                </div>
-                {knownArts.length > 0 ? (
-                  <div className="space-y-1.5 max-h-36 overflow-y-auto scroll-thin pr-1">
-                    {knownArts.map((art) => (
-                      <div
-                        key={art.id}
-                        className="px-2 py-1.5 rounded bg-[#faf3e3] border border-[#dcc9a7] flex items-center justify-between gap-2"
-                      >
-                        <div className="min-w-0">
-                          <div className="font-bold text-[#2d1e10] truncate">
-                            {art.name}
+            {/* 武学情况（6槽）与披挂情况（7槽） */}
+            {compiledNpc && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
+                  <div className="font-bold text-[#5c3d1e] song-serif">六槽运使武学</div>
+                  <div className="space-y-1">
+                    {MARTIAL_ART_SLOT_METAS.map((meta) => {
+                      const aid = compiledNpc.equippedArts[meta.slot]
+                      const art = aid ? MARTIAL_ART_DB_MAP[aid] : null
+                      const lv =
+                        compiledNpc.learnedArts.find((e) => e.artId === aid)?.level ?? 1
+                      return (
+                        <div
+                          key={meta.slot}
+                          className="px-2 py-1 rounded bg-[#faf3e3] border border-[#dcc9a7] flex items-center justify-between gap-2"
+                        >
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span className="px-1 py-0.2 rounded bg-[#5e472d] text-[#fff8eb] text-[9px] font-bold shrink-0">
+                              {meta.shortLabel}
+                            </span>
+                            <span className="font-bold text-[#2d1e10] truncate">
+                              {art ? art.cleanName : '未装配'}
+                            </span>
                           </div>
-                          <div className="text-[10px] text-[#6b5235] truncate">
-                            {art.category} · {art.origin || '江湖'}
-                          </div>
+                          {art && (
+                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#e5d3b3] text-[#781710] shrink-0">
+                              {art.tier}·{lv}重
+                            </span>
+                          )}
                         </div>
-                        <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#e5d3b3] text-[#781710] shrink-0">
-                          {art.tier}
-                        </span>
-                      </div>
-                    ))}
+                      )
+                    })}
                   </div>
-                ) : (
-                  <div className="px-2 py-2 rounded bg-[#faf3e3] border border-[#dcc9a7] text-[#6b5235]">
-                    {dbRecord?.artsText ? `专擅：${dbRecord.artsText}` : '未载录独门武学'}
-                  </div>
-                )}
-              </div>
+                </div>
 
-              <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
-                <div className="font-bold text-[#5c3d1e] song-serif">
-                  披挂情况 ({ownedArtifacts.length})
-                </div>
-                {ownedArtifacts.length > 0 ? (
-                  <div className="space-y-1.5 max-h-36 overflow-y-auto scroll-thin pr-1">
-                    {ownedArtifacts.map((art) => (
-                      <div
-                        key={art.id}
-                        className="px-2 py-1.5 rounded bg-[#faf3e3] border border-[#dcc9a7]"
-                      >
-                        <div className="flex items-center justify-between gap-2">
-                          <span className="font-bold text-[#2d1e10]">{art.name}</span>
-                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#e5d3b3] text-[#4a3219]">
-                            {art.category} · {art.tier}
-                          </span>
+                <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
+                  <div className="font-bold text-[#5c3d1e] song-serif">七槽随身披挂</div>
+                  <div className="space-y-1">
+                    {EQUIPMENT_SLOT_METAS.map((meta) => {
+                      const iid = compiledNpc.equipped[meta.slot]
+                      const item = iid ? ITEM_DB_MAP[iid] : null
+                      const tier = item ? normalizeItemTier(item.rarity) : null
+                      const rStyle = tier ? RARITY_STYLE_MAP[tier] : null
+                      return (
+                        <div
+                          key={meta.slot}
+                          className="px-2 py-1 rounded bg-[#faf3e3] border border-[#dcc9a7] flex items-center justify-between gap-2"
+                        >
+                          <div className="flex items-center gap-1.5 min-w-0">
+                            <span className="px-1 py-0.2 rounded bg-[#6b5235] text-[#fff8eb] text-[9px] font-bold shrink-0">
+                              {meta.shortLabel}
+                            </span>
+                            <span className="font-medium text-[#2d1e10] truncate">
+                              {item ? item.name : '空置'}
+                            </span>
+                          </div>
+                          {tier && rStyle && (
+                            <span
+                              className={`text-[9px] px-1.5 py-0.2 rounded font-bold shrink-0 ${rStyle.badgeBg} ${rStyle.badgeText}`}
+                            >
+                              {tier}
+                            </span>
+                          )}
                         </div>
-                        {art.desc && (
-                          <p className="text-[10px] text-[#6b5235] mt-0.5 line-clamp-2">
-                            {art.desc}
-                          </p>
-                        )}
-                      </div>
-                    ))}
+                      )
+                    })}
                   </div>
-                ) : (
-                  <div className="px-2 py-2 rounded bg-[#faf3e3] border border-[#dcc9a7] text-[#6b5235]">
-                    随身常服，未携传世神兵名器
-                  </div>
-                )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}
