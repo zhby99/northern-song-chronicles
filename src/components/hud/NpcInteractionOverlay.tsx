@@ -313,6 +313,9 @@ export function NpcInteractionOverlay() {
           npcFavor: npcFavorMap,
           wonSectTournament: sectState.wonSectTournament,
           hasTournamentToken,
+          skills,
+          xingxiuDefeatedRanks: sectState.xingxiuDefeatedRanks,
+          killedDingChunqiu: sectState.killedDingChunqiu,
         })
       : null
 

@@ -16,6 +16,7 @@ import type {
   CompiledMartialArtRecord,
   CompiledNpcRecord,
   HeroBaseStats,
+  HeroSkills,
   InventoryStack,
   NodeNpc,
   PlayerSectState,
@@ -45,6 +46,8 @@ export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
   lastTournamentYear: 0,
   wonSectTournament: false,
   activeSectTournament: null,
+  xingxiuDefeatedRanks: [],
+  killedDingChunqiu: false,
 }
 
 export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): PlayerSectState {
@@ -52,6 +55,7 @@ export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): Play
     return {
       ...DEFAULT_PLAYER_SECT_STATE,
       bribedReferralSects: [],
+      xingxiuDefeatedRanks: [],
     }
   }
   const rankRaw = typeof st.rank === 'number' ? Math.max(1, Math.min(5, Math.floor(st.rank))) : 1
@@ -98,6 +102,10 @@ export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): Play
           ],
         }
       : null,
+    xingxiuDefeatedRanks: Array.isArray(st.xingxiuDefeatedRanks)
+      ? st.xingxiuDefeatedRanks.filter((x): x is number => typeof x === 'number')
+      : [],
+    killedDingChunqiu: Boolean(st.killedDingChunqiu),
   }
 }
 
@@ -584,15 +592,19 @@ export function canReceiveSectLeaderTask(sectId?: string | null): boolean {
 }
 
 /**
- * 道门与名山剑派（6派）：每年二月一日宗门大比 + 专属晋升规则（暂开放至 Lv.3）
+ * 宗门大比体系门派（9派）：道门与名山剑派（华山/泰山/峨眉/真武/终南/青城）+ 五台山清凉寺 + 蜀中唐门 + 铁掌帮
+ * 每年二月一日宗门大比 + 专属晋升规则（暂开放至 Lv.3）
  */
 export const DAO_SWORD_SECT_IDS = new Set([
+  'SECT-03', // 五台山清凉寺
   'SECT-05', // 华山派
   'SECT-06', // 泰山派
   'SECT-07', // 峨眉派
   'SECT-08', // 真武道宗
   'SECT-11', // 终南隐宗
+  'SECT-13', // 蜀中唐门
   'SECT-14', // 青城派
+  'SECT-15', // 铁掌帮
 ])
 
 export const SECT_TOURNAMENT_TOKEN_ITEM_ID = 'ITM-MSC-014'
@@ -798,6 +810,9 @@ export function evaluateSectPromotion(params: {
   npcFavor: Record<string, number>
   wonSectTournament?: boolean
   hasTournamentToken?: boolean
+  skills?: HeroSkills
+  xingxiuDefeatedRanks?: number[]
+  killedDingChunqiu?: boolean
 }): PromotionRequirementInfo | null {
   const {
     sectId,
@@ -809,7 +824,40 @@ export function evaluateSectPromotion(params: {
     npcFavor,
     wonSectTournament,
     hasTournamentToken,
+    skills,
+    xingxiuDefeatedRanks = [],
+    killedDingChunqiu = false,
   } = params
+
+  // 星宿派（SECT-19）：唯实力为尊，打败对应阶位弟子即可晋升，杀死丁春秋可做掌门
+  if (sectId === 'SECT-19') {
+    if (currentRank >= 5) return null
+    const targetRank = (currentRank + 1) as SectRankLevel
+    const targetRankLabel = getSectRankTitle(sectId, targetRank)
+    if (currentRank === 4) {
+      return {
+        targetRank: 5,
+        targetRankLabel,
+        canPromote: killedDingChunqiu,
+        reason: killedDingChunqiu
+          ? `已手刃星宿老怪丁春秋，可正式登临【${targetRankLabel}】尊位！`
+          : '星宿派弱肉强食，须在生死决斗中杀死掌门【丁春秋】方可取而代之成为掌门！',
+      }
+    }
+    const beaten = xingxiuDefeatedRanks.includes(targetRank)
+    const targetHint =
+      targetRank === 4
+        ? '1 名第 4 阶同门或大师兄【摘星子】'
+        : `1 名第 ${targetRank} 阶【${targetRankLabel}】同门`
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: beaten,
+      reason: beaten
+        ? `已在门派交锋中击败${targetHint}，可立即晋升【${targetRankLabel}】！`
+        : `星宿派晋升只看实力，须先击败${targetHint}方可晋升【${targetRankLabel}】！`,
+    }
+  }
 
   // 禁止通过常规晋升成为门派掌门（Lv.5）
   if (currentRank >= 4) return null
@@ -822,6 +870,64 @@ export function evaluateSectPromotion(params: {
   const leaderName = (leaderId ? NPC_DB_MAP[leaderId]?.name : null) ?? '掌门'
   const leaderFavor = leaderId ? (npcFavor[leaderId] ?? INITIAL_NPC_FAVOR) : INITIAL_NPC_FAVOR
   const daysInSect = Math.max(0, dayCount - joinedDay)
+
+  // 丐帮（SECT-02）：以同门情义为重，按同门好感度达标人数晋升
+  if (sectId === 'SECT-02') {
+    const reqByRank: Record<2 | 3 | 4, { count: number; favor: number }> = {
+      2: { count: 3, favor: 30 },
+      3: { count: 5, favor: 50 },
+      4: { count: 10, favor: 80 },
+    }
+    const req = reqByRank[targetRank as 2 | 3 | 4]
+    const qualifiedCount = NPCS_DB.filter(
+      (n) => n.factionId === 'SECT-02' && (npcFavor[n.id] ?? INITIAL_NPC_FAVOR) >= req.favor,
+    ).length
+    const ok = qualifiedCount >= req.count
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: ok,
+      reason: ok
+        ? `已有 ${qualifiedCount} 位丐帮同门好感度 ≥ ${req.favor}，兄弟拥戴，可晋升【${targetRankLabel}】！`
+        : `晋升【${targetRankLabel}】需至少 ${req.count} 位丐帮同门好感度 ≥ ${req.favor}（当前已达标 ${qualifiedCount}/${req.count} 人）。`,
+    }
+  }
+
+  // 少林寺（SECT-01）与 莆田南少林（SECT-04）：境界 + 在派天数 + 掌门好感 + 经义修养
+  if (sectId === 'SECT-01' || sectId === 'SECT-04') {
+    const shaolinReqs: Record<
+      2 | 3 | 4,
+      { minRealmRank: number; minRealmLabel: string; minDays: number; minFavor: number; minScripture: number }
+    > = {
+      2: { minRealmRank: 4, minRealmLabel: '二流下品', minDays: 365, minFavor: 20, minScripture: 50 },
+      3: { minRealmRank: 7, minRealmLabel: '一流下品', minDays: 1800, minFavor: 50, minScripture: 70 },
+      4: { minRealmRank: 10, minRealmLabel: '宗师下品', minDays: 7200, minFavor: 80, minScripture: 85 },
+    }
+    const req = shaolinReqs[targetRank as 2 | 3 | 4]
+    const scriptureVal = skills?.['经义'] ?? 0
+    const missing: string[] = []
+    if (heroRealmRank < req.minRealmRank) {
+      missing.push(`境界须达【${req.minRealmLabel}】（当前【${heroRealmLabel}】）`)
+    }
+    if (daysInSect < req.minDays) {
+      missing.push(`在派天数 ${daysInSect}/${req.minDays} 天`)
+    }
+    if (leaderFavor < req.minFavor) {
+      missing.push(`掌门【${leaderName}】好感度 ${leaderFavor}/${req.minFavor}`)
+    }
+    if (scriptureVal < req.minScripture) {
+      missing.push(`经义 ${scriptureVal}/${req.minScripture}`)
+    }
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: missing.length === 0,
+      reason:
+        missing.length === 0
+          ? `禅武兼修（境界${heroRealmLabel}、在派 ${daysInSect} 天、掌门好感 ${leaderFavor}、经义 ${scriptureVal}），可晋升【${targetRankLabel}】！`
+          : `晋升【${targetRankLabel}】尚缺：${missing.join('、')}`,
+    }
+  }
 
   // 道门与名山剑派（6派）：Lv.1->Lv.2, Lv.2->Lv.3；Lv.4 暂不开放
   if (faction && isDaoSwordSect(sectId)) {

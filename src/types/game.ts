@@ -520,6 +520,7 @@ export interface CultivationVenueStatus {
 }
 
 export interface CultivationSessionState {
+  kind?: 'martial_art' | 'scripture'
   artId: string
   artName: string
   artCleanName: string
@@ -850,6 +851,8 @@ export interface PlayerSectState {
   lastTournamentYear: number
   wonSectTournament: boolean
   activeSectTournament: ActiveSectTournament | null
+  xingxiuDefeatedRanks: number[]
+  killedDingChunqiu: boolean
 }
 
 export interface GameOverState {

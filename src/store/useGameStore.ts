@@ -394,6 +394,7 @@ export interface GameStoreState {
   equipArtToSlot: (artId: string, slot: MartialArtSlotKey) => void
   unequipArtSlot: (slot: MartialArtSlotKey) => void
   cultivateLearnedArt: (artId: string, mode?: CultivationDurationMode) => void
+  startScriptureSeclusion: () => void
   stepCultivationTick: () => void
   stopCultivationEarly: () => void
   breakthroughLearnedArt: (artId: string) => void
@@ -2029,10 +2030,199 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     })
   },
 
+  startScriptureSeclusion: () => {
+    const s = get()
+    if (s.gameOver || s.activeCombat || s.activeStoryScene) return
+    if (s.cultivationSession) return
+    const curBuilding = s.activeBuildingInteriorId ?? s.selectedBuildingId
+    const inShaolinLibrary =
+      s.activeRegionId === 'shaolin' && curBuilding === 'sl_cangjing'
+    const inNanShaolinLibrary =
+      s.activeRegionId === 'nanshaolin' &&
+      (s.selectedSpotId === 'nsl_main_east' || curBuilding === 'nsl_main')
+    if (!inShaolinLibrary && !inNanShaolinLibrary) {
+      set({
+        actionFeedback: {
+          text: '须前往【少林寺 · 藏经阁】或【莆田南少林 · 东厢碑廊藏经橱】方可闭关研读经义！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    if (s.sectState.sectId !== 'SECT-01' && s.sectState.sectId !== 'SECT-04') {
+      set({
+        actionFeedback: {
+          text: '藏经阁乃佛门重地，仅【嵩山少林寺】或【莆田南少林】弟子方可入内闭关研读！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const curScripture = s.skills['经义'] ?? 0
+    if (curScripture >= HERO_BASE_CAPS.civilSkill) {
+      set({
+        actionFeedback: {
+          text: `少侠【经义】已臻 ${HERO_BASE_CAPS.civilSkill} 点圆融无碍之境，无需再闭关研读！`,
+          tone: 'success',
+        },
+      })
+      return
+    }
+    set({
+      menuOpen: false,
+      compendiumOpen: false,
+      activeNpcInteraction: null,
+      tooltip: null,
+      actionFeedback: null,
+      cultivationSession: {
+        kind: 'scripture',
+        artId: 'SCRIPTURE_STUDY',
+        artName: '藏经阁研读经义',
+        artCleanName: '研读经义',
+        artFullTier: '佛门经义',
+        mode: 30,
+        venue: 'sect_grounds',
+        venueLabel: inShaolinLibrary ? '少林寺 · 藏经阁' : '莆田南少林 · 藏经橱',
+        multiplier: 1,
+        dailySilverCost: 0,
+        dailyFoodCost: 0,
+        dailyGain: 0,
+        targetShichens: 30 * 12,
+        shichensElapsed: 0,
+        silverSpent: 0,
+        foodSpent: 0,
+        combatExpSpent: 0,
+        totalExpGained: 0,
+        settledExpFloor: 0,
+        startLevel: curScripture,
+        startExp: 0,
+      },
+    })
+  },
+
   stepCultivationTick: () => {
     const s = get()
     const session = s.cultivationSession
     if (!session || s.gameOver || s.activeCombat || s.activeStoryScene) return
+
+    if (session.kind === 'scripture') {
+      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 12)
+      const nextDayCount = clock.dayCount
+      const nextShichenIdx = clock.shichenIdx
+      const nextShichensElapsed = session.shichensElapsed + 12
+
+      let nextSectState = s.sectState
+      let nextLogs = s.logs
+      let nextMasters = s.roamingMasters
+      let overdueSpyAmbush: NodeNpc | null = null
+
+      if ((nextDayCount - 1) % 30 === 0) {
+        nextMasters = nextMasters.map((m) => {
+          const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
+          if (neighbors.length === 0) return m
+          const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
+          return { ...m, nodeId: pick!.to }
+        })
+      }
+
+      const dayHook = applyDayProgressionSectHooks({
+        nextDayCount,
+        shichenIdx: nextShichenIdx,
+        silver: s.silver,
+        sectState: clonePlayerSectState(nextSectState),
+        logs: [...nextLogs],
+      })
+      nextSectState = dayHook.sectState
+      nextLogs = dayHook.logs
+      overdueSpyAmbush = dayHook.overdueSpyAmbush
+
+      const reachedTarget = nextShichensElapsed >= session.targetShichens
+      if (reachedTarget || overdueSpyAmbush) {
+        let nextBaseStats = s.baseStats
+        let nextDerived = deriveHeroEffectiveStats(
+          s.baseStats,
+          s.equipped,
+          s.equippedArts,
+          s.learnedArts,
+        )
+        let msgText = ''
+        if (reachedTarget) {
+          const nextScripture = Math.min(
+            HERO_BASE_CAPS.civilSkill,
+            (s.baseStats.skills['经义'] ?? 0) + 1,
+          )
+          nextBaseStats = {
+            ...s.baseStats,
+            skills: {
+              ...s.baseStats.skills,
+              经义: nextScripture,
+            },
+          }
+          nextDerived = deriveHeroEffectiveStats(
+            nextBaseStats,
+            s.equipped,
+            s.equippedArts,
+            s.learnedArts,
+          )
+          msgText = `于【${session.venueLabel}】闭关研读经义 30 天，佛理通达，经义 +1（现 ${nextDerived.skills['经义']}）！`
+        } else {
+          msgText = `边关军令期限已至，提前收功出关应战。`
+        }
+        nextLogs = [
+          createLogEntry(
+            nextDayCount,
+            reachedTarget ? '研读经义' : '闭关中止',
+            msgText,
+            reachedTarget,
+            nextShichenIdx,
+          ),
+          ...nextLogs,
+        ].slice(0, 60)
+        set({
+          dayCount: nextDayCount,
+          shichenIdx: nextShichenIdx,
+          silver: dayHook.silver,
+          sectState: nextSectState,
+          roamingMasters: nextMasters,
+          baseStats: nextBaseStats,
+          skills: nextDerived.skills,
+          maxHp: nextDerived.maxHp,
+          hp: nextDerived.maxHp,
+          maxMp: nextDerived.maxMp,
+          mp: nextDerived.maxMp,
+          cultivationSession: null,
+          actionFeedback: {
+            text: msgText,
+            tone: reachedTarget ? 'success' : 'warn',
+          },
+          logs: nextLogs,
+        })
+        get().checkExpiredQuestDeadlines()
+        if (overdueSpyAmbush) {
+          get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+          return
+        }
+        if (reachedTarget) {
+          void get().saveToSlot('autosave', '藏经阁研读经义', true)
+        }
+        return
+      }
+
+      set({
+        dayCount: nextDayCount,
+        shichenIdx: nextShichenIdx,
+        silver: dayHook.silver,
+        sectState: nextSectState,
+        roamingMasters: nextMasters,
+        logs: nextLogs.slice(0, 60),
+        cultivationSession: {
+          ...session,
+          shichensElapsed: nextShichensElapsed,
+        },
+      })
+      get().checkExpiredQuestDeadlines()
+      return
+    }
 
     const art = MARTIAL_ART_DB_MAP[session.artId]
     const idx = s.learnedArts.findIndex((x) => x.artId === session.artId)
@@ -2292,6 +2482,27 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     const sess = s.cultivationSession
     if (!sess) return
+    if (sess.kind === 'scripture') {
+      const fullDays = Math.floor(sess.shichensElapsed / 12)
+      const msgText =
+        fullDays > 0
+          ? `于【${sess.venueLabel}】研读经义 ${fullDays} 天，未满 30 日提前收功出关。`
+          : `甫一入座便即合卷出关，未耗时日。`
+      set({
+        cultivationSession: null,
+        hp: s.maxHp,
+        mp: s.maxMp,
+        actionFeedback: { text: msgText, tone: 'warn' },
+        logs:
+          fullDays > 0
+            ? [
+                createLogEntry(s.dayCount, '研读经义', msgText, false, s.shichenIdx),
+                ...s.logs,
+              ].slice(0, 60)
+            : s.logs,
+      })
+      return
+    }
     const curArt = MARTIAL_ART_DB_MAP[sess.artId]
     const curIdx = s.learnedArts.findIndex((x) => x.artId === sess.artId)
     const curEntry =
@@ -3140,6 +3351,28 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       extraLogText += `（同门印证获门派功绩 +12，现 ${nextSectState.contribution}）`
     }
 
+    // 星宿派（SECT-19）实力晋升判定：击败 Lv.2/Lv.3/Lv.4(或摘星子) 同门记录，杀死丁春秋即成掌门
+    if (session.outcome === 'player_win' && nextSectState.sectId === 'SECT-19') {
+      if (dbTarget?.factionId === 'SECT-19' && dbTarget.sectRank) {
+        const defeated = new Set(nextSectState.xingxiuDefeatedRanks)
+        defeated.add(dbTarget.sectRank)
+        if (dbTarget.id === 'NPC-0181') {
+          defeated.add(4)
+        }
+        nextSectState.xingxiuDefeatedRanks = Array.from(defeated)
+      }
+      if (
+        session.mode === 'duel' &&
+        (dbTarget?.id === 'NPC-0122' || session.npc.name === '丁春秋')
+      ) {
+        nextSectState.killedDingChunqiu = true
+        nextSectState.rank = 5
+        nextSectState.rankLabel = getSectRankTitle('SECT-19', 5)
+        extraLogTag = '弑师夺位'
+        extraLogText = `少侠在生死决斗中击杀星宿老怪【丁春秋】！依星宿派弱肉强食之规，正式登临第 5 阶【${nextSectState.rankLabel}】尊位！`
+      }
+    }
+
     // 二三流门派「武艺教学」切磋任务完成判定
     if (
       session.mode === 'spar' &&
@@ -3444,6 +3677,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       activeSectTask: null,
       wonSectTournament: false,
       activeSectTournament: null,
+      xingxiuDefeatedRanks: [],
+      killedDingChunqiu: false,
     }
 
     // 同步完结对应的入门剧情任务链（若曾开启）
@@ -3580,6 +3815,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       activeSectTask: null,
       wonSectTournament: false,
       activeSectTournament: null,
+      xingxiuDefeatedRanks: [],
+      killedDingChunqiu: false,
     }
     const msg = `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
     set({
@@ -3706,6 +3943,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       npcFavor: s.npcFavor,
       wonSectTournament: s.sectState.wonSectTournament,
       hasTournamentToken,
+      skills: s.skills,
+      xingxiuDefeatedRanks: s.sectState.xingxiuDefeatedRanks,
+      killedDingChunqiu: s.sectState.killedDingChunqiu,
     })
     if (!promo) {
       set({

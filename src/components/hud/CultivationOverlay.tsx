@@ -9,8 +9,9 @@ export function CultivationOverlay() {
 
   if (!session) return null
 
-  const art = MARTIAL_ART_DB_MAP[session.artId]
-  const curEntry = learnedArts.find((x) => x.artId === session.artId)
+  const isScripture = session.kind === 'scripture'
+  const art = isScripture ? undefined : MARTIAL_ART_DB_MAP[session.artId]
+  const curEntry = isScripture ? undefined : learnedArts.find((x) => x.artId === session.artId)
   const curLevel = curEntry?.level ?? session.startLevel
   const curExp = curEntry?.exp ?? session.startExp
   const reqExp = art ? getArtExpRequired(art, curLevel) : 0
@@ -49,7 +50,7 @@ export function CultivationOverlay() {
 
         <div className="relative flex flex-col items-center text-center">
           <div className="text-[11px] tracking-[0.25em] text-[#c89d54] song-serif mb-1">
-            {session.venueLabel} · 周天吐纳
+            {session.venueLabel} · {isScripture ? '焚香诵经' : '周天吐纳'}
           </div>
 
           <div className="cultivation-breathe my-2 inline-flex items-center justify-center rounded-full border border-[#c89d54]/60 bg-[#3b2514]/80 px-7 py-2 shadow-inner">
@@ -61,33 +62,35 @@ export function CultivationOverlay() {
           <div className="mt-2 text-sm font-semibold text-[#f8e7c4] song-serif">
             {session.artName}
             <span className="ml-2 text-xs font-normal text-[#c89d54]">
-              {session.artFullTier} · 第 {curLevel} 重
+              {isScripture ? `当前经义 ${session.startLevel} 点` : `${session.artFullTier} · 第 ${curLevel} 重`}
             </span>
           </div>
 
-          {/* 武学当前火候进度条 */}
-          <div className="mt-3 w-full">
-            <div className="flex justify-between text-[11px] text-[#d6be96] mb-1">
-              <span>当前火候</span>
-              <span>
-                {curLevel >= 10
-                  ? '第 10 重圆满'
-                  : `${curExp.toLocaleString()} / ${reqExp.toLocaleString()} (${expPct}%)`}
-              </span>
+          {/* 武学当前火候进度条（经义闭关不显示火候条） */}
+          {!isScripture && (
+            <div className="mt-3 w-full">
+              <div className="flex justify-between text-[11px] text-[#d6be96] mb-1">
+                <span>当前火候</span>
+                <span>
+                  {curLevel >= 10
+                    ? '第 10 重圆满'
+                    : `${curExp.toLocaleString()} / ${reqExp.toLocaleString()} (${expPct}%)`}
+                </span>
+              </div>
+              <div className="h-2 w-full overflow-hidden rounded-full bg-[#3a2819] border border-[#6e5233]/60">
+                <div
+                  className="h-full bg-gradient-to-r from-[#b45309] via-[#d97706] to-[#f59e0b] transition-all duration-100"
+                  style={{ width: `${expPct}%` }}
+                />
+              </div>
             </div>
-            <div className="h-2 w-full overflow-hidden rounded-full bg-[#3a2819] border border-[#6e5233]/60">
-              <div
-                className="h-full bg-gradient-to-r from-[#b45309] via-[#d97706] to-[#f59e0b] transition-all duration-100"
-                style={{ width: `${expPct}%` }}
-              />
-            </div>
-          </div>
+          )}
 
           {/* 固定天数闭关时辰进度条 */}
           {timePct !== null && (
             <div className="mt-3 w-full">
               <div className="flex justify-between text-[11px] text-[#d6be96] mb-1">
-                <span>闭关时程（目标 {session.mode} 天）</span>
+                <span>{isScripture ? '研读时程（目标 30 天）' : `闭关时程（目标 ${session.mode} 天）`}</span>
                 <span>{timePct}%</span>
               </div>
               <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#3a2819] border border-[#6e5233]/50">
@@ -102,13 +105,13 @@ export function CultivationOverlay() {
           {/* 实时统计信息 */}
           <div className="mt-4 grid w-full grid-cols-3 gap-2 rounded-lg border border-[#6e5233]/50 bg-[#181009]/70 px-3 py-2.5 text-xs">
             <div>
-              <div className="text-[10px] text-[#a98f68]">已修时辰</div>
+              <div className="text-[10px] text-[#a98f68]">{isScripture ? '已研读天数' : '已修时辰'}</div>
               <div className="mt-0.5 font-semibold text-[#fde6b8]">{elapsedLabel}</div>
             </div>
             <div>
-              <div className="text-[10px] text-[#a98f68]">熟练度增幅</div>
+              <div className="text-[10px] text-[#a98f68]">{isScripture ? '圆满增幅' : '熟练度增幅'}</div>
               <div className="mt-0.5 font-semibold text-[#fbbf24]">
-                +{session.totalExpGained.toLocaleString()}
+                {isScripture ? '经义 +1' : `+${session.totalExpGained.toLocaleString()}`}
               </div>
             </div>
             <div>
@@ -126,7 +129,11 @@ export function CultivationOverlay() {
           </button>
 
           <p className="mt-2.5 text-[11px] text-[#a98f68]">
-            每 0.125 秒走过一个时辰（1.5 秒一日），按 <kbd className="rounded border border-[#6e5233] bg-[#2a1d12] px-1.5 py-0.5 text-[10px] text-[#fde6b8]">ESC</kbd> 可随时按实际时长结算收功
+            {isScripture
+              ? '每 0.2 秒走过 1 天（1 秒过 5 天），按 '
+              : '每 0.125 秒走过一个时辰（1.5 秒一日），按 '}
+            <kbd className="rounded border border-[#6e5233] bg-[#2a1d12] px-1.5 py-0.5 text-[10px] text-[#fde6b8]">ESC</kbd>
+            {isScripture ? ' 可随时收功出关（未满 30 天不计增幅）' : ' 可随时按实际时长结算收功'}
           </p>
         </div>
       </div>

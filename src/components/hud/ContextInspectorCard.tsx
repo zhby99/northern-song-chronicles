@@ -711,6 +711,21 @@ export function ContextInspectorCard() {
         </button>
       )}
 
+      {((activeRegionId === 'shaolin' &&
+        (activeBuildingInteriorId === 'sl_cangjing' || selectedBuildingId === 'sl_cangjing')) ||
+        (activeRegionId === 'nanshaolin' &&
+          (selectedSpotId === 'nsl_main_east' ||
+            activeBuildingInteriorId === 'nsl_main' ||
+            selectedBuildingId === 'nsl_main'))) && (
+        <button
+          type="button"
+          onClick={() => useGameStore.getState().startScriptureSeclusion()}
+          className="w-full px-3 py-2 rounded bg-[#1f4d3b] hover:bg-[#27614a] border border-[#8fc7ae] text-[#fff8eb] text-xs font-bold song-serif shadow transition cursor-pointer"
+        >
+          藏经阁闭关研读经义（30天 · 经义 +1）
+        </button>
+      )}
+
       {(() => {
         const activeShopId = leafSpotId ?? leafBuildingId
         const activeShop = activeShopId ? SPOT_SHOPS_BY_SPOT_ID[activeShopId] : undefined
