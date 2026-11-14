@@ -5,6 +5,8 @@ import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 export function StorySceneModal() {
   const activeStoryScene = useGameStore((s) => s.activeStoryScene)
+  const playerName = useGameStore((s) => s.playerName)
+  const playerPortraitId = useGameStore((s) => s.playerPortraitId)
   const dayCount = useGameStore((s) => s.dayCount)
   const shichenIdx = useGameStore((s) => s.shichenIdx)
   const silver = useGameStore((s) => s.silver)
@@ -105,7 +107,10 @@ export function StorySceneModal() {
   const currentBeat = scene.beats[Math.min(beatIndex, scene.beats.length - 1)]
   if (!currentBeat) return null
 
-  const speakerInfo = resolveStorySpeaker(currentBeat.speaker, contextNpc)
+  const speakerInfo = resolveStorySpeaker(currentBeat.speaker, contextNpc, {
+    playerPortraitId,
+    playerName,
+  })
   const isLastBeat = beatIndex >= scene.beats.length - 1
   const rawChoices = isLastBeat ? (scene.choices ?? []) : []
 

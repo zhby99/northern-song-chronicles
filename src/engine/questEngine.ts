@@ -7,6 +7,7 @@ import {
   resolveNpcByName,
 } from '../data/gameDb'
 import { DEFAULT_EQUIPPED_SLOTS, ITEM_DB_MAP } from '../data/itemsDb'
+import { getProtagonistPortrait } from '../data/protagonistPresets'
 import { QUEST_MAP, QUEST_REGISTRY } from '../data/quests'
 import type {
   HeroBaseStats,
@@ -677,6 +678,10 @@ export interface ResolvedSpeakerPresentation {
 export function resolveStorySpeaker(
   speaker: StorySpeakerSpec,
   contextNpc: NodeNpc | null,
+  playerContext?: {
+    playerPortraitId?: string | null
+    playerName?: string | null
+  },
 ): ResolvedSpeakerPresentation {
   switch (speaker.kind) {
     case 'narrator':
@@ -686,15 +691,18 @@ export function resolveStorySpeaker(
         name: speaker.label ?? '卷宗旁白',
         title: '皇祐江湖纪事',
       }
-    case 'player':
+    case 'player': {
+      const portrait = getProtagonistPortrait(playerContext?.playerPortraitId)
+      const trimmedName = playerContext?.playerName?.trim()
       return {
         isNarrator: false,
         isPlayer: true,
-        name: '少侠（你）',
+        name: trimmedName ? `${trimmedName}（你）` : '少侠（你）',
         title: '江湖行者',
-        portraitUrl: '/assets/characters/templates/tpl_huashan_fb.jpg',
-        avatarUrl: '/assets/characters/templates/tpl_huashan_av.jpg',
+        portraitUrl: portrait.fullbodyUrl,
+        avatarUrl: portrait.avatarUrl,
       }
+    }
     case 'interactedNpc': {
       if (contextNpc) {
         const db = (contextNpc.id && NPC_DB_MAP[contextNpc.id]) || resolveNpcByName(contextNpc.name)
