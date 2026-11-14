@@ -138,7 +138,6 @@ export function resolveBgmPlaylistForState(params: {
 }
 
 const STORAGE_KEY_VOLUME = 'nsc_bgm_volume_v1'
-const STORAGE_KEY_ENABLED = 'nsc_bgm_enabled_v1'
 
 export const BGM_TARGET_LUFS = -14.0
 
@@ -165,24 +164,14 @@ function readInitialVolume(): number {
     const raw = localStorage.getItem(STORAGE_KEY_VOLUME)
     if (raw !== null) {
       const parsed = Number(raw)
-      if (!Number.isNaN(parsed)) {
-        return Math.min(1, Math.max(0, parsed))
+      if (!Number.isNaN(parsed) && parsed > 0) {
+        return Math.min(1, Math.max(0.05, parsed))
       }
     }
   } catch {
     // ignore
   }
   return 0.55
-}
-
-function readInitialEnabled(): boolean {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY_ENABLED)
-    if (raw === '0' || raw === 'false') return false
-  } catch {
-    // ignore
-  }
-  return true
 }
 
 let audioCtx: AudioContext | null = null
@@ -367,7 +356,7 @@ const initialPlaylist = resolveBgmPlaylistForState({
 let metaSnapshot: BgmMetaSnapshot = {
   playlist: initialPlaylist,
   trackIndex: 0,
-  enabled: readInitialEnabled(),
+  enabled: true,
   isPlaying: false,
   awaitingGesture: false,
   volume: readInitialVolume(),
@@ -642,6 +631,11 @@ async function loadAndPlayCurrentTrack(autoPlay: boolean) {
   const ctx = ensureAudioContext()
   if (!ctx) return
 
+  // Bind gesture unlock immediately before async fetch so even a click in the first 100ms unlocks Web Audio
+  if (autoPlay && metaSnapshot.enabled && ctx.state !== 'running') {
+    bindUnlockGesture()
+  }
+
   try {
     const buf = await fetchAndDecodeBuffer(item)
     if (token !== activeLoadToken) return
@@ -686,11 +680,14 @@ async function loadAndPlayCurrentTrack(autoPlay: boolean) {
   }
 }
 
+const GESTURE_UNLOCK_EVENTS = ['pointerdown', 'pointerup', 'click', 'touchend', 'keydown'] as const
+
 function unbindUnlockGesture() {
   if (!gestureListenersBound || typeof window === 'undefined') return
   gestureListenersBound = false
-  window.removeEventListener('pointerdown', handleFirstUserGesture, true)
-  window.removeEventListener('keydown', handleFirstUserGesture, true)
+  for (const ev of GESTURE_UNLOCK_EVENTS) {
+    window.removeEventListener(ev, handleFirstUserGesture, true)
+  }
 }
 
 function handleFirstUserGesture() {
@@ -720,8 +717,9 @@ function handleFirstUserGesture() {
 function bindUnlockGesture() {
   if (gestureListenersBound || typeof window === 'undefined') return
   gestureListenersBound = true
-  window.addEventListener('pointerdown', handleFirstUserGesture, true)
-  window.addEventListener('keydown', handleFirstUserGesture, true)
+  for (const ev of GESTURE_UNLOCK_EVENTS) {
+    window.addEventListener(ev, handleFirstUserGesture, true)
+  }
 }
 
 export function syncBgmSceneContext(viewMode: ViewMode, activeRegionId: string) {
@@ -813,16 +811,17 @@ export function playPrevBgmTrack() {
 }
 
 export function toggleBgmPlayback() {
+  // If BGM is enabled by default on startup and only waiting for browser's first user gesture,
+  // clicking the BGM button should immediately resume & play rather than flipping it to muted!
+  if (metaSnapshot.enabled && !metaSnapshot.isPlaying) {
+    setBgmEnabled(true)
+    return
+  }
   setBgmEnabled(!metaSnapshot.enabled)
 }
 
 export function setBgmEnabled(enabled: boolean) {
   metaSnapshot.enabled = enabled
-  try {
-    localStorage.setItem(STORAGE_KEY_ENABLED, enabled ? '1' : '0')
-  } catch {
-    // ignore
-  }
 
   if (!enabled) {
     if (audioCtx && metaSnapshot.isPlaying && activeBuffer) {
@@ -839,9 +838,19 @@ export function setBgmEnabled(enabled: boolean) {
     return
   }
 
-  if (activeBuffer && audioCtx && audioCtx.state === 'running') {
+  const ctx = ensureAudioContext()
+  if (ctx && ctx.state === 'suspended') {
+    void ctx.resume().then(() => {
+      if (ctx.state === 'running' && metaSnapshot.enabled && activeBuffer && !metaSnapshot.isPlaying) {
+        unbindUnlockGesture()
+        startBufferSourceFromOffset(pausedOffsetSec)
+      }
+    })
+  }
+
+  if (activeBuffer && ctx && ctx.state === 'running') {
     startBufferSourceFromOffset(pausedOffsetSec)
-  } else {
+  } else if (!activeBuffer) {
     void loadAndPlayCurrentTrack(true)
   }
 }
