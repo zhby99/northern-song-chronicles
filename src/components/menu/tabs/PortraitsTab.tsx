@@ -8,13 +8,16 @@ import {
   TEN_ART_KEYS,
 } from '../../../data/gameDb'
 import {
+  EQUIPMENT_SLOT_METAS,
   ITEM_DB_MAP,
   normalizeItemTier,
   RARITY_STYLE_MAP,
   resolveUniqueArtifactLiveOwnership,
 } from '../../../data/itemsDb'
+import { MARTIAL_ART_SLOT_METAS } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
 import type { CompiledMartialArtRecord, CompiledNpcRecord } from '../../../types/game'
+import { deriveNpcEffectiveStats } from '../../../utils/heroStats'
 import { NODE_MAP, WORLD_GRAPH } from '../../../utils/mapMath'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 
@@ -390,31 +393,125 @@ export function PortraitsTab({
                 </div>
               </div>
 
-              {/* 1) 实战四维属性 */}
-              <div className="shrink-0 bg-[#faf3e3] border border-[#cbb693] rounded p-2.5 space-y-1.5">
-                <div className="flex items-center justify-between text-[11px]">
-                  <span className="font-bold song-serif text-[#5e472d]">实战四维属性</span>
-                  <span className="text-[10px] text-[#7a5f3e]">回合交锋结算维度</span>
-                </div>
-                <div className="grid grid-cols-4 gap-1.5 text-center font-mono text-xs">
-                  <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
-                    <div className="text-[10px] text-[#6b5235] font-sans">气血</div>
-                    <strong className="text-[#8f1d14]">{selectedNpc.stats.hp}</strong>
-                  </div>
-                  <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
-                    <div className="text-[10px] text-[#6b5235] font-sans">内力</div>
-                    <strong className="text-[#1d473a]">{selectedNpc.stats.mp}</strong>
-                  </div>
-                  <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
-                    <div className="text-[10px] text-[#6b5235] font-sans">身法</div>
-                    <strong>{selectedNpc.stats.agi}</strong>
-                  </div>
-                  <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
-                    <div className="text-[10px] text-[#6b5235] font-sans">抗性</div>
-                    <strong>{selectedNpc.stats.res}</strong>
-                  </div>
-                </div>
-              </div>
+              {/* 1) 实战交锋属性（根基+内轻功+7槽披挂实时派生） */}
+              {(() => {
+                const eff = deriveNpcEffectiveStats(selectedNpc)
+                const lvMap = new Map(selectedNpc.learnedArts.map((e) => [e.artId, e.level]))
+                return (
+                  <>
+                    <div className="shrink-0 bg-[#faf3e3] border border-[#cbb693] rounded p-2.5 space-y-1.5">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="font-bold song-serif text-[#5e472d]">实战交锋属性</span>
+                        <span className="text-[10px] text-[#7a5f3e]">武学+披挂实时派生</span>
+                      </div>
+                      <div className="grid grid-cols-3 sm:grid-cols-6 gap-1.5 text-center font-mono text-xs">
+                        <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                          <div className="text-[10px] text-[#6b5235] font-sans">气血</div>
+                          <strong className="text-[#8f1d14]">{eff.maxHp}</strong>
+                        </div>
+                        <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                          <div className="text-[10px] text-[#6b5235] font-sans">内力</div>
+                          <strong className="text-[#1d473a]">{eff.maxMp}</strong>
+                        </div>
+                        <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                          <div className="text-[10px] text-[#6b5235] font-sans">身法</div>
+                          <strong>{eff.agility}</strong>
+                        </div>
+                        <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                          <div className="text-[10px] text-[#6b5235] font-sans">抗性</div>
+                          <strong>{eff.res}</strong>
+                        </div>
+                        <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                          <div className="text-[10px] text-[#6b5235] font-sans">外功杀伤</div>
+                          <strong className="text-[#8f1d14]">+{eff.totalAttack}</strong>
+                        </div>
+                        <div className="bg-[#efe4cc] rounded py-1 border border-[#dcc9a7]">
+                          <div className="text-[10px] text-[#6b5235] font-sans">护体防御</div>
+                          <strong className="text-[#1b5132]">+{eff.totalDefense}</strong>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* 1b) 六槽运使武学 */}
+                    <div className="shrink-0 bg-[#faf3e3] border border-[#cbb693] rounded p-2.5 space-y-1.5">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="font-bold song-serif text-[#5e472d]">六槽运使武学</span>
+                        <span className="text-[10px] text-[#7a5f3e]">点击可跳转武学总纲</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                        {MARTIAL_ART_SLOT_METAS.map((meta) => {
+                          const aid = selectedNpc.equippedArts[meta.slot]
+                          const art = aid ? MARTIAL_ART_DB_MAP[aid] : null
+                          const lv = aid ? (lvMap.get(aid) ?? 1) : 0
+                          return (
+                            <button
+                              key={meta.slot}
+                              type="button"
+                              disabled={!art}
+                              onClick={() => {
+                                if (art) onJumpToMartialArt(art)
+                              }}
+                              className="flex items-center justify-between gap-1.5 px-2 py-1 rounded bg-[#efe4cc] hover:bg-[#e5d4b3] border border-[#d6c29d] text-left text-[11px] cursor-pointer disabled:opacity-60 disabled:cursor-default transition"
+                            >
+                              <div className="flex items-center gap-1.5 min-w-0">
+                                <span className="px-1 py-0.2 rounded bg-[#5e472d] text-[#fff8eb] text-[9px] font-bold shrink-0">
+                                  {meta.shortLabel}
+                                </span>
+                                <span className="font-bold text-[#23180f] truncate">
+                                  {art ? art.cleanName : '未装配'}
+                                </span>
+                              </div>
+                              {art && (
+                                <span className="text-[10px] font-mono text-[#781710] shrink-0">
+                                  {art.tier}·{lv}重
+                                </span>
+                              )}
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    {/* 1c) 七槽随身披挂 */}
+                    <div className="shrink-0 bg-[#faf3e3] border border-[#cbb693] rounded p-2.5 space-y-1.5">
+                      <div className="flex items-center justify-between text-[11px]">
+                        <span className="font-bold song-serif text-[#5e472d]">七槽随身披挂</span>
+                        <span className="text-[10px] text-[#7a5f3e]">兵甲弓履 · 双饰坐骑</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
+                        {EQUIPMENT_SLOT_METAS.map((meta) => {
+                          const iid = selectedNpc.equipped[meta.slot]
+                          const item = iid ? ITEM_DB_MAP[iid] : null
+                          const tier = item ? normalizeItemTier(item.rarity) : null
+                          const rStyle = tier ? RARITY_STYLE_MAP[tier] : null
+                          return (
+                            <div
+                              key={meta.slot}
+                              className="flex items-center justify-between gap-1.5 px-2 py-1 rounded bg-[#efe4cc] border border-[#d6c29d] text-[11px]"
+                            >
+                              <div className="flex items-center gap-1.5 min-w-0">
+                                <span className="px-1 py-0.2 rounded bg-[#6b5235] text-[#fff8eb] text-[9px] font-bold shrink-0">
+                                  {meta.shortLabel}
+                                </span>
+                                <span className="font-medium text-[#23180f] truncate">
+                                  {item ? item.name : '空置'}
+                                </span>
+                              </div>
+                              {tier && rStyle && (
+                                <span
+                                  className={`px-1 py-0.2 rounded text-[9px] font-bold shrink-0 ${rStyle.badgeBg} ${rStyle.badgeText}`}
+                                >
+                                  {tier}
+                                </span>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </>
+                )
+              })()}
 
               {/* 2) 先天三维禀赋（根骨 / 悟性 / 颜值） */}
               <div className="shrink-0 bg-[#faf3e3] border border-[#cbb693] rounded p-2.5 space-y-1.5">

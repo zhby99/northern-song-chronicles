@@ -1,4 +1,8 @@
-import { computeEquipmentTotals, DEFAULT_HERO_TALENTS } from '../data/itemsDb'
+import {
+  computeEquipmentTotals,
+  computeWeaponArtSynergy,
+  DEFAULT_HERO_TALENTS,
+} from '../data/itemsDb'
 import { computeEquippedArtsTotals, isArtNeigong } from '../data/playerMartialArts'
 import type {
   CompiledMartialArtRecord,
@@ -185,4 +189,42 @@ export function calcPracticeArtExpGain(
     ? talents.根骨 * 0.7 + talents.悟性 * 0.3
     : talents.悟性 * 0.7 + talents.根骨 * 0.3
   return Math.max(30, Math.round(50 * (0.55 + weightedTalent / 100)))
+}
+
+export interface DerivedNpcEffectiveStats {
+  maxHp: number
+  maxMp: number
+  agility: number
+  res: number
+  totalAttack: number
+  totalDefense: number
+  equipAttack: number
+  artAttack: number
+  synergyAttack: number
+  equipDefense: number
+  artDefense: number
+}
+
+export function deriveNpcEffectiveStats(npc: {
+  equipped: EquippedSlotsMap
+  equippedArts: EquippedArtsMap
+  learnedArts: LearnedArtEntry[]
+}): DerivedNpcEffectiveStats {
+  const equipTotals = computeEquipmentTotals(npc.equipped)
+  const artTotals = computeEquippedArtsTotals(npc.equippedArts, npc.learnedArts)
+  const synergy = computeWeaponArtSynergy(npc.equipped.weapon, npc.equippedArts, npc.learnedArts)
+
+  return {
+    maxHp: 250 + equipTotals.maxHp + artTotals.maxHp,
+    maxMp: 50 + equipTotals.maxMp + artTotals.maxMp,
+    agility: 15 + equipTotals.agility + artTotals.agility,
+    res: 8 + equipTotals.res + artTotals.res,
+    totalAttack: equipTotals.attack + artTotals.attack + synergy.totalSynergyAttack,
+    totalDefense: equipTotals.defense + artTotals.defense,
+    equipAttack: equipTotals.attack,
+    artAttack: artTotals.attack,
+    synergyAttack: synergy.totalSynergyAttack,
+    equipDefense: equipTotals.defense,
+    artDefense: artTotals.defense,
+  }
 }
