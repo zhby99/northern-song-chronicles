@@ -1,8 +1,10 @@
 import { create } from 'zustand'
 import {
   BUILDING_DB_MAP,
+  FACTION_DB_MAP,
   MARTIAL_ART_DB_MAP,
   NPC_DB_MAP,
+  resolveNpcByName,
   UNIQUE_ARTIFACT_MAP,
 } from '../data/gameDb'
 import {
@@ -30,6 +32,7 @@ import type {
   EquipmentSlotKey,
   EquippedArtsMap,
   EquippedSlotsMap,
+  GameOverState,
   GameSaveEnvelope,
   HeroBaseStats,
   InventoryStack,
@@ -41,6 +44,7 @@ import type {
   MountKey,
   NodeNpc,
   OverlayToggles,
+  PlayerSectState,
   RoamingMaster,
   SaveSlotId,
   SerializableGameState,
@@ -75,6 +79,7 @@ import {
 } from '../utils/saveManager'
 import {
   INITIAL_NPC_FAVOR,
+  MAX_NPC_FAVOR,
   computeGiftFavorGain,
   getNpcFavorProfile,
 } from '../utils/npcFavor'
@@ -84,7 +89,24 @@ import {
   resolveCombatRound,
   type CombatActionChoice,
   type CombatSessionState,
+  type DuelStakesKind,
 } from '../utils/combatEngine'
+import {
+  applySongLiaoSuspicionFavorPenalty,
+  buildNodeNpcFromLiaoSpy,
+  buildZhanZhaoArrestNodeNpc,
+  canPlayerLearnSectArt,
+  clonePlayerSectState,
+  DEFAULT_PLAYER_SECT_STATE,
+  evaluateSectEntry,
+  evaluateSectPromotion,
+  getChangshanMonthlyStipend,
+  getSectTeachableArts,
+  isSongOfficialForRobbery,
+  KAIFENG_RECOMMENDATION_ITEM_ID,
+  REFERRAL_BRIBE_BY_SOURCE_SECT,
+  spawnAnnualLiaoSpy,
+} from '../utils/sectMechanics'
 
 const LABEL_KEYS: LabelToggleKey[] = ['cityLabels', 'sectPassLabels', 'masters', 'distance']
 
@@ -270,6 +292,8 @@ export interface GameStoreState {
   menuOpen: boolean
   activeNpcInteraction: NodeNpc | null
   activeCombat: CombatSessionState | null
+  gameOver: GameOverState | null
+  sectState: PlayerSectState
   activeMenuTab: MenuTabKey
   compendiumOpen: boolean
   activeCompendiumTab: CompendiumTabKey
@@ -330,9 +354,25 @@ export interface GameStoreState {
     effect: ActionEffect
   }) => void
   interactNpc: (npc: NodeNpc, mode: 'talk' | 'art' | 'spar') => void
-  startNpcCombat: (npc: NodeNpc, mode?: 'spar' | 'duel') => void
+  startNpcCombat: (
+    npc: NodeNpc,
+    mode?: 'spar' | 'duel',
+    duelStakes?: DuelStakesKind,
+    forceMandatory?: boolean,
+  ) => void
   submitCombatAction: (choice: CombatActionChoice) => void
   finishCombatSession: () => void
+  restartAfterGameOver: () => void
+
+  // Sect & Faction Mechanics
+  joinSect: (targetSectId: string, mentorNpc?: NodeNpc) => void
+  leaveSect: () => void
+  acceptToumingzhuang: (npc?: NodeNpc) => void
+  performSectDuty: (npc?: NodeNpc) => void
+  promoteSectRank: () => void
+  bribeForReferral: (npc: NodeNpc) => void
+  claimKaifengRecommendation: (npc?: NodeNpc) => void
+  learnSectMartialArt: (artId: string) => void
 
   startJourney: (targetId: string) => void
   stepTravelTick: () => void
@@ -359,6 +399,80 @@ export interface GameStoreState {
   loadFromEnvelope: (envelope: GameSaveEnvelope, closeAfterLoad?: boolean) => void
   removeSaveSlot: (slotId: SaveSlotId) => Promise<void>
   setSaveNotice: (notice: { text: string; tone: 'success' | 'error' } | null) => void
+}
+
+function applyDayProgressionSectHooks(params: {
+  nextDayCount: number
+  shichenIdx: number
+  silver: number
+  sectState: PlayerSectState
+  logs: LogEntry[]
+}): {
+  silver: number
+  sectState: PlayerSectState
+  logs: LogEntry[]
+  overdueSpyAmbush: NodeNpc | null
+} {
+  let nextSilver = params.silver
+  const nextSect = clonePlayerSectState(params.sectState)
+  const nextLogs = [...params.logs]
+  let overdueSpyAmbush: NodeNpc | null = null
+
+  if (nextSect.sectId === 'SECT-22') {
+    const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
+    if (curMonthIdx > nextSect.lastStipendMonth) {
+      const months = curMonthIdx - nextSect.lastStipendMonth
+      const perMonth = getChangshanMonthlyStipend(nextSect.rank)
+      const totalStipend = perMonth * months
+      nextSilver += totalStipend
+      nextSect.lastStipendMonth = curMonthIdx
+      nextLogs.unshift(
+        createLogEntry(
+          params.nextDayCount,
+          '常山军饷',
+          `河北边军按月支放【常山枪派 · ${nextSect.rankLabel}】月度军饷 +${totalStipend} 两纹银！`,
+          true,
+          params.shichenIdx,
+        ),
+      )
+    }
+
+    if (nextSect.activeLiaoSpy && params.nextDayCount > nextSect.activeLiaoSpy.deadlineDay) {
+      overdueSpyAmbush = buildNodeNpcFromLiaoSpy(nextSect.activeLiaoSpy)
+      nextLogs.unshift(
+        createLogEntry(
+          params.nextDayCount,
+          '军令逾限',
+          `年度锄奸军令期限已至！潜伏燕云之辽国密谍【${nextSect.activeLiaoSpy.name}】反追踪而至，展开不死不休截杀！`,
+          true,
+          params.shichenIdx,
+        ),
+      )
+    } else {
+      const curYearIdx = Math.floor((params.nextDayCount - 1) / 360) + 1
+      if (!nextSect.activeLiaoSpy && curYearIdx > nextSect.lastLiaoSpyMissionYear) {
+        const spy = spawnAnnualLiaoSpy(curYearIdx, params.nextDayCount)
+        nextSect.lastLiaoSpyMissionYear = curYearIdx
+        nextSect.activeLiaoSpy = spy
+        nextLogs.unshift(
+          createLogEntry(
+            params.nextDayCount,
+            '燕云锄奸',
+            `【常山枪派第${curYearIdx}年度强制军令】辽国密谍【${spy.name}（${spy.title}）】现踪燕云【${spy.regionName} · ${spy.buildingName}】！须于第 ${spy.deadlineDay} 日前寻获并生死决战诛除！`,
+            true,
+            params.shichenIdx,
+          ),
+        )
+      }
+    }
+  }
+
+  return {
+    silver: nextSilver,
+    sectState: nextSect,
+    logs: nextLogs,
+    overdueSpyAmbush,
+  }
 }
 
 function grantArtProficiency(
@@ -448,16 +562,18 @@ function computeCombatSettlement(
   const curFavor = nextNpcFavor[npcKey] ?? INITIAL_NPC_FAVOR
   let favorGain = 0
 
-  if (outcome === 'player_win') {
-    favorGain = 4
-  } else if (outcome === 'draw') {
-    favorGain = 2
-  } else if (outcome === 'npc_win') {
-    favorGain = 1
+  if (session.mode === 'spar') {
+    if (outcome === 'player_win') {
+      favorGain = 4
+    } else if (outcome === 'draw') {
+      favorGain = 2
+    } else if (outcome === 'npc_win') {
+      favorGain = 1
+    }
   }
 
   if (favorGain > 0) {
-    nextNpcFavor[npcKey] = Math.min(100, curFavor + favorGain)
+    nextNpcFavor[npcKey] = Math.min(MAX_NPC_FAVOR, curFavor + favorGain)
   }
 
   const derived = deriveHeroEffectiveStats(
@@ -497,12 +613,16 @@ function computeCombatSettlement(
 
   const outcomeTitle =
     outcome === 'player_win'
-      ? `力挫【${session.npc.name}】（${session.round}合获胜）`
+      ? session.mode === 'duel'
+        ? `生死决战诛胜【${session.npc.name}】（${session.round}合）`
+        : `力挫【${session.npc.name}】（${session.round}合获胜）`
       : outcome === 'draw'
         ? `与【${session.npc.name}】拆招${session.round}合秋色平分`
         : outcome === 'escaped'
           ? `与【${session.npc.name}】交锋中途飘然脱战`
-          : `向【${session.npc.name}】请益${session.round}合惜败`
+          : session.mode === 'duel'
+            ? `与【${session.npc.name}】生死相搏${session.round}合败亡`
+            : `向【${session.npc.name}】请益${session.round}合惜败`
 
   const logTag =
     outcome === 'player_win'
@@ -558,6 +678,8 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     equippedArts: { ...s.equippedArts },
     inventory: s.inventory.map((x) => ({ ...x })),
     consumedUniqueIds: [...s.consumedUniqueIds],
+    npcFavor: { ...s.npcFavor },
+    sectState: clonePlayerSectState(s.sectState),
     overlays: { ...s.overlays },
     roamingMasters: s.roamingMasters.map((m) => ({ ...m })),
     worldPan: { ...s.worldPan },
@@ -639,6 +761,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   menuOpen: false,
   activeNpcInteraction: null,
   activeCombat: null,
+  gameOver: null,
+  sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
   activeMenuTab: 'hero',
   compendiumOpen: false,
   activeCompendiumTab: 'regions',
@@ -684,7 +808,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (s.traveling) {
       get().campStop()
     }
-    const logs = logSwitch
+    const isKaifengAmbush = nodeId === 'bianliang' && s.sectState.songCourtBlacklisted
+    let logs = logSwitch
       ? [
           createLogEntry(
             s.dayCount,
@@ -695,6 +820,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           ...s.logs,
         ].slice(0, 60)
       : s.logs
+
+    if (isKaifengAmbush) {
+      logs = [
+        createLogEntry(
+          s.dayCount,
+          '开封缉捕',
+          '少侠身负劫掠大宋朝廷官员之海捕黑名单，甫一踏入东京开封府，御前四品带刀护卫「南侠」展昭已执剑拦路，不死不休！',
+          true,
+          s.shichenIdx,
+        ),
+        ...logs,
+      ].slice(0, 60)
+    }
 
     set({
       tooltip: null,
@@ -710,6 +848,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       actionFeedback: null,
       logs,
     })
+
+    if (isKaifengAmbush) {
+      get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
+      return
+    }
 
     if (logSwitch) {
       void get().saveToSlot('autosave', `踏入${node.name}`, true)
@@ -941,10 +1084,36 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 3)
     const nextHp = Math.min(s.maxHp, s.hp + 200)
     const nextMp = Math.min(s.maxMp, s.mp + 120)
+    const baseLogs = [
+      createLogEntry(
+        clock.dayCount,
+        '客舍调息',
+        `花费 3 两纹银小憩三个时辰，体能恢复至 ${s.maxStamina}/${s.maxStamina}。`,
+        false,
+        clock.shichenIdx,
+      ),
+      ...s.logs,
+    ]
+    const dayHook =
+      clock.daysAdded > 0
+        ? applyDayProgressionSectHooks({
+            nextDayCount: clock.dayCount,
+            shichenIdx: clock.shichenIdx,
+            silver: s.silver - 3,
+            sectState: s.sectState,
+            logs: baseLogs,
+          })
+        : {
+            silver: s.silver - 3,
+            sectState: s.sectState,
+            logs: baseLogs,
+            overdueSpyAmbush: null,
+          }
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
-      silver: s.silver - 3,
+      silver: dayHook.silver,
+      sectState: dayHook.sectState,
       hp: nextHp,
       mp: nextMp,
       stamina: s.maxStamina,
@@ -952,17 +1121,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         text: '于客舍安睡三个时辰，体能全满，气血与内息尽数平复！',
         tone: 'success',
       },
-      logs: [
-        createLogEntry(
-          clock.dayCount,
-          '客舍调息',
-          `花费 3 两纹银小憩三个时辰，体能恢复至 ${s.maxStamina}/${s.maxStamina}。`,
-          false,
-          clock.shichenIdx,
-        ),
-        ...s.logs,
-      ].slice(0, 60),
+      logs: dayHook.logs.slice(0, 60),
     })
+    if (dayHook.overdueSpyAmbush) {
+      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+    }
   },
 
   equipItemToSlot: (itemId, preferredSlot) => {
@@ -1440,9 +1603,32 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ? `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 +${expGain}），火候突破至第 ${nextLv} 重！`
       : `潜心演练【${art.name}】一个时辰（体能 -10，熟练度 +${expGain} → ${nextExp}/${nextReqExp}）。`
 
+    const baseLogs = [
+      createLogEntry(
+        clock.dayCount,
+        leveledUp ? '武学突破' : '演武苦修',
+        msgText,
+        leveledUp,
+        clock.shichenIdx,
+      ),
+      ...s.logs,
+    ]
+    const dayHook =
+      clock.daysAdded > 0
+        ? applyDayProgressionSectHooks({
+            nextDayCount: clock.dayCount,
+            shichenIdx: clock.shichenIdx,
+            silver: s.silver,
+            sectState: s.sectState,
+            logs: baseLogs,
+          })
+        : { silver: s.silver, sectState: s.sectState, logs: baseLogs, overdueSpyAmbush: null }
+
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
+      silver: dayHook.silver,
+      sectState: dayHook.sectState,
       stamina: Math.max(0, s.stamina - 10),
       learnedArts: nextLearned,
       qinggongBonus: derived.qinggongBonus,
@@ -1456,17 +1642,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         text: msgText,
         tone: 'success',
       },
-      logs: [
-        createLogEntry(
-          clock.dayCount,
-          leveledUp ? '武学突破' : '演武苦修',
-          msgText,
-          leveledUp,
-          clock.shichenIdx,
-        ),
-        ...s.logs,
-      ].slice(0, 60),
+      logs: dayHook.logs.slice(0, 60),
     })
+    if (dayHook.overdueSpyAmbush) {
+      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+    }
   },
 
   consumeInventoryItem: (itemId, forceUseEffect = false) => {
@@ -1613,9 +1793,32 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         ? [...s.consumedUniqueIds, itemId]
         : s.consumedUniqueIds
 
+    const baseLogs = [
+      createLogEntry(
+        clock.dayCount,
+        logTag,
+        `使用【${def.name}】：${notes.join('，')}。`,
+        true,
+        clock.shichenIdx,
+      ),
+      ...s.logs,
+    ]
+    const dayHook =
+      clock.daysAdded > 0
+        ? applyDayProgressionSectHooks({
+            nextDayCount: clock.dayCount,
+            shichenIdx: clock.shichenIdx,
+            silver: s.silver,
+            sectState: s.sectState,
+            logs: baseLogs,
+          })
+        : { silver: s.silver, sectState: s.sectState, logs: baseLogs, overdueSpyAmbush: null }
+
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
+      silver: dayHook.silver,
+      sectState: dayHook.sectState,
       inventory: nextInv,
       baseStats: nextBaseStats,
       consumedUniqueIds: nextConsumedUnique,
@@ -1637,17 +1840,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         text: `${logTag}【${def.name}】：${notes.join('，')}。`,
         tone: 'success',
       },
-      logs: [
-        createLogEntry(
-          clock.dayCount,
-          logTag,
-          `使用【${def.name}】：${notes.join('，')}。`,
-          true,
-          clock.shichenIdx,
-        ),
-        ...s.logs,
-      ].slice(0, 60),
+      logs: dayHook.logs.slice(0, 60),
     })
+    if (dayHook.overdueSpyAmbush) {
+      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+    }
   },
 
   doBuildingAction: (item) => {
@@ -1781,10 +1978,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
+    const dayHook =
+      clock.daysAdded > 0
+        ? applyDayProgressionSectHooks({
+            nextDayCount: nextDay,
+            shichenIdx: clock.shichenIdx,
+            silver: nextSilver,
+            sectState: s.sectState,
+            logs: nextLogs,
+          })
+        : { silver: nextSilver, sectState: s.sectState, logs: nextLogs, overdueSpyAmbush: null }
+
     set({
       dayCount: nextDay,
       shichenIdx: clock.shichenIdx,
-      silver: nextSilver,
+      silver: dayHook.silver,
+      sectState: dayHook.sectState,
       baseStats: nextBaseStats,
       learnedArts: nextLearnedArts,
       mountKey: derived.mountKey,
@@ -1801,8 +2010,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       skills: derived.skills,
       roamingMasters: nextMasters,
       actionFeedback: { text: summary, tone: 'success' },
-      logs: nextLogs.slice(0, 60),
+      logs: dayHook.logs.slice(0, 60),
     })
+
+    if (dayHook.overdueSpyAmbush) {
+      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+      return
+    }
 
     void get().saveToSlot('autosave', `${regionName} · ${item.name}`, true)
   },
@@ -1859,9 +2073,23 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       s.equippedArts,
       s.learnedArts,
     )
+    const dayHook =
+      clock.daysAdded > 0
+        ? applyDayProgressionSectHooks({
+            nextDayCount: clock.dayCount,
+            shichenIdx: clock.shichenIdx,
+            silver: s.silver,
+            sectState: s.sectState,
+            logs: s.logs,
+          })
+        : { silver: s.silver, sectState: s.sectState, logs: s.logs, overdueSpyAmbush: null }
+
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
+      silver: dayHook.silver,
+      sectState: dayHook.sectState,
+      logs: dayHook.logs.slice(0, 60),
       stamina: Math.max(0, s.stamina - 6),
       baseStats: nextBaseStats,
       skills: derived.skills,
@@ -1870,32 +2098,61 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         tone: 'success',
       },
     })
+    if (dayHook.overdueSpyAmbush) {
+      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+    }
   },
 
-  startNpcCombat: (npc, mode = 'spar') => {
+  startNpcCombat: (npc, mode = 'spar', duelStakes, forceMandatory = false) => {
     const s = get()
-    if (s.stamina < 10) {
-      set({
-        actionFeedback: {
-          text: `登台拆招需耗费 10 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚或用膳恢复！`,
-          tone: 'warn',
-        },
-      })
-      return
+    if (s.gameOver) return
+
+    const effectiveStakes: DuelStakesKind = duelStakes ?? (mode === 'duel' ? 'duel' : 'spar')
+    const effectiveMode: 'spar' | 'duel' = effectiveStakes === 'spar' ? 'spar' : 'duel'
+
+    if (effectiveStakes === 'rob_official') {
+      const dbNpc = (npc.id && NPC_DB_MAP[npc.id]) || resolveNpcByName(npc.name)
+      if (
+        !isSongOfficialForRobbery({
+          id: npc.id ?? dbNpc?.id,
+          factionId: npc.factionId ?? dbNpc?.factionId,
+        })
+      ) {
+        set({
+          actionFeedback: {
+            text: '「纳投名状」须挑大宋朝廷命官下手，寻常江湖人物不算数！',
+            tone: 'warn',
+          },
+        })
+        return
+      }
     }
-    if (s.hp <= 1) {
-      set({
-        actionFeedback: {
-          text: `少侠当前气血奄奄一息（${s.hp}/${s.maxHp}），请先服食伤药或调息恢复气血后再与名宿拆招！`,
-          tone: 'warn',
-        },
-      })
-      return
+
+    if (!forceMandatory) {
+      if (s.stamina < 10) {
+        set({
+          actionFeedback: {
+            text: `登台拆招需耗费 10 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚或用膳恢复！`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
+      if (s.hp <= 1) {
+        set({
+          actionFeedback: {
+            text: `少侠当前气血奄奄一息（${s.hp}/${s.maxHp}），请先服食伤药或调息恢复气血后再与名宿交手！`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
     }
 
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+    const startHp = Math.max(1, s.hp)
     const playerCombatant = buildPlayerCombatant({
-      hp: s.hp,
+      hp: startHp,
       mp: s.mp,
       baseStats: s.baseStats,
       equipped: s.equipped,
@@ -1903,7 +2160,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       learnedArts: s.learnedArts,
     })
     const session = createCombatSession({
-      mode,
+      mode: effectiveMode,
+      duelStakes: effectiveStakes,
       player: playerCombatant,
       npcNode: npc,
     })
@@ -1911,7 +2169,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
-      stamina: Math.max(0, s.stamina - 10),
+      stamina: forceMandatory ? s.stamina : Math.max(0, s.stamina - 10),
       activeCombat: session,
       menuOpen: false,
       compendiumOpen: false,
@@ -1990,9 +2248,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         },
         nextSession,
       )
+      const deathNotice =
+        nextSession.mode === 'duel' && nextSession.outcome === 'npc_win'
+          ? nextSession.duelStakes === 'zhan_zhao_arrest'
+            ? '少侠重伤被南侠展昭生擒归案，即将押赴开封府市曹处斩（游戏结束）！'
+            : `生死决斗败亡！少侠命陨于【${nextSession.npc.name}】之手（游戏结束）！`
+          : preview.rewardsSummary
       nextSession = {
         ...nextSession,
-        rewardsSummary: preview.rewardsSummary,
+        rewardsSummary: deathNotice,
       }
     }
     set({
@@ -2011,11 +2275,120 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const session = s.activeCombat
     if (!session || session.outcome === 'ongoing') return
 
-    const res = computeCombatSettlement(s, session)
     const regionName = NODE_MAP[s.activeRegionId]?.name ?? '江湖'
+    const songDate = formatSongDate(s.dayCount, s.shichenIdx)
+
+    // 1. 非切磋类的生死对决失败 -> 死亡机制（Game Over）
+    if (session.mode === 'duel' && session.outcome === 'npc_win') {
+      const gameOverPayload: GameOverState =
+        session.duelStakes === 'zhan_zhao_arrest'
+          ? {
+              reasonTitle: '开封府市曹处斩',
+              reasonDetail:
+                '少侠因领绿林「纳投名状」劫掠大宋朝廷命官，名列朝廷黑名单。今踏入东京开封府被御前四品带刀护卫「南侠」展昭缉拿归案，押赴开封府市曹，狗头铡下明正典刑！',
+              killerName: session.npc.name,
+              songDate,
+              locationName: regionName,
+            }
+          : session.duelStakes === 'liao_spy_duel'
+            ? {
+                reasonTitle: '喋血燕云 · 为国捐躯',
+                reasonDetail: `少侠奉常山枪派军令赴燕云诛除契丹密谍，在与【${session.npc.name}】的生死决战中力竭重创，命陨塞北，马革裹尸！`,
+                killerName: session.npc.name,
+                songDate,
+                locationName: regionName,
+              }
+            : session.duelStakes === 'rob_official'
+              ? {
+                  reasonTitle: '劫官败亡 · 伏尸当场',
+                  reasonDetail: `少侠欲劫掠大宋官员【${session.npc.name}】以纳绿林投名状，岂料失手落败，当场毙命于刀兵之下！`,
+                  killerName: session.npc.name,
+                  songDate,
+                  locationName: regionName,
+                }
+              : {
+                  reasonTitle: '命陨江湖 · 侠踪绝响',
+                  reasonDetail: `生死相搏，刀剑无眼！少侠在与【${session.npc.name}】的生死对决中气绝败北，血染尘沙，一世风云就此落幕。`,
+                  killerName: session.npc.name,
+                  songDate,
+                  locationName: regionName,
+                }
+
+      set({
+        activeCombat: null,
+        activeNpcInteraction: null,
+        hp: 0,
+        gameOver: gameOverPayload,
+        logs: [
+          createLogEntry(
+            s.dayCount,
+            gameOverPayload.reasonTitle,
+            gameOverPayload.reasonDetail,
+            true,
+            s.shichenIdx,
+          ),
+          ...s.logs,
+        ].slice(0, 60),
+      })
+      return
+    }
+
+    // 2. 存活结算（切磋任意结局 或 生死对决获胜/平局/脱逃）
+    const res = computeCombatSettlement(s, session)
+    let nextSilver = s.silver
+    const nextSectState = clonePlayerSectState(s.sectState)
+    let extraLogText = res.logText
+    let extraLogTag = res.logTag
+    let triggerKaifengZhanZhao = false
+
+    // 同门切磋获胜积攒微末功绩
+    const dbTarget =
+      (session.targetNpcNode.id && NPC_DB_MAP[session.targetNpcNode.id]) ||
+      resolveNpcByName(session.targetNpcNode.name)
+    if (
+      session.outcome === 'player_win' &&
+      nextSectState.sectId &&
+      dbTarget?.factionId === nextSectState.sectId
+    ) {
+      nextSectState.contribution += 12
+      extraLogText += `（同门印证获门派功绩 +12，现 ${nextSectState.contribution}）`
+    }
+
+    // 绿林盟「纳投名状」劫官胜利
+    if (session.duelStakes === 'rob_official' && session.outcome === 'player_win') {
+      nextSilver += 60
+      nextSectState.toumingzhuangState = 'completed'
+      nextSectState.songCourtBlacklisted = true
+      extraLogTag = '投名状成'
+      extraLogText = `劫掠大宋官员【${session.npc.name}】得手，夺得官银 +60 两，已完成绿林【纳投名状】！⚠️ 少侠已被列入大宋朝廷黑名单：其他城池无碍，一旦进入【开封府】必遭南侠展昭挑战缉斩！`
+      if (s.activeRegionId === 'bianliang') {
+        triggerKaifengZhanZhao = true
+      }
+    }
+
+    // 常山枪派「年度燕云锄奸」诛杀辽谍胜利
+    if (session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win') {
+      nextSectState.activeLiaoSpy = null
+      nextSectState.contribution += 100
+      nextSilver += 50
+      extraLogTag = '燕云锄奸'
+      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派年度军令，获门派功绩 +100（现 ${nextSectState.contribution}）、犒赏纹银 +50 两！`
+    }
+
+    // 若从展昭剑下侥幸获胜
+    if (session.duelStakes === 'zhan_zhao_arrest' && session.outcome === 'player_win') {
+      extraLogTag = '震动东京'
+      extraLogText = `少侠竟在东京街头力挫御前四品带刀护卫「南侠」展昭，杀出重围！然朝廷黑名单未消，再度踏入开封仍将遭展昭截杀！`
+    }
 
     set({
       activeCombat: null,
+      activeNpcInteraction:
+        session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win'
+          ? null
+          : s.activeNpcInteraction,
+      silver: nextSilver,
+      sectState: nextSectState,
       baseStats: res.nextBaseStats,
       learnedArts: res.nextLearnedArts,
       npcFavor: res.nextNpcFavor,
@@ -2032,14 +2405,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       maxStamina: res.derived.maxStamina,
       stamina: Math.min(res.derived.maxStamina, s.stamina),
       actionFeedback: {
-        text: res.logText,
+        text: extraLogText,
         tone: session.outcome === 'npc_win' || session.outcome === 'escaped' ? 'warn' : 'success',
       },
       logs: [
         createLogEntry(
           s.dayCount,
-          res.logTag,
-          res.logText,
+          extraLogTag,
+          extraLogText,
           session.outcome === 'player_win' || res.anyBreakthrough,
           s.shichenIdx,
         ),
@@ -2047,7 +2420,502 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ].slice(0, 60),
     })
 
+    if (triggerKaifengZhanZhao) {
+      get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
+      return
+    }
+
     void get().saveToSlot('autosave', `${regionName} · 战后调息`, true)
+  },
+
+  restartAfterGameOver: () => {
+    const freshBase = cloneHeroBaseStats(DEFAULT_HERO_BASE_STATS)
+    const freshEquip = { ...DEFAULT_EQUIPPED_SLOTS }
+    const freshLearned = DEFAULT_LEARNED_ARTS.map((x) => ({ ...x }))
+    const freshEqArts = { ...DEFAULT_EQUIPPED_ARTS }
+    const derived = deriveHeroEffectiveStats(freshBase, freshEquip, freshEqArts, freshLearned)
+
+    set({
+      dayCount: 1,
+      shichenIdx: 4,
+      viewMode: 'region',
+      activeRegionId: 'bianliang',
+      activeBuildingInteriorId: null,
+      selectedNodeId: null,
+      selectedBuildingId: null,
+      selectedSpotId: null,
+      currentNodeId: 'bianliang',
+      traveling: null,
+      campPos: null,
+      baseStats: freshBase,
+      mountKey: derived.mountKey,
+      qinggongBonus: derived.qinggongBonus,
+      ridingSkill: derived.ridingSkill,
+      agility: derived.agility,
+      silver: 5120,
+      food: 25,
+      hp: derived.maxHp,
+      maxHp: derived.maxHp,
+      mp: derived.maxMp,
+      maxMp: derived.maxMp,
+      stamina: derived.maxStamina,
+      maxStamina: derived.maxStamina,
+      res: derived.res,
+      skills: { ...derived.skills },
+      equipped: freshEquip,
+      learnedArts: freshLearned,
+      equippedArts: freshEqArts,
+      inventory: DEFAULT_INITIAL_INVENTORY.map((x) => ({ ...x })),
+      consumedUniqueIds: [],
+      npcFavor: {},
+      sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
+      gameOver: null,
+      activeCombat: null,
+      activeNpcInteraction: null,
+      menuOpen: false,
+      compendiumOpen: false,
+      actionFeedback: {
+        text: '大梦初醒，重返皇祐二年正月初一东京汴梁！',
+        tone: 'success',
+      },
+      logs: [
+        createLogEntry(
+          1,
+          '重入江湖',
+          '前尘旧梦俱散，少侠重返皇祐二年正月初一【开封府】，再谱武林新篇！',
+          true,
+          4,
+        ),
+      ],
+    })
+  },
+
+  joinSect: (targetSectId, mentorNpc) => {
+    const s = get()
+    const evalRes = evaluateSectEntry({
+      targetSectId,
+      sectState: s.sectState,
+      silver: s.silver,
+      baseStats: s.baseStats,
+      inventory: s.inventory,
+    })
+
+    if (!evalRes.canJoin) {
+      const warn = evalRes.blockedReason ?? '尚未满足入门条件。'
+      set({
+        actionFeedback: { text: warn, tone: 'warn' },
+      })
+      return
+    }
+
+    const faction = FACTION_DB_MAP[targetSectId]
+    if (!faction) return
+
+    let nextSilver = s.silver - evalRes.costSilver
+    let nextInv = s.inventory
+    if (evalRes.consumeItemId) {
+      const removed = removeItemFromInventory(nextInv, evalRes.consumeItemId, 1)
+      if (!removed) {
+        set({
+          actionFeedback: { text: '行囊中缺少所需荐书信物！', tone: 'warn' },
+        })
+        return
+      }
+      nextInv = removed
+    }
+
+    const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
+    const curYearIdx = Math.floor((s.dayCount - 1) / 360) + 1
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      sectId: targetSectId,
+      rank: evalRes.startingRank,
+      rankLabel: evalRes.startingRankLabel,
+      contribution: 0,
+      joinedDay: s.dayCount,
+      lastStipendMonth: curMonthIdx,
+      activeLiaoSpy: evalRes.allowOfficialTransferFromChangshan
+        ? null
+        : s.sectState.activeLiaoSpy,
+    }
+
+    const newLogs: LogEntry[] = []
+    let feedbackMsg = `正式拜入【${faction.name}】，授职【${evalRes.startingRankLabel}】！`
+    if (evalRes.costSilver > 0) {
+      feedbackMsg += `（奉上拜师束脩 ${evalRes.costSilver} 两纹银）`
+    }
+    if (evalRes.consumeItemId && ITEM_DB_MAP[evalRes.consumeItemId]) {
+      feedbackMsg += `（呈交《${ITEM_DB_MAP[evalRes.consumeItemId]!.name}》）`
+    }
+    if (evalRes.allowOfficialTransferFromChangshan) {
+      feedbackMsg = `呈验常山枪派《开封府推荐信》，正式奉调入职【${faction.name} · ${evalRes.startingRankLabel}】（正当调任，无通辽之嫌）！`
+    }
+
+    // 常山枪派：投军即刻派发本年度燕云诛谍强制军令
+    if (targetSectId === 'SECT-22') {
+      const stipendAmt = getChangshanMonthlyStipend(nextSect.rank)
+      feedbackMsg += ` 每满一月可领边军饷银 ${stipendAmt} 两。`
+      if (!nextSect.activeLiaoSpy && nextSect.lastLiaoSpyMissionYear < curYearIdx) {
+        const spy = spawnAnnualLiaoSpy(curYearIdx, s.dayCount)
+        nextSect.lastLiaoSpyMissionYear = curYearIdx
+        nextSect.activeLiaoSpy = spy
+        const spyMsg = `【常山年度强制军令】辽国密谍【${spy.name}（${spy.title}）】已潜入燕云【${spy.regionName} · ${spy.buildingName}】！请于第 ${spy.deadlineDay} 日前寻获并开启生死对决！`
+        feedbackMsg += ` ${spyMsg}`
+        newLogs.push(createLogEntry(s.dayCount, '燕云锄奸', spyMsg, true, s.shichenIdx))
+      }
+    }
+
+    newLogs.push(
+      createLogEntry(
+        s.dayCount,
+        '拜入宗门',
+        `${mentorNpc ? `经【${mentorNpc.name}】引见，` : ''}${feedbackMsg}`,
+        true,
+        s.shichenIdx,
+      ),
+    )
+
+    set({
+      silver: nextSilver,
+      inventory: nextInv,
+      sectState: nextSect,
+      actionFeedback: { text: feedbackMsg, tone: 'success' },
+      logs: [...newLogs, ...s.logs].slice(0, 60),
+    })
+  },
+
+  leaveSect: () => {
+    const s = get()
+    const curSectId = s.sectState.sectId
+    if (!curSectId) return
+    const factionName = FACTION_DB_MAP[curSectId]?.name ?? curSectId
+
+    if (curSectId === 'SECT-22') {
+      const { nextFavor, affectedCount } = applySongLiaoSuspicionFavorPenalty(s.npcFavor, 30)
+      const nextSect: PlayerSectState = {
+        ...clonePlayerSectState(s.sectState),
+        sectId: null,
+        rank: 1,
+        rankLabel: '无门无派',
+        contribution: 0,
+        activeLiaoSpy: null,
+        liaoSuspicionDebuff: true,
+      }
+      const msg = `少侠主动退出【${factionName}】，因擅离河北抗辽军伍，背上【通辽嫌疑】恶名！所有大宋朝野与武林人物（共 ${affectedCount} 人）对少侠好感度 -30！`
+      set({
+        sectState: nextSect,
+        npcFavor: nextFavor,
+        actionFeedback: { text: msg, tone: 'warn' },
+        logs: [
+          createLogEntry(s.dayCount, '通辽恶名', msg, true, s.shichenIdx),
+          ...s.logs,
+        ].slice(0, 60),
+      })
+      return
+    }
+
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      sectId: null,
+      rank: 1,
+      rankLabel: '无门无派',
+      contribution: 0,
+    }
+    const msg = `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
+    set({
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'talk' },
+      logs: [
+        createLogEntry(s.dayCount, '脱离门派', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  acceptToumingzhuang: (npc) => {
+    const s = get()
+    if (s.sectState.toumingzhuangState === 'completed') {
+      set({
+        actionFeedback: {
+          text: '少侠已纳过投名状，可直接拜入【太行/京东绿林盟】！',
+          tone: 'success',
+        },
+      })
+      return
+    }
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      toumingzhuangState: 'accepted',
+    }
+    const msg = `已向${npc ? `【${npc.name}】` : '绿林盟'}立誓领受【纳投名状】任务！请前往外州府寻任一大宋官员发起【劫道纳投名状（生死战）】（切记：得手后将入大宋官府黑名单，踏入开封府会被展昭挑战处斩！）。`
+    set({
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'warn' },
+      logs: [
+        createLogEntry(s.dayCount, '纳投名状', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  performSectDuty: (npc) => {
+    const s = get()
+    const sectId = s.sectState.sectId
+    if (!sectId) return
+    if (s.stamina < 10) {
+      set({
+        actionFeedback: {
+          text: `门派当差演武需耗费 10 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const factionName = FACTION_DB_MAP[sectId]?.name ?? sectId
+    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 2)
+    const contribGain = 35
+    const silverReward = 8
+
+    const updatedSect = clonePlayerSectState(s.sectState)
+    updatedSect.contribution += contribGain
+
+    const msg = `于【${factionName}】${npc ? `随 ${npc.name} ` : ''}校场当差值守两个时辰（体能 -10），门派功绩 +${contribGain}（现 ${updatedSect.contribution}），津贴纹银 +${silverReward} 两！`
+    const baseLogs = [
+      createLogEntry(clock.dayCount, '门派当差', msg, false, clock.shichenIdx),
+      ...s.logs,
+    ]
+    const dayHook =
+      clock.daysAdded > 0
+        ? applyDayProgressionSectHooks({
+            nextDayCount: clock.dayCount,
+            shichenIdx: clock.shichenIdx,
+            silver: s.silver + silverReward,
+            sectState: updatedSect,
+            logs: baseLogs,
+          })
+        : {
+            silver: s.silver + silverReward,
+            sectState: updatedSect,
+            logs: baseLogs,
+            overdueSpyAmbush: null,
+          }
+
+    set({
+      dayCount: clock.dayCount,
+      shichenIdx: clock.shichenIdx,
+      stamina: Math.max(0, s.stamina - 10),
+      silver: dayHook.silver,
+      sectState: dayHook.sectState,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: dayHook.logs.slice(0, 60),
+    })
+    if (dayHook.overdueSpyAmbush) {
+      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+    }
+  },
+
+  promoteSectRank: () => {
+    const s = get()
+    const sectId = s.sectState.sectId
+    if (!sectId) return
+    const promo = evaluateSectPromotion({
+      sectId,
+      currentRank: s.sectState.rank,
+      contribution: s.sectState.contribution,
+      learnedArts: s.learnedArts,
+    })
+    if (!promo) {
+      set({
+        actionFeedback: { text: '少侠已位列本门最高掌门尊位！', tone: 'success' },
+      })
+      return
+    }
+    if (!promo.canPromote) {
+      set({
+        actionFeedback: { text: promo.reason, tone: 'warn' },
+      })
+      return
+    }
+
+    const factionName = FACTION_DB_MAP[sectId]?.name ?? sectId
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      rank: promo.targetRank,
+      rankLabel: promo.targetRankLabel,
+    }
+    let msg = `功勋卓著！少侠于【${factionName}】正式晋升为第 ${promo.targetRank} 阶【${promo.targetRankLabel}】！`
+    if (sectId === 'SECT-22' && promo.targetRank === 3) {
+      msg += ' 已达【演武教习】职阶，现可向掌门或首座领取《开封府推荐信》！'
+    }
+
+    set({
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '门派晋升', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  bribeForReferral: (npc) => {
+    const s = get()
+    const curSectId = s.sectState.sectId
+    if (!curSectId) return
+    const refCfg = REFERRAL_BRIBE_BY_SOURCE_SECT[curSectId]
+    if (!refCfg) return
+
+    const dbNpc = (npc.id && NPC_DB_MAP[npc.id]) || resolveNpcByName(npc.name)
+    const npcFaction = npc.factionId ?? dbNpc?.factionId
+    const npcRank = npc.sectRank ?? dbNpc?.sectRank ?? 1
+
+    if (npcFaction !== curSectId || npcRank !== 4) {
+      set({
+        actionFeedback: {
+          text: `须向本门第4阶【${refCfg.elderTitleHint}】奉银求取《${refCfg.itemName}》！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    if (s.sectState.rank < 2) {
+      set({
+        actionFeedback: {
+          text: `须先晋升为本门第2阶内门（当前为【${s.sectState.rankLabel}】），方有资格向${refCfg.elderTitleHint}贿赂求取《${refCfg.itemName}》！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    if (s.inventory.some((st) => st.itemId === refCfg.itemId && st.qty > 0)) {
+      set({
+        actionFeedback: {
+          text: `少侠行囊中已持有《${refCfg.itemName}》，脱离本门后即可前往拜入【${refCfg.targetSectName}】！`,
+          tone: 'talk',
+        },
+      })
+      return
+    }
+    if (s.silver < refCfg.costSilver) {
+      set({
+        actionFeedback: {
+          text: `贿赂${refCfg.elderTitleHint}需纹银 ${refCfg.costSilver} 两（当前 ${s.silver} 两）！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const nextInv = addItemToInventory(s.inventory, refCfg.itemId, 1)
+    const nextSect = clonePlayerSectState(s.sectState)
+    if (!nextSect.bribedReferralSects.includes(refCfg.targetSectId)) {
+      nextSect.bribedReferralSects.push(refCfg.targetSectId)
+    }
+    const msg = `暗中奉上 ${refCfg.costSilver} 两纹银，【${npc.name}】捻须笑纳，修书一封授少侠《${refCfg.itemName}》！持此帖脱离本门后即可拜入二流名门【${refCfg.targetSectName}】！`
+
+    set({
+      silver: s.silver - refCfg.costSilver,
+      inventory: nextInv,
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '暗通关节', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  claimKaifengRecommendation: (npc) => {
+    const s = get()
+    if (s.sectState.sectId !== 'SECT-22') return
+    if (s.sectState.rank < 3) {
+      set({
+        actionFeedback: {
+          text: `须在【常山枪派】晋升至第3阶【演武教习】（当前为【${s.sectState.rankLabel}】），方可获授《开封府推荐信》！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    if (
+      s.sectState.claimedKaifengLetter ||
+      s.inventory.some((st) => st.itemId === KAIFENG_RECOMMENDATION_ITEM_ID && st.qty > 0)
+    ) {
+      set({
+        actionFeedback: {
+          text: '少侠已领受过《开封府推荐信》，可赴东京开封府呈交包龙图或展护卫调任入府！',
+          tone: 'talk',
+        },
+      })
+      return
+    }
+
+    const nextInv = addItemToInventory(s.inventory, KAIFENG_RECOMMENDATION_ITEM_ID, 1)
+    const nextSect = clonePlayerSectState(s.sectState)
+    nextSect.claimedKaifengLetter = true
+    const msg = `${npc ? `【${npc.name}】` : '常山枪派掌门'}嘉许少侠边关抗辽军功，亲颁河北都部署《开封府推荐信》一封！持信赴东京开封府即可正当调任入职，不沾叛军通辽之嫌！`
+
+    set({
+      inventory: nextInv,
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '荣膺军荐', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  learnSectMartialArt: (artId) => {
+    const s = get()
+    const sectId = s.sectState.sectId
+    if (!sectId) return
+
+    if (s.learnedArts.some((e) => e.artId === artId)) {
+      const art = MARTIAL_ART_DB_MAP[artId]
+      set({
+        actionFeedback: {
+          text: `少侠已习得《${art?.cleanName ?? artId}》，请赴【披挂与武学】演武提升火候！`,
+          tone: 'talk',
+        },
+      })
+      return
+    }
+
+    const teachList = getSectTeachableArts(sectId)
+    const entry = teachList.find((x) => x.art.id === artId)
+    if (!entry) {
+      set({
+        actionFeedback: { text: '此武学非本门可传授之列。', tone: 'warn' },
+      })
+      return
+    }
+
+    if (!canPlayerLearnSectArt(s.sectState.rank, entry.requiredRank)) {
+      set({
+        actionFeedback: {
+          text: `职阶不足！《${entry.art.cleanName}》（${entry.art.fullTier}）需本门【${entry.requiredRankLabel}】方可修习（当前为【${s.sectState.rankLabel}】）。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const nextLearned: LearnedArtEntry[] = [
+      ...s.learnedArts.map((x) => ({ ...x })),
+      { artId: entry.art.id, level: 1, exp: 0 },
+    ]
+    const sharedTag = entry.isSharedFromShaolin ? '（南北少林同源共传）' : ''
+    const msg = `蒙师门传授，正式习得${entry.art.fullTier}${entry.art.category}《${entry.art.cleanName}》第 1 重入门${sharedTag}！`
+
+    set({
+      learnedArts: nextLearned,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '师门传功', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
   },
 
   startJourney: (targetId) => {
@@ -2146,7 +3014,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextBaseStats = s.baseStats
     let nextRes = s.res
     let nextSkills = s.skills
-    const nextLogs = [...s.logs]
+    let nextSectState = s.sectState
+    let overdueSpyAmbush: NodeNpc | null = null
+    let nextLogs = [...s.logs]
     let nextMasters = s.roamingMasters
 
     if (dayAccumulator >= 1.0) {
@@ -2212,10 +3082,57 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           )
         }
       }
+
+      const dayHook = applyDayProgressionSectHooks({
+        nextDayCount,
+        shichenIdx: nextShichenIdx,
+        silver: nextSilver,
+        sectState: nextSectState,
+        logs: nextLogs,
+      })
+      nextSilver = dayHook.silver
+      nextSectState = dayHook.sectState
+      nextLogs = dayHook.logs
+      overdueSpyAmbush = dayHook.overdueSpyAmbush
     }
 
     if (ratio >= 1) {
       const arrivedNodeId = seg.to
+      if (arrivedNodeId === 'bianliang' && nextSectState.songCourtBlacklisted) {
+        const ambushMsg =
+          '少侠身负绿林劫官海捕文书踏入东京【开封府】界，城门前红衣剑影一闪——御前四品带刀护卫【展昭】按巨阙宝剑拦路喝道：「朝廷钦犯休走！随展某回开封府伏法！」'
+        nextLogs.unshift(
+          createLogEntry(nextDayCount, '开封缉捕', ambushMsg, true, nextShichenIdx),
+        )
+        set({
+          dayCount: nextDayCount,
+          shichenIdx: nextShichenIdx,
+          food: nextFood,
+          silver: nextSilver,
+          sectState: nextSectState,
+          baseStats: nextBaseStats,
+          hp: nextHp,
+          mp: nextMp,
+          stamina: nextStamina,
+          res: nextRes,
+          skills: nextSkills,
+          roamingMasters: nextMasters,
+          traveling: null,
+          campPos: null,
+          currentNodeId: 'bianliang',
+          selectedNodeId: 'bianliang',
+          activeRegionId: 'bianliang',
+          activeBuildingInteriorId: null,
+          selectedBuildingId: null,
+          selectedSpotId: null,
+          viewMode: 'region',
+          regionPan: { x: 0, y: 0, scale: 1 },
+          logs: nextLogs.slice(0, 60),
+        })
+        get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
+        return
+      }
+
       const nextSegIdx = tr.segIdx + 1
       if (nextSegIdx >= tr.route.segments.length) {
         const destName = NODE_MAP[arrivedNodeId]?.name ?? arrivedNodeId
@@ -2233,6 +3150,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           shichenIdx: nextShichenIdx,
           food: nextFood,
           silver: nextSilver,
+          sectState: nextSectState,
           baseStats: nextBaseStats,
           hp: nextHp,
           mp: nextMp,
@@ -2252,7 +3170,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           regionPan: { x: 0, y: 0, scale: 1 },
           logs: nextLogs.slice(0, 60),
         })
-        void get().saveToSlot('autosave', `策马抵达${destName}`, true)
+        if (overdueSpyAmbush) {
+          get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+        } else {
+          void get().saveToSlot('autosave', `策马抵达${destName}`, true)
+        }
         return
       }
 
@@ -2271,6 +3193,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         shichenIdx: nextShichenIdx,
         food: nextFood,
         silver: nextSilver,
+        sectState: nextSectState,
         baseStats: nextBaseStats,
         hp: nextHp,
         mp: nextMp,
@@ -2288,6 +3211,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         },
         logs: nextLogs.slice(0, 60),
       })
+      if (overdueSpyAmbush) {
+        get().campStop()
+        get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+      }
       return
     }
 
@@ -2296,6 +3223,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       shichenIdx: nextShichenIdx,
       food: nextFood,
       silver: nextSilver,
+      sectState: nextSectState,
       baseStats: nextBaseStats,
       hp: nextHp,
       mp: nextMp,
@@ -2311,6 +3239,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       },
       logs: nextLogs.slice(0, 60),
     })
+    if (overdueSpyAmbush) {
+      get().campStop()
+      get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+    }
   },
 
   campStop: () => {
@@ -2632,6 +3564,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       res: derived.res,
       skills: derived.skills,
       consumedUniqueIds: st.consumedUniqueIds ?? [],
+      npcFavor: st.npcFavor ? { ...st.npcFavor } : {},
+      sectState: clonePlayerSectState(st.sectState),
+      gameOver: null,
       campPos: st.campPos ?? null,
       traveling: null,
       activeCombat: null,

@@ -22,6 +22,7 @@ import {
   NODE_MAP,
   WORLD_GRAPH,
 } from '../../utils/mapMath'
+import { buildNodeNpcFromLiaoSpy } from '../../utils/sectMechanics'
 import { ManagedAssetImg } from '../common/ManagedAssetImg'
 
 function buildRoamingFallbackStats(m: RoamingMaster): {
@@ -67,6 +68,7 @@ export function ContextInspectorCard() {
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const agility = useGameStore((s) => s.agility)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
+  const sectState = useGameStore((s) => s.sectState)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
 
   const clearFloatingSelection = useGameStore((s) => s.clearFloatingSelection)
@@ -76,6 +78,7 @@ export function ContextInspectorCard() {
   const startJourney = useGameStore((s) => s.startJourney)
   const doBuildingAction = useGameStore((s) => s.doBuildingAction)
   const interactNpc = useGameStore((s) => s.interactNpc)
+  const startNpcCombat = useGameStore((s) => s.startNpcCombat)
   const openNpcInteraction = useGameStore((s) => s.openNpcInteraction)
   const openNpcDetailInCompendium = useGameStore((s) => s.openNpcDetailInCompendium)
 
@@ -141,6 +144,18 @@ export function ContextInspectorCard() {
     const combined: NodeNpc[] = []
     const seenNames = new Set<string>()
 
+    // Dynamic annual Liao Spy spawned for Changshan Spear Sect (SECT-22)
+    const spy = sectState.activeLiaoSpy
+    if (spy && spy.regionId === node.id) {
+      const spyMatchesLeaf = isLeafInteriorSpot
+        ? spy.buildingId === activeBuildingInteriorId && spy.spotId === selectedSpotId
+        : spy.buildingId === leafBuildingId && spy.spotId === null
+      if (spyMatchesLeaf) {
+        seenNames.add(spy.name)
+        combined.push(buildNodeNpcFromLiaoSpy(spy))
+      }
+    }
+
     // Only include roaming masters whose exact leaf target matches this leaf building/spot
     const roamingAtThisLeaf = roamingMasters.filter((m) => {
       if (m.nodeId !== node.id) return false
@@ -166,7 +181,10 @@ export function ContextInspectorCard() {
         title: `${m.sect} · 游历暂驻`,
         realm: m.realm,
         avatarUrl: resolved?.avatarUrl ?? resolved?.templateAvatarUrl,
+        factionId: resolved?.factionId,
         factionName: m.sect,
+        sectRank: resolved?.sectRank,
+        sectRankLabel: resolved?.sectRankLabel,
         stats: resolved?.stats ?? fb.stats,
         talents: resolved?.talents ?? fb.talents,
         tenArts: resolved?.tenArts ?? fb.tenArts,
@@ -188,7 +206,10 @@ export function ContextInspectorCard() {
         title: `${c.factionName} · ${c.role}`,
         realm: c.realm,
         avatarUrl: c.avatarUrl ?? c.templateAvatarUrl,
+        factionId: c.factionId,
         factionName: c.factionName,
+        sectRank: c.sectRank,
+        sectRankLabel: c.sectRankLabel,
         stats: c.stats,
         talents: c.talents,
         tenArts: c.tenArts,
@@ -210,6 +231,7 @@ export function ContextInspectorCard() {
     selectedBuildingId,
     selectedSpotId,
     roamingMasters,
+    sectState.activeLiaoSpy,
   ])
 
   // 1) World Map Node Inspector
@@ -527,8 +549,18 @@ export function ContextInspectorCard() {
                         </span>
                       )}
                       <div className="truncate">
-                        <div className="font-bold song-serif text-[#23180f] truncate">
-                          {p.name}
+                        <div className="font-bold song-serif text-[#23180f] truncate flex items-center gap-1">
+                          <span className="truncate">{p.name}</span>
+                          {p.isDynamicLiaoSpy && (
+                            <span className="text-[9px] px-1 py-0.2 rounded bg-[#8f1d14] text-[#fff8ee] font-sans shrink-0">
+                              军令必诛
+                            </span>
+                          )}
+                          {!p.isDynamicLiaoSpy && p.sectRankLabel && (
+                            <span className="text-[9px] px-1 py-0.2 rounded bg-[#e5d3b3] text-[#5c3d1e] font-sans shrink-0">
+                              {p.sectRankLabel}
+                            </span>
+                          )}
                         </div>
                         <div className="text-[10px] text-[#6b5235] truncate">{p.title}</div>
                       </div>
@@ -630,43 +662,57 @@ export function ContextInspectorCard() {
                     >
                       拜会交互
                     </button>
-                    <button
-                      type="button"
-                      onClick={() => interactNpc(p, 'talk')}
-                      className="px-2 py-0.5 rounded bg-[#7c4a1e] hover:bg-[#935824] text-[#fff8ee] text-[11px] cursor-pointer"
-                    >
-                      交谈
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => interactNpc(p, 'art')}
-                      className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
-                    >
-                      唱和
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => interactNpc(p, 'spar')}
-                      className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
-                    >
-                      讨教
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setExpandedEntry(
-                          isExpanded ? null : { contextKey: currentContextKey, npcKey },
-                        )
-                      }
-                      className={`px-2 py-0.5 rounded border text-[11px] cursor-pointer ${
-                        isExpanded
-                          ? 'bg-[#5c4024] text-[#fff8ee] border-[#5c4024]'
-                          : 'bg-[#f8f1e1] hover:bg-[#e5d7bc] border-[#b59c77] text-[#3d2812]'
-                      }`}
-                    >
-                      {isExpanded ? '收起属性' : '十艺详值'}
-                    </button>
-                    {p.id && (
+                    {p.isDynamicLiaoSpy ? (
+                      <button
+                        type="button"
+                        onClick={() => startNpcCombat(p, 'duel', 'liao_spy_duel')}
+                        className="px-2 py-0.5 rounded bg-[#a11b12] hover:bg-[#be2217] border border-[#f2b98a] text-[#fff8ee] text-[11px] font-bold cursor-pointer"
+                      >
+                        生死诛谍
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => interactNpc(p, 'talk')}
+                          className="px-2 py-0.5 rounded bg-[#7c4a1e] hover:bg-[#935824] text-[#fff8ee] text-[11px] cursor-pointer"
+                        >
+                          交谈
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => interactNpc(p, 'art')}
+                          className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
+                        >
+                          唱和
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => interactNpc(p, 'spar')}
+                          className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
+                        >
+                          切磋
+                        </button>
+                      </>
+                    )}
+                    {!p.isDynamicLiaoSpy && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setExpandedEntry(
+                            isExpanded ? null : { contextKey: currentContextKey, npcKey },
+                          )
+                        }
+                        className={`px-2 py-0.5 rounded border text-[11px] cursor-pointer ${
+                          isExpanded
+                            ? 'bg-[#5c4024] text-[#fff8ee] border-[#5c4024]'
+                            : 'bg-[#f8f1e1] hover:bg-[#e5d7bc] border-[#b59c77] text-[#3d2812]'
+                        }`}
+                      >
+                        {isExpanded ? '收起属性' : '十艺详值'}
+                      </button>
+                    )}
+                    {p.id && !p.isDynamicLiaoSpy && (
                       <button
                         type="button"
                         onClick={() => openNpcDetailInCompendium(p.id!)}

@@ -25,8 +25,10 @@ import {
   getArtExpRequired,
 } from '../data/playerMartialArts'
 import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from './heroStats'
+import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
+import { clonePlayerSectState } from './sectMechanics'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.3.1' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.4.0' as const
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -441,6 +443,21 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     consumedUniqueIds: Array.isArray(st.consumedUniqueIds)
       ? st.consumedUniqueIds.filter((id): id is string => typeof id === 'string')
       : [],
+    npcFavor: isRecord(st.npcFavor)
+      ? Object.fromEntries(
+          Object.entries(st.npcFavor)
+            .filter(([, v]) => typeof v === 'number' && Number.isFinite(v))
+            .map(([k, v]) => [
+              k,
+              Math.max(MIN_NPC_FAVOR, Math.min(MAX_NPC_FAVOR, Math.round(v as number))),
+            ]),
+        )
+      : {},
+    sectState: clonePlayerSectState(
+      isRecord(st.sectState)
+        ? (st.sectState as Partial<SerializableGameState['sectState']>)
+        : null,
+    ),
     overlays: isRecord(st.overlays)
       ? {
           cityLabels: Boolean(st.overlays.cityLabels ?? true),

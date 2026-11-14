@@ -471,14 +471,16 @@ export function CombatOverlay() {
   const escapeStatus = useMemo(
     () =>
       session
-        ? canFighterEscape(session.player, session.npc)
+        ? canFighterEscape(session.player, session.npc, session.duelStakes)
         : { allowed: true, reason: null },
     [session],
   )
   const escapeChancePct = useMemo(
     () =>
       session
-        ? Math.round(computeEscapeChancePreview(session.player, session.npc) * 100)
+        ? Math.round(
+            computeEscapeChancePreview(session.player, session.npc, session.duelStakes) * 100,
+          )
         : 50,
     [session],
   )
@@ -1586,26 +1588,44 @@ export function CombatOverlay() {
                     className={`px-3 py-0.5 rounded song-serif text-sm font-bold tracking-widest border ${
                       outcome === 'player_win'
                         ? 'bg-[#7d1d14] border-[#f2be66] text-[#ffeaad]'
-                        : outcome === 'draw'
-                          ? 'bg-[#423015] border-[#d9ae5f] text-[#f7dfad]'
-                          : 'bg-[#2a2520] border-[#9e8b74] text-[#e3d5c3]'
+                        : outcome === 'npc_win' && session.mode === 'duel'
+                          ? 'bg-[#5c0d08] border-[#ef7b6c] text-[#ffd6d1]'
+                          : outcome === 'draw'
+                            ? 'bg-[#423015] border-[#d9ae5f] text-[#f7dfad]'
+                            : 'bg-[#2a2520] border-[#9e8b74] text-[#e3d5c3]'
                     }`}
                   >
                     {outcome === 'player_win'
-                      ? '承让 · 武林凯旋'
+                      ? session.mode === 'duel'
+                        ? '生死决胜 · 斩敌凯旋'
+                        : '承让 · 武林凯旋'
                       : outcome === 'draw'
                         ? '秋色平分 · 不分伯仲'
                         : outcome === 'escaped'
                           ? '虚晃一招 · 飘然脱身'
-                          : '点到为止 · 抱拳认输'}
+                          : session.mode === 'duel'
+                            ? session.duelStakes === 'zhan_zhao_arrest'
+                              ? '失手被擒 · 押赴市曹处斩'
+                              : '生死败亡 · 命殒当场'
+                            : '点到为止 · 抱拳认输'}
                   </span>
                   <span className="text-xs text-[#dec7a6]">
-                    于【{sceneTitle}】共拆招 {session.round} 合
+                    于【{sceneTitle}】共交锋 {session.round} 合
                   </span>
                 </div>
                 <p className="text-xs text-[#faebd0]">
-                  <strong className="text-[#ffd68a]">演武收获：</strong>
-                  {session.rewardsSummary ?? '已印证所学武道。'}
+                  {outcome === 'npc_win' && session.mode === 'duel' ? (
+                    <span className="text-[#ffaba1] font-medium">
+                      {session.duelStakes === 'zhan_zhao_arrest'
+                        ? '少侠难敌御猫展昭巨阙锋芒，戴枷押入开封府死牢，狗头铡下身首异处……'
+                        : `刀剑无眼，生死相搏既分高下亦决生死，少侠气绝倒地，命殒【${session.npc.name}】手下……`}
+                    </span>
+                  ) : (
+                    <>
+                      <strong className="text-[#ffd68a]">实战收获：</strong>
+                      {session.rewardsSummary ?? '已印证所学武道。'}
+                    </>
+                  )}
                 </p>
               </div>
 
@@ -1614,7 +1634,9 @@ export function CombatOverlay() {
                 onClick={finishCombatSession}
                 className="px-6 py-2.5 rounded-lg bg-gradient-to-b from-[#9c261b] to-[#701810] hover:from-[#b82f22] hover:to-[#871d14] border border-[#f0be69]/85 song-serif text-sm font-bold tracking-wider text-[#fff0cc] shadow-lg cursor-pointer shrink-0"
               >
-                抱拳收招 · 返回场景 [Enter]
+                {outcome === 'npc_win' && session.mode === 'duel'
+                  ? '阖目赴死 · 进入结局结算 [Enter]'
+                  : '抱拳收招 · 返回场景 [Enter]'}
               </button>
             </div>
           )}

@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import { CombatOverlay } from './components/combat/CombatOverlay'
 import { BottomHud } from './components/hud/BottomHud'
 import { ContextInspectorCard } from './components/hud/ContextInspectorCard'
+import { GameOverModal } from './components/hud/GameOverModal'
 import { MapTooltip } from './components/hud/MapTooltip'
 import { NpcInteractionOverlay } from './components/hud/NpcInteractionOverlay'
 import { TopHud } from './components/hud/TopHud'
@@ -27,6 +28,7 @@ export function App() {
   const compendiumOpen = useGameStore((s) => s.compendiumOpen)
   const activeNpcInteraction = useGameStore((s) => s.activeNpcInteraction)
   const activeCombat = useGameStore((s) => s.activeCombat)
+  const gameOver = useGameStore((s) => s.gameOver)
   const stepTravelTick = useGameStore((s) => s.stepTravelTick)
   const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
@@ -54,6 +56,12 @@ export function App() {
       if (activeCombat) {
         if (!e.ctrlKey && !e.metaKey && !e.altKey && (e.key === 'm' || e.key === 'M')) {
           toggleBgmPlayback()
+        }
+        return
+      }
+      if (gameOver) {
+        if (e.key === 'Escape' && menuOpen) {
+          closeMenu()
         }
         return
       }
@@ -86,6 +94,7 @@ export function App() {
     compendiumOpen,
     activeNpcInteraction,
     activeCombat,
+    gameOver,
     openMenu,
     closeMenu,
     openCompendium,
@@ -95,12 +104,12 @@ export function App() {
 
   // 九州山海行路时钟：每 0.25s 前进一步（一个时辰），一日十二时辰累计 3.0s
   useEffect(() => {
-    if (!isTraveling) return
+    if (!isTraveling || gameOver || activeCombat) return
     const timer = window.setInterval(() => {
       stepTravelTick()
     }, 250)
     return () => window.clearInterval(timer)
-  }, [isTraveling, stepTravelTick])
+  }, [isTraveling, gameOver, activeCombat, stepTravelTick])
 
   return (
     <main
@@ -124,15 +133,16 @@ export function App() {
         <RegionMapCanvas />
       )}
 
-      {!activeNpcInteraction && !activeCombat && <BottomHud />}
-      {!activeNpcInteraction && !activeCombat && <ContextInspectorCard />}
+      {!activeNpcInteraction && !activeCombat && !gameOver && <BottomHud />}
+      {!activeNpcInteraction && !activeCombat && !gameOver && <ContextInspectorCard />}
       <MapTooltip />
-      {activeNpcInteraction && !activeCombat && (
+      {activeNpcInteraction && !activeCombat && !gameOver && (
         <NpcInteractionOverlay
           key={activeNpcInteraction.id ?? activeNpcInteraction.name}
         />
       )}
       {activeCombat && <CombatOverlay />}
+      {gameOver && <GameOverModal />}
 
       {(menuOpen || compendiumOpen) && (
         <Suspense fallback={null}>

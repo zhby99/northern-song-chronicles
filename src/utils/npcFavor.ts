@@ -16,6 +16,7 @@ export interface NpcFavorProfile {
 }
 
 export const INITIAL_NPC_FAVOR = 0
+export const MIN_NPC_FAVOR = -100
 export const MAX_NPC_FAVOR = 100
 
 /**
@@ -142,7 +143,7 @@ export function computeGiftFavorGain(
 
   const base = Math.max(1, Math.round(Math.sqrt(Math.max(1, item.value)) * 0.65))
   const favorGain = Math.max(isDisliked ? 0 : 1, Math.round(base * multiplier))
-  const nextFavor = Math.max(0, Math.min(MAX_NPC_FAVOR, currentFavor + favorGain))
+  const nextFavor = Math.max(MIN_NPC_FAVOR, Math.min(MAX_NPC_FAVOR, currentFavor + favorGain))
 
   return {
     giftCategory,

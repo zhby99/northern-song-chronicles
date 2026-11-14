@@ -121,9 +121,17 @@ export interface CombatRoundSummary {
   events: CombatLogEntry[]
 }
 
+export type DuelStakesKind =
+  | 'spar'
+  | 'duel'
+  | 'rob_official'
+  | 'zhan_zhao_arrest'
+  | 'liao_spy_duel'
+
 export interface CombatSessionState {
   sessionId: string
   mode: 'spar' | 'duel'
+  duelStakes: DuelStakesKind
   round: number
   maxRounds: number
   outcome: CombatOutcome
@@ -341,10 +349,17 @@ export function getMoveActionsAvailability(fighter: CombatantState): MoveActionA
 export function canFighterEscape(
   escapee: CombatantState,
   pursuer: CombatantState,
+  duelStakes: DuelStakesKind = 'spar',
 ): {
   allowed: boolean
   reason: string | null
 } {
+  if (duelStakes === 'zhan_zhao_arrest') {
+    return { allowed: false, reason: '开封府天罗地网合围，展护卫剑气封门，无路可逃' }
+  }
+  if (duelStakes === 'liao_spy_duel') {
+    return { allowed: false, reason: '燕云锄奸军令生死决战，不死不休不可临阵脱逃' }
+  }
   if (escapee.slowTurns > 0) {
     return { allowed: false, reason: '身陷【绊缠】步法受制，无法脱战' }
   }
@@ -380,8 +395,9 @@ export function computeDodgeChancePreview(
 export function computeEscapeChancePreview(
   escapee: CombatantState,
   pursuer: CombatantState,
+  duelStakes: DuelStakesKind = 'spar',
 ): number {
-  if (!canFighterEscape(escapee, pursuer).allowed) {
+  if (!canFighterEscape(escapee, pursuer, duelStakes).allowed) {
     return 0
   }
   const myAgi = computeEffectiveAgility(escapee)
@@ -524,48 +540,60 @@ export function buildNpcCombatant(npcNode: NodeNpc): CombatantState {
     }
   }
 
-  // 兜底非注册表临时人物
-  const fallbackHp = npcNode.stats?.hp ?? 600
-  const fallbackMp = npcNode.stats?.mp ?? 300
+  // 兜底非注册表临时人物（如燕云辽谍等动态生成强敌）
+  const customEquipped: EquippedSlotsMap = npcNode.equipped
+    ? { ...npcNode.equipped }
+    : {
+        weapon: null,
+        armor: null,
+        shoes: null,
+        bow: null,
+        accessory1: null,
+        accessory2: null,
+        mount: null,
+      }
+  const customEquippedArts: EquippedArtsMap = npcNode.equippedArts
+    ? { ...npcNode.equippedArts }
+    : {
+        neigong: 'MA-179',
+        qinggong: 'MA-177',
+        move1: 'MA-182',
+        move2: 'MA-187',
+        move3: null,
+        move4: null,
+      }
+  const customLearnedArts: LearnedArtEntry[] = npcNode.learnedArts
+    ? npcNode.learnedArts.map((e) => ({ ...e }))
+    : [
+        { artId: 'MA-179', level: 4, exp: 0 },
+        { artId: 'MA-177', level: 4, exp: 0 },
+        { artId: 'MA-182', level: 5, exp: 0 },
+        { artId: 'MA-187', level: 5, exp: 0 },
+      ]
+  const eqTotals = computeEquipmentTotals(customEquipped)
+  const artTotals = computeEquippedArtsTotals(customEquippedArts, customLearnedArts)
+  const fallbackHp = npcNode.stats?.hp ?? 250 + artTotals.maxHp + eqTotals.maxHp
+  const fallbackMp = npcNode.stats?.mp ?? 50 + artTotals.maxMp + eqTotals.maxMp
   return {
     id: npcNode.id ?? npcNode.name,
     name: npcNode.name,
     title: npcNode.title || '江湖武人',
     realm: npcNode.realm || '三流中品',
     factionName: npcNode.factionName || '江湖散人',
-    portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
+    portraitUrl:
+      npcNode.portraitUrl ?? '/assets/characters/templates/tpl_song_scholar_fb.jpg',
     isPlayer: false,
     hp: fallbackHp,
     maxHp: fallbackHp,
     mp: fallbackMp,
     maxMp: fallbackMp,
-    agility: npcNode.stats?.agi ?? 25,
-    res: npcNode.stats?.res ?? 15,
-    equipAttack: 35,
-    equipDefense: 35,
-    equipped: {
-      weapon: null,
-      armor: null,
-      shoes: null,
-      bow: null,
-      accessory1: null,
-      accessory2: null,
-      mount: null,
-    },
-    equippedArts: {
-      neigong: 'MA-179',
-      qinggong: 'MA-177',
-      move1: 'MA-182',
-      move2: 'MA-187',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-179', level: 4, exp: 0 },
-      { artId: 'MA-177', level: 4, exp: 0 },
-      { artId: 'MA-182', level: 5, exp: 0 },
-      { artId: 'MA-187', level: 5, exp: 0 },
-    ],
+    agility: npcNode.stats?.agi ?? 20 + artTotals.agility + eqTotals.agility,
+    res: npcNode.stats?.res ?? 10 + artTotals.res + eqTotals.res,
+    equipAttack: eqTotals.attack || 35,
+    equipDefense: eqTotals.defense + artTotals.defense || 35,
+    equipped: customEquipped,
+    equippedArts: customEquippedArts,
+    learnedArts: customLearnedArts,
     synergyBonusBySlot: {},
     lastUsedArtId: null,
     stunnedNextRound: false,
@@ -582,18 +610,28 @@ export function buildNpcCombatant(npcNode: NodeNpc): CombatantState {
 
 export function createCombatSession(params: {
   mode: 'spar' | 'duel'
+  duelStakes?: DuelStakesKind
   player: CombatantState
   npcNode: NodeNpc
 }): CombatSessionState {
   const npc = buildNpcCombatant(params.npcNode)
-  const intro = makeLog(
-    0,
-    'system',
-    `【皇祐武林交锋】少侠（${params.player.realm}）抱拳请益 ${npc.name}（${npc.factionName} · ${npc.realm}）！双方凝神屏息，同步盲选拆招——`,
-  )
+  const stakes: DuelStakesKind =
+    params.duelStakes ?? (params.mode === 'spar' ? 'spar' : 'duel')
+  const introText =
+    stakes === 'zhan_zhao_arrest'
+      ? `【开封府御前缉捕·生死状】御前四品带刀护卫 ${npc.name} 横剑拦路：“朝廷钦犯休走，随展某回开封府伏法！”（战败即押赴市曹处斩！）`
+      : stakes === 'liao_spy_duel'
+        ? `【燕云锄奸·生死对决】契丹密谍 ${npc.name} 寒刃出鞘：“常山枪派的宋狗竟敢追查至此，今日不死不休！”（生死相搏，败则横尸塞北！）`
+        : stakes === 'rob_official'
+          ? `【绿林投名状·劫官死战】少侠蒙面拔刃拦住大宋命官 ${npc.name} 车驾！一旦失手必丧命当场——`
+          : params.mode === 'duel'
+            ? `【江湖生死对决】少侠（${params.player.realm}）与 ${npc.name}（${npc.factionName} · ${npc.realm}）拔刃生死相向，既分高下，亦决生死！`
+            : `【皇祐武林交锋】少侠（${params.player.realm}）抱拳请益 ${npc.name}（${npc.factionName} · ${npc.realm}）！双方凝神屏息，同步盲选拆招——`
+  const intro = makeLog(0, 'system', introText)
   return {
     sessionId: `session-${Date.now()}`,
     mode: params.mode,
+    duelStakes: stakes,
     round: 1,
     maxRounds: 30,
     outcome: 'ongoing',
@@ -900,7 +938,7 @@ export function resolveCombatRound(
     // 处理【逃跑】
     if (choice.type === 'escape') {
       actor.lastUsedArtId = null
-      const escCheck = canFighterEscape(actor, target)
+      const escCheck = canFighterEscape(actor, target, session.duelStakes)
       if (!escCheck.allowed) {
         roundEvents.push(
           makeLog(round, 'special', `${actor.name}欲抽身退走，奈何${escCheck.reason}！`),
@@ -923,7 +961,7 @@ export function resolveCombatRound(
         })
         continue
       }
-      const chance = computeEscapeChancePreview(actor, target)
+      const chance = computeEscapeChancePreview(actor, target, session.duelStakes)
       const finalEscapeChance = targetChoice.type === 'defend' ? Math.min(0.95, chance + 0.25) : chance
       if (Math.random() < finalEscapeChance) {
         escapedSuccess = true
@@ -1743,7 +1781,9 @@ export function resolveCombatRound(
       makeLog(
         round,
         'system',
-        `承让！${npc.name}气血见底拱手认输，少侠历经 ${round} 合拆招获胜！`,
+        session.mode === 'duel'
+          ? `生死分晓！${npc.name}气绝败北，少侠浴血激战 ${round} 合大获全胜！`
+          : `承让！${npc.name}气血见底拱手认输，少侠历经 ${round} 合拆招获胜！`,
       ),
     )
   } else if (player.hp <= 0) {
@@ -1752,7 +1792,11 @@ export function resolveCombatRound(
       makeLog(
         round,
         'system',
-        `少侠气血不支抱拳退让，${npc.name}收势颔首点到为止。`,
+        session.duelStakes === 'zhan_zhao_arrest'
+          ? `少侠重伤倒地被南侠${npc.name}生擒锁拿，即将押赴开封府市曹问斩！`
+          : session.mode === 'duel'
+            ? `刀剑无眼！少侠在生死相搏中真气溃散重创倒地，命悬一线！`
+            : `少侠气血不支抱拳退让，${npc.name}收势颔首点到为止。`,
       ),
     )
   } else if (round >= session.maxRounds) {

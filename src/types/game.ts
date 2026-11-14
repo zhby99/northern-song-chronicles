@@ -49,11 +49,19 @@ export interface NodeNpc {
   realm: string
   talk: string
   avatarUrl?: string | null
+  portraitUrl?: string | null
+  factionId?: string
   factionName?: string
+  sectRank?: number | null
+  sectRankLabel?: string | null
   stats?: NpcCombatStats
   talents?: NpcTalents
   tenArts?: NpcTenArts
   fullLocationLabel?: string
+  equippedArts?: EquippedArtsMap
+  learnedArts?: LearnedArtEntry[]
+  equipped?: EquippedSlotsMap
+  isDynamicLiaoSpy?: boolean
 }
 
 export interface WorldNode {
@@ -318,6 +326,8 @@ export interface CompiledMartialArtRecord {
   category: string
   origin: string
   sectId: string | null
+  minSectRank?: number | null
+  minSectRankLabel?: string | null
   description: string
   prerequisitesText: string | null
   statRequirements: MartialArtStatReq[]
@@ -342,6 +352,8 @@ export interface CompiledNpcRecord {
   factionId: string
   factionName: string
   role: string
+  sectRank?: number | null
+  sectRankLabel?: string | null
   regionId: string
   locationLabel: string
   subLocation: string | null
@@ -394,6 +406,9 @@ export interface CanonicalFactionEntry {
   memberCount: number
   martialArtIds: string[]
   weaponIds: string[]
+  acceptsOuterDisciple?: boolean | null
+  sharedMartialArtRule?: { sourceSectId: string; maxRank: number } | null
+  rankTitles?: string[] | null
 }
 
 export interface CanonicalIdRegistry {
@@ -704,6 +719,51 @@ export interface HeroBaseStats {
   skills: Record<string, number>
 }
 
+export type SectRankLevel = 1 | 2 | 3 | 4 | 5
+
+export interface ActiveLiaoSpyMission {
+  yearIndex: number
+  deadlineDay: number
+  npcId: string
+  name: string
+  title: string
+  regionId: string
+  regionName: string
+  buildingId: string
+  buildingName: string
+  spotId: string | null
+  spotName: string | null
+  realm: string
+  stats: NpcCombatStats
+  equippedArts: EquippedArtsMap
+  learnedArts: LearnedArtEntry[]
+  equipped: EquippedSlotsMap
+}
+
+export interface PlayerSectState {
+  sectId: string | null
+  rank: SectRankLevel
+  rankLabel: string
+  contribution: number
+  joinedDay: number
+  lastStipendMonth: number
+  toumingzhuangState: 'none' | 'accepted' | 'completed'
+  songCourtBlacklisted: boolean
+  liaoSuspicionDebuff: boolean
+  bribedReferralSects: string[]
+  claimedKaifengLetter: boolean
+  lastLiaoSpyMissionYear: number
+  activeLiaoSpy: ActiveLiaoSpyMission | null
+}
+
+export interface GameOverState {
+  reasonTitle: string
+  reasonDetail: string
+  killerName: string
+  songDate: string
+  locationName: string
+}
+
 export interface SerializableGameState {
   dayCount: number
   shichenIdx: number
@@ -738,6 +798,8 @@ export interface SerializableGameState {
   equippedArts: EquippedArtsMap
   inventory: InventoryStack[]
   consumedUniqueIds?: string[]
+  npcFavor?: Record<string, number>
+  sectState?: PlayerSectState
 
   overlays: OverlayToggles
   roamingMasters: RoamingMaster[]
@@ -766,7 +828,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M1.3.1'
+  schemaVersion: 'M1.4.0'
   slotId: SaveSlotId
   savedAt: string
   note: string

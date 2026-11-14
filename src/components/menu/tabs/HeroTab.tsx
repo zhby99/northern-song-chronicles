@@ -1,10 +1,11 @@
 import { useMemo } from 'react'
 import { Maximize2 } from 'lucide-react'
-import { MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
+import { FACTION_DB_MAP, MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
 import { computeEquipmentTotals, computeWeaponArtSynergy } from '../../../data/itemsDb'
 import { computeEquippedArtsTotals } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
 import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
+import { getChangshanMonthlyStipend } from '../../../utils/sectMechanics'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 import type { LightboxState } from '../menuShared'
 
@@ -32,6 +33,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const equipped = useGameStore((s) => s.equipped)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const equippedArts = useGameStore((s) => s.equippedArts)
+  const sectState = useGameStore((s) => s.sectState)
   const restRecoverStamina = useGameStore((s) => s.restRecoverStamina)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
 
@@ -60,12 +62,15 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const mainNeigong = equippedArts.neigong ? MARTIAL_ART_DB_MAP[equippedArts.neigong] : null
   const mainQinggong = equippedArts.qinggong ? MARTIAL_ART_DB_MAP[equippedArts.qinggong] : null
   const heroImgUrl = '/assets/characters/templates/tpl_song_scholar_fb.jpg'
+  const currentSectName = sectState.sectId
+    ? (FACTION_DB_MAP[sectState.sectId]?.name ?? sectState.sectId)
+    : '无门无派'
 
   const openHeroLightbox = () =>
     onOpenLightbox({
       url: heroImgUrl,
       title: '江湖少侠 · 行侠全身绘像',
-      subtitle: `皇祐二年驻足【${locationLabel}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
+      subtitle: `皇祐二年驻足【${locationLabel}】 · 门派【${currentSectName}·${sectState.rankLabel}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
     })
 
   return (
@@ -76,7 +81,9 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
           <div className="flex items-center justify-between border-b border-[#cbb693] pb-2">
             <div>
               <span className="px-2 py-0.5 rounded bg-[#8f1d14] text-[#fff8eb] text-[11px] font-bold song-serif">
-                江湖少侠 · 初涉汴京
+                {sectState.sectId
+                  ? `${currentSectName} · ${sectState.rankLabel}`
+                  : '江湖少侠 · 无门无派'}
               </span>
               <h4 className="song-serif font-bold text-lg text-[#23180f] mt-1">
                 无名少侠（寒门游侠）
@@ -84,9 +91,53 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
             </div>
             <div className="text-right text-xs text-[#6b5235]">
               <div>骨龄：十八岁</div>
-              <div className="font-semibold text-[#781710]">境界：三流好手</div>
+              <div className="font-semibold text-[#781710]">
+                {sectState.sectId
+                  ? `第${sectState.rank}阶 · 功绩${sectState.contribution}`
+                  : '境界：三流好手'}
+              </div>
             </div>
           </div>
+
+          {/* 门派军饷 / 朝廷通缉 / 通辽嫌疑 / 燕云辽谍军令速览 */}
+          {(sectState.sectId ||
+            sectState.songCourtBlacklisted ||
+            sectState.liaoSuspicionDebuff ||
+            sectState.toumingzhuangState === 'accepted') && (
+            <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] space-y-1.5 text-xs">
+              {sectState.sectId === 'SECT-22' && (
+                <div className="flex items-center justify-between text-[#1f4d3b] font-medium">
+                  <span>常山边军月饷</span>
+                  <span className="font-mono font-bold">
+                    {getChangshanMonthlyStipend(sectState.rank)} 两/月
+                  </span>
+                </div>
+              )}
+              {sectState.activeLiaoSpy && (
+                <div className="px-2 py-1 rounded bg-[#f8e3e1] border border-[#d69891] text-[#781710] leading-snug">
+                  <strong>【年度诛谍军令】</strong>燕云【
+                  {sectState.activeLiaoSpy.regionName} ·{' '}
+                  {sectState.activeLiaoSpy.buildingName}】诛杀辽谍【
+                  {sectState.activeLiaoSpy.name}】（第{sectState.activeLiaoSpy.deadlineDay}日前）
+                </div>
+              )}
+              {sectState.toumingzhuangState === 'accepted' && (
+                <div className="px-2 py-1 rounded bg-[#f4e1c1] border border-[#c58b38] text-[#781710]">
+                  <strong>【纳投名状】</strong>须劫杀一名大宋朝廷命官以拜入绿林盟
+                </div>
+              )}
+              {sectState.songCourtBlacklisted && (
+                <div className="px-2 py-1 rounded bg-[#781710] text-[#fff8ee] font-medium">
+                  ⚠️ 大宋朝廷黑名单（入开封府必遭展昭缉拿处斩）
+                </div>
+              )}
+              {sectState.liaoSuspicionDebuff && (
+                <div className="px-2 py-1 rounded bg-[#5c1610] text-[#ffdcd6] font-medium">
+                  ⚠️ 通辽嫌疑（背离常山枪派 · 大宋全境好感度 -30）
+                </div>
+              )}
+            </div>
+          )}
 
           <div
             role="button"
