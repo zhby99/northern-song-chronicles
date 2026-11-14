@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react'
+import { CombatOverlay } from './components/combat/CombatOverlay'
 import { BottomHud } from './components/hud/BottomHud'
 import { ContextInspectorCard } from './components/hud/ContextInspectorCard'
 import { MapTooltip } from './components/hud/MapTooltip'
@@ -25,6 +26,7 @@ export function App() {
   const menuOpen = useGameStore((s) => s.menuOpen)
   const compendiumOpen = useGameStore((s) => s.compendiumOpen)
   const activeNpcInteraction = useGameStore((s) => s.activeNpcInteraction)
+  const activeCombat = useGameStore((s) => s.activeCombat)
   const stepTravelTick = useGameStore((s) => s.stepTravelTick)
   const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
@@ -49,6 +51,12 @@ export function App() {
   // Global ESC shortcut for system/compendium menu, G for Compendium, & M for BGM toggle
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
+      if (activeCombat) {
+        if (!e.ctrlKey && !e.metaKey && !e.altKey && (e.key === 'm' || e.key === 'M')) {
+          toggleBgmPlayback()
+        }
+        return
+      }
       if (e.key === 'Escape') {
         if (activeNpcInteraction) closeNpcInteraction()
         else if (compendiumOpen) closeCompendium()
@@ -77,6 +85,7 @@ export function App() {
     menuOpen,
     compendiumOpen,
     activeNpcInteraction,
+    activeCombat,
     openMenu,
     closeMenu,
     openCompendium,
@@ -115,14 +124,15 @@ export function App() {
         <RegionMapCanvas />
       )}
 
-      {!activeNpcInteraction && <BottomHud />}
-      {!activeNpcInteraction && <ContextInspectorCard />}
+      {!activeNpcInteraction && !activeCombat && <BottomHud />}
+      {!activeNpcInteraction && !activeCombat && <ContextInspectorCard />}
       <MapTooltip />
-      {activeNpcInteraction && (
+      {activeNpcInteraction && !activeCombat && (
         <NpcInteractionOverlay
           key={activeNpcInteraction.id ?? activeNpcInteraction.name}
         />
       )}
+      {activeCombat && <CombatOverlay />}
 
       {(menuOpen || compendiumOpen) && (
         <Suspense fallback={null}>

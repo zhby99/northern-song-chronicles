@@ -78,6 +78,13 @@ import {
   computeGiftFavorGain,
   getNpcFavorProfile,
 } from '../utils/npcFavor'
+import {
+  buildPlayerCombatant,
+  createCombatSession,
+  resolveCombatRound,
+  type CombatActionChoice,
+  type CombatSessionState,
+} from '../utils/combatEngine'
 
 const LABEL_KEYS: LabelToggleKey[] = ['cityLabels', 'sectPassLabels', 'masters', 'distance']
 
@@ -262,6 +269,7 @@ export interface GameStoreState {
 
   menuOpen: boolean
   activeNpcInteraction: NodeNpc | null
+  activeCombat: CombatSessionState | null
   activeMenuTab: MenuTabKey
   compendiumOpen: boolean
   activeCompendiumTab: CompendiumTabKey
@@ -322,6 +330,9 @@ export interface GameStoreState {
     effect: ActionEffect
   }) => void
   interactNpc: (npc: NodeNpc, mode: 'talk' | 'art' | 'spar') => void
+  startNpcCombat: (npc: NodeNpc, mode?: 'spar' | 'duel') => void
+  submitCombatAction: (choice: CombatActionChoice) => void
+  finishCombatSession: () => void
 
   startJourney: (targetId: string) => void
   stepTravelTick: () => void
@@ -348,6 +359,161 @@ export interface GameStoreState {
   loadFromEnvelope: (envelope: GameSaveEnvelope, closeAfterLoad?: boolean) => void
   removeSaveSlot: (slotId: SaveSlotId) => Promise<void>
   setSaveNotice: (notice: { text: string; tone: 'success' | 'error' } | null) => void
+}
+
+function computeCombatSettlement(
+  s: Pick<
+    GameStoreState,
+    'baseStats' | 'equipped' | 'equippedArts' | 'learnedArts' | 'npcFavor'
+  >,
+  session: CombatSessionState,
+) {
+  const nextBaseStats = cloneHeroBaseStats(s.baseStats)
+  const nextLearnedArts = s.learnedArts.map((x) => ({ ...x }))
+  const nextNpcFavor = { ...s.npcFavor }
+  const outcome = session.outcome
+
+  const isStrongOpponent = session.npc.maxMp >= session.player.maxMp * 0.85
+  const expMult =
+    outcome === 'player_win'
+      ? isStrongOpponent
+        ? 1.0
+        : 0.8
+      : outcome === 'draw'
+        ? 0.6
+        : outcome === 'npc_win'
+          ? 0.45
+          : 0.2
+
+  const practicedArtIds = new Set<string>(session.player.usedArtIdsHistory)
+  if (session.lastRoundSummary !== null) {
+    if (s.equippedArts.neigong) practicedArtIds.add(s.equippedArts.neigong)
+    if (s.equippedArts.qinggong) practicedArtIds.add(s.equippedArts.qinggong)
+  }
+
+  const artGainNotes: string[] = []
+  let anyBreakthrough = false
+
+  for (const artId of practicedArtIds) {
+    const idx = nextLearnedArts.findIndex((x) => x.artId === artId)
+    const art = MARTIAL_ART_DB_MAP[artId]
+    if (idx === -1 || !art) continue
+    const cur = nextLearnedArts[idx]!
+    if (cur.level >= 10) continue
+
+    const baseExp = calcPracticeArtExpGain(art, s.baseStats.talents)
+    const gain = Math.max(4, Math.round(baseExp * expMult))
+    let nextLv = cur.level
+    let nextExp = cur.exp + gain
+    let leveledUp = false
+    while (nextLv < 10) {
+      const reqExp = getArtExpRequired(art, nextLv)
+      if (reqExp <= 0 || nextExp < reqExp) break
+      nextExp -= reqExp
+      nextLv += 1
+      leveledUp = true
+    }
+    if (nextLv >= 10) nextExp = 0
+    nextLearnedArts[idx] = { artId, level: nextLv, exp: nextExp }
+
+    if (leveledUp) {
+      anyBreakthrough = true
+      artGainNotes.push(`《${art.cleanName}》突破至第${nextLv}重`)
+    } else {
+      artGainNotes.push(`《${art.cleanName}》熟练 +${gain}`)
+    }
+  }
+
+  const npcKey = session.targetNpcNode.id ?? session.targetNpcNode.name
+  const curFavor = nextNpcFavor[npcKey] ?? INITIAL_NPC_FAVOR
+  let mpRootGain = 0
+  let hpRootGain = 0
+  let favorGain = 0
+
+  if (outcome === 'player_win') {
+    mpRootGain = isStrongOpponent ? 22 : 14
+    hpRootGain = isStrongOpponent ? 14 : 8
+    favorGain = 4
+  } else if (outcome === 'draw') {
+    mpRootGain = 10
+    hpRootGain = 6
+    favorGain = 2
+  } else if (outcome === 'npc_win') {
+    mpRootGain = 6
+    favorGain = 1
+  }
+
+  nextBaseStats.maxMp += mpRootGain
+  nextBaseStats.maxHp += hpRootGain
+  if (favorGain > 0) {
+    nextNpcFavor[npcKey] = Math.min(100, curFavor + favorGain)
+  }
+
+  const derived = deriveHeroEffectiveStats(
+    nextBaseStats,
+    s.equipped,
+    s.equippedArts,
+    nextLearnedArts,
+  )
+  const deltaMaxHp = Math.max(0, derived.maxHp - session.player.maxHp)
+  const deltaMaxMp = Math.max(0, derived.maxMp - session.player.maxMp)
+  const minSafeHp =
+    session.mode === 'spar' ? Math.max(1, Math.round(derived.maxHp * 0.15)) : 1
+  const nextHp = Math.min(
+    derived.maxHp,
+    Math.max(minSafeHp, session.player.hp + deltaMaxHp),
+  )
+  const nextMp = Math.min(
+    derived.maxMp,
+    Math.max(0, session.player.mp + deltaMaxMp),
+  )
+
+  const summaryParts: string[] = []
+  if (hpRootGain > 0) summaryParts.push(`气血根基 +${hpRootGain}`)
+  if (mpRootGain > 0) summaryParts.push(`内力根基 +${mpRootGain}`)
+  if (favorGain > 0) {
+    summaryParts.push(`${session.npc.name}好感 +${favorGain}（现 ${nextNpcFavor[npcKey]}/100）`)
+  }
+  if (artGainNotes.length > 0) {
+    summaryParts.push(artGainNotes.join('、'))
+  }
+  if (session.mode === 'spar' && session.player.hp <= 0) {
+    summaryParts.push(`切磋点到为止（调息保底气血 ${nextHp}/${derived.maxHp}）`)
+  }
+
+  const rewardsSummary =
+    summaryParts.length > 0
+      ? summaryParts.join(' · ')
+      : '虚晃一招全身而退，未有额外武学感悟。'
+
+  const outcomeTitle =
+    outcome === 'player_win'
+      ? `力挫【${session.npc.name}】（${session.round}合获胜）`
+      : outcome === 'draw'
+        ? `与【${session.npc.name}】拆招${session.round}合秋色平分`
+        : outcome === 'escaped'
+          ? `与【${session.npc.name}】交锋中途飘然脱战`
+          : `向【${session.npc.name}】请益${session.round}合惜败`
+
+  const logTag =
+    outcome === 'player_win'
+      ? '武林凯旋'
+      : anyBreakthrough
+        ? '实战突破'
+        : '实战切磋'
+
+  return {
+    nextBaseStats,
+    nextLearnedArts,
+    derived,
+    nextHp,
+    nextMp,
+    nextNpcFavor,
+    rewardsSummary,
+    logTag,
+    logText: `${outcomeTitle}：${rewardsSummary}。`,
+    anyBreakthrough,
+  }
 }
 
 function extractSerializableState(s: GameStoreState): SerializableGameState {
@@ -463,6 +629,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   menuOpen: false,
   activeNpcInteraction: null,
+  activeCombat: null,
   activeMenuTab: 'hero',
   compendiumOpen: false,
   activeCompendiumTab: 'regions',
@@ -1654,68 +1821,41 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       })
       return
     }
+    if (mode === 'spar') {
+      get().startNpcCombat(npc, 'spar')
+      return
+    }
     if (s.stamina < 6) {
       set({
         actionFeedback: {
-          text: `体能不足（需 6 点体能），请稍作调息或用膳后再与名宿切磋雅集。`,
+          text: `体能不足（需 6 点体能），请稍作调息或用膳后再与名宿雅集论道。`,
           tone: 'warn',
         },
       })
       return
     }
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
-    if (mode === 'art') {
-      const civilKeys = ['算术', '经义', '策论', '诗词', '琴', '棋', '书', '画', '辩才'] as const
-      let primarySkill: (typeof civilKeys)[number] = '诗词'
-      let secondarySkill: (typeof civilKeys)[number] = '琴'
-      if (npc.tenArts) {
-        const sorted = [...civilKeys].sort(
-          (a, b) => (npc.tenArts?.[b] ?? 0) - (npc.tenArts?.[a] ?? 0),
-        )
-        primarySkill = sorted[0] ?? '诗词'
-        secondarySkill = sorted[1] ?? '琴'
-      }
-      const nextBaseStats = cloneHeroBaseStats(s.baseStats)
-      const nextPrimaryBase = Math.min(
-        HERO_BASE_CAPS.civilSkill,
-        (nextBaseStats.skills[primarySkill] ?? 45) + 2,
+    const civilKeys = ['算术', '经义', '策论', '诗词', '琴', '棋', '书', '画', '辩才'] as const
+    let primarySkill: (typeof civilKeys)[number] = '诗词'
+    let secondarySkill: (typeof civilKeys)[number] = '琴'
+    if (npc.tenArts) {
+      const sorted = [...civilKeys].sort(
+        (a, b) => (npc.tenArts?.[b] ?? 0) - (npc.tenArts?.[a] ?? 0),
       )
-      const nextSecondaryBase = Math.min(
-        HERO_BASE_CAPS.civilSkill,
-        (nextBaseStats.skills[secondarySkill] ?? 45) + 1,
-      )
-      nextBaseStats.skills[primarySkill] = nextPrimaryBase
-      nextBaseStats.skills[secondarySkill] = nextSecondaryBase
-      const derived = deriveHeroEffectiveStats(
-        nextBaseStats,
-        s.equipped,
-        s.equippedArts,
-        s.learnedArts,
-      )
-      set({
-        dayCount: clock.dayCount,
-        shichenIdx: clock.shichenIdx,
-        stamina: Math.max(0, s.stamina - 6),
-        baseStats: nextBaseStats,
-        skills: derived.skills,
-        actionFeedback: {
-          text: `与 ${npc.name} 雅集论道半个时辰（体能 -6，【${primarySkill}】+2 根基 ${nextPrimaryBase}/100、【${secondarySkill}】+1 根基 ${nextSecondaryBase}/100）。`,
-          tone: 'success',
-        },
-      })
-      return
-    }
-    if (s.stamina < 10) {
-      set({
-        actionFeedback: {
-          text: `拆招切磋需耗费 10 点体能，请先调息恢复体能！`,
-          tone: 'warn',
-        },
-      })
-      return
+      primarySkill = sorted[0] ?? '诗词'
+      secondarySkill = sorted[1] ?? '琴'
     }
     const nextBaseStats = cloneHeroBaseStats(s.baseStats)
-    nextBaseStats.maxMp += 18
+    const nextPrimaryBase = Math.min(
+      HERO_BASE_CAPS.civilSkill,
+      (nextBaseStats.skills[primarySkill] ?? 45) + 2,
+    )
+    const nextSecondaryBase = Math.min(
+      HERO_BASE_CAPS.civilSkill,
+      (nextBaseStats.skills[secondarySkill] ?? 45) + 1,
+    )
+    nextBaseStats.skills[primarySkill] = nextPrimaryBase
+    nextBaseStats.skills[secondarySkill] = nextSecondaryBase
     const derived = deriveHeroEffectiveStats(
       nextBaseStats,
       s.equipped,
@@ -1725,15 +1865,120 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
-      stamina: Math.max(0, s.stamina - 10),
+      stamina: Math.max(0, s.stamina - 6),
       baseStats: nextBaseStats,
-      maxMp: derived.maxMp,
-      mp: Math.min(derived.maxMp, s.mp + 18),
+      skills: derived.skills,
       actionFeedback: {
-        text: `向 ${npc.name}（${npc.realm}）请益实战拆招，内力根基修为 +18（体能 -10）！`,
+        text: `与 ${npc.name} 雅集论道半个时辰（体能 -6，【${primarySkill}】+2 根基 ${nextPrimaryBase}/100、【${secondarySkill}】+1 根基 ${nextSecondaryBase}/100）。`,
         tone: 'success',
       },
     })
+  },
+
+  startNpcCombat: (npc, mode = 'spar') => {
+    const s = get()
+    if (s.stamina < 10) {
+      set({
+        actionFeedback: {
+          text: `登台拆招需耗费 10 点体能（当前 ${s.stamina}/${s.maxStamina}），请先调息歇脚或用膳恢复！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    if (s.hp <= 1) {
+      set({
+        actionFeedback: {
+          text: `少侠当前气血奄奄一息（${s.hp}/${s.maxHp}），请先服食伤药或调息恢复气血后再与名宿拆招！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+    const playerCombatant = buildPlayerCombatant({
+      hp: s.hp,
+      mp: s.mp,
+      baseStats: s.baseStats,
+      equipped: s.equipped,
+      equippedArts: s.equippedArts,
+      learnedArts: s.learnedArts,
+    })
+    const session = createCombatSession({
+      mode,
+      player: playerCombatant,
+      npcNode: npc,
+    })
+
+    set({
+      dayCount: clock.dayCount,
+      shichenIdx: clock.shichenIdx,
+      stamina: Math.max(0, s.stamina - 10),
+      activeCombat: session,
+      menuOpen: false,
+      compendiumOpen: false,
+      tooltip: null,
+      actionFeedback: null,
+    })
+  },
+
+  submitCombatAction: (choice) => {
+    const s = get()
+    if (!s.activeCombat || s.activeCombat.outcome !== 'ongoing') return
+    let nextSession = resolveCombatRound(s.activeCombat, choice)
+    if (nextSession.outcome !== 'ongoing') {
+      const preview = computeCombatSettlement(s, nextSession)
+      nextSession = {
+        ...nextSession,
+        rewardsSummary: preview.rewardsSummary,
+      }
+    }
+    set({ activeCombat: nextSession })
+  },
+
+  finishCombatSession: () => {
+    const s = get()
+    const session = s.activeCombat
+    if (!session || session.outcome === 'ongoing') return
+
+    const res = computeCombatSettlement(s, session)
+    const regionName = NODE_MAP[s.activeRegionId]?.name ?? '江湖'
+
+    set({
+      activeCombat: null,
+      baseStats: res.nextBaseStats,
+      learnedArts: res.nextLearnedArts,
+      npcFavor: res.nextNpcFavor,
+      mountKey: res.derived.mountKey,
+      qinggongBonus: res.derived.qinggongBonus,
+      ridingSkill: res.derived.ridingSkill,
+      agility: res.derived.agility,
+      res: res.derived.res,
+      skills: res.derived.skills,
+      maxHp: res.derived.maxHp,
+      hp: res.nextHp,
+      maxMp: res.derived.maxMp,
+      mp: res.nextMp,
+      maxStamina: res.derived.maxStamina,
+      stamina: Math.min(res.derived.maxStamina, s.stamina),
+      actionFeedback: {
+        text: res.logText,
+        tone: session.outcome === 'npc_win' || session.outcome === 'escaped' ? 'warn' : 'success',
+      },
+      logs: [
+        createLogEntry(
+          s.dayCount,
+          res.logTag,
+          res.logText,
+          session.outcome === 'player_win' || res.anyBreakthrough,
+          s.shichenIdx,
+        ),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+
+    void get().saveToSlot('autosave', `${regionName} · 战后调息`, true)
   },
 
   startJourney: (targetId) => {
@@ -2320,6 +2565,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       consumedUniqueIds: st.consumedUniqueIds ?? [],
       campPos: st.campPos ?? null,
       traveling: null,
+      activeCombat: null,
+      activeNpcInteraction: null,
       tooltip: null,
       actionFeedback: null,
       logs: restoredLogs,
