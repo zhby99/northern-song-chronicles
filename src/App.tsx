@@ -194,7 +194,7 @@ export function App() {
           <SystemMenuModal />
         </Suspense>
       )}
-      {!characterCreated && <CharacterCreationModal />}
+      {!characterCreated && !menuOpen && <CharacterCreationModal />}
     </main>
   )
 }

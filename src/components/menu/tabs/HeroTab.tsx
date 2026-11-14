@@ -80,8 +80,8 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
 
   const mainNeigong = equippedArts.neigong ? MARTIAL_ART_DB_MAP[equippedArts.neigong] : null
   const mainQinggong = equippedArts.qinggong ? MARTIAL_ART_DB_MAP[equippedArts.qinggong] : null
-  const playerName = useGameStore.getState().playerName
-  const playerPortraitId = useGameStore.getState().playerPortraitId
+  const playerName = useGameStore((s) => s.playerName)
+  const playerPortraitId = useGameStore((s) => s.playerPortraitId)
   const heroPortrait = getProtagonistPortrait(playerPortraitId)
   const heroImgUrl = heroPortrait.fullbodyUrl
   const currentSectName = sectState.sectId

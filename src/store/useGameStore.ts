@@ -909,11 +909,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       accessory2: 'ACC-049', // 粗麻平安绳
       mount: null,
     }
-    const derived = deriveHeroStats(
+    const derived = deriveHeroEffectiveStats(
       cleanBase,
       starterEquipped,
-      s.learnedArts,
       s.equippedArts,
+      s.learnedArts,
     )
     set({
       characterCreated: true,
@@ -3657,6 +3657,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const derived = deriveHeroEffectiveStats(freshBase, freshEquip, freshEqArts, freshLearned)
 
     set({
+      characterCreated: false,
       dayCount: 1,
       shichenIdx: 4,
       viewMode: 'region',
@@ -6084,6 +6085,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     set({
       ...st,
+      characterCreated: st.characterCreated ?? true,
+      playerName: st.playerName || '无名少侠',
+      playerPortraitId: st.playerPortraitId || 'hero_04_swordsman',
+      playerAge: st.playerAge ?? 12,
       baseStats: cleanBase,
       mountKey: derived.mountKey,
       qinggongBonus: derived.qinggongBonus,

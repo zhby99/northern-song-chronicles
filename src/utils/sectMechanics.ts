@@ -16,7 +16,6 @@ import type {
   CompiledMartialArtRecord,
   CompiledNpcRecord,
   HeroBaseStats,
-  HeroSkills,
   InventoryStack,
   NodeNpc,
   PlayerSectState,
@@ -810,7 +809,7 @@ export function evaluateSectPromotion(params: {
   npcFavor: Record<string, number>
   wonSectTournament?: boolean
   hasTournamentToken?: boolean
-  skills?: HeroSkills
+  skills?: Record<string, number>
   xingxiuDefeatedRanks?: number[]
   killedDingChunqiu?: boolean
 }): PromotionRequirementInfo | null {

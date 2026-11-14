@@ -7,8 +7,8 @@ import {
 import {
   cloneHeroBaseStats,
   DEFAULT_HERO_BASE_STATS,
-  useGameStore,
-} from '../../store/useGameStore'
+} from '../../utils/heroStats'
+import { useGameStore } from '../../store/useGameStore'
 import type { HeroBaseStats } from '../../types/game'
 
 const CIVIL_SKILL_KEYS = [
@@ -84,6 +84,7 @@ function StatSliderRow({
 
 export function CharacterCreationModal() {
   const completeCharacterCreation = useGameStore((s) => s.completeCharacterCreation)
+  const openMenu = useGameStore((s) => s.openMenu)
 
   const [name, setName] = useState<string>(() => generateRandomHeroName())
   const [portraitId, setPortraitId] = useState<string>(PROTAGONIST_PORTRAITS[3].id)
@@ -358,33 +359,33 @@ export function CharacterCreationModal() {
 
               <div className="bg-[#efe4cc] border border-[#cbb693] rounded-lg p-3 space-y-2">
                 <div className="song-serif font-bold text-sm text-[#23180f] border-b border-[#cbb693] pb-1">
-                  四、实战根基
+                  四、实战根基（额外加值）
                 </div>
                 <StatSliderRow
-                  label="气血上限"
+                  label="气血加值"
                   value={stats.maxHp}
-                  min={100}
+                  min={0}
                   max={2000}
                   step={10}
                   onChange={(v) => setStats((p) => ({ ...p, maxHp: v }))}
                 />
                 <StatSliderRow
-                  label="内力上限"
+                  label="内力加值"
                   value={stats.maxMp}
-                  min={50}
+                  min={0}
                   max={2000}
                   step={10}
                   onChange={(v) => setStats((p) => ({ ...p, maxMp: v }))}
                 />
                 <StatSliderRow
-                  label="身法"
+                  label="身法加值"
                   value={stats.agility}
-                  min={10}
+                  min={0}
                   max={200}
                   onChange={(v) => setStats((p) => ({ ...p, agility: v }))}
                 />
                 <StatSliderRow
-                  label="抗性"
+                  label="抗性加值"
                   value={stats.res}
                   min={0}
                   max={100}
@@ -426,13 +427,22 @@ export function CharacterCreationModal() {
           <div className="text-xs text-[#6b5235] hidden sm:block">
             提示：当前为测试阶段，所有先天禀赋、实战根基与十艺百工均可自由调整。
           </div>
-          <button
-            type="button"
-            onClick={handleStart}
-            className="ml-auto px-6 py-2.5 rounded-lg bg-[#8f1d14] hover:bg-[#a62318] text-[#fff8eb] song-serif font-bold text-base shadow-md border border-[#d6be96]/60 transition-transform active:scale-95"
-          >
-            踏入江湖 · 启程开封
-          </button>
+          <div className="ml-auto flex items-center gap-2.5">
+            <button
+              type="button"
+              onClick={() => openMenu('load')}
+              className="px-4 py-2.5 rounded-lg bg-[#faf3e3] hover:bg-[#efe4cc] text-[#4a321a] song-serif font-bold text-sm border border-[#b5986e] transition-colors"
+            >
+              读取旧档
+            </button>
+            <button
+              type="button"
+              onClick={handleStart}
+              className="px-6 py-2.5 rounded-lg bg-[#8f1d14] hover:bg-[#a62318] text-[#fff8eb] song-serif font-bold text-base shadow-md border border-[#d6be96]/60 transition-transform active:scale-95"
+            >
+              踏入江湖 · 启程开封
+            </button>
+          </div>
         </div>
       </div>
     </div>
