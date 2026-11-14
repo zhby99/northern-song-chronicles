@@ -115,7 +115,7 @@ export function PortraitsTab({
           <option value="ALL_WITH_ART">
             已有独立原画 ({ID_REGISTRY.counts.npcsWithAvatar})
           </option>
-          <option value="ALL">全部千人名录 (1000)</option>
+          <option value="ALL">全部群侠名录 ({ID_REGISTRY.counts.npcs})</option>
           <option value="HERE">当前地区：{activeRegionNode?.name}</option>
           <option value="HISTORICAL">庙堂四夷历史百杰 (100)</option>
           <option value="GRANDMASTER_MASTER">大宗师与宗师 (34)</option>
@@ -138,7 +138,9 @@ export function PortraitsTab({
           onChange={(e) => setNpcFactionFilter(e.target.value)}
           className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer max-w-[195px]"
         >
-          <option value="ALL">全部 30派+11势力</option>
+          <option value="ALL">
+            全部 {ID_REGISTRY.counts.totalSects}派+{ID_REGISTRY.counts.otherOrganizations}势力
+          </option>
           <optgroup
             label={`一流名门大派 (${ID_REGISTRY.factions.filter((f) => f.sectTier === '一流大派').length})`}
           >

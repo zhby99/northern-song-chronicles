@@ -52,13 +52,13 @@ northern-song-chronicles/
 ├── README.md                            # 项目简介与里程碑概览
 │
 ├── docs/                                # 游戏系统与数值策划单一事实源
-│   ├── CHARACTER_COMPENDIUM.md          # 1000 人物图鉴、三维与十艺派系全录
+│   ├── CHARACTER_COMPENDIUM.md          # 1,047 人物图鉴、三维与十艺派系全录
 │   ├── EQUIPMENT_COMPENDIUM.md          # 皇祐披挂总纲（第一卷：百兵谱 100 种武器）
 │   ├── GAME_MECHANICS.md                # 历法时辰、体能资粮、七槽四库、同步盲选战斗与核心机制总纲
-│   ├── MARTIAL_ARTS_SECTS.md            # 30 武林门派（18 一流 + 6 二流 + 6 三流）与 11 庙堂四夷组织专卷
-│   ├── MARTIAL_ARTS_COMPENDIUM.md       # 218 门十一大类武学全典与天阶修习条件
-│   ├── MARTIAL_ARTS_STATS.md            # 218 门武学 1~10 重数值表与 37 门天阶战斗特效
-│   ├── REGIONAL_MAPS_AND_BUILDINGS.md   # 43 州府名山区域与 138 座特殊建筑名录（总计 268 座建筑）
+│   ├── MARTIAL_ARTS_SECTS.md            # 32 武林门派（20 一流 + 6 二流 + 6 三流）与 11 庙堂四夷组织专卷
+│   ├── MARTIAL_ARTS_COMPENDIUM.md       # 246 门十一大类武学全典与天阶修习条件
+│   ├── MARTIAL_ARTS_STATS.md            # 246 门武学 1~10 重数值表与 37 门天阶战斗特效
+│   ├── REGIONAL_MAPS_AND_BUILDINGS.md   # 43 州府名山区域与 147 座特殊建筑名录（总计 268 座建筑）
 │   ├── HANDOFF_CONTEXT.md               # 跨会话历史演进与工程避坑备忘
 │   └── ROADMAP_AND_TODO.md              # 开发里程碑与主线待办看板 (M0 ~ M5)
 │
@@ -76,13 +76,13 @@ northern-song-chronicles/
 │   │   │   └── TravelBanner.tsx         # 大地图逐时辰行军进度与旷野随时扎营条
 │   │   ├── map/                         # 地图画布与交互组件
 │   │   │   ├── WorldMapCanvas.tsx       # 北宋华夏东亚全景舆图 (SVG 语义缩放沙盘)
-│   │   │   ├── RegionMapCanvas.tsx      # 43 处州府名山全景画布与 138 座建筑室内视图
+│   │   │   ├── RegionMapCanvas.tsx      # 43 处州府名山全景画布与 147 座建筑室内视图
 │   │   │   ├── SvgRegionPanoramaFallback.tsx   # 新辟 5 州府宋辽营造青绿等轴城郭矢量渲染器
 │   │   │   └── SvgBuildingInteriorFallback.tsx # 宋式《营造法式》室内建筑矢量渲染器
 │   │   └── menu/                        # 行囊枢机与皇祐万象图鉴双模态弹窗模块
 │   │       ├── SystemMenuModal.tsx      # 1.5× 双模态总控容器 (行囊枢机7卷 + 万象图鉴6卷调度与跨卷深链)
 │   │       ├── RegionCompendiumPanel.tsx# 图鉴壹：43 地区山海舆地全鉴
-│   │       ├── SectCompendiumPanel.tsx  # 图鉴贰：30 武林门派与 11 庙堂四夷图鉴
+│   │       ├── SectCompendiumPanel.tsx  # 图鉴贰：32 武林门派与 11 庙堂四夷图鉴
 │   │       ├── PortraitLightbox.tsx     # 人物全身/头像与全景图高清放大品鉴灯箱
 │   │       ├── MenuIcons.tsx            # 七槽披挂、六槽武学与四库分类共享图标组件
 │   │       ├── menuShared.ts            # 导航卷目元数据与博物收录统计纯函数
@@ -94,15 +94,15 @@ northern-song-chronicles/
 │   │   ├── scrollsDb.ts                 # 皇祐百卷典籍书画库 (10天/20地/30良/40凡 共 100 卷)
 │   │   ├── playerMartialArts.ts         # 主角 6 槽武学运使、1~10 重火候演练与属性加成计算器
 │   │   ├── regions.json                 # 43 个区域州府与名山信息
-│   │   ├── buildings.json               # 138 座特殊地标 (414 子点位) + 130 座基础建筑设定 (共 268 座)
+│   │   ├── buildings.json               # 147 座特殊地标 + 121 座基础建筑设定 (共 268 座)
 │   │   ├── buildingPanoramas.json       # 建筑室内全景热区与视角绑定
-│   │   ├── npcs.json                    # 1000 名历史名仕与武林人物数据库 (100% 最末层挂载)
-│   │   ├── martial_arts.json            # 218 门十一大类四阶十二品武学与 1~10 重数值数据库
+│   │   ├── npcs.json                    # 1,047 名历史名仕与武林人物数据库 (100% 最末层挂载)
+│   │   ├── martial_arts.json            # 246 门十一大类四阶十二品武学与 1~10 重数值数据库
 │   │   ├── weapons.json                 # 100 种四阶十二品百兵谱数据库
 │   │   ├── regionalConfigs.json         # 43 处区域坐标与建筑点位配置
 │   │   ├── worldGraph.json              # 43 节点 79 边陆路、运河、塞外与蜀道节点连接拓扑
 │   │   ├── worldBaseSvg.ts              # 华夏及东亚山海海岸线矢量轮廓
-│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表 (43地/30派+11组织/218功/100兵/1000人)
+│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表 (43地/32派+11组织/246功/100兵/1047人)
 │   │   ├── assetManifest.json           # 生产资源清单索引
 │   │   └── portraitCatalog.json         # 人物立绘与模板映射表 (249 核心角色目录)
 │   │
@@ -159,7 +159,7 @@ northern-song-chronicles/
   - **核心 Actions**：`equipItemToSlot()`, `unequipSlot()`, `equipArtToSlot()`, `practiceLearnedArt()`, `consumeInventoryItem()`, `restRecoverStamina()`, `startJourney()`, `campStop()`, `enterRegionMap()`, `enterBuildingMap()`, `saveToSlot()`, `loadFromEnvelope()`。
 
 ### 2. 静态数据库与器物武学表 (`gameDb.ts` / `itemsDb.ts` / `scrollsDb.ts` / `playerMartialArts.ts`)
-- **`gameDb.ts`**：导出 `REGIONS_DB`（43）、`BUILDINGS_DB`（268）、`MARTIAL_ARTS_DB`（216）、`WEAPONS_DB`（100）、`NPCS_DB`（1,000）及 O(1) 哈希索引 Map。
+- **`gameDb.ts`**：导出 `REGIONS_DB`（43）、`BUILDINGS_DB`（268）、`MARTIAL_ARTS_DB`（246）、`WEAPONS_DB`（100）、`NPCS_DB`（1,047）及 O(1) 哈希索引 Map。
 - **`itemsDb.ts` & `scrollsDb.ts`**：定义 7 槽位元数据、4 分类行囊元数据、100 种百兵映射、100 卷典籍书画、30 种丹药毒物、50 件雅器百工，以及 `computeEquipmentTotals()` 与 `computeWeaponArtSynergy()` 兵武共鸣计算器。
 - **`playerMartialArts.ts`**：定义 6 个武学运使槽位校验、1~10 重火候升级经验曲线与 `computeEquippedArtsTotals()`。
 
@@ -288,7 +288,7 @@ npm run build:artifact
 
 ### 2. 数据与素材自动化维护脚本 (`scripts/`)
 - **`scripts/compile_game_db.py` (`npm run build:db`)**：
-  解析七大 Markdown 设定专卷，幂等生成 `src/data/*.json` 并校验 43 地区、30 门派+11 组织、268 建筑、216 武学、100 武器与 1,000 名 NPC 零悬空引用。
+  解析七大 Markdown 设定专卷，幂等生成 `src/data/*.json` 并校验 43 地区、32 门派+11 组织、268 建筑、246 武学、100 武器与 1,047 名 NPC 零悬空引用。
 - **`scripts/archive_all_branch_assets.py` (`npm run archive:masters`)**：
   维护 `assets_raw_masters/` 与 `public/assets/` 资源对应关系并生成 SHA-256 校验表。
 - **`scripts/build_preview_artifact.mjs` (`npm run build:artifact`)**：

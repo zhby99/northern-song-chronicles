@@ -341,7 +341,7 @@ export function SystemMenuModal() {
               </div>
               <p className="text-xs text-[#d6c5a5] mt-0.5">
                 {isCompendiumMode
-                  ? `${formatSongDate(dayCount, shichenIdx)} · 舆地43境 / 武林30派+11势力 / 群侠千人谱 / 武学${ID_REGISTRY.counts.martialArts}功 / 披挂268件 / 名驹28骑 / 博物180品 · 按 G 或 ESC 返回舆图`
+                  ? `${formatSongDate(dayCount, shichenIdx)} · 舆地${ID_REGISTRY.counts.regions}境 / 武林${ID_REGISTRY.counts.totalSects}派+${ID_REGISTRY.counts.otherOrganizations}势力 / 群侠${ID_REGISTRY.counts.npcs}人 / 武学${ID_REGISTRY.counts.martialArts}功 / 披挂268件 / 名驹${ID_REGISTRY.counts.mounts}骑 / 博物180品 · 按 G 或 ESC 返回舆图`
                   : `${formatSongDate(dayCount, shichenIdx)} · 主角总览 / 披挂武学 / 行囊四库 / 卷宗存取 · 按 ESC 返回舆图`}
               </p>
             </div>

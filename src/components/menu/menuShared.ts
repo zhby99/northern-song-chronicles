@@ -1,3 +1,4 @@
+import { ID_REGISTRY } from '../../data/gameDb'
 import { TREASURE_COMPENDIUM_ITEMS, type TreasureVolumeKey } from '../../data/itemsDb'
 import type {
   CompendiumTabKey,
@@ -66,7 +67,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     numeral: '伍',
     label: '工程与字典',
     seal: '枢',
-    subtitle: '静态资源按需懒加载遥测 + 跨分支标准 ID 字典（43地 / 30派+11组织 / 242功 / 100兵 / 28骑 / 180奇珍 / 1000人）',
+    subtitle: `静态资源按需懒加载遥测 + 跨分支标准 ID 字典（${ID_REGISTRY.counts.regions}地 / ${ID_REGISTRY.counts.totalSects}派+${ID_REGISTRY.counts.otherOrganizations}组织 / ${ID_REGISTRY.counts.martialArts}功 / ${ID_REGISTRY.counts.weapons}兵 / ${ID_REGISTRY.counts.mounts}骑 / 180奇珍 / ${ID_REGISTRY.counts.npcs}人）`,
     badge: 'M0-2 已实装',
   },
   {
@@ -102,32 +103,32 @@ export const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
     numeral: '壹',
     label: '地区图鉴',
     seal: '舆',
-    subtitle: '皇祐山海舆地全鉴：26座州府王都 + 17处名山秘境与雄关（共43地）、268座城郭殿宇、驿路网与风物风闻',
-    badge: '43地全录',
+    subtitle: `皇祐山海舆地全鉴：26座州府王都 + 17处名山秘境与雄关（共${ID_REGISTRY.counts.regions}地）、${ID_REGISTRY.counts.totalBuildings}座城郭殿宇、驿路网与风物风闻`,
+    badge: `${ID_REGISTRY.counts.regions}地全录`,
   },
   {
     key: 'sects',
     numeral: '贰',
     label: '门派图鉴',
     seal: '宗',
-    subtitle: '天下三十武林门派三级金字塔（18一流大派 · 6二流武盟 · 6三流武馆）及 11 大庙堂儒林四夷组织全典',
-    badge: '30派+11势力',
+    subtitle: `天下武林门派三级金字塔（${ID_REGISTRY.counts.majorSects}一流大派 · 6二流武盟 · 6三流武馆）及 ${ID_REGISTRY.counts.otherOrganizations} 大庙堂儒林四夷组织全典`,
+    badge: `${ID_REGISTRY.counts.totalSects}派+${ID_REGISTRY.counts.otherOrganizations}势力`,
   },
   {
     key: 'portraits',
     numeral: '叁',
     label: '群侠图鉴',
     seal: '谱',
-    subtitle: '全量 1,000 位皇祐人物档案、3:4 等比画轴全身像对齐与高清点击放大品鉴（头像/全身双视图）',
-    badge: '1000人全录',
+    subtitle: `全量 ${ID_REGISTRY.counts.npcs.toLocaleString('en-US')} 位皇祐人物档案、3:4 等比画轴全身像对齐与高清点击放大品鉴（头像/全身双视图）`,
+    badge: `${ID_REGISTRY.counts.npcs}人全录`,
   },
   {
     key: 'martialArts',
     numeral: '肆',
     label: '武学总纲',
     seal: '典',
-    subtitle: '四阶十二品共 242 门天下武学全录、天阶前置校验词条、门派归属索引与主角习得状态标记',
-    badge: '242功全录',
+    subtitle: `四阶十二品共 ${ID_REGISTRY.counts.martialArts} 门天下武学全录、天阶前置校验词条、门派归属索引与主角习得状态标记`,
+    badge: `${ID_REGISTRY.counts.martialArts}功全录`,
   },
   {
     key: 'armory',

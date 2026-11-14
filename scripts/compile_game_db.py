@@ -2351,8 +2351,14 @@ def parse_npcs(
             }
         )
 
-    if len(npcs) != 1000:
-        raise AssertionError(f"Expected 1000 NPCs, got {len(npcs)}")
+    seen_npc_ids = [n["id"] for n in npcs]
+    if len(seen_npc_ids) != len(set(seen_npc_ids)):
+        raise AssertionError("Duplicate NPC IDs detected in CHARACTER_COMPENDIUM.md")
+    seen_npc_names = [n["name"] for n in npcs]
+    if len(seen_npc_names) != len(set(seen_npc_names)):
+        raise AssertionError("Duplicate NPC names detected in CHARACTER_COMPENDIUM.md")
+    if len(npcs) != 1047:
+        raise AssertionError(f"Expected 1047 NPCs, got {len(npcs)}")
     return npcs
 
 

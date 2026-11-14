@@ -46,7 +46,7 @@ export function EngineeringTab() {
             {ID_REGISTRY.counts.majorSects} 大派 + {ID_REGISTRY.counts.minorSects} 小派 +{' '}
             {ID_REGISTRY.counts.otherOrganizations} 组织
           </div>
-          <div className="text-xs text-[#6b5235]">`SECT-01..30` / `ORG-01..11`</div>
+          <div className="text-xs text-[#6b5235]">`SECT-01..32` / `ORG-01..11`</div>
         </div>
 
         <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e]">

@@ -16,7 +16,7 @@
     "martialArts": 246,
     "weapons": 100,
     "mounts": 28,
-    "npcs": 1000,
+    "npcs": 1047,
     "npcsWithAvatar": 249,
     "npcsWithFullbody": 249
   },
@@ -79,7 +79,7 @@
       "type": "city",
       "regime": "song",
       "legacyAliases": [],
-      "npcCount": 34,
+      "npcCount": 35,
       "specialBuildingCount": 3
     },
     {
@@ -105,7 +105,7 @@
       "legacyAliases": [
         "延州（延安）"
       ],
-      "npcCount": 35,
+      "npcCount": 37,
       "specialBuildingCount": 3
     },
     {
@@ -218,7 +218,7 @@
       "legacyAliases": [
         "南京析津府（幽州）"
       ],
-      "npcCount": 9,
+      "npcCount": 11,
       "specialBuildingCount": 3
     },
     {
@@ -231,7 +231,7 @@
       "legacyAliases": [
         "中京大定府"
       ],
-      "npcCount": 6,
+      "npcCount": 9,
       "specialBuildingCount": 3
     },
     {
@@ -244,7 +244,7 @@
       "legacyAliases": [
         "上京临潢府"
       ],
-      "npcCount": 10,
+      "npcCount": 13,
       "specialBuildingCount": 3
     },
     {
@@ -257,7 +257,7 @@
       "legacyAliases": [
         "兴庆府（银川）"
       ],
-      "npcCount": 23,
+      "npcCount": 36,
       "specialBuildingCount": 4
     },
     {
@@ -268,7 +268,7 @@
       "type": "city",
       "regime": "tubo",
       "legacyAliases": [],
-      "npcCount": 12,
+      "npcCount": 20,
       "specialBuildingCount": 3
     },
     {
@@ -279,7 +279,7 @@
       "type": "city",
       "regime": "dali",
       "legacyAliases": [],
-      "npcCount": 16,
+      "npcCount": 26,
       "specialBuildingCount": 3
     },
     {
@@ -546,7 +546,7 @@
         "天水",
         "秦州"
       ],
-      "npcCount": 18,
+      "npcCount": 21,
       "specialBuildingCount": 4
     },
     {
@@ -560,7 +560,7 @@
         "东京辽阳府",
         "辽阳"
       ],
-      "npcCount": 13,
+      "npcCount": 15,
       "specialBuildingCount": 3
     }
   ],
@@ -1583,7 +1583,7 @@
       "highestArtTier": "地阶中品",
       "summary": "一流大派 · 雪域吐蕃密宗佛门（驻锡逻些大昭圣寺与雪域辩经大坛，兼具护国神僧与雪山血刀邪僧两脉）",
       "entryAndFeatures": "常规不可拜入，仅限特殊卧底线或历史奇遇交互。",
-      "memberCount": 22,
+      "memberCount": 34,
       "martialArtIds": [
         "MA-133",
         "MA-232",
@@ -1674,7 +1674,7 @@
       "highestArtTier": "天阶中品",
       "summary": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（雪域佛宗·密法神威）",
       "entryAndFeatures": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（雪域佛宗·密法神威）",
-      "memberCount": 7,
+      "memberCount": 12,
       "martialArtIds": [
         "MA-019",
         "MA-028",
@@ -2343,8 +2343,8 @@
       ],
       "highestArtTier": "地阶上品",
       "summary": "庙堂政权与四夷王庭 · 契丹王庭",
-      "entryAndFeatures": "辽兴宗耶律宗真 NPC-0071、皇太弟 耶律重元 NPC-0072（析津府）、东京留守 耶律仁先 NPC-0077（辽阳府）、暗探统领 耶律乙辛 NPC-0078（大定府）等契丹王庭权贵。",
-      "memberCount": 11,
+      "entryAndFeatures": "辽兴宗耶律宗真 NPC-0071、皇太弟 耶律重元 NPC-0072（析津府）、东京留守 耶律仁先 NPC-0077（辽阳府）、暗探统领 耶律乙辛 NPC-0078（大定府），以及宿卫统制 耶律信先、翰林都林牙 萧韩家奴 等契丹四京权贵武臣。",
+      "memberCount": 21,
       "martialArtIds": [],
       "weaponIds": [],
       "acceptsOuterDisciple": null,
@@ -2378,8 +2378,8 @@
       ],
       "highestArtTier": "地阶中品",
       "summary": "庙堂政权与四夷王庭 · 党项王庭",
-      "entryAndFeatures": "摄政 没藏太后 NPC-0082、幼主 李谅祚 NPC-0083、国相兼一品堂大东家 没藏讹庞 NPC-0084、右厢统帅 漫咩 NPC-0085。",
-      "memberCount": 4,
+      "entryAndFeatures": "摄政 没藏太后 NPC-0082、幼主 李谅祚 NPC-0083、国相兼一品堂大东家 没藏讹庞 NPC-0084、右厢统帅 漫咩 NPC-0085，以及宗室老王 嵬名浪遇、番学大儒 野利仁荣 等党项军政中坚。",
+      "memberCount": 9,
       "martialArtIds": [],
       "weaponIds": [],
       "acceptsOuterDisciple": null,
@@ -2415,8 +2415,8 @@
       ],
       "highestArtTier": "天阶上品",
       "summary": "庙堂政权与四夷王庭 · 南诏佛国",
-      "entryAndFeatures": "孝德帝 段思廉 NPC-0086、天龙寺 枯荣禅师 NPC-0108、皇储 段正明 NPC-0143、天龙方丈 本因 NPC-0144、镇南王 段正淳 NPC-0236，执掌皇室秘传 MA-006《六脉神剑》与 MA-023《一阳指》。",
-      "memberCount": 14,
+      "entryAndFeatures": "孝德帝 段思廉 NPC-0086、天龙寺 枯荣禅师 NPC-0108、皇储 段正明 NPC-0143、天龙方丈 本因 NPC-0144、镇南王 段正淳 NPC-0236，以及善阐少侯 高升泰、四大护卫与皇城侍卫，执掌皇室秘传 MA-006《六脉神剑》与 MA-023《一阳指》。",
+      "memberCount": 24,
       "martialArtIds": [
         "MA-006",
         "MA-023",
@@ -2454,8 +2454,8 @@
       "leaderNpcIds": [
         "NPC-0089",
         "NPC-0090",
-        "NPC-0092",
-        "NPC-0113"
+        "NPC-0091",
+        "NPC-0092"
       ],
       "coreBuildingIds": [
         "lx_potala",
@@ -2463,8 +2463,8 @@
       ],
       "highestArtTier": "天阶中品",
       "summary": "庙堂政权与四夷王庭 · 雪域密宗",
-      "entryAndFeatures": "青唐赞普 唃厮啰 NPC-0089、河州首领 瞎毡 NPC-0090（秦州府榷场互市）、大译师 玛尔巴 NPC-0092、护国法王 鸠摩智 NPC-0113（身负火焰刀与小无相功）。",
-      "memberCount": 5,
+      "entryAndFeatures": "青唐赞普 唃厮啰 NPC-0089、河州首领 瞎毡 NPC-0090（秦州府榷场互市）、青唐少主 董毡 NPC-0091、大译师 玛尔巴 NPC-0092，以及河湟少主 木征、逻些万户 论逋赤桑 等青唐逻些诸部首领与铁骑勇士。",
+      "memberCount": 10,
       "martialArtIds": [],
       "weaponIds": [],
       "acceptsOuterDisciple": null,

@@ -14,7 +14,7 @@ import {
   Wheat,
   Zap,
 } from 'lucide-react'
-import { BUILDING_DB_MAP } from '../../data/gameDb'
+import { BUILDING_DB_MAP, ID_REGISTRY } from '../../data/gameDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { LabelToggleKey } from '../../types/game'
 import { ASSET_MANIFEST, formatByteSize, useAssetTelemetry } from '../../utils/assetLoader'
@@ -763,7 +763,7 @@ export function TopHud() {
             id="compendium-menu-trigger"
             type="button"
             onClick={() => openCompendium()}
-            title="打开《皇祐万象图鉴》检阅地区图鉴(43地)、门派图鉴(30派+11势力)、群侠千人谱、242门武学总纲、百兵谱(100兵)、坐骑图鉴(28骑)与博物图鉴（快捷键 G）"
+            title={`打开《皇祐万象图鉴》检阅地区图鉴(${ID_REGISTRY.counts.regions}地)、门派图鉴(${ID_REGISTRY.counts.totalSects}派+${ID_REGISTRY.counts.otherOrganizations}势力)、群侠图鉴(${ID_REGISTRY.counts.npcs}人)、${ID_REGISTRY.counts.martialArts}门武学总纲、百兵谱(${ID_REGISTRY.counts.weapons}兵)、坐骑图鉴(${ID_REGISTRY.counts.mounts}骑)与博物图鉴（快捷键 G）`}
             className="px-3 py-1.5 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] border border-[#e6be68] shadow transition flex items-center gap-1.5 font-bold song-serif text-xs sm:text-sm tracking-wide cursor-pointer"
           >
             <BookOpen className="w-3.5 h-3.5 text-amber-200 shrink-0" />

@@ -3043,7 +3043,8 @@
     "interior": null,
     "residentNpcIds": [
       "NPC-0303",
-      "NPC-0319"
+      "NPC-0319",
+      "NPC-1047"
     ]
   },
   {
@@ -4145,7 +4146,10 @@
       },
       "spots": []
     },
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1039",
+      "NPC-1044"
+    ]
   },
   {
     "id": "yanan_base_academy",
@@ -8925,7 +8929,8 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0079"
+      "NPC-0079",
+      "NPC-1011"
     ]
   },
   {
@@ -9024,7 +9029,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1018"
+    ]
   },
   {
     "id": "xijin_liao_base_inn",
@@ -9373,7 +9380,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1020"
+    ]
   },
   {
     "id": "dading_liao_base_tavern",
@@ -9438,7 +9447,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1017"
+    ]
   },
   {
     "id": "dading_liao_base_academy",
@@ -9472,7 +9483,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1014"
+    ]
   },
   {
     "id": "dading_liao_base_inn",
@@ -9661,7 +9674,9 @@
             "mp": 35,
             "res": 3
           },
-          "residentNpcIds": []
+          "residentNpcIds": [
+            "NPC-1013"
+          ]
         },
         {
           "id": "lh_at_shrine",
@@ -9698,7 +9713,9 @@
         }
       ]
     },
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1013"
+    ]
   },
   {
     "id": "lh_ironcav",
@@ -9831,7 +9848,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1012"
+    ]
   },
   {
     "id": "linhuang_liao_base_tavern",
@@ -9893,7 +9912,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1016"
+    ]
   },
   {
     "id": "linhuang_liao_base_academy",
@@ -10011,7 +10032,8 @@
           },
           "residentNpcIds": [
             "NPC-0084",
-            "NPC-0130"
+            "NPC-0130",
+            "NPC-1036"
           ]
         },
         {
@@ -10050,7 +10072,9 @@
           },
           "residentNpcIds": [
             "NPC-0182",
-            "NPC-0183"
+            "NPC-0183",
+            "NPC-1037",
+            "NPC-1046"
           ]
         }
       ]
@@ -10064,7 +10088,10 @@
       "NPC-0232",
       "NPC-0287",
       "NPC-0399",
-      "NPC-0599"
+      "NPC-0599",
+      "NPC-1036",
+      "NPC-1037",
+      "NPC-1046"
     ]
   },
   {
@@ -10267,13 +10294,16 @@
             "hp": 16,
             "agi": 1
           },
-          "residentNpcIds": []
+          "residentNpcIds": [
+            "NPC-1032"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0082",
-      "NPC-0412"
+      "NPC-0412",
+      "NPC-1032"
     ]
   },
   {
@@ -10345,7 +10375,8 @@
             "hp": 15
           },
           "residentNpcIds": [
-            "NPC-0721"
+            "NPC-0721",
+            "NPC-1042"
           ]
         },
         {
@@ -10376,7 +10407,8 @@
       "NPC-0721",
       "NPC-0889",
       "NPC-0938",
-      "NPC-0989"
+      "NPC-0989",
+      "NPC-1042"
     ]
   },
   {
@@ -10405,7 +10437,8 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0083"
+      "NPC-0083",
+      "NPC-1031"
     ]
   },
   {
@@ -10443,7 +10476,10 @@
       },
       "spots": []
     },
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1035",
+      "NPC-1040"
+    ]
   },
   {
     "id": "xingqing_xixia_base_dojo",
@@ -10468,7 +10504,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1034",
+      "NPC-1038"
+    ]
   },
   {
     "id": "xingqing_xixia_base_academy",
@@ -10502,7 +10541,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1033"
+    ]
   },
   {
     "id": "xingqing_xixia_base_inn",
@@ -10537,7 +10578,10 @@
       },
       "spots": []
     },
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1041",
+      "NPC-1045"
+    ]
   },
   {
     "id": "lx_potala",
@@ -10624,13 +10668,16 @@
             "hp": 16,
             "agi": 1
           },
-          "residentNpcIds": []
+          "residentNpcIds": [
+            "NPC-1022"
+          ]
         }
       ]
     },
     "residentNpcIds": [
       "NPC-0089",
-      "NPC-0091"
+      "NPC-0091",
+      "NPC-1022"
     ]
   },
   {
@@ -10686,7 +10733,8 @@
             ]
           },
           "residentNpcIds": [
-            "NPC-0093"
+            "NPC-0093",
+            "NPC-1030"
           ]
         },
         {
@@ -10706,7 +10754,9 @@
             ],
             "mp": 12
           },
-          "residentNpcIds": []
+          "residentNpcIds": [
+            "NPC-1026"
+          ]
         },
         {
           "id": "lx_jokhang_west",
@@ -10732,7 +10782,9 @@
     "residentNpcIds": [
       "NPC-0093",
       "NPC-0153",
-      "NPC-0752"
+      "NPC-0752",
+      "NPC-1026",
+      "NPC-1030"
     ]
   },
   {
@@ -10794,7 +10846,8 @@
             ]
           },
           "residentNpcIds": [
-            "NPC-0092"
+            "NPC-0092",
+            "NPC-1028"
           ]
         },
         {
@@ -10844,7 +10897,8 @@
     "residentNpcIds": [
       "NPC-0092",
       "NPC-0113",
-      "NPC-0997"
+      "NPC-0997",
+      "NPC-1028"
     ]
   },
   {
@@ -10872,7 +10926,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1023"
+    ]
   },
   {
     "id": "luoxie_tubo_base_tavern",
@@ -10937,7 +10993,10 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1027",
+      "NPC-1029"
+    ]
   },
   {
     "id": "luoxie_tubo_base_academy",
@@ -10971,7 +11030,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1024"
+    ]
   },
   {
     "id": "luoxie_tubo_base_inn",
@@ -11064,7 +11125,8 @@
             ]
           },
           "residentNpcIds": [
-            "NPC-0108"
+            "NPC-0108",
+            "NPC-1003"
           ]
         },
         {
@@ -11086,7 +11148,8 @@
           },
           "residentNpcIds": [
             "NPC-0144",
-            "NPC-0260"
+            "NPC-0260",
+            "NPC-1010"
           ]
         },
         {
@@ -11115,7 +11178,9 @@
       "NPC-0116",
       "NPC-0144",
       "NPC-0260",
-      "NPC-0261"
+      "NPC-0261",
+      "NPC-1003",
+      "NPC-1010"
     ]
   },
   {
@@ -11172,7 +11237,8 @@
           },
           "residentNpcIds": [
             "NPC-0086",
-            "NPC-0143"
+            "NPC-0143",
+            "NPC-1001"
           ]
         },
         {
@@ -11215,7 +11281,8 @@
             "NPC-0088",
             "NPC-0237",
             "NPC-0238",
-            "NPC-0258"
+            "NPC-0258",
+            "NPC-1004"
           ]
         }
       ]
@@ -11228,7 +11295,9 @@
       "NPC-0237",
       "NPC-0238",
       "NPC-0258",
-      "NPC-0259"
+      "NPC-0259",
+      "NPC-1001",
+      "NPC-1004"
     ]
   },
   {
@@ -11301,7 +11370,9 @@
               1
             ]
           },
-          "residentNpcIds": []
+          "residentNpcIds": [
+            "NPC-1005"
+          ]
         },
         {
           "id": "dl_chama_west",
@@ -11325,7 +11396,8 @@
     },
     "residentNpcIds": [
       "NPC-0095",
-      "NPC-0240"
+      "NPC-0240",
+      "NPC-1005"
     ]
   },
   {
@@ -11354,7 +11426,8 @@
     "hasPanoramaImage": false,
     "interior": null,
     "residentNpcIds": [
-      "NPC-0087"
+      "NPC-0087",
+      "NPC-1002"
     ]
   },
   {
@@ -11392,7 +11465,9 @@
       },
       "spots": []
     },
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1009"
+    ]
   },
   {
     "id": "dali_city_base_dojo",
@@ -11417,7 +11492,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1006"
+    ]
   },
   {
     "id": "dali_city_base_academy",
@@ -11451,7 +11528,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1008"
+    ]
   },
   {
     "id": "dali_city_base_inn",
@@ -11486,7 +11565,9 @@
       },
       "spots": []
     },
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1007"
+    ]
   },
   {
     "id": "kl_yaochi",
@@ -18958,7 +19039,8 @@
           "residentNpcIds": [
             "NPC-0090",
             "NPC-0522",
-            "NPC-0761"
+            "NPC-0761",
+            "NPC-1025"
           ]
         },
         {
@@ -18976,7 +19058,8 @@
             "agi": 1
           },
           "residentNpcIds": [
-            "NPC-0507"
+            "NPC-0507",
+            "NPC-1021"
           ]
         }
       ]
@@ -18987,7 +19070,9 @@
       "NPC-0507",
       "NPC-0522",
       "NPC-0616",
-      "NPC-0761"
+      "NPC-0761",
+      "NPC-1021",
+      "NPC-1025"
     ]
   },
   {
@@ -19421,7 +19506,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1043"
+    ]
   },
   {
     "id": "lyf_yamen",
@@ -19496,7 +19583,9 @@
             ],
             "mp": 12
           },
-          "residentNpcIds": []
+          "residentNpcIds": [
+            "NPC-1015"
+          ]
         },
         {
           "id": "lyf_yamen_west",
@@ -19517,7 +19606,8 @@
       ]
     },
     "residentNpcIds": [
-      "NPC-0077"
+      "NPC-0077",
+      "NPC-1015"
     ]
   },
   {
@@ -19853,7 +19943,9 @@
     },
     "hasPanoramaImage": false,
     "interior": null,
-    "residentNpcIds": []
+    "residentNpcIds": [
+      "NPC-1019"
+    ]
   },
   {
     "id": "liaoyang_liao_base_academy",
