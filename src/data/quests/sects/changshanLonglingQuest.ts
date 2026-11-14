@@ -494,36 +494,39 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         id: 'minzhong_temple',
         title: '第二幕 · 幽州悯忠寺（可选：义勇拳馆）',
         objective:
-          '可先赴【燕云遗民义勇拳馆】凭暗语拜会秦乾（NPC-0642）索取《幽州夜禁换防图》，随后前往【幽州悯忠寺】拜会燕云遗老取《南牧山川策》副本。',
-        nextHint: '可选先赴义勇拳馆访秦乾取换防图，再赴【幽州悯忠寺】取密图副本',
+          '可先赴【燕云遗民义勇拳馆】凭暗语拜会秦乾（NPC-0642）索取《幽州夜禁换防图》，随后前往【幽州悯忠寺 > 修竹后院议事禅堂】拜会燕云遗老取《南牧山川策》副本。',
+        nextHint: '可选先赴义勇拳馆访秦乾取换防图，再赴【幽州悯忠寺 > 修竹后院议事禅堂】取密图副本',
         targetLocation: {
           regionId: 'xijin_liao',
           buildingId: 'xj_minzhong',
-          customLabel: '析津府 · 幽州悯忠寺',
+          spotId: 'xj_mz_zen',
+          customLabel: '析津府 · 幽州悯忠寺 > 修竹后院议事禅堂',
         },
       },
       marshal_burn_map: {
         id: 'marshal_burn_map',
         title: '第二幕 · 元帅府焚图与突围',
         objective:
-          '郭逵已在东侧马厩纵火引敌，速潜入【辽南京兵马元帅府】签押房焚毁《南牧山川策》正本，并接住萧远风四合铁枪突围！',
-        nextHint: '潜入【辽南京兵马元帅府】焚毁正本并撑过萧远风 4 回合突围',
+          '郭逵已在东侧马厩纵火引敌，速潜入【辽南京兵马元帅府 > 萧氏元帅正殿与金狼大帐】焚毁《南牧山川策》正本，并接住萧远风四合铁枪突围！',
+        nextHint: '潜入【辽南京兵马元帅府 > 萧氏元帅正殿与金狼大帐】焚毁正本并撑过萧远风 4 回合突围',
         targetLocation: {
           regionId: 'xijin_liao',
           buildingId: 'xj_marshal',
-          customLabel: '析津府 · 辽南京兵马元帅府',
+          spotId: 'xj_ms_command',
+          customLabel: '析津府 · 萧氏元帅正殿与金狼大帐',
         },
       },
       yanmen_cliff: {
         id: 'yanmen_cliff',
         title: '第三幕 · 乱石绝壁死战',
         objective:
-          '西折逃至【雁门关外乱石绝壁】，可先参悟绝壁枪痕（悟性 ≥ 65 或书 ≥ 55），再择路线迎战萧远风与辽军铁林精锐！',
-        nextHint: '前往【雁门关外乱石绝壁】，选择路线迎战追兵杀入关内',
+          '西折逃至【雁门关外乱石绝壁】，可先于【绝壁石刻 · 剑痕崖】参悟绝壁枪痕（悟性 ≥ 65 或书 ≥ 55），再于【幽谷石室 · 寒玉榻】择路线迎战萧远风与辽军铁林精锐！',
+        nextHint: '前往【雁门关外乱石绝壁 > 幽谷石室 · 寒玉榻】，迎战追兵杀入关内',
         targetLocation: {
           regionId: 'yanmenguan',
           buildingId: 'ym_cliff',
-          customLabel: '雁门关 · 雁门关外乱石绝壁',
+          spotId: 'ym_cliff_main',
+          customLabel: '雁门关 · 乱石绝壁 > 幽谷石室 · 寒玉榻',
         },
       },
       guanyin_burn_names: {
@@ -1023,6 +1026,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         tone: 'gold',
         regionId: 'xijin_liao',
         buildingId: 'xj_minzhong',
+        spotId: 'xj_mz_zen',
         visibleWhen: {
           type: 'questStatus',
           questId: QUEST_ID,
@@ -1134,6 +1138,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         tone: 'danger',
         regionId: 'xijin_liao',
         buildingId: 'xj_marshal',
+        spotId: 'xj_ms_command',
         visibleWhen: {
           type: 'questStatus',
           questId: QUEST_ID,
@@ -1190,6 +1195,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         tone: 'jade',
         regionId: 'yanmenguan',
         buildingId: 'ym_cliff',
+        spotId: 'ym_cliff_east',
         visibleWhen: {
           type: 'all',
           conditions: [
@@ -1250,6 +1256,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         tone: 'danger',
         regionId: 'yanmenguan',
         buildingId: 'ym_cliff',
+        spotId: 'ym_cliff_main',
         visibleWhen: {
           type: 'questStatus',
           questId: QUEST_ID,

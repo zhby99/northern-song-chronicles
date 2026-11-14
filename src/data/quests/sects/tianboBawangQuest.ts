@@ -1290,6 +1290,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         tone: 'primary',
         regionId: 'taiyuan',
         buildingId: 'ty_yang',
+        spotId: 'ty_yang_east',
         visibleWhen: {
           type: 'all',
           conditions: [
@@ -1339,6 +1340,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         tone: 'danger',
         regionId: 'taiyuan',
         buildingId: 'ty_yang',
+        spotId: 'ty_yang_west',
         visibleWhen: {
           type: 'all',
           conditions: [
@@ -1429,6 +1431,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         tone: 'gold',
         regionId: 'wutaishan',
         buildingId: 'wt_staff',
+        spotId: 'wt_staff_main',
         visibleWhen: {
           type: 'all',
           conditions: [
@@ -1449,6 +1452,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         tone: 'primary',
         regionId: 'yanmenguan',
         buildingId: 'ym_tower',
+        spotId: 'ym_tower_east',
         visibleWhen: {
           type: 'all',
           conditions: [
@@ -1529,6 +1533,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         tone: 'danger',
         regionId: 'yanmenguan',
         buildingId: 'ym_cliff',
+        spotId: 'ym_cliff_main',
         visibleWhen: {
           type: 'all',
           conditions: [
@@ -1690,6 +1695,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         tone: 'default',
         regionId: 'taiyuan',
         buildingId: 'ty_yang',
+        spotId: 'ty_yang_main',
         visibleWhen: {
           type: 'all',
           conditions: [
@@ -1737,6 +1743,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         tone: 'default',
         regionId: 'wutaishan',
         buildingId: 'wt_staff',
+        spotId: 'wt_staff_main',
         visibleWhen: {
           type: 'all',
           conditions: [
@@ -1784,6 +1791,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         tone: 'default',
         regionId: 'yanan',
         buildingId: 'ya_camp',
+        spotId: 'ya_camp_main',
         visibleWhen: {
           type: 'all',
           conditions: [

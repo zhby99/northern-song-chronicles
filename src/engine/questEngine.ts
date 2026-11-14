@@ -1017,6 +1017,12 @@ export function validateAllRegisteredQuests(
     q.spotActions?.forEach((sa) => {
       const saPath = `${qPrefix}.spotActions(${sa.id})`
       checkLocation(saPath, sa.regionId, sa.buildingId, sa.spotId ?? undefined)
+      const bldg = BUILDING_DB_MAP[sa.buildingId]
+      if (bldg?.interior && bldg.interior.spots.length > 0 && !sa.spotId) {
+        errors.push(
+          `${saPath}: 建筑 "${sa.buildingId}" (${bldg.name}) 包含 ${bldg.interior.spots.length} 个子景点，必须明确指定 spotId（否则玩家在游戏内无法触发该行动）`,
+        )
+      }
       if (sa.visibleWhen) checkCondition(`${saPath}.visibleWhen`, sa.visibleWhen)
       if (sa.enabledWhen) checkCondition(`${saPath}.enabledWhen`, sa.enabledWhen)
       sa.effects.forEach((e, i) => checkEffect(`${saPath}.effects[${i}]`, e))
