@@ -1,7 +1,9 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   FastForward,
+  Flame,
   HelpCircle,
+  Music,
   Package,
   Shield,
   Skull,
@@ -25,6 +27,15 @@ import {
 import { getArtLevelStats } from '../../data/playerMartialArts'
 import { useGameStore } from '../../store/useGameStore'
 import { useLazyImage } from '../../utils/assetLoader'
+import {
+  duckBgmForImpact,
+  endCombatBgmSession,
+  hasBattleBgmTracks,
+  setBgmCombatMood,
+  startCombatBgmSession,
+  toggleBgmPlayback,
+  useBgmMetaState,
+} from '../../utils/bgmManager'
 import {
   canFighterEscape,
   computeDodgeChancePreview,
@@ -158,6 +169,8 @@ export function CombatOverlay() {
   const finishCombatSession = useGameStore((s) => s.finishCombatSession)
 
   const sfxEnabled = useCombatSfxEnabled()
+  const bgmMeta = useBgmMetaState()
+  const battleTracksReady = hasBattleBgmTracks()
   const [showRulesHelp, setShowRulesHelp] = useState(false)
   const [bagOpen, setBagOpen] = useState(false)
   const [bagFilter, setBagFilter] = useState<BagFilterMode>('all')
@@ -197,6 +210,19 @@ export function CombatOverlay() {
     ? (currentBeats[currentBeatIdx] ?? null)
     : null
 
+  const activeSessionId = session?.sessionId ?? null
+  const liveShownPlayerHp = session ? (activeBeat ? activeBeat.playerHp : session.player.hp) : 100
+  const liveShownNpcHp = session ? (activeBeat ? activeBeat.npcHp : session.npc.hp) : 100
+  const isVisualAftermath = Boolean(
+    session && session.outcome !== 'ongoing' && (!isAnimating || activeBeat?.kind === 'end'),
+  )
+  const isVisualClimax = Boolean(
+    session &&
+      !isVisualAftermath &&
+      (liveShownPlayerHp / Math.max(1, session.player.maxHp) <= 0.32 ||
+        liveShownNpcHp / Math.max(1, session.npc.maxHp) <= 0.32),
+  )
+
   const toggleFastMode = useCallback(() => {
     setFastMode((prev) => {
       const next = !prev
@@ -221,6 +247,27 @@ export function CombatOverlay() {
     })
   }, [session, currentRoundKey, currentBeats.length])
 
+  // 切入与退出战斗专属 BGM（自动记忆州府原曲播放秒数并在收招后丝滑续播）
+  useEffect(() => {
+    if (!activeSessionId) return
+    startCombatBgmSession()
+    return () => {
+      endCombatBgmSession()
+    }
+  }, [activeSessionId])
+
+  // 战曲情绪随交锋实况动态推进：常速激斗 -> 残血决死疾奏 (<=32% HP) -> 终局余韵低通帷幕
+  useEffect(() => {
+    if (!activeSessionId) return
+    if (isVisualAftermath) {
+      setBgmCombatMood('aftermath')
+    } else if (isVisualClimax) {
+      setBgmCombatMood('climax')
+    } else {
+      setBgmCombatMood('duel')
+    }
+  }, [activeSessionId, isVisualAftermath, isVisualClimax])
+
   // 开战拔剑战鼓声（仅同步外部 Web Audio）
   useEffect(() => {
     if (!session) {
@@ -233,7 +280,7 @@ export function CombatOverlay() {
     }
   }, [session])
 
-  // 逐拍推进演武定时器与武侠音效触发
+  // 逐拍推进演武定时器与武侠音效触发 + 重击侧链闪避混音 (Sidechain Ducking)
   useEffect(() => {
     if (!isAnimating || !activeBeat || !currentRoundKey || !session) return
 
@@ -243,6 +290,13 @@ export function CombatOverlay() {
         playSfxGuardStance()
       }
     } else if (activeBeat.kind === 'attack') {
+      duckBgmForImpact(
+        activeBeat.isCrit || activeBeat.isHeavenTier || activeBeat.shakeLevel === 3
+          ? 'heavy'
+          : activeBeat.isGuarded || activeBeat.shakeLevel === 2
+            ? 'medium'
+            : 'light',
+      )
       playSfxAttackImpact(activeBeat.vfxCategory ?? 'palm', {
         isCrit: activeBeat.isCrit,
         isGuarded: activeBeat.isGuarded,
@@ -846,6 +900,35 @@ export function CombatOverlay() {
             <span className="song-serif text-sm font-bold text-[#ffe09e] tracking-wider">
               【{sceneTitle}】 · 第 {isAnimating && lastRoundSummary ? lastRoundSummary.round : session.round} / {session.maxRounds} 合
             </span>
+
+            {/* 战阵 BGM 开关与残血决死疾奏指示 */}
+            <button
+              type="button"
+              onClick={() => toggleBgmPlayback()}
+              className={`px-2 py-0.5 rounded-full border text-[11px] flex items-center gap-1 transition cursor-pointer ${
+                !bgmMeta.enabled
+                  ? 'bg-[#1f1710] border-[#6e5a40]/40 text-[#9c8669] hover:text-[#d4be9e]'
+                  : isVisualClimax
+                    ? 'bg-[#6b1610] border-[#fb923c] text-[#ffedd5] shadow-[0_0_12px_rgba(249,115,22,0.55)] animate-pulse'
+                    : 'bg-[#2c2013] border-[#d4a455]/60 text-[#ffe3ad] hover:bg-[#3d2c1a]'
+              }`}
+              title={
+                bgmMeta.enabled
+                  ? battleTracksReady
+                    ? `当前战曲：${bgmMeta.playlist.tracks[bgmMeta.trackIndex]?.stem ?? '武林交锋战曲'}${isVisualClimax ? '（决死疾奏中！）' : ''} · 点击暂停背景乐`
+                    : '战阵背景乐已开启（沿用场景配乐；置入 audio/events/battle 或 audio/others 自动切换专属战曲）'
+                  : '点击开启背景战曲'
+              }
+            >
+              {bgmMeta.enabled && isVisualClimax ? (
+                <Flame className="w-3.5 h-3.5 text-[#fdba74]" />
+              ) : (
+                <Music className="w-3.5 h-3.5" />
+              )}
+              <span className="hidden sm:inline">
+                {!bgmMeta.enabled ? '战曲停' : isVisualClimax ? '决死曲' : '战曲开'}
+              </span>
+            </button>
 
             {/* 演武音效开关 */}
             <button

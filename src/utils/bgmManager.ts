@@ -69,11 +69,16 @@ export function resolveBgmPlaylistForState(params: {
   if (overrideEventId) {
     const evTracks = audioManifest.events[overrideEventId] ?? []
     if (evTracks.length > 0) {
+      const isBattle = overrideEventId === 'battle'
       return {
         playlistKey: `events:${overrideEventId}`,
         category: 'events',
-        sceneTitle: `事件配乐 · ${overrideEventId}`,
-        sceneSubtitle: `按序轮播 (${evTracks.length} 首)`,
+        sceneTitle: isBattle ? '武林交锋战曲' : `事件配乐 · ${overrideEventId}`,
+        sceneSubtitle: isBattle
+          ? evTracks.length === 1
+            ? '金戈铁马 · 零空白无缝循环战曲'
+            : `战阵曲库 · 共 ${evTracks.length} 首激斗轮播`
+          : `按序轮播 (${evTracks.length} 首)`,
         isFallbackToWorld: false,
         tracks: toPlaylistItems(evTracks),
       }
@@ -174,8 +179,13 @@ function readInitialVolume(): number {
   return 0.55
 }
 
+export type BgmCombatMood = 'none' | 'duel' | 'climax' | 'aftermath'
+
 let audioCtx: AudioContext | null = null
 let trackNormGain: GainNode | null = null
+let combatToneFilter: BiquadFilterNode | null = null
+let combatPresenceShelf: BiquadFilterNode | null = null
+let combatMixGain: GainNode | null = null
 let masteringLimiter: DynamicsCompressorNode | null = null
 let masterGain: GainNode | null = null
 let activeSource: AudioBufferSourceNode | null = null
@@ -183,14 +193,19 @@ let activeBuffer: AudioBuffer | null = null
 let activeBufferTrimStart = 0
 let activeBufferTrimEnd = 0
 let activeTrackLinearGain = 1.0
+let activePlaybackRate = 1.0
+let activeCombatMood: BgmCombatMood = 'none'
+let nextFadeInSec = 0.03
 let activeLoadToken = 0
 let playAnchorCtxTime = 0
 let pausedOffsetSec = 0
 let tickTimer: number | null = null
 let gestureListenersBound = false
 let activeTrackUrlLoaded: string | null = null
+let pinnedBattleTrackUrl: string | null = null
+let battlePreloadScheduled = false
 
-const MAX_DECODED_AUDIO_BUFFERS = 3
+const MAX_DECODED_AUDIO_BUFFERS = 4
 
 interface CachedDecodedAudioEntry {
   promise: Promise<AudioBuffer>
@@ -325,6 +340,9 @@ function evictOverflowAudioBuffers(forceAllIdle = false): number {
     if (url === activeTrackUrlLoaded) {
       continue
     }
+    if (!forceAllIdle && url === pinnedBattleTrackUrl) {
+      continue
+    }
     decodedBufferCache.delete(url)
     audioEvictedCount += 1
     freed += 1
@@ -344,6 +362,7 @@ let lastSceneParams: { viewMode: ViewMode; activeRegionId: string } = {
   activeRegionId: 'bianliang',
 }
 const playlistLastIndex = new Map<string, number>()
+const playlistSavedOffsets = new Map<string, number>()
 
 const metaListeners = new Set<() => void>()
 const progressListeners = new Set<() => void>()
@@ -376,13 +395,32 @@ function emitMeta() {
   }
 }
 
+function getCombatMoodTargets(mood: BgmCombatMood): {
+  mixGain: number
+  lowpassHz: number
+  shelfDb: number
+  rate: number
+} {
+  switch (mood) {
+    case 'duel':
+      return { mixGain: 0.9, lowpassHz: 20000, shelfDb: 0.5, rate: 1.0 }
+    case 'climax':
+      return { mixGain: 0.98, lowpassHz: 20000, shelfDb: 2.4, rate: 1.048 }
+    case 'aftermath':
+      return { mixGain: 0.28, lowpassHz: 920, shelfDb: -2.0, rate: 1.0 }
+    case 'none':
+    default:
+      return { mixGain: 1.0, lowpassHz: 20000, shelfDb: 0.0, rate: 1.0 }
+  }
+}
+
 function computeLiveProgress(): BgmProgressSnapshot {
   if (!activeBuffer) {
     return { currentTime: 0, duration: 0 }
   }
   const span = Math.max(0.1, activeBufferTrimEnd - activeBufferTrimStart)
   if (audioCtx && metaSnapshot.isPlaying) {
-    const elapsed = Math.max(0, audioCtx.currentTime - playAnchorCtxTime)
+    const elapsed = Math.max(0, (audioCtx.currentTime - playAnchorCtxTime) * activePlaybackRate)
     const cur =
       metaSnapshot.playlist.tracks.length === 1 ? elapsed % span : Math.min(span, elapsed)
     return { currentTime: cur, duration: span }
@@ -422,9 +460,24 @@ function ensureAudioContext(): AudioContext | null {
     if (!Ctor) return null
     audioCtx = new Ctor()
 
-    // Per-track EBU R128 loudness normalization gain -> soft ceiling limiter -> user master volume
+    const moodTargets = getCombatMoodTargets(activeCombatMood)
+
+    // Per-track EBU R128 loudness normalization -> dynamic combat EQ/ducking -> soft ceiling limiter -> user master volume
     trackNormGain = audioCtx.createGain()
     trackNormGain.gain.value = activeTrackLinearGain
+
+    combatToneFilter = audioCtx.createBiquadFilter()
+    combatToneFilter.type = 'lowpass'
+    combatToneFilter.frequency.value = moodTargets.lowpassHz
+    combatToneFilter.Q.value = 0.7
+
+    combatPresenceShelf = audioCtx.createBiquadFilter()
+    combatPresenceShelf.type = 'highshelf'
+    combatPresenceShelf.frequency.value = 2400
+    combatPresenceShelf.gain.value = moodTargets.shelfDb
+
+    combatMixGain = audioCtx.createGain()
+    combatMixGain.gain.value = moodTargets.mixGain
 
     masteringLimiter = audioCtx.createDynamicsCompressor()
     masteringLimiter.threshold.value = -2.0
@@ -436,7 +489,10 @@ function ensureAudioContext(): AudioContext | null {
     masterGain = audioCtx.createGain()
     masterGain.gain.value = metaSnapshot.volume
 
-    trackNormGain.connect(masteringLimiter)
+    trackNormGain.connect(combatToneFilter)
+    combatToneFilter.connect(combatPresenceShelf)
+    combatPresenceShelf.connect(combatMixGain)
+    combatMixGain.connect(masteringLimiter)
     masteringLimiter.connect(masterGain)
     masterGain.connect(audioCtx.destination)
   }
@@ -572,9 +628,12 @@ function startBufferSourceFromOffset(offsetWithinTrimmedSec: number) {
   const isSingleLoop = metaSnapshot.playlist.tracks.length === 1
   const span = Math.max(0.05, activeBufferTrimEnd - activeBufferTrimStart)
   const safeOffset = ((offsetWithinTrimmedSec % span) + span) % span
+  const moodTargets = getCombatMoodTargets(activeCombatMood)
+  activePlaybackRate = moodTargets.rate
 
   const src = ctx.createBufferSource()
   src.buffer = activeBuffer
+  src.playbackRate.value = activePlaybackRate
   src.loop = isSingleLoop
   if (isSingleLoop) {
     src.loopStart = activeBufferTrimStart
@@ -585,11 +644,22 @@ function startBufferSourceFromOffset(offsetWithinTrimmedSec: number) {
   trackNormGain.gain.cancelScheduledValues(now)
   trackNormGain.gain.setValueAtTime(activeTrackLinearGain, now)
 
-  // Smooth 30ms micro fade-in on initial start/seek to eliminate any click from mid-waveform start;
-  // subsequent loop wraps inside BufferSourceNode stay at steady gain with 0-sample seamlessness!
+  if (combatToneFilter && combatPresenceShelf && combatMixGain) {
+    combatToneFilter.frequency.cancelScheduledValues(now)
+    combatToneFilter.frequency.setValueAtTime(moodTargets.lowpassHz, now)
+    combatPresenceShelf.gain.cancelScheduledValues(now)
+    combatPresenceShelf.gain.setValueAtTime(moodTargets.shelfDb, now)
+    combatMixGain.gain.cancelScheduledValues(now)
+    combatMixGain.gain.setValueAtTime(moodTargets.mixGain, now)
+  }
+
+  const fadeSec = Math.max(0.025, nextFadeInSec)
+  nextFadeInSec = 0.03
+
+  // Smooth fade-in on initial start/seek/resume; subsequent hardware loop wraps stay 0-sample seamless!
   masterGain.gain.cancelScheduledValues(now)
   masterGain.gain.setValueAtTime(0.0001, now)
-  masterGain.gain.linearRampToValueAtTime(metaSnapshot.volume, now + 0.03)
+  masterGain.gain.linearRampToValueAtTime(metaSnapshot.volume, now + fadeSec)
 
   src.connect(trackNormGain)
 
@@ -599,13 +669,14 @@ function startBufferSourceFromOffset(offsetWithinTrimmedSec: number) {
 
   src.start(0, activeBufferTrimStart + safeOffset)
   activeSource = src
-  playAnchorCtxTime = now - safeOffset
+  playAnchorCtxTime = now - safeOffset / activePlaybackRate
   pausedOffsetSec = safeOffset
   metaSnapshot.isPlaying = true
   metaSnapshot.awaitingGesture = false
   updateProgressTimerState()
   syncProgressSnapshot(true)
   emitMeta()
+  scheduleBackgroundBattlePreload()
 }
 
 async function loadAndPlayCurrentTrack(autoPlay: boolean) {
@@ -722,8 +793,34 @@ function bindUnlockGesture() {
   }
 }
 
+export function hasBattleBgmTracks(): boolean {
+  return (audioManifest.events.battle?.length ?? 0) > 0
+}
+
+export function preloadBattleBgm(): void {
+  const battleTracks = audioManifest.events.battle ?? []
+  if (battleTracks.length === 0) return
+  const firstItem = toPlaylistItems(battleTracks)[0]
+  if (!firstItem) return
+  pinnedBattleTrackUrl = firstItem.url
+  if (decodedBufferCache.has(firstItem.url)) return
+  void fetchAndDecodeBuffer(firstItem).catch(() => {
+    // Non-fatal background warm-up
+  })
+}
+
+function scheduleBackgroundBattlePreload() {
+  if (battlePreloadScheduled || typeof window === 'undefined' || !hasBattleBgmTracks()) return
+  battlePreloadScheduled = true
+  window.setTimeout(() => {
+    preloadBattleBgm()
+  }, 650)
+}
+
 export function syncBgmSceneContext(viewMode: ViewMode, activeRegionId: string) {
   lastSceneParams = { viewMode, activeRegionId }
+  const prevPlaylist = metaSnapshot.playlist
+  const prevKey = prevPlaylist.playlistKey
   const nextPlaylist = resolveBgmPlaylistForState({
     viewMode,
     activeRegionId,
@@ -731,7 +828,7 @@ export function syncBgmSceneContext(viewMode: ViewMode, activeRegionId: string) 
     overrideEventId,
   })
 
-  const keyChanged = nextPlaylist.playlistKey !== metaSnapshot.playlist.playlistKey
+  const keyChanged = nextPlaylist.playlistKey !== prevKey
   if (!keyChanged) {
     const currentItem = getActiveTrackItem()
     if (currentItem && activeTrackUrlLoaded === currentItem.url) {
@@ -739,6 +836,13 @@ export function syncBgmSceneContext(viewMode: ViewMode, activeRegionId: string) 
       emitMeta()
       return
     }
+  }
+
+  // Bookmark outgoing world/region playback position before switching to battle/event BGM
+  if (keyChanged && prevPlaylist.category !== 'events' && prevPlaylist.tracks.length > 0) {
+    const livePos = computeLiveProgress().currentTime
+    playlistSavedOffsets.set(prevKey, livePos)
+    playlistLastIndex.set(prevKey, metaSnapshot.trackIndex)
   }
 
   // 同曲共享不断曲：若新场景/新州府歌单中包含当前正在播放（或已解码待奏）的同一音轨 URL，
@@ -773,10 +877,31 @@ export function syncBgmSceneContext(viewMode: ViewMode, activeRegionId: string) 
     return
   }
 
+  const nextKey = nextPlaylist.playlistKey
+  const trackCount = nextPlaylist.tracks.length
+  let nextTrackIdx = 0
+  let nextOffsetSec = 0
+
+  if (nextKey === 'events:battle' && trackCount > 0) {
+    // Rotate across multiple battle tracks if the player placed several in events/battle or others/
+    const lastBattleIdx = playlistLastIndex.get(nextKey)
+    nextTrackIdx = lastBattleIdx !== undefined ? (lastBattleIdx + 1) % trackCount : 0
+    nextOffsetSec = 0
+    nextFadeInSec = 0.05
+  } else if (prevPlaylist.category === 'events' && nextPlaylist.category !== 'events') {
+    // Returning from battle/event back to city/world: seamlessly resume from bookmarked timestamp!
+    const savedIdx = playlistLastIndex.get(nextKey) ?? 0
+    nextTrackIdx = trackCount > 0 ? Math.min(trackCount - 1, Math.max(0, savedIdx)) : 0
+    nextOffsetSec = playlistSavedOffsets.get(nextKey) ?? 0
+    nextFadeInSec = 0.48
+  } else {
+    nextFadeInSec = 0.04
+  }
+
   metaSnapshot.playlist = nextPlaylist
-  metaSnapshot.trackIndex = 0
-  pausedOffsetSec = 0
-  playlistLastIndex.set(nextPlaylist.playlistKey, 0)
+  metaSnapshot.trackIndex = nextTrackIdx
+  pausedOffsetSec = nextOffsetSec
+  playlistLastIndex.set(nextKey, nextTrackIdx)
   activeTrackUrlLoaded = getActiveTrackItem()?.url ?? null
   void loadAndPlayCurrentTrack(true)
 }
@@ -785,6 +910,84 @@ export function setBgmOverride(opts: { characterId?: string | null; eventId?: st
   if (opts.characterId !== undefined) overrideCharacterId = opts.characterId
   if (opts.eventId !== undefined) overrideEventId = opts.eventId
   syncBgmSceneContext(lastSceneParams.viewMode, lastSceneParams.activeRegionId)
+}
+
+/**
+ * Dynamically adjust battle BGM tempo, brightness, and curtain-call low-pass filter:
+ * - `'duel'`: clean headroom for weapon SFX
+ * - `'climax'`: +4.8% adrenaline speed & upper-mid presence when either fighter <= 32% HP
+ * - `'aftermath'`: warm muffled 920 Hz curtain-call bed on victory/defeat banner
+ * - `'none'`: transparent peaceful exploration mix
+ */
+export function setBgmCombatMood(mood: BgmCombatMood) {
+  if (activeCombatMood === mood) return
+  activeCombatMood = mood
+
+  const ctx = audioCtx
+  if (!ctx) return
+
+  const now = ctx.currentTime
+  const targets = getCombatMoodTargets(mood)
+
+  if (activeSource && activePlaybackRate !== targets.rate) {
+    // Rebase playAnchorCtxTime before changing playbackRate so progress tracking stays continuous
+    const liveCur = computeLiveProgress().currentTime
+    activePlaybackRate = targets.rate
+    playAnchorCtxTime = now - liveCur / activePlaybackRate
+    activeSource.playbackRate.cancelScheduledValues(now)
+    activeSource.playbackRate.setTargetAtTime(targets.rate, now, 0.22)
+  } else {
+    activePlaybackRate = targets.rate
+  }
+
+  if (combatToneFilter) {
+    combatToneFilter.frequency.cancelScheduledValues(now)
+    combatToneFilter.frequency.setTargetAtTime(
+      targets.lowpassHz,
+      now,
+      mood === 'aftermath' ? 0.26 : 0.16,
+    )
+  }
+  if (combatPresenceShelf) {
+    combatPresenceShelf.gain.cancelScheduledValues(now)
+    combatPresenceShelf.gain.setTargetAtTime(targets.shelfDb, now, 0.18)
+  }
+  if (combatMixGain) {
+    combatMixGain.gain.cancelScheduledValues(now)
+    combatMixGain.gain.setTargetAtTime(targets.mixGain, now, mood === 'aftermath' ? 0.24 : 0.14)
+  }
+}
+
+/**
+ * Sidechain-style BGM micro-ducking on weapon/palm impacts so crits & Heaven-Tier strikes
+ * punch through the battle music with visceral clarity before swelling right back up.
+ */
+export function duckBgmForImpact(strength: 'light' | 'medium' | 'heavy') {
+  if (!audioCtx || !combatMixGain || !metaSnapshot.isPlaying) return
+  if (activeCombatMood === 'aftermath') return
+
+  const now = audioCtx.currentTime
+  const baseGain = getCombatMoodTargets(activeCombatMood).mixGain
+  const dipRatio = strength === 'heavy' ? 0.46 : strength === 'medium' ? 0.66 : 0.82
+  const dipGain = Math.max(0.12, baseGain * dipRatio)
+  const holdSec = strength === 'heavy' ? 0.055 : 0.025
+  const releaseSec = strength === 'heavy' ? 0.34 : strength === 'medium' ? 0.22 : 0.15
+
+  combatMixGain.gain.cancelScheduledValues(now)
+  combatMixGain.gain.setValueAtTime(combatMixGain.gain.value, now)
+  combatMixGain.gain.linearRampToValueAtTime(dipGain, now + 0.014)
+  combatMixGain.gain.setValueAtTime(dipGain, now + 0.014 + holdSec)
+  combatMixGain.gain.linearRampToValueAtTime(baseGain, now + 0.014 + holdSec + releaseSec)
+}
+
+export function startCombatBgmSession() {
+  setBgmCombatMood('duel')
+  setBgmOverride({ eventId: 'battle' })
+}
+
+export function endCombatBgmSession() {
+  setBgmCombatMood('none')
+  setBgmOverride({ eventId: null })
 }
 
 export function selectBgmTrackIndex(index: number) {

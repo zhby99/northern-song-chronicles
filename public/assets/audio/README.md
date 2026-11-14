@@ -8,7 +8,7 @@
 
 | 分类目录 | 触发时机与优先级规则 | 命名与覆盖示例 |
 | :--- | :--- | :--- |
-| `events/<eventId>/` | **事件配乐（最高优先级）**：触发奇遇、廷议、三择一武侠回合交锋时切入 | `events/battle/1.mp3`, `events/battle/2.mp3`... |
+| `events/<eventId>/`（兼容 `others/`） | **事件与战阵配乐（最高优先级）**：触发武侠回合交锋时自动切入战曲（记忆州府原曲秒数、重击侧链闪避、残血决死疾奏、终局余韵帷幕，收剑后无缝续播原曲） | `events/battle/1.mp3` 或直接放入 `others/` 任意音频文件 |
 | `characters/<npcId>/` | **人物配乐（次高优先级）**：触发关键历史名臣/大侠专属交互时切入 | `characters/NPC-0001/1.mp3`, `characters/NPC-0110/1.mp3` |
 | `regions/<regionId>/` | **地区独立专属配乐（已预建全部 43 个地区目录）**：只要目录内放入音频文件，即自动优先覆盖共享曲目 | 开封府：`regions/bianliang/1.mp3`；京兆府自定义覆盖：`regions/changan/1.mp3` |
 | `shared/` + `shared/region_themes.json` | **跨州同曲共享池（去重省空间 63.5 MB）**：当 `regions/<regionId>/` 下暂无独立音频时，按 `region_themes.json` 自动挂载对应地域雅乐 | 河朔京畿 `shared/northern_prefectures.mp3`、大辽四京 `shared/liao_capitals.mp3` 等 8 首共享曲 |

@@ -57,7 +57,11 @@ interface LoudnessProfilesFile {
   tracks?: Record<string, LoudnessProfileEntry>
 }
 
-const AUDIO_EXT_RE = /\.(mp3|m4a|ogg|wav|aac|flac)$/i
+const AUDIO_EXT_RE = /\.(mp3|m4a|ogg|opus|wav|aac|flac|webm)$/i
+
+function encodeUrlFileName(name: string): string {
+  return encodeURIComponent(name)
+}
 
 function parseNumericOrder(stem: string): number {
   const m = stem.match(/^(\d+)/)
@@ -78,12 +82,35 @@ function readTrackListInDir(absDir: string, webPrefix: string): ScannedAudioTrac
     const stat = fs.statSync(fullPath)
     const stem = entry.name.replace(AUDIO_EXT_RE, '')
     tracks.push({
-      url: `${webPrefix}/${entry.name}`,
+      url: `${webPrefix}/${encodeUrlFileName(entry.name)}`,
       fileName: entry.name,
       stem,
       order: parseNumericOrder(stem),
       bytes: stat.size,
     })
+  }
+  return tracks.sort(compareTracks)
+}
+
+function readRecursiveTrackListInDir(absDir: string, webPrefix: string): ScannedAudioTrack[] {
+  if (!fs.existsSync(absDir)) return []
+  const tracks: ScannedAudioTrack[] = []
+  for (const entry of fs.readdirSync(absDir, { withFileTypes: true })) {
+    const fullPath = path.join(absDir, entry.name)
+    const encodedName = encodeUrlFileName(entry.name)
+    if (entry.isDirectory()) {
+      tracks.push(...readRecursiveTrackListInDir(fullPath, `${webPrefix}/${encodedName}`))
+    } else if (entry.isFile() && AUDIO_EXT_RE.test(entry.name)) {
+      const stat = fs.statSync(fullPath)
+      const stem = entry.name.replace(AUDIO_EXT_RE, '')
+      tracks.push({
+        url: `${webPrefix}/${encodedName}`,
+        fileName: entry.name,
+        stem,
+        order: parseNumericOrder(stem),
+        bytes: stat.size,
+      })
+    }
   }
   return tracks.sort(compareTracks)
 }
@@ -99,7 +126,7 @@ function readGroupedAudioCategory(
     if (entry.isDirectory()) {
       const subTracks = readTrackListInDir(
         path.join(categoryAbsDir, entry.name),
-        `${webCategoryPrefix}/${entry.name}`,
+        `${webCategoryPrefix}/${encodeUrlFileName(entry.name)}`,
       )
       if (subTracks.length > 0) {
         map[entry.name] = subTracks
@@ -114,7 +141,7 @@ function readGroupedAudioCategory(
       const order = groupMatch ? Number.parseInt(groupMatch[2], 10) : parseNumericOrder(stem)
       if (!map[key]) map[key] = []
       map[key].push({
-        url: `${webCategoryPrefix}/${entry.name}`,
+        url: `${webCategoryPrefix}/${encodeUrlFileName(entry.name)}`,
         fileName: entry.name,
         stem,
         order,
@@ -147,7 +174,7 @@ function applySharedRegionThemes(
         const stat = fs.statSync(absFile)
         const stem = fileName.replace(AUDIO_EXT_RE, '')
         sharedTracks.push({
-          url: `/assets/audio/shared/${fileName}`,
+          url: `/assets/audio/shared/${encodeUrlFileName(fileName)}`,
           fileName,
           stem,
           order: idx + 1,
@@ -201,6 +228,24 @@ function scanAudioManifest(rootDir: string): ScannedAudioManifest {
     '/assets/audio/characters',
   )
   const events = readGroupedAudioCategory(path.join(audioRoot, 'events'), '/assets/audio/events')
+
+  // Automatically pick up any battle BGM dropped into `public/assets/audio/others/`
+  // alongside canonical `public/assets/audio/events/battle/` tracks.
+  const othersTracks = readRecursiveTrackListInDir(
+    path.join(audioRoot, 'others'),
+    '/assets/audio/others',
+  )
+  if (othersTracks.length > 0) {
+    const existingBattle = events.battle ?? []
+    const seenBattleUrls = new Set(existingBattle.map((t) => t.url))
+    for (const t of othersTracks) {
+      if (!seenBattleUrls.has(t.url)) {
+        existingBattle.push(t)
+        seenBattleUrls.add(t.url)
+      }
+    }
+    events.battle = existingBattle
+  }
 
   const allTrackRefs: ScannedAudioTrack[] = [...world]
   const uniqueUrls = new Set<string>()
