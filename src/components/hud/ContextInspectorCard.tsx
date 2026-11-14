@@ -28,6 +28,7 @@ import {
   isInnBuildingRecord,
   isPlayerInOwnSectRegion,
 } from '../../utils/heroStats'
+import { getBuildingArtTrainingOptions } from '../../utils/artsProgression'
 import {
   findBestRoute,
   getRegionAllBuildings,
@@ -725,6 +726,74 @@ export function ContextInspectorCard() {
           藏经阁闭关研读经义（30天 · 经义 +1）
         </button>
       )}
+
+      {(() => {
+        if (!inspectedRootBldg) return null
+        const artOptions = getBuildingArtTrainingOptions(inspectedRootBldg)
+        if (artOptions.length === 0) return null
+        const venueLabel = `${regionNode.name} · ${inspectedRootBldg.name}`
+        return (
+          <div className="p-2.5 rounded-md bg-[#f5ecd7] border border-[#bfa373] space-y-2">
+            <div className="flex items-center justify-between gap-2">
+              <div className="text-xs font-bold song-serif text-[#5c3d1e]">
+                ◆ 此处可修十艺（0.1秒/时辰 · 按 ESC 随时收功）
+              </div>
+              <span className="text-[10px] text-[#7a6142]">
+                效率 {Math.round(artOptions[0]!.envMultiplier * 100)}%
+              </span>
+            </div>
+            {!isAtCurrentRegion ? (
+              <div className="text-[11px] text-[#8f1d14] bg-[#efe4cc] px-2 py-1 rounded border border-[#d6b38b]">
+                🔒 须亲临【{regionNode.name}】此建筑方可在此修行十艺
+              </div>
+            ) : (
+              <div className="space-y-1.5 max-h-52 overflow-y-auto pr-0.5">
+                {artOptions.map((opt) => (
+                  <div
+                    key={opt.artKey}
+                    className="rounded border border-[#d6c29b] bg-[#fdfaf1] px-2 py-1.5 text-[11px]"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <span className="font-bold text-[#4a2e16]">{opt.actionTitle}</span>
+                        <span className="ml-1.5 text-[10px] text-[#8c3b20]">
+                          [{opt.artKey}]
+                        </span>
+                      </div>
+                      <span className="text-[10px] text-[#7a6142]">
+                        {opt.dailySilverCost > 0 ? `${opt.dailySilverCost}两/日` : '免费'}
+                      </span>
+                    </div>
+                    <div className="text-[10px] text-[#6e5638] mt-0.5">{opt.desc}</div>
+                    <div className="mt-1 flex items-center gap-1.5">
+                      {([3, 10, 30] as const).map((days) => (
+                        <button
+                          key={days}
+                          type="button"
+                          onClick={() =>
+                            useGameStore
+                              .getState()
+                              .startTenArtPractice(
+                                opt.artKey,
+                                days,
+                                venueLabel,
+                                opt.envMultiplier,
+                                opt.dailySilverCost,
+                              )
+                          }
+                          className="cursor-pointer rounded border border-[#b79560] bg-[#f4e8ce] px-2 py-0.5 text-[10px] font-semibold text-[#4a2e16] hover:bg-[#ead6ae] transition"
+                        >
+                          修行 {days} 日
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )
+      })()}
 
       {(() => {
         const activeShopId = leafSpotId ?? leafBuildingId

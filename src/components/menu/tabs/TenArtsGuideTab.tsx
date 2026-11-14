@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useGameStore } from '../../../store/useGameStore'
-import type { TenArtKey } from '../../../types/game'
 import {
   computeDailyArtExpGain,
   getArtStageLabel,
@@ -13,16 +12,8 @@ export const TenArtsGuideTab: React.FC = () => {
   const baseStats = useGameStore((s) => s.baseStats)
   const artExps = useGameStore((s) => s.artExps)
   const artMilestoneFlags = useGameStore((s) => s.artMilestoneFlags)
-  const studyArtSkill = useGameStore((s) => s.studyArtSkill)
-  const [feedback, setFeedback] = useState<string | null>(null)
 
   const dailyGain = computeDailyArtExpGain(baseStats.talents.悟性, 1.0, 0)
-
-  const handleQuickStudy = (artKey: TenArtKey, days: number) => {
-    const cost = days * 1 // 每日 1 两笔墨束脩
-    const res = studyArtSkill(artKey, days, 1.0, cost, `研习【${artKey}】`)
-    setFeedback(res.message)
-  }
 
   return (
     <div className="space-y-4">
@@ -34,7 +25,7 @@ export const TenArtsGuideTab: React.FC = () => {
               北宋十艺百工 · 五年（1,800 日）修习总纲
             </h3>
             <p className="mt-0.5 text-xs text-[#6f5536]">
-              每门艺业从 0 级修至 100 级需累积 <span className="font-bold text-[#8c3b20]">180,000</span> 点经验（标准日修 100 点，约合 5 年不间断研习；受悟性、雅器与名宿唱和加成）。
+              每门艺业从 0 级修至 100 级需累积 <span className="font-bold text-[#8c3b20]">180,000</span> 点经验（标准日修 100 点，约合 5 年不间断研习；需亲临对应州府的书院、府衙、校场、寺庙、酒楼等建筑点选修行）。
             </p>
           </div>
           <div className="rounded border border-[#c7ab7c] bg-[#fffaf0] px-3 py-1.5 text-xs text-[#5c3d1e]">
@@ -74,12 +65,6 @@ export const TenArtsGuideTab: React.FC = () => {
           </ul>
         </div>
       </div>
-
-      {feedback && (
-        <div className="rounded border border-[#96b084] bg-[#eef5e8] px-3 py-2 text-xs font-medium text-[#2c4a22]">
-          {feedback}
-        </div>
-      )}
 
       {/* 十艺逐项指引卡片 */}
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -144,26 +129,12 @@ export const TenArtsGuideTab: React.FC = () => {
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="text-[11px] font-medium text-[#8c3b20]">
                     {item.milestoneText}
-                    {(got80 || got90) && (
-                      <span className="ml-1.5 rounded bg-[#e1efe0] px-1 py-0.5 text-[10px] text-[#2c5e2e]">
-                        {got90 ? '90级已达标' : '80级已达标'}
-                      </span>
-                    )}
                   </div>
-                  <div className="flex items-center gap-1">
-                    {[1, 5, 10].map((d) => (
-                      <button
-                        key={d}
-                        type="button"
-                        onClick={() => handleQuickStudy(item.key, d)}
-                        disabled={currentLv >= 100}
-                        className="rounded border border-[#b79560] bg-[#f4e8ce] px-2 py-0.5 text-[11px] font-medium text-[#4a2e16] hover:bg-[#ead6ae] disabled:cursor-not-allowed disabled:opacity-45"
-                        title={`消耗 ${d} 日与 ${d} 两银两研习【${item.key}】`}
-                      >
-                        修{d}日
-                      </button>
-                    ))}
-                  </div>
+                  {(got80 || got90) && (
+                    <span className="rounded bg-[#e1efe0] px-1.5 py-0.5 text-[10px] font-semibold text-[#2c5e2e]">
+                      {got90 ? '90级已达标' : '80级已达标'}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

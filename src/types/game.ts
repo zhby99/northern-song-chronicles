@@ -508,7 +508,7 @@ export type SaveSlotId =
 // ============================================================================
 
 export type CultivationVenueKind = 'sect_grounds' | 'inn' | 'wilderness_camp'
-export type CultivationDurationMode = 1 | 7 | 30 | 'until_breakthrough'
+export type CultivationDurationMode = 1 | 3 | 7 | 10 | 30 | 'until_breakthrough'
 
 export interface CultivationVenueStatus {
   venue: CultivationVenueKind | null
@@ -521,13 +521,14 @@ export interface CultivationVenueStatus {
 }
 
 export interface CultivationSessionState {
-  kind?: 'martial_art' | 'scripture'
+  kind?: 'martial_art' | 'scripture' | 'ten_art'
+  tenArtKey?: TenArtKey
   artId: string
   artName: string
   artCleanName: string
   artFullTier: string
   mode: CultivationDurationMode
-  venue: CultivationVenueKind
+  venue: CultivationVenueKind | 'city_building'
   venueLabel: string
   multiplier: number
   dailySilverCost: number

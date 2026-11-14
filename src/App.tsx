@@ -137,10 +137,15 @@ export function App() {
     return () => window.clearInterval(timer)
   }, [isTraveling, gameOver, activeCombat, activeStoryScene, stepTravelTick])
 
-  // 闭关吐纳时钟：武学每 0.125s 走 1 时辰（1.5s/日）；藏经阁研读每 0.2s 走 1 天（1s 过 5 天）
+  // 闭关吐纳时钟：武学每 0.125s 走 1 时辰；十艺修行每 0.1s 走 1 时辰；藏经阁研读每 0.2s 走 1 天
   useEffect(() => {
     if (!isCultivating || gameOver || activeCombat || activeStoryScene) return
-    const tickMs = cultivationKind === 'scripture' ? 200 : 125
+    const tickMs =
+      cultivationKind === 'scripture'
+        ? 200
+        : cultivationKind === 'ten_art'
+          ? 100
+          : 125
     const timer = window.setInterval(() => {
       stepCultivationTick()
     }, tickMs)

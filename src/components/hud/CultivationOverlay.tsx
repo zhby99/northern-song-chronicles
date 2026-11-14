@@ -1,22 +1,49 @@
 import { MARTIAL_ART_DB_MAP } from '../../data/gameDb'
 import { getArtExpRequired } from '../../data/playerMartialArts'
 import { useGameStore } from '../../store/useGameStore'
+import {
+  getArtStageLabel,
+  getExpForArtLevel,
+  MAX_ART_EXP,
+} from '../../utils/artsProgression'
 
 export function CultivationOverlay() {
   const session = useGameStore((s) => s.cultivationSession)
   const learnedArts = useGameStore((s) => s.learnedArts)
+  const baseStats = useGameStore((s) => s.baseStats)
+  const artExps = useGameStore((s) => s.artExps)
   const stopCultivationEarly = useGameStore((s) => s.stopCultivationEarly)
 
   if (!session) return null
 
   const isScripture = session.kind === 'scripture'
-  const art = isScripture ? undefined : MARTIAL_ART_DB_MAP[session.artId]
-  const curEntry = isScripture ? undefined : learnedArts.find((x) => x.artId === session.artId)
-  const curLevel = curEntry?.level ?? session.startLevel
-  const curExp = curEntry?.exp ?? session.startExp
-  const reqExp = art ? getArtExpRequired(art, curLevel) : 0
-  const expPct =
-    curLevel >= 10 ? 100 : reqExp > 0 ? Math.min(100, Math.round((curExp / reqExp) * 100)) : 0
+  const isTenArt = session.kind === 'ten_art' && Boolean(session.tenArtKey)
+  const tenArtKey = session.tenArtKey
+
+  const art = isScripture || isTenArt ? undefined : MARTIAL_ART_DB_MAP[session.artId]
+  const curEntry =
+    isScripture || isTenArt ? undefined : learnedArts.find((x) => x.artId === session.artId)
+
+  const tenArtLv =
+    isTenArt && tenArtKey
+      ? tenArtKey === '骑术'
+        ? baseStats.ridingSkill
+        : (baseStats.skills[tenArtKey] ?? 0)
+      : 0
+  const tenArtExp =
+    isTenArt && tenArtKey ? (artExps[tenArtKey] ?? getExpForArtLevel(tenArtLv)) : 0
+  const tenArtPct = Math.min(100, Math.round((tenArtExp / MAX_ART_EXP) * 1000) / 10)
+
+  const curLevel = isTenArt ? tenArtLv : (curEntry?.level ?? session.startLevel)
+  const curExp = isTenArt ? tenArtExp : (curEntry?.exp ?? session.startExp)
+  const reqExp = isTenArt ? MAX_ART_EXP : art ? getArtExpRequired(art, curLevel) : 0
+  const expPct = isTenArt
+    ? tenArtPct
+    : curLevel >= 10
+      ? 100
+      : reqExp > 0
+        ? Math.min(100, Math.round((curExp / reqExp) * 100))
+        : 0
 
   const fullDays = Math.floor(session.shichensElapsed / 12)
   const remShichen = session.shichensElapsed % 12
@@ -34,10 +61,12 @@ export function CultivationOverlay() {
 
   const costSummary =
     session.silverSpent > 0
-      ? `宿费 -${session.silverSpent} 两`
+      ? `${isTenArt ? '束脩' : '宿费'} -${session.silverSpent} 两`
       : session.foodSpent > 0
         ? `干粮 -${session.foodSpent} 份`
-        : '师门驻地免费'
+        : isTenArt
+          ? '免费修行'
+          : '师门驻地免费'
 
   return (
     <div
@@ -50,31 +79,38 @@ export function CultivationOverlay() {
 
         <div className="relative flex flex-col items-center text-center">
           <div className="text-[11px] tracking-[0.25em] text-[#c89d54] song-serif mb-1">
-            {session.venueLabel} · {isScripture ? '焚香诵经' : '周天吐纳'}
+            {session.venueLabel} ·{' '}
+            {isScripture ? '焚香诵经' : isTenArt ? '十艺研习' : '周天吐纳'}
           </div>
 
           <div className="cultivation-breathe my-2 inline-flex items-center justify-center rounded-full border border-[#c89d54]/60 bg-[#3b2514]/80 px-7 py-2 shadow-inner">
             <span className="song-serif text-3xl font-bold tracking-[0.35em] pl-[0.35em] text-[#fde6b8]">
-              闭关中
+              {isTenArt ? '修行中' : '闭关中'}
             </span>
           </div>
 
           <div className="mt-2 text-sm font-semibold text-[#f8e7c4] song-serif">
             {session.artName}
             <span className="ml-2 text-xs font-normal text-[#c89d54]">
-              {isScripture ? `当前经义 ${session.startLevel} 点` : `${session.artFullTier} · 第 ${curLevel} 重`}
+              {isScripture
+                ? `当前经义 ${session.startLevel} 点`
+                : isTenArt
+                  ? `Lv.${curLevel} / 100 · ${getArtStageLabel(curLevel)}`
+                  : `${session.artFullTier} · 第 ${curLevel} 重`}
             </span>
           </div>
 
-          {/* 武学当前火候进度条（经义闭关不显示火候条） */}
+          {/* 进度条（武学火候 / 十艺修为） */}
           {!isScripture && (
             <div className="mt-3 w-full">
               <div className="flex justify-between text-[11px] text-[#d6be96] mb-1">
-                <span>当前火候</span>
+                <span>{isTenArt ? '十艺累积修为' : '当前火候'}</span>
                 <span>
-                  {curLevel >= 10
-                    ? '第 10 重圆满'
-                    : `${curExp.toLocaleString()} / ${reqExp.toLocaleString()} (${expPct}%)`}
+                  {isTenArt
+                    ? `${curExp.toLocaleString()} / ${MAX_ART_EXP.toLocaleString()} (${expPct}%)`
+                    : curLevel >= 10
+                      ? '第 10 重圆满'
+                      : `${curExp.toLocaleString()} / ${reqExp.toLocaleString()} (${expPct}%)`}
                 </span>
               </div>
               <div className="h-2 w-full overflow-hidden rounded-full bg-[#3a2819] border border-[#6e5233]/60">
@@ -86,11 +122,17 @@ export function CultivationOverlay() {
             </div>
           )}
 
-          {/* 固定天数闭关时辰进度条 */}
+          {/* 固定天数时程进度条 */}
           {timePct !== null && (
             <div className="mt-3 w-full">
               <div className="flex justify-between text-[11px] text-[#d6be96] mb-1">
-                <span>{isScripture ? '研读时程（目标 30 天）' : `闭关时程（目标 ${session.mode} 天）`}</span>
+                <span>
+                  {isScripture
+                    ? '研读时程（目标 30 天）'
+                    : isTenArt
+                      ? `修行时程（目标 ${session.mode} 天）`
+                      : `闭关时程（目标 ${session.mode} 天）`}
+                </span>
                 <span>{timePct}%</span>
               </div>
               <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#3a2819] border border-[#6e5233]/50">
@@ -105,11 +147,15 @@ export function CultivationOverlay() {
           {/* 实时统计信息 */}
           <div className="mt-4 grid w-full grid-cols-3 gap-2 rounded-lg border border-[#6e5233]/50 bg-[#181009]/70 px-3 py-2.5 text-xs">
             <div>
-              <div className="text-[10px] text-[#a98f68]">{isScripture ? '已研读天数' : '已修时辰'}</div>
+              <div className="text-[10px] text-[#a98f68]">
+                {isScripture ? '已研读天数' : '已修时辰'}
+              </div>
               <div className="mt-0.5 font-semibold text-[#fde6b8]">{elapsedLabel}</div>
             </div>
             <div>
-              <div className="text-[10px] text-[#a98f68]">{isScripture ? '圆满增幅' : '熟练度增幅'}</div>
+              <div className="text-[10px] text-[#a98f68]">
+                {isScripture ? '圆满增幅' : isTenArt ? '经验增幅' : '熟练度增幅'}
+              </div>
               <div className="mt-0.5 font-semibold text-[#fbbf24]">
                 {isScripture ? '经义 +1' : `+${session.totalExpGained.toLocaleString()}`}
               </div>
@@ -125,15 +171,21 @@ export function CultivationOverlay() {
             onClick={stopCultivationEarly}
             className="mt-5 cursor-pointer rounded-lg border border-[#c89d54]/80 bg-[#5e2318] px-6 py-2 text-xs font-semibold tracking-wider text-[#fde6b8] shadow transition hover:bg-[#7c2d1e] active:scale-[0.98]"
           >
-            收功出关 (ESC)
+            {isTenArt ? '结束修行 (ESC)' : '收功出关 (ESC)'}
           </button>
 
           <p className="mt-2.5 text-[11px] text-[#a98f68]">
             {isScripture
               ? '每 0.2 秒走过 1 天（1 秒过 5 天），按 '
-              : '每 0.125 秒走过一个时辰（1.5 秒一日），按 '}
-            <kbd className="rounded border border-[#6e5233] bg-[#2a1d12] px-1.5 py-0.5 text-[10px] text-[#fde6b8]">ESC</kbd>
-            {isScripture ? ' 可随时收功出关（未满 30 天不计增幅）' : ' 可随时按实际时长结算收功'}
+              : isTenArt
+                ? '每 0.1 秒走过一个时辰（1.2 秒一日），按 '
+                : '每 0.125 秒走过一个时辰（1.5 秒一日），按 '}
+            <kbd className="rounded border border-[#6e5233] bg-[#2a1d12] px-1.5 py-0.5 text-[10px] text-[#fde6b8]">
+              ESC
+            </kbd>
+            {isScripture
+              ? ' 可随时收功出关（未满 30 天不计增幅）'
+              : ' 可随时按实际时长结算收功'}
           </p>
         </div>
       </div>

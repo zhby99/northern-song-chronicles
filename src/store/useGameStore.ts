@@ -500,6 +500,13 @@ export interface GameStoreState {
     costSilver?: number,
     sourceLabel?: string,
   ) => { ok: boolean; message: string }
+  startTenArtPractice: (
+    artKey: TenArtKey,
+    days: 3 | 10 | 30,
+    venueLabel: string,
+    envMultiplier: number,
+    dailySilverCost: number,
+  ) => void
 }
 
 function applyDayProgressionSectHooks(params: {
@@ -2211,10 +2218,241 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     })
   },
 
+  startTenArtPractice: (artKey, days, venueLabel, envMultiplier, dailySilverCost) => {
+    const s = get()
+    if (s.gameOver || s.activeCombat || s.activeStoryScene) return
+    if (s.cultivationSession || s.traveling) return
+    if (dailySilverCost > 0 && s.silver < dailySilverCost) {
+      set({
+        actionFeedback: {
+          text: `随身银两不足（每日需 ${dailySilverCost} 两，当前 ${s.silver} 两），无法在此修行【${artKey}】。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const curLv = artKey === '骑术' ? s.baseStats.ridingSkill : (s.baseStats.skills[artKey] ?? 0)
+    if (curLv >= 100) {
+      set({
+        actionFeedback: {
+          text: `少侠【${artKey}】已臻 100 级一代宗师之境，无需再修！`,
+          tone: 'success',
+        },
+      })
+      return
+    }
+    const curExp = s.artExps[artKey] ?? getExpForArtLevel(curLv)
+    const dailyGain = computeDailyArtExpGain(s.baseStats.talents.悟性, envMultiplier, 0)
+    set({
+      menuOpen: false,
+      compendiumOpen: false,
+      activeNpcInteraction: null,
+      tooltip: null,
+      actionFeedback: null,
+      cultivationSession: {
+        kind: 'ten_art',
+        tenArtKey: artKey,
+        artId: `TEN_ART_${artKey}`,
+        artName: artKey,
+        artCleanName: artKey,
+        artFullTier: '十艺百工',
+        mode: days,
+        venue: 'city_building',
+        venueLabel,
+        multiplier: envMultiplier,
+        dailySilverCost,
+        dailyFoodCost: 0,
+        dailyGain,
+        targetShichens: days * 12,
+        shichensElapsed: 0,
+        silverSpent: 0,
+        foodSpent: 0,
+        combatExpSpent: 0,
+        totalExpGained: 0,
+        settledExpFloor: 0,
+        startLevel: curLv,
+        startExp: curExp,
+      },
+    })
+  },
+
   stepCultivationTick: () => {
     const s = get()
     const session = s.cultivationSession
     if (!session || s.gameOver || s.activeCombat || s.activeStoryScene) return
+
+    if (session.kind === 'ten_art' && session.tenArtKey) {
+      const artKey = session.tenArtKey
+      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+      const nextDayCount = clock.dayCount
+      const nextShichenIdx = clock.shichenIdx
+      const nextShichensElapsed = session.shichensElapsed + 1
+
+      let nextSilver = s.silver
+      let nextSilverSpent = session.silverSpent
+      let stopNote: string | null = null
+
+      if (clock.daysAdded > 0 && session.dailySilverCost > 0) {
+        if (nextSilver < session.dailySilverCost) {
+          stopNote = '随身银两不足，修行提前结束'
+        } else {
+          nextSilver -= session.dailySilverCost
+          nextSilverSpent += session.dailySilverCost
+        }
+      }
+
+      let nextSectState = s.sectState
+      let nextLogs = s.logs
+      let nextMasters = s.roamingMasters
+      let overdueSpyAmbush: NodeNpc | null = null
+
+      if (clock.daysAdded > 0) {
+        if ((nextDayCount - 1) % 30 === 0) {
+          nextMasters = nextMasters.map((m) => {
+            const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
+            if (neighbors.length === 0) return m
+            const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
+            return { ...m, nodeId: pick!.to }
+          })
+        }
+        const dayHook = applyDayProgressionSectHooks({
+          nextDayCount,
+          shichenIdx: nextShichenIdx,
+          silver: nextSilver,
+          sectState: clonePlayerSectState(nextSectState),
+          logs: [...nextLogs],
+        })
+        nextSilver = dayHook.silver
+        nextSectState = dayHook.sectState
+        nextLogs = dayHook.logs
+        overdueSpyAmbush = dayHook.overdueSpyAmbush
+      }
+
+      const targetFloor = stopNote
+        ? session.settledExpFloor
+        : Math.floor((session.dailyGain * nextShichensElapsed) / 12)
+      const expGainNow = Math.max(0, targetFloor - session.settledExpFloor)
+
+      const nextBase = cloneHeroBaseStats(s.baseStats)
+      const prevLv = artKey === '骑术' ? nextBase.ridingSkill : (nextBase.skills[artKey] ?? 0)
+      const prevExp = s.artExps[artKey] ?? getExpForArtLevel(prevLv)
+      const nextExp = Math.min(MAX_ART_EXP, prevExp + expGainNow)
+      const nextLv = getArtLevelFromExp(nextExp)
+
+      if (artKey === '骑术') nextBase.ridingSkill = nextLv
+      else nextBase.skills[artKey] = nextLv
+
+      const nextFlags = [...s.artMilestoneFlags]
+      const milestoneNotes: string[] = []
+      if (
+        (artKey === '琴' || artKey === '书' || artKey === '画' || artKey === '诗词') &&
+        nextLv >= 80 &&
+        !nextFlags.includes(`art80:${artKey}`)
+      ) {
+        nextFlags.push(`art80:${artKey}`)
+        const prevVal = nextBase.talents.颜值
+        nextBase.talents.颜值 = Math.min(100, prevVal + 2)
+        milestoneNotes.push(`【${artKey}】初入 80 级，【颜值 +${nextBase.talents.颜值 - prevVal}】`)
+      }
+      if (nextLv >= 90 && !nextFlags.includes(`art90:${artKey}`)) {
+        nextFlags.push(`art90:${artKey}`)
+        if (artKey === '骑术') {
+          const prevVal = nextBase.talents.根骨
+          nextBase.talents.根骨 = Math.min(100, prevVal + 2)
+          milestoneNotes.push(`【骑术】初入 90 级，【根骨 +${nextBase.talents.根骨 - prevVal}】`)
+        } else {
+          const prevVal = nextBase.talents.悟性
+          nextBase.talents.悟性 = Math.min(100, prevVal + 2)
+          milestoneNotes.push(`【${artKey}】初入 90 级，【悟性 +${nextBase.talents.悟性 - prevVal}】`)
+        }
+      }
+
+      const nextDerived = deriveHeroEffectiveStats(
+        nextBase,
+        s.equipped,
+        s.equippedArts,
+        s.learnedArts,
+      )
+      const nextTotalExpGained = session.totalExpGained + expGainNow
+      const reachedTarget = nextShichensElapsed >= session.targetShichens
+      const reachedMax = nextLv >= 100
+      const finished = reachedTarget || reachedMax || Boolean(stopNote) || Boolean(overdueSpyAmbush)
+
+      if (milestoneNotes.length > 0) {
+        nextLogs = [
+          createLogEntry(nextDayCount, '十艺蜕变', milestoneNotes.join(' · '), true, nextShichenIdx),
+          ...nextLogs,
+        ].slice(0, 60)
+      }
+
+      if (finished) {
+        const fullDays = Math.floor(nextShichensElapsed / 12)
+        const remShichen = nextShichensElapsed % 12
+        const durationLabel =
+          fullDays > 0 && remShichen > 0
+            ? `${fullDays} 天 ${remShichen} 时辰`
+            : fullDays > 0
+              ? `${fullDays} 天`
+              : `${remShichen} 时辰`
+        const leveledUp = nextLv > session.startLevel
+        const summary = `于【${session.venueLabel}】修行【${artKey}】${durationLabel}（经验 +${nextTotalExpGained.toLocaleString()}${nextSilverSpent > 0 ? ` · 花费 ${nextSilverSpent} 两` : ''}）：当前 Lv.${nextLv}${leveledUp ? `（突破 +${nextLv - session.startLevel} 级）` : ''}${stopNote ? ` [${stopNote}]` : ''}`
+        nextLogs = [
+          createLogEntry(nextDayCount, leveledUp ? '十艺精进' : '十艺修行', summary, leveledUp, nextShichenIdx),
+          ...nextLogs,
+        ].slice(0, 60)
+        set({
+          dayCount: nextDayCount,
+          shichenIdx: nextShichenIdx,
+          silver: nextSilver,
+          sectState: nextSectState,
+          roamingMasters: nextMasters,
+          baseStats: nextBase,
+          artExps: { ...s.artExps, [artKey]: nextExp },
+          artMilestoneFlags: nextFlags,
+          ridingSkill: nextDerived.ridingSkill,
+          skills: nextDerived.skills,
+          agility: nextDerived.agility,
+          maxHp: nextDerived.maxHp,
+          maxMp: nextDerived.maxMp,
+          res: nextDerived.res,
+          cultivationSession: null,
+          actionFeedback: { text: summary, tone: stopNote ? 'warn' : 'success' },
+          logs: nextLogs,
+        })
+        if (clock.daysAdded > 0) get().checkExpiredQuestDeadlines()
+        if (overdueSpyAmbush) {
+          get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+        }
+        return
+      }
+
+      set({
+        dayCount: nextDayCount,
+        shichenIdx: nextShichenIdx,
+        silver: nextSilver,
+        sectState: nextSectState,
+        roamingMasters: nextMasters,
+        baseStats: nextBase,
+        artExps: { ...s.artExps, [artKey]: nextExp },
+        artMilestoneFlags: nextFlags,
+        ridingSkill: nextDerived.ridingSkill,
+        skills: nextDerived.skills,
+        agility: nextDerived.agility,
+        maxHp: nextDerived.maxHp,
+        maxMp: nextDerived.maxMp,
+        res: nextDerived.res,
+        logs: nextLogs,
+        cultivationSession: {
+          ...session,
+          shichensElapsed: nextShichensElapsed,
+          silverSpent: nextSilverSpent,
+          totalExpGained: nextTotalExpGained,
+          settledExpFloor: targetFloor,
+        },
+      })
+      if (clock.daysAdded > 0) get().checkExpiredQuestDeadlines()
+      return
+    }
 
     if (session.kind === 'scripture') {
       const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 12)
@@ -2593,6 +2831,41 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     const sess = s.cultivationSession
     if (!sess) return
+    if (sess.kind === 'ten_art' && sess.tenArtKey) {
+      const artKey = sess.tenArtKey
+      const curLv = artKey === '骑术' ? s.baseStats.ridingSkill : (s.baseStats.skills[artKey] ?? 0)
+      const fullDays = Math.floor(sess.shichensElapsed / 12)
+      const remShichen = sess.shichensElapsed % 12
+      const durationLabel =
+        fullDays > 0 && remShichen > 0
+          ? `${fullDays} 天 ${remShichen} 时辰`
+          : fullDays > 0
+            ? `${fullDays} 天`
+            : `${remShichen} 时辰`
+      const leveledUp = curLv > sess.startLevel
+      const msgText =
+        sess.shichensElapsed <= 0
+          ? `甫一落座便即起身，未耗时辰。`
+          : `于【${sess.venueLabel}】修行【${artKey}】${durationLabel}（经验 +${sess.totalExpGained.toLocaleString()}${sess.silverSpent > 0 ? ` · 花费 ${sess.silverSpent} 两` : ''}）：当前 Lv.${curLv}${leveledUp ? `（突破 +${curLv - sess.startLevel} 级）` : ''} [提前收功]`
+      set({
+        cultivationSession: null,
+        actionFeedback: { text: msgText, tone: leveledUp ? 'success' : 'warn' },
+        logs:
+          sess.shichensElapsed > 0
+            ? [
+                createLogEntry(
+                  s.dayCount,
+                  leveledUp ? '十艺精进' : '十艺修行',
+                  msgText,
+                  leveledUp,
+                  s.shichenIdx,
+                ),
+                ...s.logs,
+              ].slice(0, 60)
+            : s.logs,
+      })
+      return
+    }
     if (sess.kind === 'scripture') {
       const fullDays = Math.floor(sess.shichensElapsed / 12)
       const msgText =

@@ -196,3 +196,121 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
     milestoneText: '辩才首次达到 90 级：机锋敏锐，永久【悟性 +2】',
   },
 ]
+
+export interface BuildingArtTrainingOption {
+  artKey: TenArtKey
+  actionTitle: string
+  envMultiplier: number
+  dailySilverCost: number
+  desc: string
+}
+
+/**
+ * 根据建筑类型、名称与是否为特殊地标，返回该建筑可修行的十艺选项
+ */
+export function getBuildingArtTrainingOptions(building: {
+  id: string
+  name: string
+  kind: string
+  regionId: string
+  regionName: string
+  isSpecial: boolean
+}): BuildingArtTrainingOption[] {
+  const { id, name, kind, isSpecial } = building
+  const opts: BuildingArtTrainingOption[] = []
+  const add = (
+    artKey: TenArtKey,
+    actionTitle: string,
+    envMultiplier: number,
+    dailySilverCost: number,
+    desc: string,
+  ) => {
+    if (!opts.some((o) => o.artKey === artKey)) {
+      opts.push({ artKey, actionTitle, envMultiplier, dailySilverCost, desc })
+    }
+  }
+
+  const isTopLandmark =
+    id === 'bl_fanlou' ||
+    id === 'ly_shuyuan' ||
+    id === 'bl_kaifengfu' ||
+    id === 'bl_xiangguosi' ||
+    id === 'hz_port' ||
+    id === 'zd_market' ||
+    id === 'ya_blackmkt' ||
+    id === 'sl_cangjing' ||
+    /白鹿|岳麓|应天|嵩阳|翰林|国子监|太学|珍珑|无量玉|龙门/.test(name)
+
+  const mult = isTopLandmark ? 1.4 : isSpecial ? 1.2 : 1.0
+
+  // 1. 书院 / 讲席 / 草堂
+  if (/书院|学馆|讲席|太学|国子监|草堂|明道|崇儒|崇文/.test(name) || kind === 'pavilion') {
+    if (/书院|学馆|讲席|太学|国子监|明道|崇儒|崇文/.test(name)) {
+      add('经义', '书院研习经义', mult, 1, '诵读四书五经、儒释道典籍')
+      add('策论', '书院推演策论', mult, 1, '研习历代奏议与经世方略')
+      add('算术', '书院研习算学', mult, 1, '演练九章算术与历法度支')
+      add('诗词', '书院吟咏诗赋', mult, 1, '推敲格律对仗，涵养诗心')
+      add('书', '书院临摹碑帖', mult, 1, '铺纸研墨，临习名家法帖')
+      add('画', '书院丹青描摹', mult, 1, '摹写宋代山水花鸟画谱')
+      add('琴', '书院雅乐抚琴', mult, 1, '静室抚琴，参悟宫商角徵羽')
+      add('棋', '书院打谱手谈', mult, 1, '推演黑白棋局，锻炼全局观')
+      add('辩才', '书院论道辩难', mult, 1, '参与王霸儒释之辨，磨砺口锋')
+    } else {
+      // 亭台轩榭 / 草堂 / 园林
+      add('画', '临景丹青写生', mult, 0, '观山水风物，挥毫写生传神')
+      add('诗词', '亭台雅集赋诗', mult, 0, '触景生情，吟咏宋词小令')
+      add('琴', '清风抚琴自修', mult, 0, '松风泉韵间抚琴养性')
+      add('棋', '亭间对坐手谈', mult, 0, '石桌布子，复盘古谱残局')
+    }
+  }
+
+  // 2. 府衙 / 司衙 / 巡检司 / 皇宫
+  if (kind === 'yamen' || kind === 'palace' || /府衙|司衙|巡检司|留守|安抚|皇宫/.test(name)) {
+    add('策论', '公堂研判政略', mult, 0, '阅览州府案牍边报，推演治国安邦之策')
+    add('辩才', '公堂习练状词', mult, 0, '旁听断案申辩，磨砺言辞机锋')
+    add('算术', '核查钱粮度支', mult, 0, '协助核算税赋账簿，精进算学')
+  }
+
+  // 3. 演武场 / 校场 / 拳馆 / 军寨 / 镖局 / 马市
+  if (
+    kind === 'camp' ||
+    kind === 'fort' ||
+    /演武|校场|拳馆|军|镖|马|刀堂|枪派/.test(name)
+  ) {
+    add('骑术', '校场驯马演骑', mult, 1, '纵马驰骋演武，磨砺人马合一之术')
+  }
+
+  // 4. 酒楼 / 樊楼 / 画舫 / 茶肆
+  if (kind === 'tower' || kind === 'boat' || /酒楼|酒肆|樊楼|画舫|明月坊|茶/.test(name)) {
+    add('诗词', '酒楼饮宴题壁', mult, 1, '把酒临风题壁赋词，与文客唱和')
+    add('辩才', '市井茶肆论辩', mult, 1, '与三教九流纵论天下大势，锤炼辩才')
+    if (kind === 'boat' || /画舫|明月|樊楼/.test(name)) {
+      add('琴', '画舫月下抚琴', mult, 1, '临水抚琴奏曲，精进音律造诣')
+    }
+    add('棋', '酒肆雅间手谈', mult, 1, '雅间对弈复盘，消磨时辰长棋艺')
+  }
+
+  // 5. 寺庙 / 宝塔 / 道观 / 祠堂
+  if (kind === 'temple' || kind === 'pagoda' || /寺|塔|观|祠|庙|藏经/.test(name)) {
+    add('经义', '禅院抄经论法', mult, 0, '焚香抄写佛道真经，明心见性')
+    add('书', '古刹拓碑临帖', mult, 0, '观摩寺庙历代名碑，磨砺书法笔意')
+    add('棋', '禅房静坐手谈', mult, 0, '与寺中棋僧手谈复盘，参悟禅机')
+  }
+
+  // 6. 市舶司 / 榷场 / 黑市 / 码头 / 商坊
+  if (kind === 'market' || kind === 'dock' || /市舶|榷场|黑市|胡商|码头|钞关/.test(name)) {
+    add('算术', '商栈核算账目', mult, 0, '核算往来货殖银钱，精研商算之道')
+    add('辩才', '市集议价交涉', mult, 0, '与南北行商周旋议价，磨砺口才')
+    if (/马|榷场|黑市/.test(name)) {
+      add('骑术', '榷场相马试骑', mult, 1, '于塞外马市相马试骑，提升驾驭之术')
+    }
+  }
+
+  // 7. 园林 / 牡丹园 / 名山洞府
+  if (kind === 'garden' || /园|苑|洞|峰|崖|壁/.test(name)) {
+    add('画', '名胜丹青写生', mult, 0, '对景写生勾勒山水芳华')
+    add('诗词', '游园赏景赋诗', mult, 0, '吟诗作对，寄情山水')
+  }
+
+  return opts
+}
