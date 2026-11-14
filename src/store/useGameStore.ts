@@ -3545,6 +3545,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         : 0
     const startHp = Math.max(1, s.hp)
     const playerCombatant = buildPlayerCombatant({
+      playerName: s.playerName,
+      playerPortraitId: s.playerPortraitId,
       hp: startHp,
       mp: s.mp,
       baseStats: s.baseStats,
@@ -5415,6 +5417,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
           const startHp = Math.max(1, s.hp)
           const playerCombatant = buildPlayerCombatant({
+            playerName: s.playerName,
+            playerPortraitId: s.playerPortraitId,
             hp: startHp,
             mp: s.mp,
             baseStats: s.baseStats,

@@ -1,6 +1,7 @@
 import { MARTIAL_ART_DB_MAP, NPC_DB_MAP, resolveNpcByName } from '../data/gameDb'
 import { computeEquipmentTotals, computeWeaponArtSynergy, ITEM_DB_MAP } from '../data/itemsDb'
 import { computeEquippedArtsTotals, getArtLevelStats } from '../data/playerMartialArts'
+import { getProtagonistPortrait } from '../data/protagonistPresets'
 import type {
   CompiledMartialArtRecord,
   CompiledNpcRecord,
@@ -424,6 +425,8 @@ function estimateHeroRealmLabel(maxHp: number, maxMp: number): string {
 }
 
 export function buildPlayerCombatant(params: {
+  playerName?: string
+  playerPortraitId?: string
   hp: number
   mp: number
   baseStats: HeroBaseStats
@@ -451,13 +454,15 @@ export function buildPlayerCombatant(params: {
     }
   }
 
+  const portrait = getProtagonistPortrait(params.playerPortraitId)
+
   return {
     id: 'HERO',
-    name: '少侠',
+    name: params.playerName?.trim() || '少侠',
     title: '江湖行者',
     realm: estimateHeroRealmLabel(eff.maxHp, eff.maxMp),
     factionName: '自在游侠',
-    portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
+    portraitUrl: portrait.fullbodyUrl,
     isPlayer: true,
 
     hp: Math.max(1, Math.min(eff.maxHp, params.hp)),
