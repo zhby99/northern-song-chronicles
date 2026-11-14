@@ -168,6 +168,8 @@ def main() -> int:
         if not src_dir.exists():
             continue
         for p in sorted(src_dir.glob("*.jpg")):
+            if sub == "templates" and not p.stem.endswith("_fb"):
+                continue
             dst = dst_dir / f"{p.stem}.webp"
             if force or not dst.exists():
                 tasks.append((str(p), str(dst)))
