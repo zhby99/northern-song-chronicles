@@ -3075,7 +3075,7 @@
       "code": "060",
       "name": "枯荣禅意功",
       "cleanName": "枯荣禅意功",
-      "fullTier": "地阶中品",
+      "fullTier": "地阶上品",
       "category": "内功",
       "sectId": null
     },
@@ -3453,7 +3453,7 @@
       "code": "102",
       "name": "大内禁军玄甲劲",
       "cleanName": "大内禁军玄甲劲",
-      "fullTier": "良品上品",
+      "fullTier": "地阶下品",
       "category": "内功",
       "sectId": "SECT-17"
     },

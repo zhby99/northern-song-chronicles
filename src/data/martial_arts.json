@@ -9406,73 +9406,73 @@
     "levels": [
       {
         "level": 1,
-        "expRequired": 850,
-        "maxMp": 825,
-        "maxHp": 832,
-        "resistance": 8
+        "expRequired": 1100,
+        "maxMp": 1012,
+        "maxHp": 1012,
+        "resistance": 9
       },
       {
         "level": 2,
-        "expRequired": 1360,
-        "maxMp": 1210,
-        "maxHp": 1221,
-        "resistance": 12
+        "expRequired": 1760,
+        "maxMp": 1485,
+        "maxHp": 1485,
+        "resistance": 14
       },
       {
         "level": 3,
-        "expRequired": 2040,
-        "maxMp": 1650,
-        "maxHp": 1665,
-        "resistance": 17
+        "expRequired": 2640,
+        "maxMp": 2025,
+        "maxHp": 2025,
+        "resistance": 19
       },
       {
         "level": 4,
-        "expRequired": 2980,
-        "maxMp": 2145,
-        "maxHp": 2164,
-        "resistance": 22
+        "expRequired": 3850,
+        "maxMp": 2632,
+        "maxHp": 2632,
+        "resistance": 25
       },
       {
         "level": 5,
-        "expRequired": 4250,
-        "maxMp": 2695,
-        "maxHp": 2720,
-        "resistance": 27
+        "expRequired": 5500,
+        "maxMp": 3308,
+        "maxHp": 3308,
+        "resistance": 31
       },
       {
         "level": 6,
-        "expRequired": 5950,
-        "maxMp": 3300,
-        "maxHp": 3330,
-        "resistance": 34
+        "expRequired": 7700,
+        "maxMp": 4050,
+        "maxHp": 4050,
+        "resistance": 38
       },
       {
         "level": 7,
-        "expRequired": 8330,
-        "maxMp": 3905,
-        "maxHp": 3940,
-        "resistance": 40
+        "expRequired": 10780,
+        "maxMp": 4792,
+        "maxHp": 4792,
+        "resistance": 45
       },
       {
         "level": 8,
-        "expRequired": 11730,
-        "maxMp": 4510,
-        "maxHp": 4551,
-        "resistance": 46
+        "expRequired": 15180,
+        "maxMp": 5535,
+        "maxHp": 5535,
+        "resistance": 52
       },
       {
         "level": 9,
-        "expRequired": 17000,
-        "maxMp": 5005,
-        "maxHp": 5050,
-        "resistance": 51
+        "expRequired": 22000,
+        "maxMp": 6142,
+        "maxHp": 6142,
+        "resistance": 57
       },
       {
         "level": 10,
         "expRequired": 0,
-        "maxMp": 5500,
-        "maxHp": 5550,
-        "resistance": 56
+        "maxMp": 6750,
+        "maxHp": 6750,
+        "resistance": 63
       }
     ]
   },
@@ -12430,73 +12430,73 @@
     "levels": [
       {
         "level": 1,
-        "expRequired": 450,
-        "maxMp": 517,
-        "maxHp": 554,
-        "resistance": 8
+        "expRequired": 650,
+        "maxMp": 640,
+        "maxHp": 694,
+        "resistance": 9
       },
       {
         "level": 2,
-        "expRequired": 720,
-        "maxMp": 758,
-        "maxHp": 812,
-        "resistance": 12
+        "expRequired": 1040,
+        "maxMp": 939,
+        "maxHp": 1018,
+        "resistance": 13
       },
       {
         "level": 3,
-        "expRequired": 1080,
-        "maxMp": 1033,
-        "maxHp": 1108,
-        "resistance": 16
+        "expRequired": 1560,
+        "maxMp": 1280,
+        "maxHp": 1388,
+        "resistance": 18
       },
       {
         "level": 4,
-        "expRequired": 1580,
-        "maxMp": 1343,
-        "maxHp": 1440,
-        "resistance": 21
+        "expRequired": 2280,
+        "maxMp": 1665,
+        "maxHp": 1805,
+        "resistance": 24
       },
       {
         "level": 5,
-        "expRequired": 2250,
-        "maxMp": 1688,
-        "maxHp": 1809,
-        "resistance": 27
+        "expRequired": 3250,
+        "maxMp": 2091,
+        "maxHp": 2268,
+        "resistance": 30
       },
       {
         "level": 6,
-        "expRequired": 3150,
-        "maxMp": 2066,
-        "maxHp": 2215,
-        "resistance": 33
+        "expRequired": 4550,
+        "maxMp": 2561,
+        "maxHp": 2777,
+        "resistance": 37
       },
       {
         "level": 7,
-        "expRequired": 4410,
-        "maxMp": 2445,
-        "maxHp": 2621,
-        "resistance": 39
+        "expRequired": 6370,
+        "maxMp": 3030,
+        "maxHp": 3286,
+        "resistance": 43
       },
       {
         "level": 8,
-        "expRequired": 6210,
-        "maxMp": 2824,
-        "maxHp": 3027,
-        "resistance": 45
+        "expRequired": 8970,
+        "maxMp": 3500,
+        "maxHp": 3795,
+        "resistance": 50
       },
       {
         "level": 9,
-        "expRequired": 9000,
-        "maxMp": 3134,
-        "maxHp": 3360,
-        "resistance": 50
+        "expRequired": 13000,
+        "maxMp": 3884,
+        "maxHp": 4211,
+        "resistance": 56
       },
       {
         "level": 10,
         "expRequired": 0,
-        "maxMp": 3444,
-        "maxHp": 3692,
-        "resistance": 55
+        "maxMp": 4268,
+        "maxHp": 4628,
+        "resistance": 61
       }
     ]
   },

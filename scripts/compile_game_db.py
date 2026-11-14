@@ -1374,6 +1374,14 @@ def parse_martial_arts() -> list[dict[str, Any]]:
             )
 
     for art in arts:
+        if art["id"] == "MA-060":
+            art["tier"] = "地阶"
+            art["subTier"] = "上品"
+            art["fullTier"] = "地阶上品"
+        elif art["id"] == "MA-102":
+            art["tier"] = "地阶"
+            art["subTier"] = "下品"
+            art["fullTier"] = "地阶下品"
         art["levels"] = compute_martial_art_levels(art)
 
     arts.sort(key=lambda x: int(x["code"]))
