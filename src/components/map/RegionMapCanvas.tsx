@@ -1,6 +1,14 @@
 import { lazy, Suspense, useEffect, useMemo, useRef } from 'react'
-import { BUILDING_DB_MAP } from '../../data/gameDb'
-import { useGameStore } from '../../store/useGameStore'
+import {
+  BUILDING_DB_MAP,
+  getCompiledNpcsByBuilding,
+  getCompiledNpcsBySpot,
+} from '../../data/gameDb'
+import {
+  getAvailableNpcQuestActions,
+  getAvailableSpotQuestActions,
+} from '../../engine/questEngine'
+import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { useLazyImage } from '../../utils/assetLoader'
 import {
   clientToSvgCoords,
@@ -41,6 +49,26 @@ export function RegionMapCanvas() {
   const selectedSpotId = useGameStore((s) => s.selectedSpotId)
   const showRegionLabels = useGameStore((s) => s.showRegionLabels)
   const regionPan = useGameStore((s) => s.regionPan)
+  const dayCount = useGameStore((s) => s.dayCount)
+  const shichenIdx = useGameStore((s) => s.shichenIdx)
+  const silver = useGameStore((s) => s.silver)
+  const renown = useGameStore((s) => s.renown)
+  const chivalry = useGameStore((s) => s.chivalry)
+  const food = useGameStore((s) => s.food)
+  const hp = useGameStore((s) => s.hp)
+  const maxHp = useGameStore((s) => s.maxHp)
+  const mp = useGameStore((s) => s.mp)
+  const maxMp = useGameStore((s) => s.maxMp)
+  const agility = useGameStore((s) => s.agility)
+  const res = useGameStore((s) => s.res)
+  const ridingSkill = useGameStore((s) => s.ridingSkill)
+  const baseStats = useGameStore((s) => s.baseStats)
+  const skills = useGameStore((s) => s.skills)
+  const inventory = useGameStore((s) => s.inventory)
+  const learnedArts = useGameStore((s) => s.learnedArts)
+  const npcFavor = useGameStore((s) => s.npcFavor)
+  const sectState = useGameStore((s) => s.sectState)
+  const questState = useGameStore((s) => s.questState)
 
   const setRegionPan = useGameStore((s) => s.setRegionPan)
   const zoomRegionBy = useGameStore((s) => s.zoomRegionBy)
@@ -73,6 +101,109 @@ export function RegionMapCanvas() {
     const all = getRegionAllBuildings(activeRegionId)
     return [...all].sort((a, b) => Number(a.isSpecial) - Number(b.isSpecial))
   }, [viewMode, activeRegionId])
+
+  const questMarkers = useMemo(() => {
+    const spotIds = new Set<string>()
+    const buildingIds = new Set<string>()
+    const evalCtx = buildStoreEvalContext({
+      dayCount,
+      shichenIdx,
+      silver,
+      renown,
+      chivalry,
+      food,
+      hp,
+      maxHp,
+      mp,
+      maxMp,
+      agility,
+      res,
+      ridingSkill,
+      baseStats,
+      skills,
+      inventory,
+      learnedArts,
+      npcFavor,
+      sectState,
+      questState,
+    })
+
+    if (viewMode === 'building' && activeBuildingRecord?.interior) {
+      for (const sp of activeBuildingRecord.interior.spots) {
+        const spotActs = getAvailableSpotQuestActions(
+          { regionId: activeRegionId, buildingId: activeBuildingRecord.id, spotId: sp.id },
+          evalCtx,
+        )
+        if (spotActs.length > 0) {
+          spotIds.add(sp.id)
+          continue
+        }
+        const npcs = getCompiledNpcsBySpot(sp.id)
+        if (npcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
+          spotIds.add(sp.id)
+        }
+      }
+    } else if (viewMode === 'region') {
+      for (const b of sortedBuildings) {
+        const dbBldg = BUILDING_DB_MAP[b.id]
+        const spots = dbBldg?.interior?.spots ?? []
+        if (spots.length > 0) {
+          if (
+            spots.some(
+              (sp) =>
+                getAvailableSpotQuestActions(
+                  { regionId: activeRegionId, buildingId: b.id, spotId: sp.id },
+                  evalCtx,
+                ).length > 0,
+            )
+          ) {
+            buildingIds.add(b.id)
+            continue
+          }
+        } else {
+          if (
+            getAvailableSpotQuestActions(
+              { regionId: activeRegionId, buildingId: b.id, spotId: null },
+              evalCtx,
+            ).length > 0
+          ) {
+            buildingIds.add(b.id)
+            continue
+          }
+        }
+        const bldgNpcs = getCompiledNpcsByBuilding(b.id)
+        if (bldgNpcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
+          buildingIds.add(b.id)
+        }
+      }
+    }
+    return { spotIds, buildingIds }
+  }, [
+    viewMode,
+    activeRegionId,
+    activeBuildingRecord,
+    sortedBuildings,
+    dayCount,
+    shichenIdx,
+    silver,
+    renown,
+    chivalry,
+    food,
+    hp,
+    maxHp,
+    mp,
+    maxMp,
+    agility,
+    res,
+    ridingSkill,
+    baseStats,
+    skills,
+    inventory,
+    learnedArts,
+    npcFavor,
+    sectState,
+    questState,
+  ])
 
   useEffect(() => {
     const svg = svgRef.current
@@ -280,6 +411,7 @@ export function RegionMapCanvas() {
                   const plateW = Math.max(100, labelText.length * 11.2 + 22)
                   const plateFill = isSelected ? '#2b180b' : '#8f1d14'
                   const plateStroke = isSelected ? '#fbbf24' : '#f6cf65'
+                  const hasQuest = questMarkers.spotIds.has(sp.id)
                   const tagW = Math.max(66, spotTagLabel.length * 9.0 + 16)
 
                   return (
@@ -323,8 +455,32 @@ export function RegionMapCanvas() {
                         strokeLinejoin="round"
                         className="iso-poly-hotspot"
                       />
-                      {(showRegionLabels || isSelected) && (
+                      {(showRegionLabels || isSelected || hasQuest) && (
                         <g transform={`translate(${sp.x}, ${sp.y})`} className="iso-plaque">
+                          {hasQuest && (
+                            <>
+                              <rect
+                                x={-28}
+                                y={-49}
+                                width={56}
+                                height={15}
+                                rx={7.5}
+                                fill="#991b1b"
+                                stroke="#fde047"
+                                strokeWidth={1.4}
+                              />
+                              <text
+                                x={0}
+                                y={-38.5}
+                                textAnchor="middle"
+                                fontSize={8.8}
+                                fontWeight="bold"
+                                fill="#fef08a"
+                              >
+                                ◆ 任务
+                              </text>
+                            </>
+                          )}
                           <line x1={0} y1={0} x2={0} y2={18} stroke={plateStroke} strokeWidth={2} />
                           <circle
                             cx={0}
@@ -470,6 +626,7 @@ export function RegionMapCanvas() {
                         ? `${b.tag} · 步入内院`
                         : `${b.tag} · 步入堂内`
                     : b.tag
+                  const hasQuest = questMarkers.buildingIds.has(b.id)
                   const subTagW = Math.max(64, subTagText.length * 8.6 + 16)
 
                   return (
@@ -532,8 +689,32 @@ export function RegionMapCanvas() {
                         />
                       )}
 
-                      {(showRegionLabels || isSelected) && (
+                      {(showRegionLabels || isSelected || hasQuest) && (
                         <g transform={`translate(${b.x}, ${b.y})`} className="iso-plaque">
+                          {hasQuest && (
+                            <>
+                              <rect
+                                x={-28}
+                                y={canEnterInterior ? -49 : -34}
+                                width={56}
+                                height={15}
+                                rx={7.5}
+                                fill="#991b1b"
+                                stroke="#fde047"
+                                strokeWidth={1.4}
+                              />
+                              <text
+                                x={0}
+                                y={canEnterInterior ? -38.5 : -23.5}
+                                textAnchor="middle"
+                                fontSize={8.8}
+                                fontWeight="bold"
+                                fill="#fef08a"
+                              >
+                                ◆ 任务
+                              </text>
+                            </>
+                          )}
                           <line x1={0} y1={0} x2={0} y2={18} stroke={plateStroke} strokeWidth={2} />
                           <circle
                             cx={0}
