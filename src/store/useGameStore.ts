@@ -23,8 +23,11 @@ import {
   canArtFitSlot,
   DEFAULT_EQUIPPED_ARTS,
   DEFAULT_LEARNED_ARTS,
+  calcNeigongTransferGain,
   getArtCombatExpRequired,
   getArtExpRequired,
+  getArtTierRank,
+  isArtNeigong,
 } from '../data/playerMartialArts'
 import { QUEST_MAP } from '../data/quests'
 import {
@@ -383,6 +386,7 @@ export interface GameStoreState {
   stepCultivationTick: () => void
   stopCultivationEarly: () => void
   breakthroughLearnedArt: (artId: string) => void
+  transferNeigongProficiency: (fromArtId: string, toArtId: string) => void
   consumeInventoryItem: (itemId: string, forceUseEffect?: boolean) => void
 
   doBuildingAction: (item: {
@@ -1781,6 +1785,107 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       },
       logs: [
         createLogEntry(s.dayCount, '武学破境', msgText, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  transferNeigongProficiency: (fromArtId, toArtId) => {
+    const s = get()
+    if (s.cultivationSession) return
+    if (!fromArtId || !toArtId || fromArtId === toArtId) return
+
+    const fromArt = MARTIAL_ART_DB_MAP[fromArtId]
+    const toArt = MARTIAL_ART_DB_MAP[toArtId]
+    const fromIdx = s.learnedArts.findIndex((x) => x.artId === fromArtId)
+    const toIdx = s.learnedArts.findIndex((x) => x.artId === toArtId)
+    if (!fromArt || !toArt || fromIdx === -1 || toIdx === -1) return
+
+    if (!isArtNeigong(fromArt) || !isArtNeigong(toArt)) {
+      set({
+        actionFeedback: { text: '仅限【内功】心法之间进行转修承继！', tone: 'warn' },
+      })
+      return
+    }
+
+    if (getArtTierRank(toArt) <= getArtTierRank(fromArt)) {
+      set({
+        actionFeedback: {
+          text: `仅可向更高阶内功转修：《${toArt.cleanName}》（${toArt.fullTier}）未高于《${fromArt.cleanName}》（${fromArt.fullTier}）。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const fromEntry = s.learnedArts[fromIdx]!
+    const toEntry = s.learnedArts[toIdx]!
+    if (toEntry.level >= 10) {
+      set({
+        actionFeedback: {
+          text: `《${toArt.cleanName}》已臻十重圆满之境，无需再行转修。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const { sourceTotalExp, transferExp } = calcNeigongTransferGain(fromArt, fromEntry)
+    if (transferExp <= 0) {
+      set({
+        actionFeedback: {
+          text: `《${fromArt.cleanName}》当前总熟练度不足 2 点（${sourceTotalExp}），无法转修。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    let nextLv = toEntry.level
+    let nextExp = toEntry.exp + transferExp
+    while (nextLv < 10) {
+      const reqExp = getArtExpRequired(toArt, nextLv)
+      if (reqExp <= 0 || nextExp < reqExp) break
+      const reqCombatExp = getArtCombatExpRequired(toArt, nextLv)
+      if (reqCombatExp > 0) {
+        // 遇到需战经破境的重数时保留全部溢出熟练度，待后续破境顺延结转
+        break
+      }
+      nextExp -= reqExp
+      nextLv += 1
+    }
+    if (nextLv >= 10) nextExp = 0
+
+    const nextLearned = s.learnedArts.map((x) => ({ ...x }))
+    nextLearned[fromIdx] = { artId: fromArtId, level: 1, exp: 0 }
+    nextLearned[toIdx] = { artId: toArtId, level: nextLv, exp: nextExp }
+
+    const nextEquippedArts: EquippedArtsMap =
+      s.equippedArts.neigong === fromArtId
+        ? { ...s.equippedArts, neigong: toArtId }
+        : { ...s.equippedArts }
+
+    const derived = deriveHeroEffectiveStats(
+      s.baseStats,
+      s.equipped,
+      nextEquippedArts,
+      nextLearned,
+    )
+    const msg = `散功转修！将《${fromArt.cleanName}》总熟练度 ${sourceTotalExp.toLocaleString()} 折半承继 +${transferExp.toLocaleString()} 注入《${toArt.cleanName}》（当前第 ${nextLv} 重），原《${fromArt.cleanName}》总熟练度已清零。`
+
+    set({
+      learnedArts: nextLearned,
+      equippedArts: nextEquippedArts,
+      qinggongBonus: derived.qinggongBonus,
+      maxHp: derived.maxHp,
+      hp: Math.min(derived.maxHp, Math.max(1, s.hp)),
+      maxMp: derived.maxMp,
+      mp: Math.min(derived.maxMp, Math.max(0, s.mp)),
+      agility: derived.agility,
+      res: derived.res,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '内功转修', msg, true, s.shichenIdx),
         ...s.logs,
       ].slice(0, 60),
     })

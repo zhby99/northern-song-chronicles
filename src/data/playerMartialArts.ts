@@ -132,6 +132,51 @@ export function getArtCombatExpRequired(art: CompiledMartialArtRecord, level: nu
   return 0
 }
 
+const ART_FULL_TIER_ORDER: Record<string, number> = {
+  凡品下品: 1,
+  凡品中品: 2,
+  凡品上品: 3,
+  良品下品: 4,
+  良品中品: 5,
+  良品上品: 6,
+  地阶下品: 7,
+  地阶中品: 8,
+  地阶上品: 9,
+  天阶下品: 10,
+  天阶中品: 11,
+  天阶上品: 12,
+}
+
+export function getArtTierRank(art: CompiledMartialArtRecord): number {
+  return ART_FULL_TIER_ORDER[art.fullTier] ?? 0
+}
+
+/**
+ * 计算一门已修武学的历史累计总熟练度（前 level-1 重满额所需熟练度之和 + 当前重已积累熟练度）。
+ */
+export function calcArtTotalProficiency(
+  art: CompiledMartialArtRecord,
+  entry: { level: number; exp: number },
+): number {
+  const lv = Math.max(1, Math.min(10, Math.floor(entry.level)))
+  let total = Math.max(0, Math.floor(entry.exp))
+  for (let i = 1; i < lv; i += 1) {
+    total += getArtExpRequired(art, i)
+  }
+  return total
+}
+
+export function calcNeigongTransferGain(
+  sourceArt: CompiledMartialArtRecord,
+  sourceEntry: { level: number; exp: number },
+): { sourceTotalExp: number; transferExp: number } {
+  const sourceTotalExp = calcArtTotalProficiency(sourceArt, sourceEntry)
+  return {
+    sourceTotalExp,
+    transferExp: Math.floor(sourceTotalExp / 2),
+  }
+}
+
 export interface ArtSlotBonus {
   maxHp: number
   maxMp: number

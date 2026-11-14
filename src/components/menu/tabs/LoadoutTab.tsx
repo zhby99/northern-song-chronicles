@@ -14,12 +14,15 @@ import {
 } from '../../../data/itemsDb'
 import {
   canArtFitSlot,
+  calcNeigongTransferGain,
   computeEquippedArtsTotals,
   computeSingleArtBonus,
   formatArtBonusBadges,
   getArtCombatExpRequired,
   getArtExpRequired,
+  getArtTierRank,
   getMasteryStageLabel,
+  isArtNeigong,
   MARTIAL_ART_SLOT_METAS,
 } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
@@ -82,11 +85,13 @@ export function LoadoutTab({
   const unequipArtSlot = useGameStore((s) => s.unequipArtSlot)
   const cultivateLearnedArt = useGameStore((s) => s.cultivateLearnedArt)
   const breakthroughLearnedArt = useGameStore((s) => s.breakthroughLearnedArt)
+  const transferNeigongProficiency = useGameStore((s) => s.transferNeigongProficiency)
   const openCompendium = useGameStore((s) => s.openCompendium)
   const setBagCategory = useGameStore((s) => s.setBagCategory)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
 
   const [selectedArtSlot, setSelectedArtSlot] = useState<MartialArtSlotKey>('neigong')
+  const [transferPeerId, setTransferPeerId] = useState<string>('')
 
   const venueStatus = useMemo(
     () =>
@@ -1038,6 +1043,101 @@ export function LoadoutTab({
                       </button>
                     </div>
                   )}
+
+                  {/* 内功转修制：低阶总熟练度折半转入高阶，旧内功总熟练度清零 */}
+                  {isArtNeigong(inspectedArt) && (() => {
+                    const curRank = getArtTierRank(inspectedArt)
+                    const curGain = calcNeigongTransferGain(inspectedArt, inspectedEntry)
+                    const options: Array<{
+                      fromId: string
+                      toId: string
+                      label: string
+                      sourceTotalExp: number
+                      transferExp: number
+                    }> = []
+
+                    for (const le of learnedArts) {
+                      if (le.artId === inspectedArt.id) continue
+                      const other = MARTIAL_ART_DB_MAP[le.artId]
+                      if (!other || !isArtNeigong(other)) continue
+                      const otherRank = getArtTierRank(other)
+                      // 1) 当前为高阶未圆满内功：可吸纳更低阶内功的熟练度
+                      if (!isMaxLevel && otherRank < curRank) {
+                        const g = calcNeigongTransferGain(other, le)
+                        if (g.transferExp > 0) {
+                          options.push({
+                            fromId: other.id,
+                            toId: inspectedArt.id,
+                            label: `吸纳《${other.cleanName}》（${other.fullTier}·${le.level}重）`,
+                            sourceTotalExp: g.sourceTotalExp,
+                            transferExp: g.transferExp,
+                          })
+                        }
+                      }
+                      // 2) 当前为低阶已修内功：可转修至更高阶未圆满内功
+                      if (curGain.transferExp > 0 && otherRank > curRank && le.level < 10) {
+                        options.push({
+                          fromId: inspectedArt.id,
+                          toId: other.id,
+                          label: `转修至《${other.cleanName}》（${other.fullTier}·${le.level}重）`,
+                          sourceTotalExp: curGain.sourceTotalExp,
+                          transferExp: curGain.transferExp,
+                        })
+                      }
+                    }
+
+                    if (options.length === 0) return null
+                    const activeOpt =
+                      options.find((o) => `${o.fromId}->${o.toId}` === transferPeerId) ?? options[0]!
+                    const activeFromName =
+                      MARTIAL_ART_DB_MAP[activeOpt.fromId]?.cleanName ?? activeOpt.fromId
+                    const activeToName =
+                      MARTIAL_ART_DB_MAP[activeOpt.toId]?.cleanName ?? activeOpt.toId
+
+                    return (
+                      <div className="pt-2 mt-2 border-t border-[#cbb693] space-y-1.5">
+                        <div className="flex items-center justify-between gap-2 text-[11px]">
+                          <span className="song-serif font-bold text-[#781710]">
+                            内功转修（散功承继）
+                          </span>
+                          <span className="font-mono text-[10px] text-[#5c3d1e]">
+                            原总熟练 {activeOpt.sourceTotalExp.toLocaleString()} ÷ 2 → +
+                            {activeOpt.transferExp.toLocaleString()}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <select
+                            value={`${activeOpt.fromId}->${activeOpt.toId}`}
+                            onChange={(e) => setTransferPeerId(e.target.value)}
+                            className="flex-1 min-w-0 px-2 py-1 rounded bg-[#faf3e3] border border-[#bfa680] text-[11px] text-[#23180f]"
+                          >
+                            {options.map((opt) => (
+                              <option
+                                key={`${opt.fromId}->${opt.toId}`}
+                                value={`${opt.fromId}->${opt.toId}`}
+                              >
+                                {opt.label}
+                              </option>
+                            ))}
+                          </select>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              transferNeigongProficiency(activeOpt.fromId, activeOpt.toId)
+                            }
+                            className="px-2.5 py-1 rounded bg-[#781710] hover:bg-[#961f16] text-[#fff8eb] font-bold song-serif text-[11px] shrink-0 cursor-pointer transition"
+                            title={`将《${activeFromName}》总熟练度清零，折半注入《${activeToName}》`}
+                          >
+                            确认转修
+                          </button>
+                        </div>
+                        <div className="text-[10px] text-[#6b5235]">
+                          提示：转修后《{activeFromName}》将重置为第 1 重（总熟练度清 0），折半熟练度注入《
+                          {activeToName}》。
+                        </div>
+                      </div>
+                    )
+                  })()}
                 </div>
               )
             })()}
