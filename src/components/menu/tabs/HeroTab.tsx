@@ -3,6 +3,7 @@ import { Maximize2 } from 'lucide-react'
 import { FACTION_DB_MAP, MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
 import { computeEquipmentTotals, computeWeaponArtSynergy } from '../../../data/itemsDb'
 import { computeEquippedArtsTotals } from '../../../data/playerMartialArts'
+import { getProtagonistPortrait } from '../../../data/protagonistPresets'
 import { useGameStore } from '../../../store/useGameStore'
 import {
   calcDailyExpByCategory,
@@ -79,7 +80,10 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
 
   const mainNeigong = equippedArts.neigong ? MARTIAL_ART_DB_MAP[equippedArts.neigong] : null
   const mainQinggong = equippedArts.qinggong ? MARTIAL_ART_DB_MAP[equippedArts.qinggong] : null
-  const heroImgUrl = '/assets/characters/templates/tpl_song_scholar_fb.jpg'
+  const playerName = useGameStore.getState().playerName
+  const playerPortraitId = useGameStore.getState().playerPortraitId
+  const heroPortrait = getProtagonistPortrait(playerPortraitId)
+  const heroImgUrl = heroPortrait.fullbodyUrl
   const currentSectName = sectState.sectId
     ? (FACTION_DB_MAP[sectState.sectId]?.name ?? sectState.sectId)
     : '无门无派'
@@ -87,7 +91,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const openHeroLightbox = () =>
     onOpenLightbox({
       url: heroImgUrl,
-      title: '江湖少侠 · 行侠全身绘像',
+      title: `${playerName} · 行侠全身绘像`,
       subtitle: `年方${heroAge}岁 · 驻足【${locationLabel}】 · 武学境界【${heroRealm.label}】 · 门派【${currentSectName}·${sectState.rankLabel}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
     })
 
@@ -104,7 +108,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   : '江湖少侠 · 无门无派'}
               </span>
               <h4 className="song-serif font-bold text-lg text-[#23180f] mt-1">
-                无名少侠（寒门游侠）
+                {playerName}（{heroPortrait.label}）
               </h4>
             </div>
             <div className="text-right text-xs text-[#6b5235]">

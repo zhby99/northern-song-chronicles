@@ -864,6 +864,10 @@ export interface GameOverState {
 }
 
 export interface SerializableGameState {
+  characterCreated?: boolean
+  playerName?: string
+  playerPortraitId?: string
+  playerAge?: number
   dayCount: number
   shichenIdx: number
   viewMode: ViewMode

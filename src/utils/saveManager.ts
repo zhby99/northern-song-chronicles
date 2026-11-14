@@ -418,6 +418,13 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   }
 
   const cleanState: SerializableGameState = {
+    characterCreated: typeof st.characterCreated === 'boolean' ? st.characterCreated : true,
+    playerName: typeof st.playerName === 'string' && st.playerName.trim() ? st.playerName.trim() : '无名少侠',
+    playerPortraitId:
+      typeof st.playerPortraitId === 'string' && st.playerPortraitId.trim()
+        ? st.playerPortraitId.trim()
+        : 'hero_04_swordsman',
+    playerAge: typeof st.playerAge === 'number' && st.playerAge >= 12 ? Math.floor(st.playerAge) : 12,
     dayCount: Math.floor(st.dayCount),
     shichenIdx:
       typeof st.shichenIdx === 'number' ? ((Math.floor(st.shichenIdx) % 12) + 12) % 12 : 4,

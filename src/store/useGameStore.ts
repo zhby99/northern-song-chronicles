@@ -287,6 +287,15 @@ const INITIAL_DERIVED_STATS = deriveHeroEffectiveStats(
 
 export interface GameStoreState {
   dayCount: number
+  characterCreated: boolean
+  playerName: string
+  playerPortraitId: string
+  playerAge: number
+  completeCharacterCreation: (payload: {
+    name: string
+    portraitId: string
+    baseStats: HeroBaseStats
+  }) => void
   shichenIdx: number
   viewMode: ViewMode
   showRegionLabels: boolean
@@ -768,6 +777,10 @@ function computeCombatSettlement(
 
 function extractSerializableState(s: GameStoreState): SerializableGameState {
   return {
+    characterCreated: s.characterCreated,
+    playerName: s.playerName,
+    playerPortraitId: s.playerPortraitId,
+    playerAge: s.playerAge,
     dayCount: s.dayCount,
     shichenIdx: s.shichenIdx,
     viewMode: s.viewMode,
@@ -859,6 +872,62 @@ export function buildStoreEvalContext(
 }
 
 export const useGameStore = create<GameStoreState>((set, get) => ({
+  characterCreated: false,
+  playerName: '无名少侠',
+  playerPortraitId: 'hero_04_swordsman',
+  playerAge: 12,
+  completeCharacterCreation: ({ name, portraitId, baseStats }) => {
+    const s = get()
+    const finalName = name.trim() || '无名少侠'
+    const cleanBase = cloneHeroBaseStats(baseStats)
+    const starterEquipped: EquippedSlotsMap = {
+      weapon: null,
+      armor: 'ARM-044', // 市井茶博士围裙衫
+      shoes: 'BOT-025', // 市井粗布鞋
+      bow: null,
+      accessory1: 'ACC-052', // 旧铜钱挂坠
+      accessory2: 'ACC-049', // 粗麻平安绳
+      mount: null,
+    }
+    const derived = deriveHeroStats(
+      cleanBase,
+      starterEquipped,
+      s.learnedArts,
+      s.equippedArts,
+    )
+    set({
+      characterCreated: true,
+      playerName: finalName,
+      playerPortraitId: portraitId,
+      playerAge: 12,
+      baseStats: cleanBase,
+      equipped: starterEquipped,
+      mountKey: derived.mountKey,
+      qinggongBonus: derived.qinggongBonus,
+      ridingSkill: derived.ridingSkill,
+      agility: derived.agility,
+      maxHp: derived.maxHp,
+      hp: derived.maxHp,
+      maxMp: derived.maxMp,
+      mp: derived.maxMp,
+      res: derived.res,
+      skills: derived.skills,
+      viewMode: 'region',
+      activeRegionId: 'bianliang',
+      currentNodeId: 'bianliang',
+      activeBuildingInteriorId: null,
+      logs: [
+        createLogEntry(
+          1,
+          '皇祐二年 · 初入汴京',
+          `年方十二的「${finalName}」身着市井茶博士围裙衫、足踏市井粗布鞋，怀揣旧铜钱挂坠与粗麻平安绳，自开封府踏入江湖。`,
+          true,
+          4,
+        ),
+        ...s.logs,
+      ],
+    })
+  },
   dayCount: 1,
   shichenIdx: 4, // 辰时 (食时 07:00-09:00)
   viewMode: 'region',

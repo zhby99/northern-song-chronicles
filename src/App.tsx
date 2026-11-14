@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from 'react'
 import { CombatOverlay } from './components/combat/CombatOverlay'
 import { BottomHud } from './components/hud/BottomHud'
+import { CharacterCreationModal } from './components/hud/CharacterCreationModal'
 import { ContextInspectorCard } from './components/hud/ContextInspectorCard'
 import { CultivationOverlay } from './components/hud/CultivationOverlay'
 import { GameOverModal } from './components/hud/GameOverModal'
@@ -24,6 +25,7 @@ const SystemMenuModal = lazy(() =>
 )
 
 export function App() {
+  const characterCreated = useGameStore((s) => s.characterCreated)
   const viewMode = useGameStore((s) => s.viewMode)
   const activeRegionId = useGameStore((s) => s.activeRegionId)
   const isTraveling = useGameStore((s) => s.traveling !== null)
@@ -192,6 +194,7 @@ export function App() {
           <SystemMenuModal />
         </Suspense>
       )}
+      {!characterCreated && <CharacterCreationModal />}
     </main>
   )
 }
