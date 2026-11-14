@@ -13,7 +13,8 @@ import {
   RARITY_STYLE_MAP,
 } from '../../data/itemsDb'
 import { MARTIAL_ART_SLOT_METAS } from '../../data/playerMartialArts'
-import { useGameStore } from '../../store/useGameStore'
+import { getAvailableNpcQuestActions } from '../../engine/questEngine'
+import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import type { TenArtKey } from '../../types/game'
 import { deriveNpcEffectiveStats } from '../../utils/heroStats'
 import { INITIAL_NPC_FAVOR, getNpcFavorProfile } from '../../utils/npcFavor'
@@ -55,11 +56,22 @@ export function NpcInteractionOverlay() {
   const interactNpc = useGameStore((s) => s.interactNpc)
   const startNpcCombat = useGameStore((s) => s.startNpcCombat)
   const giftNpcItem = useGameStore((s) => s.giftNpcItem)
+  const dayCount = useGameStore((s) => s.dayCount)
+  const shichenIdx = useGameStore((s) => s.shichenIdx)
   const inventory = useGameStore((s) => s.inventory)
   const silver = useGameStore((s) => s.silver)
+  const food = useGameStore((s) => s.food)
+  const hp = useGameStore((s) => s.hp)
+  const maxHp = useGameStore((s) => s.maxHp)
+  const mp = useGameStore((s) => s.mp)
+  const maxMp = useGameStore((s) => s.maxMp)
+  const agility = useGameStore((s) => s.agility)
+  const res = useGameStore((s) => s.res)
   const baseStats = useGameStore((s) => s.baseStats)
+  const skills = useGameStore((s) => s.skills)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const sectState = useGameStore((s) => s.sectState)
+  const questState = useGameStore((s) => s.questState)
   const npcFavorMap = useGameStore((s) => s.npcFavor)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
 
@@ -71,13 +83,14 @@ export function NpcInteractionOverlay() {
   const bribeForReferral = useGameStore((s) => s.bribeForReferral)
   const claimKaifengRecommendation = useGameStore((s) => s.claimKaifengRecommendation)
   const learnSectMartialArt = useGameStore((s) => s.learnSectMartialArt)
+  const runQuestEffects = useGameStore((s) => s.runQuestEffects)
 
   const [subPanel, setSubPanel] = useState<SubPanelMode>('none')
   const [dialogueText, setDialogueText] = useState<string | null>(null)
   const [confirmLeaveChangshan, setConfirmLeaveChangshan] = useState(false)
 
   const dbRecord = useMemo(() => {
-    if (!npc || npc.isDynamicLiaoSpy) return undefined
+    if (!npc || npc.isDynamicLiaoSpy || npc.dynamicQuestActorId) return undefined
     if (npc.id && NPC_DB_MAP[npc.id]) return NPC_DB_MAP[npc.id]
     return (
       resolveNpcByName(npc.name) ??
@@ -121,13 +134,86 @@ export function NpcInteractionOverlay() {
     return new Map(learnedArts.map((e) => [e.artId, e]))
   }, [learnedArts])
 
+  const npcQuestActions = useMemo(() => {
+    if (!npc) return []
+    const enrichedNpc = {
+      ...npc,
+      id: npc.id ?? dbRecord?.id,
+      factionId: targetFactionId ?? undefined,
+      sectRank: npcSectRank,
+    }
+    const evalCtx = buildStoreEvalContext(
+      {
+        dayCount,
+        shichenIdx,
+        silver,
+        food,
+        hp,
+        maxHp,
+        mp,
+        maxMp,
+        agility,
+        res,
+        baseStats,
+        skills,
+        inventory,
+        learnedArts,
+        npcFavor: npcFavorMap,
+        sectState,
+        questState,
+      },
+      enrichedNpc,
+    )
+    return getAvailableNpcQuestActions(enrichedNpc, evalCtx)
+  }, [
+    npc,
+    dbRecord?.id,
+    targetFactionId,
+    npcSectRank,
+    dayCount,
+    shichenIdx,
+    silver,
+    food,
+    hp,
+    maxHp,
+    mp,
+    maxMp,
+    agility,
+    res,
+    baseStats,
+    skills,
+    inventory,
+    learnedArts,
+    npcFavorMap,
+    sectState,
+    questState,
+  ])
+
+  const sectPanelQuestActions = useMemo(
+    () => npcQuestActions.filter((x) => Boolean(x.action.showInSectPanel)),
+    [npcQuestActions],
+  )
+  const bottomBarQuestActions = useMemo(
+    () =>
+      npcQuestActions.filter(
+        (x) =>
+          x.action.showInBottomBar === true ||
+          (x.action.showInBottomBar !== false && !x.action.showInSectPanel),
+      ),
+    [npcQuestActions],
+  )
+
   if (!npc) return null
 
   const npcKey = npc.id ?? npc.name
   const curFavor = npcFavorMap[npcKey] ?? INITIAL_NPC_FAVOR
   const canOpenSectMenu = !npc.isDynamicLiaoSpy && isJoinableSectFaction(targetFactionId)
+  const hasQuestRobAction = bottomBarQuestActions.some(
+    (x) => x.action.id === 'act_rob_song_official_scene',
+  )
   const canRobForToumingzhuang =
     !npc.isDynamicLiaoSpy &&
+    !hasQuestRobAction &&
     sectState.toumingzhuangState === 'accepted' &&
     isSongOfficialForRobbery({
       id: npc.id ?? dbRecord?.id,
@@ -542,6 +628,63 @@ export function NpcInteractionOverlay() {
               </div>
             )}
 
+            {/* 声明式门派试炼 / 入门剧情链入口（任意一流/二流门派任务自动挂载） */}
+            {sectPanelQuestActions.length > 0 && (
+              <div className="p-3.5 rounded-lg bg-[#f6e8cc] border-2 border-[#b58742] space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold song-serif text-sm text-[#781710]">
+                    ★ 宗门试炼与专属剧情 ({sectPanelQuestActions.length})
+                  </span>
+                  <span className="text-[11px] text-[#6b5235]">门派任务链</span>
+                </div>
+                <div className="flex flex-wrap items-center gap-2.5">
+                  {sectPanelQuestActions.map((qa) => {
+                    const toneCls =
+                      qa.action.tone === 'danger'
+                        ? 'bg-[#8f1d14] hover:bg-[#a9251b] border-[#e69d8f] text-[#fff8ee]'
+                        : qa.action.tone === 'jade'
+                          ? 'bg-[#1f4d3b] hover:bg-[#27614a] border-[#8fc7ae] text-[#fff8ee]'
+                          : qa.action.tone === 'gold'
+                            ? 'bg-[#6b4614] hover:bg-[#825518] border-[#e6c27a] text-[#fff8ee]'
+                            : 'bg-[#5c3d1e] hover:bg-[#734c26] border-[#cbb693] text-[#fff8ee]'
+                    return (
+                      <div key={`${qa.quest.id}:${qa.action.id}`} className="flex flex-col gap-1">
+                        <button
+                          type="button"
+                          disabled={!qa.enabled}
+                          onClick={() => {
+                            if (!qa.enabled) return
+                            setSubPanel('none')
+                            runQuestEffects(qa.action.effects, {
+                              ...npc,
+                              id: npc.id ?? dbRecord?.id,
+                              factionId: targetFactionId ?? undefined,
+                              sectRank: npcSectRank,
+                            })
+                          }}
+                          className={`px-4 py-2 rounded-lg font-bold text-xs sm:text-sm border shadow transition-colors flex items-center gap-2 ${
+                            qa.enabled
+                              ? `${toneCls} cursor-pointer`
+                              : 'bg-[#8c7b65]/60 border-[#a89882] text-[#f7eedc] cursor-not-allowed'
+                          }`}
+                        >
+                          <span>{qa.action.label}</span>
+                          {qa.action.badge && (
+                            <span className="px-1.5 py-0.5 rounded bg-black/25 text-[10px] font-normal">
+                              {qa.action.badge}
+                            </span>
+                          )}
+                        </button>
+                        {!qa.enabled && qa.disabledReason && (
+                          <span className="text-[11px] text-[#8f1d14]">🔒 {qa.disabledReason}</span>
+                        )}
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
             {/* 情况 A：尚未加入该门派 */}
             {!isPlayerInThisSect && entryEval && (
               <div className="p-4 rounded-lg bg-[#efe4cc]/90 border border-[#b59461] space-y-3">
@@ -583,7 +726,10 @@ export function NpcInteractionOverlay() {
                   </button>
 
                   {targetFactionId === 'SECT-18' &&
-                    sectState.toumingzhuangState !== 'completed' && (
+                    sectState.toumingzhuangState !== 'completed' &&
+                    !sectPanelQuestActions.some(
+                      (x) => x.action.id === 'act_accept_toumingzhuang_scene',
+                    ) && (
                       <button
                         type="button"
                         onClick={() => acceptToumingzhuang(npc)}
@@ -1012,6 +1158,47 @@ export function NpcInteractionOverlay() {
               </button>
             </>
           )}
+
+          {bottomBarQuestActions.map((qa) => {
+            const toneCls =
+              qa.action.tone === 'danger'
+                ? 'bg-[#a31b12] hover:bg-[#c22117] border-2 border-[#f5c78e] text-[#fff8ee]'
+                : qa.action.tone === 'jade'
+                  ? 'bg-[#1f4d3b] hover:bg-[#27614a] border-2 border-[#9fd0b4] text-[#fff8ee]'
+                  : qa.action.tone === 'gold'
+                    ? 'bg-[#6b4614] hover:bg-[#825518] border-2 border-[#f3c66f] text-[#fff8ee]'
+                    : 'bg-[#5c3d1e] hover:bg-[#734c26] border border-[#d49a6a] text-[#fff8ee]'
+            return (
+              <button
+                key={`${qa.quest.id}:${qa.action.id}`}
+                type="button"
+                disabled={!qa.enabled}
+                title={!qa.enabled && qa.disabledReason ? qa.disabledReason : qa.quest.title}
+                onClick={() => {
+                  if (!qa.enabled) return
+                  setSubPanel('none')
+                  runQuestEffects(qa.action.effects, {
+                    ...npc,
+                    id: npc.id ?? dbRecord?.id,
+                    factionId: targetFactionId ?? undefined,
+                    sectRank: npcSectRank,
+                  })
+                }}
+                className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-bold shadow-lg transition-colors flex items-center gap-1.5 ${
+                  qa.enabled
+                    ? `${toneCls} cursor-pointer`
+                    : 'bg-[#5c5042]/80 border border-[#8f816d] text-[#d9ceb8] cursor-not-allowed'
+                }`}
+              >
+                <span>{qa.action.label}</span>
+                {qa.action.badge && (
+                  <span className="px-1.5 py-0.5 rounded bg-black/25 text-[10px] font-normal">
+                    {qa.action.badge}
+                  </span>
+                )}
+              </button>
+            )
+          })}
 
           {canRobForToumingzhuang && (
             <button

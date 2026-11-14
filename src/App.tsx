@@ -8,6 +8,7 @@ import { NpcInteractionOverlay } from './components/hud/NpcInteractionOverlay'
 import { TopHud } from './components/hud/TopHud'
 import { TravelBanner } from './components/hud/TravelBanner'
 import { RegionMapCanvas } from './components/map/RegionMapCanvas'
+import { StorySceneModal } from './components/quest/StorySceneModal'
 import { useGameStore } from './store/useGameStore'
 import { syncBgmSceneContext, toggleBgmPlayback } from './utils/bgmManager'
 import { purgeLegacySaveDatabases } from './utils/saveManager'
@@ -25,9 +26,11 @@ export function App() {
   const activeRegionId = useGameStore((s) => s.activeRegionId)
   const isTraveling = useGameStore((s) => s.traveling !== null)
   const menuOpen = useGameStore((s) => s.menuOpen)
+  const activeMenuTab = useGameStore((s) => s.activeMenuTab)
   const compendiumOpen = useGameStore((s) => s.compendiumOpen)
   const activeNpcInteraction = useGameStore((s) => s.activeNpcInteraction)
   const activeCombat = useGameStore((s) => s.activeCombat)
+  const activeStoryScene = useGameStore((s) => s.activeStoryScene)
   const gameOver = useGameStore((s) => s.gameOver)
   const stepTravelTick = useGameStore((s) => s.stepTravelTick)
   const openMenu = useGameStore((s) => s.openMenu)
@@ -50,10 +53,10 @@ export function App() {
     syncBgmSceneContext(viewMode, activeRegionId)
   }, [viewMode, activeRegionId])
 
-  // Global ESC shortcut for system/compendium menu, G for Compendium, & M for BGM toggle
+  // Global ESC shortcut for system/compendium menu, G for Compendium, J for Quest Journal, & M for BGM toggle
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (activeCombat) {
+      if (activeCombat || activeStoryScene) {
         if (!e.ctrlKey && !e.metaKey && !e.altKey && (e.key === 'm' || e.key === 'M')) {
           toggleBgmPlayback()
         }
@@ -82,6 +85,11 @@ export function App() {
           else openCompendium()
           return
         }
+        if (e.key === 'j' || e.key === 'J') {
+          if (menuOpen && activeMenuTab === 'quests') closeMenu()
+          else openMenu('quests')
+          return
+        }
         if (e.key === 'm' || e.key === 'M') {
           toggleBgmPlayback()
         }
@@ -91,9 +99,11 @@ export function App() {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [
     menuOpen,
+    activeMenuTab,
     compendiumOpen,
     activeNpcInteraction,
     activeCombat,
+    activeStoryScene,
     gameOver,
     openMenu,
     closeMenu,
@@ -104,12 +114,12 @@ export function App() {
 
   // 九州山海行路时钟：每 0.25s 前进一步（一个时辰），一日十二时辰累计 3.0s
   useEffect(() => {
-    if (!isTraveling || gameOver || activeCombat) return
+    if (!isTraveling || gameOver || activeCombat || activeStoryScene) return
     const timer = window.setInterval(() => {
       stepTravelTick()
     }, 250)
     return () => window.clearInterval(timer)
-  }, [isTraveling, gameOver, activeCombat, stepTravelTick])
+  }, [isTraveling, gameOver, activeCombat, activeStoryScene, stepTravelTick])
 
   return (
     <main
@@ -133,14 +143,17 @@ export function App() {
         <RegionMapCanvas />
       )}
 
-      {!activeNpcInteraction && !activeCombat && !gameOver && <BottomHud />}
-      {!activeNpcInteraction && !activeCombat && !gameOver && <ContextInspectorCard />}
+      {!activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && <BottomHud />}
+      {!activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
+        <ContextInspectorCard />
+      )}
       <MapTooltip />
-      {activeNpcInteraction && !activeCombat && !gameOver && (
+      {activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
         <NpcInteractionOverlay
           key={activeNpcInteraction.id ?? activeNpcInteraction.name}
         />
       )}
+      {activeStoryScene && !activeCombat && !gameOver && <StorySceneModal />}
       {activeCombat && <CombatOverlay />}
       {gameOver && <GameOverModal />}
 

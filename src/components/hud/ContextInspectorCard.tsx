@@ -8,7 +8,11 @@ import {
   resolveRoamingMasterLeafTarget,
   TEN_ART_KEYS,
 } from '../../data/gameDb'
-import { useGameStore } from '../../store/useGameStore'
+import {
+  buildNodeNpcFromDynamicActor,
+  getAvailableSpotQuestActions,
+} from '../../engine/questEngine'
+import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import type {
   NodeNpc,
   NpcCombatStats,
@@ -55,6 +59,8 @@ function buildRoamingFallbackStats(m: RoamingMaster): {
 
 export function ContextInspectorCard() {
   const viewMode = useGameStore((s) => s.viewMode)
+  const dayCount = useGameStore((s) => s.dayCount)
+  const shichenIdx = useGameStore((s) => s.shichenIdx)
   const currentNodeId = useGameStore((s) => s.currentNodeId)
   const selectedNodeId = useGameStore((s) => s.selectedNodeId)
   const activeRegionId = useGameStore((s) => s.activeRegionId)
@@ -66,9 +72,22 @@ export function ContextInspectorCard() {
   const mountKey = useGameStore((s) => s.mountKey)
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
+  const silver = useGameStore((s) => s.silver)
+  const food = useGameStore((s) => s.food)
+  const hp = useGameStore((s) => s.hp)
+  const maxHp = useGameStore((s) => s.maxHp)
+  const mp = useGameStore((s) => s.mp)
+  const maxMp = useGameStore((s) => s.maxMp)
   const agility = useGameStore((s) => s.agility)
+  const res = useGameStore((s) => s.res)
+  const baseStats = useGameStore((s) => s.baseStats)
+  const skills = useGameStore((s) => s.skills)
+  const inventory = useGameStore((s) => s.inventory)
+  const learnedArts = useGameStore((s) => s.learnedArts)
+  const npcFavor = useGameStore((s) => s.npcFavor)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
   const sectState = useGameStore((s) => s.sectState)
+  const questState = useGameStore((s) => s.questState)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
 
   const clearFloatingSelection = useGameStore((s) => s.clearFloatingSelection)
@@ -77,6 +96,7 @@ export function ContextInspectorCard() {
   const enterBuildingMap = useGameStore((s) => s.enterBuildingMap)
   const startJourney = useGameStore((s) => s.startJourney)
   const doBuildingAction = useGameStore((s) => s.doBuildingAction)
+  const runQuestEffects = useGameStore((s) => s.runQuestEffects)
   const interactNpc = useGameStore((s) => s.interactNpc)
   const startNpcCombat = useGameStore((s) => s.startNpcCombat)
   const openNpcInteraction = useGameStore((s) => s.openNpcInteraction)
@@ -93,12 +113,16 @@ export function ContextInspectorCard() {
   // 1) A base building in `region` view that cannot be entered (`interior === null`)
   // 2) Inside a single-hall enterable building (`viewMode === 'building'` with `spots.length === 0`, e.g. city taverns & inns)
   // 3) A specific sub-building spot (`selectedSpotId`) inside a multi-spot `building` interior view
-  const { isLeafBuilding, contextNpcs } = useMemo<{
+  const { isLeafBuilding, leafBuildingId, leafSpotId, contextNpcs } = useMemo<{
     isLeafBuilding: boolean
+    leafBuildingId: string | null
+    leafSpotId: string | null
     contextNpcs: NodeNpc[]
   }>(() => {
     const node = NODE_MAP[activeRegionId]
-    if (!node) return { isLeafBuilding: false, contextNpcs: [] }
+    if (!node) {
+      return { isLeafBuilding: false, leafBuildingId: null, leafSpotId: null, contextNpcs: [] }
+    }
 
     const activeInterior = activeBuildingInteriorId
       ? (BUILDING_DB_MAP[activeBuildingInteriorId]?.interior ?? null)
@@ -123,16 +147,19 @@ export function ContextInspectorCard() {
       Boolean(selectedSpotId)
 
     if (!isLeafBaseBuilding && !isLeafSingleHallInterior && !isLeafInteriorSpot) {
-      return { isLeafBuilding: false, contextNpcs: [] }
+      return { isLeafBuilding: false, leafBuildingId: null, leafSpotId: null, contextNpcs: [] }
     }
 
-    const leafBuildingId = isLeafSingleHallInterior
+    const resolvedLeafBuildingId = isLeafInteriorSpot
       ? activeBuildingInteriorId!
-      : selectedBuildingId!
+      : isLeafSingleHallInterior
+        ? activeBuildingInteriorId!
+        : selectedBuildingId!
+    const resolvedLeafSpotId = isLeafInteriorSpot ? selectedSpotId! : null
 
     const leafNpcs = isLeafInteriorSpot
       ? getCompiledNpcsBySpot(selectedSpotId!)
-      : getCompiledNpcsByBuilding(leafBuildingId).filter((c) => !c.assignedSpotId)
+      : getCompiledNpcsByBuilding(resolvedLeafBuildingId).filter((c) => !c.assignedSpotId)
 
     // Handcrafted custom talk lines from worldGraph if present
     const talkMap = new Map<string, string>()
@@ -147,12 +174,23 @@ export function ContextInspectorCard() {
     // Dynamic annual Liao Spy spawned for Changshan Spear Sect (SECT-22)
     const spy = sectState.activeLiaoSpy
     if (spy && spy.regionId === node.id) {
-      const spyMatchesLeaf = isLeafInteriorSpot
-        ? spy.buildingId === activeBuildingInteriorId && spy.spotId === selectedSpotId
-        : spy.buildingId === leafBuildingId && spy.spotId === null
+      const spyMatchesLeaf =
+        spy.buildingId === resolvedLeafBuildingId && (spy.spotId ?? null) === resolvedLeafSpotId
       if (spyMatchesLeaf) {
         seenNames.add(spy.name)
         combined.push(buildNodeNpcFromLiaoSpy(spy))
+      }
+    }
+
+    // Dynamic Quest Actors spawned by declarative QuestEffect ('spawnDynamicActor')
+    for (const dynActor of questState.dynamicActors) {
+      if (dynActor.regionId !== node.id) continue
+      const matchesLeaf =
+        dynActor.buildingId === resolvedLeafBuildingId &&
+        (dynActor.spotId ?? null) === resolvedLeafSpotId
+      if (matchesLeaf) {
+        seenNames.add(dynActor.name)
+        combined.push(buildNodeNpcFromDynamicActor(dynActor))
       }
     }
 
@@ -161,12 +199,10 @@ export function ContextInspectorCard() {
       if (m.nodeId !== node.id) return false
       const target = resolveRoamingMasterLeafTarget(m)
       if (!target) return false
-      if (isLeafInteriorSpot) {
-        return (
-          target.buildingId === activeBuildingInteriorId && target.spotId === selectedSpotId
-        )
-      }
-      return target.buildingId === leafBuildingId && target.spotId === null
+      return (
+        target.buildingId === resolvedLeafBuildingId &&
+        (target.spotId ?? null) === resolvedLeafSpotId
+      )
     })
 
     for (const m of roamingAtThisLeaf) {
@@ -222,6 +258,8 @@ export function ContextInspectorCard() {
 
     return {
       isLeafBuilding: true,
+      leafBuildingId: resolvedLeafBuildingId,
+      leafSpotId: resolvedLeafSpotId,
       contextNpcs: combined,
     }
   }, [
@@ -232,6 +270,60 @@ export function ContextInspectorCard() {
     selectedSpotId,
     roamingMasters,
     sectState.activeLiaoSpy,
+    questState.dynamicActors,
+  ])
+
+  const spotQuestActions = useMemo(() => {
+    if (!isLeafBuilding || !leafBuildingId) return []
+    const evalCtx = buildStoreEvalContext({
+      dayCount,
+      shichenIdx,
+      silver,
+      food,
+      hp,
+      maxHp,
+      mp,
+      maxMp,
+      agility,
+      res,
+      baseStats,
+      skills,
+      inventory,
+      learnedArts,
+      npcFavor,
+      sectState,
+      questState,
+    })
+    return getAvailableSpotQuestActions(
+      {
+        regionId: activeRegionId,
+        buildingId: leafBuildingId,
+        spotId: leafSpotId,
+      },
+      evalCtx,
+    )
+  }, [
+    isLeafBuilding,
+    leafBuildingId,
+    leafSpotId,
+    activeRegionId,
+    dayCount,
+    shichenIdx,
+    silver,
+    food,
+    hp,
+    maxHp,
+    mp,
+    maxMp,
+    agility,
+    res,
+    baseStats,
+    skills,
+    inventory,
+    learnedArts,
+    npcFavor,
+    sectState,
+    questState,
   ])
 
   // 1) World Map Node Inspector
@@ -475,6 +567,56 @@ export function ContextInspectorCard() {
         </button>
       )}
 
+      {spotQuestActions.length > 0 && (
+        <div className="p-2.5 rounded-md bg-[#f5e7cb] border-2 border-[#b58742] space-y-2">
+          <div className="flex items-center justify-between text-[11px] font-bold song-serif text-[#781710]">
+            <span>★ 剧情机缘与宗门试炼 ({spotQuestActions.length})</span>
+            <span className="text-[10px] font-sans text-[#6b5235]">驻地奇遇</span>
+          </div>
+          <div className="space-y-1.5">
+            {spotQuestActions.map((qa) => {
+              const toneCls =
+                qa.action.tone === 'danger'
+                  ? 'bg-[#8f1d14] hover:bg-[#a9251b] text-[#fff8eb] border-[#e69d8f]'
+                  : qa.action.tone === 'jade'
+                    ? 'bg-[#1f4d3b] hover:bg-[#27614a] text-[#fff8eb] border-[#8fc7ae]'
+                    : qa.action.tone === 'gold'
+                      ? 'bg-[#6b4614] hover:bg-[#825518] text-[#fff8eb] border-[#e6c27a]'
+                      : 'bg-[#5c3d1e] hover:bg-[#734c26] text-[#fff8eb] border-[#cbb693]'
+              return (
+                <div key={`${qa.quest.id}:${qa.action.id}`} className="space-y-1">
+                  <button
+                    type="button"
+                    disabled={!qa.enabled}
+                    onClick={() => {
+                      if (!qa.enabled) return
+                      runQuestEffects(qa.action.effects, null)
+                    }}
+                    className={`w-full px-3 py-2 rounded border text-xs font-bold song-serif shadow transition flex items-center justify-between gap-2 ${
+                      qa.enabled
+                        ? `${toneCls} cursor-pointer`
+                        : 'bg-[#b5a58d] text-[#f5eedf] border-[#9c8c74] cursor-not-allowed opacity-80'
+                    }`}
+                  >
+                    <span className="truncate">{qa.action.label}</span>
+                    {qa.action.badge && (
+                      <span className="px-1.5 py-0.5 rounded bg-black/25 text-[10px] font-sans shrink-0">
+                        {qa.action.badge}
+                      </span>
+                    )}
+                  </button>
+                  {!qa.enabled && qa.disabledReason && (
+                    <div className="text-[11px] text-[#8f1d14] px-1">
+                      🔒 {qa.disabledReason}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
       {actionFeedback && (
         <div
           className={`p-2 rounded bg-[#efe4cc] border border-[#c8b28e] text-xs leading-relaxed ${
@@ -554,6 +696,11 @@ export function ContextInspectorCard() {
                           {p.isDynamicLiaoSpy && (
                             <span className="text-[9px] px-1 py-0.2 rounded bg-[#8f1d14] text-[#fff8ee] font-sans shrink-0">
                               军令必诛
+                            </span>
+                          )}
+                          {p.questBadgeLabel && (
+                            <span className="text-[9px] px-1 py-0.2 rounded bg-[#781710] text-[#fff8ee] font-sans shrink-0">
+                              {p.questBadgeLabel}
                             </span>
                           )}
                           {!p.isDynamicLiaoSpy && p.sectRankLabel && (
@@ -695,7 +842,7 @@ export function ContextInspectorCard() {
                         </button>
                       </>
                     )}
-                    {!p.isDynamicLiaoSpy && (
+                    {!p.isDynamicLiaoSpy && p.tenArts && (
                       <button
                         type="button"
                         onClick={() =>
@@ -712,7 +859,7 @@ export function ContextInspectorCard() {
                         {isExpanded ? '收起属性' : '十艺详值'}
                       </button>
                     )}
-                    {p.id && !p.isDynamicLiaoSpy && (
+                    {p.id && !p.isDynamicLiaoSpy && !p.dynamicQuestActorId && (
                       <button
                         type="button"
                         onClick={() => openNpcDetailInCompendium(p.id!)}

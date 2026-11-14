@@ -10,6 +10,7 @@
     "build": "tsc -b && vite build",
     "build:artifact": "node scripts/build_preview_artifact.mjs",
     "archive:masters": "node scripts/run_py.mjs scripts/archive_all_branch_assets.py",
+    "verify:quests": "node scripts/verify_quests.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },

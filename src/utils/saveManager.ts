@@ -24,11 +24,12 @@ import {
   DEFAULT_LEARNED_ARTS,
   getArtExpRequired,
 } from '../data/playerMartialArts'
+import { cloneQuestRuntimeState } from '../engine/questEngine'
 import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from './heroStats'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
 import { clonePlayerSectState } from './sectMechanics'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.4.0' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.4.1' as const
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -458,6 +459,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         ? (st.sectState as Partial<SerializableGameState['sectState']>)
         : null,
     ),
+    questState: cloneQuestRuntimeState(st.questState),
     overlays: isRecord(st.overlays)
       ? {
           cityLabels: Boolean(st.overlays.cityLabels ?? true),

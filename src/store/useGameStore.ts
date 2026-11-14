@@ -3,6 +3,7 @@ import {
   BUILDING_DB_MAP,
   FACTION_DB_MAP,
   MARTIAL_ART_DB_MAP,
+  NPCS_DB,
   NPC_DB_MAP,
   resolveNpcByName,
   UNIQUE_ARTIFACT_MAP,
@@ -24,6 +25,15 @@ import {
   DEFAULT_LEARNED_ARTS,
   getArtExpRequired,
 } from '../data/playerMartialArts'
+import { QUEST_MAP } from '../data/quests'
+import {
+  cloneQuestRuntimeState,
+  DEFAULT_QUEST_RUNTIME_STATE,
+  evaluateQuestCondition,
+  findMatchingLocationTriggers,
+  resolveQuestCombatOpponent,
+  type QuestEvalContext,
+} from '../engine/questEngine'
 import type {
   ActionEffect,
   BagCategoryKey,
@@ -47,12 +57,19 @@ import type {
   PlayerSectState,
   RoamingMaster,
   SaveSlotId,
+  SectRankLevel,
   SerializableGameState,
   TooltipPayload,
   TravelState,
   ViewMode,
   WildernessCamp,
 } from '../types/game'
+import type {
+  ActiveStorySceneState,
+  QuestEffect,
+  QuestRuntimeState,
+  QuestTargetLocationHint,
+} from '../types/quest'
 import {
   calcPracticeArtExpGain,
   cloneHeroBaseStats,
@@ -80,6 +97,7 @@ import {
 import {
   INITIAL_NPC_FAVOR,
   MAX_NPC_FAVOR,
+  MIN_NPC_FAVOR,
   computeGiftFavorGain,
   getNpcFavorProfile,
 } from '../utils/npcFavor'
@@ -101,7 +119,9 @@ import {
   evaluateSectEntry,
   evaluateSectPromotion,
   getChangshanMonthlyStipend,
+  getSectRankTitle,
   getSectTeachableArts,
+  isSongAlignedNpc,
   isSongOfficialForRobbery,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
@@ -292,8 +312,10 @@ export interface GameStoreState {
   menuOpen: boolean
   activeNpcInteraction: NodeNpc | null
   activeCombat: CombatSessionState | null
+  activeStoryScene: ActiveStorySceneState | null
   gameOver: GameOverState | null
   sectState: PlayerSectState
+  questState: QuestRuntimeState
   activeMenuTab: MenuTabKey
   compendiumOpen: boolean
   activeCompendiumTab: CompendiumTabKey
@@ -373,6 +395,20 @@ export interface GameStoreState {
   bribeForReferral: (npc: NodeNpc) => void
   claimKaifengRecommendation: (npc?: NodeNpc) => void
   learnSectMartialArt: (artId: string) => void
+
+  // Declarative Quest & Story Scene Engine
+  runQuestEffects: (effects: QuestEffect[], contextNpc?: NodeNpc | null) => void
+  advanceStoryScene: () => void
+  selectStoryChoice: (choiceId: string) => void
+  closeStoryScene: () => void
+  fireLocationTriggersForCurrentSpot: (loc: {
+    regionId: string
+    buildingId?: string | null
+    spotId?: string | null
+    isPassThrough?: boolean
+  }) => boolean
+  checkExpiredQuestDeadlines: () => void
+  locateQuestTargetOnMap: (target: QuestTargetLocationHint) => void
 
   startJourney: (targetId: string) => void
   stepTravelTick: () => void
@@ -680,11 +716,57 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     consumedUniqueIds: [...s.consumedUniqueIds],
     npcFavor: { ...s.npcFavor },
     sectState: clonePlayerSectState(s.sectState),
+    questState: cloneQuestRuntimeState(s.questState),
     overlays: { ...s.overlays },
     roamingMasters: s.roamingMasters.map((m) => ({ ...m })),
     worldPan: { ...s.worldPan },
     regionPan: { ...s.regionPan },
     logs: s.logs.slice(0, 60),
+  }
+}
+
+export function buildStoreEvalContext(
+  s: Pick<
+    GameStoreState,
+    | 'dayCount'
+    | 'shichenIdx'
+    | 'silver'
+    | 'food'
+    | 'hp'
+    | 'maxHp'
+    | 'mp'
+    | 'maxMp'
+    | 'agility'
+    | 'res'
+    | 'baseStats'
+    | 'skills'
+    | 'inventory'
+    | 'learnedArts'
+    | 'npcFavor'
+    | 'sectState'
+    | 'questState'
+  >,
+  targetNpc?: NodeNpc | null,
+): QuestEvalContext {
+  return {
+    dayCount: s.dayCount,
+    shichenIdx: s.shichenIdx,
+    silver: s.silver,
+    food: s.food,
+    hp: s.hp,
+    maxHp: s.maxHp,
+    mp: s.mp,
+    maxMp: s.maxMp,
+    agility: s.agility,
+    res: s.res,
+    baseStats: s.baseStats,
+    skills: s.skills,
+    inventory: s.inventory,
+    learnedArts: s.learnedArts,
+    npcFavor: s.npcFavor,
+    sectState: s.sectState,
+    questState: s.questState,
+    targetNpc: targetNpc ?? null,
   }
 }
 
@@ -761,8 +843,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   menuOpen: false,
   activeNpcInteraction: null,
   activeCombat: null,
+  activeStoryScene: null,
   gameOver: null,
   sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
+  questState: cloneQuestRuntimeState(DEFAULT_QUEST_RUNTIME_STATE),
   activeMenuTab: 'hero',
   compendiumOpen: false,
   activeCompendiumTab: 'regions',
@@ -797,8 +881,39 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   },
 
   selectWorldNode: (nodeId) => set({ selectedNodeId: nodeId, actionFeedback: null }),
-  selectRegionBuilding: (bldgId) => set({ selectedBuildingId: bldgId, actionFeedback: null }),
-  selectBuildingSpot: (spotId) => set({ selectedSpotId: spotId, actionFeedback: null }),
+  selectRegionBuilding: (bldgId) => {
+    set({ selectedBuildingId: bldgId, actionFeedback: null })
+    if (bldgId) {
+      const s = get()
+      const bRec = BUILDING_DB_MAP[bldgId]
+      // Base city buildings have no interior sub-map; selecting them visits the leaf building
+      if (!bRec?.interior && s.currentNodeId === s.activeRegionId && !s.campPos && !s.traveling) {
+        get().fireLocationTriggersForCurrentSpot({
+          regionId: s.activeRegionId,
+          buildingId: bldgId,
+          spotId: null,
+        })
+      }
+    }
+  },
+  selectBuildingSpot: (spotId) => {
+    set({ selectedSpotId: spotId, actionFeedback: null })
+    if (spotId) {
+      const s = get()
+      if (
+        s.activeBuildingInteriorId &&
+        s.currentNodeId === s.activeRegionId &&
+        !s.campPos &&
+        !s.traveling
+      ) {
+        get().fireLocationTriggersForCurrentSpot({
+          regionId: s.activeRegionId,
+          buildingId: s.activeBuildingInteriorId,
+          spotId,
+        })
+      }
+    }
+  },
 
   enterRegionMap: (nodeId, logSwitch = false) => {
     const s = get()
@@ -808,7 +923,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (s.traveling) {
       get().campStop()
     }
-    const isKaifengAmbush = nodeId === 'bianliang' && s.sectState.songCourtBlacklisted
+    const isKaifengAmbush =
+      nodeId === 'bianliang' &&
+      (s.sectState.songCourtBlacklisted || Boolean(s.questState.flags.song_court_blacklisted))
     let logs = logSwitch
       ? [
           createLogEntry(
@@ -849,12 +966,18 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       logs,
     })
 
-    if (isKaifengAmbush) {
+    get().fireLocationTriggersForCurrentSpot({
+      regionId: nodeId,
+      buildingId: null,
+      spotId: null,
+    })
+
+    if (isKaifengAmbush && !get().activeStoryScene && !get().activeCombat && !get().gameOver) {
       get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
       return
     }
 
-    if (logSwitch) {
+    if (logSwitch && !get().activeStoryScene && !get().activeCombat && !get().gameOver) {
       void get().saveToSlot('autosave', `踏入${node.name}`, true)
     }
   },
@@ -889,6 +1012,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         ...s.logs,
       ].slice(0, 60),
     })
+
+    if (s.currentNodeId === s.activeRegionId && !s.campPos && !s.traveling) {
+      get().fireLocationTriggersForCurrentSpot({
+        regionId: s.activeRegionId,
+        buildingId: bldgId,
+        spotId: null,
+      })
+    }
   },
 
   exitBuildingMap: () => {
@@ -2248,12 +2379,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         },
         nextSession,
       )
+      const qHook = nextSession.questCombatHook
       const deathNotice =
         nextSession.mode === 'duel' && nextSession.outcome === 'npc_win'
-          ? nextSession.duelStakes === 'zhan_zhao_arrest'
-            ? '少侠重伤被南侠展昭生擒归案，即将押赴开封府市曹处斩（游戏结束）！'
-            : `生死决斗败亡！少侠命陨于【${nextSession.npc.name}】之手（游戏结束）！`
-          : preview.rewardsSummary
+          ? qHook?.deathDetail
+            ? `${qHook.deathDetail}（游戏结束）`
+            : nextSession.duelStakes === 'zhan_zhao_arrest'
+              ? '少侠重伤被南侠展昭生擒归案，即将押赴开封府市曹处斩（游戏结束）！'
+              : `生死决斗败亡！少侠命陨于【${nextSession.npc.name}】之手（游戏结束）！`
+          : nextSession.surviveToWin &&
+              nextSession.outcome === 'player_win' &&
+              nextSession.npc.hp > 0
+            ? `稳守撑满 ${nextSession.maxRounds} 合考校不倒！ · ${preview.rewardsSummary}`
+            : preview.rewardsSummary
       nextSession = {
         ...nextSession,
         rewardsSummary: deathNotice,
@@ -2277,46 +2415,58 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const regionName = NODE_MAP[s.activeRegionId]?.name ?? '江湖'
     const songDate = formatSongDate(s.dayCount, s.shichenIdx)
+    const qHook = session.questCombatHook
 
     // 1. 非切磋类的生死对决失败 -> 死亡机制（Game Over）
     if (session.mode === 'duel' && session.outcome === 'npc_win') {
       const gameOverPayload: GameOverState =
-        session.duelStakes === 'zhan_zhao_arrest'
+        qHook?.deathTitle || qHook?.deathDetail
           ? {
-              reasonTitle: '开封府市曹处斩',
+              reasonTitle: qHook.deathTitle ?? '命陨江湖 · 侠踪绝响',
               reasonDetail:
-                '少侠因领绿林「纳投名状」劫掠大宋朝廷命官，名列朝廷黑名单。今踏入东京开封府被御前四品带刀护卫「南侠」展昭缉拿归案，押赴开封府市曹，狗头铡下明正典刑！',
+                qHook.deathDetail ??
+                `生死相搏，刀剑无眼！少侠在与【${session.npc.name}】的生死决战中气绝败北。`,
               killerName: session.npc.name,
               songDate,
               locationName: regionName,
             }
-          : session.duelStakes === 'liao_spy_duel'
+          : session.duelStakes === 'zhan_zhao_arrest'
             ? {
-                reasonTitle: '喋血燕云 · 为国捐躯',
-                reasonDetail: `少侠奉常山枪派军令赴燕云诛除契丹密谍，在与【${session.npc.name}】的生死决战中力竭重创，命陨塞北，马革裹尸！`,
+                reasonTitle: '开封府市曹处斩',
+                reasonDetail:
+                  '少侠因领绿林「纳投名状」劫掠大宋朝廷命官，名列朝廷黑名单。今踏入东京开封府被御前四品带刀护卫「南侠」展昭缉拿归案，押赴开封府市曹，狗头铡下明正典刑！',
                 killerName: session.npc.name,
                 songDate,
                 locationName: regionName,
               }
-            : session.duelStakes === 'rob_official'
+            : session.duelStakes === 'liao_spy_duel'
               ? {
-                  reasonTitle: '劫官败亡 · 伏尸当场',
-                  reasonDetail: `少侠欲劫掠大宋官员【${session.npc.name}】以纳绿林投名状，岂料失手落败，当场毙命于刀兵之下！`,
+                  reasonTitle: '喋血燕云 · 为国捐躯',
+                  reasonDetail: `少侠奉常山枪派军令赴燕云诛除契丹密谍，在与【${session.npc.name}】的生死决战中力竭重创，命陨塞北，马革裹尸！`,
                   killerName: session.npc.name,
                   songDate,
                   locationName: regionName,
                 }
-              : {
-                  reasonTitle: '命陨江湖 · 侠踪绝响',
-                  reasonDetail: `生死相搏，刀剑无眼！少侠在与【${session.npc.name}】的生死对决中气绝败北，血染尘沙，一世风云就此落幕。`,
-                  killerName: session.npc.name,
-                  songDate,
-                  locationName: regionName,
-                }
+              : session.duelStakes === 'rob_official'
+                ? {
+                    reasonTitle: '劫官败亡 · 伏尸当场',
+                    reasonDetail: `少侠欲劫掠大宋官员【${session.npc.name}】以纳绿林投名状，岂料失手落败，当场毙命于刀兵之下！`,
+                    killerName: session.npc.name,
+                    songDate,
+                    locationName: regionName,
+                  }
+                : {
+                    reasonTitle: '命陨江湖 · 侠踪绝响',
+                    reasonDetail: `生死相搏，刀剑无眼！少侠在与【${session.npc.name}】的生死对决中气绝败北，血染尘沙，一世风云就此落幕。`,
+                    killerName: session.npc.name,
+                    songDate,
+                    locationName: regionName,
+                  }
 
       set({
         activeCombat: null,
         activeNpcInteraction: null,
+        activeStoryScene: null,
         hp: 0,
         gameOver: gameOverPayload,
         logs: [
@@ -2333,10 +2483,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
-    // 2. 存活结算（切磋任意结局 或 生死对决获胜/平局/脱逃）
+    // 2. 存活结算（切磋/剧情试炼/撑回合任意结局 或 生死对决获胜/平局/脱逃）
     const res = computeCombatSettlement(s, session)
     let nextSilver = s.silver
     const nextSectState = clonePlayerSectState(s.sectState)
+    const nextQuestState = cloneQuestRuntimeState(s.questState)
     let extraLogText = res.logText
     let extraLogTag = res.logTag
     let triggerKaifengZhanZhao = false
@@ -2354,11 +2505,20 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       extraLogText += `（同门印证获门派功绩 +12，现 ${nextSectState.contribution}）`
     }
 
-    // 绿林盟「纳投名状」劫官胜利
-    if (session.duelStakes === 'rob_official' && session.outcome === 'player_win') {
+    // 绿林盟「纳投名状」劫官胜利（非声明式 hook 调用时的直通兜底）
+    if (!qHook && session.duelStakes === 'rob_official' && session.outcome === 'player_win') {
       nextSilver += 60
       nextSectState.toumingzhuangState = 'completed'
       nextSectState.songCourtBlacklisted = true
+      nextQuestState.flags.toumingzhuang_state = 'completed'
+      nextQuestState.flags.toumingzhuang_completed = true
+      nextQuestState.flags.song_court_blacklisted = true
+      if (nextQuestState.activeQuests['QST-SECT-18-TOUMINGZHUANG']) {
+        nextQuestState.activeQuests['QST-SECT-18-TOUMINGZHUANG'] = {
+          ...nextQuestState.activeQuests['QST-SECT-18-TOUMINGZHUANG']!,
+          stepId: 'return_to_join',
+        }
+      }
       extraLogTag = '投名状成'
       extraLogText = `劫掠大宋官员【${session.npc.name}】得手，夺得官银 +60 两，已完成绿林【纳投名状】！⚠️ 少侠已被列入大宋朝廷黑名单：其他城池无碍，一旦进入【开封府】必遭南侠展昭挑战缉斩！`
       if (s.activeRegionId === 'bianliang') {
@@ -2384,11 +2544,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       activeCombat: null,
       activeNpcInteraction:
-        session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win'
+        qHook || (session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win')
           ? null
           : s.activeNpcInteraction,
       silver: nextSilver,
       sectState: nextSectState,
+      questState: nextQuestState,
       baseStats: res.nextBaseStats,
       learnedArts: res.nextLearnedArts,
       npcFavor: res.nextNpcFavor,
@@ -2420,12 +2581,43 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ].slice(0, 60),
     })
 
+    // 3. 若挂载了声明式剧情战后回调钩子，按结局分支执行 QuestEffect[]
+    if (qHook) {
+      const followUp =
+        session.outcome === 'player_win'
+          ? qHook.onWin
+          : session.outcome === 'npc_win'
+            ? (qHook.onLose ?? [])
+            : session.outcome === 'escaped'
+              ? (qHook.onEscape ?? [])
+              : (qHook.onDraw ?? [])
+
+      if (followUp.length > 0) {
+        get().runQuestEffects(followUp, session.targetNpcNode)
+      }
+
+      const afterHook = get()
+      if (
+        session.duelStakes === 'rob_official' &&
+        session.outcome === 'player_win' &&
+        afterHook.activeRegionId === 'bianliang' &&
+        (afterHook.sectState.songCourtBlacklisted ||
+          Boolean(afterHook.questState.flags.song_court_blacklisted)) &&
+        !afterHook.activeCombat &&
+        !afterHook.gameOver
+      ) {
+        triggerKaifengZhanZhao = true
+      }
+    }
+
     if (triggerKaifengZhanZhao) {
       get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
       return
     }
 
-    void get().saveToSlot('autosave', `${regionName} · 战后调息`, true)
+    if (!get().activeCombat && !get().gameOver) {
+      void get().saveToSlot('autosave', `${regionName} · 战后调息`, true)
+    }
   },
 
   restartAfterGameOver: () => {
@@ -2469,8 +2661,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       consumedUniqueIds: [],
       npcFavor: {},
       sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
+      questState: cloneQuestRuntimeState(DEFAULT_QUEST_RUNTIME_STATE),
       gameOver: null,
       activeCombat: null,
+      activeStoryScene: null,
       activeNpcInteraction: null,
       menuOpen: false,
       compendiumOpen: false,
@@ -2539,6 +2733,29 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         : s.sectState.activeLiaoSpy,
     }
 
+    // 同步完结对应的入门剧情任务链（若曾开启）
+    const nextQuest = cloneQuestRuntimeState(s.questState)
+    const entryQuestBySect: Record<string, string> = {
+      'SECT-18': 'QST-SECT-18-TOUMINGZHUANG',
+      'SECT-16': 'QST-SECT-16-REFERRAL',
+      'SECT-23': 'QST-SECT-23-REFERRAL',
+      'SECT-24': 'QST-SECT-24-REFERRAL',
+    }
+    const linkedQuestId = entryQuestBySect[targetSectId]
+    if (
+      linkedQuestId &&
+      (nextQuest.activeQuests[linkedQuestId] || targetSectId === 'SECT-18')
+    ) {
+      delete nextQuest.activeQuests[linkedQuestId]
+      const prevComp = nextQuest.completedQuests[linkedQuestId]
+      nextQuest.completedQuests[linkedQuestId] = {
+        questId: linkedQuestId,
+        outcome: 'joined',
+        completedDay: s.dayCount,
+        count: (prevComp?.count ?? 0) + 1,
+      }
+    }
+
     const newLogs: LogEntry[] = []
     let feedbackMsg = `正式拜入【${faction.name}】，授职【${evalRes.startingRankLabel}】！`
     if (evalRes.costSilver > 0) {
@@ -2579,6 +2796,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       silver: nextSilver,
       inventory: nextInv,
       sectState: nextSect,
+      questState: nextQuest,
       actionFeedback: { text: feedbackMsg, tone: 'success' },
       logs: [...newLogs, ...s.logs].slice(0, 60),
     })
@@ -2601,9 +2819,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         activeLiaoSpy: null,
         liaoSuspicionDebuff: true,
       }
+      const nextQuest = cloneQuestRuntimeState(s.questState)
+      nextQuest.flags.liao_suspicion_debuff = true
       const msg = `少侠主动退出【${factionName}】，因擅离河北抗辽军伍，背上【通辽嫌疑】恶名！所有大宋朝野与武林人物（共 ${affectedCount} 人）对少侠好感度 -30！`
       set({
         sectState: nextSect,
+        questState: nextQuest,
         npcFavor: nextFavor,
         actionFeedback: { text: msg, tone: 'warn' },
         logs: [
@@ -2647,9 +2868,21 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ...clonePlayerSectState(s.sectState),
       toumingzhuangState: 'accepted',
     }
+    const nextQuest = cloneQuestRuntimeState(s.questState)
+    nextQuest.flags.toumingzhuang_state = 'accepted'
+    if (!nextQuest.activeQuests['QST-SECT-18-TOUMINGZHUANG']) {
+      nextQuest.activeQuests['QST-SECT-18-TOUMINGZHUANG'] = {
+        questId: 'QST-SECT-18-TOUMINGZHUANG',
+        stepId: 'rob_official',
+        startedDay: s.dayCount,
+        deadlineDay: null,
+        vars: {},
+      }
+    }
     const msg = `已向${npc ? `【${npc.name}】` : '绿林盟'}立誓领受【纳投名状】任务！请前往外州府寻任一大宋官员发起【劫道纳投名状（生死战）】（切记：得手后将入大宋官府黑名单，踏入开封府会被展昭挑战处斩！）。`
     set({
       sectState: nextSect,
+      questState: nextQuest,
       actionFeedback: { text: msg, tone: 'warn' },
       logs: [
         createLogEntry(s.dayCount, '纳投名状', msg, true, s.shichenIdx),
@@ -2709,6 +2942,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       actionFeedback: { text: msg, tone: 'success' },
       logs: dayHook.logs.slice(0, 60),
     })
+    if (clock.daysAdded > 0) {
+      get().checkExpiredQuestDeadlines()
+    }
     if (dayHook.overdueSpyAmbush) {
       get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
     }
@@ -2811,12 +3047,32 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (!nextSect.bribedReferralSects.includes(refCfg.targetSectId)) {
       nextSect.bribedReferralSects.push(refCfg.targetSectId)
     }
+
+    const nextQuest = cloneQuestRuntimeState(s.questState)
+    const referralQuestStepMap: Record<string, { questId: string; stepId: string }> = {
+      'SECT-16': { questId: 'QST-SECT-16-REFERRAL', stepId: 'join_caobang' },
+      'SECT-23': { questId: 'QST-SECT-23-REFERRAL', stepId: 'join_baji' },
+      'SECT-24': { questId: 'QST-SECT-24-REFERRAL', stepId: 'join_zhenyuan' },
+    }
+    const rq = referralQuestStepMap[refCfg.targetSectId]
+    if (rq && !nextQuest.completedQuests[rq.questId]) {
+      const prev = nextQuest.activeQuests[rq.questId]
+      nextQuest.activeQuests[rq.questId] = {
+        questId: rq.questId,
+        stepId: rq.stepId,
+        startedDay: prev?.startedDay ?? s.dayCount,
+        deadlineDay: prev?.deadlineDay ?? null,
+        vars: prev?.vars ?? {},
+      }
+    }
+
     const msg = `暗中奉上 ${refCfg.costSilver} 两纹银，【${npc.name}】捻须笑纳，修书一封授少侠《${refCfg.itemName}》！持此帖脱离本门后即可拜入二流名门【${refCfg.targetSectName}】！`
 
     set({
       silver: s.silver - refCfg.costSilver,
       inventory: nextInv,
       sectState: nextSect,
+      questState: nextQuest,
       actionFeedback: { text: msg, tone: 'success' },
       logs: [
         createLogEntry(s.dayCount, '暗通关节', msg, true, s.shichenIdx),
@@ -2915,6 +3171,800 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         createLogEntry(s.dayCount, '师门传功', msg, true, s.shichenIdx),
         ...s.logs,
       ].slice(0, 60),
+    })
+  },
+
+  runQuestEffects: (effects, contextNpc = null) => {
+    for (const eff of effects) {
+      const s = get()
+      if (s.gameOver) return
+
+      switch (eff.type) {
+        case 'openScene': {
+          set({
+            activeStoryScene: {
+              scene: eff.scene,
+              beatIndex: 0,
+              contextNpc: contextNpc ?? null,
+            },
+            activeNpcInteraction: null,
+            menuOpen: false,
+            compendiumOpen: false,
+            tooltip: null,
+          })
+          break
+        }
+
+        case 'startQuest': {
+          const qDef = QUEST_MAP[eff.questId]
+          const nextQuest = cloneQuestRuntimeState(s.questState)
+          const stepId = eff.stepId ?? qDef?.initialStepId ?? 'init'
+          nextQuest.activeQuests[eff.questId] = {
+            questId: eff.questId,
+            stepId,
+            startedDay: s.dayCount,
+            deadlineDay: eff.deadlineDays ? s.dayCount + eff.deadlineDays : null,
+            vars: { ...(eff.vars ?? {}) },
+          }
+          delete nextQuest.completedQuests[eff.questId]
+
+          const stepTitle = qDef?.steps[stepId]?.title ?? stepId
+          const msg = `开启江湖卷宗《${qDef?.title ?? eff.questId}》——当前指引：${stepTitle}`
+          set({
+            questState: nextQuest,
+            actionFeedback: eff.silent ? s.actionFeedback : { text: msg, tone: 'success' },
+            logs: eff.silent
+              ? s.logs
+              : [
+                  createLogEntry(s.dayCount, '纪事开篇', msg, true, s.shichenIdx),
+                  ...s.logs,
+                ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'setQuestStep': {
+          const qDef = QUEST_MAP[eff.questId]
+          const nextQuest = cloneQuestRuntimeState(s.questState)
+          const prev = nextQuest.activeQuests[eff.questId]
+          nextQuest.activeQuests[eff.questId] = {
+            questId: eff.questId,
+            stepId: eff.stepId,
+            startedDay: prev?.startedDay ?? s.dayCount,
+            deadlineDay:
+              eff.deadlineDays === undefined
+                ? (prev?.deadlineDay ?? null)
+                : eff.deadlineDays === null
+                  ? null
+                  : s.dayCount + eff.deadlineDays,
+            vars: { ...(prev?.vars ?? {}), ...(eff.varsPatch ?? {}) },
+          }
+          const stepTitle = qDef?.steps[eff.stepId]?.title ?? eff.stepId
+          const msg = `《${qDef?.title ?? eff.questId}》推进至新阶段：【${stepTitle}】`
+          set({
+            questState: nextQuest,
+            actionFeedback: eff.silent ? s.actionFeedback : { text: msg, tone: 'talk' },
+            logs: eff.silent
+              ? s.logs
+              : [
+                  createLogEntry(s.dayCount, '纪事推进', msg, false, s.shichenIdx),
+                  ...s.logs,
+                ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'completeQuest': {
+          const qDef = QUEST_MAP[eff.questId]
+          const nextQuest = cloneQuestRuntimeState(s.questState)
+          delete nextQuest.activeQuests[eff.questId]
+          const prevComp = nextQuest.completedQuests[eff.questId]
+          nextQuest.completedQuests[eff.questId] = {
+            questId: eff.questId,
+            outcome: eff.outcome ?? 'completed',
+            completedDay: s.dayCount,
+            count: (prevComp?.count ?? 0) + 1,
+          }
+          const msg = `圆满了结江湖卷宗《${qDef?.title ?? eff.questId}》！`
+          set({
+            questState: nextQuest,
+            actionFeedback: eff.silent ? s.actionFeedback : { text: msg, tone: 'success' },
+            logs: eff.silent
+              ? s.logs
+              : [
+                  createLogEntry(s.dayCount, '纪事完结', msg, true, s.shichenIdx),
+                  ...s.logs,
+                ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'abandonQuest': {
+          const qDef = QUEST_MAP[eff.questId]
+          const nextQuest = cloneQuestRuntimeState(s.questState)
+          delete nextQuest.activeQuests[eff.questId]
+          nextQuest.dynamicActors = nextQuest.dynamicActors.filter(
+            (a) => a.questId !== eff.questId,
+          )
+          const msg = `任务《${qDef?.title ?? eff.questId}》已中止作罢。`
+          set({
+            questState: nextQuest,
+            actionFeedback: eff.silent ? s.actionFeedback : { text: msg, tone: 'warn' },
+            logs: eff.silent
+              ? s.logs
+              : [
+                  createLogEntry(s.dayCount, '纪事中止', msg, false, s.shichenIdx),
+                  ...s.logs,
+                ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'setFlag': {
+          const nextQuest = cloneQuestRuntimeState(s.questState)
+          nextQuest.flags[eff.flag] = eff.value
+          const nextSect = clonePlayerSectState(s.sectState)
+          if (
+            eff.flag === 'toumingzhuang_state' &&
+            (eff.value === 'none' || eff.value === 'accepted' || eff.value === 'completed')
+          ) {
+            nextSect.toumingzhuangState = eff.value
+          }
+          if (eff.flag === 'song_court_blacklisted') {
+            nextSect.songCourtBlacklisted = Boolean(eff.value)
+          }
+          if (eff.flag === 'liao_suspicion_debuff') {
+            nextSect.liaoSuspicionDebuff = Boolean(eff.value)
+          }
+          set({ questState: nextQuest, sectState: nextSect })
+          break
+        }
+
+        case 'addFlagNumber': {
+          const nextQuest = cloneQuestRuntimeState(s.questState)
+          const curVal = Number(nextQuest.flags[eff.flag] ?? 0)
+          nextQuest.flags[eff.flag] = curVal + eff.delta
+          set({ questState: nextQuest })
+          break
+        }
+
+        case 'giveSilver': {
+          set({ silver: Math.max(0, s.silver + eff.amount) })
+          break
+        }
+
+        case 'giveFood': {
+          set({ food: Math.max(0, s.food + eff.amount) })
+          break
+        }
+
+        case 'giveItem': {
+          const nextInv = addItemToInventory(s.inventory, eff.itemId, eff.qty ?? 1)
+          set({ inventory: nextInv })
+          break
+        }
+
+        case 'removeItem': {
+          const needQty = eff.qty ?? 1
+          const existing = s.inventory.find((x) => x.itemId === eff.itemId)
+          if (existing) {
+            const actualRemove = Math.min(existing.qty, needQty)
+            const nextInv = removeItemFromInventory(s.inventory, eff.itemId, actualRemove)
+            if (nextInv) set({ inventory: nextInv })
+          }
+          break
+        }
+
+        case 'modifyTalent': {
+          const nextBase = cloneHeroBaseStats(s.baseStats)
+          const cur = nextBase.talents[eff.key] ?? 50
+          nextBase.talents[eff.key] = Math.max(1, Math.min(100, cur + eff.delta))
+          const derived = deriveHeroEffectiveStats(
+            nextBase,
+            s.equipped,
+            s.equippedArts,
+            s.learnedArts,
+          )
+          set({
+            baseStats: nextBase,
+            maxHp: derived.maxHp,
+            hp: Math.min(derived.maxHp, s.hp),
+            maxMp: derived.maxMp,
+            mp: Math.min(derived.maxMp, s.mp),
+            maxStamina: derived.maxStamina,
+            stamina: Math.min(derived.maxStamina, s.stamina),
+            agility: derived.agility,
+            res: derived.res,
+            skills: derived.skills,
+          })
+          break
+        }
+
+        case 'modifySkill': {
+          const nextBase = cloneHeroBaseStats(s.baseStats)
+          if (eff.key === '骑术') {
+            nextBase.ridingSkill = Math.max(
+              0,
+              Math.min(HERO_BASE_CAPS.ridingSkill, nextBase.ridingSkill + eff.delta),
+            )
+          } else {
+            const cur = nextBase.skills[eff.key] ?? 40
+            nextBase.skills[eff.key] = Math.max(
+              0,
+              Math.min(HERO_BASE_CAPS.civilSkill, cur + eff.delta),
+            )
+          }
+          const derived = deriveHeroEffectiveStats(
+            nextBase,
+            s.equipped,
+            s.equippedArts,
+            s.learnedArts,
+          )
+          set({
+            baseStats: nextBase,
+            ridingSkill: derived.ridingSkill,
+            skills: derived.skills,
+          })
+          break
+        }
+
+        case 'healPlayer': {
+          const addHp = eff.hpPct ? Math.round(s.maxHp * (eff.hpPct / 100)) : 0
+          const addMp = eff.mpPct ? Math.round(s.maxMp * (eff.mpPct / 100)) : 0
+          const addStam = eff.staminaPct
+            ? Math.round(s.maxStamina * (eff.staminaPct / 100))
+            : 0
+          set({
+            hp: Math.max(1, Math.min(s.maxHp, s.hp + addHp)),
+            mp: Math.max(0, Math.min(s.maxMp, s.mp + addMp)),
+            stamina: Math.max(0, Math.min(s.maxStamina, s.stamina + addStam)),
+          })
+          break
+        }
+
+        case 'teachMartialArt': {
+          const art = MARTIAL_ART_DB_MAP[eff.artId]
+          if (!art) break
+          const targetLv = Math.max(1, Math.min(10, eff.level ?? 1))
+          const nextLearned = s.learnedArts.map((x) => ({ ...x }))
+          const idx = nextLearned.findIndex((x) => x.artId === eff.artId)
+          if (idx === -1) {
+            nextLearned.push({ artId: eff.artId, level: targetLv, exp: 0 })
+          } else if (targetLv > nextLearned[idx]!.level) {
+            nextLearned[idx] = { artId: eff.artId, level: targetLv, exp: 0 }
+          }
+          const derived = deriveHeroEffectiveStats(
+            s.baseStats,
+            s.equipped,
+            s.equippedArts,
+            nextLearned,
+          )
+          const msg = `剧情传功：领悟${art.fullTier}${art.category}《${art.cleanName}》（第 ${targetLv} 重）！`
+          set({
+            learnedArts: nextLearned,
+            maxHp: derived.maxHp,
+            hp: Math.min(derived.maxHp, s.hp),
+            maxMp: derived.maxMp,
+            mp: Math.min(derived.maxMp, s.mp),
+            agility: derived.agility,
+            res: derived.res,
+            qinggongBonus: derived.qinggongBonus,
+            logs: [
+              createLogEntry(s.dayCount, '绝学传授', msg, true, s.shichenIdx),
+              ...s.logs,
+            ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'joinSect': {
+          const faction = FACTION_DB_MAP[eff.sectId]
+          if (!faction) break
+          const startRank: SectRankLevel =
+            eff.rank ?? (faction.acceptsOuterDisciple === false ? 2 : 1)
+          const rankLabel = getSectRankTitle(eff.sectId, startRank)
+          const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
+          const curYearIdx = Math.floor((s.dayCount - 1) / 360) + 1
+
+          const nextSect: PlayerSectState = {
+            ...clonePlayerSectState(s.sectState),
+            sectId: eff.sectId,
+            rank: startRank,
+            rankLabel,
+            contribution: 0,
+            joinedDay: s.dayCount,
+            lastStipendMonth: curMonthIdx,
+            activeLiaoSpy: eff.allowOfficialTransfer ? null : s.sectState.activeLiaoSpy,
+          }
+
+          if (eff.sectId === 'SECT-22' && !nextSect.activeLiaoSpy && nextSect.lastLiaoSpyMissionYear < curYearIdx) {
+            nextSect.lastLiaoSpyMissionYear = curYearIdx
+            nextSect.activeLiaoSpy = spawnAnnualLiaoSpy(curYearIdx, s.dayCount)
+          }
+
+          const msg = `正式拜入【${faction.name}】，授职第 ${startRank} 阶【${rankLabel}】！`
+          set({
+            sectState: nextSect,
+            actionFeedback: { text: msg, tone: 'success' },
+            logs: [
+              createLogEntry(s.dayCount, '拜入宗门', msg, true, s.shichenIdx),
+              ...s.logs,
+            ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'leaveSect': {
+          if (!s.sectState.sectId) break
+          if (eff.skipPenalty) {
+            const factionName =
+              FACTION_DB_MAP[s.sectState.sectId]?.name ?? s.sectState.sectId
+            const nextSect: PlayerSectState = {
+              ...clonePlayerSectState(s.sectState),
+              sectId: null,
+              rank: 1,
+              rankLabel: '无门无派',
+              contribution: 0,
+              activeLiaoSpy: null,
+            }
+            set({
+              sectState: nextSect,
+              logs: [
+                createLogEntry(
+                  s.dayCount,
+                  '奉命离宗',
+                  `少侠依约脱离【${factionName}】。`,
+                  false,
+                  s.shichenIdx,
+                ),
+                ...s.logs,
+              ].slice(0, 60),
+            })
+          } else {
+            get().leaveSect()
+          }
+          break
+        }
+
+        case 'addSectContribution': {
+          if (!s.sectState.sectId) break
+          const nextSect = clonePlayerSectState(s.sectState)
+          nextSect.contribution = Math.max(0, nextSect.contribution + eff.amount)
+          set({ sectState: nextSect })
+          break
+        }
+
+        case 'modifyNpcFavor': {
+          const nextFavor = { ...s.npcFavor }
+          if (eff.target.kind === 'npc') {
+            const cur = nextFavor[eff.target.npcId] ?? INITIAL_NPC_FAVOR
+            nextFavor[eff.target.npcId] = Math.max(
+              MIN_NPC_FAVOR,
+              Math.min(MAX_NPC_FAVOR, cur + eff.delta),
+            )
+          } else {
+            for (const npc of NPCS_DB) {
+              if (!isSongAlignedNpc(npc)) continue
+              const cur = nextFavor[npc.id] ?? INITIAL_NPC_FAVOR
+              nextFavor[npc.id] = Math.max(
+                MIN_NPC_FAVOR,
+                Math.min(MAX_NPC_FAVOR, cur + eff.delta),
+              )
+            }
+          }
+          set({ npcFavor: nextFavor })
+          break
+        }
+
+        case 'spawnDynamicActor': {
+          const nextQuest = cloneQuestRuntimeState(s.questState)
+          nextQuest.dynamicActors = [
+            ...nextQuest.dynamicActors.filter((a) => a.actorId !== eff.actor.actorId),
+            {
+              ...eff.actor,
+              stats: { ...eff.actor.stats },
+            },
+          ]
+          set({ questState: nextQuest })
+          break
+        }
+
+        case 'removeDynamicActor': {
+          const nextQuest = cloneQuestRuntimeState(s.questState)
+          nextQuest.dynamicActors = nextQuest.dynamicActors.filter((a) => {
+            if (eff.actorId && a.actorId === eff.actorId) return false
+            if (eff.questId && a.questId === eff.questId) return false
+            return true
+          })
+          set({ questState: nextQuest })
+          break
+        }
+
+        case 'teleportPlayer': {
+          const bRec = eff.buildingId ? BUILDING_DB_MAP[eff.buildingId] : null
+          const enterBldg = Boolean(bRec?.interior)
+          set({
+            traveling: null,
+            campPos: null,
+            currentNodeId: eff.regionId,
+            activeRegionId: eff.regionId,
+            selectedNodeId: eff.regionId,
+            viewMode: enterBldg ? 'building' : 'region',
+            activeBuildingInteriorId: enterBldg && bRec ? bRec.id : null,
+            selectedBuildingId: enterBldg
+              ? eff.spotId
+                ? null
+                : (bRec?.id ?? null)
+              : (eff.buildingId ?? null),
+            selectedSpotId: enterBldg ? (eff.spotId ?? null) : null,
+            regionPan: { x: 0, y: 0, scale: 1 },
+          })
+          break
+        }
+
+        case 'advanceShichen': {
+          const clock = advanceShichenClock(s.dayCount, s.shichenIdx, eff.count)
+          const dayHook =
+            clock.daysAdded > 0
+              ? applyDayProgressionSectHooks({
+                  nextDayCount: clock.dayCount,
+                  shichenIdx: clock.shichenIdx,
+                  silver: s.silver,
+                  sectState: s.sectState,
+                  logs: s.logs,
+                })
+              : {
+                  silver: s.silver,
+                  sectState: s.sectState,
+                  logs: s.logs,
+                  overdueSpyAmbush: null,
+                }
+          set({
+            dayCount: clock.dayCount,
+            shichenIdx: clock.shichenIdx,
+            silver: dayHook.silver,
+            sectState: dayHook.sectState,
+            logs: dayHook.logs.slice(0, 60),
+          })
+          if (clock.daysAdded > 0) {
+            get().checkExpiredQuestDeadlines()
+          }
+          break
+        }
+
+        case 'startCombat': {
+          const opp = resolveQuestCombatOpponent(
+            eff.opponent,
+            contextNpc ?? null,
+            s.questState.dynamicActors,
+          )
+          if (!opp) break
+
+          const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+          const startHp = Math.max(1, s.hp)
+          const playerCombatant = buildPlayerCombatant({
+            hp: startHp,
+            mp: s.mp,
+            baseStats: s.baseStats,
+            equipped: s.equipped,
+            equippedArts: s.equippedArts,
+            learnedArts: s.learnedArts,
+          })
+
+          const isLethalDuel = eff.rule === 'duel'
+          const isSurviveRounds = eff.rule === 'survive_rounds'
+          const stakes: DuelStakesKind =
+            eff.duelStakesTag ?? (isLethalDuel ? 'duel' : 'spar')
+
+          const session = createCombatSession({
+            mode: isLethalDuel ? 'duel' : 'spar',
+            duelStakes: stakes,
+            player: playerCombatant,
+            npcNode: opp,
+            maxRounds: eff.maxRounds ?? (isSurviveRounds ? 10 : undefined),
+            surviveToWin: isSurviveRounds,
+            forbidEscapeReason:
+              eff.forbidEscapeReason !== undefined
+                ? eff.forbidEscapeReason
+                : isSurviveRounds
+                  ? '师门考校试炼之中，不可临阵脱逃！'
+                  : null,
+            customIntroText: eff.introText,
+            questCombatHook: {
+              questId: eff.questId,
+              rule: eff.rule,
+              deathTitle: eff.deathTitle,
+              deathDetail: eff.deathDetail,
+              onWin: eff.onWin,
+              onLose: eff.onLose,
+              onEscape: eff.onEscape,
+              onDraw: eff.onDraw,
+            },
+          })
+
+          set({
+            dayCount: clock.dayCount,
+            shichenIdx: clock.shichenIdx,
+            activeCombat: session,
+            activeStoryScene: null,
+            activeNpcInteraction: null,
+            menuOpen: false,
+            compendiumOpen: false,
+            tooltip: null,
+          })
+          break
+        }
+
+        case 'triggerGameOver': {
+          const regionName = NODE_MAP[s.activeRegionId]?.name ?? '江湖'
+          const songDate = formatSongDate(s.dayCount, s.shichenIdx)
+          const payload: GameOverState = {
+            reasonTitle: eff.reasonTitle,
+            reasonDetail: eff.reasonDetail,
+            killerName: eff.killerName ?? '江湖劫数',
+            songDate,
+            locationName: regionName,
+          }
+          set({
+            activeCombat: null,
+            activeStoryScene: null,
+            activeNpcInteraction: null,
+            hp: 0,
+            gameOver: payload,
+            logs: [
+              createLogEntry(s.dayCount, eff.reasonTitle, eff.reasonDetail, true, s.shichenIdx),
+              ...s.logs,
+            ].slice(0, 60),
+          })
+          return
+        }
+
+        case 'toast': {
+          set({
+            actionFeedback: {
+              text: eff.text,
+              tone: eff.tone ?? 'talk',
+            },
+            logs: [
+              createLogEntry(
+                s.dayCount,
+                eff.logTag ?? '江湖纪事',
+                eff.text,
+                true,
+                s.shichenIdx,
+              ),
+              ...s.logs,
+            ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'branch': {
+          const evalRes = evaluateQuestCondition(
+            eff.condition,
+            buildStoreEvalContext(s, contextNpc),
+          )
+          const subEffects = evalRes.passed ? eff.thenEffects : (eff.elseEffects ?? [])
+          if (subEffects.length > 0) {
+            get().runQuestEffects(subEffects, contextNpc)
+          }
+          break
+        }
+      }
+    }
+  },
+
+  advanceStoryScene: () => {
+    const s = get()
+    const cur = s.activeStoryScene
+    if (!cur) return
+
+    if (cur.beatIndex + 1 < cur.scene.beats.length) {
+      set({
+        activeStoryScene: {
+          ...cur,
+          beatIndex: cur.beatIndex + 1,
+        },
+      })
+      return
+    }
+
+    // Reached final beat: if there are no choices, close scene and execute onFinishEffects
+    if (!cur.scene.choices || cur.scene.choices.length === 0) {
+      const finishEffects = cur.scene.onFinishEffects ?? []
+      const ctxNpc = cur.contextNpc
+      set({ activeStoryScene: null })
+      if (finishEffects.length > 0) {
+        get().runQuestEffects(finishEffects, ctxNpc)
+      }
+    }
+  },
+
+  selectStoryChoice: (choiceId) => {
+    const s = get()
+    const cur = s.activeStoryScene
+    if (!cur || !cur.scene.choices) return
+    const choice = cur.scene.choices.find((c) => c.id === choiceId)
+    if (!choice) return
+
+    if (choice.condition) {
+      const check = evaluateQuestCondition(
+        choice.condition,
+        buildStoreEvalContext(s, cur.contextNpc),
+      )
+      if (!check.passed) {
+        set({
+          actionFeedback: {
+            text: check.reason ?? '尚未满足该抉择条件。',
+            tone: 'warn',
+          },
+        })
+        return
+      }
+    }
+
+    const ctxNpc = cur.contextNpc
+    set({ activeStoryScene: null })
+    if (choice.effects.length > 0) {
+      get().runQuestEffects(choice.effects, ctxNpc)
+    }
+  },
+
+  closeStoryScene: () => {
+    const s = get()
+    const cur = s.activeStoryScene
+    if (!cur || cur.scene.mandatory) return
+    // Only allow direct close if there are no choices, or if one of the choices has empty effects
+    if (cur.scene.choices && cur.scene.choices.length > 0) {
+      const safeExit = cur.scene.choices.find((c) => !c.condition && c.effects.length === 0)
+      if (!safeExit) return
+      set({ activeStoryScene: null })
+      return
+    }
+    const finishEffects = cur.scene.onFinishEffects ?? []
+    const ctxNpc = cur.contextNpc
+    set({ activeStoryScene: null })
+    if (finishEffects.length > 0) {
+      get().runQuestEffects(finishEffects, ctxNpc)
+    }
+  },
+
+  fireLocationTriggersForCurrentSpot: (loc) => {
+    const s = get()
+    if (s.gameOver || s.activeCombat) return false
+    const matched = findMatchingLocationTriggers(loc, buildStoreEvalContext(s))
+    if (matched.length === 0) return false
+
+    for (const { trigger } of matched) {
+      const latest = get()
+      if (latest.gameOver || latest.activeCombat) break
+      if (trigger.onceFlag) {
+        const nextQuest = cloneQuestRuntimeState(latest.questState)
+        nextQuest.flags[trigger.onceFlag] = true
+        set({ questState: nextQuest })
+      }
+      get().runQuestEffects(trigger.effects, null)
+    }
+    return true
+  },
+
+  checkExpiredQuestDeadlines: () => {
+    const s = get()
+    if (s.gameOver) return
+    const activeEntries = Object.values(s.questState.activeQuests)
+    for (const prog of activeEntries) {
+      if (prog.deadlineDay === null || s.dayCount <= prog.deadlineDay) continue
+      const qDef = QUEST_MAP[prog.questId]
+      // Clear deadline first so it never loops infinitely
+      const nextQuest = cloneQuestRuntimeState(get().questState)
+      if (nextQuest.activeQuests[prog.questId]) {
+        nextQuest.activeQuests[prog.questId] = {
+          ...nextQuest.activeQuests[prog.questId]!,
+          deadlineDay: null,
+        }
+        set({ questState: nextQuest })
+      }
+      if (
+        qDef?.onDeadlineExpired &&
+        (!qDef.onDeadlineExpired.stepId || qDef.onDeadlineExpired.stepId === prog.stepId)
+      ) {
+        get().runQuestEffects(qDef.onDeadlineExpired.effects, null)
+      }
+    }
+  },
+
+  locateQuestTargetOnMap: (target) => {
+    const s = get()
+    const regNode = NODE_MAP[target.regionId]
+    if (!regNode) return
+
+    if (s.currentNodeId === target.regionId && !s.campPos && !s.traveling) {
+      if (target.buildingId) {
+        const bRec = BUILDING_DB_MAP[target.buildingId]
+        if (bRec?.interior) {
+          set({
+            menuOpen: false,
+            compendiumOpen: false,
+            tooltip: null,
+            viewMode: 'building',
+            activeRegionId: target.regionId,
+            activeBuildingInteriorId: bRec.id,
+            selectedBuildingId: target.spotId ? null : bRec.id,
+            selectedSpotId: target.spotId ?? null,
+            regionPan: { x: 0, y: 0, scale: 1 },
+            actionFeedback: {
+              text: `已循任务卷宗步入【${target.customLabel ?? bRec.name}】！`,
+              tone: 'success',
+            },
+          })
+          if (target.spotId) {
+            get().fireLocationTriggersForCurrentSpot({
+              regionId: target.regionId,
+              buildingId: bRec.id,
+              spotId: target.spotId,
+            })
+          } else {
+            get().fireLocationTriggersForCurrentSpot({
+              regionId: target.regionId,
+              buildingId: bRec.id,
+              spotId: null,
+            })
+          }
+          return
+        }
+        if (bRec) {
+          set({
+            menuOpen: false,
+            compendiumOpen: false,
+            tooltip: null,
+            viewMode: 'region',
+            activeRegionId: target.regionId,
+            activeBuildingInteriorId: null,
+            selectedBuildingId: bRec.id,
+            selectedSpotId: null,
+            regionPan: { x: 0, y: 0, scale: 1 },
+            actionFeedback: {
+              text: `已定位至本州【${target.customLabel ?? bRec.name}】！`,
+              tone: 'success',
+            },
+          })
+          get().fireLocationTriggersForCurrentSpot({
+            regionId: target.regionId,
+            buildingId: bRec.id,
+            spotId: null,
+          })
+          return
+        }
+      }
+      set({
+        menuOpen: false,
+        compendiumOpen: false,
+        tooltip: null,
+        viewMode: 'region',
+        activeRegionId: target.regionId,
+        activeBuildingInteriorId: null,
+        selectedBuildingId: null,
+        selectedSpotId: null,
+        actionFeedback: {
+          text: `少侠当前正身处【${regNode.name}】境内！`,
+          tone: 'talk',
+        },
+      })
+      return
+    }
+
+    set({
+      menuOpen: false,
+      compendiumOpen: false,
+      tooltip: null,
+      viewMode: 'world',
+      activeBuildingInteriorId: null,
+      selectedNodeId: target.regionId,
+      worldPan: { x: 0, y: 0, scale: 1 },
+      actionFeedback: {
+        text: `已在天下舆图锁定目标州府【${target.customLabel ?? regNode.name}】，点击右侧【启程前往】即可策马奔赴！`,
+        tone: 'success',
+      },
     })
   },
 
@@ -3019,9 +4069,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextLogs = [...s.logs]
     let nextMasters = s.roamingMasters
 
+    let crossedDayBoundary = false
     if (dayAccumulator >= 1.0) {
       dayAccumulator -= 1.0
       nextDayCount += 1
+      crossedDayBoundary = true
       if (nextFood > 0) {
         nextFood -= 1
         nextStamina = Math.max(15, nextStamina - 4)
@@ -3098,7 +4150,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     if (ratio >= 1) {
       const arrivedNodeId = seg.to
-      if (arrivedNodeId === 'bianliang' && nextSectState.songCourtBlacklisted) {
+      const blacklisted =
+        nextSectState.songCourtBlacklisted || Boolean(s.questState.flags.song_court_blacklisted)
+      if (arrivedNodeId === 'bianliang' && blacklisted) {
         const ambushMsg =
           '少侠身负绿林劫官海捕文书踏入东京【开封府】界，城门前红衣剑影一闪——御前四品带刀护卫【展昭】按巨阙宝剑拦路喝道：「朝廷钦犯休走！随展某回开封府伏法！」'
         nextLogs.unshift(
@@ -3129,7 +4183,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           regionPan: { x: 0, y: 0, scale: 1 },
           logs: nextLogs.slice(0, 60),
         })
-        get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
+        if (crossedDayBoundary) get().checkExpiredQuestDeadlines()
+        get().fireLocationTriggersForCurrentSpot({
+          regionId: 'bianliang',
+          buildingId: null,
+          spotId: null,
+          isPassThrough: true,
+        })
+        if (!get().activeStoryScene && !get().activeCombat && !get().gameOver) {
+          get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
+        }
         return
       }
 
@@ -3170,10 +4233,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           regionPan: { x: 0, y: 0, scale: 1 },
           logs: nextLogs.slice(0, 60),
         })
+        if (crossedDayBoundary) get().checkExpiredQuestDeadlines()
         if (overdueSpyAmbush) {
           get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
         } else {
-          void get().saveToSlot('autosave', `策马抵达${destName}`, true)
+          get().fireLocationTriggersForCurrentSpot({
+            regionId: arrivedNodeId,
+            buildingId: null,
+            spotId: null,
+            isPassThrough: false,
+          })
+          if (!get().activeCombat && !get().gameOver) {
+            void get().saveToSlot('autosave', `策马抵达${destName}`, true)
+          }
         }
         return
       }
@@ -3211,9 +4283,26 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         },
         logs: nextLogs.slice(0, 60),
       })
+      if (crossedDayBoundary) get().checkExpiredQuestDeadlines()
       if (overdueSpyAmbush) {
         get().campStop()
         get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+        return
+      }
+      const passTriggered = get().fireLocationTriggersForCurrentSpot({
+        regionId: arrivedNodeId,
+        buildingId: null,
+        spotId: null,
+        isPassThrough: true,
+      })
+      if (passTriggered && (get().activeCombat || get().activeStoryScene || get().gameOver)) {
+        set({
+          traveling: null,
+          campPos: null,
+          activeRegionId: arrivedNodeId,
+          selectedNodeId: arrivedNodeId,
+          viewMode: 'region',
+        })
       }
       return
     }
@@ -3239,6 +4328,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       },
       logs: nextLogs.slice(0, 60),
     })
+    if (crossedDayBoundary) get().checkExpiredQuestDeadlines()
     if (overdueSpyAmbush) {
       get().campStop()
       get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
@@ -3566,10 +4656,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       consumedUniqueIds: st.consumedUniqueIds ?? [],
       npcFavor: st.npcFavor ? { ...st.npcFavor } : {},
       sectState: clonePlayerSectState(st.sectState),
+      questState: cloneQuestRuntimeState(st.questState),
       gameOver: null,
       campPos: st.campPos ?? null,
       traveling: null,
       activeCombat: null,
+      activeStoryScene: null,
       activeNpcInteraction: null,
       tooltip: null,
       actionFeedback: null,

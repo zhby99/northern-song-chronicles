@@ -10,6 +10,7 @@ import type {
   LearnedArtEntry,
   NodeNpc,
 } from '../types/game'
+import type { ActiveQuestCombatHook } from '../types/quest'
 import { deriveHeroEffectiveStats, deriveNpcEffectiveStats } from './heroStats'
 
 export type MoveSlotKey = 'move1' | 'move2' | 'move3' | 'move4'
@@ -134,6 +135,9 @@ export interface CombatSessionState {
   duelStakes: DuelStakesKind
   round: number
   maxRounds: number
+  surviveToWin?: boolean
+  forbidEscapeReason?: string | null
+  questCombatHook?: ActiveQuestCombatHook | null
   outcome: CombatOutcome
   player: CombatantState
   npc: CombatantState
@@ -350,10 +354,14 @@ export function canFighterEscape(
   escapee: CombatantState,
   pursuer: CombatantState,
   duelStakes: DuelStakesKind = 'spar',
+  forbidEscapeReason?: string | null,
 ): {
   allowed: boolean
   reason: string | null
 } {
+  if (forbidEscapeReason) {
+    return { allowed: false, reason: forbidEscapeReason }
+  }
   if (duelStakes === 'zhan_zhao_arrest') {
     return { allowed: false, reason: '开封府天罗地网合围，展护卫剑气封门，无路可逃' }
   }
@@ -396,8 +404,9 @@ export function computeEscapeChancePreview(
   escapee: CombatantState,
   pursuer: CombatantState,
   duelStakes: DuelStakesKind = 'spar',
+  forbidEscapeReason?: string | null,
 ): number {
-  if (!canFighterEscape(escapee, pursuer, duelStakes).allowed) {
+  if (!canFighterEscape(escapee, pursuer, duelStakes, forbidEscapeReason).allowed) {
     return 0
   }
   const myAgi = computeEffectiveAgility(escapee)
@@ -611,29 +620,41 @@ export function buildNpcCombatant(npcNode: NodeNpc): CombatantState {
 export function createCombatSession(params: {
   mode: 'spar' | 'duel'
   duelStakes?: DuelStakesKind
+  maxRounds?: number
+  surviveToWin?: boolean
+  forbidEscapeReason?: string | null
+  customIntroText?: string
+  questCombatHook?: ActiveQuestCombatHook | null
   player: CombatantState
   npcNode: NodeNpc
 }): CombatSessionState {
   const npc = buildNpcCombatant(params.npcNode)
   const stakes: DuelStakesKind =
     params.duelStakes ?? (params.mode === 'spar' ? 'spar' : 'duel')
+  const maxRounds = params.maxRounds ?? 30
   const introText =
-    stakes === 'zhan_zhao_arrest'
-      ? `【开封府御前缉捕·生死状】御前四品带刀护卫 ${npc.name} 横剑拦路：“朝廷钦犯休走，随展某回开封府伏法！”（战败即押赴市曹处斩！）`
-      : stakes === 'liao_spy_duel'
-        ? `【燕云锄奸·生死对决】契丹密谍 ${npc.name} 寒刃出鞘：“常山枪派的宋狗竟敢追查至此，今日不死不休！”（生死相搏，败则横尸塞北！）`
-        : stakes === 'rob_official'
-          ? `【绿林投名状·劫官死战】少侠蒙面拔刃拦住大宋命官 ${npc.name} 车驾！一旦失手必丧命当场——`
-          : params.mode === 'duel'
-            ? `【江湖生死对决】少侠（${params.player.realm}）与 ${npc.name}（${npc.factionName} · ${npc.realm}）拔刃生死相向，既分高下，亦决生死！`
-            : `【皇祐武林交锋】少侠（${params.player.realm}）抱拳请益 ${npc.name}（${npc.factionName} · ${npc.realm}）！双方凝神屏息，同步盲选拆招——`
+    params.customIntroText ??
+    (params.surviveToWin
+      ? `【师门考校试炼】${npc.name}（${npc.factionName} · ${npc.realm}）凝神立阵：“少侠若能在手下撑过 ${maxRounds} 合不败，便算过关！”`
+      : stakes === 'zhan_zhao_arrest'
+        ? `【开封府御前缉捕·生死状】御前四品带刀护卫 ${npc.name} 横剑拦路：“朝廷钦犯休走，随展某回开封府伏法！”（战败即押赴市曹处斩！）`
+        : stakes === 'liao_spy_duel'
+          ? `【燕云锄奸·生死对决】契丹密谍 ${npc.name} 寒刃出鞘：“常山枪派的宋狗竟敢追查至此，今日不死不休！”（生死相搏，败则横尸塞北！）`
+          : stakes === 'rob_official'
+            ? `【绿林投名状·劫官死战】少侠蒙面拔刃拦住大宋命官 ${npc.name} 车驾！一旦失手必丧命当场——`
+            : params.mode === 'duel'
+              ? `【江湖生死对决】少侠（${params.player.realm}）与 ${npc.name}（${npc.factionName} · ${npc.realm}）拔刃生死相向，既分高下，亦决生死！`
+              : `【皇祐武林交锋】少侠（${params.player.realm}）抱拳请益 ${npc.name}（${npc.factionName} · ${npc.realm}）！双方凝神屏息，同步盲选拆招——`)
   const intro = makeLog(0, 'system', introText)
   return {
     sessionId: `session-${Date.now()}`,
     mode: params.mode,
     duelStakes: stakes,
     round: 1,
-    maxRounds: 30,
+    maxRounds,
+    surviveToWin: params.surviveToWin,
+    forbidEscapeReason: params.forbidEscapeReason ?? null,
+    questCombatHook: params.questCombatHook ?? null,
     outcome: 'ongoing',
     player: params.player,
     npc,
@@ -733,7 +754,12 @@ export function resolveCombatRound(
     }
   } else if (
     playerChoice.type === 'escape' &&
-    !canFighterEscape(session.player, session.npc).allowed
+    !canFighterEscape(
+      session.player,
+      session.npc,
+      session.duelStakes,
+      session.forbidEscapeReason,
+    ).allowed
   ) {
     return session
   } else if (playerChoice.type === 'item' && !ITEM_DB_MAP[playerChoice.itemId]) {
@@ -1800,18 +1826,34 @@ export function resolveCombatRound(
       ),
     )
   } else if (round >= session.maxRounds) {
-    const pRatio = player.hp / Math.max(1, player.maxHp)
-    const nRatio = npc.hp / Math.max(1, npc.maxHp)
-    outcome = Math.abs(pRatio - nRatio) < 0.03 ? 'draw' : pRatio > nRatio ? 'player_win' : 'npc_win'
-    roundEvents.push(
-      makeLog(
-        round,
-        'system',
-        `拆招已满 ${session.maxRounds} 合！按双方余留气血气度裁定：${
-          outcome === 'player_win' ? '少侠略胜半筹' : outcome === 'npc_win' ? `${npc.name}技高一筹` : '秋色平分'
-        }！`,
-      ),
-    )
+    if (session.surviveToWin) {
+      outcome = 'player_win'
+      roundEvents.push(
+        makeLog(
+          round,
+          'system',
+          `拆招已满 ${session.maxRounds} 合！少侠稳守门户屹立不倒，${npc.name}抚掌赞叹，考校顺利过关！`,
+        ),
+      )
+    } else {
+      const pRatio = player.hp / Math.max(1, player.maxHp)
+      const nRatio = npc.hp / Math.max(1, npc.maxHp)
+      outcome =
+        Math.abs(pRatio - nRatio) < 0.03 ? 'draw' : pRatio > nRatio ? 'player_win' : 'npc_win'
+      roundEvents.push(
+        makeLog(
+          round,
+          'system',
+          `拆招已满 ${session.maxRounds} 合！按双方余留气血气度裁定：${
+            outcome === 'player_win'
+              ? '少侠略胜半筹'
+              : outcome === 'npc_win'
+                ? `${npc.name}技高一筹`
+                : '秋色平分'
+          }！`,
+        ),
+      )
+    }
   }
 
   if (outcome !== 'ongoing' && logCursor < roundEvents.length) {

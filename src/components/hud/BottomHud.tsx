@@ -7,6 +7,8 @@ export function BottomHud() {
   const shichenIdx = useGameStore((s) => s.shichenIdx)
   const logs = useGameStore((s) => s.logs)
   const logDrawerOpen = useGameStore((s) => s.logDrawerOpen)
+  const questState = useGameStore((s) => s.questState)
+  const sectState = useGameStore((s) => s.sectState)
 
   const zoomWorldBy = useGameStore((s) => s.zoomWorldBy)
   const focusZhongyuan = useGameStore((s) => s.focusZhongyuan)
@@ -17,6 +19,11 @@ export function BottomHud() {
   const focusSelectedBuilding = useGameStore((s) => s.focusSelectedBuilding)
   const resetRegionView = useGameStore((s) => s.resetRegionView)
   const toggleLogDrawer = useGameStore((s) => s.toggleLogDrawer)
+  const openMenu = useGameStore((s) => s.openMenu)
+
+  const activeQuestCount =
+    Object.keys(questState.activeQuests).length +
+    (sectState.sectId === 'SECT-22' && sectState.activeLiaoSpy ? 1 : 0)
 
   return (
     <>
@@ -109,6 +116,19 @@ export function BottomHud() {
 
           <button
             type="button"
+            onClick={() => openMenu('quests')}
+            title="开启《江湖纪事》任务卷宗（快捷键 J）"
+            className={`px-3 py-2 rounded-md border shadow-md text-xs song-serif font-bold cursor-pointer transition-colors ${
+              activeQuestCount > 0
+                ? 'bg-[#781710] hover:bg-[#931d15] text-[#fff8ee] border-[#f3c66f]'
+                : 'bg-[#2a1d12] hover:bg-[#3d2a1b] text-[#f3e3c3] border-[#b59461]'
+            }`}
+          >
+            江湖纪事 ({activeQuestCount})
+          </button>
+
+          <button
+            type="button"
             onClick={toggleLogDrawer}
             className="px-3 py-2 rounded-md bg-[#261a10] hover:bg-[#3a2819] text-[#fbf3e2] border border-[#c89d54] shadow-md text-xs song-serif font-bold cursor-pointer"
           >
@@ -176,6 +196,19 @@ export function BottomHud() {
               全图
             </button>
           </div>
+
+          <button
+            type="button"
+            onClick={() => openMenu('quests')}
+            title="开启《江湖纪事》任务卷宗（快捷键 J）"
+            className={`px-3 py-2 rounded-md border-2 shadow-lg text-xs song-serif font-bold cursor-pointer transition-colors ${
+              activeQuestCount > 0
+                ? 'bg-[#781710] hover:bg-[#931d15] text-[#fff8ee] border-[#f3c66f]'
+                : 'bg-[#2a1d12] hover:bg-[#3d2a1b] text-[#f3e3c3] border-[#b59461]'
+            }`}
+          >
+            江湖纪事 ({activeQuestCount})
+          </button>
 
           <button
             type="button"

@@ -1,3 +1,5 @@
+import type { QuestRuntimeState } from './quest'
+
 export type NodeKind = 'city' | 'sect' | 'pass'
 export type RegimeKey = 'song' | 'liao' | 'xixia' | 'tubo' | 'dali' | 'wild'
 export type FactionKind = 'orthodox' | 'hermit' | 'clan' | 'hostile'
@@ -8,6 +10,7 @@ export type MenuTabKey =
   | 'hero'
   | 'loadout'
   | 'bag'
+  | 'quests'
   | 'engineering'
   | 'save'
   | 'load'
@@ -62,6 +65,8 @@ export interface NodeNpc {
   learnedArts?: LearnedArtEntry[]
   equipped?: EquippedSlotsMap
   isDynamicLiaoSpy?: boolean
+  dynamicQuestActorId?: string
+  questBadgeLabel?: string
 }
 
 export interface WorldNode {
@@ -800,6 +805,7 @@ export interface SerializableGameState {
   consumedUniqueIds?: string[]
   npcFavor?: Record<string, number>
   sectState?: PlayerSectState
+  questState?: QuestRuntimeState
 
   overlays: OverlayToggles
   roamingMasters: RoamingMaster[]
@@ -828,7 +834,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M1.4.0'
+  schemaVersion: 'M1.4.1'
   slotId: SaveSlotId
   savedAt: string
   note: string

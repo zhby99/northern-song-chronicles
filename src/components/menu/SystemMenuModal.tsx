@@ -58,6 +58,7 @@ const MartialArtsTab = lazy(() =>
 const PortraitsTab = lazy(() =>
   import('./tabs/PortraitsTab').then((m) => ({ default: m.PortraitsTab })),
 )
+const QuestsTab = lazy(() => import('./tabs/QuestsTab').then((m) => ({ default: m.QuestsTab })))
 const SaveLoadTab = lazy(() =>
   import('./tabs/SaveLoadTab').then((m) => ({ default: m.SaveLoadTab })),
 )
@@ -601,6 +602,8 @@ export function SystemMenuModal() {
                     }}
                   />
                 )}
+
+                {activeViewKey === 'quests' && <QuestsTab />}
 
                 {activeViewKey === 'regions' && (
                   <RegionCompendiumPanel

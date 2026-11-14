@@ -471,7 +471,12 @@ export function CombatOverlay() {
   const escapeStatus = useMemo(
     () =>
       session
-        ? canFighterEscape(session.player, session.npc, session.duelStakes)
+        ? canFighterEscape(
+            session.player,
+            session.npc,
+            session.duelStakes,
+            session.forbidEscapeReason,
+          )
         : { allowed: true, reason: null },
     [session],
   )
@@ -479,7 +484,12 @@ export function CombatOverlay() {
     () =>
       session
         ? Math.round(
-            computeEscapeChancePreview(session.player, session.npc, session.duelStakes) * 100,
+            computeEscapeChancePreview(
+              session.player,
+              session.npc,
+              session.duelStakes,
+              session.forbidEscapeReason,
+            ) * 100,
           )
         : 50,
     [session],
