@@ -1388,11 +1388,26 @@ def parse_martial_arts() -> list[dict[str, Any]]:
             art["tier"] = "地阶"
             art["subTier"] = "下品"
             art["fullTier"] = "地阶下品"
+        if art["sectId"] is None:
+            art["minSectRank"] = None
+            art["minSectRankLabel"] = None
+        elif art["fullTier"] == "天阶上品":
+            art["minSectRank"] = 5
+            art["minSectRankLabel"] = "掌门"
+        elif art["fullTier"] in ("地阶上品", "天阶下品", "天阶中品"):
+            art["minSectRank"] = 3
+            art["minSectRankLabel"] = "真传/长老"
+        elif art["fullTier"] in ("良品上品", "地阶下品", "地阶中品"):
+            art["minSectRank"] = 2
+            art["minSectRankLabel"] = "内门弟子"
+        else:
+            art["minSectRank"] = 1
+            art["minSectRankLabel"] = "外门弟子"
         art["levels"] = compute_martial_art_levels(art)
 
     arts.sort(key=lambda x: int(x["code"]))
-    if len(arts) != 218:
-        raise AssertionError(f"Expected 218 martial arts, got {len(arts)}")
+    if len(arts) != 242:
+        raise AssertionError(f"Expected 242 martial arts, got {len(arts)}")
     return arts
 
 
@@ -3301,6 +3316,56 @@ def compile_all(do_normalize_docs: bool) -> None:
             highest_tier = best_ma_tier
             stance_motto = fac["stance"]
 
+        rank_titles = {
+            "SECT-17": ["役卒巡捕", "捕头都头", "金牌总捕", "御前护卫", "大内总供奉"],
+            "SECT-20": ["外围细作", "红牌武士", "客卿供奉", "征东副总管", "一品堂大总管"],
+            "SECT-02": ["外门帮众", "内门香主", "分舵堂主", "长老副帮主", "帮主总舵主"],
+            "SECT-15": ["外门帮众", "内门香主", "分舵堂主", "长老副帮主", "帮主总舵主"],
+            "SECT-16": ["外门帮众", "内门香主", "分舵堂主", "长老副帮主", "帮主总舵主"],
+            "SECT-26": ["外门帮众", "内门香主", "分舵堂主", "长老副帮主", "帮主总舵主"],
+            "SECT-18": ["外围喽啰", "山寨头目", "分寨当家", "护法副首领", "总瓢把子"],
+            "SECT-30": ["外围喽啰", "山寨头目", "分寨当家", "护法副首领", "总瓢把子"],
+            "SECT-10": ["外宅门客", "内院执事", "房堂主事", "家将大长老", "当代家主"],
+            "SECT-13": ["外宅门客", "内院执事", "房堂主事", "家将大长老", "当代家主"],
+            "SECT-24": ["随船镖师", "趟子头领", "红旗镖头", "副总镖头", "总镖头"],
+            "SECT-23": ["外院学徒", "内堂武师", "护院教习", "金牌总教头", "总馆主"],
+            "SECT-25": ["外院学徒", "内堂武师", "护院教习", "金牌总教头", "总馆主"],
+            "SECT-27": ["外院学徒", "内堂武师", "护院教习", "金牌总教头", "总馆主"],
+            "SECT-28": ["外院学徒", "内堂武师", "护院教习", "金牌总教头", "总馆主"],
+            "ORG-08": ["皇城侍卫", "王府护卫", "护卫首领", "国相高僧", "大理宗主"],
+        }.get(fid, ["外门弟子", "内门弟子", "真传弟子", "长老", "掌门"])
+
+        is_sect_hierarchy = fid.startswith("SECT-") or fid == "ORG-08"
+        accepts_outer = (fid not in ("SECT-09", "SECT-10", "SECT-12", "ORG-08")) if is_sect_hierarchy else False
+        shared_rule = {"sourceSectId": "SECT-01", "maxRank": 2} if fid == "SECT-04" else None
+
+        if is_sect_hierarchy:
+            for member in npcs_by_faction[fid]:
+                r = member["role"]
+                if member["id"] in leader_ids or (
+                    any(k in r for k in ("掌门", "方丈", "帮主", "岛主", "总舵主", "当代家主", "当代堡主", "总馆主", "大寨主", "总镖头", "总瓢把子", "掌教天师", "大总管", "大内总供奉", "大理国皇帝"))
+                    and not any(ex in r for ex in ("副", "夫人", "太上", "前"))
+                ):
+                    s_rank = 5
+                elif any(k in r for k in ("长老", "副掌门", "副帮主", "副总舵主", "副总瓢把子", "副总管", "师叔", "老太爷", "太上", "扫地老僧", "大长老", "护国", "尊主", "前家主", "御前", "八十万禁军总教头", "大总堂主", "武林统制", "护院总教头", "金牌教习", "铁桥教头", "金牌教头", "红旗镖头", "国相", "洞庭总堂主", "天龙寺掌院", "退位宗王")) or (
+                    "首座" in r and "弟子" not in r and "首徒" not in r
+                ):
+                    s_rank = 4
+                elif any(k in r for k in ("真传", "首席", "大师兄", "二师兄", "三师兄", "四师兄", "四秀", "函谷八友", "四大恶人", "金牌总捕", "金牌捕头", "暗器总捕", "密侦校尉", "密侦统领", "青云庄主", "金凤庄主", "玄霜庄主", "庄主", "主事", "舵主", "总管", "护法", "掌门夫人", "少帮主", "无崖子首徒", "首徒", "护卫首领", "北境节度", "入室弟子", "亲传弟子", "内堂弟子", "内馆武师", "走海趟子头领", "演武首座", "先锋将", "分寨大当家", "引蛊头领", "水寨香主", "护马执事", "堂主")):
+                    s_rank = 3
+                elif any(k in r for k in ("内门", "执事", "香主", "捕头", "都头", "校尉", "教头", "剑客", "剑师", "武僧", "高士", "高僧", "红牌武士", "勇士", "骑射好手", "百战", "精锐", "善堂", "匠师", "炼蛊师", "毒药", "二当家", "掌柜", "神射手", "王府护卫", "修真弟子", "内院道人", "内丹弟子", "游方道人", "行道高士", "头领", "头目", "弄潮好手", "边塞刀客", "悬壶弟子", "驭虫苗卫")):
+                    s_rank = 2
+                else:
+                    s_rank = 1
+                if not accepts_outer and s_rank < 2:
+                    s_rank = 2
+                member["sectRank"] = s_rank
+                member["sectRankLabel"] = rank_titles[s_rank - 1]
+        else:
+            for member in npcs_by_faction[fid]:
+                member["sectRank"] = None
+                member["sectRankLabel"] = None
+
         factions_enriched.append(
             {
                 **fac,
@@ -3314,6 +3379,9 @@ def compile_all(do_normalize_docs: bool) -> None:
                 "memberCount": npc_count_by_faction[fid],
                 "martialArtIds": arts_by_sect[fid],
                 "weaponIds": weapons_by_sect[fid],
+                "acceptsOuterDisciple": accepts_outer if is_sect_hierarchy else None,
+                "sharedMartialArtRule": shared_rule,
+                "rankTitles": rank_titles if is_sect_hierarchy else None,
             }
         )
 

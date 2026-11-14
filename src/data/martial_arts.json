@@ -26,6 +26,8 @@
         "min": 85
       }
     ],
+    "minSectRank": 5,
+    "minSectRankLabel": "掌门",
     "levels": [
       {
         "level": 1,
@@ -226,6 +228,8 @@
         "min": 75
       }
     ],
+    "minSectRank": 5,
+    "minSectRankLabel": "掌门",
     "levels": [
       {
         "level": 1,
@@ -428,6 +432,8 @@
         "min": 85
       }
     ],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -698,6 +704,8 @@
         "min": 75
       }
     ],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -968,6 +976,8 @@
         "min": 3500
       }
     ],
+    "minSectRank": 5,
+    "minSectRankLabel": "掌门",
     "levels": [
       {
         "level": 1,
@@ -1138,6 +1148,8 @@
         "min": 75
       }
     ],
+    "minSectRank": 5,
+    "minSectRankLabel": "掌门",
     "levels": [
       {
         "level": 1,
@@ -1304,6 +1316,8 @@
         "min": 85
       }
     ],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -1478,6 +1492,8 @@
         "min": 3000
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -1734,6 +1750,8 @@
         "min": 82
       }
     ],
+    "minSectRank": 5,
+    "minSectRankLabel": "掌门",
     "levels": [
       {
         "level": 1,
@@ -2022,6 +2040,8 @@
         "min": 80
       }
     ],
+    "minSectRank": 5,
+    "minSectRankLabel": "掌门",
     "levels": [
       {
         "level": 1,
@@ -2276,6 +2296,8 @@
         "min": 65
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -2546,6 +2568,8 @@
         "min": 80
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -2816,6 +2840,8 @@
         "min": 2800
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -3156,6 +3182,8 @@
         "min": 70
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -3400,6 +3428,8 @@
         "min": 70
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -3570,6 +3600,8 @@
         "min": 70
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -3814,6 +3846,8 @@
         "min": 2600
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -4058,6 +4092,8 @@
         "min": 75
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -4322,6 +4358,8 @@
         "min": 75
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -4562,6 +4600,8 @@
         "min": 3000
       }
     ],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -4736,6 +4776,8 @@
         "min": 75
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -4906,6 +4948,8 @@
         "min": 70
       }
     ],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -5160,6 +5204,8 @@
         "min": 70
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -5334,6 +5380,8 @@
         "min": 70
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -5508,6 +5556,8 @@
         "min": 70
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -5670,6 +5720,8 @@
         "min": 75
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -5934,6 +5986,8 @@
         "min": 2400
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -6104,6 +6158,8 @@
         "min": 65
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -6304,6 +6360,8 @@
         "min": 3000
       }
     ],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -6478,6 +6536,8 @@
         "min": 70
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -6682,6 +6742,8 @@
         "min": 75
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -6848,6 +6910,8 @@
         "min": 80
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -7022,6 +7086,8 @@
         "min": 2600
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -7192,6 +7258,8 @@
         "min": 75
       }
     ],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -7362,6 +7430,8 @@
         "min": 2500
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -7542,6 +7612,8 @@
         "min": 70
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -7722,6 +7794,8 @@
         "min": 80
       }
     ],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -7879,6 +7953,8 @@
     "description": "佛门高深护体内功，真气浑厚温暖，大幅提升内力上限与寒毒抗性。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -7966,6 +8042,8 @@
     "description": "终南古墓派镇派心法，行功时热气蒸腾，专求轻灵迅捷，克制刚猛中原武学。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8063,6 +8141,8 @@
     "description": "模拟大海怒涛澎湃之势蓄养真气，内劲一层叠一层，绵密浩瀚。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8160,6 +8240,8 @@
     "description": "至纯至和之救命内功，精修者气血旺盛绝伦，重伤垂危之际犹能护住心脉。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -8247,6 +8329,8 @@
     "description": "丐帮历代帮主与传功长老秘传至刚内功，纳天地风雷浩气入丹田，血气澎湃如苍龙出海，最宜催动降龙掌与打狗棒绝学。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8344,6 +8428,8 @@
     "description": "少林七十二绝技之冠，掌力空灵而内蕴万钧禅劲，越到后招威力越盛。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8411,6 +8497,8 @@
     "description": "至刚硬功指法，铁指到处，精钢兵刃亦能生生捏出指印凹痕。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8478,6 +8566,8 @@
     "description": "以浑厚内力隔空摄物擒拿敌手，于数步外夺人兵刃，尽显宗师气度。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8545,6 +8635,8 @@
     "description": "双掌以毒砂铁屑日夜翻炒淬炼，掌风刚猛霸烈，中者五脏俱焚。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8612,6 +8704,8 @@
     "description": "掌出如桃林落英缤纷，五虚一实，八方皆是掌影，令人眼花缭乱。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8679,6 +8773,8 @@
     "description": "佛门剑道巅峰，剑势古朴慈悲却无隙可乘，讲究以剑止戈。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8746,6 +8842,8 @@
     "description": "华山镇岳绝招，一气呵成连刺三剑，剑势奇拔险峻，一剑强似一剑。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8813,6 +8911,8 @@
     "description": "泰山派最高剑诀，结合算术目测距离高低，左手屈指计数，右手一剑必杀。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8880,6 +8980,8 @@
     "description": "峨眉山凌厉剑学，如清风拂柳中骤起雷霆杀机，轻灵与狠辣兼备。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -8947,6 +9049,8 @@
     "description": "极快极烈之禅门刀法，出刀摩擦空气生热，劈砍枯木可令其焦黑生烟。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -9014,6 +9118,8 @@
     "description": "状若疯虎、舍生忘死之百斤铁杖猛招，招招以命搏命，凶威滔天。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -9081,6 +9187,8 @@
     "description": "唐门上乘暗器手法，双手同时激射数十枚金针铁蒺藜，笼罩敌手周身大穴。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -9148,6 +9256,8 @@
     "description": "融昆仑冰蚕寒毒于掌心，中掌者顷刻间眉发结霜，气血冻结僵直。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -9215,6 +9325,8 @@
     "description": "武当绝顶提纵术，左脚踏右脚背凭空拔高数丈，纵跃城垣绝壁如等闲。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -9292,6 +9404,8 @@
     "description": "少林绝顶轻功，提一口先天真气，足踏芦苇浮木即可飞渡大河宽溪。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
     "levels": [
       {
         "level": 1,
@@ -9369,6 +9483,8 @@
     "description": "由外而内修习之特殊内功，无需枯坐冥想，于日常行住坐卧与掌法演练间凝练混元真气。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -9456,6 +9572,8 @@
     "description": "道家吐纳筑基大成法门，内息悠长圆融，大幅增强内力防御减伤效率。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -9543,6 +9661,8 @@
     "description": "参透草木一岁一枯荣之禅机，真气半枯半荣，擅长化解封穴与内息紊乱。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -9630,6 +9750,8 @@
     "description": "蹲伏蓄劲，静若死灰，一旦敌手攻击触身便如惊雷炸裂般全力反弹。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -9717,6 +9839,8 @@
     "description": "共三十六式擒拿绝技，抓肉撕筋、拿骨断腕，出手快狠准，不留余地。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -9784,6 +9908,8 @@
     "description": "取佛祖灵山拈花微笑之意，以极柔内劲轻拂敌手要穴，中者浑然不觉而内力已封。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -9851,6 +9977,8 @@
     "description": "姿态优雅如春兰映日，拇指食指轻拢慢捻，专破全身三十六处死穴。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -9918,6 +10046,8 @@
     "description": "阴毒无比之邪派掌法，掌风腥臭带腐毒，专蚀敌手护体真气与骨髓生机。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -9985,6 +10115,8 @@
     "description": "大开大合之中原名门掌法，掌力雄浑厚重，正面对撼极占便宜。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -10052,6 +10184,8 @@
     "description": "依阴阳两仪变化创制，剑路严密稳健，守如山岳，攻若江河。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10119,6 +10253,8 @@
     "description": "讲究一鼓作气、连环三剑尽封退路，险中求胜，一着失手则满盘皆危。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10186,6 +10322,8 @@
     "description": "青城山镇派快剑，如松间疾风掠影，专取咽喉手腕要害，迅疾狠辣。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10253,6 +10391,8 @@
     "description": "以玉箫代剑，招式潇洒风流，专点敌手手腕麻穴，兼具音律扰心之效。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10320,6 +10460,8 @@
     "description": "融汇前燕宫廷剑术与江南灵秀，招式华美严谨，方便衔接斗转星移。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10387,6 +10529,8 @@
     "description": "刀路怪诞绝伦，专从腋下、胯间、肋旁等不可思议之诡角出刀见血。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -10454,6 +10598,8 @@
     "description": "沙场屠戮凝练之凶煞刀术，刀风凄厉，气血越低时出刀杀伤越狂暴。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10521,6 +10667,8 @@
     "description": "河北抗辽枪道魁首，一点寒星破重甲，大枪抖动如银龙出海。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10588,6 +10736,8 @@
     "description": "河东护边武僧成名棍杖，势如金刚怒目，横扫千军，专克骑兵弯刀。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10655,6 +10805,8 @@
     "description": "腰肋间暗藏机括，近身交锋时冷不防激射毒砂钢针，阴险难防。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10722,6 +10874,8 @@
     "description": "塞外草原绝顶奔袭轻功，爆发力惊人，数息间即可横跨整个战棋场地。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10789,6 +10943,8 @@
     "description": "堂堂正正之道家纯阳心法，真气炽热阳刚，对寒冰与尸毒有极佳抗性。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -10876,6 +11032,8 @@
     "description": "峨眉佛道兼修心法，平和柔韧，擅长在战斗中缓慢回补自身气血。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -10963,6 +11121,8 @@
     "description": "南少林横练硬气功，皮肉坚韧如老树盘根，极大强化近战抗击打力。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11050,6 +11210,8 @@
     "description": "以五石奇毒摩擦穴位行气，内力带灼毒特效，唯修炼时颇损颜值风仪。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11137,6 +11299,8 @@
     "description": "唐家堡内堂秘传心法，引万毒涧五石瘴气淬炼奇经八脉，内息幽冷凝练如丝，既可御针发簧，亦令自身百毒难侵。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11224,6 +11388,8 @@
     "description": "少林拼命绝招，毕生功力聚于一掌，非但击碎顽石，连余波亦可震退群敌。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11291,6 +11457,8 @@
     "description": "六扇门总捕头秘传绝艺，扣脉锁喉，专门生擒江洋大盗使其无法运功。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11358,6 +11526,8 @@
     "description": "绵里藏针之阴寒掌法，掌力渗入经脉后寒毒发作，令敌手身法大减。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -11425,6 +11595,8 @@
     "description": "专碎心脉脏腑之歹毒掌力，外表毫无伤痕而内腑已受重创。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11492,6 +11664,8 @@
     "description": "双拳坚硬沉重如生铜巨锤，硬桥硬马，擅破敌方护身盾牌与硬功。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11559,6 +11733,8 @@
     "description": "剑法轻捷灵动，讲究东宗剑气与西宗剑巧合一，山水之间颇具仙气。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -11626,6 +11802,8 @@
     "description": "华山睡仙陈抟老祖遗留道剑，剑意恬淡空远，擅于守势中消弭敌方杀意。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11693,6 +11871,8 @@
     "description": "剑路曲折回环如登泰山十八盘石阶，越转越紧，将对手困于剑网中心。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11760,6 +11940,8 @@
     "description": "专为克制名门正派沉稳剑法而创，招式炽热跳脱，处处反其道而行之。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -11827,6 +12009,8 @@
     "description": "融合党项弯刀与关中大环刀之长，狂风卷沙，凶悍凌厉。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11894,6 +12078,8 @@
     "description": "大运河漕帮总舵主镇帮枪术，舟楫颠簸与水陆混战中如蛟龙翻江。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11961,6 +12147,8 @@
     "description": "少林护寺重杖法，威猛庄严，一杵砸落如泰山压顶，破甲效果极佳。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12028,6 +12216,8 @@
     "description": "唐门独门喂毒暗器，专在子午二时药力最烈，擦破油皮便需极高抗性抵御。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12095,6 +12285,8 @@
     "description": "依颜真卿书帖笔意化入点穴铁笔，龙蛇飞动，专封三十六大穴。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -12162,6 +12354,8 @@
     "description": "中原武林一流轻功，脚尖连点八步而气不喘，追逃之间迅捷如飞蝉掠枝。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -12229,6 +12423,8 @@
     "description": "轻身提气至极，行于积雪平沙之上不留足印，潜行夜探与闪避俱佳。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12296,6 +12492,8 @@
     "description": "青城道家进阶内功，朝吸紫气，行气迅捷，偏重提升出手集气与暗劲。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12383,6 +12581,8 @@
     "description": "少林武僧中坚心法，扎实稳健，气血与刚猛内力均衡增长。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12470,6 +12670,8 @@
     "description": "清心宁神之佛门内功，大幅提升对迷药、音波扰心与蛊惑的抗性。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12567,6 +12769,8 @@
     "description": "八十万禁军上等教头秘传军阵气功，重甲披身而内息不滞，抗伤出色。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12654,6 +12858,8 @@
     "description": "北方绿林大豪秘传护体硬功，行气粗犷刚猛如太行山岳，饮烈酒后催动更添三分血气与筋骨抗性。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12741,6 +12947,8 @@
     "description": "大运河漕帮与东南海商秘传水战内功，吐纳绵长如巨鲸吞海，舟楫激战中真气不绝且辟风湿瘴毒。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12828,6 +13036,8 @@
     "description": "掌影如天女散花般曼妙铺开，虽单掌力道温和，胜在范围绵密难躲。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12895,6 +13105,8 @@
     "description": "南拳硬桥硬马名技，以声助威，双臂如百炼铁线，刚柔并济。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -12962,6 +13174,8 @@
     "description": "内家外放进阶掌法，隔空三尺劈碎青砖，实战中可远距消耗敌手。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -13029,6 +13243,8 @@
     "description": "巴蜀狠辣掌术，出手阴冷刁钻，常藏于道袍宽袖之内骤然发难。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13096,6 +13312,8 @@
     "description": "配合混元功施展之掌法，招式圆转，中者内息隐隐受震。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13163,6 +13381,8 @@
     "description": "佛门刚猛长剑术，剑走正道，大开大阖，专破邪门诡异路数。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13230,6 +13450,8 @@
     "description": "剑光清丽如出水芙蓉，招式灵巧多变，颇受江南女侠与世家子弟青睐。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13297,6 +13519,8 @@
     "description": "武当进阶绵剑，剑带柔劲，如白云缠绕山峦，擅长迟滞敌方身法。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13364,6 +13588,8 @@
     "description": "中原金刀王家立足根本，刀背金环震响慑魂，刀势堂皇稳重。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13431,6 +13657,8 @@
     "description": "制敌而不伤性命之佛门刀术，刀刀削人兵刃衣角，点到即止却极难破解。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13498,6 +13726,8 @@
     "description": "晋阳边关将士与游侠浴血锤炼之战刀，一往无前，破甲劈马。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -13565,6 +13795,8 @@
     "description": "内三合与外三合兼备之北方正宗大枪，枪圈严密，攻防一体。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13632,6 +13864,8 @@
     "description": "招式绵密护身，一杖化千影，适合被围攻时固守待援。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13699,6 +13933,8 @@
     "description": "连珠三镖分取上中下三路，前镖诱敌格挡，后镖暗藏真劲。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13766,6 +14002,8 @@
     "description": "模拟金雁斜飞冲天之姿，盘旋上升与山地翻越速度极快。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13833,6 +14071,8 @@
     "description": "借水波浮力换气疾行，在水路与江南湖泽地形中身法大增。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -13900,6 +14140,8 @@
     "description": "江南水乡绵长吐纳术，呼吸细若游丝，水中闭气与耐力极佳。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -13987,6 +14229,8 @@
     "description": "公门名捕追踪行气法，精于收敛自身气息并敏锐察觉周遭伏兵。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14074,6 +14318,8 @@
     "description": "收敛生机如老龟冬眠，既可装死避祸，亦能缓慢化解体内剧毒内伤。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -14161,6 +14407,8 @@
     "description": "文有太极安天下，武有八极定乾坤，贴身靠打与寸劲爆发极为凶猛。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14228,6 +14476,8 @@
     "description": "招式凶狠毒辣之抓拿功夫，专攻下盘与关节软肋，正派人士多慎用之。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -14295,6 +14545,8 @@
     "description": "掌力如棉絮裹铁，看似轻飘无力，实则暗劲层层渗透。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14362,6 +14614,8 @@
     "description": "以斑蝥、蜈蚣毒液浸手练成，掌心发黑，擦中即起腐疮毒泡。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14429,6 +14683,8 @@
     "description": "华山进阶快剑，取南峰落雁之意，剑尖颤动如群雁穿云。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14496,6 +14752,8 @@
     "description": "取泰山松树奇姿入剑，古拙苍劲，擅长斜刺反撩。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14563,6 +14821,8 @@
     "description": "吴越民间流传之轻捷短剑术，步法灵巧，专克笨重长兵。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -14630,6 +14890,8 @@
     "description": "舍弃防守全凭身法催动之快刀，一息连劈七刀，如朔风卷雪。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14697,6 +14959,8 @@
     "description": "刚猛威武之大刀路数，缺一门而留生机，变招迅猛。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14764,6 +15028,8 @@
     "description": "党项骑兵与一品堂好手常用弧刃刀法，贴身抹颈，诡谲难测。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14831,6 +15097,8 @@
     "description": "杨五郎于五台山出家后化枪为棍，融八卦步位，挑打劈砸精妙非常。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -14898,6 +15166,8 @@
     "description": "丈八蛇矛曲刃枪法，刺中带划，最善撕裂皮甲护具。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -14965,6 +15235,8 @@
     "description": "双持铁刺水中格斗绝技，旋转如飞轮，贴身锁刃点穴。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15032,6 +15304,8 @@
     "description": "扬手撒出淬毒铁蒺藜封锁路面，令追敌步履维艰、身中麻毒。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15099,6 +15373,8 @@
     "description": "凭指趾腰腹巧劲紧贴砖石城墙蜿蜒攀爬，夜探王府高墙必备。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -15166,6 +15442,8 @@
     "description": "提气纵跃房舍林木之精熟轻功，身形矫健，大幅减少山地移动耗时。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -15233,6 +15511,8 @@
     "description": "外练筋骨皮、内壮一口气，提升少量气血上限与火毒抗性。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15330,6 +15610,8 @@
     "description": "仿虎鹿熊猿鸟五禽导引行气，平和无弊，稳步增益气血与身法。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15417,6 +15699,8 @@
     "description": "北方道门纯正筑基心诀，根基扎实，为日后转修高阶道藏内功铺路。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15504,6 +15788,8 @@
     "description": "拳势威猛如猛虎下山，弓步冲拳虎虎生风，克制市井花拳绣腿。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15571,6 +15857,8 @@
     "description": "放长击远，冷弹脆快，双臂甩开如猿臂轻舒，攻击距离较寻常拳法更远。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15638,6 +15926,8 @@
     "description": "翻手为云覆手雨，掌路忽上忽下，虚实相生。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15705,6 +15995,8 @@
     "description": "十指苦抓青砖陶罐练就之指力，扣人脉门肩井极为得手。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15772,6 +16064,8 @@
     "description": "取孟子“吾善养吾浩然之气”之意，专主防守，剑圈端严不露破绽。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15839,6 +16133,8 @@
     "description": "青城弟子行走江湖常用快剑，轻灵飘忽，招式密集。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -15906,6 +16202,8 @@
     "description": "天地人三才剑势进阶篇，招数中规中矩而衔接流畅。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -15973,6 +16271,8 @@
     "description": "踏八卦步绕敌游走，刀随身转，避实击虚。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16040,6 +16340,8 @@
     "description": "厚背沉重鬼头刀劈砍猛招，纯凭血气硬砸，震得对手虎口发麻。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16107,6 +16409,8 @@
     "description": "北辽重装武士凶悍钝器战技，沉重狼牙专破护体硬功。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -16174,6 +16478,8 @@
     "description": "棍出齐眉，戳挑劈扫圆熟如意，乃天下棍术正宗根基。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16241,6 +16547,8 @@
     "description": "大宋边军校尉标准战枪套路，中平一枪最是稳健狠辣。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16308,6 +16616,8 @@
     "description": "以大宋铜钱磨刃掷出，随手可发，专打眼耳咽喉。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16375,6 +16685,8 @@
     "description": "铁骨纸扇开合之间格挡刀剑、顺势戳点肋下麻穴，风雅实用。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16442,6 +16754,8 @@
     "description": "借荒草树枝微弱弹力疾奔，山林野径间追击逃逸颇具奇效。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16509,6 +16823,8 @@
     "description": "身形三次点地折向跃起，灵巧避开正面横扫兵刃。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16576,6 +16892,8 @@
     "description": "佛门弟子剃度或俗家入门必修坐禅吐纳，宁心定气，稳固丹田。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16663,6 +16981,8 @@
     "description": "引山间清气入体，绵密温和，为修习混元功或紫霞功打下底子。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16750,6 +17070,8 @@
     "description": "清灵柔和之入门内息法，行气顺畅，不易走火入魔。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16837,6 +17159,8 @@
     "description": "大宋军中普及的呼吸操演法，提升行军耐力与些微气血。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -16924,6 +17248,8 @@
     "description": "天下名拳之祖，招式端正简洁，一拳一式皆具佛门气象。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -16991,6 +17317,8 @@
     "description": "丐帮中低袋弟子防身掌法，双掌翻飞护住周身，灵巧多变。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17058,6 +17386,8 @@
     "description": "刚直质朴之外家掌法，直来直去，掌缘老茧厚实。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17125,6 +17455,8 @@
     "description": "顺敌手腕关节旋转反扣之实用拿法，缉拿寻常毛贼手到擒来。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -17192,6 +17524,8 @@
     "description": "“白云出岫”“有凤来仪”诸式初具奇险端倪，乃西岳剑道根基。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17259,6 +17593,8 @@
     "description": "剑势沉稳敦厚，下盘扎根极牢，适合初学者磨炼定力。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17326,6 +17662,8 @@
     "description": "道门基础剑术，舒展大方，动静合宜。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17393,6 +17731,8 @@
     "description": "双刀轻快如春柳拂风，左右交错，近身护体颇密。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17460,6 +17800,8 @@
     "description": "武馆常见正统单刀套路，劈砍撩挂步伐扎实。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17527,6 +17869,8 @@
     "description": "竹棒防身棍术，专打恶犬与强人下盘膝踝。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17594,6 +17938,8 @@
     "description": "短铁鞭砸击硬功，专克寻常铁甲盾牌。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -17661,6 +18007,8 @@
     "description": "河北民间流传之轻灵枪术，枪缨抖动迷人眼目。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17728,6 +18076,8 @@
     "description": "藏铜管机簧于衣袖之内，拱手行礼之际冷箭伤人。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -17795,6 +18145,8 @@
     "description": "曼陀罗药粉混入烟火酒水，对低抗性目标极易奏效。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17862,6 +18214,8 @@
     "description": "借助钩索与足力翻越寻常民宅院墙之熟稔轻身功夫。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -17929,6 +18283,8 @@
     "description": "驿站八百里加急步卒与镖师赶路步法，长途奔行不易力竭。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -17996,6 +18352,8 @@
     "description": "市井旧书摊与小武馆最常见的内功小册，引一丝微气游走任督外围。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -18083,6 +18441,8 @@
     "description": "每日晨昏蹲马步桩功，虽无甚高深内劲，却能扎实下盘气血。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18180,6 +18540,8 @@
     "description": "读书人与云游医道日常静坐凝神之法，略微调和急躁气息。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18277,6 +18639,8 @@
     "description": "宋太祖赵匡胤流传军中与民间之名拳，拳势舒展硬朗，实战极广。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18344,6 +18708,8 @@
     "description": "南派拳术筑基，桥手稳固，吐气开声。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18411,6 +18777,8 @@
     "description": "身灵步活，腿法与长拳结合，节奏明快。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18478,6 +18846,8 @@
     "description": "“教门弹腿”十路筑基，出腿隐蔽迅捷，专踢迎门胫骨。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18545,6 +18915,8 @@
     "description": "绿豆铁砂炒热插手之速成法，掌力虽猛但易留火燥暗伤。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18612,6 +18984,8 @@
     "description": "流传甚广之游侠轻剑，灵巧多变，颇具古风。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -18679,6 +19053,8 @@
     "description": "上刺咽喉、中取心窝、下挑膝弯，朴实无华之入门剑术。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18746,6 +19122,8 @@
     "description": "刀光紧密如风雨泼洒，防住正面暗箭，适合混战保命。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18813,6 +19191,8 @@
     "description": "大宋都头、边塞刀客巡街护商标配双手长柄朴刀招式。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -18880,6 +19260,8 @@
     "description": "市井屠夫庖丁解牛之熟手快刀，顺骨缝下刀极准。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -18947,6 +19329,8 @@
     "description": "看似粗笨扫打劈砸，实则暗合棍术基本力道。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19014,6 +19398,8 @@
     "description": "竹篙点水撑船化出之长杆打法，水边交手颇具地利。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19081,6 +19467,8 @@
     "description": "抖动精铁缉盗锁链缠绕嫌犯手足兵刃。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19148,6 +19536,8 @@
     "description": "拣选河滩鹅卵圆石甩手急掷，百发百中可碎瓦击鸟。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -19215,6 +19605,8 @@
     "description": "下三滥保命暗招，扬出一把生石灰逼退强敌视线。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -19282,6 +19674,8 @@
     "description": "丹田提气纵跃丈许沟壑之轻功初阶法门。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19349,6 +19743,8 @@
     "description": "于高低木桩上锤炼闪展腾挪，小幅提升战斗身法闪避。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -19416,6 +19812,8 @@
     "description": "凡人初习武道之腹式深呼吸，聊胜于无。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19503,6 +19901,8 @@
     "description": "钱塘潮帮与汴河码头力夫搬运重货时憋气发力之经验法门。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -19590,6 +19990,8 @@
     "description": "毫无章法之挥臂乱打，全凭一股街头狠劲莽撞冲撞。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19657,6 +20059,8 @@
     "description": "农闲时乡团老卒与南疆武馆传授之护乡粗拳，动作质朴却有一把子蛮力。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -19724,6 +20128,8 @@
     "description": "烂醉如泥间东倒西歪、顺势抱摔绊脚之胡搅蛮缠招数。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19791,6 +20197,8 @@
     "description": "大宅门家丁排成一列推挡闲杂人等之粗浅推掌。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19858,6 +20266,8 @@
     "description": "汴梁瓦舍卖艺艺人舞剑吞剑之花架子，好看多于实用。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19925,6 +20335,8 @@
     "description": "仅含刺、劈、格、洗四记最基础动作之木剑练习谱。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -19992,6 +20404,8 @@
     "description": "终南、武夷樵夫日常砍柴劈荆棘之顺手刀路。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20059,6 +20473,8 @@
     "description": "茶坊酒肆厨子剁肉切骨之双刀快手，近身亦不容小觑。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20126,6 +20542,8 @@
     "description": "剪径小贼唬人用之大开大合劈砍，破绽百出。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20193,6 +20611,8 @@
     "description": "双股钢叉抵御野猪猛虎之实用刺法，稳扎下盘。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20260,6 +20680,8 @@
     "description": "未入丐帮堂口之流民驱赶野狗竹竿打法。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20327,6 +20749,8 @@
     "description": "走街串巷货郎抽扁担横扫护货之应急招数。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20394,6 +20818,8 @@
     "description": "夜间打更木梆敲击麻筋之防身小巧。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20461,6 +20887,8 @@
     "description": "掌柜账房以黄铜算盘架挡刀剑、顺势拍脸之急智把式。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20528,6 +20956,8 @@
     "description": "牛筋木叉弹射泥丸铁珠，准头尚可而力道微弱。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20595,6 +21025,8 @@
     "description": "撒网捕鱼手法移用于罩住敌手头脸，使其一时手忙脚乱。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
     "levels": [
       {
         "level": 1,
@@ -20662,6 +21094,8 @@
     "description": "迈开大步甩臂奔跑，纯粹依靠腿脚体能。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20729,6 +21163,8 @@
     "description": "遇险时顺势懒驴打滚避开劈砍，虽狼狈不堪却往往能捡回性命。",
     "prerequisitesText": null,
     "statRequirements": [],
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -20779,6 +21215,2112 @@
         "level": 10,
         "expRequired": 0,
         "agility": 18
+      }
+    ]
+  },
+  {
+    "id": "MA-219",
+    "code": "219",
+    "name": "逍遥御风心法",
+    "cleanName": "逍遥御风心法",
+    "tier": "地阶",
+    "subTier": "中品",
+    "fullTier": "地阶中品",
+    "category": "内功",
+    "origin": "逍遥派入门",
+    "sectId": "SECT-09",
+    "description": "逍遥派内门筑基心法，引天地清灵之气入脉，轻灵飘逸，为日后转修《小无相功》或《北冥神功》奠定根基。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 850,
+        "maxMp": 858,
+        "maxHp": 808,
+        "resistance": 8,
+        "constitution": 2,
+        "charm": 1
+      },
+      {
+        "level": 2,
+        "expRequired": 1360,
+        "maxMp": 1258,
+        "maxHp": 1184,
+        "resistance": 12,
+        "constitution": 2,
+        "charm": 2
+      },
+      {
+        "level": 3,
+        "expRequired": 2040,
+        "maxMp": 1716,
+        "maxHp": 1615,
+        "resistance": 17,
+        "constitution": 3,
+        "charm": 3
+      },
+      {
+        "level": 4,
+        "expRequired": 2980,
+        "maxMp": 2231,
+        "maxHp": 2100,
+        "resistance": 22,
+        "constitution": 4,
+        "charm": 4
+      },
+      {
+        "level": 5,
+        "expRequired": 4250,
+        "maxMp": 2803,
+        "maxHp": 2638,
+        "resistance": 27,
+        "constitution": 5,
+        "charm": 4
+      },
+      {
+        "level": 6,
+        "expRequired": 5950,
+        "maxMp": 3432,
+        "maxHp": 3230,
+        "resistance": 34,
+        "constitution": 6,
+        "charm": 5
+      },
+      {
+        "level": 7,
+        "expRequired": 8330,
+        "maxMp": 4061,
+        "maxHp": 3823,
+        "resistance": 40,
+        "constitution": 7,
+        "charm": 6
+      },
+      {
+        "level": 8,
+        "expRequired": 11730,
+        "maxMp": 4690,
+        "maxHp": 4415,
+        "resistance": 46,
+        "constitution": 8,
+        "charm": 7
+      },
+      {
+        "level": 9,
+        "expRequired": 17000,
+        "maxMp": 5205,
+        "maxHp": 4899,
+        "resistance": 51,
+        "constitution": 9,
+        "charm": 8
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 5720,
+        "maxHp": 5384,
+        "resistance": 56,
+        "constitution": 10,
+        "charm": 9
+      }
+    ]
+  },
+  {
+    "id": "MA-220",
+    "code": "220",
+    "name": "段氏纯阳吐纳诀",
+    "cleanName": "段氏纯阳吐纳诀",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "内功",
+    "origin": "大理段氏",
+    "sectId": "ORG-08",
+    "description": "大理段氏皇室与天龙寺入门内功，气脉纯正中庸，温养丹田阳气，乃修习《一阳指》之前置根基。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 650,
+        "maxMp": 660,
+        "maxHp": 668,
+        "resistance": 7
+      },
+      {
+        "level": 2,
+        "expRequired": 1040,
+        "maxMp": 968,
+        "maxHp": 979,
+        "resistance": 11
+      },
+      {
+        "level": 3,
+        "expRequired": 1560,
+        "maxMp": 1320,
+        "maxHp": 1335,
+        "resistance": 15
+      },
+      {
+        "level": 4,
+        "expRequired": 2280,
+        "maxMp": 1716,
+        "maxHp": 1736,
+        "resistance": 19
+      },
+      {
+        "level": 5,
+        "expRequired": 3250,
+        "maxMp": 2156,
+        "maxHp": 2180,
+        "resistance": 24
+      },
+      {
+        "level": 6,
+        "expRequired": 4550,
+        "maxMp": 2640,
+        "maxHp": 2670,
+        "resistance": 29
+      },
+      {
+        "level": 7,
+        "expRequired": 6370,
+        "maxMp": 3124,
+        "maxHp": 3160,
+        "resistance": 35
+      },
+      {
+        "level": 8,
+        "expRequired": 8970,
+        "maxMp": 3608,
+        "maxHp": 3649,
+        "resistance": 40
+      },
+      {
+        "level": 9,
+        "expRequired": 13000,
+        "maxMp": 4004,
+        "maxHp": 4050,
+        "resistance": 45
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 4400,
+        "maxHp": 4450,
+        "resistance": 49
+      }
+    ]
+  },
+  {
+    "id": "MA-221",
+    "code": "221",
+    "name": "参合吐纳功",
+    "cleanName": "参合吐纳功",
+    "tier": "良品",
+    "subTier": "上品",
+    "fullTier": "良品上品",
+    "category": "内功",
+    "origin": "姑苏慕容氏",
+    "sectId": "SECT-10",
+    "description": "燕子坞还施水阁入门内功，行气清冽绵长，重在感应敌手内劲流向，为修习《斗转星移》之初阶法门。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 450,
+        "maxMp": 554,
+        "maxHp": 517,
+        "resistance": 7
+      },
+      {
+        "level": 2,
+        "expRequired": 720,
+        "maxMp": 812,
+        "maxHp": 758,
+        "resistance": 10
+      },
+      {
+        "level": 3,
+        "expRequired": 1080,
+        "maxMp": 1108,
+        "maxHp": 1033,
+        "resistance": 13
+      },
+      {
+        "level": 4,
+        "expRequired": 1580,
+        "maxMp": 1440,
+        "maxHp": 1343,
+        "resistance": 17
+      },
+      {
+        "level": 5,
+        "expRequired": 2250,
+        "maxMp": 1809,
+        "maxHp": 1688,
+        "resistance": 22
+      },
+      {
+        "level": 6,
+        "expRequired": 3150,
+        "maxMp": 2215,
+        "maxHp": 2066,
+        "resistance": 26
+      },
+      {
+        "level": 7,
+        "expRequired": 4410,
+        "maxMp": 2621,
+        "maxHp": 2445,
+        "resistance": 31
+      },
+      {
+        "level": 8,
+        "expRequired": 6210,
+        "maxMp": 3027,
+        "maxHp": 2824,
+        "resistance": 36
+      },
+      {
+        "level": 9,
+        "expRequired": 9000,
+        "maxMp": 3360,
+        "maxHp": 3134,
+        "resistance": 40
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 3692,
+        "maxHp": 3444,
+        "resistance": 44
+      }
+    ]
+  },
+  {
+    "id": "MA-222",
+    "code": "222",
+    "name": "桃花岛吐纳术",
+    "cleanName": "桃花岛吐纳术",
+    "tier": "良品",
+    "subTier": "上品",
+    "fullTier": "良品上品",
+    "category": "内功",
+    "origin": "东海桃花岛",
+    "sectId": "SECT-12",
+    "description": "东海桃花岛内门心法，依潮汐吐纳之理养气归元，温润平和，兼可调和奇门五行之气。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 450,
+        "maxMp": 532,
+        "maxHp": 532,
+        "resistance": 7
+      },
+      {
+        "level": 2,
+        "expRequired": 720,
+        "maxMp": 781,
+        "maxHp": 781,
+        "resistance": 10
+      },
+      {
+        "level": 3,
+        "expRequired": 1080,
+        "maxMp": 1065,
+        "maxHp": 1065,
+        "resistance": 13
+      },
+      {
+        "level": 4,
+        "expRequired": 1580,
+        "maxMp": 1384,
+        "maxHp": 1384,
+        "resistance": 17
+      },
+      {
+        "level": 5,
+        "expRequired": 2250,
+        "maxMp": 1740,
+        "maxHp": 1740,
+        "resistance": 22
+      },
+      {
+        "level": 6,
+        "expRequired": 3150,
+        "maxMp": 2130,
+        "maxHp": 2130,
+        "resistance": 26
+      },
+      {
+        "level": 7,
+        "expRequired": 4410,
+        "maxMp": 2520,
+        "maxHp": 2520,
+        "resistance": 31
+      },
+      {
+        "level": 8,
+        "expRequired": 6210,
+        "maxMp": 2911,
+        "maxHp": 2911,
+        "resistance": 36
+      },
+      {
+        "level": 9,
+        "expRequired": 9000,
+        "maxMp": 3230,
+        "maxHp": 3230,
+        "resistance": 40
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 3550,
+        "maxHp": 3550,
+        "resistance": 44
+      }
+    ]
+  },
+  {
+    "id": "MA-223",
+    "code": "223",
+    "name": "丐帮吐纳筑基诀",
+    "cleanName": "丐帮吐纳筑基诀",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "丐帮外门",
+    "sectId": "SECT-02",
+    "description": "丐帮低袋弟子行乞赶路时所修吐纳法门，抗寒耐饥，稳固下盘血气。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-224",
+    "code": "224",
+    "name": "清凉禅定吐纳法",
+    "cleanName": "清凉禅定吐纳法",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "五台山清凉寺",
+    "sectId": "SECT-03",
+    "description": "五台山佛门入门静坐心法，清心寡欲，敛气归元，最利抵御北地严寒。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3,
+        "charm": 1
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4,
+        "charm": 1
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6,
+        "charm": 1
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8,
+        "charm": 1
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10,
+        "charm": 1
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12,
+        "charm": 2
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14,
+        "charm": 2
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16,
+        "charm": 2
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18,
+        "charm": 3
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20,
+        "charm": 3
+      }
+    ]
+  },
+  {
+    "id": "MA-225",
+    "code": "225",
+    "name": "泰山松风养气诀",
+    "cleanName": "泰山松风养气诀",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "泰山派",
+    "sectId": "SECT-06",
+    "description": "东岳泰山道门筑基内功，引晨曦紫气入脉，沉稳敦厚。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-226",
+    "code": "226",
+    "name": "武当筑基内功",
+    "cleanName": "武当筑基内功",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "真武道宗",
+    "sectId": "SECT-08",
+    "description": "武当道门外门弟子必修内息法门，呼吸绵长柔和，不急不躁，最重根基纯正。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-227",
+    "code": "227",
+    "name": "唐门闭毒养气功",
+    "cleanName": "唐门闭毒养气功",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "蜀中唐门",
+    "sectId": "SECT-13",
+    "description": "唐门外房弟子必修内功，行气闭塞毛孔经脉，防备淬炼暗器毒药时毒雾侵体。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-228",
+    "code": "228",
+    "name": "青城青冥引气诀",
+    "cleanName": "青城青冥引气诀",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "青城派",
+    "sectId": "SECT-14",
+    "description": "青城山道观入门内功，取幽谷清灵之气，行气轻快，配合松风剑法相得益彰。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-229",
+    "code": "229",
+    "name": "铁掌烈火吐纳功",
+    "cleanName": "铁掌烈火吐纳功",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "铁掌帮",
+    "sectId": "SECT-15",
+    "description": "铁掌帮外门粗浅内功，行气刚烈燥热，用以锤炼双掌气血抗击打之力。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-230",
+    "code": "230",
+    "name": "漕帮涉水换气诀",
+    "cleanName": "漕帮涉水换气诀",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "江淮漕帮",
+    "sectId": "SECT-16",
+    "description": "运河漕帮船夫与护舱弟子必修内功，肺活绵长，兼增水上闭气与耐力。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-231",
+    "code": "231",
+    "name": "星宿腐毒行气诀",
+    "cleanName": "星宿腐毒行气诀",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "星宿派",
+    "sectId": "SECT-19",
+    "description": "星宿外门弟子吐纳法门，以微末毒草导引内息，为日后修习毒功铺垫抗性。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-232",
+    "code": "232",
+    "name": "大漠狼息功",
+    "cleanName": "大漠狼息功",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "一品堂/辽国暗桩",
+    "sectId": "SECT-20",
+    "description": "塞北草原与西夏一品堂外围武士所修内功，行气迅猛，专适骑射奔袭与耐寒。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-233",
+    "code": "233",
+    "name": "金刀壮气功",
+    "cleanName": "金刀壮气功",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "洛阳金刀门",
+    "sectId": "SECT-21",
+    "description": "洛阳金刀门外院学徒必修内功，沉腰坐马，聚气于臂腕，使劈砍大刀更有余劲。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-234",
+    "code": "234",
+    "name": "常山行军吐纳法",
+    "cleanName": "常山行军吐纳法",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "内功",
+    "origin": "常山枪派",
+    "sectId": "SECT-22",
+    "description": "脱胎于河北边军战阵的入门内功，呼吸沉稳有力，最利长枪久战不竭。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "maxMp": 168,
+        "maxHp": 183,
+        "resistance": 3
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "maxMp": 246,
+        "maxHp": 268,
+        "resistance": 4
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "maxMp": 336,
+        "maxHp": 366,
+        "resistance": 6
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "maxMp": 437,
+        "maxHp": 476,
+        "resistance": 8
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "maxMp": 549,
+        "maxHp": 598,
+        "resistance": 10
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "maxMp": 672,
+        "maxHp": 732,
+        "resistance": 12
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "maxMp": 795,
+        "maxHp": 866,
+        "resistance": 14
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "maxMp": 918,
+        "maxHp": 1000,
+        "resistance": 16
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "maxMp": 1019,
+        "maxHp": 1110,
+        "resistance": 18
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 1120,
+        "maxHp": 1220,
+        "resistance": 20
+      }
+    ]
+  },
+  {
+    "id": "MA-235",
+    "code": "235",
+    "name": "全真入门剑法",
+    "cleanName": "全真入门剑法",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "剑法",
+    "origin": "终南隐宗",
+    "sectId": "SECT-11",
+    "description": "终南道观外门修真弟子必修基础剑术，剑路端正清雅，招式严谨。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "physicalDamage": 33
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "physicalDamage": 48
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "physicalDamage": 66
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "physicalDamage": 86
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "physicalDamage": 108
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "physicalDamage": 132
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "physicalDamage": 156
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "physicalDamage": 180
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "physicalDamage": 200
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "physicalDamage": 220
+      }
+    ]
+  },
+  {
+    "id": "MA-236",
+    "code": "236",
+    "name": "铁掌劈碑手",
+    "cleanName": "铁掌劈碑手",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "拳掌",
+    "origin": "铁掌帮",
+    "sectId": "SECT-15",
+    "description": "铁掌帮外门弟子入门掌法，直劈硬砸，专练掌缘开碑裂石之威。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "physicalDamage": 33
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "physicalDamage": 48
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "physicalDamage": 66
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "physicalDamage": 86
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "physicalDamage": 108
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "physicalDamage": 132
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "physicalDamage": 156
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "physicalDamage": 180
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "physicalDamage": 200
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "physicalDamage": 220
+      }
+    ]
+  },
+  {
+    "id": "MA-237",
+    "code": "237",
+    "name": "漕帮分水短刀",
+    "cleanName": "漕帮分水短刀",
+    "tier": "凡品",
+    "subTier": "上品",
+    "fullTier": "凡品上品",
+    "category": "刀法",
+    "origin": "江淮漕帮",
+    "sectId": "SECT-16",
+    "description": "漕帮护船弟子近身搏杀短刀法，劈斩迅捷，最适狭小船舱交手。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 170,
+        "physicalDamage": 34
+      },
+      {
+        "level": 2,
+        "expRequired": 270,
+        "physicalDamage": 50
+      },
+      {
+        "level": 3,
+        "expRequired": 410,
+        "physicalDamage": 69
+      },
+      {
+        "level": 4,
+        "expRequired": 600,
+        "physicalDamage": 89
+      },
+      {
+        "level": 5,
+        "expRequired": 850,
+        "physicalDamage": 112
+      },
+      {
+        "level": 6,
+        "expRequired": 1190,
+        "physicalDamage": 137
+      },
+      {
+        "level": 7,
+        "expRequired": 1670,
+        "physicalDamage": 163
+      },
+      {
+        "level": 8,
+        "expRequired": 2350,
+        "physicalDamage": 188
+      },
+      {
+        "level": 9,
+        "expRequired": 3400,
+        "physicalDamage": 208
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "physicalDamage": 229
+      }
+    ]
+  },
+  {
+    "id": "MA-238",
+    "code": "238",
+    "name": "绿林聚气桩",
+    "cleanName": "绿林聚气桩",
+    "tier": "凡品",
+    "subTier": "中品",
+    "fullTier": "凡品中品",
+    "category": "内功",
+    "origin": "太行绿林盟",
+    "sectId": "SECT-18",
+    "description": "太行、梁山草莽好汉流传之粗浅内功，重在壮实气血、耐受皮肉伤痛。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 130,
+        "maxMp": 120,
+        "maxHp": 135,
+        "resistance": 2
+      },
+      {
+        "level": 2,
+        "expRequired": 210,
+        "maxMp": 176,
+        "maxHp": 198,
+        "resistance": 3
+      },
+      {
+        "level": 3,
+        "expRequired": 310,
+        "maxMp": 240,
+        "maxHp": 270,
+        "resistance": 4
+      },
+      {
+        "level": 4,
+        "expRequired": 460,
+        "maxMp": 312,
+        "maxHp": 351,
+        "resistance": 6
+      },
+      {
+        "level": 5,
+        "expRequired": 650,
+        "maxMp": 392,
+        "maxHp": 441,
+        "resistance": 7
+      },
+      {
+        "level": 6,
+        "expRequired": 910,
+        "maxMp": 480,
+        "maxHp": 540,
+        "resistance": 9
+      },
+      {
+        "level": 7,
+        "expRequired": 1270,
+        "maxMp": 568,
+        "maxHp": 639,
+        "resistance": 11
+      },
+      {
+        "level": 8,
+        "expRequired": 1790,
+        "maxMp": 656,
+        "maxHp": 738,
+        "resistance": 12
+      },
+      {
+        "level": 9,
+        "expRequired": 2600,
+        "maxMp": 728,
+        "maxHp": 819,
+        "resistance": 14
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 800,
+        "maxHp": 900,
+        "resistance": 15
+      }
+    ]
+  },
+  {
+    "id": "MA-239",
+    "code": "239",
+    "name": "查拳固本桩",
+    "cleanName": "查拳固本桩",
+    "tier": "凡品",
+    "subTier": "中品",
+    "fullTier": "凡品中品",
+    "category": "内功",
+    "origin": "齐鲁查拳馆",
+    "sectId": "SECT-25",
+    "description": "齐鲁武馆学徒晨练站桩吐纳法，舒筋活络，略增气血下盘。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 130,
+        "maxMp": 120,
+        "maxHp": 135,
+        "resistance": 2
+      },
+      {
+        "level": 2,
+        "expRequired": 210,
+        "maxMp": 176,
+        "maxHp": 198,
+        "resistance": 3
+      },
+      {
+        "level": 3,
+        "expRequired": 310,
+        "maxMp": 240,
+        "maxHp": 270,
+        "resistance": 4
+      },
+      {
+        "level": 4,
+        "expRequired": 460,
+        "maxMp": 312,
+        "maxHp": 351,
+        "resistance": 6
+      },
+      {
+        "level": 5,
+        "expRequired": 650,
+        "maxMp": 392,
+        "maxHp": 441,
+        "resistance": 7
+      },
+      {
+        "level": 6,
+        "expRequired": 910,
+        "maxMp": 480,
+        "maxHp": 540,
+        "resistance": 9
+      },
+      {
+        "level": 7,
+        "expRequired": 1270,
+        "maxMp": 568,
+        "maxHp": 639,
+        "resistance": 11
+      },
+      {
+        "level": 8,
+        "expRequired": 1790,
+        "maxMp": 656,
+        "maxHp": 738,
+        "resistance": 12
+      },
+      {
+        "level": 9,
+        "expRequired": 2600,
+        "maxMp": 728,
+        "maxHp": 819,
+        "resistance": 14
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 800,
+        "maxHp": 900,
+        "resistance": 15
+      }
+    ]
+  },
+  {
+    "id": "MA-240",
+    "code": "240",
+    "name": "洪门铁桥吐纳法",
+    "cleanName": "洪门铁桥吐纳法",
+    "tier": "凡品",
+    "subTier": "中品",
+    "fullTier": "凡品中品",
+    "category": "内功",
+    "origin": "岭南洪门武馆",
+    "sectId": "SECT-27",
+    "description": "岭南武馆入门内功，配合扎马开声吐气，强壮臂力桥手与抗击打。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 130,
+        "maxMp": 120,
+        "maxHp": 135,
+        "resistance": 2
+      },
+      {
+        "level": 2,
+        "expRequired": 210,
+        "maxMp": 176,
+        "maxHp": 198,
+        "resistance": 3
+      },
+      {
+        "level": 3,
+        "expRequired": 310,
+        "maxMp": 240,
+        "maxHp": 270,
+        "resistance": 4
+      },
+      {
+        "level": 4,
+        "expRequired": 460,
+        "maxMp": 312,
+        "maxHp": 351,
+        "resistance": 6
+      },
+      {
+        "level": 5,
+        "expRequired": 650,
+        "maxMp": 392,
+        "maxHp": 441,
+        "resistance": 7
+      },
+      {
+        "level": 6,
+        "expRequired": 910,
+        "maxMp": 480,
+        "maxHp": 540,
+        "resistance": 9
+      },
+      {
+        "level": 7,
+        "expRequired": 1270,
+        "maxMp": 568,
+        "maxHp": 639,
+        "resistance": 11
+      },
+      {
+        "level": 8,
+        "expRequired": 1790,
+        "maxMp": 656,
+        "maxHp": 738,
+        "resistance": 12
+      },
+      {
+        "level": 9,
+        "expRequired": 2600,
+        "maxMp": 728,
+        "maxHp": 819,
+        "resistance": 14
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 800,
+        "maxHp": 900,
+        "resistance": 15
+      }
+    ]
+  },
+  {
+    "id": "MA-241",
+    "code": "241",
+    "name": "金环刀堂养血功",
+    "cleanName": "金环刀堂养血功",
+    "tier": "凡品",
+    "subTier": "中品",
+    "fullTier": "凡品中品",
+    "category": "内功",
+    "origin": "陇右金环刀堂",
+    "sectId": "SECT-28",
+    "description": "陇右边塞刀客入门内功，抵御风沙苦寒，略微提升气血与耐力。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 130,
+        "maxMp": 120,
+        "maxHp": 135,
+        "resistance": 2
+      },
+      {
+        "level": 2,
+        "expRequired": 210,
+        "maxMp": 176,
+        "maxHp": 198,
+        "resistance": 3
+      },
+      {
+        "level": 3,
+        "expRequired": 310,
+        "maxMp": 240,
+        "maxHp": 270,
+        "resistance": 4
+      },
+      {
+        "level": 4,
+        "expRequired": 460,
+        "maxMp": 312,
+        "maxHp": 351,
+        "resistance": 6
+      },
+      {
+        "level": 5,
+        "expRequired": 650,
+        "maxMp": 392,
+        "maxHp": 441,
+        "resistance": 7
+      },
+      {
+        "level": 6,
+        "expRequired": 910,
+        "maxMp": 480,
+        "maxHp": 540,
+        "resistance": 9
+      },
+      {
+        "level": 7,
+        "expRequired": 1270,
+        "maxMp": 568,
+        "maxHp": 639,
+        "resistance": 11
+      },
+      {
+        "level": 8,
+        "expRequired": 1790,
+        "maxMp": 656,
+        "maxHp": 738,
+        "resistance": 12
+      },
+      {
+        "level": 9,
+        "expRequired": 2600,
+        "maxMp": 728,
+        "maxHp": 819,
+        "resistance": 14
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 800,
+        "maxHp": 900,
+        "resistance": 15
+      }
+    ]
+  },
+  {
+    "id": "MA-242",
+    "code": "242",
+    "name": "五溪避瘴吐纳法",
+    "cleanName": "五溪避瘴吐纳法",
+    "tier": "凡品",
+    "subTier": "中品",
+    "fullTier": "凡品中品",
+    "category": "内功",
+    "origin": "湘西五溪蛊寨",
+    "sectId": "SECT-30",
+    "description": "湘西苗疆蛊寨采药猎手所修入门内功，行气驱散山岚湿瘴，微增毒抗。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 130,
+        "maxMp": 120,
+        "maxHp": 135,
+        "resistance": 2
+      },
+      {
+        "level": 2,
+        "expRequired": 210,
+        "maxMp": 176,
+        "maxHp": 198,
+        "resistance": 3
+      },
+      {
+        "level": 3,
+        "expRequired": 310,
+        "maxMp": 240,
+        "maxHp": 270,
+        "resistance": 4
+      },
+      {
+        "level": 4,
+        "expRequired": 460,
+        "maxMp": 312,
+        "maxHp": 351,
+        "resistance": 6
+      },
+      {
+        "level": 5,
+        "expRequired": 650,
+        "maxMp": 392,
+        "maxHp": 441,
+        "resistance": 7
+      },
+      {
+        "level": 6,
+        "expRequired": 910,
+        "maxMp": 480,
+        "maxHp": 540,
+        "resistance": 9
+      },
+      {
+        "level": 7,
+        "expRequired": 1270,
+        "maxMp": 568,
+        "maxHp": 639,
+        "resistance": 11
+      },
+      {
+        "level": 8,
+        "expRequired": 1790,
+        "maxMp": 656,
+        "maxHp": 738,
+        "resistance": 12
+      },
+      {
+        "level": 9,
+        "expRequired": 2600,
+        "maxMp": 728,
+        "maxHp": 819,
+        "resistance": 14
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "maxMp": 800,
+        "maxHp": 900,
+        "resistance": 15
       }
     ]
   }

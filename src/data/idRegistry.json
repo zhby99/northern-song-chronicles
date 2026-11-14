@@ -13,7 +13,7 @@
     "cityBaseBuildings": 121,
     "totalBuildings": 268,
     "interiorSubBuildings": 441,
-    "martialArts": 218,
+    "martialArts": 242,
     "weapons": 100,
     "mounts": 28,
     "npcs": 1000,
@@ -626,6 +626,15 @@
         "WPN-055",
         "WPN-068",
         "WPN-095"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -665,11 +674,21 @@
         "MA-053",
         "MA-087",
         "MA-164",
-        "MA-172"
+        "MA-172",
+        "MA-223"
       ],
       "weaponIds": [
         "WPN-002",
         "WPN-020"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门帮众",
+        "内门香主",
+        "分舵堂主",
+        "长老副帮主",
+        "帮主总舵主"
       ]
     },
     {
@@ -703,11 +722,21 @@
       "martialArtIds": [
         "MA-024",
         "MA-075",
-        "MA-134"
+        "MA-134",
+        "MA-224"
       ],
       "weaponIds": [
         "WPN-007",
         "WPN-036"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -745,6 +774,18 @@
       "weaponIds": [
         "WPN-015",
         "WPN-048"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": {
+        "sourceSectId": "SECT-01",
+        "maxRank": 2
+      },
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -791,6 +832,15 @@
       "weaponIds": [
         "WPN-017",
         "WPN-062"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -825,10 +875,20 @@
         "MA-050",
         "MA-090",
         "MA-129",
-        "MA-168"
+        "MA-168",
+        "MA-225"
       ],
       "weaponIds": [
         "WPN-032"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -872,6 +932,15 @@
         "WPN-025",
         "WPN-040",
         "WPN-093"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -910,11 +979,21 @@
         "MA-067",
         "MA-112",
         "MA-126",
-        "MA-169"
+        "MA-169",
+        "MA-226"
       ],
       "weaponIds": [
         "WPN-011",
         "WPN-063"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -954,11 +1033,21 @@
         "MA-014",
         "MA-015",
         "MA-027",
-        "MA-033"
+        "MA-033",
+        "MA-219"
       ],
       "weaponIds": [
         "WPN-005",
         "WPN-008"
+      ],
+      "acceptsOuterDisciple": false,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -992,11 +1081,21 @@
       "martialArtIds": [
         "MA-008",
         "MA-025",
-        "MA-071"
+        "MA-071",
+        "MA-221"
       ],
       "weaponIds": [
         "WPN-009",
         "WPN-024"
+      ],
+      "acceptsOuterDisciple": false,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外宅门客",
+        "内院执事",
+        "房堂主事",
+        "家将大长老",
+        "当代家主"
       ]
     },
     {
@@ -1034,11 +1133,21 @@
         "MA-031",
         "MA-039",
         "MA-119",
-        "MA-142"
+        "MA-142",
+        "MA-235"
       ],
       "weaponIds": [
         "WPN-051",
         "WPN-090"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -1074,10 +1183,20 @@
         "MA-040",
         "MA-047",
         "MA-064",
-        "MA-070"
+        "MA-070",
+        "MA-222"
       ],
       "weaponIds": [
         "WPN-010"
+      ],
+      "acceptsOuterDisciple": false,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -1114,7 +1233,8 @@
         "MA-082",
         "MA-095",
         "MA-118",
-        "MA-137"
+        "MA-137",
+        "MA-227"
       ],
       "weaponIds": [
         "WPN-003",
@@ -1123,6 +1243,15 @@
         "WPN-038",
         "WPN-041",
         "WPN-058"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外宅门客",
+        "内院执事",
+        "房堂主事",
+        "家将大长老",
+        "当代家主"
       ]
     },
     {
@@ -1154,9 +1283,19 @@
         "MA-069",
         "MA-099",
         "MA-108",
-        "MA-148"
+        "MA-148",
+        "MA-228"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
+      ]
     },
     {
       "id": "SECT-15",
@@ -1189,10 +1328,21 @@
         "MA-035",
         "MA-046",
         "MA-081",
-        "MA-120"
+        "MA-120",
+        "MA-229",
+        "MA-236"
       ],
       "weaponIds": [
         "WPN-021"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门帮众",
+        "内门香主",
+        "分舵堂主",
+        "长老副帮主",
+        "帮主总舵主"
       ]
     },
     {
@@ -1224,11 +1374,22 @@
       "memberCount": 43,
       "martialArtIds": [
         "MA-093",
-        "MA-104"
+        "MA-104",
+        "MA-230",
+        "MA-237"
       ],
       "weaponIds": [
         "WPN-027",
         "WPN-071"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门帮众",
+        "内门香主",
+        "分舵堂主",
+        "长老副帮主",
+        "帮主总舵主"
       ]
     },
     {
@@ -1279,6 +1440,15 @@
         "WPN-075",
         "WPN-087",
         "WPN-091"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "役卒巡捕",
+        "捕头都头",
+        "金牌总捕",
+        "御前护卫",
+        "大内总供奉"
       ]
     },
     {
@@ -1319,12 +1489,22 @@
         "MA-176",
         "MA-186",
         "MA-189",
-        "MA-196"
+        "MA-196",
+        "MA-238"
       ],
       "weaponIds": [
         "WPN-052",
         "WPN-076",
         "WPN-084"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外围喽啰",
+        "山寨头目",
+        "分寨当家",
+        "护法副首领",
+        "总瓢把子"
       ]
     },
     {
@@ -1357,10 +1537,20 @@
         "MA-026",
         "MA-055",
         "MA-065",
-        "MA-127"
+        "MA-127",
+        "MA-231"
       ],
       "weaponIds": [
         "WPN-029"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -1400,13 +1590,23 @@
         "MA-037",
         "MA-073",
         "MA-077",
-        "MA-133"
+        "MA-133",
+        "MA-232"
       ],
       "weaponIds": [
         "WPN-012",
         "WPN-019",
         "WPN-043",
         "WPN-047"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外围细作",
+        "红牌武士",
+        "客卿供奉",
+        "征东副总管",
+        "一品堂大总管"
       ]
     },
     {
@@ -1440,9 +1640,19 @@
         "MA-113",
         "MA-132",
         "MA-150",
-        "MA-171"
+        "MA-171",
+        "MA-233"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
+      ]
     },
     {
       "id": "SECT-22",
@@ -1473,10 +1683,20 @@
       "memberCount": 9,
       "martialArtIds": [
         "MA-074",
-        "MA-174"
+        "MA-174",
+        "MA-234"
       ],
       "weaponIds": [
         "WPN-014"
+      ],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
       ]
     },
     {
@@ -1513,7 +1733,16 @@
         "MA-180",
         "MA-185"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外院学徒",
+        "内堂武师",
+        "护院教习",
+        "金牌总教头",
+        "总馆主"
+      ]
     },
     {
       "id": "SECT-24",
@@ -1549,7 +1778,16 @@
         "MA-170",
         "MA-178"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "随船镖师",
+        "趟子头领",
+        "红旗镖头",
+        "副总镖头",
+        "总镖头"
+      ]
     },
     {
       "id": "SECT-25",
@@ -1582,9 +1820,19 @@
         "MA-158",
         "MA-182",
         "MA-184",
-        "MA-198"
+        "MA-198",
+        "MA-239"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外院学徒",
+        "内堂武师",
+        "护院教习",
+        "金牌总教头",
+        "总馆主"
+      ]
     },
     {
       "id": "SECT-26",
@@ -1619,7 +1867,16 @@
         "MA-200",
         "MA-216"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门帮众",
+        "内门香主",
+        "分舵堂主",
+        "长老副帮主",
+        "帮主总舵主"
+      ]
     },
     {
       "id": "SECT-27",
@@ -1652,9 +1909,19 @@
       "martialArtIds": [
         "MA-183",
         "MA-188",
-        "MA-202"
+        "MA-202",
+        "MA-240"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外院学徒",
+        "内堂武师",
+        "护院教习",
+        "金牌总教头",
+        "总馆主"
+      ]
     },
     {
       "id": "SECT-28",
@@ -1687,9 +1954,19 @@
       "martialArtIds": [
         "MA-092",
         "MA-165",
-        "MA-190"
+        "MA-190",
+        "MA-241"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外院学徒",
+        "内堂武师",
+        "护院教习",
+        "金牌总教头",
+        "总馆主"
+      ]
     },
     {
       "id": "SECT-29",
@@ -1724,7 +2001,16 @@
         "MA-156",
         "MA-181"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外门弟子",
+        "内门弟子",
+        "真传弟子",
+        "长老",
+        "掌门"
+      ]
     },
     {
       "id": "SECT-30",
@@ -1755,9 +2041,19 @@
       "memberCount": 8,
       "martialArtIds": [
         "MA-086",
-        "MA-195"
+        "MA-195",
+        "MA-242"
       ],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外围喽啰",
+        "山寨头目",
+        "分寨当家",
+        "护法副首领",
+        "总瓢把子"
+      ]
     },
     {
       "id": "ORG-01",
@@ -1787,7 +2083,10 @@
       "entryAndFeatures": "万寿道藏校书官 黄裳 NPC-0107（泉州府）、锦毛鼠 白玉堂 NPC-0141（开封府）、无量剑东西宗 左子穆/辛双清、长白剑客 卓不凡 NPC-0189（辽阳府）、赤焰魔 端木元 NPC-0264（广州府）等独行奇侠。",
       "memberCount": 40,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     },
     {
       "id": "ORG-02",
@@ -1824,7 +2123,10 @@
       "entryAndFeatures": "宋仁宗赵祯 NPC-0001、曹皇后 NPC-0002、范仲淹 NPC-0009（杭州府）、欧阳修 NPC-0012、包拯 NPC-0013、狄青 NPC-0031（真定/延安边防）、余靖 NPC-0022（广州府经制南疆）、刘沪 NPC-0045（秦州府水洛城名将）等名臣良将。",
       "memberCount": 48,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     },
     {
       "id": "ORG-03",
@@ -1858,7 +2160,10 @@
       "entryAndFeatures": "曾巩 NPC-0020（洪州府白鹿洞）、梅尧臣 NPC-0023、苏舜钦 NPC-0024（苏州府）、邵雍 NPC-0046（洛阳府）、周敦颐 NPC-0047（潭州府岳麓书院）、青年 苏轼 / 王安石 / 司马光 等，主司【经义】【策论】【诗词】【书】【画】论道唱和。",
       "memberCount": 22,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     },
     {
       "id": "ORG-04",
@@ -1889,7 +2194,10 @@
       "entryAndFeatures": "活字印书大匠 毕昇 NPC-0061（杭州府）、天元算学大师 贾宪 NPC-0064（开封府）、山水画宗匠 郭熙 NPC-0069（洛阳府），主司【算术】【丹青】与奇巧百工秘卷鉴赏。",
       "memberCount": 3,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     },
     {
       "id": "ORG-05",
@@ -1920,7 +2228,10 @@
       "entryAndFeatures": "儿科青年神医 钱乙 NPC-0066（济南府）、《证类本草》医家 唐慎微 NPC-0067（成都府），传授高阶【医术】并救治重伤内损。",
       "memberCount": 2,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     },
     {
       "id": "ORG-06",
@@ -1953,7 +2264,10 @@
       "entryAndFeatures": "辽兴宗耶律宗真 NPC-0071、皇太弟 耶律重元 NPC-0072（析津府）、东京留守 耶律仁先 NPC-0077（辽阳府）、暗探统领 耶律乙辛 NPC-0078（大定府）等契丹王庭权贵。",
       "memberCount": 11,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     },
     {
       "id": "ORG-07",
@@ -1985,7 +2299,10 @@
       "entryAndFeatures": "摄政 没藏太后 NPC-0082、幼主 李谅祚 NPC-0083、国相兼一品堂大东家 没藏讹庞 NPC-0084、右厢统帅 漫咩 NPC-0085。",
       "memberCount": 4,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     },
     {
       "id": "ORG-08",
@@ -2020,10 +2337,20 @@
       "memberCount": 14,
       "martialArtIds": [
         "MA-006",
-        "MA-023"
+        "MA-023",
+        "MA-220"
       ],
       "weaponIds": [
         "WPN-026"
+      ],
+      "acceptsOuterDisciple": false,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "皇城侍卫",
+        "王府护卫",
+        "护卫首领",
+        "国相高僧",
+        "大理宗主"
       ]
     },
     {
@@ -2057,7 +2384,10 @@
       "entryAndFeatures": "青唐赞普 唃厮啰 NPC-0089、河州首领 瞎毡 NPC-0090（秦州府榷场互市）、大译师 玛尔巴 NPC-0092、护国法王 鸠摩智 NPC-0113（身负火焰刀与小无相功）。",
       "memberCount": 7,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     },
     {
       "id": "ORG-10",
@@ -2089,7 +2419,10 @@
       "entryAndFeatures": "广源州首领 侬智高 NPC-0094（皇祐二年正于岭南蠢蠢欲动）、母 阿侬 NPC-0095、落第谋主 黄师宓 NPC-0096，构成岭南风云主线关键人物。",
       "memberCount": 3,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     },
     {
       "id": "ORG-11",
@@ -2118,7 +2451,10 @@
       "entryAndFeatures": "长白山生女真完颜部首领 完颜乌古乃 NPC-0081（活动于辽阳府长白山参茸皮货互市，见证东北白山黑水潜龙初起）。",
       "memberCount": 1,
       "martialArtIds": [],
-      "weaponIds": []
+      "weaponIds": [],
+      "acceptsOuterDisciple": null,
+      "sharedMartialArtRule": null,
+      "rankTitles": null
     }
   ],
   "locationAliasMap": {
@@ -4500,6 +4836,222 @@
       "fullTier": "凡品下品",
       "category": "轻功",
       "sectId": null
+    },
+    {
+      "id": "MA-219",
+      "code": "219",
+      "name": "逍遥御风心法",
+      "cleanName": "逍遥御风心法",
+      "fullTier": "地阶中品",
+      "category": "内功",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-220",
+      "code": "220",
+      "name": "段氏纯阳吐纳诀",
+      "cleanName": "段氏纯阳吐纳诀",
+      "fullTier": "地阶下品",
+      "category": "内功",
+      "sectId": "ORG-08"
+    },
+    {
+      "id": "MA-221",
+      "code": "221",
+      "name": "参合吐纳功",
+      "cleanName": "参合吐纳功",
+      "fullTier": "良品上品",
+      "category": "内功",
+      "sectId": "SECT-10"
+    },
+    {
+      "id": "MA-222",
+      "code": "222",
+      "name": "桃花岛吐纳术",
+      "cleanName": "桃花岛吐纳术",
+      "fullTier": "良品上品",
+      "category": "内功",
+      "sectId": "SECT-12"
+    },
+    {
+      "id": "MA-223",
+      "code": "223",
+      "name": "丐帮吐纳筑基诀",
+      "cleanName": "丐帮吐纳筑基诀",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "MA-224",
+      "code": "224",
+      "name": "清凉禅定吐纳法",
+      "cleanName": "清凉禅定吐纳法",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-03"
+    },
+    {
+      "id": "MA-225",
+      "code": "225",
+      "name": "泰山松风养气诀",
+      "cleanName": "泰山松风养气诀",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-06"
+    },
+    {
+      "id": "MA-226",
+      "code": "226",
+      "name": "武当筑基内功",
+      "cleanName": "武当筑基内功",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-08"
+    },
+    {
+      "id": "MA-227",
+      "code": "227",
+      "name": "唐门闭毒养气功",
+      "cleanName": "唐门闭毒养气功",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "MA-228",
+      "code": "228",
+      "name": "青城青冥引气诀",
+      "cleanName": "青城青冥引气诀",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-14"
+    },
+    {
+      "id": "MA-229",
+      "code": "229",
+      "name": "铁掌烈火吐纳功",
+      "cleanName": "铁掌烈火吐纳功",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-15"
+    },
+    {
+      "id": "MA-230",
+      "code": "230",
+      "name": "漕帮涉水换气诀",
+      "cleanName": "漕帮涉水换气诀",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-16"
+    },
+    {
+      "id": "MA-231",
+      "code": "231",
+      "name": "星宿腐毒行气诀",
+      "cleanName": "星宿腐毒行气诀",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-19"
+    },
+    {
+      "id": "MA-232",
+      "code": "232",
+      "name": "大漠狼息功",
+      "cleanName": "大漠狼息功",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-233",
+      "code": "233",
+      "name": "金刀壮气功",
+      "cleanName": "金刀壮气功",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-21"
+    },
+    {
+      "id": "MA-234",
+      "code": "234",
+      "name": "常山行军吐纳法",
+      "cleanName": "常山行军吐纳法",
+      "fullTier": "凡品上品",
+      "category": "内功",
+      "sectId": "SECT-22"
+    },
+    {
+      "id": "MA-235",
+      "code": "235",
+      "name": "全真入门剑法",
+      "cleanName": "全真入门剑法",
+      "fullTier": "凡品上品",
+      "category": "剑法",
+      "sectId": "SECT-11"
+    },
+    {
+      "id": "MA-236",
+      "code": "236",
+      "name": "铁掌劈碑手",
+      "cleanName": "铁掌劈碑手",
+      "fullTier": "凡品上品",
+      "category": "拳掌",
+      "sectId": "SECT-15"
+    },
+    {
+      "id": "MA-237",
+      "code": "237",
+      "name": "漕帮分水短刀",
+      "cleanName": "漕帮分水短刀",
+      "fullTier": "凡品上品",
+      "category": "刀法",
+      "sectId": "SECT-16"
+    },
+    {
+      "id": "MA-238",
+      "code": "238",
+      "name": "绿林聚气桩",
+      "cleanName": "绿林聚气桩",
+      "fullTier": "凡品中品",
+      "category": "内功",
+      "sectId": "SECT-18"
+    },
+    {
+      "id": "MA-239",
+      "code": "239",
+      "name": "查拳固本桩",
+      "cleanName": "查拳固本桩",
+      "fullTier": "凡品中品",
+      "category": "内功",
+      "sectId": "SECT-25"
+    },
+    {
+      "id": "MA-240",
+      "code": "240",
+      "name": "洪门铁桥吐纳法",
+      "cleanName": "洪门铁桥吐纳法",
+      "fullTier": "凡品中品",
+      "category": "内功",
+      "sectId": "SECT-27"
+    },
+    {
+      "id": "MA-241",
+      "code": "241",
+      "name": "金环刀堂养血功",
+      "cleanName": "金环刀堂养血功",
+      "fullTier": "凡品中品",
+      "category": "内功",
+      "sectId": "SECT-28"
+    },
+    {
+      "id": "MA-242",
+      "code": "242",
+      "name": "五溪避瘴吐纳法",
+      "cleanName": "五溪避瘴吐纳法",
+      "fullTier": "凡品中品",
+      "category": "内功",
+      "sectId": "SECT-30"
     }
   ],
   "weaponIndex": [
