@@ -2428,7 +2428,9 @@
       "loc": "兴庆府",
       "realm": "一流上品",
       "arts": "冰蚕毒掌、《毒砂百炼功》、西夏弯刀术",
-      "bio": "党项毒功高手，曾远赴昆仑外围觅得寒毒异虫练成毒掌，凶名震慑陕北。"
+      "bio": "党项毒功高手，曾远赴昆仑外围觅得寒毒异虫练成毒掌，凶名震慑陕北。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0152.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0152.jpg"
     },
     {
       "id": "NPC-0153",
@@ -2442,7 +2444,9 @@
       "loc": "逻些（拉萨）",
       "realm": "一流上品",
       "arts": "《龙象般若功》、金刚伏魔杖、火焰刀",
-      "bio": "雪域古寺护教法王，苦修龙象般若功至第八层，双臂具千斤巨力。"
+      "bio": "雪域古寺护教法王，苦修龙象般若功至第八层，双臂具千斤巨力。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0153.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0153.jpg"
     },
     {
       "id": "NPC-0154",
@@ -2856,7 +2860,9 @@
       "loc": "洛阳府",
       "realm": "一流中品",
       "arts": "八步赶蝉、弹腿、《六扇门捕风诀》",
-      "bio": "嗜酒如命，腿功与轻功冠绝公门，千里追凶从无失手。"
+      "bio": "嗜酒如命，腿功与轻功冠绝公门，千里追凶从无失手。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0179.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0179.jpg"
     },
     {
       "id": "NPC-0180",
@@ -2870,7 +2876,9 @@
       "loc": "济南府",
       "realm": "一流中品",
       "arts": "奇门五虎断门刀、《太行罡气》、六合大枪",
-      "bio": "山东豪杰，仗义疏财，接纳逃荒流民聚义梁山泺水之间，不扰贫苦百姓。"
+      "bio": "山东豪杰，仗义疏财，接纳逃荒流民聚义梁山泺水之间，不扰贫苦百姓。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0180.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0180.jpg"
     },
     {
       "id": "NPC-0181",
@@ -2884,7 +2892,9 @@
       "loc": "延安府",
       "realm": "一流中品",
       "arts": "抽髓掌、《毒砂百炼功》、五毒砂掌、壁虎游墙功",
-      "bio": "丁春秋首徒，阴险狡诈，在陕北一带秘密抓捕药人炼制腐尸奇毒。"
+      "bio": "丁春秋首徒，阴险狡诈，在陕北一带秘密抓捕药人炼制腐尸奇毒。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0181.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0181.jpg"
     },
     {
       "id": "NPC-0182",
@@ -2898,7 +2908,9 @@
       "loc": "兴庆府",
       "realm": "一流中品",
       "arts": "瞬息千里、鹰爪功、壁虎游墙功",
-      "bio": "轻功极高之塞外恶贼，一对鹤爪铁杖狠辣无比，投效西夏一品堂。"
+      "bio": "轻功极高之塞外恶贼，一对鹤爪铁杖狠辣无比，投效西夏一品堂。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0182.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0182.jpg"
     },
     {
       "id": "NPC-0183",
@@ -2912,7 +2924,9 @@
       "loc": "兴庆府",
       "realm": "一流中品",
       "arts": "虎爪绝户手、《盘山铁布衫（大成）》、呼延硬鞭法",
-      "bio": "南海派高手，脑筋鲁直而力大无穷，一把鳄嘴铁剪专剪名家兵刃。"
+      "bio": "南海派高手，脑筋鲁直而力大无穷，一把鳄嘴铁剪专剪名家兵刃。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0183.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0183.jpg"
     },
     {
       "id": "NPC-0184",
@@ -2926,7 +2940,9 @@
       "loc": "析津府",
       "realm": "一流中品",
       "arts": "六合大枪、契丹狼牙棒法、瞬息千里",
-      "bio": "契丹萧氏猛将，效忠皇太弟耶律重元，主张以铁血手段铲除中原抗辽帮派。"
+      "bio": "契丹萧氏猛将，效忠皇太弟耶律重元，主张以铁血手段铲除中原抗辽帮派。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0184.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0184.jpg"
     },
     {
       "id": "NPC-0185",
@@ -2940,7 +2956,9 @@
       "loc": "真定府",
       "realm": "一流中品",
       "arts": "常山龙胆枪、杨氏梨花枪、六合大枪、《行军壮血功》",
-      "bio": "河北枪棒名宿，于真定府开创常山枪派设馆授徒抗辽，与韩琦边军互为掎角。"
+      "bio": "河北枪棒名宿，于真定府开创常山枪派设馆授徒抗辽，与韩琦边军互为掎角。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0185.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0185.jpg"
     },
     {
       "id": "NPC-0186",
@@ -2954,7 +2972,9 @@
       "loc": "洛阳府",
       "realm": "一流中品",
       "arts": "洛阳金刀谱、奇门五虎断门刀、八卦游身刀、《铁砂内壮功》",
-      "bio": "洛阳第一武林世家家主，执掌洛阳金刀门，家资巨万、义薄云天，每逢中原抗辽盟会皆倾囊相助。"
+      "bio": "洛阳第一武林世家家主，执掌洛阳金刀门，家资巨万、义薄云天，每逢中原抗辽盟会皆倾囊相助。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0186.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0186.jpg"
     },
     {
       "id": "NPC-0187",
@@ -2968,7 +2988,9 @@
       "loc": "无量山 / 剑湖秘境",
       "realm": "一流中品",
       "arts": "无量剑诀、《纯阳无极功》、穿云纵",
-      "bio": "执掌大理无量山剑湖宫东宗，为争夺剑湖宫居住权与西宗五年一比剑。"
+      "bio": "执掌大理无量山剑湖宫东宗，为争夺剑湖宫居住权与西宗五年一比剑。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0187.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0187.jpg"
     },
     {
       "id": "NPC-0188",
@@ -2982,7 +3004,9 @@
       "loc": "无量山 / 剑湖秘境",
       "realm": "一流中品",
       "arts": "无量剑诀、《莲华静心诀》、踏雪无痕",
-      "bio": "无量剑西宗宗主，剑法细腻轻巧，门下多收西南灵秀女弟子。"
+      "bio": "无量剑西宗宗主，剑法细腻轻巧，门下多收西南灵秀女弟子。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0188.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0188.jpg"
     },
     {
       "id": "NPC-0189",
@@ -2996,7 +3020,9 @@
       "loc": "辽阳府",
       "realm": "一流中品",
       "arts": "夺命连环三仙剑、《纯阳无极功》、八步赶蝉",
-      "bio": "长白山剑派幸存奇才，偶得前人剑谱于辽东苦修二十载，常现身东京辽阳府外参市，剑芒吞吐半尺，自号剑神。"
+      "bio": "长白山剑派幸存奇才，偶得前人剑谱于辽东苦修二十载，常现身东京辽阳府外参市，剑芒吞吐半尺，自号剑神。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0189.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0189.jpg"
     },
     {
       "id": "NPC-0190",
@@ -3010,7 +3036,9 @@
       "loc": "昆仑山（万山之祖）",
       "realm": "一流中品",
       "arts": "寒冰绵掌、狂风快刀、草上飞",
-      "bio": "统率三十六洞七十二岛部分亡命徒潜聚昆仑山麓，密谋反抗天山童姥生死符控制。"
+      "bio": "统率三十六洞七十二岛部分亡命徒潜聚昆仑山麓，密谋反抗天山童姥生死符控制。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0190.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0190.jpg"
     },
     {
       "id": "NPC-0191",
@@ -3024,7 +3052,9 @@
       "loc": "嵩山少林寺",
       "realm": "一流下品",
       "arts": "散花掌、《罗汉伏虎功》、少林齐眉棍",
-      "bio": "少林玄字辈武僧，掌力敦厚扎实，常驻白马寺协防洛阳。"
+      "bio": "少林玄字辈武僧，掌力敦厚扎实，常驻白马寺协防洛阳。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0191.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0191.jpg"
     },
     {
       "id": "NPC-0192",
@@ -3038,7 +3068,9 @@
       "loc": "嵩山少林寺",
       "realm": "一流下品",
       "arts": "燃木刀法、慈悲刀法、《罗汉伏虎功》",
-      "bio": "精研佛门刀术，专司巡查嵩山外围匪患。"
+      "bio": "精研佛门刀术，专司巡查嵩山外围匪患。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0192.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0192.jpg"
     },
     {
       "id": "NPC-0193",
@@ -3052,7 +3084,9 @@
       "loc": "嵩山少林寺",
       "realm": "一流下品",
       "arts": "龙爪手、《少林小乘禅功》、普门杖法",
-      "bio": "目光如电，擒拿手法精准凌厉。"
+      "bio": "目光如电，擒拿手法精准凌厉。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0193.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0193.jpg"
     },
     {
       "id": "NPC-0194",
@@ -3066,7 +3100,9 @@
       "loc": "扬州府",
       "realm": "一流下品",
       "arts": "奇门五虎断门刀、莲花掌、草上飞",
-      "bio": "乔峰麾下忠勇干将，豪爽仗义，一口鬼头大刀在江淮水陆闯下威名。"
+      "bio": "乔峰麾下忠勇干将，豪爽仗义，一口鬼头大刀在江淮水陆闯下威名。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0194.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0194.jpg"
     },
     {
       "id": "NPC-0195",
@@ -3080,7 +3116,9 @@
       "loc": "洛阳府",
       "realm": "一流下品",
       "arts": "铜锤手、丐帮疯魔棍、《龟息功》",
-      "bio": "丐帮三朝元老，熟知数十年前雁门关旧闻秘辛。"
+      "bio": "丐帮三朝元老，熟知数十年前雁门关旧闻秘辛。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0195.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0195.jpg"
     },
     {
       "id": "NPC-0196",
@@ -3094,7 +3132,9 @@
       "loc": "洛阳府",
       "realm": "一流下品",
       "arts": "缠丝擒拿手、劈空掌、八步赶蝉",
-      "bio": "外表严厉公正、铁面无私，深得乔峰敬重，暗中却觊觎康敏美色。"
+      "bio": "外表严厉公正、铁面无私，深得乔峰敬重，暗中却觊觎康敏美色。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0196.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0196.jpg"
     },
     {
       "id": "NPC-0197",
@@ -3108,7 +3148,9 @@
       "loc": "江宁府",
       "realm": "一流下品",
       "arts": "折扇点穴功、莲花掌、辩才、算术",
-      "bio": "饱读诗书而工于心计，极善煽动言辞，暗中窥伺帮主大位。"
+      "bio": "饱读诗书而工于心计，极善煽动言辞，暗中窥伺帮主大位。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0197.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0197.jpg"
     },
     {
       "id": "NPC-0198",
@@ -3122,7 +3164,9 @@
       "loc": "太原府",
       "realm": "一流下品",
       "arts": "伏魔剑、普门杖法、经义",
-      "bio": "驻太原晋祠附近讲经，暗护河东铁冶工匠免遭辽探毒手。"
+      "bio": "驻太原晋祠附近讲经，暗护河东铁冶工匠免遭辽探毒手。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0198.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0198.jpg"
     },
     {
       "id": "NPC-0199",
@@ -3136,7 +3180,9 @@
       "loc": "五台山清凉寺",
       "realm": "一流下品",
       "arts": "金刚伏魔杖、罗汉拳",
-      "bio": "身高九尺，生性豪迈，善使六十二斤浑铁禅杖。"
+      "bio": "身高九尺，生性豪迈，善使六十二斤浑铁禅杖。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0199.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0199.jpg"
     },
     {
       "id": "NPC-0200",
@@ -3178,7 +3224,9 @@
       "loc": "潼关 / 西岳华山",
       "realm": "一流下品",
       "arts": "华山混元掌、落雁剑法、《混元功》",
-      "bio": "岳沧溟首徒，为人端厚守礼，深得同门信赖。"
+      "bio": "岳沧溟首徒，为人端厚守礼，深得同门信赖。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0202.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0202.jpg"
     },
     {
       "id": "NPC-0203",
@@ -3192,7 +3240,9 @@
       "loc": "潼关 / 西岳华山",
       "realm": "一流下品",
       "arts": "太岳三青峰、养吾剑法、穿云纵",
-      "bio": "镇守潼关驿道，专查西夏星宿派东进踪迹。"
+      "bio": "镇守潼关驿道，专查西夏星宿派东进踪迹。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0203.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0203.jpg"
     },
     {
       "id": "NPC-0204",
@@ -3206,7 +3256,9 @@
       "loc": "济南府",
       "realm": "一流下品",
       "arts": "五大夫剑、泰山十八盘、《纯阳无极功》",
-      "bio": "常在济南趵突泉与鲁地名士饮茶论剑，嫉恶如仇。"
+      "bio": "常在济南趵突泉与鲁地名士饮茶论剑，嫉恶如仇。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0204.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0204.jpg"
     },
     {
       "id": "NPC-0205",
@@ -3220,7 +3272,9 @@
       "loc": "东岳泰山",
       "realm": "一流下品",
       "arts": "泰山剑法、劈空掌、穿云纵",
-      "bio": "掌管泰山百丈崖门规戒律，剑势稳如磐石。"
+      "bio": "掌管泰山百丈崖门规戒律，剑势稳如磐石。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0205.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0205.jpg"
     },
     {
       "id": "NPC-0206",
@@ -3234,7 +3288,9 @@
       "loc": "成都府",
       "realm": "一流下品",
       "arts": "芙蓉剑法、《莲华静心诀》、踏雪无痕",
-      "bio": "常驻成都大慈寺女众别院，行医施药，剑法清丽凌厉。"
+      "bio": "常驻成都大慈寺女众别院，行医施药，剑法清丽凌厉。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0206.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0206.jpg"
     },
     {
       "id": "NPC-0207",
@@ -3248,7 +3304,9 @@
       "loc": "剑门关",
       "realm": "一流下品",
       "arts": "灭绝回风剑、分水峨眉刺、草上飞",
-      "bio": "蜀中将门之女，巡护剑门关蜀道商旅。"
+      "bio": "蜀中将门之女，巡护剑门关蜀道商旅。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0207.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0207.jpg"
     },
     {
       "id": "NPC-0208",
@@ -3262,7 +3320,9 @@
       "loc": "武当山真武道宗",
       "realm": "一流下品",
       "arts": "柔云剑术、绵掌、《太极混元桩》",
-      "bio": "机智多谋，精熟阴阳变化，多次以巧计化解荆襄帮派血斗。"
+      "bio": "机智多谋，精熟阴阳变化，多次以巧计化解荆襄帮派血斗。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0208.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0208.jpg"
     },
     {
       "id": "NPC-0209",
@@ -3276,7 +3336,9 @@
       "loc": "襄阳府",
       "realm": "一流下品",
       "arts": "两仪剑法、劈空掌、梯云纵",
-      "bio": "少年老成，疾恶如仇，单剑肃清汉水三峡水寇。"
+      "bio": "少年老成，疾恶如仇，单剑肃清汉水三峡水寇。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0209.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0209.jpg"
     },
     {
       "id": "NPC-0210",
@@ -3290,7 +3352,9 @@
       "loc": "开封府",
       "realm": "一流下品",
       "arts": "裴将军诗剑帖（判官笔）、飞蝗石、棋",
-      "bio": "酷爱围棋，以磁铁棋盘为盾、精铁棋子作暗器，常在汴梁棋院设赌局。"
+      "bio": "酷爱围棋，以磁铁棋盘为盾、精铁棋子作暗器，常在汴梁棋院设赌局。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0210.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0210.jpg"
     },
     {
       "id": "NPC-0211",
@@ -3304,7 +3368,9 @@
       "loc": "洛阳府",
       "realm": "一流下品",
       "arts": "折扇点穴功、《五禽养生功》、经义、书",
-      "bio": "手不释卷之书痴，满腹经纶，点穴功夫暗合钟繇王羲之笔意。"
+      "bio": "手不释卷之书痴，满腹经纶，点穴功夫暗合钟繇王羲之笔意。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0211.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0211.jpg"
     },
     {
       "id": "NPC-0212",
@@ -3318,7 +3384,9 @@
       "loc": "苏州府",
       "realm": "一流下品",
       "arts": "慕容氏家传剑法、画、燕子三抄水",
-      "bio": "曾任小军官，痴迷丹青绘画，一支狼毫铁笔可画亦可杀人。"
+      "bio": "曾任小军官，痴迷丹青绘画，一支狼毫铁笔可画亦可杀人。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0212.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0212.jpg"
     },
     {
       "id": "NPC-0213",
@@ -3332,7 +3400,9 @@
       "loc": "苏州府",
       "realm": "一流下品",
       "arts": "翻天掌、慕容氏家传剑法、《碧波心法》",
-      "bio": "慕容复麾下三家将，生性好抬杠辩驳，口头禅‘非也非也’，实则对慕容公子赤胆忠心。"
+      "bio": "慕容复麾下三家将，生性好抬杠辩驳，口头禅‘非也非也’，实则对慕容公子赤胆忠心。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0213.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0213.jpg"
     },
     {
       "id": "NPC-0214",
@@ -3346,7 +3416,9 @@
       "loc": "太湖燕子坞",
       "realm": "一流下品",
       "arts": "八卦游身刀、狂风快刀、燕子三抄水",
-      "bio": "慕容复麾下四家将，嗜武如命，见猎心喜，宁可挨打也要与天下各路好手过招切磋。"
+      "bio": "慕容复麾下四家将，嗜武如命，见猎心喜，宁可挨打也要与天下各路好手过招切磋。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0214.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0214.jpg"
     },
     {
       "id": "NPC-0215",
@@ -3360,7 +3432,9 @@
       "loc": "京兆府",
       "realm": "一流下品",
       "arts": "越女古剑术、《全真大道筑基歌》、金雁功",
-      "bio": "冷清秋师妹，偶尔乔装入长安西市采买丝绸蜂浆。"
+      "bio": "冷清秋师妹，偶尔乔装入长安西市采买丝绸蜂浆。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0215.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0215.jpg"
     },
     {
       "id": "NPC-0216",
@@ -3374,7 +3448,9 @@
       "loc": "终南山隐宗",
       "realm": "一流下品",
       "arts": "希夷剑法、《纯阳无极功》、金雁功",
-      "bio": "王重楼大弟子，侠肝义胆，力主道门下山抗击西夏番僧。"
+      "bio": "王重楼大弟子，侠肝义胆，力主道门下山抗击西夏番僧。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0216.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0216.jpg"
     },
     {
       "id": "NPC-0217",
@@ -3388,7 +3464,9 @@
       "loc": "杭州府",
       "realm": "一流下品",
       "arts": "折扇落英神剑掌、算术、燕子三抄水",
-      "bio": "沉默寡言，精于步算潮汐，掌管桃花岛与杭州海商物资往来。"
+      "bio": "沉默寡言，精于步算潮汐，掌管桃花岛与杭州海商物资往来。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0217.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0217.jpg"
     },
     {
       "id": "NPC-0218",
@@ -3402,7 +3480,9 @@
       "loc": "青城山 / 唐家堡",
       "realm": "一流下品",
       "arts": "含沙射影、毒蒺藜散手、算术",
-      "bio": "终身潜心铸造袖里乾坤暗器匣，双手快得看不清残影。"
+      "bio": "终身潜心铸造袖里乾坤暗器匣，双手快得看不清残影。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0218.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0218.jpg"
     },
     {
       "id": "NPC-0219",
@@ -3416,7 +3496,9 @@
       "loc": "成都府",
       "realm": "一流下品",
       "arts": "子午透骨钉、五毒砂掌、踏雪无痕",
-      "bio": "唐无影胞妹，貌美如花而笑里藏毒，执掌锦江情报酒肆。"
+      "bio": "唐无影胞妹，貌美如花而笑里藏毒，执掌锦江情报酒肆。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0219.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0219.jpg"
     },
     {
       "id": "NPC-0220",
@@ -3430,7 +3512,9 @@
       "loc": "青城山 / 唐家堡",
       "realm": "一流下品",
       "arts": "青城松风剑、青城摧心掌、《紫阳吐纳功》",
-      "bio": "余沧澜师弟，阴鸷果决，常率弟子与川东盐帮争利。"
+      "bio": "余沧澜师弟，阴鸷果决，常率弟子与川东盐帮争利。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0220.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0220.jpg"
     },
     {
       "id": "NPC-0221",
@@ -3444,7 +3528,9 @@
       "loc": "剑门关",
       "realm": "一流下品",
       "arts": "松风辟邪剑（青城真卷）、草上飞",
-      "bio": "镇守川北剑门关一线，剑法毒辣刁钻。"
+      "bio": "镇守川北剑门关一线，剑法毒辣刁钻。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0221.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0221.jpg"
     },
     {
       "id": "NPC-0222",
@@ -3458,7 +3544,9 @@
       "loc": "襄阳府",
       "realm": "一流下品",
       "arts": "铁掌功、水上漂（漕帮精修卷）、鬼头大刀斩",
-      "bio": "上官天鹏独子，桀骜狂妄，在襄阳汉水码头广设关卡收税。"
+      "bio": "上官天鹏独子，桀骜狂妄，在襄阳汉水码头广设关卡收税。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0222.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0222.jpg"
     },
     {
       "id": "NPC-0223",
@@ -3472,7 +3560,9 @@
       "loc": "洞庭铁掌峰",
       "realm": "一流下品",
       "arts": "铁掌功、少林齐眉棍、《鲸息水战诀》",
-      "bio": "水匪出身，一条百斤熟铜船桨砸碎无数官船。"
+      "bio": "水匪出身，一条百斤熟铜船桨砸碎无数官船。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0223.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0223.jpg"
     },
     {
       "id": "NPC-0224",
@@ -3486,7 +3576,9 @@
       "loc": "扬州府",
       "realm": "一流下品",
       "arts": "漕帮分水大枪、分水峨眉刺、水上漂（漕帮精修卷）",
-      "bio": "掌控两淮私盐与漕船护卫，豪富一方，手眼通天。"
+      "bio": "掌控两淮私盐与漕船护卫，豪富一方，手眼通天。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0224.jpg",
+      "fullbodyUrl": "/assets/characters/fullbody/NPC-0224.jpg"
     },
     {
       "id": "NPC-0225",
@@ -3500,7 +3592,8 @@
       "loc": "杭州府",
       "realm": "一流下品",
       "arts": "柳叶双刀、水上漂（漕帮精修卷）、《碧波心法》",
-      "bio": "能在钱塘八月大潮浪尖踏木履往返自如，水陆两栖高手。"
+      "bio": "能在钱塘八月大潮浪尖踏木履往返自如，水陆两栖高手。",
+      "avatarUrl": "/assets/characters/avatars/NPC-0225.jpg"
     },
     {
       "id": "NPC-0226",
