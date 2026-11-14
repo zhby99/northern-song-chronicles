@@ -1,5 +1,5 @@
 import { MARTIAL_ART_DB_MAP, NPC_DB_MAP, resolveNpcByName } from '../data/gameDb'
-import { computeEquipmentTotals, computeWeaponArtSynergy } from '../data/itemsDb'
+import { computeEquipmentTotals, computeWeaponArtSynergy, ITEM_DB_MAP } from '../data/itemsDb'
 import { computeEquippedArtsTotals, getArtLevelStats } from '../data/playerMartialArts'
 import type {
   CompiledMartialArtRecord,
@@ -20,6 +20,7 @@ export type CombatActionChoice =
   | { type: 'move'; slot: MoveSlotKey }
   | { type: 'defend' }
   | { type: 'escape' }
+  | { type: 'item'; itemId: string }
 
 export type CombatOutcome = 'ongoing' | 'player_win' | 'npc_win' | 'escaped' | 'draw'
 
@@ -291,12 +292,23 @@ export function getMoveActionsAvailability(fighter: CombatantState): MoveActionA
   })
 }
 
-export function canFighterEscape(fighter: CombatantState): {
+export function canFighterEscape(
+  escapee: CombatantState,
+  pursuer: CombatantState,
+): {
   allowed: boolean
   reason: string | null
 } {
-  if (fighter.slowTurns > 0) {
-    return { allowed: false, reason: '身陷【绊缠】步法受制，无法脱身逃跑' }
+  if (escapee.slowTurns > 0) {
+    return { allowed: false, reason: '身陷【绊缠】步法受制，无法脱战' }
+  }
+  const myAgi = computeEffectiveAgility(escapee)
+  const oppAgi = computeEffectiveAgility(pursuer)
+  if (oppAgi - myAgi >= 20) {
+    return {
+      allowed: false,
+      reason: `身法比对手低 ${oppAgi - myAgi} 点（低 20 以上无法脱战）`,
+    }
   }
   return { allowed: true, reason: null }
 }
@@ -323,11 +335,15 @@ export function computeEscapeChancePreview(
   escapee: CombatantState,
   pursuer: CombatantState,
 ): number {
+  if (!canFighterEscape(escapee, pursuer).allowed) {
+    return 0
+  }
   const myAgi = computeEffectiveAgility(escapee)
   const oppAgi = computeEffectiveAgility(pursuer)
+  const diff = myAgi - oppAgi
   const qgFx = getSlotEffectsMap(escapee, 'qinggong')
   const bonus = (qgFx.shenxing_escape ?? 0) / 100
-  return Math.max(0.1, Math.min(0.9, 0.45 + (myAgi - oppAgi) * 0.008 + bonus))
+  return Math.max(0.05, Math.min(0.95, 0.5 + diff * 0.022 + bonus))
 }
 
 function estimateHeroRealmLabel(maxHp: number, maxMp: number): string {
@@ -594,6 +610,11 @@ export function chooseNpcCombatAction(
 function describeChoice(fighter: CombatantState, choice: CombatActionChoice): string {
   if (choice.type === 'defend') return '【守御架势】'
   if (choice.type === 'escape') return '【抽身脱战】'
+  if (choice.type === 'item') {
+    const def = ITEM_DB_MAP[choice.itemId]
+    if (!def) return '【探囊取药】'
+    return def.poisonEffect ? `【施毒·${def.name}】` : `【服丹·${def.name}】`
+  }
   const aid = fighter.equippedArts[choice.slot]
   const art = aid ? MARTIAL_ART_DB_MAP[aid] : null
   return art ? `《${art.cleanName}》` : '【徒手拆招】'
@@ -626,7 +647,12 @@ export function resolveCombatRound(
     if (!slotAvail || slotAvail.disabled || !slotAvail.art) {
       return session
     }
-  } else if (playerChoice.type === 'escape' && !canFighterEscape(session.player).allowed) {
+  } else if (
+    playerChoice.type === 'escape' &&
+    !canFighterEscape(session.player, session.npc).allowed
+  ) {
+    return session
+  } else if (playerChoice.type === 'item' && !ITEM_DB_MAP[playerChoice.itemId]) {
     return session
   }
 
@@ -744,21 +770,22 @@ export function resolveCombatRound(
     // 处理【逃跑】
     if (choice.type === 'escape') {
       actor.lastUsedArtId = null
-      if (actor.slowTurns > 0) {
+      const escCheck = canFighterEscape(actor, target)
+      if (!escCheck.allowed) {
         roundEvents.push(
-          makeLog(round, 'special', `${actor.name}欲抽身退走，奈何受【绊缠】所制，步法难以迈开！`),
+          makeLog(round, 'special', `${actor.name}欲抽身退走，奈何${escCheck.reason}！`),
         )
         continue
       }
-      const chance =
-        targetChoice.type === 'defend' ? 0.95 : computeEscapeChancePreview(actor, target)
-      if (Math.random() < chance) {
+      const chance = computeEscapeChancePreview(actor, target)
+      const finalEscapeChance = targetChoice.type === 'defend' ? Math.min(0.95, chance + 0.25) : chance
+      if (Math.random() < finalEscapeChance) {
         escapedSuccess = true
         roundEvents.push(
           makeLog(
             round,
             'system',
-            `${actor.name}虚晃一招纵身掠出战圈（脱身检定 ${Math.round(chance * 100)}% 成功），双方罢手收招！`,
+            `${actor.name}虚晃一招纵身掠出战圈（身法比拼脱身率 ${Math.round(finalEscapeChance * 100)}% 成功），双方罢手收招！`,
           ),
         )
         break
@@ -767,11 +794,147 @@ export function resolveCombatRound(
           makeLog(
             round,
             'info',
-            `${actor.name}纵身欲退，却被${target.name}欺身封住去路（脱身率 ${Math.round(chance * 100)}% 未果）！`,
+            `${actor.name}纵身欲退，却被${target.name}欺身封住去路（脱身率 ${Math.round(finalEscapeChance * 100)}% 未果）！`,
           ),
         )
         continue
       }
+    }
+
+    // 处理【行囊丹药 / 战阵奇毒】
+    if (choice.type === 'item') {
+      actor.lastUsedArtId = null
+      const itemDef = ITEM_DB_MAP[choice.itemId]
+      if (!itemDef) continue
+
+      if (itemDef.poisonEffect) {
+        const targetNgFx = getSlotEffectsMap(target, 'neigong')
+        const antiPoisonBoost = (targetNgFx.xiantian_antipoison ?? 0) / 100
+        const wardScale = targetNgFx.xisui_ward
+          ? Math.max(0.25, 1 - targetNgFx.xisui_ward / 100)
+          : 1.0
+        const effRes = target.res * (1 + antiPoisonBoost)
+        const resMit = Math.min(0.8, effRes / 160)
+        const postMult = targetChoice.type === 'defend' ? 0.65 : 1.0
+
+        let basePoisonDmg = 120
+        let mpDrainRatio = 0
+        let slowAdd = 15
+        let weakAdd = 15
+        let stunProb = 0
+
+        if (itemDef.rarity === '天阶') {
+          basePoisonDmg = 920
+          mpDrainRatio = 0.22
+          slowAdd = 24
+          weakAdd = 28
+          stunProb = 0.55 * (1 - resMit)
+        } else if (itemDef.rarity === '地阶') {
+          basePoisonDmg = itemDef.id === 'ITM-MED-109' ? 320 : 540
+          mpDrainRatio = itemDef.id === 'ITM-MED-109' ? 0.35 : 0.1
+          slowAdd = 22
+          weakAdd = 24
+          if (itemDef.id === 'ITM-MED-110') {
+            target.res = Math.max(0, target.res - 12)
+          }
+        } else if (itemDef.rarity === '良阶') {
+          basePoisonDmg = itemDef.id === 'ITM-MED-120' ? 150 : 260
+          mpDrainRatio = 0.08
+          slowAdd = 20
+          weakAdd = 18
+          if (itemDef.id === 'ITM-MED-120') stunProb = 0.32 * (1 - resMit)
+        } else {
+          basePoisonDmg = 120
+          slowAdd = 15
+          weakAdd = 15
+          if (itemDef.id === 'ITM-MED-128' && effRes < 65) {
+            stunProb = 0.35 * (1 - resMit)
+          }
+        }
+
+        const pDmg = Math.max(
+          8,
+          Math.round(basePoisonDmg * (1 - resMit) * wardScale * postMult),
+        )
+        const mpLost =
+          mpDrainRatio > 0
+            ? Math.round(target.mp * mpDrainRatio * (1 - resMit) * wardScale)
+            : 0
+        target.hp = Math.max(0, target.hp - pDmg)
+        target.mp = Math.max(0, target.mp - mpLost)
+        target.slowTurns = Math.max(target.slowTurns, 2)
+        target.slowPct = Math.max(target.slowPct, Math.round(slowAdd * wardScale))
+        target.weakTurns = Math.max(target.weakTurns, 2)
+        target.weakPct = Math.max(target.weakPct, Math.round(weakAdd * wardScale))
+
+        const extraNotes: string[] = [`毒伤 ${pDmg} 气血`]
+        if (mpLost > 0) extraNotes.push(`蚀散 ${mpLost} 内力`)
+        extraNotes.push(`迟缓 -${target.slowPct}% / 滞气 -${target.weakPct}%`)
+
+        if (target.hp > 0 && stunProb > 0 && Math.random() < stunProb) {
+          target.stunnedNextRound = true
+          extraNotes.push('麻痹封脉（下回合禁出招）')
+        }
+
+        roundEvents.push(
+          makeLog(
+            round,
+            'special',
+            `${actor.name}翻掌暗扣【${itemDef.name}】骤然施放！${target.name}猝不及防受奇毒侵脉（${extraNotes.join(
+              ' · ',
+            )}）！`,
+          ),
+        )
+        continue
+      }
+
+      const eff = itemDef.useEffect
+      if (eff) {
+        const notes: string[] = []
+        if (eff.maxHp) {
+          actor.maxHp += eff.maxHp
+          notes.push(`气血上限 +${eff.maxHp}`)
+        }
+        if (eff.maxMp) {
+          actor.maxMp += eff.maxMp
+          notes.push(`内力上限 +${eff.maxMp}`)
+        }
+        if (eff.agi) {
+          actor.agility += eff.agi
+          notes.push(`身法 +${eff.agi}`)
+        }
+        if (eff.res) {
+          actor.res += eff.res
+          notes.push(`抗性 +${eff.res}`)
+        }
+        if (eff.hp) {
+          const before = actor.hp
+          actor.hp = Math.min(actor.maxHp, actor.hp + eff.hp)
+          notes.push(`气血 +${actor.hp - before}`)
+        }
+        if (eff.mp) {
+          const before = actor.mp
+          actor.mp = Math.min(actor.maxMp, actor.mp + eff.mp)
+          notes.push(`内力 +${actor.mp - before}`)
+        }
+        if ((eff.res && eff.res >= 2) || itemDef.rarity === '天阶') {
+          if (actor.slowTurns > 0 || actor.weakTurns > 0) {
+            actor.slowTurns = 0
+            actor.weakTurns = 0
+            notes.push('涤除体内滞涩奇毒')
+          }
+        }
+        roundEvents.push(
+          makeLog(
+            round,
+            'player',
+            `${actor.name}探囊取服【${itemDef.name}】，药力化开周流百骸（${
+              notes.length > 0 ? notes.join(' · ') : '神清气爽'
+            }）！`,
+          ),
+        )
+      }
+      continue
     }
 
     if (choice.type !== 'move') {

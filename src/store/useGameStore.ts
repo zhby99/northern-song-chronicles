@@ -1926,15 +1926,80 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   submitCombatAction: (choice) => {
     const s = get()
     if (!s.activeCombat || s.activeCombat.outcome !== 'ongoing') return
+
+    let nextInventory = s.inventory
+    let nextBaseStats = s.baseStats
+    let nextConsumedUniqueIds = s.consumedUniqueIds
+    let nextFood = s.food
+    let nextStamina = s.stamina
+
+    if (choice.type === 'item') {
+      const def = ITEM_DB_MAP[choice.itemId]
+      if (!def || def.category !== 'medicine') return
+      const removed = removeItemFromInventory(s.inventory, choice.itemId, 1)
+      if (!removed) return
+      nextInventory = removed
+      if (
+        UNIQUE_ARTIFACT_MAP[choice.itemId] &&
+        !s.consumedUniqueIds.includes(choice.itemId)
+      ) {
+        nextConsumedUniqueIds = [...s.consumedUniqueIds, choice.itemId]
+      }
+      const eff = def.useEffect
+      if (eff) {
+        const cloned = cloneHeroBaseStats(s.baseStats)
+        if (eff.maxHp) cloned.maxHp += eff.maxHp
+        if (eff.maxMp) cloned.maxMp += eff.maxMp
+        if (eff.maxStamina) cloned.maxStamina += eff.maxStamina
+        if (eff.agi) {
+          cloned.agility = Math.min(HERO_BASE_CAPS.agility, cloned.agility + eff.agi)
+        }
+        if (eff.res) {
+          cloned.res = Math.min(HERO_BASE_CAPS.res, cloned.res + eff.res)
+        }
+        if (eff.skillGain) {
+          const [sk, gain] = eff.skillGain
+          cloned.skills[sk] = Math.min(
+            HERO_BASE_CAPS.civilSkill,
+            (cloned.skills[sk] ?? 40) + gain,
+          )
+        }
+        if (eff.food) nextFood += eff.food
+        if (eff.stamina) {
+          const derivedTmp = deriveHeroEffectiveStats(
+            cloned,
+            s.equipped,
+            s.equippedArts,
+            s.learnedArts,
+          )
+          nextStamina = Math.min(derivedTmp.maxStamina, s.stamina + eff.stamina)
+        }
+        nextBaseStats = cloned
+      }
+    }
+
     let nextSession = resolveCombatRound(s.activeCombat, choice)
     if (nextSession.outcome !== 'ongoing') {
-      const preview = computeCombatSettlement(s, nextSession)
+      const preview = computeCombatSettlement(
+        {
+          ...s,
+          baseStats: nextBaseStats,
+        },
+        nextSession,
+      )
       nextSession = {
         ...nextSession,
         rewardsSummary: preview.rewardsSummary,
       }
     }
-    set({ activeCombat: nextSession })
+    set({
+      activeCombat: nextSession,
+      inventory: nextInventory,
+      baseStats: nextBaseStats,
+      consumedUniqueIds: nextConsumedUniqueIds,
+      food: nextFood,
+      stamina: nextStamina,
+    })
   },
 
   finishCombatSession: () => {
