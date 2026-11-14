@@ -1,5 +1,5 @@
 import { Gift, ShoppingBag } from 'lucide-react'
-import { BUILDINGS_DB, FACTION_DB_MAP, REGION_DB_MAP } from '../../data/gameDb'
+import { BUILDING_DB_MAP, BUILDINGS_DB, FACTION_DB_MAP, REGION_DB_MAP } from '../../data/gameDb'
 import { SPOT_SHOPS } from '../../data/spotShops'
 import { SECT_ENTRY_GEAR_GIFTS } from '../../utils/sectMechanics'
 
@@ -34,9 +34,12 @@ function getItemAcquisitionWays(itemId: string): AcquisitionWay[] {
     if (!entry) continue
     const regionName = REGION_DB_MAP[shop.regionId]?.name ?? shop.regionId
     const loc = SPOT_LOCATION_CACHE[shop.spotId]
+    const bldg = BUILDING_DB_MAP[shop.spotId]
     const placeLabel = loc
       ? `${regionName} · ${loc.buildingName} > ${loc.spotName}`
-      : `${regionName} · ${shop.title}`
+      : bldg
+        ? `${regionName} · ${bldg.name}`
+        : `${regionName} · ${shop.title}`
     const whoLabel = shop.requiredSectId
       ? `【${FACTION_DB_MAP[shop.requiredSectId]?.name ?? shop.requiredSectId}】成员`
       : '任何人'

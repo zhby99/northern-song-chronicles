@@ -712,7 +712,8 @@ export function ContextInspectorCard() {
       )}
 
       {(() => {
-        const activeShop = leafSpotId ? SPOT_SHOPS_BY_SPOT_ID[leafSpotId] : undefined
+        const activeShopId = leafSpotId ?? leafBuildingId
+        const activeShop = activeShopId ? SPOT_SHOPS_BY_SPOT_ID[activeShopId] : undefined
         if (!activeShop) return null
         const reqSectName = activeShop.requiredSectId
           ? (FACTION_DB_MAP[activeShop.requiredSectId]?.name ?? activeShop.requiredSectId)

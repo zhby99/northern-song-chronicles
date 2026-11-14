@@ -6,7 +6,6 @@ import {
   NPCS_DB,
   NPC_DB_MAP,
   REGION_DB_MAP,
-  WORLD_GRAPH,
 } from '../data/gameDb'
 import { DEFAULT_EQUIPPED_SLOTS } from '../data/itemsDb'
 import type {
@@ -22,7 +21,7 @@ import type {
   SectRankLevel,
   SectTaskKind,
 } from '../types/game'
-import { findBestRoute } from './mapMath'
+import { findBestRoute, WORLD_GRAPH } from './mapMath'
 import { INITIAL_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
 import { parseRealmTier } from './realmUtils'
 
@@ -709,7 +708,7 @@ function getRouteDistanceLi(fromRegionId: string, toRegionId: string): number | 
   const route = findBestRoute(
     fromRegionId,
     toRegionId,
-    { mountKey: 'foot', agility: 30, ridingSkill: 0 },
+    { mountKey: 'walk', agility: 30, ridingSkill: 0, qinggongBonus: 0 },
     null,
   )
   return route ? route.totalLi : null
@@ -754,10 +753,11 @@ export function generateMinorSectTask(params: {
     const shuffled = [...nearbyCities].sort(() => Math.random() - 0.5)
     for (const city of shuffled) {
       const candidates = NPCS_DB.filter(
-        (n) => n.regionId === city.id && n.id !== leaderNpcId && n.buildingId,
+        (n) => n.regionId === city.id && n.id !== leaderNpcId && n.assignedBuildingId,
       )
       if (candidates.length === 0) continue
       const target = candidates[Math.floor(Math.random() * candidates.length)]!
+      const targetRegionName = REGION_DB_MAP[target.regionId]?.name ?? city.name
       return {
         id: taskId,
         sectId,
@@ -766,16 +766,16 @@ export function generateMinorSectTask(params: {
         leaderName: leader.name,
         kind: 'deliver_letter',
         title: `代师送信 · 赴${city.name}`,
-        summary: `代【${leader.name}】将一封师门密信送往【${city.name} · ${target.buildingName}${target.spotName ? ` · ${target.spotName}` : ''}】，亲手交予【${target.name}】（路程约 ${city.distLi} 里）。`,
+        summary: `代【${leader.name}】将一封师门密信送往【${city.name} · ${target.assignedBuildingName}${target.assignedSpotName ? ` · ${target.assignedSpotName}` : ''}】，亲手交予【${target.name}】（路程约 ${city.distLi} 里）。`,
         completedStep: false,
         targetNpcId: target.id,
         targetNpcName: target.name,
         regionId: target.regionId,
-        regionName: target.regionName,
-        buildingId: target.buildingId,
-        buildingName: target.buildingName,
-        spotId: target.spotId,
-        spotName: target.spotName,
+        regionName: targetRegionName,
+        buildingId: target.assignedBuildingId,
+        buildingName: target.assignedBuildingName,
+        spotId: target.assignedSpotId,
+        spotName: target.assignedSpotName,
         distanceLi: city.distLi,
         acceptedDay: dayCount,
       }
@@ -831,6 +831,7 @@ export function generateMinorSectTask(params: {
 
   if (weakerMates.length > 0) {
     const mate = weakerMates[Math.floor(Math.random() * weakerMates.length)]!
+    const mateRegionName = REGION_DB_MAP[mate.regionId]?.name ?? mate.locationLabel
     return {
       id: taskId,
       sectId,
@@ -839,24 +840,25 @@ export function generateMinorSectTask(params: {
       leaderName: leader.name,
       kind: 'martial_coaching',
       title: `武艺教学 · 指点${mate.name}`,
-      summary: `受【${leader.name}】所托，前往【${mate.regionName} · ${mate.buildingName}${mate.spotName ? ` · ${mate.spotName}` : ''}】与同门弟子【${mate.name}（${mate.realm}）】切磋并获胜，指点其武艺破绽。`,
+      summary: `受【${leader.name}】所托，前往【${mateRegionName} · ${mate.assignedBuildingName}${mate.assignedSpotName ? ` · ${mate.assignedSpotName}` : ''}】与同门弟子【${mate.name}（${mate.realm}）】切磋并获胜，指点其武艺破绽。`,
       completedStep: false,
       traineeNpcId: mate.id,
       traineeNpcName: mate.name,
       traineeRealm: mate.realm,
       traineeIsTemp: false,
       regionId: mate.regionId,
-      regionName: mate.regionName,
-      buildingId: mate.buildingId,
-      buildingName: mate.buildingName,
-      spotId: mate.spotId,
-      spotName: mate.spotName,
+      regionName: mateRegionName,
+      buildingId: mate.assignedBuildingId,
+      buildingName: mate.assignedBuildingName,
+      spotId: mate.assignedSpotId,
+      spotName: mate.assignedSpotName,
       acceptedDay: dayCount,
     }
   }
 
   // 若门派内无更低境界弟子，则在掌门所在驻地刷新一名不入流新晋小弟子用于教学切磋
   const tempTraineeName = `${faction.shortName || '本门'}新进弟子`
+  const leaderRegionName = REGION_DB_MAP[leader.regionId]?.name ?? leader.locationLabel
   return {
     id: taskId,
     sectId,
@@ -865,7 +867,7 @@ export function generateMinorSectTask(params: {
     leaderName: leader.name,
     kind: 'martial_coaching',
     title: `武艺教学 · 指点${tempTraineeName}`,
-    summary: `受【${leader.name}】所托，在【${leader.regionName} · ${leader.buildingName}${leader.spotName ? ` · ${leader.spotName}` : ''}】与新入门的【${tempTraineeName}（不入流）】切磋并获胜，指点其入门拳脚。`,
+    summary: `受【${leader.name}】所托，在【${leaderRegionName} · ${leader.assignedBuildingName}${leader.assignedSpotName ? ` · ${leader.assignedSpotName}` : ''}】与新入门的【${tempTraineeName}（不入流）】切磋并获胜，指点其入门拳脚。`,
     completedStep: false,
     traineeNpcId: `SECT_TRAINEE_${taskId}`,
     traineeNpcName: tempTraineeName,
@@ -873,11 +875,11 @@ export function generateMinorSectTask(params: {
     traineeIsTemp: true,
     traineeStats: { hp: 220, mp: 80, agi: 16, res: 8, isBenchmark: false },
     regionId: leader.regionId,
-    regionName: leader.regionName,
-    buildingId: leader.buildingId,
-    buildingName: leader.buildingName,
-    spotId: leader.spotId,
-    spotName: leader.spotName,
+    regionName: leaderRegionName,
+    buildingId: leader.assignedBuildingId,
+    buildingName: leader.assignedBuildingName,
+    spotId: leader.assignedSpotId,
+    spotName: leader.assignedSpotName,
     acceptedDay: dayCount,
   }
 }
@@ -1296,5 +1298,11 @@ export const SECT_ENTRY_GEAR_GIFTS: Record<string, string[]> = {
   'SECT-22': ['WPN-067'], // 常山枪派：厢军制式长枪
   'SECT-17': ['ACC-018', 'ARM-033', 'BOT-017'], // 开封府/六扇门：六扇门精铜捕快腰牌、汴京巡城皂衣、汴京千层底布鞋
   'SECT-23': ['ACC-031', 'ARM-031'], // 沧州八极门：沧州武馆铜护心、沧州武馆练功短打
+  'SECT-01': ['ARM-036', 'BOT-020', 'WPN-068'], // 嵩山少林寺：灰麻僧衣、僧侣芒鞋、少林白蜡齐眉棍
+  'SECT-05': ['WPN-062'], // 华山派：华山入门青钢剑
+  'SECT-06': ['ARM-037', 'BOT-021'], // 泰山派：青灰道袍、道士云头布履
+  'SECT-08': ['WPN-063'], // 真武道宗：真武松纹道剑
+  'SECT-16': ['ARM-040', 'WPN-071'], // 江淮漕帮：漕帮短褐劲装、皇祐通宝飞镖袋
+  'SECT-18': ['ARM-039', 'WPN-076'], // 太行/京东绿林盟：绿林黑布夜行衣、绿林泼风砍刀
 }
 
