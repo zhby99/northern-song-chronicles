@@ -87,6 +87,8 @@ export function ContextInspectorCard() {
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const silver = useGameStore((s) => s.silver)
+  const renown = useGameStore((s) => s.renown)
+  const chivalry = useGameStore((s) => s.chivalry)
   const food = useGameStore((s) => s.food)
   const hp = useGameStore((s) => s.hp)
   const maxHp = useGameStore((s) => s.maxHp)
@@ -329,6 +331,8 @@ export function ContextInspectorCard() {
       dayCount,
       shichenIdx,
       silver,
+      renown,
+      chivalry,
       food,
       hp,
       maxHp,
@@ -360,6 +364,8 @@ export function ContextInspectorCard() {
     dayCount,
     shichenIdx,
     silver,
+    renown,
+    chivalry,
     food,
     hp,
     maxHp,

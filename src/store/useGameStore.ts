@@ -883,6 +883,8 @@ export function buildStoreEvalContext(
     | 'dayCount'
     | 'shichenIdx'
     | 'silver'
+    | 'renown'
+    | 'chivalry'
     | 'food'
     | 'hp'
     | 'maxHp'
@@ -897,15 +899,15 @@ export function buildStoreEvalContext(
     | 'npcFavor'
     | 'sectState'
     | 'questState'
-  > & Partial<Pick<GameStoreState, 'renown' | 'chivalry'>>,
+  >,
   targetNpc?: NodeNpc | null,
 ): QuestEvalContext {
   return {
     dayCount: s.dayCount,
     shichenIdx: s.shichenIdx,
     silver: s.silver,
-    renown: s.renown ?? 0,
-    chivalry: s.chivalry ?? 0,
+    renown: s.renown,
+    chivalry: s.chivalry,
     food: s.food,
     hp: s.hp,
     maxHp: s.maxHp,

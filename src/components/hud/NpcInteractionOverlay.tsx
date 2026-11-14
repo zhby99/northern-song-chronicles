@@ -68,6 +68,8 @@ export function NpcInteractionOverlay() {
   const shichenIdx = useGameStore((s) => s.shichenIdx)
   const inventory = useGameStore((s) => s.inventory)
   const silver = useGameStore((s) => s.silver)
+  const renown = useGameStore((s) => s.renown)
+  const chivalry = useGameStore((s) => s.chivalry)
   const food = useGameStore((s) => s.food)
   const hp = useGameStore((s) => s.hp)
   const maxHp = useGameStore((s) => s.maxHp)
@@ -163,6 +165,8 @@ export function NpcInteractionOverlay() {
         dayCount,
         shichenIdx,
         silver,
+        renown,
+        chivalry,
         food,
         hp,
         maxHp,
@@ -189,6 +193,8 @@ export function NpcInteractionOverlay() {
     dayCount,
     shichenIdx,
     silver,
+    renown,
+    chivalry,
     food,
     hp,
     maxHp,
