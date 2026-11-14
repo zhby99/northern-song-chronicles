@@ -574,8 +574,8 @@ export function buildNodeNpcFromDynamicActor(actor: DynamicQuestNpc): NodeNpc {
       actor.factionName ?? (actor.factionId ? FACTION_DB_MAP[actor.factionId]?.name : undefined),
     sectRank: actor.sectRank,
     sectRankLabel: actor.sectRankLabel,
-    avatarUrl: actor.avatarUrl ?? '/assets/characters/templates/tpl_jianghu_av.jpg',
-    portraitUrl: actor.portraitUrl ?? '/assets/characters/templates/tpl_jianghu_fb.jpg',
+    avatarUrl: actor.avatarUrl ?? '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
+    portraitUrl: actor.portraitUrl ?? '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
     stats: { ...actor.stats },
     talents: actor.talents ? { ...actor.talents } : { bone: 50, comprehension: 50, charm: 50 },
     tenArts: actor.tenArts ? { ...actor.tenArts } : undefined,
@@ -661,8 +661,8 @@ export function resolveStorySpeaker(
         isPlayer: true,
         name: '少侠（你）',
         title: '江湖行者',
-        portraitUrl: '/assets/characters/templates/tpl_jianghu_fb.jpg',
-        avatarUrl: '/assets/characters/templates/tpl_jianghu_av.jpg',
+        portraitUrl: '/assets/characters/templates/tpl_huashan_fb.jpg',
+        avatarUrl: '/assets/characters/templates/tpl_huashan_av.jpg',
       }
     case 'interactedNpc': {
       if (contextNpc) {
@@ -711,7 +711,7 @@ export function resolveStorySpeaker(
         name: speaker.name,
         title: speaker.title ?? '剧情人物',
         factionName: speaker.factionName,
-        portraitUrl: speaker.portraitUrl ?? '/assets/characters/templates/tpl_jianghu_fb.jpg',
+        portraitUrl: speaker.portraitUrl ?? '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
       }
   }
 }

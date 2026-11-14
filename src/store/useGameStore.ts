@@ -2765,7 +2765,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       feedbackMsg += `（呈交《${ITEM_DB_MAP[evalRes.consumeItemId]!.name}》）`
     }
     if (evalRes.allowOfficialTransferFromChangshan) {
-      feedbackMsg = `呈验常山枪派《开封府推荐信》，正式奉调入职【${faction.name} · ${evalRes.startingRankLabel}】（正当调任，无通辽之嫌）！`
+      const originName = s.sectState.sectId
+        ? (FACTION_DB_MAP[s.sectState.sectId]?.name ?? s.sectState.sectId)
+        : '原门派'
+      const letterName =
+        (evalRes.consumeItemId && ITEM_DB_MAP[evalRes.consumeItemId]?.name) || '举荐公函'
+      feedbackMsg = `由【${originName}】呈验《${letterName}》，正式奉调入职【${faction.name} · ${evalRes.startingRankLabel}】（正当保举调任）！`
     }
 
     // 常山枪派：投军即刻派发本年度燕云诛谍强制军令

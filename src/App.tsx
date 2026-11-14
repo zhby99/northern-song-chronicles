@@ -5,6 +5,7 @@ import { ContextInspectorCard } from './components/hud/ContextInspectorCard'
 import { GameOverModal } from './components/hud/GameOverModal'
 import { MapTooltip } from './components/hud/MapTooltip'
 import { NpcInteractionOverlay } from './components/hud/NpcInteractionOverlay'
+import { QuestTrackerPanel } from './components/hud/QuestTrackerPanel'
 import { TopHud } from './components/hud/TopHud'
 import { TravelBanner } from './components/hud/TravelBanner'
 import { RegionMapCanvas } from './components/map/RegionMapCanvas'
@@ -144,6 +145,9 @@ export function App() {
       )}
 
       {!activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && <BottomHud />}
+      {!activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
+        <QuestTrackerPanel />
+      )}
       {!activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
         <ContextInspectorCard />
       )}

@@ -14,7 +14,15 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
     category: 'sect_entry',
     factionId: 'SECT-18',
     regionId: 'taihang',
-    recommendedRealm: '三流武者',
+    recommendedRealm: '三流中品',
+    maxOpponentRealm: '三流下品',
+    recommendedNote: '需生死劫杀一名大宋官吏（最弱官吏约三流下品），建议至少【三流中品】再行领命',
+    startHint: '前往太行山【聚义总寨】或寻任意绿林盟豪杰，在门派事务中请领「纳投名状」试炼。',
+    startLocation: {
+      regionId: 'taihang',
+      buildingId: 'th_hall',
+      customLabel: '太行山 · 聚义总寨',
+    },
     summary:
       '欲入太行/京东绿林盟聚义堂，须按草莽铁律立下「投名状」——拦路劫杀一名大宋朝廷命官。此举将令少侠名列大宋官府海捕黑名单，一旦踏入东京开封府必遭御猫展昭锁拿问斩！',
     initialStepId: 'rob_official',
@@ -24,12 +32,14 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
         title: '劫道朝廷命官',
         objective:
           '寻访任意大宋朝廷官员（中枢/封疆文臣、边塞将帅或开封府六扇门官员），在人物交互中发起【劫道纳投名状（生死战）】并获胜。',
+        nextHint: '寻一名大宋官吏（三流下品及以上），在人物交互中发起【劫道纳投名状】生死战并取胜',
       },
       return_to_join: {
         id: 'return_to_join',
         title: '持状投奔绿林盟',
         objective:
           '已成功劫掠大宋命官立下投名状（已列入大宋朝廷黑名单，切忌踏入东京开封府！），前往太行山或寻任意绿林盟豪杰即可正式拜入【太行/京东绿林盟】。',
+        nextHint: '前往太行山·聚义总寨呈递投名状，正式拜入绿林盟（切忌踏入开封府！）',
         targetLocation: {
           regionId: 'taihang',
           buildingId: 'th_hall',
@@ -283,7 +293,14 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
     category: 'sect_entry',
     factionId: 'SECT-16',
     regionId: 'hangzhou',
-    recommendedRealm: '三流武者',
+    recommendedRealm: '三流下品',
+    recommendedNote: '无强制死斗，三流下品即可游历办理（备足 40 两纹银：拜师 20 两 + 贿赂 20 两）',
+    startHint: '前往扬州府【江淮漕帮总舵】寻帮众打听入门规矩，或径直赴杭州拜入钱塘怒潮帮。',
+    startLocation: {
+      regionId: 'yangzhou',
+      buildingId: 'yz_chaoguan',
+      customLabel: '扬州府 · 江淮漕帮总舵',
+    },
     summary:
       '二流大帮【江淮漕帮】把控汴河漕运命脉，不收来历不明之外人。须先投身杭州【钱塘怒潮帮】晋升至第2阶「内门香主」，再以20两纹银贿赂副帮主陈承涛求取《钱塘怒潮帮举荐帖》。',
     initialStepId: 'get_nuchao_letter',
@@ -293,6 +310,7 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
         title: '求取钱塘怒潮帮举荐帖',
         objective:
           '前往临安府（杭州）拜入【钱塘怒潮帮】（20两），晋升第2阶「内门香主」后，向第4阶副帮主【陈承涛】奉银20两求取《钱塘怒潮帮举荐帖》。',
+        nextHint: '赴杭州入钱塘怒潮帮并升至「内门香主」，向副帮主陈承涛贿银 20 两取帖',
         targetLocation: {
           regionId: 'hangzhou',
           buildingId: 'hz_nuchao',
@@ -304,6 +322,7 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
         title: '持帖拜入江淮漕帮',
         objective:
           '已获《钱塘怒潮帮举荐帖》，脱离钱塘怒潮帮后前往扬州府寻【江淮漕帮】帮众呈帖入门。',
+        nextHint: '脱离钱塘怒潮帮后，赴扬州府·江淮漕帮总舵呈帖入门',
         targetLocation: {
           regionId: 'yangzhou',
           buildingId: 'yz_chaoguan',
@@ -363,7 +382,14 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
     category: 'sect_entry',
     factionId: 'SECT-23',
     regionId: 'jinan',
-    recommendedRealm: '三流武者',
+    recommendedRealm: '三流下品',
+    recommendedNote: '无强制死斗，三流下品即可游历办理（备足 40 两纹银：拜师 20 两 + 贿赂 20 两）',
+    startHint: '前往大名府【沧州八极门武场】打听拜师门径，或赴济南府拜入齐鲁查拳馆。',
+    startLocation: {
+      regionId: 'daming',
+      buildingId: 'dm_baji',
+      customLabel: '大名府 · 沧州八极门武场',
+    },
     summary:
       '河北名门【沧州八极门】拳风刚猛霸道，非武林同道保举不纳门墙。须先在济南府【齐鲁查拳馆】晋升至第2阶「内堂武师」，再奉银20两贿赂金牌总教头求取《齐鲁查拳馆举荐帖》。',
     initialStepId: 'get_chaquan_letter',
@@ -373,6 +399,7 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
         title: '求取齐鲁查拳馆举荐帖',
         objective:
           '前往济南府拜入【齐鲁查拳馆】（20两），晋升第2阶「内堂武师」后，向第4阶金牌总教头奉银20两求取《齐鲁查拳馆举荐帖》。',
+        nextHint: '赴济南入齐鲁查拳馆并升至「内堂武师」，向金牌总教头贿银 20 两取帖',
         targetLocation: {
           regionId: 'jinan',
           buildingId: 'jn_chaquan',
@@ -384,6 +411,7 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
         title: '持帖拜入沧州八极门',
         objective:
           '已获《齐鲁查拳馆举荐帖》，脱离查拳馆后前往大名府寻【沧州八极门】门人呈帖入门。',
+        nextHint: '脱离齐鲁查拳馆后，赴大名府·沧州八极门武场呈帖入门',
         targetLocation: {
           regionId: 'daming',
           buildingId: 'dm_baji',
@@ -404,6 +432,7 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
             { type: 'targetNpcMatch', factionIds: ['SECT-23'] },
             { type: 'questStatus', questId: 'QST-SECT-23-REFERRAL', status: 'not_started' },
             { type: 'not', condition: { type: 'hasItem', itemId: 'ITM-MSC-004' } },
+            { type: 'not', condition: { type: 'hasItem', itemId: 'ITM-MSC-008' } },
             { type: 'not', condition: { type: 'inSect', sectId: 'SECT-23' } },
           ],
         },
@@ -417,11 +446,11 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
               beats: [
                 {
                   speaker: { kind: 'interactedNpc' },
-                  text: '“沧州八极门立身河北边鄙，拳出如崩山裂石，素来只收北方拳馆知根知底的熟手。”',
+                  text: '“沧州八极门立身河朔边鄙，拳出如崩山裂石，素来只收北方拳馆知根知底的熟手。”',
                 },
                 {
                   speaker: { kind: 'interactedNpc' },
-                  text: '“济南府【齐鲁查拳馆】与本门素有渊源。你若能在查拳馆熬成『内堂武师』，向馆中金牌总教头奉上二十两润笔银子讨封《齐鲁查拳馆举荐帖》，再来沧州投帖不迟！”',
+                  text: '“少侠若欲拜门，有两条门径：其一，济南府【齐鲁查拳馆】与本门同气连枝，你若在查拳馆升任『内堂武师』后向金牌总教头奉银二十两讨封《齐鲁查拳馆举荐帖》，即可入门；其二，眼下大名府讲武分馆正逢【黄河铁索断江奇案】，少侠若有胆魄替本门洗刷奇冤，卢总馆主定会破例直纳内堂！”',
                 },
               ],
               onFinishEffects: [
@@ -443,7 +472,14 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
     category: 'sect_entry',
     factionId: 'SECT-24',
     regionId: 'guangzhou',
-    recommendedRealm: '三流武者',
+    recommendedRealm: '三流下品',
+    recommendedNote: '无强制死斗，三流下品即可游历办理（备足 40 两纹银：拜师 20 两 + 贿赂 20 两）',
+    startHint: '前往泉州府【闽海镇远总镖局】打听入局门径，或赴广州府拜入岭南洪门武馆。',
+    startLocation: {
+      regionId: 'quanzhou',
+      buildingId: 'qz_zhenyuan',
+      customLabel: '泉州府 · 闽海镇远总镖局',
+    },
     summary:
       '泉州【闽海镇远镖局】专走闽粤南洋重宝红货，非硬桥硬马名馆保举不可入局。须先在广州府【岭南洪门武馆】晋升至第2阶「内堂武师」，再奉银20两贿赂金牌总教头求取《岭南洪门武馆举荐帖》。',
     initialStepId: 'get_hongmen_letter',
@@ -453,6 +489,7 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
         title: '求取岭南洪门武馆举荐帖',
         objective:
           '前往广州府拜入【岭南洪门武馆】（20两），晋升第2阶「内堂武师」后，向第4阶金牌总教头奉银20两求取《岭南洪门武馆举荐帖》。',
+        nextHint: '赴广州入岭南洪门武馆并升至「内堂武师」，向金牌总教头贿银 20 两取帖',
         targetLocation: {
           regionId: 'guangzhou',
           buildingId: 'gz_hongmen',
@@ -464,6 +501,7 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
         title: '持帖拜入闽海镇远镖局',
         objective:
           '已获《岭南洪门武馆举荐帖》，脱离洪门武馆后前往泉州府寻【闽海镇远镖局】趟子手/镖头呈帖入局。',
+        nextHint: '脱离岭南洪门武馆后，赴泉州府·闽海镇远总镖局呈帖入局',
         targetLocation: {
           regionId: 'quanzhou',
           buildingId: 'qz_zhenyuan',

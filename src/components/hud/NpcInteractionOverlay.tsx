@@ -719,8 +719,9 @@ export function NpcInteractionOverlay() {
                         : 'bg-[#8c7b65]/60 hover:bg-[#8c7b65]/80 border-[#a89882] text-[#f7eedc]'
                     }`}
                   >
-                    {targetFactionId === 'SECT-17' && sectState.sectId === 'SECT-22'
-                      ? '呈交推荐信调任开封府'
+                    {targetFactionId === 'SECT-17' &&
+                    (sectState.sectId === 'SECT-22' || sectState.sectId === 'SECT-23')
+                      ? '呈交举荐信奉调开封府'
                       : `拜入【${factionMeta?.name ?? factionName}】`}
                     {entryEval.costSilver > 0 ? `（奉银 ${entryEval.costSilver} 两）` : ''}
                   </button>

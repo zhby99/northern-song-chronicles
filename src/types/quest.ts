@@ -297,6 +297,7 @@ export interface QuestStepDef {
   id: string
   title: string
   objective: string
+  nextHint?: string
   targetLocation?: QuestTargetLocationHint
 }
 
@@ -364,6 +365,10 @@ export interface QuestDefinition {
   factionId?: string
   regionId?: string
   recommendedRealm?: string
+  maxOpponentRealm?: string
+  recommendedNote?: string
+  startHint?: string
+  startLocation?: QuestTargetLocationHint
   summary: string
   initialStepId: string
   steps: Record<string, QuestStepDef>

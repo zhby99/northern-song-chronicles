@@ -5,6 +5,7 @@ import { computeEquipmentTotals, computeWeaponArtSynergy } from '../../../data/i
 import { computeEquippedArtsTotals } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
 import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
+import { estimateHeroRealm } from '../../../utils/realmUtils'
 import { getChangshanMonthlyStipend } from '../../../utils/sectMechanics'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 import type { LightboxState } from '../menuShared'
@@ -93,8 +94,8 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
               <div>骨龄：十八岁</div>
               <div className="font-semibold text-[#781710]">
                 {sectState.sectId
-                  ? `第${sectState.rank}阶 · 功绩${sectState.contribution}`
-                  : '境界：三流好手'}
+                  ? `第${sectState.rank}阶 · 功绩${sectState.contribution} · ${estimateHeroRealm(maxHp, maxMp).label}`
+                  : `境界：${estimateHeroRealm(maxHp, maxMp).label}`}
               </div>
             </div>
           </div>

@@ -146,6 +146,8 @@ export const REFERRAL_REQ_BY_TARGET_SECT: Record<string, ReferralBribeConfig> = 
 }
 
 export const KAIFENG_RECOMMENDATION_ITEM_ID = 'ITM-MSC-006'
+export const DAMING_RECOMMENDATION_ITEM_ID = 'ITM-MSC-007'
+export const BAJI_IRON_TOKEN_ITEM_ID = 'ITM-MSC-008'
 
 /**
  * Compute monthly military stipend for SECT-22 常山枪派 based on current sect rank.
@@ -345,8 +347,8 @@ export function buildNodeNpcFromLiaoSpy(spy: ActiveLiaoSpyMission): NodeNpc {
     factionName: '辽国武林暗桩',
     sectRank: 2,
     sectRankLabel: '红牌武士',
-    avatarUrl: '/assets/characters/templates/tpl_xixia_liao_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_xixia_liao_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
     stats: spy.stats,
     talents: { bone: 48, comprehension: 44, charm: 35 },
     fullLocationLabel: fullLoc,
@@ -577,16 +579,22 @@ export function evaluateSectEntry(params: {
   const hasItem = (itemId: string) =>
     inventory.some((st) => st.itemId === itemId && st.qty > 0)
 
-  // Special case: SECT-17 开封府 / 六扇门 via 开封府推荐信 (allows seamless transfer from SECT-22!)
+  // Special case: SECT-17 开封府 / 六扇门 via 《北京留守幕府举荐信》(ITM-MSC-007, Rank 2) or 《开封府推荐信》(ITM-MSC-006, Rank 1)
   if (targetSectId === 'SECT-17') {
-    const reqSummary = '持常山枪派演武教习《开封府推荐信》，且清白无朝廷通缉或通辽嫌疑'
+    const hasDamingLetter = hasItem(DAMING_RECOMMENDATION_ITEM_ID)
+    const hasChangshanLetter = hasItem(KAIFENG_RECOMMENDATION_ITEM_ID)
+    const rank2Label = getSectRankTitle('SECT-17', 2)
+    const reqSummary =
+      '持大名府《北京留守幕府举荐信》（直授第2阶捕头都头，八极门/常山枪派可奉调转入）或常山枪派《开封府推荐信》（授第1阶役卒巡捕），且清白无朝廷通缉或通辽嫌疑'
     if (sectState.songCourtBlacklisted) {
       return {
         canJoin: false,
         startingRank: 1,
         startingRankLabel,
         costSilver: 0,
-        consumeItemId: KAIFENG_RECOMMENDATION_ITEM_ID,
+        consumeItemId: hasDamingLetter
+          ? DAMING_RECOMMENDATION_ITEM_ID
+          : KAIFENG_RECOMMENDATION_ITEM_ID,
         requirementSummary: reqSummary,
         blockedReason: '少侠已名列大宋朝廷黑名单，开封府岂容投效！',
       }
@@ -597,23 +605,56 @@ export function evaluateSectEntry(params: {
         startingRank: 1,
         startingRankLabel,
         costSilver: 0,
-        consumeItemId: KAIFENG_RECOMMENDATION_ITEM_ID,
+        consumeItemId: hasDamingLetter
+          ? DAMING_RECOMMENDATION_ITEM_ID
+          : KAIFENG_RECOMMENDATION_ITEM_ID,
         requirementSummary: reqSummary,
         blockedReason: '少侠身负【通辽嫌疑】，朝堂上下猜忌，开封府不予录用！',
       }
     }
-    if (sectState.sectId && sectState.sectId !== 'SECT-22') {
+    if (
+      sectState.sectId &&
+      sectState.sectId !== 'SECT-22' &&
+      sectState.sectId !== 'SECT-23'
+    ) {
       return {
         canJoin: false,
         startingRank: 1,
         startingRankLabel,
         costSilver: 0,
-        consumeItemId: KAIFENG_RECOMMENDATION_ITEM_ID,
+        consumeItemId: hasDamingLetter
+          ? DAMING_RECOMMENDATION_ITEM_ID
+          : KAIFENG_RECOMMENDATION_ITEM_ID,
         requirementSummary: reqSummary,
         blockedReason: `少侠已身在【${FACTION_DB_MAP[sectState.sectId]?.name ?? sectState.sectId}】，不可二门兼投。`,
       }
     }
-    if (!hasItem(KAIFENG_RECOMMENDATION_ITEM_ID)) {
+    if (sectState.sectId === 'SECT-23' && !hasDamingLetter) {
+      return {
+        canJoin: false,
+        startingRank: 2,
+        startingRankLabel: rank2Label,
+        costSilver: 0,
+        consumeItemId: DAMING_RECOMMENDATION_ITEM_ID,
+        requirementSummary: reqSummary,
+        blockedReason:
+          '沧州八极门弟子欲奉调开封府，需勘破大名府《铁锁镇河朔》奇案并获贾昌朝亲签《北京留守幕府举荐信》！',
+      }
+    }
+    if (hasDamingLetter) {
+      return {
+        canJoin: true,
+        startingRank: 2,
+        startingRankLabel: rank2Label,
+        costSilver: 0,
+        consumeItemId: DAMING_RECOMMENDATION_ITEM_ID,
+        requirementSummary: reqSummary,
+        blockedReason: null,
+        allowOfficialTransferFromChangshan:
+          sectState.sectId === 'SECT-22' || sectState.sectId === 'SECT-23',
+      }
+    }
+    if (!hasChangshanLetter) {
       return {
         canJoin: false,
         startingRank: 1,
@@ -621,7 +662,8 @@ export function evaluateSectEntry(params: {
         costSilver: 0,
         consumeItemId: KAIFENG_RECOMMENDATION_ITEM_ID,
         requirementSummary: reqSummary,
-        blockedReason: '需持有常山枪派达到【演武教习】后颁授的《开封府推荐信》（或静候后续一流大派专属任务链）。',
+        blockedReason:
+          '需持有大名府《北京留守幕府举荐信》（《铁锁镇河朔》忠义入幕线）或常山枪派《开封府推荐信》。',
       }
     }
     return {
@@ -677,9 +719,28 @@ export function evaluateSectEntry(params: {
 
   // 2. Second-Tier Sects (二流门派)
   if (targetSectId === 'SECT-16' || targetSectId === 'SECT-23' || targetSectId === 'SECT-24') {
+    // 沧州八极门专属破格入门：持卢铁山亲授《八极铁锁令》直入第2阶【内堂武师】
+    if (targetSectId === 'SECT-23' && hasItem(BAJI_IRON_TOKEN_ITEM_ID)) {
+      const rank2Label = getSectRankTitle('SECT-23', 2)
+      return {
+        canJoin: true,
+        startingRank: 2,
+        startingRankLabel: rank2Label,
+        costSilver: 0,
+        consumeItemId: BAJI_IRON_TOKEN_ITEM_ID,
+        requirementSummary:
+          '持卢铁山亲授《八极铁锁令》（大名府《铁锁镇河朔》奇案获授，直入内堂武师）或《齐鲁查拳馆举荐帖》',
+        blockedReason: null,
+      }
+    }
+
     const refCfg = REFERRAL_REQ_BY_TARGET_SECT[targetSectId]!
     const srcName = FACTION_DB_MAP[refCfg.sourceSectId]?.name ?? refCfg.sourceSectId
-    const reqSummary = `需持《${refCfg.itemName}》（由【${srcName}】内门及以上弟子贿赂${refCfg.elderTitleHint} 20 两银子取得）`
+    const bajiExtra =
+      targetSectId === 'SECT-23'
+        ? '；或于大名府勘破《铁锁镇河朔》奇案获卢铁山亲授《八极铁锁令》破格直入内堂'
+        : ''
+    const reqSummary = `需持《${refCfg.itemName}》（由【${srcName}】内门及以上弟子贿赂${refCfg.elderTitleHint} 20 两银子取得${bajiExtra}）`
     if (!hasItem(refCfg.itemId)) {
       return {
         canJoin: false,
@@ -688,7 +749,7 @@ export function evaluateSectEntry(params: {
         costSilver: 0,
         consumeItemId: refCfg.itemId,
         requirementSummary: reqSummary,
-        blockedReason: `行囊中未持有《${refCfg.itemName}》。请先拜入【${srcName}】晋升内门后，向其${refCfg.elderTitleHint}奉银 20 两求取举荐帖！`,
+        blockedReason: `行囊中未持有《${refCfg.itemName}》。请先拜入【${srcName}】晋升内门后向其${refCfg.elderTitleHint}奉银 20 两求取举荐帖${targetSectId === 'SECT-23' ? '，或在大名府触发《铁锁镇河朔》奇案协助八极门洗刷冤屈' : ''}！`,
       }
     }
     return {

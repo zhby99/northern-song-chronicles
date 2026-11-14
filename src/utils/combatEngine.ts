@@ -12,6 +12,7 @@ import type {
 } from '../types/game'
 import type { ActiveQuestCombatHook } from '../types/quest'
 import { deriveHeroEffectiveStats, deriveNpcEffectiveStats } from './heroStats'
+import { estimateHeroRealm } from './realmUtils'
 
 export type MoveSlotKey = 'move1' | 'move2' | 'move3' | 'move4'
 
@@ -418,13 +419,7 @@ export function computeEscapeChancePreview(
 }
 
 function estimateHeroRealmLabel(maxHp: number, maxMp: number): string {
-  const avg = (maxHp + maxMp) / 2
-  if (avg >= 8500) return '大宗师'
-  if (avg >= 4500) return '宗师之境'
-  if (avg >= 2200) return '一流高手'
-  if (avg >= 1100) return '二流好手'
-  if (avg >= 500) return '三流武者'
-  return '初入江湖'
+  return estimateHeroRealm(maxHp, maxMp).label
 }
 
 export function buildPlayerCombatant(params: {

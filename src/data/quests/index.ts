@@ -1,4 +1,5 @@
 import type { QuestDefinition } from '../../types/quest'
+import { DAMING_BAJI_QUESTS } from './cities/damingBajiQuest'
 import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
 
 /**
@@ -6,7 +7,10 @@ import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
  * 后续每新增一个一流门派或一座城池的剧情，仅需在 `src/data/quests/sects/` 或 `src/data/quests/cities/`
  * 下新建独立文件并在此数组注册即可，底层 Store / 存档 / UI 自动挂载生效。
  */
-export const QUEST_REGISTRY: QuestDefinition[] = [...SECOND_TIER_QUESTS]
+export const QUEST_REGISTRY: QuestDefinition[] = [
+  ...SECOND_TIER_QUESTS,
+  ...DAMING_BAJI_QUESTS,
+]
 
 export const QUEST_MAP: Record<string, QuestDefinition> = Object.fromEntries(
   QUEST_REGISTRY.map((q) => [q.id, q]),
@@ -30,7 +34,7 @@ export function registerExtraQuests(extra: QuestDefinition[]): void {
 
 export function resetRegisteredQuests(): void {
   QUEST_REGISTRY.length = 0
-  QUEST_REGISTRY.push(...SECOND_TIER_QUESTS)
+  QUEST_REGISTRY.push(...SECOND_TIER_QUESTS, ...DAMING_BAJI_QUESTS)
   for (const k of Object.keys(QUEST_MAP)) {
     delete QUEST_MAP[k]
   }
