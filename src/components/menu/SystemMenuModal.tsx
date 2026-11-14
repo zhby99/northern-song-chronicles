@@ -68,6 +68,9 @@ const SettingsTab = lazy(() =>
 const TreasuresTab = lazy(() =>
   import('./tabs/TreasuresTab').then((m) => ({ default: m.TreasuresTab })),
 )
+const TenArtsGuideTab = lazy(() =>
+  import('./tabs/TenArtsGuideTab').then((m) => ({ default: m.TenArtsGuideTab })),
+)
 
 export function SystemMenuModal() {
   const menuOpen = useGameStore((s) => s.menuOpen)
@@ -738,6 +741,8 @@ export function SystemMenuModal() {
                     }}
                   />
                 )}
+
+                {activeViewKey === 'arts' && <TenArtsGuideTab />}
 
                 {activeViewKey === 'treasures' && (
                   <TreasuresTab

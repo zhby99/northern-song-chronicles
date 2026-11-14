@@ -154,6 +154,14 @@ export const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
     subtitle: '皇祐三卷奇珍全录：卷壹《典籍书画》100卷 · 卷贰《丹药毒物》30品 · 卷叁《雅器百工》50件（共180品）',
     badge: '180品全录',
   },
+  {
+    key: 'arts',
+    numeral: '捌',
+    label: '十艺百工',
+    seal: '艺',
+    subtitle: '北宋十艺五年（1,800日）修习总纲、四阶经验曲线、书院/差事/雅器/名宿唱和指引及 80/90 级先天三维反哺',
+    badge: '十艺指引',
+  },
 ]
 
 export function formatSavedTime(iso: string): string {

@@ -70,6 +70,13 @@ import type {
   ViewMode,
   WildernessCamp,
 } from '../types/game'
+import type { TenArtKey } from '../types/game'
+import {
+  computeDailyArtExpGain,
+  getArtLevelFromExp,
+  getExpForArtLevel,
+  MAX_ART_EXP,
+} from '../utils/artsProgression'
 import type {
   ActiveStorySceneState,
   QuestEffect,
@@ -482,6 +489,17 @@ export interface GameStoreState {
   loadFromEnvelope: (envelope: GameSaveEnvelope, closeAfterLoad?: boolean) => void
   removeSaveSlot: (slotId: SaveSlotId) => Promise<void>
   setSaveNotice: (notice: { text: string; tone: 'success' | 'error' } | null) => void
+
+  // Ten Arts Progression
+  artExps: Partial<Record<TenArtKey, number>>
+  artMilestoneFlags: string[]
+  studyArtSkill: (
+    artKey: TenArtKey,
+    days: number,
+    envMultiplier?: number,
+    costSilver?: number,
+    sourceLabel?: string,
+  ) => { ok: boolean; message: string }
 }
 
 function applyDayProgressionSectHooks(params: {
@@ -808,6 +826,8 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     maxMp: s.maxMp,
     res: s.res,
     skills: { ...s.skills },
+    artExps: { ...s.artExps },
+    artMilestoneFlags: [...s.artMilestoneFlags],
     equipped: { ...s.equipped },
     learnedArts: s.learnedArts.map((x) => ({ ...x })),
     equippedArts: { ...s.equippedArts },
@@ -6118,4 +6138,103 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   },
 
   setSaveNotice: (notice) => set({ saveNotice: notice }),
+
+  artExps: {},
+  artMilestoneFlags: [],
+  studyArtSkill: (artKey, days, envMultiplier = 1.0, costSilver = 0, sourceLabel = '专心研习') => {
+    const s = get()
+    if (days <= 0) return { ok: false, message: '研习天数须大于 0。' }
+    if (costSilver > 0 && s.silver < costSilver) {
+      return { ok: false, message: `随身银两不足（需 ${costSilver} 两，当前 ${s.silver} 两）。` }
+    }
+
+    const nextBase = cloneHeroBaseStats(s.baseStats)
+    const currentLv =
+      artKey === '骑术' ? nextBase.ridingSkill : (nextBase.skills[artKey] ?? 0)
+    if (currentLv >= 100) {
+      return { ok: false, message: `【${artKey}】已达 100 级一代宗师之境，无需再修。` }
+    }
+
+    const prevExp = s.artExps[artKey] ?? getExpForArtLevel(currentLv)
+    const dailyGain = computeDailyArtExpGain(nextBase.talents.悟性, envMultiplier, 0)
+    const gainedExp = dailyGain * days
+    const nextExp = Math.min(MAX_ART_EXP, prevExp + gainedExp)
+    const nextLv = getArtLevelFromExp(nextExp)
+
+    if (artKey === '骑术') {
+      nextBase.ridingSkill = nextLv
+    } else {
+      nextBase.skills[artKey] = nextLv
+    }
+
+    const nextFlags = [...s.artMilestoneFlags]
+    const milestoneNotes: string[] = []
+
+    // 琴、书、画、诗词达到 80 级 -> 颜值 +2
+    if (
+      (artKey === '琴' || artKey === '书' || artKey === '画' || artKey === '诗词') &&
+      nextLv >= 80 &&
+      !nextFlags.includes(`art80:${artKey}`)
+    ) {
+      nextFlags.push(`art80:${artKey}`)
+      const prevVal = nextBase.talents.颜值
+      nextBase.talents.颜值 = Math.min(100, prevVal + 2)
+      milestoneNotes.push(`【${artKey}】初入 80 级，腹有诗书气自华，【颜值 +${nextBase.talents.颜值 - prevVal}】！`)
+    }
+
+    // 骑术达到 90 级 -> 根骨 +2；其余十艺达到 90 级 -> 悟性 +2
+    if (nextLv >= 90 && !nextFlags.includes(`art90:${artKey}`)) {
+      nextFlags.push(`art90:${artKey}`)
+      if (artKey === '骑术') {
+        const prevVal = nextBase.talents.根骨
+        nextBase.talents.根骨 = Math.min(100, prevVal + 2)
+        milestoneNotes.push(`【骑术】初入 90 级，筋骨强健，【根骨 +${nextBase.talents.根骨 - prevVal}】！`)
+      } else {
+        const prevVal = nextBase.talents.悟性
+        nextBase.talents.悟性 = Math.min(100, prevVal + 2)
+        milestoneNotes.push(`【${artKey}】初入 90 级，触类旁通，【悟性 +${nextBase.talents.悟性 - prevVal}】！`)
+      }
+    }
+
+    const derived = computeDerivedHeroStats({
+      baseStats: nextBase,
+      equipped: s.equipped,
+      learnedArts: s.learnedArts,
+      activeInnerArtId: s.activeInnerArtId,
+      activeQinggongId: s.activeQinggongId,
+      activeSkillIds: s.activeSkillIds,
+    })
+
+    const nextDay = s.dayCount + days
+    const levelNote =
+      nextLv > currentLv
+        ? `【${artKey}】精进至 ${nextLv} 级（+${nextLv - currentLv}）`
+        : `【${artKey}】修习 +${gainedExp} 经验（当前 ${nextLv} 级）`
+    const fullMessage = `${sourceLabel} ${days} 日：${levelNote}${milestoneNotes.length > 0 ? ' · ' + milestoneNotes.join(' ') : ''}`
+
+    const newLog = {
+      id: `art-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+      date: formatSongDate(nextDay),
+      tag: '十艺',
+      text: fullMessage,
+      highlight: nextLv > currentLv || milestoneNotes.length > 0,
+    }
+
+    set({
+      dayCount: nextDay,
+      silver: s.silver - costSilver,
+      baseStats: nextBase,
+      artExps: { ...s.artExps, [artKey]: nextExp },
+      artMilestoneFlags: nextFlags,
+      ridingSkill: derived.ridingSkill,
+      skills: derived.skills,
+      agility: derived.agility,
+      maxHp: derived.maxHp,
+      maxMp: derived.maxMp,
+      res: derived.res,
+      logs: [newLog, ...s.logs].slice(0, 120),
+    })
+
+    return { ok: true, message: fullMessage }
+  },
 }))

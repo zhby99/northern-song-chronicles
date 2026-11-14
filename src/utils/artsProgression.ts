@@ -1,0 +1,198 @@
+import type { TenArtKey } from '../types/game'
+
+export const TEN_ARTS_KEYS: TenArtKey[] = [
+  '骑术',
+  '算术',
+  '经义',
+  '策论',
+  '诗词',
+  '琴',
+  '棋',
+  '书',
+  '画',
+  '辩才',
+]
+
+/**
+ * 任何一项十艺从 0 涨到 100 的基准总经验：180,000 点
+ * 以标准日修 100 点/日计，恰好需要 1,800 日（北宋 1 年=360 日，即 5 年不间断学习）
+ */
+export const MAX_ART_EXP = 180_000
+export const BASE_DAILY_ART_EXP = 100
+
+/**
+ * 四阶分段总经验阈值：
+ * - 0 ~ 40 级（初窥门径）：15% = 27,000（675 / 级）
+ * - 40 ~ 70 级（登堂入室）：25% = 45,000（1,500 / 级）
+ * - 70 ~ 90 级（名家之境）：30% = 54,000（2,700 / 级）
+ * - 90 ~ 100 级（一代宗师）：30% = 54,000（5,400 / 级）
+ */
+export function getExpForArtLevel(level: number): number {
+  const lv = Math.max(0, Math.min(100, Math.floor(level)))
+  if (lv <= 40) return Math.round(lv * 675)
+  if (lv <= 70) return 27_000 + Math.round((lv - 40) * 1_500)
+  if (lv <= 90) return 72_000 + Math.round((lv - 70) * 2_700)
+  return 126_000 + Math.round((lv - 90) * 5_400)
+}
+
+export function getArtLevelFromExp(exp: number): number {
+  const clamped = Math.max(0, Math.min(MAX_ART_EXP, Math.floor(exp)))
+  if (clamped < 27_000) return Math.floor(clamped / 675)
+  if (clamped < 72_000) return 40 + Math.floor((clamped - 27_000) / 1_500)
+  if (clamped < 126_000) return 70 + Math.floor((clamped - 72_000) / 2_700)
+  return Math.min(100, 90 + Math.floor((clamped - 126_000) / 5_400))
+}
+
+export function getArtStageLabel(level: number): string {
+  if (level >= 90) return '一代宗师'
+  if (level >= 70) return '名家之境'
+  if (level >= 40) return '登堂入室'
+  return '初窥门径'
+}
+
+/**
+ * 计算每日研习十艺获得的经验值
+ * @param wisdom 主角悟性（1~100，50为基准1.0x）
+ * @param envMultiplier 环境倍率（客栈自修 0.8x / 书院武堂 1.0x / 顶级圣地或名宿唱和 1.25x~1.5x）
+ * @param itemBonus 雅器/典籍品阶加成（0 ~ 0.5）
+ */
+export function computeDailyArtExpGain(
+  wisdom: number,
+  envMultiplier = 1.0,
+  itemBonus = 0,
+): number {
+  const wisdomMod = 1 + (Math.max(1, Math.min(100, wisdom)) - 50) * 0.004
+  return Math.max(10, Math.round(BASE_DAILY_ART_EXP * wisdomMod * envMultiplier * (1 + itemBonus)))
+}
+
+export interface TenArtGuideEntry {
+  key: TenArtKey
+  realm: string
+  summary: string
+  ways: string[]
+  placesAndNpcs: string
+  milestoneText: string
+}
+
+export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
+  {
+    key: '骑术',
+    realm: '御骏之道',
+    summary: '决定良驹驾驭上限与人马合一程度，直接加快大地图移动脚力及马战冲锋表现。',
+    ways: [
+      '装备良驹在天下舆图长途奔波，按日自动累积骑术经验',
+      '于秦州、大名府等武堂/马监参与驯马操练与茶马护队',
+      '研读《相马经》或佩带天阶名驹鞍辔提升驾驭感悟',
+    ],
+    placesAndNpcs: '秦州府（陇右金环刀堂）、大名府军寨、御马监',
+    milestoneText: '骑术首次达到 90 级：筋骨强健，永久【根骨 +2】',
+  },
+  {
+    key: '算术',
+    realm: '九章度支',
+    summary: '关系商道套利、三司查账、奇门机关拆解及部分高阶阵法推演。',
+    ways: [
+      '在州府书院/学馆系统研习算学',
+      '于开封三司、广州/泉州市舶司承接查账平准差事',
+      '向贾宪、沈括、苏颂等北宋算学巨匠唱和请教，把玩算筹雅器',
+    ],
+    placesAndNpcs: '开封府（三司）、广州府（市舶司）、杭州府',
+    milestoneText: '算术首次达到 90 级：格物致知，永久【悟性 +2】',
+  },
+  {
+    key: '经义',
+    realm: '儒释道典',
+    summary: '决定科举试帖、佛道高僧论法契合度，亦是少林/全真/终南等名门高阶心法门槛。',
+    ways: [
+      '在应天府、岳麓、白鹿洞、嵩阳四大书院研习经筵',
+      '于少林藏经阁、大相国寺抄经，或与玄慈、法空等高僧论法',
+      '展卷研读四书五经、佛道真经典籍',
+    ],
+    placesAndNpcs: '应天府书院、洛阳府（少林寺）、开封府（大相国寺）',
+    milestoneText: '经义首次达到 90 级：明心见性，永久【悟性 +2】',
+  },
+  {
+    key: '策论',
+    realm: '经世致用',
+    summary: '决定朝堂官场交涉、边防军幕推演与招揽豪杰时的说服权重。',
+    ways: [
+      '在州府书院研习历代奏议与边防策论',
+      '于延州、定州等边陲军幕参与沙盘推演，或收集民情撰写《平边策》',
+      '向范仲淹、欧阳修、包拯、王安石、司马光等名臣讨教',
+    ],
+    placesAndNpcs: '开封府（政事堂/翰林院）、延州府、定州军幕',
+    milestoneText: '策论首次达到 90 级：洞察世事，永久【悟性 +2】',
+  },
+  {
+    key: '诗词',
+    realm: '风雅宋词',
+    summary: '酒楼题壁、文会雅集、结交名士才女的核心艺业，关系部分音律/剑法意境领悟。',
+    ways: [
+      '在各地书院修习诗赋格律，或在汴京樊楼、西湖画舫饮酒题壁',
+      '参加重阳登高、元宵灯谜诗会',
+      '与欧阳修、晏殊、柳永、少年苏轼等文坛名宿唱和',
+    ],
+    placesAndNpcs: '开封府（樊楼）、杭州府（西湖）、扬州府',
+    milestoneText: '80 级永久【颜值 +2】 · 90 级永久【悟性 +2】',
+  },
+  {
+    key: '琴',
+    realm: '高山流水',
+    summary: '音功类武学共鸣基础，亦是逍遥派、终南隐宗等风雅门派极为看重的修养。',
+    ways: [
+      '在书院雅乐堂或客栈静室抚琴修习',
+      '集齐《广陵散》《幽兰》等古琴谱研读，佩带名琴雅器把玩',
+      '与知音名姝、逍遥派高人月下合奏唱和',
+    ],
+    placesAndNpcs: '姑苏（曼陀山庄/听香水榭）、杭州西湖、终南山',
+    milestoneText: '80 级永久【颜值 +2】 · 90 级永久【悟性 +2】',
+  },
+  {
+    key: '棋',
+    realm: '黑白手谈',
+    summary: '破译珍珑棋局、推演兵法奇阵之本，对逍遥派传承尤为关键。',
+    ways: [
+      '在茶肆棋馆或书院打谱复盘',
+      '挑战各地名山残局（如擂鼓山珍珑棋局）',
+      '与无崖子、苏星河、寺庙棋僧手谈对弈',
+    ],
+    placesAndNpcs: '擂鼓山、洛阳府、开封府茶肆、少林寺',
+    milestoneText: '棋艺首次达到 90 级：算无遗策，永久【悟性 +2】',
+  },
+  {
+    key: '书',
+    realm: '铁画银钩',
+    summary: '临帖拓碑、辨识前人石壁剑意刻字的前置根基，联动笔法/剑法招式领悟。',
+    ways: [
+      '在书院消耗笔墨纸砚临摹名碑法帖',
+      '游历洛阳龙门碑林等名胜拓印古碑',
+      '研读王羲之、颜真卿、柳公权传世法帖',
+    ],
+    placesAndNpcs: '洛阳府（龙门石窟碑林）、江南四大书院、杭州府',
+    milestoneText: '80 级永久【颜值 +2】 · 90 级永久【悟性 +2】',
+  },
+  {
+    key: '画',
+    realm: '青绿丹青',
+    summary: '名山写生、鉴宝辨伪、为侠客名姝绘像传神（大幅增进好感）之艺。',
+    ways: [
+      '在书院画室临摹宋代山水花鸟画谱',
+      '抵达奇绝名山大川时驻足写生',
+      '在古玩行鉴宝辨伪，或为结交人物绘制丹青',
+    ],
+    placesAndNpcs: '开封府（翰林图画院）、杭州府、大理府',
+    milestoneText: '80 级永久【颜值 +2】 · 90 级永久【悟性 +2】',
+  },
+  {
+    key: '辩才',
+    realm: '舌战群儒',
+    summary: '决定公堂状词、门派使节调停、市井砍价及高阶自由交谈的说服成功率。',
+    ways: [
+      '在书院参与“王霸之辨”“儒释之争”辩论',
+      '于开封府及各地衙门担任状师申冤，或出使各方势力调停',
+      '在黑市/行商大额交易中讨价还价',
+    ],
+    placesAndNpcs: '开封府（府衙/鸿胪寺）、各地酒楼茶肆',
+    milestoneText: '辩才首次达到 90 级：机锋敏锐，永久【悟性 +2】',
+  },
+]

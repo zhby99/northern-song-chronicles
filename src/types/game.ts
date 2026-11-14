@@ -24,6 +24,7 @@ export type CompendiumTabKey =
   | 'armory'
   | 'mounts'
   | 'treasures'
+  | 'arts'
 
 export type TenArtKey =
   | '骑术'
@@ -896,6 +897,8 @@ export interface SerializableGameState {
   maxMp: number
   res: number
   skills: Record<string, number>
+  artExps?: Partial<Record<TenArtKey, number>>
+  artMilestoneFlags?: string[]
 
   equipped: EquippedSlotsMap
   learnedArts: LearnedArtEntry[]
