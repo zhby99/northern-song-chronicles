@@ -127,6 +127,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ITM-SCR-092", price: 40, note: "凡阶 · 名家书画" },
       { itemId: "ITM-SCR-098", price: 85, note: "凡阶 · 经史典籍" },
       { itemId: "ITM-SCR-100", price: 70, note: "凡阶 · 名家书画" },
+      { itemId: "ITM-SCR-101", price: 200, note: "良阶中品 · 轻功《穿云纵》秘籍" },
       { itemId: "ITM-MED-113", price: 37, note: "良阶 · 御局成药" },
       { itemId: "ITM-MED-122", price: 13, note: "凡阶 · 官局常药" },
       { itemId: "ITM-MED-123", price: 14, note: "凡阶 · 回气散剂" },

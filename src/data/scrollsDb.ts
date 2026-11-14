@@ -1469,4 +1469,19 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
       skillGain: ['画', 2],
     },
   },
+  {
+    id: 'ITM-SCR-101',
+    name: '《穿云纵轻身图谱》',
+    category: 'scrolls',
+    subType: '武学秘籍',
+    rarity: '良阶',
+    stackable: false,
+    value: 200,
+    desc: '中原江湖流传甚广的门派进阶轻功图谱，详载丹田提气、足尖借力纵跃屋脊林木之法，行路矫健，尤擅山地穿行。',
+    useEffect: {
+      mp: 40,
+      learnArtId: 'MA-139',
+      learnArtHint: '参悟良品中品轻功《穿云纵》',
+    },
+  },
 ]
