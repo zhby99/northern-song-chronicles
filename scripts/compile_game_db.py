@@ -2013,6 +2013,14 @@ SECT_GENDERED_TEMPLATES: dict[tuple[str, str], tuple[str, str]] = {
     ("ORG-01", "女"): ("/assets/characters/templates/tpl_sanren_female_fb.jpg", "/assets/characters/templates/tpl_sanren_female_av.jpg"),
     ("ORG-02", "女"): ("/assets/characters/templates/tpl_song_court_female_fb.jpg", "/assets/characters/templates/tpl_song_court_female_av.jpg"),
     ("ORG-08", "男"): ("/assets/characters/templates/tpl_dali_royal_male_fb.jpg", "/assets/characters/templates/tpl_dali_royal_male_av.jpg"),
+    # Newly expanded frontier factions (SECT-31/32, ORG-06/07/09)
+    ("SECT-31", "男"): ("/assets/characters/templates/tpl_liao_spy_male_fb.jpg", "/assets/characters/templates/tpl_liao_spy_male_av.jpg"),
+    ("SECT-31", "女"): ("/assets/characters/templates/tpl_liao_spy_female_fb.jpg", "/assets/characters/templates/tpl_liao_spy_female_av.jpg"),
+    ("SECT-32", "男"): ("/assets/characters/templates/tpl_tubo_esoteric_male_fb.jpg", "/assets/characters/templates/tpl_tubo_esoteric_male_av.jpg"),
+    ("SECT-32", "女"): ("/assets/characters/templates/tpl_tubo_esoteric_female_fb.jpg", "/assets/characters/templates/tpl_tubo_esoteric_female_av.jpg"),
+    ("ORG-06", "男"): ("/assets/characters/templates/tpl_liao_court_male_fb.jpg", "/assets/characters/templates/tpl_liao_court_male_av.jpg"),
+    ("ORG-07", "男"): ("/assets/characters/templates/tpl_xixia_court_male_fb.jpg", "/assets/characters/templates/tpl_xixia_court_male_av.jpg"),
+    ("ORG-09", "男"): ("/assets/characters/templates/tpl_tubo_tribes_male_fb.jpg", "/assets/characters/templates/tpl_tubo_tribes_male_av.jpg"),
 }
 
 
@@ -3111,7 +3119,7 @@ def compile_all(do_normalize_docs: bool) -> None:
                 bname = base.get("customName") or default_name
                 base_interior: dict[str, Any] | None = None
                 has_base_pano = False
-                if bkey in ("tavern", "inn"):
+                if bkey in ("tavern", "inn", "yamen", "dojo", "academy"):
                     regime = node.get("regime") or "song"
                     if regime in ("xixia", "tubo", "liao", "dali"):
                         tpl_region = regime
@@ -3121,32 +3129,41 @@ def compile_all(do_normalize_docs: bool) -> None:
                         tpl_region = "song_south"
                     tpl_uri = f"/assets/buildings/templates/{bkey}_{tpl_region}.jpg"
                     has_base_pano = True
-                    if bkey == "tavern":
-                        base_interior = {
-                            "mode": "image",
-                            "panoramaUri": tpl_uri,
-                            "subtitle": f"市井酒肆大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
-                            "exitGate": {
-                                "label": f"步出酒肆（返回{region_name}全景）",
-                                "x": 688,
-                                "y": 698,
-                                "poly": "530,645 846,645 880,748 496,748",
-                            },
-                            "spots": [],
-                        }
-                    else:
-                        base_interior = {
-                            "mode": "image",
-                            "panoramaUri": tpl_uri,
-                            "subtitle": f"车马客栈大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
-                            "exitGate": {
-                                "label": f"步出客栈（返回{region_name}全景）",
-                                "x": 688,
-                                "y": 698,
-                                "poly": "530,645 846,645 880,748 496,748",
-                            },
-                            "spots": [],
-                        }
+                    base_copy = {
+                        "tavern": (
+                            f"市井酒肆大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内痛饮论道、探听风闻或寻访座上群侠",
+                            f"步出酒肆（返回{region_name}全景）",
+                        ),
+                        "inn": (
+                            f"车马客栈大堂《{bname}》— 独堂实景（暂不设子建筑），可在堂内投宿调息、药浴疗伤或结交歇脚豪客",
+                            f"步出客栈（返回{region_name}全景）",
+                        ),
+                        "yamen": (
+                            f"州府官署大堂《{bname}》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+                            f"步出官署（返回{region_name}全景）",
+                        ),
+                        "dojo": (
+                            f"演武武馆校场《{bname}》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+                            f"步出武馆（返回{region_name}全景）",
+                        ),
+                        "academy": (
+                            f"州学书院讲堂《{bname}》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+                            f"步出书院（返回{region_name}全景）",
+                        ),
+                    }
+                    b_sub, b_exit = base_copy[bkey]
+                    base_interior = {
+                        "mode": "image",
+                        "panoramaUri": tpl_uri,
+                        "subtitle": b_sub,
+                        "exitGate": {
+                            "label": b_exit,
+                            "x": 688,
+                            "y": 698,
+                            "poly": "530,645 846,645 880,748 496,748",
+                        },
+                        "spots": [],
+                    }
                 b_record = {
                     "id": bid,
                     "regionId": region_id,

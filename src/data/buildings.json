@@ -654,8 +654,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_north.jpg",
+      "subtitle": "州学书院讲堂《御街崇文书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回开封府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0018",
       "NPC-0064"
@@ -682,8 +693,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_north.jpg",
+      "subtitle": "演武武馆校场《西坊演武拳馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回开封府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0252",
       "NPC-0633"
@@ -712,8 +734,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_north.jpg",
+      "subtitle": "州府官署大堂《汴河漕运巡检司》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回开封府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0177",
       "NPC-0860",
@@ -1432,8 +1465,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_north.jpg",
+      "subtitle": "州府官署大堂《西京河南府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回洛阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0970"
     ]
@@ -1545,8 +1589,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_north.jpg",
+      "subtitle": "州学书院讲堂《洛滨崇儒书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回洛阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -1989,8 +2044,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_north.jpg",
+      "subtitle": "州府官署大堂《大名府留守司衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回大名府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0727"
     ]
@@ -2064,8 +2130,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_north.jpg",
+      "subtitle": "州学书院讲堂《元城讲武书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回大名府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0293",
       "NPC-0491",
@@ -2471,8 +2548,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_north.jpg",
+      "subtitle": "州府官署大堂《真定府都部署衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回真定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0011",
       "NPC-0549",
@@ -2580,8 +2668,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_north.jpg",
+      "subtitle": "演武武馆校场《滹沱河畔演武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回真定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0290",
       "NPC-0324"
@@ -2617,8 +2716,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_north.jpg",
+      "subtitle": "州学书院讲堂《恒阳儒林书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回真定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0733",
       "NPC-0764"
@@ -2966,8 +3076,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_north.jpg",
+      "subtitle": "州府官署大堂《河东经略安抚使衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回太原府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0037",
       "NPC-0381"
@@ -3039,8 +3160,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_north.jpg",
+      "subtitle": "演武武馆校场《并州刚烈武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回太原府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0303",
       "NPC-0319",
@@ -3077,8 +3209,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_north.jpg",
+      "subtitle": "州学书院讲堂《汾水崇文书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回太原府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0948"
     ]
@@ -3520,8 +3663,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_north.jpg",
+      "subtitle": "州府官署大堂《永兴军路京兆府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回京兆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0017",
       "NPC-0040",
@@ -3597,8 +3751,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_north.jpg",
+      "subtitle": "州学书院讲堂《长安横渠关学书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回京兆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0041",
       "NPC-0048",
@@ -3627,8 +3792,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_north.jpg",
+      "subtitle": "演武武馆校场《关中振威演武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回京兆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0308",
       "NPC-0678"
@@ -4038,8 +4214,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_north.jpg",
+      "subtitle": "州府官署大堂《鄜延路经略安抚使司》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回延安府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0044",
       "NPC-0569",
@@ -4107,8 +4294,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_north.jpg",
+      "subtitle": "演武武馆校场《延州铁血演武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回延安府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0270"
     ]
@@ -4181,8 +4379,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_north.jpg",
+      "subtitle": "州学书院讲堂《嘉岭边策书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回延安府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0584"
     ]
@@ -4654,8 +4863,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_north.jpg",
+      "subtitle": "州府官署大堂《京东东路齐州府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回济南府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0010"
     ]
@@ -4729,8 +4949,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_north.jpg",
+      "subtitle": "州学书院讲堂《泺源稷下书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回济南府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0523"
     ]
@@ -5134,8 +5365,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《扬州府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回扬州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -5208,8 +5450,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《安定胡公书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回扬州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -5233,8 +5486,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_south.jpg",
+      "subtitle": "演武武馆校场《江淮演武拳馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回扬州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0314",
       "NPC-0874"
@@ -5627,8 +5891,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《江宁府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回江宁府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0838",
       "NPC-0840",
@@ -5666,8 +5941,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《钟山明道书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回江宁府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0019",
       "NPC-0325",
@@ -5737,8 +6023,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_south.jpg",
+      "subtitle": "演武武馆校场《白下演武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回江宁府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0538",
       "NPC-0787"
@@ -6127,8 +6424,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《苏州平江府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回苏州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0916"
     ]
@@ -6163,8 +6471,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《沧浪亭书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回苏州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0024",
       "NPC-0051"
@@ -6234,8 +6553,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_south.jpg",
+      "subtitle": "演武武馆校场《吴门剑武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回苏州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0250",
       "NPC-0947"
@@ -6756,8 +7086,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《杭州府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回杭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0009"
     ]
@@ -6835,8 +7176,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《万松湖山书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回杭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0061",
       "NPC-0312",
@@ -7382,8 +7734,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《成都府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回成都府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0025",
       "NPC-0027",
@@ -7420,8 +7783,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《文翁石室书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回成都府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0054",
       "NPC-0517",
@@ -7866,8 +8240,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《襄阳府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回襄阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0026"
     ]
@@ -7934,8 +8319,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_south.jpg",
+      "subtitle": "演武武馆校场《荆襄演武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回襄阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -7968,8 +8364,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《鹿门紫阳书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回襄阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0404",
       "NPC-0578"
@@ -8488,8 +8895,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《泉州府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回泉州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -8562,8 +8980,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《清源紫阳书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回泉州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0349",
       "NPC-0488"
@@ -8926,8 +9355,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_liao.jpg",
+      "subtitle": "州府官署大堂《大辽南京析津府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回析津府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0079",
       "NPC-1011"
@@ -8991,8 +9431,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_liao.jpg",
+      "subtitle": "演武武馆校场《燕云遗民义勇拳馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回析津府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0642"
     ]
@@ -9027,8 +9478,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_liao.jpg",
+      "subtitle": "州学书院讲堂《蓟城崇文书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回析津府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1018"
     ]
@@ -9378,8 +9840,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_liao.jpg",
+      "subtitle": "州府官署大堂《大辽中京大定府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回大定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1020"
     ]
@@ -9445,8 +9918,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_liao.jpg",
+      "subtitle": "演武武馆校场《契丹摔跤角抵武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回大定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1017"
     ]
@@ -9481,8 +9965,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_liao.jpg",
+      "subtitle": "州学书院讲堂《中京汉城儒学书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回大定府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1014"
     ]
@@ -9846,8 +10341,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_liao.jpg",
+      "subtitle": "州府官署大堂《大辽上京临潢府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回临潢府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1012"
     ]
@@ -9910,8 +10416,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_liao.jpg",
+      "subtitle": "演武武馆校场《上京草原博克武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回临潢府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1016"
     ]
@@ -9946,8 +10463,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_liao.jpg",
+      "subtitle": "州学书院讲堂《上京国子监汉学馆》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回临潢府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -10434,8 +10962,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_xixia.jpg",
+      "subtitle": "州府官署大堂《兴庆府番汉衙署》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回兴庆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0083",
       "NPC-1031"
@@ -10502,8 +11041,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_xixia.jpg",
+      "subtitle": "演武武馆校场《党项演武场》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回兴庆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1034",
       "NPC-1038"
@@ -10539,8 +11089,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_xixia.jpg",
+      "subtitle": "州学书院讲堂《番学国子院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回兴庆府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1033"
     ]
@@ -10924,8 +11485,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_tubo.jpg",
+      "subtitle": "州府官署大堂《逻些宣抚司署》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回逻些（拉萨）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1023"
     ]
@@ -10991,8 +11563,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_tubo.jpg",
+      "subtitle": "演武武馆校场《密宗护法武院》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回逻些（拉萨）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1027",
       "NPC-1029"
@@ -11028,8 +11611,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_tubo.jpg",
+      "subtitle": "州学书院讲堂《雪域译经讲院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回逻些（拉萨）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1024"
     ]
@@ -11423,8 +12017,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_dali.jpg",
+      "subtitle": "州府官署大堂《大理国爽省府衙》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回阳苴咩城（大理）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0087",
       "NPC-1002"
@@ -11490,8 +12095,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_dali.jpg",
+      "subtitle": "演武武馆校场《苍山演武馆》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回阳苴咩城（大理）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1006"
     ]
@@ -11526,8 +12142,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_dali.jpg",
+      "subtitle": "州学书院讲堂《点苍太学书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回阳苴咩城（大理）全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1008"
     ]
@@ -17807,8 +18434,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《广州府衙 · 市舶巡检司》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回广州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -17919,8 +18557,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《番山州学讲堂》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回广州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -18372,8 +19021,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《潭州府衙 · 荆湖安抚司》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回潭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0468"
     ]
@@ -18483,8 +19143,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《城南湘水学舍》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回潭州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -18812,8 +19483,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_south.jpg",
+      "subtitle": "州府官署大堂《洪州府衙 · 江南西路转运司》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回洪州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0500"
     ]
@@ -18918,8 +19600,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_song_south.jpg",
+      "subtitle": "演武武馆校场《洪州水陆演武场》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回洪州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0660",
       "NPC-0882"
@@ -18955,8 +19648,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_south.jpg",
+      "subtitle": "州学书院讲堂《东湖豫章书院》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回洪州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -19391,8 +20095,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_song_north.jpg",
+      "subtitle": "州府官署大堂《秦州府衙 · 秦凤经略安抚司》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回秦州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-0045"
     ]
@@ -19504,8 +20219,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_song_north.jpg",
+      "subtitle": "州学书院讲堂《天水边塞讲武学堂》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回秦州府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1043"
     ]
@@ -19838,8 +20564,19 @@
         1
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/yamen_liao.jpg",
+      "subtitle": "州府官署大堂《东京警巡院 · 捕盗司》— 独堂实景（暂不设子建筑），可于堂前揭榜缉凶、领赏办案或拜会守土官吏",
+      "exitGate": {
+        "label": "步出官署（返回辽阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   },
   {
@@ -19941,8 +20678,19 @@
       "mp": 22,
       "agi": 1
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/dojo_liao.jpg",
+      "subtitle": "演武武馆校场《东京渤海演武场》— 独堂实景（暂不设子建筑），可于场内桩功吐纳、磨砺气血身法或切磋把式",
+      "exitGate": {
+        "label": "步出武馆（返回辽阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": [
       "NPC-1019"
     ]
@@ -19977,8 +20725,19 @@
         2
       ]
     },
-    "hasPanoramaImage": false,
-    "interior": null,
+    "hasPanoramaImage": true,
+    "interior": {
+      "mode": "image",
+      "panoramaUri": "/assets/buildings/templates/academy_liao.jpg",
+      "subtitle": "州学书院讲堂《东京汉人儒学讲堂》— 独堂实景（暂不设子建筑），可于堂内研习经史典籍、策论算学或雅集论道",
+      "exitGate": {
+        "label": "步出书院（返回辽阳府全景）",
+        "x": 688,
+        "y": 698,
+        "poly": "530,645 846,645 880,748 496,748"
+      },
+      "spots": []
+    },
     "residentNpcIds": []
   }
 ]

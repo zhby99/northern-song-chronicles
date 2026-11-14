@@ -4227,9 +4227,44 @@
       "bytes": 91887
     },
     {
+      "id": "tpl_jinhuan_male_fb",
+      "url": "/assets/characters/templates/tpl_jinhuan_male_fb.jpg",
+      "bytes": 253609
+    },
+    {
       "id": "tpl_khitan_warrior_fb",
       "url": "/assets/characters/templates/tpl_khitan_warrior_fb.jpg",
       "bytes": 1112539
+    },
+    {
+      "id": "tpl_liao_court_male_av",
+      "url": "/assets/characters/templates/tpl_liao_court_male_av.jpg",
+      "bytes": 82104
+    },
+    {
+      "id": "tpl_liao_court_male_fb",
+      "url": "/assets/characters/templates/tpl_liao_court_male_fb.jpg",
+      "bytes": 169454
+    },
+    {
+      "id": "tpl_liao_spy_female_av",
+      "url": "/assets/characters/templates/tpl_liao_spy_female_av.jpg",
+      "bytes": 79468
+    },
+    {
+      "id": "tpl_liao_spy_female_fb",
+      "url": "/assets/characters/templates/tpl_liao_spy_female_fb.jpg",
+      "bytes": 192277
+    },
+    {
+      "id": "tpl_liao_spy_male_av",
+      "url": "/assets/characters/templates/tpl_liao_spy_male_av.jpg",
+      "bytes": 78369
+    },
+    {
+      "id": "tpl_liao_spy_male_fb",
+      "url": "/assets/characters/templates/tpl_liao_spy_male_fb.jpg",
+      "bytes": 145993
     },
     {
       "id": "tpl_liushenmen_female_av",
@@ -4347,6 +4382,16 @@
       "bytes": 279997
     },
     {
+      "id": "tpl_song_court_female_av",
+      "url": "/assets/characters/templates/tpl_song_court_female_av.jpg",
+      "bytes": 55814
+    },
+    {
+      "id": "tpl_song_court_female_fb",
+      "url": "/assets/characters/templates/tpl_song_court_female_fb.jpg",
+      "bytes": 141507
+    },
+    {
       "id": "tpl_song_empress_fb",
       "url": "/assets/characters/templates/tpl_song_empress_fb.jpg",
       "bytes": 1071232
@@ -4452,6 +4497,36 @@
       "bytes": 253865
     },
     {
+      "id": "tpl_tubo_esoteric_female_av",
+      "url": "/assets/characters/templates/tpl_tubo_esoteric_female_av.jpg",
+      "bytes": 63118
+    },
+    {
+      "id": "tpl_tubo_esoteric_female_fb",
+      "url": "/assets/characters/templates/tpl_tubo_esoteric_female_fb.jpg",
+      "bytes": 171624
+    },
+    {
+      "id": "tpl_tubo_esoteric_male_av",
+      "url": "/assets/characters/templates/tpl_tubo_esoteric_male_av.jpg",
+      "bytes": 73513
+    },
+    {
+      "id": "tpl_tubo_esoteric_male_fb",
+      "url": "/assets/characters/templates/tpl_tubo_esoteric_male_fb.jpg",
+      "bytes": 180621
+    },
+    {
+      "id": "tpl_tubo_tribes_male_av",
+      "url": "/assets/characters/templates/tpl_tubo_tribes_male_av.jpg",
+      "bytes": 92072
+    },
+    {
+      "id": "tpl_tubo_tribes_male_fb",
+      "url": "/assets/characters/templates/tpl_tubo_tribes_male_fb.jpg",
+      "bytes": 207772
+    },
+    {
       "id": "tpl_unorthodox_master_fb",
       "url": "/assets/characters/templates/tpl_unorthodox_master_fb.jpg",
       "bytes": 921546
@@ -4550,6 +4625,16 @@
       "id": "tpl_xingxiu_female_fb",
       "url": "/assets/characters/templates/tpl_xingxiu_female_fb.jpg",
       "bytes": 168759
+    },
+    {
+      "id": "tpl_xixia_court_male_av",
+      "url": "/assets/characters/templates/tpl_xixia_court_male_av.jpg",
+      "bytes": 80733
+    },
+    {
+      "id": "tpl_xixia_court_male_fb",
+      "url": "/assets/characters/templates/tpl_xixia_court_male_fb.jpg",
+      "bytes": 174325
     },
     {
       "id": "tpl_yipintang_av",
