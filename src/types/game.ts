@@ -365,6 +365,9 @@ export interface CompiledNpcRecord {
   fullbodyUrl: string | null
   templateUrl: string
   ownedArtifactIds?: string[]
+  equippedArts: EquippedArtsMap
+  learnedArts: LearnedArtEntry[]
+  equipped: EquippedSlotsMap
 }
 
 export type SectTierKind = '一流大派' | '二流门派' | '三流小派' | '朝堂与地域组织'

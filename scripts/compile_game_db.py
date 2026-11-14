@@ -2331,6 +2331,342 @@ def parse_unique_artifacts(npcs_by_id: dict[str, dict[str, Any]]) -> list[dict[s
     return records
 
 
+def populate_npc_loadouts(
+    npcs: list[dict[str, Any]],
+    martial_arts: list[dict[str, Any]],
+    weapons: list[dict[str, Any]],
+    gear: list[dict[str, Any]],
+    mounts: list[dict[str, Any]],
+) -> None:
+    """
+    为所有 1,000 名 NPC 配齐：
+    1) 6 个武学槽位 (neigong, qinggong, move1~move4) 与对应的 learnedArts (含 1~10 重火候)
+       - 优先使用自身 knownArtIds；空缺优先从所属门派(factionId)武学中补，不足再从通用武学(sectId=None)补
+    2) 7 个披挂槽位 (weapon, armor, shoes, bow, accessory1, accessory2, mount)
+       - 优先佩戴 ownedArtifactIds 中的天/地阶孤品
+       - 空缺：一流及以上(realmRank <= 9)从【良阶】补，二流及以下(realmRank >= 10)从【凡阶】补
+    """
+    art_by_id = {a["id"]: a for a in martial_arts}
+    tier_rank = {"天阶": 4, "地阶": 3, "良品": 2, "凡品": 1}
+
+    def allowed_art_tiers(realm_rank: int) -> list[str]:
+        if realm_rank <= 3:
+            return ["天阶", "地阶", "良品", "凡品"]
+        if realm_rank <= 6:
+            return ["地阶", "天阶", "良品", "凡品"]
+        if realm_rank <= 9:
+            return ["良品", "地阶", "凡品"]
+        if realm_rank <= 12:
+            return ["良品", "凡品"]
+        return ["凡品", "良品"]
+
+    def default_art_level(realm_rank: int, art_tier: str, npc_num: int) -> int:
+        if realm_rank == 1:  # 大宗师上品
+            return 10
+        if realm_rank == 2:  # 大宗师中品
+            return 9 if art_tier == "天阶" else 10
+        if realm_rank == 3:  # 大宗师下品
+            return 9 if art_tier in ("天阶", "地阶") else 10
+        if realm_rank == 4:  # 宗师上品
+            if art_tier == "天阶":
+                return 8
+            if art_tier == "地阶":
+                return 9
+            return 10
+        if realm_rank == 5:  # 宗师中品
+            return 8 if art_tier in ("天阶", "地阶") else 10
+        if realm_rank == 6:  # 宗师下品
+            if art_tier == "天阶":
+                return 7
+            if art_tier == "地阶":
+                return 8
+            if art_tier == "良品":
+                return 9
+            return 10
+        if realm_rank == 7:  # 一流上品
+            return 7 if art_tier in ("天阶", "地阶") else 9
+        if realm_rank == 8:  # 一流中品
+            if art_tier == "天阶":
+                return 6
+            if art_tier == "地阶":
+                return 7
+            if art_tier == "良品":
+                return 8
+            return 9
+        if realm_rank == 9:  # 一流下品
+            if art_tier == "天阶":
+                return 5
+            if art_tier == "地阶":
+                return 7
+            return 8
+        if realm_rank == 10:  # 二流上品
+            if art_tier == "天阶":
+                return 3
+            if art_tier == "地阶":
+                return 6
+            if art_tier == "良品":
+                return 7
+            return 8
+        if realm_rank == 11:  # 二流中品
+            if art_tier == "天阶":
+                return 1
+            if art_tier == "地阶":
+                return 5
+            if art_tier == "良品":
+                return 6
+            return 7
+        if realm_rank == 12:  # 二流下品
+            if art_tier == "天阶":
+                return 1
+            if art_tier in ("地阶", "良品"):
+                return 5
+            return 6
+        if realm_rank == 13:  # 三流上品
+            if art_tier in ("天阶", "地阶"):
+                return 1
+            if art_tier == "良品":
+                return 4
+            return 5
+        if realm_rank == 14:  # 三流中品
+            if art_tier in ("天阶", "地阶"):
+                return 1
+            if art_tier == "良品":
+                return 3
+            return 4
+        if realm_rank == 15:  # 三流下品
+            if art_tier in ("天阶", "地阶"):
+                return 1
+            if art_tier == "良品":
+                return 2
+            return 3
+        # 不入流 (realm_rank == 16)
+        return 2 if art_tier == "凡品" else 1
+
+    def pick_from_pool(
+        pool: list[dict[str, Any]],
+        preferred_tiers: list[str],
+        exclude_ids: set[str],
+        seed: int,
+    ) -> dict[str, Any] | None:
+        avail = [x for x in pool if x["id"] not in exclude_ids]
+        if not avail:
+            return None
+        for t in preferred_tiers:
+            t_list = [x for x in avail if x["tier"] == t]
+            if t_list:
+                return t_list[seed % len(t_list)]
+        return avail[seed % len(avail)]
+
+    def pick_gear_for_slot(
+        pool: list[dict[str, Any]],
+        target_tier: str,
+        faction_id: str,
+        region_id: str,
+        seed: int,
+        exclude_ids: set[str] | None = None,
+        preferred_weapon_type: str | None = None,
+    ) -> str:
+        excl = exclude_ids or set()
+        tiered = [x for x in pool if x["tier"] == target_tier and x["id"] not in excl]
+        if not tiered:
+            tiered = [x for x in pool if x["id"] not in excl] or pool
+
+        # 武器优先匹配外功兵种
+        if preferred_weapon_type:
+            typed = [x for x in tiered if x.get("weaponType") == preferred_weapon_type]
+            if typed:
+                tiered = typed
+
+        # 优先匹配门派或地区
+        sect_match = [x for x in tiered if x.get("sectId") == faction_id]
+        if sect_match:
+            return sect_match[seed % len(sect_match)]["id"]
+        reg_match = [x for x in tiered if x.get("regionId") == region_id]
+        if reg_match:
+            return reg_match[seed % len(reg_match)]["id"]
+        return tiered[seed % len(tiered)]["id"]
+
+    cat_to_weapon_type = {
+        "剑法": "剑",
+        "刀法": "刀",
+        "枪法": "枪",
+        "棍棒": "棍棒",
+        "拳掌": "拳掌护手",
+        "指法": "拳掌护手",
+        "暗器": "暗器",
+        "音功": "奇门音兵",
+    }
+
+    gear_by_slot = {
+        "armor": [g for g in gear if g["slot"] == "armor"],
+        "shoes": [g for g in gear if g["slot"] == "shoes"],
+        "bow": [g for g in gear if g["slot"] == "bow"],
+        "accessory": [g for g in gear if g["slot"] == "accessory"],
+    }
+
+    for npc in npcs:
+        npc_num = int(npc["id"].split("-")[1])
+        realm_rank = int(npc.get("realmRank", 16))
+        faction_id = npc.get("factionId", "")
+        region_id = npc.get("regionId", "")
+        pref_tiers = allowed_art_tiers(realm_rank)
+
+        # 1) 6 槽武学选配
+        known_arts = [art_by_id[aid] for aid in npc.get("knownArtIds", []) if aid in art_by_id]
+        known_arts.sort(key=lambda a: tier_rank.get(a["tier"], 1), reverse=True)
+
+        neigong_id: str | None = None
+        qinggong_id: str | None = None
+        move_ids: list[str] = []
+
+        for a in known_arts:
+            if a["category"] == "内功" and neigong_id is None:
+                neigong_id = a["id"]
+            elif a["category"] == "轻功" and qinggong_id is None:
+                qinggong_id = a["id"]
+            elif a["category"] not in ("内功", "轻功") and len(move_ids) < 4:
+                move_ids.append(a["id"])
+
+        sect_arts = [a for a in martial_arts if a.get("sectId") == faction_id]
+        generic_arts = [a for a in martial_arts if a.get("sectId") is None]
+
+        used_ids: set[str] = set()
+        if neigong_id:
+            used_ids.add(neigong_id)
+        if qinggong_id:
+            used_ids.add(qinggong_id)
+        used_ids.update(move_ids)
+
+        if neigong_id is None:
+            picked = pick_from_pool(
+                [a for a in sect_arts if a["category"] == "内功"],
+                pref_tiers,
+                used_ids,
+                npc_num,
+            ) or pick_from_pool(
+                [a for a in generic_arts if a["category"] == "内功"],
+                pref_tiers,
+                used_ids,
+                npc_num,
+            )
+            if picked:
+                neigong_id = picked["id"]
+                used_ids.add(neigong_id)
+
+        if qinggong_id is None:
+            picked = pick_from_pool(
+                [a for a in sect_arts if a["category"] == "轻功"],
+                pref_tiers,
+                used_ids,
+                npc_num + 1,
+            ) or pick_from_pool(
+                [a for a in generic_arts if a["category"] == "轻功"],
+                pref_tiers,
+                used_ids,
+                npc_num + 1,
+            )
+            if picked:
+                qinggong_id = picked["id"]
+                used_ids.add(qinggong_id)
+
+        sect_moves = [a for a in sect_arts if a["category"] not in ("内功", "轻功")]
+        generic_moves = [a for a in generic_arts if a["category"] not in ("内功", "轻功")]
+        while len(move_ids) < 4:
+            seed = npc_num + len(move_ids) * 7
+            picked = pick_from_pool(sect_moves, pref_tiers, used_ids, seed) or pick_from_pool(
+                generic_moves, pref_tiers, used_ids, seed
+            )
+            if not picked:
+                break
+            move_ids.append(picked["id"])
+            used_ids.add(picked["id"])
+
+        equipped_arts = {
+            "neigong": neigong_id,
+            "qinggong": qinggong_id,
+            "move1": move_ids[0] if len(move_ids) > 0 else None,
+            "move2": move_ids[1] if len(move_ids) > 1 else None,
+            "move3": move_ids[2] if len(move_ids) > 2 else None,
+            "move4": move_ids[3] if len(move_ids) > 3 else None,
+        }
+        all_npc_art_ids = list(dict.fromkeys([*npc.get("knownArtIds", []), *used_ids]))
+        learned_arts = [
+            {
+                "artId": aid,
+                "level": min(10, max(1, default_art_level(realm_rank, art_by_id[aid]["tier"], npc_num))),
+                "exp": 0,
+            }
+            for aid in all_npc_art_ids
+            if aid in art_by_id
+        ]
+
+        npc["equippedArts"] = equipped_arts
+        npc["learnedArts"] = learned_arts
+
+        # 2) 7 槽披挂选配
+        equipped: dict[str, str | None] = {
+            "weapon": None,
+            "armor": None,
+            "shoes": None,
+            "bow": None,
+            "accessory1": None,
+            "accessory2": None,
+            "mount": None,
+        }
+        for oid in npc.get("ownedArtifactIds", []):
+            if oid.startswith("WPN-") and equipped["weapon"] is None:
+                equipped["weapon"] = oid
+            elif oid.startswith("ARM-") and equipped["armor"] is None:
+                equipped["armor"] = oid
+            elif oid.startswith("BOT-") and equipped["shoes"] is None:
+                equipped["shoes"] = oid
+            elif oid.startswith("BOW-") and equipped["bow"] is None:
+                equipped["bow"] = oid
+            elif oid.startswith("ACC-"):
+                if equipped["accessory1"] is None:
+                    equipped["accessory1"] = oid
+                elif equipped["accessory2"] is None:
+                    equipped["accessory2"] = oid
+            elif oid.startswith("MNT-") and equipped["mount"] is None:
+                equipped["mount"] = oid
+
+        fill_tier = "良阶" if realm_rank <= 9 else "凡阶"
+        move1_cat = art_by_id[move_ids[0]]["category"] if move_ids and move_ids[0] in art_by_id else ""
+        pref_wpn_type = cat_to_weapon_type.get(move1_cat)
+
+        if equipped["weapon"] is None:
+            equipped["weapon"] = pick_gear_for_slot(
+                weapons, fill_tier, faction_id, region_id, npc_num, preferred_weapon_type=pref_wpn_type
+            )
+        if equipped["armor"] is None:
+            equipped["armor"] = pick_gear_for_slot(
+                gear_by_slot["armor"], fill_tier, faction_id, region_id, npc_num + 2
+            )
+        if equipped["shoes"] is None:
+            equipped["shoes"] = pick_gear_for_slot(
+                gear_by_slot["shoes"], fill_tier, faction_id, region_id, npc_num + 3
+            )
+        if equipped["bow"] is None:
+            equipped["bow"] = pick_gear_for_slot(
+                gear_by_slot["bow"], fill_tier, faction_id, region_id, npc_num + 4
+            )
+        if equipped["accessory1"] is None:
+            equipped["accessory1"] = pick_gear_for_slot(
+                gear_by_slot["accessory"], fill_tier, faction_id, region_id, npc_num + 5
+            )
+        if equipped["accessory2"] is None:
+            excl = {equipped["accessory1"]} if equipped["accessory1"] else set()
+            equipped["accessory2"] = pick_gear_for_slot(
+                gear_by_slot["accessory"], fill_tier, faction_id, region_id, npc_num + 6, exclude_ids=excl
+            )
+        if equipped["mount"] is None:
+            equipped["mount"] = pick_gear_for_slot(
+                mounts, fill_tier, faction_id, region_id, npc_num + 7
+            )
+
+        npc["equipped"] = equipped
+
+
 def compile_all(do_normalize_docs: bool) -> None:
     if do_normalize_docs:
         norm_stats = normalize_markdown_docs()
@@ -2869,6 +3205,8 @@ def compile_all(do_normalize_docs: bool) -> None:
     for ua in unique_artifacts:
         if ua["ownerType"] == "npc" and ua["ownerNpcId"]:
             npcs_by_id[ua["ownerNpcId"]]["ownedArtifactIds"].append(ua["itemId"])
+
+    populate_npc_loadouts(npcs, martial_arts, weapons, gear, mounts)
 
     outputs = {
         "idRegistry.json": id_registry,
