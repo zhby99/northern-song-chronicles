@@ -1571,11 +1571,11 @@ export const TREASURE_VOLUME_METAS: Array<{
 // 七槽初始状态：佩备凡阶上品【青萍游侠剑】并乘骑天阶上品名驹【大宛汗血追风骥】（MNT-001）便于测试千里行军与换骑
 export const DEFAULT_EQUIPPED_SLOTS: EquippedSlotsMap = {
   weapon: 'WPN-061',
-  armor: null,
-  shoes: null,
-  bow: null,
-  accessory1: null,
-  accessory2: null,
+  armor: 'ARM-034',
+  shoes: 'BOT-018',
+  bow: 'BOW-018',
+  accessory1: 'ACC-033',
+  accessory2: 'ACC-035',
   mount: 'MNT-001',
 }
 

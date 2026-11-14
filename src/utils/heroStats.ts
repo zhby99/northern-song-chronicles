@@ -42,11 +42,11 @@ export const DEFAULT_HERO_BASE_STATS: HeroBaseStats = {
     悟性: DEFAULT_HERO_TALENTS.悟性,
     颜值: DEFAULT_HERO_TALENTS.颜值,
   },
-  maxHp: 1200,
-  maxMp: 950,
+  maxHp: 0,
+  maxMp: 0,
   maxStamina: 100,
-  agility: 65,
-  res: 40,
+  agility: 0,
+  res: 0,
   ridingSkill: 45,
   skills: {
     算术: 52,
@@ -64,11 +64,11 @@ export const DEFAULT_HERO_BASE_STATS: HeroBaseStats = {
 export function cloneHeroBaseStats(base: HeroBaseStats = DEFAULT_HERO_BASE_STATS): HeroBaseStats {
   return {
     talents: { ...base.talents },
-    maxHp: base.maxHp,
-    maxMp: base.maxMp,
+    maxHp: 0,
+    maxMp: 0,
     maxStamina: base.maxStamina,
-    agility: base.agility,
-    res: base.res,
+    agility: 0,
+    res: 0,
     ridingSkill: base.ridingSkill,
     skills: { ...base.skills },
   }
@@ -110,11 +110,11 @@ export function sanitizeHeroBaseStats(raw: unknown): HeroBaseStats {
       悟性: clampInt(rawTalents.悟性, 1, HERO_BASE_CAPS.talent, def.talents.悟性),
       颜值: clampInt(rawTalents.颜值, 1, HERO_BASE_CAPS.talent, def.talents.颜值),
     },
-    maxHp: clampInt(rec.maxHp, HERO_BASE_CAPS.minMaxHp, 99999, def.maxHp),
-    maxMp: clampInt(rec.maxMp, HERO_BASE_CAPS.minMaxMp, 99999, def.maxMp),
+    maxHp: 0,
+    maxMp: 0,
     maxStamina: clampInt(rec.maxStamina, HERO_BASE_CAPS.minMaxStamina, 999, def.maxStamina),
-    agility: clampInt(rec.agility, 1, HERO_BASE_CAPS.agility, def.agility),
-    res: clampInt(rec.res, 0, HERO_BASE_CAPS.res, def.res),
+    agility: 0,
+    res: 0,
     ridingSkill: clampInt(rec.ridingSkill, 0, HERO_BASE_CAPS.ridingSkill, def.ridingSkill),
     skills,
   }
@@ -133,8 +133,8 @@ export interface DerivedHeroEffectiveStats {
 }
 
 /**
- * 纯函数派生：由角色裸装成长根基 (baseStats) + 7槽披挂 + 6槽运使武学 实时合成有效实战与十艺属性。
- * 彻底杜绝穿脱装备或散功切换时因上限截断导致的“永久倒扣基础属性”与“反复穿脱白嫖回血”漏洞。
+ * 纯函数派生：实战交锋属性（气血/内力/身法/抗性/攻防）无裸身根基，100% 由【6槽运使武学 + 7槽披挂】实时合成；
+ * 非战斗养成维度（日常体能、骑术、十艺百工）由角色修为与披挂叠加。
  */
 export function deriveHeroEffectiveStats(
   baseStats: HeroBaseStats,
@@ -158,20 +158,14 @@ export function deriveHeroEffectiveStats(
   return {
     mountKey: equipTotals.mountKey,
     qinggongBonus: artTotals.qinggongBonus,
-    maxHp: Math.max(
-      HERO_BASE_CAPS.minMaxHp,
-      baseStats.maxHp + equipTotals.maxHp + artTotals.maxHp,
-    ),
-    maxMp: Math.max(
-      HERO_BASE_CAPS.minMaxMp,
-      baseStats.maxMp + equipTotals.maxMp + artTotals.maxMp,
-    ),
+    maxHp: Math.max(HERO_BASE_CAPS.minMaxHp, equipTotals.maxHp + artTotals.maxHp),
+    maxMp: Math.max(0, equipTotals.maxMp + artTotals.maxMp),
     maxStamina: Math.max(
       HERO_BASE_CAPS.minMaxStamina,
       baseStats.maxStamina + equipTotals.maxStamina,
     ),
-    agility: Math.max(1, baseStats.agility + equipTotals.agility + artTotals.agility),
-    res: Math.max(0, baseStats.res + equipTotals.res + artTotals.res),
+    agility: Math.max(1, equipTotals.agility + artTotals.agility),
+    res: Math.max(0, equipTotals.res + artTotals.res),
     ridingSkill: Math.max(0, baseStats.ridingSkill + equipTotals.riding),
     skills,
   }
@@ -215,10 +209,10 @@ export function deriveNpcEffectiveStats(npc: {
   const synergy = computeWeaponArtSynergy(npc.equipped.weapon, npc.equippedArts, npc.learnedArts)
 
   return {
-    maxHp: 250 + equipTotals.maxHp + artTotals.maxHp,
-    maxMp: 50 + equipTotals.maxMp + artTotals.maxMp,
-    agility: 15 + equipTotals.agility + artTotals.agility,
-    res: 8 + equipTotals.res + artTotals.res,
+    maxHp: Math.max(HERO_BASE_CAPS.minMaxHp, equipTotals.maxHp + artTotals.maxHp),
+    maxMp: Math.max(0, equipTotals.maxMp + artTotals.maxMp),
+    agility: Math.max(1, equipTotals.agility + artTotals.agility),
+    res: Math.max(0, equipTotals.res + artTotals.res),
     totalAttack: equipTotals.attack + artTotals.attack + synergy.totalSynergyAttack,
     totalDefense: equipTotals.defense + artTotals.defense,
     equipAttack: equipTotals.attack,

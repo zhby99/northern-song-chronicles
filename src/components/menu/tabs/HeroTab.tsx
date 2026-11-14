@@ -167,7 +167,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   />
                 </div>
                 <div className="text-[11px] text-[#7a6042] mt-1 font-mono">
-                  根基 {baseStats.maxHp} · 披挂 +{equipTotals.maxHp} · 武学 +{artTotals.maxHp}
+                  武学 +{artTotals.maxHp} · 披挂 +{equipTotals.maxHp}
                 </div>
               </div>
 
@@ -185,7 +185,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   />
                 </div>
                 <div className="text-[11px] text-[#7a6042] mt-1 font-mono">
-                  根基 {baseStats.maxMp} · 披挂 +{equipTotals.maxMp} · 武学 +{artTotals.maxMp}
+                  内功 +{artTotals.maxMp} · 披挂 +{equipTotals.maxMp}
                 </div>
               </div>
 
@@ -203,7 +203,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   />
                 </div>
                 <div className="text-[11px] text-[#7a6042] mt-1 font-mono">
-                  根基 {baseStats.maxStamina} · 披挂 +{equipTotals.maxStamina}
+                  日常体魄 {baseStats.maxStamina} · 披挂 +{equipTotals.maxStamina}
                 </div>
               </div>
             </div>
@@ -213,7 +213,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="p-4 rounded-lg bg-[#efe4cc] border border-[#c8b28e] space-y-2.5">
               <div className="song-serif font-bold text-sm text-[#23180f] border-b border-[#cbb693] pb-1.5 flex items-center justify-between">
-                <span>实战交锋属性（根基+披挂+武学实时派生）</span>
+                <span>实战交锋属性（武学+披挂实时派生）</span>
                 <span className="text-[11px] text-[#8f1d14] font-mono">回合交锋</span>
               </div>
               <div className="grid grid-cols-2 gap-2.5 text-xs">
@@ -223,7 +223,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                     +{totalAttack}
                   </div>
                   <div className="text-[10px] text-[#7a6042]">
-                    兵刃+{equipTotals.attack} / 招式+{artTotals.attack}
+                    披挂+{equipTotals.attack} / 招式+{artTotals.attack}
                     {weaponSynergy.totalSynergyAttack > 0
                       ? ` / 共鸣+${weaponSynergy.totalSynergyAttack}`
                       : ''}
@@ -244,14 +244,14 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                     {agility}
                   </div>
                   <div className="text-[10px] text-[#7a6042] font-mono">
-                    根基{baseStats.agility} / 履+{equipTotals.agility} / 轻+{artTotals.agility}
+                    轻功 +{artTotals.agility} · 披挂 +{equipTotals.agility}
                   </div>
                 </div>
                 <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693]">
                   <div className="text-[#6b5235]">周身抗性（毒寒火封）</div>
                   <div className="font-mono font-bold text-base text-[#5b3b73] mt-0.5">{res}</div>
                   <div className="text-[10px] text-[#7a6042] font-mono">
-                    根基{baseStats.res} / 饰+{equipTotals.res} / 内+{artTotals.res}
+                    内功 +{artTotals.res} · 披挂 +{equipTotals.res}
                   </div>
                 </div>
               </div>

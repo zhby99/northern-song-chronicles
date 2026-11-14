@@ -317,13 +317,13 @@ export function CombatOverlay() {
       role="dialog"
       aria-label="武林回合交锋"
     >
-      {/* 0. 所在建筑实景背景层（无黑幕遮挡，完整呈现宋代建筑庭院/厅堂原画或营造内景） */}
-      <div className="absolute inset-0 z-0 bg-[#241a12]">
+      {/* 0. 所在建筑实景背景层（景深柔焦虚化，烘托前景 3x 对峙立绘与宋韵空间感） */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-[#241a12]">
         {loadedBgUrl ? (
           <img
             src={loadedBgUrl}
             alt={sceneTitle}
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center blur-[6px] scale-105 brightness-95"
             decoding="async"
           />
         ) : duelBuilding ? (
@@ -331,16 +331,16 @@ export function CombatOverlay() {
             <svg
               viewBox="0 0 1600 900"
               preserveAspectRatio="xMidYMid slice"
-              className="w-full h-full block"
+              className="w-full h-full block blur-[6px] scale-105 brightness-95"
             >
               <SvgBuildingInteriorFallback building={duelBuilding} width={1600} height={900} />
             </svg>
           </Suspense>
         ) : null}
 
-        {/* 仅在顶底边缘加轻柔暗角衬托文字，中央建筑与庭院保持明亮通透 */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#120b06]/65 via-[#120b06]/20 to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#100905]/88 via-[#120b06]/42 to-transparent" />
+        {/* 顶底轻柔暗角衬托牌匾与战报文字 */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-[#120b06]/70 via-[#120b06]/25 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#100905]/90 via-[#120b06]/45 to-transparent" />
       </div>
 
       {/* 1. 左右 3x 巨幅等比全身立绘对峙舞台（立于建筑庭院地面之上） */}
