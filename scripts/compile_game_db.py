@@ -2347,6 +2347,14 @@ def populate_npc_loadouts(
        - 空缺：一流及以上(realmRank <= 9)从【良阶】补，二流及以下(realmRank >= 10)从【凡阶】补
     """
     art_by_id = {a["id"]: a for a in martial_arts}
+    if "MA-102" in art_by_id:
+        art_by_id["MA-102"]["tier"] = "地阶"
+        art_by_id["MA-102"]["subTier"] = "下品"
+        art_by_id["MA-102"]["fullTier"] = "地阶下品"
+    if "MA-060" in art_by_id:
+        art_by_id["MA-060"]["tier"] = "地阶"
+        art_by_id["MA-060"]["subTier"] = "上品"
+        art_by_id["MA-060"]["fullTier"] = "地阶上品"
     tier_rank = {"天阶": 4, "地阶": 3, "良品": 2, "凡品": 1}
 
     def allowed_art_tiers(realm_rank: int) -> list[str]:
@@ -2665,6 +2673,59 @@ def populate_npc_loadouts(
             )
 
         npc["equipped"] = equipped
+
+        # 3) 内功重数校准：若实算气血与内力平均高于预设 >= 2000 降 2 重，>= 1000 降 1 重
+        item_bonus_map = {
+            **{w["id"]: w.get("equipBonus", {}) for w in weapons},
+            **{g["id"]: g.get("equipBonus", {}) for g in gear},
+            **{m["id"]: m.get("equipBonus", {}) for m in mounts},
+        }
+        lv_map = {e["artId"]: e["level"] for e in learned_arts}
+        calc_hp, calc_mp = 250, 50
+        for slot_k in ("neigong", "qinggong"):
+            aid = equipped_arts.get(slot_k)
+            if aid and aid in art_by_id:
+                lv_val = lv_map.get(aid, 1)
+                st = art_by_id[aid]["levels"][lv_val - 1]
+                calc_hp += st.get("maxHp", 0)
+                calc_mp += st.get("maxMp", 0)
+        for iid in equipped.values():
+            if iid and iid in item_bonus_map:
+                b = item_bonus_map[iid]
+                calc_hp += b.get("maxHp", 0)
+                calc_mp += b.get("maxMp", 0)
+
+        preset_hp = npc.get("stats", {}).get("hp", 0)
+        preset_mp = npc.get("stats", {}).get("mp", 0)
+        avg_excess = ((calc_hp - preset_hp) + (calc_mp - preset_mp)) / 2.0
+        drop_lv = 2 if avg_excess >= 2000 else (1 if avg_excess >= 1000 else 0)
+        if drop_lv > 0 and neigong_id:
+            for e in learned_arts:
+                if e["artId"] == neigong_id:
+                    e["level"] = max(1, e["level"] - drop_lv)
+                    break
+
+        # 4) 指定宗师内功微调
+        if npc["id"] == "NPC-0105":  # 萧远山：少林九阳功 10 重
+            equipped_arts["neigong"] = "MA-038"
+            found = False
+            for e in learned_arts:
+                if e["artId"] == "MA-038":
+                    e["level"] = 10
+                    found = True
+                    break
+            if not found:
+                learned_arts.append({"artId": "MA-038", "level": 10, "exp": 0})
+        elif npc["id"] in ("NPC-0108", "NPC-0119", "NPC-0116", "NPC-0117", "NPC-0125", "NPC-0132") and neigong_id:
+            for e in learned_arts:
+                if e["artId"] == neigong_id:
+                    e["level"] = min(10, e["level"] + 1)
+                    break
+        elif npc["id"] in ("NPC-0124", "NPC-0121", "NPC-0127", "NPC-0126", "NPC-0112", "NPC-0123") and neigong_id:
+            for e in learned_arts:
+                if e["artId"] == neigong_id:
+                    e["level"] = max(1, e["level"] - 1)
+                    break
 
 
 def compile_all(do_normalize_docs: bool) -> None:
