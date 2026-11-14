@@ -478,8 +478,8 @@ export function getSectTeachableArts(sectId: string): SectTeachableArtInfo[] {
   if (faction.sharedMartialArtRule) {
     const { sourceSectId, maxRank } = faction.sharedMartialArtRule
     for (const art of MARTIAL_ARTS_DB) {
-      if (art.sectId !== sourceSectId) continue
-      const reqRank = Math.max(1, Math.min(5, art.minSectRank ?? 1)) as SectRankLevel
+      if (art.sectId !== sourceSectId || art.minSectRank == null) continue
+      const reqRank = Math.max(1, Math.min(5, art.minSectRank)) as SectRankLevel
       if (reqRank <= maxRank && !seen.has(art.id)) {
         seen.add(art.id)
         list.push({
@@ -493,9 +493,9 @@ export function getSectTeachableArts(sectId: string): SectTeachableArtInfo[] {
   }
 
   for (const art of MARTIAL_ARTS_DB) {
-    if (art.sectId !== sectId || seen.has(art.id)) continue
+    if (art.sectId !== sectId || art.minSectRank == null || seen.has(art.id)) continue
     seen.add(art.id)
-    const reqRank = Math.max(1, Math.min(5, art.minSectRank ?? 1)) as SectRankLevel
+    const reqRank = Math.max(1, Math.min(5, art.minSectRank)) as SectRankLevel
     list.push({
       art,
       requiredRank: reqRank,
@@ -613,6 +613,16 @@ export interface SectJoinEvaluation {
   allowOfficialTransferFromChangshan?: boolean
 }
 
+const DLC_LOCKED_SECTS = new Set([
+  'ORG-08',
+  'SECT-09',
+  'SECT-10',
+  'SECT-12',
+  'SECT-20',
+  'SECT-31',
+  'SECT-32',
+])
+
 export function evaluateSectEntry(params: {
   targetSectId: string
   sectState: PlayerSectState
@@ -634,6 +644,18 @@ export function evaluateSectEntry(params: {
       consumeItemId: null,
       requirementSummary: '未知势力',
       blockedReason: '该势力暂不收徒。',
+    }
+  }
+
+  if (DLC_LOCKED_SECTS.has(targetSectId)) {
+    return {
+      canJoin: false,
+      startingRank,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: '暂未开放加入（后续剧情 / DLC 敬请期待）',
+      blockedReason: `【${faction.name}】暂不开放拜入，相关专属剧情与武学传承将于后续剧情/DLC推出，敬请期待！`,
     }
   }
 

@@ -454,7 +454,7 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
     },
     {
         "id": "SECT-20",
-        "name": "一品堂 / 辽国武林暗桩",
+        "name": "西夏一品堂",
         "shortName": "一品堂",
         "isMajorSect": True,
         "isMinorSect": False,
@@ -462,7 +462,31 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "group": "朝廷鹰犬·草莽与外邦渗透势力",
         "stance": "外邦敌对",
         "hqRegionId": "xingqing_xixia",
-        "aliases": ["西夏一品堂", "辽国武林暗桩", "一品堂 / 辽国武林暗桩（外邦敌对势力）"],
+        "aliases": ["一品堂", "西夏一品堂"],
+    },
+    {
+        "id": "SECT-31",
+        "name": "辽国暗桩",
+        "shortName": "辽国暗桩",
+        "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
+        "group": "朝廷鹰犬·草莽与外邦渗透势力",
+        "stance": "外邦敌对",
+        "hqRegionId": "xijin_liao",
+        "aliases": ["辽国武林暗桩", "辽国暗桩"],
+    },
+    {
+        "id": "SECT-32",
+        "name": "吐蕃密宗",
+        "shortName": "吐蕃密宗",
+        "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
+        "group": "朝廷鹰犬·草莽与外邦渗透势力",
+        "stance": "雪域佛宗",
+        "hqRegionId": "luoxie_tubo",
+        "aliases": ["吐蕃密宗", "雪域密宗"],
     },
     # 其余 10 个初入江湖友好型二三流门派 (MARTIAL_ARTS_SECTS.md §3~§4)
     {
@@ -966,7 +990,9 @@ def resolve_sect_for_origin(origin_text: str) -> str | None:
         (["六扇门", "开封府", "禁军", "大内"], "SECT-17"),
         (["太行", "绿林"], "SECT-18"),
         (["星宿"], "SECT-19"),
-        (["一品堂", "辽", "契丹", "西夏"], "SECT-20"),
+        (["西夏一品堂", "一品堂", "西夏"], "SECT-20"),
+        (["辽国武林暗桩", "辽国暗桩", "北辽", "辽廷", "契丹"], "SECT-31"),
+        (["吐蕃密宗", "雪域密宗"], "SECT-32"),
         (["大理", "段氏", "天龙寺"], "ORG-08"),
         (["吐蕃", "密宗", "雪域"], "ORG-09"),
     ]
@@ -1394,7 +1420,43 @@ def parse_martial_arts() -> list[dict[str, Any]]:
                 }
             )
 
+    non_promotion_sect_arts = {
+        "MA-001",  # 易筋经
+        "MA-005",  # 降龙十八掌
+        "MA-013",  # 先天功
+        "MA-016",  # 打狗棒法
+        "MA-019",  # 火焰刀
+        "MA-024",  # 降魔杵法（大威德）
+        "MA-026",  # 化功大法
+        "MA-028",  # 龙象般若功
+        "MA-030",  # 紫霞神功（先天太岳卷）
+        "MA-032",  # 暴雨梨花针诀（唐门天机卷）
+        "MA-035",  # 铁掌水上漂（绝顶合卷）
+        "MA-036",  # 葵花残卷（大内秘藏前本）
+        "MA-037",  # 杨家霸王枪
+        "MA-069",  # 松风辟邪剑（青城真卷）
+        "MA-086",  # 催心掌
+        "MA-092",  # 胡汉八极刀
+    }
+    second_tier_sects = {"SECT-16", "SECT-18", "SECT-21", "SECT-22", "SECT-23", "SECT-24"}
+    sect_id_overrides = {
+        "MA-019": "SECT-32",  # 火焰刀 -> 吐蕃密宗
+        "MA-028": "SECT-32",  # 龙象般若功 -> 吐蕃密宗
+        "MA-072": "SECT-32",  # 血刀经刀法 -> 吐蕃密宗
+        "MA-073": "SECT-31",  # 修罗刀 -> 辽国暗桩
+        "MA-077": "SECT-31",  # 瞬息千里 -> 辽国暗桩
+        "MA-037": "SECT-31",  # 杨家霸王枪 -> 辽国暗桩
+        "MA-243": "SECT-31",  # 契丹玄阴吐纳诀 -> 辽国暗桩
+        "MA-244": "SECT-31",  # 黑水寒风掌 -> 辽国暗桩
+        "MA-133": "SECT-20",  # 西夏弯刀术 -> 西夏一品堂
+        "MA-232": "SECT-20",  # 大漠狼息功 -> 西夏一品堂
+        "MA-245": "SECT-20",  # 西夏秘藏玄功 -> 西夏一品堂
+        "MA-246": "SECT-20",  # 大漠踏沙行 -> 西夏一品堂
+    }
+
     for art in arts:
+        if art["id"] in sect_id_overrides:
+            art["sectId"] = sect_id_overrides[art["id"]]
         if art["id"] == "MA-008":
             art["tier"] = "天阶"
             art["subTier"] = "中品"
@@ -1407,9 +1469,19 @@ def parse_martial_arts() -> list[dict[str, Any]]:
             art["tier"] = "地阶"
             art["subTier"] = "下品"
             art["fullTier"] = "地阶下品"
-        if art["sectId"] is None:
+        if art["sectId"] is None or art["id"] in non_promotion_sect_arts:
             art["minSectRank"] = None
             art["minSectRankLabel"] = None
+        elif art["sectId"] in second_tier_sects:
+            if art["tier"] == "地阶":
+                art["minSectRank"] = None
+                art["minSectRankLabel"] = None
+            elif art["tier"] == "良品":
+                art["minSectRank"] = 2
+                art["minSectRankLabel"] = "内门弟子"
+            else:
+                art["minSectRank"] = 1
+                art["minSectRankLabel"] = "外门弟子"
         elif art["fullTier"] == "天阶上品":
             art["minSectRank"] = 5
             art["minSectRankLabel"] = "掌门"
@@ -1425,8 +1497,8 @@ def parse_martial_arts() -> list[dict[str, Any]]:
         art["levels"] = compute_martial_art_levels(art)
 
     arts.sort(key=lambda x: int(x["code"]))
-    if len(arts) != 242:
-        raise AssertionError(f"Expected 242 martial arts, got {len(arts)}")
+    if len(arts) != 246:
+        raise AssertionError(f"Expected 246 martial arts, got {len(arts)}")
     return arts
 
 
@@ -1964,13 +2036,13 @@ def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str
         pair = _existing_pair(fb_url, av_url)
         if pair:
             return pair
-    if faction_id in ("SECT-01", "SECT-03", "SECT-04") or "僧" in role or "禅" in role or "喇嘛" in role:
+    if faction_id in ("SECT-01", "SECT-03", "SECT-04", "SECT-32") or "僧" in role or "禅" in role or "喇嘛" in role:
         return "/assets/characters/templates/tpl_shaolin_monk_fb.jpg", None
     if faction_id in ("ORG-05", "SECT-29") or "医" in role or "药" in role:
         return "/assets/characters/templates/tpl_song_physician_fb.jpg", None
     if faction_id == "ORG-08":
         return "/assets/characters/templates/tpl_dali_prince_fb.jpg", None
-    if faction_id in ("ORG-06", "ORG-07", "ORG-09", "ORG-11", "SECT-20") and gender == "男":
+    if faction_id in ("ORG-06", "ORG-07", "ORG-09", "ORG-11", "SECT-20", "SECT-31") and gender == "男":
         return "/assets/characters/templates/tpl_khitan_warrior_fb.jpg", None
     if gender == "女":
         if faction_id in ("ORG-02", "ORG-06", "ORG-07", "ORG-08") and (
@@ -3347,6 +3419,8 @@ def compile_all(do_normalize_docs: bool) -> None:
         rank_titles = {
             "SECT-17": ["役卒巡捕", "捕头都头", "金牌总捕", "御前护卫", "大内总供奉"],
             "SECT-20": ["外围细作", "红牌武士", "客卿供奉", "征东副总管", "一品堂大总管"],
+            "SECT-31": ["外围暗探", "铁林细作", "北院死士", "南院密使", "北院大总管"],
+            "SECT-32": ["密宗沙弥", "护法僧", "红衣金刚", "护国法王", "大轮明王"],
             "SECT-02": ["外门帮众", "内门香主", "分舵堂主", "长老副帮主", "帮主总舵主"],
             "SECT-15": ["外门帮众", "内门香主", "分舵堂主", "长老副帮主", "帮主总舵主"],
             "SECT-16": ["外门帮众", "内门香主", "分舵堂主", "长老副帮主", "帮主总舵主"],

@@ -2,18 +2,18 @@
   "schemaVersion": "M1.1.0",
   "counts": {
     "regions": 43,
-    "majorSects": 18,
+    "majorSects": 20,
     "minorSects": 12,
-    "totalSects": 30,
+    "totalSects": 32,
     "otherOrganizations": 11,
-    "totalFactions": 41,
+    "totalFactions": 43,
     "specialBuildings": 147,
     "specialBuildingsWithImage": 136,
     "specialBuildingsWithSvgFallback": 11,
     "cityBaseBuildings": 121,
     "totalBuildings": 268,
     "interiorSubBuildings": 441,
-    "martialArts": 242,
+    "martialArts": 246,
     "weapons": 100,
     "mounts": 28,
     "npcs": 1000,
@@ -1555,7 +1555,7 @@
     },
     {
       "id": "SECT-20",
-      "name": "一品堂 / 辽国武林暗桩",
+      "name": "西夏一品堂",
       "shortName": "一品堂",
       "isMajorSect": true,
       "isMinorSect": false,
@@ -1564,40 +1564,35 @@
       "stance": "外邦敌对",
       "hqRegionId": "xingqing_xixia",
       "aliases": [
-        "西夏一品堂",
-        "辽国武林暗桩",
-        "一品堂 / 辽国武林暗桩（外邦敌对势力）"
+        "一品堂",
+        "西夏一品堂"
       ],
-      "stanceMotto": "辽夏鹰犬·敌国渗透",
-      "hqDisplay": "REG-19 兴庆府（西夏一品堂）与 REG-16 析津府 / REG-18 临潢府 / REG-43 辽阳府（大辽武林暗桩）",
+      "stanceMotto": "西夏霸业·铁鹞枭雄",
+      "hqDisplay": "REG-20 逻些（拉萨）",
       "leaderNpcIds": [
-        "NPC-0121",
         "NPC-0130"
       ],
       "coreBuildingIds": [
         "xq_yipin",
         "xq_tieyaozi",
         "xj_marshal",
-        "lyf_yamen"
+        "lyf_yamen",
+        "lx_jokhang",
+        "lx_debate"
       ],
-      "highestArtTier": "天阶中品",
-      "summary": "一流大派 · 外邦敌对渗透势力（西夏征东司一品堂与大辽南北院招揽的四方恶人、番僧与铁骑武尊，常规不可拜入，仅限特殊卧底线或投敌枭雄线）",
+      "highestArtTier": "地阶中品",
+      "summary": "一流大派 · 雪域吐蕃密宗佛门（驻锡逻些大昭圣寺与雪域辩经大坛，兼具护国神僧与雪山血刀邪僧两脉）",
       "entryAndFeatures": "常规不可拜入，仅限特殊卧底线或历史奇遇交互。",
-      "memberCount": 59,
+      "memberCount": 22,
       "martialArtIds": [
-        "MA-019",
-        "MA-028",
-        "MA-037",
-        "MA-073",
-        "MA-077",
         "MA-133",
-        "MA-232"
+        "MA-232",
+        "MA-245",
+        "MA-246"
       ],
       "weaponIds": [
         "WPN-012",
-        "WPN-019",
-        "WPN-043",
-        "WPN-047"
+        "WPN-043"
       ],
       "acceptsOuterDisciple": true,
       "sharedMartialArtRule": null,
@@ -1607,6 +1602,93 @@
         "客卿供奉",
         "征东副总管",
         "一品堂大总管"
+      ]
+    },
+    {
+      "id": "SECT-31",
+      "name": "辽国暗桩",
+      "shortName": "辽国暗桩",
+      "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
+      "group": "朝廷鹰犬·草莽与外邦渗透势力",
+      "stance": "外邦敌对",
+      "hqRegionId": "xijin_liao",
+      "aliases": [
+        "辽国武林暗桩",
+        "辽国暗桩"
+      ],
+      "stanceMotto": "契丹南窥·幽燕暗刃",
+      "hqDisplay": "REG-16 析津府 / REG-18 临潢府",
+      "leaderNpcIds": [
+        "NPC-0121"
+      ],
+      "coreBuildingIds": [
+        "xj_marshal"
+      ],
+      "highestArtTier": "天阶下品",
+      "summary": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（契丹南窥·幽燕暗刃）",
+      "entryAndFeatures": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（契丹南窥·幽燕暗刃）",
+      "memberCount": 32,
+      "martialArtIds": [
+        "MA-037",
+        "MA-073",
+        "MA-077",
+        "MA-243",
+        "MA-244"
+      ],
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "外围暗探",
+        "铁林细作",
+        "北院死士",
+        "南院密使",
+        "北院大总管"
+      ]
+    },
+    {
+      "id": "SECT-32",
+      "name": "吐蕃密宗",
+      "shortName": "吐蕃密宗",
+      "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
+      "group": "朝廷鹰犬·草莽与外邦渗透势力",
+      "stance": "雪域佛宗",
+      "hqRegionId": "luoxie_tubo",
+      "aliases": [
+        "吐蕃密宗",
+        "雪域密宗"
+      ],
+      "stanceMotto": "雪域佛宗·密法神威",
+      "hqDisplay": "REG-20 逻些（拉萨）",
+      "leaderNpcIds": [
+        "NPC-0113"
+      ],
+      "coreBuildingIds": [
+        "lx_jokhang",
+        "lx_debate"
+      ],
+      "highestArtTier": "天阶中品",
+      "summary": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（雪域佛宗·密法神威）",
+      "entryAndFeatures": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（雪域佛宗·密法神威）",
+      "memberCount": 7,
+      "martialArtIds": [
+        "MA-019",
+        "MA-028",
+        "MA-072"
+      ],
+      "weaponIds": [],
+      "acceptsOuterDisciple": true,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "密宗沙弥",
+        "护法僧",
+        "红衣金刚",
+        "护国法王",
+        "大轮明王"
       ]
     },
     {
@@ -2382,7 +2464,7 @@
       "highestArtTier": "天阶中品",
       "summary": "庙堂政权与四夷王庭 · 雪域密宗",
       "entryAndFeatures": "青唐赞普 唃厮啰 NPC-0089、河州首领 瞎毡 NPC-0090（秦州府榷场互市）、大译师 玛尔巴 NPC-0092、护国法王 鸠摩智 NPC-0113（身负火焰刀与小无相功）。",
-      "memberCount": 7,
+      "memberCount": 5,
       "martialArtIds": [],
       "weaponIds": [],
       "acceptsOuterDisciple": null,
@@ -3044,7 +3126,7 @@
       "cleanName": "火焰刀",
       "fullTier": "天阶中品",
       "category": "刀法",
-      "sectId": "SECT-20"
+      "sectId": "SECT-32"
     },
     {
       "id": "MA-020",
@@ -3125,7 +3207,7 @@
       "cleanName": "龙象般若功",
       "fullTier": "天阶下品",
       "category": "内功",
-      "sectId": "SECT-20"
+      "sectId": "SECT-32"
     },
     {
       "id": "MA-029",
@@ -3206,7 +3288,7 @@
       "cleanName": "杨家霸王枪",
       "fullTier": "天阶下品",
       "category": "枪法",
-      "sectId": "SECT-20"
+      "sectId": "SECT-31"
     },
     {
       "id": "MA-038",
@@ -3521,7 +3603,7 @@
       "cleanName": "血刀经刀法",
       "fullTier": "地阶中品",
       "category": "刀法",
-      "sectId": null
+      "sectId": "SECT-32"
     },
     {
       "id": "MA-073",
@@ -3530,7 +3612,7 @@
       "cleanName": "修罗刀",
       "fullTier": "地阶中品",
       "category": "刀法",
-      "sectId": "SECT-20"
+      "sectId": "SECT-31"
     },
     {
       "id": "MA-074",
@@ -3566,7 +3648,7 @@
       "cleanName": "瞬息千里",
       "fullTier": "地阶中品",
       "category": "轻功",
-      "sectId": "SECT-20"
+      "sectId": "SECT-31"
     },
     {
       "id": "MA-078",
@@ -5052,6 +5134,42 @@
       "fullTier": "凡品中品",
       "category": "内功",
       "sectId": "SECT-30"
+    },
+    {
+      "id": "MA-243",
+      "code": "243",
+      "name": "契丹玄阴吐纳诀",
+      "cleanName": "契丹玄阴吐纳诀",
+      "fullTier": "良品下品",
+      "category": "内功",
+      "sectId": "SECT-31"
+    },
+    {
+      "id": "MA-244",
+      "code": "244",
+      "name": "黑水寒风掌",
+      "cleanName": "黑水寒风掌",
+      "fullTier": "良品下品",
+      "category": "拳掌",
+      "sectId": "SECT-31"
+    },
+    {
+      "id": "MA-245",
+      "code": "245",
+      "name": "西夏秘藏玄功",
+      "cleanName": "西夏秘藏玄功",
+      "fullTier": "地阶中品",
+      "category": "内功",
+      "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-246",
+      "code": "246",
+      "name": "大漠踏沙行",
+      "cleanName": "大漠踏沙行",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-20"
     }
   ],
   "weaponIndex": [
@@ -5224,7 +5342,7 @@
       "fullTier": "地阶中品",
       "weaponType": "刀",
       "regionId": "xijin_liao",
-      "sectId": "SECT-20"
+      "sectId": null
     },
     {
       "id": "WPN-020",
@@ -5476,7 +5594,7 @@
       "fullTier": "良阶中品",
       "weaponType": "棍棒",
       "regionId": "dading_liao",
-      "sectId": "SECT-20"
+      "sectId": null
     },
     {
       "id": "WPN-048",
@@ -5975,7 +6093,7 @@
       "breedCategory": "塞北北马",
       "baseSpeed": 355,
       "regionId": "linhuang_liao",
-      "sectId": "SECT-20"
+      "sectId": "SECT-31"
     },
     {
       "id": "MNT-003",
@@ -6035,7 +6153,7 @@
       "breedCategory": "塞北北马",
       "baseSpeed": 242,
       "regionId": "liaoyang_liao",
-      "sectId": "SECT-20"
+      "sectId": null
     },
     {
       "id": "MNT-009",
@@ -6065,7 +6183,7 @@
       "breedCategory": "塞北北马",
       "baseSpeed": 202,
       "regionId": "dading_liao",
-      "sectId": "SECT-20"
+      "sectId": null
     },
     {
       "id": "MNT-012",

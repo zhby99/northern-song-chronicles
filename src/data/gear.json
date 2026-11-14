@@ -974,7 +974,7 @@
     "subType": "劲装",
     "origin": "辽阳府",
     "regionId": "liaoyang_liao",
-    "sectId": "SECT-20",
+    "sectId": null,
     "value": 105,
     "equipBonus": {
       "defense": 24,
@@ -2059,7 +2059,7 @@
     "subType": "角弓",
     "origin": "辽阳府",
     "regionId": "liaoyang_liao",
-    "sectId": "SECT-20",
+    "sectId": null,
     "value": 410,
     "equipBonus": {
       "attack": 72,
@@ -3364,7 +3364,7 @@
     "subType": "信物",
     "origin": "辽阳府",
     "regionId": "liaoyang_liao",
-    "sectId": "SECT-20",
+    "sectId": null,
     "value": 95,
     "equipBonus": {
       "attack": 8

@@ -26,8 +26,8 @@
         "min": 85
       }
     ],
-    "minSectRank": 5,
-    "minSectRankLabel": "掌门",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -1016,8 +1016,8 @@
         "min": 3500
       }
     ],
-    "minSectRank": 5,
-    "minSectRankLabel": "掌门",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -2960,8 +2960,8 @@
         "min": 2800
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -3750,8 +3750,8 @@
         "min": 70
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -4517,7 +4517,7 @@
     "fullTier": "天阶中品",
     "category": "刀法",
     "origin": "吐蕃/西夏番僧秘传",
-    "sectId": "SECT-20",
+    "sectId": "SECT-32",
     "description": "聚内力于掌缘虚劈而出，无形刀气炽烈如焚天烈焰，数丈之外便可灼伤敌手经脉，霸道绝伦。",
     "prerequisitesText": "`根骨≥80`、`悟性≥82`、`内力≥3200`、`经义≥75`；抗性≥60（需承受燥火真气反噬）。",
     "statRequirements": [
@@ -4538,8 +4538,8 @@
         "min": 75
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -5610,8 +5610,8 @@
         "min": 70
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -5970,8 +5970,8 @@
         "min": 75
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -6411,7 +6411,7 @@
     "fullTier": "天阶下品",
     "category": "内功",
     "origin": "西域/辽边密宗",
-    "sectId": "SECT-20",
+    "sectId": "SECT-32",
     "description": "密宗护法神功，共分十三层，每进一层便增一龙一象之巨力，修至高层掌出如群象奔踏，刚猛骇人。",
     "prerequisitesText": "`根骨≥88`、`气血≥3500`、`经义≥65`；耗费极长闭关岁月，根骨不足者强练必致经脉尽断。",
     "statRequirements": [
@@ -6428,8 +6428,8 @@
         "min": 65
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -6826,8 +6826,8 @@
         "min": 70
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -7220,8 +7220,8 @@
         "min": 80
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -7770,8 +7770,8 @@
         "min": 2500
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -7962,8 +7962,8 @@
         "min": 70
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -8137,7 +8137,7 @@
     "fullTier": "天阶下品",
     "category": "枪法",
     "origin": "河东/抗辽名将",
-    "sectId": "SECT-20",
+    "sectId": "SECT-31",
     "description": "天波杨府家传杀伐枪术，“回马枪”绝技名震北辽铁骑，战阵无双。",
     "prerequisitesText": "`根骨≥82`、`气血≥3200`、`骑术≥80`；需先修成《六合大枪》或《杨氏梨花枪》。",
     "statRequirements": [
@@ -8154,8 +8154,8 @@
         "min": 80
       }
     ],
-    "minSectRank": 3,
-    "minSectRankLabel": "真传/长老",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -11002,8 +11002,8 @@
     "description": "青城山镇派快剑，如松间疾风掠影，专取咽喉手腕要害，迅疾狠辣。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 2,
-    "minSectRankLabel": "内门弟子",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -11234,13 +11234,13 @@
     "subTier": "中品",
     "fullTier": "地阶中品",
     "category": "刀法",
-    "origin": "西域边塞邪僧",
-    "sectId": null,
+    "origin": "吐蕃密宗/西域雪山邪僧",
+    "sectId": "SECT-32",
     "description": "刀路怪诞绝伦，专从腋下、胯间、肋旁等不可思议之诡角出刀见血。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": null,
-    "minSectRankLabel": null,
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -11313,8 +11313,8 @@
     "subTier": "中品",
     "fullTier": "地阶中品",
     "category": "刀法",
-    "origin": "一品堂/北辽高手",
-    "sectId": "SECT-20",
+    "origin": "辽国武林暗桩/北辽高手",
+    "sectId": "SECT-31",
     "description": "沙场屠戮凝练之凶煞刀术，刀风凄厉，气血越低时出刀杀伤越狂暴。",
     "prerequisitesText": null,
     "statRequirements": [],
@@ -11397,8 +11397,8 @@
     "description": "河北抗辽枪道魁首，一点寒星破重甲，大枪抖动如银龙出海。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 2,
-    "minSectRankLabel": "内门弟子",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -11629,8 +11629,8 @@
     "subTier": "中品",
     "fullTier": "地阶中品",
     "category": "轻功",
-    "origin": "辽廷/塞外秘传",
-    "sectId": "SECT-20",
+    "origin": "辽国武林暗桩/塞外秘传",
+    "sectId": "SECT-31",
     "description": "塞外草原绝顶奔袭轻功，爆发力惊人，数息间即可横跨整个战棋场地。",
     "prerequisitesText": null,
     "statRequirements": [],
@@ -12445,8 +12445,8 @@
     "description": "专碎心脉脏腑之歹毒掌力，外表毫无伤痕而内腑已受重创。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 2,
-    "minSectRankLabel": "内门弟子",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -12919,8 +12919,8 @@
     "description": "融合党项弯刀与关中大环刀之长，狂风卷沙，凶悍凌厉。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 2,
-    "minSectRankLabel": "内门弟子",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -12998,8 +12998,8 @@
     "description": "大运河漕帮总舵主镇帮枪术，舟楫颠簸与水陆混战中如蛟龙翻江。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 2,
-    "minSectRankLabel": "内门弟子",
+    "minSectRank": null,
+    "minSectRankLabel": null,
     "levels": [
       {
         "level": 1,
@@ -15637,8 +15637,8 @@
     "description": "文有太极安天下，武有八极定乾坤，贴身靠打与寸劲爆发极为凶猛。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -16190,8 +16190,8 @@
     "description": "舍弃防守全凭身法催动之快刀，一息连劈七刀，如朔风卷雪。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -16269,8 +16269,8 @@
     "description": "刚猛威武之大刀路数，缺一门而留生机，变招迅猛。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -16343,7 +16343,7 @@
     "subTier": "中品",
     "fullTier": "良品中品",
     "category": "刀法",
-    "origin": "一品堂/延安边塞",
+    "origin": "西夏一品堂/延安边塞",
     "sectId": "SECT-20",
     "description": "党项骑兵与一品堂好手常用弧刃刀法，贴身抹颈，诡谲难测。",
     "prerequisitesText": null,
@@ -16901,8 +16901,8 @@
     "description": "外练筋骨皮、内壮一口气，提升少量气血上限与火毒抗性。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -17287,8 +17287,8 @@
     "description": "放长击远，冷弹脆快，双臂甩开如猿臂轻舒，攻击距离较寻常拳法更远。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -17445,8 +17445,8 @@
     "description": "十指苦抓青砖陶罐练就之指力，扣人脉门肩井极为得手。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -17761,8 +17761,8 @@
     "description": "踏八卦步绕敌游走，刀随身转，避实击虚。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -17840,8 +17840,8 @@
     "description": "厚背沉重鬼头刀劈砍猛招，纯凭血气硬砸，震得对手虎口发麻。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -18156,8 +18156,8 @@
     "description": "以大宋铜钱磨刃掷出，随手可发，专打眼耳咽喉。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -18314,8 +18314,8 @@
     "description": "借荒草树枝微弱弹力疾奔，山林野径间追击逃逸颇具奇效。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "minSectRank": 1,
-    "minSectRankLabel": "外门弟子",
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
     "levels": [
       {
         "level": 1,
@@ -24724,7 +24724,7 @@
     "subTier": "上品",
     "fullTier": "凡品上品",
     "category": "内功",
-    "origin": "一品堂/辽国暗桩",
+    "origin": "西夏一品堂",
     "sectId": "SECT-20",
     "description": "塞北草原与西夏一品堂外围武士所修内功，行气迅猛，专适骑射奔袭与耐寒。",
     "prerequisitesText": null,
@@ -25741,6 +25741,362 @@
         "maxMp": 800,
         "maxHp": 900,
         "resistance": 15
+      }
+    ]
+  },
+  {
+    "id": "MA-243",
+    "code": "243",
+    "name": "契丹玄阴吐纳诀",
+    "cleanName": "契丹玄阴吐纳诀",
+    "tier": "良品",
+    "subTier": "下品",
+    "fullTier": "良品下品",
+    "category": "内功",
+    "origin": "辽国武林暗桩",
+    "sectId": "SECT-31",
+    "description": "大辽北院暗桩潜伏中原时所修内家心法，吐纳绵长隐蔽，不易外露真气破绽。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 37050,
+        "combatExpRequired": 10,
+        "maxMp": 232,
+        "maxHp": 248,
+        "resistance": 4
+      },
+      {
+        "level": 2,
+        "expRequired": 45600,
+        "combatExpRequired": 15,
+        "maxMp": 341,
+        "maxHp": 363,
+        "resistance": 6
+      },
+      {
+        "level": 3,
+        "expRequired": 54150,
+        "combatExpRequired": 20,
+        "maxMp": 465,
+        "maxHp": 495,
+        "resistance": 8
+      },
+      {
+        "level": 4,
+        "expRequired": 62700,
+        "combatExpRequired": 25,
+        "maxMp": 604,
+        "maxHp": 644,
+        "resistance": 10
+      },
+      {
+        "level": 5,
+        "expRequired": 68400,
+        "combatExpRequired": 30,
+        "maxMp": 760,
+        "maxHp": 808,
+        "resistance": 13
+      },
+      {
+        "level": 6,
+        "expRequired": 71250,
+        "combatExpRequired": 35,
+        "maxMp": 930,
+        "maxHp": 990,
+        "resistance": 16
+      },
+      {
+        "level": 7,
+        "expRequired": 74100,
+        "combatExpRequired": 40,
+        "maxMp": 1100,
+        "maxHp": 1172,
+        "resistance": 18
+      },
+      {
+        "level": 8,
+        "expRequired": 76950,
+        "combatExpRequired": 45,
+        "maxMp": 1271,
+        "maxHp": 1353,
+        "resistance": 21
+      },
+      {
+        "level": 9,
+        "expRequired": 79800,
+        "combatExpRequired": 50,
+        "maxMp": 1410,
+        "maxHp": 1502,
+        "resistance": 24
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "maxMp": 1550,
+        "maxHp": 1650,
+        "resistance": 26
+      }
+    ]
+  },
+  {
+    "id": "MA-244",
+    "code": "244",
+    "name": "黑水寒风掌",
+    "cleanName": "黑水寒风掌",
+    "tier": "良品",
+    "subTier": "下品",
+    "fullTier": "良品下品",
+    "category": "拳掌",
+    "origin": "辽国武林暗桩",
+    "sectId": "SECT-31",
+    "description": "源自白山黑水间的刚冷掌法，出掌裹挟刺骨寒风，专攻敌手胸腹要穴。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 1,
+    "minSectRankLabel": "外门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 12350,
+        "combatExpRequired": 10,
+        "physicalDamage": 45
+      },
+      {
+        "level": 2,
+        "expRequired": 15200,
+        "combatExpRequired": 15,
+        "physicalDamage": 66
+      },
+      {
+        "level": 3,
+        "expRequired": 18050,
+        "combatExpRequired": 20,
+        "physicalDamage": 90
+      },
+      {
+        "level": 4,
+        "expRequired": 20900,
+        "combatExpRequired": 25,
+        "physicalDamage": 117
+      },
+      {
+        "level": 5,
+        "expRequired": 22800,
+        "combatExpRequired": 30,
+        "physicalDamage": 147
+      },
+      {
+        "level": 6,
+        "expRequired": 23750,
+        "combatExpRequired": 35,
+        "physicalDamage": 180
+      },
+      {
+        "level": 7,
+        "expRequired": 24700,
+        "combatExpRequired": 40,
+        "physicalDamage": 213
+      },
+      {
+        "level": 8,
+        "expRequired": 25650,
+        "combatExpRequired": 45,
+        "physicalDamage": 246
+      },
+      {
+        "level": 9,
+        "expRequired": 26600,
+        "combatExpRequired": 50,
+        "physicalDamage": 273
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "physicalDamage": 300
+      }
+    ]
+  },
+  {
+    "id": "MA-245",
+    "code": "245",
+    "name": "西夏秘藏玄功",
+    "cleanName": "西夏秘藏玄功",
+    "tier": "地阶",
+    "subTier": "中品",
+    "fullTier": "地阶中品",
+    "category": "内功",
+    "origin": "西夏一品堂",
+    "sectId": "SECT-20",
+    "description": "西夏一品堂招揽西域奇人所创上乘内功，劲力阴柔沉厚，兼能护持心脉抵御大漠风沙寒毒。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 66300,
+        "combatExpRequired": 30,
+        "maxMp": 825,
+        "maxHp": 832,
+        "resistance": 8
+      },
+      {
+        "level": 2,
+        "expRequired": 81600,
+        "combatExpRequired": 40,
+        "maxMp": 1210,
+        "maxHp": 1221,
+        "resistance": 12
+      },
+      {
+        "level": 3,
+        "expRequired": 96900,
+        "combatExpRequired": 55,
+        "maxMp": 1650,
+        "maxHp": 1665,
+        "resistance": 17
+      },
+      {
+        "level": 4,
+        "expRequired": 112200,
+        "combatExpRequired": 75,
+        "maxMp": 2145,
+        "maxHp": 2164,
+        "resistance": 22
+      },
+      {
+        "level": 5,
+        "expRequired": 122400,
+        "combatExpRequired": 95,
+        "maxMp": 2695,
+        "maxHp": 2720,
+        "resistance": 27
+      },
+      {
+        "level": 6,
+        "expRequired": 127500,
+        "combatExpRequired": 115,
+        "maxMp": 3300,
+        "maxHp": 3330,
+        "resistance": 34
+      },
+      {
+        "level": 7,
+        "expRequired": 132600,
+        "combatExpRequired": 135,
+        "maxMp": 3905,
+        "maxHp": 3940,
+        "resistance": 40
+      },
+      {
+        "level": 8,
+        "expRequired": 137700,
+        "combatExpRequired": 160,
+        "maxMp": 4510,
+        "maxHp": 4551,
+        "resistance": 46
+      },
+      {
+        "level": 9,
+        "expRequired": 142800,
+        "combatExpRequired": 195,
+        "maxMp": 5005,
+        "maxHp": 5050,
+        "resistance": 51
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "maxMp": 5500,
+        "maxHp": 5550,
+        "resistance": 56
+      }
+    ]
+  },
+  {
+    "id": "MA-246",
+    "code": "246",
+    "name": "大漠踏沙行",
+    "cleanName": "大漠踏沙行",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "西夏一品堂",
+    "sectId": "SECT-20",
+    "description": "一品堂高手纵横贺兰山与大漠戈壁所习轻功，踏沙无痕，身形如大漠孤烟飘忽难测。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
       }
     ]
   }

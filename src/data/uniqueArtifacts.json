@@ -260,7 +260,7 @@
     "ownerNpcId": "NPC-0151",
     "ownerNpcName": "耶律狂澜",
     "ownerNpcTitle": "瀚海狂刀",
-    "ownerFactionName": "一品堂 / 辽国武林暗桩",
+    "ownerFactionName": "辽国暗桩",
     "ownerRegionId": "xijin_liao",
     "ownerLocationLabel": "析津府 > 辽南京兵马元帅府 > 南院重甲武士演武场",
     "note": "析津府辽军猛将瀚海狂刀耶律狂澜主战重刃"
@@ -512,7 +512,7 @@
     "ownerNpcId": "NPC-0130",
     "ownerNpcName": "赫连霸先",
     "ownerNpcTitle": "铁鹞大将军",
-    "ownerFactionName": "一品堂 / 辽国武林暗桩",
+    "ownerFactionName": "西夏一品堂",
     "ownerRegionId": "xingqing_xixia",
     "ownerLocationLabel": "兴庆府 > 西夏一品堂总堂 > 一品堂绿琉璃聚贤殿",
     "note": "西夏一品堂大总管铁鹞大将军赫连霸先随身重铠"
@@ -736,7 +736,7 @@
     "ownerNpcId": "NPC-0121",
     "ownerNpcName": "耶律惊鸿",
     "ownerNpcTitle": "北院天狼",
-    "ownerFactionName": "一品堂 / 辽国武林暗桩",
+    "ownerFactionName": "辽国暗桩",
     "ownerRegionId": "linhuang_liao",
     "ownerLocationLabel": "临潢府 > 大辽皇都金帐大内（捺钵御营） > 九龙金顶斡耳朵皇帐",
     "note": "大辽北院护国第一供奉耶律惊鸿控镫马靴"
@@ -778,7 +778,7 @@
     "ownerNpcId": "NPC-0121",
     "ownerNpcName": "耶律惊鸿",
     "ownerNpcTitle": "北院天狼",
-    "ownerFactionName": "一品堂 / 辽国武林暗桩",
+    "ownerFactionName": "辽国暗桩",
     "ownerRegionId": "linhuang_liao",
     "ownerLocationLabel": "临潢府 > 大辽皇都金帐大内（捺钵御营） > 九龙金顶斡耳朵皇帐",
     "note": "临潢府大辽北院天狼耶律惊鸿随身漠北射雕强弓"
@@ -1058,7 +1058,7 @@
     "ownerNpcId": "NPC-0152",
     "ownerNpcName": "努儿海",
     "ownerNpcTitle": "贺兰血鹰",
-    "ownerFactionName": "一品堂 / 辽国武林暗桩",
+    "ownerFactionName": "西夏一品堂",
     "ownerRegionId": "xingqing_xixia",
     "ownerLocationLabel": "兴庆府 > 西夏一品堂总堂 > 八角重檐武库藏珍阁",
     "note": "西夏一品堂贺兰血鹰努儿海执掌玄铁通行令"
@@ -1128,7 +1128,7 @@
     "ownerNpcId": "NPC-0130",
     "ownerNpcName": "赫连霸先",
     "ownerNpcTitle": "铁鹞大将军",
-    "ownerFactionName": "一品堂 / 辽国武林暗桩",
+    "ownerFactionName": "西夏一品堂",
     "ownerRegionId": "xingqing_xixia",
     "ownerLocationLabel": "兴庆府 > 西夏一品堂总堂 > 一品堂绿琉璃聚贤殿",
     "note": "西夏铁鹞大将军赫连霸先统兵冲阵重骑王"
@@ -1744,7 +1744,7 @@
     "ownerNpcId": "NPC-0130",
     "ownerNpcName": "赫连霸先",
     "ownerNpcTitle": "铁鹞大将军",
-    "ownerFactionName": "一品堂 / 辽国武林暗桩",
+    "ownerFactionName": "西夏一品堂",
     "ownerRegionId": "xingqing_xixia",
     "ownerLocationLabel": "兴庆府 > 西夏一品堂总堂 > 一品堂绿琉璃聚贤殿",
     "note": "兴庆府西夏一品堂大总管赫连霸先秘掌乌金母瓶奇毒"
