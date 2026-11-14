@@ -11,18 +11,24 @@ const DEFAULT_CUTOUT_HEIGHT_PCT = 88
  * so painted Song-style room/landscape backgrounds are completely stripped before compositing
  * onto the active region or building scene.
  */
-function resolveCutoutPortraitUrl(portraitUrl: string | null | undefined): string | null {
-  if (!portraitUrl) return null
+function resolveCutoutPortraitUrl(portraitUrl: string | null | undefined): {
+  targetUrl: string | null
+  isCutout: boolean
+} {
+  if (!portraitUrl) return { targetUrl: null, isCutout: false }
   if (portraitUrl.includes('/assets/characters/cutouts/')) {
-    return portraitUrl
+    return { targetUrl: portraitUrl, isCutout: true }
   }
   const match = /^\/assets\/characters\/(fullbody|templates)\/([^/.]+)\.[a-z0-9]+$/i.exec(
     portraitUrl,
   )
   if (match) {
-    return `/assets/characters/cutouts/${match[1]}/${match[2]}.webp`
+    const cutoutCandidate = `/assets/characters/cutouts/${match[1]}/${match[2]}.webp`
+    if (Object.prototype.hasOwnProperty.call(CUTOUT_HEIGHT_PCT_BY_URL, cutoutCandidate)) {
+      return { targetUrl: cutoutCandidate, isCutout: true }
+    }
   }
-  return null
+  return { targetUrl: portraitUrl, isCutout: false }
 }
 
 interface CutoutPortraitImgProps {
@@ -33,8 +39,15 @@ interface CutoutPortraitImgProps {
 }
 
 export function CutoutPortraitImg({ url, alt, className, style }: CutoutPortraitImgProps) {
-  const cutoutUrl = resolveCutoutPortraitUrl(url)
-  const { loadedUrl } = useLazyImage(cutoutUrl)
+  const { targetUrl, isCutout } = resolveCutoutPortraitUrl(url)
+  const primary = useLazyImage(targetUrl)
+  const fallback = useLazyImage(
+    primary.status === 'error' && targetUrl !== url ? url : null,
+  )
+
+  const usingFallback = primary.status === 'error' && targetUrl !== url
+  const loadedUrl = usingFallback ? fallback.loadedUrl : primary.loadedUrl
+  const effectiveIsCutout = usingFallback ? false : isCutout
 
   if (!loadedUrl) {
     return (
@@ -47,14 +60,15 @@ export function CutoutPortraitImg({ url, alt, className, style }: CutoutPortrait
     )
   }
 
-  const heightPct =
-    (cutoutUrl ? CUTOUT_HEIGHT_PCT_BY_URL[cutoutUrl] : undefined) ?? DEFAULT_CUTOUT_HEIGHT_PCT
+  const heightPct = effectiveIsCutout
+    ? ((targetUrl ? CUTOUT_HEIGHT_PCT_BY_URL[targetUrl] : undefined) ?? DEFAULT_CUTOUT_HEIGHT_PCT)
+    : 82
 
   return (
     <img
       src={loadedUrl}
       alt={alt}
-      className={className}
+      className={`${className ?? ''}${effectiveIsCutout ? '' : ' rounded-xl border border-[#8c6e46]/55'}`.trim()}
       style={{
         height: `${heightPct}%`,
         width: 'auto',
