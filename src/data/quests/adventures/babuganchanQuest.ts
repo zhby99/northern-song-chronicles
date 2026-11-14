@@ -230,7 +230,6 @@ const SCENE_03_FANLOU_OBSERVE: StorySceneDef = {
           opponent: { kind: 'custom', npc: buildJiefengScoutNpc() },
           rule: 'story_trial',
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '飞桥狭路相逢，退无可退！',
           onWin: [{ type: 'openScene', scene: SCENE_04_FANLOU_BATTLE_AFTER }],
           onLose: [
@@ -284,7 +283,7 @@ const SCENE_02_CHENG_EXPLAINS: StorySceneDef = {
     {
       type: 'toast',
       text: '已立下追查《八步赶蝉》三卷遗谱之约！请前往【开封府 · 樊楼 · 三层五楼飞桥雅阁】截查截风门暗哨。',
-      tone: 'info',
+      tone: 'talk',
       logTag: '秋蝉八步',
     },
   ],
@@ -522,7 +521,6 @@ const SCENE_12_LUHENG_AMBUSH: StorySceneDef = {
           opponent: { kind: 'custom', npc: buildJiefengDeputyNpc() },
           rule: 'story_trial',
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '陆横已封死塔门退路，唯有一战破围！',
           onWin: [{ type: 'openScene', scene: SCENE_13_LUOYANG_AFTER_BATTLE }],
           onLose: [
@@ -610,6 +608,101 @@ const SCENE_09_LUOYANG_BAIMASI: StorySceneDef = {
   onFinishEffects: [{ type: 'openScene', scene: SCENE_10_QINGSHUANG_MEET }],
 }
 
+const SCENE_21_FAREWELL_LUOYANG: StorySceneDef = {
+  id: 'scene_bbgc_21_farewell_luoyang',
+  title: '第二十一幕 · 清香一炷慰故人',
+  subtitle: '洛阳府 · 洛阳牡丹园（启程回汴）',
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '次日天明，秋雨初霁，洛阳城外群山如洗。青霜姥姥带着几名白马寺僧众赶来牡丹园接应，见水榭廊柱虽有刀剑劈砍之痕，但小阿蝉安然无恙地抱着黑漆木盒站在廊下，而截风门门主阴九幽已重伤遁走、短时间内绝无再犯之力，老人不由双手合十，眼眶湿润地向少侠深深一揖。',
+    },
+    {
+      speaker: { kind: 'custom', name: '青霜姥姥', title: '白马寺守塔居士', factionName: '洛阳旧人' },
+      text: '“沈大哥在天之灵，今日总算可以彻底安息了。老身这把老骨头守在齐云塔下三十年，所求者不过两件事：一者护住阿蝉平安长大，二者莫教沈大哥毕生心血沦为黑道贼子杀人越货的工具。如今这两桩心愿皆已托付得人，老身也算无愧于当年风陵渡的旧约。”',
+    },
+    {
+      speaker: { kind: 'custom', name: '青霜姥姥', title: '白马寺守塔居士', factionName: '洛阳旧人' },
+      text: '“这三卷原谱既然已由少侠参悟透彻，便由少侠一并带回东京汴梁，与程万里那老家伙在汴河边上同饮一碗烈酒、焚香告慰故人吧。日后江湖路远，风波险恶，望少侠以这门《八步赶蝉》多行救急扶危之侠举，莫负沈大哥当年以身殉道之心！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '“晚辈谨记姥姥肺腑之言！阿蝉既已安顿妥当，洛阳亦无后顾之忧，晚辈这便拜别姥姥与白马寺诸位师父，动身东返开封，向程前辈复命！”',
+    },
+  ],
+  onFinishEffects: [
+    {
+      type: 'setQuestStep',
+      questId: QUEST_ID,
+      stepId: 'return_kaifeng',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '请东返【开封府 · 汴河虹桥 · 临水酒肆】向「听风老人」程万里复命，了结三十年旧案。',
+      tone: 'talk',
+      logTag: '秋蝉八步',
+    },
+  ],
+}
+
+const SCENE_20_ENLIGHTENMENT: StorySceneDef = {
+  id: 'scene_bbgc_20_enlightenment',
+  title: '第二十幕 · 夜雨碧溪悟八步',
+  subtitle: '洛阳府 · 洛阳牡丹园 · 碧溪虹桥琴画水榭',
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '窗外夜雨渐歇，云隙间漏下一缕清冷秋月，正照在碧溪平如镜面的水波上。少侠屏退杂念，依三卷合璧之图演练步法——起势如秋蝉离枝，第一至第三步换气轻灵无声，恰似资圣宝塔高风中的蝉蜕吐纳；第四至第六步借腰胯微旋积蓄暗劲，足尖虚点青石，仿佛白马寺银杏叶上不曾惊动一尘一埃；及至第七、第八步猛然发力，足尖点水而起，竟在月下碧溪之上接连踏出八道清浅水纹，衣角不沾半滴水珠，身形如流光掠过水榭飞檐，稳稳落回二层木栏！',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（长舒一口清气，丹田温润而气息绵长不绝）“‘三步换气如蝉蜕，五步借风似振羽，八步绝尘赶秋蝉’……脚尖连点八步而气不喘，追逃之间迅捷如飞蝉掠枝——地阶下品轻功《八步赶蝉》，今日终于大成！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '水榭之下，小阿蝉看得目瞪口呆，拍手欢呼，连连赞叹比画本里的飞仙还要俊俏。少侠收势落回木廊，将三卷细绢秘谱妥善合入黑漆木匣，又替阿蝉包扎好手腕上的擦伤，静候天明后与青霜姥姥汇合。',
+    },
+  ],
+  onFinishEffects: [
+    { type: 'teachMartialArt', artId: 'MA-097', level: 1, exp: 0 },
+    { type: 'setFlag', flag: 'bbgc_learned_full', value: true },
+    { type: 'giveCombatExp', amount: 150, reason: '三卷合璧习得《八步赶蝉》' },
+    {
+      type: 'toast',
+      text: '已领悟地阶下品轻功【八步赶蝉】！',
+      tone: 'success',
+      logTag: '绝学初成',
+    },
+    { type: 'openScene', scene: SCENE_21_FAREWELL_LUOYANG },
+  ],
+}
+
+const SCENE_19_THREE_SCROLLS_UNITE: StorySceneDef = {
+  id: 'scene_bbgc_19_three_scrolls_unite',
+  title: '第十九幕 · 三卷合璧见真章',
+  subtitle: '洛阳府 · 洛阳牡丹园 · 碧溪虹桥琴画水榭',
+  beats: [
+    {
+      speaker: { kind: 'custom', name: '阿蝉', title: '守谱少年', factionName: '洛阳旧人' },
+      text: '（抹干眼泪，双手捧出黑漆木盒）“多谢大侠救命之恩！青霜婆婆交代过，若有人带着《蝉蜕息》与《振羽步》而来，又击败了黑衣恶人，阿蝉便把这盒里的下卷《赶蝉诀》亲手交给你！刚才那坏蛋逼问我盒子里的机关口诀，我死死咬着牙，一个字也没肯吐露！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（轻轻拍了拍少年肩头，接过黑漆木盒）“好孩子，受惊了。你与青霜婆婆守住这卷秘谱三十年，沈前辈在天之灵定会为你骄傲。”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '少侠打开黑漆木盒，在碧溪水榭案前将《蝉蜕息》《振羽步》《赶蝉诀》三卷细绢并排摊开，借着油灯昏黄的光晕细细拼合。三张历经三十年风雨的秘谱首尾相接，原本各自零散的朱砂墨线与蝇头小楷竟严丝合缝地拼成一幅完整的人体经脉运劲图——足太阴脾经、足厥阴肝经与督脉交汇处标着八道递进的红点，图末一行小字力透绢背：',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '“三步换气如蝉蜕，五步借风似振羽，八步绝尘赶秋蝉——步步连环，气脉自生，是为《八步赶蝉》。”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_20_ENLIGHTENMENT }],
+}
+
 const SCENE_18_YIN_DEFEATED: StorySceneDef = {
   id: 'scene_bbgc_18_yin_defeated',
   title: '第十八幕 · 碧溪水榭斩鬼影',
@@ -671,7 +764,6 @@ const SCENE_17_RESCUE_ACHAN: StorySceneDef = {
           opponent: { kind: 'custom', npc: buildYinJiuyouBossNpc(true) },
           rule: 'story_trial',
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '阿蝉性命攸关，岂能临阵脱逃！',
           onWin: [{ type: 'openScene', scene: SCENE_18_YIN_DEFEATED }],
           onLose: [
@@ -696,7 +788,6 @@ const SCENE_17_RESCUE_ACHAN: StorySceneDef = {
           opponent: { kind: 'custom', npc: buildYinJiuyouBossNpc(false) },
           rule: 'story_trial',
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '阿蝉性命攸关，岂能临阵脱逃！',
           onWin: [{ type: 'openScene', scene: SCENE_18_YIN_DEFEATED }],
           onLose: [
@@ -776,101 +867,6 @@ const SCENE_14_LUOYANG_ROAD: StorySceneDef = {
   onFinishEffects: [{ type: 'openScene', scene: SCENE_15_WATERSIDE_ARRIVAL }],
 }
 
-const SCENE_19_THREE_SCROLLS_UNITE: StorySceneDef = {
-  id: 'scene_bbgc_19_three_scrolls_unite',
-  title: '第十九幕 · 三卷合璧见真章',
-  subtitle: '洛阳府 · 洛阳牡丹园 · 碧溪虹桥琴画水榭',
-  beats: [
-    {
-      speaker: { kind: 'custom', name: '阿蝉', title: '守谱少年', factionName: '洛阳旧人' },
-      text: '（抹干眼泪，双手捧出黑漆木盒）“多谢大侠救命之恩！青霜婆婆交代过，若有人带着《蝉蜕息》与《振羽步》而来，又击败了黑衣恶人，阿蝉便把这盒里的下卷《赶蝉诀》亲手交给你！刚才那坏蛋逼问我盒子里的机关口诀，我死死咬着牙，一个字也没肯吐露！”',
-    },
-    {
-      speaker: { kind: 'player' },
-      text: '（轻轻拍了拍少年肩头，接过黑漆木盒）“好孩子，受惊了。你与青霜婆婆守住这卷秘谱三十年，沈前辈在天之灵定会为你骄傲。”',
-    },
-    {
-      speaker: { kind: 'narrator' },
-      text: '少侠打开黑漆木盒，在碧溪水榭案前将《蝉蜕息》《振羽步》《赶蝉诀》三卷细绢并排摊开，借着油灯昏黄的光晕细细拼合。三张历经三十年风雨的秘谱首尾相接，原本各自零散的朱砂墨线与蝇头小楷竟严丝合缝地拼成一幅完整的人体经脉运劲图——足太阴脾经、足厥阴肝经与督脉交汇处标着八道递进的红点，图末一行小字力透绢背：',
-    },
-    {
-      speaker: { kind: 'narrator' },
-      text: '“三步换气如蝉蜕，五步借风似振羽，八步绝尘赶秋蝉——步步连环，气脉自生，是为《八步赶蝉》。”',
-    },
-  ],
-  onFinishEffects: [{ type: 'openScene', scene: SCENE_20_ENLIGHTENMENT }],
-}
-
-const SCENE_21_FAREWELL_LUOYANG: StorySceneDef = {
-  id: 'scene_bbgc_21_farewell_luoyang',
-  title: '第二十一幕 · 清香一炷慰故人',
-  subtitle: '洛阳府 · 洛阳牡丹园（启程回汴）',
-  beats: [
-    {
-      speaker: { kind: 'narrator' },
-      text: '次日天明，秋雨初霁，洛阳城外群山如洗。青霜姥姥带着几名白马寺僧众赶来牡丹园接应，见水榭廊柱虽有刀剑劈砍之痕，但小阿蝉安然无恙地抱着黑漆木盒站在廊下，而截风门门主阴九幽已重伤遁走、短时间内绝无再犯之力，老人不由双手合十，眼眶湿润地向少侠深深一揖。',
-    },
-    {
-      speaker: { kind: 'custom', name: '青霜姥姥', title: '白马寺守塔居士', factionName: '洛阳旧人' },
-      text: '“沈大哥在天之灵，今日总算可以彻底安息了。老身这把老骨头守在齐云塔下三十年，所求者不过两件事：一者护住阿蝉平安长大，二者莫教沈大哥毕生心血沦为黑道贼子杀人越货的工具。如今这两桩心愿皆已托付得人，老身也算无愧于当年风陵渡的旧约。”',
-    },
-    {
-      speaker: { kind: 'custom', name: '青霜姥姥', title: '白马寺守塔居士', factionName: '洛阳旧人' },
-      text: '“这三卷原谱既然已由少侠参悟透彻，便由少侠一并带回东京汴梁，与程万里那老家伙在汴河边上同饮一碗烈酒、焚香告慰故人吧。日后江湖路远，风波险恶，望少侠以这门《八步赶蝉》多行救急扶危之侠举，莫负沈大哥当年以身殉道之心！”',
-    },
-    {
-      speaker: { kind: 'player' },
-      text: '“晚辈谨记姥姥肺腑之言！阿蝉既已安顿妥当，洛阳亦无后顾之忧，晚辈这便拜别姥姥与白马寺诸位师父，动身东返开封，向程前辈复命！”',
-    },
-  ],
-  onFinishEffects: [
-    {
-      type: 'setQuestStep',
-      questId: QUEST_ID,
-      stepId: 'return_kaifeng',
-      silent: false,
-    },
-    {
-      type: 'toast',
-      text: '请东返【开封府 · 汴河虹桥 · 临水酒肆】向「听风老人」程万里复命，了结三十年旧案。',
-      tone: 'info',
-      logTag: '秋蝉八步',
-    },
-  ],
-}
-
-const SCENE_20_ENLIGHTENMENT: StorySceneDef = {
-  id: 'scene_bbgc_20_enlightenment',
-  title: '第二十幕 · 夜雨碧溪悟八步',
-  subtitle: '洛阳府 · 洛阳牡丹园 · 碧溪虹桥琴画水榭',
-  beats: [
-    {
-      speaker: { kind: 'narrator' },
-      text: '窗外夜雨渐歇，云隙间漏下一缕清冷秋月，正照在碧溪平如镜面的水波上。少侠屏退杂念，依三卷合璧之图演练步法——起势如秋蝉离枝，第一至第三步换气轻灵无声，恰似资圣宝塔高风中的蝉蜕吐纳；第四至第六步借腰胯微旋积蓄暗劲，足尖虚点青石，仿佛白马寺银杏叶上不曾惊动一尘一埃；及至第七、第八步猛然发力，足尖点水而起，竟在月下碧溪之上接连踏出八道清浅水纹，衣角不沾半滴水珠，身形如流光掠过水榭飞檐，稳稳落回二层木栏！',
-    },
-    {
-      speaker: { kind: 'player' },
-      text: '（长舒一口清气，丹田温润而气息绵长不绝）“‘三步换气如蝉蜕，五步借风似振羽，八步绝尘赶秋蝉’……脚尖连点八步而气不喘，追逃之间迅捷如飞蝉掠枝——地阶下品轻功《八步赶蝉》，今日终于大成！”',
-    },
-    {
-      speaker: { kind: 'narrator' },
-      text: '水榭之下，小阿蝉看得目瞪口呆，拍手欢呼，连连赞叹比画本里的飞仙还要俊俏。少侠收势落回木廊，将三卷细绢秘谱妥善合入黑漆木匣，又替阿蝉包扎好手腕上的擦伤，静候天明后与青霜姥姥汇合。',
-    },
-  ],
-  onFinishEffects: [
-    { type: 'teachMartialArt', artId: 'MA-097', level: 1, exp: 0 },
-    { type: 'setFlag', flag: 'bbgc_learned_full', value: true },
-    { type: 'giveCombatExp', amount: 150, reason: '三卷合璧习得《八步赶蝉》' },
-    {
-      type: 'toast',
-      text: '已领悟地阶下品轻功【八步赶蝉】！',
-      tone: 'success',
-      logTag: '绝学初成',
-    },
-    { type: 'openScene', scene: SCENE_21_FAREWELL_LUOYANG },
-  ],
-}
-
 const SCENE_22_KAIFENG_EPILOGUE: StorySceneDef = {
   id: 'scene_bbgc_22_kaifeng_epilogue',
   title: '第二十二幕 · 虹桥醉酒传新名',
@@ -921,6 +917,7 @@ export const BABUGANCHAN_QUESTS: QuestDefinition[] = [
     id: QUEST_ID,
     title: '秋蝉八步 · 汴洛遗踪',
     category: 'adventure',
+    initialStepId: 'start_rumor',
     summary:
       '三十年前轻功宗师沈疏影护送边防密折遭“截风门”伏杀，地阶轻功《八步赶蝉》一分为三散落汴洛。江湖声望达 120 后，于开封汴河虹桥酒肆拾得半枚“秋蝉令”，循迹追查并集齐三卷秘谱，方可重现绝学。',
     steps: {
@@ -928,83 +925,65 @@ export const BABUGANCHAN_QUESTS: QuestDefinition[] = [
         id: 'start_rumor',
         title: '虹桥残令问前尘',
         objective: '于开封汴河虹桥临水酒肆向听风老人程万里请教“秋蝉令”来历。',
-        recommendedRealm: '三流上品',
-        targetLocations: [
-          {
-            regionId: 'bianliang',
-            buildingId: 'bianliang_base_tavern',
-            label: '开封府 · 汴河虹桥临水酒肆',
-          },
-        ],
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bianliang_base_tavern',
+          customLabel: '开封府 · 汴河虹桥临水酒肆',
+        },
       },
       kaifeng_fanlou: {
         id: 'kaifeng_fanlou',
         title: '夜探樊楼擒暗哨',
         objective: '前往开封樊楼【三层五楼飞桥雅阁】，截查潜伏东京的截风门暗哨。',
-        recommendedRealm: '三流上品',
-        targetLocations: [
-          {
-            regionId: 'bianliang',
-            buildingId: 'bl_fanlou',
-            spotId: 'bl_fl_towers',
-            label: '开封府 · 樊楼 · 三层五楼飞桥雅阁',
-          },
-        ],
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bl_fanlou',
+          spotId: 'bl_fl_towers',
+          customLabel: '开封府 · 樊楼 · 三层五楼飞桥雅阁',
+        },
       },
       kaifeng_pagoda: {
         id: 'kaifeng_pagoda',
         title: '资圣宝塔取上卷',
         objective: '前往开封大相国寺【资圣八角琉璃宝塔】，叩问守塔老僧并寻取上卷《蝉蜕息》。',
-        recommendedRealm: '三流上品',
-        targetLocations: [
-          {
-            regionId: 'bianliang',
-            buildingId: 'bl_xiangguosi',
-            spotId: 'bl_xg_pagoda',
-            label: '开封府 · 大相国寺 · 资圣八角琉璃宝塔',
-          },
-        ],
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bl_xiangguosi',
+          spotId: 'bl_xg_pagoda',
+          customLabel: '开封府 · 大相国寺 · 资圣八角琉璃宝塔',
+        },
       },
       luoyang_pagoda: {
         id: 'luoyang_pagoda',
         title: '西行白马求振羽',
         objective: '西行洛阳府白马寺【齐云密檐舍利古塔】，拜会青霜姥姥并抵御截风门二当家陆横。',
-        recommendedRealm: '二流下品',
-        targetLocations: [
-          {
-            regionId: 'luoyang',
-            buildingId: 'ly_baimasi',
-            spotId: 'ly_bm_pagoda',
-            label: '洛阳府 · 白马寺 · 齐云密檐舍利古塔',
-          },
-        ],
+        targetLocation: {
+          regionId: 'luoyang',
+          buildingId: 'ly_baimasi',
+          spotId: 'ly_bm_pagoda',
+          customLabel: '洛阳府 · 白马寺 · 齐云密檐舍利古塔',
+        },
       },
       luoyang_waterside: {
         id: 'luoyang_waterside',
         title: '碧溪水榭破鬼影',
         objective: '驰援洛阳牡丹园【碧溪虹桥琴画水榭】，救出守谱少年阿蝉并力挫截风门主阴九幽，三卷合璧悟得《八步赶蝉》。',
-        recommendedRealm: '二流中品',
-        targetLocations: [
-          {
-            regionId: 'luoyang',
-            buildingId: 'ly_peony',
-            spotId: 'ly_pn_waterside',
-            label: '洛阳府 · 洛阳牡丹园 · 碧溪虹桥琴画水榭',
-          },
-        ],
+        targetLocation: {
+          regionId: 'luoyang',
+          buildingId: 'ly_peony',
+          spotId: 'ly_pn_waterside',
+          customLabel: '洛阳府 · 洛阳牡丹园 · 碧溪虹桥琴画水榭',
+        },
       },
       return_kaifeng: {
         id: 'return_kaifeng',
         title: '东返虹桥告故人',
         objective: '返回开封府【汴河虹桥临水酒肆】，向听风老人程万里复命饮酒。',
-        recommendedRealm: '二流中品',
-        targetLocations: [
-          {
-            regionId: 'bianliang',
-            buildingId: 'bianliang_base_tavern',
-            label: '开封府 · 汴河虹桥临水酒肆',
-          },
-        ],
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bianliang_base_tavern',
+          customLabel: '开封府 · 汴河虹桥临水酒肆',
+        },
       },
     },
     locationTriggers: [
