@@ -146,3 +146,21 @@
 .iso-hotspot-group:hover .iso-plaque {
   filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.95)) brightness(1.08);
 }
+
+@keyframes cultivationBreathe {
+  0%,
+  100% {
+    transform: scale(1);
+    text-shadow: 0 2px 12px rgba(200, 157, 84, 0.35);
+  }
+  50% {
+    transform: scale(1.06);
+    text-shadow: 0 4px 22px rgba(245, 158, 11, 0.7);
+  }
+}
+
+.cultivation-breathe {
+  animation: cultivationBreathe 1.5s infinite ease-in-out;
+  will-change: transform;
+}
+

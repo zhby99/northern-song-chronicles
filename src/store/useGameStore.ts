@@ -41,6 +41,7 @@ import type {
   CameraPan,
   CompendiumTabKey,
   CultivationDurationMode,
+  CultivationSessionState,
   EquipmentSlotKey,
   EquippedArtsMap,
   EquippedSlotsMap,
@@ -304,6 +305,7 @@ export interface GameStoreState {
   overlays: OverlayToggles
   roamingMasters: RoamingMaster[]
   traveling: TravelState | null
+  cultivationSession: CultivationSessionState | null
   campPos: WildernessCamp | null
 
   worldPan: CameraPan
@@ -373,6 +375,8 @@ export interface GameStoreState {
   equipArtToSlot: (artId: string, slot: MartialArtSlotKey) => void
   unequipArtSlot: (slot: MartialArtSlotKey) => void
   cultivateLearnedArt: (artId: string, mode?: CultivationDurationMode) => void
+  stepCultivationTick: () => void
+  stopCultivationEarly: () => void
   breakthroughLearnedArt: (artId: string) => void
   consumeInventoryItem: (itemId: string, forceUseEffect?: boolean) => void
 
@@ -858,6 +862,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   },
   roamingMasters: WORLD_GRAPH.roamingMasters.map((m) => ({ ...m })),
   traveling: null,
+  cultivationSession: null,
   campPos: null,
 
   worldPan: { x: 0, y: 0, scale: 1 },
@@ -1769,6 +1774,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   cultivateLearnedArt: (artId, mode = 1) => {
     const s = get()
+    if (s.cultivationSession) return
     const art = MARTIAL_ART_DB_MAP[artId]
     const idx = s.learnedArts.findIndex((x) => x.artId === artId)
     if (!art || idx === -1) return
@@ -1843,50 +1849,208 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
-    const targetDays = mode === 'until_breakthrough' ? 3600 : mode
+    const targetShichens = mode === 'until_breakthrough' ? 3600 * 12 : mode * 12
     const dailyGain = calcDailyCultivationExpGain(
       art,
       s.baseStats.talents,
       venueStatus.multiplier,
     )
 
-    let daysSpent = 0
-    let silverSpent = 0
-    let foodSpent = 0
-    let totalExpGained = 0
-    let combatExpSpent = 0
-    const startLv = cur.level
-    let nextLv = cur.level
-    let nextExp = cur.exp
-    let nextCombatExp = s.combatExp
-    let nextDayCount = s.dayCount
+    set({
+      menuOpen: false,
+      compendiumOpen: false,
+      activeNpcInteraction: null,
+      tooltip: null,
+      actionFeedback: null,
+      cultivationSession: {
+        artId,
+        artName: art.name,
+        artCleanName: art.cleanName,
+        artFullTier: art.fullTier,
+        mode,
+        venue: venueStatus.venue,
+        venueLabel: venueStatus.venueLabel,
+        multiplier: venueStatus.multiplier,
+        dailySilverCost: venueStatus.dailySilverCost,
+        dailyFoodCost: venueStatus.dailyFoodCost,
+        dailyGain,
+        targetShichens,
+        shichensElapsed: 0,
+        silverSpent: 0,
+        foodSpent: 0,
+        combatExpSpent: 0,
+        totalExpGained: 0,
+        settledExpFloor: 0,
+        startLevel: cur.level,
+        startExp: cur.exp,
+      },
+    })
+  },
+
+  stepCultivationTick: () => {
+    const s = get()
+    const session = s.cultivationSession
+    if (!session || s.gameOver || s.activeCombat || s.activeStoryScene) return
+
+    const art = MARTIAL_ART_DB_MAP[session.artId]
+    const idx = s.learnedArts.findIndex((x) => x.artId === session.artId)
+    if (!art || idx === -1) {
+      set({ cultivationSession: null })
+      return
+    }
+
+    const finalize = (stopNote: string | null, overdueSpyAmbush: NodeNpc | null = null) => {
+      const latest = get()
+      const sess = latest.cultivationSession
+      if (!sess) return
+      const curArt = MARTIAL_ART_DB_MAP[sess.artId]
+      const curIdx = latest.learnedArts.findIndex((x) => x.artId === sess.artId)
+      const curEntry = curIdx !== -1 ? latest.learnedArts[curIdx]! : { artId: sess.artId, level: sess.startLevel, exp: sess.startExp }
+
+      const fullDays = Math.floor(sess.shichensElapsed / 12)
+      const remShichen = sess.shichensElapsed % 12
+      const durationLabel =
+        fullDays > 0 && remShichen > 0
+          ? `${fullDays} 天 ${remShichen} 时辰`
+          : fullDays > 0
+            ? `${fullDays} 天`
+            : `${remShichen} 时辰`
+
+      const daysFrac = sess.shichensElapsed / 12
+      const recoveryRate = sess.venue === 'wilderness_camp' ? 0.4 : 1.0
+      const nextHp = Math.min(
+        latest.maxHp,
+        latest.hp + Math.round(latest.maxHp * recoveryRate * daysFrac),
+      )
+      const nextMp = Math.min(
+        latest.maxMp,
+        latest.mp + Math.round(latest.maxMp * recoveryRate * daysFrac),
+      )
+
+      const leveledUp = curEntry.level > sess.startLevel
+      const costParts: string[] = []
+      if (sess.silverSpent > 0) costParts.push(`宿费 -${sess.silverSpent}两`)
+      else if (sess.foodSpent > 0) costParts.push(`干粮 -${sess.foodSpent}份`)
+      else costParts.push('师门驻地免费')
+      if (sess.combatExpSpent > 0) costParts.push(`破境耗战经 ${sess.combatExpSpent}`)
+
+      const nextReqExp = curArt ? getArtExpRequired(curArt, curEntry.level) : 0
+      const progressPart =
+        curEntry.level >= 10
+          ? '已臻第 10 重返璞归真大圆满！'
+          : leveledUp
+            ? `突破至第 ${curEntry.level} 重（${curEntry.exp.toLocaleString()}/${nextReqExp.toLocaleString()}）！`
+            : `第 ${curEntry.level} 重（${curEntry.exp.toLocaleString()}/${nextReqExp.toLocaleString()}）`
+
+      const msgText =
+        sess.shichensElapsed <= 0
+          ? stopNote
+            ? `闭关未成：${stopNote}`
+            : `甫一入定便即收功出关，未耗时辰。`
+          : `于【${sess.venueLabel}】闭关潜修【${sess.artName}】${durationLabel}（${costParts.join(' · ')} · 熟练度 +${sess.totalExpGained.toLocaleString()}）：${progressPart}${stopNote ? ` [${stopNote}]` : ''}`
+
+      const nextLogs =
+        sess.shichensElapsed > 0 || Boolean(stopNote)
+          ? [
+              createLogEntry(
+                latest.dayCount,
+                leveledUp ? '闭关突破' : '闭关苦修',
+                msgText,
+                leveledUp || Boolean(stopNote),
+                latest.shichenIdx,
+              ),
+              ...latest.logs,
+            ].slice(0, 60)
+          : latest.logs
+
+      set({
+        cultivationSession: null,
+        hp: nextHp,
+        mp: nextMp,
+        actionFeedback: {
+          text: msgText,
+          tone: stopNote && !leveledUp ? 'warn' : 'success',
+        },
+        logs: nextLogs,
+      })
+
+      if (overdueSpyAmbush) {
+        get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+        return
+      }
+
+      if (sess.shichensElapsed >= 84 || leveledUp) {
+        void get().saveToSlot('autosave', `闭关潜修${sess.artCleanName}`, true)
+      }
+    }
+
     let nextSilver = s.silver
     let nextFood = s.food
-    let nextSectState = clonePlayerSectState(s.sectState)
-    let nextLogs = [...s.logs]
-    let nextMasters = s.roamingMasters
-    let overdueSpyAmbush: NodeNpc | null = null
+    let nextSilverSpent = session.silverSpent
+    let nextFoodSpent = session.foodSpent
+
+    if (session.shichensElapsed % 12 === 0) {
+      if (session.dailySilverCost > 0 && nextSilver < session.dailySilverCost) {
+        finalize('纹银不足支付后续宿费，提前收功出关')
+        return
+      }
+      if (session.dailyFoodCost > 0 && nextFood < session.dailyFoodCost) {
+        finalize('行囊干粮耗尽，提前收功拔营')
+        return
+      }
+      nextSilver -= session.dailySilverCost
+      nextFood -= session.dailyFoodCost
+      nextSilverSpent += session.dailySilverCost
+      nextFoodSpent += session.dailyFoodCost
+    }
+
+    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+    const nextDayCount = clock.dayCount
+    const nextShichenIdx = clock.shichenIdx
+    const nextShichensElapsed = session.shichensElapsed + 1
+
+    const targetFloor = Math.round((session.dailyGain * nextShichensElapsed) / 12)
+    const deltaExp = Math.max(0, targetFloor - session.settledExpFloor)
+    let nextTotalExpGained = session.totalExpGained + deltaExp
+
+    const cur = s.learnedArts[idx]!
+    let nextLv = cur.level
+    let nextExp = cur.exp + deltaExp
+    let nextCombatExp = s.combatExp
+    let nextCombatExpSpent = session.combatExpSpent
+    let hitBottleneck = false
+    let brokeThroughNow = false
     let stopNote: string | null = null
 
-    for (let d = 0; d < targetDays; d += 1) {
-      if (venueStatus.dailySilverCost > 0 && nextSilver < venueStatus.dailySilverCost) {
-        stopNote = '纹银不足支付后续宿费，提前收功出关'
+    while (nextLv < 10) {
+      const stepReqExp = getArtExpRequired(art, nextLv)
+      if (stepReqExp <= 0 || nextExp < stepReqExp) break
+      const stepReqCombat = getArtCombatExpRequired(art, nextLv)
+      if (nextCombatExp >= stepReqCombat) {
+        nextCombatExp -= stepReqCombat
+        nextCombatExpSpent += stepReqCombat
+        nextExp -= stepReqExp
+        nextLv += 1
+        brokeThroughNow = true
+      } else {
+        const overflow = nextExp - stepReqExp
+        nextExp = stepReqExp
+        nextTotalExpGained = Math.max(0, nextTotalExpGained - overflow)
+        hitBottleneck = true
+        stopNote = `第 ${nextLv} 重火候圆满，待积攒 ${stepReqCombat} 点战斗经验破境（当前 ${nextCombatExp}）`
         break
       }
-      if (venueStatus.dailyFoodCost > 0 && nextFood < venueStatus.dailyFoodCost) {
-        stopNote = '行囊干粮耗尽，提前收功拔营'
-        break
-      }
+    }
+    if (nextLv >= 10) {
+      nextExp = 0
+    }
 
-      nextSilver -= venueStatus.dailySilverCost
-      nextFood -= venueStatus.dailyFoodCost
-      silverSpent += venueStatus.dailySilverCost
-      foodSpent += venueStatus.dailyFoodCost
-      daysSpent += 1
-      nextDayCount += 1
-      nextExp += dailyGain
-      totalExpGained += dailyGain
+    let nextSectState = s.sectState
+    let nextLogs = s.logs
+    let nextMasters = s.roamingMasters
+    let overdueSpyAmbush: NodeNpc | null = null
 
+    if (clock.daysAdded > 0) {
       if ((nextDayCount - 1) % 30 === 0) {
         nextMasters = nextMasters.map((m) => {
           const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
@@ -1902,7 +2066,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               '月度风云',
               `《天下江湖风闻录》更新：【${sample.name}】近日现身于【${NODE_MAP[sample.nodeId]?.name ?? sample.nodeId}】！`,
               true,
-              s.shichenIdx,
+              nextShichenIdx,
             ),
             ...nextLogs,
           ]
@@ -1911,54 +2075,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
       const dayHook = applyDayProgressionSectHooks({
         nextDayCount,
-        shichenIdx: s.shichenIdx,
+        shichenIdx: nextShichenIdx,
         silver: nextSilver,
-        sectState: nextSectState,
-        logs: nextLogs,
+        sectState: clonePlayerSectState(nextSectState),
+        logs: [...nextLogs],
       })
       nextSilver = dayHook.silver
       nextSectState = dayHook.sectState
       nextLogs = dayHook.logs
       overdueSpyAmbush = dayHook.overdueSpyAmbush
-
-      let hitBottleneck = false
-      let brokeThroughToday = false
-      while (nextLv < 10) {
-        const stepReqExp = getArtExpRequired(art, nextLv)
-        if (stepReqExp <= 0 || nextExp < stepReqExp) break
-        const stepReqCombat = getArtCombatExpRequired(art, nextLv)
-        if (nextCombatExp >= stepReqCombat) {
-          nextCombatExp -= stepReqCombat
-          combatExpSpent += stepReqCombat
-          nextExp -= stepReqExp
-          nextLv += 1
-          brokeThroughToday = true
-        } else {
-          const overflow = nextExp - stepReqExp
-          nextExp = stepReqExp
-          totalExpGained = Math.max(0, totalExpGained - overflow)
-          hitBottleneck = true
-          stopNote = `第 ${nextLv} 重火候圆满，待积攒 ${stepReqCombat} 点战斗经验破境（当前 ${nextCombatExp}）`
-          break
-        }
-      }
-
-      if (nextLv >= 10) {
-        nextExp = 0
-        break
-      }
-      if (hitBottleneck) break
-      if (mode === 'until_breakthrough' && brokeThroughToday) break
       if (overdueSpyAmbush) {
         stopNote = '边关锄奸军令期限已至，被迫提前收功应战'
-        break
       }
     }
 
-    if (daysSpent <= 0) return
-
     const nextLearned = s.learnedArts.map((x) => ({ ...x }))
-    nextLearned[idx] = { artId, level: nextLv, exp: nextExp }
+    nextLearned[idx] = { artId: session.artId, level: nextLv, exp: nextExp }
 
     const derived = deriveHeroEffectiveStats(
       s.baseStats,
@@ -1966,45 +2098,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       s.equippedArts,
       nextLearned,
     )
-    const leveledUp = nextLv > startLv
-    const nextHp =
-      venueStatus.venue === 'wilderness_camp'
-        ? Math.min(derived.maxHp, s.hp + Math.round(derived.maxHp * 0.4 * daysSpent))
-        : derived.maxHp
-    const nextMp =
-      venueStatus.venue === 'wilderness_camp'
-        ? Math.min(derived.maxMp, s.mp + Math.round(derived.maxMp * 0.4 * daysSpent))
-        : derived.maxMp
-
-    const costParts: string[] = []
-    if (silverSpent > 0) costParts.push(`宿费 -${silverSpent}两`)
-    else if (foodSpent > 0) costParts.push(`干粮 -${foodSpent}份`)
-    else costParts.push('师门驻地免费')
-    if (combatExpSpent > 0) costParts.push(`破境耗战经 ${combatExpSpent}`)
-
-    const nextReqExp = getArtExpRequired(art, nextLv)
-    const progressPart =
-      nextLv >= 10
-        ? '已臻第 10 重返璞归真大圆满！'
-        : leveledUp
-          ? `突破至第 ${nextLv} 重（${nextExp.toLocaleString()}/${nextReqExp.toLocaleString()}）！`
-          : `第 ${nextLv} 重（${nextExp.toLocaleString()}/${nextReqExp.toLocaleString()}）`
-
-    const msgText = `于【${venueStatus.venueLabel}】闭关潜修【${art.name}】${daysSpent} 天（${costParts.join(' · ')} · 熟练度 +${totalExpGained.toLocaleString()}）：${progressPart}${stopNote ? ` [${stopNote}]` : ''}`
-
-    nextLogs = [
-      createLogEntry(
-        nextDayCount,
-        leveledUp ? '闭关突破' : '闭关苦修',
-        msgText,
-        leveledUp || Boolean(stopNote),
-        s.shichenIdx,
-      ),
-      ...nextLogs,
-    ].slice(0, 60)
 
     set({
       dayCount: nextDayCount,
+      shichenIdx: nextShichenIdx,
       silver: nextSilver,
       food: nextFood,
       combatExp: nextCombatExp,
@@ -2013,27 +2110,121 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       learnedArts: nextLearned,
       qinggongBonus: derived.qinggongBonus,
       maxHp: derived.maxHp,
-      hp: nextHp,
+      hp: Math.min(derived.maxHp, s.hp),
       maxMp: derived.maxMp,
-      mp: nextMp,
+      mp: Math.min(derived.maxMp, s.mp),
       agility: derived.agility,
       res: derived.res,
+      logs: nextLogs.slice(0, 60),
+      cultivationSession: {
+        ...session,
+        shichensElapsed: nextShichensElapsed,
+        silverSpent: nextSilverSpent,
+        foodSpent: nextFoodSpent,
+        combatExpSpent: nextCombatExpSpent,
+        totalExpGained: nextTotalExpGained,
+        settledExpFloor: targetFloor,
+      },
+    })
+
+    if (clock.daysAdded > 0) {
+      get().checkExpiredQuestDeadlines()
+    }
+
+    const reachedTarget = nextShichensElapsed >= session.targetShichens
+    const reachedMax = nextLv >= 10
+    const reachedBreakthrough = session.mode === 'until_breakthrough' && brokeThroughNow
+
+    if (
+      reachedTarget ||
+      reachedMax ||
+      reachedBreakthrough ||
+      hitBottleneck ||
+      Boolean(overdueSpyAmbush)
+    ) {
+      finalize(stopNote, overdueSpyAmbush)
+    }
+  },
+
+  stopCultivationEarly: () => {
+    const s = get()
+    const sess = s.cultivationSession
+    if (!sess) return
+    const curArt = MARTIAL_ART_DB_MAP[sess.artId]
+    const curIdx = s.learnedArts.findIndex((x) => x.artId === sess.artId)
+    const curEntry =
+      curIdx !== -1
+        ? s.learnedArts[curIdx]!
+        : { artId: sess.artId, level: sess.startLevel, exp: sess.startExp }
+
+    const fullDays = Math.floor(sess.shichensElapsed / 12)
+    const remShichen = sess.shichensElapsed % 12
+    const durationLabel =
+      fullDays > 0 && remShichen > 0
+        ? `${fullDays} 天 ${remShichen} 时辰`
+        : fullDays > 0
+          ? `${fullDays} 天`
+          : `${remShichen} 时辰`
+
+    const daysFrac = sess.shichensElapsed / 12
+    const recoveryRate = sess.venue === 'wilderness_camp' ? 0.4 : 1.0
+    const nextHp = Math.min(
+      s.maxHp,
+      s.hp + Math.round(s.maxHp * recoveryRate * daysFrac),
+    )
+    const nextMp = Math.min(
+      s.maxMp,
+      s.mp + Math.round(s.maxMp * recoveryRate * daysFrac),
+    )
+
+    const leveledUp = curEntry.level > sess.startLevel
+    const costParts: string[] = []
+    if (sess.silverSpent > 0) costParts.push(`宿费 -${sess.silverSpent}两`)
+    else if (sess.foodSpent > 0) costParts.push(`干粮 -${sess.foodSpent}份`)
+    else costParts.push('师门驻地免费')
+    if (sess.combatExpSpent > 0) costParts.push(`破境耗战经 ${sess.combatExpSpent}`)
+
+    const nextReqExp = curArt ? getArtExpRequired(curArt, curEntry.level) : 0
+    const progressPart =
+      curEntry.level >= 10
+        ? '已臻第 10 重返璞归真大圆满！'
+        : leveledUp
+          ? `突破至第 ${curEntry.level} 重（${curEntry.exp.toLocaleString()}/${nextReqExp.toLocaleString()}）！`
+          : `第 ${curEntry.level} 重（${curEntry.exp.toLocaleString()}/${nextReqExp.toLocaleString()}）`
+
+    const stopNote = '主动收功出关'
+    const msgText =
+      sess.shichensElapsed <= 0
+        ? `甫一入定便即收功出关，未耗时辰。`
+        : `于【${sess.venueLabel}】闭关潜修【${sess.artName}】${durationLabel}（${costParts.join(' · ')} · 熟练度 +${sess.totalExpGained.toLocaleString()}）：${progressPart} [${stopNote}]`
+
+    const nextLogs =
+      sess.shichensElapsed > 0
+        ? [
+            createLogEntry(
+              s.dayCount,
+              leveledUp ? '闭关突破' : '闭关苦修',
+              msgText,
+              leveledUp,
+              s.shichenIdx,
+            ),
+            ...s.logs,
+          ].slice(0, 60)
+        : s.logs
+
+    set({
+      cultivationSession: null,
+      hp: nextHp,
+      mp: nextMp,
       actionFeedback: {
         text: msgText,
-        tone: stopNote && !leveledUp ? 'warn' : 'success',
+        tone: leveledUp ? 'success' : 'warn',
       },
       logs: nextLogs,
     })
 
-    get().checkExpiredQuestDeadlines()
-
-    if (overdueSpyAmbush) {
-      get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
-      return
-    }
-
-    if (daysSpent >= 7 || leveledUp) {
-      void get().saveToSlot('autosave', `闭关潜修${art.cleanName}`, true)
+    if (sess.shichensElapsed >= 84 || leveledUp) {
+      void get().saveToSlot('autosave', `闭关潜修${sess.artCleanName}`, true)
     }
   },
 
@@ -2879,6 +3070,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       selectedSpotId: null,
       currentNodeId: 'bianliang',
       traveling: null,
+      cultivationSession: null,
       campPos: null,
       baseStats: freshBase,
       mountKey: derived.mountKey,
@@ -4915,6 +5107,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       gameOver: null,
       campPos: st.campPos ?? null,
       traveling: null,
+      cultivationSession: null,
       activeCombat: null,
       activeStoryScene: null,
       activeNpcInteraction: null,

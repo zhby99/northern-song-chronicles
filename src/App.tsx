@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect } from 'react'
 import { CombatOverlay } from './components/combat/CombatOverlay'
 import { BottomHud } from './components/hud/BottomHud'
 import { ContextInspectorCard } from './components/hud/ContextInspectorCard'
+import { CultivationOverlay } from './components/hud/CultivationOverlay'
 import { GameOverModal } from './components/hud/GameOverModal'
 import { MapTooltip } from './components/hud/MapTooltip'
 import { NpcInteractionOverlay } from './components/hud/NpcInteractionOverlay'
@@ -26,6 +27,7 @@ export function App() {
   const viewMode = useGameStore((s) => s.viewMode)
   const activeRegionId = useGameStore((s) => s.activeRegionId)
   const isTraveling = useGameStore((s) => s.traveling !== null)
+  const isCultivating = useGameStore((s) => s.cultivationSession !== null)
   const menuOpen = useGameStore((s) => s.menuOpen)
   const activeMenuTab = useGameStore((s) => s.activeMenuTab)
   const compendiumOpen = useGameStore((s) => s.compendiumOpen)
@@ -34,6 +36,8 @@ export function App() {
   const activeStoryScene = useGameStore((s) => s.activeStoryScene)
   const gameOver = useGameStore((s) => s.gameOver)
   const stepTravelTick = useGameStore((s) => s.stepTravelTick)
+  const stepCultivationTick = useGameStore((s) => s.stepCultivationTick)
+  const stopCultivationEarly = useGameStore((s) => s.stopCultivationEarly)
   const openMenu = useGameStore((s) => s.openMenu)
   const closeMenu = useGameStore((s) => s.closeMenu)
   const openCompendium = useGameStore((s) => s.openCompendium)
@@ -54,7 +58,7 @@ export function App() {
     syncBgmSceneContext(viewMode, activeRegionId)
   }, [viewMode, activeRegionId])
 
-  // Global ESC shortcut for system/compendium menu, G for Compendium, J for Quest Journal, & M for BGM toggle
+  // Global ESC shortcut for cultivation/system/compendium menu, G for Compendium, J for Quest Journal, & M for BGM toggle
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (activeCombat || activeStoryScene) {
@@ -70,6 +74,10 @@ export function App() {
         return
       }
       if (e.key === 'Escape') {
+        if (isCultivating) {
+          stopCultivationEarly()
+          return
+        }
         if (activeNpcInteraction) closeNpcInteraction()
         else if (compendiumOpen) closeCompendium()
         else if (menuOpen) closeMenu()
@@ -81,12 +89,12 @@ export function App() {
         e.target instanceof HTMLTextAreaElement ||
         e.target instanceof HTMLSelectElement
       if (!e.ctrlKey && !e.metaKey && !e.altKey && !isTypingTarget) {
-        if (e.key === 'g' || e.key === 'G') {
+        if (!isCultivating && (e.key === 'g' || e.key === 'G')) {
           if (compendiumOpen) closeCompendium()
           else openCompendium()
           return
         }
-        if (e.key === 'j' || e.key === 'J') {
+        if (!isCultivating && (e.key === 'j' || e.key === 'J')) {
           if (menuOpen && activeMenuTab === 'quests') closeMenu()
           else openMenu('quests')
           return
@@ -99,6 +107,7 @@ export function App() {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [
+    isCultivating,
     menuOpen,
     activeMenuTab,
     compendiumOpen,
@@ -106,6 +115,7 @@ export function App() {
     activeCombat,
     activeStoryScene,
     gameOver,
+    stopCultivationEarly,
     openMenu,
     closeMenu,
     openCompendium,
@@ -121,6 +131,15 @@ export function App() {
     }, 250)
     return () => window.clearInterval(timer)
   }, [isTraveling, gameOver, activeCombat, activeStoryScene, stepTravelTick])
+
+  // 闭关吐纳时钟：每 0.125s 前进一个时辰，一日十二时辰累计 1.5s
+  useEffect(() => {
+    if (!isCultivating || gameOver || activeCombat || activeStoryScene) return
+    const timer = window.setInterval(() => {
+      stepCultivationTick()
+    }, 125)
+    return () => window.clearInterval(timer)
+  }, [isCultivating, gameOver, activeCombat, activeStoryScene, stepCultivationTick])
 
   return (
     <main
@@ -144,14 +163,17 @@ export function App() {
         <RegionMapCanvas />
       )}
 
-      {!activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && <BottomHud />}
-      {!activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
+      {!isCultivating && !activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
+        <BottomHud />
+      )}
+      {!isCultivating && !activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
         <QuestTrackerPanel />
       )}
-      {!activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
+      {!isCultivating && !activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
         <ContextInspectorCard />
       )}
       <MapTooltip />
+      {isCultivating && !activeCombat && !activeStoryScene && !gameOver && <CultivationOverlay />}
       {activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
         <NpcInteractionOverlay
           key={activeNpcInteraction.id ?? activeNpcInteraction.name}

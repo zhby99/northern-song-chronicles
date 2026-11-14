@@ -519,6 +519,29 @@ export interface CultivationVenueStatus {
   blockedReason: string | null
 }
 
+export interface CultivationSessionState {
+  artId: string
+  artName: string
+  artCleanName: string
+  artFullTier: string
+  mode: CultivationDurationMode
+  venue: CultivationVenueKind
+  venueLabel: string
+  multiplier: number
+  dailySilverCost: number
+  dailyFoodCost: number
+  dailyGain: number
+  targetShichens: number
+  shichensElapsed: number
+  silverSpent: number
+  foodSpent: number
+  combatExpSpent: number
+  totalExpGained: number
+  settledExpFloor: number
+  startLevel: number
+  startExp: number
+}
+
 export type EquipmentSlotKey =
   | 'weapon'
   | 'armor'
