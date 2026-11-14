@@ -911,6 +911,8 @@ export function evaluateSectPromotion(params: {
   killedDingChunqiu?: boolean
   kaifengCasesSolved?: number
   kaifengRank2Day?: number | null
+  kaifengMurongQuest1Done?: boolean
+  kaifengMurongQuest2Done?: boolean
 }): PromotionRequirementInfo | null {
   const {
     sectId,
@@ -927,9 +929,11 @@ export function evaluateSectPromotion(params: {
     killedDingChunqiu = false,
     kaifengCasesSolved = 0,
     kaifengRank2Day = null,
+    kaifengMurongQuest1Done = false,
+    kaifengMurongQuest2Done = false,
   } = params
 
-  // 开封府 / 六扇门（SECT-17）：海捕破案（不看门派好感）+ Lv.2 后满 730 天接姑苏慕容谋反任务（待实装）
+  // 开封府 / 六扇门（SECT-17）：海捕破案（不看门派好感）+ Lv.2 后满 730 天接姑苏慕容密查任务 + Lv.3 接姑苏对质任务
   if (sectId === 'SECT-17') {
     if (currentRank >= 4) return null
     const targetRank = (currentRank + 1) as SectRankLevel
@@ -955,20 +959,30 @@ export function evaluateSectPromotion(params: {
     if (currentRank === 2) {
       const baseDay = kaifengRank2Day ?? joinedDay
       const daysAtRank2 = Math.max(0, dayCount - baseDay)
+      const missing: string[] = []
+      if (daysAtRank2 < 730) {
+        missing.push(`须在【捕头都头】任上做满 730 天（当前 ${daysAtRank2}/730 天）`)
+      }
+      if (!kaifengMurongQuest1Done) {
+        missing.push('须前往【开封府衙 · 六扇门捕快演武院】完成晋升任务《燕子坞暗影 · 姑苏密查》')
+      }
       return {
         targetRank,
         targetRankLabel,
-        canPromote: false,
-        isFirstTierPendingDesign: true,
-        reason: `须在【捕头都头】任上做满 730 天（当前 ${daysAtRank2}/730 天）后领取「查探姑苏慕容氏谋反」专属晋升任务线（将于后续实装）。`,
+        canPromote: missing.length === 0,
+        reason:
+          missing.length === 0
+            ? `历练已满 ${daysAtRank2} 天且已完成《燕子坞暗影 · 姑苏密查》，可升任【${targetRankLabel}】！`
+            : `晋升【${targetRankLabel}】尚缺：${missing.join('；')}`,
       }
     }
     return {
       targetRank,
       targetRankLabel,
-      canPromote: false,
-      isFirstTierPendingDesign: true,
-      reason: `晋升【${targetRankLabel}】须完成「姑苏慕容氏谋反」高阶侦缉任务线（将于后续实装，且大内总供奉不可常规晋升）。`,
+      canPromote: kaifengMurongQuest2Done,
+      reason: kaifengMurongQuest2Done
+        ? `已完成《参合剑气 · 姑苏对质》，功勋卓著，可正式晋升【${targetRankLabel}】！`
+        : `晋升【${targetRankLabel}】须前往【开封府衙 · 开封府升堂正殿】完成二阶晋升任务《参合剑气 · 姑苏对质》（大内总供奉不可常规晋升）。`,
     }
   }
 

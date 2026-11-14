@@ -2,6 +2,8 @@ import type { QuestDefinition } from '../../types/quest'
 import { BABUGANCHAN_QUESTS } from './adventures/babuganchanQuest'
 import { DAMING_BAJI_QUESTS } from './cities/damingBajiQuest'
 import { CHANGSHAN_LONGLING_QUESTS } from './sects/changshanLonglingQuest'
+import { KAIFENG_MURONG_QUEST_1 } from './sects/kaifengMurongQuest1'
+import { KAIFENG_MURONG_QUEST_2 } from './sects/kaifengMurongQuest2'
 import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
 import { TIANBO_BAWANG_QUESTS } from './sects/tianboBawangQuest'
 
@@ -16,6 +18,8 @@ export const QUEST_REGISTRY: QuestDefinition[] = [
   ...TIANBO_BAWANG_QUESTS,
   ...DAMING_BAJI_QUESTS,
   ...BABUGANCHAN_QUESTS,
+  ...KAIFENG_MURONG_QUEST_1,
+  ...KAIFENG_MURONG_QUEST_2,
 ]
 
 export const QUEST_MAP: Record<string, QuestDefinition> = Object.fromEntries(
@@ -46,6 +50,8 @@ export function resetRegisteredQuests(): void {
     ...TIANBO_BAWANG_QUESTS,
     ...DAMING_BAJI_QUESTS,
     ...BABUGANCHAN_QUESTS,
+    ...KAIFENG_MURONG_QUEST_1,
+    ...KAIFENG_MURONG_QUEST_2,
   )
   for (const k of Object.keys(QUEST_MAP)) {
     delete QUEST_MAP[k]

@@ -330,6 +330,8 @@ export function NpcInteractionOverlay() {
           killedDingChunqiu: sectState.killedDingChunqiu,
           kaifengCasesSolved: sectState.kaifengCasesSolved,
           kaifengRank2Day: sectState.kaifengRank2Day,
+          kaifengMurongQuest1Done: Boolean(questState.completedQuests['QST-SECT-17-MURONG-1']),
+          kaifengMurongQuest2Done: Boolean(questState.completedQuests['QST-SECT-17-MURONG-2']),
         })
       : null
 

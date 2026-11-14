@@ -292,6 +292,16 @@ export function evaluateQuestCondition(
       }
     }
 
+    case 'kaifengRank2DaysAtLeast': {
+      const baseDay = ctx.sectState.kaifengRank2Day ?? ctx.sectState.joinedDay
+      const days = Math.max(0, ctx.dayCount - baseDay)
+      if (days >= cond.min) return { passed: true, reason: null }
+      return {
+        passed: false,
+        reason: `须在【捕头都头】任上做满 ${cond.min} 天（当前 ${days}/${cond.min} 天）`,
+      }
+    }
+
     case 'hasItem': {
       const needQty = cond.qty ?? 1
       const haveQty = ctx.inventory.find((x) => x.itemId === cond.itemId)?.qty ?? 0

@@ -96,6 +96,7 @@ export type QuestCondition =
   | { type: 'learnedArtAtLeast'; artId: string; minLevel: number }
   | { type: 'inSect'; sectId: string | null; minRank?: SectRankLevel }
   | { type: 'notInAnySect'; allowTransferFromSectId?: string }
+  | { type: 'kaifengRank2DaysAtLeast'; min: number }
   | {
       type: 'questStatus'
       questId: string

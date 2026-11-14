@@ -4421,6 +4421,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       killedDingChunqiu: s.sectState.killedDingChunqiu,
       kaifengCasesSolved: s.sectState.kaifengCasesSolved,
       kaifengRank2Day: s.sectState.kaifengRank2Day,
+      kaifengMurongQuest1Done: Boolean(s.questState.completedQuests['QST-SECT-17-MURONG-1']),
+      kaifengMurongQuest2Done: Boolean(s.questState.completedQuests['QST-SECT-17-MURONG-2']),
     })
     if (!promo) {
       set({
