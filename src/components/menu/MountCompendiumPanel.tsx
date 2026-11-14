@@ -16,6 +16,7 @@ import type {
   MountTerrainTrait,
 } from '../../types/game'
 import { WORLD_GRAPH } from '../../utils/mapMath'
+import { ItemAcquisitionBanner } from './ItemAcquisitionBanner'
 import { UniqueOwnershipBadge, UniqueOwnershipBanner } from './UniqueOwnershipBanner'
 
 const MOUNT_BREED_CATEGORIES: MountBreedCategory[] = [
@@ -313,6 +314,7 @@ export function MountCompendiumPanel({
 
                 {/* 天地阶孤品归属横幅 */}
                 <UniqueOwnershipBanner itemId={selectedMount.id} />
+                <ItemAcquisitionBanner itemId={selectedMount.id} />
 
                 {/* 日行脚力与地貌规格 */}
                 <div className="grid grid-cols-3 gap-2 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-2 text-xs">

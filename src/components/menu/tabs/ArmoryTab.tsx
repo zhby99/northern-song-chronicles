@@ -21,6 +21,7 @@ import type {
 } from '../../../types/game'
 import { GearCompendiumPanel } from '../GearCompendiumPanel'
 import { WEAPON_SUB_CATEGORIES } from '../menuShared'
+import { ItemAcquisitionBanner } from '../ItemAcquisitionBanner'
 import { UniqueOwnershipBadge, UniqueOwnershipBanner } from '../UniqueOwnershipBanner'
 
 interface ArmoryTabProps {
@@ -379,6 +380,7 @@ export function ArmoryTab({
                     </div>
 
                     <UniqueOwnershipBanner itemId={selectedWeapon.id} />
+                    <ItemAcquisitionBanner itemId={selectedWeapon.id} />
 
                     {/* 交锋规格与银两估值 */}
                     <div className="grid grid-cols-3 gap-2 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-2 text-xs">

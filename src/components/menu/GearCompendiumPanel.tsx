@@ -12,6 +12,7 @@ import {
 } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { CompiledGearRecord, EquipmentTier, GearSlotType } from '../../types/game'
+import { ItemAcquisitionBanner } from './ItemAcquisitionBanner'
 import { UniqueOwnershipBadge, UniqueOwnershipBanner } from './UniqueOwnershipBanner'
 
 interface GearCompendiumPanelProps {
@@ -392,6 +393,7 @@ export function GearCompendiumPanel({
                   </div>
 
                   <UniqueOwnershipBanner itemId={selectedGear.id} />
+                  <ItemAcquisitionBanner itemId={selectedGear.id} />
 
                   {/* 披挂规格与银两估值（与第一卷三格卡片完全对齐） */}
                   <div className="grid grid-cols-3 gap-2 text-center bg-[#faf3e3] border border-[#cbb693] rounded p-2 text-xs">
