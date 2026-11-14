@@ -137,9 +137,11 @@ import {
   DEFAULT_PLAYER_SECT_STATE,
   evaluateSectEntry,
   evaluateSectPromotion,
+  generateKaifengWarrant,
   generateMinorSectTask,
   generateSectTournament,
   getChangshanMonthlyStipend,
+  getKaifengMonthlyStipend,
   getSectLeaderNpcId,
   getSectRankTitle,
   getSectTeachableArts,
@@ -442,6 +444,8 @@ export interface GameStoreState {
   promoteSectRank: () => void
   acceptSectTask: () => void
   abandonSectTask: () => void
+  acceptKaifengWarrant: () => void
+  abandonKaifengWarrant: () => void
   completeSectTaskStep: () => void
   turnInSectTask: () => void
   startSectTournament: () => void
@@ -582,6 +586,26 @@ function applyDayProgressionSectHooks(params: {
           )
         }
       }
+    }
+  }
+
+  if (nextSect.sectId === 'SECT-17') {
+    const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
+    if (curMonthIdx > nextSect.lastStipendMonth) {
+      const months = curMonthIdx - nextSect.lastStipendMonth
+      const perMonth = getKaifengMonthlyStipend(nextSect.rank)
+      const totalStipend = perMonth * months
+      nextSilver += totalStipend
+      nextSect.lastStipendMonth = curMonthIdx
+      nextLogs.unshift(
+        createLogEntry(
+          params.nextDayCount,
+          '开封府俸禄',
+          `大宋官府按月支放【开封府 / 六扇门 · ${nextSect.rankLabel}】月度官俸 +${totalStipend} 两纹银！`,
+          true,
+          params.shichenIdx,
+        ),
+      )
     }
   }
 
@@ -3837,6 +3861,21 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       extraLogText = `少侠竟在东京街头力挫御前四品带刀护卫「南侠」展昭（战斗经验 +${res.combatExpGain}），杀出重围！然朝廷黑名单未消，再度踏入开封仍将遭展昭截杀！`
     }
 
+    // 开封府 / 六扇门「海捕公文」缉拿要犯胜利
+    if (
+      session.outcome === 'player_win' &&
+      nextSectState.sectId === 'SECT-17' &&
+      nextSectState.activeKaifengWarrant &&
+      session.targetNpcNode.id === `KAIFENG_WARRANT_${nextSectState.activeKaifengWarrant.id}`
+    ) {
+      const warrant = nextSectState.activeKaifengWarrant
+      nextSectState.activeKaifengWarrant = null
+      nextSectState.kaifengCasesSolved += 1
+      nextSilver += 15
+      extraLogTag = '缉拿归案'
+      extraLogText = `少侠顺利擒获海捕要犯【${warrant.targetName}（${warrant.targetTitle}）】归案！破案数 +1（累计 ${nextSectState.kaifengCasesSolved} 案），获开封府赏银 +15 两、战斗经验 +${res.combatExpGain}！`
+    }
+
     // 道门与名山剑派「宗门大比」1v1 淘汰赛结算
     if (session.duelStakes === 'sect_tournament' && nextSectState.activeSectTournament) {
       const tourney = nextSectState.activeSectTournament
@@ -4097,6 +4136,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       activeSectTournament: null,
       xingxiuDefeatedRanks: [],
       killedDingChunqiu: false,
+      kaifengCasesSolved: 0,
+      kaifengRank2Day: targetSectId === 'SECT-17' && evalRes.startingRank >= 2 ? s.dayCount : null,
+      activeKaifengWarrant: null,
     }
 
     // 同步完结对应的入门剧情任务链（若曾开启）
@@ -4157,6 +4199,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
+    if (targetSectId === 'SECT-17') {
+      const stipendAmt = getKaifengMonthlyStipend(nextSect.rank)
+      feedbackMsg += ` 每满一月可支领官俸 ${stipendAmt} 两纹银，并可领取海捕公文缉拿要犯破案升迁。`
+    }
+
     const entryGiftIds = SECT_ENTRY_GEAR_GIFTS[targetSectId] ?? []
     const grantedGiftNames: string[] = []
     for (const gid of entryGiftIds) {
@@ -4206,6 +4253,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         contribution: 0,
         activeLiaoSpy: null,
         activeSectTask: null,
+        activeKaifengWarrant: null,
+        kaifengRank2Day: null,
         liaoSuspicionDebuff: true,
       }
       const nextQuest = cloneQuestRuntimeState(s.questState)
@@ -4235,6 +4284,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       activeSectTournament: null,
       xingxiuDefeatedRanks: [],
       killedDingChunqiu: false,
+      kaifengRank2Day: null,
+      activeKaifengWarrant: null,
     }
     const msg = `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
     set({
@@ -4364,6 +4415,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       skills: s.skills,
       xingxiuDefeatedRanks: s.sectState.xingxiuDefeatedRanks,
       killedDingChunqiu: s.sectState.killedDingChunqiu,
+      kaifengCasesSolved: s.sectState.kaifengCasesSolved,
+      kaifengRank2Day: s.sectState.kaifengRank2Day,
     })
     if (!promo) {
       set({
@@ -4389,6 +4442,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ...clonePlayerSectState(s.sectState),
       rank: promo.targetRank,
       rankLabel: promo.targetRankLabel,
+      kaifengRank2Day:
+        sectId === 'SECT-17' && promo.targetRank === 2
+          ? s.dayCount
+          : s.sectState.kaifengRank2Day,
     }
     let msg = `功勋与资历俱备！少侠于【${factionName}】正式晋升为第 ${promo.targetRank} 阶【${promo.targetRankLabel}】！`
     if (sectId === 'SECT-22' && promo.targetRank === 3) {
@@ -4550,6 +4607,64 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       actionFeedback: { text: msg, tone: 'warn' },
       logs: [
         createLogEntry(s.dayCount, '放弃差遣', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  acceptKaifengWarrant: () => {
+    const s = get()
+    if (s.sectState.sectId !== 'SECT-17') {
+      set({
+        actionFeedback: { text: '仅开封府 / 六扇门捕快可领取海捕公文！', tone: 'warn' },
+      })
+      return
+    }
+    if (s.sectState.activeKaifengWarrant) {
+      set({
+        actionFeedback: {
+          text: `少侠尚有在身海捕要案【${s.sectState.activeKaifengWarrant.targetName}】，请先缉拿或放弃！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const warrant = generateKaifengWarrant(s.dayCount)
+    if (!warrant) {
+      set({
+        actionFeedback: { text: '近日四方安靖，府衙暂无新增海捕公文。', tone: 'warn' },
+      })
+      return
+    }
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      activeKaifengWarrant: warrant,
+    }
+    const msg = `领取开封府海捕公文：缉拿【${warrant.targetName}（${warrant.targetTitle} · ${warrant.realm}）】！据报此犯潜匿于【${warrant.regionName} · ${warrant.buildingName}】。`
+    set({
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '海捕公文', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  abandonKaifengWarrant: () => {
+    const s = get()
+    const w = s.sectState.activeKaifengWarrant
+    if (!w) return
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      activeKaifengWarrant: null,
+    }
+    const msg = `少侠已退回缉拿【${w.targetName}】的海捕公文，暂不计过，可随时重领新案。`
+    set({
+      sectState: nextSect,
+      actionFeedback: { text: msg, tone: 'warn' },
+      logs: [
+        createLogEntry(s.dayCount, '退回海捕', msg, true, s.shichenIdx),
         ...s.logs,
       ].slice(0, 60),
     })

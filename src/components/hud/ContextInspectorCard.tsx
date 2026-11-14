@@ -36,6 +36,7 @@ import {
   WORLD_GRAPH,
 } from '../../utils/mapMath'
 import {
+  buildNodeNpcFromKaifengWarrant,
   buildNodeNpcFromLiaoSpy,
   buildNodeNpcFromSectTaskIntel,
   buildNodeNpcFromSectTaskTrainee,
@@ -197,6 +198,18 @@ export function ContextInspectorCard() {
       }
     }
 
+    // Dynamic Kaifeng / Liu Shan Men bounty warrant target (SECT-17)
+    const warrant = sectState.activeKaifengWarrant
+    if (
+      warrant &&
+      warrant.regionId === node.id &&
+      warrant.buildingId === resolvedLeafBuildingId &&
+      resolvedLeafSpotId === null
+    ) {
+      seenNames.add(warrant.targetName)
+      combined.push(buildNodeNpcFromKaifengWarrant(warrant))
+    }
+
     // Dynamic Sect Task temporary NPC (gather_intel informant or temporary martial_coaching trainee)
     const sectTask = sectState.activeSectTask
     if (
@@ -305,6 +318,7 @@ export function ContextInspectorCard() {
     selectedSpotId,
     roamingMasters,
     sectState.activeLiaoSpy,
+    sectState.activeKaifengWarrant,
     sectState.activeSectTask,
     questState.dynamicActors,
   ])

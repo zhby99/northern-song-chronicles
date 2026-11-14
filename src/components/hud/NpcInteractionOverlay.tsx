@@ -25,6 +25,7 @@ import {
   evaluateSectEntry,
   evaluateSectPromotion,
   getChangshanMonthlyStipend,
+  getKaifengMonthlyStipend,
   getSectLeaderNpcId,
   getSectTeachableArts,
   getSectTournamentDateInfo,
@@ -89,6 +90,8 @@ export function NpcInteractionOverlay() {
   const promoteSectRank = useGameStore((s) => s.promoteSectRank)
   const acceptSectTask = useGameStore((s) => s.acceptSectTask)
   const abandonSectTask = useGameStore((s) => s.abandonSectTask)
+  const acceptKaifengWarrant = useGameStore((s) => s.acceptKaifengWarrant)
+  const abandonKaifengWarrant = useGameStore((s) => s.abandonKaifengWarrant)
   const completeSectTaskStep = useGameStore((s) => s.completeSectTaskStep)
   const turnInSectTask = useGameStore((s) => s.turnInSectTask)
   const startSectTournament = useGameStore((s) => s.startSectTournament)
@@ -316,6 +319,8 @@ export function NpcInteractionOverlay() {
           skills,
           xingxiuDefeatedRanks: sectState.xingxiuDefeatedRanks,
           killedDingChunqiu: sectState.killedDingChunqiu,
+          kaifengCasesSolved: sectState.kaifengCasesSolved,
+          kaifengRank2Day: sectState.kaifengRank2Day,
         })
       : null
 
@@ -984,6 +989,60 @@ export function NpcInteractionOverlay() {
                           {activeSectTask.completedStep ? '（已完成，请向掌门复命）' : '（进行中）'}
                         </div>
                         <div className="mt-0.5">{activeSectTask.summary}</div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* 开封府 / 六扇门（SECT-17）：月度官俸与海捕公文 */}
+                {targetFactionId === 'SECT-17' && (
+                  <div className="p-3.5 rounded-lg bg-[#f4f7fa] border border-[#7c94b0] space-y-2.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div>
+                        <div className="font-bold text-[#1d3557] song-serif text-sm sm:text-base">
+                          开封府 / 六扇门 · 官俸与海捕要案
+                        </div>
+                        <div className="text-xs text-[#3b526d] mt-0.5">
+                          月度官俸：<span className="font-bold text-[#1d3557]">{getKaifengMonthlyStipend(sectState.rank)} 两 / 月</span>
+                          {' · '}
+                          累计破案：<span className="font-bold text-[#1d3557]">{sectState.kaifengCasesSolved} 案</span>
+                          {sectState.rank === 2 && sectState.kaifengRank2Day !== null && (
+                            <>
+                              {' · '}
+                              捕头历练：<span className="font-bold text-[#1d3557]">{Math.max(0, dayCount - sectState.kaifengRank2Day)} / 730 天</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        {!sectState.activeKaifengWarrant ? (
+                          <button
+                            type="button"
+                            onClick={() => acceptKaifengWarrant()}
+                            className="px-3.5 py-1.5 rounded-lg bg-[#1d3557] hover:bg-[#2a4a75] border border-[#8fb2d9] text-[#fff8ee] text-xs font-bold cursor-pointer"
+                          >
+                            领取海捕公文
+                          </button>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => abandonKaifengWarrant()}
+                            className="px-3 py-1.5 rounded-lg bg-[#781710]/90 hover:bg-[#961f16] border border-[#d49a6a] text-[#fff8ee] text-xs font-medium cursor-pointer"
+                          >
+                            放弃当前海捕
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {sectState.activeKaifengWarrant && (
+                      <div className="px-3 py-2 rounded bg-[#e8eff7] border border-[#9ab3ce] text-xs text-[#1d3557] leading-relaxed">
+                        <div className="font-bold">
+                          在案海捕要犯：【{sectState.activeKaifengWarrant.targetName}】（{sectState.activeKaifengWarrant.targetTitle} · {sectState.activeKaifengWarrant.realm}）
+                        </div>
+                        <div className="mt-0.5 text-[#2d4665]">
+                          潜匿地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】。前往该处寻获此犯并在切磋或决斗中将其击败，即可破案（破案数 +1，赏银 +15 两）。
+                        </div>
                       </div>
                     )}
                   </div>

@@ -856,6 +856,22 @@ export interface PlayerSectState {
   activeSectTournament: ActiveSectTournament | null
   xingxiuDefeatedRanks: number[]
   killedDingChunqiu: boolean
+  kaifengCasesSolved: number
+  kaifengRank2Day: number | null
+  activeKaifengWarrant: ActiveKaifengWarrant | null
+}
+
+export interface ActiveKaifengWarrant {
+  id: string
+  targetName: string
+  targetTitle: string
+  realm: string
+  stats: NpcCombatStats
+  regionId: string
+  regionName: string
+  buildingId: string
+  buildingName: string
+  acceptedDay: number
 }
 
 export interface GameOverState {

@@ -9,6 +9,7 @@ import {
 } from '../data/gameDb'
 import { DEFAULT_EQUIPPED_SLOTS } from '../data/itemsDb'
 import type {
+  ActiveKaifengWarrant,
   ActiveLiaoSpyMission,
   ActiveSectTask,
   ActiveSectTournament,
@@ -47,6 +48,9 @@ export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
   activeSectTournament: null,
   xingxiuDefeatedRanks: [],
   killedDingChunqiu: false,
+  kaifengCasesSolved: 0,
+  kaifengRank2Day: null,
+  activeKaifengWarrant: null,
 }
 
 export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): PlayerSectState {
@@ -105,6 +109,13 @@ export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): Play
       ? st.xingxiuDefeatedRanks.filter((x): x is number => typeof x === 'number')
       : [],
     killedDingChunqiu: Boolean(st.killedDingChunqiu),
+    kaifengCasesSolved:
+      typeof st.kaifengCasesSolved === 'number'
+        ? Math.max(0, Math.floor(st.kaifengCasesSolved))
+        : 0,
+    kaifengRank2Day:
+      typeof st.kaifengRank2Day === 'number' ? Math.max(0, Math.floor(st.kaifengRank2Day)) : null,
+    activeKaifengWarrant: st.activeKaifengWarrant ? { ...st.activeKaifengWarrant } : null,
   }
 }
 
@@ -197,6 +208,24 @@ export function getChangshanMonthlyStipend(rank: SectRankLevel): number {
       return 85
     case 5:
       return 120
+  }
+}
+
+/**
+ * Compute monthly official stipend for SECT-17 开封府 / 六扇门 based on current rank.
+ */
+export function getKaifengMonthlyStipend(rank: SectRankLevel): number {
+  switch (rank) {
+    case 1:
+      return 30
+    case 2:
+      return 50
+    case 3:
+      return 80
+    case 4:
+      return 120
+    case 5:
+      return 180
   }
 }
 
@@ -799,6 +828,74 @@ export interface PromotionRequirementInfo {
   isFirstTierPendingDesign?: boolean
 }
 
+const KAIFENG_WARRANT_CRIMINALS = [
+  { name: '黑风煞', title: '江洋劫匪头目', realm: '三流中品' },
+  { name: '血手杜三', title: '官道剪径凶徒', realm: '三流上品' },
+  { name: '白面郎君', title: '采花盗玉悍匪', realm: '三流上品' },
+  { name: '铁钩王五', title: '运河私盐枭首', realm: '二流下品' },
+  { name: '鬼影张七', title: '京畿飞贼首领', realm: '二流中品' },
+]
+
+export function generateKaifengWarrant(dayCount: number): ActiveKaifengWarrant | null {
+  const nearbyCities = WORLD_GRAPH.nodes.filter((n) => {
+    if (n.type !== 'city' || n.id === 'bianliang') return false
+    const dist = getRouteDistanceLi('bianliang', n.id)
+    return dist !== null && dist > 0 && dist <= 2500
+  })
+  const pool = nearbyCities.length > 0 ? nearbyCities : WORLD_GRAPH.nodes.filter((n) => n.type === 'city')
+  const city = pool[Math.floor(Math.random() * pool.length)]
+  if (!city) return null
+
+  const bldgs = BUILDINGS_DB.filter(
+    (b) => b.regionId === city.id && !b.isSpecial && (b.id.endsWith('_base_tavern') || b.id.endsWith('_base_inn')),
+  )
+  const bldg = bldgs[Math.floor(Math.random() * bldgs.length)]
+  if (!bldg) return null
+
+  const crim =
+    KAIFENG_WARRANT_CRIMINALS[Math.floor(Math.random() * KAIFENG_WARRANT_CRIMINALS.length)]!
+  const r = parseRealmTier(crim.realm).rank
+  const stats =
+    r <= 2
+      ? { hp: 520, mp: 260, agi: 26, res: 14, isBenchmark: false }
+      : r === 3
+        ? { hp: 720, mp: 440, agi: 32, res: 19, isBenchmark: false }
+        : r === 4
+          ? { hp: 1020, mp: 720, agi: 38, res: 25, isBenchmark: false }
+          : { hp: 1320, mp: 1020, agi: 44, res: 31, isBenchmark: false }
+
+  return {
+    id: `KF_W_${dayCount}_${Math.floor(Math.random() * 10000)}`,
+    targetName: crim.name,
+    targetTitle: crim.title,
+    realm: crim.realm,
+    stats,
+    regionId: city.id,
+    regionName: city.name,
+    buildingId: bldg.id,
+    buildingName: bldg.name,
+    acceptedDay: dayCount,
+  }
+}
+
+export function buildNodeNpcFromKaifengWarrant(warrant: ActiveKaifengWarrant): NodeNpc {
+  return {
+    id: `KAIFENG_WARRANT_${warrant.id}`,
+    name: warrant.targetName,
+    title: `海捕要犯 · ${warrant.targetTitle}`,
+    realm: warrant.realm,
+    factionId: 'SECT-18',
+    factionName: '绿林通缉要犯',
+    avatarUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    stats: warrant.stats,
+    talents: { bone: 45, comprehension: 40, charm: 30 },
+    fullLocationLabel: `${warrant.regionName} > ${warrant.buildingName}`,
+    questBadgeLabel: '海捕要犯',
+    talk: `“哼，开封府的鹰爪子居然追到${warrant.regionName}来了！想要捉拿爷爷，先问过手中兵刃！”`,
+  }
+}
+
 export function evaluateSectPromotion(params: {
   sectId: string
   currentRank: SectRankLevel
@@ -812,6 +909,8 @@ export function evaluateSectPromotion(params: {
   skills?: Record<string, number>
   xingxiuDefeatedRanks?: number[]
   killedDingChunqiu?: boolean
+  kaifengCasesSolved?: number
+  kaifengRank2Day?: number | null
 }): PromotionRequirementInfo | null {
   const {
     sectId,
@@ -826,7 +925,52 @@ export function evaluateSectPromotion(params: {
     skills,
     xingxiuDefeatedRanks = [],
     killedDingChunqiu = false,
+    kaifengCasesSolved = 0,
+    kaifengRank2Day = null,
   } = params
+
+  // 开封府 / 六扇门（SECT-17）：海捕破案（不看门派好感）+ Lv.2 后满 730 天接姑苏慕容谋反任务（待实装）
+  if (sectId === 'SECT-17') {
+    if (currentRank >= 4) return null
+    const targetRank = (currentRank + 1) as SectRankLevel
+    const targetRankLabel = getSectRankTitle(sectId, targetRank)
+    if (currentRank === 1) {
+      const missing: string[] = []
+      if (heroRealmRank < 3) {
+        missing.push(`境界须达【三流上品】（当前【${heroRealmLabel}】）`)
+      }
+      if (kaifengCasesSolved < 3) {
+        missing.push(`破获海捕要案 ${kaifengCasesSolved}/3 宗`)
+      }
+      return {
+        targetRank,
+        targetRankLabel,
+        canPromote: missing.length === 0,
+        reason:
+          missing.length === 0
+            ? `武功（${heroRealmLabel}）与缉盗政绩（破案 ${kaifengCasesSolved} 宗）皆已齐备，可升任【${targetRankLabel}】！`
+            : `晋升【${targetRankLabel}】尚缺：${missing.join('、')}`,
+      }
+    }
+    if (currentRank === 2) {
+      const baseDay = kaifengRank2Day ?? joinedDay
+      const daysAtRank2 = Math.max(0, dayCount - baseDay)
+      return {
+        targetRank,
+        targetRankLabel,
+        canPromote: false,
+        isFirstTierPendingDesign: true,
+        reason: `须在【捕头都头】任上做满 730 天（当前 ${daysAtRank2}/730 天）后领取「查探姑苏慕容氏谋反」专属晋升任务线（将于后续实装）。`,
+      }
+    }
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      isFirstTierPendingDesign: true,
+      reason: `晋升【${targetRankLabel}】须完成「姑苏慕容氏谋反」高阶侦缉任务线（将于后续实装，且大内总供奉不可常规晋升）。`,
+    }
+  }
 
   // 星宿派（SECT-19）：唯实力为尊，打败对应阶位弟子即可晋升，杀死丁春秋可做掌门
   if (sectId === 'SECT-19') {
