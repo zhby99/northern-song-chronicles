@@ -1493,7 +1493,7 @@ export function resolveCombatRound(
       if (eff) {
         const notes: string[] = []
         const itemPopups: CombatFloatingPopup[] = []
-        if (itemDef.rarity === '天阶') {
+        if (itemDef.rarity === '天阶' || itemDef.rarity === '地阶') {
           if (eff.maxHp) {
             actor.maxHp += eff.maxHp
             notes.push(`气血上限 +${eff.maxHp}`)
@@ -1540,7 +1540,7 @@ export function resolveCombatRound(
             })
           }
         }
-        if (eff.curePoison || itemDef.rarity === '天阶') {
+        if (eff.curePoison) {
           if (actor.slowTurns > 0 || actor.weakTurns > 0) {
             actor.slowTurns = 0
             actor.weakTurns = 0

@@ -158,17 +158,31 @@ export function NpcInteractionOverlay() {
   const bio = dbRecord?.bio
 
   const giftableItems = useMemo(() => {
+    const allowedCategories = new Set(['scrolls', 'medicine', 'tools'])
+    const allowedRarities = new Set(['良阶', '凡阶'])
     return inventory
-      .filter(
-        (st) =>
-          st.qty > 0 &&
-          Boolean(ITEM_DB_MAP[st.itemId]) &&
-          !NON_GIFTABLE_KEY_ITEM_IDS.has(st.itemId),
-      )
+      .filter((st) => {
+        if (st.qty <= 0 || NON_GIFTABLE_KEY_ITEM_IDS.has(st.itemId)) return false
+        const def = ITEM_DB_MAP[st.itemId]
+        if (!def) return false
+        return (
+          allowedCategories.has(def.category) &&
+          allowedRarities.has(def.rarity) &&
+          !def.equipSlot &&
+          !def.mountMeta &&
+          !def.weaponMeta &&
+          !def.gearMeta
+        )
+      })
       .map((st) => ({
         stack: st,
         item: ITEM_DB_MAP[st.itemId]!,
       }))
+      .sort(
+        (a, b) =>
+          b.item.value - a.item.value ||
+          a.item.name.localeCompare(b.item.name, 'zh-Hans-CN'),
+      )
   }, [inventory])
 
   const sectTeachableArts = useMemo(() => {
@@ -1329,13 +1343,18 @@ export function NpcInteractionOverlay() {
       {subPanel === 'gift' && (
         <div className="relative z-20 w-[min(92vw,560px)] lg:self-end lg:mr-10 max-h-[52vh] mb-3 rounded-xl bg-[#f7eedc]/97 border-2 border-[#8c6e46] shadow-2xl overflow-hidden flex flex-col">
           <div className="px-4 py-2 bg-[#3d2814] text-[#f5dfb5] flex items-center justify-between border-b border-[#8c6e46]">
-            <span className="text-sm font-bold song-serif">
-              向【{npc.name}】赠礼（择一行囊物什）
-            </span>
+            <div>
+              <span className="text-sm font-bold song-serif">
+                向【{npc.name}】赠礼（择一行囊物什）
+              </span>
+              <div className="text-[10px] text-[#d4bc91]">
+                仅限赠予良阶、凡阶的典籍书画、丹药毒物与雅器百工 · 按价值由高到低排列
+              </div>
+            </div>
             <button
               type="button"
               onClick={() => setSubPanel('none')}
-              className="text-xs px-2 py-0.5 rounded bg-[#5c3d1e] hover:bg-[#785129] text-[#f5dfb5] cursor-pointer"
+              className="text-xs px-2 py-0.5 rounded bg-[#5c3d1e] hover:bg-[#785129] text-[#f5dfb5] cursor-pointer shrink-0"
             >
               取消
             </button>
@@ -1343,7 +1362,7 @@ export function NpcInteractionOverlay() {
           <div className="p-3 overflow-y-auto scroll-thin grid grid-cols-1 sm:grid-cols-2 gap-2">
             {giftableItems.length === 0 ? (
               <div className="col-span-full py-6 text-center text-xs text-[#6b5235]">
-                行囊空空如也，暂无可赠之物。
+                行囊中暂无可赠予的良阶/凡阶典籍书画、丹药毒物或雅器百工。
               </div>
             ) : (
               giftableItems.map(({ stack, item }) => (
@@ -1358,7 +1377,7 @@ export function NpcInteractionOverlay() {
                       {item.name}
                     </div>
                     <div className="text-[10px] text-[#6b5235] truncate">
-                      {CATEGORY_LABEL_MAP[item.category] ?? item.category} · {item.rarity}
+                      {CATEGORY_LABEL_MAP[item.category] ?? item.category} · {item.rarity} · 价值 {item.value} 两
                     </div>
                   </div>
                   <span className="text-[11px] font-mono px-1.5 py-0.5 rounded bg-[#faf3e3] border border-[#dcc9a7] text-[#4a3219] shrink-0">
@@ -1428,7 +1447,7 @@ export function NpcInteractionOverlay() {
             title={
               hasTalkedThisMonth
                 ? '每人每月仅可交谈一次，本月已交谈'
-                : '每人每月限交谈一次，随机变动 -1~+5 点好感度'
+                : '每人每月限交谈一次，耗 2 时辰，随机变动 -1~+5 点好感度'
             }
             onClick={handleTalk}
             className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors ${
@@ -1493,7 +1512,7 @@ export function NpcInteractionOverlay() {
                   ? `需好感度 ≥ 20 方可切磋（当前 ${curFavor}/100）`
                   : hasSparredThisMonth
                     ? '每人每月限切磋一次，本月已切磋'
-                    : '每人每月限切磋一次'
+                    : '每人每月限切磋一次，耗 2 时辰'
               }
               onClick={handleSpar}
               className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors ${

@@ -46,7 +46,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const learnedArts = useGameStore((s) => s.learnedArts)
   const equippedArts = useGameStore((s) => s.equippedArts)
   const sectState = useGameStore((s) => s.sectState)
-  const restRecoverStamina = useGameStore((s) => s.restRecoverStamina)
+  const restAndRecuperate = useGameStore((s) => s.restAndRecuperate)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
 
   const heroAge = getHeroAge(dayCount)
@@ -263,20 +263,37 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
               <span className="song-serif font-bold text-base text-[#23180f]">
                 周身气血 · 真气内息 · 战斗经验
               </span>
-              <button
-                type="button"
-                onClick={restRecoverStamina}
-                title={
-                  inOwnSectCity
-                    ? '身处本门驻地所在州府，免费于师门寮房调息回满气血内息'
-                    : `非师门驻地须花费 ${DAILY_INN_LODGING_COST} 两纹银住店调息，回满气血与内息`
-                }
-                className="px-3 py-1 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] text-xs font-bold song-serif cursor-pointer shadow-sm transition"
-              >
-                {inOwnSectCity
-                  ? '师门调息（驻地免费 · 回满气血内息）'
-                  : `客舍调息（${DAILY_INN_LODGING_COST}两银 · 回满气血内息）`}
-              </button>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[11px] font-bold text-[#215744] song-serif mr-1">
+                  {inOwnSectCity
+                    ? '师门调息（2.0× · 免费）：'
+                    : `客舍调息（2.0× · ${DAILY_INN_LODGING_COST}两/日）：`}
+                </span>
+                {([1, 3, 5] as const).map((days) => {
+                  const cost = inOwnSectCity ? 0 : DAILY_INN_LODGING_COST * days
+                  const cantAfford = silver < cost
+                  return (
+                    <button
+                      key={days}
+                      type="button"
+                      disabled={cantAfford}
+                      onClick={() => restAndRecuperate(days)}
+                      title={
+                        inOwnSectCity
+                          ? `身处本门驻地所在州府，免费调息 ${days} 日（气血 1/10/日、内力 1/5/日）`
+                          : `非师门驻地须花费 ${cost} 两纹银住店调息 ${days} 日（气血 1/10/日、内力 1/5/日）`
+                      }
+                      className={`px-2.5 py-1 rounded text-xs font-bold song-serif transition ${
+                        cantAfford
+                          ? 'bg-[#c9bfae] text-[#7a7165] cursor-not-allowed'
+                          : 'bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] cursor-pointer shadow-sm'
+                      }`}
+                    >
+                      {days}天{cost > 0 ? `（${cost}两）` : '（免费）'}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">

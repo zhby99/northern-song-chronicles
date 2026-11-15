@@ -115,7 +115,6 @@ export function ContextInspectorCard() {
   const enterRegionMap = useGameStore((s) => s.enterRegionMap)
   const enterBuildingMap = useGameStore((s) => s.enterBuildingMap)
   const startJourney = useGameStore((s) => s.startJourney)
-  const doBuildingAction = useGameStore((s) => s.doBuildingAction)
   const buySpotShopItem = useGameStore((s) => s.buySpotShopItem)
   const runQuestEffects = useGameStore((s) => s.runQuestEffects)
   const interactNpc = useGameStore((s) => s.interactNpc)
@@ -128,6 +127,10 @@ export function ContextInspectorCard() {
   const [expandedEntry, setExpandedEntry] = useState<{
     contextKey: string
     npcKey: string
+  } | null>(null)
+  const [shopFilterState, setShopFilterState] = useState<{
+    contextKey: string
+    category: 'all' | 'weapon' | 'armor' | 'mount' | 'scrolls' | 'medicine' | 'tools' | 'misc'
   } | null>(null)
 
   // Strict Leaf-Only NPC Resolution:
@@ -555,7 +558,7 @@ export function ContextInspectorCard() {
     desc: string
     actLabel: string
     cost?: number
-    effect: Parameters<typeof doBuildingAction>[0]['effect']
+    effect: unknown
     isSpecial: boolean
   } | null = null
   let tierLabel = regionNode.name
@@ -682,22 +685,6 @@ export function ContextInspectorCard() {
         </button>
       )}
 
-      {!activeCanEnter && (
-        <button
-          type="button"
-          onClick={() =>
-            doBuildingAction({
-              name: targetItem.name,
-              cost: targetItem.cost,
-              effect: targetItem.effect,
-            })
-          }
-          className="w-full px-3 py-2 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] text-xs font-bold song-serif shadow transition cursor-pointer"
-        >
-          {targetItem.actLabel}
-        </button>
-      )}
-
       {spotQuestActions.length > 0 && (
         <div className="p-2.5 rounded-md bg-[#f5e7cb] border-2 border-[#b58742] space-y-2">
           <div className="flex items-center justify-between text-[11px] font-bold song-serif text-[#781710]">
@@ -749,17 +736,50 @@ export function ContextInspectorCard() {
       )}
 
       {(isOwnSectGrounds || isInnVenue) && (
-        <button
-          type="button"
-          onClick={() => openMenu('loadout')}
-          className="w-full px-3 py-2 rounded bg-[#5c3d1e] hover:bg-[#734c26] border border-[#c89d54]/70 text-[#fff8eb] text-xs font-bold song-serif shadow transition cursor-pointer"
-        >
-          {isOwnSectGrounds
-            ? '在此发起闭关修炼（师门演武场 · 效率 125% · 免宿费）→'
-            : `在此发起闭关修炼（客栈闭关 · 效率 100% · ${
-                inOwnSectCity ? '师门驻地免宿费' : `${DAILY_INN_LODGING_COST} 两/日`
-              }）→`}
-        </button>
+        <div className="space-y-2">
+          <button
+            type="button"
+            onClick={() => openMenu('loadout')}
+            className="w-full px-3 py-2 rounded bg-[#5c3d1e] hover:bg-[#734c26] border border-[#c89d54]/70 text-[#fff8eb] text-xs font-bold song-serif shadow transition cursor-pointer"
+          >
+            {isOwnSectGrounds
+              ? '在此发起闭关修炼（师门演武场 · 效率 125% · 免宿费）→'
+              : `在此发起闭关修炼（客栈闭关 · 效率 100% · ${
+                  inOwnSectCity ? '师门驻地免宿费' : `${DAILY_INN_LODGING_COST} 两/日`
+                }）→`}
+          </button>
+
+          <div className="rounded border border-[#215744]/35 bg-[#eef5f0]/90 p-2.5 space-y-1.5">
+            <div className="flex items-center justify-between text-[11px] font-bold text-[#215744] song-serif">
+              <span>调息休养（2.0× 倍速恢复气血内力）</span>
+              <span className="text-[10px] font-normal text-[#5a5044]">
+                {inOwnSectCity ? '师门驻地免宿费' : `客栈 ${DAILY_INN_LODGING_COST} 两/日`}
+              </span>
+            </div>
+            <div className="grid grid-cols-3 gap-1.5">
+              {([1, 3, 5] as const).map((days) => {
+                const cost = inOwnSectCity ? 0 : DAILY_INN_LODGING_COST * days
+                const cantAfford = silver < cost
+                return (
+                  <button
+                    key={days}
+                    type="button"
+                    disabled={cantAfford}
+                    onClick={() => useGameStore.getState().restAndRecuperate(days)}
+                    title={`调息 ${days} 日：气血按 1/10/日、内力按 1/5/日 恢复（当前 ${hp}/${maxHp} · ${mp}/${maxMp}）`}
+                    className={`px-2 py-1.5 rounded text-[11px] font-bold song-serif transition ${
+                      cantAfford
+                        ? 'bg-[#c9bfae] text-[#7a7165] cursor-not-allowed'
+                        : 'bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] shadow-sm cursor-pointer'
+                    }`}
+                  >
+                    {days}天{cost > 0 ? ` · ${cost}两` : ' · 免费'}
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
       )}
 
       {((activeRegionId === 'shaolin' &&
@@ -881,64 +901,197 @@ export function ContextInspectorCard() {
               </div>
             )}
 
-            <div className="space-y-1.5 max-h-60 overflow-y-auto scroll-thin pr-0.5">
-              {activeShop.items.map((entry) => {
+            {(() => {
+              type ShopGroupKey =
+                | 'weapon'
+                | 'armor'
+                | 'mount'
+                | 'scrolls'
+                | 'medicine'
+                | 'tools'
+                | 'misc'
+              const groupOrder: Array<{ key: ShopGroupKey; label: string }> = [
+                { key: 'weapon', label: '神兵利器' },
+                { key: 'armor', label: '衣甲履佩' },
+                { key: 'mount', label: '名驹坐骑' },
+                { key: 'scrolls', label: '典籍书画' },
+                { key: 'medicine', label: '丹药毒物' },
+                { key: 'tools', label: '雅器百工' },
+                { key: 'misc', label: '行囊杂物' },
+              ]
+              const buckets: Record<
+                ShopGroupKey,
+                Array<{
+                  entry: (typeof activeShop.items)[number]
+                  def: NonNullable<(typeof ITEM_DB_MAP)[string]>
+                }>
+              > = {
+                weapon: [],
+                armor: [],
+                mount: [],
+                scrolls: [],
+                medicine: [],
+                tools: [],
+                misc: [],
+              }
+              for (const entry of activeShop.items) {
                 const def = ITEM_DB_MAP[entry.itemId]
-                if (!def) return null
-                const ownedQty =
-                  inventory.find((st) => st.itemId === entry.itemId)?.qty ?? 0
-                const affordable = silver >= entry.price
-                const btnEnabled = canTradeHere && affordable
-                const mnt = def.mountMeta
-                const bonusParts: string[] = []
-                if (mnt) {
-                  bonusParts.push(`脚力${mnt.baseSpeed}`)
-                  bonusParts.push(`${mnt.terrainTrait}+${mnt.terrainBonusPct}%`)
-                } else if (def.equipBonus) {
-                  if (def.equipBonus.attack) bonusParts.push(`攻+${def.equipBonus.attack}`)
-                  if (def.equipBonus.defense) bonusParts.push(`防+${def.equipBonus.defense}`)
-                  if (def.equipBonus.maxHp) bonusParts.push(`血+${def.equipBonus.maxHp}`)
-                  if (def.equipBonus.maxMp) bonusParts.push(`内+${def.equipBonus.maxMp}`)
-                  if (def.equipBonus.agility) bonusParts.push(`身+${def.equipBonus.agility}`)
-                  if (def.equipBonus.res) bonusParts.push(`抗+${def.equipBonus.res}`)
+                if (!def) continue
+                let gk: ShopGroupKey = 'misc'
+                if (def.mountMeta || def.equipSlot === 'mount') {
+                  gk = 'mount'
+                } else if (def.equipSlot || def.weaponMeta || def.gearMeta) {
+                  gk =
+                    def.equipSlot === 'weapon' || def.equipSlot === 'bow' || Boolean(def.weaponMeta)
+                      ? 'weapon'
+                      : 'armor'
+                } else if (def.category === 'scrolls') {
+                  gk = 'scrolls'
+                } else if (def.category === 'medicine') {
+                  gk = 'medicine'
+                } else if (def.category === 'tools') {
+                  gk = 'tools'
                 }
-                return (
-                  <div
-                    key={entry.itemId}
-                    className="flex items-center justify-between gap-2 p-2 rounded bg-[#faf3e3] border border-[#cbb693]"
-                  >
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="font-bold song-serif text-xs text-[#23180f]">
-                          {def.name}
-                        </span>
-                        {ownedQty > 0 && (
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-[#1f4d3b]/15 text-[#1f4d3b] font-mono">
-                            已藏×{ownedQty}
-                          </span>
-                        )}
-                      </div>
-                      <div className="text-[10px] text-[#6b5235] truncate">
-                        {entry.note ?? def.subType}
-                        {bonusParts.length > 0 ? ` · ${bonusParts.join(' ')}` : ''}
-                      </div>
+                buckets[gk].push({ entry, def })
+              }
+
+              const availableGroups = groupOrder.filter((g) => buckets[g.key].length > 0)
+              const totalItemsCount = availableGroups.reduce(
+                (acc, g) => acc + buckets[g.key].length,
+                0,
+              )
+              const rawSelected =
+                shopFilterState?.contextKey === currentContextKey
+                  ? shopFilterState.category
+                  : 'all'
+              const selectedCategory =
+                rawSelected === 'all' || availableGroups.some((g) => g.key === rawSelected)
+                  ? rawSelected
+                  : 'all'
+              const visibleGroups =
+                selectedCategory === 'all'
+                  ? availableGroups
+                  : availableGroups.filter((g) => g.key === selectedCategory)
+
+              return (
+                <>
+                  {availableGroups.length > 1 && (
+                    <div className="flex flex-wrap gap-1">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setShopFilterState({ contextKey: currentContextKey, category: 'all' })
+                        }
+                        className={`px-2 py-0.5 rounded text-[10px] font-bold song-serif border transition cursor-pointer ${
+                          selectedCategory === 'all'
+                            ? 'bg-[#781710] border-[#781710] text-[#fff8ee] shadow-sm'
+                            : 'bg-[#efe4cc] hover:bg-[#e5d3b3] border-[#cbb07e] text-[#5c3d1e]'
+                        }`}
+                      >
+                        全部 ({totalItemsCount})
+                      </button>
+                      {availableGroups.map((g) => (
+                        <button
+                          key={g.key}
+                          type="button"
+                          onClick={() =>
+                            setShopFilterState({
+                              contextKey: currentContextKey,
+                              category: g.key,
+                            })
+                          }
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold song-serif border transition cursor-pointer ${
+                            selectedCategory === g.key
+                              ? 'bg-[#781710] border-[#781710] text-[#fff8ee] shadow-sm'
+                              : 'bg-[#efe4cc] hover:bg-[#e5d3b3] border-[#cbb07e] text-[#5c3d1e]'
+                          }`}
+                        >
+                          {g.label} ({buckets[g.key].length})
+                        </button>
+                      ))}
                     </div>
-                    <button
-                      type="button"
-                      disabled={!btnEnabled}
-                      onClick={() => buySpotShopItem(activeShop.spotId, entry.itemId)}
-                      className={`px-2.5 py-1 rounded text-[11px] font-bold song-serif shrink-0 transition ${
-                        btnEnabled
-                          ? 'bg-[#781710] hover:bg-[#931e15] text-[#fff8ee] cursor-pointer shadow-sm'
-                          : 'bg-[#c9bba3] text-[#7a6d5a] cursor-not-allowed'
-                      }`}
-                    >
-                      {entry.price} 两购置
-                    </button>
+                  )}
+
+                  <div className="space-y-2.5 max-h-72 overflow-y-auto scroll-thin pr-0.5">
+                    {visibleGroups.map((g) => {
+                      const sortedItems = [...buckets[g.key]].sort(
+                        (a, b) =>
+                          b.entry.price - a.entry.price ||
+                          b.def.value - a.def.value ||
+                          a.def.name.localeCompare(b.def.name, 'zh-Hans-CN'),
+                      )
+                      return (
+                        <div key={g.key} className="space-y-1">
+                          <div className="flex items-center justify-between px-1.5 py-0.5 rounded bg-[#e8d5b0] border border-[#cbb07e] text-[10px] font-bold song-serif text-[#5c3d1e]">
+                            <span>{g.label}</span>
+                            <span className="font-mono text-[#6b5235]">
+                              {sortedItems.length} 种 · 按价值降序
+                            </span>
+                          </div>
+                          {sortedItems.map(({ entry, def }) => {
+                            const ownedQty =
+                              inventory.find((st) => st.itemId === entry.itemId)?.qty ?? 0
+                            const affordable = silver >= entry.price
+                            const btnEnabled = canTradeHere && affordable
+                            const mnt = def.mountMeta
+                            const bonusParts: string[] = []
+                            if (mnt) {
+                              bonusParts.push(`脚力${mnt.baseSpeed}`)
+                              bonusParts.push(`${mnt.terrainTrait}+${mnt.terrainBonusPct}%`)
+                            } else if (def.equipBonus) {
+                              if (def.equipBonus.attack) bonusParts.push(`攻+${def.equipBonus.attack}`)
+                              if (def.equipBonus.defense) bonusParts.push(`防+${def.equipBonus.defense}`)
+                              if (def.equipBonus.maxHp) bonusParts.push(`血+${def.equipBonus.maxHp}`)
+                              if (def.equipBonus.maxMp) bonusParts.push(`内+${def.equipBonus.maxMp}`)
+                              if (def.equipBonus.agility) bonusParts.push(`身+${def.equipBonus.agility}`)
+                              if (def.equipBonus.res) bonusParts.push(`抗+${def.equipBonus.res}`)
+                            }
+                            return (
+                              <div
+                                key={entry.itemId}
+                                className="flex items-center justify-between gap-2 p-2 rounded bg-[#faf3e3] border border-[#cbb693]"
+                              >
+                                <div className="min-w-0">
+                                  <div className="flex items-center gap-1.5 flex-wrap">
+                                    <span className="font-bold song-serif text-xs text-[#23180f]">
+                                      {def.name}
+                                    </span>
+                                    <span className="text-[9px] px-1 py-0.2 rounded bg-[#efe0c4] text-[#6b4614]">
+                                      {def.rarity}
+                                    </span>
+                                    {ownedQty > 0 && (
+                                      <span className="text-[9px] px-1 py-0.2 rounded bg-[#1f4d3b]/15 text-[#1f4d3b] font-mono">
+                                        已藏×{ownedQty}
+                                      </span>
+                                    )}
+                                  </div>
+                                  <div className="text-[10px] text-[#6b5235] truncate">
+                                    {entry.note ?? def.subType}
+                                    {bonusParts.length > 0 ? ` · ${bonusParts.join(' ')}` : ''}
+                                  </div>
+                                </div>
+                                <button
+                                  type="button"
+                                  disabled={!btnEnabled}
+                                  onClick={() => buySpotShopItem(activeShop.spotId, entry.itemId)}
+                                  className={`px-2.5 py-1 rounded text-[11px] font-bold song-serif shrink-0 transition ${
+                                    btnEnabled
+                                      ? 'bg-[#781710] hover:bg-[#931e15] text-[#fff8ee] cursor-pointer shadow-sm'
+                                      : 'bg-[#c9bba3] text-[#7a6d5a] cursor-not-allowed'
+                                  }`}
+                                >
+                                  {entry.price} 两购置
+                                </button>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )
+                    })}
                   </div>
-                )
-              })}
-            </div>
+                </>
+              )
+            })()}
           </div>
         )
       })()}

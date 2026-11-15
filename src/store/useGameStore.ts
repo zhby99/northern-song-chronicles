@@ -122,6 +122,7 @@ import {
   computeGiftFavorGain,
   getNpcFavorProfile,
 } from '../utils/npcFavor'
+import { getNpcGiftDialogue, getNpcTalkDialogue } from '../utils/npcDialogues'
 import {
   buildPlayerCombatant,
   createCombatSession,
@@ -392,7 +393,7 @@ export interface GameStoreState {
   setMountKey: (mountKey: MountKey) => void
   setQinggongBonus: (bonus: number) => void
   replenishSupplies: () => void
-  restRecoverStamina: () => void
+  restAndRecuperate: (days: 1 | 3 | 5) => void
   setBagCategory: (cat: BagCategoryKey) => void
   equipItemToSlot: (itemId: string, targetSlot?: EquipmentSlotKey) => void
   unequipSlot: (slot: EquipmentSlotKey) => void
@@ -504,6 +505,30 @@ export interface GameStoreState {
   ) => void
   cultivationSpeedStep: CultivationSpeedStep
   setCultivationSpeedStep: (step: CultivationSpeedStep) => void
+}
+
+function applyDailyVitalityRecovery(params: {
+  hp: number
+  maxHp: number
+  mp: number
+  maxMp: number
+  daysAdded: number
+  factor?: number
+}): { hp: number; mp: number; hpGain: number; mpGain: number } {
+  const { hp, maxHp, mp, maxMp, daysAdded, factor = 1 } = params
+  if (daysAdded <= 0 || factor <= 0) {
+    return { hp, mp, hpGain: 0, mpGain: 0 }
+  }
+  const rawHpGain = maxHp > 0 ? Math.max(1, Math.round((maxHp / 20) * factor * daysAdded)) : 0
+  const rawMpGain = maxMp > 0 ? Math.max(1, Math.round((maxMp / 10) * factor * daysAdded)) : 0
+  const nextHp = Math.min(maxHp, hp + rawHpGain)
+  const nextMp = Math.min(maxMp, mp + rawMpGain)
+  return {
+    hp: nextHp,
+    mp: nextMp,
+    hpGain: Math.max(0, nextHp - hp),
+    mpGain: Math.max(0, nextMp - mp),
+  }
 }
 
 function applyDayProgressionSectHooks(params: {
@@ -1482,26 +1507,32 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     })
   },
 
-  restRecoverStamina: () => {
+  restAndRecuperate: (days) => {
     const s = get()
     const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
-    const lodgingCost = inOwnSectCity ? 0 : DAILY_INN_LODGING_COST
+    const lodgingCost = inOwnSectCity ? 0 : DAILY_INN_LODGING_COST * days
     if (lodgingCost > 0 && s.silver < lodgingCost) {
       set({
         actionFeedback: {
-          text: `异乡客舍投宿调息需纹银 ${lodgingCost} 两，当前银两不足！`,
+          text: `客栈调息休养 ${days} 日需纹银 ${lodgingCost} 两（${DAILY_INN_LODGING_COST} 两/日），当前银两不足！`,
           tone: 'warn',
         },
       })
       return
     }
-    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 3)
-    const nextHp = s.maxHp
-    const nextMp = s.maxMp
-    const logTitle = inOwnSectCity ? '师门调息' : '客舍调息'
+    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, days * 12)
+    const rec = applyDailyVitalityRecovery({
+      hp: s.hp,
+      maxHp: s.maxHp,
+      mp: s.mp,
+      maxMp: s.maxMp,
+      daysAdded: days,
+      factor: 2,
+    })
+    const logTitle = inOwnSectCity ? '师门调息休养' : '客栈调息休养'
     const logMsg = inOwnSectCity
-      ? '于本门驻地静室安睡调息三个时辰（师门驻地免宿费），周身气血与真气内息尽数充盈！'
-      : `花费 ${lodgingCost} 两纹银于客舍安睡三个时辰，周身气血与真气内息尽数平复充盈！`
+      ? `于本门驻地静室调息休养 ${days} 日（师门免宿费 · 恢复系数 2.0×）：气血 +${rec.hpGain}（${rec.hp}/${s.maxHp}）、内力 +${rec.mpGain}（${rec.mp}/${s.maxMp}）！`
+      : `花费 ${lodgingCost} 两纹银于客栈调息休养 ${days} 日（${DAILY_INN_LODGING_COST} 两/日 · 恢复系数 2.0×）：气血 +${rec.hpGain}（${rec.hp}/${s.maxHp}）、内力 +${rec.mpGain}（${rec.mp}/${s.maxMp}）！`
     const baseLogs = [
       createLogEntry(clock.dayCount, logTitle, logMsg, false, clock.shichenIdx),
       ...s.logs,
@@ -1521,19 +1552,23 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             logs: baseLogs,
             overdueSpyAmbush: null,
           }
+
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
       silver: dayHook.silver,
       sectState: dayHook.sectState,
-      hp: nextHp,
-      mp: nextMp,
+      hp: rec.hp,
+      mp: rec.mp,
       actionFeedback: {
         text: logMsg,
         tone: 'success',
       },
       logs: dayHook.logs.slice(0, 60),
     })
+    if (clock.daysAdded > 0) {
+      get().checkExpiredQuestDeadlines()
+    }
     if (dayHook.overdueSpyAmbush) {
       get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
     }
@@ -2450,6 +2485,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         s.equippedArts,
         s.learnedArts,
       )
+      const recTenArt = applyDailyVitalityRecovery({
+        hp: s.hp,
+        maxHp: nextDerived.maxHp,
+        mp: s.mp,
+        maxMp: nextDerived.maxMp,
+        daysAdded: clock.daysAdded,
+        factor: 1,
+      })
       const nextTotalExpGained = session.totalExpGained + expGainNow
       const reachedTarget = nextShichensElapsed >= session.targetShichens
       const reachedMax = nextLv >= 100
@@ -2490,7 +2533,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           skills: nextDerived.skills,
           agility: nextDerived.agility,
           maxHp: nextDerived.maxHp,
+          hp: recTenArt.hp,
           maxMp: nextDerived.maxMp,
+          mp: recTenArt.mp,
           res: nextDerived.res,
           cultivationSession: null,
           actionFeedback: { text: summary, tone: stopNote ? 'warn' : 'success' },
@@ -2516,7 +2561,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         skills: nextDerived.skills,
         agility: nextDerived.agility,
         maxHp: nextDerived.maxHp,
+        hp: recTenArt.hp,
         maxMp: nextDerived.maxMp,
+        mp: recTenArt.mp,
         res: nextDerived.res,
         logs: nextLogs,
         cultivationSession: {
@@ -2871,6 +2918,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       s.equippedArts,
       nextLearned,
     )
+    const recArt = applyDailyVitalityRecovery({
+      hp: s.hp,
+      maxHp: derived.maxHp,
+      mp: s.mp,
+      maxMp: derived.maxMp,
+      daysAdded: clock.daysAdded,
+      factor: 1,
+    })
 
     set({
       dayCount: nextDayCount,
@@ -2883,9 +2938,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       learnedArts: nextLearned,
       qinggongBonus: derived.qinggongBonus,
       maxHp: derived.maxHp,
-      hp: Math.min(derived.maxHp, s.hp),
+      hp: recArt.hp,
       maxMp: derived.maxMp,
-      mp: Math.min(derived.maxMp, s.mp),
+      mp: recArt.mp,
       agility: derived.agility,
       res: derived.res,
       logs: nextLogs.slice(0, 60),
@@ -3104,7 +3159,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextLearnedArts.push({ artId: eff.learnArtId, level: 1, exp: 0 })
       notes.push(`初窥门径，习得武学【${targetArt.name}（第1重）】`)
     }
-    if (def.category === 'medicine' && def.rarity === '天阶') {
+    const isPermanentElixir =
+      def.category === 'medicine' && (def.rarity === '天阶' || def.rarity === '地阶')
+    if (isPermanentElixir) {
       if (eff.maxHp) {
         nextBaseStats.maxHp = (nextBaseStats.maxHp ?? 0) + eff.maxHp
         notes.push(`气血上限永久 +${eff.maxHp}`)
@@ -3153,10 +3210,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextLearnedArts,
     )
 
-    const bonusMaxHpNow =
-      def.category === 'medicine' && def.rarity === '天阶' ? (eff.maxHp ?? 0) : 0
-    const bonusMaxMpNow =
-      def.category === 'medicine' && def.rarity === '天阶' ? (eff.maxMp ?? 0) : 0
+    const bonusMaxHpNow = isPermanentElixir ? (eff.maxHp ?? 0) : 0
+    const bonusMaxMpNow = isPermanentElixir ? (eff.maxMp ?? 0) : 0
     let nextHp = Math.min(derived.maxHp, s.hp + bonusMaxHpNow)
     let nextMp = Math.min(derived.maxMp, s.mp + bonusMaxMpNow)
 
@@ -3498,6 +3553,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         })
         return
       }
+      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 2)
+      const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
+      const lodgingFee =
+        clock.daysAdded > 0 && !inOwnSectCity && !s.campPos
+          ? Math.min(s.silver, DAILY_INN_LODGING_COST * clock.daysAdded)
+          : 0
       const delta = Math.floor(Math.random() * 7) - 1
       const nextFavor = Math.max(MIN_NPC_FAVOR, Math.min(MAX_NPC_FAVOR, curFavor + delta))
       const actualDelta = nextFavor - curFavor
@@ -3507,7 +3568,40 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           : actualDelta < 0
             ? `好感 ${actualDelta}`
             : '好感未变'
+      const dayHook =
+        clock.daysAdded > 0
+          ? applyDayProgressionSectHooks({
+              nextDayCount: clock.dayCount,
+              shichenIdx: clock.shichenIdx,
+              silver: s.silver - lodgingFee,
+              sectState: s.sectState,
+              logs: s.logs,
+            })
+          : {
+              silver: s.silver - lodgingFee,
+              sectState: s.sectState,
+              logs: s.logs,
+              overdueSpyAmbush: null,
+            }
+      const recTalk = applyDailyVitalityRecovery({
+        hp: s.hp,
+        maxHp: s.maxHp,
+        mp: s.mp,
+        maxMp: s.maxMp,
+        daysAdded: clock.daysAdded,
+        factor: 1,
+      })
+
+      const talkLine = getNpcTalkDialogue(npc, delta)
+
       set({
+        dayCount: clock.dayCount,
+        shichenIdx: clock.shichenIdx,
+        silver: dayHook.silver,
+        hp: recTalk.hp,
+        mp: recTalk.mp,
+        sectState: dayHook.sectState,
+        logs: dayHook.logs.slice(0, 60),
         npcFavor: {
           ...s.npcFavor,
           [npcKey]: nextFavor,
@@ -3517,10 +3611,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           [npcKey]: curMonthIdx,
         },
         actionFeedback: {
-          text: `${npc.name}：${npc.talk}（${deltaLabel}，当前好感度 ${nextFavor}/100）`,
+          text: `${npc.name}：「${talkLine}」（耗 2 时辰 · ${deltaLabel}，当前好感度 ${nextFavor}/100${lodgingFee > 0 ? ` · 异乡宿费 -${lodgingFee}两` : ''}）`,
           tone: actualDelta < 0 ? 'warn' : 'talk',
         },
       })
+      if (clock.daysAdded > 0) {
+        get().checkExpiredQuestDeadlines()
+      }
+      if (dayHook.overdueSpyAmbush) {
+        get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+      }
       return
     }
     if (mode === 'spar') {
@@ -3576,10 +3676,21 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             overdueSpyAmbush: null,
           }
 
+    const recInteractArt = applyDailyVitalityRecovery({
+      hp: s.hp,
+      maxHp: derived.maxHp,
+      mp: s.mp,
+      maxMp: derived.maxMp,
+      daysAdded: clock.daysAdded,
+      factor: 1,
+    })
+
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
       silver: dayHook.silver,
+      hp: recInteractArt.hp,
+      mp: recInteractArt.mp,
       sectState: dayHook.sectState,
       logs: dayHook.logs.slice(0, 60),
       baseStats: nextBaseStats,
@@ -3654,18 +3765,45 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       }
     }
 
-    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
+    const clock = advanceShichenClock(
+      s.dayCount,
+      s.shichenIdx,
+      effectiveStakes === 'spar' ? 2 : 1,
+    )
     const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
     const lodgingFee =
       !forceMandatory && clock.daysAdded > 0 && !inOwnSectCity && !s.campPos
         ? Math.min(s.silver, DAILY_INN_LODGING_COST * clock.daysAdded)
         : 0
-    const startHp = Math.max(1, s.hp)
+    const recCombat = applyDailyVitalityRecovery({
+      hp: Math.max(1, s.hp),
+      maxHp: s.maxHp,
+      mp: s.mp,
+      maxMp: s.maxMp,
+      daysAdded: clock.daysAdded,
+      factor: 1,
+    })
+    const dayHook =
+      !forceMandatory && clock.daysAdded > 0
+        ? applyDayProgressionSectHooks({
+            nextDayCount: clock.dayCount,
+            shichenIdx: clock.shichenIdx,
+            silver: s.silver - lodgingFee,
+            sectState: s.sectState,
+            logs: s.logs,
+          })
+        : {
+            silver: s.silver - lodgingFee,
+            sectState: s.sectState,
+            logs: s.logs,
+            overdueSpyAmbush: null,
+          }
+    const startHp = Math.max(1, recCombat.hp)
     const playerCombatant = buildPlayerCombatant({
       playerName: s.playerName,
       playerPortraitId: s.playerPortraitId,
       hp: startHp,
-      mp: s.mp,
+      mp: recCombat.mp,
       baseStats: s.baseStats,
       equipped: s.equipped,
       equippedArts: s.equippedArts,
@@ -3681,7 +3819,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
-      silver: s.silver - lodgingFee,
+      silver: dayHook.silver,
+      hp: recCombat.hp,
+      mp: recCombat.mp,
+      sectState: dayHook.sectState,
+      logs: dayHook.logs.slice(0, 60),
       ...(effectiveStakes === 'spar' && !forceMandatory
         ? {
             npcSparredMonth: {
@@ -3696,6 +3838,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       tooltip: null,
       actionFeedback: null,
     })
+    if (clock.daysAdded > 0) {
+      get().checkExpiredQuestDeadlines()
+    }
   },
 
   submitCombatAction: (choice) => {
@@ -3723,7 +3868,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       const eff = def.useEffect
       if (eff) {
         const cloned = cloneHeroBaseStats(s.baseStats)
-        if (def.rarity === '天阶') {
+        if (def.rarity === '天阶' || def.rarity === '地阶') {
           if (eff.maxHp) cloned.maxHp = (cloned.maxHp ?? 0) + eff.maxHp
           if (eff.maxMp) cloned.maxMp = (cloned.maxMp ?? 0) + eff.maxMp
           if (eff.agi) cloned.agility = (cloned.agility ?? 0) + eff.agi
@@ -4500,11 +4645,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             overdueSpyAmbush: null,
           }
 
+    const recDuty = applyDailyVitalityRecovery({
+      hp: s.hp,
+      maxHp: s.maxHp,
+      mp: s.mp,
+      maxMp: s.maxMp,
+      daysAdded: clock.daysAdded,
+      factor: 1,
+    })
+
     set({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
       combatExp: nextCombatExp,
       silver: dayHook.silver,
+      hp: recDuty.hp,
+      mp: recDuty.mp,
       sectState: dayHook.sectState,
       actionFeedback: { text: msg, tone: 'success' },
       logs: dayHook.logs.slice(0, 60),
@@ -6096,8 +6252,28 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       crossedDayBoundary = true
       if (nextFood > 0) {
         nextFood -= 1
+        const recTravel = applyDailyVitalityRecovery({
+          hp: nextHp,
+          maxHp: s.maxHp,
+          mp: nextMp,
+          maxMp: s.maxMp,
+          daysAdded: 1,
+          factor: 0.25,
+        })
+        nextHp = recTravel.hp
+        nextMp = recTravel.mp
       } else if (nextSilver >= DAILY_INN_LODGING_COST) {
         nextSilver -= DAILY_INN_LODGING_COST
+        const recTravel = applyDailyVitalityRecovery({
+          hp: nextHp,
+          maxHp: s.maxHp,
+          mp: nextMp,
+          maxMp: s.maxMp,
+          daysAdded: 1,
+          factor: 0.25,
+        })
+        nextHp = recTravel.hp
+        nextMp = recTravel.mp
       } else {
         nextHp = Math.max(1, Math.round(nextHp * 0.9))
         nextMp = Math.max(0, Math.round(nextMp * 0.9))
@@ -6439,10 +6615,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     const item = ITEM_DB_MAP[itemId]
     if (!item) return
-    if (NON_GIFTABLE_KEY_ITEM_IDS.has(itemId)) {
+    if (
+      NON_GIFTABLE_KEY_ITEM_IDS.has(itemId) ||
+      !['scrolls', 'medicine', 'tools'].includes(item.category) ||
+      (item.rarity !== '良阶' && item.rarity !== '凡阶') ||
+      Boolean(item.equipSlot || item.mountMeta || item.weaponMeta || item.gearMeta)
+    ) {
       set({
         actionFeedback: {
-          text: `「${item.name}」乃关乎秘境航道与重案机缘之随身秘宝，不可赠予他人！`,
+          text: `「${item.name}」不可作为常规赠礼（仅限赠予良阶或凡阶的典籍书画、丹药毒物与雅器百工）！`,
           tone: 'warn',
         },
       })
@@ -6459,12 +6640,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const profile = getNpcFavorProfile(npc)
     const res = computeGiftFavorGain(currentFavor, item, profile)
 
-    const reactionText =
-      res.reaction === 'liked'
-        ? `${npc.name}见是心爱之物「${res.giftCategory}」，大喜过望（好感度 +${res.favorGain}，2.0×）。`
-        : res.reaction === 'disliked'
-          ? `${npc.name}对「${res.giftCategory}」素来厌恶，只得勉强收下（好感度 +${res.favorGain}，0.2×）。`
-          : `${npc.name}欣然收下，言谈间亲近了几分（好感度 +${res.favorGain}）。`
+    const reactionText = getNpcGiftDialogue(npc, res.reaction, item.name, res.giftCategory)
 
     set({
       inventory: nextInventory,
@@ -6473,7 +6649,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         [npcKey]: res.nextFavor,
       },
       actionFeedback: {
-        text: `向【${npc.name}】赠予「${item.name}」（价值${item.value}两），${reactionText} 当前好感度：${res.nextFavor}/100。`,
+        text: `向【${npc.name}】赠予「${item.name}」（价值${item.value}两）：${reactionText}（好感度 +${res.favorGain}，当前 ${res.nextFavor}/100）`,
         tone: res.reaction === 'disliked' ? 'warn' : 'success',
       },
     })
