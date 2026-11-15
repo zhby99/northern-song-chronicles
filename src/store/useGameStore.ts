@@ -86,6 +86,7 @@ import type {
   QuestRuntimeState,
   QuestTargetLocationHint,
 } from '../types/quest'
+import { EMEI_ENTRY_QUEST_ID } from '../data/quests/sects/emeiEntryQuest'
 import { GAIBANG_ENTRY_QUEST_ID } from '../data/quests/sects/gaibangEntryQuest'
 import { HUASHAN_ENTRY_QUEST_ID } from '../data/quests/sects/huashanEntryQuest'
 import { NANSHAOLIN_ENTRY_QUEST_ID } from '../data/quests/sects/nanshaolinEntryQuest'
@@ -5046,6 +5047,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       'SECT-04': NANSHAOLIN_ENTRY_QUEST_ID,
       'SECT-05': HUASHAN_ENTRY_QUEST_ID,
       'SECT-06': TAISHAN_ENTRY_QUEST_ID,
+      'SECT-07': EMEI_ENTRY_QUEST_ID,
       'SECT-18': 'QST-SECT-18-TOUMINGZHUANG',
       'SECT-16': 'QST-SECT-16-REFERRAL',
       'SECT-23': 'QST-SECT-23-REFERRAL',
@@ -5060,7 +5062,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         targetSectId === 'SECT-02' ||
         targetSectId === 'SECT-04' ||
         targetSectId === 'SECT-05' ||
-        targetSectId === 'SECT-06')
+        targetSectId === 'SECT-06' ||
+        targetSectId === 'SECT-07')
     ) {
       delete nextQuest.activeQuests[linkedQuestId]
       const prevComp = nextQuest.completedQuests[linkedQuestId]

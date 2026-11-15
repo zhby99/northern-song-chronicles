@@ -4,6 +4,7 @@ import { TAOHUADAO_MAP_QUESTS } from './adventures/taohuadaoMapQuest'
 import { YANZIWU_MAP_QUESTS } from './adventures/yanziwuMapQuest'
 import { DAMING_BAJI_QUESTS } from './cities/damingBajiQuest'
 import { CHANGSHAN_LONGLING_QUESTS } from './sects/changshanLonglingQuest'
+import { EMEI_ENTRY_QUESTS } from './sects/emeiEntryQuest'
 import { GAIBANG_ENTRY_QUESTS } from './sects/gaibangEntryQuest'
 import { HUASHAN_ENTRY_QUESTS } from './sects/huashanEntryQuest'
 import { KAIFENG_MURONG_QUEST_1 } from './sects/kaifengMurongQuest1'
@@ -30,6 +31,7 @@ export const QUEST_REGISTRY: QuestDefinition[] = [
   ...NANSHAOLIN_ENTRY_QUESTS,
   ...HUASHAN_ENTRY_QUESTS,
   ...TAISHAN_ENTRY_QUESTS,
+  ...EMEI_ENTRY_QUESTS,
   ...XINGXIU_ENTRY_QUESTS,
   ...CHANGSHAN_LONGLING_QUESTS,
   ...TIANBO_BAWANG_QUESTS,
@@ -73,6 +75,7 @@ export function resetRegisteredQuests(): void {
     ...NANSHAOLIN_ENTRY_QUESTS,
     ...HUASHAN_ENTRY_QUESTS,
     ...TAISHAN_ENTRY_QUESTS,
+    ...EMEI_ENTRY_QUESTS,
     ...XINGXIU_ENTRY_QUESTS,
     ...CHANGSHAN_LONGLING_QUESTS,
     ...TIANBO_BAWANG_QUESTS,

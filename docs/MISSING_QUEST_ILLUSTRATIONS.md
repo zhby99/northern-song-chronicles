@@ -37,6 +37,9 @@
 | `CG-QST-025` | `[ ]` 待补绘 | `public/assets/quests/taishan_18pan_buckets.jpg` | `/assets/quests/taishan_18pan_buckets.jpg` | `QST-SECT-06-ENTRY`<br>《岱宗问数 · 松风破茧》 | 第六幕 · 云梯百丈肩泉血<br>（`scene_ts_06_blood_on_cloud_steps`） | `16:9` |
 | `CG-QST-026` | `[ ]` 待补绘 | `public/assets/quests/taishan_pine_neigong.jpg` | `/assets/quests/taishan_pine_neigong.jpg` | `QST-SECT-06-ENTRY`<br>《岱宗问数 · 松风破茧》 | 第九幕 · 松风引气初破茧<br>（`scene_ts_09_pine_wind_awakening`） | `16:9` |
 | `CG-QST-027` | `[ ]` 待补绘 | `public/assets/quests/taishan_yuhuang_sunrise.jpg` | `/assets/quests/taishan_yuhuang_sunrise.jpg` | `QST-SECT-06-ENTRY`<br>《岱宗问数 · 松风破茧》 | 第十九幕 · 沧海金轮授青锋<br>（`scene_ts_19_sunrise_investiture`） | `16:9` |
+| `CG-QST-028` | `[ ]` 待补绘 | `public/assets/quests/emei_wanli_rain_umbrella.jpg` | `/assets/quests/emei_wanli_rain_umbrella.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第二幕 · 锦江烟雨共油伞<br>（`scene_em_02_wanli_bridge_rain`） | `16:9` |
+| `CG-QST-029` | `[ ]` 待补绘 | `public/assets/quests/emei_xixiang_moon_ape.jpg` | `/assets/quests/emei_xixiang_moon_ape.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第十五幕 · 洗象澄月白猿影<br>（`scene_em_15_xixiang_moon_ape`） | `16:9` |
+| `CG-QST-030` | `[ ]` 待补绘 | `public/assets/quests/emei_jinding_buddha_light.jpg` | `/assets/quests/emei_jinding_buddha_light.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第十九幕 · 万仞云海睹佛光<br>（`scene_em_19_jinding_buddha_light`） | `16:9` |
 
 ---
 
@@ -555,6 +558,63 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color painting (青绿重彩工笔), wide cinematic 16:9 composition. A magnificent sunrise investiture ceremony atop the White Jade Fengshan Altar at Yuhuang Summit of Mount Tai (泰山玉皇顶封禅台) around 1050 AD, high above a vast boundless sea of churning golden clouds as a radiant crimson-gold sun breaks over the eastern horizon. Beside an ancient wordless stone stele and stone sundial, a venerable white-bearded Taoist grandmaster in crane-white robes (Chu Xuanji) solemnly bestows a slate-blue Taoist robe and straight sword upon a kneeling young martial artist protagonist. Flanking the altar stand three distinct Taoist elders (one burly with a black iron greatsword on his back, one refined holding a horsetail whisk, one stern in iron-grey robes), while a young male disciple and female acolyte holding a lacquer tray watch joyfully below. Grand Wang Ximeng and Song imperial academy mineral blue-green and gold palette, awe-inspiring wuxia majesty, no modern elements, blank stele and banners with no text or characters.
+  ```
+
+---
+
+### 28. `CG-QST-028`：成都万里桥头 · 锦江春雨共油伞图
+
+- **关联文件**：[`src/data/quests/sects/emeiEntryQuest.ts`](../src/data/quests/sects/emeiEntryQuest.ts)
+- **目标路径**：`public/assets/quests/emei_wanli_rain_umbrella.jpg`
+- **画框题跋**：`成都万里桥头 · 锦江春雨油伞护药篓`
+- **剧情语境**：
+  - 成都府锦江万里桥畔春雨潇潇，巴蜀老药农遭青城派外围恶徒冲撞跌倒，进献峨眉的灵药竹篓倾覆于泥水之中；身无半点内功根基的主角不顾湿冷泥浆，蹲身护住老药农与散落的川芎药草。
+  - 恰在恶徒欲加羞辱之际，峨眉俗家首席女侠「蜀道飞燕」【苏梦清】以未出鞘窄剑挑翻恶徒，将一柄桐油竹骨伞斜斜撑在主角头顶，遮去漫天细雨，两人自此结下蜀水前缘。
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年北宋成都府锦江万里桥畔，春雨如丝、薄雾笼江，远处可见红墙竹影、宋式飞桥茶肆红灯笼与锦江乌篷船。
+  2. **主体人物（兼顾男女主角代入）**：石桥湿滑青石阶前，束发素色布衣的年轻主角采用微侧背影蹲身视角（眉宇清朗中性，男女少侠代入皆自然），正将倾倒的竹编药篓与白发老药农护在身后；其身侧半步，年方二十八岁、英姿飒爽的峨眉女侠（苏梦清，淡青束袖劲装披素纱雨帔，腰悬窄刃长剑与分水双刺）左手执剑鞘自然垂落，右手举起一把古朴桐油竹骨雨伞倾向主角上方，垂眸含笑相视。
+  3. **前景与细节**：伞沿晶莹雨珠串落，桥面青苔湿润映出茶楼微暖灯影，青石上散落数株带露川芎草药。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Misty spring rain at Wanli Stone Bridge over the Jinjiang River in Chengdu around 1050 AD, with lush green bamboo, Song-style timber teahouses glowing with warm red lanterns, and wooden boats in soft river fog. On the wet flagstone bridge steps in the foreground, a young martial traveler in plain neat cloth robes with tied black hair (seen from a graceful three-quarter back angle, gender-neutral youthful silhouette) kneels to shield an elderly herbalist farmer and a spilled bamboo herb basket from the mud. Standing gracefully beside them, a spirited 28-year-old Emei swordswoman (Su Mengqing, wearing light celadon-cyan martial attire, waist-sheathed narrow sword, calm bright eyes) holds a traditional oiled-paper bamboo umbrella tilted over the young traveler, raindrops glistening along the umbrella rim. Poetic Song court painting brushwork, mineral pigments, tender wuxia encounter atmosphere, no modern elements, blank banners and lanterns with no text or characters.
+  ```
+
+---
+
+### 29. `CG-QST-029`：峨眉洗象灵池 · 澄月松涛白猿演剑图
+
+- **关联文件**：[`src/data/quests/sects/emeiEntryQuest.ts`](../src/data/quests/sects/emeiEntryQuest.ts)
+- **目标路径**：`public/assets/quests/emei_xixiang_moon_ape.jpg`
+- **画框题跋**：`峨眉洗象灵池 · 澄月松涛共观白猿折竹`
+- **剧情语境**：
+  - 主角在万年寺历经三日担水抄经苦役并初成《峨眉吐纳术》第一缕丹田清气后，随【苏梦清】夜登峨眉山腰洗象池。
+  - 皓月当空，山间通灵老白猿跃上临渊古松折竹演剑；苏梦清立于六角澄月池畔，轻引主角执竹枝的手腕，借松风月影传授《分水峨眉刺》旋腕锁穴之妙。
+- **画面核心要素**：
+  1. **环境氛围**：峨眉山腰洗象池绝壁月夜，一轮皎洁满月高悬苍穹，六角形青石古池倒映冷月清辉，四周修竹幽深、飞瀑如银练垂落云壑。
+  2. **主体人物与白猿**：右侧临渊虬曲苍松横枝之上，一只毛色胜雪的通灵老白猿单足轻立，手持一截翠竹灵动刺出；左侧池畔青石坪上，淡青劲装的苏梦清立于素衣年轻主角（侧后方修长背影，男女皆宜）身旁半步，抬手轻托主角手腕引导其手中青竹枝顺应月下风势，衣袂随夜风微扬。
+  3. **设色意境**：宋代马远、夏圭山月清旷构图结合青绿石青矿物设色，银白月华与幽翠竹影交相辉映，空灵绝尘。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. A serene moonlit night at Xixiang Pond (洗象池) high on Mount Emei around 1050 AD, featuring a hexagonal stone pool reflecting a luminous full moon, ancient cliffside pine trees, misty bamboo groves, and a silver waterfall cascading into clouds. Perched agilely on an overhanging pine branch above the abyss, a wise snow-white mountain ape wields a green bamboo branch like a sword in graceful motion. On the stone terrace beside the moonlit pool, the poised Emei swordswoman Su Mengqing in celadon-blue martial robes stands half a step beside a youthful disciple in simple robes (seen from a subtle three-quarter back view, gender-inclusive silhouette), gently guiding their wrist as they hold a bamboo twig to trace the ape's sword rhythm. Ethereal silver moonlight, rich mineral blues and greens, authentic Song dynasty landscape-and-figure brushwork, no modern elements, no text or characters.
+  ```
+
+---
+
+### 30. `CG-QST-030`：峨眉万仞金顶 · 破晓云海佛光问心图
+
+- **关联文件**：[`src/data/quests/sects/emeiEntryQuest.ts`](../src/data/quests/sects/emeiEntryQuest.ts)
+- **目标路径**：`public/assets/quests/emei_jinding_buddha_light.jpg`
+- **画框题跋**：`峨眉万仞金顶 · 破晓云海七彩宝光问本心`
+- **剧情语境**：
+  - 破晓时分，主角冒雪登临峨眉万仞金顶睹光台，破获青城弃徒与西夏一品堂暗桩窥山之谋后，迎着初升朝阳见证千里云海之上浮现庄严绚丽的「金顶佛光（普贤宝光）」。
+  - 峨眉派掌门「金顶神尼」【云慧师太】立于云海石栏前慈目三问本心，执法首座【静玄师太】与俗家首席【苏梦清】分侍左右，主角于漫天瑞霭金辉中肃立明志，正式拜入峨眉门墙。
+- **画面核心要素**：
+  1. **环境氛围**：峨眉山万仞金顶绝壁睹光台，脚下无边无际的雪白云海翻涌如涛，破晓红日初升，云海正中折射出一轮神圣柔和的七彩圆光（峨眉宝光/佛光），后方华藏金顶铜殿飞檐覆着薄雪、沐浴晨曦金辉。
+  2. **主体人物**：睹光台石栏前，年近六旬、慈眉善目却气度渊渟岳峙的掌门老尼（云慧师太，披素色袈裟、手持紫檀佛珠）面向年轻主角温和问心；其左立着身材高大威严的灰衣铁尼（静玄师太，背负长剑），其右立着英姿清飒、含笑注视主角的淡青衣女侠（苏梦清）；前景素衣年轻主角（端庄背影视角，男女兼容）恭敬拱手行礼。
+  3. **气象格调**：北宋青绿泥金重彩山水人物画卷，云海翻腾、金光万丈，融佛门庄严与剑派清逸于一炉。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration with subtle gold-leaf accents, wide cinematic 16:9 composition. Magnificent dawn atop the Golden Summit (金顶睹光台) of Mount Emei around 1050 AD, overlooking an endless surging sea of white clouds far below. In the glowing morning mist over the cloud sea appears the sacred circular rainbow halo of Emei Buddha's Light (佛光宝光), while snow-dusted Song-style bronze temple eaves gleam warmly behind. On the cliffside stone terrace, the venerable Emei Abbess (Yunhui Shitai, serene elderly Buddhist nun in dignified saffron-grey monastic robes holding prayer beads) stands before the balustrade, flanked by a tall stern senior nun carrying a sword on her back (Jingxuan Shitai) and the graceful celadon-robed swordswoman (Su Mengqing). Facing them in the foreground from a respectful three-quarter back view (gender-neutral youthful martial traveler in neat robes), the protagonist bows with clasped hands in solemn oath. Grand Northern Song court painting aesthetics, mineral pigments, awe-inspiring spiritual wuxia atmosphere, no modern elements, no text or characters.
   ```
 
 ---

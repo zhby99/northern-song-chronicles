@@ -2220,6 +2220,22 @@ export function evaluateSectEntry(params: {
     }
   }
 
+  // 3f. 峨眉派 (SECT-07): 成都万里桥春雨偶遇苏梦清，开启二十幕《锦水清音 · 金顶问心》筑基问心长卷入门（男女皆宜，亦欢迎巴蜀百草药王门医徒转投）
+  if (targetSectId === 'SECT-07') {
+    const reqSummary =
+      '无门无派（或隶属【巴蜀百草药王门】）时，前往【成都府 · 锦江万里桥茶肆】偶遇俗家首席女侠【苏梦清】开启《锦水清音 · 金顶问心》二十幕长卷，历经万年寺吐纳筑基、洗象池月夜观猿与金顶佛光问心后择脉拜入（男女皆宜）'
+    return {
+      canJoin: false,
+      startingRank: 1,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: reqSummary,
+      blockedReason:
+        '峨眉择徒重红尘善缘与澄明本心——请先前往邻近【成都府 · 锦江万里桥茶肆】结识俗家首席【苏梦清】（或拜谒成都大慈寺【静虚师太】），完成《锦水清音 · 金顶问心》长卷后于华藏金顶正式入门！',
+    }
+  }
+
   // 3. First-Tier Sects & Dali Royal Clan: gated for upcoming bespoke quest chains
   const noOuterHint =
     faction.acceptsOuterDisciple === false ? '（本门不收外门弟子，入门直授内门）' : ''
@@ -2246,6 +2262,7 @@ export const SECT_ENTRY_GEAR_GIFTS: Record<string, string[]> = {
   'SECT-04': ['ARM-036', 'BOT-020', 'WPN-068'], // 莆田南少林：灰麻僧衣、僧侣芒鞋、少林白蜡齐眉棍
   'SECT-05': ['ARM-037', 'BOT-021', 'WPN-062'], // 华山派：青灰道袍、道士云头布履、华山入门青钢剑
   'SECT-06': ['ARM-037', 'BOT-021', 'ACC-042'], // 泰山派：青灰道袍、道士云头布履、道观桃木辟邪符
+  'SECT-07': ['WPN-074', 'ARM-034', 'BOT-021'], // 峨眉派：巴蜀窄刃刺剑、青布侠客劲装、道士云头布履
   'SECT-08': ['WPN-063'], // 真武道宗：真武松纹道剑
   'SECT-16': ['ARM-040', 'WPN-071'], // 江淮漕帮：漕帮短褐劲装、皇祐通宝飞镖袋
   'SECT-18': ['ARM-039', 'WPN-076'], // 太行/京东绿林盟：绿林黑布夜行衣、绿林泼风砍刀
