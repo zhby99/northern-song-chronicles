@@ -45,6 +45,8 @@
 | `CG-QST-033` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_shangqing_choice.jpg` | `/assets/quests/qingcheng_shangqing_choice.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第十九幕 · 三清殿前定去留<br>（`SCENE_QC_19_THREE_PURE_CHOICE`） | `16:9` |
 | `CG-QST-034` | `[ ]` 待补绘 | `public/assets/quests/tiezhang_five_fingers_mist.jpg` | `/assets/quests/tiezhang_five_fingers_mist.jpg` | `QST-SECT-15-ENTRY`<br>《烟波五指 · 铁砂问义》 | 第五幕 · 八百烟波五指擎<br>（`SCENE_TZ_05_FIVE_FINGERS_CG`） | `16:9` |
 | `CG-QST-035` | `[ ]` 待补绘 | `public/assets/quests/tiezhang_red_sand_cauldron.jpg` | `/assets/quests/tiezhang_red_sand_cauldron.jpg` | `QST-SECT-15-ENTRY`<br>《烟波五指 · 铁砂问义》 | 第八幕 · 赤砂沸鼎淬凡掌<br>（`SCENE_TZ_08_RED_SAND_CAULDRON_CG`） | `16:9` |
+| `CG-QST-036` | `[ ]` 待补绘 | `public/assets/quests/wutai_yanmen_pass.jpg` | `/assets/quests/wutai_yanmen_pass.jpg` | `QST-SECT-03-ENTRY`<br>《清凉残雪 · 雁门梵钟》 | 第十三幕 · 绝壁风雪护孤雏<br>（`SCENE_WT_13_CLIFF_STAND`） | `16:9` |
+| `CG-QST-037` | `[ ]` 待补绘 | `public/assets/quests/wutai_tonsure_ordination.jpg` | `/assets/quests/wutai_tonsure_ordination.jpg` | `QST-SECT-03-ENTRY`<br>《清凉残雪 · 雁门梵钟》 | 第十九幕 · 金刀落发断尘缘<br>（`SCENE_WT_19_TONSURE_CEREMONY`） | `16:9` |
 
 ---
 
@@ -715,6 +717,44 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Nighttime at the rugged black-stone Iron Sand Training Ground high on Five-Finger Peak overlooking misty Dongting Lake around 1050 AD, illuminated by roaring charcoal fires and pine torches. At the center stands a massive three-legged cast-iron cauldron over glowing red coals, filled with scorching dark-crimson iron sand and medicinal herbs emitting wisps of hot steam. A young uninitiated martial artist in sweat-drenched coarse cloth robes roots his stance and plunges both bare hands deep into the boiling hot iron sand, jaw clenched and brow glistening with sweat in fierce determination. To the right, a grizzled muscular veteran boatman-master leans on an upright heavy bronze boat oar watching with stern respect; to the left, a sharp-featured female martial artist in dark indigo-and-crimson trim attire holds a clay medicine bowl and clean linen wraps, watching his hands with quiet concern; in the background, an older Miao herbalist wearing silver earrings tends a smaller药炉. Intense warm firelight against cool indigo mountain night, authentic Song dynasty brushwork, rich mineral pigments, visceral martial arts tempering mood, no modern elements, no text or characters.
+  ```
+
+---
+
+### 36. `CG-QST-036`：雁门关外乱石绝壁 · 少年布衣横木杖护孤图
+
+- **关联文件**：[`src/data/quests/sects/wutaiEntryQuest.ts`](../src/data/quests/sects/wutaiEntryQuest.ts)
+- **目标路径**：`public/assets/quests/wutai_yanmen_pass.jpg`
+- **画框题跋**：`雁门关外乱石绝壁 · 少年布衣横木杖死守石窟孤雏`
+- **剧情语境**：
+  - 主角尚未习得内功武学，为一介白身布衣少年，奉五台山清凉寺知客首座之托冒雪驰赴雁门关报信，于乱石绝壁幽谷石室中寻获重伤的河东老铁匠石百炼与偷偷跟来的七岁遗孤小石锁。
+  - 暴风雪夜契丹搜山斥候循迹杀至，石室洞口仅容一人通行。毫无真气傍身的主角毅然拾起一根白蜡木杆横身堵死洞口，以血肉凡躯死守三合，为身后孤雏与伤者撑开一线生机。
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年北宋雁门关外险峻乱石绝壁与狭窄山窟入口，漫天鹅毛暴雪随朔风狂卷，远处群峰如铁，高处山脊隐约可见一星驰援武僧的火把微光。
+  2. **主体人物**：画面中央偏左的石窟狭口前，身穿单薄朴素灰褐粗布衣、发束布巾、肩头覆满积雪的年轻主角双足死死钉入雪泥，双手紧握一根无刃白蜡木齐眉杆横挡身前，目光决绝无畏；其身后微弱炭火映照的石洞内，七岁男童（小石锁）正紧紧抱住重伤白发老铁匠的肩膀。
+  3. **对峙张力**：前景右侧风雪暗影中，两名披狼皮护肩与契丹铁札甲、手持弯刀的辽国精锐斥候踏雪逼近，冷冽刀光与洞口微弱暖火形成强烈冷暖戏剧张力。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. A fierce blizzard night at the rugged rocky cliffs outside Yanmen Pass (雁门关外乱石绝壁) around 1050 AD, swirling heavy snow and jagged dark crags. At the narrow entrance of a shallow mountain rock cave dimly lit by a dying ember inside, a young Chinese protagonist in thin plain worn cloth robes (NOT monk robes yet, tied dark hair, no armor) stands firm in ankle-deep snow, gripping a simple smooth white-wax wooden staff horizontally with both hands in a desperate protective stance. Behind him inside the cave shadow, a terrified seven-year-old boy clutches a wounded elderly blacksmith. Approaching from the snowy foreground shadows on the right, two Khitan scouts in wolf-fur collars and Liao iron lamellar armor draw curved sabers. Distant tiny torchlight flickers on a far mountain ridge. Authentic Song court painting brushwork, mineral pigments, poignant heroic tension, dramatic warm-cave vs icy-blizzard contrast, no modern elements, no text or characters.
+  ```
+
+---
+
+### 37. `CG-QST-037`：五台山清凉寺大雄主殿 · 道清方丈执刀剃度赐号图
+
+- **关联文件**：[`src/data/quests/sects/wutaiEntryQuest.ts`](../src/data/quests/sects/wutaiEntryQuest.ts)
+- **目标路径**：`public/assets/quests/wutai_tonsure_ordination.jpg`
+- **画框题跋**：`五台山清凉寺大雄主殿 · 道清方丈执刀剃度赐法号`
+- **剧情语境**：
+  - 雁门关护孤归来，慈济院医僧智光、苦行僧明安、扫雪沙弥善松与开口说话的遗孤小石锁齐聚殿前作证，主角连答方丈三问，证得“执杖止戈、以身护生”之禅心。
+  - 晨钟三响，于五台山清凉寺大雄主殿释迦与文殊金身之前，方丈【道清】亲执纯银戒刀为主角剃除三千青丝，摩顶授戒赐入护法【明】字辈法号，授灰布僧袍与五郎八卦棍谱。
+- **画面核心要素**：
+  1. **环境氛围**：北宋五台山清凉寺宏伟庄严的大雄主殿内景，殿门外五峰残雪沐浴金色晨曦，殿内高耸朱漆梭柱、彩绘斗拱、百盏酥油长明铜灯与袅袅檀烟环绕庄严佛陀与文殊菩萨金身塑像。
+  2. **主体人物**：大殿中央莲花蒲团上，年轻主角身着洁白素麻内衫、双掌虔诚合十长跪，几缕断落青丝散于青砖之上；面前白眉长垂、宝相慈威的老方丈（道清，披紫褐百衲袈裟，身侧立着一柄厚重古铜降魔杵）左手温和抚于主角头顶摩顶授戒，右手轻执银光戒刀。
+  3. **群像呼应**：大殿两厢，白须慈悲医僧（智光）、九尺魁梧持浑铁禅杖的知客首座（智猛）、披风雪护寺武僧（法严）合十肃立；殿侧年少沙弥（善松）双手捧着叠放整齐的灰麻僧衣与齐眉木棍，身旁七岁孩童（小石锁）仰头凝望，庄严温暖、因果圆满。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Solemn morning tonsure ordination ceremony inside the grand Mahavira Hall of Qingliang Monastery on Mount Wutai (五台山清凉寺大雄主殿) around 1050 AD. Through open timber lattice doors, snow-capped Wutai peaks glow in golden dawn light; inside, towering Song-style brackets, gilded Buddha and Manjusri statues, brass butter lamps, and curling sandalwood incense smoke create sacred warmth. Kneeling devoutly on a lotus cushion in the center with palms pressed together, a young protagonist in pure white inner linen robes has locks of black hair falling onto the stone floor. Standing before him, the white-browed venerable Abbot Daoqing in patched dark-crimson kasaya gently rests one hand on the youth's head in blessing while holding a silver tonsure razor, a massive bronze vajra pestle standing nearby. Flanking them in respectful anjali are an elderly healer monk, a giant burly monk holding an iron staff, a young novice monk holding folded grey monk robes and a wooden staff, and a small seven-year-old boy watching from the threshold. Authentic Song court painting aesthetics, rich mineral pigments, sacred emotional culmination, no modern elements, blank plaques with no text or characters.
   ```
 
 ---

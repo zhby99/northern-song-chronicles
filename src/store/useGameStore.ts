@@ -92,6 +92,7 @@ import { HUASHAN_ENTRY_QUEST_ID } from '../data/quests/sects/huashanEntryQuest'
 import { NANSHAOLIN_ENTRY_QUEST_ID } from '../data/quests/sects/nanshaolinEntryQuest'
 import { QINGCHENG_ENTRY_QUEST_ID } from '../data/quests/sects/qingchengEntryQuest'
 import { TIEZHANG_ENTRY_QUEST_ID } from '../data/quests/sects/tiezhangEntryQuest'
+import { WUTAI_ENTRY_QUEST_ID } from '../data/quests/sects/wutaiEntryQuest'
 import {
   NORTH_CHINA_REGION_IDS,
   TAIHANG_BANDIT_ENCOUNTER_SCENE,
@@ -5038,7 +5039,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       shaolinDiscipleType:
         targetSectId === 'SECT-01' || targetSectId === 'SECT-04'
           ? 'lay'
-          : s.sectState.shaolinDiscipleType,
+          : targetSectId === 'SECT-03'
+            ? 'monk'
+            : s.sectState.shaolinDiscipleType,
     }
 
     // 同步完结对应的入门剧情任务链（若曾开启）
@@ -5046,6 +5049,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const entryQuestBySect: Record<string, string> = {
       'SECT-01': SHAOLIN_ENTRY_QUEST_ID,
       'SECT-02': GAIBANG_ENTRY_QUEST_ID,
+      'SECT-03': WUTAI_ENTRY_QUEST_ID,
       'SECT-04': NANSHAOLIN_ENTRY_QUEST_ID,
       'SECT-05': HUASHAN_ENTRY_QUEST_ID,
       'SECT-06': TAISHAN_ENTRY_QUEST_ID,
@@ -5064,6 +5068,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         targetSectId === 'SECT-18' ||
         targetSectId === 'SECT-01' ||
         targetSectId === 'SECT-02' ||
+        targetSectId === 'SECT-03' ||
         targetSectId === 'SECT-04' ||
         targetSectId === 'SECT-05' ||
         targetSectId === 'SECT-06' ||
@@ -5085,9 +5090,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let feedbackMsg = `正式拜入【${faction.name}】，授职【${evalRes.startingRankLabel}】${
       targetSectId === 'SECT-01'
         ? '（俗家弟子）'
-        : targetSectId === 'SECT-04'
-          ? '（护寺俗家）'
-          : ''
+        : targetSectId === 'SECT-03'
+          ? '（出家僧众）'
+          : targetSectId === 'SECT-04'
+            ? '（护寺俗家）'
+            : ''
     }！`
     if (evalRes.costSilver > 0) {
       feedbackMsg += `（奉上拜师束脩 ${evalRes.costSilver} 两纹银）`
@@ -5227,7 +5234,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       kaifengRank2Day: null,
       activeKaifengWarrant: null,
       shaolinDiscipleType:
-        curSectId === 'SECT-01' || curSectId === 'SECT-04'
+        curSectId === 'SECT-01' || curSectId === 'SECT-03' || curSectId === 'SECT-04'
           ? 'lay'
           : s.sectState.shaolinDiscipleType,
     }
@@ -6326,7 +6333,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             shaolinDiscipleType:
               eff.sectId === 'SECT-01' || eff.sectId === 'SECT-04'
                 ? 'lay'
-                : s.sectState.shaolinDiscipleType,
+                : eff.sectId === 'SECT-03'
+                  ? 'monk'
+                  : s.sectState.shaolinDiscipleType,
           }
 
           let nextSilver = s.silver
@@ -6374,9 +6383,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           const msg = `正式拜入【${faction.name}】，授职第 ${startRank} 阶【${rankLabel}】${
             eff.sectId === 'SECT-01'
               ? '（俗家弟子）'
-              : eff.sectId === 'SECT-04'
-                ? '（护寺俗家）'
-                : ''
+              : eff.sectId === 'SECT-03'
+                ? '（出家僧众）'
+                : eff.sectId === 'SECT-04'
+                  ? '（护寺俗家）'
+                  : ''
           }！${giftSuffix}`
           set({
             silver: nextSilver,
@@ -6405,7 +6416,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               contribution: 0,
               activeLiaoSpy: null,
               shaolinDiscipleType:
-                leavingSectId === 'SECT-01' || leavingSectId === 'SECT-04'
+                leavingSectId === 'SECT-01' ||
+                leavingSectId === 'SECT-03' ||
+                leavingSectId === 'SECT-04'
                   ? 'lay'
                   : s.sectState.shaolinDiscipleType,
             }
@@ -6455,10 +6468,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           const prevName = s.playerName
           const nextSect = clonePlayerSectState(s.sectState)
           nextSect.shaolinDiscipleType = 'monk'
-          const isNanShaolin = nextSect.sectId === 'SECT-04'
+          const isNanShaolin =
+            eff.sectId === 'SECT-04' || nextSect.sectId === 'SECT-04'
+          const isWutai =
+            eff.sectId === 'SECT-03' || nextSect.sectId === 'SECT-03'
           const msg = isNanShaolin
             ? `于莆田南少林九莲大雄宝殿礼拜方丈【元苦】落发受戒，俗名「${prevName}」化入空门，赐弘字辈法号【${eff.dharmaName}】！自此换穿佛子僧衣，南少林地阶秘传功法尽数向小师父敞开！`
-            : `于少林大雄正殿礼拜方丈【玄慈】落发受戒，俗名「${prevName}」化入空门，赐慧字辈法号【${eff.dharmaName}】！自此换穿佛子僧衣，少林地阶与天阶秘传绝学尽数向小师父敞开！`
+            : isWutai
+              ? `于五台山清凉寺大雄主殿礼拜方丈【道清】落发受戒，俗名「${prevName}」化入清凉空门，赐明字辈护法法号【${eff.dharmaName}】！自此换穿清凉僧衣，执杖护国，禅武双修！`
+              : `于少林大雄正殿礼拜方丈【玄慈】落发受戒，俗名「${prevName}」化入空门，赐慧字辈法号【${eff.dharmaName}】！自此换穿佛子僧衣，少林地阶与天阶秘传绝学尽数向小师父敞开！`
           set({
             playerName: eff.dharmaName,
             playerPortraitId: eff.portraitId,

@@ -114,18 +114,24 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                         ? sectState.shaolinDiscipleType === 'monk'
                           ? ' · 出家弟子'
                           : ' · 俗家弟子'
-                        : sectState.sectId === 'SECT-04'
-                          ? sectState.shaolinDiscipleType === 'monk'
-                            ? ' · 清修武僧'
-                            : ' · 护寺俗家'
-                          : ''
+                        : sectState.sectId === 'SECT-03' && sectState.shaolinDiscipleType === 'monk'
+                          ? ' · 出家僧众'
+                          : sectState.sectId === 'SECT-04'
+                            ? sectState.shaolinDiscipleType === 'monk'
+                              ? ' · 清修武僧'
+                              : ' · 护寺俗家'
+                            : ''
                     }`
                   : sectState.shaolinNoviceState === 'active'
                     ? `少林杂役弟子（${sectState.shaolinChoreDays}/365天）`
                     : '江湖少侠 · 无门无派'}
               </span>
               <h4 className="song-serif font-bold text-lg text-[#23180f] mt-1">
-                {playerName}（{heroPortrait.label}）
+                {playerName}（
+                {sectState.sectId === 'SECT-03' && playerPortraitId === 'hero_02_shaolin'
+                  ? '清凉佛子'
+                  : heroPortrait.label}
+                ）
               </h4>
             </div>
             <div className="text-right text-xs text-[#6b5235]">
@@ -202,6 +208,16 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                     {sectState.shaolinDiscipleType === 'monk'
                       ? `出家僧众（法号：${playerName} · 可习地/天阶绝学）`
                       : '俗家弟子（限凡/良阶，找方丈玄慈可剃度）'}
+                  </span>
+                </div>
+              )}
+              {sectState.sectId === 'SECT-03' && (
+                <div className="flex items-center justify-between text-[#5c3d1e] font-medium">
+                  <span>清凉寺门籍戒牒</span>
+                  <span className="font-bold text-[#781710]">
+                    {sectState.shaolinDiscipleType === 'monk'
+                      ? `明字辈剃度护法僧（法号：${playerName} · 禅武护国）`
+                      : `清凉寺弟子（名号：${playerName}）`}
                   </span>
                 </div>
               )}

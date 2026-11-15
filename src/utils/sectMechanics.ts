@@ -2156,6 +2156,22 @@ export function evaluateSectEntry(params: {
     }
   }
 
+  // 3b2. 五台山清凉寺 (SECT-03): 《清凉残雪 · 雁门梵钟》二十幕剃度护国入门长卷
+  if (targetSectId === 'SECT-03') {
+    const reqSummary =
+      '无须武功根基：前往【五台山清凉寺 · 清凉寺大雄主殿】向知客首座智猛投山门开启《清凉残雪 · 雁门梵钟》二十幕长卷，历慈济院护孤、演武试木杆及驰援雁门关破辽探后，由方丈道清亲执金刀剃度赐明字辈法号（明觉/明岳/明悲）并传授《五郎八卦棍》与《清凉禅定吐纳法》（常山枪派持《常山·定州联合举荐信》亦可削发投寺）'
+    return {
+      canJoin: false,
+      startingRank: 1,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: reqSummary,
+      blockedReason:
+        '请前往【五台山清凉寺 · 清凉寺大雄主殿】向知客首座【智猛】投山门（点击金色【叩门投寺】选项），完成《清凉残雪 · 雁门梵钟》试心与雁门护关历练后，由道清方丈亲主持剃度受戒！',
+    }
+  }
+
   // 3c. 莆田南少林 (SECT-04): 《刺桐风起 · 铁桥问禅》二十幕南拳入门长卷（兼容零武学散人与镇远镖局/岭南洪门武馆同脉）
   if (targetSectId === 'SECT-04') {
     const reqSummary =
@@ -2291,6 +2307,7 @@ export const SECT_ENTRY_GEAR_GIFTS: Record<string, string[]> = {
   'SECT-23': ['ACC-031', 'ARM-031'], // 沧州八极门：沧州武馆铜护心、沧州武馆练功短打
   'SECT-01': ['ARM-036', 'BOT-020', 'WPN-068'], // 嵩山少林寺：灰麻僧衣、僧侣芒鞋、少林白蜡齐眉棍
   'SECT-02': ['ARM-050', 'BOT-026', 'WPN-098'], // 丐帮：破旧百衲乞丐衣、山民蒲草鞋、叫花驱犬芦竹竿
+  'SECT-03': ['ARM-053', 'BOT-020', 'WPN-068'], // 五台山清凉寺：行脚僧灰布袍、僧侣芒鞋、少林白蜡齐眉棍
   'SECT-04': ['ARM-036', 'BOT-020', 'WPN-068'], // 莆田南少林：灰麻僧衣、僧侣芒鞋、少林白蜡齐眉棍
   'SECT-05': ['ARM-037', 'BOT-021', 'WPN-062'], // 华山派：青灰道袍、道士云头布履、华山入门青钢剑
   'SECT-06': ['ARM-037', 'BOT-021', 'ACC-042'], // 泰山派：青灰道袍、道士云头布履、道观桃木辟邪符

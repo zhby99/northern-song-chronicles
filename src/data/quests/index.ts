@@ -18,6 +18,7 @@ import { SHAOLIN_ENTRY_QUESTS } from './sects/shaolinEntryQuest'
 import { TAISHAN_ENTRY_QUESTS } from './sects/taishanEntryQuest'
 import { TIANBO_BAWANG_QUESTS } from './sects/tianboBawangQuest'
 import { TIEZHANG_ENTRY_QUESTS } from './sects/tiezhangEntryQuest'
+import { WUTAI_ENTRY_QUESTS } from './sects/wutaiEntryQuest'
 import { XINGXIU_ENTRY_QUESTS } from './sects/xingxiuEntryQuest'
 import { ZHENWU_ENTRY_QUESTS } from './sects/zhenwuEntryQuest'
 
@@ -30,6 +31,7 @@ export const QUEST_REGISTRY: QuestDefinition[] = [
   ...SECOND_TIER_QUESTS,
   ...SHAOLIN_ENTRY_QUESTS,
   ...GAIBANG_ENTRY_QUESTS,
+  ...WUTAI_ENTRY_QUESTS,
   ...NANSHAOLIN_ENTRY_QUESTS,
   ...HUASHAN_ENTRY_QUESTS,
   ...TAISHAN_ENTRY_QUESTS,
@@ -76,6 +78,7 @@ export function resetRegisteredQuests(): void {
     ...SECOND_TIER_QUESTS,
     ...SHAOLIN_ENTRY_QUESTS,
     ...GAIBANG_ENTRY_QUESTS,
+    ...WUTAI_ENTRY_QUESTS,
     ...NANSHAOLIN_ENTRY_QUESTS,
     ...HUASHAN_ENTRY_QUESTS,
     ...TAISHAN_ENTRY_QUESTS,

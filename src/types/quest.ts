@@ -264,7 +264,12 @@ export type QuestEffect =
   | { type: 'leaveSect'; skipPenalty?: boolean }
   | { type: 'addSectContribution'; amount: number }
   | { type: 'activateShaolinNovice' }
-  | { type: 'ordainShaolinMonk'; dharmaName: string; portraitId: string }
+  | {
+      type: 'ordainShaolinMonk'
+      dharmaName: string
+      portraitId: string
+      sectId?: 'SECT-01' | 'SECT-03' | 'SECT-04'
+    }
   | {
       type: 'modifyNpcFavor'
       target: { kind: 'npc'; npcId: string } | { kind: 'all_song_aligned' }
