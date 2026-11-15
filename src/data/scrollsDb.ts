@@ -14,6 +14,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   // ============================================================================
   {
     id: 'ITM-SCR-001',
+    iconUrl: '/assets/items/scrolls/itm_scr_001.jpg',
     name: '《达摩易筋真经》梵夹本',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -31,6 +32,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-002',
+    iconUrl: '/assets/items/scrolls/itm_scr_002.jpg',
     name: '《北冥凌波逍遥帛卷》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -48,6 +50,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-003',
+    iconUrl: '/assets/items/scrolls/itm_scr_003.jpg',
     name: '《黄裳万寿道藏悟真编》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -65,6 +68,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-004',
+    iconUrl: '/assets/items/scrolls/itm_scr_004.jpg',
     name: '《独孤九剑破尽天下谱》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -82,6 +86,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-005',
+    iconUrl: '/assets/items/scrolls/itm_scr_005.jpg',
     name: '《天龙六脉神剑经纬图》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -99,6 +104,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-006',
+    iconUrl: '/assets/items/scrolls/itm_scr_006.jpg',
     name: '王羲之《兰亭集序》定武原石宋拓孤本',
     category: 'scrolls',
     subType: '法帖碑刻',
@@ -111,6 +117,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-007',
+    iconUrl: '/assets/items/scrolls/itm_scr_007.jpg',
     name: '范宽《溪山行旅图》真迹绢本巨轴',
     category: 'scrolls',
     subType: '名家书画',
@@ -123,6 +130,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-008',
+    iconUrl: '/assets/items/scrolls/itm_scr_008.jpg',
     name: '《淳化阁帖》内府澄心堂纸初拓十卷全帙',
     category: 'scrolls',
     subType: '法帖碑刻',
@@ -135,6 +143,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-009',
+    iconUrl: '/assets/items/scrolls/itm_scr_009.jpg',
     name: '《武经总要》皇祐秘阁御览彩绘全本',
     category: 'scrolls',
     subType: '兵书舆图',
@@ -241,6 +250,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-016',
+    iconUrl: '/assets/items/scrolls/itm_scr_016.jpg',
     name: '《华山太岳三青峰剑谱》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -256,6 +266,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-017',
+    iconUrl: '/assets/items/scrolls/itm_scr_017.jpg',
     name: '《铁掌帮铁掌水上漂秘要》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -271,6 +282,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-018',
+    iconUrl: '/assets/items/scrolls/itm_scr_018.jpg',
     name: '《蜀中唐门满天花雨暗器总谱》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -286,6 +298,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-019',
+    iconUrl: '/assets/items/scrolls/itm_scr_019.jpg',
     name: '《常山沥泉龙胆枪前谱》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -301,6 +314,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-020',
+    iconUrl: '/assets/items/scrolls/itm_scr_020.jpg',
     name: '《裴将军诗剑帖》判官笔真解',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -316,6 +330,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-021',
+    iconUrl: '/assets/items/scrolls/itm_scr_021.jpg',
     name: '范仲淹手书《岳阳楼记》庆历六年原稿卷',
     category: 'scrolls',
     subType: '名家书画',
@@ -328,6 +343,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-022',
+    iconUrl: '/assets/items/scrolls/itm_scr_022.jpg',
     name: '李成《读碑窠石图》双拼绢本真迹',
     category: 'scrolls',
     subType: '名家书画',
@@ -340,6 +356,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-023',
+    iconUrl: '/assets/items/scrolls/itm_scr_023.jpg',
     name: '董源《潇湘图》南唐设色青绿手卷',
     category: 'scrolls',
     subType: '名家书画',
@@ -351,6 +368,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-024',
+    iconUrl: '/assets/items/scrolls/itm_scr_024.jpg',
     name: '颜真卿《祭侄文稿》麻纸墨迹摹真卷',
     category: 'scrolls',
     subType: '法帖碑刻',

@@ -709,6 +709,7 @@ export interface GameItemDef {
   mountMeta?: CompiledMountRecord
   gearMeta?: CompiledGearRecord
   poisonEffect?: string
+  iconUrl?: string | null
 }
 
 export type GearSlotType = 'armor' | 'shoes' | 'bow' | 'accessory'

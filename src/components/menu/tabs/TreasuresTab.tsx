@@ -10,6 +10,7 @@ import {
 } from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
 import type { BagCategoryKey, CompiledMartialArtRecord, EquipmentTier } from '../../../types/game'
+import { resolveAssetUrl } from '../../../utils/assetLoader'
 import { getMedicineRealmScale, scaleMedicineRecovery } from '../../../utils/realmUtils'
 import { BagCatIcon } from '../MenuIcons'
 import type { TreasureCollectionStats } from '../menuShared'
@@ -465,14 +466,23 @@ export function TreasuresTab({
                     }`}
                   >
                     <div className="flex items-start gap-2.5 min-w-0">
-                      <div
-                        className={`w-10 h-10 rounded border flex flex-col items-center justify-center shrink-0 ${rStyle.badgeBg} ${rStyle.badgeText} border-[#f5cb5c]/50`}
-                      >
-                        <BagCatIcon category={def.category} className="w-3.5 h-3.5" />
-                        <span className="text-[9px] font-mono leading-none mt-0.5">
-                          {def.id.slice(-3)}
-                        </span>
-                      </div>
+                      {def.iconUrl ? (
+                        <img
+                          src={resolveAssetUrl(def.iconUrl)}
+                          alt={def.name}
+                          loading="lazy"
+                          className="w-10 h-10 rounded border border-[#9e8462]/60 object-cover shrink-0 bg-[#1a120b]"
+                        />
+                      ) : (
+                        <div
+                          className={`w-10 h-10 rounded border flex flex-col items-center justify-center shrink-0 ${rStyle.badgeBg} ${rStyle.badgeText} border-[#f5cb5c]/50`}
+                        >
+                          <BagCatIcon category={def.category} className="w-3.5 h-3.5" />
+                          <span className="text-[9px] font-mono leading-none mt-0.5">
+                            {def.id.slice(-3)}
+                          </span>
+                        </div>
+                      )}
                       <div className="min-w-0">
                         <div className="song-serif font-bold text-xs sm:text-sm text-[#23180f] truncate">
                           {def.name}
@@ -557,29 +567,38 @@ export function TreasuresTab({
                 <>
                   <div className="space-y-3">
                     {/* 标题与品阶头栏 */}
-                    <div className="border-b border-[#cbb693] pb-2.5">
-                      <div className="flex items-center justify-between gap-2 flex-wrap">
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="px-2 py-0.5 rounded bg-[#261910] text-amber-200 font-mono text-xs">
-                            {def.id}
-                          </span>
-                          {volMeta && (
-                            <span className="px-2 py-0.5 rounded bg-[#faf3e3] border border-[#bfa680] text-[#52391e] font-bold song-serif text-[11px]">
-                              {volMeta.volNumeral}·{volMeta.label}
+                    <div className="border-b border-[#cbb693] pb-2.5 flex items-start gap-3">
+                      {def.iconUrl && (
+                        <img
+                          src={resolveAssetUrl(def.iconUrl)}
+                          alt={def.name}
+                          className="w-20 h-20 rounded-md border-2 border-[#b89658] object-cover shadow shrink-0 bg-[#1a120b]"
+                        />
+                      )}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between gap-2 flex-wrap">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className="px-2 py-0.5 rounded bg-[#261910] text-amber-200 font-mono text-xs">
+                              {def.id}
                             </span>
-                          )}
-                          <span
-                            className={`px-2 py-0.5 rounded text-xs font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
-                          >
-                            {normTier}
-                          </span>
+                            {volMeta && (
+                              <span className="px-2 py-0.5 rounded bg-[#faf3e3] border border-[#bfa680] text-[#52391e] font-bold song-serif text-[11px]">
+                                {volMeta.volNumeral}·{volMeta.label}
+                              </span>
+                            )}
+                            <span
+                              className={`px-2 py-0.5 rounded text-xs font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
+                            >
+                              {normTier}
+                            </span>
+                          </div>
+                          <span className="text-xs font-semibold text-[#6b5235]">{def.subType}</span>
                         </div>
-                        <span className="text-xs font-semibold text-[#6b5235]">{def.subType}</span>
-                      </div>
 
-                      <h4 className="song-serif font-bold text-lg text-[#23180f] mt-1.5">
-                        {def.name}
-                      </h4>
+                        <h4 className="song-serif font-bold text-lg text-[#23180f] mt-1.5">
+                          {def.name}
+                        </h4>
+                      </div>
                     </div>
 
                     <UniqueOwnershipBanner itemId={def.id} />

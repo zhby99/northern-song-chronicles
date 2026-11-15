@@ -8,6 +8,7 @@ import {
   type TreasureVolumeKey,
 } from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
+import { resolveAssetUrl } from '../../../utils/assetLoader'
 import { getMedicineRealmScale, scaleMedicineRecovery } from '../../../utils/realmUtils'
 import type {
   BagCategoryKey,
@@ -227,15 +228,32 @@ export function BagTab({
                     }`}
                   >
                     <div className="flex items-start gap-2.5 min-w-0">
-                      <div
-                        className={`w-10 h-10 rounded border flex items-center justify-center shrink-0 ${rStyle.badgeBg} ${rStyle.badgeText} border-[#f5cb5c]/50`}
-                      >
-                        {def.equipSlot ? (
-                          <SlotIcon slot={def.equipSlot} className="w-4 h-4" />
+                      {(() => {
+                        const itemIcon =
+                          def.iconUrl ??
+                          def.weaponMeta?.iconUrl ??
+                          def.mountMeta?.iconUrl ??
+                          def.gearMeta?.iconUrl ??
+                          null
+                        return itemIcon ? (
+                          <img
+                            src={resolveAssetUrl(itemIcon)}
+                            alt={def.name}
+                            loading="lazy"
+                            className="w-10 h-10 rounded border border-[#9e8462]/60 object-cover shrink-0 bg-[#1a120b]"
+                          />
                         ) : (
-                          <BagCatIcon category={def.category} className="w-4 h-4" />
-                        )}
-                      </div>
+                          <div
+                            className={`w-10 h-10 rounded border flex items-center justify-center shrink-0 ${rStyle.badgeBg} ${rStyle.badgeText} border-[#f5cb5c]/50`}
+                          >
+                            {def.equipSlot ? (
+                              <SlotIcon slot={def.equipSlot} className="w-4 h-4" />
+                            ) : (
+                              <BagCatIcon category={def.category} className="w-4 h-4" />
+                            )}
+                          </div>
+                        )
+                      })()}
                       <div className="min-w-0">
                         <div className="song-serif font-bold text-xs sm:text-sm text-[#23180f] truncate">
                           {def.name}
@@ -285,26 +303,43 @@ export function BagTab({
           {activeStack ? (
             <>
               <div className="space-y-3">
-                <div className="flex items-start justify-between gap-2 border-b border-[#cbb693] pb-2.5">
-                  <div>
-                    <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="px-1.5 py-0.5 rounded bg-[#261910] text-amber-200 font-mono text-[10px]">
-                        {activeStack.def.id}
-                      </span>
-                      <span
-                        className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                          RARITY_STYLE_MAP[activeStack.def.rarity].badgeBg
-                        } ${RARITY_STYLE_MAP[activeStack.def.rarity].badgeText}`}
-                      >
-                        {activeStack.def.rarity}
-                      </span>
-                      <span className="text-xs text-[#6b5235] font-semibold">
-                        {activeStack.def.subType}
-                      </span>
+                <div className="flex items-start justify-between gap-2.5 border-b border-[#cbb693] pb-2.5">
+                  <div className="flex items-start gap-3 min-w-0">
+                    {(() => {
+                      const activeIcon =
+                        activeStack.def.iconUrl ??
+                        activeStack.def.weaponMeta?.iconUrl ??
+                        activeStack.def.mountMeta?.iconUrl ??
+                        activeStack.def.gearMeta?.iconUrl ??
+                        null
+                      return activeIcon ? (
+                        <img
+                          src={resolveAssetUrl(activeIcon)}
+                          alt={activeStack.def.name}
+                          className="w-16 h-16 rounded-md border-2 border-[#b89658] object-cover shadow shrink-0 bg-[#1a120b]"
+                        />
+                      ) : null
+                    })()}
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <span className="px-1.5 py-0.5 rounded bg-[#261910] text-amber-200 font-mono text-[10px]">
+                          {activeStack.def.id}
+                        </span>
+                        <span
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                            RARITY_STYLE_MAP[activeStack.def.rarity].badgeBg
+                          } ${RARITY_STYLE_MAP[activeStack.def.rarity].badgeText}`}
+                        >
+                          {activeStack.def.rarity}
+                        </span>
+                        <span className="text-xs text-[#6b5235] font-semibold">
+                          {activeStack.def.subType}
+                        </span>
+                      </div>
+                      <h4 className="song-serif font-bold text-lg text-[#23180f] mt-1">
+                        {activeStack.def.name}
+                      </h4>
                     </div>
-                    <h4 className="song-serif font-bold text-lg text-[#23180f] mt-1">
-                      {activeStack.def.name}
-                    </h4>
                   </div>
                   <div className="text-right font-mono text-xs text-[#6b5235] shrink-0">
                     <div>随身 ×{activeStack.qty}</div>
