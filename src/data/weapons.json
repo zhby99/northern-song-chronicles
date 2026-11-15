@@ -17,10 +17,7 @@
     "attackRange": 1,
     "value": 880,
     "equipBonus": {
-      "attack": 230,
-      "defense": 35,
-      "maxHp": 360,
-      "maxMp": 280
+      "attack": 260
     },
     "synergies": [
       {
@@ -69,10 +66,7 @@
     "attackRange": 2,
     "value": 700,
     "equipBonus": {
-      "attack": 205,
-      "defense": 42,
-      "agility": 16,
-      "maxMp": 220
+      "attack": 242
     },
     "synergies": [
       {
@@ -121,9 +115,7 @@
     "attackRange": 4,
     "value": 790,
     "equipBonus": {
-      "attack": 220,
-      "agility": 22,
-      "res": 16
+      "attack": 248
     },
     "synergies": [
       {
@@ -176,10 +168,7 @@
     "attackRange": 2,
     "value": 620,
     "equipBonus": {
-      "attack": 192,
-      "defense": 30,
-      "maxHp": 320,
-      "riding": 15
+      "attack": 218
     },
     "synergies": [
       {
@@ -229,12 +218,7 @@
     "attackRange": 3,
     "value": 520,
     "equipBonus": {
-      "attack": 175,
-      "maxMp": 420,
-      "res": 20,
-      "skills": {
-        "琴": 12
-      }
+      "attack": 204
     },
     "synergies": [
       {
@@ -287,9 +271,7 @@
     "attackRange": 1,
     "value": 500,
     "equipBonus": {
-      "attack": 188,
-      "agility": 15,
-      "res": 18
+      "attack": 212
     },
     "synergies": [
       {
@@ -338,13 +320,7 @@
     "attackRange": 2,
     "value": 460,
     "equipBonus": {
-      "attack": 165,
-      "defense": 38,
-      "maxHp": 350,
-      "res": 16,
-      "skills": {
-        "经义": 8
-      }
+      "attack": 184
     },
     "synergies": [
       {
@@ -393,10 +369,7 @@
     "attackRange": 1,
     "value": 436,
     "equipBonus": {
-      "attack": 152,
-      "maxMp": 320,
-      "res": 26,
-      "agility": 10
+      "attack": 174
     },
     "synergies": [
       {
@@ -454,9 +427,7 @@
     "attackRange": 2,
     "value": 412,
     "equipBonus": {
-      "attack": 160,
-      "agility": 20,
-      "maxMp": 180
+      "attack": 178
     },
     "synergies": [
       {
@@ -505,13 +476,7 @@
     "attackRange": 2,
     "value": 380,
     "equipBonus": {
-      "attack": 148,
-      "maxMp": 300,
-      "agility": 14,
-      "skills": {
-        "琴": 10,
-        "算术": 8
-      }
+      "attack": 170
     },
     "synergies": [
       {
@@ -572,12 +537,7 @@
     "attackRange": 1,
     "value": 280,
     "equipBonus": {
-      "attack": 128,
-      "defense": 24,
-      "maxMp": 210,
-      "skills": {
-        "书": 6
-      }
+      "attack": 145
     },
     "synergies": [
       {
@@ -613,9 +573,7 @@
     "attackRange": 1,
     "value": 263,
     "equipBonus": {
-      "attack": 132,
-      "defense": 16,
-      "agility": 10
+      "attack": 148
     },
     "synergies": [
       {
@@ -651,12 +609,7 @@
     "attackRange": 1,
     "value": 246,
     "equipBonus": {
-      "attack": 130,
-      "maxHp": 220,
-      "res": 12,
-      "skills": {
-        "经义": 5
-      }
+      "attack": 144
     },
     "synergies": [
       {
@@ -692,10 +645,7 @@
     "attackRange": 2,
     "value": 254,
     "equipBonus": {
-      "attack": 126,
-      "defense": 18,
-      "agility": 12,
-      "riding": 10
+      "attack": 142
     },
     "synergies": [
       {
@@ -731,10 +681,7 @@
     "attackRange": 1,
     "value": 220,
     "equipBonus": {
-      "attack": 118,
-      "defense": 22,
-      "maxHp": 240,
-      "res": 10
+      "attack": 136
     },
     "synergies": [
       {
@@ -774,11 +721,7 @@
     "attackRange": 3,
     "value": 237,
     "equipBonus": {
-      "attack": 124,
-      "agility": 16,
-      "skills": {
-        "算术": 6
-      }
+      "attack": 140
     },
     "synergies": [
       {
@@ -814,9 +757,7 @@
     "attackRange": 1,
     "value": 200,
     "equipBonus": {
-      "attack": 106,
-      "agility": 12,
-      "maxMp": 160
+      "attack": 118
     },
     "synergies": [
       {
@@ -852,9 +793,7 @@
     "attackRange": 1,
     "value": 192,
     "equipBonus": {
-      "attack": 110,
-      "agility": 10,
-      "res": 8
+      "attack": 120
     },
     "synergies": [
       {
@@ -890,9 +829,7 @@
     "attackRange": 2,
     "value": 184,
     "equipBonus": {
-      "attack": 108,
-      "maxHp": 200,
-      "riding": 8
+      "attack": 122
     },
     "synergies": [
       {
@@ -928,9 +865,7 @@
     "attackRange": 2,
     "value": 176,
     "equipBonus": {
-      "attack": 105,
-      "defense": 20,
-      "maxHp": 220
+      "attack": 119
     },
     "synergies": [
       {
@@ -966,10 +901,7 @@
     "attackRange": 1,
     "value": 168,
     "equipBonus": {
-      "attack": 102,
-      "maxHp": 180,
-      "maxMp": 140,
-      "res": 12
+      "attack": 114
     },
     "synergies": [
       {
@@ -1009,9 +941,7 @@
     "attackRange": 3,
     "value": 160,
     "equipBonus": {
-      "attack": 98,
-      "defense": 12,
-      "agility": 15
+      "attack": 112
     },
     "synergies": [
       {
@@ -1051,12 +981,7 @@
     "attackRange": 1,
     "value": 172,
     "equipBonus": {
-      "attack": 96,
-      "agility": 11,
-      "maxMp": 150,
-      "skills": {
-        "书": 9
-      }
+      "attack": 110
     },
     "synergies": [
       {
@@ -1096,10 +1021,7 @@
     "attackRange": 1,
     "value": 138,
     "equipBonus": {
-      "attack": 88,
-      "defense": 16,
-      "agility": 12,
-      "maxMp": 120
+      "attack": 95
     },
     "synergies": [
       {
@@ -1135,10 +1057,7 @@
     "attackRange": 1,
     "value": 132,
     "equipBonus": {
-      "attack": 86,
-      "agility": 14,
-      "maxMp": 130,
-      "res": 8
+      "attack": 94
     },
     "synergies": [
       {
@@ -1174,12 +1093,7 @@
     "attackRange": 1,
     "value": 144,
     "equipBonus": {
-      "attack": 85,
-      "maxMp": 180,
-      "res": 10,
-      "skills": {
-        "经义": 6
-      }
+      "attack": 92
     },
     "synergies": [
       {
@@ -1219,9 +1133,7 @@
     "attackRange": 2,
     "value": 126,
     "equipBonus": {
-      "attack": 89,
-      "defense": 16,
-      "maxHp": 160
+      "attack": 96
     },
     "synergies": [
       {
@@ -1257,9 +1169,7 @@
     "attackRange": 2,
     "value": 135,
     "equipBonus": {
-      "attack": 90,
-      "defense": 20,
-      "maxHp": 190
+      "attack": 98
     },
     "synergies": [
       {
@@ -1295,9 +1205,7 @@
     "attackRange": 1,
     "value": 120,
     "equipBonus": {
-      "attack": 82,
-      "maxMp": 120,
-      "res": 16
+      "attack": 90
     },
     "synergies": [
       {
@@ -1337,13 +1245,7 @@
     "attackRange": 1,
     "value": 150,
     "equipBonus": {
-      "attack": 80,
-      "defense": 15,
-      "agility": 10,
-      "skills": {
-        "诗词": 6,
-        "辩才": 6
-      }
+      "attack": 88
     },
     "synergies": [
       {
@@ -1383,9 +1285,7 @@
     "attackRange": 1,
     "value": 81,
     "equipBonus": {
-      "attack": 66,
-      "agility": 8,
-      "maxMp": 80
+      "attack": 73
     },
     "synergies": [
       {
@@ -1421,11 +1321,7 @@
     "attackRange": 1,
     "value": 76,
     "equipBonus": {
-      "attack": 68,
-      "defense": 14,
-      "skills": {
-        "算术": 4
-      }
+      "attack": 74
     },
     "synergies": [
       {
@@ -1461,9 +1357,7 @@
     "attackRange": 1,
     "value": 85,
     "equipBonus": {
-      "attack": 70,
-      "defense": 10,
-      "maxHp": 120
+      "attack": 76
     },
     "synergies": [
       {
@@ -1499,9 +1393,7 @@
     "attackRange": 1,
     "value": 78,
     "equipBonus": {
-      "attack": 69,
-      "maxHp": 110,
-      "riding": 5
+      "attack": 75
     },
     "synergies": [
       {
@@ -1537,9 +1429,7 @@
     "attackRange": 2,
     "value": 76,
     "equipBonus": {
-      "attack": 67,
-      "defense": 13,
-      "maxHp": 110
+      "attack": 74
     },
     "synergies": [
       {
@@ -1575,9 +1465,7 @@
     "attackRange": 2,
     "value": 69,
     "equipBonus": {
-      "attack": 64,
-      "defense": 15,
-      "maxHp": 120
+      "attack": 72
     },
     "synergies": [
       {
@@ -1613,9 +1501,7 @@
     "attackRange": 1,
     "value": 67,
     "equipBonus": {
-      "attack": 60,
-      "defense": 10,
-      "agility": 9
+      "attack": 70
     },
     "synergies": [
       {
@@ -1651,9 +1537,7 @@
     "attackRange": 3,
     "value": 74,
     "equipBonus": {
-      "attack": 65,
-      "agility": 11,
-      "res": 6
+      "attack": 71
     },
     "synergies": [
       {
@@ -1693,12 +1577,7 @@
     "attackRange": 2,
     "value": 83,
     "equipBonus": {
-      "attack": 58,
-      "maxMp": 130,
-      "skills": {
-        "琴": 8,
-        "诗词": 4
-      }
+      "attack": 69
     },
     "synergies": [
       {
@@ -1733,9 +1612,7 @@
     "attackRange": 1,
     "value": 65,
     "equipBonus": {
-      "attack": 61,
-      "defense": 9,
-      "agility": 11
+      "attack": 68
     },
     "synergies": [
       {
@@ -1774,8 +1651,7 @@
     "attackRange": 1,
     "value": 51,
     "equipBonus": {
-      "attack": 52,
-      "agility": 9
+      "attack": 56
     },
     "synergies": [
       {
@@ -1811,8 +1687,7 @@
     "attackRange": 1,
     "value": 52,
     "equipBonus": {
-      "attack": 54,
-      "agility": 10
+      "attack": 57
     },
     "synergies": [
       {
@@ -1847,9 +1722,7 @@
     "attackRange": 1,
     "value": 54,
     "equipBonus": {
-      "attack": 55,
-      "agility": 7,
-      "riding": 4
+      "attack": 58
     },
     "synergies": [
       {
@@ -1885,9 +1758,7 @@
     "attackRange": 1,
     "value": 60,
     "equipBonus": {
-      "attack": 56,
-      "defense": 6,
-      "res": 4
+      "attack": 60
     },
     "synergies": [
       {
@@ -1923,8 +1794,7 @@
     "attackRange": 2,
     "value": 56,
     "equipBonus": {
-      "attack": 56,
-      "maxHp": 95
+      "attack": 59
     },
     "synergies": [
       {
@@ -1959,12 +1829,7 @@
     "attackRange": 1,
     "value": 49,
     "equipBonus": {
-      "attack": 53,
-      "defense": 11,
-      "maxHp": 85,
-      "skills": {
-        "策论": 3
-      }
+      "attack": 57
     },
     "synergies": [
       {
@@ -1999,8 +1864,7 @@
     "attackRange": 2,
     "value": 51,
     "equipBonus": {
-      "attack": 56,
-      "maxHp": 90
+      "attack": 59
     },
     "synergies": [
       {
@@ -2035,9 +1899,7 @@
     "attackRange": 1,
     "value": 47,
     "equipBonus": {
-      "attack": 49,
-      "defense": 12,
-      "maxHp": 95
+      "attack": 55
     },
     "synergies": [
       {
@@ -2073,8 +1935,7 @@
     "attackRange": 3,
     "value": 45,
     "equipBonus": {
-      "attack": 50,
-      "agility": 9
+      "attack": 54
     },
     "synergies": [
       {
@@ -2110,13 +1971,7 @@
     "attackRange": 1,
     "value": 49,
     "equipBonus": {
-      "attack": 47,
-      "defense": 8,
-      "agility": 7,
-      "skills": {
-        "诗词": 5,
-        "画": 4
-      }
+      "attack": 52
     },
     "synergies": [
       {
@@ -2152,11 +2007,7 @@
     "attackRange": 1,
     "value": 36,
     "equipBonus": {
-      "attack": 42,
-      "maxMp": 65,
-      "skills": {
-        "经义": 3
-      }
+      "attack": 43
     },
     "synergies": [
       {
@@ -2192,8 +2043,7 @@
     "attackRange": 1,
     "value": 34,
     "equipBonus": {
-      "attack": 44,
-      "maxHp": 80
+      "attack": 46
     },
     "synergies": [
       {
@@ -2229,9 +2079,7 @@
     "attackRange": 2,
     "value": 35,
     "equipBonus": {
-      "attack": 43,
-      "defense": 8,
-      "riding": 4
+      "attack": 45
     },
     "synergies": [
       {
@@ -2266,8 +2114,7 @@
     "attackRange": 2,
     "value": 34,
     "equipBonus": {
-      "attack": 40,
-      "agility": 7
+      "attack": 43
     },
     "synergies": [
       {
@@ -2302,9 +2149,7 @@
     "attackRange": 2,
     "value": 36,
     "equipBonus": {
-      "attack": 39,
-      "defense": 11,
-      "maxHp": 75
+      "attack": 44
     },
     "synergies": [
       {
@@ -2340,8 +2185,7 @@
     "attackRange": 1,
     "value": 32,
     "equipBonus": {
-      "attack": 41,
-      "maxHp": 70
+      "attack": 43
     },
     "synergies": [
       {
@@ -2377,8 +2221,7 @@
     "attackRange": 1,
     "value": 33,
     "equipBonus": {
-      "attack": 38,
-      "res": 9
+      "attack": 40
     },
     "synergies": [
       {
@@ -2417,9 +2260,7 @@
     "attackRange": 3,
     "value": 30,
     "equipBonus": {
-      "attack": 39,
-      "agility": 6,
-      "res": 4
+      "attack": 40
     },
     "synergies": [
       {
@@ -2458,11 +2299,7 @@
     "attackRange": 1,
     "value": 34,
     "equipBonus": {
-      "attack": 37,
-      "defense": 9,
-      "skills": {
-        "辩才": 3
-      }
+      "attack": 40
     },
     "synergies": [
       {
@@ -2501,11 +2338,7 @@
     "attackRange": 1,
     "value": 35,
     "equipBonus": {
-      "attack": 36,
-      "agility": 6,
-      "skills": {
-        "书": 6
-      }
+      "attack": 39
     },
     "synergies": [
       {
@@ -2545,8 +2378,7 @@
     "attackRange": 1,
     "value": 22,
     "equipBonus": {
-      "attack": 30,
-      "agility": 4
+      "attack": 32
     },
     "synergies": [
       {
@@ -2581,8 +2413,7 @@
     "attackRange": 1,
     "value": 20,
     "equipBonus": {
-      "attack": 29,
-      "agility": 5
+      "attack": 31
     },
     "synergies": [
       {
@@ -2617,9 +2448,7 @@
     "attackRange": 1,
     "value": 22,
     "equipBonus": {
-      "attack": 28,
-      "defense": 4,
-      "maxMp": 35
+      "attack": 31
     },
     "synergies": [
       {
@@ -2654,8 +2483,7 @@
     "attackRange": 1,
     "value": 19,
     "equipBonus": {
-      "attack": 29,
-      "agility": 5
+      "attack": 31
     },
     "synergies": [
       {
@@ -2690,8 +2518,7 @@
     "attackRange": 1,
     "value": 20,
     "equipBonus": {
-      "attack": 31,
-      "defense": 4
+      "attack": 33
     },
     "synergies": [
       {
@@ -2726,8 +2553,7 @@
     "attackRange": 1,
     "value": 24,
     "equipBonus": {
-      "attack": 32,
-      "maxHp": 45
+      "attack": 34
     },
     "synergies": [
       {
@@ -2763,8 +2589,7 @@
     "attackRange": 2,
     "value": 18,
     "equipBonus": {
-      "attack": 29,
-      "defense": 5
+      "attack": 31
     },
     "synergies": [
       {
@@ -2799,9 +2624,7 @@
     "attackRange": 2,
     "value": 14,
     "equipBonus": {
-      "attack": 27,
-      "defense": 7,
-      "maxHp": 45
+      "attack": 29
     },
     "synergies": [
       {
@@ -2836,9 +2659,7 @@
     "attackRange": 1,
     "value": 15,
     "equipBonus": {
-      "attack": 25,
-      "defense": 6,
-      "maxHp": 40
+      "attack": 28
     },
     "synergies": [
       {
@@ -2874,8 +2695,7 @@
     "attackRange": 3,
     "value": 23,
     "equipBonus": {
-      "attack": 28,
-      "agility": 5
+      "attack": 30
     },
     "synergies": [
       {
@@ -2910,11 +2730,7 @@
     "attackRange": 3,
     "value": 16,
     "equipBonus": {
-      "attack": 26,
-      "agility": 4,
-      "skills": {
-        "算术": 2
-      }
+      "attack": 28
     },
     "synergies": [
       {
@@ -2949,12 +2765,7 @@
     "attackRange": 1,
     "value": 18,
     "equipBonus": {
-      "attack": 24,
-      "defense": 4,
-      "agility": 4,
-      "skills": {
-        "诗词": 2
-      }
+      "attack": 27
     },
     "synergies": [
       {
@@ -2989,8 +2800,7 @@
     "attackRange": 1,
     "value": 11,
     "equipBonus": {
-      "attack": 20,
-      "defense": 2
+      "attack": 21
     },
     "synergies": [
       {
@@ -3025,8 +2835,7 @@
     "attackRange": 1,
     "value": 12,
     "equipBonus": {
-      "attack": 21,
-      "agility": 3
+      "attack": 21
     },
     "synergies": [
       {
@@ -3061,8 +2870,7 @@
     "attackRange": 2,
     "value": 12,
     "equipBonus": {
-      "attack": 22,
-      "maxHp": 30
+      "attack": 23
     },
     "synergies": [
       {
@@ -3097,8 +2905,7 @@
     "attackRange": 1,
     "value": 11,
     "equipBonus": {
-      "attack": 21,
-      "defense": 2
+      "attack": 22
     },
     "synergies": [
       {
@@ -3133,8 +2940,7 @@
     "attackRange": 1,
     "value": 10,
     "equipBonus": {
-      "attack": 19,
-      "agility": 3
+      "attack": 20
     },
     "synergies": [
       {
@@ -3169,8 +2975,7 @@
     "attackRange": 2,
     "value": 12,
     "equipBonus": {
-      "attack": 20,
-      "defense": 3
+      "attack": 21
     },
     "synergies": [
       {
@@ -3205,8 +3010,7 @@
     "attackRange": 2,
     "value": 10,
     "equipBonus": {
-      "attack": 18,
-      "riding": 3
+      "attack": 19
     },
     "synergies": [
       {
@@ -3239,9 +3043,7 @@
     "attackRange": 2,
     "value": 9,
     "equipBonus": {
-      "attack": 18,
-      "defense": 3,
-      "agility": 2
+      "attack": 19
     },
     "synergies": [
       {
@@ -3276,8 +3078,7 @@
     "attackRange": 2,
     "value": 10,
     "equipBonus": {
-      "attack": 19,
-      "maxHp": 25
+      "attack": 20
     },
     "synergies": [
       {
@@ -3312,8 +3113,7 @@
     "attackRange": 2,
     "value": 11,
     "equipBonus": {
-      "attack": 17,
-      "defense": 4
+      "attack": 19
     },
     "synergies": [
       {
@@ -3348,8 +3148,7 @@
     "attackRange": 1,
     "value": 8,
     "equipBonus": {
-      "attack": 16,
-      "maxHp": 30
+      "attack": 18
     },
     "synergies": [
       {
@@ -3385,8 +3184,7 @@
     "attackRange": 1,
     "value": 9,
     "equipBonus": {
-      "attack": 18,
-      "res": 2
+      "attack": 19
     },
     "synergies": [
       {
@@ -3421,8 +3219,7 @@
     "attackRange": 3,
     "value": 7,
     "equipBonus": {
-      "attack": 16,
-      "agility": 2
+      "attack": 17
     },
     "synergies": [
       {
@@ -3457,11 +3254,7 @@
     "attackRange": 1,
     "value": 11,
     "equipBonus": {
-      "attack": 15,
-      "defense": 4,
-      "skills": {
-        "算术": 4
-      }
+      "attack": 18
     },
     "synergies": [
       {
@@ -3500,8 +3293,7 @@
     "attackRange": 1,
     "value": 5,
     "equipBonus": {
-      "attack": 11,
-      "agility": 2
+      "attack": 11
     },
     "synergies": [
       {
@@ -3536,10 +3328,7 @@
     "attackRange": 1,
     "value": 4,
     "equipBonus": {
-      "attack": 9,
-      "skills": {
-        "经义": 1
-      }
+      "attack": 9
     },
     "synergies": [
       {
@@ -3644,8 +3433,7 @@
     "attackRange": 1,
     "value": 6,
     "equipBonus": {
-      "attack": 14,
-      "agility": 1
+      "attack": 14
     },
     "synergies": [
       {
@@ -3715,8 +3503,7 @@
     "attackRange": 2,
     "value": 6,
     "equipBonus": {
-      "attack": 14,
-      "maxHp": 15
+      "attack": 14
     },
     "synergies": [
       {
@@ -3751,7 +3538,7 @@
     "attackRange": 2,
     "value": 3,
     "equipBonus": {
-      "attack": 11
+      "attack": 10
     },
     "synergies": [
       {
@@ -3784,8 +3571,7 @@
     "attackRange": 2,
     "value": 4,
     "equipBonus": {
-      "attack": 12,
-      "defense": 2
+      "attack": 12
     },
     "synergies": [
       {
@@ -3820,8 +3606,7 @@
     "attackRange": 2,
     "value": 4,
     "equipBonus": {
-      "attack": 12,
-      "maxHp": 20
+      "attack": 12
     },
     "synergies": [
       {
@@ -3856,8 +3641,7 @@
     "attackRange": 1,
     "value": 4,
     "equipBonus": {
-      "attack": 10,
-      "defense": 2
+      "attack": 10
     },
     "synergies": [
       {
@@ -3892,8 +3676,7 @@
     "attackRange": 2,
     "value": 3,
     "equipBonus": {
-      "attack": 9,
-      "agility": 1
+      "attack": 9
     },
     "synergies": [
       {
@@ -3928,8 +3711,7 @@
     "attackRange": 1,
     "value": 3,
     "equipBonus": {
-      "attack": 8,
-      "maxHp": 25
+      "attack": 8
     },
     "synergies": [
       {
@@ -3965,8 +3747,7 @@
     "attackRange": 3,
     "value": 4,
     "equipBonus": {
-      "attack": 9,
-      "agility": 2
+      "attack": 9
     },
     "synergies": [
       {

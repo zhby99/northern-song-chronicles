@@ -1610,6 +1610,10 @@ def parse_weapons() -> list[dict[str, Any]]:
         attack_range = int(m_fr.group(2))
 
         equip_bonus = parse_equip_bonus_tokens(bonus_raw)
+        if set(equip_bonus.keys()) != {"attack"}:
+            raise AssertionError(
+                f"[{wpn_id}] Weapon equipBonus keys must be exactly {{'attack'}}, got {equip_bonus!r}"
+            )
         synergies = [
             {"category": cat_name, "bonusPct": int(pct)}
             for cat_name, pct in syn_pair_re.findall(syn_raw)
@@ -2433,6 +2437,23 @@ def parse_gear() -> list[dict[str, Any]]:
         region_id, _, _ = LOCATION_RESOLUTION_MAP[loc_part]
         sect_id = resolve_sect_for_origin(origin)
         equip_bonus = parse_equip_bonus_tokens(bonus_cell)
+        bonus_keys = set(equip_bonus.keys())
+        if slot == "armor":
+            allowed_armor = {"defense", "res", "maxHp"}
+            if not bonus_keys or not bonus_keys.issubset(allowed_armor):
+                raise AssertionError(
+                    f"[{item_id}] Armor equipBonus keys must be non-empty subset of {allowed_armor}, got {equip_bonus!r}"
+                )
+        elif slot == "shoes":
+            if bonus_keys != {"agility"}:
+                raise AssertionError(
+                    f"[{item_id}] Shoes equipBonus keys must be exactly {{'agility'}}, got {equip_bonus!r}"
+                )
+        elif slot == "bow":
+            if bonus_keys != {"attack"}:
+                raise AssertionError(
+                    f"[{item_id}] Bow equipBonus keys must be exactly {{'attack'}}, got {equip_bonus!r}"
+                )
 
         tag_m = re.match(r"^【([^】]+)】(.*)$", desc_cell)
         special_tag = tag_m.group(1).strip() if tag_m else None

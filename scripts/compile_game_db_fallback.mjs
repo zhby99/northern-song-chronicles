@@ -3,6 +3,7 @@
  * Used by scripts/run_py.mjs when no local Python runtime is installed.
  * Reads docs/MARTIAL_ARTS_SECTS.md + docs/CHARACTER_COMPENDIUM.md along with existing
  * compiled JSON datasets in src/data/ and performs full re-compilation & validation of:
+ *   - weapons.json / mounts.json / gear.json (parsed live from docs/EQUIPMENT_COMPENDIUM.md)
  *   - npcs.json (faction sync, templates, sect ranks, 6 martial art slots, 7 gear slots)
  *   - uniqueArtifacts.json (ownerFactionName sync)
  *   - idRegistry.json (44 canonical factions incl. SECT-33, counts, indexes)
@@ -11,6 +12,386 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+
+const TEN_SKILLS_SET = new Set(['算术', '经义', '策论', '诗词', '琴', '棋', '书', '画', '辩才'])
+
+const MOUNT_TERRAIN_TRAIT_MAP = {
+  踏平川: 'official',
+  驰大漠: 'steppe',
+  逾险峰: 'mountain',
+  渡烟波: 'water',
+  全地形: 'all',
+}
+
+function parseEquipBonusTokens(rawBonus) {
+  const bonus = {}
+  const skills = {}
+  for (const m of rawBonus.matchAll(/`([^`+]+)\+(\d+)`/g)) {
+    const k = m[1].trim()
+    const v = Number.parseInt(m[2], 10)
+    if (k === '攻') bonus.attack = v
+    else if (k === '防') bonus.defense = v
+    else if (k === '气血') bonus.maxHp = v
+    else if (k === '内力') bonus.maxMp = v
+    else if (k === '身法') bonus.agility = v
+    else if (k === '抗性') bonus.res = v
+    else if (k === '骑术') bonus.riding = v
+    else if (TEN_SKILLS_SET.has(k) || k === '颜值') skills[k] = v
+    else throw new Error(`Unknown equipBonus token: ${k} in ${rawBonus}`)
+  }
+  if (Object.keys(skills).length > 0) bonus.skills = skills
+  return bonus
+}
+
+function resolveSectForOrigin(originText) {
+  if (originText.includes('唐门') || originText.includes('唐家堡')) return 'SECT-13'
+  const minorRules = [
+    [['闽海镇远镖局'], 'SECT-24'],
+    [['洛阳金刀门'], 'SECT-21'],
+    [['常山枪派'], 'SECT-22'],
+    [['沧州八极门'], 'SECT-23'],
+    [['齐鲁查拳馆'], 'SECT-25'],
+    [['钱塘怒潮帮'], 'SECT-26'],
+    [['岭南洪门武馆'], 'SECT-27'],
+    [['陇右金环刀堂'], 'SECT-28'],
+    [['巴蜀百草药王门'], 'SECT-29'],
+    [['湘西五溪蛊寨'], 'SECT-30'],
+  ]
+  for (const [keywords, sid] of minorRules) {
+    if (keywords.some((kw) => originText.includes(kw))) return sid
+  }
+  if (originText.includes('南少林') && !originText.includes('北少林') && !originText.includes('嵩山')) {
+    return 'SECT-04'
+  }
+  const rules = [
+    [['嵩山少林', '北少林', '少林七十二', '少林达摩', '少林'], 'SECT-01'],
+    [['莆田南少林', '南少林'], 'SECT-04'],
+    [['丐帮'], 'SECT-02'],
+    [['五台山', '清凉寺', '杨家'], 'SECT-03'],
+    [['华山'], 'SECT-05'],
+    [['泰山'], 'SECT-06'],
+    [['峨眉'], 'SECT-07'],
+    [['真武', '武当'], 'SECT-08'],
+    [['逍遥', '灵鹫', '天山', '无量玉洞'], 'SECT-09'],
+    [['慕容', '燕子坞', '参合'], 'SECT-10'],
+    [['终南', '古墓', '活死人墓', '全真'], 'SECT-11'],
+    [['桃花岛'], 'SECT-12'],
+    [['青城'], 'SECT-14'],
+    [['铁掌'], 'SECT-15'],
+    [['漕帮', '淮南盐帮', '水路'], 'SECT-16'],
+    [['六扇门', '开封府', '禁军', '大内'], 'SECT-17'],
+    [['太行', '绿林'], 'SECT-18'],
+    [['星宿'], 'SECT-19'],
+    [['西夏一品堂', '一品堂', '西夏'], 'SECT-20'],
+    [['辽国武林暗桩', '辽国暗桩', '北辽', '辽廷', '契丹'], 'SECT-31'],
+    [['吐蕃密宗', '雪域密宗'], 'SECT-32'],
+    [['大理', '段氏', '天龙寺'], 'ORG-08'],
+    [['吐蕃', '密宗', '雪域'], 'ORG-09'],
+  ]
+  for (const [keywords, sid] of rules) {
+    if (keywords.some((kw) => originText.includes(kw))) return sid
+  }
+  return null
+}
+
+function parseStatRequirements(prereqRaw) {
+  if (!prereqRaw) return []
+  const reqs = []
+  for (const m of prereqRaw.matchAll(/`([^`≥]+?)≥(\d+)`/g)) {
+    reqs.push({ stat: m[1].trim(), min: Number.parseInt(m[2], 10) })
+  }
+  return reqs
+}
+
+function assertFourSlotStatChannel(slot, id, equipBonus) {
+  const keys = Object.keys(equipBonus)
+  if (slot === 'weapon' || slot === 'bow') {
+    if (keys.length !== 1 || keys[0] !== 'attack') {
+      throw new Error(`[${id}] ${slot} equipBonus must contain ONLY 'attack', got ${JSON.stringify(equipBonus)}`)
+    }
+  } else if (slot === 'shoes') {
+    if (keys.length !== 1 || keys[0] !== 'agility') {
+      throw new Error(`[${id}] shoes equipBonus must contain ONLY 'agility', got ${JSON.stringify(equipBonus)}`)
+    }
+  } else if (slot === 'armor') {
+    const allowed = new Set(['defense', 'res', 'maxHp'])
+    if (keys.length === 0 || keys.some((k) => !allowed.has(k))) {
+      throw new Error(
+        `[${id}] armor equipBonus keys must be non-empty subset of defense/res/maxHp, got ${JSON.stringify(equipBonus)}`,
+      )
+    }
+  }
+}
+
+function syncEquipmentFromDoc(weapons, mounts, gear, locationAliasMap, regionIdSet, factionIdSet, artIdSet) {
+  const rawDoc = fs.readFileSync(path.join(DOCS_DIR, 'EQUIPMENT_COMPENDIUM.md'), 'utf8')
+  const body = rawDoc.split('## 十、 天地阶孤品归属总录', 1)[0]
+  const lines = body.split(/\r?\n/)
+
+  const oldWpnById = Object.fromEntries(weapons.map((w) => [w.id, w]))
+  const oldMntById = Object.fromEntries(mounts.map((m) => [m.id, m]))
+  const oldGearById = Object.fromEntries(gear.map((g) => [g.id, g]))
+
+  const nextWeapons = []
+  const nextMounts = []
+  const nextGear = []
+  const seenGearIds = new Set()
+
+  let currentTier = ''
+  let currentSubTier = ''
+  const subHeadingRe = /^###\s+\d+\.\d+\s+(天阶|地阶|良阶|凡阶)(上品|中品|下品)/
+  const gearSlotMap = { ARM: 'armor', BOT: 'shoes', BOW: 'bow', ACC: 'accessory' }
+
+  for (const rawLine of lines) {
+    const ln = rawLine.trim()
+    const mSub = ln.match(subHeadingRe)
+    if (mSub) {
+      currentTier = mSub[1]
+      currentSubTier = mSub[2]
+      continue
+    }
+
+    if (/^\|\s*`WPN-\d{3}`\s*\|/.test(ln)) {
+      const cols = ln.slice(1, -1).split('|').map((c) => c.trim())
+      if (cols.length !== 9 && cols.length !== 10) {
+        throw new Error(`Unexpected column count (${cols.length}) in weapon row: ${ln}`)
+      }
+      const wpnId = cols[0].replace(/`/g, '').trim()
+      const code = wpnId.split('-')[1]
+      const name = cols[1].replace(/\*\*/g, '').trim()
+      const wtype = cols[2].trim()
+      const originFull = cols[3].trim()
+      const forceRng = cols[4].trim()
+      const val = Number.parseInt(cols[5].trim(), 10)
+      const bonusRaw = cols[6].trim()
+      const synRaw = cols[7].trim()
+      const descRaw = cols[8].trim()
+      const prereqRaw = cols.length === 10 ? cols[9].trim() : null
+
+      let locPart = originFull
+      let originDetail = originFull
+      if (originFull.includes('·')) {
+        const idx = originFull.indexOf('·')
+        locPart = originFull.slice(0, idx).trim()
+        originDetail = originFull.slice(idx + 1).trim()
+      }
+      const locInfo = locationAliasMap?.[locPart]
+      const prev = oldWpnById[wpnId]
+      const regionId = locInfo ? locInfo.regionId : prev?.regionId
+      const canonicalLocLabel = locInfo ? locInfo.canonicalLabel : prev?.locationLabel || locPart
+      if (!regionId || !regionIdSet.has(regionId)) {
+        throw new Error(`[${wpnId}] Unknown weapon origin location: ${locPart}`)
+      }
+      const sectId = resolveSectForOrigin(originFull)
+      if (sectId !== null && !factionIdSet.has(sectId)) {
+        throw new Error(`[${wpnId}] Unknown sectId ${sectId}`)
+      }
+
+      const mFr = forceRng.match(/^([^·]+)·(\d+)格$/)
+      if (!mFr) throw new Error(`[${wpnId}] Invalid force/range cell: ${forceRng}`)
+      const forceTrait = mFr[1].trim()
+      const attackRange = Number.parseInt(mFr[2], 10)
+
+      const equipBonus = parseEquipBonusTokens(bonusRaw)
+      assertFourSlotStatChannel('weapon', wpnId, equipBonus)
+
+      const synergies = Array.from(synRaw.matchAll(/([\u4e00-\u9fa5]+)\+(\d+)%/g)).map((sm) => ({
+        category: sm[1],
+        bonusPct: Number.parseInt(sm[2], 10),
+      }))
+      const sigArtIds = Array.from(synRaw.matchAll(/`(MA-\d{3})`/g)).map((am) => am[1])
+      for (const sid of sigArtIds) {
+        if (!artIdSet.has(sid)) throw new Error(`[${wpnId}] Invalid signatureArtId ${sid}`)
+      }
+
+      const mEff = descRaw.match(/^(【[^】]+】)/)
+      const specialTag = mEff ? mEff[1] : null
+      const statReqs = parseStatRequirements(prereqRaw)
+      const wpnIconRel = `assets/items/weapons/wpn_${code}.jpg`
+      const wpnIconUrl = fs.existsSync(path.join(PUBLIC_DIR, wpnIconRel)) ? `/${wpnIconRel}` : null
+
+      nextWeapons.push({
+        id: wpnId,
+        code,
+        name,
+        slot: 'weapon',
+        weaponType: wtype,
+        tier: currentTier,
+        subTier: currentSubTier,
+        fullTier: `${currentTier}${currentSubTier}`,
+        regionId,
+        locationLabel: canonicalLocLabel,
+        origin: originDetail,
+        originFull,
+        sectId,
+        forceTrait,
+        attackRange,
+        value: val,
+        equipBonus,
+        synergies,
+        signatureArtIds: sigArtIds,
+        specialTag,
+        description: descRaw,
+        prerequisitesText: prereqRaw,
+        statRequirements: statReqs,
+        iconUrl: wpnIconUrl,
+      })
+      continue
+    }
+
+    if (/^\|\s*`MNT-\d{3}`\s*\|/.test(ln)) {
+      const cols = ln.slice(1, -1).split('|').map((c) => c.trim())
+      if (cols.length !== 8 && cols.length !== 9) {
+        throw new Error(`Unexpected column count (${cols.length}) in mount row: ${ln}`)
+      }
+      const mntId = cols[0].replace(/`/g, '').trim()
+      const code = mntId.split('-')[1]
+      const name = cols[1].replace(/\*\*/g, '').trim()
+      const breedCategory = cols[2].trim()
+      const originFull = cols[3].trim()
+      const speedTraitRaw = cols[4].trim()
+      const val = Number.parseInt(cols[5].trim(), 10)
+      const bonusRaw = cols[6].trim()
+      const descRaw = cols[7].trim()
+      const prereqRaw = cols.length === 9 ? cols[8].trim() : null
+
+      let locPart = originFull
+      let originDetail = originFull
+      if (originFull.includes('·')) {
+        const idx = originFull.indexOf('·')
+        locPart = originFull.slice(0, idx).trim()
+        originDetail = originFull.slice(idx + 1).trim()
+      }
+      const locInfo = locationAliasMap?.[locPart]
+      const prev = oldMntById[mntId]
+      const regionId = locInfo ? locInfo.regionId : prev?.regionId
+      const canonicalLocLabel = locInfo ? locInfo.canonicalLabel : prev?.locationLabel || locPart
+      if (!regionId || !regionIdSet.has(regionId)) {
+        throw new Error(`[${mntId}] Unknown mount origin location: ${locPart}`)
+      }
+      const sectId = resolveSectForOrigin(originFull)
+      if (sectId !== null && !factionIdSet.has(sectId)) {
+        throw new Error(`[${mntId}] Unknown sectId ${sectId}`)
+      }
+
+      const mSt = speedTraitRaw.match(/^(\d+)里·([^+]+)\+(\d+)%$/)
+      if (!mSt) throw new Error(`[${mntId}] Invalid speed/terrain trait cell: ${speedTraitRaw}`)
+      const baseSpeed = Number.parseInt(mSt[1], 10)
+      const terrainTrait = mSt[2].trim()
+      const terrainBonusPct = Number.parseInt(mSt[3], 10)
+      const favoredTerrain = MOUNT_TERRAIN_TRAIT_MAP[terrainTrait]
+      if (!favoredTerrain) throw new Error(`[${mntId}] Unknown terrain trait: ${terrainTrait}`)
+
+      const equipBonus = parseEquipBonusTokens(bonusRaw)
+      const mEff = descRaw.match(/^【([^】]+)】/)
+      const specialTag = mEff ? mEff[1] : null
+      const statReqs = parseStatRequirements(prereqRaw)
+      const mntIconRel = `assets/items/mounts/mnt_${code}.jpg`
+      const mntIconUrl = fs.existsSync(path.join(PUBLIC_DIR, mntIconRel)) ? `/${mntIconRel}` : null
+
+      nextMounts.push({
+        id: mntId,
+        code,
+        name,
+        slot: 'mount',
+        breedCategory,
+        tier: currentTier,
+        subTier: currentSubTier,
+        fullTier: `${currentTier}${currentSubTier}`,
+        regionId,
+        locationLabel: canonicalLocLabel,
+        origin: originDetail,
+        originFull,
+        sectId,
+        baseSpeed,
+        terrainTrait,
+        favoredTerrain,
+        terrainBonusPct,
+        value: val,
+        equipBonus,
+        specialTag,
+        description: descRaw,
+        prerequisitesText: prereqRaw,
+        statRequirements: statReqs,
+        iconUrl: mntIconUrl,
+      })
+      continue
+    }
+
+    if (/^\|\s*`((?:ARM|BOT|BOW|ACC)-\d{3})`\s*\|/.test(ln)) {
+      const cells = ln.slice(1, -1).split('|').map((c) => c.trim())
+      if (cells.length < 10) continue
+      const itemId = cells[0].replace(/`/g, '').trim()
+      if (seenGearIds.has(itemId)) throw new Error(`Duplicate gear ID: ${itemId}`)
+      seenGearIds.add(itemId)
+
+      const prefix = itemId.split('-')[0]
+      const slot = gearSlotMap[prefix]
+      const name = cells[1].replace(/\*\*/g, '').trim()
+      const tier = cells[2]
+      const grade = cells[3]
+      const subType = cells[4]
+      const origin = cells[5]
+      const valM = cells[6].match(/(\d+)/)
+      const value = valM ? Number.parseInt(valM[1], 10) : 100
+      const bonusCell = cells[7]
+      const descCell = cells[8]
+      const reqCell = cells[9]
+
+      const locPart = origin.includes('·') ? origin.split('·', 1)[0].trim() : origin.trim()
+      const locInfo = locationAliasMap?.[locPart]
+      const prev = oldGearById[itemId]
+      const regionId = locInfo ? locInfo.regionId : prev?.regionId
+      if (!regionId || !regionIdSet.has(regionId)) {
+        throw new Error(`[${itemId}] Unknown gear origin location: ${locPart}`)
+      }
+      const sectId = resolveSectForOrigin(origin)
+      if (sectId !== null && !factionIdSet.has(sectId)) {
+        throw new Error(`[${itemId}] Unknown sectId ${sectId}`)
+      }
+
+      const equipBonus = parseEquipBonusTokens(bonusCell)
+      assertFourSlotStatChannel(slot, itemId, equipBonus)
+
+      const tagM = descCell.match(/^【([^】]+)】(.*)$/)
+      const specialTag = tagM ? tagM[1].trim() : null
+      const description = tagM ? tagM[2].trim() : descCell
+      const prereqText = reqCell === '无' || reqCell === '-' || reqCell === '' ? null : reqCell
+      const statReqs = parseStatRequirements(prereqText)
+      const gearIconRel = `assets/items/gear/${itemId.toLowerCase().replace('-', '_')}.jpg`
+      const gearIconUrl = fs.existsSync(path.join(PUBLIC_DIR, gearIconRel)) ? `/${gearIconRel}` : null
+
+      nextGear.push({
+        id: itemId,
+        name,
+        slot,
+        tier,
+        grade,
+        subType,
+        origin,
+        regionId,
+        sectId,
+        value,
+        equipBonus,
+        specialTag,
+        description,
+        prerequisitesText: prereqText,
+        statRequirements: statReqs,
+        iconUrl: gearIconUrl,
+      })
+    }
+  }
+
+  nextWeapons.sort((a, b) => Number.parseInt(a.code, 10) - Number.parseInt(b.code, 10))
+  nextMounts.sort((a, b) => Number.parseInt(a.code, 10) - Number.parseInt(b.code, 10))
+  if (nextWeapons.length !== 100) throw new Error(`Expected 100 weapons in doc, got ${nextWeapons.length}`)
+  if (nextMounts.length !== 28) throw new Error(`Expected 28 mounts in doc, got ${nextMounts.length}`)
+  if (nextGear.length !== 168) throw new Error(`Expected 168 gear items in doc, got ${nextGear.length}`)
+
+  weapons.splice(0, weapons.length, ...nextWeapons)
+  mounts.splice(0, mounts.length, ...nextMounts)
+  gear.splice(0, gear.length, ...nextGear)
+}
 
 const ROOT_DIR = process.cwd()
 const DOCS_DIR = path.join(ROOT_DIR, 'docs')
@@ -644,6 +1025,20 @@ function main() {
     npc.templateAvatarUrl = tplAvUrl
   }
 
+  // Sync weapons, mounts & gear live from docs/EQUIPMENT_COMPENDIUM.md before NPC loadout calibration
+  const initRegionIdSet = new Set(regions.map((r) => r.id))
+  const initFactionIdSet = new Set(baseFactions.map((f) => f.id))
+  const initArtIdSet = new Set(martialArts.map((m) => m.id))
+  syncEquipmentFromDoc(
+    weapons,
+    mounts,
+    gear,
+    oldRegistry.locationAliasMap,
+    initRegionIdSet,
+    initFactionIdSet,
+    initArtIdSet,
+  )
+
   // Re-run deterministic NPC loadouts (6 arts + 7 gear slots)
   populateNpcLoadouts(npcs, martialArts, weapons, gear, mounts)
 
@@ -981,10 +1376,32 @@ function main() {
       npcsWithFullbody: npcs.filter((n) => n.fullbodyUrl).length,
     },
     factions: factionsEnriched,
+    weaponIndex: weapons.map((w) => ({
+      id: w.id,
+      code: w.code,
+      name: w.name,
+      fullTier: w.fullTier,
+      weaponType: w.weaponType,
+      regionId: w.regionId,
+      sectId: w.sectId,
+    })),
+    mountIndex: mounts.map((m) => ({
+      id: m.id,
+      code: m.code,
+      name: m.name,
+      fullTier: m.fullTier,
+      breedCategory: m.breedCategory,
+      baseSpeed: m.baseSpeed,
+      regionId: m.regionId,
+      sectId: m.sectId,
+    })),
   }
 
   writeJson('idRegistry.json', idRegistry)
   writeJson('martial_arts.json', martialArts)
+  writeJson('weapons.json', weapons)
+  writeJson('mounts.json', mounts)
+  writeJson('gear.json', gear)
   writeJson('uniqueArtifacts.json', uniqueArtifacts)
   writeJson('npcs.json', npcs)
 

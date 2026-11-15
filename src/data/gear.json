@@ -11,9 +11,9 @@
     "sectId": "SECT-12",
     "value": 820,
     "equipBonus": {
-      "defense": 185,
-      "maxHp": 420,
-      "res": 24
+      "defense": 205,
+      "res": 28,
+      "maxHp": 460
     },
     "specialTag": "刺猬反震",
     "description": "东海桃花岛奇宝，织就金丝软猬，刀枪不入且近战反伤敌手。",
@@ -42,9 +42,9 @@
     "sectId": null,
     "value": 680,
     "equipBonus": {
-      "defense": 172,
-      "maxMp": 380,
-      "res": 28
+      "defense": 180,
+      "res": 38,
+      "maxHp": 360
     },
     "specialTag": "冰蚕护体",
     "description": "天山万年冰蚕丝织就，水火不侵，大幅化解阴寒剧毒。",
@@ -73,7 +73,8 @@
     "sectId": "SECT-17",
     "value": 620,
     "equipBonus": {
-      "defense": 195,
+      "defense": 215,
+      "res": 8,
       "maxHp": 480
     },
     "specialTag": "禁军重防",
@@ -103,11 +104,9 @@
     "sectId": "SECT-01",
     "value": 500,
     "equipBonus": {
-      "defense": 165,
-      "maxMp": 360,
-      "skills": {
-        "经义": 10
-      }
+      "defense": 160,
+      "res": 30,
+      "maxHp": 360
     },
     "specialTag": "禅定金刚",
     "description": "少林寺达摩祖师遗风宝衣，护体真气浑厚，百邪不侵。",
@@ -136,9 +135,9 @@
     "sectId": "SECT-08",
     "value": 460,
     "equipBonus": {
-      "defense": 150,
-      "maxMp": 340,
-      "agility": 12
+      "defense": 148,
+      "res": 28,
+      "maxHp": 300
     },
     "specialTag": "太极卸力",
     "description": "武当真武道宗镇山仙衣，袖袍鼓荡间可卸去三成刚猛外劲。",
@@ -167,9 +166,9 @@
     "sectId": null,
     "value": 380,
     "equipBonus": {
-      "defense": 148,
-      "agility": 16,
-      "res": 22
+      "defense": 145,
+      "res": 26,
+      "maxHp": 290
     },
     "specialTag": "星移斗转",
     "description": "姑苏燕子坞秘制云锦长袍，暗绣二十八宿，闪避腾挪如行云。",
@@ -198,9 +197,9 @@
     "sectId": null,
     "value": 280,
     "equipBonus": {
-      "defense": 135,
-      "maxHp": 280,
-      "res": 10
+      "defense": 155,
+      "res": 10,
+      "maxHp": 300
     },
     "specialTag": "铁鹞冲阵",
     "description": "西夏冷锻重甲，专配铁鹞子精锐，极耐刀斧劈砍。",
@@ -220,9 +219,9 @@
     "sectId": null,
     "value": 256,
     "equipBonus": {
-      "defense": 130,
-      "maxHp": 260,
-      "riding": 8
+      "defense": 150,
+      "res": 8,
+      "maxHp": 310
     },
     "specialTag": "忠烈护心",
     "description": "河东杨家将传世亮银甲，纵马驰骋沙场威风凛凛。",
@@ -242,9 +241,9 @@
     "sectId": "SECT-13",
     "value": 215,
     "equipBonus": {
-      "defense": 110,
-      "agility": 18,
-      "res": 18
+      "defense": 118,
+      "res": 24,
+      "maxHp": 210
     },
     "specialTag": "暗影避毒",
     "description": "唐门秘制墨蚕丝夜行衣，轻便隐蔽且防五毒侵染。",
@@ -264,11 +263,9 @@
     "sectId": "ORG-08",
     "value": 200,
     "equipBonus": {
-      "defense": 108,
-      "maxMp": 240,
-      "skills": {
-        "颜值": 8
-      }
+      "defense": 112,
+      "res": 18,
+      "maxHp": 220
     },
     "specialTag": "天南贵胄",
     "description": "大理皇室贡锦所制，华贵端庄，助长纯阳内息运转。",
@@ -288,9 +285,9 @@
     "sectId": "SECT-13",
     "value": 165,
     "equipBonus": {
-      "defense": 102,
-      "maxMp": 220,
-      "res": 14
+      "defense": 105,
+      "res": 20,
+      "maxHp": 190
     },
     "specialTag": "道法自然",
     "description": "青城幽谷松纹道袍，冬暖夏凉，益于吐纳归元。",
@@ -310,9 +307,9 @@
     "sectId": null,
     "value": 185,
     "equipBonus": {
-      "defense": 122,
-      "maxHp": 240,
-      "res": 12
+      "defense": 132,
+      "res": 10,
+      "maxHp": 240
     },
     "specialTag": "塞外御寒",
     "description": "大辽御帐亲军金叶狼裘甲，不惧极北风雪。",
@@ -332,9 +329,9 @@
     "sectId": "SECT-07",
     "value": 155,
     "equipBonus": {
-      "defense": 98,
-      "agility": 14,
-      "maxMp": 200
+      "defense": 104,
+      "res": 18,
+      "maxHp": 190
     },
     "specialTag": "金顶晴雪",
     "description": "峨眉女侠常服，素白如雪，轻盈飘逸。",
@@ -354,9 +351,9 @@
     "sectId": null,
     "value": 110,
     "equipBonus": {
-      "defense": 95,
-      "maxHp": 220,
-      "agility": 10
+      "defense": 102,
+      "res": 8,
+      "maxHp": 220
     },
     "specialTag": "九袋威仪",
     "description": "丐帮高阶长老百衲衣，看似破旧实则韧如牛筋。",
@@ -376,9 +373,9 @@
     "sectId": "SECT-05",
     "value": 145,
     "equipBonus": {
-      "defense": 92,
-      "maxMp": 180,
-      "agility": 12
+      "defense": 96,
+      "res": 16,
+      "maxHp": 160
     },
     "specialTag": "朝阳紫气",
     "description": "华山剑宗紫霞锦衫，袖口束紧利落出剑。",
@@ -398,9 +395,9 @@
     "sectId": "ORG-08",
     "value": 122,
     "equipBonus": {
-      "defense": 90,
-      "agility": 14,
-      "res": 10
+      "defense": 95,
+      "res": 14,
+      "maxHp": 150
     },
     "specialTag": "洱海清风",
     "description": "点苍名宿所着白鹿皮氅，轻捷灵动。",
@@ -420,8 +417,8 @@
     "sectId": "SECT-17",
     "value": 70,
     "equipBonus": {
-      "defense": 78,
-      "maxHp": 150
+      "defense": 86,
+      "maxHp": 170
     },
     "specialTag": "禁军制式",
     "description": "东京南北作坊精造铁叶甲，坚实耐用。",
@@ -441,11 +438,9 @@
     "sectId": null,
     "value": 69,
     "equipBonus": {
-      "defense": 56,
-      "maxMp": 130,
-      "skills": {
-        "诗词": 5
-      }
+      "defense": 58,
+      "res": 12,
+      "maxHp": 110
     },
     "specialTag": "西湖文风",
     "description": "杭州上等杭绸裁制，雅致飘逸。",
@@ -465,8 +460,8 @@
     "sectId": null,
     "value": 75,
     "equipBonus": {
-      "defense": 80,
-      "maxHp": 140
+      "defense": 90,
+      "maxHp": 160
     },
     "specialTag": "晋阳铁冶",
     "description": "河东铁冶监所造锁子连环甲，防箭矢刺击极佳。",
@@ -486,11 +481,9 @@
     "sectId": "SECT-01",
     "value": 60,
     "equipBonus": {
-      "defense": 62,
-      "maxHp": 120,
-      "skills": {
-        "经义": 4
-      }
+      "defense": 64,
+      "res": 9,
+      "maxHp": 130
     },
     "specialTag": "禅武合一",
     "description": "少林武僧常服，耐撕扯且利拳脚舒展。",
@@ -510,8 +503,9 @@
     "sectId": "SECT-17",
     "value": 64,
     "equipBonus": {
-      "defense": 64,
-      "agility": 8
+      "defense": 70,
+      "res": 6,
+      "maxHp": 135
     },
     "specialTag": "捕快威严",
     "description": "六扇门精锐公服，内衬薄铁片护胸。",
@@ -532,7 +526,8 @@
     "value": 49,
     "equipBonus": {
       "defense": 52,
-      "maxMp": 110
+      "res": 10,
+      "maxHp": 80
     },
     "specialTag": "全真古意",
     "description": "终南山隐士道袍，宽袖飘然。",
@@ -553,7 +548,8 @@
     "value": 47,
     "equipBonus": {
       "defense": 58,
-      "agility": 8
+      "res": 6,
+      "maxHp": 95
     },
     "specialTag": "江淮水战",
     "description": "防水油布混纺劲装，入水不沉。",
@@ -574,10 +570,8 @@
     "value": 56,
     "equipBonus": {
       "defense": 50,
-      "maxMp": 100,
-      "skills": {
-        "颜值": 4
-      }
+      "res": 10,
+      "maxHp": 95
     },
     "specialTag": "天府织锦",
     "description": "蜀锦名品，色泽温润华美。",
@@ -598,8 +592,8 @@
     "value": 51,
     "equipBonus": {
       "defense": 60,
-      "maxHp": 110,
-      "res": 6
+      "res": 6,
+      "maxHp": 110
     },
     "specialTag": "御风抗寒",
     "description": "塞北熟羊皮缝制，抵御风沙寒气。",
@@ -619,8 +613,9 @@
     "sectId": null,
     "value": 44,
     "equipBonus": {
-      "defense": 55,
-      "maxHp": 100
+      "defense": 58,
+      "res": 4,
+      "maxHp": 110
     },
     "specialTag": "走镖护身",
     "description": "闽海镖师制式短打，利落抗磨。",
@@ -640,8 +635,9 @@
     "sectId": null,
     "value": 38,
     "equipBonus": {
-      "defense": 48,
-      "res": 12
+      "defense": 42,
+      "res": 11,
+      "maxHp": 35
     },
     "specialTag": "辟瘴防蛊",
     "description": "浸过草药汁的苗疆蓝布衣，防蛇虫叮咬。",
@@ -661,8 +657,8 @@
     "sectId": null,
     "value": 36,
     "equipBonus": {
-      "defense": 52,
-      "maxHp": 95
+      "defense": 54,
+      "maxHp": 105
     },
     "specialTag": "金刀门徒",
     "description": "洛阳王家武馆弟子服。",
@@ -682,11 +678,9 @@
     "sectId": null,
     "value": 34,
     "equipBonus": {
-      "defense": 44,
-      "maxMp": 90,
-      "skills": {
-        "经义": 3
-      }
+      "defense": 42,
+      "res": 7,
+      "maxHp": 65
     },
     "specialTag": "江南士子",
     "description": "江南士林常着青衿长衫。",
@@ -706,8 +700,9 @@
     "sectId": null,
     "value": 40,
     "equipBonus": {
-      "defense": 62,
-      "maxHp": 90
+      "defense": 60,
+      "res": 2,
+      "maxHp": 80
     },
     "specialTag": "雪域厚甲",
     "description": "厚实牦牛皮鞣制，耐寒抗钝击。",
@@ -727,8 +722,8 @@
     "sectId": null,
     "value": 32,
     "equipBonus": {
-      "defense": 50,
-      "maxHp": 85
+      "defense": 52,
+      "maxHp": 100
     },
     "specialTag": "河北拳脚",
     "description": "粗厚斜纹棉布缝制，极耐摔打。",
@@ -748,8 +743,9 @@
     "sectId": null,
     "value": 32,
     "equipBonus": {
-      "defense": 46,
-      "agility": 6
+      "defense": 44,
+      "res": 6,
+      "maxHp": 60
     },
     "specialTag": "刺桐海风",
     "description": "轻薄透气的西洋番布短衫。",
@@ -769,8 +765,8 @@
     "sectId": "SECT-17",
     "value": 20,
     "equipBonus": {
-      "defense": 32,
-      "maxHp": 60
+      "defense": 34,
+      "maxHp": 68
     },
     "specialTag": "市井巡防",
     "description": "开封府巡夜厢军制式短衣。",
@@ -790,8 +786,9 @@
     "sectId": null,
     "value": 21,
     "equipBonus": {
-      "defense": 30,
-      "agility": 4
+      "defense": 33,
+      "res": 2,
+      "maxHp": 50
     },
     "specialTag": "江湖初入",
     "description": "游侠最常穿的青布束袖短打。",
@@ -811,8 +808,9 @@
     "sectId": null,
     "value": 19,
     "equipBonus": {
-      "defense": 24,
-      "maxMp": 50
+      "defense": 25,
+      "res": 5,
+      "maxHp": 40
     },
     "specialTag": "国子生服",
     "description": "北宋太学与州学士子常服。",
@@ -832,7 +830,8 @@
     "sectId": "SECT-01",
     "value": 18,
     "equipBonus": {
-      "defense": 26,
+      "defense": 27,
+      "res": 3,
       "maxHp": 55
     },
     "specialTag": "清修粗衣",
@@ -854,7 +853,8 @@
     "value": 18,
     "equipBonus": {
       "defense": 25,
-      "maxMp": 45
+      "res": 5,
+      "maxHp": 36
     },
     "specialTag": "道观常服",
     "description": "普通道士日常着装。",
@@ -874,8 +874,8 @@
     "sectId": null,
     "value": 26,
     "equipBonus": {
-      "defense": 36,
-      "maxHp": 50
+      "defense": 40,
+      "maxHp": 64
     },
     "specialTag": "简易皮甲",
     "description": "猎户与边民自制的牛皮护心。",
@@ -895,8 +895,9 @@
     "sectId": "SECT-18",
     "value": 22,
     "equipBonus": {
-      "defense": 28,
-      "agility": 5
+      "defense": 31,
+      "res": 3,
+      "maxHp": 48
     },
     "specialTag": "山寨夜行",
     "description": "太行山绿林好汉夜探常用。",
@@ -916,8 +917,9 @@
     "sectId": null,
     "value": 19,
     "equipBonus": {
-      "defense": 28,
-      "maxHp": 45
+      "defense": 31,
+      "res": 2,
+      "maxHp": 48
     },
     "specialTag": "运河纤夫",
     "description": "耐水耐磨的麻布短褐。",
@@ -937,8 +939,8 @@
     "sectId": null,
     "value": 12,
     "equipBonus": {
-      "defense": 22,
-      "maxHp": 40
+      "defense": 23,
+      "maxHp": 44
     },
     "specialTag": "边塞猎户",
     "description": "防风沙的粗麻皮边猎装。",
@@ -959,7 +961,8 @@
     "value": 11,
     "equipBonus": {
       "defense": 18,
-      "agility": 4
+      "res": 3,
+      "maxHp": 24
     },
     "specialTag": "清凉透风",
     "description": "江南夏季常穿的竹纤维布衫。",
@@ -980,7 +983,8 @@
     "value": 13,
     "equipBonus": {
       "defense": 20,
-      "res": 4
+      "res": 4,
+      "maxHp": 16
     },
     "specialTag": "防雨防潮",
     "description": "桐油涂抹的麻布斗篷短衣。",
@@ -1000,8 +1004,9 @@
     "sectId": "SECT-17",
     "value": 10,
     "equipBonus": {
-      "defense": 16,
-      "maxHp": 35
+      "defense": 18,
+      "res": 2,
+      "maxHp": 30
     },
     "specialTag": "汴京茶肆",
     "description": "茶肆伙计常着麻布长衫。",
@@ -1021,8 +1026,9 @@
     "sectId": null,
     "value": 14,
     "equipBonus": {
-      "defense": 24,
-      "maxHp": 35
+      "defense": 25,
+      "res": 1,
+      "maxHp": 36
     },
     "specialTag": "黑水猎装",
     "description": "轻暖耐穿的关东鹿皮坎肩。",
@@ -1042,8 +1048,9 @@
     "sectId": null,
     "value": 11,
     "equipBonus": {
-      "defense": 18,
-      "agility": 3
+      "defense": 17,
+      "res": 3,
+      "maxHp": 24
     },
     "specialTag": "岭南葛布",
     "description": "岭南湿热之地常着葛布衫。",
@@ -1063,8 +1070,8 @@
     "sectId": null,
     "value": 11,
     "equipBonus": {
-      "defense": 21,
-      "maxHp": 40
+      "defense": 22,
+      "maxHp": 44
     },
     "specialTag": "枪棒武馆",
     "description": "河北学徒练功粗布衣。",
@@ -1084,8 +1091,9 @@
     "sectId": null,
     "value": 12,
     "equipBonus": {
-      "defense": 22,
-      "res": 3
+      "defense": 21,
+      "res": 3,
+      "maxHp": 20
     },
     "specialTag": "贺兰牧歌",
     "description": "党项牧民常穿的厚羊毛袍。",
@@ -1105,8 +1113,8 @@
     "sectId": "SECT-17",
     "value": 6,
     "equipBonus": {
-      "defense": 12,
-      "maxHp": 25
+      "defense": 13,
+      "maxHp": 28
     },
     "specialTag": "平民常服",
     "description": "北宋市井百姓最普通的粗麻短褐。",
@@ -1126,8 +1134,8 @@
     "sectId": null,
     "value": 4,
     "equipBonus": {
-      "defense": 10,
-      "agility": 3
+      "defense": 11,
+      "maxHp": 20
     },
     "specialTag": "草莽行乞",
     "description": "补丁叠补丁，却意外轻便。",
@@ -1147,7 +1155,7 @@
     "sectId": null,
     "value": 5,
     "equipBonus": {
-      "defense": 14,
+      "defense": 12,
       "res": 2
     },
     "specialTag": "烟雨江南",
@@ -1169,7 +1177,8 @@
     "value": 6,
     "equipBonus": {
       "defense": 10,
-      "maxMp": 25
+      "res": 2,
+      "maxHp": 14
     },
     "specialTag": "乡野蒙学",
     "description": "洗得发白的旧青布儒衫。",
@@ -1190,6 +1199,7 @@
     "value": 6,
     "equipBonus": {
       "defense": 12,
+      "res": 1,
       "maxHp": 20
     },
     "specialTag": "云游四方",
@@ -1211,7 +1221,7 @@
     "value": 5,
     "equipBonus": {
       "defense": 13,
-      "maxHp": 20
+      "maxHp": 22
     },
     "specialTag": "深山砍柴",
     "description": "耐磨的粗麻山民衣。",
@@ -1232,7 +1242,8 @@
     "value": 5,
     "equipBonus": {
       "defense": 11,
-      "agility": 2
+      "res": 1,
+      "maxHp": 16
     },
     "specialTag": "南海渔民",
     "description": "晒得褪色的粗麻短打。",
@@ -1253,7 +1264,7 @@
     "value": 4,
     "equipBonus": {
       "defense": 10,
-      "maxHp": 18
+      "maxHp": 24
     },
     "specialTag": "悦来客栈",
     "description": "各地客栈跑堂伙计的布衫。",
@@ -1273,9 +1284,7 @@
     "sectId": null,
     "value": 560,
     "equipBonus": {
-      "agility": 32,
-      "maxMp": 180,
-      "maxHp": 120
+      "agility": 36
     },
     "specialTag": "踏雪无痕",
     "description": "逍遥派凌波微步绝配云履，足底镶软玉，腾挪如履平地。",
@@ -1304,9 +1313,7 @@
     "sectId": "SECT-17",
     "value": 410,
     "equipBonus": {
-      "agility": 26,
-      "maxHp": 160,
-      "riding": 12
+      "agility": 31
     },
     "specialTag": "日行千里",
     "description": "取深海鲛皮与天山雪蚕丝缝制，轻若无物且护踝如铁。",
@@ -1335,9 +1342,7 @@
     "sectId": "SECT-01",
     "value": 310,
     "equipBonus": {
-      "agility": 24,
-      "maxMp": 150,
-      "res": 16
+      "agility": 27
     },
     "specialTag": "一苇渡江",
     "description": "看似寻常蒲草编织，实则蕴含千年禅意，涉水登高如飞。",
@@ -1366,9 +1371,7 @@
     "sectId": null,
     "value": 195,
     "equipBonus": {
-      "agility": 20,
-      "res": 12,
-      "maxHp": 90
+      "agility": 24
     },
     "specialTag": "雪域疾行",
     "description": "西域雪豹皮缝制，踏冰雪而不滑，登绝壁如履平地。",
@@ -1388,8 +1391,7 @@
     "sectId": "SECT-13",
     "value": 150,
     "equipBonus": {
-      "agility": 21,
-      "res": 10
+      "agility": 23
     },
     "specialTag": "无声无息",
     "description": "鞋底嵌吸音软木与机关倒钩，夜行潜伏毫无声响。",
@@ -1409,8 +1411,7 @@
     "sectId": "SECT-08",
     "value": 140,
     "equipBonus": {
-      "agility": 18,
-      "maxMp": 100
+      "agility": 20
     },
     "specialTag": "左脚踩右脚",
     "description": "武当轻功弟子特制布履，轻灵弹韧。",
@@ -1430,9 +1431,7 @@
     "sectId": null,
     "value": 110,
     "equipBonus": {
-      "agility": 15,
-      "defense": 24,
-      "riding": 10
+      "agility": 19
     },
     "specialTag": "控镫如飞",
     "description": "大辽骑兵统领高筒马靴，夹马腹极稳。",
@@ -1452,8 +1451,7 @@
     "sectId": null,
     "value": 88,
     "equipBonus": {
-      "agility": 17,
-      "maxHp": 100
+      "agility": 17
     },
     "specialTag": "日行百里",
     "description": "韧草混麻筋编织，极耐长途跋涉。",
@@ -1473,8 +1471,7 @@
     "sectId": "SECT-17",
     "value": 35,
     "equipBonus": {
-      "agility": 12,
-      "defense": 18
+      "agility": 14
     },
     "specialTag": "军旅制式",
     "description": "厚牛皮钉铁掌战靴，跋山涉水不磨脚。",
@@ -1494,10 +1491,7 @@
     "sectId": null,
     "value": 32,
     "equipBonus": {
-      "agility": 13,
-      "skills": {
-        "颜值": 5
-      }
+      "agility": 14
     },
     "specialTag": "江南雅履",
     "description": "苏州绣娘手制，轻盈秀美。",
@@ -1517,8 +1511,7 @@
     "sectId": "SECT-05",
     "value": 36,
     "equipBonus": {
-      "agility": 14,
-      "maxHp": 55
+      "agility": 15
     },
     "specialTag": "峭壁登攀",
     "description": "鞋底带细密防滑纹，利攀岩走壁。",
@@ -1538,9 +1531,7 @@
     "sectId": null,
     "value": 31,
     "equipBonus": {
-      "agility": 10,
-      "defense": 15,
-      "riding": 6
+      "agility": 11
     },
     "specialTag": "晋阳边军",
     "description": "加厚鞋尖，马战踢蹬皆宜。",
@@ -1560,8 +1551,7 @@
     "sectId": "SECT-07",
     "value": 29,
     "equipBonus": {
-      "agility": 12,
-      "maxMp": 60
+      "agility": 12
     },
     "specialTag": "蜀山清修",
     "description": "千层布底，轻便透气。",
@@ -1581,8 +1571,7 @@
     "sectId": null,
     "value": 25,
     "equipBonus": {
-      "agility": 11,
-      "res": 6
+      "agility": 11
     },
     "specialTag": "漕帮水战",
     "description": "麻绳缠底，湿滑甲板站立如松。",
@@ -1602,8 +1591,7 @@
     "sectId": null,
     "value": 18,
     "equipBonus": {
-      "agility": 10,
-      "maxHp": 45
+      "agility": 9
     },
     "specialTag": "走镖常备",
     "description": "牛筋底耐磨耐走。",
@@ -1623,8 +1611,7 @@
     "sectId": null,
     "value": 24,
     "equipBonus": {
-      "agility": 10,
-      "res": 6
+      "agility": 10
     },
     "specialTag": "大漠防沙",
     "description": "高帮护踝，不进沙砾。",
@@ -1644,8 +1631,7 @@
     "sectId": "SECT-17",
     "value": 12,
     "equipBonus": {
-      "agility": 7,
-      "maxHp": 35
+      "agility": 7
     },
     "specialTag": "京城老字号",
     "description": "纳千层棉布底，舒适养脚。",
@@ -1665,8 +1651,7 @@
     "sectId": null,
     "value": 16,
     "equipBonus": {
-      "agility": 7,
-      "defense": 8
+      "agility": 8
     },
     "specialTag": "江湖标配",
     "description": "普通游侠最爱穿的软牛皮快靴。",
@@ -1686,8 +1671,7 @@
     "sectId": null,
     "value": 14,
     "equipBonus": {
-      "agility": 6,
-      "maxMp": 30
+      "agility": 7
     },
     "specialTag": "太学士子",
     "description": "北宋文人常着方头黑布靴。",
@@ -1707,8 +1691,7 @@
     "sectId": "SECT-01",
     "value": 11,
     "equipBonus": {
-      "agility": 6,
-      "maxHp": 40
+      "agility": 7
     },
     "specialTag": "苦行行脚",
     "description": "韧麻编织的僧侣芒鞋。",
@@ -1728,8 +1711,7 @@
     "sectId": "SECT-06",
     "value": 8,
     "equipBonus": {
-      "agility": 5,
-      "maxMp": 25
+      "agility": 5
     },
     "specialTag": "道观常履",
     "description": "云头纹布鞋。",
@@ -1749,8 +1731,7 @@
     "sectId": null,
     "value": 9,
     "equipBonus": {
-      "agility": 5,
-      "defense": 6
+      "agility": 5
     },
     "specialTag": "边塞御寒",
     "description": "内衬羊毛的皮靴。",
@@ -1770,8 +1751,7 @@
     "sectId": null,
     "value": 7,
     "equipBonus": {
-      "agility": 4,
-      "res": 4
+      "agility": 4
     },
     "specialTag": "烟雨防滑",
     "description": "木齿油布雨鞋。",
@@ -1791,8 +1771,7 @@
     "sectId": null,
     "value": 5,
     "equipBonus": {
-      "agility": 5,
-      "maxHp": 28
+      "agility": 4
     },
     "specialTag": "巴蜀栈道",
     "description": "抓地力极强的麻筋草鞋。",
@@ -1832,8 +1811,7 @@
     "sectId": null,
     "value": 2,
     "equipBonus": {
-      "agility": 3,
-      "maxHp": 18
+      "agility": 2
     },
     "specialTag": "乡野编织",
     "description": "蒲草编织的简易草鞋。",
@@ -1853,8 +1831,7 @@
     "sectId": null,
     "value": 2,
     "equipBonus": {
-      "agility": 2,
-      "maxHp": 16
+      "agility": 2
     },
     "specialTag": "南海渔村",
     "description": "涉水耐泡的草履。",
@@ -1874,8 +1851,7 @@
     "sectId": null,
     "value": 3,
     "equipBonus": {
-      "agility": 2,
-      "defense": 3
+      "agility": 2
     },
     "specialTag": "勉强蔽体",
     "description": "打着补丁的旧布靴。",
@@ -1895,9 +1871,7 @@
     "sectId": "SECT-17",
     "value": 520,
     "equipBonus": {
-      "attack": 195,
-      "agility": 14,
-      "res": 12
+      "attack": 108
     },
     "specialTag": "百步穿杨",
     "description": "大宋军器监秘制神臂弓弩原型，脚踏张弦，三百步外洞穿重甲。",
@@ -1926,9 +1900,7 @@
     "sectId": null,
     "value": 380,
     "equipBonus": {
-      "attack": 182,
-      "agility": 16,
-      "riding": 14
+      "attack": 92
     },
     "specialTag": "弯弓射雕",
     "description": "塞北千年野牛角混紫檀木合制，满月如轮，骑射威震漠北。",
@@ -1957,9 +1929,7 @@
     "sectId": "SECT-13",
     "value": 280,
     "equipBonus": {
-      "attack": 168,
-      "agility": 20,
-      "res": 14
+      "attack": 78
     },
     "specialTag": "三矢连发",
     "description": "蜀中唐门精钢机簧连弩，瞬发三箭，封锁周身死角。",
@@ -1988,8 +1958,7 @@
     "sectId": null,
     "value": 175,
     "equipBonus": {
-      "attack": 135,
-      "maxHp": 120
+      "attack": 64
     },
     "specialTag": "破甲重矢",
     "description": "西夏精锐骑兵所用强弓，拉满需三石之力，箭矢重若铁枪。",
@@ -2009,9 +1978,7 @@
     "sectId": null,
     "value": 135,
     "equipBonus": {
-      "attack": 130,
-      "agility": 12,
-      "riding": 8
+      "attack": 60
     },
     "specialTag": "河东神射",
     "description": "杨家将守卫雁门关所用精铁胎长弓。",
@@ -2031,8 +1998,7 @@
     "sectId": "ORG-08",
     "value": 125,
     "equipBonus": {
-      "attack": 118,
-      "agility": 14
+      "attack": 52
     },
     "specialTag": "滇南灵巧",
     "description": "取苍山百年老竹合牛筋制弓，轻巧连射极快。",
@@ -2052,8 +2018,7 @@
     "sectId": null,
     "value": 95,
     "equipBonus": {
-      "attack": 120,
-      "res": 10
+      "attack": 50
     },
     "specialTag": "高原强弓",
     "description": "吐蕃大将佩弓，弓背缠金丝防潮防裂。",
@@ -2073,8 +2038,7 @@
     "sectId": "SECT-18",
     "value": 78,
     "equipBonus": {
-      "attack": 110,
-      "agility": 10
+      "attack": 42
     },
     "specialTag": "穿云响箭",
     "description": "附带响镝的绿林强弓，百步外声震山谷。",
@@ -2094,8 +2058,7 @@
     "sectId": "SECT-17",
     "value": 25,
     "equipBonus": {
-      "attack": 82,
-      "defense": 10
+      "attack": 33
     },
     "specialTag": "宋军制式",
     "description": "北宋边防步兵主力长弓，射程远且耐用。",
@@ -2115,8 +2078,7 @@
     "sectId": null,
     "value": 24,
     "equipBonus": {
-      "attack": 80,
-      "riding": 5
+      "attack": 31
     },
     "specialTag": "马背轻弓",
     "description": "河西走廊骑兵常备短角弓。",
@@ -2136,8 +2098,7 @@
     "sectId": null,
     "value": 30,
     "equipBonus": {
-      "attack": 78,
-      "agility": 8
+      "attack": 34
     },
     "specialTag": "袖箭强弩",
     "description": "可单手激发的蜀中精工手弩。",
@@ -2157,8 +2118,7 @@
     "sectId": null,
     "value": 22,
     "equipBonus": {
-      "attack": 72,
-      "maxHp": 60
+      "attack": 26
     },
     "specialTag": "白山黑水",
     "description": "女真猎手射虎强弓。",
@@ -2178,7 +2138,7 @@
     "sectId": null,
     "value": 19,
     "equipBonus": {
-      "attack": 70
+      "attack": 24
     },
     "specialTag": "河北防线",
     "description": "河北路乡勇校场标准硬弓。",
@@ -2198,8 +2158,7 @@
     "sectId": null,
     "value": 23,
     "equipBonus": {
-      "attack": 68,
-      "res": 8
+      "attack": 25
     },
     "specialTag": "山林伏击",
     "description": "竹筒机括小弩，箭镞常涂草药。",
@@ -2219,8 +2178,7 @@
     "sectId": null,
     "value": 14,
     "equipBonus": {
-      "attack": 64,
-      "riding": 4
+      "attack": 18
     },
     "specialTag": "关中马政",
     "description": "沙苑监骑卒演武用弓。",
@@ -2240,7 +2198,7 @@
     "sectId": null,
     "value": 18,
     "equipBonus": {
-      "attack": 65
+      "attack": 20
     },
     "specialTag": "海防利器",
     "description": "抗潮防锈的船用短弩。",
@@ -2260,7 +2218,7 @@
     "sectId": "SECT-06",
     "value": 11,
     "equipBonus": {
-      "attack": 42
+      "attack": 14
     },
     "specialTag": "桑木韧弓",
     "description": "山野猎户上等桑木猎弓。",
@@ -2280,7 +2238,7 @@
     "sectId": "SECT-17",
     "value": 9,
     "equipBonus": {
-      "attack": 40
+      "attack": 13
     },
     "specialTag": "州县民兵",
     "description": "州府团练乡勇所用竹胎长弓。",
@@ -2300,7 +2258,7 @@
     "sectId": null,
     "value": 12,
     "equipBonus": {
-      "attack": 43
+      "attack": 14
     },
     "specialTag": "驱狼护羊",
     "description": "塞北牧民防狼短弓。",
@@ -2320,7 +2278,7 @@
     "sectId": null,
     "value": 13,
     "equipBonus": {
-      "attack": 44
+      "attack": 15
     },
     "specialTag": "栈道伏兽",
     "description": "竹片制成的简易猎弩。",
@@ -2340,8 +2298,7 @@
     "sectId": null,
     "value": 6,
     "equipBonus": {
-      "attack": 32,
-      "agility": 3
+      "attack": 9
     },
     "specialTag": "打鸟护园",
     "description": "硬木制成的双股牛筋弹弓。",
@@ -2361,7 +2318,7 @@
     "sectId": null,
     "value": 8,
     "equipBonus": {
-      "attack": 34
+      "attack": 10
     },
     "specialTag": "押镖示警",
     "description": "体积小巧，挂于马鞍旁。",
@@ -2381,7 +2338,7 @@
     "sectId": null,
     "value": 7,
     "equipBonus": {
-      "attack": 33
+      "attack": 9
     },
     "specialTag": "校场学徒",
     "description": "新兵练习拉弓用的木胎弓。",
@@ -2401,7 +2358,7 @@
     "sectId": null,
     "value": 5,
     "equipBonus": {
-      "attack": 31
+      "attack": 8
     },
     "specialTag": "南疆山林",
     "description": "柔韧藤木制成的猎弓。",
@@ -2421,7 +2378,7 @@
     "sectId": null,
     "value": 3,
     "equipBonus": {
-      "attack": 20
+      "attack": 5
     },
     "specialTag": "驱雀护田",
     "description": "竹片弯曲而成的简易小弓。",
@@ -2441,7 +2398,7 @@
     "sectId": null,
     "value": 4,
     "equipBonus": {
-      "attack": 21
+      "attack": 6
     },
     "specialTag": "市井旧货",
     "description": "弓弦略松的旧木弓。",
@@ -2461,8 +2418,7 @@
     "sectId": null,
     "value": 2,
     "equipBonus": {
-      "attack": 16,
-      "agility": 2
+      "attack": 4
     },
     "specialTag": "顽童嬉戏",
     "description": "寻常竹杈弹弓。",
@@ -2482,7 +2438,7 @@
     "sectId": null,
     "value": 4,
     "equipBonus": {
-      "attack": 22
+      "attack": 6
     },
     "specialTag": "边民自制",
     "description": "木质机括简易弩。",
