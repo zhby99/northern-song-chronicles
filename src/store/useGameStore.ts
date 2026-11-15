@@ -15,6 +15,7 @@ import {
   checkMountEquipRequirements,
   checkWeaponEquipRequirements,
   DEFAULT_EQUIPPED_SLOTS,
+  getEffectiveTalents,
   getRegionUnlockRequirement,
   isRegionUnlockedByInventory,
   ITEM_DB_MAP,
@@ -415,7 +416,7 @@ export interface GameStoreState {
     cost?: number
     effect: ActionEffect
   }) => void
-  buySpotShopItem: (spotId: string, itemId: string) => void
+  buySpotShopItem: (spotId: string, itemId: string, qty?: number) => void
   interactNpc: (npc: NodeNpc, mode: 'talk' | 'art' | 'spar') => void
   startNpcCombat: (
     npc: NodeNpc,
@@ -431,7 +432,6 @@ export interface GameStoreState {
   joinSect: (targetSectId: string, mentorNpc?: NodeNpc) => void
   leaveSect: () => void
   acceptToumingzhuang: (npc?: NodeNpc) => void
-  performSectDuty: (npc?: NodeNpc) => void
   promoteSectRank: () => void
   acceptSectTask: () => void
   abandonSectTask: () => void
@@ -748,7 +748,11 @@ function computeCombatSettlement(
   for (const artId of practicedArtIds) {
     const art = MARTIAL_ART_DB_MAP[artId]
     if (!art) continue
-    const baseDaily = calcDailyCultivationExpGain(art, s.baseStats.talents, 1.0)
+    const baseDaily = calcDailyCultivationExpGain(
+      art,
+      getEffectiveTalents(s.baseStats.talents, s.equipped),
+      1.0,
+    )
     const gain = Math.max(20, Math.round(baseDaily * 0.5 * expMult))
     const res = grantArtProficiency(nextLearnedArts, artId, gain)
     if (res.note && !res.note.includes('已臻第10重圆满')) {
@@ -1999,7 +2003,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (s.combatExp < reqCombatExp) {
       set({
         actionFeedback: {
-          text: `战斗经验不足！《${art.cleanName}》突破至第 ${cur.level + 1} 重需消耗 ${reqCombatExp} 点战斗经验（当前 ${s.combatExp} 点），请通过切磋、决战、门派当差或衙门缉凶积攒！`,
+          text: `战斗经验不足！《${art.cleanName}》突破至第 ${cur.level + 1} 重需消耗 ${reqCombatExp} 点战斗经验（当前 ${s.combatExp} 点），请通过切磋、决战或衙门缉凶积攒！`,
           tone: 'warn',
         },
       })
@@ -2227,7 +2231,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const targetShichens = mode === 'until_breakthrough' ? 3600 * 12 : mode * 12
     const dailyGain = calcDailyCultivationExpGain(
       art,
-      s.baseStats.talents,
+      getEffectiveTalents(s.baseStats.talents, s.equipped),
       venueStatus.multiplier,
     )
 
@@ -2356,7 +2360,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
     const curExp = s.artExps[artKey] ?? getExpForArtLevel(curLv)
-    const dailyGain = computeDailyArtExpGain(s.baseStats.talents.悟性, envMultiplier, 0)
+    const dailyGain = computeDailyArtExpGain(
+      getEffectiveTalents(s.baseStats.talents, s.equipped).悟性,
+      envMultiplier,
+      0,
+    )
     set({
       menuOpen: false,
       compendiumOpen: false,
@@ -2783,6 +2791,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         cultivationSession: null,
         hp: nextHp,
         mp: nextMp,
+        ...(!overdueSpyAmbush && !latest.gameOver
+          ? { menuOpen: true, activeMenuTab: 'loadout' as const }
+          : {}),
         actionFeedback: {
           text: msgText,
           tone: stopNote && !leveledUp ? 'warn' : 'success',
@@ -3109,6 +3120,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       cultivationSession: null,
       hp: nextHp,
       mp: nextMp,
+      ...(!s.gameOver ? { menuOpen: true, activeMenuTab: 'loadout' as const } : {}),
       actionFeedback: {
         text: msgText,
         tone: leveledUp ? 'success' : 'warn',
@@ -3135,7 +3147,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (eff.onceOnly && s.consumedOnceItemIds.includes(itemId)) {
       set({
         actionFeedback: {
-          text: `【${def.name}】初品已尽得其效，再食已无裨益。`,
+          text:
+            def.category === 'scrolls'
+              ? `【${def.name}】已然读过，义理通透，无需重复研读。`
+              : `【${def.name}】初品已尽得其效，再食已无裨益。`,
           tone: 'warn',
         },
       })
@@ -3215,6 +3230,26 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         nextBaseStats.skills[sk] > prev
           ? `【${sk}】+${nextBaseStats.skills[sk] - prev}`
           : `【${sk}】根基已满 (${HERO_BASE_CAPS.civilSkill})`,
+      )
+    }
+    if (eff.skillsGain) {
+      for (const [sk, gain] of Object.entries(eff.skillsGain)) {
+        const prev = nextBaseStats.skills[sk] ?? 40
+        nextBaseStats.skills[sk] = Math.min(HERO_BASE_CAPS.civilSkill, prev + gain)
+        notes.push(
+          nextBaseStats.skills[sk] > prev
+            ? `【${sk}】+${nextBaseStats.skills[sk] - prev}`
+            : `【${sk}】根基已满 (${HERO_BASE_CAPS.civilSkill})`,
+        )
+      }
+    }
+    if (eff.wuxing) {
+      const prev = nextBaseStats.talents.悟性
+      nextBaseStats.talents.悟性 = Math.min(HERO_BASE_CAPS.talent, prev + eff.wuxing)
+      notes.push(
+        nextBaseStats.talents.悟性 > prev
+          ? `【悟性】永久 +${nextBaseStats.talents.悟性 - prev}`
+          : `【悟性】天赋已满 (${HERO_BASE_CAPS.talent})`,
       )
     }
     if (eff.food) {
@@ -3515,7 +3550,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     void get().saveToSlot('autosave', `${regionName} · ${item.name}`, true)
   },
 
-  buySpotShopItem: (spotId, itemId) => {
+  buySpotShopItem: (spotId, itemId, qty = 1) => {
     const s = get()
     const shop = SPOT_SHOPS_BY_SPOT_ID[spotId]
     if (!shop) return
@@ -3546,19 +3581,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const itemDef = ITEM_DB_MAP[itemId]
     if (!entry || !itemDef) return
 
-    if (s.silver < entry.price) {
+    const safeQty = Math.max(1, Math.floor(Number.isFinite(qty) ? qty : 1))
+    const totalCost = entry.price * safeQty
+
+    if (s.silver < totalCost) {
       set({
         actionFeedback: {
-          text: `纹银不足！购置【${itemDef.name}】需 ${entry.price} 两银子（当前仅余 ${s.silver} 两）。`,
+          text: `纹银不足！购置 ${safeQty} 份【${itemDef.name}】需 ${totalCost.toLocaleString()} 两银子（当前仅余 ${s.silver.toLocaleString()} 两）。`,
           tone: 'warn',
         },
       })
       return
     }
 
-    const nextSilver = s.silver - entry.price
-    const nextInv = addItemToInventory(s.inventory, itemId, 1)
-    const msg = `在【${shop.title}】花费 ${entry.price} 两银子购得【${itemDef.name}】×1，已收入行囊。`
+    const nextSilver = s.silver - totalCost
+    const nextInv = addItemToInventory(s.inventory, itemId, safeQty)
+    const msg = `在【${shop.title}】花费 ${totalCost.toLocaleString()} 两银子购得【${itemDef.name}】×${safeQty}，已收入行囊。`
 
     set({
       silver: nextSilver,
@@ -4650,75 +4688,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         ...s.logs,
       ].slice(0, 60),
     })
-  },
-
-  performSectDuty: (npc) => {
-    const s = get()
-    const sectId = s.sectState.sectId
-    if (!sectId) return
-
-    const factionName = FACTION_DB_MAP[sectId]?.name ?? sectId
-    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 2)
-    const contribGain = 35
-    const combatExpGain = 40
-    const silverReward = 8
-    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, sectId)
-    const lodgingFee =
-      clock.daysAdded > 0 && !inOwnSectCity
-        ? Math.min(s.silver + silverReward, DAILY_INN_LODGING_COST * clock.daysAdded)
-        : 0
-
-    const updatedSect = clonePlayerSectState(s.sectState)
-    updatedSect.contribution += contribGain
-    const nextCombatExp = s.combatExp + combatExpGain
-
-    const msg = `于【${factionName}】${npc ? `随 ${npc.name} ` : ''}校场当差巡防两个时辰：门派功绩 +${contribGain}（现 ${updatedSect.contribution}）、战斗经验 +${combatExpGain}（现 ${nextCombatExp}）、津贴纹银 +${silverReward} 两${lodgingFee > 0 ? `（异乡宿费 -${lodgingFee} 两）` : ''}！`
-    const baseLogs = [
-      createLogEntry(clock.dayCount, '门派当差', msg, false, clock.shichenIdx),
-      ...s.logs,
-    ]
-    const dayHook =
-      clock.daysAdded > 0
-        ? applyDayProgressionSectHooks({
-            nextDayCount: clock.dayCount,
-            shichenIdx: clock.shichenIdx,
-            silver: s.silver + silverReward - lodgingFee,
-            sectState: updatedSect,
-            logs: baseLogs,
-          })
-        : {
-            silver: s.silver + silverReward - lodgingFee,
-            sectState: updatedSect,
-            logs: baseLogs,
-            overdueSpyAmbush: null,
-          }
-
-    const recDuty = applyDailyVitalityRecovery({
-      hp: s.hp,
-      maxHp: s.maxHp,
-      mp: s.mp,
-      maxMp: s.maxMp,
-      daysAdded: clock.daysAdded,
-      factor: 1,
-    })
-
-    set({
-      dayCount: clock.dayCount,
-      shichenIdx: clock.shichenIdx,
-      combatExp: nextCombatExp,
-      silver: dayHook.silver,
-      hp: recDuty.hp,
-      mp: recDuty.mp,
-      sectState: dayHook.sectState,
-      actionFeedback: { text: msg, tone: 'success' },
-      logs: dayHook.logs.slice(0, 60),
-    })
-    if (clock.daysAdded > 0) {
-      get().checkExpiredQuestDeadlines()
-    }
-    if (dayHook.overdueSpyAmbush) {
-      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
-    }
   },
 
   promoteSectRank: () => {
@@ -6984,7 +6953,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
 
     const prevExp = s.artExps[artKey] ?? getExpForArtLevel(currentLv)
-    const dailyGain = computeDailyArtExpGain(nextBase.talents.悟性, envMultiplier, 0)
+    const dailyGain = computeDailyArtExpGain(
+      getEffectiveTalents(nextBase.talents, s.equipped).悟性,
+      envMultiplier,
+      0,
+    )
     const gainedExp = dailyGain * days
     const nextExp = Math.min(MAX_ART_EXP, prevExp + gainedExp)
     const nextLv = getArtLevelFromExp(nextExp)

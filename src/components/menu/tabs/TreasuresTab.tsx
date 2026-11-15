@@ -679,10 +679,22 @@ export function TreasuresTab({
                             def.useEffect.skillGain
                               ? `【${def.useEffect.skillGain[0]}】+${def.useEffect.skillGain[1]}`
                               : null,
+                            ...(def.useEffect.skillsGain
+                              ? Object.entries(def.useEffect.skillsGain).map(
+                                  ([k, v]) => `【${k}】+${v}`,
+                                )
+                              : []),
+                            def.useEffect.wuxing
+                              ? `【悟性】永久 +${def.useEffect.wuxing}`
+                              : null,
                             def.useEffect.onceOnly
                               ? consumedOnceItemIds.includes(def.id)
-                                ? '（已初品一次 · 再食无效）'
-                                : '（限初品一次有效）'
+                                ? def.category === 'scrolls'
+                                  ? '（已读过 · 不可重复研读）'
+                                  : '（已初品一次 · 再食无效）'
+                                : def.category === 'scrolls'
+                                  ? '（限初读一次有效）'
+                                  : '（限初品一次有效）'
                               : null,
                             def.useEffect.learnArtHint ?? null,
                           ]

@@ -33,6 +33,7 @@ import {
   SYSTEM_NAV_ITEMS,
 } from './menuShared'
 import { PortraitLightbox } from './PortraitLightbox'
+import type { SectTierFilterKey } from './SectCompendiumPanel'
 
 const MountCompendiumPanel = lazy(() =>
   import('./MountCompendiumPanel').then((m) => ({ default: m.MountCompendiumPanel })),
@@ -118,6 +119,9 @@ export function SystemMenuModal() {
     () => activeRegionId || 'bianliang',
   )
   const [selectedSectCompId, setSelectedSectCompId] = useState<string>('SECT-01')
+  const [sectQuery, setSectQuery] = useState<string>('')
+  const [sectTierFilter, setSectTierFilter] = useState<SectTierFilterKey>('ALL')
+  const [sectGroupFilter, setSectGroupFilter] = useState<string>('ALL')
   const [selectedMountCompId, setSelectedMountCompId] = useState<string>('MNT-001')
 
   const [localNpcScope, setLocalNpcScope] = useState<string>('ALL_WITH_ART')
@@ -251,6 +255,14 @@ export function SystemMenuModal() {
     setArtTierFilter('ALL')
     setArtCatFilter('ALL')
     openCompendium('martialArts')
+  }
+
+  const jumpToCompendiumSect = (sectId: string) => {
+    setSelectedSectCompId(sectId)
+    setSectTierFilter('ALL')
+    setSectGroupFilter('ALL')
+    setSectQuery('')
+    setCompendiumTab('sects')
   }
 
   const jumpToCompendiumWeapon = (wpn: CompiledWeaponRecord) => {
@@ -618,10 +630,7 @@ export function SystemMenuModal() {
                     currentNodeId={currentNodeId}
                     hasWildernessCamp={Boolean(campPos)}
                     isTraveling={Boolean(traveling)}
-                    onJumpToSect={(sectId) => {
-                      setSelectedSectCompId(sectId)
-                      setCompendiumTab('sects')
-                    }}
+                    onJumpToSect={jumpToCompendiumSect}
                     onJumpToNpc={jumpToCompendiumNpc}
                     onJumpToWeapon={jumpToCompendiumWeapon}
                     onLocateOnWorldMap={locateRegionOnWorldMap}
@@ -639,6 +648,12 @@ export function SystemMenuModal() {
                   <SectCompendiumPanel
                     selectedFactionId={selectedSectCompId}
                     onSelectFactionId={setSelectedSectCompId}
+                    query={sectQuery}
+                    onChangeQuery={setSectQuery}
+                    tierFilter={sectTierFilter}
+                    onChangeTierFilter={setSectTierFilter}
+                    groupFilter={sectGroupFilter}
+                    onChangeGroupFilter={setSectGroupFilter}
                     learnedArtIds={learnedArtIds}
                     onJumpToRegion={(regionId) => {
                       setSelectedRegionCompId(regionId)
@@ -658,10 +673,7 @@ export function SystemMenuModal() {
                     onSelectNpc={setSelectedNpc}
                     npcScope={npcScope}
                     onChangeNpcScope={setNpcScope}
-                    onJumpToSect={(sectId) => {
-                      setSelectedSectCompId(sectId)
-                      setCompendiumTab('sects')
-                    }}
+                    onJumpToSect={jumpToCompendiumSect}
                     onJumpToRegion={(regionId) => {
                       setSelectedRegionCompId(regionId)
                       setCompendiumTab('regions')
@@ -704,10 +716,7 @@ export function SystemMenuModal() {
                       setSelectedRegionCompId(regionId)
                       setCompendiumTab('regions')
                     }}
-                    onJumpToSect={(sectId) => {
-                      setSelectedSectCompId(sectId)
-                      setCompendiumTab('sects')
-                    }}
+                    onJumpToSect={jumpToCompendiumSect}
                     onJumpToMartialArt={jumpToCompendiumArt}
                     onJumpToWeaponLoadout={() => {
                       setSelectedEquipSlot('weapon')
@@ -733,10 +742,7 @@ export function SystemMenuModal() {
                       setSelectedRegionCompId(regionId)
                       setCompendiumTab('regions')
                     }}
-                    onOpenSectInCompendium={(sectId) => {
-                      setSelectedSectCompId(sectId)
-                      setCompendiumTab('sects')
-                    }}
+                    onOpenSectInCompendium={jumpToCompendiumSect}
                     onLocateRegionOnMap={locateRegionOnWorldMap}
                     onOpenLoadoutMountSlot={(slot, tab) => {
                       setSelectedEquipSlot(slot)

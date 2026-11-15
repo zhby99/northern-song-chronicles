@@ -107,10 +107,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 3360,
     desc: '庆历年间定州民间偶出之唐摹欧阳询勒石原拓，锋芒骨肉纤毫毕现，大宋书坛奉为“天下第一行书”真魂所系。',
     lore: '宋仁宗朝名臣韩琦镇定武时秘藏珍赏，片纸足抵百镒黄金，临之可通笔阵入剑之妙。',
-    useEffect: {
-      mp: 90,
-      skillGain: ['书', 10],
-    },
+    useEffect: { wuxing: 4, skillsGain: { 书: 12, 诗词: 8 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-007',
@@ -122,10 +119,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 3465,
     desc: '关陕画圣范中立毕生心血巨制，主峰突兀迎面如泰山压顶，雨点皴苍劲雄浑，树叶间暗藏“范宽”二字款识。',
     lore: '北宋画院赞其“得山之骨，与山传神”，凝神观摩三日，胸中自生万壑雷霆气象。',
-    useEffect: {
-      mp: 80,
-      skillGain: ['画', 10],
-    },
+    useEffect: { wuxing: 6, skillsGain: { 画: 15, 经义: 10 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-008',
@@ -137,10 +131,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 3190,
     desc: '宋太宗淳化三年诏命王著编次内府历代帝王名臣法书，以南唐澄心堂纸、李廷珪墨精拓赐予近臣之皇家祖帖。',
     lore: '汇聚钟繇、二王、张旭、怀素历代笔法大成，皇祐年间原枣木版已毁于宫火，存世寥若晨星。',
-    useEffect: {
-      skillGain: ['书', 9],
-      learnArtHint: '饱览历代书圣笔意，书道修为大进',
-    },
+    useEffect: { wuxing: 2, skillsGain: { 书: 10, 诗词: 5 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-009',
@@ -152,10 +143,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 3320,
     desc: '仁宗康定至庆历年间诏命曾公亮、丁度历时数载编纂成书的皇家军事百科巨典，备载阵法、边防、攻城器械与火药猛火油真方。',
     lore: '皇祐二年深锁汴京崇文院秘阁，严禁私传出境，西夏与大辽密探悬千金而不可得。',
-    useEffect: {
-      riding: 4,
-      skillGain: ['策论', 10],
-    },
+    useEffect: { wuxing: 4, riding: 8, skillsGain: { 策论: 12 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-010',
@@ -167,10 +155,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 3275,
     desc: '南唐画院待诏顾闳中奉后主李煜密旨目识心记绘就的设色长卷，分琵琶独奏、观舞、宴间小憩、清吹、散宴五段。',
     lore: '开宝平江南后入藏大宋秘府，人物神情眉宇间尽显乱世名臣自污避祸之孤愤微旨。',
-    useEffect: {
-      skillGain: ['琴', 5],
-      learnArtHint: '品鉴南唐绝代丹青与丝竹遗韵（【琴】+5）',
-    },
+    useEffect: { wuxing: 2, skillsGain: { 画: 8, 琴: 7 }, onceOnly: true },
   },
 
   // ============================================================================
@@ -339,10 +324,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 1300,
     desc: '庆历六年九月十五日范希文于邓州花洲书院应滕子京之请亲笔挥就的行书手卷，字字铿锵，浩气充塞天地。',
     lore: '“先天下之忧而忧，后天下之乐而乐”，大宋士林仁人志士无不奉若圭臬。',
-    useEffect: {
-      mp: 60,
-      skillGain: ['策论', 6],
-    },
+    useEffect: { skillsGain: { 策论: 7, 诗词: 5 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-022',
@@ -354,9 +336,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 1100,
     desc: '宋初营丘画派宗师李成与王晓合绘寒林荒原古碑奇景，枯枝蟹爪苍劲凄清，骑骡老者驻足仰观残碑。',
     lore: '北宋山水“三家鼎峙”之首，惜墨如金，气象萧疏旷远。',
-    useEffect: {
-      skillGain: ['画', 7],
-    },
+    useEffect: { skillsGain: { 画: 8, 诗词: 4 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-023',
@@ -367,9 +347,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 1065,
     desc: '江南山水鼻祖董北苑代表真迹，以披麻皴与点子皴写出江南烟雨平淡天真之态，渔舟洲渚隐现云水间。',
-    useEffect: {
-      skillGain: ['画', 6],
-    },
+    useEffect: { skillsGain: { 画: 7, 琴: 3 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-024',
@@ -381,10 +359,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 1120,
     desc: '盛唐颜鲁公追祭常山死节侄儿季明之悲愤绝笔宋内府精摹卷，涂抹改窜处血泪交融，被尊为“天下第二行书”。',
     lore: '欧阳修集古录跋赞其忠义郁勃之气溢于楮墨，观之令人凛然生抗虏死节之心。',
-    useEffect: {
-      mp: 60,
-      skillGain: ['书', 7],
-    },
+    useEffect: { skillsGain: { 书: 8, 经义: 4 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-025',
@@ -396,9 +371,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 1005,
     desc: '布衣巨匠毕昇于庆历至皇祐年间总结胶泥刻字、火烧令坚、松脂蜡纸灰排版刷印工艺的亲笔图说手稿。',
     lore: '“若止印三二本，未为简易；若印数十百千本，则极为神速”，开人类活字印刷万世先河。',
-    useEffect: {
-      skillGain: ['算术', 6],
-    },
+    useEffect: { skillsGain: { 算术: 6, 书: 4 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-026',
@@ -410,9 +383,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 930,
     desc: '皇祐年间左班殿直贾宪撰著的北宋算学巅峰手稿，首创“立成释锁平方法”与增乘开方三角阵图（贾宪三角）。',
     lore: '大宋天算奇门高人皆借此图推演九宫八卦阵眼变幻。',
-    useEffect: {
-      skillGain: ['算术', 7],
-    },
+    useEffect: { skillsGain: { 算术: 8 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-027',
@@ -423,9 +394,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 1025,
     desc: '醉翁欧阳永叔秉春秋笔法私修梁唐晋汉周五代乱世兴亡之书，“呜呼”发端苍凉沉郁，痛陈武夫乱政与燕云沦陷之鉴。',
-    useEffect: {
-      skillGain: ['经义', 6],
-    },
+    useEffect: { skillsGain: { 经义: 6, 策论: 4 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-028',
@@ -436,11 +405,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 950,
     desc: '翰林医官院王怀隐等奉敕编修的北宋官修方书巨著，收录秘方一万六千八百余首，辨证施治与解毒救急靡不毕备。',
-    useEffect: {
-      hp: 150,
-      skillGain: ['经义', 5],
-      learnArtHint: '精研大宋御医方药精髓，气血调养与医道经义大进',
-    },
+    useEffect: { skillsGain: { 经义: 5, 算术: 3 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-029',
@@ -451,10 +416,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 970,
     desc: '承自魏晋嵇叔夜刑场绝响的唐宫旧藏减字古琴谱，全曲四十五段杀伐激荡，如聂政刺韩相，戈矛纵横。',
-    useEffect: {
-      mp: 50,
-      skillGain: ['琴', 7],
-    },
+    useEffect: { skillsGain: { 琴: 7, 诗词: 3 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-030',
@@ -465,9 +427,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 910,
     desc: '辑录棋待诏名家棋诀与皇祐国手对局精解的纹枰秘籍，内含“烂柯遗局”与奇门征子杀法。',
-    useEffect: {
-      skillGain: ['棋', 7],
-    },
+    useEffect: { skillsGain: { 棋: 8 }, onceOnly: true },
   },
 
   // ============================================================================
@@ -709,9 +669,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     value: 165,
     desc: '庆历三年范仲淹任参知政事时呈奏仁宗皇帝的新政纲领：明黜陟、抑侥幸、精贡举、择长官、厚农桑。',
     lore: '虽庆历新政旋起旋罢，此卷仍是皇祐年间天下经世士子案头必读政书。',
-    useEffect: {
-      skillGain: ['策论', 4],
-    },
+    useEffect: { skillsGain: { 策论: 5 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-047',
@@ -722,9 +680,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 185,
     desc: '庆历二年富彦国两使契丹、于辽兴宗帐前慷慨陈词力拒割地之实录钞本，言辞锋利，大涨宋人志气。',
-    useEffect: {
-      skillGain: ['辩才', 4],
-    },
+    useEffect: { skillsGain: { 辩才: 4, 策论: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-048',
@@ -735,9 +691,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 155,
     desc: '国子监直讲徂徕先生石介颂扬范、富、韩、欧阳诸贤而痛斥奸邪的长诗碑拓，字势奇崛雄健。',
-    useEffect: {
-      skillGain: ['经义', 3],
-    },
+    useEffect: { skillsGain: { 经义: 2, 策论: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-049',
@@ -748,9 +702,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 170,
     desc: '庆历六年欧阳永叔知滁州时所作千古名篇拓本，二十一个“也”字跌宕流转，山水之乐尽在言外。',
-    useEffect: {
-      skillGain: ['诗词', 4],
-    },
+    useEffect: { skillsGain: { 诗词: 3, 书: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-050',
@@ -761,9 +713,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 190,
     desc: '“宋四家”先驱蔡君谟入闽经略泉州水陆津梁之楷书手札，字体端庄温润，兼具桥梁营造算度之妙。',
-    useEffect: {
-      skillGain: ['书', 4],
-    },
+    useEffect: { skillsGain: { 书: 4, 算术: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-051',
@@ -774,9 +724,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 150,
     desc: '北宋诗文革新大家梅圣俞诗集，一洗西昆浮艳铅华，以平淡古雅写民生疾苦与山川真趣。',
-    useEffect: {
-      skillGain: ['诗词', 4],
-    },
+    useEffect: { skillsGain: { 诗词: 4 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-052',
@@ -787,10 +735,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 170,
     desc: '苏子美罢官退居苏州沧浪亭所书手卷，豪放狂逸，兼得怀素草书神髓与江湖散人旷达之风。',
-    useEffect: {
-      skillGain: ['书', 3],
-      learnArtHint: '体味沧浪烟水豪情，书艺精进',
-    },
+    useEffect: { skillsGain: { 书: 3, 诗词: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-053',
@@ -801,9 +746,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 160,
     desc: '太平宰相晏同叔词集，“无可奈何花落去，似曾相识燕归来”，温润秀洁，尽显北宋名臣雍容气度。',
-    useEffect: {
-      skillGain: ['诗词', 4],
-    },
+    useEffect: { skillsGain: { 诗词: 4 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-054',
@@ -814,9 +757,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 155,
     desc: '安定先生胡瑗分设“经义”与“治事”（兵学、水利、算历）两斋育才之实学讲义，开宋代理学与经世教育先声。',
-    useEffect: {
-      skillGain: ['经义', 4],
-    },
+    useEffect: { skillsGain: { 经义: 4 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-055',
@@ -827,9 +768,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 155,
     desc: '泰山先生孙明复隐居泰山十年治《春秋》之名著，倡大一统尊王攘夷大义，深得范仲淹推重。',
-    useEffect: {
-      skillGain: ['经义', 4],
-    },
+    useEffect: { skillsGain: { 经义: 4 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-056',
@@ -840,9 +779,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 185,
     desc: '北宋通才名臣燕肃创制溢水消差“莲花漏”与复原齿轮“指南车”的精密机械结构墨线图册。',
-    useEffect: {
-      skillGain: ['算术', 4],
-    },
+    useEffect: { skillsGain: { 算术: 6 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-057',
@@ -853,9 +790,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 195,
     desc: '长安狂逸画师许道宁醉后挥毫之作，峰峦峭拔直插云霄，江面空阔孤舟横渡，张士逊曾赠诗激赏。',
-    useEffect: {
-      skillGain: ['画', 4],
-    },
+    useEffect: { skillsGain: { 画: 4, 诗词: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-058',
@@ -866,10 +801,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 190,
     desc: '长沙画师易元吉深入荆湖万山观察猿猱獐鹿百态绘就的灵动写生卷，猿臂腾跃之势竟与轻功身法暗合。',
-    useEffect: {
-      mp: 25,
-      skillGain: ['画', 4],
-    },
+    useEffect: { skillsGain: { 画: 6 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-059',
@@ -880,10 +812,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 165,
     desc: '江南琴人泛舟潇湘、望九嶷云水翻涌而谱写的七弦琴曲清本，泛音空灵缥缈，抚之涤荡胸中尘虑。',
-    useEffect: {
-      mp: 30,
-      skillGain: ['琴', 4],
-    },
+    useEffect: { skillsGain: { 琴: 5 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-060',
@@ -894,9 +823,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 165,
     desc: '北宋张拟仿《孙子兵法》十三篇体例撰成的围棋理论经典，论布局、得算、权舆、合战精辟入里。',
-    useEffect: {
-      skillGain: ['棋', 4],
-    },
+    useEffect: { skillsGain: { 棋: 5 }, onceOnly: true },
   },
 
   // ============================================================================
@@ -1212,9 +1139,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 60,
     desc: '汴京樊楼与秦淮歌馆歌妓传唱不衰的柳三变俚俗慢词钞本，“凡有井水饮处，皆能歌柳词”。',
-    useEffect: {
-      skillGain: ['诗词', 2],
-    },
+    useEffect: { skillsGain: { 诗词: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-082',
@@ -1225,9 +1150,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 65,
     desc: '因“云破月来花弄影”三句绝唱名动汴洛的都官郎中张子野词选，工于音律造语。',
-    useEffect: {
-      skillGain: ['诗词', 2],
-    },
+    useEffect: { skillsGain: { 诗词: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-083',
@@ -1238,9 +1161,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 70,
     desc: '杭州孤山隐士“梅妻鹤子”林君复遗诗薄册，“疏影横斜水清浅，暗香浮动月黄昏”清绝尘寰。',
-    useEffect: {
-      skillGain: ['诗词', 2],
-    },
+    useEffect: { skillsGain: { 诗词: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-084',
@@ -1251,9 +1172,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: true,
     value: 30,
     desc: '以“赵钱孙李”尊国姓开篇的宋初识字蒙书，纸页微黄，江南与中原州县童蒙人人诵读。',
-    useEffect: {
-      skillGain: ['经义', 1],
-    },
+    useEffect: { skillsGain: { 经义: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-085',
@@ -1264,9 +1183,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 85,
     desc: '大宋真宗朝陈彭年等奉诏重修的官定音韵标准书，举子应试作赋押韵必携案头。',
-    useEffect: {
-      skillGain: ['诗词', 2],
-    },
+    useEffect: { skillsGain: { 诗词: 2, 经义: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-086',
@@ -1277,9 +1194,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 80,
     desc: '汴京相国寺书摊热销的窄幅小字工具书，专为科场士子查检诗赋平仄官韵而印。',
-    useEffect: {
-      skillGain: ['经义', 2],
-    },
+    useEffect: { skillsGain: { 经义: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-087',
@@ -1290,10 +1205,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 90,
     desc: '详论建安龙凤团茶色香味、炙茶碾茶点茶斗茶及建盏兔毫鉴赏之风雅小品。',
-    useEffect: {
-      mp: 25,
-      skillGain: ['琴', 1],
-    },
+    useEffect: { skillsGain: { 琴: 2, 诗词: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-088',
@@ -1304,9 +1216,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 75,
     desc: '欧阳永叔任西京留守推官时遍访洛阳名园，详记姚黄、魏紫等二十四种绝品牡丹栽培风俗之雅书。',
-    useEffect: {
-      skillGain: ['画', 2],
-    },
+    useEffect: { skillsGain: { 画: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-089',
@@ -1317,10 +1227,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 90,
     desc: '绘有大宋十五路州府驿站、渡口津梁与里程宿头信息的行商舆图册，走南闯北极其实用。',
-    useEffect: {
-      riding: 1,
-      skillGain: ['算术', 1],
-    },
+    useEffect: { riding: 2, skillsGain: { 算术: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-090',
@@ -1331,9 +1238,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: true,
     value: 45,
     desc: '桑家瓦子说书艺人霍四究辈底本抄册，演说三分汉魏英雄攻伐故事，市井茶坊听客如堵。',
-    useEffect: {
-      skillGain: ['辩才', 2],
-    },
+    useEffect: { skillsGain: { 辩才: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-091',
@@ -1344,9 +1249,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: true,
     value: 50,
     desc: '勾栏瓦舍艺人讲史底本，演绎后周太祖与本朝艺祖皇帝马上得天下之民间传奇，口吻生动犀利。',
-    useEffect: {
-      skillGain: ['辩才', 2],
-    },
+    useEffect: { skillsGain: { 辩才: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-092',
@@ -1357,9 +1260,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: true,
     value: 40,
     desc: '岁末东京纸马铺雕版套印的镇宅钟进士捉鬼图，设色鲜亮浓烈，可观北宋民间雕版画工。',
-    useEffect: {
-      skillGain: ['画', 1],
-    },
+    useEffect: { skillsGain: { 画: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-093',
@@ -1370,9 +1271,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: true,
     value: 35,
     desc: '福建建阳麻沙镇书坊以榕木版快印的真草二体《千字文》，纸薄价廉，供寒门学童描红习字。',
-    useEffect: {
-      skillGain: ['书', 2],
-    },
+    useEffect: { skillsGain: { 书: 1 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-094',
@@ -1383,9 +1282,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 80,
     desc: '市易行与盐铁账房学徒必学的筹算读本，内载“物不知数（韩信点兵）”与鸡兔同笼捷法。',
-    useEffect: {
-      skillGain: ['算术', 2],
-    },
+    useEffect: { skillsGain: { 算术: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-095',
@@ -1396,9 +1293,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 90,
     desc: '秦州与河曲茶马互市牙人秘藏的相马歌诀图册，教你观齿龄、辨旋毛、识大宛党项良驹骨相。',
-    useEffect: {
-      riding: 2,
-    },
+    useEffect: { riding: 3, onceOnly: true },
   },
   {
     id: 'ITM-SCR-096',
@@ -1409,9 +1304,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 65,
     desc: '渭城朝雨送客西出阳关的通俗丝竹唱谱，陕西延安、秦州边关酒肆戌客闻之无不落泪。',
-    useEffect: {
-      skillGain: ['琴', 2],
-    },
+    useEffect: { skillsGain: { 琴: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-097',
@@ -1422,9 +1315,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 65,
     desc: '州桥茶肆棋摊棋待诏学徒整理的让先与边角定式三十六图，最宜围棋初学入门拆解。',
-    useEffect: {
-      skillGain: ['棋', 2],
-    },
+    useEffect: { skillsGain: { 棋: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-098',
@@ -1435,9 +1326,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 85,
     desc: '摘录《重详定刑统》中关津盘诘、江湖械斗、捕亡自首诸条律疏，熟读可于公堂据理雄辩。',
-    useEffect: {
-      skillGain: ['辩才', 2],
-    },
+    useEffect: { skillsGain: { 辩才: 3 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-099',
@@ -1448,9 +1337,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 85,
     desc: '辑录何承矩以来河北塘泺防辽水田兴修方略的州学士子抄本，兼涉农田沟洫与限制契丹骑兵驰突之策。',
-    useEffect: {
-      skillGain: ['策论', 2],
-    },
+    useEffect: { skillsGain: { 策论: 3 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-100',
@@ -1461,9 +1348,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     stackable: false,
     value: 70,
     desc: '汴京民间画工白描淡彩绘就的元宵鳌山灯火、金明池争标夺锦、重阳菊会十二页风俗册页。',
-    useEffect: {
-      skillGain: ['画', 2],
-    },
+    useEffect: { skillsGain: { 画: 2 }, onceOnly: true },
   },
   {
     id: 'ITM-SCR-101',

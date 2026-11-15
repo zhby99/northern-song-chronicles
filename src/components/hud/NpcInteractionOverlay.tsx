@@ -93,7 +93,6 @@ export function NpcInteractionOverlay() {
   const joinSect = useGameStore((s) => s.joinSect)
   const leaveSect = useGameStore((s) => s.leaveSect)
   const acceptToumingzhuang = useGameStore((s) => s.acceptToumingzhuang)
-  const performSectDuty = useGameStore((s) => s.performSectDuty)
   const promoteSectRank = useGameStore((s) => s.promoteSectRank)
   const acceptSectTask = useGameStore((s) => s.acceptSectTask)
   const abandonSectTask = useGameStore((s) => s.abandonSectTask)
@@ -890,13 +889,6 @@ export function NpcInteractionOverlay() {
                       </p>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => performSectDuty()}
-                        className="px-3.5 py-1.5 rounded-lg bg-[#5c3d1e] hover:bg-[#734c26] border border-[#b59461] text-[#fff8ee] text-xs font-medium cursor-pointer"
-                      >
-                        门派当差（功绩+35 · 战经+40 · 津贴+8两）
-                      </button>
                       {promoEval && (
                         <button
                           type="button"

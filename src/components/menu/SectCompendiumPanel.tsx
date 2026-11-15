@@ -11,7 +11,7 @@ import {
   Users,
   ZoomIn,
 } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import {
   BUILDING_DB_MAP,
   ID_REGISTRY,
@@ -31,9 +31,17 @@ import type {
 } from '../../types/game'
 import { ManagedAssetImg } from '../common/ManagedAssetImg'
 
+export type SectTierFilterKey = 'ALL' | SectTierKind
+
 interface SectCompendiumPanelProps {
   selectedFactionId: string
   onSelectFactionId: (factionId: string) => void
+  query: string
+  onChangeQuery: (query: string) => void
+  tierFilter: SectTierFilterKey
+  onChangeTierFilter: (tier: SectTierFilterKey) => void
+  groupFilter: string
+  onChangeGroupFilter: (group: string) => void
   learnedArtIds: Set<string>
   onJumpToRegion: (regionId: string) => void
   onJumpToNpc: (npc: CompiledNpcRecord) => void
@@ -43,9 +51,7 @@ interface SectCompendiumPanelProps {
   onOpenPortraitLightbox: (npc: CompiledNpcRecord, mode: 'fullbody' | 'avatar') => void
 }
 
-type TierFilterKey = 'ALL' | SectTierKind
-
-const TIER_FILTER_OPTIONS: Array<{ key: TierFilterKey; label: string }> = [
+const TIER_FILTER_OPTIONS: Array<{ key: SectTierFilterKey; label: string }> = [
   { key: 'ALL', label: `全录 ${ID_REGISTRY.factions.length} 势力` },
   {
     key: '一流大派',
@@ -94,6 +100,12 @@ const ART_TIER_BADGE_CLS: Record<string, string> = {
 export function SectCompendiumPanel({
   selectedFactionId,
   onSelectFactionId,
+  query,
+  onChangeQuery,
+  tierFilter,
+  onChangeTierFilter,
+  groupFilter,
+  onChangeGroupFilter,
   learnedArtIds,
   onJumpToRegion,
   onJumpToNpc,
@@ -102,9 +114,6 @@ export function SectCompendiumPanel({
   onLocateOnWorldMap,
   onOpenPortraitLightbox,
 }: SectCompendiumPanelProps) {
-  const [query, setQuery] = useState('')
-  const [tierFilter, setTierFilter] = useState<TierFilterKey>('ALL')
-  const [groupFilter, setGroupFilter] = useState<string>('ALL')
 
   const npcsByFaction = useMemo(() => {
     const map = new Map<string, CompiledNpcRecord[]>()
@@ -291,8 +300,8 @@ export function SectCompendiumPanel({
                   key={opt.key}
                   type="button"
                   onClick={() => {
-                    setTierFilter(opt.key)
-                    setGroupFilter('ALL')
+                    onChangeTierFilter(opt.key)
+                    onChangeGroupFilter('ALL')
                   }}
                   className={`px-2.5 py-1 rounded text-xs song-serif border transition cursor-pointer ${
                     active
@@ -312,7 +321,7 @@ export function SectCompendiumPanel({
             <span className="text-xs font-bold song-serif text-[#4a3219] mr-1">阵营脉络：</span>
             <button
               type="button"
-              onClick={() => setGroupFilter('ALL')}
+              onClick={() => onChangeGroupFilter('ALL')}
               className={`px-2.5 py-1 rounded text-xs song-serif border transition cursor-pointer ${
                 groupFilter === 'ALL'
                   ? 'bg-[#5c4024] text-[#fff8eb] border-[#d9b36c] font-bold'
@@ -327,7 +336,7 @@ export function SectCompendiumPanel({
                 <button
                   key={grp}
                   type="button"
-                  onClick={() => setGroupFilter(grp)}
+                  onClick={() => onChangeGroupFilter(grp)}
                   className={`px-2.5 py-1 rounded text-xs song-serif border transition cursor-pointer ${
                     active
                       ? 'bg-[#5c4024] text-[#fff8eb] border-[#d9b36c] font-bold'
@@ -345,7 +354,7 @@ export function SectCompendiumPanel({
             <input
               type="text"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => onChangeQuery(e.target.value)}
               placeholder="检索 SECT/ORG / 门派名 / 掌门 / 镇派绝学 / 驻地..."
               className="w-full pl-8 pr-3 py-1 rounded bg-[#fffdf8] border border-[#b59c77] text-xs text-[#23180f] placeholder:text-[#8c7353] focus:outline-none focus:border-[#8f1d14]"
             />

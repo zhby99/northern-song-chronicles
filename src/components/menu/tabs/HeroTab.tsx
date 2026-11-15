@@ -415,7 +415,12 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693]">
                     <div className="text-xs text-[#6b5235] song-serif">悟 性</div>
                     <div className="font-mono font-bold text-lg text-[#1e3a8a] mt-0.5">
-                      {baseStats.talents.悟性}
+                      {baseStats.talents.悟性 + equipTotals.wuxing}
+                      {equipTotals.wuxing > 0 && (
+                        <span className="ml-1 text-[11px] font-semibold text-[#1d6b42]">
+                          (+{equipTotals.wuxing})
+                        </span>
+                      )}
                     </div>
                     <div className="text-[10px] text-[#7a6042]">外功轻功演练效率</div>
                   </div>

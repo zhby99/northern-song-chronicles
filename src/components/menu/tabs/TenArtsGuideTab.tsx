@@ -1,4 +1,5 @@
 import React from 'react'
+import { getEffectiveTalents } from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
 import {
   computeDailyArtExpGain,
@@ -10,10 +11,12 @@ import {
 
 export const TenArtsGuideTab: React.FC = () => {
   const baseStats = useGameStore((s) => s.baseStats)
+  const equipped = useGameStore((s) => s.equipped)
   const artExps = useGameStore((s) => s.artExps)
   const artMilestoneFlags = useGameStore((s) => s.artMilestoneFlags)
 
-  const dailyGain = computeDailyArtExpGain(baseStats.talents.悟性, 1.0, 0)
+  const effectiveWuxing = getEffectiveTalents(baseStats.talents, equipped).悟性
+  const dailyGain = computeDailyArtExpGain(effectiveWuxing, 1.0, 0)
 
   return (
     <div className="space-y-4">
@@ -29,7 +32,7 @@ export const TenArtsGuideTab: React.FC = () => {
             </p>
           </div>
           <div className="rounded border border-[#c7ab7c] bg-[#fffaf0] px-3 py-1.5 text-xs text-[#5c3d1e]">
-            当前悟性 <span className="font-bold text-[#8c3b20]">{baseStats.talents.悟性}</span> · 标准日修收益{' '}
+            当前悟性 <span className="font-bold text-[#8c3b20]">{effectiveWuxing}</span> · 标准日修收益{' '}
             <span className="font-bold text-[#2f5d38]">{dailyGain}</span> 经验/日
           </div>
         </div>

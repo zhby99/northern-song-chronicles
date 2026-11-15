@@ -375,10 +375,22 @@ export function BagTab({
                         activeStack.def.useEffect.skillGain
                           ? `【${activeStack.def.useEffect.skillGain[0]}】+${activeStack.def.useEffect.skillGain[1]}`
                           : null,
+                        ...(activeStack.def.useEffect.skillsGain
+                          ? Object.entries(activeStack.def.useEffect.skillsGain).map(
+                              ([k, v]) => `【${k}】+${v}`,
+                            )
+                          : []),
+                        activeStack.def.useEffect.wuxing
+                          ? `【悟性】永久 +${activeStack.def.useEffect.wuxing}`
+                          : null,
                         activeStack.def.useEffect.onceOnly
                           ? consumedOnceItemIds.includes(activeStack.def.id)
-                            ? '（已初品一次 · 再食无效）'
-                            : '（限初品一次有效）'
+                            ? activeStack.def.category === 'scrolls'
+                              ? '（已读过 · 不可重复研读）'
+                              : '（已初品一次 · 再食无效）'
+                            : activeStack.def.category === 'scrolls'
+                              ? '（限初读一次有效）'
+                              : '（限初品一次有效）'
                           : null,
                         activeStack.def.useEffect.learnArtHint ?? null,
                       ]

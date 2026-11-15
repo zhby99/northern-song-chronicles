@@ -638,7 +638,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 504,
     desc: '盛唐西蜀雷氏家族巅峰之作，伏羲式桐面杉底，蚌徽金岳，崩霆裂石而余韵绕梁三日。抚之可引天地清气入脉，修习琴道与音律武学一日千里。',
     lore: '琴腹龙池内镌贞元款识，皇祐年间秘藏于洛阳名园与汴京清客秘阁之间，万金不换。',
-    equipBonus: { maxMp: 220, agility: 8, res: 12, skills: { 琴: 18, 诗词: 8 } },
+    equipBonus: { wuxing: 6, skills: { 琴: 15, 诗词: 10 } },
   },
   {
     id: 'ITM-CUR-002',
@@ -651,7 +651,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 483,
     desc: '整块昆仑羊脂暖玉琢就十九道纹枰，配以天山玄冰黑曜与南海白琲三百六十一子。落子声如清泉击磬，蕴藏无崖子一脉奇门弈理玄机。',
     lore: '传自逍遥派天山隐脉，星宿与大理国手毕生梦寐一观的纹枰至宝。',
-    equipBonus: { maxMp: 200, agility: 10, res: 10, skills: { 棋: 18, 算术: 10 } },
+    equipBonus: { wuxing: 4, skills: { 棋: 12, 算术: 8 } },
   },
   {
     id: 'ITM-CUR-003',
@@ -664,7 +664,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 454,
     desc: '紫檀描金百宝匣，内藏南唐后主李煜内府遗珍澄心堂纸、廷珪龙纹墨、宣州诸葛散卓笔与水岩大西洞金星端砚，四绝合璧，下笔如有神助。',
     lore: '欧阳修、梅尧臣曾作诗盛赞澄心堂纸“百金不许市一枚”，世间仅存寥寥数匣。',
-    equipBonus: { maxMp: 180, res: 12, skills: { 书: 15, 画: 15, 诗词: 10 } },
+    equipBonus: { wuxing: 2, skills: { 书: 6, 画: 6, 诗词: 3 } },
   },
   {
     id: 'ITM-CUR-004',
@@ -677,7 +677,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 470,
     desc: '北宋天算大家苏颂早年精研制成的缩微青铜擒纵水运星盘，昼夜自转不爽毫厘，可推演二十八宿分野、九宫八门与天下山川险易。',
     lore: '皇祐年间太史局与江南巧匠秘传之奇器，开后世水运仪象台之先声。',
-    equipBonus: { maxHp: 160, maxMp: 160, agility: 8, skills: { 算术: 18, 策论: 12 } },
+    equipBonus: { wuxing: 4, skills: { 算术: 12, 策论: 8 } },
   },
   {
     id: 'ITM-CUR-005',
@@ -690,7 +690,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 441,
     desc: '布衣巨匠毕昇于庆历年间创制的火烧胶泥活字母模全匣，配松脂蜡版与铁范界栏，“若印数十百千本，则极为神速”，承载大宋文明火种。',
     lore: '沈括诸辈叹为神技之百工冠冕，持之与天下鸿儒名臣论学无不肃然起敬。',
-    equipBonus: { maxHp: 140, maxMp: 160, res: 12, skills: { 经义: 15, 辩才: 15, 策论: 10 } },
+    equipBonus: { wuxing: 2, skills: { 经义: 6, 辩才: 6, 策论: 3 } },
   },
 
   // ---------- 【地阶 · 10 件】名家重宝与镇派奇器 ----------
@@ -705,7 +705,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 175,
     desc: '雨过天青云破处，釉色温润如凝脂，开片细密似蝉翼冰裂。焚龙涎沉水于琴侧，清心涤虑，外邪难侵。',
     lore: '北宋汝州窑口秘烧贡器雏制，士林清赏奉为瓷中魁首。',
-    equipBonus: { maxMp: 120, res: 10, skills: { 琴: 10, 经义: 6 } },
+    equipBonus: { skills: { 琴: 8, 经义: 4 } },
   },
   {
     id: 'ITM-CUR-007',
@@ -718,7 +718,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 144,
     desc: '建州黑釉银丝兔毫盏镶鎏金口沿，配北苑银丝茶筅与鎏金汤提点茶瓶。点汤击拂，乳花咬盏久聚不散。',
     lore: '蔡襄《茶录》所推崇之北宋斗茶绝配，汴京樊楼与江南雅集尽显名士风流。',
-    equipBonus: { maxMp: 110, res: 8, skills: { 诗词: 10, 辩才: 6 } },
+    equipBonus: { skills: { 诗词: 5, 辩才: 3 } },
   },
   {
     id: 'ITM-CUR-008',
@@ -730,7 +730,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     stackable: false,
     value: 156,
     desc: '宣州制笔世家诸葛高精制散卓长锋紫毫，尖、齐、圆、健四德俱备，兼通怀素狂草笔意与点穴判官指劲。',
-    equipBonus: { maxMp: 100, agility: 5, skills: { 书: 12, 画: 8 } },
+    equipBonus: { skills: { 书: 6, 画: 4 } },
   },
   {
     id: 'ITM-CUR-009',
@@ -742,7 +742,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     stackable: false,
     value: 148,
     desc: '婺源龙尾山深坑所采眉子纹奇石，金星点点，发墨如油而呵气成云，严冬寒夜亦不冰涸。',
-    equipBonus: { maxMp: 95, res: 6, skills: { 画: 12, 书: 8 } },
+    equipBonus: { skills: { 画: 5, 书: 3 } },
   },
   {
     id: 'ITM-CUR-010',
@@ -755,7 +755,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 167,
     desc: '东海孤岛海底温玉雕琢而成的九节洞箫，翠色欲滴。灌注内息吹奏时声若龙吟海啸，乱敌心神而宁己真元。',
     lore: '隐含东海奇门音律一脉法度，非内力醇厚且谙熟宫商者不能尽展其威。',
-    equipBonus: { maxMp: 130, agility: 7, skills: { 琴: 12, 诗词: 6 } },
+    equipBonus: { skills: { 琴: 7, 诗词: 3 } },
   },
   {
     id: 'ITM-CUR-011',
@@ -767,7 +767,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     stackable: false,
     value: 160,
     desc: '依北宋算学名家贾宪《黄帝九章算经细草》规制打造的紫檀梁框和田青玉珠算具，瞬息可演粮饷漕运与奇门遁甲生克。',
-    equipBonus: { maxMp: 90, agility: 5, skills: { 算术: 12, 策论: 8 } },
+    equipBonus: { skills: { 算术: 6, 策论: 4 } },
   },
   {
     id: 'ITM-CUR-012',
@@ -779,7 +779,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     stackable: false,
     value: 171,
     desc: '以天然慈石磨针横贯灯芯浮于青铜水盏，外圈精刻二十四山向与天干地支，大漠风沙或桃花迷阵中皆可辨明微茫生门。',
-    equipBonus: { maxHp: 100, agility: 6, riding: 8, skills: { 算术: 10, 画: 6 } },
+    equipBonus: { riding: 6, skills: { 算术: 4, 画: 2 } },
   },
   {
     id: 'ITM-CUR-013',
@@ -792,7 +792,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     value: 182,
     desc: '仿翰林医官王惟一所铸天圣针灸铜人精缩而成的鎏金经络铜偶，附乌金毫针三十六枚，十二正经与奇经八脉穴道纤毫毕现。',
     lore: '不仅可悬壶济世活人无数，更对行功冲穴、化解封穴奇毒大有裨益。',
-    equipBonus: { maxHp: 180, maxMp: 100, res: 14, skills: { 经义: 8 } },
+    equipBonus: { skills: { 经义: 8, 算术: 4 } },
   },
   {
     id: 'ITM-CUR-014',
@@ -804,7 +804,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     stackable: false,
     value: 163,
     desc: '川西唐家堡外门大匠耗时三年制成的七重鲁班簧锁暗匣，非依九宫步序推演不可启闭，内设淬毒簧片与精巧机括拆解图机。',
-    equipBonus: { maxHp: 80, agility: 8, res: 6, skills: { 算术: 10, 棋: 6 } },
+    equipBonus: { skills: { 算术: 6, 棋: 4 } },
   },
   {
     id: 'ITM-CUR-015',
@@ -816,7 +816,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     stackable: false,
     value: 156,
     desc: '贺兰山铁鹞子精锐将领秘用的冷锻减重错金马镫、嚼铁与鲨鱼皮鞍桥组件，配于良驹之上可令人马如臂使指，驰射稳若磐石。',
-    equipBonus: { maxHp: 100, agility: 6, riding: 15, skills: { 策论: 6 } },
+    equipBonus: { riding: 6, skills: { 策论: 2 } },
   },
 
   // ---------- 【良品 · 15 件】上乘雅具与精工利器 ----------
@@ -1841,6 +1841,7 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
     attack: 0,
     defense: 0,
     riding: 0,
+    wuxing: 0,
     mountKey: 'walk' as MountKey,
     skills: {} as Record<string, number>,
   }
@@ -1859,6 +1860,7 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
     totals.attack += b.attack ?? 0
     totals.defense += b.defense ?? 0
     totals.riding += b.riding ?? 0
+    totals.wuxing += b.wuxing ?? 0
     if (slot === 'mount') {
       if (def.mountMeta) {
         totals.mountKey = def.mountMeta.id as MountKey
@@ -1876,6 +1878,18 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
   return totals
 }
 
+export function getEffectiveTalents(
+  talents: { 根骨: number; 悟性: number; 颜值: number },
+  equipped: EquippedSlotsMap,
+): { 根骨: number; 悟性: number; 颜值: number } {
+  const equipWuxing = computeEquipmentTotals(equipped).wuxing
+  if (!equipWuxing) return talents
+  return {
+    ...talents,
+    悟性: talents.悟性 + equipWuxing,
+  }
+}
+
 export function formatBonusBadges(bonus?: EquipmentStatBonus): string[] {
   if (!bonus) return []
   const list: string[] = []
@@ -1886,6 +1900,7 @@ export function formatBonusBadges(bonus?: EquipmentStatBonus): string[] {
   if (bonus.agility) list.push(`身法 +${bonus.agility}`)
   if (bonus.res) list.push(`抗性 +${bonus.res}`)
   if (bonus.riding) list.push(`骑术 +${bonus.riding}`)
+  if (bonus.wuxing) list.push(`悟性 +${bonus.wuxing}`)
   if (bonus.mountKey && bonus.mountKey !== 'walk') {
     const mRec = MOUNT_DB_MAP[bonus.mountKey]
     if (mRec) {

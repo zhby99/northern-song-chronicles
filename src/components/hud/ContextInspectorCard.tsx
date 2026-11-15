@@ -132,6 +132,16 @@ export function ContextInspectorCard() {
     contextKey: string
     category: 'all' | 'weapon' | 'armor' | 'mount' | 'scrolls' | 'medicine' | 'tools' | 'misc'
   } | null>(null)
+  const [pendingPurchase, setPendingPurchase] = useState<{
+    spotId: string
+    shopTitle: string
+    itemId: string
+    itemName: string
+    rarity: string
+    note: string
+    price: number
+    qty: number
+  } | null>(null)
 
   // Strict Leaf-Only NPC Resolution:
   // Players ONLY encounter NPCs when at the deepest leaf level:
@@ -1073,7 +1083,18 @@ export function ContextInspectorCard() {
                                 <button
                                   type="button"
                                   disabled={!btnEnabled}
-                                  onClick={() => buySpotShopItem(activeShop.spotId, entry.itemId)}
+                                  onClick={() =>
+                                    setPendingPurchase({
+                                      spotId: activeShop.spotId,
+                                      shopTitle: activeShop.title,
+                                      itemId: entry.itemId,
+                                      itemName: def.name,
+                                      rarity: def.rarity,
+                                      note: entry.note ?? def.subType,
+                                      price: entry.price,
+                                      qty: 1,
+                                    })
+                                  }
                                   className={`px-2.5 py-1 rounded text-[11px] font-bold song-serif shrink-0 transition ${
                                     btnEnabled
                                       ? 'bg-[#781710] hover:bg-[#931e15] text-[#fff8ee] cursor-pointer shadow-sm'
@@ -1365,6 +1386,209 @@ export function ContextInspectorCard() {
           </div>
         </div>
       )}
+
+      {pendingPurchase && (() => {
+        const unitPrice = Math.max(1, pendingPurchase.price)
+        const maxAffordable = Math.max(1, Math.floor(silver / unitPrice))
+        const maxQtyCap = Math.min(999, maxAffordable)
+        const qty = Math.max(1, Math.min(999, Math.floor(pendingPurchase.qty || 1)))
+        const totalCost = unitPrice * qty
+        const canAfford = silver >= totalCost
+        const ownedQty =
+          inventory.find((st) => st.itemId === pendingPurchase.itemId)?.qty ?? 0
+
+        const updateQty = (nextQty: number) => {
+          const clamped = Math.max(1, Math.min(999, Math.floor(nextQty || 1)))
+          setPendingPurchase((prev) => (prev ? { ...prev, qty: clamped } : null))
+        }
+
+        return (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/55 backdrop-blur-[1px] p-4"
+            onClick={() => setPendingPurchase(null)}
+          >
+            <div
+              className="w-full max-w-sm rounded-xl border-2 border-[#9e7b47] bg-[#f7eedc] text-[#23180f] shadow-2xl overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="px-4 py-3 bg-gradient-to-r from-[#5a140f] via-[#781710] to-[#5a140f] text-[#fff8ee] flex items-center justify-between">
+                <div>
+                  <div className="song-serif font-bold text-base tracking-wider">
+                    商贸采办确认
+                  </div>
+                  <div className="text-[11px] text-[#f2d6ae]">
+                    【{pendingPurchase.shopTitle}】
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPendingPurchase(null)}
+                  className="px-2 py-0.5 rounded hover:bg-white/15 text-[#f7e7c4] font-bold cursor-pointer"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="p-4 space-y-3.5 text-xs">
+                <div className="p-3 rounded-lg bg-[#faf3e3] border border-[#cbb693] space-y-1">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="song-serif font-bold text-sm text-[#23180f]">
+                        {pendingPurchase.itemName}
+                      </span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#efe0c4] text-[#6b4614]">
+                        {pendingPurchase.rarity}
+                      </span>
+                    </div>
+                    {ownedQty > 0 && (
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#1f4d3b]/15 text-[#1f4d3b] font-mono">
+                        已藏×{ownedQty}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-[11px] text-[#6b5235]">{pendingPurchase.note}</div>
+                  <div className="pt-1 flex items-center justify-between text-[11px] text-[#5c3d1e]">
+                    <span>
+                      单价：<strong className="font-mono text-[#781710]">{unitPrice.toLocaleString()}</strong> 两 / 个
+                    </span>
+                    <span>
+                      当前银两：<strong className="font-mono text-[#23180f]">{silver.toLocaleString()}</strong> 两
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="song-serif font-bold text-[#3d2b19]">购买数量</span>
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        disabled={qty <= 1}
+                        onClick={() => updateQty(qty - 1)}
+                        className="w-7 h-7 rounded border border-[#b5986e] bg-[#efe4cc] hover:bg-[#e3d1af] disabled:opacity-45 disabled:cursor-not-allowed font-bold text-sm cursor-pointer"
+                      >
+                        −
+                      </button>
+                      <input
+                        type="number"
+                        min={1}
+                        max={999}
+                        value={qty}
+                        onChange={(e) => {
+                          const parsed = Number.parseInt(e.target.value, 10)
+                          updateQty(Number.isNaN(parsed) ? 1 : parsed)
+                        }}
+                        className="w-16 h-7 text-center font-mono font-bold text-sm rounded border border-[#b5986e] bg-white text-[#23180f] focus:outline-none focus:border-[#781710]"
+                      />
+                      <button
+                        type="button"
+                        disabled={qty >= maxQtyCap}
+                        onClick={() => updateQty(qty + 1)}
+                        className="w-7 h-7 rounded border border-[#b5986e] bg-[#efe4cc] hover:bg-[#e3d1af] disabled:opacity-45 disabled:cursor-not-allowed font-bold text-sm cursor-pointer"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1.5 justify-end">
+                    {[1, 5, 10].map((preset) => {
+                      const presetDisabled = silver < unitPrice * preset
+                      return (
+                        <button
+                          key={preset}
+                          type="button"
+                          disabled={presetDisabled}
+                          onClick={() => updateQty(preset)}
+                          className={`px-2 py-0.5 rounded text-[11px] font-mono border transition ${
+                            qty === preset
+                              ? 'bg-[#781710] border-[#781710] text-[#fff8ee]'
+                              : presetDisabled
+                                ? 'bg-[#e6dcc8] border-[#cbb693] text-[#9b8d79] cursor-not-allowed'
+                                : 'bg-[#efe4cc] hover:bg-[#e3d1af] border-[#b5986e] text-[#4e361c] cursor-pointer'
+                          }`}
+                        >
+                          ×{preset}
+                        </button>
+                      )
+                    })}
+                    <button
+                      type="button"
+                      disabled={silver < unitPrice}
+                      onClick={() => updateQty(maxQtyCap)}
+                      className={`px-2 py-0.5 rounded text-[11px] font-mono border transition ${
+                        qty === maxQtyCap && maxQtyCap > 1
+                          ? 'bg-[#781710] border-[#781710] text-[#fff8ee]'
+                          : silver < unitPrice
+                            ? 'bg-[#e6dcc8] border-[#cbb693] text-[#9b8d79] cursor-not-allowed'
+                            : 'bg-[#efe4cc] hover:bg-[#e3d1af] border-[#b5986e] text-[#4e361c] cursor-pointer'
+                      }`}
+                    >
+                      最大(×{maxQtyCap})
+                    </button>
+                  </div>
+                </div>
+
+                <div
+                  className={`p-3 rounded-lg border text-xs space-y-1 ${
+                    canAfford
+                      ? 'bg-[#efe4cc]/80 border-[#b5986e] text-[#23180f]'
+                      : 'bg-[#fce8e6] border-[#c53929] text-[#8f1d14]'
+                  }`}
+                >
+                  <div className="song-serif font-bold text-[13px] leading-snug">
+                    将花费{' '}
+                    <span className="font-mono text-[#781710] text-sm">
+                      {totalCost.toLocaleString()}
+                    </span>{' '}
+                    两银子，购买{' '}
+                    <span className="font-mono text-[#781710] text-sm">{qty}</span>{' '}
+                    个【{pendingPurchase.itemName}】
+                  </div>
+                  <div className="text-[11px]">
+                    {canAfford ? (
+                      <>
+                        购后余银：
+                        <span className="font-mono font-bold">
+                          {(silver - totalCost).toLocaleString()}
+                        </span>{' '}
+                        两
+                      </>
+                    ) : (
+                      <>纹银不足！尚差 {(totalCost - silver).toLocaleString()} 两银子。</>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-end gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setPendingPurchase(null)}
+                    className="px-3.5 py-1.5 rounded-lg border border-[#b5986e] bg-[#efe4cc] hover:bg-[#e3d1af] text-[#4e361c] font-bold song-serif cursor-pointer"
+                  >
+                    取消
+                  </button>
+                  <button
+                    type="button"
+                    disabled={!canAfford}
+                    onClick={() => {
+                      buySpotShopItem(pendingPurchase.spotId, pendingPurchase.itemId, qty)
+                      setPendingPurchase(null)
+                    }}
+                    className={`px-4 py-1.5 rounded-lg font-bold song-serif transition ${
+                      canAfford
+                        ? 'bg-[#781710] hover:bg-[#931e15] text-[#fff8ee] shadow cursor-pointer'
+                        : 'bg-[#c9bba3] text-[#7a6d5a] cursor-not-allowed'
+                    }`}
+                  >
+                    确认购置
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )
+      })()}
     </div>
   )
 }

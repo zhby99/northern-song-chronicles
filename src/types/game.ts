@@ -598,6 +598,7 @@ export interface EquipmentStatBonus {
   attack?: number
   defense?: number
   riding?: number
+  wuxing?: number
   mountKey?: MountKey
   skills?: Record<string, number>
 }
@@ -683,6 +684,8 @@ export interface ItemUseEffect {
   riding?: number
   food?: number
   skillGain?: [string, number]
+  skillsGain?: Record<string, number>
+  wuxing?: number
   learnArtId?: string
   learnArtHint?: string
   onceOnly?: boolean
