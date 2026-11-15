@@ -43,6 +43,8 @@
 | `CG-QST-031` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_qingyang_rain.jpg` | `/assets/quests/qingcheng_qingyang_rain.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第一幕 · 青羊春雨偶闻道<br>（`SCENE_QC_01_QINGYANG_RAIN`） | `16:9` |
 | `CG-QST-032` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_cliff_qin.jpg` | `/assets/quests/qingcheng_cliff_qin.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第七幕 · 孤崖云海听松琴<br>（`SCENE_QC_07_CLIFF_QIN`） | `16:9` |
 | `CG-QST-033` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_shangqing_choice.jpg` | `/assets/quests/qingcheng_shangqing_choice.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第十九幕 · 三清殿前定去留<br>（`SCENE_QC_19_THREE_PURE_CHOICE`） | `16:9` |
+| `CG-QST-034` | `[ ]` 待补绘 | `public/assets/quests/tiezhang_five_fingers_mist.jpg` | `/assets/quests/tiezhang_five_fingers_mist.jpg` | `QST-SECT-15-ENTRY`<br>《烟波五指 · 铁砂问义》 | 第五幕 · 八百烟波五指擎<br>（`SCENE_TZ_05_FIVE_FINGERS_CG`） | `16:9` |
+| `CG-QST-035` | `[ ]` 待补绘 | `public/assets/quests/tiezhang_red_sand_cauldron.jpg` | `/assets/quests/tiezhang_red_sand_cauldron.jpg` | `QST-SECT-15-ENTRY`<br>《烟波五指 · 铁砂问义》 | 第八幕 · 赤砂沸鼎淬凡掌<br>（`SCENE_TZ_08_RED_SAND_CAULDRON_CG`） | `16:9` |
 
 ---
 
@@ -675,6 +677,44 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Grand courtyard before the green-tiled double-eave Shangqing Palace Hall on Mount Qingcheng (青城山上清宫松风殿) around 1050 AD, framed by towering ancient ginkgo trees shedding golden leaves and a giant bronze tripod censer. At the top of the stone steps stands an imposing, sharp-eyed Qingcheng Sect patriarch in dark青八卦 Taoist robes, flanked by a stern deputy master on the left and a benevolent琴-carrying elder on the right; a young acolyte holds a lacquer tray bearing folded grey-cyan Taoist robes and a gleaming steel sword. At the base of the steps in the foreground stands the young martial artist protagonist at a crossroads of destiny, while to the side a gentle female Taoist senior sister in celadon robes gazes at him with quiet emotion. Rich mineral pigments, dramatic architectural depth, authentic 1050 AD Song dynasty aesthetics, no modern elements, blank plaques and banners with no text or characters.
+  ```
+
+---
+
+### 34. `CG-QST-034`：八百里洞庭烟波 · 五指擎天连环水寨图
+
+- **关联文件**：[`src/data/quests/sects/tiezhangEntryQuest.ts`](../src/data/quests/sects/tiezhangEntryQuest.ts)
+- **目标路径**：`public/assets/quests/tiezhang_five_fingers_mist.jpg`
+- **画框题跋**：`八百里洞庭烟波 · 五指擎天连环水寨`
+- **剧情语境**：
+  - 主角于襄阳汉水大码头无武护弱，结识铁掌帮铜桨舵主【焦木】与精锐女香主【屠芳云】，获赐五指黑铁木令南下洞庭。
+  - 暮色苍茫之际，屠芳云立于乌篷快船船头执橹破开浩渺烟波，前方云雾豁然洞开——五座奇险陡峭如巨掌擎天的青绿险峰拔湖而起，山脚水面百艘宋代车船楼船铁索连环成寨，黑红旌旗迎风猎猎，尽显荆湘第一霸帮的枭雄气象。
+- **画面核心要素**：
+  1. **环境氛围**：参考北宋董源、巨然与李唐山水气韵，八百里洞庭湖暮霭烟波浩渺，远景五座如五指并拢擎向苍穹的险峻石峰矗立云涛，峰间飞瀑悬练、黑石总堂隐现。
+  2. **水寨奇观**：中景山麓湖湾处，数十艘宋代木构战船与望楼栈桥以粗铁索相连成水陆连环大寨，渔火与松脂火把初燃，纯色黑红战旗迎着湖风翻卷（旗面严禁出现任何文字）。
+  3. **前景人物**：近景芦苇水巷冲出一叶轻捷乌篷快舟，船头劲装束袖、腰悬窄剑的飒爽女香主（屠芳云）单手执木橹破浪引航，布衣年轻主角立于船舱前昂首远眺五指奇峰，老舵主（焦木）抱百斤熟铜船桨坐镇船尾。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi and monumental blue-green landscape ink-and-color painting, wide cinematic 16:9 composition. Vast misty Dongting Lake at dusk around 1050 AD: rising dramatically out of the boundless silver-jade waters and rolling lake mist stands Five-Finger Peak (洞庭铁掌峰), five colossal craggy mountain peaks shaped like a giant open hand reaching into the twilight clouds, with cliffside waterfalls and dark stone fortress halls high on the ridges. At the base of the peaks, dozens of Northern Song wooden warships and watchtowers are linked by iron chains into a formidable water fortress, lit by warm glowing torches and fluttering blank black-and-crimson banners. In the foreground emerging from misty reed marshes, a swift wooden skiff cuts through the waves: a poised female martial artist in dark fitted attire with a sword at her waist steers at the bow, a young traveler in humble cloth robes gazes up in awe from mid-boat, and a burly veteran boatman sits sternly with a massive bronze oar. Authentic Song court painting brushwork, mineral azurite and malachite pigments, majestic wuxia atmosphere, no modern elements, blank flags with no text or characters.
+  ```
+
+---
+
+### 35. `CG-QST-035`：铁掌峰百斤铁沙场 · 赤砂沸鼎淬凡掌图
+
+- **关联文件**：[`src/data/quests/sects/tiezhangEntryQuest.ts`](../src/data/quests/sects/tiezhangEntryQuest.ts)
+- **目标路径**：`public/assets/quests/tiezhang_red_sand_cauldron.jpg`
+- **画框题跋**：`铁掌峰百斤铁沙场 · 赤砂沸鼎血肉淬心`
+- **剧情语境**：
+  - 主角尚无半分内家真气护体，于夜深人静时登临第一指峰【前坪百斤铁沙场】接受入门筑基最酷烈的考验——赤手翻炒混有辰州朱砂与五溪草药的滚烫铁砂。
+  - 三口巨型生铁砂鼎炉火熊熊、赤砂翻滚腾起灼热白烟，主角咬紧牙关将一双血肉凡掌深深插入沸砂之中，额角青筋暴起、汗珠滴入铁砂瞬间化作白雾；旁侧老舵主【焦木】拄百斤熟铜桨凝目督训，女香主【屠芳云】手捧白麻伤药布巾悄然伫立鼎畔关切注视，五溪苗卫【沈平威】在炉侧添入秘草。
+- **画面核心要素**：
+  1. **环境氛围**：夜色笼罩的洞庭铁掌峰黑石演武前坪，悬崖外夜雾与湖光微茫，坪上松脂火把与炭炉将四周映成炽烈暗金与赤红。
+  2. **主体人物（核心张力）**：画面正中一口三足大铁鼎下柴炭通红，鼎内乌黑透红的铁砂与药叶翻滚冒烟；身穿汗湿粗布短褐的年轻主角扎稳马步，双手十指深深插进滚烫赤砂中奋力翻搅，神情剧痛却目光如铁。
+  3. **缘分群像**：铁鼎右侧，虬髯魁梧的老舵主（焦木）双手按着立地的百斤熟铜大桨，神色冷峻中带着震动；铁鼎左侧半步后，干练温婉的黑衣女香主（屠芳云）手托药钵与麻布绷带，微蹙蛾眉紧张注视主角双掌；后方戴银环头巾的湘西苗家老药师（沈平威）正持木勺撒入草药。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Nighttime at the rugged black-stone Iron Sand Training Ground high on Five-Finger Peak overlooking misty Dongting Lake around 1050 AD, illuminated by roaring charcoal fires and pine torches. At the center stands a massive three-legged cast-iron cauldron over glowing red coals, filled with scorching dark-crimson iron sand and medicinal herbs emitting wisps of hot steam. A young uninitiated martial artist in sweat-drenched coarse cloth robes roots his stance and plunges both bare hands deep into the boiling hot iron sand, jaw clenched and brow glistening with sweat in fierce determination. To the right, a grizzled muscular veteran boatman-master leans on an upright heavy bronze boat oar watching with stern respect; to the left, a sharp-featured female martial artist in dark indigo-and-crimson trim attire holds a clay medicine bowl and clean linen wraps, watching his hands with quiet concern; in the background, an older Miao herbalist wearing silver earrings tends a smaller药炉. Intense warm firelight against cool indigo mountain night, authentic Song dynasty brushwork, rich mineral pigments, visceral martial arts tempering mood, no modern elements, no text or characters.
   ```
 
 ---

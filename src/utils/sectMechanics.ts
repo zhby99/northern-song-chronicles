@@ -2252,6 +2252,22 @@ export function evaluateSectEntry(params: {
     }
   }
 
+  // 3i. 铁掌帮 (SECT-15): 《烟波五指 · 铁砂问义》二十幕荆湘水陆入门长卷（兼容零武学散人与江淮漕帮/钱塘怒潮帮/湘西五溪蛊寨同脉）
+  if (targetSectId === 'SECT-15') {
+    const reqSummary =
+      '无须内功根基：前往【襄阳府 · 汉水大码头】化解运砂船户之厄结识铜桨舵主【焦木】与精锐香主【屠芳云】（或向铁掌帮众求赐机缘），南下洞庭历经百斤铜桨踏浪、赤砂沸鼎淬掌授艺、芦荡雾夜追凶、中峰剑痕崖问拳，最终于聚义正堂接帮主【上官天鹏】三掌考心并共饮雄黄烈酒入门（支持江淮漕帮、钱塘怒潮帮、湘西五溪蛊寨同脉转投）'
+    return {
+      canJoin: false,
+      startingRank: 1,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: reqSummary,
+      blockedReason:
+        '请点击与本帮人物交互中的金色【铁砂问义 / 叩访五指峰】剧情选项（或赴襄阳府 · 汉水大码头），经历《烟波五指 · 铁砂问义》赤砂淬掌与帮主三掌考校后饮雄黄烈酒入帮！',
+    }
+  }
+
   // 3. First-Tier Sects & Dali Royal Clan: gated for upcoming bespoke quest chains
   const noOuterHint =
     faction.acceptsOuterDisciple === false ? '（本门不收外门弟子，入门直授内门）' : ''
@@ -2281,6 +2297,7 @@ export const SECT_ENTRY_GEAR_GIFTS: Record<string, string[]> = {
   'SECT-07': ['WPN-074', 'ARM-034', 'BOT-021'], // 峨眉派：巴蜀窄刃刺剑、青布侠客劲装、道士云头布履
   'SECT-08': ['WPN-063'], // 真武道宗：真武松纹道剑
   'SECT-14': ['ARM-037', 'BOT-021', 'WPN-061'], // 青城派：青灰道袍、道士云头布履、青萍游侠剑
+  'SECT-15': ['ARM-038', 'BOT-018', 'WPN-069'], // 铁掌帮：熟牛皮护胸、游侠青布快靴、精铁缠腕护手
   'SECT-16': ['ARM-040', 'WPN-071'], // 江淮漕帮：漕帮短褐劲装、皇祐通宝飞镖袋
   'SECT-18': ['ARM-039', 'WPN-076'], // 太行/京东绿林盟：绿林黑布夜行衣、绿林泼风砍刀
   'SECT-19': ['ARM-039', 'BOT-022', 'WPN-084', 'ACC-051'], // 星宿派：夜行衣、塞北羊皮靴、粗练铁砂护掌布、干艾叶辟毒包

@@ -17,8 +17,9 @@ import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
 import { SHAOLIN_ENTRY_QUESTS } from './sects/shaolinEntryQuest'
 import { TAISHAN_ENTRY_QUESTS } from './sects/taishanEntryQuest'
 import { TIANBO_BAWANG_QUESTS } from './sects/tianboBawangQuest'
-import { ZHENWU_ENTRY_QUESTS } from './sects/zhenwuEntryQuest'
+import { TIEZHANG_ENTRY_QUESTS } from './sects/tiezhangEntryQuest'
 import { XINGXIU_ENTRY_QUESTS } from './sects/xingxiuEntryQuest'
+import { ZHENWU_ENTRY_QUESTS } from './sects/zhenwuEntryQuest'
 
 /**
  * 全局声明式剧情任务链注册表：
@@ -34,6 +35,7 @@ export const QUEST_REGISTRY: QuestDefinition[] = [
   ...TAISHAN_ENTRY_QUESTS,
   ...EMEI_ENTRY_QUESTS,
   ...QINGCHENG_ENTRY_QUESTS,
+  ...TIEZHANG_ENTRY_QUESTS,
   ...XINGXIU_ENTRY_QUESTS,
   ...CHANGSHAN_LONGLING_QUESTS,
   ...TIANBO_BAWANG_QUESTS,
@@ -79,6 +81,7 @@ export function resetRegisteredQuests(): void {
     ...TAISHAN_ENTRY_QUESTS,
     ...EMEI_ENTRY_QUESTS,
     ...QINGCHENG_ENTRY_QUESTS,
+    ...TIEZHANG_ENTRY_QUESTS,
     ...XINGXIU_ENTRY_QUESTS,
     ...CHANGSHAN_LONGLING_QUESTS,
     ...TIANBO_BAWANG_QUESTS,
