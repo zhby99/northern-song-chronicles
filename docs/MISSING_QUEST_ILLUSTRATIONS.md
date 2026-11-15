@@ -23,6 +23,9 @@
 | `CG-QST-011` | `[ ]` 待补绘 | `public/assets/quests/nanshaolin_tripod_training.jpg` | `/assets/quests/nanshaolin_tripod_training.jpg` | `QST-SECT-04-ENTRY`<br>《刺桐风起 · 铁桥问禅》 | 第八幕 · 寒泉浸铁腕，四平扎马桩<br>（`SCENE_NSL_08_COLD_SPRING_CG`） | `16:9` |
 | `CG-QST-012` | `[ ]` 待补绘 | `public/assets/quests/nanshaolin_port_night_battle.jpg` | `/assets/quests/nanshaolin_port_night_battle.jpg` | `QST-SECT-04-ENTRY`<br>《刺桐风起 · 铁桥问禅》 | 第十四幕 · 刺桐夜雨急，铁桥碎倭刀<br>（`SCENE_NSL_14_SHATTER_KATANA_CG`） | `16:9` |
 | `CG-QST-013` | `[ ]` 待补绘 | `public/assets/quests/nanshaolin_wooden_alley.jpg` | `/assets/quests/nanshaolin_wooden_alley.jpg` | `QST-SECT-04-ENTRY`<br>《刺桐风起 · 铁桥问禅》 | 第十八幕 · 百杰木人巷，硬桥闯山门<br>（`SCENE_NSL_18_BREAK_GATE_CG`） | `16:9` |
+| `CG-QST-014` | `[ ]` 待补绘 | `public/assets/quests/zhenwu_cloud_tea.jpg` | `/assets/quests/zhenwu_cloud_tea.jpg` | `QST-SECT-08-ENTRY`<br>《汉水问津 · 太和问道》 | 第七幕 · 观云台上煮雪茶<br>（`SCENE_ZW_07_CLOUD_TERRACE`） | `16:9` |
+| `CG-QST-015` | `[ ]` 待补绘 | `public/assets/quests/zhenwu_turtle_snake.jpg` | `/assets/quests/zhenwu_turtle_snake.jpg` | `QST-SECT-08-ENTRY`<br>《汉水问津 · 太和问道》 | 第十一幕 · 禹迹池畔观龟蛇<br>（`SCENE_ZW_11_TURTLE_SNAKE`） | `16:9` |
+| `CG-QST-016` | `[ ]` 待补绘 | `public/assets/quests/zhenwu_golden_sword.jpg` | `/assets/quests/zhenwu_golden_sword.jpg` | `QST-SECT-08-ENTRY`<br>《汉水问津 · 太和问道》 | 第十九幕 · 太和殿前授松纹<br>（`SCENE_ZW_19_BESTOW_SWORD`） | `16:9` |
 
 ---
 
@@ -279,6 +282,58 @@
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 perspective composition. Inside the solemn stone corridor of the Hundred-Heroes Wooden Dummy Alley (百杰木人巷) at Putian Southern Shaolin Temple around 1050 AD. Along both sides of the shadowed stone hall, intricate ancient wooden mechanical martial-monk dummies clad in bronze plates swing wooden arms and staffs via floor gears. In the foreground center, a bruised yet radiant young martial artist in torn training robes roots his stance and delivers a thunderous Southern Fist straight punch into the bronze chest-plate of the final guardian wooden dummy while parrying a wooden staff with his left forearm. At the far end of the corridor, heavy stone gates slide open, flooding the dark hall with brilliant golden morning sunlight and drifting crimson erythrina blossoms, revealing the silhouettes of the elderly Abbot in a kasaya robe and fellow monks standing in approval outside. Dramatic shafts of golden light, authentic Song court painting style, mineral pigments, triumphant martial arts cinema atmosphere, no modern elements, no text or characters.
   ```
+
+
+---
+
+### 14. `CG-QST-014`：天柱绝顶观云台 · 松枝煮雪论太和
+
+- **关联文件**：[`src/data/quests/sects/zhenwuEntryQuest.ts`](../src/data/quests/sects/zhenwuEntryQuest.ts)
+- **目标路径**：`public/assets/quests/zhenwu_cloud_tea.jpg`
+- **画框题跋**：`天柱绝顶观云台 · 布衣老道松枝煮茶论太和`
+- **剧情语境**：
+  - 少侠初登武当山天柱绝顶观云台，晨雾未散、云海翻涌，偶遇隐瞒掌教身份的布衣白发老道（张玄素）于石桌旁以松枝煮雪茶，共论“世人皆求有，唯道守虚静”。
+- **画面核心要素**：
+  1. **环境氛围**：武当山天柱绝顶石台，云海浩渺如潮，远峰青绿叠翠如画，苍劲古松斜倚悬崖，晨光微金透云而出。
+  2. **主体人物**：石桌一侧，白发银须、神色温雅清癯的布衣老道（张玄素）轻摇蒲扇煮着小泥炉上的粗陶茶壶；另一侧身着素净粗布衣衫、尚未佩剑的年轻少侠拱手垂听，神情沉静。
+  3. **前景细节**：石桌上置两只宋式青瓷茶盏，旁有一把青竹扫帚倚松而立，呼应老道“扫雪煮茶”的出尘气韵。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Early dawn atop a high misty stone cliff terrace on Mount Wudang around 1050 AD, overlooking a vast sea of swirling white clouds and blue-green mountain peaks. Beneath an ancient gnarled pine tree, a serene white-bearded Taoist elder in humble plain grey-indigo linen robes (Zhang Xuansu in disguise) sits beside a rough stone table, gently fanning a small clay brazier boiling a ceramic teapot with pine twigs. Across the table sits a young Chinese martial arts novice in simple plain cloth robes with no weapon, listening respectfully over two celadon teacups. A bamboo broom leans quietly against the pine trunk. Authentic Northern Song court landscape painting brushwork, mineral azurite and malachite pigments, tranquil Daoist poetic atmosphere, no modern elements, no text or characters.
+
+---
+
+### 15. `CG-QST-015`：禹迹池畔太极坪 · 暮雨细观龟蛇峙
+
+- **关联文件**：[`src/data/quests/sects/zhenwuEntryQuest.ts`](../src/data/quests/sects/zhenwuEntryQuest.ts)
+- **目标路径**：`public/assets/quests/zhenwu_turtle_snake.jpg`
+- **画框题跋**：`禹迹池畔太极坪 · 暮色微雨观龟蛇相峙悟圆融`
+- **剧情语境**：
+  - 紫霄宫三日观心将满，黄昏细雨中，少侠与首座大弟子宋远乔行至禹迹池畔太极坪，忽见青石池畔一只玄龟与一条青蛇对峙盘旋，龟静如岳、蛇动如风，少侠由此初悟“以静制动、圆转卸力”之理。
+- **画面核心要素**：
+  1. **环境氛围**：北宋道观紫霄宫外青石太极坪与禹迹池，暮色微雨，池面涟漪圈圈，古柏红墙隐约于山岚之中。
+  2. **主体人物**：石栏旁，儒雅端方的武当首座大弟子（宋远乔，青衫道袍、负手含笑）侧身指点池畔；年轻少侠俯身凝望，眼神若有所悟。
+  3. **前景焦点**：池畔湿润青石上，一只墨色玄龟缩首稳立，一条翠青小蛇盘旋游走却始终无法伤其分毫，暗合真武龟蛇护法与太极阴阳意象。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Dusk light rain at a mossy stone courtyard terrace beside a serene lotus-free mountain pond (Yujichi Pool) outside Zixiao Taoist Palace on Mount Wudang around 1050 AD, with Song-style vermilion palace walls and cypress trees veiled in mist. In the foreground on wet flagstones beside the rippling pond, a dark tortoise stands immovable facing a slender green snake coiling gracefully around it without striking. Standing nearby under the eaves or stone balustrade, a refined young Taoist senior disciple in neat indigo Taoist robes (Song Yuanqiao) gestures calmly toward the tortoise and snake, while the young plain-clothed protagonist watches in deep contemplation. Authentic Northern Song gongbi brushwork, soft ink wash rain and mineral pigments, philosophical wuxia atmosphere, no modern elements, no text or characters.
+
+---
+
+### 16. `CG-QST-016`：太和紫金正殿 · 拜师授受松纹剑
+
+- **关联文件**：[`src/data/quests/sects/zhenwuEntryQuest.ts`](../src/data/quests/sects/zhenwuEntryQuest.ts)
+- **目标路径**：`public/assets/quests/zhenwu_golden_sword.jpg`
+- **画框题跋**：`太和紫金正殿 · 张玄素天师亲授真武松纹道剑`
+- **剧情语境**：
+  - 少侠历尽襄阳结缘、紫霄观心与南岩试炼后，登太和紫金正殿，方知观云台老道便是掌教天师张玄素。天师亲赐外门道篆、真武松纹道剑与道门金丹，少侠正式拜入真武道宗。
+- **画面核心要素**：
+  1. **环境氛围**：庄严肃穆的北宋太和绝顶紫金正殿内景，铜铸殿柱与藻井沉稳古朴，长明烛火与香炉青烟袅袅，殿外天柱峰云霞微透窗棂。
+  2. **主体人物**：正殿高台前，白发飘逸、身着玄色镶金云纹法袍的掌教天师张玄素含笑俯身，双手将一柄连鞘古朴青松纹道剑与一只青瓷丹瓶递向单膝跪拜的年轻少侠。
+  3. **左右观礼**：宋远乔、俞清虚、莫清谷、殷峰峰与清鹤等武当师长分列左右含笑颔首，庄重中透着师门温情。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Inside the solemn bronze-and-timber Golden Hall of Taihe Peak on Mount Wudang around 1050 AD, illuminated by tall brass candlesticks and drifting incense smoke, with misty mountain clouds visible through lattice doors. Before the altar, the white-haired Taoist Grandmaster Zhang Xuansu in dignified dark-indigo and gold-trimmed Taoist ceremonial robes smiles warmly as he bestows a plain pine-carved scabbard sword (真武松纹道剑) and a small celadon medicine bottle to the young protagonist kneeling respectfully on one knee. Flanking the hall in quiet approval stand senior Taoist disciples and elders in indigo robes. Authentic Northern Song court painting aesthetics, rich mineral pigments, solemn yet warm master-disciple ceremony, no modern elements, blank plaques with no text or characters.
 
 ---
 

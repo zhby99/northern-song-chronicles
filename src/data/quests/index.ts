@@ -13,6 +13,7 @@ import { NANSHAOLIN_ENTRY_QUESTS } from './sects/nanshaolinEntryQuest'
 import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
 import { SHAOLIN_ENTRY_QUESTS } from './sects/shaolinEntryQuest'
 import { TIANBO_BAWANG_QUESTS } from './sects/tianboBawangQuest'
+import { ZHENWU_ENTRY_QUESTS } from './sects/zhenwuEntryQuest'
 
 /**
  * 全局声明式剧情任务链注册表：
@@ -34,6 +35,7 @@ export const QUEST_REGISTRY: QuestDefinition[] = [
   ...KAIFENG_MURONG_QUEST_1,
   ...KAIFENG_MURONG_QUEST_2,
   ...KAIFENG_TAIHANG_BANDIT_QUESTS,
+  ...ZHENWU_ENTRY_QUESTS,
 ]
 
 export const QUEST_MAP: Record<string, QuestDefinition> = Object.fromEntries(
@@ -73,6 +75,7 @@ export function resetRegisteredQuests(): void {
     ...KAIFENG_MURONG_QUEST_1,
     ...KAIFENG_MURONG_QUEST_2,
     ...KAIFENG_TAIHANG_BANDIT_QUESTS,
+    ...ZHENWU_ENTRY_QUESTS,
   )
   for (const k of Object.keys(QUEST_MAP)) {
     delete QUEST_MAP[k]
