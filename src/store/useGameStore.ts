@@ -5575,6 +5575,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           break
         }
 
+        case 'confirmJoinSect': {
+          get().joinSect(eff.sectId, contextNpc ?? undefined)
+          break
+        }
+
         case 'joinSect': {
           const faction = FACTION_DB_MAP[eff.sectId]
           if (!faction) break

@@ -32,7 +32,10 @@ import {
   type NavItemMeta,
   SYSTEM_NAV_ITEMS,
 } from './menuShared'
+import type { MountBreedCategory } from '../../types/game'
+import type { GearSlotFilterState } from './GearCompendiumPanel'
 import { PortraitLightbox } from './PortraitLightbox'
+import type { RegionRegimeFilterKey, RegionTypeFilterKey } from './RegionCompendiumPanel'
 import type { SectTierFilterKey } from './SectCompendiumPanel'
 
 const MountCompendiumPanel = lazy(() =>
@@ -118,13 +121,23 @@ export function SystemMenuModal() {
   const [selectedRegionCompId, setSelectedRegionCompId] = useState<string>(
     () => activeRegionId || 'bianliang',
   )
+  const [regionQuery, setRegionQuery] = useState<string>('')
+  const [regionRegimeFilter, setRegionRegimeFilter] = useState<RegionRegimeFilterKey>('ALL')
+  const [regionTypeFilter, setRegionTypeFilter] = useState<RegionTypeFilterKey>('ALL')
+  const [regionOnlyFrontierAlert, setRegionOnlyFrontierAlert] = useState<boolean>(false)
   const [selectedSectCompId, setSelectedSectCompId] = useState<string>('SECT-01')
   const [sectQuery, setSectQuery] = useState<string>('')
   const [sectTierFilter, setSectTierFilter] = useState<SectTierFilterKey>('ALL')
   const [sectGroupFilter, setSectGroupFilter] = useState<string>('ALL')
   const [selectedMountCompId, setSelectedMountCompId] = useState<string>('MNT-001')
+  const [mntQuery, setMntQuery] = useState<string>('')
+  const [mntTierFilter, setMntTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
+  const [mntBreedFilter, setMntBreedFilter] = useState<'ALL' | MountBreedCategory>('ALL')
 
   const [localNpcScope, setLocalNpcScope] = useState<string>('ALL_WITH_ART')
+  const [npcQuery, setNpcQuery] = useState<string>('')
+  const [npcRegionFilter, setNpcRegionFilter] = useState<string>('ALL')
+  const [npcFactionFilter, setNpcFactionFilter] = useState<string>('ALL')
   const [localSelectedNpc, setLocalSelectedNpc] = useState<CompiledNpcRecord | null>(
     () => NPCS_DB[100] ?? NPCS_DB[0] ?? null,
   )
@@ -154,6 +167,7 @@ export function SystemMenuModal() {
     setLocalNpcScope(nextScope)
   }
 
+  const [artQuery, setArtQuery] = useState<string>('')
   const [artTierFilter, setArtTierFilter] = useState<string>('ALL')
   const [artCatFilter, setArtCatFilter] = useState<string>('ALL')
   const [selectedArt, setSelectedArt] = useState<CompiledMartialArtRecord | null>(
@@ -162,15 +176,27 @@ export function SystemMenuModal() {
 
   const [armorySubTab, setArmorySubTab] = useState<'weapons' | GearSlotType>('weapons')
   const [focusedGearId, setFocusedGearId] = useState<string | null>(null)
+  const [wpnQuery, setWpnQuery] = useState<string>('')
   const [wpnTierFilter, setWpnTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
   const [wpnTypeFilter, setWpnTypeFilter] = useState<'ALL' | WeaponSubCategory>('ALL')
   const [selectedWeapon, setSelectedWeapon] = useState<CompiledWeaponRecord | null>(
     () => WEAPONS_DB[0] ?? null,
   )
+  const [gearFilters, setGearFilters] = useState<Record<GearSlotType, GearSlotFilterState>>({
+    armor: { query: '', tier: 'ALL', subType: 'ALL', selectedId: '' },
+    shoes: { query: '', tier: 'ALL', subType: 'ALL', selectedId: '' },
+    bow: { query: '', tier: 'ALL', subType: 'ALL', selectedId: '' },
+    accessory: { query: '', tier: 'ALL', subType: 'ALL', selectedId: '' },
+  })
 
   const [selectedTreasureId, setSelectedTreasureId] = useState<string>('ITM-SCR-001')
   const [treasureVolFilter, setTreasureVolFilter] = useState<'ALL' | TreasureVolumeKey>('ALL')
   const [treasureSubTypeFilter, setTreasureSubTypeFilter] = useState<string>('ALL')
+  const [treasureTierFilter, setTreasureTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
+  const [treasureOwnedFilter, setTreasureOwnedFilter] = useState<'ALL' | 'OWNED' | 'UNOWNED'>(
+    'ALL',
+  )
+  const [treasureQuery, setTreasureQuery] = useState<string>('')
 
   // High-res portrait / panorama zoom lightbox modal state
   const [lightbox, setLightbox] = useState<LightboxState | null>(null)
@@ -244,6 +270,9 @@ export function SystemMenuModal() {
 
   const jumpToCompendiumNpc = (npc: CompiledNpcRecord) => {
     setSelectedNpc(npc)
+    setNpcQuery('')
+    setNpcRegionFilter('ALL')
+    setNpcFactionFilter('ALL')
     if (!npc.avatarUrl && !npc.fullbodyUrl && localNpcScope === 'ALL_WITH_ART') {
       setLocalNpcScope('ALL')
     }
@@ -252,9 +281,19 @@ export function SystemMenuModal() {
 
   const jumpToCompendiumArt = (art: CompiledMartialArtRecord) => {
     setSelectedArt(art)
+    setArtQuery('')
     setArtTierFilter('ALL')
     setArtCatFilter('ALL')
     openCompendium('martialArts')
+  }
+
+  const jumpToCompendiumRegion = (regionId: string) => {
+    setSelectedRegionCompId(regionId)
+    setRegionQuery('')
+    setRegionRegimeFilter('ALL')
+    setRegionTypeFilter('ALL')
+    setRegionOnlyFrontierAlert(false)
+    setCompendiumTab('regions')
   }
 
   const jumpToCompendiumSect = (sectId: string) => {
@@ -269,6 +308,7 @@ export function SystemMenuModal() {
     setArmorySubTab('weapons')
     setFocusedGearId(null)
     setSelectedWeapon(wpn)
+    setWpnQuery('')
     setWpnTierFilter('ALL')
     setWpnTypeFilter('ALL')
     openCompendium('armory')
@@ -289,6 +329,9 @@ export function SystemMenuModal() {
     }
     if (itemId.startsWith('MNT-')) {
       setSelectedMountCompId(itemId)
+      setMntQuery('')
+      setMntTierFilter('ALL')
+      setMntBreedFilter('ALL')
       openCompendium('mounts')
       return
     }
@@ -296,6 +339,9 @@ export function SystemMenuModal() {
     if (def && (def.category === 'scrolls' || def.category === 'medicine' || def.category === 'tools')) {
       setTreasureVolFilter(def.category)
       setTreasureSubTypeFilter('ALL')
+      setTreasureTierFilter('ALL')
+      setTreasureOwnedFilter('ALL')
+      setTreasureQuery('')
       setSelectedTreasureId(itemId)
       openCompendium('treasures')
     }
@@ -627,6 +673,14 @@ export function SystemMenuModal() {
                   <RegionCompendiumPanel
                     selectedRegionId={selectedRegionCompId}
                     onSelectRegionId={setSelectedRegionCompId}
+                    query={regionQuery}
+                    onChangeQuery={setRegionQuery}
+                    regimeFilter={regionRegimeFilter}
+                    onChangeRegimeFilter={setRegionRegimeFilter}
+                    typeFilter={regionTypeFilter}
+                    onChangeTypeFilter={setRegionTypeFilter}
+                    onlyFrontierAlert={regionOnlyFrontierAlert}
+                    onChangeOnlyFrontierAlert={setRegionOnlyFrontierAlert}
                     currentNodeId={currentNodeId}
                     hasWildernessCamp={Boolean(campPos)}
                     isTraveling={Boolean(traveling)}
@@ -655,10 +709,7 @@ export function SystemMenuModal() {
                     groupFilter={sectGroupFilter}
                     onChangeGroupFilter={setSectGroupFilter}
                     learnedArtIds={learnedArtIds}
-                    onJumpToRegion={(regionId) => {
-                      setSelectedRegionCompId(regionId)
-                      setCompendiumTab('regions')
-                    }}
+                    onJumpToRegion={jumpToCompendiumRegion}
                     onJumpToNpc={jumpToCompendiumNpc}
                     onJumpToArt={jumpToCompendiumArt}
                     onJumpToWeapon={jumpToCompendiumWeapon}
@@ -673,11 +724,14 @@ export function SystemMenuModal() {
                     onSelectNpc={setSelectedNpc}
                     npcScope={npcScope}
                     onChangeNpcScope={setNpcScope}
+                    npcQuery={npcQuery}
+                    onChangeNpcQuery={setNpcQuery}
+                    npcRegionFilter={npcRegionFilter}
+                    onChangeNpcRegionFilter={setNpcRegionFilter}
+                    npcFactionFilter={npcFactionFilter}
+                    onChangeNpcFactionFilter={setNpcFactionFilter}
                     onJumpToSect={jumpToCompendiumSect}
-                    onJumpToRegion={(regionId) => {
-                      setSelectedRegionCompId(regionId)
-                      setCompendiumTab('regions')
-                    }}
+                    onJumpToRegion={jumpToCompendiumRegion}
                     onJumpToMartialArt={jumpToCompendiumArt}
                     onJumpToArtifact={jumpToArtifactInCompendium}
                     onOpenNpcLightbox={openNpcLightbox}
@@ -689,6 +743,8 @@ export function SystemMenuModal() {
                   <MartialArtsTab
                     selectedArt={selectedArt}
                     onSelectArt={setSelectedArt}
+                    artQuery={artQuery}
+                    onChangeArtQuery={setArtQuery}
                     artTierFilter={artTierFilter}
                     onChangeArtTierFilter={setArtTierFilter}
                     artCatFilter={artCatFilter}
@@ -708,14 +764,17 @@ export function SystemMenuModal() {
                     onClearFocusedGearId={() => setFocusedGearId(null)}
                     selectedWeapon={selectedWeapon}
                     onSelectWeapon={setSelectedWeapon}
+                    wpnQuery={wpnQuery}
+                    onChangeWpnQuery={setWpnQuery}
                     wpnTierFilter={wpnTierFilter}
                     onChangeWpnTierFilter={setWpnTierFilter}
                     wpnTypeFilter={wpnTypeFilter}
                     onChangeWpnTypeFilter={setWpnTypeFilter}
-                    onJumpToRegion={(regionId) => {
-                      setSelectedRegionCompId(regionId)
-                      setCompendiumTab('regions')
-                    }}
+                    gearFilters={gearFilters}
+                    onChangeGearFilter={(slot, next) =>
+                      setGearFilters((prev) => ({ ...prev, [slot]: next }))
+                    }
+                    onJumpToRegion={jumpToCompendiumRegion}
                     onJumpToSect={jumpToCompendiumSect}
                     onJumpToMartialArt={jumpToCompendiumArt}
                     onJumpToWeaponLoadout={() => {
@@ -735,13 +794,16 @@ export function SystemMenuModal() {
                   <MountCompendiumPanel
                     selectedMountId={selectedMountCompId}
                     onSelectMount={setSelectedMountCompId}
+                    mntQuery={mntQuery}
+                    onChangeMntQuery={setMntQuery}
+                    mntTierFilter={mntTierFilter}
+                    onChangeMntTierFilter={setMntTierFilter}
+                    mntBreedFilter={mntBreedFilter}
+                    onChangeMntBreedFilter={setMntBreedFilter}
                     equippedMountId={equipped.mount}
                     inventoryQtyMap={inventoryQtyMap}
                     playerEquipCtx={playerEquipCtx}
-                    onOpenRegionInCompendium={(regionId) => {
-                      setSelectedRegionCompId(regionId)
-                      setCompendiumTab('regions')
-                    }}
+                    onOpenRegionInCompendium={jumpToCompendiumRegion}
                     onOpenSectInCompendium={jumpToCompendiumSect}
                     onLocateRegionOnMap={locateRegionOnWorldMap}
                     onOpenLoadoutMountSlot={(slot, tab) => {
@@ -761,6 +823,12 @@ export function SystemMenuModal() {
                     onChangeTreasureVolFilter={setTreasureVolFilter}
                     treasureSubTypeFilter={treasureSubTypeFilter}
                     onChangeTreasureSubTypeFilter={setTreasureSubTypeFilter}
+                    treasureTierFilter={treasureTierFilter}
+                    onChangeTreasureTierFilter={setTreasureTierFilter}
+                    treasureOwnedFilter={treasureOwnedFilter}
+                    onChangeTreasureOwnedFilter={setTreasureOwnedFilter}
+                    treasureQuery={treasureQuery}
+                    onChangeTreasureQuery={setTreasureQuery}
                     treasureCollectionStats={treasureCollectionStats}
                     onJumpToMartialArt={jumpToCompendiumArt}
                     onJumpToBagItem={(category, itemId) => {

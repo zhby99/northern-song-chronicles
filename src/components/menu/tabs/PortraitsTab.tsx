@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Maximize2 } from 'lucide-react'
 import {
   FACTION_DB_MAP,
@@ -26,6 +26,12 @@ interface PortraitsTabProps {
   onSelectNpc: (npc: CompiledNpcRecord | null) => void
   npcScope: string
   onChangeNpcScope: (scope: string) => void
+  npcQuery: string
+  onChangeNpcQuery: (query: string) => void
+  npcRegionFilter: string
+  onChangeNpcRegionFilter: (regionId: string) => void
+  npcFactionFilter: string
+  onChangeNpcFactionFilter: (factionId: string) => void
   onJumpToSect: (sectId: string) => void
   onJumpToRegion: (regionId: string) => void
   onJumpToMartialArt: (art: CompiledMartialArtRecord) => void
@@ -39,6 +45,12 @@ export function PortraitsTab({
   onSelectNpc,
   npcScope,
   onChangeNpcScope,
+  npcQuery,
+  onChangeNpcQuery,
+  npcRegionFilter,
+  onChangeNpcRegionFilter,
+  npcFactionFilter,
+  onChangeNpcFactionFilter,
   onJumpToSect,
   onJumpToRegion,
   onJumpToMartialArt,
@@ -57,10 +69,6 @@ export function PortraitsTab({
   const navigateToNpcLeafInCurrentRegion = useGameStore(
     (s) => s.navigateToNpcLeafInCurrentRegion,
   )
-
-  const [npcQuery, setNpcQuery] = useState('')
-  const [npcRegionFilter, setNpcRegionFilter] = useState<string>('ALL')
-  const [npcFactionFilter, setNpcFactionFilter] = useState<string>('ALL')
 
   const curNode = NODE_MAP[currentNodeId] ?? WORLD_GRAPH.nodes[0]
   const activeRegionNode = NODE_MAP[activeRegionId] ?? curNode
@@ -104,7 +112,7 @@ export function PortraitsTab({
         <input
           type="text"
           value={npcQuery}
-          onChange={(e) => setNpcQuery(e.target.value)}
+          onChange={(e) => onChangeNpcQuery(e.target.value)}
           placeholder="搜编号/姓名/常驻殿宇/武学/执掌孤品（如：NPC-0101、乔峰、打狗棒、包拯、尚方剑）…"
           className="flex-1 min-w-[200px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
         />
@@ -124,7 +132,7 @@ export function PortraitsTab({
         </select>
         <select
           value={npcRegionFilter}
-          onChange={(e) => setNpcRegionFilter(e.target.value)}
+          onChange={(e) => onChangeNpcRegionFilter(e.target.value)}
           className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer max-w-[160px]"
         >
           <option value="ALL">全部 {ID_REGISTRY.counts.regions} 地区</option>
@@ -136,7 +144,7 @@ export function PortraitsTab({
         </select>
         <select
           value={npcFactionFilter}
-          onChange={(e) => setNpcFactionFilter(e.target.value)}
+          onChange={(e) => onChangeNpcFactionFilter(e.target.value)}
           className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer max-w-[195px]"
         >
           <option value="ALL">

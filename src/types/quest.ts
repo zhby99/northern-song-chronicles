@@ -248,6 +248,7 @@ export type QuestEffect =
       rank?: SectRankLevel
       allowOfficialTransfer?: boolean
     }
+  | { type: 'confirmJoinSect'; sectId: string }
   | { type: 'leaveSect'; skipPenalty?: boolean }
   | { type: 'addSectContribution'; amount: number }
   | {

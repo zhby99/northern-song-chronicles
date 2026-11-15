@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { MARTIAL_ARTS_DB } from '../../../data/gameDb'
 import { computeSingleArtBonus, formatArtBonusBadges } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
@@ -7,6 +7,8 @@ import type { CompiledMartialArtRecord } from '../../../types/game'
 interface MartialArtsTabProps {
   selectedArt: CompiledMartialArtRecord | null
   onSelectArt: (art: CompiledMartialArtRecord) => void
+  artQuery: string
+  onChangeArtQuery: (query: string) => void
   artTierFilter: string
   onChangeArtTierFilter: (tier: string) => void
   artCatFilter: string
@@ -17,6 +19,8 @@ interface MartialArtsTabProps {
 export function MartialArtsTab({
   selectedArt,
   onSelectArt,
+  artQuery,
+  onChangeArtQuery,
   artTierFilter,
   onChangeArtTierFilter,
   artCatFilter,
@@ -24,7 +28,6 @@ export function MartialArtsTab({
   onJumpToLoadoutArt,
 }: MartialArtsTabProps) {
   const learnedArts = useGameStore((s) => s.learnedArts)
-  const [artQuery, setArtQuery] = useState('')
 
   const learnedMap = useMemo(() => {
     const m = new Map<string, { level: number; exp: number }>()
@@ -63,7 +66,7 @@ export function MartialArtsTab({
         <input
           type="text"
           value={artQuery}
-          onChange={(e) => setArtQuery(e.target.value)}
+          onChange={(e) => onChangeArtQuery(e.target.value)}
           placeholder="搜索武学编号、名称、所属宗门或描述（如：MA-001、降龙、凌波微步、少林）…"
           className="flex-1 min-w-[220px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
         />

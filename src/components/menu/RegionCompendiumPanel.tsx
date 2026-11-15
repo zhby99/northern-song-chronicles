@@ -11,7 +11,7 @@ import {
   Users,
   ZoomIn,
 } from 'lucide-react'
-import { lazy, Suspense, useMemo, useState } from 'react'
+import { lazy, Suspense, useMemo } from 'react'
 import {
   BUILDING_DB_MAP,
   ID_REGISTRY,
@@ -42,9 +42,20 @@ const SvgRegionPanoramaFallback = lazy(() =>
   })),
 )
 
+export type RegionRegimeFilterKey = 'ALL' | 'song' | 'liao' | 'xixia' | 'dali' | 'tubo' | 'wild'
+export type RegionTypeFilterKey = 'ALL' | NodeKind
+
 interface RegionCompendiumPanelProps {
   selectedRegionId: string
   onSelectRegionId: (regionId: string) => void
+  query: string
+  onChangeQuery: (query: string) => void
+  regimeFilter: RegionRegimeFilterKey
+  onChangeRegimeFilter: (regime: RegionRegimeFilterKey) => void
+  typeFilter: RegionTypeFilterKey
+  onChangeTypeFilter: (type: RegionTypeFilterKey) => void
+  onlyFrontierAlert: boolean
+  onChangeOnlyFrontierAlert: (next: boolean) => void
   currentNodeId: string
   hasWildernessCamp: boolean
   isTraveling: boolean
@@ -60,8 +71,8 @@ interface RegionCompendiumPanelProps {
   }) => void
 }
 
-type RegimeFilterKey = 'ALL' | 'song' | 'liao' | 'xixia' | 'dali' | 'tubo' | 'wild'
-type NodeTypeFilterKey = 'ALL' | NodeKind
+type RegimeFilterKey = RegionRegimeFilterKey
+type NodeTypeFilterKey = RegionTypeFilterKey
 
 const REGIME_FILTER_OPTIONS: Array<{ key: RegimeFilterKey; label: string }> = [
   { key: 'ALL', label: '全境 43 处' },
@@ -125,6 +136,14 @@ const NODE_TYPE_META: Record<NodeKind, { label: string; badgeCls: string }> = {
 export function RegionCompendiumPanel({
   selectedRegionId,
   onSelectRegionId,
+  query,
+  onChangeQuery,
+  regimeFilter,
+  onChangeRegimeFilter,
+  typeFilter,
+  onChangeTypeFilter,
+  onlyFrontierAlert,
+  onChangeOnlyFrontierAlert,
   currentNodeId,
   hasWildernessCamp,
   isTraveling,
@@ -136,10 +155,6 @@ export function RegionCompendiumPanel({
   onOpenPanoramaLightbox,
 }: RegionCompendiumPanelProps) {
   const questFlags = useGameStore((s) => s.questState.flags)
-  const [query, setQuery] = useState('')
-  const [regimeFilter, setRegimeFilter] = useState<RegimeFilterKey>('ALL')
-  const [typeFilter, setTypeFilter] = useState<NodeTypeFilterKey>('ALL')
-  const [onlyFrontierAlert, setOnlyFrontierAlert] = useState(false)
   const inventory = useGameStore((s) => s.inventory)
 
   // Map regionId -> factions headquartered here or having members stationed here
@@ -313,7 +328,7 @@ export function RegionCompendiumPanel({
                 <button
                   key={opt.key}
                   type="button"
-                  onClick={() => setRegimeFilter(opt.key)}
+                  onClick={() => onChangeRegimeFilter(opt.key)}
                   className={`px-2.5 py-1 rounded text-xs song-serif border transition cursor-pointer ${
                     active
                       ? 'bg-[#1f5c3a] text-[#fff8eb] border-[#f5cb5c] font-bold shadow-xs'
@@ -328,7 +343,7 @@ export function RegionCompendiumPanel({
 
           <button
             type="button"
-            onClick={() => setOnlyFrontierAlert((v) => !v)}
+            onClick={() => onChangeOnlyFrontierAlert(!onlyFrontierAlert)}
             className={`px-2.5 py-1 rounded text-xs song-serif border flex items-center gap-1 transition cursor-pointer ${
               onlyFrontierAlert
                 ? 'bg-[#8f1d14] text-[#fff8eb] border-[#f5cb5c] font-bold'
@@ -349,7 +364,7 @@ export function RegionCompendiumPanel({
                 <button
                   key={opt.key}
                   type="button"
-                  onClick={() => setTypeFilter(opt.key)}
+                  onClick={() => onChangeTypeFilter(opt.key)}
                   className={`px-2.5 py-1 rounded text-xs song-serif border transition cursor-pointer ${
                     active
                       ? 'bg-[#5c4024] text-[#fff8eb] border-[#d9b36c] font-bold'
@@ -367,7 +382,7 @@ export function RegionCompendiumPanel({
             <input
               type="text"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => onChangeQuery(e.target.value)}
               placeholder="检索 REG 编号 / 州府名山 / 路道 / 地标 / 门派..."
               className="w-full pl-8 pr-3 py-1 rounded bg-[#fffdf8] border border-[#b59c77] text-xs text-[#23180f] placeholder:text-[#8c7353] focus:outline-none focus:border-[#1f5c3a]"
             />

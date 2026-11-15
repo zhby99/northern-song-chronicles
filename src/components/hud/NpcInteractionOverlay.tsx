@@ -14,6 +14,7 @@ import {
   RARITY_STYLE_MAP,
 } from '../../data/itemsDb'
 import { MARTIAL_ART_SLOT_METAS } from '../../data/playerMartialArts'
+import { buildSectJoinConfirmScene } from '../../data/sectJoinDialogues'
 import { getAvailableNpcQuestActions } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import type { TenArtKey } from '../../types/game'
@@ -837,7 +838,22 @@ export function NpcInteractionOverlay() {
                 <div className="flex flex-wrap items-center gap-2.5">
                   <button
                     type="button"
-                    onClick={() => joinSect(targetFactionId, npc)}
+                    onClick={() => {
+                      if (!entryEval.canJoin) {
+                        joinSect(targetFactionId, npc)
+                        return
+                      }
+                      setSubPanel('none')
+                      runQuestEffects(
+                        [
+                          {
+                            type: 'openScene',
+                            scene: buildSectJoinConfirmScene(targetFactionId, entryEval, npc),
+                          },
+                        ],
+                        npc,
+                      )
+                    }}
                     className={`px-4 py-2 rounded-lg font-bold text-xs sm:text-sm border shadow cursor-pointer transition-colors ${
                       entryEval.canJoin
                         ? 'bg-[#1f4d3b] hover:bg-[#27614a] border-[#8fc7ae] text-[#fff8ee]'

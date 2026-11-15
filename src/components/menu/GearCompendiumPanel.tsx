@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import {
   FACTION_DB_MAP,
   GEAR_DB,
@@ -16,9 +16,18 @@ import { resolveAssetUrl } from '../../utils/assetLoader'
 import { ItemAcquisitionBanner } from './ItemAcquisitionBanner'
 import { UniqueOwnershipBadge, UniqueOwnershipBanner } from './UniqueOwnershipBanner'
 
+export interface GearSlotFilterState {
+  query: string
+  tier: 'ALL' | EquipmentTier
+  subType: string
+  selectedId: string
+}
+
 interface GearCompendiumPanelProps {
   slotFilter: GearSlotType
   focusedGearId?: string | null
+  filterState: GearSlotFilterState
+  onChangeFilterState: (next: GearSlotFilterState) => void
   onJumpToRegion: (regionId: string) => void
   onJumpToSect: (sectId: string) => void
   onJumpToLoadout: () => void
@@ -72,6 +81,8 @@ const SLOT_COMPENDIUM_META: Record<
 export function GearCompendiumPanel({
   slotFilter,
   focusedGearId,
+  filterState,
+  onChangeFilterState,
   onJumpToRegion,
   onJumpToSect,
   onJumpToLoadout,
@@ -93,12 +104,17 @@ export function GearCompendiumPanel({
     [slotFilter],
   )
 
-  const [gearQuery, setGearQuery] = useState('')
-  const [tierFilter, setTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
-  const [subTypeFilter, setSubTypeFilter] = useState<string>('ALL')
-  const [selectedGearId, setSelectedGearId] = useState<string>(
-    () => focusedGearId ?? slotItems[0]?.id ?? '',
-  )
+  const gearQuery = filterState.query
+  const tierFilter = filterState.tier
+  const subTypeFilter = filterState.subType
+  const selectedGearId = focusedGearId ?? (filterState.selectedId || slotItems[0]?.id || '')
+
+  const setGearQuery = (query: string) => onChangeFilterState({ ...filterState, query })
+  const setTierFilter = (tier: 'ALL' | EquipmentTier) =>
+    onChangeFilterState({ ...filterState, tier })
+  const setSubTypeFilter = (subType: string) => onChangeFilterState({ ...filterState, subType })
+  const setSelectedGearId = (selectedId: string) =>
+    onChangeFilterState({ ...filterState, selectedId })
 
   const meta = SLOT_COMPENDIUM_META[slotFilter]
 

@@ -23,6 +23,12 @@ interface TreasuresTabProps {
   onChangeTreasureVolFilter: (vol: 'ALL' | TreasureVolumeKey) => void
   treasureSubTypeFilter: string
   onChangeTreasureSubTypeFilter: (subType: string) => void
+  treasureTierFilter: 'ALL' | EquipmentTier
+  onChangeTreasureTierFilter: (tier: 'ALL' | EquipmentTier) => void
+  treasureOwnedFilter: 'ALL' | 'OWNED' | 'UNOWNED'
+  onChangeTreasureOwnedFilter: (owned: 'ALL' | 'OWNED' | 'UNOWNED') => void
+  treasureQuery: string
+  onChangeTreasureQuery: (query: string) => void
   treasureCollectionStats: TreasureCollectionStats
   onJumpToMartialArt: (art: CompiledMartialArtRecord) => void
   onJumpToBagItem: (category: BagCategoryKey, itemId: string) => void
@@ -35,6 +41,12 @@ export function TreasuresTab({
   onChangeTreasureVolFilter,
   treasureSubTypeFilter,
   onChangeTreasureSubTypeFilter,
+  treasureTierFilter,
+  onChangeTreasureTierFilter,
+  treasureOwnedFilter,
+  onChangeTreasureOwnedFilter,
+  treasureQuery,
+  onChangeTreasureQuery,
   treasureCollectionStats,
   onJumpToMartialArt,
   onJumpToBagItem,
@@ -50,11 +62,6 @@ export function TreasuresTab({
   const medScale = useMemo(() => getMedicineRealmScale(maxHp, maxMp), [maxHp, maxMp])
   const consumeInventoryItem = useGameStore((s) => s.consumeInventoryItem)
 
-  const [treasureTierFilter, setTreasureTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
-  const [treasureOwnedFilter, setTreasureOwnedFilter] = useState<'ALL' | 'OWNED' | 'UNOWNED'>(
-    'ALL',
-  )
-  const [treasureQuery, setTreasureQuery] = useState<string>('')
   const [localSelectedTreasureId, setLocalSelectedTreasureId] = useState<string>(
     () => TREASURE_COMPENDIUM_ITEMS[0]?.id ?? 'ITM-SCR-001',
   )
@@ -343,7 +350,7 @@ export function TreasuresTab({
                 <button
                   key={t.key}
                   type="button"
-                  onClick={() => setTreasureTierFilter(t.key)}
+                  onClick={() => onChangeTreasureTierFilter(t.key)}
                   className={`px-2.5 py-1 rounded border font-bold song-serif cursor-pointer transition ${
                     active
                       ? 'bg-[#261910] text-amber-200 border-[#f5cb5c]'
@@ -370,7 +377,7 @@ export function TreasuresTab({
                 <button
                   key={o.key}
                   type="button"
-                  onClick={() => setTreasureOwnedFilter(o.key)}
+                  onClick={() => onChangeTreasureOwnedFilter(o.key)}
                   className={`px-2.5 py-1 font-bold song-serif cursor-pointer transition ${
                     idx > 0 ? 'border-l border-[#9e8462]' : ''
                   } ${
@@ -403,7 +410,7 @@ export function TreasuresTab({
           <input
             type="text"
             value={treasureQuery}
-            onChange={(e) => setTreasureQuery(e.target.value)}
+            onChange={(e) => onChangeTreasureQuery(e.target.value)}
             placeholder="检索编号、名目、当前归属人、无主、典故或功效（如：玄慈、无崖子、无主、九转、悲酥、兰亭、活字）…"
             className="flex-1 min-w-[220px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
           />
@@ -415,10 +422,10 @@ export function TreasuresTab({
             <button
               type="button"
               onClick={() => {
-                setTreasureTierFilter('ALL')
+                onChangeTreasureTierFilter('ALL')
                 onChangeTreasureSubTypeFilter('ALL')
-                setTreasureOwnedFilter('ALL')
-                setTreasureQuery('')
+                onChangeTreasureOwnedFilter('ALL')
+                onChangeTreasureQuery('')
               }}
               className="px-2.5 py-1.5 rounded bg-[#faf3e3] hover:bg-[#e5d6b8] border border-[#9e8462] text-[#781710] font-semibold cursor-pointer"
             >

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { FACTION_DB_MAP, MOUNTS_DB, UNIQUE_ARTIFACT_MAP } from '../../data/gameDb'
 import {
   checkMountEquipRequirements,
@@ -41,6 +41,12 @@ const TERRAIN_TRAIT_DESC: Record<MountTerrainTrait, string> = {
 interface MountCompendiumPanelProps {
   selectedMountId: string
   onSelectMount: (mountId: string) => void
+  mntQuery: string
+  onChangeMntQuery: (query: string) => void
+  mntTierFilter: 'ALL' | EquipmentTier
+  onChangeMntTierFilter: (tier: 'ALL' | EquipmentTier) => void
+  mntBreedFilter: 'ALL' | MountBreedCategory
+  onChangeMntBreedFilter: (breed: 'ALL' | MountBreedCategory) => void
   equippedMountId: string | null
   inventoryQtyMap: Map<string, number>
   playerEquipCtx: PlayerEquipCheckContext
@@ -53,6 +59,12 @@ interface MountCompendiumPanelProps {
 export function MountCompendiumPanel({
   selectedMountId,
   onSelectMount,
+  mntQuery,
+  onChangeMntQuery,
+  mntTierFilter,
+  onChangeMntTierFilter,
+  mntBreedFilter,
+  onChangeMntBreedFilter,
   equippedMountId,
   inventoryQtyMap,
   playerEquipCtx,
@@ -63,10 +75,6 @@ export function MountCompendiumPanel({
 }: MountCompendiumPanelProps) {
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
   const unequipSlot = useGameStore((s) => s.unequipSlot)
-
-  const [mntQuery, setMntQuery] = useState('')
-  const [mntTierFilter, setMntTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
-  const [mntBreedFilter, setMntBreedFilter] = useState<'ALL' | MountBreedCategory>('ALL')
 
   const filteredMounts = useMemo(() => {
     const q = mntQuery.trim().toLowerCase()
@@ -139,13 +147,13 @@ export function MountCompendiumPanel({
           <input
             type="text"
             value={mntQuery}
-            onChange={(e) => setMntQuery(e.target.value)}
+            onChange={(e) => onChangeMntQuery(e.target.value)}
             placeholder="搜索名驹编号、马名、当前归属人、无主、产地或特质（如：MNT-001、狄青、乔峰、无主、汗血）…"
             className="flex-1 min-w-[220px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
           />
           <select
             value={mntTierFilter}
-            onChange={(e) => setMntTierFilter(e.target.value as 'ALL' | EquipmentTier)}
+            onChange={(e) => onChangeMntTierFilter(e.target.value as 'ALL' | EquipmentTier)}
             className="px-2.5 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f] cursor-pointer"
           >
             <option value="ALL">全部四阶 (28 骑)</option>
@@ -165,7 +173,7 @@ export function MountCompendiumPanel({
           </span>
           <button
             type="button"
-            onClick={() => setMntBreedFilter('ALL')}
+            onClick={() => onChangeMntBreedFilter('ALL')}
             className={`px-2.5 py-1 rounded text-[11px] song-serif font-bold cursor-pointer transition ${
               mntBreedFilter === 'ALL'
                 ? 'bg-[#261910] text-amber-200 border border-[#f5cb5c]'
@@ -181,7 +189,7 @@ export function MountCompendiumPanel({
               <button
                 key={breed}
                 type="button"
-                onClick={() => setMntBreedFilter(breed)}
+                onClick={() => onChangeMntBreedFilter(breed)}
                 className={`px-2.5 py-1 rounded text-[11px] song-serif font-bold cursor-pointer transition ${
                   isCur
                     ? 'bg-[#8f1d14] text-[#fff8eb] border border-[#f5cb5c]'

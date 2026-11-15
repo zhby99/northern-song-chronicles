@@ -20,7 +20,7 @@ import type {
   GearSlotType,
   WeaponSubCategory,
 } from '../../../types/game'
-import { GearCompendiumPanel } from '../GearCompendiumPanel'
+import { GearCompendiumPanel, type GearSlotFilterState } from '../GearCompendiumPanel'
 import { WEAPON_SUB_CATEGORIES } from '../menuShared'
 import { ItemAcquisitionBanner } from '../ItemAcquisitionBanner'
 import { UniqueOwnershipBadge, UniqueOwnershipBanner } from '../UniqueOwnershipBanner'
@@ -32,10 +32,14 @@ interface ArmoryTabProps {
   onClearFocusedGearId?: () => void
   selectedWeapon: CompiledWeaponRecord | null
   onSelectWeapon: (wpn: CompiledWeaponRecord) => void
+  wpnQuery: string
+  onChangeWpnQuery: (query: string) => void
   wpnTierFilter: 'ALL' | EquipmentTier
   onChangeWpnTierFilter: (tier: 'ALL' | EquipmentTier) => void
   wpnTypeFilter: 'ALL' | WeaponSubCategory
   onChangeWpnTypeFilter: (type: 'ALL' | WeaponSubCategory) => void
+  gearFilters: Record<GearSlotType, GearSlotFilterState>
+  onChangeGearFilter: (slot: GearSlotType, next: GearSlotFilterState) => void
   onJumpToRegion: (regionId: string) => void
   onJumpToSect: (sectId: string) => void
   onJumpToMartialArt: (art: CompiledMartialArtRecord) => void
@@ -52,10 +56,14 @@ export function ArmoryTab({
   onClearFocusedGearId,
   selectedWeapon,
   onSelectWeapon,
+  wpnQuery,
+  onChangeWpnQuery,
   wpnTierFilter,
   onChangeWpnTierFilter,
   wpnTypeFilter,
   onChangeWpnTypeFilter,
+  gearFilters,
+  onChangeGearFilter,
   onJumpToRegion,
   onJumpToSect,
   onJumpToMartialArt,
@@ -83,7 +91,6 @@ export function ArmoryTab({
     if (onChangeArmorySubTab) onChangeArmorySubTab(next)
     else setLocalSubTab(next)
   }
-  const [wpnQuery, setWpnQuery] = useState('')
 
   const playerEquipCtx = useMemo(
     () => ({
@@ -185,6 +192,8 @@ export function ArmoryTab({
           key={`${armorySubTab}-${focusedGearId ?? 'all'}`}
           slotFilter={armorySubTab}
           focusedGearId={focusedGearId}
+          filterState={gearFilters[armorySubTab]}
+          onChangeFilterState={(next) => onChangeGearFilter(armorySubTab, next)}
           onJumpToRegion={onJumpToRegion}
           onJumpToSect={onJumpToSect}
           onJumpToLoadout={() =>
@@ -200,7 +209,7 @@ export function ArmoryTab({
           <input
             type="text"
             value={wpnQuery}
-            onChange={(e) => setWpnQuery(e.target.value)}
+            onChange={(e) => onChangeWpnQuery(e.target.value)}
             placeholder="搜索兵器编号、名称、当前归属人、无主、产地或典故（如：WPN-001、汪剑通、包拯、无主、打狗棒）…"
             className="flex-1 min-w-[220px] px-3 py-1.5 rounded bg-[#fffaf0] border border-[#9e8462] text-[#23180f]"
           />

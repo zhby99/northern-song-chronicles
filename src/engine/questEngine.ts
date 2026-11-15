@@ -1022,6 +1022,7 @@ export function validateAllRegisteredQuests(
         }
         break
       case 'joinSect':
+      case 'confirmJoinSect':
         if (!FACTION_DB_MAP[eff.sectId]) {
           errors.push(`${ctxPath}: 未知的 sectId "${eff.sectId}"`)
         }
