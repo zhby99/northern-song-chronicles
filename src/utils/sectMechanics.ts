@@ -2261,6 +2261,22 @@ export function evaluateSectEntry(params: {
     }
   }
 
+  // 3g2. 武当山真武道宗 (SECT-08): 襄阳府汉水大码头/古隆中结缘莫清谷或俞清虚，开启二十幕《汉水问津 · 太和问道》长卷入门
+  if (targetSectId === 'SECT-08') {
+    const reqSummary =
+      '无须武功根基：无门无派时前往【襄阳府 · 汉水大码头】或【古隆中草庐】与莫清谷 / 俞清虚结缘开启《汉水问津 · 太和问道》二十幕问道长卷，历解剑池洗尘、观云台煮茶、紫霄三日观心、南岩剑崖退敌后，于太和金殿拜师授剑入门'
+    return {
+      canJoin: false,
+      startingRank: 1,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: reqSummary,
+      blockedReason:
+        '真武道宗择徒重道缘与心性——请先以无门无派之身前往【襄阳府 · 汉水大码头】或【古隆中草庐】结识莫清谷 / 俞清虚，完成《汉水问津 · 太和问道》长卷后于太和金殿授剑入道！',
+    }
+  }
+
   // 3h. 青城派 (SECT-14): 成都府青羊道宫听道偶遇沈清岚，开启《青羊偶闻 · 松风问心》二十幕长卷入门（或携《青冥引气诀》归隐散人）
   if (targetSectId === 'SECT-14') {
     const reqSummary =
