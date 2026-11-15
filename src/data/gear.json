@@ -1259,7 +1259,7 @@
     "description": "各地客栈跑堂伙计的布衫。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_056.jpg"
   },
   {
     "id": "BOT-001",
@@ -1714,7 +1714,7 @@
     "description": "韧麻编织的僧侣芒鞋。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_020.jpg"
   },
   {
     "id": "BOT-021",
@@ -1735,7 +1735,7 @@
     "description": "云头纹布鞋。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_021.jpg"
   },
   {
     "id": "BOT-022",
@@ -1756,7 +1756,7 @@
     "description": "内衬羊毛的皮靴。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_022.jpg"
   },
   {
     "id": "BOT-023",
@@ -1777,7 +1777,7 @@
     "description": "木齿油布雨鞋。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_023.jpg"
   },
   {
     "id": "BOT-024",
@@ -1798,7 +1798,7 @@
     "description": "抓地力极强的麻筋草鞋。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_024.jpg"
   },
   {
     "id": "BOT-025",
@@ -1818,7 +1818,7 @@
     "description": "最普通的粗布鞋。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_025.jpg"
   },
   {
     "id": "BOT-026",
@@ -1839,7 +1839,7 @@
     "description": "蒲草编织的简易草鞋。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_026.jpg"
   },
   {
     "id": "BOT-027",
@@ -1860,7 +1860,7 @@
     "description": "涉水耐泡的草履。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_027.jpg"
   },
   {
     "id": "BOT-028",
@@ -1881,7 +1881,7 @@
     "description": "打着补丁的旧布靴。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_028.jpg"
   },
   {
     "id": "BOW-001",
@@ -2226,7 +2226,7 @@
     "description": "沙苑监骑卒演武用弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_015.jpg"
   },
   {
     "id": "BOW-016",
@@ -2246,7 +2246,7 @@
     "description": "抗潮防锈的船用短弩。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_016.jpg"
   },
   {
     "id": "BOW-017",
@@ -2266,7 +2266,7 @@
     "description": "山野猎户上等桑木猎弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_017.jpg"
   },
   {
     "id": "BOW-018",
@@ -2286,7 +2286,7 @@
     "description": "州府团练乡勇所用竹胎长弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_018.jpg"
   },
   {
     "id": "BOW-019",
@@ -2306,7 +2306,7 @@
     "description": "塞北牧民防狼短弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_019.jpg"
   },
   {
     "id": "BOW-020",
@@ -2326,7 +2326,7 @@
     "description": "竹片制成的简易猎弩。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_020.jpg"
   },
   {
     "id": "BOW-021",
@@ -2347,7 +2347,7 @@
     "description": "硬木制成的双股牛筋弹弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_021.jpg"
   },
   {
     "id": "BOW-022",
@@ -2367,7 +2367,7 @@
     "description": "体积小巧，挂于马鞍旁。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_022.jpg"
   },
   {
     "id": "BOW-023",
@@ -2387,7 +2387,7 @@
     "description": "新兵练习拉弓用的木胎弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_023.jpg"
   },
   {
     "id": "BOW-024",
@@ -2407,7 +2407,7 @@
     "description": "柔韧藤木制成的猎弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_024.jpg"
   },
   {
     "id": "BOW-025",
@@ -2427,7 +2427,7 @@
     "description": "竹片弯曲而成的简易小弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_025.jpg"
   },
   {
     "id": "BOW-026",
@@ -2447,7 +2447,7 @@
     "description": "弓弦略松的旧木弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_026.jpg"
   },
   {
     "id": "BOW-027",
@@ -2468,7 +2468,7 @@
     "description": "寻常竹杈弹弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_027.jpg"
   },
   {
     "id": "BOW-028",
@@ -2488,7 +2488,7 @@
     "description": "木质机括简易弩。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_028.jpg"
   },
   {
     "id": "ACC-001",
