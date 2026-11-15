@@ -721,6 +721,7 @@ export interface CompiledGearRecord {
   description: string
   prerequisitesText: string | null
   statRequirements: MartialArtStatReq[]
+  iconUrl?: string | null
 }
 
 export type UniqueArtifactOwnerType = 'npc' | 'player' | 'unowned'

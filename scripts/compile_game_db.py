@@ -2430,6 +2430,8 @@ def parse_gear() -> list[dict[str, Any]]:
             else []
         )
 
+        gear_icon_rel = f"assets/items/gear/{item_id.lower().replace('-', '_')}.jpg"
+        gear_icon_url = f"/{gear_icon_rel}" if (PUBLIC_DIR / gear_icon_rel).exists() else None
         gear_list.append(
             {
                 "id": item_id,
@@ -2447,6 +2449,7 @@ def parse_gear() -> list[dict[str, Any]]:
                 "description": description,
                 "prerequisitesText": prereq_text,
                 "statRequirements": stat_reqs,
+                "iconUrl": gear_icon_url,
             }
         )
 
