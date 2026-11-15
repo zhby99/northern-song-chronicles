@@ -54,13 +54,14 @@ export const TenArtsGuideTab: React.FC = () => {
           </div>
         </div>
 
-        {/* 十艺宗师里程碑与先天禀赋铁律说明 */}
+        {/* 先天三维稀缺反哺总览 */}
         <div className="mt-3 rounded border border-[#cda873] bg-[#fdf6e7] p-2.5 text-xs text-[#573b1d]">
-          <div className="font-bold text-[#8c3b20]">◆ 十艺宗师里程碑与先天禀赋准则（每项首次达成生效）</div>
+          <div className="font-bold text-[#8c3b20]">◆ 先天三维禀赋稀缺反哺（永久生效 · 不可重复）</div>
           <ul className="mt-1 grid grid-cols-1 gap-1 sm:grid-cols-2">
-            <li>• <span className="font-semibold">琴 / 书 / 画 / 诗词首次达到 80 级</span>：雅誉远播，获 <span className="font-bold text-[#8c3b20]">江湖声望 +40</span></li>
-            <li>• <span className="font-semibold">任意十艺首次达到 90 级（一代宗师）</span>：名动天下，获 <span className="font-bold text-[#2b5876]">江湖声望 +80 · 实战历练 +120</span></li>
-            <li className="sm:col-span-2 text-[#6f5536]">• <span className="font-semibold">先天禀赋铁律</span>：【根骨 / 悟性 / 颜值】生而注定，不受后天任务、丹药或艺业修习增加；实战交锋属性唯受披挂、内功、轻功与外功武学影响。</li>
+            <li>• <span className="font-semibold">骑术首次达到 90 级</span>：筋骨强健，永久 <span className="font-bold text-[#8c3b20]">根骨 +2</span></li>
+            <li>• <span className="font-semibold">其余九艺任意一项首次达到 90 级</span>：触类旁通，永久 <span className="font-bold text-[#2b5876]">悟性 +2</span></li>
+            <li>• <span className="font-semibold">琴 / 书 / 画 / 诗词任意一项首次达到 80 级</span>：腹有诗书气自华，永久 <span className="font-bold text-[#9c3f5e]">颜值 +2</span></li>
+            <li>• <span className="font-semibold">其余途径严格封禁</span>：任何剧情任务、普通丹药或建筑行动均不可增加先天三维禀赋。</li>
           </ul>
         </div>
       </div>

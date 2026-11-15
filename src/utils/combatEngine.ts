@@ -1493,6 +1493,24 @@ export function resolveCombatRound(
       if (eff) {
         const notes: string[] = []
         const itemPopups: CombatFloatingPopup[] = []
+        if (itemDef.rarity === '天阶') {
+          if (eff.maxHp) {
+            actor.maxHp += eff.maxHp
+            notes.push(`气血上限 +${eff.maxHp}`)
+          }
+          if (eff.maxMp) {
+            actor.maxMp += eff.maxMp
+            notes.push(`内力上限 +${eff.maxMp}`)
+          }
+          if (eff.agi) {
+            actor.agility += eff.agi
+            notes.push(`身法 +${eff.agi}`)
+          }
+          if (eff.res) {
+            actor.res += eff.res
+            notes.push(`抗性 +${eff.res}`)
+          }
+        }
         if (eff.hp) {
           const before = actor.hp
           actor.hp = Math.min(actor.maxHp, actor.hp + eff.hp)

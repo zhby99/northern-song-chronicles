@@ -673,6 +673,10 @@ export type EquippedArtsMap = Record<MartialArtSlotKey, string | null>
 export interface ItemUseEffect {
   hp?: number
   mp?: number
+  maxHp?: number
+  maxMp?: number
+  agi?: number
+  res?: number
   curePoison?: boolean
   riding?: number
   food?: number

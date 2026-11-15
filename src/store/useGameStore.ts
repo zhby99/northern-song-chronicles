@@ -2431,22 +2431,27 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
       const nextFlags = [...s.artMilestoneFlags]
       const milestoneNotes: string[] = []
-      let bonusRenown = 0
-      let bonusCombatExp = 0
       if (
         (artKey === '琴' || artKey === '书' || artKey === '画' || artKey === '诗词') &&
         nextLv >= 80 &&
         !nextFlags.includes(`art80:${artKey}`)
       ) {
         nextFlags.push(`art80:${artKey}`)
-        bonusRenown += 40
-        milestoneNotes.push(`【${artKey}】初入 80 级名家之境，【声望 +40】`)
+        const prevVal = nextBase.talents.颜值
+        nextBase.talents.颜值 = Math.min(100, prevVal + 2)
+        milestoneNotes.push(`【${artKey}】初入 80 级，【颜值 +${nextBase.talents.颜值 - prevVal}】`)
       }
       if (nextLv >= 90 && !nextFlags.includes(`art90:${artKey}`)) {
         nextFlags.push(`art90:${artKey}`)
-        bonusRenown += 80
-        bonusCombatExp += 120
-        milestoneNotes.push(`【${artKey}】初入 90 级一代宗师之境，【声望 +80 / 历练 +120】`)
+        if (artKey === '骑术') {
+          const prevVal = nextBase.talents.根骨
+          nextBase.talents.根骨 = Math.min(100, prevVal + 2)
+          milestoneNotes.push(`【骑术】初入 90 级，【根骨 +${nextBase.talents.根骨 - prevVal}】`)
+        } else {
+          const prevVal = nextBase.talents.悟性
+          nextBase.talents.悟性 = Math.min(100, prevVal + 2)
+          milestoneNotes.push(`【${artKey}】初入 90 级，【悟性 +${nextBase.talents.悟性 - prevVal}】`)
+        }
       }
 
       const nextDerived = deriveHeroEffectiveStats(
@@ -2486,8 +2491,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           dayCount: nextDayCount,
           shichenIdx: nextShichenIdx,
           silver: nextSilver,
-          renown: s.renown + bonusRenown,
-          combatExp: s.combatExp + bonusCombatExp,
           sectState: nextSectState,
           roamingMasters: nextMasters,
           baseStats: nextBase,
@@ -2514,8 +2517,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         dayCount: nextDayCount,
         shichenIdx: nextShichenIdx,
         silver: nextSilver,
-        renown: s.renown + bonusRenown,
-        combatExp: s.combatExp + bonusCombatExp,
         sectState: nextSectState,
         roamingMasters: nextMasters,
         baseStats: nextBase,
@@ -3113,6 +3114,24 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextLearnedArts.push({ artId: eff.learnArtId, level: 1, exp: 0 })
       notes.push(`初窥门径，习得武学【${targetArt.name}（第1重）】`)
     }
+    if (def.category === 'medicine' && def.rarity === '天阶') {
+      if (eff.maxHp) {
+        nextBaseStats.maxHp = (nextBaseStats.maxHp ?? 0) + eff.maxHp
+        notes.push(`气血上限永久 +${eff.maxHp}`)
+      }
+      if (eff.maxMp) {
+        nextBaseStats.maxMp = (nextBaseStats.maxMp ?? 0) + eff.maxMp
+        notes.push(`内力上限永久 +${eff.maxMp}`)
+      }
+      if (eff.agi) {
+        nextBaseStats.agility = (nextBaseStats.agility ?? 0) + eff.agi
+        notes.push(`身法永久 +${eff.agi}`)
+      }
+      if (eff.res) {
+        nextBaseStats.res = (nextBaseStats.res ?? 0) + eff.res
+        notes.push(`抗性永久 +${eff.res}`)
+      }
+    }
     if (eff.riding) {
       const prev = nextBaseStats.ridingSkill
       nextBaseStats.ridingSkill = Math.min(HERO_BASE_CAPS.ridingSkill, prev + eff.riding)
@@ -3144,8 +3163,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextLearnedArts,
     )
 
-    let nextHp = Math.min(derived.maxHp, s.hp)
-    let nextMp = Math.min(derived.maxMp, s.mp)
+    const bonusMaxHpNow =
+      def.category === 'medicine' && def.rarity === '天阶' ? (eff.maxHp ?? 0) : 0
+    const bonusMaxMpNow =
+      def.category === 'medicine' && def.rarity === '天阶' ? (eff.maxMp ?? 0) : 0
+    let nextHp = Math.min(derived.maxHp, s.hp + bonusMaxHpNow)
+    let nextMp = Math.min(derived.maxMp, s.mp + bonusMaxMpNow)
 
     if (eff.hp) {
       nextHp = Math.min(derived.maxHp, nextHp + eff.hp)
@@ -3649,6 +3672,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       const eff = def.useEffect
       if (eff) {
         const cloned = cloneHeroBaseStats(s.baseStats)
+        if (def.rarity === '天阶') {
+          if (eff.maxHp) cloned.maxHp = (cloned.maxHp ?? 0) + eff.maxHp
+          if (eff.maxMp) cloned.maxMp = (cloned.maxMp ?? 0) + eff.maxMp
+          if (eff.agi) cloned.agility = (cloned.agility ?? 0) + eff.agi
+          if (eff.res) cloned.res = (cloned.res ?? 0) + eff.res
+        }
         if (eff.skillGain) {
           const [sk, gain] = eff.skillGain
           cloned.skills[sk] = Math.min(
@@ -6688,26 +6717,31 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const nextFlags = [...s.artMilestoneFlags]
     const milestoneNotes: string[] = []
-    let bonusRenown = 0
-    let bonusCombatExp = 0
 
-    // 琴、书、画、诗词达到 80 级 -> 江湖声望 +40
+    // 琴、书、画、诗词达到 80 级 -> 颜值 +2
     if (
       (artKey === '琴' || artKey === '书' || artKey === '画' || artKey === '诗词') &&
       nextLv >= 80 &&
       !nextFlags.includes(`art80:${artKey}`)
     ) {
       nextFlags.push(`art80:${artKey}`)
-      bonusRenown += 40
-      milestoneNotes.push(`【${artKey}】初入 80 级名家之境，雅誉远播，【声望 +40】！`)
+      const prevVal = nextBase.talents.颜值
+      nextBase.talents.颜值 = Math.min(100, prevVal + 2)
+      milestoneNotes.push(`【${artKey}】初入 80 级，腹有诗书气自华，【颜值 +${nextBase.talents.颜值 - prevVal}】！`)
     }
 
-    // 十艺达到 90 级一代宗师 -> 江湖声望 +80、历练 +120
+    // 骑术达到 90 级 -> 根骨 +2；其余十艺达到 90 级 -> 悟性 +2
     if (nextLv >= 90 && !nextFlags.includes(`art90:${artKey}`)) {
       nextFlags.push(`art90:${artKey}`)
-      bonusRenown += 80
-      bonusCombatExp += 120
-      milestoneNotes.push(`【${artKey}】初入 90 级一代宗师之境，【声望 +80 / 历练 +120】！`)
+      if (artKey === '骑术') {
+        const prevVal = nextBase.talents.根骨
+        nextBase.talents.根骨 = Math.min(100, prevVal + 2)
+        milestoneNotes.push(`【骑术】初入 90 级，筋骨强健，【根骨 +${nextBase.talents.根骨 - prevVal}】！`)
+      } else {
+        const prevVal = nextBase.talents.悟性
+        nextBase.talents.悟性 = Math.min(100, prevVal + 2)
+        milestoneNotes.push(`【${artKey}】初入 90 级，触类旁通，【悟性 +${nextBase.talents.悟性 - prevVal}】！`)
+      }
     }
 
     const derived = deriveHeroEffectiveStats(
@@ -6735,8 +6769,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       dayCount: nextDay,
       silver: s.silver - costSilver,
-      renown: s.renown + bonusRenown,
-      combatExp: s.combatExp + bonusCombatExp,
       baseStats: nextBase,
       artExps: { ...s.artExps, [artKey]: nextExp },
       artMilestoneFlags: nextFlags,

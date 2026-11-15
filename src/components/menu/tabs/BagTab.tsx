@@ -338,11 +338,23 @@ export function BagTab({
                     <div>
                       研读/服食/使用功效：
                       {[
+                        activeStack.def.useEffect.maxHp
+                          ? `气血上限永久 +${activeStack.def.useEffect.maxHp}`
+                          : null,
+                        activeStack.def.useEffect.maxMp
+                          ? `内力上限永久 +${activeStack.def.useEffect.maxMp}`
+                          : null,
                         activeStack.def.useEffect.hp
                           ? `气血恢复 +${activeStack.def.useEffect.hp}`
                           : null,
                         activeStack.def.useEffect.mp
                           ? `内力回复 +${activeStack.def.useEffect.mp}`
+                          : null,
+                        activeStack.def.useEffect.agi
+                          ? `身法永久 +${activeStack.def.useEffect.agi}`
+                          : null,
+                        activeStack.def.useEffect.res
+                          ? `抗性永久 +${activeStack.def.useEffect.res}`
                           : null,
                         activeStack.def.useEffect.curePoison ? '涤除奇毒异常' : null,
                         activeStack.def.useEffect.riding

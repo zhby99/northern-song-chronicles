@@ -380,7 +380,7 @@ export function CharacterCreationModal() {
                 </div>
                 <div className="rounded-lg border border-[#cbb693] bg-[#faf3e3] p-3.5 text-base sm:text-lg text-[#5c4328] leading-relaxed">
                   <span className="font-bold text-[#781710]">实战属性铁律：</span>
-                  少侠周身实战交锋属性（气血上限、内力上限、身法、抗性、外功杀伤与护体防御）无裸身加值，亦不可借丹药或任务凭空堆砌，100% 由随身【披挂】与运使之【内功、轻功、武学】共同决定。
+                  少侠周身实战交锋属性（气血上限、内力上限、身法、抗性、外功杀伤与护体防御）无裸身加值，严禁借剧情任务或寻常丹药凭空堆砌，唯由随身【披挂】、运使之【内功、轻功、武学】及举世罕见之【天阶圣药】脱胎换骨决定。
                 </div>
               </div>
             </div>
