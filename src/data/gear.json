@@ -2458,10 +2458,10 @@
     "sectId": "SECT-17",
     "value": 720,
     "equipBonus": {
-      "maxMp": 360,
-      "maxHp": 280,
+      "maxMp": 180,
+      "maxHp": 140,
       "skills": {
-        "颜值": 12
+        "颜值": 6
       }
     },
     "specialTag": "温润养脉",
@@ -2491,9 +2491,9 @@
     "sectId": null,
     "value": 580,
     "equipBonus": {
-      "attack": 65,
-      "defense": 55,
-      "riding": 18
+      "attack": 33,
+      "defense": 28,
+      "riding": 9
     },
     "specialTag": "号令诸部",
     "description": "大辽北院大王秘藏虎符，杀气凛然，大幅提振实战攻防。",
@@ -2522,8 +2522,8 @@
     "sectId": null,
     "value": 520,
     "equipBonus": {
-      "res": 38,
-      "maxMp": 240
+      "res": 19,
+      "maxMp": 120
     },
     "specialTag": "百毒不侵",
     "description": "西域秘宝凝炼之辟毒玄珠，可化解天下九成奇毒。",
@@ -2548,10 +2548,10 @@
     "sectId": "SECT-01",
     "value": 420,
     "equipBonus": {
-      "maxMp": 320,
-      "res": 28,
+      "maxMp": 160,
+      "res": 14,
       "skills": {
-        "经义": 14
+        "经义": 7
       }
     },
     "specialTag": "梵音清心",
@@ -2581,9 +2581,9 @@
     "sectId": null,
     "value": 390,
     "equipBonus": {
-      "defense": 88,
-      "maxHp": 300,
-      "res": 20
+      "defense": 44,
+      "maxHp": 150,
+      "res": 10
     },
     "specialTag": "玄铁护心",
     "description": "天山寒铁混七宝熔铸，绝世重击亦难透心脉。",
@@ -2612,10 +2612,10 @@
     "sectId": null,
     "value": 320,
     "equipBonus": {
-      "attack": 55,
-      "maxMp": 280,
+      "attack": 28,
+      "maxMp": 140,
       "skills": {
-        "琴": 14
+        "琴": 7
       }
     },
     "specialTag": "指力通玄",
@@ -2645,10 +2645,10 @@
     "sectId": null,
     "value": 204,
     "equipBonus": {
-      "attack": 38,
-      "defense": 32,
+      "attack": 19,
+      "defense": 16,
       "skills": {
-        "辩才": 10
+        "辩才": 5
       }
     },
     "specialTag": "天下丐帮",
@@ -2669,10 +2669,10 @@
     "sectId": null,
     "value": 225,
     "equipBonus": {
-      "maxMp": 220,
-      "agility": 14,
+      "maxMp": 110,
+      "agility": 7,
       "skills": {
-        "颜值": 8
+        "颜值": 4
       }
     },
     "specialTag": "燕子坞珍藏",
@@ -2693,9 +2693,9 @@
     "sectId": null,
     "value": 175,
     "equipBonus": {
-      "maxHp": 240,
-      "defense": 42,
-      "riding": 8
+      "maxHp": 120,
+      "defense": 21,
+      "riding": 4
     },
     "specialTag": "杨家忠魂",
     "description": "御赐忠烈金牌，佩戴者临阵气血翻涌不衰。",
@@ -2715,8 +2715,8 @@
     "sectId": "SECT-07",
     "value": 146,
     "equipBonus": {
-      "maxMp": 190,
-      "res": 16
+      "maxMp": 95,
+      "res": 8
     },
     "specialTag": "佛光普照",
     "description": "金顶秘制莲花佩，清心寡欲。",
@@ -2736,8 +2736,8 @@
     "sectId": "SECT-13",
     "value": 132,
     "equipBonus": {
-      "res": 24,
-      "agility": 10
+      "res": 12,
+      "agility": 5
     },
     "specialTag": "以毒攻毒",
     "description": "蜀中唐门秘药香囊，防暗箭奇毒。",
@@ -2757,8 +2757,8 @@
     "sectId": "SECT-08",
     "value": 125,
     "equipBonus": {
-      "defense": 48,
-      "maxMp": 160
+      "defense": 24,
+      "maxMp": 80
     },
     "specialTag": "太极八卦",
     "description": "道门护心铜镜，可偏转外力。",
@@ -2778,10 +2778,10 @@
     "sectId": "ORG-08",
     "value": 160,
     "equipBonus": {
-      "maxMp": 180,
+      "maxMp": 90,
       "skills": {
-        "颜值": 10,
-        "辩才": 6
+        "颜值": 5,
+        "辩才": 3
       }
     },
     "specialTag": "天南重臣",
@@ -2802,8 +2802,8 @@
     "sectId": null,
     "value": 115,
     "equipBonus": {
-      "attack": 32,
-      "res": 14
+      "attack": 16,
+      "res": 7
     },
     "specialTag": "西夏密令",
     "description": "一品堂高手通行令牌。",
@@ -2823,9 +2823,9 @@
     "sectId": "SECT-03",
     "value": 100,
     "equipBonus": {
-      "maxMp": 150,
+      "maxMp": 75,
       "skills": {
-        "经义": 10
+        "经义": 5
       }
     },
     "specialTag": "清凉圣境",
@@ -2846,8 +2846,8 @@
     "sectId": "SECT-05",
     "value": 85,
     "equipBonus": {
-      "attack": 28,
-      "agility": 12
+      "attack": 14,
+      "agility": 6
     },
     "specialTag": "剑气凝神",
     "description": "华山名宿佩玉，助剑意集中。",
@@ -2867,9 +2867,9 @@
     "sectId": "SECT-17",
     "value": 40,
     "equipBonus": {
-      "res": 12,
+      "res": 6,
       "skills": {
-        "辩才": 8
+        "辩才": 4
       }
     },
     "specialTag": "铁面无私",
@@ -2890,8 +2890,8 @@
     "sectId": "SECT-17",
     "value": 35,
     "equipBonus": {
-      "attack": 20,
-      "agility": 8
+      "attack": 10,
+      "agility": 4
     },
     "specialTag": "皇祐捕头",
     "description": "官府公干通行腰牌。",
@@ -2911,9 +2911,9 @@
     "sectId": "SECT-17",
     "value": 34,
     "equipBonus": {
-      "maxMp": 110,
+      "maxMp": 55,
       "skills": {
-        "经义": 6
+        "经义": 3
       }
     },
     "specialTag": "东京名刹",
@@ -2934,8 +2934,8 @@
     "sectId": "SECT-17",
     "value": 35,
     "equipBonus": {
-      "defense": 32,
-      "maxHp": 100
+      "defense": 16,
+      "maxHp": 50
     },
     "specialTag": "作坊精造",
     "description": "贴身系于胸前，专防暗箭。",
@@ -2956,8 +2956,8 @@
     "value": 36,
     "equipBonus": {
       "skills": {
-        "颜值": 8,
-        "诗词": 6
+        "颜值": 4,
+        "诗词": 3
       }
     },
     "specialTag": "风雅扬州",
@@ -2978,7 +2978,7 @@
     "sectId": null,
     "value": 30,
     "equipBonus": {
-      "res": 14
+      "res": 7
     },
     "specialTag": "驱蛇辟瘴",
     "description": "药王门秘制草药囊。",
@@ -2998,8 +2998,8 @@
     "sectId": null,
     "value": 26,
     "equipBonus": {
-      "defense": 24,
-      "attack": 12
+      "defense": 12,
+      "attack": 6
     },
     "specialTag": "边军铁器",
     "description": "护腕防砍。",
@@ -3019,8 +3019,8 @@
     "sectId": "SECT-11",
     "value": 28,
     "equipBonus": {
-      "maxMp": 90,
-      "res": 6
+      "maxMp": 45,
+      "res": 3
     },
     "specialTag": "道骨仙风",
     "description": "全真道士常佩青玉。",
@@ -3040,9 +3040,9 @@
     "sectId": null,
     "value": 31,
     "equipBonus": {
-      "maxMp": 80,
+      "maxMp": 40,
       "skills": {
-        "颜值": 6
+        "颜值": 3
       }
     },
     "specialTag": "洛阳花会",
@@ -3063,8 +3063,8 @@
     "sectId": null,
     "value": 25,
     "equipBonus": {
-      "attack": 16,
-      "maxHp": 80
+      "attack": 8,
+      "maxHp": 40
     },
     "specialTag": "江湖行镖",
     "description": "各路绿林给三分薄面。",
@@ -3084,8 +3084,8 @@
     "sectId": null,
     "value": 22,
     "equipBonus": {
-      "defense": 18,
-      "res": 10
+      "defense": 9,
+      "res": 5
     },
     "specialTag": "苗银护颈",
     "description": "纯银锻打，防毒虫兼护体。",
@@ -3105,8 +3105,8 @@
     "sectId": null,
     "value": 24,
     "equipBonus": {
-      "maxMp": 80,
-      "maxHp": 70
+      "maxMp": 40,
+      "maxHp": 35
     },
     "specialTag": "雪域红宝",
     "description": "高原红珊瑚穿成。",
@@ -3126,9 +3126,9 @@
     "sectId": null,
     "value": 20,
     "equipBonus": {
-      "res": 8,
+      "res": 4,
       "skills": {
-        "颜值": 4
+        "颜值": 2
       }
     },
     "specialTag": "荷风清香",
@@ -3149,9 +3149,9 @@
     "sectId": null,
     "value": 21,
     "equipBonus": {
-      "agility": 6,
+      "agility": 3,
       "skills": {
-        "诗词": 4
+        "诗词": 2
       }
     },
     "specialTag": "秦淮风月",
@@ -3172,8 +3172,8 @@
     "sectId": null,
     "value": 20,
     "equipBonus": {
-      "defense": 20,
-      "maxHp": 60
+      "defense": 10,
+      "maxHp": 30
     },
     "specialTag": "演武护具",
     "description": "比武切磋防内伤。",
@@ -3194,8 +3194,8 @@
     "value": 22,
     "equipBonus": {
       "skills": {
-        "颜值": 5,
-        "算术": 4
+        "颜值": 3,
+        "算术": 2
       }
     },
     "specialTag": "刺桐海商",
@@ -3216,8 +3216,8 @@
     "sectId": "SECT-17",
     "value": 15,
     "equipBonus": {
-      "maxHp": 55,
-      "defense": 10
+      "maxHp": 28,
+      "defense": 5
     },
     "specialTag": "市井祈福",
     "description": "开封玉器铺常见平安扣。",
@@ -3237,9 +3237,9 @@
     "sectId": "SECT-01",
     "value": 13,
     "equipBonus": {
-      "maxMp": 45,
+      "maxMp": 23,
       "skills": {
-        "经义": 3
+        "经义": 2
       }
     },
     "specialTag": "清修念珠",
@@ -3260,7 +3260,7 @@
     "sectId": null,
     "value": 11,
     "equipBonus": {
-      "res": 7
+      "res": 4
     },
     "specialTag": "端午驱邪",
     "description": "艾叶雄黄缝制。",
@@ -3280,8 +3280,8 @@
     "sectId": null,
     "value": 16,
     "equipBonus": {
-      "defense": 12,
-      "maxHp": 40
+      "defense": 6,
+      "maxHp": 20
     },
     "specialTag": "走南闯北",
     "description": "简易铁片护心镜。",
@@ -3301,9 +3301,9 @@
     "sectId": null,
     "value": 12,
     "equipBonus": {
-      "maxMp": 40,
+      "maxMp": 20,
       "skills": {
-        "诗词": 2
+        "诗词": 1
       }
     },
     "specialTag": "文人雅意",
@@ -3324,8 +3324,8 @@
     "sectId": null,
     "value": 14,
     "equipBonus": {
-      "attack": 10,
-      "maxHp": 35
+      "attack": 5,
+      "maxHp": 18
     },
     "specialTag": "勇士象征",
     "description": "塞北汉子佩带的野狼牙。",
@@ -3345,9 +3345,9 @@
     "sectId": "ORG-08",
     "value": 15,
     "equipBonus": {
-      "defense": 10,
+      "defense": 5,
       "skills": {
-        "颜值": 3
+        "颜值": 2
       }
     },
     "specialTag": "滇南银匠",
@@ -3368,9 +3368,9 @@
     "sectId": null,
     "value": 13,
     "equipBonus": {
-      "agility": 4,
+      "agility": 2,
       "skills": {
-        "画": 2
+        "画": 1
       }
     },
     "specialTag": "巴蜀风雅",
@@ -3391,9 +3391,9 @@
     "sectId": "SECT-17",
     "value": 8,
     "equipBonus": {
-      "maxHp": 35,
+      "maxHp": 18,
       "skills": {
-        "算术": 2
+        "算术": 1
       }
     },
     "specialTag": "招财进宝",
@@ -3414,8 +3414,8 @@
     "sectId": "SECT-06",
     "value": 7,
     "equipBonus": {
-      "res": 5,
-      "maxMp": 25
+      "res": 3,
+      "maxMp": 13
     },
     "specialTag": "镇宅护身",
     "description": "雷击桃木刻符。",
@@ -3435,8 +3435,8 @@
     "sectId": null,
     "value": 8,
     "equipBonus": {
-      "defense": 8,
-      "attack": 5
+      "defense": 4,
+      "attack": 3
     },
     "specialTag": "武馆学徒",
     "description": "牛皮护腕。",
@@ -3456,9 +3456,9 @@
     "sectId": null,
     "value": 6,
     "equipBonus": {
-      "res": 4,
+      "res": 2,
       "skills": {
-        "颜值": 2
+        "颜值": 1
       }
     },
     "specialTag": "西湖秋香",
@@ -3479,7 +3479,7 @@
     "sectId": null,
     "value": 9,
     "equipBonus": {
-      "attack": 8
+      "attack": 4
     },
     "specialTag": "猎户战利品",
     "description": "粗犷野猪獠牙坠。",
@@ -3499,7 +3499,7 @@
     "sectId": "SECT-13",
     "value": 5,
     "equipBonus": {
-      "maxMp": 30
+      "maxMp": 15
     },
     "specialTag": "山林野趣",
     "description": "道童自制松果挂件。",
@@ -3519,9 +3519,9 @@
     "sectId": null,
     "value": 6,
     "equipBonus": {
-      "agility": 2,
+      "agility": 1,
       "skills": {
-        "颜值": 3
+        "颜值": 2
       }
     },
     "specialTag": "南海拾贝",
@@ -3542,8 +3542,8 @@
     "sectId": null,
     "value": 9,
     "equipBonus": {
-      "maxHp": 30,
-      "riding": 2
+      "maxHp": 15,
+      "riding": 1
     },
     "specialTag": "牧民联络",
     "description": "吹奏联络的牛角小号。",
@@ -3563,7 +3563,7 @@
     "sectId": "SECT-17",
     "value": 3,
     "equipBonus": {
-      "maxHp": 20
+      "maxHp": 10
     },
     "specialTag": "慈母手中线",
     "description": "最朴素的红麻绳。",
@@ -3583,7 +3583,7 @@
     "sectId": null,
     "value": 4,
     "equipBonus": {
-      "maxMp": 20
+      "maxMp": 10
     },
     "specialTag": "普通护身",
     "description": "木雕小佛像。",
@@ -3603,7 +3603,7 @@
     "sectId": null,
     "value": 2,
     "equipBonus": {
-      "res": 3
+      "res": 2
     },
     "specialTag": "防蚊驱虫",
     "description": "乡野简易草包。",
@@ -3623,7 +3623,7 @@
     "sectId": null,
     "value": 3,
     "equipBonus": {
-      "defense": 4
+      "defense": 2
     },
     "specialTag": "一枚古钱",
     "description": "串在腰间的开元通宝。",
@@ -3643,7 +3643,7 @@
     "sectId": null,
     "value": 3,
     "equipBonus": {
-      "defense": 5
+      "defense": 3
     },
     "specialTag": "简易护具",
     "description": "竹片绑缚的护臂。",
@@ -3663,7 +3663,7 @@
     "sectId": "SECT-18",
     "value": 4,
     "equipBonus": {
-      "maxHp": 18,
+      "maxHp": 9,
       "agility": 1
     },
     "specialTag": "盘玩解闷",
@@ -3684,7 +3684,7 @@
     "sectId": null,
     "value": 3,
     "equipBonus": {
-      "maxMp": 15
+      "maxMp": 8
     },
     "specialTag": "窑口次品",
     "description": "陶土烧制的小挂瓶。",
@@ -3704,7 +3704,7 @@
     "sectId": null,
     "value": 2,
     "equipBonus": {
-      "maxHp": 15,
+      "maxHp": 8,
       "agility": 1
     },
     "specialTag": "汗巾",
