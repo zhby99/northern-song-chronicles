@@ -1,6 +1,5 @@
 import type { NodeNpc } from '../../../types/game'
 import type { QuestCondition, QuestDefinition, QuestEffect } from '../../../types/quest'
-import { NPC_DB_MAP } from '../../gameDb'
 import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST_TIANBO_BAWANG'
@@ -57,202 +56,6 @@ const FINALE_MERGE_CONDITION: QuestCondition = {
   ],
 }
 
-function buildYangPaifengNpc(): NodeNpc {
-  const base = NPC_DB_MAP['NPC-0252']
-  return {
-    ...(base ?? {
-      id: 'NPC-0252',
-      name: '杨排风',
-      title: '天波杨府护院女统制',
-      realm: '二流上品',
-      factionId: 'ORG-04',
-      factionName: '天波杨府',
-      talk: '三十六路少林烧火棍，接得住再谈杨家枪！',
-      stats: { hp: 1888, mp: 1450, agi: 52, res: 40, isBenchmark: false },
-    }),
-    avatarUrl: '/assets/characters/templates/tpl_emei_heroine_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_emei_heroine_fb.jpg',
-    stats: {
-      ...(base?.stats ?? { hp: 1888, mp: 1450, agi: 52, res: 40, isBenchmark: false }),
-      hp: 1888,
-    },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-095',
-    },
-    equippedArts: {
-      neigong: 'MA-140',
-      qinggong: 'MA-157',
-      move1: 'MA-192',
-      move2: 'MA-153',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-140', level: 5, exp: 0 },
-      { artId: 'MA-157', level: 5, exp: 0 },
-      { artId: 'MA-192', level: 8, exp: 0 },
-      { artId: 'MA-153', level: 6, exp: 0 },
-    ],
-    talk: '杨令公当年血战陈家谷，只将半卷《杨家霸王枪》带回河东。想让太原的文广少爷传枪，先接下我三十六路少林烧火棍！',
-  }
-}
-
-function buildTaiyuanXixiaSpyNpc(): NodeNpc {
-  return {
-    id: 'NPC-0836',
-    name: '没藏泽渊',
-    title: '西夏一品堂河东暗桩首领',
-    realm: '二流下品',
-    factionId: 'SECT-16',
-    factionName: '西夏一品堂',
-    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-    talk: '既已撞破我二人身份，今夜便留在这天波旧祠做鬼吧！',
-    stats: {
-      hp: 860,
-      mp: 620,
-      agi: 48,
-      res: 28,
-      isBenchmark: false,
-    },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-043',
-    },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-157',
-      move1: 'MA-133',
-      move2: 'MA-175',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 4, exp: 0 },
-      { artId: 'MA-157', level: 4, exp: 0 },
-      { artId: 'MA-133', level: 5, exp: 0 },
-      { artId: 'MA-175', level: 4, exp: 0 },
-    ],
-  }
-}
-
-function buildTaiyuanLiaoSpyNpc(): NodeNpc {
-  return {
-    id: 'NPC-0871',
-    name: '乌古文海',
-    title: '大辽南院潜伏死士',
-    realm: '三流上品',
-    factionId: 'SECT-31',
-    factionName: '大辽南院暗桩',
-    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
-    talk: '烧毁《河东边防军阵残图》，杀出去！',
-    stats: {
-      hp: 720,
-      mp: 480,
-      agi: 44,
-      res: 26,
-      isBenchmark: false,
-    },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-047',
-    },
-    equippedArts: {
-      neigong: 'MA-243',
-      qinggong: null,
-      move1: 'MA-152',
-      move2: 'MA-151',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-243', level: 4, exp: 0 },
-      { artId: 'MA-152', level: 4, exp: 0 },
-      { artId: 'MA-151', level: 4, exp: 0 },
-    ],
-  }
-}
-
-function buildHuyanQingNpc(): NodeNpc {
-  const base = NPC_DB_MAP['NPC-0228']
-  return {
-    ...(base ?? {
-      id: 'NPC-0228',
-      name: '呼延庆',
-      title: '太原将门少帅',
-      realm: '一流下品',
-      factionId: 'ORG-04',
-      factionName: '河东将门',
-      talk: '呼延家三十六路硬鞭在此，岂容外人轻易沾手天波杨家枪！',
-      stats: { hp: 2128, mp: 2048, agi: 58, res: 52, isBenchmark: false },
-    }),
-    avatarUrl: '/assets/characters/avatars/NPC-0228.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0228.jpg',
-    stats: {
-      ...(base?.stats ?? { hp: 2128, mp: 2048, agi: 58, res: 52, isBenchmark: false }),
-      hp: 2128,
-    },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-046',
-    },
-    equippedArts: {
-      neigong: 'MA-140',
-      qinggong: 'MA-138',
-      move1: 'MA-173',
-      move2: 'MA-116',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-140', level: 6, exp: 0 },
-      { artId: 'MA-138', level: 5, exp: 0 },
-      { artId: 'MA-173', level: 8, exp: 0 },
-      { artId: 'MA-116', level: 6, exp: 0 },
-    ],
-    talk: '少废话！接住我呼延家浑铁金鞭不退半步，这枚【太原呼延金鞭令】才算你名正言顺！',
-  }
-}
-
-function buildMinganZenNpc(isStoneTrial: boolean): NodeNpc {
-  return {
-    id: 'NPC-0504',
-    name: '明安大师',
-    title: isStoneTrial ? '五台山清凉寺首座 · 演棍护法' : '五台山清凉寺首座',
-    realm: isStoneTrial ? '二流上品' : '二流下品',
-    factionId: 'SECT-03',
-    factionName: '五台山清凉寺',
-    avatarUrl: '/assets/characters/templates/tpl_wutai_monk_male_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_wutai_monk_male_fb.jpg',
-    talk: isStoneTrial
-      ? '五郎师祖昔年化枪为棍，悟得“置之死地而后生”之回马真意。施主一味固守可参不透这面石碑！'
-      : '施主既未能以经义折服老衲，便先接下我清凉寺护法棍阵！',
-    stats: isStoneTrial
-      ? { hp: 1380, mp: 1200, agi: 52, res: 46, isBenchmark: false }
-      : { hp: 960, mp: 780, agi: 44, res: 36, isBenchmark: false },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-036',
-    },
-    equippedArts: {
-      neigong: 'MA-140',
-      qinggong: 'MA-157',
-      move1: 'MA-134',
-      move2: 'MA-153',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-140', level: isStoneTrial ? 6 : 4, exp: 0 },
-      { artId: 'MA-157', level: 4, exp: 0 },
-      { artId: 'MA-134', level: isStoneTrial ? 7 : 5, exp: 0 },
-      { artId: 'MA-153', level: isStoneTrial ? 7 : 5, exp: 0 },
-    ],
-  }
-}
-
 function buildWutaiGuardianMonkNpc(isStoneTrial: boolean): NodeNpc {
   return {
     id: isStoneTrial ? 'tb_wutai_stone_elder' : 'tb_wutai_zen_monk',
@@ -285,50 +88,6 @@ function buildWutaiGuardianMonkNpc(isStoneTrial: boolean): NodeNpc {
       { artId: 'MA-140', level: isStoneTrial ? 6 : 4, exp: 0 },
       { artId: 'MA-134', level: isStoneTrial ? 7 : 4, exp: 0 },
       { artId: 'MA-117', level: isStoneTrial ? 6 : 4, exp: 0 },
-    ],
-  }
-}
-
-function buildMuGuiyunAllyNpc(): NodeNpc {
-  const base = NPC_DB_MAP['NPC-0253']
-  return {
-    ...(base ?? {
-      id: 'NPC-0253',
-      name: '穆桂云',
-      title: '雁门关女将 · 穆柯传人',
-      realm: '二流上品',
-      factionId: 'ORG-04',
-      factionName: '天波杨府',
-      talk: '少侠尽管突阵，侧翼铁骑交由桂云羽箭与梨花枪策应！',
-      stats: { hp: 1838, mp: 1360, agi: 58, res: 41, isBenchmark: false },
-    }),
-    avatarUrl: '/assets/characters/templates/tpl_woman_general_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_woman_general_fb.jpg',
-    talk: '少侠尽管突阵，侧翼铁骑交由桂云羽箭与梨花枪策应！',
-    stats: {
-      hp: 2050,
-      mp: 1550,
-      agi: 60,
-      res: 46,
-      isBenchmark: false,
-    },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-054',
-    },
-    equippedArts: {
-      neigong: 'MA-140',
-      qinggong: 'MA-138',
-      move1: 'MA-174',
-      move2: 'MA-116',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-140', level: 6, exp: 0 },
-      { artId: 'MA-138', level: 6, exp: 0 },
-      { artId: 'MA-174', level: 8, exp: 0 },
-      { artId: 'MA-116', level: 6, exp: 0 },
     ],
   }
 }
@@ -409,181 +168,22 @@ function buildYanmenLiaoHeavyCavalryNpc(advantaged: boolean): NodeNpc {
   }
 }
 
-function buildDiQingAllyNpc(): NodeNpc {
-  const base = NPC_DB_MAP['NPC-0031']
-  return {
-    ...(base ?? {
-      id: 'NPC-0031',
-      name: '狄青',
-      title: '枢密副使 · 面涅将军',
-      realm: '一流上品',
-      factionId: 'ORG-04',
-      factionName: '大宋枢密院',
-      talk: '少侠尽管施展回马绝枪，本帅率背嵬铁骑为你压住侧翼！',
-      stats: { hp: 3537, mp: 3355, agi: 75, res: 64, isBenchmark: false },
-    }),
-    avatarUrl: '/assets/characters/avatars/NPC-0031.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0031.jpg',
-    talk: '少侠尽管施展回马绝枪，本帅率背嵬铁骑为你压住侧翼！',
-    stats: {
-      hp: 3537,
-      mp: 3355,
-      agi: 74,
-      res: 64,
-      isBenchmark: false,
-    },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-034',
-    },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-097',
-      move1: 'MA-092',
-      move2: 'MA-115',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 7, exp: 0 },
-      { artId: 'MA-097', level: 6, exp: 0 },
-      { artId: 'MA-092', level: 7, exp: 0 },
-      { artId: 'MA-115', level: 8, exp: 0 },
-    ],
-  }
-}
-
-function buildNuerhaiBossNpc(): NodeNpc {
-  const base = NPC_DB_MAP['NPC-0152']
-  return {
-    ...(base ?? {
-      id: 'NPC-0152',
-      name: '努儿海',
-      title: '西夏一品堂左护法',
-      realm: '一流上品',
-      factionId: 'SECT-16',
-      factionName: '西夏一品堂',
-      stats: { hp: 3414, mp: 3272, agi: 69, res: 67, isBenchmark: false },
-    }),
-    avatarUrl: '/assets/characters/avatars/NPC-0152.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0152.jpg',
-    stats: {
-      hp: 3280,
-      mp: 2950,
-      agi: 69,
-      res: 62,
-      isBenchmark: false,
-    },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-043',
-    },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-138',
-      move1: 'MA-072',
-      move2: 'MA-133',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 7, exp: 0 },
-      { artId: 'MA-138', level: 6, exp: 0 },
-      { artId: 'MA-072', level: 7, exp: 0 },
-      { artId: 'MA-133', level: 8, exp: 0 },
-    ],
-    talk: '狄青老儿与天波余孽，今日叫你们见识西夏一品堂与铁鹞子合围之威！',
-  }
-}
-
-function buildManmieTieyaoziNpc(): NodeNpc {
-  return {
-    id: 'tb_yanan_manmie',
-    name: '漫咩 · 铁鹞子统帅',
-    title: '西夏右厢监军司主将',
-    realm: '一流中品',
-    factionId: 'SECT-16',
-    factionName: '西夏铁鹞子重骑',
-    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-    talk: '三千冷锻连环铁鹞子冲阵，踏碎宋军中营！',
-    stats: {
-      hp: 2650,
-      mp: 2200,
-      agi: 62,
-      res: 64,
-      isBenchmark: false,
-    },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-047',
-    },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: null,
-      move1: 'MA-135',
-      move2: 'MA-152',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 6, exp: 0 },
-      { artId: 'MA-135', level: 7, exp: 0 },
-      { artId: 'MA-152', level: 7, exp: 0 },
-    ],
-  }
-}
-
-function buildYangWenguangTrialNpc(): NodeNpc {
-  const base = NPC_DB_MAP['NPC-0032']
-  return {
-    ...(base ?? {
-      id: 'NPC-0032',
-      name: '杨文广',
-      title: '天波杨府当代传人',
-      realm: '一流中品',
-      factionId: 'ORG-04',
-      factionName: '天波杨府',
-      talk: '接住我手中【天波透甲金枪】十合不倒，此卷《杨家霸王枪》便归你！',
-      stats: { hp: 3155, mp: 2736, agi: 69, res: 57, isBenchmark: false },
-    }),
-    avatarUrl: '/assets/characters/avatars/NPC-0032.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0032.jpg',
-    stats: {
-      hp: 3155,
-      mp: 2736,
-      agi: 69,
-      res: 57,
-      isBenchmark: false,
-    },
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-004',
-    },
-    equippedArts: {
-      neigong: 'MA-140',
-      qinggong: 'MA-097',
-      move1: 'MA-037',
-      move2: 'MA-174',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-140', level: 7, exp: 0 },
-      { artId: 'MA-097', level: 6, exp: 0 },
-      { artId: 'MA-037', level: 6, exp: 0 },
-      { artId: 'MA-174', level: 8, exp: 0 },
-    ],
-    talk: '你在沙场上已见过血、使出了回马枪的雏形。接住我十合全力考校，或将我击退半步，此枪谱便归你！',
-  }
-}
-
 const TAIYUAN_SPY_COMBAT_EFFECTS: QuestEffect[] = [
   {
     type: 'startCombat',
     questId: QUEST_ID,
-    opponent: { kind: 'custom', npc: buildTaiyuanXixiaSpyNpc() },
-    extraOpponents: [{ kind: 'custom', npc: buildTaiyuanLiaoSpyNpc() }],
+    opponent: {
+      kind: 'npc',
+      npcId: 'NPC-0836',
+      talkOverride: '既已撞破我二人身份，今夜便留在这天波旧祠做鬼吧！',
+    },
+    extraOpponents: [
+      {
+        kind: 'npc',
+        npcId: 'NPC-0871',
+        talkOverride: '烧毁《河东边防军阵残图》，杀出去！',
+      },
+    ],
     rule: 'duel',
     deathTitle: '血染天波旧祠',
     deathDetail:
@@ -632,7 +232,14 @@ const WUTAI_STONE_TRIAL_EFFECTS: QuestEffect[] = [
     type: 'startCombat',
     questId: QUEST_ID,
     opponent: { kind: 'custom', npc: buildWutaiGuardianMonkNpc(true) },
-    extraOpponents: [{ kind: 'custom', npc: buildMinganZenNpc(true) }],
+    extraOpponents: [
+      {
+        kind: 'npc',
+        npcId: 'NPC-0504',
+        talkOverride:
+          '五郎师祖昔年化枪为棍，悟得“置之死地而后生”之回马真意。施主一味固守可参不透这面石碑！',
+      },
+    ],
     rule: 'story_trial',
     forbidEscapeReason: '演棍石台参悟回马枪意，半途而废则前功尽弃！',
     introText:
@@ -827,7 +434,12 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
-                      opponent: { kind: 'custom', npc: buildYangPaifengNpc() },
+                      opponent: {
+                        kind: 'npc',
+                        npcId: 'NPC-0252',
+                        talkOverride:
+                          '杨令公当年血战陈家谷，只将半卷《杨家霸王枪》带回河东。想让太原的文广少爷传枪，先接下我三十六路少林烧火棍！',
+                      },
                       rule: 'story_trial',
                       forbidEscapeReason: '杨排风三十六路烧火棍考校，岂可退却！',
                       introText:
@@ -1041,7 +653,11 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                         {
                           type: 'startCombat',
                           questId: QUEST_ID,
-                          opponent: { kind: 'custom', npc: buildMinganZenNpc(false) },
+                          opponent: {
+                            kind: 'npc',
+                            npcId: 'NPC-0504',
+                            talkOverride: '施主既未能以经义折服老衲，便先接下我清凉寺护法棍阵！',
+                          },
                           extraOpponents: [{ kind: 'custom', npc: buildWutaiGuardianMonkNpc(false) }],
                           rule: 'story_trial',
                           forbidEscapeReason: '既至松风禅亭问心，须过此双僧护法棍阵！',
@@ -1227,9 +843,25 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
-                      allies: [{ kind: 'custom', npc: buildDiQingAllyNpc() }],
-                      opponent: { kind: 'custom', npc: buildNuerhaiBossNpc() },
-                      extraOpponents: [{ kind: 'custom', npc: buildManmieTieyaoziNpc() }],
+                      allies: [
+                        {
+                          kind: 'npc',
+                          npcId: 'NPC-0031',
+                          talkOverride: '少侠尽管施展回马绝枪，本帅率背嵬铁骑为你压住侧翼！',
+                        },
+                      ],
+                      opponent: {
+                        kind: 'npc',
+                        npcId: 'NPC-0152',
+                        talkOverride: '狄青老儿与天波余孽，今日叫你们见识西夏一品堂与铁鹞子合围之威！',
+                      },
+                      extraOpponents: [
+                        {
+                          kind: 'npc',
+                          npcId: 'NPC-0085',
+                          talkOverride: '三千冷锻连环铁鹞子冲阵，踏碎宋军中营！',
+                        },
+                      ],
                       rule: 'duel',
                       deathTitle: '马革裹尸鄜延路',
                       deathDetail:
@@ -1345,7 +977,12 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
-                      opponent: { kind: 'custom', npc: buildYangWenguangTrialNpc() },
+                      opponent: {
+                        kind: 'npc',
+                        npcId: 'NPC-0032',
+                        talkOverride:
+                          '你在沙场上已见过血、使出了回马枪的雏形。接住我十合全力考校，或将我击退半步，此枪谱便归你！',
+                      },
                       rule: 'survive_rounds',
                       maxRounds: 10,
                       forbidEscapeReason: '杨令公牌位前宗祠考校，岂可退避！',
@@ -1614,7 +1251,11 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
           {
             type: 'startCombat',
             questId: QUEST_ID,
-            opponent: { kind: 'custom', npc: buildHuyanQingNpc() },
+            opponent: {
+              kind: 'npc',
+              npcId: 'NPC-0228',
+              talkOverride: '少废话！接住我呼延家浑铁金鞭不退半步，这枚【太原呼延金鞭令】才算你名正言顺！',
+            },
             rule: 'story_trial',
             forbidEscapeReason: '金鞭少帅呼延庆当面，岂可怯战逃跑！',
             introText:
@@ -1810,7 +1451,13 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
               {
                 type: 'startCombat',
                 questId: QUEST_ID,
-                allies: [{ kind: 'custom', npc: buildMuGuiyunAllyNpc() }],
+                allies: [
+                  {
+                    kind: 'npc',
+                    npcId: 'NPC-0253',
+                    talkOverride: '少侠尽管突阵，侧翼铁骑交由桂云羽箭与梨花枪策应！',
+                  },
+                ],
                 opponent: { kind: 'custom', npc: buildYanmenLiaoVanguardNpc(true) },
                 extraOpponents: [{ kind: 'custom', npc: buildYanmenLiaoHeavyCavalryNpc(true) }],
                 rule: 'duel',
@@ -1862,7 +1509,13 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
               {
                 type: 'startCombat',
                 questId: QUEST_ID,
-                allies: [{ kind: 'custom', npc: buildMuGuiyunAllyNpc() }],
+                allies: [
+                  {
+                    kind: 'npc',
+                    npcId: 'NPC-0253',
+                    talkOverride: '少侠尽管突阵，侧翼铁骑交由桂云羽箭与梨花枪策应！',
+                  },
+                ],
                 opponent: { kind: 'custom', npc: buildYanmenLiaoVanguardNpc(false) },
                 extraOpponents: [{ kind: 'custom', npc: buildYanmenLiaoHeavyCavalryNpc(false) }],
                 rule: 'duel',

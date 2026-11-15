@@ -196,45 +196,6 @@ function buildKhitanSandtableGuardNpc(): NodeNpc {
   }
 }
 
-function buildLuTieshanSandtableAllyNpc(): NodeNpc {
-  return {
-    id: 'NPC-0275',
-    name: '卢铁山',
-    title: '沧州八极门总馆主',
-    realm: '二流上品',
-    factionId: 'SECT-23',
-    factionName: '沧州八极门',
-    avatarUrl: '/assets/characters/avatars/NPC-0275.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0275.jpg',
-    stats: {
-      hp: 920,
-      mp: 560,
-      agi: 54,
-      res: 32,
-      isBenchmark: false,
-    },
-    equippedArts: {
-      neigong: 'MA-180',
-      qinggong: 'MA-138',
-      move1: 'MA-124',
-      move2: 'MA-116',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-180', level: 4, exp: 0 },
-      { artId: 'MA-138', level: 3, exp: 0 },
-      { artId: 'MA-124', level: 4, exp: 0 },
-      { artId: 'MA-116', level: 4, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-054',
-    },
-    talk: '“少侠尽管放手攻敌，老夫一杆六合大枪替你压住铁林死士！”',
-  }
-}
-
 /**
  * 第一幕：每取得一条关键线索时递增 `dm_clues_count`，满 2 条即推进至 `present_to_jia`（同时保留第 3 条线索可继续搜集以解锁全满赏赐）
  */
@@ -725,7 +686,13 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
             {
               type: 'startCombat',
               questId: QUEST_ID,
-              allies: [{ kind: 'custom', npc: buildLuTieshanSandtableAllyNpc() }],
+              allies: [
+                {
+                  kind: 'npc',
+                  npcId: 'NPC-0275',
+                  talkOverride: '“少侠尽管放手攻敌，老夫一杆六合大枪替你压住铁林死士！”',
+                },
+              ],
               opponent: { kind: 'custom', npc: buildYeluLieshanBossNpc(true) },
               extraOpponents: [{ kind: 'custom', npc: buildKhitanSandtableGuardNpc() }],
               rule: 'duel',
@@ -745,7 +712,13 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
             {
               type: 'startCombat',
               questId: QUEST_ID,
-              allies: [{ kind: 'custom', npc: buildLuTieshanSandtableAllyNpc() }],
+              allies: [
+                {
+                  kind: 'npc',
+                  npcId: 'NPC-0275',
+                  talkOverride: '“少侠尽管放手攻敌，老夫一杆六合大枪替你压住铁林死士！”',
+                },
+              ],
               opponent: { kind: 'custom', npc: buildYeluLieshanBossNpc(false) },
               extraOpponents: [{ kind: 'custom', npc: buildKhitanSandtableGuardNpc() }],
               rule: 'duel',

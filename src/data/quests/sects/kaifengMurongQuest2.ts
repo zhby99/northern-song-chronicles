@@ -1,139 +1,6 @@
-import type { NodeNpc } from '../../../types/game'
 import type { QuestDefinition, StorySceneDef } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST-SECT-17-MURONG-2'
-
-function buildGongyeQianTrialNpc(): NodeNpc {
-  return {
-    id: 'CUSTOM-KF2-GONGYEQIAN',
-    name: '公冶乾',
-    title: '姑苏慕容四大家臣之二 · 江南二绝',
-    realm: '一流中品',
-    factionId: 'SECT-10',
-    factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/avatars/NPC-0161.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0161.jpg',
-    stats: {
-      hp: 1580,
-      mp: 1120,
-      agi: 68,
-      res: 42,
-      isBenchmark: false,
-    },
-    talents: { bone: 74, comprehension: 78, charm: 56 },
-    fullLocationLabel: '姑苏城 > 太湖烟波渡口 > 烟波画舫泊岸',
-    equippedArts: {
-      neigong: 'MA-221',
-      qinggong: 'MA-138',
-      move1: 'MA-025',
-      move2: 'MA-071',
-      move3: 'MA-107',
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-221', level: 6, exp: 0 },
-      { artId: 'MA-138', level: 6, exp: 0 },
-      { artId: 'MA-025', level: 6, exp: 0 },
-      { artId: 'MA-071', level: 6, exp: 0 },
-      { artId: 'MA-107', level: 6, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-048',
-    },
-    questBadgeLabel: '江南二绝',
-    talk: '“开封府金牌总捕既已亮出腰牌，公冶某也不好装聋作哑——只是想登船入燕子坞，须得先过我这双掌！”',
-  }
-}
-
-function buildDengBaichuanTrialNpc(): NodeNpc {
-  return {
-    id: 'CUSTOM-KF2-DENGBAICHUAN',
-    name: '邓百川',
-    title: '姑苏慕容四大家臣之首 · 神掌震江南',
-    realm: '一流上品',
-    factionId: 'SECT-10',
-    factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/avatars/NPC-0145.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0145.jpg',
-    stats: {
-      hp: 1880,
-      mp: 1340,
-      agi: 74,
-      res: 48,
-      isBenchmark: false,
-    },
-    talents: { bone: 80, comprehension: 80, charm: 60 },
-    fullLocationLabel: '燕子坞 > 参合庄 > 参合庄演武西场',
-    equippedArts: {
-      neigong: 'MA-058',
-      qinggong: 'MA-097',
-      move1: 'MA-066',
-      move2: 'MA-071',
-      move3: 'MA-025',
-      move4: 'MA-149',
-    },
-    learnedArts: [
-      { artId: 'MA-058', level: 7, exp: 0 },
-      { artId: 'MA-097', level: 7, exp: 0 },
-      { artId: 'MA-066', level: 7, exp: 0 },
-      { artId: 'MA-071', level: 7, exp: 0 },
-      { artId: 'MA-025', level: 7, exp: 0 },
-      { artId: 'MA-149', level: 7, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-048',
-    },
-    questBadgeLabel: '神掌震江南',
-    talk: '“上次在秘档室让你跃水脱身，今日你竟敢持朝廷金牌重临参合庄！且看这次你能否堂堂正正胜过邓某！”',
-  }
-}
-
-function buildMurongFuSurviveNpc(): NodeNpc {
-  return {
-    id: 'CUSTOM-KF2-MURONGFU',
-    name: '慕容复',
-    title: '姑苏慕容氏少庄主 · 南慕容',
-    realm: '宗师下品',
-    factionId: 'SECT-10',
-    factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/avatars/NPC-0120.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0120.jpg',
-    stats: {
-      hp: 3600,
-      mp: 2600,
-      agi: 82,
-      res: 60,
-      isBenchmark: false,
-    },
-    talents: { bone: 88, comprehension: 92, charm: 88 },
-    fullLocationLabel: '燕子坞 > 还施水阁 > 还施水阁正厅',
-    equippedArts: {
-      neigong: 'MA-008',
-      qinggong: 'MA-097',
-      move1: 'MA-025',
-      move2: 'MA-071',
-      move3: 'MA-096',
-      move4: 'MA-085',
-    },
-    learnedArts: [
-      { artId: 'MA-008', level: 8, exp: 0 },
-      { artId: 'MA-097', level: 8, exp: 0 },
-      { artId: 'MA-025', level: 8, exp: 0 },
-      { artId: 'MA-071', level: 8, exp: 0 },
-      { artId: 'MA-096', level: 8, exp: 0 },
-      { artId: 'MA-085', level: 8, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-024',
-    },
-    questBadgeLabel: '南慕容',
-    talk: '“开封府的金牌总捕，倒真是好胆魄。既然把话挑明了，便先接我慕容氏十招‘参合指’与‘斗转星移’，看看你够不够格替赵宋朝廷跟我谈条件！”',
-  }
-}
 
 // ============================================================================
 // 五十二幕完整剧本：《参合剑气 · 姑苏对质》（开封府 Lv.3 -> Lv.4 晋升任务）
@@ -390,7 +257,12 @@ const SCENE_45_MURONG_SURVIVE_10: StorySceneDef = {
       effects: [
         {
           type: 'startCombat',
-          opponent: { kind: 'custom', npc: buildMurongFuSurviveNpc() },
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0120',
+            talkOverride:
+              '“开封府的金牌总捕，倒真是好胆魄。既然把话挑明了，便先接我慕容氏十招‘参合指’与‘斗转星移’，看看你够不够格替赵宋朝廷跟我谈条件！”',
+          },
           rule: 'survive_rounds',
           lethalOnLose: true,
           maxRounds: 10,
@@ -617,7 +489,12 @@ const SCENE_37_DENG_BATTLE: StorySceneDef = {
       effects: [
         {
           type: 'startCombat',
-          opponent: { kind: 'custom', npc: buildDengBaichuanTrialNpc() },
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0145',
+            talkOverride:
+              '“上次在秘档室让你跃水脱身，今日你竟敢持朝廷金牌重临参合庄！且看这次你能否堂堂正正胜过邓某！”',
+          },
           rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '邓百川已封住参合庄演武场退路，须正面击败他方能进见慕容复！',
@@ -795,7 +672,12 @@ const SCENE_30_GONGYE_BATTLE: StorySceneDef = {
       effects: [
         {
           type: 'startCombat',
-          opponent: { kind: 'custom', npc: buildGongyeQianTrialNpc() },
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0161',
+            talkOverride:
+              '“开封府金牌总捕既已亮出腰牌，公冶某也不好装聋作哑——只是想登船入燕子坞，须得先过我这双掌！”',
+          },
           rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '公冶乾已横立画舫船头封死水路，唯有击败他方能入坞！',

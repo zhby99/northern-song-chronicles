@@ -4,47 +4,6 @@ import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST_SECT22_LONGLING'
 
-function buildWanyanPenghaoNpc(): NodeNpc {
-  return {
-    id: 'CUSTOM-CS-WANYAN',
-    name: '完颜鹏豪',
-    title: '辽南京马市暗桩头目',
-    realm: '三流下品',
-    factionId: 'SECT-31',
-    factionName: '辽国暗桩',
-    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
-    stats: {
-      hp: 360,
-      mp: 150,
-      agi: 42,
-      res: 15,
-      isBenchmark: false,
-    },
-    talents: { bone: 50, comprehension: 40, charm: 32 },
-    fullLocationLabel: '析津府 > 燕京榷马大市 > 塞北千驷相马围栏',
-    equippedArts: {
-      neigong: 'MA-232',
-      qinggong: null,
-      move1: 'MA-151',
-      move2: 'MA-189',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-232', level: 2, exp: 0 },
-      { artId: 'MA-151', level: 2, exp: 0 },
-      { artId: 'MA-189', level: 2, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-076',
-    },
-    questBadgeLabel: '马市暗桩',
-    talk: '“这两个马贩口音透着定州味儿，身上倒还藏着铁器！拿下问个明白！”',
-  }
-}
-
 function buildHorseMarketSpyGuardNpc(): NodeNpc {
   return {
     id: 'CUSTOM-CS-HORSE-SPY',
@@ -82,87 +41,6 @@ function buildHorseMarketSpyGuardNpc(): NodeNpc {
     },
     questBadgeLabel: '巡栏暗桩',
     talk: '“休叫南朝奸细跑出千驷围栏！”',
-  }
-}
-
-function buildGuoKuiHorseMarketAllyNpc(): NodeNpc {
-  return {
-    id: 'NPC-0036',
-    name: '郭逵',
-    title: '真定路边军都监（乔装马贩）',
-    realm: '二流上品',
-    factionId: 'ORG-04',
-    factionName: '真定路帅司',
-    avatarUrl: '/assets/characters/avatars/NPC-0036.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0036.jpg',
-    stats: {
-      hp: 780,
-      mp: 480,
-      agi: 50,
-      res: 28,
-      isBenchmark: false,
-    },
-    equippedArts: {
-      neigong: 'MA-121',
-      qinggong: 'MA-139',
-      move1: 'MA-115',
-      move2: 'MA-132',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-121', level: 3, exp: 0 },
-      { artId: 'MA-139', level: 3, exp: 0 },
-      { artId: 'MA-115', level: 4, exp: 0 },
-      { artId: 'MA-132', level: 3, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-034',
-    },
-    talk: '“速战速决，莫教他吹响骨哨惊动巡城铁骑！”',
-  }
-}
-
-function buildXiaoYuanfengMarshalNpc(): NodeNpc {
-  return {
-    id: 'CUSTOM-CS-XIAO-MARSHAL',
-    name: '萧远风',
-    title: '辽南京武林统制 · 燕云铁枪',
-    realm: '一流中品',
-    factionId: 'ORG-06',
-    factionName: '辽南京兵马元帅府',
-    avatarUrl: '/assets/characters/avatars/NPC-0184.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0184.jpg',
-    stats: {
-      hp: 3229,
-      mp: 2991,
-      agi: 78,
-      res: 64,
-      isBenchmark: true,
-    },
-    talents: { bone: 85, comprehension: 78, charm: 65 },
-    fullLocationLabel: '析津府 > 辽南京兵马元帅府',
-    equippedArts: {
-      neigong: 'MA-140',
-      qinggong: 'MA-157',
-      move1: 'MA-116',
-      move2: 'MA-152',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-140', level: 6, exp: 0 },
-      { artId: 'MA-157', level: 5, exp: 0 },
-      { artId: 'MA-116', level: 6, exp: 0 },
-      { artId: 'MA-152', level: 5, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-075',
-    },
-    questBadgeLabel: '燕云铁枪',
-    talk: '“好胆的南朝刺客！敢焚本帅《南牧山川策》，且看你接得住我几记铁枪！”',
   }
 }
 
@@ -205,48 +83,6 @@ function buildIronForestCenturionNpc(): NodeNpc {
     },
     questBadgeLabel: '铁林截杀',
     talk: '“绝壁在前，尔等南蛮插翅难飞！留下性命来！”',
-  }
-}
-
-function buildXiaoYuanfengWoundedNpc(): NodeNpc {
-  return {
-    id: 'CUSTOM-CS-XIAO-WOUNDED',
-    name: '萧远风（急追力疲）',
-    title: '辽南京武林统制 · 燕云铁枪',
-    realm: '一流中品',
-    factionId: 'ORG-06',
-    factionName: '辽南京兵马元帅府',
-    avatarUrl: '/assets/characters/avatars/NPC-0184.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0184.jpg',
-    stats: {
-      hp: 1600,
-      mp: 1800,
-      agi: 74,
-      res: 56,
-      isBenchmark: true,
-    },
-    talents: { bone: 85, comprehension: 78, charm: 65 },
-    fullLocationLabel: '雁门关 > 雁门关外乱石绝壁',
-    equippedArts: {
-      neigong: 'MA-140',
-      qinggong: 'MA-157',
-      move1: 'MA-116',
-      move2: 'MA-152',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-140', level: 5, exp: 0 },
-      { artId: 'MA-157', level: 4, exp: 0 },
-      { artId: 'MA-116', level: 5, exp: 0 },
-      { artId: 'MA-152', level: 4, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-075',
-    },
-    questBadgeLabel: '死保遗老',
-    talk: '“好个不肯舍弃幽州流民的常山小子！本帅今日倒要看看，你的枪能不能挡住铁林三百骑！”',
   }
 }
 
@@ -346,7 +182,11 @@ const MARSHAL_XIAO_COMBAT_EFFECTS: QuestEffect[] = [
   {
     type: 'startCombat',
     questId: QUEST_ID,
-    opponent: { kind: 'custom', npc: buildXiaoYuanfengMarshalNpc() },
+    opponent: {
+      kind: 'npc',
+      npcId: 'NPC-0184',
+      talkOverride: '“好胆的南朝刺客！敢焚本帅《南牧山川策》，且看你接得住我几记铁枪！”',
+    },
     rule: 'survive_rounds',
     maxRounds: 4,
     lethalOnLose: true,
@@ -995,8 +835,18 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                         {
                           type: 'startCombat',
                           questId: QUEST_ID,
-                          allies: [{ kind: 'custom', npc: buildGuoKuiHorseMarketAllyNpc() }],
-                          opponent: { kind: 'custom', npc: buildWanyanPenghaoNpc() },
+                          allies: [
+  {
+    kind: 'npc',
+    npcId: 'NPC-0036',
+    talkOverride: '“速战速决，莫教他吹响骨哨惊动巡城铁骑！”',
+  },
+],
+opponent: {
+  kind: 'npc',
+  npcId: 'NPC-0767',
+  talkOverride: '“这两个马贩口音透着定州味儿，身上倒还藏着铁器！拿下问个明白！”',
+},
                           extraOpponents: [{ kind: 'custom', npc: buildHorseMarketSpyGuardNpc() }],
                           rule: 'duel',
                           deathTitle: '血染燕京马市',
@@ -1041,8 +891,18 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
-                      allies: [{ kind: 'custom', npc: buildGuoKuiHorseMarketAllyNpc() }],
-                      opponent: { kind: 'custom', npc: buildWanyanPenghaoNpc() },
+                      allies: [
+  {
+    kind: 'npc',
+    npcId: 'NPC-0036',
+    talkOverride: '“速战速决，莫教他吹响骨哨惊动巡城铁骑！”',
+  },
+],
+opponent: {
+  kind: 'npc',
+  npcId: 'NPC-0767',
+  talkOverride: '“这两个马贩口音透着定州味儿，身上倒还藏着铁器！拿下问个明白！”',
+},
                       extraOpponents: [{ kind: 'custom', npc: buildHorseMarketSpyGuardNpc() }],
                       rule: 'duel',
                       deathTitle: '血染燕京马市',
@@ -1377,7 +1237,12 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
-                      opponent: { kind: 'custom', npc: buildXiaoYuanfengWoundedNpc() },
+                      opponent: {
+                        kind: 'npc',
+                        npcId: 'NPC-0184',
+                        talkOverride:
+                          '“好个不肯舍弃幽州流民的常山小子！本帅今日倒要看看，你的枪能不能挡住铁林三百骑！”',
+                      },
                       rule: 'survive_rounds',
                       maxRounds: 4,
                       lethalOnLose: true,

@@ -1,133 +1,6 @@
-import type { NodeNpc } from '../../../types/game'
 import type { QuestDefinition, StorySceneDef } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST-SECT-17-MURONG-1'
-
-function buildBaoButongTrialNpc(): NodeNpc {
-  return {
-    id: 'CUSTOM-KF1-BAOBUTONG',
-    name: '包不同',
-    title: '姑苏慕容氏家臣 · 非也先生',
-    realm: '二流上品',
-    factionId: 'SECT-10',
-    factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/avatars/NPC-0213.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0213.jpg',
-    stats: {
-      hp: 760,
-      mp: 420,
-      agi: 64,
-      res: 28,
-      isBenchmark: false,
-    },
-    talents: { bone: 66, comprehension: 76, charm: 48 },
-    fullLocationLabel: '姑苏城 > 太湖烟波渡口 > 烟波木栈长埠与镇湖石塔',
-    equippedArts: {
-      neigong: 'MA-062',
-      qinggong: 'MA-139',
-      move1: 'MA-081',
-      move2: 'MA-115',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-062', level: 4, exp: 0 },
-      { artId: 'MA-139', level: 4, exp: 0 },
-      { artId: 'MA-081', level: 4, exp: 0 },
-      { artId: 'MA-115', level: 4, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-045',
-    },
-    questBadgeLabel: '非也先生',
-    talk: '“非也，非也！你这北方来的行商嘴上说是买丝绸，实则眼里带着官气，今日若不接我三掌，休想踏上太湖渡船！”',
-  }
-}
-
-function buildFengBoeTrialNpc(): NodeNpc {
-  return {
-    id: 'CUSTOM-KF1-FENGBOE',
-    name: '风波恶',
-    title: '姑苏慕容氏家臣 · 一阵风',
-    realm: '二流巅峰',
-    factionId: 'SECT-10',
-    factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/avatars/NPC-0214.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0214.jpg',
-    stats: {
-      hp: 920,
-      mp: 480,
-      agi: 72,
-      res: 32,
-      isBenchmark: false,
-    },
-    talents: { bone: 74, comprehension: 64, charm: 45 },
-    fullLocationLabel: '燕子坞 > 听香水榭与曼陀花坞 > 曼陀山茶幽径',
-    equippedArts: {
-      neigong: 'MA-062',
-      qinggong: 'MA-139',
-      move1: 'MA-082',
-      move2: 'MA-116',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-062', level: 5, exp: 0 },
-      { artId: 'MA-139', level: 5, exp: 0 },
-      { artId: 'MA-082', level: 5, exp: 0 },
-      { artId: 'MA-116', level: 4, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-042',
-    },
-    questBadgeLabel: '一阵风',
-    talk: '“妙极，妙极！半夜三更摸进燕子坞的贼子竟有这等身手，来来来，且与风某痛快打上一场！”',
-  }
-}
-
-function buildDengBaichuanSurviveNpc(): NodeNpc {
-  return {
-    id: 'CUSTOM-KF1-DENGBAICHUAN',
-    name: '邓百川',
-    title: '姑苏慕容四大家臣之首 · 神掌震江南',
-    realm: '一流上品',
-    factionId: 'SECT-10',
-    factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/avatars/NPC-0145.jpg',
-    portraitUrl: '/assets/characters/fullbody/NPC-0145.jpg',
-    stats: {
-      hp: 2600,
-      mp: 1400,
-      agi: 82,
-      res: 56,
-      isBenchmark: false,
-    },
-    talents: { bone: 84, comprehension: 78, charm: 68 },
-    fullLocationLabel: '燕子坞 > 参合庄议事正厅 > 燕子坞书房秘档室',
-    equippedArts: {
-      neigong: 'MA-062',
-      qinggong: 'MA-097',
-      move1: 'MA-080',
-      move2: 'MA-081',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-062', level: 7, exp: 0 },
-      { artId: 'MA-097', level: 7, exp: 0 },
-      { artId: 'MA-080', level: 7, exp: 0 },
-      { artId: 'MA-081', level: 6, exp: 0 },
-    ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-    },
-    questBadgeLabel: '神掌震江南',
-    talk: '“阁下擅闯参合庄秘档室，既已窥得我慕容家机密，岂能轻易离去？接我一掌！”',
-  }
-}
 
 // ============================================================================
 // 三十二幕完整剧本：《燕子坞暗影 · 姑苏密查》（开封府 Lv.2 -> Lv.3 晋升任务）
@@ -295,7 +168,11 @@ const SCENE_28_DENG_SURVIVE_TRIAL: StorySceneDef = {
       effects: [
         {
           type: 'startCombat',
-          opponent: { kind: 'custom', npc: buildDengBaichuanSurviveNpc() },
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0145',
+            talkOverride: '“阁下擅闯参合庄秘档室，既已窥得我慕容家机密，岂能轻易离去？接我一掌！”',
+          },
           rule: 'survive_rounds',
           lethalOnLose: true,
           maxRounds: 10,
@@ -444,7 +321,11 @@ const SCENE_23_FENG_BATTLE: StorySceneDef = {
       effects: [
         {
           type: 'startCombat',
-          opponent: { kind: 'custom', npc: buildFengBoeTrialNpc() },
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0214',
+            talkOverride: '“妙极，妙极！半夜三更摸进燕子坞的贼子竟有这等身手，来来来，且与风某痛快打上一场！”',
+          },
           rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '风波恶已欺身封住退路，唯有一战！',
@@ -587,7 +468,12 @@ const SCENE_18_BAO_BATTLE: StorySceneDef = {
       effects: [
         {
           type: 'startCombat',
-          opponent: { kind: 'custom', npc: buildBaoButongTrialNpc() },
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0213',
+            talkOverride:
+              '“非也，非也！你这北方来的行商嘴上说是买丝绸，实则眼里带着官气，今日若不接我三掌，休想踏上太湖渡船！”',
+          },
           rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '包不同已横身拦在渡口木栈，须堂堂正正击败他！',
