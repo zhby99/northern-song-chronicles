@@ -12,6 +12,7 @@ import { KAIFENG_MURONG_QUEST_2 } from './sects/kaifengMurongQuest2'
 import { KAIFENG_RENZONG_ESCORT_QUEST } from './sects/kaifengRenzongEscortQuest'
 import { KAIFENG_TAIHANG_BANDIT_QUESTS } from './sects/kaifengTaihangBanditQuest'
 import { NANSHAOLIN_ENTRY_QUESTS } from './sects/nanshaolinEntryQuest'
+import { QINGCHENG_ENTRY_QUESTS } from './sects/qingchengEntryQuest'
 import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
 import { SHAOLIN_ENTRY_QUESTS } from './sects/shaolinEntryQuest'
 import { TAISHAN_ENTRY_QUESTS } from './sects/taishanEntryQuest'
@@ -32,6 +33,7 @@ export const QUEST_REGISTRY: QuestDefinition[] = [
   ...HUASHAN_ENTRY_QUESTS,
   ...TAISHAN_ENTRY_QUESTS,
   ...EMEI_ENTRY_QUESTS,
+  ...QINGCHENG_ENTRY_QUESTS,
   ...XINGXIU_ENTRY_QUESTS,
   ...CHANGSHAN_LONGLING_QUESTS,
   ...TIANBO_BAWANG_QUESTS,
@@ -76,6 +78,7 @@ export function resetRegisteredQuests(): void {
     ...HUASHAN_ENTRY_QUESTS,
     ...TAISHAN_ENTRY_QUESTS,
     ...EMEI_ENTRY_QUESTS,
+    ...QINGCHENG_ENTRY_QUESTS,
     ...XINGXIU_ENTRY_QUESTS,
     ...CHANGSHAN_LONGLING_QUESTS,
     ...TIANBO_BAWANG_QUESTS,

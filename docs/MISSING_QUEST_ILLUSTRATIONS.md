@@ -40,6 +40,9 @@
 | `CG-QST-028` | `[ ]` 待补绘 | `public/assets/quests/emei_wanli_rain_umbrella.jpg` | `/assets/quests/emei_wanli_rain_umbrella.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第二幕 · 锦江烟雨共油伞<br>（`scene_em_02_wanli_bridge_rain`） | `16:9` |
 | `CG-QST-029` | `[ ]` 待补绘 | `public/assets/quests/emei_xixiang_moon_ape.jpg` | `/assets/quests/emei_xixiang_moon_ape.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第十五幕 · 洗象澄月白猿影<br>（`scene_em_15_xixiang_moon_ape`） | `16:9` |
 | `CG-QST-030` | `[ ]` 待补绘 | `public/assets/quests/emei_jinding_buddha_light.jpg` | `/assets/quests/emei_jinding_buddha_light.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第十九幕 · 万仞云海睹佛光<br>（`scene_em_19_jinding_buddha_light`） | `16:9` |
+| `CG-QST-031` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_qingyang_rain.jpg` | `/assets/quests/qingcheng_qingyang_rain.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第一幕 · 青羊春雨偶闻道<br>（`SCENE_QC_01_QINGYANG_RAIN`） | `16:9` |
+| `CG-QST-032` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_cliff_qin.jpg` | `/assets/quests/qingcheng_cliff_qin.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第七幕 · 孤崖云海听松琴<br>（`SCENE_QC_07_CLIFF_QIN`） | `16:9` |
+| `CG-QST-033` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_shangqing_choice.jpg` | `/assets/quests/qingcheng_shangqing_choice.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第十九幕 · 三清殿前定去留<br>（`SCENE_QC_19_THREE_PURE_CHOICE`） | `16:9` |
 
 ---
 
@@ -615,6 +618,63 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration with subtle gold-leaf accents, wide cinematic 16:9 composition. Magnificent dawn atop the Golden Summit (金顶睹光台) of Mount Emei around 1050 AD, overlooking an endless surging sea of white clouds far below. In the glowing morning mist over the cloud sea appears the sacred circular rainbow halo of Emei Buddha's Light (佛光宝光), while snow-dusted Song-style bronze temple eaves gleam warmly behind. On the cliffside stone terrace, the venerable Emei Abbess (Yunhui Shitai, serene elderly Buddhist nun in dignified saffron-grey monastic robes holding prayer beads) stands before the balustrade, flanked by a tall stern senior nun carrying a sword on her back (Jingxuan Shitai) and the graceful celadon-robed swordswoman (Su Mengqing). Facing them in the foreground from a respectful three-quarter back view (gender-neutral youthful martial traveler in neat robes), the protagonist bows with clasped hands in solemn oath. Grand Northern Song court painting aesthetics, mineral pigments, awe-inspiring spiritual wuxia atmosphere, no modern elements, no text or characters.
+  ```
+
+---
+
+### 31. `CG-QST-031`：成都青羊道宫 · 春雨铜羊初逢小师姐图
+
+- **关联文件**：[`src/data/quests/sects/qingchengEntryQuest.ts`](../src/data/quests/sects/qingchengEntryQuest.ts)
+- **目标路径**：`public/assets/quests/qingcheng_qingyang_rain.jpg`
+- **画框题跋**：`成都府青羊道宫 · 春雨铜羊初逢小师姐沈清岚`
+- **剧情语境**：
+  - 皇祐二年暮春细雨如酥，无门无派的年轻主角步入成都府青羊道宫听道避雨，于古朴神秘的独角青铜羊香炉侧，偶遇下山抄经的青城外院女冠小师姐【沈清岚】。
+  - 两名跋扈的川东盐枭撞翻竹篓欲讹诈银两，主角挺身解围，沈清岚怀抱油纸包裹的七弦琴与道经，在烟雨檐廊下敛衽稽首致谢，腰间一枚青城松果挂坠随风轻晃。
+- **画面核心要素**：
+  1. **环境氛围**：北宋成都府青羊道宫重檐回廊，春雨如丝飘落青石阶，院中一尊古意盎然的宋铸独角青铜羊立于汉白玉须弥座上，三足香炉青烟袅袅，红墙翠竹湿润清幽。
+  2. **主体人物**：廊下右侧，年约十九岁、气质温润清丽却眉间微藏心事的青城女道小师姐（沈清岚），身着淡青素白交领宋式道袍、乌发挽木簪道髻、腰悬松果木雕挂坠，怀抱油纸琴囊，正向左侧身穿朴素布衣的年轻少侠主角微微笑着稽首行道家礼。
+  3. **细节烘托**：石阶旁散落两卷竹简道经与青竹书篓，檐角铜风铃微斜，尽显蜀中烟雨道观的诗意初遇。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. A misty spring rain afternoon at Qingyang Taoist Palace (成都青羊道宫) in Chengdu around 1050 AD. Under a carved timber temple corridor overlooking wet flagstones and lush green bamboo, an ancient mystical one-horned bronze goat statue (独角铜羊) stands beside a smoking bronze incense burner. A gentle, graceful 19-year-old female Qingcheng Taoist disciple (wearing pale celadon-blue and white Song-style Taoist robes, wooden hairpin topknot, a small carved pine-cone pendant at her waist, holding an oil-paper wrapped guqin zither) bows in a polite Taoist salute toward a young wandering martial artist in plain cloth robes who stepped forward to help her pick up scattered bamboo scrolls. Soft misty drizzle, mineral green and indigo pigments, poetic wuxia romance and tranquility, authentic Song court painting brushwork, no modern elements, blank temple plaques with no text or characters.
+  ```
+
+---
+
+### 32. `CG-QST-032`：青城上清孤崖 · 云海苍松抚琴悟气图
+
+- **关联文件**：[`src/data/quests/sects/qingchengEntryQuest.ts`](../src/data/quests/sects/qingchengEntryQuest.ts)
+- **目标路径**：`public/assets/quests/qingcheng_cliff_qin.jpg`
+- **画框题跋**：`上清宫抚琴孤崖 · 云海松涛听琴悟青冥`
+- **剧情语境**：
+  - 主角历经十日扫阶磨砺，获召登临青城山上清宫【松涛云海抚琴孤崖】拜谒清修一脉剑师【方正】。
+  - 万丈云海翻涌如雪，方正盘坐绝壁青石抚奏《松风引》，沈清岚侍立松下泥炉旁煎煮雪水苦丁茶，尚无内功根基的主角手执桃木剑立于崖畔，在琴音与松涛共鸣中初次感悟道门“藏锋护道、吐故纳新”之理。
+- **画面核心要素**：
+  1. **环境氛围**：青城山三十六峰绝壁孤崖，千年古松虬枝斜探入浩瀚翻腾的云海，远山黛青如画（致敬北宋山水巨制《千里江山图》与李成、范宽笔意）。
+  2. **主体人物**：绝壁扁平巨石上，两鬓微霜、仙风道骨的中年道家剑师（方正）端坐抚弄七弦古琴；古松下，温婉的青城小师姐（沈清岚）跪坐蒲团照看红泥小火炉上的白瓷茶汤，目光温柔地望向崖边。
+  3. **主角动态**：年轻主角身穿素布短衫、手持一柄书院桃木剑立于崖前迎风闭目吐纳，衣袂随松风飘举。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese blue-and-green gongbi landscape and figure painting (青绿重彩山水人物), wide cinematic 16:9 composition. High atop a sheer cliff terrace on Mount Qingcheng (青城山抚琴孤崖) around 1050 AD, overlooking a vast churning sea of white clouds and distant emerald peaks. Beneath a gnarled ancient cliffside pine tree, a dignified middle-aged Taoist swordmaster with greying temples sits cross-legged on a flat boulder playing a seven-stringed guqin zither. Beside a small clay stove boiling tea on a straw mat, a gentle young female Taoist senior sister in pale cyan robes watches warmly. Near the cliff edge, a young martial artist protagonist in simple cloth attire holds a wooden practice sword, eyes serenely closed, breathing in the mountain mist in harmony with the pine wind. Authentic Song dynasty court painting style, mineral malachite green and azurite blue accents, ethereal Taoist serenity, no modern elements, no text or characters.
+  ```
+
+---
+
+### 33. `CG-QST-033`：上清松风主殿 · 银杏丹墀去留抉择图
+
+- **关联文件**：[`src/data/quests/sects/qingchengEntryQuest.ts`](../src/data/quests/sects/qingchengEntryQuest.ts)
+- **目标路径**：`public/assets/quests/qingcheng_shangqing_choice.jpg`
+- **画框题跋**：`上清松风演剑主殿 · 银杏金阶定拜师或逍遥`
+- **剧情语境**：
+  - 剑门关生死历劫归来、外门演武既毕，上清松风演剑主殿钟鼓齐鸣，举行三清祖师收徒大典。
+  - 掌门【余沧澜】立于丹墀高阶之上，道童手捧折叠齐整的青灰道袍与三尺松风快剑；阶下主角站在门墙内外的一线之间——一步向前便是青城快剑门徒，一步回身则是携《青冥引气诀》笑傲江湖的逍遥散人，侧畔小师姐【沈清岚】屏息凝望。
+- **画面核心要素**：
+  1. **环境氛围**：宏伟古朴的北宋青城山上清宫重檐绿琉璃瓦主殿广场，两株参天千年古银杏洒下漫天金叶，三足青铜大鼎檀烟直上云霄。
+  2. **上下构图张力**：高处石阶正中，气度威严凌厉的青城掌门（余沧澜，深青八卦道袍、背负长剑）负手俯视，左侧阴鸷副掌门（侯沧海）与右侧抱琴长者（方正）分立；一名小道童双手高举木托盘，盘中放着青灰道袍与一柄寒光凛冽的三尺青钢剑。
+  3. **前景焦点**：丹墀石阶之下，年轻主角昂首而立，衣衫微振，正与侧方队列前排神色温柔关切的小师姐（沈清岚）目光微触，面临入派或归隐江湖的宿命抉择。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Grand courtyard before the green-tiled double-eave Shangqing Palace Hall on Mount Qingcheng (青城山上清宫松风殿) around 1050 AD, framed by towering ancient ginkgo trees shedding golden leaves and a giant bronze tripod censer. At the top of the stone steps stands an imposing, sharp-eyed Qingcheng Sect patriarch in dark青八卦 Taoist robes, flanked by a stern deputy master on the left and a benevolent琴-carrying elder on the right; a young acolyte holds a lacquer tray bearing folded grey-cyan Taoist robes and a gleaming steel sword. At the base of the steps in the foreground stands the young martial artist protagonist at a crossroads of destiny, while to the side a gentle female Taoist senior sister in celadon robes gazes at him with quiet emotion. Rich mineral pigments, dramatic architectural depth, authentic 1050 AD Song dynasty aesthetics, no modern elements, blank plaques and banners with no text or characters.
   ```
 
 ---
