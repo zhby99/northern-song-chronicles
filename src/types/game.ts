@@ -651,6 +651,7 @@ export interface CompiledMountRecord {
   description: string
   prerequisitesText: string | null
   statRequirements: MartialArtStatReq[]
+  iconUrl?: string | null
 }
 
 export type MartialArtSlotKey =

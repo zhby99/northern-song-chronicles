@@ -1730,6 +1730,8 @@ def parse_mounts() -> list[dict[str, Any]]:
             else []
         )
 
+        mnt_icon_rel = f"assets/items/mounts/mnt_{code}.jpg"
+        mnt_icon_url = f"/{mnt_icon_rel}" if (PUBLIC_DIR / mnt_icon_rel).exists() else None
         mounts.append(
             {
                 "id": mnt_id,
@@ -1755,6 +1757,7 @@ def parse_mounts() -> list[dict[str, Any]]:
                 "description": desc_raw,
                 "prerequisitesText": prereq_raw,
                 "statRequirements": stat_reqs,
+                "iconUrl": mnt_icon_url,
             }
         )
 

@@ -213,31 +213,41 @@ export function MountCompendiumPanel({
                     : 'bg-[#efe4cc] hover:bg-[#e5d6b8] text-[#23180f] border-[#c8b28e]'
                 }`}
               >
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="font-mono text-[10px] opacity-80">{mnt.id}</span>
-                    <span className="song-serif font-bold text-xs sm:text-sm truncate">
-                      {mnt.name}
-                    </span>
-                    {isEquipped && (
-                      <span className="px-1.5 py-0.2 rounded bg-[#8f1d14] text-amber-200 text-[9px] font-bold shrink-0">
-                        正乘骑
+                <div className="flex items-center gap-2.5 min-w-0">
+                  {mnt.iconUrl && (
+                    <img
+                      src={mnt.iconUrl}
+                      alt={mnt.name}
+                      loading="lazy"
+                      className="w-11 h-11 rounded border border-[#9e8462]/60 object-cover shrink-0 bg-[#1a120b]"
+                    />
+                  )}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="font-mono text-[10px] opacity-80">{mnt.id}</span>
+                      <span className="song-serif font-bold text-xs sm:text-sm truncate">
+                        {mnt.name}
                       </span>
-                    )}
-                    {!isEquipped && inBagQty > 0 && (
-                      <span className="px-1.5 py-0.2 rounded bg-[#215744] text-[#fff8eb] text-[9px] font-bold shrink-0">
-                        在厩囊
-                      </span>
-                    )}
-                    <UniqueOwnershipBadge itemId={mnt.id} />
-                  </div>
-                  <div
-                    className={`text-[11px] truncate mt-0.5 ${
-                      isSel ? 'text-[#d6c5a5]' : 'text-[#6b5235]'
-                    }`}
-                  >
-                    {mnt.breedCategory} · 日行{mnt.baseSpeed}里 · {mnt.terrainTrait}+
-                    {mnt.terrainBonusPct}% · {mnt.locationLabel}
+                      {isEquipped && (
+                        <span className="px-1.5 py-0.2 rounded bg-[#8f1d14] text-amber-200 text-[9px] font-bold shrink-0">
+                          正乘骑
+                        </span>
+                      )}
+                      {!isEquipped && inBagQty > 0 && (
+                        <span className="px-1.5 py-0.2 rounded bg-[#215744] text-[#fff8eb] text-[9px] font-bold shrink-0">
+                          在厩囊
+                        </span>
+                      )}
+                      <UniqueOwnershipBadge itemId={mnt.id} />
+                    </div>
+                    <div
+                      className={`text-[11px] truncate mt-0.5 ${
+                        isSel ? 'text-[#d6c5a5]' : 'text-[#6b5235]'
+                      }`}
+                    >
+                      {mnt.breedCategory} · 日行{mnt.baseSpeed}里 · {mnt.terrainTrait}+
+                      {mnt.terrainBonusPct}% · {mnt.locationLabel}
+                    </div>
                   </div>
                 </div>
                 <span
@@ -261,25 +271,36 @@ export function MountCompendiumPanel({
 
             return (
               <>
-                <div className="border-b border-[#cbb693] pb-2.5">
-                  <div className="flex items-center justify-between gap-2 flex-wrap">
-                    <span className="font-mono text-xs px-2 py-0.5 rounded bg-[#261910] text-amber-200">
-                      {selectedMount.id}
-                    </span>
-                    <span
-                      className={`px-2 py-0.5 rounded text-xs font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
-                    >
-                      {selectedMount.fullTier} · {selectedMount.breedCategory}
-                    </span>
-                  </div>
-                  <div className="song-serif font-bold text-lg text-[#23180f] mt-1.5 flex items-center gap-2 flex-wrap">
-                    <span>{selectedMount.name}</span>
-                    {selectedMount.specialTag && (
-                      <span className="px-2 py-0.5 rounded bg-[#8f1d14]/15 border border-[#8f1d14]/40 text-xs text-[#8f1d14] font-bold">
-                        【{selectedMount.specialTag}】
+                <div className="border-b border-[#cbb693] pb-2.5 flex items-start gap-3">
+                  {selectedMount.iconUrl && (
+                    <img
+                      src={selectedMount.iconUrl}
+                      alt={selectedMount.name}
+                      className="w-20 h-20 rounded-md border-2 border-[#b89658] object-cover shadow shrink-0 bg-[#1a120b]"
+                    />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="font-mono text-xs px-2 py-0.5 rounded bg-[#261910] text-amber-200">
+                        {selectedMount.id}
                       </span>
-                    )}
+                      <span
+                        className={`px-2 py-0.5 rounded text-xs font-bold ${rStyle.badgeBg} ${rStyle.badgeText}`}
+                      >
+                        {selectedMount.fullTier} · {selectedMount.breedCategory}
+                      </span>
+                    </div>
+                    <div className="song-serif font-bold text-lg text-[#23180f] mt-1.5 flex items-center gap-2 flex-wrap">
+                      <span>{selectedMount.name}</span>
+                      {selectedMount.specialTag && (
+                        <span className="px-2 py-0.5 rounded bg-[#8f1d14]/15 border border-[#8f1d14]/40 text-xs text-[#8f1d14] font-bold">
+                          【{selectedMount.specialTag}】
+                        </span>
+                      )}
+                    </div>
                   </div>
+                </div>
+                <div className="border-b border-[#cbb693] pb-2 -mt-1">
                   <div className="text-xs text-[#4a3219] mt-1 flex items-center gap-1.5 flex-wrap">
                     <span>
                       马政产地：<strong>{selectedMount.originFull}</strong>（`
