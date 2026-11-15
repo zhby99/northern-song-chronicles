@@ -266,15 +266,15 @@ export function getKaifengMonthlyStipend(rank: SectRankLevel): number {
 export function getImperialGuardMonthlyStipend(rank: SectRankLevel): number {
   switch (rank) {
     case 1:
-      return 18
+      return 60
     case 2:
-      return 32
+      return 120
     case 3:
-      return 55
+      return 180
     case 4:
-      return 85
+      return 240
     case 5:
-      return 130
+      return 300
   }
 }
 
