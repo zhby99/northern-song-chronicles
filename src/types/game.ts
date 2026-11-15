@@ -949,6 +949,7 @@ export interface SerializableGameState {
   npcSparredMonth?: Record<string, number>
   sectState?: PlayerSectState
   questState?: QuestRuntimeState
+  hiddenQuestIds?: string[]
 
   overlays: OverlayToggles
   roamingMasters: RoamingMaster[]

@@ -490,6 +490,9 @@ export interface GameStoreState {
   // Ten Arts Progression
   artExps: Partial<Record<TenArtKey, number>>
   artMilestoneFlags: string[]
+  hiddenQuestIds: string[]
+  toggleHideTrackedQuest: (trackKey: string) => void
+  unhideAllTrackedQuests: () => void
   studyArtSkill: (
     artKey: TenArtKey,
     days: number,
@@ -1001,6 +1004,7 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     npcSparredMonth: { ...s.npcSparredMonth },
     sectState: clonePlayerSectState(s.sectState),
     questState: cloneQuestRuntimeState(s.questState),
+    hiddenQuestIds: [...s.hiddenQuestIds],
     overlays: { ...s.overlays },
     roamingMasters: s.roamingMasters.map((m) => ({ ...m })),
     worldPan: { ...s.worldPan },
@@ -1234,6 +1238,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   gameOver: null,
   sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
   questState: cloneQuestRuntimeState(DEFAULT_QUEST_RUNTIME_STATE),
+  hiddenQuestIds: [],
+  toggleHideTrackedQuest: (trackKey) =>
+    set((s) => {
+      const exists = s.hiddenQuestIds.includes(trackKey)
+      return {
+        hiddenQuestIds: exists
+          ? s.hiddenQuestIds.filter((id) => id !== trackKey)
+          : [...s.hiddenQuestIds, trackKey],
+      }
+    }),
+  unhideAllTrackedQuests: () => set({ hiddenQuestIds: [] }),
   activeMenuTab: 'hero',
   compendiumOpen: false,
   activeCompendiumTab: 'regions',
@@ -4429,7 +4444,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       activeCombat: null,
       activeNpcInteraction:
-        qHook || (session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win')
+        qHook ||
+        ((session.duelStakes === 'liao_spy_duel' || session.duelStakes === 'kaifeng_warrant') &&
+          session.outcome === 'player_win')
           ? null
           : s.activeNpcInteraction,
       combatExp: res.nextCombatExp,
@@ -4565,6 +4582,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       npcSparredMonth: {},
       sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
       questState: cloneQuestRuntimeState(DEFAULT_QUEST_RUNTIME_STATE),
+      hiddenQuestIds: [],
       gameOver: null,
       activeCombat: null,
       activeStoryScene: null,
@@ -7166,6 +7184,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       npcSparredMonth: st.npcSparredMonth ? { ...st.npcSparredMonth } : {},
       sectState: clonePlayerSectState(st.sectState),
       questState: cloneQuestRuntimeState(st.questState),
+      hiddenQuestIds: Array.isArray(st.hiddenQuestIds)
+        ? st.hiddenQuestIds.filter((x): x is string => typeof x === 'string')
+        : [],
       gameOver: null,
       campPos: st.campPos ?? null,
       traveling: null,

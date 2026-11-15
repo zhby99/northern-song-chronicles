@@ -2032,6 +2032,14 @@ export function CombatOverlay() {
                         ? '少侠难敌御猫展昭巨阙锋芒，戴枷押入开封府死牢，狗头铡下身首异处……'
                         : `刀剑无眼，生死相搏既分高下亦决生死，少侠气绝倒地，命殒【${enemies.map((e) => e.name).join('、')}】手下……`}
                     </span>
+                  ) : outcome === 'player_win' && session.duelStakes === 'liao_spy_duel' ? (
+                    <span className="text-[#ffe7b8]">
+                      辽国密谍【{enemies.map((e) => e.name).join('、')}】已伏诛毙命，塞北边患暂平。少侠收枪整衣，径直抽身离去。（{session.rewardsSummary ?? '已印证所学武道。'}）
+                    </span>
+                  ) : outcome === 'player_win' && session.duelStakes === 'kaifeng_warrant' ? (
+                    <span className="text-[#ffe7b8]">
+                      海捕要犯【{enemies.map((e) => e.name).join('、')}】已被少侠当场制伏，交由地方官府押解归案。少侠收刃整衣，径直离去。（{session.rewardsSummary ?? '已印证所学武道。'}）
+                    </span>
                   ) : (
                     <>
                       <strong className="text-[#ffd68a]">实战收获：</strong>
@@ -2048,7 +2056,11 @@ export function CombatOverlay() {
               >
                 {outcome === 'npc_win' && session.mode === 'duel'
                   ? '阖目赴死 · 进入结局结算 [Enter]'
-                  : '抱拳收招 · 返回场景 [Enter]'}
+                  : outcome === 'player_win' &&
+                      (session.duelStakes === 'liao_spy_duel' ||
+                        session.duelStakes === 'kaifeng_warrant')
+                    ? '收招离去 [Enter]'
+                    : '抱拳收招 · 返回场景 [Enter]'}
               </button>
             </div>
           )}

@@ -1534,7 +1534,7 @@ export function NpcInteractionOverlay() {
             >
               诛杀辽谍（生死决战）
             </button>
-          ) : isKaifengWarrantTarget ? (
+          ) : isKaifengWarrantTarget && !isKaifengClueTarget ? (
             <button
               type="button"
               onClick={handleLifeDeathDuel}
