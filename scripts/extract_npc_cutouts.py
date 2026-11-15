@@ -120,7 +120,8 @@ def _process_one(task: tuple[str, str]) -> tuple[str, bool, str]:
         u2_boost = np.where(m_is > 246, np.maximum(m_u2, 160.0), m_u2)
         comb = np.sqrt((m_is / 255.0) * (u2_boost / 255.0)) * 255.0
 
-        solid = binary_fill_holes(comb > 135)
+        # Avoid binary_fill_holes here: closed loops formed by spears/bows/arms trap background patches.
+        solid = comb > 135
         labeled, ncomp = label(comb > 48)
         if ncomp > 1:
             counts = np.bincount(labeled.ravel())
