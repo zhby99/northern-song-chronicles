@@ -892,6 +892,18 @@ export const BABUGANCHAN_QUESTS: QuestDefinition[] = [
     id: QUEST_ID,
     title: '秋蝉八步 · 汴洛遗踪',
     category: 'adventure',
+    regionId: 'bianliang',
+    recommendedRealm: '二流下品',
+    maxOpponentRealm: '二流上品（阴九幽）',
+    recommendedNote:
+      '刚性前置：江湖声望 ≥ 120（无门派限制）；后续须先后前往开封樊楼、大相国寺及洛阳白马寺、牡丹园迎战截风门高手。',
+    startHint:
+      '江湖声望达到 120 后，前往【开封府 · 临街酒楼（醉仙楼 / 汴河虹桥临水酒肆）】即可自动触发（或点击「打探「秋蝉令」旧事」）开启奇遇。',
+    startLocation: {
+      regionId: 'bianliang',
+      buildingId: 'bianliang_base_tavern',
+      customLabel: '开封府 · 临街酒楼 · 醉仙楼（程万里）',
+    },
     initialStepId: 'start_rumor',
     summary:
       '三十年前轻功宗师沈疏影护送边防密折遭“截风门”伏杀，地阶轻功《八步赶蝉》一分为三散落汴洛。江湖声望达 120 后，于开封汴河虹桥酒肆拾得半枚“秋蝉令”，循迹追查并集齐三卷秘谱，方可重现绝学。',

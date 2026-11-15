@@ -201,22 +201,6 @@ const ROAD_EVENTS: RoadEventDef[] = [
     },
   },
   {
-    tag: '绿林劫道',
-    msg: '山道窜出剪径匪类，少侠弹指震飞匪首兵刃，缴获纹银 12 两（战斗经验 +15）！',
-    apply: (d) => {
-      d.silver += 12
-      d.combatExp += 15
-    },
-  },
-  {
-    tag: '密探截杀',
-    msg: '荒野突遭一品堂/辽廷暗探毒箭伏击！少侠运起护体真气震飞冷箭并击退强敌，缴获密囊纹银 18 两（战斗经验 +20）。',
-    apply: (d) => {
-      d.silver += 18
-      d.combatExp += 20
-    },
-  },
-  {
     tag: '万里山河',
     msg: '策马纵览九州山海壮阔，胸襟大开，赋词一首（诗词 +2，内力 +20）。',
     apply: (d) => {
@@ -1033,7 +1017,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   combatExp: 80,
   renown: 0,
   chivalry: 0,
-  silver: 500,
+  silver: 150,
   food: 25,
   hp: INITIAL_DERIVED_STATS.maxHp,
   maxHp: INITIAL_DERIVED_STATS.maxHp,

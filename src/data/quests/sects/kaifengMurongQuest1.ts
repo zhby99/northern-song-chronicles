@@ -1009,8 +1009,19 @@ export const KAIFENG_MURONG_QUEST_1: QuestDefinition[] = [
     title: '燕子坞暗影 · 姑苏密查',
     category: 'sect_mission',
     factionId: 'SECT-17',
+    regionId: 'bianliang',
     recommendedRealm: '二流巅峰',
     maxOpponentRealm: '一流中品（邓百川十合逃生）',
+    recommendedNote:
+      '刚性前置：加入【开封府 / 六扇门】且官居【Lv.2 捕头都头】、任捕头都头满 730 天；后续乘舟入燕子坞前须先于苏州府完成《烟波三叠 · 燕子坞水图》。',
+    startHint:
+      '成为开封府 Lv.2 捕头都头并任满 730 天后，前往【开封府 · 开封府衙 · 六扇门捕快演武院】，点击「领取晋升任务：《燕子坞暗影 · 姑苏密查》」开启。',
+    startLocation: {
+      regionId: 'bianliang',
+      buildingId: 'bl_kaifengfu',
+      spotId: 'bl_kf_liushan',
+      customLabel: '开封府 · 开封府衙 · 六扇门捕快演武院',
+    },
     initialStepId: 'suzhou_investigate',
     summary:
       '捕头都头做满 730 天后，奉包拯密令微服南下姑苏查探燕子坞慕容氏私蓄兵甲之疑云。须先挫败包不同、风波恶，潜入参合庄秘档室取证，并在“神掌震江南”邓百川手下撑过 10 回合全身而退，方可解锁晋升【Lv.3 金牌总捕】。',

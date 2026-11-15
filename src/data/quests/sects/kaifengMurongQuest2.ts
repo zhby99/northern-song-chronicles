@@ -1561,9 +1561,19 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
     title: '参合剑气 · 姑苏对质',
     category: 'sect_mission',
     factionId: 'SECT-17',
+    regionId: 'bianliang',
     recommendedRealm: '一流中品及以上',
     maxOpponentRealm: '绝顶宗师（慕容复十合对决）',
-    recommendedNote: '赏银 +260 两 · 战斗经验 +600 · 声望 +80 · 侠义 +40 · 解锁 Lv.4 御前护卫晋升',
+    recommendedNote:
+      '刚性前置：加入【开封府 / 六扇门】且晋升至【Lv.3 金牌总捕】、已完成《燕子坞暗影 · 姑苏密查》；后续入燕子坞须持有《太湖燕子坞烟波水路舆图》。完成奖励：赏银 +260 两 · 战斗经验 +600 · 声望 +80 · 侠义 +40 · 解锁 Lv.4 御前护卫晋升。',
+    startHint:
+      '晋升开封府 Lv.3 金牌总捕并完成《燕子坞暗影 · 姑苏密查》后，前往【开封府 · 开封府衙 · 开封府升堂正殿】，点击「领取晋升任务：《参合剑气 · 姑苏对质》」开启。',
+    startLocation: {
+      regionId: 'bianliang',
+      buildingId: 'bl_kaifengfu',
+      spotId: 'bl_kf_court',
+      customLabel: '开封府 · 开封府衙 · 开封府升堂正殿',
+    },
     summary:
       '晋升开封府【金牌总捕】后，先于汴梁查获契丹密使口供、奉包拯与紫宸密旨再度南下姑苏。依次赴虎丘、寒山寺锁死铁证，于太湖渡口击败“江南二绝”公冶乾、于参合庄演武场正面击败“神掌震江南”邓百川，最终踏入还施水阁当面质问慕容复并与其交手十合，双方收手立约，解锁晋升【Lv.4 御前护卫】资格。',
     initialStepId: 'kaifeng_market_rumor',
