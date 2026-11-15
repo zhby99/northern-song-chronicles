@@ -18,7 +18,7 @@ import { MARTIAL_ART_SLOT_METAS } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
 import type { CompiledMartialArtRecord, CompiledNpcRecord } from '../../../types/game'
 import { deriveNpcEffectiveStats } from '../../../utils/heroStats'
-import { NODE_MAP, WORLD_GRAPH } from '../../../utils/mapMath'
+import { getBuildingLockMeta, NODE_MAP, WORLD_GRAPH } from '../../../utils/mapMath'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 
 interface PortraitsTabProps {
@@ -53,6 +53,7 @@ export function PortraitsTab({
   const inventory = useGameStore((s) => s.inventory)
   const equipped = useGameStore((s) => s.equipped)
   const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
+  const questFlags = useGameStore((s) => s.questState.flags)
   const navigateToNpcLeafInCurrentRegion = useGameStore(
     (s) => s.navigateToNpcLeafInCurrentRegion,
   )
@@ -332,15 +333,31 @@ export function PortraitsTab({
                         >
                           地区图鉴 ▸
                         </button>
-                        {currentNodeId === selectedNpc.regionId && !campPos && !traveling && (
-                          <button
-                            type="button"
-                            onClick={() => navigateToNpcLeafInCurrentRegion(selectedNpc.id)}
-                            className="px-2 py-0.5 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] text-[10px] font-semibold cursor-pointer"
-                          >
-                            直赴本城常驻殿宇 →
-                          </button>
-                        )}
+                        {currentNodeId === selectedNpc.regionId &&
+                          !campPos &&
+                          !traveling &&
+                          (() => {
+                            const bldgLock = getBuildingLockMeta(
+                              selectedNpc.assignedBuildingId,
+                              questFlags,
+                            )
+                            return bldgLock ? (
+                              <span
+                                title={bldgLock.lockedReason}
+                                className="px-2 py-0.5 rounded bg-[#44403c] text-[#d6d3d1] text-[10px] font-semibold cursor-not-allowed"
+                              >
+                                🔒 秘境未启（剧情解锁）
+                              </span>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => navigateToNpcLeafInCurrentRegion(selectedNpc.id)}
+                                className="px-2 py-0.5 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] text-[10px] font-semibold cursor-pointer"
+                              >
+                                直赴本城常驻殿宇 →
+                              </button>
+                            )
+                          })()}
                         <button
                           type="button"
                           onClick={() => {

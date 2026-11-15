@@ -97,10 +97,12 @@ import {
   ADJACENCY_MAP,
   findBestRoute,
   formatSongDate,
+  getBuildingLockMeta,
   getRegionAllBuildings,
   getRegionViewBoxSize,
   getSongDateParts,
   NODE_MAP,
+  QUEST_LOCKED_BUILDINGS,
   REGIONAL_CONFIGS,
   WORLD_GRAPH,
 } from '../utils/mapMath'
@@ -674,15 +676,22 @@ function computeCombatSettlement(
   const nextNpcFavor = { ...s.npcFavor }
   const outcome = session.outcome
 
-  const isStrongOpponent = session.npc.maxMp >= session.player.maxMp * 0.85
-  const oppMp = session.npc.maxMp
+  const enemyList =
+    session.enemies && session.enemies.length > 0 ? session.enemies : [session.npc]
+  const maxEnemyMp = Math.max(...enemyList.map((e) => e.maxMp))
+  const isStrongOpponent = maxEnemyMp >= session.player.maxMp * 0.85
+  const oppMp = maxEnemyMp
   const tierCombatBase =
     oppMp < 450 ? 15 : oppMp < 950 ? 22 : oppMp < 1800 ? 30 : oppMp < 3200 ? 40 : 50
+  const multiEnemyMult = enemyList.length > 1 ? 1.35 : 1.0
 
   let combatExpGain = 0
   if (session.mode === 'spar') {
     if (outcome === 'player_win') {
-      combatExpGain = Math.max(15, Math.round(tierCombatBase * (isStrongOpponent ? 1.0 : 0.85)))
+      combatExpGain = Math.max(
+        15,
+        Math.round(tierCombatBase * multiEnemyMult * (isStrongOpponent ? 1.0 : 0.85)),
+      )
     } else if (outcome === 'draw') {
       combatExpGain = Math.max(10, Math.round(tierCombatBase * 0.6))
     } else if (outcome === 'npc_win') {
@@ -690,10 +699,11 @@ function computeCombatSettlement(
     }
   } else {
     if (outcome === 'player_win') {
-      combatExpGain = Math.round(tierCombatBase * 2.0)
+      combatExpGain = Math.round(tierCombatBase * 2.0 * multiEnemyMult)
       if (session.duelStakes === 'liao_spy_duel') combatExpGain += 80
       else if (session.duelStakes === 'rob_official') combatExpGain += 60
       else if (session.duelStakes === 'zhan_zhao_arrest') combatExpGain += 100
+      else if (session.duelStakes === 'kaifeng_warrant') combatExpGain += 45
     } else if (outcome === 'draw') {
       combatExpGain = Math.max(15, Math.round(tierCombatBase * 1.0))
     }
@@ -790,18 +800,19 @@ function computeCombatSettlement(
       ? summaryParts.join(' · ')
       : '虚晃一招全身而退，未有额外武学感悟。'
 
+  const oppNamesLabel = enemyList.map((e) => e.name).join('、')
   const outcomeTitle =
     outcome === 'player_win'
       ? session.mode === 'duel'
-        ? `生死决战诛胜【${session.npc.name}】（${session.round}合）`
-        : `力挫【${session.npc.name}】（${session.round}合获胜）`
+        ? `生死决战诛胜【${oppNamesLabel}】（${session.round}合）`
+        : `力挫【${oppNamesLabel}】（${session.round}合获胜）`
       : outcome === 'draw'
-        ? `与【${session.npc.name}】拆招${session.round}合秋色平分`
+        ? `与【${oppNamesLabel}】拆招${session.round}合秋色平分`
         : outcome === 'escaped'
-          ? `与【${session.npc.name}】交锋中途飘然脱战`
+          ? `与【${oppNamesLabel}】交锋中途飘然脱战`
           : session.mode === 'duel'
-            ? `与【${session.npc.name}】生死相搏${session.round}合败亡`
-            : `向【${session.npc.name}】请益${session.round}合惜败`
+            ? `与【${oppNamesLabel}】生死相搏${session.round}合败亡`
+            : `向【${oppNamesLabel}】请益${session.round}合惜败`
 
   const logTag =
     outcome === 'player_win'
@@ -1120,6 +1131,18 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   selectWorldNode: (nodeId) => set({ selectedNodeId: nodeId, actionFeedback: null }),
   selectRegionBuilding: (bldgId) => {
+    if (bldgId) {
+      const lockMeta = getBuildingLockMeta(bldgId, get().questState.flags)
+      if (lockMeta) {
+        set({
+          actionFeedback: {
+            text: `🔒 ${lockMeta.lockedReason}`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
+    }
     set({ selectedBuildingId: bldgId, actionFeedback: null })
     if (bldgId) {
       const s = get()
@@ -1222,6 +1245,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   enterBuildingMap: (bldgId) => {
     const s = get()
+    const lockMeta = getBuildingLockMeta(bldgId, s.questState.flags)
+    if (lockMeta) {
+      set({
+        actionFeedback: {
+          text: `🔒 ${lockMeta.lockedReason}`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
     const bRecord = BUILDING_DB_MAP[bldgId]
     const node = NODE_MAP[s.activeRegionId]
     if (!bRecord || !bRecord.interior || !node) return
@@ -3662,13 +3695,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         nextSession,
       )
       const qHook = nextSession.questCombatHook
+      const killerLabel =
+        nextSession.enemies && nextSession.enemies.length > 1
+          ? nextSession.enemies.map((e) => e.name).join('、')
+          : nextSession.npc.name
       const deathNotice =
         nextSession.mode === 'duel' && nextSession.outcome === 'npc_win'
           ? qHook?.deathDetail
             ? `${qHook.deathDetail}（游戏结束）`
             : nextSession.duelStakes === 'zhan_zhao_arrest'
               ? '少侠重伤被南侠展昭生擒归案，即将押赴开封府市曹处斩（游戏结束）！'
-              : `生死决斗败亡！少侠命陨于【${nextSession.npc.name}】之手（游戏结束）！`
+              : nextSession.duelStakes === 'kaifeng_warrant'
+                ? `缉拿海捕要犯失手！少侠命陨于凶徒【${killerLabel}】毒刃之下（游戏结束）！`
+                : `生死决斗败亡！少侠命陨于【${killerLabel}】之手（游戏结束）！`
           : nextSession.surviveToWin &&
               nextSession.outcome === 'player_win' &&
               nextSession.npc.hp > 0
@@ -3697,6 +3736,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const regionName = NODE_MAP[s.activeRegionId]?.name ?? '江湖'
     const songDate = formatSongDate(s.dayCount, s.shichenIdx)
     const qHook = session.questCombatHook
+    const killerLabel =
+      session.enemies && session.enemies.length > 1
+        ? session.enemies.map((e) => e.name).join('、')
+        : session.npc.name
 
     // 1. 非切磋类的生死对决失败 -> 死亡机制（Game Over）
     if (session.mode === 'duel' && session.outcome === 'npc_win') {
@@ -3706,8 +3749,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               reasonTitle: qHook.deathTitle ?? '命陨江湖 · 侠踪绝响',
               reasonDetail:
                 qHook.deathDetail ??
-                `生死相搏，刀剑无眼！少侠在与【${session.npc.name}】的生死决战中气绝败北。`,
-              killerName: session.npc.name,
+                `生死相搏，刀剑无眼！少侠在与【${killerLabel}】的生死决战中气绝败北。`,
+              killerName: killerLabel,
               songDate,
               locationName: regionName,
             }
@@ -3716,41 +3759,49 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
                 reasonTitle: '开封府市曹处斩',
                 reasonDetail:
                   '少侠因领绿林「纳投名状」劫掠大宋朝廷命官，名列朝廷黑名单。今踏入东京开封府被御前四品带刀护卫「南侠」展昭缉拿归案，押赴开封府市曹，狗头铡下明正典刑！',
-                killerName: session.npc.name,
+                killerName: killerLabel,
                 songDate,
                 locationName: regionName,
               }
             : session.duelStakes === 'liao_spy_duel'
               ? {
                   reasonTitle: '喋血燕云 · 为国捐躯',
-                  reasonDetail: `少侠奉常山枪派军令赴燕云诛除契丹密谍，在与【${session.npc.name}】的生死决战中力竭重创，命陨塞北，马革裹尸！`,
-                  killerName: session.npc.name,
+                  reasonDetail: `少侠奉常山枪派军令赴燕云诛除契丹密谍，在与【${killerLabel}】的生死决战中力竭重创，命陨塞北，马革裹尸！`,
+                  killerName: killerLabel,
                   songDate,
                   locationName: regionName,
                 }
-              : session.duelStakes === 'rob_official'
+              : session.duelStakes === 'kaifeng_warrant'
                 ? {
-                    reasonTitle: '劫官败亡 · 伏尸当场',
-                    reasonDetail: `少侠欲劫掠大宋官员【${session.npc.name}】以纳绿林投名状，岂料失手落败，当场毙命于刀兵之下！`,
-                    killerName: session.npc.name,
+                    reasonTitle: '缉盗失手 · 血溅街巷',
+                    reasonDetail: `少侠奉开封府海捕公文缉拿江洋要犯【${killerLabel}】，殊死搏杀中力竭失手，惨遭凶徒毒刃反噬，血洒当场！`,
+                    killerName: killerLabel,
                     songDate,
                     locationName: regionName,
                   }
-                : session.surviveToWin
+                : session.duelStakes === 'rob_official'
                   ? {
-                      reasonTitle: `${session.maxRounds}合未竟 · 命陨当场`,
-                      reasonDetail: `刀剑无眼，强敌难撄！少侠在与【${session.npc.name}】的交锋中未能撑满 ${session.maxRounds} 回合，真气溃散重创倒地，当场毙命！`,
-                      killerName: session.npc.name,
+                      reasonTitle: '劫官败亡 · 伏尸当场',
+                      reasonDetail: `少侠欲劫掠大宋官员【${killerLabel}】以纳绿林投名状，岂料失手落败，当场毙命于刀兵之下！`,
+                      killerName: killerLabel,
                       songDate,
                       locationName: regionName,
                     }
-                  : {
-                      reasonTitle: '命陨江湖 · 侠踪绝响',
-                      reasonDetail: `生死相搏，刀剑无眼！少侠在与【${session.npc.name}】的生死对决中气绝败北，血染尘沙，一世风云就此落幕。`,
-                      killerName: session.npc.name,
-                      songDate,
-                      locationName: regionName,
-                    }
+                  : session.surviveToWin
+                    ? {
+                        reasonTitle: `${session.maxRounds}合未竟 · 命陨当场`,
+                        reasonDetail: `刀剑无眼，强敌难撄！少侠在与【${killerLabel}】的交锋中未能撑满 ${session.maxRounds} 回合，真气溃散重创倒地，当场毙命！`,
+                        killerName: killerLabel,
+                        songDate,
+                        locationName: regionName,
+                      }
+                    : {
+                        reasonTitle: '命陨江湖 · 侠踪绝响',
+                        reasonDetail: `生死相搏，刀剑无眼！少侠在与【${killerLabel}】的生死对决中气绝败北，血染尘沙，一世风云就此落幕。`,
+                        killerName: killerLabel,
+                        songDate,
+                        locationName: regionName,
+                      }
 
       set({
         activeCombat: null,
@@ -5487,7 +5538,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         case 'teleportPlayer': {
           const bRec = eff.buildingId ? BUILDING_DB_MAP[eff.buildingId] : null
           const enterBldg = Boolean(bRec?.interior)
+          const lockCfg = eff.buildingId ? QUEST_LOCKED_BUILDINGS[eff.buildingId] : undefined
+          let nextQuest = s.questState
+          if (lockCfg && !s.questState.flags[lockCfg.unlockFlag]) {
+            nextQuest = cloneQuestRuntimeState(s.questState)
+            nextQuest.flags[lockCfg.unlockFlag] = true
+          }
           set({
+            questState: nextQuest,
             traveling: null,
             campPos: null,
             currentNodeId: eff.regionId,
@@ -5544,6 +5602,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           )
           if (!opp) break
 
+          const extraEnemyNodes = (eff.extraOpponents ?? [])
+            .map((spec) =>
+              resolveQuestCombatOpponent(spec, contextNpc ?? null, s.questState.dynamicActors),
+            )
+            .filter((n): n is NodeNpc => Boolean(n))
+          const allyNodes = (eff.allies ?? [])
+            .map((spec) =>
+              resolveQuestCombatOpponent(spec, contextNpc ?? null, s.questState.dynamicActors),
+            )
+            .filter((n): n is NodeNpc => Boolean(n))
+
           const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
           const startHp = Math.max(1, s.hp)
           const playerCombatant = buildPlayerCombatant({
@@ -5557,28 +5626,35 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             learnedArts: s.learnedArts,
           })
 
-          // 任务战斗铁律：所有任务内触发的战斗（含普通任务战、生死决战与撑回合战）一旦被打败（如气血归零或未撑满回合），均直接判定死亡（Game Over）！
-          const isLethalDuel = true
+          // 任务战斗规则：非切磋性质的任务战斗（rule === 'duel' 或 lethalOnLose === true）一旦败北均直接判定死亡（Game Over）；明确标注为切磋/宗门考校的试炼则点到为止。
+          const isLethalDuel = eff.rule === 'duel' || Boolean(eff.lethalOnLose)
           const isSurviveRounds = eff.rule === 'survive_rounds'
-          const stakes: DuelStakesKind = eff.duelStakesTag ?? 'duel'
+          const stakes: DuelStakesKind = eff.duelStakesTag ?? (isLethalDuel ? 'duel' : 'spar')
 
           const session = createCombatSession({
             mode: isLethalDuel ? 'duel' : 'spar',
             duelStakes: stakes,
             player: playerCombatant,
             npcNode: opp,
+            allyNpcNodes: allyNodes,
+            extraEnemyNpcNodes: extraEnemyNodes,
             maxRounds: eff.maxRounds ?? (isSurviveRounds ? 10 : undefined),
             surviveToWin: isSurviveRounds,
             forbidEscapeReason:
               eff.forbidEscapeReason !== undefined
                 ? eff.forbidEscapeReason
                 : isSurviveRounds
-                  ? '生死交锋十合之内，退路已封，不可临阵脱逃！'
-                  : '任务交锋正值紧要关头，不可临阵脱逃！',
+                  ? isLethalDuel
+                    ? '生死交锋十合之内，退路已封，不可临阵脱逃！'
+                    : '师门考校试炼之中，不可临阵脱逃！'
+                  : isLethalDuel
+                    ? '任务生死交锋正值紧要关头，不可临阵脱逃！'
+                    : null,
             customIntroText: eff.introText,
             questCombatHook: {
               questId: eff.questId,
               rule: eff.rule,
+              lethalOnLose: eff.lethalOnLose,
               deathTitle: eff.deathTitle,
               deathDetail: eff.deathDetail,
               onWin: eff.onWin,
@@ -5785,7 +5861,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (!regNode) return
 
     if (s.currentNodeId === target.regionId && !s.campPos && !s.traveling) {
-      if (target.buildingId) {
+      const targetLock = target.buildingId
+        ? getBuildingLockMeta(target.buildingId, s.questState.flags)
+        : null
+      if (target.buildingId && !targetLock) {
         const bRec = BUILDING_DB_MAP[target.buildingId]
         if (bRec?.interior) {
           set({
@@ -6397,6 +6476,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const bRecord = BUILDING_DB_MAP[npc.assignedBuildingId]
     if (!bRecord) return
+
+    const lockMeta = getBuildingLockMeta(bRecord.id, s.questState.flags)
+    if (lockMeta) {
+      set({
+        actionFeedback: {
+          text: `🔒 ${lockMeta.lockedReason}`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
 
     if (npc.assignedSpotId && bRecord.interior) {
       set({

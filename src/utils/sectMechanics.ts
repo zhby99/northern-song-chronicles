@@ -26,6 +26,7 @@ import type {
 } from '../types/game'
 import { findBestRoute, WORLD_GRAPH } from './mapMath'
 import { INITIAL_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
+import { inferTemplatePortrait, resolveAvatarForFullbody } from './portraitFallback'
 import { parseRealmTier } from './realmUtils'
 
 export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
@@ -793,6 +794,12 @@ export function buildNodeNpcFromTournamentOpponent(
       talk: `“宗门大比【${roundName}】，请师兄/师弟赐教！”`,
     }
   }
+  const inferredPortrait = inferTemplatePortrait({
+    name: opp.name,
+    title: opp.title,
+    factionId: sectId,
+    factionName: faction?.name ?? '本门',
+  })
   return {
     id: opp.npcId,
     name: opp.name,
@@ -802,8 +809,8 @@ export function buildNodeNpcFromTournamentOpponent(
     factionName: faction?.name ?? '本门',
     sectRank: round,
     sectRankLabel: getSectRankTitle(sectId, round as SectRankLevel),
-    avatarUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
+    avatarUrl: resolveAvatarForFullbody(inferredPortrait),
+    portraitUrl: inferredPortrait,
     stats: opp.stats,
     talents: { bone: 45, comprehension: 48, charm: 45 },
     talk: `“宗门大比【${roundName}】，请同门赐教！”`,
@@ -886,11 +893,12 @@ export function buildNodeNpcFromKaifengWarrant(warrant: ActiveKaifengWarrant): N
     realm: warrant.realm,
     factionId: 'SECT-18',
     factionName: '绿林通缉要犯',
-    avatarUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     stats: warrant.stats,
     talents: { bone: 45, comprehension: 40, charm: 30 },
     fullLocationLabel: `${warrant.regionName} > ${warrant.buildingName}`,
+    isDynamicKaifengWarrant: true,
     questBadgeLabel: '海捕要犯',
     talk: `“哼，开封府的鹰爪子居然追到${warrant.regionName}来了！想要捉拿爷爷，先问过手中兵刃！”`,
   }
@@ -1416,15 +1424,23 @@ export function generateMinorSectTask(params: {
 }
 
 export function buildNodeNpcFromSectTaskIntel(task: ActiveSectTask): NodeNpc {
+  const name = task.tempNpcName || '酒肆线人'
+  const title = `${task.tempNpcTitle || '江湖百晓生'} · 宗门情报线人`
+  const inferredPortrait = inferTemplatePortrait({
+    name,
+    title,
+    factionId: 'ORG-01',
+    factionName: '江湖散人',
+  })
   return {
     id: `SECT_INTEL_${task.id}`,
-    name: task.tempNpcName || '酒肆线人',
-    title: `${task.tempNpcTitle || '江湖百晓生'} · 宗门情报线人`,
+    name,
+    title,
     realm: '不入流',
     factionId: 'ORG-01',
     factionName: '江湖散人',
-    avatarUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    avatarUrl: resolveAvatarForFullbody(inferredPortrait),
+    portraitUrl: inferredPortrait,
     stats: { hp: 260, mp: 90, agi: 18, res: 10, isBenchmark: false },
     talents: { bone: 40, comprehension: 55, charm: 45 },
     fullLocationLabel: `${task.regionName} > ${task.buildingName}`,
@@ -1435,17 +1451,25 @@ export function buildNodeNpcFromSectTaskIntel(task: ActiveSectTask): NodeNpc {
 
 export function buildNodeNpcFromSectTaskTrainee(task: ActiveSectTask): NodeNpc {
   const faction = FACTION_DB_MAP[task.sectId]
+  const name = task.traineeNpcName || '新进弟子'
+  const title = `${task.sectName} · 初入门徒`
+  const inferredPortrait = inferTemplatePortrait({
+    name,
+    title,
+    factionId: task.sectId,
+    factionName: faction?.name || task.sectName,
+  })
   return {
     id: task.traineeNpcId || `SECT_TRAINEE_${task.id}`,
-    name: task.traineeNpcName || '新进弟子',
-    title: `${task.sectName} · 初入门徒`,
+    name,
+    title,
     realm: task.traineeRealm || '不入流',
     factionId: task.sectId,
     factionName: faction?.name || task.sectName,
     sectRank: 1,
     sectRankLabel: getSectRankTitle(task.sectId, 1),
-    avatarUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    avatarUrl: resolveAvatarForFullbody(inferredPortrait),
+    portraitUrl: inferredPortrait,
     stats: task.traineeStats ?? { hp: 220, mp: 80, agi: 16, res: 8, isBenchmark: false },
     talents: { bone: 35, comprehension: 35, charm: 40 },
     fullLocationLabel: `${task.regionName} > ${task.buildingName}${task.spotName ? ` > ${task.spotName}` : ''}`,

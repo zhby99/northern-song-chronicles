@@ -13,21 +13,26 @@ import type {
 } from '../types/game'
 import type { ActiveQuestCombatHook } from '../types/quest'
 import { deriveHeroEffectiveStats, deriveNpcEffectiveStats } from './heroStats'
+import { inferTemplatePortrait } from './portraitFallback'
 import { estimateHeroRealm } from './realmUtils'
 
 export type MoveSlotKey = 'move1' | 'move2' | 'move3' | 'move4'
 
 export const MOVE_SLOT_KEYS: MoveSlotKey[] = ['move1', 'move2', 'move3', 'move4']
 
+export type CombatTeam = 'ally' | 'enemy'
+
 export type CombatActionChoice =
-  | { type: 'move'; slot: MoveSlotKey }
+  | { type: 'move'; slot: MoveSlotKey; targetId?: string }
   | { type: 'defend' }
   | { type: 'escape' }
-  | { type: 'item'; itemId: string }
+  | { type: 'item'; itemId: string; targetId?: string }
 
 export type CombatOutcome = 'ongoing' | 'player_win' | 'npc_win' | 'escaped' | 'draw'
 
 export interface CombatantState {
+  unitId: string
+  team: CombatTeam
   id: string
   name: string
   title: string
@@ -63,6 +68,11 @@ export interface CombatantState {
   usedArtIdsHistory: string[]
 }
 
+export interface CombatUnitSnapshot {
+  hp: number
+  mp: number
+}
+
 export interface CombatLogEntry {
   id: string
   round: number
@@ -86,6 +96,7 @@ export type CombatVfxCategory =
 export interface CombatFloatingPopup {
   id: string
   side: 'player' | 'npc'
+  unitId?: string
   text: string
   subText?: string
   style: 'damage' | 'crit' | 'dodge' | 'heal' | 'mp' | 'special' | 'guard' | 'debuff'
@@ -96,6 +107,8 @@ export interface CombatRoundBeat {
   kind: 'reveal' | 'attack' | 'dodge' | 'item' | 'escape' | 'status' | 'end'
   actorSide?: 'player' | 'npc'
   targetSide?: 'player' | 'npc'
+  actorUnitId?: string
+  targetUnitId?: string
   bannerTitle?: string
   bannerSubtitle?: string
   vfxCategory?: CombatVfxCategory
@@ -109,6 +122,7 @@ export interface CombatRoundBeat {
   playerMp: number
   npcHp: number
   npcMp: number
+  unitSnapshots?: Record<string, CombatUnitSnapshot>
 }
 
 export interface CombatRoundSummary {
@@ -120,6 +134,7 @@ export interface CombatRoundSummary {
   initialPlayerMp: number
   initialNpcHp: number
   initialNpcMp: number
+  initialUnitSnapshots?: Record<string, CombatUnitSnapshot>
   beats: CombatRoundBeat[]
   events: CombatLogEntry[]
 }
@@ -130,6 +145,7 @@ export type DuelStakesKind =
   | 'rob_official'
   | 'zhan_zhao_arrest'
   | 'liao_spy_duel'
+  | 'kaifeng_warrant'
   | 'sect_tournament'
 
 export interface CombatSessionState {
@@ -144,7 +160,11 @@ export interface CombatSessionState {
   outcome: CombatOutcome
   player: CombatantState
   npc: CombatantState
+  allies: CombatantState[]
+  enemies: CombatantState[]
   targetNpcNode: NodeNpc
+  allyNpcNodes: NodeNpc[]
+  enemyNpcNodes: NodeNpc[]
   logs: CombatLogEntry[]
   lastRoundSummary: CombatRoundSummary | null
   rewardsSummary: string | null
@@ -371,6 +391,9 @@ export function canFighterEscape(
   if (duelStakes === 'liao_spy_duel') {
     return { allowed: false, reason: '燕云锄奸军令生死决战，不死不休不可临阵脱逃' }
   }
+  if (duelStakes === 'kaifeng_warrant') {
+    return { allowed: false, reason: '海捕要犯困兽犹斗，狭窄巷陌刀剑相向难以抽身' }
+  }
   if (escapee.slowTurns > 0) {
     return { allowed: false, reason: '身陷【绊缠】步法受制，无法脱战' }
   }
@@ -383,6 +406,14 @@ export function canFighterEscape(
     }
   }
   return { allowed: true, reason: null }
+}
+
+export function getStrongestLivingEnemy(session: CombatSessionState): CombatantState {
+  const living = session.enemies.filter((e) => e.hp > 0)
+  if (living.length === 0) return session.npc
+  return living.reduce((best, cur) =>
+    computeEffectiveAgility(cur) > computeEffectiveAgility(best) ? cur : best,
+  )
 }
 
 export function computeDodgeChancePreview(
@@ -457,6 +488,8 @@ export function buildPlayerCombatant(params: {
   const portrait = getProtagonistPortrait(params.playerPortraitId)
 
   return {
+    unitId: 'ally-0',
+    team: 'ally',
     id: 'HERO',
     name: params.playerName?.trim() || '少侠',
     title: '江湖行者',
@@ -492,18 +525,34 @@ export function buildPlayerCombatant(params: {
   }
 }
 
-export function buildNpcCombatant(npcNode: NodeNpc): CombatantState {
+export function buildNpcCombatant(
+  npcNode: NodeNpc,
+  options?: { unitId?: string; team?: CombatTeam },
+): CombatantState {
+  const unitId = options?.unitId ?? 'enemy-0'
+  const team: CombatTeam = options?.team ?? 'enemy'
+
   const dbRecord: CompiledNpcRecord | null | undefined =
     (npcNode.id ? NPC_DB_MAP[npcNode.id] : undefined) ??
     resolveNpcByName(npcNode.name) ??
     resolveNpcByName(npcNode.name.replace(/大师$/, ''))
 
   if (dbRecord) {
-    const eff = deriveNpcEffectiveStats(dbRecord)
+    const dbEff = deriveNpcEffectiveStats(dbRecord)
+    const mergedEquipped: EquippedSlotsMap = npcNode.equipped
+      ? { ...dbRecord.equipped, ...npcNode.equipped }
+      : { ...dbRecord.equipped }
+    const mergedEquippedArts: EquippedArtsMap = npcNode.equippedArts
+      ? { ...npcNode.equippedArts }
+      : { ...dbRecord.equippedArts }
+    const mergedLearnedArts: LearnedArtEntry[] = npcNode.learnedArts
+      ? npcNode.learnedArts.map((e) => ({ ...e }))
+      : dbRecord.learnedArts.map((e) => ({ ...e }))
+
     const syn = computeWeaponArtSynergy(
-      dbRecord.equipped.weapon,
-      dbRecord.equippedArts,
-      dbRecord.learnedArts,
+      mergedEquipped.weapon,
+      mergedEquippedArts,
+      mergedLearnedArts,
     )
     const synergyBonusBySlot: Partial<Record<MoveSlotKey, number>> = {}
     for (const m of syn.matches) {
@@ -511,30 +560,60 @@ export function buildNpcCombatant(npcNode: NodeNpc): CombatantState {
         synergyBonusBySlot[m.slot] = m.pct
       }
     }
+
+    const eqTotals = computeEquipmentTotals(mergedEquipped)
+    const artTotals = computeEquippedArtsTotals(mergedEquippedArts, mergedLearnedArts)
+    const hasCustomLoadout = Boolean(
+      npcNode.equipped || npcNode.equippedArts || npcNode.learnedArts,
+    )
+
+    const finalMaxHp = npcNode.stats?.hp ?? dbEff.maxHp
+    const finalMaxMp = npcNode.stats?.mp ?? dbEff.maxMp
+    const finalAgi = npcNode.stats?.agi ?? dbEff.agility
+    const finalRes = npcNode.stats?.res ?? dbEff.res
+    const finalEquipAttack = hasCustomLoadout
+      ? eqTotals.attack || dbEff.equipAttack || 35
+      : dbEff.equipAttack
+    const finalEquipDefense = hasCustomLoadout
+      ? eqTotals.defense + artTotals.defense || dbEff.totalDefense || 35
+      : dbEff.totalDefense
+
+    const resolvedName = npcNode.name || dbRecord.name
+    const resolvedTitle = npcNode.title || dbRecord.role || '江湖名宿'
+    const resolvedRealm = npcNode.realm || dbRecord.realm || '不入流'
+    const resolvedFaction = npcNode.factionName || dbRecord.factionName || '江湖散人'
+
     return {
-      id: dbRecord.id,
-      name: dbRecord.name,
-      title: dbRecord.role || npcNode.title || '江湖名宿',
-      realm: dbRecord.realm || npcNode.realm || '不入流',
-      factionName: dbRecord.factionName || npcNode.factionName || '江湖散人',
+      unitId,
+      team,
+      id: npcNode.id || dbRecord.id,
+      name: resolvedName,
+      title: resolvedTitle,
+      realm: resolvedRealm,
+      factionName: resolvedFaction,
       portraitUrl:
-        dbRecord.fullbodyUrl ??
-        dbRecord.templateUrl ??
-        '/assets/characters/templates/tpl_song_scholar_fb.jpg',
+        npcNode.portraitUrl ||
+        dbRecord.fullbodyUrl ||
+        dbRecord.templateUrl ||
+        inferTemplatePortrait({
+          name: resolvedName,
+          title: resolvedTitle,
+          factionName: resolvedFaction,
+        }),
       isPlayer: false,
 
-      hp: eff.maxHp,
-      maxHp: eff.maxHp,
-      mp: eff.maxMp,
-      maxMp: eff.maxMp,
-      agility: eff.agility,
-      res: eff.res,
-      equipAttack: eff.equipAttack,
-      equipDefense: eff.totalDefense,
+      hp: finalMaxHp,
+      maxHp: finalMaxHp,
+      mp: finalMaxMp,
+      maxMp: finalMaxMp,
+      agility: finalAgi,
+      res: finalRes,
+      equipAttack: finalEquipAttack,
+      equipDefense: finalEquipDefense,
 
-      equipped: { ...dbRecord.equipped },
-      equippedArts: { ...dbRecord.equippedArts },
-      learnedArts: dbRecord.learnedArts.map((e) => ({ ...e })),
+      equipped: mergedEquipped,
+      equippedArts: mergedEquippedArts,
+      learnedArts: mergedLearnedArts,
       synergyBonusBySlot,
 
       lastUsedArtId: null,
@@ -550,7 +629,7 @@ export function buildNpcCombatant(npcNode: NodeNpc): CombatantState {
     }
   }
 
-  // 兜底非注册表临时人物（如燕云辽谍等动态生成强敌）
+  // 兜底非注册表临时人物（如燕云辽谍、任务自定义武僧/统领等）
   const customEquipped: EquippedSlotsMap = npcNode.equipped
     ? { ...npcNode.equipped }
     : {
@@ -580,18 +659,35 @@ export function buildNpcCombatant(npcNode: NodeNpc): CombatantState {
         { artId: 'MA-182', level: 5, exp: 0 },
         { artId: 'MA-187', level: 5, exp: 0 },
       ]
+  const syn = computeWeaponArtSynergy(customEquipped.weapon, customEquippedArts, customLearnedArts)
+  const synergyBonusBySlot: Partial<Record<MoveSlotKey, number>> = {}
+  for (const m of syn.matches) {
+    if (m.slot === 'move1' || m.slot === 'move2' || m.slot === 'move3' || m.slot === 'move4') {
+      synergyBonusBySlot[m.slot] = m.pct
+    }
+  }
   const eqTotals = computeEquipmentTotals(customEquipped)
   const artTotals = computeEquippedArtsTotals(customEquippedArts, customLearnedArts)
   const fallbackHp = npcNode.stats?.hp ?? 250 + artTotals.maxHp + eqTotals.maxHp
   const fallbackMp = npcNode.stats?.mp ?? 50 + artTotals.maxMp + eqTotals.maxMp
+  const resolvedTitle = npcNode.title || '江湖武人'
+  const resolvedFaction = npcNode.factionName || '江湖散人'
+
   return {
+    unitId,
+    team,
     id: npcNode.id ?? npcNode.name,
     name: npcNode.name,
-    title: npcNode.title || '江湖武人',
+    title: resolvedTitle,
     realm: npcNode.realm || '三流中品',
-    factionName: npcNode.factionName || '江湖散人',
+    factionName: resolvedFaction,
     portraitUrl:
-      npcNode.portraitUrl ?? '/assets/characters/templates/tpl_song_scholar_fb.jpg',
+      npcNode.portraitUrl ||
+      inferTemplatePortrait({
+        name: npcNode.name,
+        title: resolvedTitle,
+        factionName: resolvedFaction,
+      }),
     isPlayer: false,
     hp: fallbackHp,
     maxHp: fallbackHp,
@@ -604,7 +700,7 @@ export function buildNpcCombatant(npcNode: NodeNpc): CombatantState {
     equipped: customEquipped,
     equippedArts: customEquippedArts,
     learnedArts: customLearnedArts,
-    synergyBonusBySlot: {},
+    synergyBonusBySlot,
     lastUsedArtId: null,
     stunnedNextRound: false,
     disarmedNextRound: false,
@@ -628,24 +724,56 @@ export function createCombatSession(params: {
   questCombatHook?: ActiveQuestCombatHook | null
   player: CombatantState
   npcNode: NodeNpc
+  allyNpcNodes?: NodeNpc[]
+  extraEnemyNpcNodes?: NodeNpc[]
 }): CombatSessionState {
-  const npc = buildNpcCombatant(params.npcNode)
+  const playerUnit: CombatantState = {
+    ...params.player,
+    unitId: 'ally-0',
+    team: 'ally',
+  }
+  const allyNodes = (params.allyNpcNodes ?? []).slice(0, 1)
+  const enemyNodes = [params.npcNode, ...(params.extraEnemyNpcNodes ?? []).slice(0, 1)]
+
+  const allyUnits = allyNodes.map((node, idx) =>
+    buildNpcCombatant(node, { unitId: `ally-${idx + 1}`, team: 'ally' }),
+  )
+  const enemyUnits = enemyNodes.map((node, idx) =>
+    buildNpcCombatant(node, { unitId: `enemy-${idx}`, team: 'enemy' }),
+  )
+
+  const allies = [playerUnit, ...allyUnits]
+  const enemies = enemyUnits
+  const npc = enemies[0]!
+
   const stakes: DuelStakesKind =
     params.duelStakes ?? (params.mode === 'spar' ? 'spar' : 'duel')
   const maxRounds = params.maxRounds ?? 30
+
+  const enemyRosterLabel = enemies.map((e) => `${e.name}（${e.realm}）`).join('、')
+  const allyRosterLabel = allies.map((a) => (a.isPlayer ? '少侠' : `${a.name}（${a.realm}）`)).join(' 与 ')
+
   const introText =
     params.customIntroText ??
-    (params.surviveToWin
-      ? `【生死十合对决】${npc.name}（${npc.factionName} · ${npc.realm}）气机森严锁定四方！少侠须在手下撑满 ${maxRounds} 合不败方可破局——一旦失手落败，必命丧当场！`
-      : stakes === 'zhan_zhao_arrest'
-        ? `【开封府御前缉捕·生死状】御前四品带刀护卫 ${npc.name} 横剑拦路：“朝廷钦犯休走，随展某回开封府伏法！”（战败即押赴市曹处斩！）`
-        : stakes === 'liao_spy_duel'
-          ? `【燕云锄奸·生死对决】契丹密谍 ${npc.name} 寒刃出鞘：“常山枪派的宋狗竟敢追查至此，今日不死不休！”（生死相搏，败则横尸塞北！）`
-          : stakes === 'rob_official'
-            ? `【绿林投名状·劫官死战】少侠蒙面拔刃拦住大宋命官 ${npc.name} 车驾！一旦失手必丧命当场——`
-            : params.mode === 'duel'
-              ? `【江湖生死对决】少侠（${params.player.realm}）与 ${npc.name}（${npc.factionName} · ${npc.realm}）拔刃生死相向，既分高下，亦决生死！`
-              : `【皇祐武林交锋】少侠（${params.player.realm}）抱拳请益 ${npc.name}（${npc.factionName} · ${npc.realm}）！双方凝神屏息，同步盲选拆招——`)
+    (allies.length > 1 || enemies.length > 1
+      ? params.mode === 'duel'
+        ? `【${allies.length}v${enemies.length} 战阵死斗】${allyRosterLabel} 迎战 ${enemyRosterLabel}！每回合全员各自锁定敌手同步盲选出招，既决胜负，亦分生死！`
+        : `【${allies.length}v${enemies.length} 联手演武】${allyRosterLabel} 对阵 ${enemyRosterLabel}！每回合全员各自择敌拆招，点到为止——`
+      : params.surviveToWin
+        ? params.mode === 'duel'
+          ? `【生死${maxRounds}合对决】${npc.name}（${npc.factionName} · ${npc.realm}）气机森严锁定四方！少侠须在手下撑满 ${maxRounds} 合不败方可破局——一旦失手落败，必命丧当场！`
+          : `【师门考校试炼】${npc.name}（${npc.factionName} · ${npc.realm}）凝神立阵：“少侠若能在手下撑过 ${maxRounds} 合不败，便算过关！”`
+        : stakes === 'zhan_zhao_arrest'
+          ? `【开封府御前缉捕·生死状】御前四品带刀护卫 ${npc.name} 横剑拦路：“朝廷钦犯休走，随展某回开封府伏法！”（战败即押赴市曹处斩！）`
+          : stakes === 'liao_spy_duel'
+            ? `【燕云锄奸·生死对决】契丹密谍 ${npc.name} 寒刃出鞘：“常山枪派的宋狗竟敢追查至此，今日不死不休！”（生死相搏，败则横尸塞北！）`
+            : stakes === 'kaifeng_warrant'
+              ? `【开封府海捕缉凶·生死战】海捕悍匪 ${npc.name} 凶相毕露拔刃死斗：“官府鹰犬也敢来拿爷爷？今日叫你有来无回！”（生死相搏，败则血溅当场！）`
+              : stakes === 'rob_official'
+                ? `【绿林投名状·劫官死战】少侠蒙面拔刃拦住大宋命官 ${npc.name} 车驾！一旦失手必丧命当场——`
+                : params.mode === 'duel'
+                  ? `【江湖生死对决】少侠（${playerUnit.realm}）与 ${npc.name}（${npc.factionName} · ${npc.realm}）拔刃生死相向，既分高下，亦决生死！`
+                  : `【皇祐武林交锋】少侠（${playerUnit.realm}）抱拳请益 ${npc.name}（${npc.factionName} · ${npc.realm}）！双方凝神屏息，同步盲选拆招——`)
   const intro = makeLog(0, 'system', introText)
   return {
     sessionId: `session-${Date.now()}`,
@@ -657,9 +785,13 @@ export function createCombatSession(params: {
     forbidEscapeReason: params.forbidEscapeReason ?? null,
     questCombatHook: params.questCombatHook ?? null,
     outcome: 'ongoing',
-    player: params.player,
+    player: playerUnit,
     npc,
+    allies,
+    enemies,
     targetNpcNode: params.npcNode,
+    allyNpcNodes: allyNodes,
+    enemyNpcNodes: enemyNodes,
     logs: [intro],
     lastRoundSummary: null,
     rewardsSummary: null,
@@ -671,7 +803,7 @@ export function createCombatSession(params: {
  */
 export function chooseNpcCombatAction(
   npc: CombatantState,
-  player: CombatantState,
+  primaryOpponent: CombatantState,
 ): CombatActionChoice {
   if (npc.stunnedNextRound) {
     return { type: 'defend' }
@@ -689,7 +821,7 @@ export function chooseNpcCombatAction(
   let defendProb = 0.12
   if (affordableMoves.length === 0) defendProb = 0.38
   else if (ngFx.jingang_rebound || qgFx.lingbo_def_dodge) defendProb = 0.2
-  else if (npc.hp < npc.maxHp * 0.3 && player.mp > player.maxMp * 0.5) defendProb = 0.22
+  else if (npc.hp < npc.maxHp * 0.3 && primaryOpponent.mp > primaryOpponent.maxMp * 0.5) defendProb = 0.22
 
   if (Math.random() < defendProb) {
     return { type: 'defend' }
@@ -711,6 +843,54 @@ export function chooseNpcCombatAction(
     }
   }
   return { type: 'move', slot: pool[0]!.slot }
+}
+
+/**
+ * 1v2 / 2v2 战阵 AI：为存活 NPC（友军或敌军）同步选择目标敌手与本回合招式
+ */
+export function chooseAiCombatDecision(
+  actor: CombatantState,
+  livingOpponents: CombatantState[],
+): { choice: CombatActionChoice; targetUnitId: string } {
+  const fallbackTarget = livingOpponents[0]!
+  let chosenTarget = fallbackTarget
+
+  if (livingOpponents.length > 1) {
+    const weights = livingOpponents.map((opp) => {
+      const hpRatio = opp.hp / Math.max(1, opp.maxHp)
+      let w = 1.0
+      if (hpRatio < 0.35) w += 0.5
+      if (actor.team === 'enemy') {
+        // 敌军在少侠与友军之间战术分摊火力（略倾向威胁更高的目标，避免机械死盯一人）
+        w *= opp.isPlayer ? 1.1 : 1.0
+      } else {
+        // 友军优先配合压制残血敌军
+        w *= hpRatio < 0.6 ? 1.35 : 1.0
+      }
+      return Math.max(0.2, w)
+    })
+    const sum = weights.reduce((a, b) => a + b, 0)
+    let r = Math.random() * sum
+    for (let i = 0; i < livingOpponents.length; i += 1) {
+      r -= weights[i]!
+      if (r <= 0) {
+        chosenTarget = livingOpponents[i]!
+        break
+      }
+    }
+  }
+
+  const baseChoice = chooseNpcCombatAction(actor, chosenTarget)
+  if (baseChoice.type === 'move') {
+    return {
+      choice: { ...baseChoice, targetId: chosenTarget.unitId },
+      targetUnitId: chosenTarget.unitId,
+    }
+  }
+  return {
+    choice: baseChoice,
+    targetUnitId: chosenTarget.unitId,
+  }
 }
 
 function describeChoice(fighter: CombatantState, choice: CombatActionChoice): string {
@@ -738,7 +918,7 @@ function cloneCombatant(c: CombatantState): CombatantState {
 }
 
 /**
- * 结算单个完整回合（同步盲选亮牌 -> 先手判定 -> 先手行动 -> 后手行动 -> 回合末真气吐纳与胜负判定）
+ * 结算单个完整回合（全员择敌同步盲选亮牌 -> 全员身法先手排序 -> 逐一行动与中途变招转向 -> 回合末真气吐纳与胜负判定）
  */
 export function resolveCombatRound(
   session: CombatSessionState,
@@ -746,6 +926,7 @@ export function resolveCombatRound(
 ): CombatSessionState {
   if (session.outcome !== 'ongoing') return session
 
+  const strongestPursuer = getStrongestLivingEnemy(session)
   if (playerChoice.type === 'move') {
     const slotAvail = getMoveActionsAvailability(session.player).find(
       (m) => m.slot === playerChoice.slot,
@@ -757,7 +938,7 @@ export function resolveCombatRound(
     playerChoice.type === 'escape' &&
     !canFighterEscape(
       session.player,
-      session.npc,
+      strongestPursuer,
       session.duelStakes,
       session.forbidEscapeReason,
     ).allowed
@@ -768,18 +949,38 @@ export function resolveCombatRound(
   }
 
   const round = session.round
-  const player = cloneCombatant(session.player)
-  const npc = cloneCombatant(session.npc)
+  const sourceAllies =
+    session.allies && session.allies.length > 0 ? session.allies : [session.player]
+  const sourceEnemies =
+    session.enemies && session.enemies.length > 0 ? session.enemies : [session.npc]
+
+  const allies = sourceAllies.map(cloneCombatant)
+  const enemies = sourceEnemies.map(cloneCombatant)
+  const player = allies[0]!
+  const getPrimaryNpc = () => enemies.find((e) => e.hp > 0) ?? enemies[0]!
+  const isMultiCombat = allies.length > 1 || enemies.length > 1
+
+  const captureSnapshots = (): Record<string, CombatUnitSnapshot> => {
+    const map: Record<string, CombatUnitSnapshot> = {}
+    for (const f of [...allies, ...enemies]) {
+      map[f.unitId] = { hp: f.hp, mp: f.mp }
+    }
+    return map
+  }
+
+  const initialUnitSnapshots = captureSnapshots()
+  const initialPrimaryNpc = getPrimaryNpc()
   const initialPlayerHp = player.hp
   const initialPlayerMp = player.mp
-  const initialNpcHp = npc.hp
-  const initialNpcMp = npc.mp
+  const initialNpcHp = initialPrimaryNpc.hp
+  const initialNpcMp = initialPrimaryNpc.mp
 
-  const npcChoice = chooseNpcCombatAction(npc, player)
   const roundEvents: CombatLogEntry[] = []
   const beats: CombatRoundBeat[] = []
   let logCursor = 0
   let popupSeq = 0
+  let currentStepActorUnitId: string | undefined
+  let currentStepTargetUnitId: string | undefined
 
   const nextPopupId = () => {
     popupSeq += 1
@@ -789,19 +990,39 @@ export function resolveCombatRound(
   const flushBeat = (
     meta: Omit<
       CombatRoundBeat,
-      'id' | 'logs' | 'playerHp' | 'playerMp' | 'npcHp' | 'npcMp'
+      'id' | 'logs' | 'playerHp' | 'playerMp' | 'npcHp' | 'npcMp' | 'unitSnapshots'
     >,
   ) => {
     const sliced = roundEvents.slice(logCursor)
     logCursor = roundEvents.length
+    const resolvedActorUnitId = meta.actorUnitId ?? currentStepActorUnitId
+    const resolvedTargetUnitId = meta.targetUnitId ?? currentStepTargetUnitId
+    const enrichedPopups = meta.popups.map((p) => {
+      if (p.unitId) return p
+      if (meta.actorSide && p.side === meta.actorSide && resolvedActorUnitId) {
+        return { ...p, unitId: resolvedActorUnitId }
+      }
+      if (meta.targetSide && p.side === meta.targetSide && resolvedTargetUnitId) {
+        return { ...p, unitId: resolvedTargetUnitId }
+      }
+      return {
+        ...p,
+        unitId: p.side === 'player' ? player.unitId : getPrimaryNpc().unitId,
+      }
+    })
+    const activeNpc = getPrimaryNpc()
     beats.push({
       ...meta,
+      actorUnitId: resolvedActorUnitId,
+      targetUnitId: resolvedTargetUnitId,
+      popups: enrichedPopups,
       id: `beat-${round}-${beats.length + 1}`,
       logs: sliced,
       playerHp: player.hp,
       playerMp: player.mp,
-      npcHp: npc.hp,
-      npcMp: npc.mp,
+      npcHp: activeNpc.hp,
+      npcMp: activeNpc.mp,
+      unitSnapshots: captureSnapshots(),
     })
   }
 
@@ -829,8 +1050,10 @@ export function resolveCombatRound(
     }
   }
 
+  const livingFightersAtStart = [...allies, ...enemies].filter((f) => f.hp > 0)
+
   // 回合初：紫霞神功叠层 & 清除上回合一次性受控标记（已在本回合选招时生效）
-  for (const f of [player, npc]) {
+  for (const f of livingFightersAtStart) {
     const ngFx = getSlotEffectsMap(f, 'neigong')
     if (ngFx.zixia_stack && f.zixiaStacks < 5) {
       f.zixiaStacks += 1
@@ -842,130 +1065,222 @@ export function resolveCombatRound(
     f.disarmedNextRound = false
   }
 
-  const pLabel = describeChoice(player, playerChoice)
-  const nLabel = describeChoice(npc, npcChoice)
+  // 1) 全员同步盲选：决定各自招式与锁定目标
+  const livingEnemiesStart = enemies.filter((e) => e.hp > 0)
+  const livingAlliesStart = allies.filter((a) => a.hp > 0)
 
-  // 1) 判定本回合先后手
-  const pAgi = computeEffectiveAgility(player)
-  const nAgi = computeEffectiveAgility(npc)
-  const pMoveArt =
-    playerChoice.type === 'move' && player.equippedArts[playerChoice.slot]
-      ? MARTIAL_ART_DB_MAP[player.equippedArts[playerChoice.slot]!]
+  const requestedTargetId =
+    playerChoice.type === 'move' || playerChoice.type === 'item'
+      ? playerChoice.targetId
       : undefined
-  const nMoveArt =
-    npcChoice.type === 'move' && npc.equippedArts[npcChoice.slot]
-      ? MARTIAL_ART_DB_MAP[npc.equippedArts[npcChoice.slot]!]
-      : undefined
+  const playerTargetEnemy =
+    livingEnemiesStart.find((e) => e.unitId === requestedTargetId) ??
+    livingEnemiesStart[0] ??
+    enemies[0]!
 
-  const pMoveFx = pMoveArt ? getSlotEffectsMap(player, playerChoice.type === 'move' ? playerChoice.slot : 'move1') : {}
-  const nMoveFx = nMoveArt ? getSlotEffectsMap(npc, npcChoice.type === 'move' ? npcChoice.slot : 'move1') : {}
+  const decisionMap = new Map<
+    string,
+    { fighter: CombatantState; choice: CombatActionChoice; targetUnitId: string }
+  >()
 
-  let firstMover: 'player' | 'npc' = 'player'
-  let initReason = ''
+  decisionMap.set(player.unitId, {
+    fighter: player,
+    choice: playerChoice,
+    targetUnitId: playerTargetEnemy.unitId,
+  })
 
-  if (
-    playerChoice.type === 'move' &&
-    npcChoice.type === 'move' &&
-    pMoveFx.dugu_interrupt &&
-    !nMoveFx.dugu_interrupt
-  ) {
-    firstMover = 'player'
-    initReason = '（《独孤九剑》料敌机先，无视身法抢占先机！）'
-  } else if (
-    playerChoice.type === 'move' &&
-    npcChoice.type === 'move' &&
-    nMoveFx.dugu_interrupt &&
-    !pMoveFx.dugu_interrupt
-  ) {
-    firstMover = 'npc'
-    initReason = '（《独孤九剑》料敌机先，无视身法抢占先机！）'
-  } else {
-    const pInit = pAgi + (Math.random() * 6 - 3)
-    const nInit = nAgi + (Math.random() * 6 - 3)
-    firstMover = pInit >= nInit ? 'player' : 'npc'
-    initReason = `（实战身法 ${pAgi} : ${nAgi}）`
+  for (const ally of livingAlliesStart) {
+    if (ally.isPlayer) continue
+    const dec = chooseAiCombatDecision(ally, livingEnemiesStart)
+    decisionMap.set(ally.unitId, {
+      fighter: ally,
+      choice: dec.choice,
+      targetUnitId: dec.targetUnitId,
+    })
   }
 
-  roundEvents.push(
-    makeLog(
-      round,
-      'info',
-      `第 ${round} 合亮牌：少侠出${pLabel}，${npc.name}出${nLabel} —— ${
-        firstMover === 'player' ? '少侠' : npc.name
-      }抢得先手${initReason}！`,
-    ),
+  for (const enemy of livingEnemiesStart) {
+    const dec = chooseAiCombatDecision(enemy, livingAlliesStart)
+    decisionMap.set(enemy.unitId, {
+      fighter: enemy,
+      choice: dec.choice,
+      targetUnitId: dec.targetUnitId,
+    })
+  }
+
+  // 2) 全员身法先后手排序（含《独孤九剑》料敌机先抢先机）
+  const scoredOrder = Array.from(decisionMap.values()).map((entry) => {
+    const { fighter, choice } = entry
+    const agi = computeEffectiveAgility(fighter)
+    const moveFx =
+      choice.type === 'move' ? getSlotEffectsMap(fighter, choice.slot) : {}
+    const hasDuguPriority = choice.type === 'move' && Boolean(moveFx.dugu_interrupt)
+    const initScore = (hasDuguPriority ? 10000 : 0) + agi + (Math.random() * 6 - 3)
+    return {
+      ...entry,
+      agi,
+      hasDuguPriority,
+      initScore,
+    }
+  })
+
+  scoredOrder.sort((a, b) => {
+    if (Math.abs(b.initScore - a.initScore) > 1e-6) return b.initScore - a.initScore
+    return a.fighter.team === 'ally' ? -1 : 1
+  })
+
+  const leader = scoredOrder[0]!
+  const firstMover: 'player' | 'npc' = leader.fighter.team === 'ally' ? 'player' : 'npc'
+  const pLabel = describeChoice(player, playerChoice)
+  const primaryNpcDecision = decisionMap.get(initialPrimaryNpc.unitId)
+  const nLabel = primaryNpcDecision
+    ? describeChoice(initialPrimaryNpc, primaryNpcDecision.choice)
+    : '【败退】'
+
+  const unitById = new Map<string, CombatantState>(
+    [...allies, ...enemies].map((u) => [u.unitId, u]),
   )
+
+  const formatFighterBlindPick = (entry: (typeof scoredOrder)[number]): string => {
+    const actorLabel = entry.fighter.isPlayer ? '少侠' : entry.fighter.name
+    const actLabel = describeChoice(entry.fighter, entry.choice)
+    const isOffensive =
+      entry.choice.type === 'move' ||
+      (entry.choice.type === 'item' && Boolean(ITEM_DB_MAP[entry.choice.itemId]?.poisonEffect))
+    if (isMultiCombat && isOffensive) {
+      const tgt = unitById.get(entry.targetUnitId)
+      const tgtName = tgt ? (tgt.isPlayer ? '少侠' : tgt.name) : ''
+      if (tgtName) return `${actorLabel}出${actLabel}→${tgtName}`
+    }
+    return `${actorLabel}出${actLabel}`
+  }
+
+  let initReason = ''
+  if (!isMultiCombat) {
+    const nAgi = computeEffectiveAgility(initialPrimaryNpc)
+    initReason = leader.hasDuguPriority
+      ? '（《独孤九剑》料敌机先，无视身法抢占先机！）'
+      : `（实战身法 ${computeEffectiveAgility(player)} : ${nAgi}）`
+    roundEvents.push(
+      makeLog(
+        round,
+        'info',
+        `第 ${round} 合亮牌：少侠出${pLabel}，${initialPrimaryNpc.name}出${nLabel} —— ${
+          firstMover === 'player' ? '少侠' : initialPrimaryNpc.name
+        }抢得先手${initReason}！`,
+      ),
+    )
+  } else {
+    const picksSummary = Array.from(decisionMap.values())
+      .map((entry) => {
+        const match = scoredOrder.find((s) => s.fighter.unitId === entry.fighter.unitId)!
+        return formatFighterBlindPick(match)
+      })
+      .join('；')
+    const orderSummary = scoredOrder
+      .map((s) => `${s.fighter.isPlayer ? '少侠' : s.fighter.name}(${s.agi})`)
+      .join(' → ')
+    initReason = `（出招序：${orderSummary}）`
+    roundEvents.push(
+      makeLog(round, 'info', `第 ${round} 合战阵亮牌：${picksSummary} —— ${initReason}`),
+    )
+  }
 
   const revealPopups: CombatFloatingPopup[] = []
 
-  // 若选择【防御】，重置连招限制，且本回合不耗内力、不回血回内
-  if (playerChoice.type === 'defend') {
-    player.lastUsedArtId = null
-    roundEvents.push(
-      makeLog(round, 'player', `少侠沉腰坐马敛气守御，门户严密（本回合不耗内力，所受伤害减半）。`),
-    )
-    revealPopups.push({
-      id: nextPopupId(),
-      side: 'player',
-      text: '沉腰守御',
-      subText: '受创减半',
-      style: 'guard',
-    })
-  }
-  if (npcChoice.type === 'defend') {
-    npc.lastUsedArtId = null
-    roundEvents.push(
-      makeLog(round, 'enemy', `${npc.name}凝神敛息摆出守御架势，滴水不漏（所受伤害减半）。`),
-    )
-    revealPopups.push({
-      id: nextPopupId(),
-      side: 'npc',
-      text: '凝神守御',
-      subText: '受创减半',
-      style: 'guard',
-    })
+  // 若选择【防御】，重置连招限制，且本回合不耗内力
+  for (const entry of decisionMap.values()) {
+    if (entry.choice.type === 'defend') {
+      entry.fighter.lastUsedArtId = null
+      const fSide: 'player' | 'npc' = entry.fighter.team === 'ally' ? 'player' : 'npc'
+      const actorTitle = entry.fighter.isPlayer ? '少侠' : entry.fighter.name
+      roundEvents.push(
+        makeLog(
+          round,
+          fSide === 'player' ? 'player' : 'enemy',
+          `${actorTitle}沉腰敛气摆出守御架势，门户严密（所受伤害减半）。`,
+        ),
+      )
+      revealPopups.push({
+        id: nextPopupId(),
+        side: fSide,
+        unitId: entry.fighter.unitId,
+        text: entry.fighter.isPlayer ? '沉腰守御' : '凝神守御',
+        subText: '受创减半',
+        style: 'guard',
+      })
+    }
   }
 
+  const anyDefend = Array.from(decisionMap.values()).some((d) => d.choice.type === 'defend')
   flushBeat({
     kind: 'reveal',
     actorSide: firstMover,
-    bannerTitle: `第 ${round} 合 · 亮招交锋`,
-    bannerSubtitle: `${firstMover === 'player' ? '少侠' : npc.name}抢得先手 ${initReason}`,
-    vfxCategory:
-      playerChoice.type === 'defend' || npcChoice.type === 'defend' ? 'guard' : undefined,
+    actorUnitId: leader.fighter.unitId,
+    bannerTitle: isMultiCombat
+      ? `第 ${round} 合 · ${allies.length}v${enemies.length} 战阵交锋`
+      : `第 ${round} 合 · 亮招交锋`,
+    bannerSubtitle: isMultiCombat
+      ? initReason.replace(/^（|）$/g, '')
+      : `${leader.fighter.isPlayer ? '少侠' : leader.fighter.name}抢得先手 ${initReason}`,
+    vfxCategory: anyDefend ? 'guard' : undefined,
     popups: revealPopups,
   })
 
   const interruptedIds = new Set<string>()
   let escapedSuccess = false
 
-  const actionQueue: Array<{
-    actor: CombatantState
-    target: CombatantState
-    choice: CombatActionChoice
-    targetChoice: CombatActionChoice
-  }> =
-    firstMover === 'player'
-      ? [
-          { actor: player, target: npc, choice: playerChoice, targetChoice: npcChoice },
-          { actor: npc, target: player, choice: npcChoice, targetChoice: playerChoice },
-        ]
-      : [
-          { actor: npc, target: player, choice: npcChoice, targetChoice: playerChoice },
-          { actor: player, target: npc, choice: playerChoice, targetChoice: npcChoice },
-        ]
+  for (const step of scoredOrder) {
+    const actor = step.fighter
+    const choice = step.choice
+    if (escapedSuccess || player.hp <= 0 || enemies.every((e) => e.hp <= 0)) break
+    if (actor.hp <= 0) continue
+    if (interruptedIds.has(actor.unitId)) continue
 
-  for (const step of actionQueue) {
-    const { actor, target, choice, targetChoice } = step
-    const actorSide: 'player' | 'npc' = actor.isPlayer ? 'player' : 'npc'
-    const targetSide: 'player' | 'npc' = target.isPlayer ? 'player' : 'npc'
-    if (actor.hp <= 0 || target.hp <= 0 || escapedSuccess) break
-    if (interruptedIds.has(actor.id)) continue
+    const opposingTeam = actor.team === 'ally' ? enemies : allies
+    const livingOpponents = opposingTeam.filter((o) => o.hp > 0)
+    if (livingOpponents.length === 0) break
+
+    let target = unitById.get(step.targetUnitId)
+    const needsOffensiveTarget =
+      choice.type === 'move' ||
+      (choice.type === 'item' && Boolean(ITEM_DB_MAP[choice.itemId]?.poisonEffect))
+    if (!target || target.hp <= 0) {
+      const prevName = target?.name
+      target = livingOpponents[0]!
+      if (needsOffensiveTarget && prevName) {
+        roundEvents.push(
+          makeLog(
+            round,
+            'info',
+            `${actor.isPlayer ? '少侠' : actor.name}见${prevName}已败下阵去，当即拧腰变招直取${
+              target.isPlayer ? '少侠' : target.name
+            }！`,
+          ),
+        )
+      }
+    }
+
+    const targetChoice: CombatActionChoice =
+      decisionMap.get(target.unitId)?.choice ?? { type: 'defend' }
+    const actorSide: 'player' | 'npc' = actor.team === 'ally' ? 'player' : 'npc'
+    const targetSide: 'player' | 'npc' = target.team === 'ally' ? 'player' : 'npc'
+    currentStepActorUnitId = actor.unitId
+    currentStepTargetUnitId = target.unitId
 
     // 处理【逃跑】
     if (choice.type === 'escape') {
       actor.lastUsedArtId = null
-      const escCheck = canFighterEscape(actor, target, session.duelStakes)
+      const fastPursuer = livingOpponents.reduce((best, cur) =>
+        computeEffectiveAgility(cur) > computeEffectiveAgility(best) ? cur : best,
+      )
+      currentStepTargetUnitId = fastPursuer.unitId
+      const escCheck = canFighterEscape(
+        actor,
+        fastPursuer,
+        session.duelStakes,
+        session.forbidEscapeReason,
+      )
       if (!escCheck.allowed) {
         roundEvents.push(
           makeLog(round, 'special', `${actor.name}欲抽身退走，奈何${escCheck.reason}！`),
@@ -988,8 +1303,16 @@ export function resolveCombatRound(
         })
         continue
       }
-      const chance = computeEscapeChancePreview(actor, target, session.duelStakes)
-      const finalEscapeChance = targetChoice.type === 'defend' ? Math.min(0.95, chance + 0.25) : chance
+      const chance = computeEscapeChancePreview(
+        actor,
+        fastPursuer,
+        session.duelStakes,
+        session.forbidEscapeReason,
+      )
+      const allPursuersDefending = livingOpponents.every(
+        (o) => decisionMap.get(o.unitId)?.choice.type === 'defend',
+      )
+      const finalEscapeChance = allPursuersDefending ? Math.min(0.95, chance + 0.25) : chance
       if (Math.random() < finalEscapeChance) {
         escapedSuccess = true
         roundEvents.push(
@@ -1021,7 +1344,7 @@ export function resolveCombatRound(
           makeLog(
             round,
             'info',
-            `${actor.name}纵身欲退，却被${target.name}欺身封住去路（脱身率 ${Math.round(finalEscapeChance * 100)}% 未果）！`,
+            `${actor.name}纵身欲退，却被${fastPursuer.name}欺身封住去路（脱身率 ${Math.round(finalEscapeChance * 100)}% 未果）！`,
           ),
         )
         flushBeat({
@@ -1029,7 +1352,7 @@ export function resolveCombatRound(
           actorSide,
           targetSide,
           bannerTitle: '抽身未果',
-          bannerSubtitle: `${target.name}欺身封死退路`,
+          bannerSubtitle: `${fastPursuer.name}欺身封死退路`,
           vfxCategory: 'escape',
           popups: [
             {
@@ -1297,7 +1620,7 @@ export function resolveCombatRound(
     let escapeLockBonus = 0
     if (targetChoice.type === 'escape' && moveFx.baoyu_lock) {
       escapeLockBonus = moveFx.baoyu_lock / 100
-      interruptedIds.add(target.id)
+      interruptedIds.add(target.unitId)
       roundEvents.push(
         makeLog(
           round,
@@ -1352,7 +1675,7 @@ export function resolveCombatRound(
     if (targetChoice.type === 'move' && moveFx.dugu_interrupt) {
       const targetImmune = Boolean(targetNgFx.bahuang_dom && target.hp > actor.hp)
       if (!targetImmune && Math.random() < moveFx.dugu_interrupt / 100) {
-        interruptedIds.add(target.id)
+        interruptedIds.add(target.unitId)
         didInterruptMove = true
         roundEvents.push(
           makeLog(
@@ -1549,7 +1872,7 @@ export function resolveCombatRound(
     roundEvents.push(
       makeLog(
         round,
-        roll.isCrit ? 'crit' : actor.isPlayer ? 'player' : 'enemy',
+        roll.isCrit ? 'crit' : actor.team === 'ally' ? 'player' : 'enemy',
         `${actor.name}催动《${art.cleanName}》［${subTypeLabel}·${mpNote}］——【${roll.tag} ×${roll.multiplier.toFixed(
           2,
         )}】${roll.desc}，重创${target.name} ${finalDmg} 点气血${
@@ -1726,6 +2049,31 @@ export function resolveCombatRound(
       }
     }
 
+    if (isMultiCombat && target.hp <= 0 && !target.isPlayer) {
+      if (target.team === 'enemy') {
+        const remainingEnemies = enemies.filter((e) => e.hp > 0)
+        if (remainingEnemies.length > 0) {
+          roundEvents.push(
+            makeLog(
+              round,
+              'system',
+              `${target.name}真气溃散败下阵来！（敌阵尚余 ${remainingEnemies
+                .map((e) => e.name)
+                .join('、')}）`,
+            ),
+          )
+        }
+      } else {
+        roundEvents.push(
+          makeLog(
+            round,
+            'system',
+            `助战同伴 ${target.name} 浴血力竭退下阵线，少侠独力迎战余敌！`,
+          ),
+        )
+      }
+    }
+
     flushBeat({
       kind: 'attack',
       actorSide,
@@ -1741,11 +2089,17 @@ export function resolveCombatRound(
     })
   }
 
+  currentStepActorUnitId = undefined
+  currentStepTargetUnitId = undefined
+
+  const anyEnemyAlive = enemies.some((e) => e.hp > 0)
+
   // 回合末：九阴疗伤 / 先天功生生不息 & 状态回合递减
   const statusPopups: CombatFloatingPopup[] = []
-  if (!escapedSuccess && player.hp > 0 && npc.hp > 0) {
-    for (const f of [player, npc]) {
-      const fSide: 'player' | 'npc' = f.isPlayer ? 'player' : 'npc'
+  if (!escapedSuccess && player.hp > 0 && anyEnemyAlive) {
+    for (const f of [...allies, ...enemies]) {
+      if (f.hp <= 0) continue
+      const fSide: 'player' | 'npc' = f.team === 'ally' ? 'player' : 'npc'
       const ngFx = getSlotEffectsMap(f, 'neigong')
       if (ngFx.jiuyin_heal) {
         const heal = Math.max(1, Math.round((f.maxHp * ngFx.jiuyin_heal) / 100))
@@ -1754,6 +2108,7 @@ export function resolveCombatRound(
         statusPopups.push({
           id: nextPopupId(),
           side: fSide,
+          unitId: f.unitId,
           text: `+${heal}`,
           subText: '九阴疗伤',
           style: 'heal',
@@ -1774,6 +2129,7 @@ export function resolveCombatRound(
         statusPopups.push({
           id: nextPopupId(),
           side: fSide,
+          unitId: f.unitId,
           text: `+${hpGain} 血 / +${mpGain} 内`,
           subText: '先天吐纳',
           style: 'heal',
@@ -1794,23 +2150,28 @@ export function resolveCombatRound(
   }
 
   // 判定胜负结果
+  const allEnemiesDown = enemies.every((e) => e.hp <= 0)
+  const finalPrimaryNpc = getPrimaryNpc()
+  const enemyGroupLabel =
+    enemies.length > 1 ? enemies.map((e) => e.name).join('、') : finalPrimaryNpc.name
+
   let outcome: CombatOutcome = 'ongoing'
   if (escapedSuccess) {
     outcome = 'escaped'
-  } else if (player.hp <= 0 && npc.hp <= 0) {
+  } else if (player.hp <= 0 && allEnemiesDown) {
     outcome = 'draw'
     roundEvents.push(
       makeLog(round, 'system', `双方拼至力竭同时收掌后退，此番交锋不分伯仲！`),
     )
-  } else if (npc.hp <= 0) {
+  } else if (allEnemiesDown) {
     outcome = 'player_win'
     roundEvents.push(
       makeLog(
         round,
         'system',
         session.mode === 'duel'
-          ? `生死分晓！${npc.name}气绝败北，少侠浴血激战 ${round} 合大获全胜！`
-          : `承让！${npc.name}气血见底拱手认输，少侠历经 ${round} 合拆招获胜！`,
+          ? `生死分晓！${enemyGroupLabel}全数溃败，少侠浴血激战 ${round} 合大获全胜！`
+          : `承让！${enemyGroupLabel}拱手认输，少侠历经 ${round} 合拆招获胜！`,
       ),
     )
   } else if (player.hp <= 0) {
@@ -1820,10 +2181,10 @@ export function resolveCombatRound(
         round,
         'system',
         session.duelStakes === 'zhan_zhao_arrest'
-          ? `少侠重伤倒地被南侠${npc.name}生擒锁拿，即将押赴开封府市曹问斩！`
+          ? `少侠重伤倒地被南侠${finalPrimaryNpc.name}生擒锁拿，即将押赴开封府市曹问斩！`
           : session.mode === 'duel'
             ? `刀剑无眼！少侠在生死相搏中真气溃散重创倒地，命悬一线！`
-            : `少侠气血不支抱拳退让，${npc.name}收势颔首点到为止。`,
+            : `少侠气血不支抱拳退让，${finalPrimaryNpc.name}收势颔首点到为止。`,
       ),
     )
   } else if (round >= session.maxRounds) {
@@ -1833,12 +2194,16 @@ export function resolveCombatRound(
         makeLog(
           round,
           'system',
-          `拆招已满 ${session.maxRounds} 合！少侠稳守门户屹立不倒，${npc.name}抚掌赞叹，考校顺利过关！`,
+          `拆招已满 ${session.maxRounds} 合！少侠稳守门户屹立不倒，${finalPrimaryNpc.name}抚掌赞叹，考校顺利过关！`,
         ),
       )
     } else {
-      const pRatio = player.hp / Math.max(1, player.maxHp)
-      const nRatio = npc.hp / Math.max(1, npc.maxHp)
+      const allyCurHp = allies.reduce((s, a) => s + Math.max(0, a.hp), 0)
+      const allyMaxHp = allies.reduce((s, a) => s + Math.max(1, a.maxHp), 0)
+      const enemyCurHp = enemies.reduce((s, e) => s + Math.max(0, e.hp), 0)
+      const enemyMaxHp = enemies.reduce((s, e) => s + Math.max(1, e.maxHp), 0)
+      const pRatio = allyCurHp / Math.max(1, allyMaxHp)
+      const nRatio = enemyCurHp / Math.max(1, enemyMaxHp)
       outcome =
         session.questCombatHook && !session.questCombatHook.onDraw
           ? pRatio > nRatio
@@ -1855,9 +2220,9 @@ export function resolveCombatRound(
           'system',
           `拆招已满 ${session.maxRounds} 合！按双方余留气血气度裁定：${
             outcome === 'player_win'
-              ? '少侠略胜半筹'
+              ? '少侠一方略胜半筹'
               : outcome === 'npc_win'
-                ? `${npc.name}技高一筹`
+                ? `${enemyGroupLabel}技高一筹`
                 : '秋色平分'
           }！`,
         ),
@@ -1876,7 +2241,9 @@ export function resolveCombatRound(
             ? '秋色平分 · 不分伯仲'
             : outcome === 'escaped'
               ? '虚晃一招 · 飘然脱身'
-              : '点到为止 · 抱拳退让',
+              : session.mode === 'duel'
+                ? '真气溃散 · 血染沙场'
+                : '点到为止 · 抱拳退让',
       bannerSubtitle: `共历 ${round} 合拆招定音`,
       popups: [],
     })
@@ -1887,7 +2254,9 @@ export function resolveCombatRound(
     round: outcome === 'ongoing' ? round + 1 : round,
     outcome,
     player,
-    npc,
+    npc: finalPrimaryNpc,
+    allies,
+    enemies,
     logs: [...session.logs, ...roundEvents],
     lastRoundSummary: {
       round,
@@ -1898,6 +2267,7 @@ export function resolveCombatRound(
       initialPlayerMp,
       initialNpcHp,
       initialNpcMp,
+      initialUnitSnapshots,
       beats,
       events: roundEvents,
     },

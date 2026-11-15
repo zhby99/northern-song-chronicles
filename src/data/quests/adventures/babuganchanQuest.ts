@@ -15,8 +15,8 @@ function buildJiefengScoutNpc(): NodeNpc {
     realm: '三流上品',
     factionId: 'SECT-18',
     factionName: '截风门余孽',
-    avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_tangmen_male_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_tangmen_male_fb.jpg',
     stats: {
       hp: 420,
       mp: 220,
@@ -60,8 +60,8 @@ function buildJiefengDeputyNpc(): NodeNpc {
     realm: '二流下品',
     factionId: 'SECT-18',
     factionName: '截风门余孽',
-    avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_tangmen_male_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_tangmen_male_fb.jpg',
     stats: {
       hp: 680,
       mp: 360,
@@ -105,8 +105,8 @@ function buildYinJiuyouBossNpc(weakened: boolean): NodeNpc {
     realm: weakened ? '二流中品' : '二流上品',
     factionId: 'SECT-18',
     factionName: '截风门总舵',
-    avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
     stats: weakened
       ? {
           hp: 820,
@@ -228,7 +228,7 @@ const SCENE_03_FANLOU_OBSERVE: StorySceneDef = {
         {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildJiefengScoutNpc() },
-          rule: 'story_trial',
+          rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '飞桥狭路相逢，退无可退！',
           deathTitle: '飞桥喋血 · 命陨截风毒刃',
@@ -513,7 +513,7 @@ const SCENE_12_LUHENG_AMBUSH: StorySceneDef = {
         {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildJiefengDeputyNpc() },
-          rule: 'story_trial',
+          rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '陆横已封死塔门退路，唯有一战破围！',
           deathTitle: '齐云塔下 · 饮恨断翅双钩',
@@ -750,7 +750,7 @@ const SCENE_17_RESCUE_ACHAN: StorySceneDef = {
         {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildYinJiuyouBossNpc(true) },
-          rule: 'story_trial',
+          rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '阿蝉性命攸关，岂能临阵脱逃！',
           deathTitle: '碧溪夜雨 · 命断绝影鬼手',
@@ -762,13 +762,13 @@ const SCENE_17_RESCUE_ACHAN: StorySceneDef = {
     {
       id: 'bbgc_tactic_direct_duel',
       label: '正面硬撼截风门门主阴九幽',
-      subLabel: '迎战全盛「绝影鬼手」（⚠️ 战败将直接丧命！）',
+      subLabel: '迎战全盛「绝影鬼手」（二流上品 · ⚠️ 战败将直接丧命！）',
       tone: 'danger',
       effects: [
         {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildYinJiuyouBossNpc(false) },
-          rule: 'story_trial',
+          rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '阿蝉性命攸关，岂能临阵脱逃！',
           deathTitle: '碧溪夜雨 · 命断绝影鬼手',

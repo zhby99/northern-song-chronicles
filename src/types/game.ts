@@ -66,6 +66,7 @@ export interface NodeNpc {
   learnedArts?: LearnedArtEntry[]
   equipped?: EquippedSlotsMap
   isDynamicLiaoSpy?: boolean
+  isDynamicKaifengWarrant?: boolean
   dynamicQuestActorId?: string
   questBadgeLabel?: string
 }
@@ -1112,5 +1113,7 @@ export type TooltipPayload =
         interiorMode?: BuildingInteriorMode | null
         hasSubSpots?: boolean
         residentCount?: number
+        isLocked?: boolean
+        lockedReason?: string
       }
     }

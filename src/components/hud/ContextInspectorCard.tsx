@@ -1115,6 +1115,14 @@ export function ContextInspectorCard() {
                       >
                         生死诛谍
                       </button>
+                    ) : p.isDynamicKaifengWarrant ? (
+                      <button
+                        type="button"
+                        onClick={() => startNpcCombat(p, 'duel', 'kaifeng_warrant')}
+                        className="px-2 py-0.5 rounded bg-[#a11b12] hover:bg-[#be2217] border border-[#f2b98a] text-[#fff8ee] text-[11px] font-bold cursor-pointer"
+                      >
+                        缉拿要犯（生死战）
+                      </button>
                     ) : (
                       <>
                         <button
@@ -1140,7 +1148,7 @@ export function ContextInspectorCard() {
                         </button>
                       </>
                     )}
-                    {!p.isDynamicLiaoSpy && p.tenArts && (
+                    {!p.isDynamicLiaoSpy && !p.isDynamicKaifengWarrant && p.tenArts && (
                       <button
                         type="button"
                         onClick={() =>
@@ -1157,15 +1165,18 @@ export function ContextInspectorCard() {
                         {isExpanded ? '收起属性' : '十艺详值'}
                       </button>
                     )}
-                    {p.id && !p.isDynamicLiaoSpy && !p.dynamicQuestActorId && (
-                      <button
-                        type="button"
-                        onClick={() => openNpcDetailInCompendium(p.id!)}
-                        className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d1b0] border border-[#9e7b47] text-[#781710] text-[11px] font-medium cursor-pointer ml-auto"
-                      >
-                        图鉴立绘
-                      </button>
-                    )}
+                    {p.id &&
+                      !p.isDynamicLiaoSpy &&
+                      !p.isDynamicKaifengWarrant &&
+                      !p.dynamicQuestActorId && (
+                        <button
+                          type="button"
+                          onClick={() => openNpcDetailInCompendium(p.id!)}
+                          className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d1b0] border border-[#9e7b47] text-[#781710] text-[11px] font-medium cursor-pointer ml-auto"
+                        >
+                          图鉴立绘
+                        </button>
+                      )}
                   </div>
                 </div>
               )

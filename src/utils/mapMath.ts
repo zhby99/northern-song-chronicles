@@ -533,3 +533,41 @@ export function clientToSvgCoords(
     y: ((clientY - rect.top) / Math.max(1, rect.height)) * vh,
   }
 }
+
+export interface BuildingLockMeta {
+  unlockFlag: string
+  lockedBadge: string
+  lockedDesc: string
+  lockedReason: string
+}
+
+export const QUEST_LOCKED_BUILDINGS: Record<string, BuildingLockMeta> = {
+  wl_langhuan: {
+    unlockFlag: 'wl_langhuan_unlocked',
+    lockedBadge: '秘境未启 · 剧情解锁',
+    lockedDesc:
+      '无量山谷底绝壁千仞、古藤深锁，飞瀑寒雾终年迷障，外人莫辨洞门所在。须待后续特定任务剧情机缘引路，方可寻得步入之径。',
+    lockedReason:
+      '谷底藤萝深锁、云雾迷障，暂未寻得【琅嬛福地】入洞秘径（需后续任务剧情解锁）。',
+  },
+}
+
+export function getBuildingLockMeta(
+  buildingId: string | null | undefined,
+  questFlags?: Record<string, boolean | number | string> | null,
+): BuildingLockMeta | null {
+  if (!buildingId) return null
+  const meta = QUEST_LOCKED_BUILDINGS[buildingId]
+  if (!meta) return null
+  if (questFlags && Boolean(questFlags[meta.unlockFlag])) {
+    return null
+  }
+  return meta
+}
+
+export function isBuildingUnlocked(
+  buildingId: string | null | undefined,
+  questFlags?: Record<string, boolean | number | string> | null,
+): boolean {
+  return getBuildingLockMeta(buildingId, questFlags) === null
+}

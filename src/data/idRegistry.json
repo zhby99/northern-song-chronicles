@@ -449,11 +449,11 @@
       "id": "wuliangshan",
       "standardCode": "REG-35",
       "numericCode": "35",
-      "name": "无量山 / 剑湖秘境",
+      "name": "无量山",
       "type": "sect",
       "regime": "dali",
       "legacyAliases": [
-        "无量山"
+        "无量山 / 剑湖秘境"
       ],
       "npcCount": 9,
       "specialBuildingCount": 3
@@ -1011,7 +1011,7 @@
         "逍遥派灵鹫宫"
       ],
       "stanceMotto": "隐世逍遥·唯才是举",
-      "hqDisplay": "REG-35 无量山 / 剑湖秘境（支脉散见 REG-22 昆仑缥缈峰、REG-19 西夏王庭、REG-02 洛阳聪辩居与扬州苏杭）",
+      "hqDisplay": "REG-35 无量山（支脉散见 REG-22 昆仑缥缈峰、REG-19 西夏王庭、REG-02 洛阳聪辩居与扬州苏杭）",
       "leaderNpcIds": [
         "NPC-0106"
       ],
@@ -2717,12 +2717,12 @@
     },
     "无量山": {
       "regionId": "wuliangshan",
-      "canonicalLabel": "无量山 / 剑湖秘境",
+      "canonicalLabel": "无量山",
       "subLocation": null
     },
     "无量山 / 剑湖秘境": {
       "regionId": "wuliangshan",
-      "canonicalLabel": "无量山 / 剑湖秘境",
+      "canonicalLabel": "无量山",
       "subLocation": null
     },
     "昆仑山": {

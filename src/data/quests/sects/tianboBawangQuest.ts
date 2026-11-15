@@ -1,6 +1,7 @@
 import type { NodeNpc } from '../../../types/game'
 import type { QuestCondition, QuestDefinition, QuestEffect } from '../../../types/quest'
 import { NPC_DB_MAP } from '../../gameDb'
+import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST_TIANBO_BAWANG'
 
@@ -69,41 +70,108 @@ function buildYangPaifengNpc(): NodeNpc {
       talk: '三十六路少林烧火棍，接得住再谈杨家枪！',
       stats: { hp: 1888, mp: 1450, agi: 52, res: 40, isBenchmark: false },
     }),
+    avatarUrl: '/assets/characters/templates/tpl_emei_heroine_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_emei_heroine_fb.jpg',
     stats: {
       ...(base?.stats ?? { hp: 1888, mp: 1450, agi: 52, res: 40, isBenchmark: false }),
       hp: 1888,
     },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-095',
+    },
+    equippedArts: {
+      neigong: 'MA-140',
+      qinggong: 'MA-157',
+      move1: 'MA-192',
+      move2: 'MA-153',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-140', level: 5, exp: 0 },
+      { artId: 'MA-157', level: 5, exp: 0 },
+      { artId: 'MA-192', level: 8, exp: 0 },
+      { artId: 'MA-153', level: 6, exp: 0 },
+    ],
     talk: '杨令公当年血战陈家谷，只将半卷《杨家霸王枪》带回河东。想让太原的文广少爷传枪，先接下我三十六路少林烧火棍！',
   }
 }
 
-function buildTaiyuanSpiesNpc(): NodeNpc {
-  const lead = NPC_DB_MAP['NPC-0836']
+function buildTaiyuanXixiaSpyNpc(): NodeNpc {
   return {
-    id: 'tb_taiyuan_spies',
-    name: '没藏泽渊 & 乌古文海',
-    title: '辽夏双料潜伏暗桩（1v2 合击）',
-    realm: '三流中品',
-    factionName: '西夏一品堂 · 大辽暗桩',
-    avatarUrl: lead?.avatarUrl ?? null,
-    portraitUrl: lead?.fullbodyUrl ?? null,
+    id: 'NPC-0836',
+    name: '没藏泽渊',
+    title: '西夏一品堂河东暗桩首领',
+    realm: '二流下品',
+    factionId: 'SECT-16',
+    factionName: '西夏一品堂',
+    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
     talk: '既已撞破我二人身份，今夜便留在这天波旧祠做鬼吧！',
     stats: {
-      hp: 645, // 476 + 169
-      mp: 420,
-      agi: 34,
-      res: 24,
+      hp: 860,
+      mp: 620,
+      agi: 48,
+      res: 28,
       isBenchmark: false,
     },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-043',
+    },
     equippedArts: {
-      neigong: null,
-      qinggong: null,
-      move1: 'MA-156',
-      move2: null,
+      neigong: 'MA-245',
+      qinggong: 'MA-157',
+      move1: 'MA-133',
+      move2: 'MA-175',
       move3: null,
       move4: null,
     },
-    learnedArts: [{ artId: 'MA-156', level: 4, exp: 0 }],
+    learnedArts: [
+      { artId: 'MA-245', level: 4, exp: 0 },
+      { artId: 'MA-157', level: 4, exp: 0 },
+      { artId: 'MA-133', level: 5, exp: 0 },
+      { artId: 'MA-175', level: 4, exp: 0 },
+    ],
+  }
+}
+
+function buildTaiyuanLiaoSpyNpc(): NodeNpc {
+  return {
+    id: 'NPC-0871',
+    name: '乌古文海',
+    title: '大辽南院潜伏死士',
+    realm: '三流上品',
+    factionId: 'SECT-31',
+    factionName: '大辽南院暗桩',
+    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    talk: '烧毁《河东边防军阵残图》，杀出去！',
+    stats: {
+      hp: 720,
+      mp: 480,
+      agi: 44,
+      res: 26,
+      isBenchmark: false,
+    },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-047',
+    },
+    equippedArts: {
+      neigong: 'MA-243',
+      qinggong: null,
+      move1: 'MA-152',
+      move2: 'MA-151',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-243', level: 4, exp: 0 },
+      { artId: 'MA-152', level: 4, exp: 0 },
+      { artId: 'MA-151', level: 4, exp: 0 },
+    ],
   }
 }
 
@@ -118,133 +186,351 @@ function buildHuyanQingNpc(): NodeNpc {
       factionId: 'ORG-04',
       factionName: '河东将门',
       talk: '呼延家三十六路硬鞭在此，岂容外人轻易沾手天波杨家枪！',
-      stats: { hp: 2128, mp: 1750, agi: 58, res: 48, isBenchmark: false },
+      stats: { hp: 2128, mp: 2048, agi: 58, res: 52, isBenchmark: false },
     }),
+    avatarUrl: '/assets/characters/avatars/NPC-0228.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0228.jpg',
     stats: {
-      ...(base?.stats ?? { hp: 2128, mp: 1750, agi: 58, res: 48, isBenchmark: false }),
+      ...(base?.stats ?? { hp: 2128, mp: 2048, agi: 58, res: 52, isBenchmark: false }),
       hp: 2128,
     },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-046',
+    },
+    equippedArts: {
+      neigong: 'MA-140',
+      qinggong: 'MA-138',
+      move1: 'MA-173',
+      move2: 'MA-116',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-140', level: 6, exp: 0 },
+      { artId: 'MA-138', level: 5, exp: 0 },
+      { artId: 'MA-173', level: 8, exp: 0 },
+      { artId: 'MA-116', level: 6, exp: 0 },
+    ],
     talk: '少废话！接住我呼延家浑铁金鞭不退半步，这枚【太原呼延金鞭令】才算你名正言顺！',
   }
 }
 
-function buildWutaiZenWaveNpc(): NodeNpc {
-  const mingan = NPC_DB_MAP['NPC-0504']
+function buildMinganZenNpc(isStoneTrial: boolean): NodeNpc {
   return {
-    id: 'tb_wutai_extra_monks',
-    name: '明安 & 五台武僧',
-    title: '松风观云禅亭 · 护法车轮阵',
-    realm: '二流下品',
+    id: 'NPC-0504',
+    name: '明安大师',
+    title: isStoneTrial ? '五台山清凉寺首座 · 演棍护法' : '五台山清凉寺首座',
+    realm: isStoneTrial ? '二流上品' : '二流下品',
     factionId: 'SECT-03',
     factionName: '五台山清凉寺',
-    avatarUrl: mingan?.avatarUrl ?? null,
-    portraitUrl: mingan?.fullbodyUrl ?? null,
-    talk: '施主既未能以经义折服老衲，便先接下我师兄弟三人三才棍阵！',
-    stats: {
-      hp: 1580,
-      mp: 1200,
-      agi: 44,
-      res: 38,
-      isBenchmark: false,
+    avatarUrl: '/assets/characters/templates/tpl_wutai_monk_male_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_wutai_monk_male_fb.jpg',
+    talk: isStoneTrial
+      ? '五郎师祖昔年化枪为棍，悟得“置之死地而后生”之回马真意。施主一味固守可参不透这面石碑！'
+      : '施主既未能以经义折服老衲，便先接下我清凉寺护法棍阵！',
+    stats: isStoneTrial
+      ? { hp: 1380, mp: 1200, agi: 52, res: 46, isBenchmark: false }
+      : { hp: 960, mp: 780, agi: 44, res: 36, isBenchmark: false },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-036',
     },
     equippedArts: {
-      neigong: null,
-      qinggong: null,
-      move1: 'MA-116',
-      move2: null,
+      neigong: 'MA-140',
+      qinggong: 'MA-157',
+      move1: 'MA-134',
+      move2: 'MA-153',
       move3: null,
       move4: null,
     },
-    learnedArts: [{ artId: 'MA-116', level: 5, exp: 0 }],
+    learnedArts: [
+      { artId: 'MA-140', level: isStoneTrial ? 6 : 4, exp: 0 },
+      { artId: 'MA-157', level: 4, exp: 0 },
+      { artId: 'MA-134', level: isStoneTrial ? 7 : 5, exp: 0 },
+      { artId: 'MA-153', level: isStoneTrial ? 7 : 5, exp: 0 },
+    ],
   }
 }
 
-function buildWutaiStoneTrialNpc(): NodeNpc {
-  const mingan = NPC_DB_MAP['NPC-0504']
+function buildWutaiGuardianMonkNpc(isStoneTrial: boolean): NodeNpc {
   return {
-    id: 'tb_wutai_stone_trial',
-    name: '清凉护法高僧 & 明安',
-    title: '演棍石台 · 五郎八卦棍试炼',
-    realm: '一流下品',
+    id: isStoneTrial ? 'tb_wutai_stone_elder' : 'tb_wutai_zen_monk',
+    name: isStoneTrial ? '清凉护法高僧' : '清凉寺护法武僧',
+    title: isStoneTrial ? '演棍石台守碑高僧' : '松风禅亭值殿武僧',
+    realm: isStoneTrial ? '一流下品' : '三流上品',
     factionId: 'SECT-03',
     factionName: '五台山清凉寺',
-    avatarUrl: mingan?.avatarUrl ?? null,
-    portraitUrl: mingan?.fullbodyUrl ?? null,
-    talk: '五郎师祖昔年化枪为棍，悟得“置之死地而后生”之回马真意。施主一味固守可参不透这面石碑！',
-    stats: {
-      hp: 2780,
-      mp: 2100,
-      agi: 56,
-      res: 52,
-      isBenchmark: false,
+    avatarUrl: '/assets/characters/templates/tpl_shaolin_monk_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_shaolin_monk_fb.jpg',
+    talk: isStoneTrial
+      ? '阿弥陀佛！五郎八卦棍重如山岳，施主且看棍！'
+      : '得罪了，请施主赐教清凉寺齐眉棍！',
+    stats: isStoneTrial
+      ? { hp: 1620, mp: 1350, agi: 55, res: 50, isBenchmark: false }
+      : { hp: 780, mp: 620, agi: 42, res: 32, isBenchmark: false },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: isStoneTrial ? 'WPN-036' : 'WPN-068',
     },
     equippedArts: {
-      neigong: null,
+      neigong: 'MA-140',
       qinggong: null,
-      move1: 'MA-116',
-      move2: null,
+      move1: 'MA-134',
+      move2: 'MA-117',
       move3: null,
       move4: null,
     },
-    learnedArts: [{ artId: 'MA-116', level: 8, exp: 0 }],
+    learnedArts: [
+      { artId: 'MA-140', level: isStoneTrial ? 6 : 4, exp: 0 },
+      { artId: 'MA-134', level: isStoneTrial ? 7 : 4, exp: 0 },
+      { artId: 'MA-117', level: isStoneTrial ? 6 : 4, exp: 0 },
+    ],
+  }
+}
+
+function buildMuGuiyunAllyNpc(): NodeNpc {
+  const base = NPC_DB_MAP['NPC-0253']
+  return {
+    ...(base ?? {
+      id: 'NPC-0253',
+      name: '穆桂云',
+      title: '雁门关女将 · 穆柯传人',
+      realm: '二流上品',
+      factionId: 'ORG-04',
+      factionName: '天波杨府',
+      talk: '少侠尽管突阵，侧翼铁骑交由桂云羽箭与梨花枪策应！',
+      stats: { hp: 1838, mp: 1360, agi: 58, res: 41, isBenchmark: false },
+    }),
+    avatarUrl: '/assets/characters/templates/tpl_woman_general_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_woman_general_fb.jpg',
+    talk: '少侠尽管突阵，侧翼铁骑交由桂云羽箭与梨花枪策应！',
+    stats: {
+      hp: 2050,
+      mp: 1550,
+      agi: 60,
+      res: 46,
+      isBenchmark: false,
+    },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-054',
+    },
+    equippedArts: {
+      neigong: 'MA-140',
+      qinggong: 'MA-138',
+      move1: 'MA-174',
+      move2: 'MA-116',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-140', level: 6, exp: 0 },
+      { artId: 'MA-138', level: 6, exp: 0 },
+      { artId: 'MA-174', level: 8, exp: 0 },
+      { artId: 'MA-116', level: 6, exp: 0 },
+    ],
   }
 }
 
 function buildYanmenLiaoVanguardNpc(advantaged: boolean): NodeNpc {
   return {
-    id: 'tb_yanmen_liao_vanguard',
-    name: '辽军先锋统领 & 铁林重骑',
-    title: advantaged ? '大辽南院突袭军（已失先机）' : '大辽南院重甲突袭军',
+    id: 'tb_yanmen_liao_commander',
+    name: '萧铁古 · 辽军先锋统领',
+    title: advantaged ? '大辽南院突袭统领（已失先机）' : '大辽南院重甲突袭统领',
     realm: '一流下品',
+    factionId: 'SECT-31',
     factionName: '大辽南院',
+    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
     talk: '踏平雁门粮道，断绝河东宋军军资！',
     stats: {
-      hp: 3100, // 先锋统领 2300 + 重骑协同承伤
-      mp: 1950,
-      agi: advantaged ? 49 : 58,
-      res: 64,
+      hp: 2150,
+      mp: 1650,
+      agi: advantaged ? 48 : 57,
+      res: 56,
       isBenchmark: false,
     },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-019',
+    },
     equippedArts: {
-      neigong: null,
+      neigong: 'MA-243',
       qinggong: null,
-      move1: 'MA-116',
-      move2: null,
+      move1: 'MA-073',
+      move2: 'MA-115',
       move3: null,
       move4: null,
     },
-    learnedArts: [{ artId: 'MA-116', level: 7, exp: 0 }],
+    learnedArts: [
+      { artId: 'MA-243', level: 6, exp: 0 },
+      { artId: 'MA-073', level: 5, exp: 0 },
+      { artId: 'MA-115', level: 6, exp: 0 },
+    ],
   }
 }
 
-function buildYananXixiaArmyNpc(): NodeNpc {
-  const nuerhai = NPC_DB_MAP['NPC-0152']
+function buildYanmenLiaoHeavyCavalryNpc(advantaged: boolean): NodeNpc {
   return {
-    id: 'tb_yanan_xixia_army',
-    name: '努儿海 & 漫咩 · 西夏铁鹞子',
-    title: '西夏一品堂 × 右厢监军司精锐',
-    realm: '一流上品',
-    factionId: 'SECT-16',
-    factionName: '西夏一品堂',
-    avatarUrl: nuerhai?.avatarUrl ?? null,
-    portraitUrl: nuerhai?.fullbodyUrl ?? null,
-    talk: '狄青老儿与天波余孽，今日叫你们见识西夏铁鹞子与一品堂合围之威！',
+    id: 'tb_yanmen_liao_cavalry',
+    name: '契丹铁林重骑百夫长',
+    title: advantaged ? '铁林冷锻重骑（仰攻受挫）' : '铁林冷锻重骑',
+    realm: '二流上品',
+    factionId: 'SECT-31',
+    factionName: '大辽南院',
+    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    talk: '铁林重铠刀枪不入，碾碎宋军前哨！',
     stats: {
-      hp: 3680,
-      mp: 2900,
-      agi: 70,
-      res: 62,
+      hp: 1580,
+      mp: 1200,
+      agi: advantaged ? 44 : 52,
+      res: 54,
       isBenchmark: false,
     },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-047',
+    },
     equippedArts: {
-      neigong: null,
+      neigong: 'MA-243',
       qinggong: null,
-      move1: 'MA-156',
-      move2: null,
+      move1: 'MA-152',
+      move2: 'MA-116',
       move3: null,
       move4: null,
     },
-    learnedArts: [{ artId: 'MA-156', level: 9, exp: 0 }],
+    learnedArts: [
+      { artId: 'MA-243', level: 5, exp: 0 },
+      { artId: 'MA-152', level: 6, exp: 0 },
+      { artId: 'MA-116', level: 5, exp: 0 },
+    ],
+  }
+}
+
+function buildDiQingAllyNpc(): NodeNpc {
+  const base = NPC_DB_MAP['NPC-0031']
+  return {
+    ...(base ?? {
+      id: 'NPC-0031',
+      name: '狄青',
+      title: '枢密副使 · 面涅将军',
+      realm: '一流上品',
+      factionId: 'ORG-04',
+      factionName: '大宋枢密院',
+      talk: '少侠尽管施展回马绝枪，本帅率背嵬铁骑为你压住侧翼！',
+      stats: { hp: 3537, mp: 3355, agi: 75, res: 64, isBenchmark: false },
+    }),
+    avatarUrl: '/assets/characters/avatars/NPC-0031.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0031.jpg',
+    talk: '少侠尽管施展回马绝枪，本帅率背嵬铁骑为你压住侧翼！',
+    stats: {
+      hp: 3537,
+      mp: 3355,
+      agi: 74,
+      res: 64,
+      isBenchmark: false,
+    },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-034',
+    },
+    equippedArts: {
+      neigong: 'MA-245',
+      qinggong: 'MA-097',
+      move1: 'MA-092',
+      move2: 'MA-115',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-245', level: 7, exp: 0 },
+      { artId: 'MA-097', level: 6, exp: 0 },
+      { artId: 'MA-092', level: 7, exp: 0 },
+      { artId: 'MA-115', level: 8, exp: 0 },
+    ],
+  }
+}
+
+function buildNuerhaiBossNpc(): NodeNpc {
+  const base = NPC_DB_MAP['NPC-0152']
+  return {
+    ...(base ?? {
+      id: 'NPC-0152',
+      name: '努儿海',
+      title: '西夏一品堂左护法',
+      realm: '一流上品',
+      factionId: 'SECT-16',
+      factionName: '西夏一品堂',
+      stats: { hp: 3414, mp: 3272, agi: 69, res: 67, isBenchmark: false },
+    }),
+    avatarUrl: '/assets/characters/avatars/NPC-0152.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0152.jpg',
+    stats: {
+      hp: 3280,
+      mp: 2950,
+      agi: 69,
+      res: 62,
+      isBenchmark: false,
+    },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-043',
+    },
+    equippedArts: {
+      neigong: 'MA-245',
+      qinggong: 'MA-138',
+      move1: 'MA-072',
+      move2: 'MA-133',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-245', level: 7, exp: 0 },
+      { artId: 'MA-138', level: 6, exp: 0 },
+      { artId: 'MA-072', level: 7, exp: 0 },
+      { artId: 'MA-133', level: 8, exp: 0 },
+    ],
+    talk: '狄青老儿与天波余孽，今日叫你们见识西夏一品堂与铁鹞子合围之威！',
+  }
+}
+
+function buildManmieTieyaoziNpc(): NodeNpc {
+  return {
+    id: 'tb_yanan_manmie',
+    name: '漫咩 · 铁鹞子统帅',
+    title: '西夏右厢监军司主将',
+    realm: '一流中品',
+    factionId: 'SECT-16',
+    factionName: '西夏铁鹞子重骑',
+    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
+    talk: '三千冷锻连环铁鹞子冲阵，踏碎宋军中营！',
+    stats: {
+      hp: 2650,
+      mp: 2200,
+      agi: 62,
+      res: 64,
+      isBenchmark: false,
+    },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-047',
+    },
+    equippedArts: {
+      neigong: 'MA-245',
+      qinggong: null,
+      move1: 'MA-135',
+      move2: 'MA-152',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-245', level: 6, exp: 0 },
+      { artId: 'MA-135', level: 7, exp: 0 },
+      { artId: 'MA-152', level: 7, exp: 0 },
+    ],
   }
 }
 
@@ -261,6 +547,8 @@ function buildYangWenguangTrialNpc(): NodeNpc {
       talk: '接住我手中【天波透甲金枪】十合不倒，此卷《杨家霸王枪》便归你！',
       stats: { hp: 3155, mp: 2736, agi: 69, res: 57, isBenchmark: false },
     }),
+    avatarUrl: '/assets/characters/avatars/NPC-0032.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0032.jpg',
     stats: {
       hp: 3155,
       mp: 2736,
@@ -268,15 +556,24 @@ function buildYangWenguangTrialNpc(): NodeNpc {
       res: 57,
       isBenchmark: false,
     },
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-004',
+    },
     equippedArts: {
-      neigong: null,
-      qinggong: null,
+      neigong: 'MA-140',
+      qinggong: 'MA-097',
       move1: 'MA-037',
-      move2: null,
+      move2: 'MA-174',
       move3: null,
       move4: null,
     },
-    learnedArts: [{ artId: 'MA-037', level: 6, exp: 0 }],
+    learnedArts: [
+      { artId: 'MA-140', level: 7, exp: 0 },
+      { artId: 'MA-097', level: 6, exp: 0 },
+      { artId: 'MA-037', level: 6, exp: 0 },
+      { artId: 'MA-174', level: 8, exp: 0 },
+    ],
     talk: '你在沙场上已见过血、使出了回马枪的雏形。接住我十合全力考校，或将我击退半步，此枪谱便归你！',
   }
 }
@@ -285,11 +582,15 @@ const TAIYUAN_SPY_COMBAT_EFFECTS: QuestEffect[] = [
   {
     type: 'startCombat',
     questId: QUEST_ID,
-    opponent: { kind: 'custom', npc: buildTaiyuanSpiesNpc() },
-    rule: 'story_trial',
+    opponent: { kind: 'custom', npc: buildTaiyuanXixiaSpyNpc() },
+    extraOpponents: [{ kind: 'custom', npc: buildTaiyuanLiaoSpyNpc() }],
+    rule: 'duel',
+    deathTitle: '血染天波旧祠',
+    deathDetail:
+      '少侠于太原天波旧祠内院孤身迎战西夏一品堂暗桩没藏泽渊与大辽死士乌古文海，不慎失手被淬毒弯刀与狼牙重棒合击毙命。',
     forbidEscapeReason: '天波旧祠岂容辽夏细作遁走！',
     introText:
-      '内院书斋的檀木书架轰然倒塌，伪装成杂役香客的西夏细作没藏泽渊（NPC-0836）与大辽暗桩乌古文海（NPC-0871）同时撕破僧俗伪装，分持淬毒短刃与契丹骨朵扑杀而来！绝不能让他们毁掉《河东边防军阵残图》！',
+      '【1v2 生死合击】内院书斋的檀木书架轰然倒塌，西夏细作没藏泽渊与大辽死士乌古文海同时撕破伪装，分持党项弯刀与契丹狼牙棒左右夹击而来！可点击敌手立绘或按 [Tab] 择一集火破敌！',
     onWin: [
       { type: 'setFlag', flag: 'tb_taiyuan_spies_cleared', value: true },
       { type: 'addArtExp', amount: 700 },
@@ -305,7 +606,7 @@ const TAIYUAN_SPY_COMBAT_EFFECTS: QuestEffect[] = [
           beats: [
             {
               speaker: { kind: 'narrator' },
-              text: '青砖地上一片狼藉，翻倒的祭祀名录与铜烛台滚落阶下。你枪锋一抖挑飞没藏泽渊的淬毒弯刀，顺势一记横扫将乌古文海砸撞在书橱上，两人喷血委顿，再也爬不起身。',
+              text: '青砖地上一片狼藉，翻倒的祭祀名录与铜烛台滚落阶下。你枪锋一抖挑飞没藏泽渊的淬毒弯刀，顺势一记横扫将乌古文海砸撞在书橱上，两人喷血毙命，再也爬不起身。',
             },
             {
               speaker: { kind: 'narrator' },
@@ -323,27 +624,6 @@ const TAIYUAN_SPY_COMBAT_EFFECTS: QuestEffect[] = [
         },
       },
     ],
-    onLose: [
-      { type: 'healPlayer', hpPct: 25, mpPct: 25 },
-      {
-        type: 'openScene',
-        scene: {
-          id: 'scene_tb_taiyuan_spy_lose',
-          title: '暗器逼退 · 重整再战',
-          subtitle: '太原府 · 天波杨家旧祠 > 内院书斋',
-          beats: [
-            {
-              speaker: { kind: 'narrator' },
-              text: '书斋狭小难展长枪，没藏泽渊与乌古文海一左一右掷出袖箭与石灰粉，逼得你连退三步撞开木门。幸得门外杨府家丁闻警敲响铜锣，双谍见势不妙不敢追出，退回秘藏室暗格固守。',
-            },
-            {
-              speaker: { kind: 'npc', npcId: 'NPC-0032' },
-              text: '“勿急！细作已成瓮中之鳖，逃不出天波旧祠。你先服药调息稳住气血，再入内院一举将其擒杀！”',
-            },
-          ],
-        },
-      },
-    ],
   },
 ]
 
@@ -351,11 +631,12 @@ const WUTAI_STONE_TRIAL_EFFECTS: QuestEffect[] = [
   {
     type: 'startCombat',
     questId: QUEST_ID,
-    opponent: { kind: 'custom', npc: buildWutaiStoneTrialNpc() },
+    opponent: { kind: 'custom', npc: buildWutaiGuardianMonkNpc(true) },
+    extraOpponents: [{ kind: 'custom', npc: buildMinganZenNpc(true) }],
     rule: 'story_trial',
     forbidEscapeReason: '演棍石台参悟回马枪意，半途而废则前功尽弃！',
     introText:
-      '五台山风雪呼啸，杨五郎演棍石台四围松涛如怒！清凉护法高僧与明安大师（NPC-0504）各持一丈二尺熟铜齐眉棍，联手施展刚猛无匹的《五郎八卦棍》，气血合计逾两千七百！切忌一味死守，须攻中求活、悟出“置之死地而后生”的回马枪意！',
+      '【1v2 八卦双棍试炼】五台山风雪呼啸，杨五郎演棍石台四围松涛如怒！清凉护法高僧与明安大师各持熟铜八卦齐眉棍，一左一右联手施展《五郎八卦棍》！此乃佛门演武考校（点到为止），请择敌逐个击破，悟出“置之死地而后生”的回马枪意！',
     onWin: [
       { type: 'setFlag', flag: 'tb_branch_b_done', value: true },
       { type: 'giveItem', itemId: 'ITM-MSC-017', qty: 1 },
@@ -720,7 +1001,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_tb_zen_debate',
                   label: '【论法明心】止戈为武、杀一人而救万人，正是杨家忠烈禅心！（经义 ≥ 60）',
-                  subLabel: '成功直通石台接招；失败须先破明安 + 2名武僧车轮阵',
+                  subLabel: '成功直通石台接招；失败须先破 1v2 明安大师 + 清凉寺护法武僧棍阵（点到为止）',
                   tone: 'gold',
                   effects: [
                     {
@@ -759,23 +1040,24 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                         {
                           type: 'startCombat',
                           questId: QUEST_ID,
-                          opponent: { kind: 'custom', npc: buildWutaiZenWaveNpc() },
+                          opponent: { kind: 'custom', npc: buildMinganZenNpc(false) },
+                          extraOpponents: [{ kind: 'custom', npc: buildWutaiGuardianMonkNpc(false) }],
                           rule: 'story_trial',
-                          forbidEscapeReason: '既至松风禅亭问心，须过此三才棍阵！',
+                          forbidEscapeReason: '既至松风禅亭问心，须过此双僧护法棍阵！',
                           introText:
-                            '施主经义火候尚浅，言辞未能折服禅心！明安大师长眉一扬，率两名清凉寺护法武僧踏步而出，齐眉棍交织成密不透风的三才棍阵试炼施主筋骨！',
+                            '【1v2 禅亭双棍试炼】施主经义火候尚浅，言辞未能折服禅心！明安大师长眉一扬，与清凉寺护法武僧齐步踏出，两根齐眉棍交织成密不透风的佛门棍阵试炼施主筋骨（点到为止）！',
                           onWin: [
                             { type: 'setFlag', flag: 'tb_wutai_zen_passed', value: true },
                             {
                               type: 'openScene',
                               scene: {
                                 id: 'scene_tb_wutai_zen_combat_win',
-                                title: '力破三才 · 棍证禅心',
+                                title: '力破双棍 · 枪证禅心',
                                 subtitle: '五台山清凉寺 · 松风观云禅亭',
                                 beats: [
                                   {
                                     speaker: { kind: 'narrator' },
-                                    text: '三才棍阵进退有度、首尾相应，三根熟铜齐眉棍如狂涛般压向禅亭青石。然而你脚踩七星、枪势沉稳如磐，连挑三棍震开缺口，枪尾轻点在明安大师护腕半寸外便即收势，竟连亭角悬挂的铜铃都未曾惊动一响！',
+                                    text: '佛门护法双棍进退有度、首尾相应，两根熟铜齐眉棍如狂涛般压向禅亭青石。然而你脚踩七星、枪势沉稳如磐，连挑双棍震开缺口，枪尾轻点在明安大师护腕半寸外便即收势，竟连亭角悬挂的铜铃都未曾惊动一响！',
                                   },
                                   {
                                     speaker: { kind: 'npc', npcId: 'NPC-0504' },
@@ -783,7 +1065,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                                   },
                                   {
                                     speaker: { kind: 'player' },
-                                    text: '“大师与两位护法师兄手下留情！晚辈只是谨记杨门先烈遗训——枪锋所指，唯护山河。”',
+                                    text: '“大师与护法师兄手下留情！晚辈只是谨记杨门先烈遗训——枪锋所指，唯护山河。”',
                                   },
                                   {
                                     speaker: { kind: 'npc', npcId: 'NPC-0504' },
@@ -804,7 +1086,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                                 beats: [
                                   {
                                     speaker: { kind: 'narrator' },
-                                    text: '三根齐眉棍如铜墙铁壁般压来，你气息微浮，被武僧借力震退石阶之外。',
+                                    text: '两根齐眉棍如铜墙铁壁般压来，你气息微浮，被护法武僧借力震退石阶之外。',
                                   },
                                   {
                                     speaker: { kind: 'npc', npcId: 'NPC-0504' },
@@ -923,32 +1205,37 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                 },
                 {
                   speaker: { kind: 'npc', npcId: 'NPC-0032' },
-                  text: '（杨文广枪指敌阵，声如洪钟）“记住五郎叔公演棍石台上的话——敌势愈凶，愈要于绝境中回马反杀！切莫与铁鹞子正面硬撼，待他冲势最盛时诈败回马！杀！”',
+                  text: '（杨文广枪指敌阵，声如洪钟）“我去左翼截断西夏铁鹞子连环马索！少侠随狄帅正面迎击努儿海与漫咩——记住五郎叔公演棍石台上的话，敌势愈凶，愈要于绝境中回马反杀！杀！”',
                 },
                 {
                   speaker: { kind: 'narrator' },
-                  text: '话音未落，营寨外已传来一阵刺耳的牛角号声！努儿海骑着一匹通体乌黑的西凉战马冲出火幕，身后百余骑连环重甲铁鹞子踏碎鹿角木栅，迎面扑来！寒光映照着狄青的青铜面具，这位名震西陲的宋军名将长刀一挥，背嵬亲兵齐声怒吼！',
+                  text: '话音未落，营寨外已传来一阵刺耳的牛角号声！努儿海骑着一匹通体乌黑的西凉战马冲出火幕，漫咩挥舞重兵紧随其侧，百余骑连环重甲铁鹞子踏碎鹿角木栅，迎面扑来！寒光映照着狄青的青铜面具，这位名震西陲的宋军名将长刀一挥，与你并骑迎敌！',
                 },
                 {
                   speaker: { kind: 'npc', npcId: 'NPC-0031' },
-                  text: '“全军擂鼓！随本帅与天波杨家将士，破此胡虏铁骑！今日有进无退，斩首级者赏千缗！”',
+                  text: '“全军擂鼓！随本帅与少侠共斩胡虏主将！今日有进无退，斩首级者赏千缗！”',
                 },
               ],
               choices: [
                 {
                   id: 'choice_tb_yanan_charge',
-                  label: '【策马迎敌】随狄帅杀入重围，破西夏铁鹞子！',
-                  subLabel: '巅峰助战：努儿海（一流上品，气血 3,680）+ 漫咩 + 铁鹞子重骑',
+                  label: '【2v2 沙场死战】与狄青并肩杀入重围，斩努儿海、破漫咩！',
+                  subLabel: '2v2 生死决战（战败殉国）：我方［少侠 + 狄青］vs 敌方［努儿海 + 漫咩·铁鹞子统帅］',
                   tone: 'danger',
                   effects: [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
-                      opponent: { kind: 'custom', npc: buildYananXixiaArmyNpc() },
-                      rule: 'story_trial',
+                      allies: [{ kind: 'custom', npc: buildDiQingAllyNpc() }],
+                      opponent: { kind: 'custom', npc: buildNuerhaiBossNpc() },
+                      extraOpponents: [{ kind: 'custom', npc: buildManmieTieyaoziNpc() }],
+                      rule: 'duel',
+                      deathTitle: '马革裹尸鄜延路',
+                      deathDetail:
+                        '少侠随枢密副使狄青于延安府鄜延大营死战西夏一品堂左护法努儿海与铁鹞子统帅漫咩，力战不支，血染塞北黄沙。',
                       forbidEscapeReason: '鄜延粮营决战关乎西北防线，岂可临阵脱逃！',
                       introText:
-                        '战鼓如雷，大地剧震！西夏一品堂顶尖高手努儿海与右厢统帅漫咩率铁鹞子重骑狂飙突进，铁蹄踏碎营寨鹿角！浴血奋战，于沙场绝境中打出平生第一记【绝命回马枪】！',
+                        '【2v2 沙场生死战】战鼓如雷，大地剧震！枢密副使狄青覆上青铜鬼面与你并肩迎敌，正面对决西夏一品堂一流上品高手努儿海与铁鹞子统帅漫咩！可点击敌将立绘或按 [Tab] 择一集火，于沙场绝境中打出平生第一记【绝命回马枪】！',
                       onWin: [
                         { type: 'addArtExp', amount: 3500 },
                         { type: 'modifyBaseStat', key: 'maxHp', delta: 100 },
@@ -968,7 +1255,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                             beats: [
                               {
                                 speaker: { kind: 'narrator' },
-                                text: '血战至十余合，努儿海双掌挟着一品堂阴寒劲风拍至胸前，漫咩的重斧亦自侧翼劈落，座下战马被铁鹞子重骑逼入沟壑绝境，气血震荡欲裂！',
+                                text: '血战至十余合，狄青一刀劈退漫咩半步，努儿海却挟着一品堂血刀阴煞劲风直取你胸前，座下战马被铁鹞子重骑逼入沟壑绝境，气血震荡欲裂！',
                               },
                               {
                                 speaker: { kind: 'npc', npcId: 'NPC-0032' },
@@ -980,7 +1267,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                               },
                               {
                                 speaker: { kind: 'narrator' },
-                                text: '护心镜应声炸裂，努儿海惨嚎着仰跌马下！狄青趁势率宋军铁骑杀出，斩将夺旗，西夏铁鹞子阵脚大乱，漫咩只得鸣金收兵，狼狈遁回贺兰山外！',
+                                text: '护心镜应声炸裂，努儿海惨嚎着仰跌马下！狄青趁势率宋军背嵬铁骑掩杀而出，斩将夺旗，西夏铁鹞子阵脚大乱，漫咩负创鸣金收兵，狼狈遁回贺兰山外！',
                               },
                               {
                                 speaker: { kind: 'npc', npcId: 'NPC-0031' },
@@ -989,27 +1276,6 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                               {
                                 speaker: { kind: 'npc', npcId: 'NPC-0032' },
                                 text: '“沙场血火已过，你已真正触摸到了《霸王枪》的魂魄！随我回太原旧祠——在杨令公牌位前，还有最后一关十合考校等着你！”',
-                              },
-                            ],
-                          },
-                        },
-                      ],
-                      onLose: [
-                        { type: 'healPlayer', hpPct: 25, mpPct: 25 },
-                        {
-                          type: 'openScene',
-                          scene: {
-                            id: 'scene_tb_yanan_lose',
-                            title: '铁鹞势猛 · 暂退大营',
-                            subtitle: '延安府 · 鄜延边军大营',
-                            beats: [
-                              {
-                                speaker: { kind: 'narrator' },
-                                text: '西夏铁鹞子连环重甲刀枪难入，努儿海与漫咩左右合围，震得你虎口崩裂、险些坠马。千钧一发之际，狄青亲率背嵬死士杀入阵中，硬生生将你与杨文广接应回大营壕沟之内。',
-                              },
-                              {
-                                speaker: { kind: 'npc', npcId: 'NPC-0031' },
-                                text: '“铁鹞子冲势虽猛，却不耐持久。少侠先入军帐敷药调息、稳固内息，待夜深敌军马力疲惫，我等再杀出去一决雌雄！”',
                               },
                             ],
                           },
@@ -1075,7 +1341,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_tb_final_accept',
                   label: '【宗祠接枪】请杨将军全力施为，晚辈接招！',
-                  subLabel: '1v1 杨文广（一流中品，气血 3,155）：战胜或撑满 10 回合即获《杨家霸王枪》',
+                  subLabel: '1v1 宗祠考校 杨文广（一流中品，气血 3,155）：战胜或撑满 10 回合即获《杨家霸王枪》',
                   tone: 'gold',
                   effects: [
                     {
@@ -1086,7 +1352,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                       maxRounds: 10,
                       forbidEscapeReason: '杨令公牌位前宗祠考校，岂可退避！',
                       introText:
-                        '金枪如龙，破风啸鸣！杨文广（一流中品，气血 3,155）全力施展天阶下品《杨家霸王枪》步步紧逼！撑满 10 回合不倒，或直接击败他！',
+                        '金枪如龙，破风啸鸣！杨文广（一流中品，气血 3,155）全力施展天阶下品《杨家霸王枪》步步紧逼！此乃宗祠传功考校（点到为止），撑满 10 回合不倒或直接击败他！',
                       onWin: [
                         { type: 'teachMartialArt', artId: 'MA-037', level: 1, exp: 3000 },
                         { type: 'addArtExp', amount: 5000 },
@@ -1286,7 +1552,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         id: 'spot_tb_taiyuan_spy',
         label: '内院书斋 · 核查名录捉拿细作',
         badge: '枝干甲①',
-        subtitle: '【算术≥55】或【经义≥55】识破辽夏双谍；失败则遭偷袭（气血-15%）后迎战',
+        subtitle: '【算术≥55】或【经义≥55】识破 1v2 辽夏双谍（生死恶战）；失败则遭偷袭（气血-15%）后迎战',
         tone: 'primary',
         regionId: 'taiyuan',
         buildingId: 'ty_yang',
@@ -1336,7 +1602,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         id: 'spot_tb_huyan_duel',
         label: '后园演武石坪 · 应呼延庆金鞭之约',
         badge: '枝干甲②',
-        subtitle: '击败辽夏细作后，堂堂正正单挑 呼延庆（一流下品，气血 2,128），不可逃跑',
+        subtitle: '击败辽夏细作后，堂堂正正单挑考校 呼延庆（一流下品，气血 2,128 · 点到为止）',
         tone: 'danger',
         regionId: 'taiyuan',
         buildingId: 'ty_yang',
@@ -1357,7 +1623,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
             rule: 'story_trial',
             forbidEscapeReason: '金鞭少帅呼延庆当面，岂可怯战逃跑！',
             introText:
-              '天波旧祠后园演武石坪积雪未消，呼延庆（NPC-0228）倒提一对八棱浑铁金鞭踏步而出！少年将门虎气冲霄，双鞭一振竟带起呼啸风雷：“来吧！让我看看你有几斤几两，敢接天波杨家枪！”',
+              '天波旧祠后园演武石坪积雪未消，呼延庆（NPC-0228）倒提一对八棱浑铁金鞭踏步而出！少年将门虎气冲霄，双鞭一振竟带起呼啸风雷：“来吧！让我看看你有几斤几两，敢接天波杨家枪！”（同袍比武考校 · 点到为止）',
             onWin: [
               { type: 'setFlag', flag: 'tb_branch_a_done', value: true },
               { type: 'giveItem', itemId: 'ITM-MSC-016', qty: 1 },
@@ -1427,7 +1693,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         id: 'spot_tb_wutai_stone_trial',
         label: '杨五郎演棍石台 · 接招参悟回马枪意',
         badge: '枝干乙②',
-        subtitle: '迎战清凉护法高僧与明安（气血 2,700+），参透“置之死地而后生”的回马枪意',
+        subtitle: '1v2 佛门演武（点到为止）：迎战清凉护法高僧 + 明安大师，参透“置之死地而后生”的回马枪意',
         tone: 'gold',
         regionId: 'wutaishan',
         buildingId: 'wt_staff',
@@ -1529,7 +1795,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         id: 'spot_tb_yanmen_bloodbattle',
         label: '乱石绝壁 · 随穆桂云血战辽军铁骑',
         badge: '枝干丙②',
-        subtitle: '联手穆桂云（NPC-0253）迎战辽军先锋统领（一流下品）+ 契丹铁林重骑 ×2',
+        subtitle: '2v2 沙场生死战（战败殉国）：联手穆桂云迎战 萧铁古·辽军先锋统领 + 契丹铁林重骑百夫长',
         tone: 'danger',
         regionId: 'yanmenguan',
         buildingId: 'ym_cliff',
@@ -1550,11 +1816,16 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
               {
                 type: 'startCombat',
                 questId: QUEST_ID,
+                allies: [{ kind: 'custom', npc: buildMuGuiyunAllyNpc() }],
                 opponent: { kind: 'custom', npc: buildYanmenLiaoVanguardNpc(true) },
-                rule: 'story_trial',
-                forbidEscapeReason: '雁门粮道生死一线，穆桂云正在侧翼苦战，岂可撤退！',
+                extraOpponents: [{ kind: 'custom', npc: buildYanmenLiaoHeavyCavalryNpc(true) }],
+                rule: 'duel',
+                deathTitle: '血战雁门粮道',
+                deathDetail:
+                  '少侠随女将穆桂云于雁门关外乱石绝壁截击大辽南院重骑，力战不支，命陨塞外风雪之中。',
+                forbidEscapeReason: '雁门粮道生死一线，穆桂云正在侧翼并肩死战，岂可撤退！',
                 introText:
-                  '乱石绝壁高地上箭雨如蝗！你抢占咽喉高地居高临下（敌骑身法 -15%），随穆桂云（NPC-0253）直冲辽军先锋统领与契丹铁林重骑阵中！',
+                  '【2v2 雁门生死合击】乱石绝壁高地上箭雨如蝗！你抢占咽喉高地居高临下（敌骑身法锐减），与女将穆桂云并肩杀入萧铁古·辽军先锋统领与契丹铁林重骑百夫长阵中！可点击敌将立绘择一集火斩首！',
                 onWin: [
                   { type: 'setFlag', flag: 'tb_branch_c_done', value: true },
                   { type: 'giveItem', itemId: 'ITM-MSC-018', qty: 1 },
@@ -1573,40 +1844,19 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                       beats: [
                         {
                           speaker: { kind: 'narrator' },
-                          text: '居高临下冲杀之势锐不可当！穆桂云连珠三箭射翻辽军旗手，你则单骑突入重围，长枪自上而下连挑两名铁林重骑，一枪将那辽军先锋统领刺落马下！失了统领的契丹重骑顿时阵脚大乱，丢下满地兵甲狼狈北逃。',
+                          text: '居高临下冲杀之势锐不可当！穆桂云梨花枪与雕翎箭连环策应，牵制住契丹铁林百夫长，你则单骑突入中军，长枪自上而下一枪将先锋统领萧铁古刺落马下！失了主将的契丹重骑顿时阵脚大乱，丢下满地兵甲狼狈北逃。',
                         },
                         {
                           speaker: { kind: 'npc', npcId: 'NPC-0253' },
-                          text: '（穆桂云策马跃下石坡，挽弓收箭，英姿飒爽地向你拱手）“好身手！若非你抢先占住高地压住敌骑冲势，这一仗还不知要折损多少宋军儿郎！连代州守军方才都在城楼上敲鼓助威呢！”',
+                          text: '（穆桂云策马跃下石坡，挽弓收枪，英姿飒爽地向你拱手）“好身手！若非你抢先占住高地压住敌骑冲势，这一仗还不知要折损多少宋军儿郎！连代州守军方才都在城楼上敲鼓助威呢！”',
                         },
                         {
                           speaker: { kind: 'player' },
-                          text: '“穆姑娘神箭惊鬼神，若非姑娘三箭射断敌军大纛，辽骑也不会这么快溃散！”',
+                          text: '“穆姑娘枪箭双绝，若非姑娘死死缠住侧翼重骑百夫长，晚辈也难一枪斩首！”',
                         },
                         {
                           speaker: { kind: 'npc', npcId: 'NPC-0253' },
                           text: '“咱们也不必互相吹捧了！这枚【穆柯降龙木令】与一百五十两护粮赏银，请务必收下！拿着木令回太原见文广哥吧，告诉他——雁门关的粮道有我穆桂云守着，叫他尽管放心！”',
-                        },
-                      ],
-                    },
-                  },
-                ],
-                onLose: [
-                  { type: 'healPlayer', hpPct: 25, mpPct: 25 },
-                  {
-                    type: 'openScene',
-                    scene: {
-                      id: 'scene_tb_yanmen_bloodbattle_lose_adv',
-                      title: '重骑势沉 · 暂退瓮城',
-                      subtitle: '雁门关 · 雁门关外乱石绝壁',
-                      beats: [
-                        {
-                          speaker: { kind: 'narrator' },
-                          text: '辽军铁林重骑人马皆披重甲，硬顶着箭雨结阵反扑，你座骑受创退回石坡之后，幸得穆桂云放箭掩护方才退入瓮城。',
-                        },
-                        {
-                          speaker: { kind: 'npc', npcId: 'NPC-0253' },
-                          text: '“重骑甲厚，须避实击虚！先在瓮城敷药调息，咱们再赴绝壁斩此辽将！”',
                         },
                       ],
                     },
@@ -1618,11 +1868,16 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
               {
                 type: 'startCombat',
                 questId: QUEST_ID,
+                allies: [{ kind: 'custom', npc: buildMuGuiyunAllyNpc() }],
                 opponent: { kind: 'custom', npc: buildYanmenLiaoVanguardNpc(false) },
-                rule: 'story_trial',
-                forbidEscapeReason: '雁门粮道生死一线，穆桂云正在侧翼苦战，岂可撤退！',
+                extraOpponents: [{ kind: 'custom', npc: buildYanmenLiaoHeavyCavalryNpc(false) }],
+                rule: 'duel',
+                deathTitle: '血战雁门粮道',
+                deathDetail:
+                  '少侠随女将穆桂云于雁门关外乱石绝壁硬撼大辽南院重骑，力战不支，命陨塞外风雪之中。',
+                forbidEscapeReason: '雁门粮道生死一线，穆桂云正在侧翼并肩死战，岂可撤退！',
                 introText:
-                  '辽军重甲铁骑正面冲阵，马蹄踏雪如雷！你强忍肩伤，随穆桂云（NPC-0253）死守乱石绝壁狭口！',
+                  '【2v2 雁门生死硬撼】辽军重甲铁骑正面冲阵，马蹄踏雪如雷！你强忍肩伤，与女将穆桂云并肩死守乱石绝壁狭口，正面迎击萧铁古·辽军先锋统领与契丹铁林重骑百夫长！',
                 onWin: [
                   { type: 'setFlag', flag: 'tb_branch_c_done', value: true },
                   { type: 'giveItem', itemId: 'ITM-MSC-018', qty: 1 },
@@ -1641,40 +1896,19 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                       beats: [
                         {
                           speaker: { kind: 'narrator' },
-                          text: '虽未占得先机，你与穆桂云背靠乱石绝壁死战不退！激战半个时辰，你终于寻得辽军先锋统领甲叶缝隙，一枪贯胸将其挑落马下！穆桂云箭矢齐发截断敌骑退路，辽军大败而逃。',
+                          text: '虽未占得先机，你与穆桂云背靠乱石绝壁并肩死战不退！激战半个时辰，你终于寻得萧铁古甲叶缝隙，一枪贯胸将其挑落马下！穆桂云梨花枪横扫击溃重骑百夫长，辽军大败而逃。',
                         },
                         {
                           speaker: { kind: 'npc', npcId: 'NPC-0253' },
-                          text: '（穆桂云擦去脸上雪水与血渍，策马靠拢过来，眼中满是敬意）“真是一场恶战！本以为抢坡失利便要硬拼到底，没想到你枪势越战越快，竟在乱骑合围中生生刺穿了那辽将护心甲！”',
+                          text: '（穆桂云擦去脸上雪水与血渍，策马靠拢过来，眼中满是敬意）“真是一场恶战！本以为抢坡失利便要苦撑到底，没想到你枪势越战越快，竟在重骑合围中生生刺穿了那辽将护心甲！”',
                         },
                         {
                           speaker: { kind: 'player' },
-                          text: '“全靠穆姑娘在侧翼箭雨压阵，才没让辽军合围成势！”',
+                          text: '“全靠穆姑娘在侧翼死战压阵，才没让辽军铁骑合围成势！”',
                         },
                         {
                           speaker: { kind: 'npc', npcId: 'NPC-0253' },
                           text: '“这枚【穆柯降龙木令】与一百五十两护粮赏银归你了！携它回太原见文广哥吧，粮道既保，雁门关今冬军民无忧矣！”',
-                        },
-                      ],
-                    },
-                  },
-                ],
-                onLose: [
-                  { type: 'healPlayer', hpPct: 25, mpPct: 25 },
-                  {
-                    type: 'openScene',
-                    scene: {
-                      id: 'scene_tb_yanmen_bloodbattle_lose_std',
-                      title: '铁骑难撼 · 整备再战',
-                      subtitle: '雁门关 · 雁门关外乱石绝壁',
-                      beats: [
-                        {
-                          speaker: { kind: 'narrator' },
-                          text: '正面硬撼辽军重甲铁骑实在凶险，几番冲撞之下气血翻涌，只得在穆桂云羽箭掩护下暂退回关内瓮城。',
-                        },
-                        {
-                          speaker: { kind: 'npc', npcId: 'NPC-0253' },
-                          text: '“暂且回瓮城整备调息，待重整气血后再来乱石绝壁与我夹击辽将！”',
                         },
                       ],
                     },

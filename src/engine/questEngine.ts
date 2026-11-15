@@ -31,6 +31,7 @@ import type {
   StorySpeakerSpec,
 } from '../types/quest'
 import { INITIAL_NPC_FAVOR } from '../utils/npcFavor'
+import { inferTemplatePortrait, resolveAvatarForFullbody } from '../utils/portraitFallback'
 import { getSectRankTitle, isSongOfficialForRobbery } from '../utils/sectMechanics'
 
 const SHICHEN_LABELS: readonly string[] = [
@@ -609,6 +610,15 @@ export function buildNodeNpcFromDynamicActor(actor: DynamicQuestNpc): NodeNpc {
       ? (bldg.interior.spots.find((s) => s.id === actor.spotId)?.name ?? null)
       : null
   const fullLoc = spotName ? `${regName} > ${bldgName} > ${spotName}` : `${regName} > ${bldgName}`
+  const resolvedFactionName =
+    actor.factionName ?? (actor.factionId ? FACTION_DB_MAP[actor.factionId]?.name : undefined)
+  const fallbackFullbody =
+    actor.portraitUrl ??
+    inferTemplatePortrait({
+      name: actor.name,
+      title: actor.title,
+      factionName: resolvedFactionName,
+    })
 
   return {
     id: actor.actorId,
@@ -616,12 +626,11 @@ export function buildNodeNpcFromDynamicActor(actor: DynamicQuestNpc): NodeNpc {
     title: actor.title,
     realm: actor.realm,
     factionId: actor.factionId,
-    factionName:
-      actor.factionName ?? (actor.factionId ? FACTION_DB_MAP[actor.factionId]?.name : undefined),
+    factionName: resolvedFactionName,
     sectRank: actor.sectRank,
     sectRankLabel: actor.sectRankLabel,
-    avatarUrl: actor.avatarUrl ?? '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
-    portraitUrl: actor.portraitUrl ?? '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    avatarUrl: actor.avatarUrl ?? resolveAvatarForFullbody(fallbackFullbody),
+    portraitUrl: fallbackFullbody,
     stats: { ...actor.stats },
     talents: actor.talents ? { ...actor.talents } : { bone: 50, comprehension: 50, charm: 50 },
     tenArts: actor.tenArts ? { ...actor.tenArts } : undefined,
@@ -720,14 +729,28 @@ export function resolveStorySpeaker(
     case 'interactedNpc': {
       if (contextNpc) {
         const db = (contextNpc.id && NPC_DB_MAP[contextNpc.id]) || resolveNpcByName(contextNpc.name)
+        const resolvedFaction = contextNpc.factionName ?? db?.factionName
+        const resolvedPortrait =
+          contextNpc.portraitUrl ??
+          db?.fullbodyUrl ??
+          db?.templateUrl ??
+          inferTemplatePortrait({
+            name: contextNpc.name,
+            title: contextNpc.title,
+            factionName: resolvedFaction,
+          })
         return {
           isNarrator: false,
           isPlayer: false,
           name: contextNpc.name,
           title: contextNpc.title,
-          factionName: contextNpc.factionName ?? db?.factionName,
-          portraitUrl: contextNpc.portraitUrl ?? db?.fullbodyUrl ?? db?.templateUrl ?? null,
-          avatarUrl: contextNpc.avatarUrl ?? db?.avatarUrl ?? db?.templateAvatarUrl ?? null,
+          factionName: resolvedFaction,
+          portraitUrl: resolvedPortrait,
+          avatarUrl:
+            contextNpc.avatarUrl ??
+            db?.avatarUrl ??
+            db?.templateAvatarUrl ??
+            resolveAvatarForFullbody(resolvedPortrait),
         }
       }
       return {
@@ -735,19 +758,33 @@ export function resolveStorySpeaker(
         isPlayer: false,
         name: '江湖人物',
         title: '席间客',
+        portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
+        avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
       }
     }
     case 'npc': {
       const db = NPC_DB_MAP[speaker.npcId]
       if (db) {
+        const useInferredHeroine =
+          !db.fullbodyUrl &&
+          (db.name === '穆桂云' || /女将|女帅/.test(db.role ?? ''))
+        const resolvedPortrait = useInferredHeroine
+          ? inferTemplatePortrait({
+              name: db.name,
+              title: db.role,
+              factionName: db.factionName,
+            })
+          : (db.fullbodyUrl ?? db.templateUrl)
         return {
           isNarrator: false,
           isPlayer: false,
           name: db.name,
           title: `${db.factionName} · ${db.role}`,
           factionName: db.factionName,
-          portraitUrl: db.fullbodyUrl ?? db.templateUrl,
-          avatarUrl: db.avatarUrl ?? db.templateAvatarUrl,
+          portraitUrl: resolvedPortrait,
+          avatarUrl: useInferredHeroine
+            ? resolveAvatarForFullbody(resolvedPortrait)
+            : (db.avatarUrl ?? db.templateAvatarUrl),
         }
       }
       return {
@@ -757,15 +794,27 @@ export function resolveStorySpeaker(
         title: '未知人物',
       }
     }
-    case 'custom':
+    case 'custom': {
+      const dbByName = resolveNpcByName(speaker.name)
+      const resolvedPortrait =
+        speaker.portraitUrl ??
+        dbByName?.fullbodyUrl ??
+        dbByName?.templateUrl ??
+        inferTemplatePortrait({
+          name: speaker.name,
+          title: speaker.title,
+          factionName: speaker.factionName ?? dbByName?.factionName,
+        })
       return {
         isNarrator: false,
         isPlayer: false,
         name: speaker.name,
         title: speaker.title ?? '剧情人物',
-        factionName: speaker.factionName,
-        portraitUrl: speaker.portraitUrl ?? '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+        factionName: speaker.factionName ?? dbByName?.factionName,
+        portraitUrl: resolvedPortrait,
+        avatarUrl: speaker.avatarUrl ?? resolveAvatarForFullbody(resolvedPortrait),
       }
+    }
   }
 }
 
@@ -976,6 +1025,16 @@ export function validateAllRegisteredQuests(
         if (eff.opponent.kind === 'npc' && !NPC_DB_MAP[eff.opponent.npcId]) {
           errors.push(`${ctxPath}.startCombat: 未知的对手 npcId "${eff.opponent.npcId}"`)
         }
+        eff.extraOpponents?.forEach((eo, eoi) => {
+          if (eo.kind === 'npc' && !NPC_DB_MAP[eo.npcId]) {
+            errors.push(`${ctxPath}.startCombat.extraOpponents[${eoi}]: 未知的对手 npcId "${eo.npcId}"`)
+          }
+        })
+        eff.allies?.forEach((al, ali) => {
+          if (al.kind === 'npc' && !NPC_DB_MAP[al.npcId]) {
+            errors.push(`${ctxPath}.startCombat.allies[${ali}]: 未知的助战同伴 npcId "${al.npcId}"`)
+          }
+        })
         eff.onWin.forEach((we, wi) => checkEffect(`${ctxPath}.startCombat.onWin[${wi}]`, we))
         eff.onLose?.forEach((le, li) => checkEffect(`${ctxPath}.startCombat.onLose[${li}]`, le))
         eff.onEscape?.forEach((ee, ei) =>

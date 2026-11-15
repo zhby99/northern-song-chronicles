@@ -392,6 +392,7 @@ const SCENE_45_MURONG_SURVIVE_10: StorySceneDef = {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildMurongFuSurviveNpc() },
           rule: 'survive_rounds',
+          lethalOnLose: true,
           maxRounds: 10,
           questId: QUEST_ID,
           forbidEscapeReason: '已与慕容复立下十合之约，须堂堂正正撑满十回合方能论定进退！',
@@ -617,7 +618,7 @@ const SCENE_37_DENG_BATTLE: StorySceneDef = {
         {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildDengBaichuanTrialNpc() },
-          rule: 'story_trial',
+          rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '邓百川已封住参合庄演武场退路，须正面击败他方能进见慕容复！',
           deathTitle: '掌震参合 · 血染演武坪',
@@ -795,7 +796,7 @@ const SCENE_30_GONGYE_BATTLE: StorySceneDef = {
         {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildGongyeQianTrialNpc() },
-          rule: 'story_trial',
+          rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '公冶乾已横立画舫船头封死水路，唯有击败他方能入坞！',
           deathTitle: '掌折画舫 · 魂断太湖',

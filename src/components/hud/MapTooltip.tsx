@@ -113,7 +113,8 @@ export function MapTooltip() {
   }
 
   const { item } = tooltip
-  const canEnterInterior = !item.isSpot && Boolean(item.interiorMode)
+  const isLocked = Boolean(item.isLocked)
+  const canEnterInterior = !isLocked && !item.isSpot && Boolean(item.interiorMode)
   const hasSubSpots = Boolean(item.hasSubSpots)
 
   return (
@@ -124,57 +125,75 @@ export function MapTooltip() {
     >
       <div className="flex items-center justify-between bg-[#efe3c8] -mx-3.5 -mt-3.5 px-3.5 py-2 mb-2 rounded-t border-b border-[#b8a27e]">
         <span className="song-serif font-bold text-sm text-[#2b1a0e]">
-          {item.isSpecial ? '★ ' : ''}
+          {isLocked ? '🔒 ' : item.isSpecial ? '★ ' : ''}
           {item.name}
         </span>
         <span
           className={`px-2 py-0.5 rounded ${
-            item.isSpecial ? 'bg-[#8f1d14]' : 'bg-[#355263]'
+            isLocked
+              ? 'bg-[#44403c]'
+              : item.isSpecial
+                ? 'bg-[#8f1d14]'
+                : 'bg-[#355263]'
           } text-[#fff9ed] text-[11px] font-medium`}
         >
-          {item.isSpot
-            ? '建筑内景热区'
-            : item.isSpecial
-              ? '特殊建筑'
-              : canEnterInterior
-                ? '可步入坊市'
-                : '基础建筑'}
+          {isLocked
+            ? '未启秘境'
+            : item.isSpot
+              ? '建筑内景热区'
+              : item.isSpecial
+                ? '特殊建筑'
+                : canEnterInterior
+                  ? '可步入坊市'
+                  : '基础建筑'}
         </span>
       </div>
 
-      <div className="space-y-1.5 text-xs">
-        <p className="text-[#3d2b19] leading-relaxed">{item.desc}</p>
-        {typeof item.residentCount === 'number' && (
-          <div className="flex justify-between py-0.5 border-y border-[#d8cbb2]">
-            <span className="text-[#5c4630]">
-              {canEnterInterior
-                ? hasSubSpots
-                  ? '院内子建筑驻留人物：'
-                  : '堂内常驻人物：'
-                : '本处常驻人物：'}
-            </span>
-            <strong className="font-mono text-[#23180f]">
-              {item.residentCount > 0 ? `${item.residentCount} 位` : '暂无常驻'}
-            </strong>
+      {isLocked ? (
+        <div className="space-y-1.5 text-xs">
+          <p className="text-[#3d2b19] leading-relaxed">{item.desc}</p>
+          <div className="p-2 rounded bg-[#ebe5da] border border-[#9c8f7a] text-[#44403c] font-semibold leading-relaxed">
+            🔒 暂不可点入：{item.lockedReason ?? '需后续任务剧情解锁后方可步入。'}
           </div>
-        )}
-        <div className="p-2 rounded bg-[#f2e8d2] border border-[#cbb997] text-[#781710] font-semibold">
-          可互动机缘：{item.actLabel}
+          <div className="text-[11px] font-semibold text-[#78716c]">
+            此秘境当前处于封锁状态，待后续任务剧情开启后解锁
+          </div>
         </div>
-        <div
-          className={`text-[11px] font-semibold ${
-            canEnterInterior ? 'text-[#8f1d14]' : 'text-[#5c4630]'
-          }`}
-        >
-          {canEnterInterior
-            ? hasSubSpots
-              ? item.interiorMode === 'image'
-                ? `★ 点击切入【${item.name}】实景，点选子建筑方可寻访人物 →`
-                : `★ 点击步入【${item.name}】内院，点选子建筑方可寻访人物 →`
-              : `点击步入【${item.name}】大堂（内无子建筑，入堂即可互动与寻访人物） →`
-            : '点击选中此最末层建筑，开启修习与驻留人物互动'}
+      ) : (
+        <div className="space-y-1.5 text-xs">
+          <p className="text-[#3d2b19] leading-relaxed">{item.desc}</p>
+          {typeof item.residentCount === 'number' && (
+            <div className="flex justify-between py-0.5 border-y border-[#d8cbb2]">
+              <span className="text-[#5c4630]">
+                {canEnterInterior
+                  ? hasSubSpots
+                    ? '院内子建筑驻留人物：'
+                    : '堂内常驻人物：'
+                  : '本处常驻人物：'}
+              </span>
+              <strong className="font-mono text-[#23180f]">
+                {item.residentCount > 0 ? `${item.residentCount} 位` : '暂无常驻'}
+              </strong>
+            </div>
+          )}
+          <div className="p-2 rounded bg-[#f2e8d2] border border-[#cbb997] text-[#781710] font-semibold">
+            可互动机缘：{item.actLabel}
+          </div>
+          <div
+            className={`text-[11px] font-semibold ${
+              canEnterInterior ? 'text-[#8f1d14]' : 'text-[#5c4630]'
+            }`}
+          >
+            {canEnterInterior
+              ? hasSubSpots
+                ? item.interiorMode === 'image'
+                  ? `★ 点击切入【${item.name}】实景，点选子建筑方可寻访人物 →`
+                  : `★ 点击步入【${item.name}】内院，点选子建筑方可寻访人物 →`
+                : `点击步入【${item.name}】大堂（内无子建筑，入堂即可互动与寻访人物） →`
+              : '点击选中此最末层建筑，开启修习与驻留人物互动'}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

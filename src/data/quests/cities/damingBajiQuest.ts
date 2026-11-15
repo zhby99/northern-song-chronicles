@@ -155,6 +155,86 @@ function buildYeluLieshanBossNpc(weakenedByFlaw: boolean): NodeNpc {
   }
 }
 
+function buildKhitanSandtableGuardNpc(): NodeNpc {
+  return {
+    id: 'CUSTOM-DM-TIELIN-GUARD',
+    name: '契丹铁林死士',
+    title: '北院潜入重斧精锐',
+    realm: '三流上品',
+    factionId: 'SECT-31',
+    factionName: '契丹铁林骁骑',
+    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    stats: {
+      hp: 420,
+      mp: 220,
+      agi: 46,
+      res: 20,
+      isBenchmark: false,
+    },
+    talents: { bone: 62, comprehension: 42, charm: 32 },
+    fullLocationLabel: '大名府 > 北京留守行宫 > 河北防辽舆图沙盘阁',
+    equippedArts: {
+      neigong: 'MA-232',
+      qinggong: null,
+      move1: 'MA-152',
+      move2: 'MA-151',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-232', level: 2, exp: 0 },
+      { artId: 'MA-152', level: 2, exp: 0 },
+      { artId: 'MA-151', level: 2, exp: 0 },
+    ],
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-076',
+    },
+    questBadgeLabel: '铁林死士',
+    talk: '“护住千夫长与《河北防辽舆图》，杀出沙盘阁！”',
+  }
+}
+
+function buildLuTieshanSandtableAllyNpc(): NodeNpc {
+  return {
+    id: 'NPC-0275',
+    name: '卢铁山',
+    title: '沧州八极门总馆主',
+    realm: '二流上品',
+    factionId: 'SECT-23',
+    factionName: '沧州八极门',
+    avatarUrl: '/assets/characters/avatars/NPC-0275.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0275.jpg',
+    stats: {
+      hp: 920,
+      mp: 560,
+      agi: 54,
+      res: 32,
+      isBenchmark: false,
+    },
+    equippedArts: {
+      neigong: 'MA-180',
+      qinggong: 'MA-138',
+      move1: 'MA-124',
+      move2: 'MA-116',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-180', level: 4, exp: 0 },
+      { artId: 'MA-138', level: 3, exp: 0 },
+      { artId: 'MA-124', level: 4, exp: 0 },
+      { artId: 'MA-116', level: 4, exp: 0 },
+    ],
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-054',
+    },
+    talk: '“少侠尽管放手攻敌，老夫一杆六合大枪替你压住铁林死士！”',
+  }
+}
+
 /**
  * 第一幕：每取得一条关键线索时递增 `dm_clues_count`，满 2 条即推进至 `present_to_jia`（同时保留第 3 条线索可继续搜集以解锁全满赏赐）
  */
@@ -277,10 +357,14 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
           questId: QUEST_ID,
           opponent: { kind: 'custom', npc: buildKhitanVanguardNpc() },
           rule: 'survive_rounds',
+          lethalOnLose: true,
           maxRounds: 5,
           forbidEscapeReason: '万军校场擂台之上，河北豪杰齐聚，岂可临阵退缩！',
+          deathTitle: '血洒八角生死擂',
+          deathDetail:
+            '少侠于大名府河北枪棒大校场登八角生死擂迎战契丹铁林先锋乌古乃，未能撑满五合寒铁重斧猛劈，重创喋血擂台。',
           introText:
-            '乌古乃双目凶光暴涨，两柄辽东寒铁重斧挟风雷之势劈面砸落——正是契丹铁林军破甲绝技！撑过五合逼出其北庭步法！',
+            '乌古乃双目凶光暴涨，两柄辽东寒铁重斧挟风雷之势劈面砸落——正是契丹铁林军破甲绝技！撑过五合逼出其北庭步法（生死擂台，败则丧命）！',
           onWin: [
             { type: 'healPlayer', hpPct: 60, mpPct: 60 },
             { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0275' }, delta: 25 },
@@ -321,38 +405,6 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
                     text: '校场扬威！请于夜间（戌/亥/子/丑时）前往【北京留守行宫 · 河北防辽舆图沙盘阁】收网（白昼抵达亦可在阁外静候至戌夜）！',
                     tone: 'success',
                     logTag: '铁锁镇河朔',
-                  },
-                ],
-              },
-            },
-          ],
-          onLose: [
-            { type: 'healPlayer', hpPct: 60, mpPct: 50 },
-            { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0275' }, delta: 10 },
-            {
-              type: 'setQuestStep',
-              questId: QUEST_ID,
-              stepId: 'midnight_sandtable',
-              deadlineDays: null,
-            },
-            {
-              type: 'openScene',
-              scene: {
-                id: 'scene_dm_leitai_after_fight_lose',
-                title: '铁山护犊 · 逼露辽踪',
-                subtitle: '河北枪棒大校场',
-                beats: [
-                  {
-                    speaker: { kind: 'narrator' },
-                    text: '乌古乃双斧沉猛逾常，少侠虎口震麻、踉跄半步。千钧一发之际，一杆碗口粗的大名浑铁大枪横空挑来，卢铁山单臂一抖，当场震飞乌古乃右手寒铁斧！',
-                  },
-                  {
-                    speaker: { kind: 'npc', npcId: 'NPC-0275' },
-                    text: '“少侠已替老夫试出这厮契丹铁林军的底细，快退后调息！贼子，纳命来！”',
-                  },
-                  {
-                    speaker: { kind: 'npc', npcId: 'NPC-0039' },
-                    text: '（乌古乃借烟尘狼狈鼠窜，王信快步上前低语）“无妨！贾相公要的便是打草惊蛇——看台上的内鬼周文焕已慌神离席，今夜必引铁林死士夜袭【河北防辽舆图沙盘阁】，速去备战！”',
                   },
                 ],
               },
@@ -662,8 +714,8 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
   choices: [
     {
       id: 'choice_sandtable_righteous_battle',
-      label: '【忠义破虏 · 正面迎击耶律裂山】与卢总馆主并肩合围，全歼契丹铁林死士！',
-      subLabel: '正道决战（若此前在擂台点破斧法破绽，耶律裂山战力大幅削弱）· 胜后可选公门或八极真传结局',
+      label: '【2v2 忠义破虏 · 并肩迎击耶律裂山】与卢铁山总馆主联手合围，全歼契丹铁林死士！',
+      subLabel: '2v2 正道生死决战（战败殉国；若此前点破斧法破绽，耶律裂山战力大幅削弱）· 胜后可选公门或八极真传结局',
       tone: 'primary',
       effects: [
         {
@@ -673,36 +725,19 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
             {
               type: 'startCombat',
               questId: QUEST_ID,
+              allies: [{ kind: 'custom', npc: buildLuTieshanSandtableAllyNpc() }],
               opponent: { kind: 'custom', npc: buildYeluLieshanBossNpc(true) },
-              rule: 'story_trial',
-              forbidEscapeReason: '沙盘阁四门合围，正值擒贼立功之际，岂能退避！',
+              extraOpponents: [{ kind: 'custom', npc: buildKhitanSandtableGuardNpc() }],
+              rule: 'duel',
+              deathTitle: '血染沙盘阁',
+              deathDetail:
+                '少侠与沧州八极门卢铁山于北京留守行宫沙盘阁夜剿契丹铁林死士，力战不支，命丧耶律裂山寒铁重斧之下。',
+              forbidEscapeReason: '沙盘阁四门合围，正值擒贼护国之际，岂能退避！',
               introText:
-                '耶律裂山挥动寒铁重斧狂劈而来，然而其左肋换气死角早已被你在校场一眼看破——会同卢铁山一举拿下此獠！',
+                '【2v2 沙盘阁生死夜战】耶律裂山率铁林死士挥动寒铁重斧狂劈而来，然而其左肋换气死角早已被你在校场看破！卢铁山横枪跃至你身侧，可点击敌手立绘择一集火，一举拿下此獠！',
               onWin: [
                 { type: 'healPlayer', hpPct: 100, mpPct: 100 },
                 { type: 'openScene', scene: SCENE_DAMING_VICTORY_CHOICE },
-              ],
-              onLose: [
-                { type: 'healPlayer', hpPct: 60, mpPct: 60 },
-                {
-                  type: 'openScene',
-                  scene: {
-                    id: 'scene_dm_boss_assisted_victory',
-                    title: '铁山合击 · 协力诛枭',
-                    subtitle: '河北防辽舆图沙盘阁',
-                    beats: [
-                      {
-                        speaker: { kind: 'narrator' },
-                        text: '耶律裂山困兽凶狂，震得少侠气血翻涌！恰在此时，卢铁山与王信左右夹击，一记浑铁大枪贯入耶律裂山先前暴露的左肋破绽，将其死死钉翻在地！',
-                      },
-                      {
-                        speaker: { kind: 'npc', npcId: 'NPC-0275' },
-                        text: '“好险！多亏少侠死死缠住这厮中门锋芒，方教老夫一枪竟功！”',
-                      },
-                    ],
-                    onFinishEffects: [{ type: 'openScene', scene: SCENE_DAMING_VICTORY_CHOICE }],
-                  },
-                },
               ],
             },
           ],
@@ -710,36 +745,19 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
             {
               type: 'startCombat',
               questId: QUEST_ID,
+              allies: [{ kind: 'custom', npc: buildLuTieshanSandtableAllyNpc() }],
               opponent: { kind: 'custom', npc: buildYeluLieshanBossNpc(false) },
-              rule: 'story_trial',
-              forbidEscapeReason: '沙盘阁四门合围，正值擒贼立功之际，岂能退避！',
+              extraOpponents: [{ kind: 'custom', npc: buildKhitanSandtableGuardNpc() }],
+              rule: 'duel',
+              deathTitle: '血染沙盘阁',
+              deathDetail:
+                '少侠与沧州八极门卢铁山于北京留守行宫沙盘阁夜剿契丹铁林死士，力战不支，命丧耶律裂山寒铁重斧之下。',
+              forbidEscapeReason: '沙盘阁四门合围，正值擒贼护国之际，岂能退避！',
               introText:
-                '契丹北院铁林千夫长耶律裂山须发怒张，六十四斤辽东寒铁重斧卷起刺骨罡风——此战关乎河朔安危！',
+                '【2v2 沙盘阁生死夜战】契丹北院铁林千夫长耶律裂山与铁林死士双斧齐出，卷起刺骨罡风！卢铁山横枪助阵，此战关乎河朔安危，有死无退！',
               onWin: [
                 { type: 'healPlayer', hpPct: 100, mpPct: 100 },
                 { type: 'openScene', scene: SCENE_DAMING_VICTORY_CHOICE },
-              ],
-              onLose: [
-                { type: 'healPlayer', hpPct: 60, mpPct: 60 },
-                {
-                  type: 'openScene',
-                  scene: {
-                    id: 'scene_dm_boss_full_assisted_victory',
-                    title: '八极崩雷 · 浴血擒渠',
-                    subtitle: '河北防辽舆图沙盘阁',
-                    beats: [
-                      {
-                        speaker: { kind: 'narrator' },
-                        text: '耶律裂山拼死反扑，少侠硬受一记寒铁斧风、嘴角溢血，却死死锁住其退往沙盘暗格的步位！卢铁山暴喝如雷，欺身撞碎耶律裂山胸前护心玄甲，郭钧海飞锁套颈，终将这契丹悍将生擒活捉！',
-                      },
-                      {
-                        speaker: { kind: 'npc', npcId: 'NPC-0028' },
-                        text: '“浴血死战，寸步不退——少侠首功，本府看在眼里！”',
-                      },
-                    ],
-                    onFinishEffects: [{ type: 'openScene', scene: SCENE_DAMING_VICTORY_CHOICE }],
-                  },
-                },
               ],
             },
           ],
@@ -1394,15 +1412,15 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_ouyang_spar',
                   label: '【以武会友】亮招请紫髯伯赐教几手！',
-                  subLabel: '迎战北侠欧阳春（胜后获指点 · ⚠️ 任务交手失手将直接丧命！）',
+                  subLabel: '与北侠欧阳春以武会友（切磋点到为止 · 胜负皆获指点，战胜好感更高）',
                   tone: 'primary',
                   effects: [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
                       opponent: { kind: 'npc', npcId: 'NPC-0248' },
-                      rule: 'story_trial',
-                      introText: '北侠欧阳春抚髯朗笑，随手折下一截芦苇代刀，气势如黄河奔雷般压来！',
+                      rule: 'spar',
+                      introText: '北侠欧阳春抚髯朗笑，随手折下一截芦苇代刀，气势如黄河奔雷般压来（以武会友 · 点到为止）！',
                       onWin: [
                         { type: 'healPlayer', hpPct: 50, mpPct: 50 },
                         {
@@ -1832,16 +1850,19 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                   id: 'choice_bout1_fight_bandit',
                   label: '【跃上八角台】十步之内见真章，先替八极门打服这跳梁小丑！',
                   subLabel: '开启头阵生死擂（⚠️ 战败将直接丧命！）',
-                  tone: 'primary',
+                  tone: 'danger',
                   effects: [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
                       opponent: { kind: 'custom', npc: buildTaihangScoundrelNpc() },
-                      rule: 'story_trial',
-                      forbidEscapeReason: '八角擂台万众瞩目，头阵岂能怯战！',
+                      rule: 'duel',
+                      forbidEscapeReason: '八角生死擂万众瞩目，头阵岂能怯战！',
+                      deathTitle: '折戟八角生死擂',
+                      deathDetail:
+                        '少侠于大名府八角生死擂头阵迎战太行叛匪焦三斧，不慎失手死于宣花板斧之下。',
                       introText:
-                        '焦三斧抡起板斧恶狠狠劈来，招数虽凶却满身酒色虚浮之气——痛快将其轰下八角擂台！',
+                        '焦三斧抡起板斧恶狠狠劈来，刀口泛着阴毒寒芒——八角生死擂既开，既分高下，亦决生死！',
                       onWin: [
                         { type: 'healPlayer', hpPct: 45, mpPct: 45 },
                         {
@@ -1855,23 +1876,6 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                           delta: 15,
                         },
                         { type: 'openScene', scene: SCENE_LEITAI_BOUT_TWO },
-                      ],
-                      onLose: [
-                        { type: 'healPlayer', hpPct: 50, mpPct: 50 },
-                        {
-                          type: 'openScene',
-                          scene: {
-                            id: 'scene_dm_bout1_lu_wanyue_backup',
-                            title: '红颜横枪 · 一棍扫狂徒',
-                            beats: [
-                              {
-                                speaker: { kind: 'npc', npcId: 'NPC-0366' },
-                                text: '（卢婉月飞身掠上擂台，白蜡杆一记「六合横扫」重重抽在焦三斧胸口，将其横扫出三丈开外）“偷奸耍滑的鼠辈，也敢暗算我八极门贵客！”',
-                              },
-                            ],
-                            onFinishEffects: [{ type: 'openScene', scene: SCENE_LEITAI_BOUT_TWO }],
-                          },
-                        },
                       ],
                     },
                   ],
@@ -2121,14 +2125,18 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_spot_leitai_fight',
                   label: '【跃上八角台】擂鼓开战，先挫焦三斧锐气！',
-                  tone: 'primary',
+                  subLabel: '开启头阵生死擂（⚠️ 战败将直接丧命！）',
+                  tone: 'danger',
                   effects: [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
                       opponent: { kind: 'custom', npc: buildTaihangScoundrelNpc() },
-                      rule: 'story_trial',
-                      forbidEscapeReason: '八角擂台万众瞩目，头阵岂能怯战！',
+                      rule: 'duel',
+                      forbidEscapeReason: '八角生死擂万众瞩目，头阵岂能怯战！',
+                      deathTitle: '折戟八角生死擂',
+                      deathDetail:
+                        '少侠于大名府八角生死擂头阵迎战太行叛匪焦三斧，不慎失手死于宣花板斧之下。',
                       onWin: [
                         { type: 'healPlayer', hpPct: 45, mpPct: 45 },
                         {
@@ -2136,10 +2144,6 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                           target: { kind: 'npc', npcId: 'NPC-0275' },
                           delta: 15,
                         },
-                        { type: 'openScene', scene: SCENE_LEITAI_BOUT_TWO },
-                      ],
-                      onLose: [
-                        { type: 'healPlayer', hpPct: 50, mpPct: 50 },
                         { type: 'openScene', scene: SCENE_LEITAI_BOUT_TWO },
                       ],
                     },

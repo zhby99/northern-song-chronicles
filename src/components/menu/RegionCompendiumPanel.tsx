@@ -28,7 +28,8 @@ import type {
   NodeKind,
   RegimeKey,
 } from '../../types/game'
-import { ADJACENCY_MAP, NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
+import { useGameStore } from '../../store/useGameStore'
+import { ADJACENCY_MAP, getBuildingLockMeta, NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
 import { ManagedAssetImg } from '../common/ManagedAssetImg'
 
 const SvgRegionPanoramaFallback = lazy(() =>
@@ -130,6 +131,7 @@ export function RegionCompendiumPanel({
   onEnterCurrentRegion,
   onOpenPanoramaLightbox,
 }: RegionCompendiumPanelProps) {
+  const questFlags = useGameStore((s) => s.questState.flags)
   const [query, setQuery] = useState('')
   const [regimeFilter, setRegimeFilter] = useState<RegimeFilterKey>('ALL')
   const [typeFilter, setTypeFilter] = useState<NodeTypeFilterKey>('ALL')
@@ -701,31 +703,50 @@ export function RegionCompendiumPanel({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               {specialBuildings.map((b) => {
                 const spotCount = b.interior?.spots.length ?? 0
+                const lockMeta = getBuildingLockMeta(b.id, questFlags)
                 return (
                   <div
                     key={b.id}
-                    className="p-2.5 rounded bg-[#fffdf8] border border-[#cfa96e] space-y-1"
+                    className={`p-2.5 rounded border space-y-1 ${
+                      lockMeta
+                        ? 'bg-[#f1ede6] border-[#9c8f7a] opacity-90'
+                        : 'bg-[#fffdf8] border-[#cfa96e]'
+                    }`}
                   >
                     <div className="flex items-center justify-between gap-1.5">
-                      <span className="song-serif font-bold text-xs text-[#781710] truncate">
-                        ★ {b.name}
+                      <span
+                        className={`song-serif font-bold text-xs truncate ${
+                          lockMeta ? 'text-[#44403c]' : 'text-[#781710]'
+                        }`}
+                      >
+                        {lockMeta ? '🔒' : '★'} {b.name}
                       </span>
                       <span
                         className={`text-[10px] px-1.5 py-0.5 rounded shrink-0 ${
-                          b.hasPanoramaImage
-                            ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
-                            : 'bg-amber-100 text-amber-900 border border-amber-300'
+                          lockMeta
+                            ? 'bg-stone-200 text-stone-800 border border-stone-400 font-semibold'
+                            : b.hasPanoramaImage
+                              ? 'bg-emerald-100 text-emerald-900 border border-emerald-300'
+                              : 'bg-amber-100 text-amber-900 border border-amber-300'
                         }`}
                       >
-                        {b.hasPanoramaImage ? '手绘内景' : '营造矢量院'} · {spotCount}子院
+                        {lockMeta
+                          ? lockMeta.lockedBadge
+                          : `${b.hasPanoramaImage ? '手绘内景' : '营造矢量院'} · ${spotCount}子院`}
                       </span>
                     </div>
-                    <p className="text-[11px] text-[#5e472d] line-clamp-2">{b.desc}</p>
+                    <p className="text-[11px] text-[#5e472d] line-clamp-2">
+                      {lockMeta ? lockMeta.lockedDesc : b.desc}
+                    </p>
                     <div className="flex items-center justify-between text-[10px] text-[#7a6042] pt-0.5">
-                      <span>交互：{b.actLabel}</span>
-                      <span className="font-mono font-semibold text-[#23180f]">
-                        驻留 {b.residentNpcIds.length} 人
+                      <span>
+                        {lockMeta ? '状态：暂不可点入（后续任务剧情解锁）' : `交互：${b.actLabel}`}
                       </span>
+                      {!lockMeta && (
+                        <span className="font-mono font-semibold text-[#23180f]">
+                          驻留 {b.residentNpcIds.length} 人
+                        </span>
+                      )}
                     </div>
                   </div>
                 )

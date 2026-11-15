@@ -297,6 +297,7 @@ const SCENE_28_DENG_SURVIVE_TRIAL: StorySceneDef = {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildDengBaichuanSurviveNpc() },
           rule: 'survive_rounds',
+          lethalOnLose: true,
           maxRounds: 10,
           questId: QUEST_ID,
           forbidEscapeReason: '邓百川已封死陆路门户，唯有一边周旋十合一边逼近临水花窗方可跃湖脱身！',
@@ -444,7 +445,7 @@ const SCENE_23_FENG_BATTLE: StorySceneDef = {
         {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildFengBoeTrialNpc() },
-          rule: 'story_trial',
+          rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '风波恶已欺身封住退路，唯有一战！',
           deathTitle: '花径折戟 · 命丧一阵狂风',
@@ -587,7 +588,7 @@ const SCENE_18_BAO_BATTLE: StorySceneDef = {
         {
           type: 'startCombat',
           opponent: { kind: 'custom', npc: buildBaoButongTrialNpc() },
-          rule: 'story_trial',
+          rule: 'duel',
           questId: QUEST_ID,
           forbidEscapeReason: '包不同已横身拦在渡口木栈，须堂堂正正击败他！',
           deathTitle: '太湖长埠 · 命陨非也奇招',

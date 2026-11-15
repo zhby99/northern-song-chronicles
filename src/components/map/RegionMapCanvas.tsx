@@ -12,8 +12,10 @@ import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { useLazyImage } from '../../utils/assetLoader'
 import {
   clientToSvgCoords,
+  getBuildingLockMeta,
   getRegionAllBuildings,
   getRegionViewBoxSize,
+  isBuildingUnlocked,
   NODE_MAP,
   REGIONAL_CONFIGS,
 } from '../../utils/mapMath'
@@ -145,6 +147,7 @@ export function RegionMapCanvas() {
       }
     } else if (viewMode === 'region') {
       for (const b of sortedBuildings) {
+        if (!isBuildingUnlocked(b.id, questState.flags)) continue
         const dbBldg = BUILDING_DB_MAP[b.id]
         const spots = dbBldg?.interior?.spots ?? []
         if (spots.length > 0) {
@@ -597,45 +600,75 @@ export function RegionMapCanvas() {
 
               <g id="region-buildings-layer">
                 {sortedBuildings.map((b) => {
-                  const isSelected = b.id === selectedBuildingId
+                  const lockMeta = getBuildingLockMeta(b.id, questState.flags)
+                  const isLocked = Boolean(lockMeta)
+                  const isSelected = !isLocked && b.id === selectedBuildingId
                   const dbBuilding = BUILDING_DB_MAP[b.id]
                   const interiorMode = dbBuilding?.interior?.mode ?? null
                   const hasSubSpots = (dbBuilding?.interior?.spots.length ?? 0) > 0
-                  const canEnterInterior = Boolean(interiorMode)
+                  const canEnterInterior = !isLocked && Boolean(interiorMode)
 
-                  const fillColor = b.isSpecial ? '#f59e0b' : '#38bdf8'
-                  const strokeColor = b.isSpecial ? '#fde047' : '#bae6fd'
-                  const labelText = (b.isSpecial ? '★ ' : '') + b.name
+                  const fillColor = isLocked ? '#44403c' : b.isSpecial ? '#f59e0b' : '#38bdf8'
+                  const strokeColor = isLocked ? '#78716c' : b.isSpecial ? '#fde047' : '#bae6fd'
+                  const labelText = (isLocked ? '🔒 ' : b.isSpecial ? '★ ' : '') + b.name
                   const plateW = Math.max(92, labelText.length * 11.2 + 22)
-                  const plateFill = isSelected
-                    ? '#2b180b'
-                    : b.isSpecial
-                      ? '#8f1d14'
-                      : '#243a47'
-                  const plateStroke = isSelected
-                    ? '#fbbf24'
-                    : b.isSpecial
-                      ? '#f6cf65'
-                      : canEnterInterior
-                        ? '#93c5fd'
-                        : '#cbd5e1'
-                  const subTagText = canEnterInterior
-                    ? interiorMode === 'image'
-                      ? `${b.tag} · 步入实景`
-                      : hasSubSpots
-                        ? `${b.tag} · 步入内院`
-                        : `${b.tag} · 步入堂内`
-                    : b.tag
-                  const hasQuest = questMarkers.buildingIds.has(b.id)
+                  const plateFill = isLocked
+                    ? '#292524'
+                    : isSelected
+                      ? '#2b180b'
+                      : b.isSpecial
+                        ? '#8f1d14'
+                        : '#243a47'
+                  const plateStroke = isLocked
+                    ? '#78716c'
+                    : isSelected
+                      ? '#fbbf24'
+                      : b.isSpecial
+                        ? '#f6cf65'
+                        : canEnterInterior
+                          ? '#93c5fd'
+                          : '#cbd5e1'
+                  const subTagText = isLocked
+                    ? lockMeta!.lockedBadge
+                    : canEnterInterior
+                      ? interiorMode === 'image'
+                        ? `${b.tag} · 步入实景`
+                        : hasSubSpots
+                          ? `${b.tag} · 步入内院`
+                          : `${b.tag} · 步入堂内`
+                      : b.tag
+                  const showSubTag = isLocked || canEnterInterior
+                  const hasQuest = !isLocked && questMarkers.buildingIds.has(b.id)
                   const subTagW = Math.max(64, subTagText.length * 8.6 + 16)
 
                   return (
                     <g
                       key={b.id}
                       data-bldg-id={b.id}
-                      className="cursor-pointer iso-hotspot-group"
+                      className={
+                        isLocked
+                          ? 'cursor-not-allowed opacity-85'
+                          : 'cursor-pointer iso-hotspot-group'
+                      }
                       onMouseEnter={(e) => {
                         if (dragRef.current?.moved) return
+                        if (isLocked) {
+                          setTooltip({
+                            kind: 'building',
+                            x: e.clientX,
+                            y: e.clientY,
+                            item: {
+                              id: b.id,
+                              name: b.name,
+                              desc: lockMeta!.lockedDesc,
+                              actLabel: lockMeta!.lockedBadge,
+                              isSpecial: b.isSpecial,
+                              isLocked: true,
+                              lockedReason: lockMeta!.lockedReason,
+                            },
+                          })
+                          return
+                        }
                         setTooltip({
                           kind: 'building',
                           x: e.clientX,
@@ -657,6 +690,9 @@ export function RegionMapCanvas() {
                       onClick={(e) => {
                         if (dragRef.current?.moved) return
                         e.stopPropagation()
+                        if (isLocked) {
+                          return
+                        }
                         if (canEnterInterior) {
                           enterBuildingMap(b.id)
                         } else {
@@ -673,7 +709,8 @@ export function RegionMapCanvas() {
                           strokeWidth={0}
                           strokeOpacity={0}
                           strokeLinejoin="round"
-                          className="iso-poly-hotspot"
+                          pointerEvents="all"
+                          className={isLocked ? undefined : 'iso-poly-hotspot'}
                         />
                       ) : (
                         <circle
@@ -685,7 +722,8 @@ export function RegionMapCanvas() {
                           stroke={strokeColor}
                           strokeWidth={0}
                           strokeOpacity={0}
-                          className="iso-poly-hotspot"
+                          pointerEvents="all"
+                          className={isLocked ? undefined : 'iso-poly-hotspot'}
                         />
                       )}
 
@@ -695,7 +733,7 @@ export function RegionMapCanvas() {
                             <>
                               <rect
                                 x={-28}
-                                y={canEnterInterior ? -49 : -34}
+                                y={showSubTag ? -49 : -34}
                                 width={56}
                                 height={15}
                                 rx={7.5}
@@ -705,7 +743,7 @@ export function RegionMapCanvas() {
                               />
                               <text
                                 x={0}
-                                y={canEnterInterior ? -38.5 : -23.5}
+                                y={showSubTag ? -38.5 : -23.5}
                                 textAnchor="middle"
                                 fontSize={8.8}
                                 fontWeight="bold"
@@ -724,7 +762,7 @@ export function RegionMapCanvas() {
                             stroke="#1f1209"
                             strokeWidth={1.2}
                           />
-                          {canEnterInterior && (
+                          {showSubTag && (
                             <>
                               <rect
                                 x={-subTagW / 2}
@@ -733,18 +771,22 @@ export function RegionMapCanvas() {
                                 height={14}
                                 rx={7}
                                 fill={
-                                  !b.isSpecial
-                                    ? '#e0f2fe'
-                                    : interiorMode === 'image'
-                                      ? '#fef3c7'
-                                      : '#e6f4ec'
+                                  isLocked
+                                    ? '#1c1917'
+                                    : !b.isSpecial
+                                      ? '#e0f2fe'
+                                      : interiorMode === 'image'
+                                        ? '#fef3c7'
+                                        : '#e6f4ec'
                                 }
                                 stroke={
-                                  !b.isSpecial
-                                    ? '#0369a1'
-                                    : interiorMode === 'image'
-                                      ? '#92400e'
-                                      : '#246344'
+                                  isLocked
+                                    ? '#57534e'
+                                    : !b.isSpecial
+                                      ? '#0369a1'
+                                      : interiorMode === 'image'
+                                        ? '#92400e'
+                                        : '#246344'
                                 }
                                 strokeWidth={1.2}
                               />
@@ -755,11 +797,13 @@ export function RegionMapCanvas() {
                                 fontSize={8.6}
                                 fontWeight="bold"
                                 fill={
-                                  !b.isSpecial
-                                    ? '#0c4a6e'
-                                    : interiorMode === 'image'
-                                      ? '#781710'
-                                      : '#184f35'
+                                  isLocked
+                                    ? '#d6d3d1'
+                                    : !b.isSpecial
+                                      ? '#0c4a6e'
+                                      : interiorMode === 'image'
+                                        ? '#781710'
+                                        : '#184f35'
                                 }
                               >
                                 {subTagText}
@@ -783,7 +827,7 @@ export function RegionMapCanvas() {
                             fontSize={11}
                             fontWeight="bold"
                             className="song-serif"
-                            fill={isSelected ? '#fde68a' : '#fff9ed'}
+                            fill={isLocked ? '#d6d3d1' : isSelected ? '#fde68a' : '#fff9ed'}
                           >
                             {labelText}
                           </text>

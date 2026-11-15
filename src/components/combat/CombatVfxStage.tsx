@@ -1,9 +1,15 @@
-import type { CombatFloatingPopup, CombatRoundBeat } from '../../utils/combatEngine'
+import type {
+  CombatantState,
+  CombatFloatingPopup,
+  CombatRoundBeat,
+} from '../../utils/combatEngine'
 
 interface CombatVfxStageProps {
   activeBeat: CombatRoundBeat | null
   playerName: string
   npcName: string
+  allies?: CombatantState[]
+  enemies?: CombatantState[]
   paceScale?: number
 }
 
@@ -28,13 +34,43 @@ function getPopupColorClasses(style: CombatFloatingPopup['style']): string {
   }
 }
 
+function getUnitHorizontalPosClass(
+  unitId: string | undefined,
+  fallbackSide: 'player' | 'npc',
+  multiAllies: boolean,
+  multiEnemies: boolean,
+  isVfxBox: boolean,
+): string {
+  if (fallbackSide === 'player' || unitId?.startsWith('ally-')) {
+    if (!multiAllies) {
+      return isVfxBox ? 'left-[8vw] lg:left-[14vw]' : 'left-[8vw] lg:left-[15vw]'
+    }
+    if (unitId === 'ally-1') {
+      return isVfxBox ? 'left-[18vw] lg:left-[23vw]' : 'left-[20vw] lg:left-[25vw]'
+    }
+    return isVfxBox ? 'left-[2vw] lg:left-[6vw]' : 'left-[4vw] lg:left-[9vw]'
+  }
+  if (!multiEnemies) {
+    return isVfxBox ? 'right-[8vw] lg:right-[14vw]' : 'right-[8vw] lg:right-[15vw]'
+  }
+  if (unitId === 'enemy-1') {
+    return isVfxBox ? 'right-[18vw] lg:right-[23vw]' : 'right-[20vw] lg:right-[25vw]'
+  }
+  return isVfxBox ? 'right-[2vw] lg:right-[6vw]' : 'right-[4vw] lg:right-[9vw]'
+}
+
 export function CombatVfxStage({
   activeBeat,
   playerName,
   npcName,
+  allies = [],
+  enemies = [],
   paceScale = 1,
 }: CombatVfxStageProps) {
   if (!activeBeat) return null
+
+  const multiAllies = allies.length > 1
+  const multiEnemies = enemies.length > 1
 
   const bannerDurMs = Math.round(
     (activeBeat.kind === 'reveal' ? 1180 : activeBeat.isCrit || activeBeat.isHeavenTier ? 2050 : 1720) *
@@ -52,17 +88,38 @@ export function CombatVfxStage({
     activeBeat.kind === 'item'
       ? activeBeat.actorSide
       : activeBeat.targetSide ?? activeBeat.actorSide
+  const vfxUnitId =
+    activeBeat.kind === 'item'
+      ? activeBeat.actorUnitId
+      : activeBeat.targetUnitId ?? activeBeat.actorUnitId
 
   const mirrorX = activeBeat.actorSide === 'npc'
-  const actorLabel =
-    activeBeat.actorSide === 'player'
+  const allUnits = [...allies, ...enemies]
+  const actorUnit = activeBeat.actorUnitId
+    ? allUnits.find((u) => u.unitId === activeBeat.actorUnitId)
+    : undefined
+  const targetUnit = activeBeat.targetUnitId
+    ? allUnits.find((u) => u.unitId === activeBeat.targetUnitId)
+    : undefined
+
+  const actorLabel = actorUnit
+    ? actorUnit.name
+    : activeBeat.actorSide === 'player'
       ? playerName
       : activeBeat.actorSide === 'npc'
         ? npcName
         : null
 
-  const playerPopups = activeBeat.popups.filter((p) => p.side === 'player')
-  const npcPopups = activeBeat.popups.filter((p) => p.side === 'npc')
+  const popupGroups = new Map<string, { side: 'player' | 'npc'; unitId?: string; items: CombatFloatingPopup[] }>()
+  for (const pop of activeBeat.popups) {
+    const key = pop.unitId ?? pop.side
+    const existing = popupGroups.get(key)
+    if (existing) {
+      existing.items.push(pop)
+    } else {
+      popupGroups.set(key, { side: pop.side, unitId: pop.unitId, items: [pop] })
+    }
+  }
 
   return (
     <>
@@ -168,11 +225,13 @@ export function CombatVfxStage({
       {vfxSide && activeBeat.vfxCategory && activeBeat.kind !== 'dodge' && (
         <div
           key={`vfx-${activeBeat.id}`}
-          className={`pointer-events-none fixed bottom-[24vh] z-25 w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] flex items-center justify-center ${
-            vfxSide === 'player'
-              ? 'left-[8vw] lg:left-[14vw]'
-              : 'right-[8vw] lg:right-[14vw]'
-          }`}
+          className={`pointer-events-none fixed bottom-[24vh] z-25 w-[280px] h-[280px] sm:w-[360px] sm:h-[360px] flex items-center justify-center ${getUnitHorizontalPosClass(
+            vfxUnitId,
+            vfxSide,
+            multiAllies,
+            multiEnemies,
+            true,
+          )}`}
           style={{
             transform: mirrorX ? 'scaleX(-1)' : undefined,
           }}
@@ -454,13 +513,19 @@ export function CombatVfxStage({
         </div>
       )}
 
-      {/* 4. 左侧少侠头顶/胸前跳字组 */}
-      {playerPopups.length > 0 && (
+      {/* 4. 各参战单位头顶/胸前跳字组（兼容 1v1 / 1v2 / 2v2） */}
+      {[...popupGroups.entries()].map(([groupKey, group]) => (
         <div
-          key={`p-pops-${activeBeat.id}`}
-          className="pointer-events-none fixed left-[8vw] lg:left-[15vw] bottom-[48vh] z-35 flex flex-col items-center gap-1.5"
+          key={`pops-${activeBeat.id}-${groupKey}`}
+          className={`pointer-events-none fixed ${getUnitHorizontalPosClass(
+            group.unitId,
+            group.side,
+            multiAllies,
+            multiEnemies,
+            false,
+          )} ${group.unitId === 'ally-1' || group.unitId === 'enemy-1' ? 'bottom-[53vh]' : 'bottom-[48vh]'} z-35 flex flex-col items-center gap-1.5`}
         >
-          {playerPopups.map((pop, idx) => (
+          {group.items.map((pop, idx) => (
             <div
               key={pop.id}
               className="flex flex-col items-center text-center"
@@ -479,39 +544,12 @@ export function CombatVfxStage({
             </div>
           ))}
         </div>
-      )}
+      ))}
 
-      {/* 5. 右侧对手头顶/胸前跳字组 */}
-      {npcPopups.length > 0 && (
-        <div
-          key={`n-pops-${activeBeat.id}`}
-          className="pointer-events-none fixed right-[8vw] lg:right-[15vw] bottom-[48vh] z-35 flex flex-col items-center gap-1.5"
-        >
-          {npcPopups.map((pop, idx) => (
-            <div
-              key={pop.id}
-              className="flex flex-col items-center text-center"
-              style={{
-                animation: `cbtPopupFloat ${popupDurMs}ms cubic-bezier(0.22, 1, 0.36, 1) ${idx * popupStaggerMs}ms both`,
-              }}
-            >
-              <span className={`song-serif tracking-wider ${getPopupColorClasses(pop.style)}`}>
-                {pop.text}
-              </span>
-              {pop.subText && (
-                <span className="px-2 py-0.5 -mt-0.5 rounded bg-black/75 border border-[#e5c178]/50 text-[11px] font-bold text-[#ffebc2] shadow">
-                  {pop.subText}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* 6. 受击瞬间角色红光受创滤镜提示（供辅助辨识受创侧） */}
+      {/* 5. 受击瞬间角色红光受创滤镜提示（供辅助辨识受创侧） */}
       {activeBeat.kind === 'attack' && (isPlayerTarget || isNpcTarget) && (
         <span className="sr-only">
-          {isPlayerTarget ? playerName : npcName}受创
+          {targetUnit ? targetUnit.name : isPlayerTarget ? playerName : npcName}受创
         </span>
       )}
     </>

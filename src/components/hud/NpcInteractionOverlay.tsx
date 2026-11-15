@@ -18,6 +18,7 @@ import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import type { TenArtKey } from '../../types/game'
 import { deriveNpcEffectiveStats, getHeroAge } from '../../utils/heroStats'
 import { INITIAL_NPC_FAVOR, getNpcFavorProfile } from '../../utils/npcFavor'
+import { inferTemplatePortrait } from '../../utils/portraitFallback'
 import {
   canPlayerLearnSectArt,
   canReceiveSectLeaderTask,
@@ -109,7 +110,14 @@ export function NpcInteractionOverlay() {
   const [confirmLeaveChangshan, setConfirmLeaveChangshan] = useState(false)
 
   const dbRecord = useMemo(() => {
-    if (!npc || npc.isDynamicLiaoSpy || npc.dynamicQuestActorId) return undefined
+    if (
+      !npc ||
+      npc.isDynamicLiaoSpy ||
+      npc.isDynamicKaifengWarrant ||
+      npc.dynamicQuestActorId
+    ) {
+      return undefined
+    }
     if (npc.id && NPC_DB_MAP[npc.id]) return NPC_DB_MAP[npc.id]
     return (
       resolveNpcByName(npc.name) ??
@@ -117,11 +125,22 @@ export function NpcInteractionOverlay() {
     )
   }, [npc])
 
-  const portraitUrl =
-    npc?.portraitUrl ??
-    dbRecord?.fullbodyUrl ??
-    dbRecord?.templateUrl ??
-    '/assets/characters/templates/tpl_song_scholar_fb.jpg'
+  const portraitUrl = useMemo(() => {
+    if (npc?.portraitUrl) return npc.portraitUrl
+    if (dbRecord?.fullbodyUrl) return dbRecord.fullbodyUrl
+    if (dbRecord?.templateUrl && !dbRecord.templateUrl.includes('tpl_greenwood_hero_fb')) {
+      return dbRecord.templateUrl
+    }
+    if (npc) {
+      return inferTemplatePortrait({
+        name: npc.name,
+        title: dbRecord?.role ?? npc.title,
+        factionId: npc.factionId ?? dbRecord?.factionId,
+        factionName: dbRecord?.factionName ?? npc.factionName,
+      })
+    }
+    return '/assets/characters/templates/tpl_sanren_male_fb.jpg'
+  }, [npc, dbRecord])
 
   const stats = dbRecord?.stats ?? npc?.stats
   const talents = dbRecord?.talents ?? npc?.talents
@@ -232,14 +251,16 @@ export function NpcInteractionOverlay() {
 
   const npcKey = npc.id ?? npc.name
   const curFavor = npcFavorMap[npcKey] ?? INITIAL_NPC_FAVOR
-  const isKaifengWarrantTarget = Boolean(npc.id?.startsWith('KAIFENG_WARRANT_'))
-  const isHostileSpecialTarget = Boolean(npc.isDynamicLiaoSpy || isKaifengWarrantTarget)
-  const canOpenSectMenu = !isHostileSpecialTarget && isJoinableSectFaction(targetFactionId)
+  const isKaifengWarrantTarget = Boolean(
+    npc.isDynamicKaifengWarrant || npc.id?.startsWith('KAIFENG_WARRANT_'),
+  )
+  const isHostileBountyTarget = Boolean(npc.isDynamicLiaoSpy || isKaifengWarrantTarget)
+  const canOpenSectMenu = !isHostileBountyTarget && isJoinableSectFaction(targetFactionId)
   const hasQuestRobAction = bottomBarQuestActions.some(
     (x) => x.action.id === 'act_rob_song_official_scene',
   )
   const canRobForToumingzhuang =
-    !isHostileSpecialTarget &&
+    !isHostileBountyTarget &&
     !hasQuestRobAction &&
     sectState.toumingzhuangState === 'accepted' &&
     isSongOfficialForRobbery({
@@ -267,7 +288,12 @@ export function NpcInteractionOverlay() {
 
   const handleLifeDeathDuel = () => {
     setSubPanel('none')
-    startNpcCombat(npc, 'duel', npc.isDynamicLiaoSpy ? 'liao_spy_duel' : 'duel')
+    const stakes = npc.isDynamicLiaoSpy
+      ? 'liao_spy_duel'
+      : npc.isDynamicKaifengWarrant
+        ? 'kaifeng_warrant'
+        : 'duel'
+    startNpcCombat(npc, 'duel', stakes)
     setDialogueText(null)
   }
 
@@ -1349,7 +1375,7 @@ export function NpcInteractionOverlay() {
             <span className="text-[11px] px-1.5 py-0.5 rounded bg-[#781710] text-[#fff3df]">
               {realmName}
             </span>
-            {!isHostileSpecialTarget && (
+            {!isHostileBountyTarget && (
               <span
                 className={`text-[11px] px-1.5 py-0.5 rounded font-mono ${
                   curFavor < 0
@@ -1389,7 +1415,7 @@ export function NpcInteractionOverlay() {
             交谈
           </button>
 
-          {!isHostileSpecialTarget && (
+          {!isHostileBountyTarget && (
             <button
               type="button"
               onClick={handleToggleGift}
@@ -1431,7 +1457,7 @@ export function NpcInteractionOverlay() {
               onClick={handleLifeDeathDuel}
               className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#9e1911] hover:bg-[#ba1f16] border-2 border-[#f2be8d] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
             >
-              缉拿要犯（生死决战）
+              缉拿海捕要犯（生死决战）
             </button>
           ) : (
             <>
@@ -1535,7 +1561,7 @@ export function NpcInteractionOverlay() {
             </button>
           )}
 
-          {!isHostileSpecialTarget && (
+          {!isHostileBountyTarget && (
             <button
               type="button"
               onClick={handleArt}

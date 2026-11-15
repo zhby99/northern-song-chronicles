@@ -26,6 +26,7 @@ import {
 } from '../data/playerMartialArts'
 import { cloneQuestRuntimeState } from '../engine/questEngine'
 import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from './heroStats'
+import { isBuildingUnlocked } from './mapMath'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
 import { clonePlayerSectState } from './sectMechanics'
 
@@ -258,15 +259,28 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     return null
   }
 
+  const cleanQuestState = cloneQuestRuntimeState(st.questState)
+
   let normalizedViewMode = st.viewMode as ViewMode
   let normalizedInteriorId =
     typeof st.activeBuildingInteriorId === 'string' ? st.activeBuildingInteriorId : null
+  let normalizedSelectedBldgId =
+    typeof st.selectedBuildingId === 'string' ? st.selectedBuildingId : null
+  let normalizedSelectedSpotId =
+    typeof st.selectedSpotId === 'string' ? st.selectedSpotId : null
   if (normalizedViewMode === 'building') {
     const bldg = normalizedInteriorId ? BUILDING_DB_MAP[normalizedInteriorId] : null
-    if (!bldg || !bldg.interior) {
+    if (!bldg || !bldg.interior || !isBuildingUnlocked(normalizedInteriorId, cleanQuestState.flags)) {
       normalizedViewMode = 'region'
       normalizedInteriorId = null
+      normalizedSelectedBldgId = null
+      normalizedSelectedSpotId = null
     }
+  } else if (
+    normalizedSelectedBldgId &&
+    !isBuildingUnlocked(normalizedSelectedBldgId, cleanQuestState.flags)
+  ) {
+    normalizedSelectedBldgId = null
   }
 
   const slotId = SAVE_SLOT_DEFS.some((d) => d.slotId === raw.slotId)
@@ -433,8 +447,8 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     activeRegionId: st.activeRegionId,
     activeBuildingInteriorId: normalizedInteriorId,
     selectedNodeId: typeof st.selectedNodeId === 'string' ? st.selectedNodeId : null,
-    selectedBuildingId: typeof st.selectedBuildingId === 'string' ? st.selectedBuildingId : null,
-    selectedSpotId: typeof st.selectedSpotId === 'string' ? st.selectedSpotId : null,
+    selectedBuildingId: normalizedSelectedBldgId,
+    selectedSpotId: normalizedSelectedSpotId,
     currentNodeId: st.currentNodeId,
     campPos: cleanCampPos,
     baseStats: cleanBaseStats,
@@ -475,7 +489,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         ? (st.sectState as Partial<SerializableGameState['sectState']>)
         : null,
     ),
-    questState: cloneQuestRuntimeState(st.questState),
+    questState: cleanQuestState,
     overlays: isRecord(st.overlays)
       ? {
           cityLabels: Boolean(st.overlays.cityLabels ?? true),

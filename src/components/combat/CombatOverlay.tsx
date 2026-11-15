@@ -1,5 +1,6 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
+  Crosshair,
   FastForward,
   Flame,
   HelpCircle,
@@ -44,6 +45,7 @@ import {
   getLearnedLevel,
   getMoveActionsAvailability,
   getSlotEffectsMap,
+  getStrongestLivingEnemy,
   MOVE_SLOT_KEYS,
   type CombatantState,
   type CombatLogEntry,
@@ -468,38 +470,62 @@ export function CombatOverlay() {
     () => (session ? getMoveActionsAvailability(session.player) : []),
     [session],
   )
+
+  const [selectedTargetId, setSelectedTargetId] = useState<string>('enemy-0')
+  const livingEnemies = useMemo(
+    () => (session ? session.enemies.filter((e) => e.hp > 0) : []),
+    [session],
+  )
+  const effectiveTargetEnemy = useMemo(() => {
+    if (!session) return null
+    const picked = livingEnemies.find((e) => e.unitId === selectedTargetId)
+    return picked ?? livingEnemies[0] ?? session.enemies[0] ?? session.npc
+  }, [session, livingEnemies, selectedTargetId])
+  const effectiveTargetId = effectiveTargetEnemy?.unitId ?? 'enemy-0'
+  const strongestLivingEnemy = useMemo(
+    () => (session ? getStrongestLivingEnemy(session) : null),
+    [session],
+  )
+
+  const cycleTargetEnemy = useCallback(() => {
+    if (livingEnemies.length <= 1) return
+    const curIdx = livingEnemies.findIndex((e) => e.unitId === effectiveTargetId)
+    const nextEnemy = livingEnemies[(curIdx + 1) % livingEnemies.length]!
+    setSelectedTargetId(nextEnemy.unitId)
+  }, [livingEnemies, effectiveTargetId])
+
   const escapeStatus = useMemo(
     () =>
-      session
+      session && strongestLivingEnemy
         ? canFighterEscape(
             session.player,
-            session.npc,
+            strongestLivingEnemy,
             session.duelStakes,
             session.forbidEscapeReason,
           )
         : { allowed: true, reason: null },
-    [session],
+    [session, strongestLivingEnemy],
   )
   const escapeChancePct = useMemo(
     () =>
-      session
+      session && strongestLivingEnemy
         ? Math.round(
             computeEscapeChancePreview(
               session.player,
-              session.npc,
+              strongestLivingEnemy,
               session.duelStakes,
               session.forbidEscapeReason,
             ) * 100,
           )
         : 50,
-    [session],
+    [session, strongestLivingEnemy],
   )
   const defendDodgePct = useMemo(
     () =>
-      session
-        ? Math.round(computeDodgeChancePreview(session.player, session.npc, true) * 100)
+      session && effectiveTargetEnemy
+        ? Math.round(computeDodgeChancePreview(session.player, effectiveTargetEnemy, true) * 100)
         : 0,
-    [session],
+    [session, effectiveTargetEnemy],
   )
 
   // 分镜流式战报：演武期间逐拍追加，增强临场节奏感
@@ -527,7 +553,7 @@ export function CombatOverlay() {
     }
   }, [visibleLogs.length])
 
-  // 键盘快捷键：演武中 Space/Enter 跳过演出；待命时 1~4 出招，5/D 守御，6/E 脱战，B 行囊；终局 Enter/Space/Esc 收招
+  // 键盘快捷键：演武中 Space/Enter 跳过演出；待命时 Tab 切目标，1~4 出招，5/D 守御，6/E 脱战，B 行囊；终局 Enter/Space/Esc 收招
   useEffect(() => {
     if (!session) return
     const onKeyDown = (e: KeyboardEvent) => {
@@ -548,6 +574,12 @@ export function CombatOverlay() {
         }
         return
       }
+      if (e.key === 'Tab' && livingEnemies.length > 1) {
+        e.preventDefault()
+        e.stopPropagation()
+        cycleTargetEnemy()
+        return
+      }
       if (e.key === 'Escape' && bagOpen) {
         e.preventDefault()
         e.stopPropagation()
@@ -565,7 +597,7 @@ export function CombatOverlay() {
         if (opt && !opt.disabled && opt.art) {
           e.preventDefault()
           setBagOpen(false)
-          submitCombatAction({ type: 'move', slot: opt.slot })
+          submitCombatAction({ type: 'move', slot: opt.slot, targetId: effectiveTargetId })
         }
       } else if (e.key === '5' || e.key === 'd' || e.key === 'D') {
         e.preventDefault()
@@ -587,6 +619,9 @@ export function CombatOverlay() {
     bagOpen,
     moveOptions,
     escapeStatus.allowed,
+    livingEnemies.length,
+    effectiveTargetId,
+    cycleTargetEnemy,
     skipChoreography,
     submitCombatAction,
     finishCombatSession,
@@ -594,11 +629,30 @@ export function CombatOverlay() {
 
   if (!session) return null
 
-  const { player, npc, lastRoundSummary, outcome } = session
-  const shownPlayerHp = activeBeat ? activeBeat.playerHp : player.hp
-  const shownPlayerMp = activeBeat ? activeBeat.playerMp : player.mp
-  const shownNpcHp = activeBeat ? activeBeat.npcHp : npc.hp
-  const shownNpcMp = activeBeat ? activeBeat.npcMp : npc.mp
+  const { player, allies, enemies, lastRoundSummary, outcome } = session
+  const npc = effectiveTargetEnemy ?? session.npc
+  const isMultiEnemy = enemies.length > 1
+  const isMultiAlly = allies.length > 1
+  const formationTag =
+    allies.length > 1 || enemies.length > 1 ? `${allies.length}v${enemies.length}` : null
+
+  const getUnitShownHp = (unit: CombatantState) => {
+    if (!activeBeat) return unit.hp
+    const snap = activeBeat.unitSnapshots?.[unit.unitId]
+    if (snap) return snap.hp
+    return unit.team === 'ally' ? activeBeat.playerHp : activeBeat.npcHp
+  }
+  const getUnitShownMp = (unit: CombatantState) => {
+    if (!activeBeat) return unit.mp
+    const snap = activeBeat.unitSnapshots?.[unit.unitId]
+    if (snap) return snap.mp
+    return unit.team === 'ally' ? activeBeat.playerMp : activeBeat.npcMp
+  }
+
+  const shownPlayerHp = getUnitShownHp(player)
+  const shownPlayerMp = getUnitShownMp(player)
+  const shownNpcHp = getUnitShownHp(npc)
+  const shownNpcMp = getUnitShownMp(npc)
 
   const playerEffAgi = computeEffectiveAgility(player)
   const npcEffAgi = computeEffectiveAgility(npc)
@@ -627,27 +681,19 @@ export function CombatOverlay() {
 
   const handleUseBagItem = (itemId: string) => {
     setBagOpen(false)
-    submitCombatAction({ type: 'item', itemId })
+    submitCombatAction({ type: 'item', itemId, targetId: effectiveTargetId })
   }
 
   // 立绘动态位移与滤镜：上半拍 ('impact') 突进挥击/受创红闪/轻功残影 -> 下半拍 ('settle') 从容收招退回原位对峙留白
   const isImpactPose = currentSubPhase === 'impact'
-  const isPlayerLunging =
-    isImpactPose &&
-    (activeBeat?.kind === 'attack' || activeBeat?.kind === 'dodge') &&
-    activeBeat.actorSide === 'player'
-  const isNpcLunging =
-    isImpactPose &&
-    (activeBeat?.kind === 'attack' || activeBeat?.kind === 'dodge') &&
-    activeBeat.actorSide === 'npc'
   const isPlayerHit =
-    isImpactPose && activeBeat?.kind === 'attack' && activeBeat.targetSide === 'player'
+    isImpactPose &&
+    activeBeat?.kind === 'attack' &&
+    (activeBeat.targetUnitId ? activeBeat.targetUnitId === player.unitId : activeBeat.targetSide === 'player')
   const isNpcHit =
-    isImpactPose && activeBeat?.kind === 'attack' && activeBeat.targetSide === 'npc'
-  const isPlayerDodging =
-    isImpactPose && activeBeat?.kind === 'dodge' && activeBeat.targetSide === 'player'
-  const isNpcDodging =
-    isImpactPose && activeBeat?.kind === 'dodge' && activeBeat.targetSide === 'npc'
+    isImpactPose &&
+    activeBeat?.kind === 'attack' &&
+    (activeBeat.targetUnitId ? activeBeat.targetUnitId === npc.unitId : activeBeat.targetSide === 'npc')
   const portraitTransitionCss = isImpactPose
     ? 'transform 280ms cubic-bezier(0.22, 1, 0.36, 1), filter 220ms ease-out, opacity 240ms ease-out'
     : 'transform 540ms cubic-bezier(0.25, 1, 0.5, 1), filter 420ms ease-out, opacity 320ms ease-out'
@@ -726,110 +772,221 @@ export function CombatOverlay() {
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#100905]/90 via-[#120b06]/45 to-transparent" />
         </div>
 
-        {/* 1. 左右 3x 巨幅等比全身立绘对峙舞台（上半拍突进交锋 -> 下半拍潇洒收招回阵站稳） */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-[118px] h-[72vh] min-h-[420px] max-h-[780px] z-10 flex items-end justify-between px-[4vw] lg:px-[10vw] xl:px-[13vw]">
-          {/* 左立绘：少侠 */}
-          <div
-            className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center"
-            style={{
-              zIndex: isPlayerLunging ? 20 : 10,
-              transition: portraitTransitionCss,
-              transform: isPlayerLunging
-                ? 'translate3d(9vw, -8px, 0) scale(1.07)'
-                : isPlayerHit
-                  ? 'translate3d(-30px, 6px, 0) rotate(-2.5deg) scale(0.97)'
-                  : isPlayerDodging
-                    ? 'translate3d(-48px, -12px, 0) scale(1.02)'
-                    : !isAnimating && outcome === 'npc_win'
-                      ? 'translate3d(-16px, 10px, 0) scale(0.96)'
-                      : 'translate3d(0, 0, 0) scale(1)',
-              filter: isPlayerHit
-                ? 'brightness(1.38) sepia(0.35) saturate(2.2) hue-rotate(-25deg) drop-shadow(0 0 28px rgba(239, 68, 68, 0.9))'
-                : isPlayerLunging
-                  ? 'drop-shadow(0 16px 36px rgba(251, 191, 36, 0.58))'
-                  : 'drop-shadow(0 18px 32px rgba(0, 0, 0, 0.78))',
-              opacity: !isAnimating && outcome === 'npc_win' ? 0.78 : 1,
-            }}
-          >
-            {/* 轻功闪避青色残影 */}
-            {isPlayerDodging && (
-              <CutoutPortraitImg
-                url={player.portraitUrl}
-                alt=""
-                className="absolute bottom-0 object-contain object-bottom opacity-40 pointer-events-none"
-                style={{
-                  height: '96%',
-                  maxHeight: '100%',
-                  width: 'auto',
-                  maxWidth: '40vw',
-                  transform: 'translateX(44px)',
-                  filter: 'hue-rotate(155deg) saturate(2.2) brightness(1.3)',
-                }}
-              />
-            )}
-            <CutoutPortraitImg
-              url={player.portraitUrl}
-              alt={player.name}
-              className="object-contain object-bottom"
-              style={{
-                height: '96%',
-                maxHeight: '100%',
-                width: 'auto',
-                maxWidth: '40vw',
-              }}
-            />
+        {/* 1. 左右 3x 巨幅等比全身立绘对峙舞台（兼容 1v1 单挑、1v2 独战双雄、2v2 并肩群战） */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-[118px] h-[72vh] min-h-[420px] max-h-[780px] z-10 flex items-end justify-between px-[3vw] lg:px-[7vw] xl:px-[10vw]">
+          {/* 左阵营立绘（少侠 + 可选助阵同伴） */}
+          <div className="relative h-full w-[45vw] max-w-[580px] flex items-end justify-center">
+            {allies.map((unit, idx) => {
+              const uHp = getUnitShownHp(unit)
+              const isDefeated = uHp <= 0
+              const isUnitLunging =
+                isImpactPose &&
+                (activeBeat?.kind === 'attack' || activeBeat?.kind === 'dodge') &&
+                (activeBeat.actorUnitId
+                  ? activeBeat.actorUnitId === unit.unitId
+                  : idx === 0 && activeBeat.actorSide === 'player')
+              const isUnitHit =
+                isImpactPose &&
+                activeBeat?.kind === 'attack' &&
+                (activeBeat.targetUnitId
+                  ? activeBeat.targetUnitId === unit.unitId
+                  : idx === 0 && activeBeat.targetSide === 'player')
+              const isUnitDodging =
+                isImpactPose &&
+                activeBeat?.kind === 'dodge' &&
+                (activeBeat.targetUnitId
+                  ? activeBeat.targetUnitId === unit.unitId
+                  : idx === 0 && activeBeat.targetSide === 'player')
+
+              const baseSlotClass = isMultiAlly
+                ? idx === 0
+                  ? 'absolute bottom-0 left-0 h-[96%] w-[64%] flex items-end justify-center'
+                  : 'absolute bottom-[5%] right-0 h-[87%] w-[58%] flex items-end justify-center'
+                : 'relative h-full w-full flex items-end justify-center'
+
+              return (
+                <div
+                  key={unit.unitId}
+                  className={baseSlotClass}
+                  style={{
+                    zIndex: isUnitLunging ? 26 : idx === 0 ? 15 : 12,
+                    transition: portraitTransitionCss,
+                    transform: isUnitLunging
+                      ? 'translate3d(8vw, -8px, 0) scale(1.07)'
+                      : isUnitHit
+                        ? 'translate3d(-28px, 6px, 0) rotate(-2.5deg) scale(0.97)'
+                        : isUnitDodging
+                          ? 'translate3d(-44px, -12px, 0) scale(1.02)'
+                          : isDefeated || (!isAnimating && outcome === 'npc_win')
+                            ? 'translate3d(-14px, 12px, 0) scale(0.94)'
+                            : 'translate3d(0, 0, 0) scale(1)',
+                    filter: isUnitHit
+                      ? 'brightness(1.38) sepia(0.35) saturate(2.2) hue-rotate(-25deg) drop-shadow(0 0 28px rgba(239, 68, 68, 0.9))'
+                      : isDefeated
+                        ? 'grayscale(0.88) brightness(0.62) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8))'
+                        : isUnitLunging
+                          ? 'drop-shadow(0 16px 36px rgba(251, 191, 36, 0.58))'
+                          : 'drop-shadow(0 18px 32px rgba(0, 0, 0, 0.78))',
+                    opacity: isDefeated ? 0.56 : !isAnimating && outcome === 'npc_win' ? 0.78 : 1,
+                  }}
+                >
+                  {isUnitDodging && (
+                    <CutoutPortraitImg
+                      url={unit.portraitUrl}
+                      alt=""
+                      className="absolute bottom-0 object-contain object-bottom opacity-40 pointer-events-none"
+                      style={{
+                        height: '96%',
+                        maxHeight: '100%',
+                        width: 'auto',
+                        maxWidth: isMultiAlly ? '28vw' : '40vw',
+                        transform: 'translateX(40px)',
+                        filter: 'hue-rotate(155deg) saturate(2.2) brightness(1.3)',
+                      }}
+                    />
+                  )}
+                  <CutoutPortraitImg
+                    url={unit.portraitUrl}
+                    alt={unit.name}
+                    className="object-contain object-bottom"
+                    style={{
+                      height: '96%',
+                      maxHeight: '100%',
+                      width: 'auto',
+                      maxWidth: isMultiAlly ? '28vw' : '40vw',
+                    }}
+                  />
+                  {isMultiAlly && (
+                    <div className="absolute bottom-3 px-2 py-0.5 rounded-full bg-[#17100a]/88 border border-[#d4a455]/65 text-[11px] song-serif text-[#ffebc2] shadow-lg whitespace-nowrap">
+                      {idx === 0 ? '少侠' : `助阵 · ${unit.name}`}
+                      {isDefeated && <span className="ml-1 text-[#ff8b7d] font-bold">【力竭】</span>}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
 
-          {/* 右立绘：对手名宿 */}
-          <div
-            className="relative h-full w-[42vw] max-w-[520px] flex items-end justify-center"
-            style={{
-              zIndex: isNpcLunging ? 20 : 10,
-              transition: portraitTransitionCss,
-              transform: isNpcLunging
-                ? 'translate3d(-9vw, -8px, 0) scale(1.07)'
-                : isNpcHit
-                  ? 'translate3d(30px, 6px, 0) rotate(2.5deg) scale(0.97)'
-                  : isNpcDodging
-                    ? 'translate3d(48px, -12px, 0) scale(1.02)'
-                    : !isAnimating && outcome === 'player_win'
-                      ? 'translate3d(16px, 10px, 0) scale(0.96)'
-                      : 'translate3d(0, 0, 0) scale(1)',
-              filter: isNpcHit
-                ? 'brightness(1.38) sepia(0.35) saturate(2.2) hue-rotate(-25deg) drop-shadow(0 0 28px rgba(239, 68, 68, 0.9))'
-                : isNpcLunging
-                  ? 'drop-shadow(0 16px 36px rgba(251, 191, 36, 0.58))'
-                  : 'drop-shadow(0 18px 32px rgba(0, 0, 0, 0.78))',
-              opacity: !isAnimating && outcome === 'player_win' ? 0.78 : 1,
-            }}
-          >
-            {/* 对手轻功闪避残影 */}
-            {isNpcDodging && (
-              <CutoutPortraitImg
-                url={npc.portraitUrl}
-                alt=""
-                className="absolute bottom-0 object-contain object-bottom opacity-40 pointer-events-none"
-                style={{
-                  height: '96%',
-                  maxHeight: '100%',
-                  width: 'auto',
-                  maxWidth: '40vw',
-                  transform: 'translateX(-44px)',
-                  filter: 'hue-rotate(155deg) saturate(2.2) brightness(1.3)',
-                }}
-              />
-            )}
-            <CutoutPortraitImg
-              url={npc.portraitUrl}
-              alt={npc.name}
-              className="object-contain object-bottom"
-              style={{
-                height: '96%',
-                maxHeight: '100%',
-                width: 'auto',
-                maxWidth: '40vw',
-              }}
-            />
+          {/* 右阵营立绘（1~2 名敌方对手，多敌时可直接点击立绘锁定出招目标） */}
+          <div className="relative h-full w-[45vw] max-w-[580px] flex items-end justify-center">
+            {enemies.map((unit, idx) => {
+              const uHp = getUnitShownHp(unit)
+              const isDefeated = uHp <= 0
+              const isSelectedTarget = isMultiEnemy && effectiveTargetId === unit.unitId && !isDefeated
+              const canClickSelect =
+                isMultiEnemy && !isDefeated && outcome === 'ongoing' && !isAnimating
+              const isUnitLunging =
+                isImpactPose &&
+                (activeBeat?.kind === 'attack' || activeBeat?.kind === 'dodge') &&
+                (activeBeat.actorUnitId
+                  ? activeBeat.actorUnitId === unit.unitId
+                  : idx === 0 && activeBeat.actorSide === 'npc')
+              const isUnitHit =
+                isImpactPose &&
+                activeBeat?.kind === 'attack' &&
+                (activeBeat.targetUnitId
+                  ? activeBeat.targetUnitId === unit.unitId
+                  : idx === 0 && activeBeat.targetSide === 'npc')
+              const isUnitDodging =
+                isImpactPose &&
+                activeBeat?.kind === 'dodge' &&
+                (activeBeat.targetUnitId
+                  ? activeBeat.targetUnitId === unit.unitId
+                  : idx === 0 && activeBeat.targetSide === 'npc')
+
+              const baseSlotClass = isMultiEnemy
+                ? idx === 0
+                  ? 'absolute bottom-0 right-0 h-[96%] w-[64%] flex items-end justify-center'
+                  : 'absolute bottom-[5%] left-0 h-[87%] w-[58%] flex items-end justify-center'
+                : 'relative h-full w-full flex items-end justify-center'
+
+              return (
+                <div
+                  key={unit.unitId}
+                  onClick={
+                    canClickSelect
+                      ? () => setSelectedTargetId(unit.unitId)
+                      : undefined
+                  }
+                  className={`${baseSlotClass} ${canClickSelect ? 'pointer-events-auto cursor-pointer group' : ''}`}
+                  style={{
+                    zIndex: isUnitLunging ? 26 : isSelectedTarget ? 18 : idx === 0 ? 15 : 12,
+                    transition: portraitTransitionCss,
+                    transform: isUnitLunging
+                      ? 'translate3d(-8vw, -8px, 0) scale(1.07)'
+                      : isUnitHit
+                        ? 'translate3d(28px, 6px, 0) rotate(2.5deg) scale(0.97)'
+                        : isUnitDodging
+                          ? 'translate3d(44px, -12px, 0) scale(1.02)'
+                          : isDefeated || (!isAnimating && outcome === 'player_win')
+                            ? 'translate3d(14px, 12px, 0) scale(0.94)'
+                            : isSelectedTarget
+                              ? 'translate3d(0, -4px, 0) scale(1.02)'
+                              : 'translate3d(0, 0, 0) scale(1)',
+                    filter: isUnitHit
+                      ? 'brightness(1.38) sepia(0.35) saturate(2.2) hue-rotate(-25deg) drop-shadow(0 0 28px rgba(239, 68, 68, 0.9))'
+                      : isDefeated
+                        ? 'grayscale(0.9) brightness(0.58) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.8))'
+                        : isUnitLunging
+                          ? 'drop-shadow(0 16px 36px rgba(251, 191, 36, 0.58))'
+                          : isSelectedTarget
+                            ? 'drop-shadow(0 0 22px rgba(245, 199, 107, 0.65)) drop-shadow(0 16px 28px rgba(0, 0, 0, 0.82))'
+                            : 'drop-shadow(0 18px 32px rgba(0, 0, 0, 0.78))',
+                    opacity: isDefeated ? 0.52 : !isAnimating && outcome === 'player_win' ? 0.78 : 1,
+                  }}
+                >
+                  {isUnitDodging && (
+                    <CutoutPortraitImg
+                      url={unit.portraitUrl}
+                      alt=""
+                      className="absolute bottom-0 object-contain object-bottom opacity-40 pointer-events-none"
+                      style={{
+                        height: '96%',
+                        maxHeight: '100%',
+                        width: 'auto',
+                        maxWidth: isMultiEnemy ? '28vw' : '40vw',
+                        transform: 'translateX(-40px)',
+                        filter: 'hue-rotate(155deg) saturate(2.2) brightness(1.3)',
+                      }}
+                    />
+                  )}
+                  <CutoutPortraitImg
+                    url={unit.portraitUrl}
+                    alt={unit.name}
+                    className="object-contain object-bottom"
+                    style={{
+                      height: '96%',
+                      maxHeight: '100%',
+                      width: 'auto',
+                      maxWidth: isMultiEnemy ? '28vw' : '40vw',
+                    }}
+                  />
+                  {isMultiEnemy && (
+                    <div
+                      className={`absolute bottom-3 px-2.5 py-0.5 rounded-full border text-[11px] song-serif shadow-lg flex items-center gap-1 whitespace-nowrap transition ${
+                        isDefeated
+                          ? 'bg-[#1a120d]/90 border-[#7d5f46]/50 text-[#a8947d]'
+                          : isSelectedTarget
+                            ? 'bg-[#7d1d14]/95 border-[#fde047] text-[#fff6d6]'
+                            : 'bg-[#17100a]/88 border-[#d4a455]/55 text-[#ebd7b7] group-hover:border-[#f5c76b]'
+                      }`}
+                    >
+                      {isSelectedTarget && !isDefeated && (
+                        <Crosshair className="w-3 h-3 text-[#fde047]" />
+                      )}
+                      <span>{unit.name}</span>
+                      {isDefeated ? (
+                        <span className="text-[#ff8b7d] font-bold">【败退】</span>
+                      ) : isSelectedTarget ? (
+                        <span className="text-[10px] text-[#fde047]">[当前目标]</span>
+                      ) : (
+                        <span className="text-[10px] text-[#cbb493]">[点击选敌]</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
           </div>
         </div>
       </div>
@@ -839,12 +996,14 @@ export function CombatOverlay() {
         activeBeat={activeBeat}
         playerName={player.name}
         npcName={npc.name}
+        allies={allies}
+        enemies={enemies}
         paceScale={paceScale}
       />
 
-      {/* 2. 顶部三段式浮空交锋铭牌（左：少侠血内+七槽披挂+背包按钮 | 中：建筑与回合牌 | 右：对手情报） */}
+      {/* 2. 顶部三段式浮空交锋铭牌（左：少侠与同伴血内+披挂+背包按钮 | 中：建筑与回合牌 | 右：对手情报/多敌点选） */}
       <div className="relative z-20 px-3 sm:px-5 pt-2.5 flex flex-col lg:flex-row items-stretch lg:items-start justify-between gap-2.5 pointer-events-none">
-        {/* 左上：少侠状态与披挂匣 */}
+        {/* 左上：少侠状态（及 2v2 并肩同伴状态条） */}
         <section
           className={`pointer-events-auto w-full lg:w-[370px] xl:w-[405px] rounded-xl border bg-[#17100a]/82 backdrop-blur-md p-3 shadow-2xl space-y-2 transition-colors ${
             isPlayerHit ? 'border-[#ff6b57]' : 'border-[#d4a455]/55'
@@ -922,7 +1081,53 @@ export function CombatOverlay() {
             </div>
           </div>
 
-          {/* 血条下方：少侠随身七槽披挂与内轻功一览 */}
+          {/* 2v2 助阵同伴紧凑血内状态匣 */}
+          {allies.slice(1).map((ally) => {
+            const aHp = getUnitShownHp(ally)
+            const aMp = getUnitShownMp(ally)
+            const aHpPct = Math.max(0, Math.min(100, Math.round((aHp / Math.max(1, ally.maxHp)) * 100)))
+            const aMpPct = Math.max(0, Math.min(100, Math.round((aMp / Math.max(1, ally.maxMp)) * 100)))
+            const aAgi = computeEffectiveAgility(ally)
+            return (
+              <div
+                key={ally.unitId}
+                className={`rounded-lg border px-2.5 py-1.5 space-y-1 ${
+                  aHp <= 0
+                    ? 'bg-[#1c130e]/70 border-[#6e563e]/40 opacity-65'
+                    : 'bg-[#23180f]/90 border-[#6bc49f]/55'
+                }`}
+              >
+                <div className="flex items-center justify-between text-[11px]">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="px-1.5 py-0.5 rounded text-[9px] bg-[#193b2d] border border-[#68d4ab]/60 text-[#ccf7e6] shrink-0">
+                      并肩助阵
+                    </span>
+                    <span className="song-serif font-bold text-[#ffefd2] truncate">{ally.name}</span>
+                    <span className="text-[10px] text-[#bfa786] truncate">· 身法 {aAgi}</span>
+                  </div>
+                  <span className="font-mono text-[10px] text-[#ffe5de] shrink-0">
+                    {aHp <= 0 ? '已力竭退阵' : `HP ${aHp}/${ally.maxHp}`}
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-1.5">
+                  <div className="col-span-2 h-1.5 rounded-full bg-[#2e1310] overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-[#b92b1f] to-[#f26b5e] transition-all duration-200"
+                      style={{ width: `${aHpPct}%` }}
+                    />
+                  </div>
+                  <div className="h-1.5 rounded-full bg-[#102530] overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-[#247299] to-[#5ec4f0] transition-all duration-200"
+                      style={{ width: `${aMpPct}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+
+          {/* 血条下方：少侠随身七槽披挂与内轻功一览（2v2 时精简装备格以留出视野） */}
           <div className="pt-1 border-t border-[#9e7d4f]/35 space-y-1.5">
             <div className="flex items-center justify-between text-[10px] text-[#cbb493]">
               <span>
@@ -935,33 +1140,35 @@ export function CombatOverlay() {
               </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
-              {EQUIPMENT_SLOT_METAS.map((meta) => {
-                const itemId = player.equipped[meta.slot]
-                const item = itemId ? ITEM_DB_MAP[itemId] : null
-                const rarityStyle = item ? RARITY_STYLE_MAP[item.rarity] : null
-                return (
-                  <div
-                    key={meta.slot}
-                    className={`px-1.5 py-0.5 rounded border text-[10px] truncate ${
-                      item
-                        ? 'bg-[#261a10]/90 border-[#b38e59]/50 text-[#f5e4c6]'
-                        : 'bg-[#1a120b]/55 border-[#634e35]/30 text-[#857158]'
-                    }`}
-                    title={
-                      item
-                        ? `${meta.shortLabel}：${item.name}（${item.rarity}）`
-                        : `${meta.shortLabel}：未佩戴`
-                    }
-                  >
-                    <span className="text-[#b89b72] mr-0.5">{meta.seal}:</span>
-                    <span className={rarityStyle ? 'text-[#ffebc2] font-medium' : ''}>
-                      {item ? item.name : '未佩'}
-                    </span>
-                  </div>
-                )
-              })}
-            </div>
+            {!isMultiAlly && (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
+                {EQUIPMENT_SLOT_METAS.map((meta) => {
+                  const itemId = player.equipped[meta.slot]
+                  const item = itemId ? ITEM_DB_MAP[itemId] : null
+                  const rarityStyle = item ? RARITY_STYLE_MAP[item.rarity] : null
+                  return (
+                    <div
+                      key={meta.slot}
+                      className={`px-1.5 py-0.5 rounded border text-[10px] truncate ${
+                        item
+                          ? 'bg-[#261a10]/90 border-[#b38e59]/50 text-[#f5e4c6]'
+                          : 'bg-[#1a120b]/55 border-[#634e35]/30 text-[#857158]'
+                      }`}
+                      title={
+                        item
+                          ? `${meta.shortLabel}：${item.name}（${item.rarity}）`
+                          : `${meta.shortLabel}：未佩戴`
+                      }
+                    >
+                      <span className="text-[#b89b72] mr-0.5">{meta.seal}:</span>
+                      <span className={rarityStyle ? 'text-[#ffebc2] font-medium' : ''}>
+                        {item ? item.name : '未佩'}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </div>
 
           <FighterStatusBadges fighter={player} />
@@ -972,6 +1179,7 @@ export function CombatOverlay() {
           <div className="px-4 py-1.5 rounded-full bg-[#1a110a]/84 backdrop-blur-md border border-[#d4a455]/70 shadow-xl flex items-center gap-2.5">
             <span className="px-2 py-0.5 rounded bg-[#7d1d14] border border-[#eba45e]/70 song-serif text-[11px] font-bold text-[#ffebc2]">
               {session.mode === 'spar' ? '点到为止' : '江湖死斗'}
+              {formationTag ? ` · ${formationTag}` : ''}
             </span>
             <span className="song-serif text-sm font-bold text-[#ffe09e] tracking-wider">
               【{sceneTitle}】 · 第 {isAnimating && lastRoundSummary ? lastRoundSummary.round : session.round} / {session.maxRounds} 合
@@ -1051,7 +1259,7 @@ export function CombatOverlay() {
           </div>
 
           <div className="px-3 py-0.5 rounded-full bg-[#170f09]/75 border border-[#a8844c]/45 text-[11px] text-[#e6d2b3]">
-            实战身法比：<strong className="text-[#ffe3ad]">{playerEffAgi}</strong> vs{' '}
+            实战身法比（对 {npc.name}）：<strong className="text-[#ffe3ad]">{playerEffAgi}</strong> vs{' '}
             <strong className="text-[#f7c5b9]">{npcEffAgi}</strong>
             <span className="ml-2 text-[#bfa886]">
               （{agiDiff >= 0 ? `少侠快 ${agiDiff}` : `对手快 ${-agiDiff}`}）
@@ -1070,124 +1278,232 @@ export function CombatOverlay() {
                   <X className="w-3.5 h-3.5" />
                 </button>
               </div>
-              <p>1. <strong>同步盲选</strong>：每合从［四式外功 / 守御 / 行囊丹毒 / 脱战］择一亮牌；禁连续两合出同一武学（守御或用丹毒后解除限制）。</p>
-              <p>2. <strong>身法脱战铁律</strong>：脱战成功率随双方身法差动态升降；<strong>若我方身法比对手低 20 点及以上，被死死缠住无法脱战！</strong></p>
-              <p>3. <strong>真气催劲与护体</strong>：耗内=威力×0.35；内力不足强催威力六折且无招式特效；物理受护具+内力+身法抵御，奇门毒音暗器受抗性抵御。</p>
+              <p>1. <strong>同步盲选与群战</strong>：每合在世参战者各自选定敌方目标并亮牌，全场按实时身法高低依次出手；1v2/2v2 可点击敌方立绘或铭牌（或按 Tab）切换集火目标。</p>
+              <p>2. <strong>身法脱战铁律</strong>：脱战需摆脱在场身法最高之敌；<strong>若我方身法比敌方快手低 20 点及以上，被死死缠住无法脱战！</strong></p>
+              <p>3. <strong>生死与胜负</strong>：非切磋之实战一旦战败即命殒当场（Game Over）；2v2 中若助阵同伴力竭，少侠仍可独力鏖战到底。</p>
             </div>
           )}
         </div>
 
-        {/* 右上：对手状态与四招情报 */}
-        <section
-          className={`pointer-events-auto w-full lg:w-[370px] xl:w-[405px] rounded-xl border bg-[#17100a]/82 backdrop-blur-md p-3 shadow-2xl space-y-2 transition-colors ${
-            isNpcHit ? 'border-[#ff6b57]' : 'border-[#d4a455]/55'
-          }`}
-        >
-          <div className="flex items-center justify-between gap-2">
-            <span className="px-2 py-0.5 rounded bg-[#26190f] border border-[#96774d]/50 text-[10px] text-[#e6d2b3] shrink-0">
-              兵刃：{npcWeapon ? npcWeapon.name : '徒手空拳'}
-            </span>
-            <div className="text-right min-w-0">
-              <div className="flex items-center justify-end gap-1.5">
-                <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#421c16] border border-[#d98773]/60 text-[#ffd2c7]">
-                  {npc.realm}
-                </span>
-                <span className="song-serif text-base font-bold text-[#fff0d4] truncate">
-                  {npc.name}
-                </span>
-              </div>
-              <div className="text-[10px] text-[#cbb697] truncate">
-                {npc.factionName} · {npc.title} · 身法 {npcEffAgi} / 闪避 {npcDodgePct}%
-              </div>
-            </div>
-          </div>
-
-          {/* 对手气血与内力条（带格斗级白金残影缓冲掉血条） */}
-          <div className="space-y-1.5">
-            <div>
-              <div className="flex justify-between text-[11px] mb-0.5">
-                <span className="font-mono text-[#ffe8e3]">
-                  {shownNpcHp} / {npc.maxHp} ({nHpPct}%)
-                </span>
-                <span className="text-[#f5bdb3] font-medium">气血</span>
-              </div>
-              <div className="relative h-2.5 rounded-full bg-[#2e1310] border border-[#8c352b]/70 overflow-hidden">
-                <div
-                  className="absolute inset-y-0 right-0 bg-gradient-to-l from-[#fde68a] to-[#fca5a5] opacity-90"
-                  style={{
-                    width: `${nHpPct}%`,
-                    transition: 'width 1150ms cubic-bezier(0.22, 1, 0.36, 1) 280ms',
-                  }}
-                />
-                <div
-                  className="relative h-full ml-auto bg-gradient-to-l from-[#991f15] via-[#cf382b] to-[#f06254] transition-all duration-150 ease-out"
-                  style={{ width: `${nHpPct}%` }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <div className="flex justify-between text-[11px] mb-0.5">
-                <span className="font-mono text-[#dff4fc]">
-                  {shownNpcMp} / {npc.maxMp}
-                </span>
-                <span className="text-[#a6dbf2] font-medium">
-                  <span className="text-[10px] text-[#84bed9]">（催劲 +{npcQiDrivePct}%）</span> 内力
-                </span>
-              </div>
-              <div className="h-2.5 rounded-full bg-[#102530] border border-[#2f6e8f]/70 overflow-hidden">
-                <div
-                  className="h-full ml-auto bg-gradient-to-l from-[#1c5978] via-[#2d87b0] to-[#52bce8] transition-all duration-200"
-                  style={{ width: `${nMpPct}%` }}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* 对手内轻功与四式外功锁提示 */}
-          <div className="pt-1 border-t border-[#9e7d4f]/35 space-y-1.5">
-            <div className="flex items-center justify-between text-[10px] text-[#cbb493]">
-              <span className="font-mono text-[#dfc8a4]">
-                攻{npc.equipAttack} 防{npc.equipDefense} 抗{npc.res}
+        {/* 右上：对手状态与四招情报（1v2/2v2 支持双敌并列展示与点击锁定目标） */}
+        {isMultiEnemy ? (
+          <section className="pointer-events-auto w-full lg:w-[385px] xl:w-[420px] space-y-1.5">
+            <div className="flex items-center justify-between px-2 py-0.5 rounded-lg bg-[#1a110a]/85 border border-[#d4a455]/50 text-[11px] text-[#f5dfb8]">
+              <span className="flex items-center gap-1 font-medium">
+                <Crosshair className="w-3.5 h-3.5 text-[#fde047]" />
+                点击下方敌手或立绘切换攻击目标（快捷键 Tab）
               </span>
-              <span className="truncate">
-                内：<strong className="text-[#f5e2c1]">{nNeigong ? `${nNeigong.cleanName}·${nNeigongLv}重` : '未运'}</strong>
-                {' · '}
-                轻：<strong className="text-[#cbf2df]">{nQinggong ? `${nQinggong.cleanName}·${nQinggongLv}重` : '未运'}</strong>
+              <span className="font-mono text-[10px] text-[#d6be99]">
+                在阵 {livingEnemies.length}/{enemies.length}
               </span>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
-              {MOVE_SLOT_KEYS.map((slot) => {
-                const aid = npc.equippedArts[slot]
-                const art = aid ? MARTIAL_ART_DB_MAP[aid] : null
-                const lv = getLearnedLevel(npc.learnedArts, aid)
-                const isLocked = Boolean(art && npc.lastUsedArtId === art.id)
-                return (
-                  <div
-                    key={slot}
-                    className={`px-1.5 py-0.5 rounded text-[10px] border truncate text-center ${
-                      !art
-                        ? 'bg-[#1a120b]/50 border-[#5c4832]/25 text-[#7d6a54]'
-                        : isLocked
-                          ? 'bg-[#361d15]/85 border-[#b86548]/65 text-[#d99e89] line-through'
-                          : 'bg-[#261a10]/90 border-[#a68353]/45 text-[#f2dec0]'
-                    }`}
-                    title={
-                      art
-                        ? `${art.cleanName}（第${lv}重）${isLocked ? ' · 上合刚出，本合禁连发' : ''}`
-                        : '空置'
-                    }
-                  >
-                    {art ? `${isLocked ? '🔒' : '⚔'}${art.cleanName}` : '—'}
+            {enemies.map((enemyUnit) => {
+              const eHp = getUnitShownHp(enemyUnit)
+              const eMp = getUnitShownMp(enemyUnit)
+              const eHpPct = Math.max(0, Math.min(100, Math.round((eHp / Math.max(1, enemyUnit.maxHp)) * 100)))
+              const eMpPct = Math.max(0, Math.min(100, Math.round((eMp / Math.max(1, enemyUnit.maxMp)) * 100)))
+              const eAgi = computeEffectiveAgility(enemyUnit)
+              const eDodge = Math.round(computeDodgeChancePreview(enemyUnit, player, false) * 100)
+              const eWeapon = enemyUnit.equipped.weapon ? ITEM_DB_MAP[enemyUnit.equipped.weapon] : null
+              const isDead = eHp <= 0
+              const isTargeted = !isDead && effectiveTargetId === enemyUnit.unitId
+              const unitHitNow =
+                isImpactPose &&
+                activeBeat?.kind === 'attack' &&
+                activeBeat.targetUnitId === enemyUnit.unitId
+
+              return (
+                <div
+                  key={enemyUnit.unitId}
+                  onClick={
+                    !isDead && outcome === 'ongoing' && !isAnimating
+                      ? () => setSelectedTargetId(enemyUnit.unitId)
+                      : undefined
+                  }
+                  className={`rounded-xl border backdrop-blur-md p-2.5 shadow-xl space-y-1.5 transition ${
+                    isDead
+                      ? 'bg-[#17100a]/60 border-[#5e4a36]/35 opacity-55'
+                      : unitHitNow
+                        ? 'bg-[#2a120e]/90 border-[#ff6b57]'
+                        : isTargeted
+                          ? 'bg-[#24140d]/90 border-2 border-[#fde047] shadow-[0_0_18px_rgba(250,204,21,0.28)] cursor-pointer'
+                          : 'bg-[#17100a]/82 border-[#d4a455]/45 hover:border-[#f5c76b] cursor-pointer'
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5">
+                      {isDead ? (
+                        <span className="px-1.5 py-0.5 rounded bg-[#36201a] border border-[#8c584c]/50 text-[10px] text-[#d99e91]">
+                          已败退
+                        </span>
+                      ) : isTargeted ? (
+                        <span className="px-1.5 py-0.5 rounded bg-[#8f1d14] border border-[#fde047] text-[10px] font-bold text-[#fff5cc] flex items-center gap-0.5">
+                          <Crosshair className="w-2.5 h-2.5" /> 锁定目标
+                        </span>
+                      ) : (
+                        <span className="px-1.5 py-0.5 rounded bg-[#2b1d12] border border-[#96774d]/50 text-[10px] text-[#dfc8a4]">
+                          点击锁定
+                        </span>
+                      )}
+                      <span className="text-[10px] text-[#cbb493] truncate">
+                        {eWeapon ? eWeapon.name : '徒手'} · 身法{eAgi} · 闪{eDodge}%
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-1 min-w-0">
+                      <span className="px-1.5 py-0.5 rounded text-[9px] bg-[#421c16] border border-[#d98773]/60 text-[#ffd2c7] shrink-0">
+                        {enemyUnit.realm}
+                      </span>
+                      <span className="song-serif text-sm font-bold text-[#fff0d4] truncate">
+                        {enemyUnit.name}
+                      </span>
+                    </div>
                   </div>
-                )
-              })}
-            </div>
-          </div>
 
-          <FighterStatusBadges fighter={npc} />
-        </section>
+                  {/* 气血与内力紧凑双条 */}
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[10px] text-[#ffe8e3] w-24 shrink-0">
+                        HP {eHp}/{enemyUnit.maxHp}
+                      </span>
+                      <div className="relative flex-1 h-2 rounded-full bg-[#2e1310] border border-[#8c352b]/70 overflow-hidden">
+                        <div
+                          className="h-full ml-auto bg-gradient-to-l from-[#991f15] via-[#cf382b] to-[#f06254] transition-all duration-150"
+                          style={{ width: `${eHpPct}%` }}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono text-[10px] text-[#dff4fc] w-24 shrink-0">
+                        MP {eMp}/{enemyUnit.maxMp}
+                      </span>
+                      <div className="flex-1 h-1.5 rounded-full bg-[#102530] border border-[#2f6e8f]/60 overflow-hidden">
+                        <div
+                          className="h-full ml-auto bg-gradient-to-l from-[#1c5978] to-[#52bce8] transition-all duration-200"
+                          style={{ width: `${eMpPct}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <FighterStatusBadges fighter={enemyUnit} />
+                </div>
+              )
+            })}
+          </section>
+        ) : (
+          <section
+            className={`pointer-events-auto w-full lg:w-[370px] xl:w-[405px] rounded-xl border bg-[#17100a]/82 backdrop-blur-md p-3 shadow-2xl space-y-2 transition-colors ${
+              isNpcHit ? 'border-[#ff6b57]' : 'border-[#d4a455]/55'
+            }`}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span className="px-2 py-0.5 rounded bg-[#26190f] border border-[#96774d]/50 text-[10px] text-[#e6d2b3] shrink-0">
+                兵刃：{npcWeapon ? npcWeapon.name : '徒手空拳'}
+              </span>
+              <div className="text-right min-w-0">
+                <div className="flex items-center justify-end gap-1.5">
+                  <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#421c16] border border-[#d98773]/60 text-[#ffd2c7]">
+                    {npc.realm}
+                  </span>
+                  <span className="song-serif text-base font-bold text-[#fff0d4] truncate">
+                    {npc.name}
+                  </span>
+                </div>
+                <div className="text-[10px] text-[#cbb697] truncate">
+                  {npc.factionName} · {npc.title} · 身法 {npcEffAgi} / 闪避 {npcDodgePct}%
+                </div>
+              </div>
+            </div>
+
+            {/* 对手气血与内力条（带格斗级白金残影缓冲掉血条） */}
+            <div className="space-y-1.5">
+              <div>
+                <div className="flex justify-between text-[11px] mb-0.5">
+                  <span className="font-mono text-[#ffe8e3]">
+                    {shownNpcHp} / {npc.maxHp} ({nHpPct}%)
+                  </span>
+                  <span className="text-[#f5bdb3] font-medium">气血</span>
+                </div>
+                <div className="relative h-2.5 rounded-full bg-[#2e1310] border border-[#8c352b]/70 overflow-hidden">
+                  <div
+                    className="absolute inset-y-0 right-0 bg-gradient-to-l from-[#fde68a] to-[#fca5a5] opacity-90"
+                    style={{
+                      width: `${nHpPct}%`,
+                      transition: 'width 1150ms cubic-bezier(0.22, 1, 0.36, 1) 280ms',
+                    }}
+                  />
+                  <div
+                    className="relative h-full ml-auto bg-gradient-to-l from-[#991f15] via-[#cf382b] to-[#f06254] transition-all duration-150 ease-out"
+                    style={{ width: `${nHpPct}%` }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-[11px] mb-0.5">
+                  <span className="font-mono text-[#dff4fc]">
+                    {shownNpcMp} / {npc.maxMp}
+                  </span>
+                  <span className="text-[#a6dbf2] font-medium">
+                    <span className="text-[10px] text-[#84bed9]">（催劲 +{npcQiDrivePct}%）</span> 内力
+                  </span>
+                </div>
+                <div className="h-2.5 rounded-full bg-[#102530] border border-[#2f6e8f]/70 overflow-hidden">
+                  <div
+                    className="h-full ml-auto bg-gradient-to-l from-[#1c5978] via-[#2d87b0] to-[#52bce8] transition-all duration-200"
+                    style={{ width: `${nMpPct}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* 对手内轻功与四式外功锁提示 */}
+            <div className="pt-1 border-t border-[#9e7d4f]/35 space-y-1.5">
+              <div className="flex items-center justify-between text-[10px] text-[#cbb493]">
+                <span className="font-mono text-[#dfc8a4]">
+                  攻{npc.equipAttack} 防{npc.equipDefense} 抗{npc.res}
+                </span>
+                <span className="truncate">
+                  内：<strong className="text-[#f5e2c1]">{nNeigong ? `${nNeigong.cleanName}·${nNeigongLv}重` : '未运'}</strong>
+                  {' · '}
+                  轻：<strong className="text-[#cbf2df]">{nQinggong ? `${nQinggong.cleanName}·${nQinggongLv}重` : '未运'}</strong>
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-1">
+                {MOVE_SLOT_KEYS.map((slot) => {
+                  const aid = npc.equippedArts[slot]
+                  const art = aid ? MARTIAL_ART_DB_MAP[aid] : null
+                  const lv = getLearnedLevel(npc.learnedArts, aid)
+                  const isLocked = Boolean(art && npc.lastUsedArtId === art.id)
+                  return (
+                    <div
+                      key={slot}
+                      className={`px-1.5 py-0.5 rounded text-[10px] border truncate text-center ${
+                        !art
+                          ? 'bg-[#1a120b]/50 border-[#5c4832]/25 text-[#7d6a54]'
+                          : isLocked
+                            ? 'bg-[#361d15]/85 border-[#b86548]/65 text-[#d99e89] line-through'
+                            : 'bg-[#261a10]/90 border-[#a68353]/45 text-[#f2dec0]'
+                      }`}
+                      title={
+                        art
+                          ? `${art.cleanName}（第${lv}重）${isLocked ? ' · 上合刚出，本合禁连发' : ''}`
+                          : '空置'
+                      }
+                    >
+                      {art ? `${isLocked ? '🔒' : '⚔'}${art.cleanName}` : '—'}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            <FighterStatusBadges fighter={npc} />
+          </section>
+        )}
       </div>
 
       {/* 3. 随身行囊 · 丹毒匣浮窗（点击【行囊丹毒】或按 B 呼出） */}
@@ -1335,10 +1651,20 @@ export function CombatOverlay() {
                 </span>
                 <span className="px-2.5 py-0.5 rounded-full bg-[#4d1a13] border border-[#e09b52]/60 text-[11px] text-[#ffdc9e] shrink-0">
                   第 {lastRoundSummary.round} 合先手：
-                  <strong>{lastRoundSummary.firstMover === 'player' ? '少侠' : npc.name}</strong>
+                  <strong>
+                    {lastRoundSummary.firstMover === 'player'
+                      ? isMultiAlly
+                        ? '我方快手'
+                        : '少侠'
+                      : isMultiEnemy
+                        ? '敌阵快手'
+                        : npc.name}
+                  </strong>
                 </span>
                 <span className="truncate text-right">
-                  <span className="text-[#c9b089] mr-1">{npc.name}：</span>
+                  <span className="text-[#c9b089] mr-1">
+                    {isMultiEnemy ? '敌阵：' : `${npc.name}：`}
+                  </span>
                   <strong className="song-serif text-[#ffd2c7]">
                     {lastRoundSummary.npcChoiceLabel}
                   </strong>
@@ -1346,7 +1672,10 @@ export function CombatOverlay() {
               </>
             ) : (
               <div className="w-full text-center text-[#ebd6b3] song-serif">
-                双方于【{sceneTitle}】对峙行礼已毕 —— 请于下方盲选本合拆招指令
+                {formationTag ? `【${formationTag} 群战】` : ''}双方于【{sceneTitle}】对峙行礼已毕 ——{' '}
+                {isMultiEnemy
+                  ? '请先选定本合攻击目标，再盲选拆招指令'
+                  : '请于下方盲选本合拆招指令'}
               </div>
             )}
           </div>
@@ -1369,8 +1698,47 @@ export function CombatOverlay() {
           </div>
         </div>
 
-        {/* 底部操作指令台（演武期间显示跳过条；待命时显示 4 外功 + 守御 + 行囊丹毒 + 抽身脱战） */}
-        <div className="pointer-events-auto w-full max-w-7xl">
+        {/* 底部操作指令台（演武期间显示跳过条；待命时显示 多敌目标选择条 + 4 外功 + 守御 + 行囊丹毒 + 抽身脱战） */}
+        <div className="pointer-events-auto w-full max-w-7xl space-y-1.5">
+          {!isAnimating && outcome === 'ongoing' && isMultiEnemy && (
+            <div className="flex flex-wrap items-center justify-center gap-2 px-3 py-1.5 rounded-xl border border-[#d4a455]/60 bg-[#1a110a]/88 backdrop-blur-md shadow-lg text-xs">
+              <span className="flex items-center gap-1 text-[#f5dfb8] font-medium">
+                <Crosshair className="w-3.5 h-3.5 text-[#fde047]" />
+                本合出招目标（按 [Tab] 切换）：
+              </span>
+              {enemies.map((enemyUnit) => {
+                const isDead = enemyUnit.hp <= 0
+                const isSelected = !isDead && effectiveTargetId === enemyUnit.unitId
+                return (
+                  <button
+                    key={enemyUnit.unitId}
+                    type="button"
+                    disabled={isDead}
+                    onClick={() => setSelectedTargetId(enemyUnit.unitId)}
+                    className={`px-3 py-1 rounded-full border song-serif font-bold flex items-center gap-1.5 transition ${
+                      isDead
+                        ? 'bg-[#1c140e]/60 border-[#5c4836]/40 text-[#8a7560] line-through cursor-not-allowed'
+                        : isSelected
+                          ? 'bg-[#8f1d14] border-[#fde047] text-[#fff6d6] shadow-[0_0_12px_rgba(250,204,21,0.35)] cursor-pointer'
+                          : 'bg-[#2b1d12] hover:bg-[#3d2819] border-[#b89258]/60 text-[#ebd6b5] cursor-pointer'
+                    }`}
+                  >
+                    {isSelected && <Crosshair className="w-3 h-3 text-[#fde047]" />}
+                    <span>{enemyUnit.name}</span>
+                    <span className="font-mono text-[10px] opacity-85">
+                      {isDead ? '(败退)' : `(${enemyUnit.hp}/${enemyUnit.maxHp})`}
+                    </span>
+                  </button>
+                )
+              })}
+              {isMultiAlly && allies[1] && allies[1].hp > 0 && (
+                <span className="text-[11px] text-[#9bf2d0] ml-1">
+                  · 同伴【{allies[1].name}】亦将择敌协同出招
+                </span>
+              )}
+            </div>
+          )}
+
           {isAnimating ? (
             <button
               type="button"
@@ -1432,7 +1800,13 @@ export function CombatOverlay() {
                     key={opt.slot}
                     type="button"
                     disabled={opt.disabled}
-                    onClick={() => submitCombatAction({ type: 'move', slot: opt.slot })}
+                    onClick={() =>
+                      submitCombatAction({
+                        type: 'move',
+                        slot: opt.slot,
+                        targetId: effectiveTargetId,
+                      })
+                    }
                     className={`rounded-xl border p-2 text-left transition flex flex-col justify-between min-h-[92px] backdrop-blur-md ${
                       opt.disabled
                         ? 'border-[#6e5239]/40 bg-[#1a120d]/75 opacity-60 cursor-not-allowed'
@@ -1486,7 +1860,9 @@ export function CombatOverlay() {
                       ) : (
                         <>
                           <span className="text-[#a3daf2]">耗内 {opt.mpCost}</span>
-                          <span className="text-[#dfc8a4]">出招</span>
+                          <span className="text-[#dfc8a4] truncate">
+                            {isMultiEnemy ? `攻·${npc.name}` : '出招'}
+                          </span>
                         </>
                       )}
                     </div>
@@ -1630,7 +2006,7 @@ export function CombatOverlay() {
                     <span className="text-[#ffaba1] font-medium">
                       {session.duelStakes === 'zhan_zhao_arrest'
                         ? '少侠难敌御猫展昭巨阙锋芒，戴枷押入开封府死牢，狗头铡下身首异处……'
-                        : `刀剑无眼，生死相搏既分高下亦决生死，少侠气绝倒地，命殒【${session.npc.name}】手下……`}
+                        : `刀剑无眼，生死相搏既分高下亦决生死，少侠气绝倒地，命殒【${enemies.map((e) => e.name).join('、')}】手下……`}
                     </span>
                   ) : (
                     <>

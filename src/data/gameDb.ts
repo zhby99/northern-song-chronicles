@@ -163,8 +163,9 @@ export function resolveRoamingMasterLeafTarget(master: RoamingMaster): {
   }
 
   // In sect/pass regions (where all buildings are special buildings with interior spots),
-  // place them at a deterministic leaf spot of the first special building
-  const firstSpecId = reg.specialBuildingIds[0]
+  // place them at a deterministic leaf spot of the first open special building
+  const firstSpecId =
+    reg.specialBuildingIds.find((id) => id !== 'wl_langhuan') ?? reg.specialBuildingIds[0]
   const specBldg = firstSpecId ? BUILDING_DB_MAP[firstSpecId] : null
   const firstSpot = specBldg?.interior?.spots[0]
   if (specBldg && firstSpot) {

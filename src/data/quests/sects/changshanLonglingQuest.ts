@@ -4,18 +4,18 @@ import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST_SECT22_LONGLING'
 
-function buildHorseMarketGuardsNpc(): NodeNpc {
+function buildWanyanPenghaoNpc(): NodeNpc {
   return {
-    id: 'CUSTOM-CS-WANYAN-SQUAD',
-    name: '完颜鹏豪（携暗桩护卫）',
+    id: 'CUSTOM-CS-WANYAN',
+    name: '完颜鹏豪',
     title: '辽南京马市暗桩头目',
     realm: '三流下品',
-    factionId: 'SECT-20',
-    factionName: '大辽北院暗桩',
+    factionId: 'SECT-31',
+    factionName: '辽国暗桩',
     avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
     portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
     stats: {
-      hp: 390,
+      hp: 360,
       mp: 150,
       agi: 42,
       res: 15,
@@ -27,13 +27,14 @@ function buildHorseMarketGuardsNpc(): NodeNpc {
       neigong: 'MA-232',
       qinggong: null,
       move1: 'MA-151',
-      move2: null,
+      move2: 'MA-189',
       move3: null,
       move4: null,
     },
     learnedArts: [
       { artId: 'MA-232', level: 2, exp: 0 },
       { artId: 'MA-151', level: 2, exp: 0 },
+      { artId: 'MA-189', level: 2, exp: 0 },
     ],
     equipped: {
       ...DEFAULT_EQUIPPED_SLOTS,
@@ -41,6 +42,85 @@ function buildHorseMarketGuardsNpc(): NodeNpc {
     },
     questBadgeLabel: '马市暗桩',
     talk: '“这两个马贩口音透着定州味儿，身上倒还藏着铁器！拿下问个明白！”',
+  }
+}
+
+function buildHorseMarketSpyGuardNpc(): NodeNpc {
+  return {
+    id: 'CUSTOM-CS-HORSE-SPY',
+    name: '燕京马市暗桩护卫',
+    title: '北院巡栏刀手',
+    realm: '三流下品',
+    factionId: 'SECT-31',
+    factionName: '辽国暗桩',
+    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    stats: {
+      hp: 260,
+      mp: 120,
+      agi: 38,
+      res: 12,
+      isBenchmark: false,
+    },
+    talents: { bone: 45, comprehension: 32, charm: 28 },
+    fullLocationLabel: '析津府 > 燕京榷马大市 > 塞北千驷相马围栏',
+    equippedArts: {
+      neigong: 'MA-232',
+      qinggong: null,
+      move1: 'MA-189',
+      move2: null,
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-232', level: 1, exp: 0 },
+      { artId: 'MA-189', level: 2, exp: 0 },
+    ],
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-072',
+    },
+    questBadgeLabel: '巡栏暗桩',
+    talk: '“休叫南朝奸细跑出千驷围栏！”',
+  }
+}
+
+function buildGuoKuiHorseMarketAllyNpc(): NodeNpc {
+  return {
+    id: 'NPC-0036',
+    name: '郭逵',
+    title: '真定路边军都监（乔装马贩）',
+    realm: '二流上品',
+    factionId: 'ORG-04',
+    factionName: '真定路帅司',
+    avatarUrl: '/assets/characters/avatars/NPC-0036.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0036.jpg',
+    stats: {
+      hp: 780,
+      mp: 480,
+      agi: 50,
+      res: 28,
+      isBenchmark: false,
+    },
+    equippedArts: {
+      neigong: 'MA-121',
+      qinggong: 'MA-139',
+      move1: 'MA-115',
+      move2: 'MA-132',
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-121', level: 3, exp: 0 },
+      { artId: 'MA-139', level: 3, exp: 0 },
+      { artId: 'MA-115', level: 4, exp: 0 },
+      { artId: 'MA-132', level: 3, exp: 0 },
+    ],
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-034',
+    },
+    talk: '“速战速决，莫教他吹响骨哨惊动巡城铁骑！”',
   }
 }
 
@@ -52,8 +132,8 @@ function buildXiaoYuanfengMarshalNpc(): NodeNpc {
     realm: '一流中品',
     factionId: 'ORG-06',
     factionName: '辽南京兵马元帅府',
-    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    avatarUrl: '/assets/characters/avatars/NPC-0184.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0184.jpg',
     stats: {
       hp: 3229,
       mp: 2991,
@@ -66,7 +146,7 @@ function buildXiaoYuanfengMarshalNpc(): NodeNpc {
     equippedArts: {
       neigong: 'MA-140',
       qinggong: 'MA-157',
-      move1: 'MA-133',
+      move1: 'MA-116',
       move2: 'MA-152',
       move3: null,
       move4: null,
@@ -74,7 +154,7 @@ function buildXiaoYuanfengMarshalNpc(): NodeNpc {
     learnedArts: [
       { artId: 'MA-140', level: 6, exp: 0 },
       { artId: 'MA-157', level: 5, exp: 0 },
-      { artId: 'MA-133', level: 6, exp: 0 },
+      { artId: 'MA-116', level: 6, exp: 0 },
       { artId: 'MA-152', level: 5, exp: 0 },
     ],
     equipped: {
@@ -136,8 +216,8 @@ function buildXiaoYuanfengWoundedNpc(): NodeNpc {
     realm: '一流中品',
     factionId: 'ORG-06',
     factionName: '辽南京兵马元帅府',
-    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    avatarUrl: '/assets/characters/avatars/NPC-0184.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0184.jpg',
     stats: {
       hp: 1600,
       mp: 1800,
@@ -150,7 +230,7 @@ function buildXiaoYuanfengWoundedNpc(): NodeNpc {
     equippedArts: {
       neigong: 'MA-140',
       qinggong: 'MA-157',
-      move1: 'MA-133',
+      move1: 'MA-116',
       move2: 'MA-152',
       move3: null,
       move4: null,
@@ -158,7 +238,7 @@ function buildXiaoYuanfengWoundedNpc(): NodeNpc {
     learnedArts: [
       { artId: 'MA-140', level: 5, exp: 0 },
       { artId: 'MA-157', level: 4, exp: 0 },
-      { artId: 'MA-133', level: 5, exp: 0 },
+      { artId: 'MA-116', level: 5, exp: 0 },
       { artId: 'MA-152', level: 4, exp: 0 },
     ],
     equipped: {
@@ -269,9 +349,13 @@ const MARSHAL_XIAO_COMBAT_EFFECTS: QuestEffect[] = [
     opponent: { kind: 'custom', npc: buildXiaoYuanfengMarshalNpc() },
     rule: 'survive_rounds',
     maxRounds: 4,
-    forbidEscapeReason: '元帅府重围之下退无可退，须撑过四回合待郭逵掷烟幕弹接应！',
+    lethalOnLose: true,
+    deathTitle: '血洒燕京元帅府',
+    deathDetail:
+      '少侠潜入辽南京兵马元帅府焚毁《南牧山川策》正本后，未能撑过武林统制萧远风四合铁枪猛攻，力战殉国于析津府。',
+    forbidEscapeReason: '元帅府重围之下退无可退，须死守四回合待郭逵掷烟幕弹接应！',
     introText:
-      '火光冲天，辽南京武林统制【萧远风】持铁枪破门而入！只需支撑 4 回合不败，郭逵便会掷出烟幕弹接应撤退！',
+      '【生死突围 · 战败必死】火光冲天，辽南京武林统制【萧远风】持铁枪破门而入！切记善用防御与金疮药撑过 4 回合，待郭逵掷出霹雳烟幕弹接应撤退！',
     onWin: [
       { type: 'addArtExp', amount: 1200 },
       { type: 'modifyBaseStat', key: 'agility', delta: 4 },
@@ -315,27 +399,6 @@ const MARSHAL_XIAO_COMBAT_EFFECTS: QuestEffect[] = [
               type: 'teleportPlayer',
               regionId: 'yanmenguan',
               buildingId: 'ym_cliff',
-            },
-          ],
-        },
-      },
-    ],
-    onLose: [
-      { type: 'healPlayer', hpPct: 20, mpPct: 20 },
-      {
-        type: 'openScene',
-        scene: {
-          id: 'scene_cs_marshal_lose',
-          title: '铁枪震退 · 暂避幽州巷陌',
-          subtitle: '辽南京兵马元帅府外',
-          beats: [
-            {
-              speaker: { kind: 'narrator' },
-              text: '萧远风一记「铁骑踏冰」横扫千军，将你震飞撞破窗棂！幸好郭逵在院外连发袖箭逼退追兵，架着你滚入暗巷脱身。',
-            },
-            {
-              speaker: { kind: 'npc', npcId: 'NPC-0036' },
-              text: '“一流中品的高手果然非同小可！此人枪势极沉，切莫与其正面硬拼力气，只需守住门户撑过四合，待我烟幕一响便走。先调息养伤，我们再杀回去！”',
             },
           ],
         },
@@ -938,10 +1001,14 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                         {
                           type: 'startCombat',
                           questId: QUEST_ID,
-                          opponent: { kind: 'custom', npc: buildHorseMarketGuardsNpc() },
+                          allies: [{ kind: 'custom', npc: buildGuoKuiHorseMarketAllyNpc() }],
+                          opponent: { kind: 'custom', npc: buildWanyanPenghaoNpc() },
+                          extraOpponents: [{ kind: 'custom', npc: buildHorseMarketSpyGuardNpc() }],
                           rule: 'duel',
                           deathTitle: '血染燕京马市',
-                          deathDetail: '应对盘查失露破绽，与辽国马市暗桩死战力竭阵亡。',
+                          deathDetail: '应对盘查失露破绽，与郭逵在燕京马市死战辽国暗桩力竭阵亡。',
+                          introText:
+                            '【2v2 马市雷霆灭口】行话露了破绽！完颜鹏豪与马市巡栏护卫同时拔刀，郭逵掣刀跃至你身侧并肩迎敌！',
                           onWin: [
                             { type: 'addArtExp', amount: 600 },
                             { type: 'modifyBaseStat', key: 'maxHp', delta: 15 },
@@ -956,7 +1023,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                                 beats: [
                                   {
                                     speaker: { kind: 'narrator' },
-                                    text: '行话露了破绽，完颜鹏豪眼神骤寒，伸手便往怀里掏骨哨！千钧一发之际，你肩头一抖震散草料捆，长枪短柄如毒龙出洞，抢在他吹哨前点碎其腕骨，数合间将他与两名辽卒尽数劈翻在草料垛后，连半声惊呼都未曾漏出围栏！',
+                                    text: '行话露了破绽，完颜鹏豪眼神骤寒，伸手便往怀里掏骨哨！千钧一发之际，你肩头一抖震散草料捆，长枪短柄如毒龙出洞，与郭逵刀枪合击，抢在他吹哨前将完颜鹏豪与护卫劈翻在草料垛后，连半声惊呼都未曾漏出围栏！',
                                   },
                                   {
                                     speaker: { kind: 'npc', npcId: 'NPC-0036' },
@@ -973,17 +1040,21 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                 },
                 {
                   id: 'choice_horse_force',
-                  label: '【强闯灭口】趁夜色未合，先下手劈翻暗桩！',
-                  subLabel: '战完颜鹏豪（三流下品）：胜得熟练度 +600、气血上限 +15、纹银 +35 两',
+                  label: '【2v2 强闯灭口】趁夜色未合，与郭都监联手先下手劈翻暗桩！',
+                  subLabel: '2v2 生死战（战败身死）：联手郭逵迎战完颜鹏豪 + 暗桩护卫 · 胜得熟练度 +600、气血 +15、纹银 +35 两',
                   tone: 'danger',
                   effects: [
                     {
                       type: 'startCombat',
                       questId: QUEST_ID,
-                      opponent: { kind: 'custom', npc: buildHorseMarketGuardsNpc() },
+                      allies: [{ kind: 'custom', npc: buildGuoKuiHorseMarketAllyNpc() }],
+                      opponent: { kind: 'custom', npc: buildWanyanPenghaoNpc() },
+                      extraOpponents: [{ kind: 'custom', npc: buildHorseMarketSpyGuardNpc() }],
                       rule: 'duel',
                       deathTitle: '血染燕京马市',
                       deathDetail: '强闯燕京马市暗桩失手，喋血塞北围栏。',
+                      introText:
+                        '【2v2 马市强闯灭口】不等完颜鹏豪拔刀，你挑飞草料担暴起发难，郭逵同时掣刀封死围栏退路，与完颜鹏豪及暗桩护卫展开生死搏杀！',
                       onWin: [
                         { type: 'addArtExp', amount: 600 },
                         { type: 'modifyBaseStat', key: 'maxHp', delta: 15 },
@@ -998,7 +1069,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                             beats: [
                               {
                                 speaker: { kind: 'narrator' },
-                                text: '不等完颜鹏豪拔刀，你已暴喝一声挑飞草料担，长枪连刺三朵寒星！郭逵亦同时掣出腰间短刀横截退路，两人左右合击，转瞬便将三名辽国暗桩格杀于千驷围栏的阴影之中，马群受惊嘶鸣恰好掩盖了兵刃交击之声！',
+                                text: '不等完颜鹏豪拔刀，你已暴喝一声挑飞草料担，长枪连刺三朵寒星！郭逵亦同时掣出腰间短刀横截退路，两人左右合击，转瞬便将完颜鹏豪与暗桩护卫格杀于千驷围栏的阴影之中，马群受惊嘶鸣恰好掩盖了兵刃交击之声！',
                               },
                               {
                                 speaker: { kind: 'npc', npcId: 'NPC-0036' },
@@ -1134,7 +1205,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         id: 'spot_cs_marshal_burn',
         label: '潜入签押房焚毁《南牧山川策》正本',
         badge: '焚图突围',
-        subtitle: '持换防图免检定，否则需 经义/书 ≥ 45，随后必战萧远风（撑过 4 回合）',
+        subtitle: '持换防图免检定，否则需 经义/书 ≥ 45，随后生死死守萧远风 4 回合（战败殉国）',
         tone: 'danger',
         regionId: 'xijin_liao',
         buildingId: 'xj_marshal',
@@ -1288,7 +1359,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_cliff_route_a',
                   label: '【路线 A · 速战退敌】护送郭逵带密图入关，我自断后！',
-                  subLabel: '迎战辽军铁林百夫长（二流下品）：胜得熟练度 +1800、气血 +35、内力 +40、身法 +4',
+                  subLabel: '生死战（战败殉国）迎战辽军铁林百夫长（二流下品）：胜得熟练度 +1800、气血 +35、内力 +40、身法 +4',
                   tone: 'primary',
                   effects: [
                     {
@@ -1305,7 +1376,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_cliff_route_b',
                   label: '【路线 B · 全员死保】背水死战，护送所有幽州遗老撤入李牧祠！',
-                  subLabel: '高难死守半血萧远风 4 回合：胜得熟练度 +2600、气血 +50、内力 +60、身法 +6、抗性 +5、侠义 +100',
+                  subLabel: '生死断后（战败殉国）：死守半血萧远风 4 回合 · 胜得熟练度 +2600、气血 +50、内力 +60、身法 +6、抗性 +5、侠义 +100',
                   tone: 'danger',
                   condition: { type: 'flag', flag: 'cs_longling_route_b', op: 'truthy' },
                   effects: [
@@ -1315,29 +1386,14 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                       opponent: { kind: 'custom', npc: buildXiaoYuanfengWoundedNpc() },
                       rule: 'survive_rounds',
                       maxRounds: 4,
+                      lethalOnLose: true,
+                      deathTitle: '血沃李牧祠前',
+                      deathDetail:
+                        '少侠为护送百余名幽州汉家遗老撤入雁门关，于乱石绝壁孤身死挡辽南京武林统制萧远风，力战殉国。',
                       forbidEscapeReason: '身后百余名幽州遗老尚未入祠，一步不可退！',
+                      introText:
+                        '【生死断后 · 战败必死】萧远风长途奔袭气息虽疲，铁枪凶威犹在！死守 4 回合护送百余名幽州遗老撤入关内！',
                       onWin: CLIFF_WIN_B_EFFECTS,
-                      onLose: [
-                        { type: 'healPlayer', hpPct: 20, mpPct: 20 },
-                        {
-                          type: 'openScene',
-                          scene: {
-                            id: 'scene_cs_cliff_lose_b',
-                            title: '绝壁受创 · 暂退狭口',
-                            subtitle: '雁门关外乱石绝壁',
-                            beats: [
-                              {
-                                speaker: { kind: 'narrator' },
-                                text: '萧远风纵使带伤，余威仍如猛虎！你被一枪扫中肩甲跌回乱石堆中，幸得白烈山隔涧放箭掩护方才保住性命。',
-                              },
-                              {
-                                speaker: { kind: 'npc', npcId: 'NPC-0036' },
-                                text: '“先服药调息！若实在撑不住他四合猛攻，亦可先择路线 A 斩杀百夫长突围入关！”',
-                              },
-                            ],
-                          },
-                        },
-                      ],
                     },
                   ],
                 },

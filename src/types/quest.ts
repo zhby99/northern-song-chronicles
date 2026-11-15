@@ -131,12 +131,13 @@ export type StorySpeakerSpec =
   | { kind: 'player' }
   | { kind: 'npc'; npcId: string }
   | { kind: 'interactedNpc' }
-  | {
+    | {
       kind: 'custom'
       name: string
       title?: string
       factionName?: string
       portraitUrl?: string
+      avatarUrl?: string
     }
 
 export interface StoryBeatDef {
@@ -174,9 +175,10 @@ export interface ActiveStorySceneState {
 }
 
 /**
- * 剧情战斗规则枚举（⚠️ 任务内战斗一旦败北——包括气血归零或未能撑满规定回合——均直接触发死亡 Game Over）：
- * - spar / story_trial / duel: 击败对手即算获胜推进剧情，战败直接死亡
- * - survive_rounds: 撑过 maxRounds 合不倒（或提前击败对手）即算获胜推进剧情，提前气血归零直接死亡
+ * 剧情战斗规则枚举：
+ * - duel: 非切磋生死决战，击败对手即获胜推进剧情，战败（含超时判负）直接触发死亡 Game Over
+ * - spar / story_trial: 切磋/宗门考校（点到为止），除非显式声明 lethalOnLose: true，否则战败走 onLose 或伤退恢复
+ * - survive_rounds: 撑满 maxRounds 合不倒（或提前击败对手）即算获胜；若声明 lethalOnLose: true，提前气血归零直接触发死亡 Game Over
  */
 export type QuestCombatRule = 'spar' | 'duel' | 'survive_rounds' | 'story_trial'
 
@@ -189,6 +191,7 @@ export type QuestCombatOpponentSpec =
 export interface ActiveQuestCombatHook {
   questId?: string
   rule: QuestCombatRule
+  lethalOnLose?: boolean
   deathTitle?: string
   deathDetail?: string
   onWin: QuestEffect[]
@@ -271,8 +274,17 @@ export type QuestEffect =
       type: 'startCombat'
       questId?: string
       opponent: QuestCombatOpponentSpec
+      extraOpponents?: QuestCombatOpponentSpec[]
+      allies?: QuestCombatOpponentSpec[]
       rule: QuestCombatRule
-      duelStakesTag?: 'spar' | 'duel' | 'rob_official' | 'zhan_zhao_arrest' | 'liao_spy_duel'
+      lethalOnLose?: boolean
+      duelStakesTag?:
+        | 'spar'
+        | 'duel'
+        | 'rob_official'
+        | 'zhan_zhao_arrest'
+        | 'liao_spy_duel'
+        | 'kaifeng_warrant'
       maxRounds?: number
       forbidEscapeReason?: string | null
       introText?: string

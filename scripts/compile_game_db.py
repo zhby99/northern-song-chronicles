@@ -185,9 +185,9 @@ LOCATION_RESOLUTION_MAP: dict[str, tuple[str, str, str | None]] = {
     # 34 蜀中峨眉山
     "峨眉山": ("emeishan", "蜀中峨眉山", None),
     "蜀中峨眉山": ("emeishan", "蜀中峨眉山", None),
-    # 35 无量山 / 剑湖秘境
-    "无量山": ("wuliangshan", "无量山 / 剑湖秘境", None),
-    "无量山 / 剑湖秘境": ("wuliangshan", "无量山 / 剑湖秘境", None),
+    # 35 无量山
+    "无量山": ("wuliangshan", "无量山", None),
+    "无量山 / 剑湖秘境": ("wuliangshan", "无量山", None),
     # 36 武当山真武道宗
     "武当山": ("wudangshan", "武当山真武道宗", None),
     "武当山真武道宗": ("wudangshan", "武当山真武道宗", None),
@@ -2821,7 +2821,7 @@ def populate_npc_loadouts(
             "move3": move_ids[2] if len(move_ids) > 2 else None,
             "move4": move_ids[3] if len(move_ids) > 3 else None,
         }
-        all_npc_art_ids = list(dict.fromkeys([*npc.get("knownArtIds", []), *used_ids]))
+        all_npc_art_ids = list(dict.fromkeys([*npc.get("knownArtIds", []), *sorted(used_ids)]))
         learned_arts = [
             {
                 "artId": aid,

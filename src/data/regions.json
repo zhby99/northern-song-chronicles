@@ -2778,7 +2778,7 @@
     "id": "wuliangshan",
     "standardCode": "REG-35",
     "numericCode": "35",
-    "name": "无量山 / 剑湖秘境",
+    "name": "无量山",
     "type": "sect",
     "regime": "dali",
     "circuit": "大理南疆 · 澜沧秘境",
@@ -2831,7 +2831,7 @@
       "NPC-0995"
     ],
     "legacyAliases": [
-      "无量山"
+      "无量山 / 剑湖秘境"
     ]
   },
   {

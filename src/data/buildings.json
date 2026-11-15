@@ -16755,7 +16755,7 @@
     "id": "wl_langhuan",
     "regionId": "wuliangshan",
     "regionCode": "REG-35",
-    "regionName": "无量山 / 剑湖秘境",
+    "regionName": "无量山",
     "name": "琅嬛福地神仙玉洞",
     "kind": "cave",
     "isSpecial": true,
@@ -16855,7 +16855,7 @@
     "id": "wl_yubi",
     "regionId": "wuliangshan",
     "regionCode": "REG-35",
-    "regionName": "无量山 / 剑湖秘境",
+    "regionName": "无量山",
     "name": "无量玉壁观剑崖",
     "kind": "pavilion",
     "isSpecial": true,
@@ -16962,7 +16962,7 @@
     "id": "wl_palace",
     "regionId": "wuliangshan",
     "regionCode": "REG-35",
-    "regionName": "无量山 / 剑湖秘境",
+    "regionName": "无量山",
     "name": "无量剑湖宫",
     "kind": "palace",
     "isSpecial": true,
@@ -16982,9 +16982,9 @@
     "interior": {
       "mode": "image",
       "panoramaUri": "/assets/buildings/wl_palace.jpg",
-      "subtitle": "宋式营造矢量内景《无量剑湖宫》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回无量山 / 剑湖秘境全景",
+      "subtitle": "宋式营造矢量内景《无量剑湖宫》— 点击院内殿堂、回廊或石坪热区互动，或由正门返回无量山全景",
       "exitGate": {
-        "label": "步出正门（返回无量山 / 剑湖秘境全景）",
+        "label": "步出正门（返回无量山全景）",
         "x": 688,
         "y": 698,
         "poly": "530,645 846,645 880,748 496,748"
