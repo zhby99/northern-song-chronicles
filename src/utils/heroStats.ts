@@ -77,10 +77,10 @@ export const DEFAULT_HERO_BASE_STATS: HeroBaseStats = {
 export function cloneHeroBaseStats(base: HeroBaseStats = DEFAULT_HERO_BASE_STATS): HeroBaseStats {
   return {
     talents: { ...base.talents },
-    maxHp: base.maxHp ?? 0,
-    maxMp: base.maxMp ?? 0,
-    agility: base.agility ?? 0,
-    res: base.res ?? 0,
+    maxHp: 0,
+    maxMp: 0,
+    agility: 0,
+    res: 0,
     ridingSkill: base.ridingSkill,
     skills: { ...base.skills },
   }
@@ -122,10 +122,10 @@ export function sanitizeHeroBaseStats(raw: unknown): HeroBaseStats {
       悟性: clampInt(rawTalents.悟性, 1, HERO_BASE_CAPS.talent, def.talents.悟性),
       颜值: clampInt(rawTalents.颜值, 1, HERO_BASE_CAPS.talent, def.talents.颜值),
     },
-    maxHp: clampInt(rec.maxHp, 0, 10000, 0),
-    maxMp: clampInt(rec.maxMp, 0, 10000, 0),
-    agility: clampInt(rec.agility, 0, 1000, 0),
-    res: clampInt(rec.res, 0, 1000, 0),
+    maxHp: 0,
+    maxMp: 0,
+    agility: 0,
+    res: 0,
     ridingSkill: clampInt(rec.ridingSkill, 0, HERO_BASE_CAPS.ridingSkill, def.ridingSkill),
     skills,
   }
@@ -168,13 +168,10 @@ export function deriveHeroEffectiveStats(
   return {
     mountKey: equipTotals.mountKey,
     qinggongBonus: artTotals.qinggongBonus,
-    maxHp: Math.max(
-      HERO_BASE_CAPS.minMaxHp,
-      (baseStats.maxHp ?? 0) + equipTotals.maxHp + artTotals.maxHp,
-    ),
-    maxMp: Math.max(0, (baseStats.maxMp ?? 0) + equipTotals.maxMp + artTotals.maxMp),
-    agility: Math.max(1, (baseStats.agility ?? 0) + equipTotals.agility + artTotals.agility),
-    res: Math.max(0, (baseStats.res ?? 0) + equipTotals.res + artTotals.res),
+    maxHp: Math.max(HERO_BASE_CAPS.minMaxHp, equipTotals.maxHp + artTotals.maxHp),
+    maxMp: Math.max(0, equipTotals.maxMp + artTotals.maxMp),
+    agility: Math.max(1, equipTotals.agility + artTotals.agility),
+    res: Math.max(0, equipTotals.res + artTotals.res),
     ridingSkill: Math.max(0, baseStats.ridingSkill + equipTotals.riding),
     skills,
   }

@@ -358,9 +358,7 @@ const MARSHAL_XIAO_COMBAT_EFFECTS: QuestEffect[] = [
       '【生死突围 · 战败必死】火光冲天，辽南京武林统制【萧远风】持铁枪破门而入！切记善用防御与金疮药撑过 4 回合，待郭逵掷出霹雳烟幕弹接应撤退！',
     onWin: [
       { type: 'addArtExp', amount: 1200 },
-      { type: 'modifyBaseStat', key: 'agility', delta: 4 },
-      { type: 'modifyBaseStat', key: 'res', delta: 3 },
-      { type: 'modifyBaseStat', key: 'maxHp', delta: 25 },
+      { type: 'giveCombatExp', amount: 60, reason: '元帅府硬撼萧远风四合' },
       {
         type: 'openScene',
         scene: {
@@ -409,9 +407,7 @@ const MARSHAL_XIAO_COMBAT_EFFECTS: QuestEffect[] = [
 
 const CLIFF_WIN_A_EFFECTS: QuestEffect[] = [
   { type: 'addArtExp', amount: 1800 },
-  { type: 'modifyBaseStat', key: 'maxHp', delta: 35 },
-  { type: 'modifyBaseStat', key: 'maxMp', delta: 40 },
-  { type: 'modifyBaseStat', key: 'agility', delta: 4 },
+  { type: 'giveCombatExp', amount: 80, reason: '雁门绝壁斩百夫长断后' },
   { type: 'modifyRenown', delta: 20, reason: '雁门关外退敌保图' },
   { type: 'modifyChivalry', delta: 50, reason: '孤身断后护送密图' },
   { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 15 },
@@ -455,10 +451,7 @@ const CLIFF_WIN_A_EFFECTS: QuestEffect[] = [
 
 const CLIFF_WIN_B_EFFECTS: QuestEffect[] = [
   { type: 'addArtExp', amount: 2600 },
-  { type: 'modifyBaseStat', key: 'maxHp', delta: 50 },
-  { type: 'modifyBaseStat', key: 'maxMp', delta: 60 },
-  { type: 'modifyBaseStat', key: 'agility', delta: 6 },
-  { type: 'modifyBaseStat', key: 'res', delta: 5 },
+  { type: 'giveCombatExp', amount: 120, reason: '雁门绝壁死守萧远风四合' },
   { type: 'modifyRenown', delta: 20, reason: '绝壁力撼辽将萧远风' },
   { type: 'modifyChivalry', delta: 100, reason: '背水死战全员护送燕云遗老' },
   { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0185' }, delta: 25 },
@@ -1011,7 +1004,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                             '【2v2 马市雷霆灭口】行话露了破绽！完颜鹏豪与马市巡栏护卫同时拔刀，郭逵掣刀跃至你身侧并肩迎敌！',
                           onWin: [
                             { type: 'addArtExp', amount: 600 },
-                            { type: 'modifyBaseStat', key: 'maxHp', delta: 15 },
+                            { type: 'giveCombatExp', amount: 40, reason: '格杀燕京马市暗桩' },
                             { type: 'giveSilver', amount: 35, reason: '缴获辽暗桩银两' },
                             { type: 'setQuestStep', questId: QUEST_ID, stepId: 'minzhong_temple' },
                             {
@@ -1041,7 +1034,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_horse_force',
                   label: '【2v2 强闯灭口】趁夜色未合，与郭都监联手先下手劈翻暗桩！',
-                  subLabel: '2v2 生死战（战败身死）：联手郭逵迎战完颜鹏豪 + 暗桩护卫 · 胜得熟练度 +600、气血 +15、纹银 +35 两',
+                  subLabel: '2v2 生死战（战败身死）：联手郭逵迎战完颜鹏豪 + 暗桩护卫 · 胜得熟练度 +600、战斗经验 +40、纹银 +35 两',
                   tone: 'danger',
                   effects: [
                     {
@@ -1057,7 +1050,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                         '【2v2 马市强闯灭口】不等完颜鹏豪拔刀，你挑飞草料担暴起发难，郭逵同时掣刀封死围栏退路，与完颜鹏豪及暗桩护卫展开生死搏杀！',
                       onWin: [
                         { type: 'addArtExp', amount: 600 },
-                        { type: 'modifyBaseStat', key: 'maxHp', delta: 15 },
+                        { type: 'giveCombatExp', amount: 40, reason: '格杀燕京马市暗桩' },
                         { type: 'giveSilver', amount: 35, reason: '缴获辽暗桩银两' },
                         { type: 'setQuestStep', questId: QUEST_ID, stepId: 'minzhong_temple' },
                         {
@@ -1262,7 +1255,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         id: 'spot_cs_cliff_insight',
         label: '参悟绝壁前辈枪法刻痕（悟性 ≥ 65 或 书 ≥ 55）',
         badge: '绝壁悟枪',
-        subtitle: '触发灵光一现：武学熟练度 +400，身法根基精进',
+        subtitle: '触发灵光一现：武学熟练度 +400、战斗经验 +50',
         tone: 'jade',
         regionId: 'yanmenguan',
         buildingId: 'ym_cliff',
@@ -1287,7 +1280,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
             thenEffects: [
               { type: 'setFlag', flag: 'cs_longling_cliff_insight', value: true },
               { type: 'addArtExp', amount: 400 },
-              { type: 'modifyBaseStat', key: 'agility', delta: 2 },
+              { type: 'giveCombatExp', amount: 50, reason: '参悟绝壁前辈枪痕' },
               {
                 type: 'openScene',
                 scene: {
@@ -1359,7 +1352,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_cliff_route_a',
                   label: '【路线 A · 速战退敌】护送郭逵带密图入关，我自断后！',
-                  subLabel: '生死战（战败殉国）迎战辽军铁林百夫长（二流下品）：胜得熟练度 +1800、气血 +35、内力 +40、身法 +4',
+                  subLabel: '生死战（战败殉国）迎战辽军铁林百夫长（二流下品）：胜得熟练度 +1800、战斗经验 +80、侠义 +50',
                   tone: 'primary',
                   effects: [
                     {
@@ -1376,7 +1369,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_cliff_route_b',
                   label: '【路线 B · 全员死保】背水死战，护送所有幽州遗老撤入李牧祠！',
-                  subLabel: '生死断后（战败殉国）：死守半血萧远风 4 回合 · 胜得熟练度 +2600、气血 +50、内力 +60、身法 +6、抗性 +5、侠义 +100',
+                  subLabel: '生死断后（战败殉国）：死守半血萧远风 4 回合 · 胜得熟练度 +2600、战斗经验 +120、侠义 +100',
                   tone: 'danger',
                   condition: { type: 'flag', flag: 'cs_longling_route_b', op: 'truthy' },
                   effects: [
@@ -1485,7 +1478,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         id: 'spot_cs_ancestral_confer',
         label: '于顺平侯牌位前受领《常山龙胆枪》与亮银枪',
         badge: '传承圆满',
-        subtitle: '习得 MA-074、获 WPN-014 亮银枪、熟练度 +3500、实战四维大涨、得联合举荐信',
+        subtitle: '习得 MA-074、获 WPN-014 亮银枪、熟练度 +3500、战斗经验 +180、得联合举荐信',
         tone: 'gold',
         regionId: 'zhending',
         buildingId: 'zd_spear',
@@ -1500,10 +1493,6 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
           { type: 'teachMartialArt', artId: 'MA-074', level: 1, exp: 1500 },
           { type: 'giveItem', itemId: 'WPN-014', qty: 1 },
           { type: 'addArtExp', amount: 3500 },
-          { type: 'modifyBaseStat', key: 'maxHp', delta: 80 },
-          { type: 'modifyBaseStat', key: 'maxMp', delta: 100 },
-          { type: 'modifyBaseStat', key: 'agility', delta: 8 },
-          { type: 'modifyBaseStat', key: 'res', delta: 6 },
           { type: 'addSectContribution', amount: 500 },
           { type: 'addFlagNumber', flag: 'sect_relation_SECT-22', delta: 30 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0185' }, delta: 30 },
@@ -1544,7 +1533,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
                 },
                 {
                   speaker: { kind: 'narrator' },
-                  text: '你单膝跪地，双手接过亮银长枪与秘谱。枪身入手冰寒沉凝，内息顺着枪杆涌入经脉，丹田与百会间顿时如星河倾泻，气血、内力、身法与抗性齐齐攀上一层新境！郭逵亦上前一步，将一封盖有真定府安抚使大印与常山掌门印信的【常山·定州联合举荐信】系于你腰间。',
+                  text: '你单膝跪地，双手接过亮银长枪与秘谱。枪身入手冰寒沉凝，内息顺着枪杆涌入经脉，丹田与百会间顿时如星河倾泻，对常山枪脉的领悟齐齐攀上一层新境！郭逵亦上前一步，将一封盖有真定府安抚使大印与常山掌门印信的【常山·定州联合举荐信】系于你腰间。',
                 },
                 {
                   speaker: { kind: 'npc', npcId: 'NPC-0185' },

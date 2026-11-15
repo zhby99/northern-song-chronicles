@@ -119,10 +119,10 @@ export function CharacterCreationModal() {
       setSilver(2000)
       setStats({
         talents: { 根骨: 65, 悟性: 65, 颜值: 65 },
-        maxHp: 360,
-        maxMp: 220,
-        agility: 45,
-        res: 20,
+        maxHp: 0,
+        maxMp: 0,
+        agility: 0,
+        res: 0,
         ridingSkill: 35,
         skills: {
           算术: 50,
@@ -141,10 +141,10 @@ export function CharacterCreationModal() {
     setSilver(10000)
     setStats({
       talents: { 根骨: 95, 悟性: 95, 颜值: 90 },
-      maxHp: 800,
-      maxMp: 600,
-      agility: 85,
-      res: 50,
+      maxHp: 0,
+      maxMp: 0,
+      agility: 0,
+      res: 0,
       ridingSkill: 80,
       skills: {
         算术: 85,
@@ -364,48 +364,24 @@ export function CharacterCreationModal() {
                 />
               </div>
 
-              <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 space-y-3.5">
-                <div className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
-                  四、实战根基（额外加值）
+              <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 space-y-3.5 flex flex-col justify-between">
+                <div className="space-y-3.5">
+                  <div className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
+                    四、盘缠资粮与武道法则
+                  </div>
+                  <StatSliderRow
+                    label="初始银两"
+                    value={silver}
+                    min={0}
+                    max={20000}
+                    step={50}
+                    onChange={setSilver}
+                  />
                 </div>
-                <StatSliderRow
-                  label="气血加值"
-                  value={stats.maxHp}
-                  min={0}
-                  max={2000}
-                  step={10}
-                  onChange={(v) => setStats((p) => ({ ...p, maxHp: v }))}
-                />
-                <StatSliderRow
-                  label="内力加值"
-                  value={stats.maxMp}
-                  min={0}
-                  max={2000}
-                  step={10}
-                  onChange={(v) => setStats((p) => ({ ...p, maxMp: v }))}
-                />
-                <StatSliderRow
-                  label="身法加值"
-                  value={stats.agility}
-                  min={0}
-                  max={200}
-                  onChange={(v) => setStats((p) => ({ ...p, agility: v }))}
-                />
-                <StatSliderRow
-                  label="抗性加值"
-                  value={stats.res}
-                  min={0}
-                  max={100}
-                  onChange={(v) => setStats((p) => ({ ...p, res: v }))}
-                />
-                <StatSliderRow
-                  label="初始银两"
-                  value={silver}
-                  min={0}
-                  max={20000}
-                  step={50}
-                  onChange={setSilver}
-                />
+                <div className="rounded-lg border border-[#cbb693] bg-[#faf3e3] p-3.5 text-base sm:text-lg text-[#5c4328] leading-relaxed">
+                  <span className="font-bold text-[#781710]">实战属性铁律：</span>
+                  少侠周身实战交锋属性（气血上限、内力上限、身法、抗性、外功杀伤与护体防御）无裸身加值，亦不可借丹药或任务凭空堆砌，100% 由随身【披挂】与运使之【内功、轻功、武学】共同决定。
+                </div>
               </div>
             </div>
 

@@ -1051,8 +1051,15 @@ export function validateAllRegisteredQuests(
           checkEffect(`${ctxPath}.branch.else[${ei}]`, ee),
         )
         break
-      default:
+      default: {
+        const rawType = (eff as { type?: string }).type
+        if (rawType === 'modifyTalent' || rawType === 'modifyBaseStat') {
+          errors.push(
+            `${ctxPath}: 严禁在任务中使用 "${rawType}" 增加先天禀赋或实战交锋属性`,
+          )
+        }
         break
+      }
     }
   }
 

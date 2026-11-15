@@ -132,8 +132,7 @@ export type SkillTuple = [string, number]
 export interface ActionEffect {
   hp?: number
   mp?: number
-  agi?: number
-  res?: number
+  combatExp?: number
   riding?: number
   silver?: number
   skill?: SkillTuple
@@ -674,10 +673,7 @@ export type EquippedArtsMap = Record<MartialArtSlotKey, string | null>
 export interface ItemUseEffect {
   hp?: number
   mp?: number
-  maxHp?: number
-  maxMp?: number
-  agi?: number
-  res?: number
+  curePoison?: boolean
   riding?: number
   food?: number
   skillGain?: [string, number]

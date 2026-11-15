@@ -85,7 +85,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '研读《相马经》或佩带天阶名驹鞍辔提升驾驭感悟',
     ],
     placesAndNpcs: '秦州府（陇右金环刀堂）、大名府军寨、御马监',
-    milestoneText: '骑术首次达到 90 级：筋骨强健，永久【根骨 +2】',
+    milestoneText: '骑术首次达到 90 级：宗师御骏，获【声望 +80 · 历练 +120】',
   },
   {
     key: '算术',
@@ -97,7 +97,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '向贾宪、沈括、苏颂等北宋算学巨匠唱和请教，把玩算筹雅器',
     ],
     placesAndNpcs: '开封府（三司）、广州府（市舶司）、杭州府',
-    milestoneText: '算术首次达到 90 级：格物致知，永久【悟性 +2】',
+    milestoneText: '算术首次达到 90 级：九章宗师，获【声望 +80 · 历练 +120】',
   },
   {
     key: '经义',
@@ -109,7 +109,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '展卷研读四书五经、佛道真经典籍',
     ],
     placesAndNpcs: '应天府书院、洛阳府（少林寺）、开封府（大相国寺）',
-    milestoneText: '经义首次达到 90 级：明心见性，永久【悟性 +2】',
+    milestoneText: '经义首次达到 90 级：三教宗师，获【声望 +80 · 历练 +120】',
   },
   {
     key: '策论',
@@ -121,7 +121,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '向范仲淹、欧阳修、包拯、王安石、司马光等名臣讨教',
     ],
     placesAndNpcs: '开封府（政事堂/翰林院）、延州府、定州军幕',
-    milestoneText: '策论首次达到 90 级：洞察世事，永久【悟性 +2】',
+    milestoneText: '策论首次达到 90 级：经世国士，获【声望 +80 · 历练 +120】',
   },
   {
     key: '诗词',
@@ -133,7 +133,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '与欧阳修、晏殊、柳永、少年苏轼等文坛名宿唱和',
     ],
     placesAndNpcs: '开封府（樊楼）、杭州府（西湖）、扬州府',
-    milestoneText: '80 级永久【颜值 +2】 · 90 级永久【悟性 +2】',
+    milestoneText: '80 级获【声望 +40】 · 90 级获【声望 +80 · 历练 +120】',
   },
   {
     key: '琴',
@@ -145,7 +145,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '与知音名姝、逍遥派高人月下合奏唱和',
     ],
     placesAndNpcs: '姑苏（曼陀山庄/听香水榭）、杭州西湖、终南山',
-    milestoneText: '80 级永久【颜值 +2】 · 90 级永久【悟性 +2】',
+    milestoneText: '80 级获【声望 +40】 · 90 级获【声望 +80 · 历练 +120】',
   },
   {
     key: '棋',
@@ -157,7 +157,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '与无崖子、苏星河、寺庙棋僧手谈对弈',
     ],
     placesAndNpcs: '擂鼓山、洛阳府、开封府茶肆、少林寺',
-    milestoneText: '棋艺首次达到 90 级：算无遗策，永久【悟性 +2】',
+    milestoneText: '棋艺首次达到 90 级：国手无双，获【声望 +80 · 历练 +120】',
   },
   {
     key: '书',
@@ -169,7 +169,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '研读王羲之、颜真卿、柳公权传世法帖',
     ],
     placesAndNpcs: '洛阳府（龙门石窟碑林）、江南四大书院、杭州府',
-    milestoneText: '80 级永久【颜值 +2】 · 90 级永久【悟性 +2】',
+    milestoneText: '80 级获【声望 +40】 · 90 级获【声望 +80 · 历练 +120】',
   },
   {
     key: '画',
@@ -181,7 +181,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '在古玩行鉴宝辨伪，或为结交人物绘制丹青',
     ],
     placesAndNpcs: '开封府（翰林图画院）、杭州府、大理府',
-    milestoneText: '80 级永久【颜值 +2】 · 90 级永久【悟性 +2】',
+    milestoneText: '80 级获【声望 +40】 · 90 级获【声望 +80 · 历练 +120】',
   },
   {
     key: '辩才',
@@ -193,7 +193,7 @@ export const TEN_ARTS_GUIDE_DATA: TenArtGuideEntry[] = [
       '在黑市/行商大额交易中讨价还价',
     ],
     placesAndNpcs: '开封府（府衙/鸿胪寺）、各地酒楼茶肆',
-    milestoneText: '辩才首次达到 90 级：机锋敏锐，永久【悟性 +2】',
+    milestoneText: '辩才首次达到 90 级：纵横宗师，获【声望 +80 · 历练 +120】',
   },
 ]
 

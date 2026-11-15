@@ -24,7 +24,6 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     lore: '相传菩提达摩于少室山面壁九年所留，非佛法修为与根骨俱臻绝顶者不可强参。',
     useEffect: {
       mp: 180,
-      res: 6,
       skillGain: ['经义', 5],
       learnArtId: 'MA-001',
       learnArtHint: '初次展卷参悟天阶上品禅门圣典《易筋经》入门法要（【经义】+5）',
@@ -59,7 +58,6 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     lore: '“天之道，损有余而补不足”，字里行间尽是勘破生死玄关的大宗师气象。',
     useEffect: {
       mp: 160,
-      res: 5,
       skillGain: ['经义', 6],
       learnArtId: 'MA-004',
       learnArtHint: '领悟天阶上品无上道家武学《九阴真经》本源义理（【经义】+6）',
@@ -125,7 +123,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '关陕画圣范中立毕生心血巨制，主峰突兀迎面如泰山压顶，雨点皴苍劲雄浑，树叶间暗藏“范宽”二字款识。',
     lore: '北宋画院赞其“得山之骨，与山传神”，凝神观摩三日，胸中自生万壑雷霆气象。',
     useEffect: {
-      res: 4,
+      mp: 80,
       skillGain: ['画', 10],
     },
   },
@@ -190,7 +188,6 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     lore: '皇祐年间玄慈、玄澄诸高僧皆以此功筑就佛门金刚根基。',
     useEffect: {
       mp: 90,
-      res: 4,
       learnArtId: 'MA-038',
       learnArtHint: '参悟地阶上品内功《少林九阳功》纯阳周天',
     },
@@ -385,7 +382,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '盛唐颜鲁公追祭常山死节侄儿季明之悲愤绝笔宋内府精摹卷，涂抹改窜处血泪交融，被尊为“天下第二行书”。',
     lore: '欧阳修集古录跋赞其忠义郁勃之气溢于楮墨，观之令人凛然生抗虏死节之心。',
     useEffect: {
-      res: 3,
+      mp: 60,
       skillGain: ['书', 7],
     },
   },
@@ -441,8 +438,8 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     desc: '翰林医官院王怀隐等奉敕编修的北宋官修方书巨著，收录秘方一万六千八百余首，辨证施治与解毒救急靡不毕备。',
     useEffect: {
       hp: 150,
-      res: 5,
-      learnArtHint: '精研大宋御医方药精髓，周身抗性与气血调养大增',
+      skillGain: ['经义', 5],
+      learnArtHint: '精研大宋御医方药精髓，气血调养与医道经义大进',
     },
   },
   {
@@ -1199,10 +1196,9 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
     rarity: '凡阶',
     stackable: false,
     value: 70,
-    desc: '大相国寺与各地宫观免费施印的静坐调息小册，凝神屏虑可平复躁血、微增丹田内息。',
+    desc: '大相国寺与各地宫观免费施印的静坐调息小册，凝神屏虑可平复躁血、回复丹田真气。',
     useEffect: {
       mp: 25,
-      res: 1,
       learnArtId: 'MA-181',
       learnArtHint: '参悟凡品中品内功《清心静坐诀》',
     },

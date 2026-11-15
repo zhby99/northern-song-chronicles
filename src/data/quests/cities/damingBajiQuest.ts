@@ -428,7 +428,7 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
       },
       effects: [
         { type: 'setFlag', flag: 'dm_axe_flaw_spotted', value: true },
-        { type: 'modifyTalent', key: '悟性', delta: 1 },
+        { type: 'giveCombatExp', amount: 40, reason: '点破契丹铁林旋风斩破绽' },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0275' }, delta: 25 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0028' }, delta: 25 },
         {
@@ -462,7 +462,7 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
               },
               {
                 speaker: { kind: 'narrator' },
-                text: '【破绽看破加成】你不仅助卢铁山一枪立威，更彻底摸清了契丹铁林旋风斧法的命门——今夜终幕首领【耶律裂山】的实战威胁将大幅削弱！（且获先天悟性 +1）',
+                text: '【破绽看破加成】你不仅助卢铁山一枪立威，更彻底摸清了契丹铁林旋风斧法的命门——今夜终幕首领【耶律裂山】的实战威胁将大幅削弱！（且获战斗经验 +40）',
               },
             ],
             onFinishEffects: [
@@ -570,13 +570,13 @@ const SCENE_DAMING_VICTORY_CHOICE: StorySceneDef = {
       id: 'choice_ending_b_baji_inheritance',
       label: '【铁锁横江 · 八极真传】婉谢官身入秘传室，受卢铁山亲授《六合大枪》！',
       subLabel:
-        '习得《六合大枪》（第2重）+ 获良阶上品《大名六合浑铁枪》+ 根骨 +3 + 纹银 50 两 + 破格直入八极门内堂（或获《八极铁锁令》/200功绩）',
+        '习得《六合大枪》（第2重）+ 获良阶上品《大名六合浑铁枪》+ 战斗经验 +120 + 纹银 50 两 + 破格直入八极门内堂（或获《八极铁锁令》/200功绩）',
       tone: 'jade',
       effects: [
         { type: 'giveSilver', amount: 50, reason: '贾留守嘉勉赏银' },
         { type: 'teachMartialArt', artId: 'MA-116', level: 2 },
         { type: 'giveItem', itemId: 'WPN-035', qty: 1 },
-        { type: 'modifyTalent', key: '根骨', delta: 3 },
+        { type: 'giveCombatExp', amount: 120, reason: '千斤铁锁秘传室演武印证' },
         { type: 'modifyRenown', delta: 80, reason: '八极传薪名动河北' },
         { type: 'modifyChivalry', delta: 80, reason: '重义轻利守河朔' },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0028' }, delta: 20 },
@@ -635,7 +635,7 @@ const SCENE_DAMING_VICTORY_CHOICE: StorySceneDef = {
             beats: [
               {
                 speaker: { kind: 'narrator' },
-                text: '夜深灯暖，千斤铁锁秘传室内悬挂着历代河朔武师淬炼筋骨的玄铁重锁。卢铁山亲自捧过一杆重逾三十八斤、枪缨如血的《大名六合浑铁枪》，手把手将八极门镇馆枪术《六合大枪》精要拆解传授，并以独门药酒为你拍打周身大穴，淬炼先天根骨！',
+                text: '夜深灯暖，千斤铁锁秘传室内悬挂着历代河朔武师淬炼筋骨的玄铁重锁。卢铁山亲自捧过一杆重逾三十八斤、枪缨如血的《大名六合浑铁枪》，手把手将八极门镇馆枪术《六合大枪》精要拆解传授，并以独门药酒为你舒活周身筋络、印证河朔枪道！',
               },
               {
                 speaker: { kind: 'npc', npcId: 'NPC-0275' },
@@ -649,7 +649,7 @@ const SCENE_DAMING_VICTORY_CHOICE: StorySceneDef = {
             onFinishEffects: [
               {
                 type: 'toast',
-                text: '【八极真传结局】习得《六合大枪》（第2重），获授良阶上品《大名六合浑铁枪》、先天根骨 +3、纹银 50 两，并破格获八极门内堂殊荣！',
+                text: '【八极真传结局】习得《六合大枪》（第2重），获授良阶上品《大名六合浑铁枪》、战斗经验 +120、纹银 50 两，并破格获八极门内堂殊荣！',
                 tone: 'success',
                 logTag: '铁锁镇河朔',
               },
@@ -1691,12 +1691,12 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_chen_wine_gift',
                   label: '【赠银劳军】奉十两纹银为夜哨丐帮弟兄添置御寒烧刀子！（需 10 两银子）',
-                  subLabel: '陈孤雁好感 +30，并额外指点北庭武夫换气关窍（悟性 +1）',
+                  subLabel: '陈孤雁好感 +30，并额外指点北庭武夫换气关窍（战斗经验 +30）',
                   tone: 'gold',
                   condition: { type: 'silverAtLeast', min: 10 },
                   effects: [
                     { type: 'giveSilver', amount: -10, reason: '劳军大名府丐帮污衣弟子' },
-                    { type: 'modifyTalent', key: '悟性', delta: 1 },
+                    { type: 'giveCombatExp', amount: 30, reason: '习得看破铁林重斧换气关窍' },
                     {
                       type: 'modifyNpcFavor',
                       target: { kind: 'npc', npcId: 'NPC-0137' },
@@ -1719,7 +1719,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                         ],
                         onFinishEffects: buildClueGainEffects(
                           'dm_clue_beggar',
-                          '【线索三·丐帮夜哨】获陈孤雁倾囊相告：贼人真正目标为行宫《河北防辽舆图》，且习得看破铁林重斧换气之法（悟性 +1）！',
+                          '【线索三·丐帮夜哨】获陈孤雁倾囊相告：贼人真正目标为行宫《河北防辽舆图》，且习得看破铁林重斧换气之法（战斗经验 +30）！',
                         ),
                       },
                     },

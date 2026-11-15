@@ -2414,27 +2414,22 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
       const nextFlags = [...s.artMilestoneFlags]
       const milestoneNotes: string[] = []
+      let bonusRenown = 0
+      let bonusCombatExp = 0
       if (
         (artKey === '琴' || artKey === '书' || artKey === '画' || artKey === '诗词') &&
         nextLv >= 80 &&
         !nextFlags.includes(`art80:${artKey}`)
       ) {
         nextFlags.push(`art80:${artKey}`)
-        const prevVal = nextBase.talents.颜值
-        nextBase.talents.颜值 = Math.min(100, prevVal + 2)
-        milestoneNotes.push(`【${artKey}】初入 80 级，【颜值 +${nextBase.talents.颜值 - prevVal}】`)
+        bonusRenown += 40
+        milestoneNotes.push(`【${artKey}】初入 80 级名家之境，【声望 +40】`)
       }
       if (nextLv >= 90 && !nextFlags.includes(`art90:${artKey}`)) {
         nextFlags.push(`art90:${artKey}`)
-        if (artKey === '骑术') {
-          const prevVal = nextBase.talents.根骨
-          nextBase.talents.根骨 = Math.min(100, prevVal + 2)
-          milestoneNotes.push(`【骑术】初入 90 级，【根骨 +${nextBase.talents.根骨 - prevVal}】`)
-        } else {
-          const prevVal = nextBase.talents.悟性
-          nextBase.talents.悟性 = Math.min(100, prevVal + 2)
-          milestoneNotes.push(`【${artKey}】初入 90 级，【悟性 +${nextBase.talents.悟性 - prevVal}】`)
-        }
+        bonusRenown += 80
+        bonusCombatExp += 120
+        milestoneNotes.push(`【${artKey}】初入 90 级一代宗师之境，【声望 +80 / 历练 +120】`)
       }
 
       const nextDerived = deriveHeroEffectiveStats(
@@ -2474,6 +2469,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           dayCount: nextDayCount,
           shichenIdx: nextShichenIdx,
           silver: nextSilver,
+          renown: s.renown + bonusRenown,
+          combatExp: s.combatExp + bonusCombatExp,
           sectState: nextSectState,
           roamingMasters: nextMasters,
           baseStats: nextBase,
@@ -2500,6 +2497,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         dayCount: nextDayCount,
         shichenIdx: nextShichenIdx,
         silver: nextSilver,
+        renown: s.renown + bonusRenown,
+        combatExp: s.combatExp + bonusCombatExp,
         sectState: nextSectState,
         roamingMasters: nextMasters,
         baseStats: nextBase,
@@ -3097,20 +3096,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextLearnedArts.push({ artId: eff.learnArtId, level: 1, exp: 0 })
       notes.push(`初窥门径，习得武学【${targetArt.name}（第1重）】`)
     }
-
-    const neigongExpPulse =
-      (eff.maxHp ? Math.round(eff.maxHp * 0.8) : 0) +
-      (eff.maxMp ? Math.round(eff.maxMp * 0.9) : 0) +
-      (eff.res ? eff.res * 14 : 0)
-    if (neigongExpPulse > 0) {
-      const ngRes = grantArtProficiency(nextLearnedArts, s.equippedArts.neigong, neigongExpPulse)
-      notes.push(ngRes.note ? `灵药催动周天（${ngRes.note}）` : '药力化入丹田周天')
-    }
-
-    if (eff.agi && eff.agi > 0) {
-      const qgRes = grantArtProficiency(nextLearnedArts, s.equippedArts.qinggong, eff.agi * 18)
-      notes.push(qgRes.note ? `药力轻健经络（${qgRes.note}）` : '药力贯通足三阳经')
-    }
     if (eff.riding) {
       const prev = nextBaseStats.ridingSkill
       nextBaseStats.ridingSkill = Math.min(HERO_BASE_CAPS.ridingSkill, prev + eff.riding)
@@ -3147,11 +3132,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     if (eff.hp) {
       nextHp = Math.min(derived.maxHp, nextHp + eff.hp)
-      notes.push(`气血 +${eff.hp}`)
+      notes.push(`气血恢复 +${eff.hp}`)
     }
     if (eff.mp) {
       nextMp = Math.min(derived.maxMp, nextMp + eff.mp)
-      notes.push(`内力 +${eff.mp}`)
+      notes.push(`内力回复 +${eff.mp}`)
+    }
+    if (eff.curePoison) {
+      notes.push('涤清奇毒滞气')
     }
     if (eff.learnArtHint && !eff.learnArtId) {
       notes.push(eff.learnArtHint)
@@ -3257,7 +3245,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextSilver = s.silver - cost
     let nextCombatExp = s.combatExp
     const nextBaseStats = cloneHeroBaseStats(s.baseStats)
-    const nextLearnedArts = s.learnedArts.map((x) => ({ ...x }))
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, isRestInn ? 4 : 2)
     const nextDay = clock.dayCount
 
@@ -3267,18 +3254,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (isRestInn) {
       gains.push(inOwnSectCity ? '师门驻地免宿费' : `住店宿费 -${cost}两`)
     }
-
-    const neigongSpotExp =
-      (!isRestInn && eff.mp ? Math.round(eff.mp * 0.6) : 0) + (eff.res ? eff.res * 12 : 0)
-    const ngSpotRes =
-      neigongSpotExp > 0
-        ? grantArtProficiency(nextLearnedArts, s.equippedArts.neigong, neigongSpotExp)
-        : { note: null, leveledUp: false }
-
-    const qgSpotRes =
-      eff.agi && eff.agi > 0
-        ? grantArtProficiency(nextLearnedArts, s.equippedArts.qinggong, eff.agi * 15)
-        : { note: null, leveledUp: false }
 
     if (eff.riding) {
       nextBaseStats.ridingSkill = Math.min(
@@ -3290,12 +3265,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextSilver += eff.silver
     }
 
-    // 衙门悬赏缉凶与校场武馆演武额外奖励战斗经验
-    let buildingCombatExp = 0
+    // 建筑历练、衙门悬赏缉凶与校场武馆演武奖励战斗经验（不直接增加任何实战交锋属性）
+    let buildingCombatExp = eff.combatExp ?? 0
     if (/衙门|府衙|巡检|枢密|帅司|六扇门/.test(item.name)) {
-      buildingCombatExp = 45
+      buildingCombatExp = Math.max(buildingCombatExp, 45)
     } else if (/演武|校场|武馆|拳馆|镖局|讲武|铜人|木人/.test(item.name)) {
-      buildingCombatExp = 35
+      buildingCombatExp = Math.max(buildingCombatExp, 35)
     }
     if (buildingCombatExp > 0) {
       nextCombatExp += buildingCombatExp
@@ -3316,7 +3291,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       nextBaseStats,
       s.equipped,
       s.equippedArts,
-      nextLearnedArts,
+      s.learnedArts,
     )
 
     let nextHp = Math.min(derived.maxHp, s.hp + (eff.hp ?? 0))
@@ -3333,8 +3308,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (buildingCombatExp > 0) {
       gains.push(`战斗经验 +${buildingCombatExp}（现 ${nextCombatExp}）`)
     }
-    if (ngSpotRes.note) gains.push(ngSpotRes.note)
-    if (qgSpotRes.note) gains.push(qgSpotRes.note)
     if (eff.riding) gains.push(`骑术 +${eff.riding}（现 ${derived.ridingSkill}）`)
     if (eff.silver) gains.push(`纹银 +${eff.silver} 两`)
     for (const tup of tuples) {
@@ -3401,7 +3374,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       silver: dayHook.silver,
       sectState: dayHook.sectState,
       baseStats: nextBaseStats,
-      learnedArts: nextLearnedArts,
       mountKey: derived.mountKey,
       qinggongBonus: derived.qinggongBonus,
       hp: nextHp,
@@ -3660,17 +3632,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       const eff = def.useEffect
       if (eff) {
         const cloned = cloneHeroBaseStats(s.baseStats)
-        const clonedArts = s.learnedArts.map((x) => ({ ...x }))
-        const neigongExpPulse =
-          (eff.maxHp ? Math.round(eff.maxHp * 0.8) : 0) +
-          (eff.maxMp ? Math.round(eff.maxMp * 0.9) : 0) +
-          (eff.res ? eff.res * 14 : 0)
-        if (neigongExpPulse > 0) {
-          grantArtProficiency(clonedArts, s.equippedArts.neigong, neigongExpPulse)
-        }
-        if (eff.agi && eff.agi > 0) {
-          grantArtProficiency(clonedArts, s.equippedArts.qinggong, eff.agi * 18)
-        }
         if (eff.skillGain) {
           const [sk, gain] = eff.skillGain
           cloned.skills[sk] = Math.min(
@@ -3680,7 +3641,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         }
         if (eff.food) nextFood += eff.food
         nextBaseStats = cloned
-        nextLearnedArts = clonedArts
       }
     }
 
@@ -5223,29 +5183,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           break
         }
 
-        case 'modifyTalent': {
-          const nextBase = cloneHeroBaseStats(s.baseStats)
-          const cur = nextBase.talents[eff.key] ?? 50
-          nextBase.talents[eff.key] = Math.max(1, Math.min(100, cur + eff.delta))
-          const derived = deriveHeroEffectiveStats(
-            nextBase,
-            s.equipped,
-            s.equippedArts,
-            s.learnedArts,
-          )
-          set({
-            baseStats: nextBase,
-            maxHp: derived.maxHp,
-            hp: Math.min(derived.maxHp, s.hp),
-            maxMp: derived.maxMp,
-            mp: Math.min(derived.maxMp, s.mp),
-            agility: derived.agility,
-            res: derived.res,
-            skills: derived.skills,
-          })
-          break
-        }
-
         case 'modifySkill': {
           const nextBase = cloneHeroBaseStats(s.baseStats)
           if (eff.key === '骑术') {
@@ -5270,30 +5207,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             baseStats: nextBase,
             ridingSkill: derived.ridingSkill,
             skills: derived.skills,
-          })
-          break
-        }
-
-        case 'modifyBaseStat': {
-          const nextBase = cloneHeroBaseStats(s.baseStats)
-          if (eff.key === 'maxHp') nextBase.maxHp = Math.max(100, nextBase.maxHp + eff.delta)
-          else if (eff.key === 'maxMp') nextBase.maxMp = Math.max(50, nextBase.maxMp + eff.delta)
-          else if (eff.key === 'agility') nextBase.agility = Math.max(10, nextBase.agility + eff.delta)
-          else if (eff.key === 'res') nextBase.res = Math.max(0, nextBase.res + eff.delta)
-          const derived = deriveHeroEffectiveStats(
-            nextBase,
-            s.equipped,
-            s.equippedArts,
-            s.learnedArts,
-          )
-          set({
-            baseStats: nextBase,
-            maxHp: derived.maxHp,
-            hp: Math.min(derived.maxHp, s.hp + (eff.key === 'maxHp' && eff.delta > 0 ? eff.delta : 0)),
-            maxMp: derived.maxMp,
-            mp: Math.min(derived.maxMp, s.mp + (eff.key === 'maxMp' && eff.delta > 0 ? eff.delta : 0)),
-            agility: derived.agility,
-            res: derived.res,
           })
           break
         }
@@ -6724,31 +6637,26 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const nextFlags = [...s.artMilestoneFlags]
     const milestoneNotes: string[] = []
+    let bonusRenown = 0
+    let bonusCombatExp = 0
 
-    // 琴、书、画、诗词达到 80 级 -> 颜值 +2
+    // 琴、书、画、诗词达到 80 级 -> 江湖声望 +40
     if (
       (artKey === '琴' || artKey === '书' || artKey === '画' || artKey === '诗词') &&
       nextLv >= 80 &&
       !nextFlags.includes(`art80:${artKey}`)
     ) {
       nextFlags.push(`art80:${artKey}`)
-      const prevVal = nextBase.talents.颜值
-      nextBase.talents.颜值 = Math.min(100, prevVal + 2)
-      milestoneNotes.push(`【${artKey}】初入 80 级，腹有诗书气自华，【颜值 +${nextBase.talents.颜值 - prevVal}】！`)
+      bonusRenown += 40
+      milestoneNotes.push(`【${artKey}】初入 80 级名家之境，雅誉远播，【声望 +40】！`)
     }
 
-    // 骑术达到 90 级 -> 根骨 +2；其余十艺达到 90 级 -> 悟性 +2
+    // 十艺达到 90 级一代宗师 -> 江湖声望 +80、历练 +120
     if (nextLv >= 90 && !nextFlags.includes(`art90:${artKey}`)) {
       nextFlags.push(`art90:${artKey}`)
-      if (artKey === '骑术') {
-        const prevVal = nextBase.talents.根骨
-        nextBase.talents.根骨 = Math.min(100, prevVal + 2)
-        milestoneNotes.push(`【骑术】初入 90 级，筋骨强健，【根骨 +${nextBase.talents.根骨 - prevVal}】！`)
-      } else {
-        const prevVal = nextBase.talents.悟性
-        nextBase.talents.悟性 = Math.min(100, prevVal + 2)
-        milestoneNotes.push(`【${artKey}】初入 90 级，触类旁通，【悟性 +${nextBase.talents.悟性 - prevVal}】！`)
-      }
+      bonusRenown += 80
+      bonusCombatExp += 120
+      milestoneNotes.push(`【${artKey}】初入 90 级一代宗师之境，【声望 +80 / 历练 +120】！`)
     }
 
     const derived = deriveHeroEffectiveStats(
@@ -6776,6 +6684,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     set({
       dayCount: nextDay,
       silver: s.silver - costSilver,
+      renown: s.renown + bonusRenown,
+      combatExp: s.combatExp + bonusCombatExp,
       baseStats: nextBase,
       artExps: { ...s.artExps, [artKey]: nextExp },
       artMilestoneFlags: nextFlags,
