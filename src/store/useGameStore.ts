@@ -87,6 +87,12 @@ import type {
   QuestTargetLocationHint,
 } from '../types/quest'
 import {
+  NORTH_CHINA_REGION_IDS,
+  TAIHANG_BANDIT_ENCOUNTER_SCENE,
+  TAIHANG_BANDIT_QUEST_ID,
+  TAIHANG_LEADERS_AMBUSH_SCENE,
+} from '../data/quests/sects/kaifengTaihangBanditQuest'
+import {
   calcDailyCultivationExpGain,
   cloneHeroBaseStats,
   DAILY_INN_LODGING_COST,
@@ -5609,6 +5615,23 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           if (eff.flag === 'liao_suspicion_debuff') {
             nextSect.liaoSuspicionDebuff = Boolean(eff.value)
           }
+          if (eff.flag === 'taihang_heavy_injury') {
+            const derived = deriveHeroEffectiveStats(
+              s.baseStats,
+              s.equipped,
+              s.equippedArts,
+              s.learnedArts,
+              { heavyInjury: Boolean(eff.value) },
+            )
+            set({
+              questState: nextQuest,
+              sectState: nextSect,
+              maxHp: derived.maxHp,
+              hp: Math.min(s.hp, derived.maxHp),
+              agility: derived.agility,
+            })
+            break
+          }
           set({ questState: nextQuest, sectState: nextSect })
           break
         }
@@ -6832,6 +6855,31 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (overdueSpyAmbush) {
       get().campStop()
       get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+      return
+    }
+    if (crossedDayBoundary) {
+      const stAfter = get()
+      const inNorthChina =
+        NORTH_CHINA_REGION_IDS.has(seg.from) || NORTH_CHINA_REGION_IDS.has(seg.to)
+      const isKaifengLv3Plus =
+        stAfter.sectState.sectId === 'SECT-17' && stAfter.sectState.rank >= 3
+      if (
+        inNorthChina &&
+        isKaifengLv3Plus &&
+        !stAfter.activeStoryScene &&
+        !stAfter.activeCombat &&
+        !stAfter.gameOver
+      ) {
+        const banditProg = stAfter.questState.activeQuests[TAIHANG_BANDIT_QUEST_ID]
+        const banditDone = stAfter.questState.completedQuests[TAIHANG_BANDIT_QUEST_ID]
+        if (banditProg?.stepId === 'ambush_ready') {
+          get().campStop()
+          get().runQuestEffects([{ type: 'openScene', scene: TAIHANG_LEADERS_AMBUSH_SCENE }], null)
+        } else if (!banditProg && !banditDone && Math.random() < 0.01) {
+          get().campStop()
+          get().runQuestEffects([{ type: 'openScene', scene: TAIHANG_BANDIT_ENCOUNTER_SCENE }], null)
+        }
+      }
     }
   },
 

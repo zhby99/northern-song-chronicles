@@ -43,6 +43,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const mountKey = useGameStore((s) => s.mountKey)
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const equipped = useGameStore((s) => s.equipped)
+  const taihangHeavyInjury = useGameStore((s) => Boolean(s.questState.flags.taihang_heavy_injury))
   const learnedArts = useGameStore((s) => s.learnedArts)
   const equippedArts = useGameStore((s) => s.equippedArts)
   const sectState = useGameStore((s) => s.sectState)
@@ -161,10 +162,11 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
             </div>
           </div>
 
-          {/* 门派军饷 / 朝廷通缉 / 通辽嫌疑 / 燕云辽谍军令速览 */}
+          {/* 门派军饷 / 朝廷通缉 / 通辽嫌疑 / 太行重创 / 燕云辽谍军令速览 */}
           {(sectState.sectId ||
             sectState.songCourtBlacklisted ||
             sectState.liaoSuspicionDebuff ||
+            taihangHeavyInjury ||
             sectState.toumingzhuangState === 'accepted') && (
             <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] space-y-1.5 text-xs">
               {sectState.sectId === 'SECT-22' && (
@@ -197,6 +199,11 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
               {sectState.liaoSuspicionDebuff && (
                 <div className="px-2 py-1 rounded bg-[#5c1610] text-[#ffdcd6] font-medium">
                   ⚠️ 通辽嫌疑（背离常山枪派 · 大宋全境好感度 -30）
+                </div>
+              )}
+              {taihangHeavyInjury && (
+                <div className="px-2 py-1 rounded bg-[#5c1610] text-[#ffdcd6] font-medium">
+                  ⚠️ 太行重创（气血上限与身法 -25% · 须返开封府向展昭复命并养伤一月）
                 </div>
               )}
             </div>

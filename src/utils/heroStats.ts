@@ -151,6 +151,7 @@ export function deriveHeroEffectiveStats(
   equipped: EquippedSlotsMap,
   equippedArts: EquippedArtsMap,
   learnedArts: LearnedArtEntry[],
+  options?: { heavyInjury?: boolean },
 ): DerivedHeroEffectiveStats {
   const equipTotals = computeEquipmentTotals(equipped)
   const artTotals = computeEquippedArtsTotals(equippedArts, learnedArts)
@@ -165,15 +166,19 @@ export function deriveHeroEffectiveStats(
     skills[k] = Math.max(0, (baseStats.skills[k] ?? 0) + (equipTotals.skills[k] ?? 0))
   }
 
+  const rawMaxHp = Math.max(
+    HERO_BASE_CAPS.minMaxHp,
+    (baseStats.maxHp ?? 0) + equipTotals.maxHp + artTotals.maxHp,
+  )
+  const rawAgility = Math.max(1, (baseStats.agility ?? 0) + equipTotals.agility + artTotals.agility)
+  const injuryMult = options?.heavyInjury ? 0.75 : 1
+
   return {
     mountKey: equipTotals.mountKey,
     qinggongBonus: artTotals.qinggongBonus,
-    maxHp: Math.max(
-      HERO_BASE_CAPS.minMaxHp,
-      (baseStats.maxHp ?? 0) + equipTotals.maxHp + artTotals.maxHp,
-    ),
+    maxHp: Math.max(HERO_BASE_CAPS.minMaxHp, Math.round(rawMaxHp * injuryMult)),
     maxMp: Math.max(0, (baseStats.maxMp ?? 0) + equipTotals.maxMp + artTotals.maxMp),
-    agility: Math.max(1, (baseStats.agility ?? 0) + equipTotals.agility + artTotals.agility),
+    agility: Math.max(1, Math.round(rawAgility * injuryMult)),
     res: Math.max(0, (baseStats.res ?? 0) + equipTotals.res + artTotals.res),
     ridingSkill: Math.max(0, baseStats.ridingSkill + equipTotals.riding),
     skills,

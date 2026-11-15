@@ -143,6 +143,8 @@ export type StorySpeakerSpec =
 export interface StoryBeatDef {
   speaker: StorySpeakerSpec
   text: string
+  illustrationUrl?: string
+  illustrationCaption?: string
 }
 
 export interface StoryChoiceDef {
@@ -159,6 +161,8 @@ export interface StorySceneDef {
   id: string
   title: string
   subtitle?: string
+  illustrationUrl?: string
+  illustrationCaption?: string
   mandatory?: boolean
   beats: StoryBeatDef[]
   choices?: StoryChoiceDef[]

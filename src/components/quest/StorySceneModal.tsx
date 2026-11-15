@@ -1,10 +1,11 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { evaluateQuestCondition, resolveStorySpeaker } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 export function StorySceneModal() {
   const activeStoryScene = useGameStore((s) => s.activeStoryScene)
+  const [failedImgUrl, setFailedImgUrl] = useState<string | null>(null)
   const playerName = useGameStore((s) => s.playerName)
   const playerPortraitId = useGameStore((s) => s.playerPortraitId)
   const dayCount = useGameStore((s) => s.dayCount)
@@ -132,6 +133,11 @@ export function StorySceneModal() {
     })
     .filter((item) => !(item.choice.hideWhenUnavailable && !item.passed))
 
+  const activeIllustrationUrl = currentBeat.illustrationUrl ?? scene.illustrationUrl ?? null
+  const activeIllustrationCaption =
+    currentBeat.illustrationCaption ?? scene.illustrationCaption ?? scene.title
+  const illustrationFailed = Boolean(activeIllustrationUrl && failedImgUrl === activeIllustrationUrl)
+
   return (
     <div
       className="fixed inset-0 z-42 pointer-events-auto flex flex-col justify-end items-center select-none"
@@ -154,8 +160,38 @@ export function StorySceneModal() {
         </div>
       </div>
 
+      {/* 剧情插画层（当配置了 illustrationUrl 时呈现宋风卷轴画框） */}
+      {activeIllustrationUrl && (
+        <div className="absolute inset-x-0 top-24 bottom-44 z-10 flex items-center justify-center px-4 pointer-events-none">
+          <div className="relative max-w-[min(88vw,780px)] max-h-full aspect-video rounded-xl overflow-hidden border-2 border-[#c89d54]/90 bg-[#1b120b]/95 shadow-[0_20px_50px_rgba(0,0,0,0.85)] flex items-center justify-center">
+            {!illustrationFailed ? (
+              <img
+                src={activeIllustrationUrl}
+                alt={activeIllustrationCaption}
+                onError={() => setFailedImgUrl(activeIllustrationUrl)}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="px-8 py-6 text-center space-y-2">
+                <div className="song-serif text-base font-bold text-[#e7c78b]">
+                  〔 绘卷留白 · {activeIllustrationCaption} 〕
+                </div>
+                <div className="text-xs text-[#b59d78] font-mono">
+                  插画路径：{activeIllustrationUrl}
+                </div>
+              </div>
+            )}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-4 py-2 text-center">
+              <span className="text-xs song-serif text-[#f3dfb8] tracking-wider">
+                {activeIllustrationCaption}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* 发言人物立绘层 */}
-      {!speakerInfo.isNarrator && speakerInfo.portraitUrl && (
+      {!activeIllustrationUrl && !speakerInfo.isNarrator && speakerInfo.portraitUrl && (
         <div className="absolute inset-x-0 top-16 bottom-36 z-10 flex items-end justify-center pointer-events-none">
           <div
             className="relative h-full w-full max-w-[86vw] flex items-end justify-center transition-all duration-300"
