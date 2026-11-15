@@ -797,7 +797,7 @@
     "description": "游侠最常穿的青布束袖短打。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_034.jpg"
   },
   {
     "id": "ARM-035",
@@ -818,7 +818,7 @@
     "description": "北宋太学与州学士子常服。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_035.jpg"
   },
   {
     "id": "ARM-036",
@@ -839,7 +839,7 @@
     "description": "各地寺院普通僧侣常服。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_036.jpg"
   },
   {
     "id": "ARM-037",
@@ -860,7 +860,7 @@
     "description": "普通道士日常着装。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_037.jpg"
   },
   {
     "id": "ARM-038",
@@ -881,7 +881,7 @@
     "description": "猎户与边民自制的牛皮护心。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_038.jpg"
   },
   {
     "id": "ARM-039",
@@ -902,7 +902,7 @@
     "description": "太行山绿林好汉夜探常用。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_039.jpg"
   },
   {
     "id": "ARM-040",
@@ -923,7 +923,7 @@
     "description": "耐水耐磨的麻布短褐。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_040.jpg"
   },
   {
     "id": "ARM-041",
@@ -944,7 +944,7 @@
     "description": "防风沙的粗麻皮边猎装。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_041.jpg"
   },
   {
     "id": "ARM-042",
@@ -965,7 +965,7 @@
     "description": "江南夏季常穿的竹纤维布衫。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_042.jpg"
   },
   {
     "id": "ARM-043",
@@ -986,7 +986,7 @@
     "description": "桐油涂抹的麻布斗篷短衣。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_043.jpg"
   },
   {
     "id": "ARM-044",
@@ -1007,7 +1007,7 @@
     "description": "茶肆伙计常着麻布长衫。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_044.jpg"
   },
   {
     "id": "ARM-045",
@@ -1028,7 +1028,7 @@
     "description": "轻暖耐穿的关东鹿皮坎肩。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_045.jpg"
   },
   {
     "id": "ARM-046",
@@ -1049,7 +1049,7 @@
     "description": "岭南湿热之地常着葛布衫。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_046.jpg"
   },
   {
     "id": "ARM-047",
@@ -1070,7 +1070,7 @@
     "description": "河北学徒练功粗布衣。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_047.jpg"
   },
   {
     "id": "ARM-048",
@@ -1091,7 +1091,7 @@
     "description": "党项牧民常穿的厚羊毛袍。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_048.jpg"
   },
   {
     "id": "ARM-049",
@@ -1112,7 +1112,7 @@
     "description": "北宋市井百姓最普通的粗麻短褐。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_049.jpg"
   },
   {
     "id": "ARM-050",
@@ -1133,7 +1133,7 @@
     "description": "补丁叠补丁，却意外轻便。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_050.jpg"
   },
   {
     "id": "ARM-051",
@@ -1154,7 +1154,7 @@
     "description": "棕榈丝编织的防雨蓑衣。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_051.jpg"
   },
   {
     "id": "ARM-052",
@@ -1175,7 +1175,7 @@
     "description": "洗得发白的旧青布儒衫。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_052.jpg"
   },
   {
     "id": "ARM-053",
@@ -1196,7 +1196,7 @@
     "description": "游方僧人常穿的旧灰布袍。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_053.jpg"
   },
   {
     "id": "ARM-054",
@@ -1217,7 +1217,7 @@
     "description": "耐磨的粗麻山民衣。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_054.jpg"
   },
   {
     "id": "ARM-055",
@@ -1238,7 +1238,7 @@
     "description": "晒得褪色的粗麻短打。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_055.jpg"
   },
   {
     "id": "ARM-056",
@@ -1290,7 +1290,7 @@
         "min": 80
       }
     ],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_001.jpg"
   },
   {
     "id": "BOT-002",
@@ -1321,7 +1321,7 @@
         "min": 60
       }
     ],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_002.jpg"
   },
   {
     "id": "BOT-003",
@@ -1352,7 +1352,7 @@
         "min": 74
       }
     ],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_003.jpg"
   },
   {
     "id": "BOT-004",
@@ -1374,7 +1374,7 @@
     "description": "西域雪豹皮缝制，踏冰雪而不滑，登绝壁如履平地。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_004.jpg"
   },
   {
     "id": "BOT-005",
@@ -1395,7 +1395,7 @@
     "description": "鞋底嵌吸音软木与机关倒钩，夜行潜伏毫无声响。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_005.jpg"
   },
   {
     "id": "BOT-006",
@@ -1416,7 +1416,7 @@
     "description": "武当轻功弟子特制布履，轻灵弹韧。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_006.jpg"
   },
   {
     "id": "BOT-007",
@@ -1438,7 +1438,7 @@
     "description": "大辽骑兵统领高筒马靴，夹马腹极稳。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_007.jpg"
   },
   {
     "id": "BOT-008",
@@ -1459,7 +1459,7 @@
     "description": "韧草混麻筋编织，极耐长途跋涉。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_008.jpg"
   },
   {
     "id": "BOT-009",
@@ -1480,7 +1480,7 @@
     "description": "厚牛皮钉铁掌战靴，跋山涉水不磨脚。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_009.jpg"
   },
   {
     "id": "BOT-010",
@@ -1503,7 +1503,7 @@
     "description": "苏州绣娘手制，轻盈秀美。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_010.jpg"
   },
   {
     "id": "BOT-011",
@@ -1524,7 +1524,7 @@
     "description": "鞋底带细密防滑纹，利攀岩走壁。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_011.jpg"
   },
   {
     "id": "BOT-012",
@@ -1546,7 +1546,7 @@
     "description": "加厚鞋尖，马战踢蹬皆宜。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_012.jpg"
   },
   {
     "id": "BOT-013",
@@ -1567,7 +1567,7 @@
     "description": "千层布底，轻便透气。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_013.jpg"
   },
   {
     "id": "BOT-014",
@@ -1588,7 +1588,7 @@
     "description": "麻绳缠底，湿滑甲板站立如松。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_014.jpg"
   },
   {
     "id": "BOT-015",
@@ -1609,7 +1609,7 @@
     "description": "牛筋底耐磨耐走。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_015.jpg"
   },
   {
     "id": "BOT-016",
@@ -1630,7 +1630,7 @@
     "description": "高帮护踝，不进沙砾。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_016.jpg"
   },
   {
     "id": "BOT-017",
@@ -1651,7 +1651,7 @@
     "description": "纳千层棉布底，舒适养脚。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_017.jpg"
   },
   {
     "id": "BOT-018",
@@ -1672,7 +1672,7 @@
     "description": "普通游侠最爱穿的软牛皮快靴。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_018.jpg"
   },
   {
     "id": "BOT-019",
@@ -1693,7 +1693,7 @@
     "description": "北宋文人常着方头黑布靴。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bot_019.jpg"
   },
   {
     "id": "BOT-020",
@@ -1912,7 +1912,7 @@
         "min": 75
       }
     ],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_001.jpg"
   },
   {
     "id": "BOW-002",
@@ -1943,7 +1943,7 @@
         "min": 70
       }
     ],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_002.jpg"
   },
   {
     "id": "BOW-003",
@@ -1974,7 +1974,7 @@
         "min": 80
       }
     ],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_003.jpg"
   },
   {
     "id": "BOW-004",
@@ -1995,7 +1995,7 @@
     "description": "西夏精锐骑兵所用强弓，拉满需三石之力，箭矢重若铁枪。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_004.jpg"
   },
   {
     "id": "BOW-005",
@@ -2017,7 +2017,7 @@
     "description": "杨家将守卫雁门关所用精铁胎长弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_005.jpg"
   },
   {
     "id": "BOW-006",
@@ -2038,7 +2038,7 @@
     "description": "取苍山百年老竹合牛筋制弓，轻巧连射极快。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_006.jpg"
   },
   {
     "id": "BOW-007",
@@ -2059,7 +2059,7 @@
     "description": "吐蕃大将佩弓，弓背缠金丝防潮防裂。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_007.jpg"
   },
   {
     "id": "BOW-008",
@@ -2080,7 +2080,7 @@
     "description": "附带响镝的绿林强弓，百步外声震山谷。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_008.jpg"
   },
   {
     "id": "BOW-009",
@@ -2101,7 +2101,7 @@
     "description": "北宋边防步兵主力长弓，射程远且耐用。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_009.jpg"
   },
   {
     "id": "BOW-010",
@@ -2122,7 +2122,7 @@
     "description": "河西走廊骑兵常备短角弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_010.jpg"
   },
   {
     "id": "BOW-011",
@@ -2143,7 +2143,7 @@
     "description": "可单手激发的蜀中精工手弩。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_011.jpg"
   },
   {
     "id": "BOW-012",
@@ -2164,7 +2164,7 @@
     "description": "女真猎手射虎强弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_012.jpg"
   },
   {
     "id": "BOW-013",
@@ -2184,7 +2184,7 @@
     "description": "河北路乡勇校场标准硬弓。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_013.jpg"
   },
   {
     "id": "BOW-014",
@@ -2205,7 +2205,7 @@
     "description": "竹筒机括小弩，箭镞常涂草药。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/bow_014.jpg"
   },
   {
     "id": "BOW-015",
