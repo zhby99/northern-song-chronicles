@@ -1576,7 +1576,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     equipBonus: { res: 5 },
   },
   {
-    id: 'ITM-MSC-029',
+    id: 'ITM-MSC-033',
     name: '殿前司鎏金密查虎符',
     category: 'misc',
     subType: '禁军兵符',
@@ -1587,7 +1587,7 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     lore: '皇祐二年春汴梁刺驾余波未靖，天子恐三衙旧部盘根掣肘，特简新晋四厢都指挥持符北巡。',
   },
   {
-    id: 'ITM-MSC-030',
+    id: 'ITM-MSC-034',
     name: '幽燕玄铁半鱼符',
     category: 'misc',
     subType: '暗桩铁证',
@@ -2186,6 +2186,9 @@ export const NON_GIFTABLE_KEY_ITEM_IDS = new Set<string>([
   'ITM-MSC-028',
   'ITM-MSC-029',
   'ITM-MSC-030',
+  'ITM-MSC-031',
+  'ITM-MSC-033',
+  'ITM-MSC-034',
 ])
 
 export function getRegionUnlockRequirement(regionId: string): RegionUnlockRequirement | null {

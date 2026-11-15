@@ -443,8 +443,8 @@ const SCENE_44_EPILOGUE_NORTH_WIND: StorySceneDef = {
     },
   ],
   onFinishEffects: [
-    { type: 'removeItem', itemId: 'ITM-MSC-029', qty: 1 },
-    { type: 'removeItem', itemId: 'ITM-MSC-030', qty: 1 },
+    { type: 'removeItem', itemId: 'ITM-MSC-033', qty: 1 },
+    { type: 'removeItem', itemId: 'ITM-MSC-034', qty: 1 },
     { type: 'removeItem', itemId: 'ITM-MSC-031', qty: 1 },
     {
       type: 'completeQuest',
@@ -1692,7 +1692,7 @@ const SCENE_16_IRON_FISH_TALLY: StorySceneDef = {
     },
   ],
   onFinishEffects: [
-    { type: 'giveItem', itemId: 'ITM-MSC-030', qty: 1 },
+    { type: 'giveItem', itemId: 'ITM-MSC-034', qty: 1 },
     { type: 'setFlag', flag: 'jj_spy_zd_market_done', value: true },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0345' }, delta: 15 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0638' }, delta: 15 },
@@ -2324,7 +2324,7 @@ const SCENE_01_JINJUN_SECRET_EDICT: StorySceneDef = {
       stepId: 'kaifeng_palace_watch',
       silent: true,
     },
-    { type: 'giveItem', itemId: 'ITM-MSC-029', qty: 1 },
+    { type: 'giveItem', itemId: 'ITM-MSC-033', qty: 1 },
     { type: 'openScene', scene: SCENE_02_SPEAR_FIELD_PRIDE },
   ],
 }
