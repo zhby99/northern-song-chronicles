@@ -12,6 +12,7 @@ import {
 } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { CompiledGearRecord, EquipmentTier, GearSlotType } from '../../types/game'
+import { resolveAssetUrl } from '../../utils/assetLoader'
 import { ItemAcquisitionBanner } from './ItemAcquisitionBanner'
 import { UniqueOwnershipBadge, UniqueOwnershipBanner } from './UniqueOwnershipBanner'
 
@@ -282,7 +283,7 @@ export function GearCompendiumPanel({
                 <div className="flex items-center gap-2.5 min-w-0">
                   {item.iconUrl && (
                     <img
-                      src={item.iconUrl}
+                      src={resolveAssetUrl(item.iconUrl)}
                       alt={item.name}
                       loading="lazy"
                       className="w-11 h-11 rounded border border-[#9e8462]/60 object-cover shrink-0 bg-[#1a120b]"
@@ -348,7 +349,7 @@ export function GearCompendiumPanel({
                   <div className="border-b border-[#cbb693] pb-2.5 flex items-start gap-3">
                     {selectedGear.iconUrl && (
                       <img
-                        src={selectedGear.iconUrl}
+                        src={resolveAssetUrl(selectedGear.iconUrl)}
                         alt={selectedGear.name}
                         className="w-20 h-20 rounded-md border-2 border-[#b89658] object-cover shadow shrink-0 bg-[#1a120b]"
                       />

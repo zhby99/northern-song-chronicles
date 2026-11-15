@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useGameStore } from '../../store/useGameStore'
+import { resolveAssetUrl } from '../../utils/assetLoader'
 import { toggleBgmPlayback, useBgmMetaState } from '../../utils/bgmManager'
 
 interface StartScreenProps {
@@ -18,7 +19,7 @@ export function StartScreen({ onNewGame }: StartScreenProps) {
   }, [refreshSaveSlots])
 
   const existingSaveCount = Object.values(saveSlots).filter(Boolean).length
-  const backdropUrl = `${import.meta.env.BASE_URL}assets/regions/bianliang.jpg`
+  const backdropUrl = resolveAssetUrl('/assets/regions/bianliang.jpg')
 
   return (
     <div

@@ -24,32 +24,42 @@ async function main() {
   const jsContent = fs.readFileSync(path.join(assetsDir, jsFile), 'utf-8')
   const safeJs = jsContent.replace(/<\/script/gi, '<\\/script')
 
-  const folders = [
-    'regions',
-    'buildings',
-    'characters/avatars',
-    'characters/fullbody',
-    'characters/templates',
-  ]
-
   /** @type {Record<string, string>} */
   const assetPack = {}
   let assetCount = 0
 
-  for (const relFolder of folders) {
-    const absFolder = path.join(PUBLIC_DIR, 'assets', ...relFolder.split('/'))
-    if (!fs.existsSync(absFolder)) continue
-    const files = fs
-      .readdirSync(absFolder)
-      .filter((f) => f.toLowerCase().endsWith('.jpg'))
-      .sort()
-    for (const fileName of files) {
-      const buf = fs.readFileSync(path.join(absFolder, fileName))
-      const webUrl = `/assets/${relFolder}/${fileName}`
-      assetPack[webUrl] = `data:image/jpeg;base64,${buf.toString('base64')}`
-      assetCount += 1
+  function detectImageMime(fileName) {
+    const lower = fileName.toLowerCase()
+    if (lower.endsWith('.png')) return 'image/png'
+    if (lower.endsWith('.webp')) return 'image/webp'
+    if (lower.endsWith('.gif')) return 'image/gif'
+    if (lower.endsWith('.svg')) return 'image/svg+xml'
+    return 'image/jpeg'
+  }
+
+  function collectImagesRecursive(dirAbs, relPrefix) {
+    if (!fs.existsSync(dirAbs)) return
+    const dirEntries = fs.readdirSync(dirAbs, { withFileTypes: true }).sort((a, b) =>
+      a.name.localeCompare(b.name),
+    )
+    for (const entry of dirEntries) {
+      if (entry.isDirectory() && relPrefix === '/assets' && entry.name === 'audio') {
+        continue
+      }
+      const fullPath = path.join(dirAbs, entry.name)
+      const relPath = `${relPrefix}/${entry.name}`
+      if (entry.isDirectory()) {
+        collectImagesRecursive(fullPath, relPath)
+      } else if (entry.isFile() && /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(entry.name)) {
+        const buf = fs.readFileSync(fullPath)
+        const mime = detectImageMime(entry.name)
+        assetPack[relPath] = `data:${mime};base64,${buf.toString('base64')}`
+        assetCount += 1
+      }
     }
   }
+
+  collectImagesRecursive(path.join(PUBLIC_DIR, 'assets'), '/assets')
 
   function detectAudioMime(fileName, buf) {
     // Detect MP4/M4A container header ('ftyp' at byte offset 4) even if named .mp3

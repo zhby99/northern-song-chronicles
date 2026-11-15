@@ -11,6 +11,7 @@ import {
   RARITY_STYLE_MAP,
 } from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
+import { resolveAssetUrl } from '../../../utils/assetLoader'
 import type {
   CompiledMartialArtRecord,
   CompiledWeaponRecord,
@@ -275,7 +276,7 @@ export function ArmoryTab({
                 <div className="flex items-center gap-2.5 min-w-0">
                   {wpn.iconUrl && (
                     <img
-                      src={wpn.iconUrl}
+                      src={resolveAssetUrl(wpn.iconUrl)}
                       alt={wpn.name}
                       loading="lazy"
                       className="w-11 h-11 rounded border border-[#9e8462]/60 object-cover shrink-0 bg-[#1a120b]"
@@ -335,7 +336,7 @@ export function ArmoryTab({
                     <div className="border-b border-[#cbb693] pb-2.5 flex items-start gap-3">
                       {selectedWeapon.iconUrl && (
                         <img
-                          src={selectedWeapon.iconUrl}
+                          src={resolveAssetUrl(selectedWeapon.iconUrl)}
                           alt={selectedWeapon.name}
                           className="w-20 h-20 rounded-md border-2 border-[#b89658] object-cover shadow shrink-0 bg-[#1a120b]"
                         />

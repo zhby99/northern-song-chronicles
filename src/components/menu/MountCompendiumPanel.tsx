@@ -15,6 +15,7 @@ import type {
   MountBreedCategory,
   MountTerrainTrait,
 } from '../../types/game'
+import { resolveAssetUrl } from '../../utils/assetLoader'
 import { WORLD_GRAPH } from '../../utils/mapMath'
 import { ItemAcquisitionBanner } from './ItemAcquisitionBanner'
 import { UniqueOwnershipBadge, UniqueOwnershipBanner } from './UniqueOwnershipBanner'
@@ -216,7 +217,7 @@ export function MountCompendiumPanel({
                 <div className="flex items-center gap-2.5 min-w-0">
                   {mnt.iconUrl && (
                     <img
-                      src={mnt.iconUrl}
+                      src={resolveAssetUrl(mnt.iconUrl)}
                       alt={mnt.name}
                       loading="lazy"
                       className="w-11 h-11 rounded border border-[#9e8462]/60 object-cover shrink-0 bg-[#1a120b]"
@@ -274,7 +275,7 @@ export function MountCompendiumPanel({
                 <div className="border-b border-[#cbb693] pb-2.5 flex items-start gap-3">
                   {selectedMount.iconUrl && (
                     <img
-                      src={selectedMount.iconUrl}
+                      src={resolveAssetUrl(selectedMount.iconUrl)}
                       alt={selectedMount.name}
                       className="w-20 h-20 rounded-md border-2 border-[#b89658] object-cover shadow shrink-0 bg-[#1a120b]"
                     />
