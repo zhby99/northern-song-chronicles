@@ -162,8 +162,8 @@ export function StorySceneModal() {
 
       {/* 剧情插画层（当配置了 illustrationUrl 时呈现宋风卷轴画框） */}
       {activeIllustrationUrl && (
-        <div className="absolute inset-x-0 top-24 bottom-44 z-10 flex items-center justify-center px-4 pointer-events-none">
-          <div className="relative max-w-[min(88vw,780px)] max-h-full aspect-video rounded-xl overflow-hidden border-2 border-[#c89d54]/90 bg-[#1b120b]/95 shadow-[0_20px_50px_rgba(0,0,0,0.85)] flex items-center justify-center">
+        <div className="absolute inset-x-0 top-20 bottom-44 z-10 flex items-center justify-center px-4 pointer-events-none">
+          <div className="relative w-[min(94vw,1170px,calc((100vh-16rem)*16/9))] aspect-video rounded-xl overflow-hidden border-2 border-[#c89d54]/90 bg-[#1b120b]/95 shadow-[0_20px_50px_rgba(0,0,0,0.85)] flex items-center justify-center">
             {!illustrationFailed ? (
               <img
                 src={activeIllustrationUrl}
