@@ -44,8 +44,8 @@ const SPEAKER_CHEN_AGONG: StorySpeakerSpec = {
   name: '陈阿公',
   title: '刺桐港采药老船工',
   factionName: '泉州渔户',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_caobang_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_caobang_av.jpg',
 }
 
 const SPEAKER_AZHU: StorySpeakerSpec = {
@@ -53,8 +53,8 @@ const SPEAKER_AZHU: StorySpeakerSpec = {
   name: '阿珠',
   title: '刺桐港采药渔家女',
   factionName: '泉州渔户',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_female_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_female_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_baicao_female_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_baicao_female_av.jpg',
 }
 
 const SPEAKER_SHAPILIU: StorySpeakerSpec = {
@@ -72,7 +72,7 @@ const SPEAKER_ONIMARU: StorySpeakerSpec = {
   title: '北朝暗桩雇募 · 东洋浪人刀头',
   factionName: '黑鲨海寇',
   portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
 }
 
 const SPEAKER_WOODEN_DUMMY: StorySpeakerSpec = {
@@ -94,8 +94,8 @@ function buildHongchanSparNpc(): NodeNpc {
     factionName: '莆田南少林',
     sectRank: 1,
     sectRankLabel: '外门弟子',
-    avatarUrl: '/assets/characters/templates/tpl_nanshaolin_male_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_nanshaolin_male_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_hongmen_male_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_hongmen_male_fb.jpg',
     stats: {
       hp: 225,
       mp: 90,

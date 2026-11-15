@@ -2041,8 +2041,8 @@ SECT_GENDERED_TEMPLATES: dict[tuple[str, str], tuple[str, str]] = {
     ("SECT-31", "女"): ("/assets/characters/templates/tpl_liao_spy_female_fb.jpg", "/assets/characters/templates/tpl_liao_spy_female_av.jpg"),
     ("SECT-32", "男"): ("/assets/characters/templates/tpl_tubo_esoteric_male_fb.jpg", "/assets/characters/templates/tpl_tubo_esoteric_male_av.jpg"),
     ("SECT-32", "女"): ("/assets/characters/templates/tpl_tubo_esoteric_female_fb.jpg", "/assets/characters/templates/tpl_tubo_esoteric_female_av.jpg"),
-    ("SECT-33", "男"): ("/assets/characters/templates/tpl_liushenmen_male_fb.jpg", "/assets/characters/templates/tpl_liushenmen_male_av.jpg"),
-    ("SECT-33", "女"): ("/assets/characters/templates/tpl_liushenmen_female_fb.jpg", "/assets/characters/templates/tpl_liushenmen_female_av.jpg"),
+    ("SECT-33", "男"): ("/assets/characters/templates/tpl_changshan_male_fb.jpg", "/assets/characters/templates/tpl_changshan_male_av.jpg"),
+    ("SECT-33", "女"): ("/assets/characters/templates/tpl_jinjun_female_fb.jpg", "/assets/characters/templates/tpl_jinjun_female_av.jpg"),
     ("ORG-06", "男"): ("/assets/characters/templates/tpl_liao_court_male_fb.jpg", "/assets/characters/templates/tpl_liao_court_male_av.jpg"),
     ("ORG-07", "男"): ("/assets/characters/templates/tpl_xixia_court_male_fb.jpg", "/assets/characters/templates/tpl_xixia_court_male_av.jpg"),
     ("ORG-09", "男"): ("/assets/characters/templates/tpl_tubo_tribes_male_fb.jpg", "/assets/characters/templates/tpl_tubo_tribes_male_av.jpg"),
@@ -2055,7 +2055,46 @@ def _existing_pair(fb_url: str, av_url: str) -> tuple[str, str] | None:
     return None
 
 
-def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str) -> tuple[str, str | None]:
+def pick_template_for_npc(
+    faction_id: str,
+    gender: str,
+    role: str,
+    category: str,
+    title: str = "",
+) -> tuple[str, str | None]:
+    # 1) 佛门护寺俗家男弟子（蓄发习拳，严禁使用剃度光头僧人模板）
+    if faction_id in ("SECT-01", "SECT-03", "SECT-04") and gender == "男" and "俗家" in role:
+        pair = _existing_pair(
+            "/assets/characters/templates/tpl_hongmen_male_fb.jpg",
+            "/assets/characters/templates/tpl_hongmen_male_av.jpg",
+        )
+        if pair:
+            return pair
+
+    # 2) 道门/剑派苍髯长老（绰号含“叟”的高年剑师，优先匹配白髯老道长模板）
+    if faction_id in ("SECT-06", "SECT-08", "SECT-11", "SECT-14") and gender == "男" and "叟" in title:
+        if (PUBLIC_DIR / "assets/characters/templates/tpl_taoist_master_fb.jpg").exists():
+            return "/assets/characters/templates/tpl_taoist_master_fb.jpg", None
+
+    # 3) 大宋禁军（SECT-33）边关老戍长与女教头精准分流
+    if faction_id == "SECT-33":
+        if gender == "男" and ("戍" in role or "老" in role):
+            pair = _existing_pair(
+                "/assets/characters/templates/tpl_zhenyuan_male_fb.jpg",
+                "/assets/characters/templates/tpl_zhenyuan_male_av.jpg",
+            )
+            if pair:
+                return pair
+        if gender == "女":
+            pair = _existing_pair(
+                "/assets/characters/templates/tpl_jinjun_female_fb.jpg",
+                "/assets/characters/templates/tpl_jinjun_female_av.jpg",
+            )
+            if pair:
+                return pair
+            if (PUBLIC_DIR / "assets/characters/templates/tpl_jinjun_female_fb.jpg").exists():
+                return "/assets/characters/templates/tpl_jinjun_female_fb.jpg", None
+
     key = (faction_id, gender)
     if key in SECT_GENDERED_TEMPLATES:
         fb_url, av_url = SECT_GENDERED_TEMPLATES[key]
@@ -2338,7 +2377,7 @@ def parse_npcs(
 
         avatar_url = f"/assets/characters/avatars/{npc_id}.jpg" if npc_id in existing_avatars else None
         fullbody_url = f"/assets/characters/fullbody/{npc_id}.jpg" if npc_id in existing_fullbody else None
-        template_url, template_avatar_url = pick_template_for_npc(faction_id, gender, role, category)
+        template_url, template_avatar_url = pick_template_for_npc(faction_id, gender, role, category, title)
 
         npcs.append(
             {

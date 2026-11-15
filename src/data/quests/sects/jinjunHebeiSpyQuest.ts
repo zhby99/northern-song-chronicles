@@ -170,7 +170,7 @@ function buildZhendingCourierDeputyNpc(): NodeNpc {
     factionId: 'SECT-31',
     factionName: '辽国暗桩',
     avatarUrl: '/assets/characters/templates/tpl_liao_spy_male_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_liao_spy_male_fb.jpg',
     stats: {
       hp: 2050,
       mp: 1620,
@@ -218,8 +218,8 @@ function buildDamingTraitorCommanderNpc(): NodeNpc {
     realm: '一流下品',
     factionId: 'SECT-31',
     factionName: '京营叛将',
-    avatarUrl: '/assets/characters/templates/tpl_liushenmen_male_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_liushenmen_male_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_zhenyuan_male_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_zhenyuan_male_fb.jpg',
     stats: {
       hp: 2320,
       mp: 1860,
@@ -316,7 +316,7 @@ function buildYellowRiverVanguardOneNpc(): NodeNpc {
     realm: '一流下品',
     factionId: 'SECT-31',
     factionName: '辽国暗桩',
-    avatarUrl: '/assets/characters/templates/tpl_liao_court_male_av.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
     portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
     stats: {
       hp: 2460,

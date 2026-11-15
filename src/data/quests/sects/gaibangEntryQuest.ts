@@ -48,8 +48,7 @@ const SPEAKER_BLIND_OLD_MAN: StorySpeakerSpec = {
   name: '张老伯',
   title: '盲眼卖唱老汉',
   factionName: '市井百姓',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_song_physician_fb.jpg',
 }
 
 const SPEAKER_BULLY_HUSAN: StorySpeakerSpec = {
@@ -66,8 +65,8 @@ const SPEAKER_REFUGEE_MOTHER: StorySpeakerSpec = {
   name: '陈氏与小囡囡',
   title: '京东逃荒孤寡母女',
   factionName: '流民百姓',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_female_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_female_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_baicao_female_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_baicao_female_av.jpg',
 }
 
 const SPEAKER_OVERSEER: StorySpeakerSpec = {
@@ -85,7 +84,6 @@ const SPEAKER_BOOKKEEPER: StorySpeakerSpec = {
   title: '黑风脚行账房先生',
   factionName: '黑风脚行',
   portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
 }
 
 const SPEAKER_APRICOT_DISCIPLE: StorySpeakerSpec = {
@@ -1270,8 +1268,8 @@ export const SCENE_GB_01_EMPTY_PURSE: StorySceneDef = {
         name: '蒸饼摊掌柜',
         title: '市井小贩',
         factionName: '市井百姓',
-        portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-        avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+        portraitUrl: '/assets/characters/templates/tpl_baicao_male_fb.jpg',
+        avatarUrl: '/assets/characters/templates/tpl_baicao_male_av.jpg',
       },
       text: '（摊掌柜见你按着剑柄站在摊前良久未掏铜钱，眉头一皱，挥着油蒲扇不耐烦地驱赶道）“去去去，这位客官，买不起热炊饼便劳驾往边上挪挪，莫挡着后头官人伙计做生意！”',
     },

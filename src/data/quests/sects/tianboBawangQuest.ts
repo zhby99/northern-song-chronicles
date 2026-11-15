@@ -63,8 +63,8 @@ function buildWutaiGuardianMonkNpc(isStoneTrial: boolean): NodeNpc {
     realm: isStoneTrial ? '一流下品' : '三流上品',
     factionId: 'SECT-03',
     factionName: '五台山清凉寺',
-    avatarUrl: '/assets/characters/templates/tpl_shaolin_monk_fb.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_shaolin_monk_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_wutai_monk_male_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_wutai_monk_male_fb.jpg',
     talk: isStoneTrial
       ? '阿弥陀佛！五郎八卦棍重如山岳，施主且看棍！'
       : '得罪了，请施主赐教清凉寺齐眉棍！',

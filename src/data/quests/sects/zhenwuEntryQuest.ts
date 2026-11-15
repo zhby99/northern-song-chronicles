@@ -24,8 +24,8 @@ const SPEAKER_OLD_TAOIST_TEA: StorySpeakerSpec = {
   name: '煮茶老道',
   title: '天柱绝顶扫雪老道',
   factionName: '武当山真武道宗',
-  portraitUrl: '/assets/characters/portraits/npc_0119_zhang_xuansu.jpg',
-  avatarUrl: '/assets/characters/avatars/npc_0119_zhang_xuansu.jpg',
+  portraitUrl: '/assets/characters/fullbody/NPC-0119.jpg',
+  avatarUrl: '/assets/characters/avatars/NPC-0119.jpg',
 }
 
 const SPEAKER_HERB_FARMER: StorySpeakerSpec = {
@@ -33,8 +33,7 @@ const SPEAKER_HERB_FARMER: StorySpeakerSpec = {
   name: '周药农',
   title: '汉水采药老汉',
   factionName: '市井百姓',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_song_physician_fb.jpg',
 }
 
 const SPEAKER_BOAT_OWNER: StorySpeakerSpec = {
@@ -51,8 +50,8 @@ const SPEAKER_PILGRIM_GRANNY: StorySpeakerSpec = {
   name: '孙婆婆与小茴',
   title: '赴武当还愿祖孙',
   factionName: '荆襄香客',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_female_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_female_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_baicao_female_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_baicao_female_av.jpg',
 }
 
 const SPEAKER_OLD_FARMER: StorySpeakerSpec = {
@@ -60,8 +59,7 @@ const SPEAKER_OLD_FARMER: StorySpeakerSpec = {
   name: '陈老丈',
   title: '均州求签老农',
   factionName: '市井百姓',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_song_physician_fb.jpg',
 }
 
 const SPEAKER_ZHAO_BA: StorySpeakerSpec = {
@@ -69,8 +67,8 @@ const SPEAKER_ZHAO_BA: StorySpeakerSpec = {
   name: '赵霸',
   title: '铁剑门狂傲游侠',
   factionName: '江湖散客',
-  portraitUrl: '/assets/characters/templates/tpl_jianghu_swordsman_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_jianghu_swordsman_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
 }
 
 const ZHAO_BA_COMBAT_NPC: NodeNpc = {
@@ -126,8 +124,8 @@ const ZHAO_BA_COMBAT_NPC: NodeNpc = {
     curio1: null,
     curio2: null,
   },
-  portraitUrl: '/assets/characters/templates/tpl_jianghu_swordsman_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_jianghu_swordsman_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
 }
 
 const ZHENWU_START_CONDITION: QuestCondition = {

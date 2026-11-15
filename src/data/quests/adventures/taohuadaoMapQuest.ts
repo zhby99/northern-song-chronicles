@@ -119,7 +119,7 @@ function buildTuHaijiaoBossNpc(rhythmBroken: boolean): NodeNpc {
     realm: '二流中品',
     factionId: 'SECT-26',
     factionName: '东海黑鲨帮总舵',
-    avatarUrl: '/assets/characters/templates/tpl_qiantang_male_av.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
     portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
     stats: rhythmBroken
       ? {

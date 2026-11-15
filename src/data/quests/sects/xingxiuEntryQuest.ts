@@ -16,8 +16,8 @@ const SPEAKER_SUBANXIA_VEILED: StorySpeakerSpec = {
   name: '苏半夏',
   title: '皂纱竹笠采药女',
   factionName: '耀州药户遗孤',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_female_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_female_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_baicao_female_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_baicao_female_av.jpg',
 }
 
 const SPEAKER_SUBANXIA: StorySpeakerSpec = {
@@ -34,8 +34,8 @@ const SPEAKER_XIAOSHIZI: StorySpeakerSpec = {
   name: '小石子',
   title: '延州逃荒短工少年',
   factionName: '同期杂役',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_baicao_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_baicao_male_av.jpg',
 }
 
 const SPEAKER_XIAOSHIZI_SECT: StorySpeakerSpec = {
@@ -52,8 +52,8 @@ const SPEAKER_SOGDIAN_PEDDLER: StorySpeakerSpec = {
   name: '康老胡',
   title: '番坊生药行贩',
   factionName: '塞上胡商',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_tubo_tribes_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_tubo_tribes_male_av.jpg',
 }
 
 const SPEAKER_MARKET_THUG: StorySpeakerSpec = {

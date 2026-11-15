@@ -15,8 +15,8 @@ const SPEAKER_XIAO_SHISUO: StorySpeakerSpec = {
   name: '小石锁',
   title: '雁门神武村 · 铁匠七岁遗孤',
   factionName: '边关遗孤',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_baicao_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_baicao_male_av.jpg',
 }
 
 const SPEAKER_SHI_BAILIAN: StorySpeakerSpec = {
@@ -24,8 +24,8 @@ const SPEAKER_SHI_BAILIAN: StorySpeakerSpec = {
   name: '石百炼',
   title: '河东神武军 · 随营老铁匠',
   factionName: '大宋百工',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_zhenyuan_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_zhenyuan_male_av.jpg',
 }
 
 const SPEAKER_KHITAN_SCOUT: StorySpeakerSpec = {
@@ -43,7 +43,7 @@ const SPEAKER_YELU_LIE: StorySpeakerSpec = {
   title: '大辽枢密院 · 精锐斥候百夫长',
   factionName: '辽国暗桩',
   portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_liao_court_male_av.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
 }
 
 /**
@@ -156,7 +156,7 @@ function buildYeluLieBossNpc(): NodeNpc {
     realm: '二流下品',
     factionId: 'SECT-31',
     factionName: '辽国暗桩',
-    avatarUrl: '/assets/characters/templates/tpl_liao_court_male_av.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
     portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
     stats: {
       hp: 620,

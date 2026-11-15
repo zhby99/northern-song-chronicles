@@ -446,7 +446,7 @@ const SCENE_31_TATTERED_RETURN_BIANLIANG: StorySceneDef = {
       text: '长街两侧早已聚满了闻讯赶来的禁军军属。白发苍苍的老母、怀抱襁褓的新妇在寒风中焦灼张望，每当认出自家的儿郎便相拥泣不成声；而更多没有在队列里寻见亲人身影的百姓，脸色由期盼一寸寸化作死灰，整条封丘门御街哭声震天！',
     },
     {
-      speaker: { kind: 'custom', name: '赵铁柱老母', title: '汴京军属遗孤老母', factionName: '开封百姓', portraitUrl: '/assets/characters/templates/tpl_song_court_female_fb.jpg', avatarUrl: '/assets/characters/templates/tpl_song_court_female_av.jpg' },
+      speaker: { kind: 'custom', name: '赵铁柱老母', title: '汴京军属遗孤老母', factionName: '开封百姓', portraitUrl: '/assets/characters/templates/tpl_baicao_female_fb.jpg', avatarUrl: '/assets/characters/templates/tpl_baicao_female_av.jpg' },
       text: '一名双鬓如霜、双眼半盲的老妇人拄着枣木拐杖跌跌撞撞扑出人群，一把抓住你染血的马镫，布满老茧的手摸索着你甲衣上的铜扣，颤声哀问：“这位将军……您瞧见俺家铁柱了么？殿前司虎翼军的赵铁柱！出门前他跟娘说，跟着新升的都虞候大人去太行山抓贼，打完这一仗就回来修屋顶……怎地队里没有他的声儿啊？”',
     },
     {
@@ -947,8 +947,8 @@ const SCENE_18_GAO_HUAILIANG_PLEA: StorySceneDef = {
         name: '河北老塘骑',
         title: '随军向导斥候',
         factionName: '大宋禁军',
-        portraitUrl: '/assets/characters/templates/tpl_changshan_male_fb.jpg',
-        avatarUrl: '/assets/characters/templates/tpl_changshan_male_av.jpg',
+        portraitUrl: '/assets/characters/templates/tpl_zhenyuan_male_fb.jpg',
+        avatarUrl: '/assets/characters/templates/tpl_zhenyuan_male_av.jpg',
       },
       text: '两名随军河北老塘骑亦单膝跪地叩禀：“副都监所言极是！古兵法有云‘归师勿遏，穷寇莫追’，又云‘鸟起者伏也，尘高而锐者车来也’。小人方才观涧口林木幽深却无飞鸟惊起，恐崖上真藏有重兵，恳请大人先扎硬寨、遣轻兵攀两翼山脊探明虚实再进不迟！”',
     },

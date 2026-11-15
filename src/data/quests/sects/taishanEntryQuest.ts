@@ -19,8 +19,7 @@ const SPEAKER_BLIND_MASON: StorySpeakerSpec = {
   name: '孙老石匠',
   title: '泰安护碑老刻工',
   factionName: '齐鲁百姓',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_song_physician_fb.jpg',
 }
 
 const SPEAKER_DIAO_HENGHU: StorySpeakerSpec = {
@@ -38,7 +37,6 @@ const SPEAKER_QIAN_YEXIAO: StorySpeakerSpec = {
   title: '京东黑风寨轻功暗探（化名江南茶商钱先生）',
   factionName: '京东黑风寨',
   portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
 }
 
 /**

@@ -45,8 +45,8 @@ const SPEAKER_LAO_ZHOUTOU: StorySpeakerSpec = {
   name: '老周头',
   title: '汉水运砂老船户',
   factionName: '荆襄船户',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_caobang_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_caobang_av.jpg',
 }
 
 const SPEAKER_XIAOQIN: StorySpeakerSpec = {
@@ -54,8 +54,8 @@ const SPEAKER_XIAOQIN: StorySpeakerSpec = {
   name: '阿芹',
   title: '运砂船户孤女',
   factionName: '荆襄船户',
-  portraitUrl: '/assets/characters/templates/tpl_sanren_female_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_sanren_female_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_caobang_female_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_caobang_female_av.jpg',
 }
 
 const SPEAKER_ZHANG_HENG: StorySpeakerSpec = {

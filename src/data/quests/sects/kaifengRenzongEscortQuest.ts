@@ -1332,7 +1332,7 @@ const SCENE_06_VETERAN_MUTTON_SOUP: StorySceneDef = {
       text: '（温言吩咐摊主再添满满一大勺滚热羊汤与三张胡麻烧饼端给老汉，自己竟也拉条木凳在旁坐下）“看老丈腿脚风寒痛楚，像是早年在西北边军吃过苦头的功臣？眼下虽改入皇祐二年，莫非地方抚恤钱粮有折损拖欠？”',
     },
     {
-      speaker: { kind: 'custom', name: '张老卒', title: '好水川退伍老兵', factionName: '东京市井百姓', portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg' },
+      speaker: { kind: 'custom', name: '张老卒', title: '好水川退伍老兵', factionName: '东京市井百姓', portraitUrl: '/assets/characters/templates/tpl_zhenyuan_male_fb.jpg', avatarUrl: '/assets/characters/templates/tpl_zhenyuan_male_av.jpg' },
       text: '（捧着滚烫羊汤狠吸一口白气，抬头见是位面容温润和气的中年文士，不由咧开缺牙直笑）“不敢欺瞒这位善心官人！老汉早年在好水川杀敌伤了腿骨，退伍回乡后按朝廷皇恩每月领三斗赈米、两百贯钱粮，原也还算贴补——只盼如今官家千秋圣寿、西夏那些狼崽子别再闹腾，让我孙儿安安稳稳读书种地就够啦！”',
     },
     {
