@@ -34,6 +34,9 @@
 | `CG-QST-022` | `[ ]` 待补绘 | `public/assets/quests/xingxiu_poison_furnace.jpg` | `/assets/quests/xingxiu_poison_furnace.jpg` | `QST-SECT-19-ENTRY`<br>《紫烟迷市 · 毒泉求生》 | 第八幕 · 丹炉紫雾冲脉生<br>（`scene_xx_08_furnace_breakthrough`） | `16:9` |
 | `CG-QST-023` | `[ ]` 待补绘 | `public/assets/quests/xingxiu_ice_cave_bandage.jpg` | `/assets/quests/xingxiu_ice_cave_bandage.jpg` | `QST-SECT-19-ENTRY`<br>《紫烟迷市 · 毒泉求生》 | 第十五幕 · 寒窟渡毒共微光<br>（`scene_xx_15_ice_cave_vigil`） | `16:9` |
 | `CG-QST-024` | `[ ]` 待补绘 | `public/assets/quests/xingxiu_ding_chunqiu_audience.jpg` | `/assets/quests/xingxiu_ding_chunqiu_audience.jpg` | `QST-SECT-19-ENTRY`<br>《紫烟迷市 · 毒泉求生》 | 第十九幕 · 丝竹漫天拜老仙<br>（`scene_xx_19_ding_chunqiu_audience`） | `16:9` |
+| `CG-QST-025` | `[ ]` 待补绘 | `public/assets/quests/taishan_18pan_buckets.jpg` | `/assets/quests/taishan_18pan_buckets.jpg` | `QST-SECT-06-ENTRY`<br>《岱宗问数 · 松风破茧》 | 第六幕 · 云梯百丈肩泉血<br>（`scene_ts_06_blood_on_cloud_steps`） | `16:9` |
+| `CG-QST-026` | `[ ]` 待补绘 | `public/assets/quests/taishan_pine_neigong.jpg` | `/assets/quests/taishan_pine_neigong.jpg` | `QST-SECT-06-ENTRY`<br>《岱宗问数 · 松风破茧》 | 第九幕 · 松风引气初破茧<br>（`scene_ts_09_pine_wind_awakening`） | `16:9` |
+| `CG-QST-027` | `[ ]` 待补绘 | `public/assets/quests/taishan_yuhuang_sunrise.jpg` | `/assets/quests/taishan_yuhuang_sunrise.jpg` | `QST-SECT-06-ENTRY`<br>《岱宗问数 · 松风破茧》 | 第十九幕 · 沧海金轮授青锋<br>（`scene_ts_19_sunrise_investiture`） | `16:9` |
 
 ---
 
@@ -495,6 +498,63 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Inside a lavish, eerie underground Western-Regions merchant hall (延安番坊秘厅) around 1050 AD, draped in deep purple silk curtains and Persian crimson carpets with bronze censers emitting curling violet incense smoke. High on a tiger-skin dais at the center sits Ding Chunqiu (the Old Immortal of Xingxiu: white hair, youthful ruddy crimson complexion, long flowing silver beard over his chest, sumptuous purple Taoist robes, holding a white goose-feather fan with a pleased arrogant laugh). Standing beside the dais, a tall gaunt sinister senior disciple (Zhaixingzi, dark iron claws on his fingers) looks shocked and mortified. In the foreground below, a composed young martial artist protagonist bows respectfully while presenting an open carved sandalwood box releasing a pure wisp of silvery frost-lotus fragrance. Lining both sides of the hall, purple-robed Xingxiu disciples enthusiastically clash brass cymbals, blow flutes, and beat hand drums. Authentic Song dynasty court painting style, rich mineral pigments, theatrical and sinister wuxia sect atmosphere, no modern elements, blank banners with no text or characters.
+  ```
+
+---
+
+### 25. `CG-QST-025`：泰山十八盘风雪云梯 · 布衣少年挑泉喋血登阶图
+
+- **关联文件**：[`src/data/quests/sects/taishanEntryQuest.ts`](../src/data/quests/sects/taishanEntryQuest.ts)
+- **目标路径**：`public/assets/quests/taishan_18pan_buckets.jpg`
+- **画框题跋**：`泰山十八盘风雪千级云梯 · 布衣少年无内功挑泉喋血登升仙坊`
+- **剧情语境**：
+  - 主角尚无半缕内家真气，携天松道人所赐木牌与俗家同道【鲁苍岳】同至泰山十八盘，传功师叔【单天门】横黑铁重剑考校根骨意志，命二人各挑百斤山泉直登一千六百三十级云梯石阶，水不得漫过桶内朱砂红线。
+  - 风雪陡急，石阶几近垂立，主角单薄布衣肩头被桑木扁担磨破渗血，仍咬牙一步一印稳控水桶，并伸手扶助踉跄欲坠的鲁苍岳，高台风口处单天门拄黑铁重剑俯视动容。
+- **画面核心要素**：
+  1. **环境氛围**：东岳泰山紧十八盘险峻夹峙的万仞峭壁，近乎七十度陡立的千级白石云梯直插迷蒙风雪云海，两侧奇松挂霜。
+  2. **主体人物**：前景石阶上，身穿朴素粗布衣衫的年轻主角双肩压着弯曲桑木扁担，肩头布料磨损渗出醒目殷红血迹，却目光如炬、腰马沉稳，扁担两端箍铜柏木水桶内清泉平稳不洒；他腾出一手稳稳托住身旁青衫书生同伴（鲁苍岳）倾斜的桶绳。
+  3. **高处呼应**：云梯尽头高耸的宋式石坊（升仙坊）前，浓眉虬髯的魁梧道人（单天门）双手拄着一口宽厚乌黑的无锋黑铁重剑迎风而立，神色由冷厉转为暗自震撼。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. The perilously steep Eighteen Bends (泰山十八盘) stone stairway of Mount Tai around 1050 AD, nearly vertical ancient stone steps cutting between towering jagged cliffs amidst swirling spring snow and mountain mist. In the foreground on the steep steps, a determined young martial artist in plain coarse cloth robes carries a heavy wooden shoulder pole with two full cedar water buckets, crimson bloodstains seeping through the worn cloth on his shoulder from sheer mortal exertion, yet keeping the water steady while extending one hand to steady a stumbling young scholar-disciple in青衫 beside him. High above at a weathered Song-style stone archway (升仙坊), a burly bearded Taoist master leans on a massive black iron heavy greatsword, watching with silent awe. Authentic Song dynasty landscape brushwork (Li Cheng and Fan Kuan style cliffs and pines), mineral pigments, dramatic verticality, no modern elements, blank stone archway with no text or characters.
+  ```
+
+---
+
+### 26. `CG-QST-026`：东岳道院苍松石坪 · 晨雾古松引气破茧图
+
+- **关联文件**：[`src/data/quests/sects/taishanEntryQuest.ts`](../src/data/quests/sects/taishanEntryQuest.ts)
+- **目标路径**：`public/assets/quests/taishan_pine_neigong.jpg`
+- **画框题跋**：`东岳道院苍松石坪 · 晨雾古松下初运《泰山松风养气诀》引气破茧`
+- **剧情语境**：
+  - 主角于观云亭暗夜机警撞钟护山立功，次日清晨获执法长老【天柏道人】破例传授泰山筑基内功《泰山松风养气诀》与《泰山剑法（筑基篇）》，并赐《武馆三才铁剑》。
+  - 千年桧柏与晨雾松涛间，主角盘膝闭目引第一缕东岳松风清气贯入丹田，奇经八脉初次豁然贯通，正式褪去白丁凡躯迈入武林门径。
+- **画面核心要素**：
+  1. **环境氛围**：北宋泰山半腰古朴庄严的道教庭院（东岳道院苍松石坪），汉代古柏虬枝苍劲，晨曦穿透薄雾洒在青石板与碑廊黛瓦之上，松针随清风微旋。
+  2. **主体人物**：石坪中央，年轻主角盘膝端坐、五心朝天，膝前青石上横放一柄朴实端正的三尺生铁长剑（三才铁剑）；主角周身萦绕着淡青与暖白交织的温润松风气旋，松针在气流旁轻盈悬浮。
+  3. **配角见证**：后方宋式道殿丹墀石阶上，面容冷峻威严的铁灰道袍执法长老（天柏道人）背手肃立颔首，廊柱旁年轻同门（鲁苍岳）与女道童（建蓉）欣喜注视。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Peaceful dawn inside an ancient Northern Song Taoist courtyard on Mount Tai (东岳道院苍松石坪) around 1050 AD, framed by millennial gnarled pine and cypress trees, stone steles, and mist-veiled timber halls. In the center of the flagstones, a young martial artist sits cross-legged in meditation with a plain iron straight sword resting horizontally on the stone before his knees; subtle translucent jade-white pine-wind qi currents and floating pine needles gently swirl around him as he awakens his inner energy for the first time. On the stone terrace steps in the background, a stern grey-robed Taoist elder watches approvingly alongside a young male lay disciple and a female Taoist acolyte. Authentic Song court painting aesthetics, serene mineral greens and morning gold light, no modern elements, blank plaques with no text or characters.
+  ```
+
+---
+
+### 27. `CG-QST-027`：玉皇顶古封禅台 · 沧海初旭授袍赐剑图
+
+- **关联文件**：[`src/data/quests/sects/taishanEntryQuest.ts`](../src/data/quests/sects/taishanEntryQuest.ts)
+- **目标路径**：`public/assets/quests/taishan_yuhuang_sunrise.jpg`
+- **画框题跋**：`玉皇顶汉白玉古封禅台 · 沧海初旭下东灵道长褚玄机率三长老授袍赐剑`
+- **剧情语境**：
+  - 破获黑风寨盗取《东封七宿青铜算筹》大案后，主角寅夜登临泰山极顶，于秦汉石晷前对答掌门东灵道长【褚玄机】日影算理与本心三问。
+  - 卯初景阳钟鸣，沧海红日跃出万顷云涛，褚玄机携单天门、天松道人、天柏道人及同门鲁苍岳、建蓉，于汉白玉封禅古坛为主角披上青灰道袍、授剑录册，正式拜入五岳独尊泰山派。
+- **画面核心要素**：
+  1. **环境氛围**：东岳泰山最高峰玉皇顶汉白玉古封禅台，坛边矗立秦汉无字古碑与青石日晷；脚下是浩瀚无际的翻涌云海，东方天际一轮壮丽赤金朝阳破云而出，万道金霞铺满山巅。
+  2. **主体人物**：封禅坛中央，仙风道骨、身披素白鹤氅的白须老掌门（褚玄机）手执竹算筹，正庄重地将一件泰山派青灰道袍与长剑授向单膝恭拜的年轻主角。
+  3. **群像仪轨**：左右分立背负黑铁重剑的魁梧道人（单天门）、持拂尘的儒雅道长（天松道人）与冷面执法道长（天柏道人），丹墀下年轻男弟子（鲁苍岳）与捧木盘的女道童（建蓉）含笑观礼，气势恢宏神圣。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color painting (青绿重彩工笔), wide cinematic 16:9 composition. A magnificent sunrise investiture ceremony atop the White Jade Fengshan Altar at Yuhuang Summit of Mount Tai (泰山玉皇顶封禅台) around 1050 AD, high above a vast boundless sea of churning golden clouds as a radiant crimson-gold sun breaks over the eastern horizon. Beside an ancient wordless stone stele and stone sundial, a venerable white-bearded Taoist grandmaster in crane-white robes (Chu Xuanji) solemnly bestows a slate-blue Taoist robe and straight sword upon a kneeling young martial artist protagonist. Flanking the altar stand three distinct Taoist elders (one burly with a black iron greatsword on his back, one refined holding a horsetail whisk, one stern in iron-grey robes), while a young male disciple and female acolyte holding a lacquer tray watch joyfully below. Grand Wang Ximeng and Song imperial academy mineral blue-green and gold palette, awe-inspiring wuxia majesty, no modern elements, blank stele and banners with no text or characters.
   ```
 
 ---
