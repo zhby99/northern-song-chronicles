@@ -5,6 +5,7 @@ import {
   getCompiledNpcsBySpot,
 } from '../../data/gameDb'
 import {
+  buildNodeNpcFromDynamicActor,
   getAvailableNpcQuestActions,
   getAvailableSpotQuestActions,
 } from '../../engine/questEngine'
@@ -130,6 +131,10 @@ export function RegionMapCanvas() {
       questState,
     })
 
+    const dynActorsInRegion = questState.dynamicActors.filter(
+      (a) => a.regionId === activeRegionId,
+    )
+
     if (viewMode === 'building' && activeBuildingRecord?.interior) {
       for (const sp of activeBuildingRecord.interior.spots) {
         const spotActs = getAvailableSpotQuestActions(
@@ -142,6 +147,17 @@ export function RegionMapCanvas() {
         }
         const npcs = getCompiledNpcsBySpot(sp.id)
         if (npcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
+          spotIds.add(sp.id)
+          continue
+        }
+        const spotDynActors = dynActorsInRegion.filter(
+          (a) => a.buildingId === activeBuildingRecord.id && a.spotId === sp.id,
+        )
+        if (
+          spotDynActors.some(
+            (a) => getAvailableNpcQuestActions(buildNodeNpcFromDynamicActor(a), evalCtx).length > 0,
+          )
+        ) {
           spotIds.add(sp.id)
         }
       }
@@ -176,6 +192,15 @@ export function RegionMapCanvas() {
         }
         const bldgNpcs = getCompiledNpcsByBuilding(b.id)
         if (bldgNpcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
+          buildingIds.add(b.id)
+          continue
+        }
+        const bldgDynActors = dynActorsInRegion.filter((a) => a.buildingId === b.id)
+        if (
+          bldgDynActors.some(
+            (a) => getAvailableNpcQuestActions(buildNodeNpcFromDynamicActor(a), evalCtx).length > 0,
+          )
+        ) {
           buildingIds.add(b.id)
         }
       }

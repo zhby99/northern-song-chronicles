@@ -188,6 +188,9 @@ function getEffectiveFlagValue(
   if (flag === 'toumingzhuang_completed') return ctx.sectState.toumingzhuangState === 'completed'
   if (flag === 'song_court_blacklisted') return ctx.sectState.songCourtBlacklisted
   if (flag === 'liao_suspicion_debuff') return ctx.sectState.liaoSuspicionDebuff
+  if (flag === 'shaolin_novice_state') return ctx.sectState.shaolinNoviceState
+  if (flag === 'shaolin_chore_days') return ctx.sectState.shaolinChoreDays
+  if (flag === 'shaolin_disciple_type') return ctx.sectState.shaolinDiscipleType
   return undefined
 }
 
@@ -272,6 +275,14 @@ export function evaluateQuestCondition(
       return {
         passed: false,
         reason: `需纹银 ≥ ${cond.min} 两（当前 ${ctx.silver} 两）`,
+      }
+    }
+
+    case 'silverAtMost': {
+      if (ctx.silver <= cond.max) return { passed: true, reason: null }
+      return {
+        passed: false,
+        reason: `需囊中羞涩（纹银 ≤ ${cond.max} 两，当前 ${ctx.silver} 两）`,
       }
     }
 
@@ -407,7 +418,8 @@ export function evaluateQuestCondition(
     case 'npcFavorAtLeast': {
       const cur = ctx.npcFavor[cond.npcId] ?? INITIAL_NPC_FAVOR
       if (cur >= cond.min) return { passed: true, reason: null }
-      const npcName = NPC_DB_MAP[cond.npcId]?.name ?? cond.npcId
+      const dynActor = ctx.questState.dynamicActors.find((a) => a.actorId === cond.npcId)
+      const npcName = cond.npcName ?? dynActor?.name ?? NPC_DB_MAP[cond.npcId]?.name ?? cond.npcId
       return {
         passed: false,
         reason: `需【${npcName}】好感度 ≥ ${cond.min}（当前 ${cur}）`,
@@ -943,7 +955,7 @@ export function validateAllRegisteredQuests(
         break
       }
       case 'npcFavorAtLeast':
-        if (!NPC_DB_MAP[cond.npcId]) {
+        if (!NPC_DB_MAP[cond.npcId] && !cond.npcId.startsWith('ACT-')) {
           errors.push(`${ctxPath}: 未知的 npcId "${cond.npcId}"`)
         }
         break
@@ -1028,7 +1040,11 @@ export function validateAllRegisteredQuests(
         }
         break
       case 'modifyNpcFavor':
-        if (eff.target.kind === 'npc' && !NPC_DB_MAP[eff.target.npcId]) {
+        if (
+          eff.target.kind === 'npc' &&
+          !NPC_DB_MAP[eff.target.npcId] &&
+          !eff.target.npcId.startsWith('ACT-')
+        ) {
           errors.push(`${ctxPath}: 未知的 npcId "${eff.target.npcId}"`)
         }
         break

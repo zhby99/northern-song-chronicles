@@ -29,6 +29,8 @@ import { INITIAL_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
 import { inferTemplatePortrait, resolveAvatarForFullbody } from './portraitFallback'
 import { parseRealmTier } from './realmUtils'
 
+export const SHAOLIN_CHORE_TARGET_DAYS = 365
+
 export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
   sectId: null,
   rank: 1,
@@ -55,6 +57,9 @@ export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
   lastKaifengCasePeriod: 0,
   kaifengRank2Day: null,
   activeKaifengWarrant: null,
+  shaolinNoviceState: 'none',
+  shaolinChoreDays: 0,
+  shaolinDiscipleType: 'lay',
 }
 
 export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): PlayerSectState {
@@ -132,6 +137,15 @@ export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): Play
     kaifengRank2Day:
       typeof st.kaifengRank2Day === 'number' ? Math.max(0, Math.floor(st.kaifengRank2Day)) : null,
     activeKaifengWarrant: st.activeKaifengWarrant ? { ...st.activeKaifengWarrant } : null,
+    shaolinNoviceState:
+      st.shaolinNoviceState === 'active' || st.shaolinNoviceState === 'completed'
+        ? st.shaolinNoviceState
+        : 'none',
+    shaolinChoreDays:
+      typeof st.shaolinChoreDays === 'number'
+        ? Math.max(0, Math.min(SHAOLIN_CHORE_TARGET_DAYS, Math.floor(st.shaolinChoreDays)))
+        : 0,
+    shaolinDiscipleType: st.shaolinDiscipleType === 'monk' ? 'monk' : 'lay',
   }
 }
 
@@ -651,6 +665,19 @@ export function canPlayerLearnSectArt(
   // Rank 5 (掌门) unlocks 天阶上品 (requiredRank === 5).
   const effectivePlayerRank = playerRank === 3 ? 4 : playerRank
   return effectivePlayerRank >= requiredRank
+}
+
+/**
+ * 嵩山少林寺专属戒律：所有地阶与天阶武学均不对俗家弟子开放，须剃度转为出家弟子（法号慧见）方可修习。
+ */
+export function isShaolinArtBlockedForLayDisciple(
+  sectId: string | null | undefined,
+  art: CompiledMartialArtRecord,
+  shaolinDiscipleType?: 'lay' | 'monk',
+): boolean {
+  if (sectId !== 'SECT-01') return false
+  if (shaolinDiscipleType === 'monk') return false
+  return art.tier === '地阶' || art.tier === '天阶'
 }
 
 export function isMinorOrSecondTierSect(sectId?: string | null): boolean {
@@ -2019,6 +2046,66 @@ export function evaluateSectEntry(params: {
     }
   }
 
+  // 3a. 嵩山少林寺 (SECT-01): 知客禅师问心 + 洛阳酒楼递银 + 山门杂役满 365 天引荐入门（默认授俗家弟子）
+  if (targetSectId === 'SECT-01') {
+    const reqSummary =
+      '拜谒知客禅师【玄净】问心求缘（经洛阳天津酒楼牵线打点），入寺充任山门杂役累计满 365 天后正式引荐拜入外门（默认授俗家弟子；地阶/天阶绝学须找方丈玄慈剃度转为出家弟子方可修习）'
+    if (
+      sectState.shaolinNoviceState === 'completed' ||
+      sectState.shaolinChoreDays >= SHAOLIN_CHORE_TARGET_DAYS
+    ) {
+      return {
+        canJoin: true,
+        startingRank: 1,
+        startingRankLabel,
+        costSilver: 0,
+        consumeItemId: null,
+        requirementSummary: reqSummary,
+        blockedReason: null,
+      }
+    }
+    if (sectState.shaolinNoviceState === 'active') {
+      const remain = Math.max(0, SHAOLIN_CHORE_TARGET_DAYS - sectState.shaolinChoreDays)
+      return {
+        canJoin: false,
+        startingRank: 1,
+        startingRankLabel,
+        costSilver: 0,
+        consumeItemId: null,
+        requirementSummary: reqSummary,
+        blockedReason: `少侠当前为【少林杂役弟子】（山门劳作累计 ${sectState.shaolinChoreDays} / ${SHAOLIN_CHORE_TARGET_DAYS} 天，尚差 ${remain} 天）。请于嵩山少林寺山门做满 ${SHAOLIN_CHORE_TARGET_DAYS} 天杂役后自动引荐入门！`,
+      }
+    }
+    return {
+      canJoin: false,
+      startingRank: 1,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: reqSummary,
+      blockedReason:
+        '请先前往【大雄宝殿方丈院 · 钟鼓禅院】拜谒知客禅师【玄净】问心试佛缘（或赴洛阳府 · 洛水天津酒楼探听进身门道）！',
+    }
+  }
+
+  // 3b. 丐帮 (SECT-02): 囊中羞涩（纹银 ≤ 3 两）时于中原州府触发《青囊尽空 · 义聚杏林》侠义故事链入门
+  if (targetSectId === 'SECT-02') {
+    const reqSummary =
+      '囊中羞涩（随身纹银 ≤ 3 两）时，踏入任一中原州府（开封/洛阳/大名/真定/太原/京兆/济南/襄阳/扬州）触发《青囊尽空 · 义聚杏林》侠义长卷，夜探义仓救济流民后赴洛阳杏子林拜见汪剑通与乔峰受袋入门'
+    return {
+      canJoin: false,
+      startingRank: 1,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: reqSummary,
+      blockedReason:
+        silver <= 3
+          ? '少侠当前纹银 ≤ 3 两，步入中原州府长街（或正在进行《青囊尽空 · 义聚杏林》卷宗）即可历劫拜入丐帮杏子林总舵！'
+          : `丐帮弟子皆自困顿风尘中见侠骨——须在随身纹银 ≤ 3 两（当前 ${silver} 两）时游历中原州府触发《青囊尽空 · 义聚杏林》剧情后，由乔帮主亲系布袋入门！`,
+    }
+  }
+
   // 3. First-Tier Sects & Dali Royal Clan: gated for upcoming bespoke quest chains
   const noOuterHint =
     faction.acceptsOuterDisciple === false ? '（本门不收外门弟子，入门直授内门）' : ''
@@ -2041,6 +2128,7 @@ export const SECT_ENTRY_GEAR_GIFTS: Record<string, string[]> = {
   'SECT-17': ['ACC-018', 'ARM-033', 'BOT-017'], // 开封府/六扇门：六扇门精铜捕快腰牌、汴京巡城皂衣、汴京千层底布鞋
   'SECT-23': ['ACC-031', 'ARM-031'], // 沧州八极门：沧州武馆铜护心、沧州武馆练功短打
   'SECT-01': ['ARM-036', 'BOT-020', 'WPN-068'], // 嵩山少林寺：灰麻僧衣、僧侣芒鞋、少林白蜡齐眉棍
+  'SECT-02': ['ARM-050', 'BOT-026', 'WPN-098'], // 丐帮：破旧百衲乞丐衣、山民蒲草鞋、叫花驱犬芦竹竿
   'SECT-05': ['WPN-062'], // 华山派：华山入门青钢剑
   'SECT-06': ['ARM-037', 'BOT-021'], // 泰山派：青灰道袍、道士云头布履
   'SECT-08': ['WPN-063'], // 真武道宗：真武松纹道剑

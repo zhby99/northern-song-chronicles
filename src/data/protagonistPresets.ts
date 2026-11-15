@@ -16,7 +16,7 @@ export const PROTAGONIST_PORTRAITS: ProtagonistPortraitPreset[] = [
   },
   {
     id: 'hero_02_shaolin',
-    label: '少林武僧',
+    label: '少林佛子',
     avatarUrl: '/assets/characters/protagonists/hero_02_shaolin_av.jpg',
     fullbodyUrl: '/assets/characters/protagonists/hero_02_shaolin_fb.jpg',
   },

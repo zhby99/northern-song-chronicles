@@ -509,7 +509,7 @@ export type SaveSlotId =
 // ============================================================================
 
 export type CultivationVenueKind = 'sect_grounds' | 'inn' | 'wilderness_camp'
-export type CultivationDurationMode = 1 | 3 | 7 | 10 | 30 | 'until_breakthrough'
+export type CultivationDurationMode = number | 'until_breakthrough'
 export type CultivationSpeedStep = 1 | 3 | 6 | 12 | 48
 
 export interface CultivationVenueStatus {
@@ -523,7 +523,7 @@ export interface CultivationVenueStatus {
 }
 
 export interface CultivationSessionState {
-  kind?: 'martial_art' | 'scripture' | 'ten_art'
+  kind?: 'martial_art' | 'scripture' | 'ten_art' | 'shaolin_chore'
   tenArtKey?: TenArtKey
   artId: string
   artName: string
@@ -874,6 +874,9 @@ export interface PlayerSectState {
   lastKaifengCasePeriod: number
   kaifengRank2Day: number | null
   activeKaifengWarrant: ActiveKaifengWarrant | null
+  shaolinNoviceState: 'none' | 'active' | 'completed'
+  shaolinChoreDays: number
+  shaolinDiscipleType: 'lay' | 'monk'
 }
 
 export interface ActiveKaifengWarrant {

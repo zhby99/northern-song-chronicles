@@ -90,6 +90,7 @@ export type QuestCondition =
       min: number
     }
   | { type: 'silverAtLeast'; min: number }
+  | { type: 'silverAtMost'; max: number }
   | { type: 'renownAtLeast'; min: number }
   | { type: 'chivalryAtLeast'; min: number }
   | { type: 'hasItem'; itemId: string; qty?: number }
@@ -111,7 +112,7 @@ export type QuestCondition =
       value?: QuestPrimitiveValue
       label?: string
     }
-  | { type: 'npcFavorAtLeast'; npcId: string; min: number }
+  | { type: 'npcFavorAtLeast'; npcId: string; min: number; npcName?: string }
   | { type: 'shichenIn'; indices: number[]; label?: string }
   | {
       type: 'targetNpcMatch'
@@ -255,6 +256,8 @@ export type QuestEffect =
   | { type: 'confirmJoinSect'; sectId: string }
   | { type: 'leaveSect'; skipPenalty?: boolean }
   | { type: 'addSectContribution'; amount: number }
+  | { type: 'activateShaolinNovice' }
+  | { type: 'ordainShaolinMonk'; dharmaName: string; portraitId: string }
   | {
       type: 'modifyNpcFavor'
       target: { kind: 'npc'; npcId: string } | { kind: 'all_song_aligned' }

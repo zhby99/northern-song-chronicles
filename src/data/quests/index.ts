@@ -4,10 +4,12 @@ import { TAOHUADAO_MAP_QUESTS } from './adventures/taohuadaoMapQuest'
 import { YANZIWU_MAP_QUESTS } from './adventures/yanziwuMapQuest'
 import { DAMING_BAJI_QUESTS } from './cities/damingBajiQuest'
 import { CHANGSHAN_LONGLING_QUESTS } from './sects/changshanLonglingQuest'
+import { GAIBANG_ENTRY_QUESTS } from './sects/gaibangEntryQuest'
 import { KAIFENG_MURONG_QUEST_1 } from './sects/kaifengMurongQuest1'
 import { KAIFENG_MURONG_QUEST_2 } from './sects/kaifengMurongQuest2'
 import { KAIFENG_TAIHANG_BANDIT_QUESTS } from './sects/kaifengTaihangBanditQuest'
 import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
+import { SHAOLIN_ENTRY_QUESTS } from './sects/shaolinEntryQuest'
 import { TIANBO_BAWANG_QUESTS } from './sects/tianboBawangQuest'
 
 /**
@@ -17,6 +19,8 @@ import { TIANBO_BAWANG_QUESTS } from './sects/tianboBawangQuest'
  */
 export const QUEST_REGISTRY: QuestDefinition[] = [
   ...SECOND_TIER_QUESTS,
+  ...SHAOLIN_ENTRY_QUESTS,
+  ...GAIBANG_ENTRY_QUESTS,
   ...CHANGSHAN_LONGLING_QUESTS,
   ...TIANBO_BAWANG_QUESTS,
   ...DAMING_BAJI_QUESTS,
@@ -52,6 +56,8 @@ export function resetRegisteredQuests(): void {
   QUEST_REGISTRY.length = 0
   QUEST_REGISTRY.push(
     ...SECOND_TIER_QUESTS,
+    ...SHAOLIN_ENTRY_QUESTS,
+    ...GAIBANG_ENTRY_QUESTS,
     ...CHANGSHAN_LONGLING_QUESTS,
     ...TIANBO_BAWANG_QUESTS,
     ...DAMING_BAJI_QUESTS,

@@ -86,12 +86,17 @@ import type {
   QuestRuntimeState,
   QuestTargetLocationHint,
 } from '../types/quest'
+import { GAIBANG_ENTRY_QUEST_ID } from '../data/quests/sects/gaibangEntryQuest'
 import {
   NORTH_CHINA_REGION_IDS,
   TAIHANG_BANDIT_ENCOUNTER_SCENE,
   TAIHANG_BANDIT_QUEST_ID,
   TAIHANG_LEADERS_AMBUSH_SCENE,
 } from '../data/quests/sects/kaifengTaihangBanditQuest'
+import {
+  SHAOLIN_CHORE_COMPLETE_JOIN_SCENE,
+  SHAOLIN_ENTRY_QUEST_ID,
+} from '../data/quests/sects/shaolinEntryQuest'
 import {
   calcDailyCultivationExpGain,
   cloneHeroBaseStats,
@@ -158,6 +163,7 @@ import {
   getSectTeachableArts,
   getSectTournamentDateInfo,
   isDaoSwordSect,
+  isShaolinArtBlockedForLayDisciple,
   isSongAlignedNpc,
   isSongOfficialForRobbery,
   KAIFENG_RECOMMENDATION_ITEM_ID,
@@ -165,6 +171,7 @@ import {
   SECT_ENTRY_GEAR_GIFTS,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
   SEMI_ANNUAL_DEADLINE_DAYS,
+  SHAOLIN_CHORE_TARGET_DAYS,
   spawnAnnualLiaoSpy,
 } from '../utils/sectMechanics'
 import { estimateHeroRealm, scaleMedicineRecovery } from '../utils/realmUtils'
@@ -410,6 +417,7 @@ export interface GameStoreState {
   unequipArtSlot: (slot: MartialArtSlotKey) => void
   cultivateLearnedArt: (artId: string, mode?: CultivationDurationMode) => void
   startScriptureSeclusion: () => void
+  startShaolinChore: (days: number) => void
   stepCultivationTick: () => void
   stopCultivationEarly: () => void
   breakthroughLearnedArt: (artId: string) => void
@@ -1489,6 +1497,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         ...s.logs,
       ].slice(0, 60),
     })
+    if (s.currentNodeId === s.activeRegionId && !s.campPos && !s.traveling) {
+      get().fireLocationTriggersForCurrentSpot({
+        regionId: s.activeRegionId,
+        buildingId: null,
+        spotId: null,
+      })
+    }
   },
 
   exitToWorldMap: () => {
@@ -1715,6 +1730,21 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
     if (dayHook.overdueSpyAmbush) {
       get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+      return
+    }
+    const after = get()
+    if (
+      after.viewMode === 'region' &&
+      after.currentNodeId === after.activeRegionId &&
+      !after.campPos &&
+      !after.traveling &&
+      !after.activeStoryScene
+    ) {
+      get().fireLocationTriggersForCurrentSpot({
+        regionId: after.activeRegionId,
+        buildingId: null,
+        spotId: null,
+      })
     }
   },
 
@@ -2472,6 +2502,75 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     })
   },
 
+  startShaolinChore: (days) => {
+    const s = get()
+    if (s.gameOver || s.activeCombat || s.activeStoryScene) return
+    if (s.cultivationSession || s.traveling) return
+    if (s.currentNodeId !== 'shaolin' || s.campPos || s.activeRegionId !== 'shaolin') {
+      set({
+        actionFeedback: {
+          text: '须亲临【嵩山少林寺】山门方可承担杂役劳作！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    if (s.sectState.sectId) {
+      set({
+        actionFeedback: {
+          text: `少侠已拜入【${FACTION_DB_MAP[s.sectState.sectId]?.name ?? s.sectState.sectId}】，无需再充任少林山门杂役！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    if (s.sectState.shaolinNoviceState !== 'active') {
+      set({
+        actionFeedback: {
+          text: '尚未获准充任少林杂役弟子！请先拜见知客禅师【玄净】通过问心复试。',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const remaining = Math.max(0, SHAOLIN_CHORE_TARGET_DAYS - s.sectState.shaolinChoreDays)
+    if (remaining <= 0) {
+      get().joinSect('SECT-01')
+      return
+    }
+    const safeDays = Math.max(1, Math.min(remaining, Math.floor(days) || 1))
+    set({
+      menuOpen: false,
+      compendiumOpen: false,
+      activeNpcInteraction: null,
+      tooltip: null,
+      actionFeedback: null,
+      cultivationSession: {
+        kind: 'shaolin_chore',
+        artId: 'SHAOLIN_CHORE',
+        artName: '少林山门 · 洒扫担水杂役',
+        artCleanName: '山门杂役',
+        artFullTier: '少林杂役弟子',
+        mode: safeDays,
+        venue: 'sect_grounds',
+        venueLabel: '嵩山少林寺 · 山门石阶',
+        multiplier: 1,
+        dailySilverCost: 0,
+        dailyFoodCost: 0,
+        dailyGain: 1,
+        targetShichens: safeDays * 12,
+        shichensElapsed: 0,
+        silverSpent: 0,
+        foodSpent: 0,
+        combatExpSpent: 0,
+        totalExpGained: 0,
+        settledExpFloor: 0,
+        startLevel: s.sectState.shaolinChoreDays,
+        startExp: 0,
+      },
+    })
+  },
+
   startTenArtPractice: (artKey, days, venueLabel, envMultiplier, dailySilverCost) => {
     const s = get()
     if (s.gameOver || s.activeCombat || s.activeStoryScene) return
@@ -2860,6 +2959,206 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
+    if (session.kind === 'shaolin_chore') {
+      const remainTarget = Math.max(1, session.targetShichens - session.shichensElapsed)
+      const deltaShichen = Math.min(speedStep, remainTarget)
+      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, deltaShichen)
+      const nextDayCount = clock.dayCount
+      const nextShichenIdx = clock.shichenIdx
+      const nextShichensElapsed = session.shichensElapsed + deltaShichen
+
+      let nextSilver = s.silver
+      let nextSectState = clonePlayerSectState(s.sectState)
+      let nextLogs = s.logs
+      let nextMasters = s.roamingMasters
+      let nextNpcFavor = s.npcFavor
+      let overdueSpyAmbush: NodeNpc | null = null
+
+      if (clock.daysAdded > 0) {
+        if ((nextDayCount - 1) % 30 === 0) {
+          nextMasters = nextMasters.map((m) => {
+            const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
+            if (neighbors.length === 0) return m
+            const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
+            return { ...m, nodeId: pick!.to }
+          })
+        }
+        const dayHook = applyDayProgressionSectHooks({
+          nextDayCount,
+          shichenIdx: nextShichenIdx,
+          silver: nextSilver,
+          sectState: nextSectState,
+          logs: [...nextLogs],
+          npcFavor: nextNpcFavor,
+        })
+        nextSilver = dayHook.silver
+        nextSectState = dayHook.sectState
+        nextLogs = dayHook.logs
+        nextNpcFavor = dayHook.npcFavor
+        overdueSpyAmbush = dayHook.overdueSpyAmbush
+      }
+
+      const fullDaysInSession = Math.floor(nextShichensElapsed / 12)
+      const nextChoreDays = Math.min(
+        SHAOLIN_CHORE_TARGET_DAYS,
+        Math.max(nextSectState.shaolinChoreDays, session.startLevel + fullDaysInSession),
+      )
+      nextSectState = {
+        ...nextSectState,
+        shaolinChoreDays: nextChoreDays,
+      }
+
+      const recChore = applyDailyVitalityRecovery({
+        hp: s.hp,
+        maxHp: s.maxHp,
+        mp: s.mp,
+        maxMp: s.maxMp,
+        daysAdded: clock.daysAdded,
+        factor: 1,
+      })
+
+      // 累计满 365 天且当前无门无派：正式引荐拜入嵩山少林寺（Lv.1 外门弟子 · 默认俗家弟子）
+      if (nextChoreDays >= SHAOLIN_CHORE_TARGET_DAYS && !nextSectState.sectId) {
+        const startRank: SectRankLevel = 1
+        const rankLabel = getSectRankTitle('SECT-01', startRank)
+        const curMonthIdx = Math.floor((nextDayCount - 1) / 30)
+        nextSectState = {
+          ...nextSectState,
+          sectId: 'SECT-01',
+          rank: startRank,
+          rankLabel,
+          contribution: 0,
+          joinedDay: nextDayCount,
+          lastStipendMonth: curMonthIdx,
+          activeSectTask: null,
+          wonSectTournament: false,
+          activeSectTournament: null,
+          shaolinNoviceState: 'completed',
+          shaolinChoreDays: SHAOLIN_CHORE_TARGET_DAYS,
+          shaolinDiscipleType: 'lay',
+        }
+
+        let nextInv = s.inventory
+        const entryGiftIds = SECT_ENTRY_GEAR_GIFTS['SECT-01'] ?? []
+        const grantedGiftNames: string[] = []
+        for (const gid of entryGiftIds) {
+          const def = ITEM_DB_MAP[gid]
+          if (def) {
+            nextInv = addItemToInventory(nextInv, gid, 1)
+            grantedGiftNames.push(`【${def.name}】`)
+          }
+        }
+
+        const nextQuest = cloneQuestRuntimeState(s.questState)
+        delete nextQuest.activeQuests[SHAOLIN_ENTRY_QUEST_ID]
+        const prevComp = nextQuest.completedQuests[SHAOLIN_ENTRY_QUEST_ID]
+        nextQuest.completedQuests[SHAOLIN_ENTRY_QUEST_ID] = {
+          questId: SHAOLIN_ENTRY_QUEST_ID,
+          outcome: 'joined_lay',
+          completedDay: nextDayCount,
+          count: (prevComp?.count ?? 0) + 1,
+        }
+        const nextCombatExp = Math.max(0, s.combatExp + 60)
+
+        const giftSuffix =
+          grantedGiftNames.length > 0
+            ? ` 获赐入门衣履兵刃：${grantedGiftNames.join('、')}！`
+            : ''
+        const joinMsg = `少林山门杂役累计满 ${SHAOLIN_CHORE_TARGET_DAYS} 天，蒙知客禅师玄净引荐，正式拜入【嵩山少林寺】第 1 阶【${rankLabel}】（俗家弟子 · 战斗经验 +60）！${giftSuffix}（随时可赴大雄正殿找玄慈方丈剃度转为出家弟子「慧见」以解锁地阶/天阶武学）`
+
+        nextLogs = [
+          createLogEntry(nextDayCount, '拜入少林', joinMsg, true, nextShichenIdx),
+          ...nextLogs,
+        ].slice(0, 60)
+
+        set({
+          dayCount: nextDayCount,
+          shichenIdx: nextShichenIdx,
+          silver: nextSilver,
+          combatExp: nextCombatExp,
+          inventory: nextInv,
+          sectState: nextSectState,
+          questState: nextQuest,
+          npcFavor: nextNpcFavor,
+          roamingMasters: nextMasters,
+          hp: s.maxHp,
+          mp: s.maxMp,
+          cultivationSession: null,
+          actionFeedback: { text: joinMsg, tone: 'success' },
+          logs: nextLogs,
+        })
+        if (clock.daysAdded > 0) get().checkExpiredQuestDeadlines()
+        void get().saveToSlot('autosave', '杂役期满拜入少林', true)
+        get().runQuestEffects(
+          [{ type: 'openScene', scene: SHAOLIN_CHORE_COMPLETE_JOIN_SCENE }],
+          null,
+        )
+        return
+      }
+
+      const reachedTarget = nextShichensElapsed >= session.targetShichens
+      if (reachedTarget || Boolean(overdueSpyAmbush)) {
+        const remainDays = Math.max(0, SHAOLIN_CHORE_TARGET_DAYS - nextChoreDays)
+        const msgText = overdueSpyAmbush
+          ? `边关军令期限已至，被迫中断少林山门杂役应战。`
+          : `于【嵩山少林寺 · 山门】当值劳作 ${fullDaysInSession} 天，当前累计杂役 ${nextChoreDays} / ${SHAOLIN_CHORE_TARGET_DAYS} 天（尚差 ${remainDays} 天正式引荐入门）！`
+        nextLogs = [
+          createLogEntry(
+            nextDayCount,
+            '少林杂役',
+            msgText,
+            false,
+            nextShichenIdx,
+          ),
+          ...nextLogs,
+        ].slice(0, 60)
+        set({
+          dayCount: nextDayCount,
+          shichenIdx: nextShichenIdx,
+          silver: nextSilver,
+          sectState: nextSectState,
+          npcFavor: nextNpcFavor,
+          roamingMasters: nextMasters,
+          hp: recChore.hp,
+          mp: recChore.mp,
+          cultivationSession: null,
+          actionFeedback: {
+            text: msgText,
+            tone: overdueSpyAmbush ? 'warn' : 'success',
+          },
+          logs: nextLogs,
+        })
+        if (clock.daysAdded > 0) get().checkExpiredQuestDeadlines()
+        if (overdueSpyAmbush) {
+          get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+          return
+        }
+        if (fullDaysInSession >= 10) {
+          void get().saveToSlot('autosave', '少林山门杂役当值', true)
+        }
+        return
+      }
+
+      set({
+        dayCount: nextDayCount,
+        shichenIdx: nextShichenIdx,
+        silver: nextSilver,
+        sectState: nextSectState,
+        npcFavor: nextNpcFavor,
+        roamingMasters: nextMasters,
+        hp: recChore.hp,
+        mp: recChore.mp,
+        logs: nextLogs.slice(0, 60),
+        cultivationSession: {
+          ...session,
+          shichensElapsed: nextShichensElapsed,
+          totalExpGained: fullDaysInSession,
+        },
+      })
+      if (clock.daysAdded > 0) get().checkExpiredQuestDeadlines()
+      return
+    }
+
     const art = MARTIAL_ART_DB_MAP[session.artId]
     const idx = s.learnedArts.findIndex((x) => x.artId === session.artId)
     if (!art || idx === -1) {
@@ -3199,6 +3498,36 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           fullDays > 0
             ? [
                 createLogEntry(s.dayCount, '研读经义', msgText, false, s.shichenIdx),
+                ...s.logs,
+              ].slice(0, 60)
+            : s.logs,
+      })
+      return
+    }
+    if (sess.kind === 'shaolin_chore') {
+      const fullDays = Math.floor(sess.shichensElapsed / 12)
+      const nextChoreDays = Math.min(
+        SHAOLIN_CHORE_TARGET_DAYS,
+        Math.max(s.sectState.shaolinChoreDays, sess.startLevel + fullDays),
+      )
+      const remainDays = Math.max(0, SHAOLIN_CHORE_TARGET_DAYS - nextChoreDays)
+      const msgText =
+        fullDays > 0
+          ? `于【${sess.venueLabel}】当值劳作 ${fullDays} 天后暂歇收工（累计杂役 ${nextChoreDays}/${SHAOLIN_CHORE_TARGET_DAYS} 天，距引荐入门尚余 ${remainDays} 天）。`
+          : `甫一执帚便即暂歇收工，未满一日（累计杂役 ${nextChoreDays}/${SHAOLIN_CHORE_TARGET_DAYS} 天）。`
+      set({
+        cultivationSession: null,
+        hp: s.maxHp,
+        mp: s.maxMp,
+        sectState: {
+          ...clonePlayerSectState(s.sectState),
+          shaolinChoreDays: nextChoreDays,
+        },
+        actionFeedback: { text: msgText, tone: 'talk' },
+        logs:
+          fullDays > 0
+            ? [
+                createLogEntry(s.dayCount, '山门杂役', msgText, false, s.shichenIdx),
                 ...s.logs,
               ].slice(0, 60)
             : s.logs,
@@ -4675,11 +5004,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         targetSectId === 'SECT-17' ? prevPeriodInfo.latestPeriod : 0,
       kaifengRank2Day: targetSectId === 'SECT-17' && evalRes.startingRank >= 2 ? s.dayCount : null,
       activeKaifengWarrant: null,
+      shaolinNoviceState:
+        targetSectId === 'SECT-01' ? 'completed' : s.sectState.shaolinNoviceState,
+      shaolinChoreDays:
+        targetSectId === 'SECT-01' ? SHAOLIN_CHORE_TARGET_DAYS : s.sectState.shaolinChoreDays,
+      shaolinDiscipleType:
+        targetSectId === 'SECT-01' ? 'lay' : s.sectState.shaolinDiscipleType,
     }
 
     // 同步完结对应的入门剧情任务链（若曾开启）
     const nextQuest = cloneQuestRuntimeState(s.questState)
     const entryQuestBySect: Record<string, string> = {
+      'SECT-01': SHAOLIN_ENTRY_QUEST_ID,
+      'SECT-02': GAIBANG_ENTRY_QUEST_ID,
       'SECT-18': 'QST-SECT-18-TOUMINGZHUANG',
       'SECT-16': 'QST-SECT-16-REFERRAL',
       'SECT-23': 'QST-SECT-23-REFERRAL',
@@ -4688,7 +5025,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const linkedQuestId = entryQuestBySect[targetSectId]
     if (
       linkedQuestId &&
-      (nextQuest.activeQuests[linkedQuestId] || targetSectId === 'SECT-18')
+      (nextQuest.activeQuests[linkedQuestId] ||
+        targetSectId === 'SECT-18' ||
+        targetSectId === 'SECT-01' ||
+        targetSectId === 'SECT-02')
     ) {
       delete nextQuest.activeQuests[linkedQuestId]
       const prevComp = nextQuest.completedQuests[linkedQuestId]
@@ -4701,7 +5041,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
 
     const newLogs: LogEntry[] = []
-    let feedbackMsg = `正式拜入【${faction.name}】，授职【${evalRes.startingRankLabel}】！`
+    let feedbackMsg = `正式拜入【${faction.name}】，授职【${evalRes.startingRankLabel}】${
+      targetSectId === 'SECT-01' ? '（俗家弟子）' : ''
+    }！`
     if (evalRes.costSilver > 0) {
       feedbackMsg += `（奉上拜师束脩 ${evalRes.costSilver} 两纹银）`
     }
@@ -4839,6 +5181,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       killedDingChunqiu: false,
       kaifengRank2Day: null,
       activeKaifengWarrant: null,
+      shaolinDiscipleType:
+        curSectId === 'SECT-01' ? 'lay' : s.sectState.shaolinDiscipleType,
     }
     const msg = `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
     set({
@@ -5442,6 +5786,18 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
+    if (
+      isShaolinArtBlockedForLayDisciple(sectId, entry.art, s.sectState.shaolinDiscipleType)
+    ) {
+      set({
+        actionFeedback: {
+          text: `少林清规：地阶与天阶秘传绝学概不轻授俗家弟子！《${entry.art.cleanName}》（${entry.art.fullTier}）须先赴【大雄宝殿方丈院 · 大雄正殿】拜见方丈【玄慈】剃度出家（受法号「慧见」）后方可修习。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
     const nextLearned: LearnedArtEntry[] = [
       ...s.learnedArts.map((x) => ({ ...x })),
       { artId: entry.art.id, level: 1, exp: 0 },
@@ -5877,6 +6233,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               eff.sectId === 'SECT-17' ? prevPeriodInfo.latestPeriod : 0,
             kaifengRank2Day: eff.sectId === 'SECT-17' && startRank >= 2 ? s.dayCount : null,
             activeKaifengWarrant: null,
+            shaolinNoviceState:
+              eff.sectId === 'SECT-01' ? 'completed' : s.sectState.shaolinNoviceState,
+            shaolinChoreDays:
+              eff.sectId === 'SECT-01' ? SHAOLIN_CHORE_TARGET_DAYS : s.sectState.shaolinChoreDays,
+            shaolinDiscipleType:
+              eff.sectId === 'SECT-01' ? 'lay' : s.sectState.shaolinDiscipleType,
           }
 
           let nextSilver = s.silver
@@ -5918,7 +6280,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             grantedGiftNames.length > 0
               ? ` 入门获赐制式披挂：${grantedGiftNames.join('、')}！`
               : ''
-          const msg = `正式拜入【${faction.name}】，授职第 ${startRank} 阶【${rankLabel}】！${giftSuffix}`
+          const msg = `正式拜入【${faction.name}】，授职第 ${startRank} 阶【${rankLabel}】${
+            eff.sectId === 'SECT-01' ? '（俗家弟子）' : ''
+          }！${giftSuffix}`
           set({
             silver: nextSilver,
             inventory: nextInv,
@@ -5969,6 +6333,39 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           const nextSect = clonePlayerSectState(s.sectState)
           nextSect.contribution = Math.max(0, nextSect.contribution + eff.amount)
           set({ sectState: nextSect })
+          break
+        }
+
+        case 'activateShaolinNovice': {
+          const nextSect = clonePlayerSectState(s.sectState)
+          nextSect.shaolinNoviceState = 'active'
+          const msg = `经知客禅师【玄净】收录为【嵩山少林寺 · 杂役弟子】（当前不计正式门籍）。可在少林寺山门自选天数洒扫担水，累计当值满 ${SHAOLIN_CHORE_TARGET_DAYS} 天即可正式引荐入门！`
+          set({
+            sectState: nextSect,
+            actionFeedback: { text: msg, tone: 'success' },
+            logs: [
+              createLogEntry(s.dayCount, '山门挂单', msg, true, s.shichenIdx),
+              ...s.logs,
+            ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'ordainShaolinMonk': {
+          const prevName = s.playerName
+          const nextSect = clonePlayerSectState(s.sectState)
+          nextSect.shaolinDiscipleType = 'monk'
+          const msg = `于少林大雄正殿礼拜方丈【玄慈】落发受戒，俗名「${prevName}」化入空门，赐慧字辈法号【${eff.dharmaName}】！自此换穿佛子僧衣，少林地阶与天阶秘传绝学尽数向小师父敞开！`
+          set({
+            playerName: eff.dharmaName,
+            playerPortraitId: eff.portraitId,
+            sectState: nextSect,
+            actionFeedback: { text: msg, tone: 'success' },
+            logs: [
+              createLogEntry(s.dayCount, '剃度受戒', msg, true, s.shichenIdx),
+              ...s.logs,
+            ].slice(0, 60),
+          })
           break
         }
 

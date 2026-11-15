@@ -105,8 +105,16 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
             <div>
               <span className="px-2 py-0.5 rounded bg-[#8f1d14] text-[#fff8eb] text-[11px] font-bold song-serif">
                 {sectState.sectId
-                  ? `${currentSectName} · ${sectState.rankLabel}`
-                  : '江湖少侠 · 无门无派'}
+                  ? `${currentSectName} · ${sectState.rankLabel}${
+                      sectState.sectId === 'SECT-01'
+                        ? sectState.shaolinDiscipleType === 'monk'
+                          ? ' · 出家弟子'
+                          : ' · 俗家弟子'
+                        : ''
+                    }`
+                  : sectState.shaolinNoviceState === 'active'
+                    ? `少林杂役弟子（${sectState.shaolinChoreDays}/365天）`
+                    : '江湖少侠 · 无门无派'}
               </span>
               <h4 className="song-serif font-bold text-lg text-[#23180f] mt-1">
                 {playerName}（{heroPortrait.label}）
@@ -162,13 +170,33 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
             </div>
           </div>
 
-          {/* 门派军饷 / 朝廷通缉 / 通辽嫌疑 / 太行重创 / 燕云辽谍军令速览 */}
+          {/* 门派军饷 / 少林僧俗杂役 / 朝廷通缉 / 通辽嫌疑 / 太行重创 / 燕云辽谍军令速览 */}
           {(sectState.sectId ||
+            sectState.shaolinNoviceState === 'active' ||
             sectState.songCourtBlacklisted ||
             sectState.liaoSuspicionDebuff ||
             taihangHeavyInjury ||
             sectState.toumingzhuangState === 'accepted') && (
             <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693] space-y-1.5 text-xs">
+              {!sectState.sectId && sectState.shaolinNoviceState === 'active' && (
+                <div className="px-2 py-1 rounded bg-[#f4e1c1] border border-[#c58b38] text-[#6b3c0b] leading-snug">
+                  <strong>【少林山门杂役】</strong>累计当值{' '}
+                  <span className="font-mono font-bold">
+                    {sectState.shaolinChoreDays} / 365
+                  </span>{' '}
+                  天（不计正式门籍，满 365 天引荐为少林俗家外门弟子）
+                </div>
+              )}
+              {sectState.sectId === 'SECT-01' && (
+                <div className="flex items-center justify-between text-[#5c3d1e] font-medium">
+                  <span>少林门籍戒律</span>
+                  <span className="font-bold text-[#781710]">
+                    {sectState.shaolinDiscipleType === 'monk'
+                      ? `出家僧众（法号：${playerName} · 可习地/天阶绝学）`
+                      : '俗家弟子（限凡/良阶，找方丈玄慈可剃度）'}
+                  </span>
+                </div>
+              )}
               {sectState.sectId === 'SECT-22' && (
                 <div className="flex items-center justify-between text-[#1f4d3b] font-medium">
                   <span>常山边军月饷</span>

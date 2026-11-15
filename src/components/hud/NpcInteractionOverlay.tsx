@@ -33,10 +33,12 @@ import {
   getSectTournamentDateInfo,
   isDaoSwordSect,
   isJoinableSectFaction,
+  isShaolinArtBlockedForLayDisciple,
   isSongOfficialForRobbery,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
+  SHAOLIN_CHORE_TARGET_DAYS,
 } from '../../utils/sectMechanics'
 import { estimateHeroRealm } from '../../utils/realmUtils'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
@@ -83,6 +85,7 @@ export function NpcInteractionOverlay() {
   const baseStats = useGameStore((s) => s.baseStats)
   const skills = useGameStore((s) => s.skills)
   const learnedArts = useGameStore((s) => s.learnedArts)
+  const playerName = useGameStore((s) => s.playerName)
   const sectState = useGameStore((s) => s.sectState)
   const questState = useGameStore((s) => s.questState)
   const npcFavorMap = useGameStore((s) => s.npcFavor)
@@ -708,16 +711,27 @@ export function NpcInteractionOverlay() {
                 </span>
               )}
               {isPlayerInThisSect ? (
-                <span className="text-xs px-2.5 py-0.5 rounded bg-[#1f4d3b] text-[#e7f7ef] font-medium">
-                  本门职阶：第{sectState.rank}阶【{sectState.rankLabel}】 · 功绩{' '}
-                  {sectState.contribution}
-                </span>
+                <>
+                  <span className="text-xs px-2.5 py-0.5 rounded bg-[#1f4d3b] text-[#e7f7ef] font-medium">
+                    本门职阶：第{sectState.rank}阶【{sectState.rankLabel}】 · 功绩{' '}
+                    {sectState.contribution}
+                  </span>
+                  {targetFactionId === 'SECT-01' && (
+                    <span className="text-xs px-2.5 py-0.5 rounded bg-[#6b4614] text-[#fff6e0] font-medium">
+                      {sectState.shaolinDiscipleType === 'monk'
+                        ? `出家僧众 · 法号【${playerName}】`
+                        : '俗家弟子'}
+                    </span>
+                  )}
+                </>
               ) : (
                 <span className="text-xs px-2.5 py-0.5 rounded bg-[#5c3d1e] text-[#fde8c8]">
                   当前门派：
                   {sectState.sectId
                     ? `${FACTION_DB_MAP[sectState.sectId]?.name ?? sectState.sectId}（${sectState.rankLabel}）`
-                    : '无门无派'}
+                    : sectState.shaolinNoviceState === 'active'
+                      ? `少林杂役弟子（${sectState.shaolinChoreDays}/${SHAOLIN_CHORE_TARGET_DAYS}天 · 非正式门籍）`
+                      : '无门无派'}
                 </span>
               )}
             </div>
@@ -931,6 +945,33 @@ export function NpcInteractionOverlay() {
                     </div>
                   </div>
                 </div>
+
+                {/* 嵩山少林寺：俗家与出家僧俗戒律说明 */}
+                {targetFactionId === 'SECT-01' && (
+                  <div className="p-3.5 rounded-lg bg-[#faf3e3] border border-[#b59461] space-y-1.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="font-bold text-[#5c3d1e] song-serif text-sm sm:text-base">
+                        少林僧俗清规 · 剃度受戒制度
+                      </span>
+                      <span
+                        className={`text-xs px-2 py-0.5 rounded font-bold ${
+                          sectState.shaolinDiscipleType === 'monk'
+                            ? 'bg-[#6b4614] text-[#fff6e0]'
+                            : 'bg-[#efe4cc] border border-[#cbb693] text-[#5c3d1e]'
+                        }`}
+                      >
+                        {sectState.shaolinDiscipleType === 'monk'
+                          ? `出家弟子（法号：${playerName}）`
+                          : '俗家弟子（带发修行）'}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#6b5235] leading-relaxed">
+                      {sectState.shaolinDiscipleType === 'monk'
+                        ? `小师父已于大雄正殿礼拜方丈【玄慈】落发受戒，赐法号「${playerName}」。凡本门职阶达标之【地阶】与【天阶】不传秘典，皆可依序参学！`
+                        : '山门杂役期满默认收录为【俗家弟子】，可正常完成师门历练晋升职阶；唯少林【地阶】与【天阶】秘传武学概不传授俗家弟子。若欲参研绝学，可随时赴【大雄宝殿方丈院 · 大雄正殿】拜见方丈【玄慈】请求剃度出家（改赐法号「慧见」并换穿佛子僧衣）。'}
+                    </p>
+                  </div>
+                )}
 
                 {/* 道门与名山剑派：一年一度宗门大比（每年二月一日） */}
                 {targetFactionId && isDaoSwordSect(targetFactionId) && (() => {
@@ -1268,9 +1309,18 @@ export function NpcInteractionOverlay() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[30vh] overflow-y-auto scroll-thin pr-1">
                 {sectTeachableArts.map((entry) => {
                   const learned = learnedArtMap.get(entry.art.id)
-                  const unlocked =
+                  const rankOk =
                     isPlayerInThisSect &&
                     canPlayerLearnSectArt(sectState.rank, entry.requiredRank)
+                  const blockedByLay = isShaolinArtBlockedForLayDisciple(
+                    targetFactionId,
+                    entry.art,
+                    sectState.shaolinDiscipleType,
+                  )
+                  const unlocked = rankOk && !blockedByLay
+                  const isShaolinMonkOnlyTier =
+                    targetFactionId === 'SECT-01' &&
+                    (entry.art.tier === '地阶' || entry.art.tier === '天阶')
                   return (
                     <div
                       key={entry.art.id}
@@ -1295,6 +1345,7 @@ export function NpcInteractionOverlay() {
                         </div>
                         <div className="text-[11px] text-[#6b5235]">
                           门槛：Lv.{entry.requiredRank}【{entry.requiredRankLabel}】
+                          {isShaolinMonkOnlyTier ? ' · 限出家僧众' : ''}
                         </div>
                       </div>
 
@@ -1309,10 +1360,16 @@ export function NpcInteractionOverlay() {
                           className={`px-2.5 py-1 rounded text-xs font-bold border shrink-0 cursor-pointer ${
                             unlocked
                               ? 'bg-[#781710] hover:bg-[#961f16] border-[#d49a6a] text-[#fff8ee]'
-                              : 'bg-[#dcd1be] border-[#bfb097] text-[#7a6a53]'
+                              : blockedByLay && rankOk
+                                ? 'bg-[#6b4614]/20 border-[#b58742] text-[#781710]'
+                                : 'bg-[#dcd1be] border-[#bfb097] text-[#7a6a53]'
                           }`}
                         >
-                          {unlocked ? '修习入门' : '职阶不足'}
+                          {unlocked
+                            ? '修习入门'
+                            : !rankOk
+                              ? '职阶不足'
+                              : '需剃度出家'}
                         </button>
                       ) : (
                         <span className="text-[11px] px-2 py-0.5 rounded bg-[#efe4cc] text-[#7a6a53] shrink-0">
