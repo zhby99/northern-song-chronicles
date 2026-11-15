@@ -5033,7 +5033,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       shaolinChoreDays:
         targetSectId === 'SECT-01' ? SHAOLIN_CHORE_TARGET_DAYS : s.sectState.shaolinChoreDays,
       shaolinDiscipleType:
-        targetSectId === 'SECT-01' ? 'lay' : s.sectState.shaolinDiscipleType,
+        targetSectId === 'SECT-01' || targetSectId === 'SECT-04'
+          ? 'lay'
+          : s.sectState.shaolinDiscipleType,
     }
 
     // 同步完结对应的入门剧情任务链（若曾开启）
@@ -5072,7 +5074,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     const newLogs: LogEntry[] = []
     let feedbackMsg = `正式拜入【${faction.name}】，授职【${evalRes.startingRankLabel}】${
-      targetSectId === 'SECT-01' ? '（俗家弟子）' : ''
+      targetSectId === 'SECT-01'
+        ? '（俗家弟子）'
+        : targetSectId === 'SECT-04'
+          ? '（护寺俗家）'
+          : ''
     }！`
     if (evalRes.costSilver > 0) {
       feedbackMsg += `（奉上拜师束脩 ${evalRes.costSilver} 两纹银）`
@@ -5212,7 +5218,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       kaifengRank2Day: null,
       activeKaifengWarrant: null,
       shaolinDiscipleType:
-        curSectId === 'SECT-01' ? 'lay' : s.sectState.shaolinDiscipleType,
+        curSectId === 'SECT-01' || curSectId === 'SECT-04'
+          ? 'lay'
+          : s.sectState.shaolinDiscipleType,
     }
     const msg =
       curSectId === 'SECT-33'
@@ -5822,9 +5830,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (
       isShaolinArtBlockedForLayDisciple(sectId, entry.art, s.sectState.shaolinDiscipleType)
     ) {
+      const warnText =
+        sectId === 'SECT-04'
+          ? `南少林祖训：少侠入门时已择定【带发入世 · 护寺俗家】名册，不可再行剃度，本门地阶秘传功法《${entry.art.cleanName}》（${entry.art.fullTier}）对少侠永远不开放！`
+          : `少林清规：地阶与天阶秘传绝学概不轻授俗家弟子！《${entry.art.cleanName}》（${entry.art.fullTier}）须先赴【大雄宝殿方丈院 · 大雄正殿】拜见方丈【玄慈】剃度出家（受法号「慧见」）后方可修习。`
       set({
         actionFeedback: {
-          text: `少林清规：地阶与天阶秘传绝学概不轻授俗家弟子！《${entry.art.cleanName}》（${entry.art.fullTier}）须先赴【大雄宝殿方丈院 · 大雄正殿】拜见方丈【玄慈】剃度出家（受法号「慧见」）后方可修习。`,
+          text: warnText,
           tone: 'warn',
         },
       })
@@ -6303,7 +6315,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             shaolinChoreDays:
               eff.sectId === 'SECT-01' ? SHAOLIN_CHORE_TARGET_DAYS : s.sectState.shaolinChoreDays,
             shaolinDiscipleType:
-              eff.sectId === 'SECT-01' ? 'lay' : s.sectState.shaolinDiscipleType,
+              eff.sectId === 'SECT-01' || eff.sectId === 'SECT-04'
+                ? 'lay'
+                : s.sectState.shaolinDiscipleType,
           }
 
           let nextSilver = s.silver
@@ -6349,7 +6363,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               ? ` 入门获赐制式披挂：${grantedGiftNames.join('、')}！`
               : ''
           const msg = `正式拜入【${faction.name}】，授职第 ${startRank} 阶【${rankLabel}】${
-            eff.sectId === 'SECT-01' ? '（俗家弟子）' : ''
+            eff.sectId === 'SECT-01'
+              ? '（俗家弟子）'
+              : eff.sectId === 'SECT-04'
+                ? '（护寺俗家）'
+                : ''
           }！${giftSuffix}`
           set({
             silver: nextSilver,
@@ -6367,8 +6385,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         case 'leaveSect': {
           if (!s.sectState.sectId) break
           if (eff.skipPenalty) {
+            const leavingSectId = s.sectState.sectId
             const factionName =
-              FACTION_DB_MAP[s.sectState.sectId]?.name ?? s.sectState.sectId
+              FACTION_DB_MAP[leavingSectId]?.name ?? leavingSectId
             const nextSect: PlayerSectState = {
               ...clonePlayerSectState(s.sectState),
               sectId: null,
@@ -6376,6 +6395,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               rankLabel: '无门无派',
               contribution: 0,
               activeLiaoSpy: null,
+              shaolinDiscipleType:
+                leavingSectId === 'SECT-01' || leavingSectId === 'SECT-04'
+                  ? 'lay'
+                  : s.sectState.shaolinDiscipleType,
             }
             set({
               sectState: nextSect,
@@ -6423,7 +6446,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           const prevName = s.playerName
           const nextSect = clonePlayerSectState(s.sectState)
           nextSect.shaolinDiscipleType = 'monk'
-          const msg = `于少林大雄正殿礼拜方丈【玄慈】落发受戒，俗名「${prevName}」化入空门，赐慧字辈法号【${eff.dharmaName}】！自此换穿佛子僧衣，少林地阶与天阶秘传绝学尽数向小师父敞开！`
+          const isNanShaolin = nextSect.sectId === 'SECT-04'
+          const msg = isNanShaolin
+            ? `于莆田南少林九莲大雄宝殿礼拜方丈【元苦】落发受戒，俗名「${prevName}」化入空门，赐弘字辈法号【${eff.dharmaName}】！自此换穿佛子僧衣，南少林地阶秘传功法尽数向小师父敞开！`
+            : `于少林大雄正殿礼拜方丈【玄慈】落发受戒，俗名「${prevName}」化入空门，赐慧字辈法号【${eff.dharmaName}】！自此换穿佛子僧衣，少林地阶与天阶秘传绝学尽数向小师父敞开！`
           set({
             playerName: eff.dharmaName,
             playerPortraitId: eff.portraitId,

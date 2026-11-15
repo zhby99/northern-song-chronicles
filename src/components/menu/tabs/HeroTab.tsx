@@ -114,7 +114,11 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                         ? sectState.shaolinDiscipleType === 'monk'
                           ? ' · 出家弟子'
                           : ' · 俗家弟子'
-                        : ''
+                        : sectState.sectId === 'SECT-04'
+                          ? sectState.shaolinDiscipleType === 'monk'
+                            ? ' · 清修武僧'
+                            : ' · 护寺俗家'
+                          : ''
                     }`
                   : sectState.shaolinNoviceState === 'active'
                     ? `少林杂役弟子（${sectState.shaolinChoreDays}/365天）`
@@ -198,6 +202,16 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                     {sectState.shaolinDiscipleType === 'monk'
                       ? `出家僧众（法号：${playerName} · 可习地/天阶绝学）`
                       : '俗家弟子（限凡/良阶，找方丈玄慈可剃度）'}
+                  </span>
+                </div>
+              )}
+              {sectState.sectId === 'SECT-04' && (
+                <div className="flex items-center justify-between text-[#5c3d1e] font-medium">
+                  <span>南少林僧俗门籍</span>
+                  <span className="font-bold text-[#781710]">
+                    {sectState.shaolinDiscipleType === 'monk'
+                      ? `清修武僧（法号：${playerName} · 可习地阶功法）`
+                      : '护寺俗家（限凡/良阶，地阶功法永不开放）'}
                   </span>
                 </div>
               )}

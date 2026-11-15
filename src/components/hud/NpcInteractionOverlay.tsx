@@ -717,11 +717,13 @@ export function NpcInteractionOverlay() {
                     本门职阶：第{sectState.rank}阶【{sectState.rankLabel}】 · 功绩{' '}
                     {sectState.contribution}
                   </span>
-                  {targetFactionId === 'SECT-01' && (
+                  {(targetFactionId === 'SECT-01' || targetFactionId === 'SECT-04') && (
                     <span className="text-xs px-2.5 py-0.5 rounded bg-[#6b4614] text-[#fff6e0] font-medium">
                       {sectState.shaolinDiscipleType === 'monk'
-                        ? `出家僧众 · 法号【${playerName}】`
-                        : '俗家弟子'}
+                        ? `${targetFactionId === 'SECT-04' ? '清修武僧' : '出家僧众'} · 法号【${playerName}】`
+                        : targetFactionId === 'SECT-04'
+                          ? '护寺俗家'
+                          : '俗家弟子'}
                     </span>
                   )}
                 </>
@@ -970,6 +972,36 @@ export function NpcInteractionOverlay() {
                       {sectState.shaolinDiscipleType === 'monk'
                         ? `小师父已于大雄正殿礼拜方丈【玄慈】落发受戒，赐法号「${playerName}」。凡本门职阶达标之【地阶】与【天阶】不传秘典，皆可依序参学！`
                         : '山门杂役期满默认收录为【俗家弟子】，可正常完成师门历练晋升职阶；唯少林【地阶】与【天阶】秘传武学概不传授俗家弟子。若欲参研绝学，可随时赴【大雄宝殿方丈院 · 大雄正殿】拜见方丈【玄慈】请求剃度出家（改赐法号「慧见」并换穿佛子僧衣）。'}
+                    </p>
+                  </div>
+                )}
+
+                {targetFactionId === 'SECT-04' && (
+                  <div className="p-3.5 rounded-lg bg-[#faf3e3] border border-[#b59461] space-y-1.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="font-bold text-[#5c3d1e] song-serif text-sm sm:text-base">
+                        莆田南少林 · 九莲僧俗衣钵戒律
+                      </span>
+                      <span
+                        className={`text-xs px-2 py-0.5 rounded font-bold ${
+                          isPlayerInThisSect && sectState.shaolinDiscipleType === 'monk'
+                            ? 'bg-[#6b4614] text-[#fff6e0]'
+                            : 'bg-[#efe4cc] border border-[#cbb693] text-[#5c3d1e]'
+                        }`}
+                      >
+                        {!isPlayerInThisSect
+                          ? '入门奉茶时一次择定'
+                          : sectState.shaolinDiscipleType === 'monk'
+                            ? `清修武僧（法号：${playerName}）`
+                            : '护寺俗家（地阶永锁）'}
+                      </span>
+                    </div>
+                    <p className="text-xs text-[#6b5235] leading-relaxed">
+                      {!isPlayerInThisSect
+                        ? '九莲山祖训：闯过百杰木人巷奉茶入门时须当场择定僧俗衣钵——择【持戒参禅 · 清修武僧】者落发受赐法号「弘毅」并换穿少林佛子僧衣，解锁本门【地阶】功法；若择【带发入世 · 护寺俗家】，入册后不可再剃度，本门所有【地阶】功法对主角永远不开放。'
+                        : sectState.shaolinDiscipleType === 'monk'
+                          ? `小师父已于九莲大雄宝殿礼拜方丈【元苦】落发受戒，赐法号「${playerName}」。凡本门职阶达标之【地阶】秘传功法，皆可依序参学！`
+                          : '少侠入门时已择定【带发入世 · 护寺俗家】名册，可正常历练晋升职阶并修习凡品、良品武学；依九莲山祖训，护寺俗家不可再行剃度，本门所有【地阶】秘传功法对少侠永远不开放。'}
                     </p>
                   </div>
                 )}
@@ -1343,7 +1375,7 @@ export function NpcInteractionOverlay() {
                   )
                   const unlocked = rankOk && !blockedByLay
                   const isShaolinMonkOnlyTier =
-                    targetFactionId === 'SECT-01' &&
+                    (targetFactionId === 'SECT-01' || targetFactionId === 'SECT-04') &&
                     (entry.art.tier === '地阶' || entry.art.tier === '天阶')
                   return (
                     <div
@@ -1369,7 +1401,11 @@ export function NpcInteractionOverlay() {
                         </div>
                         <div className="text-[11px] text-[#6b5235]">
                           门槛：Lv.{entry.requiredRank}【{entry.requiredRankLabel}】
-                          {isShaolinMonkOnlyTier ? ' · 限出家僧众' : ''}
+                          {isShaolinMonkOnlyTier
+                            ? targetFactionId === 'SECT-04'
+                              ? ' · 限清修武僧（俗家永不开放）'
+                              : ' · 限出家僧众'
+                            : ''}
                         </div>
                       </div>
 
@@ -1393,7 +1429,9 @@ export function NpcInteractionOverlay() {
                             ? '修习入门'
                             : !rankOk
                               ? '职阶不足'
-                              : '需剃度出家'}
+                              : targetFactionId === 'SECT-04'
+                                ? '俗家永不开放'
+                                : '需剃度出家'}
                         </button>
                       ) : (
                         <span className="text-[11px] px-2 py-0.5 rounded bg-[#efe4cc] text-[#7a6a53] shrink-0">

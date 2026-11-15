@@ -687,14 +687,16 @@ export function canPlayerLearnSectArt(
 }
 
 /**
- * 嵩山少林寺专属戒律：所有地阶与天阶武学均不对俗家弟子开放，须剃度转为出家弟子（法号慧见）方可修习。
+ * 南北少林专属僧俗戒律：
+ * - 嵩山少林寺（SECT-01）：所有地阶与天阶武学均不对俗家弟子开放，须找方丈玄慈剃度转为出家弟子（法号慧见）方可修习。
+ * - 莆田南少林（SECT-04）：入门奉茶择定衣钵时若选【带发入世 · 护寺俗家】，不可事后补剃度，本门地阶功法对主角永远不开放。
  */
 export function isShaolinArtBlockedForLayDisciple(
   sectId: string | null | undefined,
   art: CompiledMartialArtRecord,
   shaolinDiscipleType?: 'lay' | 'monk',
 ): boolean {
-  if (sectId !== 'SECT-01') return false
+  if (sectId !== 'SECT-01' && sectId !== 'SECT-04') return false
   if (shaolinDiscipleType === 'monk') return false
   return art.tier === '地阶' || art.tier === '天阶'
 }
@@ -2157,7 +2159,7 @@ export function evaluateSectEntry(params: {
   // 3c. 莆田南少林 (SECT-04): 《刺桐风起 · 铁桥问禅》二十幕南拳入门长卷（兼容零武学散人与镇远镖局/岭南洪门武馆同脉）
   if (targetSectId === 'SECT-04') {
     const reqSummary =
-      '前往泉州府【刺桐港万国番坊】或【开元寺东西双塔】结识小沙弥戒藏与戒律首座元觉（或向南少林僧众求赐试缘），历经《刺桐风起 · 铁桥问禅》二十幕挑水筑基、雨夜护港与百杰木人巷大考后，于九莲大雄宝殿向元苦方丈奉茶入门（支持无门无派及镇远镖局/岭南洪门武馆同脉转投）'
+      '前往泉州府【刺桐港万国番坊】或【开元寺东西双塔】结识小沙弥戒藏与戒律首座元觉（或向南少林僧众求赐试缘），历经《刺桐风起 · 铁桥问禅》二十幕挑水筑基、雨夜护港与百杰木人巷大考后，于九莲大雄宝殿向元苦方丈奉茶择定僧俗衣钵（择清修武僧落发赐法号「弘毅」并换少林佛子立绘、解锁地阶功法；择护寺俗家则地阶功法永不开放）'
     return {
       canJoin: false,
       startingRank: 1,

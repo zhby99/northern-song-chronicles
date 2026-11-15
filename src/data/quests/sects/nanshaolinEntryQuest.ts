@@ -208,9 +208,30 @@ function buildWoodenDummyGuardianNpc(): NodeNpc {
 // 第四卷：百杰木人破关 · 九莲宝殿敬茶（第 16～20 幕，倒序声明供前序场景引用）
 // ============================================================================
 
+const SCENE_NSL_20_MONK_TONSURE_DONE: StorySceneDef = {
+  id: 'scene_nsl_20_monk_tonsure_done',
+  title: '终章礼成 · 青丝落尽赐弘毅',
+  subtitle: '莆田南少林 · 九莲佛前受戒',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '九莲山晨钟三响，梵呗庄严。方丈元苦亲执戒刀立于毗卢遮那佛金身之前，随着三缕青丝无声飘落蒲团，你褪去风尘俗衫，换上一袭洗得发白的少林佛子灰麻僧衣，双掌合十，眉宇间一片澄明刚毅。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0124' },
+      text: '“善哉，善哉！『士不可以不弘毅，任重而道远』——自今日起，前尘俗名尽归沧海，老衲赐你我南少林弘字辈法号【弘毅】！愿你守铁桥正气、参上乘禅机，他日《盘山铁布衫》与少林诸般地阶秘典，皆待你精进承继！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '“弟子【弘毅】，谨遵方丈法谕！宁折骨，不弯桥，护法安民，永志不忘！”',
+    },
+  ],
+}
+
 const SCENE_NSL_20_FINAL_VOW: StorySceneDef = {
   id: 'scene_nsl_20_final_vow',
-  title: '第二十幕 · 僧俗随心定衣钵',
+  title: '第二十幕 · 僧俗一念定衣钵',
   subtitle: '九莲大雄宝殿 · 铁桥归宗',
   mandatory: true,
   beats: [
@@ -224,30 +245,36 @@ const SCENE_NSL_20_FINAL_VOW: StorySceneDef = {
     },
     {
       speaker: { kind: 'npc', npcId: 'NPC-0201' },
-      text: '（藏经首座元空手捧度牒名册上前，微笑颔首）“我莆田南少林不拘泥枯禅死戒，门中既有诵经持戒、专精禅门上乘内典的清修武僧，亦有蓄发入世、护航刺桐商舶与武夷茶道的护寺俗家弟子。两者皆同授本门衣钵，无分高下。”',
+      text: '（藏经首座元空左手托着乌木戒刀、右手捧着僧俗两卷名册上前，神色肃穆）“依我九莲山创寺祖训，今日入室须当场立定衣钵，落册无悔：若择【持戒参禅 · 清修武僧】，方丈即刻为你落发披缁、换穿少林佛子僧衣并赐弘字辈法号【弘毅】，本门《盘山铁布衫（大成）》、《龙爪手》、《拈花指》等【地阶】秘传功法皆向你敞开；若择【带发入世 · 护寺俗家】，虽可蓄发留名行侠四海，但入册后永不再行剃度，本门一切【地阶】功法对你永远不开放！”',
     },
     {
       speaker: { kind: 'npc', npcId: 'NPC-0909' },
-      text: '（戒藏站在殿角拼命朝你挤眉弄眼，弘禅也抱着双臂咧嘴一笑，低声道）“不管你选做和尚还是跟咱们一样做俗家护寺武师，往后九莲山挑水劈柴、下山打海寇，咱们都是过命的同门师兄弟！”',
+      text: '（戒藏站在殿角轻轻拽了拽僧袖，弘禅也抱着双臂正色低语）“这一步定下便是一辈子的路数！不管你最终落发做【弘毅】师兄，还是跟弘禅一样做护寺俗家师兄，往后下山打海寇，咱们永远是过命的同门手足！”',
     },
   ],
   choices: [
     {
       id: 'nsl20_choose_monk_path',
-      label: '【持戒参禅 · 清修武僧】愿守禅门清规，精研佛理与金刚护体绝学！',
-      subLabel: '拜入莆田南少林外门 · 额外获赐【少林黄杨木佛珠】、【嵩山少林小还丹】及经义 +10',
+      label: '【持戒参禅 · 清修武僧】愿落发受戒，受赐法号「弘毅」，承禅门地阶衣钵！',
+      subLabel:
+        '剃度出家 · 头像与立绘切换为「少林佛子」，姓名改为法号「弘毅」，开放本门地阶功法，另赐佛珠/小还丹/经义+10',
       tone: 'gold',
       effects: [
         { type: 'setFlag', flag: 'nsl_disciple_style', value: 'monk' },
         { type: 'leaveSect', skipPenalty: true },
         { type: 'joinSect', sectId: 'SECT-04', rank: 1, allowOfficialTransfer: true },
+        {
+          type: 'ordainShaolinMonk',
+          dharmaName: '弘毅',
+          portraitId: 'hero_02_shaolin',
+        },
         { type: 'giveItem', itemId: 'ACC-034', qty: 1 },
         { type: 'giveItem', itemId: 'ITM-MED-111', qty: 1 },
         { type: 'modifySkill', key: '经义', delta: 10 },
         { type: 'giveFood', amount: 5 },
         { type: 'giveSilver', amount: 25, reason: '南少林下院巡护盘缠津贴' },
         { type: 'modifyChivalry', delta: 15, reason: '护佑刺桐百姓、铁桥拜入南少林' },
-        { type: 'modifyRenown', delta: 20, reason: '闯过百杰木人巷初阵，拜入莆田南少林' },
+        { type: 'modifyRenown', delta: 20, reason: '闯过百杰木人巷初阵，落发拜入莆田南少林' },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0124' }, delta: 25 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0201' }, delta: 25 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0164' }, delta: 20 },
@@ -263,16 +290,21 @@ const SCENE_NSL_20_FINAL_VOW: StorySceneDef = {
         },
         {
           type: 'toast',
-          text: '正式拜入一流宗门【莆田南少林】（禅门清修一脉）！获赐灰麻僧衣、僧侣芒鞋、少林白蜡齐眉棍，及方丈另赐【少林黄杨木佛珠】与【嵩山少林小还丹】！',
+          text: '正式落发拜入【莆田南少林 · 清修武僧】，赐法号【弘毅】！已换穿少林佛子僧衣，本门地阶秘传功法向小师父敞开！',
           tone: 'success',
           logTag: '铁桥归宗',
+        },
+        {
+          type: 'openScene',
+          scene: SCENE_NSL_20_MONK_TONSURE_DONE,
         },
       ],
     },
     {
       id: 'nsl20_choose_lay_path',
       label: '【带发入世 · 护寺俗家】愿蓄发仗义行四方，护佑东南海疆黎庶！',
-      subLabel: '拜入莆田南少林外门 · 额外获赐【码头力夫麻布护腕】、【天香断续胶】及侠义/声望加成',
+      subLabel:
+        '⚠️ 落册无悔：保留俗名与原立绘，获护腕/断续胶及侠义声望加成，但本门【地阶功法】对主角永远不开放！',
       tone: 'jade',
       effects: [
         { type: 'setFlag', flag: 'nsl_disciple_style', value: 'lay' },
@@ -299,7 +331,7 @@ const SCENE_NSL_20_FINAL_VOW: StorySceneDef = {
         },
         {
           type: 'toast',
-          text: '正式拜入一流宗门【莆田南少林】（护寺俗家一脉）！获赐灰麻僧衣、僧侣芒鞋、少林白蜡齐眉棍，及元通禅师另赐【码头力夫麻布护腕】与【天香断续胶】！',
+          text: '正式拜入【莆田南少林 · 护寺俗家】！保留俗名与行侠衣冠，获赐制式披挂与护腕断续胶（依九莲山祖训，本门地阶功法对俗家弟子永不开放）！',
           tone: 'success',
           logTag: '铁桥归宗',
         },
