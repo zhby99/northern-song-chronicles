@@ -246,7 +246,13 @@ export type QuestEffect =
   | { type: 'removeItem'; itemId: string; qty?: number }
   | { type: 'modifySkill'; key: TenArtKey; delta: number }
   | { type: 'healPlayer'; hpPct?: number; mpPct?: number }
-  | { type: 'teachMartialArt'; artId: string; level?: number; exp?: number }
+  | {
+      type: 'teachMartialArt'
+      artId: string
+      level?: number
+      exp?: number
+      autoEquip?: boolean
+    }
   | { type: 'addArtExp'; amount: number; artId?: string }
   | {
       type: 'joinSect'

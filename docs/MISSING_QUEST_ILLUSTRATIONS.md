@@ -20,11 +20,17 @@
 | `CG-QST-008` | `[ ]` 待补绘 | `public/assets/quests/huashan_canglong_ridge.jpg` | `/assets/quests/huashan_canglong_ridge.jpg` | `QST-SECT-05-ENTRY`<br>《云海孤棋 · 问剑西岳》 | 第七幕 · 苍龙岭上万丈云<br>（`SCENE_HS_07_CANGLONGLING`） | `16:9` |
 | `CG-QST-009` | `[ ]` 待补绘 | `public/assets/quests/huashan_botai_chess.jpg` | `/assets/quests/huashan_botai_chess.jpg` | `QST-SECT-05-ENTRY`<br>《云海孤棋 · 问剑西岳》 | 第十一幕 · 绝顶博台孤峰弈<br>（`SCENE_HS_11_BOTAI_PAVILION`） | `16:9` |
 | `CG-QST-010` | `[ ]` 待补绘 | `public/assets/quests/huashan_zixia_dawn_sword.jpg` | `/assets/quests/huashan_zixia_dawn_sword.jpg` | `QST-SECT-05-ENTRY`<br>《云海孤棋 · 问剑西岳》 | 第二十一幕 · 紫气东来授青锋<br>（`SCENE_HS_21_BESTOW_SWORD`） | `16:9` |
-| `CG-QST-011` | `[ ]` 待补绘 | `public/assets/quests/renzong_weifu_market.jpg` | `/assets/quests/renzong_weifu_market.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第五~八幕 · 宣德微服相国寺灯市<br>（`scene_rz_05_market_twilight` 等 4 幕） | `16:9` |
-| `CG-QST-012` | `[ ]` 待补绘 | `public/assets/quests/renzong_pagoda_ambush.jpg` | `/assets/quests/renzong_pagoda_ambush.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第十一~十四幕 · 资圣宝塔飞檐断铃<br>（`scene_rz_12_pagoda_ambush_duel` 等 4 幕） | `16:9` |
-| `CG-QST-013` | `[ ]` 待补绘 | `public/assets/quests/renzong_fanlou_assassins.jpg` | `/assets/quests/renzong_fanlou_assassins.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第十九~二十二幕 · 樊楼飞桥珠帘破屏<br>（`scene_rz_20_red_plaque_ambush` 等 4 幕） | `16:9` |
-| `CG-QST-014` | `[ ]` 待补绘 | `public/assets/quests/renzong_hongqiao_blood.jpg` | `/assets/quests/renzong_hongqiao_blood.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第二十七~三十幕 · 虹桥夜雨血战双狼<br>（`scene_rz_28_hongqiao_final_duel` 等 4 幕） | `16:9` |
-| `CG-QST-015` | `[ ]` 待补绘 | `public/assets/quests/renzong_zichen_decree.jpg` | `/assets/quests/renzong_zichen_decree.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第三十三~三十六幕 · 紫宸晓日御马秘卷<br>（`scene_rz_34_imperial_choice` 等 6 幕） | `16:9` |
+| `CG-QST-011` | `[ ]` 待补绘 | `public/assets/quests/nanshaolin_tripod_training.jpg` | `/assets/quests/nanshaolin_tripod_training.jpg` | `QST-SECT-04-ENTRY`<br>《刺桐风起 · 铁桥问禅》 | 第八幕 · 寒泉浸铁腕，四平扎马桩<br>（`SCENE_NSL_08_COLD_SPRING_CG`） | `16:9` |
+| `CG-QST-012` | `[ ]` 待补绘 | `public/assets/quests/nanshaolin_port_night_battle.jpg` | `/assets/quests/nanshaolin_port_night_battle.jpg` | `QST-SECT-04-ENTRY`<br>《刺桐风起 · 铁桥问禅》 | 第十四幕 · 刺桐夜雨急，铁桥碎倭刀<br>（`SCENE_NSL_14_SHATTER_KATANA_CG`） | `16:9` |
+| `CG-QST-013` | `[ ]` 待补绘 | `public/assets/quests/nanshaolin_wooden_alley.jpg` | `/assets/quests/nanshaolin_wooden_alley.jpg` | `QST-SECT-04-ENTRY`<br>《刺桐风起 · 铁桥问禅》 | 第十八幕 · 百杰木人巷，硬桥闯山门<br>（`SCENE_NSL_18_BREAK_GATE_CG`） | `16:9` |
+| `CG-QST-014` | `[ ]` 待补绘 | `public/assets/quests/zhenwu_cloud_tea.jpg` | `/assets/quests/zhenwu_cloud_tea.jpg` | `QST-SECT-08-ENTRY`<br>《汉水问津 · 太和问道》 | 第七幕 · 观云台上煮雪茶<br>（`SCENE_ZW_07_CLOUD_TERRACE`） | `16:9` |
+| `CG-QST-015` | `[ ]` 待补绘 | `public/assets/quests/zhenwu_turtle_snake.jpg` | `/assets/quests/zhenwu_turtle_snake.jpg` | `QST-SECT-08-ENTRY`<br>《汉水问津 · 太和问道》 | 第十一幕 · 禹迹池畔观龟蛇<br>（`SCENE_ZW_11_TURTLE_SNAKE`） | `16:9` |
+| `CG-QST-016` | `[ ]` 待补绘 | `public/assets/quests/zhenwu_golden_sword.jpg` | `/assets/quests/zhenwu_golden_sword.jpg` | `QST-SECT-08-ENTRY`<br>《汉水问津 · 太和问道》 | 第十九幕 · 太和殿前授松纹<br>（`SCENE_ZW_19_BESTOW_SWORD`） | `16:9` |
+| `CG-QST-017` | `[ ]` 待补绘 | `public/assets/quests/renzong_weifu_market.jpg` | `/assets/quests/renzong_weifu_market.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第五~八幕 · 宣德微服相国寺灯市<br>（`scene_rz_05_market_twilight` 等 4 幕） | `16:9` |
+| `CG-QST-018` | `[ ]` 待补绘 | `public/assets/quests/renzong_pagoda_ambush.jpg` | `/assets/quests/renzong_pagoda_ambush.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第十一~十四幕 · 资圣宝塔飞檐断铃<br>（`scene_rz_12_pagoda_ambush_duel` 等 4 幕） | `16:9` |
+| `CG-QST-019` | `[ ]` 待补绘 | `public/assets/quests/renzong_fanlou_assassins.jpg` | `/assets/quests/renzong_fanlou_assassins.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第十九~二十二幕 · 樊楼飞桥珠帘破屏<br>（`scene_rz_20_red_plaque_ambush` 等 4 幕） | `16:9` |
+| `CG-QST-020` | `[ ]` 待补绘 | `public/assets/quests/renzong_hongqiao_blood.jpg` | `/assets/quests/renzong_hongqiao_blood.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第二十七~三十幕 · 虹桥夜雨血战双狼<br>（`scene_rz_28_hongqiao_final_duel` 等 4 幕） | `16:9` |
+| `CG-QST-021` | `[ ]` 待补绘 | `public/assets/quests/renzong_zichen_decree.jpg` | `/assets/quests/renzong_zichen_decree.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第三十三~三十六幕 · 紫宸晓日御马秘卷<br>（`scene_rz_34_imperial_choice` 等 6 幕） | `16:9` |
 
 ---
 
@@ -227,7 +233,118 @@
 
 ---
 
-### 11. `CG-QST-011`：宣德微服 · 相国寺万姓灯市图
+### 11. `CG-QST-011`：九莲山千斤铁鼎炼体坪 · 寒泉挑水扎马图
+
+- **关联文件**：[`src/data/quests/sects/nanshaolinEntryQuest.ts`](../src/data/quests/sects/nanshaolinEntryQuest.ts)
+- **目标路径**：`public/assets/quests/nanshaolin_tripod_training.jpg`
+- **画框题跋**：`九莲山千斤铁鼎坪 · 铁腕挑泉稳踏梅花桩`
+- **剧情语境**：
+  - 主角毫无内家根基初上莆田九莲山，铁罗汉堂主【元通】罚其与十五岁小沙弥【戒藏】于千斤铁鼎炼体坪苦修基本功。
+  - 数十日寒暑锤炼，入夜山岚微雨之中，主角双腕扣着沉重熟铁环、双臂平伸挑起两只满溢寒泉的杉木大水桶，稳稳扎下南派“四平大马”立于湿滑青石梅花桩上；神炉赤红火光与寒泉白雾交映，面冷心热的元通禅师手持竹杖与一钵滚烫壮骨药汤静立桩下督训。
+- **画面核心要素**：
+  1. **环境氛围**：北宋闽中九莲山古刹炼体石坪，苍劲古榕盘根错节，后方矗立千斤青铜巨鼎与微透赤红炉火的铸铁神炉坊，一侧山涧寒泉池腾起丝丝白雾。
+  2. **主体人物**：前景一排高低错落的青石梅花桩上，身穿湿透粗布短褐、双腕套着乌黑铁环的年轻主角咬牙平伸双臂，稳稳挑起两只水花微漾的大木桶，下盘四平大马稳如磐石；不远处小沙弥（戒藏）亦挑桶踏桩互相鼓劲。
+  3. **师徒张力**：石桩旁，魁梧精悍、双臂古铜如生铁的老武僧（元通禅师）一手执青竹杖、一手托着冒热气的粗陶药钵，目光严厉中隐含赞许，尽显经典港式南拳电影苦练筑基的热血质感。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition inspired by classic Southern Shaolin martial arts cinema. Misty twilight at the Thousand-Jin Bronze Tripod training courtyard of Putian Southern Shaolin Temple in Fujian around 1050 AD, framed by ancient banyan trees, a massive bronze tripod cauldron, a glowing forge furnace in the background, and a steaming cold mountain spring pool. On wet stone plum-blossom poles (梅花桩) in the foreground, a determined young martial artist in sweat-soaked coarse cloth training attire, wearing heavy black iron rings on both forearms, holds a deep horse stance (四平大马) with arms extended horizontally supporting two brimming wooden water buckets without spilling. Beside the poles stands a stern, muscular senior Shaolin monk with bronze-like forearms, holding a bamboo cane in one hand and a steaming clay bowl of herbal medicine in the other, watching with quiet approval while a young 15-year-old novice monk trains nearby. Warm forge firelight contrasting with cool mountain mist, authentic Song court painting brushwork, mineral pigments, no modern elements, no text or characters.
+  ```
+
+---
+
+### 12. `CG-QST-012`：泉州刺桐港雨夜 · 铁桥硬架碎倭刀图
+
+- **关联文件**：[`src/data/quests/sects/nanshaolinEntryQuest.ts`](../src/data/quests/sects/nanshaolinEntryQuest.ts)
+- **目标路径**：`public/assets/quests/nanshaolin_port_night_battle.jpg`
+- **画框题跋**：`刺桐港狂潮夜雨 · 南拳铁桥力碎东洋刃`
+- **剧情语境**：
+  - 秋潮暴雨之夜，受北朝暗桩雇佣的东洋浪人头目【鬼丸甚内】率黑鲨水匪夜袭泉州刺桐港药栈，企图劫夺金创血竭与海道针经。
+  - 危急时刻，主角双足钉死湿滑栈桥，以初成的南派铁桥双臂硬生生架住浪人头目劈落的长刀护住身后的小沙弥戒藏与老船工；电光石火间，南少林戒律首座【元觉】踏浪飞身赶到，右手探出《大力金刚指》精准夹住雪亮刀锋，将其寸寸震断！
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年北宋泉州刺桐港番坊木栈桥，狂风暴雨倾盆而下，海浪拍击船坞激起千堆白雪，远处宋代福船桅杆与摇曳的油纸灯笼、火把映照雨幕。
+  2. **主体交锋（双焦点高燃构图）**：湿滑木栈桥中央，年轻主角扎稳低沉马步、双臂交叉如铁桥奋力向上格架，护住身后跌坐的年轻沙弥与老船工；对面凶悍的东洋浪人武士双手高举修长弯刀下劈，而半空中披灰麻僧袍的威猛高僧（元觉首座）飞掠而至，两根泛着淡金劲力的铁指如钳子般生生夹断浪人长刀，断刃碎片与雨水四溅！
+  3. **视觉张力**：雨丝、火光、浪花与崩碎的钢刃定格于一瞬间，兼具宋画工笔力道与港产功夫片雨夜码头决战的凌厉张力。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 action composition. Torrential rainstorm at night on the wooden harbour piers of Quanzhou Zaytun Port around 1050 AD, crashing ocean waves, moored Song dynasty sea junks, and blazing pine torches swaying in the gale. In the center of the rain-slicked pier, a young martial artist in coarse cloth robes plants a rock-solid Southern Fist horse stance, raising crossed iron-bridge forearms to block and protect a fallen young novice monk and an elderly boatman behind him. Facing them, a fierce rogue sea-raider swordsman slashes down with a long curved blade, while a powerful senior Southern Shaolin monk in grey robes leaps through the rain, clamping the steel blade between two bare fingers with supreme Vajra Finger force and shattering the sword into flying steel shards and water droplets. Dramatic chiaroscuro torchlight against stormy indigo sea and rain, authentic Song dynasty brushwork, rich mineral pigments, intense martial arts impact, no modern elements, blank lanterns with no text or characters.
+  ```
+
+---
+
+### 13. `CG-QST-013`：南少林百杰木人巷 · 硬桥破阵出山门图
+
+- **关联文件**：[`src/data/quests/sects/nanshaolinEntryQuest.ts`](../src/data/quests/sects/nanshaolinEntryQuest.ts)
+- **目标路径**：`public/assets/quests/nanshaolin_wooden_alley.jpg`
+- **画框题跋**：`九莲山百杰木人巷 · 铁线轰关见晨光`
+- **剧情语境**：
+  - 主角护港立功归山，奉方丈【元苦】法旨踏入【南少林百杰木人巷】接受入门终极考校。
+  - 幽深石廊内机括轰鸣，十余尊包铜涂漆的少林机关木人出拳横棍重重夹击；主角双目如电，凝聚浑身劲力一记刚猛南拳轰开最后守关的镇门铜皮木人，尽头沉重石闸应声洞开，万丈闽海晨光与刺桐落花倾泻入巷，巷外元苦方丈与众高僧合十含笑相迎。
+- **画面核心要素**：
+  1. **环境氛围**：纵深透视极强的北宋古刹青石机关长廊（百杰木人巷），地面嵌有八卦方位石砖与暗槽齿轮，两侧密集排列着精巧古朴的宋代漆木包铜武僧机关人偶。
+  2. **主体人物**：前景中轴线上，衣衫微破、汗水淋漓却神采奕奕的年轻主角前弓后箭，右拳挟破空劲风重重轰退当路一尊高大铜胸机关木人，左臂沉桥格开侧翼木人横扫而来的齐眉木棍。
+  3. **光影叙事**：长廊尽头厚重石门刚刚向两侧洞开，灿烂金红的日出晨光穿透幽暗石巷照亮尘埃与飞舞的红花瓣，门外演武坪隐约可见披红祖衣的方丈与数名武僧合十伫立见证出关。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 perspective composition. Inside the solemn stone corridor of the Hundred-Heroes Wooden Dummy Alley (百杰木人巷) at Putian Southern Shaolin Temple around 1050 AD. Along both sides of the shadowed stone hall, intricate ancient wooden mechanical martial-monk dummies clad in bronze plates swing wooden arms and staffs via floor gears. In the foreground center, a bruised yet radiant young martial artist in torn training robes roots his stance and delivers a thunderous Southern Fist straight punch into the bronze chest-plate of the final guardian wooden dummy while parrying a wooden staff with his left forearm. At the far end of the corridor, heavy stone gates slide open, flooding the dark hall with brilliant golden morning sunlight and drifting crimson erythrina blossoms, revealing the silhouettes of the elderly Abbot in a kasaya robe and fellow monks standing in approval outside. Dramatic shafts of golden light, authentic Song court painting style, mineral pigments, triumphant martial arts cinema atmosphere, no modern elements, no text or characters.
+  ```
+
+---
+
+### 14. `CG-QST-014`：天柱绝顶观云台 · 松枝煮雪论太和
+
+- **关联文件**：[`src/data/quests/sects/zhenwuEntryQuest.ts`](../src/data/quests/sects/zhenwuEntryQuest.ts)
+- **目标路径**：`public/assets/quests/zhenwu_cloud_tea.jpg`
+- **画框题跋**：`天柱绝顶观云台 · 布衣老道松枝煮茶论太和`
+- **剧情语境**：
+  - 少侠初登武当山天柱绝顶观云台，晨雾未散、云海翻涌，偶遇隐瞒掌教身份的布衣白发老道（张玄素）于石桌旁以松枝煮雪茶，共论“世人皆求有，唯道守虚静”。
+- **画面核心要素**：
+  1. **环境氛围**：武当山天柱绝顶石台，云海浩渺如潮，远峰青绿叠翠如画，苍劲古松斜倚悬崖，晨光微金透云而出。
+  2. **主体人物**：石桌一侧，白发银须、神色温雅清癯的布衣老道（张玄素）轻摇蒲扇煮着小泥炉上的粗陶茶壶；另一侧身着素净粗布衣衫、尚未佩剑的年轻少侠拱手垂听，神情沉静。
+  3. **前景细节**：石桌上置两只宋式青瓷茶盏，旁有一把青竹扫帚倚松而立，呼应老道“扫雪煮茶”的出尘气韵。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Early dawn atop a high misty stone cliff terrace on Mount Wudang around 1050 AD, overlooking a vast sea of swirling white clouds and blue-green mountain peaks. Beneath an ancient gnarled pine tree, a serene white-bearded Taoist elder in humble plain grey-indigo linen robes (Zhang Xuansu in disguise) sits beside a rough stone table, gently fanning a small clay brazier boiling a ceramic teapot with pine twigs. Across the table sits a young Chinese martial arts novice in simple plain cloth robes with no weapon, listening respectfully over two celadon teacups. A bamboo broom leans quietly against the pine trunk. Authentic Northern Song court landscape painting brushwork, mineral azurite and malachite pigments, tranquil Daoist poetic atmosphere, no modern elements, no text or characters.
+  ```
+
+---
+
+### 15. `CG-QST-015`：禹迹池畔太极坪 · 暮雨细观龟蛇峙
+
+- **关联文件**：[`src/data/quests/sects/zhenwuEntryQuest.ts`](../src/data/quests/sects/zhenwuEntryQuest.ts)
+- **目标路径**：`public/assets/quests/zhenwu_turtle_snake.jpg`
+- **画框题跋**：`禹迹池畔太极坪 · 暮色微雨观龟蛇相峙悟圆融`
+- **剧情语境**：
+  - 紫霄宫三日观心将满，黄昏细雨中，少侠与首座大弟子宋远乔行至禹迹池畔太极坪，忽见青石池畔一只玄龟与一条青蛇对峙盘旋，龟静如岳、蛇动如风，少侠由此初悟“以静制动、圆转卸力”之理。
+- **画面核心要素**：
+  1. **环境氛围**：北宋道观紫霄宫外青石太极坪与禹迹池，暮色微雨，池面涟漪圈圈，古柏红墙隐约于山岚之中。
+  2. **主体人物**：石栏旁，儒雅端方的武当首座大弟子（宋远乔，青衫道袍、负手含笑）侧身指点池畔；年轻少侠俯身凝望，眼神若有所悟。
+  3. **前景焦点**：池畔湿润青石上，一只墨色玄龟缩首稳立，一条翠青小蛇盘旋游走却始终无法伤其分毫，暗合真武龟蛇护法与太极阴阳意象。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Dusk light rain at a mossy stone courtyard terrace beside a serene lotus-free mountain pond (Yujichi Pool) outside Zixiao Taoist Palace on Mount Wudang around 1050 AD, with Song-style vermilion palace walls and cypress trees veiled in mist. In the foreground on wet flagstones beside the rippling pond, a dark tortoise stands immovable facing a slender green snake coiling gracefully around it without striking. Standing nearby under the eaves or stone balustrade, a refined young Taoist senior disciple in neat indigo Taoist robes (Song Yuanqiao) gestures calmly toward the tortoise and snake, while the young plain-clothed protagonist watches in deep contemplation. Authentic Northern Song gongbi brushwork, soft ink wash rain and mineral pigments, philosophical wuxia atmosphere, no modern elements, no text or characters.
+  ```
+
+---
+
+### 16. `CG-QST-016`：太和紫金正殿 · 拜师授受松纹剑
+
+- **关联文件**：[`src/data/quests/sects/zhenwuEntryQuest.ts`](../src/data/quests/sects/zhenwuEntryQuest.ts)
+- **目标路径**：`public/assets/quests/zhenwu_golden_sword.jpg`
+- **画框题跋**：`太和紫金正殿 · 张玄素天师亲授真武松纹道剑`
+- **剧情语境**：
+  - 少侠历尽襄阳结缘、紫霄观心与南岩试炼后，登太和紫金正殿，方知观云台老道便是掌教天师张玄素。天师亲赐外门道篆、真武松纹道剑与道门金丹，少侠正式拜入真武道宗。
+- **画面核心要素**：
+  1. **环境氛围**：庄严肃穆的北宋太和绝顶紫金正殿内景，铜铸殿柱与藻井沉稳古朴，长明烛火与香炉青烟袅袅，殿外天柱峰云霞微透窗棂。
+  2. **主体人物**：正殿高台前，白发飘逸、身着玄色镶金云纹法袍的掌教天师张玄素含笑俯身，双手将一柄连鞘古朴青松纹道剑与一只青瓷丹瓶递向单膝跪拜的年轻少侠。
+  3. **左右观礼**：宋远乔、俞清虚、莫清谷、殷峰峰与清鹤等武当师长分列左右含笑颔首，庄重中透着师门温情。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Inside the solemn bronze-and-timber Golden Hall of Taihe Peak on Mount Wudang around 1050 AD, illuminated by tall brass candlesticks and drifting incense smoke, with misty mountain clouds visible through lattice doors. Before the altar, the white-haired Taoist Grandmaster Zhang Xuansu in dignified dark-indigo and gold-trimmed Taoist ceremonial robes smiles warmly as he bestows a plain pine-carved scabbard sword (真武松纹道剑) and a small celadon medicine bottle to the young protagonist kneeling respectfully on one knee. Flanking the hall in quiet approval stand senior Taoist disciples and elders in indigo robes. Authentic Northern Song court painting aesthetics, rich mineral pigments, solemn yet warm master-disciple ceremony, no modern elements, blank plaques with no text or characters.
+  ```
+
+---
+
+### 17. `CG-QST-017`：宣德微服 · 相国寺万姓灯市图
 
 - **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
 - **目标路径**：`public/assets/quests/renzong_weifu_market.jpg`
@@ -246,7 +363,7 @@
 
 ---
 
-### 12. `CG-QST-012`：资圣宝塔 · 飞檐断铃惊变图
+### 18. `CG-QST-018`：资圣宝塔 · 飞檐断铃惊变图
 
 - **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
 - **目标路径**：`public/assets/quests/renzong_pagoda_ambush.jpg`
@@ -265,7 +382,7 @@
 
 ---
 
-### 13. `CG-QST-013`：樊楼飞桥 · 珠帘破屏杀机图
+### 19. `CG-QST-019`：樊楼飞桥 · 珠帘破屏杀机图
 
 - **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
 - **目标路径**：`public/assets/quests/renzong_fanlou_assassins.jpg`
@@ -284,7 +401,7 @@
 
 ---
 
-### 14. `CG-QST-014`：虹桥夜雨 · 孤身血战双狼图
+### 20. `CG-QST-020`：虹桥夜雨 · 孤身血战双狼图
 
 - **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
 - **目标路径**：`public/assets/quests/renzong_hongqiao_blood.jpg`
@@ -303,7 +420,7 @@
 
 ---
 
-### 15. `CG-QST-015`：紫宸晓日 · 御马秘卷双恩图
+### 21. `CG-QST-021`：紫宸晓日 · 御马秘卷双恩图
 
 - **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
 - **目标路径**：`public/assets/quests/renzong_zichen_decree.jpg`
