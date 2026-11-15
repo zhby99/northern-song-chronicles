@@ -31,6 +31,9 @@
 | `CG-QST-019` | `[ ]` 待补绘 | `public/assets/quests/renzong_fanlou_assassins.jpg` | `/assets/quests/renzong_fanlou_assassins.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第十九~二十二幕 · 樊楼飞桥珠帘破屏<br>（`scene_rz_20_red_plaque_ambush` 等 4 幕） | `16:9` |
 | `CG-QST-020` | `[ ]` 待补绘 | `public/assets/quests/renzong_hongqiao_blood.jpg` | `/assets/quests/renzong_hongqiao_blood.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第二十七~三十幕 · 虹桥夜雨血战双狼<br>（`scene_rz_28_hongqiao_final_duel` 等 4 幕） | `16:9` |
 | `CG-QST-021` | `[ ]` 待补绘 | `public/assets/quests/renzong_zichen_decree.jpg` | `/assets/quests/renzong_zichen_decree.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第三十三~三十六幕 · 紫宸晓日御马秘卷<br>（`scene_rz_34_imperial_choice` 等 6 幕） | `16:9` |
+| `CG-QST-022` | `[ ]` 待补绘 | `public/assets/quests/xingxiu_poison_furnace.jpg` | `/assets/quests/xingxiu_poison_furnace.jpg` | `QST-SECT-19-ENTRY`<br>《紫烟迷市 · 毒泉求生》 | 第八幕 · 丹炉紫雾冲脉生<br>（`scene_xx_08_furnace_breakthrough`） | `16:9` |
+| `CG-QST-023` | `[ ]` 待补绘 | `public/assets/quests/xingxiu_ice_cave_bandage.jpg` | `/assets/quests/xingxiu_ice_cave_bandage.jpg` | `QST-SECT-19-ENTRY`<br>《紫烟迷市 · 毒泉求生》 | 第十五幕 · 寒窟渡毒共微光<br>（`scene_xx_15_ice_cave_vigil`） | `16:9` |
+| `CG-QST-024` | `[ ]` 待补绘 | `public/assets/quests/xingxiu_ding_chunqiu_audience.jpg` | `/assets/quests/xingxiu_ding_chunqiu_audience.jpg` | `QST-SECT-19-ENTRY`<br>《紫烟迷市 · 毒泉求生》 | 第十九幕 · 丝竹漫天拜老仙<br>（`scene_xx_19_ding_chunqiu_audience`） | `16:9` |
 
 ---
 
@@ -435,6 +438,63 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Northern Song Dynasty (1050 AD) 16:9 majestic court illustration in imperial Song gold-and-vermilion gongbi painting style. Golden dawn sunlight streams cleanly into Zichen Hall between towering vermilion dragon-carved pillars onto carved white marble steps. Seated before the golden screen in dragon-yellow ceremonial Song robes and flat-winged black futou cap, Emperor Song Renzong holds an unfurled imperial yellow silk decree, looking down warmly at the Kaifeng Royal Guard protagonist kneeling respectfully on one knee at the base of the steps. Framing the composition symmetrically: on the left side stands the royal Yujinyuan dapple-white warhorse "Longxiangcong" fitted with crimson silk tassels and gilded stirrups; on the right side sits an imperial yellow-brocade lacquered casket slightly ajar revealing an ancient red-edged martial manual scroll glowing gently in the sunbeams. Regal Song court Officials Bao Zheng, Empress Cao, and Wang Deyong stand in formal purple and scarlet robes flanking the hall. Zero garbled text.
+  ```
+
+---
+
+### 22. `CG-QST-022`：昆仑百草炼毒庐 · 丹鼎紫雾冲脉筑基图
+
+- **关联文件**：[`src/data/quests/sects/xingxiuEntryQuest.ts`](../src/data/quests/sects/xingxiuEntryQuest.ts)
+- **目标路径**：`public/assets/quests/xingxiu_poison_furnace.jpg`
+- **画框题跋**：`昆仑百草炼毒庐丹鼎炸裂 · 紫碧毒雾中苏半夏扶背助引毒气冲脉`
+- **剧情语境**：
+  - 毫无内功根基的主角身中星宿“三日腐心散”，随押药驼队进入昆仑山【星宿百草炼毒庐】充当试药杂役。
+  - 子夜邻炉错投断肠乌头导致青铜毒鼎轰然掀盖炸裂，滚滚紫碧毒烟吞没丹房，引燃主角体内腐心宿毒；危急关头，司药孤女【苏半夏】以湿巾掩口逆着奔逃杂役扑至主角身后，双掌抵住其后心灵台穴，助主角含雪莲须、依残页口诀逆引毒气冲开气海，死中求活修出人生第一缕内功《星宿腐毒行气诀》。
+- **画面核心要素**：
+  1. **环境氛围**：昆仑雪山岩壁下的北宋木石丹房（百草炼毒庐），竹架悬挂晾晒奇异毒草与蛇蜕，后方一座巨大青铜兽耳丹鼎炉盖掀翻，炉底赤红炭火与翻涌而出的妖异紫碧色毒雾交织弥漫。
+  2. **主体人物**：前景蒲团青石上，身穿粗布杂役短衣的年轻主角盘膝紧闭双目、额角青筋微暴、唇角溢出一丝乌黑瘀血，双手结印凝出微弱幽紫气旋；身后十七岁清冷少女药童（苏半夏，身穿淡青灰宋式窄袖襦裙，面覆半透白麻湿巾，竹笠滑落肩后）跪坐紧贴，双掌坚定抵在主角后背心脉处护持。
+  3. **光影质感**：毒鼎溢出的诡谲紫翠冷光与炉膛暖橘炭火形成强烈冷暖戏剧张力，彰显“邪窟绝境里一线相护”的宿命感。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Midnight inside a stone-and-timber poison alchemy pavilion (百草炼毒庐) built against snowy Kunlun cliffs around 1050 AD, wooden racks hung with dried exotic herbs. In the mid-ground, a massive bronze tripod cauldron has burst open, billowing eerie violet and emerald-green poisonous smoke lit from below by glowing red furnace coals. In the foreground, a young Chinese martial artist apprentice in humble coarse grey cloth robes sits cross-legged on stone slabs, brow furrowed in intense pain with a trace of dark blood at his lip, channeling swirling faint purple qi around his hands. Kneeling right behind him, a 17-year-old female herbalist apprentice (Su Banxia, wearing modest pale teal-violet Song-style narrow-sleeve garments, a damp linen veil over her lower face, bamboo hat slung at her back) presses both palms firmly against his upper back to steady his meridians amidst the toxic mist. Authentic Song court painting brushwork, rich mineral pigments, dramatic violet mist and warm ember contrast, no modern elements, no text or characters.
+  ```
+
+---
+
+### 23. `CG-QST-023`：昆仑雪山冰蚕寒石窟 · 篝火映冰彻夜渡毒图
+
+- **关联文件**：[`src/data/quests/sects/xingxiuEntryQuest.ts`](../src/data/quests/sects/xingxiuEntryQuest.ts)
+- **目标路径**：`public/assets/quests/xingxiu_ice_cave_bandage.jpg`
+- **画框题跋**：`昆仑雪山冰蚕寒石窟 · 微火映冰下运功替苏半夏逼出蛇涎毒血`
+- **剧情语境**：
+  - 主角在紫雾毒泉沼击败外门恶霸乌承山，乌承山败退之际偷发涂满腐骨赤练蛇涎的袖箭射向主角咽喉，苏半夏飞身扑上以左肩替主角挡下毒箭昏迷，星宿同门冷笑劝主角将其弃入毒沼。
+  - 主角抱起苏半夏退入幽寂的【雪山冰蚕寒石窟】，在洞口燃起一小簇枯松火，彻夜盘膝运转初成的《星宿腐毒行气诀》替她逼出肩头乌黑毒血，直至眉发结满白霜；黎明苏醒的苏半夏热泪盈眶，解下家传平安药玉相赠，定下生死同命之缘。
+- **画面核心要素**：
+  1. **环境氛围**：昆仑万仞雪峰高处的天然寒冰石窟内景，洞顶垂挂晶莹冰棱，深处陈列寒玉石槽（隐约可见莹白冰蚕微光），洞口外风雪初霁透入熹微晨光。
+  2. **主体人物**：洞内一小堆将熄未熄的枯松枝篝火旁，身穿深色粗衣、眉梢发丝凝着白霜的年轻主角脸色苍白却神情专注坚毅，一手扶住少女右肩、一掌运起微光抵在少女包扎渗血的左肩锁骨伤处逼出几滴乌黑毒血；半倚在石壁干草上的十七岁清丽少女（苏半夏，淡紫滚边素衣，乌发微散）刚刚苏醒，眼眶泛红、目光温柔动容地凝视着主角，手中握着一枚红绳古玉欲递向他掌心。
+  3. **冷暖意境**：万年玄冰的澄澈幽蓝与小小松火的橘黄暖光交相辉映，极致烘托“至寒邪派中唯此一点真心滚烫”的武侠浪漫。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Dawn inside a crystalline high-altitude ice cavern (雪山冰蚕寒石窟) in the Kunlun Mountains around 1050 AD, translucent icicles hanging from rock ceilings, carved frost-covered stone troughs glowing softly in the background, pale morning snow-light at the cave mouth. Beside a small flickering pine-branch campfire in the foreground, a pale, frost-browed young Chinese martial artist in dark coarse robes channels gentle qi with his palm to draw out dark venom from a bandaged left-shoulder wound of a 17-year-old wuxia maiden (Su Banxia, dressed in pale lavender-trimmed Song robes, refined features, eyes glistening with moved emotion). Just awakening against dry straw and fur pelts, she gazes tenderly at him while offering a small antique jade pendant on a red cord into his hand. Poetic contrast between icy glacial blues and intimate warm firelight, authentic Song court painting brushwork, mineral pigments, deeply emotional wuxia romance, no modern elements, no text or characters.
+  ```
+
+---
+
+### 24. `CG-QST-024`：延安番坊秘厅 · 丝竹漫天拜星宿老仙图
+
+- **关联文件**：[`src/data/quests/sects/xingxiuEntryQuest.ts`](../src/data/quests/sects/xingxiuEntryQuest.ts)
+- **目标路径**：`public/assets/quests/xingxiu_ding_chunqiu_audience.jpg`
+- **画框题跋**：`延安番坊秘厅丝竹喧天 · 鹤发童颜星宿老仙高坐受献`
+- **剧情语境**：
+  - 主角与苏半夏识破大师兄【摘星子】在紫檀锦盒中暗掺臭秽散借刀杀人的毒计，暗换真雪莲冰蚕香饼后重返延安府【塞上番马黑市 · 番坊正市奇货堂】秘厅面圣。
+  - 红毯紫烟、二十余名紫衣门徒吹笛敲钹震耳欲聋；鹤发童颜、银髯垂胸、面如重枣手摇白羽扇的星宿老怪【丁春秋】高坐虎皮软榻之上抚须受献，主角从容揭开紫檀锦盒清香满室，榻侧准备看好戏的摘星子顿时脸色铁青。
+- **画面核心要素**：
+  1. **环境氛围**：北宋延安府番坊地下奇货堂奢华诡异的西域风秘厅，地面铺设波斯高昌大红织金羊毛毯，四隅青铜兽炉吐出袅袅紫烟，梁柱悬垂绛紫帷幔。
+  2. **主体人物**：正中高台虎皮软榻上，年近五旬却鹤发童颜、红光满面、长长银白美髯垂至胸口、身披华贵紫金道袍的宗师老者（丁春秋）右手轻摇洁白鹅毛扇，正抚须开怀大笑；榻侧侍立一名瘦高阴鸷、戴乌金护爪的青年大师兄（摘星子），正神色惊愕难堪地死死盯着堂下；前景中央，年轻主角单膝躬身，双手高举一只敞开的雕花紫檀锦盒，盒中升起一缕莹白清冽的雪莲寒香。
+  3. **群像烘托**：大堂左右两侧分列十余名身穿紫衣的星宿派门徒，正卖力敲击黄铜铙钹、吹奏竹笛、拍打腰鼓，将星宿派“仙气皮囊下包裹荒诞与杀机”的独特门风刻画得淋漓尽致。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Inside a lavish, eerie underground Western-Regions merchant hall (延安番坊秘厅) around 1050 AD, draped in deep purple silk curtains and Persian crimson carpets with bronze censers emitting curling violet incense smoke. High on a tiger-skin dais at the center sits Ding Chunqiu (the Old Immortal of Xingxiu: white hair, youthful ruddy crimson complexion, long flowing silver beard over his chest, sumptuous purple Taoist robes, holding a white goose-feather fan with a pleased arrogant laugh). Standing beside the dais, a tall gaunt sinister senior disciple (Zhaixingzi, dark iron claws on his fingers) looks shocked and mortified. In the foreground below, a composed young martial artist protagonist bows respectfully while presenting an open carved sandalwood box releasing a pure wisp of silvery frost-lotus fragrance. Lining both sides of the hall, purple-robed Xingxiu disciples enthusiastically clash brass cymbals, blow flutes, and beat hand drums. Authentic Song dynasty court painting style, rich mineral pigments, theatrical and sinister wuxia sect atmosphere, no modern elements, blank banners with no text or characters.
   ```
 
 ---

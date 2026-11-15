@@ -2186,6 +2186,22 @@ export function evaluateSectEntry(params: {
     }
   }
 
+  // 3e. 星宿派 (SECT-19): 踏入延安府【塞上番马黑市】触发二十幕《紫烟迷市 · 毒泉求生》剧情链入门
+  if (targetSectId === 'SECT-19') {
+    const reqSummary =
+      '无门无派时踏入【延安府 · 塞上番马黑市】触发二十幕《紫烟迷市 · 毒泉求生》长卷，因身染三日腐心散入彀西赴昆仑星宿海试药冲脉、寒窟结缘，再返延安番坊面见掌门丁春秋献宝颂仙后拜入星宿门墙'
+    return {
+      canJoin: false,
+      startingRank: 1,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: reqSummary,
+      blockedReason:
+        '星宿老仙法驾关外，不纳泛泛投门之辈——请以无门无派之身踏入【延安府 · 塞上番马黑市】（或寻四师兄【出尘子】打探），经历《紫烟迷市 · 毒泉求生》入门卷宗后由丁春秋亲赐紫衣入籍！',
+    }
+  }
+
   // 3. First-Tier Sects & Dali Royal Clan: gated for upcoming bespoke quest chains
   const noOuterHint =
     faction.acceptsOuterDisciple === false ? '（本门不收外门弟子，入门直授内门）' : ''
@@ -2215,5 +2231,6 @@ export const SECT_ENTRY_GEAR_GIFTS: Record<string, string[]> = {
   'SECT-08': ['WPN-063'], // 真武道宗：真武松纹道剑
   'SECT-16': ['ARM-040', 'WPN-071'], // 江淮漕帮：漕帮短褐劲装、皇祐通宝飞镖袋
   'SECT-18': ['ARM-039', 'WPN-076'], // 太行/京东绿林盟：绿林黑布夜行衣、绿林泼风砍刀
+  'SECT-19': ['ARM-039', 'BOT-022', 'WPN-084', 'ACC-051'], // 星宿派：夜行衣、塞北羊皮靴、粗练铁砂护掌布、干艾叶辟毒包
 }
 

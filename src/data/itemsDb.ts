@@ -2056,9 +2056,9 @@ export const REGION_UNLOCK_MAP_REQUIREMENTS: Record<string, RegionUnlockRequirem
     regionName: '昆仑山（万山之祖）',
     mapItemId: 'ITM-MSC-022',
     mapItemName: '《万山之祖昆仑雪域舆图》',
-    questTitleHint: '后续西域昆仑专卷任务开启后获得',
+    questTitleHint: '完成延安府星宿派入门长卷《紫烟迷市 · 毒泉求生》（或后续昆仑秘境奇遇）后获得',
     lockReason:
-      '万山之祖昆仑终年暴雪封山、万年冰裂纵横，须持有《万山之祖昆仑雪域舆图》方可踏足瑶池剑谷（昆仑舆图任务后续开启）。',
+      '万山之祖昆仑终年暴雪封山、万年冰裂纵横，须持有《万山之祖昆仑雪域舆图》方可踏足瑶池与星宿海（可赴延安府【塞上番马黑市】触发《紫烟迷市 · 毒泉求生》入籍星宿派获赐）。',
   },
 }
 
