@@ -193,6 +193,7 @@ export const REFERRAL_REQ_BY_TARGET_SECT: Record<string, ReferralBribeConfig> = 
 export const KAIFENG_RECOMMENDATION_ITEM_ID = 'ITM-MSC-006'
 export const DAMING_RECOMMENDATION_ITEM_ID = 'ITM-MSC-007'
 export const BAJI_IRON_TOKEN_ITEM_ID = 'ITM-MSC-008'
+export const CHANGSHAN_JOINT_RECOMMENDATION_ITEM_ID = 'ITM-MSC-013'
 
 /**
  * Compute monthly military stipend for SECT-22 常山枪派 based on current sect rank.
@@ -1541,22 +1542,28 @@ export function evaluateSectEntry(params: {
   const hasItem = (itemId: string) =>
     inventory.some((st) => st.itemId === itemId && st.qty > 0)
 
-  // Special case: SECT-17 开封府 / 六扇门 via 《北京留守幕府举荐信》(ITM-MSC-007, Rank 2) or 《开封府推荐信》(ITM-MSC-006, Rank 1)
+  // Special case: SECT-17 开封府 / 六扇门 via 《北京留守幕府举荐信》(ITM-MSC-007, Rank 2)、《常山·定州联合举荐信》(ITM-MSC-013, Rank 2) or 《开封府推荐信》(ITM-MSC-006, Rank 1)
   if (targetSectId === 'SECT-17') {
     const hasDamingLetter = hasItem(DAMING_RECOMMENDATION_ITEM_ID)
+    const hasJointLetter = hasItem(CHANGSHAN_JOINT_RECOMMENDATION_ITEM_ID)
     const hasChangshanLetter = hasItem(KAIFENG_RECOMMENDATION_ITEM_ID)
     const rank2Label = getSectRankTitle('SECT-17', 2)
+    const preferredRank2Letter = hasDamingLetter
+      ? DAMING_RECOMMENDATION_ITEM_ID
+      : hasJointLetter
+        ? CHANGSHAN_JOINT_RECOMMENDATION_ITEM_ID
+        : null
+    const fallbackConsumeItem =
+      preferredRank2Letter ?? KAIFENG_RECOMMENDATION_ITEM_ID
     const reqSummary =
-      '持大名府《北京留守幕府举荐信》（直授第2阶捕头都头，八极门/常山枪派可奉调转入）或常山枪派《开封府推荐信》（授第1阶役卒巡捕），且清白无朝廷通缉或通辽嫌疑'
+      '持大名府《北京留守幕府举荐信》或常山枪派《常山·定州联合举荐信》（直授第2阶捕头都头，八极门/常山枪派可奉调转入），或持常山枪派《开封府推荐信》（授第1阶役卒巡捕），且清白无朝廷通缉或通辽嫌疑'
     if (sectState.songCourtBlacklisted) {
       return {
         canJoin: false,
         startingRank: 1,
         startingRankLabel,
         costSilver: 0,
-        consumeItemId: hasDamingLetter
-          ? DAMING_RECOMMENDATION_ITEM_ID
-          : KAIFENG_RECOMMENDATION_ITEM_ID,
+        consumeItemId: fallbackConsumeItem,
         requirementSummary: reqSummary,
         blockedReason: '少侠已名列大宋朝廷黑名单，开封府岂容投效！',
       }
@@ -1567,9 +1574,7 @@ export function evaluateSectEntry(params: {
         startingRank: 1,
         startingRankLabel,
         costSilver: 0,
-        consumeItemId: hasDamingLetter
-          ? DAMING_RECOMMENDATION_ITEM_ID
-          : KAIFENG_RECOMMENDATION_ITEM_ID,
+        consumeItemId: fallbackConsumeItem,
         requirementSummary: reqSummary,
         blockedReason: '少侠身负【通辽嫌疑】，朝堂上下猜忌，开封府不予录用！',
       }
@@ -1584,14 +1589,12 @@ export function evaluateSectEntry(params: {
         startingRank: 1,
         startingRankLabel,
         costSilver: 0,
-        consumeItemId: hasDamingLetter
-          ? DAMING_RECOMMENDATION_ITEM_ID
-          : KAIFENG_RECOMMENDATION_ITEM_ID,
+        consumeItemId: fallbackConsumeItem,
         requirementSummary: reqSummary,
         blockedReason: `少侠已身在【${FACTION_DB_MAP[sectState.sectId]?.name ?? sectState.sectId}】，不可二门兼投。`,
       }
     }
-    if (sectState.sectId === 'SECT-23' && !hasDamingLetter) {
+    if (sectState.sectId === 'SECT-23' && !preferredRank2Letter) {
       return {
         canJoin: false,
         startingRank: 2,
@@ -1603,13 +1606,13 @@ export function evaluateSectEntry(params: {
           '沧州八极门弟子欲奉调开封府，需勘破大名府《铁锁镇河朔》奇案并获贾昌朝亲签《北京留守幕府举荐信》！',
       }
     }
-    if (hasDamingLetter) {
+    if (preferredRank2Letter) {
       return {
         canJoin: true,
         startingRank: 2,
         startingRankLabel: rank2Label,
         costSilver: 0,
-        consumeItemId: DAMING_RECOMMENDATION_ITEM_ID,
+        consumeItemId: preferredRank2Letter,
         requirementSummary: reqSummary,
         blockedReason: null,
         allowOfficialTransferFromChangshan:
@@ -1625,7 +1628,7 @@ export function evaluateSectEntry(params: {
         consumeItemId: KAIFENG_RECOMMENDATION_ITEM_ID,
         requirementSummary: reqSummary,
         blockedReason:
-          '需持有大名府《北京留守幕府举荐信》（《铁锁镇河朔》忠义入幕线）或常山枪派《开封府推荐信》。',
+          '需持有大名府《北京留守幕府举荐信》、常山枪派《常山·定州联合举荐信》或《开封府推荐信》。',
       }
     }
     return {

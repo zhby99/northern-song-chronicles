@@ -114,7 +114,8 @@ export function SystemMenuModal() {
 
   // Cross-tab focus states for System Hub (Loadout & Bag)
   const [selectedEquipSlot, setSelectedEquipSlot] = useState<EquipmentSlotKey>('weapon')
-  const [inspectedLearnedArtId, setInspectedLearnedArtId] = useState<string>('MA-179')
+  const inspectedLearnedArtId = useGameStore((s) => s.inspectedLearnedArtId)
+  const setInspectedLearnedArtId = useGameStore((s) => s.setInspectedLearnedArtId)
   const [selectedBagItemId, setSelectedBagItemId] = useState<string | null>(null)
 
   // Cross-tab focus states for Compendium (Regions, Sects, Mounts, Portraits, Martial Arts, Armory, Treasures)

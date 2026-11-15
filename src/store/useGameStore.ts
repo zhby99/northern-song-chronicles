@@ -507,6 +507,8 @@ export interface GameStoreState {
   ) => void
   cultivationSpeedStep: CultivationSpeedStep
   setCultivationSpeedStep: (step: CultivationSpeedStep) => void
+  inspectedLearnedArtId: string
+  setInspectedLearnedArtId: (artId: string) => void
 }
 
 function applyDailyVitalityRecovery(params: {
@@ -2254,6 +2256,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       activeNpcInteraction: null,
       tooltip: null,
       actionFeedback: null,
+      inspectedLearnedArtId: artId,
       cultivationSession: {
         artId,
         artName: art.name,
@@ -2804,6 +2807,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         cultivationSession: null,
         hp: nextHp,
         mp: nextMp,
+        ...(session.kind !== 'scripture' && session.kind !== 'ten_art'
+          ? { inspectedLearnedArtId: session.artId }
+          : {}),
         ...(!overdueSpyAmbush && !latest.gameOver
           ? { menuOpen: true, activeMenuTab: 'loadout' as const }
           : {}),
@@ -3133,6 +3139,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       cultivationSession: null,
       hp: nextHp,
       mp: nextMp,
+      ...(sess.kind !== 'ten_art'
+        ? { inspectedLearnedArtId: sess.artId }
+        : {}),
       ...(!s.gameOver ? { menuOpen: true, activeMenuTab: 'loadout' as const } : {}),
       actionFeedback: {
         text: msgText,
@@ -7057,4 +7066,6 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
   cultivationSpeedStep: 1,
   setCultivationSpeedStep: (step) => set({ cultivationSpeedStep: step }),
+  inspectedLearnedArtId: 'MA-179',
+  setInspectedLearnedArtId: (artId) => set({ inspectedLearnedArtId: artId }),
 }))
