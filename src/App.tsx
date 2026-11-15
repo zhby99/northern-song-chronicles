@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { CombatOverlay } from './components/combat/CombatOverlay'
 import { BottomHud } from './components/hud/BottomHud'
 import { CharacterCreationModal } from './components/hud/CharacterCreationModal'
@@ -8,6 +8,7 @@ import { GameOverModal } from './components/hud/GameOverModal'
 import { MapTooltip } from './components/hud/MapTooltip'
 import { NpcInteractionOverlay } from './components/hud/NpcInteractionOverlay'
 import { QuestTrackerPanel } from './components/hud/QuestTrackerPanel'
+import { StartScreen } from './components/hud/StartScreen'
 import { TopHud } from './components/hud/TopHud'
 import { TravelBanner } from './components/hud/TravelBanner'
 import { RegionMapCanvas } from './components/map/RegionMapCanvas'
@@ -25,7 +26,15 @@ const SystemMenuModal = lazy(() =>
 )
 
 export function App() {
+  const [creatingNewGame, setCreatingNewGame] = useState(false)
   const characterCreated = useGameStore((s) => s.characterCreated)
+  const [prevCharacterCreated, setPrevCharacterCreated] = useState(characterCreated)
+  if (characterCreated !== prevCharacterCreated) {
+    setPrevCharacterCreated(characterCreated)
+    if (characterCreated && creatingNewGame) {
+      setCreatingNewGame(false)
+    }
+  }
   const viewMode = useGameStore((s) => s.viewMode)
   const activeRegionId = useGameStore((s) => s.activeRegionId)
   const isTraveling = useGameStore((s) => s.traveling !== null)
@@ -69,6 +78,27 @@ export function App() {
         }
         return
       }
+      if (!characterCreated) {
+        if (e.key === 'Escape') {
+          if (compendiumOpen) closeCompendium()
+          else if (menuOpen) closeMenu()
+          else if (creatingNewGame) setCreatingNewGame(false)
+          return
+        }
+        const isTypingTarget =
+          e.target instanceof HTMLInputElement ||
+          e.target instanceof HTMLTextAreaElement ||
+          e.target instanceof HTMLSelectElement
+        if (!e.ctrlKey && !e.metaKey && !e.altKey && !isTypingTarget) {
+          if (e.key === 'g' || e.key === 'G') {
+            if (compendiumOpen) closeCompendium()
+            else openCompendium()
+          } else if (e.key === 'm' || e.key === 'M') {
+            toggleBgmPlayback()
+          }
+        }
+        return
+      }
       if (gameOver) {
         if (e.key === 'Escape' && menuOpen) {
           closeMenu()
@@ -109,6 +139,8 @@ export function App() {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [
+    characterCreated,
+    creatingNewGame,
     isCultivating,
     menuOpen,
     activeMenuTab,
@@ -190,7 +222,13 @@ export function App() {
           <SystemMenuModal />
         </Suspense>
       )}
-      {!characterCreated && !menuOpen && <CharacterCreationModal />}
+      {!characterCreated && !menuOpen && !compendiumOpen && (
+        creatingNewGame ? (
+          <CharacterCreationModal onBack={() => setCreatingNewGame(false)} />
+        ) : (
+          <StartScreen onNewGame={() => setCreatingNewGame(true)} />
+        )
+      )}
     </main>
   )
 }

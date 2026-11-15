@@ -4,12 +4,9 @@ import {
   getProtagonistPortrait,
   PROTAGONIST_PORTRAITS,
 } from '../../data/protagonistPresets'
-import {
-  cloneHeroBaseStats,
-  DEFAULT_HERO_BASE_STATS,
-} from '../../utils/heroStats'
 import { useGameStore } from '../../store/useGameStore'
 import type { HeroBaseStats } from '../../types/game'
+import { cloneHeroBaseStats } from '../../utils/heroStats'
 
 const CIVIL_SKILL_KEYS = [
   '算术',
@@ -23,11 +20,40 @@ const CIVIL_SKILL_KEYS = [
   '辩才',
 ] as const
 
+const INITIAL_SILVER = 150
+const TALENT_BUDGET = 270
+const SKILL_BUDGET = 100
+
+const INITIAL_CREATION_STATS: HeroBaseStats = {
+  talents: {
+    根骨: 90,
+    悟性: 90,
+    颜值: 90,
+  },
+  maxHp: 0,
+  maxMp: 0,
+  agility: 0,
+  res: 0,
+  ridingSkill: 10,
+  skills: {
+    算术: 10,
+    经义: 10,
+    策论: 10,
+    诗词: 10,
+    琴: 10,
+    棋: 10,
+    书: 10,
+    画: 10,
+    辩才: 10,
+  },
+}
+
 interface StatSliderRowProps {
   label: string
   value: number
   min: number
   max: number
+  cappedMax?: number
   step?: number
   onChange: (val: number) => void
 }
@@ -37,17 +63,22 @@ function StatSliderRow({
   value,
   min,
   max,
+  cappedMax = max,
   step = 1,
   onChange,
 }: StatSliderRowProps) {
-  const clamp = (n: number) => Math.max(min, Math.min(max, n))
+  const effectiveMax = Math.max(min, Math.min(max, cappedMax))
+  const clamp = (n: number) => Math.max(min, Math.min(effectiveMax, n))
+  const atMin = value <= min
+  const atCap = value >= effectiveMax
   return (
     <div className="flex items-center gap-3 text-xl sm:text-2xl">
       <span className="w-28 sm:w-32 shrink-0 font-semibold text-[#3d2814]">{label}</span>
       <button
         type="button"
+        disabled={atMin}
         onClick={() => onChange(clamp(value - step))}
-        className="w-9 h-9 rounded-md border-2 border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] flex items-center justify-center font-bold leading-none text-2xl shrink-0"
+        className="w-9 h-9 rounded-md border-2 border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center font-bold leading-none text-2xl shrink-0"
       >
         -
       </button>
@@ -57,20 +88,21 @@ function StatSliderRow({
         max={max}
         step={step}
         value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
+        onChange={(e) => onChange(clamp(Number(e.target.value)))}
         className="flex-1 accent-[#8f1d14] cursor-pointer h-3 min-w-[80px]"
       />
       <button
         type="button"
+        disabled={atCap}
         onClick={() => onChange(clamp(value + step))}
-        className="w-9 h-9 rounded-md border-2 border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] flex items-center justify-center font-bold leading-none text-2xl shrink-0"
+        className="w-9 h-9 rounded-md border-2 border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center font-bold leading-none text-2xl shrink-0"
       >
         +
       </button>
       <input
         type="number"
         min={min}
-        max={max}
+        max={effectiveMax}
         value={value}
         onChange={(e) => {
           const parsed = Number(e.target.value)
@@ -82,80 +114,133 @@ function StatSliderRow({
   )
 }
 
-export function CharacterCreationModal() {
+interface CharacterCreationModalProps {
+  onBack?: () => void
+}
+
+export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) {
   const completeCharacterCreation = useGameStore((s) => s.completeCharacterCreation)
   const openMenu = useGameStore((s) => s.openMenu)
 
   const [name, setName] = useState<string>(() => generateRandomHeroName())
   const [portraitId, setPortraitId] = useState<string>(PROTAGONIST_PORTRAITS[3].id)
-  const [silver, setSilver] = useState<number>(500)
   const [stats, setStats] = useState<HeroBaseStats>(() =>
-    cloneHeroBaseStats(DEFAULT_HERO_BASE_STATS),
+    cloneHeroBaseStats(INITIAL_CREATION_STATS),
   )
 
   const activePortrait = getProtagonistPortrait(portraitId)
 
+  const talentUsed = stats.talents.根骨 + stats.talents.悟性 + stats.talents.颜值
+  const talentRemaining = Math.max(0, TALENT_BUDGET - talentUsed)
+
+  const skillUsed =
+    stats.ridingSkill +
+    CIVIL_SKILL_KEYS.reduce((sum, key) => sum + (stats.skills[key] ?? 0), 0)
+  const skillRemaining = Math.max(0, SKILL_BUDGET - skillUsed)
+
   const updateTalent = (key: keyof HeroBaseStats['talents'], val: number) => {
-    setStats((prev) => ({
-      ...prev,
-      talents: { ...prev.talents, [key]: val },
-    }))
+    setStats((prev) => {
+      const prevUsed = prev.talents.根骨 + prev.talents.悟性 + prev.talents.颜值
+      const otherUsed = prevUsed - prev.talents[key]
+      const maxAllowed = Math.min(100, TALENT_BUDGET - otherUsed)
+      const clamped = Math.max(1, Math.min(maxAllowed, Math.round(val)))
+      return {
+        ...prev,
+        talents: { ...prev.talents, [key]: clamped },
+      }
+    })
+  }
+
+  const updateRidingSkill = (val: number) => {
+    setStats((prev) => {
+      const civilUsed = CIVIL_SKILL_KEYS.reduce((sum, k) => sum + (prev.skills[k] ?? 0), 0)
+      const maxAllowed = Math.min(100, SKILL_BUDGET - civilUsed)
+      const clamped = Math.max(0, Math.min(maxAllowed, Math.round(val)))
+      return { ...prev, ridingSkill: clamped }
+    })
   }
 
   const updateSkill = (key: string, val: number) => {
-    setStats((prev) => ({
-      ...prev,
-      skills: { ...prev.skills, [key]: val },
-    }))
+    setStats((prev) => {
+      const totalUsed =
+        prev.ridingSkill +
+        CIVIL_SKILL_KEYS.reduce((sum, k) => sum + (prev.skills[k] ?? 0), 0)
+      const otherUsed = totalUsed - (prev.skills[key] ?? 0)
+      const maxAllowed = Math.min(100, SKILL_BUDGET - otherUsed)
+      const clamped = Math.max(0, Math.min(maxAllowed, Math.round(val)))
+      return {
+        ...prev,
+        skills: { ...prev.skills, [key]: clamped },
+      }
+    })
   }
 
-  const applyPreset = (mode: 'default' | 'balanced' | 'genius') => {
-    if (mode === 'default') {
-      setSilver(500)
-      setStats(cloneHeroBaseStats(DEFAULT_HERO_BASE_STATS))
+  const applyPreset = (mode: 'balanced' | 'martial' | 'scholar' | 'reset') => {
+    if (mode === 'balanced') {
+      setStats(cloneHeroBaseStats(INITIAL_CREATION_STATS))
       return
     }
-    if (mode === 'balanced') {
-      setSilver(2000)
+    if (mode === 'martial') {
       setStats({
-        talents: { 根骨: 65, 悟性: 65, 颜值: 65 },
+        talents: { 根骨: 100, 悟性: 95, 颜值: 75 },
         maxHp: 0,
         maxMp: 0,
         agility: 0,
         res: 0,
-        ridingSkill: 35,
+        ridingSkill: 40,
         skills: {
-          算术: 50,
-          经义: 50,
-          策论: 50,
-          诗词: 50,
-          琴: 45,
-          棋: 45,
-          书: 50,
-          画: 45,
-          辩才: 50,
+          算术: 10,
+          经义: 10,
+          策论: 10,
+          诗词: 5,
+          琴: 5,
+          棋: 5,
+          书: 5,
+          画: 5,
+          辩才: 5,
         },
       })
       return
     }
-    setSilver(10000)
+    if (mode === 'scholar') {
+      setStats({
+        talents: { 根骨: 75, 悟性: 95, 颜值: 100 },
+        maxHp: 0,
+        maxMp: 0,
+        agility: 0,
+        res: 0,
+        ridingSkill: 5,
+        skills: {
+          算术: 10,
+          经义: 15,
+          策论: 15,
+          诗词: 15,
+          琴: 8,
+          棋: 8,
+          书: 8,
+          画: 6,
+          辩才: 10,
+        },
+      })
+      return
+    }
     setStats({
-      talents: { 根骨: 95, 悟性: 95, 颜值: 90 },
+      talents: { 根骨: 1, 悟性: 1, 颜值: 1 },
       maxHp: 0,
       maxMp: 0,
       agility: 0,
       res: 0,
-      ridingSkill: 80,
+      ridingSkill: 0,
       skills: {
-        算术: 85,
-        经义: 85,
-        策论: 85,
-        诗词: 85,
-        琴: 80,
-        棋: 80,
-        书: 85,
-        画: 80,
-        辩才: 85,
+        算术: 0,
+        经义: 0,
+        策论: 0,
+        诗词: 0,
+        琴: 0,
+        棋: 0,
+        书: 0,
+        画: 0,
+        辩才: 0,
       },
     })
   }
@@ -164,8 +249,14 @@ export function CharacterCreationModal() {
     completeCharacterCreation({
       name: name.trim() || '无名少侠',
       portraitId,
-      silver,
-      baseStats: stats,
+      silver: INITIAL_SILVER,
+      baseStats: {
+        ...stats,
+        maxHp: 0,
+        maxMp: 0,
+        agility: 0,
+        res: 0,
+      },
     })
   }
 
@@ -179,7 +270,7 @@ export function CharacterCreationModal() {
               北宋立志传 · 少侠立籍
             </h2>
             <p className="text-lg sm:text-2xl text-[#d6be96] mt-1.5">
-              公元 1050 年（宋仁宗皇祐二年 · 正月初一）· 测试阶段全属性自由定制
+              公元 1050 年（宋仁宗皇祐二年 · 正月初一）· 少侠初出茅庐，立籍定命
             </p>
           </div>
           <span className="px-5 py-2.5 rounded-lg bg-[#8f1d14] border-2 border-[#d6be96]/50 text-[#fff8eb] text-xl sm:text-2xl font-semibold shrink-0">
@@ -286,7 +377,7 @@ export function CharacterCreationModal() {
             </div>
           </div>
 
-          {/* 右侧：姓名 + 全属性自由调整 */}
+          {/* 右侧：姓名 + 点数分配 */}
           <div className="lg:col-span-7 flex flex-col gap-5">
             {/* 姓名与快捷预设 */}
             <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3">
@@ -313,13 +404,6 @@ export function CharacterCreationModal() {
               <div className="flex items-center gap-2 text-lg sm:text-xl">
                 <button
                   type="button"
-                  onClick={() => applyPreset('default')}
-                  className="px-3.5 py-2 rounded-lg border-2 border-[#b5986e] bg-[#faf3e3] text-[#3d2814] hover:bg-[#e8d8b7] font-semibold"
-                >
-                  默认
-                </button>
-                <button
-                  type="button"
                   onClick={() => applyPreset('balanced')}
                   className="px-3.5 py-2 rounded-lg border-2 border-[#b5986e] bg-[#faf3e3] text-[#3d2814] hover:bg-[#e8d8b7] font-semibold"
                 >
@@ -327,25 +411,51 @@ export function CharacterCreationModal() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => applyPreset('genius')}
+                  onClick={() => applyPreset('martial')}
+                  className="px-3.5 py-2 rounded-lg border-2 border-[#b5986e] bg-[#faf3e3] text-[#3d2814] hover:bg-[#e8d8b7] font-semibold"
+                >
+                  尚武
+                </button>
+                <button
+                  type="button"
+                  onClick={() => applyPreset('scholar')}
                   className="px-3.5 py-2 rounded-lg border-2 border-[#8f1d14]/60 bg-[#faf3e3] text-[#781710] hover:bg-[#f2dec0] font-semibold"
                 >
-                  奇才
+                  文雅
+                </button>
+                <button
+                  type="button"
+                  onClick={() => applyPreset('reset')}
+                  className="px-3.5 py-2 rounded-lg border-2 border-[#cbb693] bg-[#f7efe0] text-[#6b5235] hover:bg-[#e8d8b7] font-semibold"
+                >
+                  清零重配
                 </button>
               </div>
             </div>
 
-            {/* 先天禀赋 & 实战根基 */}
+            {/* 先天禀赋 & 固定盘缠/武道法则 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 space-y-3.5">
-                <div className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
-                  三、先天禀赋（1~100）
+                <div className="flex items-center justify-between gap-2 border-b-2 border-[#cbb693] pb-2">
+                  <span className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f]">
+                    三、先天禀赋（270 点）
+                  </span>
+                  <span
+                    className={`px-3 py-0.5 rounded-full text-base sm:text-lg font-bold border ${
+                      talentRemaining > 0
+                        ? 'bg-[#8f1d14] text-[#fff8eb] border-[#8f1d14]'
+                        : 'bg-[#e8d8b7] text-[#3d2814] border-[#b5986e]'
+                    }`}
+                  >
+                    剩余 {talentRemaining} / {TALENT_BUDGET}
+                  </span>
                 </div>
                 <StatSliderRow
                   label="根骨"
                   value={stats.talents.根骨}
                   min={1}
                   max={100}
+                  cappedMax={Math.min(100, stats.talents.根骨 + talentRemaining)}
                   onChange={(v) => updateTalent('根骨', v)}
                 />
                 <StatSliderRow
@@ -353,6 +463,7 @@ export function CharacterCreationModal() {
                   value={stats.talents.悟性}
                   min={1}
                   max={100}
+                  cappedMax={Math.min(100, stats.talents.悟性 + talentRemaining)}
                   onChange={(v) => updateTalent('悟性', v)}
                 />
                 <StatSliderRow
@@ -360,6 +471,7 @@ export function CharacterCreationModal() {
                   value={stats.talents.颜值}
                   min={1}
                   max={100}
+                  cappedMax={Math.min(100, stats.talents.颜值 + talentRemaining)}
                   onChange={(v) => updateTalent('颜值', v)}
                 />
               </div>
@@ -369,26 +481,35 @@ export function CharacterCreationModal() {
                   <div className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
                     四、盘缠资粮与武道法则
                   </div>
-                  <StatSliderRow
-                    label="初始银两"
-                    value={silver}
-                    min={0}
-                    max={20000}
-                    step={50}
-                    onChange={setSilver}
-                  />
+                  <div className="flex items-center justify-between px-4 py-3 rounded-lg border-2 border-[#cbb693] bg-[#faf3e3] text-xl sm:text-2xl">
+                    <span className="font-semibold text-[#3d2814]">初始银两</span>
+                    <span className="font-mono font-bold text-[#781710]">
+                      {INITIAL_SILVER} 两（固定盘缠）
+                    </span>
+                  </div>
                 </div>
                 <div className="rounded-lg border border-[#cbb693] bg-[#faf3e3] p-3.5 text-base sm:text-lg text-[#5c4328] leading-relaxed">
                   <span className="font-bold text-[#781710]">实战属性铁律：</span>
-                  少侠周身实战交锋属性（气血上限、内力上限、身法、抗性、外功杀伤与护体防御）无裸身加值，严禁借剧情任务或寻常丹药凭空堆砌，唯由随身【披挂】、运使之【内功、轻功、武学】及举世罕见之【天阶圣药】脱胎换骨决定。
+                  少侠周身实战交锋属性（气血上限、内力上限、身法、抗性、外功杀伤与护体防御）无裸身加值，初始皆为零基，唯由随身【披挂】、运使之【内功、轻功、武学】及举世罕见之【天阶圣药】脱胎换骨决定。
                 </div>
               </div>
             </div>
 
             {/* 十艺百工 */}
             <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 space-y-3.5">
-              <div className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
-                五、十艺百工（0~100）
+              <div className="flex items-center justify-between gap-2 border-b-2 border-[#cbb693] pb-2">
+                <span className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f]">
+                  五、十艺百工（100 点自由分配）
+                </span>
+                <span
+                  className={`px-3 py-0.5 rounded-full text-base sm:text-lg font-bold border ${
+                    skillRemaining > 0
+                      ? 'bg-[#8f1d14] text-[#fff8eb] border-[#8f1d14]'
+                      : 'bg-[#e8d8b7] text-[#3d2814] border-[#b5986e]'
+                  }`}
+                >
+                  剩余 {skillRemaining} / {SKILL_BUDGET}
+                </span>
               </div>
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-x-6 gap-y-3.5">
                 <StatSliderRow
@@ -396,18 +517,23 @@ export function CharacterCreationModal() {
                   value={stats.ridingSkill}
                   min={0}
                   max={100}
-                  onChange={(v) => setStats((p) => ({ ...p, ridingSkill: v }))}
+                  cappedMax={Math.min(100, stats.ridingSkill + skillRemaining)}
+                  onChange={updateRidingSkill}
                 />
-                {CIVIL_SKILL_KEYS.map((sk) => (
-                  <StatSliderRow
-                    key={sk}
-                    label={sk}
-                    value={stats.skills[sk] ?? 0}
-                    min={0}
-                    max={100}
-                    onChange={(v) => updateSkill(sk, v)}
-                  />
-                ))}
+                {CIVIL_SKILL_KEYS.map((sk) => {
+                  const currentVal = stats.skills[sk] ?? 0
+                  return (
+                    <StatSliderRow
+                      key={sk}
+                      label={sk}
+                      value={currentVal}
+                      min={0}
+                      max={100}
+                      cappedMax={Math.min(100, currentVal + skillRemaining)}
+                      onChange={(v) => updateSkill(sk, v)}
+                    />
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -416,9 +542,18 @@ export function CharacterCreationModal() {
         {/* 底部确认按钮 */}
         <div className="px-7 py-4 bg-[#e7d7b8] border-t-2 border-[#cbb693] flex items-center justify-between gap-4">
           <div className="text-lg sm:text-xl text-[#6b5235] hidden md:block">
-            提示：当前为测试阶段，所有先天禀赋、实战根基、银两与十艺百工均可自由调整。
+            提示：先天禀赋总计 270 点、十艺百工总计 100 点可自由分配；初始银两固定 150 两。
           </div>
           <div className="ml-auto flex items-center gap-4">
+            {onBack && (
+              <button
+                type="button"
+                onClick={onBack}
+                className="px-6 py-3 rounded-xl bg-[#faf3e3] hover:bg-[#efe4cc] text-[#4a321a] song-serif font-bold text-xl sm:text-2xl border-2 border-[#b5986e] transition-colors"
+              >
+                返回首页
+              </button>
+            )}
             <button
               type="button"
               onClick={() => openMenu('load')}

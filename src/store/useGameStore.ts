@@ -4115,7 +4115,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       combatExp: 80,
       renown: 0,
       chivalry: 0,
-      silver: 500,
+      silver: 150,
       food: 25,
       hp: derived.maxHp,
       maxHp: derived.maxHp,

@@ -73,6 +73,7 @@ const TenArtsGuideTab = lazy(() =>
 )
 
 export function SystemMenuModal() {
+  const characterCreated = useGameStore((s) => s.characterCreated)
   const menuOpen = useGameStore((s) => s.menuOpen)
   const activeMenuTab = useGameStore((s) => s.activeMenuTab)
   const compendiumOpen = useGameStore((s) => s.compendiumOpen)
@@ -422,7 +423,9 @@ export function SystemMenuModal() {
               </div>
             ) : (
               <div className="space-y-1.5">
-                {SYSTEM_NAV_ITEMS.map((item) => {
+                {SYSTEM_NAV_ITEMS.filter(
+                  (item) => characterCreated || item.key === 'load' || item.key === 'settings',
+                ).map((item) => {
                   const isAct = item.key === activeMenuTab
                   return (
                     <button
