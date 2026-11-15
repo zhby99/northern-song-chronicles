@@ -1724,7 +1724,7 @@ export function resolveCombatRound(
     if (moveFx.xuantie_crush && actor.mp > target.mp) {
       ampPct += moveFx.xuantie_crush / 100
     }
-    if (moveFx.yangjia_carbine && actor.hp < target.hp) {
+    if (moveFx.yangjia_carbine && actor.hp < actor.maxHp * 0.6) {
       ampPct += moveFx.yangjia_carbine / 100
     }
     if (moveFx.hujia_gap && targetChoice.type === 'move') {
@@ -1767,6 +1767,7 @@ export function resolveCombatRound(
       Math.max(
         moveFx.liumai_pierce ?? 0,
         moveFx.canhe_pierce ?? 0,
+        moveFx.yangjia_pierce ?? 0,
         actorNgFx.jiuyin_pierce ?? 0,
       ) / 100
     if (actorNgFx.taixuan_pierce) {
