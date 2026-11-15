@@ -6056,6 +6056,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             })
             break
           }
+          if (eff.flag === 'taihang_bandits_eradicated' && Boolean(eff.value)) {
+            const filteredMasters = s.roamingMasters.filter(
+              (m) => !m.sect.includes('太行') && !m.sect.includes('绿林'),
+            )
+            set({
+              questState: nextQuest,
+              sectState: nextSect,
+              roamingMasters: filteredMasters,
+            })
+            break
+          }
           set({ questState: nextQuest, sectState: nextSect })
           break
         }
@@ -6300,6 +6311,66 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
         case 'confirmJoinSect': {
           get().joinSect(eff.sectId, contextNpc ?? undefined)
+          break
+        }
+
+        case 'setSectRank': {
+          if (s.sectState.sectId !== eff.sectId) break
+          const nextRankLabel = getSectRankTitle(eff.sectId, eff.rank)
+          const nextSect: PlayerSectState = {
+            ...clonePlayerSectState(s.sectState),
+            rank: eff.rank,
+            rankLabel: nextRankLabel,
+          }
+          const isPromo = eff.rank >= s.sectState.rank
+          const fName = FACTION_DB_MAP[eff.sectId]?.name ?? eff.sectId
+          const logMsg = isPromo
+            ? `奉诏晋升【${fName}】第 ${eff.rank} 阶军职——【${nextRankLabel}】！`
+            : `朝堂问责降级：【${fName}】职衔贬为第 ${eff.rank} 阶【${nextRankLabel}】！`
+          set({
+            sectState: nextSect,
+            logs: [
+              createLogEntry(s.dayCount, isPromo ? '军职晋升' : '削职降级', logMsg, true, s.shichenIdx),
+              ...s.logs,
+            ].slice(0, 60),
+          })
+          break
+        }
+
+        case 'fineSectSalary': {
+          const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
+          const perMonth =
+            s.sectState.sectId === 'SECT-33'
+              ? getImperialGuardMonthlyStipend(s.sectState.rank)
+              : s.sectState.sectId === 'SECT-17'
+                ? getKaifengMonthlyStipend(s.sectState.rank)
+                : s.sectState.sectId === 'SECT-22'
+                  ? getChangshanMonthlyStipend(s.sectState.rank)
+                  : 30
+          const totalFine = Math.max(0, perMonth * eff.months)
+          const paidNow = Math.min(s.silver, totalFine)
+          const nextSilver = Math.max(0, s.silver - paidNow)
+          const unpaid = Math.max(0, totalFine - paidNow)
+          const withholdMonths = unpaid > 0 ? Math.ceil(unpaid / Math.max(1, perMonth)) : 0
+          const nextSect: PlayerSectState = {
+            ...clonePlayerSectState(s.sectState),
+            lastStipendMonth:
+              withholdMonths > 0
+                ? Math.max(s.sectState.lastStipendMonth, curMonthIdx + withholdMonths)
+                : s.sectState.lastStipendMonth,
+          }
+          const fineMsg =
+            withholdMonths > 0
+              ? `奉旨罚俸 ${eff.months} 个月（共 ${totalFine} 两纹银）：已扣缴现银 ${paidNow} 两，余欠俸银折抵停发后续 ${withholdMonths} 个月官俸！`
+              : `奉旨罚没 ${eff.months} 个月俸禄，共计扣缴纹银 ${totalFine} 两！`
+          set({
+            silver: nextSilver,
+            sectState: nextSect,
+            logs: [
+              createLogEntry(s.dayCount, '朝堂罚俸', fineMsg, true, s.shichenIdx),
+              ...s.logs,
+            ].slice(0, 60),
+          })
           break
         }
 
@@ -7569,6 +7640,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     const npc = NPC_DB_MAP[npcId]
     if (!npc) return
+    if (npc.factionId === 'SECT-18' && Boolean(s.questState.flags.taihang_bandits_eradicated)) {
+      set({
+        actionFeedback: {
+          text: '太行/京东绿林盟贼巢已被大宋禁军犁庭扫穴，群匪尽数伏法，已无此人踪迹。',
+          tone: 'warn',
+        },
+      })
+      return
+    }
     if (s.currentNodeId !== npc.regionId || s.campPos || s.traveling) return
 
     const bRecord = BUILDING_DB_MAP[npc.assignedBuildingId]

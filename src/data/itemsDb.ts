@@ -1537,6 +1537,33 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     lore: '卷末朱笔批注：“夫剑未出而数先定，影移一寸，锋夺九宫。”唯玉皇顶问数契合宗师心印者方获赐藏。',
   },
   {
+    id: 'ITM-MSC-029',
+    iconUrl: '/assets/items/scrolls/itm_scr_009.jpg',
+    name: '《武经总要 · 枢密院行军钞本》',
+    category: 'scrolls',
+    subType: '兵书舆图',
+    rarity: '地阶',
+    stackable: false,
+    value: 0,
+    desc: '枢密使王德用亲笔朱批圈点的《武经总要》行军节要手钞本，详载山地奇正虚实、鹿角连营、断水困寨及审察火攻伏兵之要诀，扉页题有“士别三日，刮目相待”八字勉语。',
+    lore: '展卷潜心研读可大幅增益【策论】与【经义】修养（限读一次）。',
+    useEffect: {
+      skillsGain: { 策论: 15, 经义: 8 },
+      onceOnly: true,
+    },
+  },
+  {
+    id: 'ITM-MSC-030',
+    iconUrl: '/assets/items/scrolls/itm_scr_016.jpg',
+    name: '《太行山绿林防备暗道图》',
+    category: 'misc',
+    subType: '六扇门绝密军图',
+    rarity: '地阶',
+    stackable: false,
+    value: 0,
+    desc: '开封府展昭早年暗中安插于太行山的卧底密探“寒鸦”冒死绘出的羊皮防备线路图，精确标明飞狐断魂索桥盲区、后崖猿猱采药栈道与聚义忠义大堂换岗时刻。',
+  },
+  {
     id: 'ITM-ACC-001',
     name: '燕云遗老护身玉佩',
     category: 'misc',
@@ -2157,6 +2184,8 @@ export const NON_GIFTABLE_KEY_ITEM_IDS = new Set<string>([
   'ITM-MSC-026',
   'ITM-MSC-027',
   'ITM-MSC-028',
+  'ITM-MSC-029',
+  'ITM-MSC-030',
 ])
 
 export function getRegionUnlockRequirement(regionId: string): RegionUnlockRequirement | null {

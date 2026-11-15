@@ -8,6 +8,9 @@ import { EMEI_ENTRY_QUESTS } from './sects/emeiEntryQuest'
 import { GAIBANG_ENTRY_QUESTS } from './sects/gaibangEntryQuest'
 import { HUASHAN_ENTRY_QUESTS } from './sects/huashanEntryQuest'
 import { JINJUN_HEBEI_SPY_QUESTS } from './sects/jinjunHebeiSpyQuest'
+import { JINJUN_TAIHANG_QUEST_1 } from './sects/jinjunTaihangQuest1'
+import { JINJUN_TAIHANG_QUEST_2 } from './sects/jinjunTaihangQuest2'
+import { JINJUN_TAIHANG_QUEST_3 } from './sects/jinjunTaihangQuest3'
 import { KAIFENG_MURONG_QUEST_1 } from './sects/kaifengMurongQuest1'
 import { KAIFENG_MURONG_QUEST_2 } from './sects/kaifengMurongQuest2'
 import { KAIFENG_RENZONG_ESCORT_QUEST } from './sects/kaifengRenzongEscortQuest'
@@ -51,6 +54,9 @@ export const QUEST_REGISTRY: QuestDefinition[] = [
   ...KAIFENG_RENZONG_ESCORT_QUEST,
   ...JINJUN_HEBEI_SPY_QUESTS,
   ...KAIFENG_TAIHANG_BANDIT_QUESTS,
+  ...JINJUN_TAIHANG_QUEST_1,
+  ...JINJUN_TAIHANG_QUEST_2,
+  ...JINJUN_TAIHANG_QUEST_3,
   ...ZHENWU_ENTRY_QUESTS,
 ]
 
@@ -99,6 +105,9 @@ export function resetRegisteredQuests(): void {
     ...KAIFENG_RENZONG_ESCORT_QUEST,
     ...JINJUN_HEBEI_SPY_QUESTS,
     ...KAIFENG_TAIHANG_BANDIT_QUESTS,
+    ...JINJUN_TAIHANG_QUEST_1,
+    ...JINJUN_TAIHANG_QUEST_2,
+    ...JINJUN_TAIHANG_QUEST_3,
     ...ZHENWU_ENTRY_QUESTS,
   )
   for (const k of Object.keys(QUEST_MAP)) {

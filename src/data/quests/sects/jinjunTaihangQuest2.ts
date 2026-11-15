@@ -1,0 +1,2037 @@
+import type { NodeNpc } from '../../../types/game'
+import type { QuestDefinition, StorySceneDef } from '../../../types/quest'
+
+export const JINJUN_TAIHANG_QUEST_2_ID = 'QST-SECT-33-TAIHANG-CAMPAIGN-2'
+
+const CAMPAIGN_1_QUEST_ID = 'QST-SECT-33-TAIHANG-CAMPAIGN-1'
+
+/**
+ * 构造飞狐断魂索桥东桥头拼死护卫史万山的太行心腹死士（二流下品，随史万山断后迎敌）
+ */
+export function buildFeihuDiehardGuardNpc(): NodeNpc {
+  return {
+    id: 'QUEST_JTC2_FEIHU_GUARD_01',
+    name: '屠横山',
+    title: '飞狐断魂死士统领',
+    factionId: 'SECT-18',
+    factionName: '太行/京东绿林盟',
+    fullLocationLabel: '太行山 · 飞狐断魂索桥东端栈桥',
+    realm: '二流下品',
+    stats: {
+      hp: 1180,
+      mp: 860,
+      agi: 46,
+      res: 32,
+      isBenchmark: false,
+    },
+    talents: {
+      bone: 66,
+      comprehension: 48,
+      charm: 38,
+    },
+    tenArts: {
+      骑术: 56,
+      算术: 10,
+      经义: 8,
+      策论: 28,
+      诗词: 4,
+      琴: 2,
+      棋: 8,
+      书: 6,
+      画: 4,
+      辩才: 16,
+    },
+    avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
+    sectRank: 3,
+    sectRankLabel: '总寨亲卫死士',
+    equippedArts: {
+      neigong: 'MA-103',
+      qinggong: 'MA-157',
+      move1: 'MA-151',
+      move2: 'MA-124',
+      move3: 'MA-131',
+      move4: 'MA-196',
+    },
+    learnedArts: [
+      { artId: 'MA-103', level: 5, exp: 0 },
+      { artId: 'MA-157', level: 5, exp: 0 },
+      { artId: 'MA-151', level: 6, exp: 0 },
+      { artId: 'MA-124', level: 6, exp: 0 },
+      { artId: 'MA-131', level: 6, exp: 0 },
+      { artId: 'MA-196', level: 6, exp: 0 },
+    ],
+    equipped: {
+      weapon: 'WPN-076',
+      armor: 'ARM-039',
+      shoes: 'BOT-022',
+      bow: 'BOW-023',
+      accessory1: 'ACC-054',
+      accessory2: 'ACC-036',
+      mount: 'MNT-021',
+      curio1: null,
+      curio2: null,
+    },
+    talk: '“天王正在过桥，纵是碎骨坠入千丈寒渊，也休想踏过东桥头半步！”',
+  }
+}
+
+// ============================================================================
+// 四十幕完整剧本：《刮目相看 · 武经破寨》（大宋禁军 SECT-33 太行剿匪三部曲 · 第二卷）
+// 声明顺序自第四十幕倒序排列至第一幕，确保所有 openScene 引用皆已提前初始化
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// 第四幕：献俘汴梁 · 三司会审与市曹十斩慰忠魂（第 35 ~ 40 幕）
+// ----------------------------------------------------------------------------
+
+const SCENE_40_FINALE_FORESHADOW_THREE: StorySceneDef = {
+  id: 'scene_jtc2_40_finale_foreshadow_three',
+  title: '第四十幕 · 飞狐余烬待收官',
+  subtitle: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '次日辰正，宣德门黄门内侍捧着泥金龙凤诏书驰入八十万禁军大教场。三通聚将大鼓震彻汴梁晴空，五千凯旋将士披甲执枪肃立如林。诏书当众宣读：圣上嘉许你折节读书、经策兼资，于太行东麓步步为营连拔三寨、奇袭藏金义仓、生擒十名积年渠帅，特旨销去前番黑风峡戴罪罚俸旧案，钦赐白银五百两，遍赏有功将士！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '内侍宣旨既毕，王德用缓步走下帅台丹墀，亲手替你拂去肩甲上残留的一缕太行霜尘，那张素来令契丹使臣望而生畏的黑面之上满是慈厚笑意：“六十日前，朝堂内外皆道你只是一介血气匹夫；六十日后，连文宽夫与包希仁都在紫宸殿前赞你有古名将之风。那册《武经总要》扉页上的八个字，将军当真是用一仗仗实绩写活了！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '高怀亮按着腰间长剑大步上前，眉宇间既有大仇得雪的畅快，亦有一分未尽全功的凝重：“枢相，将军！河北东路与怀州巡检司今晨刚送来飞鸽军报——咱们筑在飞狐峪口的六座石碉固若金汤，王重岳与重伤未愈的史万山带着那不足三百号残兵，被死死困在断魂索桥西崖的孤峰绝顶，连一只山雀也飞不出封锁线！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（抬眸北望苍茫云天之外的太行山脊，掌心轻轻按在胸前那卷已被翻摩得边角温润的《武经总要》钞本上）“困兽犹斗，况王重岳浸淫《太行罡气》三十余载，绝非束手饿毙之辈。待北风封冻太行绝涧、西崖草根树皮俱绝之时，要不是他铤而走险拼死突围，便是咱们渡过天险、彻底犁庭扫穴的收官之日！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用抚须朗声长笑，声若洪钟：“说得好！行百里者半九十，除恶务尽方保河朔百年太平。将军且趁这段时日精进武艺、抚恤士卒、磨砺枪锋；待枢密院探明飞狐西崖虚实，这太行剿匪的最后一战，老夫依旧为你擂鼓壮行！”',
+    },
+  ],
+  onFinishEffects: [
+    { type: 'giveSilver', amount: 500, reason: '再征太行连拔三寨献俘十斩钦赐重赏' },
+    { type: 'modifyRenown', delta: 80, reason: '刮目相看智破太行三寨威震河朔' },
+    { type: 'modifyChivalry', delta: 60, reason: '严纪秋毫无犯，起赃还商优恤遗孤' },
+    { type: 'addSectContribution', amount: 350 },
+    { type: 'setFlag', flag: 'jinjun_taihang_camp2_done', value: true },
+    {
+      type: 'completeQuest',
+      questId: JINJUN_TAIHANG_QUEST_2_ID,
+      outcome: 'triumph_three_forts_ten_executed',
+      combatExp: 650,
+    },
+    {
+      type: 'toast',
+      text: '《刮目相看 · 武经破寨》圆满完结！获钦赐赏银 +500 两、声望 +80、侠义 +60、门派贡献 +350、战斗经验 +650！',
+      tone: 'success',
+      logTag: '二征大捷',
+    },
+  ],
+}
+
+const SCENE_39_WINE_BEFORE_MEMORIAL: StorySceneDef = {
+  id: 'scene_jtc2_39_wine_before_memorial',
+  title: '第三十九幕 · 浊酒三樽告英灵',
+  subtitle: '东京城北 · 陈桥古驿太行忠烈碑',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '是日黄昏，残阳如血，暮鸦掠过陈桥古驿外的白杨林。新立的丈二青石“皇祐太行死事将士忠烈碑”前，整整齐齐摆放着从藏金义仓夺回并擦拭干净的数百枚禁军木质腰牌。晚风吹动纸钱灰蝶，漫天飞旋如雪。',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（解下腰间贴身携归的粗布小囊，将自黑风峡口捧回的那一捧焦黑山土轻轻洒在石碑基座前，复执起粗陶酒坛，连斟三碗汴梁烈酒倾入黄土）“黑风峡殉国的弟兄们，前番是我恃勇轻进，累尔等埋骨荒谷；今日外围三寨已平，十名恶首尽伏国法，你们的腰牌与抚恤银米都已安稳送到爹娘妻儿手中，且饮此杯，安息瞑目吧！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0154' },
+      text: '八十万禁军枪棒都教头林铁衣脱下头盔，向着石碑深深一揖，眼角微湿却神色肃穆：“老夫在禁军教场执枪二十余年，见过太多一败便颓唐嗜酒、怨天尤人的武官；似将军这般把败仗刻进骨血、将兵书化入心胸，最终堂堂正正替袍泽讨回血债者，屈指可数！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用亦亲手奠下一碗清酒，目光落在你沉稳如山的侧影上，欣慰叹道：“昔年狄汉臣在延州初历大阵，亦曾因轻追夏人受挫，后读《左氏春秋》方成一代名帅。今日你在飞狐索桥前止步不追、宁舍奇功而不拿士卒性命填渊，单凭这一念仁智，便已胜过斩首千级！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '夜幕渐合，城北军营亮起连绵灯火，宛如地上星河。你向忠烈碑行罢最后一记军礼，翻身上马，随王德用与林铁衣缓辔归营，胸中块垒尽消，唯余一片澄明坚毅。',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_40_FINALE_FORESHADOW_THREE }],
+}
+
+const SCENE_38_TEN_LEADERS_EXECUTED: StorySceneDef = {
+  id: 'scene_jtc2_38_ten_leaders_executed',
+  title: '第三十八幕 · 市曹十斩慰忠魂',
+  subtitle: '东京汴梁 · 市曹十字大刑场',
+  illustrationUrl: '/assets/quests/taihang_camp2_kaifeng_ten_executions.jpg',
+  illustrationCaption: '东京市曹刑场 · 十名太行山中层头目同日伏法明正典刑',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '翌日正午，东京市曹十字街口人山人海，里三层外三层围得水泄不通。禁军红缨长枪手铁桶般封锁高台四周，十名赤膊扎红巾的魁梧刽子手手托寒光森然的鬼头大刀一字排开。雷武石、裴弘璋、石寒乾、燕刀柏、史玄朗、晁霖浪、裴烟音、王浪青、杨平林、鲁豪朗十名往日在太行道上呼风唤雨的中层头目，此刻尽被剥去号衣、反剪双臂跪于青石刑台之上，面如死灰。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0013' },
+      text: '监斩棚内，包拯端坐正中，王德用与你披甲分坐左右。随着谯楼鼓声敲响“午时三刻”，包拯面沉似水，朗声宣读十犯屠戮怀卫商旅、劫掠官纲、黑风峡纵火残害王师之铁案罪状，随即抓起案上朱漆火签，奋力掷于阶下：“天理昭彰，国法森严——午时已至，开刀问斩！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '火签落地脆响未绝，十名刽子手齐声暴喝，十口鬼头大刀迎着秋日烈阳同时扬起，化作十道森白匹练轰然劈落！但听十声沉闷雷霆齐震，血光冲起三尺，十颗恶首滚落尘埃，刑场四周静寂一瞬，旋即爆发出惊天动地、直冲霄汉的欢呼声！',
+    },
+    {
+      speaker: { kind: 'custom', name: '阵亡禁军老母', title: '汴梁军属遗眷', factionName: '京畿百姓' },
+      text: '（刑台下数百名身披白麻孝衣的阵亡将士父母妻儿纷纷朝着北方跪倒痛哭，将手中纸钱撒向长空）“儿啊！你睁眼看看吧——黑王相公、包青天和将军把害你们的太行山贼全都砍了头！你们在九泉之下，总算能闭上眼啦！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（端坐监斩台侧，听着台下万姓欢腾与军属悲泣交织如潮，缓缓抬手抚过腰间佩剑，心中默念）“十恶伏诛，然首恶王重岳与副魁史万山尚在飞狐索桥苟延残喘。待来日荡平总寨，定取此二贼首级，再祭我两千同袍！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_39_WINE_BEFORE_MEMORIAL }],
+}
+
+const SCENE_37_SILVER_RETURN_AND_MARTYRS: StorySceneDef = {
+  id: 'scene_jtc2_37_silver_return_and_martyrs',
+  title: '第三十七幕 · 还银商贾恤孤忠',
+  subtitle: '开封府衙 · 升堂正殿与府库前庭',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0030' },
+      text: '十名贼首画押定谳后，公孙策手捧厚厚三册朱墨账簿步入堂中，难掩敬佩之色：“启禀府尊、王枢相！卑职已携户部书吏将将军押回的八十四车太行藏金义仓赃物逐箱核验完毕——计有官银六万四千两、潞绸蜀锦九百余匹、粮粟四千石，封条俱是军前高副将与军法官当众加盖，沿途八百里竟无一两银锭、一尺丝帛短少！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0013' },
+      text: '包拯闻言动容，向你郑重拱手道：“古称岳家、曹彬治军秋毫无犯，将军能于大破积年贼窟之后严束五千兵马不贪一文私财，实乃我大宋军纪之楷模！本府已会同三司议定：凡有商号戳记之丝茶货物，尽数发还河北、河东受害商贾家眷；其余六万余两无主赃银与粮粟，奏准圣上后全数拨充黑风峡阵亡两千将士遗孤之双倍优恤！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用颔首沉声道：“至于将军在三寨及义仓外围生擒的那六百余名胁从喽啰，经逐一甄别，大多是近年河北水旱流离失所、被逼入伙担水砍柴而手上并无血债的穷苦庄户。依将军阵前‘胁从免死’之信义，发配黄河埽工修筑堤防三年，期满放归编户齐民，以彰朝廷宽猛相济之仁！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0140' },
+      text: '展昭抱剑立于三口铜铡之畔，朗声禀道：“启禀包大人、王枢相，雷武石、石寒乾、史玄朗等十名太行中层头目皆系身负十余桩命案之元凶巨恶，死囚木驴与刑场禁卫均已齐备，只候大人明发火签！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0013' },
+      text: '包拯提笔蘸满饱含凛冽杀气的朱砂，在十页死罪招状上一一重重勾决：“传本府与枢密院联署钧令——将此十名太行凶徒押入死牢，明日午时三刻，押赴东京市曹十字刑场，当众枭首示众，以慰忠魂而儆效尤！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_38_TEN_LEADERS_EXECUTED }],
+}
+
+const SCENE_36_KAIFENG_JOINT_TRIBUNAL: StorySceneDef = {
+  id: 'scene_jtc2_36_kaifeng_joint_tribunal',
+  title: '第三十六幕 · 三口铜铡审十凶',
+  subtitle: '开封府衙 · 开封府升堂正殿',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '开封府升堂正殿大门洞开，龙头、虎头、狗头三口御赐铜铡在堂前拭得寒芒逼人，两班衙役水火棍拄地齐喝“威——武——”，声震屋瓦。包拯与枢密使王德用奉旨同坐正堂会审，展昭按巨阙剑侍立丹墀，公孙策执笔录供，十名披枷带锁的太行头目被禁军甲士逐一押跪在青石阶下。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0013' },
+      text: '包拯一拍惊堂木，目光如冷电扫过堂下十犯：“堂下所跪雷武石、裴弘璋、石寒乾、燕刀柏、史玄朗、晁霖浪、裴烟音、王浪青、杨平林、鲁豪朗！尔等盘踞太行东麓，名为绿林聚义，实则劫掠怀卫磁相四州行商、屠戮护镖庄客，更于黑风峡设火毒杀朝廷王师！今义仓血账与苦主俱在堂前，尔等尚有何话狡辩？！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0341' },
+      text: '银枪叟史玄朗抬起枯槁老脸，望见立在堂侧神色渊岳不动的你，惨然苦笑一声，颓然垂首：“成王败寇，无话可说！老夫守了十年太行藏金仓，自诩水泼不进，不想被这位将军断水、打援、赚桥、封渠四计连环扣死，连一粒粟米都没能烧掉……只恨王天王当初小瞧了将军，以为你还是两个月前那个莽撞后生！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0309' },
+      text: '冷月客石寒乾与落雁枪雷武石等人面对公孙策逐条念出的商队血案物证与苦主指认，早已吓得魂不附体，在三口森然铜铡前磕头如捣蒜，将各自把守山寨、截杀客商及参与黑风峡火伏的罪行竹筒倒豆子般招认殆尽，更供出王重岳如今在飞狐索桥西崖已无隔宿之粮。',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（出班呈上太行三寨舆图与飞狐峪口布防图册，拱手朗声道）“启禀包大人、王枢相：此十犯乃太行绿林盟麾下掌管前寨、中寨、东寨、暗哨与义仓之十名中坚渠帅。今十犯伏法画押，太行东麓群匪之脊梁已彻底折断！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_37_SILVER_RETURN_AND_MARTYRS }],
+}
+
+const SCENE_35_BIANLIANG_TRIUMPHAL_ENTRY: StorySceneDef = {
+  id: 'scene_jtc2_35_bianliang_triumphant_entry',
+  title: '第三十五幕 · 铁甲归京十里迎',
+  subtitle: '东京汴梁 · 封丘门至御街州桥',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '秋高气爽，旌旗猎猎。当五千禁军押解着十辆重铁槛囚车、六百余名绳牵俘虏与八十四辆插满大宋黄旗的缴获粮银大车踏过陈桥驿、自封丘门徐徐入城时，整座东京汴梁城万人空巷！御街两侧茶楼酒肆彩棚高悬，百姓争相探身喝彩，与六十日前黑风峡败归时的凄清萧索恍若隔世。',
+    },
+    {
+      speaker: { kind: 'custom', name: '河北老绸商', title: '怀州受害商帮代表', factionName: '河朔商帮' },
+      text: '（十余名须发花白的河北、山西行商捧着香盘跪在御街路旁，指着囚车里的雷武石、石寒乾等人老泪纵横）“苍天有眼啊！便是这伙太行杀才劫了老朽半生心血、害死我那押镖的侄儿！多谢禁军大将军替咱们河朔百姓拔了这颗毒瘤！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '高怀亮骑在马上，看着大军队列正中那辆覆着素白绸布、专门盛放黑风峡阵亡袍泽遗物腰牌的马车，眼眶通红却脊梁笔挺：“将军你看，街边那些踮脚张望的老嫂子、白发老汉，不少都是咱们殿前司儿郎的家眷……今日咱们终于能昂着头，把弟兄们的英魂迎回汴梁了！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0140' },
+      text: '队伍行至州桥开封府衙街口，“御猫”展昭一身大红四品护卫官袍早已率六扇门捕快肃立相迎，见你翻身下马，满面春风拱手赞道：“少侠真乃士别三日、刮目相看！捷报前日八百里加急抵京，圣上在紫宸殿连称三声‘善哉’，特命王枢相与包大人在开封府正堂联席会审十名贼首！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（向展昭郑重还礼，随即回身挥手下令）“传令全军：辎重营随户部与开封府书吏点交赃银入库，前锋甲士押雷武石、石寒乾、史玄朗等十名重犯随我入升堂正殿，听候三司明正典刑！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_36_KAIFENG_JOINT_TRIBUNAL }],
+}
+
+// ----------------------------------------------------------------------------
+// 第三幕（下）：兵临飞狐断魂索桥 · 重创狂龙与锁山班师（第 30 ~ 34 幕）
+// ----------------------------------------------------------------------------
+
+const SCENE_34_WUJING_WISDOM_SEAL_PASS: StorySceneDef = {
+  id: 'scene_jtc2_34_wujing_wisdom_seal_pass',
+  title: '第三十四幕 · 筑碉锁涧凯歌还',
+  subtitle: '太行山绿林总寨 · 飞狐断魂索桥东崖',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '望着对岸绝壁上仅存不足三百残兵、狼狈喘息的王重岳与重伤呕血的史万山，高怀亮热血上涌，一攥长枪上前请命：“将军！王重岳如今已成强弩之末，只剩这光秃秃三条铁链！末将愿挑二百死士身缚飞爪，冒箭攀链强渡过去，今日便与这老贼决一死战，毕其功于一役！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（凝望千丈深渊上呼啸摇晃的三根寒铁链，伸手稳稳按住高怀亮执枪的手臂，缓缓摇头）“不可！高将军忘却《武经总要》‘绝地勿逼，穷寇勿迫’八字真言了么？这三条铁索悬空百丈，下临无底寒渊，攀爬时双手受缚无法举盾；对岸纵只剩三百饥寇，居高临下攒射滚石，甚至挥斧砍断铁索，我数百精锐儿郎便要瞬间粉身碎骨！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（转身指点脚下东崖咽喉与身后已尽归王师的三寨义仓，声音沉着如铁）“兵法之妙，在于以全争胜，不拿将士性命博一己虚名！今王重岳外围三寨尽毁、藏金义仓颗粒未剩、十名中层头目悉数被擒，西崖孤峰绝顶既无耕地又无外援。咱们只需在东桥头与出山三口依《武经》筑起六座石碉烽铺，留地方巡检弓弩手轮番扼守，他这不足三百人便是瓮中之鳖，严冬一至必自生内乱！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '高怀亮怔立半晌，猛地激灵灵打了个寒战，旋即满心折服地单膝抱拳：“末将险些又犯了贪功冒进的旧病！若非将军一言点醒，今日东桥头又要添几百具冤魂！全凭将军将令——筑石碉、锁死谷口，咱们押着这十名恶首与满库赃银，风风光光回东京献俘！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '号角长鸣，五千宋军工兵依令伐石垒碉，在飞狐断魂索桥东崖筑起铁壁般的连环石垒与望楼，将王重岳残部彻底封死于绝涧西岸。三日后，石碉落成，你留下河北怀州驻防弓弩营严密监视，亲率主力禁军押解十名贼首、六百降卒及八十四车赃银粮草，浩浩荡荡班师南归开封府！',
+    },
+  ],
+  onFinishEffects: [
+    { type: 'giveCombatExp', amount: 150, reason: '飞狐索桥重创九纹狂龙史万山' },
+    { type: 'addArtExp', amount: 1000 },
+    { type: 'modifySkill', key: '策论', delta: 5 },
+    {
+      type: 'setQuestStep',
+      questId: JINJUN_TAIHANG_QUEST_2_ID,
+      stepId: 'return_kaifeng_triumph',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '重创史万山，将王重岳不足三百残寇困锁飞狐索桥西岸！请班师返回【开封府 · 开封府衙 · 开封府升堂正殿】献俘会审！',
+      tone: 'success',
+      logTag: '锁山凯旋',
+    },
+  ],
+}
+
+const SCENE_33_WANG_RETREATS_BRIDGE: StorySceneDef = {
+  id: 'scene_jtc2_33_wang_retreats_bridge',
+  title: '第三十三幕 · 残寇三百守断魂',
+  subtitle: '太行山绿林总寨 · 飞狐断魂索桥',
+  illustrationUrl: '/assets/quests/taihang_camp2_feihu_bridge_retreat.jpg',
+  illustrationCaption: '太行飞狐断魂索桥 · 王重岳仅率不足三百残匪断板死守天险',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '“咔嚓、轰隆——！”伴随着数十柄板斧疯狂劈砍，飞狐断魂索桥东端三十余丈长的厚重杉木桥板接连崩裂，翻滚着坠入下方云雾翻涌的千丈幽涧，良久方传来微不可闻的回响。山风怒号，唯余三条碗口粗的乌黑寒铁索横悬于两座刀削绝壁之间，结满白霜，滑不留足。',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '隔着百丈深渊望去，昔日号称拥众数千、威震河北河东的“太行天王”王重岳披发按刀立于西岸孤岩之上，身旁是被两名喽啰架着、半边衣甲尽被鲜血染透的史万山；而在他们身后，诺大一座太行绿林总寨，如今竟只剩下不足三百名丢盔弃甲、面黄肌瘦的残兵败寇，在凛冽山风中瑟瑟发抖！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0142' },
+      text: '王重岳死死盯着东崖上军容严整、枪林如雪的五千大宋禁军，胸膛剧烈起伏，声音沙哑如夜枭泣血：“好……好一个王德用调教出来的小畜生！两个月前在黑风峡，老夫真悔未曾亲自下谷补你一掌，竟教你短短六十日脱胎换骨，连破我三寨、搬空我十年义仓！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（卓立东崖桥头，任山风吹动猩红披风猎猎作响，朗声喝道）“王重岳！黑风峡两千禁军忠魂在上，岂容你这残民以逞的巨寇长久逍遥！看看你身后不足三百的残兵，再摸摸你空空如也的粮袋——这飞狐绝壁，便是你自掘的坟墓！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0229' },
+      text: '史万山捂着血流如注的右肩，面色惨白如纸，犹自嘶声向王重岳喘道：“大……大哥，宋军弩急枪密，咱们失了粮仓和十位当家兄弟，先凭这断魂天险喘口气……只要铁索未通，纵有万军也飞不过这飞狐涧！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_34_WUJING_WISDOM_SEAL_PASS }],
+}
+
+const SCENE_32_SHI_WANSHAN_WOUNDED_FLIGHT: StorySceneDef = {
+  id: 'scene_jtc2_32_shi_wanshan_wounded_flight',
+  title: '第三十二幕 · 狂龙呕血遁寒链',
+  subtitle: '太行山绿林总寨 · 飞狐索桥东栈桥',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '金铁交鸣声震彻深谷！十余合激斗间，史万山那根重逾六十斤的盘龙棍越舞越急，却惊骇地发觉：眼前这名宋军主将再非六十日前那个一味硬拼猛打的急躁武夫，而是进退有度、审虚击懈，每一记兵刃递出皆精准卡在他旧力刚尽、新力未生的换气死穴之上！',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（瞅准史万山一棍砸空、右肋门户微露的刹那，丹田真气轰然贯注兵锋，斜步欺身直取其肩井要穴）“史万山，你棍法虽猛，奈何心浮气躁、下盘虚浮——这一击，替黑风峡死难弟兄讨还利息！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0229' },
+      text: '“噗——！”护肩精铁甲叶应声崩碎，史万山如遭雷殛，仰天喷出一大口殷红鲜血，整个人连退七八步撞在索桥铁桩之上，手中盘龙棍几乎脱手坠涧，满眼尽是难以置信的惊骇：“怎会如此……不过短短两月，你的武功与眼力怎会变得这般老辣可怖？！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0142' },
+      text: '对岸高崖上传来王重岳一声惊怒暴喝，一道雄浑阴霸的《太行罡气》隔空拍碎栈桥栏木阻了一阻追兵：“二弟莫恋战，快退上铁索！斧手听令，待史二当家过中段，立刻砍断东头全部桥板！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '数名太行死士拼死扑上拖住重伤踉跄的史万山，连滚带爬地踏着摇晃不止的桥面逃向西岸；不等禁军神臂弩手前移攒射，索桥中段火把乱晃，数十把利斧已疯狂砍向承重木板！',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_33_WANG_RETREATS_BRIDGE }],
+}
+
+const SCENE_31_BATTLE_FOUR_SHI_WANSHAN: StorySceneDef = {
+  id: 'scene_jtc2_31_battle_four_shi_wanshan',
+  title: '第三十一幕 · 桥头恶战挫狂龙',
+  subtitle: '太行山绿林总寨 · 千帆栈桥·装卸埠',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0229' },
+      text: '东桥头栈桥石坪上，“九纹狂龙”史万山横拎碗口粗的浑铁盘龙棍，一眼瞥见宋军阵后囚车里披头散发的族叔史玄朗与雷武石等人，双目霎时赤红如血，暴吼如雷：“狗官！竟敢用阴谋诡计暗算我太行十位当家！六十日前黑风峡大火没烧死你，今日老子亲自拧下你的脑袋祭旗！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（策马缓步出阵，目光越过暴跳如雷的史万山，冷冷扫了一眼索桥对岸正在仓皇收拢残部的王重岳）“用兵之道，以智驭力，何来阴谋之说？王重岳自己已如丧家之犬逃过铁索，偏留你在此做替死鬼断后——史万山，今日便叫你领教大宋禁军真正的锋芒！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '高怀亮指挥神臂弩营抢占两侧石坡压制桥头冷箭，大喝助威：“将军小心！这史万山有一流下品修为，天生神力，身边还带着总寨最凶悍的断后死士统领！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '史万山怒极反笑，撕开胸前号衣露出狰狞青黑的九条刺青盘龙，浑身劲气鼓荡，携死士统领屠横山一左一右咆哮着朝你猛扑而来！',
+    },
+  ],
+  choices: [
+    {
+      id: 'choice_jtc2_battle_four_start',
+      label: '【亮兵迎敌】气沉丹田审虚实，于飞狐索桥东端正面迎战九纹狂龙史万山！',
+      subLabel: '第四战（索桥前哨战）：迎战 史万山（一流下品） + 飞狐断魂死士统领（二流下品）',
+      tone: 'danger',
+      effects: [
+        {
+          type: 'startCombat',
+          questId: JINJUN_TAIHANG_QUEST_2_ID,
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0229',
+            talkOverride:
+              '“六十日前黑风峡没砸死你这狗官，今日索桥绝壁前，某这根九纹盘龙棍定叫你尸沉千丈寒涧！”',
+          },
+          extraOpponents: [{ kind: 'custom', npc: buildFeihuDiehardGuardNpc() }],
+          rule: 'story_trial',
+          forbidEscapeReason: '两军阵前主帅夺桥对决，岂可临阵退缩动摇军心！',
+          introText:
+            '【飞狐断魂索桥决锋】千丈深渊寒风凛冽！“九纹狂龙”史万山携总寨死士统领屠横山拼死断后，企图为你军制造惨重伤亡、掩护王重岳砍断索桥！',
+          onWin: [{ type: 'openScene', scene: SCENE_32_SHI_WANSHAN_WOUNDED_FLIGHT }],
+          onLose: [
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
+            {
+              type: 'toast',
+              text: '史万山盘龙棍势大力沉，你暂借禁军盾阵掩护退后半里调匀内息。整顿披挂武学后可再次上前破敌！',
+              tone: 'warn',
+              logTag: '暂退重整',
+            },
+          ],
+          onDraw: [
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
+            {
+              type: 'toast',
+              text: '桥头地窄风急，双方激斗未分胜负各自收兵半里。调息整备后可再次进逼索桥！',
+              tone: 'warn',
+              logTag: '收兵再战',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+
+const SCENE_30_PURSUIT_TO_FEIHU_BRIDGE: StorySceneDef = {
+  id: 'scene_jtc2_30_pursuit_to_feihu_bridge',
+  title: '第三十幕 · 旌旗卷雪逼飞狐',
+  subtitle: '太行山绿林总寨 · 飞狐断魂索桥外隘',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '太行藏金义仓既陷，绿林总寨十年积蓄化为乌有。短短两昼夜间，原本依附王重岳的各路山头草寇闻听“三寨连破、义仓被端、胁从投诚免死”之讯，顿时树倒猢狲散——有的成建制向宋军大营叩头纳降，有的趁夜翻越后山逃往潞州、泽州荒野，昔日数千之众转眼十去八九！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '大军沿着崎岖山脊一路向西衔尾疾追，行至飞狐峪尽头，但见两座千仞绝壁如巨斧劈开，中间仅靠三条寒铁索铺就的吊桥相连。高怀亮举千里镜细察片刻，振奋禀道：“将军快看！王重岳已弃了聚义忠义大堂，正带着最后那点心腹家底往飞狐断魂索桥西岸撤逃，桥面上挤作一团！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（勒马立于山岗巨石之上，依《武经总要》先观两侧山崖有无滚石伏兵，确认峭壁之上已无旗号人影，方才挥剑前指）“王重岳众叛亲离，已无余力分兵设伏！传令前军莫踏索桥，只将东桥头千帆栈桥与装卸石坪四面围住，断其最后归路！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '大宋禁军玄甲如潮，瞬息间占领东崖制高点，神臂弓弩齐指桥头。只见东端栈桥石坪前，一面绣着狰狞青龙的黑旗迎风乱舞，副总瓢把子“九纹狂龙”史万山正率数十名悍不畏死的亲卫死死堵在桥口！',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_31_BATTLE_FOUR_SHI_WANSHAN }],
+}
+
+// ----------------------------------------------------------------------------
+// 第三幕（中）：连拔三寨 · 奇袭太行藏金义仓与瓮中捉鳖（第 24 ~ 29 幕）
+// ----------------------------------------------------------------------------
+
+const SCENE_29_PRISONERS_AND_TREASURE: StorySceneDef = {
+  id: 'scene_jtc2_29_prisoners_and_treasure',
+  title: '第二十九幕 · 瓮中捉鳖起赃银',
+  subtitle: '太行山绿林总寨 · 太行藏金义仓内窟',
+  illustrationUrl: '/assets/quests/taihang_camp2_captured_loot.jpg',
+  illustrationCaption: '太行藏金义仓 · 设计生擒数百悍匪缴获满库赃银',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '黎明曙光刺破太行山岚，数以百计的松明火把将深嵌山腹的太行藏金义仓照得亮如白昼。石坪外侧，被从水洞暗渠里一串串揪出来的六百余名绿林悍匪尽皆卸去兵刃、垂头丧气地蹲伏成排；石窟深处，一口口尚未及封盖的大木箱层叠如山，白花花的官银锭、印着怀卫晋商字号的潞绸茶砖与堆积如丘的陈年粟麦令人目眩神迷！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '高怀亮手提染血长枪自东侧偏库快步走出，声音因激动而微微发颤，双手捧着一只沉甸甸的樟木长匣呈到你面前：“将军！除了六万余两赃银与四千石军粮，弟兄们还在偏库角落寻着了这个——里面全是两个月前黑风峡殉国袍泽被贼人搜去的禁军木质腰牌与号衣铜扣，整整四百七十余枚！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（伸出双手郑重接过樟木长匣，指腹轻轻抚过一枚枚刻着殿前司番号与籍贯姓名的染血腰牌，良久方深吸一口气，转身面向全军肃然下令）“传本帅严令：义仓内一应金银绸缎粮秣，皆系河朔百姓血汗与我阵亡弟兄抚恤之资！由军正司与高副将当众清点造册、贴封加印，敢有私藏一文铜钱、虐杀一名已降俘虏者，立斩不赦！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '五千禁军将士望着你手中那匣同袍腰牌，无不凛然肃立，齐声应诺如雷，竟无一人向满地金银多看一眼。便在此时，前哨游奕探骑飞马驰入石坪报讯：总寨王重岳闻听藏金义仓陷落、史玄朗与晁霖浪双双被擒，手下各房喽啰哄然溃散，如今正由史万山断后，仓皇逃往西面天险“飞狐断魂索桥”！',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（将樟木腰牌匣仔细封好交予亲兵背负，拔剑一指西方群峰）“十名中坚头目已尽入我囚车，粮银尽归王师！留五百步卒看守义仓与降卒，其余主力随我衔尾疾进，直扑飞狐断魂索桥！”',
+    },
+  ],
+  onFinishEffects: [
+    { type: 'giveCombatExp', amount: 120, reason: '奇袭太行藏金义仓生擒群匪' },
+    { type: 'addArtExp', amount: 850 },
+    {
+      type: 'setQuestStep',
+      questId: JINJUN_TAIHANG_QUEST_2_ID,
+      stepId: 'campaign_feihu_approach',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '设计生擒六百余名匪徒、缴获满库赃银，十名中层头目尽数落网！请挥师进逼【飞狐断魂索桥 · 千帆栈桥·装卸埠】迎击断后的史万山！',
+      tone: 'success',
+      logTag: '起赃擒匪',
+    },
+  ],
+}
+
+const SCENE_28_SEAL_NET_MASS_CAPTURE: StorySceneDef = {
+  id: 'scene_jtc2_28_seal_net_mass_capture',
+  title: '第二十八幕 · 铁网封渠擒百盗',
+  subtitle: '太行山绿林总寨 · 太行藏金义仓后渠',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '寒光乍敛，晁霖浪袖中暗器匣已被你一招震得粉碎，整个人虎口迸裂跌翻在地；银枪叟史玄朗正欲回身挑翻火油铜盆焚毁粮库，你早已预判其死志，飞起一脚将铜盆踹入崖侧水沟，反手剑脊重重拍中其琵琶骨要穴！两名把守义仓的悍匪头目哼也未哼一声，便被蜂拥而上的禁军刀盾手死死按住捆成粽子！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0387' },
+      text: '神针汉晁霖浪被铁索锁住琵琶骨，犹自狞笑喘息：“休要得意！仓内还有六百多号精壮弟兄，早已顺着后山三条泄水暗渠钻出去了，转眼便能化整为零再聚山林——”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '话音未落，后山涧口忽然响起一阵密集梆子声与欢呼声！高怀亮大步押着黑压压一大片湿淋淋的俘虏绕过剑痕崖走来，哈哈大笑：“姓晁的莫做春秋大梦了！我家将军在赚开吊桥之前，早依《武经总要》‘攻穴先塞鼠道’之法，命末将用精铁栅栏和浸水牛筋大网把三条水洞出口堵得严严实实，钻进暗渠的六百三十八名喽啰一个没跑掉，全在网里做了活王八！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0341' },
+      text: '史玄朗闻听此言，浑身如抽去脊骨般瘫软在地，仰望夜空中猎猎招展的“大宋殿前司”帅旗，喃喃叹息：“先塞暗渠，再赚吊桥，连老夫想焚仓同归于尽的后手都算得一清二楚……太行绿林十年气数，今夜尽绝于此矣！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_29_PRISONERS_AND_TREASURE }],
+}
+
+const SCENE_27_BATTLE_THREE_VAULT: StorySceneDef = {
+  id: 'scene_jtc2_27_battle_three_vault',
+  title: '第二十七幕 · 剑痕崖下战双守',
+  subtitle: '太行山绿林总寨 · 绝壁石刻·剑痕崖',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '沉重的铁索吊桥刚一轰然放平，前队三十名外披绿林号衣的禁军锐士猛地掀开衣襟，寒光凛冽的精铁札甲在火把下耀人眼目，刀背翻飞间瞬间拍晕桥头哨匪，夺下绞盘机括！你一马当先踏桥跃入义仓外院，直抵库门咽喉——绝壁石刻·剑痕崖！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0341' },
+      text: '正在督促喽啰装车的守仓大将“银枪叟”史玄朗惊闻外院喊杀声大作，提一杆亮银素缨枪自石室疾冲而出，见势不妙，厉声狂吼：“中计了！是宋军主力赚开了外壕！后仓孩儿们快从三条水洞暗渠撤往总堂，晁兄弟，随老夫挡住崖口、点火烧粮！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0387' },
+      text: '阴暗廊柱后闪出一名精瘦阴鸷的青衣汉子，正是专司暗器毒针的“神针汉”晁霖浪，双手十指夹满淬着蓝汪汪毒汁的透骨钢针，阴恻恻喝道：“来得好！叫这姓宋的小将军尝尝某家子午透骨针的厉害！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（目光一扫石室门前已泼上火油的几只铜盆，心知迟则粮毁，当下身形如电疾掠上前）“神臂弩手压制廊下火把喽啰，莫教一点火星沾着粮袋！史玄朗、晁霖浪，束手就擒吧！”',
+    },
+  ],
+  choices: [
+    {
+      id: 'choice_jtc2_battle_three_start',
+      label: '【雷霆夺库】疾掠剑痕崖封住火油铜盆，生擒守仓双寇史玄朗与晁霖浪！',
+      subLabel: '第三战（奇袭义仓）：迎战 银枪叟·史玄朗（二流中品） + 神针汉·晁霖浪（二流下品）',
+      tone: 'danger',
+      effects: [
+        {
+          type: 'startCombat',
+          questId: JINJUN_TAIHANG_QUEST_2_ID,
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0341',
+            talkOverride:
+              '“竟敢赚开老夫吊桥！晁兄弟，快泼火油烧仓，决不能把十年家底留给汴梁官军！”',
+          },
+          extraOpponents: [
+            {
+              kind: 'npc',
+              npcId: 'NPC-0387',
+              talkOverride: '“看某满天毒针先废了这狗官双目！”',
+            },
+          ],
+          rule: 'story_trial',
+          forbidEscapeReason: '吊桥已夺、火油将燃，一旦后退满库粮银必付之一炬！',
+          introText:
+            '【夜袭太行藏金义仓】绝壁剑痕崖下火光摇曳！守仓主将“银枪叟”史玄朗与“神针汉”晁霖浪企图负隅顽抗引火焚仓，速战速决将其生擒！',
+          onWin: [{ type: 'openScene', scene: SCENE_28_SEAL_NET_MASS_CAPTURE }],
+          onLose: [
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
+            {
+              type: 'toast',
+              text: '崖口毒针频发，你借石壁掩护暂退外壕重整盾阵。调息后可再次突入义仓擒贼！',
+              tone: 'warn',
+              logTag: '重整盾阵',
+            },
+          ],
+          onDraw: [
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
+            {
+              type: 'toast',
+              text: '石门狭窄一时僵持不下，你命刀盾手护住外桥暂且调息，整备后可再次强攻！',
+              tone: 'warn',
+              logTag: '调息再攻',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+
+const SCENE_26_SEAL_TUNNELS_AND_SIGNAL: StorySceneDef = {
+  id: 'scene_jtc2_26_seal_tunnels_and_signal',
+  title: '第二十六幕 · 诈号赚桥封鼠穴',
+  subtitle: '太行山绿林总寨 · 藏金义仓外壕密林',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '伏在义仓外侧山梁松林中俯瞰，但见洞窟前横亘着一道深逾三丈、插满削尖竹签的干壕，唯有放下一座寒铁吊桥方能通行；若强行架梯填壕，洞内守军只需一把大火便能将满库粮草化为灰烬。高怀亮低声请示：“将军，这乌龟壳委实险固，咱们该如何下手？”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（展开怀中《武经总要》行军钞本与方才审讯东寨头目鲁豪朗所得的口供，唇角微扬，有条不紊地分派军令）“《武经》有言：‘善攻者，动于九天之上，先夺其恃。’鲁豪朗已招供：这藏金义仓后崖山涧共有三条平时用来排洪、急时用来逃命的泄水暗渠。匪徒之所以敢守到最后一刻，便是仗着暗渠可退！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（低声向高怀亮与先锋将校授计）“高将军，你即刻率八百精兵携铁栅牛筋网绕往后山涧口，将三条泄水暗渠出口悄无声息锁死，只许进不许出；我则挑三十名精通河北方言的军士换上黑风中寨溃兵衣甲，举起刚缴获的‘三红一绿’夜行气死风灯，学两长一短山枭啼声，谎称中寨押运急账归仓，直接赚开他正门吊桥！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '计议既定，高怀亮领命悄然没入后山夜色。约莫半个时辰后，后崖传来三声极轻微的击石回响——三条鼠道已尽数封死！你当即命前队点亮三盏红灯、一盏绿灯，跌跌撞撞奔至干壕对岸发出枭鸣暗号；望楼上的守匪睡眼惺忪验看灯色无误，骂骂咧咧地转动绞盘放下了铁索吊桥！',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_27_BATTLE_THREE_VAULT }],
+}
+
+const SCENE_25_APPROACH_HIDDEN_VAULT: StorySceneDef = {
+  id: 'scene_jtc2_25_approach_hidden_vault',
+  title: '第二十五幕 · 暗夜衔枚趋义仓',
+  subtitle: '太行山腹 · 藏金谷羊肠暗径',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '当夜子时，星月无光，太行山腹寒雾弥漫。五千宋军留下一千步卒加固已占领的苍狼、黑风、虎啸三座外寨并看押俘虏，其余四千精锐尽依《武经总要 · 夜行军制度》，人人嘴衔竹枚、战马蹄裹厚毡、兵刃涂抹炭灰以防反光，如一条无声潜行的苍龙穿行于崎岖涧谷之间。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '行至距太行藏金义仓三里外的分水岭下，前哨探马悄然滑下山岩低声回禀：“禀将军、高副将！前面山腹大溶洞便是太行藏金义仓，洞外灯火通明，守将‘银枪叟’史玄朗与‘神针汉’晁霖浪正拿皮鞭抽打喽啰连夜装运银箱，看模样是听闻外围三寨失守，准备明日一早弃仓逃往飞狐索桥！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（轻轻吐出口中竹枚，眸光在暗夜里亮若寒星）“来得早不如来得巧！他们既在连夜装箱，必然人心惶惶、外紧内乱，且银箱粮袋皆已堆出内窟石门，正省却咱们破锁搜山之功！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '你一挥手，四千将士寂然无声地借着古松巨石掩护散开，将整座藏金谷外围铁桶般合围起来，连一声犬吠飞鸟都未曾惊动。',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_26_SEAL_TUNNELS_AND_SIGNAL }],
+}
+
+const SCENE_24_THREE_FORTS_CONQUERED: StorySceneDef = {
+  id: 'scene_jtc2_24_three_forts_conquered',
+  title: '第二十四幕 · 步步为营连拔三寨',
+  subtitle: '太行山东麓 · 苍狼、黑风、虎啸三连寨',
+  illustrationUrl: '/assets/quests/taihang_camp2_three_forts.jpg',
+  illustrationCaption: '太行东麓三连寨 · 依武经步步为营旌旗连拔三城',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '短短七日之间，太行山东麓形势翻天覆地！自苍狼前寨断水不战而屈，到鹰愁岭围点打援生擒石寒乾、燕刀柏，再到黑风中寨望风崩溃，宋军每拔一寨必先筑垒立烽、抚定降卒、审明前路水脉暗哨，而后以泰山压顶之势稳步推进，不给群匪半分喘息设伏之机！',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '及至第七日午后，屏护山腹门户的第三座大寨“虎啸东寨”陷入三面神臂弩台俯射合围。守寨头目“狂刀龙”杨平林与“立地客”鲁豪朗见前、中两寨尽插赤红大宋龙旗，寨中喽啰早已胆寒溃乱，二人刚欲率亲信夺路突围，便被大宋长枪方阵兜头罩住，双双束手被擒！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '站在虎啸东寨最高的望楼之上回首东望，但见苍狼、黑风、虎啸三座险峻山城烽烟相连，猎猎宋旗迎风招展。高怀亮抚着城垛感慨万千：“往日总以为名将用兵须是匹马单枪冲阵斩将，此番随将军按《武经总要》步步为营，连拔太行三座铁寨、活捉八名当家头目，我军伤者竟不足三十人，方知什么叫堂堂正正的王师堂奥！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0429' },
+      text: '被五花大绑押上望楼的立地客鲁豪朗眼见宋军军纪森严、对投诚喽啰赐以热粥裹伤，心理防线彻底瓦解，主动叩头告密道：“大将军饶命！小人愿立功赎罪——王天王把十年劫来的金银绸缎与全山过冬粮草全藏在东北山腹的【太行藏金义仓】，由史万山的族叔史玄朗把守，此刻定在收拾细软准备转移，晚去一步便要被搬上飞狐索桥了！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（俯瞰群山间蜿蜒通向藏金谷的秘径，果断拍板）“《武经》云：‘军无辎重则亡，无粮食则亡。’外围三寨既平，今夜咱们便趁热打铁、衔枚疾走，一举端掉王重岳的太行藏金义仓！”',
+    },
+  ],
+  onFinishEffects: [
+    { type: 'giveCombatExp', amount: 100, reason: '围点打援连拔太行外围三连寨' },
+    { type: 'addArtExp', amount: 750 },
+    {
+      type: 'setQuestStep',
+      questId: JINJUN_TAIHANG_QUEST_2_ID,
+      stepId: 'campaign_seize_vault',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '依《武经》步步为营连拔三寨，生擒雷武石、石寒乾、鲁豪朗等八名头目！请趁夜奇袭【太行藏金义仓 · 绝壁石刻·剑痕崖】！',
+      tone: 'success',
+      logTag: '连拔三寨',
+    },
+  ],
+}
+
+// ----------------------------------------------------------------------------
+// 第三幕（上之二）：黑风雪耻 · 围点打援破中寨（第 20 ~ 23 幕）
+// ----------------------------------------------------------------------------
+
+const SCENE_23_BLACK_WIND_FORT_FALLS: StorySceneDef = {
+  id: 'scene_jtc2_23_black_wind_fort_falls',
+  title: '第二十三幕 · 中寨望风溃千里',
+  subtitle: '太行山绿林总寨 · 黑风中寨辕门',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '鹰愁岭脊道上一场雷霆反伏击干净利落！冷月客石寒乾手中弯刀被你硬生生震断成两截，铁掌汉燕刀柏左腿中了一记神臂弩箭翻滚落马，双双被禁军锐士拿铁链锁住咽喉生擒活捉；随行的六百绿林援兵在滚石与长枪夹击下溃不成军，四百余人跪地投降！',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（命军士卷起石寒乾与燕刀柏那两面折断的“冷月”“铁掌”认旗，押着二犯径直来到黑风中寨寨门百步之外，扬声喝道）“寨内守匪听真！总堂派来增援尔等的石寒乾、燕刀柏二头目已在鹰愁岭全军覆没、束手被擒！限尔等半柱香内开寨投械，逾时神臂弩火箭齐发，玉石俱焚！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0415' },
+      text: '寨楼之上，原本盼星星盼月亮等候援兵的把寨女头目“劈山莲”裴烟音与副头目“神行手”王浪青看清阵前披枷带锁的石、燕二人，霎时面无人色！守寨喽啰一片哗然，不知是谁先喊了一声“总堂不管咱们死活了”，数百名山匪轰然丢下滚木弓箭，争先恐后拉开寨门大栓出降！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '裴烟音与王浪青见大势已去，企图趁乱从西侧山涧滑索溜走，怎奈高怀亮早遵你事先布下的口袋阵率两百游骑守在涧底，一顿挠钩绊马索将二人稳稳生擒！高怀亮押着二犯大步走上黑风中寨聚义厅，痛快大笑：“将军神算！不费一兵一卒攻城，单靠鹰愁岭一仗便连下黑风中寨、活捉四名硬茬头目，黑风峡这口恶气今日可算出了大半！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_24_THREE_FORTS_CONQUERED }],
+}
+
+const SCENE_22_BATTLE_TWO_RELIEF_AMBUSH: StorySceneDef = {
+  id: 'scene_jtc2_22_battle_two_relief_ambush',
+  title: '第二十二幕 · 鹰愁反伏破双凶',
+  subtitle: '太行山绿林总寨 · 鹰愁岭脊道伏击圈',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '寅末卯初，山雾最浓之时，鹰愁岭狭窄的山脊古道上果然响起急促杂乱的脚步声！总堂头领“冷月客”石寒乾与“铁掌汉”燕刀柏率领六百名精锐悍匪急行军赶来救援黑风中寨，一路连半个探路哨子都未曾多派。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0310' },
+      text: '燕刀柏搓着一双乌黑蒲扇铁掌，望着山下高怀亮大营里故意点起的稀疏炊烟，嗤笑不已：“王天王也未免太高看那姓宋的手下败将了！被咱们在黑风峡烧怕了胆，如今在寨外磨蹭了整整两日连云梯都不敢架，待俺们与寨里裴妹子前后夹击，定叫他再丢两千颗脑袋！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（立于鹰愁岭峭壁古松之上，听着脚下贼兵大言不惭，冷然拈起一枚鸣镝响箭满弓射向半空——凄厉箭啸划破浓雾）“六十日前尔等在黑风峡以滚石火油算计王师，今日便请诸位亲自尝尝这居高临下的滋味——放礌石！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0309' },
+      text: '轰隆巨响声中，两侧山梁早备好的滚木礌石与神臂劲弩如骤雨倾泻而下，狭窄岭道顿时人仰马翻！石寒乾大惊失色，挥起冷月弯刀拨开飞矢，与燕刀柏拼死冲向岭口，恰好撞见横剑拦路、杀气凛然的你！',
+    },
+  ],
+  choices: [
+    {
+      id: 'choice_jtc2_battle_two_start',
+      label: '【围点打援】居高临下截断鹰愁岭归路，正面擒拿石寒乾与燕刀柏！',
+      subLabel: '第二战（黑风反伏击）：迎战 冷月客·石寒乾（二流中品） + 铁掌汉·燕刀柏（二流中品）',
+      tone: 'danger',
+      effects: [
+        {
+          type: 'startCombat',
+          questId: JINJUN_TAIHANG_QUEST_2_ID,
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0309',
+            talkOverride: '“不好！岭上有宋军精锐埋伏——燕兄，快联手劈开前路退回总堂！”',
+          },
+          extraOpponents: [
+            {
+              kind: 'npc',
+              npcId: 'NPC-0310',
+              talkOverride: '“休慌！看某这双铁掌拍碎这宋将天灵盖！”',
+            },
+          ],
+          rule: 'story_trial',
+          forbidEscapeReason: '反伏击口袋既已收口，岂能放走贼军援兵统领！',
+          introText:
+            '【鹰愁岭围点打援】以其人之道还治其人之身！太行总堂援军统领“冷月客”石寒乾与“铁掌汉”燕刀柏落入你预设的山地反伏击圈，一举将其生擒便可不战瓦解黑风中寨！',
+          onWin: [{ type: 'openScene', scene: SCENE_23_BLACK_WIND_FORT_FALLS }],
+          onLose: [
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
+            {
+              type: 'toast',
+              text: '石寒乾与燕刀柏困兽死斗颇为凶悍，你借山岩弩阵暂缓攻势调匀真气，整备后可再次合围擒贼！',
+              tone: 'warn',
+              logTag: '收阵调息',
+            },
+          ],
+          onDraw: [
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
+            {
+              type: 'toast',
+              text: '浓雾中刀掌交错未分高下，神臂弩手封住山口退路，调息后可再度出击！',
+              tone: 'warn',
+              logTag: '封山再战',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+
+const SCENE_21_FEIGN_SIEGE_TRAP_RELIEF: StorySceneDef = {
+  id: 'scene_jtc2_21_feign_siege_trap_relief',
+  title: '第二十一幕 · 增灶示缓钓援寇',
+  subtitle: '太行山绿林总寨 · 瓮城屯兵校场外围',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '抵近黑风中寨外围的瓮城屯兵校场，但见此寨背倚陡崖、前临黑风峡深沟，比苍狼前寨更为险恶，且寨内自前次黑风峡之战后特意挖了三口深井储水，寻常断水之策已难奏效。高怀亮凝眉问道：“将军，贼人吃一堑长一智，寨中既有深井存粮，硬攻又恐折损士卒，这第二颗钉子如何拔？”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（手持马鞭指向中寨西侧蜿蜒通往聚义总堂的鹰愁岭脊道，胸有成竹道）“黑风中寨虽有存水，兵力却仅有五百。前寨既失，王重岳必怕中寨孤立无援，定会从总堂派悍将走鹰愁岭驰援！《武经总要》论山地奇正：‘攻其所必救，伏其所必经’，咱们这回便来一记围点打援！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（压低声音授以机宜）“高副将，你率两千步卒在黑风中寨正面大张旗鼓扎下连营，白日里只敲鼓呐喊、推几辆破楯车在射程外徘徊不进，故意装出一朝被蛇咬、畏惧峡谷伏兵的怯懦模样；今夜三更，我亲率一千五百精锐刀盾与神臂弩手悄然摸上鹰愁岭两侧绝壁，专等总堂援寇钻进口袋！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '一连两日，宋军正面大营雷声大雨点小，每推进十步便疑神疑鬼地后退扎寨。黑风中寨望楼上的守匪看得哄堂大笑，连夜向聚义总堂飞鸽传书，称宋军主将被上次黑风峡大火吓破了苦胆，只需总堂派精兵自后岭夹击，立可再获全胜！',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_22_BATTLE_TWO_RELIEF_AMBUSH }],
+}
+
+const SCENE_20_RETURN_BLACK_WIND: StorySceneDef = {
+  id: 'scene_jtc2_20_return_black_wind',
+  title: '第二十幕 · 重临黑风祭亡魂',
+  subtitle: '太行山绿林总寨 · 黑风峡旧战场山口',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '拔下苍狼前寨后，大军整队向西推进十二里，迎面扑来的山风骤然多了一股焦木与铁锈混杂的凄厉气息——前方两峰夹峙、怪石嶙峋的幽暗谷口，正是六十日前葬送两千禁军同袍的伤心地：黑风峡！',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '两侧石壁上大片烟熏火燎的焦黑痕迹尚未被秋雨冲净，枯草石缝间偶见折断的禁军红缨枪杆与烧变形的铁甲残片。全军五千将士行至谷口，不约而同放轻脚步，队列中数百名曾从火海死里逃生的老卒更是双拳紧握、虎目含泪。',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（翻身下马，在焦黑的谷口青石前肃然跪倒，俯身掬起一捧混着草木灰烬的太行焦土装入随身布囊，向着幽深峡谷重重叩首三记）“两千袍泽英魂在上！前番因我不明兵法、孤军贪进，害弟兄们惨遭火焚石砸；今日我携《武经》重返此地，绝不再让一名禁军儿郎重蹈覆辙，必拿群贼鲜血洗刷此谷奇耻！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '高怀亮率全军将校齐刷刷单膝跪地，铁甲铿锵如一，低沉悲壮的誓言在山谷间滚滚回荡：“谨遵将令！步步为营，雪耻报仇！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_21_FEIGN_SIEGE_TRAP_RELIEF }],
+}
+
+// ----------------------------------------------------------------------------
+// 第三幕（上之一）：初试武经 · 断水熏烟智破苍狼前寨（第 16 ~ 19 幕）
+// ----------------------------------------------------------------------------
+
+const SCENE_19_FORT_ONE_CAPTURED: StorySceneDef = {
+  id: 'scene_jtc2_19_fort_one_captured',
+  title: '第十九幕 · 兵不血刃拔头筹',
+  subtitle: '太行山绿林总寨 · 苍狼前寨校场',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '两军甫一接战，雷武石与裴弘璋早已渴得嗓音嘶哑、双目被浓烟熏得泪流不止，十成本事使不出六成；而你气定神闲、枪剑如龙，与高怀亮左右夹击，不过十余合便挑飞雷武石手中落雁长枪、生生擒住裴弘璋后心腰带，将这两名凶名赫赫的前寨头目双双按翻在尘埃之中！',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（一脚踏住雷武石背心，高举长剑向四周被神臂弩指住咽喉的三百余名咳喘山匪朗声宣示）“枢密院与开封府明文在此：太行剿匪，首恶必办，胁从罔治！凡今日弃械跪降、未曾虐杀无辜妇孺者，立赐净水热粥，贷其一死！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '干渴欲死的三百余名山匪见两名当家俱已成阶下之囚，又听得有净水活命，哪里还有半分死战之心，“哐当”一声扔掉大片刀枪，黑压压跪倒一片叩头求饶！禁军士卒迅速入寨扑灭余烟、占领望楼，大宋赤红帅旗稳稳升上苍狼前寨主峰——此役我军竟无一人阵亡！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '高怀亮看着毫发无伤的禁军儿郎，再看看被捆入囚车的雷武石与裴弘璋，佩服得五体投地：“神了！往常攻这等险寨，不填上二三百条人命休想摸到寨门；将军不过掘了一条水沟、烧了几堆湿松枝，便叫四百悍匪自投罗网！王枢相赐的这卷《武经总要》，真乃活人神书！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（让人给降卒分发泉水，同时提审前寨传令喽啰，目光冷静投向西面山道）“初战虽捷，切莫骄矜。据俘虏招供，前寨再往西十二里便是扼守黑风峡口的第二座大寨【黑风中寨】，咱们且去会一会那座旧怨之地！”',
+    },
+  ],
+  onFinishEffects: [
+    { type: 'giveCombatExp', amount: 80, reason: '断水智破太行苍狼前寨' },
+    { type: 'addArtExp', amount: 600 },
+    {
+      type: 'setQuestStep',
+      questId: JINJUN_TAIHANG_QUEST_2_ID,
+      stepId: 'campaign_ambush_relief',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '首战零亡告捷，生擒苍狼前寨双头目雷武石、裴弘璋！请率军推进至【聚义忠义大堂 · 瓮城屯兵校场】设伏围点打援！',
+      tone: 'success',
+      logTag: '智拔头寨',
+    },
+  ],
+}
+
+const SCENE_18_BATTLE_ONE_CANGLANG: StorySceneDef = {
+  id: 'scene_jtc2_18_battle_one_canglang',
+  title: '第十八幕 · 伏弩口袋擒双寇',
+  subtitle: '太行山绿林总寨 · 古碑烽燧台山坡下',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '断水整整两昼夜后，秋阳暴晒下的苍狼前寨水缸见底，四百山匪唇焦口燥、军心浮动。及至第三日申时，太行谷口东南山风骤起，你准时下令点燃寨门上风处堆积如山的湿松枝、苦艾与湿麦秸！刹那间，滚滚黄白浓烟借着劲风直灌入苍狼前寨木栅之中，呛得满寨贼兵涕泪横流、几近窒息！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0434' },
+      text: '“咳咳咳——不能再死守了！再待下去不用官军攻山，弟兄们非渴死熏瞎在寨里不可！”把守前寨的正头目“落雁枪”雷武石双目通红，一枪挑开寨门木栓，嘶声吼道，“裴兄弟，随我冲下南坡抢回溪水，杀出一条生路！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0396' },
+      text: '副头目“追风豹”裴弘璋提刀紧随其后，率领三四百名熏得东倒西歪的山匪发疯般冲出寨门奔下山坡——岂料刚冲出浓烟，迎面便撞上你早已依《武经总要》布设停当的鹿角新月口袋阵！两翼神臂弩连环齐射，压得群匪寸步难进！',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（立于中军帅旗之下，待贼兵锐气尽泄，方才掣出兵刃朗声大喝）“高副将锁死两翼鹿角，莫放走一人！雷武石、裴弘璋，尔等弃险下坡自寻死路，还不快快下马受缚！”',
+    },
+  ],
+  choices: [
+    {
+      id: 'choice_jtc2_battle_one_start',
+      label: '【口袋收网】趁贼兵干渴目眩冲阵，与高怀亮联手生擒雷武石、裴弘璋！',
+      subLabel: '第一战（断水破前寨）：联手高怀亮迎战 落雁枪·雷武石（二流下品） + 追风豹·裴弘璋（二流下品）',
+      tone: 'danger',
+      effects: [
+        {
+          type: 'startCombat',
+          questId: JINJUN_TAIHANG_QUEST_2_ID,
+          allies: [
+            {
+              kind: 'npc',
+              npcId: 'NPC-0043',
+              talkOverride: '“鹿角口袋已合拢！将军尽管拿贼首，两翼喽啰交由末将长枪阵锁死！”',
+            },
+          ],
+          opponent: {
+            kind: 'npc',
+            npcId: 'NPC-0434',
+            talkOverride: '“咳咳……好毒的官军，竟断我水源放烟熏寨！裴兄弟，随我杀出一条血路！”',
+          },
+          extraOpponents: [
+            {
+              kind: 'npc',
+              npcId: 'NPC-0396',
+              talkOverride: '“莫恋战，冲破正面枪阵才有活路！”',
+            },
+          ],
+          rule: 'story_trial',
+          forbidEscapeReason: '敌已入我新月口袋阵中，主帅岂有后退之理！',
+          introText:
+            '【苍狼前寨口袋伏击】断水两日、浓烟熏寨！“落雁枪”雷武石与“追风豹”裴弘璋被迫弃守险要冲下山坡，正落入你与副将高怀亮预设的禁军口袋阵中！',
+          onWin: [{ type: 'openScene', scene: SCENE_19_FORT_ONE_CAPTURED }],
+          onLose: [
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
+            {
+              type: 'toast',
+              text: '困兽冲阵颇急，你退入鹿角长枪阵后调匀气息。整备武学披挂后可再次收网擒贼！',
+              tone: 'warn',
+              logTag: '据阵重整',
+            },
+          ],
+          onDraw: [
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
+            {
+              type: 'toast',
+              text: '浓烟弥漫难辨敌踪，鹿角大阵依旧死死困住山匪，调息后可再度出击！',
+              tone: 'warn',
+              logTag: '困敌再战',
+            },
+          ],
+        },
+      ],
+    },
+  ],
+}
+
+const SCENE_17_CUT_SPRING_AND_SMOKE: StorySceneDef = {
+  id: 'scene_jtc2_17_cut_spring_and_smoke',
+  title: '第十七幕 · 断泉熏风逼困兽',
+  subtitle: '太行山绿林总寨 · 苍狼寨北麓阴崖',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '当日午后，你亲率二十名矫健善攀的游奕探兵绕至苍狼前寨背后的北麓阴崖。乱石荆棘丛生，看似滴水全无，你却蹲下身去，细细审视岩缝间一丛异常肥绿的水芹与湿润青苔，脑海中清晰浮现出王德用朱笔批注的《武经总要 · 寻水审脉篇》：“山高无溪而石缝生菖蒲、水芹者，其下必有伏流暗泉。”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（拨开厚重藤蔓，果然听见岩壁深处传来潺潺水声——只见数十根粗大楠竹筒首尾相接，正从一处隐蔽石潭将山泉源源不断引入山顶苍狼前寨）“找到了！苍狼前寨孤悬峭壁之上，全靠这处‘饮马暗泉’以竹笕引水活命！怪不得雷武石敢在寨墙上高枕无忧！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '随行的工兵都头与高怀亮见状大喜过望，高怀亮压低嗓音搓手道：“将军好毒的眼力！要不要弟兄们往竹筒里投些巴豆泻药，叫满寨山贼拉得爬不起来？”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（摇头正色道）“王枢相临行前命我兼修《经义》，便是戒我行诡道阴毒之术——投毒恐伤及寨中被掳挑夫与山民，亦有损王师堂堂体面。只需命工兵凿断竹笕、垒石改道将泉水导入北涧，再命士卒多砍湿松枝堆于南坡风口，不出三日，雷武石与裴弘璋必跪着开门求战！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '军令一下，百名工兵悄无声息斩断引水竹笕、凿石改流。山顶苍狼前寨内的山匪初时还浑然不觉，直到当晚造饭时发觉水槽干涸断流，派下后山查看的小队又被禁军伏弩射回，全寨四百余众顿时慌了手脚！',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_18_BATTLE_ONE_CANGLANG }],
+}
+
+const SCENE_16_RECON_CANGLANG_FORT: StorySceneDef = {
+  id: 'scene_jtc2_16_recon_canglang_fort',
+  title: '第十六幕 · 驻马观崖审苍狼',
+  subtitle: '太行山绿林总寨 · 古碑烽燧台前哨',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '大军北渡黄河，经怀州、卫州晓行夜宿，数日后重抵巍峨险峻的太行山东麓山口。抬头望去，扼守入山第一道咽喉的“苍狼前寨”依古碑烽燧台险崖而建，唯一一条盘山石径窄仅容二人并行，寨墙垛口后堆满了磨盘大的滚石与火油瓦罐。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0434' },
+      text: '见宋军黑压压列阵山下，把寨头目“落雁枪”雷武石与“追风豹”裴弘璋扶着寨门木栏放声狂笑：“哟！这不是两个月前在黑风峡被咱们烧成落汤鸡的手下败将么？怎么在汴梁城里缩了六十天乌龟，又领着五千块送死的肥肉来给太行爷爷们送盔甲粮草啦？有种便顺着石阶攻上来呀！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '寨上群匪污言秽语鼓噪叫骂，禁军前锋不少年轻气盛的枪手气得额角青筋暴起。高怀亮强压怒火，转头看向马背上的你：“将军，贼寇欺人太甚！是否命先登死士顶着大盾试探攻山，挫一挫他们的嚣张气焰？”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（面色平静如古井无波，抬手止住躁动的前锋军校，淡淡一笑）“雷武石越是跳脚叫骂，越说明王重岳给他的死命令是凭险消耗我军锐气。《孙子》云：‘主不可以怒而兴师，将不可以愠而致战’，《武经总要》亦戒‘仰攻峻垒’。传令退后三箭之地依山扎立鹿角硬寨，你守正营，我亲带游奕斥候去后山转一圈！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_17_CUT_SPRING_AND_SMOKE }],
+}
+
+// ----------------------------------------------------------------------------
+// 第二幕：沙盘三策 · 刮目相看与黑王公金殿保孤臣（第 08 ~ 15 幕）
+// ----------------------------------------------------------------------------
+
+const SCENE_15_OATH_AND_MARCH_NORTH: StorySceneDef = {
+  id: 'scene_jtc2_15_oath_and_march_north',
+  title: '第十五幕 · 祭旗誓师出陈桥',
+  subtitle: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '紫宸殿圣旨既下，枢密院与殿前司兵符星夜调拨。三日后清晨，八十万禁军大教场寒霜铺地，新编五千精锐马步禁军披甲肃立——再非前番骄狂散漫之态，而是严格遵照《武经总要》阵图：前设游奕山地斥候三百，两翼配神臂劲弩营一千二百，中坚列重盾斩马刀与长枪方阵，辎重工兵器械井然有序，鸦雀无声！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '殿前司枪棒副将高怀亮一身亮银锁子甲，手持枢密院调令大步走到点兵台下向你抱拳行礼：“末将高怀亮，奉王枢相钧令充任行营副将，谨听主帅调遣！教场里这五千弟兄，大半都有同乡袍泽折在两个月前的黑风峡，人人憋着一口血气，只等将军下令北渡黄河！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用亲自捧起一尊青铜虎头酒爵登台送行，目光殷切而庄重：“将军记住今日出师气象——哀兵必胜，骄兵必败！老夫已把这顶乌纱帽与枢密使大印压在紫宸殿金砖上了，不求你贪功急进斩王重岳于一朝，只求你把这五千大宋好儿郎平平安安带去，堂堂正正破贼带回！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（双手接过虎头酒爵，先倾半盏祭奠天地英魂，复将余酒一饮而尽，将铜爵稳稳置于案上而非摔碎逞豪，沉声拱手）“末将谨记枢相教诲！此去太行，必先审水脉、次破援寇、再夺贼粮，绝不逞匹夫一剑之快。大军听令——拔营起寨，兵发太行山！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '沉雄苍凉的牛角号声划破汴梁晨雾，五千玄甲禁军迈着整齐划一的步伐踏出陈桥古驿，渡黄河、过怀州，直扑太行山东麓第一座咽喉险隘——苍狼前寨！',
+    },
+  ],
+  onFinishEffects: [
+    { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0038' }, delta: 25 },
+    { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0013' }, delta: 15 },
+    {
+      type: 'setQuestStep',
+      questId: JINJUN_TAIHANG_QUEST_2_ID,
+      stepId: 'campaign_fort_one',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '紫宸殿请命获准！请率五千禁军赶赴【太行山绿林总寨 · 聚义忠义大堂 · 古碑烽燧台】，依《武经总要》智破第一寨【苍狼前寨】！',
+      tone: 'success',
+      logTag: '再征太行',
+    },
+  ],
+}
+
+const SCENE_14_BAO_ZHENG_ATTESTS_EDICT: StorySceneDef = {
+  id: 'scene_jtc2_14_bao_zheng_attests_edict',
+  title: '第十四幕 · 龙图公言天子敕',
+  subtitle: '大内皇宫 · 垂拱紫宸正殿',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0014' },
+      text: '见年近七旬、威震契丹的“黑王相公”竟摘下枢密使金印长跪作保，满殿文武无不动容。同中书门下平章事文彦博捻须沉吟道：“王枢相公忠体国，老臣素所钦敬；昔年贝州平叛，老臣亦知临阵易帅未必胜过使知耻猛将自雪前耻。只是朝廷法度森严，此人六十日间是否当真痛改前非，尚需铁面清正之臣一言为凭。”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0001' },
+      text: '御座之上，宋仁宗赵祯目光温和而审慎，转望向文班侧首那位身着紫袍、额悬新月、素不阿附任何权贵的龙图阁直学士兼权知开封府事包拯：“包卿执掌京畿耳目，这六十日来禁军教场与汴梁坊间动静，卿必了然于胸。依卿公心而论，此将可堪再用否？”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0013' },
+      text: '包拯手持象笏肃然出班，声如金石落地：“臣包拯据实直奏！自黑风峡败归六十日以来，此将罚俸期间未踏入樊楼瓦子半步，除每日寅时入教场苦练枪棒外，更将自己余下微薄月钱尽数匿名托人送往城北阵亡军属巷中；每至深夜，国子监旧书肆与军器监灯下皆可见其潜心批阅《武经总要》与《春秋》经义之身影。知耻近乎勇，恤下近乎仁——臣窃以为，王枢相所保非虚！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0001' },
+      text: '连铁面无私的包希仁亦出言力证，先前进谏的几名台谏御史顿时哑口无言，纷纷敛袖退回班列。宋仁宗赵祯龙颜大悦，亲自走下御阶两步虚扶起王德用，温言敕道：“王老枢相快快请起！既有黑王相公押印力保、包卿铁面公证，朕岂惜再予良将一次雪耻良机？传朕旨意：仍授尔统兵虎符，调拨殿前司精锐五千，戴罪立功，再征太行！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（额头重重触于冰冷金砖之上，胸中热血奔涌，字字铿锵立誓）“罪臣叩谢陛下天恩，铭感王枢相、文相公、包大人知遇厚意！此番北上太行，臣若不能以兵法堂堂破贼、迎回阵亡同袍忠骨，甘提头颅来见陛下！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_15_OATH_AND_MARCH_NORTH }],
+}
+
+const SCENE_13_WANG_COURT_PETITION: StorySceneDef = {
+  id: 'scene_jtc2_13_wang_court_petition',
+  title: '第十三幕 · 黑王公金殿保孤臣',
+  subtitle: '大内皇宫 · 垂拱紫宸正殿',
+  illustrationUrl: '/assets/quests/taihang_camp2_court_petition.jpg',
+  illustrationCaption: '大内垂拱紫宸殿 · 枢密使王德用执笏力保请命再征太行',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '翌日五更早朝，宣德门钟鼓齐鸣，百官鱼贯步入大内皇宫垂拱紫宸正殿。瑞兽铜炉内檀烟袅袅，宋仁宗赵祯端坐九龙御榻之上。待河北东路转运司呈上“太行山王重岳秋后复掠怀卫商道，请朝廷发兵进剿”之急奏，殿内顿时议论纷纷。',
+    },
+    {
+      speaker: { kind: 'custom', name: '谏院言官', title: '右正言御史', factionName: '大宋朝廷' },
+      text: '当王德用出班奏请仍由你挂帅统兵五千再征太行时，两名绯袍御史立刻执笏越班高声驳斥：“陛下万万不可！此人两个月前刚在黑风峡轻敌冒进，断送朝廷两千精锐禁军与无数军资！兵凶战危，岂容败军之将拿我大宋儿郎性命做二次儿戏？臣请另遣老成宿将往剿！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '殿门外候旨的你听着殿内刺耳斥责，指节微紧却垂眸默立。便在此时，立于武班之首的枢密使王德用霍然迈出队列，当着满朝朱紫公卿之面，竟亲手解下腰间悬佩的枢密使金印托于掌心，双手高执洁白象笏，撩起紫袍重重跪倒在紫宸殿金砖之上！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '“陛下！昔秦穆公不以崤山之败弃孟明视，三用其为帅，终济河焚舟而霸西戎；曹孟德不以宛城之失诛张文远，终有逍遥津威震江东之功！”王德用须发微颤，洪钟般的声音在楠木殿宇间回荡，“老臣王德用沙场四十载，从不以私情举人！此子六十日折节苦读《武经》，昨日沙盘三策算尽太行山水奇正，早非昔日吴下阿蒙！老臣愿以这颗项上白头与枢密使金印作保——此去太行若再有差池，请陛下先斩老臣以谢天下！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '一语既出，合殿震动！金砖之上，那位令北朝辽主耶律宗真亦专门遣使求画真容的“黑王相公”，此刻竟为一名戴罪后辈倾尽毕生荣辱俯首力保，殿门晨光映着老人花白鬓角与高举的象笏，令人鼻酸肃然！',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_14_BAO_ZHENG_ATTESTS_EDICT }],
+}
+
+const SCENE_12_GUAMU_XIANGKAN_PRAISE: StorySceneDef = {
+  id: 'scene_jtc2_12_guamu_xiangkan_praise',
+  title: '第十二幕 · 老帅抚掌叹阿蒙',
+  subtitle: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '点兵帅台之上静寂良久，唯闻秋风拂过帅字大旗猎猎作响。王德用低头凝视着沙盘上被你以红蓝小旗标注得丝丝入扣的“断水破前寨、打援拔中寨、封渠夺义仓、止步锁飞狐”四重连环方略，那双阅尽北疆名将的虎目之中骤然迸射出夺目精光！',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '“好！好一个‘奇正相生、攻心夺粮、绝地勿逼’！”王德用猛地一拍紫檀沙盘边框，仰天抚掌大笑，声震四野，“昔日鲁子敬过寻阳，抚吕子明之背而叹‘非复吴下阿蒙’；今日老夫在这禁军帅台上考将军三策，字字皆从血火教训与《武经总要》中融会贯通而出，当真是士别六十日，令老夫刮目相看！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0015' },
+      text: '恰在台侧观演军务的枢密院同僚庞籍亦缓步上前，端详沙盘赞叹点头：“黑王公慧眼识珠！前番黑风峡之失，失在有勇无谋；今观此四策，未算胜先算败、宁弃险功而惜士卒性命，虽古之良将不过如此！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用收敛笑意，转身命亲卫取来自己的朝服紫袍与象牙朝笏，肃然望向你道：“河北怀、卫二州昨日刚有急递入京，那太行天王王重岳见入秋商旅渐繁，又遣前、中、东三寨喽啰下山劫掠，台谏言官正吵着要换帅另剿。明日五更早朝，你穿戴整齐随老夫同赴大内垂拱紫宸殿——纵使满朝非议，老夫拼着这把老骨头，也要在官家面前替你请下这支雪耻兵符！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（眼眶微热，向王德用与庞籍深深一揖到底）“枢相再造知遇之恩，末将铭感五内！明日紫宸殿外，末将静候圣裁！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_13_WANG_COURT_PETITION }],
+}
+
+const SCENE_11_EXAM_THREE_HEART_AND_VAULT: StorySceneDef = {
+  id: 'scene_jtc2_11_exam_three_heart_and_vault',
+  title: '第十一幕 · 三问攻心围阙一',
+  subtitle: '八十万禁军大教场 · 沙盘推演第三策',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '连过两问，王德用神色愈发郑重，提起最后两枚玄铁帅旗，一枚重重插在山腹【太行藏金义仓】，一枚插在西端千丈深涧上的【飞狐断魂索桥】，沉声发第三问：“外围三寨若破，太行山中尚有数千胁从草寇与王重岳、史万山这等一流悍匪！若逼之过急，数千亡命徒背水死战，必致两败俱伤；若纵其四散流窜河北州县，又成流寇之患；况西面更有飞狐断魂索桥三条铁链悬空、一夫当关！此全局收官之策，将军何以教我？”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '此问已非一城一地之得失，而是《武经总要》与儒家《经义》合参的统帅大略！台侧旁听的枪棒都教头林铁衣与副将高怀亮皆屏息凝神，看你如何落下这决定全局生死的第三子。',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（凝视沙盘山腹义仓与西侧索桥天险，将六十日苦读所得的经义仁心与兵家奇谋融于胸臆，朗声陈策——）',
+    },
+  ],
+  choices: [
+    {
+      id: 'choice_jtc2_exam_heart_vault',
+      label: '【夺仓攻心 · 首恶必办】夜袭藏金义仓断其粮饷，传檄“胁从免死、唯诛十恶渠帅”瓦解贼心！',
+      subLabel: '仁义瓦解群匪死志，若残寇退守索桥天险则筑碉困锁，绝不轻损士卒',
+      tone: 'gold',
+      effects: [
+        { type: 'modifySkill', key: '经义', delta: 3 },
+        { type: 'modifyChivalry', delta: 10, reason: '沙盘陈策主张胁从免死惜护兵民' },
+        { type: 'openScene', scene: SCENE_12_GUAMU_XIANGKAN_PRAISE },
+      ],
+    },
+    {
+      id: 'choice_jtc2_exam_surround_three',
+      label: '【围三阙一 · 锁桥困兽】夺下义仓后三面合围独留飞狐西路，驱残匪自挤绝崖再筑石碉封山！',
+      subLabel: '深合《孙子》《武经》围师必阙之妙，令王重岳不战自溃沦为瓮中之鳖',
+      tone: 'primary',
+      effects: [
+        { type: 'modifySkill', key: '策论', delta: 3 },
+        { type: 'openScene', scene: SCENE_12_GUAMU_XIANGKAN_PRAISE },
+      ],
+    },
+    {
+      id: 'choice_jtc2_exam_orthodox_unorthodox',
+      label: '【奇正相生 · 绝地勿逼】正兵步步筑垒安抚降众，奇兵封渠夺库，临断魂天险即止步锁山！',
+      subLabel: '稳若泰山而动如雷霆，宁舍奇功虚名亦不拿儿郎性命强渡断索',
+      tone: 'jade',
+      effects: [
+        { type: 'modifySkill', key: '策论', delta: 2 },
+        { type: 'modifySkill', key: '经义', delta: 2 },
+        { type: 'openScene', scene: SCENE_12_GUAMU_XIANGKAN_PRAISE },
+      ],
+    },
+  ],
+}
+
+const SCENE_10_EXAM_TWO_FIRE_AND_BAIT: StorySceneDef = {
+  id: 'scene_jtc2_10_exam_two_fire_and_bait',
+  title: '第十幕 · 二问火伏围打援',
+  subtitle: '八十万禁军大教场 · 沙盘推演第二策',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用微不可察地点了点头，手指猛地移向沙盘中段那道令你刻骨铭心的狭窄沟谷——【黑风峡】及其上方的【黑风中寨】，目光陡然凌厉如刀：“第一寨虽可断水而破，然第二座黑风中寨内凿深井、外扼旧峡，正是将军前番折损两千儿郎之地！若贼人故技重施诱你入谷纵火，或闭寨死守待总堂夹击，将军又当如何破局？”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（凝视沙盘上那道黑风峡痕，神色平静而笃定，毫无往日羞愤失态之色）“回枢相：《武经总要 · 火攻防备篇》明载，凡入山谷，必先看三物——一观谷底芦苇枯草是否有新折油脂之气，二察林间宿鸟是否惊飞不落，三审午后谷风逆顺。前番末将败在贪追佯败之敌而不察风向地形，此错绝不再犯第二次！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（拈起一枚蓝色令旗插在黑风中寨侧后方的鹰愁岭脊道之上）“至于破黑风中寨之法，不在攻寨，而在打援！王重岳深知我前番在黑风峡吃过大亏，必料我军心存畏惧。末将可令副将率正兵在中寨前大张旗鼓扎立鹿角连营，故意进十步退五步、示敌以怯；暗中却于夜半衔枚疾走，伏精兵于总堂通往中寨必经之鹰愁岭脊道！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（指尖轻轻拨倒沙盘上代表绿林援军的黑旗）“中寨守匪见我军怯战，必催总堂发精兵自后岭夹击以图重演黑风峡全胜；待其援军骄狂入岭，我军居高临下以滚石神臂弩反设口袋阵，一战擒其援将！外援既灭，将折断的认旗抛至黑风中寨门下，寨内守贼胆裂，不攻自破！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0154' },
+      text: '立在帅台旁观考的林铁衣忍不住低喝一声彩：“妙啊！借自己吃过败仗的名声故意示弱诱敌，反在山脊道上以其人之道还治其人之身——这手‘围点打援’，当真把王重岳的骄狂心思摸透到了骨子里！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_11_EXAM_THREE_HEART_AND_VAULT }],
+}
+
+const SCENE_09_EXAM_ONE_TERRAIN_WATER: StorySceneDef = {
+  id: 'scene_jtc2_09_exam_one_terrain_water',
+  title: '第九幕 · 一问山地审水脉',
+  subtitle: '八十万禁军大教场 · 沙盘推演第一策',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用掀开沙盘红绸，拿起一面黑色三角小旗插在太行山东麓山口第一座险峰之上，沉声发问：“此乃太行门户【苍狼前寨】，三面峭壁如削，唯南坡一条羊肠石径可通，寨上贼兵四百，积滚木礌石无数。若依将军往日性子，定是身先士卒顶盾仰攻；今日读罢《武经》，此头阵第一寨，将军怎生拿法？”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（上前一步俯视沙盘等高地形，不慌不忙拱手对答）“启禀枢相：《孙子 · 行军篇》云‘处山之军，依谷视生，战隆无登’，《武经总要 · 前集卷七》亦言‘山寨凭高守险，仰攻则十损其五，当先审其水草来脉’。苍狼前寨立于孤崖之巅，石骨嶙峋难以掘井，四百贼众每日人马饮用，必赖后山阴崖暗泉以竹笕引水入寨！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（执起竹筹指向沙盘北麓背阴沟壑，条理分明）“故末将至山下，绝不仰攻半步，先退后三箭之地依山扎硬寨、立鹿角拒马以绝其夜袭；随即亲率善攀游奕斥候绕至北麓阴崖，循水芹青苔湿迹寻获暗泉，凿断竹笕改道入涧。断水两日待其唇焦口燥，再趁申时东南谷风大作，于南坡点燃湿松苦艾熏寨！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（竹筹稳稳落于南坡山口平缓洼地）“寨中既无滴水可救烟火，四百山匪必双目酸泪、自乱阵脚，只能开门冲下南坡抢水逃命；彼时我军早已在坡下布好神臂弩与长枪新月口袋阵以逸待劳，不伤一卒便可生擒贼首！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '一番剖析如庖丁解牛，审地、寻水、候风、布袋环环相扣。王德用拈须的手指微微一顿，眼中闪过一抹不易察觉的喜色，却并不夸赞，当即转入更为凶险的第二问！',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_10_EXAM_TWO_FIRE_AND_BAIT }],
+}
+
+const SCENE_08_RETURN_TO_PLATFORM: StorySceneDef = {
+  id: 'scene_jtc2_08_return_to_platform',
+  title: '第八幕 · 满袖书香再登台',
+  subtitle: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '寒暑潜移，书卷磨人。自获赐《武经总要 · 枢密院行军钞本》以来，你每日除在教场操演枪棒外，挑灯研读前集阵法行军与后集古今战例，兼赴书院经馆涵泳儒门《春秋》大义与历代名臣策论。昔日眉宇间那股一触即发的焦躁戾气早已被书卷浩然之气涤荡一空，举手投足间渊渟岳峙、沉静内敛。',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '是日清晨，你怀揣那册边角已被翻阅得微起毛边、空白处写满自己蝇头小楷心得的《武经总要》钞本，再度拾级登上八十万禁军大教场的擂鼓聚将点兵帅台。枢密使王德用与枢密副使庞籍、都教头林铁衣恰好同在台上议事。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用转过身来，只上下打量了你一眼，目光落在你沉稳绵长的呼吸与指腹间新添的笔茧之上，再瞥见你双手呈回案头的那卷批注密密麻麻的《武经总要》，魁梧身躯微微一震：“哦？步履沉实而不浮，眸光澄澈而不狂，满袖墨香竟压过了刀头血气……看来这番苦功，将军并无一日虚度！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（躬身行礼，声音清朗平和）“回禀王枢相：末将奉钧命潜心研习经史与《武经总要》，于行军奇正、山川水脉及仁义驭兵之道粗有所悟，今日特来帅台请受枢相沙盘考校！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用神色一肃，重重一拍帅案：“军国大事，不看空口表白，只看真才实学！来啊，替老夫掀开太行山舆图大沙盘——庞副使与林都教头正好在此做个见证，老夫今日便连发三难，考一考将军这肚子里的兵书究竟是纸上谈兵，还是真能破贼活人！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_09_EXAM_ONE_TERRAIN_WATER }],
+}
+
+// ----------------------------------------------------------------------------
+// 第一幕：折戟思过 · 黑王公赠《武经》喻吴下阿蒙（第 01 ~ 07 幕）
+// ----------------------------------------------------------------------------
+
+const SCENE_07_LAMP_BY_THE_SPEAR: StorySceneDef = {
+  id: 'scene_jtc2_07_lamp_by_the_spear',
+  title: '第七幕 · 挑灯伴枪矢雪耻',
+  subtitle: '八十万禁军大教场 · 禁军长枪方阵演武坪',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '暮色四合，你双手紧捧着那册沉甸甸的《武经总要 · 枢密院行军钞本》缓步走下点兵帅台。秋日晚风吹过空旷的大教场，扉页上王德用亲题的“士别三日，刮目相待”八个朱砂大字仿佛带着滚烫温度，直烙入心底最深处。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '长枪演武坪边，高怀亮与烧火女将杨排风正等着你下台。见你并未挨军棍责罚，反而捧着一函枢密院秘本出来，高怀亮眼睛一亮，将一包厚厚的新造澄心堂纸和两锭徽墨塞进你怀里：“方才林都教头私下透了风，说黑王相公拿东吴大都督吕蒙的典故勉励将军！这些纸墨是咱们几个从黑风峡活着回来的老兄弟凑的，将军只管安心读书精研策论！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0252' },
+      text: '杨排风亦拎过一篮刚出锅的热胡饼与一壶熬夜提神的苦茶，爽利笑道：“天波府老太君常跟咱们说，只会抡烧火棍和霸王枪的叫勇夫，既能上马破阵、又能执卷定计的才叫大宋良帅！等你把【经义】和【策论】都磨炼成了，咱们大伙儿还跟着你上太行山拿王重岳！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（望着眼前淳朴赤诚的军中同袍，郑重收下纸墨茶饼，翻开《武经总要》第一页立誓）“多谢高兄、杨姑娘与诸位弟兄厚意！自今日起，我必先在行囊中展读这册《武经总要》，再遍访书院名师、精研经史兵策，不达【经义四十、策论七十】之境，绝不轻言出山用兵！”',
+    },
+  ],
+  onFinishEffects: [
+    {
+      type: 'startQuest',
+      questId: JINJUN_TAIHANG_QUEST_2_ID,
+      stepId: 'study_wujing',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '已开启《刮目相看 · 武经破寨》！请于行囊【典籍书画】研读《武经总要 · 枢密院行军钞本》，并将【经义 ≥ 40 且 策论 ≥ 70】修成后回点兵帅台复命！',
+      tone: 'talk',
+      logTag: '折节向学',
+    },
+  ],
+}
+
+const SCENE_06_SCHOLARSHIP_MANDATE: StorySceneDef = {
+  id: 'scene_jtc2_06_scholarship_mandate',
+  title: '第六幕 · 经义立心策破敌',
+  subtitle: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'player' },
+      text: '（双手捧着墨香犹新的《武经总要 · 枢密院行军钞本》，如获至宝般收入怀中，诚心请教道）“枢相赐此神书，末将定当焚膏继晷、字字熟诵！只是末将有一事愚钝不明——用兵破贼重在奇正【策论】，何以枢相方才特意嘱咐，命末将亦须兼修儒门【经义】？”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用闻问欣然颔首，负手望向东京万家炊烟，语重心长道：“问得好！古往今来，只读兵书而不通经义者，往往视人命如草芥、以阴毒诡诈为能事——破寨则纵兵劫掠，遇涧则投毒殃民，胜则骄横跋扈，败则诿过于下！那不叫大宋王师统帅，那叫披着官皮的太行山贼！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '“昔年范希文（范仲淹）在延州识拔狄汉臣（狄青），赠的便是一部《左氏春秋》，告诫他‘将不知古今，匹夫勇耳’！”王德用伸出两根粗壮手指，神色严肃而笃定，“修【经义】，是立你爱兵恤民、知耻守正之帅心；修【策论】，是铸你审地断水、围点打援之帅才！二者缺一不可！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用走回帅案之后，定下严明军约：“老夫今日不限你时日，只立两条硬杠——你何时将十艺之中的【经义】修至四十以上，且将【策论】修至七十以上，何时再来这擂鼓聚将点兵帅台见我！届时老夫亲自在沙盘上考你三策；若答不出来，哪怕你在教场练断一百杆铁枪，老夫也绝不再拨一兵一卒予你！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（挺胸抱拳，声震帅台檐角）“经义四十立帅心，策论七十铸兵魂！末将谨遵枢相钧令，定不负‘刮目相待’四字期许！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_07_LAMP_BY_THE_SPEAR }],
+}
+
+const SCENE_05_WUJING_ZONGYAO_GIFT: StorySceneDef = {
+  id: 'scene_jtc2_05_wujing_zongyao_gift',
+  title: '第五幕 · 枢密亲批赐武经',
+  subtitle: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '见你神色间尽是痛彻心扉的省悟，全无半分怨怼推诿，王德用眼中赞许更深。他转身自帅案紫檀书匣中郑重捧出一函蓝绫包角、钤有“枢密院印”朱文大印的厚重手钞兵书，缓步递到你的面前。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '“当今官家仁厚忧边，深感前代将帅多凭私传秘本、临阵不知奇正器械之变，遂于庆历四年敕命天章阁待制曾公亮、翰林学士承旨丁度领衔，萃集皇家秘阁古今兵法、历朝战例与本朝神臂强弩、火药猛火油诸器图谱，历时五载编成这部《武经总要》四十卷！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用轻抚书脊，沉声道：“全书浩繁，非行伍急用所能尽携。你手中这一册《武经总要 · 枢密院行军钞本》，乃是老夫退朝之余，亲手择录其中山地行军、审水断脉、鹿角扎营、火攻防伏与攻心奇正之精要，再添上老夫四十年与契丹铁骑周旋的朱笔批注！轻易从不示人，今日便赐予你作雪耻之阶！”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '你屏息凝神双手接过钞本，只觉纸页沉厚凝练，封皮内侧扉页之上，赫然有王德用饱蘸朱砂亲笔题写的八个颜筋柳骨大字——“士别三日，刮目相待”！字里行间金戈铁马之气与长辈拳拳期许扑面而来！',
+    },
+  ],
+  onFinishEffects: [
+    {
+      type: 'branch',
+      condition: { type: 'not', condition: { type: 'hasItem', itemId: 'ITM-MSC-029' } },
+      thenEffects: [{ type: 'giveItem', itemId: 'ITM-MSC-029', qty: 1 }],
+    },
+    {
+      type: 'toast',
+      text: '获赐枢密使王德用亲批秘籍《武经总要 · 枢密院行军钞本》（可于行囊中使用，研读后策论 +15、经义 +8）！',
+      tone: 'success',
+      logTag: '枢相赐书',
+    },
+    { type: 'openScene', scene: SCENE_06_SCHOLARSHIP_MANDATE },
+  ],
+}
+
+const SCENE_04_GUAMU_XIANGKAN_LESSON: StorySceneDef = {
+  id: 'scene_jtc2_04_guamu_xiangkan_lesson',
+  title: '第四幕 · 士别三日刮目看',
+  subtitle: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用端起粗陶茶碗轻啜一口，继续将那桩流传八百载的东吴佳话娓娓道来：“吕蒙听了孙仲谋那番话，当夜便羞愧汗下，从此军帐之中油灯彻夜不熄！行军鞍马之隙、巡营卸甲之后，他手不释卷，遍读《孙子》《六韬》《左传》《史记》，更折节向军中饱学宿儒虚心问难。不过数年光景，昔日只知挥刀砍杀的莽夫，胸中已装下万里山川与千古兴亡！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '“后来周公瑾病逝，鲁子敬（鲁肃）代领东吴水陆兵马，路过寻阳吕蒙军屯。起初鲁子敬心底还瞧不上他，暗道吕子明不过一介武夫，懂什么荆襄大局？谁知酒席之间，鲁子敬随口问起如何防备关云长水军，吕蒙竟不假思索，立陈五条奇正方略，连关羽性情刚而自矜、当外结好而内设暗防的千里伏线都算得分毫不爽！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用说到此处，虎目炯炯直视着你，声音陡然洪亮：“鲁子敬大惊失色，当场离席走过去重重拍着吕蒙后背赞叹道：‘吾谓大弟但有武略耳，至于今者学识英博，非复吴下阿蒙！’你猜吕子明如何作答？他坦然一笑，回了千古名言十二字——‘士别三日，即更刮目相待，大兄何见事之晚乎！’”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '“非复吴下阿蒙……士别三日，即更刮目相待！”这十二个字宛如晨钟暮鼓，轰然撞碎了积压在你胸膛整整六十个日夜的迷茫与压抑！原来老枢相今日召你登台，并非要贬斥废黜，而是盼你也如东吴吕子明一般，自血气之败中涅槃蜕变！',
+    },
+  ],
+  choices: [
+    {
+      id: 'choice_jtc2_vow_like_lvmeng',
+      label: '【叩首铭心】“末将往日正如昔年吴下阿蒙，徒恃血勇害死同袍！愿效吕子明折节苦读！”',
+      subLabel: '立志洗心革面，以经史兵书磨去匹夫燥气',
+      tone: 'gold',
+      effects: [
+        { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0038' }, delta: 10 },
+        { type: 'openScene', scene: SCENE_05_WUJING_ZONGYAO_GIFT },
+      ],
+    },
+    {
+      id: 'choice_jtc2_vow_by_sandtable',
+      label: '【抚盘自省】“将不知兵，以卒予敌！末将定将黑风峡之耻化作兵书注脚，绝不再做莽夫！”',
+      subLabel: '直面沙盘旧伤，誓以奇正兵略讨还两千忠魂血债',
+      tone: 'primary',
+      effects: [
+        { type: 'modifyChivalry', delta: 5, reason: '直面黑风峡旧败痛切自省' },
+        { type: 'openScene', scene: SCENE_05_WUJING_ZONGYAO_GIFT },
+      ],
+    },
+  ],
+}
+
+const SCENE_03_LVMENG_AMENG_PAST: StorySceneDef = {
+  id: 'scene_jtc2_03_lvmeng_ameng_past',
+  title: '第三幕 · 昔年吴下有阿蒙',
+  subtitle: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '听罢你毫不粉饰的自责剖白，王德用紧锁的浓眉缓缓舒展开来，伸手将你扶起赐坐于沙盘侧畔的胡床之上：“能认清是自己贪功失察，而非怪罪山高路险、士卒不力，说明这六十天的冷板凳没有白坐！将军今年方才几岁，可知三国东吴那位白衣渡江、威震华夏的大都督吕蒙吕子明，年轻时是个什么模样么？”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（微怔片刻，恭谨答道）“末将只听军中说书先生讲过吕子明智取荆州、算无遗策，乃三国数一数二的儒将帅才，倒不知他少年时是何光景。”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用哈哈一笑，指了指沙盘旁的枪架：“他少年时，比你这前番闯黑风峡还要莽撞十倍！吕蒙十五六岁时大字不识一箩筐，瞒着老母偷揣一把单刀混进姐夫邓当军营里杀山越贼；每次攻城拔寨，他额扎绛红抹额、赤膊挥刀冲在最前头，仗着一身横练血勇做到了平北都尉，却最瞧不起读书人，军中文士背地里都笑话他叫‘吴下阿蒙’！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '“直到有一日，吴侯孙仲谋（孙权）把吕蒙和蒋钦召到帐中，语重心长地对他说：‘卿今当涂掌事，不可不学！’吕蒙起初还梗着脖子推托说‘军中多务，恐不容复读书’。”王德用模仿着古人语气，神情惟妙惟肖，“孙仲谋当即反问他：‘孤岂欲卿治经为博士邪？但当涉猎，见往事耳！卿言多务，孰若孤？孤常读书，自以为大有所益！’”',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '帅台之上茶烟袅袅，你静静聆听着“黑王相公”苍劲浑厚的嗓音：“孤岂欲卿治经为博士邪？但当涉猎，见往事耳！”——君王并非要战将去考状元做五经博士，而是要统兵者从前人成败往事之中学会审时度势，莫拿麾下将士的热血去填自己的无知！',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_04_GUAMU_XIANGKAN_LESSON }],
+}
+
+const SCENE_02_SANDBOX_BITTER_TEA: StorySceneDef = {
+  id: 'scene_jtc2_02_sandbox_bitter_tea',
+  title: '第二幕 · 帅台苦茗对残枰',
+  subtitle: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '拾级踏上高耸的擂鼓聚将点兵帅台，左右亲卫尽已被屏退台下。晨风凛冽中，年近古稀却腰背挺直如铁塔的枢密使“黑王相公”王德用并未披甲，只穿一袭半旧深青常服，正立在一座丈许见方的黄泥沙盘前，用竹夹慢慢拨弄着炭炉上沸腾的瓦铫。',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '你趋步上前单膝跪礼，眼角余光扫过那座黄泥沙盘，心头骤然狠狠一揪——沙盘上捏塑的险峰夹谷、断涧密林，竟分毫不差正是六十日前两千禁军弟兄折戟沉沙的太行山黑风峡！谷口处插着两面折断的红色小旗，宛如两道尚未结痂的血痕。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0038' },
+      text: '王德用并未立刻叫起，只提起瓦铫斟了一碗色泽暗褐的河北定州粗砖茶递到你手边，声音低沉而平静：“起来喝口热茶暖暖手吧。这六十日罚俸降职，外头台谏御史天天上本参你轻敌丧师，军营里也有风凉闲话——你心里，可曾怨过老夫与朝廷责罚太重？”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（双手接过滚烫茶碗却未饮一口，凝视着沙盘上的黑风峡谷口，嗓音微哑却字字坦诚）“回枢相，末将非但不怨，反觉朝廷只罚俸留职已是格外宽宥！那两千弟兄皆是精挑细选的河朔健儿，武艺不弱、死战不退；他们不是败给太行山贼的刀枪，而是死在末将狂妄自大、不派游奕探察高坡、不知谷风顺逆便孤军追入死地！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（低头看着碗中倒映的眉目，苦涩一叹）“这六十个夜晚，末将只要一闭上眼，耳边便是黑风峡漫山火油落石里弟兄们的惨呼声。单凭末将一人一身二流、一流的江湖武艺，纵能自保突围，又如何救得回那两千条活生生的性命？”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_03_LVMENG_AMENG_PAST }],
+}
+
+const SCENE_01_SIXTY_DAYS_HUMILITY: StorySceneDef = {
+  id: 'scene_jtc2_01_sixty_days_humility',
+  title: '第一幕 · 罚俸思过六十秋',
+  subtitle: '开封府 · 八十万禁军大教场',
+  mandatory: true,
+  beats: [
+    {
+      speaker: { kind: 'narrator' },
+      text: '皇祐二年深秋，距太行山黑风峡惨败已整整过去六十个昼夜。寅时三刻，汴梁城尚在寒霜残梦之中，八十万禁军大教场的青石演武坪上却早已响起枯燥而沉重的铁枪破风之声。你独自一人卸去华饰披风，只着寻常皮甲，一枪、十枪、百枪地反复刺击木桩，汗水混着白霜自鬓角滑落。',
+    },
+    {
+      speaker: { kind: 'narrator' },
+      text: '六十日前，你自恃武勇过人，率五千禁军轻敌冒进追入黑风峡口袋，遭太行天王王重岳与九纹狂龙史万山火油滚石伏击，两千同袍葬身火海，大军狼狈败归东京。自领受罚俸思过处分以来，你闭门谢绝一切酒宴应酬，将省下的月钱尽数送去抚恤死难弟兄遗眷，每日唯有枪棒与沉默相伴。',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0154' },
+      text: '晨曦初露时，枪棒都教头林铁衣与殿前司副将高怀亮并肩走过校场石阶。林铁衣驻足看了片刻你沉凝不躁的枪路，低声向高怀亮叹道：“大败之后，庸人往往暴戾自弃，唯有真良材才会把浮气一寸寸磨进骨子里。你看他这六十日来的枪风，比出征太行前稳了何止三成！”',
+    },
+    {
+      speaker: { kind: 'npc', npcId: 'NPC-0043' },
+      text: '高怀亮快步走入演武坪，替你递过一方擦汗麻巾，正色传话道：“兄弟先收一收枪！枢密使黑王相公今日五更天便独自上了擂鼓聚将点兵帅台，方才遣亲卫点名传你一人登台相见——看相公神色并无怒意，快整理衣冠随过去吧！”',
+    },
+    {
+      speaker: { kind: 'player' },
+      text: '（收枪入架，用麻巾拭净额头汗水与霜气，系正腰间禁军铜牌）“有劳高兄通禀。黑风峡两千英魂之债一日未偿，我便一日不敢懈怠——这便去帅台拜见王枢相！”',
+    },
+  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_02_SANDBOX_BITTER_TEA }],
+}
+
+// ============================================================================
+// 任务链声明：《刮目相看 · 武经破寨》（QST-SECT-33-TAIHANG-CAMPAIGN-2）
+// ============================================================================
+
+export const JINJUN_TAIHANG_CAMPAIGN_2_QUEST: QuestDefinition = {
+  id: JINJUN_TAIHANG_QUEST_2_ID,
+  title: '刮目相看 · 武经破寨',
+  category: 'sect_mission',
+  factionId: 'SECT-33',
+  regionId: 'bianliang',
+  recommendedRealm: '二流中品 ~ 一流下品',
+  maxOpponentRealm: '一流下品',
+  recommendedNote:
+    '大宋禁军太行剿匪三部曲第二卷（全长四十幕）。需完成首卷满 60 日，并在剧情中修满【经义 ≥ 40】且【策论 ≥ 70】方能通过王德用沙盘考校挂帅再征。',
+  startHint:
+    '完成太行首征惨败任务满 60 日、身居大宋禁军 Lv.3 以上时，前往【开封府 · 八十万禁军大教场 · 擂鼓聚将点兵帅台】拜见枢密使王德用触发。',
+  startLocation: {
+    regionId: 'bianliang',
+    buildingId: 'bl_jinjun',
+    spotId: 'bl_jj_platform',
+    customLabel: '开封府 · 八十万禁军大教场 · 擂鼓聚将点兵帅台',
+  },
+  startCondition: {
+    type: 'all',
+    conditions: [
+      { type: 'inSect', sectId: 'SECT-33', minRank: 3 },
+      {
+        type: 'questCompletedDaysAgoAtLeast',
+        questId: CAMPAIGN_1_QUEST_ID,
+        minDays: 60,
+      },
+      { type: 'questStatus', questId: JINJUN_TAIHANG_QUEST_2_ID, status: 'not_started' },
+      { type: 'questStatus', questId: JINJUN_TAIHANG_QUEST_2_ID, status: 'not_completed' },
+    ],
+  },
+  summary:
+    '黑风峡折戟六十日后，枢密使“黑王相公”王德用于点兵帅台煮茶相召，以东吴吕蒙“吴下阿蒙、士别三日刮目相待”之典殷切劝勉，亲赐手批《武经总要 · 枢密院行军钞本》。待潜心苦读修成【经义 ≥ 40、策论 ≥ 70】并通过沙盘三策考校，王德用于紫宸殿执笏押印力保、包拯公言佐证，奉仁宗圣旨统兵五千再征太行：先断水熏烟破苍狼前寨，次于鹰愁岭围点打援拔黑风中寨，复夜袭封渠夺取太行藏金义仓、活捉数百悍匪及十名中层头目，终在飞狐断魂索桥重创史万山，将王重岳不足三百残部困锁绝崖，凯旋东京市曹十斩慰忠魂！',
+  initialStepId: 'study_wujing',
+  steps: {
+    study_wujing: {
+      id: 'study_wujing',
+      title: '研读武经 · 砥砺经策',
+      objective:
+        '已获赐枢密使王德用亲批《武经总要 · 枢密院行军钞本》！请于行囊【典籍书画】展卷研读，并修习十艺使【经义 ≥ 40】且【策论 ≥ 70】，达标后返回【开封府 · 八十万禁军大教场 · 擂鼓聚将点兵帅台】向王德用请受沙盘三策考校。',
+      nextHint:
+        '硬性门槛：需同时满足【经义 ≥ 40 且 策论 ≥ 70】（可在行囊使用《武经总要 · 枢密院行军钞本》直增策论+15、经义+8，辅以书院研习或书卷攻读），达标后与王德用交互点击「呈禀经策心得 · 请受沙盘考校」。',
+      targetLocation: {
+        regionId: 'bianliang',
+        buildingId: 'bl_jinjun',
+        spotId: 'bl_jj_platform',
+        customLabel: '开封府 · 八十万禁军大教场 · 擂鼓聚将点兵帅台',
+      },
+      prereqCondition: {
+        type: 'all',
+        conditions: [
+          { type: 'skillAtLeast', key: '经义', min: 40 },
+          { type: 'skillAtLeast', key: '策论', min: 70 },
+        ],
+      },
+    },
+    campaign_fort_one: {
+      id: 'campaign_fort_one',
+      title: '再征太行 · 断水拔前寨',
+      objective:
+        '已通过沙盘三策考校，蒙王德用金殿执笏力保，奉仁宗圣旨统领五千禁军再征太行！请率军赶赴【太行山绿林总寨 · 聚义忠义大堂 · 古碑烽燧台】，依《武经总要》审水断泉、顺风熏烟，智破【苍狼前寨】并生擒雷武石、裴弘璋。',
+      nextHint:
+        '前往太行山【聚义忠义大堂 · 古碑烽燧台】（th_hall_west），点击「依武经断水熏烟 · 智破苍狼前寨」。',
+      targetLocation: {
+        regionId: 'taihang',
+        buildingId: 'th_hall',
+        spotId: 'th_hall_west',
+        customLabel: '太行山绿林总寨 · 聚义忠义大堂 · 古碑烽燧台',
+      },
+    },
+    campaign_ambush_relief: {
+      id: 'campaign_ambush_relief',
+      title: '黑风雪耻 · 围点打援',
+      objective:
+        '首战零亡拔下苍狼前寨！请率军推进至旧战场旁的【太行山绿林总寨 · 聚义忠义大堂 · 瓮城屯兵校场】，正面示缓诱敌、暗伏鹰愁岭脊道“围点打援”，截擒总堂援将石寒乾与燕刀柏，一举瓦解【黑风中寨】！',
+      nextHint:
+        '前往太行山【聚义忠义大堂 · 瓮城屯兵校场】（th_hall_east），点击「黑风峡反设伏袋 · 围点打援拔中寨」。',
+      targetLocation: {
+        regionId: 'taihang',
+        buildingId: 'th_hall',
+        spotId: 'th_hall_east',
+        customLabel: '太行山绿林总寨 · 聚义忠义大堂 · 瓮城屯兵校场',
+      },
+    },
+    campaign_seize_vault: {
+      id: 'campaign_seize_vault',
+      title: '奇袭义仓 · 瓮中起赃',
+      objective:
+        '外围三连寨尽拔，连擒八名头目！请趁夜衔枚疾趋【太行山绿林总寨 · 太行藏金义仓 · 绝壁石刻·剑痕崖】，先封后山暗渠再赚开外壕吊桥，击败史玄朗与晁霖浪，生擒大批悍匪并起获满库赃银粮草！',
+      nextHint:
+        '前往太行山【太行藏金义仓 · 绝壁石刻·剑痕崖】（th_vault_east），点击「赚壕封道破义仓 · 生擒群匪起赃银」。',
+      targetLocation: {
+        regionId: 'taihang',
+        buildingId: 'th_vault',
+        spotId: 'th_vault_east',
+        customLabel: '太行山绿林总寨 · 太行藏金义仓 · 绝壁石刻·剑痕崖',
+      },
+    },
+    campaign_feihu_approach: {
+      id: 'campaign_feihu_approach',
+      title: '兵临断魂 · 重创狂龙',
+      objective:
+        '藏金义仓既陷，太行群匪土崩瓦解！请挥师西进【太行山绿林总寨 · 飞狐断魂索桥 · 千帆栈桥·装卸埠】，正面击败断后的副总瓢把子“九纹狂龙”史万山，将王重岳不足三百残部彻底逼困绝崖！',
+      nextHint:
+        '前往太行山【飞狐断魂索桥 · 千帆栈桥·装卸埠】（th_bridge_east），点击「进逼飞狐断魂桥 · 痛击断后史万山」。',
+      targetLocation: {
+        regionId: 'taihang',
+        buildingId: 'th_bridge',
+        spotId: 'th_bridge_east',
+        customLabel: '太行山绿林总寨 · 飞狐断魂索桥 · 千帆栈桥·装卸埠',
+      },
+    },
+    return_kaifeng_triumph: {
+      id: 'return_kaifeng_triumph',
+      title: '锁山班师 · 献俘开封',
+      objective:
+        '已重创史万山，将王重岳不足三百残寇困锁于飞狐断魂索桥西崖，并筑起六座石碉封死山口！请押解十名太行中层头目、六百降卒与满载赃银粮车凯旋【开封府 · 开封府衙（六扇门） · 开封府升堂正殿】，会同包拯与王德用三司会审、市曹十斩慰忠魂！',
+      nextHint:
+        '返回开封府【开封府衙 · 开封府升堂正殿】（bl_kf_court），点击「献俘开封府正堂 · 会审十匪慰忠魂」。',
+      targetLocation: {
+        regionId: 'bianliang',
+        buildingId: 'bl_kaifengfu',
+        spotId: 'bl_kf_court',
+        customLabel: '开封府 · 开封府衙（六扇门） · 开封府升堂正殿',
+      },
+    },
+  },
+  npcActions: [
+    {
+      id: 'act_jtc2_start',
+      label: '奉召登台 · 聆黑王相公训勉（《刮目相看》）',
+      badge: '太行二征',
+      tone: 'gold',
+      showInBottomBar: true,
+      showInSectPanel: true,
+      visibleWhen: {
+        type: 'all',
+        conditions: [
+          { type: 'targetNpcMatch', npcIds: ['NPC-0038'] },
+          { type: 'inSect', sectId: 'SECT-33', minRank: 3 },
+          {
+            type: 'questCompletedDaysAgoAtLeast',
+            questId: CAMPAIGN_1_QUEST_ID,
+            minDays: 60,
+          },
+          { type: 'questStatus', questId: JINJUN_TAIHANG_QUEST_2_ID, status: 'not_started' },
+          { type: 'questStatus', questId: JINJUN_TAIHANG_QUEST_2_ID, status: 'not_completed' },
+        ],
+      },
+      effects: [{ type: 'openScene', scene: SCENE_01_SIXTY_DAYS_HUMILITY }],
+    },
+    {
+      id: 'act_jtc2_report_scholarship',
+      label: '呈禀经策心得 · 请受沙盘考校',
+      badge: '刮目相看',
+      tone: 'gold',
+      showInBottomBar: true,
+      showInSectPanel: true,
+      visibleWhen: {
+        type: 'all',
+        conditions: [
+          { type: 'targetNpcMatch', npcIds: ['NPC-0038'] },
+          {
+            type: 'questStatus',
+            questId: JINJUN_TAIHANG_QUEST_2_ID,
+            status: 'active',
+            stepId: 'study_wujing',
+          },
+          { type: 'skillAtLeast', key: '经义', min: 40 },
+          { type: 'skillAtLeast', key: '策论', min: 70 },
+        ],
+      },
+      effects: [{ type: 'openScene', scene: SCENE_08_RETURN_TO_PLATFORM }],
+    },
+    {
+      id: 'act_jtc2_scholarship_progress_hint',
+      label: '请受沙盘考校（需经义≥40 且 策论≥70）',
+      badge: '苦读未满',
+      tone: 'default',
+      showInBottomBar: true,
+      showInSectPanel: false,
+      visibleWhen: {
+        type: 'all',
+        conditions: [
+          { type: 'targetNpcMatch', npcIds: ['NPC-0038'] },
+          {
+            type: 'questStatus',
+            questId: JINJUN_TAIHANG_QUEST_2_ID,
+            status: 'active',
+            stepId: 'study_wujing',
+          },
+          {
+            type: 'not',
+            condition: {
+              type: 'all',
+              conditions: [
+                { type: 'skillAtLeast', key: '经义', min: 40 },
+                { type: 'skillAtLeast', key: '策论', min: 70 },
+              ],
+            },
+          },
+        ],
+      },
+      enabledWhen: {
+        type: 'all',
+        conditions: [
+          { type: 'skillAtLeast', key: '经义', min: 40 },
+          { type: 'skillAtLeast', key: '策论', min: 70 },
+        ],
+      },
+      effects: [],
+    },
+    {
+      id: 'act_jtc2_kaifeng_triumph',
+      label: '献俘开封府正堂 · 会审十匪慰忠魂',
+      badge: '二征凯旋',
+      tone: 'gold',
+      showInBottomBar: true,
+      showInSectPanel: false,
+      visibleWhen: {
+        type: 'all',
+        conditions: [
+          { type: 'targetNpcMatch', npcIds: ['NPC-0013', 'NPC-0140', 'NPC-0038'] },
+          {
+            type: 'questStatus',
+            questId: JINJUN_TAIHANG_QUEST_2_ID,
+            status: 'active',
+            stepId: 'return_kaifeng_triumph',
+          },
+        ],
+      },
+      effects: [{ type: 'openScene', scene: SCENE_35_BIANLIANG_TRIUMPHAL_ENTRY }],
+    },
+  ],
+  spotActions: [
+    {
+      id: 'spot_jtc2_start',
+      label: '奉召登点兵帅台 · 拜见枢密使王德用',
+      badge: '太行二征 · 第1-7幕',
+      subtitle: '黑风峡败归满六十日 · 聆“吴下阿蒙”劝学典故，获赐《武经总要 · 枢密院行军钞本》',
+      tone: 'gold',
+      regionId: 'bianliang',
+      buildingId: 'bl_jinjun',
+      spotId: 'bl_jj_platform',
+      visibleWhen: {
+        type: 'all',
+        conditions: [
+          { type: 'inSect', sectId: 'SECT-33', minRank: 3 },
+          {
+            type: 'questCompletedDaysAgoAtLeast',
+            questId: CAMPAIGN_1_QUEST_ID,
+            minDays: 60,
+          },
+          { type: 'questStatus', questId: JINJUN_TAIHANG_QUEST_2_ID, status: 'not_started' },
+          { type: 'questStatus', questId: JINJUN_TAIHANG_QUEST_2_ID, status: 'not_completed' },
+        ],
+      },
+      effects: [{ type: 'openScene', scene: SCENE_01_SIXTY_DAYS_HUMILITY }],
+    },
+    {
+      id: 'spot_jtc2_report_scholarship',
+      label: '呈禀经策心得 · 请受沙盘三策考校',
+      badge: '第8-15幕',
+      subtitle: '已达成【经义 ≥ 40 且 策论 ≥ 70】 · 沙盘破三问，随黑王相公赴紫宸殿请命再征太行',
+      tone: 'gold',
+      regionId: 'bianliang',
+      buildingId: 'bl_jinjun',
+      spotId: 'bl_jj_platform',
+      visibleWhen: {
+        type: 'all',
+        conditions: [
+          {
+            type: 'questStatus',
+            questId: JINJUN_TAIHANG_QUEST_2_ID,
+            status: 'active',
+            stepId: 'study_wujing',
+          },
+          { type: 'skillAtLeast', key: '经义', min: 40 },
+          { type: 'skillAtLeast', key: '策论', min: 70 },
+        ],
+      },
+      effects: [{ type: 'openScene', scene: SCENE_08_RETURN_TO_PLATFORM }],
+    },
+    {
+      id: 'spot_jtc2_scholarship_progress_hint',
+      label: '请受沙盘考校（需经义≥40 且 策论≥70）',
+      badge: '研读武经中',
+      subtitle: '请先于行囊研读《武经总要 · 枢密院行军钞本》并修习经史策论达标后再来应考',
+      tone: 'default',
+      regionId: 'bianliang',
+      buildingId: 'bl_jinjun',
+      spotId: 'bl_jj_platform',
+      visibleWhen: {
+        type: 'all',
+        conditions: [
+          {
+            type: 'questStatus',
+            questId: JINJUN_TAIHANG_QUEST_2_ID,
+            status: 'active',
+            stepId: 'study_wujing',
+          },
+          {
+            type: 'not',
+            condition: {
+              type: 'all',
+              conditions: [
+                { type: 'skillAtLeast', key: '经义', min: 40 },
+                { type: 'skillAtLeast', key: '策论', min: 70 },
+              ],
+            },
+          },
+        ],
+      },
+      enabledWhen: {
+        type: 'all',
+        conditions: [
+          { type: 'skillAtLeast', key: '经义', min: 40 },
+          { type: 'skillAtLeast', key: '策论', min: 70 },
+        ],
+      },
+      effects: [],
+    },
+    {
+      id: 'spot_jtc2_fort_one',
+      label: '依武经断水熏烟 · 智破苍狼前寨',
+      badge: '第16-19幕 · 第一战',
+      subtitle: '寻北麓暗泉断水熏烟，布鹿角口袋阵生擒落雁枪·雷武石与追风豹·裴弘璋',
+      tone: 'danger',
+      regionId: 'taihang',
+      buildingId: 'th_hall',
+      spotId: 'th_hall_west',
+      visibleWhen: {
+        type: 'questStatus',
+        questId: JINJUN_TAIHANG_QUEST_2_ID,
+        status: 'active',
+        stepId: 'campaign_fort_one',
+      },
+      effects: [{ type: 'openScene', scene: SCENE_16_RECON_CANGLANG_FORT }],
+    },
+    {
+      id: 'spot_jtc2_ambush_relief',
+      label: '黑风峡反设伏袋 · 围点打援拔中寨',
+      badge: '第20-24幕 · 第二战',
+      subtitle: '重临黑风旧谷祭英魂，鹰愁岭反伏击生擒冷月客·石寒乾与铁掌汉·燕刀柏，连拔三寨',
+      tone: 'danger',
+      regionId: 'taihang',
+      buildingId: 'th_hall',
+      spotId: 'th_hall_east',
+      visibleWhen: {
+        type: 'questStatus',
+        questId: JINJUN_TAIHANG_QUEST_2_ID,
+        status: 'active',
+        stepId: 'campaign_ambush_relief',
+      },
+      effects: [{ type: 'openScene', scene: SCENE_20_RETURN_BLACK_WIND }],
+    },
+    {
+      id: 'spot_jtc2_seize_vault',
+      label: '赚壕封道破义仓 · 生擒群匪起赃银',
+      badge: '第25-29幕 · 第三战',
+      subtitle: '铁网封锁后山三条暗渠，诈号赚桥击败银枪叟·史玄朗与神针汉·晁霖浪，缴获满库粮银',
+      tone: 'danger',
+      regionId: 'taihang',
+      buildingId: 'th_vault',
+      spotId: 'th_vault_east',
+      visibleWhen: {
+        type: 'questStatus',
+        questId: JINJUN_TAIHANG_QUEST_2_ID,
+        status: 'active',
+        stepId: 'campaign_seize_vault',
+      },
+      effects: [{ type: 'openScene', scene: SCENE_25_APPROACH_HIDDEN_VAULT }],
+    },
+    {
+      id: 'spot_jtc2_feihu_approach',
+      label: '进逼飞狐断魂桥 · 痛击断后史万山',
+      badge: '第30-34幕 · 第四战',
+      subtitle: '东桥头重创“九纹狂龙”史万山，将王重岳不足三百残部困锁绝崖，筑碉班师',
+      tone: 'danger',
+      regionId: 'taihang',
+      buildingId: 'th_bridge',
+      spotId: 'th_bridge_east',
+      visibleWhen: {
+        type: 'questStatus',
+        questId: JINJUN_TAIHANG_QUEST_2_ID,
+        status: 'active',
+        stepId: 'campaign_feihu_approach',
+      },
+      effects: [{ type: 'openScene', scene: SCENE_30_PURSUIT_TO_FEIHU_BRIDGE }],
+    },
+    {
+      id: 'spot_jtc2_kaifeng_triumph',
+      label: '献俘开封府正堂 · 会审十匪慰忠魂',
+      badge: '第35-40幕 · 终章',
+      subtitle: '三口铜铡会审太行十名头目，发还商银优恤遗孤，东京市曹午时十斩明正典刑',
+      tone: 'jade',
+      regionId: 'bianliang',
+      buildingId: 'bl_kaifengfu',
+      spotId: 'bl_kf_court',
+      visibleWhen: {
+        type: 'questStatus',
+        questId: JINJUN_TAIHANG_QUEST_2_ID,
+        status: 'active',
+        stepId: 'return_kaifeng_triumph',
+      },
+      effects: [{ type: 'openScene', scene: SCENE_35_BIANLIANG_TRIUMPHAL_ENTRY }],
+    },
+  ],
+}
+
+export const JINJUN_TAIHANG_QUEST_2: QuestDefinition[] = [JINJUN_TAIHANG_CAMPAIGN_2_QUEST]

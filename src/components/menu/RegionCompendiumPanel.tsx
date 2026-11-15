@@ -228,10 +228,13 @@ export function RegionCompendiumPanel({
     [activeRegion],
   )
 
-  const residentNpcs = useMemo(
-    () => getCompiledNpcsByRegion(activeRegion.id),
-    [activeRegion.id],
-  )
+  const residentNpcs = useMemo(() => {
+    const base = getCompiledNpcsByRegion(activeRegion.id)
+    if (questFlags.taihang_bandits_eradicated) {
+      return base.filter((n) => n.factionId !== 'SECT-18')
+    }
+    return base
+  }, [activeRegion.id, questFlags])
 
   const hqFactions = useMemo(
     () => sectsByHqRegion.get(activeRegion.id) ?? [],

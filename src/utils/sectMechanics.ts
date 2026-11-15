@@ -1227,16 +1227,25 @@ export function evaluateSectPromotion(params: {
     }
   }
 
-  // 大宋禁军（SECT-33）：三衙帅位关乎国朝兵权，暂不开放常规升迁
+  // 大宋禁军（SECT-33）：三衙帅位须凭战功奉敕推恩升迁
   if (sectId === 'SECT-33') {
     if (currentRank >= 5) return null
     const targetRank = (currentRank + 1) as SectRankLevel
     const targetRankLabel = getSectRankTitle(sectId, targetRank)
+    if (currentRank === 3) {
+      return {
+        targetRank,
+        targetRankLabel,
+        canPromote: false,
+        reason:
+          '晋升【三衙都虞候（Lv.4）】须凭军功奉旨推恩：入大宋禁军满一年（365日）且经义 ≤ 40 或策论 ≤ 60 后，前往【八十万禁军大教场 · 擂鼓聚将点兵帅台】面见枢密使王德用开启《太行剿匪》三部曲战役！',
+      }
+    }
     return {
       targetRank,
       targetRankLabel,
       canPromote: false,
-      reason: '大宋禁军三衙帅位关乎国朝兵权，须待日后边关大捷或枢密院奉敕推恩方可升迁（后续主线开放）。',
+      reason: '【殿前都指挥使（Lv.5）】掌天子亲军最高兵符，须待日后边关大捷或枢密院奉敕推恩方可升迁。',
     }
   }
 

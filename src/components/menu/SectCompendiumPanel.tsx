@@ -21,6 +21,7 @@ import {
   REGION_DB_MAP,
   WEAPON_DB_MAP,
 } from '../../data/gameDb'
+import { useGameStore } from '../../store/useGameStore'
 import type {
   CanonicalFactionEntry,
   CompiledBuildingRecord,
@@ -115,9 +116,12 @@ export function SectCompendiumPanel({
   onOpenPortraitLightbox,
 }: SectCompendiumPanelProps) {
 
+  const taihangEradicated = useGameStore((s) => Boolean(s.questState.flags.taihang_bandits_eradicated))
+
   const npcsByFaction = useMemo(() => {
     const map = new Map<string, CompiledNpcRecord[]>()
     for (const npc of NPCS_DB) {
+      if (taihangEradicated && npc.factionId === 'SECT-18') continue
       const arr = map.get(npc.factionId) ?? []
       arr.push(npc)
       map.set(npc.factionId, arr)
@@ -130,7 +134,7 @@ export function SectCompendiumPanel({
       map.set(k, arr)
     }
     return map
-  }, [])
+  }, [taihangEradicated])
 
   const availableGroups = useMemo(() => {
     const base =
@@ -192,12 +196,13 @@ export function SectCompendiumPanel({
   )
 
   const leaderNpcs = useMemo(() => {
+    if (taihangEradicated && activeFaction.id === 'SECT-18') return []
     const explicit = activeFaction.leaderNpcIds
       .map((id) => NPC_DB_MAP[id])
       .filter((n): n is CompiledNpcRecord => Boolean(n))
     if (explicit.length > 0) return explicit
     return factionMembers.slice(0, 2)
-  }, [activeFaction.leaderNpcIds, factionMembers])
+  }, [activeFaction.id, activeFaction.leaderNpcIds, factionMembers, taihangEradicated])
 
   const representativeNpc = leaderNpcs[0] ?? factionMembers[0] ?? null
 

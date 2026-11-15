@@ -261,6 +261,18 @@ export function evaluateQuestCondition(
       }
     }
 
+    case 'skillAtMost': {
+      const cur =
+        cond.key === '骑术'
+          ? (ctx.ridingSkill ?? ctx.baseStats.ridingSkill ?? 0)
+          : (ctx.skills?.[cond.key] ?? ctx.baseStats.skills[cond.key] ?? 0)
+      if (cur <= cond.max) return { passed: true, reason: null }
+      return {
+        passed: false,
+        reason: `需十艺【${cond.key}】 ≤ ${cond.max}（当前 ${cur}）`,
+      }
+    }
+
     case 'combatStatAtLeast': {
       const cur = ctx[cond.key]
       if (cur >= cond.min) return { passed: true, reason: null }
@@ -319,6 +331,45 @@ export function evaluateQuestCondition(
       return {
         passed: false,
         reason: `须在【捕头都头】任上做满 ${cond.min} 天（当前 ${days}/${cond.min} 天）`,
+      }
+    }
+
+    case 'sectDaysAtLeast': {
+      const sName = FACTION_DB_MAP[cond.sectId]?.name ?? cond.sectId
+      if (ctx.sectState.sectId !== cond.sectId) {
+        return {
+          passed: false,
+          reason: `须加入【${sName}】满 ${cond.min} 天`,
+        }
+      }
+      const days = Math.max(0, ctx.dayCount - ctx.sectState.joinedDay)
+      if (days >= cond.min) return { passed: true, reason: null }
+      return {
+        passed: false,
+        reason: `须加入【${sName}】满 ${cond.min} 天（当前 ${days}/${cond.min} 天）`,
+      }
+    }
+
+    case 'questCompletedDaysAgoAtLeast': {
+      const rec = ctx.questState.completedQuests[cond.questId]
+      const qTitle = questMap[cond.questId]?.title ?? cond.questId
+      if (!rec) {
+        return {
+          passed: false,
+          reason: `须先完成前置任务《${qTitle}》`,
+        }
+      }
+      if (cond.outcome && rec.outcome !== cond.outcome) {
+        return {
+          passed: false,
+          reason: `前置任务《${qTitle}》结局不符`,
+        }
+      }
+      const elapsed = Math.max(0, ctx.dayCount - rec.completedDay)
+      if (elapsed >= cond.minDays) return { passed: true, reason: null }
+      return {
+        passed: false,
+        reason: `须待《${qTitle}》结案满 ${cond.minDays} 天（当前已历 ${elapsed}/${cond.minDays} 天）`,
       }
     }
 
@@ -946,6 +997,11 @@ export function validateAllRegisteredQuests(
           errors.push(`${ctxPath}: 未知的 sectId "${cond.sectId}"`)
         }
         break
+      case 'sectDaysAtLeast':
+        if (!FACTION_DB_MAP[cond.sectId]) {
+          errors.push(`${ctxPath}: 未知的 sectId "${cond.sectId}"`)
+        }
+        break
       case 'notInAnySect':
         if (cond.allowTransferFromSectId && !FACTION_DB_MAP[cond.allowTransferFromSectId]) {
           errors.push(
@@ -953,6 +1009,12 @@ export function validateAllRegisteredQuests(
           )
         }
         break
+      case 'questCompletedDaysAgoAtLeast': {
+        if (!byId.has(cond.questId)) {
+          errors.push(`${ctxPath}: 引用了未注册的 questId "${cond.questId}"`)
+        }
+        break
+      }
       case 'questStatus': {
         const refQ = byId.get(cond.questId)
         if (!refQ) {
@@ -1043,6 +1105,7 @@ export function validateAllRegisteredQuests(
         break
       case 'joinSect':
       case 'confirmJoinSect':
+      case 'setSectRank':
         if (!FACTION_DB_MAP[eff.sectId]) {
           errors.push(`${ctxPath}: 未知的 sectId "${eff.sectId}"`)
         }

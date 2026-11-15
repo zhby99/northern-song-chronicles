@@ -196,9 +196,13 @@ export function ContextInspectorCard() {
         : selectedBuildingId!
     const resolvedLeafSpotId = isLeafInteriorSpot ? selectedSpotId! : null
 
-    const leafNpcs = isLeafInteriorSpot
+    const taihangEradicated = Boolean(questState.flags.taihang_bandits_eradicated)
+    const rawLeafNpcs = isLeafInteriorSpot
       ? getCompiledNpcsBySpot(selectedSpotId!)
       : getCompiledNpcsByBuilding(resolvedLeafBuildingId).filter((c) => !c.assignedSpotId)
+    const leafNpcs = taihangEradicated
+      ? rawLeafNpcs.filter((c) => c.factionId !== 'SECT-18')
+      : rawLeafNpcs
 
     // Handcrafted custom talk lines from worldGraph if present
     const talkMap = new Map<string, string>()
@@ -268,6 +272,7 @@ export function ContextInspectorCard() {
     // Only include roaming masters whose exact leaf target matches this leaf building/spot
     const roamingAtThisLeaf = roamingMasters.filter((m) => {
       if (m.nodeId !== node.id) return false
+      if (taihangEradicated && (m.sect.includes('太行') || m.sect.includes('绿林'))) return false
       const target = resolveRoamingMasterLeafTarget(m)
       if (!target) return false
       return (
@@ -279,6 +284,7 @@ export function ContextInspectorCard() {
     for (const m of roamingAtThisLeaf) {
       const resolved =
         resolveNpcByName(m.name) ?? resolveNpcByName(m.name.replace(/大师$/, ''))
+      if (taihangEradicated && resolved?.factionId === 'SECT-18') continue
       const fb = buildRoamingFallbackStats(m)
       seenNames.add(m.name)
       if (resolved) seenNames.add(resolved.name)
@@ -344,6 +350,7 @@ export function ContextInspectorCard() {
     sectState.activeKaifengWarrant,
     sectState.activeSectTask,
     questState.dynamicActors,
+    questState.flags,
   ])
 
   const spotQuestActions = useMemo(() => {

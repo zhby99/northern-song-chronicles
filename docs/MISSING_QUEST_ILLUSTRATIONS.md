@@ -96,6 +96,22 @@
 | `CG-QST-084` | `[x]` 已完成 | `public/assets/quests/jinjun_spy_daming_sandtable.jpg` | `/assets/quests/jinjun_spy_daming_sandtable.jpg` | `QST-SECT-33-HEBEI-SPY`<br>《御前泄密 · 河北暗桩》 | 第二十八幕 · 行宫沙盘决方略<br>（`scene_jj_spy_28_sandtable_strategy_choice`） | `16:9` |
 | `CG-QST-085` | `[ ]` 待补绘 | `public/assets/quests/jinjun_spy_yellow_river_chains.jpg` | `/assets/quests/jinjun_spy_yellow_river_chains.jpg` | `QST-SECT-33-HEBEI-SPY`<br>《御前泄密 · 河北暗桩》 | 第三十五~三十六幕 · 铁索横江战远风<br>（`scene_jj_spy_35_yellow_river_boss_showdown` 等 2 幕） | `16:9` |
 | `CG-QST-086` | `[ ]` 待补绘 | `public/assets/quests/jinjun_spy_zichen_memorial.jpg` | `/assets/quests/jinjun_spy_zichen_memorial.jpg` | `QST-SECT-33-HEBEI-SPY`<br>《御前泄密 · 河北暗桩》 | 第四十一~四十三幕 · 玉阶一念定乾坤<br>（`scene_jj_spy_41_zichen_verdict_choice` 等 5 幕） | `16:9` |
+| `CG-QST-087` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp1_depart_army.jpg` | `/assets/quests/taihang_camp1_depart_army.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-1`<br>《太行剿匪 · 壹 · 骄兵折戟》 | 第八幕 · 帅台点兵五千甲<br>（`scene_jtc1_08_depart_five_thousand`） | `16:9` |
+| `CG-QST-088` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp1_blind_march.jpg` | `/assets/quests/taihang_camp1_blind_march.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-1`<br>《太行剿匪 · 壹 · 骄兵折戟》 | 第十九幕 · 不识兵机入绝壑<br>（`scene_jtc1_19_blind_canyon_march`） | `16:9` |
+| `CG-QST-089` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp1_fire_ambush.jpg` | `/assets/quests/taihang_camp1_fire_ambush.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-1`<br>《太行剿匪 · 壹 · 骄兵折戟》 | 第二十二幕 · 万火箭雨焚深涧<br>（`scene_jtc1_22_canyon_fire_attack`） | `16:9` |
+| `CG-QST-090` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp1_rearguard_stand.jpg` | `/assets/quests/taihang_camp1_rearguard_stand.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-1`<br>《太行剿匪 · 壹 · 骄兵折戟》 | 第二十六幕 · 单枪断后血染谷<br>（`scene_jtc1_26_lone_rearguard_stand`） | `16:9` |
+| `CG-QST-091` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp1_court_reprimand.jpg` | `/assets/quests/taihang_camp1_court_reprimand.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-1`<br>《太行剿匪 · 壹 · 骄兵折戟》 | 第三十四幕 · 紫宸殿前摘冠带<br>（`scene_jtc1_34_zichen_court_reprimand`） | `16:9` |
+| `CG-QST-092` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp1_rain_graveyard.jpg` | `/assets/quests/taihang_camp1_rain_graveyard.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-1`<br>《太行剿匪 · 壹 · 骄兵折戟》 | 第三十九幕 · 汴郊孤冢哭忠魂<br>（`scene_jtc1_39_rain_graveyard_tears`） | `16:9` |
+| `CG-QST-093` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp2_court_petition.jpg` | `/assets/quests/taihang_camp2_court_petition.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-2`<br>《太行剿匪 · 贰 · 刮目相看》 | 第十三幕 · 黑王公金殿保孤臣<br>（`scene_jtc2_13_wang_court_petition`） | `16:9` |
+| `CG-QST-094` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp2_three_forts.jpg` | `/assets/quests/taihang_camp2_three_forts.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-2`<br>《太行剿匪 · 贰 · 刮目相看》 | 第二十四幕 · 步步为营连拔三寨<br>（`scene_jtc2_24_three_forts_conquered`） | `16:9` |
+| `CG-QST-095` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp2_captured_loot.jpg` | `/assets/quests/taihang_camp2_captured_loot.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-2`<br>《太行剿匪 · 贰 · 刮目相看》 | 第二十九幕 · 瓮中捉鳖起赃银<br>（`scene_jtc2_29_prisoners_and_treasure`） | `16:9` |
+| `CG-QST-096` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp2_feihu_bridge_retreat.jpg` | `/assets/quests/taihang_camp2_feihu_bridge_retreat.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-2`<br>《太行剿匪 · 贰 · 刮目相看》 | 第三十三幕 · 残寇三百守断魂<br>（`scene_jtc2_33_wang_retreats_bridge`） | `16:9` |
+| `CG-QST-097` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp2_kaifeng_ten_executions.jpg` | `/assets/quests/taihang_camp2_kaifeng_ten_executions.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-2`<br>《太行剿匪 · 贰 · 刮目相看》 | 第三十八幕 · 市曹十斩慰忠魂<br>（`scene_jtc2_38_ten_leaders_executed`） | `16:9` |
+| `CG-QST-098` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp3_army_encircle.jpg` | `/assets/quests/taihang_camp3_army_encircle.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-3`<br>《太行剿匪 · 叁 · 犁庭扫穴》 | 第十三幕 · 铁桶合围锁太行<br>（`scene_jtc3_13_encircle_taihang`） | `16:9` |
+| `CG-QST-099` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp3_night_infiltration.jpg` | `/assets/quests/taihang_camp3_night_infiltration.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-3`<br>《太行剿匪 · 叁 · 犁庭扫穴》 | 第十七幕 · 子夜玄衣度暗崖<br>（`scene_jtc3_17_midnight_black_suits`） | `16:9` |
+| `CG-QST-100` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp3_bandits_surrender.jpg` | `/assets/quests/taihang_camp3_bandits_surrender.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-3`<br>《太行剿匪 · 叁 · 犁庭扫穴》 | 第二十六幕 · 大开寨门降群寇<br>（`scene_jtc3_26_gates_open_surrender`） | `16:9` |
+| `CG-QST-101` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp3_execution_raid.jpg` | `/assets/quests/taihang_camp3_execution_raid.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-3`<br>《太行剿匪 · 叁 · 犁庭扫穴》 | 第三十三幕 · 京东双寇劫法场<br>（`scene_jtc3_33_chao_ruan_raid`） | `16:9` |
+| `CG-QST-102` | `[ ]` 待补绘 | `public/assets/quests/taihang_camp3_lv4_investiture.jpg` | `/assets/quests/taihang_camp3_lv4_investiture.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-3`<br>《太行剿匪 · 叁 · 犁庭扫穴》 | 第三十九幕 · 紫宸受封都虞候<br>（`scene_jtc3_39_lv4_investiture`） | `16:9` |
 
 ---
 
@@ -1729,6 +1745,310 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color grand imperial court painting, wide cinematic 16:9 composition. Dawn audience inside the majestic Zichen Hall of the Kaifeng Imperial Palace around 1050 AD, golden morning sunlight slanting past crimson lacquered pillars and curling bronze crane incense smoke onto white marble steps. High upon the dragon dais sits benevolent Emperor Renzong of Song in crimson Tongtian-crown court robes; flanking the foreground below stand upright dark-faced Magistrate Bao Zheng holding an ivory tablet on the civil side and white-bearded Grand Marshal Wang Deyong in ceremonial armor on the martial side. In the center of the marble aisle, the young Imperial Guard commander protagonist in purple-and-gold brocade (seen from a three-quarter rear angle) presents an open black-copper coffer containing a wax-sealed scroll before the throne. Authentic Song court splendor, rich mineral pigments, zero text or characters.
+  ```
+
+---
+
+### 87. `CG-QST-087`：八十万禁军大教场 · 奉旨晋阶统五千铁甲出师太行图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest1.ts`](../src/data/quests/sects/jinjunTaihangQuest1.ts)
+- **目标路径**：`public/assets/quests/taihang_camp1_depart_army.jpg`
+- **画框题跋**：`八十万禁军大教场 · 奉旨晋阶统五千铁甲出师太行`
+- **剧情语境**：
+  - 主角入大宋禁军满一载，因校场练兵严整有方，获宋仁宗破格拔擢一级至 Lv.4【三衙都虞候】，奉旨统领五千禁军精锐北上太行山剿匪。
+  - 秋阳猎猎，擂鼓聚将点兵帅台前旌旗蔽日，主角身披崭新宋制山文冷锻重甲、横按佩刀跨上神骏战马，在枢密使王德用送行与副将高怀亮护翼下率五千铁甲雄师浩荡出征。
+- **画面核心要素**：
+  1. **环境氛围**：北宋东京八十万禁军大教场与远方雄伟城阙，晴秋高天流云，帅台两侧牛皮巨鼓齐擂，漫天赤色纯纹大宋战旗迎风招展（旗面仅绘云龙火焰纹样，严禁出现任何文字）。
+  2. **主体人物**：前景中央，年轻英武的主角身穿擦拭铮亮的宋代铁札甲与红缨兜鍪、披猩红战袍，勒马昂首拔剑指北，意气风发；马侧副将高怀亮执长枪策马相随，后方帅台上黑面威严的枢密使王德用拱手目送。
+  3. **军容气势**：中远景五千北宋禁军步骑方阵列阵如林，长枪如雪、神臂弩与铁甲寒光连绵数里，尽显“初掌帅印、锐气冲霄”的盛大军威。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color military epic painting, wide cinematic 16:9 composition. Crisp autumn morning at the grand Imperial Guard drill ground outside Kaifeng capital around 1050 AD, massive Song city gate towers in the distance and giant war drums thundering atop a timber command platform. In the foreground center, a proud, spirited young Song general newly promoted in gleaming iron lamellar armor, crimson battle cloak, and red-plumed helmet rears a powerful warhorse and points a drawn steel sword northward. Beside him rides deputy general Gao Huailiang holding a long spear, while elderly dark-complexioned Privy Councilor Wang Deyong watches solemnly from the command terrace. Stretching across the plain behind them march five thousand Northern Song Imperial Guards in disciplined phalanxes of glittering spears, shields, and crimson banners bearing only ornamental cloud-flame patterns with strictly zero text or characters. Rich mineral pigments, court painting precision, no modern elements.
+  ```
+
+---
+
+### 88. `CG-QST-088`：太行黑风愁猿涧 · 骄兵贪功不审地势孤军深入图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest1.ts`](../src/data/quests/sects/jinjunTaihangQuest1.ts)
+- **目标路径**：`public/assets/quests/taihang_camp1_blind_march.jpg`
+- **画框题跋**：`太行黑风愁猿涧 · 骄兵贪功不审地势孤军深入绝谷`
+- **剧情语境**：
+  - 主角初战势如破竹连破外围哨卡，太行山匪徒佯败丢弃辎重逃入两侧峭壁夹峙、枯松荒草遍地的险恶绝谷【黑风愁猿涧】。
+  - 因主角未读兵书、不谙“穷寇莫追”古训且疏于审视山川地形，不听副将高怀亮勒马苦谏，挥鞭催动五千大军一字长蛇盲目钻入幽暗葫芦绝壑，崖顶枯木阴影中无数贼寇已悄然张弓推石。
+- **画面核心要素**：
+  1. **环境氛围**：范宽《溪山行旅图》式险峻压抑的太行深谷“一线天”地貌，两侧百丈赤黑绝壁向内倾压只留一线昏黄天光，谷底干涸乱石滩长满枯黄芦苇与油脂丰厚的落叶枯松，到处散落着匪徒故意遗弃的破木车与粮袋。
+  2. **主体人物**：谷口狭窄通道处，年轻主帅（主角）满面骄色、单手扬鞭催马疾进；身侧副将高怀亮神色焦急伸手欲拦马缰劝阻，长长宋军步卒队列拥挤不堪地涌入狭窄深涧。
+  3. **危机伏笔**：画面上方高耸入云的幽暗崖顶松林阴影间，隐约可见数十名绿林伏兵正俯身撬动滚木礌石、引燃火折，山雨欲来的窒息感扑面而来。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi and monumental landscape ink-and-color painting, wide cinematic 16:9 composition. A claustrophobic, ominous narrow gorge in the Taihang Mountains around 1050 AD: towering vertical dark cliffs squeezing inward over a dry boulder-strewn ravine choked with dry autumn reeds, dead pine branches, and abandoned wooden supply carts left as bait. At the head of a crowded, stretched-out column of five thousand Song Imperial Guard soldiers marching blindly into the bottleneck, the overconfident young Song commander spurs his horse forward waving his riding crop, ignoring his anxious deputy general beside him reaching out to warn of the terrain. High above along the shadowy cliff rims, half-hidden mountain bandits crouch silently beside stacked boulders, oil jars, and unlit fire-arrows. Tense ominous atmosphere, dramatic vertical scale, mineral pigments, strictly zero text or characters.
+  ```
+
+---
+
+### 89. `CG-QST-089`：黑风涧烈焰遮天 · 太行群匪断道火攻大军受伏图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest1.ts`](../src/data/quests/sects/jinjunTaihangQuest1.ts)
+- **目标路径**：`public/assets/quests/taihang_camp1_fire_ambush.jpg`
+- **画框题跋**：`黑风涧烈焰遮天 · 太行群匪断道火攻五千禁军陷绝境`
+- **剧情语境**：
+  - 五千禁军尽入黑风愁猿涧腹地，忽闻梆子齐鸣，巨石滚木轰然砸断前后谷口！
+  - 两岸峭壁上太行群匪倾倒猛火油与硫磺松枝，万支火箭如流星火雨倾泻而下，狂风卷起数丈高的赤红火墙瞬间吞没拥挤的宋军队列，战马惊嘶、甲士焚灼，全军陷入灭顶炼狱。
+- **画面核心要素**：
+  1. **环境氛围**：幽暗峡谷彻底化作烈焰翻腾的人间炼狱，前后出路皆被崩塌巨石与燃烧圆木堵死，黑烟滚滚直冲天际，漫天火箭拖着长长火尾从两侧高崖密集射落。
+  2. **主体人物与群像**：画面中央火浪翻涌处，主角战马受惊人立而起，主角挥刃奋力拨打漫天火箭、面色惨白震骇；四周宋军阵型大乱，盾牌焦裂、旗帜燃烧，年轻士卒在烈火浓烟中互相拖拽扑救。
+  3. **光影冲击**：浓墨般的峭壁黑烟与耀眼夺目的朱砂、雄黄烈焰形成惨烈悲壮的视觉反差。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color catastrophic battle illustration, wide cinematic 16:9 composition. Deep inside a narrow steep-walled Taihang Mountain canyon around 1050 AD, giant fallen boulders block the gorge while mountain bandits high atop both cliff edges hurl blazing oil pots and loose thousands of flaming arrows downward. Roaring walls of crimson-and-amber fire engulf the dry brush and trap the crowded column of Song Imperial Guards below; warhorses rear in terror amidst thick billowing black smoke, shattered shields, and burning blank war banners. Near the center, the shocked young Song commander slashes desperately at incoming fire-arrows atop a rearing steed as armored soldiers struggle amidst the inferno. Intense chiaroscuro firelight against dark rock and smoke, authentic Song brushwork and mineral vermilion-ochre pigments, zero text or characters.
+  ```
+
+---
+
+### 90. `CG-QST-090`：一线天火海孤影 · 命残军突围独身横刃断后图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest1.ts`](../src/data/quests/sects/jinjunTaihangQuest1.ts)
+- **目标路径**：`public/assets/quests/taihang_camp1_rearguard_stand.jpg`
+- **画框题跋**：`一线天火海孤影 · 命残军突围独身横刃断后死战`
+- **剧情语境**：
+  - 眼见两千余名朝夕相处的禁军弟兄惨死火海，痛彻心扉的主角将帅印兵符塞给负伤的高怀亮，严令残存大军立即向谷外撤退突围。
+  - 主角孤身一人提刃逆行，横立于烈火熊熊的一线天狭窄隘口中央，以血肉之躯死死挡住王重岳、史万山率领的漫山追兵，为残军杀出一条生路。
+- **画面核心要素**：
+  1. **环境氛围**：狭窄如咽喉的太行山谷隘口，两侧枯树与断车仍在熊熊燃烧，火星随烈风狂舞，满地折戟残盾与染血甲片。
+  2. **主体人物**：画面黄金分割点上，头盔已失、束发散乱、战甲焦黑染血的主角单足踏在焦岩之上，双手紧握滴血兵刃横挡整个谷口（三分之四背侧面视角）；其身后远方谷口微光处，高怀亮正扶持伤兵队列疾步撤离。
+  3. **压迫对比**：主角正前方火光浓烟中，手持沉重金刀的魁梧贼首王重岳与赤膊刺青提浑铁棍的史万山率领黑压压数百悍匪汹涌扑来，一夫当关的孤勇与悲怆令人窒息。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color heroic last-stand illustration, wide cinematic 16:9 composition. At a narrow rocky choke-point of a burning mountain gorge in the Taihang Mountains around 1050 AD, flanked by blazing pine trees, broken war-carts, and fallen spears. Standing completely alone in the center pass (seen from a dramatic three-quarter rear-side angle), ahelmetless, bloodstained young Song general in scorched iron lamellar armor and torn crimson cloak plants a firm stance with a blood-streaked blade leveled forward. Far behind him through a gap in the rocks, surviving wounded Song soldiers retreat to safety; surging directly toward him out of the firelit smoke in front are a towering armored bandit king wielding a heavy broadsword, a tattooed muscular bandit chief with an iron staff, and hundreds of fierce mountain brigands. Tragic heroism, flying embers, Song court painting linework, zero text.
+  ```
+
+---
+
+### 91. `CG-QST-091`：大内垂拱紫宸殿 · 丧师两千奉旨斥责削阶罚俸图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest1.ts`](../src/data/quests/sects/jinjunTaihangQuest1.ts)
+- **目标路径**：`public/assets/quests/taihang_camp1_court_reprimand.jpg`
+- **画框题跋**：`大内垂拱紫宸殿 · 丧师两千奉旨斥责削阶罚俸一年`
+- **剧情语境**：
+  - 主角率残部逃回东京汴梁，五千精兵折损两千一百余人。早朝之上，垂拱紫宸正殿气氛肃杀如霜。
+  - 御史台言官持笏厉声弹劾，宋仁宗面沉似水痛斥主角“恃勇轻敌、不习兵书、丧师辱国”；内侍当殿摘去主角都虞候冠带甲胄，降回 Lv.3【四厢都指挥】并罚没整整一年俸禄。
+- **画面核心要素**：
+  1. **环境氛围**：庄严肃穆的北宋皇宫【垂拱紫宸正殿】，高耸朱漆金柱、铜鹤香炉冷烟笔直上升，殿外天色阴沉凛冽，百官身着绯紫宋制朝服、头戴长翅幞头分列左右。
+  2. **主体人物**：冰冷的金砖御道正中，脱去重甲与官帽、仅着素白染血中衣（内缠绷带透出暗红血迹）的主角深深俯首长跪，身旁托盘里放着刚被褫夺的都虞候武官冠带与腰牌；前侧枢密使王德用亦摘冠跪地自请连坐，黑面包拯手捧阵亡抚恤名册肃立凛然，右侧绯袍御史怒指斥责，高高御阶龙椅上头戴展脚幞头、着赭黄袍的宋仁宗神色痛惜而威严。
+  3. **庙堂张力**：金碧辉煌的北宋朝堂礼制与败军孤臣的屈辱自责交织，极具历史正剧厚重感。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color imperial court drama painting, wide cinematic 16:9 composition. Inside the grand, solemn Zichen Audience Hall of the Northern Song Imperial Palace in Kaifeng around 1050 AD, towering vermilion pillars and bronze crane censers. On the cold polished stone floor in the center kneels the defeated young general stripped of armor and official headgear, wearing only a plain white inner tunic stained faintly with bandaged wounds, beside a lacquer tray holding his confiscated rank belt and helmet. Nearby kneels elderly Privy Councilor Wang Deyong in plea, while dark-faced upright minister Bao Zheng stands holding a casualty roll and a crimson-robed censor points an ivory tablet (笏板) in stern rebuke. High upon the dragon throne sits Emperor Renzong in ochre-yellow imperial robes and long-winged Song official hat (展脚幞头) with a grave, sorrowful expression. Authentic 1050 AD Song court attire, dramatic solemnity, zero text or characters.
+  ```
+
+---
+
+### 92. `CG-QST-092`：汴京郊外新冢秋雨 · 跪对两千阵亡忠魂泣血悔悟图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest1.ts`](../src/data/quests/sects/jinjunTaihangQuest1.ts)
+- **目标路径**：`public/assets/quests/taihang_camp1_rain_graveyard.jpg`
+- **画框题跋**：`汴京郊外新冢秋雨 · 跪对两千阵亡忠魂泣血悔悟`
+- **剧情语境**：
+  - 退朝削职之后，深秋暴雨倾盆而下。主角独自携两坛浊酒步出汴京城门，来到城西乱岗上新垒起的两千余座禁军阵亡将士新坟前。
+  - 望着漫山遍野新插的无字素木灵牌与白麻招魂幡，想起出征前一张张鲜活年轻的笑脸皆因自己不读兵书而化作焦骨，主角双膝重重跪入冰冷泥水之中，任凭暴雨冲刷满面热泪，叩首泣血立誓必洗心革面。
+- **画面核心要素**：
+  1. **环境氛围**：北宋汴京西郊荒凉苍茫的山坡义冢，铅灰色乌云低垂，豆大秋雨如注斜织，漫山遍野密密麻麻排列着上千座新培黄土坟包与素白麻布幡、朴素木牌（木牌仅留雨水木纹肌理，严禁出现任何文字），几株枯柳在风雨中哀鸣。
+  2. **主体人物**：前景泥水横流的坟前空地上，身穿朴素青灰布衣、浑身湿透的年轻主角双膝深陷泥泞，额头微昂或双手撑地痛哭失声，雨水与泪水顺着脸颊滑落；膝前放着一只摔碎半边的粗陶酒坛与几只倒满浊酒的粗碗，纸钱被雨水打湿贴在泥地上。
+  3. **情感高潮**：第一部任务终幕灵魂升华之景，极尽苍凉、悔恨与蜕变前的沉痛力量。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi and atmospheric ink-wash painting, wide cinematic 16:9 composition. Torrential cold autumn rain pouring over a vast hillside military graveyard outside Kaifeng around 1050 AD, where hundreds upon hundreds of fresh earthen burial mounds and plain blank wooden grave markers with wet white hemp streamers stretch into the misty grey distance beneath weeping bare willows. Kneeling deeply in muddy puddles in the foreground, the soaked young protagonist in humble plain cloth robes bows in anguish with tears mingling with rain down his face, hands clenched in the mud before a broken clay wine jar and three bowls of sacrificial liquor. Muted slate-blue, rain-grey, and raw earth tones, deeply moving sorrow and remorse, authentic Song painting brushwork, strictly zero text or characters on any grave markers.
+  ```
+
+---
+
+### 93. `CG-QST-093`：大内垂拱紫宸殿 · 枢密使王德用执笏力保请命再征图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest2.ts`](../src/data/quests/sects/jinjunTaihangQuest2.ts)
+- **目标路径**：`public/assets/quests/taihang_camp2_court_petition.jpg`
+- **画框题跋**：`大内垂拱紫宸殿 · 枢密使王德用执笏力保请命再征太行`
+- **剧情语境**：
+  - 主角受王德用赠《武经总要》并以吕蒙“士别三日刮目相看”典故劝勉，寒窗苦读终令经义与策论大成，沙盘三策对答精妙绝伦。
+  - 王德用携主角重登紫宸殿，面对朝臣质疑，白发苍苍的“黑王相公”王德用双手高举象牙笏板跪于金阶之下，以自身枢密使官爵身家性命担保主角已非“吴下阿蒙”，力请仁宗再授五千兵马讨伐太行！
+- **画面核心要素**：
+  1. **环境氛围**：晨光初透的大内【垂拱紫宸正殿】，一束澄澈金黄晓日自殿门斜照入内，驱散往昔阴霾，殿中百官神情震动侧目。
+  2. **主体人物**：御阶丹墀前，须发皓白、面色微黑而威重如山的枢密使王德用（身着北宋紫袍玉带宰执朝服）毅然跪地，双手高擎洁白象牙朝笏慷慨陈词；其身侧半步，已敛尽昔日浮躁、神情沉毅内敛的主角身着整洁禁军戎装抱拳单膝跪请出战；上方宋仁宗探身颔首，侧列包拯捻须赞同。
+  3. **知遇之恩**：老帅托孤保举与青年将领脱胎换骨的气度交相辉映，温暖而振奋。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color court painting, wide cinematic 16:9 composition. Morning sunlight slanting warmly through the towering doors of Zichen Palace Hall in Kaifeng around 1050 AD. Before the marble steps of the imperial throne, venerable white-bearded dark-complexioned Privy Councilor Wang Deyong in deep purple Song grand-minister robes and jade belt kneels resolutely, raising his white ivory court tablet (象笏) with both hands to vouch with his own honor. Kneeling steadfastly beside him in neat, unadorned Song military tunic and light armor is the matured, composed young general clasping hands in calm determination. Above on the throne, Emperor Renzong leans forward approvingly while Minister Bao Zheng nods nearby amidst attentive courtiers in crimson and green robes. Noble Song court painting brushwork, warm golden shafts of light, zero text or characters.
+  ```
+
+---
+
+### 94. `CG-QST-094`：太行东麓三连寨 · 依武经步步为营连拔三城图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest2.ts`](../src/data/quests/sects/jinjunTaihangQuest2.ts)
+- **目标路径**：`public/assets/quests/taihang_camp2_three_forts.jpg`
+- **画框题跋**：`太行东麓三连寨 · 依武经步步为营旌旗连拔三城`
+- **剧情语境**：
+  - 再入太行山，熟读《武经总要》的主角判若两人：先遣斥候查明水源风向，掘壕立栅、断水熏烟、围点打援，稳扎稳打绝不贪功冒进。
+  - 短短旬日之间，太行东麓互为犄角的苍狼前寨、黑风中寨、藏金大寨三座险要山城相继告破，赤红宋军旌旗在三座山巅寨楼次第升起！
+- **画面核心要素**：
+  1. **环境氛围**：全景鸟瞰式北宋青绿山水军事长卷构图，层峦叠嶂的太行山脉间由近及远错落分布着三座依险而筑的石木山寨城垒，山道间可见宋军严整修筑的鹿角木栅、壕沟、望楼与神臂弩阵。
+  2. **主体人物**：近景高坡指挥台石崖上，主角身披宋制战甲，一手持《武经总要》竹简兵策或令旗、一手沉稳指向远方第三座刚升起大宋赤色无字战旗的寨楼；身旁副将高怀亮与传令斥候欣喜抱拳禀报，井然有序的禁军刀盾长枪方阵正稳步推进接管城防。
+  3. **兵家气象**：阵型严整如棋盘，与第一部孤军盲进的混乱形成强烈视觉呼应，彰显兵法制胜之美。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese blue-and-green landscape (青绿山水) and gongbi military painting, wide cinematic 16:9 panoramic composition. Overlooking three fortified stone-and-timber mountain strongholds stepped across rugged Taihang Mountain ridges around 1050 AD. Disciplined Song Imperial Guard formations advance methodically behind wooden palisades, siege shields, and watchtowers; pure crimson Song banners (strictly ornamental patterns, zero text) fly victoriously atop the conquered first, second, and newly breached third mountain fortresses. On a commanding rocky overlook in the foreground, the calm, strategic young Song general in iron lamellar armor holds a rolled military scroll in one hand and directs troop movements with composed authority alongside deputy general Gao Huailiang and mounted scouts. Crisp Song court brushwork, majestic mountain depth, mineral azurite and vermilion accents, zero text or characters.
+  ```
+
+---
+
+### 95. `CG-QST-095`：太行藏金义仓 · 设计生擒数百悍匪缴获满库赃银图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest2.ts`](../src/data/quests/sects/jinjunTaihangQuest2.ts)
+- **目标路径**：`public/assets/quests/taihang_camp2_captured_loot.jpg`
+- **画框题跋**：`太行藏金义仓 · 设计生擒数百悍匪缴获满库赃银`
+- **剧情语境**：
+  - 主角巧施“围三阙一、暗伏陷网”之计攻破太行山核心钱粮重地【太行藏金义仓】，不费折损便将妄图从暗道携款潜逃的数百名太行山匪徒悉数活捉。
+  - 石窟大仓洞开，一箱箱劫掠自河北河东州县的雪花官银、蜀锦绸缎与堆积如山的粮袋重见天日，军需书吏秉笔清点造册。
+- **画面核心要素**：
+  1. **环境氛围**：依山崖巨洞凿建的【太行藏金义仓】石坪与敞开的厚重铁箍库门，火把与日光交映，库门内外整齐抬出数十口敞盖樟木大箱，箱内满盛银光灿灿的宋代船形银铤、铜钱贯串与彩绸匹段。
+  2. **主体人物与群像**：广场左侧，数百名卸去兵刃的太行山匪徒与头目被麻绳反绑成串、垂头丧气蹲跪成排，由持戟宋军严密看押；右侧主角负手肃立督察，副将高怀亮与军需官捧着算盘账册满面喜色清点封存赃款，秋毫无犯。
+  3. **叙事细节**：散落一地的绿林扑刀与贴封条（素色红纸无字）的银箱对比鲜明，展现“大获全胜、人赃并获”的畅快战果。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color illustration, wide cinematic 16:9 composition. Outside the massive iron-bound stone vault gates of the Taihang Mountain Bandit Treasury Stronghold around 1050 AD. On the stone courtyard right side, Song Imperial Guard soldiers carry out and open dozens of heavy wooden chests brimming with gleaming silver ingots (宋代银铤), strings of copper coins, bolts of colorful silk, and grain sacks while military clerks tally with an abacus. On the left side, hundreds of disarmed mountain bandits sit kneeling in long roped lines under the watch of halberd-bearing Song troops. In the center foreground stands the composed young Song commander overseeing the seizure alongside his smiling deputy general, strictly disciplined and upright. Rich mineral pigments, intricate Song material details, zero text or characters.
+  ```
+
+---
+
+### 96. `CG-QST-096`：太行飞狐断魂索桥 · 王重岳率不足三百残匪断板死守图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest2.ts`](../src/data/quests/sects/jinjunTaihangQuest2.ts)
+- **目标路径**：`public/assets/quests/taihang_camp2_feihu_bridge_retreat.jpg`
+- **画框题跋**：`太行飞狐断魂索桥 · 王重岳仅率不足三百残匪断板死守天险`
+- **剧情语境**：
+  - 外围三城尽失、精锐十去其八，九纹狂龙史万山断后败退负伤，不可一世的太行天王【王重岳】身边仅剩不到三百名残兵败将，仓皇退过万丈深渊之上的唯一通道【飞狐断魂索桥】。
+  - 王重岳挥刀砍断桥头半截木板，仅留数根碗口粗的寒铁锁链悬于云雾深涧之上负隅顽抗；主角立马东岸崖头审势，深明“困兽死地不可强渡”，下令筑垒封山、班师献俘。
+- **画面核心要素**：
+  1. **环境氛围**：奇险绝伦的太行绝顶大裂谷，脚下万丈寒渊白雾翻涌不见其底，唯有四根乌黑粗铁索横跨两座刀削绝壁之间，前半段桥面木板已被砍断坠落，铁索在山风中铮铮摇晃。
+  2. **双岸对峙**：远岸狭窄危崖关楼前，身披虎皮金甲、满脸阴鸷血污的太行天王王重岳拄大刀喘息怒视，身后簇拥着不足三百名衣甲残破、缠满绷带的惊弓残匪；近岸开阔石崖上，主角勒马从容驻立、抬手止住欲请战的将士，身后五千宋军阵列森严、稳如泰山。
+  3. **胜败易势**：昔日围猎宋军的霸主沦为孤崖困兽，主角则尽显名将收放自如的大局风范。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi and monumental cliff landscape painting, wide cinematic 16:9 composition. Across a dizzying, mist-filled bottomless chasm in the high Taihang Mountains stretches the perilous Feihu Iron-Chain Suspension Bridge around 1050 AD, its front wooden planks freshly chopped away leaving bare iron chains swaying in the wind. On the far isolated cliff fortress ledge, the battered bandit king Wang Chongyue in tiger-pelt armor leans on his heavy broadsword surrounded by fewer than three hundred wounded, ragged remnant bandits huddled in desperation. On the near cliff edge in the foreground, the poised young Song commander sits calmly astride his warhorse amidst ranks of gleaming armored Song Imperial Guards, raising one hand to halt a reckless assault and seal the pass instead. Dramatic abyss perspective, swirling mountain mist, mineral pigments, zero text or characters.
+  ```
+
+---
+
+### 97. `CG-QST-097`：东京市曹刑场 · 十名太行山中层头目同日伏法处斩图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest2.ts`](../src/data/quests/sects/jinjunTaihangQuest2.ts)
+- **目标路径**：`public/assets/quests/taihang_camp2_kaifeng_ten_executions.jpg`
+- **画框题跋**：`东京市曹刑场 · 十名太行山中层头目同日伏法明正典刑`
+- **剧情语境**：
+  - 大军凯旋班师东京汴梁，经开封府包拯、展昭与枢密院王德用会审定谳，将生擒押回的史玄朗、石寒乾、燕刀柏、雷武石等**十名血债累累的太行山中层头目**押赴市曹刑场。
+  - 午时三刻令牌掷地，十名刽子手同时挥落鬼头大刀，十颗恶首落地，台下万千汴京百姓与昔日阵亡禁军遗属抚掌痛哭告慰亡魂！
+- **画面核心要素**：
+  1. **环境氛围**：扩建加长的北宋东京市曹十字街巨型木制刑台，晴空朗朗、正午烈日当空，远处可见汴京繁华楼阁飞檐与猎猎招展的无字素纹旌旗。
+  2. **主体人物**：宽阔长刑台上，**整整齐齐一字排开跪着十名反绑双臂的太行山中层悍匪头目**，每名囚犯身后各立一名赤膊扎红巾的魁梧刽子手，十柄雪亮九环鬼头大刀在同一刹那齐齐高举过顶寒光闪烁！监斩席后包拯、王德用与戎装笔挺的主角肃穆端坐/侍立。
+  3. **万众欢腾**：刑台下铁甲禁军与开封府衙役持戟护卫，绳栏外人山人海的东京百姓振臂欢呼，更有白发军属老妪合十仰天垂泪，正义昭彰、气势恢宏。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color grand historical scene, wide cinematic 16:9 composition. Bright noon at the grand public execution square in Kaifeng capital around 1050 AD, framed by Song-style multi-story pavilions and city towers. Across a wide, elongated raised wooden execution platform kneel exactly ten bound mountain bandit chieftains in a single solemn row; behind each prisoner stands a muscular red-headscarved executioner raising a gleaming heavy broadsword in synchronized readiness as the noon signal falls. Behind the crimson-draped supervision dais sit dark-faced Judge Bao Zheng, Privy Councilor Wang Deyong, and the victorious young Song commander in full ceremonial armor. Surrounding the square behind rows of armored Imperial Guard halberdiers, thousands of Kaifeng citizens cheer and weep in relief. Authentic Song urban panorama brushwork (in the spirit of Zhang Zeduan), rich mineral colors, zero text or characters.
+  ```
+
+---
+
+### 98. `CG-QST-098`：太行群峰万炬如龙 · 大宋禁军铁桶合围锁死山口图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest3.ts`](../src/data/quests/sects/jinjunTaihangQuest3.ts)
+- **目标路径**：`public/assets/quests/taihang_camp3_army_encircle.jpg`
+- **画框题跋**：`太行群峰万炬如龙 · 大宋禁军铁桶合围锁死各路山口`
+- **剧情语境**：
+  - 第二部结束六十日后，展昭安排在太行山的卧底内线送出《太行山绿林防备暗道图》。主角再度统领大宋禁军精锐进抵太行山。
+  - 入夜时分，主角命大军将整座太行主峰死死围成铁桶，成千上万支松明火把沿群山各处山口、隘道蜿蜒成首尾相连的赤色火龙，并在飞狐索桥正面擂鼓佯攻，彻底锁死王重岳与史万山的视线与退路。
+- **画面核心要素**：
+  1. **环境氛围**：宏大壮阔的太行山脉苍蓝夜色全景，一轮冷月半隐云层，陡峭险峻的太行主峰孤耸中央；环绕主峰四周的山麓、谷口与岭脊之上，大宋禁军连营十里、鹿角拒马密布，万千火把汇成璀璨壮丽的金色火环将贼巢团团围困！
+  2. **主体人物**：前景高处望台岩石上，身披夜色战袍的主角与一身玄衣背负巨阙剑的南侠展昭并肩伫立，主角手展油布防备暗道图低声指点主峰后侧幽暗绝壁，副将高怀亮在旁领命调动正面佯攻炮石战鼓。
+  3. **大战前夕**：明处万炬合围的浩瀚声势与暗处奇兵即将出鞘的冷峻杀机完美交融。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi night-landscape military painting, wide cinematic 16:9 composition. Moonlit indigo night over the jagged peaks of Mount Taihang around 1050 AD. Completely encircling the central mountain fortress below, thousands upon thousands of Song Imperial Guard campfires and blazing pine torches wind across every valley pass and ridge like a colossal ring of golden fire dragons, with siege shields and war drums massed before the chasm bridge. On a shadowy high rocky outcrop in the foreground stand the young Song commander in dark armor holding an oilskin route map (purely geometric mountain lines, zero text) and heroic swordsman Zhan Zhao with sword on back, pointing quietly toward a dark vertical cliff path behind the fortress. Monumental scale, glowing amber torch-rivers against deep mineral blue cliffs, zero text or characters.
+  ```
+
+---
+
+### 99. `CG-QST-099`：太行后山绝壁暗道 · 子夜偕展昭率五十夜行衣精锐潜入图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest3.ts`](../src/data/quests/sects/jinjunTaihangQuest3.ts)
+- **目标路径**：`public/assets/quests/taihang_camp3_night_infiltration.jpg`
+- **画框题跋**：`太行后山绝壁暗道 · 子夜偕展昭率五十夜行衣精锐潜入敌巢`
+- **剧情语境**：
+  - 三更子夜，借正面索桥震天鼓声掩护，主角与南侠【展昭】卸去铮鸣重甲，全员换上纯黑紧身【夜行衣】、黑布蒙面、兵刃缠墨布，精选五十名身怀绝技的禁军与六扇门死士。
+  - 一行人依靠内线提供的防备线路图，避开明哨暗卡，借助飞爪百丈软索在云雾缭绕的后山万仞绝壁水涵栈道间悄无声息飞渡潜行，直插聚义忠义大堂！
+- **画面核心要素**：
+  1. **环境氛围**：子夜寒雾弥漫的太行后山险绝峭壁与古老废弃引水石槽暗道，月光清冷如霜，头顶上方山崖隐约透出山寨巡逻灯笼的微弱暖红火光，脚下是深不见底的幽谷夜岚。
+  2. **主体人物**：紧贴湿滑绝壁突岩与铁爪绳索的前景处，**身穿利落纯黑宋制夜行劲装、束腕绑腿、黑巾掩面仅露一双寒星锐目**的主角与同样一袭玄黑夜行装束、背负乌鞘宝剑的展昭一前一后猫腰疾行，展昭打出手势示意上方哨卡换岗空隙。
+  3. **精锐群像**：沿后方绝壁藤蔓、石缝与绳索之上，数十名同样身穿纯黑夜行衣、背负墨漆短弩与缠布钢刀的精锐死士如夜枭猿猱般鱼贯攀援而上，肃杀静谧、帅气逼人。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color stealth-action night illustration, wide cinematic 16:9 composition. Midnight mist clinging to a sheer vertical back-cliff and ancient mossy stone water-culvert ledge high on Mount Taihang around 1050 AD under cold silver moonlight, with faint warm patrol lanterns of the bandit stronghold glowing high above on the cliff rim. Clinging agilely to grappling ropes and narrow rock holds in the foreground, the young protagonist and master swordsman Zhan Zhao—both dressed in sleek pitch-black Northern Song night-infiltration attire (夜行衣) with black cloth face-wraps, bound cuffs, and muffled dark-sheathed blades—signal silently upward. Trailing seamlessly along the cliff face and ropes behind them are fifty elite black-clad commandos climbing in utter silence like night hawks. Cool silver-indigo moonlight, crisp gongbi brushwork, high wuxia espionage tension, zero text or characters.
+  ```
+
+---
+
+### 100. `CG-QST-100`：太行聚义大寨洞开 · 禁军大军四面合围残匪弃刃跪降图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest3.ts`](../src/data/quests/sects/jinjunTaihangQuest3.ts)
+- **目标路径**：`public/assets/quests/taihang_camp3_bandits_surrender.jpg`
+- **画框题跋**：`太行聚义大寨洞开 · 禁军大军四面合围残匪弃刃跪地投降`
+- **剧情语境**：
+  - 主角与展昭突入【聚义忠义大堂】，2v2 联手激战击败并生擒太行天王王重岳与九纹狂龙史万山，随后率五十死士杀至前寨斩断千斤闸铁链，大开山寨正门！
+  - 高怀亮率领的大宋禁军主力举火挺枪如潮水般涌入山寨将所有匪徒团团围住；眼见两大魁首俱已阶下受缚，数百太行山残匪心理彻底崩塌，纷纷抛下刀枪跪满整座校场乞降。
+- **画面核心要素**：
+  1. **环境氛围**：破晓微光与万千火把交映的太行山总寨【聚义忠义大堂】前巨型石砌校场，两侧粗犷寨门已彻底洞开，昔日嚣张的虎皮聚义旗被斩断倒在地上（旗面无字）。
+  2. **主体人物**：大堂高阶之上，一身夜行劲装微染血迹的主角与展昭并肩傲立，脚边是被重枷铁链锁住琵琶骨、面如死灰的王重岳与史万山；高怀亮率领重甲禁军长枪手与神臂弩手结成密不透风的钢铁圆阵四面合围。
+  3. **群寇伏降**：校场中央，数百名太行绿林匪徒将钢刀长矛丢得满地叮当乱响，成片跪伏在地高举空手投降，盘踞华北多年的匪巢一朝荡平！
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color triumphant battle-conclusion painting, wide cinematic 16:9 composition. Breaking dawn mixing with blazing torchlight inside the grand stone courtyard before the main hall of the Taihang Mountain Bandit Fortress around 1050 AD, its massive timber stronghold gates thrown wide open. Atop the stone steps of the hall stand the victorious young Song commander and swordsman Zhan Zhao in battle-worn black night-ops attire, standing guard over the two captured, heavily chained bandit overlords (Wang Chongyue and Shi Wanshan). Pouring through the open gates and forming an impenetrable ring of leveled spears, shields, and crossbows are thousands of armored Northern Song Imperial Guards, while in the center courtyard hundreds of remaining bandits throw their blades into piles on the ground and kneel in mass surrender. Dramatic dawn gold and torchlight, authentic Song painting details, zero text or characters.
+  ```
+
+---
+
+### 101. `CG-QST-101`：东京市曹浓烟惊变 · 晁云飞与阮惊涛飞身暴起强劫法场图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest3.ts`](../src/data/quests/sects/jinjunTaihangQuest3.ts)
+- **目标路径**：`public/assets/quests/taihang_camp3_execution_raid.jpg`
+- **画框题跋**：`东京市曹浓烟惊变 · 晁云飞与阮惊涛飞身暴起强劫法场`
+- **剧情语境**：
+  - 主角押解王重岳与史万山回京，于东京市曹公开处斩。正当午时三刻监斩令牌掷下之际，街角伪装草料车轰然炸开漫天硝烟！
+  - 京东绿林两大巨擘——京东义虎【晁云飞】与立地太岁【阮惊涛】不忍盟友受戮，竟孤注一掷潜入京师飞身暴起劫法场！主角早有防备，横身跃上刑台以一敌二正面硬撼双雄！
+- **画面核心要素**：
+  1. **环境氛围**：北宋东京市曹十字街刑场突发惊天巨变，街侧一辆倾覆草车炸起滚滚灰白烟瘴与木屑，围观百姓惊呼四散，外围绿林死士正拼死缠住禁军卫队。
+  2. **双寇突袭与主角独挡**：高筑的木制刑台之上，枷锁缠身的王重岳与史万山跪在木墩旁面露狂喜；半空中两名剽悍绝伦的一流绿林豪强凌空扑落——左侧虎背熊腰、紫金面皮留短髯的魁首（晁云飞）双手抡起一柄开山泼风大刀当头劈落，右侧精壮凶悍、赤足水靠披挂的猛汉（阮惊涛）挺分水钢叉斜刺锁喉；刑台正中央，戎装佩甲的主角凛然不退，拔刃旋身带起凛冽寒光以一敌二稳稳格架双雄杀招！
+  3. **动作张力**：千钧一发的劫法场高燃瞬间，刀叉寒芒、爆裂烟尘与刑台血色形成极致武侠动作大片定格。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color high-action wuxia illustration, wide cinematic 16:9 composition. Sudden chaos at the Kaifeng public execution ground around 1050 AD as smoke bombs erupt from a shattered hay-cart in the street and crowds scatter. Leaping fiercely through the swirling smoke onto the raised wooden execution platform—where the two chained bandit kings Wang Chongyue and Shi Wanshan kneel beside startled executioners—are two formidable outlaw champions: bold bearded chief Chao Yunfei slashing downward with a heavy broad-bladed saber and fierce muscular water-chieftain Ruan Jingtao thrusting a steel trident from the flank. Standing immovable directly before the execution block, the armored young Song general draws his weapon in a sweeping arc of steel energy, parrying both outlaw masters simultaneously in a thrilling 1-versus-2 clash. Dynamic motion, flying splinters and smoke, rich Song mineral pigments, zero text or characters.
+  ```
+
+---
+
+### 102. `CG-QST-102`：大内垂拱紫宸殿 · 荡平太行圣心大悦敕封禁军三衙都虞候图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaihangQuest3.ts`](../src/data/quests/sects/jinjunTaihangQuest3.ts)
+- **目标路径**：`public/assets/quests/taihang_camp3_lv4_investiture.jpg`
+- **画框题跋**：`大内垂拱紫宸殿 · 荡平太行圣心大悦敕封禁军三衙都虞候`
+- **剧情语境**：
+  - 主角于法场以一敌二击溃逃遁的晁云飞与阮惊涛，监斩王重岳、史万山伏法，盘踞华北多年的太行绿林匪患自此彻底荡平绝迹！
+  - 金殿大朝会之上，祥云瑞日映照紫宸正殿，宋仁宗龙颜大悦，当朝降敕正式册封主角晋升大宋禁军 Lv.4【三衙都虞候】，赐金甲虎符，与昔日同一大殿削冠夺职之景构成完美闭环！
+- **画面核心要素**：
+  1. **环境氛围**：辉煌庄严、瑞气千条的北宋皇宫【垂拱紫宸正殿】，殿门大开迎入灿烂朝阳，铜鹤香烟缭绕，殿外广场仪仗旌旗与金瓜武士肃立如画（旌旗牌匾皆无文字）。
+  2. **主体人物**：丹墀红毯正中，历经骄败、苦读、雪耻而终成一代名将的主角身披崭新御赐鎏金兽面山文重甲与猩红锦袍，双手沉稳恭敬接过内侍金盘奉上的【三衙都虞候】金印虎符与紫绶冠带；龙椅上宋仁宗含笑嘉勉，阶下枢密使王德用抚须欣慰大笑，包拯与红袍御猫展昭含笑颔首观礼，文武百官齐齐拱手称贺。
+  3. **史诗终章**：与 `CG-QST-091` 同殿同位而境遇天翻地覆，定格“千锤百炼始成帅才”的北宋立志传高光时刻！
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color grand imperial investiture masterpiece, wide cinematic 16:9 composition. Radiant golden morning sunlight flooding the magnificent Zichen Palace Hall of the Northern Song Imperial Palace in Kaifeng around 1050 AD, vermilion pillars gleaming and incense curling from bronze cranes. On the central crimson carpet before the marble dragon steps, the triumphant young general—clad in resplendent newly bestowed gilt-iron Song mountain-pattern armor (山文甲) and crimson brocade cloak—bows with poised dignity to receive a golden tiger-tally seal and official belt presented on a lacquer tray. Above on the throne, Emperor Renzong smiles warmly in praise, while beside the steps elderly Privy Councilor Wang Deyong strokes his white beard in proud joy alongside upright Judge Bao Zheng, crimson-robed royal guard Zhan Zhao, and congratulating Song civil and military officials. Majestic courtly splendor, rich mineral gold, vermilion, and azurite pigments, strictly zero text or characters.
   ```
 
 ---

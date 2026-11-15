@@ -145,7 +145,10 @@ export function RegionMapCanvas() {
           spotIds.add(sp.id)
           continue
         }
-        const npcs = getCompiledNpcsBySpot(sp.id)
+        const rawSpotNpcs = getCompiledNpcsBySpot(sp.id)
+        const npcs = questState.flags.taihang_bandits_eradicated
+          ? rawSpotNpcs.filter((n) => n.factionId !== 'SECT-18')
+          : rawSpotNpcs
         if (npcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
           spotIds.add(sp.id)
           continue
@@ -190,7 +193,10 @@ export function RegionMapCanvas() {
             continue
           }
         }
-        const bldgNpcs = getCompiledNpcsByBuilding(b.id)
+        const rawBldgNpcs = getCompiledNpcsByBuilding(b.id)
+        const bldgNpcs = questState.flags.taihang_bandits_eradicated
+          ? rawBldgNpcs.filter((n) => n.factionId !== 'SECT-18')
+          : rawBldgNpcs
         if (bldgNpcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
           buildingIds.add(b.id)
           continue

@@ -84,6 +84,7 @@ export type QuestCondition =
   | { type: 'talentAtLeast'; key: keyof HeroTalents; min: number }
   | { type: 'talentAtMost'; key: keyof HeroTalents; max: number }
   | { type: 'skillAtLeast'; key: TenArtKey; min: number }
+  | { type: 'skillAtMost'; key: TenArtKey; max: number }
   | {
       type: 'combatStatAtLeast'
       key: 'maxHp' | 'maxMp' | 'agility' | 'res'
@@ -99,6 +100,13 @@ export type QuestCondition =
   | { type: 'inSect'; sectId: string | null; minRank?: SectRankLevel }
   | { type: 'notInAnySect'; allowTransferFromSectId?: string }
   | { type: 'kaifengRank2DaysAtLeast'; min: number }
+  | { type: 'sectDaysAtLeast'; sectId: string; min: number }
+  | {
+      type: 'questCompletedDaysAgoAtLeast'
+      questId: string
+      minDays: number
+      outcome?: string
+    }
   | {
       type: 'questStatus'
       questId: string
@@ -261,6 +269,8 @@ export type QuestEffect =
       allowOfficialTransfer?: boolean
     }
   | { type: 'confirmJoinSect'; sectId: string }
+  | { type: 'setSectRank'; sectId: string; rank: SectRankLevel }
+  | { type: 'fineSectSalary'; months: number }
   | { type: 'leaveSect'; skipPenalty?: boolean }
   | { type: 'addSectContribution'; amount: number }
   | { type: 'activateShaolinNovice' }

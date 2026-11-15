@@ -75,7 +75,9 @@ export function PortraitsTab({
 
   const filteredNpcs = useMemo(() => {
     const q = npcQuery.trim().toLowerCase()
+    const taihangEradicated = Boolean(questFlags.taihang_bandits_eradicated)
     return NPCS_DB.filter((c) => {
+      if (taihangEradicated && c.factionId === 'SECT-18') return false
       if (npcScope === 'ALL_WITH_ART' && !c.avatarUrl && !c.fullbodyUrl) return false
       if (npcScope === 'HISTORICAL' && c.category !== '历史名人') return false
       if (npcScope === 'GRANDMASTER_MASTER' && c.realmRank > 6) return false
@@ -104,7 +106,7 @@ export function PortraitsTab({
         artifactMatch
       )
     })
-  }, [npcQuery, npcScope, npcRegionFilter, npcFactionFilter, activeRegionId])
+  }, [npcQuery, npcScope, npcRegionFilter, npcFactionFilter, activeRegionId, questFlags])
 
   return (
     <div className="space-y-3.5 text-xs">
