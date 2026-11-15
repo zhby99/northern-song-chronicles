@@ -1,8 +1,12 @@
 import { useMemo, useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { FACTION_DB_MAP, REGION_DB_MAP } from '../../../data/gameDb'
+import { getRegionUnlockRequirement, isRegionUnlockedByInventory } from '../../../data/itemsDb'
 import { QUEST_MAP, QUEST_REGISTRY } from '../../../data/quests'
-import { useGameStore } from '../../../store/useGameStore'
-import type { QuestCategoryKey } from '../../../types/quest'
+import { collectUnmetQuestReasons, type QuestEvalContext } from '../../../engine/questEngine'
+import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
+import type { InventoryStack } from '../../../types/game'
+import type { QuestCategoryKey, QuestCondition, QuestTargetLocationHint } from '../../../types/quest'
 import {
   assessQuestRealmReadiness,
   estimateHeroRealm,
@@ -46,15 +50,123 @@ const READINESS_BADGE_META: Record<RealmReadinessStatus, string> = {
   dangerous: 'bg-[#f8e3e1] border-[#d6887f] text-[#8f1d14]',
 }
 
+function getLocateUnmetReasons(
+  condition: QuestCondition | undefined,
+  target: QuestTargetLocationHint,
+  evalCtx: QuestEvalContext,
+  inventory: ReadonlyArray<InventoryStack>,
+): string[] {
+  const seen = new Set<string>()
+  const out: string[] = []
+  const push = (r: string) => {
+    if (r && !seen.has(r)) {
+      seen.add(r)
+      out.push(r)
+    }
+  }
+  if (condition) {
+    for (const r of collectUnmetQuestReasons(condition, evalCtx, QUEST_MAP)) {
+      push(r)
+    }
+  }
+  if (!isRegionUnlockedByInventory(target.regionId, inventory)) {
+    const req = getRegionUnlockRequirement(target.regionId)
+    if (req) {
+      push(`需先持有${req.mapItemName}解锁【${req.regionName}】`)
+    }
+  }
+  return out
+}
+
+function QuestLocateButton({
+  target,
+  label,
+  variant,
+  unmetReasons,
+  onLocate,
+}: {
+  target: QuestTargetLocationHint
+  label: string
+  variant: 'spy' | 'active' | 'available'
+  unmetReasons: string[]
+  onLocate: (target: QuestTargetLocationHint) => void
+}) {
+  const isDisabled = unmetReasons.length > 0
+  const activeStyle =
+    variant === 'spy'
+      ? 'px-3.5 py-1.5 rounded bg-[#781710] hover:bg-[#961f16] text-[#fff8ee] text-xs font-bold song-serif cursor-pointer shadow shrink-0'
+      : variant === 'active'
+        ? 'px-3.5 py-2 rounded bg-[#1f4d3b] hover:bg-[#27614a] text-[#fff8ee] text-xs font-bold song-serif cursor-pointer shadow shrink-0'
+        : 'px-3 py-1.5 rounded bg-[#355263] hover:bg-[#43687d] text-[#fff8ee] text-xs font-bold song-serif cursor-pointer shadow shrink-0'
+
+  const disabledStyle =
+    variant === 'active'
+      ? 'px-3.5 py-2 rounded bg-[#cfc3ae] text-[#6d5c46] border border-[#b4a389] text-xs font-bold song-serif cursor-not-allowed opacity-75 shrink-0'
+      : 'px-3 py-1.5 rounded bg-[#cfc3ae] text-[#6d5c46] border border-[#b4a389] text-xs font-bold song-serif cursor-not-allowed opacity-75 shrink-0'
+
+  if (!isDisabled) {
+    return (
+      <button type="button" onClick={() => onLocate(target)} className={activeStyle}>
+        {label}
+      </button>
+    )
+  }
+
+  return (
+    <div className="relative group inline-block shrink-0">
+      <button
+        type="button"
+        disabled
+        aria-disabled="true"
+        title={`尚未满足前置条件：\n${unmetReasons.map((r) => `• ${r}`).join('\n')}`}
+        className={disabledStyle}
+      >
+        {label}
+      </button>
+      <div
+        role="tooltip"
+        className="hidden group-hover:block group-focus-within:block pointer-events-none absolute right-0 bottom-full mb-2 w-72 sm:w-80 p-2.5 rounded-md bg-[#23180f] text-[#fdf6e7] border border-[#a58654] shadow-xl z-50 text-xs leading-relaxed text-left"
+      >
+        <div className="font-bold text-[#f5d08a] mb-1 song-serif">尚未满足前置条件：</div>
+        <ul className="space-y-0.5 list-disc list-inside text-[#f5ead4]">
+          {unmetReasons.map((reason) => (
+            <li key={reason}>{reason}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
 export function QuestsTab() {
-  const dayCount = useGameStore((s) => s.dayCount)
-  const maxHp = useGameStore((s) => s.maxHp)
-  const maxMp = useGameStore((s) => s.maxMp)
-  const renown = useGameStore((s) => s.renown)
-  const chivalry = useGameStore((s) => s.chivalry)
-  const sectState = useGameStore((s) => s.sectState)
-  const questState = useGameStore((s) => s.questState)
+  const evalState = useGameStore(
+    useShallow((s) => ({
+      dayCount: s.dayCount,
+      shichenIdx: s.shichenIdx,
+      silver: s.silver,
+      renown: s.renown,
+      chivalry: s.chivalry,
+      food: s.food,
+      hp: s.hp,
+      maxHp: s.maxHp,
+      mp: s.mp,
+      maxMp: s.maxMp,
+      agility: s.agility,
+      res: s.res,
+      ridingSkill: s.ridingSkill,
+      baseStats: s.baseStats,
+      skills: s.skills,
+      inventory: s.inventory,
+      learnedArts: s.learnedArts,
+      npcFavor: s.npcFavor,
+      sectState: s.sectState,
+      questState: s.questState,
+    })),
+  )
   const locateQuestTargetOnMap = useGameStore((s) => s.locateQuestTargetOnMap)
+
+  const { dayCount, maxHp, maxMp, renown, chivalry, inventory, sectState, questState } = evalState
+  const questEvalCtx = useMemo(() => buildStoreEvalContext(evalState), [evalState])
 
   const [subTab, setSubTab] = useState<'active' | 'available' | 'completed' | 'causal'>('active')
 
@@ -184,20 +296,23 @@ export function QuestsTab() {
                   。请于期限届满前赶赴该处寻获密谍并开启生死对决将其诛除！
                 </p>
                 <div className="flex justify-end">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      locateQuestTargetOnMap({
-                        regionId: activeSpy.regionId,
-                        buildingId: activeSpy.buildingId,
-                        spotId: activeSpy.spotId ?? undefined,
-                        customLabel: `${activeSpy.regionName} · ${activeSpy.buildingName}`,
-                      })
+                  {(() => {
+                    const spyTarget: QuestTargetLocationHint = {
+                      regionId: activeSpy.regionId,
+                      buildingId: activeSpy.buildingId,
+                      spotId: activeSpy.spotId ?? undefined,
+                      customLabel: `${activeSpy.regionName} · ${activeSpy.buildingName}`,
                     }
-                    className="px-3.5 py-1.5 rounded bg-[#781710] hover:bg-[#961f16] text-[#fff8ee] text-xs font-bold song-serif cursor-pointer shadow"
-                  >
-                    舆图定位：{activeSpy.regionName} · {activeSpy.buildingName} ▸
-                  </button>
+                    return (
+                      <QuestLocateButton
+                        target={spyTarget}
+                        label={`舆图定位：${activeSpy.regionName} · ${activeSpy.buildingName} ▸`}
+                        variant="spy"
+                        unmetReasons={getLocateUnmetReasons(undefined, spyTarget, questEvalCtx, inventory)}
+                        onLocate={locateQuestTargetOnMap}
+                      />
+                    )
+                  })()}
                 </div>
               </div>
             )
@@ -300,17 +415,22 @@ export function QuestsTab() {
                     </div>
 
                     {step?.targetLocation && (
-                      <button
-                        type="button"
-                        onClick={() => locateQuestTargetOnMap(step.targetLocation!)}
-                        className="px-3.5 py-2 rounded bg-[#1f4d3b] hover:bg-[#27614a] text-[#fff8ee] text-xs font-bold song-serif cursor-pointer shadow shrink-0"
-                      >
-                        舆图定位：
-                        {step.targetLocation.customLabel ??
+                      <QuestLocateButton
+                        target={step.targetLocation}
+                        label={`舆图定位：${
+                          step.targetLocation.customLabel ??
                           REGION_DB_MAP[step.targetLocation.regionId]?.name ??
-                          step.targetLocation.regionId}{' '}
-                        ▸
-                      </button>
+                          step.targetLocation.regionId
+                        } ▸`}
+                        variant="active"
+                        unmetReasons={getLocateUnmetReasons(
+                          step.prereqCondition,
+                          step.targetLocation,
+                          questEvalCtx,
+                          inventory,
+                        )}
+                        onLocate={locateQuestTargetOnMap}
+                      />
                     )}
                   </div>
                 </div>
@@ -391,13 +511,22 @@ export function QuestsTab() {
                       {qDef.startHint ?? '游历对应州府与门派即可触发。'}
                     </div>
                     {qDef.startLocation && (
-                      <button
-                        type="button"
-                        onClick={() => locateQuestTargetOnMap(qDef.startLocation!)}
-                        className="px-3 py-1.5 rounded bg-[#355263] hover:bg-[#43687d] text-[#fff8ee] text-xs font-bold song-serif cursor-pointer shadow shrink-0"
-                      >
-                        舆图定位：{qDef.startLocation.customLabel ?? qDef.startLocation.regionId} ▸
-                      </button>
+                      <QuestLocateButton
+                        target={qDef.startLocation}
+                        label={`舆图定位：${
+                          qDef.startLocation.customLabel ??
+                          REGION_DB_MAP[qDef.startLocation.regionId]?.name ??
+                          qDef.startLocation.regionId
+                        } ▸`}
+                        variant="available"
+                        unmetReasons={getLocateUnmetReasons(
+                          qDef.startCondition,
+                          qDef.startLocation,
+                          questEvalCtx,
+                          inventory,
+                        )}
+                        onLocate={locateQuestTargetOnMap}
+                      />
                     )}
                   </div>
                 </div>

@@ -974,6 +974,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       bow: null,
       accessory1: 'ACC-052', // 旧铜钱挂坠
       accessory2: 'ACC-049', // 粗麻平安绳
+      curio1: null,
+      curio2: null,
       mount: null,
     }
     const emptyEquippedArts: EquippedArtsMap = {
@@ -1679,6 +1681,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       if (!s.equipped.accessory1) slot = 'accessory1'
       else if (!s.equipped.accessory2) slot = 'accessory2'
       else slot = preferredSlot ?? 'accessory1'
+    } else if (def.equipSlot === 'curio1' || def.equipSlot === 'curio2') {
+      if (!s.equipped.curio1) slot = 'curio1'
+      else if (!s.equipped.curio2) slot = 'curio2'
+      else slot = preferredSlot ?? 'curio1'
     }
 
     const afterRemove = removeItemFromInventory(s.inventory, itemId, 1)

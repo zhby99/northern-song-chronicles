@@ -10,6 +10,7 @@ import {
 } from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
 import type { BagCategoryKey, CompiledMartialArtRecord, EquipmentTier } from '../../../types/game'
+import { getMedicineRealmScale, scaleMedicineRecovery } from '../../../utils/realmUtils'
 import { BagCatIcon } from '../MenuIcons'
 import type { TreasureCollectionStats } from '../menuShared'
 import { ItemAcquisitionBanner } from '../ItemAcquisitionBanner'
@@ -40,9 +41,13 @@ export function TreasuresTab({
 }: TreasuresTabProps) {
   const inventory = useGameStore((s) => s.inventory)
   const equipped = useGameStore((s) => s.equipped)
+  const maxHp = useGameStore((s) => s.maxHp)
+  const maxMp = useGameStore((s) => s.maxMp)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
+  const consumedOnceItemIds = useGameStore((s) => s.consumedOnceItemIds)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
+  const medScale = useMemo(() => getMedicineRealmScale(maxHp, maxMp), [maxHp, maxMp])
   const consumeInventoryItem = useGameStore((s) => s.consumeInventoryItem)
 
   const [treasureTierFilter, setTreasureTierFilter] = useState<'ALL' | EquipmentTier>('ALL')
@@ -656,8 +661,16 @@ export function TreasuresTab({
                           {[
                             def.useEffect.maxHp ? `气血上限永久 +${def.useEffect.maxHp}` : null,
                             def.useEffect.maxMp ? `内力上限永久 +${def.useEffect.maxMp}` : null,
-                            def.useEffect.hp ? `气血恢复 +${def.useEffect.hp}` : null,
-                            def.useEffect.mp ? `内力回复 +${def.useEffect.mp}` : null,
+                            def.useEffect.hp
+                              ? def.category === 'medicine'
+                                ? `气血恢复 +${scaleMedicineRecovery(def.useEffect.hp, maxHp, maxMp)}${medScale.multiplier > 1 ? `（基础 ${def.useEffect.hp} × ${medScale.multiplier} ${medScale.realm.label}）` : ''}`
+                                : `气血恢复 +${def.useEffect.hp}`
+                              : null,
+                            def.useEffect.mp
+                              ? def.category === 'medicine'
+                                ? `内力回复 +${scaleMedicineRecovery(def.useEffect.mp, maxHp, maxMp)}${medScale.multiplier > 1 ? `（基础 ${def.useEffect.mp} × ${medScale.multiplier} ${medScale.realm.label}）` : ''}`
+                                : `内力回复 +${def.useEffect.mp}`
+                              : null,
                             def.useEffect.agi ? `身法永久 +${def.useEffect.agi}` : null,
                             def.useEffect.res ? `抗性永久 +${def.useEffect.res}` : null,
                             def.useEffect.curePoison ? '涤除奇毒异常' : null,
@@ -665,6 +678,11 @@ export function TreasuresTab({
                             def.useEffect.food ? `粮草 +${def.useEffect.food}日份` : null,
                             def.useEffect.skillGain
                               ? `【${def.useEffect.skillGain[0]}】+${def.useEffect.skillGain[1]}`
+                              : null,
+                            def.useEffect.onceOnly
+                              ? consumedOnceItemIds.includes(def.id)
+                                ? '（已初品一次 · 再食无效）'
+                                : '（限初品一次有效）'
                               : null,
                             def.useEffect.learnArtHint ?? null,
                           ]

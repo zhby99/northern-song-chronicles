@@ -23,6 +23,13 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
       buildingId: 'th_hall',
       customLabel: '太行山 · 聚义总寨',
     },
+    startCondition: {
+      type: 'all',
+      conditions: [
+        { type: 'notInAnySect' },
+        { type: 'flag', flag: 'toumingzhuang_completed', op: 'falsy', label: '尚未完成太行投名状' },
+      ],
+    },
     summary:
       '欲入太行/京东绿林盟聚义堂，须按草莽铁律立下「投名状」——拦路劫杀一名大宋朝廷命官。此举将令少侠名列大宋官府海捕黑名单，一旦踏入东京开封府必遭御猫展昭锁拿问斩！',
     initialStepId: 'rob_official',
@@ -301,6 +308,21 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
       buildingId: 'yz_chaoguan',
       customLabel: '扬州府 · 江淮漕帮总舵',
     },
+    startCondition: {
+      type: 'all',
+      conditions: [
+        {
+          type: 'not',
+          condition: { type: 'hasItem', itemId: 'ITM-MSC-003' },
+          reason: '已持有《钱塘怒潮帮举荐帖》，可直接持帖入门',
+        },
+        {
+          type: 'not',
+          condition: { type: 'inSect', sectId: 'SECT-16' },
+          reason: '少侠已身在【江淮漕帮】门墙',
+        },
+      ],
+    },
     summary:
       '二流大帮【江淮漕帮】把控汴河漕运命脉，不收来历不明之外人。须先投身杭州【钱塘怒潮帮】晋升至第2阶「内门香主」，再以20两纹银贿赂副帮主陈承涛求取《钱塘怒潮帮举荐帖》。',
     initialStepId: 'get_nuchao_letter',
@@ -389,6 +411,26 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
       regionId: 'daming',
       buildingId: 'dm_baji',
       customLabel: '大名府 · 沧州八极门武场',
+    },
+    startCondition: {
+      type: 'all',
+      conditions: [
+        {
+          type: 'not',
+          condition: { type: 'hasItem', itemId: 'ITM-MSC-004' },
+          reason: '已持有《齐鲁查拳馆举荐帖》，可直接持帖入门',
+        },
+        {
+          type: 'not',
+          condition: { type: 'hasItem', itemId: 'ITM-MSC-008' },
+          reason: '已持有《八极铁证直入信物》，可直接持信物入门',
+        },
+        {
+          type: 'not',
+          condition: { type: 'inSect', sectId: 'SECT-23' },
+          reason: '少侠已身在【沧州八极门】门墙',
+        },
+      ],
     },
     summary:
       '河北名门【沧州八极门】拳风刚猛霸道，非武林同道保举不纳门墙。须先在济南府【齐鲁查拳馆】晋升至第2阶「内堂武师」，再奉银20两贿赂金牌总教头求取《齐鲁查拳馆举荐帖》。',
@@ -479,6 +521,21 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
       regionId: 'quanzhou',
       buildingId: 'qz_zhenyuan',
       customLabel: '泉州府 · 闽海镇远总镖局',
+    },
+    startCondition: {
+      type: 'all',
+      conditions: [
+        {
+          type: 'not',
+          condition: { type: 'hasItem', itemId: 'ITM-MSC-005' },
+          reason: '已持有《岭南洪门武馆举荐帖》，可直接持帖入门',
+        },
+        {
+          type: 'not',
+          condition: { type: 'inSect', sectId: 'SECT-24' },
+          reason: '少侠已身在【闽海镇远镖局】门墙',
+        },
+      ],
     },
     summary:
       '泉州【闽海镇远镖局】专走闽粤南洋重宝红货，非硬桥硬马名馆保举不可入局。须先在广州府【岭南洪门武馆】晋升至第2阶「内堂武师」，再奉银20两贿赂金牌总教头求取《岭南洪门武馆举荐帖》。',

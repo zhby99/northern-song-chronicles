@@ -553,6 +553,8 @@ export type EquipmentSlotKey =
   | 'bow'
   | 'accessory1'
   | 'accessory2'
+  | 'curio1'
+  | 'curio2'
   | 'mount'
 
 export type BagCategoryKey = 'scrolls' | 'medicine' | 'tools' | 'misc'

@@ -35,6 +35,10 @@ export function SlotIcon({
       return <Gem className={className} />
     case 'accessory2':
       return <Sparkles className={className} />
+    case 'curio1':
+      return <Hammer className={className} />
+    case 'curio2':
+      return <BookOpen className={className} />
     case 'mount':
       return <Compass className={className} />
   }

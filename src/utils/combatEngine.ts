@@ -639,6 +639,8 @@ export function buildNpcCombatant(
         bow: null,
         accessory1: null,
         accessory2: null,
+        curio1: null,
+        curio2: null,
         mount: null,
       }
   const customEquippedArts: EquippedArtsMap = npcNode.equippedArts

@@ -719,6 +719,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
       buildingId: 'bianliang_base_dojo',
       customLabel: '开封府 · 西坊演武拳馆（杨排风）',
     },
+    startCondition: PROLOGUE_ENTRY_CONDITION,
     initialStepId: 'visit_yang_wenguang',
     steps: {
       visit_yang_wenguang: {

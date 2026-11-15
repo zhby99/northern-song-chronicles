@@ -227,6 +227,8 @@ const EQUIP_SLOT_KEYS: EquipmentSlotKey[] = [
   'bow',
   'accessory1',
   'accessory2',
+  'curio1',
+  'curio2',
   'mount',
 ]
 
@@ -296,6 +298,8 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
       bow: null,
       accessory1: null,
       accessory2: null,
+      curio1: null,
+      curio2: null,
       mount: null,
     }
     for (const k of EQUIP_SLOT_KEYS) {

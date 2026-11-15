@@ -85,6 +85,8 @@ export const INITIAL_STARTER_EQUIPPED: EquippedSlotsMap = {
   bow: null,
   accessory1: 'ACC-052', // 旧铜钱挂坠
   accessory2: 'ACC-049', // 粗麻平安绳
+  curio1: null,
+  curio2: null,
   mount: null,
 }
 

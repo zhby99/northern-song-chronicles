@@ -1022,6 +1022,13 @@ export const KAIFENG_MURONG_QUEST_1: QuestDefinition[] = [
       spotId: 'bl_kf_liushan',
       customLabel: '开封府 · 开封府衙 · 六扇门捕快演武院',
     },
+    startCondition: {
+      type: 'all',
+      conditions: [
+        { type: 'inSect', sectId: 'SECT-17', minRank: 2 },
+        { type: 'kaifengRank2DaysAtLeast', min: 730 },
+      ],
+    },
     initialStepId: 'suzhou_investigate',
     summary:
       '捕头都头做满 730 天后，奉包拯密令微服南下姑苏查探燕子坞慕容氏私蓄兵甲之疑云。须先挫败包不同、风波恶，潜入参合庄秘档室取证，并在“神掌震江南”邓百川手下撑过 10 回合全身而退，方可解锁晋升【Lv.3 金牌总捕】。',

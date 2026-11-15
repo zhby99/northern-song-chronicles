@@ -322,6 +322,7 @@ export interface QuestStepDef {
   objective: string
   nextHint?: string
   targetLocation?: QuestTargetLocationHint
+  prereqCondition?: QuestCondition
 }
 
 /**
@@ -392,6 +393,7 @@ export interface QuestDefinition {
   recommendedNote?: string
   startHint?: string
   startLocation?: QuestTargetLocationHint
+  startCondition?: QuestCondition
   summary: string
   initialStepId: string
   steps: Record<string, QuestStepDef>

@@ -1574,6 +1574,13 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
       spotId: 'bl_kf_court',
       customLabel: '开封府 · 开封府衙 · 开封府升堂正殿',
     },
+    startCondition: {
+      type: 'all',
+      conditions: [
+        { type: 'inSect', sectId: 'SECT-17', minRank: 3 },
+        { type: 'questStatus', questId: 'QST-SECT-17-MURONG-1', status: 'completed' },
+      ],
+    },
     summary:
       '晋升开封府【金牌总捕】后，先于汴梁查获契丹密使口供、奉包拯与紫宸密旨再度南下姑苏。依次赴虎丘、寒山寺锁死铁证，于太湖渡口击败“江南二绝”公冶乾、于参合庄演武场正面击败“神掌震江南”邓百川，最终踏入还施水阁当面质问慕容复并与其交手十合，双方收手立约，解锁晋升【Lv.4 御前护卫】资格。',
     initialStepId: 'kaifeng_market_rumor',

@@ -517,6 +517,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
       spotId: 'zd_sp_hall',
       customLabel: '真定府 · 常山龙胆枪脉宗祠正堂',
     },
+    startCondition: PREREQ_CONDITION,
     summary:
       '真定府榷场惊现幽州悯忠寺血迹铜牌与「南牧图成，速毁于燕」血书。常山枪派内堂弟子奉掌门赵括苍与韩琦密命，随郭逵隐姓埋名潜入辽南京析津府，焚毁《南牧山川策》并护图杀出雁门关。',
     initialStepId: 'meet_hanqi',

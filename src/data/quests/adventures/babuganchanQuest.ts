@@ -904,6 +904,7 @@ export const BABUGANCHAN_QUESTS: QuestDefinition[] = [
       buildingId: 'bianliang_base_tavern',
       customLabel: '开封府 · 临街酒楼 · 醉仙楼（程万里）',
     },
+    startCondition: { type: 'renownAtLeast', min: 120 },
     initialStepId: 'start_rumor',
     summary:
       '三十年前轻功宗师沈疏影护送边防密折遭“截风门”伏杀，地阶轻功《八步赶蝉》一分为三散落汴洛。江湖声望达 120 后，于开封汴河虹桥酒肆拾得半枚“秋蝉令”，循迹追查并集齐三卷秘谱，方可重现绝学。',

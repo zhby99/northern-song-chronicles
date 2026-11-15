@@ -471,6 +471,47 @@ export function evaluateQuestCondition(
   }
 }
 
+/**
+ * 收集某项任务条件中所有未满足的原因列表（用于 UI 悬停提示全部缺口）
+ */
+export function collectUnmetQuestReasons(
+  cond: QuestCondition,
+  ctx: QuestEvalContext,
+  questMap: Record<string, QuestDefinition> = QUEST_MAP,
+): string[] {
+  const seen = new Set<string>()
+  const out: string[] = []
+  const push = (r: string | null) => {
+    if (r && !seen.has(r)) {
+      seen.add(r)
+      out.push(r)
+    }
+  }
+
+  const walk = (c: QuestCondition): void => {
+    if (c.type === 'all') {
+      for (const sub of c.conditions) {
+        walk(sub)
+      }
+      return
+    }
+    if (c.type === 'any') {
+      const res = evaluateQuestCondition(c, ctx, questMap)
+      if (!res.passed) {
+        push(res.reason ?? '尚未满足任一前置条件')
+      }
+      return
+    }
+    const res = evaluateQuestCondition(c, ctx, questMap)
+    if (!res.passed) {
+      push(res.reason ?? '尚未满足前置条件')
+    }
+  }
+
+  walk(cond)
+  return out
+}
+
 export interface EvaluatedNpcQuestAction {
   quest: QuestDefinition
   action: QuestNpcActionDef
