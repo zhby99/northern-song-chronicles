@@ -73,7 +73,8 @@ import type {
   ViewMode,
   WildernessCamp,
 } from '../types/game'
-import type { CultivationSpeedStep, TenArtKey } from '../types/game'
+import type { CultivationSpeedStep, ProtagonistGender, TenArtKey } from '../types/game'
+import { getProtagonistGender } from '../data/protagonistPresets'
 import {
   computeDailyArtExpGain,
   getArtLevelFromExp,
@@ -308,10 +309,12 @@ export interface GameStoreState {
   characterCreated: boolean
   playerName: string
   playerPortraitId: string
+  playerGender: ProtagonistGender
   playerAge: number
   completeCharacterCreation: (payload: {
     name: string
     portraitId: string
+    gender?: ProtagonistGender
     silver: number
     baseStats: HeroBaseStats
     startNodeId?: string
@@ -1005,6 +1008,7 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     characterCreated: s.characterCreated,
     playerName: s.playerName,
     playerPortraitId: s.playerPortraitId,
+    playerGender: s.playerGender,
     playerAge: s.playerAge,
     dayCount: s.dayCount,
     shichenIdx: s.shichenIdx,
@@ -1110,10 +1114,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   characterCreated: false,
   playerName: '无名少侠',
   playerPortraitId: 'hero_04_swordsman',
+  playerGender: '男',
   playerAge: 12,
-  completeCharacterCreation: ({ name, portraitId, silver, baseStats, startNodeId }) => {
+  completeCharacterCreation: ({ name, portraitId, gender, silver, baseStats, startNodeId }) => {
     const s = get()
     const finalName = name.trim() || '无名少侠'
+    const finalGender: ProtagonistGender = gender ?? getProtagonistGender(portraitId)
     const finalSilver = Math.max(0, Math.floor(silver))
     const validStartNode =
       startNodeId && NODE_MAP[startNodeId]?.type === 'city'
@@ -1154,6 +1160,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       characterCreated: true,
       playerName: finalName,
       playerPortraitId: portraitId,
+      playerGender: finalGender,
       playerAge: 12,
       silver: finalSilver,
       baseStats: cleanBase,
@@ -7728,6 +7735,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       characterCreated: st.characterCreated ?? true,
       playerName: st.playerName || '无名少侠',
       playerPortraitId: st.playerPortraitId || 'hero_04_swordsman',
+      playerGender: st.playerGender ?? getProtagonistGender(st.playerPortraitId),
       playerAge: st.playerAge ?? 12,
       baseStats: cleanBase,
       mountKey: derived.mountKey,

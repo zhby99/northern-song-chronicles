@@ -87,6 +87,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const mainQinggong = equippedArts.qinggong ? MARTIAL_ART_DB_MAP[equippedArts.qinggong] : null
   const playerName = useGameStore((s) => s.playerName)
   const playerPortraitId = useGameStore((s) => s.playerPortraitId)
+  const playerGender = useGameStore((s) => s.playerGender)
   const heroPortrait = getProtagonistPortrait(playerPortraitId)
   const heroImgUrl = heroPortrait.fullbodyUrl
   const currentSectName = sectState.sectId
@@ -135,7 +136,9 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
               </h4>
             </div>
             <div className="text-right text-xs text-[#6b5235]">
-              <div className="font-semibold text-[#3d2814]">年龄：{heroAge} 岁</div>
+              <div className="font-semibold text-[#3d2814]">
+                性别：{playerGender} · 年龄：{heroAge} 岁
+              </div>
               <div
                 className="font-semibold text-[#781710]"
                 title={

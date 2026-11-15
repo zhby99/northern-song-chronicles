@@ -270,6 +270,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
     completeCharacterCreation({
       name: name.trim() || '无名少侠',
       portraitId,
+      gender: activePortrait.gender,
       silver: INITIAL_SILVER,
       startNodeId: startCityNode.id,
       baseStats: {
@@ -305,15 +306,15 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
           {/* 左侧：肖像 10 选 1 + 全身预览 + 固定出身 */}
           <div className="lg:col-span-5 flex flex-col gap-5">
             <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5">
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-3 gap-2 flex-wrap">
                 <span className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f]">
-                  一、择选容貌（十选一）
+                  一、择选容貌（十五选一 · 男十女五）
                 </span>
                 <span className="text-xl sm:text-2xl font-semibold text-[#781710]">
-                  当前：{activePortrait.label}
+                  当前：{activePortrait.label}（{activePortrait.gender}）
                 </span>
               </div>
-              <div className="grid grid-cols-5 gap-3">
+              <div className="grid grid-cols-5 gap-2.5">
                 {PROTAGONIST_PORTRAITS.map((p) => {
                   const selected = p.id === portraitId
                   return (
@@ -321,20 +322,31 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
                       key={p.id}
                       type="button"
                       onClick={() => setPortraitId(p.id)}
-                      title={p.label}
-                      className={`group relative rounded-lg overflow-hidden border-2 transition-all ${
+                      title={`${p.label}（${p.gender}）`}
+                      className={`group relative rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
                         selected
                           ? 'border-[#8f1d14] ring-4 ring-[#8f1d14]/40 scale-[1.03]'
                           : 'border-[#cbb693] hover:border-[#8f1d14]/60'
                       }`}
                     >
-                      <ManagedAssetImg
-                        url={p.avatarUrl}
-                        alt={p.label}
-                        className="w-full aspect-square object-cover block"
-                      />
+                      <div className="relative w-full aspect-square bg-[#dfd0b1]">
+                        <ManagedAssetImg
+                          url={p.avatarUrl}
+                          alt={p.label}
+                          className="w-full h-full object-cover block"
+                        />
+                        <span
+                          className={`absolute top-1 right-1 px-1.5 py-0.5 rounded text-[11px] font-bold leading-none shadow ${
+                            p.gender === '女'
+                              ? 'bg-[#8f1d14]/90 text-[#fff8eb]'
+                              : 'bg-[#261910]/85 text-[#f7e7c4]'
+                          }`}
+                        >
+                          {p.gender}
+                        </span>
+                      </div>
                       <div
-                        className={`text-sm sm:text-lg text-center py-1 truncate px-1 ${
+                        className={`text-sm sm:text-base text-center py-1 truncate px-1 ${
                           selected
                             ? 'bg-[#8f1d14] text-[#fff8eb] font-bold'
                             : 'bg-[#e7d7b8]/90 text-[#3d2814]'
@@ -350,7 +362,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
 
             {/* 全身立绘预览 + 固定信息 */}
             <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 flex gap-5 items-stretch flex-1">
-              <div className="w-48 sm:w-60 shrink-0 rounded-lg overflow-hidden border-2 border-[#b5986e] bg-[#dfd0b1]">
+              <div className="w-48 sm:w-60 shrink-0 rounded-lg overflow-hidden border-2 border-[#b5986e] bg-[#dfd0b1] relative">
                 <ManagedAssetImg
                   url={activePortrait.fullbodyUrl}
                   alt={activePortrait.label}
@@ -361,6 +373,10 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
                 <div className="space-y-3">
                   <div className="font-bold song-serif text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
                     立籍简录
+                  </div>
+                  <div className="flex justify-between gap-2">
+                    <span className="text-[#6b5235]">性别</span>
+                    <span className="font-bold text-[#781710]">{activePortrait.gender}</span>
                   </div>
                   <div className="flex justify-between gap-2">
                     <span className="text-[#6b5235]">年龄</span>

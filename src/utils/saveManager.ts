@@ -442,6 +442,13 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
       typeof st.playerPortraitId === 'string' && st.playerPortraitId.trim()
         ? st.playerPortraitId.trim()
         : 'hero_04_swordsman',
+    playerGender:
+      st.playerGender === '女' || st.playerGender === '男'
+        ? st.playerGender
+        : typeof st.playerPortraitId === 'string' &&
+            /^hero_1[1-5]_/.test(st.playerPortraitId.trim())
+          ? '女'
+          : '男',
     playerAge: typeof st.playerAge === 'number' && st.playerAge >= 12 ? Math.floor(st.playerAge) : 12,
     dayCount: Math.floor(st.dayCount),
     shichenIdx:

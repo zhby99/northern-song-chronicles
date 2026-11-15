@@ -906,10 +906,13 @@ export interface GameOverState {
   locationName: string
 }
 
+export type ProtagonistGender = '男' | '女'
+
 export interface SerializableGameState {
   characterCreated?: boolean
   playerName?: string
   playerPortraitId?: string
+  playerGender?: ProtagonistGender
   playerAge?: number
   dayCount: number
   shichenIdx: number
