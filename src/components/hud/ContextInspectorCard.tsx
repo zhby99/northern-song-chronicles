@@ -120,6 +120,7 @@ export function ContextInspectorCard() {
   const interactNpc = useGameStore((s) => s.interactNpc)
   const startNpcCombat = useGameStore((s) => s.startNpcCombat)
   const openNpcInteraction = useGameStore((s) => s.openNpcInteraction)
+  const completeKaifengInvestigation = useGameStore((s) => s.completeKaifengInvestigation)
   const openNpcDetailInCompendium = useGameStore((s) => s.openNpcDetailInCompendium)
   const openMenu = useGameStore((s) => s.openMenu)
 
@@ -1316,6 +1317,14 @@ export function ContextInspectorCard() {
                         className="px-2 py-0.5 rounded bg-[#a11b12] hover:bg-[#be2217] border border-[#f2b98a] text-[#fff8ee] text-[11px] font-bold cursor-pointer"
                       >
                         生死诛谍
+                      </button>
+                    ) : p.isDynamicKaifengWarrant && p.kaifengWarrantKind === 'investigate' ? (
+                      <button
+                        type="button"
+                        onClick={() => completeKaifengInvestigation()}
+                        className="px-2 py-0.5 rounded bg-[#1d3557] hover:bg-[#2a4a75] border border-[#8fb2d9] text-[#fff8ee] text-[11px] font-bold cursor-pointer"
+                      >
+                        查明案情线索
                       </button>
                     ) : p.isDynamicKaifengWarrant ? (
                       <button

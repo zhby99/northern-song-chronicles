@@ -13,7 +13,7 @@ import {
 } from '../../../utils/heroStats'
 import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
 import { estimateHeroRealmByMp, getNextRealmTier } from '../../../utils/realmUtils'
-import { CHANGSHAN_ADULT_AGE, getChangshanMonthlyStipend } from '../../../utils/sectMechanics'
+import { getChangshanMonthlyStipend } from '../../../utils/sectMechanics'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 import type { LightboxState } from '../menuShared'
 
@@ -171,15 +171,8 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                 <div className="flex items-center justify-between text-[#1f4d3b] font-medium">
                   <span>常山边军月饷</span>
                   <span className="font-mono font-bold">
-                    {heroAge < CHANGSHAN_ADULT_AGE
-                      ? '未满18岁暂不领饷'
-                      : `${getChangshanMonthlyStipend(sectState.rank)} 两/月`}
+                    {`${getChangshanMonthlyStipend(sectState.rank)} 两/月`}
                   </span>
-                </div>
-              )}
-              {sectState.sectId === 'SECT-22' && heroAge < CHANGSHAN_ADULT_AGE && !sectState.activeLiaoSpy && (
-                <div className="px-2 py-1 rounded bg-[#e8f0eb] border border-[#a9c7b5] text-[#1f4d3b] leading-snug">
-                  未满十八岁暂免燕云诛谍军令，专心练枪筑基。
                 </div>
               )}
               {sectState.activeLiaoSpy && (

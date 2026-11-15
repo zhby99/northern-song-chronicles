@@ -201,43 +201,54 @@ export function QuestTrackerPanel() {
             </div>
           )}
 
-          {/* 开封府 / 六扇门：海捕公文 */}
-          {activeKaifengWarrant && (
-            <div className="p-2.5 rounded bg-[#142233]/90 border border-[#6f97c4]/75 space-y-1.5">
-              <div className="flex items-center justify-between gap-1.5">
-                <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#1d3557] text-[#eef6ff]">
-                  海捕公文
-                </span>
-                <span className="text-[10px] font-mono text-sky-200 font-bold">
-                  缉拿归案
-                </span>
-              </div>
+          {/* 开封府 / 六扇门：六扇门公案（情报线索 / 海捕公文） */}
+          {activeKaifengWarrant && (() => {
+            const isInvestigate = activeKaifengWarrant.kind === 'investigate'
+            const remainDays =
+              activeKaifengWarrant.deadlineDay !== undefined
+                ? Math.max(0, activeKaifengWarrant.deadlineDay - dayCount)
+                : null
+            return (
+              <div className="p-2.5 rounded bg-[#142233]/90 border border-[#6f97c4]/75 space-y-1.5">
+                <div className="flex items-center justify-between gap-1.5">
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#1d3557] text-[#eef6ff]">
+                    {isInvestigate ? '案情侦查' : '海捕公文'}
+                  </span>
+                  <span className="text-[10px] font-mono text-sky-200 font-bold">
+                    {remainDays !== null ? `限期剩 ${remainDays} 日` : isInvestigate ? '查明线索' : '缉拿归案'}
+                  </span>
+                </div>
 
-              <div className="song-serif font-bold text-[13px] text-amber-100 leading-snug">
-                缉拿要犯【{activeKaifengWarrant.targetName}】
-              </div>
+                <div className="song-serif font-bold text-[13px] text-amber-100 leading-snug">
+                  {isInvestigate
+                    ? `调查线索【${activeKaifengWarrant.targetName}】`
+                    : `缉拿要犯【${activeKaifengWarrant.targetName}】`}
+                </div>
 
-              <div className="text-[11px] text-[#dbe8f5] leading-relaxed">
-                <span className="text-sky-300 font-semibold">线索：</span>
-                {activeKaifengWarrant.targetTitle}（{activeKaifengWarrant.realm}），潜匿于【{activeKaifengWarrant.regionName} · {activeKaifengWarrant.buildingName}】。击败即可破案（赏银 +15 两）。
-              </div>
+                <div className="text-[11px] text-[#dbe8f5] leading-relaxed">
+                  <span className="text-sky-300 font-semibold">线索：</span>
+                  {isInvestigate
+                    ? `${activeKaifengWarrant.targetTitle}，前往【${activeKaifengWarrant.regionName} · ${activeKaifengWarrant.buildingName}】寻访【${activeKaifengWarrant.clueNpcName ?? '知情人士'}】查明案情（赏银 +15 两）。`
+                    : `${activeKaifengWarrant.targetTitle}（${activeKaifengWarrant.realm}），潜匿于【${activeKaifengWarrant.regionName} · ${activeKaifengWarrant.buildingName}】。击败即可破案（赏银 +15 两）。`}
+                </div>
 
-              <button
-                type="button"
-                onClick={() =>
-                  locateQuestTargetOnMap({
-                    regionId: activeKaifengWarrant.regionId,
-                    buildingId: activeKaifengWarrant.buildingId,
-                    customLabel: `${activeKaifengWarrant.regionName} · ${activeKaifengWarrant.buildingName}`,
-                  })
-                }
-                className="w-full py-1 px-2 rounded bg-[#1d3557] hover:bg-[#284875] text-[#fff6e5] text-[11px] font-bold song-serif flex items-center justify-center gap-1 cursor-pointer"
-              >
-                <Compass className="w-3 h-3" />
-                <span>舆图指引：{activeKaifengWarrant.regionName}</span>
-              </button>
-            </div>
-          )}
+                <button
+                  type="button"
+                  onClick={() =>
+                    locateQuestTargetOnMap({
+                      regionId: activeKaifengWarrant.regionId,
+                      buildingId: activeKaifengWarrant.buildingId,
+                      customLabel: `${activeKaifengWarrant.regionName} · ${activeKaifengWarrant.buildingName}`,
+                    })
+                  }
+                  className="w-full py-1 px-2 rounded bg-[#1d3557] hover:bg-[#284875] text-[#fff6e5] text-[11px] font-bold song-serif flex items-center justify-center gap-1 cursor-pointer"
+                >
+                  <Compass className="w-3 h-3" />
+                  <span>舆图指引：{activeKaifengWarrant.regionName}</span>
+                </button>
+              </div>
+            )
+          })()}
 
           {/* 进行中的声明式任务链 */}
           {activeList.map((prog) => {

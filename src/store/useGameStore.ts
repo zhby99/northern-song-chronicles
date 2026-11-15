@@ -92,7 +92,6 @@ import {
   DAILY_INN_LODGING_COST,
   DEFAULT_HERO_BASE_STATS,
   deriveHeroEffectiveStats,
-  getHeroAge,
   HERO_BASE_CAPS,
   isPlayerInOwnSectRegion,
   resolveCultivationVenue,
@@ -134,12 +133,10 @@ import {
 } from '../utils/combatEngine'
 import {
   applySongLiaoSuspicionFavorPenalty,
-  buildNodeNpcFromLiaoSpy,
   buildNodeNpcFromTournamentOpponent,
   buildZhanZhaoArrestNodeNpc,
   canPlayerLearnSectArt,
   canReceiveSectLeaderTask,
-  CHANGSHAN_ADULT_AGE,
   clonePlayerSectState,
   DEFAULT_PLAYER_SECT_STATE,
   evaluateSectEntry,
@@ -148,6 +145,7 @@ import {
   generateMinorSectTask,
   generateSectTournament,
   getChangshanMonthlyStipend,
+  getHalfYearPeriodInfo,
   getKaifengMonthlyStipend,
   getSectLeaderNpcId,
   getSectRankTitle,
@@ -157,10 +155,10 @@ import {
   isSongAlignedNpc,
   isSongOfficialForRobbery,
   KAIFENG_RECOMMENDATION_ITEM_ID,
-  LIAO_SPY_HALF_YEAR_DAYS,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
   SECT_ENTRY_GEAR_GIFTS,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
+  SEMI_ANNUAL_DEADLINE_DAYS,
   spawnAnnualLiaoSpy,
 } from '../utils/sectMechanics'
 import { estimateHeroRealm, scaleMedicineRecovery } from '../utils/realmUtils'
@@ -438,6 +436,7 @@ export interface GameStoreState {
   abandonSectTask: () => void
   acceptKaifengWarrant: () => void
   abandonKaifengWarrant: () => void
+  completeKaifengInvestigation: () => void
   completeSectTaskStep: () => void
   turnInSectTask: () => void
   startSectTournament: () => void
@@ -541,65 +540,92 @@ function applyDayProgressionSectHooks(params: {
   silver: number
   sectState: PlayerSectState
   logs: LogEntry[]
+  npcFavor?: Record<string, number>
 }): {
   silver: number
   sectState: PlayerSectState
   logs: LogEntry[]
+  npcFavor: Record<string, number>
   overdueSpyAmbush: NodeNpc | null
 } {
   let nextSilver = params.silver
   const nextSect = clonePlayerSectState(params.sectState)
   const nextLogs = [...params.logs]
-  let overdueSpyAmbush: NodeNpc | null = null
+  const nextNpcFavor = params.npcFavor ? { ...params.npcFavor } : {}
+  const overdueSpyAmbush: NodeNpc | null = null
 
   if (nextSect.sectId === 'SECT-22') {
-    const heroAge = getHeroAge(params.nextDayCount)
     const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
-    if (heroAge < CHANGSHAN_ADULT_AGE) {
-      // 未满18岁暂不支领军饷，亦不派发燕云诛谍军令
-      if (curMonthIdx > nextSect.lastStipendMonth) {
-        nextSect.lastStipendMonth = curMonthIdx
-      }
-    } else {
-      if (curMonthIdx > nextSect.lastStipendMonth) {
-        const months = curMonthIdx - nextSect.lastStipendMonth
-        const perMonth = getChangshanMonthlyStipend(nextSect.rank)
-        const totalStipend = perMonth * months
-        nextSilver += totalStipend
-        nextSect.lastStipendMonth = curMonthIdx
-        nextLogs.unshift(
-          createLogEntry(
-            params.nextDayCount,
-            '常山军饷',
-            `河北边军按月支放【常山枪派 · ${nextSect.rankLabel}】月度军饷 +${totalStipend} 两纹银！`,
-            true,
-            params.shichenIdx,
-          ),
-        )
-      }
+    if (curMonthIdx > nextSect.lastStipendMonth) {
+      const months = curMonthIdx - nextSect.lastStipendMonth
+      const perMonth = getChangshanMonthlyStipend(nextSect.rank)
+      const totalStipend = perMonth * months
+      nextSilver += totalStipend
+      nextSect.lastStipendMonth = curMonthIdx
+      nextLogs.unshift(
+        createLogEntry(
+          params.nextDayCount,
+          '常山军饷',
+          `河北边军按月支放【常山枪派 · ${nextSect.rankLabel}】月度军饷 +${totalStipend} 两纹银！`,
+          true,
+          params.shichenIdx,
+        ),
+      )
+    }
 
-      if (nextSect.activeLiaoSpy && params.nextDayCount > nextSect.activeLiaoSpy.deadlineDay) {
-        overdueSpyAmbush = buildNodeNpcFromLiaoSpy(nextSect.activeLiaoSpy)
+    // 超过两个月（60日）任务自动消失，掌门好感度下降15点，连续两次开除
+    if (nextSect.activeLiaoSpy && params.nextDayCount >= nextSect.activeLiaoSpy.deadlineDay) {
+      const expiredSpy = nextSect.activeLiaoSpy
+      nextSect.activeLiaoSpy = null
+      nextSect.changshanMissedCount += 1
+      const leaderId = getSectLeaderNpcId('SECT-22')
+      if (leaderId) {
+        const curFavor = nextNpcFavor[leaderId] ?? INITIAL_NPC_FAVOR
+        nextNpcFavor[leaderId] = Math.max(MIN_NPC_FAVOR, curFavor - 15)
+      }
+      if (nextSect.changshanMissedCount >= 2) {
+        nextSect.sectId = null
+        nextSect.rank = 1
+        nextSect.rankLabel = '无门无派'
+        nextSect.contribution = 0
+        nextSect.activeSectTask = null
+        nextSect.changshanMissedCount = 0
         nextLogs.unshift(
           createLogEntry(
             params.nextDayCount,
-            '军令逾限',
-            `半年度锄奸军令期限已至！潜伏燕云之辽国密谍【${nextSect.activeLiaoSpy.name}】反追踪而至，展开不死不休截杀！`,
+            '军纪除名',
+            `半年度诛除辽谍【${expiredSpy.name}】军令逾两个月未成，任务自动撤销，掌门好感度 -15；因连续两次失期误事，少侠已被【常山枪派】开除出派！`,
             true,
             params.shichenIdx,
           ),
         )
       } else {
-        const curHalfYearIdx = Math.floor((params.nextDayCount - 1) / LIAO_SPY_HALF_YEAR_DAYS) + 1
-        if (!nextSect.activeLiaoSpy && curHalfYearIdx > nextSect.lastLiaoSpyMissionYear) {
-          const spy = spawnAnnualLiaoSpy(curHalfYearIdx, params.nextDayCount)
-          nextSect.lastLiaoSpyMissionYear = curHalfYearIdx
+        nextLogs.unshift(
+          createLogEntry(
+            params.nextDayCount,
+            '军令逾限',
+            `半年度诛除辽谍【${expiredSpy.name}】军令逾两个月未成，任务已自动消失！掌门好感度下降 15 点（⚠️ 再失期一次将被开除出派）。`,
+            true,
+            params.shichenIdx,
+          ),
+        )
+      }
+    }
+
+    // 每年2月1日和8月1日自动派发半年任务（限期两个月）
+    if (nextSect.sectId === 'SECT-22') {
+      const { latestPeriod, latestDispatchDay } = getHalfYearPeriodInfo(params.nextDayCount)
+      if (!nextSect.activeLiaoSpy && latestPeriod > nextSect.lastLiaoSpyMissionYear) {
+        nextSect.lastLiaoSpyMissionYear = latestPeriod
+        const deadlineDay = latestDispatchDay + SEMI_ANNUAL_DEADLINE_DAYS
+        if (params.nextDayCount < deadlineDay) {
+          const spy = spawnAnnualLiaoSpy(latestPeriod, latestDispatchDay)
           nextSect.activeLiaoSpy = spy
           nextLogs.unshift(
             createLogEntry(
               params.nextDayCount,
               '燕云锄奸',
-              `【常山枪派第${curHalfYearIdx}期半年度强制军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】现踪燕云【${spy.regionName} · ${spy.buildingName}】！须于第 ${spy.deadlineDay} 日前寻获并生死决战诛除！`,
+              `【常山枪派半年军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】现踪燕云【${spy.regionName} · ${spy.buildingName}】！须于两个月内（第 ${spy.deadlineDay} 日前）寻获并诛除！`,
               true,
               params.shichenIdx,
             ),
@@ -627,12 +653,82 @@ function applyDayProgressionSectHooks(params: {
         ),
       )
     }
+
+    // 六扇门半年公案逾两个月（60日）自动消失，罚两年俸禄，连续两次开除
+    if (
+      nextSect.activeKaifengWarrant &&
+      nextSect.activeKaifengWarrant.deadlineDay &&
+      params.nextDayCount >= nextSect.activeKaifengWarrant.deadlineDay
+    ) {
+      const expiredCase = nextSect.activeKaifengWarrant
+      nextSect.activeKaifengWarrant = null
+      const twoYearSalaryFine = getKaifengMonthlyStipend(nextSect.rank) * 24
+      nextSilver = Math.max(0, nextSilver - twoYearSalaryFine)
+      nextSect.kaifengMissedCount += 1
+      if (nextSect.kaifengMissedCount >= 2) {
+        nextSect.sectId = null
+        nextSect.rank = 1
+        nextSect.rankLabel = '无门无派'
+        nextSect.contribution = 0
+        nextSect.kaifengCasesSolved = 0
+        nextSect.kaifengMissedCount = 0
+        nextSect.kaifengRank2Day = null
+        nextLogs.unshift(
+          createLogEntry(
+            params.nextDayCount,
+            '六扇门革职',
+            `六扇门公案【${expiredCase.targetName}】逾两个月未结，案卷自动撤销并罚没两年俸禄 ${twoYearSalaryFine} 两纹银；因连续两次失职，少侠已被【开封府 / 六扇门】开除！`,
+            true,
+            params.shichenIdx,
+          ),
+        )
+      } else {
+        nextLogs.unshift(
+          createLogEntry(
+            params.nextDayCount,
+            '公案逾限',
+            `六扇门公案【${expiredCase.targetName}】逾两个月未结，案卷已自动消失！依律罚没两年俸禄 ${twoYearSalaryFine} 两纹银（⚠️ 再失职一次将被开除）。`,
+            true,
+            params.shichenIdx,
+          ),
+        )
+      }
+    }
+
+    // 每年2月1日和8月1日自动派发一个案子（升级到Lv4后不再派发案子）
+    if (nextSect.sectId === 'SECT-17' && nextSect.rank < 4) {
+      const { latestPeriod, latestDispatchDay } = getHalfYearPeriodInfo(params.nextDayCount)
+      if (latestPeriod > nextSect.lastKaifengCasePeriod) {
+        nextSect.lastKaifengCasePeriod = latestPeriod
+        const deadlineDay = latestDispatchDay + SEMI_ANNUAL_DEADLINE_DAYS
+        if (
+          params.nextDayCount < deadlineDay &&
+          (!nextSect.activeKaifengWarrant || !nextSect.activeKaifengWarrant.deadlineDay)
+        ) {
+          const warrant = generateKaifengWarrant(latestDispatchDay, nextSect.rank, { deadlineDay })
+          if (warrant) {
+            nextSect.activeKaifengWarrant = warrant
+            const kindLabel = warrant.kind === 'investigate' ? '调查情报线索' : `缉拿要犯（${warrant.realm}）`
+            nextLogs.unshift(
+              createLogEntry(
+                params.nextDayCount,
+                '六扇门派案',
+                `【六扇门半年公案】奉命前往【${warrant.regionName} · ${warrant.buildingName}】办理「${warrant.targetName}」（${kindLabel}），须于两个月内（第 ${deadlineDay} 日前）结案！`,
+                true,
+                params.shichenIdx,
+              ),
+            )
+          }
+        }
+      }
+    }
   }
 
   return {
     silver: nextSilver,
     sectState: nextSect,
     logs: nextLogs,
+    npcFavor: nextNpcFavor,
     overdueSpyAmbush,
   }
 }
@@ -1569,11 +1665,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             silver: s.silver - lodgingCost,
             sectState: s.sectState,
             logs: baseLogs,
+            npcFavor: s.npcFavor,
           })
         : {
             silver: s.silver - lodgingCost,
             sectState: s.sectState,
             logs: baseLogs,
+            npcFavor: s.npcFavor,
             overdueSpyAmbush: null,
           }
 
@@ -1582,6 +1680,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       shichenIdx: clock.shichenIdx,
       silver: dayHook.silver,
       sectState: dayHook.sectState,
+      npcFavor: dayHook.npcFavor,
       hp: rec.hp,
       mp: rec.mp,
       actionFeedback: {
@@ -2449,6 +2548,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       let nextSectState = s.sectState
       let nextLogs = s.logs
       let nextMasters = s.roamingMasters
+      let nextNpcFavor = s.npcFavor
       let overdueSpyAmbush: NodeNpc | null = null
 
       if (clock.daysAdded > 0) {
@@ -2466,10 +2566,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           silver: nextSilver,
           sectState: clonePlayerSectState(nextSectState),
           logs: [...nextLogs],
+          npcFavor: nextNpcFavor,
         })
         nextSilver = dayHook.silver
         nextSectState = dayHook.sectState
         nextLogs = dayHook.logs
+        nextNpcFavor = dayHook.npcFavor
         overdueSpyAmbush = dayHook.overdueSpyAmbush
       }
 
@@ -2558,6 +2660,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           shichenIdx: nextShichenIdx,
           silver: nextSilver,
           sectState: nextSectState,
+          npcFavor: nextNpcFavor,
           roamingMasters: nextMasters,
           baseStats: nextBase,
           artExps: { ...s.artExps, [artKey]: nextExp },
@@ -2586,6 +2689,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         shichenIdx: nextShichenIdx,
         silver: nextSilver,
         sectState: nextSectState,
+        npcFavor: nextNpcFavor,
         roamingMasters: nextMasters,
         baseStats: nextBase,
         artExps: { ...s.artExps, [artKey]: nextExp },
@@ -2639,6 +2743,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         silver: s.silver,
         sectState: clonePlayerSectState(nextSectState),
         logs: [...nextLogs],
+        npcFavor: s.npcFavor,
       })
       nextSectState = dayHook.sectState
       nextLogs = dayHook.logs
@@ -2691,6 +2796,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           shichenIdx: nextShichenIdx,
           silver: dayHook.silver,
           sectState: nextSectState,
+          npcFavor: dayHook.npcFavor,
           roamingMasters: nextMasters,
           baseStats: nextBaseStats,
           skills: nextDerived.skills,
@@ -2721,6 +2827,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         shichenIdx: nextShichenIdx,
         silver: dayHook.silver,
         sectState: nextSectState,
+        npcFavor: dayHook.npcFavor,
         roamingMasters: nextMasters,
         logs: nextLogs.slice(0, 60),
         cultivationSession: {
@@ -2906,6 +3013,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
     let nextSectState = s.sectState
     let nextLogs = s.logs
+    let nextNpcFavor = s.npcFavor
     let nextMasters = s.roamingMasters
     let overdueSpyAmbush: NodeNpc | null = null
 
@@ -2938,10 +3046,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         silver: nextSilver,
         sectState: clonePlayerSectState(nextSectState),
         logs: [...nextLogs],
+        npcFavor: s.npcFavor,
       })
       nextSilver = dayHook.silver
       nextSectState = dayHook.sectState
       nextLogs = dayHook.logs
+      nextNpcFavor = dayHook.npcFavor
       overdueSpyAmbush = dayHook.overdueSpyAmbush
       if (overdueSpyAmbush) {
         stopNote = '边关锄奸军令期限已至，被迫提前收功应战'
@@ -2973,6 +3083,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       food: nextFood,
       combatExp: nextCombatExp,
       sectState: nextSectState,
+      npcFavor: nextNpcFavor,
       roamingMasters: nextMasters,
       learnedArts: nextLearned,
       qinggongBonus: derived.qinggongBonus,
@@ -3358,11 +3469,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             silver: s.silver - lodgingFee,
             sectState: s.sectState,
             logs: baseLogs,
+            npcFavor: s.npcFavor,
           })
         : {
             silver: s.silver - lodgingFee,
             sectState: s.sectState,
             logs: baseLogs,
+            npcFavor: s.npcFavor,
             overdueSpyAmbush: null,
           }
 
@@ -3371,6 +3484,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       shichenIdx: clock.shichenIdx,
       silver: dayHook.silver,
       sectState: dayHook.sectState,
+      npcFavor: dayHook.npcFavor,
       inventory: nextInv,
       baseStats: nextBaseStats,
       consumedUniqueIds: nextConsumedUnique,
@@ -3539,8 +3653,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             silver: nextSilver,
             sectState: s.sectState,
             logs: nextLogs,
+            npcFavor: s.npcFavor,
           })
-        : { silver: nextSilver, sectState: s.sectState, logs: nextLogs, overdueSpyAmbush: null }
+        : { silver: nextSilver, sectState: s.sectState, logs: nextLogs, npcFavor: s.npcFavor, overdueSpyAmbush: null }
 
     set({
       dayCount: nextDay,
@@ -3548,6 +3663,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       combatExp: nextCombatExp,
       silver: dayHook.silver,
       sectState: dayHook.sectState,
+      npcFavor: dayHook.npcFavor,
       baseStats: nextBaseStats,
       mountKey: derived.mountKey,
       qinggongBonus: derived.qinggongBonus,
@@ -3669,11 +3785,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               silver: s.silver - lodgingFee,
               sectState: s.sectState,
               logs: s.logs,
+              npcFavor: s.npcFavor,
             })
           : {
               silver: s.silver - lodgingFee,
               sectState: s.sectState,
               logs: s.logs,
+              npcFavor: s.npcFavor,
               overdueSpyAmbush: null,
             }
       const recTalk = applyDailyVitalityRecovery({
@@ -3696,7 +3814,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         sectState: dayHook.sectState,
         logs: dayHook.logs.slice(0, 60),
         npcFavor: {
-          ...s.npcFavor,
+          ...dayHook.npcFavor,
           [npcKey]: nextFavor,
         },
         npcTalkedMonth: {
@@ -3761,11 +3879,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             silver: s.silver - lodgingFee,
             sectState: s.sectState,
             logs: s.logs,
+            npcFavor: s.npcFavor,
           })
         : {
             silver: s.silver - lodgingFee,
             sectState: s.sectState,
             logs: s.logs,
+            npcFavor: s.npcFavor,
             overdueSpyAmbush: null,
           }
 
@@ -3785,6 +3905,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       hp: recInteractArt.hp,
       mp: recInteractArt.mp,
       sectState: dayHook.sectState,
+      npcFavor: dayHook.npcFavor,
       logs: dayHook.logs.slice(0, 60),
       baseStats: nextBaseStats,
       skills: derived.skills,
@@ -3884,11 +4005,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             silver: s.silver - lodgingFee,
             sectState: s.sectState,
             logs: s.logs,
+            npcFavor: s.npcFavor,
           })
         : {
             silver: s.silver - lodgingFee,
             sectState: s.sectState,
             logs: s.logs,
+            npcFavor: s.npcFavor,
             overdueSpyAmbush: null,
           }
     const startHp = Math.max(1, recCombat.hp)
@@ -3917,6 +4040,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       mp: recCombat.mp,
       sectState: dayHook.sectState,
       logs: dayHook.logs.slice(0, 60),
+      npcFavor: dayHook.npcFavor,
       ...(effectiveStakes === 'spar' && !forceMandatory
         ? {
             npcSparredMonth: {
@@ -4222,10 +4346,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     // 常山枪派「半年度燕云锄奸」诛杀辽谍胜利
     if (session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win') {
       nextSectState.activeLiaoSpy = null
+      nextSectState.changshanMissedCount = 0
       nextSectState.contribution += 100
       nextSilver += 50
       extraLogTag = '燕云锄奸'
-      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派半年度军令，获门派功绩 +100（现 ${nextSectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +50 两！`
+      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派半年军令，获门派功绩 +100（现 ${nextSectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +50 两！`
     }
 
     // 若从展昭剑下侥幸获胜
@@ -4244,9 +4369,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       const warrant = nextSectState.activeKaifengWarrant
       nextSectState.activeKaifengWarrant = null
       nextSectState.kaifengCasesSolved += 1
+      if (warrant.deadlineDay) {
+        nextSectState.kaifengMissedCount = 0
+      }
       nextSilver += 15
       extraLogTag = '缉拿归案'
-      extraLogText = `少侠顺利擒获海捕要犯【${warrant.targetName}（${warrant.targetTitle}）】归案！破案数 +1（累计 ${nextSectState.kaifengCasesSolved} 案），获开封府赏银 +15 两、战斗经验 +${res.combatExpGain}！`
+      extraLogText = `少侠顺利擒获海捕要犯【${warrant.targetName}（${warrant.targetTitle}）】归案！当前阶位办案量 +1（累计 ${nextSectState.kaifengCasesSolved} 次），获开封府赏银 +15 两、战斗经验 +${res.combatExpGain}！`
     }
 
     // 道门与名山剑派「宗门大比」1v1 淘汰赛结算
@@ -4494,8 +4622,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     }
 
     const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
-    const curHalfYearIdx = Math.floor((s.dayCount - 1) / LIAO_SPY_HALF_YEAR_DAYS) + 1
-    const heroAge = getHeroAge(s.dayCount)
+    const prevPeriodInfo = getHalfYearPeriodInfo(Math.max(0, s.dayCount - 1))
+    const curPeriodInfo = getHalfYearPeriodInfo(s.dayCount)
     const nextSect: PlayerSectState = {
       ...clonePlayerSectState(s.sectState),
       sectId: targetSectId,
@@ -4504,6 +4632,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       contribution: 0,
       joinedDay: s.dayCount,
       lastStipendMonth: curMonthIdx,
+      lastLiaoSpyMissionYear:
+        targetSectId === 'SECT-22'
+          ? prevPeriodInfo.latestPeriod
+          : s.sectState.lastLiaoSpyMissionYear,
+      changshanMissedCount: 0,
       activeLiaoSpy: evalRes.allowOfficialTransferFromChangshan
         ? null
         : s.sectState.activeLiaoSpy,
@@ -4513,6 +4646,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       xingxiuDefeatedRanks: [],
       killedDingChunqiu: false,
       kaifengCasesSolved: 0,
+      kaifengMissedCount: 0,
+      lastKaifengCasePeriod:
+        targetSectId === 'SECT-17' ? prevPeriodInfo.latestPeriod : 0,
       kaifengRank2Day: targetSectId === 'SECT-17' && evalRes.startingRank >= 2 ? s.dayCount : null,
       activeKaifengWarrant: null,
     }
@@ -4557,27 +4693,44 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       feedbackMsg = `由【${originName}】呈验《${letterName}》，正式奉调入职【${faction.name} · ${evalRes.startingRankLabel}】（正当保举调任）！`
     }
 
-    // 常山枪派：年满18岁方可领饷并接半年度燕云诛谍强制军令
+    // 常山枪派：无年龄限制，入门即领军饷 15 两，每年2月1日和8月1日自动派发半年任务
     if (targetSectId === 'SECT-22') {
-      if (heroAge < CHANGSHAN_ADULT_AGE) {
-        feedbackMsg += `（少侠年方${heroAge}岁未满十八，暂免燕云诛谍军令，亦暂不支领边军月饷；待年满十八岁后按月领饷并每半年领受一次诛谍军令）`
-      } else {
-        const stipendAmt = getChangshanMonthlyStipend(nextSect.rank)
-        feedbackMsg += ` 每满一月可领边军饷银 ${stipendAmt} 两。`
-        if (!nextSect.activeLiaoSpy && nextSect.lastLiaoSpyMissionYear < curHalfYearIdx) {
-          const spy = spawnAnnualLiaoSpy(curHalfYearIdx, s.dayCount)
-          nextSect.lastLiaoSpyMissionYear = curHalfYearIdx
-          nextSect.activeLiaoSpy = spy
-          const spyMsg = `【常山半年度强制军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】已潜入燕云【${spy.regionName} · ${spy.buildingName}】！请于第 ${spy.deadlineDay} 日前寻获并开启生死对决！`
-          feedbackMsg += ` ${spyMsg}`
-          newLogs.push(createLogEntry(s.dayCount, '燕云锄奸', spyMsg, true, s.shichenIdx))
-        }
+      const stipendAmt = getChangshanMonthlyStipend(nextSect.rank)
+      nextSilver += stipendAmt
+      feedbackMsg += ` 入门即支领首月边军饷银 +${stipendAmt} 两（此后每满一月领 ${stipendAmt} 两），每年2月1日、8月1日自动派发半年军令（限两个月内完成）。`
+      if (
+        !nextSect.activeLiaoSpy &&
+        curPeriodInfo.latestPeriod > nextSect.lastLiaoSpyMissionYear
+      ) {
+        nextSect.lastLiaoSpyMissionYear = curPeriodInfo.latestPeriod
+        const spy = spawnAnnualLiaoSpy(curPeriodInfo.latestPeriod, curPeriodInfo.latestDispatchDay)
+        nextSect.activeLiaoSpy = spy
+        const spyMsg = `【常山枪派半年军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】已潜入燕云【${spy.regionName} · ${spy.buildingName}】！须于第 ${spy.deadlineDay} 日前诛除！`
+        feedbackMsg += ` ${spyMsg}`
+        newLogs.push(createLogEntry(s.dayCount, '燕云锄奸', spyMsg, true, s.shichenIdx))
       }
     }
 
     if (targetSectId === 'SECT-17') {
       const stipendAmt = getKaifengMonthlyStipend(nextSect.rank)
-      feedbackMsg += ` 每满一月可支领官俸 ${stipendAmt} 两纹银，并可领取海捕公文缉拿要犯破案升迁。`
+      feedbackMsg += ` 每满一月可支领官俸 ${stipendAmt} 两纹银；每年2月1日、8月1日自动派发六扇门公案（限两个月内结案），并可随时领取公文办案升迁。`
+      if (
+        nextSect.rank < 4 &&
+        !nextSect.activeKaifengWarrant &&
+        curPeriodInfo.latestPeriod > nextSect.lastKaifengCasePeriod
+      ) {
+        nextSect.lastKaifengCasePeriod = curPeriodInfo.latestPeriod
+        const deadlineDay = curPeriodInfo.latestDispatchDay + SEMI_ANNUAL_DEADLINE_DAYS
+        const warrant = generateKaifengWarrant(curPeriodInfo.latestDispatchDay, nextSect.rank, {
+          deadlineDay,
+        })
+        if (warrant) {
+          nextSect.activeKaifengWarrant = warrant
+          const caseMsg = `【六扇门半年公案】奉命前往【${warrant.regionName} · ${warrant.buildingName}】办理「${warrant.targetName}」，须于第 ${deadlineDay} 日前结案！`
+          feedbackMsg += ` ${caseMsg}`
+          newLogs.push(createLogEntry(s.dayCount, '六扇门派案', caseMsg, true, s.shichenIdx))
+        }
+      }
     }
 
     const entryGiftIds = SECT_ENTRY_GEAR_GIFTS[targetSectId] ?? []
@@ -4762,12 +4915,19 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ...clonePlayerSectState(s.sectState),
       rank: promo.targetRank,
       rankLabel: promo.targetRankLabel,
+      kaifengCasesSolved: sectId === 'SECT-17' ? 0 : s.sectState.kaifengCasesSolved,
       kaifengRank2Day:
         sectId === 'SECT-17' && promo.targetRank === 2
           ? s.dayCount
           : s.sectState.kaifengRank2Day,
     }
     let msg = `功勋与资历俱备！少侠于【${factionName}】正式晋升为第 ${promo.targetRank} 阶【${promo.targetRankLabel}】！`
+    if (sectId === 'SECT-17') {
+      msg +=
+        promo.targetRank >= 4
+          ? ' 办案累计数已清零，晋升【金牌总捕】后不再派发常规案件！'
+          : ' 办案累计数已清零，后续将按新职阶派发相应案件。'
+    }
     if (sectId === 'SECT-22' && promo.targetRank === 3) {
       msg += ' 已达【演武教习】职阶，现可向掌门或首座领取《开封府推荐信》！'
     }
@@ -4936,23 +5096,32 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     if (s.sectState.sectId !== 'SECT-17') {
       set({
-        actionFeedback: { text: '仅开封府 / 六扇门捕快可领取海捕公文！', tone: 'warn' },
+        actionFeedback: { text: '仅开封府 / 六扇门捕快可领取六扇门案卷！', tone: 'warn' },
+      })
+      return
+    }
+    if (s.sectState.rank >= 4) {
+      set({
+        actionFeedback: {
+          text: '少侠已升任第4阶【金牌总捕】，府衙不再派发常规案件！',
+          tone: 'warn',
+        },
       })
       return
     }
     if (s.sectState.activeKaifengWarrant) {
       set({
         actionFeedback: {
-          text: `少侠尚有在身海捕要案【${s.sectState.activeKaifengWarrant.targetName}】，请先缉拿或放弃！`,
+          text: `少侠尚有在身公案【${s.sectState.activeKaifengWarrant.targetName}】，请先办理结案！`,
           tone: 'warn',
         },
       })
       return
     }
-    const warrant = generateKaifengWarrant(s.dayCount)
+    const warrant = generateKaifengWarrant(s.dayCount, s.sectState.rank)
     if (!warrant) {
       set({
-        actionFeedback: { text: '近日四方安靖，府衙暂无新增海捕公文。', tone: 'warn' },
+        actionFeedback: { text: '近日四方安靖，府衙暂无新增案卷。', tone: 'warn' },
       })
       return
     }
@@ -4960,12 +5129,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       ...clonePlayerSectState(s.sectState),
       activeKaifengWarrant: warrant,
     }
-    const msg = `领取开封府海捕公文：缉拿【${warrant.targetName}（${warrant.targetTitle} · ${warrant.realm}）】！据报此犯潜匿于【${warrant.regionName} · ${warrant.buildingName}】。`
+    const msg =
+      warrant.kind === 'investigate'
+        ? `领取六扇门侦查案卷：【${warrant.targetName}（${warrant.targetTitle}）】！请前往【${warrant.regionName} · ${warrant.buildingName}】寻访【${warrant.clueNpcName ?? '知情人士'}】调查情报线索。`
+        : `领取开封府海捕公文：缉拿【${warrant.targetName}（${warrant.targetTitle} · ${warrant.realm}）】！据报此犯潜匿于【${warrant.regionName} · ${warrant.buildingName}】。`
     set({
       sectState: nextSect,
       actionFeedback: { text: msg, tone: 'success' },
       logs: [
-        createLogEntry(s.dayCount, '海捕公文', msg, true, s.shichenIdx),
+        createLogEntry(s.dayCount, '六扇门案卷', msg, true, s.shichenIdx),
         ...s.logs,
       ].slice(0, 60),
     })
@@ -4975,16 +5147,48 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     const w = s.sectState.activeKaifengWarrant
     if (!w) return
+    if (w.deadlineDay) {
+      set({
+        actionFeedback: {
+          text: `【${w.targetName}】乃六扇门半年度强制派发公案，不可擅自退回！须于第 ${w.deadlineDay} 日前办结。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
     const nextSect: PlayerSectState = {
       ...clonePlayerSectState(s.sectState),
       activeKaifengWarrant: null,
     }
-    const msg = `少侠已退回缉拿【${w.targetName}】的海捕公文，暂不计过，可随时重领新案。`
+    const msg = `少侠已退回【${w.targetName}】的案卷，暂不计过，可随时重领新案。`
     set({
       sectState: nextSect,
       actionFeedback: { text: msg, tone: 'warn' },
       logs: [
-        createLogEntry(s.dayCount, '退回海捕', msg, true, s.shichenIdx),
+        createLogEntry(s.dayCount, '退回案卷', msg, true, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  completeKaifengInvestigation: () => {
+    const s = get()
+    const w = s.sectState.activeKaifengWarrant
+    if (s.sectState.sectId !== 'SECT-17' || !w || w.kind !== 'investigate') return
+    const nextSect: PlayerSectState = {
+      ...clonePlayerSectState(s.sectState),
+      activeKaifengWarrant: null,
+      kaifengCasesSolved: s.sectState.kaifengCasesSolved + 1,
+      kaifengMissedCount: w.deadlineDay ? 0 : s.sectState.kaifengMissedCount,
+    }
+    const nextSilver = s.silver + 15
+    const msg = `查明六扇门案卷【${w.targetName}】：${w.clueDetail ?? '已取得关键口供与物证！'}（当前阶位办案量 +1，累计 ${nextSect.kaifengCasesSolved} 次；赏银 +15 两）`
+    set({
+      sectState: nextSect,
+      silver: nextSilver,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '案情查明', msg, true, s.shichenIdx),
         ...s.logs,
       ].slice(0, 60),
     })
@@ -5609,8 +5813,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             eff.rank ?? (faction.acceptsOuterDisciple === false ? 2 : 1)
           const rankLabel = getSectRankTitle(eff.sectId, startRank)
           const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
-          const curHalfYearIdx = Math.floor((s.dayCount - 1) / LIAO_SPY_HALF_YEAR_DAYS) + 1
-          const heroAge = getHeroAge(s.dayCount)
+          const prevPeriodInfo = getHalfYearPeriodInfo(Math.max(0, s.dayCount - 1))
+          const curPeriodInfo = getHalfYearPeriodInfo(s.dayCount)
 
           const nextSect: PlayerSectState = {
             ...clonePlayerSectState(s.sectState),
@@ -5620,17 +5824,42 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             contribution: 0,
             joinedDay: s.dayCount,
             lastStipendMonth: curMonthIdx,
+            lastLiaoSpyMissionYear:
+              eff.sectId === 'SECT-22'
+                ? prevPeriodInfo.latestPeriod
+                : s.sectState.lastLiaoSpyMissionYear,
+            changshanMissedCount: 0,
             activeLiaoSpy: eff.allowOfficialTransfer ? null : s.sectState.activeLiaoSpy,
+            kaifengCasesSolved: 0,
+            kaifengMissedCount: 0,
+            lastKaifengCasePeriod:
+              eff.sectId === 'SECT-17' ? prevPeriodInfo.latestPeriod : 0,
+            kaifengRank2Day: eff.sectId === 'SECT-17' && startRank >= 2 ? s.dayCount : null,
+            activeKaifengWarrant: null,
           }
 
+          let nextSilver = s.silver
+          if (eff.sectId === 'SECT-22') {
+            nextSilver += getChangshanMonthlyStipend(startRank)
+            if (!nextSect.activeLiaoSpy && curPeriodInfo.latestPeriod > nextSect.lastLiaoSpyMissionYear) {
+              nextSect.lastLiaoSpyMissionYear = curPeriodInfo.latestPeriod
+              nextSect.activeLiaoSpy = spawnAnnualLiaoSpy(
+                curPeriodInfo.latestPeriod,
+                curPeriodInfo.latestDispatchDay,
+              )
+            }
+          }
           if (
-            eff.sectId === 'SECT-22' &&
-            heroAge >= CHANGSHAN_ADULT_AGE &&
-            !nextSect.activeLiaoSpy &&
-            nextSect.lastLiaoSpyMissionYear < curHalfYearIdx
+            eff.sectId === 'SECT-17' &&
+            startRank < 4 &&
+            curPeriodInfo.latestPeriod > nextSect.lastKaifengCasePeriod
           ) {
-            nextSect.lastLiaoSpyMissionYear = curHalfYearIdx
-            nextSect.activeLiaoSpy = spawnAnnualLiaoSpy(curHalfYearIdx, s.dayCount)
+            nextSect.lastKaifengCasePeriod = curPeriodInfo.latestPeriod
+            nextSect.activeKaifengWarrant = generateKaifengWarrant(
+              curPeriodInfo.latestDispatchDay,
+              startRank,
+              { deadlineDay: curPeriodInfo.latestDispatchDay + SEMI_ANNUAL_DEADLINE_DAYS },
+            )
           }
 
           let nextInv = s.inventory
@@ -5650,6 +5879,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               : ''
           const msg = `正式拜入【${faction.name}】，授职第 ${startRank} 阶【${rankLabel}】！${giftSuffix}`
           set({
+            silver: nextSilver,
             inventory: nextInv,
             sectState: nextSect,
             actionFeedback: { text: msg, tone: 'success' },
@@ -5786,11 +6016,13 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
                   silver: s.silver,
                   sectState: s.sectState,
                   logs: s.logs,
+                  npcFavor: s.npcFavor,
                 })
               : {
                   silver: s.silver,
                   sectState: s.sectState,
                   logs: s.logs,
+                  npcFavor: s.npcFavor,
                   overdueSpyAmbush: null,
                 }
           set({
@@ -5798,6 +6030,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             shichenIdx: clock.shichenIdx,
             silver: dayHook.silver,
             sectState: dayHook.sectState,
+            npcFavor: dayHook.npcFavor,
             logs: dayHook.logs.slice(0, 60),
           })
           if (clock.daysAdded > 0) {
@@ -6285,6 +6518,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextRes = s.res
     let nextSkills = s.skills
     let nextSectState = s.sectState
+    let nextNpcFavor = s.npcFavor
     let overdueSpyAmbush: NodeNpc | null = null
     let nextLogs = [...s.logs]
     let nextMasters = s.roamingMasters
@@ -6383,10 +6617,12 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         silver: nextSilver,
         sectState: nextSectState,
         logs: nextLogs,
+        npcFavor: nextNpcFavor,
       })
       nextSilver = dayHook.silver
       nextSectState = dayHook.sectState
       nextLogs = dayHook.logs
+      nextNpcFavor = dayHook.npcFavor
       overdueSpyAmbush = dayHook.overdueSpyAmbush
     }
 
@@ -6407,6 +6643,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           silver: nextSilver,
           combatExp: nextCombatExp,
           sectState: nextSectState,
+          npcFavor: nextNpcFavor,
           baseStats: nextBaseStats,
           hp: nextHp,
           mp: nextMp,
@@ -6457,6 +6694,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           silver: nextSilver,
           combatExp: nextCombatExp,
           sectState: nextSectState,
+          npcFavor: nextNpcFavor,
           baseStats: nextBaseStats,
           hp: nextHp,
           mp: nextMp,
@@ -6509,6 +6747,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         silver: nextSilver,
         combatExp: nextCombatExp,
         sectState: nextSectState,
+        npcFavor: nextNpcFavor,
         baseStats: nextBaseStats,
         hp: nextHp,
         mp: nextMp,
@@ -6556,6 +6795,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       silver: nextSilver,
       combatExp: nextCombatExp,
       sectState: nextSectState,
+      npcFavor: nextNpcFavor,
       baseStats: nextBaseStats,
       hp: nextHp,
       mp: nextMp,

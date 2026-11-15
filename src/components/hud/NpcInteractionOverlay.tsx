@@ -18,13 +18,12 @@ import { buildSectJoinConfirmScene } from '../../data/sectJoinDialogues'
 import { getAvailableNpcQuestActions } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import type { TenArtKey } from '../../types/game'
-import { deriveNpcEffectiveStats, getHeroAge } from '../../utils/heroStats'
+import { deriveNpcEffectiveStats } from '../../utils/heroStats'
 import { INITIAL_NPC_FAVOR, getNpcFavorProfile } from '../../utils/npcFavor'
 import { inferTemplatePortrait } from '../../utils/portraitFallback'
 import {
   canPlayerLearnSectArt,
   canReceiveSectLeaderTask,
-  CHANGSHAN_ADULT_AGE,
   evaluateSectEntry,
   evaluateSectPromotion,
   getChangshanMonthlyStipend,
@@ -99,6 +98,7 @@ export function NpcInteractionOverlay() {
   const abandonSectTask = useGameStore((s) => s.abandonSectTask)
   const acceptKaifengWarrant = useGameStore((s) => s.acceptKaifengWarrant)
   const abandonKaifengWarrant = useGameStore((s) => s.abandonKaifengWarrant)
+  const completeKaifengInvestigation = useGameStore((s) => s.completeKaifengInvestigation)
   const completeSectTaskStep = useGameStore((s) => s.completeSectTaskStep)
   const turnInSectTask = useGameStore((s) => s.turnInSectTask)
   const startSectTournament = useGameStore((s) => s.startSectTournament)
@@ -280,7 +280,12 @@ export function NpcInteractionOverlay() {
   const isKaifengWarrantTarget = Boolean(
     npc.isDynamicKaifengWarrant || npc.id?.startsWith('KAIFENG_WARRANT_'),
   )
-  const isHostileBountyTarget = Boolean(npc.isDynamicLiaoSpy || isKaifengWarrantTarget)
+  const isKaifengClueTarget = Boolean(
+    isKaifengWarrantTarget && npc.kaifengWarrantKind === 'investigate',
+  )
+  const isHostileBountyTarget = Boolean(
+    npc.isDynamicLiaoSpy || (isKaifengWarrantTarget && !isKaifengClueTarget),
+  )
   const resolvedNpcIdPre = npc.id ?? dbRecord?.id
   const canOpenSectMenu =
     !isHostileBountyTarget &&
@@ -1071,17 +1076,24 @@ export function NpcInteractionOverlay() {
                 )}
 
                 {/* 开封府 / 六扇门（SECT-17）：月度官俸与海捕公文 */}
-                {targetFactionId === 'SECT-17' && (
+                {targetFactionId === 'SECT-17' && (() => {
+                  const nextRankTargetCases =
+                    sectState.rank === 1 ? 2 : sectState.rank === 2 ? 5 : sectState.rank === 3 ? 10 : null
+                  return (
                   <div className="p-3.5 rounded-lg bg-[#f4f7fa] border border-[#7c94b0] space-y-2.5">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div>
                         <div className="font-bold text-[#1d3557] song-serif text-sm sm:text-base">
-                          开封府 / 六扇门 · 官俸与海捕要案
+                          开封府 / 六扇门 · 官俸与六扇门公案
                         </div>
                         <div className="text-xs text-[#3b526d] mt-0.5">
                           月度官俸：<span className="font-bold text-[#1d3557]">{getKaifengMonthlyStipend(sectState.rank)} 两 / 月</span>
-                          {' · '}
-                          累计破案：<span className="font-bold text-[#1d3557]">{sectState.kaifengCasesSolved} 案</span>
+                          {nextRankTargetCases !== null && (
+                            <>
+                              {' · '}
+                              本阶办案量：<span className="font-bold text-[#1d3557]">{sectState.kaifengCasesSolved} / {nextRankTargetCases} 次</span>
+                            </>
+                          )}
                           {sectState.rank === 2 && sectState.kaifengRank2Day !== null && (
                             <>
                               {' · '}
@@ -1091,38 +1103,66 @@ export function NpcInteractionOverlay() {
                         </div>
                       </div>
                       <div className="flex flex-wrap items-center gap-2">
-                        {!sectState.activeKaifengWarrant ? (
+                        {sectState.rank >= 4 ? (
+                          <span className="text-xs px-2.5 py-1 rounded bg-[#e3ebf4] border border-[#9ab3ce] text-[#1d3557] font-medium">
+                            已晋升第4阶【金牌总捕】，不再派发常规案件
+                          </span>
+                        ) : !sectState.activeKaifengWarrant ? (
                           <button
                             type="button"
                             onClick={() => acceptKaifengWarrant()}
                             className="px-3.5 py-1.5 rounded-lg bg-[#1d3557] hover:bg-[#2a4a75] border border-[#8fb2d9] text-[#fff8ee] text-xs font-bold cursor-pointer"
                           >
-                            领取海捕公文
+                            领取六扇门案卷
                           </button>
-                        ) : (
+                        ) : !sectState.activeKaifengWarrant.deadlineDay ? (
                           <button
                             type="button"
                             onClick={() => abandonKaifengWarrant()}
                             className="px-3 py-1.5 rounded-lg bg-[#781710]/90 hover:bg-[#961f16] border border-[#d49a6a] text-[#fff8ee] text-xs font-medium cursor-pointer"
                           >
-                            放弃当前海捕
+                            放弃当前案卷
                           </button>
+                        ) : (
+                          <span className="text-xs px-2.5 py-1 rounded bg-[#f8e3e1] border border-[#d69891] text-[#781710] font-bold">
+                            半年强制公案（限第 {sectState.activeKaifengWarrant.deadlineDay} 日前）
+                          </span>
                         )}
                       </div>
                     </div>
 
+                    {sectState.rank < 4 && (
+                      <div className="text-[11px] text-[#3b526d]">
+                        每年 2月1日、8月1日 自动派发半年公案，须于两个月内办结（逾期自动撤销且罚两年俸禄，连续两次将被开除）。
+                      </div>
+                    )}
+
                     {sectState.activeKaifengWarrant && (
                       <div className="px-3 py-2 rounded bg-[#e8eff7] border border-[#9ab3ce] text-xs text-[#1d3557] leading-relaxed">
-                        <div className="font-bold">
-                          在案海捕要犯：【{sectState.activeKaifengWarrant.targetName}】（{sectState.activeKaifengWarrant.targetTitle} · {sectState.activeKaifengWarrant.realm}）
-                        </div>
-                        <div className="mt-0.5 text-[#2d4665]">
-                          潜匿地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】。前往该处寻获此犯并在生死决战中将其击败，即可破案（破案数 +1，赏银 +15 两；⚠️ 若失手落败将命丧当场）。
-                        </div>
+                        {sectState.activeKaifengWarrant.kind === 'investigate' ? (
+                          <>
+                            <div className="font-bold">
+                              在案侦查线索：【{sectState.activeKaifengWarrant.targetName}】（{sectState.activeKaifengWarrant.targetTitle}）
+                            </div>
+                            <div className="mt-0.5 text-[#2d4665]">
+                              线索地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】寻访【{sectState.activeKaifengWarrant.clueNpcName ?? '知情人士'}】查明案情线索即可结案（办案量 +1，赏银 +15 两）。
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="font-bold">
+                              在案海捕要犯：【{sectState.activeKaifengWarrant.targetName}】（{sectState.activeKaifengWarrant.targetTitle} · {sectState.activeKaifengWarrant.realm}）
+                            </div>
+                            <div className="mt-0.5 text-[#2d4665]">
+                              潜匿地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】。前往该处寻获此犯并在生死决战中将其击败，即可结案（办案量 +1，赏银 +15 两；⚠️ 若失手落败将命丧当场）。
+                            </div>
+                          </>
+                        )}
                       </div>
                     )}
                   </div>
-                )}
+                  )
+                })()}
 
                 {/* 三流门派向二流门派贿赂求取举荐帖专属栏 */}
                 {referralBribeCfg && (
@@ -1154,25 +1194,21 @@ export function NpcInteractionOverlay() {
                 )}
 
                 {/* 常山枪派（参军制）专属军饷、半年度诛杀辽谍军令与开封府推荐信 */}
-                {targetFactionId === 'SECT-22' && (() => {
-                  const heroAge = getHeroAge(dayCount)
-                  return (
+                {targetFactionId === 'SECT-22' && (
                   <div className="p-3.5 rounded-lg bg-[#faf3e3] border-2 border-[#8f1d14]/70 space-y-2.5">
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div className="font-bold text-[#781710] song-serif text-sm sm:text-base">
                         河北边军·常山枪派军籍要务
                       </div>
                       <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#1f4d3b] text-[#e7f7ef]">
-                        {heroAge < CHANGSHAN_ADULT_AGE
-                          ? '月度军饷：未满18岁暂不领饷'
-                          : `月度军饷：${getChangshanMonthlyStipend(sectState.rank)} 两纹银 / 月`}
+                        {`月度军饷：${getChangshanMonthlyStipend(sectState.rank)} 两纹银 / 月`}
                       </span>
                     </div>
 
                     {sectState.activeLiaoSpy ? (
                       <div className="px-3 py-2 rounded bg-[#f8e3e1] border border-[#d69891] text-[#781710] text-xs leading-relaxed">
                         <strong>
-                          【第 {sectState.activeLiaoSpy.yearIndex} 期半年度死斗军令】
+                          【第 {sectState.activeLiaoSpy.yearIndex} 期半年死斗军令】
                         </strong>{' '}
                         辽国北院密谍【{sectState.activeLiaoSpy.name}】（
                         {sectState.activeLiaoSpy.title} · {sectState.activeLiaoSpy.realm}）现潜伏于燕云【
@@ -1181,16 +1217,12 @@ export function NpcInteractionOverlay() {
                         {sectState.activeLiaoSpy.spotName
                           ? ` · ${sectState.activeLiaoSpy.spotName}`
                           : ''}
-                        】！须于第 {sectState.activeLiaoSpy.deadlineDay}{' '}
-                        日前赶赴燕云将其诛杀，逾期辽谍将主动截杀！
-                      </div>
-                    ) : heroAge < CHANGSHAN_ADULT_AGE ? (
-                      <div className="px-3 py-1.5 rounded bg-[#e8f0eb] border border-[#a9c7b5] text-[#1f4d3b] text-xs">
-                        少侠年方 {heroAge} 岁（未满十八），暂免燕云诛杀辽谍军令，专心练枪筑基；年满十八岁后每半年须领受一次诛谍军令。
+                        】！须于两个月内（第 {sectState.activeLiaoSpy.deadlineDay}{' '}
+                        日前）赶赴燕云将其诛杀，逾期任务消失且掌门好感 -15（连续两次开除）。
                       </div>
                     ) : (
                       <div className="px-3 py-1.5 rounded bg-[#e2f2e8] border border-[#9fd0b4] text-[#1b5132] text-xs">
-                        本期半年度燕云诛杀辽谍军令已圆满交令，静候下半年度军帖。
+                        当前暂无在身军令（每年2月1日、8月1日自动派发半年军令，须于两个月内完成，逾期掌门好感 -15，连续两次开除）。
                       </div>
                     )}
 
@@ -1218,8 +1250,7 @@ export function NpcInteractionOverlay() {
                       </button>
                     </div>
                   </div>
-                  )
-                })()}
+                )}
               </div>
             )}
 
@@ -1593,6 +1624,21 @@ export function NpcInteractionOverlay() {
               className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#1f4d3b] hover:bg-[#28634c] border-2 border-[#9fd0b4] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
             >
               交付师门密信
+            </button>
+          )}
+
+          {isKaifengClueTarget && (
+            <button
+              type="button"
+              onClick={() => {
+                setSubPanel('none')
+                setDialogueText(null)
+                completeKaifengInvestigation()
+                closeNpcInteraction()
+              }}
+              className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#1d3557] hover:bg-[#2a4a75] border-2 border-[#8fb2d9] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
+            >
+              查明六扇门案情线索
             </button>
           )}
 

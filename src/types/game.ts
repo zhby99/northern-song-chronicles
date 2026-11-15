@@ -67,6 +67,7 @@ export interface NodeNpc {
   equipped?: EquippedSlotsMap
   isDynamicLiaoSpy?: boolean
   isDynamicKaifengWarrant?: boolean
+  kaifengWarrantKind?: 'investigate' | 'arrest'
   dynamicQuestActorId?: string
   questBadgeLabel?: string
 }
@@ -859,6 +860,7 @@ export interface PlayerSectState {
   bribedReferralSects: string[]
   claimedKaifengLetter: boolean
   lastLiaoSpyMissionYear: number
+  changshanMissedCount: number
   activeLiaoSpy: ActiveLiaoSpyMission | null
   activeSectTask: ActiveSectTask | null
   lastTournamentYear: number
@@ -867,12 +869,15 @@ export interface PlayerSectState {
   xingxiuDefeatedRanks: number[]
   killedDingChunqiu: boolean
   kaifengCasesSolved: number
+  kaifengMissedCount: number
+  lastKaifengCasePeriod: number
   kaifengRank2Day: number | null
   activeKaifengWarrant: ActiveKaifengWarrant | null
 }
 
 export interface ActiveKaifengWarrant {
   id: string
+  kind?: 'investigate' | 'arrest'
   targetName: string
   targetTitle: string
   realm: string
@@ -882,6 +887,11 @@ export interface ActiveKaifengWarrant {
   buildingId: string
   buildingName: string
   acceptedDay: number
+  deadlineDay?: number
+  clueNpcName?: string
+  clueNpcTitle?: string
+  clueTalk?: string
+  clueDetail?: string
 }
 
 export interface GameOverState {

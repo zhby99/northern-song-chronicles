@@ -42,6 +42,7 @@ export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
   bribedReferralSects: [],
   claimedKaifengLetter: false,
   lastLiaoSpyMissionYear: 0,
+  changshanMissedCount: 0,
   activeLiaoSpy: null,
   activeSectTask: null,
   lastTournamentYear: 0,
@@ -50,6 +51,8 @@ export const DEFAULT_PLAYER_SECT_STATE: PlayerSectState = {
   xingxiuDefeatedRanks: [],
   killedDingChunqiu: false,
   kaifengCasesSolved: 0,
+  kaifengMissedCount: 0,
+  lastKaifengCasePeriod: 0,
   kaifengRank2Day: null,
   activeKaifengWarrant: null,
 }
@@ -89,6 +92,10 @@ export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): Play
       typeof st.lastLiaoSpyMissionYear === 'number'
         ? Math.max(0, Math.floor(st.lastLiaoSpyMissionYear))
         : 0,
+    changshanMissedCount:
+      typeof st.changshanMissedCount === 'number'
+        ? Math.max(0, Math.floor(st.changshanMissedCount))
+        : 0,
     activeLiaoSpy: st.activeLiaoSpy ? { ...st.activeLiaoSpy } : null,
     activeSectTask: st.activeSectTask ? { ...st.activeSectTask } : null,
     lastTournamentYear:
@@ -113,6 +120,14 @@ export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): Play
     kaifengCasesSolved:
       typeof st.kaifengCasesSolved === 'number'
         ? Math.max(0, Math.floor(st.kaifengCasesSolved))
+        : 0,
+    kaifengMissedCount:
+      typeof st.kaifengMissedCount === 'number'
+        ? Math.max(0, Math.floor(st.kaifengMissedCount))
+        : 0,
+    lastKaifengCasePeriod:
+      typeof st.lastKaifengCasePeriod === 'number'
+        ? Math.max(0, Math.floor(st.lastKaifengCasePeriod))
         : 0,
     kaifengRank2Day:
       typeof st.kaifengRank2Day === 'number' ? Math.max(0, Math.floor(st.kaifengRank2Day)) : null,
@@ -201,15 +216,15 @@ export const CHANGSHAN_JOINT_RECOMMENDATION_ITEM_ID = 'ITM-MSC-013'
 export function getChangshanMonthlyStipend(rank: SectRankLevel): number {
   switch (rank) {
     case 1:
-      return 25
+      return 15
     case 2:
-      return 40
+      return 30
     case 3:
-      return 60
+      return 50
     case 4:
-      return 85
+      return 75
     case 5:
-      return 120
+      return 110
   }
 }
 
@@ -341,6 +356,39 @@ const LIAO_SPY_ROSTER = [
 
 export const CHANGSHAN_ADULT_AGE = 18
 export const LIAO_SPY_HALF_YEAR_DAYS = 180
+export const SEMI_ANNUAL_DEADLINE_DAYS = 60
+
+/**
+ * Compute the latest semi-annual dispatch period (Feb 1 = 31st day of year, Aug 1 = 211th day of year)
+ * for any dayCount >= 1 (0 returns period 0).
+ */
+export function getHalfYearPeriodInfo(dayCount: number): {
+  latestPeriod: number
+  latestDispatchDay: number
+} {
+  if (dayCount <= 0) {
+    return { latestPeriod: 0, latestDispatchDay: 0 }
+  }
+  const zeroIdx = dayCount - 1
+  const yearOffset = Math.floor(zeroIdx / 360)
+  const dayInYear = (zeroIdx % 360) + 1
+  if (dayInYear < 31) {
+    return {
+      latestPeriod: yearOffset * 2,
+      latestDispatchDay: yearOffset > 0 ? (yearOffset - 1) * 360 + 211 : 0,
+    }
+  }
+  if (dayInYear < 211) {
+    return {
+      latestPeriod: yearOffset * 2 + 1,
+      latestDispatchDay: yearOffset * 360 + 31,
+    }
+  }
+  return {
+    latestPeriod: yearOffset * 2 + 2,
+    latestDispatchDay: yearOffset * 360 + 211,
+  }
+}
 
 interface LiaoSpyStrengthTier {
   realm: '三流中品' | '三流上品' | '二流下品' | '二流中品'
@@ -420,7 +468,7 @@ export function spawnAnnualLiaoSpy(periodIndex: number, currentDay: number): Act
 
   return {
     yearIndex: periodIndex,
-    deadlineDay: currentDay + LIAO_SPY_HALF_YEAR_DAYS,
+    deadlineDay: currentDay + SEMI_ANNUAL_DEADLINE_DAYS,
     npcId: `DYN-LIAO-SPY-P${periodIndex}`,
     name: spyIdentity.name,
     title: spyIdentity.title,
@@ -836,15 +884,77 @@ export interface PromotionRequirementInfo {
   isFirstTierPendingDesign?: boolean
 }
 
+const KAIFENG_INVESTIGATION_CASES = [
+  {
+    targetName: '官仓失窃案卷',
+    targetTitle: '查核官粮私挪账目',
+    clueNpcName: '王老记',
+    clueNpcTitle: '卸粮老库丁',
+    clueTalk: '“官爷可算来了！上月十五夜里，小人亲眼见着三辆遮得严严实实的骡车打后门拉走了精米……”',
+    clueDetail: '核实了官仓主簿暗中勾结粮商私挪赈灾粮的往来账簿与脚夫证词，案情已水落石出！',
+  },
+  {
+    targetName: '漕运私盐密账',
+    targetTitle: '追查暗渡私盐渠道',
+    clueNpcName: '陈水生',
+    clueNpcTitle: '运河摆渡梢公',
+    clueTalk: '“嘘——小声些！每逢初一十五三更天，总有挂着假货旗的平底船在芦苇荡里交接盐包……”',
+    clueDetail: '摸清了私盐船帮的暗桩暗号、卸货码头与接应商号，详绘成册以备六扇门收网！',
+  },
+  {
+    targetName: '京畿暗桩密信',
+    targetTitle: '追索辽夏细作联络点',
+    clueNpcName: '李茶博士',
+    clueNpcTitle: '官道茶摊掌柜',
+    clueTalk: '“那几个操外乡口音的客商前脚刚走，桌缝里就塞了张带蜡印的字条，小老儿吓得没敢声张……”',
+    clueDetail: '截获并拓印了暗桩接头密信与行踪规律，为开封府破获京畿谍网立下头功！',
+  },
+  {
+    targetName: '假钞私铸窝点',
+    targetTitle: '暗访私铸皇祐通宝线索',
+    clueNpcName: '刘铁锤',
+    clueNpcTitle: '城郊废窑匠人',
+    clueTalk: '“官爷明鉴，后山那口废炭窑半夜常冒青烟，还有人拉着整车的废铜料往里送呢……”',
+    clueDetail: '查明了城郊废窑私铸劣钱的炉灶位置与销赃路数，案卷证据确凿！',
+  },
+  {
+    targetName: '驿站盗马疑云',
+    targetTitle: '追查军马失窃去向',
+    clueNpcName: '赵马夫',
+    clueNpcTitle: '递铺老马倌',
+    clueTalk: '“官爷问那几匹河西好马？蹄铁印子一路往西山岔道去了，半路上还换过一次假牌照……”',
+    clueDetail: '顺藤摸瓜查清了盗马贼更换官印、销往黑市马贩的完整链条，线索已呈报府衙！',
+  },
+  {
+    targetName: '商旅失踪迷案',
+    targetTitle: '暗查黑店谋财害命传闻',
+    clueNpcName: '孙货郎',
+    clueNpcTitle: '走街串巷货郎',
+    clueTalk: '“客官莫怪老汉多嘴，上月有两位苏杭绸缎商住进前头野店后，就再没见着影儿，只剩包袱皮漂在河沟里……”',
+    clueDetail: '寻获了遇害商旅遗物与目击证言，锁定了作案黑店与赃物去向，圆满完成侦查！',
+  },
+]
+
 const KAIFENG_WARRANT_CRIMINALS = [
   { name: '黑风煞', title: '江洋劫匪头目', realm: '三流中品' },
+  { name: '独眼狼', title: '官道剪径贼首', realm: '三流中品' },
   { name: '血手杜三', title: '官道剪径凶徒', realm: '三流上品' },
   { name: '白面郎君', title: '采花盗玉悍匪', realm: '三流上品' },
   { name: '铁钩王五', title: '运河私盐枭首', realm: '二流下品' },
+  { name: '恶蛟周横', title: '水寨劫掠恶霸', realm: '二流下品' },
   { name: '鬼影张七', title: '京畿飞贼首领', realm: '二流中品' },
+  { name: '毒手书生', title: '江湖悬赏凶徒', realm: '二流中品' },
+  { name: '血刀厉千山', title: '绿林通缉大寇', realm: '二流上品' },
+  { name: '冷面阎罗', title: '连环灭门凶犯', realm: '二流上品' },
 ]
 
-export function generateKaifengWarrant(dayCount: number): ActiveKaifengWarrant | null {
+export function generateKaifengWarrant(
+  dayCount: number,
+  rank: SectRankLevel = 1,
+  options?: { deadlineDay?: number },
+): ActiveKaifengWarrant | null {
+  if (rank >= 4) return null
+
   const nearbyCities = WORLD_GRAPH.nodes.filter((n) => {
     if (n.type !== 'city' || n.id === 'bianliang') return false
     const dist = getRouteDistanceLi('bianliang', n.id)
@@ -860,8 +970,38 @@ export function generateKaifengWarrant(dayCount: number): ActiveKaifengWarrant |
   const bldg = bldgs[Math.floor(Math.random() * bldgs.length)]
   if (!bldg) return null
 
+  // Lv1：调查情报和线索
+  if (rank === 1) {
+    const caseTpl =
+      KAIFENG_INVESTIGATION_CASES[Math.floor(Math.random() * KAIFENG_INVESTIGATION_CASES.length)]!
+    return {
+      id: `KF_I_${dayCount}_${Math.floor(Math.random() * 10000)}`,
+      kind: 'investigate',
+      targetName: caseTpl.targetName,
+      targetTitle: caseTpl.targetTitle,
+      realm: '不入流',
+      stats: { hp: 220, mp: 80, agi: 16, res: 8, isBenchmark: false },
+      regionId: city.id,
+      regionName: city.name,
+      buildingId: bldg.id,
+      buildingName: bldg.name,
+      acceptedDay: dayCount,
+      deadlineDay: options?.deadlineDay,
+      clueNpcName: caseTpl.clueNpcName,
+      clueNpcTitle: caseTpl.clueNpcTitle,
+      clueTalk: caseTpl.clueTalk,
+      clueDetail: caseTpl.clueDetail,
+    }
+  }
+
+  // Lv2：三流中品到二流下品；Lv3：二流下品到二流上品
+  const allowedRealms =
+    rank === 2
+      ? new Set(['三流中品', '三流上品', '二流下品'])
+      : new Set(['二流下品', '二流中品', '二流上品'])
+  const crimPool = KAIFENG_WARRANT_CRIMINALS.filter((c) => allowedRealms.has(c.realm))
   const crim =
-    KAIFENG_WARRANT_CRIMINALS[Math.floor(Math.random() * KAIFENG_WARRANT_CRIMINALS.length)]!
+    crimPool[Math.floor(Math.random() * crimPool.length)] ?? KAIFENG_WARRANT_CRIMINALS[0]!
   const r = parseRealmTier(crim.realm).rank
   const stats =
     r <= 2
@@ -870,10 +1010,13 @@ export function generateKaifengWarrant(dayCount: number): ActiveKaifengWarrant |
         ? { hp: 720, mp: 440, agi: 32, res: 19, isBenchmark: false }
         : r === 4
           ? { hp: 1020, mp: 720, agi: 38, res: 25, isBenchmark: false }
-          : { hp: 1320, mp: 1020, agi: 44, res: 31, isBenchmark: false }
+          : r === 5
+            ? { hp: 1320, mp: 1020, agi: 44, res: 31, isBenchmark: false }
+            : { hp: 1680, mp: 1380, agi: 50, res: 38, isBenchmark: false }
 
   return {
     id: `KF_W_${dayCount}_${Math.floor(Math.random() * 10000)}`,
+    kind: 'arrest',
     targetName: crim.name,
     targetTitle: crim.title,
     realm: crim.realm,
@@ -883,10 +1026,39 @@ export function generateKaifengWarrant(dayCount: number): ActiveKaifengWarrant |
     buildingId: bldg.id,
     buildingName: bldg.name,
     acceptedDay: dayCount,
+    deadlineDay: options?.deadlineDay,
   }
 }
 
 export function buildNodeNpcFromKaifengWarrant(warrant: ActiveKaifengWarrant): NodeNpc {
+  if (warrant.kind === 'investigate') {
+    const name = warrant.clueNpcName ?? '案情证人'
+    const title = `六扇门案情线索 · ${warrant.clueNpcTitle ?? '知情人士'}`
+    const inferredPortrait = inferTemplatePortrait({
+      name,
+      title,
+      factionId: 'ORG-01',
+      factionName: '江湖散人',
+    })
+    return {
+      id: `KAIFENG_WARRANT_${warrant.id}`,
+      name,
+      title,
+      realm: '不入流',
+      factionId: 'ORG-01',
+      factionName: '民间证人',
+      avatarUrl: resolveAvatarForFullbody(inferredPortrait),
+      portraitUrl: inferredPortrait,
+      stats: warrant.stats,
+      talents: { bone: 35, comprehension: 45, charm: 40 },
+      fullLocationLabel: `${warrant.regionName} > ${warrant.buildingName}`,
+      isDynamicKaifengWarrant: true,
+      kaifengWarrantKind: 'investigate',
+      questBadgeLabel: '案情线索',
+      talk: warrant.clueTalk ?? `“官爷可是奉六扇门差遣前来查访【${warrant.targetName}】的？”`,
+    }
+  }
+
   return {
     id: `KAIFENG_WARRANT_${warrant.id}`,
     name: warrant.targetName,
@@ -900,6 +1072,7 @@ export function buildNodeNpcFromKaifengWarrant(warrant: ActiveKaifengWarrant): N
     talents: { bone: 45, comprehension: 40, charm: 30 },
     fullLocationLabel: `${warrant.regionName} > ${warrant.buildingName}`,
     isDynamicKaifengWarrant: true,
+    kaifengWarrantKind: 'arrest',
     questBadgeLabel: '海捕要犯',
     talk: `“哼，开封府的鹰爪子居然追到${warrant.regionName}来了！想要捉拿爷爷，先问过手中兵刃！”`,
   }
@@ -942,7 +1115,7 @@ export function evaluateSectPromotion(params: {
     kaifengMurongQuest2Done = false,
   } = params
 
-  // 开封府 / 六扇门（SECT-17）：海捕破案（不看门派好感）+ Lv.2 后满 730 天接姑苏慕容密查任务 + Lv.3 接姑苏对质任务
+  // 开封府 / 六扇门（SECT-17）：办案量（Lv1升Lv2需2次、Lv2升Lv3需5次、Lv3升Lv4需10次，每次晋升后清0）+ 晋升任务
   if (sectId === 'SECT-17') {
     if (currentRank >= 4) return null
     const targetRank = (currentRank + 1) as SectRankLevel
@@ -952,8 +1125,8 @@ export function evaluateSectPromotion(params: {
       if (heroRealmRank < 3) {
         missing.push(`境界须达【三流上品】（当前【${heroRealmLabel}】）`)
       }
-      if (kaifengCasesSolved < 3) {
-        missing.push(`破获海捕要案 ${kaifengCasesSolved}/3 宗`)
+      if (kaifengCasesSolved < 2) {
+        missing.push(`六扇门办案量 ${kaifengCasesSolved}/2 次`)
       }
       return {
         targetRank,
@@ -961,7 +1134,7 @@ export function evaluateSectPromotion(params: {
         canPromote: missing.length === 0,
         reason:
           missing.length === 0
-            ? `武功（${heroRealmLabel}）与缉盗政绩（破案 ${kaifengCasesSolved} 宗）皆已齐备，可升任【${targetRankLabel}】！`
+            ? `武功（${heroRealmLabel}）与办案政绩（破案 ${kaifengCasesSolved} 次）皆已齐备，可升任【${targetRankLabel}】！`
             : `晋升【${targetRankLabel}】尚缺：${missing.join('、')}`,
       }
     }
@@ -972,6 +1145,9 @@ export function evaluateSectPromotion(params: {
       if (daysAtRank2 < 730) {
         missing.push(`须在【捕头都头】任上做满 730 天（当前 ${daysAtRank2}/730 天）`)
       }
+      if (kaifengCasesSolved < 5) {
+        missing.push(`六扇门办案量 ${kaifengCasesSolved}/5 次`)
+      }
       if (!kaifengMurongQuest1Done) {
         missing.push('须前往【开封府衙 · 六扇门捕快演武院】完成晋升任务《燕子坞暗影 · 姑苏密查》')
       }
@@ -981,17 +1157,25 @@ export function evaluateSectPromotion(params: {
         canPromote: missing.length === 0,
         reason:
           missing.length === 0
-            ? `历练已满 ${daysAtRank2} 天且已完成《燕子坞暗影 · 姑苏密查》，可升任【${targetRankLabel}】！`
+            ? `历练已满 ${daysAtRank2} 天、办案 ${kaifengCasesSolved} 次且已完成《燕子坞暗影 · 姑苏密查》，可升任【${targetRankLabel}】！`
             : `晋升【${targetRankLabel}】尚缺：${missing.join('；')}`,
       }
+    }
+    const missingLv4: string[] = []
+    if (kaifengCasesSolved < 10) {
+      missingLv4.push(`六扇门办案量 ${kaifengCasesSolved}/10 次`)
+    }
+    if (!kaifengMurongQuest2Done) {
+      missingLv4.push('须前往【开封府衙 · 开封府升堂正殿】完成二阶晋升任务《参合剑气 · 姑苏对质》')
     }
     return {
       targetRank,
       targetRankLabel,
-      canPromote: kaifengMurongQuest2Done,
-      reason: kaifengMurongQuest2Done
-        ? `已完成《参合剑气 · 姑苏对质》，功勋卓著，可正式晋升【${targetRankLabel}】！`
-        : `晋升【${targetRankLabel}】须前往【开封府衙 · 开封府升堂正殿】完成二阶晋升任务《参合剑气 · 姑苏对质》（大内总供奉不可常规晋升）。`,
+      canPromote: missingLv4.length === 0,
+      reason:
+        missingLv4.length === 0
+          ? `已办案 ${kaifengCasesSolved} 次并完成《参合剑气 · 姑苏对质》，功勋卓著，可正式晋升【${targetRankLabel}】！`
+          : `晋升【${targetRankLabel}】尚缺：${missingLv4.join('；')}（大内总供奉不可常规晋升）。`,
     }
   }
 
@@ -1801,7 +1985,7 @@ export function evaluateSectEntry(params: {
 
   if (targetSectId === 'SECT-22') {
     const reqSummary =
-      '免束脩直接参军入伍（未满18岁暂免诛谍且不领军饷；年满18岁起按月领军饷，且每半年强制赴燕云城池与三流中至二流中辽谍生死对决一次；升任演武教习可领开封府推荐信；主动退派获【通辽】恶名，大宋众人好感 -30）'
+      '免束脩直接参军入伍（入门即按月领军饷 15 两起，每年2月1日与8月1日自动派发半年诛谍军令，须于两个月内完成，逾期任务消失且掌门好感 -15，连续两次逾期将被开除；升任演武教习可领开封府推荐信；主动退派获【通辽】恶名，大宋众人好感 -30）'
     if (sectState.songCourtBlacklisted) {
       return {
         canJoin: false,
