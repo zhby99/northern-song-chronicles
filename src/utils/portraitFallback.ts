@@ -160,8 +160,8 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
   if (/师太|女尼|庵|峨眉/.test(combined)) {
     return '/assets/characters/templates/tpl_emei_female_fb.jpg'
   }
-  if (/姥姥|婆婆|老妇|夫人|居士|医女|姑姑|姑娘|小姐|女侠|女子|侍女/.test(combined)) {
-    if (/百草|药|医|姥姥|婆婆|居士/.test(combined)) {
+  if (/姥姥|婆婆|老妇|老母|遗孀|遗眷|夫人|居士|医女|姑姑|姑娘|小姐|女侠|女子|侍女/.test(combined)) {
+    if (/百草|药|医|姥姥|婆婆|老母|居士/.test(combined)) {
       return '/assets/characters/templates/tpl_baicao_female_fb.jpg'
     }
     return '/assets/characters/templates/tpl_sanren_female_fb.jpg'
@@ -183,12 +183,12 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
   }
 
   // 7. 朝廷文官、儒生、商贾、账房
-  if (/知府|知州|知县|相公|大人|学士|员外|书生|儒|掌柜|丝商|算盘|账房|醒客|说书|文士/.test(combined)) {
+  if (/知府|知州|知县|相公|大人|学士|言官|御史|员外|书生|儒|掌柜|丝商|绸商|商帮|算盘|账房|醒客|说书|文士/.test(combined)) {
     return '/assets/characters/templates/tpl_song_scholar_fb.jpg'
   }
 
   // 8. 医者、术士、苍颜老丈、遗老
-  if (/神医|郎中|大夫|医|半仙|卜|老丈|老人|遗老/.test(combined)) {
+  if (/神医|郎中|大夫|医|半仙|卜|老丈|老人|老者|遗老/.test(combined)) {
     return '/assets/characters/templates/tpl_song_physician_fb.jpg'
   }
 
@@ -203,7 +203,7 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
   }
 
   // 11. 镖师、驿使、边关老卒、军将
-  if (/镖师|镖头|总镖头|驿使|老卒|军卒|校尉|统制|将|天波|常山/.test(combined)) {
+  if (/镖师|镖头|总镖头|驿使|老卒|军卒|禁军|校尉|统制|队正|百夫长|将|天波|常山/.test(combined)) {
     return '/assets/characters/templates/tpl_zhenyuan_male_fb.jpg'
   }
 
@@ -216,7 +216,7 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
   }
 
   // 13. 绿林山贼、海捕要犯、响马悍匪
-  if (/山贼|强盗|响马|悍匪|盗匪|寨主|喽啰|绿林|海捕|恶霸/.test(combined)) {
+  if (/山贼|强盗|响马|悍匪|盗匪|匪目|头目|寨主|喽啰|绿林|海捕|恶霸/.test(combined)) {
     return '/assets/characters/templates/tpl_greenwood_sect_fb.jpg'
   }
 
