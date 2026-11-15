@@ -80,7 +80,7 @@ export function QuestTrackerPanel() {
     (visibleSectTask ? 1 : 0)
   const hiddenActiveCount = Math.max(0, totalActiveCount - visibleCount)
 
-  const topOffsetClass = viewMode === 'world' ? 'top-[56px]' : 'top-[96px]'
+  const topOffsetClass = viewMode === 'world' ? 'top-[112px]' : 'top-[120px]'
 
   return (
     <aside
@@ -134,7 +134,7 @@ export function QuestTrackerPanel() {
 
       {/* 面板内容 */}
       {!collapsed && (
-        <div className="max-h-[40vh] overflow-y-auto p-2.5 space-y-2.5 text-xs">
+        <div className="max-h-[38vh] overflow-y-auto p-2.5 space-y-2.5 text-xs">
           {/* 常山枪派半年度辽谍军令 */}
           {visibleSpy && (() => {
             const spy = visibleSpy
