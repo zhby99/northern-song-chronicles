@@ -235,13 +235,7 @@ export type QuestEffect =
   | { type: 'modifyChivalry'; delta: number; reason?: string }
   | { type: 'giveItem'; itemId: string; qty?: number }
   | { type: 'removeItem'; itemId: string; qty?: number }
-  | { type: 'modifyTalent'; key: keyof HeroTalents; delta: number }
   | { type: 'modifySkill'; key: TenArtKey; delta: number }
-  | {
-      type: 'modifyBaseStat'
-      key: 'maxHp' | 'maxMp' | 'agility' | 'res'
-      delta: number
-    }
   | { type: 'healPlayer'; hpPct?: number; mpPct?: number }
   | { type: 'teachMartialArt'; artId: string; level?: number; exp?: number }
   | { type: 'addArtExp'; amount: number; artId?: string }

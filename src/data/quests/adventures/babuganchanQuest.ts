@@ -343,8 +343,7 @@ const SCENE_08_PAGODA_INSIGHT: StorySceneDef = {
   ],
   onFinishEffects: [
     { type: 'setFlag', flag: 'bbgc_upper_scroll_found', value: true },
-    { type: 'modifyBaseStat', key: 'agility', delta: 2 },
-    { type: 'giveCombatExp', amount: 100, reason: '资圣宝塔初悟《蝉蜕息》' },
+    { type: 'giveCombatExp', amount: 120, reason: '资圣宝塔初悟《蝉蜕息》' },
     {
       type: 'setQuestStep',
       questId: QUEST_ID,
@@ -353,7 +352,7 @@ const SCENE_08_PAGODA_INSIGHT: StorySceneDef = {
     },
     {
       type: 'toast',
-      text: '已得上卷《蝉蜕息》（身法 +2）！请西行前往【洛阳府 · 白马寺 · 齐云密檐舍利古塔】寻访中卷。',
+      text: '已得上卷《蝉蜕息》（战斗经验 +120）！请西行前往【洛阳府 · 白马寺 · 齐云密檐舍利古塔】寻访中卷。',
       tone: 'success',
       logTag: '秋蝉八步',
     },

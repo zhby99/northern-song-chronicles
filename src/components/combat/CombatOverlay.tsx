@@ -1263,12 +1263,9 @@ export function CombatOverlay() {
                   const rStyle = RARITY_STYLE_MAP[item.rarity]
                   const isPoison = Boolean(item.poisonEffect)
                   const effTags: string[] = []
-                  if (item.useEffect?.hp) effTags.push(`气血 +${item.useEffect.hp}`)
-                  if (item.useEffect?.mp) effTags.push(`内力 +${item.useEffect.mp}`)
-                  if (item.useEffect?.maxHp) effTags.push(`气血上限 +${item.useEffect.maxHp}`)
-                  if (item.useEffect?.maxMp) effTags.push(`内力上限 +${item.useEffect.maxMp}`)
-                  if (item.useEffect?.agi) effTags.push(`身法 +${item.useEffect.agi}`)
-                  if (item.useEffect?.res) effTags.push(`抗性 +${item.useEffect.res}`)
+                  if (item.useEffect?.hp) effTags.push(`气血恢复 +${item.useEffect.hp}`)
+                  if (item.useEffect?.mp) effTags.push(`内力回复 +${item.useEffect.mp}`)
+                  if (item.useEffect?.curePoison) effTags.push('涤除奇毒异常')
 
                   return (
                     <div

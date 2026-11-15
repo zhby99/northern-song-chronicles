@@ -654,12 +654,9 @@ export function TreasuresTab({
                                 : '把玩修习功效：'}
                           </span>
                           {[
-                            def.useEffect.maxHp ? `气血上限 +${def.useEffect.maxHp}` : null,
-                            def.useEffect.maxMp ? `内力上限 +${def.useEffect.maxMp}` : null,
-                            def.useEffect.hp ? `气血 +${def.useEffect.hp}` : null,
-                            def.useEffect.mp ? `内力 +${def.useEffect.mp}` : null,
-                            def.useEffect.agi ? `身法 +${def.useEffect.agi}` : null,
-                            def.useEffect.res ? `抗性 +${def.useEffect.res}` : null,
+                            def.useEffect.hp ? `气血恢复 +${def.useEffect.hp}` : null,
+                            def.useEffect.mp ? `内力回复 +${def.useEffect.mp}` : null,
+                            def.useEffect.curePoison ? '涤除奇毒异常' : null,
                             def.useEffect.riding ? `【骑术】+${def.useEffect.riding}` : null,
                             def.useEffect.food ? `粮草 +${def.useEffect.food}日份` : null,
                             def.useEffect.skillGain
