@@ -86,6 +86,8 @@ export function NpcInteractionOverlay() {
   const sectState = useGameStore((s) => s.sectState)
   const questState = useGameStore((s) => s.questState)
   const npcFavorMap = useGameStore((s) => s.npcFavor)
+  const npcTalkedMonth = useGameStore((s) => s.npcTalkedMonth)
+  const npcSparredMonth = useGameStore((s) => s.npcSparredMonth)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
 
   const joinSect = useGameStore((s) => s.joinSect)
@@ -257,11 +259,23 @@ export function NpcInteractionOverlay() {
 
   const npcKey = npc.id ?? npc.name
   const curFavor = npcFavorMap[npcKey] ?? INITIAL_NPC_FAVOR
+  const curMonthIdx = Math.floor((dayCount - 1) / 30)
+  const hasTalkedThisMonth = npcTalkedMonth[npcKey] === curMonthIdx
+  const hasSparredThisMonth = npcSparredMonth[npcKey] === curMonthIdx
+  const canSpar = curFavor >= 20 && !hasSparredThisMonth
   const isKaifengWarrantTarget = Boolean(
     npc.isDynamicKaifengWarrant || npc.id?.startsWith('KAIFENG_WARRANT_'),
   )
   const isHostileBountyTarget = Boolean(npc.isDynamicLiaoSpy || isKaifengWarrantTarget)
-  const canOpenSectMenu = !isHostileBountyTarget && isJoinableSectFaction(targetFactionId)
+  const resolvedNpcIdPre = npc.id ?? dbRecord?.id
+  const canOpenSectMenu =
+    !isHostileBountyTarget &&
+    isJoinableSectFaction(targetFactionId) &&
+    Boolean(
+      targetFactionId &&
+        resolvedNpcIdPre &&
+        resolvedNpcIdPre === getSectLeaderNpcId(targetFactionId),
+    )
   const hasQuestRobAction = bottomBarQuestActions.some(
     (x) => x.action.id === 'act_rob_song_official_scene',
   )
@@ -277,16 +291,11 @@ export function NpcInteractionOverlay() {
   const handleTalk = () => {
     setSubPanel('none')
     interactNpc(npc, 'talk')
-    setDialogueText(npc.talk || bio || `${npc.name}微微颔首，示意少侠有礼了。`)
-  }
-
-  const handleArt = () => {
-    setSubPanel('none')
-    interactNpc(npc, 'art')
     setDialogueText(null)
   }
 
   const handleSpar = () => {
+    if (!canSpar) return
     setSubPanel('none')
     startNpcCombat(npc, 'spar')
     setDialogueText(null)
@@ -1415,10 +1424,20 @@ export function NpcInteractionOverlay() {
 
           <button
             type="button"
+            disabled={hasTalkedThisMonth}
+            title={
+              hasTalkedThisMonth
+                ? '每人每月仅可交谈一次，本月已交谈'
+                : '每人每月限交谈一次，随机变动 -1~+5 点好感度'
+            }
             onClick={handleTalk}
-            className="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-[#3d2814]/95 hover:bg-[#54371c] border border-[#b59461] text-[#f5dfb5] shadow-md transition-colors cursor-pointer"
+            className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors ${
+              hasTalkedThisMonth
+                ? 'bg-[#2a2016]/80 border-[#6e5a3f] text-[#9e8b6f] cursor-not-allowed'
+                : 'bg-[#3d2814]/95 hover:bg-[#54371c] border-[#b59461] text-[#f5dfb5] cursor-pointer'
+            }`}
           >
-            交谈
+            {hasTalkedThisMonth ? '交谈（本月已叙）' : '交谈'}
           </button>
 
           {!isHostileBountyTarget && (
@@ -1466,26 +1485,33 @@ export function NpcInteractionOverlay() {
               缉拿海捕要犯（生死决战）
             </button>
           ) : (
-            <>
-              <button
-                type="button"
-                onClick={handleSpar}
-                className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors cursor-pointer ${
-                  isSectCoachingTrainee
-                    ? 'bg-[#1f4d3b] hover:bg-[#28634c] border-[#9fd0b4] text-[#fff8ee] font-bold'
-                    : 'bg-[#6b3a19]/95 hover:bg-[#82471f] border-[#d49a6a] text-[#fff8ee]'
-                }`}
-              >
-                {isSectCoachingTrainee ? '切磋（宗门教学）' : '切磋'}
-              </button>
-              <button
-                type="button"
-                onClick={handleLifeDeathDuel}
-                className="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#781710]/95 hover:bg-[#961f16] border border-[#e69d8f] text-[#fff8ee] shadow-md transition-colors cursor-pointer"
-              >
-                生死决斗
-              </button>
-            </>
+            <button
+              type="button"
+              disabled={!canSpar}
+              title={
+                curFavor < 20
+                  ? `需好感度 ≥ 20 方可切磋（当前 ${curFavor}/100）`
+                  : hasSparredThisMonth
+                    ? '每人每月限切磋一次，本月已切磋'
+                    : '每人每月限切磋一次'
+              }
+              onClick={handleSpar}
+              className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors ${
+                !canSpar
+                  ? 'bg-[#3a2e24]/80 border-[#756552] text-[#b3a48e] cursor-not-allowed'
+                  : isSectCoachingTrainee
+                    ? 'bg-[#1f4d3b] hover:bg-[#28634c] border-[#9fd0b4] text-[#fff8ee] font-bold cursor-pointer'
+                    : 'bg-[#6b3a19]/95 hover:bg-[#82471f] border-[#d49a6a] text-[#fff8ee] cursor-pointer'
+              }`}
+            >
+              {hasSparredThisMonth
+                ? '切磋（本月已战）'
+                : curFavor < 20
+                  ? `切磋（好感需≥20）`
+                  : isSectCoachingTrainee
+                    ? '切磋（宗门教学）'
+                    : '切磋'}
+            </button>
           )}
 
           {bottomBarQuestActions.map((qa) => {
@@ -1564,16 +1590,6 @@ export function NpcInteractionOverlay() {
               className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#a31b12] hover:bg-[#c22117] border-2 border-[#f5c78e] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
             >
               劫道纳投名状（生死战）
-            </button>
-          )}
-
-          {!isHostileBountyTarget && (
-            <button
-              type="button"
-              onClick={handleArt}
-              className="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium bg-[#3d2814]/95 hover:bg-[#54371c] border border-[#b59461] text-[#f5dfb5] shadow-md transition-colors cursor-pointer"
-            >
-              唱和
             </button>
           )}
 

@@ -928,6 +928,8 @@ export interface SerializableGameState {
   inventory: InventoryStack[]
   consumedUniqueIds?: string[]
   npcFavor?: Record<string, number>
+  npcTalkedMonth?: Record<string, number>
+  npcSparredMonth?: Record<string, number>
   sectState?: PlayerSectState
   questState?: QuestRuntimeState
 

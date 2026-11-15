@@ -464,6 +464,8 @@ export interface GameStoreState {
   toggleLogDrawer: () => void
   openMenu: (tab?: MenuTabKey) => void
   npcFavor: Record<string, number>
+  npcTalkedMonth: Record<string, number>
+  npcSparredMonth: Record<string, number>
   openNpcInteraction: (npc: NodeNpc) => void
   closeNpcInteraction: () => void
   giftNpcItem: (npc: NodeNpc, itemId: string) => void
@@ -865,6 +867,8 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     inventory: s.inventory.map((x) => ({ ...x })),
     consumedUniqueIds: [...s.consumedUniqueIds],
     npcFavor: { ...s.npcFavor },
+    npcTalkedMonth: { ...s.npcTalkedMonth },
+    npcSparredMonth: { ...s.npcSparredMonth },
     sectState: clonePlayerSectState(s.sectState),
     questState: cloneQuestRuntimeState(s.questState),
     overlays: { ...s.overlays },
@@ -1038,6 +1042,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   },
   inventory: [],
   consumedUniqueIds: [],
+  npcTalkedMonth: {},
+  npcSparredMonth: {},
   activeBagCategory: 'scrolls',
 
   overlays: {
@@ -3480,10 +3486,39 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   interactNpc: (npc, mode) => {
     const s = get()
     if (mode === 'talk') {
+      const npcKey = npc.id ?? npc.name
+      const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
+      const curFavor = s.npcFavor[npcKey] ?? INITIAL_NPC_FAVOR
+      if (s.npcTalkedMonth[npcKey] === curMonthIdx) {
+        set({
+          actionFeedback: {
+            text: `${npc.name}：${npc.talk}（本月已交谈过，好感度不再变动，当前 ${curFavor}/100）`,
+            tone: 'talk',
+          },
+        })
+        return
+      }
+      const delta = Math.floor(Math.random() * 7) - 1
+      const nextFavor = Math.max(MIN_NPC_FAVOR, Math.min(MAX_NPC_FAVOR, curFavor + delta))
+      const actualDelta = nextFavor - curFavor
+      const deltaLabel =
+        actualDelta > 0
+          ? `好感 +${actualDelta}`
+          : actualDelta < 0
+            ? `好感 ${actualDelta}`
+            : '好感未变'
       set({
+        npcFavor: {
+          ...s.npcFavor,
+          [npcKey]: nextFavor,
+        },
+        npcTalkedMonth: {
+          ...s.npcTalkedMonth,
+          [npcKey]: curMonthIdx,
+        },
         actionFeedback: {
-          text: `${npc.name}：${npc.talk}`,
-          tone: 'talk',
+          text: `${npc.name}：${npc.talk}（${deltaLabel}，当前好感度 ${nextFavor}/100）`,
+          tone: actualDelta < 0 ? 'warn' : 'talk',
         },
       })
       return
@@ -3595,6 +3630,30 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
+    const npcKey = npc.id ?? npc.name
+    const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
+    if (effectiveStakes === 'spar' && !forceMandatory) {
+      const curFavor = s.npcFavor[npcKey] ?? INITIAL_NPC_FAVOR
+      if (curFavor < 20) {
+        set({
+          actionFeedback: {
+            text: `与【${npc.name}】交情尚浅，需好感度达到 20 方可切磋（当前 ${curFavor}/100）。`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
+      if (s.npcSparredMonth[npcKey] === curMonthIdx) {
+        set({
+          actionFeedback: {
+            text: `每人每月仅可切磋一次，本月已与【${npc.name}】切磋过！`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
+    }
+
     const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
     const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
     const lodgingFee =
@@ -3623,6 +3682,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       dayCount: clock.dayCount,
       shichenIdx: clock.shichenIdx,
       silver: s.silver - lodgingFee,
+      ...(effectiveStakes === 'spar' && !forceMandatory
+        ? {
+            npcSparredMonth: {
+              ...s.npcSparredMonth,
+              [npcKey]: curMonthIdx,
+            },
+          }
+        : {}),
       activeCombat: session,
       menuOpen: false,
       compendiumOpen: false,
@@ -4113,6 +4180,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       inventory: [],
       consumedUniqueIds: [],
       npcFavor: {},
+      npcTalkedMonth: {},
+      npcSparredMonth: {},
       sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
       questState: cloneQuestRuntimeState(DEFAULT_QUEST_RUNTIME_STATE),
       gameOver: null,
@@ -6632,6 +6701,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       skills: derived.skills,
       consumedUniqueIds: st.consumedUniqueIds ?? [],
       npcFavor: st.npcFavor ? { ...st.npcFavor } : {},
+      npcTalkedMonth: st.npcTalkedMonth ? { ...st.npcTalkedMonth } : {},
+      npcSparredMonth: st.npcSparredMonth ? { ...st.npcSparredMonth } : {},
       sectState: clonePlayerSectState(st.sectState),
       questState: cloneQuestRuntimeState(st.questState),
       gameOver: null,

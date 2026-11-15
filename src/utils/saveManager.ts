@@ -484,6 +484,20 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
             ]),
         )
       : {},
+    npcTalkedMonth: isRecord(st.npcTalkedMonth)
+      ? Object.fromEntries(
+          Object.entries(st.npcTalkedMonth)
+            .filter(([, v]) => typeof v === 'number' && Number.isFinite(v))
+            .map(([k, v]) => [k, Math.max(0, Math.floor(v as number))]),
+        )
+      : {},
+    npcSparredMonth: isRecord(st.npcSparredMonth)
+      ? Object.fromEntries(
+          Object.entries(st.npcSparredMonth)
+            .filter(([, v]) => typeof v === 'number' && Number.isFinite(v))
+            .map(([k, v]) => [k, Math.max(0, Math.floor(v as number))]),
+        )
+      : {},
     sectState: clonePlayerSectState(
       isRecord(st.sectState)
         ? (st.sectState as Partial<SerializableGameState['sectState']>)
