@@ -286,6 +286,14 @@ export function evaluateQuestCondition(
       }
     }
 
+    case 'foodAtLeast': {
+      if (ctx.food >= cond.min) return { passed: true, reason: null }
+      return {
+        passed: false,
+        reason: `需随身干粮 ≥ ${cond.min} 份（当前 ${ctx.food} 份）`,
+      }
+    }
+
     case 'renownAtLeast': {
       const cur = ctx.renown ?? 0
       if (cur >= cond.min) return { passed: true, reason: null }

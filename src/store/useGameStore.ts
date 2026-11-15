@@ -87,6 +87,7 @@ import type {
   QuestTargetLocationHint,
 } from '../types/quest'
 import { GAIBANG_ENTRY_QUEST_ID } from '../data/quests/sects/gaibangEntryQuest'
+import { HUASHAN_ENTRY_QUEST_ID } from '../data/quests/sects/huashanEntryQuest'
 import {
   NORTH_CHINA_REGION_IDS,
   TAIHANG_BANDIT_ENCOUNTER_SCENE,
@@ -5017,6 +5018,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const entryQuestBySect: Record<string, string> = {
       'SECT-01': SHAOLIN_ENTRY_QUEST_ID,
       'SECT-02': GAIBANG_ENTRY_QUEST_ID,
+      'SECT-05': HUASHAN_ENTRY_QUEST_ID,
       'SECT-18': 'QST-SECT-18-TOUMINGZHUANG',
       'SECT-16': 'QST-SECT-16-REFERRAL',
       'SECT-23': 'QST-SECT-23-REFERRAL',
@@ -5028,7 +5030,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       (nextQuest.activeQuests[linkedQuestId] ||
         targetSectId === 'SECT-18' ||
         targetSectId === 'SECT-01' ||
-        targetSectId === 'SECT-02')
+        targetSectId === 'SECT-02' ||
+        targetSectId === 'SECT-05')
     ) {
       delete nextQuest.activeQuests[linkedQuestId]
       const prevComp = nextQuest.completedQuests[linkedQuestId]

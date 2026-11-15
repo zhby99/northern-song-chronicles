@@ -91,6 +91,7 @@ export type QuestCondition =
     }
   | { type: 'silverAtLeast'; min: number }
   | { type: 'silverAtMost'; max: number }
+  | { type: 'foodAtLeast'; min: number }
   | { type: 'renownAtLeast'; min: number }
   | { type: 'chivalryAtLeast'; min: number }
   | { type: 'hasItem'; itemId: string; qty?: number }

@@ -2106,6 +2106,22 @@ export function evaluateSectEntry(params: {
     }
   }
 
+  // 3c. 华山派 (SECT-05): 京兆府（长安）秋雨结缘棋隐 -> 凡躯徒步攀越千尺幢/百尺峡/苍龙岭三险 -> 博台三劫残局与思过崖听风守夜非战斗考校
+  if (targetSectId === 'SECT-05') {
+    const reqSummary =
+      '无须武功根基：先于【京兆府（长安）】秋雨茶肆结下松风棋缘获赠乌云残子，再备足干粮徒步攀越华山千尺幢、百尺峡、苍龙岭三险，于绝顶博台勘破希夷三劫残局并于思过崖寒夜听风立功，由太岳真君【岳沧溟】亲授青钢剑拜入外门（陇右金环刀堂弟子亦可凭此机缘东入华山）'
+    return {
+      canJoin: false,
+      startingRank: 1,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: reqSummary,
+      blockedReason:
+        '西岳华山门规重缘不重势——请先前往【京兆府（长安）】结下《云海孤棋 · 问剑西岳》松风棋缘，凭凡躯诚心登临玉女峰并通过【博台残局】与【思过听风】二关后由岳掌门收录！',
+    }
+  }
+
   // 3. First-Tier Sects & Dali Royal Clan: gated for upcoming bespoke quest chains
   const noOuterHint =
     faction.acceptsOuterDisciple === false ? '（本门不收外门弟子，入门直授内门）' : ''
@@ -2129,7 +2145,7 @@ export const SECT_ENTRY_GEAR_GIFTS: Record<string, string[]> = {
   'SECT-23': ['ACC-031', 'ARM-031'], // 沧州八极门：沧州武馆铜护心、沧州武馆练功短打
   'SECT-01': ['ARM-036', 'BOT-020', 'WPN-068'], // 嵩山少林寺：灰麻僧衣、僧侣芒鞋、少林白蜡齐眉棍
   'SECT-02': ['ARM-050', 'BOT-026', 'WPN-098'], // 丐帮：破旧百衲乞丐衣、山民蒲草鞋、叫花驱犬芦竹竿
-  'SECT-05': ['WPN-062'], // 华山派：华山入门青钢剑
+  'SECT-05': ['ARM-037', 'BOT-021', 'WPN-062'], // 华山派：青灰道袍、道士云头布履、华山入门青钢剑
   'SECT-06': ['ARM-037', 'BOT-021'], // 泰山派：青灰道袍、道士云头布履
   'SECT-08': ['WPN-063'], // 真武道宗：真武松纹道剑
   'SECT-16': ['ARM-040', 'WPN-071'], // 江淮漕帮：漕帮短褐劲装、皇祐通宝飞镖袋
