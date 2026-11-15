@@ -269,7 +269,7 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
     {
       id: 'choice_bout2_fight_survive',
       label: '【登台硬撼】踏步抢入中宫，正面硬接这契丹先锋五合寒铁重斧！',
-      subLabel: '开启 5 合限数比试（撑满 5 合或将其击倒即胜，试炼不死）',
+      subLabel: '开启 5 合生死擂（撑满 5 合或将其击倒即胜 · ⚠️ 战败将直接丧命！）',
       tone: 'primary',
       effects: [
         {
@@ -1393,7 +1393,8 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                 },
                 {
                   id: 'choice_ouyang_spar',
-                  label: '【以武会友】亮招请紫髯伯赐教几手！（切磋不死，胜负皆获指点）',
+                  label: '【以武会友】亮招请紫髯伯赐教几手！',
+                  subLabel: '迎战北侠欧阳春（胜后获指点 · ⚠️ 任务交手失手将直接丧命！）',
                   tone: 'primary',
                   effects: [
                     {
@@ -1830,7 +1831,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
                 {
                   id: 'choice_bout1_fight_bandit',
                   label: '【跃上八角台】十步之内见真章，先替八极门打服这跳梁小丑！',
-                  subLabel: '开启头阵擂台比武（剧情试炼不死）',
+                  subLabel: '开启头阵生死擂（⚠️ 战败将直接丧命！）',
                   tone: 'primary',
                   effects: [
                     {

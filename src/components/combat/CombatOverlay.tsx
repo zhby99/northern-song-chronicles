@@ -1606,9 +1606,11 @@ export function CombatOverlay() {
                     }`}
                   >
                     {outcome === 'player_win'
-                      ? session.mode === 'duel'
-                        ? '生死决胜 · 斩敌凯旋'
-                        : '承让 · 武林凯旋'
+                      ? session.surviveToWin && session.npc.hp > 0
+                        ? `撑满 ${session.maxRounds} 合 · 成功破局`
+                        : session.mode === 'duel'
+                          ? '生死决胜 · 斩敌凯旋'
+                          : '承让 · 武林凯旋'
                       : outcome === 'draw'
                         ? '秋色平分 · 不分伯仲'
                         : outcome === 'escaped'

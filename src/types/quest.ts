@@ -174,11 +174,9 @@ export interface ActiveStorySceneState {
 }
 
 /**
- * 剧情战斗规则枚举：
- * - spar: 普通切磋（战败保底 15% 气血，不死）
- * - duel: 生死决战（战败即 Game Over，支持自定义死因碑文）
- * - survive_rounds: 撑过 maxRounds 合不败即算获胜（名门拜师考校高频机制，提前气血归零仅判试炼未过、不死）
- * - story_trial: 剧情比试（无论胜负均不死，按结果分流执行 onWin / onLose）
+ * 剧情战斗规则枚举（⚠️ 任务内战斗一旦败北——包括气血归零或未能撑满规定回合——均直接触发死亡 Game Over）：
+ * - spar / story_trial / duel: 击败对手即算获胜推进剧情，战败直接死亡
+ * - survive_rounds: 撑过 maxRounds 合不倒（或提前击败对手）即算获胜推进剧情，提前气血归零直接死亡
  */
 export type QuestCombatRule = 'spar' | 'duel' | 'survive_rounds' | 'story_trial'
 

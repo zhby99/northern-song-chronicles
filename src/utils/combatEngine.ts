@@ -636,7 +636,7 @@ export function createCombatSession(params: {
   const introText =
     params.customIntroText ??
     (params.surviveToWin
-      ? `【师门考校试炼】${npc.name}（${npc.factionName} · ${npc.realm}）凝神立阵：“少侠若能在手下撑过 ${maxRounds} 合不败，便算过关！”`
+      ? `【生死十合对决】${npc.name}（${npc.factionName} · ${npc.realm}）气机森严锁定四方！少侠须在手下撑满 ${maxRounds} 合不败方可破局——一旦失手落败，必命丧当场！`
       : stakes === 'zhan_zhao_arrest'
         ? `【开封府御前缉捕·生死状】御前四品带刀护卫 ${npc.name} 横剑拦路：“朝廷钦犯休走，随展某回开封府伏法！”（战败即押赴市曹处斩！）`
         : stakes === 'liao_spy_duel'
@@ -1840,7 +1840,15 @@ export function resolveCombatRound(
       const pRatio = player.hp / Math.max(1, player.maxHp)
       const nRatio = npc.hp / Math.max(1, npc.maxHp)
       outcome =
-        Math.abs(pRatio - nRatio) < 0.03 ? 'draw' : pRatio > nRatio ? 'player_win' : 'npc_win'
+        session.questCombatHook && !session.questCombatHook.onDraw
+          ? pRatio > nRatio
+            ? 'player_win'
+            : 'npc_win'
+          : Math.abs(pRatio - nRatio) < 0.03
+            ? 'draw'
+            : pRatio > nRatio
+              ? 'player_win'
+              : 'npc_win'
       roundEvents.push(
         makeLog(
           round,

@@ -222,7 +222,7 @@ const SCENE_03_FANLOU_OBSERVE: StorySceneDef = {
     {
       id: 'bbgc_fanlou_fight',
       label: '迎击截风门暗哨「灰鹞」陆七',
-      subLabel: '剧情试炼（即使失手亦可重整再战）',
+      subLabel: '飞桥死斗（击败陆七夺取密信 · ⚠️ 战败将直接丧命！）',
       tone: 'danger',
       effects: [
         {
@@ -231,15 +231,9 @@ const SCENE_03_FANLOU_OBSERVE: StorySceneDef = {
           rule: 'story_trial',
           questId: QUEST_ID,
           forbidEscapeReason: '飞桥狭路相逢，退无可退！',
+          deathTitle: '飞桥喋血 · 命陨截风毒刃',
+          deathDetail: '你在樊楼飞桥雅阁失手败于截风门暗哨「灰鹞」陆七之手，秋蝉残令亦落入贼人之手。',
           onWin: [{ type: 'openScene', scene: SCENE_04_FANLOU_BATTLE_AFTER }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 50, mpPct: 50 },
-            {
-              type: 'toast',
-              text: '陆七身法刁钻，少侠一时失手落于下风，可调息后再次挑战！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },
@@ -513,7 +507,7 @@ const SCENE_12_LUHENG_AMBUSH: StorySceneDef = {
     {
       id: 'bbgc_fight_luheng',
       label: '拔招迎战截风门二当家「断翅鹞」陆横',
-      subLabel: '剧情切磋/试炼（胜后夺回安宁、取得中卷）',
+      subLabel: '古塔死斗（胜后护住白马寺并取得中卷 · ⚠️ 战败将直接丧命！）',
       tone: 'danger',
       effects: [
         {
@@ -522,15 +516,9 @@ const SCENE_12_LUHENG_AMBUSH: StorySceneDef = {
           rule: 'story_trial',
           questId: QUEST_ID,
           forbidEscapeReason: '陆横已封死塔门退路，唯有一战破围！',
+          deathTitle: '齐云塔下 · 饮恨断翅双钩',
+          deathDetail: '你在洛阳白马寺齐云古塔下败于截风门二当家「断翅鹞」陆横毒钩之下，遗谱尽失，饮恨古刹。',
           onWin: [{ type: 'openScene', scene: SCENE_13_LUOYANG_AFTER_BATTLE }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 50, mpPct: 50 },
-            {
-              type: 'toast',
-              text: '陆横双钩凶狠，少侠暂退半步重整气息后再战！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },
@@ -750,7 +738,7 @@ const SCENE_17_RESCUE_ACHAN: StorySceneDef = {
     {
       id: 'bbgc_tactic_water_step',
       label: '先以《蝉蜕息》《振羽步》踏波绕柱，封死水榭退路再战',
-      subLabel: '智取破局：削弱阴九幽身法与气血上限',
+      subLabel: '智取破局：削弱阴九幽身法与气血上限（⚠️ 战败将直接丧命！）',
       tone: 'jade',
       effects: [
         { type: 'setFlag', flag: 'bbgc_yin_weakened', value: true },
@@ -765,22 +753,16 @@ const SCENE_17_RESCUE_ACHAN: StorySceneDef = {
           rule: 'story_trial',
           questId: QUEST_ID,
           forbidEscapeReason: '阿蝉性命攸关，岂能临阵脱逃！',
+          deathTitle: '碧溪夜雨 · 命断绝影鬼手',
+          deathDetail: '你在洛阳牡丹园碧溪水榭不敌截风门门主「绝影鬼手」阴九幽，三卷《八步赶蝉》遗谱终落邪魔之手。',
           onWin: [{ type: 'openScene', scene: SCENE_18_YIN_DEFEATED }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 55, mpPct: 55 },
-            {
-              type: 'toast',
-              text: '阴九幽鬼手阴毒，少侠调息片刻后再入水榭破阵！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },
     {
       id: 'bbgc_tactic_direct_duel',
       label: '正面硬撼截风门门主阴九幽',
-      subLabel: '迎战全盛「绝影鬼手」',
+      subLabel: '迎战全盛「绝影鬼手」（⚠️ 战败将直接丧命！）',
       tone: 'danger',
       effects: [
         {
@@ -789,15 +771,9 @@ const SCENE_17_RESCUE_ACHAN: StorySceneDef = {
           rule: 'story_trial',
           questId: QUEST_ID,
           forbidEscapeReason: '阿蝉性命攸关，岂能临阵脱逃！',
+          deathTitle: '碧溪夜雨 · 命断绝影鬼手',
+          deathDetail: '你在洛阳牡丹园碧溪水榭正面硬撼全盛「绝影鬼手」阴九幽，力竭命陨水榭寒波之中。',
           onWin: [{ type: 'openScene', scene: SCENE_18_YIN_DEFEATED }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 55, mpPct: 55 },
-            {
-              type: 'toast',
-              text: '阴九幽全盛之下身法诡谲，少侠可先借廊柱踏波封其退路！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },

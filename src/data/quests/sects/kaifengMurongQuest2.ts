@@ -12,8 +12,8 @@ function buildGongyeQianTrialNpc(): NodeNpc {
     realm: '一流中品',
     factionId: 'SECT-10',
     factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/templates/tpl_murong_scholar_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_murong_scholar_fb.jpg',
+    avatarUrl: '/assets/characters/avatars/NPC-0161.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0161.jpg',
     stats: {
       hp: 1580,
       mp: 1120,
@@ -55,8 +55,8 @@ function buildDengBaichuanTrialNpc(): NodeNpc {
     realm: '一流上品',
     factionId: 'SECT-10',
     factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/templates/tpl_murong_scholar_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_murong_scholar_fb.jpg',
+    avatarUrl: '/assets/characters/avatars/NPC-0145.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0145.jpg',
     stats: {
       hp: 1880,
       mp: 1340,
@@ -99,8 +99,8 @@ function buildMurongFuSurviveNpc(): NodeNpc {
     realm: '宗师下品',
     factionId: 'SECT-10',
     factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/npc_0120_av.jpg',
-    portraitUrl: '/assets/characters/npc_0120_fb.jpg',
+    avatarUrl: '/assets/characters/avatars/NPC-0120.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0120.jpg',
     stats: {
       hp: 3600,
       mp: 2600,
@@ -245,7 +245,13 @@ const SCENE_49_SEAL_SUZHOU_FILES: StorySceneDef = {
       text: '离开燕子坞后，少侠并未立刻北返，而是先手持开封府金牌与钦差勘合文书，径直踏入苏州府衙大堂。平江知府见了包拯亲署的金印，又见少侠袖中那份连慕容氏管事都签押画押的兵甲封存清单，顿时吓得冷汗涔涔、双膝发软，哪里还敢有半分敷衍推诿。',
     },
     {
-      speaker: { kind: 'custom', name: '苏州知府', title: '平江府知府', factionName: '大宋地方官府' },
+      speaker: {
+        kind: 'custom',
+        name: '苏州知府',
+        title: '平江府知府',
+        factionName: '大宋地方官府',
+        portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
+      },
       text: '（颤巍巍捧着文书，连连拱手赔罪）“下官……下官治下不严，竟被转运司那几个刁吏与水师把总蒙蔽至此！请总捕大人放心，本府即刻调集州兵，配合贵府暗桩将太湖七十二峰与虎丘后山所有封存铁甲运入苏州武库严加看管，一应贪墨官吏即刻锁拿审讯，绝不走漏半点风声！”',
     },
     {
@@ -379,7 +385,7 @@ const SCENE_45_MURONG_SURVIVE_10: StorySceneDef = {
     {
       id: 'kf2_murong_survive_10',
       label: '迎战慕容复，全力撑过 10 个回合',
-      subLabel: '宗师十合试炼（撑满 10 回合即双方收手立约，重伤亦不致死）',
+      subLabel: '宗师十合生死对决（撑满 10 回合即双方收手立约，⚠️ 未撑满败北将直接丧命！）',
       tone: 'danger',
       effects: [
         {
@@ -388,17 +394,11 @@ const SCENE_45_MURONG_SURVIVE_10: StorySceneDef = {
           rule: 'survive_rounds',
           maxRounds: 10,
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '已与慕容复立下十合之约，须堂堂正正撑满十回合方能论定进退！',
+          deathTitle: '十合未竟 · 命殒还施水阁',
+          deathDetail:
+            '还施水阁之内参合指气纵横如电，斗转星移诡奇莫测！少侠未能撑满十合之约，被慕容复指劲洞穿护体真气，血染太湖烟波，壮志未酬身先死。',
           onWin: [{ type: 'openScene', scene: SCENE_46_MUTUAL_WITHDRAWAL }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 65, mpPct: 65 },
-            {
-              type: 'toast',
-              text: '慕容复“斗转星移”与“参合指”变化莫测，少侠未能撑满十合，调息后可再度登阁接招！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },
@@ -536,7 +536,7 @@ const SCENE_39_DENG_CONCEDES_WAY: StorySceneDef = {
   subtitle: '燕子坞 · 参合庄演武西场',
   beats: [
     {
-      speaker: { kind: 'custom', name: '邓百川', title: '姑苏慕容四大家臣之首', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0145' },
       text: '（站在演武场边缘缓缓收回双掌，苍老的面庞上既有震惊又有几分复杂神色）“好……好一个‘后生可畏’！数月前你在秘档室尚只能勉强撑过十合，今日再战，你居然堂堂正正接下我全部掌力并反制胜出！开封府有你这等青年俊杰，难怪公子爷近日频频叹息朝廷不可轻侮，大宋果真卧虎藏龙。”',
     },
     {
@@ -544,11 +544,24 @@ const SCENE_39_DENG_CONCEDES_WAY: StorySceneDef = {
       text: '（收势抱拳，诚恳行礼）“邓前辈掌力雄浑冠绝江南，晚辈实乃侥幸取胜。前辈既已言明只是护主守门，如今晚辈胜过前辈，可否请前辈放行，让我去还施水阁见慕容公子一面？”',
     },
     {
-      speaker: { kind: 'custom', name: '邓百川', title: '姑苏慕容四大家臣之首', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0145' },
       text: '（长叹一声，侧身让开通往后院水阁的月亮拱门）“胜者为王，败者无话。我邓百川言出必践——只是公子爷武功已臻宗师境地，一手‘斗转星移’与‘参合指’出神入化，远非我等家臣可比。你若真要当面质问他，好自为之罢！”',
     },
   ],
-  onFinishEffects: [{ type: 'openScene', scene: SCENE_40_ENTER_HUANSHI }],
+  onFinishEffects: [
+    {
+      type: 'setQuestStep',
+      questId: QUEST_ID,
+      stepId: 'huanshi_murong',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '已击败邓百川打通内院！请前往【燕子坞 · 还施水阁 · 还施水阁藏书正楼】当面质问慕容复！',
+      tone: 'success',
+      logTag: '直入水阁',
+    },
+  ],
 }
 
 const SCENE_38_DENG_DEFEATED: StorySceneDef = {
@@ -576,18 +589,6 @@ const SCENE_38_DENG_DEFEATED: StorySceneDef = {
   onFinishEffects: [
     { type: 'setFlag', flag: 'kf2_deng_defeated', value: true },
     { type: 'giveCombatExp', amount: 180, reason: '参合演武场堂堂正正击败邓百川' },
-    {
-      type: 'setQuestStep',
-      questId: QUEST_ID,
-      stepId: 'huanshi_murong',
-      silent: false,
-    },
-    {
-      type: 'toast',
-      text: '已击败邓百川！请前往【燕子坞 · 还施水阁 · 还施水阁正厅】直面并质问慕容复！',
-      tone: 'success',
-      logTag: '直入水阁',
-    },
     { type: 'openScene', scene: SCENE_39_DENG_CONCEDES_WAY },
   ],
 }
@@ -598,7 +599,7 @@ const SCENE_37_DENG_BATTLE: StorySceneDef = {
   subtitle: '燕子坞 · 参合庄演武西场',
   beats: [
     {
-      speaker: { kind: 'custom', name: '邓百川', title: '姑苏慕容四大家臣之首', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0145' },
       text: '“少侠好胆量！上次在秘档室被你借烟雾跃水走脱，老夫心中一直引以为憾，连夜复盘十合仍觉意难平。今日你既亮出朝廷金牌堂堂正正登门，老夫便也在参合庄演武场上，用真功夫与你分个明白！”',
     },
     {
@@ -610,7 +611,7 @@ const SCENE_37_DENG_BATTLE: StorySceneDef = {
     {
       id: 'kf2_fight_dengbaichuan',
       label: '全力迎战「神掌震江南」邓百川',
-      subLabel: '剧情试炼（堂堂正正击败邓百川，打通前往还施水阁之路）',
+      subLabel: '正面死战（堂堂正正击败邓百川打通内院，⚠️ 战败将直接丧命！）',
       tone: 'danger',
       effects: [
         {
@@ -618,17 +619,11 @@ const SCENE_37_DENG_BATTLE: StorySceneDef = {
           opponent: { kind: 'custom', npc: buildDengBaichuanTrialNpc() },
           rule: 'story_trial',
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '邓百川已封住参合庄演武场退路，须正面击败他方能进见慕容复！',
+          deathTitle: '掌震参合 · 血染演武坪',
+          deathDetail:
+            '邓百川“神掌震江南”刚猛无俦，少侠于参合庄演武场力战不敌，护体真气尽碎，命丧太湖参合庄中！',
           onWin: [{ type: 'openScene', scene: SCENE_38_DENG_DEFEATED }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
-            {
-              type: 'toast',
-              text: '邓百川“神掌震江南”刚猛无比，少侠暂退调息后再战！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },
@@ -641,7 +636,7 @@ const SCENE_36_DENG_CONFRONTATION: StorySceneDef = {
   subtitle: '燕子坞 · 参合庄演武西场',
   beats: [
     {
-      speaker: { kind: 'custom', name: '邓百川', title: '姑苏慕容四大家臣之首', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0145' },
       text: '（双目如电，沉声质问）“公冶二弟竟也没拦住你？阁下持着开封府金牌闯入我燕子坞重地，难道真以为大宋官府的铁骑，能踏平我太湖百里水寨、折服我慕容氏百年威名不成？”',
     },
     {
@@ -649,7 +644,7 @@ const SCENE_36_DENG_CONFRONTATION: StorySceneDef = {
       text: '（冷笑一声，将太湖七十二峰与虎丘山洞兵甲暗账的抄录拓片亮在身前）“邓前辈不必虚张声势！朝廷水师两万精锐已在镇江府、平江府外待命，若非包大人念及江南百姓免受战火涂炭，今日登岛的便不是在下一人，而是三军甲士！我今日只要见慕容复一面，问清是非！”',
     },
     {
-      speaker: { kind: 'custom', name: '邓百川', title: '姑苏慕容四大家臣之首', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0145' },
       text: '“好个利口！不过想见公子爷，光凭一块金牌与几张纸片可不够——须得先问过老夫这双掌答不答应！”',
     },
   ],
@@ -725,7 +720,7 @@ const SCENE_32_GONGYE_YIELD: StorySceneDef = {
   subtitle: '姑苏城 · 太湖烟波渡口',
   beats: [
     {
-      speaker: { kind: 'custom', name: '公冶乾', title: '姑苏慕容四大家臣之二', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0161' },
       text: '（轻轻甩了甩震得发麻的右掌，脸上虽有败绩却丝毫不失儒雅风度，拱手一礼）“阁下掌力兼备刚柔，内息绵长更胜往昔，公冶某心服口服！想来半年之前在太湖渡口挫败包三弟、又在曼陀花径制住风四弟的，便是阁下无疑了？”',
     },
     {
@@ -733,7 +728,7 @@ const SCENE_32_GONGYE_YIELD: StorySceneDef = {
       text: '（收起兵刃还礼）“正是。公冶先生掌法精纯，晚辈亦是倾尽全力方才侥幸胜得半招。如今还请先生履行诺言，让出通往燕子坞的水路！”',
     },
     {
-      speaker: { kind: 'custom', name: '公冶乾', title: '姑苏慕容四大家臣之二', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0161' },
       text: '“拿去罢。”公冶乾从怀中取出一枚刻有双燕衔环图案的青铜令箭抛了过来，“有此令箭，参合庄外围水哨不会再难为你。只是邓大哥已在演武西场候着，公子爷也在还施水阁——你这一去，吉凶难料，好自为之！”',
     },
   ],
@@ -782,7 +777,7 @@ const SCENE_30_GONGYE_BATTLE: StorySceneDef = {
   subtitle: '姑苏城 · 太湖烟波渡口',
   beats: [
     {
-      speaker: { kind: 'custom', name: '公冶乾', title: '姑苏慕容四大家臣之二', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0161' },
       text: '“阁下既是开封府金牌总捕，想必武功也绝非庸手。我慕容氏向来敬重真英雄——只要你能在太湖这艘画舫之上胜过公冶某，莫说放你入燕子坞，我连通行令箭也一并双手奉上！”',
     },
     {
@@ -794,7 +789,7 @@ const SCENE_30_GONGYE_BATTLE: StorySceneDef = {
     {
       id: 'kf2_fight_gongyeqian',
       label: '迎战「江南二绝」公冶乾',
-      subLabel: '剧情试炼（击败公冶乾，夺取参合庄内坞通行令箭）',
+      subLabel: '渡口死战（击败公冶乾夺取参合庄内坞令箭，⚠️ 战败将直接丧命！）',
       tone: 'danger',
       effects: [
         {
@@ -802,17 +797,11 @@ const SCENE_30_GONGYE_BATTLE: StorySceneDef = {
           opponent: { kind: 'custom', npc: buildGongyeQianTrialNpc() },
           rule: 'story_trial',
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '公冶乾已横立画舫船头封死水路，唯有击败他方能入坞！',
+          deathTitle: '掌折画舫 · 魂断太湖',
+          deathDetail:
+            '太湖烟波渡口画舫之上，公冶乾“江南二绝”掌力刚柔并济、摧心裂脉！少侠失手重创坠入万顷碧波，命丧江南水路。',
           onWin: [{ type: 'openScene', scene: SCENE_31_GONGYE_DEFEATED }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 55, mpPct: 55 },
-            {
-              type: 'toast',
-              text: '公冶乾掌力刚柔并济、极难应付，少侠暂退调息后再战！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },
@@ -825,7 +814,7 @@ const SCENE_29_GONGYE_PARLEY: StorySceneDef = {
   subtitle: '姑苏城 · 太湖烟波渡口',
   beats: [
     {
-      speaker: { kind: 'custom', name: '公冶乾', title: '姑苏慕容四大家臣之二', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0161' },
       text: '（缓步走到画舫船头，举止斯文有礼，丝毫不见包不同与风波恶的乖张）“老朽公冶乾，不知开封府金牌总捕大驾光临，有失远迎。只是燕子坞乃私家园林，并无朝廷公干往来，总捕大人带剑而来，不知所为何事？”',
     },
     {
@@ -833,7 +822,7 @@ const SCENE_29_GONGYE_PARLEY: StorySceneDef = {
       text: '（单刀直入，将金牌高举一亮）“公冶先生既在江南素有儒雅之名，在下便也不绕弯子。太湖七十二峰暗藏兵甲三千、平江转运司暗账牵连辽夏，此事开封府已掌握实证。今日在下奉包大人之命，特来燕子坞见慕容复当面对质！”',
     },
     {
-      speaker: { kind: 'custom', name: '公冶乾', title: '姑苏慕容四大家臣之二', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0161' },
       text: '公冶乾听罢，眉宇间闪过一丝不易察觉的凝重，旋即摇头轻叹：“朝廷既已有备而来，老朽自知多言无益。然则公子爷岂是任人随意盘问之辈？总捕大人想登燕子坞，须得先过老朽这一关！”',
     },
   ],
@@ -871,7 +860,13 @@ const SCENE_27_GONGYE_INTEL: StorySceneDef = {
       text: '夜色深沉，少侠带着从虎丘与寒山寺两处查获的铁证——包括两枚私铸铁甲模子、一卷盐铁对账清单以及暗桩供词——秘密返回苏州客栈后院。开封府驻江南总探头沈六早已在房中等候多时。',
     },
     {
-      speaker: { kind: 'custom', name: '沈六', title: '开封府江南总探头', factionName: '六扇门暗桩' },
+      speaker: {
+        kind: 'custom',
+        name: '沈六',
+        title: '开封府江南总探头',
+        factionName: '六扇门暗桩',
+        portraitUrl: '/assets/characters/templates/tpl_liushenmen_male_fb.jpg',
+      },
       text: '（翻看完案上铁证，脸色既喜且忧）“太好了！有了这几件物证，慕容家就算长十张嘴也赖不掉！只是……方才太湖岸边传来最新消息：燕子坞知晓包不同与风波恶先后失手，如今已将所有渡口水路收归‘江南二绝’公冶乾亲自坐镇！”',
     },
     {
@@ -879,7 +874,20 @@ const SCENE_27_GONGYE_INTEL: StorySceneDef = {
       text: '（眼神一凝，手指轻轻摩挲着剑柄）“公冶乾？慕容四大家臣中，此人掌力刚柔并济，号称一流中品好手，素来极少离开太湖。他既然亲自出来拦路，说明慕容复已料到朝廷会再派重臣南下——正好，明日我便堂堂正正去太湖烟波渡口会会他！”',
     },
   ],
-  onFinishEffects: [{ type: 'openScene', scene: SCENE_28_TAIHU_BLOCKADE }],
+  onFinishEffects: [
+    {
+      type: 'setQuestStep',
+      questId: QUEST_ID,
+      stepId: 'suzhou_taihu_gongye',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '虎丘兵甲与寒山盐账双证俱齐！请前往【姑苏城 · 太湖烟波渡口 · 通燕子坞锦帆画舫渡船】会战公冶乾！',
+      tone: 'success',
+      logTag: '渡口亮牌',
+    },
+  ],
 }
 
 const SCENE_26_HANSHAN_LEDGER: StorySceneDef = {
@@ -921,7 +929,20 @@ const SCENE_25_HUQIU_ARMS_CACHE: StorySceneDef = {
       text: '（取出随身火漆与印泥，将几件铁甲上的飞燕印记拓下，又命随行暗桩记下山洞经纬度与入口机关）“这哪里是寻常江湖门派护院之用？分明是足以装备一支精锐边军的私藏武库！慕容复纵有百般辩解，在这些冷铁面前也休想抵赖！”',
     },
   ],
-  onFinishEffects: [{ type: 'openScene', scene: SCENE_26_HANSHAN_LEDGER }],
+  onFinishEffects: [
+    {
+      type: 'setQuestStep',
+      questId: QUEST_ID,
+      stepId: 'suzhou_hanshan',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '已查实虎丘试剑石飞燕铁甲暗窟！速赴【姑苏城 · 枫桥寒山寺 · 江枫竹影听钟诗轩】截获转运司焚烧中的盐铁底账！',
+      tone: 'talk',
+      logTag: '寒山截账',
+    },
+  ],
 }
 
 const SCENE_24_SUZHOU_BRIEFING: StorySceneDef = {
@@ -934,7 +955,7 @@ const SCENE_24_SUZHOU_BRIEFING: StorySceneDef = {
       text: '数日后，少侠换上一身寻常青衣行装再入姑苏城。此时正值深秋，虎丘云岩古塔下银杏叶落如金，塔影斜斜映在千人石上。少侠假作凭吊古迹的游方客，很快在塔后松林间与乔装成卖柴老汉的陆老艄公接上了头。',
     },
     {
-      speaker: { kind: 'custom', name: '陆老艄公', title: '开封府江南暗桩船夫', factionName: '六扇门暗桩' },
+      speaker: { kind: 'custom', name: '陆老艄公', title: '开封府江南暗桩船夫', factionName: '六扇门暗桩', portraitUrl: '/assets/characters/templates/tpl_caobang_fb.jpg' },
       text: '（一边假意捆扎松枝，一边压低声音急促汇报）“总捕大人，大事妙极也险极！自从上次您脱身北返，慕容家把太湖渡口查得像铁桶一般，还连夜把七十二峰里的几批铁甲往虎丘后山暗洞转移；另外，平江府转运司那几个贪墨小吏似乎察觉风声不对，今晚要在寒山寺诗轩烧毁旧账！”',
     },
     {
@@ -948,22 +969,36 @@ const SCENE_24_SUZHOU_BRIEFING: StorySceneDef = {
 const SCENE_23_SOUTHBOUND_JOURNEY: StorySceneDef = {
   id: 'scene_kf2_23_southbound_journey',
   title: '第二十三幕 · 奉旨南下赴江南',
-  subtitle: '汴梁城外 · 南下驿道',
+  subtitle: '汴梁城外 · 南薰门外驿道',
   beats: [
     {
       speaker: { kind: 'narrator' },
-      text: '翌日五更，汴梁城南薰门刚一开启，一骑快马便如离弦之箭般冲出城门，沿着大运河官道一路南下。少侠贴身藏好包拯亲签的开封府金牌勘合文书与半卷密旨，腰间长剑经由工部匠人连夜淬火磨砺，寒气逼人。',
+      text: '翌日五更，汴梁城南薰门刚一开启，少侠便按辔立于官道长亭之外。怀中贴身藏好包拯亲签的开封府金牌勘合文书与半卷紫宸密旨，腰间长剑经由工部匠人连夜淬火磨砺，寒气逼人。',
     },
     {
       speaker: { kind: 'narrator' },
-      text: '沿途过陈州、渡淮水、穿扬州，江南水乡的秋意渐浓，两岸芦花似雪，运河上漕船往来如梭。少侠表面上只是一名赶路赴任的寻常游侠，暗地里却借着六扇门沿途驿站不断核对江南东路兵马调动与太湖水师近况。',
+      text: '自东京南下江南，须跨淮渡江直趋平江府姑苏城。镇江水师已接枢密院密檄随时待命，而陆老艄公等江南暗桩亦已在姑苏城外虎丘古塔一带候命接应。',
     },
     {
       speaker: { kind: 'player' },
-      text: '（勒马立在镇江渡口高坡上，遥望东南方烟波隐约的姑苏方向）“镇江水师已暗中备好二十艘战船随时待命，但愿慕容复还能听得进几句道理，莫要逼得太湖之上血流成河！”',
+      text: '（一抖马缰，遥望东南烟波浩渺的江南方向）“此去姑苏，先赴虎丘试剑石查实私藏兵甲铁证，再去太湖会一会燕子坞群豪！驾！”',
     },
   ],
-  onFinishEffects: [{ type: 'openScene', scene: SCENE_24_SUZHOU_BRIEFING }],
+  onFinishEffects: [
+    { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+    {
+      type: 'setQuestStep',
+      questId: QUEST_ID,
+      stepId: 'suzhou_huqiu',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '已领受紫宸密旨！请自行策马南下前往【姑苏城 · 虎丘剑池 · 千人石试剑台与生公亭】与暗桩接头并核查兵甲暗窟！',
+      tone: 'success',
+      logTag: '奉旨南下',
+    },
+  ],
 }
 
 const SCENE_22_ZHAN_ZHAO_BLESSING: StorySceneDef = {
@@ -988,22 +1023,7 @@ const SCENE_22_ZHAN_ZHAO_BLESSING: StorySceneDef = {
       text: '“好！我在开封府备好庆功酒，等少侠平安凯旋！”',
     },
   ],
-  onFinishEffects: [
-    { type: 'healPlayer', hpPct: 100, mpPct: 100 },
-    {
-      type: 'setQuestStep',
-      questId: QUEST_ID,
-      stepId: 'suzhou_evidence',
-      silent: false,
-    },
-    {
-      type: 'toast',
-      text: '已领受密旨南下！请前往【姑苏城 · 虎丘剑池与寒山寺】核查铁证，再赴太湖渡口会战公冶乾。',
-      tone: 'success',
-      logTag: '奉旨南下',
-    },
-    { type: 'openScene', scene: SCENE_23_SOUTHBOUND_JOURNEY },
-  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_23_SOUTHBOUND_JOURNEY }],
 }
 
 const SCENE_21_GONGSUN_STRATEGY: StorySceneDef = {
@@ -1091,15 +1111,12 @@ const SCENE_18_KAIFENG_SUMMONS: StorySceneDef = {
       text: '包拯见少侠大步入殿，抬手示意免礼：“少侠来了。半年前你孤身探燕子坞，带回姑苏慕容氏私蓄兵甲之实据。这半年来，本府暗中奏明圣上并命枢密院与江南暗桩顺藤摸瓜，如今大网已成，正缺一位敢闯龙潭虎穴之人去收最后一根纲绳！”',
     },
   ],
-  onFinishEffects: [
-    { type: 'startQuest', questId: QUEST_ID },
-    { type: 'openScene', scene: SCENE_19_BORDER_INTELLIGENCE },
-  ],
+  onFinishEffects: [{ type: 'openScene', scene: SCENE_19_BORDER_INTELLIGENCE }],
 }
 
 // 注：为了剧情紧凑且严格保持 52 幕（>= 50 幕）与 > 15,000 纯汉字规模，
-// 我们将开篇入京铺垫与姑苏暗线勘查细化为 SCENE_01 ~ SCENE_17，
-// 并与上方 SCENE_18 ~ SCENE_52 严丝合缝衔接！
+// 我们将开篇入京铺垫与姑苏暗线勘查细化为分驻各真实建筑子景点的多步调查链，
+// 杜绝跨地点连播对话，每到一处均由玩家亲自前往触发！
 
 const SCENE_17_ARCHIVE_FINAL_CHECK: StorySceneDef = {
   id: 'scene_kf2_17_archive_check',
@@ -1136,7 +1153,13 @@ const SCENE_16_LIAO_SPY_INTERROGATION: StorySceneDef = {
       text: '昨夜在樊楼飞檐外抓获的那名契丹细作，此刻正被玄铁链锁在开封府地下密审石室之中。石室四壁厚逾三尺，隔绝内外声息，唯有一盏牛油灯在铁架上滋滋作响。起初那细作仗着草原硬汉的骨气咬紧牙关，死活自称只是贩马的辽东商人，但在少侠亮出从他靴底夹层搜出的那枚半截紫檀燕纹牌，又点破他左腕内侧的契丹狼头刺青后，此人脸色顿时惨白如纸，豆大的汗珠顺着额角滚落。',
     },
     {
-      speaker: { kind: 'custom', name: '契丹密使', title: '大辽南京道暗探', factionName: '大辽南院' },
+      speaker: {
+        kind: 'custom',
+        name: '契丹密使',
+        title: '大辽南京道暗探',
+        factionName: '大辽南院',
+        portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
+      },
       text: '（浑身颤抖，铁链哗啦作响，终于崩溃松口招供）“别……别用大刑！我说，全都说！那半截木牌确是江南姑苏一位姓邓的老管事半年前派人送到燕京析津府的！我奉南院萧大王密令南下汴梁，原是打听宋军江南调防与运河漕运虚实，顺道带一句口信给姑苏那边——只要大宋边防有变、或朝廷调动江南重兵，南京道便在雁门关外虚张声势、陈兵十万，替他们牵制东京禁军！”',
     },
     {
@@ -1145,10 +1168,23 @@ const SCENE_16_LIAO_SPY_INTERROGATION: StorySceneDef = {
     },
     {
       speaker: { kind: 'narrator' },
-      text: '审讯毕，少侠亲自将密审口供封入火漆铁盒，径直呈送包拯案头。',
+      text: '审讯毕，少侠亲自将密审口供封入火漆铁盒，准备前往开封府衙升堂正殿呈送包拯。',
     },
   ],
-  onFinishEffects: [{ type: 'openScene', scene: SCENE_17_ARCHIVE_FINAL_CHECK }],
+  onFinishEffects: [
+    {
+      type: 'setQuestStep',
+      questId: QUEST_ID,
+      stepId: 'kaifeng_court_edict',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '已审出契丹密使口供！请返回【开封府 · 开封府衙 · 开封府升堂正殿】呈报包拯并领受紫宸密旨！',
+      tone: 'success',
+      logTag: '北谍招供',
+    },
+  ],
 }
 
 const SCENE_15_FANLOU_NIGHT_CHASE: StorySceneDef = {
@@ -1175,11 +1211,11 @@ const SCENE_15_FANLOU_NIGHT_CHASE: StorySceneDef = {
 const SCENE_14_BIANLIANG_NIGHT_WATCH: StorySceneDef = {
   id: 'scene_kf2_14_bianliang_watch',
   title: '第十四幕 · 御街夜巡察异踪',
-  subtitle: '汴梁城 · 州桥夜市',
+  subtitle: '汴梁城 · 樊楼与州桥夜市',
   beats: [
     {
       speaker: { kind: 'narrator' },
-      text: '领旨前夜，少侠奉展昭之托带队例行巡视汴梁州桥夜市。此时皇祐年间的东京城繁华似锦，州桥两岸酒肆茶坊挑灯夜卖，叫卖声、说书声、车马铃铛声交织成一片盛世喧嚣，游人摩肩接踵。少侠正自一处煎茶摊边走过，忽然敏锐地察觉到人群角落里有一名身着灰布商袍的男子，手中虽捧着一碗热茶，眼神却屡屡不动声色地瞟向枢密院门前的换岗禁军，神态与寻常商旅格格不入。',
+      text: '入夜后，少侠奉展昭之托带队巡视樊楼与州桥夜市。此时皇祐年间的东京城繁华似锦，樊楼飞桥灯火辉煌，两岸酒肆茶坊挑灯夜卖，叫卖声、说书声、车马铃铛声交织成一片盛世喧嚣，游人摩肩接踵。少侠正自飞桥雅阁凭栏俯瞰，忽然敏锐地察觉到街角煎茶摊边有一名身着灰布商袍的男子，眼神屡屡不动声色地瞟向枢密院门前的换岗禁军，神态与寻常商旅格格不入。',
     },
     {
       speaker: { kind: 'player' },
@@ -1187,7 +1223,7 @@ const SCENE_14_BIANLIANG_NIGHT_WATCH: StorySceneDef = {
     },
     {
       speaker: { kind: 'narrator' },
-      text: '那灰衣客果然警觉极高，刚一察觉身后有道锐利目光盯梢，立刻丢下茶碗钻入樊楼后巷，脚尖一点砖墙，纵身跃上青砖屋脊！少侠冷哼一声，足尖同样一点地面，身形如青鹤般紧追而上！',
+      text: '那灰衣客果然警觉极高，刚一察觉上方有道锐利目光盯梢，立刻丢下茶碗钻入樊楼后巷，脚尖一点砖墙，纵身跃上青砖屋脊！少侠冷哼一声，足尖同样一点栏杆，身形如青鹤般紧追而上！',
     },
   ],
   onFinishEffects: [{ type: 'openScene', scene: SCENE_15_FANLOU_NIGHT_CHASE }],
@@ -1203,15 +1239,34 @@ const SCENE_13_SWORD_FORGE_PREP: StorySceneDef = {
       text: '深知此番南下极可能直面一流乃至宗师级高手，少侠在启程筹备期间，特意带着随身兵刃来到汴梁城东的御用百工铁匠铺。铺内炉火熊熊，铁锤敲击声叮当不绝，少侠请经验最老到的张铁匠重新开锋淬火，并添置了几枚六扇门特制的破风袖箭、牛皮护腕与防身软甲。',
     },
     {
-      speaker: { kind: 'custom', name: '张老铁匠', title: '东京百工巧匠', factionName: '汴梁市井' },
+      speaker: {
+        kind: 'custom',
+        name: '张老铁匠',
+        title: '东京百工巧匠',
+        factionName: '汴梁市井',
+        portraitUrl: '/assets/characters/templates/tpl_baji_male_fb.jpg',
+      },
       text: '（将淬火完毕的长剑捧出冷水石槽，白雾蒸腾间寒光映得满屋生辉）“总捕大人这口剑胚子原本就是百炼精钢所铸，老汉今番又替您加了一道三叠折花锻纹，剑脊柔韧而剑锋极利，便是硬碰江南那些名门世家的宝剑神兵也绝不卷刃崩口！大人此去南方千里之外，务必多加小心，早日凯旋！”',
     },
     {
       speaker: { kind: 'player' },
-      text: '（接过长剑轻轻弹指一试，只听一声清越龙吟久久不散）“多谢张师傅好手艺！剑利则气壮，此行定不辱六扇门威名！”',
+      text: '（接过长剑轻轻弹指一试，只听一声清越龙吟久久不散）“多谢张师傅好手艺！剑利则气壮，今晚我便先去樊楼一带夜巡，看看京城里有没有外虏耳目！”',
     },
   ],
-  onFinishEffects: [{ type: 'openScene', scene: SCENE_14_BIANLIANG_NIGHT_WATCH }],
+  onFinishEffects: [
+    {
+      type: 'setQuestStep',
+      questId: QUEST_ID,
+      stepId: 'kaifeng_fanlou_spy',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '江南与西北密函已核实！请前往【开封府 · 樊楼 · 三层五楼飞桥雅阁】执行御街夜巡，截查潜京暗探！',
+      tone: 'talk',
+      logTag: '樊楼夜巡',
+    },
+  ],
 }
 
 const SCENE_12_XIA_CORRESPONDENCE: StorySceneDef = {
@@ -1301,11 +1356,11 @@ const SCENE_09_ZHAOZHAO_SPAR_TIP: StorySceneDef = {
 const SCENE_08_SCHOLAR_INSIGHT: StorySceneDef = {
   id: 'scene_kf2_08_scholar_insight',
   title: '第八幕 · 馆阁旧史识慕容',
-  subtitle: '汴梁城 · 相国寺旧书肆',
+  subtitle: '汴梁城 · 相国寺万姓交易雅市旧书肆',
   beats: [
     {
       speaker: { kind: 'narrator' },
-      text: '为了彻底摸清姑苏慕容氏的来历渊源与心性执念，少侠在公余之际特意前往大相国寺旁的旧书肆，花了半日功夫翻阅前代《十六国春秋》与五代残史，细细考证鲜卑慕容氏自龙城南迁、建立前后燕、乃至衣冠南渡避居江南太湖的百年脉络。',
+      text: '为了彻底摸清姑苏慕容氏的来历渊源与心性执念，少侠在公余之际特意前往大相国寺万姓交易雅市的旧书肆，花了半日功夫翻阅前代《十六国春秋》与五代残史，细细考证鲜卑慕容氏自龙城南迁、建立前后燕、乃至衣冠南渡避居江南太湖的百年脉络。',
     },
     {
       speaker: { kind: 'player' },
@@ -1313,10 +1368,23 @@ const SCENE_08_SCHOLAR_INSIGHT: StorySceneDef = {
     },
     {
       speaker: { kind: 'narrator' },
-      text: '明了对手心结与软肋所在，少侠对即将到来的姑苏之行，心中更多了几分把握与清醒。',
+      text: '明了对手心结与软肋所在，少侠收好书卷，准备返回开封府六扇门演武院与展昭切磋讨教，并等候江南飞鸽传书。',
     },
   ],
-  onFinishEffects: [{ type: 'openScene', scene: SCENE_09_ZHAOZHAO_SPAR_TIP }],
+  onFinishEffects: [
+    {
+      type: 'setQuestStep',
+      questId: QUEST_ID,
+      stepId: 'kaifeng_liushan_prep',
+      silent: false,
+    },
+    {
+      type: 'toast',
+      text: '已摸清江南商路异动与鲜卑燕史脉络！请返回【开封府 · 开封府衙 · 六扇门捕快演武院】向展昭讨教破敌之策并查收密报。',
+      tone: 'talk',
+      logTag: '演武备战',
+    },
+  ],
 }
 
 const SCENE_07_ROYAL_INQUIRY_ECHO: StorySceneDef = {
@@ -1326,7 +1394,7 @@ const SCENE_07_ROYAL_INQUIRY_ECHO: StorySceneDef = {
   beats: [
     {
       speaker: { kind: 'narrator' },
-      text: '这日早朝散后，少侠奉命押送封缄公文至宣德门外政事堂，恰逢两位御史大夫一边缓步下石阶一边压低声音交谈。虽相隔数丈、且有宫禁车马声遮掩，少侠耳力过人，仍隐约听见“江南私铁”、“平江转运司”、“太湖水师”等字眼一闪而过，两人神色皆颇为肃穆。',
+      text: '这日早朝散后，少侠奉命押送封缄公文途经宣德门外石桥，恰逢两位御史大夫一边缓步下石阶一边压低声音交谈。虽相隔数丈、且有宫禁车马声遮掩，少侠耳力过人，仍隐约听见“江南私铁”、“平江转运司”、“太湖水师”等字眼一闪而过，两人神色皆颇为肃穆。',
     },
     {
       speaker: { kind: 'player' },
@@ -1334,7 +1402,7 @@ const SCENE_07_ROYAL_INQUIRY_ECHO: StorySceneDef = {
     },
     {
       speaker: { kind: 'narrator' },
-      text: '回到开封府后，少侠愈发谨言慎行，静静等候朝廷与包拯的最后决断。',
+      text: '顺着御街向东，少侠步入热闹非凡的大相国寺万姓交易雅市，准备去旧书肆翻检前朝燕史以知己知彼。',
     },
   ],
   onFinishEffects: [{ type: 'openScene', scene: SCENE_08_SCHOLAR_INSIGHT }],
@@ -1343,14 +1411,20 @@ const SCENE_07_ROYAL_INQUIRY_ECHO: StorySceneDef = {
 const SCENE_06_JIANGNAN_MERCHANT_RUMOR: StorySceneDef = {
   id: 'scene_kf2_06_merchant_rumor',
   title: '第六幕 · 丝绸茶肆闻风声',
-  subtitle: '汴梁城 · 汴河码头茶肆',
+  subtitle: '汴梁城 · 相国寺万姓交易雅市茶棚',
   beats: [
     {
       speaker: { kind: 'narrator' },
-      text: '几日后，少侠换上便服在汴河码头茶肆歇脚，一边喝着粗碗大叶茶，一边留意过往船客谈吐。耳畔忽然听见邻桌几名刚从苏杭运生丝北上的行商正在拍腿叹苦经，言辞间频频提到太湖一带近来盘查极严、商船屡遭驱赶。',
+      text: '几日后，少侠换上便服来到大相国寺万姓交易雅市的茶棚歇脚，一边喝着粗碗大叶茶，一边留意南来北往的行商谈吐。耳畔忽然听见邻桌几名刚从苏杭运生丝北上的行商正在拍腿叹苦经，言辞间频频提到太湖一带近来盘查极严、商船屡遭驱赶。',
     },
     {
-      speaker: { kind: 'custom', name: '苏杭丝商', title: '江南行商', factionName: '江湖行商' },
+      speaker: {
+        kind: 'custom',
+        name: '苏杭丝商',
+        title: '江南行商',
+        factionName: '江湖行商',
+        portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
+      },
       text: '“唉，别提了！往年咱们走太湖运生丝去无锡，顺风顺水半日便到，连渔民都客客气气的；这阵子不知怎么回事，湖面上平白多了好多黑漆快船来回巡哨，听说是什么燕子坞的主事下令封湖清查外客，稍有不对便扣船赶人呢！”',
     },
     {
@@ -1372,14 +1446,22 @@ const SCENE_05_SECRET_SEAL_REPORT: StorySceneDef = {
     },
     {
       speaker: { kind: 'npc', npcId: 'NPC-0013' },
-      text: '（一掌重重拍在红木案几上，震得青瓷茶盖叮当乱响，怒目如电）“岂有此理！朝廷辛辛苦苦冶炼的官铁，本该用来铸造边军甲胄抵御辽夏，竟然大半被地方转运司贪官暗中卖给了江南江湖世家，用来私铸反贼甲械！此案若不彻底水落石出，本府愧对圣恩与天下苍生！”',
+      text: '（一掌重重拍在红木案几上，震得青瓷茶盖叮当乱响，怒目如电）“岂有此理！朝廷辛辛苦苦冶炼的官铁，本该用来铸造边军甲胄抵御辽夏，竟然大半被地方转运司贪官暗中卖给了江南江湖世家，用来私铸反贼甲械！本府已密奏圣上，在圣旨降下之前，少侠可先在京师市井与相国寺雅市留意江南行商风声！”',
     },
     {
       speaker: { kind: 'player' },
-      text: '（抱拳肃立，声音斩钉截铁）“大人息怒，卑职愿随时再赴江南，将这批贪墨蠹虫与燕子坞的底细一并揭穿！”',
+      text: '（抱拳肃立，声音斩钉截铁）“大人息怒，卑职这便去相国寺雅市探听太湖近期动静，随时听候大人差遣！”',
     },
   ],
-  onFinishEffects: [{ type: 'openScene', scene: SCENE_06_JIANGNAN_MERCHANT_RUMOR }],
+  onFinishEffects: [
+    { type: 'startQuest', questId: QUEST_ID, stepId: 'kaifeng_market_rumor' },
+    {
+      type: 'toast',
+      text: '已接领《参合剑气 · 姑苏对质》！请先前往【开封府 · 大相国寺 · 相国寺万姓交易雅市】探听江南行商风声与翻检前朝燕史。',
+      tone: 'talk',
+      logTag: '京师暗访',
+    },
+  ],
 }
 
 const SCENE_04_MURONG_REPUTATION: StorySceneDef = {
@@ -1392,7 +1474,13 @@ const SCENE_04_MURONG_REPUTATION: StorySceneDef = {
       text: '为了解江湖中人对慕容复的真实看法与人望深浅，少侠特意抽空在汴梁城南的江湖客栈走动数日。每当酒客们三杯黄汤下肚、谈起当世青年高手，无不将“北乔峰、南慕容”挂在嘴边，对姑苏慕容氏的“以彼之道，还施彼身”更是神往推崇备至。',
     },
     {
-      speaker: { kind: 'custom', name: '关中豪客', title: '江湖游侠', factionName: '江湖散修' },
+      speaker: {
+        kind: 'custom',
+        name: '关中豪客',
+        title: '江湖游侠',
+        factionName: '江湖散修',
+        portraitUrl: '/assets/characters/templates/tpl_chaquan_male_fb.jpg',
+      },
       text: '“要说那慕容公子，当真是江湖上少有的风流人物！去年河朔闹饥荒，听说他还暗中施舍过几百石粮食赈济流民，怎么看也不像是会干坏事的人啊——就是行踪飘忽了些，神龙见首不见尾，等闲人见不着他一面。”',
     },
     {
@@ -1472,68 +1560,132 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
     title: '参合剑气 · 姑苏对质',
     category: 'sect_mission',
     factionId: 'SECT-17',
-    factionName: '开封府 · 六扇门',
     recommendedRealm: '一流中品及以上',
+    maxOpponentRealm: '绝顶宗师（慕容复十合对决）',
+    recommendedNote: '赏银 +260 两 · 战斗经验 +600 · 声望 +80 · 侠义 +40 · 解锁 Lv.4 御前护卫晋升',
     summary:
-      '晋升开封府【金牌总捕】后，奉包拯与紫宸密旨再度南下姑苏。先赴虎丘、寒山寺锁死铁证，再于太湖渡口击败“江南二绝”公冶乾、于参合庄演武场正面击败“神掌震江南”邓百川，最终踏入还施水阁当面质问慕容复并与其交手十合，双方收手立约，解锁晋升【Lv.4 御前护卫】资格。',
-    rewardsSummary: '赏银 +260 两 · 战斗经验 +600 · 声望 +80 · 侠义 +40 · 解锁 Lv.4 御前护卫晋升',
-    initialStep: 'suzhou_evidence',
+      '晋升开封府【金牌总捕】后，先于汴梁查获契丹密使口供、奉包拯与紫宸密旨再度南下姑苏。依次赴虎丘、寒山寺锁死铁证，于太湖渡口击败“江南二绝”公冶乾、于参合庄演武场正面击败“神掌震江南”邓百川，最终踏入还施水阁当面质问慕容复并与其交手十合，双方收手立约，解锁晋升【Lv.4 御前护卫】资格。',
+    initialStepId: 'kaifeng_market_rumor',
     steps: {
-      suzhou_evidence: {
-        id: 'suzhou_evidence',
-        title: '姑苏取证，渡口战公冶',
-        description:
-          '已领受包拯与圣上密旨南下姑苏！先赴【姑苏城 · 虎丘剑池 / 寒山寺】核查兵甲铁证，再往【姑苏城 · 太湖烟波渡口】击败公冶乾夺取内坞令箭。',
-        locationHints: [
-          {
-            regionId: 'suzhou',
-            buildingId: 'sz_taihu',
-            spotId: 'sz_th_boat',
-            label: '姑苏城 · 太湖烟波渡口 · 烟波画舫泊岸',
-          },
-        ],
+      kaifeng_market_rumor: {
+        id: 'kaifeng_market_rumor',
+        title: '相国雅市，探访燕史',
+        objective:
+          '前往【开封府 · 大相国寺 · 相国寺万姓交易雅市】探听苏杭行商关于太湖封湖的风声，并在旧书肆查阅前朝燕史。',
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bl_xiangguosi',
+          spotId: 'bl_xg_market',
+          customLabel: '开封府 · 大相国寺 · 相国寺万姓交易雅市',
+        },
+      },
+      kaifeng_liushan_prep: {
+        id: 'kaifeng_liushan_prep',
+        title: '六扇演武，收阅密函',
+        objective:
+          '返回【开封府 · 开封府衙 · 六扇门捕快演武院】听展昭指点克制“斗转星移”之策，查收江南飞鸽与延州军马密报。',
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bl_kaifengfu',
+          spotId: 'bl_kf_liushan',
+          customLabel: '开封府 · 开封府衙 · 六扇门捕快演武院',
+        },
+      },
+      kaifeng_fanlou_spy: {
+        id: 'kaifeng_fanlou_spy',
+        title: '樊楼夜巡，屋脊擒谍',
+        objective:
+          '前往【开封府 · 樊楼 · 三层五楼飞桥雅阁】执行御街夜巡，擒拿潜入京师的契丹密使并审出辽燕勾连口供。',
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bl_fanlou',
+          spotId: 'bl_fl_towers',
+          customLabel: '开封府 · 樊楼 · 三层五楼飞桥雅阁',
+        },
+      },
+      kaifeng_court_edict: {
+        id: 'kaifeng_court_edict',
+        title: '升堂正殿，领旨南巡',
+        objective:
+          '返回【开封府 · 开封府衙 · 开封府升堂正殿】核对旧案、向包拯呈交北谍口供，正式领受紫宸密旨与鎏金金牌启程南下！',
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bl_kaifengfu',
+          spotId: 'bl_kf_court',
+          customLabel: '开封府 · 开封府衙 · 开封府升堂正殿',
+        },
+      },
+      suzhou_huqiu: {
+        id: 'suzhou_huqiu',
+        title: '南下姑苏，夜探虎丘',
+        objective:
+          '策马南下前往【姑苏城 · 虎丘剑池 · 千人石试剑台与生公亭】与陆老艄公接头，查实试剑石后山私藏飞燕铁甲暗窟。',
+        targetLocation: {
+          regionId: 'suzhou',
+          buildingId: 'sz_huqiu',
+          spotId: 'sz_hq_stone',
+          customLabel: '姑苏城 · 虎丘剑池 · 千人石试剑台与生公亭',
+        },
+      },
+      suzhou_hanshan: {
+        id: 'suzhou_hanshan',
+        title: '寒山诗轩，火中夺账',
+        objective:
+          '速赴【姑苏城 · 枫桥寒山寺 · 江枫竹影听钟诗轩】，截获平江转运司贪吏正欲焚毁的五年盐铁洗钱底账。',
+        targetLocation: {
+          regionId: 'suzhou',
+          buildingId: 'sz_hanshan',
+          spotId: 'sz_hs_poetry',
+          customLabel: '姑苏城 · 枫桥寒山寺 · 江枫竹影听钟诗轩',
+        },
+      },
+      suzhou_taihu_gongye: {
+        id: 'suzhou_taihu_gongye',
+        title: '太湖画舫，渡口战公冶',
+        objective:
+          '持双料铁证前往【姑苏城 · 太湖烟波渡口 · 通燕子坞锦帆画舫渡船】亮明金牌，正面击败拦路的“江南二绝”公冶乾！',
+        targetLocation: {
+          regionId: 'suzhou',
+          buildingId: 'sz_taihu',
+          spotId: 'sz_th_boat',
+          customLabel: '姑苏城 · 太湖烟波渡口 · 通燕子坞锦帆画舫渡船',
+        },
       },
       yanziwu_deng: {
         id: 'yanziwu_deng',
         title: '重临参合，再战邓百川',
-        description:
-          '已击败公冶乾并获内坞令箭！前往【燕子坞 · 参合庄 · 参合庄演武西场】堂堂正正击败“神掌震江南”邓百川。',
-        locationHints: [
-          {
-            regionId: 'yanziwu',
-            buildingId: 'yzw_canhe',
-            spotId: 'yzw_canhe_west',
-            label: '燕子坞 · 参合庄 · 参合庄演武西场',
-          },
-        ],
+        objective:
+          '已击败公冶乾并获内坞令箭！前往【燕子坞 · 参合庄议事正厅 · 临湖九曲演武坪】堂堂正正击败“神掌震江南”邓百川。',
+        targetLocation: {
+          regionId: 'yanziwu',
+          buildingId: 'yzw_canhe',
+          spotId: 'yzw_canhe_west',
+          customLabel: '燕子坞 · 参合庄议事正厅 · 临湖九曲演武坪',
+        },
       },
       huanshi_murong: {
         id: 'huanshi_murong',
         title: '还施水阁，十合战慕容',
-        description:
-          '已击败邓百川打通内院！步入【燕子坞 · 还施水阁 · 还施水阁正厅】当面质问慕容复，并在其“参合指”与“斗转星移”下撑过 10 回合，促成双方收手立约。',
-        locationHints: [
-          {
-            regionId: 'yanziwu',
-            buildingId: 'yzw_huanshi',
-            spotId: 'yzw_huanshi_main',
-            label: '燕子坞 · 还施水阁 · 还施水阁正厅',
-          },
-        ],
+        objective:
+          '已击败邓百川打通内院！步入【燕子坞 · 还施水阁 · 还施水阁藏书正楼】当面质问慕容复，并在其手下撑过 10 回合，促成双方收手立约。',
+        targetLocation: {
+          regionId: 'yanziwu',
+          buildingId: 'yzw_huanshi',
+          spotId: 'yzw_huanshi_main',
+          customLabel: '燕子坞 · 还施水阁 · 还施水阁藏书正楼',
+        },
       },
       return_kaifeng_final: {
         id: 'return_kaifeng_final',
         title: '封存军械，北返复圣命',
-        description:
+        objective:
           '已与慕容复双方收手、约定后续再说，并督促苏州府封存太湖私藏兵甲！请北返【开封府 · 开封府衙 · 开封府升堂正殿】向包拯、展昭复命。',
-        locationHints: [
-          {
-            regionId: 'bianliang',
-            buildingId: 'bl_kaifengfu',
-            spotId: 'bl_kf_court',
-            label: '开封府 · 开封府衙 · 开封府升堂正殿',
-          },
-        ],
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bl_kaifengfu',
+          spotId: 'bl_kf_court',
+          customLabel: '开封府 · 开封府衙 · 开封府升堂正殿',
+        },
       },
     },
     spotActions: [
@@ -1541,7 +1693,7 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
         id: 'spot_kf2_start',
         label: '领取晋升任务：《参合剑气 · 姑苏对质》',
         badge: 'Lv.3→Lv.4 晋升',
-        subtitle: '需开封府 Lv.3 金牌总捕且完成《燕子坞暗影》 · 奉密旨再赴姑苏对质慕容复',
+        subtitle: '需开封府 Lv.3 金牌总捕且完成《燕子坞暗影》 · 奉密旨再查姑苏慕容氏',
         tone: 'gold',
         regionId: 'bianliang',
         buildingId: 'bl_kaifengfu',
@@ -1558,10 +1710,112 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
         effects: [{ type: 'openScene', scene: SCENE_01_GOLD_PROMOTION_START }],
       },
       {
+        id: 'spot_kf2_kaifeng_market',
+        label: '茶棚听风声 · 旧书肆翻检燕史',
+        badge: '第6-8幕',
+        subtitle: '探听苏杭丝商关于太湖封湖的传闻，考证鲜卑慕容氏兴复执念',
+        tone: 'primary',
+        regionId: 'bianliang',
+        buildingId: 'bl_xiangguosi',
+        spotId: 'bl_xg_market',
+        visibleWhen: {
+          type: 'questStatus',
+          questId: QUEST_ID,
+          status: 'active',
+          stepId: 'kaifeng_market_rumor',
+        },
+        effects: [{ type: 'openScene', scene: SCENE_06_JIANGNAN_MERCHANT_RUMOR }],
+      },
+      {
+        id: 'spot_kf2_kaifeng_liushan',
+        label: '演武坪问剑展昭 · 核验江南延州密报',
+        badge: '第9-13幕',
+        subtitle: '向展昭请教克制“斗转星移”之法，拆阅太湖飞鸽与西夏良马暗账，淬砺佩剑',
+        tone: 'primary',
+        regionId: 'bianliang',
+        buildingId: 'bl_kaifengfu',
+        spotId: 'bl_kf_liushan',
+        visibleWhen: {
+          type: 'questStatus',
+          questId: QUEST_ID,
+          status: 'active',
+          stepId: 'kaifeng_liushan_prep',
+        },
+        effects: [{ type: 'openScene', scene: SCENE_09_ZHAOZHAO_SPAR_TIP }],
+      },
+      {
+        id: 'spot_kf2_kaifeng_fanlou',
+        label: '樊楼飞檐夜巡 · 追擒契丹密使',
+        badge: '第14-16幕',
+        subtitle: '于夜市识破草原暗探，屋脊擒贼搜出燕字紫檀牌并密审口供',
+        tone: 'danger',
+        regionId: 'bianliang',
+        buildingId: 'bl_fanlou',
+        spotId: 'bl_fl_towers',
+        visibleWhen: {
+          type: 'questStatus',
+          questId: QUEST_ID,
+          status: 'active',
+          stepId: 'kaifeng_fanlou_spy',
+        },
+        effects: [{ type: 'openScene', scene: SCENE_14_BIANLIANG_NIGHT_WATCH }],
+      },
+      {
+        id: 'spot_kf2_kaifeng_edict',
+        label: '呈报北谍口供 · 恭领紫宸密旨南巡',
+        badge: '第17-23幕',
+        subtitle: '核对架阁库八年旧案，奉包拯鎏金金牌与紫宸密旨正式启程南下姑苏',
+        tone: 'gold',
+        regionId: 'bianliang',
+        buildingId: 'bl_kaifengfu',
+        spotId: 'bl_kf_court',
+        visibleWhen: {
+          type: 'questStatus',
+          questId: QUEST_ID,
+          status: 'active',
+          stepId: 'kaifeng_court_edict',
+        },
+        effects: [{ type: 'openScene', scene: SCENE_17_ARCHIVE_FINAL_CHECK }],
+      },
+      {
+        id: 'spot_kf2_suzhou_huqiu',
+        label: '接头陆老艄公 · 夜探试剑石兵甲暗窟',
+        badge: '第24-25幕',
+        subtitle: '查实虎丘后山石窟内烙有飞燕暗印的冷锻重甲与破甲长矛',
+        tone: 'primary',
+        regionId: 'suzhou',
+        buildingId: 'sz_huqiu',
+        spotId: 'sz_hq_stone',
+        visibleWhen: {
+          type: 'questStatus',
+          questId: QUEST_ID,
+          status: 'active',
+          stepId: 'suzhou_huqiu',
+        },
+        effects: [{ type: 'openScene', scene: SCENE_24_SUZHOU_BRIEFING }],
+      },
+      {
+        id: 'spot_kf2_suzhou_hanshan',
+        label: '夜闯江枫诗轩 · 夺下焚毁前盐铁底账',
+        badge: '第26-27幕',
+        subtitle: '人赃并获拿下平江转运司蛀虫，获悉公冶乾亲自坐镇封锁太湖水路',
+        tone: 'primary',
+        regionId: 'suzhou',
+        buildingId: 'sz_hanshan',
+        spotId: 'sz_hs_poetry',
+        visibleWhen: {
+          type: 'questStatus',
+          questId: QUEST_ID,
+          status: 'active',
+          stepId: 'suzhou_hanshan',
+        },
+        effects: [{ type: 'openScene', scene: SCENE_26_HANSHAN_LEDGER }],
+      },
+      {
         id: 'spot_kf2_taihu_gongye',
-        label: '核查姑苏铁证 · 烟波画舫战公冶乾',
-        badge: '第24-32幕',
-        subtitle: '查实虎丘兵甲与寒山寺盐账，并于太湖渡口击败“江南二绝”公冶乾',
+        label: '持证亮明金牌 · 烟波画舫死战公冶乾',
+        badge: '第28-32幕',
+        subtitle: '于太湖渡口画舫正面击败“江南二绝”公冶乾，夺取参合庄内坞令箭',
         tone: 'danger',
         regionId: 'suzhou',
         buildingId: 'sz_taihu',
@@ -1570,9 +1824,9 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
           type: 'questStatus',
           questId: QUEST_ID,
           status: 'active',
-          stepId: 'suzhou_evidence',
+          stepId: 'suzhou_taihu_gongye',
         },
-        effects: [{ type: 'openScene', scene: SCENE_24_SUZHOU_BRIEFING }],
+        effects: [{ type: 'openScene', scene: SCENE_28_TAIHU_BLOCKADE }],
       },
       {
         id: 'spot_kf2_canhe_deng',

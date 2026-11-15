@@ -3535,7 +3535,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     if (s.gameOver) return
 
     const effectiveStakes: DuelStakesKind = duelStakes ?? (mode === 'duel' ? 'duel' : 'spar')
-    const effectiveMode: 'spar' | 'duel' = effectiveStakes === 'spar' ? 'spar' : 'duel'
+    const effectiveMode: 'spar' | 'duel' =
+      effectiveStakes === 'spar' || effectiveStakes === 'sect_tournament' ? 'spar' : 'duel'
 
     if (effectiveStakes === 'rob_official') {
       const dbNpc = (npc.id && NPC_DB_MAP[npc.id]) || resolveNpcByName(npc.name)
@@ -3735,13 +3736,21 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
                     songDate,
                     locationName: regionName,
                   }
-                : {
-                    reasonTitle: '命陨江湖 · 侠踪绝响',
-                    reasonDetail: `生死相搏，刀剑无眼！少侠在与【${session.npc.name}】的生死对决中气绝败北，血染尘沙，一世风云就此落幕。`,
-                    killerName: session.npc.name,
-                    songDate,
-                    locationName: regionName,
-                  }
+                : session.surviveToWin
+                  ? {
+                      reasonTitle: `${session.maxRounds}合未竟 · 命陨当场`,
+                      reasonDetail: `刀剑无眼，强敌难撄！少侠在与【${session.npc.name}】的交锋中未能撑满 ${session.maxRounds} 回合，真气溃散重创倒地，当场毙命！`,
+                      killerName: session.npc.name,
+                      songDate,
+                      locationName: regionName,
+                    }
+                  : {
+                      reasonTitle: '命陨江湖 · 侠踪绝响',
+                      reasonDetail: `生死相搏，刀剑无眼！少侠在与【${session.npc.name}】的生死对决中气绝败北，血染尘沙，一世风云就此落幕。`,
+                      killerName: session.npc.name,
+                      songDate,
+                      locationName: regionName,
+                    }
 
       set({
         activeCombat: null,
@@ -5548,10 +5557,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
             learnedArts: s.learnedArts,
           })
 
-          const isLethalDuel = eff.rule === 'duel'
+          // 任务战斗铁律：所有任务内触发的战斗（含普通任务战、生死决战与撑回合战）一旦被打败（如气血归零或未撑满回合），均直接判定死亡（Game Over）！
+          const isLethalDuel = true
           const isSurviveRounds = eff.rule === 'survive_rounds'
-          const stakes: DuelStakesKind =
-            eff.duelStakesTag ?? (isLethalDuel ? 'duel' : 'spar')
+          const stakes: DuelStakesKind = eff.duelStakesTag ?? 'duel'
 
           const session = createCombatSession({
             mode: isLethalDuel ? 'duel' : 'spar',
@@ -5564,8 +5573,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               eff.forbidEscapeReason !== undefined
                 ? eff.forbidEscapeReason
                 : isSurviveRounds
-                  ? '师门考校试炼之中，不可临阵脱逃！'
-                  : null,
+                  ? '生死交锋十合之内，退路已封，不可临阵脱逃！'
+                  : '任务交锋正值紧要关头，不可临阵脱逃！',
             customIntroText: eff.introText,
             questCombatHook: {
               questId: eff.questId,

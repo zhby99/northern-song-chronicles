@@ -12,8 +12,8 @@ function buildBaoButongTrialNpc(): NodeNpc {
     realm: '二流上品',
     factionId: 'SECT-10',
     factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/templates/tpl_murong_scholar_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_murong_scholar_fb.jpg',
+    avatarUrl: '/assets/characters/avatars/NPC-0213.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0213.jpg',
     stats: {
       hp: 760,
       mp: 420,
@@ -54,8 +54,8 @@ function buildFengBoeTrialNpc(): NodeNpc {
     realm: '二流巅峰',
     factionId: 'SECT-10',
     factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/templates/tpl_murong_scholar_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_murong_scholar_fb.jpg',
+    avatarUrl: '/assets/characters/avatars/NPC-0214.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0214.jpg',
     stats: {
       hp: 920,
       mp: 480,
@@ -96,8 +96,8 @@ function buildDengBaichuanSurviveNpc(): NodeNpc {
     realm: '一流上品',
     factionId: 'SECT-10',
     factionName: '姑苏慕容氏',
-    avatarUrl: '/assets/characters/templates/tpl_murong_scholar_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_murong_scholar_fb.jpg',
+    avatarUrl: '/assets/characters/avatars/NPC-0145.jpg',
+    portraitUrl: '/assets/characters/fullbody/NPC-0145.jpg',
     stats: {
       hp: 2600,
       mp: 1400,
@@ -214,7 +214,7 @@ const SCENE_30_NORTHBOUND_RECOVERY: StorySceneDef = {
       text: '渔船顺着太湖支流一路向北，钻入茫茫无际的秋日芦苇荡中。远处水面上隐约传来参合庄快船的号角声与火把倒影，但太湖水网纵横如织，芦花深处水浅岔多，邓百川虽有“神掌震江南”之威，一时半刻也绝难在黑夜芦荡中搜出一条有意隐匿的小乌篷船。',
     },
     {
-      speaker: { kind: 'custom', name: '陆老艄公', title: '开封府江南暗桩船夫', factionName: '六扇门暗桩' },
+      speaker: { kind: 'custom', name: '陆老艄公', title: '开封府江南暗桩船夫', factionName: '六扇门暗桩', portraitUrl: '/assets/characters/templates/tpl_caobang_fb.jpg' },
       text: '“好险！刚才岸上那一掌隔水震起三丈水柱，连老汉这船底板都跟着发颤！少侠快喝口热姜汤压压寒气，再把这瓶六扇门专用的金疮药敷在肩头——怀里的油布包裹可还稳妥？”',
     },
     {
@@ -222,7 +222,7 @@ const SCENE_30_NORTHBOUND_RECOVERY: StorySceneDef = {
       text: '（轻轻抚摸胸前贴身藏好的油布密录，吐出一口胸口淤血，神色渐稳）“托老丈的福，东西完好无损。只是邓百川内力深不可测，虽在十合之内未能将我留下，却已记住我的身法路数。慕容氏绝不会善罢甘休，天亮前必会封锁苏州各处水陆码头与城门盘查。”',
     },
     {
-      speaker: { kind: 'custom', name: '陆老艄公', title: '开封府江南暗桩船夫', factionName: '六扇门暗桩' },
+      speaker: { kind: 'custom', name: '陆老艄公', title: '开封府江南暗桩船夫', factionName: '六扇门暗桩', portraitUrl: '/assets/characters/templates/tpl_caobang_fb.jpg' },
       text: '“少侠放心！老汉在太湖划了三十年船，知道一条直通无锡北郊官道的暗港！天亮前便送少侠上岸换乘快马，沿运河驿路直奔汴梁，绝不让参合庄的鹰犬拦住去路！”',
     },
   ],
@@ -253,7 +253,7 @@ const SCENE_29_ESCAPE_TAIHU: StorySceneDef = {
       text: '十合激战，掌风与劲气将秘档室内的檀木书架震得轰然倾倒，卷宗竹简漫天飞舞，石壁上的字画也被劲风撕作数段！少侠借着邓百川双掌一收一吐的刹那换气空隙，反手一掌打翻案上铜油灯，火油遇风骤然窜起半丈高火舌，浓烟顿时吞没半间石室！',
     },
     {
-      speaker: { kind: 'custom', name: '邓百川', title: '姑苏慕容四大家臣之首', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0145' },
       text: '（挥袖震散眼前浓烟，眼中闪过一丝罕见的惊异）“好小子！年纪轻轻竟有这等定力与胆魄，硬接我十合神掌而不乱半点章法！传令下去，别让他跳入太湖——快放水闸拦截，绝不可让秘档抄录外泄！”',
     },
     {
@@ -274,7 +274,7 @@ const SCENE_28_DENG_SURVIVE_TRIAL: StorySceneDef = {
   subtitle: '燕子坞 · 参合庄书房秘档室',
   beats: [
     {
-      speaker: { kind: 'custom', name: '邓百川', title: '姑苏慕容四大家臣之首', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0145' },
       text: '“包三弟与风四弟竟先后折在你手里……难怪庄外警钟连响！阁下究竟是开封府哪一位高手？既已踏入我参合庄秘档室、看了我慕容氏不该看的东西，便先接邓某十招试试斤两，若连十合都接不住，今日便留在此处吧！”',
     },
     {
@@ -290,7 +290,7 @@ const SCENE_28_DENG_SURVIVE_TRIAL: StorySceneDef = {
     {
       id: 'kf1_deng_survive_10',
       label: '稳守门户，在邓百川手下撑过 10 回合并伺机脱身',
-      subLabel: '撑回合试炼（撑满 10 回合即成功逃走，重伤亦不致死）',
+      subLabel: '生死十合（撑满 10 回合即成功逃走 · ⚠️ 未能撑住将直接命丧参合庄！）',
       tone: 'danger',
       effects: [
         {
@@ -299,17 +299,10 @@ const SCENE_28_DENG_SURVIVE_TRIAL: StorySceneDef = {
           rule: 'survive_rounds',
           maxRounds: 10,
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '邓百川已封死陆路门户，唯有一边周旋十合一边逼近临水花窗方可跃湖脱身！',
+          deathTitle: '十合未竟 · 命断参合秘室',
+          deathDetail: '你在参合庄秘档室内未能撑过「神掌震江南」邓百川十合刚猛掌力，护体真气崩碎，携密账喋血太湖之畔。',
           onWin: [{ type: 'openScene', scene: SCENE_29_ESCAPE_TAIHU }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
-            {
-              type: 'toast',
-              text: '邓百川“神掌震江南”刚猛无匹，少侠未能撑满十合，调息后可再度伺机突围！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },
@@ -397,7 +390,7 @@ const SCENE_24_FENG_DEFEATED: StorySceneDef = {
       text: '山茶花影在劲风中纷纷坠落，铺满青石小径。风波恶招式虽快如疾风骤雨、拳脚间虎虎生风，但毕竟好勇斗狠而少变通，被少侠抓住一记劈空掌后的旧力已尽、新力未生之际，顺势扣住右腕脉门，一记巧劲借力打力将他摔入花丛之中！',
     },
     {
-      speaker: { kind: 'custom', name: '风波恶', title: '姑苏慕容氏家臣 · 一阵风', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0214' },
       text: '（拍拍身上的花泥爬起，非但不恼，反而哈哈大笑）“痛快！真痛快！这许多年没在江南碰上这般硬扎的年轻人了！不过……风某输归输，你这身法路数里隐隐透着北方官家的刚直之气，出手又极有分寸，莫非不是江湖盗贼，而是开封府的人？”',
     },
     {
@@ -433,7 +426,7 @@ const SCENE_23_FENG_BATTLE: StorySceneDef = {
   subtitle: '燕子坞 · 听香水榭曼陀山茶幽径',
   beats: [
     {
-      speaker: { kind: 'custom', name: '风波恶', title: '姑苏慕容氏家臣 · 一阵风', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0214' },
       text: '“管你是来偷花还是来探案，既然在曼陀花径撞见了风某，不打上一场岂不是白白辜负这好月色？风某平生最爱与硬手过招，你可莫要留力！看招！”',
     },
     {
@@ -445,7 +438,7 @@ const SCENE_23_FENG_BATTLE: StorySceneDef = {
     {
       id: 'kf1_fight_fengboe',
       label: '接招迎战「一阵风」风波恶',
-      subLabel: '剧情试炼（击败风波恶方可继续潜入参合庄）',
+      subLabel: '生死闯阵（击败风波恶方可继续潜入参合庄 · ⚠️ 战败将直接丧命！）',
       tone: 'danger',
       effects: [
         {
@@ -453,17 +446,10 @@ const SCENE_23_FENG_BATTLE: StorySceneDef = {
           opponent: { kind: 'custom', npc: buildFengBoeTrialNpc() },
           rule: 'story_trial',
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '风波恶已欺身封住退路，唯有一战！',
+          deathTitle: '花径折戟 · 命丧一阵狂风',
+          deathDetail: '你在听香水榭曼陀山茶幽径不敌「一阵风」风波恶，行迹败露，被闻讯赶来的参合庄精锐乱刃分尸。',
           onWin: [{ type: 'openScene', scene: SCENE_24_FENG_DEFEATED }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 55, mpPct: 55 },
-            {
-              type: 'toast',
-              text: '风波恶攻势如狂风骤雨，少侠暂退调息后再战！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },
@@ -480,7 +466,7 @@ const SCENE_22_FENG_PATROL: StorySceneDef = {
       text: '辞别听香水榭后，少侠依阿朱所指小径绕过曼陀山茶花林，正欲潜往参合庄方向。谁料树影深处忽然刮起一阵狂风，树梢残花簌簌坠落，一道黑影如大鹏般自高枝扑下，双足未落稳已先拍出一股凌厉掌风，拦在青石幽径正中！',
     },
     {
-      speaker: { kind: 'custom', name: '风波恶', title: '姑苏慕容四大家臣 · 一阵风', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0214' },
       text: '那汉子生得精瘦干练，双目精光四射，搓着手掌嘿嘿笑道：“奇怪，刚才太湖渡口那边似乎闹了点动静，怎么包三哥没来报信，倒先摸进来一个陌生面孔？看你脚步沉稳，必定是个会家子——快快报上名来，陪风某过上几十招！”',
     },
     {
@@ -551,7 +537,7 @@ const SCENE_19_BAO_DEFEATED: StorySceneDef = {
       text: '渡口木栈上足音急促，水浪拍打桩柱溅起阵阵白沫。包不同掌法虽怪、身法亦颇灵巧，口中更连声喝出“非也”扰人心神，但在少侠两载六扇门缉盗练就的沉稳根基面前，终究被一记虚实相间的擒拿手破开空门，肩头重重挨了一记掌风，蹬蹬蹬连退七八步才勉强扶住镇湖石塔，折扇也“啪”地掉在木板上！',
     },
     {
-      speaker: { kind: 'custom', name: '包不同', title: '姑苏慕容氏家臣 · 非也先生', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0213' },
       text: '（揉着发麻的肩井穴，嘴上却仍旧半点不肯服软，脖子一梗叫道）“非也，非也！并非包某技不如人，实乃这渡口木栈年久失修、露水太重脚底打滑！罢了，罢了，看你武功路数堂堂正正，内息也算醇厚，倒也不像寻常鼠辈——这枚太湖通行木牌掉在地上，包某懒得弯腰去捡，你爱拿便拿去罢！只是去了燕子坞可别说是我包不同放你进去的！”',
     },
     {
@@ -583,7 +569,7 @@ const SCENE_18_BAO_BATTLE: StorySceneDef = {
   subtitle: '姑苏城 · 太湖烟波渡口',
   beats: [
     {
-      speaker: { kind: 'custom', name: '包不同', title: '姑苏慕容氏家臣 · 非也先生', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0213' },
       text: '“好个牙尖嘴利的北方客！既然道理讲不过你，那包某便只好用手底下的功夫，领教领教你的虚实！且看你能不能接住我这路‘斗转星移’外门化劲！”',
     },
     {
@@ -595,7 +581,7 @@ const SCENE_18_BAO_BATTLE: StorySceneDef = {
     {
       id: 'kf1_fight_baobutong',
       label: '迎战「非也先生」包不同',
-      subLabel: '剧情试炼（击败包不同夺取燕子坞通行木牌）',
+      subLabel: '渡口决战（击败包不同夺取燕子坞通行木牌 · ⚠️ 战败将直接丧命！）',
       tone: 'danger',
       effects: [
         {
@@ -603,17 +589,10 @@ const SCENE_18_BAO_BATTLE: StorySceneDef = {
           opponent: { kind: 'custom', npc: buildBaoButongTrialNpc() },
           rule: 'story_trial',
           questId: QUEST_ID,
-          forbidEscape: true,
           forbidEscapeReason: '包不同已横身拦在渡口木栈，须堂堂正正击败他！',
+          deathTitle: '太湖长埠 · 命陨非也奇招',
+          deathDetail: '你在太湖烟波渡口被「非也先生」包不同借劲反震轰落寒波，壮志未酬，魂断江南。',
           onWin: [{ type: 'openScene', scene: SCENE_19_BAO_DEFEATED }],
-          onLose: [
-            { type: 'healPlayer', hpPct: 55, mpPct: 55 },
-            {
-              type: 'toast',
-              text: '包不同招数诡奇，少侠暂退调息后再战！',
-              tone: 'warn',
-            },
-          ],
         },
       ],
     },
@@ -626,7 +605,7 @@ const SCENE_17_BAO_VERBAL_SPAR: StorySceneDef = {
   subtitle: '姑苏城 · 太湖烟波渡口',
   beats: [
     {
-      speaker: { kind: 'custom', name: '包不同', title: '姑苏慕容氏家臣 · 非也先生', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0213' },
       text: '“非也，非也！世人皆道‘太湖烟波客，行商买丝绸’，可你腰间悬剑步履沉稳，既不问生丝市价，也不携随行脚夫，却偏偏雇一条吃水极浅的快船——这哪是买卖人，分明是冲着湖心岛屿去的！”',
     },
     {
@@ -634,7 +613,7 @@ const SCENE_17_BAO_VERBAL_SPAR: StorySceneDef = {
       text: '（不慌不忙地一笑，拱手还礼）“先生说‘非也’，在下倒也要说一句‘非也’！江南丝商走官道多遇税卡盘剥，水路轻舟反倒快捷省事；倒是先生身为文士打扮，虎口却有长年练掌的厚茧，大白天守在渡口盘问过客，莫非这太湖八百里水面，竟成了哪一家私产、连渔舟商船都过不得么？”',
     },
     {
-      speaker: { kind: 'custom', name: '包不同', title: '姑苏慕容氏家臣 · 非也先生', factionName: '姑苏慕容氏' },
+      speaker: { kind: 'npc', npcId: 'NPC-0213' },
       text: '包不同闻言一怔，旋即抚掌大笑，山羊胡一翘一翘：“有意思！有意思！敢在太湖边上跟包某抢白‘非也’二字的人可不多见！既如此，你若能在我手下走过胜负，这去燕子坞的水路便算你本事；若是输了，乖乖卷铺盖滚回北方去！”',
     },
   ],
@@ -724,7 +703,7 @@ const SCENE_13_RIVER_TAVERN_RUMOR: StorySceneDef = {
       text: '午后，少侠来到姑苏临河酒楼临窗雅座，点了一壶碧螺春与两碟松鼠桂鱼、太湖银鱼，假作游山玩水的北方士子，与邻桌几名跑太湖水路的船老大闲聊起来。楼下石桥流水潺潺，乌篷船摇橹声吱呀作响，看似一派江南太平气象。',
     },
     {
-      speaker: { kind: 'custom', name: '太湖船老大', title: '姑苏水运脚夫', factionName: '姑苏市井' },
+      speaker: { kind: 'custom', name: '太湖船老大', title: '姑苏水运脚夫', factionName: '姑苏市井', portraitUrl: '/assets/characters/templates/tpl_caobang_fb.jpg' },
       text: '（压低声音，左右张望一眼）“客官既是从北方来，可千万别听那些评弹先生瞎吹！太湖烟波里头那座燕子坞，平素最忌外人靠近。前些日子夜里，我们跑夜船的弟兄看见好几条吃水极深的黑篷货船往参合庄水巷里钻，船上蒙着厚油布，压得船舷离水面不到两寸，那分量绝不是丝绸茶叶！”',
     },
     {
@@ -732,7 +711,7 @@ const SCENE_13_RIVER_TAVERN_RUMOR: StorySceneDef = {
       text: '（顺手替船老大斟满一碗黄酒，不动声色地问道）“莫非太湖里头还有人做私铁生意？这年头官府对生铁、硫磺查得不是极严么？”',
     },
     {
-      speaker: { kind: 'custom', name: '太湖船老大', title: '姑苏水运脚夫', factionName: '姑苏市井' },
+      speaker: { kind: 'custom', name: '太湖船老大', title: '姑苏水运脚夫', factionName: '姑苏市井', portraitUrl: '/assets/characters/templates/tpl_caobang_fb.jpg' },
       text: '“嘘！小声些！这姑苏城里谁敢管燕子坞的事？听说连水师巡检司的船见了慕容家的青旗也要绕道走！前夜里我还听码头搬运的苦力嘀咕，说今晚子时枫桥寒山寺那边还有一趟‘铁货交接’，谁要是多嘴问一句，第二天就得沉到太湖底下去喂鱼！”',
     },
     {
@@ -838,7 +817,7 @@ const SCENE_09_SOUTHBOUND_BRIEFING: StorySceneDef = {
     {
       type: 'toast',
       text: '已领命微服南下！请前往【姑苏城（苏州） · 枫桥寒山寺 · 夜半钟声古钟楼】暗查线索。',
-      tone: 'info',
+      tone: 'talk',
       logTag: '姑苏密查',
     },
   ],
@@ -1029,6 +1008,9 @@ export const KAIFENG_MURONG_QUEST_1: QuestDefinition[] = [
     title: '燕子坞暗影 · 姑苏密查',
     category: 'sect_mission',
     factionId: 'SECT-17',
+    recommendedRealm: '二流巅峰',
+    maxOpponentRealm: '一流中品（邓百川十合逃生）',
+    initialStepId: 'suzhou_investigate',
     summary:
       '捕头都头做满 730 天后，奉包拯密令微服南下姑苏查探燕子坞慕容氏私蓄兵甲之疑云。须先挫败包不同、风波恶，潜入参合庄秘档室取证，并在“神掌震江南”邓百川手下撑过 10 回合全身而退，方可解锁晋升【Lv.3 金牌总捕】。',
     steps: {
@@ -1036,71 +1018,56 @@ export const KAIFENG_MURONG_QUEST_1: QuestDefinition[] = [
         id: 'suzhou_investigate',
         title: '姑苏暗访寒山夜',
         objective: '微服南下姑苏城，前往【枫桥寒山寺 · 夜半钟声古钟楼】截查兵甲接货密信。',
-        recommendedRealm: '二流中品',
-        targetLocations: [
-          {
-            regionId: 'suzhou',
-            buildingId: 'sz_hanshan',
-            spotId: 'sz_hs_bell',
-            label: '姑苏城 · 枫桥寒山寺 · 夜半钟声古钟楼',
-          },
-        ],
+        targetLocation: {
+          regionId: 'suzhou',
+          buildingId: 'sz_hanshan',
+          spotId: 'sz_hs_bell',
+          customLabel: '姑苏城 · 枫桥寒山寺 · 夜半钟声古钟楼',
+        },
       },
       taihu_bao: {
         id: 'taihu_bao',
         title: '太湖渡口斗非也',
         objective: '前往姑苏【太湖烟波渡口 · 烟波木栈长埠与镇湖石塔】，与包不同交手并击败之，夺取入坞木牌。',
-        recommendedRealm: '二流上品',
-        targetLocations: [
-          {
-            regionId: 'suzhou',
-            buildingId: 'sz_taihu',
-            spotId: 'sz_th_pier',
-            label: '姑苏城 · 太湖烟波渡口 · 烟波木栈长埠与镇湖石塔',
-          },
-        ],
+        targetLocation: {
+          regionId: 'suzhou',
+          buildingId: 'sz_taihu',
+          spotId: 'sz_th_pier',
+          customLabel: '姑苏城 · 太湖烟波渡口 · 烟波木栈长埠与镇湖石塔',
+        },
       },
       yanziwu_tingxiang: {
         id: 'yanziwu_tingxiang',
         title: '山茶幽径破风恶',
         objective: '乘舟潜入燕子坞【听香水榭与曼陀花坞 · 曼陀山茶幽径】，击败巡夜的“一阵风”风波恶。',
-        recommendedRealm: '二流巅峰',
-        targetLocations: [
-          {
-            regionId: 'yanziwu',
-            buildingId: 'yzw_tingxiang',
-            spotId: 'yzw_tingxiang_west',
-            label: '燕子坞 · 听香水榭与曼陀花坞 · 曼陀山茶幽径',
-          },
-        ],
+        targetLocation: {
+          regionId: 'yanziwu',
+          buildingId: 'yzw_tingxiang',
+          spotId: 'yzw_tingxiang_west',
+          customLabel: '燕子坞 · 听香水榭与曼陀花坞 · 曼陀山茶幽径',
+        },
       },
       canhe_archive: {
         id: 'canhe_archive',
         title: '参合秘室十合逃',
         objective: '潜入【燕子坞 · 参合庄议事正厅 · 燕子坞书房秘档室】抄录大燕密账，并在邓百川手下撑过 10 回合逃生！',
-        recommendedRealm: '二流巅峰',
-        targetLocations: [
-          {
-            regionId: 'yanziwu',
-            buildingId: 'yzw_canhe',
-            spotId: 'yzw_canhe_east',
-            label: '燕子坞 · 参合庄议事正厅 · 燕子坞书房秘档室',
-          },
-        ],
+        targetLocation: {
+          regionId: 'yanziwu',
+          buildingId: 'yzw_canhe',
+          spotId: 'yzw_canhe_east',
+          customLabel: '燕子坞 · 参合庄议事正厅 · 燕子坞书房秘档室',
+        },
       },
       return_kaifeng_report: {
         id: 'return_kaifeng_report',
         title: '北返开封呈密卷',
         objective: '返回【开封府衙 · 六扇门捕快演武院】向包拯、展昭呈交参合庄密账，解锁金牌总捕晋升资格。',
-        recommendedRealm: '二流巅峰',
-        targetLocations: [
-          {
-            regionId: 'bianliang',
-            buildingId: 'bl_kaifengfu',
-            spotId: 'bl_kf_liushan',
-            label: '开封府 · 开封府衙 · 六扇门捕快演武院',
-          },
-        ],
+        targetLocation: {
+          regionId: 'bianliang',
+          buildingId: 'bl_kaifengfu',
+          spotId: 'bl_kf_liushan',
+          customLabel: '开封府 · 开封府衙 · 六扇门捕快演武院',
+        },
       },
     },
     spotActions: [

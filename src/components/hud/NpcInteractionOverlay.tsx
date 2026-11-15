@@ -232,12 +232,14 @@ export function NpcInteractionOverlay() {
 
   const npcKey = npc.id ?? npc.name
   const curFavor = npcFavorMap[npcKey] ?? INITIAL_NPC_FAVOR
-  const canOpenSectMenu = !npc.isDynamicLiaoSpy && isJoinableSectFaction(targetFactionId)
+  const isKaifengWarrantTarget = Boolean(npc.id?.startsWith('KAIFENG_WARRANT_'))
+  const isHostileSpecialTarget = Boolean(npc.isDynamicLiaoSpy || isKaifengWarrantTarget)
+  const canOpenSectMenu = !isHostileSpecialTarget && isJoinableSectFaction(targetFactionId)
   const hasQuestRobAction = bottomBarQuestActions.some(
     (x) => x.action.id === 'act_rob_song_official_scene',
   )
   const canRobForToumingzhuang =
-    !npc.isDynamicLiaoSpy &&
+    !isHostileSpecialTarget &&
     !hasQuestRobAction &&
     sectState.toumingzhuangState === 'accepted' &&
     isSongOfficialForRobbery({
@@ -1052,7 +1054,7 @@ export function NpcInteractionOverlay() {
                           在案海捕要犯：【{sectState.activeKaifengWarrant.targetName}】（{sectState.activeKaifengWarrant.targetTitle} · {sectState.activeKaifengWarrant.realm}）
                         </div>
                         <div className="mt-0.5 text-[#2d4665]">
-                          潜匿地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】。前往该处寻获此犯并在切磋或决斗中将其击败，即可破案（破案数 +1，赏银 +15 两）。
+                          潜匿地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】。前往该处寻获此犯并在生死决战中将其击败，即可破案（破案数 +1，赏银 +15 两；⚠️ 若失手落败将命丧当场）。
                         </div>
                       </div>
                     )}
@@ -1347,7 +1349,7 @@ export function NpcInteractionOverlay() {
             <span className="text-[11px] px-1.5 py-0.5 rounded bg-[#781710] text-[#fff3df]">
               {realmName}
             </span>
-            {!npc.isDynamicLiaoSpy && (
+            {!isHostileSpecialTarget && (
               <span
                 className={`text-[11px] px-1.5 py-0.5 rounded font-mono ${
                   curFavor < 0
@@ -1387,7 +1389,7 @@ export function NpcInteractionOverlay() {
             交谈
           </button>
 
-          {!npc.isDynamicLiaoSpy && (
+          {!isHostileSpecialTarget && (
             <button
               type="button"
               onClick={handleToggleGift}
@@ -1422,6 +1424,14 @@ export function NpcInteractionOverlay() {
               className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#9e1911] hover:bg-[#ba1f16] border-2 border-[#f2be8d] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
             >
               诛杀辽谍（生死决战）
+            </button>
+          ) : isKaifengWarrantTarget ? (
+            <button
+              type="button"
+              onClick={handleLifeDeathDuel}
+              className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#9e1911] hover:bg-[#ba1f16] border-2 border-[#f2be8d] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
+            >
+              缉拿要犯（生死决战）
             </button>
           ) : (
             <>
@@ -1525,7 +1535,7 @@ export function NpcInteractionOverlay() {
             </button>
           )}
 
-          {!npc.isDynamicLiaoSpy && (
+          {!isHostileSpecialTarget && (
             <button
               type="button"
               onClick={handleArt}
