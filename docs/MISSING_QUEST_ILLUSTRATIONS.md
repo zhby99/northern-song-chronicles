@@ -40,49 +40,56 @@
 | `CG-QST-028` | `[ ]` 待补绘 | `public/assets/quests/emei_wanli_rain_umbrella.jpg` | `/assets/quests/emei_wanli_rain_umbrella.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第二幕 · 锦江烟雨共油伞<br>（`scene_em_02_wanli_bridge_rain`） | `16:9` |
 | `CG-QST-029` | `[ ]` 待补绘 | `public/assets/quests/emei_xixiang_moon_ape.jpg` | `/assets/quests/emei_xixiang_moon_ape.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第十五幕 · 洗象澄月白猿影<br>（`scene_em_15_xixiang_moon_ape`） | `16:9` |
 | `CG-QST-030` | `[ ]` 待补绘 | `public/assets/quests/emei_jinding_buddha_light.jpg` | `/assets/quests/emei_jinding_buddha_light.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第十九幕 · 万仞云海睹佛光<br>（`scene_em_19_jinding_buddha_light`） | `16:9` |
-| `CG-QST-031` | `[ ]` 待补绘 | `public/assets/quests/shaolin_luoyang_bribe.jpg` | `/assets/quests/shaolin_luoyang_bribe.jpg` | `QST-SECT-01-ENTRY`<br>《嵩门问心 · 佛缘有价》 | 二百五金 · 暗通款曲<br>（`scene_shaolin_pay_broker`） | `16:9` |
-| `CG-QST-032` | `[ ]` 待补绘 | `public/assets/quests/shaolin_chore_induction.jpg` | `/assets/quests/shaolin_chore_induction.jpg` | `QST-SECT-01-ENTRY`<br>《嵩门问心 · 佛缘有价》 | 寒暑一载 · 始入禅林<br>（`scene_shaolin_chore_365_inducted`） | `16:9` |
-| `CG-QST-033` | `[ ]` 待补绘 | `public/assets/quests/tianbo_paifeng_iron_rod.jpg` | `/assets/quests/tianbo_paifeng_iron_rod.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 序章 · 汴京烧火棍<br>（`scene_tb_prologue_paifeng`） | `16:9` |
-| `CG-QST-034` | `[ ]` 待补绘 | `public/assets/quests/tianbo_wutai_staff_terrace.jpg` | `/assets/quests/tianbo_wutai_staff_terrace.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 石台现碑 · 舍身回马意<br>（`scene_tb_wutai_success`） | `16:9` |
-| `CG-QST-035` | `[ ]` 待补绘 | `public/assets/quests/tianbo_yanmen_muguiyun.jpg` | `/assets/quests/tianbo_yanmen_muguiyun.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 高地破骑 / 绝壁血战 · 降龙木令<br>（`scene_tb_yanmen_bloodbattle_win_adv` 等 2 幕） | `16:9` |
-| `CG-QST-036` | `[ ]` 待补绘 | `public/assets/quests/tianbo_yanan_diqing_cavalry.jpg` | `/assets/quests/tianbo_yanan_diqing_cavalry.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 绝境顿悟 · 回马破虏<br>（`scene_tb_yanan_win`） | `16:9` |
-| `CG-QST-037` | `[ ]` 待补绘 | `public/assets/quests/tianbo_ancestral_bawang_spear.jpg` | `/assets/quests/tianbo_ancestral_bawang_spear.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 霸王枪出 · 天波忠魂永传<br>（`scene_tb_epilogue`） | `16:9` |
-| `CG-QST-038` | `[ ]` 待补绘 | `public/assets/quests/changshan_blood_letter.jpg` | `/assets/quests/changshan_blood_letter.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 第一幕 · 龙胆血书<br>（`scene_cs_longling_opening`） | `16:9` |
-| `CG-QST-039` | `[ ]` 待补绘 | `public/assets/quests/changshan_marshal_smoke_escape.jpg` | `/assets/quests/changshan_marshal_smoke_escape.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 烟幕脱身 · 奔赴雁门<br>（`scene_cs_marshal_escape`） | `16:9` |
-| `CG-QST-040` | `[ ]` 待补绘 | `public/assets/quests/changshan_yanmen_cliff_stand.jpg` | `/assets/quests/changshan_yanmen_cliff_stand.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 第三幕 · 绝壁银枪<br>（`scene_cs_cliff_choice`） | `16:9` |
-| `CG-QST-041` | `[ ]` 待补绘 | `public/assets/quests/changshan_ancestral_silver_spear.jpg` | `/assets/quests/changshan_ancestral_silver_spear.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 第四幕 · 龙胆传薪<br>（`scene_cs_ancestral_confer`） | `16:9` |
-| `CG-QST-042` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_bao_secret_decree.jpg` | `/assets/quests/kf_murong1_bao_secret_decree.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第八幕 · 包公密授手谕令<br>（`scene_kf1_08_bao_decree`） | `16:9` |
-| `CG-QST-043` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_hanshan_bell_intercept.jpg` | `/assets/quests/kf_murong1_hanshan_bell_intercept.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第十五幕 · 钟楼暗格截残笺<br>（`scene_kf1_15_hanshan_clue`） | `16:9` |
-| `CG-QST-044` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_tingxiang_lantern.jpg` | `/assets/quests/kf_murong1_tingxiang_lantern.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第二十一幕 · 琴韵暗香遮耳目<br>（`scene_kf1_21_azhu_abi_cover`） | `16:9` |
-| `CG-QST-045` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_canhe_window_leap.jpg` | `/assets/quests/kf_murong1_canhe_window_leap.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第二十九幕 · 破窗跃水趁烟波<br>（`scene_kf1_29_escape_taihu`） | `16:9` |
-| `CG-QST-046` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_gold_badge_verdict.jpg` | `/assets/quests/kf_murong1_gold_badge_verdict.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第三十二幕 · 龙图嘉勉授金符<br>（`scene_kf1_32_kaifeng_verdict`） | `16:9` |
-| `CG-QST-047` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_secret_ledger_audit.jpg` | `/assets/quests/kf_murong2_secret_ledger_audit.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第五幕 · 密室点验百兵册<br>（`scene_kf2_05_secret_report`） | `16:9` |
-| `CG-QST-048` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_fanlou_roof_spy.jpg` | `/assets/quests/kf_murong2_fanlou_roof_spy.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第十五幕 · 樊楼屋脊擒北谍<br>（`scene_kf2_15_fanlou_chase`） | `16:9` |
-| `CG-QST-049` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_zichen_secret_edict.jpg` | `/assets/quests/kf_murong2_zichen_secret_edict.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第二十幕 · 龙图授旨命南巡<br>（`scene_kf2_20_bao_edict`） | `16:9` |
-| `CG-QST-050` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_huqiu_armor_cave.jpg` | `/assets/quests/kf_murong2_huqiu_armor_cave.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第二十五幕 · 试剑石畔破军藏<br>（`scene_kf2_25_huqiu_arms_cache`） | `16:9` |
-| `CG-QST-051` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_taihu_boat_gongye.jpg` | `/assets/quests/kf_murong2_taihu_boat_gongye.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第三十一幕 · 画舫拆招破刚柔<br>（`scene_kf2_31_gongye_defeated`） | `16:9` |
-| `CG-QST-052` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_canhe_yard_deng.jpg` | `/assets/quests/kf_murong2_canhe_yard_deng.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第三十八幕 · 破尽刚掌定演武<br>（`scene_kf2_38_deng_defeated`） | `16:9` |
-| `CG-QST-053` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_huanshi_ten_bouts.jpg` | `/assets/quests/kf_murong2_huanshi_ten_bouts.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第四十六幕 · 剑掌齐敛震水阁<br>（`scene_kf2_46_mutual_withdrawal`） | `16:9` |
-| `CG-QST-054` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_royal_guard_seal.jpg` | `/assets/quests/kf_murong2_royal_guard_seal.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第五十二幕 · 丹墀授印御前卫<br>（`scene_kf2_52_imperial_promotion`） | `16:9` |
-| `CG-QST-055` | `[ ]` 待补绘 | `public/assets/quests/daming_linjin_tavern_standoff.jpg` | `/assets/quests/daming_linjin_tavern_standoff.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 第一幕 · 惊涛断索 · 临津剑拔弩张<br>（`scene_dm_tavern_confrontation`） | `16:9` |
-| `CG-QST-056` | `[ ]` 待补绘 | `public/assets/quests/daming_ouyang_chun_ferry.jpg` | `/assets/quests/daming_ouyang_chun_ferry.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 临河沽酒 · 紫髯伯识破北庭兵<br>（`scene_dm_ouyang_chun_axe`） | `16:9` |
-| `CG-QST-057` | `[ ]` 待补绘 | `public/assets/quests/daming_leitai_khitan_axes.jpg` | `/assets/quests/daming_leitai_khitan_axes.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 第二幕 · 寒斧惊沙 · 铁林露峥嵘<br>（`scene_dm_leitai_bout2`） | `16:9` |
-| `CG-QST-058` | `[ ]` 待补绘 | `public/assets/quests/daming_midnight_sandtable_ambush.jpg` | `/assets/quests/daming_midnight_sandtable_ambush.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 第三幕 · 子夜沙盘 · 铁壁合围<br>（`scene_dm_midnight_sandtable_climax`） | `16:9` |
-| `CG-QST-059` | `[ ]` 待补绘 | `public/assets/quests/daming_baji_official_choice.jpg` | `/assets/quests/daming_baji_official_choice.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 终幕 · 铁锁镇河朔 · 庙堂与江湖<br>（`scene_dm_sandtable_victory_choice`） | `16:9` |
-| `CG-QST-060` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_fanlou_bridge_duel.jpg` | `/assets/quests/babuganchan_fanlou_bridge_duel.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第三幕 · 飞桥夜影起杀机<br>（`scene_bbgc_03_fanlou_observe`） | `16:9` |
-| `CG-QST-061` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_zisheng_pagoda_wind.jpg` | `/assets/quests/babuganchan_zisheng_pagoda_wind.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第八幕 · 塔风初悟蝉蜕息<br>（`scene_bbgc_08_pagoda_insight`） | `16:9` |
-| `CG-QST-062` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_baimasi_ginkgo_steps.jpg` | `/assets/quests/babuganchan_baimasi_ginkgo_steps.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第十一幕 · 步步生莲试身法<br>（`scene_bbgc_11_qingshuang_trial`） | `16:9` |
-| `CG-QST-063` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_bixi_moon_water.jpg` | `/assets/quests/babuganchan_bixi_moon_water.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第二十幕 · 夜雨碧溪悟八步<br>（`scene_bbgc_20_enlightenment`） | `16:9` |
-| `CG-QST-064` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_huqiu_shenkuo.jpg` | `/assets/quests/yanziwu_map_huqiu_shenkuo.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第五幕 · 千人石上截黑手<br>（`scene_yzw_map_05_huqiu_shenkuo_ambush`） | `16:9` |
-| `CG-QST-065` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_24bridge_cipher.jpg` | `/assets/quests/yanziwu_map_24bridge_cipher.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第十一幕 · 二十四桥参词隐<br>（`scene_yzw_map_11_24bridge_cipher`） | `16:9` |
-| `CG-QST-066` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_yangzhou_salt_arena.jpg` | `/assets/quests/yanziwu_map_yangzhou_salt_arena.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第十三幕 · 演武院中破铁爪<br>（`scene_yzw_map_13_salt_arena_battle`） | `16:9` |
-| `CG-QST-067` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_shitou_red_cliff.jpg` | `/assets/quests/yanziwu_map_shitou_red_cliff.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第二十幕 · 虎踞赤壁会焦堂<br>（`scene_yzw_map_20_shitou_cliff_showdown`） | `16:9` |
-| `CG-QST-068` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_taihu_boat_unite.jpg` | `/assets/quests/yanziwu_map_taihu_boat_unite.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第二十五幕 · 烟波浩渺开燕坞<br>（`scene_yzw_map_25_epilogue_unlock`） | `16:9` |
-| `CG-QST-069` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_huqiu_compass.jpg` | `/assets/quests/taohuadao_map_huqiu_compass.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第八幕 · 云岩塔下截海鬼<br>（`scene_thd_map_08_huqiu_pagoda_battle`） | `16:9` |
-| `CG-QST-070` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_wansong_bisheng.jpg` | `/assets/quests/taohuadao_map_wansong_bisheng.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第十二幕 · 活字胶泥参暗版<br>（`scene_thd_map_12_academy_bisheng_cipher`） | `16:9` |
-| `CG-QST-071` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_qiantang_qin_tide.jpg` | `/assets/quests/taohuadao_map_qiantang_qin_tide.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第十八幕 · 观潮琴台听海拍<br>（`scene_thd_map_18_tide_pavilion_qu`） | `16:9` |
-| `CG-QST-072` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_dock_shark_boss.jpg` | `/assets/quests/taohuadao_map_dock_shark_boss.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第二十幕 · 演武船坞会狂鲨<br>（`scene_thd_map_20_port_dock_showdown`） | `16:9` |
-| `CG-QST-073` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_wanghu_silk_chart.jpg` | `/assets/quests/taohuadao_map_wanghu_silk_chart.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第二十五幕 · 碧海乘潮启桃源<br>（`scene_thd_map_25_epilogue_unlock`） | `16:9` |
+| `CG-QST-031` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_qingyang_rain.jpg` | `/assets/quests/qingcheng_qingyang_rain.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第一幕 · 青羊春雨偶闻道<br>（`SCENE_QC_01_QINGYANG_RAIN`） | `16:9` |
+| `CG-QST-032` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_cliff_qin.jpg` | `/assets/quests/qingcheng_cliff_qin.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第七幕 · 孤崖云海听松琴<br>（`SCENE_QC_07_CLIFF_QIN`） | `16:9` |
+| `CG-QST-033` | `[ ]` 待补绘 | `public/assets/quests/qingcheng_shangqing_choice.jpg` | `/assets/quests/qingcheng_shangqing_choice.jpg` | `QST-SECT-14-ENTRY`<br>《青羊偶闻 · 松风问心》 | 第十九幕 · 三清殿前定去留<br>（`SCENE_QC_19_THREE_PURE_CHOICE`） | `16:9` |
+| `CG-QST-034` | `[ ]` 待补绘 | `public/assets/quests/tiezhang_five_fingers_mist.jpg` | `/assets/quests/tiezhang_five_fingers_mist.jpg` | `QST-SECT-15-ENTRY`<br>《烟波五指 · 铁砂问义》 | 第五幕 · 八百烟波五指擎<br>（`SCENE_TZ_05_FIVE_FINGERS_CG`） | `16:9` |
+| `CG-QST-035` | `[ ]` 待补绘 | `public/assets/quests/tiezhang_red_sand_cauldron.jpg` | `/assets/quests/tiezhang_red_sand_cauldron.jpg` | `QST-SECT-15-ENTRY`<br>《烟波五指 · 铁砂问义》 | 第八幕 · 赤砂沸鼎淬凡掌<br>（`SCENE_TZ_08_RED_SAND_CAULDRON_CG`） | `16:9` |
+| `CG-QST-036` | `[ ]` 待补绘 | `public/assets/quests/wutai_yanmen_pass.jpg` | `/assets/quests/wutai_yanmen_pass.jpg` | `QST-SECT-03-ENTRY`<br>《清凉残雪 · 雁门梵钟》 | 第十三幕 · 绝壁风雪护孤雏<br>（`SCENE_WT_13_CLIFF_STAND`） | `16:9` |
+| `CG-QST-037` | `[ ]` 待补绘 | `public/assets/quests/wutai_tonsure_ordination.jpg` | `/assets/quests/wutai_tonsure_ordination.jpg` | `QST-SECT-03-ENTRY`<br>《清凉残雪 · 雁门梵钟》 | 第十九幕 · 金刀落发断尘缘<br>（`SCENE_WT_19_TONSURE_CEREMONY`） | `16:9` |
+| `CG-QST-038` | `[ ]` 待补绘 | `public/assets/quests/shaolin_luoyang_bribe.jpg` | `/assets/quests/shaolin_luoyang_bribe.jpg` | `QST-SECT-01-ENTRY`<br>《嵩门问心 · 佛缘有价》 | 二百五金 · 暗通款曲<br>（`scene_shaolin_pay_broker`） | `16:9` |
+| `CG-QST-039` | `[ ]` 待补绘 | `public/assets/quests/shaolin_chore_induction.jpg` | `/assets/quests/shaolin_chore_induction.jpg` | `QST-SECT-01-ENTRY`<br>《嵩门问心 · 佛缘有价》 | 寒暑一载 · 始入禅林<br>（`scene_shaolin_chore_365_inducted`） | `16:9` |
+| `CG-QST-040` | `[ ]` 待补绘 | `public/assets/quests/tianbo_paifeng_iron_rod.jpg` | `/assets/quests/tianbo_paifeng_iron_rod.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 序章 · 汴京烧火棍<br>（`scene_tb_prologue_paifeng`） | `16:9` |
+| `CG-QST-041` | `[ ]` 待补绘 | `public/assets/quests/tianbo_wutai_staff_terrace.jpg` | `/assets/quests/tianbo_wutai_staff_terrace.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 石台现碑 · 舍身回马意<br>（`scene_tb_wutai_success`） | `16:9` |
+| `CG-QST-042` | `[ ]` 待补绘 | `public/assets/quests/tianbo_yanmen_muguiyun.jpg` | `/assets/quests/tianbo_yanmen_muguiyun.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 高地破骑 / 绝壁血战 · 降龙木令<br>（`scene_tb_yanmen_bloodbattle_win_adv` 等 2 幕） | `16:9` |
+| `CG-QST-043` | `[ ]` 待补绘 | `public/assets/quests/tianbo_yanan_diqing_cavalry.jpg` | `/assets/quests/tianbo_yanan_diqing_cavalry.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 绝境顿悟 · 回马破虏<br>（`scene_tb_yanan_win`） | `16:9` |
+| `CG-QST-044` | `[ ]` 待补绘 | `public/assets/quests/tianbo_ancestral_bawang_spear.jpg` | `/assets/quests/tianbo_ancestral_bawang_spear.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 霸王枪出 · 天波忠魂永传<br>（`scene_tb_epilogue`） | `16:9` |
+| `CG-QST-045` | `[ ]` 待补绘 | `public/assets/quests/changshan_blood_letter.jpg` | `/assets/quests/changshan_blood_letter.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 第一幕 · 龙胆血书<br>（`scene_cs_longling_opening`） | `16:9` |
+| `CG-QST-046` | `[ ]` 待补绘 | `public/assets/quests/changshan_marshal_smoke_escape.jpg` | `/assets/quests/changshan_marshal_smoke_escape.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 烟幕脱身 · 奔赴雁门<br>（`scene_cs_marshal_escape`） | `16:9` |
+| `CG-QST-047` | `[ ]` 待补绘 | `public/assets/quests/changshan_yanmen_cliff_stand.jpg` | `/assets/quests/changshan_yanmen_cliff_stand.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 第三幕 · 绝壁银枪<br>（`scene_cs_cliff_choice`） | `16:9` |
+| `CG-QST-048` | `[ ]` 待补绘 | `public/assets/quests/changshan_ancestral_silver_spear.jpg` | `/assets/quests/changshan_ancestral_silver_spear.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 第四幕 · 龙胆传薪<br>（`scene_cs_ancestral_confer`） | `16:9` |
+| `CG-QST-049` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_bao_secret_decree.jpg` | `/assets/quests/kf_murong1_bao_secret_decree.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第八幕 · 包公密授手谕令<br>（`scene_kf1_08_bao_decree`） | `16:9` |
+| `CG-QST-050` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_hanshan_bell_intercept.jpg` | `/assets/quests/kf_murong1_hanshan_bell_intercept.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第十五幕 · 钟楼暗格截残笺<br>（`scene_kf1_15_hanshan_clue`） | `16:9` |
+| `CG-QST-051` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_tingxiang_lantern.jpg` | `/assets/quests/kf_murong1_tingxiang_lantern.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第二十一幕 · 琴韵暗香遮耳目<br>（`scene_kf1_21_azhu_abi_cover`） | `16:9` |
+| `CG-QST-052` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_canhe_window_leap.jpg` | `/assets/quests/kf_murong1_canhe_window_leap.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第二十九幕 · 破窗跃水趁烟波<br>（`scene_kf1_29_escape_taihu`） | `16:9` |
+| `CG-QST-053` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_gold_badge_verdict.jpg` | `/assets/quests/kf_murong1_gold_badge_verdict.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第三十二幕 · 龙图嘉勉授金符<br>（`scene_kf1_32_kaifeng_verdict`） | `16:9` |
+| `CG-QST-054` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_secret_ledger_audit.jpg` | `/assets/quests/kf_murong2_secret_ledger_audit.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第五幕 · 密室点验百兵册<br>（`scene_kf2_05_secret_report`） | `16:9` |
+| `CG-QST-055` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_fanlou_roof_spy.jpg` | `/assets/quests/kf_murong2_fanlou_roof_spy.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第十五幕 · 樊楼屋脊擒北谍<br>（`scene_kf2_15_fanlou_chase`） | `16:9` |
+| `CG-QST-056` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_zichen_secret_edict.jpg` | `/assets/quests/kf_murong2_zichen_secret_edict.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第二十幕 · 龙图授旨命南巡<br>（`scene_kf2_20_bao_edict`） | `16:9` |
+| `CG-QST-057` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_huqiu_armor_cave.jpg` | `/assets/quests/kf_murong2_huqiu_armor_cave.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第二十五幕 · 试剑石畔破军藏<br>（`scene_kf2_25_huqiu_arms_cache`） | `16:9` |
+| `CG-QST-058` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_taihu_boat_gongye.jpg` | `/assets/quests/kf_murong2_taihu_boat_gongye.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第三十一幕 · 画舫拆招破刚柔<br>（`scene_kf2_31_gongye_defeated`） | `16:9` |
+| `CG-QST-059` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_canhe_yard_deng.jpg` | `/assets/quests/kf_murong2_canhe_yard_deng.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第三十八幕 · 破尽刚掌定演武<br>（`scene_kf2_38_deng_defeated`） | `16:9` |
+| `CG-QST-060` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_huanshi_ten_bouts.jpg` | `/assets/quests/kf_murong2_huanshi_ten_bouts.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第四十六幕 · 剑掌齐敛震水阁<br>（`scene_kf2_46_mutual_withdrawal`） | `16:9` |
+| `CG-QST-061` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_royal_guard_seal.jpg` | `/assets/quests/kf_murong2_royal_guard_seal.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第五十二幕 · 丹墀授印御前卫<br>（`scene_kf2_52_imperial_promotion`） | `16:9` |
+| `CG-QST-062` | `[ ]` 待补绘 | `public/assets/quests/daming_linjin_tavern_standoff.jpg` | `/assets/quests/daming_linjin_tavern_standoff.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 第一幕 · 惊涛断索 · 临津剑拔弩张<br>（`scene_dm_tavern_confrontation`） | `16:9` |
+| `CG-QST-063` | `[ ]` 待补绘 | `public/assets/quests/daming_ouyang_chun_ferry.jpg` | `/assets/quests/daming_ouyang_chun_ferry.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 临河沽酒 · 紫髯伯识破北庭兵<br>（`scene_dm_ouyang_chun_axe`） | `16:9` |
+| `CG-QST-064` | `[ ]` 待补绘 | `public/assets/quests/daming_leitai_khitan_axes.jpg` | `/assets/quests/daming_leitai_khitan_axes.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 第二幕 · 寒斧惊沙 · 铁林露峥嵘<br>（`scene_dm_leitai_bout2`） | `16:9` |
+| `CG-QST-065` | `[ ]` 待补绘 | `public/assets/quests/daming_midnight_sandtable_ambush.jpg` | `/assets/quests/daming_midnight_sandtable_ambush.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 第三幕 · 子夜沙盘 · 铁壁合围<br>（`scene_dm_midnight_sandtable_climax`） | `16:9` |
+| `CG-QST-066` | `[ ]` 待补绘 | `public/assets/quests/daming_baji_official_choice.jpg` | `/assets/quests/daming_baji_official_choice.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 终幕 · 铁锁镇河朔 · 庙堂与江湖<br>（`scene_dm_sandtable_victory_choice`） | `16:9` |
+| `CG-QST-067` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_fanlou_bridge_duel.jpg` | `/assets/quests/babuganchan_fanlou_bridge_duel.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第三幕 · 飞桥夜影起杀机<br>（`scene_bbgc_03_fanlou_observe`） | `16:9` |
+| `CG-QST-068` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_zisheng_pagoda_wind.jpg` | `/assets/quests/babuganchan_zisheng_pagoda_wind.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第八幕 · 塔风初悟蝉蜕息<br>（`scene_bbgc_08_pagoda_insight`） | `16:9` |
+| `CG-QST-069` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_baimasi_ginkgo_steps.jpg` | `/assets/quests/babuganchan_baimasi_ginkgo_steps.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第十一幕 · 步步生莲试身法<br>（`scene_bbgc_11_qingshuang_trial`） | `16:9` |
+| `CG-QST-070` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_bixi_moon_water.jpg` | `/assets/quests/babuganchan_bixi_moon_water.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第二十幕 · 夜雨碧溪悟八步<br>（`scene_bbgc_20_enlightenment`） | `16:9` |
+| `CG-QST-071` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_huqiu_shenkuo.jpg` | `/assets/quests/yanziwu_map_huqiu_shenkuo.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第五幕 · 千人石上截黑手<br>（`scene_yzw_map_05_huqiu_shenkuo_ambush`） | `16:9` |
+| `CG-QST-072` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_24bridge_cipher.jpg` | `/assets/quests/yanziwu_map_24bridge_cipher.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第十一幕 · 二十四桥参词隐<br>（`scene_yzw_map_11_24bridge_cipher`） | `16:9` |
+| `CG-QST-073` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_yangzhou_salt_arena.jpg` | `/assets/quests/yanziwu_map_yangzhou_salt_arena.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第十三幕 · 演武院中破铁爪<br>（`scene_yzw_map_13_salt_arena_battle`） | `16:9` |
+| `CG-QST-074` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_shitou_red_cliff.jpg` | `/assets/quests/yanziwu_map_shitou_red_cliff.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第二十幕 · 虎踞赤壁会焦堂<br>（`scene_yzw_map_20_shitou_cliff_showdown`） | `16:9` |
+| `CG-QST-075` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_taihu_boat_unite.jpg` | `/assets/quests/yanziwu_map_taihu_boat_unite.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第二十五幕 · 烟波浩渺开燕坞<br>（`scene_yzw_map_25_epilogue_unlock`） | `16:9` |
+| `CG-QST-076` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_huqiu_compass.jpg` | `/assets/quests/taohuadao_map_huqiu_compass.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第八幕 · 云岩塔下截海鬼<br>（`scene_thd_map_08_huqiu_pagoda_battle`） | `16:9` |
+| `CG-QST-077` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_wansong_bisheng.jpg` | `/assets/quests/taohuadao_map_wansong_bisheng.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第十二幕 · 活字胶泥参暗版<br>（`scene_thd_map_12_academy_bisheng_cipher`） | `16:9` |
+| `CG-QST-078` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_qiantang_qin_tide.jpg` | `/assets/quests/taohuadao_map_qiantang_qin_tide.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第十八幕 · 观潮琴台听海拍<br>（`scene_thd_map_18_tide_pavilion_qu`） | `16:9` |
+| `CG-QST-079` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_dock_shark_boss.jpg` | `/assets/quests/taohuadao_map_dock_shark_boss.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第二十幕 · 演武船坞会狂鲨<br>（`scene_thd_map_20_port_dock_showdown`） | `16:9` |
+| `CG-QST-080` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_wanghu_silk_chart.jpg` | `/assets/quests/taohuadao_map_wanghu_silk_chart.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第二十五幕 · 碧海乘潮启桃源<br>（`scene_thd_map_25_epilogue_unlock`） | `16:9` |
 
 ---
 
@@ -662,7 +669,140 @@
 
 ---
 
-### 31. `CG-QST-031`：洛阳天津酒楼 · 二百五金暗通嵩门图
+### 31. `CG-QST-031`：成都青羊道宫 · 春雨铜羊初逢小师姐图
+
+- **关联文件**：[`src/data/quests/sects/qingchengEntryQuest.ts`](../src/data/quests/sects/qingchengEntryQuest.ts)
+- **目标路径**：`public/assets/quests/qingcheng_qingyang_rain.jpg`
+- **画框题跋**：`成都府青羊道宫 · 春雨铜羊初逢小师姐沈清岚`
+- **剧情语境**：
+  - 皇祐二年暮春细雨如酥，无门无派的年轻主角步入成都府青羊道宫听道避雨，于古朴神秘的独角青铜羊香炉侧，偶遇下山抄经的青城外院女冠小师姐【沈清岚】。
+  - 两名跋扈的川东盐枭撞翻竹篓欲讹诈银两，主角挺身解围，沈清岚怀抱油纸包裹的七弦琴与道经，在烟雨檐廊下敛衽稽首致谢，腰间一枚青城松果挂坠随风轻晃。
+- **画面核心要素**：
+  1. **环境氛围**：北宋成都府青羊道宫重檐回廊，春雨如丝飘落青石阶，院中一尊古意盎然的宋铸独角青铜羊立于汉白玉须弥座上，三足香炉青烟袅袅，红墙翠竹湿润清幽。
+  2. **主体人物**：廊下右侧，年约十九岁、气质温润清丽却眉间微藏心事的青城女道小师姐（沈清岚），身着淡青素白交领宋式道袍、乌发挽木簪道髻、腰悬松果木雕挂坠，怀抱油纸琴囊，正向左侧身穿朴素布衣的年轻少侠主角微微笑着稽首行道家礼。
+  3. **细节烘托**：石阶旁散落两卷竹简道经与青竹书篓，檐角铜风铃微斜，尽显蜀中烟雨道观的诗意初遇。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. A misty spring rain afternoon at Qingyang Taoist Palace (成都青羊道宫) in Chengdu around 1050 AD. Under a carved timber temple corridor overlooking wet flagstones and lush green bamboo, an ancient mystical one-horned bronze goat statue (独角铜羊) stands beside a smoking bronze incense burner. A gentle, graceful 19-year-old female Qingcheng Taoist disciple (wearing pale celadon-blue and white Song-style Taoist robes, wooden hairpin topknot, a small carved pine-cone pendant at her waist, holding an oil-paper wrapped guqin zither) bows in a polite Taoist salute toward a young wandering martial artist in plain cloth robes who stepped forward to help her pick up scattered bamboo scrolls. Soft misty drizzle, mineral green and indigo pigments, poetic wuxia romance and tranquility, authentic Song court painting brushwork, no modern elements, blank temple plaques with no text or characters.
+  ```
+
+---
+
+### 32. `CG-QST-032`：青城上清孤崖 · 云海苍松抚琴悟气图
+
+- **关联文件**：[`src/data/quests/sects/qingchengEntryQuest.ts`](../src/data/quests/sects/qingchengEntryQuest.ts)
+- **目标路径**：`public/assets/quests/qingcheng_cliff_qin.jpg`
+- **画框题跋**：`上清宫抚琴孤崖 · 云海松涛听琴悟青冥`
+- **剧情语境**：
+  - 主角历经十日扫阶磨砺，获召登临青城山上清宫【松涛云海抚琴孤崖】拜谒清修一脉剑师【方正】。
+  - 万丈云海翻涌如雪，方正盘坐绝壁青石抚奏《松风引》，沈清岚侍立松下泥炉旁煎煮雪水苦丁茶，尚无内功根基的主角手执桃木剑立于崖畔，在琴音与松涛共鸣中初次感悟道门“藏锋护道、吐故纳新”之理。
+- **画面核心要素**：
+  1. **环境氛围**：青城山三十六峰绝壁孤崖，千年古松虬枝斜探入浩瀚翻腾的云海，远山黛青如画（致敬北宋山水巨制《千里江山图》与李成、范宽笔意）。
+  2. **主体人物**：绝壁扁平巨石上，两鬓微霜、仙风道骨的中年道家剑师（方正）端坐抚弄七弦古琴；古松下，温婉的青城小师姐（沈清岚）跪坐蒲团照看红泥小火炉上的白瓷茶汤，目光温柔地望向崖边。
+  3. **主角动态**：年轻主角身穿素布短衫、手持一柄书院桃木剑立于崖前迎风闭目吐纳，衣袂随松风飘举。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese blue-and-green gongbi landscape and figure painting (青绿重彩山水人物), wide cinematic 16:9 composition. High atop a sheer cliff terrace on Mount Qingcheng (青城山抚琴孤崖) around 1050 AD, overlooking a vast churning sea of white clouds and distant emerald peaks. Beneath a gnarled ancient cliffside pine tree, a dignified middle-aged Taoist swordmaster with greying temples sits cross-legged on a flat boulder playing a seven-stringed guqin zither. Beside a small clay stove boiling tea on a straw mat, a gentle young female Taoist senior sister in pale cyan robes watches warmly. Near the cliff edge, a young martial artist protagonist in simple cloth attire holds a wooden practice sword, eyes serenely closed, breathing in the mountain mist in harmony with the pine wind. Authentic Song dynasty court painting style, mineral malachite green and azurite blue accents, ethereal Taoist serenity, no modern elements, no text or characters.
+  ```
+
+---
+
+### 33. `CG-QST-033`：上清松风主殿 · 银杏丹墀去留抉择图
+
+- **关联文件**：[`src/data/quests/sects/qingchengEntryQuest.ts`](../src/data/quests/sects/qingchengEntryQuest.ts)
+- **目标路径**：`public/assets/quests/qingcheng_shangqing_choice.jpg`
+- **画框题跋**：`上清松风演剑主殿 · 银杏金阶定拜师或逍遥`
+- **剧情语境**：
+  - 剑门关生死历劫归来、外门演武既毕，上清松风演剑主殿钟鼓齐鸣，举行三清祖师收徒大典。
+  - 掌门【余沧澜】立于丹墀高阶之上，道童手捧折叠齐整的青灰道袍与三尺松风快剑；阶下主角站在门墙内外的一线之间——一步向前便是青城快剑门徒，一步回身则是携《青冥引气诀》笑傲江湖的逍遥散人，侧畔小师姐【沈清岚】屏息凝望。
+- **画面核心要素**：
+  1. **环境氛围**：宏伟古朴的北宋青城山上清宫重檐绿琉璃瓦主殿广场，两株参天千年古银杏洒下漫天金叶，三足青铜大鼎檀烟直上云霄。
+  2. **上下构图张力**：高处石阶正中，气度威严凌厉的青城掌门（余沧澜，深青八卦道袍、背负长剑）负手俯视，左侧阴鸷副掌门（侯沧海）与右侧抱琴长者（方正）分立；一名小道童双手高举木托盘，盘中放着青灰道袍与一柄寒光凛冽的三尺青钢剑。
+  3. **前景焦点**：丹墀石阶之下，年轻主角昂首而立，衣衫微振，正与侧方队列前排神色温柔关切的小师姐（沈清岚）目光微触，面临入派或归隐江湖的宿命抉择。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Grand courtyard before the green-tiled double-eave Shangqing Palace Hall on Mount Qingcheng (青城山上清宫松风殿) around 1050 AD, framed by towering ancient ginkgo trees shedding golden leaves and a giant bronze tripod censer. At the top of the stone steps stands an imposing, sharp-eyed Qingcheng Sect patriarch in dark青八卦 Taoist robes, flanked by a stern deputy master on the left and a benevolent琴-carrying elder on the right; a young acolyte holds a lacquer tray bearing folded grey-cyan Taoist robes and a gleaming steel sword. At the base of the steps in the foreground stands the young martial artist protagonist at a crossroads of destiny, while to the side a gentle female Taoist senior sister in celadon robes gazes at him with quiet emotion. Rich mineral pigments, dramatic architectural depth, authentic 1050 AD Song dynasty aesthetics, no modern elements, blank plaques and banners with no text or characters.
+  ```
+
+---
+
+### 34. `CG-QST-034`：八百里洞庭烟波 · 五指擎天连环水寨图
+
+- **关联文件**：[`src/data/quests/sects/tiezhangEntryQuest.ts`](../src/data/quests/sects/tiezhangEntryQuest.ts)
+- **目标路径**：`public/assets/quests/tiezhang_five_fingers_mist.jpg`
+- **画框题跋**：`八百里洞庭烟波 · 五指擎天连环水寨`
+- **剧情语境**：
+  - 主角于襄阳汉水大码头无武护弱，结识铁掌帮铜桨舵主【焦木】与精锐女香主【屠芳云】，获赐五指黑铁木令南下洞庭。
+  - 暮色苍茫之际，屠芳云立于乌篷快船船头执橹破开浩渺烟波，前方云雾豁然洞开——五座奇险陡峭如巨掌擎天的青绿险峰拔湖而起，山脚水面百艘宋代车船楼船铁索连环成寨，黑红旌旗迎风猎猎，尽显荆湘第一霸帮的枭雄气象。
+- **画面核心要素**：
+  1. **环境氛围**：参考北宋董源、巨然与李唐山水气韵，八百里洞庭湖暮霭烟波浩渺，远景五座如五指并拢擎向苍穹的险峻石峰矗立云涛，峰间飞瀑悬练、黑石总堂隐现。
+  2. **水寨奇观**：中景山麓湖湾处，数十艘宋代木构战船与望楼栈桥以粗铁索相连成水陆连环大寨，渔火与松脂火把初燃，纯色黑红战旗迎着湖风翻卷（旗面严禁出现任何文字）。
+  3. **前景人物**：近景芦苇水巷冲出一叶轻捷乌篷快舟，船头劲装束袖、腰悬窄剑的飒爽女香主（屠芳云）单手执木橹破浪引航，布衣年轻主角立于船舱前昂首远眺五指奇峰，老舵主（焦木）抱百斤熟铜船桨坐镇船尾。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi and monumental blue-green landscape ink-and-color painting, wide cinematic 16:9 composition. Vast misty Dongting Lake at dusk around 1050 AD: rising dramatically out of the boundless silver-jade waters and rolling lake mist stands Five-Finger Peak (洞庭铁掌峰), five colossal craggy mountain peaks shaped like a giant open hand reaching into the twilight clouds, with cliffside waterfalls and dark stone fortress halls high on the ridges. At the base of the peaks, dozens of Northern Song wooden warships and watchtowers are linked by iron chains into a formidable water fortress, lit by warm glowing torches and fluttering blank black-and-crimson banners. In the foreground emerging from misty reed marshes, a swift wooden skiff cuts through the waves: a poised female martial artist in dark fitted attire with a sword at her waist steers at the bow, a young traveler in humble cloth robes gazes up in awe from mid-boat, and a burly veteran boatman sits sternly with a massive bronze oar. Authentic Song court painting brushwork, mineral azurite and malachite pigments, majestic wuxia atmosphere, no modern elements, blank flags with no text or characters.
+  ```
+
+---
+
+### 35. `CG-QST-035`：铁掌峰百斤铁沙场 · 赤砂沸鼎淬凡掌图
+
+- **关联文件**：[`src/data/quests/sects/tiezhangEntryQuest.ts`](../src/data/quests/sects/tiezhangEntryQuest.ts)
+- **目标路径**：`public/assets/quests/tiezhang_red_sand_cauldron.jpg`
+- **画框题跋**：`铁掌峰百斤铁沙场 · 赤砂沸鼎血肉淬心`
+- **剧情语境**：
+  - 主角尚无半分内家真气护体，于夜深人静时登临第一指峰【前坪百斤铁沙场】接受入门筑基最酷烈的考验——赤手翻炒混有辰州朱砂与五溪草药的滚烫铁砂。
+  - 三口巨型生铁砂鼎炉火熊熊、赤砂翻滚腾起灼热白烟，主角咬紧牙关将一双血肉凡掌深深插入沸砂之中，额角青筋暴起、汗珠滴入铁砂瞬间化作白雾；旁侧老舵主【焦木】拄百斤熟铜桨凝目督训，女香主【屠芳云】手捧白麻伤药布巾悄然伫立鼎畔关切注视，五溪苗卫【沈平威】在炉侧添入秘草。
+- **画面核心要素**：
+  1. **环境氛围**：夜色笼罩的洞庭铁掌峰黑石演武前坪，悬崖外夜雾与湖光微茫，坪上松脂火把与炭炉将四周映成炽烈暗金与赤红。
+  2. **主体人物（核心张力）**：画面正中一口三足大铁鼎下柴炭通红，鼎内乌黑透红的铁砂与药叶翻滚冒烟；身穿汗湿粗布短褐的年轻主角扎稳马步，双手十指深深插进滚烫赤砂中奋力翻搅，神情剧痛却目光如铁。
+  3. **缘分群像**：铁鼎右侧，虬髯魁梧的老舵主（焦木）双手按着立地的百斤熟铜大桨，神色冷峻中带着震动；铁鼎左侧半步后，干练温婉的黑衣女香主（屠芳云）手托药钵与麻布绷带，微蹙蛾眉紧张注视主角双掌；后方戴银环头巾的湘西苗家老药师（沈平威）正持木勺撒入草药。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Nighttime at the rugged black-stone Iron Sand Training Ground high on Five-Finger Peak overlooking misty Dongting Lake around 1050 AD, illuminated by roaring charcoal fires and pine torches. At the center stands a massive three-legged cast-iron cauldron over glowing red coals, filled with scorching dark-crimson iron sand and medicinal herbs emitting wisps of hot steam. A young uninitiated martial artist in sweat-drenched coarse cloth robes roots his stance and plunges both bare hands deep into the boiling hot iron sand, jaw clenched and brow glistening with sweat in fierce determination. To the right, a grizzled muscular veteran boatman-master leans on an upright heavy bronze boat oar watching with stern respect; to the left, a sharp-featured female martial artist in dark indigo-and-crimson trim attire holds a clay medicine bowl and clean linen wraps, watching his hands with quiet concern; in the background, an older Miao herbalist wearing silver earrings tends a smaller药炉. Intense warm firelight against cool indigo mountain night, authentic Song dynasty brushwork, rich mineral pigments, visceral martial arts tempering mood, no modern elements, no text or characters.
+  ```
+
+---
+
+### 36. `CG-QST-036`：雁门关外乱石绝壁 · 少年布衣横木杖护孤图
+
+- **关联文件**：[`src/data/quests/sects/wutaiEntryQuest.ts`](../src/data/quests/sects/wutaiEntryQuest.ts)
+- **目标路径**：`public/assets/quests/wutai_yanmen_pass.jpg`
+- **画框题跋**：`雁门关外乱石绝壁 · 少年布衣横木杖死守石窟孤雏`
+- **剧情语境**：
+  - 主角尚未习得内功武学，为一介白身布衣少年，奉五台山清凉寺知客首座之托冒雪驰赴雁门关报信，于乱石绝壁幽谷石室中寻获重伤的河东老铁匠石百炼与偷偷跟来的七岁遗孤小石锁。
+  - 暴风雪夜契丹搜山斥候循迹杀至，石室洞口仅容一人通行。毫无真气傍身的主角毅然拾起一根白蜡木杆横身堵死洞口，以血肉凡躯死守三合，为身后孤雏与伤者撑开一线生机。
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年北宋雁门关外险峻乱石绝壁与狭窄山窟入口，漫天鹅毛暴雪随朔风狂卷，远处群峰如铁，高处山脊隐约可见一星驰援武僧的火把微光。
+  2. **主体人物**：画面中央偏左的石窟狭口前，身穿单薄朴素灰褐粗布衣、发束布巾、肩头覆满积雪的年轻主角双足死死钉入雪泥，双手紧握一根无刃白蜡木齐眉杆横挡身前，目光决绝无畏；其身后微弱炭火映照的石洞内，七岁男童（小石锁）正紧紧抱住重伤白发老铁匠的肩膀。
+  3. **对峙张力**：前景右侧风雪暗影中，两名披狼皮护肩与契丹铁札甲、手持弯刀的辽国精锐斥候踏雪逼近，冷冽刀光与洞口微弱暖火形成强烈冷暖戏剧张力。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. A fierce blizzard night at the rugged rocky cliffs outside Yanmen Pass (雁门关外乱石绝壁) around 1050 AD, swirling heavy snow and jagged dark crags. At the narrow entrance of a shallow mountain rock cave dimly lit by a dying ember inside, a young Chinese protagonist in thin plain worn cloth robes (NOT monk robes yet, tied dark hair, no armor) stands firm in ankle-deep snow, gripping a simple smooth white-wax wooden staff horizontally with both hands in a desperate protective stance. Behind him inside the cave shadow, a terrified seven-year-old boy clutches a wounded elderly blacksmith. Approaching from the snowy foreground shadows on the right, two Khitan scouts in wolf-fur collars and Liao iron lamellar armor draw curved sabers. Distant tiny torchlight flickers on a far mountain ridge. Authentic Song court painting brushwork, mineral pigments, poignant heroic tension, dramatic warm-cave vs icy-blizzard contrast, no modern elements, no text or characters.
+  ```
+
+---
+
+### 37. `CG-QST-037`：五台山清凉寺大雄主殿 · 道清方丈执刀剃度赐号图
+
+- **关联文件**：[`src/data/quests/sects/wutaiEntryQuest.ts`](../src/data/quests/sects/wutaiEntryQuest.ts)
+- **目标路径**：`public/assets/quests/wutai_tonsure_ordination.jpg`
+- **画框题跋**：`五台山清凉寺大雄主殿 · 道清方丈执刀剃度赐法号`
+- **剧情语境**：
+  - 雁门关护孤归来，慈济院医僧智光、苦行僧明安、扫雪沙弥善松与开口说话的遗孤小石锁齐聚殿前作证，主角连答方丈三问，证得“执杖止戈、以身护生”之禅心。
+  - 晨钟三响，于五台山清凉寺大雄主殿释迦与文殊金身之前，方丈【道清】亲执纯银戒刀为主角剃除三千青丝，摩顶授戒赐入护法【明】字辈法号，授灰布僧袍与五郎八卦棍谱。
+- **画面核心要素**：
+  1. **环境氛围**：北宋五台山清凉寺宏伟庄严的大雄主殿内景，殿门外五峰残雪沐浴金色晨曦，殿内高耸朱漆梭柱、彩绘斗拱、百盏酥油长明铜灯与袅袅檀烟环绕庄严佛陀与文殊菩萨金身塑像。
+  2. **主体人物**：大殿中央莲花蒲团上，年轻主角身着洁白素麻内衫、双掌虔诚合十长跪，几缕断落青丝散于青砖之上；面前白眉长垂、宝相慈威的老方丈（道清，披紫褐百衲袈裟，身侧立着一柄厚重古铜降魔杵）左手温和抚于主角头顶摩顶授戒，右手轻执银光戒刀。
+  3. **群像呼应**：大殿两厢，白须慈悲医僧（智光）、九尺魁梧持浑铁禅杖的知客首座（智猛）、披风雪护寺武僧（法严）合十肃立；殿侧年少沙弥（善松）双手捧着叠放整齐的灰麻僧衣与齐眉木棍，身旁七岁孩童（小石锁）仰头凝望，庄严温暖、因果圆满。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Solemn morning tonsure ordination ceremony inside the grand Mahavira Hall of Qingliang Monastery on Mount Wutai (五台山清凉寺大雄主殿) around 1050 AD. Through open timber lattice doors, snow-capped Wutai peaks glow in golden dawn light; inside, towering Song-style brackets, gilded Buddha and Manjusri statues, brass butter lamps, and curling sandalwood incense smoke create sacred warmth. Kneeling devoutly on a lotus cushion in the center with palms pressed together, a young protagonist in pure white inner linen robes has locks of black hair falling onto the stone floor. Standing before him, the white-browed venerable Abbot Daoqing in patched dark-crimson kasaya gently rests one hand on the youth's head in blessing while holding a silver tonsure razor, a massive bronze vajra pestle standing nearby. Flanking them in respectful anjali are an elderly healer monk, a giant burly monk holding an iron staff, a young novice monk holding folded grey monk robes and a wooden staff, and a small seven-year-old boy watching from the threshold. Authentic Song court painting aesthetics, rich mineral pigments, sacred emotional culmination, no modern elements, blank plaques with no text or characters.
+  ```
+
+---
+
+### 38. `CG-QST-038`：洛阳天津酒楼 · 二百五金暗通嵩门图
 
 - **关联文件**：[`src/data/quests/sects/shaolinEntryQuest.ts`](../src/data/quests/sects/shaolinEntryQuest.ts)
 - **目标路径**：`public/assets/quests/shaolin_luoyang_bribe.jpg`
@@ -681,7 +821,7 @@
 
 ---
 
-### 32. `CG-QST-032`：嵩山少林大雄宝殿 · 寒暑一载拜入禅林图
+### 39. `CG-QST-039`：嵩山少林大雄宝殿 · 寒暑一载拜入禅林图
 
 - **关联文件**：[`src/data/quests/sects/shaolinEntryQuest.ts`](../src/data/quests/sects/shaolinEntryQuest.ts)
 - **目标路径**：`public/assets/quests/shaolin_chore_induction.jpg`
@@ -700,7 +840,7 @@
 
 ---
 
-### 33. `CG-QST-033`：汴京西坊演武拳馆 · 杨排风铁箸试棍图
+### 40. `CG-QST-040`：汴京西坊演武拳馆 · 杨排风铁箸试棍图
 
 - **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
 - **目标路径**：`public/assets/quests/tianbo_paifeng_iron_rod.jpg`
@@ -719,7 +859,7 @@
 
 ---
 
-### 34. `CG-QST-034`：五台山清凉石台 · 漫雪破双棍悟回马图
+### 41. `CG-QST-041`：五台山清凉石台 · 漫雪破双棍悟回马图
 
 - **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
 - **目标路径**：`public/assets/quests/tianbo_wutai_staff_terrace.jpg`
@@ -738,7 +878,7 @@
 
 ---
 
-### 35. `CG-QST-035`：雁门关乱石绝壁 · 联手穆桂云破契丹重骑图
+### 42. `CG-QST-042`：雁门关乱石绝壁 · 联手穆桂云破契丹重骑图
 
 - **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
 - **目标路径**：`public/assets/quests/tianbo_yanmen_muguiyun.jpg`
@@ -757,7 +897,7 @@
 
 ---
 
-### 36. `CG-QST-036`：延安鄜延边军营 · 随铜面狄青回马破铁鹞子图
+### 43. `CG-QST-043`：延安鄜延边军营 · 随铜面狄青回马破铁鹞子图
 
 - **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
 - **目标路径**：`public/assets/quests/tianbo_yanan_diqing_cavalry.jpg`
@@ -776,7 +916,7 @@
 
 ---
 
-### 37. `CG-QST-037`：太原天波杨家祠 · 雪霁冬阳亲授霸王枪谱图
+### 44. `CG-QST-044`：太原天波杨家祠 · 雪霁冬阳亲授霸王枪谱图
 
 - **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
 - **目标路径**：`public/assets/quests/tianbo_ancestral_bawang_spear.jpg`
@@ -795,7 +935,7 @@
 
 ---
 
-### 38. `CG-QST-038`：真定常山宗祠 · 寒夜雨声验龙胆血书图
+### 45. `CG-QST-045`：真定常山宗祠 · 寒夜雨声验龙胆血书图
 
 - **关联文件**：[`src/data/quests/sects/changshanLonglingQuest.ts`](../src/data/quests/sects/changshanLonglingQuest.ts)
 - **目标路径**：`public/assets/quests/changshan_blood_letter.jpg`
@@ -814,7 +954,7 @@
 
 ---
 
-### 39. `CG-QST-039`：辽南京元帅府 · 焚毁山川策霹雳烟幕突围图
+### 46. `CG-QST-046`：辽南京元帅府 · 焚毁山川策霹雳烟幕突围图
 
 - **关联文件**：[`src/data/quests/sects/changshanLonglingQuest.ts`](../src/data/quests/sects/changshanLonglingQuest.ts)
 - **目标路径**：`public/assets/quests/changshan_marshal_smoke_escape.jpg`
@@ -833,7 +973,7 @@
 
 ---
 
-### 40. `CG-QST-040`：雁门乱石绝壁 · 孤枪横绝截铁林追骑图
+### 47. `CG-QST-047`：雁门乱石绝壁 · 孤枪横绝截铁林追骑图
 
 - **关联文件**：[`src/data/quests/sects/changshanLonglingQuest.ts`](../src/data/quests/sects/changshanLonglingQuest.ts)
 - **目标路径**：`public/assets/quests/changshan_yanmen_cliff_stand.jpg`
@@ -852,7 +992,7 @@
 
 ---
 
-### 41. `CG-QST-041`：常山顺平侯祠 · 启紫檀匣授龙胆亮银枪图
+### 48. `CG-QST-048`：常山顺平侯祠 · 启紫檀匣授龙胆亮银枪图
 
 - **关联文件**：[`src/data/quests/sects/changshanLonglingQuest.ts`](../src/data/quests/sects/changshanLonglingQuest.ts)
 - **目标路径**：`public/assets/quests/changshan_ancestral_silver_spear.jpg`
@@ -871,7 +1011,7 @@
 
 ---
 
-### 42. `CG-QST-042`：开封府升堂殿 · 包拯夕照亲书密谕遣南查图
+### 49. `CG-QST-049`：开封府升堂殿 · 包拯夕照亲书密谕遣南查图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
 - **目标路径**：`public/assets/quests/kf_murong1_bao_secret_decree.jpg`
@@ -890,7 +1030,7 @@
 
 ---
 
-### 43. `CG-QST-043`：姑苏寒山寺钟楼 · 子夜袖石灭烛截竹筒图
+### 50. `CG-QST-050`：姑苏寒山寺钟楼 · 子夜袖石灭烛截竹筒图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
 - **目标路径**：`public/assets/quests/kf_murong1_hanshan_bell_intercept.jpg`
@@ -909,7 +1049,7 @@
 
 ---
 
-### 44. `CG-QST-044`：燕子坞听香水榭 · 琴韵暗香隔帘递风灯图
+### 51. `CG-QST-051`：燕子坞听香水榭 · 琴韵暗香隔帘递风灯图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
 - **目标路径**：`public/assets/quests/kf_murong1_tingxiang_lantern.jpg`
@@ -928,7 +1068,7 @@
 
 ---
 
-### 45. `CG-QST-045`：燕子坞参合庄 · 火起接掌破窗跃太湖图
+### 52. `CG-QST-052`：燕子坞参合庄 · 火起接掌破窗跃太湖图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
 - **目标路径**：`public/assets/quests/kf_murong1_canhe_window_leap.jpg`
@@ -947,7 +1087,7 @@
 
 ---
 
-### 46. `CG-QST-046`：开封府正堂 · 呈交密账晋升金牌总捕图
+### 53. `CG-QST-053`：开封府正堂 · 呈交密账晋升金牌总捕图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
 - **目标路径**：`public/assets/quests/kf_murong1_gold_badge_verdict.jpg`
@@ -958,7 +1098,7 @@
 - **画面核心要素**：
   1. **环境氛围**：秋夜肃穆的开封府衙升堂正殿，堂两侧高擎烛台火影微晃，三口象征王法森严的龙头、虎头、狗头铜铡整齐矗立于高台一隅闪耀冷铜清辉（铡口无文字）。
   2. **主体人物**：红色公案后，正襟危坐的包拯（平翅黑幞头紫袍）双手正缓缓合上一册边角带着明显水渍微皱的素纸密账抄件，神情冷峻中透着沉稳托付；堂旁御前四品带刀护卫展昭按剑微笑向主角颔首致贺，并将一面雕琢龙纹的纯金六扇门金牌令符捧在红漆托盘中；正堂中央青石上，年轻主角挺直脊背抱拳朗声应诺，旁边木盘备有百二十两军功赏银。
-  3. **阶段丰碑**：与第 42 幕暮色暗查遥相呼应，彰显“小捕快孤胆入虎穴、凯旋授金牌”的职业升华。
+  3. **阶段丰碑**：与第八幕（`CG-QST-049`）暮色暗查遥相呼应，彰显“小捕快孤胆入虎穴、凯旋授金牌”的职业升华。
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color court milestone painting, wide cinematic 16:9 composition. Solemn candlelight tribunal hall of Kaifeng Prefecture at night around 1050 AD, with the three gleaming bronze courtroom execution guillotines (dragon, tiger, and dog finials) standing majestically on the side dais under wavering tall-taper flames. At the grand vermilion magistrate desk, Prefect Bao Zheng in official purple Song court robes and flat-winged black futou closes a slightly water-stained ledger manuscript with grave approval. Standing beside him with a warm approving smile, red-clad imperial guard Zhan Zhao holds a lacquered tray bearing a gleaming carved golden Six-Doors Chief Constable medallion badge and stacked silver ingots. In the foreground center, the young hero stands straight in a formal dark Song martial coat (seen from a proud three-quarter back view), saluting with clasped hands. Authentic Song legal ritual atmosphere, rich crimson, bronze, and gold mineral pigments, zero text.
@@ -966,7 +1106,7 @@
 
 ---
 
-### 47. `CG-QST-047`：开封府后轩密室 · 烛下点验江南百兵册图
+### 54. `CG-QST-054`：开封府后轩密室 · 烛下点验江南百兵册图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
 - **目标路径**：`public/assets/quests/kf_murong2_secret_ledger_audit.jpg`
@@ -985,7 +1125,7 @@
 
 ---
 
-### 48. `CG-QST-048`：汴梁樊楼屋脊 · 夜风横剑截擒契丹谍图
+### 55. `CG-QST-055`：汴梁樊楼屋脊 · 夜风横剑截擒契丹谍图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
 - **目标路径**：`public/assets/quests/kf_murong2_fanlou_roof_spy.jpg`
@@ -1004,7 +1144,7 @@
 
 ---
 
-### 49. `CG-QST-049`：开封府升堂正殿 · 龙图授紫宸密旨与双龙金牌图
+### 56. `CG-QST-056`：开封府升堂正殿 · 龙图授紫宸密旨与双龙金牌图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
 - **目标路径**：`public/assets/quests/kf_murong2_zichen_secret_edict.jpg`
@@ -1023,7 +1163,7 @@
 
 ---
 
-### 50. `CG-QST-050`：姑苏虎丘试剑石洞 · 火折微光照见飞燕铁甲武库图
+### 57. `CG-QST-057`：姑苏虎丘试剑石洞 · 火折微光照见飞燕铁甲武库图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
 - **目标路径**：`public/assets/quests/kf_murong2_huqiu_armor_cave.jpg`
@@ -1042,7 +1182,7 @@
 
 ---
 
-### 51. `CG-QST-051`：太湖烟波渡口画舫 · 三十合拆招震退公冶乾图
+### 58. `CG-QST-058`：太湖烟波渡口画舫 · 三十合拆招震退公冶乾图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
 - **目标路径**：`public/assets/quests/kf_murong2_taihu_boat_gongye.jpg`
@@ -1061,7 +1201,7 @@
 
 ---
 
-### 52. `CG-QST-052`：燕子坞参合庄演武场 · 硬撼邓百川震裂青砖图
+### 59. `CG-QST-059`：燕子坞参合庄演武场 · 硬撼邓百川震裂青砖图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
 - **目标路径**：`public/assets/quests/kf_murong2_canhe_yard_deng.jpg`
@@ -1080,7 +1220,7 @@
 
 ---
 
-### 53. `CG-QST-053`：燕子坞还施水阁正厅 · 慕容复十合震断紫檀桌图
+### 60. `CG-QST-060`：燕子坞还施水阁正厅 · 慕容复十合震断紫檀桌图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
 - **目标路径**：`public/assets/quests/kf_murong2_huanshi_ten_bouts.jpg`
@@ -1099,7 +1239,7 @@
 
 ---
 
-### 54. `CG-QST-054`：开封府大堂晨光 · 呈交立约书晋升御前护卫图
+### 61. `CG-QST-061`：开封府大堂晨光 · 呈交立约书晋升御前护卫图
 
 - **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
 - **目标路径**：`public/assets/quests/kf_murong2_royal_guard_seal.jpg`
@@ -1118,7 +1258,7 @@
 
 ---
 
-### 55. `CG-QST-055`：大名府黄河北岸 · 临津酒楼断索剑拔弩张图
+### 62. `CG-QST-062`：大名府黄河北岸 · 临津酒楼断索剑拔弩张图
 
 - **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
 - **目标路径**：`public/assets/quests/daming_linjin_tavern_standoff.jpg`
@@ -1137,7 +1277,7 @@
 
 ---
 
-### 56. `CG-QST-056`：黄河铁索渡口 · 芦棚紫髯北侠辨寒铁断索图
+### 63. `CG-QST-063`：黄河铁索渡口 · 芦棚紫髯北侠辨寒铁断索图
 
 - **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
 - **目标路径**：`public/assets/quests/daming_ouyang_chun_ferry.jpg`
@@ -1156,7 +1296,7 @@
 
 ---
 
-### 57. `CG-QST-057`：河北枪棒大校场 · 八角擂台契丹双斧露峥嵘图
+### 64. `CG-QST-064`：河北枪棒大校场 · 八角擂台契丹双斧露峥嵘图
 
 - **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
 - **目标路径**：`public/assets/quests/daming_leitai_khitan_axes.jpg`
@@ -1175,7 +1315,7 @@
 
 ---
 
-### 58. `CG-QST-058`：北京留守沙盘阁 · 子夜百盏宫灯铁壁合围辽将图
+### 65. `CG-QST-065`：北京留守沙盘阁 · 子夜百盏宫灯铁壁合围辽将图
 
 - **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
 - **目标路径**：`public/assets/quests/daming_midnight_sandtable_ambush.jpg`
@@ -1194,7 +1334,7 @@
 
 ---
 
-### 59. `CG-QST-059`：沙盘阁破晓 · 贾昌朝荐函与卢铁山铁枪双途邀侠图
+### 66. `CG-QST-066`：沙盘阁破晓 · 贾昌朝荐函与卢铁山铁枪双途邀侠图
 
 - **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
 - **目标路径**：`public/assets/quests/daming_baji_official_choice.jpg`
@@ -1213,7 +1353,7 @@
 
 ---
 
-### 60. `CG-QST-060`：东京樊楼飞桥 · 夜宴灯火截灰衣刺客图
+### 67. `CG-QST-067`：东京樊楼飞桥 · 夜宴灯火截灰衣刺客图
 
 - **关联文件**：[`src/data/quests/adventures/babuganchanQuest.ts`](../src/data/quests/adventures/babuganchanQuest.ts)
 - **目标路径**：`public/assets/quests/babuganchan_fanlou_bridge_duel.jpg`
@@ -1232,7 +1372,7 @@
 
 ---
 
-### 61. `CG-QST-061`：大相国寺资圣塔顶 · 秋风铜铃初悟蝉蜕息图
+### 68. `CG-QST-068`：大相国寺资圣塔顶 · 秋风铜铃初悟蝉蜕息图
 
 - **关联文件**：[`src/data/quests/adventures/babuganchanQuest.ts`](../src/data/quests/adventures/babuganchanQuest.ts)
 - **目标路径**：`public/assets/quests/babuganchan_zisheng_pagoda_wind.jpg`
@@ -1251,7 +1391,7 @@
 
 ---
 
-### 62. `CG-QST-062`：洛阳白马寺齐云塔 · 银杏落叶连踏七步图
+### 69. `CG-QST-069`：洛阳白马寺齐云塔 · 银杏落叶连踏七步图
 
 - **关联文件**：[`src/data/quests/adventures/babuganchanQuest.ts`](../src/data/quests/adventures/babuganchanQuest.ts)
 - **目标路径**：`public/assets/quests/babuganchan_baimasi_ginkgo_steps.jpg`
@@ -1270,7 +1410,7 @@
 
 ---
 
-### 63. `CG-QST-063`：洛阳牡丹园碧溪 · 雨霁秋月八步点水飞檐图
+### 70. `CG-QST-070`：洛阳牡丹园碧溪 · 雨霁秋月八步点水飞檐图
 
 - **关联文件**：[`src/data/quests/adventures/babuganchanQuest.ts`](../src/data/quests/adventures/babuganchanQuest.ts)
 - **目标路径**：`public/assets/quests/babuganchan_bixi_moon_water.jpg`
@@ -1289,7 +1429,7 @@
 
 ---
 
-### 64. `CG-QST-064`：苏州虎丘千人石 · 生公亭仗剑护青年沈括图
+### 71. `CG-QST-071`：苏州虎丘千人石 · 生公亭仗剑护青年沈括图
 
 - **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
 - **目标路径**：`public/assets/quests/yanziwu_map_huqiu_shenkuo.jpg`
@@ -1308,7 +1448,7 @@
 
 ---
 
-### 65. `CG-QST-065`：扬州二十四桥水阁 · 柳永康广陵抚琴破词隐图
+### 72. `CG-QST-072`：扬州二十四桥水阁 · 柳永康广陵抚琴破词隐图
 
 - **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
 - **目标路径**：`public/assets/quests/yanziwu_map_24bridge_cipher.jpg`
@@ -1327,7 +1467,7 @@
 
 ---
 
-### 66. `CG-QST-066`：扬州盐帮兵器院 · 雪盐麻栈后破盛黑风铁爪图
+### 73. `CG-QST-073`：扬州盐帮兵器院 · 雪盐麻栈后破盛黑风铁爪图
 
 - **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
 - **目标路径**：`public/assets/quests/yanziwu_map_yangzhou_salt_arena.jpg`
@@ -1346,7 +1486,7 @@
 
 ---
 
-### 67. `CG-QST-067`：江宁石头城赤壁 · 大江暮涛激斗断浪焦沧澜图
+### 74. `CG-QST-074`：江宁石头城赤壁 · 大江暮涛激斗断浪焦沧澜图
 
 - **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
 - **目标路径**：`public/assets/quests/yanziwu_map_shitou_red_cliff.jpg`
@@ -1365,7 +1505,7 @@
 
 ---
 
-### 68. `CG-QST-068`：太湖烟波锦帆画舫 · 沈括合绘水图蒋平包不同共证图
+### 75. `CG-QST-075`：太湖烟波锦帆画舫 · 沈括合绘水图蒋平包不同共证图
 
 - **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
 - **目标路径**：`public/assets/quests/yanziwu_map_taihu_boat_unite.jpg`
@@ -1384,7 +1524,7 @@
 
 ---
 
-### 69. `CG-QST-069`：苏州虎丘云岩古塔 · 暮霭石阶截黑鲨盗夺罗盘图
+### 76. `CG-QST-076`：苏州虎丘云岩古塔 · 暮霭石阶截黑鲨盗夺罗盘图
 
 - **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
 - **目标路径**：`public/assets/quests/taohuadao_map_huqiu_compass.jpg`
@@ -1403,7 +1543,7 @@
 
 ---
 
-### 70. `CG-QST-070`：杭州万松书院印书坊 · 毕昇胶泥活字拓海图密版图
+### 77. `CG-QST-077`：杭州万松书院印书坊 · 毕昇胶泥活字拓海图密版图
 
 - **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
 - **目标路径**：`public/assets/quests/taohuadao_map_wansong_bisheng.jpg`
@@ -1422,7 +1562,7 @@
 
 ---
 
-### 71. `CG-QST-071`：杭州钱塘江观潮台 · 曲沧浪横抚铁琴听潮破刀律图
+### 78. `CG-QST-078`：杭州钱塘江观潮台 · 曲沧浪横抚铁琴听潮破刀律图
 
 - **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
 - **目标路径**：`public/assets/quests/taohuadao_map_qiantang_qin_tide.jpg`
@@ -1441,7 +1581,7 @@
 
 ---
 
-### 72. `CG-QST-072`：杭州两浙市舶司船坞 · 决战鲨皮独眼巨寇屠海蛟图
+### 79. `CG-QST-079`：杭州两浙市舶司船坞 · 决战鲨皮独眼巨寇屠海蛟图
 
 - **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
 - **目标路径**：`public/assets/quests/taohuadao_map_dock_shark_boss.jpg`
@@ -1460,7 +1600,7 @@
 
 ---
 
-### 73. `CG-QST-073`：苏州太湖望湖水榭 · 陆玄机朱毫校定鲛绡海图授玉筒图
+### 80. `CG-QST-080`：苏州太湖望湖水榭 · 陆玄机朱毫校定鲛绡海图授玉筒图
 
 - **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
 - **目标路径**：`public/assets/quests/taohuadao_map_wanghu_silk_chart.jpg`
