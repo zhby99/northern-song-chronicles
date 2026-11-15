@@ -6,7 +6,6 @@ import type {
   StorySceneDef,
   StorySpeakerSpec,
 } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 export const GAIBANG_ENTRY_QUEST_ID = 'QST-SECT-02-ENTRY'
 
@@ -116,7 +115,30 @@ function buildBullyHuSanNpc(): NodeNpc {
       isBenchmark: false,
     },
     talents: { bone: 32, comprehension: 28, charm: 25 },
-    equipped: { ...DEFAULT_EQUIPPED_SLOTS },
+    equippedArts: {
+      neigong: 'MA-199', // 粗浅呼吸法
+      qinggong: 'MA-218', // 翻滚躲闪步
+      move1: 'MA-201', // 市井王八拳
+      move2: null,
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-199', level: 1, exp: 0 },
+      { artId: 'MA-218', level: 1, exp: 0 },
+      { artId: 'MA-201', level: 2, exp: 0 },
+    ],
+    equipped: {
+      weapon: 'WPN-083', // 生牛皮裹指拳带（凡阶中品）
+      armor: 'ARM-044', // 市井茶博士围裙衫（凡阶中品）
+      shoes: 'BOT-023', // 江南油布雨屐（凡阶中品）
+      bow: 'BOW-022', // 关洛镖局防盗短弓（凡阶中品）
+      accessory1: 'ACC-041', // 市井红绳铜钱串（凡阶中品）
+      accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
+    },
     talk: '“穷酸小子，连买炊饼的铜板都掏不出，也敢管爷们的闲事！”',
   }
 }
@@ -139,7 +161,31 @@ function buildGranaryOverseerNpc(): NodeNpc {
       isBenchmark: false,
     },
     talents: { bone: 36, comprehension: 30, charm: 22 },
-    equipped: { ...DEFAULT_EQUIPPED_SLOTS },
+    equippedArts: {
+      neigong: 'MA-199', // 粗浅呼吸法
+      qinggong: 'MA-218', // 翻滚躲闪步
+      move1: 'MA-207', // 柴刀乱披法
+      move2: 'MA-204', // 护院拦门掌
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-199', level: 1, exp: 0 },
+      { artId: 'MA-218', level: 1, exp: 0 },
+      { artId: 'MA-207', level: 2, exp: 0 },
+      { artId: 'MA-204', level: 1, exp: 0 },
+    ],
+    equipped: {
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-041', // 粗布猎装（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-022', // 关洛镖局防盗短弓（凡阶中品）
+      accessory1: 'ACC-043', // 粗皮护腕（凡阶中品）
+      accessory2: 'ACC-041', // 市井红绳铜钱串（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
+    },
     talk: '“好大的狗胆，竟敢半夜摸进黑风脚行的私仓放人！”',
   }
 }
@@ -164,11 +210,30 @@ function buildApricotDiscipleNpc(): NodeNpc {
       isBenchmark: false,
     },
     talents: { bone: 48, comprehension: 45, charm: 46 },
+    equippedArts: {
+      neigong: 'MA-223', // 丐帮吐纳筑基诀
+      qinggong: 'MA-177', // 飞檐走壁
+      move1: 'MA-211', // 打狗竹棒（市井叫花）
+      move2: 'MA-182', // 太祖长拳
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-223', level: 2, exp: 0 },
+      { artId: 'MA-177', level: 2, exp: 0 },
+      { artId: 'MA-211', level: 3, exp: 0 },
+      { artId: 'MA-182', level: 2, exp: 0 },
+    ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-098',
-      armor: 'ARM-050',
-      shoes: 'BOT-026',
+      weapon: 'WPN-080', // 丐帮青竹防身棒（凡阶中品）
+      armor: 'ARM-041', // 粗布猎装（凡阶中品）
+      shoes: 'BOT-024', // 蜀道麻筋草鞋（凡阶中品）
+      bow: 'BOW-021', // 江南水乡弹弓（凡阶中品）
+      accessory1: 'ACC-041', // 市井红绳铜钱串（凡阶中品）
+      accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+      mount: 'MNT-022', // 淮南盐道负重挽马（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     talk: '“少侠请亮招！宋长老吩咐只试胆魄骨气，咱们点到为止！”',
   }

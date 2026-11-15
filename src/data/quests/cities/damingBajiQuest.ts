@@ -1,6 +1,5 @@
 import type { NodeNpc } from '../../../types/game'
 import type { QuestCondition, QuestDefinition, QuestEffect, StorySceneDef } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST-CITY-DAMING-BAJI'
 
@@ -28,7 +27,7 @@ function buildTaihangScoundrelNpc(): NodeNpc {
     fullLocationLabel: '大名府 > 河北枪棒大校场 > 六合枪棒八角比武擂台',
     equippedArts: {
       neigong: 'MA-162',
-      qinggong: null,
+      qinggong: 'MA-157',
       move1: 'MA-151',
       move2: null,
       move3: null,
@@ -36,11 +35,19 @@ function buildTaihangScoundrelNpc(): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-162', level: 2, exp: 0 },
+      { artId: 'MA-157', level: 2, exp: 0 },
       { artId: 'MA-151', level: 2, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-076',
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-047', // 大名府粗麻练功服（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-022', // 关洛镖局防盗短弓（凡阶中品）
+      accessory1: 'ACC-043', // 粗皮护腕（凡阶中品）
+      accessory2: 'ACC-041', // 市井红绳铜钱串（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '踢馆刺头',
     talk: '“沧州八极门算甚么东西？连二十箱生铁都看不住的窝囊废，还不快滚下八角擂台！”',
@@ -81,8 +88,15 @@ function buildKhitanVanguardNpc(): NodeNpc {
       { artId: 'MA-151', level: 3, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-065',
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-045', // 辽东鹿皮坎肩（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-023', // 河东木胎弓（凡阶中品）
+      accessory1: 'ACC-045', // 辽东野猪獠牙（凡阶中品）
+      accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '铁林先锋',
     talk: '“俺乃辽东白山脚下讨生活的行商，今日特来领教八极门斤两——接得住俺五合重斧再狂言守河！”',
@@ -119,15 +133,15 @@ function buildYeluLieshanBossNpc(weakenedByFlaw: boolean): NodeNpc {
     equippedArts: weakenedByFlaw
       ? {
           neigong: 'MA-232',
-          qinggong: null,
+          qinggong: 'MA-246',
           move1: 'MA-152',
           move2: null,
           move3: null,
           move4: null,
         }
       : {
-          neigong: 'MA-140',
-          qinggong: 'MA-157',
+          neigong: 'MA-243',
+          qinggong: 'MA-246',
           move1: 'MA-133',
           move2: 'MA-152',
           move3: null,
@@ -136,18 +150,38 @@ function buildYeluLieshanBossNpc(weakenedByFlaw: boolean): NodeNpc {
     learnedArts: weakenedByFlaw
       ? [
           { artId: 'MA-232', level: 2, exp: 0 },
+          { artId: 'MA-246', level: 2, exp: 0 },
           { artId: 'MA-152', level: 2, exp: 0 },
         ]
       : [
-          { artId: 'MA-140', level: 3, exp: 0 },
-          { artId: 'MA-157', level: 2, exp: 0 },
+          { artId: 'MA-243', level: 3, exp: 0 },
+          { artId: 'MA-246', level: 2, exp: 0 },
           { artId: 'MA-133', level: 3, exp: 0 },
           { artId: 'MA-152', level: 2, exp: 0 },
         ],
-    equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: weakenedByFlaw ? 'WPN-076' : 'WPN-075',
-    },
+    equipped: weakenedByFlaw
+      ? {
+          weapon: 'WPN-081', // 运河漕工铁头篙（凡阶中品·棍棒）
+          armor: 'ARM-045', // 辽东鹿皮坎肩（凡阶中品）
+          shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+          bow: 'BOW-023', // 河东木胎弓（凡阶中品）
+          accessory1: 'ACC-045', // 辽东野猪獠牙（凡阶中品）
+          accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+          mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+          curio1: null,
+          curio2: null,
+        }
+      : {
+          weapon: 'WPN-043', // 党项冷月弯刀（良阶中品）
+          armor: 'ARM-025', // 塞北皮毛战袍（良阶中品）
+          shoes: 'BOT-012', // 河东铁掌马靴（良阶中品）
+          bow: 'BOW-012', // 辽东女真猎虎弓（良阶中品）
+          accessory1: 'ACC-023', // 河东精铁护腕环（良阶中品）
+          accessory2: 'ACC-026', // 镇远镖局铁镖令（良阶中品）
+          mount: 'MNT-013', // 雁门塞外黄骠战马（良阶中品）
+          curio1: null,
+          curio2: null,
+        },
     questBadgeLabel: '铁林统领',
     talk: weakenedByFlaw
       ? '“可恶！白日校场上竟被尔等看穿本座铁林旋风斧的换气旧创……即便如此，尔等休想留住本座！”'
@@ -176,7 +210,7 @@ function buildKhitanSandtableGuardNpc(): NodeNpc {
     fullLocationLabel: '大名府 > 北京留守行宫 > 河北防辽舆图沙盘阁',
     equippedArts: {
       neigong: 'MA-232',
-      qinggong: null,
+      qinggong: 'MA-246',
       move1: 'MA-152',
       move2: 'MA-151',
       move3: null,
@@ -184,12 +218,20 @@ function buildKhitanSandtableGuardNpc(): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-232', level: 2, exp: 0 },
+      { artId: 'MA-246', level: 2, exp: 0 },
       { artId: 'MA-152', level: 2, exp: 0 },
       { artId: 'MA-151', level: 2, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-076',
+      weapon: 'WPN-081', // 运河漕工铁头篙（凡阶中品·棍棒）
+      armor: 'ARM-045', // 辽东鹿皮坎肩（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-023', // 河东木胎弓（凡阶中品）
+      accessory1: 'ACC-045', // 辽东野猪獠牙（凡阶中品）
+      accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '铁林死士',
     talk: '“护住千夫长与《河北防辽舆图》，杀出沙盘阁！”',

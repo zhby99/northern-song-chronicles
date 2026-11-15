@@ -70,15 +70,28 @@ function buildWoodenStaffTrialMonkNpc(): NodeNpc {
     },
     talents: { bone: 45, comprehension: 38, charm: 55 },
     equippedArts: {
-      neigong: null,
-      qinggong: null,
-      move1: 'MA-192',
+      neigong: 'MA-180', // 站桩壮骨法（与DB明广一致，压境1重）
+      qinggong: 'MA-177', // 飞檐走壁（与DB明广一致，压境1重）
+      move1: 'MA-192', // 少林烧火棍（剧情白蜡木杆）
       move2: null,
       move3: null,
       move4: null,
     },
-    learnedArts: [{ artId: 'MA-192', level: 1, exp: 0 }],
-    equipped: { ...DEFAULT_EQUIPPED_SLOTS },
+    learnedArts: [
+      { artId: 'MA-180', level: 1, exp: 0 },
+      { artId: 'MA-177', level: 1, exp: 0 },
+      { artId: 'MA-192', level: 1, exp: 0 },
+    ],
+    equipped: {
+      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-068', // 少林白蜡齐眉棍（剧情木杆）
+      armor: 'ARM-046', // 与DB明广一致
+      shoes: 'BOT-019',
+      bow: 'BOW-020',
+      accessory1: 'ACC-049',
+      accessory2: 'ACC-035',
+      mount: 'MNT-023',
+    },
     talk: '“小施主莫慌，贫僧已尽数敛去内息，只使三分木杆力道——且看你如何立身守门户！”',
   }
 }
@@ -105,15 +118,29 @@ function buildKhitanCaveScoutNpc(): NodeNpc {
     },
     talents: { bone: 46, comprehension: 32, charm: 24 },
     equippedArts: {
-      neigong: null,
-      qinggong: null,
-      move1: 'MA-201',
+      neigong: 'MA-232', // 大漠狼息功
+      qinggong: 'MA-218', // 翻滚躲闪步
+      move1: 'MA-201', // 市井王八拳
       move2: null,
       move3: null,
       move4: null,
     },
-    learnedArts: [{ artId: 'MA-201', level: 1, exp: 0 }],
-    equipped: { ...DEFAULT_EQUIPPED_SLOTS },
+    learnedArts: [
+      { artId: 'MA-232', level: 1, exp: 0 },
+      { artId: 'MA-218', level: 1, exp: 0 },
+      { artId: 'MA-201', level: 1, exp: 0 },
+    ],
+    equipped: {
+      weapon: 'WPN-083', // 生牛皮裹指拳带（凡阶中品）
+      armor: 'ARM-045', // 辽东鹿皮坎肩（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-023', // 河东木胎弓（凡阶中品）
+      accessory1: 'ACC-045', // 辽东野猪獠牙（凡阶中品）
+      accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
+    },
     talk: '“好个不知死活的宋人毛头小子！这窄石缝挥不开长弯刀，老子照样一拳砸碎你的胸骨！”',
   }
 }
@@ -139,7 +166,31 @@ function buildYeluLieBossNpc(): NodeNpc {
       isBenchmark: false,
     },
     talents: { bone: 62, comprehension: 48, charm: 36 },
-    equipped: { ...DEFAULT_EQUIPPED_SLOTS },
+    equippedArts: {
+      neigong: 'MA-243', // 契丹玄阴吐纳诀
+      qinggong: 'MA-246', // 大漠踏沙行
+      move1: 'MA-152', // 契丹狼牙棒法
+      move2: 'MA-151', // 鬼头大刀斩
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-243', level: 4, exp: 0 },
+      { artId: 'MA-246', level: 4, exp: 0 },
+      { artId: 'MA-152', level: 5, exp: 0 },
+      { artId: 'MA-151', level: 4, exp: 0 },
+    ],
+    equipped: {
+      weapon: 'WPN-047', // 契丹重装狼牙棒（良阶中品）
+      armor: 'ARM-025', // 塞北皮毛战袍（良阶中品）
+      shoes: 'BOT-012', // 河东铁掌马靴（良阶中品）
+      bow: 'BOW-012', // 辽东女真猎虎弓（良阶中品）
+      accessory1: 'ACC-023', // 河东精铁护腕环（良阶中品）
+      accessory2: 'ACC-026', // 镇远镖局铁镖令（良阶中品）
+      mount: 'MNT-013', // 雁门塞外黄骠战马（良阶中品）
+      curio1: null,
+      curio2: null,
+    },
     talk: '“五台山的秃驴竟敢坏我北院大事！结狼牙阵，踏平这座石窟！”',
   }
 }

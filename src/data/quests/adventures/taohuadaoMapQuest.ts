@@ -1,6 +1,5 @@
 import type { NodeNpc } from '../../../types/game'
 import type { QuestDefinition, StorySceneDef } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST-ADV-TAOHUADAO-MAP'
 
@@ -41,8 +40,15 @@ function buildHeishaScoutNpc(): NodeNpc {
       { artId: 'MA-216', level: 3, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-064',
+      weapon: 'WPN-076',
+      armor: 'ARM-042',
+      shoes: 'BOT-023',
+      bow: 'BOW-021',
+      accessory1: 'ACC-047',
+      accessory2: 'ACC-043',
+      mount: 'MNT-023',
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '黑鲨风哨',
     talk: '“桃花岛那姓陆的老杂毛躲在太湖不敢出海，倒派个毛头小子来虎丘找罗盘？把命留在古塔底下喂乌鸦罢！”',
@@ -86,8 +92,15 @@ function buildHeishaDeputyNpc(): NodeNpc {
       { artId: 'MA-131', level: 4, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-076',
+      weapon: 'WPN-044',
+      armor: 'ARM-023',
+      shoes: 'BOT-014',
+      bow: 'BOW-012',
+      accessory1: 'ACC-023',
+      accessory2: 'ACC-026',
+      mount: 'MNT-012',
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '黑鲨副帮主',
     talk: '“潮千丈那老儿不识抬举，不肯借怒潮水道替我黑鲨帮运兵，今日便连你与这水香堂一并掀入钱塘江！”',
@@ -140,8 +153,15 @@ function buildTuHaijiaoBossNpc(rhythmBroken: boolean): NodeNpc {
       { artId: 'MA-145', level: 4, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-065',
+      weapon: 'WPN-044',
+      armor: 'ARM-023',
+      shoes: 'BOT-014',
+      bow: 'BOW-012',
+      accessory1: 'ACC-023',
+      accessory2: 'ACC-026',
+      mount: 'MNT-012',
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '黑鲨岛主',
     talk: '“老夫纵横舟山洋面二十载，只恨桃花岛外那一百零八座奇门乱礁折了我三艘大艨艟！今日活字海图已在老夫掌中，再夺下你怀里的璇玑潮信盘，东海仙岛还有谁拦得住我黑鲨帮！”',

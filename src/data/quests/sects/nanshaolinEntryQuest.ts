@@ -106,7 +106,7 @@ function buildHongchanSparNpc(): NodeNpc {
     talents: { bone: 52, comprehension: 46, charm: 45 },
     equippedArts: {
       neigong: 'MA-180',
-      qinggong: null,
+      qinggong: 'MA-218', // 与DB弘禅一致
       move1: 'MA-183',
       move2: 'MA-163',
       move3: null,
@@ -114,6 +114,7 @@ function buildHongchanSparNpc(): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-180', level: 1, exp: 0 },
+      { artId: 'MA-218', level: 1, exp: 0 },
       { artId: 'MA-183', level: 1, exp: 0 },
       { artId: 'MA-163', level: 1, exp: 0 },
     ],
@@ -122,6 +123,10 @@ function buildHongchanSparNpc(): NodeNpc {
       weapon: 'WPN-099',
       armor: 'ARM-036',
       shoes: 'BOT-020',
+      bow: 'BOW-023', // 与DB弘禅一致
+      accessory1: 'ACC-040',
+      accessory2: 'ACC-047',
+      mount: 'MNT-026',
     },
     talk: '“扎稳四平马，沉桥莫眨眼！咱们南拳规矩，桥来桥上过，点到为止！”',
   }
@@ -147,7 +152,7 @@ function buildShapiliuDockNpc(): NodeNpc {
     talents: { bone: 45, comprehension: 35, charm: 25 },
     equippedArts: {
       neigong: 'MA-199',
-      qinggong: null,
+      qinggong: 'MA-218',
       move1: 'MA-209',
       move2: 'MA-204',
       move3: null,
@@ -155,11 +160,20 @@ function buildShapiliuDockNpc(): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-199', level: 1, exp: 0 },
+      { artId: 'MA-218', level: 1, exp: 0 },
       { artId: 'MA-209', level: 1, exp: 0 },
       { artId: 'MA-204', level: 1, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-046', // 广州葛布短衫（凡阶中品）
+      shoes: 'BOT-023', // 江南油布雨屐（凡阶中品）
+      bow: 'BOW-021', // 江南水乡弹弓（凡阶中品）
+      accessory1: 'ACC-047', // 广州贝壳串（凡阶中品）
+      accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+      mount: 'MNT-022', // 淮南盐道负重挽马（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     talk: '“天堂有路你不走！把老船工的海道针经和少林血竭统统交出来！”',
   }
@@ -185,7 +199,7 @@ function buildWoodenDummyGuardianNpc(): NodeNpc {
     talents: { bone: 65, comprehension: 40, charm: 40 },
     equippedArts: {
       neigong: 'MA-180',
-      qinggong: null,
+      qinggong: 'MA-218',
       move1: 'MA-163',
       move2: 'MA-192',
       move3: null,
@@ -193,12 +207,20 @@ function buildWoodenDummyGuardianNpc(): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-180', level: 1, exp: 0 },
+      { artId: 'MA-218', level: 1, exp: 0 },
       { artId: 'MA-163', level: 1, exp: 0 },
       { artId: 'MA-192', level: 1, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-068',
+      weapon: 'WPN-081', // 运河漕工铁头篙（凡阶中品）
+      armor: 'ARM-046', // 广州葛布短衫（凡阶中品）
+      shoes: 'BOT-024', // 蜀道麻筋草鞋（凡阶中品）
+      bow: 'BOW-024', // 岭南藤木猎弓（凡阶中品）
+      accessory1: 'ACC-047', // 广州贝壳串（凡阶中品）
+      accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+      mount: 'MNT-022', // 淮南盐道负重挽马（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     talk: '（机括铮然咬合，包裹熟铜护胸的楠木傀儡双臂一振，挟沉猛劲风当门横拦！）',
   }

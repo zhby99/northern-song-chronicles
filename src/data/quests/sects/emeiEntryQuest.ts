@@ -6,7 +6,6 @@ import type {
   StorySceneDef,
   StorySpeakerSpec,
 } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 export const EMEI_ENTRY_QUEST_ID = 'QST-SECT-07-ENTRY'
 
@@ -89,7 +88,31 @@ function buildQingchengTeaBullyNpc(): NodeNpc {
       isBenchmark: false,
     },
     talents: { bone: 36, comprehension: 35, charm: 30 },
-    equipped: { ...DEFAULT_EQUIPPED_SLOTS },
+    equippedArts: {
+      neigong: 'MA-228', // 青城青冥引气诀
+      qinggong: 'MA-197', // 提纵术
+      move1: 'MA-148', // 青城松风剑
+      move2: 'MA-206', // 基础刺击剑
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-228', level: 1, exp: 0 },
+      { artId: 'MA-197', level: 1, exp: 0 },
+      { artId: 'MA-148', level: 1, exp: 0 },
+      { artId: 'MA-206', level: 1, exp: 0 },
+    ],
+    equipped: {
+      weapon: 'WPN-074', // 巴蜀窄刃刺剑（凡阶中品）
+      armor: 'ARM-043', // 蜀道油布雨衣（凡阶中品）
+      shoes: 'BOT-021', // 道士云头布履（凡阶中品）
+      bow: 'BOW-024', // 岭南藤木猎弓（凡阶中品）
+      accessory1: 'ACC-046', // 青城松果挂坠（凡阶中品）
+      accessory2: 'ACC-042', // 道观桃木辟邪符（凡阶中品）
+      mount: 'MNT-024', // 川西剑阁栈道矮马（凡阶中品）
+      curio1: null,
+      curio2: null,
+    },
     talk: '“连半点丹田内气都没有的白身小子，也敢拿肉身挡爷们的松风快剑？滚开！”',
   }
 }
@@ -118,11 +141,30 @@ function buildJindingSparDiscipleNpc(): NodeNpc {
       isBenchmark: false,
     },
     talents: { bone: 45, comprehension: 52, charm: 68 },
+    equippedArts: {
+      neigong: 'MA-161', // 峨眉吐纳术
+      qinggong: 'MA-158', // 燕子三抄水
+      move1: 'MA-206', // 基础刺击剑（与WPN-074协同）
+      move2: 'MA-136', // 分水峨眉刺
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-161', level: 2, exp: 0 },
+      { artId: 'MA-158', level: 2, exp: 0 },
+      { artId: 'MA-206', level: 2, exp: 0 },
+      { artId: 'MA-136', level: 2, exp: 0 },
+    ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-074',
-      armor: 'ARM-034',
-      shoes: 'BOT-021',
+      weapon: 'WPN-074', // 巴蜀窄刃刺剑（凡阶中品）
+      armor: 'ARM-042', // 江南竹布夏衫（凡阶中品）
+      shoes: 'BOT-024', // 蜀道麻筋草鞋（凡阶中品）
+      bow: 'BOW-024', // 岭南藤木猎弓（凡阶中品）
+      accessory1: 'ACC-044', // 江南桂花香包（凡阶中品）
+      accessory2: 'ACC-042', // 道观桃木辟邪符（凡阶中品）
+      mount: 'MNT-024', // 川西剑阁栈道矮马（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     talk: '“请留神了！柳护法吩咐只验吐纳与分水刺腕力，咱们点到即止！”',
   }

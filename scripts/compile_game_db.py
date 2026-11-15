@@ -2903,8 +2903,24 @@ def populate_npc_loadouts(
         pref_wpn_type = cat_to_weapon_type.get(move1_cat)
 
         if equipped["weapon"] is None:
+            tiered_wpns = [w for w in weapons if w["tier"] == fill_tier] or weapons
+            move_id_set = set(move_ids)
+            move_cats = [art_by_id[mid]["category"] for mid in move_ids if mid in art_by_id]
+
+            def _wpn_has_cat(w: dict[str, Any], cat: str) -> bool:
+                return any(s["category"] in cat for s in w.get("synergies", []))
+
+            sig_wpns = [w for w in tiered_wpns if move_id_set.intersection(w.get("signatureArtIds", []))]
+            cat1_wpns = [w for w in tiered_wpns if move1_cat and _wpn_has_cat(w, move1_cat)]
+            any_cat_wpns = [w for w in tiered_wpns if any(_wpn_has_cat(w, c) for c in move_cats)]
+            wpn_pool = sig_wpns or cat1_wpns or any_cat_wpns or weapons
             equipped["weapon"] = pick_gear_for_slot(
-                weapons, fill_tier, faction_id, region_id, npc_num, preferred_weapon_type=pref_wpn_type
+                wpn_pool,
+                fill_tier,
+                faction_id,
+                region_id,
+                npc_num,
+                preferred_weapon_type=None if (sig_wpns or cat1_wpns or any_cat_wpns) else pref_wpn_type,
             )
         if equipped["armor"] is None:
             equipped["armor"] = pick_gear_for_slot(

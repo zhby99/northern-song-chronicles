@@ -1,6 +1,5 @@
 import type { NodeNpc } from '../../../types/game'
 import type { QuestDefinition, StorySceneDef } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST-ADV-BABUGANCHAN'
 
@@ -30,7 +29,7 @@ function buildJiefengScoutNpc(): NodeNpc {
       neigong: 'MA-162',
       qinggong: 'MA-157',
       move1: 'MA-151',
-      move2: 'MA-142',
+      move2: 'MA-175', // 甩手袖箭（原误填了内功MA-142）
       move3: null,
       move4: null,
     },
@@ -38,11 +37,18 @@ function buildJiefengScoutNpc(): NodeNpc {
       { artId: 'MA-162', level: 3, exp: 0 },
       { artId: 'MA-157', level: 3, exp: 0 },
       { artId: 'MA-151', level: 3, exp: 0 },
-      { artId: 'MA-142', level: 2, exp: 0 },
+      { artId: 'MA-175', level: 2, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-072',
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-041', // 粗布猎装（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-022', // 关洛镖局防盗短弓（凡阶中品）
+      accessory1: 'ACC-043', // 粗皮护腕（凡阶中品）
+      accessory2: 'ACC-041', // 市井红绳铜钱串（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '截风暗哨',
     talk: '“哪里来的野小子，也敢插手我截风门三十年的旧账？吃我一记断风刀！”',
@@ -86,8 +92,15 @@ function buildJiefengDeputyNpc(): NodeNpc {
       { artId: 'MA-151', level: 4, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-059',
+      weapon: 'WPN-045', // 荆楚丈八蛇矛（良阶中品）
+      armor: 'ARM-026', // 镇远镖局青色趟子服（良阶中品）
+      shoes: 'BOT-012', // 河东铁掌马靴（良阶中品）
+      bow: 'BOW-013', // 河北大名硬木弓（良阶中品）
+      accessory1: 'ACC-023', // 河东精铁护腕环（良阶中品）
+      accessory2: 'ACC-026', // 镇远镖局铁镖令（良阶中品）
+      mount: 'MNT-012', // 大名沙苑群牧精骑（良阶中品）
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '断翅鹞',
     talk: '“沈疏影那个老东西死了三十年，留下的半部破步法也值得你们这般护着？今日便拆了这齐云塔的飞檐！”',
@@ -139,8 +152,15 @@ function buildYinJiuyouBossNpc(weakened: boolean): NodeNpc {
       { artId: 'MA-116', level: 4, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-037',
+      weapon: 'WPN-041', // 青城松风快剑（良阶中品）
+      armor: 'ARM-026', // 镇远镖局青色趟子服（良阶中品）
+      shoes: 'BOT-012', // 河东铁掌马靴（良阶中品）
+      bow: 'BOW-013', // 河北大名硬木弓（良阶中品）
+      accessory1: 'ACC-023', // 河东精铁护腕环（良阶中品）
+      accessory2: 'ACC-025', // 洛阳牡丹琉璃佩（良阶中品）
+      mount: 'MNT-012', // 大名沙苑群牧精骑（良阶中品）
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '绝影鬼手',
     talk: '“三十年了！当年沈疏影宁可跳崖碎骨也不肯交出《八步赶蝉》全本，今日三卷既已聚齐，便连你与这水榭一并沉入洛水！”',

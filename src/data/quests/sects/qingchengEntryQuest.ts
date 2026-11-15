@@ -125,11 +125,15 @@ function buildQinglanDynamicActor(opts: {
       { artId: 'MA-206', level: 4, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-041',
-      armor: 'ARM-037',
-      shoes: 'BOT-021',
-      accessory1: 'ACC-046',
+      weapon: 'WPN-074', // 巴蜀窄刃刺剑（凡阶中品）
+      armor: 'ARM-043', // 蜀道油布雨衣（凡阶中品）
+      shoes: 'BOT-021', // 道士云头布履（凡阶中品）
+      bow: 'BOW-024', // 岭南藤木猎弓（凡阶中品）
+      accessory1: 'ACC-046', // 青城松果挂坠（凡阶中品）
+      accessory2: 'ACC-042', // 道观桃木辟邪符（凡阶中品）
+      mount: 'MNT-024', // 川西剑阁栈道矮马（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
   }
 }
@@ -158,23 +162,27 @@ function buildWoodenSwordExaminerNpc(): NodeNpc {
     },
     talents: { bone: 56, comprehension: 53, charm: 65 },
     equippedArts: {
-      neigong: 'MA-199',
-      qinggong: 'MA-217',
-      move1: 'MA-206',
+      neigong: 'MA-228', // 青城青冥引气诀
+      qinggong: 'MA-198', // 梅花桩步（与DB一致）
+      move1: 'MA-148', // 青城松风剑
       move2: null,
       move3: null,
       move4: null,
     },
     learnedArts: [
-      { artId: 'MA-199', level: 1, exp: 0 },
-      { artId: 'MA-217', level: 1, exp: 0 },
-      { artId: 'MA-206', level: 1, exp: 0 },
+      { artId: 'MA-228', level: 1, exp: 0 },
+      { artId: 'MA-198', level: 1, exp: 0 },
+      { artId: 'MA-148', level: 1, exp: 0 },
     ],
     equipped: {
       ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-088',
-      armor: 'ARM-037',
-      shoes: 'BOT-021',
+      weapon: 'WPN-088', // 书院习礼桃木剑（剧情指定）
+      armor: 'ARM-046', // 与DB侯锋原一致
+      shoes: 'BOT-019',
+      bow: 'BOW-020',
+      accessory1: 'ACC-046',
+      accessory2: 'ACC-052',
+      mount: 'MNT-023',
     },
     talk: '“小子，看好了！只要你能接下侯某手中桃木剑三合不倒，这上清宫偏院便容你扫十天落叶！”',
   }
@@ -201,8 +209,30 @@ function buildTangmenNightScoutNpc(): NodeNpc {
       isBenchmark: false,
     },
     talents: { bone: 45, comprehension: 55, charm: 50 },
+    equippedArts: {
+      neigong: 'MA-227', // 唐门闭毒养气功
+      qinggong: 'MA-197', // 提纵术
+      move1: 'MA-175', // 甩手袖箭
+      move2: 'MA-204', // 护院拦门掌
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-227', level: 1, exp: 0 },
+      { artId: 'MA-197', level: 1, exp: 0 },
+      { artId: 'MA-175', level: 2, exp: 0 },
+      { artId: 'MA-204', level: 1, exp: 0 },
+    ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-085', // 鹅卵飞蝗石袋（凡阶中品）
+      armor: 'ARM-043', // 蜀道油布雨衣（凡阶中品）
+      shoes: 'BOT-024', // 蜀道麻筋草鞋（凡阶中品）
+      bow: 'BOW-024', // 岭南藤木猎弓（凡阶中品）
+      accessory1: 'ACC-043', // 粗皮护腕（凡阶中品）
+      accessory2: 'ACC-046', // 青城松果挂坠（凡阶中品）
+      mount: 'MNT-024', // 川西剑阁栈道矮马（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     talk: '“青城外院的毛头小子也敢坏本房好事？吃我一记甩手镖！”',
   }
@@ -229,9 +259,29 @@ function buildEmeiDiscipleSparNpc(): NodeNpc {
       isBenchmark: false,
     },
     talents: { bone: 52, comprehension: 64, charm: 78 },
+    equippedArts: {
+      neigong: 'MA-161', // 峨眉吐纳术（与DB柳涵姿一致，压境降重）
+      qinggong: 'MA-158', // 燕子三抄水
+      move1: 'MA-130', // 越女古剑术
+      move2: 'MA-136', // 峨眉基本剑法/刺法
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-161', level: 2, exp: 0 },
+      { artId: 'MA-158', level: 2, exp: 0 },
+      { artId: 'MA-130', level: 2, exp: 0 },
+      { artId: 'MA-136', level: 2, exp: 0 },
+    ],
     equipped: {
       ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-061',
+      weapon: 'WPN-074', // 与DB柳涵姿完全一致
+      armor: 'ARM-043',
+      shoes: 'BOT-024',
+      bow: 'BOW-020',
+      accessory1: 'ACC-053',
+      accessory2: 'ACC-040',
+      mount: 'MNT-026',
     },
     talk: '“既替你家青城师兄出头，便请赐教三招，看青城剑法可配得上口中狂言！”',
   }
@@ -258,9 +308,30 @@ function buildSaltSmugglerCaptainNpc(weakened: boolean): NodeNpc {
       isBenchmark: false,
     },
     talents: { bone: 55, comprehension: 38, charm: 35 },
+    equippedArts: {
+      neigong: 'MA-230', // 漕帮涉水换气诀
+      qinggong: 'MA-197', // 提纵术
+      move1: 'MA-189', // 泼风刀法
+      move2: 'MA-207', // 柴刀乱披法
+      move3: null,
+      move4: null,
+    },
+    learnedArts: [
+      { artId: 'MA-230', level: 2, exp: 0 },
+      { artId: 'MA-197', level: 2, exp: 0 },
+      { artId: 'MA-189', level: 3, exp: 0 },
+      { artId: 'MA-207', level: 2, exp: 0 },
+    ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-076',
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-043', // 蜀道油布雨衣（凡阶中品）
+      shoes: 'BOT-024', // 蜀道麻筋草鞋（凡阶中品）
+      bow: 'BOW-024', // 岭南藤木猎弓（凡阶中品）
+      accessory1: 'ACC-043', // 粗皮护腕（凡阶中品）
+      accessory2: 'ACC-041', // 市井红绳铜钱串（凡阶中品）
+      mount: 'MNT-024', // 川西剑阁栈道矮马（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     talk: '“侯沧海断我川东百户盐工活路，凡穿青城道衣者，今日一个也别想过剑门栈道！”',
   }
@@ -291,22 +362,27 @@ function buildShenFengtaoExamNpc(flawRevealed: boolean): NodeNpc {
     talents: { bone: 60, comprehension: 53, charm: 85 },
     equippedArts: {
       neigong: 'MA-228',
-      qinggong: 'MA-197',
-      move1: 'MA-206',
-      move2: null,
+      qinggong: 'MA-139', // 穿云纵（与DB申风涛一致）
+      move1: 'MA-148', // 青城松风剑
+      move2: 'MA-206',
       move3: null,
       move4: null,
     },
     learnedArts: [
       { artId: 'MA-228', level: 2, exp: 0 },
-      { artId: 'MA-197', level: 2, exp: 0 },
+      { artId: 'MA-139', level: 2, exp: 0 },
+      { artId: 'MA-148', level: 2, exp: 0 },
       { artId: 'MA-206', level: 3, exp: 0 },
     ],
     equipped: {
       ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-061',
-      armor: 'ARM-037',
-      shoes: 'BOT-021',
+      weapon: 'WPN-041', // 青城松风快剑
+      armor: 'ARM-038', // 与DB申风涛一致
+      shoes: 'BOT-023',
+      bow: 'BOW-024',
+      accessory1: 'ACC-046',
+      accessory2: 'ACC-038',
+      mount: 'MNT-027',
     },
     talk: '“掌门师伯在上，申某将功力压至外门水准与你拆招——亮剑吧！”',
   }

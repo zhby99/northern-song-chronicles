@@ -1,6 +1,5 @@
 import type { NodeNpc } from '../../../types/game'
 import type { QuestCondition, QuestDefinition, QuestEffect } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST_SECT22_LONGLING'
 
@@ -25,7 +24,7 @@ function buildHorseMarketSpyGuardNpc(): NodeNpc {
     fullLocationLabel: '析津府 > 燕京榷马大市 > 塞北千驷相马围栏',
     equippedArts: {
       neigong: 'MA-232',
-      qinggong: null,
+      qinggong: 'MA-197',
       move1: 'MA-189',
       move2: null,
       move3: null,
@@ -33,11 +32,19 @@ function buildHorseMarketSpyGuardNpc(): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-232', level: 1, exp: 0 },
+      { artId: 'MA-197', level: 1, exp: 0 },
       { artId: 'MA-189', level: 2, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-072',
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-045', // 辽东鹿皮坎肩（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-023', // 河东木胎弓（凡阶中品）
+      accessory1: 'ACC-045', // 辽东野猪獠牙（凡阶中品）
+      accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '巡栏暗桩',
     talk: '“休叫南朝奸细跑出千驷围栏！”',
@@ -64,22 +71,29 @@ function buildIronForestCenturionNpc(): NodeNpc {
     talents: { bone: 68, comprehension: 48, charm: 35 },
     fullLocationLabel: '雁门关 > 雁门关外乱石绝壁',
     equippedArts: {
-      neigong: 'MA-140',
-      qinggong: 'MA-157',
-      move1: 'MA-152',
-      move2: 'MA-151',
+      neigong: 'MA-243', // 契丹玄阴吐纳诀
+      qinggong: 'MA-246', // 大漠踏沙行
+      move1: 'MA-152', // 契丹狼牙棒法
+      move2: 'MA-151', // 鬼头大刀斩
       move3: null,
       move4: null,
     },
     learnedArts: [
-      { artId: 'MA-140', level: 4, exp: 0 },
-      { artId: 'MA-157', level: 3, exp: 0 },
+      { artId: 'MA-243', level: 4, exp: 0 },
+      { artId: 'MA-246', level: 3, exp: 0 },
       { artId: 'MA-152', level: 4, exp: 0 },
       { artId: 'MA-151', level: 4, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-075',
+      weapon: 'WPN-047', // 契丹重装狼牙棒（良阶中品）
+      armor: 'ARM-025', // 塞北皮毛战袍（良阶中品）
+      shoes: 'BOT-012', // 河东铁掌马靴（良阶中品）
+      bow: 'BOW-012', // 辽东女真猎虎弓（良阶中品）
+      accessory1: 'ACC-023', // 河东精铁护腕环（良阶中品）
+      accessory2: 'ACC-026', // 镇远镖局铁镖令（良阶中品）
+      mount: 'MNT-013', // 雁门塞外黄骠战马（良阶中品）
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '铁林截杀',
     talk: '“绝壁在前，尔等南蛮插翅难飞！留下性命来！”',

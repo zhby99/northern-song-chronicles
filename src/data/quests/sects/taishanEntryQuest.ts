@@ -86,6 +86,10 @@ function buildTrialSeniorShengDing(): NodeNpc {
       weapon: 'WPN-073',
       armor: 'ARM-037',
       shoes: 'BOT-021',
+      bow: 'BOW-017', // 与DB盛定一致
+      accessory1: 'ACC-042',
+      accessory2: 'ACC-044',
+      mount: 'MNT-017',
     },
   }
 }
@@ -133,9 +137,15 @@ function buildHeifengSpyQianNpc(ambushed: boolean): NodeNpc {
       { artId: 'MA-186', level: 1, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-076',
-      armor: 'ARM-039',
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-041', // 粗布猎装（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-022', // 关洛镖局防盗短弓（凡阶中品）
+      accessory1: 'ACC-043', // 粗皮护腕（凡阶中品）
+      accessory2: 'ACC-041', // 市井红绳铜钱串（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
   }
 }
@@ -168,7 +178,7 @@ function buildHeifengThugDiaoNpc(ambushed: boolean): NodeNpc {
     },
     equippedArts: {
       neigong: 'MA-199',
-      qinggong: null,
+      qinggong: 'MA-218',
       move1: 'MA-207',
       move2: 'MA-201',
       move3: null,
@@ -176,12 +186,20 @@ function buildHeifengThugDiaoNpc(ambushed: boolean): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-199', level: 1, exp: 0 },
+      { artId: 'MA-218', level: 1, exp: 0 },
       { artId: 'MA-207', level: 1, exp: 0 },
       { artId: 'MA-201', level: 1, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-076',
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-047', // 大名府粗麻练功服（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-022', // 关洛镖局防盗短弓（凡阶中品）
+      accessory1: 'ACC-043', // 粗皮护腕（凡阶中品）
+      accessory2: 'ACC-041', // 市井红绳铜钱串（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
   }
 }

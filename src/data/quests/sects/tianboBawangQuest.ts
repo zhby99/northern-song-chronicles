@@ -1,6 +1,5 @@
 import type { NodeNpc } from '../../../types/game'
 import type { QuestCondition, QuestDefinition, QuestEffect } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST_TIANBO_BAWANG'
 
@@ -73,12 +72,19 @@ function buildWutaiGuardianMonkNpc(isStoneTrial: boolean): NodeNpc {
       ? { hp: 1620, mp: 1350, agi: 55, res: 50, isBenchmark: false }
       : { hp: 780, mp: 620, agi: 42, res: 32, isBenchmark: false },
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: isStoneTrial ? 'WPN-036' : 'WPN-068',
+      weapon: isStoneTrial ? 'WPN-036' : 'WPN-080',
+      armor: isStoneTrial ? 'ARM-020' : 'ARM-047',
+      shoes: isStoneTrial ? 'BOT-009' : 'BOT-021',
+      bow: isStoneTrial ? 'BOW-009' : 'BOW-023',
+      accessory1: isStoneTrial ? 'ACC-019' : 'ACC-042',
+      accessory2: isStoneTrial ? 'ACC-020' : 'ACC-043',
+      mount: isStoneTrial ? 'MNT-009' : 'MNT-021',
+      curio1: null,
+      curio2: null,
     },
     equippedArts: {
       neigong: 'MA-140',
-      qinggong: null,
+      qinggong: isStoneTrial ? 'MA-157' : 'MA-177',
       move1: 'MA-134',
       move2: 'MA-117',
       move3: null,
@@ -86,6 +92,7 @@ function buildWutaiGuardianMonkNpc(isStoneTrial: boolean): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-140', level: isStoneTrial ? 6 : 4, exp: 0 },
+      { artId: isStoneTrial ? 'MA-157' : 'MA-177', level: isStoneTrial ? 6 : 4, exp: 0 },
       { artId: 'MA-134', level: isStoneTrial ? 7 : 4, exp: 0 },
       { artId: 'MA-117', level: isStoneTrial ? 6 : 4, exp: 0 },
     ],
@@ -111,12 +118,19 @@ function buildYanmenLiaoVanguardNpc(advantaged: boolean): NodeNpc {
       isBenchmark: false,
     },
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-019',
+      weapon: 'WPN-034', // 晋阳百炼雁门刀（良阶上品）
+      armor: 'ARM-019', // 河东边军锁子甲（良阶上品）
+      shoes: 'BOT-009', // 大宋禁军牛皮战靴（良阶上品）
+      bow: 'BOW-010', // 河西桦木角弓（良阶上品）
+      accessory1: 'ACC-020', // 汴京精钢护心镜（良阶上品）
+      accessory2: 'ACC-018', // 六扇门精铜捕快腰牌（良阶上品）
+      mount: 'MNT-011', // 契丹铁林乌骓马（良阶上品）
+      curio1: null,
+      curio2: null,
     },
     equippedArts: {
       neigong: 'MA-243',
-      qinggong: null,
+      qinggong: 'MA-246',
       move1: 'MA-073',
       move2: 'MA-115',
       move3: null,
@@ -124,6 +138,7 @@ function buildYanmenLiaoVanguardNpc(advantaged: boolean): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-243', level: 6, exp: 0 },
+      { artId: 'MA-246', level: 6, exp: 0 },
       { artId: 'MA-073', level: 5, exp: 0 },
       { artId: 'MA-115', level: 6, exp: 0 },
     ],
@@ -149,12 +164,19 @@ function buildYanmenLiaoHeavyCavalryNpc(advantaged: boolean): NodeNpc {
       isBenchmark: false,
     },
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-047',
+      weapon: 'WPN-047', // 契丹重装狼牙棒（良阶中品）
+      armor: 'ARM-025', // 塞北皮毛战袍（良阶中品）
+      shoes: 'BOT-012', // 河东铁掌马靴（良阶中品）
+      bow: 'BOW-012', // 辽东女真猎虎弓（良阶中品）
+      accessory1: 'ACC-023', // 河东精铁护腕环（良阶中品）
+      accessory2: 'ACC-026', // 镇远镖局铁镖令（良阶中品）
+      mount: 'MNT-013', // 雁门塞外黄骠战马（良阶中品）
+      curio1: null,
+      curio2: null,
     },
     equippedArts: {
       neigong: 'MA-243',
-      qinggong: null,
+      qinggong: 'MA-246',
       move1: 'MA-152',
       move2: 'MA-116',
       move3: null,
@@ -162,6 +184,7 @@ function buildYanmenLiaoHeavyCavalryNpc(advantaged: boolean): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-243', level: 5, exp: 0 },
+      { artId: 'MA-246', level: 5, exp: 0 },
       { artId: 'MA-152', level: 6, exp: 0 },
       { artId: 'MA-116', level: 5, exp: 0 },
     ],

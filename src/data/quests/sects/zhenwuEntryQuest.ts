@@ -5,7 +5,6 @@ import type {
   StorySceneDef,
   StorySpeakerSpec,
 } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 export const ZHENWU_ENTRY_QUEST_ID = 'QST-SECT-08-ENTRY'
 
@@ -103,21 +102,29 @@ const ZHAO_BA_COMBAT_NPC: NodeNpc = {
     辩才: 20,
   },
   equippedArts: {
-    neigong: 'MA-230',
-    qinggong: null,
-    move1: 'MA-184',
-    move2: 'MA-185',
+    neigong: 'MA-179', // 周天引气诀
+    qinggong: 'MA-157', // 草上飞
+    move1: 'MA-206', // 基础刺击剑（协同WPN-073三才铁剑）
+    move2: 'MA-184', // 查拳
     move3: null,
     move4: null,
   },
   learnedArts: [
-    { artId: 'MA-230', level: 2, exp: 0 },
+    { artId: 'MA-179', level: 2, exp: 0 },
+    { artId: 'MA-157', level: 2, exp: 0 },
+    { artId: 'MA-206', level: 3, exp: 0 },
     { artId: 'MA-184', level: 2, exp: 0 },
-    { artId: 'MA-185', level: 2, exp: 0 },
   ],
   equipped: {
-    ...DEFAULT_EQUIPPED_SLOTS,
-    weapon: 'WPN-073',
+    weapon: 'WPN-041', // 青城松风快剑（良阶中品）
+    armor: 'ARM-026', // 镇远镖局青色趟子服（良阶中品）
+    shoes: 'BOT-012', // 河东铁掌马靴（良阶中品）
+    bow: 'BOW-013', // 河北大名硬木弓（良阶中品）
+    accessory1: 'ACC-023', // 河东精铁护腕环（良阶中品）
+    accessory2: 'ACC-026', // 镇远镖局铁镖令（良阶中品）
+    mount: 'MNT-012', // 大名沙苑群牧精骑（良阶中品）
+    curio1: null,
+    curio2: null,
   },
   portraitUrl: '/assets/characters/templates/tpl_jianghu_swordsman_fb.jpg',
   avatarUrl: '/assets/characters/templates/tpl_jianghu_swordsman_av.jpg',

@@ -4,7 +4,6 @@ import type {
   QuestEffect,
   StorySceneDef,
 } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 export const SHAOLIN_ENTRY_QUEST_ID = 'QST-SECT-01-ENTRY'
 export const SHAOLIN_BROKER_ACTOR_ID = 'ACT-LUOYANG-JIA-TONGBAO'
@@ -36,8 +35,30 @@ export const SHAOLIN_LUOYANG_BROKER_ACTOR: DynamicQuestNpc = {
     comprehension: 58,
     charm: 56,
   },
+  equippedArts: {
+    neigong: 'MA-199', // 粗浅呼吸法
+    qinggong: 'MA-218', // 翻滚躲闪步
+    move1: 'MA-201', // 市井王八拳
+    move2: 'MA-204', // 护院拦门掌
+    move3: null,
+    move4: null,
+  },
+  learnedArts: [
+    { artId: 'MA-199', level: 1, exp: 0 },
+    { artId: 'MA-218', level: 1, exp: 0 },
+    { artId: 'MA-201', level: 2, exp: 0 },
+    { artId: 'MA-204', level: 1, exp: 0 },
+  ],
   equipped: {
-    ...DEFAULT_EQUIPPED_SLOTS,
+    weapon: 'WPN-083', // 生牛皮裹指拳带（凡阶中品）
+    armor: 'ARM-044', // 市井茶博士围裙衫（凡阶中品）
+    shoes: 'BOT-023', // 江南油布雨屐（凡阶中品）
+    bow: 'BOW-022', // 关洛镖局防盗短弓（凡阶中品）
+    accessory1: 'ACC-041', // 市井红绳铜钱串（凡阶中品）
+    accessory2: 'ACC-043', // 粗皮护腕（凡阶中品）
+    mount: 'MNT-022', // 淮南盐道负重挽马（凡阶中品）
+    curio1: null,
+    curio2: null,
   },
 }
 

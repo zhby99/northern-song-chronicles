@@ -1,6 +1,5 @@
 import type { DynamicQuestNpc, StorySceneDef, StorySpeakerSpec, QuestCondition, QuestDefinition } from '../../../types/quest'
 import type { NodeNpc } from '../../../types/game'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 export const XINGXIU_ENTRY_QUEST_ID = 'QST-SECT-19-ENTRY'
 
@@ -123,9 +122,15 @@ function buildWuChengshanTrialNpc(weakenedByIntel: boolean): NodeNpc {
       { artId: 'MA-201', level: 1, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      armor: 'ARM-039',
-      shoes: 'BOT-022',
+      weapon: 'WPN-083', // 生牛皮裹指拳带（凡阶中品）
+      armor: 'ARM-048', // 西夏牧民羊毛袍（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-023', // 河东木胎弓（凡阶中品）
+      accessory1: 'ACC-045', // 辽东野猪獠牙（凡阶中品）
+      accessory2: 'ACC-048', // 西夏牛角小号（凡阶中品）
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     talk: weakenedByIntel
       ? '“嘶……你小子怎知我右肋旧伤畏寒？！少装神弄鬼，把冰蚕寒露交出来！”'
@@ -153,6 +158,33 @@ function buildChuchenziKunlunActor(): DynamicQuestNpc {
     talk: '“咳咳，本真人奉老仙法旨押药回谷，谁敢怠慢炉火，仔细他的皮肉！”',
     stats: { hp: 1784, mp: 1414, agi: 58, res: 44, isBenchmark: false },
     talents: { bone: 58, comprehension: 57, charm: 52 },
+    equippedArts: {
+      neigong: 'MA-231',
+      qinggong: 'MA-157',
+      move1: 'MA-127',
+      move2: 'MA-137',
+      move3: 'MA-055',
+      move4: 'MA-065',
+    },
+    learnedArts: [
+      { artId: 'MA-127', level: 7, exp: 0 },
+      { artId: 'MA-137', level: 7, exp: 0 },
+      { artId: 'MA-157', level: 7, exp: 0 },
+      { artId: 'MA-055', level: 6, exp: 0 },
+      { artId: 'MA-065', level: 6, exp: 0 },
+      { artId: 'MA-231', level: 10, exp: 0 },
+    ],
+    equipped: {
+      weapon: 'WPN-066',
+      armor: 'ARM-041',
+      shoes: 'BOT-022',
+      bow: 'BOW-028',
+      accessory1: 'ACC-036',
+      accessory2: 'ACC-049',
+      curio1: null,
+      curio2: null,
+      mount: 'MNT-022',
+    },
   }
 }
 
@@ -190,6 +222,17 @@ function buildSubanxiaPermanentActor(): DynamicQuestNpc {
       { artId: 'MA-137', level: 2, exp: 0 },
       { artId: 'MA-127', level: 2, exp: 0 },
     ],
+    equipped: {
+      weapon: 'WPN-085', // 鹅卵飞蝗石袋（凡阶中品）
+      armor: 'ARM-042', // 江南竹布夏衫（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-023', // 河东木胎弓（凡阶中品）
+      accessory1: 'ACC-044', // 江南桂花香包（凡阶中品）
+      accessory2: 'ACC-048', // 西夏牛角小号（凡阶中品）
+      curio1: null,
+      curio2: null,
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+    },
   }
 }
 
@@ -226,6 +269,17 @@ function buildXiaoshiziPermanentActor(): DynamicQuestNpc {
       { artId: 'MA-218', level: 1, exp: 0 },
       { artId: 'MA-196', level: 1, exp: 0 },
     ],
+    equipped: {
+      weapon: 'WPN-085', // 鹅卵飞蝗石袋（凡阶中品）
+      armor: 'ARM-048', // 西夏牧民羊毛袍（凡阶中品）
+      shoes: 'BOT-022', // 塞北羊皮靴（凡阶中品）
+      bow: 'BOW-023', // 河东木胎弓（凡阶中品）
+      accessory1: 'ACC-045', // 辽东野猪獠牙（凡阶中品）
+      accessory2: 'ACC-048', // 西夏牛角小号（凡阶中品）
+      curio1: null,
+      curio2: null,
+      mount: 'MNT-021', // 太行绿林草上青（凡阶中品）
+    },
   }
 }
 

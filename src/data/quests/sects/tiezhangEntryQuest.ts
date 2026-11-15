@@ -89,7 +89,7 @@ function buildLeiGenleiSparNpc(): NodeNpc {
     talents: { bone: 51, comprehension: 37, charm: 42 },
     equippedArts: {
       neigong: 'MA-229',
-      qinggong: null,
+      qinggong: 'MA-120', // 与DB雷艮磊一致
       move1: 'MA-236',
       move2: 'MA-193',
       move3: null,
@@ -97,6 +97,7 @@ function buildLeiGenleiSparNpc(): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-229', level: 1, exp: 0 },
+      { artId: 'MA-120', level: 1, exp: 0 },
       { artId: 'MA-236', level: 1, exp: 0 },
       { artId: 'MA-193', level: 1, exp: 0 },
     ],
@@ -105,6 +106,10 @@ function buildLeiGenleiSparNpc(): NodeNpc {
       weapon: 'WPN-084',
       armor: 'ARM-040',
       shoes: 'BOT-026',
+      bow: 'BOW-018',
+      accessory1: 'ACC-035', // 与DB雷艮磊一致
+      accessory2: 'ACC-051',
+      mount: 'MNT-021',
     },
     talk: '“嘿嘿，焦大舵主亲手教出来的新兄弟，让我雷艮磊试试你的劈碑掌劲够不够烫手！”',
   }
@@ -130,7 +135,7 @@ function buildZhangHengBargeNpc(): NodeNpc {
     talents: { bone: 48, comprehension: 36, charm: 24 },
     equippedArts: {
       neigong: 'MA-199',
-      qinggong: null,
+      qinggong: 'MA-218',
       move1: 'MA-209',
       move2: 'MA-204',
       move3: null,
@@ -138,11 +143,20 @@ function buildZhangHengBargeNpc(): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-199', level: 1, exp: 0 },
+      { artId: 'MA-218', level: 1, exp: 0 },
       { artId: 'MA-209', level: 1, exp: 0 },
       { artId: 'MA-204', level: 1, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
+      weapon: 'WPN-076', // 绿林泼风砍刀（凡阶中品）
+      armor: 'ARM-042', // 江南竹布夏衫（凡阶中品）
+      shoes: 'BOT-023', // 江南油布雨屐（凡阶中品）
+      bow: 'BOW-021', // 江南水乡弹弓（凡阶中品）
+      accessory1: 'ACC-043', // 粗皮护腕（凡阶中品）
+      accessory2: 'ACC-044', // 江南桂花香包（凡阶中品）
+      mount: 'MNT-023', // 江南烟雨踏花青骢（凡阶中品）
+      curio1: null,
+      curio2: null,
     },
     talk: '“又是你这汉水码头多管闲事的小杂种！屠芳云被我的人缠住了，老子先拿你祭江！”',
   }
@@ -187,6 +201,10 @@ function buildYunbaoSuppressedSparNpc(): NodeNpc {
       weapon: 'WPN-069',
       armor: 'ARM-038',
       shoes: 'BOT-018',
+      bow: 'BOW-011', // 与DB上官云豹一致
+      accessory1: 'ACC-020',
+      accessory2: 'ACC-021',
+      mount: 'MNT-014',
     },
     talk: '“本少主今日封去九成真气，只以第一重《铁掌劈碑手》与你公道拆招——让我看看焦叔和屠香主看中的人，骨头到底有多硬！”',
   }
@@ -214,7 +232,7 @@ function buildTianpengThreePalmsNpc(): NodeNpc {
     talents: { bone: 91, comprehension: 85, charm: 66 },
     equippedArts: {
       neigong: 'MA-229',
-      qinggong: null,
+      qinggong: 'MA-035', // 与DB上官天鹏一致
       move1: 'MA-236',
       move2: 'MA-186',
       move3: null,
@@ -222,12 +240,19 @@ function buildTianpengThreePalmsNpc(): NodeNpc {
     },
     learnedArts: [
       { artId: 'MA-229', level: 1, exp: 0 },
+      { artId: 'MA-035', level: 1, exp: 0 },
       { artId: 'MA-236', level: 1, exp: 0 },
       { artId: 'MA-186', level: 1, exp: 0 },
     ],
     equipped: {
       ...DEFAULT_EQUIPPED_SLOTS,
       weapon: 'WPN-069',
+      armor: 'ARM-024', // 与DB上官天鹏一致
+      shoes: 'BOT-009',
+      bow: 'BOW-010',
+      accessory1: 'ACC-027',
+      accessory2: 'ACC-020',
+      mount: 'MNT-013',
     },
     talk: '“记住焦木教你的守御卸力与双招轮转！撑过老夫这三合掌风不退半步，这聚义堂便有你一碗烈酒！”',
   }

@@ -1,6 +1,5 @@
 import type { NodeNpc } from '../../../types/game'
 import type { QuestDefinition, StorySceneDef } from '../../../types/quest'
-import { DEFAULT_EQUIPPED_SLOTS } from '../../itemsDb'
 
 const QUEST_ID = 'QST-ADV-YANZIWU-MAP'
 
@@ -41,8 +40,15 @@ function buildTiezhangScoutNpc(): NodeNpc {
       { artId: 'MA-186', level: 3, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
       weapon: 'WPN-084',
+      armor: 'ARM-042',
+      shoes: 'BOT-023',
+      bow: 'BOW-021',
+      accessory1: 'ACC-043',
+      accessory2: 'ACC-044',
+      mount: 'MNT-023',
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '铁掌暗哨',
     talk: '“沈家书呆子倒也罢了，哪里冒出来的野路子少侠，敢坏我铁掌帮勘探太湖水桩的大事？吃某家一记劈碑手！”',
@@ -86,8 +92,15 @@ function buildTiezhangDeputyNpc(): NodeNpc {
       { artId: 'MA-236', level: 4, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-069',
+      weapon: 'WPN-048',
+      armor: 'ARM-023',
+      shoes: 'BOT-014',
+      bow: 'BOW-012',
+      accessory1: 'ACC-023',
+      accessory2: 'ACC-022',
+      mount: 'MNT-012',
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '铁掌副舵',
     talk: '“顾长风老儿查了半个月都没摸清私盐船底的夹层，偏被你这小辈撞破！想拿《广陵漕渠水深卷》，先问过盛某这双铁砂掌！”',
@@ -139,8 +152,15 @@ function buildJiaoCanglanBossNpc(flawSpotted: boolean): NodeNpc {
       { artId: 'MA-107', level: 5, exp: 0 },
     ],
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
-      weapon: 'WPN-057',
+      weapon: 'WPN-048',
+      armor: 'ARM-023',
+      shoes: 'BOT-012',
+      bow: 'BOW-012',
+      accessory1: 'ACC-023',
+      accessory2: 'ACC-022',
+      mount: 'MNT-012',
+      curio1: null,
+      curio2: null,
     },
     questBadgeLabel: '分水堂主',
     talk: '“太湖三万六千顷烟波，凭什么只许姑苏慕容氏独占？只要老夫合齐三叠水图、拔去燕子坞外围七十二处梅花暗桩，八百里太湖便是我铁掌帮的囊中之物！”',
