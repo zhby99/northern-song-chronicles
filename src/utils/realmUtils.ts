@@ -95,6 +95,48 @@ export function estimateHeroRealm(_maxHp: number, maxMp: number): RealmTier {
   return estimateHeroRealmByMp(maxMp)
 }
 
+/**
+ * 良阶/凡阶丹药气血内力恢复效果随主角武学境界（rank 0..15）缩放倍率，
+ * 确保高境界宗师/大宗师服食常规疗伤回气丹药仍有稳定实战价值。
+ */
+export const REALM_MEDICINE_MULTIPLIERS: readonly number[] = [
+  1.0, // 0: 不入流
+  1.2, // 1: 三流下品
+  1.4, // 2: 三流中品
+  1.6, // 3: 三流上品
+  2.0, // 4: 二流下品
+  2.4, // 5: 二流中品
+  2.8, // 6: 二流上品
+  3.4, // 7: 一流下品
+  4.0, // 8: 一流中品
+  4.8, // 9: 一流上品
+  6.0, // 10: 宗师下品
+  7.2, // 11: 宗师中品
+  8.5, // 12: 宗师上品
+  10.0, // 13: 大宗师下品
+  11.5, // 14: 大宗师中品
+  13.0, // 15: 大宗师上品
+] as const
+
+export function getMedicineRealmScale(
+  playerMaxHp: number,
+  playerMaxMp: number,
+): { realm: RealmTier; multiplier: number } {
+  const realm = estimateHeroRealm(playerMaxHp, playerMaxMp)
+  const multiplier = REALM_MEDICINE_MULTIPLIERS[realm.rank] ?? 1.0
+  return { realm, multiplier }
+}
+
+export function scaleMedicineRecovery(
+  baseAmount: number,
+  playerMaxHp: number,
+  playerMaxMp: number,
+): number {
+  if (baseAmount <= 0) return 0
+  const { multiplier } = getMedicineRealmScale(playerMaxHp, playerMaxMp)
+  return Math.round(baseAmount * multiplier)
+}
+
 export function parseRealmTier(label?: string | null): RealmTier {
   if (!label) return REALM_TIERS[0]
   const trimmed = label.trim()

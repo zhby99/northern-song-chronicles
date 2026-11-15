@@ -8,6 +8,7 @@ import {
   type TreasureVolumeKey,
 } from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
+import { getMedicineRealmScale, scaleMedicineRecovery } from '../../../utils/realmUtils'
 import type {
   BagCategoryKey,
   CompiledMartialArtRecord,
@@ -35,9 +36,13 @@ export function BagTab({
 }: BagTabProps) {
   const silver = useGameStore((s) => s.silver)
   const food = useGameStore((s) => s.food)
+  const maxHp = useGameStore((s) => s.maxHp)
+  const maxMp = useGameStore((s) => s.maxMp)
   const inventory = useGameStore((s) => s.inventory)
   const learnedArts = useGameStore((s) => s.learnedArts)
+  const consumedOnceItemIds = useGameStore((s) => s.consumedOnceItemIds)
   const activeBagCategory = useGameStore((s) => s.activeBagCategory)
+  const medScale = useMemo(() => getMedicineRealmScale(maxHp, maxMp), [maxHp, maxMp])
 
   const replenishSupplies = useGameStore((s) => s.replenishSupplies)
   const setBagCategory = useGameStore((s) => s.setBagCategory)
@@ -345,10 +350,14 @@ export function BagTab({
                           ? `内力上限永久 +${activeStack.def.useEffect.maxMp}`
                           : null,
                         activeStack.def.useEffect.hp
-                          ? `气血恢复 +${activeStack.def.useEffect.hp}`
+                          ? activeStack.def.category === 'medicine'
+                            ? `气血恢复 +${scaleMedicineRecovery(activeStack.def.useEffect.hp, maxHp, maxMp)}${medScale.multiplier > 1 ? `（${medScale.realm.label} ${medScale.multiplier}×）` : ''}`
+                            : `气血恢复 +${activeStack.def.useEffect.hp}`
                           : null,
                         activeStack.def.useEffect.mp
-                          ? `内力回复 +${activeStack.def.useEffect.mp}`
+                          ? activeStack.def.category === 'medicine'
+                            ? `内力回复 +${scaleMedicineRecovery(activeStack.def.useEffect.mp, maxHp, maxMp)}${medScale.multiplier > 1 ? `（${medScale.realm.label} ${medScale.multiplier}×）` : ''}`
+                            : `内力回复 +${activeStack.def.useEffect.mp}`
                           : null,
                         activeStack.def.useEffect.agi
                           ? `身法永久 +${activeStack.def.useEffect.agi}`
@@ -365,6 +374,11 @@ export function BagTab({
                           : null,
                         activeStack.def.useEffect.skillGain
                           ? `【${activeStack.def.useEffect.skillGain[0]}】+${activeStack.def.useEffect.skillGain[1]}`
+                          : null,
+                        activeStack.def.useEffect.onceOnly
+                          ? consumedOnceItemIds.includes(activeStack.def.id)
+                            ? '（已初品一次 · 再食无效）'
+                            : '（限初品一次有效）'
                           : null,
                         activeStack.def.useEffect.learnArtHint ?? null,
                       ]

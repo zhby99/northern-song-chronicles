@@ -14,7 +14,7 @@ import type {
 import type { ActiveQuestCombatHook } from '../types/quest'
 import { deriveHeroEffectiveStats, deriveNpcEffectiveStats } from './heroStats'
 import { inferTemplatePortrait } from './portraitFallback'
-import { estimateHeroRealm } from './realmUtils'
+import { estimateHeroRealm, scaleMedicineRecovery } from './realmUtils'
 
 export type MoveSlotKey = 'move1' | 'move2' | 'move3' | 'move4'
 
@@ -1512,8 +1512,9 @@ export function resolveCombatRound(
           }
         }
         if (eff.hp) {
+          const scaledHp = scaleMedicineRecovery(eff.hp, actor.maxHp, actor.maxMp)
           const before = actor.hp
-          actor.hp = Math.min(actor.maxHp, actor.hp + eff.hp)
+          actor.hp = Math.min(actor.maxHp, actor.hp + scaledHp)
           const gainedHp = actor.hp - before
           notes.push(`气血 +${gainedHp}`)
           if (gainedHp > 0) {
@@ -1527,8 +1528,9 @@ export function resolveCombatRound(
           }
         }
         if (eff.mp) {
+          const scaledMp = scaleMedicineRecovery(eff.mp, actor.maxHp, actor.maxMp)
           const before = actor.mp
-          actor.mp = Math.min(actor.maxMp, actor.mp + eff.mp)
+          actor.mp = Math.min(actor.maxMp, actor.mp + scaledMp)
           const gainedMp = actor.mp - before
           notes.push(`内力 +${gainedMp}`)
           if (gainedMp > 0) {

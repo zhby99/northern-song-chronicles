@@ -394,12 +394,13 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     rarity: '良阶',
     stackable: true,
     value: 38,
-    desc: '建安北苑御茶园督造的上等研膏团茶，茶面浮雕龙凤祥纹。煎点一瓯雪沫乳花，顿觉胸臆开阔、真气澄澈，文思泉涌。',
+    desc: '建安北苑御茶园督造的上等研膏团茶，茶面浮雕龙凤祥纹。煎点一瓯雪沫乳花，顿觉胸臆开阔、真气澄澈，文思泉涌（每人初品一次可益诗词与气血内力，再食无效）。',
     lore: '欧阳修、蔡襄诸公极爱此茗，北宋士大夫斗茶雅集无出其右。',
     useEffect: {
       hp: 120,
       mp: 240,
       skillGain: ['诗词', 2],
+      onceOnly: true,
     },
   },
   {

@@ -28,6 +28,7 @@ import {
 import { getArtLevelStats } from '../../data/playerMartialArts'
 import { useGameStore } from '../../store/useGameStore'
 import { useLazyImage } from '../../utils/assetLoader'
+import { scaleMedicineRecovery } from '../../utils/realmUtils'
 import {
   duckBgmForImpact,
   endCombatBgmSession,
@@ -167,6 +168,7 @@ export function CombatOverlay() {
   const activeBuildingInteriorId = useGameStore((s) => s.activeBuildingInteriorId)
   const selectedBuildingId = useGameStore((s) => s.selectedBuildingId)
   const inventory = useGameStore((s) => s.inventory)
+  const consumedOnceItemIds = useGameStore((s) => s.consumedOnceItemIds)
   const submitCombatAction = useGameStore((s) => s.submitCombatAction)
   const finishCombatSession = useGameStore((s) => s.finishCombatSession)
 
@@ -1578,14 +1580,32 @@ export function CombatOverlay() {
                 filteredBagItems.map(({ item, qty }) => {
                   const rStyle = RARITY_STYLE_MAP[item.rarity]
                   const isPoison = Boolean(item.poisonEffect)
+                  const isOnceUsed = Boolean(
+                    item.useEffect?.onceOnly && consumedOnceItemIds.includes(item.id),
+                  )
                   const effTags: string[] = []
-                  if (item.useEffect?.hp) effTags.push(`气血恢复 +${item.useEffect.hp}`)
-                  if (item.useEffect?.mp) effTags.push(`内力回复 +${item.useEffect.mp}`)
+                  if (item.useEffect?.hp) {
+                    const scaledHp = scaleMedicineRecovery(
+                      item.useEffect.hp,
+                      session.player.maxHp,
+                      session.player.maxMp,
+                    )
+                    effTags.push(`气血恢复 +${scaledHp}`)
+                  }
+                  if (item.useEffect?.mp) {
+                    const scaledMp = scaleMedicineRecovery(
+                      item.useEffect.mp,
+                      session.player.maxHp,
+                      session.player.maxMp,
+                    )
+                    effTags.push(`内力回复 +${scaledMp}`)
+                  }
                   if (item.useEffect?.maxHp) effTags.push(`气血上限 +${item.useEffect.maxHp}`)
                   if (item.useEffect?.maxMp) effTags.push(`内力上限 +${item.useEffect.maxMp}`)
                   if (item.useEffect?.agi) effTags.push(`身法 +${item.useEffect.agi}`)
                   if (item.useEffect?.res) effTags.push(`抗性 +${item.useEffect.res}`)
                   if (item.useEffect?.curePoison) effTags.push('涤除奇毒异常')
+                  if (isOnceUsed) effTags.push('已初品一次·再食无效')
 
                   return (
                     <div
@@ -1618,14 +1638,17 @@ export function CombatOverlay() {
                         <span className="text-[10px] text-[#785e3f]">{item.subType}</span>
                         <button
                           type="button"
+                          disabled={isOnceUsed}
                           onClick={() => handleUseBagItem(item.id)}
-                          className={`px-3 py-1 rounded-lg text-xs font-bold text-white shadow cursor-pointer transition ${
-                            isPoison
-                              ? 'bg-[#631d5c] hover:bg-[#7d2474]'
-                              : 'bg-[#8f1d14] hover:bg-[#ad2419]'
+                          className={`px-3 py-1 rounded-lg text-xs font-bold text-white shadow transition ${
+                            isOnceUsed
+                              ? 'bg-[#8d7c65] opacity-60 cursor-not-allowed'
+                              : isPoison
+                                ? 'bg-[#631d5c] hover:bg-[#7d2474] cursor-pointer'
+                                : 'bg-[#8f1d14] hover:bg-[#ad2419] cursor-pointer'
                           }`}
                         >
-                          {isPoison ? '临阵施毒' : '探囊服食'}
+                          {isOnceUsed ? '再食无效' : isPoison ? '临阵施毒' : '探囊服食'}
                         </button>
                       </div>
                     </div>

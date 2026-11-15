@@ -474,6 +474,9 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     consumedUniqueIds: Array.isArray(st.consumedUniqueIds)
       ? st.consumedUniqueIds.filter((id): id is string => typeof id === 'string')
       : [],
+    consumedOnceItemIds: Array.isArray(st.consumedOnceItemIds)
+      ? st.consumedOnceItemIds.filter((id): id is string => typeof id === 'string')
+      : [],
     npcFavor: isRecord(st.npcFavor)
       ? Object.fromEntries(
           Object.entries(st.npcFavor)

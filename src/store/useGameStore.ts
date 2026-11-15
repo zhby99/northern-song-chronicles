@@ -162,7 +162,7 @@ import {
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
   spawnAnnualLiaoSpy,
 } from '../utils/sectMechanics'
-import { estimateHeroRealm } from '../utils/realmUtils'
+import { estimateHeroRealm, scaleMedicineRecovery } from '../utils/realmUtils'
 import { SPOT_SHOPS_BY_SPOT_ID } from '../data/spotShops'
 
 const LABEL_KEYS: LabelToggleKey[] = ['cityLabels', 'sectPassLabels', 'masters', 'distance']
@@ -327,6 +327,7 @@ export interface GameStoreState {
   equippedArts: EquippedArtsMap
   inventory: InventoryStack[]
   consumedUniqueIds: string[]
+  consumedOnceItemIds: string[]
   activeBagCategory: BagCategoryKey
 
   overlays: OverlayToggles
@@ -891,6 +892,7 @@ function extractSerializableState(s: GameStoreState): SerializableGameState {
     equippedArts: { ...s.equippedArts },
     inventory: s.inventory.map((x) => ({ ...x })),
     consumedUniqueIds: [...s.consumedUniqueIds],
+    consumedOnceItemIds: [...s.consumedOnceItemIds],
     npcFavor: { ...s.npcFavor },
     npcTalkedMonth: { ...s.npcTalkedMonth },
     npcSparredMonth: { ...s.npcSparredMonth },
@@ -1067,6 +1069,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   },
   inventory: [],
   consumedUniqueIds: [],
+  consumedOnceItemIds: [],
   npcTalkedMonth: {},
   npcSparredMonth: {},
   activeBagCategory: 'scrolls',
@@ -3123,6 +3126,16 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const eff = def.useEffect
     if (!eff) return
 
+    if (eff.onceOnly && s.consumedOnceItemIds.includes(itemId)) {
+      set({
+        actionFeedback: {
+          text: `【${def.name}】初品已尽得其效，再食已无裨益。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
     // 铁律：武学秘籍只能用于初次学会入门（第 1 重），不可靠继续翻阅刷熟练度或重复领属性
     if (eff.learnArtId && MARTIAL_ART_DB_MAP[eff.learnArtId]) {
       const targetArt = MARTIAL_ART_DB_MAP[eff.learnArtId]
@@ -3216,12 +3229,20 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextMp = Math.min(derived.maxMp, s.mp + bonusMaxMpNow)
 
     if (eff.hp) {
-      nextHp = Math.min(derived.maxHp, nextHp + eff.hp)
-      notes.push(`气血恢复 +${eff.hp}`)
+      const healHp =
+        def.category === 'medicine'
+          ? scaleMedicineRecovery(eff.hp, derived.maxHp, derived.maxMp)
+          : eff.hp
+      nextHp = Math.min(derived.maxHp, nextHp + healHp)
+      notes.push(`气血恢复 +${healHp}`)
     }
     if (eff.mp) {
-      nextMp = Math.min(derived.maxMp, nextMp + eff.mp)
-      notes.push(`内力回复 +${eff.mp}`)
+      const healMp =
+        def.category === 'medicine'
+          ? scaleMedicineRecovery(eff.mp, derived.maxHp, derived.maxMp)
+          : eff.mp
+      nextMp = Math.min(derived.maxMp, nextMp + healMp)
+      notes.push(`内力回复 +${healMp}`)
     }
     if (eff.curePoison) {
       notes.push('涤清奇毒滞气')
@@ -3250,6 +3271,11 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       shouldConsume && UNIQUE_ARTIFACT_MAP[itemId] && !s.consumedUniqueIds.includes(itemId)
         ? [...s.consumedUniqueIds, itemId]
         : s.consumedUniqueIds
+
+    const nextConsumedOnce =
+      eff.onceOnly && !s.consumedOnceItemIds.includes(itemId)
+        ? [...s.consumedOnceItemIds, itemId]
+        : s.consumedOnceItemIds
 
     const baseLogs = [
       createLogEntry(
@@ -3285,6 +3311,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       inventory: nextInv,
       baseStats: nextBaseStats,
       consumedUniqueIds: nextConsumedUnique,
+      consumedOnceItemIds: nextConsumedOnce,
       learnedArts: nextLearnedArts,
       mountKey: derived.mountKey,
       qinggongBonus: derived.qinggongBonus,
@@ -3851,11 +3878,21 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     let nextBaseStats = s.baseStats
     let nextLearnedArts = s.learnedArts
     let nextConsumedUniqueIds = s.consumedUniqueIds
+    let nextConsumedOnceItemIds = s.consumedOnceItemIds
     let nextFood = s.food
 
     if (choice.type === 'item') {
       const def = ITEM_DB_MAP[choice.itemId]
       if (!def || def.category !== 'medicine') return
+      if (def.useEffect?.onceOnly && s.consumedOnceItemIds.includes(choice.itemId)) {
+        set({
+          actionFeedback: {
+            text: `【${def.name}】初品已尽得其效，再食已无裨益。`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
       const removed = removeItemFromInventory(s.inventory, choice.itemId, 1)
       if (!removed) return
       nextInventory = removed
@@ -3864,6 +3901,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         !s.consumedUniqueIds.includes(choice.itemId)
       ) {
         nextConsumedUniqueIds = [...s.consumedUniqueIds, choice.itemId]
+      }
+      if (def.useEffect?.onceOnly && !s.consumedOnceItemIds.includes(choice.itemId)) {
+        nextConsumedOnceItemIds = [...s.consumedOnceItemIds, choice.itemId]
       }
       const eff = def.useEffect
       if (eff) {
@@ -3926,6 +3966,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       baseStats: nextBaseStats,
       learnedArts: nextLearnedArts,
       consumedUniqueIds: nextConsumedUniqueIds,
+      consumedOnceItemIds: nextConsumedOnceItemIds,
       food: nextFood,
     })
   },
@@ -4324,6 +4365,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       equippedArts: freshEqArts,
       inventory: [],
       consumedUniqueIds: [],
+  consumedOnceItemIds: [],
       npcFavor: {},
       npcTalkedMonth: {},
       npcSparredMonth: {},
@@ -6876,6 +6918,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       res: derived.res,
       skills: derived.skills,
       consumedUniqueIds: st.consumedUniqueIds ?? [],
+      consumedOnceItemIds: st.consumedOnceItemIds ?? [],
       npcFavor: st.npcFavor ? { ...st.npcFavor } : {},
       npcTalkedMonth: st.npcTalkedMonth ? { ...st.npcTalkedMonth } : {},
       npcSparredMonth: st.npcSparredMonth ? { ...st.npcSparredMonth } : {},

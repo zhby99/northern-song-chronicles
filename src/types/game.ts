@@ -683,6 +683,7 @@ export interface ItemUseEffect {
   skillGain?: [string, number]
   learnArtId?: string
   learnArtHint?: string
+  onceOnly?: boolean
 }
 
 export interface GameItemDef {
@@ -927,6 +928,7 @@ export interface SerializableGameState {
   equippedArts: EquippedArtsMap
   inventory: InventoryStack[]
   consumedUniqueIds?: string[]
+  consumedOnceItemIds?: string[]
   npcFavor?: Record<string, number>
   npcTalkedMonth?: Record<string, number>
   npcSparredMonth?: Record<string, number>
