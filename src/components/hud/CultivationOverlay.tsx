@@ -13,6 +13,7 @@ const SPEED_OPTIONS: Array<{ step: CultivationSpeedStep; label: string; desc: st
   { step: 3, label: '3x', desc: '0.1秒/3时辰' },
   { step: 6, label: '6x', desc: '0.1秒/半日' },
   { step: 12, label: '12x', desc: '0.1秒/1日' },
+  { step: 48, label: '48x', desc: '0.1秒/4日' },
 ]
 
 export function CultivationOverlay() {

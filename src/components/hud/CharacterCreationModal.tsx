@@ -8,6 +8,24 @@ import {
 import { useGameStore } from '../../store/useGameStore'
 import type { HeroBaseStats } from '../../types/game'
 import { cloneHeroBaseStats } from '../../utils/heroStats'
+import { NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
+
+const START_CITY_GROUPS = [
+  {
+    label: '北宋十九府',
+    cities: WORLD_GRAPH.nodes.filter((n) => n.type === 'city' && n.regime === 'song'),
+  },
+  {
+    label: '大辽四京',
+    cities: WORLD_GRAPH.nodes.filter((n) => n.type === 'city' && n.regime === 'liao'),
+  },
+  {
+    label: '西夏 · 吐蕃 · 大理',
+    cities: WORLD_GRAPH.nodes.filter(
+      (n) => n.type === 'city' && n.regime !== 'song' && n.regime !== 'liao',
+    ),
+  },
+] as const
 
 const CIVIL_SKILL_KEYS = [
   '算术',
@@ -125,11 +143,13 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
 
   const [name, setName] = useState<string>(() => generateRandomHeroName())
   const [portraitId, setPortraitId] = useState<string>(PROTAGONIST_PORTRAITS[3].id)
+  const [startNodeId, setStartNodeId] = useState<string>('bianliang')
   const [stats, setStats] = useState<HeroBaseStats>(() =>
     cloneHeroBaseStats(INITIAL_CREATION_STATS),
   )
 
   const activePortrait = getProtagonistPortrait(portraitId)
+  const startCityNode = NODE_MAP[startNodeId] ?? NODE_MAP.bianliang
 
   const talentUsed = stats.talents.根骨 + stats.talents.悟性 + stats.talents.颜值
   const talentRemaining = Math.max(0, TALENT_BUDGET - talentUsed)
@@ -251,6 +271,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
       name: name.trim() || '无名少侠',
       portraitId,
       silver: INITIAL_SILVER,
+      startNodeId: startCityNode.id,
       baseStats: {
         ...stats,
         maxHp: 0,
@@ -275,7 +296,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
             </p>
           </div>
           <span className="px-5 py-2.5 rounded-lg bg-[#8f1d14] border-2 border-[#d6be96]/50 text-[#fff8eb] text-xl sm:text-2xl font-semibold shrink-0">
-            初始地：开封府
+            初始地：{startCityNode.name}
           </span>
         </div>
 
@@ -347,7 +368,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
                   </div>
                   <div className="flex justify-between gap-2">
                     <span className="text-[#6b5235]">启程之地</span>
-                    <span className="font-bold text-[#23180f]">开封府（汴梁）</span>
+                    <span className="font-bold text-[#23180f]">{startCityNode.name}</span>
                   </div>
                   <div className="flex justify-between gap-2">
                     <span className="text-[#6b5235]">门派出身</span>
@@ -357,7 +378,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
 
                 <div className="bg-[#faf3e3] border-2 border-[#cbb693] rounded-lg p-3.5 space-y-2">
                   <div className="font-semibold text-[#3d2814] text-xl sm:text-2xl">
-                    初始行装（自动披挂）
+                    初始行装与武学（自动披挂运使）
                   </div>
                   <div className="flex flex-wrap gap-2 text-lg sm:text-xl">
                     <span className="px-3 py-1 rounded-md bg-[#e8d8b7] text-[#3d2814]">
@@ -371,6 +392,15 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
                     </span>
                     <span className="px-3 py-1 rounded-md bg-[#e8d8b7] text-[#3d2814]">
                       粗麻平安绳
+                    </span>
+                    <span className="px-3 py-1 rounded-md bg-[#dce8df] text-[#1d402c] border border-[#9dc0a8]">
+                      粗浅呼吸法（内功）
+                    </span>
+                    <span className="px-3 py-1 rounded-md bg-[#dce8df] text-[#1d402c] border border-[#9dc0a8]">
+                      疾跑赶路步（轻功）
+                    </span>
+                    <span className="px-3 py-1 rounded-md bg-[#dce8df] text-[#1d402c] border border-[#9dc0a8]">
+                      市井王八拳（拳掌）
                     </span>
                   </div>
                 </div>
@@ -478,9 +508,38 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
               </div>
 
               <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 space-y-3.5 flex flex-col justify-between">
-                <div className="space-y-3.5">
+                <div className="space-y-3">
                   <div className="song-serif font-bold text-2xl sm:text-3xl text-[#23180f] border-b-2 border-[#cbb693] pb-2">
-                    四、盘缠资粮与武道法则
+                    四、出生城市与初始盘缠
+                  </div>
+                  <div className="px-4 py-2.5 rounded-lg border-2 border-[#cbb693] bg-[#faf3e3] space-y-1.5">
+                    <div className="flex items-center justify-between gap-3 text-xl sm:text-2xl">
+                      <label
+                        htmlFor="birth-city-select"
+                        className="font-semibold text-[#3d2814] shrink-0"
+                      >
+                        出生城市
+                      </label>
+                      <select
+                        id="birth-city-select"
+                        value={startCityNode.id}
+                        onChange={(e) => setStartNodeId(e.target.value)}
+                        className="flex-1 max-w-[260px] px-3 py-1.5 rounded-md border-2 border-[#b5986e] bg-[#fffdf7] text-lg sm:text-xl font-bold text-[#781710] focus:outline-none focus:border-[#8f1d14] cursor-pointer"
+                      >
+                        {START_CITY_GROUPS.map((grp) => (
+                          <optgroup key={grp.label} label={grp.label}>
+                            {grp.cities.map((c) => (
+                              <option key={c.id} value={c.id}>
+                                {c.name}
+                              </option>
+                            ))}
+                          </optgroup>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="text-sm sm:text-base text-[#6b5235] truncate">
+                      所属：{startCityNode.circuit}
+                    </div>
                   </div>
                   <div className="flex items-center justify-between px-4 py-3 rounded-lg border-2 border-[#cbb693] bg-[#faf3e3] text-xl sm:text-2xl">
                     <span className="font-semibold text-[#3d2814]">初始银两</span>
@@ -567,7 +626,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
               onClick={handleStart}
               className="px-8 py-3 rounded-xl bg-[#8f1d14] hover:bg-[#a62318] text-[#fff8eb] song-serif font-bold text-2xl sm:text-3xl shadow-lg border-2 border-[#d6be96]/60 transition-transform active:scale-95"
             >
-              踏入江湖 · 启程开封
+              踏入江湖 · 启程{startCityNode.name}
             </button>
           </div>
         </div>

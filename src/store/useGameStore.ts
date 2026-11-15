@@ -295,6 +295,7 @@ export interface GameStoreState {
     portraitId: string
     silver: number
     baseStats: HeroBaseStats
+    startNodeId?: string
   }) => void
   shichenIdx: number
   viewMode: ViewMode
@@ -966,10 +967,14 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   playerName: '无名少侠',
   playerPortraitId: 'hero_04_swordsman',
   playerAge: 12,
-  completeCharacterCreation: ({ name, portraitId, silver, baseStats }) => {
+  completeCharacterCreation: ({ name, portraitId, silver, baseStats, startNodeId }) => {
     const s = get()
     const finalName = name.trim() || '无名少侠'
     const finalSilver = Math.max(0, Math.floor(silver))
+    const validStartNode =
+      startNodeId && NODE_MAP[startNodeId]?.type === 'city'
+        ? NODE_MAP[startNodeId]!
+        : NODE_MAP.bianliang
     const cleanBase = cloneHeroBaseStats(baseStats)
     const starterEquipped: EquippedSlotsMap = {
       weapon: null,
@@ -982,10 +987,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       curio2: null,
       mount: null,
     }
-    const emptyEquippedArts: EquippedArtsMap = {
-      neigong: null,
-      qinggong: null,
-      move1: null,
+    const starterLearnedArts: LearnedArtEntry[] = [
+      { artId: 'MA-199', level: 1, exp: 0 }, // 粗浅呼吸法
+      { artId: 'MA-217', level: 1, exp: 0 }, // 疾跑赶路步
+      { artId: 'MA-201', level: 1, exp: 0 }, // 市井王八拳
+    ]
+    const starterEquippedArts: EquippedArtsMap = {
+      neigong: 'MA-199',
+      qinggong: 'MA-217',
+      move1: 'MA-201',
       move2: null,
       move3: null,
       move4: null,
@@ -993,8 +1003,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const derived = deriveHeroEffectiveStats(
       cleanBase,
       starterEquipped,
-      emptyEquippedArts,
-      [],
+      starterEquippedArts,
+      starterLearnedArts,
     )
     set({
       characterCreated: true,
@@ -1004,8 +1014,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       silver: finalSilver,
       baseStats: cleanBase,
       equipped: starterEquipped,
-      learnedArts: [],
-      equippedArts: emptyEquippedArts,
+      learnedArts: starterLearnedArts,
+      equippedArts: starterEquippedArts,
       inventory: [],
       mountKey: derived.mountKey,
       qinggongBonus: derived.qinggongBonus,
@@ -1020,14 +1030,17 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       artExps: {},
       artMilestoneFlags: [],
       viewMode: 'region',
-      activeRegionId: 'bianliang',
-      currentNodeId: 'bianliang',
+      activeRegionId: validStartNode.id,
+      currentNodeId: validStartNode.id,
+      selectedNodeId: null,
+      selectedBuildingId: null,
+      selectedSpotId: null,
       activeBuildingInteriorId: null,
       logs: [
         createLogEntry(
           1,
-          '皇祐二年 · 初入汴京',
-          `年方十二的「${finalName}」身着市井茶博士围裙衫、足踏市井粗布鞋，怀揣旧铜钱挂坠、粗麻平安绳与 ${finalSilver} 两银钱，自开封府踏入江湖。`,
+          `皇祐二年 · 初入${validStartNode.name}`,
+          `年方十二的「${finalName}」身着市井茶博士围裙衫、足踏市井粗布鞋，怀揣旧铜钱挂坠、粗麻平安绳与 ${finalSilver} 两银钱，初通《粗浅呼吸法》《疾跑赶路步》《市井王八拳》，自【${validStartNode.name}】踏入江湖。`,
           true,
           4,
         ),
