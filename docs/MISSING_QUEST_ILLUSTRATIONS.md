@@ -90,6 +90,12 @@
 | `CG-QST-078` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_qiantang_qin_tide.jpg` | `/assets/quests/taohuadao_map_qiantang_qin_tide.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第十八幕 · 观潮琴台听海拍<br>（`scene_thd_map_18_tide_pavilion_qu`） | `16:9` |
 | `CG-QST-079` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_dock_shark_boss.jpg` | `/assets/quests/taohuadao_map_dock_shark_boss.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第二十幕 · 演武船坞会狂鲨<br>（`scene_thd_map_20_port_dock_showdown`） | `16:9` |
 | `CG-QST-080` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_wanghu_silk_chart.jpg` | `/assets/quests/taohuadao_map_wanghu_silk_chart.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第二十五幕 · 碧海乘潮启桃源<br>（`scene_thd_map_25_epilogue_unlock`） | `16:9` |
+| `CG-QST-081` | `[x]` 已完成 | `public/assets/quests/jinjun_spy_kaifeng_horseshoe.jpg` | `/assets/quests/jinjun_spy_kaifeng_horseshoe.jpg` | `QST-SECT-33-HEBEI-SPY`<br>《御前泄密 · 河北暗桩》 | 第六幕 · 红烛算筹破密押<br>（`scene_jj_spy_06_candlelight_cipher_crack`） | `16:9` |
+| `CG-QST-082` | `[ ]` 待补绘 | `public/assets/quests/jinjun_spy_zhending_horsemarket.jpg` | `/assets/quests/jinjun_spy_zhending_horsemarket.jpg` | `QST-SECT-33-HEBEI-SPY`<br>《御前泄密 · 河北暗桩》 | 第十五~十六幕 · 榷场惊马破双谍<br>（`scene_jj_spy_15_horse_market_night_battle` 等 2 幕） | `16:9` |
+| `CG-QST-083` | `[ ]` 待补绘 | `public/assets/quests/jinjun_spy_longxing_guanyin.jpg` | `/assets/quests/jinjun_spy_longxing_guanyin.jpg` | `QST-SECT-33-HEBEI-SPY`<br>《御前泄密 · 河北暗桩》 | 第二十一幕 · 千手慈航照暗影<br>（`scene_jj_spy_21_guanyin_pavilion_secret`） | `16:9` |
+| `CG-QST-084` | `[x]` 已完成 | `public/assets/quests/jinjun_spy_daming_sandtable.jpg` | `/assets/quests/jinjun_spy_daming_sandtable.jpg` | `QST-SECT-33-HEBEI-SPY`<br>《御前泄密 · 河北暗桩》 | 第二十八幕 · 行宫沙盘决方略<br>（`scene_jj_spy_28_sandtable_strategy_choice`） | `16:9` |
+| `CG-QST-085` | `[ ]` 待补绘 | `public/assets/quests/jinjun_spy_yellow_river_chains.jpg` | `/assets/quests/jinjun_spy_yellow_river_chains.jpg` | `QST-SECT-33-HEBEI-SPY`<br>《御前泄密 · 河北暗桩》 | 第三十五~三十六幕 · 铁索横江战远风<br>（`scene_jj_spy_35_yellow_river_boss_showdown` 等 2 幕） | `16:9` |
+| `CG-QST-086` | `[ ]` 待补绘 | `public/assets/quests/jinjun_spy_zichen_memorial.jpg` | `/assets/quests/jinjun_spy_zichen_memorial.jpg` | `QST-SECT-33-HEBEI-SPY`<br>《御前泄密 · 河北暗桩》 | 第四十一~四十三幕 · 玉阶一念定乾坤<br>（`scene_jj_spy_41_zichen_verdict_choice` 等 5 幕） | `16:9` |
 
 ---
 
@@ -1615,6 +1621,114 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color luminous conclusion painting, wide cinematic 16:9 composition. Inside the serene Lake-View Water Pavilion framed by naturally sculpted, hole-perforated Taihu garden rocks overlooking tranquil blue-green lake waters around 1050 AD, a celadon vase holding blossoming red peach twigs sitting quietly by the sunlit window. Behind a refined long rosewood drafting table, serene graceful Qimen strategist Lu Xuanji in flowing white-and-pale-blue Song scholar attire sets down a fine vermilion-tipped wolf-hair brush; across the table glistens an ethereal, translucent snow-white sea-silk nautical chart traced meticulously in crisp vermilion and black contour lines depicting islands, reef swirls, and tidal paths (strictly geometric and ornamental, zero text). Smiling warmly, Lu Xuanji extends a lustrous green-jade bamboo-joint map cylinder with both hands to the delighted protagonist (three-quarter rear view), as Shang Xingxuan looks on happily beside the lattice screen. Ethereal Song literati mineral white, celadon-jade, and vermilion hues, zero text.
+  ```
+
+---
+
+### 81. `CG-QST-081`：开封府刑名架阁卷宗楼 · 红烛夜验燕尾北铁与勾股密押图（已完成 ✅）
+
+- **关联文件**：[`src/data/quests/sects/jinjunHebeiSpyQuest.ts`](../src/data/quests/sects/jinjunHebeiSpyQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_spy_kaifeng_horseshoe.jpg`
+- **画框题跋**：`开封府架阁库红烛夜验 · 围案勘破双槽燕尾北马蹄铁与千字文勾股残账`
+- **剧情语境**：
+  - 卷一第六幕，主角身披大宋禁军四厢都指挥紫金甲袍重返旧衙开封府刑名架阁卷宗楼，与包拯、展昭、公孙策围案夜验暮春虹桥西夏刺客遗留坐骑蹄铁与焦黑残账。
+  - 从幽燕苦寒冰河专用的“双槽燕尾防滑马掌”与勾股移位算学暗码，一举勘破西夏刺驾背后实乃辽国北院暗桩渗透京营群牧司。
+- **画面核心要素**：
+  1. **环境氛围**：北宋开封府刑名架阁卷宗楼内景，两列高耸楠木书卷架隐入暖暗阴影，高脚铜烛台红烛高烧。
+  2. **主体人物**：紫檀长案后，黑面紫袍展脚幞头的包拯凝重肃立，红袍带刀的展昭、手持象牙算筹的公孙策与紫金织锦甲袍的年轻禁军四厢统领主角共同端详双槽铁马掌与火漆残卷。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color candlelight investigation painting, wide cinematic 16:9 composition. Inside the towering timber Judicial Archives Pavilion of Kaifeng Prefecture at night around 1050 AD, rows of tall nanmu scroll shelves receding into warm shadows, tall red wax candles flickering in bronze candlesticks. Around a long rosewood table stand four figures: dignified dark-faced Magistrate Bao Zheng in purple Song futou official robes, crimson-robed royal guard swordsman Zhan Zhao, scholarly advisor Gongsun Ce holding ivory counting rods, and the young Imperial Guard commander protagonist in dark purple-and-gold martial brocade examining a heavy forged iron horseshoe with twin swallowtail ice-grooves beside a half-charred hemp ledger sheet (strictly abstract ink lines and wax seals, zero text or characters). Rich mineral pigments, authentic Northern Song court brushwork, zero modern elements, zero text.
+  ```
+
+---
+
+### 82. `CG-QST-082`：真定宋辽边境榷场 · 寒夜惊马截杀北院急递双使图
+
+- **关联文件**：[`src/data/quests/sects/jinjunHebeiSpyQuest.ts`](../src/data/quests/sects/jinjunHebeiSpyQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_spy_zhending_horsemarket.jpg`
+- **画框题跋**：`真定宋辽榷场寒夜雪战 · 惊马碎灯间截杀北院急递双煞夺取玄铁半符`
+- **剧情语境**：
+  - 卷二第十五~十六幕，子夜鹅毛大雪席卷真定府北【宋辽边境榷场 · 塞北契丹良驹互市马栏】。
+  - 辽国北院急递掌符使【韩延寿】与乌桓悍骑【述律铁爪】察觉败露，踢翻炭火铜盆引燃草棚、吹响骨哨惊动塞北烈马企图突围；主角踏栏横刃于漫天风雪火光中截杀双煞，夺下半枚幽燕玄铁军符。
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年河北真定宋辽互市马栏雪夜，倾覆燃烧的炭火铜盆火星飞溅入纷飞白雪，后方契丹皮毛大毡帐与受惊人立嘶鸣的乌桓战马形成强烈动势。
+  2. **主体人物**：前景积雪地上，披玄色大氅、内着紫金四厢甲衣的主角横剑突进；对面两名契丹高手悍然迎战——一人手握修罗长弯刀、腰悬半块乌黑玄铁虎符腰牌（注意为金属兵符切勿画成真鱼），另一人披狼毛铁甲挥舞重装铁蒺藜狼牙棒。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color snowy night martial battle painting, wide cinematic 16:9 composition. At the Song-Liao border horse trade market outside Zhending Prefecture on a snowy winter night around 1050 AD: wooden horse corrals, a toppled burning copper brazier sending fiery embers into swirling snowflakes, dark Khitan felt tents with wolf-pelt streamers, startled northern warhorses rearing in the background. In the snowy foreground, the gallant Northern Song Imperial Guard commander protagonist in dark cloak and purple-gold brigandine slashes forward with a gleaming sword to intercept two fierce Khitan secret couriers—one wielding a long curved Xiuluo saber with a split dark-iron bronze military tally hanging at his belt, the other swinging a heavy spiked iron mace in fur-trimmed lamellar armor. Dramatic firelight against blue-silver snow, authentic Song brushwork, blank banners with zero text or characters.
+  ```
+
+---
+
+### 83. `CG-QST-083`：真定隆兴大佛寺大悲宝阁 · 七丈铜铸千手观音密议图
+
+- **关联文件**：[`src/data/quests/sects/jinjunHebeiSpyQuest.ts`](../src/data/quests/sects/jinjunHebeiSpyQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_spy_longxing_guanyin.jpg`
+- **画框题跋**：`真定隆兴寺大悲阁 · 七丈铜铸千手观音法相前密破萧远风南下接应天机`
+- **剧情语境**：
+  - 卷二第二十一幕，主角随五台山清凉寺护关武僧【李正鹤】与真定边军都监【郭逵】登临北宋名刹隆兴寺三层重楼【大悲千手观音宝阁】。
+  - 在开宝年间敕铸的高达七丈三尺四十二臂千手铜观音法相与数百盏酥油长明灯映照下，李正鹤密告在白沟河亲睹辽南京武林统制萧远风南下督办黄河渡口交接之惊天情报。
+- **画面核心要素**：
+  1. **环境氛围**：北宋真定隆兴寺大悲阁宏伟木构三层通高内景，殿心耸立顶天立地的七丈青铜鎏金四十二臂大悲观音立像，层叠铜臂如莲舒展，下方供台数百盏酥油铜灯暖光摇曳。
+  2. **主体人物**：前景二层木构平坐勾栏旁，魁伟刚毅的五台山灰褐僧袍武僧（李正鹤）双掌合十低语，身披宋代边军黑铁甲的宿将郭逵按剑凝听，年轻禁军四厢统领主角凭栏侧立神情凛然。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color solemn temple espionage painting, wide cinematic 16:9 composition. Inside the towering three-story timber Pavilion of Great Compassion at Longxing Temple in Zhending around 1050 AD, dominated by the colossal seventy-foot cast-bronze Forty-Two-Armed Thousand-Hand Guanyin bodhisattva statue glowing softly above hundreds of flickering butter lamps. On the upper wooden gallery balustrade in the foreground stand three figures in quiet counsel: a stalwart Wutai Mountain warrior monk in grey-ochre robes with palms pressed together, veteran Song border commander Guo Kui in dark iron-plated Song armor, and the young Imperial Guard commander protagonist in purple-gold martial attire listening intently. Awe-inspiring sacred scale, mineral gold, malachite, and warm lamp-amber hues, authentic Song dougong brackets, zero text or characters.
+  ```
+
+---
+
+### 84. `CG-QST-084`：北京大名府留守行宫 · 河北防辽沙盘合符定计图（已完成 ✅）
+
+- **关联文件**：[`src/data/quests/sects/jinjunHebeiSpyQuest.ts`](../src/data/quests/sects/jinjunHebeiSpyQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_spy_daming_sandtable.jpg`
+- **画框题跋**：`北京留守行宫沙盘定计 · 持殿前司鎏金虎符抉择铁甲封渡或河朔群侠奇兵`
+- **剧情语境**：
+  - 卷三第二十八幕，主角于大名校场拿下叛校韩崇矩后，星夜赶入陪都【北京留守行宫 · 河北防辽舆图沙盘阁】会见贝州平叛猛将【王信】。
+  - 巨幅黄河九曲与铁索浮桥立体木沙盘前，主角高举半枚鎏金密查虎符与驻防虎符合验，定夺官军铁甲封渡或河朔群侠奇兵之合围大略。
+- **画面核心要素**：
+  1. **环境氛围**：北宋陪都大名府留守行宫沙盘阁，高大青铜灯树映亮堂中两丈长的黄杨木山川黄河立体沙盘（沙盘微缩浮桥与纯色小令旗纤毫毕现，无任何文字）。
+  2. **主体人物**：沙盘左侧河北猛将王信披重甲按腰刀肃立，沙盘右侧禁军四厢统领主角高举合拢的殿前司鎏金蟠螭虎符。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color military strategy painting, wide cinematic 16:9 composition. Inside the grand Military Sandtable Hall of the Northern Capital Daming Auxiliary Palace around 1050 AD, lit by tall bronze lampstands. Centerpiece is a massive sculpted wooden-and-clay relief sandtable depicting the winding Yellow River, iron-chain pontoon bridge, and Hebei mountain passes marked with miniature colored pennants (purely solid colors, zero text). Standing across the sandtable, battle-hardened Song general Wang Xin in heavy iron lamellar armor rests a hand on his sword hilt while the young Imperial Guard commander protagonist holds up half of a gilded bronze tiger tally to lock together with the garrison tally. Rich Song court mineral pigments, solemn martial atmosphere, zero text or characters.
+  ```
+
+---
+
+### 85. `CG-QST-085`：大名府黄河铁索渡口 · 子夜火船狂澜决战萧远风图
+
+- **关联文件**：[`src/data/quests/sects/jinjunHebeiSpyQuest.ts`](../src/data/quests/sects/jinjunHebeiSpyQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_spy_yellow_river_chains.jpg`
+- **画框题跋**：`黄河铁索渡口狂澜夜战 · 浊浪火船间迎战辽南京武林统制萧远风`
+- **剧情语境**：
+  - 卷三第三十五~三十六幕全篇最高潮，子时三刻黄河秋汛怒涛滚滚，岸畔镇河大铁牛锁住八根碗口粗的横江铁索，三艘燃烧的契丹猛火油快船映红半边天际。
+  - 背负乌铜秘匣的辽南京武林统制【萧远风】手挺丈二浑铁长枪立于剧烈颠簸的铁索浮桥正中，主角踏浪跃索拔刃正面硬撼强虏！
+- **画面核心要素**：
+  1. **环境氛围**：北宋黄河铁索渡口子夜决战奇观，近岸可见威猛苍古的铸铁镇河大铁牛与绷紧入水的粗大横江铁链，河心连环木舟浮桥在黄浊巨浪中起伏，远处两艘契丹火油快船烈焰冲天、浓烟滚滚。
+  2. **主体人物**：浮桥中央，身披契丹狼裘玄甲、背绑乌铜防水方匣的枭雄统帅萧远风双手挺浑铁大枪猛刺；主角紫金甲袍外玄披风翻卷如翼，脚踏湿滑铁索木板挥剑硬架枪锋，金铁交击火星四溅！
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic river-duel painting, wide cinematic 16:9 composition. Midnight showdown at the Yellow River Iron-Chain Ferry outside Daming Prefecture around 1050 AD: colossal cast-iron River-Quelling Ox statues on the stone bank anchoring arm-thick iron chains stretched taut across churning muddy waves, linked timber pontoon boats pitching wildly as burning Khitan fire-boats blaze in crimson flames amid river mist. At the center of the swaying iron-chain pontoon bridge, formidable Liao martial commander Xiao Yuanfeng in dark Khitan wolf-fur iron armor—carrying a sealed black-copper coffer strapped to his back—thrusts a heavy iron lance, clashing fiercely sending sparks flying against the fearless Song Imperial Guard commander protagonist leaping forward blade in hand. Monumental Northern Song martial drama, fiery reflections on dark surging water, zero text or characters.
+  ```
+
+---
+
+### 86. `CG-QST-086`：东京大内垂拱紫宸正殿 · 晓日丹墀呈匣决忠奸图
+
+- **关联文件**：[`src/data/quests/sects/jinjunHebeiSpyQuest.ts`](../src/data/quests/sects/jinjunHebeiSpyQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_spy_zichen_memorial.jpg`
+- **画框题跋**：`紫宸晓日丹墀对奏 · 手捧《京营泄密名录》定夺朝堂肃贪或玄枢反间`
+- **剧情语境**：
+  - 卷四第四十一~四十三幕终局抉择，东京皇宫垂拱紫宸正殿早朝晨光穿透铜鹤炉香。
+  - 宋仁宗赵祯端坐龙椅，文班包拯执象笏肃立、武班黑王相公王德用按剑侍侧；主角独立白玉丹墀中央呈上《京营泄密名录》乌铜匣，一念决断雷霆肃贪或留线反间。
+- **画面核心要素**：
+  1. **环境氛围**：北宋皇宫垂拱紫宸正殿早朝恢弘内景，朱漆巨柱、汉白玉丹墀御阶、铜鹤香炉青烟袅袅，金色晨光自殿门斜洒而入。
+  2. **主体人物**：高台龙座上头戴通天冠、身着绛纱袍的宋仁宗赵祯俯视殿中；两侧文武班首分别为黑面紫袍执笏的包拯与须发苍苍披朝服金甲的宿将王德用；御道正中主角（四分之三背影）双手高捧开启的乌铜秘匣与火漆卷轴。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color grand imperial court painting, wide cinematic 16:9 composition. Dawn audience inside the majestic Zichen Hall of the Kaifeng Imperial Palace around 1050 AD, golden morning sunlight slanting past crimson lacquered pillars and curling bronze crane incense smoke onto white marble steps. High upon the dragon dais sits benevolent Emperor Renzong of Song in crimson Tongtian-crown court robes; flanking the foreground below stand upright dark-faced Magistrate Bao Zheng holding an ivory tablet on the civil side and white-bearded Grand Marshal Wang Deyong in ceremonial armor on the martial side. In the center of the marble aisle, the young Imperial Guard commander protagonist in purple-and-gold brocade (seen from a three-quarter rear angle) presents an open black-copper coffer containing a wax-sealed scroll before the throne. Authentic Song court splendor, rich mineral pigments, zero text or characters.
   ```
 
 ---
