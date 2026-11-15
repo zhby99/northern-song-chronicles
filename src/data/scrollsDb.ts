@@ -156,6 +156,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-010',
+    iconUrl: '/assets/items/scrolls/itm_scr_010.jpg',
     name: '顾闳中《韩熙载夜宴图》南唐内府绢本真迹',
     category: 'scrolls',
     subType: '名家书画',
@@ -172,6 +173,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   // ============================================================================
   {
     id: 'ITM-SCR-011',
+    iconUrl: '/assets/items/scrolls/itm_scr_011.jpg',
     name: '《少林九阳禅功密钞》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -188,6 +190,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-012',
+    iconUrl: '/assets/items/scrolls/itm_scr_012.jpg',
     name: '《终南玉女心经素绢谱》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -203,6 +206,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-013',
+    iconUrl: '/assets/items/scrolls/itm_scr_013.jpg',
     name: '《东海碧海潮生曲谱》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -219,6 +223,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-014',
+    iconUrl: '/assets/items/scrolls/itm_scr_014.jpg',
     name: '《丐帮擒龙功真诀》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -235,6 +240,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-015',
+    iconUrl: '/assets/items/scrolls/itm_scr_015.jpg',
     name: '《武当梯云纵身法图》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -381,6 +387,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-025',
+    iconUrl: '/assets/items/scrolls/itm_scr_025.jpg',
     name: '毕昇《胶泥活字印书法》皇祐亲授孤本',
     category: 'scrolls',
     subType: '百工图谱',
@@ -393,6 +400,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-026',
+    iconUrl: '/assets/items/scrolls/itm_scr_026.jpg',
     name: '贾宪《黄帝九章算经细草》开方作法本源图',
     category: 'scrolls',
     subType: '百工图谱',
@@ -405,6 +413,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-027',
+    iconUrl: '/assets/items/scrolls/itm_scr_027.jpg',
     name: '欧阳修《新五代史》皇祐私撰未刊手稿',
     category: 'scrolls',
     subType: '经史典籍',
@@ -416,6 +425,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-028',
+    iconUrl: '/assets/items/scrolls/itm_scr_028.jpg',
     name: '《太平圣惠方》太医局御赐百卷精装册',
     category: 'scrolls',
     subType: '百工图谱',
@@ -427,6 +437,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-029',
+    iconUrl: '/assets/items/scrolls/itm_scr_029.jpg',
     name: '《广陵散》唐代雷氏金徽古谱孤卷',
     category: 'scrolls',
     subType: '琴棋清谱',
@@ -438,6 +449,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-030',
+    iconUrl: '/assets/items/scrolls/itm_scr_030.jpg',
     name: '《忘忧清乐集》国手刘仲甫御前十局真谱',
     category: 'scrolls',
     subType: '琴棋清谱',
@@ -453,6 +465,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   // ============================================================================
   {
     id: 'ITM-SCR-031',
+    iconUrl: '/assets/items/scrolls/itm_scr_031.jpg',
     name: '《少林罗汉伏虎功图注》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -468,6 +481,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-032',
+    iconUrl: '/assets/items/scrolls/itm_scr_032.jpg',
     name: '《大内禁军玄甲劲密册》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -483,6 +497,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-033',
+    iconUrl: '/assets/items/scrolls/itm_scr_033.jpg',
     name: '《峨眉莲华静心诀手钞》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -498,6 +513,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-034',
+    iconUrl: '/assets/items/scrolls/itm_scr_034.jpg',
     name: '《洛阳金刀谱》拓本',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -513,6 +529,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-035',
+    iconUrl: '/assets/items/scrolls/itm_scr_035.jpg',
     name: '《雁门断魂刀边军谱》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -528,6 +545,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-036',
+    iconUrl: '/assets/items/scrolls/itm_scr_036.jpg',
     name: '《终南金雁功飞升诀》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -543,6 +561,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-037',
+    iconUrl: '/assets/items/scrolls/itm_scr_037.jpg',
     name: '《漕帮水上漂精修卷》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -558,6 +577,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-038',
+    iconUrl: '/assets/items/scrolls/itm_scr_038.jpg',
     name: '《华山落雁剑法剑图》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -573,6 +593,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-039',
+    iconUrl: '/assets/items/scrolls/itm_scr_039.jpg',
     name: '《越女古剑术》江南残编',
     category: 'scrolls',
     subType: '武学残卷',
@@ -603,6 +624,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-041',
+    iconUrl: '/assets/items/scrolls/itm_scr_041.jpg',
     name: '《六合大枪战阵真诠》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -618,6 +640,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-042',
+    iconUrl: '/assets/items/scrolls/itm_scr_042.jpg',
     name: '《六扇门捕风诀》缉凶密卷',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -633,6 +656,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-043',
+    iconUrl: '/assets/items/scrolls/itm_scr_043.jpg',
     name: '《华佗五禽养生功古图》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -649,6 +673,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-044',
+    iconUrl: '/assets/items/scrolls/itm_scr_044.jpg',
     name: '《风雅折扇点穴功图录》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -664,6 +689,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-045',
+    iconUrl: '/assets/items/scrolls/itm_scr_045.jpg',
     name: '《燕子三抄水轻身诀》',
     category: 'scrolls',
     subType: '武学秘籍',
@@ -679,6 +705,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-046',
+    iconUrl: '/assets/items/scrolls/itm_scr_046.jpg',
     name: '范仲淹《答手诏条陈十事》庆历政书刻本',
     category: 'scrolls',
     subType: '经史典籍',
@@ -691,6 +718,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-047',
+    iconUrl: '/assets/items/scrolls/itm_scr_047.jpg',
     name: '富弼《奉使契丹语录》河北边防密钞',
     category: 'scrolls',
     subType: '经史典籍',
@@ -702,6 +730,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-048',
+    iconUrl: '/assets/items/scrolls/itm_scr_048.jpg',
     name: '石介《庆历圣德颂》太学石刻拓片',
     category: 'scrolls',
     subType: '法帖碑刻',
@@ -713,6 +742,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-049',
+    iconUrl: '/assets/items/scrolls/itm_scr_049.jpg',
     name: '欧阳修《醉翁亭记》滁州碑刻初拓',
     category: 'scrolls',
     subType: '法帖碑刻',
@@ -724,6 +754,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-050',
+    iconUrl: '/assets/items/scrolls/itm_scr_050.jpg',
     name: '蔡襄《万安桥筹建工程图记》手札摹本',
     category: 'scrolls',
     subType: '法帖碑刻',
@@ -735,6 +766,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-051',
+    iconUrl: '/assets/items/scrolls/itm_scr_051.jpg',
     name: '梅尧臣《宛陵先生诗钞》汴京精刊本',
     category: 'scrolls',
     subType: '诗词唱本',
@@ -746,6 +778,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-052',
+    iconUrl: '/assets/items/scrolls/itm_scr_052.jpg',
     name: '苏舜钦《沧浪亭记》行草手卷摹本',
     category: 'scrolls',
     subType: '名家书画',
@@ -757,6 +790,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-053',
+    iconUrl: '/assets/items/scrolls/itm_scr_053.jpg',
     name: '晏殊《珠玉词》相府家刻精装本',
     category: 'scrolls',
     subType: '诗词唱本',
@@ -768,6 +802,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-054',
+    iconUrl: '/assets/items/scrolls/itm_scr_054.jpg',
     name: '胡瑗《苏湖教法经义治事斋讲义》',
     category: 'scrolls',
     subType: '经史典籍',
@@ -779,6 +814,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-055',
+    iconUrl: '/assets/items/scrolls/itm_scr_055.jpg',
     name: '孙复《春秋尊王发微》泰山书院刻本',
     category: 'scrolls',
     subType: '经史典籍',
@@ -790,6 +826,7 @@ export const SCROLLS_ITEMS_DB: GameItemDef[] = [
   },
   {
     id: 'ITM-SCR-056',
+    iconUrl: '/assets/items/scrolls/itm_scr_056.jpg',
     name: '燕肃《莲花漏法与指南车图说》',
     category: 'scrolls',
     subType: '百工图谱',
