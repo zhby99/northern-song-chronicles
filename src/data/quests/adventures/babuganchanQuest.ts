@@ -200,6 +200,8 @@ const SCENE_03_FANLOU_OBSERVE: StorySceneDef = {
   id: 'scene_bbgc_03_fanlou_observe',
   title: '第三幕 · 飞桥夜影起杀机',
   subtitle: '开封府 · 樊楼三层五楼飞桥雅阁',
+  illustrationUrl: '/assets/quests/babuganchan_fanlou_bridge_duel.jpg',
+  illustrationCaption: '东京樊楼朱漆凌空飞桥 · 夜宴灯火中截风门灰鹞陆七破窗扑袭',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -323,6 +325,8 @@ const SCENE_08_PAGODA_INSIGHT: StorySceneDef = {
   id: 'scene_bbgc_08_pagoda_insight',
   title: '第八幕 · 塔风初悟蝉蜕息',
   subtitle: '开封府 · 大相国寺 · 资圣八角琉璃宝塔',
+  illustrationUrl: '/assets/quests/babuganchan_zisheng_pagoda_wind.jpg',
+  illustrationCaption: '大相国寺资圣八角琉璃塔顶 · 秋风铜铃盘膝展绢初悟蝉蜕换气诀',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -528,6 +532,8 @@ const SCENE_11_QINGSHUANG_TRIAL: StorySceneDef = {
   id: 'scene_bbgc_11_qingshuang_trial',
   title: '第十一幕 · 步步生莲试身法',
   subtitle: '洛阳府 · 白马寺 · 齐云密檐舍利古塔',
+  illustrationUrl: '/assets/quests/babuganchan_baimasi_ginkgo_steps.jpg',
+  illustrationCaption: '洛阳白马寺齐云古塔 · 百年银杏落叶连踏七步纹丝不碎证轻功',
   beats: [
     {
       speaker: { kind: 'custom', name: '青霜姥姥', title: '白马寺守塔居士', factionName: '洛阳旧人' },
@@ -637,6 +643,8 @@ const SCENE_20_ENLIGHTENMENT: StorySceneDef = {
   id: 'scene_bbgc_20_enlightenment',
   title: '第二十幕 · 夜雨碧溪悟八步',
   subtitle: '洛阳府 · 洛阳牡丹园 · 碧溪虹桥琴画水榭',
+  illustrationUrl: '/assets/quests/babuganchan_bixi_moon_water.jpg',
+  illustrationCaption: '洛阳牡丹园碧溪琴画水榭 · 雨霁秋月足点八道水纹掠上二层飞檐',
   beats: [
     {
       speaker: { kind: 'narrator' },

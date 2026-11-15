@@ -423,6 +423,8 @@ export const SHAOLIN_CHORE_COMPLETE_JOIN_SCENE: StorySceneDef = {
   id: 'scene_shaolin_chore_365_inducted',
   title: '寒暑一载 · 始入禅林',
   subtitle: '嵩山少林寺 · 大雄宝殿方丈院',
+  illustrationUrl: '/assets/quests/shaolin_chore_induction.jpg',
+  illustrationCaption: '嵩山少林寺大雄宝殿 · 寒暑一载苦役满期拜受僧衣齐眉棍',
   mandatory: true,
   beats: [
     {
@@ -752,6 +754,8 @@ export const SHAOLIN_ENTRY_QUESTS: QuestDefinition[] = [
               id: 'scene_shaolin_pay_broker',
               title: '二百五金 · 暗通款曲',
               subtitle: '洛阳府 · 洛水天津酒楼',
+              illustrationUrl: '/assets/quests/shaolin_luoyang_bribe.jpg',
+              illustrationCaption: '洛水天津酒楼 · 二百五十两纹银托牙人暗通嵩门香火',
               beats: [
                 {
                   speaker: { kind: 'player' },

@@ -258,6 +258,8 @@ const WUTAI_STONE_TRIAL_EFFECTS: QuestEffect[] = [
           id: 'scene_tb_wutai_success',
           title: '石台现碑 · 舍身回马意',
           subtitle: '五台山清凉寺 · 杨五郎演棍石台',
+          illustrationUrl: '/assets/quests/tianbo_wutai_staff_terrace.jpg',
+          illustrationCaption: '五台山杨五郎演棍石台 · 漫天飞雪破双棍顿悟舍身回马意',
           beats: [
             {
               speaker: { kind: 'narrator' },
@@ -398,6 +400,8 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
               id: 'scene_tb_prologue_paifeng',
               title: '序章 · 汴京烧火棍',
               subtitle: '开封府 · 西坊演武拳馆',
+              illustrationUrl: '/assets/quests/tianbo_paifeng_iron_rod.jpg',
+              illustrationCaption: '汴京西坊演武拳馆 · 杨排风横执烧火铁箸考校三十六路棍',
               beats: [
                 {
                   speaker: { kind: 'narrator' },
@@ -882,6 +886,8 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                             id: 'scene_tb_yanan_win',
                             title: '绝境顿悟 · 回马破虏',
                             subtitle: '延安府 · 鄜延边军大营',
+                            illustrationUrl: '/assets/quests/tianbo_yanan_diqing_cavalry.jpg',
+                            illustrationCaption: '延安鄜延边军大营 · 随铜面狄青并骑死战绝命回马枪破铁鹞子',
                             beats: [
                               {
                                 speaker: { kind: 'narrator' },
@@ -1009,6 +1015,8 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                             id: 'scene_tb_epilogue',
                             title: '霸王枪出 · 天波忠魂永传',
                             subtitle: '太原府 · 天波杨家旧祠',
+                            illustrationUrl: '/assets/quests/tianbo_ancestral_bawang_spear.jpg',
+                            illustrationCaption: '太原天波杨家旧祠 · 雪霁冬阳杨文广于令公灵前亲授霸王枪谱',
                             beats: [
                               {
                                 speaker: { kind: 'narrator' },
@@ -1482,6 +1490,8 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                       id: 'scene_tb_yanmen_bloodbattle_win_adv',
                       title: '高地破骑 · 降龙木令',
                       subtitle: '雁门关 · 雁门关外乱石绝壁',
+                      illustrationUrl: '/assets/quests/tianbo_yanmen_muguiyun.jpg',
+                      illustrationCaption: '雁门关外乱石绝壁 · 联手穆桂云大破契丹重骑受赠降龙木令',
                       beats: [
                         {
                           speaker: { kind: 'narrator' },
@@ -1540,6 +1550,8 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
                       id: 'scene_tb_yanmen_bloodbattle_win_std',
                       title: '绝壁血战 · 降龙木令',
                       subtitle: '雁门关 · 雁门关外乱石绝壁',
+                      illustrationUrl: '/assets/quests/tianbo_yanmen_muguiyun.jpg',
+                      illustrationCaption: '雁门关外乱石绝壁 · 联手穆桂云大破契丹重骑受赠降龙木令',
                       beats: [
                         {
                           speaker: { kind: 'narrator' },

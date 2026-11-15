@@ -11,6 +11,8 @@ const SCENE_32_KAIFENG_VERDICT: StorySceneDef = {
   id: 'scene_kf1_32_kaifeng_verdict',
   title: '第三十二幕 · 龙图嘉勉授金符',
   subtitle: '开封府衙 · 六扇门捕快演武院',
+  illustrationUrl: '/assets/quests/kf_murong1_gold_badge_verdict.jpg',
+  illustrationCaption: '开封府三口铜铡正堂 · 呈交太湖水渍密账获擢六扇门金牌总捕',
   beats: [
     {
       speaker: { kind: 'npc', npcId: 'NPC-0013' },
@@ -120,6 +122,8 @@ const SCENE_29_ESCAPE_TAIHU: StorySceneDef = {
   id: 'scene_kf1_29_escape_taihu',
   title: '第二十九幕 · 破窗跃水趁烟波',
   subtitle: '燕子坞 · 参合庄外水巷',
+  illustrationUrl: '/assets/quests/kf_murong1_canhe_window_leap.jpg',
+  illustrationCaption: '燕子坞参合庄秘档室 · 掌翻油灯火起硬接邓百川十合破窗跃湖',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -363,6 +367,8 @@ const SCENE_21_AZHU_ABI_COVER: StorySceneDef = {
   id: 'scene_kf1_21_azhu_abi_cover',
   title: '第二十一幕 · 琴韵暗香遮耳目',
   subtitle: '燕子坞 · 听香水榭主阁',
+  illustrationUrl: '/assets/quests/kf_murong1_tingxiang_lantern.jpg',
+  illustrationCaption: '太湖燕子坞听香水榭 · 隔帘听琴阿朱阿碧赠竹笼风灯指幽径',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -532,6 +538,8 @@ const SCENE_15_HANSHAN_CLUE: StorySceneDef = {
   id: 'scene_kf1_15_hanshan_clue',
   title: '第十五幕 · 钟楼暗格截残笺',
   subtitle: '姑苏城 · 枫桥寒山寺古钟楼',
+  illustrationUrl: '/assets/quests/kf_murong1_hanshan_bell_intercept.jpg',
+  illustrationCaption: '姑苏枫桥寒山寺古钟楼 · 子夜袖石灭烛截获参合庄甲械竹筒',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -714,6 +722,8 @@ const SCENE_08_BAO_DECREE: StorySceneDef = {
   id: 'scene_kf1_08_bao_decree',
   title: '第八幕 · 包公密授手谕令',
   subtitle: '开封府衙 · 开封府升堂正殿',
+  illustrationUrl: '/assets/quests/kf_murong1_bao_secret_decree.jpg',
+  illustrationCaption: '开封府衙升堂正殿 · 包拯夕照下亲书十六字素笺密谕遣南查',
   beats: [
     {
       speaker: { kind: 'npc', npcId: 'NPC-0013' },

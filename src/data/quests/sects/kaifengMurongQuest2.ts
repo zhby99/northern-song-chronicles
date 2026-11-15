@@ -11,6 +11,8 @@ const SCENE_52_IMPERIAL_PROMOTION: StorySceneDef = {
   id: 'scene_kf2_52_imperial_promotion',
   title: '第五十二幕 · 丹墀授印御前卫',
   subtitle: '开封府衙 · 升堂正殿',
+  illustrationUrl: '/assets/quests/kf_murong2_royal_guard_seal.jpg',
+  illustrationCaption: '开封府升堂正殿晨曦 · 呈交立约盟书单膝拜领御前护卫金印',
   beats: [
     {
       speaker: { kind: 'npc', npcId: 'NPC-0013' },
@@ -209,6 +211,8 @@ const SCENE_46_MUTUAL_WITHDRAWAL: StorySceneDef = {
   id: 'scene_kf2_46_mutual_withdrawal',
   title: '第四十六幕 · 剑掌齐敛震水阁',
   subtitle: '燕子坞 · 还施水阁正厅',
+  illustrationUrl: '/assets/quests/kf_murong2_huanshi_ten_bouts.jpg',
+  illustrationCaption: '燕子坞还施水阁正厅 · 参合指气与青锋剑十合对撞震断紫檀供桌',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -441,6 +445,8 @@ const SCENE_38_DENG_DEFEATED: StorySceneDef = {
   id: 'scene_kf2_38_deng_defeated',
   title: '第三十八幕 · 破尽刚掌定演武',
   subtitle: '燕子坞 · 参合庄演武西场',
+  illustrationUrl: '/assets/quests/kf_murong2_canhe_yard_deng.jpg',
+  illustrationCaption: '燕子坞参合庄演武西场 · 正面硬撼神掌邓百川震裂青砖打通内院',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -632,6 +638,8 @@ const SCENE_31_GONGYE_DEFEATED: StorySceneDef = {
   id: 'scene_kf2_31_gongye_defeated',
   title: '第三十一幕 · 画舫拆招破刚柔',
   subtitle: '姑苏城 · 太湖烟波渡口',
+  illustrationUrl: '/assets/quests/kf_murong2_taihu_boat_gongye.jpg',
+  illustrationCaption: '太湖烟波渡口雕花画舫 · 碧波荡漾三十合拆招震退江南二绝公冶乾',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -798,6 +806,8 @@ const SCENE_25_HUQIU_ARMS_CACHE: StorySceneDef = {
   id: 'scene_kf2_25_huqiu_arms_cache',
   title: '第二十五幕 · 试剑石畔破军藏',
   subtitle: '姑苏城 · 虎丘剑池与试剑石',
+  illustrationUrl: '/assets/quests/kf_murong2_huqiu_armor_cave.jpg',
+  illustrationCaption: '姑苏虎丘试剑石后山石窟 · 火折微光查获飞燕暗印数百冷锻铁甲',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -938,6 +948,8 @@ const SCENE_20_BAO_EDICT: StorySceneDef = {
   id: 'scene_kf2_20_bao_edict',
   title: '第二十幕 · 龙图授旨命南巡',
   subtitle: '开封府衙 · 升堂正殿',
+  illustrationUrl: '/assets/quests/kf_murong2_zichen_secret_edict.jpg',
+  illustrationCaption: '开封府衙升堂正殿 · 包拯启紫檀匣授紫宸密旨与鎏金双龙金牌',
   beats: [
     {
       speaker: { kind: 'npc', npcId: 'NPC-0013' },
@@ -1074,6 +1086,8 @@ const SCENE_15_FANLOU_NIGHT_CHASE: StorySceneDef = {
   id: 'scene_kf2_15_fanlou_chase',
   title: '第十五幕 · 樊楼屋脊擒北谍',
   subtitle: '汴梁城 · 樊楼飞檐',
+  illustrationUrl: '/assets/quests/kf_murong2_fanlou_roof_spy.jpg',
+  illustrationCaption: '汴梁樊楼三层琉璃飞檐 · 夜风横剑截擒契丹密使搜获燕纹木牌',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -1322,6 +1336,8 @@ const SCENE_05_SECRET_SEAL_REPORT: StorySceneDef = {
   id: 'scene_kf2_05_secret_report',
   title: '第五幕 · 密室点验百兵册',
   subtitle: '开封府衙 · 升堂正殿后轩',
+  illustrationUrl: '/assets/quests/kf_murong2_secret_ledger_audit.jpg',
+  illustrationCaption: '开封府衙升堂后轩 · 烛下公孙策朱笔勾稽江南官铁密册包公拍案',
   beats: [
     {
       speaker: { kind: 'narrator' },

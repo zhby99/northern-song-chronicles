@@ -281,6 +281,8 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
   id: 'scene_dm_leitai_bout2',
   title: '第二幕 · 寒斧惊沙 · 铁林露峥嵘',
   subtitle: '河北枪棒大校场 · 六合枪棒八角比武擂台',
+  illustrationUrl: '/assets/quests/daming_leitai_khitan_axes.jpg',
+  illustrationCaption: '河北枪棒大校场八角擂台 · 契丹先锋乌古乃负双柄寒铁重斧踏碎青砖',
   mandatory: true,
   beats: [
     {
@@ -448,6 +450,8 @@ const SCENE_DAMING_VICTORY_CHOICE: StorySceneDef = {
   id: 'scene_dm_sandtable_victory_choice',
   title: '终幕 · 铁锁镇河朔 · 庙堂与江湖',
   subtitle: '北京留守行宫 · 河北防辽舆图沙盘阁',
+  illustrationUrl: '/assets/quests/daming_baji_official_choice.jpg',
+  illustrationCaption: '沙盘阁尘埃落定 · 贾昌朝执留守荐函与卢铁山擎六合浑铁枪共邀少侠择路',
   mandatory: true,
   beats: [
     {
@@ -629,6 +633,8 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
   id: 'scene_dm_midnight_sandtable_climax',
   title: '第三幕 · 子夜沙盘 · 铁壁合围',
   subtitle: '北京留守行宫 · 河北防辽舆图沙盘阁',
+  illustrationUrl: '/assets/quests/daming_midnight_sandtable_ambush.jpg',
+  illustrationCaption: '北京留守行宫防辽沙盘阁 · 百盏宫灯齐明贾昌朝卢铁山铁壁合围耶律裂山',
   mandatory: true,
   beats: [
     {
@@ -1029,6 +1035,8 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
               id: 'scene_dm_tavern_confrontation',
               title: '第一幕 · 惊涛断索 · 临津剑拔弩张',
               subtitle: '大名府 · 黄河北岸临津酒楼',
+              illustrationUrl: '/assets/quests/daming_linjin_tavern_standoff.jpg',
+              illustrationCaption: '大名府黄河北岸临津酒楼 · 留守司公人与沧州八极门徒拔刃对峙',
               beats: [
                 {
                   speaker: { kind: 'narrator' },
@@ -1335,6 +1343,8 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
               id: 'scene_dm_ouyang_chun_axe',
               title: '临河沽酒 · 紫髯伯识破北庭兵',
               subtitle: '黄河铁索渡口 · 客渡木栈桥与临河酒肆',
+              illustrationUrl: '/assets/quests/daming_ouyang_chun_ferry.jpg',
+              illustrationCaption: '黄河铁索渡口临河芦棚 · 北侠紫髯伯欧阳春横巨刃饮酒辨寒铁断痕',
               beats: [
                 {
                   speaker: { kind: 'narrator' },

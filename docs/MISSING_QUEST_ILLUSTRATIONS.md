@@ -40,6 +40,49 @@
 | `CG-QST-028` | `[ ]` 待补绘 | `public/assets/quests/emei_wanli_rain_umbrella.jpg` | `/assets/quests/emei_wanli_rain_umbrella.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第二幕 · 锦江烟雨共油伞<br>（`scene_em_02_wanli_bridge_rain`） | `16:9` |
 | `CG-QST-029` | `[ ]` 待补绘 | `public/assets/quests/emei_xixiang_moon_ape.jpg` | `/assets/quests/emei_xixiang_moon_ape.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第十五幕 · 洗象澄月白猿影<br>（`scene_em_15_xixiang_moon_ape`） | `16:9` |
 | `CG-QST-030` | `[ ]` 待补绘 | `public/assets/quests/emei_jinding_buddha_light.jpg` | `/assets/quests/emei_jinding_buddha_light.jpg` | `QST-SECT-07-ENTRY`<br>《锦水清音 · 金顶问心》 | 第十九幕 · 万仞云海睹佛光<br>（`scene_em_19_jinding_buddha_light`） | `16:9` |
+| `CG-QST-031` | `[ ]` 待补绘 | `public/assets/quests/shaolin_luoyang_bribe.jpg` | `/assets/quests/shaolin_luoyang_bribe.jpg` | `QST-SECT-01-ENTRY`<br>《嵩门问心 · 佛缘有价》 | 二百五金 · 暗通款曲<br>（`scene_shaolin_pay_broker`） | `16:9` |
+| `CG-QST-032` | `[ ]` 待补绘 | `public/assets/quests/shaolin_chore_induction.jpg` | `/assets/quests/shaolin_chore_induction.jpg` | `QST-SECT-01-ENTRY`<br>《嵩门问心 · 佛缘有价》 | 寒暑一载 · 始入禅林<br>（`scene_shaolin_chore_365_inducted`） | `16:9` |
+| `CG-QST-033` | `[ ]` 待补绘 | `public/assets/quests/tianbo_paifeng_iron_rod.jpg` | `/assets/quests/tianbo_paifeng_iron_rod.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 序章 · 汴京烧火棍<br>（`scene_tb_prologue_paifeng`） | `16:9` |
+| `CG-QST-034` | `[ ]` 待补绘 | `public/assets/quests/tianbo_wutai_staff_terrace.jpg` | `/assets/quests/tianbo_wutai_staff_terrace.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 石台现碑 · 舍身回马意<br>（`scene_tb_wutai_success`） | `16:9` |
+| `CG-QST-035` | `[ ]` 待补绘 | `public/assets/quests/tianbo_yanmen_muguiyun.jpg` | `/assets/quests/tianbo_yanmen_muguiyun.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 高地破骑 / 绝壁血战 · 降龙木令<br>（`scene_tb_yanmen_bloodbattle_win_adv` 等 2 幕） | `16:9` |
+| `CG-QST-036` | `[ ]` 待补绘 | `public/assets/quests/tianbo_yanan_diqing_cavalry.jpg` | `/assets/quests/tianbo_yanan_diqing_cavalry.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 绝境顿悟 · 回马破虏<br>（`scene_tb_yanan_win`） | `16:9` |
+| `CG-QST-037` | `[ ]` 待补绘 | `public/assets/quests/tianbo_ancestral_bawang_spear.jpg` | `/assets/quests/tianbo_ancestral_bawang_spear.jpg` | `QST_TIANBO_BAWANG`<br>《天波忠魂 · 霸王枪出》 | 霸王枪出 · 天波忠魂永传<br>（`scene_tb_epilogue`） | `16:9` |
+| `CG-QST-038` | `[ ]` 待补绘 | `public/assets/quests/changshan_blood_letter.jpg` | `/assets/quests/changshan_blood_letter.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 第一幕 · 龙胆血书<br>（`scene_cs_longling_opening`） | `16:9` |
+| `CG-QST-039` | `[ ]` 待补绘 | `public/assets/quests/changshan_marshal_smoke_escape.jpg` | `/assets/quests/changshan_marshal_smoke_escape.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 烟幕脱身 · 奔赴雁门<br>（`scene_cs_marshal_escape`） | `16:9` |
+| `CG-QST-040` | `[ ]` 待补绘 | `public/assets/quests/changshan_yanmen_cliff_stand.jpg` | `/assets/quests/changshan_yanmen_cliff_stand.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 第三幕 · 绝壁银枪<br>（`scene_cs_cliff_choice`） | `16:9` |
+| `CG-QST-041` | `[ ]` 待补绘 | `public/assets/quests/changshan_ancestral_silver_spear.jpg` | `/assets/quests/changshan_ancestral_silver_spear.jpg` | `QST_SECT22_LONGLING`<br>《白沟寒星 · 幽州无名卷》 | 第四幕 · 龙胆传薪<br>（`scene_cs_ancestral_confer`） | `16:9` |
+| `CG-QST-042` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_bao_secret_decree.jpg` | `/assets/quests/kf_murong1_bao_secret_decree.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第八幕 · 包公密授手谕令<br>（`scene_kf1_08_bao_decree`） | `16:9` |
+| `CG-QST-043` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_hanshan_bell_intercept.jpg` | `/assets/quests/kf_murong1_hanshan_bell_intercept.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第十五幕 · 钟楼暗格截残笺<br>（`scene_kf1_15_hanshan_clue`） | `16:9` |
+| `CG-QST-044` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_tingxiang_lantern.jpg` | `/assets/quests/kf_murong1_tingxiang_lantern.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第二十一幕 · 琴韵暗香遮耳目<br>（`scene_kf1_21_azhu_abi_cover`） | `16:9` |
+| `CG-QST-045` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_canhe_window_leap.jpg` | `/assets/quests/kf_murong1_canhe_window_leap.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第二十九幕 · 破窗跃水趁烟波<br>（`scene_kf1_29_escape_taihu`） | `16:9` |
+| `CG-QST-046` | `[ ]` 待补绘 | `public/assets/quests/kf_murong1_gold_badge_verdict.jpg` | `/assets/quests/kf_murong1_gold_badge_verdict.jpg` | `QST-SECT-17-MURONG-1`<br>《燕子坞暗影 · 姑苏密查》 | 第三十二幕 · 龙图嘉勉授金符<br>（`scene_kf1_32_kaifeng_verdict`） | `16:9` |
+| `CG-QST-047` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_secret_ledger_audit.jpg` | `/assets/quests/kf_murong2_secret_ledger_audit.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第五幕 · 密室点验百兵册<br>（`scene_kf2_05_secret_report`） | `16:9` |
+| `CG-QST-048` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_fanlou_roof_spy.jpg` | `/assets/quests/kf_murong2_fanlou_roof_spy.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第十五幕 · 樊楼屋脊擒北谍<br>（`scene_kf2_15_fanlou_chase`） | `16:9` |
+| `CG-QST-049` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_zichen_secret_edict.jpg` | `/assets/quests/kf_murong2_zichen_secret_edict.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第二十幕 · 龙图授旨命南巡<br>（`scene_kf2_20_bao_edict`） | `16:9` |
+| `CG-QST-050` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_huqiu_armor_cave.jpg` | `/assets/quests/kf_murong2_huqiu_armor_cave.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第二十五幕 · 试剑石畔破军藏<br>（`scene_kf2_25_huqiu_arms_cache`） | `16:9` |
+| `CG-QST-051` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_taihu_boat_gongye.jpg` | `/assets/quests/kf_murong2_taihu_boat_gongye.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第三十一幕 · 画舫拆招破刚柔<br>（`scene_kf2_31_gongye_defeated`） | `16:9` |
+| `CG-QST-052` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_canhe_yard_deng.jpg` | `/assets/quests/kf_murong2_canhe_yard_deng.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第三十八幕 · 破尽刚掌定演武<br>（`scene_kf2_38_deng_defeated`） | `16:9` |
+| `CG-QST-053` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_huanshi_ten_bouts.jpg` | `/assets/quests/kf_murong2_huanshi_ten_bouts.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第四十六幕 · 剑掌齐敛震水阁<br>（`scene_kf2_46_mutual_withdrawal`） | `16:9` |
+| `CG-QST-054` | `[ ]` 待补绘 | `public/assets/quests/kf_murong2_royal_guard_seal.jpg` | `/assets/quests/kf_murong2_royal_guard_seal.jpg` | `QST-SECT-17-MURONG-2`<br>《参合剑气 · 姑苏对质》 | 第五十二幕 · 丹墀授印御前卫<br>（`scene_kf2_52_imperial_promotion`） | `16:9` |
+| `CG-QST-055` | `[ ]` 待补绘 | `public/assets/quests/daming_linjin_tavern_standoff.jpg` | `/assets/quests/daming_linjin_tavern_standoff.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 第一幕 · 惊涛断索 · 临津剑拔弩张<br>（`scene_dm_tavern_confrontation`） | `16:9` |
+| `CG-QST-056` | `[ ]` 待补绘 | `public/assets/quests/daming_ouyang_chun_ferry.jpg` | `/assets/quests/daming_ouyang_chun_ferry.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 临河沽酒 · 紫髯伯识破北庭兵<br>（`scene_dm_ouyang_chun_axe`） | `16:9` |
+| `CG-QST-057` | `[ ]` 待补绘 | `public/assets/quests/daming_leitai_khitan_axes.jpg` | `/assets/quests/daming_leitai_khitan_axes.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 第二幕 · 寒斧惊沙 · 铁林露峥嵘<br>（`scene_dm_leitai_bout2`） | `16:9` |
+| `CG-QST-058` | `[ ]` 待补绘 | `public/assets/quests/daming_midnight_sandtable_ambush.jpg` | `/assets/quests/daming_midnight_sandtable_ambush.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 第三幕 · 子夜沙盘 · 铁壁合围<br>（`scene_dm_midnight_sandtable_climax`） | `16:9` |
+| `CG-QST-059` | `[ ]` 待补绘 | `public/assets/quests/daming_baji_official_choice.jpg` | `/assets/quests/daming_baji_official_choice.jpg` | `QST-CITY-DAMING-BAJI`<br>《铁锁镇河朔》 | 终幕 · 铁锁镇河朔 · 庙堂与江湖<br>（`scene_dm_sandtable_victory_choice`） | `16:9` |
+| `CG-QST-060` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_fanlou_bridge_duel.jpg` | `/assets/quests/babuganchan_fanlou_bridge_duel.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第三幕 · 飞桥夜影起杀机<br>（`scene_bbgc_03_fanlou_observe`） | `16:9` |
+| `CG-QST-061` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_zisheng_pagoda_wind.jpg` | `/assets/quests/babuganchan_zisheng_pagoda_wind.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第八幕 · 塔风初悟蝉蜕息<br>（`scene_bbgc_08_pagoda_insight`） | `16:9` |
+| `CG-QST-062` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_baimasi_ginkgo_steps.jpg` | `/assets/quests/babuganchan_baimasi_ginkgo_steps.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第十一幕 · 步步生莲试身法<br>（`scene_bbgc_11_qingshuang_trial`） | `16:9` |
+| `CG-QST-063` | `[ ]` 待补绘 | `public/assets/quests/babuganchan_bixi_moon_water.jpg` | `/assets/quests/babuganchan_bixi_moon_water.jpg` | `QST-ADV-BABUGANCHAN`<br>《秋蝉八步 · 汴洛遗踪》 | 第二十幕 · 夜雨碧溪悟八步<br>（`scene_bbgc_20_enlightenment`） | `16:9` |
+| `CG-QST-064` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_huqiu_shenkuo.jpg` | `/assets/quests/yanziwu_map_huqiu_shenkuo.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第五幕 · 千人石上截黑手<br>（`scene_yzw_map_05_huqiu_shenkuo_ambush`） | `16:9` |
+| `CG-QST-065` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_24bridge_cipher.jpg` | `/assets/quests/yanziwu_map_24bridge_cipher.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第十一幕 · 二十四桥参词隐<br>（`scene_yzw_map_11_24bridge_cipher`） | `16:9` |
+| `CG-QST-066` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_yangzhou_salt_arena.jpg` | `/assets/quests/yanziwu_map_yangzhou_salt_arena.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第十三幕 · 演武院中破铁爪<br>（`scene_yzw_map_13_salt_arena_battle`） | `16:9` |
+| `CG-QST-067` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_shitou_red_cliff.jpg` | `/assets/quests/yanziwu_map_shitou_red_cliff.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第二十幕 · 虎踞赤壁会焦堂<br>（`scene_yzw_map_20_shitou_cliff_showdown`） | `16:9` |
+| `CG-QST-068` | `[ ]` 待补绘 | `public/assets/quests/yanziwu_map_taihu_boat_unite.jpg` | `/assets/quests/yanziwu_map_taihu_boat_unite.jpg` | `QST-ADV-YANZIWU-MAP`<br>《烟波三叠 · 燕子坞水图》 | 第二十五幕 · 烟波浩渺开燕坞<br>（`scene_yzw_map_25_epilogue_unlock`） | `16:9` |
+| `CG-QST-069` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_huqiu_compass.jpg` | `/assets/quests/taohuadao_map_huqiu_compass.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第八幕 · 云岩塔下截海鬼<br>（`scene_thd_map_08_huqiu_pagoda_battle`） | `16:9` |
+| `CG-QST-070` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_wansong_bisheng.jpg` | `/assets/quests/taohuadao_map_wansong_bisheng.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第十二幕 · 活字胶泥参暗版<br>（`scene_thd_map_12_academy_bisheng_cipher`） | `16:9` |
+| `CG-QST-071` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_qiantang_qin_tide.jpg` | `/assets/quests/taohuadao_map_qiantang_qin_tide.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第十八幕 · 观潮琴台听海拍<br>（`scene_thd_map_18_tide_pavilion_qu`） | `16:9` |
+| `CG-QST-072` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_dock_shark_boss.jpg` | `/assets/quests/taohuadao_map_dock_shark_boss.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第二十幕 · 演武船坞会狂鲨<br>（`scene_thd_map_20_port_dock_showdown`） | `16:9` |
+| `CG-QST-073` | `[ ]` 待补绘 | `public/assets/quests/taohuadao_map_wanghu_silk_chart.jpg` | `/assets/quests/taohuadao_map_wanghu_silk_chart.jpg` | `QST-ADV-TAOHUADAO-MAP`<br>《碧海潮信 · 东海桃源图》 | 第二十五幕 · 碧海乘潮启桃源<br>（`scene_thd_map_25_epilogue_unlock`） | `16:9` |
 
 ---
 
@@ -615,6 +658,823 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration with subtle gold-leaf accents, wide cinematic 16:9 composition. Magnificent dawn atop the Golden Summit (金顶睹光台) of Mount Emei around 1050 AD, overlooking an endless surging sea of white clouds far below. In the glowing morning mist over the cloud sea appears the sacred circular rainbow halo of Emei Buddha's Light (佛光宝光), while snow-dusted Song-style bronze temple eaves gleam warmly behind. On the cliffside stone terrace, the venerable Emei Abbess (Yunhui Shitai, serene elderly Buddhist nun in dignified saffron-grey monastic robes holding prayer beads) stands before the balustrade, flanked by a tall stern senior nun carrying a sword on her back (Jingxuan Shitai) and the graceful celadon-robed swordswoman (Su Mengqing). Facing them in the foreground from a respectful three-quarter back view (gender-neutral youthful martial traveler in neat robes), the protagonist bows with clasped hands in solemn oath. Grand Northern Song court painting aesthetics, mineral pigments, awe-inspiring spiritual wuxia atmosphere, no modern elements, no text or characters.
+  ```
+
+---
+
+### 31. `CG-QST-031`：洛阳天津酒楼 · 二百五金暗通嵩门图
+
+- **关联文件**：[`src/data/quests/sects/shaolinEntryQuest.ts`](../src/data/quests/sects/shaolinEntryQuest.ts)
+- **目标路径**：`public/assets/quests/shaolin_luoyang_bribe.jpg`
+- **画框题跋**：`洛水天津酒楼 · 二百五十两纹银托牙人暗通嵩门香火`
+- **剧情语境**：
+  - 少林山门清规森严，俗家子弟若非身负清白出身、抑或肯在少室山门前苦役一载，寻常人根本无缘入室。主角行至洛阳府【洛水天津酒楼】，结识市井包打听牙人【贾通宝】。
+  - 雅座临窗，贾通宝捻须伸掌比出“二百五十两”之数（二百两知客院香火孝敬加五十两往返盘缠），主角郑重将沉甸甸的银锭木匣推过酒案，暗通入寺门路。
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年北宋西京洛阳洛水天津酒楼二层临窗雅座，窗外可见石桥横卧碧绿洛水与垂柳青帆，室内陈设宋式矮背木椅、黑漆长案与青瓷酒壶。
+  2. **主体人物**：酒案一侧坐着留两撇八字短须、着褐黄布衣腰系算盘袋的精明市井牙人（贾通宝），正眉开眼笑伸出五指、一手悄悄探向案中敞开的银锭木匣；对面微侧背影的年轻主角（布衣劲装，身形中性干练）按案将一匣整整齐齐的五十两雪白官银推上前去。
+  3. **氛围隐喻**：晨光透窗照亮银锭冷辉，将江湖“有钱可使鬼推磨”的世俗烟火气与清修禅林形成辛辣又写实的对比。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Second-floor private alcove of a riverside tavern in Luoyang around 1050 AD, open lattice wooden windows overlooking stone arch bridges, willow trees, and sailing boats on the Luo River. At a dark lacquered table with a celadon wine ewer and bowls sits a shrewd Song urban broker in ochre-brown plain robes with a slim mustache, smiling slyly while holding up five fingers and reaching toward an open wooden chest gleaming with cast silver ingots. Across from him in the foreground from a three-quarter back view sits a resolute young martial traveler in modest traveling attire pushing the chest of silver forward. Authentic Song dynasty Qingming Shanghe Tu style interior details, rich mineral pigments, warm daylight, no Qing attire, blank tavern banners and wine pennants with no text or characters.
+  ```
+
+---
+
+### 32. `CG-QST-032`：嵩山少林大雄宝殿 · 寒暑一载拜入禅林图
+
+- **关联文件**：[`src/data/quests/sects/shaolinEntryQuest.ts`](../src/data/quests/sects/shaolinEntryQuest.ts)
+- **目标路径**：`public/assets/quests/shaolin_chore_induction.jpg`
+- **画框题跋**：`嵩山少林寺大雄宝殿 · 寒暑一载苦役满期拜受僧衣齐眉棍`
+- **剧情语境**：
+  - 贫寒立志路线的主角拒绝以金银买路，在少室山门外挑水劈柴、扫雪除阶整整熬满三百六十五个日夜，双手磨出厚茧而心志如铁。
+  - 知客禅师【玄净】核验功课簿后引其入【大雄宝殿】，伏虎方丈【玄慈】亲立佛前温言嘉许，颁赐灰麻僧衣、芒鞋与白蜡齐眉棍，正式录为少林外门俗家弟子。
+- **画面核心要素**：
+  1. **环境氛围**：宋代嵩山少林寺大雄宝殿殿宇庄严，朱漆斗拱廊柱高耸，殿外可见松雪初融与石阶水井轮廓，大殿正中金身古佛香烟袅袅，红烛微明。
+  2. **主体人物**：丹墀香案前，慈善威仪的少林方丈（玄慈大师，披暗红旧衲袈裟、面相悲悯厚重）双手捧起一套折叠整齐的灰麻僧衣、草编芒鞋与一根通体莹润的七尺白蜡木齐眉棍；旁侧知客禅师（玄净，灰布僧袍合十微笑）肃立；殿前主角以沉稳背影双手合十屈膝恭接，手掌关节隐约可见一年劳作磨出的厚茧痕迹。
+  3. **宋画神韵**：佛殿庄严沉静、暖烛与青灰石砖冷暖相衬，凸显“苦行磨心、水到渠成”的武林禅宗气象。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Inside the solemn Great Hero Hall of Shaolin Monastery on Mount Song around 1050 AD, soaring vermilion timber pillars, carved Song brackets, rising sandalwood incense smoke, and lingering snow visible on stone steps outside the open temple doors. Before a dimly gleaming golden Buddha statue and bronze censers, the venerable Shaolin Abbot (Xuanci, dignified elder monk in layered crimson-ochre monastic patchwork kasaya) warmly presents folded grey coarse hemp robes, straw sandals, and a smooth white waxwood eyebrow-height quarterstaff. Standing nearby is a grey-robed guest-master monk clasping his palms in approval. In the foreground from a respectful three-quarter back view, the hardy young protagonist with calloused hands kneels slightly to receive the robes and staff. Authentic Song court religious painting brushwork, serene mineral tones, blank temple plaques with no text or characters.
+  ```
+
+---
+
+### 33. `CG-QST-033`：汴京西坊演武拳馆 · 杨排风铁箸试棍图
+
+- **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
+- **目标路径**：`public/assets/quests/tianbo_paifeng_iron_rod.jpg`
+- **画框题跋**：`汴京西坊演武拳馆 · 杨排风横执烧火铁箸考校三十六路棍`
+- **剧情语境**：
+  - 皇祐二年汴京西坊演武拳馆外，铁砂桩与三百斤青石锁整齐排列。曾随佘太君出征天门阵的老女将【杨排风】（时年花甲仍腰背笔挺）正守望天波旧宅。
+  - 闻主角愿习天波枪法为北疆分忧，杨排风目露赞许却不肯轻放过关，当场随手抄起乌黑沉重的【天波烧火铁箸】，在场中演起三十六路少林烧火棍，考校主角枪棍底子。
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年东京汴梁西坊青砖露天演武拳馆，院内列有练力青石锁、铁砂梅花木桩、兵器木架，远景可见汴梁民居灰瓦檐角与槐树新芽。
+  2. **主体人物**：校场中央，年逾五旬却双眸犀利、身手矫健的女统制（杨排风，盘发插铁簪、着利落玄青束袖劲装，外罩半旧铁叶护腰）单足踏定，双手斜横一根三尺余长的乌黑沉铁烧火棍，随手一挑竟将地上数百斤青石锁震起半尺尘埃；前方年轻主角抱拳弓步立定（微侧背影），严阵以待接招。
+  3. **动态力量**：铁箸破空隐现凛冽风压与扬起的细沙微尘，写出天波杨府“灶下女将亦能扫平北虏”的豪烈家风。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Courtyard of a martial arts training hall in western Bianliang (Kaifeng) around 1050 AD, lined with heavy carved stone weight-locks, iron-sand training posts, wooden weapon racks, and Song-style grey-tile courtyard roofs under crisp early-spring light. At the center stands a formidable 55-year-old female military veteran (Yang Paifeng, silver-streaked hair tied firmly in a tight bun, wearing practical dark indigo Song narrow-sleeve martial attire with a weathered leather-and-iron waist guard), gripping a heavy black iron stove-poker quarterstaff with which she effortlessly flicks a massive stone weight-lock off the flagstones in a burst of dust. Facing her in the foreground from a three-quarter back view, a steady young martial artist takes a low spear-fighting stance with bare hands ready to receive her test. Crisp realistic Song brushwork, dynamic grit and weight, zero modern objects, blank banners with no text or characters.
+  ```
+
+---
+
+### 34. `CG-QST-034`：五台山清凉石台 · 漫雪破双棍悟回马图
+
+- **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
+- **目标路径**：`public/assets/quests/tianbo_wutai_staff_terrace.jpg`
+- **画框题跋**：`五台山杨五郎演棍石台 · 漫天飞雪破双棍顿悟舍身回马意`
+- **剧情语境**：
+  - 主角携天波铁箸远赴晋北五台山清凉寺【杨五郎演棍石台】，正值鹅毛大雪纷飞。明安大师与清凉护法高僧双棍合击当头劈落，封死主角全部退路。
+  - 生死一刹，主角扫清石台青苔下所见的五郎残碑刻痕陡然入心——竟不闪不避拧腰反刺，长枪倒拖一寸回刺棍梢三寸之内，气劲将积雪震开一道深沟，当场顿悟杨家“向死而生”的【舍身回马枪意】。
+- **画面核心要素**：
+  1. **环境氛围**：晋北五台山苍茫群峰与青翠寒松之间的高耸古石台，后方可见清凉寺飞雪覆瓦的宋式山门红墙，石台一角半埋积雪的古石碑上隐约可见被枪锋扫去青苔的浅浅刻痕（不出现可读字形）。
+  2. **主体人物**：漫天狂卷的雪幕中心，年轻主角左肩微擦僧棍劲风，腰脊如大弓猛然拧转，长枪顺势由腋下反手倒拖回刺，两点枪尖寒星凌厉点止在前方灰袍执棍老僧（明安大师）降魔铜铁棍梢前数寸，劲风将四周脚下积雪激成扇形深沟；另一名护寺武僧在侧收步震愕。
+  3. **禅武意境**：冷青雪色山水与破空银枪锐气形成极强冲击，定格“退无可退、便即回马”的瞬间顿悟。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color landscape-action illustration, wide cinematic 16:9 composition. High snowy stone training terrace outside Qingliang Monastery on Mount Wutai around 1050 AD, jagged winter cliffs, snow-laden pines, an ancient moss-and-snow covered stone monument nearby, and swirling blizzard flakes. In the center of the stone platform, a young spear-fighter pivots dynamically mid-stride, twisting their torso backward to unleash a sudden reverse backhand spear thrust that halts inches from the iron-ringed staff of a shocked senior grey-robed martial monk (Master Ming'an), while a second temple guard monk steps back in astonishment; the sheer spear-qi carves a clean deep furrow through the thick snow across the flagstones. Dynamic snow swirls, Fan Kuan style monumental mountains behind, authentic Song dynasty mineral blue-white and ink brushwork, blank stone stele with no text or characters.
+  ```
+
+---
+
+### 35. `CG-QST-035`：雁门关乱石绝壁 · 联手穆桂云破契丹重骑图
+
+- **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
+- **目标路径**：`public/assets/quests/tianbo_yanmen_muguiyun.jpg`
+- **画框题跋**：`雁门关外乱石绝壁 · 联手穆桂云大破契丹重骑受赠降龙木令`
+- **剧情语境**：
+  - 雁门关外乱石绝壁粮道告急，主角于险坡伏击截杀企图劫粮的大辽先锋统领【萧铁古】与契丹铁林重骑百夫长。
+  - 作战之中，穆柯寨出身的女将【穆桂云】（`NPC-0253`）披甲挽雕弓执梨花长枪从旁策应死战，主角正面斩落萧铁古破敌重骑，战罢两人在风雪关前并骑收兵，受赠【穆柯降龙木令】。
+- **画面核心要素**：
+  1. **环境氛围**：塞北雁门关外乱石峭壁与蜿蜒覆雪古栈道，远处关墙雄峙、代州城楼烽燧微烟与战鼓隐现，山坡上散落倾覆的契丹盾牌与战旗。
+  2. **主体人物**：左侧风雪高坡之上，英姿飒爽的宋将女侠（穆桂云，身披银线宋式山文细铠、肩披大红斗篷、马鞍挂满羽雕弓囊，手持梨花长枪正扬手收势，脸上带着血渍与豪爽笑意，并将一块雕有盘龙纹的暗褐沉香木令递来）；前景右侧骑在枣红战马上的主角（微侧背影视角）缓缓收枪，马下不远处正倒伏着坠马重甲契丹将领萧铁古与溃散铁骑背影。
+  3. **金戈诗意**：大红斗篷与冷白风雪强烈对比，把北疆儿女并肩破虏的炽热战友情怀跃然纸上。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color battle illustration, wide cinematic 16:9 composition. Rugged snow-dusted boulder pass outside the fortified mountain ramparts of Yanmen Pass around 1050 AD, distant watchtower signal smoke rising into cold slate skies, scattered iron-studded Khitan shields and broken banners on the snowy trail. On a rocky slope in the center-left, heroic Song female commander Mu Guiyun—clad in gleaming Song lamellar chest armor over crimson cloak, pheasant plumes omitted for realistic Song helmet, bow quiver at her saddle and pearl-flower spear in one hand—reins in her warhorse with sweat and snow on her cheek, handing over a carved dragon-wood command tally to the mounted young protagonist (seen from a heroic three-quarter back view lowering a long steel spear). Below on the snowy pass, fallen heavy-armored Khitan cavalry vanguard commanders lie defeated as enemy riders retreat northward. Authentic Song military armor, dramatic red-on-snow contrast, blank banners with no text or characters.
+  ```
+
+---
+
+### 36. `CG-QST-036`：延安鄜延边军营 · 随铜面狄青回马破铁鹞子图
+
+- **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
+- **目标路径**：`public/assets/quests/tianbo_yanan_diqing_cavalry.jpg`
+- **画框题跋**：`延安鄜延边军大营 · 随铜面狄青并骑死战绝命回马枪破铁鹞子`
+- **剧情语境**：
+  - 延安府鄜延边军前线遭西夏精锐重骑“铁鹞子”连环强袭，主角随披发戴青铜面具、执大刀的【狄青】（`NPC-0031`）迎战敌酋【漫咩】与【努儿海】。
+  - 座下战马被逼入黄土沟壑之际，主角于生死电光火石间将五台山与雁门关所悟尽数融为一击——骤然伏鞍倒拖长枪反手刺出一记【绝命回马枪】，一枪击碎努儿海护心铁镜，震慑西夏铁骑。
+- **画面核心要素**：
+  1. **环境氛围**：陕北延安府鄜延黄土沟壑与边军大营木栅壕堑，黄沙大风裹挟着狼烟与飞雪席卷荒原，四周可见黑甲连环的西夏铁鹞子重骑轮廓。
+  2. **主体人物**：画面中央烈马狂奔扬蹄溅起黄沙尘浪：年轻主角（背微低俯伏马背）拧腰回眸，反手将一杆长枪由右肋如流星倒刺而出，枪尖爆出璀璨银星，正正贯破背后紧追扑砍而来的西夏一品堂强将（努儿海，戴尖顶毡铁盔、挥血色弯刀）胸前轰然炸裂的青铜护心铁镜；身侧数丈外，披散长发、面戴青铜鬼面狰狞甲冑、身披大宋战甲的狄青正双手挥大刀力劈另一西夏大将漫咩，气势如天神下凡。
+  3. **动作爆发**：极致的纵马回身刺击透视张力，堪称北宋边关骑战史诗定格。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic cavalry action painting, wide cinematic 16:9 composition. Wind-swept yellow loess ravines and timber palisades of the Yan'an Fuyan frontier military camp around 1050 AD, dust storms mixing with sparse snow under smoky skies. In dynamic galloping foreground motion, the young martial protagonist leans low along a charging warhorse's neck, twisting back to thrust a long spear in a lightning reverse back-mounted strike (Hui Ma Qiang) whose blazing silver point shatters the bronze chest mirror-plate of a pursuing Western Xia heavy-armored "Iron Hawk" knight swinging a curved saber. Beside them in the mid-ground, legendary Song general Di Qing—unbraided flowing hair beneath a fearsome sculpted bronze battle mask, Song iron-scale armor billowing—slashes back a second heavy Western Xia commander with a broad war dao. Explosive motion, flying sparks and desert dust, authentic 1050 AD Song and Tangut armor, blank war banners with no text or characters.
+  ```
+
+---
+
+### 37. `CG-QST-037`：太原天波杨家祠 · 雪霁冬阳亲授霸王枪谱图
+
+- **关联文件**：[`src/data/quests/sects/tianboBawangQuest.ts`](../src/data/quests/sects/tianboBawangQuest.ts)
+- **目标路径**：`public/assets/quests/tianbo_ancestral_bawang_spear.jpg`
+- **画框题跋**：`太原天波杨家旧祠 · 雪霁冬阳杨文广于令公灵前亲授霸王枪谱`
+- **剧情语境**：
+  - 经历汴京、五台、雁门、鄜延四重洗礼归来，主角在太原府天波杨家旧祠正院力战【杨文广】十合不败、双枪交错震落梁尘。
+  - 雪霁初晴、冬阳照亮太行群峰与宗祠飞檐之际，杨文广于杨令公灵位前郑重捧出金丝锦缎包裹的《杨家霸王枪》秘谱与绣着赤金纹样的【天波忠烈令旗】，杨排风、呼延庆、穆桂云并在廊前微笑见证。
+- **画面核心要素**：
+  1. **环境氛围**：河东太原天波杨家百年古祠敞亮正堂与雪后初霁的石阶庭院，门外远眺银装素裹如长龙蜿蜒的太行山脉，冬日金阳斜照入祠堂，朱红供案上高烧香烛供奉杨令公与七郎八虎素洁神主牌位（无可读乱码文字）。
+  2. **主体人物**：供案前，风度轩昂、身披锦袍罩轻甲的杨家少帅（杨文广，刚收起手中透甲金枪）双手郑重托举着一卷金丝织锦包裹的古老兵书《霸王枪谱》及一面赤金流苏令旗；前景单膝虔诚跪拜的年轻主角（背微挺直如松，男女兼容轮廓）双手高举恭敬接取；祠堂门口左右站着抚掌笑望的老女将杨排风、英姿勃勃的穆桂云与魁梧武将呼延庆，亲兵在一旁抬入几箱闪亮官银赏箱。
+  3. **史诗余韵**：雪后初晴的澄澈金光将百年满门忠烈的沧桑悲壮化作薪火永传的温暖明亮。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Inside the ancestral hall of the Yang Clan in Taiyuan around 1050 AD right after a heavy snowfall has cleared, warm winter sunlight streaming across stone thresholds while snowy Taihang mountain peaks glitter outside the open wooden gates. Before an ancestral altar glowing with tall candles and blank wooden spirit tablets, handsome Song general Yang Wenguang (ceremonial crimson robe beneath light Song scale armor) solemnly presents a golden-brocade wrapped martial manual scroll and a crimson-and-gold command pennant to the kneeling protagonist in the foreground (seen from a respectful three-quarter back view). Watching warmly near the courtyard pillars stand veteran matriarch Yang Paifeng, female general Mu Guiyun, and stalwart general Huyan Qing beside wooden chests of military silver. Reverent imperial Song aesthetics, warm winter gold and crimson mineral tones, zero garbled text on plaques or banners.
+  ```
+
+---
+
+### 38. `CG-QST-038`：真定常山宗祠 · 寒夜雨声验龙胆血书图
+
+- **关联文件**：[`src/data/quests/sects/changshanLonglingQuest.ts`](../src/data/quests/sects/changshanLonglingQuest.ts)
+- **目标路径**：`public/assets/quests/changshan_blood_letter.jpg`
+- **画框题跋**：`真定常山龙胆宗祠 · 冬夜寒雨验悯忠寺铜牌与南牧血书`
+- **剧情语境**：
+  - 皇祐二年冬末夜雨寒冽，常山演武堂早早落闩，唯宗祠正堂内两盏牛油巨烛照亮汉顺平侯牌位。
+  - 掌门【赵括苍】按剑危坐太师椅，真定边军都监【郭逵】玄甲未卸肩头犹带雨珠，演武首座【凌寒】托出紫檀木盘揭开油纸——显露出染着干涸鲜血的幽州悯忠寺莲纹铜牌与半幅血字麻布密报，急遣主角化身无名客北潜析津府销毁辽军《南牧山川策》。
+- **画面核心要素**：
+  1. **环境氛围**：真定府常山龙胆宗祠青砖古堂冬夜密室，窗外夜雨敲打屋瓦，堂内唯有两支粗如儿臂的牛油红烛摇曳出暖橘冷青交错的光影，后方供桌奉有古代银甲武将画像与顺平侯香案。
+  2. **主体人物**：太师椅上按剑危坐的白须瘦劲老掌门（赵括苍，深灰武服面沉如铁）；左侧身披滴水玄黑铁甲、肩甲犹湿的边军武将（郭逵）；右侧演武首座（凌寒，青衫短须）双手捧着紫檀木盘，盘中揭开的油纸上静静放着一枚古铜莲纹圆牌与一截浸透暗红血痕的麻布帛书；前景年轻主角俯首凝视血书，准备领命孤身北行。
+  3. **悬疑张力**：幽暗巨烛投射长长壁影，奠定“白沟寒星之下，万事唯无名二字”的暗战基调。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Midnight council inside an ancient timber ancestral martial hall in Zhending Prefecture around 1050 AD while cold winter rain slashes across dark courtyard eaves visible through lattice doors. Two massive tallow candles flicker before an altar bearing an antique warrior portrait and bronze brazier. Seated solemnly gripping a sheathed sword is white-bearded sect master Zhao Kuocang; standing left in rain-glistening dark iron Song lamellar frontier armor is border commander Guo Kui; standing right is senior instructor Ling Han holding a carved sandalwood tray displaying an oiled-paper parcel with an oxidized bronze lotus token and a bloodstained coarse hemp cloth message. In the foreground from a three-quarter back view, the young protagonist examines the bloodstained relics intently. Chiaroscuro Song candlelight, cold midnight rain tones, zero modern items, zero text or characters on scrolls or plaques.
+  ```
+
+---
+
+### 39. `CG-QST-039`：辽南京元帅府 · 焚毁山川策霹雳烟幕突围图
+
+- **关联文件**：[`src/data/quests/sects/changshanLonglingQuest.ts`](../src/data/quests/sects/changshanLonglingQuest.ts)
+- **目标路径**：`public/assets/quests/changshan_marshal_smoke_escape.jpg`
+- **画框题跋**：`辽南京兵马元帅府 · 焚毁南牧山川策正本借霹雳烟幕突围`
+- **剧情语境**：
+  - 析津府（辽南京）兵马元帅府签押房暗夜死战，辽南京武林统制【萧远风】的镔铁长枪重如山岳，主角虎口震裂苦苦支撑四合。
+  - 千钧一发之际，东侧马厩轰然爆起冲天火柱，三枚裹着硫磺硝石的霹雳烟幕弹撞破窗棂炸开滚滚浓黑烟雾，吞没签押房火盆中化作飞灰的《南牧山川策》正本；郭逵在矮墙外接应两匹乌骓快马，主角且战且退翻墙突围奔向雁门关。
+- **画面核心要素**：
+  1. **环境氛围**：大辽析津府森严的元帅府高墙院落深夜，远处东侧马厩正腾起赤红烈焰火柱，签押房窗棂木屑四溅破碎，翻卷出遮天蔽日的灰黑浓烟与火星。
+  2. **主体人物**：浓烟边缘，虎口渗血、身手矫健的主角一手握紧滴血长枪虚晃一枪，一手甩出霹雳火弹翻跃矮墙；房内破碎窗洞中正映出气急败坏、魁梧披甲举镔铁长枪破烟狂追的契丹强将（萧远风）剪影与化为灰烬飞散的卷轴残片；矮墙外暗巷，身着便衣的郭逵已拉好两匹蓄势待发的乌骓快马急呼策应。
+  3. **动作氛围**：火光冲天、黑烟蔽月、飞灰乱舞，将潜行焚图后的生死大逃亡拍出电影级动感。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color nocturnal action painting, wide cinematic 16:9 composition. Nighttime ambush and escape over the dark brick courtyard wall of the Liao Southern Capital Marshal's Compound in Xijinfu around 1050 AD. In the background, roaring orange flames erupt from the eastern stables while three sulfur thunder-smoke bombs explode through shattered wooden lattice windows, filling the study with thick billowing black smoke and burning scroll ashes. Vaulting backward cleanly over the tiled perimeter wall amidst swirling sparks, the young hero with bloodstained knuckles clutches a long spear while behind the smoke-choked window the furious silhouette of Liao commander Xiao Yuanfeng charges forward with a heavy wrought-iron lance. Below the outer wall in darkness, disguised officer Guo Kui holds two waiting black warhorses ready to gallop west. High-contrast firelight and dark indigo night, authentic Song-Liao architecture, zero modern items, zero text.
+  ```
+
+---
+
+### 40. `CG-QST-040`：雁门乱石绝壁 · 孤枪横绝截铁林追骑图
+
+- **关联文件**：[`src/data/quests/sects/changshanLonglingQuest.ts`](../src/data/quests/sects/changshanLonglingQuest.ts)
+- **目标路径**：`public/assets/quests/changshan_yanmen_cliff_stand.jpg`
+- **画框题跋**：`雁门关外乱石绝壁 · 朔风黄沙横枪死截萧远风铁林追骑`
+- **剧情语境**：
+  - 经过五百里昼夜狂奔，大宋雁门关烽火台与箭楼火把已近在眼前，然而身后山道黄沙滚滚、雪屑崩飞——萧远风亲率大辽北院铁林重骑在乱石绝壁狭口截断归路。
+  - 为了护送身怀《南牧山川策》副本的郭逵与幽州遗老冲入关内，主角独自横枪矗立于窄如羊肠的乱石隘口正中，一人面对如乌云压顶的百战契丹铁林骑兵。
+- **画面核心要素**：
+  1. **环境氛围**：极度压迫感的狭窄峡谷一线天绝壁，头顶狂风卷起黄沙与残雪，后方高处遥遥可见雁门关灰青城楼垛口与渐次点亮的宋军守军火把，前路则为幽暗陡峭的山道。
+  2. **主体人物**：构图采取“一夫当关”的极简孤胆张力——狭口最窄处近景是一个背对关墙、面迎漫天黄沙与数百黑甲敌骑的瘦削孤影（主角双足如钉楔入雪岩、长枪横斜护住咽喉，衣衫破损猎猎飞扬）；正前方十丈开外，左眉一道狰狞长疤直贯耳根、身披乌金双层铁甲的萧远风纵马挺镔铁长枪率黑压压铁林骑军阵如黑浪压顶冲来，双方气势隔空对峙。
+  3. **悲壮气魄**：致敬常山先祖“一身是胆”，苍凉塞外山水反衬一人一枪截断千军的气吞山河。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color heroic standoff painting, wide cinematic 16:9 composition. A perilously narrow rocky gorge pass outside Yanmen Pass around 1050 AD, towering jagged cliffs on both sides while swirling wind whips yellow grit and dry snow through the canyon. Distant behind the hero rise the grey ramparts and lit signal-torches of the Song border fortress. Standing completely alone in the center of the snowy bottleneck trail (seen from behind in dynamic low-angle wide shot), the solitary young spear-fighter plants both feet firmly in the rock, tattered cloak whipping in the gale while bracing a steel spear horizontally. Bearing down just ahead like a dark iron tide is a squadron of heavy-armored Khitan Tielin cavalry led by fierce commander Xiao Yuanfeng—bearing a long scar from left eyebrow to ear—lowering a thick wrought-iron lance. Epic contrast of one defiant upright figure against an overwhelming armored wall, Fan Kuan mountain grandeur, zero text.
+  ```
+
+---
+
+### 41. `CG-QST-041`：常山顺平侯祠 · 启紫檀匣授龙胆亮银枪图
+
+- **关联文件**：[`src/data/quests/sects/changshanLonglingQuest.ts`](../src/data/quests/sects/changshanLonglingQuest.ts)
+- **目标路径**：`public/assets/quests/changshan_ancestral_silver_spear.jpg`
+- **画框题跋**：`常山演武堂顺平侯祠 · 启紫檀枪匣亲授常山龙胆亮银枪`
+- **剧情语境**：
+  - 焚毁南牧图、绝壁断铁林凯旋归宗，常山演武堂宗祠正堂燃起三牲九礼高香与两列明旺火盆，全堂弟子肃立无声。
+  - 掌门【赵括苍】于汉顺平侯赵云神龛前亲启八尺黑漆紫檀长匣，将三棱透骨、寒芒耀眼的镇派神兵【常山龙胆亮银枪】与油布红绸裹封的古本《岳氏沥泉枪前谱》亲授单膝跪受的主角，郭逵、凌寒与神箭白烈山分列见证并佩授举荐官信。
+- **画面核心要素**：
+  1. **环境氛围**：白昼肃穆清朗的常山演武堂宗祠正殿，高香缭绕，堂中排列十余名整肃观礼的内堂蓝白劲装弟子，正前方供奉着汉将白袍持枪古画神龛与三牲铜鼎。
+  2. **主体人物**：神龛青石高阶前，白须掌门赵括苍双手托着刚刚开启的八尺紫檀枪匣与红绸包裹的绢本古谱，匣内【常山龙胆亮银枪】通体如霜雪凝银、三棱枪刃射出一道清冽寒光；主角（单膝虔诚跪拜的挺拔背影）双手平举恭迎；旁侧玄甲边军都监郭逵手捧盖有红蜡大印的举荐信笺、演武首座凌寒与背大弓的老猎户侠客白烈山含笑拱手相贺。
+  3. **传承礼仪**：从暗夜血书的压抑到正大光明的宗门传薪，银枪冷芒与火盆红焰共映“白沟寒星，龙胆常山”。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color ceremony illustration, wide cinematic 16:9 composition. Bright solemn ancestral courtyard hall of Changshan Spear Sect in Zhending around 1050 AD, flanked by rows of disciplined martial disciples in neat indigo-and-white Song training robes beside glowing iron braziers and tall incense burners before a shrine holding a classical painting of an ancient white-robed general. Standing before the shrine steps, elder sect master Zhao Kuocang opens a sleek eight-foot black-lacquered rosewood chest revealing the radiant, frost-bright silver steel blade and shaft of the heirloom Changshan Dragon-Gall Silver Spear alongside a crimson-silk wrapped antique manual scroll. In the foreground, the kneeling protagonist reverently raises both hands to accept the weapon, witnessed proudly by armored officer Guo Kui holding a stamped recommendation letter, instructor Ling Han, and veteran archer Bai Lieshan carrying a recurve horn bow. Crisp ceremonial lighting, lustrous silver and crimson mineral pigments, blank altar plaques with no text.
+  ```
+
+---
+
+### 42. `CG-QST-042`：开封府升堂殿 · 包拯夕照亲书密谕遣南查图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
+- **目标路径**：`public/assets/quests/kf_murong1_bao_secret_decree.jpg`
+- **画框题跋**：`开封府衙升堂正殿 · 包拯夕照下亲书十六字素笺密谕遣南查`
+- **剧情语境**：
+  - 开封府衙升堂正殿夕阳西沉、余晖穿透长廊门扉，将“明镜高悬”高匾映得庄严沉肃。黑脸开封府尹【包拯】屏退闲杂衙役，与师爷【公孙策】及南侠【展昭】密议姑苏慕容氏私通辽夏、盗运军械疑案。
+  - 包拯亲提紫毫在无印素笺上写下「暗访姑苏，查实即返；保全其身，切勿打草」十六字密谕，并随同暗银小印亲手交付两年历练沉稳的主角，令其便衣南下姑苏。
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年北宋东京开封府衙升堂正殿，残阳琥珀色余晖斜射入堂内，照亮公案朱漆巨柱、堂侧仪仗肃静木牌（皆留白无字）与后方三口铜铡局部轮廓。
+  2. **主体人物**：公案之后，年近五旬、头戴宋制长翅平脚黑幞头、身着紫红绯袍玉带、面色黑沉方正、额微蹙、目光锐利的包拯（包青天）正倾身将刚墨干的折叠素笺与一枚古朴暗银小印递向案前；公案左侧站着青衫儒雅握折扇羽扇的公孙策；右侧站着大红官袍（或四品劲服）、手按巨阙宝剑神色关切的御前带刀护卫展昭；前景主角身穿干练六扇门青玄捕快差服躬身双手敬接。
+  3. **庙堂质感**：皇祐法度正气与绝密暗访前的沉郁晚照相融，再现宋代公府严谨仪轨。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color court drama illustration, wide cinematic 16:9 composition. Late afternoon sunset golden rays slanting into the majestic main tribunal hall of Kaifeng Prefecture around 1050 AD, illuminating towering vermilion columns, official bamboo staves, and the cold bronze glints of courtroom execution guillotines standing silently in the background. Behind the grand lacquered magistrate desk sits righteous Prefect Bao Zheng—stern dark-skinned noble features, wearing authentic Song flat-winged black futou official hat and deep purple-crimson Song court robes—leaning forward to hand a folded plain white secret note and a small matte-silver seal across the desk. Standing left is scholar-advisor Gongsun Ce in serene teal robes; standing right is gallant Red-Robed Guard Zhan Zhao with hand resting on his straight sword hilt. Facing the desk from a respectful three-quarter back view stands the young Six-Doors constable protagonist receiving the secret order with both hands. Authentic Song official attire (no Qing dynasty hats or queues), blank overhead plaques with zero text or characters.
+  ```
+
+---
+
+### 43. `CG-QST-043`：姑苏寒山寺钟楼 · 子夜袖石灭烛截竹筒图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
+- **目标路径**：`public/assets/quests/kf_murong1_hanshan_bell_intercept.jpg`
+- **画框题跋**：`姑苏枫桥寒山寺古钟楼 · 子夜袖石灭烛截获参合庄甲械竹筒`
+- **剧情语境**：
+  - 夜半子时姑苏寒山寺钟声已歇、月影透窗。主角悄然潜入高耸木构的【寒山寺古钟楼】，正见两名黑衣汉子鬼祟蹲在巨大铜钟底座旁撬开松动青砖，自暗格取出蜡封竹筒。
+  - 主角毫不犹豫指尖弹出袖石击灭其火折光亮，旋即从古钟横梁上如青烟掠下，一掌一肘三两招按翻二人、截获写着「冬至前十日，太湖烟波渡口……包三、风四亲迎」的参合庄密信。
+- **画面核心要素**：
+  1. **环境氛围**：江南苏州枫桥寒山寺古色古香的高层全木结构钟楼内景，悬梁中央吊挂着一尊巨大古铜梵钟（表面浮雕莲花云纹与八卦纹路，无汉字铭文），月光从斜坡雕花木格窗漏下洒在青砖地上，地面有一块被撬开的暗格空砖。
+  2. **主体人物**：夜色暗影与冷白月光交替之间，身着深青夜行劲装的年轻主角如飞燕般自粗大木梁凌空翻扑而下，指尖弹出的一粒小石子恰好凌空击熄下方黑衣接头人手中火折子的最后一点火星，主角身形紧随掠至，一手如鹰爪般探向对方慌忙捂住的蜡封竹筒；另一名黑衣汉子仓皇抽短刀招架。
+  3. **武侠悬念**：古寺铜钟与高空凌厉擒拿的动静反差极强，营造极佳的江南夜探谍战氛围。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color nocturnal stealth action illustration, wide cinematic 16:9 composition. Midnight interior of the ancient timber bell tower at Hanshan Temple in Gusu (Suzhou) around 1050 AD, silver moonlight slicing through wooden lattice windows across a massive hanging bronze Buddhist bell etched purely with cloud and lotus motifs. On the stone floor near a pried-up loose brick secret compartment crouch two startled black-clad smugglers; a tiny pebble flicked from above cleanly snuffs out the flame of their tinder stick into trailing sparks. Dropping swiftly like a shadow from the dark overhead wooden rafters, the agile young detective in midnight-blue Song martial garb reaches out to snatch a wax-sealed bamboo message cylinder right out of the stunned smuggler's grasp while kicking away his companion's short dagger. Crisp nocturnal blue-silver moonlight, atmospheric shadows, authentic Song temple timber joinery, zero text.
+  ```
+
+---
+
+### 44. `CG-QST-044`：燕子坞听香水榭 · 琴韵暗香隔帘递风灯图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
+- **目标路径**：`public/assets/quests/kf_murong1_tingxiang_lantern.jpg`
+- **画框题跋**：`太湖燕子坞听香水榭 · 隔帘听琴阿朱阿碧赠竹笼风灯指幽径`
+- **剧情语境**：
+  - 小舟悄然泊于太湖烟波深处的【燕子坞听香水榭】后方芦苇石阶，阁内百花微香伴着悠扬古琴音飘出。
+  - “听香妙手”【阿朱】一眼识破主角身怀汴梁气息却并未戳破，与“琴韵佳人”【阿碧】隔竹帘婉言周旋；阿朱顺手隔帘递出一盏只够半个时辰灯油的青竹纱笼风灯，悄声点破莫惊巡夜的风波恶，顺曼陀山茶幽径早去早回。
+- **画面核心要素**：
+  1. **环境氛围**：月夜静谧如画的江南水乡太湖荷塘，雕花木制临水亭榭四面垂柳轻拂、池中红鲤逐月影游动、水边泊着一叶极小乌篷木舟，岸边山茶花树初现花苞。
+  2. **主体人物**：水榭半卷起的细竹湘帘之后透出柔暖橘黄烛光——左侧一名穿湖水碧色襦裙、发髻清雅温婉的江南少女（阿碧）十指纤纤正轻轻按在雕案七弦古琴之上含笑回望；帘畔站着身穿俏丽杏红宋式衫裙、机灵娇俏的少女（阿朱），她半挑竹帘探身向外，手中轻轻递出一盏透着温暖蜡光的小巧六角青竹笼风灯；前景芦苇石阶上，微侧背影的主角抱拳拱手向帘内致谢准备接灯。
+  3. **江南雅意**：冷月青柳寒水与榭内暖灯琴韵交织，还原《天龙八部》江湖里极温柔微妙的试探与暗护。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color moonlit Jiangnan illustration, wide cinematic 16:9 composition. Tranquil moonlit water pavilion (Tingxiang Shuixie) built over lotus reeds and weeping willows at Lake Taihu around 1050 AD, a small wooden rowboat moored quietly at the stone steps while red koi ripple the moon's reflection. Inside the warm lantern-lit pavilion behind a raised fine bamboo blind, charming gentlewoman A'bi in pale aqua Song ruqun silk rests delicate fingers on a seven-string guqin looking over with a soft smile, while lively bright-eyed A'zhu in apricot-crimson Song attire parts the bamboo curtain and leans gently forward to hand a small glowing green-bamboo-framed gauze wind lantern outward. Outside on the stone pier in the foreground (seen from a poised three-quarter back view), the traveling detective clasps hands respectfully to accept the lantern. Poetic contrast of silvery Taihu mist and golden inner pavilion light, authentic Song Jiangnan garden aesthetic, zero text.
+  ```
+
+---
+
+### 45. `CG-QST-045`：燕子坞参合庄 · 火起接掌破窗跃太湖图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
+- **目标路径**：`public/assets/quests/kf_murong1_canhe_window_leap.jpg`
+- **画框题跋**：`燕子坞参合庄秘档室 · 掌翻油灯火起硬接邓百川十合破窗跃湖`
+- **剧情语境**：
+  - 秘档室激战十合震倒檀木书架、卷宗漫天飞舞之际，主角趁四大家臣之首“神掌震江南”【邓百川】换气空隙，反手一掌拍翻案上铜油灯，半丈火舌瞬间吞没半间石室！
+  - 在邓百川惊呼下令放水闸拦截的吼声与两支钉入窗棂的冷箭擦肩之际，主角足尖一点倒梁，撞碎雕花木窗凌空跃入窗外深邃迷蒙的太湖暗渠夜波。
+- **画面核心要素**：
+  1. **环境氛围**：临水而建的参合庄秘档石木二层楼阁，左侧屋内檀木书架倾覆、大量竹简空白卷轴如雪飞扬，打翻的铜油灯腾起汹涌炽烈的橘红火浪与黑烟；右侧则是破开木屑飞溅的硕大雕花木窗，窗外直接通向寒气森森的月夜太湖水巷。
+  2. **主体人物**：破碎木窗之外半空中，怀中紧紧掩护着密账布包的年轻主角身如青燕纵身凌空跃向深水（背姿舒展矫健），两支寒光冷箭擦着他肩畔钉在溅飞的木窗格上；身后火光滚滚的破窗室内，魁梧威严的中年高手（邓百川，靛青长袍胡须飞扬）挥袖震散眼前浓烟，满脸震怒地指向窗外高呼放闸阻截。
+  3. **破局爆裂感**：室内的炽烈火焰、四散竹简与窗外的清冷太湖夜水构成惊心动魄的脱险瞬间。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color action escape painting, wide cinematic 16:9 composition. Dramatic nighttime breakout from a waterfront archives chamber at Lake Taihu around 1050 AD. Inside the split open lattice frame behind, overthrown rosewood bookcases scatter blank bamboo slips and scrolls everywhere as a kicked-over bronze oil lamp erupts into roaring half-zhang orange flames and dark smoke; a formidable bearded senior martial master (Deng Baichuan in dark indigo Song robes) sweeps back his sleeve in shock amidst the smoke, shouting orders while two iron arrows splinter into the broken wooden window frame. Leaping out in mid-air through shattering cedar latticework toward the cold dark lake canal below, the young detective hugs a waterproof oilskin document pouch tight against their chest in a sleek diving arc. Explosive orange firelight colliding with deep cool indigo lake reflections, dynamic flying splinters, zero text.
+  ```
+
+---
+
+### 46. `CG-QST-046`：开封府正堂 · 呈交密账晋升金牌总捕图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest1.ts`](../src/data/quests/sects/kaifengMurongQuest1.ts)
+- **目标路径**：`public/assets/quests/kf_murong1_gold_badge_verdict.jpg`
+- **画框题跋**：`开封府三口铜铡正堂 · 呈交太湖水渍密账获擢六扇门金牌总捕`
+- **剧情语境**：
+  - 冒死潜泳太湖脱身归京，主角向开封府衙奉上那份仍带着太湖水渍的《参合庄甲械转运密账抄件》。
+  - 烛火照亮正堂三口寒光冽冽的铜铡，【包拯】阅罢沉重铁证黑面如铁而心下大慰，与在旁抚剑赞叹的【展昭】一并宣布：奏明圣上正式擢升主角为六扇门【金牌总捕】，专司天下大案。
+- **画面核心要素**：
+  1. **环境氛围**：秋夜肃穆的开封府衙升堂正殿，堂两侧高擎烛台火影微晃，三口象征王法森严的龙头、虎头、狗头铜铡整齐矗立于高台一隅闪耀冷铜清辉（铡口无文字）。
+  2. **主体人物**：红色公案后，正襟危坐的包拯（平翅黑幞头紫袍）双手正缓缓合上一册边角带着明显水渍微皱的素纸密账抄件，神情冷峻中透着沉稳托付；堂旁御前四品带刀护卫展昭按剑微笑向主角颔首致贺，并将一面雕琢龙纹的纯金六扇门金牌令符捧在红漆托盘中；正堂中央青石上，年轻主角挺直脊背抱拳朗声应诺，旁边木盘备有百二十两军功赏银。
+  3. **阶段丰碑**：与第 42 幕暮色暗查遥相呼应，彰显“小捕快孤胆入虎穴、凯旋授金牌”的职业升华。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color court milestone painting, wide cinematic 16:9 composition. Solemn candlelight tribunal hall of Kaifeng Prefecture at night around 1050 AD, with the three gleaming bronze courtroom execution guillotines (dragon, tiger, and dog finials) standing majestically on the side dais under wavering tall-taper flames. At the grand vermilion magistrate desk, Prefect Bao Zheng in official purple Song court robes and flat-winged black futou closes a slightly water-stained ledger manuscript with grave approval. Standing beside him with a warm approving smile, red-clad imperial guard Zhan Zhao holds a lacquered tray bearing a gleaming carved golden Six-Doors Chief Constable medallion badge and stacked silver ingots. In the foreground center, the young hero stands straight in a formal dark Song martial coat (seen from a proud three-quarter back view), saluting with clasped hands. Authentic Song legal ritual atmosphere, rich crimson, bronze, and gold mineral pigments, zero text.
+  ```
+
+---
+
+### 47. `CG-QST-047`：开封府后轩密室 · 烛下点验江南百兵册图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
+- **目标路径**：`public/assets/quests/kf_murong2_secret_ledger_audit.jpg`
+- **画框题跋**：`开封府衙升堂后轩 · 烛下公孙策朱笔勾稽江南官铁密册包公拍案`
+- **剧情语境**：
+  - 入夜后，【包拯】将主角与【公孙策】召入升堂正殿后轩密室，取出兵部武库司核验过的《江南生铁岁出清册》与参合庄秘档抄件逐项钩稽。
+  - 公孙策拨动木算盘朱笔细核，赫然对出近三年两浙路报损报废官铁之数竟与参合庄“新入精铁”分毫不差！包拯震怒拍案震响茶盏，决意密奏御前先从市井风声彻查此案。
+- **画面核心要素**：
+  1. **环境氛围**：开封府衙后轩幽深木构签押房，长案上点亮两盏明烛，铺展数卷厚重黄麻纸簿册、朱砂墨砚、一把宋式紫檀木算盘与青瓷茶盏（书页无可读文字）。
+  2. **主体人物**：案后黑面肃威的包拯右掌狠狠拍在红木公案之上，激得白青瓷茶盖微跳茶水微溅，眉峰紧锁双目如电；案左侧长髯儒士公孙策一手压住册页、一手捏朱砂毛笔停在账页红圈处神色凝重；前景主角肃立抱拳凛然听差。
+  3. **朝堂肃气**：密室烛光映出浓烈官场查贪的紧迫压迫感，以一册官铁账引出横跨汴梁与太湖的惊天大案。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color court mystery illustration, wide cinematic 16:9 composition. Late-night private rear study behind Kaifeng Prefecture's main hall around 1050 AD, softly lit by brass candelabra over a wide rosewood desk covered with thick yellow-hemp iron ledgers, a wooden Song abacus, vermilion inkstone, and celadon teacups (pages showing faint abstract columns and red check circles, zero readable text). Prefect Bao Zheng in dignified Song purple official robes slams one palm angrily onto the desk, rattling a porcelain teacup lid as his piercing eyes narrow. Beside him, serene advisor Gongsun Ce in slate-blue scholar robes pauses mid-stroke with a vermilion-dipped brush over matched account lines. In the foreground from a three-quarter back view, the newly promoted Gold-Badge Constable protagonist bows firmly in silent resolve. Intense candlelight, rich warm amber and dark mahogany Song brushwork, zero text.
+  ```
+
+---
+
+### 48. `CG-QST-048`：汴梁樊楼屋脊 · 夜风横剑截擒契丹谍图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
+- **目标路径**：`public/assets/quests/kf_murong2_fanlou_roof_spy.jpg`
+- **画框题跋**：`汴梁樊楼三层琉璃飞檐 · 夜风横剑截擒契丹密使搜获燕纹木牌`
+- **剧情语境**：
+  - 追查汴梁城内暗通江南的北庭眼线，主角一路轻功追至天下第一酒楼【樊楼】三层歇山琉璃瓦飞檐之上，脚下御街夜市灯火如星河铺展。
+  - 主角施展一记“燕子三抄水”凌空横剑截住疾奔的【灰衣客】，避开对方袖中暴起袭喉的草原短弯刀，分筋错骨扣腕按倒于屋瓦之上，并自其左靴夹层搜出刻有飞燕纹样的半枚紫檀木牌。
+- **画面核心要素**：
+  1. **环境氛围**：北宋东京樊楼巍峨高耸的歇山重檐琉璃屋脊与仙人走兽瓦当夜景，俯瞰下方繁华如梦、万点灯火丝竹沸腾的汴梁御街虹桥市井全景（市招灯笼皆无字）。
+  2. **主体人物**：高险琉璃瓦脊斜坡上，夜风吹得衣袂翻飞如翼的主角单膝凌厉抵住一名瘦削狡猾的灰衣契丹密使后背，一手扣紧对方反扭的右腕脉门、寒光短弯刀坠落瓦沟，另一手刚自对方踢脱的左靴夹层夹出半枚雕刻精美飞燕暗纹的紫檀腰牌，手中三尺青锋横架敌颈。
+  3. **视觉高度**：凌空绝顶屋脊与万家灯火夜市形成的极致纵深落差，尽显宋都武侠夜战的洒脱与冷峻。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color rooftop action painting, wide cinematic 16:9 composition. High atop the gleaming dark-green glazed-tile roof ridges and mythic ridge-figurines of Bianliang's grand three-story Fanlou tavern on a windy night around 1050 AD, overlooking far below a breathtaking illuminated sea of Song-era Bianliang night-market lanterns and bridges. On the sloped tiled roof ridge, the agile young Song constable pins a fleeing grey-robed Khitan spy down with one knee, twisting back his wrist to knock a short curved steppe dagger rattling onto the tiles, holding a cold straight sword to the spy's throat while extracting half of a carved swallow-motif dark sandalwood token from his left boot cuff. Billowing robes in high night wind, dazzling lantern-lit city depth below, authentic Song roofs, zero text.
+  ```
+
+---
+
+### 49. `CG-QST-049`：开封府升堂正殿 · 龙图授紫宸密旨与双龙金牌图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
+- **目标路径**：`public/assets/quests/kf_murong2_zichen_secret_edict.jpg`
+- **画框题跋**：`开封府衙升堂正殿 · 包拯启紫檀匣授紫宸密旨与鎏金双龙金牌`
+- **剧情语境**：
+  - 案情坐实兼涉辽谍与地方官贪墨，仁宗圣心沉稳，暗降一道不曾明发的【紫宸密旨】交开封府节制施行。
+  - 升堂正殿内，【包拯】捧紫檀长匣取出明黄绫绢密旨与一面调动镇江水师的【鎏金双龙金牌】，庄重授予主角；令其以武力慑服为主、同时为江南万民留一线太平余地，切忌逼狗跳墙。
+- **画面核心要素**：
+  1. **环境氛围**：白昼通透威严的开封府升堂正殿，汉白玉台阶光可鉴人，公案侧旁立有宋代御赐雕龙紫檀仪仗宝匣。
+  2. **主体人物**：公案前，庄严凝重的包拯双手郑重将一道折卷的明黄瑞锦绫绢密旨与一枚熠熠生辉、浮雕双龙盘绕的沉金金牌置于朱漆雕案上推向主角；一旁展昭身着绯红四品御前袍肃立护持，目光期许而沉稳；前景主角单膝恭立或俯首双手并举准备承接王命。
+  3. **政武气韵**：明黄皇祐帝王绫绸与黑衣紫袍的庄重色调，将“代天巡狩、以武止戈”的家国大义推向高潮。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color court commissioning scene, wide cinematic 16:9 composition. Crisp daylight streaming across the majestic Kaifeng Prefecture tribunal courtyard hall around 1050 AD. Before an opened ornate rosewood imperial chest at the magistrate desk, Prefect Bao Zheng in formal deep-purple court robes and winged black futou solemnly transfers a rolled imperial-yellow brocade secret decree and a gleaming gilded heavy medallion embossed with coiled twin dragons across the table. Standing in formal crimson Song imperial guard attire at his side, Zhan Zhao watches calmly with one hand over his straight sword hilt. In the foreground, the protagonist (three-quarter back view in refined constable coat) bows deeply with raised palms to accept the imperial warrant. Imperial Song yellow-gold, crimson, and ink contrast, authentic Song architecture, zero text.
+  ```
+
+---
+
+### 50. `CG-QST-050`：姑苏虎丘试剑石洞 · 火折微光照见飞燕铁甲武库图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
+- **目标路径**：`public/assets/quests/kf_murong2_huqiu_armor_cave.jpg`
+- **画框题跋**：`姑苏虎丘试剑石后山石窟 · 火折微光查获飞燕暗印数百冷锻铁甲`
+- **剧情语境**：
+  - 持密旨再临江南姑苏，主角按风波恶名录暗记于三更时分夜登冷月笼罩的【虎丘剑池与试剑石】。
+  - 绕过试剑石西侧被藤蔓掩蔽的天然岩隙石门进入十余丈山腹密窟，火折微光骤然照亮骇人景象——成百上千副涂满防锈桐油的冷锻重步甲、长矛与精钢箭簇列架如林，甲角皆烙着一枚飞燕暗印！
+- **画面核心要素**：
+  1. **环境氛围**：虎丘山腹深处人工开凿扩展的阴冷花岗岩天然大石窟，洞口隐隐透入一线清冷银白山月与垂落枯藤，洞壁渗水反光。
+  2. **主体人物与重宝密库**：微侧立于洞窟纵深通道前方的年轻主角，右手高举一支亮着温暖明黄微焰的小巧纸煤火折子，左手持火漆木印正俯身细查面前一具木架铁甲护心处的“飞燕徽记”钢印；火折暖光照耀下，延绵洞窟深处整齐码放着如林一般森然冷冽的成排宋辽形制冷锻鱼鳞铁甲、破甲长矛架与撬开一半露满精铁箭头的新木箱（箱盖无字，唯烙简洁燕羽徽印）。
+  3. **视觉冲击**：一豆火折子暖光瞬间照破黑暗揭露数百冷锻铁甲森林，带来极具震撼力的铁证震撼。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color underground discovery painting, wide cinematic 16:9 composition. Deep inside a hidden hollowed granite cavern tucked behind vine-covered boulders west of Sword-Testing Rock at Huqiu Hill in Suzhou around 1050 AD, a faint sliver of cold silver moonlight slipping past the hidden stone entrance far behind. In the foreground, the young detective crouches slightly (seen from a three-quarter rear profile), holding aloft a warmly glowing tinder-flame torch in one hand while inspecting a stamped flying-swallow emblem embossed onto a cold-forged iron breastplate with the other. The warm amber flicker reveals row after receding row of wooden racks laden with hundreds of glistening oiled iron scale armors, neatly bundled steel-tipped war spears, and open cedar crates overflowing with forged arrow-heads stretching deep into the cavernous gloom. Chilling steel-blue reflections and warm torchlight contrast, zero text.
+  ```
+
+---
+
+### 51. `CG-QST-051`：太湖烟波渡口画舫 · 三十合拆招震退公冶乾图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
+- **目标路径**：`public/assets/quests/kf_murong2_taihu_boat_gongye.jpg`
+- **画框题跋**：`太湖烟波渡口雕花画舫 · 碧波荡漾三十合拆招震退江南二绝公冶乾`
+- **剧情语境**：
+  - 欲渡太湖直闯燕子坞，慕容氏四大家臣之二、素有「江南掌法第二」之称的【公冶乾】亲率一艘雕花大画舫横截烟波渡口。
+  - 在不足两丈见方、随太湖碧浪摇晃的画舫甲板之上，两人激斗三十余合水花四溅；主角看破公冶乾右掌杀招，足踩摇晃船板借波反震，一式重肘沉肩硬生生将名震江南的公冶乾震退三步撞在朱漆船柱之上。
+- **画面核心要素**：
+  1. **环境氛围**：清晨浩渺翠绿的太湖烟波渡口，四周芦苇摇曳白鹭惊飞，湖心一艘双层宋代雕花大画舫甲板与朱漆立柱在水波中被掌风激起尺余高雪白浪花。
+  2. **主体人物**：倾侧摇曳的船首两丈方寸甲板上，身着儒雅深青宽袍却双目炯炯的江南中年大豪（公冶乾）刚与主角正面拆开一招，被反震劲力推得连退三步后背撞上一根朱漆画舫立柱，衣袍猎猎、神色惊骇敬服；前方主角稳如盘石单足踏定船板、一手剑指微垂、一手收剑蓄势，衣不沾水，展现宗师级下盘定力。
+  3. **水上拆招意境**：青绿烟波山水画卷中镶嵌紧凑激烈的近身寸劲博弈，兼具诗意与力道。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color riverside duel painting, wide cinematic 16:9 composition. Morning mist over Lake Taihu amidst swaying reeds and soaring white egrets as a carved Song-dynasty painted pleasure barge rocks briskly on splashing emerald-blue lake waves. On the tight two-zhang wooden foredeck between vermilion cabin pillars, the nimble young protagonist plants one foot like a rock against the rolling deck, long straight sword subtly lowered in calm poise while water splashes high around the gunwales from sheer palm-qi impact. Staggering back three paces against a vermilion pillar in stunned respect, dignified middle-aged Jiangnan grandmaster Gongye Qian in deep-teal scholar martial robes catches his balance after a fierce thirty-bout palm clash. Classic Song blue-and-green landscape brushwork paired with dynamic martial arts tension, blank boat pennants, zero text.
+  ```
+
+---
+
+### 52. `CG-QST-052`：燕子坞参合庄演武场 · 硬撼邓百川震裂青砖图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
+- **目标路径**：`public/assets/quests/kf_murong2_canhe_yard_deng.jpg`
+- **画框题跋**：`燕子坞参合庄演武西场 · 正面硬撼神掌邓百川震裂青砖打通内院`
+- **剧情语境**：
+  - 踏入燕子坞【参合庄演武西场】，四大家臣之首「神掌震江南」【邓百川】亲自出阵阻拦，数十名参合庄弟子环场观战，兵器架上长枪受掌风所激嗡嗡作响。
+  - 今非昔比的主角不闪不避，待邓百川一记刚猛“排山倒海”劲推至老境之际欺身贴近中宫对掌硬撼，沛然内力将这位大庄主震退五步直至石狮旁，足下青砖裂出蛛网细纹。
+- **画面核心要素**：
+  1. **环境氛围**：江南世家大院清幽又不失气派的参合庄青砖演武广场，四周竹影摇曳、列置雕石狮子与盛放长枪铜棍的红木兵器架，周围分立震惊失色的数十名素青色庄丁与风波恶、包不同侧影。
+  2. **主体人物**：演武场青砖正中一刹交击回气定格——威武厚重的大庄主邓百川被正面内力震得噔噔连退五步方才在白石狮子旁稳住下盘，一截青衫袖口被劲气撕裂飘起，脚底青砖碎裂出清晰蛛网状裂纹；场心处，年轻主角如青松般稳立收剑调息，气度沉凝不可撼动。
+  3. **对比呼应**：呼应第一部秘档室仅能“撑十合破窗逃水”的青涩旧事，写出主角成长后正大光明压服江南一线大豪的王者底气。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color martial arena showdown painting, wide cinematic 16:9 composition. Stone courtyard of the Canhe Manor training grounds at Swallow Dock around 1050 AD, framed by tall weeping bamboos, stone guardian lions, trembling wooden weapon racks, and rings of stunned Canhe retainers in light blue-grey robes watching in silent shock. At the center of the flagstones, the young protagonist stands rock-steady breathing smoothly with straight sword lowered cleanly (seen from a calm three-quarter back view), while five paces away beside a carved stone lion, formidable bearded senior master Deng Baichuan skids to a halt—one indigo sleeve cleanly torn half a foot by palm shockwave, spiderweb cracks radiating across the grey flagstones beneath his boots. Crisp Song architectural details, palpable kinetic shockwaves in dust and fluttering leaves, zero text.
+  ```
+
+---
+
+### 53. `CG-QST-053`：燕子坞还施水阁正厅 · 慕容复十合震断紫檀桌图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
+- **目标路径**：`public/assets/quests/kf_murong2_huanshi_ten_bouts.jpg`
+- **画框题跋**：`燕子坞还施水阁正厅 · 参合指气与青锋剑十合对撞震断紫檀供桌`
+- **剧情语境**：
+  - 历经重重关隘步入武林圣地【还施水阁】正厅，主角终与名满天下的姑苏“南慕容”【慕容复】正面交锋。
+  - 第十合至高巅峰对拆，白衣翻卷如雪的慕容复凌空点出无形凛冽的【参合剑气】破空啸鸣，主角催动浑厚真气不退反进以青锋长剑正格抵挡——两股绝顶内气轰然对撞溅起耀眼火星，余波生生将厅中数百年紫檀木供桌震断成两截、泛黄秘卷如雪飘飞，随即两人齐齐敛招收手各定尊严。
+- **画面核心要素**：
+  1. **环境氛围**：极尽典雅宏阔的太湖水榭阁楼秘库正厅，四壁耸立顶天立地的黑漆楠木藏书巨架，架上层层叠叠摆满各派武学卷轴（全部卷轴封签做旧留白不写汉字），雕花栏楯外透入太湖清辉。
+  2. **主体人物**：大厅中央爆发绚烂剧烈的无形气浪对撞——剑尖溅起刺目璀璨的一串金色火星，厅侧那方百年紫檀大供桌“咔嚓”从正中断成两截倾倒、几十卷泛黄线装古谱迎风飞舞宛如漫天梨花；右侧白衣飘然、玉冠束发、面如冠玉却神色冷傲凛然的翩翩贵公子慕容复右指凌空成剑指刚收三分指风，白衣袖口亦微裂一线；左侧主角足踩八卦方步以青锋稳稳点地回势，脊背挺直如松，厅廊门侧隐约可见阿朱与阿碧屏息凝望。
+  3. **巅峰神韵**：北乔峰外最具传奇性的“南慕容”宗师交锋画面，雅致白衣书阁碰撞刚猛紫檀断桌火花，视觉美感拉满。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color climax duel painting, wide cinematic 16:9 composition. Inside the storied multi-tiered Huanshi Water Pavilion library overlooking Lake Taihu around 1050 AD, soaring lacquer bookcases lined floor-to-ceiling with aged blank martial scrolls and bound manuals. In the hall's center, peak internal-qi shockwaves clash invisibly in a burst of dazzling golden sparks where the protagonist's steel straight sword meets the luminous fingertip sword-qi of Murong Fu—a poised, aristocratic young grandmaster in flowing snow-white Song scholar-warrior silk with a jade hair-crown, crisp cold nobility in his gaze even as the backlash splits a centuries-old rosewood altar table cleanly in half between them and scatters dozens of antique yellow scrolls spinning through the air like snow. Glimpsed silently at the side wooden corridor are maids A'zhu and A'bi holding their breath. Ethereal scholarly martial splendor, mineral ink, white silk, and warm amber wood tones, zero text.
+  ```
+
+---
+
+### 54. `CG-QST-054`：开封府大堂晨光 · 呈交立约书晋升御前护卫图
+
+- **关联文件**：[`src/data/quests/sects/kaifengMurongQuest2.ts`](../src/data/quests/sects/kaifengMurongQuest2.ts)
+- **目标路径**：`public/assets/quests/kf_murong2_royal_guard_seal.jpg`
+- **画框题跋**：`开封府升堂正殿晨曦 · 呈交立约盟书单膝拜领御前护卫金印`
+- **剧情语境**：
+  - 未动江南一兵一卒而以武止戈、令慕容氏封存私甲立下约书凯旋返京，开封府正殿秋日晨光穿过廊柱照亮肃穆三铡。
+  - 【包拯】端详过慕容复立约文书与虎丘拓片后黑面罕见展露欣慰笑意，与旁立抚剑祝贺的【展昭】一并宣读天子口谕：特晋主角为开封府顶级武职【御前护卫】，亲授御前行走金印腰牌。
+- **画面核心要素**：
+  1. **环境氛围**：秋晨清朗金曦洒满开封府衙大堂汉白玉丹墀，三口铜铡映照金辉，公案上整齐呈放着太湖清册卷轴与加盖火漆泥封的素白立约书。
+  2. **主体人物**：大堂高案前，紫袍包拯罕见露出舒眉欣慰神色，亲手托着一枚系着赤金流苏穗子的御前四品行走纯金虎龙腰牌与印匣；四品绯袍御前带刀护卫展昭立于左侧抚剑开怀拱手相贺；前景正中，年轻主角身披象征荣誉的整洁深蓝官衫单膝郑重跪地、双手平接御赐金印腰牌，背姿如青松磐石。
+  3. **圆梦收束**：皇祐风云第一系列《姑苏密查·参合对质》终章圆满封神，开封府官场武侠线的最高勋赏定格。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color royal honor illustration, wide cinematic 16:9 composition. Crisp golden autumn morning sunlight flooding the grand marble steps and tribunal hall of Kaifeng Prefecture around 1050 AD, gleaming off three ceremonial bronze execution guillotines at the side while folded sealed treaties rest neatly on the red lacquered magistrate desk. Smiling warmly with rare quiet pride, Prefect Bao Zheng in official purple Song court robes holds out a heavy imperial golden waist-seal medallion strung with crimson-gold silk tassels, while scarlet-robed imperial guard Zhan Zhao clasps hands warmly beside him in genuine admiration. In the center foreground, the young hero in dark indigo Song martial officer attire kneels respectfully on one knee (seen from an upright three-quarter back view), raising both hands solemnly to receive the Royal Guard golden seal. Majestic Song imperial red, gold, and sunlit stone palette, authentic 1050 AD court robes, zero text.
+  ```
+
+---
+
+### 55. `CG-QST-055`：大名府黄河北岸 · 临津酒楼断索剑拔弩张图
+
+- **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
+- **目标路径**：`public/assets/quests/daming_linjin_tavern_standoff.jpg`
+- **画框题跋**：`大名府黄河北岸临津酒楼 · 留守司公人与沧州八极门徒拔刃对峙`
+- **剧情语境**：
+  - 皇祐二年春寒未褪，黄河北岸桃花水涨、浊浪拍岸声震数里，浮桥三根镇河大铁索却于昨夜遭诡秘寒刃暗斩、二十箱生铁与河工银饷落水。
+  - 大名府【临津酒楼】内酒客四散墙角，留守司六扇门都头【郭钧海】率公人按刀围逼，沧州八极门女教头【卢婉月】护住门下弟子持棍厉声理论，当垆飒爽女掌柜「红袖双刀」【石红锦】正按住梨花春酒坛叹气劝架。
+- **画面核心要素**：
+  1. **环境氛围**：黄河北岸临河木构二层酒楼临水大堂，敞开木窗外可见波涛浑黄翻滚的桃花春水黄河与半截垮塌歪斜的木浮桥栈道轮廓，室内榆木方桌歪斜、碎碗与酒坛交错（酒旗空白无字）。
+  2. **主体人物**：大堂左右针锋相对的两拨人马——左侧几名穿北宋公差皂服、腰悬铁尺与横刀的留守司捕快在年轻干练都头（郭钧海）带领下按刀逼近；右侧一身利落鹅黄劲装、手提六合齐眉棍、秀眉倒竖义愤填膺的八极女教头（卢婉月）护着两名年轻劲装门人稳扎八极弓步对峙；木柜台后风韵泼辣的女掌柜（石红锦，系红绸腰带，腰隐双短刀）正按着两只泥封梨花春酒坛喊停；主角从门口掀帘步入正欲出声止戈。
+  3. **北方气象**：大河奔涌的浑厚苍劲与北方镖局武馆官差对撞，瞬间交代《铁锁镇河朔》开篇强冲突。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color tavern standoff illustration, wide cinematic 16:9 composition. Inside the bustling ground hall of a timber riverside tavern along the north bank of the surging Yellow River in Daming Prefecture around 1050 AD; through open wooden shutters behind, muddy spring floodwaters crash past a partially severed floating pontoon bridge with snapped anchor chains. Inside the room, nervous customers press against corners as two armed groups lock into a tense standoff across rough elm tables: on the left, black-uniformed Song prefectural constables led by earnest chief officer Guo Junhai grip sabers and iron rulers; on the right, spirited young Baji martial mistress Lu Wanyue in sleek ochre-cream narrow-sleeve attire plants her feet with a long waxwood staff, shielding two fierce sect apprentices. Behind the wooden bar counter, quick-witted tavern hostess Shi Hongjin (wearing a crimson silk sash concealing twin short blades) holds down two clay wine jars calling for calm as the protagonist steps in through the reed door-curtain. Gritty Northern Song frontier energy, authentic Song uniforms, blank tavern pennants, zero text.
+  ```
+
+---
+
+### 56. `CG-QST-056`：黄河铁索渡口 · 芦棚紫髯北侠辨寒铁断索图
+
+- **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
+- **目标路径**：`public/assets/quests/daming_ouyang_chun_ferry.jpg`
+- **画框题跋**：`黄河铁索渡口临河芦棚 · 北侠紫髯伯欧阳春横巨刃饮酒辨寒铁断痕`
+- **剧情语境**：
+  - 追查斩断黄河镇河大铁索的真凶线索，主角赶赴狂风卷苇的【黄河铁索渡口】临河酒肆芦棚。
+  - 一名紫髯如戟、古貌魁梧的布衣大豪正独坐木凳自斟梨花春，膝上横放一柄古朴厚背七宝巨刃——正是威震南北绿林的「北侠」【欧阳春】！他一眼识破昨夜金铁崩云之声源于北庭寒铁重斧，以三碗烈酒或数招刀法考校主角。
+- **画面核心要素**：
+  1. **环境氛围**：暮风呼啸的黄河客渡木栈桥畔简易茅草芦棚酒肆，棚外岸边石桩上正拴着一截腕口粗、断口如镜面斜齐泛着森冷青光的巨型生铁镇河索（极度醒目的核心线索），黄河渡船摇晃系缆，岸苇弯折如弓。
+  2. **主体人物**：粗糙长条木桌前，身材异常高大魁梧、留着一把钢针般微泛紫黑光泽浓密长须的老成布衣豪杰（北侠欧阳春，浓眉如戟、布袍袖挽起露出虬结小臂）大马金刀稳坐，一膝横搁着一柄乌沉古朴的厚背七宝大刀，一手举起粗糙大土碗痛饮，双目含笑打量桌对面拱手致敬的年轻主角。
+  3. **豪侠风骨**：三侠五义里最沉稳豪迈的“北侠”孤傲出尘形象，黄沙大河与粗陶酒碗写尽燕赵侠风。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color hero portrait illustration, wide cinematic 16:9 composition. A weathered reed-thatched waterside wine shelter beside a timber ferry pier on the windy Yellow River bank around 1050 AD, wild river reeds bending beside mud-brown waves. Noticeably anchored to a stone bollard in the foreground mud lies a massive severed river-anchor iron chain, its thick links sheared cleanly at an icy beveled angle. Seated boldly at a rough timber bench beneath a fluttering blank wine flag is the legendary "Northern Hero" Ouyang Chun—a towering, ruggedly noble man in plain coarse robes with a striking, bristling purplish-black beard, resting a heavy antique broad-backed war blade across his knee while raising a rough earthenware bowl of Lihuachun wine with warm seasoned amusement toward the young traveler (seen from a respectful three-quarter back view). Robust Yan-Zhao river frontier palette, earthy ochre, slate iron, and reed gold, zero text.
+  ```
+
+---
+
+### 57. `CG-QST-057`：河北枪棒大校场 · 八角擂台契丹双斧露峥嵘图
+
+- **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
+- **目标路径**：`public/assets/quests/daming_leitai_khitan_axes.jpg`
+- **画框题跋**：`河北枪棒大校场八角擂台 · 契丹先锋乌古乃负双柄寒铁重斧踏碎青砖`
+- **剧情语境**：
+  - 大名府【河北枪棒大校场】春寒校阅，四面禁军队列如墙，前宰相兼北京留守贾昌朝在高台之上观阵。
+  - 太行匪首焦三斧刚刚滚落台下，西北角忽有一名身披貂鼠皮袄、自称辽东行商的虬髯巨汉【乌古乃】跃上八角青石擂台，足尖竟将台心青砖踏碎，抽下背负双柄北庭寒铁重斧悍然叫阵八极宗师【卢铁山】与主角！
+- **画面核心要素**：
+  1. **环境氛围**：宏阔肃杀的大名府禁军大校场八角青石比武高台，高台四周插满大宋禁军五色仪仗方旗（纯色云纹不写字），远景高搭朱栏看台隐约可见紫袍高官贾昌朝端坐观礼，四下数百名戴铁盔执长枪的大宋河北禁军与武馆好汉喝彩肃立。
+  2. **主体人物**：八角青砖高台中央爆起碎石烟尘——身披厚重辽东黑貂鼠毛坎肩、满脸虬髯、精壮凶蛮的契丹北院猛将（乌古乃）双脚落地生生震裂三块青石，双臂暴张正抡起两柄宽大森冷的北庭乌钢短重斧斜指向前方；擂台另一侧，须发灰白却筋骨如铁、左肩曾留旧伤的沧州八极宗师（卢铁山，一身劲黑短打手握浑铁六合大枪）与并肩立于身侧持兵刃的年轻主角及卢婉月严阵以待。
+  3. **军阵质感**：高台冷峻比武与谍战掀牌瞬间合一，把大名府防辽校场的雄壮气象烘托到极致。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color martial arena painting, wide cinematic 16:9 composition. Vast octagonal grey-stone sparring stage inside the Hebei Imperial Garrison Parade Grounds of Daming Prefecture around 1050 AD, surrounded by walls of Song spear-bearing soldiers and a distant vermilion viewing pavilion where high officials watch beneath blank colorful silk banners. Cracks and stone dust burst outward under the boots of a burly, ferocious bearded Khitan warrior (Wugunai, disguised in a thick sable-fur frontier vest over heavy dark mail) who has just vaulted onto the octagon floor, swinging down twin cold-iron northern battle axes with brutal arrogance. Facing him resolutely across the stage, silver-haired seasoned Baji grandmaster Lu Tieshan grips a thick all-iron long spear beside his daughter Lu Wanyue and the poised protagonist ready to duel. Authentic 1050 AD Song military parade spectacle, stark cold iron vs crimson banners, zero text.
+  ```
+
+---
+
+### 58. `CG-QST-058`：北京留守沙盘阁 · 子夜百盏宫灯铁壁合围辽将图
+
+- **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
+- **目标路径**：`public/assets/quests/daming_midnight_sandtable_ambush.jpg`
+- **画框题跋**：`北京留守行宫防辽沙盘阁 · 百盏宫灯齐明贾昌朝卢铁山铁壁合围耶律裂山`
+- **剧情语境**：
+  - 子夜二更，贪官河北转运司勾当公事【周文焕】私配铜钥潜入北京留守行宫【河北防辽舆图沙盘阁】，引导左眉带狰狞枪疤的契丹铁林千夫长【耶律裂山】与四名玄甲死士妄图盗走《河北塘泺布防绢图》。
+  - 就在敌将扑近丈余宽微缩山河水寨沙盘一刹，二层雕花回廊百盏琉璃宫灯骤然齐明！紫袍玉带的前宰相【贾昌朝】负手立于高阶羽扇轻摇，大枪宗师【卢铁山】与主角、【郭钧海】等铁壁堵死四门合围死斗！
+- **画面核心要素**：
+  1. **环境氛围**：极尽震撼的北宋军机楼阁内景——大厅正中横陈一座长达丈余、以黄土青绿塑成的精密宋辽边界《河北塘泺水寨黄河泥塑大沙盘》（山峦起伏、城寨旗帜微缩模型栩栩如生，无文字标牌）；高挑二层木构回廊一圈百余盏琉璃宫灯骤然齐亮，金黄辉煌光芒照彻原本阴森冷月的暗室。
+  2. **主体人物**：二层正中回廊高阶之上，紫袍玉带、气质雍容渊深的大宋名相兼留守大人（贾昌朝）手持洁白羽扇从容俯视下方；下方沙盘四周杀声震天——左眉至耳根横跨一道狰狞长疤的悍将（耶律裂山，身披黑甲狂吼着高举六十四斤寒铁破甲巨斧）与四名玄甲死士陷入绝境，角落里身穿官袍吓得抱紫檀匣缩成一团的周文焕瑟瑟发抖；前景正门方向，卢铁山长枪如龙、郭钧海率禁军铁甲与挺刃冲前的年轻主角如铜墙铁壁压上。
+  3. **戏剧最高点**：从死寂暗室盗图瞬间转为“百灯齐明、请君入瓮”的壮阔官场武侠大高潮。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color dramatic ambush painting, wide cinematic 16:9 composition. Inside the soaring Military Sand-Table Pavilion of the Northern Capital Regent Palace in Daming around 1050 AD. Centered on the stone floor stands a magnificent, massive carved clay-and-wood topographic relief table modeling the Yellow River, marsh fortresses, and frontier passes (with tiny blank colored miniature flags). Suddenly, a hundred suspended ornate glass palace lanterns burst ablaze around the upper carved wooden gallery! Standing poised on the high upper balcony in imperial purple Song robes and jade belt, grand statesman Jia Changchao gently waves a white feather fan while looking down. Trapped around the sand table below, scarred black-armored Khitan commander Yelu Lieshan (a jagged spear-scar slashing from his left brow to ear) roars while swinging a huge heavy iron battle-axe alongside four dark-mailed assassins as corrupt official Zhou Wenhuan cowers clutching a rosewood scroll box. Blocking every doorway below, Baji master Lu Tieshan levels his heavy iron spear alongside Constable Guo's armored troops and the surging young hero. Explosive golden lantern light over dark iron, authentic Song palace woodwork, zero text.
+  ```
+
+---
+
+### 59. `CG-QST-059`：沙盘阁破晓 · 贾昌朝荐函与卢铁山铁枪双途邀侠图
+
+- **关联文件**：[`src/data/quests/cities/damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts)
+- **目标路径**：`public/assets/quests/daming_baji_official_choice.jpg`
+- **画框题跋**：`沙盘阁尘埃落定 · 贾昌朝执留守荐函与卢铁山擎六合浑铁枪共邀少侠择路`
+- **剧情语境**：
+  - 恶战落幕、生擒内奸起获三千贯原封河银救出忠徒崔帆坤后，晨曦透入沙盘阁。
+  - 左右双壁各自伸出橄榄枝：前宰相【贾昌朝】拟保举主角持《北京留守幕府举荐信》直入开封府授第 2 阶【捕头都头】入仕为国；沧州八极宗师【卢铁山】则不肯相让，敞开秘传室欲将压箱底《六合大枪》与神兵【大名六合浑铁枪】倾囊相授破格奉入内堂。庙堂与江湖，全凭主角一言而决。
+- **画面核心要素**：
+  1. **环境氛围**：破晓微熹映入已恢复宁静庄严的沙盘阁，地上被押解下去的残敌兵刃痕迹犹在，后方禁军士卒正搬回完好无损的数箱官银木箱与受冤得雪的崔帆坤拱手站在卢婉月身旁。
+  2. **主体对称构图**：画面左翼立着风度温雅的紫袍宰辅贾昌朝，双手捧着一封盖有火红大印的绢帛【北京留守举荐信】温言礼贤；画面右翼立着豪迈如山、须发飞扬的黑衣八极宗师卢铁山，双手横托一杆沉浑漆黑的【大名六合浑铁枪】与线装拳枪秘谱豪气招揽；前景中央青砖上，背向画面的主角站在两者正中静静思索抉择。
+  3. **太阁魂魄**：《太阁立志传》式“朝堂青云 vs 江湖武魂”分岔路口的最经典仪式感画面。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color branching choice painting, wide cinematic 16:9 composition. Cool pale dawn light streaming through tall wooden doors into the quieted Sand-Table Pavilion after battle around 1050 AD, Song guards securing recovered silver chests with rescued Baji apprentice Cui Fankun and Lu Wanyue standing gratefully in the distant background. Creating a balanced twin invitation in the mid-ground: on the left side, dignified statesman Jia Changchao in purple Song court robes warmly extends an officially sealed red-wax silk recommendation scroll inviting a path in imperial justice; on the right side, rugged silver-bearded Baji grandmaster Lu Tieshan proudly holds forth a gleaming solid-iron heavy spear and a bound martial manual inviting a free heroic path in the jianghu. Standing centered in the foreground (seen from a thoughtful upright three-quarter back view), the young hero weighs both destinies at the crossroads. Balanced composition of court purple-gold and iron martial grit, zero text.
+  ```
+
+---
+
+### 60. `CG-QST-060`：东京樊楼飞桥 · 夜宴灯火截灰衣刺客图
+
+- **关联文件**：[`src/data/quests/adventures/babuganchanQuest.ts`](../src/data/quests/adventures/babuganchanQuest.ts)
+- **目标路径**：`public/assets/quests/babuganchan_fanlou_bridge_duel.jpg`
+- **画框题跋**：`东京樊楼朱漆凌空飞桥 · 夜宴灯火中截风门灰鹞陆七破窗扑袭`
+- **剧情语境**：
+  - 亥时三刻汴梁【樊楼】夜宴鼎沸，五座高楼间以朱漆飞桥凌空相连。主角依【程万里】所指潜登东侧三楼回廊，恰见飞桥尽头雅阁窗纸映出截风门墙上壁虎步态的灰衣身影正借灯笼比对泛黄轻功帛书。
+  - 灰衣刺客发觉行藏猛然破窗跃出，脚尖连点飞桥斗拱、短刀寒光直扑雅阁；主角拔刃横截于朱漆飞桥灯影之间救护程万里。
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年东京汴梁标志性的樊楼三层以上建筑集群——五座飞檐高楼之间凌空架起悬空朱漆木栏飞桥，飞桥下是璀璨的丝竹灯市与红灯笼连廊（灯笼旗幡全部留白无字）。
+  2. **主体人物**：东侧凌空飞桥窄道上，一名身形瘦削如鹰隼的灰衣黑道刺客（截风门高手）刚一脚踹碎雅阁花格木窗凌空飞扑，足尖诡异轻点雕花斗拱，手中亮出一柄短刃直刺而来、衣襟滑出半幅泛黄古绢残卷；迎面主角护在白发苍苍的落魄老者程万里身前，挺身横刃掠身截击。
+  3. **夜色飞檐感**：朱漆飞桥悬空与红灯曳影构筑北宋独一无二的空中武侠夜战舞台。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color nighttime wuxia action painting, wide cinematic 16:9 composition. High above Bianliang's famous five-tower Fanlou tavern complex during a lively night banquet around 1050 AD, where suspended vermilion wooden sky-bridges link elevated pavilions glowing with warm silk lanterns above shadowy rooftops. Bursting out through shattered lattice window paper onto the curved sky-bridge eaves, a gaunt, hawk-like assassin in dark grey attire kicks effortlessly off carved roof brackets with a gleaming short dagger aimed at the gallery, a half-unrolled antique yellow silk scroll tucking from his chest. Stepping immediately in front of elderly scarred scholar-veteran Cheng Wanli in plain robes, the nimble protagonist draws a weapon mid-stride to intercept the assassin along the narrow vermilion sky-bridge. Dramatic nocturnal red lantern glow against deep night sky, blank lanterns, zero text.
+  ```
+
+---
+
+### 61. `CG-QST-061`：大相国寺资圣塔顶 · 秋风铜铃初悟蝉蜕息图
+
+- **关联文件**：[`src/data/quests/adventures/babuganchanQuest.ts`](../src/data/quests/adventures/babuganchanQuest.ts)
+- **目标路径**：`public/assets/quests/babuganchan_zisheng_pagoda_wind.jpg`
+- **画框题跋**：`大相国寺资圣八角琉璃塔顶 · 秋风铜铃盘膝展绢初悟蝉蜕换气诀`
+- **剧情语境**：
+  - 夺回上卷残绢后，主角登临汴京【大相国寺 · 资圣八角琉璃宝塔】第八层高空回廊檐角，身旁高僧【智明禅师】静默观护。
+  - 秋风自八方穿廊吹拂衣袂而不紊呼吸，檐角青铜风铃叮咚清鸣，主角盘膝静坐展卷默会，悟透步未停而气已换的《蝉蜕息》行气真诀。
+- **画面核心要素**：
+  1. **环境氛围**：宋代大相国寺八角琉璃宝塔第八层极高回廊，八角飞檐悬垂古朴青铜风铃（在秋风中斜摆），凭木栏外俯瞰金秋清冽天气下的浩大汴梁都城街市、汴河画船与苍茫远郊天际。
+  2. **主体人物**：八角高塔木廊迎风一角，年轻主角盘膝五心朝天静坐（采用沉稳舒朗的背斜侧视角），膝前摊开一幅写意空白纹路的泛黄丝绢上卷，丝衣袂随狂风高高翻扬而身形如古柏安然不动，仿佛有清微白气流转肺腑之间；一旁廊柱下，年迈慈祥的灰袍老僧（智明禅师）手持念珠合十微笑注视。
+  3. **清空哲思**：高空风声与古塔铜铃意象相融，呈现北宋秋日清空辽远的武道悟境。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color contemplative landscape painting, wide cinematic 16:9 composition. High eighth-story exterior octagonal timber gallery of the Zisheng Glazed Pagoda at Xiangguo Temple in Kaifeng around 1050 AD, bronze wind-bells swinging under upturned eaves in brisk autumn gusts, revealing a breathtaking birds-eye panorama of golden-leaved Bianliang streets, the Bian River canal, and distant horizon mist far below. Seated cross-legged on the wooden gallery floor with an aged pale-yellow silk scroll unrolled across their lap, the young martial artist breathes calmly despite fierce high winds rippling their tunic robes, serene clarity radiating around their posture. Standing peacefully beside a vermilion pagoda column nearby, aged monk Master Zhiming in simple grey robes holds prayer beads with a gentle knowing smile. Serene high-altitude Song autumn atmosphere, mineral blues and warm autumn golds, zero text.
+  ```
+
+---
+
+### 62. `CG-QST-062`：洛阳白马寺齐云塔 · 银杏落叶连踏七步图
+
+- **关联文件**：[`src/data/quests/adventures/babuganchanQuest.ts`](../src/data/quests/adventures/babuganchanQuest.ts)
+- **目标路径**：`public/assets/quests/babuganchan_baimasi_ginkgo_steps.jpg`
+- **画框题跋**：`洛阳白马寺齐云古塔 · 百年银杏落叶连踏七步纹丝不碎证轻功`
+- **剧情语境**：
+  - 西行洛阳【白马寺 · 齐云密檐舍利古塔】前，古塔青砖地坪铺满深秋干脆金黄银杏落叶。
+  - 白马寺守塔居士【青霜姥姥】设下考校：须以新悟《蝉蜕息》行气踩着满地枯脆银杏叶连踏七步，令叶片不翻卷不碎裂方肯授出中卷《振羽步》。主角身如柳絮顺风掠过，七步落足皆如蜻蜓点水、金叶完好无损。
+- **画面核心要素**：
+  1. **环境氛围**：洛阳白马寺历史悠久的密檐十三级方形宋代青砖齐云古塔院落，院内两株千年巨型金黄银杏树落叶纷纷如黄金雪片，石板地上铺散着金黄干脆的扇形银杏叶。
+  2. **主体人物**：半空与青砖地坪仅差毫厘之间，年轻主角衣袍扬起轻盈如风中白鹤（身形修长舒展），右足尖刚好如蜻蜓点水般轻触一片金黄银杏叶中心而叶片纹丝不碎、叶脉完整，身后地面一路接连数片曾被点过的银杏叶皆宛然如初、未见折断；塔阶石栏旁立着披素青麻披风、发丝银白的清癯老妇人（青霜姥姥），目露惊喜赞叹之色。
+  3. **轻功诗意**：金黄满院银杏落叶写实而浪漫，直观视觉化表现“身重如铅，气轻如羽”的东方顶流轻功。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color wuxia lightness-skill illustration, wide cinematic 16:9 composition. Autumn courtyard before the tall multi-tiered square grey-brick Qiyun Relic Pagoda of White Horse Temple in Luoyang around 1050 AD, flanked by towering ancient ginkgo trees shedding golden fan-shaped leaves across the stone flagstones. Gliding weightlessly like a drifting willow catkin just inches above the ground, the agile young hero touches only one tiptoe lightly onto the exact center of a crisp fallen golden ginkgo leaf without bruising or crumbling a single vein, while six previous golden leaves behind their airy stride remain completely unbroken on the dark flagstones. Watching from the stone pagoda steps, slender silver-haired hermitess Grandma Qingshuang in plain pale-slate linen cloak gazes with astonished delight. Luminescent golden autumn ginkgo palette against ancient temple slate grey, graceful flowing robes, zero text.
+  ```
+
+---
+
+### 63. `CG-QST-063`：洛阳牡丹园碧溪 · 雨霁秋月八步点水飞檐图
+
+- **关联文件**：[`src/data/quests/adventures/babuganchanQuest.ts`](../src/data/quests/adventures/babuganchanQuest.ts)
+- **目标路径**：`public/assets/quests/babuganchan_bixi_moon_water.jpg`
+- **画框题跋**：`洛阳牡丹园碧溪琴画水榭 · 雨霁秋月足点八道水纹掠上二层飞檐`
+- **剧情语境**：
+  - 合齐上中下三卷于洛阳牡丹园【碧溪虹桥琴画水榭】彻悟演练之际，恰逢夜雨渐歇、乌云缝隙漏下一轮清冷秋月，碧溪水面平如明镜。
+  - 主角屏杂念发足狂掠，由蝉蜕换气接振羽借风、至第七第八步猛然发力足尖点水而起，在月下碧溪平镜水面上接连踏出八道清浅同心水纹，衣不沾水一气掠上水榭二层木栏飞檐！榭下少女【小阿蝉】拍手欢呼，地阶轻功《八步赶蝉》大成！
+- **画面核心要素**：
+  1. **环境氛围**：夜雨初晴的洛阳牡丹园碧溪水上双层木制琴画水榭与曲折小木虹桥，云开见清冷圆月，秋露挂满凋谢后的翠绿牡丹枝叶与水边青苇，墨青如镜的水面上清楚倒映着一轮明月。
+  2. **主体动态连贯意境**：水面从左至右依次清晰荡开由远及近八道细小清浅、泛着月华银辉的同心涟漪水波，仿佛仙人凌波留步；紧接第八道涟漪上方半空，衣袂不沾半滴水珠的主角身化一道轻烟弧线舒展腾空，足尖已飘然落在水榭二层朱漆雕花木栏飞檐之上长舒清气；底层木廊火灯光亮中，一个扎双丫髻的小女孩（小阿蝉）正仰起脸拍手欢笑雀跃。
+  3. **绝世轻功定格**：一幅画完整定格“八步连点水面不沉、一跃凌空上重檐”的宋画诗意极致。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color poetic nocturnal painting, wide cinematic 16:9 composition. Rain-washed midnight garden beside an arched wooden bridge and a two-story lacquered music-pavilion over peaceful Bixi Stream in Luoyang around 1050 AD; silver autumn moonlight breaks through parting storm clouds, shining down on dark mirror-calm water dotted with autumn lotus pads. Tracing a graceful rhythmic path across the glassy surface, eight delicate concentric silver ripples glow in clean progression across the water—and rising weightlessly straight from the eighth ripple without a single drop wetting their hem, the young martial master soars in a fluid arc onto the second-floor carved eaves of the water pavilion. Below in the warm lantern-lit lower corridor, little girl Xiao A'chan claps joyfully looking up. Exquisite midnight silver-blue moonlight and warm pavilion amber contrast, authentic Song garden woodcraft, zero text.
+  ```
+
+---
+
+### 64. `CG-QST-064`：苏州虎丘千人石 · 生公亭仗剑护青年沈括图
+
+- **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
+- **目标路径**：`public/assets/quests/yanziwu_map_huqiu_shenkuo.jpg`
+- **画框题跋**：`苏州虎丘千人石生公亭 · 横身护青年沈括与菱花铜水符截击铁砂恶客`
+- **剧情语境**：
+  - 皇祐二年姑苏虎丘山半腰【千人石试剑台与生公亭】，年仅二十岁的吴郡青年才子【沈括】（字存中）正携竹尺、罗盘与刚刚转拓核验的太湖【菱花青铜水符】勘测地理子午。
+  - 突遭铁掌帮双掌乌黑的恶客掀翻石凳企图强抢，主角飞身掠入生公亭前震开敌掌、横身挡在护住图纸后退半步的沈括身前激战退敌。
+- **画面核心要素**：
+  1. **环境氛围**：苏州虎丘山名胜大片斜卧的赤褐花岗岩“千人石”与石畔苍松掩映的宋代六角木石生公亭，远景微雾隐现江南青山竹林。
+  2. **主体人物**：倾倒的青石圆凳旁石案上摊放着泛黄勘测图样、一把细竹测量直尺、罗盘与那枚铸有精美八角菱花水纹的【菱花青铜水符】；后方年仅二十岁、面容清隽睿智、着素净浅青文士儒衫的青年沈括（手护怀中竹管图纸卷轴微退半步）神情镇定不屈；正前方主角挺身挡在沈括身前，拔刃或出掌凌厉硬撼对面一身横练肌肉、双掌泛起乌黑毒铁色的铁掌帮暴徒。
+  3. **文武相济**：历史上二十岁青年科学巨匠沈括与江湖侠客于姑苏名胜同框护宝，别具文化厚重感。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color historical adventure illustration, wide cinematic 16:9 composition. Mid-slope of Huqiu Hill in Suzhou around 1050 AD beside a broad flat reddish-grey stone terrace (Qianren Stone) and an open timber-and-stone pavilion shaded by gnarled ancient pines in light mist. Beside a kicked-over stone stool near a stone table strewn with blank survey paper, a bamboo measuring ruler, a small compass, and an ornate antique bronze lotus-caltrop water tally, a bright-eyed 20-year-old Song scholar-prodigy (Shen Kuo, handsome clean robes, hair neatly bound in a Song scholar scarf) steps back calmly while cradling an oiled map tube. Shielding him squarely in the foreground, the young protagonist pivots dynamically to intercept a fierce muscular bandit whose blackened iron-sand stained palms lash toward the table. Classic Song mineral greens and warm ochre rock textures, zero text.
+  ```
+
+---
+
+### 65. `CG-QST-065`：扬州二十四桥水阁 · 柳永康广陵抚琴破词隐图
+
+- **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
+- **目标路径**：`public/assets/quests/yanziwu_map_24bridge_cipher.jpg`
+- **画框题跋**：`扬州二十四桥明月坊水阁 · 柳永执酒令笺与康广陵抚琴共破盐船暗码`
+- **剧情语境**：
+  - 黄昏将尽、二十四桥明月渐生、红药花香顺水飘来，主角登临扬州【二十四桥明月坊平山清韵琴词水阁】。
+  - 席间白衣风流词宗【柳永】（柳耆卿）微醺把玩一张水匪改动过的酒令词笺吟笑点破句格不合，逍遥派“琴癫”【康广陵】玉指按上焦尾古琴琴徽冷笑辨出“梅花数”敲桌拍节，与主角合力破译出淮南盐船密藏《广陵漕渠水深卷》之方位密码。
+- **画面核心要素**：
+  1. **环境氛围**：北宋淮扬盛景“二十四桥明月夜”——阁外雕栏白石桥拱跨波而过，水畔红芍药花影与锦绣画舫点点，暮蓝天际挂起一弯渐明秋月，室内雕窗半敞，陈列花梨琴案、青瓷酒壶与三五果盘。
+  2. **主体人物**：水阁中三人对席雅聚——临窗靠栏而坐的放浪白衣名士（柳永，头戴逍遥幅巾、微醺潇洒）修长手指轻捻一张空白纹样红纸酒令笺笑指句读破绽；花梨木矮案旁端坐的清癯孤傲中年琴师（康广陵，青灰窄袖长袍）左手重重按在名贵黑漆焦尾七弦古琴弦徽上、余音似有涟漪震动盏中清酒；对坐的年轻主角倾身展看水纹勘图细细推演梅花拍数。
+  3. **风流雅集**：词仙、琴癫与游侠同堂解谜，堪称宋代江湖最具文人风骨的破阵场面。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color literati-mystery illustration, wide cinematic 16:9 composition. Twilight rising into silver moonlight at an exquisite timber waterside pavilion overlooking arched white-stone Twenty-Four Bridges, blooming crimson herbaceous peonies, and glowing painted riverboats in Yangzhou around 1050 AD. Seated casually by the carved balcony railing, dashing white-robed poet-scholar Liu Yong (Song cloth scholar cap, slightly tipsy serene smile) holds up a narrow crimson tavern song-slip while pointing out a puzzling rhythm flaw. Seated beside a low pearwood table, lean stern qin-master Kang Guangling in slate-grey narrow sleeves presses sharp fingers firmly onto the strings of a charred-tail seven-string guqin, resonating ripples across nearby porcelain wine bowls. Opposite them, the young traveler leans forward intently tracing coordinates over a blank scroll sheet. Romantic Yangzhou twilight blues, peony crimson, and warm lantern amber, zero text.
+  ```
+
+---
+
+### 66. `CG-QST-066`：扬州盐帮兵器院 · 雪盐麻栈后破盛黑风铁爪图
+
+- **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
+- **目标路径**：`public/assets/quests/yanziwu_map_yangzhou_salt_arena.jpg`
+- **画框题跋**：`扬州淮南盐帮兵器演武院 · 雪白官盐栈后迎战裂碑铁爪盛黑风夺水深卷`
+- **剧情语境**：
+  - 查实内鬼藏匿栈房，淮南盐帮总堂主【顾长风】怒引主角穿过堆积如雪山的官盐麻袋长栈，直趋【十八般兵器演武院】。
+  - 铁掌帮巡江副舵主“裂碑铁爪”【盛黑风】赤膊披狼皮坎肩、戴乌钢精铁护腕正将熟铜箱塞入行囊，见行迹败露踢翻石凳狂扑而来，旁边心虚的【雷毅洲】惊退兵器架后，主角当场仗义截战夺回中卷《水深卷》。
+- **画面核心要素**：
+  1. **环境氛围**：扬州漕运帮派大气粗犷的兵器演武大院，后方紧连着屋檐敞开高堆至梁如皑皑雪丘般的百十麻袋洁白官盐（旁散粗麻绳与撬开木盐箱），院侧排列插满戈戟刀叉斧钺的十八般兵器木架与倾倒碎裂的石凳。
+  2. **主体人物**：院场石亭前爆发近身硬碰交锋——身高体壮、赤膊露肌肩披野狼毛坎肩、双臂戴着带森冷爪刃精铁护腕的恶汉（盛黑风）面目狰狞踢翻青石圆凳猛扑，身畔滚落一只撬开的熟铜卷宗铁箱（隐露防水牛皮卷筒）；正前方主角欺身抢攻稳压阵脚，身形灵动直取其腕门破其铁爪；院口高大硬朗的老盐帮主顾长风按刃压阵，兵器架暗角处惊惶缩躲着身穿旧盐客服的雷毅洲。
+  3. **市井江湖气**：雪白盐山与乌黑兵器铁爪色彩鲜明夺目，写尽两淮盐帮漕运江湖的悍勇血性。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color gangland courtyard battle painting, wide cinematic 16:9 composition. Sprawling stone training arena of the Huainan Salt Guild in Yangzhou around 1050 AD, flanked in the background by towering mountains of burlap sacks bursting with snow-white sea salt inside open timber warehouses and tall wooden racks bristling with eighteen types of Song iron weapons. Near a fallen stone bench and a pried-open copper document chest in the foreground, ferocious bare-chested enforcer Sheng Heifeng—draped in a ragged wolf-pelt vest with heavy forged-iron spiked wrist-claws clashing together—lunges savagely at the agile young protagonist stepping in cleanly to strike his wrist and reclaim the rolled river-depth chart. Holding the courtyard perimeter stands stern guild leader Gu Changfeng, while treacherous informant Lei Yizhou shrinks guiltily behind a tall halberd rack. Stark snow-white salt vs dark forged iron and ochre stone, dynamic Song martial grit, zero text.
+  ```
+
+---
+
+### 67. `CG-QST-067`：江宁石头城赤壁 · 大江暮涛激斗断浪焦沧澜图
+
+- **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
+- **目标路径**：`public/assets/quests/yanziwu_map_shitou_red_cliff.jpg`
+- **画框题跋**：`江宁石头城虎踞赤壁试剑台 · 大江暮涛迎战断浪铁掌焦沧澜夺星度卷`
+- **剧情语境**：
+  - 暮色苍茫大江东去，主角登临江宁府【石头城遗址虎踞赤壁临江试剑台】。脚下万里长江白浪狠狠拍碎在赭红色千年崖壁之上。
+  - 试剑台尽头，双臂粗壮如铁铸、鬓发微霜的黑袍老者——铁掌帮江南分水堂主“断浪铁掌”【焦沧澜】脚下刚刚震碎两具百斤石锁，双掌搓磨出金铁沙响迎风邀战，誓要截杀主角并收苏州、扬州两卷水图。
+- **画面核心要素**：
+  1. **环境氛围**：六朝古都金陵（江宁）极具历史厚重感的石头城遗址赤红断崖绝壁（赭石斑驳岩层裸露），高踞悬空临江古试剑石台之上，背后苍茫残阳映得滚滚万里长江如一条血金与靛青交错奔流的巨龙，峭壁下方巨浪撞出千堆雪沫。
+  2. **主体人物**：风势狂烈吹乱黑衣衣袍的悬崖试剑台尽头，鬓发微霜却双臂粗如黑铁铸就的黑袍老宗师（焦沧澜）微躬身躯双掌并推拍出浑厚刚猛铁砂掌劲，身畔青石台上赫然裂着两块被硬生生震碎炸开的残破石锁；崖台另一端衣袂猎猎的主角无所畏惧迎风抢步进击，背后背负先前所得水图木筒。
+  3. **江山战意**：赭红绝壁、惊涛骇浪与宗师硬功铁掌构成极富雄浑悲壮史诗美感的江南大战定格。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color cliffside duel masterpiece, wide cinematic 16:9 composition. High atop the precarious red-sandstone Sword-Testing Terrace protruding from the ancient Stone Citadel Red Cliff above the surging Yangtze River in Jiangning (Nanjing) around 1050 AD; far below, massive white-crested river waves explode against steep weathered crimson rock faces under a blazing bruised-gold dusk sky. At the windy stone cliff edge, fierce frost-templed elder master Jiao Canglan in billowing black robes—forearms thickened like hammered black iron—slams forward with devastating Iron-Palm force right beside two heavy stone weight-locks shattered cleanly on the ground. Bracing firmly against the gale in the foreground (three-quarter back view), the valiant young protagonist charges forward with weapon drawn to claim the third star-chart scroll. Monumental crimson cliffs, roaring indigo river currents, fierce dusk wind, zero text.
+  ```
+
+---
+
+### 68. `CG-QST-068`：太湖烟波锦帆画舫 · 沈括合绘水图蒋平包不同共证图
+
+- **关联文件**：[`src/data/quests/adventures/yanziwuMapQuest.ts`](../src/data/quests/adventures/yanziwuMapQuest.ts)
+- **目标路径**：`public/assets/quests/yanziwu_map_taihu_boat_unite.jpg`
+- **画框题跋**：`太湖烟波渡口锦帆画舫 · 沈括执铜规罗盘合绘三叠全图蒋平包不同共证`
+- **剧情语境**：
+  - 历经苏、扬、金陵三府斩将夺卷后，诸贤重聚于苏州【太湖烟波渡口锦帆画舫】。船舱窗外八百里太湖晴空碧波、东西洞庭青螺浮浪。
+  - 青年【沈括】手执紫毫与铜圆规罗盘将水深、星度、水符三卷校准合璧于一张澄心堂长卷（朱墨双色绘出百里水路与七十二梅花暗桩）；【蒋平】抚掌大笑敬上一杯洞庭绿蚁酒，连惯爱唱反调的【包不同】也轻轻合拢折扇在旁郑重颔首默认“归你执掌”，湘妃竹图轴交入主角手中。
+- **画面核心要素**：
+  1. **环境氛围**：宋代水乡极精致奢雅的双层太湖大画舫主舱厅，雕花长窗三面完全推开迎进浩瀚太湖青绿碧波与远方螺黛洞庭群山，舱案焚香袅袅，摆有白鱼羹与洞庭绿蚁碧酒瓷碗（船帆素色无字）。
+  2. **主体人物**：舱中黑漆大案四周四人神态各异、栩栩如生——青年才俊沈括正伏案一手执黄铜圆规测校、一手持细毛笔于雪白大幅澄心堂纸绘就朱墨双色太湖繁复迷宫航道图（线条精密如地图工笔而无字）；旁立精瘦睿智、留两撇鼠须的长衫水乡侠客“翻江鼠”蒋平眉开眼笑捧杯相敬；右侧斜倚着着青衫、手拿折扇轻敲掌心撇嘴却流露认可神气的包不同；左侧年轻主角面迎湖风喜接湘妃竹精装舆图画轴。
+  3. **宋代科技美学**：致敬《梦溪笔谈》前传里的北宋青年科学家与江湖侠豪跨界共绘舆图的奇幻浪漫。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color ensemble scene, wide cinematic 16:9 composition. Inside the sunlit, carved-windowed main cabin of a grand embroidered-sail lake barge gliding over vast misty blue-green waters of Lake Taihu dotted with distant emerald peaks around 1050 AD. Across the long black-lacquer table, young Song scientist-prodigy Shen Kuo uses a brass drafting compass and fine wolf-hair brush to unite an intricate vermilion-and-ink waterways sea-chart (delicate contour channels and reef dots, zero readable text) on crisp white Song paper alongside a carved bronze water tally. Laughing heartily while raising a jade wine cup of Taihu brew is wiry sharp-eyed river hero Jiang Ping; beside him, eccentric scholar-retainer Bao Butong taps a folded paper fan against his palm with grudging nod of approval. Facing them joyfully, the protagonist prepares to receive the Xiangfei bamboo scroll tube. Warm sunlight over Lake Taihu teal, bamboo, and cream paper, zero text.
+  ```
+
+---
+
+### 69. `CG-QST-069`：苏州虎丘云岩古塔 · 暮霭石阶截黑鲨盗夺罗盘图
+
+- **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
+- **目标路径**：`public/assets/quests/taohuadao_map_huqiu_compass.jpg`
+- **画框题跋**：`苏州虎丘七级微倾云岩古塔 · 暮霭石阶仗剑截击海寇鲨七郎夺璇玑潮信盘`
+- **剧情语境**：
+  - 暮霭沉沉、晚钟余音未歇，主角沿青石长阶登上苏州虎丘山巅已有百年历史、七级八面微微倾斜的宋代【云岩寺古塔】。
+  - 塔基东侧阴影石函旁，一名耳坠洁白鲨鱼齿环、身着紧身油浸防水水靠的精瘦海寇正蹲地用匕首撬拭劫来的【东海璇玑潮信盘】；见主角赶到，“海鬼”【鲨七郎】暴起双刀交叉划出两道阴寒水光猛扑而来。
+- **画面核心要素**：
+  1. **环境氛围**：极高辨识度的苏州地标“宋代云岩寺七级八面微倾青砖古塔”（塔身轻微左倾、逐层出檐灵动），暮霭苍紫映照山巅青松与漫长古朴青石阶梯，塔基旁散落一个撬开半边的小石函。
+  2. **主体人物**：古塔基座东侧石阶平台之上，一名身形精瘦矮悍、耳垂挂着显眼森白鲨齿耳环、着漆黑发亮油浸水靠的海寇探子（鲨七郎）双足蹬地暴起跃半空，左右两手交叉反握两口雪亮渔民短双刀凶狠扑刺；其身畔石面上正放着一只雕刻精美八卦潮信刻度与青铜磁针的【东海璇玑青铜潮信盘】（盘面仅刻简约卦爻线条无文字）；台阶下主角昂首挺身、拔剑横格冷然拦截。
+  3. **地标历史感**：公元 1050 年即已微倾而立的宋代云岩古塔（前身为北宋初建）成为太湖与东海海图奇遇第一幕的绝佳地理印记。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color twilight pagoda clash, wide cinematic 16:9 composition. Dusk settling in violet mist atop Huqiu Hill in Suzhou around 1050 AD, dominated by the iconic, subtly tilted seven-story octagonal brick Yunyan Temple Pagoda rising majestically behind twisted mountain pines and long stone stairs. Near a pried-open stone coffer on the eastern pagoda terrace where rests an ornate antique bronze tidal compass embossed only with clean radial notches and bagua lines, a wiry agile pirate scout (Sha Qilang, wearing shiny oil-soaked dark sea-diving garb and a jagged white shark-tooth earring) leaps violently out of the shadows with crossed twin short blades flashing silver. Stepping cleanly up the steps in the foreground (three-quarter back view), the resolute young hero draws a straight sword across the chest to block and seize the bronze tidal compass. Rich violet twilight sky and ancient terracotta brick contrast, zero text.
+  ```
+
+---
+
+### 70. `CG-QST-070`：杭州万松书院印书坊 · 毕昇胶泥活字拓海图密版图
+
+- **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
+- **目标路径**：`public/assets/quests/taohuadao_map_wansong_bisheng.jpg`
+- **画框题跋**：`杭州万松湖山书院印书坊 · 神匠毕昇竹镊排检胶泥活字与商杏璇参暗礁版`
+- **剧情语境**：
+  - 皇祐二年（1050）尚在杭州两浙一带隐居专研活字印书的千古发明神匠【毕昇】，正于【万松湖山书院】后厢印书作坊中以松脂药蜡铁板与细竹镊排检火烧胶泥活字。
+  - 才女【商杏璇】引主角拜谒毕神匠并呈验【东海璇玑潮信盘】，毕昇即从暗格取出珍藏的三枚刻有奇门暗礁符号的备用活字泥模，讲述按洛书九宫口诀临时排版拓印海图之奇思，三人共商破黑鲨帮窃宝之危。
+- **画面核心要素**：
+  1. **环境氛围**：书香竹影环抱的南宋风雅之前身北宋杭州万松书院后厢工坊，木架陈列木刻板、成摞宣纸、炭火小泥炉与松脂墨盒，窗外可见万松青翠与西湖一角烟山。
+  2. **主体人物**：工坊暖光松木长作台旁，年长慈和、双手沾着些许灰白陶泥与墨渍的布衣老匠师（毕昇，穿素净粗麻灰布工装挽袖）正稳稳拿着一对极精巧的细竹镊子，在一个微微冒热气的黑铁盘松脂药蜡框上摆弄十几枚指节大小的黑褐火烧胶泥活字印模（泥字顶部只雕刻纯几何礁石点划符印而不出现可辨认AI乱码汉字），旁开一个小木暗盒内盛着三枚备用泥字；左侧秀雅聪慧的青年桃花岛女弟子（商杏璇，淡绯水绿宋式衫裙，柳眉微蹙）手托青铜潮信盘倾身端详；前景主角俯身共同参研。
+  3. **硬核北宋科学**：北宋庆历皇祐年间毕昇泥活字发明史实与奇门海图暗号深度融合，游戏人文气息独步一时。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color artisan workshop illustration, wide cinematic 16:9 composition. Sunlit wooden printing studio tucked inside bamboo-and-pine shaded Wansong Academy in Hangzhou around 1050 AD, shelves stocked with blank paper stacks, ink-rollers, and a small glowing clay brazier. Leaning over a warm iron tray coated with melted rosin and beeswax, legendary humble inventor Bi Sheng (kindly weathered elder artisan in rolled coarse-linen work robes with faint clay and soot on his fingers) uses delicate bamboo tweezers to arrange tiny fired black-clay movable-type blocks carved strictly with geometric reef-dots and abstract trigonometric marks (strictly zero readable Chinese characters), beside a small open cedar box holding three spare clay blocks. Standing thoughtfully beside him, graceful young scholar-maiden Shang Xingxuan in pale celadon-jade Song silk holds the bronze tidal compass with furrowed brows while the young protagonist studies the movable-type matrix closely. Warm sunlit wood, ink black, and bamboo greens, authentic 1050 AD craftsmanship, zero text.
+  ```
+
+---
+
+### 71. `CG-QST-071`：杭州钱塘江观潮台 · 曲沧浪横抚铁琴听潮破刀律图
+
+- **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
+- **目标路径**：`public/assets/quests/taohuadao_map_qiantang_qin_tide.jpg`
+- **画框题跋**：`杭州钱塘江观潮台琴歌台 · 白练怒潮奔涌曲沧浪横抚铁琴授三叠破刀律`
+- **剧情语境**：
+  - 赶往两浙市舶司决战黑鲨岛主前夕，主角登临钱塘江畔高耸的【观潮台飞桥灯廊琴歌台】。但见江天一色，远方一线雪白巨潮伴着闷雷般咆哮滚滚涌来。
+  - 桃花岛前辈“东海琴魔”【曲沧浪】于凌江琴台迎风横膝抚一具奇特玄铁古琴，琴音铮琮竟与江潮三进一退韵律丝丝相扣，借此点破屠海蛟大环叠浪刀三叠后丹田必露破绽之秘。
+- **画面核心要素**：
+  1. **环境氛围**：临钱塘大江悬挑而建的宋式飞檐凌空琴歌木台，身下万里开阔江水正上演震撼天地的钱塘涌潮奇观——一条丈余高如银河坠地般的雪白卷浪墙横贯远天江心奔腾扑岸、水汽漫天如烟！
+  2. **主体人物**：飞桥琴歌台尽头苍老劲健石墩上，须发微乱、身披海青色大袖布袍、气度孤高出尘的“东海琴魔”曲沧浪迎江风盘膝安坐，双膝横着一张隐泛乌黑金属冷光的特殊玄铁古琴，右手指压徽弦、目光如电望向身前肃立静听的年轻主角；强风卷动二人衣摆如旗。
+  3. **声律意境**：天地排空雪白怒潮与一具孤傲玄铁古琴交响共振，化无形声律与算学节拍为破敌绝招。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color scenic-martial painting, wide cinematic 16:9 composition. High timber viewing terrace cantilevered above the wide Qiantang River outside Hangzhou around 1050 AD; across the vast river expanse approaches the awe-inspiring Qiantang tidal bore—a towering rolling silver-white wall of roaring foam stretching horizon to horizon under misty golden-grey clouds. Seated cross-legged on a stone bench at the windy terrace tip, untamed senior master Qu Canglang (wearing billowing sea-blue coarse Song robes, windswept hair and beard) rests a striking dark forged-iron guqin across his knees, pressing the strings in precise cadence with the crashing tide while imparting secret rhythmic combat wisdom to the attentive young hero standing cleanly in the foreground (seen from a three-quarter rear view). Grand scale of surging white tidal waters against weathered Song woodwork and dark iron, zero text.
+  ```
+
+---
+
+### 72. `CG-QST-072`：杭州两浙市舶司船坞 · 决战鲨皮独眼巨寇屠海蛟图
+
+- **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
+- **目标路径**：`public/assets/quests/taohuadao_map_dock_shark_boss.jpg`
+- **画框题跋**：`杭州两浙市舶司临江演武船坞 · 怒浪浓烟决战鲨皮独眼巨寇屠海蛟夺紫檀印匣`
+- **剧情语境**：
+  - 晚潮拍岸，杭州两浙市舶司海港西侧【临江演武船坞】停泊三艘虎视眈眈的海盗快船，浓烟与火把在江风中明灭。
+  - 身高八尺、满脸横肉披着灰褐鲨鱼皮重甲的独眼东海巨寇——黑鲨岛主【屠海蛟】正持一柄沉重锯齿大环刀立于船坞石坪正中，一脚死死踩住抢来的紫檀活字印匣狂笑；主角依曲沧浪所授潮信三进一退律法，迎风拔刃踏上船坞正面死斗！
+- **画面核心要素**：
+  1. **环境氛围**：宋代东南第一海贸港口两浙市舶司临江大船坞，船坞石坪旁耸立正在修造的北宋巨型福船巨大弯曲龙骨船肋与高桅索具，晚潮黑蓝江浪高高拍溅湿滑石岸，栈桥停靠三艘深褐快帆海盗船、船头燃着粗焦油火盆。
+  2. **主体人物**：船坞石坪正中，身躯如铁塔般高大压迫的东海贼首屠海蛟（左眼覆黑革眼罩、虬髯满面横肉、身披质地粗糙却极厚实的灰暗鲨皮重甲）右足狠狠踏在一只精美雕花紫檀方匣之上，单手扛着一柄串满响环的六合厚背大环砍刀狂笑挥指；前景主角身形矫健却凛然不惧，横刃护胸踩准第三拍反攻步点踏石迎战。
+  3. **海港硬仗**：大宋海港船坞巨舰龙骨架构与狰狞海寇重刀对峙，展现东海奇遇线最有压迫感的 Boss 大决战。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color harbor boss duel painting, wide cinematic 16:9 composition. Timber shipbuilding drydock and stone wharf at the Liangzhe Maritime Trade Bureau port in Hangzhou at stormy dusk around 1050 AD, towering wooden ribs of a giant Song ocean-going junk and three dark swift pirate sailboats with burning pitch-braziers tossing on surging tidal waves beside the wooden pier. Straddling the center of the wet stone wharf stands monstrous eight-foot one-eyed pirate lord Tu Haijiao—wearing jagged grey-brown sharkskin scale heavy armor and a leather eyepatch, planting one heavy boot atop a seized carved sandalwood seal box while leveling a massive ringed heavy chopping broadsword with fierce roaring mockery. Bracing cleanly in the foreground with drawn steel weapon and steady wind-blown cloak, the focused young protagonist advances swiftly in rhythm to strike. Dramatic sea-spray, fiery wharf smoke, Song maritime engineering details, zero text.
+  ```
+
+---
+
+### 73. `CG-QST-073`：苏州太湖望湖水榭 · 陆玄机朱毫校定鲛绡海图授玉筒图
+
+- **关联文件**：[`src/data/quests/adventures/taohuadaoMapQuest.ts`](../src/data/quests/adventures/taohuadaoMapQuest.ts)
+- **目标路径**：`public/assets/quests/taohuadao_map_wanghu_silk_chart.jpg`
+- **画框题跋**：`苏州太湖洞庭奇石望湖水榭 · 陆玄机朱毫校定雪白鲛绡海图亲授青玉图筒`
+- **剧情语境**：
+  - 斩除黑鲨帮护全两浙海防后，主角重返洞庭奇石环抱的苏州太湖【望湖水榭】。
+  - 桃花岛阵主【陆玄机】挥动朱砂狼毫在轻薄半透如云雾的南海鲛绡绢幅上补完最后一道九宫生门潮线，将泥印暗礁、二十四节气晷影与海道合校无误；随后将卷入青玉竹节长筒中的《东海桃花岛奇门海道舆图》双手郑重奉予主角，邀其来日扬帆一睹桃花仙岛真容。
+- **画面核心要素**：
+  1. **环境氛围**：江南精致绝伦的湖石望湖水榭，窗外太湖秋水清阔、点缀形态奇崛孔洞玲珑的宋代徽宗前太湖洞庭奇石（花石纲风雅原生态景致），案头旁摆一截精致折枝红桃或梅枝清供瓶。
+  2. **主体人物**：轩敞靠湖紫檀长画案后，风仪俊雅、白衣清癯如神仙中人的桃花岛算学奇门名家（陆玄机）刚停下手中沾满鲜艳朱砂的细狼毫，低垂的画案上正展开一幅如雪轻透、略带银白海波光泽的稀世南海鲛绡长绢海图（上面以红黑两色细密勾勒岛屿漩涡潮汐星位线而不出现任何汉字文字）；陆玄机一手微笑着将另一副已卷好封入温润青玉竹节长筒中的全图珍重递向主角，商杏璇在旁欣慰微笑观礼；主角拱手欣然接过玉筒。
+  3. **仙岛序曲**：清透洁白的鲛绡海图、温润青玉筒与洞庭太湖水天辉映，为下一卷出海前往神秘《东海桃花岛》留下无限浪漫遐想。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color luminous conclusion painting, wide cinematic 16:9 composition. Inside the serene Lake-View Water Pavilion framed by naturally sculpted, hole-perforated Taihu garden rocks overlooking tranquil blue-green lake waters around 1050 AD, a celadon vase holding blossoming red peach twigs sitting quietly by the sunlit window. Behind a refined long rosewood drafting table, serene graceful Qimen strategist Lu Xuanji in flowing white-and-pale-blue Song scholar attire sets down a fine vermilion-tipped wolf-hair brush; across the table glistens an ethereal, translucent snow-white sea-silk nautical chart traced meticulously in crisp vermilion and black contour lines depicting islands, reef swirls, and tidal paths (strictly geometric and ornamental, zero text). Smiling warmly, Lu Xuanji extends a lustrous green-jade bamboo-joint map cylinder with both hands to the delighted protagonist (three-quarter rear view), as Shang Xingxuan looks on happily beside the lattice screen. Ethereal Song literati mineral white, celadon-jade, and vermilion hues, zero text.
   ```
 
 ---

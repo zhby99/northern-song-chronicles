@@ -156,6 +156,8 @@ const SCENE_25_EPILOGUE_UNLOCK: StorySceneDef = {
   id: 'scene_thd_map_25_epilogue_unlock',
   title: '第二十五幕 · 碧海乘潮启桃源',
   subtitle: '苏州府 · 太湖烟波渡口洞庭奇石望湖水榭',
+  illustrationUrl: '/assets/quests/taohuadao_map_wanghu_silk_chart.jpg',
+  illustrationCaption: '苏州太湖洞庭奇石望湖水榭 · 陆玄机朱毫校定雪白鲛绡海图亲授青玉图筒',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -303,6 +305,8 @@ const SCENE_20_PORT_DOCK_SHOWDOWN: StorySceneDef = {
   id: 'scene_thd_map_20_port_dock_showdown',
   title: '第二十幕 · 演武船坞会狂鲨',
   subtitle: '杭州府 · 两浙市舶司海港临江演武船坞',
+  illustrationUrl: '/assets/quests/taohuadao_map_dock_shark_boss.jpg',
+  illustrationCaption: '杭州两浙市舶司临江演武船坞 · 怒浪浓烟决战鲨皮独眼巨寇屠海蛟夺紫檀印匣',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -410,6 +414,8 @@ const SCENE_18_TIDE_PAVILION_QU: StorySceneDef = {
   id: 'scene_thd_map_18_tide_pavilion_qu',
   title: '第十八幕 · 观潮琴台听海拍',
   subtitle: '杭州府 · 钱塘江观潮台飞桥灯廊琴歌台',
+  illustrationUrl: '/assets/quests/taohuadao_map_qiantang_qin_tide.jpg',
+  illustrationCaption: '杭州钱塘江观潮台琴歌台 · 白练怒潮奔涌曲沧浪横抚铁琴授三叠破刀律',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -680,6 +686,8 @@ const SCENE_12_ACADEMY_BISHENG_CIPHER: StorySceneDef = {
   id: 'scene_thd_map_12_academy_bisheng_cipher',
   title: '第十二幕 · 活字胶泥参暗版',
   subtitle: '杭州府 · 万松湖山书院',
+  illustrationUrl: '/assets/quests/taohuadao_map_wansong_bisheng.jpg',
+  illustrationCaption: '杭州万松湖山书院印书坊 · 神匠毕昇竹镊排检胶泥活字与商杏璇参暗礁版',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -817,6 +825,8 @@ const SCENE_08_HUQIU_PAGODA_BATTLE: StorySceneDef = {
   id: 'scene_thd_map_08_huqiu_pagoda_battle',
   title: '第八幕 · 云岩塔下截海鬼',
   subtitle: '苏州府 · 虎丘剑池云岩寺七级微倾古塔',
+  illustrationUrl: '/assets/quests/taohuadao_map_huqiu_compass.jpg',
+  illustrationCaption: '苏州虎丘七级微倾云岩古塔 · 暮霭石阶仗剑截击海寇鲨七郎夺璇玑潮信盘',
   beats: [
     {
       speaker: { kind: 'narrator' },

@@ -155,6 +155,8 @@ const SCENE_25_EPILOGUE_UNLOCK: StorySceneDef = {
   id: 'scene_yzw_map_25_epilogue_unlock',
   title: '第二十五幕 · 烟波浩渺开燕坞',
   subtitle: '苏州府 · 太湖烟波渡口锦帆画舫',
+  illustrationUrl: '/assets/quests/yanziwu_map_taihu_boat_unite.jpg',
+  illustrationCaption: '太湖烟波渡口锦帆画舫 · 沈括执铜规罗盘合绘三叠全图蒋平包不同共证',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -310,6 +312,8 @@ const SCENE_20_SHITOU_CLIFF_SHOWDOWN: StorySceneDef = {
   id: 'scene_yzw_map_20_shitou_cliff_showdown',
   title: '第二十幕 · 虎踞赤壁会焦堂',
   subtitle: '江宁府 · 石头城遗址虎踞赤壁临江试剑台',
+  illustrationUrl: '/assets/quests/yanziwu_map_shitou_red_cliff.jpg',
+  illustrationCaption: '江宁石头城虎踞赤壁试剑台 · 大江暮涛迎战断浪铁掌焦沧澜夺星度卷',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -623,6 +627,8 @@ const SCENE_13_SALT_ARENA_BATTLE: StorySceneDef = {
   id: 'scene_yzw_map_13_salt_arena_battle',
   title: '第十三幕 · 演武院中破铁爪',
   subtitle: '扬州府 · 淮南盐帮总堂十八般兵器演武院',
+  illustrationUrl: '/assets/quests/yanziwu_map_yangzhou_salt_arena.jpg',
+  illustrationCaption: '扬州淮南盐帮兵器演武院 · 雪白官盐栈后迎战裂碑铁爪盛黑风夺水深卷',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -704,6 +710,8 @@ const SCENE_11_24BRIDGE_CIPHER: StorySceneDef = {
   id: 'scene_yzw_map_11_24bridge_cipher',
   title: '第十一幕 · 二十四桥参词隐',
   subtitle: '扬州府 · 二十四桥明月坊平山清韵琴词水阁',
+  illustrationUrl: '/assets/quests/yanziwu_map_24bridge_cipher.jpg',
+  illustrationCaption: '扬州二十四桥明月坊水阁 · 柳永执酒令笺与康广陵抚琴共破盐船暗码',
   beats: [
     {
       speaker: { kind: 'narrator' },
@@ -940,6 +948,8 @@ const SCENE_05_HUQIU_SHENKUO_AMBUSH: StorySceneDef = {
   id: 'scene_yzw_map_05_huqiu_shenkuo_ambush',
   title: '第五幕 · 千人石上截黑手',
   subtitle: '苏州府 · 虎丘剑池千人石试剑台与生公亭',
+  illustrationUrl: '/assets/quests/yanziwu_map_huqiu_shenkuo.jpg',
+  illustrationCaption: '苏州虎丘千人石生公亭 · 横身护青年沈括与菱花铜水符截击铁砂恶客',
   beats: [
     {
       speaker: { kind: 'narrator' },

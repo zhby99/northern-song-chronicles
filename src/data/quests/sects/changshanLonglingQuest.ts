@@ -110,6 +110,8 @@ const OPENING_EFFECTS: QuestEffect[] = [
       id: 'scene_cs_longling_opening',
       title: '第一幕 · 龙胆血书',
       subtitle: '真定府 · 常山演武堂 > 常山龙胆枪脉宗祠正堂',
+      illustrationUrl: '/assets/quests/changshan_blood_letter.jpg',
+      illustrationCaption: '真定常山龙胆宗祠 · 冬夜寒雨验悯忠寺铜牌与南牧血书',
       beats: [
         {
           speaker: { kind: 'narrator' },
@@ -205,6 +207,8 @@ const MARSHAL_XIAO_COMBAT_EFFECTS: QuestEffect[] = [
           id: 'scene_cs_marshal_escape',
           title: '烟幕脱身 · 奔赴雁门',
           subtitle: '辽南京兵马元帅府外',
+          illustrationUrl: '/assets/quests/changshan_marshal_smoke_escape.jpg',
+          illustrationCaption: '辽南京兵马元帅府 · 焚毁南牧山川策正本借霹雳烟幕突围',
           beats: [
             {
               speaker: { kind: 'narrator' },
@@ -1195,6 +1199,8 @@ opponent: {
               id: 'scene_cs_cliff_choice',
               title: '第三幕 · 绝壁银枪',
               subtitle: '雁门关外乱石绝壁',
+              illustrationUrl: '/assets/quests/changshan_yanmen_cliff_stand.jpg',
+              illustrationCaption: '雁门关外乱石绝壁 · 朔风黄沙横枪死截萧远风铁林追骑',
               beats: [
                 {
                   speaker: { kind: 'narrator' },
@@ -1376,6 +1382,8 @@ opponent: {
               id: 'scene_cs_ancestral_confer',
               title: '第四幕 · 龙胆传薪',
               subtitle: '真定府 · 常山演武堂 > 常山龙胆枪脉宗祠正堂',
+              illustrationUrl: '/assets/quests/changshan_ancestral_silver_spear.jpg',
+              illustrationCaption: '常山演武堂顺平侯祠 · 启紫檀枪匣亲授常山龙胆亮银枪',
               beats: [
                 {
                   speaker: { kind: 'narrator' },
