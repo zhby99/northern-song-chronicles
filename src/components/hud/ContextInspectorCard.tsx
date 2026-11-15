@@ -13,7 +13,11 @@ import {
   buildNodeNpcFromDynamicActor,
   getAvailableSpotQuestActions,
 } from '../../engine/questEngine'
-import { ITEM_DB_MAP } from '../../data/itemsDb'
+import {
+  getRegionUnlockRequirement,
+  isRegionUnlockedByInventory,
+  ITEM_DB_MAP,
+} from '../../data/itemsDb'
 import { SPOT_SHOPS_BY_SPOT_ID } from '../../data/spotShops'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import type {
@@ -422,19 +426,23 @@ export function ContextInspectorCard() {
     if (!node) return null
 
     const isHere = currentNodeId === node.id && !campPos
-    const route = !isHere
-      ? findBestRoute(
-          currentNodeId,
-          node.id,
-          {
-            mountKey,
-            qinggongBonus,
-            ridingSkill,
-            agility,
-          },
-          campPos,
-        )
-      : null
+    const isLocked = !isRegionUnlockedByInventory(node.id, inventory)
+    const lockReq = getRegionUnlockRequirement(node.id)
+    const route =
+      !isHere && !isLocked
+        ? findBestRoute(
+            currentNodeId,
+            node.id,
+            {
+              mountKey,
+              qinggongBonus,
+              ridingSkill,
+              agility,
+            },
+            campPos,
+            inventory,
+          )
+        : null
 
     const typeBadge =
       node.type === 'city'
@@ -457,8 +465,12 @@ export function ContextInspectorCard() {
                 {node.code ? `${node.code} · ` : ''}
                 {node.name}
               </span>
-              <span className="px-1.5 py-0.5 rounded bg-[#5c4024] text-[#fff8ee] text-[10px]">
-                {typeBadge}
+              <span
+                className={`px-1.5 py-0.5 rounded text-[#fff8ee] text-[10px] ${
+                  isLocked ? 'bg-[#8f1d14]' : 'bg-[#5c4024]'
+                }`}
+              >
+                {isLocked ? '🔒 舆图未得' : typeBadge}
               </span>
             </div>
             <div className="text-[11px] text-[#6b5235] mt-0.5">
@@ -483,7 +495,23 @@ export function ContextInspectorCard() {
           </div>
         )}
 
-        {isHere ? (
+        {isLocked && lockReq ? (
+          <div className="p-2.5 rounded bg-[#f8e3e1] border border-[#d6887f] space-y-1.5 text-[#781710]">
+            <div className="font-bold song-serif text-xs">
+              🔒 迷障封绝 · 尚未解锁抵达航道
+            </div>
+            <p className="text-[11px] text-[#4a251d] leading-relaxed">{lockReq.lockReason}</p>
+            <div className="pt-1">
+              <button
+                type="button"
+                disabled
+                className="w-full px-3 py-1.5 rounded bg-[#9e8462]/60 text-[#5c4630] font-bold song-serif cursor-not-allowed"
+              >
+                需持有{lockReq.mapItemName}方可前往
+              </button>
+            </div>
+          </div>
+        ) : isHere ? (
           <button
             type="button"
             onClick={() => enterRegionMap(node.id)}

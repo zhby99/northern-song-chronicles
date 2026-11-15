@@ -1041,6 +1041,8 @@ export const KAIFENG_MURONG_QUEST_1: QuestDefinition[] = [
         id: 'yanziwu_tingxiang',
         title: '山茶幽径破风恶',
         objective: '乘舟潜入燕子坞【听香水榭与曼陀花坞 · 曼陀山茶幽径】，击败巡夜的“一阵风”风波恶。',
+        nextHint:
+          '若尚未贯通太湖航道，须先于苏州府【太湖烟波渡口】完成江南三府奇遇《烟波三叠 · 燕子坞水图》（获取《太湖燕子坞烟波水路舆图》），方可自大地图乘舟入坞。',
         targetLocation: {
           regionId: 'yanziwu',
           buildingId: 'yzw_tingxiang',

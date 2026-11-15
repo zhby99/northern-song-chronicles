@@ -15,7 +15,10 @@ import {
   checkMountEquipRequirements,
   checkWeaponEquipRequirements,
   DEFAULT_EQUIPPED_SLOTS,
+  getRegionUnlockRequirement,
+  isRegionUnlockedByInventory,
   ITEM_DB_MAP,
+  NON_GIFTABLE_KEY_ITEM_IDS,
   normalizeItemTier,
 } from '../data/itemsDb'
 import {
@@ -1181,6 +1184,20 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const node = NODE_MAP[nodeId]
     const cfg = REGIONAL_CONFIGS[nodeId]
     if (!node || !cfg) return
+    if (!isRegionUnlockedByInventory(nodeId, s.inventory)) {
+      const req = getRegionUnlockRequirement(nodeId)
+      const warnMsg = req
+        ? `【${req.regionName}】水道/绝域迷障重重，须先取得${req.mapItemName}方可踏入！`
+        : `【${node.name}】尚未取得对应舆图，当前不可抵达！`
+      set({
+        actionFeedback: { text: warnMsg, tone: 'warn' },
+        logs: [createLogEntry(s.dayCount, '秘境未通', warnMsg, true, s.shichenIdx), ...s.logs].slice(
+          0,
+          60,
+        ),
+      })
+      return
+    }
     if (s.traveling) {
       get().campStop()
     }
@@ -5851,6 +5868,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
+    const isUnlocked = isRegionUnlockedByInventory(target.regionId, s.inventory)
+    const lockReq = !isUnlocked ? getRegionUnlockRequirement(target.regionId) : null
+
     set({
       menuOpen: false,
       compendiumOpen: false,
@@ -5859,16 +5879,35 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       activeBuildingInteriorId: null,
       selectedNodeId: target.regionId,
       worldPan: { x: 0, y: 0, scale: 1 },
-      actionFeedback: {
-        text: `已在天下舆图锁定目标州府【${target.customLabel ?? regNode.name}】，点击右侧【启程前往】即可策马奔赴！`,
-        tone: 'success',
-      },
+      actionFeedback: lockReq
+        ? {
+            text: `【${lockReq.regionName}】尚未解锁航道/山道！须先获得${lockReq.mapItemName}方可抵达（${lockReq.questTitleHint}）。`,
+            tone: 'warn',
+          }
+        : {
+            text: `已在天下舆图锁定目标州府【${target.customLabel ?? regNode.name}】，点击右侧【启程前往】即可策马奔赴！`,
+            tone: 'success',
+          },
     })
   },
 
   startJourney: (targetId) => {
     const s = get()
     if (s.traveling) return
+    if (!isRegionUnlockedByInventory(targetId, s.inventory)) {
+      const req = getRegionUnlockRequirement(targetId)
+      const warnMsg = req
+        ? `【${req.regionName}】水陆迷障封锁，须先获得${req.mapItemName}方可启程前往！`
+        : `尚未取得前往该秘境的舆图，当前不可抵达！`
+      set({
+        actionFeedback: { text: warnMsg, tone: 'warn' },
+        logs: [createLogEntry(s.dayCount, '航道未通', warnMsg, true, s.shichenIdx), ...s.logs].slice(
+          0,
+          60,
+        ),
+      })
+      return
+    }
     const route = findBestRoute(
       s.currentNodeId,
       targetId,
@@ -5879,6 +5918,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         agility: s.agility,
       },
       s.campPos,
+      s.inventory,
     )
     if (!route || route.segments.length === 0) return
 
@@ -6014,7 +6054,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
 
       if ((nextDayCount - 1) % 30 === 0) {
         nextMasters = s.roamingMasters.map((m) => {
-          const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
+          const neighbors = (ADJACENCY_MAP[m.nodeId] ?? []).filter((edge) =>
+            isRegionUnlockedByInventory(edge.to, s.inventory),
+          )
           if (neighbors.length === 0) return m
           const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
           return { ...m, nodeId: pick.to }
@@ -6315,6 +6357,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const s = get()
     const item = ITEM_DB_MAP[itemId]
     if (!item) return
+    if (NON_GIFTABLE_KEY_ITEM_IDS.has(itemId)) {
+      set({
+        actionFeedback: {
+          text: `「${item.name}」乃关乎秘境航道与重案机缘之随身秘宝，不可赠予他人！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
     const existing = s.inventory.find((st) => st.itemId === itemId && st.qty > 0)
     if (!existing) return
     const nextInventory = s.inventory

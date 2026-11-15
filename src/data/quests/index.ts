@@ -1,5 +1,7 @@
 import type { QuestDefinition } from '../../types/quest'
 import { BABUGANCHAN_QUESTS } from './adventures/babuganchanQuest'
+import { TAOHUADAO_MAP_QUESTS } from './adventures/taohuadaoMapQuest'
+import { YANZIWU_MAP_QUESTS } from './adventures/yanziwuMapQuest'
 import { DAMING_BAJI_QUESTS } from './cities/damingBajiQuest'
 import { CHANGSHAN_LONGLING_QUESTS } from './sects/changshanLonglingQuest'
 import { KAIFENG_MURONG_QUEST_1 } from './sects/kaifengMurongQuest1'
@@ -18,6 +20,8 @@ export const QUEST_REGISTRY: QuestDefinition[] = [
   ...TIANBO_BAWANG_QUESTS,
   ...DAMING_BAJI_QUESTS,
   ...BABUGANCHAN_QUESTS,
+  ...YANZIWU_MAP_QUESTS,
+  ...TAOHUADAO_MAP_QUESTS,
   ...KAIFENG_MURONG_QUEST_1,
   ...KAIFENG_MURONG_QUEST_2,
 ]
@@ -50,6 +54,8 @@ export function resetRegisteredQuests(): void {
     ...TIANBO_BAWANG_QUESTS,
     ...DAMING_BAJI_QUESTS,
     ...BABUGANCHAN_QUESTS,
+    ...YANZIWU_MAP_QUESTS,
+    ...TAOHUADAO_MAP_QUESTS,
     ...KAIFENG_MURONG_QUEST_1,
     ...KAIFENG_MURONG_QUEST_2,
   )

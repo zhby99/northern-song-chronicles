@@ -1,5 +1,9 @@
 import { useMemo } from 'react'
 import { REGION_DB_MAP } from '../../data/gameDb'
+import {
+  getRegionUnlockRequirement,
+  isRegionUnlockedByInventory,
+} from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import { findBestRoute, resolveMountMeta } from '../../utils/mapMath'
 
@@ -12,15 +16,20 @@ export function MapTooltip() {
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const agility = useGameStore((s) => s.agility)
+  const inventory = useGameStore((s) => s.inventory)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
 
   const hoveredWorldNodeId = tooltip?.kind === 'worldNode' ? tooltip.node.id : null
   const isHere = Boolean(
     hoveredWorldNodeId && hoveredWorldNodeId === currentNodeId && !traveling && !campPos,
   )
+  const isLocked = Boolean(
+    hoveredWorldNodeId && !isRegionUnlockedByInventory(hoveredWorldNodeId, inventory),
+  )
+  const lockReq = hoveredWorldNodeId ? getRegionUnlockRequirement(hoveredWorldNodeId) : null
 
   const route = useMemo(() => {
-    if (!hoveredWorldNodeId || isHere) return null
+    if (!hoveredWorldNodeId || isHere || isLocked) return null
     return findBestRoute(
       currentNodeId,
       hoveredWorldNodeId,
@@ -31,8 +40,20 @@ export function MapTooltip() {
         agility,
       },
       campPos,
+      inventory,
     )
-  }, [hoveredWorldNodeId, isHere, currentNodeId, mountKey, qinggongBonus, ridingSkill, agility, campPos])
+  }, [
+    hoveredWorldNodeId,
+    isHere,
+    isLocked,
+    currentNodeId,
+    mountKey,
+    qinggongBonus,
+    ridingSkill,
+    agility,
+    campPos,
+    inventory,
+  ])
 
   const npcTotal = useMemo(() => {
     if (!hoveredWorldNodeId) return 0
@@ -71,8 +92,12 @@ export function MapTooltip() {
             {node.code ? `${node.code} · ` : ''}
             {node.name}
           </span>
-          <span className="px-2 py-0.5 rounded bg-[#5c4024] text-[#fff9ed] text-[11px] font-medium">
-            {node.circuit}
+          <span
+            className={`px-2 py-0.5 rounded text-[#fff9ed] text-[11px] font-medium ${
+              isLocked ? 'bg-[#8f1d14]' : 'bg-[#5c4024]'
+            }`}
+          >
+            {isLocked ? '🔒 舆图未得' : node.circuit}
           </span>
         </div>
 
@@ -80,6 +105,14 @@ export function MapTooltip() {
           {isHere ? (
             <div className="px-2 py-1 rounded bg-[#e5efe9] text-[#1c543e] font-bold">
               ● 当前驻留于此（点击进入半3D专属互动全景图）
+            </div>
+          ) : isLocked && lockReq ? (
+            <div className="p-2 rounded bg-[#f8e3e1] border border-[#d6887f] text-[#781710] leading-relaxed space-y-1">
+              <div className="font-bold">🔒 航道/绝域未通（当前不可抵达）</div>
+              <div>
+                须持有信物<strong>{lockReq.mapItemName}</strong>方可寻路进入。
+              </div>
+              <div className="text-[11px] text-[#5c3d1e]">获取途径：{lockReq.questTitleHint}</div>
             </div>
           ) : route ? (
             <>
@@ -113,8 +146,8 @@ export function MapTooltip() {
   }
 
   const { item } = tooltip
-  const isLocked = Boolean(item.isLocked)
-  const canEnterInterior = !isLocked && !item.isSpot && Boolean(item.interiorMode)
+  const isBuildingLocked = Boolean(item.isLocked)
+  const canEnterInterior = !isBuildingLocked && !item.isSpot && Boolean(item.interiorMode)
   const hasSubSpots = Boolean(item.hasSubSpots)
 
   return (
@@ -125,19 +158,19 @@ export function MapTooltip() {
     >
       <div className="flex items-center justify-between bg-[#efe3c8] -mx-3.5 -mt-3.5 px-3.5 py-2 mb-2 rounded-t border-b border-[#b8a27e]">
         <span className="song-serif font-bold text-sm text-[#2b1a0e]">
-          {isLocked ? '🔒 ' : item.isSpecial ? '★ ' : ''}
+          {isBuildingLocked ? '🔒 ' : item.isSpecial ? '★ ' : ''}
           {item.name}
         </span>
         <span
           className={`px-2 py-0.5 rounded ${
-            isLocked
+            isBuildingLocked
               ? 'bg-[#44403c]'
               : item.isSpecial
                 ? 'bg-[#8f1d14]'
                 : 'bg-[#355263]'
           } text-[#fff9ed] text-[11px] font-medium`}
         >
-          {isLocked
+          {isBuildingLocked
             ? '未启秘境'
             : item.isSpot
               ? '建筑内景热区'
@@ -149,7 +182,7 @@ export function MapTooltip() {
         </span>
       </div>
 
-      {isLocked ? (
+      {isBuildingLocked ? (
         <div className="space-y-1.5 text-xs">
           <p className="text-[#3d2b19] leading-relaxed">{item.desc}</p>
           <div className="p-2 rounded bg-[#ebe5da] border border-[#9c8f7a] text-[#44403c] font-semibold leading-relaxed">

@@ -1,4 +1,5 @@
 import { memo, useEffect, useMemo, useRef } from 'react'
+import { isRegionUnlockedByInventory } from '../../data/itemsDb'
 import { WORLD_SVG_DEFS_MARKUP, WORLD_SVG_STATIC_GEO_MARKUP } from '../../data/worldBaseSvg'
 import { useGameStore } from '../../store/useGameStore'
 import type { FactionKind, WorldNode } from '../../types/game'
@@ -47,6 +48,7 @@ export function WorldMapCanvas() {
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const agility = useGameStore((s) => s.agility)
+  const inventory = useGameStore((s) => s.inventory)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
   const traveling = useGameStore((s) => s.traveling)
   const campPos = useGameStore((s) => s.campPos)
@@ -181,6 +183,7 @@ export function WorldMapCanvas() {
         agility,
       },
       campPos,
+      inventory,
     )
     return route && route.segments.length > 0 ? route : null
   }, [
@@ -192,6 +195,7 @@ export function WorldMapCanvas() {
     qinggongBonus,
     ridingSkill,
     agility,
+    inventory,
   ])
 
   const activeRoutePoints = useMemo(() => {
@@ -407,20 +411,25 @@ export function WorldMapCanvas() {
           </g>
         )}
 
-        {/* 14. 三十八处州府、名山宗门与战略雄关节点（放大时保持视距 1.0× 恒定精致尺寸） */}
+        {/* 14. 四十三处州府、名山宗门与战略雄关节点（放大时保持视距 1.0× 恒定精致尺寸） */}
         <g id="svg-layer-nodes">
           {WORLD_GRAPH.nodes.map((n) => {
             const isCapital = CAPITALS.has(n.id)
             const isSelected = selectedNodeId === n.id
             const isCurrent = currentNodeId === n.id && !traveling && !campPos
-            const shortName = n.name.replace('（万山之祖）', '')
-            const boxW = shortName.length * 10.5 + 9
+            const isLocked = !isRegionUnlockedByInventory(n.id, inventory)
+            const baseShortName = n.name.replace('（万山之祖）', '')
+            const shortName = isLocked ? `🔒${baseShortName}` : baseShortName
+            const boxW = baseShortName.length * 10.5 + (isLocked ? 21 : 9)
 
             let markerOpacity = 1
             if (isMacroZoom) {
               markerOpacity = isCapital ? 0.92 : n.type === 'city' ? 0.52 : 0.25
             } else if (s < 0.94 && overlays.cityLabels) {
               markerOpacity = n.type === 'city' ? 1 : 0.78
+            }
+            if (isLocked && !isSelected) {
+              markerOpacity *= 0.72
             }
 
             const showLabel = n.type === 'city' ? showCityLabels : showMinorLabels
@@ -449,10 +458,21 @@ export function WorldMapCanvas() {
                 {isSelected && (
                   <circle
                     r={15}
-                    fill="#d99b26"
+                    fill={isLocked ? '#6b5338' : '#d99b26'}
                     fillOpacity={0.32}
-                    stroke="#a8620a"
+                    stroke={isLocked ? '#8f1d14' : '#a8620a'}
                     strokeWidth={1.6}
+                  />
+                )}
+
+                {isLocked && !isMacroZoom && (
+                  <circle
+                    r={12.2}
+                    fill="none"
+                    stroke="#781710"
+                    strokeWidth={1.15}
+                    strokeDasharray="2.8 2.4"
+                    strokeOpacity={0.75}
                   />
                 )}
 
@@ -481,13 +501,25 @@ export function WorldMapCanvas() {
                     <>
                       <circle
                         r={n.id === 'kunlun' ? 8.8 : 6.8}
-                        fill={n.id === 'kunlun' ? '#1d566e' : '#285948'}
-                        stroke="#fbf4e4"
+                        fill={
+                          isLocked
+                            ? '#5a4d3f'
+                            : n.id === 'kunlun'
+                              ? '#1d566e'
+                              : '#285948'
+                        }
+                        stroke={isLocked ? '#d6c7ad' : '#fbf4e4'}
                         strokeWidth={1.4}
                       />
                       <circle
                         r={n.id === 'kunlun' ? 3.2 : 2.3}
-                        fill={n.id === 'kunlun' ? '#ffffff' : '#dfeee7'}
+                        fill={
+                          isLocked
+                            ? '#cbb997'
+                            : n.id === 'kunlun'
+                              ? '#ffffff'
+                              : '#dfeee7'
+                        }
                       />
                     </>
                   ) : (
@@ -513,8 +545,8 @@ export function WorldMapCanvas() {
                     width={boxW}
                     height={14.8}
                     rx={3}
-                    fill={isCurrent ? '#3b2412' : '#fbf4e3'}
-                    stroke={isSelected ? '#b56e12' : '#7a6345'}
+                    fill={isCurrent ? '#3b2412' : isLocked ? '#ede2cb' : '#fbf4e3'}
+                    stroke={isSelected ? '#b56e12' : isLocked ? '#8f1d14' : '#7a6345'}
                     strokeWidth={isSelected ? 1.15 : 0.75}
                   />
                   <text
@@ -527,9 +559,11 @@ export function WorldMapCanvas() {
                     fill={
                       isCurrent
                         ? '#fde68a'
-                        : n.regime && n.regime !== 'song' && n.type === 'city'
-                          ? '#3a224d'
-                          : '#24170e'
+                        : isLocked
+                          ? '#6b4d32'
+                          : n.regime && n.regime !== 'song' && n.type === 'city'
+                            ? '#3a224d'
+                            : '#24170e'
                     }
                   >
                     {shortName}

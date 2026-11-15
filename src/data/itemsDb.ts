@@ -1600,6 +1600,59 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     desc: '杨文广于杨令公牌位前亲授的天波杨府传家令旗，乃日后借用或锻造天阶神兵【天波透甲金枪】(WPN-004) 的唯一前置凭证。',
   },
   {
+    id: 'ITM-MSC-020',
+    name: '《太湖燕子坞烟波水路舆图》',
+    category: 'misc',
+    subType: '秘境舆图',
+    rarity: '地阶',
+    stackable: false,
+    value: 120,
+    desc: '详绘太湖三十六湾七十二汊芦荡水桩、暗礁星位与九曲航道之机密水图。天下舆图中【太湖燕子坞】原本水雾迷障不可抵达，唯有随身携此舆图方可乘舟入坞。',
+    lore: '合姑苏寒山古本、广陵二十四桥漕密与金陵石头城水纹三卷勘校而成，差一寸便陷梅花暗桩。',
+  },
+  {
+    id: 'ITM-MSC-021',
+    name: '《东海桃花岛奇门海道舆图》',
+    category: 'misc',
+    subType: '秘境舆图',
+    rarity: '地阶',
+    stackable: false,
+    value: 120,
+    desc: '以洛书九宫与钱塘朔望潮汐推演舟山外洋暗流、礁群与登岛生门之奇门海图。天下舆图中【东海桃花岛】原本黑水滔天不可抵达，唯有随身携此海图方可扬帆登岛。',
+    lore: '桃花岛主冯默岚一脉依星象潮信布设外洋迷航水线，寻常海舶无图擅闯必触暗礁旋涡。',
+  },
+  {
+    id: 'ITM-MSC-022',
+    name: '《万山之祖昆仑雪域舆图》',
+    category: 'misc',
+    subType: '秘境舆图',
+    rarity: '天阶',
+    stackable: false,
+    value: 200,
+    desc: '详载西域瀚海、祁连雪线至万山之祖昆仑冰川古道与罡风裂谷生路之绝域舆图。天下舆图中【昆仑山】原本冰障封绝不可抵达，唯有随身携此舆图方可踏入瑶池剑谷。',
+    lore: '昆仑万仞冰峰终年暴雪迷途，非持上古冰川秘图引路者莫能生还（获取任务后续开启）。',
+  },
+  {
+    id: 'ITM-MSC-023',
+    name: '太湖菱花铜水符',
+    category: 'misc',
+    subType: '任务信物',
+    rarity: '良品',
+    stackable: false,
+    value: 24,
+    desc: '自铁掌帮江南暗舵手中截回的半枚古越菱花青铜水符，背面刻有太湖外围水桩度数与扬州钞关密押。',
+  },
+  {
+    id: 'ITM-MSC-024',
+    name: '东海璇玑潮信盘',
+    category: 'misc',
+    subType: '任务信物',
+    rarity: '良品',
+    stackable: false,
+    value: 28,
+    desc: '东海奇门阵法宗匠陆玄机旧藏之黄杨木潮信罗盘，内圈刻二十八宿分野，外圈铭舟山洋面子午潮汐刻度。',
+  },
+  {
     id: 'ITM-ACC-001',
     name: '燕云遗老护身玉佩',
     category: 'misc',
@@ -2095,3 +2148,72 @@ export function resolveUniqueArtifactLiveOwnership(
   }
 }
 
+export interface RegionUnlockRequirement {
+  regionId: string
+  regionName: string
+  mapItemId: string
+  mapItemName: string
+  questTitleHint: string
+  lockReason: string
+}
+
+export const REGION_UNLOCK_MAP_REQUIREMENTS: Record<string, RegionUnlockRequirement> = {
+  yanziwu: {
+    regionId: 'yanziwu',
+    regionName: '太湖燕子坞',
+    mapItemId: 'ITM-MSC-020',
+    mapItemName: '《太湖燕子坞烟波水路舆图》',
+    questTitleHint: '完成江南三府奇遇《烟波三叠 · 燕子坞水图》后获得',
+    lockReason:
+      '太湖三十六湾芦荡迷雾重重、水底暗桩密布，须持有《太湖燕子坞烟波水路舆图》方可辨识航道抵达（可赴苏州府【太湖烟波渡口】寻访线索）。',
+  },
+  taohuadao: {
+    regionId: 'taohuadao',
+    regionName: '东海桃花岛',
+    mapItemId: 'ITM-MSC-021',
+    mapItemName: '《东海桃花岛奇门海道舆图》',
+    questTitleHint: '完成苏杭奇遇《碧海潮信 · 东海桃源图》后获得',
+    lockReason:
+      '东海舟山外洋暗流汹涌、奇门礁阵环伺，须持有《东海桃花岛奇门海道舆图》方可乘潮登岛（可赴苏州府【太湖烟波渡口 · 洞庭奇石望湖水榭】寻访线索）。',
+  },
+  kunlun: {
+    regionId: 'kunlun',
+    regionName: '昆仑山（万山之祖）',
+    mapItemId: 'ITM-MSC-022',
+    mapItemName: '《万山之祖昆仑雪域舆图》',
+    questTitleHint: '后续西域昆仑专卷任务开启后获得',
+    lockReason:
+      '万山之祖昆仑终年暴雪封山、万年冰裂纵横，须持有《万山之祖昆仑雪域舆图》方可踏足瑶池剑谷（昆仑舆图任务后续开启）。',
+  },
+}
+
+export const NON_GIFTABLE_KEY_ITEM_IDS = new Set<string>([
+  'ITM-MSC-020',
+  'ITM-MSC-021',
+  'ITM-MSC-022',
+  'ITM-MSC-023',
+  'ITM-MSC-024',
+])
+
+export function getRegionUnlockRequirement(regionId: string): RegionUnlockRequirement | null {
+  return REGION_UNLOCK_MAP_REQUIREMENTS[regionId] ?? null
+}
+
+export function isRegionUnlockedByInventory(
+  regionId: string,
+  inventory: ReadonlyArray<InventoryStack>,
+): boolean {
+  const req = REGION_UNLOCK_MAP_REQUIREMENTS[regionId]
+  if (!req) return true
+  return inventory.some((st) => st.itemId === req.mapItemId && st.qty > 0)
+}
+
+export function getUnlockedLockedRegionKey(inventory: ReadonlyArray<InventoryStack>): string {
+  const unlockedIds: string[] = []
+  for (const regId of Object.keys(REGION_UNLOCK_MAP_REQUIREMENTS)) {
+    if (isRegionUnlockedByInventory(regId, inventory)) {
+      unlockedIds.push(regId)
+    }
+  }
+  return unlockedIds.sort().join(',')
+}

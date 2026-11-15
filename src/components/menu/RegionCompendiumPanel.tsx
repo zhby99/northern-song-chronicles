@@ -19,6 +19,11 @@ import {
   WEAPON_DB_MAP,
   getCompiledNpcsByRegion,
 } from '../../data/gameDb'
+import {
+  getRegionUnlockRequirement,
+  isRegionUnlockedByInventory,
+} from '../../data/itemsDb'
+import { useGameStore } from '../../store/useGameStore'
 import type {
   CanonicalFactionEntry,
   CompiledBuildingRecord,
@@ -28,7 +33,6 @@ import type {
   NodeKind,
   RegimeKey,
 } from '../../types/game'
-import { useGameStore } from '../../store/useGameStore'
 import { ADJACENCY_MAP, getBuildingLockMeta, NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
 import { ManagedAssetImg } from '../common/ManagedAssetImg'
 
@@ -136,6 +140,7 @@ export function RegionCompendiumPanel({
   const [regimeFilter, setRegimeFilter] = useState<RegimeFilterKey>('ALL')
   const [typeFilter, setTypeFilter] = useState<NodeTypeFilterKey>('ALL')
   const [onlyFrontierAlert, setOnlyFrontierAlert] = useState(false)
+  const inventory = useGameStore((s) => s.inventory)
 
   // Map regionId -> factions headquartered here or having members stationed here
   const sectsByHqRegion = useMemo(() => {
@@ -413,7 +418,10 @@ export function RegionCompendiumPanel({
                         >
                           {reg.standardCode}
                         </span>
-                        <span className="song-serif font-bold text-sm truncate">{reg.name}</span>
+                        <span className="song-serif font-bold text-sm truncate">
+                          {!isRegionUnlockedByInventory(reg.id, inventory) ? '🔒 ' : ''}
+                          {reg.name}
+                        </span>
                         {isCurHere && (
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-400 text-[#23180f] font-bold shrink-0">
                             驻留中
@@ -486,6 +494,11 @@ export function RegionCompendiumPanel({
                     边关暗流警报
                   </span>
                 )}
+                {!isRegionUnlockedByInventory(activeRegion.id, inventory) && (
+                  <span className="text-xs px-2 py-0.5 rounded bg-[#fef2f2] text-[#991b1b] border border-[#dc2626] font-bold song-serif">
+                    🔒 迷障未通 · 需秘境舆图
+                  </span>
+                )}
               </div>
               <p className="text-xs text-[#6b5235] mt-1 font-serif">
                 {activeRegion.sceneSubtitle}
@@ -495,6 +508,24 @@ export function RegionCompendiumPanel({
                   </span>
                 )}
               </p>
+              {(() => {
+                const unlockReq = getRegionUnlockRequirement(activeRegion.id)
+                if (!unlockReq) return null
+                const unlocked = isRegionUnlockedByInventory(activeRegion.id, inventory)
+                return (
+                  <div
+                    className={`mt-2 px-2.5 py-1.5 rounded border text-xs song-serif ${
+                      unlocked
+                        ? 'bg-[#ecfdf5] text-[#14532d] border-[#86efac]'
+                        : 'bg-[#fff1f2] text-[#881337] border-[#fda4af]'
+                    }`}
+                  >
+                    {unlocked
+                      ? `✅ 已持有${unlockReq.mapItemName}，天下舆图航道已贯通。`
+                      : `🔒 ${unlockReq.lockReason}`}
+                  </div>
+                )
+              })()}
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -504,7 +535,11 @@ export function RegionCompendiumPanel({
                 className="px-3 py-1.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8eb] text-xs font-bold song-serif flex items-center gap-1.5 cursor-pointer transition shadow-xs"
               >
                 <Navigation className="w-3.5 h-3.5" />
-                <span>舆图寻路定位 →</span>
+                <span>
+                  {isRegionUnlockedByInventory(activeRegion.id, inventory)
+                    ? '舆图寻路定位 →'
+                    : '舆图查看方位（需图解锁）'}
+                </span>
               </button>
               {isPlayerHere && (
                 <button

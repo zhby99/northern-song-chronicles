@@ -1,5 +1,10 @@
 import rawBuildingPanoramas from '../data/buildingPanoramas.json'
 import { MOUNT_DB_MAP } from '../data/gameDb'
+import {
+  getUnlockedLockedRegionKey,
+  isRegionUnlockedByInventory,
+  REGION_UNLOCK_MAP_REQUIREMENTS,
+} from '../data/itemsDb'
 import rawPortraitCatalog from '../data/portraitCatalog.json'
 import rawRegionalConfigs from '../data/regionalConfigs.json'
 import rawWorldGraph from '../data/worldGraph.json'
@@ -10,6 +15,7 @@ import type {
   BuildingPanorama,
   CompiledMountRecord,
   ComputedRoute,
+  InventoryStack,
   MountKey,
   PortraitCatalogData,
   PortraitCharacter,
@@ -139,11 +145,12 @@ function buildRouteCacheKey(
   targetId: string,
   params: SpeedParams,
   camp?: WildernessCamp | null,
+  unlockedKey = 'ALL',
 ): string {
   const campKey = camp
     ? `${camp.u}:${camp.v}:${camp.distU}:${camp.distV}:${camp.terrain}:${camp.x.toFixed(1)}:${camp.y.toFixed(1)}`
     : ''
-  return `${startId}|${targetId}|${params.mountKey}|${params.qinggongBonus.toFixed(4)}|${params.ridingSkill}|${params.agility}|${campKey}`
+  return `${startId}|${targetId}|${params.mountKey}|${params.qinggongBonus.toFixed(4)}|${params.ridingSkill}|${params.agility}|${campKey}|${unlockedKey}`
 }
 
 function setBoundedRouteCache(key: string, value: ComputedRoute | null): ComputedRoute | null {
@@ -162,10 +169,22 @@ export function findBestRoute(
   targetId: string,
   params: SpeedParams,
   camp?: WildernessCamp | null,
+  inventory?: ReadonlyArray<InventoryStack>,
 ): ComputedRoute | null {
-  const cacheKey = buildRouteCacheKey(startId, targetId, params, camp)
+  const unlockedKey = inventory ? getUnlockedLockedRegionKey(inventory) : 'NONE'
+  const isNodePassable = (nodeId: string): boolean => {
+    if (!(nodeId in REGION_UNLOCK_MAP_REQUIREMENTS)) return true
+    if (!inventory) return false
+    return isRegionUnlockedByInventory(nodeId, inventory)
+  }
+
+  const cacheKey = buildRouteCacheKey(startId, targetId, params, camp, unlockedKey)
   if (routeCache.has(cacheKey)) {
     return routeCache.get(cacheKey) ?? null
+  }
+
+  if (!isNodePassable(targetId) && startId !== targetId) {
+    return setBoundedRouteCache(cacheKey, null)
   }
 
   if (camp) {
@@ -173,6 +192,7 @@ export function findBestRoute(
       endpointId: string,
       rawDistToEndpoint: number,
     ): ComputedRoute | null => {
+      if (!isNodePassable(endpointId)) return null
       const firstDist = Math.max(1, Math.round(rawDistToEndpoint))
       const firstDays = Math.max(
         1 / 12,
@@ -181,7 +201,7 @@ export function findBestRoute(
       const rest =
         endpointId === targetId
           ? { nodes: [endpointId], segments: [], totalLi: 0, totalDays: 0 }
-          : findBestRoute(endpointId, targetId, params, null)
+          : findBestRoute(endpointId, targetId, params, null, inventory)
       if (!rest) return null
       const firstSeg: RouteSegment = {
         from: '__camp__',
@@ -249,6 +269,7 @@ export function findBestRoute(
 
     for (const edge of ADJACENCY_MAP[u] ?? []) {
       if (visited.has(edge.to)) continue
+      if (!isNodePassable(edge.to)) continue
       const stepDays = computeSegmentDays(edge.dist, edge.terrain, params)
       const alt = distDays[u] + stepDays
       if (alt < distDays[edge.to]) {

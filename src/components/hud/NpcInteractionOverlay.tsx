@@ -9,6 +9,7 @@ import {
   BAG_CATEGORY_METAS,
   EQUIPMENT_SLOT_METAS,
   ITEM_DB_MAP,
+  NON_GIFTABLE_KEY_ITEM_IDS,
   normalizeItemTier,
   RARITY_STYLE_MAP,
 } from '../../data/itemsDb'
@@ -156,7 +157,12 @@ export function NpcInteractionOverlay() {
 
   const giftableItems = useMemo(() => {
     return inventory
-      .filter((st) => st.qty > 0 && Boolean(ITEM_DB_MAP[st.itemId]))
+      .filter(
+        (st) =>
+          st.qty > 0 &&
+          Boolean(ITEM_DB_MAP[st.itemId]) &&
+          !NON_GIFTABLE_KEY_ITEM_IDS.has(st.itemId),
+      )
       .map((st) => ({
         stack: st,
         item: ITEM_DB_MAP[st.itemId]!,

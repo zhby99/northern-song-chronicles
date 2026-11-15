@@ -1657,6 +1657,8 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
         title: '重临参合，再战邓百川',
         objective:
           '已击败公冶乾并获内坞令箭！前往【燕子坞 · 参合庄议事正厅 · 临湖九曲演武坪】堂堂正正击败“神掌震江南”邓百川。',
+        nextHint:
+          '须持有《太湖燕子坞烟波水路舆图》（完成奇遇《烟波三叠 · 燕子坞水图》获得）方可渡太湖进入燕子坞。',
         targetLocation: {
           regionId: 'yanziwu',
           buildingId: 'yzw_canhe',
