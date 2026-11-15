@@ -20,6 +20,11 @@
 | `CG-QST-008` | `[ ]` 待补绘 | `public/assets/quests/huashan_canglong_ridge.jpg` | `/assets/quests/huashan_canglong_ridge.jpg` | `QST-SECT-05-ENTRY`<br>《云海孤棋 · 问剑西岳》 | 第七幕 · 苍龙岭上万丈云<br>（`SCENE_HS_07_CANGLONGLING`） | `16:9` |
 | `CG-QST-009` | `[ ]` 待补绘 | `public/assets/quests/huashan_botai_chess.jpg` | `/assets/quests/huashan_botai_chess.jpg` | `QST-SECT-05-ENTRY`<br>《云海孤棋 · 问剑西岳》 | 第十一幕 · 绝顶博台孤峰弈<br>（`SCENE_HS_11_BOTAI_PAVILION`） | `16:9` |
 | `CG-QST-010` | `[ ]` 待补绘 | `public/assets/quests/huashan_zixia_dawn_sword.jpg` | `/assets/quests/huashan_zixia_dawn_sword.jpg` | `QST-SECT-05-ENTRY`<br>《云海孤棋 · 问剑西岳》 | 第二十一幕 · 紫气东来授青锋<br>（`SCENE_HS_21_BESTOW_SWORD`） | `16:9` |
+| `CG-QST-011` | `[ ]` 待补绘 | `public/assets/quests/renzong_weifu_market.jpg` | `/assets/quests/renzong_weifu_market.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第五~八幕 · 宣德微服相国寺灯市<br>（`scene_rz_05_market_twilight` 等 4 幕） | `16:9` |
+| `CG-QST-012` | `[ ]` 待补绘 | `public/assets/quests/renzong_pagoda_ambush.jpg` | `/assets/quests/renzong_pagoda_ambush.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第十一~十四幕 · 资圣宝塔飞檐断铃<br>（`scene_rz_12_pagoda_ambush_duel` 等 4 幕） | `16:9` |
+| `CG-QST-013` | `[ ]` 待补绘 | `public/assets/quests/renzong_fanlou_assassins.jpg` | `/assets/quests/renzong_fanlou_assassins.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第十九~二十二幕 · 樊楼飞桥珠帘破屏<br>（`scene_rz_20_red_plaque_ambush` 等 4 幕） | `16:9` |
+| `CG-QST-014` | `[ ]` 待补绘 | `public/assets/quests/renzong_hongqiao_blood.jpg` | `/assets/quests/renzong_hongqiao_blood.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第二十七~三十幕 · 虹桥夜雨血战双狼<br>（`scene_rz_28_hongqiao_final_duel` 等 4 幕） | `16:9` |
+| `CG-QST-015` | `[ ]` 待补绘 | `public/assets/quests/renzong_zichen_decree.jpg` | `/assets/quests/renzong_zichen_decree.jpg` | `QST-SECT-17-RENZONG-ESCORT`<br>《微服汴梁 · 血护龙颜》 | 第三十三~三十六幕 · 紫宸晓日御马秘卷<br>（`scene_rz_34_imperial_choice` 等 6 幕） | `16:9` |
 
 ---
 
@@ -218,6 +223,101 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Breathtaking dawn at the white stone terrace of Zixia Taoist Temple (玉女峰紫霞道观) high on Mount Hua around 1050 AD, as the rising sun dyes the vast sea of clouds in luminous violet and golden morning glow (紫气东来). Before the grand Song-style wooden temple hall with bronze crane incense burners, the noble bearded Taoist sect master in purple-trimmed robes solemnly presents a gleaming green-steel straight sword (青钢剑) in its scabbard to a kneeling young disciple newly dressed in neat grey-blue Taoist robes and cloud-toe cloth shoes. Standing gracefully beside the master is a refined female sword immortal in white-and-cyan Taoist attire (Ning Qingyu), while senior Huashan disciples holding swords witness respectfully along the pine-lined terrace. Authentic Song court painting brushwork, rich mineral pigments, sacred chivalric ceremony, no modern elements, blank plaques with no text or characters.
+  ```
+
+---
+
+### 11. `CG-QST-011`：宣德微服 · 相国寺万姓灯市图
+
+- **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
+- **目标路径**：`public/assets/quests/renzong_weifu_market.jpg`
+- **画框题跋**：`宣德微服 · 相国寺万姓灯市`
+- **剧情语境**：
+  - 开封府御前护卫（Lv.4）陪微服易服的三十九岁大宋天子赵祯（化名“赵官人”）于皇祐二年春暮步出大内、穿行东京大相国寺万姓交易市井。
+  - 主仆驻足老禁军伤卒羊汤锅、毕昇泥活字《唐诗百篇》书摊前体察民情之际，钟楼檐角暗影中已悄然潜伏一名手持青铜铁鹰符的党项西夏斥候，山雨欲来风满楼。
+- **画面核心要素**：
+  1. **环境氛围**：借鉴北宋张择端《清明上河图》汴京市井木构营造与李唐青绿山石设色，灯火辉煌的相国寺木棚夜市、蒸腾热气的羊汤铜釜、摆满线装活字印本的书摊与高耸铜鼎香炉错落排布。
+  2. **主体人物**：前景中景处，身着天青圆领襕衫、温润如儒生的宋仁宗赵祯负手缓行，身畔寸步不离的是身穿玄青护卫公服、按刀警觉四顾的主角（御前护卫）。
+  3. **暗伏杀机**：右上角暮色钟楼飞檐暗影之中，一名党项西夏斥候半隐身形，指间捏着青铜铁鹰密符冷眼俯瞰下方行踪。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Northern Song Dynasty (1050 AD) 16:9 cinematic narrative illustration in fine gongbi blue-green and mineral-gold ink-and-color painting on aged silk scroll. Twilight dusk falls over Daxiangguo Temple market in Bianliang (Kaifeng). Lanterns glow warmly along timber market stalls steaming with mutton soup cauldrons, movable-type printed bookstalls, and a tall bronze incense tripod. In the center foreground, thirty-nine-year-old Emperor Song Renzong Zhao Zhen disguised as a gentle scholar in an indigo-blue round-collar scholar robe strolls serenely, accompanied closely by his vigilant Kaifeng Royal Bodyguard protagonist in dark navy leather-reinforced patrol coat with an iron-hilted waist dao. High on a bell-tower roof corner in the upper right shadows lurks a Tangut Western Xia scout holding a small bronze iron-hawk tally, watching them quietly. Authentic Song dynasty robes, wooden brackets (dougong), blank wooden shop banners with zero text or watermarks.
+  ```
+
+---
+
+### 12. `CG-QST-012`：资圣宝塔 · 飞檐断铃惊变图
+
+- **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
+- **目标路径**：`public/assets/quests/renzong_pagoda_ambush.jpg`
+- **画框题跋**：`资圣宝塔 · 飞檐断铃惊变`
+- **剧情语境**：
+  - 赵祯登临大相国寺资圣八角琉璃宝塔高廊凭栏远眺汴梁夜色，暮风忽止、角檐铁马风铃应弦而断。
+  - 首轮 1v2 生死战爆发：西夏一品堂死士【拓跋枭】与【野利寒鸦】自琉璃瓦飞檐凌空扑下，弯刀淬毒银针直取赵祯，主角拔刀格针护驾，在塔廊击溃首波死士。
+- **画面核心要素**：
+  1. **环境氛围**：青黛新月微雾笼罩的八角琉璃宝塔高廊，一只青铜角檐风铃正悬在被利刃割断的麻绳残端晃荡。
+  2. **主体人物**：画面中央，御前护卫主角箭步抢前，长刀出鞘劈出金石火星磕飞漫天毒针，死死将布衣书生装束的赵祯护在宋式雕花石栏杆后方；两名缠党项毡巾、披黑斗篷的西夏一品堂刺客分持弯刀与暗器自檐瓦扑落。
+  3. **动作张力**：冷月青雾与淬火刀锋迸溅的泥金火花形成强烈冷暖对撞，尽显高空窄廊贴身护主之险绝。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Northern Song Dynasty (1050 AD) 16:9 cinematic wuxia illustration in Song mineral gongbi painting style on silk. High gallery overlooking the octagonal glazed Zisheng Pagoda of Daxiangguo Temple under a misty crescent moon and teal-indigo night sky. A bronze corner wind-bell swings loose on a freshly severed hemp cord. Two black-cloaked Western Xia Yipintang assassins wearing Tangut felt turbans leap down from the upturned glazed tiles wielding gleaming curved scimitars and flying needles. At center, the Kaifeng Royal Guard protagonist steps decisively forward, drawing a long tempered Song steel blade that strikes bright sparks deflecting darts, shielding plain-robed Emperor Renzong behind a carved stone balustrade. Dramatic moonlight, mineral gold sparks, zero modern text.
+  ```
+
+---
+
+### 13. `CG-QST-013`：樊楼飞桥 · 珠帘破屏杀机图
+
+- **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
+- **目标路径**：`public/assets/quests/renzong_fanlou_assassins.jpg`
+- **画框题跋**：`樊楼飞桥 · 珠帘破屏杀机`
+- **剧情语境**：
+  - 主仆退入京师第一名楼“白矾楼（樊楼）”高阁暂避风头并暗查西夏细作暗桩，席间由羊脂玉扳指与刀油腥气识破杀机。
+  - 第二轮 1v2 生死战爆发：两名腰束绛红丝带的西夏一品堂红牌死士撞碎青竹珠帘、劈裂松鹤墨绘大屏风破壁突袭，主角翻身截刃护定天子，随后燃亮碧色号角灯火召援禁卫。
+- **画面核心要素**：
+  1. **环境氛围**：雕梁画栋的北宋汴梁樊楼三层雅阁之内，窗外隐约可见灯火连绵的飞桥虹廊；堂中一扇大型松鹤水墨折屏被刀气劈成两半，案上青瓷酒壶翻倒倾洒。
+  2. **主体人物**：两名系红带、持血铁双匕与弯刀的一品堂红牌死士震断竹珠帘飞身杀入；主角扭身抢步挥剑硬撼双刃，一侧朱漆柱旁的素衣赵祯沉稳扶住青铜高烛台保持镇定。
+  3. **宋画设色**：大面积暖红烛火、朱柱与碎裂木屑飞溅其间，兼具工笔细腻器具考据与武侠破局爆裂感。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Northern Song Dynasty (1050 AD) 16:9 cinematic action illustration in rich red-gold and ink gongbi style. Inside the upper private gallery of Bianliang's three-story Fanlou tavern overlooking lantern-lit flying bridges outside the lattice windows. A large pine-and-ink folding screen shatters cleanly in half alongside an overturned celadon wine ewer. Two fierce Western Xia Yipintang Red-Plaque assassins in crimson waist sashes burst through snapped bamboo-pearl curtains lunging with twin blood-iron daggers and bent sabers. The Kaifeng Royal Guard protagonist twists forward to intercept both blades with a fierce sword slash while plain-robed Emperor Renzong steadies a bronze candelabrum near a vermilion timber pillar. Lantern light, shattered wood splinters, zero text.
+  ```
+
+---
+
+### 14. `CG-QST-014`：虹桥夜雨 · 孤身血战双狼图
+
+- **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
+- **目标路径**：`public/assets/quests/renzong_hongqiao_blood.jpg`
+- **画框题跋**：`虹桥夜雨 · 孤身血战双狼`
+- **剧情语境**：
+  - 子夜骤雨倾盆，汴水暴涨，赵祯一行归宫必经之【汴水虹桥】被西夏一品堂最后两名“银狼”重甲统领合围封锁。
+  - 第三轮 1v2 终局血战：主角左臂绑以御前撕下的白绸裹伤，孤身横刀立于湿滑虹桥拱顶，凭死志连续挑落重装银狼双煞；桥头酒肆挑檐下赵祯泰然独立，望向远方迷雾中驰援而来的三衙禁军火把长龙。
+- **画面核心要素**：
+  1. **环境氛围**：致敬《清明上河图》汴水木拱虹桥，墨云翻滚与斜风骤雨抽打着拱形木桥板，桥畔临水酒肆红灯笼与破损无字酒旗在狂风中猎猎翻卷。
+  2. **主体人物**：湿透的桥面中央，衣衫濡湿、左袖缠绕染血白绸的主角以一敌二力抗两名身形魁梧、挥舞重型马弯刀与铁钉战护手的银狼统领，刀戟交击迸出耀眼金芒；酒肆屋檐下，赵祯神色沉凝远眺渐近的禁军火炬长龙。
+  3. **情绪顶点**：水墨暴雨的压抑冷灰与拼死护驾的孤勇锋芒把整场汴京长夜之战推向高潮。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Northern Song Dynasty (1050 AD) 16:9 dramatic storm combat illustration in ink-wash and heavy mineral gongbi style, inspired by Qingming Shanghe Tu's wooden Rainbow Bridge over the surging Bian River. Driving torrential midnight rain lashes the arched timber Hongqiao bridge beside a waterside tavern whose red lantern and torn blank wine pennant whip in the gale. On the slick wet timber planks at the crest of the bridge, the solitary Kaifeng Royal Guard protagonist—left sleeve bound in torn white imperial silk, clothes rain-soaked—fights 1v2 against two towering Western Xia Yipintang Silver-Wolf commanders wielding heavy curved cavalry sabers and studded war gauntlets, steel clashing in brilliant golden sparks against dark slate rain. Beneath the tavern eaves nearby stands Emperor Renzong calmly holding his ground, looking toward distant flickering Imperial Guard torches approaching through the mist. No text.
+  ```
+
+---
+
+### 15. `CG-QST-015`：紫宸晓日 · 御马秘卷双恩图
+
+- **关联文件**：[`src/data/quests/sects/kaifengRenzongEscortQuest.ts`](../src/data/quests/sects/kaifengRenzongEscortQuest.ts)
+- **目标路径**：`public/assets/quests/renzong_zichen_decree.jpg`
+- **画框题跋**：`紫宸晓日 · 御马秘卷双恩`
+- **剧情语境**：
+  - 血战一夜护驾还朝，晨曦破晓时分，主角随驾入大内正殿【紫宸殿】叙功受赏。
+  - 御前双途抉择之高光定格：宋仁宗赵祯手捧明黄敕旨，赐予主角“改授大宋禁军（`SECT-33`）Lv.3 四厢都指挥＋玉津园御赐龙骧骢＋千两白银”，抑或“留任六扇门/开封府（`SECT-17`）＋御赐《葵花残卷》秘匣＋千两白银”两条前程。
+- **画面核心要素**：
+  1. **环境氛围**：宋代朝殿崇阁气象——清晨金曦穿透朱漆盘龙巨柱倾泻在汉白玉丹墀石阶之上，殿前金屏高矗，包拯、曹皇后、王德用等宋室重臣身着紫绯朝服分列左右（皆按宋制长翅幞头，绝无清式官帽）。
+  2. **主体构图（双恩对称呈现）**：丹墀之上，戴平翅展脚黑幞头、着柘黄龙袍的赵祯手持明黄圣旨俯首嘉勉单膝跪领御恩的主角；左右两侧对称陈设两大御赏——左侧为披挂赤绸金镫、骏朗神俊的玉津园五花御马【龙骧骢】，右侧为一具半启的明黄织锦漆木秘匣，匣内红边古武学秘卷泛出幽微晨光。
+  3. **礼仪定格**：皇祐朝堂金碧重彩工笔，完成从市井侠警到国家栋梁的双分支宿命升华。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Northern Song Dynasty (1050 AD) 16:9 majestic court illustration in imperial Song gold-and-vermilion gongbi painting style. Golden dawn sunlight streams cleanly into Zichen Hall between towering vermilion dragon-carved pillars onto carved white marble steps. Seated before the golden screen in dragon-yellow ceremonial Song robes and flat-winged black futou cap, Emperor Song Renzong holds an unfurled imperial yellow silk decree, looking down warmly at the Kaifeng Royal Guard protagonist kneeling respectfully on one knee at the base of the steps. Framing the composition symmetrically: on the left side stands the royal Yujinyuan dapple-white warhorse "Longxiangcong" fitted with crimson silk tassels and gilded stirrups; on the right side sits an imperial yellow-brocade lacquered casket slightly ajar revealing an ancient red-edged martial manual scroll glowing gently in the sunbeams. Regal Song court Officials Bao Zheng, Empress Cao, and Wang Deyong stand in formal purple and scarlet robes flanking the hall. Zero garbled text.
   ```
 
 ---

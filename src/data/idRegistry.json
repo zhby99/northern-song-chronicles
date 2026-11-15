@@ -2,11 +2,11 @@
   "schemaVersion": "M1.1.0",
   "counts": {
     "regions": 43,
-    "majorSects": 20,
+    "majorSects": 21,
     "minorSects": 12,
-    "totalSects": 32,
+    "totalSects": 33,
     "otherOrganizations": 11,
-    "totalFactions": 43,
+    "totalFactions": 44,
     "specialBuildings": 147,
     "specialBuildingsWithImage": 147,
     "specialBuildingsWithSvgFallback": 0,
@@ -1403,9 +1403,9 @@
       "stance": "庙堂护法",
       "hqRegionId": "bianliang",
       "aliases": [
+        "开封府 / 六扇门（含大内皇城司）",
         "开封府 / 六扇门（含大内禁军武学）",
-        "六扇门",
-        "大内禁军"
+        "六扇门"
       ],
       "stanceMotto": "朝廷法度·皇城缉捕",
       "hqDisplay": "REG-01 开封府（各州府衙门皆有缉捕巡检分司）",
@@ -1415,13 +1415,12 @@
       ],
       "coreBuildingIds": [
         "bl_palace",
-        "bl_kaifengfu",
-        "bl_jinjun"
+        "bl_kaifengfu"
       ],
       "highestArtTier": "天阶下品",
       "summary": "一流大派 · 朝廷体制武林力量（包龙图麾下侠义护卫、六扇门神捕与皇城司大内供奉并存）",
       "entryAndFeatures": "须身家清白（无绿林恶名）并在各州府衙门完成悬赏缉盗立功，或凭《沧州八极门》《常山枪派》武举保荐入籍；领朝廷俸禄，专克绿林与辽夏密探。",
-      "memberCount": 57,
+      "memberCount": 31,
       "martialArtIds": [
         "MA-036",
         "MA-084",
@@ -1568,20 +1567,16 @@
         "西夏一品堂"
       ],
       "stanceMotto": "西夏霸业·铁鹞枭雄",
-      "hqDisplay": "REG-20 逻些（拉萨）",
+      "hqDisplay": "REG-19 兴庆府",
       "leaderNpcIds": [
         "NPC-0130"
       ],
       "coreBuildingIds": [
         "xq_yipin",
-        "xq_tieyaozi",
-        "xj_marshal",
-        "lyf_yamen",
-        "lx_jokhang",
-        "lx_debate"
+        "xq_tieyaozi"
       ],
       "highestArtTier": "地阶中品",
-      "summary": "一流大派 · 雪域吐蕃密宗佛门（驻锡逻些大昭圣寺与雪域辩经大坛，兼具护国神僧与雪山血刀邪僧两脉）",
+      "summary": "一流大派 · 西夏征东司外邦宗门（西夏朝廷重金礼聘四方恶人与党项铁鹞武尊所建，雄踞兴庆府）",
       "entryAndFeatures": "常规不可拜入，仅限特殊卧底线或历史奇遇交互。",
       "memberCount": 34,
       "martialArtIds": [
@@ -1624,11 +1619,12 @@
         "NPC-0121"
       ],
       "coreBuildingIds": [
-        "xj_marshal"
+        "xj_marshal",
+        "lyf_yamen"
       ],
       "highestArtTier": "天阶下品",
-      "summary": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（契丹南窥·幽燕暗刃）",
-      "entryAndFeatures": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（契丹南窥·幽燕暗刃）",
+      "summary": "一流大派 · 大辽南北院幽燕暗桩（大辽铁林骁骑与潜伏河东燕云的契丹武林死士）",
+      "entryAndFeatures": "一流大派 · 大辽南北院幽燕暗桩（大辽铁林骁骑与潜伏河东燕云的契丹武林死士）",
       "memberCount": 32,
       "martialArtIds": [
         "MA-037",
@@ -1672,8 +1668,8 @@
         "lx_debate"
       ],
       "highestArtTier": "天阶中品",
-      "summary": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（雪域佛宗·密法神威）",
-      "entryAndFeatures": "一流大派 · 朝廷鹰犬·草莽与外邦渗透势力（雪域佛宗·密法神威）",
+      "summary": "一流大派 · 雪域吐蕃密宗佛门（驻锡逻些大昭圣寺与雪域辩经大坛，兼具护国神僧与雪山血刀邪僧两脉）",
+      "entryAndFeatures": "一流大派 · 雪域吐蕃密宗佛门（驻锡逻些大昭圣寺与雪域辩经大坛，兼具护国神僧与雪山血刀邪僧两脉）",
       "memberCount": 12,
       "martialArtIds": [
         "MA-019",
@@ -1689,6 +1685,47 @@
         "红衣金刚",
         "护国法王",
         "大轮明王"
+      ]
+    },
+    {
+      "id": "SECT-33",
+      "name": "大宋禁军",
+      "shortName": "禁军",
+      "isMajorSect": true,
+      "isMinorSect": false,
+      "sectTier": "一流大派",
+      "group": "朝廷鹰犬·草莽与外邦渗透势力",
+      "stance": "拱卫神京",
+      "hqRegionId": "bianliang",
+      "aliases": [
+        "大内禁军",
+        "八十万禁军",
+        "三衙禁军"
+      ],
+      "stanceMotto": "拱卫神京·忠勇御寇",
+      "hqDisplay": "REG-01 开封府（边军分营延及 REG-07 延安府、REG-05 太原府、REG-42 秦州府、REG-04 真定府、REG-03 大名府等军政重镇）",
+      "leaderNpcIds": [
+        "NPC-0038",
+        "NPC-0031"
+      ],
+      "coreBuildingIds": [
+        "bl_jinjun",
+        "ya_camp"
+      ],
+      "highestArtTier": "无专属秘谱",
+      "summary": "一流大派 · 大宋天子宿卫禁军与边防帅府统军体系（殿前司、侍卫亲军马军司、步军司合称“三衙”，统辖京畿宿卫与河东延安靖边雄师；重战阵功勋、统兵威望与甲胄骏马，不设本门专属武学秘谱）",
+      "entryAndFeatures": "严禁白身或外部弟子直接拜入；须先于 SECT-17 开封府 / 六扇门 历练升至 Lv.4 御前护卫 且深得 宋仁宗赵祯 (NPC-0001) 信重（好感度 ≥ 20），方可在《微服汴梁 · 血护龙颜》护驾长篇抉择中奉敕转入大宋禁军，直接出任 Lv.3 四厢都指挥。五阶军职依次为：Lv.1 禁军都头 → Lv.2 禁军指挥使 → Lv.3 四厢都指挥 → Lv.4 三衙都虞候 → Lv.5 殿前都指挥使。",
+      "memberCount": 42,
+      "martialArtIds": [],
+      "weaponIds": [],
+      "acceptsOuterDisciple": false,
+      "sharedMartialArtRule": null,
+      "rankTitles": [
+        "禁军都头",
+        "禁军指挥使",
+        "四厢都指挥",
+        "三衙都虞候",
+        "殿前都指挥使"
       ]
     },
     {
@@ -2181,8 +2218,7 @@
       "stance": "大宋庙堂",
       "hqRegionId": "bianliang",
       "aliases": [
-        "北宋朝廷",
-        "大宋禁军"
+        "北宋朝廷"
       ],
       "stanceMotto": "大宋庙堂",
       "hqDisplay": "REG-01 开封府",
@@ -2190,20 +2226,22 @@
         "NPC-0001",
         "NPC-0002",
         "NPC-0009",
+        "NPC-0010",
+        "NPC-0011",
         "NPC-0012",
         "NPC-0013",
-        "NPC-0031",
-        "NPC-0022",
-        "NPC-0045"
+        "NPC-0014",
+        "NPC-0015",
+        "NPC-0022"
       ],
       "coreBuildingIds": [
         "bl_palace",
         "bl_kaifengfu"
       ],
-      "highestArtTier": "天阶下品",
+      "highestArtTier": "良品下品",
       "summary": "庙堂政权与四夷王庭 · 大宋庙堂",
-      "entryAndFeatures": "宋仁宗赵祯 NPC-0001、曹皇后 NPC-0002、范仲淹 NPC-0009（杭州府）、欧阳修 NPC-0012、包拯 NPC-0013、狄青 NPC-0031（真定/延安边防）、余靖 NPC-0022（广州府经制南疆）、刘沪 NPC-0045（秦州府水洛城名将）等名臣良将。",
-      "memberCount": 48,
+      "entryAndFeatures": "宋仁宗赵祯 NPC-0001、曹皇后 NPC-0002、范仲淹 NPC-0009（杭州府）、富弼 NPC-0010、韩琦 NPC-0011、欧阳修 NPC-0012、包拯 NPC-0013、文彦博 NPC-0014、庞籍 NPC-0015、余靖 NPC-0022（广州府经制南疆）等名臣辅弼。",
+      "memberCount": 32,
       "martialArtIds": [],
       "weaponIds": [],
       "acceptsOuterDisciple": null,

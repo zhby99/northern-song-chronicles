@@ -210,6 +210,9 @@ export function SectCompendiumPanel({
   )
 
   const sectMartialArts: CompiledMartialArtRecord[] = useMemo(() => {
+    if (activeFaction.id === 'SECT-33') {
+      return []
+    }
     if (activeFaction.martialArtIds.length > 0) {
       return activeFaction.martialArtIds
         .map((id) => MARTIAL_ART_DB_MAP[id])
@@ -229,7 +232,7 @@ export function SectCompendiumPanel({
       }
     }
     return list.sort((a, b) => a.id.localeCompare(b.id))
-  }, [activeFaction.martialArtIds, factionMembers])
+  }, [activeFaction.id, activeFaction.martialArtIds, factionMembers])
 
   const sectWeapons: CompiledWeaponRecord[] = useMemo(
     () =>
@@ -634,16 +637,20 @@ export function SectCompendiumPanel({
               <span className="text-xs font-bold song-serif text-[#4a3219] flex items-center gap-1.5">
                 <Flame className="w-3.5 h-3.5 text-[#8f1d14]" />
                 <span>
-                  {activeFaction.martialArtIds.length > 0
-                    ? `本门镇派与传承武学谱系（共 ${sectMartialArts.length} 门 · 点击直达【肆 · 武学总纲】）`
-                    : `门下名宿兼修代表武学（共 ${sectMartialArts.length} 门 · 点击直达【肆 · 武学总纲】）`}
+                  {activeFaction.id === 'SECT-33'
+                    ? '本门武学规制（0 门 · 大宋禁军重军阵甲马与百战功勋，不设门派专属武学秘谱）'
+                    : activeFaction.martialArtIds.length > 0
+                      ? `本门镇派与传承武学谱系（共 ${sectMartialArts.length} 门 · 点击直达【肆 · 武学总纲】）`
+                      : `门下名宿兼修代表武学（共 ${sectMartialArts.length} 门 · 点击直达【肆 · 武学总纲】）`}
                 </span>
               </span>
             </div>
 
             {sectMartialArts.length === 0 ? (
               <p className="text-xs text-[#6b5235]">
-                该组织以庙堂政略、儒学经义或百工杏林立世，不设专属武学秘谱。
+                {activeFaction.id === 'SECT-33'
+                  ? '大宋三衙禁军乃天子宿卫军镇序列，将校皆凭自身家传或沙场历练兼修武艺，朝廷按月颁赐丰厚军俸与御马宝甲，不设门派专属秘籍。'
+                  : '该组织以庙堂政略、儒学经义或百工杏林立世，不设专属武学秘谱。'}
               </p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">

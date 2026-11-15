@@ -686,8 +686,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 33,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "国舅·禁军都虞候",
     "regionId": "bianliang",
     "locationLabel": "开封府",
@@ -736,10 +736,10 @@
     "bio": "曹皇后之弟，性格冲淡和雅，精骑射枪棒，常奉命出使契丹，通晓北疆风物。",
     "avatarUrl": "/assets/characters/avatars/NPC-0007.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0007.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "三衙都虞候",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-123",
@@ -3384,8 +3384,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 43,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "彰化军节度使·知延州",
     "regionId": "yanan",
     "locationLabel": "延安府",
@@ -3434,10 +3434,10 @@
     "bio": "面涅将军，披发戴铜面具冲锋陷阵，四年间大小二十五战未尝败绩，西夏党项铁骑闻风丧胆。",
     "avatarUrl": "/assets/characters/avatars/NPC-0031.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0031.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 5,
+    "sectRankLabel": "殿前都指挥使",
     "ownedArtifactIds": [
       "ARM-003"
     ],
@@ -3503,8 +3503,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 50,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "天波杨府传人·河东将领",
     "regionId": "taiyuan",
     "locationLabel": "太原府",
@@ -3553,10 +3553,10 @@
     "bio": "名将杨延昭之子，精通家传枪法与行军阵图，驻防河东抗击契丹与西夏，与丐帮少林皆有旧谊。",
     "avatarUrl": "/assets/characters/avatars/NPC-0032.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0032.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "三衙都虞候",
     "ownedArtifactIds": [
       "WPN-004",
       "ARM-008",
@@ -3619,8 +3619,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 50,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "种家军宿将·环庆路兵马",
     "regionId": "yanan",
     "locationLabel": "延安府",
@@ -3669,10 +3669,10 @@
     "bio": "西北种家军中流砥柱，善抚羌部、巧施反间，筑青涧城扼守西夏咽喉，刀马娴熟。",
     "avatarUrl": "/assets/characters/avatars/NPC-0033.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0033.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 3,
+    "sectRankLabel": "四厢都指挥",
     "ownedArtifactIds": [
       "BOW-001"
     ],
@@ -3733,8 +3733,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 24,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "种家少将·边军指挥",
     "regionId": "yanan",
     "locationLabel": "延安府",
@@ -3783,10 +3783,10 @@
     "bio": "种家将后起之秀，胆略过人，敢孤军深入大漠奇袭西夏暗桩，锐气逼人。",
     "avatarUrl": "/assets/characters/avatars/NPC-0034.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0034.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "禁军指挥使",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-121",
@@ -3845,8 +3845,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 49,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "府州折氏家主·麟府路军马",
     "regionId": "taiyuan",
     "locationLabel": "太原府",
@@ -3895,10 +3895,10 @@
     "bio": "河东折家将当世统帅，世代据守府州孤城抗击辽夏，枪法刚猛，麾下儿郎皆百战死士。",
     "avatarUrl": "/assets/characters/avatars/NPC-0035.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0035.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "三衙都虞候",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-123",
@@ -3957,8 +3957,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 29,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边军都监·范仲淹旧部",
     "regionId": "zhending",
     "locationLabel": "真定府",
@@ -4007,10 +4007,10 @@
     "bio": "沉毅有谋，通晓兵家奇正之变，随韩琦、范仲淹历练西北与河北边防，武艺精湛。",
     "avatarUrl": "/assets/characters/avatars/NPC-0036.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0036.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "禁军指挥使",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-121",
@@ -4069,8 +4069,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 55,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "徐州/河东总管宿将",
     "regionId": "taiyuan",
     "locationLabel": "太原府",
@@ -4119,10 +4119,10 @@
     "bio": "豪迈豁达，深谙市易军需与城防战法，在雁门、麟州多次以少击众大破辽夏铁骑。",
     "avatarUrl": "/assets/characters/avatars/NPC-0037.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0037.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "三衙都虞候",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-123",
@@ -4181,8 +4181,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 71,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "同中书门下平章事·黑王相公",
     "regionId": "bianliang",
     "locationLabel": "开封府",
@@ -4231,10 +4231,10 @@
     "bio": "面黑魁梧，善射精枪，契丹使臣见之皆惊呼‘黑王相公’，统领禁军威震京师。",
     "avatarUrl": "/assets/characters/avatars/NPC-0038.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0038.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_song_scholar_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 5,
+    "sectRankLabel": "殿前都指挥使",
     "ownedArtifactIds": [
       "MNT-004"
     ],
@@ -4295,8 +4295,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 52,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "贝州平叛都监·河北猛将",
     "regionId": "daming",
     "locationLabel": "大名府",
@@ -4345,10 +4345,10 @@
     "bio": "身经百战，悍勇绝伦，曾生擒反军首领，驻守河北大名府弹压绿林盗匪。",
     "avatarUrl": "/assets/characters/avatars/NPC-0039.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0039.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "禁军指挥使",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-123",
@@ -4631,8 +4631,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 46,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "河东铁鞭世家宿将",
     "regionId": "taiyuan",
     "locationLabel": "太原府",
@@ -4681,10 +4681,10 @@
     "bio": "开国名将呼延赞嫡孙，双持百炼钢鞭重达六十斤，镇守晋阳护卫铁冶与粮道。",
     "avatarUrl": "/assets/characters/avatars/NPC-0042.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0042.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 3,
+    "sectRankLabel": "四厢都指挥",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-102",
@@ -4743,8 +4743,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 44,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "禁军步军都虞候",
     "regionId": "bianliang",
     "locationLabel": "开封府",
@@ -4791,10 +4791,10 @@
     "bio": "高家将后人，执掌京师殿前司精锐枪棒操演，常与八十万禁军教头切磋武艺。",
     "avatarUrl": "/assets/characters/avatars/NPC-0043.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0043.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "三衙都虞候",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-102",
@@ -4853,8 +4853,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 49,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边防押班宿将",
     "regionId": "yanan",
     "locationLabel": "延安府",
@@ -4903,10 +4903,10 @@
     "bio": "久历西陲与岭南军阵，行事机警果断，执掌边关军情刺探与斥候营。",
     "avatarUrl": "/assets/characters/avatars/NPC-0044.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0044.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "禁军指挥使",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-121",
@@ -4965,8 +4965,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 45,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "水洛城守将",
     "regionId": "qinzhou",
     "locationLabel": "秦州府",
@@ -5015,10 +5015,10 @@
     "bio": "孤身深入秦凤路陇山生羌部落筑水洛城，镇守秦州要冲，深得番汉百姓死力拥戴，豪侠任气。",
     "avatarUrl": "/assets/characters/avatars/NPC-0045.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0045.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_greenwood_hero_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "禁军指挥使",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-123",
@@ -7773,8 +7773,8 @@
     "category": "历史名人",
     "gender": "男",
     "age": 38,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "襄阳侍卫武官",
     "regionId": "xiangyang",
     "locationLabel": "襄阳府",
@@ -7823,10 +7823,10 @@
     "bio": "骁勇善战之将门武官（名家米芾之父），酷爱搜集前代名家字画碑帖，宅邸藏珍甚丰。",
     "avatarUrl": "/assets/characters/avatars/NPC-0070.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0070.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_song_scholar_fb.jpg",
-    "templateAvatarUrl": null,
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "禁军指挥使",
     "ownedArtifactIds": [
       "ITM-SCR-023"
     ],
@@ -17326,8 +17326,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 46,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "东京殿前司八十万禁军总教头",
     "regionId": "bianliang",
     "locationLabel": "开封府",
@@ -17377,16 +17377,16 @@
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0154.jpg",
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 4,
-    "sectRankLabel": "御前护卫",
+    "sectRank": 3,
+    "sectRankLabel": "四厢都指挥",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-102",
-      "qinggong": "MA-036",
+      "qinggong": "MA-139",
       "move1": "MA-037",
       "move2": "MA-116",
-      "move3": "MA-154",
-      "move4": "MA-084"
+      "move3": "MA-107",
+      "move4": "MA-125"
     },
     "learnedArts": [
       {
@@ -17405,17 +17405,17 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 7,
+        "artId": "MA-107",
+        "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 7,
+        "artId": "MA-125",
+        "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-154",
+        "artId": "MA-139",
         "level": 9,
         "exp": 0
       }
@@ -25627,8 +25627,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 24,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "太原将门游侠·禁军教头",
     "regionId": "taiyuan",
     "locationLabel": "太原府",
@@ -25679,16 +25679,16 @@
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0228.jpg",
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
-      "neigong": "MA-122",
-      "qinggong": "MA-036",
+      "neigong": "MA-121",
+      "qinggong": "MA-139",
       "move1": "MA-116",
       "move2": "MA-173",
-      "move3": "MA-154",
-      "move4": "MA-084"
+      "move3": "MA-135",
+      "move4": "MA-130"
     },
     "learnedArts": [
       {
@@ -25702,33 +25702,33 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 5,
-        "exp": 0
-      },
-      {
-        "artId": "MA-084",
-        "level": 7,
-        "exp": 0
-      },
-      {
-        "artId": "MA-122",
+        "artId": "MA-121",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-154",
+        "artId": "MA-130",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-135",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-139",
         "level": 8,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-053",
-      "armor": "ARM-017",
-      "shoes": "BOT-009",
+      "weapon": "WPN-035",
+      "armor": "ARM-019",
+      "shoes": "BOT-012",
       "bow": "BOW-009",
-      "accessory1": "ACC-018",
-      "accessory2": "ACC-017",
+      "accessory1": "ACC-023",
+      "accessory2": "ACC-027",
       "mount": "MNT-012"
     }
   },
@@ -28308,8 +28308,8 @@
     "category": "武林群侠",
     "gender": "女",
     "age": 44,
-    "factionId": "ORG-02",
-    "factionName": "大宋朝廷",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "天波府护院女统制",
     "regionId": "bianliang",
     "locationLabel": "开封府",
@@ -28357,10 +28357,10 @@
     "bio": "大宋朝廷天波府护院女统制，常驻【开封府 > 西坊演武拳馆】，武道修为居【二流上品】，主修少林烧火棍、五郎八卦棍、《行军壮血功》。",
     "avatarUrl": "/assets/characters/avatars/NPC-0252.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0252.jpg",
-    "templateUrl": "/assets/characters/templates/tpl_song_court_female_fb.jpg",
-    "templateAvatarUrl": "/assets/characters/templates/tpl_song_court_female_av.jpg",
-    "sectRank": null,
-    "sectRankLabel": null,
+    "templateUrl": "/assets/characters/templates/tpl_liushenmen_female_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_female_av.jpg",
+    "sectRank": 3,
+    "sectRankLabel": "四厢都指挥",
     "ownedArtifactIds": [
       "ACC-009"
     ],
@@ -30544,8 +30544,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 36,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "殿前司禁军枪棒教头",
     "regionId": "yanan",
     "locationLabel": "延安府",
@@ -30595,16 +30595,16 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-102",
-      "qinggong": "MA-036",
+      "qinggong": "MA-139",
       "move1": "MA-154",
       "move2": "MA-116",
-      "move3": "MA-084",
-      "move4": "MA-152"
+      "move3": "MA-152",
+      "move4": "MA-149"
     },
     "learnedArts": [
       {
@@ -30623,13 +30623,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 3,
+        "artId": "MA-139",
+        "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 6,
+        "artId": "MA-149",
+        "level": 7,
         "exp": 0
       },
       {
@@ -30640,12 +30640,12 @@
     ],
     "equipped": {
       "weapon": "WPN-079",
-      "armor": "ARM-049",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-041",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "armor": "ARM-041",
+      "shoes": "BOT-022",
+      "bow": "BOW-028",
+      "accessory1": "ACC-046",
+      "accessory2": "ACC-035",
+      "mount": "MNT-020"
     }
   },
   {
@@ -31884,8 +31884,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 46,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边军斥候都头",
     "regionId": "bianliang",
     "locationLabel": "开封府",
@@ -31935,16 +31935,16 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-122",
-      "qinggong": "MA-036",
+      "qinggong": "MA-139",
       "move1": "MA-150",
       "move2": "MA-166",
-      "move3": "MA-154",
-      "move4": "MA-084"
+      "move3": "MA-135",
+      "move4": "MA-152"
     },
     "learnedArts": [
       {
@@ -31963,17 +31963,17 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 3,
+        "artId": "MA-135",
+        "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 6,
+        "artId": "MA-139",
+        "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-154",
+        "artId": "MA-152",
         "level": 7,
         "exp": 0
       }
@@ -32331,8 +32331,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 34,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "殿前司禁军枪棒教头",
     "regionId": "luoyang",
     "locationLabel": "洛阳府",
@@ -32382,21 +32382,21 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-122",
-      "qinggong": "MA-036",
+      "qinggong": "MA-139",
       "move1": "MA-150",
       "move2": "MA-166",
-      "move3": "MA-154",
-      "move4": "MA-084"
+      "move3": "MA-115",
+      "move4": "MA-135"
     },
     "learnedArts": [
       {
         "artId": "MA-122",
-        "level": 6,
+        "level": 7,
         "exp": 0
       },
       {
@@ -32410,29 +32410,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 3,
+        "artId": "MA-115",
+        "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 6,
+        "artId": "MA-135",
+        "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-154",
+        "artId": "MA-139",
         "level": 7,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-075",
-      "armor": "ARM-049",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-049",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "weapon": "WPN-077",
+      "armor": "ARM-034",
+      "shoes": "BOT-018",
+      "bow": "BOW-022",
+      "accessory1": "ACC-052",
+      "accessory2": "ACC-035",
+      "mount": "MNT-028"
     }
   },
   {
@@ -32553,8 +32553,8 @@
     "category": "武林群侠",
     "gender": "女",
     "age": 46,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "殿前司禁军枪棒教头",
     "regionId": "zhending",
     "locationLabel": "真定府",
@@ -32604,16 +32604,16 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_female_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_female_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-102",
-      "qinggong": "MA-036",
+      "qinggong": "MA-139",
       "move1": "MA-154",
       "move2": "MA-116",
-      "move3": "MA-084",
-      "move4": "MA-130"
+      "move3": "MA-130",
+      "move4": "MA-152"
     },
     "learnedArts": [
       {
@@ -32632,29 +32632,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 3,
-        "exp": 0
-      },
-      {
-        "artId": "MA-084",
-        "level": 6,
-        "exp": 0
-      },
-      {
         "artId": "MA-130",
+        "level": 7,
+        "exp": 0
+      },
+      {
+        "artId": "MA-139",
+        "level": 7,
+        "exp": 0
+      },
+      {
+        "artId": "MA-152",
         "level": 7,
         "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-067",
-      "armor": "ARM-033",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-041",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "armor": "ARM-037",
+      "shoes": "BOT-022",
+      "bow": "BOW-023",
+      "accessory1": "ACC-040",
+      "accessory2": "ACC-054",
+      "mount": "MNT-026"
     }
   },
   {
@@ -32997,8 +32997,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 34,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边军斥候都头",
     "regionId": "yanan",
     "locationLabel": "延安府",
@@ -33048,16 +33048,16 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-122",
-      "qinggong": "MA-036",
+      "qinggong": "MA-139",
       "move1": "MA-150",
       "move2": "MA-166",
-      "move3": "MA-154",
-      "move4": "MA-084"
+      "move3": "MA-107",
+      "move4": "MA-135"
     },
     "learnedArts": [
       {
@@ -33076,29 +33076,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 3,
+        "artId": "MA-107",
+        "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 6,
+        "artId": "MA-135",
+        "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-154",
+        "artId": "MA-139",
         "level": 7,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-075",
-      "armor": "ARM-033",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-049",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "weapon": "WPN-066",
+      "armor": "ARM-041",
+      "shoes": "BOT-022",
+      "bow": "BOW-028",
+      "accessory1": "ACC-044",
+      "accessory2": "ACC-034",
+      "mount": "MNT-018"
     }
   },
   {
@@ -34001,8 +34001,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 48,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边军斥候都头",
     "regionId": "taiyuan",
     "locationLabel": "太原府",
@@ -34052,16 +34052,16 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-102",
-      "qinggong": "MA-036",
+      "qinggong": "MA-138",
       "move1": "MA-154",
       "move2": "MA-116",
-      "move3": "MA-084",
-      "move4": "MA-125"
+      "move3": "MA-125",
+      "move4": "MA-107"
     },
     "learnedArts": [
       {
@@ -34080,29 +34080,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-084",
-        "level": 5,
+        "artId": "MA-107",
+        "level": 6,
         "exp": 0
       },
       {
         "artId": "MA-125",
         "level": 6,
         "exp": 0
+      },
+      {
+        "artId": "MA-138",
+        "level": 6,
+        "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-093",
-      "armor": "ARM-044",
-      "shoes": "BOT-017",
-      "bow": "BOW-018",
-      "accessory1": "ACC-049",
-      "accessory2": "ACC-041",
-      "mount": "MNT-017"
+      "armor": "ARM-038",
+      "shoes": "BOT-023",
+      "bow": "BOW-023",
+      "accessory1": "ACC-036",
+      "accessory2": "ACC-044",
+      "mount": "MNT-019"
     }
   },
   {
@@ -34569,8 +34569,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 38,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边军斥候都头",
     "regionId": "changan",
     "locationLabel": "京兆府",
@@ -34620,16 +34620,16 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-102",
-      "qinggong": "MA-036",
+      "qinggong": "MA-139",
       "move1": "MA-154",
       "move2": "MA-116",
-      "move3": "MA-084",
-      "move4": "MA-107"
+      "move3": "MA-107",
+      "move4": "MA-152"
     },
     "learnedArts": [
       {
@@ -34648,29 +34648,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-084",
-        "level": 5,
-        "exp": 0
-      },
-      {
         "artId": "MA-107",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-139",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-152",
         "level": 6,
         "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-093",
-      "armor": "ARM-049",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-041",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "armor": "ARM-055",
+      "shoes": "BOT-028",
+      "bow": "BOW-017",
+      "accessory1": "ACC-034",
+      "accessory2": "ACC-049",
+      "mount": "MNT-018"
     }
   },
   {
@@ -37130,8 +37130,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 28,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "殿前司禁军枪棒教头",
     "regionId": "jiangning",
     "locationLabel": "江宁府",
@@ -37181,16 +37181,16 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-122",
-      "qinggong": "MA-036",
+      "qinggong": "MA-138",
       "move1": "MA-150",
       "move2": "MA-166",
-      "move3": "MA-154",
-      "move4": "MA-084"
+      "move3": "MA-125",
+      "move4": "MA-149"
     },
     "learnedArts": [
       {
@@ -37209,29 +37209,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
+        "artId": "MA-125",
+        "level": 6,
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 5,
+        "artId": "MA-138",
+        "level": 6,
         "exp": 0
       },
       {
-        "artId": "MA-154",
+        "artId": "MA-149",
         "level": 6,
         "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-091",
-      "armor": "ARM-044",
-      "shoes": "BOT-017",
-      "bow": "BOW-018",
-      "accessory1": "ACC-033",
+      "armor": "ARM-035",
+      "shoes": "BOT-019",
+      "bow": "BOW-028",
+      "accessory1": "ACC-037",
       "accessory2": "ACC-049",
-      "mount": "MNT-017"
+      "mount": "MNT-019"
     }
   },
   {
@@ -38353,8 +38353,8 @@
     "category": "武林群侠",
     "gender": "女",
     "age": 46,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "殿前司禁军枪棒教头",
     "regionId": "bianliang",
     "locationLabel": "开封府",
@@ -38404,16 +38404,16 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_female_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_female_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-122",
-      "qinggong": "MA-036",
+      "qinggong": "MA-139",
       "move1": "MA-150",
       "move2": "MA-166",
-      "move3": "MA-154",
-      "move4": "MA-084"
+      "move3": "MA-152",
+      "move4": "MA-130"
     },
     "learnedArts": [
       {
@@ -38432,17 +38432,17 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
+        "artId": "MA-130",
+        "level": 6,
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 5,
+        "artId": "MA-139",
+        "level": 6,
         "exp": 0
       },
       {
-        "artId": "MA-154",
+        "artId": "MA-152",
         "level": 6,
         "exp": 0
       }
@@ -52391,8 +52391,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 40,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边军斥候都头",
     "regionId": "tanzhou",
     "locationLabel": "潭州府",
@@ -52442,16 +52442,16 @@
     "fullbodyUrl": null,
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
-    "sectRank": 2,
-    "sectRankLabel": "捕头都头",
+    "sectRank": 1,
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-102",
-      "qinggong": "MA-036",
+      "qinggong": "MA-139",
       "move1": "MA-154",
       "move2": "MA-116",
-      "move3": "MA-084",
-      "move4": "MA-152"
+      "move3": "MA-152",
+      "move4": "MA-130"
     },
     "learnedArts": [
       {
@@ -52470,12 +52470,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
+        "artId": "MA-130",
+        "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-084",
+        "artId": "MA-139",
         "level": 5,
         "exp": 0
       },
@@ -52487,12 +52487,12 @@
     ],
     "equipped": {
       "weapon": "WPN-093",
-      "armor": "ARM-049",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-049",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "armor": "ARM-052",
+      "shoes": "BOT-026",
+      "bow": "BOW-027",
+      "accessory1": "ACC-051",
+      "accessory2": "ACC-047",
+      "mount": "MNT-025"
     }
   },
   {
@@ -55958,8 +55958,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 38,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边关烽燧戍长",
     "regionId": "hongzhou",
     "locationLabel": "洪州府",
@@ -56010,15 +56010,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-199",
-      "qinggong": "MA-036",
+      "qinggong": "MA-197",
       "move1": "MA-166",
       "move2": "MA-190",
       "move3": "MA-194",
-      "move4": "MA-154"
+      "move4": "MA-175"
     },
     "learnedArts": [
       {
@@ -56037,29 +56037,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
+        "artId": "MA-175",
+        "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-154",
-        "level": 4,
+        "artId": "MA-197",
+        "level": 5,
         "exp": 0
       },
       {
         "artId": "MA-199",
-        "level": 6,
+        "level": 7,
         "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-069",
-      "armor": "ARM-049",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-041",
+      "armor": "ARM-051",
+      "shoes": "BOT-028",
+      "bow": "BOW-025",
+      "accessory1": "ACC-055",
       "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "mount": "MNT-020"
     }
   },
   {
@@ -56629,8 +56629,8 @@
     "category": "武林群侠",
     "gender": "女",
     "age": 47,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边关烽燧戍长",
     "regionId": "hongzhou",
     "locationLabel": "洪州府",
@@ -56681,15 +56681,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_female_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_female_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-199",
-      "qinggong": "MA-036",
+      "qinggong": "MA-218",
       "move1": "MA-166",
       "move2": "MA-190",
       "move3": "MA-194",
-      "move4": "MA-154"
+      "move4": "MA-203"
     },
     "learnedArts": [
       {
@@ -56708,29 +56708,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-154",
-        "level": 4,
-        "exp": 0
-      },
-      {
         "artId": "MA-199",
+        "level": 7,
+        "exp": 0
+      },
+      {
+        "artId": "MA-203",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-218",
         "level": 5,
         "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-084",
-      "armor": "ARM-033",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-041",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "armor": "ARM-051",
+      "shoes": "BOT-022",
+      "bow": "BOW-025",
+      "accessory1": "ACC-055",
+      "accessory2": "ACC-039",
+      "mount": "MNT-026"
     }
   },
   {
@@ -58409,8 +58409,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 32,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "厢军马步军虞候",
     "regionId": "qinzhou",
     "locationLabel": "秦州府",
@@ -58461,15 +58461,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-162",
       "qinggong": "MA-178",
       "move1": "MA-171",
-      "move2": "MA-154",
-      "move3": "MA-084",
-      "move4": "MA-209"
+      "move2": "MA-173",
+      "move3": "MA-206",
+      "move4": "MA-191"
     },
     "learnedArts": [
       {
@@ -58488,29 +58488,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 1,
+        "artId": "MA-173",
+        "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-154",
-        "level": 4,
+        "artId": "MA-191",
+        "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-209",
+        "artId": "MA-206",
         "level": 5,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-075",
-      "armor": "ARM-033",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-049",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "weapon": "WPN-064",
+      "armor": "ARM-053",
+      "shoes": "BOT-026",
+      "bow": "BOW-027",
+      "accessory1": "ACC-056",
+      "accessory2": "ACC-055",
+      "mount": "MNT-026"
     }
   },
   {
@@ -60197,8 +60197,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 20,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边关烽燧戍长",
     "regionId": "jiangning",
     "locationLabel": "江宁府",
@@ -60249,15 +60249,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-179",
-      "qinggong": "MA-036",
+      "qinggong": "MA-218",
       "move1": "MA-166",
       "move2": "MA-190",
       "move3": "MA-194",
-      "move4": "MA-154"
+      "move4": "MA-215"
     },
     "learnedArts": [
       {
@@ -60276,29 +60276,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-154",
-        "level": 4,
-        "exp": 0
-      },
-      {
         "artId": "MA-179",
         "level": 4,
+        "exp": 0
+      },
+      {
+        "artId": "MA-215",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-218",
+        "level": 5,
         "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-084",
-      "armor": "ARM-033",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-033",
-      "accessory2": "ACC-041",
-      "mount": "MNT-017"
+      "armor": "ARM-035",
+      "shoes": "BOT-019",
+      "bow": "BOW-019",
+      "accessory1": "ACC-037",
+      "accessory2": "ACC-049",
+      "mount": "MNT-022"
     }
   },
   {
@@ -63980,8 +63980,8 @@
     "category": "武林群侠",
     "gender": "女",
     "age": 28,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边关烽燧戍长",
     "regionId": "jiangning",
     "locationLabel": "江宁府",
@@ -64032,15 +64032,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_female_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_female_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-199",
-      "qinggong": "MA-036",
+      "qinggong": "MA-197",
       "move1": "MA-166",
       "move2": "MA-190",
       "move3": "MA-194",
-      "move4": "MA-154"
+      "move4": "MA-209"
     },
     "learnedArts": [
       {
@@ -64059,29 +64059,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-154",
-        "level": 4,
+        "artId": "MA-197",
+        "level": 5,
         "exp": 0
       },
       {
         "artId": "MA-199",
         "level": 7,
         "exp": 0
+      },
+      {
+        "artId": "MA-209",
+        "level": 5,
+        "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-069",
-      "armor": "ARM-049",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-041",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "armor": "ARM-035",
+      "shoes": "BOT-019",
+      "bow": "BOW-017",
+      "accessory1": "ACC-037",
+      "accessory2": "ACC-036",
+      "mount": "MNT-020"
     }
   },
   {
@@ -65424,8 +65424,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 34,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "厢军马步军虞候",
     "regionId": "jiangning",
     "locationLabel": "江宁府",
@@ -65476,15 +65476,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-162",
-      "qinggong": "MA-036",
+      "qinggong": "MA-217",
       "move1": "MA-166",
       "move2": "MA-190",
       "move3": "MA-194",
-      "move4": "MA-154"
+      "move4": "MA-201"
     },
     "learnedArts": [
       {
@@ -65503,29 +65503,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-154",
+        "artId": "MA-162",
         "level": 4,
         "exp": 0
       },
       {
-        "artId": "MA-162",
-        "level": 3,
+        "artId": "MA-201",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-217",
+        "level": 5,
         "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-083",
-      "armor": "ARM-056",
-      "shoes": "BOT-017",
+      "armor": "ARM-035",
+      "shoes": "BOT-019",
       "bow": "BOW-018",
-      "accessory1": "ACC-049",
-      "accessory2": "ACC-041",
-      "mount": "MNT-017"
+      "accessory1": "ACC-037",
+      "accessory2": "ACC-050",
+      "mount": "MNT-021"
     }
   },
   {
@@ -68974,8 +68974,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 32,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边关烽燧戍长",
     "regionId": "daming",
     "locationLabel": "大名府",
@@ -69026,15 +69026,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-199",
-      "qinggong": "MA-036",
+      "qinggong": "MA-217",
       "move1": "MA-166",
       "move2": "MA-190",
       "move3": "MA-194",
-      "move4": "MA-154"
+      "move4": "MA-214"
     },
     "learnedArts": [
       {
@@ -69053,28 +69053,28 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-154",
-        "level": 3,
-        "exp": 0
-      },
-      {
         "artId": "MA-199",
-        "level": 3,
+        "level": 4,
+        "exp": 0
+      },
+      {
+        "artId": "MA-214",
+        "level": 4,
+        "exp": 0
+      },
+      {
+        "artId": "MA-217",
+        "level": 4,
         "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-083",
-      "armor": "ARM-056",
-      "shoes": "BOT-017",
-      "bow": "BOW-018",
-      "accessory1": "ACC-041",
-      "accessory2": "ACC-049",
+      "armor": "ARM-047",
+      "shoes": "BOT-028",
+      "bow": "BOW-026",
+      "accessory1": "ACC-043",
+      "accessory2": "ACC-056",
       "mount": "MNT-017"
     }
   },
@@ -69530,8 +69530,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 40,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边关烽燧戍长",
     "regionId": "jiangning",
     "locationLabel": "江宁府",
@@ -69582,15 +69582,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-162",
       "qinggong": "MA-178",
       "move1": "MA-171",
-      "move2": "MA-154",
-      "move3": "MA-084",
-      "move4": "MA-192"
+      "move2": "MA-207",
+      "move3": "MA-193",
+      "move4": "MA-187"
     },
     "learnedArts": [
       {
@@ -69609,29 +69609,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 1,
+        "artId": "MA-187",
+        "level": 4,
         "exp": 0
       },
       {
-        "artId": "MA-154",
-        "level": 3,
+        "artId": "MA-193",
+        "level": 4,
         "exp": 0
       },
       {
-        "artId": "MA-192",
+        "artId": "MA-207",
         "level": 4,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-075",
-      "armor": "ARM-033",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-033",
+      "weapon": "WPN-065",
+      "armor": "ARM-035",
+      "shoes": "BOT-019",
+      "bow": "BOW-019",
+      "accessory1": "ACC-037",
       "accessory2": "ACC-041",
-      "mount": "MNT-017"
+      "mount": "MNT-022"
     }
   },
   {
@@ -71309,8 +71309,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 29,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "厢军马步军虞候",
     "regionId": "zhending",
     "locationLabel": "真定府",
@@ -71361,15 +71361,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-199",
-      "qinggong": "MA-036",
+      "qinggong": "MA-218",
       "move1": "MA-166",
       "move2": "MA-190",
       "move3": "MA-194",
-      "move4": "MA-154"
+      "move4": "MA-215"
     },
     "learnedArts": [
       {
@@ -71388,29 +71388,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-154",
-        "level": 3,
-        "exp": 0
-      },
-      {
         "artId": "MA-199",
-        "level": 3,
+        "level": 4,
+        "exp": 0
+      },
+      {
+        "artId": "MA-215",
+        "level": 4,
+        "exp": 0
+      },
+      {
+        "artId": "MA-218",
+        "level": 4,
         "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-084",
-      "armor": "ARM-033",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-041",
+      "armor": "ARM-049",
+      "shoes": "BOT-022",
+      "bow": "BOW-023",
+      "accessory1": "ACC-052",
       "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "mount": "MNT-026"
     }
   },
   {
@@ -85761,8 +85761,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 42,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "边关烽燧戍长",
     "regionId": "luoyang",
     "locationLabel": "洛阳府",
@@ -85813,15 +85813,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-162",
       "qinggong": "MA-178",
       "move1": "MA-171",
-      "move2": "MA-154",
-      "move3": "MA-084",
-      "move4": "MA-213"
+      "move2": "MA-192",
+      "move3": "MA-193",
+      "move4": "MA-205"
     },
     "learnedArts": [
       {
@@ -85840,29 +85840,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 1,
+        "artId": "MA-192",
+        "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-154",
-        "level": 2,
+        "artId": "MA-193",
+        "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-213",
+        "artId": "MA-205",
         "level": 3,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-075",
-      "armor": "ARM-049",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-049",
-      "accessory2": "ACC-033",
-      "mount": "MNT-017"
+      "weapon": "WPN-077",
+      "armor": "ARM-034",
+      "shoes": "BOT-018",
+      "bow": "BOW-022",
+      "accessory1": "ACC-052",
+      "accessory2": "ACC-035",
+      "mount": "MNT-028"
     }
   },
   {
@@ -89443,8 +89443,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 48,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "厢军马步军虞候",
     "regionId": "jiangning",
     "locationLabel": "江宁府",
@@ -89495,15 +89495,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-162",
       "qinggong": "MA-178",
       "move1": "MA-171",
-      "move2": "MA-154",
-      "move3": "MA-084",
-      "move4": "MA-201"
+      "move2": "MA-210",
+      "move3": "MA-212",
+      "move4": "MA-175"
     },
     "learnedArts": [
       {
@@ -89522,29 +89522,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 1,
+        "artId": "MA-175",
+        "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-154",
-        "level": 2,
+        "artId": "MA-210",
+        "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-201",
+        "artId": "MA-212",
         "level": 3,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-091",
-      "armor": "ARM-056",
-      "shoes": "BOT-017",
+      "weapon": "WPN-064",
+      "armor": "ARM-035",
+      "shoes": "BOT-019",
       "bow": "BOW-018",
-      "accessory1": "ACC-049",
-      "accessory2": "ACC-041",
-      "mount": "MNT-017"
+      "accessory1": "ACC-037",
+      "accessory2": "ACC-035",
+      "mount": "MNT-021"
     }
   },
   {
@@ -92116,8 +92116,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 31,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "厢军马步军虞候",
     "regionId": "chengdu",
     "locationLabel": "成都府",
@@ -92168,15 +92168,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-162",
       "qinggong": "MA-178",
       "move1": "MA-171",
-      "move2": "MA-154",
-      "move3": "MA-084",
-      "move4": "MA-204"
+      "move2": "MA-212",
+      "move3": "MA-215",
+      "move4": "MA-193"
     },
     "learnedArts": [
       {
@@ -92195,29 +92195,29 @@
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 1,
+        "artId": "MA-193",
+        "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-154",
-        "level": 2,
+        "artId": "MA-212",
+        "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-204",
+        "artId": "MA-215",
         "level": 3,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-091",
-      "armor": "ARM-056",
-      "shoes": "BOT-017",
-      "bow": "BOW-018",
-      "accessory1": "ACC-049",
-      "accessory2": "ACC-041",
-      "mount": "MNT-017"
+      "weapon": "WPN-090",
+      "armor": "ARM-043",
+      "shoes": "BOT-024",
+      "bow": "BOW-020",
+      "accessory1": "ACC-040",
+      "accessory2": "ACC-053",
+      "mount": "MNT-021"
     }
   },
   {
@@ -92227,8 +92227,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 38,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "厢军马步军虞候",
     "regionId": "bianliang",
     "locationLabel": "开封府",
@@ -92279,15 +92279,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-179",
-      "qinggong": "MA-036",
+      "qinggong": "MA-218",
       "move1": "MA-166",
       "move2": "MA-190",
       "move3": "MA-194",
-      "move4": "MA-154"
+      "move4": "MA-203"
     },
     "learnedArts": [
       {
@@ -92306,18 +92306,18 @@
         "exp": 0
       },
       {
-        "artId": "MA-036",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-154",
-        "level": 2,
-        "exp": 0
-      },
-      {
         "artId": "MA-179",
         "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-203",
+        "level": 3,
+        "exp": 0
+      },
+      {
+        "artId": "MA-218",
+        "level": 3,
         "exp": 0
       }
     ],
@@ -108154,8 +108154,8 @@
     "category": "武林群侠",
     "gender": "男",
     "age": 57,
-    "factionId": "SECT-17",
-    "factionName": "开封府 / 六扇门",
+    "factionId": "SECT-33",
+    "factionName": "大宋禁军",
     "role": "城门盘查兵丁",
     "regionId": "luoyang",
     "locationLabel": "洛阳府",
@@ -108205,15 +108205,15 @@
     "templateUrl": "/assets/characters/templates/tpl_liushenmen_male_fb.jpg",
     "templateAvatarUrl": "/assets/characters/templates/tpl_liushenmen_male_av.jpg",
     "sectRank": 1,
-    "sectRankLabel": "役卒巡捕",
+    "sectRankLabel": "禁军都头",
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-179",
       "qinggong": "MA-217",
       "move1": "MA-194",
-      "move2": "MA-154",
-      "move3": "MA-084",
-      "move4": "MA-191"
+      "move2": "MA-206",
+      "move3": "MA-191",
+      "move4": "MA-187"
     },
     "learnedArts": [
       {
@@ -108227,34 +108227,34 @@
         "exp": 0
       },
       {
-        "artId": "MA-084",
-        "level": 1,
-        "exp": 0
-      },
-      {
-        "artId": "MA-154",
-        "level": 1,
-        "exp": 0
-      },
-      {
         "artId": "MA-179",
         "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-187",
+        "level": 2,
         "exp": 0
       },
       {
         "artId": "MA-191",
         "level": 2,
         "exp": 0
+      },
+      {
+        "artId": "MA-206",
+        "level": 2,
+        "exp": 0
       }
     ],
     "equipped": {
       "weapon": "WPN-080",
-      "armor": "ARM-033",
-      "shoes": "BOT-025",
-      "bow": "BOW-018",
-      "accessory1": "ACC-033",
-      "accessory2": "ACC-041",
-      "mount": "MNT-017"
+      "armor": "ARM-034",
+      "shoes": "BOT-018",
+      "bow": "BOW-022",
+      "accessory1": "ACC-052",
+      "accessory2": "ACC-035",
+      "mount": "MNT-028"
     }
   },
   {

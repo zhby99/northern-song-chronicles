@@ -27,6 +27,7 @@ import {
   evaluateSectEntry,
   evaluateSectPromotion,
   getChangshanMonthlyStipend,
+  getImperialGuardMonthlyStipend,
   getKaifengMonthlyStipend,
   getSectLeaderNpcId,
   getSectTeachableArts,
@@ -1204,6 +1205,29 @@ export function NpcInteractionOverlay() {
                   </div>
                   )
                 })()}
+
+                {/* 大宋禁军（SECT-33）：三衙军籍与按月军俸说明 */}
+                {targetFactionId === 'SECT-33' && (
+                  <div className="p-3.5 rounded-lg bg-[#fbf2e1] border border-[#b45309]/70 space-y-2">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="font-bold text-[#781710] song-serif text-sm sm:text-base">
+                        大宋禁军 · 三衙宿卫军籍
+                      </div>
+                      {isPlayerInThisSect ? (
+                        <span className="text-xs font-mono px-2.5 py-0.5 rounded bg-[#781710] text-[#fff8ee]">
+                          {`现授 ${sectState.rankLabel} · 月俸 ${getImperialGuardMonthlyStipend(sectState.rank)} 两 / 月`}
+                        </span>
+                      ) : (
+                        <span className="text-xs px-2.5 py-0.5 rounded bg-[#efe4cc] border border-[#cbb693] text-[#6b5235]">
+                          天子亲军 · 须经御前敕命改任
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-[#5c3d1e] leading-relaxed">
+                      三衙禁军统领天子宿卫与河东、延安边军名帅，不设门派专属武学秘谱，将校皆凭自身历练兼修枪棒硬功与沙场御甲名驹；按月支放朝廷军俸。
+                    </p>
+                  </div>
+                )}
 
                 {/* 三流门派向二流门派贿赂求取举荐帖专属栏 */}
                 {referralBribeCfg && (

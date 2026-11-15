@@ -261,6 +261,24 @@ export function getKaifengMonthlyStipend(rank: SectRankLevel): number {
 }
 
 /**
+ * Compute monthly military stipend for SECT-33 大宋禁军 based on current rank.
+ */
+export function getImperialGuardMonthlyStipend(rank: SectRankLevel): number {
+  switch (rank) {
+    case 1:
+      return 18
+    case 2:
+      return 32
+    case 3:
+      return 55
+    case 4:
+      return 85
+    case 5:
+      return 130
+  }
+}
+
+/**
  * Check whether an NPC is an official of the Northern Song Court eligible to be robbed
  * for the "纳投名状" quest of SECT-18 太行/京东绿林盟.
  * Excludes imperial monarchs/consorts (NPC-0001..0005).
@@ -274,7 +292,7 @@ export function isSongOfficialForRobbery(npc: {
   if (npc.id && IMPERIAL_ROYAL_IDS.has(npc.id)) return false
   const dbNpc = npc.id ? NPC_DB_MAP[npc.id] : undefined
   const fid = npc.factionId ?? dbNpc?.factionId
-  return fid === 'ORG-02' || fid === 'ORG-03' || fid === 'SECT-17'
+  return fid === 'ORG-02' || fid === 'ORG-03' || fid === 'SECT-17' || fid === 'SECT-33'
 }
 
 /**
@@ -301,7 +319,8 @@ export function isSongAlignedNpc(npc: CompiledNpcRecord): boolean {
     npc.factionId === 'ORG-03' ||
     npc.factionId === 'ORG-04' ||
     npc.factionId === 'ORG-05' ||
-    npc.factionId === 'SECT-17'
+    npc.factionId === 'SECT-17' ||
+    npc.factionId === 'SECT-33'
   ) {
     return true
   }
@@ -1206,6 +1225,19 @@ export function evaluateSectPromotion(params: {
     }
   }
 
+  // 大宋禁军（SECT-33）：三衙帅位关乎国朝兵权，暂不开放常规升迁
+  if (sectId === 'SECT-33') {
+    if (currentRank >= 5) return null
+    const targetRank = (currentRank + 1) as SectRankLevel
+    const targetRankLabel = getSectRankTitle(sectId, targetRank)
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      reason: '大宋禁军三衙帅位关乎国朝兵权，须待日后边关大捷或枢密院奉敕推恩方可升迁（后续主线开放）。',
+    }
+  }
+
   // 星宿派（SECT-19）：唯实力为尊，打败对应阶位弟子即可晋升，杀死丁春秋可做掌门
   if (sectId === 'SECT-19') {
     if (currentRank >= 5) return null
@@ -1752,6 +1784,22 @@ export function evaluateSectEntry(params: {
 
   const hasItem = (itemId: string) =>
     inventory.some((st) => st.itemId === itemId && st.qty > 0)
+
+  // Special case: SECT-33 大宋禁军 forbids direct casual entry
+  if (targetSectId === 'SECT-33') {
+    const rank3Label = getSectRankTitle('SECT-33', 3)
+    return {
+      canJoin: false,
+      startingRank: 3,
+      startingRankLabel: rank3Label,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary:
+        '须先于【开封府 / 六扇门】晋至御前护卫（Lv.4）并获宋仁宗赵祯好感 ≥ 20，完成护驾长篇任务《微服汴梁 · 血护龙颜》奉敕转任',
+      blockedReason:
+        '大宋禁军乃天子亲军三衙宿卫，严禁白身私投；须于【开封府 / 六扇门】晋至御前护卫（Lv.4）并获官家赵祯信重，立下护驾奇功奉敕改换军职。',
+    }
+  }
 
   // Special case: SECT-17 开封府 / 六扇门 via 《北京留守幕府举荐信》(ITM-MSC-007, Rank 2)、《常山·定州联合举荐信》(ITM-MSC-013, Rank 2) or 《开封府推荐信》(ITM-MSC-006, Rank 1)
   if (targetSectId === 'SECT-17') {

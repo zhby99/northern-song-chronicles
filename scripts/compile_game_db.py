@@ -426,7 +426,7 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "group": "朝廷鹰犬·草莽与外邦渗透势力",
         "stance": "庙堂护法",
         "hqRegionId": "bianliang",
-        "aliases": ["开封府 / 六扇门（含大内禁军武学）", "六扇门", "大内禁军"],
+        "aliases": ["开封府 / 六扇门（含大内皇城司）", "开封府 / 六扇门（含大内禁军武学）", "六扇门"],
     },
     {
         "id": "SECT-18",
@@ -487,6 +487,18 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "stance": "雪域佛宗",
         "hqRegionId": "luoxie_tubo",
         "aliases": ["吐蕃密宗", "雪域密宗"],
+    },
+    {
+        "id": "SECT-33",
+        "name": "大宋禁军",
+        "shortName": "禁军",
+        "isMajorSect": True,
+        "isMinorSect": False,
+        "sectTier": "一流大派",
+        "group": "朝廷鹰犬·草莽与外邦渗透势力",
+        "stance": "拱卫神京",
+        "hqRegionId": "bianliang",
+        "aliases": ["大内禁军", "八十万禁军", "三衙禁军"],
     },
     # 其余 10 个初入江湖友好型二三流门派 (MARTIAL_ARTS_SECTS.md §3~§4)
     {
@@ -632,7 +644,7 @@ CANONICAL_FACTIONS: list[dict[str, Any]] = [
         "group": "庙堂政权与四夷王庭",
         "stance": "大宋庙堂",
         "hqRegionId": "bianliang",
-        "aliases": ["北宋朝廷", "大宋禁军"],
+        "aliases": ["北宋朝廷"],
     },
     {
         "id": "ORG-03",
@@ -2024,6 +2036,8 @@ SECT_GENDERED_TEMPLATES: dict[tuple[str, str], tuple[str, str]] = {
     ("SECT-31", "女"): ("/assets/characters/templates/tpl_liao_spy_female_fb.jpg", "/assets/characters/templates/tpl_liao_spy_female_av.jpg"),
     ("SECT-32", "男"): ("/assets/characters/templates/tpl_tubo_esoteric_male_fb.jpg", "/assets/characters/templates/tpl_tubo_esoteric_male_av.jpg"),
     ("SECT-32", "女"): ("/assets/characters/templates/tpl_tubo_esoteric_female_fb.jpg", "/assets/characters/templates/tpl_tubo_esoteric_female_av.jpg"),
+    ("SECT-33", "男"): ("/assets/characters/templates/tpl_liushenmen_male_fb.jpg", "/assets/characters/templates/tpl_liushenmen_male_av.jpg"),
+    ("SECT-33", "女"): ("/assets/characters/templates/tpl_liushenmen_female_fb.jpg", "/assets/characters/templates/tpl_liushenmen_female_av.jpg"),
     ("ORG-06", "男"): ("/assets/characters/templates/tpl_liao_court_male_fb.jpg", "/assets/characters/templates/tpl_liao_court_male_av.jpg"),
     ("ORG-07", "男"): ("/assets/characters/templates/tpl_xixia_court_male_fb.jpg", "/assets/characters/templates/tpl_xixia_court_male_av.jpg"),
     ("ORG-09", "男"): ("/assets/characters/templates/tpl_tubo_tribes_male_fb.jpg", "/assets/characters/templates/tpl_tubo_tribes_male_av.jpg"),
@@ -2056,7 +2070,7 @@ def pick_template_for_npc(faction_id: str, gender: str, role: str, category: str
             "后" in role or "妃" in role or "主" in role or "贵女" in role
         ):
             return "/assets/characters/templates/tpl_song_empress_fb.jpg", None
-        if "将" in role or "帅" in role or "捕" in role or faction_id in ("SECT-17", "SECT-18", "SECT-22", "SECT-24"):
+        if "将" in role or "帅" in role or "捕" in role or faction_id in ("SECT-17", "SECT-18", "SECT-22", "SECT-24", "SECT-33"):
             return "/assets/characters/templates/tpl_woman_general_fb.jpg", None
         return "/assets/characters/templates/tpl_emei_heroine_fb.jpg", None
     if category == "历史名人" or faction_id in ("ORG-02", "ORG-03", "ORG-04"):
@@ -3297,7 +3311,7 @@ def compile_all(do_normalize_docs: bool) -> None:
 
     # Parse detailed markdown sections for SECT-01..30
     sect_section_meta: dict[str, dict[str, Any]] = {}
-    sec_heading_re = re.compile(r"^#{3,4}\s+\d+\.\s+`(SECT-\d+)`\s+(.+)$", re.MULTILINE)
+    sec_heading_re = re.compile(r"^#{3,4}\s+\d+[a-z]?\.\s+`(SECT-\d+)`\s+(.+)$", re.MULTILINE)
     sec_matches = list(sec_heading_re.finditer(sects_md_text))
     for idx_m, m_obj in enumerate(sec_matches):
         sid = m_obj.group(1)
@@ -3443,6 +3457,7 @@ def compile_all(do_normalize_docs: bool) -> None:
 
         rank_titles = {
             "SECT-17": ["役卒巡捕", "捕头都头", "金牌总捕", "御前护卫", "大内总供奉"],
+            "SECT-33": ["禁军都头", "禁军指挥使", "四厢都指挥", "三衙都虞候", "殿前都指挥使"],
             "SECT-20": ["外围细作", "红牌武士", "客卿供奉", "征东副总管", "一品堂大总管"],
             "SECT-31": ["外围暗探", "铁林细作", "北院死士", "南院密使", "北院大总管"],
             "SECT-32": ["密宗沙弥", "护法僧", "红衣金刚", "护国法王", "大轮明王"],
@@ -3464,13 +3479,21 @@ def compile_all(do_normalize_docs: bool) -> None:
         }.get(fid, ["外门弟子", "内门弟子", "真传弟子", "长老", "掌门"])
 
         is_sect_hierarchy = fid.startswith("SECT-") or fid == "ORG-08"
-        accepts_outer = (fid not in ("SECT-09", "SECT-10", "SECT-12", "ORG-08")) if is_sect_hierarchy else False
+        accepts_outer = (fid not in ("SECT-09", "SECT-10", "SECT-12", "SECT-33", "ORG-08")) if is_sect_hierarchy else False
         shared_rule = {"sourceSectId": "SECT-01", "maxRank": 2} if fid == "SECT-04" else None
 
         if is_sect_hierarchy:
+            imp_guard_ranks = {
+                "NPC-0038": 5, "NPC-0031": 5,
+                "NPC-0043": 4, "NPC-0007": 4, "NPC-0032": 4, "NPC-0035": 4, "NPC-0037": 4,
+                "NPC-0154": 3, "NPC-0033": 3, "NPC-0042": 3, "NPC-0252": 3,
+                "NPC-0034": 2, "NPC-0036": 2, "NPC-0039": 2, "NPC-0044": 2, "NPC-0045": 2, "NPC-0070": 2,
+            }
             for member in npcs_by_faction[fid]:
                 r = member["role"]
-                if member["id"] in leader_ids or (
+                if fid == "SECT-33":
+                    s_rank = imp_guard_ranks.get(member["id"], 1)
+                elif member["id"] in leader_ids or (
                     any(k in r for k in ("掌门", "方丈", "帮主", "岛主", "总舵主", "当代家主", "当代堡主", "总馆主", "大寨主", "总镖头", "总瓢把子", "掌教天师", "大总管", "大内总供奉", "大理国皇帝"))
                     and not any(ex in r for ex in ("副", "夫人", "太上", "前"))
                 ):
@@ -3485,7 +3508,7 @@ def compile_all(do_normalize_docs: bool) -> None:
                     s_rank = 2
                 else:
                     s_rank = 1
-                if not accepts_outer and s_rank < 2:
+                if not accepts_outer and fid != "SECT-33" and s_rank < 2:
                     s_rank = 2
                 member["sectRank"] = s_rank
                 member["sectRankLabel"] = rank_titles[s_rank - 1]
@@ -3806,7 +3829,7 @@ def compile_all(do_normalize_docs: bool) -> None:
     minor_cnt = sum(1 for f in factions_enriched if f["isMinorSect"])
     print(
         f"[OK] Summary: {len(regions)} regions | "
-        f"30 sects ({major_cnt} major + {minor_cnt} minor) + 11 orgs | "
+        f"{major_cnt + minor_cnt} sects ({major_cnt} major + {minor_cnt} minor) + 11 orgs | "
         f"{special_count} special buildings ({len(spot_by_id)} sub-spots) + "
         f"{len(buildings) - special_count} base buildings ({enterable_base_count} single-hall taverns/inns) | "
         f"{len(martial_arts)} martial arts | "

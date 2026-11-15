@@ -8,6 +8,7 @@ import { GAIBANG_ENTRY_QUESTS } from './sects/gaibangEntryQuest'
 import { HUASHAN_ENTRY_QUESTS } from './sects/huashanEntryQuest'
 import { KAIFENG_MURONG_QUEST_1 } from './sects/kaifengMurongQuest1'
 import { KAIFENG_MURONG_QUEST_2 } from './sects/kaifengMurongQuest2'
+import { KAIFENG_RENZONG_ESCORT_QUEST } from './sects/kaifengRenzongEscortQuest'
 import { KAIFENG_TAIHANG_BANDIT_QUESTS } from './sects/kaifengTaihangBanditQuest'
 import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
 import { SHAOLIN_ENTRY_QUESTS } from './sects/shaolinEntryQuest'
@@ -31,6 +32,7 @@ export const QUEST_REGISTRY: QuestDefinition[] = [
   ...TAOHUADAO_MAP_QUESTS,
   ...KAIFENG_MURONG_QUEST_1,
   ...KAIFENG_MURONG_QUEST_2,
+  ...KAIFENG_RENZONG_ESCORT_QUEST,
   ...KAIFENG_TAIHANG_BANDIT_QUESTS,
 ]
 
@@ -69,6 +71,7 @@ export function resetRegisteredQuests(): void {
     ...TAOHUADAO_MAP_QUESTS,
     ...KAIFENG_MURONG_QUEST_1,
     ...KAIFENG_MURONG_QUEST_2,
+    ...KAIFENG_RENZONG_ESCORT_QUEST,
     ...KAIFENG_TAIHANG_BANDIT_QUESTS,
   )
   for (const k of Object.keys(QUEST_MAP)) {

@@ -158,6 +158,7 @@ import {
   generateSectTournament,
   getChangshanMonthlyStipend,
   getHalfYearPeriodInfo,
+  getImperialGuardMonthlyStipend,
   getKaifengMonthlyStipend,
   getSectLeaderNpcId,
   getSectRankTitle,
@@ -739,6 +740,26 @@ function applyDayProgressionSectHooks(params: {
           }
         }
       }
+    }
+  }
+
+  if (nextSect.sectId === 'SECT-33') {
+    const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
+    if (curMonthIdx > nextSect.lastStipendMonth) {
+      const months = curMonthIdx - nextSect.lastStipendMonth
+      const perMonth = getImperialGuardMonthlyStipend(nextSect.rank)
+      const totalStipend = perMonth * months
+      nextSilver += totalStipend
+      nextSect.lastStipendMonth = curMonthIdx
+      nextLogs.unshift(
+        createLogEntry(
+          params.nextDayCount,
+          '禁军月俸',
+          `三衙司按月颁赐【大宋禁军 · ${nextSect.rankLabel}】月度军俸 +${totalStipend} 两纹银！`,
+          true,
+          params.shichenIdx,
+        ),
+      )
     }
   }
 
@@ -5187,7 +5208,10 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       shaolinDiscipleType:
         curSectId === 'SECT-01' ? 'lay' : s.sectState.shaolinDiscipleType,
     }
-    const msg = `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
+    const msg =
+      curSectId === 'SECT-33'
+        ? `少侠已向枢密院与三衙缴回虎符腰牌，正式辞去【${factionName} · ${s.sectState.rankLabel}】军职，恢复自由游侠之身。`
+        : `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
     set({
       sectState: nextSect,
       actionFeedback: { text: msg, tone: 'talk' },
@@ -6254,6 +6278,9 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
                 curPeriodInfo.latestDispatchDay,
               )
             }
+          }
+          if (eff.sectId === 'SECT-33') {
+            nextSilver += getImperialGuardMonthlyStipend(startRank)
           }
           if (
             eff.sectId === 'SECT-17' &&

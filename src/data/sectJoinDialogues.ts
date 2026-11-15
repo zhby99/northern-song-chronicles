@@ -351,6 +351,16 @@ export const SECT_JOIN_DIALOGUES: Record<string, SectJoinDialogueScript> = {
     cultivationAdviceLine:
       '“修行当从《段氏纯阳吐纳诀》筑基入手，将内力修得纯厚绵长。一阳指讲究指力点穴与内气外放，唯有内力根基深厚、境界渐高，方能窥得天龙寺绝学之奥妙。”',
   },
+  'SECT-33': {
+    confirmPrompt:
+      '“大宋禁军乃天子三衙亲军宿卫，军法如山，岂容江湖游侠儿戏？既奉官家圣旨敕调，当恪守军纪、忠勇报国！”',
+    historyLine:
+      '“自太祖陈桥建国、整饬三衙禁军以来，殿前司与侍卫亲军马步军司拱卫京畿、戍守河东延安，狄青、王德用诸位名帅皆出于此！”',
+    encouragementLine:
+      '“既入禁军序列，便须严于律己、与士卒同甘共苦，遇敌当先、临危不退，方不负官家亲授兵符之重托！”',
+    cultivationAdviceLine:
+      '“三衙禁军不立门派私谱，全凭诸将校各自历练兼修兵家枪棒、护体硬功与军阵骑射；按月领取朝廷军俸，善用御赐名驹与甲胄即可纵横沙场！”',
+  },
 }
 
 const DEFAULT_DIALOGUE: SectJoinDialogueScript = {

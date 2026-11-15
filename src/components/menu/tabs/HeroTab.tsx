@@ -13,7 +13,11 @@ import {
 } from '../../../utils/heroStats'
 import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
 import { estimateHeroRealmByMp, getNextRealmTier } from '../../../utils/realmUtils'
-import { getChangshanMonthlyStipend } from '../../../utils/sectMechanics'
+import {
+  getChangshanMonthlyStipend,
+  getImperialGuardMonthlyStipend,
+  getKaifengMonthlyStipend,
+} from '../../../utils/sectMechanics'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 import type { LightboxState } from '../menuShared'
 
@@ -202,6 +206,22 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   <span>常山边军月饷</span>
                   <span className="font-mono font-bold">
                     {`${getChangshanMonthlyStipend(sectState.rank)} 两/月`}
+                  </span>
+                </div>
+              )}
+              {sectState.sectId === 'SECT-17' && (
+                <div className="flex items-center justify-between text-[#1d3557] font-medium">
+                  <span>六扇门月俸</span>
+                  <span className="font-mono font-bold">
+                    {`${getKaifengMonthlyStipend(sectState.rank)} 两/月`}
+                  </span>
+                </div>
+              )}
+              {sectState.sectId === 'SECT-33' && (
+                <div className="flex items-center justify-between text-[#781710] font-medium">
+                  <span>大宋禁军月俸（{sectState.rankLabel}）</span>
+                  <span className="font-mono font-bold">
+                    {`${getImperialGuardMonthlyStipend(sectState.rank)} 两/月`}
                   </span>
                 </div>
               )}

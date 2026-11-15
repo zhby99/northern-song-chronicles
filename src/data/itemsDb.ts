@@ -1488,6 +1488,22 @@ const NON_EQUIPMENT_ITEMS: GameItemDef[] = [
     desc: '东海奇门阵法宗匠陆玄机旧藏之黄杨木潮信罗盘，内圈刻二十八宿分野，外圈铭舟山洋面子午潮汐刻度。',
   },
   {
+    id: 'ITM-MSC-025',
+    name: '御赐《葵花残卷》秘匣',
+    category: 'misc',
+    subType: '大内御赐秘卷',
+    rarity: '天阶',
+    stackable: false,
+    value: 0,
+    desc: '皇祐二年宋仁宗赵祯于垂拱紫宸正殿亲颁之明黄织锦黑漆秘匣，内藏宣德门内库前朝孤本《葵花残卷（大内秘藏前本）》真迹，并钤皇帝御宝，彰示御前特简破格之恩。',
+    useEffect: {
+      mp: 60,
+      skillGain: ['经义', 2],
+      learnArtId: 'MA-036',
+      learnArtHint: '展读大内黄绫孤本，参悟天阶下品鬼魅身法《葵花残卷（大内秘藏前本）》入门法要（【经义】+2）',
+    },
+  },
+  {
     id: 'ITM-ACC-001',
     name: '燕云遗老护身玉佩',
     category: 'misc',
@@ -2052,6 +2068,7 @@ export const NON_GIFTABLE_KEY_ITEM_IDS = new Set<string>([
   'ITM-MSC-022',
   'ITM-MSC-023',
   'ITM-MSC-024',
+  'ITM-MSC-025',
 ])
 
 export function getRegionUnlockRequirement(regionId: string): RegionUnlockRequirement | null {
