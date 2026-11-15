@@ -168,6 +168,10 @@ export function resolveAssetUrl(url: string): string {
   if (typeof window !== 'undefined' && window.__NSC_ASSET_PACK__?.[url]) {
     return window.__NSC_ASSET_PACK__[url]
   }
+  const base = import.meta.env.BASE_URL
+  if (base && base !== '/' && url.startsWith('/')) {
+    return `${base.replace(/\/$/, '')}${url}`
+  }
   return url
 }
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ManagedAssetImg } from '../common/ManagedAssetImg'
 import {
   generateRandomHeroName,
   getProtagonistPortrait,
@@ -306,10 +307,10 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
                           : 'border-[#cbb693] hover:border-[#8f1d14]/60'
                       }`}
                     >
-                      <img
-                        src={p.avatarUrl}
+                      <ManagedAssetImg
+                        url={p.avatarUrl}
                         alt={p.label}
-                        className="w-full aspect-square object-cover"
+                        className="w-full aspect-square object-cover block"
                       />
                       <div
                         className={`text-sm sm:text-lg text-center py-1 truncate px-1 ${
@@ -329,8 +330,8 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
             {/* 全身立绘预览 + 固定信息 */}
             <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-4 sm:p-5 flex gap-5 items-stretch flex-1">
               <div className="w-48 sm:w-60 shrink-0 rounded-lg overflow-hidden border-2 border-[#b5986e] bg-[#dfd0b1]">
-                <img
-                  src={activePortrait.fullbodyUrl}
+                <ManagedAssetImg
+                  url={activePortrait.fullbodyUrl}
                   alt={activePortrait.label}
                   className="w-full h-full object-cover object-top"
                 />
