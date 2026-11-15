@@ -88,6 +88,7 @@ import type {
 } from '../types/quest'
 import { GAIBANG_ENTRY_QUEST_ID } from '../data/quests/sects/gaibangEntryQuest'
 import { HUASHAN_ENTRY_QUEST_ID } from '../data/quests/sects/huashanEntryQuest'
+import { NANSHAOLIN_ENTRY_QUEST_ID } from '../data/quests/sects/nanshaolinEntryQuest'
 import {
   NORTH_CHINA_REGION_IDS,
   TAIHANG_BANDIT_ENCOUNTER_SCENE,
@@ -5018,6 +5019,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     const entryQuestBySect: Record<string, string> = {
       'SECT-01': SHAOLIN_ENTRY_QUEST_ID,
       'SECT-02': GAIBANG_ENTRY_QUEST_ID,
+      'SECT-04': NANSHAOLIN_ENTRY_QUEST_ID,
       'SECT-05': HUASHAN_ENTRY_QUEST_ID,
       'SECT-18': 'QST-SECT-18-TOUMINGZHUANG',
       'SECT-16': 'QST-SECT-16-REFERRAL',
@@ -5031,6 +5033,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
         targetSectId === 'SECT-18' ||
         targetSectId === 'SECT-01' ||
         targetSectId === 'SECT-02' ||
+        targetSectId === 'SECT-04' ||
         targetSectId === 'SECT-05')
     ) {
       delete nextQuest.activeQuests[linkedQuestId]
@@ -6136,21 +6139,53 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
               exp: prev.exp + initExp,
             }
           }
+          const nextEquippedArts: EquippedArtsMap = { ...s.equippedArts }
+          let autoEquippedLabel = ''
+          if (eff.autoEquip) {
+            const alreadySlotted = (
+              Object.keys(nextEquippedArts) as MartialArtSlotKey[]
+            ).some((k) => nextEquippedArts[k] === eff.artId)
+            if (!alreadySlotted) {
+              if (
+                art.category === '内功' &&
+                (nextEquippedArts.neigong === null || nextEquippedArts.neigong === 'MA-199')
+              ) {
+                nextEquippedArts.neigong = eff.artId
+                autoEquippedLabel = '，并已运使为主修内功'
+              } else if (
+                art.category === '轻功' &&
+                (nextEquippedArts.qinggong === null || nextEquippedArts.qinggong === 'MA-217')
+              ) {
+                nextEquippedArts.qinggong = eff.artId
+                autoEquippedLabel = '，并已运使为轻功身法'
+              } else if (art.category !== '内功' && art.category !== '轻功') {
+                const moveSlots: MartialArtSlotKey[] = ['move1', 'move2', 'move3', 'move4']
+                const emptySlot = moveSlots.find((ms) => nextEquippedArts[ms] === null)
+                if (emptySlot) {
+                  nextEquippedArts[emptySlot] = eff.artId
+                  autoEquippedLabel = '，并已装入出战招式槽'
+                }
+              }
+            }
+          }
           const derived = deriveHeroEffectiveStats(
             s.baseStats,
             s.equipped,
-            s.equippedArts,
+            nextEquippedArts,
             nextLearned,
           )
+          const hpGain = Math.max(0, derived.maxHp - s.maxHp)
+          const mpGain = Math.max(0, derived.maxMp - s.maxMp)
           const msg = `剧情传功：领悟${art.fullTier}${art.category}《${art.cleanName}》（第 ${targetLv} 重${
             initExp > 0 ? `，初始熟练度 +${initExp}` : ''
-          }）！`
+          }）${autoEquippedLabel}！`
           set({
             learnedArts: nextLearned,
+            equippedArts: nextEquippedArts,
             maxHp: derived.maxHp,
-            hp: Math.min(derived.maxHp, s.hp),
+            hp: Math.min(derived.maxHp, s.hp + hpGain),
             maxMp: derived.maxMp,
-            mp: Math.min(derived.maxMp, s.mp),
+            mp: Math.min(derived.maxMp, s.mp + mpGain),
             agility: derived.agility,
             res: derived.res,
             qinggongBonus: derived.qinggongBonus,

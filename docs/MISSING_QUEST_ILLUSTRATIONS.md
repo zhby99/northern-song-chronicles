@@ -20,6 +20,9 @@
 | `CG-QST-008` | `[ ]` 待补绘 | `public/assets/quests/huashan_canglong_ridge.jpg` | `/assets/quests/huashan_canglong_ridge.jpg` | `QST-SECT-05-ENTRY`<br>《云海孤棋 · 问剑西岳》 | 第七幕 · 苍龙岭上万丈云<br>（`SCENE_HS_07_CANGLONGLING`） | `16:9` |
 | `CG-QST-009` | `[ ]` 待补绘 | `public/assets/quests/huashan_botai_chess.jpg` | `/assets/quests/huashan_botai_chess.jpg` | `QST-SECT-05-ENTRY`<br>《云海孤棋 · 问剑西岳》 | 第十一幕 · 绝顶博台孤峰弈<br>（`SCENE_HS_11_BOTAI_PAVILION`） | `16:9` |
 | `CG-QST-010` | `[ ]` 待补绘 | `public/assets/quests/huashan_zixia_dawn_sword.jpg` | `/assets/quests/huashan_zixia_dawn_sword.jpg` | `QST-SECT-05-ENTRY`<br>《云海孤棋 · 问剑西岳》 | 第二十一幕 · 紫气东来授青锋<br>（`SCENE_HS_21_BESTOW_SWORD`） | `16:9` |
+| `CG-QST-011` | `[ ]` 待补绘 | `public/assets/quests/nanshaolin_tripod_training.jpg` | `/assets/quests/nanshaolin_tripod_training.jpg` | `QST-SECT-04-ENTRY`<br>《刺桐风起 · 铁桥问禅》 | 第八幕 · 寒泉浸铁腕，四平扎马桩<br>（`SCENE_NSL_08_COLD_SPRING_CG`） | `16:9` |
+| `CG-QST-012` | `[ ]` 待补绘 | `public/assets/quests/nanshaolin_port_night_battle.jpg` | `/assets/quests/nanshaolin_port_night_battle.jpg` | `QST-SECT-04-ENTRY`<br>《刺桐风起 · 铁桥问禅》 | 第十四幕 · 刺桐夜雨急，铁桥碎倭刀<br>（`SCENE_NSL_14_SHATTER_KATANA_CG`） | `16:9` |
+| `CG-QST-013` | `[ ]` 待补绘 | `public/assets/quests/nanshaolin_wooden_alley.jpg` | `/assets/quests/nanshaolin_wooden_alley.jpg` | `QST-SECT-04-ENTRY`<br>《刺桐风起 · 铁桥问禅》 | 第十八幕 · 百杰木人巷，硬桥闯山门<br>（`SCENE_NSL_18_BREAK_GATE_CG`） | `16:9` |
 
 ---
 
@@ -218,6 +221,63 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition. Breathtaking dawn at the white stone terrace of Zixia Taoist Temple (玉女峰紫霞道观) high on Mount Hua around 1050 AD, as the rising sun dyes the vast sea of clouds in luminous violet and golden morning glow (紫气东来). Before the grand Song-style wooden temple hall with bronze crane incense burners, the noble bearded Taoist sect master in purple-trimmed robes solemnly presents a gleaming green-steel straight sword (青钢剑) in its scabbard to a kneeling young disciple newly dressed in neat grey-blue Taoist robes and cloud-toe cloth shoes. Standing gracefully beside the master is a refined female sword immortal in white-and-cyan Taoist attire (Ning Qingyu), while senior Huashan disciples holding swords witness respectfully along the pine-lined terrace. Authentic Song court painting brushwork, rich mineral pigments, sacred chivalric ceremony, no modern elements, blank plaques with no text or characters.
+  ```
+
+---
+
+### 11. `CG-QST-011`：九莲山千斤铁鼎炼体坪 · 寒泉挑水扎马图
+
+- **关联文件**：[`src/data/quests/sects/nanshaolinEntryQuest.ts`](../src/data/quests/sects/nanshaolinEntryQuest.ts)
+- **目标路径**：`public/assets/quests/nanshaolin_tripod_training.jpg`
+- **画框题跋**：`九莲山千斤铁鼎坪 · 铁腕挑泉稳踏梅花桩`
+- **剧情语境**：
+  - 主角毫无内家根基初上莆田九莲山，铁罗汉堂主【元通】罚其与十五岁小沙弥【戒藏】于千斤铁鼎炼体坪苦修基本功。
+  - 数十日寒暑锤炼，入夜山岚微雨之中，主角双腕扣着沉重熟铁环、双臂平伸挑起两只满溢寒泉的杉木大水桶，稳稳扎下南派“四平大马”立于湿滑青石梅花桩上；神炉赤红火光与寒泉白雾交映，面冷心热的元通禅师手持竹杖与一钵滚烫壮骨药汤静立桩下督训。
+- **画面核心要素**：
+  1. **环境氛围**：北宋闽中九莲山古刹炼体石坪，苍劲古榕盘根错节，后方矗立千斤青铜巨鼎与微透赤红炉火的铸铁神炉坊，一侧山涧寒泉池腾起丝丝白雾。
+  2. **主体人物**：前景一排高低错落的青石梅花桩上，身穿湿透粗布短褐、双腕套着乌黑铁环的年轻主角咬牙平伸双臂，稳稳挑起两只水花微漾的大木桶，下盘四平大马稳如磐石；不远处小沙弥（戒藏）亦挑桶踏桩互相鼓劲。
+  3. **师徒张力**：石桩旁，魁梧精悍、双臂古铜如生铁的老武僧（元通禅师）一手执青竹杖、一手托着冒热气的粗陶药钵，目光严厉中隐含赞许，尽显经典港式南拳电影苦练筑基的热血质感。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 composition inspired by classic Southern Shaolin martial arts cinema. Misty twilight at the Thousand-Jin Bronze Tripod training courtyard of Putian Southern Shaolin Temple in Fujian around 1050 AD, framed by ancient banyan trees, a massive bronze tripod cauldron, a glowing forge furnace in the background, and a steaming cold mountain spring pool. On wet stone plum-blossom poles (梅花桩) in the foreground, a determined young martial artist in sweat-soaked coarse cloth training attire, wearing heavy black iron rings on both forearms, holds a deep horse stance (四平大马) with arms extended horizontally supporting two brimming wooden water buckets without spilling. Beside the poles stands a stern, muscular senior Shaolin monk with bronze-like forearms, holding a bamboo cane in one hand and a steaming clay bowl of herbal medicine in the other, watching with quiet approval while a young 15-year-old novice monk trains nearby. Warm forge firelight contrasting with cool mountain mist, authentic Song court painting brushwork, mineral pigments, no modern elements, no text or characters.
+  ```
+
+---
+
+### 12. `CG-QST-012`：泉州刺桐港雨夜 · 铁桥硬架碎倭刀图
+
+- **关联文件**：[`src/data/quests/sects/nanshaolinEntryQuest.ts`](../src/data/quests/sects/nanshaolinEntryQuest.ts)
+- **目标路径**：`public/assets/quests/nanshaolin_port_night_battle.jpg`
+- **画框题跋**：`刺桐港狂潮夜雨 · 南拳铁桥力碎东洋刃`
+- **剧情语境**：
+  - 秋潮暴雨之夜，受北朝暗桩雇佣的东洋浪人头目【鬼丸甚内】率黑鲨水匪夜袭泉州刺桐港药栈，企图劫夺金创血竭与海道针经。
+  - 危急时刻，主角双足钉死湿滑栈桥，以初成的南派铁桥双臂硬生生架住浪人头目劈落的长刀护住身后的小沙弥戒藏与老船工；电光石火间，南少林戒律首座【元觉】踏浪飞身赶到，右手探出《大力金刚指》精准夹住雪亮刀锋，将其寸寸震断！
+- **画面核心要素**：
+  1. **环境氛围**：公元 1050 年北宋泉州刺桐港番坊木栈桥，狂风暴雨倾盆而下，海浪拍击船坞激起千堆白雪，远处宋代福船桅杆与摇曳的油纸灯笼、火把映照雨幕。
+  2. **主体交锋（双焦点高燃构图）**：湿滑木栈桥中央，年轻主角扎稳低沉马步、双臂交叉如铁桥奋力向上格架，护住身后跌坐的年轻沙弥与老船工；对面凶悍的东洋浪人武士双手高举修长弯刀下劈，而半空中披灰麻僧袍的威猛高僧（元觉首座）飞掠而至，两根泛着淡金劲力的铁指如钳子般生生夹断浪人长刀，断刃碎片与雨水四溅！
+  3. **视觉张力**：雨丝、火光、浪花与崩碎的钢刃定格于一瞬间，兼具宋画工笔力道与港产功夫片雨夜码头决战的凌厉张力。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 action composition. Torrential rainstorm at night on the wooden harbour piers of Quanzhou Zaytun Port around 1050 AD, crashing ocean waves, moored Song dynasty sea junks, and blazing pine torches swaying in the gale. In the center of the rain-slicked pier, a young martial artist in coarse cloth robes plants a rock-solid Southern Fist horse stance, raising crossed iron-bridge forearms to block and protect a fallen young novice monk and an elderly boatman behind him. Facing them, a fierce rogue sea-raider swordsman slashes down with a long curved blade, while a powerful senior Southern Shaolin monk in grey robes leaps through the rain, clamping the steel blade between two bare fingers with supreme Vajra Finger force and shattering the sword into flying steel shards and water droplets. Dramatic chiaroscuro torchlight against stormy indigo sea and rain, authentic Song dynasty brushwork, rich mineral pigments, intense martial arts impact, no modern elements, blank lanterns with no text or characters.
+  ```
+
+---
+
+### 13. `CG-QST-013`：南少林百杰木人巷 · 硬桥破阵出山门图
+
+- **关联文件**：[`src/data/quests/sects/nanshaolinEntryQuest.ts`](../src/data/quests/sects/nanshaolinEntryQuest.ts)
+- **目标路径**：`public/assets/quests/nanshaolin_wooden_alley.jpg`
+- **画框题跋**：`九莲山百杰木人巷 · 铁线轰关见晨光`
+- **剧情语境**：
+  - 主角护港立功归山，奉方丈【元苦】法旨踏入【南少林百杰木人巷】接受入门终极考校。
+  - 幽深石廊内机括轰鸣，十余尊包铜涂漆的少林机关木人出拳横棍重重夹击；主角双目如电，凝聚浑身劲力一记刚猛南拳轰开最后守关的镇门铜皮木人，尽头沉重石闸应声洞开，万丈闽海晨光与刺桐落花倾泻入巷，巷外元苦方丈与众高僧合十含笑相迎。
+- **画面核心要素**：
+  1. **环境氛围**：纵深透视极强的北宋古刹青石机关长廊（百杰木人巷），地面嵌有八卦方位石砖与暗槽齿轮，两侧密集排列着精巧古朴的宋代漆木包铜武僧机关人偶。
+  2. **主体人物**：前景中轴线上，衣衫微破、汗水淋漓却神采奕奕的年轻主角前弓后箭，右拳挟破空劲风重重轰退当路一尊高大铜胸机关木人，左臂沉桥格开侧翼木人横扫而来的齐眉木棍。
+  3. **光影叙事**：长廊尽头厚重石门刚刚向两侧洞开，灿烂金红的日出晨光穿透幽暗石巷照亮尘埃与飞舞的红花瓣，门外演武坪隐约可见披红祖衣的方丈与数名武僧合十伫立见证出关。
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color painting illustration, wide cinematic 16:9 perspective composition. Inside the solemn stone corridor of the Hundred-Heroes Wooden Dummy Alley (百杰木人巷) at Putian Southern Shaolin Temple around 1050 AD. Along both sides of the shadowed stone hall, intricate ancient wooden mechanical martial-monk dummies clad in bronze plates swing wooden arms and staffs via floor gears. In the foreground center, a bruised yet radiant young martial artist in torn training robes roots his stance and delivers a thunderous Southern Fist straight punch into the bronze chest-plate of the final guardian wooden dummy while parrying a wooden staff with his left forearm. At the far end of the corridor, heavy stone gates slide open, flooding the dark hall with brilliant golden morning sunlight and drifting crimson erythrina blossoms, revealing the silhouettes of the elderly Abbot in a kasaya robe and fellow monks standing in approval outside. Dramatic shafts of golden light, authentic Song court painting style, mineral pigments, triumphant martial arts cinema atmosphere, no modern elements, no text or characters.
   ```
 
 ---
