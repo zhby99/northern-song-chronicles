@@ -1,6 +1,5 @@
 import {
   Compass,
-  Crosshair,
   Eye,
   GitBranch,
   Lock,
@@ -16,1679 +15,737 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useShallow } from 'zustand/react/shallow'
-import { REGION_DB_MAP } from '../../../data/gameDb'
-import { QUEST_MAP } from '../../../data/quests'
-import { useGameStore } from '../../../store/useGameStore'
-import type { InventoryStack, LearnedArtEntry, PlayerSectState } from '../../../types/game'
-import type { QuestRuntimeState, QuestTargetLocationHint } from '../../../types/quest'
+import { FACTION_DB_MAP, REGION_DB_MAP } from '../../../data/gameDb'
+import { getRegionUnlockRequirement, isRegionUnlockedByInventory } from '../../../data/itemsDb'
+import { QUEST_MAP, QUEST_REGISTRY } from '../../../data/quests'
+import { collectUnmetQuestReasons } from '../../../engine/questEngine'
+import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
+import type { QuestCategoryKey, QuestDefinition, QuestTargetLocationHint } from '../../../types/quest'
+import { assessQuestRealmReadiness } from '../../../utils/realmUtils'
 
-type TreeFactionKey = 'changshan' | 'baji' | 'kaifeng' | 'jinjun' | 'side'
-type FactionFilterKey = 'all' | TreeFactionKey
-type MutexGroupKey = 'daming_ending' | 'palace_decree_choice' | 'hebei_spy_ending'
-type FocusNodeStatus = 'completed' | 'active' | 'available' | 'blocked' | 'locked'
+type CategoryFilterKey = 'ALL' | 'sect_entry' | 'sect_mission' | 'adventure' | 'huangyou'
+type NodeStatus = 'completed' | 'active' | 'available' | 'locked'
 
-interface FocusTreeNode {
-  id: string
+interface QuestNodeMeta {
+  questId: string
   col: number
   row: number
-  faction: TreeFactionKey
-  factionLabel: string
-  kind: string
-  code: string
-  title: string
-  subtitle: string
-  icon: string
-  mutexGroup?: MutexGroupKey
-  questId?: string
-  targetLocation?: QuestTargetLocationHint
+  seal: string
+  shortTag: string
   prereqs: string[]
-  steps: string[]
   rewards: string[]
-  warning?: string
+  branchNote?: string
 }
 
-interface FocusTreeEdge {
+interface QuestEdgeDef {
   from: string
   to: string
   type: 'solid' | 'dashed'
+  relation: string
+  trackOffset?: number
+  dstOffsetX?: number
 }
 
-interface MutexBridgeDef {
-  left: string
-  right: string
-  label: string
+interface ResolvedQuestNode {
+  questId: string
+  qDef: QuestDefinition
+  col: number
+  row: number
+  seal: string
+  shortTag: string
+  prereqs: string[]
+  rewards: string[]
+  branchNote?: string
 }
 
-interface TierBandDef {
-  id: string
-  title: string
-  subtitle: string
-  topRow: number
-  bottomRow: number
-}
-
-// Canvas geometry constants (collision-free 8-column × 14-row grid)
-const NODE_W = 216
+// 7-column × 9-row collision-free layout
+const NODE_W = 222
 const NODE_H = 92
-const COL_STEP = 244
-const ROW_STEP = 146
-const PAD_X = 40
-const PAD_Y = 48
-const CANVAS_W = 2030
-const CANVAS_H = 2140
+const COL_STEP = 248
+const ROW_STEP = 148
+const ZONE_GAP_AFTER_ROW_1 = 46
+const PAD_X = 36
+const PAD_Y = 50
+const CANVAS_W = 1788
+const CANVAS_H = 1480
 
-const colX = (col: number) => PAD_X + col * COL_STEP
-const rowY = (row: number) => PAD_Y + row * ROW_STEP
+function colX(col: number): number {
+  return PAD_X + col * COL_STEP
+}
 
-const FACTION_META: Record<
-  TreeFactionKey,
+function rowY(row: number): number {
+  return PAD_Y + row * ROW_STEP + (row >= 2 ? ZONE_GAP_AFTER_ROW_1 : 0)
+}
+
+const CATEGORY_VISUAL: Record<
+  QuestCategoryKey,
   {
-    shortLabel: string
-    barBg: string
-    sealBg: string
-    sealText: string
-    chipCls: string
+    label: string
+    barCls: string
+    sealCls: string
+    badgeCls: string
   }
 > = {
-  changshan: {
-    shortLabel: '常山枪派',
-    barBg: 'bg-gradient-to-r from-[#2c5e7a] to-[#4682a3]',
-    sealBg: 'bg-[#2c5e7a]',
-    sealText: 'text-[#eef7fc]',
-    chipCls: 'bg-[#2c5e7a] border-[#2c5e7a] text-[#fff8ee]',
+  sect_entry: {
+    label: '宗门入门',
+    barCls: 'bg-gradient-to-r from-[#1f4d3b] to-[#34785d]',
+    sealCls: 'bg-[#1f4d3b] text-[#e7f7ef]',
+    badgeCls: 'bg-[#1f4d3b] text-[#e7f7ef]',
   },
-  baji: {
-    shortLabel: '沧州八极门',
-    barBg: 'bg-gradient-to-r from-[#8f4f1d] to-[#b56a2c]',
-    sealBg: 'bg-[#8f4f1d]',
-    sealText: 'text-[#fff3e2]',
-    chipCls: 'bg-[#8f4f1d] border-[#8f4f1d] text-[#fff8ee]',
+  sect_mission: {
+    label: '师门要务',
+    barCls: 'bg-gradient-to-r from-[#781710] to-[#a6261d]',
+    sealCls: 'bg-[#781710] text-[#fff3df]',
+    badgeCls: 'bg-[#781710] text-[#fff3df]',
   },
-  kaifeng: {
-    shortLabel: '开封府·六扇门',
-    barBg: 'bg-gradient-to-r from-[#781710] to-[#a6261d]',
-    sealBg: 'bg-[#781710]',
-    sealText: 'text-[#fff5eb]',
-    chipCls: 'bg-[#781710] border-[#781710] text-[#fff8ee]',
+  adventure: {
+    label: '江湖奇遇',
+    barCls: 'bg-gradient-to-r from-[#355263] to-[#4b738a]',
+    sealCls: 'bg-[#355263] text-[#eef7fc]',
+    badgeCls: 'bg-[#355263] text-[#eef7fc]',
   },
-  jinjun: {
-    shortLabel: '大宋禁军',
-    barBg: 'bg-gradient-to-r from-[#7a5612] to-[#b38222]',
-    sealBg: 'bg-[#7a5612]',
-    sealText: 'text-[#fff8e1]',
-    chipCls: 'bg-[#7a5612] border-[#7a5612] text-[#fff8ee]',
+  city_story: {
+    label: '皇祐风云',
+    barCls: 'bg-gradient-to-r from-[#8f1d14] to-[#bd6b19]',
+    sealCls: 'bg-[#8f1d14] text-[#fff8ee]',
+    badgeCls: 'bg-[#8f1d14] text-[#fff8ee]',
   },
-  side: {
-    shortLabel: '奇遇与绿林',
-    barBg: 'bg-gradient-to-r from-[#3f594a] to-[#567865]',
-    sealBg: 'bg-[#3f594a]',
-    sealText: 'text-[#edf7f1]',
-    chipCls: 'bg-[#3f594a] border-[#3f594a] text-[#fff8ee]',
+  main_story: {
+    label: '皇祐风云',
+    barCls: 'bg-gradient-to-r from-[#8f1d14] to-[#bd6b19]',
+    sealCls: 'bg-[#8f1d14] text-[#fff8ee]',
+    badgeCls: 'bg-[#8f1d14] text-[#fff8ee]',
   },
 }
 
-const TIER_BANDS: ReadonlyArray<TierBandDef> = [
-  {
-    id: 'tier_1',
-    title: '第一阶 · 河朔二流双脉（常山枪派 SECT-22 & 沧州八极门 SECT-23）',
-    subtitle: '白身从军 / 查拳引荐 / 大名府《铁锁镇河朔》奇案 ── 凝聚公门保举信物',
-    topRow: 0,
-    bottomRow: 3,
-  },
-  {
-    id: 'tier_2',
-    title: '第二阶 · 京畿公门枢机（开封府 / 六扇门 SECT-17 · Lv.1 役卒巡捕 → Lv.4 御前护卫）',
-    subtitle: '半年海捕考绩 · 姑苏燕子坞两探慕容 · 华北太行宿怨 · 汴梁夜雨三战血护宋仁宗',
-    topRow: 4,
-    bottomRow: 8,
-  },
-  {
-    id: 'tier_3',
-    title: '第三阶 · 紫宸双恩分流 & 天子亲军（大宋禁军 SECT-33 · 四厢都指挥 → 三衙都虞候）',
-    subtitle: '左翼：鎏金虎符勘破河北暗桩（双天阶终局） ｜ 右翼：三征太行山雪耻封侯（苦读武经破连营）',
-    topRow: 9,
-    bottomRow: 13,
-  },
+const CATEGORY_TABS: ReadonlyArray<{
+  key: CategoryFilterKey
+  label: string
+  activeCls: string
+}> = [
+  { key: 'ALL', label: '全部任务', activeCls: 'bg-[#261910] border-[#261910] text-[#fbf2e0]' },
+  { key: 'sect_entry', label: '宗门入门', activeCls: 'bg-[#1f4d3b] border-[#1f4d3b] text-[#e7f7ef]' },
+  { key: 'sect_mission', label: '师门要务', activeCls: 'bg-[#781710] border-[#781710] text-[#fff3df]' },
+  { key: 'adventure', label: '江湖奇遇', activeCls: 'bg-[#355263] border-[#355263] text-[#eef7fc]' },
+  { key: 'huangyou', label: '皇祐风云', activeCls: 'bg-[#8f1d14] border-[#8f1d14] text-[#fff8ee]' },
 ]
 
-const FOCUS_NODES: ReadonlyArray<FocusTreeNode> = [
-  // ---------------- TIER 1: 常山枪派 & 沧州八极门 (Rows 0 - 3) ----------------
+function matchesCategoryFilter(cat: QuestCategoryKey, filter: CategoryFilterKey): boolean {
+  if (filter === 'ALL') return true
+  if (filter === 'huangyou') return cat === 'main_story' || cat === 'city_story'
+  return cat === filter
+}
+
+/**
+ * 全部 29 卷注册任务（严格 1 任务 = 1 节点）：
+ * - Rows 0..1：顶部独立任务区（无前后任务串联的各大门派入门与独立奇遇，共 10 卷）
+ * - Rows 2..8：跨派引荐与朝堂公门禁军串联任务树（共 19 卷）
+ */
+const PLACED_QUEST_NODES: ReadonlyArray<QuestNodeMeta> = [
+  // ================= ZONE 1: 顶部独立单节点任务 (Rows 0 ~ 1) =================
   {
-    id: 'cs_join',
+    questId: 'QST-SECT-01-ENTRY',
     col: 0,
     row: 0,
-    faction: 'changshan',
-    factionLabel: '常山枪派 · SECT-22',
-    kind: '入门起点',
-    code: 'SECT-22 · Lv.1',
-    title: '投军入伍 · 枪堂外门',
-    subtitle: '免束脩从军 · 月领边饷 15 两',
-    icon: '枪',
-    targetLocation: {
-      regionId: 'zhending',
-      buildingId: 'zd_spear',
-      customLabel: '真定府 · 常山演武堂',
-    },
+    seal: '禅',
+    shortTag: '嵩山少林寺 · 独立入门',
     prereqs: [
-      '当前无门无派（自由游侠）',
-      '清白之身：未列【大宋朝廷海捕黑名单】',
-      '未背负【通辽嫌疑】恶名',
-    ],
-    steps: [
-      '前往【真定府 · 常山演武堂】直接参军入伍，免收拜师束脩银两',
-      '可向掌门赵括苍请领日常宗门差遣（代师送信 / 探听情报 / 武艺教学，好感 +10）',
+      '无门无派（自由游侠），仅限男儿身拜入僧院/俗家',
+      '前往嵩山少林寺【钟鼓禅院】见玄净，或赴洛阳天津酒楼打听',
     ],
     rewards: [
-      '授常山枪派 Lv.1【枪堂外门】，按月支放军饷 15 两（随阶位升至 30/50/75/110 两）',
-      '解锁外门枪棒功法传授与军需商铺',
+      '拜入【嵩山少林寺 (SECT-01)】（可选剃度僧徒或俗家弟子）',
+      '开启少林七十二绝技与禅宗内功修习门径',
     ],
-    warning:
-      '私自退派将背负【通辽嫌疑】恶名（大宋全阵营 NPC 好感 -30，常山与开封府永不录用）！须凭推荐信合法奉调转任。',
   },
   {
-    id: 'cs_spy_duty',
+    questId: 'QST-SECT-02-ENTRY',
+    col: 1,
+    row: 0,
+    seal: '丐',
+    shortTag: '天下第一帮 · 独立入门',
+    prereqs: [
+      '无门无派，且随身纹银 ≤ 3 两（体验身无分文济困之义）',
+      '步入开封、洛阳等中原核心州府长街触发城隍破庙剧情',
+    ],
+    rewards: [
+      '拜入【丐帮 (SECT-02)】升袋弟子序列',
+      '获授丐帮入门棒掌功法与四海义聚人脉',
+    ],
+  },
+  {
+    questId: 'QST-SECT-05-ENTRY',
     col: 2,
     row: 0,
-    faction: 'changshan',
-    factionLabel: '常山枪派 · 军纪制度',
-    kind: '半年军令',
-    code: '每年 2月1日 / 8月1日',
-    title: '燕云锄奸 · 半年军令',
-    subtitle: '限期 60 日北上诛杀辽谍',
-    icon: '令',
-    targetLocation: {
-      regionId: 'xijin',
-      customLabel: '析津府 · 燕云密谍潜伏处',
-    },
-    prereqs: ['身属【常山枪派 (SECT-22)】期间每半年自动派发'],
-    steps: [
-      '每年二月初一、八月初一自动生成一名潜伏于【析津府 / 大定府】酒肆客栈武馆的辽国密谍（三流中品 ~ 二流中品）',
-      '须于 60 日限期内赶赴燕云寻获并当场生死对决诛除',
-    ],
-    rewards: ['完成实战历练、保住边军军籍与掌门信任'],
-    warning:
-      '逾 60 日未完成：任务自动撤销且掌门赵括苍好感 -15；累计 2 次失期直接按军纪除名开除！',
-  },
-  {
-    id: 'cq_join',
-    col: 4,
-    row: 0,
-    faction: 'baji',
-    factionLabel: '齐鲁查拳馆 · SECT-25',
-    kind: '三流跳板',
-    code: 'SECT-25 · Lv.1→Lv.2',
-    title: '拜入齐鲁查拳馆',
-    subtitle: '束脩 20 两 · 升内堂武师',
-    icon: '拳',
-    targetLocation: {
-      regionId: 'jinan',
-      buildingId: 'jn_chaquan',
-      customLabel: '济南府 · 齐鲁查拳总馆',
-    },
-    prereqs: ['当前无门无派', '随身纹银 ≥ 20 两（拜师束脩）'],
-    steps: [
-      '前往【济南府 · 齐鲁查拳总馆】奉银 20 两入门',
-      '修至境界【三流中品】+ 在派满 60 日 + 总馆主好感度 ≥ 20，晋升 Lv.2【内堂武师】',
-    ],
-    rewards: ['解锁向本馆 Lv.4 金牌总教头暗通关节求取《齐鲁查拳馆举荐帖》的资格'],
-  },
-  {
-    id: 'dm_case_start',
-    col: 6,
-    row: 0,
-    faction: 'baji',
-    factionLabel: '大名府 · 皇祐风云',
-    kind: '奇案起点',
-    code: 'QST-CITY-DAMING-BAJI',
-    title: '铁锁镇河朔 · 临津问冤',
-    subtitle: '七日限期 · 三线勘查断索案',
-    icon: '案',
-    questId: 'QST-CITY-DAMING-BAJI',
-    targetLocation: {
-      regionId: 'daming',
-      buildingId: 'daming_base_tavern',
-      customLabel: '大名府 · 黄河北岸临津酒楼',
-    },
+    seal: '华',
+    shortTag: '西岳华山派 · 独立入门',
     prereqs: [
-      '建议境界：【二流中品】（校场看破破绽则三流上品亦可一战）',
-      '前往【大名府 · 黄河北岸临津酒楼】或【沧州八极分馆】即可触发',
-    ],
-    steps: [
-      '讲武堂寻金牌教头卢婉月问明真传教习崔帆坤沉铁冤案',
-      '7 日限期内三线搜证（满 2 条即可呈堂，3 条俱全有额外厚赏）：① 黄河渡口验半月霜纹断口；② 留守司衙核黄册揭周文焕私卖生铁；③ 烽旗望楼访丐帮陈孤雁探知防辽沙盘图谋',
-    ],
-    rewards: ['集齐铁证推进至北京留守行宫面谒前宰相【贾昌朝】'],
-    warning: '接案后须在 7 日内呈交至少两条线索，逾限则崔帆坤含冤刺配登州、奇案失败结案！',
-  },
-
-  // Row 1
-  {
-    id: 'cs_rank2',
-    col: 0,
-    row: 1,
-    faction: 'changshan',
-    factionLabel: '常山枪派 · SECT-22',
-    kind: '职阶晋升',
-    code: 'SECT-22 · Lv.2',
-    title: '晋升内堂枪士 (Lv.2)',
-    subtitle: '修习梨花枪 / 六合枪 ≥ 3 重',
-    icon: '阶',
-    targetLocation: {
-      regionId: 'zhending',
-      buildingId: 'zd_spear',
-      customLabel: '真定府 · 常山演武堂',
-    },
-    prereqs: [
-      '前置节点：投军入伍 · 枪堂外门',
-      '武学境界 ≥【三流中品】',
-      '在派天数 ≥ 60 日 & 掌门赵括苍好感度 ≥ 20',
-    ],
-    steps: [
-      '在常山演武堂申请晋升第 2 阶【内堂枪士】',
-      '将《杨氏梨花枪》(MA-174) 或《六合大枪》(MA-116) 任意一门修至 ≥ 第 3 重',
+      '无门无派（或自陇右金环刀堂东进转投）',
+      '赴【京兆府（长安）】秋雨茶棚偶遇孤弈老道结下棋缘',
     ],
     rewards: [
-      '月度军饷提升至 30 两/月',
-      '满足常山镇派长卷《白沟寒星 · 幽州无名卷》全部开启条件！',
+      '拜入【西岳华山派 (SECT-05)】',
+      '传授华山剑气根基武学与险峰论剑机缘',
     ],
   },
   {
-    id: 'cs_rank3',
-    col: 1,
-    row: 1,
-    faction: 'changshan',
-    factionLabel: '常山枪派 · SECT-22',
-    kind: '职阶晋升',
-    code: 'SECT-22 · Lv.3',
-    title: '晋升演武教习 (Lv.3)',
-    subtitle: '边军宿校 · 解锁开封推荐资格',
-    icon: '校',
-    targetLocation: {
-      regionId: 'zhending',
-      buildingId: 'zd_spear',
-      customLabel: '真定府 · 常山演武堂',
-    },
-    prereqs: [
-      '前置节点：晋升内堂枪士 (Lv.2)',
-      '武学境界 ≥【二流下品】',
-      '在派天数 ≥ 365 日 & 掌门赵括苍好感度 ≥ 50',
-    ],
-    steps: ['通过日常差遣与半年锄奸累积资历好感，升任第 3 阶【演武教习】'],
-    rewards: [
-      '月度军饷提升至 50 两/月，解锁高阶门派枪法权限（与 Lv.4 同享武学传授权限）',
-      '解锁向掌门/首座申领《开封府推荐信》权限',
-    ],
-  },
-  {
-    id: 'baji_referral',
-    col: 4,
-    row: 1,
-    faction: 'baji',
-    factionLabel: '沧州八极门 · 入门线①',
-    kind: '引荐任务',
-    code: 'QST-SECT-23-REFERRAL',
-    title: '武林同气 · 八极引荐帖',
-    subtitle: '贿银 20 两求取同道保举',
-    icon: '帖',
-    questId: 'QST-SECT-23-REFERRAL',
-    targetLocation: {
-      regionId: 'jinan',
-      buildingId: 'jn_chaquan',
-      customLabel: '济南府 · 齐鲁查拳总馆',
-    },
-    prereqs: [
-      '前置节点：齐鲁查拳馆晋升至 Lv.2【内堂武师】',
-      '随身纹银 ≥ 20 两（茶敬贿银）',
-    ],
-    steps: [
-      '在济南府齐鲁查拳总馆寻 Lv.4【金牌总教头】暗奉 20 两纹银',
-      '取得信物《齐鲁查拳馆举荐帖》(ITM-MSC-004) 后脱离查拳馆',
-    ],
-    rewards: ['获得《齐鲁查拳馆举荐帖》(ITM-MSC-004)，可合法拜入沧州八极门外院'],
-  },
-  {
-    id: 'dm_leitai_sandtable',
-    col: 6,
-    row: 1,
-    faction: 'baji',
-    factionLabel: '大名府 · 皇祐风云',
-    kind: '核心战役',
-    code: '铁锁镇河朔 · 二/三幕',
-    title: '八角试金 · 子夜沙盘捉辽',
-    subtitle: '校场破乌古乃 · 行宫擒耶律裂山',
-    icon: '战',
-    questId: 'QST-CITY-DAMING-BAJI',
-    targetLocation: {
-      regionId: 'daming',
-      buildingId: 'dm_baji',
-      customLabel: '大名府 · 沧州八极门武场',
-    },
-    prereqs: ['前置节点：铁锁镇河朔 · 临津问冤（7 日内呈禀 ≥ 2 条铁证）'],
-    steps: [
-      '崇政殿谒贾昌朝定明贬暗钓计，赴河北枪棒大校场八角擂台连战太行刺头焦三斧、契丹先锋【乌古乃】（可看穿其换气旧伤破绽）',
-      '于戌/亥/子/丑夜潜入北京留守行宫【防辽舆图沙盘阁】，合围内鬼周文焕与铁林千夫长【耶律裂山】',
-    ],
-    rewards: ['洗刷沧州八极门沉铁奇冤，开启终幕三途互斥结局抉择！'],
-  },
-
-  // Row 2
-  {
-    id: 'cs_longling_1',
-    col: 0,
-    row: 2,
-    faction: 'changshan',
-    factionLabel: '常山枪派 · 传承长卷',
-    kind: '师门要务',
-    code: 'QST_SECT22_LONGLING (上)',
-    title: '白沟寒星 · 潜燕焚图',
-    subtitle: '乔装入析津 · 死守萧远风四合',
-    icon: '燕',
-    questId: 'QST_SECT22_LONGLING',
-    targetLocation: {
-      regionId: 'zhending',
-      buildingId: 'zd_spear',
-      spotId: 'zd_sp_hall',
-      customLabel: '真定府 · 常山龙胆枪脉宗祠正堂',
-    },
-    prereqs: [
-      '身在【常山枪派】且阶位 ≥ Lv.2【内堂枪士】',
-      '习得《杨氏梨花枪》或《六合大枪》≥ 第 3 重',
-      '建议境界：【二流上品】',
-    ],
-    steps: [
-      '宗祠验悯忠寺血书铜牌，真定府衙密见安抚使【韩琦】，随都监【郭逵】乔装马商北渡拒马河',
-      '析津府榷马大市应付盘查 → 悯忠寺取《南牧山川策》副本（可先赴义勇拳馆取《夜禁换防图》）',
-      '潜入【辽南京兵马元帅府】焚毁正本（无换防图则检定经义/书 ≥ 45），在武林统制【萧远风】枪下死守 4 回合借烟幕突围！',
-    ],
-    rewards: ['武学熟练度 +1,200~1,700，战斗经验 +60，携《南牧山川策》副本西撤雁门关'],
-    warning: '元帅府突围战为强制生死战（不可逃跑，未撑满 4 回合当场殉国）！',
-  },
-  {
-    id: 'cs_kf_letter1',
-    col: 1,
-    row: 2,
-    faction: 'changshan',
-    factionLabel: '常山枪派 · 奉调信物',
-    kind: '公门保举',
-    code: 'ITM-MSC-006',
-    title: '申领《开封府推荐信》',
-    subtitle: '常山 Lv.3 正当调任公门凭证',
-    icon: '信',
-    targetLocation: {
-      regionId: 'zhending',
-      buildingId: 'zd_spear',
-      customLabel: '真定府 · 常山演武堂',
-    },
-    prereqs: ['前置节点：晋升常山枪派 Lv.3【演武教习】', '尚未领取过该推荐信'],
-    steps: ['向掌门赵括苍或首座请领河北都部署签发的《开封府推荐信》'],
-    rewards: [
-      '获得《开封府推荐信》(ITM-MSC-006)',
-      '可凭信直接从常山枪派奉调转入【开封府 / 六扇门 Lv.1 役卒巡捕】，免受退派通辽惩罚！',
-    ],
-  },
-  {
-    id: 'baji_join_lv1',
+    questId: 'QST-SECT-07-ENTRY',
     col: 3,
-    row: 2,
-    faction: 'baji',
-    factionLabel: '沧州八极门 · SECT-23',
-    kind: '门派养成',
-    code: 'SECT-23 · Lv.1→Lv.4',
-    title: '持帖拜入沧州八极门',
-    subtitle: '习八极崩山拳枪 · 历练升总教头',
-    icon: '八',
-    targetLocation: {
-      regionId: 'daming',
-      buildingId: 'dm_baji',
-      customLabel: '大名府 · 沧州八极门武场',
-    },
-    prereqs: ['前置节点：持有《齐鲁查拳馆举荐帖》(ITM-MSC-004)，且已脱离原武馆'],
-    steps: [
-      '赴【大名府 · 沧州八极门武场】呈帖拜入 Lv.1【外院学徒】',
-      '向总馆主【卢铁山】请领日常差遣，按境界（三流中/二流下/二流上）+ 在派（60/365/730日）+ 好感（20/50/80）升至 Lv.4【金牌总教头】',
+    row: 0,
+    seal: '峨',
+    shortTag: '巴蜀峨眉派 · 独立入门',
+    prereqs: [
+      '无门无派（或隶属巴蜀百草药王门免责转投），男女皆可',
+      '赴【成都府 · 锦江万里桥茶肆】偶遇俗家首席苏梦清',
     ],
     rewards: [
-      '修习八极门刚猛拳法与六合枪术；若同时勘破《铁锁镇河朔》选结局 A 获《北京留守举荐信》，可合法奉调开封府 Lv.2！',
+      '拜入【巴蜀峨眉派 (SECT-07)】',
+      '获赐峨眉入门内功剑刺与灵丹披挂',
     ],
   },
   {
-    id: 'dm_end_a',
+    questId: 'QST-SECT-08-ENTRY',
+    col: 4,
+    row: 0,
+    seal: '武',
+    shortTag: '武当真武派 · 独立入门',
+    prereqs: [
+      '无门无派，零武学开局友好',
+      '赴【襄阳府 · 汉水大码头】或【古隆中草庐】结识莫清谷 / 俞清虚',
+    ],
+    rewards: [
+      '拜入【武当真武派 (SECT-08)】',
+      '传授真武道家内功剑法与丹药法剑',
+    ],
+  },
+  {
+    questId: 'QST-SECT-14-ENTRY',
     col: 5,
-    row: 2,
-    faction: 'baji',
-    factionLabel: '铁锁镇河朔 · 结局 A',
-    kind: '互斥抉择',
-    code: 'ITM-MSC-007 · 忠义入幕',
-    title: '忠义入幕 · 留守举荐信',
-    subtitle: '贾昌朝亲签 · 直授开封府 Lv.2',
-    icon: '幕',
-    mutexGroup: 'daming_ending',
-    questId: 'QST-CITY-DAMING-BAJI',
+    row: 0,
+    seal: '青',
+    shortTag: '巴蜀青城派 · 独立入门',
     prereqs: [
-      '前置节点：八角试金 · 子夜沙盘捉辽',
-      '与【铁锁横江·八极真传】【夺银盗图·夜遁黄河】三选一互斥',
+      '无门无派，零武学开局友好',
+      '赴【成都府 · 青羊道宫】避雨听道偶遇女冠沈清岚',
     ],
-    steps: ['于沙盘阁破案后选择「忠义入幕 · 河朔干城」，志在公门靖平天下'],
     rewards: [
-      '获颁《北京留守幕府举荐信》(ITM-MSC-007)（赴开封府直授 Lv.2 捕头都头；八极门弟子凭此信亦可奉调转入！）',
-      '破案赏银 +100 两、十艺【策论】+3',
+      '拜入【巴蜀青城派 (SECT-14)】',
+      '传授松风快剑与道门轻灵身法',
     ],
   },
   {
-    id: 'dm_end_b',
+    questId: 'QST-SECT-19-ENTRY',
     col: 6,
-    row: 2,
-    faction: 'baji',
-    factionLabel: '铁锁镇河朔 · 结局 B',
-    kind: '互斥抉择',
-    code: 'MA-116 · 八极真传',
-    title: '铁锁横江 · 八极授真传',
-    subtitle: '直入八极内堂 Lv.2 · 授六合大枪',
-    icon: '传',
-    mutexGroup: 'daming_ending',
-    questId: 'QST-CITY-DAMING-BAJI',
+    row: 0,
+    seal: '毒',
+    shortTag: '星宿海星宿派 · 独立入门',
     prereqs: [
-      '前置节点：八角试金 · 子夜沙盘捉辽',
-      '与【忠义入幕·留守举荐信】【夺银盗图·夜遁黄河】三选一互斥',
+      '无门无派，不限正邪根基',
+      '赴【延安府 · 塞上番马黑市】寻星宿门人出尘子开启',
     ],
-    steps: ['婉谢贾留守官身，入沧州八极分馆【千斤铁锁秘传室】受总馆主卢铁山传艺'],
     rewards: [
-      '亲授《六合大枪》(MA-116 · 第2重) + 良阶上品【大名六合浑铁枪】(WPN-035) + 纹银 50 两 + 声望/侠义 +80',
-      '无门派者破格直入【沧州八极门 Lv.2 内堂武师】；已在八极门者功绩 +200；他派弟子获《八极铁锁令》(ITM-MSC-008)',
+      '拜入【星宿海星宿派 (SECT-19)】',
+      '获授毒功暗器与西域奇毒秘药（门内支持挑战同门夺阶）',
     ],
-  },
-  {
-    id: 'dm_end_c',
-    col: 7,
-    row: 2,
-    faction: 'side',
-    factionLabel: '铁锁镇河朔 · 结局 C',
-    kind: '互斥抉择',
-    code: '邪线 · 朝廷通缉',
-    title: '夺银盗图 · 夜遁黄河',
-    subtitle: '黑吃黑劫银 180 两 · 上黑名单',
-    icon: '盗',
-    mutexGroup: 'daming_ending',
-    questId: 'QST-CITY-DAMING-BAJI',
-    prereqs: ['前置节点：八角试金 · 子夜沙盘捉辽', '与结局 A、结局 B 互斥'],
-    steps: ['趁沙盘阁混战夺取赃银与防辽残图，破窗夜遁黄河'],
-    rewards: ['劫获纹银 +180 两、《河北防辽舆图残卷》'],
-    warning:
-      '永久列入【大宋朝廷海捕黑名单】！无法加入常山枪派/开封府，且踏入东京开封府即遭展昭生死缉拿！',
   },
 
-  // Row 3
+  // Row 1: 其余 3 卷独立单节点任务
   {
-    id: 'cs_longling_2',
-    col: 0,
-    row: 3,
-    faction: 'changshan',
-    factionLabel: '常山枪派 · 传承收官',
-    kind: '师门要务',
-    code: 'QST_SECT22_LONGLING (下)',
-    title: '雁门死战 · 龙胆传薪',
-    subtitle: '授《常山龙胆枪》与联合举荐信',
-    icon: '龙',
-    questId: 'QST_SECT22_LONGLING',
-    prereqs: ['前置节点：白沟寒星 · 潜燕焚图'],
-    steps: [
-      '雁门关外乱石绝壁双路线抉择：路线 A 斩铁林百夫长保图突围（侠义+50）；路线 B 独撑半血萧远风 4 合护百名燕云遗老入关（侠义+100）',
-      '返真定隆兴大佛寺观音阁面韩琦焚毁行动名录，归常山宗祠赵云牌位前受谱',
-    ],
-    rewards: [
-      '传授镇派绝学《常山龙胆枪》(MA-074) + 名器【亮银枪】(WPN-014) + 熟练度 +3,500 + 战斗经验 +180',
-      '获韩琦与赵括苍联署《常山·定州联合举荐信》(ITM-MSC-013)：可直入【开封府 Lv.2 捕头都头】或转投【五台山清凉寺】！',
-    ],
-  },
-  {
-    id: 'tianbo_bawang',
-    col: 2,
-    row: 3,
-    faction: 'side',
-    factionLabel: '枪脉联动 · 皇祐风云',
-    kind: '皇祐风云',
-    code: 'QST_TIANBO_BAWANG',
-    title: '天波忠魂 · 霸王枪出',
-    subtitle: '三州试炼会狄青 · 授杨家霸王枪',
-    icon: '霸',
-    questId: 'QST_TIANBO_BAWANG',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bianliang_base_dojo',
-      customLabel: '开封府 · 西坊演武拳馆（杨排风）',
-    },
-    prereqs: [
-      '常山/八极枪法自然延伸：《六合大枪》或《杨氏梨花枪》≥ 第 6 重',
-      '侠义 ≥ 120、气血 ≥ 2,800、骑术 ≥ 65、非一品堂且无通辽（终章授谱需根骨 ≥ 82、气血 ≥ 3,200、骑术 ≥ 80）',
-    ],
-    steps: [
-      '开封西坊武馆接杨排风三十六路烧火棍 → 太原天波旧祠谒杨文广',
-      '并行完成太原捉谍胜呼延庆、五台山破禅演棍、雁门关血战三试炼 → 延安鄜延大营偕狄青破西夏铁鹞子 → 宗祠十合考校',
-    ],
-    rewards: ['承接天阶下品绝学《杨家霸王枪》(MA-037)！'],
-  },
-  {
-    id: 'wutai_transfer',
-    col: 4,
-    row: 3,
-    faction: 'side',
-    factionLabel: '五台山清凉寺 · 联动旁支',
-    kind: '跨派剃度',
-    code: 'QST-SECT-03-ENTRY',
-    title: '带功剃度 · 清凉残雪',
-    subtitle: '持常山联合荐信削发入五台山',
-    icon: '禅',
-    questId: 'QST-SECT-03-ENTRY',
-    targetLocation: {
-      regionId: 'wutaishan',
-      buildingId: 'wt_main',
-      spotId: 'wt_main_main',
-      customLabel: '五台山清凉寺 · 大雄主殿',
-    },
-    prereqs: ['常山枪派弟子持有《常山·定州联合举荐信》(ITM-MSC-013)（白身亦可直接叩门）'],
-    steps: [
-      '赴五台山清凉寺大雄主殿向知客首座智猛呈验联合荐信（声望额外 +8），历二十幕护孤、试棍与雁门破辽探',
-    ],
-    rewards: [
-      '合法脱离常山枪派剃度入【五台山清凉寺】，赐「明」字辈法号，亲授《五郎八卦棍》与《清凉禅定吐纳法》',
-    ],
-  },
-  {
-    id: 'taihang_touming',
-    col: 7,
-    row: 3,
-    faction: 'side',
-    factionLabel: '太行绿林盟 · 官府死敌线',
-    kind: '绿林投名状',
-    code: 'QST-SECT-18-TOUMINGZHUANG',
-    title: '太行聚义 · 纳投名状',
-    subtitle: '劫杀大宋命官 · 列海捕黑名单',
-    icon: '匪',
     questId: 'QST-SECT-18-TOUMINGZHUANG',
-    targetLocation: {
-      regionId: 'taihang',
-      buildingId: 'th_hall',
-      customLabel: '太行山 · 聚义总寨',
-    },
-    prereqs: ['无门无派，赴太行山聚义总寨请领「纳投名状」试炼'],
-    steps: [
-      '寻任意大宋朝廷官员（文臣/边帅/六扇门/禁军，皇室除外）发起【劫道纳投名状】生死战并获胜',
-    ],
-    rewards: ['夺得官银 60 两，获准拜入【太行/京东绿林盟 (SECT-18)】'],
-    warning:
-      '与公门路线彻底决裂！列入朝廷海捕黑名单，踏入开封府必遭展昭拦街问斩（亦是日后禁军三征太行的宿敌势力）。',
-  },
-
-  // ---------------- TIER 2: 开封府 / 六扇门 (Rows 4 - 8) ----------------
-  {
-    id: 'kf_join_lv1',
-    col: 1,
-    row: 4,
-    faction: 'kaifeng',
-    factionLabel: '开封府 / 六扇门 · SECT-17',
-    kind: '公门入职',
-    code: 'SECT-17 · Lv.1',
-    title: '奉调入府 · 役卒巡捕',
-    subtitle: '持《开封府推荐信》授 Lv.1',
-    icon: '捕',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_kaifengfu',
-      customLabel: '开封府 · 开封府衙（六扇门）',
-    },
+    col: 2,
+    row: 1,
+    seal: '匪',
+    shortTag: '太行绿林盟 · 独立入门',
     prereqs: [
-      '持有常山枪派 Lv.3 颁发的《开封府推荐信》(ITM-MSC-006)',
-      '无朝廷黑名单、无【通辽嫌疑】（常山弟子可直接奉调转入）',
+      '无门无派，赴【太行山 · 聚义总寨】请领「纳投名状」试炼',
+      '在各地劫杀任意一名大宋朝廷官员（皇室除外）获胜',
     ],
-    steps: ['前往【开封府 · 开封府衙】呈交推荐公函正式入职第 1 阶【役卒巡捕】'],
-    rewards: ['月度官俸 30 两/月，配发六扇门腰牌皂衣，开启六扇门情报侦查案卷权限'],
+    rewards: [
+      '夺取官银 60 两，获准拜入【太行/京东绿林盟 (SECT-18)】',
+    ],
+    branchNote: '注意：完成后将永久列入朝廷海捕黑名单，不可再加入常山枪派或开封府，入汴梁将遭展昭缉拿！',
   },
   {
-    id: 'kf_join_lv2',
+    questId: 'QST-ADV-BABUGANCHAN',
     col: 3,
-    row: 4,
-    faction: 'kaifeng',
-    factionLabel: '开封府 / 六扇门 · SECT-17',
-    kind: '破格入职',
-    code: 'SECT-17 · 直授 Lv.2',
-    title: '破格直授 · 捕头都头',
-    subtitle: '持联合举荐信 / 北京留守举荐信',
-    icon: '都',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_kaifengfu',
-      customLabel: '开封府 · 开封府衙（六扇门）',
-    },
+    row: 1,
+    seal: '蝉',
+    shortTag: '汴洛身法奇遇 · 独立单卷',
     prereqs: [
-      '持有《常山·定州联合举荐信》(ITM-MSC-013) 或大名府《北京留守幕府举荐信》(ITM-MSC-007)',
-      '无朝廷黑名单、无【通辽嫌疑】（常山枪派 / 沧州八极门弟子均可直接奉调入职！）',
-    ],
-    steps: [
-      '赴【开封府衙】呈交高规格举荐信，跳过役卒阶段直接授任第 2 阶【捕头都头】，并当日起算 Lv.2 任期天数！',
-    ],
-    rewards: ['直授开封府 Lv.2【捕头都头】（月俸 50 两/月），节省 Lv.1 升迁时间'],
-  },
-  {
-    id: 'kf_warrant_sys',
-    col: 5,
-    row: 4,
-    faction: 'kaifeng',
-    factionLabel: '开封府 / 六扇门 · 办案制度',
-    kind: '制度案卷',
-    code: '主动领案 + 半年钦限案',
-    title: '六扇门海捕与半年公案',
-    subtitle: '积攒晋升办案量 · 逾限重罚',
-    icon: '牍',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_kaifengfu',
-      customLabel: '开封府 · 开封府衙（六扇门）',
-    },
-    prereqs: ['身居【开封府 / 六扇门】Lv.1 ~ Lv.3（升至 Lv.4 后免派常规案件）'],
-    steps: [
-      '【主动领案】随时在府衙领取（可退回重领）；【半年钦限案】每年 2月1日、8月1日自动派发，限期 60 日且不可退回',
-      'Lv.1 办【民间线索调查】（赏 15 两）；Lv.2 缉拿【三流中~二流下要犯】；Lv.3 缉拿【二流下~二流上大寇】',
+      '江湖声望 ≥ 120（无门派限制）',
+      '前往【开封府 · 醉仙楼 / 汴河虹桥酒肆】打探「秋蝉令」旧事',
     ],
     rewards: [
-      '每结一案累计当前阶位【办案量 +1】（晋升下一阶的核心硬指标，每次晋升后清零重计）',
+      '勘破汴洛遗踪，习得上乘轻功绝技《八步赶蝉》',
     ],
-    warning:
-      '半年钦限案逾 60 日未结：罚没整整两年官俸（24个月俸银）；累计 2 次失职直接革职开除！',
   },
   {
-    id: 'kf_zhanzhao_arrest',
-    col: 7,
-    row: 4,
-    faction: 'kaifeng',
-    factionLabel: '开封府 · 铁面法度',
-    kind: '通缉拦截',
-    code: 'NPC-0140 · 御猫展昭',
-    title: '天街剑影 · 南侠缉凶',
-    subtitle: '黑名单踏入汴梁强制生死战',
-    icon: '铡',
-    targetLocation: {
-      regionId: 'bianliang',
-      customLabel: '东京开封府 · 御街天街',
-    },
+    questId: 'QST-ADV-TAOHUADAO-MAP',
+    col: 4,
+    row: 1,
+    seal: '桃',
+    shortTag: '东海秘境海图 · 独立单卷',
     prereqs: [
-      '身负【大宋朝廷黑名单】（由《太行纳投名状》或大名府《夺银盗图》触发）',
-      '踏入或途经【开封府（东京汴梁）】即刻强制触发',
+      '建议修为：【二流中品】（无门派限制）',
+      '赴【苏州府 · 太湖烟波渡口 · 洞庭奇石望湖水榭】拜会陆玄机',
     ],
-    steps: ['御前四品带刀护卫「南侠」展昭（一流高手）持巨阙剑封锁天街，不可逃跑！'],
     rewards: [
-      '若侥幸战胜可杀出重围（黑名单仍在，再入仍遭缉拿）；战败则押赴开封府狗头铡问斩（游戏结束）！',
+      '合绘取得《东海桃花岛奇门海图》，永久解锁海外秘境【东海桃花岛】航线！',
     ],
   },
 
-  // Row 5
+  // ================= ZONE 2: 前后串联与跨派引荐任务树 (Rows 2 ~ 8) =================
+  // Row 2: 六条脉络起点
   {
-    id: 'kf_promo_lv2',
+    questId: 'QST_SECT22_LONGLING',
     col: 1,
-    row: 5,
-    faction: 'kaifeng',
-    factionLabel: '开封府 / 六扇门 · SECT-17',
-    kind: '职阶晋升',
-    code: 'Lv.1 ──► Lv.2',
-    title: '考绩升迁 · 捕头都头',
-    subtitle: '三流上品 + 调查办案满 2 次',
-    icon: '升',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_kaifengfu',
-      customLabel: '开封府 · 开封府衙（六扇门）',
-    },
+    row: 2,
+    seal: '枪',
+    shortTag: '常山枪派 · 镇派传承',
     prereqs: [
-      '前置节点：奉调入府 · 役卒巡捕 (Lv.1)',
-      '武学境界 ≥【三流上品】',
-      'Lv.1 期间累计完成六扇门调查案卷 ≥ 2 次',
+      '隶属【常山枪派 (SECT-22)】且职阶 ≥ Lv.2「内堂枪士」',
+      '《杨氏梨花枪》或《六合大枪》修至 ≥ 第 3 重（建议二流上品）',
     ],
-    steps: ['于门派面板申请晋升第 2 阶【捕头都头】（办案累计数清零，开始计算 Lv.2 任期天数）'],
-    rewards: ['月俸升至 50 两/月，案卷升级为海捕缉拿要犯，汇入 Lv.2 主干线'],
+    rewards: [
+      '传授镇派绝学《常山龙胆枪》+ 名器【亮银枪】',
+      '获《常山·定州联合举荐信》：可直入【开封府 Lv.2 捕头都头】或带功转投【五台山】！',
+    ],
   },
   {
-    id: 'adv_yanziwu_map',
-    col: 4,
-    row: 5,
-    faction: 'side',
-    factionLabel: '江南奇遇 · 必做前置',
-    kind: '江湖奇遇',
-    code: 'QST-ADV-YANZIWU-MAP',
-    title: '烟波三叠 · 燕子坞水图',
-    subtitle: '破铁掌帮暗舵 · 绘太湖秘径图',
-    icon: '图',
+    questId: 'QST-CITY-DAMING-BAJI',
+    col: 2,
+    row: 2,
+    seal: '锁',
+    shortTag: '大名府 / 八极门 · 三结局奇案',
+    prereqs: [
+      '无门派硬限制（建议二流中品，接案后限 7 日内搜集至少两条铁证）',
+      '赴【大名府 · 黄河北岸临津酒楼】或【沧州八极分馆】开启',
+    ],
+    rewards: [
+      '结局A（忠义入幕）：获《北京留守幕府举荐信》直入【开封府 Lv.2 捕头都头】',
+      '结局B（铁锁横江）：亲授《六合大枪》+ 浑铁枪，白身直入【沧州八极门 Lv.2】',
+      '结局C（夺银夜遁）：劫银 180 两，但列入大宋朝廷海捕黑名单',
+    ],
+    branchNote: '终幕含 A / B / C 三选一互斥结局，决定通往开封府公门或八极门真传！',
+  },
+  {
     questId: 'QST-ADV-YANZIWU-MAP',
-    targetLocation: {
-      regionId: 'suzhou',
-      buildingId: 'sz_taihu',
-      spotId: 'sz_th_pier',
-      customLabel: '苏州府 · 太湖烟波渡口',
-    },
-    prereqs: ['建议境界：【二流中品】（无门派限制，建议在开封府 Lv.2 任期两年内南下顺路完成）'],
-    steps: [
-      '苏州虎丘救沈氏书生败沙九江 → 扬州盐帮演武院败盛黑风夺漕渠卷 → 江宁石头城试剑台败堂主焦沧澜',
-    ],
-    rewards: [
-      '合绘取得《太湖燕子坞烟波水路舆图》—— 六扇门两次潜入姑苏燕子坞的必备渡船凭证！',
-    ],
-  },
-
-  // Row 6
-  {
-    id: 'kf_murong_1',
     col: 3,
-    row: 6,
-    faction: 'kaifeng',
-    factionLabel: '开封府 · 一阶晋升长卷',
-    kind: '师门要务',
-    code: 'QST-SECT-17-MURONG-1',
-    title: '燕子坞暗影 · 姑苏密查',
-    subtitle: '连破包风二将 · 参合十合逃生',
-    icon: '燕',
-    questId: 'QST-SECT-17-MURONG-1',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_kaifengfu',
-      spotId: 'bl_kf_liushan',
-      customLabel: '开封府衙 · 六扇门捕快演武院',
-    },
+    row: 2,
+    seal: '图',
+    shortTag: '太湖秘径 · 开封查案必修前置',
     prereqs: [
-      '身居开封府 Lv.2【捕头都头】且任捕头都头满 730 日（整两年）',
-      '入燕子坞须已完成《烟波三叠 · 燕子坞水图》',
-      '建议境界：【二流巅峰】（需在一流中品邓百川手下撑 10 合）',
+      '建议修为：【二流中品】（无门派限制）',
+      '赴【苏州府 · 太湖烟波渡口】探问迷雾水障与翻江鼠蒋平',
     ],
-    steps: [
-      '六扇门演武院领命微服南下 → 苏州枫桥寒山寺古钟楼截获兵甲密信',
-      '太湖烟波渡口败包不同夺木牌 → 曼陀山茶幽径败风波恶 → 参合庄秘档室抄录密账并在【邓百川】掌下死守 10 回合脱身 → 返开封呈密卷',
+    rewards: [
+      '绘成《太湖燕子坞烟波水路舆图》，永久解锁【姑苏燕子坞】水路（开封府两探慕容氏必修前置！）',
     ],
-    rewards: ['查明姑苏慕容氏私囤兵甲暗流，达成【Lv.3 金牌总捕】剧情考核条件！'],
   },
   {
-    id: 'kf_promo_lv3',
-    col: 5,
-    row: 6,
-    faction: 'kaifeng',
-    factionLabel: '开封府 / 六扇门 · SECT-17',
-    kind: '职阶晋升',
-    code: 'Lv.2 ──► Lv.3',
-    title: '晋升金牌总捕 (Lv.3)',
-    subtitle: '任满 730 日 + 办案 5 次 + 密查结案',
-    icon: '金',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_kaifengfu',
-      customLabel: '开封府 · 开封府衙（六扇门）',
-    },
-    prereqs: [
-      '捕头都头（Lv.2）在任满 730 日',
-      'Lv.2 期间累计办案量 ≥ 5 次',
-      '已完成晋升任务《燕子坞暗影 · 姑苏密查》',
-    ],
-    steps: ['晋升为开封府第 3 阶【金牌总捕】（办案计数清零，解锁高阶公门武学权限）'],
-    rewards: ['月俸提升至 80 两/月，解锁《参合剑气 · 姑苏对质》与华北《太行劫匪》奇遇'],
-  },
-
-  // Row 7
-  {
-    id: 'kf_taihang_bandit',
-    col: 2,
-    row: 7,
-    faction: 'kaifeng',
-    factionLabel: '开封府 · 华北奇遇长卷',
-    kind: '伏笔长卷',
-    code: 'QST-SECT-17-TAIHANG-BANDIT',
-    title: '太行劫匪 · 华北风云',
-    subtitle: '斩雷震山 · 遭王重岳史万山围杀',
-    icon: '险',
-    questId: 'QST-SECT-17-TAIHANG-BANDIT',
-    targetLocation: {
-      regionId: 'taihang',
-      customLabel: '华北官道 · 太行山麓',
-    },
-    prereqs: [
-      '身居开封府 Lv.3【金牌总捕】及以上',
-      '在华北官道（汴洛/大名/真定/太原/济南/太行）赶路时概率触发（全 25 幕）',
-    ],
-    steps: [
-      '荒驿生擒太行二流上品悍匪【雷震山】押返开封府会审，5 日后市曹问斩',
-      '冷却 30 日后再行华北官道，遭太行天王【王重岳】+ 九纹狂龙【史万山】1v2 寻仇截杀，须死守 5 回合坠涧逃生，返衙竹院养伤一月',
-    ],
-    rewards: ['结下太行山宿怨伏笔（日后转任大宋禁军统兵三征太行时将亲手清算双凶！）'],
-    warning: '王重岳与史万山 1v2 截杀战若未撑满 5 回合，将被押回太行总寨斩首！',
-  },
-  {
-    id: 'kf_murong_2',
+    questId: 'QST-SECT-23-REFERRAL',
     col: 4,
-    row: 7,
-    faction: 'kaifeng',
-    factionLabel: '开封府 · 二阶晋升长卷',
-    kind: '师门要务',
-    code: 'QST-SECT-17-MURONG-2',
-    title: '参合剑气 · 姑苏对质',
-    subtitle: '连破公冶邓百川 · 十合战慕容复',
-    icon: '剑',
-    questId: 'QST-SECT-17-MURONG-2',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_kaifengfu',
-      spotId: 'bl_kf_liushan',
-      customLabel: '开封府衙 · 六扇门捕快演武院',
-    },
+    row: 2,
+    seal: '八',
+    shortTag: '齐鲁查拳 → 沧州八极引荐',
     prereqs: [
-      '身居开封府 Lv.3【金牌总捕】且已完成《燕子坞暗影 · 姑苏密查》',
-      '持有《太湖燕子坞烟波水路舆图》 · 建议境界：【一流中品及以上】',
-    ],
-    steps: [
-      '汴梁四步：相国雅市查燕史 → 六扇演武听展昭析斗转星移 → 樊楼屋脊擒契丹密使 → 升堂正殿奉紫宸密旨南巡',
-      '姑苏五战：夜探虎丘铁甲窟 → 寒山诗轩火中夺盐铁账 → 太湖渡口败【公冶乾】→ 参合庄演武坪败【邓百川】→ 还施水阁当面质问【慕容复】并撑满 10 回合立约收手',
+      '先拜入【齐鲁查拳馆 (SECT-25)】晋升至 Lv.2「内堂武师」，备银 20 两求帖',
     ],
     rewards: [
-      '封存太湖私甲北返复命：赏银 +260 两、战斗经验 +600、声望 +80、侠义 +40，解锁 Lv.4 晋升资格！',
+      '取得《齐鲁查拳馆举荐帖》(ITM-MSC-004)，可合法拜入【沧州八极门】，或在【泰山派】入门时触发同源礼遇',
     ],
   },
   {
-    id: 'kf_promo_lv4',
-    col: 6,
-    row: 7,
-    faction: 'kaifeng',
-    factionLabel: '开封府 / 六扇门 · SECT-17',
-    kind: '职阶晋升',
-    code: 'Lv.3 ──► Lv.4',
-    title: '晋升御前护卫 (Lv.4)',
-    subtitle: '办案 10 次 + 姑苏对质结案',
-    icon: '御',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_kaifengfu',
-      customLabel: '开封府 · 开封府衙（六扇门）',
-    },
-    prereqs: [
-      'Lv.3 金牌总捕期间累计办案量 ≥ 10 次',
-      '已完成二阶晋升任务《参合剑气 · 姑苏对质》',
-    ],
-    steps: [
-      '正式升任第 4 阶【御前护卫】（与南侠展昭同列御前带刀宿卫，从此免除半年常规派案！）',
-    ],
-    rewards: ['月俸升至 120 两/月，免派常规杂案，获出入紫宸殿面圣护驾资格'],
-  },
-
-  // Row 8
-  {
-    id: 'kf_renzong_escort',
-    col: 4,
-    row: 8,
-    faction: 'kaifeng',
-    factionLabel: '开封府 · 仕途转折枢机',
-    kind: '护驾长卷',
-    code: 'QST-SECT-17-RENZONG-ESCORT',
-    title: '微服汴梁 · 血护龙颜',
-    subtitle: '三连 1v2 破一品堂死士护仁宗',
-    icon: '龙',
-    questId: 'QST-SECT-17-RENZONG-ESCORT',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_palace',
-      spotId: 'bl_palace_hall',
-      customLabel: '开封府 · 大内皇宫 · 垂拱紫宸正殿',
-    },
-    prereqs: [
-      '身居开封府 Lv.4【御前护卫】',
-      '宋仁宗赵祯（NPC-0001）好感度 ≥ 20',
-      '建议境界：【一流下品 ~ 一流上品】（含连续三轮 1v2 生死决战，全 38 幕）',
-    ],
-    steps: [
-      '大内垂拱紫宸正殿领命，单人随微服“赵六郎”（宋仁宗）夜访大相国寺灯市撞破西夏暗桩',
-      '连闯三环死局：① 资圣琉璃宝塔 1v2 破先遣双刺 → ② 樊楼飞桥雅阁点求援灯 1v2 破红牌血刺 → ③ 虹桥夜雨酒肆 1v2 死战银狼双统领，迎王德用、展昭接驾还朝',
-    ],
-    rewards: [
-      '紫宸殿天子特旨双恩抉择：决定终老六扇门习大内秘典，还是奉敕执掌八十万禁军帅印！',
-    ],
-  },
-
-  // ---------------- TIER 3: 紫宸双恩分流 & 大宋禁军 (Rows 9 - 13) ----------------
-  {
-    id: 'kf_stay_kuihua',
-    col: 2,
-    row: 9,
-    faction: 'kaifeng',
-    factionLabel: '血护龙颜 · 抉择乙（公门终局）',
-    kind: '互斥抉择',
-    code: 'ITM-MSC-025 · 葵花残卷',
-    title: '留守公门 · 承大内密卷',
-    subtitle: '留任开封府 Lv.4 · 领悟葵花残卷',
-    icon: '葵',
-    mutexGroup: 'palace_decree_choice',
-    questId: 'QST-SECT-17-RENZONG-ESCORT',
-    prereqs: [
-      '前置节点：完成《微服汴梁 · 血护龙颜》三轮护驾血战',
-      '与【改授禁军·四厢都指挥】二选一互斥（选此项将留在开封府，不入大宋禁军）',
-    ],
-    steps: ['于垂拱紫宸正殿奏请继续留守开封府辅佐包拯、展昭'],
-    rewards: [
-      '获赐【御赐《葵花残卷》秘匣】(ITM-MSC-025)，当场领悟绝学《葵花残卷（大内秘藏前本）》',
-      '内库特赐纹银 +1,000 两',
-    ],
-  },
-  {
-    id: 'jj_join_lv3',
+    questId: 'QST-SECT-16-REFERRAL',
     col: 5,
-    row: 9,
-    faction: 'jinjun',
-    factionLabel: '大宋禁军 · SECT-33 唯一入口',
-    kind: '互斥抉择',
-    code: 'SECT-33 · 直授 Lv.3',
-    title: '改授禁军 · 四厢都指挥',
-    subtitle: '奉敕转任三衙亲军 · 赐御马龙骧骢',
-    icon: '帅',
-    mutexGroup: 'palace_decree_choice',
-    questId: 'QST-SECT-17-RENZONG-ESCORT',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_jinjun',
-      spotId: 'bl_jj_platform',
-      customLabel: '开封府 · 八十万禁军大教场',
-    },
+    row: 2,
+    seal: '漕',
+    shortTag: '钱塘怒潮 → 江淮漕帮引荐',
     prereqs: [
-      '前置节点：完成《微服汴梁 · 血护龙颜》三轮护驾血战',
-      '与【留守公门·承大内密卷】二选一互斥（进入大宋禁军的唯一合法途径！）',
-    ],
-    steps: ['奉宋仁宗圣旨改换武职，由开封府正式调入【大宋禁军】直授第 3 阶【四厢都指挥】'],
-    rewards: [
-      '入职大宋禁军 Lv.3【四厢都指挥】（月俸 180 两/月），获赐名驹【玉津园御赐龙骧骢】(MNT-004) + 纹银 1,000 两',
-      '解锁禁军两大史诗任务链：《御前泄密 · 河北暗桩》与《太行剿匪》三部曲！',
-    ],
-  },
-
-  // Row 10
-  {
-    id: 'jj_spy_vol1_2',
-    col: 2,
-    row: 10,
-    faction: 'jinjun',
-    factionLabel: '大宋禁军 · 反谍长卷（卷一/二）',
-    kind: '师门要务',
-    code: 'QST-SECT-33-HEBEI-SPY (上)',
-    title: '御前泄密 · 汴京真定勘谍',
-    subtitle: '佩鎏金虎符 · 追查微服泄密内鬼',
-    icon: '符',
-    questId: 'QST-SECT-33-HEBEI-SPY',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_jinjun',
-      spotId: 'bl_jj_platform',
-      customLabel: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
-    },
-    prereqs: [
-      '身居大宋禁军 Lv.3【四厢都指挥】及以上，且已完成《微服汴梁 · 血护龙颜》',
-      '建议境界：【一流下品 ~ 一流中品】（全篇 48 幕长卷剧本）',
-    ],
-    steps: [
-      '卷一（汴梁）：大教场点兵帅台受王德用【鎏金密查虎符】→ 皇城角楼会韦青衣核门簿 → 开封府架阁楼与公孙策破千字文密押（算术/书 ≥ 65）→ 汴河巡检司 1v2 战黑水双煞截周承业',
-      '卷二（真定）：燕赵酒楼接头雷巽虎、仝云韵 → 并行侦查真定榷场（1v2雪夜战，骑术≥70）、常山演武堂（会郭逵赵括苍）、隆兴大佛寺（经义≥60）三处要害',
-    ],
-    rewards: ['锁定三衙叛将韩崇矩携乌铜秘匣混入冬衣车队南下大名府之铁证'],
-  },
-  {
-    id: 'jj_taihang_1',
-    col: 6,
-    row: 10,
-    faction: 'jinjun',
-    factionLabel: '大宋禁军 · 剿匪三部曲（壹）',
-    kind: '统帅战役',
-    code: 'QST-SECT-33-TAIHANG-CAMPAIGN-1',
-    title: '太行剿匪 · 壹 · 骄兵折戟',
-    subtitle: '暂授都虞候北伐 · 黑风涧浴血断后',
-    icon: '折',
-    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-1',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_jinjun',
-      spotId: 'bl_jj_platform',
-      customLabel: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
-    },
-    prereqs: [
-      '身居大宋禁军 Lv.3【四厢都指挥】且在禁军任职满 365 日（整一年）',
-      '刚性触发条件：尚未通晓兵书 ——【经义 ≤ 40】或【策论 ≤ 60】（至少一项未超标）！',
-      '建议境界：【二流上品 ~ 一流下品】（全 40 幕）',
-    ],
-    steps: [
-      '紫宸殿奉旨先授 Lv.4【三衙都虞候】，点五千禁军会师大名府，连破太行外山口与鹿角寨两场 1v2 后轻敌冒进黑风愁猿涧',
-      '惨遭断道火攻！交虎符令高怀亮撤残军，独自在一线天先胜追寇（1v2），再硬撼【王重岳 + 史万山】死守撑满 6 回合！',
-      '丧师两千返紫宸殿叩首请罪，削去冠带贬回【Lv.3 四厢都指挥】并罚俸一年，秋雨赴汴郊义冢祭魂',
-    ],
-    rewards: ['完成沙场挫败洗礼，60 日后解锁枢密使王德用亲授《武经总要》雪耻二征！'],
-    warning:
-      '卡点提醒：入禁军满 365 日前切勿同时把经义修过 40 且策论修过 60，否则无法触发首卷轻敌折戟剧情！',
-  },
-
-  // Row 11
-  {
-    id: 'jj_spy_vol3',
-    col: 2,
-    row: 11,
-    faction: 'jinjun',
-    factionLabel: '大宋禁军 · 反谍长卷（卷三）',
-    kind: '师门要务',
-    code: 'QST-SECT-33-HEBEI-SPY (下)',
-    title: '黄河铁索 · 决战萧远风',
-    subtitle: '武库擒叛校 · 横江浮桥夺秘匣',
-    icon: '澜',
-    questId: 'QST-SECT-33-HEBEI-SPY',
-    targetLocation: {
-      regionId: 'daming',
-      buildingId: 'daming_base_tavern',
-      customLabel: '大名府 · 黄河北岸临津酒楼',
-    },
-    prereqs: ['前置节点：御前泄密 · 汴京真定勘谍'],
-    steps: [
-      '大名府临津酒楼摸底 → 河北枪棒大校场开箱查猛火油，八角擂台 1v2 拿下叛将韩崇矩',
-      '北京留守行宫沙盘阁会猛将王信，择定【官军铁甲封渡】或【河朔群侠奇兵（欧阳春等）】合围方略',
-      '奔赴【黄河铁索渡口】拦截猛火油船，横江浮桥决战辽南京武林统制【萧远风 + 修罗副统领】，夺回《京营泄密名录》，凯旋归京入紫宸殿！',
+      '先拜入【钱塘怒潮帮 (SECT-26)】晋升至 Lv.2，备银 20 两求取保举',
     ],
     rewards: [
-      '战斗经验 +950，并开启紫宸殿丹墀【当殿直谏肃贪】vs【密火留线反间】双天阶结局抉择！',
+      '取得《钱塘怒潮帮举荐帖》(ITM-MSC-003)，可拜入【江淮漕帮】，并在转投【洞庭铁掌帮】时触发水陆同脉机缘',
     ],
   },
   {
-    id: 'jj_taihang_2',
+    questId: 'QST-SECT-24-REFERRAL',
     col: 6,
-    row: 11,
-    faction: 'jinjun',
-    factionLabel: '大宋禁军 · 剿匪三部曲（贰）',
-    kind: '统帅战役',
-    code: 'QST-SECT-33-TAIHANG-CAMPAIGN-2',
-    title: '太行剿匪 · 贰 · 刮目相看',
-    subtitle: '苦读武经达标 · 连拔四寨困狂龙',
-    icon: '略',
-    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-2',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_jinjun',
-      spotId: 'bl_jj_platform',
-      customLabel: '八十万禁军大教场 · 擂鼓聚将点兵帅台',
-    },
+    row: 2,
+    seal: '镖',
+    shortTag: '岭南洪门 → 闽海镇远引荐',
     prereqs: [
-      '前置节点：《太行剿匪 · 骄兵折戟》结案满 60 日，身居禁军 Lv.3+',
-      '出征硬性考校：修满十艺【经义 ≥ 40】且【策论 ≥ 70】！',
+      '先拜入【岭南洪门武馆 (SECT-27)】晋升至 Lv.2，备银 20 两求取保举',
     ],
-    steps: [
-      '点兵帅台王德用煮茶勉励（吕蒙刮目相看），赐《武经总要 · 枢密院行军钞本》(ITM-MSC-029，研读策论+15、经义+8)',
-      '修满经义≥40 & 策论≥70 后通过沙盘三策考校，王德用金殿押印力保统兵五千再征太行',
-      '断水熏烟零亡拔苍狼前寨 → 鹰愁岭围点打援破黑风中寨 → 封暗渠奇袭太行藏金义仓 → 飞狐断魂索桥正面击败【史万山】，筑六碉锁困王重岳，押十匪献俘开封市曹十斩！',
+    rewards: [
+      '取得《岭南洪门举荐帖》(ITM-MSC-005)，可拜入【闽海镇远镖局】，并在求法【莆田南少林】时触发同脉接引',
     ],
-    rewards: ['获秘籍《武经总要钞本》、洗刷黑风峡兵败之耻，将太行残寇死锁绝崖'],
   },
 
-  // Row 12
+  // Row 3: 跨派承接 & 开封府一阶晋升
   {
-    id: 'jj_spy_end_a',
+    questId: 'QST-SECT-03-ENTRY',
+    col: 0,
+    row: 3,
+    seal: '台',
+    shortTag: '五台山清凉寺 · 兼容常山转投',
+    prereqs: [
+      '无门无派白身可直接叩山门；或常山枪派弟子持《常山·定州联合举荐信》免责带功剃度',
+      '赴【五台山清凉寺】与善松 / 智光 / 智猛交谈开启',
+    ],
+    rewards: [
+      '拜入【五台山清凉寺 (SECT-03)】赐「明」字辈法号，传授《五郎八卦棍》与禅门吐纳',
+    ],
+  },
+  {
+    questId: 'QST_TIANBO_BAWANG',
     col: 1,
-    row: 12,
-    faction: 'jinjun',
-    factionLabel: '河北暗桩 · 抉择甲（刚正肃贪）',
-    kind: '互斥抉择',
-    code: 'ARM-003 · 步人玄铁重铠',
-    title: '铁面弹劾 · 玄铁重铠赐干城',
-    subtitle: '当殿彻查勋贵蛀虫 · 赐天阶重甲',
-    icon: '铠',
-    mutexGroup: 'hebei_spy_ending',
-    questId: 'QST-SECT-33-HEBEI-SPY',
+    row: 3,
+    seal: '霸',
+    shortTag: '天波杨家 · 枪脉巅峰传承',
     prereqs: [
-      '前置节点：黄河铁索 · 决战萧远风（凯旋紫宸早朝）',
-      '与【密火留线·紫宸玄枢腰牌】二选一互斥',
-    ],
-    steps: [
-      '于垂拱紫宸正殿联合包拯、欧阳修当殿唱名弹劾，将涉案三衙校尉与勋贵管事一查到底明正典刑',
+      '承接常山/八极枪脉：《杨氏梨花枪》或《六合大枪》修至 ≥ 第 6 重',
+      '侠义 ≥ 120、气血 ≥ 2,800、骑术 ≥ 65，无通辽嫌疑且非一品堂（授谱需根骨 ≥ 82、气血 ≥ 3,200、骑术 ≥ 80）',
     ],
     rewards: [
-      '御赐天阶重宝【大宋步人玄铁重铠】(ARM-003) + 户部纹银 1,500 两',
-      '声望 +140、侠义 +65、包拯/欧阳修/仁宗/王德用及大宋全阵营好感大幅提升',
+      '历太原、五台、雁门三试炼并偕狄青破铁鹞子，承接天阶下品绝学《杨家霸王枪》！',
     ],
   },
   {
-    id: 'jj_spy_end_b',
+    questId: 'QST-SECT-17-MURONG-1',
     col: 3,
-    row: 12,
-    faction: 'jinjun',
-    factionLabel: '河北暗桩 · 抉择乙（反间暗棋）',
-    kind: '互斥抉择',
-    code: 'ITM-MSC-032 · 玄枢腰牌',
-    title: '密火留线 · 紫宸玄枢授密使',
-    subtitle: '留虚桩倒钓北院 · 赐天阶腰牌仙丹',
-    icon: '枢',
-    mutexGroup: 'hebei_spy_ending',
+    row: 3,
+    seal: '捕',
+    shortTag: '开封府六扇门 · Lv.2→Lv.3 晋升',
+    prereqs: [
+      '凭常山或大名府举荐信入职【开封府 (SECT-17)】，升任 Lv.2「捕头都头」且任满 730 日',
+      '必修前置：完成《烟波三叠 · 燕子坞水图》取得太湖渡船水路图',
+    ],
+    rewards: [
+      '查明姑苏慕容氏私囤兵甲暗流，达成晋升开封府 Lv.3【金牌总捕】剧情考核（再加办案满 5 次即可升阶）',
+    ],
+  },
+  {
+    questId: 'QST-SECT-06-ENTRY',
+    col: 4,
+    row: 3,
+    seal: '岱',
+    shortTag: '东岳泰山派 · 兼容查拳举荐',
+    prereqs: [
+      '无门无派白身或【齐鲁查拳馆】弟子（持《齐鲁查拳馆举荐帖》享同源结缘）',
+      '赴【济南府 · 泰山岱庙行祠】偶遇鲁苍岳护碑开启',
+    ],
+    rewards: [
+      '拜入【东岳泰山派 (SECT-06)】，获授泰山剑法、道门内功与佩剑信物',
+    ],
+  },
+  {
+    questId: 'QST-SECT-15-ENTRY',
+    col: 5,
+    row: 3,
+    seal: '掌',
+    shortTag: '洞庭铁掌帮 · 兼容漕帮转投',
+    prereqs: [
+      '无门无派散人，或【江淮漕帮 / 钱塘怒潮帮 / 湘西五溪蛊寨】同脉弟子转投',
+      '赴【襄阳府 · 汉水大码头】或【洞庭铁掌峰】开启',
+    ],
+    rewards: [
+      '拜入【洞庭铁掌帮 (SECT-15)】，赤砂淬掌传授刚猛铁掌功法',
+    ],
+  },
+  {
+    questId: 'QST-SECT-04-ENTRY',
+    col: 6,
+    row: 3,
+    seal: '南',
+    shortTag: '莆田南少林 · 兼容镇远洪门',
+    prereqs: [
+      '无门无派散人，或【闽海镇远镖局 / 岭南洪门武馆】弟子持帖带艺求法',
+      '赴【泉州府 · 万国番坊 / 开元寺】或【莆田南少林】开启',
+    ],
+    rewards: [
+      '拜入【莆田南少林 (SECT-04)】，铁桥问禅传授南少林拳棍禅功',
+    ],
+  },
+
+  // Row 4: 开封府二阶晋升 & 华北太行奇遇
+  {
+    questId: 'QST-SECT-17-TAIHANG-BANDIT',
+    col: 1,
+    row: 4,
+    seal: '险',
+    shortTag: '开封府 Lv.3 · 华北官道伏笔',
+    prereqs: [
+      '完成《燕子坞暗影 · 姑苏密查》并晋升开封府 Lv.3【金牌总捕】及以上',
+      '在华北官道（汴洛/大名/真定/太原/济南/太行）行路时触发',
+    ],
+    rewards: [
+      '生擒雷震山问斩，于王重岳、史万山围杀下死里逃生，埋下日后禁军三征太行宿怨伏笔',
+    ],
+  },
+  {
+    questId: 'QST-SECT-17-MURONG-2',
+    col: 3,
+    row: 4,
+    seal: '剑',
+    shortTag: '开封府六扇门 · Lv.3→Lv.4 晋升',
+    prereqs: [
+      '必修前置：完成《燕子坞暗影 · 姑苏密查》且晋升开封府 Lv.3【金牌总捕】',
+      '持有《太湖燕子坞烟波水路舆图》（建议一流中品及以上）',
+    ],
+    rewards: [
+      '还施水阁十合战慕容复封存私甲，赏银 260 两、声望 +80，达成晋升 Lv.4【御前护卫】考核（配办案 10 次升阶）',
+    ],
+  },
+
+  // Row 5: 开封府御前护驾 · 转入禁军唯一枢机
+  {
+    questId: 'QST-SECT-17-RENZONG-ESCORT',
+    col: 3,
+    row: 5,
+    seal: '龙',
+    shortTag: '紫宸护驾枢机 · 公门/禁军分流',
+    prereqs: [
+      '必修前置：完成《参合剑气 · 姑苏对质》并晋升开封府 Lv.4【御前护卫】',
+      '宋仁宗赵祯（NPC-0001）好感度 ≥ 20，赴【大内皇宫 · 垂拱紫宸正殿】开启',
+    ],
+    rewards: [
+      '抉择甲（改授禁军）：奉敕转入【大宋禁军 Lv.3 四厢都指挥】+ 御马龙骧骢 + 1,000 两，开启下方两大禁军任务链！',
+      '抉择乙（留守公门）：留任开封府 Lv.4，获赐【《葵花残卷》秘匣】+ 1,000 两（不入禁军）',
+    ],
+    branchNote: '紫宸殿双恩互斥抉择：唯有选择「改授大宋禁军」方可解锁下方禁军左右双翼任务链！',
+  },
+
+  // Row 6: 大宋禁军双翼开启
+  {
+    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-1',
+    col: 2,
+    row: 6,
+    seal: '折',
+    shortTag: '大宋禁军 · 三征太行（壹）',
+    prereqs: [
+      '必修前置：经《微服汴梁 · 血护龙颜》转入【大宋禁军 Lv.3 四厢都指挥】且任职满 365 日',
+      '刚性门槛：尚未通晓兵书 —— 十艺【经义 ≤ 40】或【策论 ≤ 60】至少一项未超标！',
+    ],
+    rewards: [
+      '亲历黑风涧断后死战与丧师贬官洗礼，结案满 60 日后解锁二征雪耻《刮目相看 · 武经破寨》',
+    ],
+    branchNote: '切记：入禁军满一年触发本卷前，请勿同时将经义修过 40 且策论修过 60！',
+  },
+  {
     questId: 'QST-SECT-33-HEBEI-SPY',
+    col: 4,
+    row: 6,
+    seal: '符',
+    shortTag: '大宋禁军 · 河北反谍长卷',
     prereqs: [
-      '前置节点：黄河铁索 · 决战萧远风（凯旋紫宸早朝）',
-      '与【铁面弹劾·玄铁重铠赐干城】二选一互斥',
-    ],
-    steps: [
-      '密奏诛除韩崇矩知情死党，故意保留两条不知深浅的外围采买线由皇城司喂假情报倒钓辽国北院',
+      '必修前置：完成《微服汴梁 · 血护龙颜》并身居【大宋禁军 Lv.3 四厢都指挥】及以上',
+      '赴【八十万禁军大教场 · 点兵帅台】面谒王德用领受鎏金虎符',
     ],
     rewards: [
-      '东暖阁秘赐天阶【紫宸玄枢密使腰牌】(ITM-MSC-032) + 大内秘藏【少林九转大还丹】(ITM-MED-101) + 内帑纹银 1,200 两',
-      '策论 +4、声望 +100、宋仁宗(+30)/王德用(+25)/韦青衣(+20)深度倚重',
+      '黄河浮桥决战萧远风夺回泄密名录，丹墀双结局择一：御赐天阶【大宋步人玄铁重铠】+1,500两，或【紫宸玄枢密使腰牌】+九转大还丹+1,200两',
     ],
-  },
-  {
-    id: 'jj_taihang_3',
-    col: 6,
-    row: 12,
-    faction: 'jinjun',
-    factionLabel: '大宋禁军 · 剿匪三部曲（叁·终章）',
-    kind: '统帅决战',
-    code: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
-    title: '太行剿匪 · 叁 · 犁庭扫穴',
-    subtitle: '后崖夜袭擒双凶 · 市曹横刃护法场',
-    icon: '捷',
-    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_kaifengfu',
-      spotId: 'bl_kf_court',
-      customLabel: '开封府衙 · 开封府升堂正殿',
-    },
-    prereqs: [
-      '前置节点：《刮目相看 · 武经破寨》结案满 60 日，身居大宋禁军 Lv.3+',
-      '前往【开封府衙 · 升堂正殿】与南侠展昭对话开启（全 40 幕大结局）',
-      '建议境界：【一流中品 ~ 一流上品】',
-    ],
-    steps: [
-      '卧底“孤雁”献《太行暗道图》，高怀亮万炬佯攻断魂桥；子夜偕【展昭】率五十玄衣精锐攀后崖 1v2 拔鹰愁暗哨',
-      '破入聚义忠义大堂，与展昭并肩 2v2 生擒太行天王【王重岳】与九纹狂龙【史万山】，迫降满山群寇槛车押返汴梁',
-      '东京市曹监斩之日，京东义虎【晁云飞】+ 立地太岁【阮惊涛】暴起劫法场，横刃护台 1v2 击溃双寇，将王、史二凶当场正法！',
-    ],
-    rewards: ['永久铲除太行绿林匪患！推进至垂拱紫宸正殿受封三衙统帅勋阶！'],
   },
 
-  // Row 13
+  // Row 7: 大宋禁军二征太行
   {
-    id: 'jj_rank4_coronation',
-    col: 6,
-    row: 13,
-    faction: 'jinjun',
-    factionLabel: '大宋禁军 · 三衙统帅终局',
-    kind: '紫宸册封',
-    code: 'SECT-33 · 正式晋封 Lv.4',
-    title: '紫宸受封 · 三衙都虞候',
-    subtitle: '晴光御酒祭忠魂 · 执掌京畿宿卫',
-    icon: '侯',
-    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
-    targetLocation: {
-      regionId: 'bianliang',
-      buildingId: 'bl_palace',
-      spotId: 'bl_palace_hall',
-      customLabel: '大内皇宫 · 垂拱紫宸正殿',
-    },
-    prereqs: ['前置节点：完成《太行剿匪 · 叁 · 犁庭扫穴》'],
-    steps: [
-      '垂拱紫宸正殿受宋仁宗正式册封，退朝后携三坛御赐荷池眉寿醇酒，与王德用、高怀亮、展昭并骑赴西郊晴光松冈祭奠两千阵亡同袍',
+    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-2',
+    col: 2,
+    row: 7,
+    seal: '略',
+    shortTag: '大宋禁军 · 三征太行（贰）',
+    prereqs: [
+      '必修前置：《太行剿匪 · 骄兵折戟》结案满 60 日，身居大宋禁军 Lv.3+',
+      '苦读王德用所赐《武经总要钞本》，修满十艺【经义 ≥ 40】且【策论 ≥ 70】通过沙盘考校',
     ],
     rewards: [
-      '正式晋封大宋禁军 Lv.4【三衙都虞候】（月俸升至 240 两/月）',
-      '御赐纹银 +1,000 两、江湖声望 +150、侠义 +100、门派功绩 +300、战斗经验 +1,200！',
+      '获《武经总要 · 枢密院行军钞本》，连拔太行四寨生擒史万山献俘，结案 60 日后开启终章',
+    ],
+  },
+
+  // Row 8: 大宋禁军三征太行收官
+  {
+    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
+    col: 2,
+    row: 8,
+    seal: '侯',
+    shortTag: '大宋禁军 · 三征太行（叁·封侯）',
+    prereqs: [
+      '必修前置：《刮目相看 · 武经破寨》结案满 60 日，身居大宋禁军 Lv.3+',
+      '赴【开封府衙 · 升堂正殿】与南侠展昭对话开启终章决战',
+    ],
+    rewards: [
+      '偕展昭夜袭聚义厅生擒王重岳、史万山，市曹护法场彻底荡平太行匪患',
+      '紫宸殿正式册封大宋禁军 Lv.4【三衙都虞候】（月俸 240 两）+ 御银 1,000 两 + 声望 150！',
     ],
   },
 ]
 
-const FOCUS_EDGES: ReadonlyArray<FocusTreeEdge> = [
-  // Changshan
-  { from: 'cs_join', to: 'cs_rank2', type: 'solid' },
-  { from: 'cs_join', to: 'cs_spy_duty', type: 'dashed' },
-  { from: 'cs_rank2', to: 'cs_rank3', type: 'solid' },
-  { from: 'cs_rank2', to: 'cs_longling_1', type: 'solid' },
-  { from: 'cs_rank3', to: 'cs_kf_letter1', type: 'solid' },
-  { from: 'cs_longling_1', to: 'cs_longling_2', type: 'solid' },
-  { from: 'cs_longling_2', to: 'tianbo_bawang', type: 'dashed' },
-  { from: 'cs_longling_2', to: 'wutai_transfer', type: 'dashed' },
-
-  // Baji & Daming
-  { from: 'cq_join', to: 'baji_referral', type: 'solid' },
-  { from: 'baji_referral', to: 'baji_join_lv1', type: 'solid' },
-  { from: 'dm_case_start', to: 'dm_leitai_sandtable', type: 'solid' },
-  { from: 'dm_leitai_sandtable', to: 'dm_end_a', type: 'solid' },
-  { from: 'dm_leitai_sandtable', to: 'dm_end_b', type: 'solid' },
-  { from: 'dm_leitai_sandtable', to: 'dm_end_c', type: 'solid' },
-  { from: 'dm_end_b', to: 'tianbo_bawang', type: 'dashed' },
-
-  // Outlaw blacklist -> Zhan Zhao arrest
-  { from: 'dm_end_c', to: 'kf_zhanzhao_arrest', type: 'dashed' },
-  { from: 'taihang_touming', to: 'kf_zhanzhao_arrest', type: 'solid' },
-
-  // Entry into Kaifeng
-  { from: 'cs_kf_letter1', to: 'kf_join_lv1', type: 'solid' },
-  { from: 'cs_longling_2', to: 'kf_join_lv2', type: 'dashed' },
-  { from: 'dm_end_a', to: 'kf_join_lv2', type: 'dashed' },
-  { from: 'baji_join_lv1', to: 'kf_join_lv2', type: 'dashed' },
-
-  // Kaifeng Progression
-  { from: 'kf_join_lv1', to: 'kf_promo_lv2', type: 'solid' },
-  { from: 'kf_promo_lv2', to: 'kf_murong_1', type: 'dashed' },
-  { from: 'kf_join_lv2', to: 'kf_murong_1', type: 'dashed' },
-  { from: 'kf_warrant_sys', to: 'kf_promo_lv3', type: 'dashed' },
-  { from: 'adv_yanziwu_map', to: 'kf_murong_1', type: 'dashed' },
-  { from: 'kf_murong_1', to: 'kf_promo_lv3', type: 'solid' },
-  { from: 'kf_promo_lv3', to: 'kf_taihang_bandit', type: 'dashed' },
-  { from: 'kf_promo_lv3', to: 'kf_murong_2', type: 'solid' },
-  { from: 'kf_murong_2', to: 'kf_promo_lv4', type: 'solid' },
-  { from: 'kf_promo_lv4', to: 'kf_renzong_escort', type: 'solid' },
-
-  // Palace Decree Split -> Stay Kaifeng vs Join Jinjun
-  { from: 'kf_renzong_escort', to: 'kf_stay_kuihua', type: 'solid' },
-  { from: 'kf_renzong_escort', to: 'jj_join_lv3', type: 'solid' },
-
-  // Jinjun Dual Branches
-  { from: 'jj_join_lv3', to: 'jj_spy_vol1_2', type: 'solid' },
-  { from: 'jj_spy_vol1_2', to: 'jj_spy_vol3', type: 'solid' },
-  { from: 'jj_spy_vol3', to: 'jj_spy_end_a', type: 'solid' },
-  { from: 'jj_spy_vol3', to: 'jj_spy_end_b', type: 'solid' },
-
-  { from: 'jj_join_lv3', to: 'jj_taihang_1', type: 'solid' },
-  { from: 'jj_taihang_1', to: 'jj_taihang_2', type: 'solid' },
-  { from: 'jj_taihang_2', to: 'jj_taihang_3', type: 'solid' },
-  { from: 'kf_taihang_bandit', to: 'jj_taihang_3', type: 'dashed' },
-  { from: 'jj_taihang_3', to: 'jj_rank4_coronation', type: 'solid' },
-]
-
-const MUTEX_BRIDGES: ReadonlyArray<MutexBridgeDef> = [
-  { left: 'dm_end_a', right: 'dm_end_b', label: '铁锁镇河朔三结局互斥（择一而终）' },
-  { left: 'dm_end_b', right: 'dm_end_c', label: '铁锁镇河朔三结局互斥（择一而终）' },
+/**
+ * 任务节点间的真实前后置 / 联动连线（零交叉正交路由）：
+ * - solid：刚性必修前置任务（未完成上游则无法完成下游）
+ * - dashed：举荐信保举入职、武学同脉延伸或跨派免责转投联动
+ */
+const QUEST_EDGES: ReadonlyArray<QuestEdgeDef> = [
+  // 常山枪派 & 大名府奇案 & 燕子坞水图 -> 五台山 / 天波霸王枪 / 开封府姑苏密查
   {
-    left: 'kf_stay_kuihua',
-    right: 'jj_join_lv3',
-    label: '紫宸丹墀双恩互斥：留守公门 vs 改授禁军',
+    from: 'QST_SECT22_LONGLING',
+    to: 'QST-SECT-03-ENTRY',
+    type: 'dashed',
+    relation: '持《常山·定州联合举荐信》可免责带功剃度入五台山',
+    trackOffset: -8,
   },
   {
-    left: 'jj_spy_end_a',
-    right: 'jj_spy_end_b',
-    label: '河北暗桩终局互斥：当殿弹劾 vs 反间留线',
+    from: 'QST_SECT22_LONGLING',
+    to: 'QST_TIANBO_BAWANG',
+    type: 'dashed',
+    relation: '常山枪脉（梨花枪/六合枪 ≥ 6 重）同源进阶天波霸王枪',
+    dstOffsetX: -14,
+  },
+  {
+    from: 'QST_SECT22_LONGLING',
+    to: 'QST-SECT-17-MURONG-1',
+    type: 'dashed',
+    relation: '《常山·定州联合举荐信》直授开封府 Lv.2 捕头都头',
+    trackOffset: -9,
+    dstOffsetX: -24,
+  },
+  {
+    from: 'QST-CITY-DAMING-BAJI',
+    to: 'QST_TIANBO_BAWANG',
+    type: 'dashed',
+    relation: '结局B亲授《六合大枪》，修至 6 重可开启霸王枪试炼',
+    trackOffset: 9,
+    dstOffsetX: 14,
+  },
+  {
+    from: 'QST-CITY-DAMING-BAJI',
+    to: 'QST-SECT-17-MURONG-1',
+    type: 'dashed',
+    relation: '结局A《北京留守幕府举荐信》直授开封府 Lv.2 捕头都头',
+    trackOffset: 9,
+    dstOffsetX: -8,
+  },
+  {
+    from: 'QST-ADV-YANZIWU-MAP',
+    to: 'QST-SECT-17-MURONG-1',
+    type: 'solid',
+    relation: '必修前置：须先绘成《太湖燕子坞烟波水路舆图》方可渡湖查案',
+    dstOffsetX: 12,
+  },
+
+  // 三条二流引荐帖 -> 一流同脉门派入门
+  {
+    from: 'QST-SECT-23-REFERRAL',
+    to: 'QST-SECT-06-ENTRY',
+    type: 'dashed',
+    relation: '齐鲁查拳馆弟子/持举荐帖入泰山派享齐鲁同源结缘（亦可用帖入沧州八极门）',
+  },
+  {
+    from: 'QST-SECT-16-REFERRAL',
+    to: 'QST-SECT-15-ENTRY',
+    type: 'dashed',
+    relation: '持《钱塘怒潮帮举荐帖》入江淮漕帮后，转投洞庭铁掌帮触发水陆同脉剧情',
+  },
+  {
+    from: 'QST-SECT-24-REFERRAL',
+    to: 'QST-SECT-04-ENTRY',
+    type: 'dashed',
+    relation: '持《岭南洪门举荐帖》入闽海镇远镖局后，赴莆田南少林触发闽粤同脉接引',
+  },
+
+  // 开封府六扇门主干线
+  {
+    from: 'QST-SECT-17-MURONG-1',
+    to: 'QST-SECT-17-TAIHANG-BANDIT',
+    type: 'dashed',
+    relation: '完成姑苏密查晋升 Lv.3 金牌总捕后，行经华北官道触发太行劫匪长卷',
+  },
+  {
+    from: 'QST-SECT-17-MURONG-1',
+    to: 'QST-SECT-17-MURONG-2',
+    type: 'solid',
+    relation: '必修前置：完成一阶密查并升任 Lv.3 金牌总捕后开启二阶姑苏对质',
+  },
+  {
+    from: 'QST-SECT-17-MURONG-2',
+    to: 'QST-SECT-17-RENZONG-ESCORT',
+    type: 'solid',
+    relation: '必修前置：完成二阶对质并升任 Lv.4 御前护卫后开启紫宸护驾',
+  },
+
+  // 紫宸护驾 -> 大宋禁军左右双翼
+  {
+    from: 'QST-SECT-17-RENZONG-ESCORT',
+    to: 'QST-SECT-33-TAIHANG-CAMPAIGN-1',
+    type: 'solid',
+    relation: '必修前置：护驾后择「改授大宋禁军」任满一年开启首征太行',
+  },
+  {
+    from: 'QST-SECT-17-RENZONG-ESCORT',
+    to: 'QST-SECT-33-HEBEI-SPY',
+    type: 'solid',
+    relation: '必修前置：护驾后择「改授大宋禁军」领鎏金虎符追查河北暗桩',
+  },
+
+  // 大宋禁军三征太行纵深链 + 华北劫匪宿怨汇入
+  {
+    from: 'QST-SECT-33-TAIHANG-CAMPAIGN-1',
+    to: 'QST-SECT-33-TAIHANG-CAMPAIGN-2',
+    type: 'solid',
+    relation: '必修前置：首征折戟满 60 日且苦读《武经总要》达标后二征破寨',
+  },
+  {
+    from: 'QST-SECT-33-TAIHANG-CAMPAIGN-2',
+    to: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
+    type: 'solid',
+    relation: '必修前置：二征献俘满 60 日后偕展昭夜袭总寨犁庭扫穴',
+  },
+  {
+    from: 'QST-SECT-17-TAIHANG-BANDIT',
+    to: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
+    type: 'dashed',
+    relation: '宿怨收束：清算当年华北官道围杀少侠之太行天王王重岳、史万山',
+    dstOffsetX: -26,
   },
 ]
 
-const FOCUS_NODE_MAP: Record<string, FocusTreeNode> = Object.fromEntries(
-  FOCUS_NODES.map((n) => [n.id, n]),
-)
-
-const UNLOCK_RULES: Record<string, (done: ReadonlySet<string>) => boolean> = {
-  cs_join: () => true,
-  cs_spy_duty: (s) => s.has('cs_join'),
-  cq_join: () => true,
-  dm_case_start: () => true,
-  taihang_touming: () => true,
-  adv_yanziwu_map: () => true,
-
-  cs_rank2: (s) => s.has('cs_join'),
-  cs_rank3: (s) => s.has('cs_rank2'),
-  baji_referral: (s) => s.has('cq_join'),
-  dm_leitai_sandtable: (s) => s.has('dm_case_start'),
-
-  cs_longling_1: (s) => s.has('cs_rank2'),
-  cs_kf_letter1: (s) => s.has('cs_rank3'),
-  baji_join_lv1: (s) => s.has('baji_referral'),
-  dm_end_a: (s) => s.has('dm_leitai_sandtable'),
-  dm_end_b: (s) => s.has('dm_leitai_sandtable'),
-  dm_end_c: (s) => s.has('dm_leitai_sandtable'),
-
-  cs_longling_2: (s) => s.has('cs_longling_1'),
-  tianbo_bawang: (s) => s.has('cs_longling_2') || s.has('dm_end_b') || s.has('baji_join_lv1'),
-  wutai_transfer: (s) => s.has('cs_longling_2'),
-  kf_zhanzhao_arrest: (s) => s.has('dm_end_c') || s.has('taihang_touming'),
-
-  kf_join_lv1: (s) => s.has('cs_kf_letter1') && !s.has('dm_end_c') && !s.has('taihang_touming'),
-  kf_join_lv2: (s) =>
-    (s.has('cs_longling_2') || s.has('dm_end_a')) &&
-    !s.has('dm_end_c') &&
-    !s.has('taihang_touming'),
-  kf_warrant_sys: (s) => s.has('kf_join_lv1') || s.has('kf_join_lv2'),
-
-  kf_promo_lv2: (s) => s.has('kf_join_lv1'),
-  kf_murong_1: (s) => (s.has('kf_join_lv2') || s.has('kf_promo_lv2')) && s.has('adv_yanziwu_map'),
-  kf_promo_lv3: (s) => s.has('kf_murong_1'),
-  kf_taihang_bandit: (s) => s.has('kf_promo_lv3'),
-  kf_murong_2: (s) => s.has('kf_promo_lv3'),
-  kf_promo_lv4: (s) => s.has('kf_murong_2'),
-  kf_renzong_escort: (s) => s.has('kf_promo_lv4'),
-
-  kf_stay_kuihua: (s) => s.has('kf_renzong_escort'),
-  jj_join_lv3: (s) => s.has('kf_renzong_escort'),
-
-  jj_spy_vol1_2: (s) => s.has('jj_join_lv3'),
-  jj_spy_vol3: (s) => s.has('jj_spy_vol1_2'),
-  jj_spy_end_a: (s) => s.has('jj_spy_vol3'),
-  jj_spy_end_b: (s) => s.has('jj_spy_vol3'),
-
-  jj_taihang_1: (s) => s.has('jj_join_lv3'),
-  jj_taihang_2: (s) => s.has('jj_taihang_1'),
-  jj_taihang_3: (s) => s.has('jj_taihang_2'),
-  jj_rank4_coronation: (s) => s.has('jj_taihang_3'),
-}
-
-const STATUS_META: Record<
-  FocusNodeStatus,
+const STATUS_STYLE: Record<
+  NodeStatus,
   {
     label: string
     pillCls: string
     cardCls: string
-    tooltipBadgeCls: string
+    tipBadgeCls: string
   }
 > = {
   completed: {
-    label: '✓ 已达成',
+    label: '✓ 已完结',
     pillCls: 'bg-[#1f4d3b] text-[#eefaf3] border-[#62b588]',
     cardCls:
-      'bg-gradient-to-b from-[#fbf5e3] to-[#f1e3be] border-[#b8860b] shadow-[0_3px_12px_rgba(184,134,11,0.25)]',
-    tooltipBadgeCls: 'bg-[#1f4d3b] text-[#e7f7ef] border-[#52a678]',
+      'bg-gradient-to-b from-[#fbf5e3] to-[#f0e0b6] border-[#b8860b] shadow-[0_3px_12px_rgba(184,134,11,0.24)]',
+    tipBadgeCls: 'bg-[#1f4d3b] text-[#e7f7ef] border-[#52a678]',
   },
   active: {
     label: '● 进行中',
     pillCls: 'bg-[#781710] text-[#fff6ea] border-[#d4695e]',
     cardCls:
-      'bg-gradient-to-b from-[#fff7ec] to-[#f7e4cf] border-[#a83226] shadow-[0_3px_12px_rgba(168,50,38,0.22)]',
-    tooltipBadgeCls: 'bg-[#781710] text-[#fff3df] border-[#d67b72]',
+      'bg-gradient-to-b from-[#fff7ec] to-[#f7e3cc] border-[#a83226] shadow-[0_3px_12px_rgba(168,50,38,0.22)]',
+    tipBadgeCls: 'bg-[#781710] text-[#fff3df] border-[#d67b72]',
   },
   available: {
-    label: '◆ 可推进',
+    label: '◆ 可触发',
     pillCls: 'bg-[#355263] text-[#eef7fc] border-[#6b9bb8]',
     cardCls:
-      'bg-gradient-to-b from-[#fdf9f0] to-[#f3ead6] border-[#7b6544] shadow-[0_2px_8px_rgba(45,30,16,0.12)]',
-    tooltipBadgeCls: 'bg-[#355263] text-[#eef7fc] border-[#6c9db9]',
-  },
-  blocked: {
-    label: '✕ 互斥锁死',
-    pillCls: 'bg-[#5a1e1a] text-[#ffd9d6] border-[#9e4740]',
-    cardCls: 'bg-[#ebe1d1]/80 border-[#a98d78] opacity-60 saturate-50',
-    tooltipBadgeCls: 'bg-[#6e1c17] text-[#ffe5e2] border-[#b85a52]',
+      'bg-gradient-to-b from-[#fdf9f0] to-[#f3ead6] border-[#7b6544] shadow-[0_2px_8px_rgba(45,30,16,0.11)]',
+    tipBadgeCls: 'bg-[#355263] text-[#eef7fc] border-[#6c9db9]',
   },
   locked: {
     label: '前置未达',
     pillCls: 'bg-[#d9ccb4] text-[#6b563c] border-[#b8a587]',
-    cardCls: 'bg-[#f2ead9]/90 border-[#cbb99a] opacity-85',
-    tooltipBadgeCls: 'bg-[#4a3928] text-[#e6d7c0] border-[#82694d]',
+    cardCls: 'bg-[#f2ead9]/92 border-[#cbb99a]',
+    tipBadgeCls: 'bg-[#4a3928] text-[#e6d7c0] border-[#82694d]',
   },
-}
-
-function hasItemOrConsumed(
-  itemId: string,
-  inventory: ReadonlyArray<InventoryStack>,
-  consumedUniqueIds: ReadonlyArray<string>,
-): boolean {
-  return (
-    inventory.some((st) => st.itemId === itemId && st.qty > 0) ||
-    consumedUniqueIds.includes(itemId)
-  )
-}
-
-function deriveLiveProgress(
-  sectState: PlayerSectState,
-  questState: QuestRuntimeState,
-  inventory: ReadonlyArray<InventoryStack>,
-  consumedUniqueIds: ReadonlyArray<string>,
-  learnedArts: ReadonlyArray<LearnedArtEntry>,
-): { completed: Set<string>; active: Set<string> } {
-  const completed = new Set<string>()
-  const active = new Set<string>()
-
-  const doneQuests = questState.completedQuests
-  const activeQuests = questState.activeQuests
-  const flags = questState.flags
-
-  // 1. 常山枪派 (SECT-22)
-  const inChangshan = sectState.sectId === 'SECT-22'
-  const hadChangshanHistory =
-    inChangshan ||
-    sectState.claimedKaifengLetter ||
-    Boolean(doneQuests.QST_SECT22_LONGLING) ||
-    hasItemOrConsumed('ITM-MSC-006', inventory, consumedUniqueIds) ||
-    hasItemOrConsumed('ITM-MSC-013', inventory, consumedUniqueIds)
-
-  if (hadChangshanHistory) completed.add('cs_join')
-  if (inChangshan && sectState.activeLiaoSpy) active.add('cs_spy_duty')
-  else if (hadChangshanHistory && sectState.lastLiaoSpyMissionYear > 0) {
-    completed.add('cs_spy_duty')
-  }
-
-  if ((inChangshan && sectState.rank >= 2) || Boolean(doneQuests.QST_SECT22_LONGLING) || sectState.claimedKaifengLetter) {
-    completed.add('cs_rank2')
-  }
-  if ((inChangshan && sectState.rank >= 3) || sectState.claimedKaifengLetter) {
-    completed.add('cs_rank3')
-  }
-  if (sectState.claimedKaifengLetter || hasItemOrConsumed('ITM-MSC-006', inventory, consumedUniqueIds)) {
-    completed.add('cs_kf_letter1')
-  }
-
-  if (doneQuests.QST_SECT22_LONGLING) {
-    completed.add('cs_longling_1')
-    completed.add('cs_longling_2')
-  } else if (activeQuests.QST_SECT22_LONGLING) {
-    const stepId = activeQuests.QST_SECT22_LONGLING.stepId
-    if (stepId.includes('yanmen') || stepId.includes('hanqi') || stepId.includes('inherit')) {
-      completed.add('cs_longling_1')
-      active.add('cs_longling_2')
-    } else {
-      active.add('cs_longling_1')
-    }
-  }
-
-  // 2. 齐鲁查拳馆 (SECT-25) & 沧州八极门 (SECT-23) & 铁锁镇河朔
-  const hasBajiReferral =
-    Boolean(doneQuests['QST-SECT-23-REFERRAL']) ||
-    sectState.bribedReferralSects.includes('SECT-25') ||
-    hasItemOrConsumed('ITM-MSC-004', inventory, consumedUniqueIds)
-
-  if (sectState.sectId === 'SECT-25') {
-    if (sectState.rank >= 2) completed.add('cq_join')
-    else active.add('cq_join')
-  } else if (hasBajiReferral) {
-    completed.add('cq_join')
-  }
-
-  if (hasBajiReferral) completed.add('baji_referral')
-  else if (activeQuests['QST-SECT-23-REFERRAL']) active.add('baji_referral')
-
-  if (sectState.sectId === 'SECT-23') {
-    completed.add('baji_join_lv1')
-  }
-
-  const dmDone = doneQuests['QST-CITY-DAMING-BAJI']
-  if (dmDone && dmDone.outcome !== 'failed_deadline') {
-    completed.add('dm_case_start')
-    completed.add('dm_leitai_sandtable')
-    if (dmDone.outcome === 'ending_official_patronage') {
-      completed.add('dm_end_a')
-    } else if (
-      dmDone.outcome === 'ending_baji_inheritance' ||
-      dmDone.outcome === 'joined_via_daming_heroics'
-    ) {
-      completed.add('dm_end_b')
-    } else if (dmDone.outcome === 'ending_outlaw_heist') {
-      completed.add('dm_end_c')
-    }
-  } else if (activeQuests['QST-CITY-DAMING-BAJI']) {
-    const stepId = activeQuests['QST-CITY-DAMING-BAJI'].stepId
-    if (
-      stepId.includes('leitai') ||
-      stepId.includes('sandtable') ||
-      stepId.includes('finale') ||
-      stepId.includes('ending')
-    ) {
-      completed.add('dm_case_start')
-      active.add('dm_leitai_sandtable')
-    } else {
-      active.add('dm_case_start')
-    }
-  }
-
-  // 3. 联动旁支（天波霸王枪 / 五台山剃度 / 太行投名状 / 燕子坞水图）
-  if (doneQuests.QST_TIANBO_BAWANG || learnedArts.some((a) => a.artId === 'MA-037')) {
-    completed.add('tianbo_bawang')
-  } else if (activeQuests.QST_TIANBO_BAWANG) {
-    active.add('tianbo_bawang')
-  }
-
-  if (doneQuests['QST-SECT-03-ENTRY'] || sectState.sectId === 'SECT-03') {
-    completed.add('wutai_transfer')
-  } else if (activeQuests['QST-SECT-03-ENTRY']) {
-    active.add('wutai_transfer')
-  }
-
-  if (
-    doneQuests['QST-SECT-18-TOUMINGZHUANG'] ||
-    sectState.toumingzhuangState === 'completed' ||
-    sectState.sectId === 'SECT-18'
-  ) {
-    completed.add('taihang_touming')
-  } else if (
-    activeQuests['QST-SECT-18-TOUMINGZHUANG'] ||
-    sectState.toumingzhuangState === 'accepted'
-  ) {
-    active.add('taihang_touming')
-  }
-
-  if (sectState.songCourtBlacklisted) {
-    active.add('kf_zhanzhao_arrest')
-  }
-
-  if (doneQuests['QST-ADV-YANZIWU-MAP']) {
-    completed.add('adv_yanziwu_map')
-  } else if (activeQuests['QST-ADV-YANZIWU-MAP']) {
-    active.add('adv_yanziwu_map')
-  }
-
-  // 4. 开封府 / 六扇门 (SECT-17)
-  const inKaifeng = sectState.sectId === 'SECT-17'
-  const inJinjun = sectState.sectId === 'SECT-33'
-  const reachedKaifengOrJinjun =
-    inKaifeng ||
-    inJinjun ||
-    Boolean(doneQuests['QST-SECT-17-MURONG-1']) ||
-    Boolean(doneQuests['QST-SECT-17-MURONG-2']) ||
-    Boolean(doneQuests['QST-SECT-17-RENZONG-ESCORT'])
-
-  if (reachedKaifengOrJinjun) {
-    const usedLv2Direct =
-      hasItemOrConsumed('ITM-MSC-007', inventory, consumedUniqueIds) ||
-      hasItemOrConsumed('ITM-MSC-013', inventory, consumedUniqueIds) ||
-      completed.has('dm_end_a') ||
-      completed.has('cs_longling_2')
-
-    if (usedLv2Direct && !sectState.claimedKaifengLetter) {
-      completed.add('kf_join_lv2')
-    } else {
-      completed.add('kf_join_lv1')
-      if ((inKaifeng && sectState.rank >= 2) || inJinjun || Boolean(doneQuests['QST-SECT-17-MURONG-1'])) {
-        completed.add('kf_promo_lv2')
-      }
-    }
-
-    if (inKaifeng && sectState.rank < 4 && sectState.activeKaifengWarrant) {
-      active.add('kf_warrant_sys')
-    } else if ((inKaifeng && sectState.kaifengCasesSolved > 0) || (inKaifeng && sectState.rank >= 2) || inJinjun) {
-      completed.add('kf_warrant_sys')
-    }
-  }
-
-  if (doneQuests['QST-SECT-17-MURONG-1']) completed.add('kf_murong_1')
-  else if (activeQuests['QST-SECT-17-MURONG-1']) active.add('kf_murong_1')
-
-  if ((inKaifeng && sectState.rank >= 3) || inJinjun || Boolean(doneQuests['QST-SECT-17-MURONG-2'])) {
-    completed.add('kf_promo_lv3')
-  }
-
-  if (doneQuests['QST-SECT-17-TAIHANG-BANDIT']) completed.add('kf_taihang_bandit')
-  else if (activeQuests['QST-SECT-17-TAIHANG-BANDIT']) active.add('kf_taihang_bandit')
-
-  if (doneQuests['QST-SECT-17-MURONG-2']) completed.add('kf_murong_2')
-  else if (activeQuests['QST-SECT-17-MURONG-2']) active.add('kf_murong_2')
-
-  if ((inKaifeng && sectState.rank >= 4) || inJinjun || Boolean(doneQuests['QST-SECT-17-RENZONG-ESCORT'])) {
-    completed.add('kf_promo_lv4')
-  }
-
-  const escortDone = doneQuests['QST-SECT-17-RENZONG-ESCORT']
-  if (escortDone) {
-    completed.add('kf_renzong_escort')
-    if (escortDone.outcome === 'stayed_kaifeng_kuihua') {
-      completed.add('kf_stay_kuihua')
-    } else if (escortDone.outcome === 'joined_imperial_guard_lv3' || inJinjun) {
-      completed.add('jj_join_lv3')
-    }
-  } else if (activeQuests['QST-SECT-17-RENZONG-ESCORT']) {
-    active.add('kf_renzong_escort')
-  } else if (inJinjun) {
-    completed.add('kf_renzong_escort')
-    completed.add('jj_join_lv3')
-  }
-
-  // 5. 大宋禁军 (SECT-33)
-  const spyDone = doneQuests['QST-SECT-33-HEBEI-SPY']
-  if (spyDone) {
-    completed.add('jj_spy_vol1_2')
-    completed.add('jj_spy_vol3')
-    if (flags.jj_spy_ending_branch === 'righteous_impeach') {
-      completed.add('jj_spy_end_a')
-    } else if (flags.jj_spy_ending_branch === 'counter_espionage') {
-      completed.add('jj_spy_end_b')
-    }
-  } else if (activeQuests['QST-SECT-33-HEBEI-SPY']) {
-    const stepId = activeQuests['QST-SECT-33-HEBEI-SPY'].stepId
-    if (stepId.includes('dm') || stepId.includes('daming') || stepId.includes('ferry') || stepId.includes('court')) {
-      completed.add('jj_spy_vol1_2')
-      active.add('jj_spy_vol3')
-    } else {
-      active.add('jj_spy_vol1_2')
-    }
-  }
-
-  if (doneQuests['QST-SECT-33-TAIHANG-CAMPAIGN-1'] || Boolean(flags.jinjun_taihang_camp1_done)) {
-    completed.add('jj_taihang_1')
-  } else if (activeQuests['QST-SECT-33-TAIHANG-CAMPAIGN-1']) {
-    active.add('jj_taihang_1')
-  }
-
-  if (doneQuests['QST-SECT-33-TAIHANG-CAMPAIGN-2'] || Boolean(flags.jinjun_taihang_camp2_done)) {
-    completed.add('jj_taihang_2')
-  } else if (activeQuests['QST-SECT-33-TAIHANG-CAMPAIGN-2']) {
-    active.add('jj_taihang_2')
-  }
-
-  if (doneQuests['QST-SECT-33-TAIHANG-CAMPAIGN-3'] || Boolean(flags.taihang_bandits_eradicated)) {
-    completed.add('jj_taihang_3')
-    completed.add('jj_rank4_coronation')
-  } else if (activeQuests['QST-SECT-33-TAIHANG-CAMPAIGN-3']) {
-    active.add('jj_taihang_3')
-  }
-
-  return { completed, active }
-}
-
-function computeNodeStatus(
-  node: FocusTreeNode,
-  completedSet: ReadonlySet<string>,
-  activeSet: ReadonlySet<string>,
-): FocusNodeStatus {
-  if (completedSet.has(node.id)) return 'completed'
-  if (activeSet.has(node.id)) return 'active'
-
-  if (node.mutexGroup) {
-    const siblingChosen = FOCUS_NODES.some(
-      (other) =>
-        other.id !== node.id &&
-        other.mutexGroup === node.mutexGroup &&
-        completedSet.has(other.id),
-    )
-    if (siblingChosen) return 'blocked'
-  }
-
-  if (
-    (node.id === 'kf_join_lv1' || node.id === 'kf_join_lv2') &&
-    (completedSet.has('dm_end_c') || completedSet.has('taihang_touming'))
-  ) {
-    return 'blocked'
-  }
-
-  const rule = UNLOCK_RULES[node.id]
-  if (rule && rule(completedSet)) return 'available'
-  return 'locked'
 }
 
 function clamp(v: number, min: number, max: number): number {
@@ -1696,32 +753,84 @@ function clamp(v: number, min: number, max: number): number {
 }
 
 export function QuestTreeTab() {
-  const { sectState, questState, inventory, consumedUniqueIds, learnedArts } = useGameStore(
+  const evalState = useGameStore(
     useShallow((s) => ({
+      dayCount: s.dayCount,
+      shichenIdx: s.shichenIdx,
+      silver: s.silver,
+      renown: s.renown,
+      chivalry: s.chivalry,
+      food: s.food,
+      hp: s.hp,
+      maxHp: s.maxHp,
+      mp: s.mp,
+      maxMp: s.maxMp,
+      agility: s.agility,
+      res: s.res,
+      ridingSkill: s.ridingSkill,
+      baseStats: s.baseStats,
+      skills: s.skills,
+      inventory: s.inventory,
+      learnedArts: s.learnedArts,
+      npcFavor: s.npcFavor,
       sectState: s.sectState,
       questState: s.questState,
-      inventory: s.inventory,
-      consumedUniqueIds: s.consumedUniqueIds,
-      learnedArts: s.learnedArts,
     })),
   )
   const locateQuestTargetOnMap = useGameStore((s) => s.locateQuestTargetOnMap)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
 
-  const [selectedId, setSelectedId] = useState<string>('kf_renzong_escort')
+  const { maxHp, maxMp, inventory, questState } = evalState
+  const questEvalCtx = useMemo(() => buildStoreEvalContext(evalState), [evalState])
+
+  // Build resolved 1-quest-per-node list (auto-includes any future QUEST_REGISTRY additions too)
+  const allNodes = useMemo((): ResolvedQuestNode[] => {
+    const out: ResolvedQuestNode[] = []
+    const placedIds = new Set<string>()
+    for (const meta of PLACED_QUEST_NODES) {
+      const qDef = QUEST_MAP[meta.questId]
+      if (!qDef) continue
+      placedIds.add(meta.questId)
+      out.push({ ...meta, qDef })
+    }
+    let extraIdx = 0
+    for (const qDef of QUEST_REGISTRY) {
+      if (placedIds.has(qDef.id)) continue
+      const col = extraIdx < 2 ? extraIdx : 5 + (extraIdx - 2)
+      out.push({
+        questId: qDef.id,
+        qDef,
+        col: clamp(col, 0, 6),
+        row: 1,
+        seal: qDef.title.slice(0, 1) || '卷',
+        shortTag: FACTION_DB_MAP[qDef.factionId ?? '']?.name ?? '独立卷宗',
+        prereqs: [qDef.startHint ?? '游历对应州府或门派触发'],
+        rewards: [qDef.summary],
+      })
+      extraIdx += 1
+    }
+    return out
+  }, [])
+
+  const nodeMap = useMemo(
+    () => Object.fromEntries(allNodes.map((n) => [n.questId, n])),
+    [allNodes],
+  )
+
+  const [selectedId, setSelectedId] = useState<string>('QST-SECT-17-MURONG-1')
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [pointerPos, setPointerPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
-  const [factionFilter, setFactionFilter] = useState<FactionFilterKey>('all')
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilterKey>('ALL')
   const [searchQuery, setSearchQuery] = useState<string>('')
   const [drawerOpen, setDrawerOpen] = useState<boolean>(true)
 
-  // Mode: live save sync vs sandbox simulation
+  // Sandbox simulation mode vs live save state
   const [simMode, setSimMode] = useState<boolean>(false)
   const [simCompleted, setSimCompleted] = useState<Set<string>>(() => new Set())
 
-  // Pan & zoom state
+  // Pan & zoom (starts fitted so all 7 columns are immediately visible!)
   const [scale, setScale] = useState<number>(0.68)
-  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 18, y: 12 })
+  const [pan, setPan] = useState<{ x: number; y: number }>({ x: 14, y: 10 })
   const [isDragging, setIsDragging] = useState<boolean>(false)
 
   const viewportRef = useRef<HTMLDivElement | null>(null)
@@ -1741,58 +850,120 @@ export function QuestTreeTab() {
     moved: false,
   })
 
-  const liveProgress = useMemo(
-    () => deriveLiveProgress(sectState, questState, inventory, consumedUniqueIds, learnedArts),
-    [sectState, questState, inventory, consumedUniqueIds, learnedArts],
-  )
-
-  const effectiveCompleted = simMode ? simCompleted : liveProgress.completed
-  const effectiveActive = useMemo(
-    () => (simMode ? new Set<string>() : liveProgress.active),
-    [simMode, liveProgress.active],
-  )
-
-  const statusByNodeId = useMemo(() => {
-    const map: Record<string, FocusNodeStatus> = {}
-    for (const n of FOCUS_NODES) {
-      map[n.id] = computeNodeStatus(n, effectiveCompleted, effectiveActive)
+  // Live unmet condition reasons per quest from the real questEngine
+  const liveUnmetByQuestId = useMemo(() => {
+    const map: Record<string, string[]> = {}
+    for (const node of allNodes) {
+      const reasons: string[] = []
+      if (node.qDef.startCondition) {
+        for (const r of collectUnmetQuestReasons(node.qDef.startCondition, questEvalCtx, QUEST_MAP)) {
+          if (!reasons.includes(r)) reasons.push(r)
+        }
+      }
+      // Also check mandatory solid upstream quests
+      for (const edge of QUEST_EDGES) {
+        if (edge.to === node.questId && edge.type === 'solid') {
+          if (!questState.completedQuests[edge.from]) {
+            const upTitle = QUEST_MAP[edge.from]?.title ?? edge.from
+            const msg = `需先完结前置任务《${upTitle}》`
+            if (!reasons.includes(msg)) reasons.unshift(msg)
+          }
+        }
+      }
+      if (node.qDef.startLocation && !isRegionUnlockedByInventory(node.qDef.startLocation.regionId, inventory)) {
+        const req = getRegionUnlockRequirement(node.qDef.startLocation.regionId)
+        if (req) {
+          const msg = `需先持有${req.mapItemName}解锁【${req.regionName}】`
+          if (!reasons.includes(msg)) reasons.push(msg)
+        }
+      }
+      map[node.questId] = reasons
     }
     return map
-  }, [effectiveCompleted, effectiveActive])
+  }, [allNodes, questEvalCtx, questState.completedQuests, inventory])
 
-  const countsByStatus = useMemo(() => {
+  const statusByQuestId = useMemo(() => {
+    const map: Record<string, NodeStatus> = {}
+    for (const node of allNodes) {
+      const qid = node.questId
+      if (simMode) {
+        if (simCompleted.has(qid)) {
+          map[qid] = 'completed'
+        } else {
+          const solidParents = QUEST_EDGES.filter((e) => e.to === qid && e.type === 'solid')
+          const allSolidDone = solidParents.every((e) => simCompleted.has(e.from))
+          map[qid] = allSolidDone ? 'available' : 'locked'
+        }
+      } else {
+        if (questState.completedQuests[qid]) {
+          map[qid] = 'completed'
+        } else if (questState.activeQuests[qid]) {
+          map[qid] = 'active'
+        } else if ((liveUnmetByQuestId[qid]?.length ?? 0) === 0) {
+          map[qid] = 'available'
+        } else {
+          map[qid] = 'locked'
+        }
+      }
+    }
+    return map
+  }, [allNodes, simMode, simCompleted, questState.completedQuests, questState.activeQuests, liveUnmetByQuestId])
+
+  const categoryCounts = useMemo(() => {
+    const counts: Record<CategoryFilterKey, number> = {
+      ALL: allNodes.length,
+      sect_entry: 0,
+      sect_mission: 0,
+      adventure: 0,
+      huangyou: 0,
+    }
+    for (const n of allNodes) {
+      const cat = n.qDef.category
+      if (cat === 'sect_entry') counts.sect_entry += 1
+      else if (cat === 'sect_mission') counts.sect_mission += 1
+      else if (cat === 'adventure') counts.adventure += 1
+      else if (cat === 'main_story' || cat === 'city_story') counts.huangyou += 1
+    }
+    return counts
+  }, [allNodes])
+
+  const statusCounts = useMemo(() => {
     let completed = 0
     let active = 0
     let available = 0
-    for (const n of FOCUS_NODES) {
-      const st = statusByNodeId[n.id]
+    for (const n of allNodes) {
+      const st = statusByQuestId[n.questId]
       if (st === 'completed') completed += 1
       else if (st === 'active') active += 1
       else if (st === 'available') available += 1
     }
     return { completed, active, available }
-  }, [statusByNodeId])
+  }, [allNodes, statusByQuestId])
 
-  const connectedFocusSet = useMemo(() => {
+  const connectedSet = useMemo(() => {
     const focusId = hoveredId ?? selectedId
     const s = new Set<string>([focusId])
-    for (const e of FOCUS_EDGES) {
+    for (const e of QUEST_EDGES) {
       if (e.from === focusId) s.add(e.to)
       if (e.to === focusId) s.add(e.from)
     }
     return s
   }, [hoveredId, selectedId])
 
-  const matchesSearchOrFilter = useCallback(
-    (node: FocusTreeNode): boolean => {
-      if (factionFilter !== 'all' && node.faction !== factionFilter) return false
+  const matchesNodeFilter = useCallback(
+    (node: ResolvedQuestNode): boolean => {
+      if (!matchesCategoryFilter(node.qDef.category, categoryFilter)) return false
       const q = searchQuery.trim().toLowerCase()
       if (!q) return true
+      const facName = node.qDef.factionId ? FACTION_DB_MAP[node.qDef.factionId]?.name ?? '' : ''
+      const regName = node.qDef.regionId ? REGION_DB_MAP[node.qDef.regionId]?.name ?? '' : ''
       const hay = [
-        node.title,
-        node.subtitle,
-        node.code,
-        node.factionLabel,
+        node.qDef.title,
+        node.questId,
+        node.shortTag,
+        facName,
+        regName,
+        node.qDef.summary,
         ...node.prereqs,
         ...node.rewards,
       ]
@@ -1800,37 +971,42 @@ export function QuestTreeTab() {
         .toLowerCase()
       return hay.includes(q)
     },
-    [factionFilter, searchQuery],
+    [categoryFilter, searchQuery],
   )
 
-  const centerOnNode = useCallback(
-    (nodeId: string, targetScale?: number) => {
-      const node = FOCUS_NODE_MAP[nodeId]
-      const vp = viewportRef.current
-      if (!node || !vp) return
-      const nextScale = targetScale ?? scale
-      const rect = vp.getBoundingClientRect()
-      const cx = colX(node.col) + NODE_W / 2
-      const cy = rowY(node.row) + NODE_H / 2
-      setScale(nextScale)
-      setPan({
-        x: Math.round(rect.width / 2 - cx * nextScale),
-        y: Math.round(rect.height / 2 - cy * nextScale),
-      })
-    },
-    [scale],
-  )
-
-  const fitOverview = useCallback(() => {
+  const fitCanvas = useCallback(() => {
     const vp = viewportRef.current
     if (!vp) return
     const rect = vp.getBoundingClientRect()
-    const fitS = clamp((rect.width - 28) / CANVAS_W, 0.44, 0.85)
+    const fitS = clamp((rect.width - 24) / CANVAS_W, 0.45, 0.85)
     setScale(Number(fitS.toFixed(2)))
-    setPan({ x: 14, y: 12 })
+    setPan({ x: 12, y: 10 })
   }, [])
 
-  // Attach non-passive wheel listener for smooth cursor-anchored zoom without scrolling the outer modal
+  const centerOnNode = useCallback(
+    (questId: string, nextScale?: number) => {
+      const node = nodeMap[questId]
+      const vp = viewportRef.current
+      if (!node || !vp) return
+      const s = nextScale ?? scale
+      const rect = vp.getBoundingClientRect()
+      const cx = colX(node.col) + NODE_W / 2
+      const cy = rowY(node.row) + NODE_H / 2
+      setScale(s)
+      setPan({
+        x: Math.round(rect.width / 2 - cx * s),
+        y: Math.round(rect.height / 2 - cy * s),
+      })
+    },
+    [nodeMap, scale],
+  )
+
+  // Auto-fit width once on initial mount so all 7 columns sit cleanly inside viewport
+  useEffect(() => {
+    fitCanvas()
+  }, [fitCanvas])
+
+  // Non-passive wheel zoom anchored to cursor
   useEffect(() => {
     const vp = viewportRef.current
     if (!vp) return
@@ -1854,71 +1030,52 @@ export function QuestTreeTab() {
     return () => vp.removeEventListener('wheel', onWheel)
   }, [])
 
-  const handleToggleSimNode = useCallback((node: FocusTreeNode) => {
+  const toggleSimNode = useCallback((questId: string) => {
     setSimCompleted((prev) => {
       const next = new Set(prev)
-      if (next.has(node.id)) {
-        next.delete(node.id)
-        return next
-      }
-      const st = computeNodeStatus(node, next, new Set())
-      if (st === 'blocked') return prev
-      // Auto-complete direct chain or allow testing available focus
-      if (st === 'available' || st === 'locked') {
-        if (node.mutexGroup) {
-          for (const sibling of FOCUS_NODES) {
-            if (sibling.mutexGroup === node.mutexGroup) {
-              next.delete(sibling.id)
-            }
-          }
-        }
-        next.add(node.id)
+      if (next.has(questId)) {
+        next.delete(questId)
+      } else {
+        next.add(questId)
       }
       return next
     })
   }, [])
 
-  const selectedNode = FOCUS_NODE_MAP[selectedId] ?? FOCUS_NODES[0]
-  const selectedStatus = statusByNodeId[selectedNode.id] ?? 'locked'
-  const hoveredNode = hoveredId ? FOCUS_NODE_MAP[hoveredId] ?? null : null
-  const hoveredStatus = hoveredNode ? statusByNodeId[hoveredNode.id] ?? 'locked' : 'locked'
+  const selectedNode = nodeMap[selectedId] ?? allNodes[0]
+  const selectedStatus = statusByQuestId[selectedNode.questId] ?? 'locked'
+  const hoveredNode = hoveredId ? nodeMap[hoveredId] ?? null : null
+  const hoveredStatus = hoveredNode ? statusByQuestId[hoveredNode.questId] ?? 'locked' : 'locked'
 
   const selectedUpstream = useMemo(
     () =>
-      FOCUS_EDGES.filter((e) => e.to === selectedNode.id)
-        .map((e) => FOCUS_NODE_MAP[e.from])
-        .filter(Boolean),
-    [selectedNode.id],
+      QUEST_EDGES.filter((e) => e.to === selectedNode.questId)
+        .map((e) => ({ edge: e, node: nodeMap[e.from] }))
+        .filter((x): x is { edge: QuestEdgeDef; node: ResolvedQuestNode } => Boolean(x.node)),
+    [selectedNode.questId, nodeMap],
   )
   const selectedDownstream = useMemo(
     () =>
-      FOCUS_EDGES.filter((e) => e.from === selectedNode.id)
-        .map((e) => FOCUS_NODE_MAP[e.to])
-        .filter(Boolean),
-    [selectedNode.id],
+      QUEST_EDGES.filter((e) => e.from === selectedNode.questId)
+        .map((e) => ({ edge: e, node: nodeMap[e.to] }))
+        .filter((x): x is { edge: QuestEdgeDef; node: ResolvedQuestNode } => Boolean(x.node)),
+    [selectedNode.questId, nodeMap],
   )
 
-  // Resolve live targetLocation (prefers active quest step target if currently active)
-  const resolvedLocateTarget = useMemo((): QuestTargetLocationHint | undefined => {
-    if (selectedNode.questId) {
-      const activeProg = questState.activeQuests[selectedNode.questId]
-      const qDef = QUEST_MAP[selectedNode.questId]
-      if (activeProg && qDef?.steps[activeProg.stepId]?.targetLocation) {
-        return qDef.steps[activeProg.stepId]?.targetLocation
-      }
-      if (qDef?.startLocation) {
-        return qDef.startLocation
-      }
+  const selectedLocateTarget = useMemo((): QuestTargetLocationHint | undefined => {
+    const activeProg = questState.activeQuests[selectedNode.questId]
+    if (activeProg) {
+      const stepTarget = selectedNode.qDef.steps[activeProg.stepId]?.targetLocation
+      if (stepTarget) return stepTarget
     }
-    return selectedNode.targetLocation
+    return selectedNode.qDef.startLocation
   }, [selectedNode, questState.activeQuests])
 
-  // Viewport-clamped fixed coordinates for Paradox tooltip
   const tooltipStyle = useMemo(() => {
     const winW = typeof window !== 'undefined' ? window.innerWidth : 1440
     const winH = typeof window !== 'undefined' ? window.innerHeight : 900
-    const tipW = 368
-    const estH = 340
+    const tipW = 376
+    const estH = 350
     let left = pointerPos.x + 18
     let top = pointerPos.y + 16
     if (left + tipW > winW - 14) {
@@ -1930,41 +1087,35 @@ export function QuestTreeTab() {
     return { left, top, width: tipW }
   }, [pointerPos])
 
+  const zone1Top = rowY(0) - 34
+  const zone1Height = rowY(1) - rowY(0) + NODE_H + 50
+  const zone2Top = rowY(2) - 34
+  const zone2Height = rowY(8) - rowY(2) + NODE_H + 50
+
   return (
     <div className="flex flex-col gap-2.5 h-[690px] max-h-[calc(95vh-225px)] min-h-[520px] text-xs text-[#2a1d11] select-none">
-      {/* 顶部国策控制栏 */}
+      {/* 顶部控制栏：与【江湖纪事】一致的四大任务门类筛选 + 搜索 + 缩放 */}
       <div className="p-2.5 rounded-lg bg-[#efe4cc] border border-[#c8b28e] flex flex-wrap items-center justify-between gap-2 shrink-0">
-        {/* 左侧：阵营聚焦筛选 */}
         <div className="flex flex-wrap items-center gap-1.5">
-          {(
-            [
-              { key: 'all', label: `全脉络 (${FOCUS_NODES.length})`, cls: 'bg-[#261910] border-[#261910] text-[#fbf2e0]' },
-              { key: 'changshan', label: '常山枪派', cls: FACTION_META.changshan.chipCls },
-              { key: 'baji', label: '沧州八极门', cls: FACTION_META.baji.chipCls },
-              { key: 'kaifeng', label: '开封府·六扇门', cls: FACTION_META.kaifeng.chipCls },
-              { key: 'jinjun', label: '大宋禁军', cls: FACTION_META.jinjun.chipCls },
-              { key: 'side', label: '奇遇与绿林', cls: FACTION_META.side.chipCls },
-            ] as const
-          ).map((item) => {
-            const active = factionFilter === item.key
+          {CATEGORY_TABS.map((tab) => {
+            const active = categoryFilter === tab.key
             return (
               <button
-                key={item.key}
+                key={tab.key}
                 type="button"
-                onClick={() => setFactionFilter(item.key)}
+                onClick={() => setCategoryFilter(tab.key)}
                 className={`px-2.5 py-1 rounded font-bold song-serif border cursor-pointer transition-colors ${
                   active
-                    ? item.cls
+                    ? tab.activeCls
                     : 'bg-[#faf3e3] hover:bg-[#e8d8b9] border-[#bca37b] text-[#3d2814]'
                 }`}
               >
-                {item.label}
+                {tab.label} ({categoryCounts[tab.key]})
               </button>
             )
           })}
         </div>
 
-        {/* 右侧：检索、实况/推演切换、缩放与详单开关 */}
         <div className="flex flex-wrap items-center gap-1.5">
           <div className="relative">
             <Search className="w-3.5 h-3.5 text-[#7a5f3e] absolute left-2 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -1972,17 +1123,16 @@ export function QuestTreeTab() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="搜节点/信物/绝学…"
-              className="w-36 sm:w-44 pl-7 pr-2 py-1 rounded bg-[#faf4e6] border border-[#bca37b] text-xs text-[#261910] placeholder:text-[#8c7353] focus:outline-none focus:border-[#781710]"
+              placeholder="搜任务名 / 门派 / 奖励…"
+              className="w-40 sm:w-48 pl-7 pr-2 py-1 rounded bg-[#faf4e6] border border-[#bca37b] text-xs text-[#261910] placeholder:text-[#8c7353] focus:outline-none focus:border-[#781710]"
             />
           </div>
 
-          {/* 存档实况 vs 沙盘推演 */}
           <button
             type="button"
             onClick={() => {
               if (!simMode) {
-                setSimCompleted(new Set(liveProgress.completed))
+                setSimCompleted(new Set(Object.keys(questState.completedQuests)))
                 setSimMode(true)
               } else {
                 setSimMode(false)
@@ -1995,8 +1145,8 @@ export function QuestTreeTab() {
             }`}
             title={
               simMode
-                ? '当前为沙盘推演模式（点击节点可模拟点亮与互斥锁死），点击切回存档实况'
-                : '当前实时同步少侠存档进度，点击可进入沙盘推演模式自由点亮测试路线'
+                ? '当前为沙盘推演模式（点击任意任务节点模拟完结），点击切回存档实况'
+                : '当前实时同步少侠存档状态，点击可进入沙盘推演模式'
             }
           >
             {simMode ? <Sparkles className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
@@ -2008,20 +1158,19 @@ export function QuestTreeTab() {
               type="button"
               onClick={() => setSimCompleted(new Set())}
               className="px-2 py-1 rounded bg-[#faf3e3] hover:bg-[#e8d8b9] border border-[#bca37b] text-[#5c3d1e] font-bold song-serif flex items-center gap-1 cursor-pointer"
-              title="清空沙盘推演点亮状态"
+              title="清空推演状态"
             >
               <RotateCcw className="w-3 h-3" />
               <span>清空</span>
             </button>
           )}
 
-          {/* 缩放与居中控制 */}
           <div className="flex items-center rounded border border-[#bca37b] bg-[#faf3e3] overflow-hidden">
             <button
               type="button"
               onClick={() => setScale((s) => clamp(Number((s - 0.1).toFixed(2)), 0.42, 1.35))}
               className="px-2 py-1 hover:bg-[#e8d8b9] text-[#3d2814] cursor-pointer"
-              title="缩小画布"
+              title="缩小"
             >
               <ZoomOut className="w-3.5 h-3.5" />
             </button>
@@ -2029,7 +1178,7 @@ export function QuestTreeTab() {
               type="button"
               onClick={() => setScale(0.75)}
               className="px-2 py-1 font-mono text-[11px] font-bold text-[#5c3d1e] hover:bg-[#e8d8b9] border-x border-[#d8c7a9] cursor-pointer"
-              title="恢复标准缩放 (75%)"
+              title="标准缩放 (75%)"
             >
               {Math.round(scale * 100)}%
             </button>
@@ -2037,26 +1186,18 @@ export function QuestTreeTab() {
               type="button"
               onClick={() => setScale((s) => clamp(Number((s + 0.1).toFixed(2)), 0.42, 1.35))}
               className="px-2 py-1 hover:bg-[#e8d8b9] text-[#3d2814] cursor-pointer"
-              title="放大画布"
+              title="放大"
             >
               <ZoomIn className="w-3.5 h-3.5" />
             </button>
             <button
               type="button"
-              onClick={fitOverview}
-              className="px-2 py-1 hover:bg-[#e8d8b9] text-[#3d2814] border-l border-[#d8c7a9] cursor-pointer"
-              title="全图居中概览"
+              onClick={fitCanvas}
+              className="px-2 py-1 hover:bg-[#e8d8b9] text-[#3d2814] border-l border-[#d8c7a9] cursor-pointer flex items-center gap-1 font-bold song-serif"
+              title="适应全图宽度"
             >
               <Maximize2 className="w-3.5 h-3.5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => centerOnNode('kf_renzong_escort', 0.78)}
-              className="px-2 py-1 hover:bg-[#e8d8b9] text-[#781710] border-l border-[#d8c7a9] font-bold song-serif cursor-pointer flex items-center gap-0.5"
-              title="聚焦紫宸护驾分流枢机"
-            >
-              <Crosshair className="w-3 h-3" />
-              <span>枢机</span>
+              <span>全览</span>
             </button>
           </div>
 
@@ -2064,7 +1205,6 @@ export function QuestTreeTab() {
             type="button"
             onClick={() => setDrawerOpen((v) => !v)}
             className="px-2.5 py-1 rounded bg-[#faf3e3] hover:bg-[#e8d8b9] border border-[#bca37b] text-[#3d2814] font-bold song-serif flex items-center gap-1 cursor-pointer"
-            title={drawerOpen ? '收起右侧节点卷宗详单' : '展开右侧节点卷宗详单'}
           >
             {drawerOpen ? (
               <PanelRightClose className="w-3.5 h-3.5" />
@@ -2076,9 +1216,8 @@ export function QuestTreeTab() {
         </div>
       </div>
 
-      {/* 主体：左画布 + 右侧可折叠卷宗检视栏 */}
+      {/* 主区域：左任务树画布 + 右单任务详情抽屉 */}
       <div className="flex-1 min-h-0 flex gap-2.5">
-        {/* 国策树可拖拽缩放画布 */}
         <div
           ref={viewportRef}
           onMouseDown={(e) => {
@@ -2120,34 +1259,31 @@ export function QuestTreeTab() {
           }`}
           style={{
             backgroundColor: '#f3e8d2',
-            backgroundImage: 'radial-gradient(rgba(92, 61, 30, 0.16) 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(rgba(92, 61, 30, 0.15) 1px, transparent 1px)',
             backgroundSize: '20px 20px',
           }}
         >
-          {/* 左下角悬浮图例与实况计数条 */}
+          {/* 左下角简洁图例条 */}
           <div className="absolute left-3 bottom-3 z-20 px-3 py-1.5 rounded-md bg-[#261910]/90 text-[#fbf2e0] border border-[#a58654] shadow-md flex flex-wrap items-center gap-3 text-[11px] pointer-events-none">
             <span className="font-bold text-[#f5d08a] song-serif">
-              {simMode ? '沙盘推演态' : '存档进度'}：
+              全 {allNodes.length} 卷任务（1 任务 = 1 节点）：
             </span>
             <span>
-              已达成 <strong className="font-mono text-[#7ee2a8]">{countsByStatus.completed}</strong>
+              已完结 <strong className="font-mono text-[#7ee2a8]">{statusCounts.completed}</strong>
             </span>
             {!simMode && (
               <span>
-                进行中 <strong className="font-mono text-[#ff9e94]">{countsByStatus.active}</strong>
+                进行中 <strong className="font-mono text-[#ff9e94]">{statusCounts.active}</strong>
               </span>
             )}
             <span>
-              可推进 <strong className="font-mono text-[#9ad4f5]">{countsByStatus.available}</strong>
+              可触发 <strong className="font-mono text-[#9ad4f5]">{statusCounts.available}</strong>
             </span>
             <span className="hidden xl:inline text-[#d8c7a9]">
-              ｜ 实线=必修直通 · 虚线=可选/跨派合流 ·{' '}
-              <span className="inline-block px-1 rounded bg-[#8f1d14] text-white font-bold">!</span>{' '}
-              互斥抉择 · 悬停检视前置要求
+              ｜ 实线 = 必修前置任务 · 虚线 = 举荐信/同脉联动 · 鼠标悬停查看前置条件
             </span>
           </div>
 
-          {/* 缩放与平移世界层 */}
           <div
             style={{
               width: CANVAS_W,
@@ -2157,27 +1293,37 @@ export function QuestTreeTab() {
             }}
             className="relative"
           >
-            {/* 1. 三大仕途阶段横幅底纹 */}
-            {TIER_BANDS.map((band) => {
-              const top = rowY(band.topRow) - 34
-              const height = (band.bottomRow - band.topRow) * ROW_STEP + NODE_H + 54
-              return (
-                <div
-                  key={band.id}
-                  style={{ top, left: 16, width: CANVAS_W - 32, height }}
-                  className="absolute rounded-xl border border-[#cbb48c]/80 bg-gradient-to-r from-[#efe1c4]/65 via-[#f7eedb]/40 to-[#efe1c4]/65 px-4 py-2 pointer-events-none"
-                >
-                  <div className="flex items-baseline justify-between gap-4 border-b border-[#d7c39f]/70 pb-1">
-                    <span className="text-xs font-bold song-serif text-[#4a2f16] tracking-wide">
-                      {band.title}
-                    </span>
-                    <span className="text-[11px] text-[#6b5235]">{band.subtitle}</span>
-                  </div>
-                </div>
-              )
-            })}
+            {/* 分区 1：顶部独立宗门入门与江湖奇遇（单节点） */}
+            <div
+              style={{ top: zone1Top, left: 16, width: CANVAS_W - 32, height: zone1Height }}
+              className="absolute rounded-xl border border-[#cbb48c]/85 bg-gradient-to-r from-[#e9f2ec]/65 via-[#f7f1e3]/50 to-[#e9eff4]/65 px-4 py-2 pointer-events-none"
+            >
+              <div className="flex items-baseline justify-between gap-4 border-b border-[#d5c19c]/75 pb-1">
+                <span className="text-xs font-bold song-serif text-[#1f4d3b] tracking-wide">
+                  独立宗门入门与江湖奇遇（顶部独立单节点 · 无前后任务依赖）
+                </span>
+                <span className="text-[11px] text-[#6b5235]">
+                  少林 · 丐帮 · 华山 · 峨眉 · 武当 · 青城 · 星宿 · 太行绿林 · 八步赶蝉 · 东海桃花岛
+                </span>
+              </div>
+            </div>
 
-            {/* 2. 正交国策连线 SVG 层 */}
+            {/* 分区 2：跨派引荐与朝堂仕途串联任务树 */}
+            <div
+              style={{ top: zone2Top, left: 16, width: CANVAS_W - 32, height: zone2Height }}
+              className="absolute rounded-xl border border-[#cbb48c]/85 bg-gradient-to-r from-[#efe1c4]/65 via-[#f7eedb]/45 to-[#efe1c4]/65 px-4 py-2 pointer-events-none"
+            >
+              <div className="flex items-baseline justify-between gap-4 border-b border-[#d5c19c]/75 pb-1">
+                <span className="text-xs font-bold song-serif text-[#781710] tracking-wide">
+                  跨门派引荐与朝堂公门禁军任务树（前后置串联脉络）
+                </span>
+                <span className="text-[11px] text-[#6b5235]">
+                  常山枪派 / 大名府八极 / 燕子坞水图 ──► 开封府六扇门 ──► 大宋禁军（三征太行 & 河北暗桩）｜ 右侧：二流引荐支脉
+                </span>
+              </div>
+            </div>
+
+            {/* 正交不交叉 SVG 连线层 */}
             <svg
               width={CANVAS_W}
               height={CANVAS_H}
@@ -2185,7 +1331,7 @@ export function QuestTreeTab() {
             >
               <defs>
                 <marker
-                  id="qt-arrow-base"
+                  id="qt2-arrow-base"
                   viewBox="0 0 10 10"
                   refX="7"
                   refY="5"
@@ -2196,7 +1342,7 @@ export function QuestTreeTab() {
                   <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#8b7352" />
                 </marker>
                 <marker
-                  id="qt-arrow-highlight"
+                  id="qt2-arrow-focus"
                   viewBox="0 0 10 10"
                   refX="7"
                   refY="5"
@@ -2207,7 +1353,7 @@ export function QuestTreeTab() {
                   <path d="M 0 1 L 8.5 5 L 0 9 z" fill="#9c2318" />
                 </marker>
                 <marker
-                  id="qt-arrow-done"
+                  id="qt2-arrow-done"
                   viewBox="0 0 10 10"
                   refX="7"
                   refY="5"
@@ -2219,39 +1365,43 @@ export function QuestTreeTab() {
                 </marker>
               </defs>
 
-              {FOCUS_EDGES.map((edge) => {
-                const src = FOCUS_NODE_MAP[edge.from]
-                const dst = FOCUS_NODE_MAP[edge.to]
+              {QUEST_EDGES.map((edge) => {
+                const src = nodeMap[edge.from]
+                const dst = nodeMap[edge.to]
                 if (!src || !dst) return null
 
                 const x1 = colX(src.col) + NODE_W / 2
                 const y1 = rowY(src.row) + NODE_H
-                const x2 = colX(dst.col) + NODE_W / 2
+                const x2 = colX(dst.col) + NODE_W / 2 + (edge.dstOffsetX ?? 0)
                 const y2 = rowY(dst.row)
-                const midY = y1 + (y2 - y1) * 0.5
+
+                // Route multi-row edges cleanly down src column to the empty corridor right above dst row!
+                const baseTurnY =
+                  dst.row - src.row > 1 ? y2 - 26 : y1 + (y2 - y1) * 0.5
+                const turnY = baseTurnY + (edge.trackOffset ?? 0)
                 const d =
                   x1 === x2
                     ? `M ${x1} ${y1} L ${x2} ${y2 - 3}`
-                    : `M ${x1} ${y1} L ${x1} ${midY} L ${x2} ${midY} L ${x2} ${y2 - 3}`
+                    : `M ${x1} ${y1} L ${x1} ${turnY} L ${x2} ${turnY} L ${x2} ${y2 - 3}`
 
                 const focusId = hoveredId ?? selectedId
                 const isBothDone =
-                  effectiveCompleted.has(edge.from) && effectiveCompleted.has(edge.to)
+                  statusByQuestId[edge.from] === 'completed' &&
+                  statusByQuestId[edge.to] === 'completed'
                 const isFocusEdge = edge.from === focusId || edge.to === focusId
-                const dimmed =
-                  !matchesSearchOrFilter(src) && !matchesSearchOrFilter(dst)
+                const dimmed = !matchesNodeFilter(src) && !matchesNodeFilter(dst)
 
                 const stroke = isBothDone
                   ? '#1f6b4a'
                   : isFocusEdge
                     ? '#9c2318'
-                    : '#937b58'
-                const strokeWidth = isBothDone || isFocusEdge ? 2.6 : 1.75
+                    : '#8f7754'
+                const strokeWidth = isBothDone || isFocusEdge ? 2.8 : 1.85
                 const markerEnd = isBothDone
-                  ? 'url(#qt-arrow-done)'
+                  ? 'url(#qt2-arrow-done)'
                   : isFocusEdge
-                    ? 'url(#qt-arrow-highlight)'
-                    : 'url(#qt-arrow-base)'
+                    ? 'url(#qt2-arrow-focus)'
+                    : 'url(#qt2-arrow-base)'
 
                 return (
                   <path
@@ -2262,49 +1412,26 @@ export function QuestTreeTab() {
                     strokeWidth={strokeWidth}
                     strokeDasharray={edge.type === 'dashed' ? '6 4' : undefined}
                     markerEnd={markerEnd}
-                    opacity={dimmed ? 0.16 : isBothDone || isFocusEdge ? 1 : 0.72}
+                    opacity={dimmed ? 0.15 : isBothDone || isFocusEdge ? 1 : 0.75}
                   />
                 )
               })}
             </svg>
 
-            {/* 3. HOI4 风格互斥惊叹号桥接标记 (!) */}
-            {MUTEX_BRIDGES.map((m) => {
-              const leftNode = FOCUS_NODE_MAP[m.left]
-              const rightNode = FOCUS_NODE_MAP[m.right]
-              if (!leftNode || !rightNode) return null
-              const xLeft = colX(leftNode.col) + NODE_W
-              const xRight = colX(rightNode.col)
-              const cy = rowY(leftNode.row) + NODE_H / 2
-              const bridgeW = Math.max(16, xRight - xLeft)
-              return (
-                <div
-                  key={`${m.left}-${m.right}`}
-                  style={{ left: xLeft, top: cy - 10, width: bridgeW }}
-                  title={m.label}
-                  className="absolute h-5 flex items-center justify-center z-10"
-                >
-                  <div className="w-full border-t-2 border-dashed border-[#a83226]/75 absolute top-1/2 -translate-y-1/2 pointer-events-none" />
-                  <span className="relative z-10 px-1.5 py-0.5 rounded-full bg-[#8f1d14] text-[#fff8ee] border border-[#f5cb5c] text-[10px] font-extrabold leading-none shadow">
-                    !
-                  </span>
-                </div>
-              )
-            })}
-
-            {/* 4. 40 枚国策任务牌匾节点 */}
-            {FOCUS_NODES.map((node) => {
-              const st = statusByNodeId[node.id] ?? 'locked'
-              const stMeta = STATUS_META[st]
-              const facMeta = FACTION_META[node.faction]
-              const isSelected = selectedId === node.id
-              const isHovered = hoveredId === node.id
-              const isConnected = connectedFocusSet.has(node.id)
-              const matches = matchesSearchOrFilter(node)
+            {/* 全部任务牌匾节点（1 任务 = 1 节点） */}
+            {allNodes.map((node) => {
+              const st = statusByQuestId[node.questId] ?? 'locked'
+              const stStyle = STATUS_STYLE[st]
+              const catVis =
+                CATEGORY_VISUAL[node.qDef.category] ?? CATEGORY_VISUAL.adventure
+              const isSelected = selectedId === node.questId
+              const isHovered = hoveredId === node.questId
+              const isConnected = connectedSet.has(node.questId)
+              const matches = matchesNodeFilter(node)
 
               return (
                 <button
-                  key={node.id}
+                  key={node.questId}
                   type="button"
                   style={{
                     left: colX(node.col),
@@ -2314,24 +1441,24 @@ export function QuestTreeTab() {
                   }}
                   onMouseEnter={(e) => {
                     setPointerPos({ x: e.clientX, y: e.clientY })
-                    setHoveredId(node.id)
+                    setHoveredId(node.questId)
                   }}
                   onMouseMove={(e) => {
                     setPointerPos({ x: e.clientX, y: e.clientY })
                   }}
                   onMouseLeave={() => {
-                    setHoveredId((prev) => (prev === node.id ? null : prev))
+                    setHoveredId((prev) => (prev === node.questId ? null : prev))
                   }}
                   onClick={(e) => {
                     e.stopPropagation()
                     if (dragRef.current.moved) return
-                    setSelectedId(node.id)
+                    setSelectedId(node.questId)
                     if (simMode) {
-                      handleToggleSimNode(node)
+                      toggleSimNode(node.questId)
                     }
                   }}
                   className={`absolute rounded-lg border-2 text-left overflow-hidden transition-transform duration-100 cursor-pointer focus:outline-none ${
-                    stMeta.cardCls
+                    stStyle.cardCls
                   } ${
                     isSelected
                       ? 'ring-2 ring-[#781710] ring-offset-2 ring-offset-[#f3e8d2] z-20 -translate-y-0.5'
@@ -2346,42 +1473,41 @@ export function QuestTreeTab() {
                         : ''
                   }`}
                 >
-                  {/* 顶部势力绶带 */}
-                  <div className={`h-1.5 w-full ${facMeta.barBg}`} />
+                  <div className={`h-1.5 w-full ${catVis.barCls}`} />
 
                   <div className="p-2 flex flex-col justify-between h-[calc(100%-6px)]">
-                    {/* 上半：徽记 + 标题 */}
                     <div className="flex items-start gap-2">
                       <div
-                        className={`w-7 h-7 rounded border border-[#d6b77c]/80 flex items-center justify-center font-bold song-serif text-sm shrink-0 shadow-inner ${facMeta.sealBg} ${facMeta.sealText}`}
+                        className={`w-7 h-7 rounded border border-[#d6b77c]/80 flex items-center justify-center font-bold song-serif text-sm shrink-0 shadow-inner ${catVis.sealCls}`}
                       >
-                        {node.icon}
+                        {node.seal}
                       </div>
                       <div className="min-w-0 flex-1">
                         <div className="font-bold song-serif text-[13px] leading-tight text-[#23180f] truncate">
-                          {node.title}
+                          {node.qDef.title}
                         </div>
                         <div className="text-[11px] text-[#6b5235] truncate mt-0.5">
-                          {node.subtitle}
+                          {node.shortTag}
                         </div>
                       </div>
                     </div>
 
-                    {/* 下半：类型代号 + 状态印章 */}
                     <div className="flex items-center justify-between gap-1 pt-1 border-t border-[#d8c6a5]/70">
-                      <span className="text-[10px] font-mono text-[#7a5f3e] truncate">
-                        {node.kind}
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-[10px] font-bold leading-none ${catVis.badgeCls}`}
+                      >
+                        {catVis.label}
                       </span>
                       <span
-                        className={`px-1.5 py-0.5 rounded border text-[10px] font-bold leading-none shrink-0 ${stMeta.pillCls}`}
+                        className={`px-1.5 py-0.5 rounded border text-[10px] font-bold leading-none shrink-0 ${stStyle.pillCls}`}
                       >
                         {st === 'locked' ? (
                           <span className="inline-flex items-center gap-0.5">
                             <Lock className="w-2.5 h-2.5" />
-                            {stMeta.label}
+                            {stStyle.label}
                           </span>
                         ) : (
-                          stMeta.label
+                          stStyle.label
                         )}
                       </span>
                     </div>
@@ -2392,248 +1518,321 @@ export function QuestTreeTab() {
           </div>
         </div>
 
-        {/* 右侧：选中节点详情卷宗抽屉 */}
-        {drawerOpen && (
-          <div className="w-80 xl:w-96 shrink-0 h-full rounded-lg bg-[#faf3e3] border border-[#c8b28e] flex flex-col overflow-hidden">
-            {/* 头部 */}
-            <div className="p-3 bg-[#efe4cc] border-b border-[#c8b28e] space-y-1.5">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-[#261910] text-[#f5d08a]">
-                  {selectedNode.factionLabel}
-                </span>
-                <span
-                  className={`text-[11px] font-bold px-2 py-0.5 rounded border ${STATUS_META[selectedStatus].pillCls}`}
-                >
-                  {STATUS_META[selectedStatus].label}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div
-                  className={`w-8 h-8 rounded flex items-center justify-center font-bold song-serif text-base shrink-0 ${FACTION_META[selectedNode.faction].sealBg} ${FACTION_META[selectedNode.faction].sealText}`}
-                >
-                  {selectedNode.icon}
-                </div>
-                <div className="min-w-0">
-                  <h4 className="font-bold song-serif text-base text-[#23180f] leading-snug">
-                    {selectedNode.title}
-                  </h4>
-                  <div className="text-[11px] font-mono text-[#7a5f3e]">{selectedNode.code}</div>
-                </div>
-              </div>
-            </div>
+        {/* 右侧：单卷任务详情面板 */}
+        {drawerOpen && (() => {
+          const catVis =
+            CATEGORY_VISUAL[selectedNode.qDef.category] ?? CATEGORY_VISUAL.adventure
+          const readiness = assessQuestRealmReadiness(
+            maxHp,
+            maxMp,
+            selectedNode.qDef.recommendedRealm,
+            selectedNode.qDef.maxOpponentRealm,
+          )
+          const activeProg = questState.activeQuests[selectedNode.questId]
+          const completedRec = questState.completedQuests[selectedNode.questId]
+          const unmetList = liveUnmetByQuestId[selectedNode.questId] ?? []
 
-            {/* 详情滚动体 */}
-            <div className="flex-1 overflow-y-auto p-3 space-y-3 text-xs leading-relaxed">
-              {/* 快捷动作栏 */}
-              <div className="flex flex-wrap gap-1.5">
-                {resolvedLocateTarget && (
+          return (
+            <div className="w-80 xl:w-96 shrink-0 h-full rounded-lg bg-[#faf3e3] border border-[#c8b28e] flex flex-col overflow-hidden">
+              <div className="p-3 bg-[#efe4cc] border-b border-[#c8b28e] space-y-1.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5">
+                    <span className={`px-2 py-0.5 rounded text-[11px] font-bold ${catVis.badgeCls}`}>
+                      {catVis.label}
+                    </span>
+                    <span className="text-[11px] text-[#5c3d1e] font-semibold">
+                      {selectedNode.shortTag}
+                    </span>
+                  </div>
+                  <span
+                    className={`text-[11px] font-bold px-2 py-0.5 rounded border ${STATUS_STYLE[selectedStatus].pillCls}`}
+                  >
+                    {STATUS_STYLE[selectedStatus].label}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <div
+                    className={`w-8 h-8 rounded flex items-center justify-center font-bold song-serif text-base shrink-0 ${catVis.sealCls}`}
+                  >
+                    {selectedNode.seal}
+                  </div>
+                  <div className="min-w-0">
+                    <h4 className="font-bold song-serif text-base text-[#23180f] leading-snug">
+                      《{selectedNode.qDef.title}》
+                    </h4>
+                    <div className="text-[11px] text-[#6b5235]">
+                      建议修为：<strong>{readiness.recommendedRealm.label}</strong>（{readiness.statusLabel}）
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-3 space-y-3 text-xs leading-relaxed">
+                {/* 快捷操作按钮 */}
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedLocateTarget && (
+                    <button
+                      type="button"
+                      onClick={() => locateQuestTargetOnMap(selectedLocateTarget)}
+                      className="px-2.5 py-1.5 rounded bg-[#1f4d3b] hover:bg-[#27614a] text-[#fff8ee] font-bold song-serif flex items-center gap-1 cursor-pointer shadow-sm"
+                    >
+                      <Compass className="w-3.5 h-3.5" />
+                      <span>
+                        舆图定位：
+                        {selectedLocateTarget.customLabel ??
+                          REGION_DB_MAP[selectedLocateTarget.regionId]?.name ??
+                          selectedLocateTarget.regionId}{' '}
+                        ▸
+                      </span>
+                    </button>
+                  )}
                   <button
                     type="button"
-                    onClick={() => locateQuestTargetOnMap(resolvedLocateTarget)}
-                    className="px-2.5 py-1.5 rounded bg-[#1f4d3b] hover:bg-[#27614a] text-[#fff8ee] font-bold song-serif flex items-center gap-1 cursor-pointer shadow-sm"
+                    onClick={() => centerOnNode(selectedNode.questId)}
+                    className="px-2.5 py-1.5 rounded bg-[#efe4cc] hover:bg-[#e3d2b1] border border-[#c8b28e] text-[#3d2814] font-bold song-serif cursor-pointer"
                   >
-                    <Compass className="w-3.5 h-3.5" />
-                    <span>
-                      舆图定位：
-                      {resolvedLocateTarget.customLabel ??
-                        REGION_DB_MAP[resolvedLocateTarget.regionId]?.name ??
-                        resolvedLocateTarget.regionId}{' '}
-                      ▸
-                    </span>
+                    画布居中
                   </button>
-                )}
-                <button
-                  type="button"
-                  onClick={() => centerOnNode(selectedNode.id)}
-                  className="px-2.5 py-1.5 rounded bg-[#efe4cc] hover:bg-[#e3d2b1] border border-[#c8b28e] text-[#3d2814] font-bold song-serif cursor-pointer"
-                >
-                  画布居中
-                </button>
-                {selectedNode.questId && (
                   <button
                     type="button"
                     onClick={() => setMenuTab('quests')}
                     className="px-2.5 py-1.5 rounded bg-[#efe4cc] hover:bg-[#e3d2b1] border border-[#c8b28e] text-[#781710] font-bold song-serif cursor-pointer"
                   >
-                    查阅纪事卷宗
+                    跳转江湖纪事
                   </button>
+                </div>
+
+                {/* 当前存档实时状态提示 */}
+                {activeProg && (
+                  <div className="p-2.5 rounded bg-[#fdf2e9] border border-[#d6887f] text-[#781710] space-y-0.5">
+                    <div className="font-bold song-serif">
+                      当前进行步骤：{selectedNode.qDef.steps[activeProg.stepId]?.title ?? activeProg.stepId}
+                    </div>
+                    <div className="text-[#4a3219]">
+                      {selectedNode.qDef.steps[activeProg.stepId]?.objective}
+                    </div>
+                  </div>
+                )}
+
+                {completedRec && (
+                  <div className="p-2.5 rounded bg-[#e8f5ee] border border-[#78b791] text-[#1b5132]">
+                    ✓ 已于第 <strong>{completedRec.completedDay}</strong> 日完结（结局标识：
+                    <span className="font-mono ml-1">{completedRec.outcome}</span>）
+                  </div>
+                )}
+
+                {/* 卷宗梗概 */}
+                <div className="p-2.5 rounded bg-[#fffbf2] border border-[#dfd0b2] space-y-1">
+                  <div className="font-bold song-serif text-[#355263]">任务卷宗梗概</div>
+                  <p className="text-[#2d1e10]">{selectedNode.qDef.summary}</p>
+                  {selectedNode.qDef.startHint && (
+                    <div className="pt-1 border-t border-[#ece0c8] text-[#5c3d1e]">
+                      <strong className="text-[#781710]">触发线索：</strong>
+                      {selectedNode.qDef.startHint}
+                    </div>
+                  )}
+                </div>
+
+                {/* 触发与前置条件 */}
+                <div className="p-2.5 rounded bg-[#f5ecd9] border border-[#d8c49e] space-y-1.5">
+                  <div className="font-bold song-serif text-[#781710] flex items-center gap-1">
+                    <GitBranch className="w-3.5 h-3.5" />
+                    <span>触发与前置要求</span>
+                  </div>
+                  <ul className="space-y-1 text-[#3d2814]">
+                    {selectedNode.prereqs.map((req) => (
+                      <li key={req} className="flex items-start gap-1.5">
+                        <span className="text-[#8f1d14] font-bold shrink-0">•</span>
+                        <span>{req}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {!simMode && !completedRec && !activeProg && unmetList.length > 0 && (
+                    <div className="pt-1.5 border-t border-[#d8c49e] text-[#8f1d14] space-y-0.5">
+                      <div className="font-bold">当前存档尚未满足：</div>
+                      {unmetList.map((u) => (
+                        <div key={u}>• {u}</div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* 核心奖励 */}
+                <div className="p-2.5 rounded bg-[#eef7f1] border border-[#a5cfb5] space-y-1">
+                  <div className="font-bold song-serif text-[#1f4d3b]">完成奖励与后续影响</div>
+                  <ul className="space-y-1 text-[#193d2e]">
+                    {selectedNode.rewards.map((rw) => (
+                      <li key={rw} className="flex items-start gap-1.5">
+                        <span className="text-[#1f4d3b] font-bold shrink-0">✦</span>
+                        <span>{rw}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {selectedNode.branchNote && (
+                  <div className="p-2.5 rounded bg-[#f8e3e1] border border-[#d6887f] text-[#781710]">
+                    <strong>路线提示：</strong>
+                    {selectedNode.branchNote}
+                  </div>
+                )}
+
+                {/* 上下游关联任务一键跳转 */}
+                {(selectedUpstream.length > 0 || selectedDownstream.length > 0) && (
+                  <div className="pt-2 border-t border-[#dfd0b2] space-y-2">
+                    {selectedUpstream.length > 0 && (
+                      <div className="space-y-1">
+                        <div className="text-[11px] font-bold text-[#6b5235]">
+                          上游关联任务（点击定位）：
+                        </div>
+                        {selectedUpstream.map(({ edge, node }) => (
+                          <button
+                            key={node.questId}
+                            type="button"
+                            onClick={() => {
+                              setSelectedId(node.questId)
+                              centerOnNode(node.questId)
+                            }}
+                            className="w-full text-left p-1.5 rounded bg-[#efe4cc] hover:bg-[#e2d0ad] border border-[#c8b28e] cursor-pointer"
+                          >
+                            <div className="font-bold song-serif text-[#3d2814]">
+                              ↑ 《{node.qDef.title}》
+                              <span className="ml-1 text-[10px] font-normal text-[#781710]">
+                                [{edge.type === 'solid' ? '必修前置' : '联动支线'}]
+                              </span>
+                            </div>
+                            <div className="text-[11px] text-[#6b5235]">{edge.relation}</div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    {selectedDownstream.length > 0 && (
+                      <div className="space-y-1">
+                        <div className="text-[11px] font-bold text-[#6b5235]">
+                          下游开启任务（点击定位）：
+                        </div>
+                        {selectedDownstream.map(({ edge, node }) => (
+                          <button
+                            key={node.questId}
+                            type="button"
+                            onClick={() => {
+                              setSelectedId(node.questId)
+                              centerOnNode(node.questId)
+                            }}
+                            className="w-full text-left p-1.5 rounded bg-[#efe4cc] hover:bg-[#e2d0ad] border border-[#c8b28e] cursor-pointer"
+                          >
+                            <div className="font-bold song-serif text-[#781710]">
+                              ↓ 《{node.qDef.title}》
+                              <span className="ml-1 text-[10px] font-normal text-[#5c3d1e]">
+                                [{edge.type === 'solid' ? '必修后续' : '可选联动'}]
+                              </span>
+                            </div>
+                            <div className="text-[11px] text-[#6b5235]">{edge.relation}</div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
-
-              {/* 1. 触发与前置条件 */}
-              <div className="p-2.5 rounded bg-[#f5ecd9] border border-[#d8c49e] space-y-1">
-                <div className="font-bold song-serif text-[#781710] flex items-center gap-1">
-                  <GitBranch className="w-3.5 h-3.5" />
-                  <span>触发与前置要求</span>
-                </div>
-                <ul className="space-y-1 text-[#3d2814]">
-                  {selectedNode.prereqs.map((req) => (
-                    <li key={req} className="flex items-start gap-1.5">
-                      <span className="text-[#8f1d14] font-bold shrink-0">•</span>
-                      <span>{req}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* 2. 执行流程纪要 */}
-              <div className="p-2.5 rounded bg-[#fffbf2] border border-[#dfd0b2] space-y-1">
-                <div className="font-bold song-serif text-[#355263]">执行流程与考校要点</div>
-                <ol className="space-y-1.5 list-decimal list-inside text-[#2d1e10]">
-                  {selectedNode.steps.map((stText) => (
-                    <li key={stText}>{stText}</li>
-                  ))}
-                </ol>
-              </div>
-
-              {/* 3. 完成奖励与仕途效果 */}
-              <div className="p-2.5 rounded bg-[#eef7f1] border border-[#a5cfb5] space-y-1">
-                <div className="font-bold song-serif text-[#1f4d3b]">完成奖励与仕途影响</div>
-                <ul className="space-y-1 text-[#193d2e]">
-                  {selectedNode.rewards.map((rw) => (
-                    <li key={rw} className="flex items-start gap-1.5">
-                      <span className="text-[#1f4d3b] font-bold shrink-0">✦</span>
-                      <span>{rw}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* 4. 警示 */}
-              {selectedNode.warning && (
-                <div className="p-2.5 rounded bg-[#f8e3e1] border border-[#d6887f] text-[#781710] space-y-0.5">
-                  <div className="font-bold song-serif">军纪死限 / 路线互斥警示</div>
-                  <div>{selectedNode.warning}</div>
-                </div>
-              )}
-
-              {/* 5. 上下游关联节点跳转 */}
-              {(selectedUpstream.length > 0 || selectedDownstream.length > 0) && (
-                <div className="pt-2 border-t border-[#dfd0b2] space-y-2">
-                  {selectedUpstream.length > 0 && (
-                    <div>
-                      <div className="text-[11px] font-bold text-[#6b5235] mb-1">
-                        上游前置节点（点击定位）：
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {selectedUpstream.map((up) => (
-                          <button
-                            key={up.id}
-                            type="button"
-                            onClick={() => {
-                              setSelectedId(up.id)
-                              centerOnNode(up.id)
-                            }}
-                            className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d0ad] border border-[#c8b28e] text-[11px] font-bold song-serif text-[#3d2814] cursor-pointer"
-                          >
-                            ↑ {up.title}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {selectedDownstream.length > 0 && (
-                    <div>
-                      <div className="text-[11px] font-bold text-[#6b5235] mb-1">
-                        下游解锁节点（点击定位）：
-                      </div>
-                      <div className="flex flex-wrap gap-1">
-                        {selectedDownstream.map((dn) => (
-                          <button
-                            key={dn.id}
-                            type="button"
-                            onClick={() => {
-                              setSelectedId(dn.id)
-                              centerOnNode(dn.id)
-                            }}
-                            className="px-2 py-0.5 rounded bg-[#efe4cc] hover:bg-[#e2d0ad] border border-[#c8b28e] text-[11px] font-bold song-serif text-[#781710] cursor-pointer"
-                          >
-                            ↓ {dn.title}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
             </div>
-          </div>
-        )}
+          )
+        })()}
       </div>
 
-      {/* 欧陆风云 / 钢铁雄心风格鼠标悬停浮动前置检视框 (Portal 防裁剪) */}
+      {/* 欧陆风云 / 钢铁雄心风格鼠标悬停前置检视浮窗 */}
       {hoveredNode &&
         typeof document !== 'undefined' &&
         createPortal(
-          <div
-            role="tooltip"
-            style={tooltipStyle}
-            className="fixed z-[9999] pointer-events-none rounded-lg bg-[#1e150e]/96 text-[#faf2e1] border-2 border-[#b89249] shadow-[0_12px_32px_rgba(0,0,0,0.55)] p-3 space-y-2 text-xs leading-relaxed"
-          >
-            {/* Tooltip Header */}
-            <div className="border-b border-[#594327] pb-2">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[11px] text-[#dfbe7d] font-semibold">
-                  {hoveredNode.factionLabel}
-                </span>
-                <span
-                  className={`px-1.5 py-0.5 rounded border text-[10px] font-bold ${STATUS_META[hoveredStatus].tooltipBadgeCls}`}
-                >
-                  {STATUS_META[hoveredStatus].label}
-                </span>
-              </div>
-              <div className="font-bold song-serif text-sm text-[#fff7e6] mt-0.5">
-                {hoveredNode.title}
-              </div>
-              <div className="text-[11px] font-mono text-[#bca47c]">
-                {hoveredNode.code} · {hoveredNode.subtitle}
-              </div>
-            </div>
+          (() => {
+            const catVis =
+              CATEGORY_VISUAL[hoveredNode.qDef.category] ?? CATEGORY_VISUAL.adventure
+            const readiness = assessQuestRealmReadiness(
+              maxHp,
+              maxMp,
+              hoveredNode.qDef.recommendedRealm,
+              hoveredNode.qDef.maxOpponentRealm,
+            )
+            const unmet = liveUnmetByQuestId[hoveredNode.questId] ?? []
+            const isDone = Boolean(questState.completedQuests[hoveredNode.questId])
+            const isAct = Boolean(questState.activeQuests[hoveredNode.questId])
 
-            {/* Prerequisites */}
-            <div>
-              <div className="text-[11px] font-bold song-serif text-[#f5cb5c] mb-0.5">
-                ◆ 触发与前置条件：
-              </div>
-              <ul className="space-y-0.5 text-[11px] text-[#f2e6cf]">
-                {hoveredNode.prereqs.map((req) => (
-                  <li key={req} className="flex items-start gap-1.5">
-                    <span className="text-[#f5cb5c] shrink-0">▸</span>
-                    <span>{req}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            return (
+              <div
+                role="tooltip"
+                style={tooltipStyle}
+                className="fixed z-[9999] pointer-events-none rounded-lg bg-[#1e150e]/96 text-[#faf2e1] border-2 border-[#b89249] shadow-[0_12px_32px_rgba(0,0,0,0.55)] p-3 space-y-2 text-xs leading-relaxed"
+              >
+                <div className="border-b border-[#594327] pb-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[11px] text-[#dfbe7d] font-semibold">
+                      [{catVis.label}] {hoveredNode.shortTag}
+                    </span>
+                    <span
+                      className={`px-1.5 py-0.5 rounded border text-[10px] font-bold ${STATUS_STYLE[hoveredStatus].tipBadgeCls}`}
+                    >
+                      {STATUS_STYLE[hoveredStatus].label}
+                    </span>
+                  </div>
+                  <div className="font-bold song-serif text-sm text-[#fff7e6] mt-0.5">
+                    《{hoveredNode.qDef.title}》
+                  </div>
+                  <div className="text-[11px] text-[#bca47c]">
+                    建议修为：{readiness.recommendedRealm.label}（{readiness.statusLabel}）
+                  </div>
+                </div>
 
-            {/* Rewards */}
-            <div className="border-t border-[#47351f] pt-1.5">
-              <div className="text-[11px] font-bold song-serif text-[#83dca8] mb-0.5">
-                ✦ 完成效果与奖励：
-              </div>
-              <ul className="space-y-0.5 text-[11px] text-[#dff5e7]">
-                {hoveredNode.rewards.map((rw) => (
-                  <li key={rw} className="flex items-start gap-1.5">
-                    <span className="text-[#83dca8] shrink-0">+</span>
-                    <span>{rw}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+                <div>
+                  <div className="text-[11px] font-bold song-serif text-[#f5cb5c] mb-0.5">
+                    ◆ 触发与前置条件：
+                  </div>
+                  <ul className="space-y-0.5 text-[11px] text-[#f2e6cf]">
+                    {hoveredNode.prereqs.map((req) => (
+                      <li key={req} className="flex items-start gap-1.5">
+                        <span className="text-[#f5cb5c] shrink-0">▸</span>
+                        <span>{req}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {!simMode && !isDone && !isAct && unmet.length > 0 && (
+                    <div className="mt-1.5 p-1.5 rounded bg-[#4a2019]/90 border border-[#9e473e] text-[11px] text-[#ffd7d2]">
+                      <div className="font-bold text-[#ffb4ab]">当前存档尚未满足：</div>
+                      {unmet.slice(0, 4).map((u) => (
+                        <div key={u}>• {u}</div>
+                      ))}
+                    </div>
+                  )}
+                  {!simMode && !isDone && !isAct && unmet.length === 0 && (
+                    <div className="mt-1 text-[11px] text-[#83dca8] font-semibold">
+                      ✓ 当前存档已满足触发门槛
+                    </div>
+                  )}
+                </div>
 
-            {/* Warning */}
-            {hoveredNode.warning && (
-              <div className="p-1.5 rounded bg-[#5c1914]/85 border border-[#b54c43] text-[11px] text-[#ffdedb]">
-                <strong className="text-[#ffb3ab]">警示：</strong>
-                {hoveredNode.warning}
-              </div>
-            )}
+                <div className="border-t border-[#47351f] pt-1.5">
+                  <div className="text-[11px] font-bold song-serif text-[#83dca8] mb-0.5">
+                    ✦ 完成奖励与后续：
+                  </div>
+                  <ul className="space-y-0.5 text-[11px] text-[#dff5e7]">
+                    {hoveredNode.rewards.map((rw) => (
+                      <li key={rw} className="flex items-start gap-1.5">
+                        <span className="text-[#83dca8] shrink-0">+</span>
+                        <span>{rw}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-            <div className="text-[10px] text-[#a9926c] pt-0.5 flex items-center justify-between border-t border-[#3b2c1a]">
-              <span>点击节点固定右侧卷宗详单</span>
-              {simMode && <span>推演模式下点击可点亮/互斥</span>}
-            </div>
-          </div>,
+                {hoveredNode.branchNote && (
+                  <div className="p-1.5 rounded bg-[#5c1914]/85 border border-[#b54c43] text-[11px] text-[#ffdedb]">
+                    {hoveredNode.branchNote}
+                  </div>
+                )}
+              </div>
+            )
+          })(),
           document.body,
         )}
     </div>

@@ -65,11 +65,11 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
   {
     key: 'questTree',
     numeral: '伍',
-    label: '仕途任务树',
+    label: '江湖任务树',
     seal: '脉',
     subtitle:
-      '常山枪派 / 沧州八极门 → 开封府六扇门 → 大宋禁军全脉络国策任务图（鼠标悬停检视前置要求、互斥抉择与存档进度）',
-    badge: '国策脉络',
+      '全门派入门、江湖奇遇、皇祐风云与朝堂公门禁军全任务脉络图（每卷任务一节点，鼠标悬停检视前置要求与存档达成度）',
+    badge: '全卷脉络',
   },
   {
     key: 'engineering',

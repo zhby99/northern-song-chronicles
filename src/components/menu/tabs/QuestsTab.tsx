@@ -308,9 +308,9 @@ export function QuestsTab() {
             type="button"
             onClick={() => setMenuTab('questTree')}
             className="px-3 py-1.5 rounded font-bold song-serif border border-[#a87b2d] bg-[#fdf4dd] hover:bg-[#f6e5bc] text-[#781710] cursor-pointer transition-colors"
-            title="打开河朔双脉 → 开封府六扇门 → 大宋禁军可视化国策任务树"
+            title="打开全门派与朝堂公门可视化江湖任务树"
           >
-            仕途任务树 ▸
+            江湖任务树 ▸
           </button>
         </div>
 
