@@ -58,10 +58,12 @@ function sniffAudioMime(fileName, buf) {
     return 'audio/mp4'
   }
   const lower = fileName.toLowerCase()
-  if (lower.endsWith('.ogg')) return 'audio/ogg'
+  if (lower.endsWith('.ogg') || lower.endsWith('.opus')) return 'audio/ogg'
   if (lower.endsWith('.m4a') || lower.endsWith('.mp4')) return 'audio/mp4'
   if (lower.endsWith('.wav')) return 'audio/wav'
   if (lower.endsWith('.aac')) return 'audio/aac'
+  if (lower.endsWith('.flac')) return 'audio/flac'
+  if (lower.endsWith('.webm')) return 'audio/webm'
   return 'audio/mpeg'
 }
 
@@ -140,7 +142,7 @@ function collectRawAssetList() {
       const relUrl = `${relPrefix}/${entry.name}`
       if (entry.isDirectory()) {
         walkAudio(fullPath, relUrl)
-      } else if (entry.isFile() && /\.(mp3|m4a|ogg|wav|aac)$/i.test(entry.name)) {
+      } else if (entry.isFile() && /\.(mp3|m4a|ogg|opus|wav|aac|flac|webm)$/i.test(entry.name)) {
         list.push({ relUrl, fullPath, kind: 'audio' })
       }
     }

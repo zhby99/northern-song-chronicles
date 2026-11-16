@@ -156,11 +156,17 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
     if (silent) {
       set({ saveSlots: slots })
     } else {
+      const backendLabel =
+        backend === 'indexeddb'
+          ? 'IndexedDB'
+          : backend === 'localstorage'
+            ? 'localStorage'
+            : '会话内存 · 当前为无源沙箱环境，关闭页面前请点击【导出JSON】持久化保存'
       set({
         saveBusy: false,
         saveSlots: slots,
         saveNotice: {
-          text: `已将当前江湖进度封入【${slotId === 'autosave' ? '自动卷宗' : slotId.toUpperCase()}】（存储引擎：${backend === 'indexeddb' ? 'IndexedDB' : 'localStorage'}）。`,
+          text: `已将当前江湖进度封入【${slotId === 'autosave' ? '自动卷宗' : slotId.toUpperCase()}】（存储引擎：${backendLabel}）。`,
           tone: 'success',
         },
       })
@@ -208,6 +214,10 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
       mp: Math.min(derived.maxMp, st.mp),
       res: derived.res,
       skills: derived.skills,
+      artExps: st.artExps ? { ...st.artExps } : {},
+      artMilestoneFlags: Array.isArray(st.artMilestoneFlags)
+        ? st.artMilestoneFlags.filter((x): x is string => typeof x === 'string')
+        : [],
       consumedUniqueIds: st.consumedUniqueIds ?? [],
       consumedOnceItemIds: st.consumedOnceItemIds ?? [],
       npcFavor: st.npcFavor ? { ...st.npcFavor } : {},

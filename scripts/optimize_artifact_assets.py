@@ -30,7 +30,7 @@ CACHE_DIR = ROOT_DIR / "node_modules" / ".cache" / "nsc-artifact-pack"
 BLOBS_DIR = CACHE_DIR / "blobs"
 
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg"}
-AUDIO_EXTS = {".mp3", ".m4a", ".ogg", ".wav", ".aac"}
+AUDIO_EXTS = {".mp3", ".m4a", ".ogg", ".opus", ".wav", ".aac", ".flac", ".webm"}
 HAS_FFMPEG = shutil.which("ffmpeg") is not None
 
 
@@ -50,7 +50,7 @@ def sniff_audio_mime(file_name: str, data: bytes) -> str:
     if len(data) >= 8 and data[4:8] == b"ftyp":
         return "audio/mp4"
     lower = file_name.lower()
-    if lower.endswith(".ogg"):
+    if lower.endswith((".ogg", ".opus")):
         return "audio/ogg"
     if lower.endswith((".m4a", ".mp4")):
         return "audio/mp4"
@@ -58,6 +58,10 @@ def sniff_audio_mime(file_name: str, data: bytes) -> str:
         return "audio/wav"
     if lower.endswith(".aac"):
         return "audio/aac"
+    if lower.endswith(".flac"):
+        return "audio/flac"
+    if lower.endswith(".webm"):
+        return "audio/webm"
     return "audio/mpeg"
 
 

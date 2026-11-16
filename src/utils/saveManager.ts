@@ -8,6 +8,7 @@ import type {
   MartialArtSlotKey,
   SaveSlotId,
   SerializableGameState,
+  TenArtKey,
   TerrainType,
   ViewMode,
   WildernessCamp,
@@ -129,12 +130,14 @@ function openSaveDatabase(): Promise<IDBDatabase> {
 
 export async function putSaveEnvelope(
   envelope: GameSaveEnvelope,
-): Promise<'indexeddb' | 'localstorage'> {
+): Promise<'indexeddb' | 'localstorage' | 'memory'> {
   const serialized = JSON.stringify(envelope)
   memoryFallbackSaves.set(envelope.slotId, serialized)
 
+  let savedToLocalStorage = false
   try {
     localStorage.setItem(`${LS_FALLBACK_PREFIX}${envelope.slotId}`, serialized)
+    savedToLocalStorage = true
   } catch {
     // Ignore localStorage quota / sandbox SecurityError when IndexedDB or memory fallback is used
   }
@@ -150,7 +153,7 @@ export async function putSaveEnvelope(
     })
     return 'indexeddb'
   } catch {
-    return 'localstorage'
+    return savedToLocalStorage ? 'localstorage' : 'memory'
   }
 }
 
@@ -270,6 +273,19 @@ const ART_SLOT_KEYS: MartialArtSlotKey[] = [
   'move3',
   'move4',
 ]
+
+const VALID_TEN_ART_KEYS: ReadonlySet<TenArtKey> = new Set([
+  '骑术',
+  '算术',
+  '经义',
+  '策论',
+  '诗词',
+  '琴',
+  '棋',
+  '书',
+  '画',
+  '辩才',
+])
 
 export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   if (!isRecord(raw)) return null
@@ -508,6 +524,22 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     maxMp: derived.maxMp,
     res: derived.res,
     skills: derived.skills,
+    artExps: isRecord(st.artExps)
+      ? (Object.fromEntries(
+          Object.entries(st.artExps)
+            .filter(
+              ([k, v]) =>
+                VALID_TEN_ART_KEYS.has(k as TenArtKey) &&
+                typeof v === 'number' &&
+                Number.isFinite(v) &&
+                v >= 0,
+            )
+            .map(([k, v]) => [k, Math.floor(v as number)]),
+        ) as Partial<Record<TenArtKey, number>>)
+      : {},
+    artMilestoneFlags: Array.isArray(st.artMilestoneFlags)
+      ? st.artMilestoneFlags.filter((f): f is string => typeof f === 'string')
+      : [],
     equipped: cleanEquipped,
     learnedArts: cleanLearnedArts,
     equippedArts: cleanEquippedArts,
@@ -548,6 +580,9 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         : null,
     ),
     questState: cleanQuestState,
+    hiddenQuestIds: Array.isArray(st.hiddenQuestIds)
+      ? st.hiddenQuestIds.filter((id): id is string => typeof id === 'string')
+      : [],
     overlays: isRecord(st.overlays)
       ? {
           cityLabels: Boolean(st.overlays.cityLabels ?? true),

@@ -148,7 +148,10 @@ if (fs.existsSync(viteConfigPath)) {
 }
 
 // 3. Check public/assets/ for accidental uncompressed raw masters
-const assetFiles = walkFiles(PUBLIC_ASSETS_DIR, /\.(jpg|jpeg|png|webp|gif|svg|mp3|m4a|ogg|wav|aac)$/i)
+const assetFiles = walkFiles(
+  PUBLIC_ASSETS_DIR,
+  /\.(jpg|jpeg|png|webp|gif|svg|mp3|m4a|ogg|opus|wav|aac|flac|webm)$/i,
+)
 for (const absAsset of assetFiles) {
   const stat = fs.statSync(absAsset)
   const relAsset = path.relative(ROOT_DIR, absAsset).replace(/\\/g, '/')
