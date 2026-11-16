@@ -974,7 +974,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
   {
     id: QUEST_ID,
     title: '铁锁镇河朔',
-    category: 'city_story',
+    category: 'main_story',
     factionId: 'SECT-23',
     regionId: 'daming',
     recommendedRealm: '二流中品',

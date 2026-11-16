@@ -13,7 +13,7 @@ import {
 const CATEGORY_BADGE: Record<QuestCategoryKey, { label: string; cls: string }> = {
   sect_entry: { label: '宗门入门', cls: 'bg-[#1f4d3b] text-[#e7f7ef]' },
   sect_mission: { label: '师门要务', cls: 'bg-[#781710] text-[#fff3df]' },
-  city_story: { label: '州府风华', cls: 'bg-[#5c3d1e] text-[#fde8c8]' },
+  city_story: { label: '皇祐风云', cls: 'bg-[#8f1d14] text-[#fff8ee]' },
   main_story: { label: '皇祐风云', cls: 'bg-[#8f1d14] text-[#fff8ee]' },
   adventure: { label: '江湖奇遇', cls: 'bg-[#355263] text-[#eef7fc]' },
 }

@@ -63,6 +63,9 @@ const PortraitsTab = lazy(() =>
   import('./tabs/PortraitsTab').then((m) => ({ default: m.PortraitsTab })),
 )
 const QuestsTab = lazy(() => import('./tabs/QuestsTab').then((m) => ({ default: m.QuestsTab })))
+const QuestTreeTab = lazy(() =>
+  import('./tabs/QuestTreeTab').then((m) => ({ default: m.QuestTreeTab })),
+)
 const SaveLoadTab = lazy(() =>
   import('./tabs/SaveLoadTab').then((m) => ({ default: m.SaveLoadTab })),
 )
@@ -669,6 +672,8 @@ export function SystemMenuModal() {
                 )}
 
                 {activeViewKey === 'quests' && <QuestsTab />}
+
+                {activeViewKey === 'questTree' && <QuestTreeTab />}
 
                 {activeViewKey === 'regions' && (
                   <RegionCompendiumPanel

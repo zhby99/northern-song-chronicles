@@ -63,8 +63,17 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     badge: '任务卷宗',
   },
   {
-    key: 'engineering',
+    key: 'questTree',
     numeral: '伍',
+    label: '仕途任务树',
+    seal: '脉',
+    subtitle:
+      '常山枪派 / 沧州八极门 → 开封府六扇门 → 大宋禁军全脉络国策任务图（鼠标悬停检视前置要求、互斥抉择与存档进度）',
+    badge: '国策脉络',
+  },
+  {
+    key: 'engineering',
+    numeral: '陆',
     label: '工程与字典',
     seal: '枢',
     subtitle: `静态资源按需懒加载遥测 + 跨分支标准 ID 字典（${ID_REGISTRY.counts.regions}地 / ${ID_REGISTRY.counts.totalSects}派+${ID_REGISTRY.counts.otherOrganizations}组织 / ${ID_REGISTRY.counts.martialArts}功 / ${ID_REGISTRY.counts.weapons}兵 / ${ID_REGISTRY.counts.mounts}骑 / 180奇珍 / ${ID_REGISTRY.counts.npcs}人）`,
@@ -72,7 +81,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
   },
   {
     key: 'save',
-    numeral: '陆',
+    numeral: '柒',
     label: '存 档',
     seal: '录',
     subtitle: '多槽位 IndexedDB 卷宗持久化（含裸身根基、战斗经验、披挂、武学重数、门派与任务链状态）、手札批注与 JSON 导出',
@@ -80,7 +89,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
   },
   {
     key: 'load',
-    numeral: '柒',
+    numeral: '捌',
     label: '读 档',
     seal: '启',
     subtitle: '读取当前版本卷宗回溯三层空间、披挂武学与剧情任务现场，或从本地导入 .json 存档文件',
@@ -88,7 +97,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
   },
   {
     key: 'settings',
-    numeral: '捌',
+    numeral: '玖',
     label: '设 置',
     seal: '律',
     subtitle: '皇祐雅乐坊（《东京梦华》背景配乐控制）、舆图显示偏好与牌匾标注调校',

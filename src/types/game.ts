@@ -11,6 +11,7 @@ export type MenuTabKey =
   | 'loadout'
   | 'bag'
   | 'quests'
+  | 'questTree'
   | 'engineering'
   | 'save'
   | 'load'
