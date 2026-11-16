@@ -57,6 +57,7 @@
 | :--- | :--- |
 | **全局路线图与待办看板** | `docs/ROADMAP_AND_TODO.md`（每完成一个子里程碑请同步勾选 `[x]`） |
 | **跨会话历史背景交接录** | `docs/HANDOFF_CONTEXT.md`（记录多分支合流脉络与关键设计决策） |
+| **中后期规划与系统思考录** | `docs/DESIGN_NOTES_AND_FUTURE_PLAN.md`（非 Todo 的系统深化构想、经济社交循环与演进参考） |
 | **代码模块与素材全索引** | `PROJECT_GUIDE.md` |
 | **核心机制与公式总纲** | `docs/GAME_MECHANICS.md` |
 | **33 武林门派与 11 组织全典** | `docs/MARTIAL_ARTS_SECTS.md` |
