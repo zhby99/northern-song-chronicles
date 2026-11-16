@@ -58,6 +58,7 @@ const LS_FALLBACK_PREFIX = 'nsc_save_v3_'
 
 let idbPromise: Promise<IDBDatabase> | null = null
 let legacyPurged = false
+const memoryFallbackSaves = new Map<SaveSlotId, string>()
 
 export function purgeLegacySaveDatabases(): void {
   if (legacyPurged) return
@@ -93,22 +94,33 @@ export function purgeLegacySaveDatabases(): void {
 
 function openSaveDatabase(): Promise<IDBDatabase> {
   purgeLegacySaveDatabases()
-  if (typeof indexedDB === 'undefined') {
+  let idbFactory: IDBFactory | undefined
+  try {
+    idbFactory = typeof indexedDB !== 'undefined' ? indexedDB : undefined
+  } catch {
+    idbFactory = undefined
+  }
+  if (!idbFactory) {
     return Promise.reject(new Error('IndexedDB unavailable'))
   }
   if (!idbPromise) {
     idbPromise = new Promise<IDBDatabase>((resolve, reject) => {
-      const req = indexedDB.open(IDB_DB_NAME, IDB_DB_VERSION)
-      req.onupgradeneeded = () => {
-        const db = req.result
-        if (!db.objectStoreNames.contains(IDB_STORE_NAME)) {
-          db.createObjectStore(IDB_STORE_NAME, { keyPath: 'slotId' })
+      try {
+        const req = idbFactory.open(IDB_DB_NAME, IDB_DB_VERSION)
+        req.onupgradeneeded = () => {
+          const db = req.result
+          if (!db.objectStoreNames.contains(IDB_STORE_NAME)) {
+            db.createObjectStore(IDB_STORE_NAME, { keyPath: 'slotId' })
+          }
         }
-      }
-      req.onsuccess = () => resolve(req.result)
-      req.onerror = () => {
+        req.onsuccess = () => resolve(req.result)
+        req.onerror = () => {
+          idbPromise = null
+          reject(req.error ?? new Error('Failed to open IndexedDB'))
+        }
+      } catch (err) {
         idbPromise = null
-        reject(req.error ?? new Error('Failed to open IndexedDB'))
+        reject(err instanceof Error ? err : new Error('IndexedDB open blocked'))
       }
     })
   }
@@ -118,10 +130,13 @@ function openSaveDatabase(): Promise<IDBDatabase> {
 export async function putSaveEnvelope(
   envelope: GameSaveEnvelope,
 ): Promise<'indexeddb' | 'localstorage'> {
+  const serialized = JSON.stringify(envelope)
+  memoryFallbackSaves.set(envelope.slotId, serialized)
+
   try {
-    localStorage.setItem(`${LS_FALLBACK_PREFIX}${envelope.slotId}`, JSON.stringify(envelope))
+    localStorage.setItem(`${LS_FALLBACK_PREFIX}${envelope.slotId}`, serialized)
   } catch {
-    // Ignore localStorage quota warnings when IndexedDB is primary
+    // Ignore localStorage quota / sandbox SecurityError when IndexedDB or memory fallback is used
   }
 
   try {
@@ -155,15 +170,29 @@ export async function getSaveEnvelope(slotId: SaveSlotId): Promise<GameSaveEnvel
       await deleteSaveSlot(slotId)
     }
   } catch {
-    // Fallback to localStorage
+    // Fallback to localStorage / memory
   }
 
   try {
     const raw = localStorage.getItem(`${LS_FALLBACK_PREFIX}${slotId}`)
-    if (!raw) return null
-    const validated = validateSaveEnvelope(JSON.parse(raw))
+    if (raw) {
+      const validated = validateSaveEnvelope(JSON.parse(raw))
+      if (!validated) {
+        localStorage.removeItem(`${LS_FALLBACK_PREFIX}${slotId}`)
+      } else {
+        return validated
+      }
+    }
+  } catch {
+    // Fallback to session memory store
+  }
+
+  const memRaw = memoryFallbackSaves.get(slotId)
+  if (!memRaw) return null
+  try {
+    const validated = validateSaveEnvelope(JSON.parse(memRaw))
     if (!validated) {
-      localStorage.removeItem(`${LS_FALLBACK_PREFIX}${slotId}`)
+      memoryFallbackSaves.delete(slotId)
     }
     return validated
   } catch {
@@ -190,6 +219,7 @@ export async function listAllSaveEnvelopes(): Promise<Record<SaveSlotId, GameSav
 }
 
 export async function deleteSaveSlot(slotId: SaveSlotId): Promise<void> {
+  memoryFallbackSaves.delete(slotId)
   try {
     localStorage.removeItem(`${LS_FALLBACK_PREFIX}${slotId}`)
   } catch {

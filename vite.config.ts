@@ -360,14 +360,27 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 5173,
   },
+  define: isSingleBundle
+    ? {
+        'import.meta.env.BASE_URL': JSON.stringify('/'),
+      }
+    : undefined,
   build: isSingleBundle
     ? {
         outDir: 'dist-artifact',
-        chunkSizeWarningLimit: 3000,
+        emptyOutDir: true,
+        copyPublicDir: false,
+        modulePreload: false,
+        chunkSizeWarningLimit: 8000,
         cssCodeSplit: false,
-        rollupOptions: {
+        rolldownOptions: {
+          transform: {
+            define: {
+              'import.meta': '{}',
+            },
+          },
           output: {
-            inlineDynamicImports: true,
+            codeSplitting: false,
             format: 'iife',
             name: 'NorthernSongApp',
           },

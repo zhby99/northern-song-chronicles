@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { evaluateQuestCondition, resolveStorySpeaker } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
+import { resolveAssetUrl } from '../../utils/assetLoader'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 export function StorySceneModal() {
@@ -166,7 +167,7 @@ export function StorySceneModal() {
           <div className="relative w-[min(94vw,1170px,calc((100vh-16rem)*16/9))] aspect-video rounded-xl overflow-hidden border-2 border-[#c89d54]/90 bg-[#1b120b]/95 shadow-[0_20px_50px_rgba(0,0,0,0.85)] flex items-center justify-center">
             {!illustrationFailed ? (
               <img
-                src={activeIllustrationUrl}
+                src={resolveAssetUrl(activeIllustrationUrl)}
                 alt={activeIllustrationCaption}
                 onError={() => setFailedImgUrl(activeIllustrationUrl)}
                 className="w-full h-full object-cover"

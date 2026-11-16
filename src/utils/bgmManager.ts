@@ -3,6 +3,7 @@ import audioManifest, { type VirtualAudioTrackEntry } from 'virtual:audio-manife
 import { REGION_DB_MAP } from '../data/gameDb'
 import type { ViewMode } from '../types/game'
 import {
+  getPackedAssetArrayBuffer,
   recordAssetLoaded,
   registerIdleAudioPurger,
   reportAudioBufferTelemetry,
@@ -545,11 +546,16 @@ function fetchAndDecodeBuffer(item: BgmPlaylistItem): Promise<AudioBuffer> {
     pcmBytes: 0,
   }
 
-  entry.promise = fetch(resolveAssetUrl(item.url))
-    .then((res) => {
+  const rawBytesPromise: Promise<ArrayBuffer> = (() => {
+    const packedBuf = getPackedAssetArrayBuffer(item.url)
+    if (packedBuf) return Promise.resolve(packedBuf)
+    return fetch(resolveAssetUrl(item.url)).then((res) => {
       if (!res.ok) throw new Error(`HTTP ${res.status} loading ${item.url}`)
       return res.arrayBuffer()
     })
+  })()
+
+  entry.promise = rawBytesPromise
     .then((arr) => ctx.decodeAudioData(arr))
     .then((audioBuf) => {
       entry.pcmBytes = audioBuf.length * audioBuf.numberOfChannels * 4

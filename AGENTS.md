@@ -39,13 +39,15 @@
    - 世界观与数值设定位于 `docs/GAME_MECHANICS.md`、`docs/MARTIAL_ARTS_SECTS.md`、`docs/MARTIAL_ARTS_COMPENDIUM.md`、`docs/MARTIAL_ARTS_STATS.md`、`docs/EQUIPMENT_COMPENDIUM.md`、`docs/REGIONAL_MAPS_AND_BUILDINGS.md`、`docs/CHARACTER_COMPENDIUM.md`。
    - 批量调整设定或新增字段时，优先更新对应 Markdown 与 `scripts/compile_game_db.py`，运行 `npm run build:db` 重新生成 `src/data/*.json`，**切勿手改大型生成产物 JSON 导致下次编译被覆盖**。
    - 新增任何地区、门派、建筑、武学或人物引用时，必须严格对齐 `src/data/idRegistry.json` 中的标准 ID（如宋辽夏 24 城统一使用三字府名：`开封府`、`洛阳府`、`广州府`、`秦州府`、`析津府`、`辽阳府`、`兴庆府` 等）。
-3. **美术与静态资源规范**：
-   - **严禁在 `.ts/.tsx/.json` 代码中内嵌 Base64 图片字符串**；所有运行时图片与音频统一放入 `public/assets/{regions,buildings,characters,audio}/`，按需懒加载。
+3. **美术与静态资源规范（含单文件离线包兼容铁律）**：
+   - **严禁在 `.ts/.tsx/.json` 代码中内嵌 Base64 图片字符串**；所有运行时图片与音频统一放入 `public/assets/{regions,buildings,characters,items,quests,audio}/`（未压缩母版统一归档于 `assets_raw_masters/`），按需懒加载。
+   - **静态路径严禁裸绑**：组件渲染任何 `/assets/...` 图片时必须走 `<ManagedAssetImg>`、`<CutoutPortraitImg>`、`useLazyImage()` 或 `resolveAssetUrl()`（切勿直接写 `<img src={rawUrl} />` 或在 CSS 中写 `url(/assets/...)`）；访问 `localStorage` / `indexedDB` 必须包裹 `try/catch`，确保 `npm run build:artifact` 生成的单文件 HTML 在 `file://` 与严格沙箱预览下 100% 正常可玩。
    - 若用户要求新生成全景图或角色立绘，**严禁使用 PIL/Canvas/SVG 脚本程序化伪造、镜像复用或裁剪拼贴原画**，必须遵循 `.agents/skills/panorama-artist/SKILL.md` 与 `.agents/skills/portrait-artist/SKILL.md` 规范逐张调用 `generate_image`。
 4. **存档状态同步（开发期轻装迭代）**：
    - 修改 `src/store/useGameStore.ts` 中的核心状态字段时，同步更新 `src/types/game.ts` 中的 `SerializableGameState` 与 `src/utils/saveManager.ts` 中的当前版本校验；当前开发阶段**无需维护旧版本历史存档向后兼容迁移代码**，数据结构大改时直接递增 `CURRENT_SAVE_SCHEMA_VERSION` 即可。
-5. **代码质量校验**：
-   - 每次完成功能修改后，运行 `npm run lint`（`oxlint`）与 `npm run build`（`tsc -b && vite build`）确保零类型错误、零 Lint 警告。
+5. **代码质量与单文件包防回归校验**：
+   - 每次完成功能修改后，运行 `npm run lint`（含 `oxlint` + `check_artifact_guardrails.mjs` 静态防回归护栏）与 `npm run build`（`tsc -b && vite build`）确保零类型错误、零 Lint 警告、零裸资源路径违规。
+   - 若修改了构建配置、资源加载器（`assetLoader.ts` / `bgmManager.ts` / `saveManager.ts`）或大批量新增素材，同步运行 `npm run build:artifact && npm run verify:artifact` 执行无头浏览器双模式（`file://` + 严格 CSP 沙箱）端到端冒烟验证。
 
 ---
 

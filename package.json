@@ -9,9 +9,10 @@
     "normalize:docs": "node scripts/run_py.mjs scripts/compile_game_db.py --normalize-docs",
     "build": "tsc -b && vite build",
     "build:artifact": "node scripts/build_preview_artifact.mjs",
+    "verify:artifact": "node scripts/verify_artifact_smoke.mjs",
     "archive:masters": "node scripts/run_py.mjs scripts/archive_all_branch_assets.py",
     "verify:quests": "node scripts/verify_quests.mjs",
-    "lint": "oxlint",
+    "lint": "oxlint && node scripts/check_artifact_guardrails.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

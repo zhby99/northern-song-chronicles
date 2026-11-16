@@ -157,16 +157,90 @@ export function peekManagedAssetUrl(url: string | null | undefined): string | nu
   return managedAssets.get(url)?.objectUrl ?? null
 }
 
+/** [shardIdx, startOffset, charLength, mimeType] */
+export type PackedAssetShardTuple = [number, number, number, string]
+
 declare global {
   interface Window {
     __NSC_ASSET_PACK__?: Record<string, string>
+    __NSC_ASSET_INDEX__?: Record<string, PackedAssetShardTuple>
   }
+}
+
+function readPackedAssetSlice(url: string): { base64: string; mime: string } | null {
+  if (!url || typeof window === 'undefined' || typeof document === 'undefined') return null
+
+  const index = window.__NSC_ASSET_INDEX__
+  if (index) {
+    let tuple = index[url]
+    if (!tuple && url.includes('%')) {
+      try {
+        tuple = index[decodeURIComponent(url)]
+      } catch {
+        // ignore malformed URI component
+      }
+    }
+    if (tuple) {
+      const [shardIdx, start, len, mime] = tuple
+      const shardEl = document.getElementById(`nsc-shard-${shardIdx}`)
+      const rawText = shardEl?.textContent
+      if (rawText && start >= 0 && start + len <= rawText.length) {
+        return { base64: rawText.slice(start, start + len), mime }
+      }
+    }
+  }
+
+  const legacyPack = window.__NSC_ASSET_PACK__
+  if (legacyPack) {
+    let dataUri = legacyPack[url]
+    if (!dataUri && url.includes('%')) {
+      try {
+        dataUri = legacyPack[decodeURIComponent(url)]
+      } catch {
+        // ignore
+      }
+    }
+    if (dataUri) {
+      const m = /^data:([^;]+);base64,([\s\S]+)$/.exec(dataUri)
+      if (m) return { mime: m[1], base64: m[2] }
+    }
+  }
+
+  return null
+}
+
+export function getPackedAssetDataUrl(url: string): string | undefined {
+  const slice = readPackedAssetSlice(url)
+  if (slice) {
+    return `data:${slice.mime};base64,${slice.base64}`
+  }
+  if (typeof window !== 'undefined' && window.__NSC_ASSET_PACK__?.[url]) {
+    return window.__NSC_ASSET_PACK__[url]
+  }
+  return undefined
+}
+
+/**
+ * Decodes an embedded artifact asset directly into an `ArrayBuffer` without calling `fetch()`,
+ * avoiding both duplicate `data:` URL memory copies and strict sandbox `connect-src` CSP blocks.
+ */
+export function getPackedAssetArrayBuffer(url: string): ArrayBuffer | null {
+  const slice = readPackedAssetSlice(url)
+  if (!slice || typeof atob !== 'function') return null
+  const bin = atob(slice.base64)
+  const len = bin.length
+  const bytes = new Uint8Array(len)
+  for (let i = 0; i < len; i += 1) {
+    bytes[i] = bin.charCodeAt(i)
+  }
+  return bytes.buffer
 }
 
 export function resolveAssetUrl(url: string): string {
   if (!url) return url
-  if (typeof window !== 'undefined' && window.__NSC_ASSET_PACK__?.[url]) {
-    return window.__NSC_ASSET_PACK__[url]
+  const packed = getPackedAssetDataUrl(url)
+  if (packed) {
+    return packed
   }
   const base = import.meta?.env?.BASE_URL
   if (base && base !== '/' && url.startsWith('/')) {
@@ -231,24 +305,30 @@ function loadManagedEntry(url: string): Promise<ManagedAssetEntry> {
   if (existingInflight) return existingInflight
 
   const promise = (async (): Promise<ManagedAssetEntry> => {
-    const packed = typeof window !== 'undefined' ? window.__NSC_ASSET_PACK__?.[url] : undefined
+    const packedSlice = readPackedAssetSlice(url)
     const fallbackBytes = assetBytesIndex.get(url) ?? 115000
 
     let objectUrl: string
     let isBlobUrl = false
     let bytes = fallbackBytes
 
-    if (packed) {
-      objectUrl = packed
+    if (packedSlice) {
+      objectUrl = `data:${packedSlice.mime};base64,${packedSlice.base64}`
+      bytes = Math.floor((packedSlice.base64.length * 3) / 4) || fallbackBytes
     } else {
-      const res = await fetch(resolveAssetUrl(url))
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status} loading asset ${url}`)
+      const legacyPacked = getPackedAssetDataUrl(url)
+      if (legacyPacked) {
+        objectUrl = legacyPacked
+      } else {
+        const res = await fetch(resolveAssetUrl(url))
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} loading asset ${url}`)
+        }
+        const blob = await res.blob()
+        bytes = blob.size || fallbackBytes
+        objectUrl = URL.createObjectURL(blob)
+        isBlobUrl = true
       }
-      const blob = await res.blob()
-      bytes = blob.size || fallbackBytes
-      objectUrl = URL.createObjectURL(blob)
-      isBlobUrl = true
     }
 
     const initialRefs = pendingRefCounts.get(url) ?? 0

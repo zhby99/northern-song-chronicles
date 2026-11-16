@@ -1,0 +1,51 @@
+name: CI & Single-File Artifact Guard
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Set up Python & Pillow & FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg chromium-browser || sudo apt-get install -y ffmpeg google-chrome-stable || true
+          python3 -m pip install --user Pillow || pip install Pillow
+
+      - name: Install npm dependencies
+        run: npm ci
+
+      - name: Cache artifact asset pack
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/nsc-artifact-pack
+          key: nsc-artifact-pack-${{ hashFiles('scripts/optimize_artifact_assets.py', 'public/assets/**') }}
+          restore-keys: |
+            nsc-artifact-pack-
+
+      - name: Lint & Static Artifact Guardrails
+        run: npm run lint
+
+      - name: Quest Static Validation
+        run: npm run verify:quests
+
+      - name: TypeScript & Production Multi-Chunk Build
+        run: npm run build
+
+      - name: Build Single-File Offline HTML Artifact
+        run: npm run build:artifact
+
+      - name: Verify Single-File Artifact (Structure + Headless Browser E2E)
+        run: npm run verify:artifact
