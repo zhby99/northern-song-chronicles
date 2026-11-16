@@ -48,7 +48,7 @@ const SPEAKER_BLIND_OLD_MAN: StorySpeakerSpec = {
   name: '张老伯',
   title: '盲眼卖唱老汉',
   factionName: '市井百姓',
-  portraitUrl: '/assets/characters/templates/tpl_song_physician_fb.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_peasant_old_male_fb.jpg',
 }
 
 const SPEAKER_BULLY_HUSAN: StorySpeakerSpec = {
@@ -65,8 +65,8 @@ const SPEAKER_REFUGEE_MOTHER: StorySpeakerSpec = {
   name: '陈氏与小囡囡',
   title: '京东逃荒孤寡母女',
   factionName: '流民百姓',
-  portraitUrl: '/assets/characters/templates/tpl_baicao_female_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_baicao_female_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_peasant_old_female_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_peasant_old_female_av.jpg',
 }
 
 const SPEAKER_OVERSEER: StorySpeakerSpec = {

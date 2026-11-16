@@ -19,7 +19,8 @@ const SPEAKER_BLIND_MASON: StorySpeakerSpec = {
   name: '孙老石匠',
   title: '泰安护碑老刻工',
   factionName: '齐鲁百姓',
-  portraitUrl: '/assets/characters/templates/tpl_song_physician_fb.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_peasant_old_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_peasant_old_male_av.jpg',
 }
 
 const SPEAKER_DIAO_HENGHU: StorySpeakerSpec = {

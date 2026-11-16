@@ -1422,7 +1422,7 @@ const SCENE_03_EMPRESS_CAO_COUNSEL: StorySceneDef = {
       text: '（抬眸望向玉阶之下神色沉稳的少侠，眼中既有武门名将之孙的锐利决断，又藏着为妻为后的万般牵挂）“官家主意已定，九头牛也拉不回。太湖那一战你的本事我与包卿皆已听闻，今日我不要你带三百铁甲弄得满城惊疑，只把大宋江山这半壁重担托付给你手中那一口剑。”',
     },
     {
-      speaker: { kind: 'custom', name: '张茂则', title: '内侍省都知 · 贴身老内官', factionName: '大宋朝廷', portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg' },
+      speaker: { kind: 'custom', name: '张茂则', title: '内侍省都知 · 贴身老内官', factionName: '大宋朝廷', portraitUrl: '/assets/characters/templates/tpl_eunuch_male_fb.jpg' },
       text: '（捧着一套微服常服青袍上前替官家更换，声音尖细却沉定老练）“娘娘与奴婢都已照办了：皇城司韦青衣韦都知率暗卫守住外郭各处暗门与水闸；展护卫领空车伪作圣驾出东华门赏灯诱敌；真正的微服路线，唯有今天紫宸殿这几位知情！”',
     },
     {

@@ -4087,6 +4087,26 @@
       "bytes": 222140
     },
     {
+      "id": "tpl_child_boy_av",
+      "url": "/assets/characters/templates/tpl_child_boy_av.jpg",
+      "bytes": 53982
+    },
+    {
+      "id": "tpl_child_boy_fb",
+      "url": "/assets/characters/templates/tpl_child_boy_fb.jpg",
+      "bytes": 207409
+    },
+    {
+      "id": "tpl_child_girl_av",
+      "url": "/assets/characters/templates/tpl_child_girl_av.jpg",
+      "bytes": 47536
+    },
+    {
+      "id": "tpl_child_girl_fb",
+      "url": "/assets/characters/templates/tpl_child_girl_fb.jpg",
+      "bytes": 129607
+    },
+    {
       "id": "tpl_dali_prince_fb",
       "url": "/assets/characters/templates/tpl_dali_prince_fb.jpg",
       "bytes": 932812
@@ -4125,6 +4145,16 @@
       "id": "tpl_emei_male_fb",
       "url": "/assets/characters/templates/tpl_emei_male_fb.jpg",
       "bytes": 193474
+    },
+    {
+      "id": "tpl_eunuch_male_av",
+      "url": "/assets/characters/templates/tpl_eunuch_male_av.jpg",
+      "bytes": 41069
+    },
+    {
+      "id": "tpl_eunuch_male_fb",
+      "url": "/assets/characters/templates/tpl_eunuch_male_fb.jpg",
+      "bytes": 116508
     },
     {
       "id": "tpl_gaibang_av",
@@ -4232,9 +4262,24 @@
       "bytes": 253609
     },
     {
+      "id": "tpl_jinjun_female_av",
+      "url": "/assets/characters/templates/tpl_jinjun_female_av.jpg",
+      "bytes": 62722
+    },
+    {
       "id": "tpl_jinjun_female_fb",
       "url": "/assets/characters/templates/tpl_jinjun_female_fb.jpg",
       "bytes": 195476
+    },
+    {
+      "id": "tpl_jinjun_male_av",
+      "url": "/assets/characters/templates/tpl_jinjun_male_av.jpg",
+      "bytes": 63645
+    },
+    {
+      "id": "tpl_jinjun_male_fb",
+      "url": "/assets/characters/templates/tpl_jinjun_male_fb.jpg",
+      "bytes": 155104
     },
     {
       "id": "tpl_khitan_warrior_fb",
@@ -4322,6 +4367,26 @@
       "bytes": 291545
     },
     {
+      "id": "tpl_peasant_old_female_av",
+      "url": "/assets/characters/templates/tpl_peasant_old_female_av.jpg",
+      "bytes": 60177
+    },
+    {
+      "id": "tpl_peasant_old_female_fb",
+      "url": "/assets/characters/templates/tpl_peasant_old_female_fb.jpg",
+      "bytes": 155634
+    },
+    {
+      "id": "tpl_peasant_old_male_av",
+      "url": "/assets/characters/templates/tpl_peasant_old_male_av.jpg",
+      "bytes": 72437
+    },
+    {
+      "id": "tpl_peasant_old_male_fb",
+      "url": "/assets/characters/templates/tpl_peasant_old_male_fb.jpg",
+      "bytes": 169356
+    },
+    {
       "id": "tpl_qiantang_male_av",
       "url": "/assets/characters/templates/tpl_qiantang_male_av.jpg",
       "bytes": 103635
@@ -4350,6 +4415,16 @@
       "id": "tpl_qingcheng_female_fb",
       "url": "/assets/characters/templates/tpl_qingcheng_female_fb.jpg",
       "bytes": 215788
+    },
+    {
+      "id": "tpl_ronin_pirate_av",
+      "url": "/assets/characters/templates/tpl_ronin_pirate_av.jpg",
+      "bytes": 76135
+    },
+    {
+      "id": "tpl_ronin_pirate_fb",
+      "url": "/assets/characters/templates/tpl_ronin_pirate_fb.jpg",
+      "bytes": 146545
     },
     {
       "id": "tpl_sanren_female_av",
@@ -4540,6 +4615,16 @@
       "id": "tpl_woman_general_fb",
       "url": "/assets/characters/templates/tpl_woman_general_fb.jpg",
       "bytes": 995382
+    },
+    {
+      "id": "tpl_wooden_dummy_av",
+      "url": "/assets/characters/templates/tpl_wooden_dummy_av.jpg",
+      "bytes": 65070
+    },
+    {
+      "id": "tpl_wooden_dummy_fb",
+      "url": "/assets/characters/templates/tpl_wooden_dummy_fb.jpg",
+      "bytes": 183643
     },
     {
       "id": "tpl_wudang_av",

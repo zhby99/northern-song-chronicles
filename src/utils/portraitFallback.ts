@@ -31,12 +31,18 @@ const KNOWN_AVATAR_COUNTERPARTS: Record<string, string> = {
     '/assets/characters/templates/tpl_chaquan_female_av.jpg',
   '/assets/characters/templates/tpl_chaquan_male_fb.jpg':
     '/assets/characters/templates/tpl_chaquan_male_av.jpg',
+  '/assets/characters/templates/tpl_child_boy_fb.jpg':
+    '/assets/characters/templates/tpl_child_boy_av.jpg',
+  '/assets/characters/templates/tpl_child_girl_fb.jpg':
+    '/assets/characters/templates/tpl_child_girl_av.jpg',
   '/assets/characters/templates/tpl_dali_royal_male_fb.jpg':
     '/assets/characters/templates/tpl_dali_royal_male_av.jpg',
   '/assets/characters/templates/tpl_emei_female_fb.jpg':
     '/assets/characters/templates/tpl_emei_female_av.jpg',
   '/assets/characters/templates/tpl_emei_male_fb.jpg':
     '/assets/characters/templates/tpl_emei_male_av.jpg',
+  '/assets/characters/templates/tpl_eunuch_male_fb.jpg':
+    '/assets/characters/templates/tpl_eunuch_male_av.jpg',
   '/assets/characters/templates/tpl_gaibang_fb.jpg':
     '/assets/characters/templates/tpl_gaibang_av.jpg',
   '/assets/characters/templates/tpl_gaibang_female_fb.jpg':
@@ -57,6 +63,10 @@ const KNOWN_AVATAR_COUNTERPARTS: Record<string, string> = {
     '/assets/characters/templates/tpl_jindaomen_male_av.jpg',
   '/assets/characters/templates/tpl_jinhuan_male_fb.jpg':
     '/assets/characters/templates/tpl_jinhuan_male_av.jpg',
+  '/assets/characters/templates/tpl_jinjun_female_fb.jpg':
+    '/assets/characters/templates/tpl_jinjun_female_av.jpg',
+  '/assets/characters/templates/tpl_jinjun_male_fb.jpg':
+    '/assets/characters/templates/tpl_jinjun_male_av.jpg',
   '/assets/characters/templates/tpl_liao_court_male_fb.jpg':
     '/assets/characters/templates/tpl_liao_court_male_av.jpg',
   '/assets/characters/templates/tpl_liao_spy_female_fb.jpg':
@@ -73,12 +83,18 @@ const KNOWN_AVATAR_COUNTERPARTS: Record<string, string> = {
     '/assets/characters/templates/tpl_murong_male_av.jpg',
   '/assets/characters/templates/tpl_nanshaolin_male_fb.jpg':
     '/assets/characters/templates/tpl_nanshaolin_male_av.jpg',
+  '/assets/characters/templates/tpl_peasant_old_female_fb.jpg':
+    '/assets/characters/templates/tpl_peasant_old_female_av.jpg',
+  '/assets/characters/templates/tpl_peasant_old_male_fb.jpg':
+    '/assets/characters/templates/tpl_peasant_old_male_av.jpg',
   '/assets/characters/templates/tpl_qiantang_male_fb.jpg':
     '/assets/characters/templates/tpl_qiantang_male_av.jpg',
   '/assets/characters/templates/tpl_qingcheng_fb.jpg':
     '/assets/characters/templates/tpl_qingcheng_av.jpg',
   '/assets/characters/templates/tpl_qingcheng_female_fb.jpg':
     '/assets/characters/templates/tpl_qingcheng_female_av.jpg',
+  '/assets/characters/templates/tpl_ronin_pirate_fb.jpg':
+    '/assets/characters/templates/tpl_ronin_pirate_av.jpg',
   '/assets/characters/templates/tpl_sanren_female_fb.jpg':
     '/assets/characters/templates/tpl_sanren_female_av.jpg',
   '/assets/characters/templates/tpl_sanren_male_fb.jpg':
@@ -109,6 +125,8 @@ const KNOWN_AVATAR_COUNTERPARTS: Record<string, string> = {
     '/assets/characters/templates/tpl_tubo_esoteric_male_av.jpg',
   '/assets/characters/templates/tpl_tubo_tribes_male_fb.jpg':
     '/assets/characters/templates/tpl_tubo_tribes_male_av.jpg',
+  '/assets/characters/templates/tpl_wooden_dummy_fb.jpg':
+    '/assets/characters/templates/tpl_wooden_dummy_av.jpg',
   '/assets/characters/templates/tpl_wudang_fb.jpg':
     '/assets/characters/templates/tpl_wudang_av.jpg',
   '/assets/characters/templates/tpl_wudang_female_fb.jpg':
@@ -145,6 +163,14 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
   const nameAndTitle = `${meta.name ?? ''} ${meta.title ?? ''}`
   const combined = `${nameAndTitle} ${meta.factionName ?? ''}`
 
+  // 0. 机关木人与东洋浪人海寇（优先于佛门/邪派匹配）
+  if (/木人|机关傀儡/.test(combined)) {
+    return '/assets/characters/templates/tpl_wooden_dummy_fb.jpg'
+  }
+  if (/浪人|倭寇|东洋|扶桑|鬼丸/.test(combined)) {
+    return '/assets/characters/templates/tpl_ronin_pirate_fb.jpg'
+  }
+
   // 1. 佛门僧侣（先排除带发护寺俗家弟子）
   if (/俗家/.test(combined) && /少林|南少林|佛/.test(combined)) {
     return '/assets/characters/templates/tpl_hongmen_male_fb.jpg'
@@ -164,7 +190,7 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
     return '/assets/characters/templates/tpl_taoist_master_fb.jpg'
   }
 
-  // 3. 女性角色（女将、女教头、女尼、老母妇人、女侠、医女）——严禁落入男游侠默认项
+  // 3. 女性角色（女将、女教头、女尼、老母妇人、女童、女侠、医女）——严禁落入男游侠默认项
   if (/禁军.*女|女教头/.test(combined)) {
     return '/assets/characters/templates/tpl_jinjun_female_fb.jpg'
   }
@@ -177,8 +203,14 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
   if (/师太|女尼|庵|峨眉/.test(combined) && !/男|儿郎|俗家男/.test(combined)) {
     return '/assets/characters/templates/tpl_emei_female_fb.jpg'
   }
+  if (/小草|阿珠|囡囡|小女孩|女童|幼女/.test(nameAndTitle) && !/陈氏|婆婆|老母|妇人/.test(nameAndTitle)) {
+    return '/assets/characters/templates/tpl_child_girl_fb.jpg'
+  }
+  if (/婆婆|老妇|老母|母亲|老妪|遗孀|遗眷|逃荒.*母|陈氏/.test(nameAndTitle)) {
+    return '/assets/characters/templates/tpl_peasant_old_female_fb.jpg'
+  }
   if (/姥姥|婆婆|老妇|老母|母亲|老妪|遗孀|遗眷|妇人|母女|夫人|居士|医女|姑姑|姑娘|小姐|女侠|女子|侍女|渔家女|孤女/.test(combined)) {
-    if (/百草|药|医|姥姥|婆婆|老妇|老母|母亲|老妪|遗孀|遗眷|母女|居士/.test(combined)) {
+    if (/百草|药|医|姥姥|居士/.test(combined)) {
       return '/assets/characters/templates/tpl_baicao_female_fb.jpg'
     }
     return '/assets/characters/templates/tpl_sanren_female_fb.jpg'
@@ -188,13 +220,13 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
   if (/艄公|船夫|船老大|船头|老船户|老船工|舵手|水手|漕帮|钱塘|渔/.test(nameAndTitle)) {
     return '/assets/characters/templates/tpl_caobang_fb.jpg'
   }
-  if (/老石匠|老刻工|老药农|药农|老农|老茶商|老绸商|老酒保|老伯|老汉|老丈|老人|老者|遗老|周伯/.test(nameAndTitle)) {
-    return '/assets/characters/templates/tpl_song_physician_fb.jpg'
+  if (/老石匠|老刻工|老药农|药农|老农|老茶商|老绸商|老酒保|老伯|老汉|老丈|老人|老者|遗老|周伯|陈默/.test(nameAndTitle)) {
+    return '/assets/characters/templates/tpl_peasant_old_male_fb.jpg'
   }
 
-  // 5. 稚龄孩童、采药山童、守谱少年（使用布衣竹篓无须少年模板，避免变成络腮胡佩剑大汉）
-  if (/小石锁|阿蝉|山童|药童|小童|童子|守谱少年|短工少年|七岁/.test(nameAndTitle)) {
-    return '/assets/characters/templates/tpl_baicao_male_fb.jpg'
+  // 5. 稚龄孩童、采药山童、守谱少年（使用市井牧童模板，避免变成络腮胡佩剑大汉）
+  if (/小石锁|小石子|阿石|阿蝉|山童|药童|小童|童子|守谱少年|短工少年|七岁/.test(nameAndTitle)) {
+    return '/assets/characters/templates/tpl_child_boy_fb.jpg'
   }
 
   // 6. 北朝契丹 / 大辽 / 乌桓军将与密使（细分为掌符朝臣、潜伏暗桩与铁林重骑）
@@ -224,8 +256,11 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
     return '/assets/characters/templates/tpl_murong_male_fb.jpg'
   }
 
-  // 9. 朝廷文官、台谏御史、内侍宦官、儒生、商贾、账房
-  if (/知府|知州|知县|相公|大人|学士|御史|言官|正言|谏院|宪臣|副使|涉案官|勾当公事|内侍|内官|押班|员外|书生|儒|掌柜|丝商|茶商|商帮|算盘|账房|醒客|说书|文士/.test(combined)) {
+  // 9. 内侍省无须宦官 vs 朝廷文官、台谏御史、儒生、商贾、账房
+  if (/内侍|内官|宦官|押班|司礼监|茂则|守忠/.test(combined)) {
+    return '/assets/characters/templates/tpl_eunuch_male_fb.jpg'
+  }
+  if (/知府|知州|知县|相公|大人|学士|御史|言官|正言|谏院|宪臣|副使|涉案官|勾当公事|员外|书生|儒|掌柜|丝商|茶商|商帮|算盘|账房|醒客|说书|文士/.test(combined)) {
     return '/assets/characters/templates/tpl_song_scholar_fb.jpg'
   }
 
@@ -238,8 +273,11 @@ export function inferTemplatePortrait(meta: PortraitInferenceMeta): string {
   if (/老卒|退伍老兵|老塘骑|押纲副指挥|三衙叛校|镖师|镖头|总镖头|驿使/.test(combined)) {
     return '/assets/characters/templates/tpl_zhenyuan_male_fb.jpg'
   }
-  if (/禁军|军卒|虎翼|殿前司|队正|军邮|快骑|巡卒|军汉|校尉|统制|百夫长|什长|天波|常山/.test(combined)) {
+  if (/常山|天波/.test(combined) && !/禁军|虎翼|殿前司/.test(combined)) {
     return '/assets/characters/templates/tpl_changshan_male_fb.jpg'
+  }
+  if (/禁军|军卒|虎翼|殿前司|队正|军邮|快骑|巡卒|军汉|校尉|统制|百夫长|什长/.test(combined)) {
+    return '/assets/characters/templates/tpl_jinjun_male_fb.jpg'
   }
 
   // 12. 官差捕快、六扇门、开封府探马、皇城司

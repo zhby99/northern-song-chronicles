@@ -2041,7 +2041,7 @@ SECT_GENDERED_TEMPLATES: dict[tuple[str, str], tuple[str, str]] = {
     ("SECT-31", "女"): ("/assets/characters/templates/tpl_liao_spy_female_fb.jpg", "/assets/characters/templates/tpl_liao_spy_female_av.jpg"),
     ("SECT-32", "男"): ("/assets/characters/templates/tpl_tubo_esoteric_male_fb.jpg", "/assets/characters/templates/tpl_tubo_esoteric_male_av.jpg"),
     ("SECT-32", "女"): ("/assets/characters/templates/tpl_tubo_esoteric_female_fb.jpg", "/assets/characters/templates/tpl_tubo_esoteric_female_av.jpg"),
-    ("SECT-33", "男"): ("/assets/characters/templates/tpl_changshan_male_fb.jpg", "/assets/characters/templates/tpl_changshan_male_av.jpg"),
+    ("SECT-33", "男"): ("/assets/characters/templates/tpl_jinjun_male_fb.jpg", "/assets/characters/templates/tpl_jinjun_male_av.jpg"),
     ("SECT-33", "女"): ("/assets/characters/templates/tpl_jinjun_female_fb.jpg", "/assets/characters/templates/tpl_jinjun_female_av.jpg"),
     ("ORG-06", "男"): ("/assets/characters/templates/tpl_liao_court_male_fb.jpg", "/assets/characters/templates/tpl_liao_court_male_av.jpg"),
     ("ORG-07", "男"): ("/assets/characters/templates/tpl_xixia_court_male_fb.jpg", "/assets/characters/templates/tpl_xixia_court_male_av.jpg"),

@@ -34,8 +34,8 @@ const SPEAKER_XIAOSHIZI: StorySpeakerSpec = {
   name: '小石子',
   title: '延州逃荒短工少年',
   factionName: '同期杂役',
-  portraitUrl: '/assets/characters/templates/tpl_baicao_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_baicao_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_child_boy_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_child_boy_av.jpg',
 }
 
 const SPEAKER_XIAOSHIZI_SECT: StorySpeakerSpec = {

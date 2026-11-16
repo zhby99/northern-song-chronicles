@@ -30,7 +30,7 @@ const SPEAKER_HERB_FARMER: StorySpeakerSpec = {
   name: '周老药农',
   title: '灌县采药山民',
   factionName: '巴蜀百姓',
-  portraitUrl: '/assets/characters/templates/tpl_song_physician_fb.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_peasant_old_male_fb.jpg',
 }
 
 const SPEAKER_QC_BULLY: StorySpeakerSpec = {

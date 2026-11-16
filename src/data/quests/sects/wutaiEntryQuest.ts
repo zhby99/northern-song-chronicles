@@ -15,8 +15,8 @@ const SPEAKER_XIAO_SHISUO: StorySpeakerSpec = {
   name: '小石锁',
   title: '雁门神武村 · 铁匠七岁遗孤',
   factionName: '边关遗孤',
-  portraitUrl: '/assets/characters/templates/tpl_baicao_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_baicao_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_child_boy_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_child_boy_av.jpg',
 }
 
 const SPEAKER_SHI_BAILIAN: StorySpeakerSpec = {

@@ -53,8 +53,8 @@ const SPEAKER_AZHU: StorySpeakerSpec = {
   name: '阿珠',
   title: '刺桐港采药渔家女',
   factionName: '泉州渔户',
-  portraitUrl: '/assets/characters/templates/tpl_baicao_female_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_baicao_female_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_child_girl_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_child_girl_av.jpg',
 }
 
 const SPEAKER_SHAPILIU: StorySpeakerSpec = {
@@ -71,8 +71,8 @@ const SPEAKER_ONIMARU: StorySpeakerSpec = {
   name: '鬼丸甚内',
   title: '北朝暗桩雇募 · 东洋浪人刀头',
   factionName: '黑鲨海寇',
-  portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_ronin_pirate_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_ronin_pirate_av.jpg',
 }
 
 const SPEAKER_WOODEN_DUMMY: StorySpeakerSpec = {
@@ -80,8 +80,8 @@ const SPEAKER_WOODEN_DUMMY: StorySpeakerSpec = {
   name: '九莲镇门铜皮木人',
   title: '百杰木人巷 · 第十二尊守关机关',
   factionName: '莆田南少林',
-  portraitUrl: '/assets/characters/templates/tpl_nanshaolin_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_nanshaolin_male_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_wooden_dummy_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_wooden_dummy_av.jpg',
 }
 
 function buildHongchanSparNpc(): NodeNpc {
@@ -187,8 +187,8 @@ function buildWoodenDummyGuardianNpc(): NodeNpc {
     realm: '三流下品',
     factionId: 'SECT-04',
     factionName: '莆田南少林',
-    avatarUrl: '/assets/characters/templates/tpl_nanshaolin_male_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_nanshaolin_male_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_wooden_dummy_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_wooden_dummy_fb.jpg',
     stats: {
       hp: 285,
       mp: 120,

@@ -33,7 +33,8 @@ const SPEAKER_HERB_FARMER: StorySpeakerSpec = {
   name: '周药农',
   title: '汉水采药老汉',
   factionName: '市井百姓',
-  portraitUrl: '/assets/characters/templates/tpl_song_physician_fb.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_peasant_old_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_peasant_old_male_av.jpg',
 }
 
 const SPEAKER_BOAT_OWNER: StorySpeakerSpec = {
@@ -50,8 +51,8 @@ const SPEAKER_PILGRIM_GRANNY: StorySpeakerSpec = {
   name: '孙婆婆与小茴',
   title: '赴武当还愿祖孙',
   factionName: '荆襄香客',
-  portraitUrl: '/assets/characters/templates/tpl_baicao_female_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_baicao_female_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_peasant_old_female_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_peasant_old_female_av.jpg',
 }
 
 const SPEAKER_OLD_FARMER: StorySpeakerSpec = {
@@ -59,7 +60,8 @@ const SPEAKER_OLD_FARMER: StorySpeakerSpec = {
   name: '陈老丈',
   title: '均州求签老农',
   factionName: '市井百姓',
-  portraitUrl: '/assets/characters/templates/tpl_song_physician_fb.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_peasant_old_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_peasant_old_male_av.jpg',
 }
 
 const SPEAKER_ZHAO_BA: StorySpeakerSpec = {

@@ -31,15 +31,15 @@
 
 | 编号 | 模板标识 | `1:1` 头像状态与落盘路径 | `3:4` 全身立绘状态与落盘路径 | 当前过渡方案 | 主要覆盖剧情角色与编目 NPC |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `TPL-NEW-01` | 大宋禁军铁甲兵卒（男） | `[ ]` `public/assets/characters/templates/tpl_jinjun_male_av.jpg` | `[ ]` `public/assets/characters/templates/tpl_jinjun_male_fb.jpg` | `tpl_changshan_male` | `SECT-33` 大宋禁军全体男官兵、王铁柱、传旨禁军校尉、禁军亲卫队正、传讯禁军快骑、随军医官等（15+ 处） |
-| `TPL-NEW-02` | 大宋禁军枪棒女教头（女） | `[ ]` `public/assets/characters/templates/tpl_jinjun_female_av.jpg` | `[x]` `public/assets/characters/templates/tpl_jinjun_female_fb.jpg` | 已实装 `_fb.jpg` | `SECT-33` 女性教头（如 `NPC-0290` 仝云韵） |
-| `TPL-NEW-03` | 北宋内侍省无须宦官（男） | `[ ]` `public/assets/characters/templates/tpl_eunuch_male_av.jpg` | `[ ]` `public/assets/characters/templates/tpl_eunuch_male_fb.jpg` | `tpl_song_court_male` | 司礼监秉笔内侍（`jinjunTaihangQuest1/3`）、内侍省老押班王守忠（`kaifengRenzongEscortQuest`） |
-| `TPL-NEW-04` | 北宋市井布衣老妪（女） | `[ ]` `public/assets/characters/templates/tpl_peasant_old_female_av.jpg` | `[ ]` `public/assets/characters/templates/tpl_peasant_old_female_fb.jpg` | `tpl_baicao_female` | 赵铁柱老母、阵亡禁军老母（`jinjunTaihangQuest1`）、孙婆婆（`zhenwuEntryQuest`）、逃荒妇人陈氏（`gaibangEntryQuest`） |
-| `TPL-NEW-05` | 北宋市井苍老农夫/老丈（男） | `[ ]` `public/assets/characters/templates/tpl_peasant_old_male_av.jpg` | `[ ]` `public/assets/characters/templates/tpl_peasant_old_male_fb.jpg` | `tpl_song_physician` / `tpl_zhenyuan_male` | 周老丈（`kaifengTaihangBanditQuest`）、张老伯（`gaibangEntryQuest`）、周药农/陈老丈（`zhenwuEntryQuest`）、周老药农（`emeiEntryQuest`）、孙老石匠（`taishanEntryQuest`）、陈默（`babuGanchanQuest`） |
-| `TPL-NEW-06A` | 北宋市井稚童·男童 | `[ ]` `public/assets/characters/templates/tpl_child_boy_av.jpg` | `[ ]` `public/assets/characters/templates/tpl_child_boy_fb.jpg` | `tpl_baicao_male` | 7 岁牧牛遗孤小石锁（`wutaiEntryQuest`）、15 岁小石子入门前（`xingxiuEntryQuest`）、采药童阿石（`taohuadaoMapQuest`）、报信小乞儿阿蝉（`yanziwuMapQuest`） |
-| `TPL-NEW-06B` | 北宋市井稚童·女童 | `[ ]` `public/assets/characters/templates/tpl_child_girl_av.jpg` | `[ ]` `public/assets/characters/templates/tpl_child_girl_fb.jpg` | `tpl_baicao_female` | 逃荒孤女小草（`gaibangEntryQuest`）、渔家女阿珠（`nanshaolinEntryQuest`） |
-| `TPL-NEW-07` | 南少林百杰机关木人 | `[ ]` `public/assets/characters/templates/tpl_wooden_dummy_av.jpg` | `[ ]` `public/assets/characters/templates/tpl_wooden_dummy_fb.jpg` | `tpl_nanshaolin_male` | 九莲护寺机关木人（`nanshaolinEntryQuest` 第十八幕闯山门战斗） |
-| `TPL-NEW-08` | 东海倭寇/扶桑浪人（男） | `[ ]` `public/assets/characters/templates/tpl_ronin_pirate_av.jpg` | `[ ]` `public/assets/characters/templates/tpl_ronin_pirate_fb.jpg` | `tpl_unorthodox_master` | 东海浪人首领鬼丸甚内（`nanshaolinEntryQuest` 对话 + 第十四幕夜雨血战） |
+| `TPL-NEW-01` | 大宋禁军铁甲兵卒（男） | `[x]` `public/assets/characters/templates/tpl_jinjun_male_av.jpg` | `[x]` `public/assets/characters/templates/tpl_jinjun_male_fb.jpg` | `tpl_changshan_male` | `SECT-33` 大宋禁军全体男官兵、王铁柱、传旨禁军校尉、禁军亲卫队正、传讯禁军快骑、随军医官等（15+ 处） |
+| `TPL-NEW-02` | 大宋禁军枪棒女教头（女） | `[x]` `public/assets/characters/templates/tpl_jinjun_female_av.jpg` | `[x]` `public/assets/characters/templates/tpl_jinjun_female_fb.jpg` | 已实装 `_fb.jpg` | `SECT-33` 女性教头（如 `NPC-0290` 仝云韵） |
+| `TPL-NEW-03` | 北宋内侍省无须宦官（男） | `[x]` `public/assets/characters/templates/tpl_eunuch_male_av.jpg` | `[x]` `public/assets/characters/templates/tpl_eunuch_male_fb.jpg` | `tpl_song_court_male` | 司礼监秉笔内侍（`jinjunTaihangQuest1/3`）、内侍省老押班王守忠（`kaifengRenzongEscortQuest`） |
+| `TPL-NEW-04` | 北宋市井布衣老妪（女） | `[x]` `public/assets/characters/templates/tpl_peasant_old_female_av.jpg` | `[x]` `public/assets/characters/templates/tpl_peasant_old_female_fb.jpg` | `tpl_baicao_female` | 赵铁柱老母、阵亡禁军老母（`jinjunTaihangQuest1`）、孙婆婆（`zhenwuEntryQuest`）、逃荒妇人陈氏（`gaibangEntryQuest`） |
+| `TPL-NEW-05` | 北宋市井苍老农夫/老丈（男） | `[x]` `public/assets/characters/templates/tpl_peasant_old_male_av.jpg` | `[x]` `public/assets/characters/templates/tpl_peasant_old_male_fb.jpg` | `tpl_song_physician` / `tpl_zhenyuan_male` | 周老丈（`kaifengTaihangBanditQuest`）、张老伯（`gaibangEntryQuest`）、周药农/陈老丈（`zhenwuEntryQuest`）、周老药农（`emeiEntryQuest`）、孙老石匠（`taishanEntryQuest`）、陈默（`babuGanchanQuest`） |
+| `TPL-NEW-06A` | 北宋市井稚童·男童 | `[x]` `public/assets/characters/templates/tpl_child_boy_av.jpg` | `[x]` `public/assets/characters/templates/tpl_child_boy_fb.jpg` | `tpl_baicao_male` | 7 岁牧牛遗孤小石锁（`wutaiEntryQuest`）、15 岁小石子入门前（`xingxiuEntryQuest`）、采药童阿石（`taohuadaoMapQuest`）、报信小乞儿阿蝉（`yanziwuMapQuest`） |
+| `TPL-NEW-06B` | 北宋市井稚童·女童 | `[x]` `public/assets/characters/templates/tpl_child_girl_av.jpg` | `[x]` `public/assets/characters/templates/tpl_child_girl_fb.jpg` | `tpl_baicao_female` | 逃荒孤女小草（`gaibangEntryQuest`）、渔家女阿珠（`nanshaolinEntryQuest`） |
+| `TPL-NEW-07` | 南少林百杰机关木人 | `[x]` `public/assets/characters/templates/tpl_wooden_dummy_av.jpg` | `[x]` `public/assets/characters/templates/tpl_wooden_dummy_fb.jpg` | `tpl_nanshaolin_male` | 九莲护寺机关木人（`nanshaolinEntryQuest` 第十八幕闯山门战斗） |
+| `TPL-NEW-08` | 东海倭寇/扶桑浪人（男） | `[x]` `public/assets/characters/templates/tpl_ronin_pirate_av.jpg` | `[x]` `public/assets/characters/templates/tpl_ronin_pirate_fb.jpg` | `tpl_unorthodox_master` | 东海浪人首领鬼丸甚内（`nanshaolinEntryQuest` 对话 + 第十四幕夜雨血战） |
 
 ---
 
@@ -172,9 +172,9 @@
 
 | 优先级 | NPC ID | 姓名 · 绰号 | 性别/年龄 | 所属门派 · 身份 | 出场频次 | 所属任务链 | 必须体现的专属外貌考据特征（区别于通用模板之处） |
 | :---: | :--- | :--- | :---: | :--- | :---: | :--- | :--- |
-| **P0** | `NPC-0539` | **屠芳云**（快剑袖） | 女 / 34 | 铁掌帮 · 精锐香主 | `29` 次 | `tiezhangEntryQuest` | 铁掌帮入门核心引路师姐，玄衣劲装、双掌因常年插赤砂铁鼎而骨节微阔泛暗红铜泽，干练飒爽。 |
-| **P0** | `NPC-0827` | **鲁苍岳**（金环手） | 男 / 21 | 泰山派 · 俗家门人 | `22` 次 | `taishanEntryQuest` | 泰山入门同门挚友，二十一岁齐鲁青年，背负厚背金环大刀与岱宗松纹长剑，眉宇憨直坚毅。 |
-| **P0** | `NPC-0262` | **出尘子**（矮胖毒道） | 男 / 30 | 星宿派 · 四师兄 | `17` 次 | `xingxiuEntryQuest` | **外貌极特殊**：通用模板为清瘦邪道，原著与文本明确其**身材矮胖敦实、手提黄铜绿锈熟铜杖**，面带阴狠冷笑，必须专人专绘！ |
+| **✅ 已实装** | `NPC-0539` | **屠芳云**（快剑袖） | 女 / 34 | 铁掌帮 · 精锐香主 | `29` 次 | `tiezhangEntryQuest` | 铁掌帮入门核心引路师姐，玄衣劲装、双掌因常年插赤砂铁鼎而骨节微阔泛暗红铜泽，干练飒爽。 |
+| **✅ 已实装** | `NPC-0827` | **鲁苍岳**（金环手） | 男 / 21 | 泰山派 · 俗家门人 | `22` 次 | `taishanEntryQuest` | 泰山入门同门挚友，二十一岁齐鲁青年，背负厚背金环大刀与岱宗松纹长剑，眉宇憨直坚毅。 |
+| **✅ 已实装** | `NPC-0262` | **出尘子**（矮胖毒道） | 男 / 30 | 星宿派 · 四师兄 | `17` 次 | `xingxiuEntryQuest` | **外貌极特殊**：通用模板为清瘦邪道，原著与文本明确其**身材矮胖敦实、手提黄铜绿锈熟铜杖**，面带阴狠冷笑，必须专人专绘！ |
 | **P0** | `NPC-0909` | **戒藏**（持戒僧） | 男 / 15 | 莆田南少林 · 担柴沙弥 | `15` 次 | `nanshaolinEntryQuest` | **外貌特殊**：15 岁清秀少年小沙弥，光头青灰僧衣，肩挑铁木扁担与两捆松柴，小臂缠粗麻护腕。 |
 | **P0** | `NPC-0354` | **方正**（铁臂叟） | 男 / 38 | 青城派 · 上清宫剑师 | `15` 次 | `qingchengEntryQuest` | 青城入门授艺剑师，苍青道袍，右臂筋骨虬结如铁铸，执松纹细剑，神情严峻古板。 |
 | **P0** | `NPC-0693` | **沈平威**（金环叟） | 男 / 41 | 湘西五溪蛊寨 · 驭虫苗卫 | `9` 次 | `tiezhangEntryQuest` | 铁掌峰支线重要反派头目，湘西苗疆黑蓝蜡染短甲、银项圈，腰悬五毒竹筒与金环苗刀。 |
@@ -195,12 +195,12 @@
 
 | NPC ID | 姓名（绰号） | 性别/年龄 | 门派 · 身份职务 | 境界 | 引用次数 | 当前过渡模板 | 出场任务脚本 |
 | :--- | :--- | :---: | :--- | :---: | :---: | :--- | :--- |
-| `NPC-0885` | 雷艮磊（寒江客） | 男 / 25 | 铁掌帮 · 洞庭水寨摇橹喽啰 | 不入流 | 8 | `tpl_tiezhang_fb.jpg` | `tiezhangEntryQuest` |
-| `NPC-0330` | 温秀璐（赛孟尝姑） | 女 / 28 | 峨眉派 · 锦江善堂主事师姐 | 二流中品 | 7 | `tpl_emei_female_fb.jpg` | `emeiEntryQuest` |
-| `NPC-0301` | 李正鹤（劈山叟） | 男 / 52 | 五台山清凉寺 · 护关武僧 | 二流中品 | 6 | `tpl_wutai_monk_male_fb.jpg` | `jinjunHebeiSpyQuest` |
-| `NPC-0434` | 雷武石（落雁枪） | 男 / 28 | 太行绿林 · 反官义军先锋将 | 二流下品 | 6 | `tpl_greenwood_sect_fb.jpg` | `jinjunTaihangQuest1/2` |
-| `NPC-0933` | 申勇焱（赛孟尝生） | 男 / 43 | 青城派 · 青城山砍柴火工 | 不入流 | 6 | `tpl_qingcheng_fb.jpg` | `qingchengEntryQuest` |
-| `NPC-0364` | 清鹤（玉面郎） | 男 / 40 | 真武道宗 · 紫霄宫执事真人 | 二流中品 | 6 | `tpl_wudang_fb.jpg` | `zhenwuEntryQuest` |
+| `NPC-0885` ✅ | 雷艮磊（寒江客） | 男 / 25 | 铁掌帮 · 洞庭水寨摇橹喽啰 | 不入流 | 8 | `tpl_tiezhang_fb.jpg` | `tiezhangEntryQuest` |
+| `NPC-0330` ✅ | 温秀璐（赛孟尝姑） | 女 / 28 | 峨眉派 · 锦江善堂主事师姐 | 二流中品 | 7 | `tpl_emei_female_fb.jpg` | `emeiEntryQuest` |
+| `NPC-0301` ✅ | 李正鹤（劈山叟） | 男 / 52 | 五台山清凉寺 · 护关武僧 | 二流中品 | 6 | `tpl_wutai_monk_male_fb.jpg` | `jinjunHebeiSpyQuest` |
+| `NPC-0434` ✅ | 雷武石（落雁枪） | 男 / 28 | 太行绿林 · 反官义军先锋将 | 二流下品 | 6 | `tpl_greenwood_sect_fb.jpg` | `jinjunTaihangQuest1/2` |
+| `NPC-0933` ✅ | 申勇焱（赛孟尝生） | 男 / 43 | 青城派 · 青城山砍柴火工 | 不入流 | 6 | `tpl_qingcheng_fb.jpg` | `qingchengEntryQuest` |
+| `NPC-0364` ✅ | 清鹤（玉面郎） | 男 / 40 | 真武道宗 · 紫霄宫执事真人 | 二流中品 | 6 | `tpl_wudang_fb.jpg` | `zhenwuEntryQuest` |
 | `NPC-0376` | 唐月瑾（惊鸿凤） | 女 / 26 | 峨眉派 · 锦江善堂主事师姐 | 二流中品 | 5 | `tpl_emei_female_fb.jpg` | `emeiEntryQuest` |
 | `NPC-0582` | 苏涵（追风娥） | 女 / 23 | 峨眉派 · 报国寺知客尼 | 三流上品 | 5 | `tpl_emei_female_fb.jpg` | `emeiEntryQuest` |
 | `NPC-0866` | 侯清野（鬼手虎） | 男 / 34 | 青城派 · 都江堰护观弟子 | 三流下品 | 5 | `tpl_qingcheng_fb.jpg` | `qingchengEntryQuest` |
