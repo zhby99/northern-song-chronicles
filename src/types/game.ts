@@ -523,7 +523,7 @@ export interface CultivationVenueStatus {
 }
 
 export interface CultivationSessionState {
-  kind?: 'martial_art' | 'scripture' | 'ten_art' | 'shaolin_chore'
+  kind?: 'martial_art' | 'scripture' | 'ten_art' | 'shaolin_chore' | 'odd_job'
   tenArtKey?: TenArtKey
   artId: string
   artName: string

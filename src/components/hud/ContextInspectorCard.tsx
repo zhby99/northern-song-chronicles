@@ -29,8 +29,11 @@ import type {
 } from '../../types/game'
 import {
   DAILY_INN_LODGING_COST,
+  DAYS_PER_MONTH,
   isInnBuildingRecord,
   isPlayerInOwnSectRegion,
+  isTavernBuildingRecord,
+  MONTHLY_ODD_JOB_SILVER,
 } from '../../utils/heroStats'
 import { getBuildingArtTrainingOptions } from '../../utils/artsProgression'
 import {
@@ -781,9 +784,10 @@ export function ContextInspectorCard() {
       playerFaction &&
       playerFaction.coreBuildingIds.includes(inspectedRootBldg.id),
   )
-  const isInnVenue = Boolean(
-    isAtCurrentRegion && !isOwnSectGrounds && isInnBuildingRecord(inspectedRootBldg),
-  )
+  const isInnBldg = isInnBuildingRecord(inspectedRootBldg)
+  const isTavernBldg = isTavernBuildingRecord(inspectedRootBldg)
+  const isOddJobBldg = isTavernBldg || isInnBldg
+  const isInnVenue = Boolean(isAtCurrentRegion && !isOwnSectGrounds && isInnBldg)
   const inOwnSectCity = isPlayerInOwnSectRegion(currentNodeId, campPos, sectState.sectId)
 
   return (
@@ -879,6 +883,27 @@ export function ContextInspectorCard() {
           </div>
         </div>
       )}
+
+      {isOddJobBldg &&
+        (isAtCurrentRegion ? (
+          <button
+            type="button"
+            onClick={() => useGameStore.getState().startOddJobWork()}
+            className="w-full px-3 py-2 rounded bg-[#8c541f] hover:bg-[#a66526] border border-[#e6b86a]/80 text-[#fff8eb] text-xs font-bold song-serif shadow transition cursor-pointer flex items-center justify-between gap-2"
+          >
+            <span>
+              {isTavernBldg ? '在此酒馆跑堂做工' : '在此客栈帮工打杂'}（一月 {DAYS_PER_MONTH}{' '}
+              天 · 包食宿）
+            </span>
+            <span className="px-1.5 py-0.5 rounded bg-black/25 font-mono text-[11px] text-[#fde68a] shrink-0">
+              +{MONTHLY_ODD_JOB_SILVER} 两纹银
+            </span>
+          </button>
+        ) : (
+          <div className="text-[11px] text-[#8f1d14] bg-[#efe4cc] px-2.5 py-1.5 rounded border border-[#d6b38b]">
+            🔒 须亲临【{regionNode.name}】方可在此{isTavernBldg ? '酒馆' : '客栈'}做工赚取工钱
+          </div>
+        ))}
 
       {(isOwnSectGrounds || isInnVenue) && (
         <div className="space-y-2">

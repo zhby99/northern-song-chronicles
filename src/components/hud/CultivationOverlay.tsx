@@ -30,13 +30,16 @@ export function CultivationOverlay() {
 
   const isScripture = session.kind === 'scripture'
   const isShaolinChore = session.kind === 'shaolin_chore'
+  const isOddJob = session.kind === 'odd_job'
   const isTenArt = session.kind === 'ten_art' && Boolean(session.tenArtKey)
   const tenArtKey = session.tenArtKey
 
   const art =
-    isScripture || isTenArt || isShaolinChore ? undefined : MARTIAL_ART_DB_MAP[session.artId]
+    isScripture || isTenArt || isShaolinChore || isOddJob
+      ? undefined
+      : MARTIAL_ART_DB_MAP[session.artId]
   const curEntry =
-    isScripture || isTenArt || isShaolinChore
+    isScripture || isTenArt || isShaolinChore || isOddJob
       ? undefined
       : learnedArts.find((x) => x.artId === session.artId)
 
@@ -87,11 +90,13 @@ export function CultivationOverlay() {
       ? `${isTenArt ? '束脩' : '宿费'} -${session.silverSpent} 两`
       : session.foodSpent > 0
         ? `干粮 -${session.foodSpent} 份`
-        : isShaolinChore
-          ? '斋饭免费'
-          : isTenArt
-            ? '免费修行'
-            : '师门驻地免费'
+        : isOddJob
+          ? '店家包食宿'
+          : isShaolinChore
+            ? '斋饭免费'
+            : isTenArt
+              ? '免费修行'
+              : '师门驻地免费'
 
   return (
     <div
@@ -105,36 +110,40 @@ export function CultivationOverlay() {
         <div className="relative flex flex-col items-center text-center">
           <div className="text-[11px] tracking-[0.25em] text-[#c89d54] song-serif mb-1">
             {session.venueLabel} ·{' '}
-            {isShaolinChore
-              ? '洒扫担水 · 磨砺禅心'
-              : isScripture
-                ? '焚香诵经'
-                : isTenArt
-                  ? '十艺研习'
-                  : '周天吐纳'}
+            {isOddJob
+              ? '市井帮工 · 包管食宿'
+              : isShaolinChore
+                ? '洒扫担水 · 磨砺禅心'
+                : isScripture
+                  ? '焚香诵经'
+                  : isTenArt
+                    ? '十艺研习'
+                    : '周天吐纳'}
           </div>
 
           <div className="cultivation-breathe my-2 inline-flex items-center justify-center rounded-full border border-[#c89d54]/60 bg-[#3b2514]/80 px-7 py-2 shadow-inner">
             <span className="song-serif text-3xl font-bold tracking-[0.35em] pl-[0.35em] text-[#fde6b8]">
-              {isShaolinChore ? '劳作中' : isTenArt ? '修行中' : '闭关中'}
+              {isOddJob ? '做工中' : isShaolinChore ? '劳作中' : isTenArt ? '修行中' : '闭关中'}
             </span>
           </div>
 
           <div className="mt-2 text-sm font-semibold text-[#f8e7c4] song-serif">
             {session.artName}
             <span className="ml-2 text-xs font-normal text-[#c89d54]">
-              {isShaolinChore
-                ? `累计杂役 ${curChoreDays} / 365 天`
-                : isScripture
-                  ? `当前经义 ${session.startLevel} 点`
-                  : isTenArt
-                    ? `Lv.${curLevel} / 100 · ${getArtStageLabel(curLevel)}`
-                    : `${session.artFullTier} · 第 ${curLevel} 重`}
+              {isOddJob
+                ? `月例工钱 ${session.dailyGain} 两 / 30 天`
+                : isShaolinChore
+                  ? `累计杂役 ${curChoreDays} / 365 天`
+                  : isScripture
+                    ? `当前经义 ${session.startLevel} 点`
+                    : isTenArt
+                      ? `Lv.${curLevel} / 100 · ${getArtStageLabel(curLevel)}`
+                      : `${session.artFullTier} · 第 ${curLevel} 重`}
             </span>
           </div>
 
           {/* 进度条（武学火候 / 十艺修为 / 少林杂役满期进度） */}
-          {!isScripture && (
+          {!isScripture && !isOddJob && (
             <div className="mt-3 w-full">
               <div className="flex justify-between text-[11px] text-[#d6be96] mb-1">
                 <span>
@@ -164,13 +173,15 @@ export function CultivationOverlay() {
             <div className="mt-3 w-full">
               <div className="flex justify-between text-[11px] text-[#d6be96] mb-1">
                 <span>
-                  {isShaolinChore
-                    ? `本次当值时程（目标 ${session.mode} 天）`
-                    : isScripture
-                      ? '研读时程（目标 30 天）'
-                      : isTenArt
-                        ? `修行时程（目标 ${session.mode} 天）`
-                        : `闭关时程（目标 ${session.mode} 天）`}
+                  {isOddJob
+                    ? `做工时程（目标 ${session.mode} 天 · 一月）`
+                    : isShaolinChore
+                      ? `本次当值时程（目标 ${session.mode} 天）`
+                      : isScripture
+                        ? '研读时程（目标 30 天）'
+                        : isTenArt
+                          ? `修行时程（目标 ${session.mode} 天）`
+                          : `闭关时程（目标 ${session.mode} 天）`}
                 </span>
                 <span>{timePct}%</span>
               </div>
@@ -187,26 +198,36 @@ export function CultivationOverlay() {
           <div className="mt-4 grid w-full grid-cols-3 gap-2 rounded-lg border border-[#6e5233]/50 bg-[#181009]/70 px-3 py-2.5 text-xs">
             <div>
               <div className="text-[10px] text-[#a98f68]">
-                {isShaolinChore ? '本次已劳作' : isScripture ? '已研读天数' : '已修时辰'}
+                {isOddJob
+                  ? '已做工时日'
+                  : isShaolinChore
+                    ? '本次已劳作'
+                    : isScripture
+                      ? '已研读天数'
+                      : '已修时辰'}
               </div>
               <div className="mt-0.5 font-semibold text-[#fde6b8]">{elapsedLabel}</div>
             </div>
             <div>
               <div className="text-[10px] text-[#a98f68]">
-                {isShaolinChore
-                  ? '距引荐入门'
-                  : isScripture
-                    ? '圆满增幅'
-                    : isTenArt
-                      ? '经验增幅'
-                      : '熟练度增幅'}
+                {isOddJob
+                  ? '已结工钱'
+                  : isShaolinChore
+                    ? '距引荐入门'
+                    : isScripture
+                      ? '圆满增幅'
+                      : isTenArt
+                        ? '经验增幅'
+                        : '熟练度增幅'}
               </div>
               <div className="mt-0.5 font-semibold text-[#fbbf24]">
-                {isShaolinChore
-                  ? `尚余 ${Math.max(0, 365 - curChoreDays)} 天`
-                  : isScripture
-                    ? '经义 +1'
-                    : `+${session.totalExpGained.toLocaleString()}`}
+                {isOddJob
+                  ? `+${session.totalExpGained} / ${session.dailyGain} 两`
+                  : isShaolinChore
+                    ? `尚余 ${Math.max(0, 365 - curChoreDays)} 天`
+                    : isScripture
+                      ? '经义 +1'
+                      : `+${session.totalExpGained.toLocaleString()}`}
               </div>
             </div>
             <div>
@@ -245,11 +266,13 @@ export function CultivationOverlay() {
             onClick={stopCultivationEarly}
             className="mt-4 cursor-pointer rounded-lg border border-[#c89d54]/80 bg-[#5e2318] px-6 py-2 text-xs font-semibold tracking-wider text-[#fde6b8] shadow transition hover:bg-[#7c2d1e] active:scale-[0.98]"
           >
-            {isShaolinChore
-              ? '暂歇收工 (ESC)'
-              : isTenArt
-                ? '结束修行 (ESC)'
-                : '收功出关 (ESC)'}
+            {isOddJob
+              ? '结账收工 (ESC)'
+              : isShaolinChore
+                ? '暂歇收工 (ESC)'
+                : isTenArt
+                  ? '结束修行 (ESC)'
+                  : '收功出关 (ESC)'}
           </button>
 
           <p className="mt-2.5 text-[11px] text-[#a98f68]">
@@ -261,11 +284,13 @@ export function CultivationOverlay() {
             <kbd className="rounded border border-[#6e5233] bg-[#2a1d12] px-1.5 py-0.5 text-[10px] text-[#fde6b8]">
               ESC
             </kbd>
-            {isShaolinChore
-              ? ' 可随时按整日累计杂役并收工歇息'
-              : isScripture
-                ? ' 可随时收功出关（未满 30 天不计增幅）'
-                : ' 可随时按实际时长结算收功'}
+            {isOddJob
+              ? ' 可随时按已满天数结账收工（每满 3 天结 1 两，满 30 天结 10 两）'
+              : isShaolinChore
+                ? ' 可随时按整日累计杂役并收工歇息'
+                : isScripture
+                  ? ' 可随时收功出关（未满 30 天不计增幅）'
+                  : ' 可随时按实际时长结算收功'}
           </p>
         </div>
       </div>

@@ -432,7 +432,7 @@ export function getCityBaseBuildingsMeta(
       desc: isForeign
         ? '胡姬琵琶助兴，塞外刀客、番僧与马帮在此豪饮纵谈。'
         : '酒旗招展、座上豪客云集，打听《江湖风闻录》与磨砺辩才之地。',
-      actLabel: '痛饮纵论天下（辩才+3，耗银2两）',
+      actLabel: '跑堂做工领薪（+10两/月） · 饮宴题壁修十艺',
       cost: 2,
       effect: { skill: ['辩才', 3] },
     },
@@ -441,7 +441,7 @@ export function getCityBaseBuildingsMeta(
       kind: 'manor',
       tag: '投宿调息',
       desc: '备有上房药浴与草料马厩，供远行侠客休整疗伤、恢复周身气血内息。',
-      actLabel: '药浴静养调息（气血与内息全满，耗银3两）',
+      actLabel: '客栈帮工领薪（+10两/月） · 投宿闭关调息',
       cost: 3,
       effect: { hp: 30 },
     },

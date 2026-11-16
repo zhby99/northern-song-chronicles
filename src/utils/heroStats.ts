@@ -223,6 +223,9 @@ export function isPlayerInOwnSectRegion(
   return currentNodeId === faction.hqRegionId
 }
 
+export const DAYS_PER_MONTH = 30
+export const MONTHLY_ODD_JOB_SILVER = 10
+
 export function isInnBuildingRecord(bldg: CompiledBuildingRecord | null | undefined): boolean {
   if (!bldg) return false
   return (
@@ -230,7 +233,20 @@ export function isInnBuildingRecord(bldg: CompiledBuildingRecord | null | undefi
     bldg.name.includes('客栈') ||
     bldg.name.includes('馆驿') ||
     bldg.name.includes('驿馆') ||
+    bldg.name.includes('驿栈') ||
     bldg.name.includes('客舍')
+  )
+}
+
+export function isTavernBuildingRecord(bldg: CompiledBuildingRecord | null | undefined): boolean {
+  if (!bldg) return false
+  return (
+    bldg.id.endsWith('_base_tavern') ||
+    bldg.id === 'bl_fanlou' ||
+    bldg.name.includes('酒馆') ||
+    bldg.name.includes('酒楼') ||
+    bldg.name.includes('酒肆') ||
+    bldg.name.includes('酒坊')
   )
 }
 

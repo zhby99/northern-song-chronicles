@@ -109,10 +109,14 @@ import {
   calcDailyCultivationExpGain,
   cloneHeroBaseStats,
   DAILY_INN_LODGING_COST,
+  DAYS_PER_MONTH,
   DEFAULT_HERO_BASE_STATS,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
+  isInnBuildingRecord,
   isPlayerInOwnSectRegion,
+  isTavernBuildingRecord,
+  MONTHLY_ODD_JOB_SILVER,
   resolveCultivationVenue,
 } from '../utils/heroStats'
 import {
@@ -429,6 +433,7 @@ export interface GameStoreState {
   cultivateLearnedArt: (artId: string, mode?: CultivationDurationMode) => void
   startScriptureSeclusion: () => void
   startShaolinChore: (days: number) => void
+  startOddJobWork: () => void
   stepCultivationTick: () => void
   stopCultivationEarly: () => void
   breakthroughLearnedArt: (artId: string) => void
@@ -2606,6 +2611,58 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     })
   },
 
+  startOddJobWork: () => {
+    const s = get()
+    if (s.gameOver || s.activeCombat || s.activeStoryScene) return
+    if (s.cultivationSession || s.traveling) return
+    const curBuildingId = s.activeBuildingInteriorId ?? s.selectedBuildingId
+    const bldg = curBuildingId ? BUILDING_DB_MAP[curBuildingId] : null
+    const isAtCurrentRegion = s.currentNodeId === s.activeRegionId && !s.campPos
+    const isTavern = isTavernBuildingRecord(bldg)
+    const isInn = isInnBuildingRecord(bldg)
+    if (!isAtCurrentRegion || !bldg || bldg.regionId !== s.currentNodeId || (!isTavern && !isInn)) {
+      set({
+        actionFeedback: {
+          text: '须亲临城池【酒馆/酒楼】或【客栈/馆驿】方可在此做工赚取工钱！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const regionName = NODE_MAP[s.currentNodeId]?.name ?? bldg.regionName
+    const jobTitle = isTavern ? '酒肆跑堂温酒做工' : '客栈迎客打杂做工'
+    set({
+      menuOpen: false,
+      compendiumOpen: false,
+      activeNpcInteraction: null,
+      tooltip: null,
+      actionFeedback: null,
+      cultivationSession: {
+        kind: 'odd_job',
+        artId: 'ODD_JOB_WORK',
+        artName: jobTitle,
+        artCleanName: isTavern ? '酒馆做工' : '客栈做工',
+        artFullTier: isTavern ? '市井酒肆帮工' : '车马客栈帮工',
+        mode: DAYS_PER_MONTH,
+        venue: 'city_building',
+        venueLabel: `${regionName} · ${bldg.name}`,
+        multiplier: 1,
+        dailySilverCost: 0,
+        dailyFoodCost: 0,
+        dailyGain: MONTHLY_ODD_JOB_SILVER,
+        targetShichens: DAYS_PER_MONTH * 12,
+        shichensElapsed: 0,
+        silverSpent: 0,
+        foodSpent: 0,
+        combatExpSpent: 0,
+        totalExpGained: 0,
+        settledExpFloor: 0,
+        startLevel: s.silver,
+        startExp: 0,
+      },
+    })
+  },
+
   startTenArtPractice: (artKey, days, venueLabel, envMultiplier, dailySilverCost) => {
     const s = get()
     if (s.gameOver || s.activeCombat || s.activeStoryScene) return
@@ -3194,6 +3251,122 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       return
     }
 
+    if (session.kind === 'odd_job') {
+      const remainTarget = Math.max(1, session.targetShichens - session.shichensElapsed)
+      const deltaShichen = Math.min(speedStep, remainTarget)
+      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, deltaShichen)
+      const nextDayCount = clock.dayCount
+      const nextShichenIdx = clock.shichenIdx
+      const nextShichensElapsed = session.shichensElapsed + deltaShichen
+
+      const fullDaysInSession = Math.floor(nextShichensElapsed / 12)
+      const targetSilverEarned = Math.floor(
+        (fullDaysInSession * MONTHLY_ODD_JOB_SILVER) / DAYS_PER_MONTH,
+      )
+      const silverGainNow = Math.max(0, targetSilverEarned - session.settledExpFloor)
+      let nextSilver = s.silver + silverGainNow
+      const nextTotalEarned = session.totalExpGained + silverGainNow
+
+      let nextSectState = s.sectState
+      let nextLogs = s.logs
+      let nextMasters = s.roamingMasters
+      let nextNpcFavor = s.npcFavor
+      let overdueSpyAmbush: NodeNpc | null = null
+
+      if (clock.daysAdded > 0) {
+        if (Math.floor((nextDayCount - 1) / 30) > Math.floor((s.dayCount - 1) / 30)) {
+          nextMasters = nextMasters.map((m) => {
+            const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
+            if (neighbors.length === 0) return m
+            const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
+            return { ...m, nodeId: pick!.to }
+          })
+        }
+        const dayHook = applyDayProgressionSectHooks({
+          nextDayCount,
+          shichenIdx: nextShichenIdx,
+          silver: nextSilver,
+          sectState: clonePlayerSectState(nextSectState),
+          logs: [...nextLogs],
+          npcFavor: nextNpcFavor,
+        })
+        nextSilver = dayHook.silver
+        nextSectState = dayHook.sectState
+        nextLogs = dayHook.logs
+        nextNpcFavor = dayHook.npcFavor
+        overdueSpyAmbush = dayHook.overdueSpyAmbush
+      }
+
+      const recWork = applyDailyVitalityRecovery({
+        hp: s.hp,
+        maxHp: s.maxHp,
+        mp: s.mp,
+        maxMp: s.maxMp,
+        daysAdded: clock.daysAdded,
+        factor: 1,
+      })
+
+      const reachedTarget = nextShichensElapsed >= session.targetShichens
+      if (reachedTarget || Boolean(overdueSpyAmbush)) {
+        const msgText = overdueSpyAmbush
+          ? `边关军令期限已至，于【${session.venueLabel}】做工 ${fullDaysInSession} 天后结账应战（工钱 +${nextTotalEarned} 两，现银 ${nextSilver} 两）。`
+          : `于【${session.venueLabel}】勤恳做工满一月（${DAYS_PER_MONTH} 天 · 店家包食宿），掌柜结清月例工钱纹银 +${nextTotalEarned} 两（现银 ${nextSilver} 两）！`
+        nextLogs = [
+          createLogEntry(
+            nextDayCount,
+            '市井做工',
+            msgText,
+            !overdueSpyAmbush,
+            nextShichenIdx,
+          ),
+          ...nextLogs,
+        ].slice(0, 60)
+        set({
+          dayCount: nextDayCount,
+          shichenIdx: nextShichenIdx,
+          silver: nextSilver,
+          sectState: nextSectState,
+          npcFavor: nextNpcFavor,
+          roamingMasters: nextMasters,
+          hp: recWork.hp,
+          mp: recWork.mp,
+          cultivationSession: null,
+          actionFeedback: {
+            text: msgText,
+            tone: overdueSpyAmbush ? 'warn' : 'success',
+          },
+          logs: nextLogs,
+        })
+        if (clock.daysAdded > 0) get().checkExpiredQuestDeadlines()
+        if (overdueSpyAmbush) {
+          get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+          return
+        }
+        void get().saveToSlot('autosave', '市井做工领薪', true)
+        return
+      }
+
+      set({
+        dayCount: nextDayCount,
+        shichenIdx: nextShichenIdx,
+        silver: nextSilver,
+        sectState: nextSectState,
+        npcFavor: nextNpcFavor,
+        roamingMasters: nextMasters,
+        hp: recWork.hp,
+        mp: recWork.mp,
+        logs: nextLogs.slice(0, 60),
+        cultivationSession: {
+          ...session,
+          shichensElapsed: nextShichensElapsed,
+          totalExpGained: nextTotalEarned,
+          settledExpFloor: targetSilverEarned,
+        },
+      })
+      if (clock.daysAdded > 0) get().checkExpiredQuestDeadlines()
+      return
+    }
+
     const art = MARTIAL_ART_DB_MAP[session.artId]
     const idx = s.learnedArts.findIndex((x) => x.artId === session.artId)
     if (!art || idx === -1) {
@@ -3563,6 +3736,29 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
           fullDays > 0
             ? [
                 createLogEntry(s.dayCount, '山门杂役', msgText, false, s.shichenIdx),
+                ...s.logs,
+              ].slice(0, 60)
+            : s.logs,
+      })
+      return
+    }
+    if (sess.kind === 'odd_job') {
+      const fullDays = Math.floor(sess.shichensElapsed / 12)
+      const earned = sess.totalExpGained
+      const msgText =
+        fullDays > 0
+          ? `于【${sess.venueLabel}】做工 ${fullDays} 天提前辞工结账，共领工钱纹银 +${earned} 两（现银 ${s.silver} 两）。`
+          : `甫一系上围裙便即辞工歇手，未满一日。`
+      set({
+        cultivationSession: null,
+        actionFeedback: {
+          text: msgText,
+          tone: earned > 0 ? 'success' : 'talk',
+        },
+        logs:
+          fullDays > 0
+            ? [
+                createLogEntry(s.dayCount, '市井做工', msgText, earned > 0, s.shichenIdx),
                 ...s.logs,
               ].slice(0, 60)
             : s.logs,
