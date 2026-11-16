@@ -106,11 +106,21 @@ northern-song-chronicles/
 │   │   ├── assetManifest.json           # 生产资源清单索引
 │   │   └── portraitCatalog.json         # 人物立绘与模板映射表 (249 核心角色目录)
 │   │
-│   ├── store/                           # 全局状态管理
-│   │   └── useGameStore.ts              # Zustand 状态机 (历法时辰、气血体能、七槽装备、六槽武学、四库行囊、空间导航)
+│   ├── store/                           # 模块化全局状态管理 (Zustand Slices)
+│   │   ├── useGameStore.ts              # 根状态机聚合入口 (对外保持统一 Hook 与 Context 签名)
+│   │   ├── storeTypes.ts                # GameStoreState、GameStoreData 与 StoreSlice 类型契约
+│   │   ├── storeHelpers.ts              # 初始状态工厂、时辰推进、战斗结算与序列化纯函数辅助库
+│   │   └── slices/                      # 七大高内聚业务域状态切片
+│   │       ├── navigationTravelSlice.ts # 三层空间视图导航、镜头缩放、驿路寻路行军与旷野安营
+│   │       ├── loadoutInventorySlice.ts # 开局创角、七槽披挂、六槽武学运使、破境转修、行囊与商铺买卖
+│   │       ├── cultivationSlice.ts      # 武学按日闭关、佛经参悟、少林杂役、酒肆打杂与十艺研习
+│   │       ├── combatSocialSlice.ts     # 群侠交谈赠礼、同步盲选六择一回合对决与生死终局重置
+│   │       ├── sectSlice.ts             # 33 门派拜师晋升、宗门大比、六扇门海捕、举荐信与传功
+│   │       ├── questSlice.ts            # 声明式长卷剧情引擎执行器、抉择推进与地点触发器
+│   │       └── uiSaveSlice.ts           # 全局枢机/图鉴/日志抽屉 UI 控制与多槽位 IndexedDB 存取档
 │   │
 │   ├── types/                           # 全局 TypeScript 接口与类型定义
-│   │   └── game.ts                      # Region, Building, NPC, MartialArt, Weapon, Inventory, M1.2.0 存档等类型
+│   │   └── game.ts                      # Region, Building, NPC, MartialArt, Weapon, Inventory, M1.5.0 存档等类型
 │   │
 │   └── utils/                           # 工具方法库
 │       ├── assetLoader.ts               # 图片素材按需懒加载与字节监控工具
@@ -121,12 +131,11 @@ northern-song-chronicles/
 ├── public/                              # 生产运行资源静态目录 (被 Vite 直接托管)
 │   ├── icons.svg                        # 界面矢量图标集
 │   └── assets/                          # 压缩处理后的生产游戏图片与音频
-│       ├── buildings/                   # 58 张地标建筑高清半3D内景图 (JPG)
-│       ├── regions/                     # 38 张区域州府等轴测全景底图 (JPG)
-│       ├── characters/                  # 人物立绘资源 (共 268 张 JPG)
-│       │   ├── avatars/                 # 129 张角色 1:1 正方头像 (100 历史名臣全员 + 29 武林宗师)
-│       │   ├── fullbody/                # 129 张角色 3:4 全身立绘 (100 历史名臣全员 + 29 武林宗师)
-│       │   └── templates/               # 12 张门派/身份通用全身模板立绘
+│       ├── buildings/                   # 地标与通用建筑半3D内景图
+│       ├── regions/                     # 43 处区域州府等轴测全景底图
+│       ├── characters/                  # 人物头像、全身立绘与门派/身份通用母版
+│       ├── quests/                      # 102 幅 16:9 宋风剧情插画 (CG)
+│       ├── items/                       # 典籍书画与奇珍图标
 │       └── audio/                       # 四分类自动扫描音频目录 (world / regions[43] / characters / events)
 │
 ├── assets_raw_masters/                  # 原始高精度美术素材存档 (共 364 张，373.9 MB)
@@ -150,13 +159,15 @@ northern-song-chronicles/
 
 ## 三、核心代码模块职责与关键符号
 
-### 1. 状态管理 (`src/store/useGameStore.ts`)
-- **`useGameStore`**: 全局单一数据源，管理：
-  - **历法与时辰**：`dayCount`（自皇祐二年正月初一起算天数）与 `shichenIdx`（`0..11` 对应 `子~亥` 十二时辰）。
-  - **主角属性与生存资粮**：实战与上限（`hp/maxHp`, `mp/maxMp`, `stamina/maxStamina`, `agility`, `res`）、资金 `silver`、粮草 `food`、骑术 `ridingSkill` 与其余九艺 `skills`。
-  - **七槽披挂、六槽武学与行囊四库**：`equipped`（7 槽披挂，第七槽自动同步 `mountKey`）、`equippedArts`（1 内功 + 1 轻功 + 4 招式）、`learnedArts`（1~10 重火候进度）与 `inventory`（四库物品栈）。
-  - **三层空间导航与旷野行军**：`viewMode`（`'world' | 'region' | 'building'`）、`currentNodeId`、`activeRegionId`、`activeBuildingInteriorId`、`traveling` 行军队列与 `campPos` 旷野驻扎点。
-  - **核心 Actions**：`equipItemToSlot()`, `unequipSlot()`, `equipArtToSlot()`, `practiceLearnedArt()`, `consumeInventoryItem()`, `restRecoverStamina()`, `startJourney()`, `campStop()`, `enterRegionMap()`, `enterBuildingMap()`, `saveToSlot()`, `loadFromEnvelope()`。
+### 1. 状态管理 (`src/store/`)
+- **`useGameStore` (`src/store/useGameStore.ts`)**: 聚合 `createInitialStoreData()` 与 `src/store/slices/*` 七大业务切片，对外维持单一数据源与零破坏导出（`useGameStore`、`buildStoreEvalContext`、`type GameStoreState`）：
+  - **空间与行军 (`navigationTravelSlice.ts`)**：`viewMode`（`'world' | 'region' | 'building'`）、`currentNodeId`、`activeRegionId`、`activeBuildingInteriorId`、`traveling` 官道行军与 `campPos` 旷野驻扎。
+  - **披挂武学与商贸 (`loadoutInventorySlice.ts`)**：`completeCharacterCreation()`、7 槽 `equipped`、6 槽 `equippedArts`、`learnedArts` 破境转修、行囊 `inventory` 展卷服食与 `buySpotShopItem()` 商铺采办。
+  - **潜修与十艺 (`cultivationSlice.ts`)**：武学按日闭关、佛经参研、少林杂役、客栈酒楼月度打杂与北宋十艺百工修习（80/90 级反哺先天三维）。
+  - **群侠与战斗 (`combatSocialSlice.ts`)**：NPC 交谈、赠礼好感结算、同步盲选六择一回合战斗与生死战 `GameOverModal` 重置。
+  - **门派与公门 (`sectSlice.ts`)**：33 门派拜师晋升、二月初一宗门大比、常山半年诛谍、六扇门海捕公案、举荐帖与本门武学传授。
+  - **剧情引擎 (`questSlice.ts`)**：声明式 `QuestEffect` 执行器、`StorySceneModal` 对白幕次与抉择推进、地点触发器与任务时限巡检。
+  - **界面与存取档 (`uiSaveSlice.ts`)**：十卷枢机菜单、万象图鉴、浮动笺纸提示及多槽位 `M1.5.0` IndexedDB/JSON 存取档。
 
 ### 2. 静态数据库与器物武学表 (`gameDb.ts` / `itemsDb.ts` / `scrollsDb.ts` / `playerMartialArts.ts`)
 - **`gameDb.ts`**：导出 `REGIONS_DB`（43）、`BUILDINGS_DB`（268）、`MARTIAL_ARTS_DB`（246）、`WEAPONS_DB`（100）、`NPCS_DB`（1,047）及 O(1) 哈希索引 Map。

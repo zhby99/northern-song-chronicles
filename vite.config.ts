@@ -430,6 +430,31 @@ export default defineConfig({
               ) {
                 return 'data-world'
               }
+              if (normId.includes('/src/data/quests/sects/jinjun')) {
+                return 'data-quests-jinjun'
+              }
+              if (
+                normId.includes('/src/data/quests/sects/kaifeng') ||
+                normId.includes('/src/data/quests/sects/tianbo') ||
+                normId.includes('/src/data/quests/sects/changshan') ||
+                normId.includes('/src/data/quests/cities/')
+              ) {
+                return 'data-quests-court'
+              }
+              if (
+                normId.includes('/src/data/quests/sects/shaolin') ||
+                normId.includes('/src/data/quests/sects/nanshaolin') ||
+                normId.includes('/src/data/quests/sects/wutai') ||
+                normId.includes('/src/data/quests/sects/gaibang') ||
+                normId.includes('/src/data/quests/sects/huashan') ||
+                normId.includes('/src/data/quests/sects/taishan') ||
+                normId.includes('/src/data/quests/sects/zhenwu')
+              ) {
+                return 'data-quests-sects-1'
+              }
+              if (normId.includes('/src/data/quests/')) {
+                return 'data-quests-sects-2'
+              }
             },
           },
         },
