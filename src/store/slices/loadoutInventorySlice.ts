@@ -10,6 +10,7 @@ import {
   checkGearEquipRequirements,
   checkMountEquipRequirements,
   checkWeaponEquipRequirements,
+  getEffectiveTalents,
   ITEM_DB_MAP,
   normalizeItemTier,
 } from '../../data/itemsDb'
@@ -27,9 +28,11 @@ import type {
   EquippedSlotsMap,
   LearnedArtEntry,
   MartialArtSlotKey,
+  TenArtKey,
 } from '../../types/game'
 import type { ProtagonistGender } from '../../types/game'
 import { getProtagonistGender } from '../../data/protagonistPresets'
+import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
 import {
   cloneHeroBaseStats,
   DAILY_INN_LODGING_COST,
@@ -38,8 +41,6 @@ import {
   isPlayerInOwnSectRegion,
 } from '../../utils/heroStats'
 import {
-  ADJACENCY_MAP,
-  getSongDateParts,
   NODE_MAP,
 } from '../../utils/mapMath'
 import { scaleMedicineRecovery } from '../../utils/realmUtils'
@@ -69,7 +70,6 @@ export type LoadoutInventoryKeys =
   | 'breakthroughLearnedArt'
   | 'transferNeigongProficiency'
   | 'consumeInventoryItem'
-  | 'doBuildingAction'
   | 'buySpotShopItem'
 
 export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (set, get) => ({
@@ -278,6 +278,8 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
     const def = ITEM_DB_MAP[itemId]
     if (!def || !def.equipSlot) return
 
+    const effTalentsForCheck = getEffectiveTalents(s.baseStats.talents, s.equipped)
+
     if (def.weaponMeta) {
       const reqCheck = checkWeaponEquipRequirements(def.weaponMeta, {
         maxHp: s.maxHp,
@@ -286,7 +288,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         res: s.res,
         ridingSkill: s.ridingSkill,
         skills: s.skills,
-        talents: s.baseStats.talents,
+        talents: effTalentsForCheck,
       })
       if (!reqCheck.ok) {
         const unmetStr = reqCheck.details
@@ -316,7 +318,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         res: s.res,
         ridingSkill: s.ridingSkill,
         skills: s.skills,
-        talents: s.baseStats.talents,
+        talents: effTalentsForCheck,
       })
       if (!reqCheck.ok) {
         const unmetStr = reqCheck.details
@@ -346,7 +348,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         res: s.res,
         ridingSkill: s.ridingSkill,
         skills: s.skills,
-        talents: s.baseStats.talents,
+        talents: effTalentsForCheck,
       })
       if (!reqCheck.ok) {
         const unmetStr = reqCheck.details
@@ -396,6 +398,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       nextEquipped,
       s.equippedArts,
       s.learnedArts,
+      { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
     )
 
     set({
@@ -444,6 +447,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       nextEquipped,
       s.equippedArts,
       s.learnedArts,
+      { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
     )
 
     set({
@@ -590,6 +594,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       s.equipped,
       nextEquippedArts,
       s.learnedArts,
+      { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
     )
 
     set({
@@ -633,6 +638,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       s.equipped,
       nextEquippedArts,
       s.learnedArts,
+      { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
     )
 
     set({
@@ -711,6 +717,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       s.equipped,
       s.equippedArts,
       nextLearned,
+      { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
     )
     const deltaMaxHp = Math.max(0, derived.maxHp - s.maxHp)
     const deltaMaxMp = Math.max(0, derived.maxMp - s.maxMp)
@@ -820,6 +827,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       s.equipped,
       nextEquippedArts,
       nextLearned,
+      { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
     )
     const msg = `散功转修！将《${fromArt.cleanName}》总熟练度 ${sourceTotalExp.toLocaleString()} 折半承继 +${transferExp.toLocaleString()} 注入《${toArt.cleanName}》（当前第 ${nextLv} 重），原《${fromArt.cleanName}》总熟练度已清零。`
 
@@ -921,9 +929,11 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         notes.push(`抗性永久 +${eff.res}`)
       }
     }
+    const touchedArtKeys: TenArtKey[] = []
     if (eff.riding) {
       const prev = nextBaseStats.ridingSkill
       nextBaseStats.ridingSkill = Math.min(HERO_BASE_CAPS.ridingSkill, prev + eff.riding)
+      touchedArtKeys.push('骑术')
       notes.push(
         nextBaseStats.ridingSkill > prev
           ? `【骑术】+${nextBaseStats.ridingSkill - prev}`
@@ -934,6 +944,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       const [sk, gain] = eff.skillGain
       const prev = nextBaseStats.skills[sk] ?? 40
       nextBaseStats.skills[sk] = Math.min(HERO_BASE_CAPS.civilSkill, prev + gain)
+      touchedArtKeys.push(sk as TenArtKey)
       notes.push(
         nextBaseStats.skills[sk] > prev
           ? `【${sk}】+${nextBaseStats.skills[sk] - prev}`
@@ -944,6 +955,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       for (const [sk, gain] of Object.entries(eff.skillsGain)) {
         const prev = nextBaseStats.skills[sk] ?? 40
         nextBaseStats.skills[sk] = Math.min(HERO_BASE_CAPS.civilSkill, prev + gain)
+        touchedArtKeys.push(sk as TenArtKey)
         notes.push(
           nextBaseStats.skills[sk] > prev
             ? `【${sk}】+${nextBaseStats.skills[sk] - prev}`
@@ -960,6 +972,22 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
           : `【悟性】天赋已满 (${HERO_BASE_CAPS.talent})`,
       )
     }
+    const syncedArts =
+      touchedArtKeys.length > 0
+        ? syncArtLevelsToExpsAndMilestones({
+            baseStats: nextBaseStats,
+            artExps: s.artExps,
+            artMilestoneFlags: s.artMilestoneFlags,
+            keysToSync: touchedArtKeys,
+          })
+        : {
+            artExps: s.artExps,
+            artMilestoneFlags: s.artMilestoneFlags,
+            milestoneNotes: [],
+          }
+    if (syncedArts.milestoneNotes.length > 0) {
+      notes.push(...syncedArts.milestoneNotes)
+    }
     if (eff.food) {
       nextFood += eff.food
       notes.push(`粮草 +${eff.food}日份`)
@@ -970,6 +998,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       s.equipped,
       s.equippedArts,
       nextLearnedArts,
+      { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
     )
 
     const bonusMaxHpNow = isPermanentElixir ? (eff.maxHp ?? 0) : 0
@@ -1062,6 +1091,8 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       npcFavor: dayHook.npcFavor,
       inventory: nextInv,
       baseStats: nextBaseStats,
+      artExps: syncedArts.artExps,
+      artMilestoneFlags: syncedArts.artMilestoneFlags,
       consumedUniqueIds: nextConsumedUnique,
       consumedOnceItemIds: nextConsumedOnce,
       learnedArts: nextLearnedArts,
@@ -1085,182 +1116,6 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
     if (dayHook.overdueSpyAmbush) {
       get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
     }
-  },
-
-  doBuildingAction: (item) => {
-    const s = get()
-    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
-    const isRestInn =
-      item.name.includes('客栈') ||
-      item.name.includes('馆驿') ||
-      item.name.includes('驿馆') ||
-      item.name.includes('客舍')
-    const cost = isRestInn && inOwnSectCity ? 0 : (item.cost ?? 0)
-    if (cost > 0 && s.silver < cost) {
-      set({
-        actionFeedback: {
-          text: `囊中羞涩，纹银不足 ${cost} 两！可先去衙门揭榜领赏。`,
-          tone: 'warn',
-        },
-      })
-      return
-    }
-
-    let nextSilver = s.silver - cost
-    let nextCombatExp = s.combatExp
-    const nextBaseStats = cloneHeroBaseStats(s.baseStats)
-    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, isRestInn ? 4 : 2)
-    const nextDay = clock.dayCount
-
-    const eff = item.effect
-    const gains: string[] = []
-
-    if (isRestInn) {
-      gains.push(inOwnSectCity ? '师门驻地免宿费' : `住店宿费 -${cost}两`)
-    }
-
-    if (eff.riding) {
-      nextBaseStats.ridingSkill = Math.min(
-        HERO_BASE_CAPS.ridingSkill,
-        nextBaseStats.ridingSkill + eff.riding,
-      )
-    }
-    if (eff.silver) {
-      nextSilver += eff.silver
-    }
-
-    // 建筑历练、衙门悬赏缉凶与校场武馆演武奖励战斗经验（不直接增加任何实战交锋属性）
-    let buildingCombatExp = eff.combatExp ?? 0
-    if (/衙门|府衙|巡检|枢密|帅司|六扇门/.test(item.name)) {
-      buildingCombatExp = Math.max(buildingCombatExp, 45)
-    } else if (/演武|校场|武馆|拳馆|镖局|讲武|铜人|木人/.test(item.name)) {
-      buildingCombatExp = Math.max(buildingCombatExp, 35)
-    }
-    if (buildingCombatExp > 0) {
-      nextCombatExp += buildingCombatExp
-    }
-
-    const tuples = [eff.skill, eff.skill2, eff.skill3]
-    for (const tup of tuples) {
-      if (tup) {
-        const [sName, delta] = tup
-        nextBaseStats.skills[sName] = Math.min(
-          HERO_BASE_CAPS.civilSkill,
-          (nextBaseStats.skills[sName] ?? 40) + delta,
-        )
-      }
-    }
-
-    const derived = deriveHeroEffectiveStats(
-      nextBaseStats,
-      s.equipped,
-      s.equippedArts,
-      s.learnedArts,
-    )
-
-    let nextHp = Math.min(derived.maxHp, s.hp + (eff.hp ?? 0))
-    let nextMp = Math.min(derived.maxMp, s.mp + (eff.mp ?? 0))
-
-    if (isRestInn) {
-      nextHp = derived.maxHp
-      nextMp = derived.maxMp
-      gains.push('气血与内息全满')
-    } else {
-      if (eff.hp) gains.push(`气血恢复 +${eff.hp}`)
-      if (eff.mp) gains.push(`内力调息 +${eff.mp}`)
-    }
-    if (buildingCombatExp > 0) {
-      gains.push(`战斗经验 +${buildingCombatExp}（现 ${nextCombatExp}）`)
-    }
-    if (eff.riding) gains.push(`骑术 +${eff.riding}（现 ${derived.ridingSkill}）`)
-    if (eff.silver) gains.push(`纹银 +${eff.silver} 两`)
-    for (const tup of tuples) {
-      if (tup) {
-        const [sName, delta] = tup
-        gains.push(`【${sName}】+${delta}（根基 ${nextBaseStats.skills[sName]}/100）`)
-      }
-    }
-
-    if (!isRestInn && clock.daysAdded > 0 && !inOwnSectCity) {
-      const lodgingFee = Math.min(nextSilver, DAILY_INN_LODGING_COST * clock.daysAdded)
-      if (lodgingFee > 0) {
-        nextSilver -= lodgingFee
-        gains.push(`跨日异乡宿费 -${lodgingFee}两`)
-      }
-    }
-
-    const shichenLabel = getSongDateParts(nextDay, clock.shichenIdx).shichen.name
-    const summary = `于【${item.name}】修历至${shichenLabel}：${gains.join('、')}！`
-    const regionName = NODE_MAP[s.activeRegionId]?.name ?? '江湖'
-    let nextLogs = [
-      createLogEntry(nextDay, regionName, summary, false, clock.shichenIdx),
-      ...s.logs,
-    ]
-    let nextMasters = s.roamingMasters
-
-    if (clock.daysAdded > 0 && (nextDay - 1) % 30 === 0) {
-      nextMasters = s.roamingMasters.map((m) => {
-        const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
-        if (neighbors.length === 0) return m
-        const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
-        return { ...m, nodeId: pick!.to }
-      })
-      const sample = nextMasters[Math.floor(Math.random() * nextMasters.length)]
-      if (sample) {
-        nextLogs = [
-          createLogEntry(
-            nextDay,
-            '月度风云',
-            `《天下江湖风闻录》更新：【${sample.name}】近日现身于【${NODE_MAP[sample.nodeId]?.name ?? sample.nodeId}】！`,
-            true,
-            clock.shichenIdx,
-          ),
-          ...nextLogs,
-        ]
-      }
-    }
-
-    const dayHook =
-      clock.daysAdded > 0
-        ? applyDayProgressionSectHooks({
-            nextDayCount: nextDay,
-            shichenIdx: clock.shichenIdx,
-            silver: nextSilver,
-            sectState: s.sectState,
-            logs: nextLogs,
-            npcFavor: s.npcFavor,
-          })
-        : { silver: nextSilver, sectState: s.sectState, logs: nextLogs, npcFavor: s.npcFavor, overdueSpyAmbush: null }
-
-    set({
-      dayCount: nextDay,
-      shichenIdx: clock.shichenIdx,
-      combatExp: nextCombatExp,
-      silver: dayHook.silver,
-      sectState: dayHook.sectState,
-      npcFavor: dayHook.npcFavor,
-      baseStats: nextBaseStats,
-      mountKey: derived.mountKey,
-      qinggongBonus: derived.qinggongBonus,
-      hp: nextHp,
-      maxHp: derived.maxHp,
-      mp: nextMp,
-      maxMp: derived.maxMp,
-      agility: derived.agility,
-      res: derived.res,
-      ridingSkill: derived.ridingSkill,
-      skills: derived.skills,
-      roamingMasters: nextMasters,
-      actionFeedback: { text: summary, tone: 'success' },
-      logs: dayHook.logs.slice(0, 60),
-    })
-
-    if (dayHook.overdueSpyAmbush) {
-      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
-      return
-    }
-
-    void get().saveToSlot('autosave', `${regionName} · ${item.name}`, true)
   },
 
   buySpotShopItem: (spotId, itemId, qty = 1) => {

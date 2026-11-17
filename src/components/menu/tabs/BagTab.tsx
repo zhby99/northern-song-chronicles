@@ -92,7 +92,7 @@ export function BagTab({
           <div>
             <div className="text-[#6b5033] font-bold song-serif text-sm">随身资金（纹银）</div>
             <div className="text-xs text-[#7a6042] mt-0.5">
-              可于各州衙门揭榜领赏或市易行交易获取
+              可于酒楼客栈做工、门派当值领俸或江湖奇遇差事获取
             </div>
           </div>
           <span className="font-mono font-bold text-xl text-[#7f1d1d]">{silver} 两</span>

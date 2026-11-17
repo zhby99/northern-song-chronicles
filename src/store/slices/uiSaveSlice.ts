@@ -181,6 +181,7 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
       st.equipped,
       st.equippedArts,
       st.learnedArts,
+      { heavyInjury: Boolean(st.questState?.flags?.taihang_heavy_injury) },
     )
     const restoredLogs = [
       createLogEntry(

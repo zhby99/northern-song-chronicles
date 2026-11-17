@@ -1504,13 +1504,6 @@ export function ContextInspectorCard() {
                         </button>
                         <button
                           type="button"
-                          onClick={() => interactNpc(p, 'art')}
-                          className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
-                        >
-                          唱和
-                        </button>
-                        <button
-                          type="button"
                           onClick={() => interactNpc(p, 'spar')}
                           className="px-2 py-0.5 rounded bg-[#f8f1e1] hover:bg-[#e5d7bc] border border-[#b59c77] text-[#3d2812] text-[11px] cursor-pointer"
                         >

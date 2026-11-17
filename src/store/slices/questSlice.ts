@@ -26,6 +26,7 @@ import {
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
 } from '../../utils/heroStats'
+import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
 import {
   formatSongDate,
   NODE_MAP,
@@ -373,16 +374,45 @@ export const createQuestSlice: StoreSlice<QuestKeys> = (set, get) => ({
               Math.min(HERO_BASE_CAPS.civilSkill, cur + eff.delta),
             )
           }
+          const syncedArts = syncArtLevelsToExpsAndMilestones({
+            baseStats: nextBase,
+            artExps: s.artExps,
+            artMilestoneFlags: s.artMilestoneFlags,
+            keysToSync: [eff.key],
+          })
           const derived = deriveHeroEffectiveStats(
             nextBase,
             s.equipped,
             s.equippedArts,
             s.learnedArts,
+            { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
           )
+          const nextLogs =
+            syncedArts.milestoneNotes.length > 0
+              ? [
+                  createLogEntry(
+                    s.dayCount,
+                    '十艺化境',
+                    syncedArts.milestoneNotes.join(' · '),
+                    true,
+                    s.shichenIdx,
+                  ),
+                  ...s.logs,
+                ].slice(0, 60)
+              : s.logs
           set({
             baseStats: nextBase,
+            artExps: syncedArts.artExps,
+            artMilestoneFlags: syncedArts.artMilestoneFlags,
             ridingSkill: derived.ridingSkill,
             skills: derived.skills,
+            maxHp: derived.maxHp,
+            hp: Math.min(derived.maxHp, s.hp),
+            maxMp: derived.maxMp,
+            mp: Math.min(derived.maxMp, s.mp),
+            agility: derived.agility,
+            res: derived.res,
+            logs: nextLogs,
           })
           break
         }
@@ -448,6 +478,7 @@ export const createQuestSlice: StoreSlice<QuestKeys> = (set, get) => ({
             s.equipped,
             nextEquippedArts,
             nextLearned,
+            { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
           )
           const hpGain = Math.max(0, derived.maxHp - s.maxHp)
           const mpGain = Math.max(0, derived.maxMp - s.maxMp)
@@ -901,6 +932,7 @@ export const createQuestSlice: StoreSlice<QuestKeys> = (set, get) => ({
             equipped: s.equipped,
             equippedArts: s.equippedArts,
             learnedArts: s.learnedArts,
+            heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury),
           })
 
           // 任务战斗规则：非切磋性质的任务战斗（rule === 'duel' 或 lethalOnLose === true）一旦败北均直接判定死亡（Game Over）；明确标注为切磋/宗门考校的试炼则点到为止。

@@ -22,6 +22,7 @@ import {
   getArtLevelFromExp,
   getExpForArtLevel,
   MAX_ART_EXP,
+  syncArtLevelsToExpsAndMilestones,
 } from '../../utils/artsProgression'
 import {
   SHAOLIN_CHORE_COMPLETE_JOIN_SCENE,
@@ -400,7 +401,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
       })
       return
     }
-    const curExp = s.artExps[artKey] ?? getExpForArtLevel(curLv)
+    const curExp = Math.max(s.artExps[artKey] ?? 0, getExpForArtLevel(curLv))
     const dailyGain = computeDailyArtExpGain(
       getEffectiveTalents(s.baseStats.talents, s.equipped).悟性,
       envMultiplier,
@@ -444,6 +445,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
     const session = s.cultivationSession
     if (!session || s.gameOver || s.activeCombat || s.activeStoryScene) return
     const speedStep = s.cultivationSpeedStep ?? 1
+    const heavyInjuryOpt = { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) }
 
     if (session.kind === 'ten_art' && session.tenArtKey) {
       const artKey = session.tenArtKey
@@ -508,7 +510,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
 
       const nextBase = cloneHeroBaseStats(s.baseStats)
       const prevLv = artKey === '骑术' ? nextBase.ridingSkill : (nextBase.skills[artKey] ?? 0)
-      const prevExp = s.artExps[artKey] ?? getExpForArtLevel(prevLv)
+      const prevExp = Math.max(s.artExps[artKey] ?? 0, getExpForArtLevel(prevLv))
       const nextExp = Math.min(MAX_ART_EXP, prevExp + expGainNow)
       const nextLv = getArtLevelFromExp(nextExp)
 
@@ -545,6 +547,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
         s.equipped,
         s.equippedArts,
         s.learnedArts,
+        heavyInjuryOpt,
       )
       const recTenArt = applyDailyVitalityRecovery({
         hp: s.hp,
@@ -649,61 +652,85 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
       const nextShichenIdx = clock.shichenIdx
       const nextShichensElapsed = session.shichensElapsed + deltaShichen
 
+      let nextSilver = s.silver
       let nextSectState = s.sectState
       let nextLogs = s.logs
+      let nextNpcFavor = s.npcFavor
       let nextMasters = s.roamingMasters
       let overdueSpyAmbush: NodeNpc | null = null
 
-      if ((nextDayCount - 1) % 30 === 0) {
-        nextMasters = nextMasters.map((m) => {
-          const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
-          if (neighbors.length === 0) return m
-          const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
-          return { ...m, nodeId: pick!.to }
+      if (clock.daysAdded > 0) {
+        if ((nextDayCount - 1) % 30 === 0) {
+          nextMasters = nextMasters.map((m) => {
+            const neighbors = ADJACENCY_MAP[m.nodeId] ?? []
+            if (neighbors.length === 0) return m
+            const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
+            return { ...m, nodeId: pick!.to }
+          })
+        }
+
+        const dayHook = applyDayProgressionSectHooks({
+          nextDayCount,
+          shichenIdx: nextShichenIdx,
+          silver: nextSilver,
+          sectState: clonePlayerSectState(nextSectState),
+          logs: [...nextLogs],
+          npcFavor: nextNpcFavor,
         })
+        nextSilver = dayHook.silver
+        nextSectState = dayHook.sectState
+        nextLogs = dayHook.logs
+        nextNpcFavor = dayHook.npcFavor
+        overdueSpyAmbush = dayHook.overdueSpyAmbush
       }
 
-      const dayHook = applyDayProgressionSectHooks({
-        nextDayCount,
-        shichenIdx: nextShichenIdx,
-        silver: s.silver,
-        sectState: clonePlayerSectState(nextSectState),
-        logs: [...nextLogs],
-        npcFavor: s.npcFavor,
+      const recScripture = applyDailyVitalityRecovery({
+        hp: s.hp,
+        maxHp: s.maxHp,
+        mp: s.mp,
+        maxMp: s.maxMp,
+        daysAdded: clock.daysAdded,
+        factor: 1,
       })
-      nextSectState = dayHook.sectState
-      nextLogs = dayHook.logs
-      overdueSpyAmbush = dayHook.overdueSpyAmbush
 
       const reachedTarget = nextShichensElapsed >= session.targetShichens
       if (reachedTarget || overdueSpyAmbush) {
         let nextBaseStats = s.baseStats
+        let nextArtExps = s.artExps
+        let nextArtFlags = s.artMilestoneFlags
         let nextDerived = deriveHeroEffectiveStats(
           s.baseStats,
           s.equipped,
           s.equippedArts,
           s.learnedArts,
+          heavyInjuryOpt,
         )
         let msgText = ''
         if (reachedTarget) {
-          const nextScripture = Math.min(
+          const clonedBase = cloneHeroBaseStats(s.baseStats)
+          clonedBase.skills['经义'] = Math.min(
             HERO_BASE_CAPS.civilSkill,
-            (s.baseStats.skills['经义'] ?? 0) + 1,
+            (clonedBase.skills['经义'] ?? 0) + 1,
           )
-          nextBaseStats = {
-            ...s.baseStats,
-            skills: {
-              ...s.baseStats.skills,
-              经义: nextScripture,
-            },
-          }
+          const synced = syncArtLevelsToExpsAndMilestones({
+            baseStats: clonedBase,
+            artExps: s.artExps,
+            artMilestoneFlags: s.artMilestoneFlags,
+            keysToSync: ['经义'],
+          })
+          nextBaseStats = clonedBase
+          nextArtExps = synced.artExps
+          nextArtFlags = synced.artMilestoneFlags
           nextDerived = deriveHeroEffectiveStats(
             nextBaseStats,
             s.equipped,
             s.equippedArts,
             s.learnedArts,
+            heavyInjuryOpt,
           )
-          msgText = `于【${session.venueLabel}】闭关研读经义 30 天，佛理通达，经义 +1（现 ${nextDerived.skills['经义']}）！`
+          const milestoneSuffix =
+            synced.milestoneNotes.length > 0 ? ` · ${synced.milestoneNotes.join(' ')}` : ''
+          msgText = `于【${session.venueLabel}】闭关研读经义 30 天，佛理通达，经义 +1（现 ${nextDerived.skills['经义']}）${milestoneSuffix}！`
         } else {
           msgText = `边关军令期限已至，提前收功出关应战。`
         }
@@ -720,16 +747,20 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
         set({
           dayCount: nextDayCount,
           shichenIdx: nextShichenIdx,
-          silver: dayHook.silver,
+          silver: nextSilver,
           sectState: nextSectState,
-          npcFavor: dayHook.npcFavor,
+          npcFavor: nextNpcFavor,
           roamingMasters: nextMasters,
           baseStats: nextBaseStats,
+          artExps: nextArtExps,
+          artMilestoneFlags: nextArtFlags,
           skills: nextDerived.skills,
           maxHp: nextDerived.maxHp,
-          hp: nextDerived.maxHp,
+          hp: Math.min(nextDerived.maxHp, recScripture.hp),
           maxMp: nextDerived.maxMp,
-          mp: nextDerived.maxMp,
+          mp: Math.min(nextDerived.maxMp, recScripture.mp),
+          agility: nextDerived.agility,
+          res: nextDerived.res,
           cultivationSession: null,
           actionFeedback: {
             text: msgText,
@@ -737,7 +768,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
           },
           logs: nextLogs,
         })
-        get().checkExpiredQuestDeadlines()
+        if (clock.daysAdded > 0) get().checkExpiredQuestDeadlines()
         if (overdueSpyAmbush) {
           get().startNpcCombat(overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
           return
@@ -751,9 +782,11 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
       set({
         dayCount: nextDayCount,
         shichenIdx: nextShichenIdx,
-        silver: dayHook.silver,
+        silver: nextSilver,
+        hp: recScripture.hp,
+        mp: recScripture.mp,
         sectState: nextSectState,
-        npcFavor: dayHook.npcFavor,
+        npcFavor: nextNpcFavor,
         roamingMasters: nextMasters,
         logs: nextLogs.slice(0, 60),
         cultivationSession: {
@@ -761,7 +794,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
           shichensElapsed: nextShichensElapsed,
         },
       })
-      get().checkExpiredQuestDeadlines()
+      if (clock.daysAdded > 0) get().checkExpiredQuestDeadlines()
       return
     }
 
@@ -1105,17 +1138,6 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
             ? `${fullDays} 天`
             : `${remShichen} 时辰`
 
-      const daysFrac = sess.shichensElapsed / 12
-      const recoveryRate = sess.venue === 'wilderness_camp' ? 0.4 : 1.0
-      const nextHp = Math.min(
-        latest.maxHp,
-        latest.hp + Math.round(latest.maxHp * recoveryRate * daysFrac),
-      )
-      const nextMp = Math.min(
-        latest.maxMp,
-        latest.mp + Math.round(latest.maxMp * recoveryRate * daysFrac),
-      )
-
       const leveledUp = curEntry.level > sess.startLevel
       const costParts: string[] = []
       if (sess.silverSpent > 0) costParts.push(`宿费 -${sess.silverSpent}两`)
@@ -1154,8 +1176,6 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
 
       set({
         cultivationSession: null,
-        hp: nextHp,
-        mp: nextMp,
         ...(session.kind !== 'scripture' && session.kind !== 'ten_art'
           ? { inspectedLearnedArtId: session.artId }
           : {}),
@@ -1308,6 +1328,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
       s.equipped,
       s.equippedArts,
       nextLearned,
+      heavyInjuryOpt,
     )
     const recArt = applyDailyVitalityRecovery({
       hp: s.hp,
@@ -1315,7 +1336,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
       mp: s.mp,
       maxMp: derived.maxMp,
       daysAdded: clock.daysAdded,
-      factor: 1,
+      factor: session.venue === 'wilderness_camp' ? 0.4 : 1,
     })
 
     set({
@@ -1413,8 +1434,6 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
           : `甫一入座便即合卷出关，未耗时日。`
       set({
         cultivationSession: null,
-        hp: s.maxHp,
-        mp: s.maxMp,
         actionFeedback: { text: msgText, tone: 'warn' },
         logs:
           fullDays > 0
@@ -1439,8 +1458,6 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
           : `甫一执帚便即暂歇收工，未满一日（累计杂役 ${nextChoreDays}/${SHAOLIN_CHORE_TARGET_DAYS} 天）。`
       set({
         cultivationSession: null,
-        hp: s.maxHp,
-        mp: s.maxMp,
         sectState: {
           ...clonePlayerSectState(s.sectState),
           shaolinChoreDays: nextChoreDays,
@@ -1495,17 +1512,6 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
           ? `${fullDays} 天`
           : `${remShichen} 时辰`
 
-    const daysFrac = sess.shichensElapsed / 12
-    const recoveryRate = sess.venue === 'wilderness_camp' ? 0.4 : 1.0
-    const nextHp = Math.min(
-      s.maxHp,
-      s.hp + Math.round(s.maxHp * recoveryRate * daysFrac),
-    )
-    const nextMp = Math.min(
-      s.maxMp,
-      s.mp + Math.round(s.maxMp * recoveryRate * daysFrac),
-    )
-
     const leveledUp = curEntry.level > sess.startLevel
     const costParts: string[] = []
     if (sess.silverSpent > 0) costParts.push(`宿费 -${sess.silverSpent}两`)
@@ -1543,8 +1549,6 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
 
     set({
       cultivationSession: null,
-      hp: nextHp,
-      mp: nextMp,
       ...(sess.kind !== 'ten_art'
         ? { inspectedLearnedArtId: sess.artId }
         : {}),
@@ -1575,7 +1579,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
       return { ok: false, message: `【${artKey}】已达 100 级一代宗师之境，无需再修。` }
     }
 
-    const prevExp = s.artExps[artKey] ?? getExpForArtLevel(currentLv)
+    const prevExp = Math.max(s.artExps[artKey] ?? 0, getExpForArtLevel(currentLv))
     const dailyGain = computeDailyArtExpGain(
       getEffectiveTalents(nextBase.talents, s.equipped).悟性,
       envMultiplier,
@@ -1625,6 +1629,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
       s.equipped,
       s.equippedArts,
       s.learnedArts,
+      { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
     )
 
     const nextDay = s.dayCount + days

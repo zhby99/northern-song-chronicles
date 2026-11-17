@@ -44,6 +44,7 @@ import {
   computeEffectiveAgility,
   computeEscapeChancePreview,
   getLearnedLevel,
+  getMartialCategoryInstinct,
   getMoveActionsAvailability,
   getSlotEffectsMap,
   getStrongestLivingEnemy,
@@ -123,6 +124,16 @@ function FighterStatusBadges({ fighter }: { fighter: CombatantState }) {
   const lockedArt = fighter.lastUsedArtId ? MARTIAL_ART_DB_MAP[fighter.lastUsedArtId] : null
   return (
     <div className="flex flex-wrap gap-1">
+      {fighter.exposed && (
+        <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#69140e]/95 border border-[#ff9b73]/90 text-[#ffe0d4] font-semibold animate-pulse">
+          破绽（受创+25%·闪避-50%）
+        </span>
+      )}
+      {fighter.poisonDotTurns > 0 && fighter.poisonDotDmg > 0 && (
+        <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#2e1636]/95 border border-[#c77dff]/80 text-[#f1d6ff]">
+          奇毒蚀脉 -{fighter.poisonDotDmg}/合（{fighter.poisonDotTurns}合）
+        </span>
+      )}
       {fighter.zixiaStacks > 0 && (
         <span className="px-1.5 py-0.5 rounded text-[10px] bg-[#3b1e47]/95 border border-[#cc95fa]/65 text-[#f0dbff]">
           紫霞蓄劲 ×{fighter.zixiaStacks}
@@ -1280,9 +1291,10 @@ export function CombatOverlay() {
                   <X className="w-3.5 h-3.5" />
                 </button>
               </div>
-              <p>1. <strong>同步盲选与群战</strong>：每合在世参战者各自选定敌方目标并亮牌，全场按实时身法高低依次出手；1v2/2v2 可点击敌方立绘或铭牌（或按 Tab）切换集火目标。</p>
-              <p>2. <strong>身法脱战铁律</strong>：脱战需摆脱在场身法最高之敌；<strong>若我方身法比敌方快手低 20 点及以上，被死死缠住无法脱战！</strong></p>
-              <p>3. <strong>生死与胜负</strong>：非切磋之实战一旦战败即命殒当场（Game Over）；2v2 中若助阵同伴力竭，少侠仍可独力鏖战到底。</p>
+              <p>1. <strong>同步盲选与群战</strong>：每合在世参战者各自择敌亮牌，按实时身法高低依次出手（常规身法闪避封顶 35%）；1v2/2v2 可点选敌手或按 Tab 切换目标。</p>
+              <p>2. <strong>守御与破绽博弈</strong>：守御受创减半、解除连招锁并回复 <strong>10% 内力上限</strong>（双方同守各回 <strong>15%</strong>）；若强攻守御目标，攻方下合陷入<strong>【破绽】（受创 +25% · 闪避 −50%）</strong>！</p>
+              <p>3. <strong>外功大类本能</strong>：刀/棍破守 +30%；剑/指先手 +10；枪法后手反击 +20%；暗器无视 30% 闪避；毒功附着持续蚀血；音功震散削减内力。</p>
+              <p>4. <strong>脱战与生死铁律</strong>：我方身法比敌阵快手低 20 点及以上无法脱战；非切磋实战一旦败亡即命殒当场（Game Over）。</p>
             </div>
           )}
         </div>
@@ -1792,6 +1804,7 @@ export function CombatOverlay() {
                 const shortcut = SLOT_SHORTCUT_LABELS[opt.slot]
                 const art = opt.art
                 const st = art ? getArtLevelStats(art, opt.level) : null
+                const instinct = art ? getMartialCategoryInstinct(art.category) : null
                 const fxSummary =
                   st?.specialEffects && st.specialEffects.length > 0
                     ? st.specialEffects.map((f) => `${f.name}${f.value}${f.unit}`).join(' · ')
@@ -1831,6 +1844,7 @@ export function CombatOverlay() {
                         targetId: effectiveTargetId,
                       })
                     }
+                    title={instinct ? `${art.cleanName}（${instinct.detail}）` : art.cleanName}
                     className={`rounded-xl border p-2 text-left transition flex flex-col justify-between min-h-[92px] backdrop-blur-md ${
                       opt.disabled
                         ? 'border-[#6e5239]/40 bg-[#1a120d]/75 opacity-60 cursor-not-allowed'
@@ -1867,9 +1881,15 @@ export function CombatOverlay() {
                         {synPct > 0 && <span className="text-[#8ef0c0]">+{synPct}%</span>}
                       </div>
 
-                      {fxSummary && (
-                        <div className="mt-0.5 text-[10px] text-[#e3bfff] truncate" title={fxSummary}>
-                          ✦ {fxSummary}
+                      {(instinct || fxSummary) && (
+                        <div
+                          className="mt-0.5 text-[10px] text-[#e3bfff] truncate"
+                          title={[instinct?.detail, fxSummary].filter(Boolean).join(' · ')}
+                        >
+                          {instinct && (
+                            <span className="text-[#fbdf8c] mr-1">◆{instinct.shortTag}</span>
+                          )}
+                          {fxSummary && <span>✦ {fxSummary}</span>}
                         </div>
                       )}
                     </div>
@@ -1898,6 +1918,7 @@ export function CombatOverlay() {
               <button
                 type="button"
                 onClick={() => submitCombatAction({ type: 'defend' })}
+                title={`守御回复 10% 内力（+${Math.max(1, Math.round(player.maxMp * 0.1))}），双方同守回复 15%（+${Math.max(1, Math.round(player.maxMp * 0.15))}）；若对手本合强攻守御目标，下合陷入【破绽】（受创+25%·闪避-50%）`}
                 className="rounded-xl border border-[#63b594]/65 bg-gradient-to-b from-[#163027]/92 to-[#0f211b]/92 hover:from-[#1f4236] hover:to-[#152e25] hover:border-[#93ebd0] p-2 text-left transition shadow-xl cursor-pointer active:scale-[0.99] flex flex-col justify-between min-h-[92px] backdrop-blur-md"
               >
                 <div>
@@ -1911,12 +1932,12 @@ export function CombatOverlay() {
                     守御架势
                   </div>
                   <div className="text-[10px] text-[#b0e3cc] mt-0.5 leading-tight">
-                    受创减半 · 解除连招锁
+                    受创减半 · 诱敌露破绽
                     {playerNgFx.jingang_rebound ? ` · 反震${playerNgFx.jingang_rebound}%` : ''}
                   </div>
                 </div>
                 <div className="mt-1 pt-1 border-t border-[#5bb892]/30 flex justify-between text-[10px] text-[#96e0c0]">
-                  <span>耗内 0</span>
+                  <span>回内 +{Math.max(1, Math.round(player.maxMp * 0.1))}(10%)</span>
                   <span>闪避 {defendDodgePct}%</span>
                 </div>
               </button>

@@ -372,13 +372,59 @@ export const SHICHEN_LIST = [
   { idx: 11, name: '亥时', period: '人定', range: '21:00-23:00', isNight: true },
 ] as const
 
+const CN_DIGITS = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'] as const
+
+function formatReignYearNumber(n: number): string {
+  if (n <= 1) return '元'
+  if (n < 10) return CN_DIGITS[n] ?? String(n)
+  if (n === 10) return '十'
+  if (n < 20) return `十${CN_DIGITS[n % 10]}`
+  const tens = Math.floor(n / 10)
+  const ones = n % 10
+  if (tens < 10) {
+    return `${CN_DIGITS[tens]}十${ones > 0 ? CN_DIGITS[ones] : ''}`
+  }
+  return String(n)
+}
+
+/**
+ * 公元 1050 年（北宋仁宗皇祐二年，yearOffset = 0）起算的历代年号跨度表
+ */
+const NORTHERN_SONG_ERAS: ReadonlyArray<{ era: string; startYearNum: number; span: number }> = [
+  { era: '皇祐', startYearNum: 2, span: 4 }, // 1050-1053: 皇祐二年 ~ 皇祐五年
+  { era: '至和', startYearNum: 1, span: 2 }, // 1054-1055: 至和元年 ~ 至和二年
+  { era: '嘉祐', startYearNum: 1, span: 8 }, // 1056-1063: 嘉祐元年 ~ 嘉祐八年
+  { era: '治平', startYearNum: 1, span: 4 }, // 1064-1067: 治平元年 ~ 治平四年
+  { era: '熙宁', startYearNum: 1, span: 10 }, // 1068-1077: 熙宁元年 ~ 熙宁十年
+  { era: '元丰', startYearNum: 1, span: 8 }, // 1078-1085: 元丰元年 ~ 元丰八年
+  { era: '元祐', startYearNum: 1, span: 8 }, // 1086-1093: 元祐元年 ~ 元祐八年
+  { era: '绍圣', startYearNum: 1, span: 4 }, // 1094-1097: 绍圣元年 ~ 绍圣四年
+  { era: '元符', startYearNum: 1, span: 3 }, // 1098-1100: 元符元年 ~ 元符三年
+  { era: '建中靖国', startYearNum: 1, span: 1 }, // 1101: 建中靖国元年
+  { era: '崇宁', startYearNum: 1, span: 5 }, // 1102-1106: 崇宁元年 ~ 崇宁五年
+  { era: '大观', startYearNum: 1, span: 4 }, // 1107-1110: 大观元年 ~ 大观四年
+  { era: '政和', startYearNum: 1, span: 7 }, // 1111-1117: 政和元年 ~ 政和七年
+  { era: '重和', startYearNum: 1, span: 1 }, // 1118: 重和元年
+]
+
+function resolveNorthernSongYearName(yearOffset: number): string {
+  let rem = Math.max(0, Math.floor(yearOffset))
+  for (const item of NORTHERN_SONG_ERAS) {
+    if (rem < item.span) {
+      return `${item.era}${formatReignYearNumber(item.startYearNum + rem)}年`
+    }
+    rem -= item.span
+  }
+  // 1119 年（宣和元年）及以后动态顺延，确保任意长线闭关永不卡死年号
+  return `宣和${formatReignYearNumber(1 + rem)}年`
+}
+
 export function getSongDateParts(dayTotal: number, shichenIdx = 4) {
   const zeroIdx = Math.max(0, dayTotal - 1)
   const yearOffset = Math.floor(zeroIdx / 360)
   const monthIdx = Math.floor((zeroIdx % 360) / 30)
   const dayInMonth = (zeroIdx % 30) + 1
-  const yearNames = ['皇祐二年', '皇祐三年', '皇祐四年', '皇祐五年', '至和元年', '至和二年']
-  const yearName = yearNames[Math.min(yearOffset, yearNames.length - 1)]
+  const yearName = resolveNorthernSongYearName(yearOffset)
   const normalizedShichen = ((Math.floor(shichenIdx) % 12) + 12) % 12
   const shichen = SHICHEN_LIST[normalizedShichen]
   return {
@@ -417,13 +463,13 @@ export function getCityBaseBuildingsMeta(
     yamen: {
       name: isForeign ? '王庭牙帐 · 番邦官署' : '府州衙门 · 捕盗司',
       kind: 'yamen',
-      tag: '官署悬赏',
+      tag: '官署公门',
       desc: isForeign
-        ? '番邦王庭签发通关文牒、悬赏缉捕草原剧盗之官署。'
-        : '州府升堂理事、张贴江湖海捕文书与发放赏银之官衙。',
-      actLabel: '揭榜缉盗领赏（纹银+16两 / 策论+1）',
+        ? '番邦王庭签发通关文牒、军政议事与统辖草原部族之官署。'
+        : '州府升堂理事、拜会官长名臣与研习公门策论辩才之官衙。',
+      actLabel: '拜会官长捕快 · 研习公门策论与辩才',
       cost: 0,
-      effect: { silver: 16, skill: ['策论', 1] },
+      effect: { skill: ['策论', 1] },
     },
     tavern: {
       name: isForeign ? '胡姬酒肆 · 马奶酒坊' : '临街酒楼 · 醉仙楼',
@@ -431,7 +477,7 @@ export function getCityBaseBuildingsMeta(
       tag: '江湖风闻',
       desc: isForeign
         ? '胡姬琵琶助兴，塞外刀客、番僧与马帮在此豪饮纵谈。'
-        : '酒旗招展、座上豪客云集，打听《江湖风闻录》与磨砺辩才之地。',
+        : '酒旗招展、座上豪客云集，打听江湖风闻与跑堂做工之地。',
       actLabel: '跑堂做工领薪（+10两/月） · 饮宴题壁修十艺',
       cost: 2,
       effect: { skill: ['辩才', 3] },
@@ -449,17 +495,17 @@ export function getCityBaseBuildingsMeta(
       name: isForeign ? '王庭射猎演武场' : '演武拳馆 · 讲武堂',
       kind: 'camp',
       tag: '实战锤炼',
-      desc: '设梅花桩、石锁箭垛与比武擂台，可调匀呼吸气血、砥砺实战历练。',
-      actLabel: '桩功吐纳拆招（气血恢复+28 / 内力调息+22 / 历练+35）',
+      desc: '设梅花桩、石锁箭垛与比武擂台，可切磋武师、闭关演武与驯马修习骑术。',
+      actLabel: '同武师切磋拆招 · 闭关潜修武学与骑术',
       cost: 0,
-      effect: { hp: 28, mp: 22, combatExp: 35 },
+      effect: { hp: 28, mp: 22 },
     },
     academy: {
       name: isForeign ? '皇家译经院 · 国子讲堂' : '州学书院 · 崇文讲堂',
       kind: 'pavilion',
       tag: '经义算学',
-      desc: '书声琅琅、典籍浩瀚，可系统研习儒释道经义、兵书策论与九章算术。',
-      actLabel: '潜心研读经史算学（经义+2 / 策论+2 / 算术+2）',
+      desc: '书声琅琅、典籍浩瀚，可按日潜修儒释道经义、兵书策论、九章算术与琴棋书画。',
+      actLabel: '按日潜修十艺百工（经义 / 策论 / 算术 / 诗词书画）',
       cost: 0,
       effect: { skill: ['经义', 2], skill2: ['策论', 2], skill3: ['算术', 2] },
     },

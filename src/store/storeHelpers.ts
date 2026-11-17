@@ -469,7 +469,13 @@ export function grantArtProficiency(
 export function computeCombatSettlement(
   s: Pick<
     GameStoreState,
-    'baseStats' | 'combatExp' | 'equipped' | 'equippedArts' | 'learnedArts' | 'npcFavor'
+    | 'baseStats'
+    | 'combatExp'
+    | 'equipped'
+    | 'equippedArts'
+    | 'learnedArts'
+    | 'npcFavor'
+    | 'questState'
   >,
   session: CombatSessionState,
 ) {
@@ -573,6 +579,7 @@ export function computeCombatSettlement(
     s.equipped,
     s.equippedArts,
     nextLearnedArts,
+    { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
   )
   const deltaMaxHp = Math.max(0, derived.maxHp - session.player.maxHp)
   const deltaMaxMp = Math.max(0, derived.maxMp - session.player.maxMp)

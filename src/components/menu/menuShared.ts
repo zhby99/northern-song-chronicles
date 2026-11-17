@@ -168,7 +168,7 @@ export const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
     numeral: '捌',
     label: '十艺百工',
     seal: '艺',
-    subtitle: '北宋十艺五年（1,800日）修习总纲、四阶经验曲线、书院/差事/雅器/名宿唱和指引及 80/90 级先天三维反哺',
+    subtitle: '北宋十艺五年（1,800日）修习总纲、四阶经验曲线、书院/客舍/雅器/奇遇指引及 80/90 级先天三维反哺',
     badge: '十艺指引',
   },
 ]

@@ -22,6 +22,7 @@ import {
   DAILY_INN_LODGING_COST,
   deriveHeroEffectiveStats,
 } from '../../utils/heroStats'
+import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
 import {
   ADJACENCY_MAP,
   findBestRoute,
@@ -619,6 +620,8 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
     let nextHp = s.hp
     let nextMp = s.mp
     let nextBaseStats = s.baseStats
+    let nextArtExps = s.artExps
+    let nextArtMilestoneFlags = s.artMilestoneFlags
     let nextRes = s.res
     let nextSkills = s.skills
     let nextSectState = s.sectState
@@ -675,11 +678,19 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
             baseStats: clonedBase,
           }
           ev.apply(draft)
+          const syncedArts = syncArtLevelsToExpsAndMilestones({
+            baseStats: clonedBase,
+            artExps: nextArtExps,
+            artMilestoneFlags: nextArtMilestoneFlags,
+          })
+          nextArtExps = syncedArts.artExps
+          nextArtMilestoneFlags = syncedArts.artMilestoneFlags
           const derived = deriveHeroEffectiveStats(
             clonedBase,
             s.equipped,
             s.equippedArts,
             s.learnedArts,
+            { heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury) },
           )
           nextBaseStats = clonedBase
           nextHp = Math.min(derived.maxHp, draft.hp)
@@ -688,7 +699,13 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           nextSilver = draft.silver
           nextRes = derived.res
           nextSkills = derived.skills
-          nextLogs.unshift(createLogEntry(nextDayCount, ev.tag, ev.msg, true, nextShichenIdx))
+          const milestoneNote =
+            syncedArts.milestoneNotes.length > 0
+              ? `（${syncedArts.milestoneNotes.join(' · ')}）`
+              : ''
+          nextLogs.unshift(
+            createLogEntry(nextDayCount, ev.tag, `${ev.msg}${milestoneNote}`, true, nextShichenIdx),
+          )
         }
       }
 
@@ -749,6 +766,8 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           sectState: nextSectState,
           npcFavor: nextNpcFavor,
           baseStats: nextBaseStats,
+          artExps: nextArtExps,
+          artMilestoneFlags: nextArtMilestoneFlags,
           hp: nextHp,
           mp: nextMp,
           res: nextRes,
@@ -800,6 +819,8 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           sectState: nextSectState,
           npcFavor: nextNpcFavor,
           baseStats: nextBaseStats,
+          artExps: nextArtExps,
+          artMilestoneFlags: nextArtMilestoneFlags,
           hp: nextHp,
           mp: nextMp,
           res: nextRes,
@@ -853,6 +874,8 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         sectState: nextSectState,
         npcFavor: nextNpcFavor,
         baseStats: nextBaseStats,
+        artExps: nextArtExps,
+        artMilestoneFlags: nextArtMilestoneFlags,
         hp: nextHp,
         mp: nextMp,
         res: nextRes,
@@ -901,6 +924,8 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       sectState: nextSectState,
       npcFavor: nextNpcFavor,
       baseStats: nextBaseStats,
+      artExps: nextArtExps,
+      artMilestoneFlags: nextArtMilestoneFlags,
       hp: nextHp,
       mp: nextMp,
       res: nextRes,

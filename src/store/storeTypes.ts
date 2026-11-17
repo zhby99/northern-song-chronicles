@@ -1,6 +1,5 @@
 import type { StateCreator } from 'zustand'
 import type {
-  ActionEffect,
   BagCategoryKey,
   CameraPan,
   CompendiumTabKey,
@@ -177,13 +176,8 @@ export interface GameStoreState {
   transferNeigongProficiency: (fromArtId: string, toArtId: string) => void
   consumeInventoryItem: (itemId: string, forceUseEffect?: boolean) => void
 
-  doBuildingAction: (item: {
-    name: string
-    cost?: number
-    effect: ActionEffect
-  }) => void
   buySpotShopItem: (spotId: string, itemId: string, qty?: number) => void
-  interactNpc: (npc: NodeNpc, mode: 'talk' | 'art' | 'spar') => void
+  interactNpc: (npc: NodeNpc, mode: 'talk' | 'spar') => void
   startNpcCombat: (
     npc: NodeNpc,
     mode?: 'spar' | 'duel',

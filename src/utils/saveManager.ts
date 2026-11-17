@@ -379,9 +379,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
         parsedArts.push({ artId: entry.artId, level: lv, exp: xp })
       }
     }
-    if (parsedArts.length > 0) {
-      cleanLearnedArts = parsedArts
-    }
+    cleanLearnedArts = parsedArts
   }
 
   const learnedSet = new Set(cleanLearnedArts.map((a) => a.artId))
@@ -426,11 +424,16 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   }
 
   const cleanBaseStats = sanitizeHeroBaseStats(st.baseStats)
+  const rawHeavyInjury =
+    isRecord(st.questState) &&
+    isRecord(st.questState.flags) &&
+    Boolean(st.questState.flags.taihang_heavy_injury)
   const derived = deriveHeroEffectiveStats(
     cleanBaseStats,
     cleanEquipped,
     cleanEquippedArts,
     cleanLearnedArts,
+    { heavyInjury: rawHeavyInjury },
   )
 
   const hpVal =

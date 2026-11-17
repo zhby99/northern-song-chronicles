@@ -59,6 +59,10 @@ export interface CombatantState {
   lastUsedArtId: string | null
   stunnedNextRound: boolean
   disarmedNextRound: boolean
+  exposed: boolean
+  consecutiveMoveRounds: number
+  poisonDotTurns: number
+  poisonDotDmg: number
   slowTurns: number
   slowPct: number
   weakTurns: number
@@ -416,6 +420,32 @@ export function getStrongestLivingEnemy(session: CombatSessionState): CombatantS
   )
 }
 
+export interface MartialCategoryInstinct {
+  shortTag: string
+  detail: string
+}
+
+export function getMartialCategoryInstinct(category: string): MartialCategoryInstinct | null {
+  switch (category) {
+    case '刀法':
+    case '棍棒':
+      return { shortTag: '破守+30%', detail: '刚猛破防：命中守御目标时伤害 +30%' }
+    case '剑法':
+    case '指法':
+      return { shortTag: '先手+10', detail: '疾电抢攻：本合先手身法检定 +10' }
+    case '暗器':
+      return { shortTag: '无视30%闪', detail: '奇诡难防：无视目标 30% 闪避率' }
+    case '毒功':
+      return { shortTag: '持续蚀血', detail: '奇毒附骨：命中造成 2 回合持续毒伤' }
+    case '音功':
+      return { shortTag: '削减内力', detail: '音波乱息：命中直接震散削减敌方内力' }
+    case '枪法':
+      return { shortTag: '后手+20%', detail: '后发制人：后手反击出招时伤害 +20%' }
+    default:
+      return null
+  }
+}
+
 export function computeDodgeChancePreview(
   defender: CombatantState,
   attacker: CombatantState,
@@ -423,13 +453,17 @@ export function computeDodgeChancePreview(
 ): number {
   const defAgi = computeEffectiveAgility(defender)
   const atkAgi = computeEffectiveAgility(attacker)
-  let dodge = Math.max(0, Math.min(1, ((defAgi - atkAgi) * 0.35 + defAgi * 0.15) / 100))
+  // 常规身法闪避封顶 35%
+  let dodge = Math.max(0, Math.min(0.35, ((defAgi - atkAgi) * 0.35 + defAgi * 0.15) / 100))
   const qgDef = getSlotEffectsMap(defender, 'qinggong')
   if (qgDef.lingbo_dodge) {
     const lb = (defenderDefending ? (qgDef.lingbo_def_dodge ?? qgDef.lingbo_dodge * 2) : qgDef.lingbo_dodge) / 100
     dodge = Math.max(dodge, lb)
   } else if (qgDef.shenxing_dodge) {
     dodge = Math.max(dodge, qgDef.shenxing_dodge / 100)
+  }
+  if (defender.exposed) {
+    dodge *= 0.5
   }
   return Math.max(0, Math.min(1, dodge))
 }
@@ -464,12 +498,14 @@ export function buildPlayerCombatant(params: {
   equipped: EquippedSlotsMap
   equippedArts: EquippedArtsMap
   learnedArts: LearnedArtEntry[]
+  heavyInjury?: boolean
 }): CombatantState {
   const eff = deriveHeroEffectiveStats(
     params.baseStats,
     params.equipped,
     params.equippedArts,
     params.learnedArts,
+    { heavyInjury: Boolean(params.heavyInjury) },
   )
   const equipTotals = computeEquipmentTotals(params.equipped)
   const artTotals = computeEquippedArtsTotals(params.equippedArts, params.learnedArts)
@@ -515,6 +551,10 @@ export function buildPlayerCombatant(params: {
     lastUsedArtId: null,
     stunnedNextRound: false,
     disarmedNextRound: false,
+    exposed: false,
+    consecutiveMoveRounds: 0,
+    poisonDotTurns: 0,
+    poisonDotDmg: 0,
     slowTurns: 0,
     slowPct: 0,
     weakTurns: 0,
@@ -619,6 +659,10 @@ export function buildNpcCombatant(
       lastUsedArtId: null,
       stunnedNextRound: false,
       disarmedNextRound: false,
+      exposed: false,
+      consecutiveMoveRounds: 0,
+      poisonDotTurns: 0,
+      poisonDotDmg: 0,
       slowTurns: 0,
       slowPct: 0,
       weakTurns: 0,
@@ -706,6 +750,10 @@ export function buildNpcCombatant(
     lastUsedArtId: null,
     stunnedNextRound: false,
     disarmedNextRound: false,
+    exposed: false,
+    consecutiveMoveRounds: 0,
+    poisonDotTurns: 0,
+    poisonDotDmg: 0,
     slowTurns: 0,
     slowPct: 0,
     weakTurns: 0,
@@ -819,11 +867,29 @@ export function chooseNpcCombatAction(
   const qgFx = getSlotEffectsMap(npc, 'qinggong')
   const affordableMoves = availMoves.filter((m) => !m.lowMpWarning)
 
-  // 若内力不足以支撑大部分招式，或拥有金刚不坏体/凌波微步战术守御，有一定概率暗选【防御】
+  // 检查对手是否内力不足（所有装配招式皆触发内力不足六折预警，或内力低于上限 12%）：此时 AI 必定抢攻出招
+  const oppEquippedMoves = getMoveActionsAvailability(primaryOpponent).filter((m) => m.art !== null)
+  const isOpponentMpDepleted =
+    (oppEquippedMoves.length > 0 && oppEquippedMoves.every((m) => m.lowMpWarning)) ||
+    primaryOpponent.mp < Math.max(10, primaryOpponent.maxMp * 0.12)
+
+  // 按对手出招频率与状态预测守御概率
   let defendProb = 0.12
-  if (affordableMoves.length === 0) defendProb = 0.38
-  else if (ngFx.jingang_rebound || qgFx.lingbo_def_dodge) defendProb = 0.2
-  else if (npc.hp < npc.maxHp * 0.3 && primaryOpponent.mp > primaryOpponent.maxMp * 0.5) defendProb = 0.22
+  if (isOpponentMpDepleted) {
+    defendProb = 0
+  } else if (primaryOpponent.exposed && affordableMoves.length > 0) {
+    // 对手身陷【破绽】时积极痛击
+    defendProb = 0.04
+  } else if (primaryOpponent.consecutiveMoveRounds >= 2) {
+    // 对手连续 2 回合及以上强攻出招时，AI 预判设伏守御率升至 32%~35%
+    defendProb = ngFx.jingang_rebound || qgFx.lingbo_def_dodge ? 0.35 : 0.32
+  } else if (affordableMoves.length === 0) {
+    defendProb = 0.38
+  } else if (ngFx.jingang_rebound || qgFx.lingbo_def_dodge) {
+    defendProb = 0.2
+  } else if (npc.hp < npc.maxHp * 0.3 && primaryOpponent.mp > primaryOpponent.maxMp * 0.5) {
+    defendProb = 0.22
+  }
 
   if (Math.random() < defendProb) {
     return { type: 'defend' }
@@ -862,6 +928,7 @@ export function chooseAiCombatDecision(
       const hpRatio = opp.hp / Math.max(1, opp.maxHp)
       let w = 1.0
       if (hpRatio < 0.35) w += 0.5
+      if (opp.exposed) w += 0.45
       if (actor.team === 'enemy') {
         // 敌军在少侠与友军之间战术分摊火力（略倾向威胁更高的目标，避免机械死盯一人）
         w *= opp.isPlayer ? 1.1 : 1.0
@@ -1110,17 +1177,29 @@ export function resolveCombatRound(
     })
   }
 
-  // 2) 全员身法先后手排序（含《独孤九剑》料敌机先抢先机）
+  // 盲选锁定后更新连续出招计数（供后续回合 AI 频率预测使用）
+  for (const entry of decisionMap.values()) {
+    entry.fighter.consecutiveMoveRounds =
+      entry.choice.type === 'move' ? entry.fighter.consecutiveMoveRounds + 1 : 0
+  }
+
+  // 2) 全员身法先后手排序（含《独孤九剑》料敌机先 & 剑法/指法本能先手+10）
   const scoredOrder = Array.from(decisionMap.values()).map((entry) => {
     const { fighter, choice } = entry
     const agi = computeEffectiveAgility(fighter)
     const moveFx =
       choice.type === 'move' ? getSlotEffectsMap(fighter, choice.slot) : {}
+    const chosenArtId = choice.type === 'move' ? fighter.equippedArts[choice.slot] : null
+    const chosenArt = chosenArtId ? MARTIAL_ART_DB_MAP[chosenArtId] : undefined
+    const instinctInitBonus =
+      chosenArt && (chosenArt.category === '剑法' || chosenArt.category === '指法') ? 10 : 0
     const hasDuguPriority = choice.type === 'move' && Boolean(moveFx.dugu_interrupt)
-    const initScore = (hasDuguPriority ? 10000 : 0) + agi + (Math.random() * 6 - 3)
+    const initScore =
+      (hasDuguPriority ? 10000 : 0) + agi + instinctInitBonus + (Math.random() * 6 - 3)
     return {
       ...entry,
       agi,
+      instinctInitBonus,
       hasDuguPriority,
       initScore,
     }
@@ -1131,6 +1210,9 @@ export function resolveCombatRound(
     return a.fighter.team === 'ally' ? -1 : 1
   })
 
+  const orderIndexByUnitId = new Map<string, number>(
+    scoredOrder.map((s, idx) => [s.fighter.unitId, idx]),
+  )
   const leader = scoredOrder[0]!
   const firstMover: 'player' | 'npc' = leader.fighter.team === 'ally' ? 'player' : 'npc'
   const pLabel = describeChoice(player, playerChoice)
@@ -1159,10 +1241,13 @@ export function resolveCombatRound(
 
   let initReason = ''
   if (!isMultiCombat) {
-    const nAgi = computeEffectiveAgility(initialPrimaryNpc)
+    const pOrder = scoredOrder.find((s) => s.fighter.unitId === player.unitId)
+    const nOrder = scoredOrder.find((s) => s.fighter.unitId === initialPrimaryNpc.unitId)
+    const pInitStr = `${computeEffectiveAgility(player)}${pOrder?.instinctInitBonus ? '+10剑指' : ''}`
+    const nInitStr = `${computeEffectiveAgility(initialPrimaryNpc)}${nOrder?.instinctInitBonus ? '+10剑指' : ''}`
     initReason = leader.hasDuguPriority
       ? '（《独孤九剑》料敌机先，无视身法抢占先机！）'
-      : `（实战身法 ${computeEffectiveAgility(player)} : ${nAgi}）`
+      : `（先手身法 ${pInitStr} : ${nInitStr}）`
     roundEvents.push(
       makeLog(
         round,
@@ -1180,7 +1265,12 @@ export function resolveCombatRound(
       })
       .join('；')
     const orderSummary = scoredOrder
-      .map((s) => `${s.fighter.isPlayer ? '少侠' : s.fighter.name}(${s.agi})`)
+      .map(
+        (s) =>
+          `${s.fighter.isPlayer ? '少侠' : s.fighter.name}(${s.agi}${
+            s.instinctInitBonus ? '+10' : ''
+          })`,
+      )
       .join(' → ')
     initReason = `（出招序：${orderSummary}）`
     roundEvents.push(
@@ -1189,18 +1279,30 @@ export function resolveCombatRound(
   }
 
   const revealPopups: CombatFloatingPopup[] = []
+  const isMutualDefend =
+    livingAlliesStart.length > 0 &&
+    livingEnemiesStart.length > 0 &&
+    livingAlliesStart.every((a) => decisionMap.get(a.unitId)?.choice.type === 'defend') &&
+    livingEnemiesStart.every((e) => decisionMap.get(e.unitId)?.choice.type === 'defend')
 
-  // 若选择【防御】，重置连招限制，且本回合不耗内力
+  // 若选择【防御】：重置连招限制，单方守御回复 10% 内力上限，双方皆守御各回复 15% 内力上限
   for (const entry of decisionMap.values()) {
     if (entry.choice.type === 'defend') {
       entry.fighter.lastUsedArtId = null
+      const mpRecoverRatio = isMutualDefend ? 0.15 : 0.1
+      const rawMpGain = Math.max(1, Math.round(entry.fighter.maxMp * mpRecoverRatio))
+      const mpBefore = entry.fighter.mp
+      entry.fighter.mp = Math.min(entry.fighter.maxMp, entry.fighter.mp + rawMpGain)
+      const actualMpGain = entry.fighter.mp - mpBefore
       const fSide: 'player' | 'npc' = entry.fighter.team === 'ally' ? 'player' : 'npc'
       const actorTitle = entry.fighter.isPlayer ? '少侠' : entry.fighter.name
       roundEvents.push(
         makeLog(
           round,
           fSide === 'player' ? 'player' : 'enemy',
-          `${actorTitle}沉腰敛气摆出守御架势，门户严密（所受伤害减半）。`,
+          isMutualDefend
+            ? `${actorTitle}与对手皆抱元守一，吐纳调息回复 ${actualMpGain} 点内力（双守15%上限，受创减半）。`
+            : `${actorTitle}沉腰敛气摆出守御架势，凝神回气 +${actualMpGain} 点内力（受创减半，诱敌破绽）。`,
         ),
       )
       revealPopups.push({
@@ -1208,7 +1310,7 @@ export function resolveCombatRound(
         side: fSide,
         unitId: entry.fighter.unitId,
         text: entry.fighter.isPlayer ? '沉腰守御' : '凝神守御',
-        subText: '受创减半',
+        subText: actualMpGain > 0 ? `受创减半 · +${actualMpGain}内力` : '受创减半 · 诱敌破绽',
         style: 'guard',
       })
     }
@@ -1230,6 +1332,7 @@ export function resolveCombatRound(
   })
 
   const interruptedIds = new Set<string>()
+  const pendingExposedIds = new Set<string>()
   let escapedSuccess = false
 
   for (const step of scoredOrder) {
@@ -1545,9 +1648,11 @@ export function resolveCombatRound(
           }
         }
         if (eff.curePoison) {
-          if (actor.slowTurns > 0 || actor.weakTurns > 0) {
+          if (actor.slowTurns > 0 || actor.weakTurns > 0 || actor.poisonDotTurns > 0) {
             actor.slowTurns = 0
             actor.weakTurns = 0
+            actor.poisonDotTurns = 0
+            actor.poisonDotDmg = 0
             notes.push('涤除体内滞涩奇毒')
             itemPopups.push({
               id: nextPopupId(),
@@ -1636,24 +1741,48 @@ export function resolveCombatRound(
       )
     }
 
-    // 2. 后手/受击方闪避判定：clamp((守方身法 - 攻方身法)*35% + 守方身法*15%, 0%, 100%)
-    const defAgi = computeEffectiveAgility(target)
+    // 2. 后手/受击方闪避判定：常规闪避封顶 35%，暗器本能无视 30% 闪避，破绽状态闪避减半
     const isTargetDefending = targetChoice.type === 'defend'
     let dodgeChance = computeDodgeChancePreview(target, actor, isTargetDefending)
+    const hiddenInstinctMult = art.category === '暗器' ? 0.7 : 1.0
     const ignoreDodgePct =
       (moveFx.baihong_curve ?? (moveFx.baoyu_lock ? 50 : 0)) / 100
-    dodgeChance = Math.max(0, Math.min(1, dodgeChance * (1 - ignoreDodgePct)))
+    dodgeChance = Math.max(
+      0,
+      Math.min(1, dodgeChance * hiddenInstinctMult * (1 - ignoreDodgePct)),
+    )
 
     if (Math.random() < dodgeChance) {
       const qgId = target.equippedArts.qinggong
       const qgName = qgId && MARTIAL_ART_DB_MAP[qgId] ? `《${MARTIAL_ART_DB_MAP[qgId]!.cleanName}》` : '轻灵身法'
+      const dodgePopups: CombatFloatingPopup[] = [
+        {
+          id: nextPopupId(),
+          side: targetSide,
+          text: '掠影闪避！',
+          subText: qgName,
+          style: 'dodge',
+        },
+      ]
+      let exposeNote = ''
+      if (isTargetDefending && actor.hp > 0 && target.hp > 0 && !pendingExposedIds.has(actor.unitId)) {
+        pendingExposedIds.add(actor.unitId)
+        exposeNote = `（强攻守御落空招老，${actor.name}下回合陷入【破绽】！）`
+        dodgePopups.push({
+          id: nextPopupId(),
+          side: actorSide,
+          text: '招老露破绽！',
+          subText: '下合受创+25%·闪-50%',
+          style: 'debuff',
+        })
+      }
       roundEvents.push(
         makeLog(
           round,
           'dodge',
           `${actor.name}施展《${art.cleanName}》（${mpNote}），${target.name}展开${qgName}潇洒滑开，片叶不沾！（闪避率 ${Math.round(
             dodgeChance * 100,
-          )}%）`,
+          )}%）${exposeNote}`,
         ),
       )
       flushBeat({
@@ -1663,15 +1792,7 @@ export function resolveCombatRound(
         bannerTitle: `《${art.cleanName}》`,
         bannerSubtitle: `${target.name}展开${qgName}掠影闪开！`,
         vfxCategory: moveVfx,
-        popups: [
-          {
-            id: nextPopupId(),
-            side: targetSide,
-            text: '掠影闪避！',
-            subText: qgName,
-            style: 'dodge',
-          },
-        ],
+        popups: dodgePopups,
       })
       continue
     }
@@ -1749,16 +1870,16 @@ export function resolveCombatRound(
       lowMpMult *
       weakMult
 
-    // 4. 计算守方护体 DefRaw
+    // 4. 计算守方护体 DefRaw（身法不再计入物理护体）
+    const antiPoisonBoost =
+      art.category === '毒功' || actorNgFx.beiming_drain || actorNgFx.huagong_burn
+        ? (targetNgFx.xiantian_antipoison ?? 0) / 100
+        : 0
+    const effRes = target.res * (1 + antiPoisonBoost)
     let defRaw = 0
     if (kind === '物理') {
-      defRaw = target.equipDefense * 1.5 + target.mp * 0.16 + defAgi * 1.5
+      defRaw = target.equipDefense * 1.5 + target.mp * 0.16
     } else {
-      const antiPoisonBoost =
-        art.category === '毒功' || actorNgFx.beiming_drain || actorNgFx.huagong_burn
-          ? (targetNgFx.xiantian_antipoison ?? 0) / 100
-          : 0
-      const effRes = target.res * (1 + antiPoisonBoost)
       defRaw = effRes * 5 + target.mp * 0.08
     }
 
@@ -1809,18 +1930,45 @@ export function resolveCombatRound(
     }
     specRed = Math.min(0.75, specRed)
 
-    // 防御姿态系数
+    // 防御姿态系数 & 武学大类本能（刀/棍破守+30%，枪后手反击+20%）& 破绽易伤+25%
     let postureMult = isTargetDefending ? 0.5 : 1.0
     if (isTargetDefending && (moveFx.huoyan_pen || moveFx.qixian_sap)) {
       const penPct = (moveFx.huoyan_pen ?? 25) / 100
       postureMult = 0.5 + 0.5 * penPct
     }
+    const isGuardBreakInstinct =
+      isTargetDefending && (art.category === '刀法' || art.category === '棍棒')
+    if (isGuardBreakInstinct) {
+      postureMult *= 1.3
+    }
+
+    const actorOrderIdx = orderIndexByUnitId.get(actor.unitId) ?? 0
+    const targetOrderIdx = orderIndexByUnitId.get(target.unitId) ?? 0
+    const isSpearCounterInstinct = art.category === '枪法' && actorOrderIdx > targetOrderIdx
+    const spearCounterMult = isSpearCounterInstinct ? 1.2 : 1.0
+
+    const isTargetExposed = target.exposed
+    const exposedVulnMult = isTargetExposed ? 1.25 : 1.0
+
+    const tacticalTags: string[] = []
+    if (isGuardBreakInstinct) tacticalTags.push('刀棍破守+30%')
+    if (isSpearCounterInstinct) tacticalTags.push('枪道后发+20%')
+    if (isTargetExposed) tacticalTags.push('痛击破绽+25%')
+    const tacticalNote = tacticalTags.length > 0 ? `【${tacticalTags.join('·')}】` : ''
 
     // 5. [0.5, 1.5] 正态分布随机检定
     const roll = sampleDamageRoll()
     let finalDmg = Math.max(
       1,
-      Math.round(attackPower * (1 - mitigation) * (1 - specRed) * postureMult * roll.multiplier),
+      Math.round(
+        attackPower *
+          (1 - mitigation) *
+          (1 - specRed) *
+          postureMult *
+          spearCounterMult *
+          exposedVulnMult *
+          roll.multiplier,
+      ),
     )
 
     // 6. 斗转星移 / 金刚不坏反震
@@ -1857,11 +2005,17 @@ export function resolveCombatRound(
         text: `-${totalTargetLoss}`,
         subText: roll.isCrit
           ? `暴击 · ${roll.tag}`
-          : isTargetDefending
-            ? '守御格挡'
-            : burnExtra > 0
-              ? `含灼脉 ${burnExtra}`
-              : roll.tag,
+          : isTargetExposed
+            ? '破绽重创'
+            : isTargetDefending
+              ? isGuardBreakInstinct
+                ? '破守重击'
+                : '守御格挡'
+              : isSpearCounterInstinct
+                ? '后发反击'
+                : burnExtra > 0
+                  ? `含灼脉 ${burnExtra}`
+                  : roll.tag,
         style: roll.isCrit ? 'crit' : isTargetDefending ? 'guard' : 'damage',
       },
     ]
@@ -1880,7 +2034,7 @@ export function resolveCombatRound(
       makeLog(
         round,
         roll.isCrit ? 'crit' : actor.team === 'ally' ? 'player' : 'enemy',
-        `${actor.name}催动《${art.cleanName}》［${subTypeLabel}·${mpNote}］——【${roll.tag} ×${roll.multiplier.toFixed(
+        `${actor.name}催动《${art.cleanName}》［${subTypeLabel}·${mpNote}］${tacticalNote}——【${roll.tag} ×${roll.multiplier.toFixed(
           2,
         )}】${roll.desc}，重创${target.name} ${finalDmg} 点气血${
           burnExtra > 0 ? `（另附燥火灼脉 ${burnExtra} 点）` : ''
@@ -1896,6 +2050,25 @@ export function resolveCombatRound(
         text: `-${reboundDmg}`,
         subText: targetNgFx.douzhuan_high ? '斗转反击' : '金刚反震',
         style: 'special',
+      })
+    }
+
+    // 攻入守御目标后露破绽：下回合受到伤害 +25%、闪避 -50%
+    if (isTargetDefending && actor.hp > 0 && target.hp > 0 && !pendingExposedIds.has(actor.unitId)) {
+      pendingExposedIds.add(actor.unitId)
+      roundEvents.push(
+        makeLog(
+          round,
+          'special',
+          `${target.name}守御稳如磐石卸去猛劲，${actor.name}招老力竭露出破绽（下回合受创+25%·闪避-50%）！`,
+        ),
+      )
+      attackPopups.push({
+        id: nextPopupId(),
+        side: actorSide,
+        text: '露破绽！',
+        subText: '下合受创+25%·闪-50%',
+        style: 'debuff',
       })
     }
 
@@ -1919,9 +2092,58 @@ export function resolveCombatRound(
       })
     }
 
-    // 7. 命中附加特效（吸内 / 化功 / 吸血 / 封穴震慑 / 绊缠）
+    // 7. 命中附加特效（大类本能音功削内/毒功持续伤害 + 吸内 / 化功 / 吸血 / 封穴震慑 / 绊缠）
     const wardScale = targetNgFx.xisui_ward ? Math.max(0.25, 1 - targetNgFx.xisui_ward / 100) : 1.0
     const targetControlImmune = Boolean(targetNgFx.bahuang_dom && target.hp > actor.hp)
+
+    // 音功大类本能：音波乱息削减内力
+    if (art.category === '音功' && target.mp > 0) {
+      const resFactor = Math.max(0.25, 1 - effRes / 180)
+      const sonicSap = Math.min(
+        target.mp,
+        Math.max(6, Math.round((finalDmg * 0.28 + target.maxMp * 0.03) * resFactor * wardScale)),
+      )
+      if (sonicSap > 0) {
+        target.mp = Math.max(0, target.mp - sonicSap)
+        roundEvents.push(
+          makeLog(
+            round,
+            'special',
+            `《${art.cleanName}》音刃震荡气海，削减${target.name} ${sonicSap} 点内力！`,
+          ),
+        )
+        attackPopups.push({
+          id: nextPopupId(),
+          side: targetSide,
+          text: `-${sonicSap} 内力`,
+          subText: '音功乱息',
+          style: 'debuff',
+        })
+      }
+    }
+
+    // 毒功大类本能：奇毒附骨持续伤害
+    if (art.category === '毒功' && target.hp > 0) {
+      const resFactor = Math.max(0.25, 1 - effRes / 180)
+      const dotDmg = Math.max(6, Math.round(finalDmg * 0.25 * resFactor * wardScale))
+      target.poisonDotDmg =
+        target.poisonDotTurns > 0 ? Math.max(target.poisonDotDmg, dotDmg) : dotDmg
+      target.poisonDotTurns = 2
+      roundEvents.push(
+        makeLog(
+          round,
+          'special',
+          `《${art.cleanName}》奇毒侵入经脉，${target.name}身中持续奇毒（每合蚀血 ${target.poisonDotDmg} 点，持续 2 合）！`,
+        ),
+      )
+      attackPopups.push({
+        id: nextPopupId(),
+        side: targetSide,
+        text: `奇毒 ${target.poisonDotDmg}/合`,
+        subText: '持续2合',
+        style: 'debuff',
+      })
+    }
 
     if (actorNgFx.beiming_drain && target.mp > 0) {
       const resFactor = Math.max(0.2, 1 - target.res / 150)
@@ -1985,6 +2207,8 @@ export function resolveCombatRound(
       const healed = Math.max(1, Math.round(finalDmg * (moveFx.liuyang_leech / 100)))
       actor.hp = Math.min(actor.maxHp, actor.hp + healed)
       actor.weakTurns = 0
+      actor.poisonDotTurns = 0
+      actor.poisonDotDmg = 0
       actor.stunnedNextRound = false
       roundEvents.push(
         makeLog(round, 'special', `${actor.name}《天山六阳掌》阴阳相济回血 ${healed} 点并涤荡体内滞气！`),
@@ -2086,7 +2310,7 @@ export function resolveCombatRound(
       actorSide,
       targetSide,
       bannerTitle: `《${art.cleanName}》`,
-      bannerSubtitle: `【${roll.tag} ×${roll.multiplier.toFixed(2)}】${subTypeLabel}`,
+      bannerSubtitle: `【${roll.tag} ×${roll.multiplier.toFixed(2)}】${subTypeLabel}${tacticalNote}`,
       vfxCategory: moveVfx,
       isHeavenTier: art.tier === '天阶',
       isCrit: roll.isCrit,
@@ -2101,16 +2325,52 @@ export function resolveCombatRound(
 
   const anyEnemyAlive = enemies.some((e) => e.hp > 0)
 
-  // 回合末：九阴疗伤 / 先天功生生不息 & 状态回合递减
+  // 回合末：奇毒持续伤害 / 九阴疗伤 / 先天功生生不息 & 破绽与状态回合结转
   const statusPopups: CombatFloatingPopup[] = []
+  let hasPoisonStatusTick = false
+  let hasHealStatusTick = false
   if (!escapedSuccess && player.hp > 0 && anyEnemyAlive) {
     for (const f of [...allies, ...enemies]) {
-      if (f.hp <= 0) continue
+      if (f.hp <= 0) {
+        f.exposed = false
+        continue
+      }
       const fSide: 'player' | 'npc' = f.team === 'ally' ? 'player' : 'npc'
+
+      if (f.poisonDotTurns > 0 && f.poisonDotDmg > 0) {
+        const dot = f.poisonDotDmg
+        f.hp = Math.max(0, f.hp - dot)
+        f.poisonDotTurns -= 1
+        if (f.poisonDotTurns <= 0) f.poisonDotDmg = 0
+        hasPoisonStatusTick = true
+        roundEvents.push(
+          makeLog(
+            round,
+            'special',
+            `${f.name}体内奇毒发作蚀脉，折损 ${dot} 点气血${
+              f.hp <= 0 ? '，毒发力竭倒地' : `（余 ${f.poisonDotTurns} 合）`
+            }！`,
+          ),
+        )
+        statusPopups.push({
+          id: nextPopupId(),
+          side: fSide,
+          unitId: f.unitId,
+          text: `-${dot}`,
+          subText: '奇毒蚀脉',
+          style: 'debuff',
+        })
+        if (f.hp <= 0) {
+          f.exposed = false
+          continue
+        }
+      }
+
       const ngFx = getSlotEffectsMap(f, 'neigong')
       if (ngFx.jiuyin_heal) {
         const heal = Math.max(1, Math.round((f.maxHp * ngFx.jiuyin_heal) / 100))
         f.hp = Math.min(f.maxHp, f.hp + heal)
+        hasHealStatusTick = true
         roundEvents.push(makeLog(round, 'special', `${f.name}《九阴真经》疗伤篇流转，回复 ${heal} 点气血。`))
         statusPopups.push({
           id: nextPopupId(),
@@ -2126,6 +2386,7 @@ export function resolveCombatRound(
         const mpGain = ngFx.xiantian_mp ? Math.max(1, Math.round((f.maxMp * ngFx.xiantian_mp) / 100)) : 0
         f.hp = Math.min(f.maxHp, f.hp + hpGain)
         f.mp = Math.min(f.maxMp, f.mp + mpGain)
+        hasHealStatusTick = true
         roundEvents.push(
           makeLog(
             round,
@@ -2144,14 +2405,27 @@ export function resolveCombatRound(
       }
       if (f.slowTurns > 0) f.slowTurns -= 1
       if (f.weakTurns > 0) f.weakTurns -= 1
+      f.exposed = pendingExposedIds.has(f.unitId)
+    }
+  } else {
+    for (const f of [...allies, ...enemies]) {
+      f.exposed = false
     }
   }
   if (statusPopups.length > 0) {
     flushBeat({
       kind: 'status',
-      bannerTitle: '周天吐纳 · 生生不息',
-      bannerSubtitle: '上乘内功运转周天修复经脉',
-      vfxCategory: 'heal',
+      bannerTitle:
+        hasPoisonStatusTick && hasHealStatusTick
+          ? '奇毒攻心 · 周天吐纳'
+          : hasPoisonStatusTick
+            ? '奇毒发作 · 蚀脉攻心'
+            : '周天吐纳 · 生生不息',
+      bannerSubtitle:
+        hasPoisonStatusTick && !hasHealStatusTick
+          ? '经脉余毒蔓延蚀损气血'
+          : '回合末经脉气机流转结算',
+      vfxCategory: hasPoisonStatusTick && !hasHealStatusTick ? 'poison' : 'heal',
       popups: statusPopups,
     })
   }

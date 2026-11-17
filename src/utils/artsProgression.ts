@@ -65,6 +65,92 @@ export function computeDailyArtExpGain(
   return Math.max(10, Math.round(BASE_DAILY_ART_EXP * wisdomMod * envMultiplier * (1 + itemBonus)))
 }
 
+/**
+ * 当任务奖励、典籍研读、路途奇遇或藏经阁闭关直接修改十艺等级（skills / ridingSkill）时，
+ * 同步抬升或对齐 artExps 经验基数并触发 80/90 级里程碑天赋馈赠，杜绝下次正式修行时等级倒退。
+ */
+export function syncArtLevelsToExpsAndMilestones(params: {
+  baseStats: {
+    ridingSkill: number
+    skills: Record<string, number>
+    talents: { 根骨: number; 悟性: number; 颜值: number }
+  }
+  artExps: Partial<Record<TenArtKey, number>>
+  artMilestoneFlags: string[]
+  keysToSync?: readonly TenArtKey[]
+}): {
+  artExps: Partial<Record<TenArtKey, number>>
+  artMilestoneFlags: string[]
+  milestoneNotes: string[]
+} {
+  const nextExps: Partial<Record<TenArtKey, number>> = { ...params.artExps }
+  const nextFlags = [...params.artMilestoneFlags]
+  const milestoneNotes: string[] = []
+  const keys = params.keysToSync ?? TEN_ARTS_KEYS
+
+  for (const artKey of keys) {
+    const rawLv =
+      artKey === '骑术' ? params.baseStats.ridingSkill : (params.baseStats.skills[artKey] ?? 0)
+    const clampedLv = Math.max(0, Math.min(100, Math.floor(rawLv)))
+    if (artKey === '骑术') {
+      params.baseStats.ridingSkill = clampedLv
+    } else {
+      params.baseStats.skills[artKey] = clampedLv
+    }
+
+    const floorExpForLv = getExpForArtLevel(clampedLv)
+    const nextFloorExp = clampedLv >= 100 ? MAX_ART_EXP : getExpForArtLevel(clampedLv + 1) - 1
+    const prevExp = nextExps[artKey]
+    if (prevExp === undefined || prevExp < floorExpForLv) {
+      nextExps[artKey] = floorExpForLv
+    } else if (prevExp > nextFloorExp) {
+      nextExps[artKey] = floorExpForLv
+    }
+
+    if (
+      (artKey === '琴' || artKey === '书' || artKey === '画' || artKey === '诗词') &&
+      clampedLv >= 80 &&
+      !nextFlags.includes(`art80:${artKey}`)
+    ) {
+      nextFlags.push(`art80:${artKey}`)
+      const prevVal = params.baseStats.talents.颜值
+      params.baseStats.talents.颜值 = Math.min(100, prevVal + 2)
+      if (params.baseStats.talents.颜值 > prevVal) {
+        milestoneNotes.push(
+          `【${artKey}】初入 80 级，【颜值 +${params.baseStats.talents.颜值 - prevVal}】`,
+        )
+      }
+    }
+
+    if (clampedLv >= 90 && !nextFlags.includes(`art90:${artKey}`)) {
+      nextFlags.push(`art90:${artKey}`)
+      if (artKey === '骑术') {
+        const prevVal = params.baseStats.talents.根骨
+        params.baseStats.talents.根骨 = Math.min(100, prevVal + 2)
+        if (params.baseStats.talents.根骨 > prevVal) {
+          milestoneNotes.push(
+            `【骑术】初入 90 级，【根骨 +${params.baseStats.talents.根骨 - prevVal}】`,
+          )
+        }
+      } else {
+        const prevVal = params.baseStats.talents.悟性
+        params.baseStats.talents.悟性 = Math.min(100, prevVal + 2)
+        if (params.baseStats.talents.悟性 > prevVal) {
+          milestoneNotes.push(
+            `【${artKey}】初入 90 级，【悟性 +${params.baseStats.talents.悟性 - prevVal}】`,
+          )
+        }
+      }
+    }
+  }
+
+  return {
+    artExps: nextExps,
+    artMilestoneFlags: nextFlags,
+    milestoneNotes,
+  }
+}
+
 export interface TenArtGuideEntry {
   key: TenArtKey
   realm: string

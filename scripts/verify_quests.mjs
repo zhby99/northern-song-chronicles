@@ -14,7 +14,7 @@ try {
   if (!result.valid) {
     console.error(`❌ Quest static validation failed with ${result.errors.length} error(s):`)
     for (const err of result.errors) {
-      console.error(`  - [${err.questId}] (${err.path}): ${err.message}`)
+      console.error(`  - ${err}`)
     }
     process.exitCode = 1
   } else {

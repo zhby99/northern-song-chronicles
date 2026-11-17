@@ -19,6 +19,7 @@ import type {
   LearnedArtEntry,
   NodeNpc,
 } from '../../types/game'
+import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
 import {
   cloneHeroBaseStats,
   DAILY_INN_LODGING_COST,
@@ -167,86 +168,6 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
     }
     if (mode === 'spar') {
       get().startNpcCombat(npc, 'spar')
-      return
-    }
-    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 1)
-    const civilKeys = ['算术', '经义', '策论', '诗词', '琴', '棋', '书', '画', '辩才'] as const
-    let primarySkill: (typeof civilKeys)[number] = '诗词'
-    let secondarySkill: (typeof civilKeys)[number] = '琴'
-    if (npc.tenArts) {
-      const sorted = [...civilKeys].sort(
-        (a, b) => (npc.tenArts?.[b] ?? 0) - (npc.tenArts?.[a] ?? 0),
-      )
-      primarySkill = sorted[0] ?? '诗词'
-      secondarySkill = sorted[1] ?? '琴'
-    }
-    const nextBaseStats = cloneHeroBaseStats(s.baseStats)
-    const nextPrimaryBase = Math.min(
-      HERO_BASE_CAPS.civilSkill,
-      (nextBaseStats.skills[primarySkill] ?? 45) + 2,
-    )
-    const nextSecondaryBase = Math.min(
-      HERO_BASE_CAPS.civilSkill,
-      (nextBaseStats.skills[secondarySkill] ?? 45) + 1,
-    )
-    nextBaseStats.skills[primarySkill] = nextPrimaryBase
-    nextBaseStats.skills[secondarySkill] = nextSecondaryBase
-    const derived = deriveHeroEffectiveStats(
-      nextBaseStats,
-      s.equipped,
-      s.equippedArts,
-      s.learnedArts,
-    )
-    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
-    const lodgingFee =
-      clock.daysAdded > 0 && !inOwnSectCity
-        ? Math.min(s.silver, DAILY_INN_LODGING_COST * clock.daysAdded)
-        : 0
-    const dayHook =
-      clock.daysAdded > 0
-        ? applyDayProgressionSectHooks({
-            nextDayCount: clock.dayCount,
-            shichenIdx: clock.shichenIdx,
-            silver: s.silver - lodgingFee,
-            sectState: s.sectState,
-            logs: s.logs,
-            npcFavor: s.npcFavor,
-          })
-        : {
-            silver: s.silver - lodgingFee,
-            sectState: s.sectState,
-            logs: s.logs,
-            npcFavor: s.npcFavor,
-            overdueSpyAmbush: null,
-          }
-
-    const recInteractArt = applyDailyVitalityRecovery({
-      hp: s.hp,
-      maxHp: derived.maxHp,
-      mp: s.mp,
-      maxMp: derived.maxMp,
-      daysAdded: clock.daysAdded,
-      factor: 1,
-    })
-
-    set({
-      dayCount: clock.dayCount,
-      shichenIdx: clock.shichenIdx,
-      silver: dayHook.silver,
-      hp: recInteractArt.hp,
-      mp: recInteractArt.mp,
-      sectState: dayHook.sectState,
-      npcFavor: dayHook.npcFavor,
-      logs: dayHook.logs.slice(0, 60),
-      baseStats: nextBaseStats,
-      skills: derived.skills,
-      actionFeedback: {
-        text: `与 ${npc.name} 雅集论道一个时辰（【${primarySkill}】+2 根基 ${nextPrimaryBase}/100、【${secondarySkill}】+1 根基 ${nextSecondaryBase}/100${lodgingFee > 0 ? ` · 异乡宿费 -${lodgingFee}两` : ''}）。`,
-        tone: 'success',
-      },
-    })
-    if (dayHook.overdueSpyAmbush) {
-      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
     }
   },
 
@@ -355,6 +276,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       equipped: s.equipped,
       equippedArts: s.equippedArts,
       learnedArts: s.learnedArts,
+      heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury),
     })
     const session = createCombatSession({
       mode: effectiveMode,
@@ -397,6 +319,8 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
 
     let nextInventory = s.inventory
     let nextBaseStats = s.baseStats
+    let nextArtExps = s.artExps
+    let nextArtMilestoneFlags = s.artMilestoneFlags
     let nextLearnedArts = s.learnedArts
     let nextConsumedUniqueIds = s.consumedUniqueIds
     let nextConsumedOnceItemIds = s.consumedOnceItemIds
@@ -441,6 +365,13 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
             HERO_BASE_CAPS.civilSkill,
             (cloned.skills[sk] ?? 40) + gain,
           )
+          const synced = syncArtLevelsToExpsAndMilestones({
+            baseStats: cloned,
+            artExps: nextArtExps,
+            artMilestoneFlags: nextArtMilestoneFlags,
+          })
+          nextArtExps = synced.artExps
+          nextArtMilestoneFlags = synced.artMilestoneFlags
         }
         if (eff.food) nextFood += eff.food
         nextBaseStats = cloned
@@ -485,6 +416,8 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       activeCombat: nextSession,
       inventory: nextInventory,
       baseStats: nextBaseStats,
+      artExps: nextArtExps,
+      artMilestoneFlags: nextArtMilestoneFlags,
       learnedArts: nextLearnedArts,
       consumedUniqueIds: nextConsumedUniqueIds,
       consumedOnceItemIds: nextConsumedOnceItemIds,

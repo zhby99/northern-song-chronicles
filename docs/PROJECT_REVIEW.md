@@ -5,16 +5,17 @@
 
 ---
 
-## 〇、已确认的 Bug（建议立即修）
+## 〇、已确认的 Bug（✅ 已全部修复完成）
 
-| # | 问题 | 位置 |
-|---|---|---|
-| 1 | `verify_quests.mjs` 按 `err.questId/path/message` 打印报错，但校验器返回的是 `string[]`，所以失败时只会输出 `undefined`。另外 `npm run lint` 没有包含 `verify:quests` | [verify_quests.mjs](file:///home/antigravity/zhby99/northern-song-chronicles/scripts/verify_quests.mjs#L16) / [questEngine.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/questEngine.ts#L935-L937) |
-| 2 | 在渲染中调用 `useGameStore.getState()`，状态变化时立绘和姓名不会刷新 | [LoadoutTab.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/menu/tabs/LoadoutTab.tsx#L373-L374) |
-| 3 | **十艺「唱和」可以无限刷**：每次只耗 1 时辰，主艺 +2，没有冷却，也不比较 NPC 技艺，一天能涨约 24 级 | `combatSocialSlice.ts:172-247` |
-| 4 | **十艺 exp 与等级不同步**：唱和和任务效果直接改 `skills`，不更新 `artExps`，下次正规修习时等级会倒退 | `combatSocialSlice.ts`、`questSlice.ts:371`、`cultivationSlice.ts:403/511` |
-| 5 | `doBuildingAction` 已经没有任何 UI 调用，但地图 Tooltip 仍然显示「衙门 +16 两 / 演武 +35 战经」 | `mapMath.ts:404-450` |
-| 6 | 年号表只写到至和二年，第 6 年以后永远停在至和二年，可天阶内功要练 8~15 年 | `mapMath.ts:380` |
+| # | 状态 | 问题 | 位置 / 处理结果 |
+|---|---|---|---|
+| 1 | ✅ 已完成 | `verify_quests.mjs` 按 `err.questId/path/message` 打印报错，但校验器返回的是 `string[]`，所以失败时只会输出 `undefined`。另外 `npm run lint` 没有包含 `verify:quests` | [verify_quests.mjs](file:///home/antigravity/zhby99/northern-song-chronicles/scripts/verify_quests.mjs) 改为直接输出字符串错误，并接入 [package.json](file:///home/antigravity/zhby99/northern-song-chronicles/package.json) 的 `npm run lint` |
+| 2 | ✅ 已完成 | 在渲染中调用 `useGameStore.getState()`，状态变化时立绘和姓名不会刷新 | [LoadoutTab.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/menu/tabs/LoadoutTab.tsx) 改为响应式 `useGameStore((s) => ...)` 订阅 |
+| 3 | ✅ 已完成（已取消该功能） | **十艺「唱和」可以无限刷**：每次只耗 1 时辰，主艺 +2，没有冷却，也不比较 NPC 技艺，一天能涨约 24 级 | 已从 [ContextInspectorCard.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/hud/ContextInspectorCard.tsx)、[storeTypes.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/store/storeTypes.ts)、[combatSocialSlice.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/store/slices/combatSocialSlice.ts) 彻底移除「唱和」功能 |
+| 4 | ✅ 已完成 | **十艺 exp 与等级不同步**：唱和和任务效果直接改 `skills`，不更新 `artExps`，下次正规修习时等级会倒退 | 新增 `syncArtLevelsToExpsAndMilestones`，在 [questSlice.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/store/slices/questSlice.ts)、[cultivationSlice.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/store/slices/cultivationSlice.ts)、[loadoutInventorySlice.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/store/slices/loadoutInventorySlice.ts)、[navigationTravelSlice.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/store/slices/navigationTravelSlice.ts) 全链路同步 `artExps` 与 `80/90` 里程碑天赋 |
+| 5 | ✅ 已完成 | `doBuildingAction` 已经没有任何 UI 调用，但地图 Tooltip 仍然显示「衙门 +16 两 / 演武 +35 战经」 | 移除废弃的 `doBuildingAction` 死代码，同步更新 [mapMath.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/utils/mapMath.ts) 基础建筑说明与 [BagTab.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/menu/tabs/BagTab.tsx) 文案 |
+| 6 | ✅ 已完成 | 年号表只写到至和二年，第 6 年以后永远停在至和二年，可天阶内功要练 8~15 年 | [mapMath.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/utils/mapMath.ts) `getSongDateParts` 补全北宋历代年号表（皇祐→至和→嘉祐→治平→熙宁→元丰→元祐等）及动态纪年兜底 |
+| 7 | ✅ 已完成（交叉审查顺带修复） | 其它已确认底层状态 Bug：① 太行重伤 `taihang_heavy_injury` 在多处属性重算与开战时漏传导致折半失效；② 佩饰增益先天禀赋未参与天阶兵甲穿戴检定；③ 抄经不足一日（3 时辰未跨日）误触发跨日/月度钩子；④ 闭关结束/提前出关重复双倍结算回血回内；⑤ 读档时空数组 `learnedArts: []` 被覆盖回初始武学 | 已于 `store/slices/*`、`saveManager.ts`、`combatEngine.ts` 一并修复 |
 
 ---
 
@@ -75,30 +76,30 @@
 
 ### 核心诊断
 设定和资产做得很厚，但系统层面有三个结构性问题：
-1. 战斗中「守御」严格劣于「出招」，盲选没有形成博弈；
-2. 武学同质化：246 门里只有 37 门有特效，172 门的第 10 重数值与同类别其他武学完全相同；
+1. ~~战斗中「守御」严格劣于「出招」，盲选没有形成博弈~~（✅ 已通过下方 P0 战斗重做解决）；
+2. 武学同质化：246 门里只有 37 门有特效，172 门的第 10 重数值与同类别其他武学完全相同（✅ 已先通过大类「本能」效果缓解）；
 3. 颜值和十艺中的 9 艺离开剧情检定就没有用处；经济只有收入没有支出（**没有卖出功能**）；禁军俸禄 60~300 两/月，而且闭关挂机也照领。
 
-### P0：让战斗变成真正的博弈
+### P0：让战斗变成真正的博弈（✅ 已全部完成）
 
-当前收益矩阵（D = 我方伤害，T = 对方伤害）：
+原收益矩阵（D = 我方伤害，T = 对方伤害）：
 
 | 我 \ 敌 | 出招 | 守御 |
 |---|---|---|
 | 出招 | +D−T | +0.5D |
 | 守御 | −0.5T | 0 |
 
-无论对方怎么选，出招都更优。修改方案：
-- **守御重做**：守御时回复 10% 内力上限；如果对方本回合出招，对方进入「破绽」状态，下回合受到的伤害 +25%、闪避 −50%；双方都守御时各回复 15% 内力。
-- **按武学大类加「本能」效果**（同时缓解同质化）：
-  - 刀、棍破守 +30%；
-  - 剑、指先手 +10；
-  - 暗器无视 30% 闪避；
-  - 毒造成持续伤害；
-  - 音功削减内力；
-  - 枪后手反击 +20%。
-- **AI 改成按玩家频率预测**：玩家连续 2 回合出招时，AI 守御率升到 30~35%；玩家内力不足时，AI 必定出招。
-- **身法降权**：身法目前同时影响先手、闪避、护体、逃跑四处。去掉护体中的 `defAgi×1.5`，常规闪避封顶 35%。
+无论对方怎么选，出招都更优。修改方案（已于 [combatEngine.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/utils/combatEngine.ts) 与 [CombatOverlay.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/combat/CombatOverlay.tsx) 实装）：
+- [x] **守御重做（✅ 已完成）**：守御时回复 10% 内力上限；如果对方本回合出招强攻守御目标，对方进入「破绽」状态，下回合受到的伤害 +25%、闪避 −50%；双方都守御时各回复 15% 内力。
+- [x] **按武学大类加「本能」效果（✅ 已完成）**（同时缓解同质化，并在招式卡上透出本能词条）：
+  - [x] 刀、棍破守 +30%；
+  - [x] 剑、指先手 +10；
+  - [x] 暗器无视 30% 闪避；
+  - [x] 毒造成持续伤害（2 回合持续蚀血，可被解毒丹药或六阳掌涤清）；
+  - [x] 音功削减内力；
+  - [x] 枪后手反击 +20%。
+- [x] **AI 改成按玩家频率预测（✅ 已完成）**：玩家连续 2 回合出招时，AI 守御率升到 32~35%；玩家内力不足时，AI 必定出招；玩家陷入「破绽」时，AI 积极抢攻。
+- [x] **身法降权（✅ 已完成）**：去掉物理护体中的 `defAgi×1.5`，常规身法闪避封顶 35%。
 
 ### P0：经济闭环
 - **补卖出功能**：按价值 40% 回收，任务物品锁定不可卖。
