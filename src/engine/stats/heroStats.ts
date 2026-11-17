@@ -183,8 +183,8 @@ export function calcDailyExpByCategory(
   venueMultiplier = 1.0,
 ): number {
   const t = isNeigong
-    ? talents.根骨 * 0.7 + talents.悟性 * 0.3
-    : talents.悟性 * 0.7 + talents.根骨 * 0.3
+    ? talents.根骨 * 0.8 + talents.悟性 * 0.2
+    : talents.悟性 * 0.8 + talents.根骨 * 0.2
   const talentMult = 0.2 + 4 * Math.pow(t / 100, 4)
   return Math.max(1, Math.round(100 * talentMult * venueMultiplier))
 }
