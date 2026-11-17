@@ -14,6 +14,7 @@ import {
 } from '../economy'
 import {
   clonePlayerSectState,
+  resetSectMembership,
   generateKaifengWarrant,
   getHalfYearPeriodInfo,
   getSectLeaderNpcId,
@@ -187,7 +188,7 @@ export function applyDayProgressionSectHooks(params: {
 } {
   const { rng = defaultRng, celunSkill = 0 } = params
   let nextSilver = params.silver
-  const nextSect = clonePlayerSectState(params.sectState)
+  let nextSect = clonePlayerSectState(params.sectState)
   const nextLogs = [...params.logs]
   const nextNpcFavor = params.npcFavor ? { ...params.npcFavor } : {}
   const overdueSpyAmbush: NodeNpc | null = null
@@ -232,12 +233,7 @@ export function applyDayProgressionSectHooks(params: {
         nextNpcFavor[leaderId] = Math.max(MIN_NPC_FAVOR, curFavor - 15)
       }
       if (nextSect.changshanMissedCount >= 2) {
-        nextSect.sectId = null
-        nextSect.rank = 1
-        nextSect.rankLabel = '无门无派'
-        nextSect.contribution = 0
-        nextSect.activeSectTask = null
-        nextSect.changshanMissedCount = 0
+        nextSect = resetSectMembership(nextSect)
         nextLogs.unshift(
           createLogEntry(
             params.nextDayCount,
@@ -297,13 +293,7 @@ export function applyDayProgressionSectHooks(params: {
       nextSilver = Math.max(0, nextSilver - twoYearSalaryFine)
       nextSect.kaifengMissedCount += 1
       if (nextSect.kaifengMissedCount >= 2) {
-        nextSect.sectId = null
-        nextSect.rank = 1
-        nextSect.rankLabel = '无门无派'
-        nextSect.contribution = 0
-        nextSect.kaifengCasesSolved = 0
-        nextSect.kaifengMissedCount = 0
-        nextSect.kaifengRank2Day = null
+        nextSect = resetSectMembership(nextSect)
         nextLogs.unshift(
           createLogEntry(
             params.nextDayCount,

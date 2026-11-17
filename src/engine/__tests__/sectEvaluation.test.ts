@@ -7,6 +7,7 @@ import {
   evaluateSectEntry,
   evaluateSectPromotion,
   KAIFENG_RECOMMENDATION_ITEM_ID,
+  resetSectMembership,
 } from '../../utils/sectMechanics'
 
 describe('evaluateSectEntry & evaluateSectPromotion', () => {
@@ -132,5 +133,47 @@ describe('evaluateSectEntry & evaluateSectPromotion', () => {
       npcFavor: new Proxy({}, { get: () => 80 }),
     })
     expect(tier3LeaderPromotion?.canPromote).toBe(true)
+  })
+})
+
+describe('resetSectMembership', () => {
+  it('clears membership and every in-progress sect duty while keeping cross-sect history', () => {
+    const st = clonePlayerSectState({
+      sectId: 'SECT-17',
+      rank: 3,
+      contribution: 120,
+      songCourtBlacklisted: true,
+      bribedReferralSects: ['SECT-25'],
+      kaifengCasesSolved: 4,
+      kaifengMissedCount: 1,
+      kaifengRank2Day: 30,
+      changshanMissedCount: 1,
+      xingxiuDefeatedRanks: [2, 3],
+      wonSectTournament: true,
+    })
+    st.activeSectTask = { id: 'T1' } as unknown as typeof st.activeSectTask
+    st.activeKaifengWarrant = { id: 'W1' } as unknown as typeof st.activeKaifengWarrant
+    st.activeLiaoSpy = { name: 'S' } as unknown as typeof st.activeLiaoSpy
+
+    const next = resetSectMembership(st)
+    expect(next.sectId).toBeNull()
+    expect(next.rank).toBe(1)
+    expect(next.rankLabel).toBe('无门无派')
+    expect(next.contribution).toBe(0)
+    expect(next.activeSectTask).toBeNull()
+    expect(next.activeKaifengWarrant).toBeNull()
+    expect(next.activeLiaoSpy).toBeNull()
+    expect(next.activeSectTournament).toBeNull()
+    expect(next.kaifengCasesSolved).toBe(0)
+    expect(next.kaifengMissedCount).toBe(0)
+    expect(next.kaifengRank2Day).toBeNull()
+    expect(next.changshanMissedCount).toBe(0)
+    expect(next.xingxiuDefeatedRanks).toEqual([])
+    expect(next.wonSectTournament).toBe(false)
+    // 跨门派江湖履历保留
+    expect(next.songCourtBlacklisted).toBe(true)
+    expect(next.bribedReferralSects).toEqual(['SECT-25'])
+    // 不修改入参
+    expect(st.sectId).toBe('SECT-17')
   })
 })

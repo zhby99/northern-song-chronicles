@@ -218,6 +218,14 @@ export function NpcInteractionOverlay() {
         resolvedNpcId &&
         resolvedNpcId === getSectLeaderNpcId(targetFactionId),
     )
+  // 星宿派弱肉强食：第 4 阶弟子可向掌门丁春秋发起弑师夺位生死决斗
+  const canChallengeXingxiuLeader = Boolean(
+    sectState.sectId === 'SECT-19' &&
+      sectState.rank === 4 &&
+      !sectState.killedDingChunqiu &&
+      resolvedNpcId &&
+      resolvedNpcId === getSectLeaderNpcId('SECT-19'),
+  )
   const hasQuestRobAction = bottomBarQuestActions.some(
     (x) => x.action.id === 'act_rob_song_official_scene',
   )
@@ -582,6 +590,17 @@ export function NpcInteractionOverlay() {
                   : isSectCoachingTrainee
                     ? '切磋（宗门教学）'
                     : '切磋'}
+            </button>
+          )}
+
+          {canChallengeXingxiuLeader && (
+            <button
+              type="button"
+              onClick={handleLifeDeathDuel}
+              title="生死决斗：落败即身死（游戏结束），胜则弑师夺位登临掌门"
+              className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#9e1911] hover:bg-[#ba1f16] border-2 border-[#f2be8d] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
+            >
+              弑师夺位（生死决斗）
             </button>
           )}
 

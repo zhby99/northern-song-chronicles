@@ -174,15 +174,15 @@ export function createCombatRoundContext(
     hasUnflushedLogs: () => logCursor < roundEvents.length,
   }
 
-  // 回合初：运行天阶内功回合初钩子（如紫霞神功叠层）& 清除上回合一次性受控标记
+  // 回合初：运行天阶内功回合初钩子（如紫霞神功叠层）。
+  // 注意：上回合的一次性受控标记（震慑/封穴/震腕）须保留到本回合盲选决策之后再清除，
+  // 否则 NPC AI 决策时已看不到受控状态（见 resolveBlindDecisionsAndInitiative）。
   const livingFightersAtStart = [...allies, ...enemies].filter((f) => f.hp > 0)
   for (const f of livingFightersAtStart) {
     const ngFx = getSlotEffectsMap(f, 'neigong')
     for (const [key, val] of Object.entries(ngFx) as Array<[FxKey, number]>) {
       COMBAT_EFFECT_REGISTRY[key]?.onRoundStart?.(val, f, { pushLog: ctx.pushLog })
     }
-    f.stunnedNextRound = false
-    f.disarmedNextRound = false
   }
 
   return ctx

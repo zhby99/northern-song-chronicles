@@ -63,6 +63,13 @@ export function resolveBlindDecisionsAndInitiative(
       entry.choice.type === 'move' ? entry.fighter.consecutiveMoveRounds + 1 : 0
   }
 
+  // 盲选已锁定：上回合施加的一次性受控标记（震慑/封穴/震腕）至此生效完毕，
+  // 清除后本回合新命中的受控效果会保留到下回合。
+  for (const f of [...allies, ...enemies]) {
+    f.stunnedNextRound = false
+    f.disarmedNextRound = false
+  }
+
   const scoredOrder: ScoredOrderEntry[] = Array.from(decisionMap.values()).map((entry) => {
     const { fighter, choice } = entry
     const agi = computeEffectiveAgility(fighter)

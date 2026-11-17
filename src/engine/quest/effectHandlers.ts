@@ -28,9 +28,9 @@ import {
 import {
   buildJoinSectPatch,
   clonePlayerSectState,
+  resetSectMembership,
   getSectMonthlyStipend,
   getSectRankTitle,
-  getSectRule,
   isSongAlignedNpc,
   SHAOLIN_CHORE_TARGET_DAYS,
 } from '../sect'
@@ -664,18 +664,7 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
     if (eff.skipPenalty) {
       const leavingSectId = s.sectState.sectId
       const factionName = FACTION_DB_MAP[leavingSectId]?.name ?? leavingSectId
-      const rule = getSectRule(leavingSectId)
-      const nextSect: PlayerSectState = {
-        ...clonePlayerSectState(s.sectState),
-        sectId: null,
-        rank: 1,
-        rankLabel: '无门无派',
-        contribution: 0,
-        activeLiaoSpy: null,
-        shaolinDiscipleType: rule?.resetsMonasticIdentityOnLeave
-          ? 'lay'
-          : s.sectState.shaolinDiscipleType,
-      }
+      const nextSect = resetSectMembership(s.sectState)
       ctx.patchDraft({
         sectState: nextSect,
         logs: [

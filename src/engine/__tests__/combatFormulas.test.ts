@@ -147,3 +147,28 @@ describe('combatEngine formulas & P0 tactical rules', () => {
     expect(missing).toEqual([])
   })
 })
+
+describe('one-shot control flags (stun / seal / disarm)', () => {
+  it('a stunned NPC cannot attack on the following round', () => {
+    const player = makeTestPlayer({ hp: 6000, maxHp: 6000 })
+    const session = createCombatSession({
+      mode: 'spar',
+      player,
+      npcNode: {
+        id: 'TEST-STUN',
+        name: '受震木人',
+        title: '陪练',
+        realm: '三流中品',
+        talk: '“请赐教！”',
+        stats: { hp: 99999, mp: 3000, agi: 25, res: 15, isBenchmark: false },
+      },
+    })
+    session.enemies[0]!.stunnedNextRound = true
+    session.npc = session.enemies[0]!
+    for (let seed = 1; seed <= 30; seed += 1) {
+      const next = resolveCombatRound(structuredClone(session), { type: 'defend' }, createSeededRng(seed))
+      expect(next.logs.some((l) => l.text.includes('受震木人催动'))).toBe(false)
+      expect(next.enemies[0]!.stunnedNextRound).toBe(false)
+    }
+  })
+})

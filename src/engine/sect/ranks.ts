@@ -136,6 +136,35 @@ export function clonePlayerSectState(st?: Partial<PlayerSectState> | null): Play
   }
 }
 
+/**
+ * 脱离 / 被开除门派时的唯一状态重置入口：清空门籍、阶位与一切进行中的门派差事，
+ * 保留跨门派的江湖履历（投名状、朝廷黑名单、通辽嫌疑、举荐帖、少林杂役等）。
+ */
+export function resetSectMembership(st: PlayerSectState): PlayerSectState {
+  const leavingRule = st.sectId ? getSectRule(st.sectId) : null
+  return {
+    ...clonePlayerSectState(st),
+    sectId: null,
+    rank: 1,
+    rankLabel: '无门无派',
+    contribution: 0,
+    activeSectTask: null,
+    activeLiaoSpy: null,
+    changshanMissedCount: 0,
+    wonSectTournament: false,
+    activeSectTournament: null,
+    xingxiuDefeatedRanks: [],
+    killedDingChunqiu: false,
+    kaifengCasesSolved: 0,
+    kaifengMissedCount: 0,
+    kaifengRank2Day: null,
+    activeKaifengWarrant: null,
+    shaolinDiscipleType: leavingRule?.resetsMonasticIdentityOnLeave
+      ? 'lay'
+      : st.shaolinDiscipleType,
+  }
+}
+
 export function isJoinableSectFaction(factionId?: string | null): boolean {
   if (!factionId) return false
   const f = FACTION_DB_MAP[factionId]

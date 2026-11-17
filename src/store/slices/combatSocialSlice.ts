@@ -59,6 +59,7 @@ import {
   buildZhanZhaoArrestNodeNpc,
   clonePlayerSectState,
   DEFAULT_PLAYER_SECT_STATE,
+  getSectLeaderNpcId,
   getSectRankTitle,
   isSongOfficialForRobbery,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
@@ -492,7 +493,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       }
       if (
         session.mode === 'duel' &&
-        (dbTarget?.id === 'NPC-0122' || session.npc.name === '丁春秋')
+        dbTarget?.id === getSectLeaderNpcId('SECT-19')
       ) {
         nextSectState.killedDingChunqiu = true
         nextSectState.rank = 5

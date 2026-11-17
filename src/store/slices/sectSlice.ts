@@ -24,6 +24,7 @@ import {
   canPlayerLearnSectArt,
   canReceiveSectLeaderTask,
   clonePlayerSectState,
+  resetSectMembership,
   evaluateSectEntry,
   evaluateSectPromotion,
   generateKaifengWarrant,
@@ -173,15 +174,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     if (rule?.leaveTriggersLiaoSuspicion) {
       const { nextFavor, affectedCount } = applySongLiaoSuspicionFavorPenalty(s.npcFavor, 30)
       const nextSect: PlayerSectState = {
-        ...clonePlayerSectState(s.sectState),
-        sectId: null,
-        rank: 1,
-        rankLabel: '无门无派',
-        contribution: 0,
-        activeLiaoSpy: null,
-        activeSectTask: null,
-        activeKaifengWarrant: null,
-        kaifengRank2Day: null,
+        ...resetSectMembership(s.sectState),
         liaoSuspicionDebuff: true,
       }
       const nextQuest = cloneQuestRuntimeState(s.questState)
@@ -200,23 +193,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       return
     }
 
-    const nextSect: PlayerSectState = {
-      ...clonePlayerSectState(s.sectState),
-      sectId: null,
-      rank: 1,
-      rankLabel: '无门无派',
-      contribution: 0,
-      activeSectTask: null,
-      wonSectTournament: false,
-      activeSectTournament: null,
-      xingxiuDefeatedRanks: [],
-      killedDingChunqiu: false,
-      kaifengRank2Day: null,
-      activeKaifengWarrant: null,
-      shaolinDiscipleType: rule?.resetsMonasticIdentityOnLeave
-        ? 'lay'
-        : s.sectState.shaolinDiscipleType,
-    }
+    const nextSect = resetSectMembership(s.sectState)
     const msg = rule?.buildLeaveMessage
       ? rule.buildLeaveMessage(factionName, s.sectState.rankLabel)
       : `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
