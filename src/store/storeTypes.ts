@@ -1,5 +1,6 @@
 import type { StateCreator } from 'zustand'
 import type {
+  ActiveEscortContract,
   BagCategoryKey,
   CameraPan,
   CompendiumTabKey,
@@ -25,6 +26,7 @@ import type {
   TooltipPayload,
   TravelState,
   ViewMode,
+  VocationKey,
   WildernessCamp,
 } from '../types/game'
 import type {
@@ -68,6 +70,8 @@ export interface GameStoreState {
   selectedBuildingId: string | null
   selectedSpotId: string | null
   currentNodeId: string
+  birthplaceId: string
+  cityStayShichens: number
 
   baseStats: HeroBaseStats
   mountKey: MountKey
@@ -170,6 +174,8 @@ export interface GameStoreState {
   startScriptureSeclusion: () => void
   startShaolinChore: (days: number) => void
   startOddJobWork: () => void
+  startVocationWork: (vocationKey: VocationKey, days: 5 | 10 | 30) => void
+  inscribeLandmarkPoem: () => void
   stepCultivationTick: () => void
   stopCultivationEarly: () => void
   breakthroughLearnedArt: (artId: string) => void
@@ -177,7 +183,10 @@ export interface GameStoreState {
   consumeInventoryItem: (itemId: string, forceUseEffect?: boolean) => void
 
   buySpotShopItem: (spotId: string, itemId: string, qty?: number) => void
+  sellInventoryItem: (itemId: string, qty?: number) => void
+  buyXiangguoAuctionLot: (itemId: string) => void
   interactNpc: (npc: NodeNpc, mode: 'talk' | 'spar') => void
+  hostNpcBanquet: (npc: NodeNpc, tier: 'standard' | 'grand') => void
   startNpcCombat: (
     npc: NodeNpc,
     mode?: 'spar' | 'duel',
@@ -223,12 +232,18 @@ export interface GameStoreState {
   startJourney: (targetId: string) => void
   stepTravelTick: () => void
   campStop: () => void
+  acceptEscortContract: (contractId: string) => void
+  abandonEscortContract: () => void
+  activeEscortContract: ActiveEscortContract | null
 
   toggleLogDrawer: () => void
   openMenu: (tab?: MenuTabKey) => void
   npcFavor: Record<string, number>
   npcTalkedMonth: Record<string, number>
   npcSparredMonth: Record<string, number>
+  npcBanquetedMonth: Record<string, number>
+  inscribedPoemSpotIds: string[]
+  auctionBoughtByMonth: Record<string, string[]>
   openNpcInteraction: (npc: NodeNpc) => void
   closeNpcInteraction: () => void
   giftNpcItem: (npc: NodeNpc, itemId: string) => void

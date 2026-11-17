@@ -1,6 +1,16 @@
 import React from 'react'
 import { getEffectiveTalents } from '../../../data/itemsDb'
+import {
+  calcVocationDailyWage,
+  computeArithmeticBuyDiscountRatio,
+  computeArithmeticSellBonusRatio,
+  computeHighwaymanPersuadeChance,
+  computePoemRenownGain,
+  computeQinSoundAmpPct,
+  computeShuBrushAmpPct,
+} from '../../../engine/economy'
 import { useGameStore } from '../../../store/useGameStore'
+import type { TenArtKey } from '../../../types/game'
 import {
   computeDailyArtExpGain,
   getArtStageLabel,
@@ -9,8 +19,64 @@ import {
   TEN_ARTS_GUIDE_DATA,
 } from '../../../utils/artsProgression'
 
+function buildTenArtPassiveSummary(
+  key: TenArtKey,
+  skills: Record<string, number>,
+  ridingSkill: number,
+): string {
+  switch (key) {
+    case '骑术':
+      return `行军提速 +${Math.round(ridingSkill * 0.4)}% · 解锁高阶名驹乘骑要求`
+    case '算术': {
+      const buyDisc = (computeArithmeticBuyDiscountRatio(skills['算术'] ?? 0) * 100).toFixed(1)
+      const sellBonus = (computeArithmeticSellBonusRatio(skills['算术'] ?? 0) * 100).toFixed(1)
+      const wage = calcVocationDailyWage('accountant', skills)
+      return `商铺采办 -${buyDisc}%（上限20%）· 卖出溢价 +${sellBonus}% · 账房当差 ${wage.toFixed(2)}两/日`
+    }
+    case '经义': {
+      const v = skills['经义'] ?? 0
+      const speedPct = ((v / 400) * 100).toFixed(1)
+      const wage = calcVocationDailyWage('tutor', skills)
+      return `内功闭关效率 +${speedPct}%（1+经义/400）· 书院塾师当差 ${wage.toFixed(2)}两/日`
+    }
+    case '策论': {
+      const v = skills['策论'] ?? 0
+      const bonusPct = ((v / 200) * 100).toFixed(1)
+      return `门派月俸与官府缉捕赏格 +${bonusPct}%（1+策论/200）`
+    }
+    case '诗词': {
+      const v = skills['诗词'] ?? 0
+      const ren = computePoemRenownGain(v)
+      return `天下名楼名山题壁留诗：每处首次获取江湖声望 +${ren}`
+    }
+    case '琴': {
+      const amp = computeQinSoundAmpPct(skills['琴'] ?? 0).toFixed(1)
+      return `音功武学战中伤害增幅 +${amp}%（+琴/4%）`
+    }
+    case '棋':
+      return `破译珍珑棋局与奇门机关前置 · 90级触发触类旁通（悟性+2）`
+    case '书': {
+      const amp = computeShuBrushAmpPct(skills['书'] ?? 0).toFixed(1)
+      const wage = calcVocationDailyWage('calligrapher', skills)
+      return `笔法武学战中伤害增幅 +${amp}%（+书/5%）· 悬润卖字画 ${wage.toFixed(2)}两/日`
+    }
+    case '画': {
+      const wage = calcVocationDailyWage('calligrapher', skills)
+      return `悬润卖字画润格 ${wage.toFixed(2)}两/日（0.1×max(书,画)）· 80级气韵反哺颜值+2`
+    }
+    case '辩才': {
+      const v = skills['辩才'] ?? 0
+      const persuade = Math.round(computeHighwaymanPersuadeChance(v) * 100)
+      const wage = calcVocationDailyWage('litigator', skills)
+      return `交谈好感加成 +${(v / 30).toFixed(1)} · 走镖劝退响马率 ${persuade}% · 衙前讼师 ${wage.toFixed(2)}两/日`
+    }
+  }
+}
+
 export const TenArtsGuideTab: React.FC = () => {
   const baseStats = useGameStore((s) => s.baseStats)
+  const skills = useGameStore((s) => s.skills)
+  const ridingSkill = useGameStore((s) => s.ridingSkill)
   const equipped = useGameStore((s) => s.equipped)
   const artExps = useGameStore((s) => s.artExps)
   const artMilestoneFlags = useGameStore((s) => s.artMilestoneFlags)
@@ -74,11 +140,13 @@ export const TenArtsGuideTab: React.FC = () => {
         {TEN_ARTS_GUIDE_DATA.map((item) => {
           const currentLv =
             item.key === '骑术' ? baseStats.ridingSkill : (baseStats.skills[item.key] ?? 0)
+          const effLv = item.key === '骑术' ? ridingSkill : (skills[item.key] ?? currentLv)
           const currentExp = artExps[item.key] ?? getExpForArtLevel(currentLv)
           const pct = Math.min(100, Math.round((currentExp / MAX_ART_EXP) * 1000) / 10)
           const stage = getArtStageLabel(currentLv)
           const got80 = artMilestoneFlags.includes(`art80:${item.key}`)
           const got90 = artMilestoneFlags.includes(`art90:${item.key}`)
+          const passiveSummary = buildTenArtPassiveSummary(item.key, skills, ridingSkill)
 
           return (
             <div
@@ -96,7 +164,9 @@ export const TenArtsGuideTab: React.FC = () => {
                     </span>
                   </div>
                   <div className="text-right text-xs font-bold text-[#8c3b20]">
-                    Lv.{currentLv} <span className="font-normal text-[#7a6142]">/ 100</span>
+                    Lv.{currentLv}
+                    {effLv > currentLv ? ` (+${effLv - currentLv})` : ''}{' '}
+                    <span className="font-normal text-[#7a6142]">/ 100</span>
                   </div>
                 </div>
 
@@ -112,6 +182,10 @@ export const TenArtsGuideTab: React.FC = () => {
                     <span>累积经验：{currentExp.toLocaleString('en-US')} / 180,000</span>
                     <span>{pct}%</span>
                   </div>
+                </div>
+
+                <div className="mt-2 rounded border border-[#b6cfb8] bg-[#eef6ef] px-2.5 py-1.5 text-[11px] text-[#1f4d3b] font-medium">
+                  ★ 被动与百业实效：{passiveSummary}
                 </div>
 
                 <p className="mt-2 text-xs leading-relaxed text-[#5c4529]">{item.summary}</p>

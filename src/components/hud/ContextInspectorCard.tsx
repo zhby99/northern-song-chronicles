@@ -11,6 +11,8 @@ function RegionBuildingInspectorCard() {
   const selectRegionBuilding = useGameStore((s) => s.selectRegionBuilding)
   const enterBuildingMap = useGameStore((s) => s.enterBuildingMap)
   const buySpotShopItem = useGameStore((s) => s.buySpotShopItem)
+  const sellInventoryItem = useGameStore((s) => s.sellInventoryItem)
+  const buyXiangguoAuctionLot = useGameStore((s) => s.buyXiangguoAuctionLot)
   const runQuestEffects = useGameStore((s) => s.runQuestEffects)
   const interactNpc = useGameStore((s) => s.interactNpc)
   const startNpcCombat = useGameStore((s) => s.startNpcCombat)
@@ -22,6 +24,8 @@ function RegionBuildingInspectorCard() {
 
   const {
     currentContextKey,
+    activeRegionId,
+    dayCount,
     regionNode,
     activeBldgRecord,
     singleHallCollapsed,
@@ -38,6 +42,7 @@ function RegionBuildingInspectorCard() {
     isOddJobBldg,
     isTavernBldg,
     inOwnSectCity,
+    isBirthplaceCity,
     canStudyScripture,
     artOptions,
     activeShop,
@@ -49,7 +54,14 @@ function RegionBuildingInspectorCard() {
     maxHp,
     mp,
     maxMp,
+    skills,
+    equipped,
+    speedParams,
     inventory,
+    consumedUniqueIds,
+    auctionBoughtByMonth,
+    inscribedPoemSpotIds,
+    activeEscortContract,
     sectState,
     actionFeedback,
   } = useInspectorContext()
@@ -151,7 +163,9 @@ function RegionBuildingInspectorCard() {
       {shaolinChoreWidget}
 
       <InspectorBuildingActions
+        activeRegionId={activeRegionId}
         regionName={regionNode.name}
+        dayCount={dayCount}
         inspectedRootBldg={inspectedRootBldg}
         isAtCurrentRegion={isAtCurrentRegion}
         spotQuestActions={spotQuestActions}
@@ -160,6 +174,7 @@ function RegionBuildingInspectorCard() {
         isOwnSectGrounds={isOwnSectGrounds}
         isInnVenue={isInnVenue}
         inOwnSectCity={inOwnSectCity}
+        isBirthplaceCity={isBirthplaceCity}
         canStudyScripture={canStudyScripture}
         artOptions={artOptions}
         silver={silver}
@@ -167,6 +182,11 @@ function RegionBuildingInspectorCard() {
         maxHp={maxHp}
         mp={mp}
         maxMp={maxMp}
+        skills={skills}
+        speedParams={speedParams}
+        inventory={inventory}
+        inscribedPoemSpotIds={inscribedPoemSpotIds}
+        activeEscortContract={activeEscortContract}
         onRunQuestEffects={runQuestEffects}
         onOpenMenu={openMenu}
       />
@@ -178,8 +198,15 @@ function RegionBuildingInspectorCard() {
           isAtCurrentRegion={isAtCurrentRegion}
           playerSectId={sectState.sectId}
           silver={silver}
+          dayCount={dayCount}
+          arithmeticSkill={skills['算术'] ?? 0}
+          equipped={equipped}
+          consumedUniqueIds={consumedUniqueIds}
+          auctionBoughtByMonth={auctionBoughtByMonth}
           inventory={inventory}
           onBuyItem={buySpotShopItem}
+          onSellItem={sellInventoryItem}
+          onBuyAuctionLot={buyXiangguoAuctionLot}
         />
       )}
 

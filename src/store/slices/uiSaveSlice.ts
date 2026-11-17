@@ -224,12 +224,24 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
       npcFavor: st.npcFavor ? { ...st.npcFavor } : {},
       npcTalkedMonth: st.npcTalkedMonth ? { ...st.npcTalkedMonth } : {},
       npcSparredMonth: st.npcSparredMonth ? { ...st.npcSparredMonth } : {},
+      npcBanquetedMonth: st.npcBanquetedMonth ? { ...st.npcBanquetedMonth } : {},
+      inscribedPoemSpotIds: Array.isArray(st.inscribedPoemSpotIds)
+        ? st.inscribedPoemSpotIds.filter((x): x is string => typeof x === 'string')
+        : [],
+      auctionBoughtByMonth: st.auctionBoughtByMonth
+        ? Object.fromEntries(
+            Object.entries(st.auctionBoughtByMonth).map(([k, arr]) => [k, [...arr]]),
+          )
+        : {},
+      activeEscortContract: st.activeEscortContract ? { ...st.activeEscortContract } : null,
       sectState: clonePlayerSectState(st.sectState),
       questState: cloneQuestRuntimeState(st.questState),
       hiddenQuestIds: Array.isArray(st.hiddenQuestIds)
         ? st.hiddenQuestIds.filter((x): x is string => typeof x === 'string')
         : [],
       gameOver: null,
+      birthplaceId: st.birthplaceId || st.currentNodeId || 'bianliang',
+      cityStayShichens: Math.max(0, Math.floor(st.cityStayShichens ?? 0)) % 12,
       campPos: st.campPos ?? null,
       traveling: null,
       cultivationSession: null,

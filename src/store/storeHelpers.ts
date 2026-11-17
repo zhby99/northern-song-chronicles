@@ -30,10 +30,7 @@ import {
   HERO_BASE_CAPS,
 } from '../utils/heroStats'
 import { WORLD_GRAPH } from '../utils/mapMath'
-import {
-  INITIAL_NPC_FAVOR,
-  MAX_NPC_FAVOR,
-} from '../utils/npcFavor'
+import { MAX_NPC_FAVOR } from '../utils/npcFavor'
 import { type CombatSessionState } from '../utils/combatEngine'
 import {
   clonePlayerSectState,
@@ -239,14 +236,16 @@ export function computeCombatSettlement(
   const artGainNotes: string[] = []
   let anyBreakthrough = false
 
+  const effTalents = getEffectiveTalents(s.baseStats.talents, s.equipped)
+  const effJingyi =
+    (s as { skills?: Record<string, number> }).skills?.['经义'] ??
+    s.baseStats.skills['经义'] ??
+    0
+
   for (const artId of practicedArtIds) {
     const art = MARTIAL_ART_DB_MAP[artId]
     if (!art) continue
-    const baseDaily = calcDailyCultivationExpGain(
-      art,
-      getEffectiveTalents(s.baseStats.talents, s.equipped),
-      1.0,
-    )
+    const baseDaily = calcDailyCultivationExpGain(art, effTalents, 1.0, effJingyi)
     const gain = Math.max(20, Math.round(baseDaily * 0.5 * expMult))
     const res = grantArtProficiency(nextLearnedArts, artId, gain)
     if (res.note && !res.note.includes('已臻第10重圆满')) {
@@ -258,10 +257,13 @@ export function computeCombatSettlement(
   }
 
   const npcKey = session.targetNpcNode.id ?? session.targetNpcNode.name
-  const curFavor = nextNpcFavor[npcKey] ?? INITIAL_NPC_FAVOR
+  const curFavor =
+    npcKey in nextNpcFavor
+      ? (nextNpcFavor[npcKey] ?? 0)
+      : Math.round((effTalents.颜值 - 50) / 5)
   let favorGain = 0
 
-  if (session.mode === 'spar') {
+  if (session.mode === 'spar' && session.duelStakes !== 'escort_ambush') {
     if (outcome === 'player_win') {
       favorGain = 4
     } else if (outcome === 'draw') {
@@ -368,6 +370,8 @@ export function extractSerializableState(s: GameStoreState): SerializableGameSta
     selectedBuildingId: s.selectedBuildingId,
     selectedSpotId: s.selectedSpotId,
     currentNodeId: s.currentNodeId,
+    birthplaceId: s.birthplaceId,
+    cityStayShichens: s.cityStayShichens,
     campPos: s.campPos ? { ...s.campPos } : null,
     baseStats: cloneHeroBaseStats(s.baseStats),
     mountKey: s.mountKey,
@@ -396,6 +400,12 @@ export function extractSerializableState(s: GameStoreState): SerializableGameSta
     npcFavor: { ...s.npcFavor },
     npcTalkedMonth: { ...s.npcTalkedMonth },
     npcSparredMonth: { ...s.npcSparredMonth },
+    npcBanquetedMonth: { ...s.npcBanquetedMonth },
+    inscribedPoemSpotIds: [...s.inscribedPoemSpotIds],
+    auctionBoughtByMonth: Object.fromEntries(
+      Object.entries(s.auctionBoughtByMonth).map(([k, arr]) => [k, [...arr]]),
+    ),
+    activeEscortContract: s.activeEscortContract ? { ...s.activeEscortContract } : null,
     sectState: clonePlayerSectState(s.sectState),
     questState: cloneQuestRuntimeState(s.questState),
     hiddenQuestIds: [...s.hiddenQuestIds],
@@ -475,6 +485,8 @@ export function createInitialStoreData(): GameStoreData {
     selectedBuildingId: null,
     selectedSpotId: null,
     currentNodeId: 'bianliang',
+    birthplaceId: 'bianliang',
+    cityStayShichens: 0,
 
     baseStats: cloneHeroBaseStats(DEFAULT_HERO_BASE_STATS),
     mountKey: INITIAL_DERIVED_STATS.mountKey,
@@ -508,6 +520,10 @@ export function createInitialStoreData(): GameStoreData {
     consumedOnceItemIds: [],
     npcTalkedMonth: {},
     npcSparredMonth: {},
+    npcBanquetedMonth: {},
+    inscribedPoemSpotIds: [],
+    auctionBoughtByMonth: {},
+    activeEscortContract: null,
     activeBagCategory: 'scrolls',
 
     overlays: {

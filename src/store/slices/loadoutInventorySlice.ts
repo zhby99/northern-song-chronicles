@@ -32,15 +32,24 @@ import type {
 } from '../../types/game'
 import type { ProtagonistGender } from '../../types/game'
 import { getProtagonistGender } from '../../data/protagonistPresets'
+import {
+  computeItemSellPrice,
+  computeShopBuyPrice,
+  getRegionLodgingInfo,
+  getXiangguoAuctionSchedule,
+  getXiangguoMonthlyAuctionLots,
+  isItemSellable,
+} from '../../engine/economy'
 import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
 import {
   cloneHeroBaseStats,
-  DAILY_INN_LODGING_COST,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
+  isPlayerInFreeLodgingRegion,
   isPlayerInOwnSectRegion,
 } from '../../utils/heroStats'
 import {
+  getSongDateParts,
   NODE_MAP,
 } from '../../utils/mapMath'
 import { scaleMedicineRecovery } from '../../utils/realmUtils'
@@ -69,6 +78,8 @@ export type LoadoutInventoryKeys =
   | 'transferNeigongProficiency'
   | 'consumeInventoryItem'
   | 'buySpotShopItem'
+  | 'sellInventoryItem'
+  | 'buyXiangguoAuctionLot'
 
 export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (set, get) => ({
   completeCharacterCreation: ({ name, portraitId, gender, silver, baseStats, startNodeId }) => {
@@ -138,6 +149,8 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       viewMode: 'region',
       activeRegionId: validStartNode.id,
       currentNodeId: validStartNode.id,
+      birthplaceId: validStartNode.id,
+      cityStayShichens: 0,
       selectedNodeId: null,
       selectedBuildingId: null,
       selectedSpotId: null,
@@ -161,53 +174,74 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
 
   replenishSupplies: () => {
     const s = get()
-    if (s.silver < 5) {
+    const supplyCost = computeShopBuyPrice(5, s.skills['算术'] ?? 0)
+    if (s.silver < supplyCost) {
       set({
+        actionFeedback: {
+          text: `纹银不足 ${supplyCost} 两，无法采买粮草补给！`,
+          tone: 'warn',
+        },
         logs: [
-          createLogEntry(s.dayCount, '市集', '纹银不足 5 两，无法补给干粮！', true, s.shichenIdx),
+          createLogEntry(
+            s.dayCount,
+            '市集',
+            `纹银不足 ${supplyCost} 两，无法补给干粮草料！`,
+            true,
+            s.shichenIdx,
+          ),
           ...s.logs,
         ].slice(0, 60),
       })
       return
     }
+    const saved = 5 - supplyCost
+    const msg = `花费 ${supplyCost} 两纹银${saved > 0 ? `（算术精算省 ${saved} 两）` : ''}购入行军干粮与草料 +20 份。`
     set({
-      silver: s.silver - 5,
+      silver: s.silver - supplyCost,
       food: s.food + 20,
-      logs: [
-        createLogEntry(
-          s.dayCount,
-          '补给',
-          '花费 5 两纹银购入行军干粮 +20 日份。',
-          false,
-          s.shichenIdx,
-        ),
-        ...s.logs,
-      ].slice(0, 60),
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [createLogEntry(s.dayCount, '补给', msg, false, s.shichenIdx), ...s.logs].slice(
+        0,
+        60,
+      ),
     })
   },
 
   restAndRecuperate: (days) => {
     const s = get()
     const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
-    const lodgingCost = inOwnSectCity ? 0 : DAILY_INN_LODGING_COST * days
+    const isFreeLodging = isPlayerInFreeLodgingRegion(
+      s.currentNodeId,
+      s.campPos,
+      s.sectState.sectId,
+      s.birthplaceId,
+    )
+    const lodgingInfo = getRegionLodgingInfo(s.currentNodeId)
+    const dailyRate = isFreeLodging ? 0 : lodgingInfo.dailyCost
+    const lodgingCost = dailyRate * days
     if (lodgingCost > 0 && s.silver < lodgingCost) {
       set({
         actionFeedback: {
-          text: `客栈调息休养 ${days} 日需纹银 ${lodgingCost} 两（${DAILY_INN_LODGING_COST} 两/日），当前银两不足！`,
+          text: `${lodgingInfo.tierLabel}调息休养 ${days} 日需纹银 ${lodgingCost} 两（房资 ${lodgingInfo.dailyCost} 两/日），当前银两不足！`,
           tone: 'warn',
         },
       })
       return
     }
-    const logTitle = inOwnSectCity ? '师门调息休养' : '客栈调息休养'
+    const logTitle = inOwnSectCity
+      ? '师门调息休养'
+      : isFreeLodging
+        ? '故里调息休养'
+        : `${lodgingInfo.tierLabel}休养`
     const adv = commitTimeAdvance(set, get, {
       deltaShichen: days * 12,
       silverOverride: s.silver - lodgingCost,
       vitalityFactor: 2,
       buildExtraPatch: (res) => {
-        const logMsg = inOwnSectCity
-          ? `于本门驻地静室调息休养 ${days} 日（师门免宿费 · 恢复系数 2.0×）：气血 +${res.hpGain}（${res.hp}/${s.maxHp}）、内力 +${res.mpGain}（${res.mp}/${s.maxMp}）！`
-          : `花费 ${lodgingCost} 两纹银于客栈调息休养 ${days} 日（${DAILY_INN_LODGING_COST} 两/日 · 恢复系数 2.0×）：气血 +${res.hpGain}（${res.hp}/${s.maxHp}）、内力 +${res.mpGain}（${res.mp}/${s.maxMp}）！`
+        const freeDesc = inOwnSectCity ? '师门免宿费' : '故里免宿费'
+        const logMsg = isFreeLodging
+          ? `于【${NODE_MAP[s.currentNodeId]?.name ?? s.currentNodeId}】静室调息休养 ${days} 日（${freeDesc} · 恢复系数 2.0×）：气血 +${res.hpGain}（${res.hp}/${s.maxHp}）、内力 +${res.mpGain}（${res.mp}/${s.maxMp}）！`
+          : `花费 ${lodgingCost} 两纹银于【${lodgingInfo.tierLabel}】调息休养 ${days} 日（宿费 ${lodgingInfo.dailyCost} 两/日 · 恢复系数 2.0×）：气血 +${res.hpGain}（${res.hp}/${s.maxHp}）、内力 +${res.mpGain}（${res.mp}/${s.maxMp}）！`
         return {
           actionFeedback: {
             text: logMsg,
@@ -1091,7 +1125,10 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
     if (!entry || !itemDef) return
 
     const safeQty = Math.max(1, Math.floor(Number.isFinite(qty) ? qty : 1))
-    const totalCost = entry.price * safeQty
+    const arithSkill = s.skills['算术'] ?? 0
+    const unitPrice = computeShopBuyPrice(entry.price, arithSkill)
+    const totalCost = unitPrice * safeQty
+    const totalSaved = Math.max(0, entry.price * safeQty - totalCost)
 
     if (s.silver < totalCost) {
       set({
@@ -1105,7 +1142,8 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
 
     const nextSilver = s.silver - totalCost
     const nextInv = addItemToInventory(s.inventory, itemId, safeQty)
-    const msg = `在【${shop.title}】花费 ${totalCost.toLocaleString()} 两银子购得【${itemDef.name}】×${safeQty}，已收入行囊。`
+    const savedNote = totalSaved > 0 ? `（算术议价省 ${totalSaved.toLocaleString()} 两）` : ''
+    const msg = `在【${shop.title}】花费 ${totalCost.toLocaleString()} 两银子${savedNote}购得【${itemDef.name}】×${safeQty}，已收入行囊。`
 
     set({
       silver: nextSilver,
@@ -1113,6 +1151,159 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       actionFeedback: { text: msg, tone: 'success' },
       logs: [
         createLogEntry(s.dayCount, '商贸采办', msg, false, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  sellInventoryItem: (itemId, qty = 1) => {
+    const s = get()
+    if (s.campPos || s.traveling) {
+      set({
+        actionFeedback: {
+          text: '荒郊旷野并无商贾牙行，请先抵达城池市集再行变卖折银！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const itemDef = ITEM_DB_MAP[itemId]
+    if (!itemDef || !isItemSellable(itemId, itemDef)) {
+      set({
+        actionFeedback: {
+          text: `【${itemDef?.name ?? itemId}】乃关键信物或不可售奇物，严禁向商铺变卖！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const ownedQty = s.inventory.find((x) => x.itemId === itemId)?.qty ?? 0
+    if (ownedQty <= 0) {
+      set({
+        actionFeedback: {
+          text: `行囊中并无【${itemDef.name}】可供变卖！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const safeQty = Math.max(1, Math.min(ownedQty, Math.floor(Number.isFinite(qty) ? qty : 1)))
+    const removed = removeItemFromInventory(s.inventory, itemId, safeQty)
+    if (!removed) return
+
+    const arithSkill = s.skills['算术'] ?? 0
+    const unitSell = computeItemSellPrice(itemDef, arithSkill)
+    const baseUnitSell = computeItemSellPrice(itemDef, 0)
+    const totalGain = unitSell * safeQty
+    const arithExtra = Math.max(0, totalGain - baseUnitSell * safeQty)
+    const extraNote = arithExtra > 0 ? `（含算术估价溢价 +${arithExtra} 两）` : ''
+    const regionName = NODE_MAP[s.currentNodeId]?.name ?? s.currentNodeId
+    const msg = `于【${regionName}】商肆折卖【${itemDef.name}】×${safeQty}，实收纹银 +${totalGain.toLocaleString()} 两${extraNote}（现银 ${(s.silver + totalGain).toLocaleString()} 两）。`
+
+    set({
+      silver: s.silver + totalGain,
+      inventory: removed,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '典卖折银', msg, false, s.shichenIdx),
+        ...s.logs,
+      ].slice(0, 60),
+    })
+  },
+
+  buyXiangguoAuctionLot: (itemId) => {
+    const s = get()
+    if (s.campPos || s.currentNodeId !== 'bianliang') {
+      set({
+        actionFeedback: {
+          text: '须亲临东京开封府【大相国寺 · 万姓交易雅市】方可举牌竞拍年度奇珍！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const schedule = getXiangguoAuctionSchedule(s.dayCount)
+    if (!schedule.isOpen) {
+      const dateParts = getSongDateParts(s.dayCount, s.shichenIdx)
+      set({
+        actionFeedback: {
+          text: `大相国寺万姓雅市奇珍拍场每年仅于【六月】开市一整个月（当前为${dateParts.monthName}，距下次开拍尚余 ${schedule.monthsUntilOpen} 个月）。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const yearKey = `Y${schedule.yearIdx}`
+    const boughtThisYear = s.auctionBoughtByMonth[yearKey] ?? []
+    if (boughtThisYear.includes(itemId)) {
+      set({
+        actionFeedback: {
+          text: '该件拍品本年已被少侠竞得落槌，请静候来年六月相国寺雅集开市！',
+          tone: 'talk',
+        },
+      })
+      return
+    }
+
+    const arithSkill = s.skills['算术'] ?? 0
+    const lots = getXiangguoMonthlyAuctionLots(
+      schedule.yearIdx,
+      arithSkill,
+      new Set(s.consumedUniqueIds),
+    )
+    const lot = lots.find((l) => l.itemId === itemId)
+    if (!lot) {
+      set({
+        actionFeedback: {
+          text: '本年六月拍品单中未见此物，或已随年度轮换下架。',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const isEquipped = Object.values(s.equipped).includes(itemId)
+    const existingQty = s.inventory.find((x) => x.itemId === itemId)?.qty ?? 0
+    if (!lot.item.stackable && (isEquipped || existingQty > 0)) {
+      set({
+        actionFeedback: {
+          text: `【${lot.item.name}】已在少侠随身佩备或行囊之中，无需重复竞买！`,
+          tone: 'talk',
+        },
+      })
+      return
+    }
+
+    if (s.silver < lot.finalPrice) {
+      set({
+        actionFeedback: {
+          text: `纹银不足！竞得【${lot.item.name}】需落槌价 ${lot.finalPrice.toLocaleString()} 两纹银（当前 ${s.silver.toLocaleString()} 两）。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const nextInv = addItemToInventory(s.inventory, itemId, 1)
+    const savedNote =
+      lot.discountSaved > 0 ? `（算术压价省 ${lot.discountSaved.toLocaleString()} 两）` : ''
+    const msg = `于【大相国寺万姓雅市 · 六月年度拍场】豪掷 ${lot.finalPrice.toLocaleString()} 两纹银${savedNote}一槌竞得${lot.lotCategoryLabel}【${lot.item.name}】！`
+
+    set({
+      silver: s.silver - lot.finalPrice,
+      inventory: nextInv,
+      auctionBoughtByMonth: {
+        ...s.auctionBoughtByMonth,
+        [yearKey]: [...boughtThisYear, itemId],
+      },
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [
+        createLogEntry(s.dayCount, '相国寺竞拍', msg, true, s.shichenIdx),
         ...s.logs,
       ].slice(0, 60),
     })

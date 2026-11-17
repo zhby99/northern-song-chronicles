@@ -105,6 +105,8 @@ export interface CombatantState {
   res: number
   equipAttack: number
   equipDefense: number
+  qinSkill?: number
+  shuSkill?: number
 
   equipped: EquippedSlotsMap
   equippedArts: EquippedArtsMap
@@ -207,6 +209,7 @@ export type DuelStakesKind =
   | 'liao_spy_duel'
   | 'kaifeng_warrant'
   | 'sect_tournament'
+  | 'escort_ambush'
 
 export interface CombatSessionState {
   sessionId: string

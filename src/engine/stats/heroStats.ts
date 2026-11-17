@@ -17,6 +17,10 @@ import type {
   ViewMode,
   WildernessCamp,
 } from '../../types/game'
+import {
+  computeJingyiNeigongMultiplier,
+  getRegionLodgingInfo,
+} from '../economy'
 import { clampInt } from '../shared/math'
 
 export const CIVIL_ART_KEYS = [
@@ -181,20 +185,23 @@ export function calcDailyExpByCategory(
   isNeigong: boolean,
   talents: HeroBaseStats['talents'],
   venueMultiplier = 1.0,
+  jingyiSkill = 0,
 ): number {
   const t = isNeigong
     ? talents.根骨 * 0.8 + talents.悟性 * 0.2
     : talents.悟性 * 0.8 + talents.根骨 * 0.2
   const talentMult = 0.2 + 4 * Math.pow(t / 100, 4)
-  return Math.max(1, Math.round(100 * talentMult * venueMultiplier))
+  const jingyiMult = isNeigong ? computeJingyiNeigongMultiplier(jingyiSkill) : 1.0
+  return Math.max(1, Math.round(100 * talentMult * venueMultiplier * jingyiMult))
 }
 
 export function calcDailyCultivationExpGain(
   art: CompiledMartialArtRecord,
   talents: HeroBaseStats['talents'],
   venueMultiplier = 1.0,
+  jingyiSkill = 0,
 ): number {
-  return calcDailyExpByCategory(isArtNeigong(art), talents, venueMultiplier)
+  return calcDailyExpByCategory(isArtNeigong(art), talents, venueMultiplier, jingyiSkill)
 }
 
 export function isPlayerInOwnSectRegion(
@@ -206,6 +213,17 @@ export function isPlayerInOwnSectRegion(
   const faction = FACTION_DB_MAP[sectId]
   if (!faction?.hqRegionId) return false
   return currentNodeId === faction.hqRegionId
+}
+
+export function isPlayerInFreeLodgingRegion(
+  currentNodeId: string,
+  campPos: WildernessCamp | null | undefined,
+  sectId: string | null | undefined,
+  birthplaceId?: string | null,
+): boolean {
+  if (campPos) return false
+  if (birthplaceId && currentNodeId === birthplaceId) return true
+  return isPlayerInOwnSectRegion(currentNodeId, campPos, sectId)
 }
 
 export const DAYS_PER_MONTH = 30
@@ -244,12 +262,22 @@ export interface ResolveCultivationVenueInput {
   activeBuildingInteriorId: string | null
   selectedBuildingId: string | null
   sectId: string | null | undefined
+  birthplaceId?: string | null
+  equippedMountId?: string | null
 }
 
 export function resolveCultivationVenue(
   input: ResolveCultivationVenueInput,
 ): CultivationVenueStatus {
   const isOwnSectCity = isPlayerInOwnSectRegion(input.currentNodeId, input.campPos, input.sectId)
+  const isFreeLodging = isPlayerInFreeLodgingRegion(
+    input.currentNodeId,
+    input.campPos,
+    input.sectId,
+    input.birthplaceId,
+  )
+  const lodgingInfo = getRegionLodgingInfo(input.currentNodeId)
+  const totalInnDailySilver = isFreeLodging ? 0 : lodgingInfo.dailyCost
 
   if (input.traveling) {
     return {
@@ -301,11 +329,16 @@ export function resolveCultivationVenue(
   }
 
   if (bldg && bldg.regionId === input.currentNodeId && isInnBuildingRecord(bldg)) {
+    const freeTag = isOwnSectCity
+      ? '师门驻地免宿费'
+      : isFreeLodging
+        ? '故里免宿费'
+        : `${lodgingInfo.tierLabel}闭关`
     return {
       venue: 'inn',
-      venueLabel: isOwnSectCity ? `${bldg.name}（师门驻地免宿费）` : `${bldg.name}（客栈闭关）`,
+      venueLabel: `${bldg.name}（${freeTag}）`,
       multiplier: 1.0,
-      dailySilverCost: isOwnSectCity ? 0 : DAILY_INN_LODGING_COST,
+      dailySilverCost: totalInnDailySilver,
       dailyFoodCost: 0,
       isOwnSectCity,
       blockedReason: null,
@@ -316,7 +349,7 @@ export function resolveCultivationVenue(
     venue: null,
     venueLabel: '未处于闭关场所',
     multiplier: 1.0,
-    dailySilverCost: isOwnSectCity ? 0 : DAILY_INN_LODGING_COST,
+    dailySilverCost: totalInnDailySilver,
     dailyFoodCost: 0,
     isOwnSectCity,
     blockedReason:

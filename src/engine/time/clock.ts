@@ -9,6 +9,10 @@ import type {
 import type { GameStoreState } from '../../store/storeTypes'
 import { defaultRng, type RngFn } from '../combat/rng'
 import {
+  computeCelunBonusAmount,
+  getRegionLodgingInfo,
+} from '../economy'
+import {
   clonePlayerSectState,
   generateKaifengWarrant,
   getHalfYearPeriodInfo,
@@ -20,9 +24,8 @@ import {
 } from '../sect'
 import { INITIAL_NPC_FAVOR, MIN_NPC_FAVOR } from '../social/npcFavor'
 import {
-  DAILY_INN_LODGING_COST,
   DAYS_PER_YEAR,
-  isPlayerInOwnSectRegion,
+  isPlayerInFreeLodgingRegion,
 } from '../stats/heroStats'
 import { ADJACENCY_MAP, getSongDateParts, NODE_MAP } from '../world/mapMath'
 
@@ -173,6 +176,7 @@ export function applyDayProgressionSectHooks(params: {
   sectState: PlayerSectState
   logs: LogEntry[]
   npcFavor?: Record<string, number>
+  celunSkill?: number
   rng?: RngFn
 }): {
   silver: number
@@ -181,7 +185,7 @@ export function applyDayProgressionSectHooks(params: {
   npcFavor: Record<string, number>
   overdueSpyAmbush: NodeNpc | null
 } {
-  const { rng = defaultRng } = params
+  const { rng = defaultRng, celunSkill = 0 } = params
   let nextSilver = params.silver
   const nextSect = clonePlayerSectState(params.sectState)
   const nextLogs = [...params.logs]
@@ -193,19 +197,23 @@ export function applyDayProgressionSectHooks(params: {
     const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
     if (curMonthIdx > nextSect.lastStipendMonth) {
       const months = curMonthIdx - nextSect.lastStipendMonth
-      const perMonth = getSectMonthlyStipend(nextSect.sectId, nextSect.rank)
+      const basePerMonth = getSectMonthlyStipend(nextSect.sectId, nextSect.rank)
+      const perMonth = computeCelunBonusAmount(basePerMonth, celunSkill)
       const totalStipend = perMonth * months
+      const celunExtra = totalStipend - basePerMonth * months
       nextSilver += totalStipend
       nextSect.lastStipendMonth = curMonthIdx
       const factionName = FACTION_DB_MAP[nextSect.sectId]?.name ?? nextSect.sectId
       const fmt = STIPEND_LOG_FORMAT_BY_SECT[nextSect.sectId]
+      const baseText = fmt
+        ? fmt.format(nextSect.rankLabel, totalStipend, factionName)
+        : `按月支领【${factionName} · ${nextSect.rankLabel}】月度俸银 +${totalStipend} 两纹银！`
+      const celunSuffix = celunExtra > 0 ? `（含策论干略加成 +${celunExtra} 两）` : ''
       nextLogs.unshift(
         createLogEntry(
           params.nextDayCount,
           fmt?.tag ?? (rule.stipendTitle || '师门月俸'),
-          fmt
-            ? fmt.format(nextSect.rankLabel, totalStipend, factionName)
-            : `按月支领【${factionName} · ${nextSect.rankLabel}】月度俸银 +${totalStipend} 两纹银！`,
+          `${baseText}${celunSuffix}`,
           true,
           params.shichenIdx,
         ),
@@ -369,12 +377,16 @@ export interface ComputeTimeAdvanceParams {
   mp: number
   maxMp: number
   currentNodeId: string
+  birthplaceId?: string
+  cityStayShichens?: number
   campPos: WildernessCamp | null
   sectState: PlayerSectState
   npcFavor: Record<string, number>
   roamingMasters: RoamingMaster[]
   logs: LogEntry[]
   chargeForeignLodging?: boolean
+  equippedMountId?: string | null
+  celunSkill?: number
   vitalityFactor?: number
   skipSectDayHooks?: boolean
   rotateMasters?: boolean
@@ -387,6 +399,7 @@ export interface ComputeTimeAdvanceResult {
   dayCount: number
   shichenIdx: number
   daysAdded: number
+  cityStayShichens: number
   silver: number
   lodgingFee: number
   hp: number
@@ -401,7 +414,7 @@ export interface ComputeTimeAdvanceResult {
 }
 
 /**
- * Pure unified time-advance state transition (`advanceShichenClock -> foreign lodging -> monthly masters -> sect hooks -> daily vitality`).
+ * Pure unified time-advance state transition (`advanceShichenClock -> foreign lodging (per 12 shichens) -> monthly masters -> sect hooks -> daily vitality`).
  */
 export function computeTimeAdvanceState(
   params: ComputeTimeAdvanceParams,
@@ -416,12 +429,15 @@ export function computeTimeAdvanceState(
     mp,
     maxMp,
     currentNodeId,
+    birthplaceId,
+    cityStayShichens = 0,
     campPos,
     sectState,
     npcFavor,
     roamingMasters,
     logs,
     chargeForeignLodging = false,
+    celunSkill = 0,
     vitalityFactor = 1,
     skipSectDayHooks = false,
     rotateMasters = true,
@@ -431,10 +447,20 @@ export function computeTimeAdvanceState(
   } = params
 
   const clock = advanceShichenClock(dayCount, shichenIdx, deltaShichen)
-  const inOwnSectCity = isPlayerInOwnSectRegion(currentNodeId, campPos, sectState.sectId)
+  const isFreeLodging = isPlayerInFreeLodgingRegion(
+    currentNodeId,
+    campPos,
+    sectState.sectId,
+    birthplaceId,
+  )
+  const lodgingInfo = getRegionLodgingInfo(currentNodeId)
+  const safeStay = Math.max(0, Math.floor(cityStayShichens))
+  const totalStay = safeStay + Math.max(0, deltaShichen)
+  const lodgingPeriods = Math.floor(totalStay / 12) - Math.floor(safeStay / 12)
+  const nextCityStayShichens = campPos || isFreeLodging ? 0 : totalStay % 12
   const lodgingFee =
-    chargeForeignLodging && clock.daysAdded > 0 && !inOwnSectCity && !campPos
-      ? Math.min(silver, DAILY_INN_LODGING_COST * clock.daysAdded)
+    chargeForeignLodging && lodgingPeriods > 0 && !isFreeLodging && !campPos
+      ? Math.min(silver, lodgingInfo.dailyCost * lodgingPeriods)
       : 0
 
   let nextSilver = silver - lodgingFee
@@ -443,6 +469,20 @@ export function computeTimeAdvanceState(
   let nextMasters = roamingMasters
   let nextLogs = logs
   let overdueSpyAmbush: NodeNpc | null = null
+
+  if (lodgingFee > 0) {
+    const cityName = NODE_MAP[currentNodeId]?.name ?? currentNodeId
+    nextLogs = [
+      createLogEntry(
+        clock.dayCount,
+        '邸店宿费',
+        `于【${cityName}】留驻满 ${lodgingPeriods * 12} 时辰，依例扣缴【${lodgingInfo.tierLabel}】宿费 ${lodgingFee} 两纹银。`,
+        false,
+        clock.shichenIdx,
+      ),
+      ...nextLogs,
+    ]
+  }
 
   if (clock.daysAdded > 0) {
     if (rotateMasters) {
@@ -468,6 +508,7 @@ export function computeTimeAdvanceState(
         sectState: nextSectState,
         logs: nextLogs,
         npcFavor: nextNpcFavor,
+        celunSkill,
         rng,
       })
       nextSilver = dayHook.silver
@@ -491,6 +532,7 @@ export function computeTimeAdvanceState(
     dayCount: clock.dayCount,
     shichenIdx: clock.shichenIdx,
     daysAdded: clock.daysAdded,
+    cityStayShichens: nextCityStayShichens,
     silver: nextSilver,
     lodgingFee,
     hp: rec.hp,
@@ -545,12 +587,16 @@ export function commitTimeAdvance(
     mp: options.mpOverride ?? s.mp,
     maxMp: options.maxMpOverride ?? s.maxMp,
     currentNodeId: s.currentNodeId,
+    birthplaceId: s.birthplaceId,
+    cityStayShichens: s.cityStayShichens,
     campPos: s.campPos,
     sectState: s.sectState,
     npcFavor: s.npcFavor,
     roamingMasters: s.roamingMasters,
     logs: options.baseLogsOverride ?? s.logs,
     chargeForeignLodging: options.chargeForeignLodging,
+    equippedMountId: s.equipped.mount,
+    celunSkill: s.skills['策论'] ?? 0,
     vitalityFactor: options.vitalityFactor,
     skipSectDayHooks: options.skipSectDayHooks,
     rotateMasters: options.rotateMasters,
@@ -563,6 +609,7 @@ export function commitTimeAdvance(
   set({
     dayCount: adv.dayCount,
     shichenIdx: adv.shichenIdx,
+    cityStayShichens: adv.cityStayShichens,
     silver: adv.silver,
     hp: adv.hp,
     mp: adv.mp,

@@ -16,9 +16,16 @@ import {
   TAIHANG_BANDIT_QUEST_ID,
 } from '../../engine/shared/constants'
 import {
+  buildEscortHighwaymanNpc,
+  computeHighwaymanPersuadeChance,
+  getAvailableEscortContracts,
+  getRegionLodgingInfo,
+  isEscortVenueBuilding,
+} from '../../engine/economy'
+import {
   cloneHeroBaseStats,
-  DAILY_INN_LODGING_COST,
   deriveHeroEffectiveStats,
+  isPlayerInFreeLodgingRegion,
 } from '../../utils/heroStats'
 import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
 import {
@@ -64,6 +71,8 @@ export type NavigationTravelKeys =
   | 'startJourney'
   | 'stepTravelTick'
   | 'campStop'
+  | 'acceptEscortContract'
+  | 'abandonEscortContract'
   | 'navigateToNpcLeafInCurrentRegion'
 
 export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (set, get) => ({
@@ -615,6 +624,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
     let nextFood = s.food
     let nextSilver = s.silver
     let nextCombatExp = s.combatExp
+    let nextRenown = s.renown
     let nextHp = s.hp
     let nextMp = s.mp
     let nextBaseStats = s.baseStats
@@ -624,6 +634,8 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
     let nextSkills = s.skills
     let nextSectState = s.sectState
     let nextNpcFavor = s.npcFavor
+    let nextEscortContract = s.activeEscortContract
+    let escortFeedback: { text: string; tone: 'success' | 'warn' | 'talk' } | null = null
     let overdueSpyAmbush: NodeNpc | null = null
     let nextLogs = [...s.logs]
     let nextMasters = s.roamingMasters
@@ -633,6 +645,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       dayAccumulator -= 1.0
       nextDayCount += 1
       crossedDayBoundary = true
+      const fallbackDailySilver = getRegionLodgingInfo(s.currentNodeId).dailyCost
       if (nextFood > 0) {
         nextFood -= 1
         const recTravel = applyDailyVitalityRecovery({
@@ -645,8 +658,8 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         })
         nextHp = recTravel.hp
         nextMp = recTravel.mp
-      } else if (nextSilver >= DAILY_INN_LODGING_COST) {
-        nextSilver -= DAILY_INN_LODGING_COST
+      } else if (nextSilver >= fallbackDailySilver) {
+        nextSilver -= fallbackDailySilver
         const recTravel = applyDailyVitalityRecovery({
           hp: nextHp,
           maxHp: s.maxHp,
@@ -658,6 +671,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         nextHp = recTravel.hp
         nextMp = recTravel.mp
       } else {
+        nextFood = 0
         nextHp = Math.max(1, Math.round(nextHp * 0.9))
         nextMp = Math.max(0, Math.round(nextMp * 0.9))
       }
@@ -726,6 +740,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         sectState: nextSectState,
         logs: nextLogs,
         npcFavor: nextNpcFavor,
+        celunSkill: nextSkills['策论'] ?? 0,
       })
       nextSilver = dayHook.silver
       nextSectState = dayHook.sectState
@@ -736,6 +751,19 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
 
     if (ratio >= 1) {
       const arrivedNodeId = seg.to
+      if (nextEscortContract && nextEscortContract.destRegionId === arrivedNodeId) {
+        const doneContract = nextEscortContract
+        nextSilver += doneContract.rewardSilver
+        nextCombatExp += 15
+        nextRenown += 2
+        const doneMsg = `镖旗招展，【${doneContract.cargoName}】毫发无损送抵【${doneContract.destName}】分号！镖头验封交割，奉上镖酬 +${doneContract.rewardSilver} 两、实战阅历 +15、江湖声望 +2！`
+        nextLogs.unshift(
+          createLogEntry(nextDayCount, '交镖结银', doneMsg, true, nextShichenIdx),
+        )
+        escortFeedback = { text: doneMsg, tone: 'success' }
+        nextEscortContract = null
+      }
+
       const blacklisted =
         nextSectState.songCourtBlacklisted || Boolean(s.questState.flags.song_court_blacklisted)
       if (arrivedNodeId === 'bianliang' && blacklisted) {
@@ -750,8 +778,11 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           food: nextFood,
           silver: nextSilver,
           combatExp: nextCombatExp,
+          renown: nextRenown,
           sectState: nextSectState,
           npcFavor: nextNpcFavor,
+          activeEscortContract: nextEscortContract,
+          ...(escortFeedback ? { actionFeedback: escortFeedback } : {}),
           baseStats: nextBaseStats,
           artExps: nextArtExps,
           artMilestoneFlags: nextArtMilestoneFlags,
@@ -763,6 +794,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           traveling: null,
           campPos: null,
           currentNodeId: 'bianliang',
+          cityStayShichens: 0,
           selectedNodeId: 'bianliang',
           activeRegionId: 'bianliang',
           activeBuildingInteriorId: null,
@@ -788,11 +820,25 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       const nextSegIdx = tr.segIdx + 1
       if (nextSegIdx >= tr.route.segments.length) {
         const destName = NODE_MAP[arrivedNodeId]?.name ?? arrivedNodeId
+        const isFreeLodging = isPlayerInFreeLodgingRegion(
+          arrivedNodeId,
+          null,
+          nextSectState.sectId,
+          s.birthplaceId,
+        )
+        const lodgingInfo = getRegionLodgingInfo(arrivedNodeId)
+        const arrivalLodgingFee = isFreeLodging ? 0 : Math.min(nextSilver, lodgingInfo.dailyCost)
+        nextSilver -= arrivalLodgingFee
+        const arrivalLodgingNote = isFreeLodging
+          ? ''
+          : arrivalLodgingFee > 0
+            ? `（进城先缴首日【${lodgingInfo.tierLabel}】宿费 ${arrivalLodgingFee} 两纹银，之后每满 12 时辰续算）`
+            : `（进城宿费需 ${lodgingInfo.dailyCost} 两，随身银两不足暂赊）`
         nextLogs.unshift(
           createLogEntry(
             nextDayCount,
             '抵达入图',
-            `千里风霜，顺利抵达【${destName}】！主视口已按需展开【${destName}】半3D全景舆图。`,
+            `千里风霜，顺利抵达【${destName}】！${arrivalLodgingNote}主视口已按需展开【${destName}】半3D全景舆图。`,
             true,
             nextShichenIdx,
           ),
@@ -803,8 +849,11 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           food: nextFood,
           silver: nextSilver,
           combatExp: nextCombatExp,
+          renown: nextRenown,
           sectState: nextSectState,
           npcFavor: nextNpcFavor,
+          activeEscortContract: nextEscortContract,
+          ...(escortFeedback ? { actionFeedback: escortFeedback } : {}),
           baseStats: nextBaseStats,
           artExps: nextArtExps,
           artMilestoneFlags: nextArtMilestoneFlags,
@@ -816,6 +865,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           traveling: null,
           campPos: null,
           currentNodeId: arrivedNodeId,
+          cityStayShichens: 0,
           selectedNodeId: arrivedNodeId,
           activeRegionId: arrivedNodeId,
           activeBuildingInteriorId: null,
@@ -858,8 +908,11 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         food: nextFood,
         silver: nextSilver,
         combatExp: nextCombatExp,
+        renown: nextRenown,
         sectState: nextSectState,
         npcFavor: nextNpcFavor,
+        activeEscortContract: nextEscortContract,
+        ...(escortFeedback ? { actionFeedback: escortFeedback } : {}),
         baseStats: nextBaseStats,
         artExps: nextArtExps,
         artMilestoneFlags: nextArtMilestoneFlags,
@@ -902,14 +955,82 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       return
     }
 
+    // 走镖半途绿林响马拦劫检定（联动【辩才】劝退率 = 辩才 / 150）
+    const midSegIdx = Math.floor(tr.route.segments.length / 2)
+    if (
+      nextEscortContract &&
+      !nextEscortContract.ambushResolved &&
+      tr.segIdx >= midSegIdx &&
+      ratio >= 0.5 &&
+      !overdueSpyAmbush
+    ) {
+      const resolvedContract = { ...nextEscortContract, ambushResolved: true }
+      nextEscortContract = resolvedContract
+      const eloquence = nextSkills['辩才'] ?? 0
+      const persuadeChance = computeHighwaymanPersuadeChance(eloquence)
+
+      if (Math.random() < persuadeChance) {
+        nextRenown += 1
+        const persuadeMsg = `行至险隘，一伙绿林响马呼哨拦路欲劫【${resolvedContract.cargoName}】！少侠按剑上前，凭【辩才 ${eloquence}】（劝退率 ${Math.round(persuadeChance * 100)}%）晓以利害、陈说黑白，匪首冷汗涔涔拱手让道，不战而退（江湖声望 +1）！`
+        nextLogs.unshift(
+          createLogEntry(nextDayCount, '舌退群寇', persuadeMsg, true, nextShichenIdx),
+        )
+        escortFeedback = { text: persuadeMsg, tone: 'talk' }
+      } else {
+        const ambushMsg = `行至半途险道，林中梆子急响，一彪凶悍响马横刀拦截【${resolvedContract.cargoName}】！言辞喝阻无效，唯有一战护镖！`
+        nextLogs.unshift(
+          createLogEntry(nextDayCount, '绿林劫镖', ambushMsg, true, nextShichenIdx),
+        )
+        set({
+          dayCount: nextDayCount,
+          shichenIdx: nextShichenIdx,
+          food: nextFood,
+          silver: nextSilver,
+          combatExp: nextCombatExp,
+          renown: nextRenown,
+          sectState: nextSectState,
+          npcFavor: nextNpcFavor,
+          activeEscortContract: nextEscortContract,
+          actionFeedback: { text: ambushMsg, tone: 'warn' },
+          baseStats: nextBaseStats,
+          artExps: nextArtExps,
+          artMilestoneFlags: nextArtMilestoneFlags,
+          hp: nextHp,
+          mp: nextMp,
+          res: nextRes,
+          skills: nextSkills,
+          roamingMasters: nextMasters,
+          traveling: {
+            ...tr,
+            segProgressDays,
+            dayAccumulator,
+            playerPos: { x: curX, y: curY },
+          },
+          logs: nextLogs.slice(0, 60),
+        })
+        if (crossedDayBoundary) get().checkExpiredQuestDeadlines()
+        get().campStop()
+        get().startNpcCombat(
+          buildEscortHighwaymanNpc(resolvedContract),
+          'spar',
+          'escort_ambush',
+          true,
+        )
+        return
+      }
+    }
+
     set({
       dayCount: nextDayCount,
       shichenIdx: nextShichenIdx,
       food: nextFood,
       silver: nextSilver,
       combatExp: nextCombatExp,
+      renown: nextRenown,
       sectState: nextSectState,
       npcFavor: nextNpcFavor,
+      activeEscortContract: nextEscortContract,
+      ...(escortFeedback ? { actionFeedback: escortFeedback } : {}),
       baseStats: nextBaseStats,
       artExps: nextArtExps,
       artMilestoneFlags: nextArtMilestoneFlags,
@@ -1036,6 +1157,89 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         ),
         ...s.logs,
       ].slice(0, 60),
+    })
+  },
+
+  acceptEscortContract: (contractId) => {
+    const s = get()
+    if (s.campPos || s.traveling || s.cultivationSession || s.activeCombat) {
+      set({
+        actionFeedback: {
+          text: '少侠正在行路、露营或闭关途中，无法立约接镖。',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    if (s.activeEscortContract) {
+      set({
+        actionFeedback: {
+          text: `身上已有护送至【${s.activeEscortContract.destName}】的镖单，请先送达交割或弃镖。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const bId = s.activeBuildingInteriorId ?? s.selectedBuildingId
+    const bRec = bId ? BUILDING_DB_MAP[bId] : null
+    if (!bRec || s.currentNodeId !== s.activeRegionId || !isEscortVenueBuilding(bRec.id, bRec.name)) {
+      set({
+        actionFeedback: {
+          text: '须亲临本地镖局、客栈或馆驿方可揭榜接镖。',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const contracts = getAvailableEscortContracts({
+      originRegionId: s.currentNodeId,
+      dayCount: s.dayCount,
+      speedParams: {
+        mountKey: s.mountKey,
+        qinggongBonus: s.qinggongBonus,
+        ridingSkill: s.ridingSkill,
+        agility: s.agility,
+      },
+      inventory: s.inventory,
+    })
+    const picked = contracts.find((c) => c.id === contractId)
+    if (!picked) {
+      set({
+        actionFeedback: {
+          text: '该趟走镖红货榜文已逾时或不可达。',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const msg = `少侠于【${bRec.name}】按印揭下红货镖单：护送【${picked.cargoName}】前往【${picked.destName}】（全程 ${picked.totalLi} 里 · ${picked.dangerLabel} · 约定镖酬 ${picked.rewardSilver} 两）！可切至天下舆图启程押运。`
+    set({
+      activeEscortContract: picked,
+      selectedNodeId: picked.destRegionId,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [createLogEntry(s.dayCount, '揭榜走镖', msg, true, s.shichenIdx), ...s.logs].slice(
+        0,
+        60,
+      ),
+    })
+  },
+
+  abandonEscortContract: () => {
+    const s = get()
+    const cur = s.activeEscortContract
+    if (!cur) return
+    const nextRenown = Math.max(0, s.renown - 2)
+    const msg = `少侠半途辞退【${cur.cargoName}】镖单，镖局另派趟子手接管（失信折损江湖声望 -2）。`
+    set({
+      activeEscortContract: null,
+      renown: nextRenown,
+      actionFeedback: { text: msg, tone: 'warn' },
+      logs: [createLogEntry(s.dayCount, '辞退镖单', msg, false, s.shichenIdx), ...s.logs].slice(
+        0,
+        60,
+      ),
     })
   },
 

@@ -7,6 +7,11 @@ import {
   RARITY_STYLE_MAP,
   type TreasureVolumeKey,
 } from '../../../data/itemsDb'
+import {
+  computeItemSellPrice,
+  computeShopBuyPrice,
+  isItemSellable,
+} from '../../../engine/economy'
 import { useGameStore } from '../../../store/useGameStore'
 import { resolveAssetUrl } from '../../../utils/assetLoader'
 import { getMedicineRealmScale, scaleMedicineRecovery } from '../../../utils/realmUtils'
@@ -39,6 +44,9 @@ export function BagTab({
   const food = useGameStore((s) => s.food)
   const maxHp = useGameStore((s) => s.maxHp)
   const maxMp = useGameStore((s) => s.maxMp)
+  const skills = useGameStore((s) => s.skills)
+  const campPos = useGameStore((s) => s.campPos)
+  const traveling = useGameStore((s) => s.traveling)
   const inventory = useGameStore((s) => s.inventory)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const consumedOnceItemIds = useGameStore((s) => s.consumedOnceItemIds)
@@ -46,10 +54,15 @@ export function BagTab({
   const medScale = useMemo(() => getMedicineRealmScale(maxHp, maxMp), [maxHp, maxMp])
 
   const replenishSupplies = useGameStore((s) => s.replenishSupplies)
+  const sellInventoryItem = useGameStore((s) => s.sellInventoryItem)
   const setBagCategory = useGameStore((s) => s.setBagCategory)
   const openCompendium = useGameStore((s) => s.openCompendium)
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
   const consumeInventoryItem = useGameStore((s) => s.consumeInventoryItem)
+
+  const arithmeticSkill = skills['算术'] ?? 0
+  const supplyBuyCost = computeShopBuyPrice(5, arithmeticSkill)
+  const canSellInCity = !campPos && !traveling
 
   const learnedMap = useMemo(() => {
     const m = new Map<string, { level: number; exp: number }>()
@@ -92,7 +105,7 @@ export function BagTab({
           <div>
             <div className="text-[#6b5033] font-bold song-serif text-sm">随身资金（纹银）</div>
             <div className="text-xs text-[#7a6042] mt-0.5">
-              可于酒楼客栈做工、门派当值领俸或江湖奇遇差事获取
+              百业当差、走镖、典卖余货或门派领俸获取
             </div>
           </div>
           <span className="font-mono font-bold text-xl text-[#7f1d1d]">{silver} 两</span>
@@ -100,19 +113,19 @@ export function BagTab({
 
         <div className="p-3.5 rounded bg-[#efe4cc] border border-[#c8b28e] flex items-center justify-between">
           <div>
-            <div className="text-[#6b5033] font-bold song-serif text-sm">行军粮草（干粮）</div>
+            <div className="text-[#6b5033] font-bold song-serif text-sm">行军粮草（随身干粮）</div>
             <div className="text-xs text-[#7a6042] mt-0.5">
-              大地图远征与野外扎营闭关每日消耗 1 份干粮
+              远征与野外扎营每日耗 1 份干粮
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <span className="font-mono font-bold text-xl text-[#1e4620]">{food} 日份</span>
+            <span className="font-mono font-bold text-xl text-[#1e4620]">{food} 份</span>
             <button
               type="button"
               onClick={replenishSupplies}
               className="px-3 py-1.5 rounded bg-[#1f5c3a] hover:bg-[#277048] text-[#fff8eb] font-bold song-serif text-xs cursor-pointer transition shadow-sm"
             >
-              购粮 (+20份/5两)
+              购粮 (+20份/{supplyBuyCost}两)
             </button>
           </div>
         </div>
@@ -344,6 +357,13 @@ export function BagTab({
                   <div className="text-right font-mono text-xs text-[#6b5235] shrink-0">
                     <div>随身 ×{activeStack.qty}</div>
                     <div className="text-[#7f1d1d] font-bold">估价 {activeStack.def.value} 两</div>
+                    {isItemSellable(activeStack.itemId, activeStack.def) ? (
+                      <div className="text-[#1f4d3b] font-semibold">
+                        折银 {computeItemSellPrice(activeStack.def, arithmeticSkill)} 两
+                      </div>
+                    ) : (
+                      <div className="text-[#8f1d14] font-semibold">🔒 信物禁售</div>
+                    )}
                   </div>
                 </div>
 
@@ -476,69 +496,92 @@ export function BagTab({
                 )}
               </div>
 
-              <div className="pt-3 border-t border-[#cbb693] flex items-center gap-2">
-                {activeStack.def.equipSlot ? (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => equipItemToSlot(activeStack.itemId)}
-                      className="flex-1 px-3 py-2.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
-                    >
-                      {activeStack.def.category === 'tools'
-                        ? '佩挂雅器随身'
-                        : '披挂上身 / 备鞍乘骑'}
-                    </button>
-                    {activeStack.def.useEffect && (
+              <div className="pt-3 border-t border-[#cbb693] space-y-2">
+                <div className="flex items-center gap-2">
+                  {activeStack.def.equipSlot ? (
+                    <>
                       <button
                         type="button"
-                        onClick={() => consumeInventoryItem(activeStack.itemId, true)}
-                        className="px-3 py-2.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
+                        onClick={() => equipItemToSlot(activeStack.itemId)}
+                        className="flex-1 px-3 py-2.5 rounded bg-[#8f1d14] hover:bg-[#a9241a] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
                       >
-                        抚弄修习
+                        {activeStack.def.category === 'tools'
+                          ? '佩挂雅器随身'
+                          : '披挂上身 / 备鞍乘骑'}
                       </button>
-                    )}
+                      {activeStack.def.useEffect && (
+                        <button
+                          type="button"
+                          onClick={() => consumeInventoryItem(activeStack.itemId, true)}
+                          className="px-3 py-2.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
+                        >
+                          抚弄修习
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (activeStack.def.equipSlot) {
+                            onJumpToEquipSlot(activeStack.def.equipSlot)
+                          }
+                        }}
+                        className="px-3 py-2.5 rounded bg-[#faf3e3] hover:bg-[#e7d9bc] border border-[#9e8462] text-[#3d2812] font-bold song-serif text-xs sm:text-sm cursor-pointer transition"
+                      >
+                        查看槽位
+                      </button>
+                    </>
+                  ) : activeStack.def.useEffect?.learnArtId &&
+                    learnedMap.has(activeStack.def.useEffect.learnArtId) ? (
                     <button
                       type="button"
-                      onClick={() => {
-                        if (activeStack.def.equipSlot) {
-                          onJumpToEquipSlot(activeStack.def.equipSlot)
-                        }
-                      }}
-                      className="px-3 py-2.5 rounded bg-[#faf3e3] hover:bg-[#e7d9bc] border border-[#9e8462] text-[#3d2812] font-bold song-serif text-xs sm:text-sm cursor-pointer transition"
+                      onClick={() => onJumpToPracticeArt(activeStack.def.useEffect!.learnArtId!)}
+                      className="w-full px-3 py-2.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
                     >
-                      查看槽位
+                      已领悟入门 · 前往【披挂与武学】闭关精修 →
                     </button>
-                  </>
-                ) : activeStack.def.useEffect?.learnArtId &&
-                  learnedMap.has(activeStack.def.useEffect.learnArtId) ? (
+                  ) : activeStack.def.useEffect ? (
+                    <button
+                      type="button"
+                      onClick={() => consumeInventoryItem(activeStack.itemId)}
+                      className="w-full px-3 py-2.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
+                    >
+                      {activeStack.def.category === 'scrolls'
+                        ? activeStack.def.useEffect.learnArtId
+                          ? '初次展卷领悟入门'
+                          : '展卷研读修艺'
+                        : activeStack.def.category === 'tools'
+                          ? '把玩演练修习'
+                          : '立即服食使用'}
+                    </button>
+                  ) : activeStack.def.poisonEffect ? (
+                    <div className="w-full py-2 text-center text-xs text-[#4c1d6e] bg-[#f7eefb] rounded border border-[#9d7bb8] font-medium">
+                      奇门毒物 · 不可直接内服（供回合交锋施毒、淬炼兵刃或暗算剧情使用）
+                    </div>
+                  ) : (
+                    <div className="w-full py-2 text-center text-xs text-[#6b5235] bg-[#faf3e3] rounded border border-[#cbb693]">
+                      随身常备器具/凭证（在特定雅集、奇遇或关隘自动生效）
+                    </div>
+                  )}
+                </div>
+
+                {isItemSellable(activeStack.itemId, activeStack.def) ? (
                   <button
                     type="button"
-                    onClick={() => onJumpToPracticeArt(activeStack.def.useEffect!.learnArtId!)}
-                    className="w-full px-3 py-2.5 rounded bg-[#5c4024] hover:bg-[#73512e] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
+                    disabled={!canSellInCity}
+                    onClick={() => sellInventoryItem(activeStack.itemId, 1)}
+                    className={`w-full px-3 py-1.5 rounded border text-xs font-bold song-serif transition ${
+                      canSellInCity
+                        ? 'bg-[#faf3e3] hover:bg-[#ead8b5] border-[#215744]/60 text-[#1b5132] cursor-pointer'
+                        : 'bg-[#e6dcc8] border-[#cbb693] text-[#8c785c] cursor-not-allowed'
+                    }`}
                   >
-                    已领悟入门 · 前往【披挂与武学】闭关精修 →
+                    {canSellInCity
+                      ? `商肆折银卖出 1 件（+${computeItemSellPrice(activeStack.def, arithmeticSkill)} 两 · 算术溢价已计入）`
+                      : '身在荒野行路途中 · 入城后方可折银典卖'}
                   </button>
-                ) : activeStack.def.useEffect ? (
-                  <button
-                    type="button"
-                    onClick={() => consumeInventoryItem(activeStack.itemId)}
-                    className="w-full px-3 py-2.5 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif text-xs sm:text-sm shadow cursor-pointer transition"
-                  >
-                    {activeStack.def.category === 'scrolls'
-                      ? activeStack.def.useEffect.learnArtId
-                        ? '初次展卷领悟入门'
-                        : '展卷研读修艺'
-                      : activeStack.def.category === 'tools'
-                        ? '把玩演练修习'
-                        : '立即服食使用'}
-                  </button>
-                ) : activeStack.def.poisonEffect ? (
-                  <div className="w-full py-2 text-center text-xs text-[#4c1d6e] bg-[#f7eefb] rounded border border-[#9d7bb8] font-medium">
-                    奇门毒物 · 不可直接内服（供回合交锋施毒、淬炼兵刃或暗算剧情使用）
-                  </div>
                 ) : (
-                  <div className="w-full py-2 text-center text-xs text-[#6b5235] bg-[#faf3e3] rounded border border-[#cbb693]">
-                    随身常备器具/凭证（在特定雅集、奇遇或关隘自动生效）
+                  <div className="w-full py-1.5 text-center text-[11px] text-[#8f1d14] bg-[#faf3e3] rounded border border-[#d6b38b] font-semibold">
+                    🔒 宗门/剧情关键信物，已锁死禁止变卖
                   </div>
                 )}
               </div>

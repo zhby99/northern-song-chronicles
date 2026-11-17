@@ -1,5 +1,6 @@
 import { FACTION_DB_MAP } from '../../data/gameDb'
 import { ITEM_DB_MAP } from '../../data/itemsDb'
+import { computeCelunBonusAmount } from '../economy'
 import { cloneQuestRuntimeState } from '../questEngine'
 import type {
   ActiveKaifengWarrant,
@@ -29,6 +30,7 @@ export interface BuildJoinSectPatchInput {
   allowOfficialTransfer?: boolean
   completeEntryQuest?: boolean
   entryQuestOutcome?: string
+  celunSkill?: number
   rng?: RngFn
 }
 
@@ -66,6 +68,7 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
     allowOfficialTransfer = false,
     completeEntryQuest = false,
     entryQuestOutcome = 'joined',
+    celunSkill = 0,
     rng,
   } = input
 
@@ -158,7 +161,10 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
 
   let initialStipendPaid = 0
   if (rule?.payInitialStipendOnJoin) {
-    initialStipendPaid = getSectMonthlyStipend(sectId, startingRank)
+    initialStipendPaid = computeCelunBonusAmount(
+      getSectMonthlyStipend(sectId, startingRank),
+      celunSkill,
+    )
     nextSilver += initialStipendPaid
   }
 

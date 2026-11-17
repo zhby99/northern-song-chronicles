@@ -582,9 +582,28 @@ export interface CultivationVenueStatus {
   blockedReason: string | null
 }
 
+export type VocationKey = 'accountant' | 'tutor' | 'calligrapher' | 'litigator'
+
+export interface ActiveEscortContract {
+  id: string
+  cargoName: string
+  originRegionId: string
+  originName: string
+  destRegionId: string
+  destName: string
+  totalLi: number
+  dangerCoeff: number
+  dangerLabel: string
+  rewardSilver: number
+  acceptedDay: number
+  ambushResolved: boolean
+}
+
 export interface CultivationSessionState {
-  kind?: 'martial_art' | 'scripture' | 'ten_art' | 'shaolin_chore' | 'odd_job'
+  kind?: 'martial_art' | 'scripture' | 'ten_art' | 'shaolin_chore' | 'odd_job' | 'vocation_work'
   tenArtKey?: TenArtKey
+  vocationKey?: VocationKey
+  dailyWageRate?: number
   artId: string
   artName: string
   artCleanName: string
@@ -984,6 +1003,8 @@ export interface SerializableGameState {
   selectedBuildingId: string | null
   selectedSpotId: string | null
   currentNodeId: string
+  birthplaceId?: string
+  cityStayShichens?: number
   campPos?: WildernessCamp | null
 
   baseStats: HeroBaseStats
@@ -1014,6 +1035,10 @@ export interface SerializableGameState {
   npcFavor?: Record<string, number>
   npcTalkedMonth?: Record<string, number>
   npcSparredMonth?: Record<string, number>
+  npcBanquetedMonth?: Record<string, number>
+  inscribedPoemSpotIds?: string[]
+  auctionBoughtByMonth?: Record<string, string[]>
+  activeEscortContract?: ActiveEscortContract | null
   sectState?: PlayerSectState
   questState?: QuestRuntimeState
   hiddenQuestIds?: string[]
@@ -1045,7 +1070,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M1.5.1'
+  schemaVersion: 'M1.5.3'
   slotId: SaveSlotId
   savedAt: string
   note: string

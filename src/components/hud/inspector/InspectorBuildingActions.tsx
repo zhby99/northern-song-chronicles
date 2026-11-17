@@ -1,19 +1,36 @@
+import {
+  calcVocationDailyWage,
+  checkVocationSkillMet,
+  computeHighwaymanPersuadeChance,
+  computePoemRenownGain,
+  getAvailableEscortContracts,
+  getAvailableVocationsForBuilding,
+  getLandmarkPoemSpot,
+  getRegionLodgingInfo,
+  isEscortVenueBuilding,
+  VOCATION_DEFS,
+} from '../../../engine/economy'
 import type { getAvailableSpotQuestActions } from '../../../engine/questEngine'
 import { useGameStore } from '../../../store/useGameStore'
-import type { CompiledBuildingRecord, MenuTabKey, NodeNpc } from '../../../types/game'
+import type {
+  ActiveEscortContract,
+  CompiledBuildingRecord,
+  InventoryStack,
+  MenuTabKey,
+  NodeNpc,
+} from '../../../types/game'
 import type { QuestEffect } from '../../../types/quest'
 import type { getBuildingArtTrainingOptions } from '../../../utils/artsProgression'
-import {
-  DAILY_INN_LODGING_COST,
-  DAYS_PER_MONTH,
-  MONTHLY_ODD_JOB_SILVER,
-} from '../../../utils/heroStats'
+import { DAYS_PER_MONTH, MONTHLY_ODD_JOB_SILVER } from '../../../utils/heroStats'
+import type { SpeedParams } from '../../../utils/mapMath'
 
 type AvailableSpotQuestAction = ReturnType<typeof getAvailableSpotQuestActions>[number]
 type ArtTrainingOption = ReturnType<typeof getBuildingArtTrainingOptions>[number]
 
 interface InspectorBuildingActionsProps {
+  activeRegionId: string
   regionName: string
+  dayCount: number
   inspectedRootBldg: CompiledBuildingRecord | null
   isAtCurrentRegion: boolean
   spotQuestActions: AvailableSpotQuestAction[]
@@ -22,6 +39,7 @@ interface InspectorBuildingActionsProps {
   isOwnSectGrounds: boolean
   isInnVenue: boolean
   inOwnSectCity: boolean
+  isBirthplaceCity: boolean
   canStudyScripture: boolean
   artOptions: ArtTrainingOption[]
   silver: number
@@ -29,12 +47,19 @@ interface InspectorBuildingActionsProps {
   maxHp: number
   mp: number
   maxMp: number
+  skills: Record<string, number>
+  speedParams: SpeedParams
+  inventory: InventoryStack[]
+  inscribedPoemSpotIds: string[]
+  activeEscortContract: ActiveEscortContract | null
   onRunQuestEffects: (effects: QuestEffect[], npc?: NodeNpc | null) => void
   onOpenMenu: (tab: MenuTabKey) => void
 }
 
 export function InspectorBuildingActions({
+  activeRegionId,
   regionName,
+  dayCount,
   inspectedRootBldg,
   isAtCurrentRegion,
   spotQuestActions,
@@ -43,6 +68,7 @@ export function InspectorBuildingActions({
   isOwnSectGrounds,
   isInnVenue,
   inOwnSectCity,
+  isBirthplaceCity,
   canStudyScripture,
   artOptions,
   silver,
@@ -50,9 +76,47 @@ export function InspectorBuildingActions({
   maxHp,
   mp,
   maxMp,
+  skills,
+  speedParams,
+  inventory,
+  inscribedPoemSpotIds,
+  activeEscortContract,
   onRunQuestEffects,
   onOpenMenu,
 }: InspectorBuildingActionsProps) {
+  const lodgingInfo = getRegionLodgingInfo(activeRegionId)
+  const dailyInnTotal = inOwnSectCity ? 0 : lodgingInfo.dailyCost
+  const lodgingCostLabel = inOwnSectCity
+    ? isBirthplaceCity
+      ? '故里免宿费'
+      : '师门驻地免宿费'
+    : `${lodgingInfo.tierLabel} ${lodgingInfo.dailyCost} 两/日（入城即收，每12时辰续收）`
+
+  const poemSpot = getLandmarkPoemSpot(inspectedRootBldg?.id)
+  const alreadyInscribedPoem = Boolean(
+    poemSpot && inscribedPoemSpotIds.includes(poemSpot.buildingId),
+  )
+  const poetrySkill = skills['诗词'] ?? 0
+  const poemRenownGain = computePoemRenownGain(poetrySkill)
+
+  const vocationKeys = getAvailableVocationsForBuilding(
+    inspectedRootBldg?.id,
+    inspectedRootBldg?.name,
+    inspectedRootBldg?.actLabel,
+  )
+
+  const isEscortVenue = isEscortVenueBuilding(inspectedRootBldg?.id, inspectedRootBldg?.name)
+  const escortContracts =
+    isEscortVenue && isAtCurrentRegion && !activeEscortContract
+      ? getAvailableEscortContracts({
+          originRegionId: activeRegionId,
+          dayCount,
+          speedParams,
+          inventory,
+        })
+      : []
+  const persuadePct = Math.round(computeHighwaymanPersuadeChance(skills['辩才'] ?? 0) * 100)
+
   return (
     <>
       {spotQuestActions.length > 0 && (
@@ -105,6 +169,182 @@ export function InspectorBuildingActions({
         </div>
       )}
 
+      {poemSpot && (
+        <div className="p-2.5 rounded-md bg-[#f5ecd7] border-2 border-[#a87c3e] space-y-1.5">
+          <div className="flex items-center justify-between gap-2">
+            <div className="text-xs font-bold song-serif text-[#781710]">
+              ✒ {poemSpot.title}
+            </div>
+            <span className="text-[10px] font-mono text-[#5c3d1e]">
+              诗词 {poetrySkill} · 声望 +{poemRenownGain}
+            </span>
+          </div>
+          <div className="text-[11px] italic text-[#5c3d1e] song-serif">
+            「{poemSpot.verseSample}」
+          </div>
+          {alreadyInscribedPoem ? (
+            <div className="text-[11px] text-[#1f4d3b] font-bold bg-[#e6efe8] px-2.5 py-1 rounded border border-[#96b8a2]">
+              ✓ 已于此名胜挥毫题壁，墨宝传唱四方
+            </div>
+          ) : !isAtCurrentRegion ? (
+            <div className="text-[11px] text-[#8f1d14] bg-[#efe4cc] px-2.5 py-1 rounded border border-[#d6b38b]">
+              🔒 须亲临【{regionName}】此名胜方可登临题壁
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => useGameStore.getState().inscribeLandmarkPoem()}
+              className="w-full px-3 py-1.5 rounded bg-[#781710] hover:bg-[#931e15] text-[#fff8eb] text-xs font-bold song-serif shadow transition cursor-pointer flex items-center justify-between gap-2"
+            >
+              <span>登临挥毫 · 题壁留诗（每处限题一次）</span>
+              <span className="px-1.5 py-0.5 rounded bg-black/25 font-mono text-[10px] text-[#fde68a] shrink-0">
+                江湖声望 +{poemRenownGain}
+              </span>
+            </button>
+          )}
+        </div>
+      )}
+
+      {vocationKeys.length > 0 && (
+        <div className="p-2.5 rounded-md bg-[#f5ecd7] border border-[#b59461] space-y-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className="text-xs font-bold song-serif text-[#5c3d1e]">
+              ❖ 百业当差 · 十艺营生（按日计酬）
+            </div>
+            <span className="text-[10px] text-[#7a6142]">可随时辞归结银</span>
+          </div>
+          {!isAtCurrentRegion ? (
+            <div className="text-[11px] text-[#8f1d14] bg-[#efe4cc] px-2 py-1 rounded border border-[#d6b38b]">
+              🔒 须亲临【{regionName}】此建筑方可应募当差
+            </div>
+          ) : (
+            <div className="space-y-1.5">
+              {vocationKeys.map((vKey) => {
+                const vDef = VOCATION_DEFS[vKey]
+                const check = checkVocationSkillMet(vKey, skills)
+                const dailyWage = calcVocationDailyWage(vKey, skills)
+                const canStart = check.ok && dailyWage > 0
+                return (
+                  <div
+                    key={vKey}
+                    className="rounded border border-[#d6c29b] bg-[#fdfaf1] px-2.5 py-1.5 text-[11px] space-y-1"
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <div>
+                        <span className="font-bold song-serif text-[#3b2410]">{vDef.name}</span>
+                        <span className="ml-1.5 text-[10px] text-[#7a6142]">
+                          （{vDef.formulaText}）
+                        </span>
+                      </div>
+                      <span className="font-mono font-bold text-[#781710] shrink-0">
+                        {dailyWage.toFixed(2)} 两/日
+                      </span>
+                    </div>
+                    <div className="text-[10px] text-[#6e5638]">{vDef.desc}</div>
+                    {!check.ok ? (
+                      <div className="text-[10px] text-[#8f1d14] font-semibold">
+                        🔒 {check.reason}
+                      </div>
+                    ) : (
+                      <div className="flex items-center gap-1.5 pt-0.5">
+                        {([5, 10, 30] as const).map((days) => (
+                          <button
+                            key={days}
+                            type="button"
+                            disabled={!canStart}
+                            onClick={() =>
+                              useGameStore.getState().startVocationWork(vKey, days)
+                            }
+                            className="cursor-pointer rounded border border-[#9e7742] bg-[#f4e4c1] hover:bg-[#e8d1a0] px-2 py-0.5 text-[10px] font-bold song-serif text-[#4a2e16] transition"
+                          >
+                            当差 {days} 日（+{Math.round(dailyWage * days)}两）
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {(isEscortVenue || Boolean(activeEscortContract)) && (
+        <div className="p-2.5 rounded-md bg-[#f5e7cb] border border-[#b58742] space-y-2">
+          <div className="flex items-center justify-between gap-2">
+            <div className="text-xs font-bold song-serif text-[#781710]">
+              ⚑ 镖行红货榜 · 镖师走镖（里程 × 险度计酬）
+            </div>
+            <span className="text-[10px] font-mono text-[#1f4d3b]">
+              辩才劝退率 {persuadePct}%
+            </span>
+          </div>
+
+          {activeEscortContract ? (
+            <div className="rounded border border-[#b58742] bg-[#faf3e3] p-2 text-[11px] space-y-1.5">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-bold song-serif text-[#23180f]">
+                  在途镖单：【{activeEscortContract.cargoName}】
+                </span>
+                <span className="font-mono font-bold text-[#781710]">
+                  镖酬 +{activeEscortContract.rewardSilver} 两
+                </span>
+              </div>
+              <div className="text-[10px] text-[#5c3d1e]">
+                {activeEscortContract.originName} → 【{activeEscortContract.destName}】（
+                {activeEscortContract.totalLi} 里 · {activeEscortContract.dangerLabel}）· 抵达目的城池即自动交镖结银
+              </div>
+              <div className="flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => useGameStore.getState().abandonEscortContract()}
+                  className="px-2.5 py-0.5 rounded border border-[#c53929] bg-[#fce8e6] hover:bg-[#f8d2ce] text-[#8f1d14] text-[10px] font-bold song-serif cursor-pointer"
+                >
+                  辞退镖单（声望 -2）
+                </button>
+              </div>
+            </div>
+          ) : !isAtCurrentRegion ? (
+            <div className="text-[11px] text-[#8f1d14] bg-[#efe4cc] px-2 py-1 rounded border border-[#d6b38b]">
+              🔒 须亲临【{regionName}】方可在此揭榜承接走镖差事
+            </div>
+          ) : escortContracts.length === 0 ? (
+            <div className="text-[11px] text-[#6b5235]">本月暂无通往外埠的可达红货镖单。</div>
+          ) : (
+            <div className="space-y-1.5">
+              {escortContracts.map((c) => (
+                <div
+                  key={c.id}
+                  className="flex items-center justify-between gap-2 p-2 rounded bg-[#faf3e3] border border-[#cbb693]"
+                >
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="font-bold song-serif text-xs text-[#23180f]">
+                        押往【{c.destName}】· {c.cargoName}
+                      </span>
+                      <span className="text-[9px] px-1 py-0.2 rounded bg-[#efe0c4] text-[#781710]">
+                        {c.dangerLabel} ×{c.dangerCoeff}
+                      </span>
+                    </div>
+                    <div className="text-[10px] text-[#6b5235]">
+                      全程 {c.totalLi} 里 · 半途或遇响马劫镖（可战可凭辩才劝退）
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => useGameStore.getState().acceptEscortContract(c.id)}
+                    className="px-2.5 py-1 rounded bg-[#781710] hover:bg-[#931e15] text-[#fde68a] text-[11px] font-bold song-serif shrink-0 shadow-sm cursor-pointer transition"
+                  >
+                    揭榜 +{c.rewardSilver} 两
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
       {isOddJobBldg &&
         (isAtCurrentRegion ? (
           <button
@@ -135,21 +375,17 @@ export function InspectorBuildingActions({
           >
             {isOwnSectGrounds
               ? '在此发起闭关修炼（师门演武场 · 效率 125% · 免宿费）→'
-              : `在此发起闭关修炼（客栈闭关 · 效率 100% · ${
-                  inOwnSectCity ? '师门驻地免宿费' : `${DAILY_INN_LODGING_COST} 两/日`
-                }）→`}
+              : `在此发起闭关修炼（客栈闭关 · 效率 100% · ${lodgingCostLabel}）→`}
           </button>
 
           <div className="rounded border border-[#215744]/35 bg-[#eef5f0]/90 p-2.5 space-y-1.5">
             <div className="flex items-center justify-between text-[11px] font-bold text-[#215744] song-serif">
               <span>调息休养（2.0× 倍速恢复气血内力）</span>
-              <span className="text-[10px] font-normal text-[#5a5044]">
-                {inOwnSectCity ? '师门驻地免宿费' : `客栈 ${DAILY_INN_LODGING_COST} 两/日`}
-              </span>
+              <span className="text-[10px] font-normal text-[#5a5044]">{lodgingCostLabel}</span>
             </div>
             <div className="grid grid-cols-3 gap-1.5">
               {([1, 3, 5] as const).map((days) => {
-                const cost = inOwnSectCity ? 0 : DAILY_INN_LODGING_COST * days
+                const cost = dailyInnTotal * days
                 const cantAfford = silver < cost
                 return (
                   <button

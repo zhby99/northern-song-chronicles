@@ -13,6 +13,7 @@ export function WorldNodeInspectorCard() {
   const traveling = useGameStore((s) => s.traveling)
   const campPos = useGameStore((s) => s.campPos)
   const mountKey = useGameStore((s) => s.mountKey)
+  const activeEscortContract = useGameStore((s) => s.activeEscortContract)
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const agility = useGameStore((s) => s.agility)
@@ -22,6 +23,8 @@ export function WorldNodeInspectorCard() {
   const enterRegionMap = useGameStore((s) => s.enterRegionMap)
   const startJourney = useGameStore((s) => s.startJourney)
   const openMenu = useGameStore((s) => s.openMenu)
+
+  const campDailyFood = 1
 
   if (!selectedNodeId && !traveling && campPos) {
     const nodeU = NODE_MAP[campPos.u]
@@ -43,12 +46,17 @@ export function WorldNodeInspectorCard() {
           当前驻扎于【{nodeU?.name ?? campPos.u}】（距 {Math.round(campPos.distU)} 里）至【
           {nodeV?.name ?? campPos.v}】（距 {Math.round(campPos.distV)} 里）驿道途中。可点选任意城池拔营续行，或就地篝火闭关精修武学。
         </p>
+        {activeEscortContract && (
+          <div className="p-2 rounded bg-[#fbf1d9] border border-[#b58742] text-[11px] text-[#781710]">
+            ⚑ 在途押镖：【{activeEscortContract.cargoName}】→【{activeEscortContract.destName}】（+{activeEscortContract.rewardSilver} 两）
+          </div>
+        )}
         <button
           type="button"
           onClick={() => openMenu('loadout')}
           className="w-full px-3 py-2 rounded bg-[#215744] hover:bg-[#2a6d56] text-[#fff8eb] font-bold song-serif shadow transition cursor-pointer"
         >
-          营地闭关修炼（耗粮 1 份/日 · 效率 85%）→
+          营地闭关修炼（耗粮草 {campDailyFood} 份/日 · 效率 85%）→
         </button>
       </div>
     )

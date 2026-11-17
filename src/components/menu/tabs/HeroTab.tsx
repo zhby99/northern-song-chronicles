@@ -4,12 +4,23 @@ import { FACTION_DB_MAP, MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
 import { computeEquipmentTotals, computeWeaponArtSynergy } from '../../../data/itemsDb'
 import { computeEquippedArtsTotals } from '../../../data/playerMartialArts'
 import { getProtagonistPortrait } from '../../../data/protagonistPresets'
+import {
+  computeArithmeticBuyDiscountRatio,
+  computeArithmeticSellBonusRatio,
+  computeCelunBonusAmount,
+  computeCharmFavorMultiplier,
+  computeHighwaymanPersuadeChance,
+  computeInitialNpcFavor,
+  computePoemRenownGain,
+  computeQinSoundAmpPct,
+  computeShuBrushAmpPct,
+  getRegionLodgingInfo,
+} from '../../../engine/economy'
 import { useGameStore } from '../../../store/useGameStore'
 import {
   calcDailyExpByCategory,
-  DAILY_INN_LODGING_COST,
   getHeroAge,
-  isPlayerInOwnSectRegion,
+  isPlayerInFreeLodgingRegion,
 } from '../../../utils/heroStats'
 import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
 import { estimateHeroRealmByMp, getNextRealmTier } from '../../../utils/realmUtils'
@@ -37,6 +48,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const renown = useGameStore((s) => s.renown)
   const chivalry = useGameStore((s) => s.chivalry)
   const currentNodeId = useGameStore((s) => s.currentNodeId)
+  const birthplaceId = useGameStore((s) => s.birthplaceId)
   const campPos = useGameStore((s) => s.campPos)
   const agility = useGameStore((s) => s.agility)
   const res = useGameStore((s) => s.res)
@@ -79,8 +91,21 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
 
   const hpPct = Math.min(100, Math.round((hp / Math.max(1, maxHp)) * 100))
   const mpPct = Math.min(100, Math.round((mp / Math.max(1, maxMp)) * 100))
-  const inOwnSectCity = isPlayerInOwnSectRegion(currentNodeId, campPos, sectState.sectId)
-  const dailyNeigongExp = calcDailyExpByCategory(true, baseStats.talents, 1.0)
+  const inFreeLodgingCity = isPlayerInFreeLodgingRegion(
+    currentNodeId,
+    campPos,
+    sectState.sectId,
+    birthplaceId,
+  )
+  const isBirthplaceCity = Boolean(!campPos && birthplaceId && currentNodeId === birthplaceId)
+  const lodgingInfo = getRegionLodgingInfo(currentNodeId)
+  const dailyRestSilver = inFreeLodgingCity ? 0 : lodgingInfo.dailyCost
+  const celunSkill = skills['策论'] ?? 0
+  const jingyiSkill = skills['经义'] ?? 0
+  const charmVal = baseStats.talents.颜值
+  const charmInitFavor = computeInitialNpcFavor(charmVal)
+  const charmMult = computeCharmFavorMultiplier(charmVal)
+  const dailyNeigongExp = calcDailyExpByCategory(true, baseStats.talents, 1.0, jingyiSkill)
   const dailyOuterExp = calcDailyExpByCategory(false, baseStats.talents, 1.0)
 
   const mainNeigong = equippedArts.neigong ? MARTIAL_ART_DB_MAP[equippedArts.neigong] : null
@@ -238,7 +263,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                 <div className="flex items-center justify-between text-[#1f4d3b] font-medium">
                   <span>常山边军月饷</span>
                   <span className="font-mono font-bold">
-                    {`${getChangshanMonthlyStipend(sectState.rank)} 两/月`}
+                    {`${computeCelunBonusAmount(getChangshanMonthlyStipend(sectState.rank), celunSkill)} 两/月`}
                   </span>
                 </div>
               )}
@@ -246,7 +271,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                 <div className="flex items-center justify-between text-[#1d3557] font-medium">
                   <span>六扇门月俸</span>
                   <span className="font-mono font-bold">
-                    {`${getKaifengMonthlyStipend(sectState.rank)} 两/月`}
+                    {`${computeCelunBonusAmount(getKaifengMonthlyStipend(sectState.rank), celunSkill)} 两/月`}
                   </span>
                 </div>
               )}
@@ -254,7 +279,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                 <div className="flex items-center justify-between text-[#781710] font-medium">
                   <span>大宋禁军月俸（{sectState.rankLabel}）</span>
                   <span className="font-mono font-bold">
-                    {`${getImperialGuardMonthlyStipend(sectState.rank)} 两/月`}
+                    {`${computeCelunBonusAmount(getImperialGuardMonthlyStipend(sectState.rank), celunSkill)} 两/月`}
                   </span>
                 </div>
               )}
@@ -346,12 +371,14 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
               </span>
               <div className="flex flex-wrap items-center gap-1.5">
                 <span className="text-[11px] font-bold text-[#215744] song-serif mr-1">
-                  {inOwnSectCity
-                    ? '师门调息（2.0× · 免费）：'
-                    : `客舍调息（2.0× · ${DAILY_INN_LODGING_COST}两/日）：`}
+                  {inFreeLodgingCity
+                    ? isBirthplaceCity
+                      ? '故里调息（2.0× · 免费）：'
+                      : '师门调息（2.0× · 免费）：'
+                    : `${lodgingInfo.tierLabel}调息（2.0× · ${dailyRestSilver}两/日）：`}
                 </span>
                 {([1, 3, 5] as const).map((days) => {
-                  const cost = inOwnSectCity ? 0 : DAILY_INN_LODGING_COST * days
+                  const cost = dailyRestSilver * days
                   const cantAfford = silver < cost
                   return (
                     <button
@@ -360,9 +387,11 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                       disabled={cantAfford}
                       onClick={() => restAndRecuperate(days)}
                       title={
-                        inOwnSectCity
-                          ? `身处本门驻地所在州府，免费调息 ${days} 日（气血 1/10/日、内力 1/5/日）`
-                          : `非师门驻地须花费 ${cost} 两纹银住店调息 ${days} 日（气血 1/10/日、内力 1/5/日）`
+                        inFreeLodgingCity
+                          ? isBirthplaceCity
+                            ? `身处出生地，免费调息 ${days} 日（气血 1/10/日、内力 1/5/日）`
+                            : `身处本门驻地所在州府，免费调息 ${days} 日（气血 1/10/日、内力 1/5/日）`
+                          : `按【${lodgingInfo.tierLabel} ${lodgingInfo.dailyCost}两/日】住店调息 ${days} 日`
                       }
                       className={`px-2.5 py-1 rounded text-xs font-bold song-serif transition ${
                         cantAfford
@@ -422,10 +451,10 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   </span>
                 </div>
                 <div className="text-[11px] text-[#52391e] font-mono">
-                  禀赋单日闭关：内+{dailyNeigongExp} / 外轻+{dailyOuterExp}
+                  单日闭关：内+{dailyNeigongExp} / 外轻+{dailyOuterExp}
                 </div>
                 <div className="text-[10px] text-[#7a6042] mt-1">
-                  切磋/决战/当差/缉凶获取 · 良/地/天阶破境必需
+                  切磋/决战/当差/缉凶获取 · 经义额外加速内功周天
                 </div>
               </div>
             </div>
@@ -508,9 +537,12 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                   <div className="p-2.5 rounded bg-[#faf3e3] border border-[#cbb693]">
                     <div className="text-xs text-[#6b5235] song-serif">颜 值</div>
                     <div className="font-mono font-bold text-lg text-[#5b3b73] mt-0.5">
-                      {baseStats.talents.颜值}
+                      {charmVal}
                     </div>
-                    <div className="text-[10px] text-[#7a6042]">结交印象与奇遇</div>
+                    <div className="text-[10px] text-[#7a6042]">
+                      初见{charmInitFavor >= 0 ? `+${charmInitFavor}` : charmInitFavor} · 礼宴×
+                      {charmMult.toFixed(2)}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -540,10 +572,10 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
       <div className="p-4 rounded-lg bg-[#efe4cc] border border-[#c8b28e] space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="song-serif font-bold text-base text-[#52391e]">
-            北宋十艺百工修为（满分 100 · 关系天阶绝学参悟、书院治学与名宿雅集论道）
+            北宋十艺百工修为（满分 100 · 全局被动增益、百业当差与绝学参悟实时生效）
           </span>
           <span className="text-xs text-[#7a6042]">
-            佩戴文雅配饰或于【行囊四库】研读经史字画可精进艺道
+            佩戴文雅配饰、研读经史字画或赴书院衙署进修可精进艺道
           </span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2.5">
@@ -555,6 +587,9 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                 根基{baseStats.ridingSkill} +{equipTotals.riding}
               </div>
             )}
+            <div className="text-[9px] text-[#7a6042] mt-0.5">
+              脚力+{Math.round(ridingSkill * 0.4)}%
+            </div>
             <div className="w-full h-1 bg-[#e2d3b9] rounded-full mt-1 overflow-hidden">
               <div
                 className="h-full bg-[#8f1d14]"
@@ -565,6 +600,26 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
           {Object.entries(skills).map(([k, v]) => {
             const eqSkillBonus = equipTotals.skills[k] ?? 0
             const baseSkillVal = baseStats.skills[k] ?? v
+            let passiveTag = ''
+            if (k === '算术') {
+              passiveTag = `买-${(computeArithmeticBuyDiscountRatio(v) * 100).toFixed(0)}% 卖+${(computeArithmeticSellBonusRatio(v) * 100).toFixed(0)}%`
+            } else if (k === '经义') {
+              passiveTag = `内功+${((v / 400) * 100).toFixed(1)}%`
+            } else if (k === '策论') {
+              passiveTag = `俸赏+${((v / 200) * 100).toFixed(1)}%`
+            } else if (k === '诗词') {
+              passiveTag = `题壁声望+${computePoemRenownGain(v)}`
+            } else if (k === '琴') {
+              passiveTag = `音功+${computeQinSoundAmpPct(v).toFixed(1)}%`
+            } else if (k === '棋') {
+              passiveTag = '弈理奇门'
+            } else if (k === '书') {
+              passiveTag = `笔法+${computeShuBrushAmpPct(v).toFixed(1)}%`
+            } else if (k === '画') {
+              passiveTag = `润格${(0.1 * Math.max(skills['书'] ?? 0, v)).toFixed(1)}两`
+            } else if (k === '辩才') {
+              passiveTag = `劝退${Math.round(computeHighwaymanPersuadeChance(v) * 100)}%`
+            }
             return (
               <div
                 key={k}
@@ -575,6 +630,11 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
                 {eqSkillBonus > 0 && (
                   <div className="text-[10px] font-mono text-[#1b5132]">
                     根基{baseSkillVal} +{eqSkillBonus}
+                  </div>
+                )}
+                {passiveTag && (
+                  <div className="text-[9px] text-[#7a6042] mt-0.5 truncate" title={passiveTag}>
+                    {passiveTag}
                   </div>
                 )}
                 <div className="w-full h-1 bg-[#e2d3b9] rounded-full mt-1 overflow-hidden">

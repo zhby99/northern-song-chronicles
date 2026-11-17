@@ -6,9 +6,17 @@ import {
 } from '../../data/gameDb'
 import {
   DEFAULT_EQUIPPED_SLOTS,
+  getEffectiveTalents,
   ITEM_DB_MAP,
   NON_GIFTABLE_KEY_ITEM_IDS,
 } from '../../data/itemsDb'
+import {
+  BANQUET_TIERS,
+  computeBanquetFavorGain,
+  computeCelunBonusAmount,
+  computeTalkFavorDelta,
+  resolveNpcFavor,
+} from '../../engine/economy'
 import {
   cloneQuestRuntimeState,
   DEFAULT_QUEST_RUNTIME_STATE,
@@ -31,7 +39,6 @@ import {
   NODE_MAP,
 } from '../../utils/mapMath'
 import {
-  INITIAL_NPC_FAVOR,
   MAX_NPC_FAVOR,
   MIN_NPC_FAVOR,
   computeGiftFavorGain,
@@ -66,6 +73,7 @@ import {
 
 export type CombatSocialKeys =
   | 'interactNpc'
+  | 'hostNpcBanquet'
   | 'startNpcCombat'
   | 'submitCombatAction'
   | 'finishCombatSession'
@@ -80,7 +88,8 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
     if (mode === 'talk') {
       const npcKey = npc.id ?? npc.name
       const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
-      const curFavor = s.npcFavor[npcKey] ?? INITIAL_NPC_FAVOR
+      const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped).颜值
+      const curFavor = resolveNpcFavor(s.npcFavor, npcKey, effCharm)
       if (s.npcTalkedMonth[npcKey] === curMonthIdx) {
         set({
           actionFeedback: {
@@ -90,7 +99,8 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
         })
         return
       }
-      const delta = Math.floor(Math.random() * 7) - 1
+      const eloSkill = s.skills['辩才'] ?? 0
+      const { delta } = computeTalkFavorDelta(eloSkill, Math.random)
       const nextFavor = Math.max(MIN_NPC_FAVOR, Math.min(MAX_NPC_FAVOR, curFavor + delta))
       const actualDelta = nextFavor - curFavor
       const deltaLabel =
@@ -115,7 +125,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
             [npcKey]: curMonthIdx,
           },
           actionFeedback: {
-            text: `${npc.name}：「${talkLine}」（耗 2 时辰 · ${deltaLabel}，当前好感度 ${nextFavor}/100${adv.lodgingFee > 0 ? ` · 异乡宿费 -${adv.lodgingFee}两` : ''}）`,
+            text: `${npc.name}：「${talkLine}」（耗 2 时辰 · 辩才 ${eloSkill} · ${deltaLabel}，当前好感度 ${nextFavor}/100${adv.lodgingFee > 0 ? ` · 宿费及草料 -${adv.lodgingFee}两` : ''}）`,
             tone: actualDelta < 0 ? 'warn' : 'talk',
           },
         }),
@@ -133,7 +143,11 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
 
     const effectiveStakes: DuelStakesKind = duelStakes ?? (mode === 'duel' ? 'duel' : 'spar')
     const effectiveMode: 'spar' | 'duel' =
-      effectiveStakes === 'spar' || effectiveStakes === 'sect_tournament' ? 'spar' : 'duel'
+      effectiveStakes === 'spar' ||
+      effectiveStakes === 'sect_tournament' ||
+      effectiveStakes === 'escort_ambush'
+        ? 'spar'
+        : 'duel'
 
     if (effectiveStakes === 'rob_official') {
       const dbNpc = (npc.id && NPC_DB_MAP[npc.id]) || resolveNpcByName(npc.name)
@@ -166,7 +180,8 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
     const npcKey = npc.id ?? npc.name
     const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
     if (effectiveStakes === 'spar' && !forceMandatory) {
-      const curFavor = s.npcFavor[npcKey] ?? INITIAL_NPC_FAVOR
+      const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped).颜值
+      const curFavor = resolveNpcFavor(s.npcFavor, npcKey, effCharm)
       if (curFavor < 20) {
         set({
           actionFeedback: {
@@ -526,14 +541,19 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       }
     }
 
-    // 常山枪派「半年度燕云锄奸」诛杀辽谍胜利
+    let nextCombatExp = res.nextCombatExp
+    let nextChivalry = s.chivalry
+    let nextEscortContract = s.activeEscortContract
+
+    // 常山枪派「半年度燕云锄奸」诛杀辽谍胜利（赏银受【策论】干略加成）
     if (session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win') {
+      const spyBounty = computeCelunBonusAmount(50, res.derived.skills['策论'] ?? 0)
       nextSectState.activeLiaoSpy = null
       nextSectState.changshanMissedCount = 0
       nextSectState.contribution += 100
-      nextSilver += 50
+      nextSilver += spyBounty
       extraLogTag = '燕云锄奸'
-      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派半年军令，获门派功绩 +100（现 ${nextSectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +50 两！`
+      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派半年军令，获门派功绩 +100（现 ${nextSectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +${spyBounty} 两${spyBounty > 50 ? `（含策论加成 +${spyBounty - 50} 两）` : ''}！`
     }
 
     // 若从展昭剑下侥幸获胜
@@ -542,7 +562,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       extraLogText = `少侠竟在东京街头力挫御前四品带刀护卫「南侠」展昭（战斗经验 +${res.combatExpGain}），杀出重围！然朝廷黑名单未消，再度踏入开封仍将遭展昭截杀！`
     }
 
-    // 开封府 / 六扇门「海捕公文」缉拿要犯胜利
+    // 开封府 / 六扇门「海捕公文」缉拿要犯胜利（赏银受【策论】干略加成）
     if (
       session.outcome === 'player_win' &&
       nextSectState.sectId === 'SECT-17' &&
@@ -550,14 +570,37 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       session.targetNpcNode.id === `KAIFENG_WARRANT_${nextSectState.activeKaifengWarrant.id}`
     ) {
       const warrant = nextSectState.activeKaifengWarrant
+      const warrantBounty = computeCelunBonusAmount(15, res.derived.skills['策论'] ?? 0)
       nextSectState.activeKaifengWarrant = null
       nextSectState.kaifengCasesSolved += 1
       if (warrant.deadlineDay) {
         nextSectState.kaifengMissedCount = 0
       }
-      nextSilver += 15
+      nextSilver += warrantBounty
       extraLogTag = '缉拿归案'
-      extraLogText = `少侠顺利擒获海捕要犯【${warrant.targetName}（${warrant.targetTitle}）】归案！当前阶位办案量 +1（累计 ${nextSectState.kaifengCasesSolved} 次），获开封府赏银 +15 两、战斗经验 +${res.combatExpGain}！`
+      extraLogText = `少侠顺利擒获海捕要犯【${warrant.targetName}（${warrant.targetTitle}）】归案！当前阶位办案量 +1（累计 ${nextSectState.kaifengCasesSolved} 次），获开封府赏银 +${warrantBounty} 两${warrantBounty > 15 ? `（含策论加成 +${warrantBounty - 15} 两）` : ''}、战斗经验 +${res.combatExpGain}！`
+    }
+
+    // 镖师走镖「绿林劫镖」护送战结算
+    if (session.duelStakes === 'escort_ambush') {
+      const contract = s.activeEscortContract
+      if (session.outcome === 'player_win') {
+        nextCombatExp += 25
+        nextChivalry += 1
+        extraLogTag = '击退劫匪'
+        extraLogText = `刀光染血，少侠力挫【${session.npc.name}】，死死护住镖车【${contract?.cargoName ?? '红货'}】毫发无损（额外战斗经验 +25 · 侠义 +1）！请于天下舆图继续启程赶赴【${contract?.destName ?? '目的地'}】交割领酬。`
+      } else if (session.outcome === 'escaped') {
+        nextEscortContract = null
+        extraLogTag = '弃镖脱身'
+        extraLogText = `劫匪势众凶悍，少侠只得弃下镖箱【${contract?.cargoName ?? '红货'}】抽身掠出重围，此趟走镖差事宣告失利。`
+      } else {
+        const lostSilver = Math.min(nextSilver, 10)
+        nextSilver -= lostSilver
+        nextEscortContract = null
+        finalHp = Math.max(1, Math.min(finalHp, Math.round(res.derived.maxHp * 0.35)))
+        extraLogTag = '失镖受挫'
+        extraLogText = `少侠双拳难敌四手，被【${session.npc.name}】夺走镖车【${contract?.cargoName ?? '红货'}】${lostSilver > 0 ? `并搜去盘缠 ${lostSilver} 两` : ''}，幸得留下一命！`
+      }
     }
 
     // 道门与名山剑派「宗门大比」1v1 淘汰赛结算
@@ -613,11 +656,14 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       activeCombat: null,
       activeNpcInteraction:
         qHook ||
+        session.duelStakes === 'escort_ambush' ||
         ((session.duelStakes === 'liao_spy_duel' || session.duelStakes === 'kaifeng_warrant') &&
           session.outcome === 'player_win')
           ? null
           : s.activeNpcInteraction,
-      combatExp: res.nextCombatExp,
+      combatExp: nextCombatExp,
+      chivalry: nextChivalry,
+      activeEscortContract: nextEscortContract,
       silver: nextSilver,
       inventory: nextInventory,
       sectState: nextSectState,
@@ -744,10 +790,14 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       equippedArts: freshEqArts,
       inventory: [],
       consumedUniqueIds: [],
-  consumedOnceItemIds: [],
+      consumedOnceItemIds: [],
       npcFavor: {},
       npcTalkedMonth: {},
       npcSparredMonth: {},
+      npcBanquetedMonth: {},
+      inscribedPoemSpotIds: [],
+      auctionBoughtByMonth: {},
+      activeEscortContract: null,
       sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
       questState: cloneQuestRuntimeState(DEFAULT_QUEST_RUNTIME_STATE),
       hiddenQuestIds: [],
@@ -784,6 +834,77 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
     set({ activeNpcInteraction: null })
   },
 
+  hostNpcBanquet: (npc, tier) => {
+    const s = get()
+    if (s.campPos || s.traveling) {
+      set({
+        actionFeedback: {
+          text: '荒郊野岭无酒肆筵席，请入城后再设宴款待贵客！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const npcKey = npc.id ?? npc.name
+    const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
+    const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped).颜值
+    const currentFavor = resolveNpcFavor(s.npcFavor, npcKey, effCharm)
+
+    if (s.npcBanquetedMonth[npcKey] === curMonthIdx) {
+      set({
+        actionFeedback: {
+          text: `本月已设宴款待过【${npc.name}】，杯酒言欢贵在适度，请下月再邀！（当前好感 ${currentFavor}/100）`,
+          tone: 'talk',
+        },
+      })
+      return
+    }
+
+    const tierDef = BANQUET_TIERS[tier]
+    const profile = getNpcFavorProfile(npc)
+    const likesTeaWine =
+      profile.likes.includes('茶酒珍馐') && !profile.dislikes.includes('茶酒珍馐')
+    const { cost, favorDelta } = computeBanquetFavorGain(tier, effCharm, likesTeaWine)
+
+    if (s.silver < cost) {
+      set({
+        actionFeedback: {
+          text: `纹银不足！设办【${tierDef.label}】需纹银 ${cost} 两（当前仅余 ${s.silver} 两）。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const nextFavor = Math.max(MIN_NPC_FAVOR, Math.min(MAX_NPC_FAVOR, currentFavor + favorDelta))
+    const actualGain = nextFavor - currentFavor
+
+    commitTimeAdvance(set, get, {
+      deltaShichen: 2,
+      silverOverride: s.silver - cost,
+      chargeForeignLodging: true,
+      vitalityFactor: 1,
+      buildExtraPatch: (adv) => {
+        const msg = `花费 ${cost} 两纹银设【${tierDef.label}】款待【${npc.name}】${likesTeaWine ? '（正投茶酒之好！）' : ''}，推杯换盏相谈甚欢（好感度 +${actualGain}，当前 ${nextFavor}/100）！`
+        return {
+          npcFavor: {
+            ...adv.npcFavor,
+            [npcKey]: nextFavor,
+          },
+          npcBanquetedMonth: {
+            ...s.npcBanquetedMonth,
+            [npcKey]: curMonthIdx,
+          },
+          actionFeedback: { text: msg, tone: 'success' },
+          logs: [
+            createLogEntry(adv.dayCount, '设宴结交', msg, true, adv.shichenIdx),
+            ...adv.logs,
+          ].slice(0, 60),
+        }
+      },
+    })
+  },
+
   giftNpcItem: (npc, itemId) => {
     const s = get()
     const item = ITEM_DB_MAP[itemId]
@@ -809,9 +930,10 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       .filter((st) => st.qty > 0)
 
     const npcKey = npc.id ?? npc.name
-    const currentFavor = s.npcFavor[npcKey] ?? INITIAL_NPC_FAVOR
+    const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped).颜值
+    const currentFavor = resolveNpcFavor(s.npcFavor, npcKey, effCharm)
     const profile = getNpcFavorProfile(npc)
-    const res = computeGiftFavorGain(currentFavor, item, profile)
+    const res = computeGiftFavorGain(currentFavor, item, profile, effCharm)
 
     const reactionText = getNpcGiftDialogue(npc, res.reaction, item.name, res.giftCategory)
 

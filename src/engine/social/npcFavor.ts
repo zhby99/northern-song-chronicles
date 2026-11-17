@@ -1,4 +1,5 @@
 import type { GameItemDef } from '../../types/game'
+import { computeCharmFavorMultiplier } from '../economy'
 import { clamp } from '../shared/math'
 
 export type GiftPreferenceCategory =
@@ -116,6 +117,7 @@ export function computeGiftFavorGain(
   currentFavor: number,
   item: GameItemDef,
   profile: NpcFavorProfile,
+  playerCharm = 50,
 ): GiftFavorResult {
   const giftCategory = classifyGiftCategory(item)
   const isLiked = profile.likes.includes(giftCategory)
@@ -129,7 +131,8 @@ export function computeGiftFavorGain(
       : 'neutral'
 
   const base = Math.max(1, Math.round(Math.sqrt(Math.max(1, item.value)) * 0.65))
-  const favorGain = Math.max(isDisliked ? 0 : 1, Math.round(base * multiplier))
+  const charmMult = computeCharmFavorMultiplier(playerCharm)
+  const favorGain = Math.max(isDisliked ? 0 : 1, Math.round(base * multiplier * charmMult))
   const nextFavor = clamp(currentFavor + favorGain, MIN_NPC_FAVOR, MAX_NPC_FAVOR)
 
   return {

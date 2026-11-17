@@ -10,6 +10,14 @@ import {
   getArtExpRequired,
 } from '../../data/playerMartialArts'
 import {
+  calcVocationDailyWage,
+  checkVocationSkillMet,
+  computePoemRenownGain,
+  getAvailableVocationsForBuilding,
+  getLandmarkPoemSpot,
+  VOCATION_DEFS,
+} from '../../engine/economy'
+import {
   buildEarlyStopCultivationPatch,
   commitTimeAdvance,
   createLogEntry,
@@ -43,6 +51,8 @@ export type CultivationKeys =
   | 'startScriptureSeclusion'
   | 'startShaolinChore'
   | 'startOddJobWork'
+  | 'startVocationWork'
+  | 'inscribeLandmarkPoem'
   | 'startTenArtPractice'
   | 'stepCultivationTick'
   | 'stopCultivationEarly'
@@ -94,6 +104,8 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
       activeBuildingInteriorId: s.activeBuildingInteriorId,
       selectedBuildingId: s.selectedBuildingId,
       sectId: s.sectState.sectId,
+      birthplaceId: s.birthplaceId,
+      equippedMountId: s.equipped.mount,
     })
 
     if (!venueStatus.venue) {
@@ -111,7 +123,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
     if (venueStatus.dailySilverCost > 0 && s.silver < venueStatus.dailySilverCost) {
       set({
         actionFeedback: {
-          text: `客栈闭关每日需宿费 ${venueStatus.dailySilverCost} 两纹银（当前 ${s.silver} 两），银两不足无法闭关！`,
+          text: `客栈闭关每日需宿费及草料 ${venueStatus.dailySilverCost} 两纹银（当前 ${s.silver} 两），银两不足无法闭关！`,
           tone: 'warn',
         },
       })
@@ -121,7 +133,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
     if (venueStatus.dailyFoodCost > 0 && s.food < venueStatus.dailyFoodCost) {
       set({
         actionFeedback: {
-          text: `野外扎营闭关每日需消耗 ${venueStatus.dailyFoodCost} 份行军干粮，当前粮草已尽！`,
+          text: `野外扎营闭关每日需消耗 ${venueStatus.dailyFoodCost} 份行军干粮/草料，当前粮草不足！`,
           tone: 'warn',
         },
       })
@@ -133,6 +145,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
       art,
       getEffectiveTalents(s.baseStats.talents, s.equipped),
       venueStatus.multiplier,
+      s.skills['经义'] ?? 0,
     )
 
     set({
@@ -354,6 +367,143 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
         settledExpFloor: 0,
         startLevel: s.silver,
         startExp: 0,
+      },
+    })
+  },
+
+  startVocationWork: (vocationKey, days) => {
+    const s = get()
+    if (s.gameOver || s.activeCombat || s.activeStoryScene) return
+    if (s.cultivationSession || s.traveling) return
+    const curBuildingId = s.activeBuildingInteriorId ?? s.selectedBuildingId
+    const bldg = curBuildingId ? BUILDING_DB_MAP[curBuildingId] : null
+    const isAtCurrentRegion = s.currentNodeId === s.activeRegionId && !s.campPos
+    if (!isAtCurrentRegion || !bldg || bldg.regionId !== s.currentNodeId) {
+      set({
+        actionFeedback: {
+          text: '须亲临所在城池对应书院、商号或衙署方可应募当差！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const available = getAvailableVocationsForBuilding(bldg.id, bldg.name, bldg.actLabel)
+    if (!available.includes(vocationKey)) {
+      set({
+        actionFeedback: {
+          text: `【${bldg.name}】并未招揽【${VOCATION_DEFS[vocationKey].name}】一职！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const skillCheck = checkVocationSkillMet(vocationKey, s.skills)
+    if (!skillCheck.ok) {
+      set({
+        actionFeedback: {
+          text: skillCheck.reason ?? '造诣未达标，难以胜任此差事！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const def = VOCATION_DEFS[vocationKey]
+    const dailyWageRate = calcVocationDailyWage(vocationKey, s.skills)
+    if (dailyWageRate <= 0) {
+      set({
+        actionFeedback: {
+          text: `当前【${def.primaryArtLabel}】造诣尚浅，暂无润格薪俸，请先研习精进！`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const safeDays = days === 5 || days === 10 || days === 30 ? days : 10
+    const regionName = NODE_MAP[s.currentNodeId]?.name ?? bldg.regionName
+
+    set({
+      menuOpen: false,
+      compendiumOpen: false,
+      activeNpcInteraction: null,
+      tooltip: null,
+      actionFeedback: null,
+      cultivationSession: {
+        kind: 'vocation_work',
+        vocationKey,
+        dailyWageRate,
+        artId: `VOCATION_${vocationKey.toUpperCase()}`,
+        artName: `${def.name}（日薪 ${dailyWageRate.toFixed(2)} 两）`,
+        artCleanName: def.name,
+        artFullTier: def.roleLabel,
+        mode: safeDays,
+        venue: 'city_building',
+        venueLabel: `${regionName} · ${bldg.name}`,
+        multiplier: 1,
+        dailySilverCost: 0,
+        dailyFoodCost: 0,
+        dailyGain: Math.round(dailyWageRate * safeDays),
+        targetShichens: safeDays * 12,
+        shichensElapsed: 0,
+        silverSpent: 0,
+        foodSpent: 0,
+        combatExpSpent: 0,
+        totalExpGained: 0,
+        settledExpFloor: 0,
+        startLevel: s.silver,
+        startExp: 0,
+      },
+    })
+  },
+
+  inscribeLandmarkPoem: () => {
+    const s = get()
+    if (s.gameOver || s.activeCombat || s.activeStoryScene) return
+    if (s.cultivationSession || s.traveling) return
+    const curBuildingId = s.activeBuildingInteriorId ?? s.selectedBuildingId
+    const bldg = curBuildingId ? BUILDING_DB_MAP[curBuildingId] : null
+    const spot = getLandmarkPoemSpot(curBuildingId)
+    if (!spot || !bldg || s.campPos || s.currentNodeId !== bldg.regionId) {
+      set({
+        actionFeedback: {
+          text: '须亲临天下名楼、古刹或五岳绝顶胜迹，方可挥毫题壁留名！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    if (s.inscribedPoemSpotIds.includes(spot.buildingId)) {
+      set({
+        actionFeedback: {
+          text: `少侠已于【${bldg.name}】题壁留墨，佳句传诵一时，无需重复落笔！`,
+          tone: 'talk',
+        },
+      })
+      return
+    }
+
+    const poetrySkill = s.skills['诗词'] ?? 0
+    const renownGain = computePoemRenownGain(poetrySkill)
+    const nextInscribed = [...s.inscribedPoemSpotIds, spot.buildingId]
+
+    commitTimeAdvance(set, get, {
+      deltaShichen: 1,
+      chargeForeignLodging: true,
+      autosaveReason: '名胜题壁留诗',
+      buildExtraPatch: (adv) => {
+        const nextRenown = s.renown + renownGain
+        const msg = `登临【${bldg.name}】醉墨挥毫：「${spot.verseSample}」四座击节传抄，江湖声望 +${renownGain}（诗词 ${poetrySkill} · 现声望 ${nextRenown}）！`
+        return {
+          renown: nextRenown,
+          inscribedPoemSpotIds: nextInscribed,
+          actionFeedback: { text: msg, tone: 'success' },
+          logs: [
+            createLogEntry(adv.dayCount, '名胜题壁', msg, true, adv.shichenIdx),
+            ...adv.logs,
+          ].slice(0, 60),
+        }
       },
     })
   },

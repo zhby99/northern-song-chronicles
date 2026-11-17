@@ -2,6 +2,12 @@ import { MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
 import { ITEM_DB_MAP } from '../../../data/itemsDb'
 import { scaleMedicineRecovery } from '../../../utils/realmUtils'
 import {
+  computeQinSoundAmpPct,
+  computeShuBrushAmpPct,
+  isBrushMartialArt,
+  isSoundMartialArt,
+} from '../../economy'
+import {
   type AfterHitContext,
   type BeforeHitContext,
   COMBAT_EFFECT_REGISTRY,
@@ -438,6 +444,14 @@ export function resolveOrderedActionSteps(
     }
 
     const isTargetDefending = targetChoice.type === 'defend'
+    const qinSoundAmp =
+      (actor.qinSkill ?? 0) > 0 && isSoundMartialArt(art)
+        ? computeQinSoundAmpPct(actor.qinSkill ?? 0)
+        : 0
+    const shuBrushAmp =
+      (actor.shuSkill ?? 0) > 0 && isBrushMartialArt(art, actor.equipped.weapon)
+        ? computeShuBrushAmpPct(actor.shuSkill ?? 0)
+        : 0
     const beforeHitCtx: BeforeHitContext = {
       round: ctx.round,
       rng: ctx.rng,
@@ -461,7 +475,7 @@ export function resolveOrderedActionSteps(
       interruptedIds: ctx.interruptedIds,
       escapeLockBonus: 0,
       didInterruptMove: false,
-      ampPct: (actor.synergyBonusBySlot[choice.slot] ?? 0) / 100,
+      ampPct: (actor.synergyBonusBySlot[choice.slot] ?? 0) / 100 + qinSoundAmp + shuBrushAmp,
       piercePct: 0,
       nullifyPierce: false,
       specRed: 0,
@@ -600,6 +614,8 @@ export function resolveOrderedActionSteps(
     if (isGuardBreakInstinct) tacticalTags.push('刀棍破守+30%')
     if (isSpearCounterInstinct) tacticalTags.push('枪道后发+20%')
     if (isTargetExposed) tacticalTags.push('痛击破绽+25%')
+    if (qinSoundAmp > 0) tacticalTags.push(`琴韵音杀+${(qinSoundAmp * 100).toFixed(1)}%`)
+    if (shuBrushAmp > 0) tacticalTags.push(`书道笔意+${(shuBrushAmp * 100).toFixed(1)}%`)
     const tacticalNote = tacticalTags.length > 0 ? `【${tacticalTags.join('·')}】` : ''
 
     // 5. 正态分布随机伤害采样 + 反震/卸力/灼脉修饰

@@ -93,6 +93,8 @@ export function buildPlayerCombatant(params: {
     res: eff.res,
     equipAttack: equipTotals.attack,
     equipDefense: equipTotals.defense + artTotals.defense,
+    qinSkill: eff.skills['琴'] ?? 0,
+    shuSkill: eff.skills['书'] ?? 0,
 
     equipped: { ...params.equipped },
     equippedArts: { ...params.equippedArts },

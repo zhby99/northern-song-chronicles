@@ -76,6 +76,8 @@ describe('P0.4-P0.6 Engine Refactoring: JoinSect, TimeAdvance, CultivationTicks 
       mp: base.mp,
       maxMp: base.maxMp,
       currentNodeId: base.currentNodeId,
+      birthplaceId: 'bianliang',
+      cityStayShichens: 10,
       campPos: null,
       sectState: base.sectState,
       npcFavor: base.npcFavor,
@@ -88,6 +90,7 @@ describe('P0.4-P0.6 Engine Refactoring: JoinSect, TimeAdvance, CultivationTicks 
 
     expect(adv.dayCount).toBe(31)
     expect(adv.daysAdded).toBe(1)
+    expect(adv.cityStayShichens).toBe(0)
     expect(adv.lodgingFee).toBeGreaterThan(0)
     expect(adv.silver).toBeGreaterThan(200 - adv.lodgingFee) // received SECT-33 monthly stipend!
     expect(adv.hpGain).toBeGreaterThan(0)

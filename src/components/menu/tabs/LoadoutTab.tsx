@@ -75,6 +75,7 @@ export function LoadoutTab({
   const campPos = useGameStore((s) => s.campPos)
   const viewMode = useGameStore((s) => s.viewMode)
   const currentNodeId = useGameStore((s) => s.currentNodeId)
+  const birthplaceId = useGameStore((s) => s.birthplaceId)
   const activeRegionId = useGameStore((s) => s.activeRegionId)
   const activeBuildingInteriorId = useGameStore((s) => s.activeBuildingInteriorId)
   const selectedBuildingId = useGameStore((s) => s.selectedBuildingId)
@@ -97,6 +98,7 @@ export function LoadoutTab({
   const [selectedArtSlot, setSelectedArtSlot] = useState<MartialArtSlotKey>('neigong')
   const [transferPeerId, setTransferPeerId] = useState<string>('')
 
+  const jingyiSkill = skills['经义'] ?? 0
   const venueStatus = useMemo(
     () =>
       resolveCultivationVenue({
@@ -104,25 +106,29 @@ export function LoadoutTab({
         campPos,
         viewMode,
         currentNodeId,
+        birthplaceId,
         activeRegionId,
         activeBuildingInteriorId,
         selectedBuildingId,
         sectId: sectState.sectId,
+        equippedMountId: equipped.mount,
       }),
     [
       traveling,
       campPos,
       viewMode,
       currentNodeId,
+      birthplaceId,
       activeRegionId,
       activeBuildingInteriorId,
       selectedBuildingId,
       sectState.sectId,
+      equipped.mount,
     ],
   )
   const dailyNeigongRate = useMemo(
-    () => calcDailyExpByCategory(true, baseStats.talents, venueStatus.multiplier),
-    [baseStats.talents, venueStatus.multiplier],
+    () => calcDailyExpByCategory(true, baseStats.talents, venueStatus.multiplier, jingyiSkill),
+    [baseStats.talents, venueStatus.multiplier, jingyiSkill],
   )
   const dailyOuterRate = useMemo(
     () => calcDailyExpByCategory(false, baseStats.talents, venueStatus.multiplier),
@@ -973,6 +979,7 @@ export function LoadoutTab({
                 inspectedArt,
                 baseStats.talents,
                 venueStatus.multiplier,
+                jingyiSkill,
               )
               const isMaxLevel = inspectedEntry.level >= 10
               const isReadyBreak = !isMaxLevel && inspectedEntry.exp >= reqExp

@@ -1,8 +1,14 @@
 import { useMemo, useState } from 'react'
 import { NPC_DB_MAP, resolveNpcByName } from '../../data/gameDb'
+import { getEffectiveTalents } from '../../data/itemsDb'
+import {
+  BANQUET_TIERS,
+  computeBanquetFavorGain,
+  resolveNpcFavor,
+} from '../../engine/economy'
 import { getAvailableNpcQuestActions } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
-import { INITIAL_NPC_FAVOR } from '../../utils/npcFavor'
+import { getNpcFavorProfile } from '../../utils/npcFavor'
 import { inferTemplatePortrait } from '../../utils/portraitFallback'
 import {
   getSectLeaderNpcId,
@@ -14,14 +20,16 @@ import { NpcGiftPanel } from './npc/NpcGiftPanel'
 import { NpcStatsSheetPanel } from './npc/NpcStatsSheetPanel'
 import { SectAffairsPanel } from './npc/SectAffairsPanel'
 
-type SubPanelMode = 'none' | 'panel' | 'gift' | 'sect'
+type SubPanelMode = 'none' | 'panel' | 'gift' | 'banquet' | 'sect'
 
 export function NpcInteractionOverlay() {
   const npc = useGameStore((s) => s.activeNpcInteraction)
   const closeNpcInteraction = useGameStore((s) => s.closeNpcInteraction)
   const interactNpc = useGameStore((s) => s.interactNpc)
+  const hostNpcBanquet = useGameStore((s) => s.hostNpcBanquet)
   const startNpcCombat = useGameStore((s) => s.startNpcCombat)
   const giftNpcItem = useGameStore((s) => s.giftNpcItem)
+  const equipped = useGameStore((s) => s.equipped)
   const dayCount = useGameStore((s) => s.dayCount)
   const shichenIdx = useGameStore((s) => s.shichenIdx)
   const inventory = useGameStore((s) => s.inventory)
@@ -44,6 +52,7 @@ export function NpcInteractionOverlay() {
   const npcFavorMap = useGameStore((s) => s.npcFavor)
   const npcTalkedMonth = useGameStore((s) => s.npcTalkedMonth)
   const npcSparredMonth = useGameStore((s) => s.npcSparredMonth)
+  const npcBanquetedMonth = useGameStore((s) => s.npcBanquetedMonth)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
 
   const completeKaifengInvestigation = useGameStore((s) => s.completeKaifengInvestigation)
@@ -172,11 +181,24 @@ export function NpcInteractionOverlay() {
 
   if (!npc) return null
 
+  const effTalents = getEffectiveTalents(baseStats.talents, equipped)
+  const playerCharm = effTalents.颜值
+  const eloquence = skills['辩才'] ?? 0
   const npcKey = npc.id ?? npc.name
-  const curFavor = npcFavorMap[npcKey] ?? INITIAL_NPC_FAVOR
+  const curFavor = resolveNpcFavor(npcFavorMap, npcKey, playerCharm)
+  const favorProfile = getNpcFavorProfile({
+    id: npc.id ?? dbRecord?.id,
+    name: npc.name,
+    category: dbRecord?.category,
+    factionName,
+    role: roleName,
+    bio,
+  })
+  const likesTeaWine = favorProfile.likes.includes('茶酒珍馐')
   const curMonthIdx = Math.floor((dayCount - 1) / 30)
   const hasTalkedThisMonth = npcTalkedMonth[npcKey] === curMonthIdx
   const hasSparredThisMonth = npcSparredMonth[npcKey] === curMonthIdx
+  const hasBanquetedThisMonth = npcBanquetedMonth[npcKey] === curMonthIdx
   const canSpar = curFavor >= 20 && !hasSparredThisMonth
   const isKaifengWarrantTarget = Boolean(
     npc.isDynamicKaifengWarrant || npc.id?.startsWith('KAIFENG_WARRANT_'),
@@ -265,6 +287,12 @@ export function NpcInteractionOverlay() {
     setDialogueText(null)
   }
 
+  const handleBanquet = (tier: 'standard' | 'grand') => {
+    hostNpcBanquet(npc, tier)
+    setSubPanel('none')
+    setDialogueText(null)
+  }
+
   const activeMessage = dialogueText ?? actionFeedback?.text ?? npc.talk
 
   return (
@@ -327,10 +355,68 @@ export function NpcInteractionOverlay() {
       {subPanel === 'gift' && (
         <NpcGiftPanel
           npcName={npc.name}
+          curFavor={curFavor}
+          playerCharm={playerCharm}
+          favorProfile={favorProfile}
           inventory={inventory}
           onGift={handleGift}
           onClose={() => setSubPanel('none')}
         />
+      )}
+
+      {subPanel === 'banquet' && (
+        <div className="relative z-20 w-[min(92vw,480px)] lg:self-end lg:mr-10 mb-3 rounded-xl bg-[#f7eedc]/97 border-2 border-[#8c6e46] shadow-2xl overflow-hidden">
+          <div className="px-4 py-2 bg-[#3d2814] text-[#f5dfb5] flex items-center justify-between border-b border-[#8c6e46]">
+            <div>
+              <span className="text-sm font-bold song-serif">设宴款待【{npc.name}】</span>
+              <div className="text-[10px] text-[#d4bc91]">
+                现银 {silver.toLocaleString()} 两 · 每人每月限宴请一次 · 颜值 {playerCharm}
+                {likesTeaWine ? ' · 雅好茶酒（+25%）' : ''}
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSubPanel('none')}
+              className="text-xs px-2 py-0.5 rounded bg-[#5c3d1e] hover:bg-[#785129] text-[#f5dfb5] cursor-pointer"
+            >
+              取消
+            </button>
+          </div>
+          <div className="p-3 space-y-2">
+            {(['standard', 'grand'] as const).map((tierKey) => {
+              const tierDef = BANQUET_TIERS[tierKey]
+              const preview = computeBanquetFavorGain(tierKey, playerCharm, likesTeaWine)
+              const canAfford = silver >= preview.cost && !hasBanquetedThisMonth
+              return (
+                <div
+                  key={tierKey}
+                  className="p-2.5 rounded bg-[#efe4cc] border border-[#cbb693] flex items-center justify-between gap-2"
+                >
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold song-serif text-[#2d1e10]">
+                      {tierDef.label}（好感 +{preview.favorDelta}）
+                    </div>
+                    <div className="text-[10px] text-[#6b5235]">
+                      {tierDef.desc} · 耗 3 时辰
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    disabled={!canAfford}
+                    onClick={() => handleBanquet(tierKey)}
+                    className={`px-3 py-1.5 rounded text-xs font-bold song-serif shrink-0 transition ${
+                      canAfford
+                        ? 'bg-[#781710] hover:bg-[#931e15] text-[#fde68a] shadow-sm cursor-pointer'
+                        : 'bg-[#c9bba3] text-[#7a6d5a] cursor-not-allowed'
+                    }`}
+                  >
+                    {hasBanquetedThisMonth ? '本月已宴' : `${preview.cost} 两设席`}
+                  </button>
+                </div>
+              )
+            })}
+          </div>
+        </div>
       )}
 
       {/* 底部名牌与对话栏 + 交互按钮 */}
@@ -388,7 +474,7 @@ export function NpcInteractionOverlay() {
             title={
               hasTalkedThisMonth
                 ? '每人每月仅可交谈一次，本月已交谈'
-                : '每人每月限交谈一次，耗 2 时辰，随机变动 -1~+5 点好感度'
+                : `每人每月限交谈一次，耗 2 时辰（当前辩才 ${eloquence}，额外好感加成 +${(eloquence / 30).toFixed(1)}）`
             }
             onClick={handleTalk}
             className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors ${
@@ -401,17 +487,39 @@ export function NpcInteractionOverlay() {
           </button>
 
           {!isHostileBountyTarget && (
-            <button
-              type="button"
-              onClick={() => setSubPanel((prev) => (prev === 'gift' ? 'none' : 'gift'))}
-              className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors cursor-pointer ${
-                subPanel === 'gift'
-                  ? 'bg-[#8f1d14] border-[#d49a6a] text-[#fff8ee]'
-                  : 'bg-[#3d2814]/95 hover:bg-[#54371c] border-[#b59461] text-[#f5dfb5]'
-              }`}
-            >
-              送礼
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={() => setSubPanel((prev) => (prev === 'gift' ? 'none' : 'gift'))}
+                className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors cursor-pointer ${
+                  subPanel === 'gift'
+                    ? 'bg-[#8f1d14] border-[#d49a6a] text-[#fff8ee]'
+                    : 'bg-[#3d2814]/95 hover:bg-[#54371c] border-[#b59461] text-[#f5dfb5]'
+                }`}
+              >
+                送礼
+              </button>
+
+              <button
+                type="button"
+                disabled={hasBanquetedThisMonth}
+                title={
+                  hasBanquetedThisMonth
+                    ? '每人每月限设宴款待一次，本月已宴请'
+                    : '破钞设席款待（雅酌小宴 18 两 / 珍馐华筵 45 两），大幅增进好感'
+                }
+                onClick={() => setSubPanel((prev) => (prev === 'banquet' ? 'none' : 'banquet'))}
+                className={`px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium border shadow-md transition-colors ${
+                  hasBanquetedThisMonth
+                    ? 'bg-[#2a2016]/80 border-[#6e5a3f] text-[#9e8b6f] cursor-not-allowed'
+                    : subPanel === 'banquet'
+                      ? 'bg-[#8f1d14] border-[#d49a6a] text-[#fff8ee] cursor-pointer'
+                      : 'bg-[#3d2814]/95 hover:bg-[#54371c] border-[#b59461] text-[#fde68a] cursor-pointer'
+                }`}
+              >
+                {hasBanquetedThisMonth ? '设宴（本月已宴）' : '设宴'}
+              </button>
+            </>
           )}
 
           {canOpenSectMenu && (

@@ -18,7 +18,7 @@ import type { NodeNpc } from '../../../types/game'
 import { getBuildingArtTrainingOptions } from '../../../utils/artsProgression'
 import {
   isInnBuildingRecord,
-  isPlayerInOwnSectRegion,
+  isPlayerInFreeLodgingRegion,
   isTavernBuildingRecord,
 } from '../../../utils/heroStats'
 import { getRegionAllBuildings, NODE_MAP } from '../../../utils/mapMath'
@@ -45,6 +45,7 @@ export function useInspectorContext() {
   const dayCount = useGameStore((s) => s.dayCount)
   const shichenIdx = useGameStore((s) => s.shichenIdx)
   const currentNodeId = useGameStore((s) => s.currentNodeId)
+  const birthplaceId = useGameStore((s) => s.birthplaceId)
   const activeRegionId = useGameStore((s) => s.activeRegionId)
   const activeBuildingInteriorId = useGameStore((s) => s.activeBuildingInteriorId)
   const selectedBuildingId = useGameStore((s) => s.selectedBuildingId)
@@ -63,7 +64,18 @@ export function useInspectorContext() {
   const res = useGameStore((s) => s.res)
   const baseStats = useGameStore((s) => s.baseStats)
   const skills = useGameStore((s) => s.skills)
+  const equipped = useGameStore((s) => s.equipped)
+  const mountKey = useGameStore((s) => s.mountKey)
+  const qinggongBonus = useGameStore((s) => s.qinggongBonus)
+  const speedParams = useMemo(
+    () => ({ mountKey, qinggongBonus, ridingSkill, agility }),
+    [mountKey, qinggongBonus, ridingSkill, agility],
+  )
   const inventory = useGameStore((s) => s.inventory)
+  const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
+  const auctionBoughtByMonth = useGameStore((s) => s.auctionBoughtByMonth)
+  const inscribedPoemSpotIds = useGameStore((s) => s.inscribedPoemSpotIds)
+  const activeEscortContract = useGameStore((s) => s.activeEscortContract)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const npcFavor = useGameStore((s) => s.npcFavor)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
@@ -372,7 +384,13 @@ export function useInspectorContext() {
   const isTavernBldg = isTavernBuildingRecord(inspectedRootBldg)
   const isOddJobBldg = isTavernBldg || isInnBldg
   const isInnVenue = Boolean(isAtCurrentRegion && !isOwnSectGrounds && isInnBldg)
-  const inOwnSectCity = isPlayerInOwnSectRegion(currentNodeId, campPos, sectState.sectId)
+  const inOwnSectCity = isPlayerInFreeLodgingRegion(
+    currentNodeId,
+    campPos,
+    sectState.sectId,
+    birthplaceId,
+  )
+  const isBirthplaceCity = Boolean(!campPos && birthplaceId && currentNodeId === birthplaceId)
 
   const canStudyScripture = Boolean(
     (activeRegionId === 'shaolin' &&
@@ -393,6 +411,8 @@ export function useInspectorContext() {
 
   return {
     currentContextKey,
+    activeRegionId,
+    dayCount,
     regionNode,
     activeBldgRecord,
     singleHallCollapsed,
@@ -409,6 +429,7 @@ export function useInspectorContext() {
     isOddJobBldg,
     isTavernBldg,
     inOwnSectCity,
+    isBirthplaceCity,
     canStudyScripture,
     artOptions,
     activeShop,
@@ -420,7 +441,14 @@ export function useInspectorContext() {
     maxHp,
     mp,
     maxMp,
+    skills,
+    equipped,
+    speedParams,
     inventory,
+    consumedUniqueIds,
+    auctionBoughtByMonth,
+    inscribedPoemSpotIds,
+    activeEscortContract,
     sectState,
     actionFeedback,
   }

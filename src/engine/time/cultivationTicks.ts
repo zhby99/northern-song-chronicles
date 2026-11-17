@@ -50,7 +50,10 @@ export type CultivationStateSnapshot = Pick<
   | 'artMilestoneFlags'
   | 'logs'
   | 'gameOver'
->
+> & {
+  birthplaceId?: string
+  cityStayShichens?: number
+}
 
 export interface CultivationTickResult {
   patch: Partial<GameStoreData>
@@ -58,6 +61,11 @@ export interface CultivationTickResult {
   overdueSpyAmbush: NodeNpc | null
   autosaveReason: string | null
   postEffects?: QuestEffect[]
+}
+
+function getSnapshotCelun(s: CultivationStateSnapshot): number {
+  const effSkills = (s as { skills?: Record<string, number> }).skills
+  return effSkills?.['策论'] ?? s.baseStats.skills['策论'] ?? 0
 }
 
 function formatDurationLabel(shichensElapsed: number): string {
@@ -110,11 +118,14 @@ export function tickTenArtSession(
     mp: s.mp,
     maxMp: s.maxMp,
     currentNodeId: s.currentNodeId,
+    birthplaceId: s.birthplaceId,
+    cityStayShichens: s.cityStayShichens,
     campPos: s.campPos,
     sectState: s.sectState,
     npcFavor: s.npcFavor,
     roamingMasters: s.roamingMasters,
     logs: s.logs,
+    celunSkill: getSnapshotCelun(s),
     vitalityFactor: 0,
     rng,
   })
@@ -301,11 +312,14 @@ export function tickScriptureSession(
     mp: s.mp,
     maxMp: s.maxMp,
     currentNodeId: s.currentNodeId,
+    birthplaceId: s.birthplaceId,
+    cityStayShichens: s.cityStayShichens,
     campPos: s.campPos,
     sectState: s.sectState,
     npcFavor: s.npcFavor,
     roamingMasters: s.roamingMasters,
     logs: s.logs,
+    chargeForeignLodging: true,
     vitalityFactor: 1,
     rng,
   })
@@ -501,6 +515,100 @@ export function tickLaborSession(
       patch: {
         dayCount: adv.dayCount,
         shichenIdx: adv.shichenIdx,
+        silver: adv.silver,
+        sectState: adv.sectState,
+        npcFavor: adv.npcFavor,
+        roamingMasters: adv.roamingMasters,
+        hp: adv.hp,
+        mp: adv.mp,
+        logs: adv.logs,
+        cultivationSession: {
+          ...session,
+          shichensElapsed: nextShichensElapsed,
+          totalExpGained: nextTotalEarned,
+          settledExpFloor: targetSilverEarned,
+        },
+      },
+    }
+  }
+
+  if (session.kind === 'vocation_work') {
+    const wageRate = Math.max(0, session.dailyWageRate ?? 0)
+    const targetSilverEarned = Math.round(fullDaysInSession * wageRate)
+    const silverGainNow = Math.max(0, targetSilverEarned - session.settledExpFloor)
+    const nextTotalEarned = session.totalExpGained + silverGainNow
+
+    const adv = computeTimeAdvanceState({
+      dayCount: s.dayCount,
+      shichenIdx: s.shichenIdx,
+      deltaShichen,
+      silver: s.silver + silverGainNow,
+      hp: s.hp,
+      maxHp: s.maxHp,
+      mp: s.mp,
+      maxMp: s.maxMp,
+      currentNodeId: s.currentNodeId,
+      birthplaceId: s.birthplaceId,
+      cityStayShichens: s.cityStayShichens,
+      campPos: s.campPos,
+      sectState: s.sectState,
+      npcFavor: s.npcFavor,
+      roamingMasters: s.roamingMasters,
+      logs: s.logs,
+      chargeForeignLodging: true,
+      celunSkill: getSnapshotCelun(s),
+      vitalityFactor: 1,
+      rng,
+    })
+
+    const reachedTarget = nextShichensElapsed >= session.targetShichens
+    if (reachedTarget || Boolean(adv.overdueSpyAmbush)) {
+      const msgText = adv.overdueSpyAmbush
+        ? `边关军令期限已至，于【${session.venueLabel}】担任【${session.artCleanName}】${fullDaysInSession} 天后结清薪俸应战（酬银 +${nextTotalEarned} 两，现银 ${adv.silver} 两）。`
+        : `于【${session.venueLabel}】担任【${session.artCleanName}】期满 ${fullDaysInSession} 天（日薪 ${wageRate.toFixed(2)} 两），东家如数结付酬银 +${nextTotalEarned} 两（现银 ${adv.silver} 两）！`
+      const nextLogs = [
+        createLogEntry(
+          adv.dayCount,
+          '百业当差',
+          msgText,
+          !adv.overdueSpyAmbush,
+          adv.shichenIdx,
+        ),
+        ...adv.logs,
+      ].slice(0, 60)
+
+      return {
+        daysAdded: adv.daysAdded,
+        overdueSpyAmbush: adv.overdueSpyAmbush,
+        autosaveReason: adv.overdueSpyAmbush ? null : '百业当差领薪',
+        patch: {
+          dayCount: adv.dayCount,
+          shichenIdx: adv.shichenIdx,
+          cityStayShichens: adv.cityStayShichens,
+          silver: adv.silver,
+          sectState: adv.sectState,
+          npcFavor: adv.npcFavor,
+          roamingMasters: adv.roamingMasters,
+          hp: adv.hp,
+          mp: adv.mp,
+          cultivationSession: null,
+          actionFeedback: {
+            text: msgText,
+            tone: adv.overdueSpyAmbush ? 'warn' : 'success',
+          },
+          logs: nextLogs,
+        },
+      }
+    }
+
+    return {
+      daysAdded: adv.daysAdded,
+      overdueSpyAmbush: null,
+      autosaveReason: null,
+      patch: {
+        dayCount: adv.dayCount,
+        shichenIdx: adv.shichenIdx,
+        cityStayShichens: adv.cityStayShichens,
         silver: adv.silver,
         sectState: adv.sectState,
         npcFavor: adv.npcFavor,
@@ -877,6 +985,8 @@ export function tickMartialArtSession(
     mp: s.mp,
     maxMp: derived.maxMp,
     currentNodeId: s.currentNodeId,
+    birthplaceId: s.birthplaceId,
+    cityStayShichens: s.cityStayShichens,
     campPos: s.campPos,
     sectState: s.sectState,
     npcFavor: s.npcFavor,
@@ -904,6 +1014,7 @@ export function tickMartialArtSession(
   const basePatch: Partial<GameStoreData> = {
     dayCount: adv.dayCount,
     shichenIdx: adv.shichenIdx,
+    cityStayShichens: adv.cityStayShichens,
     silver: adv.silver,
     food: nextFood,
     combatExp: nextCombatExp,
@@ -974,7 +1085,11 @@ export function stepCultivationSessionPure(
   if (session.kind === 'scripture') {
     return tickScriptureSession(s, session, speedStep, rng)
   }
-  if (session.kind === 'shaolin_chore' || session.kind === 'odd_job') {
+  if (
+    session.kind === 'shaolin_chore' ||
+    session.kind === 'odd_job' ||
+    session.kind === 'vocation_work'
+  ) {
     return tickLaborSession(s, session, speedStep, rng)
   }
   return tickMartialArtSession(s, session, speedStep, rng)
@@ -1068,13 +1183,15 @@ export function buildEarlyStopCultivationPatch(
     }
   }
 
-  if (sess.kind === 'odd_job') {
+  if (sess.kind === 'odd_job' || sess.kind === 'vocation_work') {
     const fullDays = Math.floor(sess.shichensElapsed / 12)
     const earned = sess.totalExpGained
+    const tagLabel = sess.kind === 'vocation_work' ? '百业当差' : '市井做工'
+    const roleLabel = sess.kind === 'vocation_work' ? `担任【${sess.artCleanName}】` : '做工'
     const msgText =
       fullDays > 0
-        ? `于【${sess.venueLabel}】做工 ${fullDays} 天提前辞工结账，共领工钱纹银 +${earned} 两（现银 ${s.silver} 两）。`
-        : '甫一系上围裙便即辞工歇手，未满一日。'
+        ? `于【${sess.venueLabel}】${roleLabel} ${fullDays} 天提前辞归结账，共领酬银 +${earned} 两（现银 ${s.silver} 两）。`
+        : '甫一落案便即辞归歇手，未满一日。'
     return {
       autosaveReason: null,
       patch: {
@@ -1085,7 +1202,7 @@ export function buildEarlyStopCultivationPatch(
         },
         logs:
           fullDays > 0
-            ? [createLogEntry(s.dayCount, '市井做工', msgText, earned > 0, s.shichenIdx), ...s.logs].slice(
+            ? [createLogEntry(s.dayCount, tagLabel, msgText, earned > 0, s.shichenIdx), ...s.logs].slice(
                 0,
                 60,
               )

@@ -1,4 +1,5 @@
 import type {
+  ActiveEscortContract,
   EquipmentSlotKey,
   EquippedArtsMap,
   EquippedSlotsMap,
@@ -32,7 +33,7 @@ import { isBuildingUnlocked } from './mapMath'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
 import { clonePlayerSectState } from './sectMechanics'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.1' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.3' as const
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -498,6 +499,14 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     selectedBuildingId: normalizedSelectedBldgId,
     selectedSpotId: normalizedSelectedSpotId,
     currentNodeId: st.currentNodeId,
+    birthplaceId:
+      typeof st.birthplaceId === 'string' && REGION_DB_MAP[st.birthplaceId]
+        ? st.birthplaceId
+        : st.currentNodeId,
+    cityStayShichens:
+      typeof st.cityStayShichens === 'number' && Number.isFinite(st.cityStayShichens)
+        ? Math.max(0, Math.floor(st.cityStayShichens)) % 12
+        : 0,
     campPos: cleanCampPos,
     baseStats: cleanBaseStats,
     mountKey: derived.mountKey,
@@ -565,6 +574,59 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
             .map(([k, v]) => [k, Math.max(0, Math.floor(v as number))]),
         )
       : {},
+    npcBanquetedMonth: isRecord(st.npcBanquetedMonth)
+      ? Object.fromEntries(
+          Object.entries(st.npcBanquetedMonth)
+            .filter(([, v]) => typeof v === 'number' && Number.isFinite(v))
+            .map(([k, v]) => [k, Math.max(0, Math.floor(v as number))]),
+        )
+      : {},
+    inscribedPoemSpotIds: Array.isArray(st.inscribedPoemSpotIds)
+      ? st.inscribedPoemSpotIds.filter((id): id is string => typeof id === 'string')
+      : [],
+    auctionBoughtByMonth: isRecord(st.auctionBoughtByMonth)
+      ? Object.fromEntries(
+          Object.entries(st.auctionBoughtByMonth)
+            .filter(([, v]) => Array.isArray(v))
+            .map(([k, v]) => [
+              k,
+              (v as unknown[]).filter((x): x is string => typeof x === 'string'),
+            ]),
+        )
+      : {},
+    activeEscortContract:
+      isRecord(st.activeEscortContract) &&
+      typeof st.activeEscortContract.id === 'string' &&
+      typeof st.activeEscortContract.originRegionId === 'string' &&
+      typeof st.activeEscortContract.destRegionId === 'string' &&
+      typeof st.activeEscortContract.rewardSilver === 'number'
+        ? ({
+            id: st.activeEscortContract.id,
+            cargoName:
+              typeof st.activeEscortContract.cargoName === 'string'
+                ? st.activeEscortContract.cargoName
+                : '重宝红货镖箱',
+            originRegionId: st.activeEscortContract.originRegionId,
+            originName:
+              typeof st.activeEscortContract.originName === 'string'
+                ? st.activeEscortContract.originName
+                : st.activeEscortContract.originRegionId,
+            destRegionId: st.activeEscortContract.destRegionId,
+            destName:
+              typeof st.activeEscortContract.destName === 'string'
+                ? st.activeEscortContract.destName
+                : st.activeEscortContract.destRegionId,
+            totalLi: Math.max(1, Number(st.activeEscortContract.totalLi) || 100),
+            dangerCoeff: Math.max(1, Number(st.activeEscortContract.dangerCoeff) || 1),
+            dangerLabel:
+              typeof st.activeEscortContract.dangerLabel === 'string'
+                ? st.activeEscortContract.dangerLabel
+                : '官道坦途',
+            rewardSilver: Math.max(1, Math.round(st.activeEscortContract.rewardSilver)),
+            acceptedDay: Math.max(1, Math.floor(Number(st.activeEscortContract.acceptedDay) || 1)),
+            ambushResolved: Boolean(st.activeEscortContract.ambushResolved),
+          } satisfies ActiveEscortContract)
+        : null,
     sectState: clonePlayerSectState(
       isRecord(st.sectState)
         ? (st.sectState as Partial<SerializableGameState['sectState']>)
