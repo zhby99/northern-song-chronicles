@@ -10,7 +10,7 @@ const PROLOGUE_ENTRY_CONDITION: QuestCondition = {
     { type: 'chivalryAtLeast', min: 120 },
     {
       type: 'not',
-      condition: { type: 'inSect', sectId: 'SECT-16' },
+      condition: { type: 'inSect', sectId: 'SECT-20' },
       reason: '西夏一品堂门人不可接取天波杨府传承',
     },
     {
@@ -28,6 +28,8 @@ const PROLOGUE_ENTRY_CONDITION: QuestCondition = {
     },
     { type: 'combatStatAtLeast', key: 'maxHp', min: 2800 },
     { type: 'skillAtLeast', key: '骑术', min: 65 },
+    // 合流终幕硬性要求根骨 ≥ 82，且开局后几乎无法再提升根骨：前置到开启条件，避免半途永久卡死
+    { type: 'talentAtLeast', key: '根骨', min: 82 },
   ],
 }
 
@@ -181,7 +183,7 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品',
     maxOpponentRealm: '一流上品',
     recommendedNote:
-      '刚性前置：江湖侠义 ≥ 120、非西夏一品堂/通辽门人、《六合大枪》或《杨氏梨花枪》≥ 6 重、气血上限 ≥ 2,800、骑术 ≥ 65；终章传功需根骨 ≥ 82、气血 ≥ 3,200、骑术 ≥ 80。',
+      '刚性前置：江湖侠义 ≥ 120、非西夏一品堂/通辽门人、《六合大枪》或《杨氏梨花枪》≥ 6 重、气血上限 ≥ 2,800、骑术 ≥ 65、根骨 ≥ 82；终章传功另需气血 ≥ 3,200、骑术 ≥ 80。',
     startHint:
       '满足刚性前置门槛后，前往【开封府 · 西坊演武拳馆】拜会天波府护院女统制杨排风接下三十六路烧火棍试炼。',
     startLocation: {

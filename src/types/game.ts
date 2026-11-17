@@ -1206,6 +1206,7 @@ export interface TravelState {
   route: ComputedRoute
   segIdx: number
   segProgressDays: number
+  /** 距上一个子时已行进的日数（跨日一律以子时为界） */
   dayAccumulator: number
   playerPos: { x: number; y: number }
 }

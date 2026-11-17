@@ -65,7 +65,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_2_QUEST: QuestDefinition = {
       id: 'campaign_fort_one',
       title: '再征太行 · 断水拔前寨',
       objective:
-        '已通过沙盘三策考校，蒙王德用金殿执笏力保，奉官家圣旨统领五千禁军再征太行！请率军赶赴【太行山绿林总寨 · 聚义忠义大堂 · 古碑烽燧台】，依《武经总要》审水断泉、顺风熏烟，智破【苍狼前寨】并生擒雷武石、裴弘璋。',
+        '已通过沙盘三策考校，蒙王德用金殿执笏力保，奉官家圣旨统领五千禁军再征太行！请率军赶赴【太行山绿林总寨 · 聚义忠义大堂 · 古碑烽燧台】，依《武经总要》审水断泉、顺风熏烟，智破【苍狼前寨】并生擒雷武石、焦弘彪。',
       nextHint:
         '前往太行山【聚义忠义大堂 · 古碑烽燧台】（th_hall_west），点击「依武经断水熏烟 · 智破苍狼前寨」。',
       targetLocation: {
@@ -79,7 +79,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_2_QUEST: QuestDefinition = {
       id: 'campaign_ambush_relief',
       title: '黑风雪耻 · 围点打援',
       objective:
-        '首战零亡拔下苍狼前寨！请率军推进至旧战场旁的【太行山绿林总寨 · 聚义忠义大堂 · 瓮城屯兵校场】，正面示缓诱敌、暗伏鹰愁岭脊道“围点打援”，截擒总堂援将石寒乾与燕刀柏，一举瓦解【黑风中寨】！',
+        '首战零亡拔下苍狼前寨！请率军推进至旧战场旁的【太行山绿林总寨 · 聚义忠义大堂 · 瓮城屯兵校场】，正面示缓诱敌、暗伏鹰愁岭脊道“围点打援”，截擒总堂援将秦寒岳与燕刀柏，一举瓦解【黑风中寨】！',
       nextHint:
         '前往太行山【聚义忠义大堂 · 瓮城屯兵校场】（th_hall_east），点击「黑风峡反设伏袋 · 围点打援拔中寨」。',
       targetLocation: {
@@ -93,7 +93,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_2_QUEST: QuestDefinition = {
       id: 'campaign_seize_vault',
       title: '奇袭义仓 · 瓮中起赃',
       objective:
-        '外围三连寨尽拔，连擒八名头目！请趁夜衔枚疾趋【太行山绿林总寨 · 太行藏金义仓 · 绝壁石刻·剑痕崖】，先封后山暗渠再赚开外壕吊桥，击败史玄朗与晁霖浪，生擒大批悍匪并起获满库赃银粮草！',
+        '外围三连寨尽拔，连擒八名头目！请趁夜衔枚疾趋【太行山绿林总寨 · 太行藏金义仓 · 绝壁石刻·剑痕崖】，先封后山暗渠再赚开外壕吊桥，击败史玄朗与申屠霖，生擒大批悍匪并起获满库赃银粮草！',
       nextHint:
         '前往太行山【太行藏金义仓 · 绝壁石刻·剑痕崖】（th_vault_east），点击「赚壕封道破义仓 · 生擒群匪起赃银」。',
       targetLocation: {
@@ -306,7 +306,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_2_QUEST: QuestDefinition = {
       id: 'spot_jtc2_fort_one',
       label: '依武经断水熏烟 · 智破苍狼前寨',
       badge: '第16-19幕 · 第一战',
-      subtitle: '寻北麓暗泉断水熏烟，布鹿角口袋阵生擒落雁枪·雷武石与追风豹·裴弘璋',
+      subtitle: '寻北麓暗泉断水熏烟，布鹿角口袋阵生擒落雁枪·雷武石与黑风豹·焦弘彪',
       tone: 'danger',
       regionId: 'taihang',
       buildingId: 'th_hall',
@@ -318,7 +318,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_2_QUEST: QuestDefinition = {
       id: 'spot_jtc2_ambush_relief',
       label: '黑风峡反设伏袋 · 围点打援拔中寨',
       badge: '第20-24幕 · 第二战',
-      subtitle: '重临黑风旧谷祭英魂，鹰愁岭反伏击生擒冷月客·石寒乾与铁掌汉·燕刀柏，连拔三寨',
+      subtitle: '重临黑风旧谷祭英魂，鹰愁岭反伏击生擒冷月刀·秦寒岳与铁掌汉·燕刀柏，连拔三寨',
       tone: 'danger',
       regionId: 'taihang',
       buildingId: 'th_hall',
@@ -330,7 +330,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_2_QUEST: QuestDefinition = {
       id: 'spot_jtc2_seize_vault',
       label: '赚壕封道破义仓 · 生擒群匪起赃银',
       badge: '第25-29幕 · 第三战',
-      subtitle: '铁网封锁后山三条暗渠，诈号赚桥击败银枪叟·史玄朗与神针汉·晁霖浪，缴获满库粮银',
+      subtitle: '铁网封锁后山三条暗渠，诈号赚桥击败银枪叟·史玄朗与透骨针·申屠霖，缴获满库粮银',
       tone: 'danger',
       regionId: 'taihang',
       buildingId: 'th_vault',

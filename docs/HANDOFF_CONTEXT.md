@@ -52,7 +52,17 @@
    - `deadNpcIds` 记录已身故的名录人物：生死决斗击杀（结算规则 `lifeDeathDuelKill`）或剧情效果 `markNpcsDead`。身故者从建筑名册、地图任务标记、驻留人数、游历宗师、江湖风闻与宗门大比对手池中移除，store 层 `openNpcInteraction` / `startNpcCombat` 也会拒绝；群侠图鉴标注【已故】。
    - 掌门身故后门派事务由 `getSectContactNpcId()` 交给在世最高阶门人代掌（如星宿派弑师后由大师兄代办）；`killedDingChunqiu` 作为既成史实在离派 / 重入时保留。
    - 《太行剿匪 · 叁》第三十六幕「鬼头刀落绝匪踪」以 `markNpcsDead` 将绿林盟（`SECT-18`）中**太行山一支** 35 人判定身故（名单 `TAIHANG_WING_NPC_IDS` 写在 `jinjunTaihangQuest3.scenes.ts`：身份写明「太行」者，及驻河北太行山 / 真定 / 大名与潼关、身份未写明「京东」者）；**京东水寨一支** 10 人（晁云飞、阮惊涛等）存活，并由其在世最高阶者代掌绿林盟门派事务。旧的 `taihang_bandits_eradicated` 旗标不再用于过滤人物（仅保留剧情判定与清退太行游历宗师），图鉴中身故者标注【已故】。
+   - 《太行剿匪 · 贰》第三十八幕「市曹十斩」以 `markNpcsDead` 处决十名太行山中层头目（名单 `TAIHANG_EXECUTED_TEN_NPC_IDS`，写在 `jinjunTaihangQuest2.scenes.ts`）。**问斩名单不得含京东水寨一支或驻济南人物**：原剧本中的裴弘璋、晁霖浪、鲁豪朗（京东）、裴烟音（驻济南）与石寒乾（驻济南）已在壹、贰两部中替换为新增的太行头目 `NPC-1048..1052`（秦寒岳、申屠霖、焦弘彪、邬烟娘、牛豪山，二流，沿用原角色战斗数值，使用门派模板立绘）。被替换的五人仍按原设定驻守各地。
    - 尚未覆盖：剧情任务若以已故人物为必经对象（`targetNpcMatch`）会无法推进，新写任务需自行避开或提供替代分支。
+
+7. **P0 阻断修复约定（2026-11）**：
+   - `targetNpcMatch` 同时配置 `npcIds` 与 `dynamicActorIds` 时为「命中任一」。
+   - 三流升二流举荐帖：本门第 4 阶长老对话底栏直接提供「奉银求取举荐帖」按钮（不再要求经由掌门的门派事务面板）。
+   - 宗门大比会期为二月初一至初十（`SECT_TOURNAMENT_WINDOW_DAYS`），不再设二流境界上限；闭关快进跨入会期时，未参赛的道剑门派弟子会自动收功并收到提示。
+   - 入门赠装每派一生只发一次（`questState.flags['sect_starter_gear_granted_<sectId>']`）。
+   - 官道行军以子时为界跨日（`stepTravelTick`），扎营再出发无法绕开日历与粮草消耗。
+   - 身死（`gameOver`）后系统菜单仅保留【读取存档】【设置】，`saveToSlot` 一律拒绝写入。
+   - 剧情幕次的可见抉择统一由 `getVisibleStoryChoices()` 计算；全部被隐藏时按无抉择直接续行。
 
 ---
 

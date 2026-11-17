@@ -28,6 +28,7 @@ import type {
   QuestPrimitiveValue,
   QuestRuntimeState,
   QuestSpotActionDef,
+  StoryChoiceDef,
   StorySpeakerSpec,
 } from '../types/quest'
 import { INITIAL_NPC_FAVOR } from './social/npcFavor'
@@ -197,6 +198,30 @@ function getEffectiveFlagValue(
   if (flag === 'shaolin_chore_days') return ctx.sectState.shaolinChoreDays
   if (flag === 'shaolin_disciple_type') return ctx.sectState.shaolinDiscipleType
   return undefined
+}
+
+export interface EvaluatedStoryChoice {
+  choice: StoryChoiceDef
+  passed: boolean
+  reason: string | null
+}
+
+/**
+ * 求值剧情幕次末尾的抉择列表，剔除「条件不满足且配置 hideWhenUnavailable」的选项。
+ * 弹窗渲染与 store 推进 / 关闭判定共用此函数：若全部选项都被隐藏，则视为无抉择、直接展卷续行，避免页面卡死。
+ */
+export function getVisibleStoryChoices(
+  choices: readonly StoryChoiceDef[] | undefined,
+  ctx: QuestEvalContext,
+): EvaluatedStoryChoice[] {
+  return (choices ?? [])
+    .map((choice) => {
+      const check = choice.condition
+        ? evaluateQuestCondition(choice.condition, ctx)
+        : { passed: true, reason: null }
+      return { choice, passed: check.passed, reason: check.reason }
+    })
+    .filter((item) => !(item.choice.hideWhenUnavailable && !item.passed))
 }
 
 export function evaluateQuestCondition(
@@ -506,20 +531,25 @@ export function evaluateQuestCondition(
       const t = ctx.targetNpc
       if (!t) return { passed: false, reason: '未指定交互人物' }
 
-      if (cond.dynamicActorIds && cond.dynamicActorIds.length > 0) {
-        if (!t.dynamicQuestActorId || !cond.dynamicActorIds.includes(t.dynamicQuestActorId)) {
-          return { passed: false, reason: '目标剧情人物不符' }
-        }
-      }
-
       const dbNpc = (t.id && NPC_DB_MAP[t.id]) || resolveNpcByName(t.name)
       const resolvedId = t.id ?? dbNpc?.id
       const resolvedFactionId = t.factionId ?? dbNpc?.factionId
       const resolvedSectRank = t.sectRank ?? dbNpc?.sectRank
 
-      if (cond.npcIds && cond.npcIds.length > 0) {
-        if (!resolvedId || !cond.npcIds.includes(resolvedId)) {
-          return { passed: false, reason: '非指定目标人物' }
+      // 人物身份匹配：同时配置 npcIds 与 dynamicActorIds 时，命中任一即可（名录人物或剧情专属人物皆可推进）
+      const hasDynList = Boolean(cond.dynamicActorIds && cond.dynamicActorIds.length > 0)
+      const hasNpcList = Boolean(cond.npcIds && cond.npcIds.length > 0)
+      if (hasDynList || hasNpcList) {
+        const dynMatch =
+          hasDynList &&
+          Boolean(t.dynamicQuestActorId) &&
+          cond.dynamicActorIds!.includes(t.dynamicQuestActorId!)
+        const npcMatch = hasNpcList && Boolean(resolvedId) && cond.npcIds!.includes(resolvedId!)
+        if (!dynMatch && !npcMatch) {
+          return {
+            passed: false,
+            reason: hasNpcList ? '非指定目标人物' : '目标剧情人物不符',
+          }
         }
       }
       if (cond.factionIds && cond.factionIds.length > 0) {

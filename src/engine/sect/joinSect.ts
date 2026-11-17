@@ -55,6 +55,9 @@ export interface BuildJoinSectPatchResult {
  * Pure state transition for joining any sect (`sectSlice.joinSect`, `questSlice` `joinSect` effect,
  * and `cultivationSlice` 365-day Shaolin chore graduation).
  */
+/** questState.flags 中记录「已领取某门派入门赠装」的旗标前缀 */
+export const SECT_STARTER_GEAR_FLAG_PREFIX = 'sect_starter_gear_granted_'
+
 export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSectPatchResult {
   const {
     sectId,
@@ -188,16 +191,23 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
     }
   }
 
+  const nextQuest = cloneQuestRuntimeState(questState)
+
+  // 入门披挂兵刃每个门派一生只赐一次：防止「拜师 → 退派 → 再拜师」反复领取后变卖刷银
   const grantedGiftNames: string[] = []
-  for (const gid of rule?.starterGearGifts ?? []) {
-    const def = ITEM_DB_MAP[gid]
-    if (def) {
-      nextInv = addItemToInventory(nextInv, gid, 1)
-      grantedGiftNames.push(`【${def.name}】`)
+  const starterGearFlag = `${SECT_STARTER_GEAR_FLAG_PREFIX}${sectId}`
+  if (!nextQuest.flags[starterGearFlag]) {
+    for (const gid of rule?.starterGearGifts ?? []) {
+      const def = ITEM_DB_MAP[gid]
+      if (def) {
+        nextInv = addItemToInventory(nextInv, gid, 1)
+        grantedGiftNames.push(`【${def.name}】`)
+      }
+    }
+    if (grantedGiftNames.length > 0) {
+      nextQuest.flags[starterGearFlag] = true
     }
   }
-
-  const nextQuest = cloneQuestRuntimeState(questState)
   const linkedQuestId = rule?.entryQuestId
   if (
     completeEntryQuest &&

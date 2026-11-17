@@ -129,6 +129,7 @@ export type QuestCondition =
       factionIds?: string[]
       exactSectRank?: SectRankLevel
       minSectRank?: SectRankLevel
+      /** 剧情专属人物（ACT-*）；与 npcIds 同时配置时命中任一即可 */
       dynamicActorIds?: string[]
       specialGroup?: 'song_official_for_robbery'
     }

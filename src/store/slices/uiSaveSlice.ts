@@ -147,6 +147,13 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
   },
 
   saveToSlot: async (slotId, note = '', silent = false) => {
+    // 身死之后禁止写入任何存档（含自动存档），只能读档回溯或重开新局
+    if (get().gameOver) {
+      if (!silent) {
+        set({ saveNotice: { text: '少侠已然身故，无法封存当前进度，请读取旧档或重开新局。', tone: 'error' } })
+      }
+      return
+    }
     if (!silent) {
       set({ saveBusy: true, saveNotice: null })
     }

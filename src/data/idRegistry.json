@@ -16,7 +16,7 @@
     "martialArts": 246,
     "weapons": 100,
     "mounts": 28,
-    "npcs": 1047,
+    "npcs": 1052,
     "npcsWithAvatar": 337,
     "npcsWithFullbody": 337
   },
@@ -338,7 +338,7 @@
       "type": "sect",
       "regime": "song",
       "legacyAliases": [],
-      "npcCount": 6,
+      "npcCount": 11,
       "specialBuildingCount": 3
     },
     {
@@ -1479,7 +1479,7 @@
       "highestArtTier": "良品上品",
       "summary": "二流门派 · 二流世家武盟（庆历贝州起义余脉与河北山东十八寨绿林豪杰聚义盟，快意恩仇、抗官恤民）",
       "entryAndFeatures": "入门门槛：无门无派时前往太行山【聚义忠义大堂】或寻任意绿林盟好汉领取 「纳投名状」 任务，于外州府劫掠击败一名大宋朝廷官员（生死战）后即可入盟（入盟后列入大宋朝廷海捕黑名单，踏入东京开封府将被展昭缉拿）。 门派差事：截夺贪官搜刮的生辰纲银赈济河北灾民、飞狐陉设伏痛击契丹打草谷游骑、营救死牢义士。 高阶举荐：义名远播后，王重岳可修书引荐少侠加入 SECT-02 丐帮北方抗辽堂口 或赴 SECT-03 五台山清凉寺 洗练煞气、参悟佛门降魔重兵。",
-      "memberCount": 45,
+      "memberCount": 50,
       "martialArtIds": [
         "MA-103",
         "MA-131",

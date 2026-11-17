@@ -53,7 +53,7 @@ northern-song-chronicles/
 ├── README.md                            # 项目简介与里程碑概览
 │
 ├── docs/                                # 游戏系统与数值策划单一事实源
-│   ├── CHARACTER_COMPENDIUM.md          # 1,047 人物图鉴、三维与十艺派系全录
+│   ├── CHARACTER_COMPENDIUM.md          # 1,052 人物图鉴、三维与十艺派系全录
 │   ├── EQUIPMENT_COMPENDIUM.md          # 皇祐披挂总纲（第一卷：百兵谱 100 种武器）
 │   ├── GAME_MECHANICS.md                # 历法时辰、体能资粮、七槽四库、同步盲选战斗与核心机制总纲
 │   ├── MARTIAL_ARTS_SECTS.md            # 32 武林门派（20 一流 + 6 二流 + 6 三流）与 11 庙堂四夷组织专卷
@@ -97,13 +97,13 @@ northern-song-chronicles/
 │   │   ├── regions.json                 # 43 个区域州府与名山信息
 │   │   ├── buildings.json               # 147 座特殊地标 + 121 座基础建筑设定 (共 268 座)
 │   │   ├── buildingPanoramas.json       # 建筑室内全景热区与视角绑定
-│   │   ├── npcs.json                    # 1,047 名历史名仕与武林人物数据库 (100% 最末层挂载)
+│   │   ├── npcs.json                    # 1,052 名历史名仕与武林人物数据库 (100% 最末层挂载)
 │   │   ├── martial_arts.json            # 246 门十一大类四阶十二品武学与 1~10 重数值数据库
 │   │   ├── weapons.json                 # 100 种四阶十二品百兵谱数据库
 │   │   ├── regionalConfigs.json         # 43 处区域坐标与建筑点位配置
 │   │   ├── worldGraph.json              # 43 节点 79 边陆路、运河、塞外与蜀道节点连接拓扑
 │   │   ├── worldBaseSvg.ts              # 华夏及东亚山海海岸线矢量轮廓
-│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表 (43地/32派+11组织/246功/100兵/1047人)
+│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表 (43地/32派+11组织/246功/100兵/1052人)
 │   │   ├── assetManifest.json           # 生产资源清单索引
 │   │   └── portraitCatalog.json         # 人物立绘与模板映射表 (249 核心角色目录)
 │   │
@@ -179,7 +179,7 @@ northern-song-chronicles/
   - **界面与存取档 (`uiSaveSlice.ts`)**：十卷枢机菜单、万象图鉴、浮动笺纸提示及多槽位 `M1.5.4` IndexedDB/JSON 存取档。
 
 ### 2. 静态数据库与器物武学表 (`gameDb.ts` / `itemsDb.ts` / `scrollsDb.ts` / `playerMartialArts.ts`)
-- **`gameDb.ts`**：导出 `REGIONS_DB`（43）、`BUILDINGS_DB`（268）、`MARTIAL_ARTS_DB`（246）、`WEAPONS_DB`（100）、`NPCS_DB`（1,047）及 O(1) 哈希索引 Map。
+- **`gameDb.ts`**：导出 `REGIONS_DB`（43）、`BUILDINGS_DB`（268）、`MARTIAL_ARTS_DB`（246）、`WEAPONS_DB`（100）、`NPCS_DB`（1,052）及 O(1) 哈希索引 Map。
 - **`itemsDb.ts` & `scrollsDb.ts`**：定义 7 槽位元数据、4 分类行囊元数据、100 种百兵映射、100 卷典籍书画、30 种丹药毒物、50 件雅器百工，以及 `computeEquipmentTotals()` 与 `computeWeaponArtSynergy()` 兵武共鸣计算器。
 - **`playerMartialArts.ts`**：定义 6 个武学运使槽位校验、1~10 重火候升级经验曲线与 `computeEquippedArtsTotals()`。
 

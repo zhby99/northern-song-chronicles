@@ -141,11 +141,11 @@ export function SectPromotionAndRulesWidget({
         </div>
       )}
 
-      {/* 道门与名山剑派：一年一度宗门大比（每年二月一日） */}
+      {/* 道门与名山剑派：一年一度宗门大比（每年二月初一至初十） */}
       {isDaoSwordSect(targetFactionId) && (() => {
         const tInfo = getSectTournamentDateInfo(dayCount)
         const activeTourney = sectState.activeSectTournament
-        const realmEligible = heroRealmRank >= 1 && heroRealmRank <= 6
+        const realmEligible = heroRealmRank >= 1
         const alreadyEnteredThisYear = sectState.lastTournamentYear >= tInfo.yearIndex
         const canRegister =
           !activeTourney &&
@@ -163,10 +163,10 @@ export function SectPromotionAndRulesWidget({
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <div className="font-bold text-[#5c3d1e] song-serif text-sm sm:text-base">
-                  一年一度宗门大比（每年二月一日）
+                  一年一度宗门大比（每年二月初一至初十）
                 </div>
                 <div className="text-xs text-[#6b5235] mt-0.5">
-                  限三流与二流境界同门报名，共 8 人 1v1 三轮淘汰赛（八强 → 四强 → 决赛）。夺魁可获《宗门大比冠军信物》及丹药银钱奖励。
+                  三流及以上境界同门皆可报名，共 8 人 1v1 三轮淘汰赛（八强 → 四强 → 决赛）。夺魁可获《宗门大比冠军信物》及丹药银钱奖励。
                 </div>
               </div>
               <div className="flex flex-wrap items-center gap-2">
@@ -196,11 +196,11 @@ export function SectPromotionAndRulesWidget({
                     }`}
                   >
                     {!tInfo.isTournamentDay
-                      ? '非二月一日（未到比试之期）'
+                      ? '非二月初一至初十（未到比试之期）'
                       : alreadyEnteredThisYear
                         ? '本年度已参赛'
                         : !realmEligible
-                          ? '仅限三流/二流境界报名'
+                          ? '须至少三流境界方可报名'
                           : '报名参加宗门大比'}
                   </button>
                 )}

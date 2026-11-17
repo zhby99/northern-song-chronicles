@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { evaluateQuestCondition, resolveStorySpeaker } from '../../engine/questEngine'
+import { getVisibleStoryChoices, resolveStorySpeaker } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { resolveAssetUrl } from '../../utils/assetLoader'
 import { interpolateReignYear } from '../../engine/world/mapMath'
@@ -126,14 +126,7 @@ export function StorySceneModal() {
   const isLastBeat = beatIndex >= scene.beats.length - 1
   const rawChoices = isLastBeat ? (scene.choices ?? []) : []
 
-  const evaluatedChoices = rawChoices
-    .map((ch) => {
-      const check = ch.condition
-        ? evaluateQuestCondition(ch.condition, evalCtx)
-        : { passed: true, reason: null }
-      return { choice: ch, passed: check.passed, reason: check.reason }
-    })
-    .filter((item) => !(item.choice.hideWhenUnavailable && !item.passed))
+  const evaluatedChoices = getVisibleStoryChoices(rawChoices, evalCtx)
 
   const activeIllustrationUrl = currentBeat.illustrationUrl ?? scene.illustrationUrl ?? null
   const activeIllustrationCaption =

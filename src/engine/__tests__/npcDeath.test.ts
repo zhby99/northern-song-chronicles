@@ -95,35 +95,49 @@ describe('NPC death in the store', () => {
   })
 })
 
-describe('Taihang campaign finale', () => {
-  it('kills only the Taihang wing of SECT-18; the Jingdong water-fortress wing survives', async () => {
-    const scene = await resolveQuestSceneAsync(
-      'scene_jtc3_36_blades_fall_eradicated',
-      'QST-SECT-33-TAIHANG-CAMPAIGN-3',
-    )
+describe('Taihang campaign deaths', () => {
+  async function sceneEffect(sceneId: string, questId: string) {
+    const scene = await resolveQuestSceneAsync(sceneId, questId)
     expect(scene).not.toBeNull()
-    const killEffect = scene!.onFinishEffects?.find((e) => e.type === 'markNpcsDead')
-    expect(killEffect).toBeDefined()
+    const eff = scene!.onFinishEffects?.find((e) => e.type === 'markNpcsDead')
+    expect(eff).toBeDefined()
+    return eff!
+  }
 
-    useGameStore.getState().runQuestEffects([killEffect!])
+  it('part 2 executes ten Taihang headmen — none from the Jingdong wing or stationed in Jinan', async () => {
+    const eff = await sceneEffect('scene_jtc2_38_ten_leaders_executed', 'QST-SECT-33-TAIHANG-CAMPAIGN-2')
+    useGameStore.getState().runQuestEffects([eff])
+    const dead = useGameStore.getState().deadNpcIds
+    expect(dead).toHaveLength(10)
+    const executed = NPCS_DB.filter((n) => dead.includes(n.id))
+    expect(executed).toHaveLength(10)
+    for (const n of executed) {
+      expect(n.factionId, n.name).toBe('SECT-18')
+      expect(n.role.includes('京东'), n.name).toBe(false)
+      expect(n.regionId, n.name).not.toBe('jinan')
+    }
+  })
+
+  it('after the finale only the Jingdong water-fortress wing of SECT-18 survives', async () => {
+    const part2 = await sceneEffect('scene_jtc2_38_ten_leaders_executed', 'QST-SECT-33-TAIHANG-CAMPAIGN-2')
+    const part3 = await sceneEffect('scene_jtc3_36_blades_fall_eradicated', 'QST-SECT-33-TAIHANG-CAMPAIGN-3')
+    useGameStore.getState().runQuestEffects([part2, part3])
     const dead = useGameStore.getState().deadNpcIds
     const members = NPCS_DB.filter((n) => n.factionId === 'SECT-18')
-    const deadMembers = members.filter((n) => dead.includes(n.id))
     const aliveMembers = members.filter((n) => !dead.includes(n.id))
 
-    expect(deadMembers).toHaveLength(35)
+    expect(members).toHaveLength(50)
     expect(aliveMembers).toHaveLength(10)
     // 太行渠魁伏诛，京东水寨头领在世
     for (const id of ['NPC-0142', 'NPC-0229']) expect(dead).toContain(id)
-    for (const id of ['NPC-0180', 'NPC-0230']) expect(dead).not.toContain(id)
+    for (const id of ['NPC-0180', 'NPC-0230', 'NPC-0387', 'NPC-0396', 'NPC-0429', 'NPC-0415']) {
+      expect(dead).not.toContain(id)
+    }
     // 身份写明太行者一律身故，写明京东者一律在世
     expect(members.filter((n) => n.role.includes('太行')).every((n) => dead.includes(n.id))).toBe(true)
-    expect(aliveMembers.some((n) => n.role.includes('太行'))).toBe(false)
     expect(members.filter((n) => n.role.includes('京东')).some((n) => dead.includes(n.id))).toBe(false)
-    // 名单只涉及绿林盟成员
     expect(dead.every((id) => members.some((m) => m.id === id))).toBe(true)
     // 绿林盟由在世的京东一支代掌门派事务
-    const contact = getSectContactNpcId('SECT-18', dead)
-    expect(aliveMembers.map((n) => n.id)).toContain(contact)
+    expect(aliveMembers.map((n) => n.id)).toContain(getSectContactNpcId('SECT-18', dead))
   })
 })

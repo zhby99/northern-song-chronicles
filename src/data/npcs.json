@@ -116782,5 +116782,560 @@
       "accessory2": "ACC-052",
       "mount": "MNT-019"
     }
+  },
+  {
+    "id": "NPC-1048",
+    "name": "秦寒岳",
+    "title": "冷月刀",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 31,
+    "factionId": "SECT-18",
+    "factionName": "太行/京东绿林盟",
+    "role": "太行山分寨把寨大头领",
+    "regionId": "taihang",
+    "locationLabel": "太行山绿林总寨",
+    "subLocation": null,
+    "assignedBuildingId": "th_hall",
+    "assignedBuildingName": "聚义忠义大堂",
+    "assignedSpotId": "th_hall_main",
+    "assignedSpotName": "雄关箭楼 · 望胡台",
+    "fullLocationLabel": "太行山绿林总寨 > 聚义忠义大堂 > 雄关箭楼 · 望胡台",
+    "realm": "二流中品",
+    "majorRealm": "二流",
+    "minorRealm": "中品",
+    "realmRank": 11,
+    "stats": {
+      "hp": 1425,
+      "mp": 1009,
+      "agi": 47,
+      "res": 34,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 51,
+      "comprehension": 52,
+      "charm": 82
+    },
+    "tenArts": {
+      "骑术": 78,
+      "算术": 12,
+      "经义": 17,
+      "策论": 54,
+      "诗词": 28,
+      "琴": 18,
+      "棋": 34,
+      "书": 32,
+      "画": 33,
+      "辩才": 33
+    },
+    "artsText": "通背拳、蛇矛百战枪、草上飞",
+    "knownArtIds": [
+      "MA-144",
+      "MA-135",
+      "MA-157"
+    ],
+    "specialtyTags": [],
+    "bio": "太行/京东绿林盟太行山分寨把寨大头领，常驻【太行山绿林总寨 > 聚义忠义大堂 > 雄关箭楼 · 望胡台】，武道修为居【二流中品】，主修通背拳、蛇矛百战枪、草上飞。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_greenwood_sect_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_greenwood_sect_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "山寨头目",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-103",
+      "qinggong": "MA-157",
+      "move1": "MA-144",
+      "move2": "MA-135",
+      "move3": "MA-131",
+      "move4": "MA-151"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-144",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-135",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-157",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-103",
+        "level": 3,
+        "exp": 0
+      },
+      {
+        "artId": "MA-131",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-151",
+        "level": 6,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-084",
+      "armor": "ARM-039",
+      "shoes": "BOT-024",
+      "bow": "BOW-025",
+      "accessory1": "ACC-054",
+      "accessory2": "ACC-052",
+      "mount": "MNT-021"
+    }
+  },
+  {
+    "id": "NPC-1049",
+    "name": "申屠霖",
+    "title": "透骨针",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 28,
+    "factionId": "SECT-18",
+    "factionName": "太行/京东绿林盟",
+    "role": "太行藏金义仓暗器头领",
+    "regionId": "taihang",
+    "locationLabel": "太行山绿林总寨",
+    "subLocation": null,
+    "assignedBuildingId": "th_vault",
+    "assignedBuildingName": "太行藏金义仓",
+    "assignedSpotId": "th_vault_main",
+    "assignedSpotName": "幽谷石室 · 寒玉榻",
+    "fullLocationLabel": "太行山绿林总寨 > 太行藏金义仓 > 幽谷石室 · 寒玉榻",
+    "realm": "二流下品",
+    "majorRealm": "二流",
+    "minorRealm": "下品",
+    "realmRank": 12,
+    "stats": {
+      "hp": 1054,
+      "mp": 764,
+      "agi": 44,
+      "res": 28,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 46,
+      "comprehension": 49,
+      "charm": 42
+    },
+    "tenArts": {
+      "骑术": 72,
+      "算术": 16,
+      "经义": 28,
+      "策论": 63,
+      "诗词": 24,
+      "琴": 24,
+      "棋": 20,
+      "书": 23,
+      "画": 21,
+      "辩才": 29
+    },
+    "artsText": "《太行罡气》、鬼头大刀斩、八极崩拳",
+    "knownArtIds": [
+      "MA-103",
+      "MA-151",
+      "MA-124"
+    ],
+    "specialtyTags": [],
+    "bio": "太行/京东绿林盟太行藏金义仓暗器头领，常驻【太行山绿林总寨 > 太行藏金义仓 > 幽谷石室 · 寒玉榻】，武道修为居【二流下品】，主修《太行罡气》、鬼头大刀斩、八极崩拳。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_greenwood_sect_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_greenwood_sect_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "山寨头目",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-103",
+      "qinggong": "MA-157",
+      "move1": "MA-151",
+      "move2": "MA-124",
+      "move3": "MA-131",
+      "move4": "MA-189"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-103",
+        "level": 2,
+        "exp": 0
+      },
+      {
+        "artId": "MA-151",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-124",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-131",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-157",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-189",
+        "level": 6,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-076",
+      "armor": "ARM-039",
+      "shoes": "BOT-025",
+      "bow": "BOW-026",
+      "accessory1": "ACC-054",
+      "accessory2": "ACC-053",
+      "mount": "MNT-021"
+    }
+  },
+  {
+    "id": "NPC-1050",
+    "name": "焦弘彪",
+    "title": "黑风豹",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 30,
+    "factionId": "SECT-18",
+    "factionName": "太行/京东绿林盟",
+    "role": "太行山苍狼前寨副头目",
+    "regionId": "taihang",
+    "locationLabel": "太行山绿林总寨",
+    "subLocation": null,
+    "assignedBuildingId": "th_bridge",
+    "assignedBuildingName": "飞狐断魂索桥",
+    "assignedSpotId": "th_bridge_east",
+    "assignedSpotName": "千帆栈桥 · 装卸埠",
+    "fullLocationLabel": "太行山绿林总寨 > 飞狐断魂索桥 > 千帆栈桥 · 装卸埠",
+    "realm": "二流下品",
+    "majorRealm": "二流",
+    "minorRealm": "下品",
+    "realmRank": 12,
+    "stats": {
+      "hp": 1114,
+      "mp": 777,
+      "agi": 44,
+      "res": 26,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 60,
+      "comprehension": 46,
+      "charm": 45
+    },
+    "tenArts": {
+      "骑术": 70,
+      "算术": 15,
+      "经义": 24,
+      "策论": 53,
+      "诗词": 28,
+      "琴": 24,
+      "棋": 13,
+      "书": 20,
+      "画": 24,
+      "辩才": 30
+    },
+    "artsText": "《太行罡气》、鬼头大刀斩、八极崩拳",
+    "knownArtIds": [
+      "MA-103",
+      "MA-151",
+      "MA-124"
+    ],
+    "specialtyTags": [],
+    "bio": "太行/京东绿林盟太行山苍狼前寨副头目，常驻【太行山绿林总寨 > 飞狐断魂索桥 > 千帆栈桥 · 装卸埠】，武道修为居【二流下品】，主修《太行罡气》、鬼头大刀斩、八极崩拳。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_greenwood_sect_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_greenwood_sect_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "山寨头目",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-103",
+      "qinggong": "MA-157",
+      "move1": "MA-151",
+      "move2": "MA-124",
+      "move3": "MA-131",
+      "move4": "MA-196"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-103",
+        "level": 2,
+        "exp": 0
+      },
+      {
+        "artId": "MA-151",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-124",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-131",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-157",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-196",
+        "level": 6,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-076",
+      "armor": "ARM-039",
+      "shoes": "BOT-026",
+      "bow": "BOW-027",
+      "accessory1": "ACC-054",
+      "accessory2": "ACC-055",
+      "mount": "MNT-021"
+    }
+  },
+  {
+    "id": "NPC-1051",
+    "name": "邬烟娘",
+    "title": "铁莲花",
+    "category": "武林群侠",
+    "gender": "女",
+    "age": 39,
+    "factionId": "SECT-18",
+    "factionName": "太行/京东绿林盟",
+    "role": "太行山虎啸寨把寨女头目",
+    "regionId": "taihang",
+    "locationLabel": "太行山绿林总寨",
+    "subLocation": null,
+    "assignedBuildingId": "th_hall",
+    "assignedBuildingName": "聚义忠义大堂",
+    "assignedSpotId": "th_hall_main",
+    "assignedSpotName": "雄关箭楼 · 望胡台",
+    "fullLocationLabel": "太行山绿林总寨 > 聚义忠义大堂 > 雄关箭楼 · 望胡台",
+    "realm": "二流下品",
+    "majorRealm": "二流",
+    "minorRealm": "下品",
+    "realmRank": 12,
+    "stats": {
+      "hp": 1031,
+      "mp": 793,
+      "agi": 43,
+      "res": 31,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 55,
+      "comprehension": 58,
+      "charm": 74
+    },
+    "tenArts": {
+      "骑术": 62,
+      "算术": 24,
+      "经义": 11,
+      "策论": 66,
+      "诗词": 13,
+      "琴": 31,
+      "棋": 33,
+      "书": 29,
+      "画": 30,
+      "辩才": 13
+    },
+    "artsText": "通背拳、蛇矛百战枪、草上飞",
+    "knownArtIds": [
+      "MA-144",
+      "MA-135",
+      "MA-157"
+    ],
+    "specialtyTags": [],
+    "bio": "太行/京东绿林盟太行山虎啸寨把寨女头目，常驻【太行山绿林总寨 > 聚义忠义大堂 > 雄关箭楼 · 望胡台】，武道修为居【二流下品】，主修通背拳、蛇矛百战枪、草上飞。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_greenwood_sect_female_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_greenwood_sect_female_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "山寨头目",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-103",
+      "qinggong": "MA-157",
+      "move1": "MA-144",
+      "move2": "MA-135",
+      "move3": "MA-151",
+      "move4": "MA-131"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-144",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-135",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-157",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-103",
+        "level": 2,
+        "exp": 0
+      },
+      {
+        "artId": "MA-131",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-151",
+        "level": 5,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-084",
+      "armor": "ARM-039",
+      "shoes": "BOT-027",
+      "bow": "BOW-028",
+      "accessory1": "ACC-054",
+      "accessory2": "ACC-056",
+      "mount": "MNT-021"
+    }
+  },
+  {
+    "id": "NPC-1052",
+    "name": "牛豪山",
+    "title": "撼地熊",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 50,
+    "factionId": "SECT-18",
+    "factionName": "太行/京东绿林盟",
+    "role": "太行山黑风寨巡山头领",
+    "regionId": "taihang",
+    "locationLabel": "太行山绿林总寨",
+    "subLocation": null,
+    "assignedBuildingId": "th_bridge",
+    "assignedBuildingName": "飞狐断魂索桥",
+    "assignedSpotId": "th_bridge_main",
+    "assignedSpotName": "水寨望楼 · 钞关厅",
+    "fullLocationLabel": "太行山绿林总寨 > 飞狐断魂索桥 > 水寨望楼 · 钞关厅",
+    "realm": "二流下品",
+    "majorRealm": "二流",
+    "minorRealm": "下品",
+    "realmRank": 12,
+    "stats": {
+      "hp": 1132,
+      "mp": 743,
+      "agi": 42,
+      "res": 27,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 60,
+      "comprehension": 59,
+      "charm": 72
+    },
+    "tenArts": {
+      "骑术": 77,
+      "算术": 16,
+      "经义": 25,
+      "策论": 73,
+      "诗词": 21,
+      "琴": 23,
+      "棋": 33,
+      "书": 11,
+      "画": 12,
+      "辩才": 30
+    },
+    "artsText": "《太行罡气》、鬼头大刀斩、八极崩拳",
+    "knownArtIds": [
+      "MA-103",
+      "MA-151",
+      "MA-124"
+    ],
+    "specialtyTags": [],
+    "bio": "太行/京东绿林盟太行山黑风寨巡山头领，常驻【太行山绿林总寨 > 飞狐断魂索桥 > 水寨望楼 · 钞关厅】，武道修为居【二流下品】，主修《太行罡气》、鬼头大刀斩、八极崩拳。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_greenwood_sect_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_greenwood_sect_av.jpg",
+    "sectRank": 2,
+    "sectRankLabel": "山寨头目",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-103",
+      "qinggong": "MA-157",
+      "move1": "MA-151",
+      "move2": "MA-124",
+      "move3": "MA-131",
+      "move4": "MA-186"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-103",
+        "level": 2,
+        "exp": 0
+      },
+      {
+        "artId": "MA-151",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-124",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-131",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-157",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-186",
+        "level": 6,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-084",
+      "armor": "ARM-039",
+      "shoes": "BOT-028",
+      "bow": "BOW-017",
+      "accessory1": "ACC-054",
+      "accessory2": "ACC-033",
+      "mount": "MNT-021"
+    }
   }
 ]

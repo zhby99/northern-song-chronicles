@@ -642,9 +642,11 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
     let nextLogs = [...s.logs]
     let nextMasters = s.roamingMasters
 
+    // 跨日以子时为界：亥时（11）走入子时（0）即进入次日，与出发时刻、途中扎营无关
+    // （旧逻辑按出发后累计满 12 个时辰才跨日，导致日历倒流，且可靠「走 11 时辰 → 扎营 → 再出发」永不跨日）
     let crossedDayBoundary = false
-    if (dayAccumulator >= 1.0) {
-      dayAccumulator -= 1.0
+    if (nextShichenIdx === 0) {
+      dayAccumulator = 0
       nextDayCount += 1
       crossedDayBoundary = true
       const fallbackDailySilver = getRegionLodgingInfo(s.currentNodeId).dailyCost

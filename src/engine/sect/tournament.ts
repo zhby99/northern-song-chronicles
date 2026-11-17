@@ -2,6 +2,7 @@ import { FACTION_DB_MAP, NPCS_DB, SECT_SYSTEMS_DB } from '../../data/gameDb'
 import type {
   ActiveSectTournament,
   NodeNpc,
+  PlayerSectState,
   SectRankLevel,
   SectTournamentOpponent,
 } from '../../types/game'
@@ -13,11 +14,15 @@ import { DAO_SWORD_SECT_ID_LIST, getSectRule } from './rules'
 
 /**
  * 宗门大比体系门派（9派）：道门与名山剑派（华山/泰山/峨眉/真武/终南/青城）+ 五台山清凉寺 + 蜀中唐门 + 铁掌帮
- * 每年二月一日宗门大比 + 专属晋升规则（暂开放至 Lv.3）
+ * 每年二月初一至初十宗门大比 + 专属晋升规则（暂开放至 Lv.3）
  */
 export const DAO_SWORD_SECT_IDS = new Set<string>(DAO_SWORD_SECT_ID_LIST)
 
 export const SECT_TOURNAMENT_TOKEN_ITEM_ID = 'ITM-MSC-014'
+/** 二月初一（每年第 31 天，dayOfYear 自 0 起算为 30） */
+export const SECT_TOURNAMENT_START_DAY_OF_YEAR = 30
+/** 大比会期天数：二月初一至初十，避免按日闭关 / 休整快进时直接跨过 */
+export const SECT_TOURNAMENT_WINDOW_DAYS = 10
 
 export function isDaoSwordSect(sectId?: string | null): boolean {
   return Boolean(getSectRule(sectId)?.isDaoSwordTournamentSect)
@@ -30,11 +35,31 @@ export function getSectTournamentDateInfo(dayCount: number): {
   const zeroIdx = Math.max(0, Math.floor(dayCount) - 1)
   const yearIndex = Math.floor(zeroIdx / 360) + 1
   const dayOfYear = zeroIdx % 360
-  // 每年 360 天，每月初一为 0, 30, 60... 二月初一即 dayOfYear === 30
+  // 每年 360 天，每月初一为 0, 30, 60... 二月初一即 dayOfYear === 30；大比会期为二月初一至初十
   return {
     yearIndex,
-    isTournamentDay: dayOfYear === 30,
+    isTournamentDay:
+      dayOfYear >= SECT_TOURNAMENT_START_DAY_OF_YEAR &&
+      dayOfYear < SECT_TOURNAMENT_START_DAY_OF_YEAR + SECT_TOURNAMENT_WINDOW_DAYS,
   }
+}
+
+/**
+ * 是否应为本门弟子提示「宗门大比开幕」：所在门派为道门名山剑派、今年尚未参赛且无进行中的大比，
+ * 并且时间恰好从会期之外跨入会期（用于闭关等快进途中自动暂停，避免一口气跳过大比）。
+ */
+export function shouldPauseForSectTournament(params: {
+  prevDayCount: number
+  nextDayCount: number
+  sectState: Pick<PlayerSectState, 'sectId' | 'lastTournamentYear' | 'activeSectTournament'>
+}): boolean {
+  const { prevDayCount, nextDayCount, sectState } = params
+  if (!isDaoSwordSect(sectState.sectId) || sectState.activeSectTournament) return false
+  const prev = getSectTournamentDateInfo(prevDayCount)
+  const next = getSectTournamentDateInfo(nextDayCount)
+  if (!next.isTournamentDay) return false
+  if (sectState.lastTournamentYear >= next.yearIndex) return false
+  return !prev.isTournamentDay || prev.yearIndex !== next.yearIndex
 }
 
 function randomIntInclusive(min: number, max: number, rng: RngFn): number {

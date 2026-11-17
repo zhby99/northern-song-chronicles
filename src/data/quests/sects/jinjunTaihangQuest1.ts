@@ -119,7 +119,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
       id: 'canyon_rearguard_1',
       title: '火海横刃阻追寇',
       objective:
-        '黑风愁猿涧惨遭断道火攻！已将虎符交予高怀亮率残军南撤，请于【一线天谷口】迎战追击头目神行手王浪青与劈山莲裴烟音（1v2）！',
+        '黑风愁猿涧惨遭断道火攻！已将虎符交予高怀亮率残军南撤，请于【一线天谷口】迎战追击头目神行手王浪青与铁莲花邬烟娘（1v2）！',
       nextHint: '调息完备后点击当前场景「横刃死守一线天 · 截杀追击双寇」迎战。',
       targetLocation: {
         regionId: 'taihang',
@@ -315,9 +315,9 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
     },
     {
       id: 'spot_jtc1_rearguard_pursuers',
-      label: '横刃死守一线天 · 截杀追击头目王浪青与裴烟音（1v2）',
+      label: '横刃死守一线天 · 截杀追击头目王浪青与邬烟娘（1v2）',
       badge: '第27幕 · 断后首战',
-      subtitle: '死锁黑风涧一线天窄隘，阻截神行手王浪青与劈山莲裴烟音掩杀伤兵',
+      subtitle: '死锁黑风涧一线天窄隘，阻截神行手王浪青与铁莲花邬烟娘掩杀伤兵',
       tone: 'danger',
       regionId: 'taihang',
       buildingId: 'th_vault',

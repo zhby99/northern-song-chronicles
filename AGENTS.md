@@ -20,7 +20,7 @@
 
 - **已完成阶段**：**Phase M0 / M1-0 / M1-1 / M1-2 / M1-3 / M2 / M3-1 已完成 ✅**
   - `[M0-1]` 模块化前端工程：`Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5`，全量运行时原画与 Web Audio 无缝循环 BGM 抽离至 `public/assets/` 按需懒加载，代码包内嵌 Base64 为 `0 Bytes`。
-  - `[M0-2]` 全局唯一标准 ID 字典：`src/data/idRegistry.json`（43 地区 `REG-01..43`、33 武林门派 `SECT-01..33`［21 一流势力（含独立拆分且零专属功法的 `SECT-33` 大宋禁军） + 12 二三流门派（6 二流 + 6 三流）］、11 朝堂四夷组织 `ORG-01..11`、246 武学 `MA-001..246`、100 武器 `WPN-001..100`），1,047 名 NPC（`NPC-0001..1047`）100% 挂载至最末层建筑/子建筑，零悬空引用。
+  - `[M0-2]` 全局唯一标准 ID 字典：`src/data/idRegistry.json`（43 地区 `REG-01..43`、33 武林门派 `SECT-01..33`［21 一流势力（含独立拆分且零专属功法的 `SECT-33` 大宋禁军） + 12 二三流门派（6 二流 + 6 三流）］、11 朝堂四夷组织 `ORG-01..11`、246 武学 `MA-001..246`、100 武器 `WPN-001..100`），1,052 名 NPC（`NPC-0001..1052`）100% 挂载至最末层建筑/子建筑，零悬空引用。
   - `[M0-3]` 结构化数据库编译管线：`scripts/compile_game_db.py`（`npm run build:db`）将 `docs/*.md` 七大设定专卷一键编译为 `src/data/*.json` 与快速索引门面 `src/data/gameDb.ts`。
   - `[M0-4]` 三层空间导航与存取档：`天下舆图 (world) -> 43 地区等轴全景 (region) -> 147 座特殊建筑内景 + 121 座基础建筑 (building)`；基于 `IndexedDB + localStorage` 实装 1 自动槽 + 6 手动槽存取档与 `.json` 存档导入导出（当前仅支持最新 `M1.5.4` Schema，开发期不保留旧版历史存档兼容包袱）。
   - `[M1 & M2]` 开局创角（`CharacterCreationModal`）、全局顶部常驻状态栏、1.5× 宽幅枢机菜单（7 槽披挂 + 6 槽武学运使 + 三场所按日闭关且出关直接回到披挂与武学页、七大图鉴跨栏保留筛选状态）、246 门十一大类武学 1~10 重数值与 37 门天阶特效、全套七槽披挂与四库百卷入库、各地商铺分类买卖与二次确认弹窗、同步盲选六择一回合战斗、二三流门派及首批长篇/奇遇任务链已实装。
@@ -65,7 +65,7 @@
 | **246 门武学 1~10 重战斗数值表** | `docs/MARTIAL_ARTS_STATS.md` |
 | **皇祐披挂总纲（百兵谱）** | `docs/EQUIPMENT_COMPENDIUM.md` |
 | **43 地区与 147 特殊建筑** | `docs/REGIONAL_MAPS_AND_BUILDINGS.md` |
-| **1,047 名北宋历史与江湖人物** | `docs/CHARACTER_COMPENDIUM.md` |
+| **1,052 名北宋历史与江湖人物** | `docs/CHARACTER_COMPENDIUM.md` |
 | **本地接手/恢复上下文技能** | 在聊天框输入 `/resume-context`（对应 `.agents/skills/resume-context/SKILL.md`） |
 | **数据库重编与校验技能** | 在聊天框输入 `/rebuild-db`（对应 `.agents/skills/rebuild-db/SKILL.md`） |
 | **宋风全景/建筑画师技能** | 在聊天框输入 `/panorama-artist`（对应 `.agents/skills/panorama-artist/SKILL.md`） |

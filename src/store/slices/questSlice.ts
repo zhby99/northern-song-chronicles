@@ -4,6 +4,7 @@ import { executeQuestEffectsBatch } from '../../engine/quest/effectHandlers'
 import {
   cloneQuestRuntimeState,
   evaluateQuestCondition,
+  getVisibleStoryChoices,
   findMatchingLocationTriggers,
 } from '../../engine/questEngine'
 import { buildStoreEvalContext } from '../storeHelpers'
@@ -54,8 +55,13 @@ export const createQuestSlice: StoreSlice<QuestKeys> = (set, get) => ({
       return
     }
 
-    // Reached final beat: if there are no choices, close scene and execute onFinishEffects
-    if (!cur.scene.choices || cur.scene.choices.length === 0) {
+    // Reached final beat: if there are no visible choices (none defined, or all hidden by
+    // hideWhenUnavailable), close scene and execute onFinishEffects
+    const visibleChoices = getVisibleStoryChoices(
+      cur.scene.choices,
+      buildStoreEvalContext(s, cur.contextNpc),
+    )
+    if (visibleChoices.length === 0) {
       const finishEffects = cur.scene.onFinishEffects ?? []
       const ctxNpc = cur.contextNpc
       set({ activeStoryScene: null })
@@ -99,9 +105,15 @@ export const createQuestSlice: StoreSlice<QuestKeys> = (set, get) => ({
     const s = get()
     const cur = s.activeStoryScene
     if (!cur || cur.scene.mandatory) return
-    // Only allow direct close if there are no choices, or if one of the choices has empty effects
-    if (cur.scene.choices && cur.scene.choices.length > 0) {
-      const safeExit = cur.scene.choices.find((c) => !c.condition && c.effects.length === 0)
+    // Only allow direct close if there are no visible choices, or if one of the choices has empty effects
+    const visibleChoices = getVisibleStoryChoices(
+      cur.scene.choices,
+      buildStoreEvalContext(s, cur.contextNpc),
+    )
+    if (visibleChoices.length > 0) {
+      const safeExit = visibleChoices.find(
+        ({ choice: c }) => !c.condition && c.effects.length === 0,
+      )
       if (!safeExit) return
       set({ activeStoryScene: null })
       return

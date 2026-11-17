@@ -1006,8 +1006,8 @@ function main() {
     }
   }
 
-  if (Object.keys(mdRowByNpcId).length !== 1047) {
-    throw new Error(`Expected 1047 NPCs in docs/CHARACTER_COMPENDIUM.md, got ${Object.keys(mdRowByNpcId).length}`)
+  if (Object.keys(mdRowByNpcId).length !== 1052) {
+    throw new Error(`Expected 1052 NPCs in docs/CHARACTER_COMPENDIUM.md, got ${Object.keys(mdRowByNpcId).length}`)
   }
 
   for (const npc of npcs) {

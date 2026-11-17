@@ -13,6 +13,7 @@ import { getNpcFavorProfile } from '../../engine/social/npcFavor'
 import { inferTemplatePortrait } from '../../utils/portraitFallback'
 import {
   getSectContactNpcId,
+  REFERRAL_BRIBE_BY_SOURCE_SECT,
   getSectLeaderNpcId,
   isJoinableSectFaction,
   isSongOfficialForRobbery,
@@ -30,6 +31,7 @@ export function NpcInteractionOverlay() {
   const interactNpc = useGameStore((s) => s.interactNpc)
   const hostNpcBanquet = useGameStore((s) => s.hostNpcBanquet)
   const startNpcCombat = useGameStore((s) => s.startNpcCombat)
+  const bribeForReferral = useGameStore((s) => s.bribeForReferral)
   const giftNpcItem = useGameStore((s) => s.giftNpcItem)
   const equipped = useGameStore((s) => s.equipped)
   const dayCount = useGameStore((s) => s.dayCount)
@@ -230,6 +232,11 @@ export function NpcInteractionOverlay() {
       resolvedNpcId &&
       resolvedNpcId === getSectLeaderNpcId('SECT-19'),
   )
+  // 三流升二流引荐：本门第 4 阶长老（副帮主 / 总教头）处可直接奉银求取举荐帖（非掌门，无需打开门派事务）
+  const referralBribeCfg =
+    sectState.sectId && targetFactionId === sectState.sectId && npcSectRank === 4
+      ? (REFERRAL_BRIBE_BY_SOURCE_SECT[sectState.sectId] ?? null)
+      : null
   const hasQuestRobAction = bottomBarQuestActions.some(
     (x) => x.action.id === 'act_rob_song_official_scene',
   )
@@ -689,6 +696,17 @@ export function NpcInteractionOverlay() {
               className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#1f4d3b] hover:bg-[#28634c] border-2 border-[#9fd0b4] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
             >
               打探掌门所需情报
+            </button>
+          )}
+
+          {referralBribeCfg && !isHostileBountyTarget && (
+            <button
+              type="button"
+              onClick={() => bribeForReferral(npc)}
+              title={`本门第2阶及以上弟子可奉银 ${referralBribeCfg.costSilver} 两，求取拜入【${referralBribeCfg.targetSectName}】的举荐帖`}
+              className="px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#781710] hover:bg-[#961f16] border border-[#e3b07b] text-[#fff8ee] shadow-md transition-colors cursor-pointer"
+            >
+              奉银{referralBribeCfg.costSilver}两求取《{referralBribeCfg.itemName}》
             </button>
           )}
 

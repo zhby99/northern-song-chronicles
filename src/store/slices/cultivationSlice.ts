@@ -44,6 +44,7 @@ import { NODE_MAP } from '../../engine/world/mapMath'
 import {
   getSectRule,
   SHAOLIN_CHORE_TARGET_DAYS,
+  shouldPauseForSectTournament,
 } from '../../engine/sect'
 
 export type CultivationKeys =
@@ -591,6 +592,26 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
     }
     if (res.autosaveReason) {
       void get().saveToSlot('autosave', res.autosaveReason, true)
+    }
+    // 闭关快进跨入二月初一宗门大比会期：自动收功并提示，避免一口气跳过大比
+    const afterTick = get()
+    if (
+      afterTick.cultivationSession &&
+      !afterTick.activeCombat &&
+      !afterTick.activeStoryScene &&
+      shouldPauseForSectTournament({
+        prevDayCount: s.dayCount,
+        nextDayCount: afterTick.dayCount,
+        sectState: afterTick.sectState,
+      })
+    ) {
+      get().stopCultivationEarly()
+      set({
+        actionFeedback: {
+          text: '二月初一已至，本门宗门大比开幕（会期至初十）！闭关已自动收功，请速回山门面见掌门报名。',
+          tone: 'warn',
+        },
+      })
     }
   },
 

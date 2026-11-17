@@ -20,7 +20,7 @@
 
 - **已完成阶段**：**Phase M0 全部完成 ✅ · Phase M1-0 / M1-2 / M1-3a / M1-3b / M3-1 已完成 ✅**
   - `[M0-1]` 模块化前端工程：`Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5`，366 张运行时原画（38 地区全景 + 58 建筑内景 + 129 人物头像 + 129 人物全身像 + 12 门派模板）与 Web Audio 无缝循环 BGM 抽离至 `public/assets/` 按需懒加载，代码包内嵌 Base64 为 `0 Bytes`。
-  - `[M0-2]` 全局唯一标准 ID 字典：`src/data/idRegistry.json`（43 地区 `REG-01..43`、32 武林门派 `SECT-01..32`［20 一流大派 + 12 二三流门派（6 二流 + 6 三流）］、11 朝堂四夷组织 `ORG-01..11`、246 武学 `MA-001..246`、100 武器 `WPN-001..100`），1,047 名 NPC（`NPC-0001..1047`）100% 挂载至最末层建筑/子建筑，零悬空引用。
+  - `[M0-2]` 全局唯一标准 ID 字典：`src/data/idRegistry.json`（43 地区 `REG-01..43`、32 武林门派 `SECT-01..32`［20 一流大派 + 12 二三流门派（6 二流 + 6 三流）］、11 朝堂四夷组织 `ORG-01..11`、246 武学 `MA-001..246`、100 武器 `WPN-001..100`），1,052 名 NPC（`NPC-0001..1052`）100% 挂载至最末层建筑/子建筑，零悬空引用。
   - `[M0-3]` 结构化数据库编译管线：`scripts/compile_game_db.py`（`npm run build:db`）将 `docs/*.md` 七大设定专卷一键编译为 `src/data/*.json` 与快速索引门面 `src/data/gameDb.ts`。
   - `[M0-4]` 三层空间导航与存取档：`天下舆图 (world) -> 43 地区等轴全景 (region: 38 手绘 JPG + 5 新辟州府宋辽营造青绿 SVG 矢量兜底) -> 147 座特殊建筑内景 (building: 58 手绘 JPG + 89 宋式营造 SVG 矢量内院兜底)`；基于 `IndexedDB + localStorage` 实装 1 自动槽 + 6 手动槽存取档与 `.json` 存档导入导出（当前仅支持最新 `M1.5.4` Schema，开发期不保留旧版历史存档兼容包袱）。
   - `[M1-0 & M1-2 & M1-3a/b & M2]` 全局顶部常驻状态栏（年月日十二时辰 + 气血/内力 + 战斗经验/资金/粮草）、1.5× 宽幅十卷枢机菜单（独立【壹·主角面板】【贰·披挂与武学：7 槽披挂 + 6 槽武学运使 + 三场所按日闭关与战斗经验破境】【叁·行囊四库】）、裸身根基 `baseStats` 与披挂/武学纯函数实时派生分离、246 门十一大类武学 1~10 重数值（强天赋四次方按日闭关曲线 + 良/地/天阶战斗经验破境门槛 + 37 门天阶特效）、全套七槽披挂（100 武器 + 服饰/鞋履/弓箭/配饰/28 名驹）、100 卷典籍书画、30 种丹药毒物与 50 件雅器百工全量入库，同步盲选回合战斗与二三流门派体系已实装。
@@ -65,7 +65,7 @@
 | **246 门武学 1~10 重战斗数值表** | `docs/MARTIAL_ARTS_STATS.md` |
 | **皇祐披挂总纲（百兵谱）** | `docs/EQUIPMENT_COMPENDIUM.md` |
 | **43 地区与 147 特殊建筑** | `docs/REGIONAL_MAPS_AND_BUILDINGS.md` |
-| **1,047 名北宋历史与江湖人物** | `docs/CHARACTER_COMPENDIUM.md` |
+| **1,052 名北宋历史与江湖人物** | `docs/CHARACTER_COMPENDIUM.md` |
 | **本地接手/恢复上下文技能** | 在聊天框输入 `/resume-context`（对应 `.agents/skills/resume-context/SKILL.md`） |
 | **数据库重编与校验技能** | 在聊天框输入 `/rebuild-db`（对应 `.agents/skills/rebuild-db/SKILL.md`） |
 | **宋风全景/建筑画师技能** | 在聊天框输入 `/panorama-artist`（对应 `.agents/skills/panorama-artist/SKILL.md`） |

@@ -339,7 +339,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     if (!isTournamentDay) {
       set({
         actionFeedback: {
-          text: '宗门大比定于每年【二月一日】举行，今日非大比之期！',
+          text: '宗门大比定于每年【二月初一至初十】举行，今日非大比之期！',
           tone: 'warn',
         },
       })
@@ -347,15 +347,15 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     }
     if (s.sectState.lastTournamentYear >= yearIndex) {
       set({
-        actionFeedback: { text: '少侠本年度已参加过宗门大比，请待来年二月一日！', tone: 'warn' },
+        actionFeedback: { text: '少侠本年度已参加过宗门大比，请待来年二月初一！', tone: 'warn' },
       })
       return
     }
     const heroRealm = estimateHeroRealm(s.maxHp, s.maxMp)
-    if (heroRealm.rank < 1 || heroRealm.rank > 6) {
+    if (heroRealm.rank < 1) {
       set({
         actionFeedback: {
-          text: `宗门大比限三流或二流境界弟子报名（当前境界【${heroRealm.label}】）。`,
+          text: `宗门大比须至少三流境界方可报名（当前境界【${heroRealm.label}】）。`,
           tone: 'warn',
         },
       })

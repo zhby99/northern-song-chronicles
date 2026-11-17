@@ -82,7 +82,13 @@ const TenArtsGuideTab = lazy(() =>
 export function SystemMenuModal() {
   const characterCreated = useGameStore((s) => s.characterCreated)
   const menuOpen = useGameStore((s) => s.menuOpen)
-  const activeMenuTab = useGameStore((s) => s.activeMenuTab)
+  const rawActiveMenuTab = useGameStore((s) => s.activeMenuTab)
+  const gameOver = useGameStore((s) => s.gameOver)
+  // 身死之后只允许【读取存档】与【设置】：杜绝在死亡界面存档 / 服药 / 瞬移后读档复活
+  const activeMenuTab: MenuTabKey =
+    gameOver && rawActiveMenuTab !== 'load' && rawActiveMenuTab !== 'settings'
+      ? 'load'
+      : rawActiveMenuTab
   const compendiumOpen = useGameStore((s) => s.compendiumOpen)
   const activeCompendiumTab = useGameStore((s) => s.activeCompendiumTab)
   const dayCount = useGameStore((s) => s.dayCount)
@@ -486,7 +492,8 @@ export function SystemMenuModal() {
             ) : (
               <div className="space-y-1.5">
                 {SYSTEM_NAV_ITEMS.filter(
-                  (item) => characterCreated || item.key === 'load' || item.key === 'settings',
+                  (item) =>
+                    (characterCreated && !gameOver) || item.key === 'load' || item.key === 'settings',
                 ).map((item) => {
                   const isAct = item.key === activeMenuTab
                   return (
