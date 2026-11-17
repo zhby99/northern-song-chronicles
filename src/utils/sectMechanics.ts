@@ -424,7 +424,7 @@ export function getHalfYearPeriodInfo(dayCount: number): {
 }
 
 interface LiaoSpyStrengthTier {
-  realm: '三流中品' | '三流上品' | '二流下品' | '二流中品'
+  realm: '三流下品' | '三流中品' | '三流上品' | '二流下品' | '二流中品'
   hpRange: [number, number]
   mpRange: [number, number]
   agiRange: [number, number]
@@ -434,6 +434,15 @@ interface LiaoSpyStrengthTier {
 }
 
 const LIAO_SPY_STRENGTH_TIERS: readonly LiaoSpyStrengthTier[] = [
+  {
+    realm: '三流下品',
+    hpRange: [350, 480],
+    mpRange: [120, 220],
+    agiRange: [20, 26],
+    resRange: [9, 15],
+    artLevel: 2,
+    isSecondTier: false,
+  },
   {
     realm: '三流中品',
     hpRange: [500, 680],
@@ -489,8 +498,12 @@ export function spawnAnnualLiaoSpy(
     LIAO_SPY_ROSTER[0]!
   const tierPool =
     sectRank <= 1
-      ? LIAO_SPY_STRENGTH_TIERS.filter((t) => !t.isSecondTier)
-      : LIAO_SPY_STRENGTH_TIERS
+      ? LIAO_SPY_STRENGTH_TIERS.filter((t) => t.realm === '三流下品')
+      : sectRank === 2
+        ? LIAO_SPY_STRENGTH_TIERS.filter(
+            (t) => t.realm === '三流中品' || t.realm === '三流上品' || t.realm === '二流下品',
+          )
+        : LIAO_SPY_STRENGTH_TIERS.filter((t) => t.realm !== '三流下品')
   const strengthTier =
     tierPool[Math.floor(Math.random() * tierPool.length)] ??
     LIAO_SPY_STRENGTH_TIERS[0]!
