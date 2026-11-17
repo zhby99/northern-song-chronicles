@@ -138,20 +138,20 @@
 
 ---
 
-## 二、 现有单图通用模板待补齐 `1:1` 方形头像（12 张 `_av.jpg`）
+## 二、 现有单图通用模板待补齐 `1:1` 方形头像（12 张 `_av.jpg` · 已完成 5 张，余 7 张）
 
-> 以下 12 套早期通用模板目前仅有 `3:4` 全身立绘（`*_fb.jpg`），缺少配对的 `1:1` 方形头像（`*_av.jpg`）。虽然前端已通过 `object-top` 裁切在圆形小头像中兜底，但独立补绘 `512×512` 胸像后可显著提升战斗对阵顶栏与社交名册的清晰度。
+> 以下 12 套早期通用模板原仅有 `3:4` 全身立绘（`*_fb.jpg`），缺少配对的 `1:1` 方形头像（`*_av.jpg`）。目前已补齐其中 5 张，剩余 7 张待配额恢复后继续补绘。
 
 | 编号 | 状态 | 待补绘 `1:1` 头像路径 | 已存在对应全身立绘 | 主要关联角色示例 |
 | :--- | :---: | :--- | :--- | :--- |
-| `TPL-AV-01` | `[ ]` | `public/assets/characters/templates/tpl_khitan_warrior_av.jpg` | `tpl_khitan_warrior_fb.jpg` | 耶律重铠、耶律烈、萧铁林、黑水河辽军百夫长 |
-| `TPL-AV-02` | `[ ]` | `public/assets/characters/templates/tpl_song_scholar_av.jpg` | `tpl_song_scholar_fb.jpg` | 钱算盘、钱夜鸮、周文焕、赵推官、谏院言官 |
-| `TPL-AV-03` | `[ ]` | `public/assets/characters/templates/tpl_song_physician_av.jpg` | `tpl_song_physician_fb.jpg` | 各地医馆坐堂郎中、老石匠、老药农过渡模板 |
-| `TPL-AV-04` | `[ ]` | `public/assets/characters/templates/tpl_shaolin_monk_av.jpg` | `tpl_shaolin_monk_fb.jpg` | 嵩山少林高阶禅僧通用兜底 |
+| `TPL-AV-01` | `[x]` | `public/assets/characters/templates/tpl_khitan_warrior_av.jpg` | `tpl_khitan_warrior_fb.jpg` | 耶律重铠、耶律烈、萧铁林、黑水河辽军百夫长 |
+| `TPL-AV-02` | `[x]` | `public/assets/characters/templates/tpl_song_scholar_av.jpg` | `tpl_song_scholar_fb.jpg` | 钱算盘、钱夜鸮、周文焕、赵推官、谏院言官 |
+| `TPL-AV-03` | `[x]` | `public/assets/characters/templates/tpl_song_physician_av.jpg` | `tpl_song_physician_fb.jpg` | 各地医馆坐堂郎中、老石匠、老药农过渡模板 |
+| `TPL-AV-04` | `[x]` | `public/assets/characters/templates/tpl_shaolin_monk_av.jpg` | `tpl_shaolin_monk_fb.jpg` | 嵩山少林高阶禅僧通用兜底 |
 | `TPL-AV-05` | `[ ]` | `public/assets/characters/templates/tpl_taoist_master_av.jpg` | `tpl_taoist_master_fb.jpg` | 苍松道人、云台棋叟、`NPC-0354` 方正、`NPC-0291` 侯正 |
 | `TPL-AV-06` | `[ ]` | `public/assets/characters/templates/tpl_unorthodox_master_av.jpg` | `tpl_unorthodox_master_fb.jpg` | 屠海蛟、沙陀毒蝎、江湖邪派高手 |
 | `TPL-AV-07` | `[ ]` | `public/assets/characters/templates/tpl_greenwood_hero_av.jpg` | `tpl_greenwood_hero_fb.jpg` | 绿林豪杰通用兜底 |
-| `TPL-AV-08` | `[ ]` | `public/assets/characters/templates/tpl_woman_general_av.jpg` | `tpl_woman_general_fb.jpg` | 将门巾帼女将通用兜底 |
+| `TPL-AV-08` | `[x]` | `public/assets/characters/templates/tpl_woman_general_av.jpg` | `tpl_woman_general_fb.jpg` | 将门巾帼女将通用兜底 |
 | `TPL-AV-09` | `[ ]` | `public/assets/characters/templates/tpl_emei_heroine_av.jpg` | `tpl_emei_heroine_fb.jpg` | 峨眉高阶女剑仙通用兜底 |
 | `TPL-AV-10` | `[ ]` | `public/assets/characters/templates/tpl_dali_prince_av.jpg` | `tpl_dali_prince_fb.jpg` | 大理段氏皇族男弟子通用兜底 |
 | `TPL-AV-11` | `[ ]` | `public/assets/characters/templates/tpl_song_empress_av.jpg` | `tpl_song_empress_fb.jpg` | 大宋宫闱后妃命妇通用兜底 |

@@ -153,6 +153,16 @@ const KNOWN_AVATAR_COUNTERPARTS: Record<string, string> = {
     '/assets/characters/templates/tpl_yipintang_female_av.jpg',
   '/assets/characters/templates/tpl_zhenyuan_male_fb.jpg':
     '/assets/characters/templates/tpl_zhenyuan_male_av.jpg',
+  '/assets/characters/templates/tpl_khitan_warrior_fb.jpg':
+    '/assets/characters/templates/tpl_khitan_warrior_av.jpg',
+  '/assets/characters/templates/tpl_shaolin_monk_fb.jpg':
+    '/assets/characters/templates/tpl_shaolin_monk_av.jpg',
+  '/assets/characters/templates/tpl_song_physician_fb.jpg':
+    '/assets/characters/templates/tpl_song_physician_av.jpg',
+  '/assets/characters/templates/tpl_song_scholar_fb.jpg':
+    '/assets/characters/templates/tpl_song_scholar_av.jpg',
+  '/assets/characters/templates/tpl_woman_general_fb.jpg':
+    '/assets/characters/templates/tpl_woman_general_av.jpg',
   '/assets/characters/templates/tpl_zhongnan_fb.jpg':
     '/assets/characters/templates/tpl_zhongnan_av.jpg',
   '/assets/characters/templates/tpl_zhongnan_female_fb.jpg':
