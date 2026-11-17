@@ -5,7 +5,7 @@ import {
   NON_GIFTABLE_KEY_ITEM_IDS,
 } from '../../../data/itemsDb'
 import type { InventoryStack } from '../../../types/game'
-import { computeGiftFavorGain, type NpcFavorProfile } from '../../../utils/npcFavor'
+import { computeGiftFavorGain, type NpcFavorProfile } from '../../../engine/social/npcFavor'
 
 const CATEGORY_LABEL_MAP: Record<string, string> = Object.fromEntries(
   BAG_CATEGORY_METAS.map((m) => [m.key, m.label]),

@@ -34,7 +34,7 @@ import type {
   NodeKind,
   RegimeKey,
 } from '../../types/game'
-import { ADJACENCY_MAP, getBuildingLockMeta, NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
+import { ADJACENCY_MAP, getBuildingLockMeta, NODE_MAP, WORLD_GRAPH } from '../../engine/world/mapMath'
 import { ManagedAssetImg } from '../common/ManagedAssetImg'
 
 const SvgRegionPanoramaFallback = lazy(() =>

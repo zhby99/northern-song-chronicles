@@ -3,8 +3,22 @@ import type { RollFlavorResult } from './types'
 export type CombatRng = () => number
 export type RngFn = CombatRng
 
-export const defaultCombatRng: CombatRng = () => Math.random()
-export const defaultRng: RngFn = defaultCombatRng
+const nativeRng: RngFn = () => Math.random()
+let activeGameRng: RngFn = nativeRng
+
+/**
+ * 全局玩法随机源：战斗、时间推进、路途奇遇、社交等所有默认随机数都经由此处，
+ * 测试 / 回放可通过 `setGameRng(createSeededRng(seed))` 让整局 store 行为可复现。
+ */
+export const gameRng: RngFn = () => activeGameRng()
+
+/** 替换全局玩法随机源；传 `null` 恢复为 `Math.random`。 */
+export function setGameRng(rng: RngFn | null): void {
+  activeGameRng = rng ?? nativeRng
+}
+
+export const defaultCombatRng: CombatRng = gameRng
+export const defaultRng: RngFn = gameRng
 
 /**
  * Deterministic Mulberry32 PRNG for reproducible snapshot tests, replays, and save verification.

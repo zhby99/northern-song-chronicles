@@ -32,7 +32,7 @@ import {
   useBgmMetaState,
   useBgmProgress,
 } from '../../utils/bgmManager'
-import { getSongDateParts, NODE_MAP, REGIONAL_CONFIGS, WORLD_GRAPH } from '../../utils/mapMath'
+import { getSongDateParts, NODE_MAP, REGIONAL_CONFIGS, WORLD_GRAPH } from '../../engine/world/mapMath'
 
 const LABEL_MENU_ITEMS: Array<{
   key: LabelToggleKey

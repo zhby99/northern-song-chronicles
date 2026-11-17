@@ -2,7 +2,7 @@ import { Package, Skull, Sparkles, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { RARITY_STYLE_MAP } from '../../data/itemsDb'
 import type { GameItemDef } from '../../types/game'
-import { scaleMedicineRecovery } from '../../utils/realmUtils'
+import { scaleMedicineRecovery } from '../../engine/stats/realmUtils'
 
 type BagFilterMode = 'all' | 'elixir' | 'poison'
 

@@ -788,7 +788,26 @@ export interface GameItemDef {
   mountMeta?: CompiledMountRecord
   gearMeta?: CompiledGearRecord
   poisonEffect?: string
+  /** 战阵施毒数值（由 docs/EQUIPMENT_COMPENDIUM.md 规格列编译生成） */
+  poisonCombat?: PoisonCombatSpec
   iconUrl?: string | null
+}
+
+export interface PoisonCombatSpec {
+  /** 基础毒伤（再按目标抗性 / 洗髓护体 / 守御姿态折减） */
+  damage: number
+  /** 蚀散目标当前内力百分比 */
+  mpDrainPct?: number
+  /** 迟缓（身法）百分比 */
+  slowPct: number
+  /** 滞气（出招威力）百分比 */
+  weakPct: number
+  /** 麻痹封脉（下回合禁招）基础概率百分比 */
+  stunChancePct?: number
+  /** 仅当目标有效抗性低于此值时才可能麻痹 */
+  stunMaxRes?: number
+  /** 永久（本场）削减目标抗性 */
+  resShred?: number
 }
 
 export type GearSlotType = 'armor' | 'shoes' | 'bow' | 'accessory'

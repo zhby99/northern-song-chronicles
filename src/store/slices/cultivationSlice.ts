@@ -28,7 +28,7 @@ import {
   getArtLevelFromExp,
   getExpForArtLevel,
   MAX_ART_EXP,
-} from '../../utils/artsProgression'
+} from '../../engine/stats/artsProgression'
 import {
   calcDailyCultivationExpGain,
   cloneHeroBaseStats,
@@ -39,12 +39,12 @@ import {
   isTavernBuildingRecord,
   MONTHLY_ODD_JOB_SILVER,
   resolveCultivationVenue,
-} from '../../utils/heroStats'
-import { NODE_MAP } from '../../utils/mapMath'
+} from '../../engine/stats/heroStats'
+import { NODE_MAP } from '../../engine/world/mapMath'
 import {
   getSectRule,
   SHAOLIN_CHORE_TARGET_DAYS,
-} from '../../utils/sectMechanics'
+} from '../../engine/sect'
 
 export type CultivationKeys =
   | 'cultivateLearnedArt'

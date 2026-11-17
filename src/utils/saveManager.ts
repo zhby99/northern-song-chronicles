@@ -28,10 +28,10 @@ import {
 } from '../data/playerMartialArts'
 import { cloneQuestRuntimeState } from '../engine/questEngine'
 import { VALID_TEN_ART_KEYS } from '../engine/shared/constants'
-import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from './heroStats'
-import { isBuildingUnlocked } from './mapMath'
-import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
-import { clonePlayerSectState } from './sectMechanics'
+import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from '../engine/stats/heroStats'
+import { isBuildingUnlocked } from '../engine/world/mapMath'
+import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from '../engine/social/npcFavor'
+import { clonePlayerSectState } from '../engine/sect'
 
 export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.3' as const
 

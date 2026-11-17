@@ -8,8 +8,8 @@ import {
   createCombatSession,
   createSeededRng,
   resolveCombatRound,
-} from '../../utils/combatEngine'
-import { calcDailyExpByCategory, cloneHeroBaseStats, isPlayerInFreeLodgingRegion } from '../../utils/heroStats'
+} from '../combat'
+import { calcDailyExpByCategory, cloneHeroBaseStats, isPlayerInFreeLodgingRegion } from '../stats/heroStats'
 import { validateSaveEnvelope } from '../../utils/saveManager'
 import {
   calcVocationDailyWage,

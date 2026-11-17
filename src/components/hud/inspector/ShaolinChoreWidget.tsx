@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { SHAOLIN_CHORE_TARGET_DAYS } from '../../../utils/sectMechanics'
+import { SHAOLIN_CHORE_TARGET_DAYS } from '../../../engine/sect'
 
 interface ShaolinChoreWidgetProps {
   shaolinChoreDays: number

@@ -23,7 +23,7 @@ import type {
   WeaponSubCategory,
 } from '../../types/game'
 import { useAssetTelemetry } from '../../utils/assetLoader'
-import { formatSongDate, NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
+import { formatSongDate, NODE_MAP, WORLD_GRAPH } from '../../engine/world/mapMath'
 import {
   buildNpcLightboxState,
   COMPENDIUM_NAV_ITEMS,

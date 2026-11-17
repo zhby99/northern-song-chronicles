@@ -17,7 +17,7 @@ import {
   getExpForArtLevel,
   MAX_ART_EXP,
   TEN_ARTS_GUIDE_DATA,
-} from '../../../utils/artsProgression'
+} from '../../../engine/stats/artsProgression'
 
 function buildTenArtPassiveSummary(
   key: TenArtKey,

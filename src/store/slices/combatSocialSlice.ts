@@ -13,7 +13,6 @@ import {
 import {
   BANQUET_TIERS,
   computeBanquetFavorGain,
-  computeCelunBonusAmount,
   computeTalkFavorDelta,
   resolveNpcFavor,
 } from '../../engine/economy'
@@ -25,49 +24,48 @@ import type {
   EquippedArtsMap,
   GameOverState,
   LearnedArtEntry,
-  NodeNpc,
 } from '../../types/game'
-import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
+import { syncArtLevelsToExpsAndMilestones } from '../../engine/stats/artsProgression'
 import {
   cloneHeroBaseStats,
   DEFAULT_HERO_BASE_STATS,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
-} from '../../utils/heroStats'
+} from '../../engine/stats/heroStats'
 import {
   formatSongDate,
   NODE_MAP,
-} from '../../utils/mapMath'
+} from '../../engine/world/mapMath'
 import {
   MAX_NPC_FAVOR,
   MIN_NPC_FAVOR,
   computeGiftFavorGain,
   getNpcFavorProfile,
-} from '../../utils/npcFavor'
+} from '../../engine/social/npcFavor'
 import {
   getNpcGiftDialogue,
   getNpcTalkDialogue,
-} from '../../utils/npcDialogues'
+} from '../../engine/social/npcDialogues'
 import {
   buildPlayerCombatant,
   createCombatSession,
+  gameRng,
   resolveCombatRound,
   type DuelStakesKind,
-} from '../../utils/combatEngine'
+} from '../../engine/combat'
 import {
-  buildNodeNpcFromTournamentOpponent,
+  applyCombatSettlementRules,
+  buildCombatDeathPayload,
+} from '../../engine/combat/settlement'
+import {
   buildZhanZhaoArrestNodeNpc,
   clonePlayerSectState,
   DEFAULT_PLAYER_SECT_STATE,
-  getSectLeaderNpcId,
-  getSectRankTitle,
   isSongOfficialForRobbery,
-  SECT_TOURNAMENT_TOKEN_ITEM_ID,
-} from '../../utils/sectMechanics'
+} from '../../engine/sect'
 import {
   commitTimeAdvance,
   createLogEntry,
-  addItemToInventory,
   removeItemFromInventory,
   computeCombatSettlement,
 } from '../storeHelpers'
@@ -101,7 +99,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
         return
       }
       const eloSkill = s.skills['辩才'] ?? 0
-      const { delta } = computeTalkFavorDelta(eloSkill, Math.random)
+      const { delta } = computeTalkFavorDelta(eloSkill, gameRng)
       const nextFavor = Math.max(MIN_NPC_FAVOR, Math.min(MAX_NPC_FAVOR, curFavor + delta))
       const actualDelta = nextFavor - curFavor
       const deltaLabel =
@@ -375,65 +373,11 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
 
     // 1. 非切磋类的生死对决失败 -> 死亡机制（Game Over）
     if (session.mode === 'duel' && session.outcome === 'npc_win') {
-      const gameOverPayload: GameOverState =
-        qHook?.deathTitle || qHook?.deathDetail
-          ? {
-              reasonTitle: qHook.deathTitle ?? '命陨江湖 · 侠踪绝响',
-              reasonDetail:
-                qHook.deathDetail ??
-                `生死相搏，刀剑无眼！少侠在与【${killerLabel}】的生死决战中气绝败北。`,
-              killerName: killerLabel,
-              songDate,
-              locationName: regionName,
-            }
-          : session.duelStakes === 'zhan_zhao_arrest'
-            ? {
-                reasonTitle: '开封府市曹处斩',
-                reasonDetail:
-                  '少侠因领绿林「纳投名状」劫掠大宋朝廷命官，名列朝廷黑名单。今踏入东京开封府被御前四品带刀护卫「南侠」展昭缉拿归案，押赴开封府市曹，狗头铡下明正典刑！',
-                killerName: killerLabel,
-                songDate,
-                locationName: regionName,
-              }
-            : session.duelStakes === 'liao_spy_duel'
-              ? {
-                  reasonTitle: '喋血燕云 · 为国捐躯',
-                  reasonDetail: `少侠奉常山枪派军令赴燕云诛除契丹密谍，在与【${killerLabel}】的生死决战中力竭重创，命陨塞北，马革裹尸！`,
-                  killerName: killerLabel,
-                  songDate,
-                  locationName: regionName,
-                }
-              : session.duelStakes === 'kaifeng_warrant'
-                ? {
-                    reasonTitle: '缉盗失手 · 血溅街巷',
-                    reasonDetail: `少侠奉开封府海捕公文缉拿江洋要犯【${killerLabel}】，殊死搏杀中力竭失手，惨遭凶徒毒刃反噬，血洒当场！`,
-                    killerName: killerLabel,
-                    songDate,
-                    locationName: regionName,
-                  }
-                : session.duelStakes === 'rob_official'
-                  ? {
-                      reasonTitle: '劫官败亡 · 伏尸当场',
-                      reasonDetail: `少侠欲劫掠大宋官员【${killerLabel}】以纳绿林投名状，岂料失手落败，当场毙命于刀兵之下！`,
-                      killerName: killerLabel,
-                      songDate,
-                      locationName: regionName,
-                    }
-                  : session.surviveToWin
-                    ? {
-                        reasonTitle: `${session.maxRounds}合未竟 · 命陨当场`,
-                        reasonDetail: `刀剑无眼，强敌难撄！少侠在与【${killerLabel}】的交锋中未能撑满 ${session.maxRounds} 回合，真气溃散重创倒地，当场毙命！`,
-                        killerName: killerLabel,
-                        songDate,
-                        locationName: regionName,
-                      }
-                    : {
-                        reasonTitle: '命陨江湖 · 侠踪绝响',
-                        reasonDetail: `生死相搏，刀剑无眼！少侠在与【${killerLabel}】的生死对决中气绝败北，血染尘沙，一世风云就此落幕。`,
-                        killerName: killerLabel,
-                        songDate,
-                        locationName: regionName,
-                      }
+      const gameOverPayload: GameOverState = buildCombatDeathPayload(session, {
+        killerLabel,
+        songDate,
+        locationName: regionName,
+      })
 
       set({
         activeCombat: null,
@@ -457,201 +401,34 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
 
     // 2. 存活结算（切磋/剧情试炼/撑回合任意结局 或 生死对决获胜/平局/脱逃）
     const res = computeCombatSettlement(s, session)
-    let nextSilver = s.silver
-    let nextInventory = s.inventory
-    const nextSectState = clonePlayerSectState(s.sectState)
-    const nextQuestState = cloneQuestRuntimeState(s.questState)
-    let extraLogText = res.logText
-    let extraLogTag = res.logTag
-    let triggerKaifengZhanZhao = false
-    let nextTournamentOpponent: NodeNpc | null = null
-    let finalHp = res.nextHp
-    let finalMp = res.nextMp
-
-    // 同门切磋获胜积攒微末功绩
     const dbTarget =
       (session.targetNpcNode.id && NPC_DB_MAP[session.targetNpcNode.id]) ||
       resolveNpcByName(session.targetNpcNode.name)
-    if (
-      session.outcome === 'player_win' &&
-      nextSectState.sectId &&
-      dbTarget?.factionId === nextSectState.sectId
-    ) {
-      nextSectState.contribution += 12
-      extraLogText += `（同门印证获门派功绩 +12，现 ${nextSectState.contribution}）`
-    }
-
-    // 星宿派（SECT-19）实力晋升判定：击败 Lv.2/Lv.3/Lv.4(或摘星子) 同门记录，杀死丁春秋即成掌门
-    if (session.outcome === 'player_win' && nextSectState.sectId === 'SECT-19') {
-      if (dbTarget?.factionId === 'SECT-19' && dbTarget.sectRank) {
-        const defeated = new Set(nextSectState.xingxiuDefeatedRanks)
-        defeated.add(dbTarget.sectRank)
-        if (dbTarget.id === 'NPC-0181') {
-          defeated.add(4)
-        }
-        nextSectState.xingxiuDefeatedRanks = Array.from(defeated)
-      }
-      if (
-        session.mode === 'duel' &&
-        dbTarget?.id === getSectLeaderNpcId('SECT-19')
-      ) {
-        nextSectState.killedDingChunqiu = true
-        nextSectState.rank = 5
-        nextSectState.rankLabel = getSectRankTitle('SECT-19', 5)
-        extraLogTag = '弑师夺位'
-        extraLogText = `少侠在生死决斗中击杀星宿老怪【丁春秋】！依星宿派弱肉强食之规，正式登临第 5 阶【${nextSectState.rankLabel}】尊位！`
-      }
-    }
-
-    // 二三流门派「武艺教学」切磋任务完成判定
-    if (
-      session.mode === 'spar' &&
-      session.outcome === 'player_win' &&
-      nextSectState.activeSectTask?.kind === 'martial_coaching' &&
-      !nextSectState.activeSectTask.completedStep
-    ) {
-      const task = nextSectState.activeSectTask
-      const matchedTarget =
-        (session.targetNpcNode.id && session.targetNpcNode.id === task.traineeNpcId) ||
-        (!session.targetNpcNode.id && session.targetNpcNode.name === task.traineeNpcName)
-      if (matchedTarget) {
-        nextSectState.activeSectTask = { ...task, completedStep: true }
-        extraLogTag = '宗门教学'
-        extraLogText += `（已完成宗门任务【${task.title}】切磋指点！请回【${task.sectName}】向掌门【${task.leaderName}】复命）`
-      }
-    }
-
-    // 绿林盟「纳投名状」劫官胜利（非声明式 hook 调用时的直通兜底）
-    if (!qHook && session.duelStakes === 'rob_official' && session.outcome === 'player_win') {
-      nextSilver += 60
-      nextSectState.toumingzhuangState = 'completed'
-      nextSectState.songCourtBlacklisted = true
-      nextQuestState.flags.toumingzhuang_state = 'completed'
-      nextQuestState.flags.toumingzhuang_completed = true
-      nextQuestState.flags.song_court_blacklisted = true
-      if (nextQuestState.activeQuests['QST-SECT-18-TOUMINGZHUANG']) {
-        nextQuestState.activeQuests['QST-SECT-18-TOUMINGZHUANG'] = {
-          ...nextQuestState.activeQuests['QST-SECT-18-TOUMINGZHUANG']!,
-          stepId: 'return_to_join',
-        }
-      }
-      extraLogTag = '投名状成'
-      extraLogText = `劫掠大宋官员【${session.npc.name}】得手，夺得官银 +60 两、战斗经验 +${res.combatExpGain}，已完成绿林【纳投名状】！⚠️ 少侠已被列入大宋朝廷黑名单：其他城池无碍，一旦进入【开封府】必遭南侠展昭挑战缉斩！`
-      if (s.activeRegionId === 'bianliang') {
-        triggerKaifengZhanZhao = true
-      }
-    }
-
-    let nextCombatExp = res.nextCombatExp
-    let nextChivalry = s.chivalry
-    let nextEscortContract = s.activeEscortContract
-
-    // 常山枪派「半年度燕云锄奸」诛杀辽谍胜利（赏银受【策论】干略加成）
-    if (session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win') {
-      const spyBounty = computeCelunBonusAmount(50, res.derived.skills['策论'] ?? 0)
-      nextSectState.activeLiaoSpy = null
-      nextSectState.changshanMissedCount = 0
-      nextSectState.contribution += 100
-      nextSilver += spyBounty
-      extraLogTag = '燕云锄奸'
-      extraLogText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派半年军令，获门派功绩 +100（现 ${nextSectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +${spyBounty} 两${spyBounty > 50 ? `（含策论加成 +${spyBounty - 50} 两）` : ''}！`
-    }
-
-    // 若从展昭剑下侥幸获胜
-    if (session.duelStakes === 'zhan_zhao_arrest' && session.outcome === 'player_win') {
-      extraLogTag = '震动东京'
-      extraLogText = `少侠竟在东京街头力挫御前四品带刀护卫「南侠」展昭（战斗经验 +${res.combatExpGain}），杀出重围！然朝廷黑名单未消，再度踏入开封仍将遭展昭截杀！`
-    }
-
-    // 开封府 / 六扇门「海捕公文」缉拿要犯胜利（赏银受【策论】干略加成）
-    if (
-      session.outcome === 'player_win' &&
-      nextSectState.sectId === 'SECT-17' &&
-      nextSectState.activeKaifengWarrant &&
-      session.targetNpcNode.id === `KAIFENG_WARRANT_${nextSectState.activeKaifengWarrant.id}`
-    ) {
-      const warrant = nextSectState.activeKaifengWarrant
-      const warrantBounty = computeCelunBonusAmount(15, res.derived.skills['策论'] ?? 0)
-      nextSectState.activeKaifengWarrant = null
-      nextSectState.kaifengCasesSolved += 1
-      if (warrant.deadlineDay) {
-        nextSectState.kaifengMissedCount = 0
-      }
-      nextSilver += warrantBounty
-      extraLogTag = '缉拿归案'
-      extraLogText = `少侠顺利擒获海捕要犯【${warrant.targetName}（${warrant.targetTitle}）】归案！当前阶位办案量 +1（累计 ${nextSectState.kaifengCasesSolved} 次），获开封府赏银 +${warrantBounty} 两${warrantBounty > 15 ? `（含策论加成 +${warrantBounty - 15} 两）` : ''}、战斗经验 +${res.combatExpGain}！`
-    }
-
-    // 镖师走镖「绿林劫镖」护送战结算
-    if (session.duelStakes === 'escort_ambush') {
-      const contract = s.activeEscortContract
-      if (session.outcome === 'player_win') {
-        nextCombatExp += 25
-        nextChivalry += 1
-        extraLogTag = '击退劫匪'
-        extraLogText = `刀光染血，少侠力挫【${session.npc.name}】，死死护住镖车【${contract?.cargoName ?? '红货'}】毫发无损（额外战斗经验 +25 · 侠义 +1）！请于天下舆图继续启程赶赴【${contract?.destName ?? '目的地'}】交割领酬。`
-      } else if (session.outcome === 'escaped') {
-        nextEscortContract = null
-        extraLogTag = '弃镖脱身'
-        extraLogText = `劫匪势众凶悍，少侠只得弃下镖箱【${contract?.cargoName ?? '红货'}】抽身掠出重围，此趟走镖差事宣告失利。`
-      } else {
-        const lostSilver = Math.min(nextSilver, 10)
-        nextSilver -= lostSilver
-        nextEscortContract = null
-        finalHp = Math.max(1, Math.min(finalHp, Math.round(res.derived.maxHp * 0.35)))
-        extraLogTag = '失镖受挫'
-        extraLogText = `少侠双拳难敌四手，被【${session.npc.name}】夺走镖车【${contract?.cargoName ?? '红货'}】${lostSilver > 0 ? `并搜去盘缠 ${lostSilver} 两` : ''}，幸得留下一命！`
-      }
-    }
-
-    // 道门与名山剑派「宗门大比」1v1 淘汰赛结算
-    if (session.duelStakes === 'sect_tournament' && nextSectState.activeSectTournament) {
-      const tourney = nextSectState.activeSectTournament
-      if (session.outcome === 'player_win') {
-        if (tourney.round < 3) {
-          const nextRound = (tourney.round + 1) as 2 | 3
-          nextSectState.activeSectTournament = { ...tourney, round: nextRound }
-          finalHp = res.derived.maxHp
-          finalMp = res.derived.maxMp
-          const nextOpp = tourney.opponents[nextRound - 1]!
-          nextTournamentOpponent = buildNodeNpcFromTournamentOpponent(
-            tourney.sectId,
-            nextOpp,
-            nextRound,
-          )
-          extraLogTag = '宗门大比'
-          extraLogText = `宗门大比第 ${tourney.round} 轮力克【${session.npc.name}】，成功晋级${nextRound === 2 ? '四强' : '决赛'}！经演武场调息恢复后，迎战下一位同门【${nextOpp.name}】！`
-        } else {
-          // 连胜三轮夺魁
-          nextSectState.activeSectTournament = null
-          nextSectState.wonSectTournament = true
-          nextInventory = addItemToInventory(nextInventory, SECT_TOURNAMENT_TOKEN_ITEM_ID, 1)
-          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-111', 1)
-          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-113', 1)
-          nextSilver += 50
-          extraLogTag = '大比夺魁'
-          extraLogText = `连克三阵，力压群雄！少侠夺得【${tourney.sectName}】第 ${tourney.yearIndex} 届宗门大比冠军！获赐《宗门大比冠军信物》×1、嵩山少林小还丹 ×1、太医局紫雪神丹 ×1、纹银 +50 两！`
-        }
-      } else {
-        // 止步当前轮次，发放对应名次奖励
-        nextSectState.activeSectTournament = null
-        extraLogTag = '宗门大比'
-        if (tourney.round === 1) {
-          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-122', 1)
-          nextSilver += 10
-          extraLogText = `宗门大比首轮止步八强，宗门赐予慰勉：熟药所行军跌打丸 ×1、纹银 +10 两。`
-        } else if (tourney.round === 2) {
-          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-122', 1)
-          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-123', 1)
-          nextSilver += 20
-          extraLogText = `宗门大比闯入四强，惜败于半决赛！宗门赐予嘉奖：熟药所行军跌打丸 ×1、太乙回气清心散 ×1、纹银 +20 两。`
-        } else {
-          nextInventory = addItemToInventory(nextInventory, 'ITM-MED-111', 1)
-          nextSilver += 35
-          extraLogText = `宗门大比杀入决赛，惜居亚军！宗门赐予厚赏：嵩山少林小还丹 ×1、纹银 +35 两。`
-        }
-      }
-    }
+    const d = applyCombatSettlementRules(
+      {
+        silver: s.silver,
+        inventory: s.inventory,
+        sectState: clonePlayerSectState(s.sectState),
+        questState: cloneQuestRuntimeState(s.questState),
+        combatExp: res.nextCombatExp,
+        chivalry: s.chivalry,
+        escortContract: s.activeEscortContract,
+        hp: res.nextHp,
+        mp: res.nextMp,
+        logTag: res.logTag,
+        logText: res.logText,
+        triggerKaifengZhanZhao: false,
+        nextTournamentOpponent: null,
+      },
+      {
+        session,
+        res,
+        qHook,
+        dbTarget,
+        activeRegionId: s.activeRegionId,
+        activeEscortContract: s.activeEscortContract,
+      },
+    )
 
     set({
       activeCombat: null,
@@ -662,13 +439,13 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
           session.outcome === 'player_win')
           ? null
           : s.activeNpcInteraction,
-      combatExp: nextCombatExp,
-      chivalry: nextChivalry,
-      activeEscortContract: nextEscortContract,
-      silver: nextSilver,
-      inventory: nextInventory,
-      sectState: nextSectState,
-      questState: nextQuestState,
+      combatExp: d.combatExp,
+      chivalry: d.chivalry,
+      activeEscortContract: d.escortContract,
+      silver: d.silver,
+      inventory: d.inventory,
+      sectState: d.sectState,
+      questState: d.questState,
       baseStats: res.nextBaseStats,
       learnedArts: res.nextLearnedArts,
       npcFavor: res.nextNpcFavor,
@@ -679,18 +456,18 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       res: res.derived.res,
       skills: res.derived.skills,
       maxHp: res.derived.maxHp,
-      hp: finalHp,
+      hp: d.hp,
       maxMp: res.derived.maxMp,
-      mp: finalMp,
+      mp: d.mp,
       actionFeedback: {
-        text: extraLogText,
+        text: d.logText,
         tone: session.outcome === 'npc_win' || session.outcome === 'escaped' ? 'warn' : 'success',
       },
       logs: [
         createLogEntry(
           s.dayCount,
-          extraLogTag,
-          extraLogText,
+          d.logTag,
+          d.logText,
           session.outcome === 'player_win' || res.anyBreakthrough,
           s.shichenIdx,
         ),
@@ -698,10 +475,12 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       ].slice(0, 60),
     })
 
-    if (nextTournamentOpponent) {
-      get().startNpcCombat(nextTournamentOpponent, 'spar', 'sect_tournament', true)
+    if (d.nextTournamentOpponent) {
+      get().startNpcCombat(d.nextTournamentOpponent, 'spar', 'sect_tournament', true)
       return
     }
+
+    let triggerZhanZhao = d.triggerKaifengZhanZhao
 
     // 3. 若挂载了声明式剧情战后回调钩子，按结局分支执行 QuestEffect[]
     if (qHook) {
@@ -728,11 +507,11 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
         !afterHook.activeCombat &&
         !afterHook.gameOver
       ) {
-        triggerKaifengZhanZhao = true
+        triggerZhanZhao = true
       }
     }
 
-    if (triggerKaifengZhanZhao) {
+    if (triggerZhanZhao) {
       get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
       return
     }

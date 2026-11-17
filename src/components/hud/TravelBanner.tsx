@@ -1,5 +1,5 @@
 import { useGameStore } from '../../store/useGameStore'
-import { NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
+import { NODE_MAP, WORLD_GRAPH } from '../../engine/world/mapMath'
 
 export function TravelBanner() {
   const traveling = useGameStore((s) => s.traveling)

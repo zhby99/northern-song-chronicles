@@ -19,7 +19,7 @@ import {
   isBuildingUnlocked,
   NODE_MAP,
   REGIONAL_CONFIGS,
-} from '../../utils/mapMath'
+} from '../../engine/world/mapMath'
 
 const SvgBuildingInteriorFallback = lazy(() =>
   import('./SvgBuildingInteriorFallback').then((m) => ({

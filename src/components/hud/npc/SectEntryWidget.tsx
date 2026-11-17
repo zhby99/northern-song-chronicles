@@ -1,7 +1,7 @@
 import { buildSectJoinConfirmScene } from '../../../data/sectJoinDialogues'
 import type { QuestEffect } from '../../../types/quest'
 import type { NodeNpc, PlayerSectState } from '../../../types/game'
-import type { SectJoinEvaluation } from '../../../utils/sectMechanics'
+import type { SectJoinEvaluation } from '../../../engine/sect'
 
 interface SectEntryWidgetProps {
   targetFactionId: string

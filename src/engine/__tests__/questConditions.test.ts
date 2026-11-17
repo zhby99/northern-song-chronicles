@@ -6,8 +6,8 @@ import {
   evaluateQuestCondition,
   type QuestEvalContext,
 } from '../questEngine'
-import { cloneHeroBaseStats } from '../../utils/heroStats'
-import { clonePlayerSectState } from '../../utils/sectMechanics'
+import { cloneHeroBaseStats } from '../stats/heroStats'
+import { clonePlayerSectState } from '../sect'
 
 function makeContext(overrides: Partial<QuestEvalContext> = {}): QuestEvalContext {
   const baseStats = cloneHeroBaseStats()

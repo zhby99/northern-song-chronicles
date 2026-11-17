@@ -28,14 +28,14 @@ import {
   DEFAULT_HERO_BASE_STATS,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
-} from '../utils/heroStats'
-import { WORLD_GRAPH } from '../utils/mapMath'
-import { MAX_NPC_FAVOR } from '../utils/npcFavor'
-import { type CombatSessionState } from '../utils/combatEngine'
+} from '../engine/stats/heroStats'
+import { WORLD_GRAPH } from '../engine/world/mapMath'
+import { MAX_NPC_FAVOR } from '../engine/social/npcFavor'
+import { type CombatSessionState } from '../engine/combat'
 import {
   clonePlayerSectState,
   DEFAULT_PLAYER_SECT_STATE,
-} from '../utils/sectMechanics'
+} from '../engine/sect'
 
 export const LABEL_KEYS: LabelToggleKey[] = ['cityLabels', 'sectPassLabels', 'masters', 'distance']
 

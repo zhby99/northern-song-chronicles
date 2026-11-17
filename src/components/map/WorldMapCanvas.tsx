@@ -3,7 +3,7 @@ import { getUnlockedLockedRegionKey, isRegionUnlockedByKey } from '../../data/it
 import { WORLD_SVG_DEFS_MARKUP, WORLD_SVG_STATIC_GEO_MARKUP } from '../../data/worldBaseSvg'
 import { useGameStore } from '../../store/useGameStore'
 import type { FactionKind, WorldNode } from '../../types/game'
-import { clientToSvgCoords, findBestRoute, NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
+import { clientToSvgCoords, findBestRoute, NODE_MAP, WORLD_GRAPH } from '../../engine/world/mapMath'
 
 const CAPITALS = new Set([
   'bianliang',

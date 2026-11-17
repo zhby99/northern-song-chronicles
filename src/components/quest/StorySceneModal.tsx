@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { evaluateQuestCondition, resolveStorySpeaker } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { resolveAssetUrl } from '../../utils/assetLoader'
-import { interpolateReignYear } from '../../utils/mapMath'
+import { interpolateReignYear } from '../../engine/world/mapMath'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 export function StorySceneModal() {

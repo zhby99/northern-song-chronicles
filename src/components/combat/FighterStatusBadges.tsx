@@ -1,5 +1,5 @@
 import { MARTIAL_ART_DB_MAP } from '../../data/gameDb'
-import type { CombatantState } from '../../utils/combatEngine'
+import type { CombatantState } from '../../engine/combat'
 
 export function FighterStatusBadges({ fighter }: { fighter: CombatantState }) {
   const lockedArt = fighter.lastUsedArtId ? MARTIAL_ART_DB_MAP[fighter.lastUsedArtId] : null

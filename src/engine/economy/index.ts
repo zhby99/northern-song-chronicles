@@ -13,6 +13,7 @@ import type {
   TerrainType,
   VocationKey,
 } from '../../types/game'
+import { defaultRng } from '../combat/rng'
 import { makeQuestNpc } from '../npcFactory'
 import {
   findBestRoute,
@@ -160,7 +161,7 @@ export function computeCharmFavorMultiplier(charm: number): number {
 /** 辩才交谈好感增益：rand(-1, 3) + 辩才 / 30 */
 export function computeTalkFavorDelta(
   eloquenceSkill: number,
-  rng: () => number = Math.random,
+  rng: () => number = defaultRng,
 ): { rawRoll: number; bonus: number; delta: number } {
   const clampedRng = Math.min(0.999999, Math.max(0, rng()))
   const rawRoll = Math.floor(clampedRng * 5) - 1 // 均匀取整数 -1..3

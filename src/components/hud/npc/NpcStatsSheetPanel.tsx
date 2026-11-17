@@ -10,8 +10,8 @@ import {
 } from '../../../data/itemsDb'
 import { MARTIAL_ART_SLOT_METAS } from '../../../data/playerMartialArts'
 import type { CompiledNpcRecord, NodeNpc } from '../../../types/game'
-import { deriveNpcEffectiveStats } from '../../../utils/heroStats'
-import { getNpcFavorProfile } from '../../../utils/npcFavor'
+import { deriveNpcEffectiveStats } from '../../../engine/stats/heroStats'
+import { getNpcFavorProfile } from '../../../engine/social/npcFavor'
 
 interface NpcStatsSheetPanelProps {
   npc: NodeNpc

@@ -5,7 +5,7 @@ import {
   isRegionUnlockedByKey,
 } from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
-import { findBestRoute, NODE_MAP, WORLD_GRAPH } from '../../../utils/mapMath'
+import { findBestRoute, NODE_MAP, WORLD_GRAPH } from '../../../engine/world/mapMath'
 
 export function WorldNodeInspectorCard() {
   const currentNodeId = useGameStore((s) => s.currentNodeId)

@@ -44,7 +44,7 @@ import {
   type CombatActionChoice,
   type CombatSessionState,
   type DuelStakesKind,
-} from '../utils/combatEngine'
+} from '../engine/combat'
 
 export interface GameStoreState {
   dayCount: number

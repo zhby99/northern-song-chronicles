@@ -9,7 +9,7 @@ import {
   type CombatantState,
   type CombatOutcome,
   type CombatRoundBeat,
-} from '../../utils/combatEngine'
+} from '../../engine/combat'
 import { FighterStatusBadges } from './FighterStatusBadges'
 
 interface EnemyStatusPanelProps {

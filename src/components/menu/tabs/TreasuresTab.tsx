@@ -11,7 +11,7 @@ import {
 import { useGameStore } from '../../../store/useGameStore'
 import type { BagCategoryKey, CompiledMartialArtRecord, EquipmentTier } from '../../../types/game'
 import { resolveAssetUrl } from '../../../utils/assetLoader'
-import { getMedicineRealmScale, scaleMedicineRecovery } from '../../../utils/realmUtils'
+import { getMedicineRealmScale, scaleMedicineRecovery } from '../../../engine/stats/realmUtils'
 import { BagCatIcon } from '../MenuIcons'
 import type { TreasureCollectionStats } from '../menuShared'
 import { ItemAcquisitionBanner } from '../ItemAcquisitionBanner'

@@ -17,8 +17,8 @@ import {
 import { MARTIAL_ART_SLOT_METAS } from '../../../data/playerMartialArts'
 import { useGameStore } from '../../../store/useGameStore'
 import type { CompiledMartialArtRecord, CompiledNpcRecord } from '../../../types/game'
-import { deriveNpcEffectiveStats } from '../../../utils/heroStats'
-import { getBuildingLockMeta, NODE_MAP, WORLD_GRAPH } from '../../../utils/mapMath'
+import { deriveNpcEffectiveStats } from '../../../engine/stats/heroStats'
+import { getBuildingLockMeta, NODE_MAP, WORLD_GRAPH } from '../../../engine/world/mapMath'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 
 interface PortraitsTabProps {

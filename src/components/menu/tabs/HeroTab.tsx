@@ -21,14 +21,14 @@ import {
   calcDailyExpByCategory,
   getHeroAge,
   isPlayerInFreeLodgingRegion,
-} from '../../../utils/heroStats'
-import { getEffectiveSpeed, resolveMountMeta } from '../../../utils/mapMath'
-import { estimateHeroRealmByMp, getNextRealmTier } from '../../../utils/realmUtils'
+} from '../../../engine/stats/heroStats'
+import { getEffectiveSpeed, resolveMountMeta } from '../../../engine/world/mapMath'
+import { estimateHeroRealmByMp, getNextRealmTier } from '../../../engine/stats/realmUtils'
 import {
   getChangshanMonthlyStipend,
   getImperialGuardMonthlyStipend,
   getKaifengMonthlyStipend,
-} from '../../../utils/sectMechanics'
+} from '../../../engine/sect'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 import type { LightboxState } from '../menuShared'
 

@@ -6,7 +6,7 @@ import {
   getArtStageLabel,
   getExpForArtLevel,
   MAX_ART_EXP,
-} from '../../utils/artsProgression'
+} from '../../engine/stats/artsProgression'
 
 const SPEED_OPTIONS: Array<{ step: CultivationSpeedStep; label: string; desc: string }> = [
   { step: 1, label: '1x', desc: '0.1秒/时辰' },

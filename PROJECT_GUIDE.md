@@ -45,7 +45,8 @@ graph TD
 northern-song-chronicles/
 ├── index.html                           # 网页入口单页
 ├── package.json                         # 项目依赖与运行脚本
-├── tsconfig.json / tsconfig.app.json    # TypeScript 配置
+├── tsconfig.json / tsconfig.app.json    # TypeScript 配置（app 项目排除测试文件）
+├── tsconfig.test.json                 # 单元测试类型检查项目（vitest，`tsc -b` 一并校验）
 ├── vite.config.ts                       # Vite 构建与音频自动扫描插件配置
 ├── AGENTS.md / .gemini/GEMINI.md        # Agent 全局工程守则与上下文锚点
 ├── PROJECT_GUIDE.md                     # 本文档 (项目全局导引与资源索引)
@@ -106,6 +107,15 @@ northern-song-chronicles/
 │   │   ├── assetManifest.json           # 生产资源清单索引
 │   │   └── portraitCatalog.json         # 人物立绘与模板映射表 (249 核心角色目录)
 │   │
+│   ├── engine/                          # 纯函数玩法引擎（不依赖 React / store，供切片与测试直接调用）
+│   │   ├── combat/                      # 同步盲选回合战斗：round/ 回合结算、effects/ 37 门天阶特效注册表、ai.ts、rng.ts
+│   │   │   └── settlement.ts            # 战后结算注册表：按 duelStakes 查表的终局文案 + 有序结算规则 COMBAT_SETTLEMENT_RULES
+│   │   ├── sect/                        # 门派入门 / 晋升 / 月俸 / 大比 / 诛谍 / 海捕；resetSectMembership() 统一离派重置
+│   │   ├── quest/ + questEngine.ts      # 声明式剧情 DSL、效果处理器与任务图
+│   │   ├── time/                        # 十二时辰推进、月度钩子与闭关结算
+│   │   ├── economy/ · social/ · stats/ · world/ · shared/
+│   │   └── __tests__/                   # vitest 单元测试（含 store 级战后结算测试）
+│   │
 │   ├── store/                           # 模块化全局状态管理 (Zustand Slices)
 │   │   ├── useGameStore.ts              # 根状态机聚合入口 (对外保持统一 Hook 与 Context 签名)
 │   │   ├── storeTypes.ts                # GameStoreState、GameStoreData 与 StoreSlice 类型契约
@@ -120,12 +130,11 @@ northern-song-chronicles/
 │   │       └── uiSaveSlice.ts           # 全局枢机/图鉴/日志抽屉 UI 控制与多槽位 IndexedDB 存取档
 │   │
 │   ├── types/                           # 全局 TypeScript 接口与类型定义
-│   │   └── game.ts                      # Region, Building, NPC, MartialArt, Weapon, Inventory, M1.5.0 存档等类型
+│   │   └── game.ts                      # Region, Building, NPC, MartialArt, Weapon, Inventory, M1.5.3 存档等类型
 │   │
 │   └── utils/                           # 工具方法库
 │       ├── assetLoader.ts               # 图片素材按需懒加载与字节监控工具
 │       ├── bgmManager.ts                # Web Audio 无缝循环与四分类场景 BGM 播放列表引擎
-│       ├── mapMath.ts                   # 十二时辰历法换算、Dijkstra 最短路径、旷野扎营与坐骑速度公式
 │       └── saveManager.ts               # IndexedDB + LocalStorage 多槽位存取档与 JSON 导入导出校验
 │
 ├── public/                              # 生产运行资源静态目录 (被 Vite 直接托管)
@@ -167,17 +176,23 @@ northern-song-chronicles/
   - **群侠与战斗 (`combatSocialSlice.ts`)**：NPC 交谈、赠礼好感结算、同步盲选六择一回合战斗与生死战 `GameOverModal` 重置。
   - **门派与公门 (`sectSlice.ts`)**：33 门派拜师晋升、二月初一宗门大比、常山半年诛谍、六扇门海捕公案、举荐帖与本门武学传授。
   - **剧情引擎 (`questSlice.ts`)**：声明式 `QuestEffect` 执行器、`StorySceneModal` 对白幕次与抉择推进、地点触发器与任务时限巡检。
-  - **界面与存取档 (`uiSaveSlice.ts`)**：十卷枢机菜单、万象图鉴、浮动笺纸提示及多槽位 `M1.5.0` IndexedDB/JSON 存取档。
+  - **界面与存取档 (`uiSaveSlice.ts`)**：十卷枢机菜单、万象图鉴、浮动笺纸提示及多槽位 `M1.5.3` IndexedDB/JSON 存取档。
 
 ### 2. 静态数据库与器物武学表 (`gameDb.ts` / `itemsDb.ts` / `scrollsDb.ts` / `playerMartialArts.ts`)
 - **`gameDb.ts`**：导出 `REGIONS_DB`（43）、`BUILDINGS_DB`（268）、`MARTIAL_ARTS_DB`（246）、`WEAPONS_DB`（100）、`NPCS_DB`（1,047）及 O(1) 哈希索引 Map。
 - **`itemsDb.ts` & `scrollsDb.ts`**：定义 7 槽位元数据、4 分类行囊元数据、100 种百兵映射、100 卷典籍书画、30 种丹药毒物、50 件雅器百工，以及 `computeEquipmentTotals()` 与 `computeWeaponArtSynergy()` 兵武共鸣计算器。
 - **`playerMartialArts.ts`**：定义 6 个武学运使槽位校验、1~10 重火候升级经验曲线与 `computeEquippedArtsTotals()`。
 
-### 3. 素材懒加载、雅乐与历法数学库 (`assetLoader.ts` / `bgmManager.ts` / `mapMath.ts`)
+### 3. 素材懒加载、雅乐与历法数学库 (`assetLoader.ts` / `bgmManager.ts` / `engine/world/mapMath.ts`)
 - **`useLazyImage(src)`**：按需懒加载当前视口原画并统计累计解码体积。
 - **`bgmManager.ts`**：基于 Web Audio 无缝循环与 HTMLAudio 播放列表，按 `events > characters > regions > world` 优先级自动切换场景配乐。
 - **`findBestRoute()` / `getEffectiveSpeed()`**：基于装备栏第 7 槽【坐骑】与轻功/骑术修正计算真实地理行军速度与支持旷野营地起算的最短官道拓扑。
+
+### 4. 玩法引擎约定 (`src/engine/`)
+- **导入路径**：玩法逻辑一律从 `src/engine/*` 导入（旧的 `src/utils/{combatEngine,heroStats,mapMath,sectMechanics,...}` 转发文件已删除）。
+- **随机数**：所有玩法随机经由 `engine/combat/rng.ts` 的 `gameRng`；测试与回放可 `setGameRng(createSeededRng(seed))` 让整局 store 行为可复现（音效噪声合成不在此列）。
+- **战后结算**：新增一类战斗（新 `duelStakes`）时，在 `engine/combat/settlement.ts` 追加终局文案或结算规则，`combatSocialSlice.finishCombatSession()` 只负责提交草稿与后续跳转。
+- **战阵毒药数值**：由 `docs/EQUIPMENT_COMPENDIUM.md` 规格列 `poisonCombat` 字段编译生成，战斗代码不再按物品 ID 写死。
 
 ---
 

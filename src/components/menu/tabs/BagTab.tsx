@@ -14,7 +14,7 @@ import {
 } from '../../../engine/economy'
 import { useGameStore } from '../../../store/useGameStore'
 import { resolveAssetUrl } from '../../../utils/assetLoader'
-import { getMedicineRealmScale, scaleMedicineRecovery } from '../../../utils/realmUtils'
+import { getMedicineRealmScale, scaleMedicineRecovery } from '../../../engine/stats/realmUtils'
 import type {
   BagCategoryKey,
   CompiledMartialArtRecord,

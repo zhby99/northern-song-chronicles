@@ -2,14 +2,14 @@ import { FACTION_DB_MAP } from '../../../data/gameDb'
 import type { getAvailableNpcQuestActions } from '../../../engine/questEngine'
 import { useGameStore } from '../../../store/useGameStore'
 import type { CompiledNpcRecord, NodeNpc } from '../../../types/game'
-import { estimateHeroRealm } from '../../../utils/realmUtils'
+import { estimateHeroRealm } from '../../../engine/stats/realmUtils'
 import {
   evaluateSectEntry,
   evaluateSectPromotion,
   getSectLeaderNpcId,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
   SHAOLIN_CHORE_TARGET_DAYS,
-} from '../../../utils/sectMechanics'
+} from '../../../engine/sect'
 import { SectEntryWidget } from './SectEntryWidget'
 import { SectPromotionAndRulesWidget } from './SectPromotionAndRulesWidget'
 import { SectTasksAndBountiesWidget } from './SectTasksAndBountiesWidget'

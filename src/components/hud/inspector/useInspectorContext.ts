@@ -15,19 +15,19 @@ import {
 import { getAvailableSpotQuestActions } from '../../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
 import type { NodeNpc } from '../../../types/game'
-import { getBuildingArtTrainingOptions } from '../../../utils/artsProgression'
+import { getBuildingArtTrainingOptions } from '../../../engine/stats/artsProgression'
 import {
   isInnBuildingRecord,
   isPlayerInFreeLodgingRegion,
   isTavernBuildingRecord,
-} from '../../../utils/heroStats'
-import { getRegionAllBuildings, NODE_MAP } from '../../../utils/mapMath'
+} from '../../../engine/stats/heroStats'
+import { getRegionAllBuildings, NODE_MAP } from '../../../engine/world/mapMath'
 import {
   buildNodeNpcFromKaifengWarrant,
   buildNodeNpcFromLiaoSpy,
   buildNodeNpcFromSectTaskIntel,
   buildNodeNpcFromSectTaskTrainee,
-} from '../../../utils/sectMechanics'
+} from '../../../engine/sect'
 
 export interface InspectedTargetSummary {
   id: string

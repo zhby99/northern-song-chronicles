@@ -11,9 +11,9 @@ import type {
   NodeNpc,
 } from '../../types/game'
 import type { ActiveQuestCombatHook } from '../../types/quest'
-import { deriveHeroEffectiveStats, deriveNpcEffectiveStats } from '../../utils/heroStats'
+import { deriveHeroEffectiveStats, deriveNpcEffectiveStats } from '../stats/heroStats'
 import { inferTemplatePortrait } from '../../utils/portraitFallback'
-import { estimateHeroRealm } from '../../utils/realmUtils'
+import { estimateHeroRealm } from '../stats/realmUtils'
 import type {
   CombatantState,
   CombatLogEntry,

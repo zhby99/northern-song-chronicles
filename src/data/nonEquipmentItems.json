@@ -62,7 +62,14 @@
     "value": 370,
     "desc": "天山童姥巫行云独步西域的阴阳暗器奇毒，以昆仑寒玉匣封存薄如柳叶的酒水冰片，打入经脉后奇痒剧痛交作，求生不得、求死不能。",
     "lore": "三十六洞七十二岛群豪闻“生死符”三字莫不魂飞魄散，唯有天山六阳掌真气可解。",
-    "poisonEffect": "战阵奇毒 · 种入敌身令其真气逆乱、攻防暴跌，每回合持续噬血封脉（无视常规护甲）"
+    "poisonEffect": "战阵奇毒 · 种入敌身令其真气逆乱、攻防暴跌，每回合持续噬血封脉（无视常规护甲）",
+    "poisonCombat": {
+      "damage": 920,
+      "mpDrainPct": 22,
+      "slowPct": 24,
+      "weakPct": 28,
+      "stunChancePct": 55
+    }
   },
   {
     "id": "ITM-MED-105",
@@ -75,7 +82,14 @@
     "value": 357,
     "desc": "星宿老仙丁春秋取昆仑毒泉五圣奇虫精炼的无色无味毒粉，微风拂动即悄然入体，中者连笑三声便气绝经断，诡谲莫测。",
     "lore": "碧玉瓶塞刻有星宿海骷髅暗记，非抗性高绝或深谙毒理者不可轻启。",
-    "poisonEffect": "战阵奇毒 · 范围暗算奇毒，令目标心脉痉挛、三回合内接连触发剧烈毒伤与定身失神"
+    "poisonEffect": "战阵奇毒 · 范围暗算奇毒，令目标心脉痉挛、三回合内接连触发剧烈毒伤与定身失神",
+    "poisonCombat": {
+      "damage": 920,
+      "mpDrainPct": 22,
+      "slowPct": 24,
+      "weakPct": 28,
+      "stunChancePct": 55
+    }
   },
   {
     "id": "ITM-MED-106",
@@ -135,7 +149,13 @@
     "value": 129,
     "desc": "西夏兴庆府一品堂秘藏的无色奇毒，盛于双层乌金瓷瓶中。临阵迎风挥洒，敌手双目酸泪不止，周身内力一时酸麻溃散。",
     "lore": "一品堂高手潜入中原刺探少林丐帮军情时，常以此物以寡敌众。",
-    "poisonEffect": "战阵奇毒 · 化作无形毒雾笼罩敌阵，大幅削减敌方内力与身法集气，令其难以施展绝学"
+    "poisonEffect": "战阵奇毒 · 化作无形毒雾笼罩敌阵，大幅削减敌方内力与身法集气，令其难以施展绝学",
+    "poisonCombat": {
+      "damage": 320,
+      "mpDrainPct": 35,
+      "slowPct": 22,
+      "weakPct": 24
+    }
   },
   {
     "id": "ITM-MED-110",
@@ -147,7 +167,14 @@
     "stackable": false,
     "value": 125,
     "desc": "蜀中唐家堡天机阁主唐无影督炼的乌黑毒膏，专供涂抹暗器刃口，见血封喉，纵是横练铁布衫高手擦破油皮亦难逃毒火攻心。",
-    "poisonEffect": "战阵淬毒 · 涂抹于兵刃弓矢之上，命中后附加深层七煞腐脉剧毒并削弱目标抗性"
+    "poisonEffect": "战阵淬毒 · 涂抹于兵刃弓矢之上，命中后附加深层七煞腐脉剧毒并削弱目标抗性",
+    "poisonCombat": {
+      "damage": 540,
+      "mpDrainPct": 10,
+      "slowPct": 22,
+      "weakPct": 24,
+      "resShred": 12
+    }
   },
   {
     "id": "ITM-MED-111",
@@ -258,7 +285,13 @@
     "stackable": true,
     "value": 40,
     "desc": "广源州与南疆十万大山巫蛊师秘养金蚕蛊蜕研磨之碧绿细粉，着肤即蚀，令敌手气血蚕食、内息滞涩。",
-    "poisonEffect": "战阵蛊毒 · 扬洒后附着敌身，每回合吸蚀气血并迟滞其移动步数"
+    "poisonEffect": "战阵蛊毒 · 扬洒后附着敌身，每回合吸蚀气血并迟滞其移动步数",
+    "poisonCombat": {
+      "damage": 260,
+      "mpDrainPct": 8,
+      "slowPct": 20,
+      "weakPct": 18
+    }
   },
   {
     "id": "ITM-MED-118",
@@ -270,7 +303,13 @@
     "stackable": true,
     "value": 38,
     "desc": "星宿派门人摘星子等在陕北塞外暗炼的腥臭毒砂，以油皮小囊封装，掷出炸裂后毒烟弥漫，沾者皮肉溃烂。",
-    "poisonEffect": "战阵毒器 · 投掷覆盖十字格区域，造成外功毒伤并留下恶臭毒障区域"
+    "poisonEffect": "战阵毒器 · 投掷覆盖十字格区域，造成外功毒伤并留下恶臭毒障区域",
+    "poisonCombat": {
+      "damage": 260,
+      "mpDrainPct": 8,
+      "slowPct": 20,
+      "weakPct": 18
+    }
   },
   {
     "id": "ITM-MED-119",
@@ -282,7 +321,13 @@
     "stackable": true,
     "value": 30,
     "desc": "捕江南太湖与岭南赤练毒蛇取腺毒熬制的猩红毒液，绿林好汉与邪派刺客常涂于飞刀袖箭之上，中者伤口火辣麻木。",
-    "poisonEffect": "战阵淬毒 · 提升兵刃或弓箭本场首次命中的破防毒伤，令对手身法骤降"
+    "poisonEffect": "战阵淬毒 · 提升兵刃或弓箭本场首次命中的破防毒伤，令对手身法骤降",
+    "poisonCombat": {
+      "damage": 260,
+      "mpDrainPct": 8,
+      "slowPct": 20,
+      "weakPct": 18
+    }
   },
   {
     "id": "ITM-MED-120",
@@ -294,7 +339,14 @@
     "stackable": true,
     "value": 31,
     "desc": "取洋金花（曼陀罗）、川乌与西域迷迭香精细配伍的绯色香粉，混入酒水或迎风弹指，可令寻常武夫头重脚轻、昏沉欲睡。",
-    "poisonEffect": "战阵迷香 · 干扰敌方神智，大幅降低目标闪避率与集气速度"
+    "poisonEffect": "战阵迷香 · 干扰敌方神智，大幅降低目标闪避率与集气速度",
+    "poisonCombat": {
+      "damage": 150,
+      "mpDrainPct": 8,
+      "slowPct": 20,
+      "weakPct": 18,
+      "stunChancePct": 32
+    }
   },
   {
     "id": "ITM-MED-121",
@@ -409,7 +461,14 @@
     "stackable": true,
     "value": 16,
     "desc": "太行山与京东绿林黑店惯用的粗制麻沸迷药，油纸包封，下在浊酒肉汤之中可令大意行客浑身酸软、人事不知。",
-    "poisonEffect": "战阵迷药 · 令缺乏防备的低抗性目标短暂眩晕迟缓"
+    "poisonEffect": "战阵迷药 · 令缺乏防备的低抗性目标短暂眩晕迟缓",
+    "poisonCombat": {
+      "damage": 120,
+      "slowPct": 15,
+      "weakPct": 15,
+      "stunChancePct": 35,
+      "stunMaxRes": 65
+    }
   },
   {
     "id": "ITM-MED-129",
@@ -421,7 +480,12 @@
     "stackable": true,
     "value": 8,
     "desc": "市井泼皮与草莽匪类贴身暗藏的生石灰混川椒细末，危急时迎面扬出迷人双目，虽非名门正派所齿，却往往能死里逃生。",
-    "poisonEffect": "战阵阴招 · 近身扬洒致盲敌手，大幅削减其下一次攻击命中率"
+    "poisonEffect": "战阵阴招 · 近身扬洒致盲敌手，大幅削减其下一次攻击命中率",
+    "poisonCombat": {
+      "damage": 120,
+      "slowPct": 15,
+      "weakPct": 15
+    }
   },
   {
     "id": "ITM-MED-130",
@@ -433,7 +497,12 @@
     "stackable": true,
     "value": 17,
     "desc": "采秦岭与巴山野生毒乌头、断肠草根晒干碾成的灰褐毒末，毒性猛烈燥急，常被山贼猎户用来涂抹陷阱竹签与猎矢。",
-    "poisonEffect": "战阵淬毒 · 附着轻度乌头麻痹毒素，令目标每回合流失少量气血"
+    "poisonEffect": "战阵淬毒 · 附着轻度乌头麻痹毒素，令目标每回合流失少量气血",
+    "poisonCombat": {
+      "damage": 120,
+      "slowPct": 15,
+      "weakPct": 15
+    }
   },
   {
     "id": "ITM-CUR-001",

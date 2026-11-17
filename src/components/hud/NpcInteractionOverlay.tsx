@@ -8,13 +8,13 @@ import {
 } from '../../engine/economy'
 import { getAvailableNpcQuestActions } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
-import { getNpcFavorProfile } from '../../utils/npcFavor'
+import { getNpcFavorProfile } from '../../engine/social/npcFavor'
 import { inferTemplatePortrait } from '../../utils/portraitFallback'
 import {
   getSectLeaderNpcId,
   isJoinableSectFaction,
   isSongOfficialForRobbery,
-} from '../../utils/sectMechanics'
+} from '../../engine/sect'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 import { NpcGiftPanel } from './npc/NpcGiftPanel'
 import { NpcStatsSheetPanel } from './npc/NpcStatsSheetPanel'

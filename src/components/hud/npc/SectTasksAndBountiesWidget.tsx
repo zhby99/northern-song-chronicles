@@ -4,7 +4,7 @@ import {
   getChangshanMonthlyStipend,
   getKaifengMonthlyStipend,
   KAIFENG_RECOMMENDATION_ITEM_ID,
-} from '../../../utils/sectMechanics'
+} from '../../../engine/sect'
 
 interface SectTasksAndBountiesWidgetProps {
   targetFactionId: string

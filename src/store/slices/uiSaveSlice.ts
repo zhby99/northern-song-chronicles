@@ -5,18 +5,18 @@ import { getProtagonistGender } from '../../data/protagonistPresets'
 import {
   cloneHeroBaseStats,
   deriveHeroEffectiveStats,
-} from '../../utils/heroStats'
+} from '../../engine/stats/heroStats'
 import {
   formatSongDate,
   NODE_MAP,
-} from '../../utils/mapMath'
+} from '../../engine/world/mapMath'
 import {
   CURRENT_SAVE_SCHEMA_VERSION,
   deleteSaveSlot,
   listAllSaveEnvelopes,
   putSaveEnvelope,
 } from '../../utils/saveManager'
-import { clonePlayerSectState } from '../../utils/sectMechanics'
+import { clonePlayerSectState } from '../../engine/sect'
 import {
   createLogEntry,
   extractSerializableState,

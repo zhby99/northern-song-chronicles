@@ -6,7 +6,7 @@ import type {
   CombatantState,
   CombatOutcome,
   CombatRoundBeat,
-} from '../../utils/combatEngine'
+} from '../../engine/combat'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 const SvgBuildingInteriorFallback = lazy(() =>

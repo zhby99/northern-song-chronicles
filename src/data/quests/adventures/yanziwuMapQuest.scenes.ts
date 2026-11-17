@@ -502,7 +502,7 @@ const SCENE_10_CHAOGUAN_SHIP_LI: StorySceneDef = {
 const SCENE_09_CHAOGUAN_LUFANG: StorySceneDef = {
   id: 'scene_yzw_map_09_chaoguan_lufang',
   title: '第九幕 · 钞关义兄叙鼠义',
-  subtitle: '扬州府 · 运河钞关三司钞关算赋官厅',
+  subtitle: '扬州府 · 运河钞关户部钞关算赋官厅',
   beats: [
     S('NPC-0244', '（卢方拆阅蒋平火漆短笺，又细看那枚太湖菱花铜水符，浓眉猛地一轩）“原来四弟在太湖被这群荆湖来的铁掌恶徒绊住了手脚！这《太湖三叠烟波图》的广陵中卷，当年本是寄存在扬州河道衙门旧库里的漕渠水深底本，上月旧库走水，竟真教这帮贼人浑水摸鱼盗了出去！”'),
     P('“卢大爷久镇运河钞关，往来船只皆需过关算赋，贼人若想将中卷运出扬州，定然逃不过钞关与江淮漕帮的法眼。”'),
@@ -522,10 +522,10 @@ const SCENE_09_CHAOGUAN_LUFANG: StorySceneDef = {
 const SCENE_08_ARRIVE_YANGZHOU_CHAOGUAN: StorySceneDef = {
   id: 'scene_yzw_map_08_arrive_yangzhou_chaoguan',
   title: '第八幕 · 北渡大江叩钞关',
-  subtitle: '扬州府 · 运河钞关三司钞关算赋官厅',
+  subtitle: '扬州府 · 运河钞关户部钞关算赋官厅',
   beats: [
     N('辞别烟雨姑苏，少侠自润州瓜洲渡北过长江，踏入“淮左名都”扬州府。官河两岸帆樯如林，东南六路漕粮百货尽汇于此，运河钞关石埭水闸前号子声震天动地。'),
-    N('步入三司钞关算赋官厅偏厢，只见一位紫膛面皮、气度宽厚沉稳的长者正在核验过闸船引，正是陷空岛五义之首、“钻天鼠”卢方。少侠上前拱手，呈上四爷蒋平在苏州亲笔所写的书信。'),
+    N('步入户部钞关算赋官厅偏厢，只见一位紫膛面皮、气度宽厚沉稳的长者正在核验过闸船引，正是陷空岛五义之首、“钻天鼠”卢方。少侠上前拱手，呈上四爷蒋平在苏州亲笔所写的书信。'),
     P('“晚辈自苏州太湖渡口而来，奉翻江鼠蒋四爷书信，特来向卢大爷请教运河截查铁掌帮水图之事。”'),
   ],
   onFinishEffects: [openScene('scene_yzw_map_09_chaoguan_lufang', 'QST-ADV-YANZIWU-MAP')],
@@ -551,7 +551,7 @@ const SCENE_07_SUZHOU_DEPART_NORTH: StorySceneDef = {
       stepId: 'yangzhou_chaoguan_lu',
       silent: false,
     },
-    toast('已夺得上叠信物《太湖菱花铜水符》！请北上前往【扬州府 · 运河钞关 · 三司钞关算赋官厅】拜会钻天鼠卢方。', 'success', '烟波三叠'),
+    toast('已夺得上叠信物《太湖菱花铜水符》！请北上前往【扬州府 · 运河钞关 · 户部钞关算赋官厅】拜会钻天鼠卢方。', 'success', '烟波三叠'),
   ],
 }
 

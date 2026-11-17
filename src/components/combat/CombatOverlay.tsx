@@ -9,8 +9,8 @@ import {
   computeEscapeChancePreview,
   getMoveActionsAvailability,
   getStrongestLivingEnemy,
-} from '../../utils/combatEngine'
-import { NODE_MAP, REGIONAL_CONFIGS } from '../../utils/mapMath'
+} from '../../engine/combat'
+import { NODE_MAP, REGIONAL_CONFIGS } from '../../engine/world/mapMath'
 import { AllyStatusPanel } from './AllyStatusPanel'
 import { CombatActionDeck } from './CombatActionDeck'
 import { CombatCenterBanner } from './CombatCenterBanner'

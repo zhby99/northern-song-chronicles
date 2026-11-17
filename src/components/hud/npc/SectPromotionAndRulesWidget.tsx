@@ -5,7 +5,7 @@ import {
   isDaoSwordSect,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
   type PromotionRequirementInfo,
-} from '../../../utils/sectMechanics'
+} from '../../../engine/sect'
 
 interface SectPromotionAndRulesWidgetProps {
   targetFactionId: string

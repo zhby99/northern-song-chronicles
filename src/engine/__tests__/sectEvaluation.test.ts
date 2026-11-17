@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { cloneHeroBaseStats } from '../../utils/heroStats'
+import { cloneHeroBaseStats } from '../stats/heroStats'
 import {
   BAJI_IRON_TOKEN_ITEM_ID,
   clonePlayerSectState,
@@ -8,7 +8,7 @@ import {
   evaluateSectPromotion,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   resetSectMembership,
-} from '../../utils/sectMechanics'
+} from '../sect'
 
 describe('evaluateSectEntry & evaluateSectPromotion', () => {
   it('evaluates third-tier, second-tier, Changshan, Kaifeng, and Imperial Guard entry rules', () => {

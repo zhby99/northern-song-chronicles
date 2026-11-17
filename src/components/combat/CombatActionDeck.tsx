@@ -9,7 +9,7 @@ import {
   type CombatSessionState,
   type MoveActionAvailability,
   type MoveSlotKey,
-} from '../../utils/combatEngine'
+} from '../../engine/combat'
 
 const SLOT_SHORTCUT_LABELS: Record<MoveSlotKey, string> = {
   move1: '1',

@@ -1,7 +1,7 @@
 import { Gift, ShoppingBag } from 'lucide-react'
 import { BUILDING_DB_MAP, BUILDINGS_DB, FACTION_DB_MAP, REGION_DB_MAP } from '../../data/gameDb'
 import { SPOT_SHOPS } from '../../data/spotShops'
-import { SECT_ENTRY_GEAR_GIFTS } from '../../utils/sectMechanics'
+import { SECT_ENTRY_GEAR_GIFTS } from '../../engine/sect'
 
 interface AcquisitionWay {
   kind: 'shop' | 'sect_gift'

@@ -32,8 +32,8 @@ import {
   calcDailyCultivationExpGain,
   calcDailyExpByCategory,
   resolveCultivationVenue,
-} from '../../../utils/heroStats'
-import { resolveMountMeta } from '../../../utils/mapMath'
+} from '../../../engine/stats/heroStats'
+import { resolveMountMeta } from '../../../engine/world/mapMath'
 import type {
   CompiledMartialArtRecord,
   EquipmentSlotKey,

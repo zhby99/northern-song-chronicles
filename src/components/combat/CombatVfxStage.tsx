@@ -2,7 +2,7 @@ import type {
   CombatantState,
   CombatFloatingPopup,
   CombatRoundBeat,
-} from '../../utils/combatEngine'
+} from '../../engine/combat'
 
 interface CombatVfxStageProps {
   activeBeat: CombatRoundBeat | null

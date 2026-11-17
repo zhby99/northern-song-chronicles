@@ -20,9 +20,9 @@ import type {
   NodeNpc,
 } from '../../../types/game'
 import type { QuestEffect } from '../../../types/quest'
-import type { getBuildingArtTrainingOptions } from '../../../utils/artsProgression'
-import { DAYS_PER_MONTH, MONTHLY_ODD_JOB_SILVER } from '../../../utils/heroStats'
-import type { SpeedParams } from '../../../utils/mapMath'
+import type { getBuildingArtTrainingOptions } from '../../../engine/stats/artsProgression'
+import { DAYS_PER_MONTH, MONTHLY_ODD_JOB_SILVER } from '../../../engine/stats/heroStats'
+import type { SpeedParams } from '../../../engine/world/mapMath'
 
 type AvailableSpotQuestAction = ReturnType<typeof getAvailableSpotQuestActions>[number]
 type ArtTrainingOption = ReturnType<typeof getBuildingArtTrainingOptions>[number]

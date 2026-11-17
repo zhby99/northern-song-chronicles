@@ -10,7 +10,7 @@ import {
   getLearnedLevel,
   type CombatantState,
   type CombatOutcome,
-} from '../../utils/combatEngine'
+} from '../../engine/combat'
 import { FighterStatusBadges } from './FighterStatusBadges'
 
 interface AllyStatusPanelProps {

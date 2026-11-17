@@ -16,7 +16,7 @@ import type {
   MountTerrainTrait,
 } from '../../types/game'
 import { resolveAssetUrl } from '../../utils/assetLoader'
-import { WORLD_GRAPH } from '../../utils/mapMath'
+import { WORLD_GRAPH } from '../../engine/world/mapMath'
 import { ItemAcquisitionBanner } from './ItemAcquisitionBanner'
 import { UniqueOwnershipBadge, UniqueOwnershipBanner } from './UniqueOwnershipBanner'
 

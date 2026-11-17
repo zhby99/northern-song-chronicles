@@ -32,7 +32,7 @@ import type {
 } from '../types/quest'
 import { INITIAL_NPC_FAVOR } from './social/npcFavor'
 import { inferTemplatePortrait, resolveAvatarForFullbody } from '../utils/portraitFallback'
-import { getSectRankTitle, isSongOfficialForRobbery } from '../utils/sectMechanics'
+import { getSectRankTitle, isSongOfficialForRobbery } from './sect'
 import {
   buildNodeNpcFromCompiledId,
   buildNodeNpcFromDynamicActor,

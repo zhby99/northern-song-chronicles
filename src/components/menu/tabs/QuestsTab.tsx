@@ -7,12 +7,12 @@ import { collectUnmetQuestReasons, type QuestEvalContext } from '../../../engine
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
 import type { InventoryStack } from '../../../types/game'
 import type { QuestCategoryKey, QuestCondition, QuestTargetLocationHint } from '../../../types/quest'
-import { interpolateReignYear } from '../../../utils/mapMath'
+import { interpolateReignYear } from '../../../engine/world/mapMath'
 import {
   assessQuestRealmReadiness,
   estimateHeroRealm,
   type RealmReadinessStatus,
-} from '../../../utils/realmUtils'
+} from '../../../engine/stats/realmUtils'
 
 const QUEST_CATEGORY_META: Record<
   QuestCategoryKey,

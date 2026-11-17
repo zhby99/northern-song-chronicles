@@ -12,7 +12,7 @@ import {
   isItemSellable,
 } from '../../../engine/economy'
 import type { EquippedSlotsMap, InventoryStack } from '../../../types/game'
-import { NODE_MAP } from '../../../utils/mapMath'
+import { NODE_MAP } from '../../../engine/world/mapMath'
 
 type SpotShopDef = NonNullable<(typeof SPOT_SHOPS_BY_SPOT_ID)[string]>
 type ShopGroupKey = 'weapon' | 'armor' | 'mount' | 'scrolls' | 'medicine' | 'tools' | 'misc'

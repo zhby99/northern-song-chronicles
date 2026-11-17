@@ -6,7 +6,7 @@ import {
   isRegionUnlockedByKey,
 } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
-import { findBestRoute, resolveMountMeta } from '../../utils/mapMath'
+import { findBestRoute, resolveMountMeta } from '../../engine/world/mapMath'
 
 export function MapTooltip() {
   const tooltip = useGameStore((s) => s.tooltip)

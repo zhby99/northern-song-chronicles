@@ -2702,6 +2702,13 @@ def _parse_item_rows_from_md_block(block: str, art_id_set: set[str]) -> list[dic
             rec["useEffect"] = spec_obj["useEffect"]
         if "poisonEffect" in spec_obj:
             rec["poisonEffect"] = spec_obj["poisonEffect"]
+        if "poisonCombat" in spec_obj:
+            pc = spec_obj["poisonCombat"]
+            assert "poisonEffect" in spec_obj, f"[{item_id}] poisonCombat requires poisonEffect"
+            assert isinstance(pc.get("damage"), int) and pc["damage"] > 0, (
+                f"[{item_id}] poisonCombat.damage must be a positive int"
+            )
+            rec["poisonCombat"] = pc
         if "equipBonus" in spec_obj:
             rec["equipBonus"] = spec_obj["equipBonus"]
 

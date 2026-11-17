@@ -2,7 +2,7 @@ import { FACTION_DB_MAP } from './gameDb'
 import { ITEM_DB_MAP } from './itemsDb'
 import type { NodeNpc } from '../types/game'
 import type { StorySceneDef } from '../types/quest'
-import type { SectJoinEvaluation } from '../utils/sectMechanics'
+import type { SectJoinEvaluation } from '../engine/sect'
 
 export interface SectJoinDialogueScript {
   /** 点下拜入门派后，掌门 NPC 的问询台词（末尾自然询问是否确定加入） */

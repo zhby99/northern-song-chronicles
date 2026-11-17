@@ -1,4 +1,5 @@
 import type { StoreSlice } from '../storeTypes'
+import { gameRng } from '../../engine/combat/rng'
 import {
   BUILDING_DB_MAP,
   NPC_DB_MAP,
@@ -26,8 +27,8 @@ import {
   cloneHeroBaseStats,
   deriveHeroEffectiveStats,
   isPlayerInFreeLodgingRegion,
-} from '../../utils/heroStats'
-import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
+} from '../../engine/stats/heroStats'
+import { syncArtLevelsToExpsAndMilestones } from '../../engine/stats/artsProgression'
 import {
   findBestRoute,
   getBuildingLockMeta,
@@ -35,8 +36,8 @@ import {
   getRegionViewBoxSize,
   NODE_MAP,
   REGIONAL_CONFIGS,
-} from '../../utils/mapMath'
-import { buildZhanZhaoArrestNodeNpc } from '../../utils/sectMechanics'
+} from '../../engine/world/mapMath'
+import { buildZhanZhaoArrestNodeNpc } from '../../engine/sect'
 import {
   LABEL_KEYS,
   ROAD_EVENTS,
@@ -676,8 +677,8 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         nextMp = Math.max(0, Math.round(nextMp * 0.9))
       }
 
-      if (Math.random() < 0.16) {
-        const ev = ROAD_EVENTS[Math.floor(Math.random() * ROAD_EVENTS.length)]
+      if (gameRng() < 0.16) {
+        const ev = ROAD_EVENTS[Math.floor(gameRng() * ROAD_EVENTS.length)]
         if (ev) {
           const clonedBase = cloneHeroBaseStats(s.baseStats)
           const draft = {
@@ -969,7 +970,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       const eloquence = nextSkills['辩才'] ?? 0
       const persuadeChance = computeHighwaymanPersuadeChance(eloquence)
 
-      if (Math.random() < persuadeChance) {
+      if (gameRng() < persuadeChance) {
         nextRenown += 1
         const persuadeMsg = `行至险隘，一伙绿林响马呼哨拦路欲劫【${resolvedContract.cargoName}】！少侠按剑上前，凭【辩才 ${eloquence}】（劝退率 ${Math.round(persuadeChance * 100)}%）晓以利害、陈说黑白，匪首冷汗涔涔拱手让道，不战而退（江湖声望 +1）！`
         nextLogs.unshift(
@@ -1080,7 +1081,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
             ],
             null,
           )
-        } else if (!banditProg && !banditDone && Math.random() < 0.01) {
+        } else if (!banditProg && !banditDone && gameRng() < 0.01) {
           get().campStop()
           get().runQuestEffects(
             [

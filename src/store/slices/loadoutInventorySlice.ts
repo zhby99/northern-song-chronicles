@@ -40,19 +40,19 @@ import {
   getXiangguoMonthlyAuctionLots,
   isItemSellable,
 } from '../../engine/economy'
-import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
+import { syncArtLevelsToExpsAndMilestones } from '../../engine/stats/artsProgression'
 import {
   cloneHeroBaseStats,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
   isPlayerInFreeLodgingRegion,
   isPlayerInOwnSectRegion,
-} from '../../utils/heroStats'
+} from '../../engine/stats/heroStats'
 import {
   getSongDateParts,
   NODE_MAP,
-} from '../../utils/mapMath'
-import { scaleMedicineRecovery } from '../../utils/realmUtils'
+} from '../../engine/world/mapMath'
+import { scaleMedicineRecovery } from '../../engine/stats/realmUtils'
 import { SPOT_SHOPS_BY_SPOT_ID } from '../../data/spotShops'
 import {
   commitTimeAdvance,

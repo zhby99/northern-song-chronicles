@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { MARTIAL_ARTS_DB } from '../../data/gameDb'
 import { DEFAULT_EQUIPPED_SLOTS } from '../../data/itemsDb'
-import { cloneHeroBaseStats } from '../../utils/heroStats'
+import { cloneHeroBaseStats } from '../stats/heroStats'
 import {
   COMBAT_EFFECT_REGISTRY,
   buildPlayerCombatant,
@@ -12,7 +12,7 @@ import {
   createSeededRng,
   getMartialCategoryInstinct,
   resolveCombatRound,
-} from '../../utils/combatEngine'
+} from '../combat'
 
 function makeTestPlayer(overrides: Partial<ReturnType<typeof buildPlayerCombatant>> = {}) {
   const base = buildPlayerCombatant({

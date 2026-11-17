@@ -1,6 +1,6 @@
 import { MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
 import { ITEM_DB_MAP } from '../../../data/itemsDb'
-import { scaleMedicineRecovery } from '../../../utils/realmUtils'
+import { scaleMedicineRecovery } from '../../stats/realmUtils'
 import {
   computeQinSoundAmpPct,
   computeShuBrushAmpPct,
@@ -159,39 +159,15 @@ function resolveItemStep(
     const resMit = Math.min(0.8, effRes / 160)
     const postMult = targetChoice.type === 'defend' ? 0.65 : 1.0
 
-    let basePoisonDmg = 120
-    let mpDrainRatio = 0
-    let slowAdd = 15
-    let weakAdd = 15
-    let stunProb = 0
-
-    if (itemDef.rarity === '天阶') {
-      basePoisonDmg = 920
-      mpDrainRatio = 0.22
-      slowAdd = 24
-      weakAdd = 28
-      stunProb = 0.55 * (1 - resMit)
-    } else if (itemDef.rarity === '地阶') {
-      basePoisonDmg = itemDef.id === 'ITM-MED-109' ? 320 : 540
-      mpDrainRatio = itemDef.id === 'ITM-MED-109' ? 0.35 : 0.1
-      slowAdd = 22
-      weakAdd = 24
-      if (itemDef.id === 'ITM-MED-110') {
-        target.res = Math.max(0, target.res - 12)
-      }
-    } else if (itemDef.rarity === '良阶') {
-      basePoisonDmg = itemDef.id === 'ITM-MED-120' ? 150 : 260
-      mpDrainRatio = 0.08
-      slowAdd = 20
-      weakAdd = 18
-      if (itemDef.id === 'ITM-MED-120') stunProb = 0.32 * (1 - resMit)
-    } else {
-      basePoisonDmg = 120
-      slowAdd = 15
-      weakAdd = 15
-      if (itemDef.id === 'ITM-MED-128' && effRes < 65) {
-        stunProb = 0.35 * (1 - resMit)
-      }
+    const spec = itemDef.poisonCombat ?? { damage: 120, slowPct: 15, weakPct: 15 }
+    const basePoisonDmg = spec.damage
+    const mpDrainRatio = (spec.mpDrainPct ?? 0) / 100
+    const slowAdd = spec.slowPct
+    const weakAdd = spec.weakPct
+    const stunAllowed = spec.stunMaxRes === undefined || effRes < spec.stunMaxRes
+    const stunProb = stunAllowed ? ((spec.stunChancePct ?? 0) / 100) * (1 - resMit) : 0
+    if (spec.resShred) {
+      target.res = Math.max(0, target.res - spec.resShred)
     }
 
     const pDmg = Math.max(8, Math.round(basePoisonDmg * (1 - resMit) * wardScale * postMult))

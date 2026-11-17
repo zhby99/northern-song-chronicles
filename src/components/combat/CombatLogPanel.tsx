@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import type { CombatLogEntry, CombatRoundSummary } from '../../utils/combatEngine'
+import type { CombatLogEntry, CombatRoundSummary } from '../../engine/combat'
 
 function getLogRowStyle(tone: CombatLogEntry['tone']): string {
   switch (tone) {

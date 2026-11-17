@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { TEN_ART_KEYS } from '../../../data/gameDb'
 import type { CompiledBuildingRecord, NodeNpc } from '../../../types/game'
-import type { DuelStakesKind } from '../../../utils/combatEngine'
+import type { DuelStakesKind } from '../../../engine/combat'
 import { ManagedAssetImg } from '../../common/ManagedAssetImg'
 
 interface InspectorNpcRosterProps {

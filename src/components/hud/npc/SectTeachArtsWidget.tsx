@@ -5,7 +5,7 @@ import {
   getSectTeachableArts,
   isJoinableSectFaction,
   isShaolinArtBlockedForLayDisciple,
-} from '../../../utils/sectMechanics'
+} from '../../../engine/sect'
 
 interface SectTeachArtsWidgetProps {
   targetFactionId: string

@@ -43,6 +43,11 @@
    - `vite.config.ts` 中的 `northernSongAudioManifestPlugin` 会在构建/开发时自动扫描 `public/assets/audio/{world,regions,characters,events}/` 下的编号曲目（`1.mp3`, `2.mp3`...），无需硬编码曲目表。
 4. **美术严禁造假原则（用户明确要求）**：
    - 绝不允许用 Python PIL / Canvas 几何绘图脚本伪造地图或人物画作，也不允许把同一张人物立绘复制改名冒充两个不同 NPC ID。若启动 Backlog 补图，必须严格按 `.agents/skills/panorama-artist` 和 `.agents/skills/portrait-artist` 逐张独立生图并视觉核验。
+5. **玩法引擎分层与可测试性（2026-11 重构）**：
+   - 玩法逻辑统一位于 `src/engine/`，`src/utils/` 只保留素材、音频、存档等运行时工具；旧的 `utils/*` 转发文件已删除，新代码请直接从 `engine/*` 导入。
+   - 战后结算拆为 `engine/combat/settlement.ts`：`buildCombatDeathPayload()`（按 `duelStakes` 查表）与有序规则表 `COMBAT_SETTLEMENT_RULES`；门派离派 / 开除统一走 `engine/sect/ranks.ts` 的 `resetSectMembership()`，切勿再手写字段重置。
+   - 一次性受控标记（震慑 / 封穴 / 震腕）在**盲选决策之后**才清除（`round/initiative.ts`），否则 NPC 受控无效。
+   - 全局玩法随机源 `gameRng` + `setGameRng()`；测试可整局播种。战阵毒药数值由 `EQUIPMENT_COMPENDIUM.md` 的 `poisonCombat` 规格编译生成。
 
 ---
 

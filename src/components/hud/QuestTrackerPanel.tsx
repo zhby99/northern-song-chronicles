@@ -8,7 +8,7 @@ import {
   assessQuestRealmReadiness,
   estimateHeroRealm,
   type RealmReadinessStatus,
-} from '../../utils/realmUtils'
+} from '../../engine/stats/realmUtils'
 
 const CATEGORY_BADGE: Record<QuestCategoryKey, { label: string; cls: string }> = {
   sect_entry: { label: '宗门入门', cls: 'bg-[#1f4d3b] text-[#e7f7ef]' },

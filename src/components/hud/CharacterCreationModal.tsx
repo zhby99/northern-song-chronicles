@@ -8,8 +8,8 @@ import {
 import { clamp } from '../../engine/shared/math'
 import { useGameStore } from '../../store/useGameStore'
 import type { HeroBaseStats } from '../../types/game'
-import { cloneHeroBaseStats } from '../../utils/heroStats'
-import { NODE_MAP, WORLD_GRAPH } from '../../utils/mapMath'
+import { cloneHeroBaseStats } from '../../engine/stats/heroStats'
+import { NODE_MAP, WORLD_GRAPH } from '../../engine/world/mapMath'
 
 const MIN_MODAL_WIDTH = 1140
 const MIN_MODAL_HEIGHT = 680

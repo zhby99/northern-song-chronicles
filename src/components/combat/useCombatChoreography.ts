@@ -12,7 +12,7 @@ import type {
   CombatRoundBeat,
   CombatSessionState,
   MoveActionAvailability,
-} from '../../utils/combatEngine'
+} from '../../engine/combat'
 import {
   playSfxAttackImpact,
   playSfxCombatEnd,

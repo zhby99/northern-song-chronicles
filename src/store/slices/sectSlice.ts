@@ -16,7 +16,7 @@ import type {
 import {
   MAX_NPC_FAVOR,
   MIN_NPC_FAVOR,
-} from '../../utils/npcFavor'
+} from '../../engine/social/npcFavor'
 import {
   applySongLiaoSuspicionFavorPenalty,
   buildJoinSectPatch,
@@ -40,8 +40,8 @@ import {
   KAIFENG_RECOMMENDATION_ITEM_ID,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
-} from '../../utils/sectMechanics'
-import { estimateHeroRealm } from '../../utils/realmUtils'
+} from '../../engine/sect'
+import { estimateHeroRealm } from '../../engine/stats/realmUtils'
 import {
   createLogEntry,
   addItemToInventory,
