@@ -59,12 +59,12 @@ export const YANZIWU_MAP_QUESTS: QuestDefinition[] = [
       yangzhou_chaoguan_lu: {
         id: 'yangzhou_chaoguan_lu',
         title: '北渡扬州谒钞关',
-        objective: '携蒋平书信北渡长江，前往【扬州府 · 运河钞关 · 户部钞关算赋官厅】拜会钻天鼠卢方。',
+        objective: '携蒋平书信北渡长江，前往【扬州府 · 运河钞关 · 三司钞关算赋官厅】拜会钻天鼠卢方。',
         targetLocation: {
           regionId: 'yangzhou',
           buildingId: 'yz_chaoguan',
           spotId: 'yz_cg_office',
-          customLabel: '扬州府 · 运河钞关 · 户部钞关算赋官厅',
+          customLabel: '扬州府 · 运河钞关 · 三司钞关算赋官厅',
         },
       },
       yangzhou_chaoguan_ship: {
@@ -236,7 +236,7 @@ export const YANZIWU_MAP_QUESTS: QuestDefinition[] = [
         id: 'spot_yzw_map_yz_chaoguan_lu',
         label: '呈递蒋平书信 · 请钻天鼠卢方协查水路',
         badge: '第8-9幕',
-        subtitle: '于户部钞关算赋官厅核查过闸异常船只',
+        subtitle: '于三司钞关算赋官厅核查过闸异常船只',
         tone: 'primary',
         regionId: 'yangzhou',
         buildingId: 'yz_chaoguan',

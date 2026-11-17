@@ -7,6 +7,7 @@ import { collectUnmetQuestReasons, type QuestEvalContext } from '../../../engine
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
 import type { InventoryStack } from '../../../types/game'
 import type { QuestCategoryKey, QuestCondition, QuestTargetLocationHint } from '../../../types/quest'
+import { interpolateReignYear } from '../../../utils/mapMath'
 import {
   assessQuestRealmReadiness,
   estimateHeroRealm,
@@ -474,7 +475,9 @@ export function QuestsTab() {
                   )}
 
                   {qDef?.summary && (
-                    <p className="text-xs text-[#6b5235] leading-relaxed">{qDef.summary}</p>
+                    <p className="text-xs text-[#6b5235] leading-relaxed">
+                      {interpolateReignYear(qDef.summary, dayCount)}
+                    </p>
                   )}
 
                   <div className="p-3 rounded bg-[#efe4cc]/85 border border-[#cbb693] flex flex-wrap items-center justify-between gap-3">

@@ -48,14 +48,14 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
   startCondition: FULL_START_CONDITION,
   initialStepId: 'summoned_to_zichen',
   summary:
-    '入值大宋禁军操练满一载后，太行天王王重岳与九纹狂龙史万山大肆劫掠河北边军纲银。宋仁宗赵祯召对紫宸殿，特晋少侠为【Lv.4 三衙都虞候】，钦命统率五千禁军精锐、以高怀亮为副将北上剿匪。初战虽连破外山口与东麓鹿角寨，然因少侠未读兵书（经义或策论不足）、不谙“穷寇莫追”与山川火攻之忌，斥退副将苦谏孤军追入黑风愁猿涧，惨遭断道火攻！少侠悔恨泣血，强命高怀亮率残部突围，独留一线天连战追寇并硬撼王重岳、史万山六合断后，终折损两千余名禁军将士败归汴梁。紫宸殿上奉旨削回 Lv.3 四厢都指挥、罚俸一年，于汴郊秋雨新冢前泣血立誓潜修经史兵略。',
+    '入值大宋禁军操练满一载后，太行天王王重岳与九纹狂龙史万山大肆劫掠河北边军纲银。今上赵祯召对紫宸殿，特晋少侠为【三衙都虞候】，钦命统率五千禁军精锐、以高怀亮为副将北上剿匪。初战虽连破外山口与东麓鹿角寨，然因少侠未读兵书（经义或策论不足）、不谙“穷寇莫追”与山川火攻之忌，斥退副将苦谏孤军追入黑风愁猿涧，惨遭断道火攻！少侠悔恨泣血，强命高怀亮率残部突围，独留一线天连战追寇并硬撼王重岳、史万山六合断后，终折损两千余名禁军将士败归汴梁。紫宸殿上奉旨削回 四厢都指挥、罚俸一年，于汴郊秋雨新冢前泣血立誓潜修经史兵略。',
   steps: {
     summoned_to_zichen: {
       id: 'summoned_to_zichen',
       title: '金牌急召赴紫宸',
       objective:
-        '河北八百里羽檄惊动朝堂，太行山王重岳、史万山连劫边军纲银！请即刻前往【开封府 · 大内皇宫 · 垂拱紫宸正殿】面见宋仁宗赵祯听旨议兵。',
-      nextHint: '在大内皇宫垂拱紫宸正殿与宋仁宗赵祯交互，或点击当前场景剧情按钮登殿奏对。',
+        '河北八百里羽檄惊动朝堂，太行山王重岳、史万山连劫边军纲银！请即刻前往【开封府 · 大内皇宫 · 垂拱紫宸正殿】面见今上赵祯听旨议兵。',
+      nextHint: '在大内皇宫垂拱紫宸正殿与今上赵祯交互，或点击当前场景剧情按钮登殿奏对。',
       targetLocation: {
         regionId: 'bianliang',
         buildingId: 'bl_palace',
@@ -67,7 +67,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
       id: 'depart_at_jinjun',
       title: '晋阶点兵五千甲',
       objective:
-        '已奉宋仁宗圣旨晋升为【Lv.4 三衙都虞候】！请返回【开封府 · 八十万禁军大教场 · 擂鼓聚将点兵帅台】点齐五千禁军精锐祭旗出征。',
+        '已奉官家圣旨晋升为【Lv.4 三衙都虞候】！请返回【开封府 · 八十万禁军大教场 · 擂鼓聚将点兵帅台】点齐五千禁军精锐祭旗出征。',
       nextHint: '前往八十万禁军大教场擂鼓聚将点兵帅台，点击「登台点齐五千禁军出师太行」。',
       targetLocation: {
         regionId: 'bianliang',
@@ -145,8 +145,8 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
       id: 'return_to_kaifeng_defeated',
       title: '丧师两千归紫宸',
       objective:
-        '黑风涧一役折损禁军将士两千一百四十三人，请率领幸存伤残袍泽返回【开封府 · 大内皇宫 · 垂拱紫宸正殿】向宋仁宗赵祯叩首请罪。',
-      nextHint: '返回开封府大内皇宫垂拱紫宸正殿，与宋仁宗交互或点击场景任务按钮登殿领罪。',
+        '黑风涧一役折损禁军将士两千一百四十三人，请率领幸存伤残袍泽返回【开封府 · 大内皇宫 · 垂拱紫宸正殿】向今上赵祯叩首请罪。',
+      nextHint: '返回开封府大内皇宫垂拱紫宸正殿，与官家交互或点击场景任务按钮登殿领罪。',
       targetLocation: {
         regionId: 'bianliang',
         buildingId: 'bl_palace',
@@ -257,7 +257,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
       id: 'spot_jtc1_zichen_summons',
       label: '登垂拱紫宸正殿 · 请缨北征晋阶三衙都虞候',
       badge: '第5-7幕 · 晋升Lv.4',
-      subtitle: '面见宋仁宗赵祯、包拯与王德用，拜领 Lv.4 三衙都虞候与五千禁军兵符',
+      subtitle: '面见今上赵祯、包拯与王德用，拜领 Lv.4 三衙都虞候与五千禁军兵符',
       tone: 'gold',
       regionId: 'bianliang',
       buildingId: 'bl_palace',
@@ -341,7 +341,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
       id: 'spot_jtc1_return_zichen_reprimand',
       label: '率残兵入垂拱紫宸殿请罪 · 摘冠削阶罚俸一年',
       badge: '第31-35幕 · 插画五',
-      subtitle: '丧师两千余人登殿伏法，宋仁宗念一线天死战断后免死，削回四厢都指挥并罚俸一年',
+      subtitle: '丧师两千余人登殿伏法，官家念一线天死战断后免死，削回四厢都指挥并罚俸一年',
       tone: 'danger',
       regionId: 'bianliang',
       buildingId: 'bl_palace',

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { evaluateQuestCondition, resolveStorySpeaker } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { resolveAssetUrl } from '../../utils/assetLoader'
+import { interpolateReignYear } from '../../utils/mapMath'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 export function StorySceneModal() {
@@ -153,10 +154,12 @@ export function StorySceneModal() {
       <div className="absolute top-6 inset-x-0 z-20 flex justify-center px-4 pointer-events-none">
         <div className="px-6 py-2 rounded-full bg-[#24170d]/92 border-2 border-[#c89d54] shadow-2xl text-center">
           <div className="song-serif font-bold text-base sm:text-lg text-[#f7e3b5] tracking-widest">
-            《{scene.title}》
+            《{interpolateReignYear(scene.title, dayCount)}》
           </div>
           {scene.subtitle && (
-            <div className="text-[11px] text-[#cbb289] tracking-wide">{scene.subtitle}</div>
+            <div className="text-[11px] text-[#cbb289] tracking-wide">
+              {interpolateReignYear(scene.subtitle, dayCount)}
+            </div>
           )}
         </div>
       </div>
@@ -168,14 +171,14 @@ export function StorySceneModal() {
             {!illustrationFailed ? (
               <img
                 src={resolveAssetUrl(activeIllustrationUrl)}
-                alt={activeIllustrationCaption}
+                alt={interpolateReignYear(activeIllustrationCaption, dayCount)}
                 onError={() => setFailedImgUrl(activeIllustrationUrl)}
                 className="w-full h-full object-cover"
               />
             ) : (
               <div className="px-8 py-6 text-center space-y-2">
                 <div className="song-serif text-base font-bold text-[#e7c78b]">
-                  〔 绘卷留白 · {activeIllustrationCaption} 〕
+                  〔 绘卷留白 · {interpolateReignYear(activeIllustrationCaption, dayCount)} 〕
                 </div>
                 <div className="text-xs text-[#b59d78] font-mono">
                   插画路径：{activeIllustrationUrl}
@@ -184,7 +187,7 @@ export function StorySceneModal() {
             )}
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-4 py-2 text-center">
               <span className="text-xs song-serif text-[#f3dfb8] tracking-wider">
-                {activeIllustrationCaption}
+                {interpolateReignYear(activeIllustrationCaption, dayCount)}
               </span>
             </div>
           </div>
@@ -240,9 +243,13 @@ export function StorySceneModal() {
                     className={`w-full text-left px-4 py-2.5 rounded-lg border transition-colors flex flex-wrap items-center justify-between gap-2 shadow ${toneStyle}`}
                   >
                     <div className="space-y-0.5">
-                      <div className="font-bold song-serif text-sm">{choice.label}</div>
+                      <div className="font-bold song-serif text-sm">
+                        {interpolateReignYear(choice.label, dayCount)}
+                      </div>
                       {choice.subLabel && (
-                        <div className="text-[11px] opacity-85">{choice.subLabel}</div>
+                        <div className="text-[11px] opacity-85">
+                          {interpolateReignYear(choice.subLabel, dayCount)}
+                        </div>
                       )}
                     </div>
                     {choice.condition && (
@@ -298,7 +305,7 @@ export function StorySceneModal() {
           </div>
 
           <p className="text-sm sm:text-base leading-relaxed text-[#faf0dc] min-h-[3.2rem]">
-            {currentBeat.text}
+            {interpolateReignYear(currentBeat.text, dayCount)}
           </p>
 
           {(!isLastBeat || evaluatedChoices.length === 0) && (

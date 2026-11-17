@@ -47,7 +47,12 @@ import {
   computeTimeAdvanceState,
   createLogEntry,
 } from '../time'
-import { formatSongDate, NODE_MAP, QUEST_LOCKED_BUILDINGS } from '../world/mapMath'
+import {
+  formatSongDate,
+  interpolateReignYear,
+  NODE_MAP,
+  QUEST_LOCKED_BUILDINGS,
+} from '../world/mapMath'
 import { resolveQuestSceneAsync, resolveQuestSceneSync } from './sceneRegistry'
 
 export interface QuestEffectBatchContext {
@@ -955,13 +960,14 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
 
   toast: (eff, ctx) => {
     const s = ctx.draft
+    const msg = interpolateReignYear(eff.text, s.dayCount)
     ctx.patchDraft({
       actionFeedback: {
-        text: eff.text,
+        text: msg,
         tone: eff.tone ?? 'talk',
       },
       logs: [
-        createLogEntry(s.dayCount, eff.logTag ?? '江湖纪事', eff.text, true, s.shichenIdx),
+        createLogEntry(s.dayCount, eff.logTag ?? '江湖纪事', msg, true, s.shichenIdx),
         ...s.logs,
       ].slice(0, 60),
     })

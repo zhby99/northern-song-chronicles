@@ -30,7 +30,7 @@ export const JINJUN_HEBEI_SPY_QUESTS: QuestDefinition[] = [
       ],
     },
     summary:
-      '暮春汴梁微服血战虽挫败西夏一品堂刺客，然紫宸殿绝密出行时辰何以外泄却成悬顶利剑。少侠奉宋仁宗与黑王相公王德用密旨，佩【殿前司鎏金密查虎符】自开封群牧司一路北追真定宋辽榷场、常山演武堂与隆兴古刹，终在陪都大名府黄河铁索渡口合围辽南京武林统制萧远风，揭破辽国枢密北院借西夏之刀行刺宋帝之惊天毒谋，并于紫宸殿丹墀作出刚正肃贪或玄枢反间的千秋抉择。',
+      '暮春汴梁微服血战虽挫败西夏一品堂刺客，然紫宸殿绝密出行时辰何以外泄却成悬顶利剑。少侠奉官家与黑王相公王德用密旨，佩【殿前司鎏金密查虎符】自开封群牧司一路北追真定宋辽榷场、常山演武堂与隆兴古刹，终在陪都大名府黄河铁索渡口合围辽南京武林统制萧远风，揭破辽国枢密北院借西夏之刀行刺宋帝之惊天毒谋，并于紫宸殿丹墀作出刚正肃贪或玄枢反间的千秋抉择。',
     initialStepId: 'kaifeng_palace_watch',
     steps: {
       kaifeng_palace_watch: {
@@ -161,7 +161,7 @@ export const JINJUN_HEBEI_SPY_QUESTS: QuestDefinition[] = [
         id: 'kaifeng_palace_verdict',
         title: '卷四 · 紫宸丹墀决忠奸',
         objective:
-          '随王德用入【开封府 · 大内皇宫 · 垂拱紫宸正殿】早朝呈交北院铁证，在宋仁宗、包拯与满朝文武面前作出【当殿直谏肃贪】或【留线将计就计】的终局决断！',
+          '随王德用入【开封府 · 大内皇宫 · 垂拱紫宸正殿】早朝呈交北院铁证，在官家、包拯与满朝文武面前作出【当殿直谏肃贪】或【留线将计就计】的终局决断！',
         targetLocation: {
           regionId: 'bianliang',
           buildingId: 'bl_palace',
@@ -530,7 +530,7 @@ export const JINJUN_HEBEI_SPY_QUESTS: QuestDefinition[] = [
         id: 'spot_jj_spy_palace_verdict',
         label: '步入垂拱紫宸正殿 · 呈交北院铁证定夺终局封赏',
         badge: '第39-44幕 · 插画陆',
-        subtitle: '面奏宋仁宗赵祯与包拯、王德用，完成《御前泄密 · 河北暗桩》',
+        subtitle: '面奏今上赵祯与包拯、王德用，完成《御前泄密 · 河北暗桩》',
         tone: 'gold',
         regionId: 'bianliang',
         buildingId: 'bl_palace',

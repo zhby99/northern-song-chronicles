@@ -13,9 +13,9 @@ export const KAIFENG_RENZONG_ESCORT_QUEST: QuestDefinition[] = [
     recommendedRealm: '一流下品 ~ 一流上品（含连续三轮 1v2 生死决战）',
     maxOpponentRealm: '一流中品（银狼双统领 1v2 合击）',
     recommendedNote:
-      '需居【开封府 / 六扇门 Lv.4 御前护卫】且【宋仁宗赵祯好感度 ≥ 20】；全篇含 38 幕长篇群像（单周目 36 幕）、5 幅北宋画卷插画及三轮连续 1v2 一品堂死士截杀。',
+      '需居【开封府 / 六扇门 Lv.4 御前护卫】且【赵祯好感度 ≥ 20】；全篇含 38 幕长篇群像（单周目 36 幕）、5 幅宋风画卷插画及三轮连续 1v2 一品堂死士截杀。',
     startHint:
-      '晋升开封府 Lv.4 御前护卫并获赵祯好感度 ≥ 20 后，前往【开封府 · 大内皇宫 · 垂拱紫宸正殿】与宋仁宗赵祯接洽开启。',
+      '晋升开封府 Lv.4 御前护卫并获赵祯好感度 ≥ 20 后，前往【开封府 · 大内皇宫 · 垂拱紫宸正殿】与今上赵祯接洽开启。',
     startLocation: {
       regionId: 'bianliang',
       buildingId: 'bl_palace',
@@ -30,14 +30,14 @@ export const KAIFENG_RENZONG_ESCORT_QUEST: QuestDefinition[] = [
       ],
     },
     summary:
-      '皇祐二年暮春，宋仁宗赵祯拒绝大队禁军仪仗，仅凭少侠这位开封府 Lv.4 御前护卫微服巡访东京夜市。谁料西夏主战派权重没藏讹庞暗遣一品堂死士潜伏汴京，于相国寺宝塔、樊楼雅阁与雨夜虹桥设下三环连杀！连破三轮 1v2 血战护驾返抵紫宸殿后，天子亲赐两途清贵殊荣：转任【大宋禁军 Lv.3 四厢都指挥】并获赐玉津园龙骧骢，抑或留守六扇门领受大内《葵花残卷》孤本与千两白银。',
+      '{reignYear}暮春，今上赵祯拒绝大队禁军仪仗，仅凭少侠这位开封府 御前护卫微服巡访东京夜市。谁料西夏主战派权重没藏讹庞暗遣一品堂死士潜伏汴京，于相国寺宝塔、樊楼雅阁与雨夜虹桥设下三环连杀！连破三轮 1v2 血战护驾返抵紫宸殿后，天子亲赐两途清贵殊荣：转任【大宋禁军 四厢都指挥】并获赐玉津园龙骧骢，抑或留守六扇门领受大内《葵花残卷》孤本与千两白银。',
     initialStepId: 'xiangguosi_market',
     steps: {
       xiangguosi_market: {
         id: 'xiangguosi_market',
         title: '随驾微服，初探相国灯市',
         objective:
-          '护卫微服出宫的“赵六郎”（宋仁宗赵祯）前往【开封府 · 大相国寺 · 万姓交易雅市】，察看皇祐二年市井烟火与活字书摊，留意四方外谍异动。',
+          '护卫微服出宫的“赵六郎”（今上赵祯）前往【开封府 · 大相国寺 · 万姓交易雅市】，察看{reignYear}市井烟火与活字书摊，留意四方外谍异动。',
         nextHint: '相国寺夜市鱼龙混杂，谨记寸步不离官家左右。',
         targetLocation: {
           regionId: 'bianliang',
@@ -137,7 +137,7 @@ export const KAIFENG_RENZONG_ESCORT_QUEST: QuestDefinition[] = [
     spotActions: [
       {
         id: 'spot_rz_start',
-        label: '应紫宸密召 · 随宋仁宗赵祯微服夜巡《微服汴梁 · 血护龙颜》',
+        label: '应紫宸密召 · 随今上赵祯微服夜巡《微服汴梁 · 血护龙颜》',
         badge: 'Lv.4 进阶剧情',
         subtitle:
           '需开封府 Lv.4 御前护卫且赵祯好感度 ≥ 20 · 三轮 1v2 血战后抉择转任禁军 Lv.3 四厢都指挥或留守受赏',
@@ -160,7 +160,7 @@ export const KAIFENG_RENZONG_ESCORT_QUEST: QuestDefinition[] = [
         id: 'spot_rz_market',
         label: '随“赵六郎”漫步万姓灯市 · 施汤问卒、查书察谍',
         badge: '第5-8幕 · 插画一',
-        subtitle: '陪宋仁宗逛相国寺夜市体察民情，警觉钟楼檐下西夏铁鹞暗哨窥伺',
+        subtitle: '陪官家逛相国寺夜市体察民情，警觉钟楼檐下西夏铁鹞暗哨窥伺',
         tone: 'primary',
         regionId: 'bianliang',
         buildingId: 'bl_xiangguosi',

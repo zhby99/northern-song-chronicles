@@ -27,6 +27,7 @@ import { collectUnmetQuestReasons } from '../../../engine/questEngine'
 import { clamp } from '../../../engine/shared/math'
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
 import type { QuestCategoryKey, QuestTargetLocationHint } from '../../../types/quest'
+import { interpolateReignYear } from '../../../utils/mapMath'
 import { assessQuestRealmReadiness } from '../../../utils/realmUtils'
 
 type CategoryFilterKey = 'ALL' | 'sect_entry' | 'sect_mission' | 'adventure' | 'huangyou'
@@ -999,11 +1000,13 @@ export function QuestTreeTab() {
                 {/* 卷宗梗概 */}
                 <div className="p-2.5 rounded bg-[#fffbf2] border border-[#dfd0b2] space-y-1">
                   <div className="font-bold song-serif text-[#355263]">任务卷宗梗概</div>
-                  <p className="text-[#2d1e10]">{selectedNode.qDef.summary}</p>
+                  <p className="text-[#2d1e10]">
+                    {interpolateReignYear(selectedNode.qDef.summary, evalState.dayCount)}
+                  </p>
                   {selectedNode.qDef.startHint && (
                     <div className="pt-1 border-t border-[#ece0c8] text-[#5c3d1e]">
                       <strong className="text-[#781710]">触发线索：</strong>
-                      {selectedNode.qDef.startHint}
+                      {interpolateReignYear(selectedNode.qDef.startHint, evalState.dayCount)}
                     </div>
                   )}
                 </div>

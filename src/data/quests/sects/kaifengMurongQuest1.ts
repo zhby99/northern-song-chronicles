@@ -31,7 +31,7 @@ export const KAIFENG_MURONG_QUEST_1: QuestDefinition[] = [
     },
     initialStepId: 'suzhou_investigate',
     summary:
-      '捕头都头做满 730 天后，奉包拯密令微服南下姑苏查探燕子坞慕容氏私蓄兵甲之疑云。须先挫败包不同、风波恶，潜入参合庄秘档室取证，并在“神掌震江南”邓百川手下撑过 10 回合全身而退，方可解锁晋升【Lv.3 金牌总捕】。',
+      '捕头都头做满 730 天后，奉包拯密令微服南下姑苏查探燕子坞慕容氏私蓄兵甲之疑云。须先挫败包不同、风波恶，潜入参合庄秘档室取证，并在“神掌震江南”邓百川手下撑过 10 回合全身而退，方可解锁晋升【金牌总捕】。',
     steps: {
       suzhou_investigate: {
         id: 'suzhou_investigate',

@@ -884,7 +884,7 @@ const SCENE_HS_01C_REGRET_REDEEM: StorySceneDef = {
 const SCENE_HS_01_CHANGAN_RAIN: StorySceneDef = {
   id: 'scene_hs_01_changan_rain',
   title: '第一幕 · 长安秋雨落残枰',
-  subtitle: '皇祐二年 · 京兆府（长安）南门茶棚',
+  subtitle: '{reignYear} · 京兆府（长安）南门茶棚',
   beats: [
     N('关中秋深，一场冷雨将古都京兆府笼在苍茫烟水之中。城南官道旁的芦席茶棚狭小漏风，几名披着锦缎披风的商贾与挎刀江湖客争抢干燥座位，硬将一名身穿洗白麻衣、须发半湿的老道挤到了棚檐滴水处。'),
     N('一阵斜风卷雨刮过，老道膝前那副破旧柏木棋盘微微一晃，一枚乌黑温润却缺了一角的棋子“骨碌碌”滚落棚外，掉进了泥泞冰冷的车辙水洼里。老道腿脚似有些受寒僵硬，望着泥水里的黑子轻轻叹了口气。'),

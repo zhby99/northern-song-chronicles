@@ -417,6 +417,12 @@ export function formatSongDate(dayTotal: number, shichenIdx?: number): string {
   return `${p.yearName} · ${p.season} · ${p.monthDay}`
 }
 
+export function interpolateReignYear(text: string, dayTotal: number): string {
+  if (!text.includes('{reignYear}')) return text
+  const { yearName } = getSongDateParts(dayTotal)
+  return text.replace(/\{reignYear\}/g, yearName)
+}
+
 interface BaseBuildingTemplate {
   name: string
   kind: string

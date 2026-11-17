@@ -79,7 +79,7 @@ export function evaluateSectEntry(params: {
       costSilver: 0,
       consumeItemId: null,
       requirementSummary:
-        '须先于【开封府 / 六扇门】晋至御前护卫（Lv.4）并获宋仁宗赵祯好感 ≥ 20，完成护驾长篇任务《微服汴梁 · 血护龙颜》奉敕转任',
+        '须先于【开封府 / 六扇门】晋至御前护卫（Lv.4）并获今上赵祯好感 ≥ 20，完成护驾长篇任务《微服汴梁 · 血护龙颜》奉敕转任',
       blockedReason:
         '大宋禁军乃天子亲军三衙宿卫，严禁白身私投；须于【开封府 / 六扇门】晋至御前护卫（Lv.4）并获官家赵祯信重，立下护驾奇功奉敕改换军职。',
     }
