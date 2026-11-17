@@ -1056,6 +1056,7 @@ export interface SerializableGameState {
   npcSparredMonth?: Record<string, number>
   npcBanquetedMonth?: Record<string, number>
   inscribedPoemSpotIds?: string[]
+  deadNpcIds?: string[]
   auctionBoughtByMonth?: Record<string, string[]>
   activeEscortContract?: ActiveEscortContract | null
   sectState?: PlayerSectState
@@ -1089,7 +1090,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M1.5.3'
+  schemaVersion: 'M1.5.4'
   slotId: SaveSlotId
   savedAt: string
   note: string

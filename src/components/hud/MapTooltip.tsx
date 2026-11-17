@@ -1,3 +1,4 @@
+import { countLivingNpcIds } from '../../engine/social/npcDeath'
 import { useMemo } from 'react'
 import { REGION_DB_MAP } from '../../data/gameDb'
 import {
@@ -13,6 +14,7 @@ export function MapTooltip() {
   const currentNodeId = useGameStore((s) => s.currentNodeId)
   const traveling = useGameStore((s) => s.traveling)
   const campPos = useGameStore((s) => s.campPos)
+  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
   const mountKey = useGameStore((s) => s.mountKey)
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
@@ -62,9 +64,12 @@ export function MapTooltip() {
     for (const m of roamingMasters) {
       if (m.nodeId === hoveredWorldNodeId) roamingCount += 1
     }
-    const dbResidentCount = REGION_DB_MAP[hoveredWorldNodeId]?.residentNpcIds.length ?? 0
+    const dbResidentCount = countLivingNpcIds(
+      REGION_DB_MAP[hoveredWorldNodeId]?.residentNpcIds,
+      deadNpcIds,
+    )
     return dbResidentCount + roamingCount
-  }, [hoveredWorldNodeId, roamingMasters])
+  }, [hoveredWorldNodeId, roamingMasters, deadNpcIds])
 
   const mountMeta = useMemo(() => resolveMountMeta(mountKey), [mountKey])
 

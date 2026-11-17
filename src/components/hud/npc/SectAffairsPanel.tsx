@@ -6,7 +6,7 @@ import { estimateHeroRealm } from '../../../engine/stats/realmUtils'
 import {
   evaluateSectEntry,
   evaluateSectPromotion,
-  getSectLeaderNpcId,
+  getSectContactNpcId,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
   SHAOLIN_CHORE_TARGET_DAYS,
 } from '../../../engine/sect'
@@ -46,6 +46,7 @@ export function SectAffairsPanel({
   const learnedArts = useGameStore((s) => s.learnedArts)
   const playerName = useGameStore((s) => s.playerName)
   const sectState = useGameStore((s) => s.sectState)
+  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
   const questState = useGameStore((s) => s.questState)
   const npcFavorMap = useGameStore((s) => s.npcFavor)
 
@@ -108,7 +109,7 @@ export function SectAffairsPanel({
   const isSectLeaderNpc = Boolean(
     isPlayerInThisSect &&
       resolvedNpcId &&
-      resolvedNpcId === getSectLeaderNpcId(targetFactionId),
+      resolvedNpcId === getSectContactNpcId(targetFactionId, deadNpcIds),
   )
 
   return (

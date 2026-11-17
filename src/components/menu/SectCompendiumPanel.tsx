@@ -1,3 +1,4 @@
+import { isNpcDead } from '../../engine/social/npcDeath'
 import {
   Award,
   Building2,
@@ -116,12 +117,11 @@ export function SectCompendiumPanel({
   onOpenPortraitLightbox,
 }: SectCompendiumPanelProps) {
 
-  const taihangEradicated = useGameStore((s) => Boolean(s.questState.flags.taihang_bandits_eradicated))
+  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
 
   const npcsByFaction = useMemo(() => {
     const map = new Map<string, CompiledNpcRecord[]>()
     for (const npc of NPCS_DB) {
-      if (taihangEradicated && npc.factionId === 'SECT-18') continue
       const arr = map.get(npc.factionId) ?? []
       arr.push(npc)
       map.set(npc.factionId, arr)
@@ -134,7 +134,7 @@ export function SectCompendiumPanel({
       map.set(k, arr)
     }
     return map
-  }, [taihangEradicated])
+  }, [])
 
   const availableGroups = useMemo(() => {
     const base =
@@ -196,13 +196,12 @@ export function SectCompendiumPanel({
   )
 
   const leaderNpcs = useMemo(() => {
-    if (taihangEradicated && activeFaction.id === 'SECT-18') return []
     const explicit = activeFaction.leaderNpcIds
       .map((id) => NPC_DB_MAP[id])
       .filter((n): n is CompiledNpcRecord => Boolean(n))
     if (explicit.length > 0) return explicit
     return factionMembers.slice(0, 2)
-  }, [activeFaction.id, activeFaction.leaderNpcIds, factionMembers, taihangEradicated])
+  }, [activeFaction.leaderNpcIds, factionMembers])
 
   const representativeNpc = leaderNpcs[0] ?? factionMembers[0] ?? null
 
@@ -770,6 +769,11 @@ export function SectCompendiumPanel({
                         <span className="song-serif font-bold text-xs text-[#23180f] truncate">
                           {isLeader ? '★ ' : ''}
                           {npc.name}
+                          {isNpcDead(deadNpcIds, npc.id) && (
+                            <span className="ml-1 px-1 rounded text-[9px] font-bold bg-[#2b2622] text-[#d6d3d1]">
+                              已故
+                            </span>
+                          )}
                         </span>
                         <span className="text-[10px] px-1 rounded bg-[#efe4cc] text-[#781710] shrink-0">
                           {npc.realm}

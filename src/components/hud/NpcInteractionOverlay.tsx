@@ -1,3 +1,4 @@
+import { isNpcDead } from '../../engine/social/npcDeath'
 import { useMemo, useState } from 'react'
 import { NPC_DB_MAP, resolveNpcByName } from '../../data/gameDb'
 import { getEffectiveTalents } from '../../data/itemsDb'
@@ -11,6 +12,7 @@ import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { getNpcFavorProfile } from '../../engine/social/npcFavor'
 import { inferTemplatePortrait } from '../../utils/portraitFallback'
 import {
+  getSectContactNpcId,
   getSectLeaderNpcId,
   isJoinableSectFaction,
   isSongOfficialForRobbery,
@@ -48,6 +50,7 @@ export function NpcInteractionOverlay() {
   const skills = useGameStore((s) => s.skills)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const sectState = useGameStore((s) => s.sectState)
+  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
   const questState = useGameStore((s) => s.questState)
   const npcFavorMap = useGameStore((s) => s.npcFavor)
   const npcTalkedMonth = useGameStore((s) => s.npcTalkedMonth)
@@ -216,13 +219,14 @@ export function NpcInteractionOverlay() {
     Boolean(
       targetFactionId &&
         resolvedNpcId &&
-        resolvedNpcId === getSectLeaderNpcId(targetFactionId),
+        resolvedNpcId === getSectContactNpcId(targetFactionId, deadNpcIds),
     )
   // 星宿派弱肉强食：第 4 阶弟子可向掌门丁春秋发起弑师夺位生死决斗
   const canChallengeXingxiuLeader = Boolean(
     sectState.sectId === 'SECT-19' &&
       sectState.rank === 4 &&
       !sectState.killedDingChunqiu &&
+      !isNpcDead(deadNpcIds, getSectLeaderNpcId('SECT-19')) &&
       resolvedNpcId &&
       resolvedNpcId === getSectLeaderNpcId('SECT-19'),
   )

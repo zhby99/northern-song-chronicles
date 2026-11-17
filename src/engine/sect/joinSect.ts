@@ -146,7 +146,7 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
     wonSectTournament: false,
     activeSectTournament: null,
     xingxiuDefeatedRanks: [],
-    killedDingChunqiu: false,
+    killedDingChunqiu: sectState.killedDingChunqiu,
     kaifengCasesSolved: 0,
     kaifengMissedCount: 0,
     lastKaifengCasePeriod:

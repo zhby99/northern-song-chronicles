@@ -1,4 +1,4 @@
-import { FACTION_DB_MAP, MARTIAL_ARTS_DB } from '../../data/gameDb'
+import { FACTION_DB_MAP, MARTIAL_ARTS_DB, NPCS_DB } from '../../data/gameDb'
 import type {
   CompiledMartialArtRecord,
   PlayerSectState,
@@ -154,7 +154,7 @@ export function resetSectMembership(st: PlayerSectState): PlayerSectState {
     wonSectTournament: false,
     activeSectTournament: null,
     xingxiuDefeatedRanks: [],
-    killedDingChunqiu: false,
+    // 弑杀丁春秋为既成史实（其人已身故），离派重入后仍可凭此登临掌门
     kaifengCasesSolved: 0,
     kaifengMissedCount: 0,
     kaifengRank2Day: null,
@@ -176,6 +176,26 @@ export function getSectLeaderNpcId(sectId?: string | null): string | null {
   if (!sectId) return null
   const f = FACTION_DB_MAP[sectId]
   return f?.leaderNpcIds?.[0] ?? null
+}
+
+/**
+ * 门派事务对接人：掌门在世即为掌门；掌门身故后由门内阶位最高（同阶取名录序最前）的在世门人代掌事务，
+ * 确保弑师夺位等剧情后仍能办理拜师、晋升、传功与宗门差事。
+ */
+export function getSectContactNpcId(
+  sectId: string | null | undefined,
+  deadNpcIds: readonly string[] = [],
+): string | null {
+  const leaderId = getSectLeaderNpcId(sectId)
+  if (!sectId) return null
+  if (leaderId && !deadNpcIds.includes(leaderId)) return leaderId
+  let best: { id: string; rank: number } | null = null
+  for (const n of NPCS_DB) {
+    if (n.factionId !== sectId || deadNpcIds.includes(n.id)) continue
+    const rank = n.sectRank ?? 0
+    if (!best || rank > best.rank) best = { id: n.id, rank }
+  }
+  return best?.id ?? null
 }
 
 /**

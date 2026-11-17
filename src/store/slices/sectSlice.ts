@@ -31,7 +31,7 @@ import {
   generateMinorSectTask,
   generateSectTournament,
   getKaifengMonthlyStipend,
-  getSectLeaderNpcId,
+  getSectContactNpcId,
   getSectRule,
   getSectTeachableArts,
   getSectTournamentDateInfo,
@@ -361,7 +361,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       })
       return
     }
-    const tourney = generateSectTournament(sectId, yearIndex)
+    const tourney = generateSectTournament(sectId, yearIndex, undefined, s.deadNpcIds)
     if (!tourney) return
 
     const nextSect: PlayerSectState = {
@@ -411,7 +411,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       })
       return
     }
-    const leaderNpcId = getSectLeaderNpcId(sectId)
+    const leaderNpcId = getSectContactNpcId(sectId, s.deadNpcIds)
     if (!leaderNpcId) {
       set({
         actionFeedback: { text: '本门掌门暂未现身，无法指派宗门任务。', tone: 'warn' },

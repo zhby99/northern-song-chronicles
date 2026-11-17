@@ -1,3 +1,4 @@
+import { isNpcDead } from '../../../engine/social/npcDeath'
 import { useMemo } from 'react'
 import { Maximize2 } from 'lucide-react'
 import {
@@ -66,6 +67,7 @@ export function PortraitsTab({
   const equipped = useGameStore((s) => s.equipped)
   const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
   const questFlags = useGameStore((s) => s.questState.flags)
+  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
   const navigateToNpcLeafInCurrentRegion = useGameStore(
     (s) => s.navigateToNpcLeafInCurrentRegion,
   )
@@ -75,9 +77,7 @@ export function PortraitsTab({
 
   const filteredNpcs = useMemo(() => {
     const q = npcQuery.trim().toLowerCase()
-    const taihangEradicated = Boolean(questFlags.taihang_bandits_eradicated)
     return NPCS_DB.filter((c) => {
-      if (taihangEradicated && c.factionId === 'SECT-18') return false
       if (npcScope === 'ALL_WITH_ART' && !c.avatarUrl && !c.fullbodyUrl) return false
       if (npcScope === 'HISTORICAL' && c.category !== '历史名人') return false
       if (npcScope === 'GRANDMASTER_MASTER' && c.realmRank > 6) return false
@@ -106,7 +106,7 @@ export function PortraitsTab({
         artifactMatch
       )
     })
-  }, [npcQuery, npcScope, npcRegionFilter, npcFactionFilter, activeRegionId, questFlags])
+  }, [npcQuery, npcScope, npcRegionFilter, npcFactionFilter, activeRegionId])
 
   return (
     <div className="space-y-3.5 text-xs">
@@ -253,6 +253,11 @@ export function PortraitsTab({
                     <span className="song-serif font-bold text-xs sm:text-sm truncate">
                       {c.name}
                     </span>
+                    {isNpcDead(deadNpcIds, c.id) && (
+                      <span className="px-1 rounded text-[9px] font-bold shrink-0 bg-[#2b2622] text-[#d6d3d1]">
+                        已故
+                      </span>
+                    )}
                     {(c.ownedArtifactIds?.length ?? 0) > 0 && (
                       <span
                         className={`px-1 py-0.2 rounded text-[9px] font-mono font-bold shrink-0 ${
@@ -315,6 +320,11 @@ export function PortraitsTab({
                       <span className="song-serif font-bold text-lg text-[#23180f]">
                         {selectedNpc.name}
                       </span>
+                      {isNpcDead(deadNpcIds, selectedNpc.id) && (
+                        <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#2b2622] text-[#d6d3d1]">
+                          已故
+                        </span>
+                      )}
                       <span className="text-xs text-[#6b5235]">· {selectedNpc.title}</span>
                     </div>
                     <div className="text-xs text-[#781710] font-medium mt-0.5 flex items-center gap-1.5 flex-wrap">
@@ -351,6 +361,13 @@ export function PortraitsTab({
                               selectedNpc.assignedBuildingId,
                               questFlags,
                             )
+                            if (isNpcDead(deadNpcIds, selectedNpc.id)) {
+                              return (
+                                <span className="px-2 py-0.5 rounded bg-[#44403c] text-[#d6d3d1] text-[10px] font-semibold">
+                                  斯人已逝
+                                </span>
+                              )
+                            }
                             return bldgLock ? (
                               <span
                                 title={bldgLock.lockedReason}

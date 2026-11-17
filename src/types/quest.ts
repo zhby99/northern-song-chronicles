@@ -274,6 +274,8 @@ export type QuestEffect =
   | { type: 'fineSectSalary'; months: number }
   | { type: 'leaveSect'; skipPenalty?: boolean }
   | { type: 'addSectContribution'; amount: number }
+  /** 剧情判定一名或多名名录人物身故（从世界中移除） */
+  | { type: 'markNpcsDead'; npcIds: string[] }
   | { type: 'activateShaolinNovice' }
   | {
       type: 'ordainShaolinMonk'

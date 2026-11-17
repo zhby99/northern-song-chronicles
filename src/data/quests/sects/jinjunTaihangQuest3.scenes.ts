@@ -155,6 +155,49 @@ const SCENE_37_SUMMONED_TO_XUANDEMEN: StorySceneDef = {
   onFinishEffects: [openScene('scene_jtc3_38_renzong_praise_zichen', 'QST-SECT-33-TAIHANG-CAMPAIGN-3')],
 }
 
+/**
+ * 太行 / 京东绿林盟（SECT-18）中属于「太行山一支」的在册人物，终幕监斩后一律判定身故。
+ * 划分规则：身份写明「太行」者，及驻河北（太行山 / 真定府 / 大名府）与潼关、且身份未写明「京东」者；
+ * 京东水寨一支（身份写明「京东」者及济南府驻点人物）不在此列。
+ */
+export const TAIHANG_WING_NPC_IDS: string[] = [
+  'NPC-0142', // 王重岳 · 太行绿林十八寨总瓢把子
+  'NPC-0229', // 史万山 · 太行绿林副总瓢把子
+  'NPC-0309', // 石寒乾 · 太行山分寨大当家
+  'NPC-0310', // 燕刀柏 · 太行山分寨大当家
+  'NPC-0341', // 史玄朗 · 太行山分寨大当家
+  'NPC-0434', // 雷武石 · 反官义军先锋将
+  'NPC-0478', // 王浪青 · 反官义军先锋将
+  'NPC-0490', // 杨平林 · 黑店迎客掌柜
+  'NPC-0571', // 史雅 · 太行神射手
+  'NPC-0583', // 裴杏 · 太行神射手
+  'NPC-0624', // 武绮 · 绿林山寨二当家
+  'NPC-0645', // 阮刀峰 · 黑店迎客掌柜
+  'NPC-0681', // 樊威渊 · 太行神射手
+  'NPC-0707', // 裴云 · 太行神射手
+  'NPC-0708', // 杨松城 · 响马游击头目
+  'NPC-0733', // 晁远琛 · 绿林山寨二当家
+  'NPC-0747', // 樊威 · 响马游击头目
+  'NPC-0753', // 史剑鹤 · 响马游击头目
+  'NPC-0764', // 裴宇 · 太行神射手
+  'NPC-0791', // 晁元勇 · 太行神射手
+  'NPC-0797', // 石雅 · 太行神射手
+  'NPC-0834', // 林巽豪 · 黑店迎客掌柜
+  'NPC-0850', // 樊轩焱 · 太行神射手
+  'NPC-0868', // 石霖柏 · 响马游击头目
+  'NPC-0881', // 阮柏洲 · 山寨巡山小喽啰
+  'NPC-0883', // 武明渊 · 破窑落草庄客
+  'NPC-0891', // 武铁渊 · 剪径毛贼
+  'NPC-0895', // 王兰凝 · 剪径毛贼
+  'NPC-0908', // 雷弘 · 山寨巡山小喽啰
+  'NPC-0913', // 裴枪麟 · 剪径毛贼
+  'NPC-0923', // 樊坤河 · 山寨巡山小喽啰
+  'NPC-0939', // 林豪瑞 · 山寨巡山小喽啰
+  'NPC-0963', // 史平松 · 剪径毛贼
+  'NPC-0980', // 石景青 · 山寨巡山小喽啰
+  'NPC-1000', // 鲁风平 · 破窑落草庄客
+]
+
 const SCENE_36_BLADES_FALL_ERADICATED: StorySceneDef = {
   id: 'scene_jtc3_36_blades_fall_eradicated',
   title: '第三十六幕 · 鬼头刀落绝匪踪',
@@ -169,9 +212,11 @@ const SCENE_36_BLADES_FALL_ERADICATED: StorySceneDef = {
   ],
   onFinishEffects: [
     { type: 'setFlag', flag: 'taihang_bandits_eradicated', value: true },
+    // 太行山一支全员伏诛（京东水寨一支未受波及，晁云飞、阮惊涛等仍在世）
+    { type: 'markNpcsDead', npcIds: TAIHANG_WING_NPC_IDS },
     { type: 'removeItem', itemId: 'ITM-MSC-030', qty: 1 },
     { type: 'advanceShichen', count: 6 },
-    toast('渠魁授首，万民欢腾！盘踞太行数十载的绿林匪患已被彻底连根铲除（太行/京东绿林残匪自此永久绝迹于江湖），《太行山绿林防备暗道图》已归档枢密院秘库！', 'success', '匪患永绝'),
+    toast('渠魁授首，万民欢腾！盘踞太行数十载的绿林匪患已被彻底连根铲除（太行山诸寨残匪自此永久绝迹于江湖，京东水寨一支则远遁梁山泺），《太行山绿林防备暗道图》已归档枢密院秘库！', 'success', '匪患永绝'),
     {
       type: 'teleportPlayer',
       regionId: 'bianliang',

@@ -1,3 +1,5 @@
+import { countLivingNpcIds } from '../../../engine/social/npcDeath'
+import { useGameStore } from '../../../store/useGameStore'
 import { useState } from 'react'
 import { TEN_ART_KEYS } from '../../../data/gameDb'
 import type { CompiledBuildingRecord, NodeNpc } from '../../../types/game'
@@ -34,6 +36,8 @@ export function InspectorNpcRoster({
     npcKey: string
   } | null>(null)
 
+  const deadNpcIds = useGameStore((st) => st.deadNpcIds)
+
   if (!isLeafBuilding) {
     return (
       <div className="pt-2 border-t border-[#cbb693] text-[11px] text-[#6b5235] leading-relaxed">
@@ -41,7 +45,7 @@ export function InspectorNpcRoster({
           <>
             此建筑内设多处殿宇/子建筑（院内共驻{' '}
             <strong className="text-[#8f1d14]">
-              {targetBuildingDb?.residentNpcIds.length ?? 0}
+              {countLivingNpcIds(targetBuildingDb?.residentNpcIds, deadNpcIds)}
             </strong>{' '}
             人），请步入内院并点选最末层子建筑寻访常驻人物。
           </>
@@ -49,7 +53,7 @@ export function InspectorNpcRoster({
           <>
             此建筑为可步入的市井独堂实景（堂内共驻{' '}
             <strong className="text-[#8f1d14]">
-              {targetBuildingDb?.residentNpcIds.length ?? 0}
+              {countLivingNpcIds(targetBuildingDb?.residentNpcIds, deadNpcIds)}
             </strong>{' '}
             人，内无子建筑），请步入大堂互动与寻访人物。
           </>

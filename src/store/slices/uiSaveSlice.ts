@@ -228,6 +228,9 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
       inscribedPoemSpotIds: Array.isArray(st.inscribedPoemSpotIds)
         ? st.inscribedPoemSpotIds.filter((x): x is string => typeof x === 'string')
         : [],
+      deadNpcIds: Array.isArray(st.deadNpcIds)
+        ? st.deadNpcIds.filter((x): x is string => typeof x === 'string')
+        : [],
       auctionBoughtByMonth: st.auctionBoughtByMonth
         ? Object.fromEntries(
             Object.entries(st.auctionBoughtByMonth).map(([k, arr]) => [k, [...arr]]),

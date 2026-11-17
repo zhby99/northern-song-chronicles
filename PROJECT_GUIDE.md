@@ -130,7 +130,7 @@ northern-song-chronicles/
 │   │       └── uiSaveSlice.ts           # 全局枢机/图鉴/日志抽屉 UI 控制与多槽位 IndexedDB 存取档
 │   │
 │   ├── types/                           # 全局 TypeScript 接口与类型定义
-│   │   └── game.ts                      # Region, Building, NPC, MartialArt, Weapon, Inventory, M1.5.3 存档等类型
+│   │   └── game.ts                      # Region, Building, NPC, MartialArt, Weapon, Inventory, M1.5.4 存档等类型
 │   │
 │   └── utils/                           # 工具方法库
 │       ├── assetLoader.ts               # 图片素材按需懒加载与字节监控工具
@@ -176,7 +176,7 @@ northern-song-chronicles/
   - **群侠与战斗 (`combatSocialSlice.ts`)**：NPC 交谈、赠礼好感结算、同步盲选六择一回合战斗与生死战 `GameOverModal` 重置。
   - **门派与公门 (`sectSlice.ts`)**：33 门派拜师晋升、二月初一宗门大比、常山半年诛谍、六扇门海捕公案、举荐帖与本门武学传授。
   - **剧情引擎 (`questSlice.ts`)**：声明式 `QuestEffect` 执行器、`StorySceneModal` 对白幕次与抉择推进、地点触发器与任务时限巡检。
-  - **界面与存取档 (`uiSaveSlice.ts`)**：十卷枢机菜单、万象图鉴、浮动笺纸提示及多槽位 `M1.5.3` IndexedDB/JSON 存取档。
+  - **界面与存取档 (`uiSaveSlice.ts`)**：十卷枢机菜单、万象图鉴、浮动笺纸提示及多槽位 `M1.5.4` IndexedDB/JSON 存取档。
 
 ### 2. 静态数据库与器物武学表 (`gameDb.ts` / `itemsDb.ts` / `scrollsDb.ts` / `playerMartialArts.ts`)
 - **`gameDb.ts`**：导出 `REGIONS_DB`（43）、`BUILDINGS_DB`（268）、`MARTIAL_ARTS_DB`（246）、`WEAPONS_DB`（100）、`NPCS_DB`（1,047）及 O(1) 哈希索引 Map。
@@ -193,6 +193,7 @@ northern-song-chronicles/
 - **随机数**：所有玩法随机经由 `engine/combat/rng.ts` 的 `gameRng`；测试与回放可 `setGameRng(createSeededRng(seed))` 让整局 store 行为可复现（音效噪声合成不在此列）。
 - **战后结算**：新增一类战斗（新 `duelStakes`）时，在 `engine/combat/settlement.ts` 追加终局文案或结算规则，`combatSocialSlice.finishCombatSession()` 只负责提交草稿与后续跳转。
 - **战阵毒药数值**：由 `docs/EQUIPMENT_COMPENDIUM.md` 规格列 `poisonCombat` 字段编译生成，战斗代码不再按物品 ID 写死。
+- **NPC 生死**：store 字段 `deadNpcIds`（随存档持久化）。主角主动发起的生死决斗（`duelStakes === 'duel'`、无剧情钩子）获胜即判对手身故；剧情可用 `{ type: 'markNpcsDead', npcIds: [...] }` 判定身故，名单显式写在剧情数据里（如太行剿匪终幕的 `TAIHANG_WING_NPC_IDS`）。新增任何列出 / 交互名录 NPC 的地方，须经 `engine/social/npcDeath.ts` 的 `filterLivingNpcs` / `isNpcDead` 过滤；门派事务对接人用 `getSectContactNpcId()`（掌门身故则由在世最高阶门人代掌）。
 
 ---
 

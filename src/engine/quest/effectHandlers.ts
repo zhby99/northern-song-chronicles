@@ -35,6 +35,7 @@ import {
   SHAOLIN_CHORE_TARGET_DAYS,
 } from '../sect'
 import { addItemToInventory, removeItemFromInventory } from '../shared/inventory'
+import { withNpcsMarkedDead } from '../social/npcDeath'
 import { INITIAL_NPC_FAVOR, MAX_NPC_FAVOR, MIN_NPC_FAVOR } from '../social/npcFavor'
 import { syncArtLevelsToExpsAndMilestones } from '../stats/artsProgression'
 import {
@@ -285,9 +286,8 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
       return
     }
     if (eff.flag === 'taihang_bandits_eradicated' && Boolean(eff.value)) {
-      const filteredMasters = s.roamingMasters.filter(
-        (m) => !m.sect.includes('太行') && !m.sect.includes('绿林'),
-      )
+      // 只清退太行山一支的游历宗师；京东水寨一支未受剿灭
+      const filteredMasters = s.roamingMasters.filter((m) => !m.sect.includes('太行'))
       ctx.patchDraft({
         questState: nextQuest,
         sectState: nextSect,
@@ -683,6 +683,11 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
       ctx.getStore().leaveSect()
       ctx.draft = { ...ctx.getStore() }
     }
+  },
+
+  markNpcsDead: (eff, ctx) => {
+    const s = ctx.draft
+    ctx.patchDraft({ deadNpcIds: withNpcsMarkedDead(s.deadNpcIds, eff.npcIds) })
   },
 
   addSectContribution: (eff, ctx) => {

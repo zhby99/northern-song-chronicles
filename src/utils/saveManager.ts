@@ -14,7 +14,7 @@ import type {
   ViewMode,
   WildernessCamp,
 } from '../types/game'
-import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, REGION_DB_MAP } from '../data/gameDb'
+import { BUILDING_DB_MAP, MARTIAL_ART_DB_MAP, NPC_DB_MAP, REGION_DB_MAP } from '../data/gameDb'
 import {
   DEFAULT_EQUIPPED_SLOTS,
   DEFAULT_INITIAL_INVENTORY,
@@ -33,7 +33,7 @@ import { isBuildingUnlocked } from '../engine/world/mapMath'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from '../engine/social/npcFavor'
 import { clonePlayerSectState } from '../engine/sect'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.3' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.4' as const
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -583,6 +583,9 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
       : {},
     inscribedPoemSpotIds: Array.isArray(st.inscribedPoemSpotIds)
       ? st.inscribedPoemSpotIds.filter((id): id is string => typeof id === 'string')
+      : [],
+    deadNpcIds: Array.isArray(st.deadNpcIds)
+      ? st.deadNpcIds.filter((id): id is string => typeof id === 'string' && Boolean(NPC_DB_MAP[id]))
       : [],
     auctionBoughtByMonth: isRecord(st.auctionBoughtByMonth)
       ? Object.fromEntries(

@@ -45,6 +45,7 @@ export function generateSectTournament(
   sectId: string,
   yearIndex: number,
   rng: RngFn = defaultRng,
+  deadNpcIds: readonly string[] = [],
 ): ActiveSectTournament | null {
   const faction = FACTION_DB_MAP[sectId]
   if (!faction || !isDaoSwordSect(sectId)) return null
@@ -52,7 +53,7 @@ export function generateSectTournament(
   const { rounds, lastNames, firstNames } = SECT_SYSTEMS_DB.tournament
 
   const pool = NPCS_DB.filter((n) => {
-    if (n.factionId !== sectId || n.id === leaderId) return false
+    if (n.factionId !== sectId || n.id === leaderId || deadNpcIds.includes(n.id)) return false
     const r = parseRealmTier(n.realm).rank
     return r >= 1 && r <= 6
   })

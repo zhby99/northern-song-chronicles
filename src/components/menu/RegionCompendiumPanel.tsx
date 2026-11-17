@@ -1,3 +1,4 @@
+import { filterLivingNpcs } from '../../engine/social/npcDeath'
 import {
   AlertTriangle,
   Building2,
@@ -229,13 +230,11 @@ export function RegionCompendiumPanel({
     [activeRegion],
   )
 
-  const residentNpcs = useMemo(() => {
-    const base = getCompiledNpcsByRegion(activeRegion.id)
-    if (questFlags.taihang_bandits_eradicated) {
-      return base.filter((n) => n.factionId !== 'SECT-18')
-    }
-    return base
-  }, [activeRegion.id, questFlags])
+  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
+  const residentNpcs = useMemo(
+    () => filterLivingNpcs(getCompiledNpcsByRegion(activeRegion.id), deadNpcIds),
+    [activeRegion.id, deadNpcIds],
+  )
 
   const hqFactions = useMemo(
     () => sectsByHqRegion.get(activeRegion.id) ?? [],

@@ -237,10 +237,8 @@ function buildRoamingFallbackStats(m: RoamingMaster): {
 export function buildRoamingMasterNodeNpc(
   m: RoamingMaster,
   nodeName: string,
-  taihangEradicated = false,
 ): { npc: NodeNpc; resolvedRecord: CompiledNpcRecord | null } | null {
   const resolved = resolveNpcByName(m.name) ?? resolveNpcByName(m.name.replace(/大师$/, ''))
-  if (taihangEradicated && resolved?.factionId === 'SECT-18') return null
   const fb = buildRoamingFallbackStats(m)
   return {
     resolvedRecord: resolved ?? null,

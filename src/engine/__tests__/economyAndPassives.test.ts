@@ -376,7 +376,7 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
 
     const validated = validateSaveEnvelope(JSON.parse(JSON.stringify(mutated)))
     expect(validated).not.toBeNull()
-    expect(validated?.schemaVersion).toBe('M1.5.3')
+    expect(validated?.schemaVersion).toBe('M1.5.4')
     expect(validated?.state.birthplaceId).toBe('luoyang')
     expect(validated?.state.cityStayShichens).toBe(7)
     expect(validated?.state.npcBanquetedMonth).toEqual({ 'NPC-0012': 2 })

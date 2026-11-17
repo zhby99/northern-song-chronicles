@@ -402,6 +402,7 @@ export function extractSerializableState(s: GameStoreState): SerializableGameSta
     npcSparredMonth: { ...s.npcSparredMonth },
     npcBanquetedMonth: { ...s.npcBanquetedMonth },
     inscribedPoemSpotIds: [...s.inscribedPoemSpotIds],
+    deadNpcIds: [...s.deadNpcIds],
     auctionBoughtByMonth: Object.fromEntries(
       Object.entries(s.auctionBoughtByMonth).map(([k, arr]) => [k, [...arr]]),
     ),
@@ -522,6 +523,7 @@ export function createInitialStoreData(): GameStoreData {
     npcSparredMonth: {},
     npcBanquetedMonth: {},
     inscribedPoemSpotIds: [],
+    deadNpcIds: [],
     auctionBoughtByMonth: {},
     activeEscortContract: null,
     activeBagCategory: 'scrolls',

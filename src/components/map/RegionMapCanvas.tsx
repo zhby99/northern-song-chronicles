@@ -1,3 +1,4 @@
+import { countLivingNpcIds, filterLivingNpcs } from '../../engine/social/npcDeath'
 import { lazy, Suspense, useEffect, useMemo, useRef } from 'react'
 import {
   BUILDING_DB_MAP,
@@ -72,6 +73,7 @@ export function RegionMapCanvas() {
   const npcFavor = useGameStore((s) => s.npcFavor)
   const sectState = useGameStore((s) => s.sectState)
   const questState = useGameStore((s) => s.questState)
+  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
 
   const setRegionPan = useGameStore((s) => s.setRegionPan)
   const zoomRegionBy = useGameStore((s) => s.zoomRegionBy)
@@ -146,9 +148,7 @@ export function RegionMapCanvas() {
           continue
         }
         const rawSpotNpcs = getCompiledNpcsBySpot(sp.id)
-        const npcs = questState.flags.taihang_bandits_eradicated
-          ? rawSpotNpcs.filter((n) => n.factionId !== 'SECT-18')
-          : rawSpotNpcs
+        const npcs = filterLivingNpcs(rawSpotNpcs, deadNpcIds)
         if (npcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
           spotIds.add(sp.id)
           continue
@@ -194,9 +194,7 @@ export function RegionMapCanvas() {
           }
         }
         const rawBldgNpcs = getCompiledNpcsByBuilding(b.id)
-        const bldgNpcs = questState.flags.taihang_bandits_eradicated
-          ? rawBldgNpcs.filter((n) => n.factionId !== 'SECT-18')
-          : rawBldgNpcs
+        const bldgNpcs = filterLivingNpcs(rawBldgNpcs, deadNpcIds)
         if (bldgNpcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
           buildingIds.add(b.id)
           continue
@@ -217,6 +215,7 @@ export function RegionMapCanvas() {
     activeRegionId,
     activeBuildingRecord,
     sortedBuildings,
+    deadNpcIds,
     dayCount,
     shichenIdx,
     silver,
@@ -438,7 +437,7 @@ export function RegionMapCanvas() {
               <g id="building-spots-layer">
                 {activeInterior.spots.map((sp) => {
                   const isSelected = sp.id === selectedSpotId
-                  const spotResidentCount = sp.residentNpcIds?.length ?? 0
+                  const spotResidentCount = countLivingNpcIds(sp.residentNpcIds, deadNpcIds)
                   const spotTagLabel =
                     spotResidentCount > 0 ? `${sp.tag} · ${spotResidentCount}人` : sp.tag
                   const labelText = `★ ${sp.name}`
@@ -712,7 +711,7 @@ export function RegionMapCanvas() {
                             isSpecial: b.isSpecial,
                             interiorMode,
                             hasSubSpots,
-                            residentCount: dbBuilding?.residentNpcIds.length ?? 0,
+                            residentCount: countLivingNpcIds(dbBuilding?.residentNpcIds, deadNpcIds),
                           },
                         })
                       }}

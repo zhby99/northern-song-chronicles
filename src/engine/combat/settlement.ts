@@ -15,6 +15,7 @@ import {
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
 } from '../sect'
 import { addItemToInventory } from '../shared/inventory'
+import { withNpcMarkedDead } from '../social/npcDeath'
 import type { CombatSessionState, DuelStakesKind } from './types'
 
 // ============================================================================
@@ -104,6 +105,8 @@ export interface CombatSettlementDraft {
   triggerKaifengZhanZhao: boolean
   /** 宗门大比晋级 → 立刻开打下一轮 */
   nextTournamentOpponent: NodeNpc | null
+  /** 已身故名录人物（生死决斗击杀后追加） */
+  deadNpcIds: string[]
 }
 
 export interface CombatSettlementContext {
@@ -128,6 +131,17 @@ export interface CombatSettlementRule {
 
 /** 规则顺序即结算顺序（后执行者可覆盖 logTag / logText） */
 export const COMBAT_SETTLEMENT_RULES: CombatSettlementRule[] = [
+  {
+    id: 'lifeDeathDuelKill',
+    stakes: ['duel'],
+    apply(d, ctx) {
+      // 主角发起的生死决斗获胜：对手身故，从江湖中移除（剧情挂钩战由剧情效果 markNpcsDead 自行判定）
+      const { session, qHook, dbTarget } = ctx
+      if (session.mode === 'duel' && session.outcome === 'player_win' && !qHook && dbTarget) {
+        d.deadNpcIds = withNpcMarkedDead(d.deadNpcIds, dbTarget.id)
+      }
+    },
+  },
   {
     id: 'sameSectSparMerit',
     apply(d, ctx) {

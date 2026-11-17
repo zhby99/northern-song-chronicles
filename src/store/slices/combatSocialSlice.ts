@@ -1,3 +1,4 @@
+import { isNpcDead } from '../../engine/social/npcDeath'
 import type { StoreSlice } from '../storeTypes'
 import {
   NPC_DB_MAP,
@@ -139,6 +140,10 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
   startNpcCombat: (npc, mode = 'spar', duelStakes, forceMandatory = false) => {
     const s = get()
     if (s.gameOver) return
+    if (isNpcDead(s.deadNpcIds, npc.id)) {
+      set({ actionFeedback: { text: `【${npc.name}】已然身故，无从交手。`, tone: 'warn' } })
+      return
+    }
 
     const effectiveStakes: DuelStakesKind = duelStakes ?? (mode === 'duel' ? 'duel' : 'spar')
     const effectiveMode: 'spar' | 'duel' =
@@ -419,6 +424,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
         logText: res.logText,
         triggerKaifengZhanZhao: false,
         nextTournamentOpponent: null,
+        deadNpcIds: s.deadNpcIds,
       },
       {
         session,
@@ -440,6 +446,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
           ? null
           : s.activeNpcInteraction,
       combatExp: d.combatExp,
+      deadNpcIds: d.deadNpcIds,
       chivalry: d.chivalry,
       activeEscortContract: d.escortContract,
       silver: d.silver,
@@ -576,6 +583,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       npcSparredMonth: {},
       npcBanquetedMonth: {},
       inscribedPoemSpotIds: [],
+      deadNpcIds: [],
       auctionBoughtByMonth: {},
       activeEscortContract: null,
       sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
@@ -604,6 +612,10 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
   },
 
   openNpcInteraction: (npc) => {
+    if (isNpcDead(get().deadNpcIds, npc.id)) {
+      set({ actionFeedback: { text: `【${npc.name}】已然身故，斯人已逝。`, tone: 'warn' } })
+      return
+    }
     set({
       activeNpcInteraction: npc,
       tooltip: null,

@@ -27,6 +27,7 @@ import { computeTimeAdvanceState, createLogEntry } from './clock'
 export type CultivationStateSnapshot = Pick<
   GameStoreData,
   | 'dayCount'
+  | 'deadNpcIds'
   | 'shichenIdx'
   | 'silver'
   | 'food'
@@ -993,6 +994,7 @@ export function tickMartialArtSession(
     roamingMasters: s.roamingMasters,
     logs: s.logs,
     emitMasterRumorLog: true,
+    deadNpcIds: s.deadNpcIds,
     vitalityFactor: session.venue === 'wilderness_camp' ? 0.4 : 1,
     rng,
   })

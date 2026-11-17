@@ -1,3 +1,4 @@
+import { isNpcDead } from '../../engine/social/npcDeath'
 import type { StoreSlice } from '../storeTypes'
 import { gameRng } from '../../engine/combat/rng'
 import {
@@ -729,6 +730,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         roamingMasters: nextMasters,
         logs: nextLogs,
         emitRumorLog: true,
+        deadNpcIds: s.deadNpcIds,
         canEnterNode: (regionId) => isRegionUnlockedByInventory(regionId, s.inventory),
       })
       nextMasters = rot.roamingMasters
@@ -1248,10 +1250,13 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
     const s = get()
     const npc = NPC_DB_MAP[npcId]
     if (!npc) return
-    if (npc.factionId === 'SECT-18' && Boolean(s.questState.flags.taihang_bandits_eradicated)) {
+    if (isNpcDead(s.deadNpcIds, npc.id)) {
       set({
         actionFeedback: {
-          text: '太行/京东绿林盟贼巢已被大宋禁军犁庭扫穴，群匪尽数伏法，已无此人踪迹。',
+          text:
+            npc.factionId === 'SECT-18'
+              ? '太行/京东绿林盟贼巢已被大宋禁军犁庭扫穴，群匪尽数伏法，已无此人踪迹。'
+              : `【${npc.name}】已然身故，斯人已逝。`,
           tone: 'warn',
         },
       })

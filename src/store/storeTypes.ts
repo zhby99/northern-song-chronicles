@@ -243,6 +243,8 @@ export interface GameStoreState {
   npcSparredMonth: Record<string, number>
   npcBanquetedMonth: Record<string, number>
   inscribedPoemSpotIds: string[]
+  /** 已在生死决斗或剧情中身故的名录 NPC（NPC-xxxx），从世界中移除 */
+  deadNpcIds: string[]
   auctionBoughtByMonth: Record<string, string[]>
   openNpcInteraction: (npc: NodeNpc) => void
   closeNpcInteraction: () => void

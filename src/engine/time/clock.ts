@@ -1,4 +1,4 @@
-import { FACTION_DB_MAP } from '../../data/gameDb'
+import { FACTION_DB_MAP, resolveNpcByName } from '../../data/gameDb'
 import type {
   LogEntry,
   NodeNpc,
@@ -23,6 +23,7 @@ import {
   SEMI_ANNUAL_DEADLINE_DAYS,
   spawnAnnualLiaoSpy,
 } from '../sect'
+import { isNpcDead } from '../social/npcDeath'
 import { INITIAL_NPC_FAVOR, MIN_NPC_FAVOR } from '../social/npcFavor'
 import {
   DAYS_PER_YEAR,
@@ -96,6 +97,8 @@ export function rotateMonthlyRoamingMasters(params: {
   logs: LogEntry[]
   emitRumorLog?: boolean
   canEnterNode?: (regionId: string) => boolean
+  /** 已身故名录人物：不再出现在江湖风闻中 */
+  deadNpcIds?: readonly string[]
   rng?: RngFn
 }): { roamingMasters: RoamingMaster[]; logs: LogEntry[] } {
   const {
@@ -106,6 +109,7 @@ export function rotateMonthlyRoamingMasters(params: {
     logs,
     emitRumorLog = false,
     canEnterNode,
+    deadNpcIds = [],
     rng = defaultRng,
   } = params
   if (nextDayCount <= prevDayCount) {
@@ -128,11 +132,14 @@ export function rotateMonthlyRoamingMasters(params: {
     return pick ? { ...m, nodeId: pick.to } : m
   })
 
-  if (!emitRumorLog || nextMasters.length === 0) {
+  const rumorCandidates = nextMasters.filter(
+    (m) => !isNpcDead(deadNpcIds, resolveNpcByName(m.name)?.id),
+  )
+  if (!emitRumorLog || rumorCandidates.length === 0) {
     return { roamingMasters: nextMasters, logs }
   }
 
-  const sample = nextMasters[Math.floor(rng() * nextMasters.length)]
+  const sample = rumorCandidates[Math.floor(rng() * rumorCandidates.length)]
   if (!sample) {
     return { roamingMasters: nextMasters, logs }
   }
@@ -381,6 +388,7 @@ export interface ComputeTimeAdvanceParams {
   skipSectDayHooks?: boolean
   rotateMasters?: boolean
   emitMasterRumorLog?: boolean
+  deadNpcIds?: readonly string[]
   canMasterEnterNode?: (regionId: string) => boolean
   rng?: RngFn
 }
@@ -432,6 +440,7 @@ export function computeTimeAdvanceState(
     skipSectDayHooks = false,
     rotateMasters = true,
     emitMasterRumorLog = false,
+    deadNpcIds = [],
     canMasterEnterNode,
     rng = defaultRng,
   } = params
@@ -483,6 +492,7 @@ export function computeTimeAdvanceState(
         roamingMasters: nextMasters,
         logs: nextLogs,
         emitRumorLog: emitMasterRumorLog,
+        deadNpcIds,
         canEnterNode: canMasterEnterNode,
         rng,
       })
@@ -591,6 +601,7 @@ export function commitTimeAdvance(
     skipSectDayHooks: options.skipSectDayHooks,
     rotateMasters: options.rotateMasters,
     emitMasterRumorLog: options.emitMasterRumorLog,
+    deadNpcIds: s.deadNpcIds,
     canMasterEnterNode: options.canMasterEnterNode,
     rng: options.rng,
   })

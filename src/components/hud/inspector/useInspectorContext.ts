@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { filterLivingNpcs, isNpcDead } from '../../../engine/social/npcDeath'
 import {
   BUILDING_DB_MAP,
   FACTION_DB_MAP,
@@ -79,6 +80,7 @@ export function useInspectorContext() {
   const learnedArts = useGameStore((s) => s.learnedArts)
   const npcFavor = useGameStore((s) => s.npcFavor)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
+  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
   const sectState = useGameStore((s) => s.sectState)
   const questState = useGameStore((s) => s.questState)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
@@ -129,13 +131,10 @@ export function useInspectorContext() {
         : selectedBuildingId!
     const resolvedLeafSpotId = isLeafInteriorSpot ? selectedSpotId! : null
 
-    const taihangEradicated = Boolean(questState.flags.taihang_bandits_eradicated)
     const rawLeafNpcs = isLeafInteriorSpot
       ? getCompiledNpcsBySpot(selectedSpotId!)
       : getCompiledNpcsByBuilding(resolvedLeafBuildingId).filter((c) => !c.assignedSpotId)
-    const leafNpcs = taihangEradicated
-      ? rawLeafNpcs.filter((c) => c.factionId !== 'SECT-18')
-      : rawLeafNpcs
+    const leafNpcs = filterLivingNpcs(rawLeafNpcs, deadNpcIds)
 
     const talkMap = new Map<string, string>()
     for (const legacyNpc of node.npcs ?? []) {
@@ -199,7 +198,6 @@ export function useInspectorContext() {
 
     const roamingAtThisLeaf = roamingMasters.filter((m) => {
       if (m.nodeId !== node.id) return false
-      if (taihangEradicated && (m.sect.includes('太行') || m.sect.includes('绿林'))) return false
       const target = resolveRoamingMasterLeafTarget(m)
       if (!target) return false
       return (
@@ -209,8 +207,9 @@ export function useInspectorContext() {
     })
 
     for (const m of roamingAtThisLeaf) {
-      const built = buildRoamingMasterNodeNpc(m, node.name, taihangEradicated)
+      const built = buildRoamingMasterNodeNpc(m, node.name)
       if (!built) continue
+      if (isNpcDead(deadNpcIds, built.resolvedRecord?.id)) continue
       seenNames.add(m.name)
       if (built.resolvedRecord) seenNames.add(built.resolvedRecord.name)
       combined.push(built.npc)
@@ -239,11 +238,11 @@ export function useInspectorContext() {
     selectedBuildingId,
     selectedSpotId,
     roamingMasters,
+    deadNpcIds,
     sectState.activeLiaoSpy,
     sectState.activeKaifengWarrant,
     sectState.activeSectTask,
     questState.dynamicActors,
-    questState.flags,
   ])
 
   const spotQuestActions = useMemo(() => {

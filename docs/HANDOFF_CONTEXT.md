@@ -48,6 +48,11 @@
    - 战后结算拆为 `engine/combat/settlement.ts`：`buildCombatDeathPayload()`（按 `duelStakes` 查表）与有序规则表 `COMBAT_SETTLEMENT_RULES`；门派离派 / 开除统一走 `engine/sect/ranks.ts` 的 `resetSectMembership()`，切勿再手写字段重置。
    - 一次性受控标记（震慑 / 封穴 / 震腕）在**盲选决策之后**才清除（`round/initiative.ts`），否则 NPC 受控无效。
    - 全局玩法随机源 `gameRng` + `setGameRng()`；测试可整局播种。战阵毒药数值由 `EQUIPMENT_COMPENDIUM.md` 的 `poisonCombat` 规格编译生成。
+6. **NPC 生死状态（存档 `M1.5.4`）**：
+   - `deadNpcIds` 记录已身故的名录人物：生死决斗击杀（结算规则 `lifeDeathDuelKill`）或剧情效果 `markNpcsDead`。身故者从建筑名册、地图任务标记、驻留人数、游历宗师、江湖风闻与宗门大比对手池中移除，store 层 `openNpcInteraction` / `startNpcCombat` 也会拒绝；群侠图鉴标注【已故】。
+   - 掌门身故后门派事务由 `getSectContactNpcId()` 交给在世最高阶门人代掌（如星宿派弑师后由大师兄代办）；`killedDingChunqiu` 作为既成史实在离派 / 重入时保留。
+   - 《太行剿匪 · 叁》第三十六幕「鬼头刀落绝匪踪」以 `markNpcsDead` 将绿林盟（`SECT-18`）中**太行山一支** 35 人判定身故（名单 `TAIHANG_WING_NPC_IDS` 写在 `jinjunTaihangQuest3.scenes.ts`：身份写明「太行」者，及驻河北太行山 / 真定 / 大名与潼关、身份未写明「京东」者）；**京东水寨一支** 10 人（晁云飞、阮惊涛等）存活，并由其在世最高阶者代掌绿林盟门派事务。旧的 `taihang_bandits_eradicated` 旗标不再用于过滤人物（仅保留剧情判定与清退太行游历宗师），图鉴中身故者标注【已故】。
+   - 尚未覆盖：剧情任务若以已故人物为必经对象（`targetNpcMatch`）会无法推进，新写任务需自行避开或提供替代分支。
 
 ---
 
