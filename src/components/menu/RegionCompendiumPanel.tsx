@@ -21,7 +21,8 @@ import {
 } from '../../data/gameDb'
 import {
   getRegionUnlockRequirement,
-  isRegionUnlockedByInventory,
+  getUnlockedLockedRegionKey,
+  isRegionUnlockedByKey,
 } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import type {
@@ -155,7 +156,7 @@ export function RegionCompendiumPanel({
   onOpenPanoramaLightbox,
 }: RegionCompendiumPanelProps) {
   const questFlags = useGameStore((s) => s.questState.flags)
-  const inventory = useGameStore((s) => s.inventory)
+  const unlockedRegionKey = useGameStore((s) => getUnlockedLockedRegionKey(s.inventory))
 
   // Map regionId -> factions headquartered here or having members stationed here
   const sectsByHqRegion = useMemo(() => {
@@ -437,7 +438,7 @@ export function RegionCompendiumPanel({
                           {reg.standardCode}
                         </span>
                         <span className="song-serif font-bold text-sm truncate">
-                          {!isRegionUnlockedByInventory(reg.id, inventory) ? '🔒 ' : ''}
+                          {!isRegionUnlockedByKey(reg.id, unlockedRegionKey) ? '🔒 ' : ''}
                           {reg.name}
                         </span>
                         {isCurHere && (
@@ -512,7 +513,7 @@ export function RegionCompendiumPanel({
                     边关暗流警报
                   </span>
                 )}
-                {!isRegionUnlockedByInventory(activeRegion.id, inventory) && (
+                {!isRegionUnlockedByKey(activeRegion.id, unlockedRegionKey) && (
                   <span className="text-xs px-2 py-0.5 rounded bg-[#fef2f2] text-[#991b1b] border border-[#dc2626] font-bold song-serif">
                     🔒 迷障未通 · 需秘境舆图
                   </span>
@@ -529,7 +530,7 @@ export function RegionCompendiumPanel({
               {(() => {
                 const unlockReq = getRegionUnlockRequirement(activeRegion.id)
                 if (!unlockReq) return null
-                const unlocked = isRegionUnlockedByInventory(activeRegion.id, inventory)
+                const unlocked = isRegionUnlockedByKey(activeRegion.id, unlockedRegionKey)
                 return (
                   <div
                     className={`mt-2 px-2.5 py-1.5 rounded border text-xs song-serif ${
@@ -554,7 +555,7 @@ export function RegionCompendiumPanel({
               >
                 <Navigation className="w-3.5 h-3.5" />
                 <span>
-                  {isRegionUnlockedByInventory(activeRegion.id, inventory)
+                  {isRegionUnlockedByKey(activeRegion.id, unlockedRegionKey)
                     ? '舆图寻路定位 →'
                     : '舆图查看方位（需图解锁）'}
                 </span>

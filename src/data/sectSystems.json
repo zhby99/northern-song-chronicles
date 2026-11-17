@@ -1,0 +1,540 @@
+{
+  "stipends": {
+    "SECT-22": [
+      15,
+      30,
+      50,
+      75,
+      110
+    ],
+    "SECT-17": [
+      30,
+      50,
+      80,
+      120,
+      180
+    ],
+    "SECT-33": [
+      60,
+      120,
+      180,
+      240,
+      300
+    ]
+  },
+  "referralBribes": [
+    {
+      "fromSectId": "SECT-26",
+      "targetSectId": "SECT-16",
+      "targetSectName": "江淮漕帮",
+      "itemId": "ITM-MSC-003",
+      "itemName": "钱塘怒潮帮举荐帖",
+      "costSilver": 20,
+      "elderRoleHint": "副帮主"
+    },
+    {
+      "fromSectId": "SECT-25",
+      "targetSectId": "SECT-23",
+      "targetSectName": "沧州八极门",
+      "itemId": "ITM-MSC-004",
+      "itemName": "齐鲁查拳馆举荐帖",
+      "costSilver": 20,
+      "elderRoleHint": "金牌总教头"
+    },
+    {
+      "fromSectId": "SECT-27",
+      "targetSectId": "SECT-24",
+      "targetSectName": "闽海镇远镖局",
+      "itemId": "ITM-MSC-005",
+      "itemName": "岭南洪门武馆举荐帖",
+      "costSilver": 20,
+      "elderRoleHint": "金牌总教头"
+    }
+  ],
+  "starterGearGifts": {
+    "SECT-22": [
+      "WPN-067"
+    ],
+    "SECT-17": [
+      "ACC-018",
+      "ARM-033",
+      "BOT-017"
+    ],
+    "SECT-23": [
+      "ACC-031",
+      "ARM-031"
+    ],
+    "SECT-01": [
+      "ARM-036",
+      "BOT-020",
+      "WPN-068"
+    ],
+    "SECT-02": [
+      "ARM-050",
+      "BOT-026",
+      "WPN-098"
+    ],
+    "SECT-03": [
+      "ARM-053",
+      "BOT-020",
+      "WPN-068"
+    ],
+    "SECT-04": [
+      "ARM-036",
+      "BOT-020",
+      "WPN-068"
+    ],
+    "SECT-05": [
+      "ARM-037",
+      "BOT-021",
+      "WPN-062"
+    ],
+    "SECT-06": [
+      "ARM-037",
+      "BOT-021",
+      "ACC-042"
+    ],
+    "SECT-07": [
+      "WPN-074",
+      "ARM-034",
+      "BOT-021"
+    ],
+    "SECT-08": [
+      "WPN-063"
+    ],
+    "SECT-14": [
+      "ARM-037",
+      "BOT-021",
+      "WPN-061"
+    ],
+    "SECT-15": [
+      "ARM-038",
+      "BOT-018",
+      "WPN-069"
+    ],
+    "SECT-16": [
+      "ARM-040",
+      "WPN-071"
+    ],
+    "SECT-18": [
+      "ARM-039",
+      "WPN-076"
+    ],
+    "SECT-19": [
+      "ARM-039",
+      "BOT-022",
+      "WPN-084",
+      "ACC-051"
+    ]
+  },
+  "liaoSpy": {
+    "locations": [
+      {
+        "regionId": "xijin_liao",
+        "buildingId": "xijin_liao_base_tavern",
+        "spotId": null
+      },
+      {
+        "regionId": "xijin_liao",
+        "buildingId": "xijin_liao_base_inn",
+        "spotId": null
+      },
+      {
+        "regionId": "xijin_liao",
+        "buildingId": "xijin_liao_base_dojo",
+        "spotId": null
+      },
+      {
+        "regionId": "dading_liao",
+        "buildingId": "dading_liao_base_tavern",
+        "spotId": null
+      },
+      {
+        "regionId": "dading_liao",
+        "buildingId": "dading_liao_base_inn",
+        "spotId": null
+      }
+    ],
+    "roster": [
+      {
+        "name": "耶律寒枭",
+        "title": "辽国北院枢密密谍"
+      },
+      {
+        "name": "萧铁鹫",
+        "title": "燕云黑骑暗探统领"
+      },
+      {
+        "name": "耶律断刃",
+        "title": "析津府潜伏死士首领"
+      },
+      {
+        "name": "萧诡影",
+        "title": "契丹南院谍报细作"
+      },
+      {
+        "name": "拔里苍狼",
+        "title": "燕京虎符密使"
+      }
+    ],
+    "strengthTiers": [
+      {
+        "realm": "三流下品",
+        "hpRange": [
+          350,
+          480
+        ],
+        "mpRange": [
+          120,
+          220
+        ],
+        "agiRange": [
+          20,
+          26
+        ],
+        "resRange": [
+          9,
+          15
+        ],
+        "artLevel": 2,
+        "isTier2": false
+      },
+      {
+        "realm": "三流中品",
+        "hpRange": [
+          500,
+          680
+        ],
+        "mpRange": [
+          240,
+          400
+        ],
+        "agiRange": [
+          26,
+          34
+        ],
+        "resRange": [
+          13,
+          21
+        ],
+        "artLevel": 3,
+        "isTier2": false
+      },
+      {
+        "realm": "三流上品",
+        "hpRange": [
+          701,
+          919
+        ],
+        "mpRange": [
+          422,
+          649
+        ],
+        "agiRange": [
+          32,
+          40
+        ],
+        "resRange": [
+          18,
+          26
+        ],
+        "artLevel": 4,
+        "isTier2": false
+      },
+      {
+        "realm": "二流下品",
+        "hpRange": [
+          951,
+          1217
+        ],
+        "mpRange": [
+          680,
+          927
+        ],
+        "agiRange": [
+          38,
+          46
+        ],
+        "resRange": [
+          24,
+          33
+        ],
+        "artLevel": 5,
+        "isTier2": true
+      },
+      {
+        "realm": "二流中品",
+        "hpRange": [
+          1255,
+          1579
+        ],
+        "mpRange": [
+          966,
+          1275
+        ],
+        "agiRange": [
+          44,
+          52
+        ],
+        "resRange": [
+          30,
+          39
+        ],
+        "artLevel": 6,
+        "isTier2": true
+      }
+    ]
+  },
+  "tournament": {
+    "rounds": [
+      {
+        "round": 1,
+        "realm": "三流中品",
+        "rankRange": [
+          1,
+          3
+        ],
+        "hpRange": [
+          480,
+          660
+        ],
+        "mpRange": [
+          260,
+          420
+        ],
+        "agiRange": [
+          24,
+          32
+        ],
+        "resRange": [
+          12,
+          19
+        ]
+      },
+      {
+        "round": 2,
+        "realm": "二流下品",
+        "rankRange": [
+          3,
+          5
+        ],
+        "hpRange": [
+          920,
+          1180
+        ],
+        "mpRange": [
+          680,
+          920
+        ],
+        "agiRange": [
+          36,
+          44
+        ],
+        "resRange": [
+          22,
+          31
+        ]
+      },
+      {
+        "round": 3,
+        "realm": "二流上品",
+        "rankRange": [
+          5,
+          6
+        ],
+        "hpRange": [
+          1480,
+          1820
+        ],
+        "mpRange": [
+          1300,
+          1620
+        ],
+        "agiRange": [
+          48,
+          56
+        ],
+        "resRange": [
+          34,
+          42
+        ]
+      }
+    ],
+    "lastNames": [
+      "凌",
+      "慕",
+      "沈",
+      "陆",
+      "谢",
+      "程",
+      "宋",
+      "温",
+      "苏",
+      "柳",
+      "顾",
+      "孟"
+    ],
+    "firstNames": [
+      "清风",
+      "明月",
+      "玄机",
+      "子虚",
+      "飞白",
+      "长空",
+      "知微",
+      "云舒",
+      "鹤鸣",
+      "松涛",
+      "若水",
+      "寒星"
+    ]
+  },
+  "kaifeng": {
+    "investigationCases": [
+      {
+        "name": "官仓失窃案卷",
+        "subType": "查核官粮私挪账目",
+        "informantName": "王老记",
+        "informantTitle": "卸粮老库丁",
+        "informantTalk": "“官爷可算来了！上月十五夜里，小人亲眼见着三辆遮得严严实实的骡车打后门拉走了精米……”",
+        "summary": "核实了官仓主簿暗中勾结粮商私挪赈灾粮的往来账簿与脚夫证词，案情已水落石出！"
+      },
+      {
+        "name": "漕运私盐密账",
+        "subType": "追查暗渡私盐渠道",
+        "informantName": "陈水生",
+        "informantTitle": "运河摆渡梢公",
+        "informantTalk": "“嘘——小声些！每逢初一十五三更天，总有挂着假货旗的平底船在芦苇荡里交接盐包……”",
+        "summary": "摸清了私盐船帮的暗桩暗号、卸货码头与接应商号，详绘成册以备六扇门收网！"
+      },
+      {
+        "name": "京畿暗桩密信",
+        "subType": "追索辽夏细作联络点",
+        "informantName": "李茶博士",
+        "informantTitle": "官道茶摊掌柜",
+        "informantTalk": "“那几个操外乡口音的客商前脚刚走，桌缝里就塞了张带蜡印的字条，小老儿吓得没敢声张……”",
+        "summary": "截获并拓印了暗桩接头密信与行踪规律，为开封府破获京畿谍网立下头功！"
+      },
+      {
+        "name": "假钞私铸窝点",
+        "subType": "暗访私铸皇祐通宝线索",
+        "informantName": "刘铁锤",
+        "informantTitle": "城郊废窑匠人",
+        "informantTalk": "“官爷明鉴，后山那口废炭窑半夜常冒青烟，还有人拉着整车的废铜料往里送呢……”",
+        "summary": "查明了城郊废窑私铸劣钱的炉灶位置与销赃路数，案卷证据确凿！"
+      },
+      {
+        "name": "驿站盗马疑云",
+        "subType": "追查军马失窃去向",
+        "informantName": "赵马夫",
+        "informantTitle": "递铺老马倌",
+        "informantTalk": "“官爷问那几匹河西好马？蹄铁印子一路往西山岔道去了，半路上还换过一次假牌照……”",
+        "summary": "顺藤摸瓜查清了盗马贼更换官印、销往黑市马贩的完整链条，线索已呈报府衙！"
+      },
+      {
+        "name": "商旅失踪迷案",
+        "subType": "暗查黑店谋财害命传闻",
+        "informantName": "孙货郎",
+        "informantTitle": "走街串巷货郎",
+        "informantTalk": "“客官莫怪老汉多嘴，上月有两位苏杭绸缎商住进前头野店后，就再没见着影儿，只剩包袱皮漂在河沟里……”",
+        "summary": "寻获了遇害商旅遗物与目击证言，锁定了作案黑店与赃物去向，圆满完成侦查！"
+      }
+    ],
+    "warrantCriminals": [
+      {
+        "name": "黑风煞",
+        "title": "江洋劫匪头目",
+        "realm": "三流中品"
+      },
+      {
+        "name": "独眼狼",
+        "title": "官道剪径贼首",
+        "realm": "三流中品"
+      },
+      {
+        "name": "血手杜三",
+        "title": "官道剪径凶徒",
+        "realm": "三流上品"
+      },
+      {
+        "name": "白面郎君",
+        "title": "采花盗玉悍匪",
+        "realm": "三流上品"
+      },
+      {
+        "name": "铁钩王五",
+        "title": "运河私盐枭首",
+        "realm": "二流下品"
+      },
+      {
+        "name": "恶蛟周横",
+        "title": "水寨劫掠恶霸",
+        "realm": "二流下品"
+      },
+      {
+        "name": "鬼影张七",
+        "title": "京畿飞贼首领",
+        "realm": "二流中品"
+      },
+      {
+        "name": "毒手书生",
+        "title": "江湖悬赏凶徒",
+        "realm": "二流中品"
+      },
+      {
+        "name": "血刀厉千山",
+        "title": "绿林通缉大寇",
+        "realm": "二流上品"
+      },
+      {
+        "name": "冷面阎罗",
+        "title": "连环灭门凶犯",
+        "realm": "二流上品"
+      }
+    ]
+  },
+  "minorIntelTemplates": [
+    {
+      "title": "官道盐铁私运与绿林风声",
+      "informantName": "老赵头",
+      "informantTitle": "跑江湖老脚夫",
+      "informantTalk": "“客官可是问最近官道上的风声？嘿，喝了这碗浊酒，老汉便与你透个实底……”",
+      "summary": "近半月京东与河北官道私盐贩子颇为活跃，太行山几股绿林好汉正暗中截道，押镖行商须绕行大路或备足人手。"
+    },
+    {
+      "title": "邻近州府粮价与茶马行情",
+      "informantName": "钱算盘",
+      "informantTitle": "行脚杂货掌柜",
+      "informantTalk": "“小老儿刚从西边州府赶货回来，各州仓廪价目门儿清，客官问这作甚？”",
+      "summary": "关中与河东军需征调趋紧，糙米与药草市价看涨两成，而江南丝茶经运河源源北上，牙行铺面正暗囤货源。"
+    },
+    {
+      "title": "边关谍影与北辽游骑动向",
+      "informantName": "焦老卒",
+      "informantTitle": "退伍边军老校",
+      "informantTalk": "“莫看俺腿脚不利索，边镇上的袍泽隔三岔五还捎信来呢……”",
+      "summary": "近来有不少操燕云口音、扮作皮货商的汉子频繁出入北境榷场与州府酒肆，疑为北辽暗桩探听宋军换防虚实。"
+    },
+    {
+      "title": "各派名宿近期行踪秘闻",
+      "informantName": "白衣醒客",
+      "informantTitle": "酒肆说书人",
+      "informantTalk": "“茶馆酒楼本就是江湖耳目所在，这位少侠想打听哪路英雄的行踪？”",
+      "summary": "听闻少林与丐帮近日各有高徒南下中原巡查，江南燕子坞与蜀中唐家堡亦似有信使往来，江湖怕是要起风波。"
+    },
+    {
+      "title": "地方豪强与水陆帮会动向",
+      "informantName": "吴老大",
+      "informantTitle": "卸货老船工",
+      "informantTalk": "“码头上的风吹草动，瞒不过俺们这些整日踩跳板讨生活的汉子。”",
+      "summary": "运河沿岸几处水陆码头的帮派头目近来频繁聚首，似乎在重划地盘暗桩与护送规矩，各路门户宜早作防备。"
+    },
+    {
+      "title": "药材奇珍与古刹异动传闻",
+      "informantName": "葛半仙",
+      "informantTitle": "云游草药郎中",
+      "informantTalk": "“山野采药最讲究看天色闻风声，前日我在山麓歇脚时，倒真听见一件奇事……”",
+      "summary": "近日深山野市偶有年份极佳的川芎、雪莲与陈年药酒现世，同时数座古寺名山夜半常有练功破风声，似有隐世高人现身。"
+    }
+  ]
+}

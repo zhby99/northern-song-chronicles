@@ -1,5 +1,4 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { CombatOverlay } from './components/combat/CombatOverlay'
 import { BottomHud } from './components/hud/BottomHud'
 import { CharacterCreationModal } from './components/hud/CharacterCreationModal'
 import { ContextInspectorCard } from './components/hud/ContextInspectorCard'
@@ -23,6 +22,10 @@ const WorldMapCanvas = lazy(() =>
 
 const SystemMenuModal = lazy(() =>
   import('./components/menu/SystemMenuModal').then((m) => ({ default: m.SystemMenuModal })),
+)
+
+const CombatOverlay = lazy(() =>
+  import('./components/combat/CombatOverlay').then((m) => ({ default: m.CombatOverlay })),
 )
 
 export function App() {
@@ -214,7 +217,11 @@ export function App() {
         />
       )}
       {activeStoryScene && !activeCombat && !gameOver && <StorySceneModal />}
-      {activeCombat && <CombatOverlay />}
+      {activeCombat && (
+        <Suspense fallback={null}>
+          <CombatOverlay />
+        </Suspense>
+      )}
       {gameOver && <GameOverModal />}
 
       {(menuOpen || compendiumOpen) && (

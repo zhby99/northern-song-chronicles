@@ -18,64 +18,43 @@ import { useShallow } from 'zustand/react/shallow'
 import { FACTION_DB_MAP, REGION_DB_MAP } from '../../../data/gameDb'
 import { getRegionUnlockRequirement, isRegionUnlockedByInventory } from '../../../data/itemsDb'
 import { QUEST_MAP, QUEST_REGISTRY } from '../../../data/quests'
+import {
+  buildQuestDependencyGraph,
+  type QuestEdgeDef,
+  type ResolvedQuestNode,
+} from '../../../engine/quest/questGraphBuilder'
 import { collectUnmetQuestReasons } from '../../../engine/questEngine'
+import { clamp } from '../../../engine/shared/math'
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
-import type { QuestCategoryKey, QuestDefinition, QuestTargetLocationHint } from '../../../types/quest'
+import type { QuestCategoryKey, QuestTargetLocationHint } from '../../../types/quest'
 import { assessQuestRealmReadiness } from '../../../utils/realmUtils'
 
 type CategoryFilterKey = 'ALL' | 'sect_entry' | 'sect_mission' | 'adventure' | 'huangyou'
 type NodeStatus = 'completed' | 'active' | 'available' | 'locked'
 
-interface QuestNodeMeta {
-  questId: string
-  col: number
-  row: number
-  seal: string
-  shortTag: string
-  prereqs: string[]
-  rewards: string[]
-  branchNote?: string
-}
+const QUEST_GRAPH = buildQuestDependencyGraph(QUEST_REGISTRY)
+const QUEST_EDGES = QUEST_GRAPH.edges
+const STANDALONE_ROW_COUNT = QUEST_GRAPH.standaloneRowCount
 
-interface QuestEdgeDef {
-  from: string
-  to: string
-  type: 'solid' | 'dashed'
-  relation: string
-  trackOffset?: number
-  dstOffsetX?: number
-}
-
-interface ResolvedQuestNode {
-  questId: string
-  qDef: QuestDefinition
-  col: number
-  row: number
-  seal: string
-  shortTag: string
-  prereqs: string[]
-  rewards: string[]
-  branchNote?: string
-}
-
-// 7-column × 9-row collision-free layout
+// 7-column × dynamic-row collision-free layout
 const NODE_W = 222
 const NODE_H = 92
 const COL_STEP = 248
 const ROW_STEP = 148
-const ZONE_GAP_AFTER_ROW_1 = 46
+const ZONE_GAP_AFTER_STANDALONE = 46
 const PAD_X = 36
 const PAD_Y = 50
 const CANVAS_W = 1788
-const CANVAS_H = 1480
 
 function colX(col: number): number {
   return PAD_X + col * COL_STEP
 }
 
 function rowY(row: number): number {
-  return PAD_Y + row * ROW_STEP + (row >= 2 ? ZONE_GAP_AFTER_ROW_1 : 0)
+  return PAD_Y + row * ROW_STEP + (row >= STANDALONE_ROW_COUNT ? ZONE_GAP_AFTER_STANDALONE : 0)
 }
+
+const CANVAS_H = Math.max(1480, rowY(QUEST_GRAPH.maxRow) + NODE_H + 96)
 
 const CATEGORY_VISUAL: Record<
   QuestCategoryKey,
@@ -136,580 +115,6 @@ function matchesCategoryFilter(cat: QuestCategoryKey, filter: CategoryFilterKey)
   return cat === filter
 }
 
-/**
- * 全部 29 卷注册任务（严格 1 任务 = 1 节点）：
- * - Rows 0..1：顶部独立任务区（无前后任务串联的各大门派入门与独立奇遇，共 10 卷）
- * - Rows 2..8：跨派引荐与朝堂公门禁军串联任务树（共 19 卷）
- */
-const PLACED_QUEST_NODES: ReadonlyArray<QuestNodeMeta> = [
-  // ================= ZONE 1: 顶部独立单节点任务 (Rows 0 ~ 1) =================
-  {
-    questId: 'QST-SECT-01-ENTRY',
-    col: 0,
-    row: 0,
-    seal: '禅',
-    shortTag: '嵩山少林寺 · 独立入门',
-    prereqs: [
-      '无门无派（自由游侠），仅限男儿身拜入僧院/俗家',
-      '前往嵩山少林寺【钟鼓禅院】见玄净，或赴洛阳天津酒楼打听',
-    ],
-    rewards: [
-      '拜入【嵩山少林寺 (SECT-01)】（可选剃度僧徒或俗家弟子）',
-      '开启少林七十二绝技与禅宗内功修习门径',
-    ],
-  },
-  {
-    questId: 'QST-SECT-02-ENTRY',
-    col: 1,
-    row: 0,
-    seal: '丐',
-    shortTag: '天下第一帮 · 独立入门',
-    prereqs: [
-      '无门无派，且随身纹银 ≤ 3 两（体验身无分文济困之义）',
-      '步入开封、洛阳等中原核心州府长街触发城隍破庙剧情',
-    ],
-    rewards: [
-      '拜入【丐帮 (SECT-02)】升袋弟子序列',
-      '获授丐帮入门棒掌功法与四海义聚人脉',
-    ],
-  },
-  {
-    questId: 'QST-SECT-05-ENTRY',
-    col: 2,
-    row: 0,
-    seal: '华',
-    shortTag: '西岳华山派 · 独立入门',
-    prereqs: [
-      '无门无派（或自陇右金环刀堂东进转投）',
-      '赴【京兆府（长安）】秋雨茶棚偶遇孤弈老道结下棋缘',
-    ],
-    rewards: [
-      '拜入【西岳华山派 (SECT-05)】',
-      '传授华山剑气根基武学与险峰论剑机缘',
-    ],
-  },
-  {
-    questId: 'QST-SECT-07-ENTRY',
-    col: 3,
-    row: 0,
-    seal: '峨',
-    shortTag: '巴蜀峨眉派 · 独立入门',
-    prereqs: [
-      '无门无派（或隶属巴蜀百草药王门免责转投），男女皆可',
-      '赴【成都府 · 锦江万里桥茶肆】偶遇俗家首席苏梦清',
-    ],
-    rewards: [
-      '拜入【巴蜀峨眉派 (SECT-07)】',
-      '获赐峨眉入门内功剑刺与灵丹披挂',
-    ],
-  },
-  {
-    questId: 'QST-SECT-08-ENTRY',
-    col: 4,
-    row: 0,
-    seal: '武',
-    shortTag: '武当真武派 · 独立入门',
-    prereqs: [
-      '无门无派，零武学开局友好',
-      '赴【襄阳府 · 汉水大码头】或【古隆中草庐】结识莫清谷 / 俞清虚',
-    ],
-    rewards: [
-      '拜入【武当真武派 (SECT-08)】',
-      '传授真武道家内功剑法与丹药法剑',
-    ],
-  },
-  {
-    questId: 'QST-SECT-14-ENTRY',
-    col: 5,
-    row: 0,
-    seal: '青',
-    shortTag: '巴蜀青城派 · 独立入门',
-    prereqs: [
-      '无门无派，零武学开局友好',
-      '赴【成都府 · 青羊道宫】避雨听道偶遇女冠沈清岚',
-    ],
-    rewards: [
-      '拜入【巴蜀青城派 (SECT-14)】',
-      '传授松风快剑与道门轻灵身法',
-    ],
-  },
-  {
-    questId: 'QST-SECT-19-ENTRY',
-    col: 6,
-    row: 0,
-    seal: '毒',
-    shortTag: '星宿海星宿派 · 独立入门',
-    prereqs: [
-      '无门无派，不限正邪根基',
-      '赴【延安府 · 塞上番马黑市】寻星宿门人出尘子开启',
-    ],
-    rewards: [
-      '拜入【星宿海星宿派 (SECT-19)】',
-      '获授毒功暗器与西域奇毒秘药（门内支持挑战同门夺阶）',
-    ],
-  },
-
-  // Row 1: 其余 3 卷独立单节点任务
-  {
-    questId: 'QST-SECT-18-TOUMINGZHUANG',
-    col: 2,
-    row: 1,
-    seal: '匪',
-    shortTag: '太行绿林盟 · 独立入门',
-    prereqs: [
-      '无门无派，赴【太行山 · 聚义总寨】请领「纳投名状」试炼',
-      '在各地劫杀任意一名大宋朝廷官员（皇室除外）获胜',
-    ],
-    rewards: [
-      '夺取官银 60 两，获准拜入【太行/京东绿林盟 (SECT-18)】',
-    ],
-    branchNote: '注意：完成后将永久列入朝廷海捕黑名单，不可再加入常山枪派或开封府，入汴梁将遭展昭缉拿！',
-  },
-  {
-    questId: 'QST-ADV-BABUGANCHAN',
-    col: 3,
-    row: 1,
-    seal: '蝉',
-    shortTag: '汴洛身法奇遇 · 独立单卷',
-    prereqs: [
-      '江湖声望 ≥ 120（无门派限制）',
-      '前往【开封府 · 醉仙楼 / 汴河虹桥酒肆】打探「秋蝉令」旧事',
-    ],
-    rewards: [
-      '勘破汴洛遗踪，习得上乘轻功绝技《八步赶蝉》',
-    ],
-  },
-  {
-    questId: 'QST-ADV-TAOHUADAO-MAP',
-    col: 4,
-    row: 1,
-    seal: '桃',
-    shortTag: '东海秘境海图 · 独立单卷',
-    prereqs: [
-      '建议修为：【二流中品】（无门派限制）',
-      '赴【苏州府 · 太湖烟波渡口 · 洞庭奇石望湖水榭】拜会陆玄机',
-    ],
-    rewards: [
-      '合绘取得《东海桃花岛奇门海图》，永久解锁海外秘境【东海桃花岛】航线！',
-    ],
-  },
-
-  // ================= ZONE 2: 前后串联与跨派引荐任务树 (Rows 2 ~ 8) =================
-  // Row 2: 六条脉络起点
-  {
-    questId: 'QST_SECT22_LONGLING',
-    col: 1,
-    row: 2,
-    seal: '枪',
-    shortTag: '常山枪派 · 镇派传承',
-    prereqs: [
-      '隶属【常山枪派 (SECT-22)】且职阶 ≥ Lv.2「内堂枪士」',
-      '《杨氏梨花枪》或《六合大枪》修至 ≥ 第 3 重（建议二流上品）',
-    ],
-    rewards: [
-      '传授镇派绝学《常山龙胆枪》+ 名器【亮银枪】',
-      '获《常山·定州联合举荐信》：可直入【开封府 Lv.2 捕头都头】或带功转投【五台山】！',
-    ],
-  },
-  {
-    questId: 'QST-CITY-DAMING-BAJI',
-    col: 2,
-    row: 2,
-    seal: '锁',
-    shortTag: '大名府 / 八极门 · 三结局奇案',
-    prereqs: [
-      '无门派硬限制（建议二流中品，接案后限 7 日内搜集至少两条铁证）',
-      '赴【大名府 · 黄河北岸临津酒楼】或【沧州八极分馆】开启',
-    ],
-    rewards: [
-      '结局A（忠义入幕）：获《北京留守幕府举荐信》直入【开封府 Lv.2 捕头都头】',
-      '结局B（铁锁横江）：亲授《六合大枪》+ 浑铁枪，白身直入【沧州八极门 Lv.2】',
-      '结局C（夺银夜遁）：劫银 180 两，但列入大宋朝廷海捕黑名单',
-    ],
-    branchNote: '终幕含 A / B / C 三选一互斥结局，决定通往开封府公门或八极门真传！',
-  },
-  {
-    questId: 'QST-ADV-YANZIWU-MAP',
-    col: 3,
-    row: 2,
-    seal: '图',
-    shortTag: '太湖秘径 · 开封查案必修前置',
-    prereqs: [
-      '建议修为：【二流中品】（无门派限制）',
-      '赴【苏州府 · 太湖烟波渡口】探问迷雾水障与翻江鼠蒋平',
-    ],
-    rewards: [
-      '绘成《太湖燕子坞烟波水路舆图》，永久解锁【姑苏燕子坞】水路（开封府两探慕容氏必修前置！）',
-    ],
-  },
-  {
-    questId: 'QST-SECT-23-REFERRAL',
-    col: 4,
-    row: 2,
-    seal: '八',
-    shortTag: '齐鲁查拳 → 沧州八极引荐',
-    prereqs: [
-      '先拜入【齐鲁查拳馆 (SECT-25)】晋升至 Lv.2「内堂武师」，备银 20 两求帖',
-    ],
-    rewards: [
-      '取得《齐鲁查拳馆举荐帖》(ITM-MSC-004)，可合法拜入【沧州八极门】，或在【泰山派】入门时触发同源礼遇',
-    ],
-  },
-  {
-    questId: 'QST-SECT-16-REFERRAL',
-    col: 5,
-    row: 2,
-    seal: '漕',
-    shortTag: '钱塘怒潮 → 江淮漕帮引荐',
-    prereqs: [
-      '先拜入【钱塘怒潮帮 (SECT-26)】晋升至 Lv.2，备银 20 两求取保举',
-    ],
-    rewards: [
-      '取得《钱塘怒潮帮举荐帖》(ITM-MSC-003)，可拜入【江淮漕帮】，并在转投【洞庭铁掌帮】时触发水陆同脉机缘',
-    ],
-  },
-  {
-    questId: 'QST-SECT-24-REFERRAL',
-    col: 6,
-    row: 2,
-    seal: '镖',
-    shortTag: '岭南洪门 → 闽海镇远引荐',
-    prereqs: [
-      '先拜入【岭南洪门武馆 (SECT-27)】晋升至 Lv.2，备银 20 两求取保举',
-    ],
-    rewards: [
-      '取得《岭南洪门举荐帖》(ITM-MSC-005)，可拜入【闽海镇远镖局】，并在求法【莆田南少林】时触发同脉接引',
-    ],
-  },
-
-  // Row 3: 跨派承接 & 开封府一阶晋升
-  {
-    questId: 'QST-SECT-03-ENTRY',
-    col: 0,
-    row: 3,
-    seal: '台',
-    shortTag: '五台山清凉寺 · 兼容常山转投',
-    prereqs: [
-      '无门无派白身可直接叩山门；或常山枪派弟子持《常山·定州联合举荐信》免责带功剃度',
-      '赴【五台山清凉寺】与善松 / 智光 / 智猛交谈开启',
-    ],
-    rewards: [
-      '拜入【五台山清凉寺 (SECT-03)】赐「明」字辈法号，传授《五郎八卦棍》与禅门吐纳',
-    ],
-  },
-  {
-    questId: 'QST_TIANBO_BAWANG',
-    col: 1,
-    row: 3,
-    seal: '霸',
-    shortTag: '天波杨家 · 枪脉巅峰传承',
-    prereqs: [
-      '承接常山/八极枪脉：《杨氏梨花枪》或《六合大枪》修至 ≥ 第 6 重',
-      '侠义 ≥ 120、气血 ≥ 2,800、骑术 ≥ 65，无通辽嫌疑且非一品堂（授谱需根骨 ≥ 82、气血 ≥ 3,200、骑术 ≥ 80）',
-    ],
-    rewards: [
-      '历太原、五台、雁门三试炼并偕狄青破铁鹞子，承接天阶下品绝学《杨家霸王枪》！',
-    ],
-  },
-  {
-    questId: 'QST-SECT-17-MURONG-1',
-    col: 3,
-    row: 3,
-    seal: '捕',
-    shortTag: '开封府六扇门 · Lv.2→Lv.3 晋升',
-    prereqs: [
-      '凭常山或大名府举荐信入职【开封府 (SECT-17)】，升任 Lv.2「捕头都头」且任满 730 日',
-      '必修前置：完成《烟波三叠 · 燕子坞水图》取得太湖渡船水路图',
-    ],
-    rewards: [
-      '查明姑苏慕容氏私囤兵甲暗流，达成晋升开封府 Lv.3【金牌总捕】剧情考核（再加办案满 5 次即可升阶）',
-    ],
-  },
-  {
-    questId: 'QST-SECT-06-ENTRY',
-    col: 4,
-    row: 3,
-    seal: '岱',
-    shortTag: '东岳泰山派 · 兼容查拳举荐',
-    prereqs: [
-      '无门无派白身或【齐鲁查拳馆】弟子（持《齐鲁查拳馆举荐帖》享同源结缘）',
-      '赴【济南府 · 泰山岱庙行祠】偶遇鲁苍岳护碑开启',
-    ],
-    rewards: [
-      '拜入【东岳泰山派 (SECT-06)】，获授泰山剑法、道门内功与佩剑信物',
-    ],
-  },
-  {
-    questId: 'QST-SECT-15-ENTRY',
-    col: 5,
-    row: 3,
-    seal: '掌',
-    shortTag: '洞庭铁掌帮 · 兼容漕帮转投',
-    prereqs: [
-      '无门无派散人，或【江淮漕帮 / 钱塘怒潮帮 / 湘西五溪蛊寨】同脉弟子转投',
-      '赴【襄阳府 · 汉水大码头】或【洞庭铁掌峰】开启',
-    ],
-    rewards: [
-      '拜入【洞庭铁掌帮 (SECT-15)】，赤砂淬掌传授刚猛铁掌功法',
-    ],
-  },
-  {
-    questId: 'QST-SECT-04-ENTRY',
-    col: 6,
-    row: 3,
-    seal: '南',
-    shortTag: '莆田南少林 · 兼容镇远洪门',
-    prereqs: [
-      '无门无派散人，或【闽海镇远镖局 / 岭南洪门武馆】弟子持帖带艺求法',
-      '赴【泉州府 · 万国番坊 / 开元寺】或【莆田南少林】开启',
-    ],
-    rewards: [
-      '拜入【莆田南少林 (SECT-04)】，铁桥问禅传授南少林拳棍禅功',
-    ],
-  },
-
-  // Row 4: 开封府二阶晋升 & 华北太行奇遇
-  {
-    questId: 'QST-SECT-17-TAIHANG-BANDIT',
-    col: 1,
-    row: 4,
-    seal: '险',
-    shortTag: '开封府 Lv.3 · 华北官道伏笔',
-    prereqs: [
-      '完成《燕子坞暗影 · 姑苏密查》并晋升开封府 Lv.3【金牌总捕】及以上',
-      '在华北官道（汴洛/大名/真定/太原/济南/太行）行路时触发',
-    ],
-    rewards: [
-      '生擒雷震山问斩，于王重岳、史万山围杀下死里逃生，埋下日后禁军三征太行宿怨伏笔',
-    ],
-  },
-  {
-    questId: 'QST-SECT-17-MURONG-2',
-    col: 3,
-    row: 4,
-    seal: '剑',
-    shortTag: '开封府六扇门 · Lv.3→Lv.4 晋升',
-    prereqs: [
-      '必修前置：完成《燕子坞暗影 · 姑苏密查》且晋升开封府 Lv.3【金牌总捕】',
-      '持有《太湖燕子坞烟波水路舆图》（建议一流中品及以上）',
-    ],
-    rewards: [
-      '还施水阁十合战慕容复封存私甲，赏银 260 两、声望 +80，达成晋升 Lv.4【御前护卫】考核（配办案 10 次升阶）',
-    ],
-  },
-
-  // Row 5: 开封府御前护驾 · 转入禁军唯一枢机
-  {
-    questId: 'QST-SECT-17-RENZONG-ESCORT',
-    col: 3,
-    row: 5,
-    seal: '龙',
-    shortTag: '紫宸护驾枢机 · 公门/禁军分流',
-    prereqs: [
-      '必修前置：完成《参合剑气 · 姑苏对质》并晋升开封府 Lv.4【御前护卫】',
-      '宋仁宗赵祯（NPC-0001）好感度 ≥ 20，赴【大内皇宫 · 垂拱紫宸正殿】开启',
-    ],
-    rewards: [
-      '抉择甲（改授禁军）：奉敕转入【大宋禁军 Lv.3 四厢都指挥】+ 御马龙骧骢 + 1,000 两，开启下方两大禁军任务链！',
-      '抉择乙（留守公门）：留任开封府 Lv.4，获赐【《葵花残卷》秘匣】+ 1,000 两（不入禁军）',
-    ],
-    branchNote: '紫宸殿双恩互斥抉择：唯有选择「改授大宋禁军」方可解锁下方禁军左右双翼任务链！',
-  },
-
-  // Row 6: 大宋禁军双翼开启
-  {
-    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-1',
-    col: 2,
-    row: 6,
-    seal: '折',
-    shortTag: '大宋禁军 · 三征太行（壹）',
-    prereqs: [
-      '必修前置：经《微服汴梁 · 血护龙颜》转入【大宋禁军 Lv.3 四厢都指挥】且任职满 365 日',
-      '刚性门槛：尚未通晓兵书 —— 十艺【经义 ≤ 40】或【策论 ≤ 60】至少一项未超标！',
-    ],
-    rewards: [
-      '亲历黑风涧断后死战与丧师贬官洗礼，结案满 60 日后解锁二征雪耻《刮目相看 · 武经破寨》',
-    ],
-    branchNote: '切记：入禁军满一年触发本卷前，请勿同时将经义修过 40 且策论修过 60！',
-  },
-  {
-    questId: 'QST-SECT-33-HEBEI-SPY',
-    col: 4,
-    row: 6,
-    seal: '符',
-    shortTag: '大宋禁军 · 河北反谍长卷',
-    prereqs: [
-      '必修前置：完成《微服汴梁 · 血护龙颜》并身居【大宋禁军 Lv.3 四厢都指挥】及以上',
-      '赴【八十万禁军大教场 · 点兵帅台】面谒王德用领受鎏金虎符',
-    ],
-    rewards: [
-      '黄河浮桥决战萧远风夺回泄密名录，丹墀双结局择一：御赐天阶【大宋步人玄铁重铠】+1,500两，或【紫宸玄枢密使腰牌】+九转大还丹+1,200两',
-    ],
-  },
-
-  // Row 7: 大宋禁军二征太行
-  {
-    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-2',
-    col: 2,
-    row: 7,
-    seal: '略',
-    shortTag: '大宋禁军 · 三征太行（贰）',
-    prereqs: [
-      '必修前置：《太行剿匪 · 骄兵折戟》结案满 60 日，身居大宋禁军 Lv.3+',
-      '苦读王德用所赐《武经总要钞本》，修满十艺【经义 ≥ 40】且【策论 ≥ 70】通过沙盘考校',
-    ],
-    rewards: [
-      '获《武经总要 · 枢密院行军钞本》，连拔太行四寨生擒史万山献俘，结案 60 日后开启终章',
-    ],
-  },
-
-  // Row 8: 大宋禁军三征太行收官
-  {
-    questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
-    col: 2,
-    row: 8,
-    seal: '侯',
-    shortTag: '大宋禁军 · 三征太行（叁·封侯）',
-    prereqs: [
-      '必修前置：《刮目相看 · 武经破寨》结案满 60 日，身居大宋禁军 Lv.3+',
-      '赴【开封府衙 · 升堂正殿】与南侠展昭对话开启终章决战',
-    ],
-    rewards: [
-      '偕展昭夜袭聚义厅生擒王重岳、史万山，市曹护法场彻底荡平太行匪患',
-      '紫宸殿正式册封大宋禁军 Lv.4【三衙都虞候】（月俸 240 两）+ 御银 1,000 两 + 声望 150！',
-    ],
-  },
-]
-
-/**
- * 任务节点间的真实前后置 / 联动连线（零交叉正交路由）：
- * - solid：刚性必修前置任务（未完成上游则无法完成下游）
- * - dashed：举荐信保举入职、武学同脉延伸或跨派免责转投联动
- */
-const QUEST_EDGES: ReadonlyArray<QuestEdgeDef> = [
-  // 常山枪派 & 大名府奇案 & 燕子坞水图 -> 五台山 / 天波霸王枪 / 开封府姑苏密查
-  {
-    from: 'QST_SECT22_LONGLING',
-    to: 'QST-SECT-03-ENTRY',
-    type: 'dashed',
-    relation: '持《常山·定州联合举荐信》可免责带功剃度入五台山',
-    trackOffset: -8,
-  },
-  {
-    from: 'QST_SECT22_LONGLING',
-    to: 'QST_TIANBO_BAWANG',
-    type: 'dashed',
-    relation: '常山枪脉（梨花枪/六合枪 ≥ 6 重）同源进阶天波霸王枪',
-    dstOffsetX: -14,
-  },
-  {
-    from: 'QST_SECT22_LONGLING',
-    to: 'QST-SECT-17-MURONG-1',
-    type: 'dashed',
-    relation: '《常山·定州联合举荐信》直授开封府 Lv.2 捕头都头',
-    trackOffset: -9,
-    dstOffsetX: -24,
-  },
-  {
-    from: 'QST-CITY-DAMING-BAJI',
-    to: 'QST_TIANBO_BAWANG',
-    type: 'dashed',
-    relation: '结局B亲授《六合大枪》，修至 6 重可开启霸王枪试炼',
-    trackOffset: 9,
-    dstOffsetX: 14,
-  },
-  {
-    from: 'QST-CITY-DAMING-BAJI',
-    to: 'QST-SECT-17-MURONG-1',
-    type: 'dashed',
-    relation: '结局A《北京留守幕府举荐信》直授开封府 Lv.2 捕头都头',
-    trackOffset: 9,
-    dstOffsetX: -8,
-  },
-  {
-    from: 'QST-ADV-YANZIWU-MAP',
-    to: 'QST-SECT-17-MURONG-1',
-    type: 'solid',
-    relation: '必修前置：须先绘成《太湖燕子坞烟波水路舆图》方可渡湖查案',
-    dstOffsetX: 12,
-  },
-
-  // 三条二流引荐帖 -> 一流同脉门派入门
-  {
-    from: 'QST-SECT-23-REFERRAL',
-    to: 'QST-SECT-06-ENTRY',
-    type: 'dashed',
-    relation: '齐鲁查拳馆弟子/持举荐帖入泰山派享齐鲁同源结缘（亦可用帖入沧州八极门）',
-  },
-  {
-    from: 'QST-SECT-16-REFERRAL',
-    to: 'QST-SECT-15-ENTRY',
-    type: 'dashed',
-    relation: '持《钱塘怒潮帮举荐帖》入江淮漕帮后，转投洞庭铁掌帮触发水陆同脉剧情',
-  },
-  {
-    from: 'QST-SECT-24-REFERRAL',
-    to: 'QST-SECT-04-ENTRY',
-    type: 'dashed',
-    relation: '持《岭南洪门举荐帖》入闽海镇远镖局后，赴莆田南少林触发闽粤同脉接引',
-  },
-
-  // 开封府六扇门主干线
-  {
-    from: 'QST-SECT-17-MURONG-1',
-    to: 'QST-SECT-17-TAIHANG-BANDIT',
-    type: 'dashed',
-    relation: '完成姑苏密查晋升 Lv.3 金牌总捕后，行经华北官道触发太行劫匪长卷',
-  },
-  {
-    from: 'QST-SECT-17-MURONG-1',
-    to: 'QST-SECT-17-MURONG-2',
-    type: 'solid',
-    relation: '必修前置：完成一阶密查并升任 Lv.3 金牌总捕后开启二阶姑苏对质',
-  },
-  {
-    from: 'QST-SECT-17-MURONG-2',
-    to: 'QST-SECT-17-RENZONG-ESCORT',
-    type: 'solid',
-    relation: '必修前置：完成二阶对质并升任 Lv.4 御前护卫后开启紫宸护驾',
-  },
-
-  // 紫宸护驾 -> 大宋禁军左右双翼
-  {
-    from: 'QST-SECT-17-RENZONG-ESCORT',
-    to: 'QST-SECT-33-TAIHANG-CAMPAIGN-1',
-    type: 'solid',
-    relation: '必修前置：护驾后择「改授大宋禁军」任满一年开启首征太行',
-  },
-  {
-    from: 'QST-SECT-17-RENZONG-ESCORT',
-    to: 'QST-SECT-33-HEBEI-SPY',
-    type: 'solid',
-    relation: '必修前置：护驾后择「改授大宋禁军」领鎏金虎符追查河北暗桩',
-  },
-
-  // 大宋禁军三征太行纵深链 + 华北劫匪宿怨汇入
-  {
-    from: 'QST-SECT-33-TAIHANG-CAMPAIGN-1',
-    to: 'QST-SECT-33-TAIHANG-CAMPAIGN-2',
-    type: 'solid',
-    relation: '必修前置：首征折戟满 60 日且苦读《武经总要》达标后二征破寨',
-  },
-  {
-    from: 'QST-SECT-33-TAIHANG-CAMPAIGN-2',
-    to: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
-    type: 'solid',
-    relation: '必修前置：二征献俘满 60 日后偕展昭夜袭总寨犁庭扫穴',
-  },
-  {
-    from: 'QST-SECT-17-TAIHANG-BANDIT',
-    to: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
-    type: 'dashed',
-    relation: '宿怨收束：清算当年华北官道围杀少侠之太行天王王重岳、史万山',
-    dstOffsetX: -26,
-  },
-]
-
 const STATUS_STYLE: Record<
   NodeStatus,
   {
@@ -748,10 +153,6 @@ const STATUS_STYLE: Record<
   },
 }
 
-function clamp(v: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, v))
-}
-
 export function QuestTreeTab() {
   const evalState = useGameStore(
     useShallow((s) => ({
@@ -783,34 +184,7 @@ export function QuestTreeTab() {
   const { maxHp, maxMp, inventory, questState } = evalState
   const questEvalCtx = useMemo(() => buildStoreEvalContext(evalState), [evalState])
 
-  // Build resolved 1-quest-per-node list (auto-includes any future QUEST_REGISTRY additions too)
-  const allNodes = useMemo((): ResolvedQuestNode[] => {
-    const out: ResolvedQuestNode[] = []
-    const placedIds = new Set<string>()
-    for (const meta of PLACED_QUEST_NODES) {
-      const qDef = QUEST_MAP[meta.questId]
-      if (!qDef) continue
-      placedIds.add(meta.questId)
-      out.push({ ...meta, qDef })
-    }
-    let extraIdx = 0
-    for (const qDef of QUEST_REGISTRY) {
-      if (placedIds.has(qDef.id)) continue
-      const col = extraIdx < 2 ? extraIdx : 5 + (extraIdx - 2)
-      out.push({
-        questId: qDef.id,
-        qDef,
-        col: clamp(col, 0, 6),
-        row: 1,
-        seal: qDef.title.slice(0, 1) || '卷',
-        shortTag: FACTION_DB_MAP[qDef.factionId ?? '']?.name ?? '独立卷宗',
-        prereqs: [qDef.startHint ?? '游历对应州府或门派触发'],
-        rewards: [qDef.summary],
-      })
-      extraIdx += 1
-    }
-    return out
-  }, [])
+  const allNodes = QUEST_GRAPH.nodes
 
   const nodeMap = useMemo(
     () => Object.fromEntries(allNodes.map((n) => [n.questId, n])),
@@ -1088,9 +462,9 @@ export function QuestTreeTab() {
   }, [pointerPos])
 
   const zone1Top = rowY(0) - 34
-  const zone1Height = rowY(1) - rowY(0) + NODE_H + 50
-  const zone2Top = rowY(2) - 34
-  const zone2Height = rowY(8) - rowY(2) + NODE_H + 50
+  const zone1Height = rowY(Math.max(0, STANDALONE_ROW_COUNT - 1)) - rowY(0) + NODE_H + 50
+  const zone2Top = rowY(STANDALONE_ROW_COUNT) - 34
+  const zone2Height = rowY(QUEST_GRAPH.maxRow) - rowY(STANDALONE_ROW_COUNT) + NODE_H + 50
 
   return (
     <div className="flex flex-col gap-2.5 h-[690px] max-h-[calc(95vh-225px)] min-h-[520px] text-xs text-[#2a1d11] select-none">

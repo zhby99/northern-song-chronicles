@@ -8,8 +8,10 @@ const server = await createServer({
 
 try {
   const { QUEST_REGISTRY } = await server.ssrLoadModule('/src/data/quests/index.ts')
+  const { preloadAllQuestScenes } = await server.ssrLoadModule('/src/engine/quest/sceneRegistry.ts')
   const { validateAllRegisteredQuests } = await server.ssrLoadModule('/src/engine/questEngine.ts')
 
+  await preloadAllQuestScenes()
   const result = validateAllRegisteredQuests(QUEST_REGISTRY)
   if (!result.valid) {
     console.error(`❌ Quest static validation failed with ${result.errors.length} error(s):`)
@@ -19,7 +21,7 @@ try {
     process.exitCode = 1
   } else {
     console.log(
-      `✅ Validated ${QUEST_REGISTRY.length} registered quest chain(s) — 0 broken ID/step references.`,
+      `✅ Validated ${QUEST_REGISTRY.length} registered quest chain(s) — 0 broken ID/step/scene references.`,
     )
   }
 } finally {

@@ -418,6 +418,9 @@ export default defineConfig({
                 normId.includes('/src/data/gear.json') ||
                 normId.includes('/src/data/mounts.json') ||
                 normId.includes('/src/data/uniqueArtifacts.json') ||
+                normId.includes('/src/data/scrolls.json') ||
+                normId.includes('/src/data/nonEquipmentItems.json') ||
+                normId.includes('/src/data/sectSystems.json') ||
                 normId.includes('/src/data/scrollsDb.ts')
               ) {
                 return 'data-equipment'
@@ -429,6 +432,9 @@ export default defineConfig({
                 normId.includes('/src/data/portraitCatalog.json')
               ) {
                 return 'data-world'
+              }
+              if (normId.endsWith('.scenes.ts')) {
+                return undefined
               }
               if (normId.includes('/src/data/quests/sects/jinjun')) {
                 return 'data-quests-jinjun'

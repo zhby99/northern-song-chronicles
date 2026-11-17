@@ -1,0 +1,289 @@
+import { SECT_SYSTEMS_DB } from '../../data/gameDb'
+import type { PlayerSectState } from '../../types/game'
+
+export type SectPromotionRuleKind =
+  | 'minor_or_second_tier'
+  | 'dao_sword_tournament'
+  | 'shaolin_zen'
+  | 'gaibang_favor'
+  | 'kaifeng_cases'
+  | 'imperial_guard_merit'
+  | 'xingxiu_duel'
+  | 'first_tier_pending'
+
+export interface BespokeSectEntryGuide {
+  requirementSummary: string
+  buildBlockedReason: (ctx: { silver: number; sectState: PlayerSectState }) => string
+}
+
+export interface SectRuleConfig {
+  sectId: string
+  monthlyStipends?: readonly number[]
+  stipendTitle?: string
+  payInitialStipendOnJoin?: boolean
+  starterGearGifts: readonly string[]
+  isDlcLocked?: boolean
+  isDaoSwordTournamentSect?: boolean
+  promotionRuleKind?: SectPromotionRuleKind
+  blocksHighTierForLayDisciple?: boolean
+  supportsScriptureCopying?: boolean
+  defaultDiscipleTypeOnJoin?: 'lay' | 'monk'
+  joinIdentitySuffix?: string
+  resetsMonasticIdentityOnLeave?: boolean
+  canReceiveLeaderTask?: boolean
+  entryQuestId?: string
+  autoCompleteEntryQuestOnJoin?: boolean
+  bespokeEntryGuide?: BespokeSectEntryGuide
+  hasExclusiveMartialArts?: boolean
+  semiAnnualDutyKind?: 'liao_spy' | 'kaifeng_warrant'
+  leaveTriggersLiaoSuspicion?: boolean
+  buildLeaveMessage?: (factionName: string, rankLabel?: string) => string
+}
+
+const DLC_LOCKED_IDS = [
+  'ORG-08',
+  'SECT-09',
+  'SECT-10',
+  'SECT-12',
+  'SECT-20',
+  'SECT-31',
+  'SECT-32',
+] as const
+
+export const DAO_SWORD_SECT_ID_LIST = [
+  'SECT-03', // 五台山清凉寺
+  'SECT-05', // 华山派
+  'SECT-06', // 泰山派
+  'SECT-07', // 峨眉派
+  'SECT-08', // 真武道宗
+  'SECT-11', // 终南隐宗
+  'SECT-13', // 蜀中唐门
+  'SECT-14', // 青城派
+  'SECT-15', // 铁掌帮
+] as const
+
+const BASE_SECT_RULES: Record<string, Omit<SectRuleConfig, 'sectId' | 'starterGearGifts'>> = {
+  'SECT-01': {
+    promotionRuleKind: 'shaolin_zen',
+    blocksHighTierForLayDisciple: true,
+    supportsScriptureCopying: true,
+    defaultDiscipleTypeOnJoin: 'lay',
+    joinIdentitySuffix: '（俗家弟子）',
+    resetsMonasticIdentityOnLeave: true,
+    entryQuestId: 'QST-SECT-01-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+  },
+  'SECT-02': {
+    promotionRuleKind: 'gaibang_favor',
+    entryQuestId: 'QST-SECT-02-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '囊中羞涩（随身纹银 ≤ 3 两）时，踏入任一中原州府（开封/洛阳/大名/真定/太原/京兆/济南/襄阳/扬州）触发《青囊尽空 · 义聚杏林》侠义长卷，夜探义仓救济流民后赴洛阳杏子林拜见汪剑通与乔峰受袋入门',
+      buildBlockedReason: ({ silver }) =>
+        silver <= 3
+          ? '少侠当前纹银 ≤ 3 两，步入中原州府长街（或正在进行《青囊尽空 · 义聚杏林》卷宗）即可历劫拜入丐帮杏子林总舵！'
+          : `丐帮弟子皆自困顿风尘中见侠骨——须在随身纹银 ≤ 3 两（当前 ${silver} 两）时游历中原州府触发《青囊尽空 · 义聚杏林》剧情后，由乔帮主亲系布袋入门！`,
+    },
+  },
+  'SECT-03': {
+    isDaoSwordTournamentSect: true,
+    promotionRuleKind: 'dao_sword_tournament',
+    defaultDiscipleTypeOnJoin: 'monk',
+    joinIdentitySuffix: '（出家僧众）',
+    resetsMonasticIdentityOnLeave: true,
+    entryQuestId: 'QST-SECT-03-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '无须武功根基：前往【五台山清凉寺 · 清凉寺大雄主殿】向知客首座智猛投山门开启《清凉残雪 · 雁门梵钟》二十幕长卷，历慈济院护孤、演武试木杆及驰援雁门关破辽探后，由方丈道清亲执金刀剃度赐明字辈法号（明觉/明岳/明悲）并传授《五郎八卦棍》与《清凉禅定吐纳法》（常山枪派持《常山·定州联合举荐信》亦可削发投寺）',
+      buildBlockedReason: () =>
+        '请前往【五台山清凉寺 · 清凉寺大雄主殿】向知客首座【智猛】投山门（点击金色【叩门投寺】选项），完成《清凉残雪 · 雁门梵钟》试心与雁门护关历练后，由道清方丈亲主持剃度受戒！',
+    },
+  },
+  'SECT-04': {
+    promotionRuleKind: 'shaolin_zen',
+    blocksHighTierForLayDisciple: true,
+    supportsScriptureCopying: true,
+    defaultDiscipleTypeOnJoin: 'lay',
+    joinIdentitySuffix: '（护寺俗家）',
+    resetsMonasticIdentityOnLeave: true,
+    entryQuestId: 'QST-SECT-04-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '前往泉州府【刺桐港万国番坊】或【开元寺东西双塔】结识小沙弥戒藏与戒律首座元觉（或向南少林僧众求赐试缘），历经《刺桐风起 · 铁桥问禅》二十幕挑水筑基、雨夜护港与百杰木人巷大考后，于九莲大雄宝殿向元苦方丈奉茶择定僧俗衣钵（择清修武僧落发赐法号「弘毅」并换少林佛子立绘、解锁地阶功法；择护寺俗家则地阶功法永不开放）',
+      buildBlockedReason: () =>
+        '请点击与本寺僧众交互中的金色【铁桥问禅 / 叩拜九莲山门】剧情选项（或赴泉州府 · 刺桐港万国番坊），经历《刺桐风起 · 铁桥问禅》木人巷考校后向元苦方丈奉茶入门！',
+    },
+  },
+  'SECT-05': {
+    isDaoSwordTournamentSect: true,
+    promotionRuleKind: 'dao_sword_tournament',
+    entryQuestId: 'QST-SECT-05-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '无须武功根基：先于【京兆府（长安）】秋雨茶肆结下松风棋缘获赠乌云残子，再备足干粮徒步攀越华山千尺幢、百尺峡、苍龙岭三险，于绝顶博台勘破希夷三劫残局并于思过崖寒夜听风立功，由太岳真君【岳沧溟】亲授青钢剑拜入外门（陇右金环刀堂弟子亦可凭此机缘东入华山）',
+      buildBlockedReason: () =>
+        '西岳华山门规重缘不重势——请先前往【京兆府（长安）】结下《云海孤棋 · 问剑西岳》松风棋缘，凭凡躯诚心登临玉女峰并通过【博台残局】与【思过听风】二关后由岳掌门收录！',
+    },
+  },
+  'SECT-06': {
+    isDaoSwordTournamentSect: true,
+    promotionRuleKind: 'dao_sword_tournament',
+    entryQuestId: 'QST-SECT-06-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '前往【济南府 · 泰山岱庙行祠】开启《岱宗问数 · 松风破茧》二十幕入门长卷（济南齐鲁查拳馆弟子亦可带艺应试），经趵突泉论茶、十八盘砺骨、东岳道院破茧与玉皇顶观日问数后由掌门褚玄机亲授道袍入门',
+      buildBlockedReason: () =>
+        '五岳独尊泰山派不凭俗银拜山——请前往【济南府 · 泰山岱庙行祠】（或点击泰山长老对话中的【慕名问剑东岳】）开启《岱宗问数 · 松风破茧》入门试炼长卷！',
+    },
+  },
+  'SECT-07': {
+    isDaoSwordTournamentSect: true,
+    promotionRuleKind: 'dao_sword_tournament',
+    entryQuestId: 'QST-SECT-07-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '无门无派（或隶属【巴蜀百草药王门】）时，前往【成都府 · 锦江万里桥茶肆】偶遇俗家首席女侠【苏梦清】开启《锦水清音 · 金顶问心》二十幕长卷，历经万年寺吐纳筑基、洗象池月夜观猿与金顶佛光问心后择脉拜入（男女皆宜）',
+      buildBlockedReason: () =>
+        '峨眉择徒重红尘善缘与澄明本心——请先前往邻近【成都府 · 锦江万里桥茶肆】结识俗家首席【苏梦清】（或拜谒成都大慈寺【静虚师太】），完成《锦水清音 · 金顶问心》长卷后于华藏金顶正式入门！',
+    },
+  },
+  'SECT-08': {
+    isDaoSwordTournamentSect: true,
+    promotionRuleKind: 'dao_sword_tournament',
+    entryQuestId: 'QST-SECT-08-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '无须武功根基：无门无派时前往【襄阳府 · 汉水大码头】或【古隆中草庐】与莫清谷 / 俞清虚结缘开启《汉水问津 · 太和问道》二十幕问道长卷，历解剑池洗尘、观云台煮茶、紫霄三日观心、南岩剑崖退敌后，于太和金殿拜师授剑入门',
+      buildBlockedReason: () =>
+        '真武道宗择徒重道缘与心性——请先以无门无派之身前往【襄阳府 · 汉水大码头】或【古隆中草庐】结识莫清谷 / 俞清虚，完成《汉水问津 · 太和问道》长卷后于太和金殿授剑入道！',
+    },
+  },
+  'SECT-11': {
+    isDaoSwordTournamentSect: true,
+    promotionRuleKind: 'dao_sword_tournament',
+  },
+  'SECT-13': {
+    isDaoSwordTournamentSect: true,
+    promotionRuleKind: 'dao_sword_tournament',
+  },
+  'SECT-14': {
+    isDaoSwordTournamentSect: true,
+    promotionRuleKind: 'dao_sword_tournament',
+    entryQuestId: 'QST-SECT-14-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '无门无派时前往【成都府 · 青羊道宫】听道避雨，偶遇青城外院女冠小师姐【沈清岚】开启《青羊偶闻 · 松风问心》二十幕长卷，历松涛孤崖听琴悟气、剑门古道护友之后，于上清宫三清殿前择定拜入青城或携《青冥引气诀》逍遥江湖',
+      buildBlockedReason: () =>
+        '请先前往【成都府 · 青羊道宫】听道寻缘（若已开启《青羊偶闻 · 松风问心》卷宗，请按任务指引推进至上清宫三清大殿行礼拜师）！',
+    },
+  },
+  'SECT-15': {
+    isDaoSwordTournamentSect: true,
+    promotionRuleKind: 'dao_sword_tournament',
+    entryQuestId: 'QST-SECT-15-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '无须内功根基：前往【襄阳府 · 汉水大码头】化解运砂船户之厄结识铜桨舵主【焦木】与精锐香主【屠芳云】（或向铁掌帮众求赐机缘），南下洞庭历经百斤铜桨踏浪、赤砂沸鼎淬掌授艺、芦荡雾夜追凶、中峰剑痕崖问拳，最终于聚义正堂接帮主【上官天鹏】三掌考心并共饮雄黄烈酒入门（支持江淮漕帮、钱塘怒潮帮、湘西五溪蛊寨同脉转投）',
+      buildBlockedReason: () =>
+        '请点击与本帮人物交互中的金色【铁砂问义 / 叩访五指峰】剧情选项（或赴襄阳府 · 汉水大码头），经历《烟波五指 · 铁砂问义》赤砂淬掌与帮主三掌考校后饮雄黄烈酒入帮！',
+    },
+  },
+  'SECT-16': {
+    promotionRuleKind: 'minor_or_second_tier',
+    entryQuestId: 'QST-SECT-16-REFERRAL',
+  },
+  'SECT-17': {
+    monthlyStipends: SECT_SYSTEMS_DB.stipends['SECT-17'],
+    stipendTitle: '开封府官俸',
+    promotionRuleKind: 'kaifeng_cases',
+    canReceiveLeaderTask: false,
+    semiAnnualDutyKind: 'kaifeng_warrant',
+  },
+  'SECT-18': {
+    promotionRuleKind: 'minor_or_second_tier',
+    entryQuestId: 'QST-SECT-18-TOUMINGZHUANG',
+    autoCompleteEntryQuestOnJoin: true,
+  },
+  'SECT-19': {
+    promotionRuleKind: 'xingxiu_duel',
+    entryQuestId: 'QST-SECT-19-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '无门无派时踏入【延安府 · 塞上番马黑市】触发二十幕《紫烟迷市 · 毒泉求生》长卷，因身染三日腐心散入彀西赴昆仑星宿海试药冲脉、寒窟结缘，再返延安番坊面见掌门丁春秋献宝颂仙后拜入星宿门墙',
+      buildBlockedReason: () =>
+        '星宿老仙法驾关外，不纳泛泛投门之辈——请以无门无派之身踏入【延安府 · 塞上番马黑市】（或寻四师兄【出尘子】打探），经历《紫烟迷市 · 毒泉求生》入门卷宗后由丁春秋亲赐紫衣入籍！',
+    },
+  },
+  'SECT-22': {
+    monthlyStipends: SECT_SYSTEMS_DB.stipends['SECT-22'],
+    stipendTitle: '常山枪派军饷',
+    payInitialStipendOnJoin: true,
+    promotionRuleKind: 'minor_or_second_tier',
+    semiAnnualDutyKind: 'liao_spy',
+    leaveTriggersLiaoSuspicion: true,
+  },
+  'SECT-23': {
+    promotionRuleKind: 'minor_or_second_tier',
+    entryQuestId: 'QST-SECT-23-REFERRAL',
+  },
+  'SECT-24': {
+    promotionRuleKind: 'minor_or_second_tier',
+    entryQuestId: 'QST-SECT-24-REFERRAL',
+  },
+  'SECT-33': {
+    monthlyStipends: SECT_SYSTEMS_DB.stipends['SECT-33'],
+    stipendTitle: '大宋禁军月俸',
+    hasExclusiveMartialArts: false,
+    promotionRuleKind: 'imperial_guard_merit',
+    buildLeaveMessage: (factionName, rankLabel) =>
+      `少侠已向枢密院与三衙缴回虎符腰牌，正式辞去【${factionName}${rankLabel ? ` · ${rankLabel}` : ''}】军职，恢复自由游侠之身。`,
+  },
+}
+
+for (const dlcId of DLC_LOCKED_IDS) {
+  BASE_SECT_RULES[dlcId] = {
+    ...(BASE_SECT_RULES[dlcId] ?? {}),
+    isDlcLocked: true,
+  }
+}
+
+const ALL_RULE_IDS = new Set<string>([
+  ...Object.keys(BASE_SECT_RULES),
+  ...Object.keys(SECT_SYSTEMS_DB.starterGearGifts),
+  ...Object.keys(SECT_SYSTEMS_DB.stipends),
+])
+
+export const SECT_RULES_BY_ID: Readonly<Record<string, SectRuleConfig>> = Object.freeze(
+  Object.fromEntries(
+    Array.from(ALL_RULE_IDS).map((sectId) => {
+      const base = BASE_SECT_RULES[sectId] ?? {}
+      const cfg: SectRuleConfig = {
+        sectId,
+        ...base,
+        monthlyStipends: base.monthlyStipends ?? SECT_SYSTEMS_DB.stipends[sectId],
+        starterGearGifts: SECT_SYSTEMS_DB.starterGearGifts[sectId] ?? [],
+      }
+      return [sectId, cfg]
+    }),
+  ),
+)
+
+export function getSectRule(sectId?: string | null): SectRuleConfig | null {
+  if (!sectId) return null
+  return (
+    SECT_RULES_BY_ID[sectId] ?? {
+      sectId,
+      starterGearGifts: SECT_SYSTEMS_DB.starterGearGifts[sectId] ?? [],
+    }
+  )
+}

@@ -6,7 +6,7 @@ import {
   REGION_DB_MAP,
   resolveNpcByName,
 } from '../data/gameDb'
-import { DEFAULT_EQUIPPED_SLOTS, ITEM_DB_MAP } from '../data/itemsDb'
+import { ITEM_DB_MAP } from '../data/itemsDb'
 import { getProtagonistPortrait } from '../data/protagonistPresets'
 import { QUEST_MAP, QUEST_REGISTRY } from '../data/quests'
 import type {
@@ -30,24 +30,18 @@ import type {
   QuestSpotActionDef,
   StorySpeakerSpec,
 } from '../types/quest'
-import { INITIAL_NPC_FAVOR } from '../utils/npcFavor'
+import { INITIAL_NPC_FAVOR } from './social/npcFavor'
 import { inferTemplatePortrait, resolveAvatarForFullbody } from '../utils/portraitFallback'
 import { getSectRankTitle, isSongOfficialForRobbery } from '../utils/sectMechanics'
+import {
+  buildNodeNpcFromCompiledId,
+  buildNodeNpcFromDynamicActor,
+  makeQuestNpc,
+} from './npcFactory'
+import { getLoadedQuestScenes } from './quest/sceneRegistry'
+import { SHICHEN_LABELS } from './shared/constants'
 
-const SHICHEN_LABELS: readonly string[] = [
-  '子时',
-  '丑时',
-  '寅时',
-  '卯时',
-  '辰时',
-  '巳时',
-  '午时',
-  '未时',
-  '申时',
-  '酉时',
-  '戌时',
-  '亥时',
-]
+export { buildNodeNpcFromCompiledId, buildNodeNpcFromDynamicActor, makeQuestNpc }
 
 const TALENT_LABELS: Record<keyof HeroTalents, string> = {
   根骨: '先天根骨',
@@ -69,6 +63,15 @@ export const DEFAULT_QUEST_RUNTIME_STATE: QuestRuntimeState = {
   dynamicActors: [],
 }
 
+const LEGACY_QUEST_ID_ALIASES: Record<string, string> = {
+  QST_SECT22_LONGLING: 'QST-SECT-22-LONGLING',
+  QST_TIANBO_BAWANG: 'QST-TIANBO-BAWANG',
+}
+
+function normalizeQuestId(rawId: string): string {
+  return LEGACY_QUEST_ID_ALIASES[rawId] ?? rawId
+}
+
 export function cloneQuestRuntimeState(raw?: unknown): QuestRuntimeState {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
     return {
@@ -82,8 +85,9 @@ export function cloneQuestRuntimeState(raw?: unknown): QuestRuntimeState {
 
   const activeQuests: QuestRuntimeState['activeQuests'] = {}
   if (obj.activeQuests && typeof obj.activeQuests === 'object' && !Array.isArray(obj.activeQuests)) {
-    for (const [qid, prog] of Object.entries(obj.activeQuests)) {
+    for (const [rawQid, prog] of Object.entries(obj.activeQuests)) {
       if (!prog || typeof prog !== 'object') continue
+      const qid = normalizeQuestId(rawQid)
       const vars: Record<string, QuestPrimitiveValue> = {}
       if (prog.vars && typeof prog.vars === 'object') {
         for (const [vk, vv] of Object.entries(prog.vars)) {
@@ -93,7 +97,7 @@ export function cloneQuestRuntimeState(raw?: unknown): QuestRuntimeState {
         }
       }
       activeQuests[qid] = {
-        questId: typeof prog.questId === 'string' ? prog.questId : qid,
+        questId: normalizeQuestId(typeof prog.questId === 'string' ? prog.questId : qid),
         stepId: typeof prog.stepId === 'string' ? prog.stepId : 'init',
         startedDay: typeof prog.startedDay === 'number' ? Math.max(1, Math.floor(prog.startedDay)) : 1,
         deadlineDay:
@@ -109,10 +113,11 @@ export function cloneQuestRuntimeState(raw?: unknown): QuestRuntimeState {
     typeof obj.completedQuests === 'object' &&
     !Array.isArray(obj.completedQuests)
   ) {
-    for (const [qid, rec] of Object.entries(obj.completedQuests)) {
+    for (const [rawQid, rec] of Object.entries(obj.completedQuests)) {
       if (!rec || typeof rec !== 'object') continue
+      const qid = normalizeQuestId(rawQid)
       completedQuests[qid] = {
-        questId: typeof rec.questId === 'string' ? rec.questId : qid,
+        questId: normalizeQuestId(typeof rec.questId === 'string' ? rec.questId : qid),
         outcome: typeof rec.outcome === 'string' ? rec.outcome : 'completed',
         completedDay:
           typeof rec.completedDay === 'number' ? Math.max(1, Math.floor(rec.completedDay)) : 1,
@@ -593,7 +598,7 @@ export interface EvaluatedNpcQuestAction {
 export function getAvailableNpcQuestActions(
   npc: NodeNpc,
   ctx: QuestEvalContext,
-  quests: QuestDefinition[] = QUEST_REGISTRY,
+  quests: readonly QuestDefinition[] = QUEST_REGISTRY,
 ): EvaluatedNpcQuestAction[] {
   const ctxWithNpc: QuestEvalContext = { ...ctx, targetNpc: npc }
   const out: EvaluatedNpcQuestAction[] = []
@@ -628,7 +633,7 @@ export interface EvaluatedSpotQuestAction {
 export function getAvailableSpotQuestActions(
   loc: { regionId: string; buildingId: string; spotId: string | null },
   ctx: QuestEvalContext,
-  quests: QuestDefinition[] = QUEST_REGISTRY,
+  quests: readonly QuestDefinition[] = QUEST_REGISTRY,
 ): EvaluatedSpotQuestAction[] {
   const out: EvaluatedSpotQuestAction[] = []
 
@@ -672,7 +677,7 @@ export function findMatchingLocationTriggers(
     isPassThrough?: boolean
   },
   ctx: QuestEvalContext,
-  quests: QuestDefinition[] = QUEST_REGISTRY,
+  quests: readonly QuestDefinition[] = QUEST_REGISTRY,
 ): MatchedLocationTrigger[] {
   const out: MatchedLocationTrigger[] = []
   const curBldg = loc.buildingId ?? null
@@ -711,74 +716,6 @@ export function findMatchingLocationTriggers(
     }
   }
   return out
-}
-
-export function buildNodeNpcFromDynamicActor(actor: DynamicQuestNpc): NodeNpc {
-  const regName = REGION_DB_MAP[actor.regionId]?.name ?? actor.regionId
-  const bldg = BUILDING_DB_MAP[actor.buildingId]
-  const bldgName = bldg?.name ?? actor.buildingId
-  const spotName =
-    actor.spotId && bldg?.interior
-      ? (bldg.interior.spots.find((s) => s.id === actor.spotId)?.name ?? null)
-      : null
-  const fullLoc = spotName ? `${regName} > ${bldgName} > ${spotName}` : `${regName} > ${bldgName}`
-  const resolvedFactionName =
-    actor.factionName ?? (actor.factionId ? FACTION_DB_MAP[actor.factionId]?.name : undefined)
-  const fallbackFullbody =
-    actor.portraitUrl ??
-    inferTemplatePortrait({
-      name: actor.name,
-      title: actor.title,
-      factionName: resolvedFactionName,
-    })
-
-  return {
-    id: actor.actorId,
-    name: actor.name,
-    title: actor.title,
-    realm: actor.realm,
-    factionId: actor.factionId,
-    factionName: resolvedFactionName,
-    sectRank: actor.sectRank,
-    sectRankLabel: actor.sectRankLabel,
-    avatarUrl: actor.avatarUrl ?? resolveAvatarForFullbody(fallbackFullbody),
-    portraitUrl: fallbackFullbody,
-    stats: { ...actor.stats },
-    talents: actor.talents ? { ...actor.talents } : { bone: 50, comprehension: 50, charm: 50 },
-    tenArts: actor.tenArts ? { ...actor.tenArts } : undefined,
-    fullLocationLabel: fullLoc,
-    equippedArts: actor.equippedArts ? { ...actor.equippedArts } : undefined,
-    learnedArts: actor.learnedArts ? actor.learnedArts.map((x) => ({ ...x })) : undefined,
-    equipped: actor.equipped ? { ...actor.equipped } : { ...DEFAULT_EQUIPPED_SLOTS },
-    dynamicQuestActorId: actor.actorId,
-    questBadgeLabel: actor.badgeLabel ?? '剧情人物',
-    talk: actor.talk,
-  }
-}
-
-export function buildNodeNpcFromCompiledId(npcId: string, talkOverride?: string): NodeNpc | null {
-  const rec = NPC_DB_MAP[npcId]
-  if (!rec) return null
-  return {
-    id: rec.id,
-    name: rec.name,
-    title: `${rec.factionName} · ${rec.role}`,
-    realm: rec.realm,
-    factionId: rec.factionId,
-    factionName: rec.factionName,
-    sectRank: rec.sectRank,
-    sectRankLabel: rec.sectRankLabel,
-    avatarUrl: rec.avatarUrl ?? rec.templateAvatarUrl,
-    portraitUrl: rec.fullbodyUrl ?? rec.templateUrl,
-    stats: { ...rec.stats },
-    talents: { ...rec.talents },
-    tenArts: { ...rec.tenArts },
-    fullLocationLabel: rec.fullLocationLabel,
-    equippedArts: { ...rec.equippedArts },
-    learnedArts: rec.learnedArts.map((x) => ({ ...x })),
-    equipped: { ...rec.equipped },
-    talk: talkOverride ?? `“在下${rec.factionName}${rec.name}，请赐教！”`,
-  }
 }
 
 export function resolveQuestCombatOpponent(
@@ -935,7 +872,7 @@ export function resolveStorySpeaker(
  * 确保所有声明式任务链中的地区、建筑、子景点、NPC、门派、物品、武学与步骤跳转 ID 100% 合法无悬空。
  */
 export function validateAllRegisteredQuests(
-  quests: QuestDefinition[] = QUEST_REGISTRY,
+  quests: readonly QuestDefinition[] = QUEST_REGISTRY,
 ): { valid: boolean; errors: string[] } {
   const errors: string[] = []
   const byId = new Map<string, QuestDefinition>()
@@ -1042,30 +979,65 @@ export function validateAllRegisteredQuests(
     }
   }
 
-  const checkEffect = (ctxPath: string, eff: QuestEffect) => {
+  const validatedSceneSet = new Set<string>()
+
+  const checkScene = (sceneCtxPath: string, scene: import('../types/quest').StorySceneDef, ownerQuestId: string) => {
+    const dedupeKey = `${ownerQuestId}::${scene.id}`
+    if (validatedSceneSet.has(dedupeKey)) return
+    validatedSceneSet.add(dedupeKey)
+
+    if (scene.beats.length === 0) {
+      errors.push(`${sceneCtxPath}.scene(${scene.id}): beats 不能为空`)
+    }
+    scene.beats.forEach((b, bi) => {
+      if (b.speaker.kind === 'npc' && !NPC_DB_MAP[b.speaker.npcId]) {
+        errors.push(
+          `${sceneCtxPath}.scene(${scene.id}).beats[${bi}]: 未知的发言人 npcId "${b.speaker.npcId}"`,
+        )
+      }
+    })
+    scene.choices?.forEach((ch, ci) => {
+      if (ch.condition) {
+        checkCondition(`${sceneCtxPath}.scene(${scene.id}).choices[${ci}].condition`, ch.condition)
+      }
+      ch.effects.forEach((ce, cei) =>
+        checkEffect(`${sceneCtxPath}.scene(${scene.id}).choices[${ci}].effects[${cei}]`, ce, ownerQuestId),
+      )
+    })
+    scene.onFinishEffects?.forEach((fe, fei) =>
+      checkEffect(`${sceneCtxPath}.scene(${scene.id}).onFinish[${fei}]`, fe, ownerQuestId),
+    )
+  }
+
+  const resolveQuestScenesForValidation = (qid: string) => {
+    const q = byId.get(qid)
+    return getLoadedQuestScenes(qid) ?? q?.scenes
+  }
+
+  const checkEffect = (ctxPath: string, eff: QuestEffect, ownerQuestId: string) => {
     switch (eff.type) {
       case 'openScene': {
-        if (eff.scene.beats.length === 0) {
-          errors.push(`${ctxPath}.scene(${eff.scene.id}): beats 不能为空`)
+        if ('scene' in eff) {
+          checkScene(ctxPath, eff.scene, ownerQuestId)
+        } else {
+          const targetQid = eff.questId ?? ownerQuestId
+          const refQ = byId.get(targetQid)
+          if (!refQ) {
+            errors.push(`${ctxPath}: openScene 引用了未知的 questId "${targetQid}"`)
+          } else {
+            const scenes = resolveQuestScenesForValidation(targetQid)
+            if (scenes) {
+              const targetScene = scenes[eff.sceneId]
+              if (!targetScene) {
+                errors.push(
+                  `${ctxPath}: 任务 "${targetQid}" 的 scenes 中不存在 sceneId "${eff.sceneId}"`,
+                )
+              } else {
+                checkScene(ctxPath, targetScene, targetQid)
+              }
+            }
+          }
         }
-        eff.scene.beats.forEach((b, bi) => {
-          if (b.speaker.kind === 'npc' && !NPC_DB_MAP[b.speaker.npcId]) {
-            errors.push(
-              `${ctxPath}.scene(${eff.scene.id}).beats[${bi}]: 未知的发言人 npcId "${b.speaker.npcId}"`,
-            )
-          }
-        })
-        eff.scene.choices?.forEach((ch, ci) => {
-          if (ch.condition) {
-            checkCondition(`${ctxPath}.scene(${eff.scene.id}).choices[${ci}].condition`, ch.condition)
-          }
-          ch.effects.forEach((ce, cei) =>
-            checkEffect(`${ctxPath}.scene(${eff.scene.id}).choices[${ci}].effects[${cei}]`, ce),
-          )
-        })
-        eff.scene.onFinishEffects?.forEach((fe, fei) =>
-          checkEffect(`${ctxPath}.scene(${eff.scene.id}).onFinish[${fei}]`, fe),
-        )
         break
       }
       case 'startQuest': {
@@ -1164,20 +1136,20 @@ export function validateAllRegisteredQuests(
             errors.push(`${ctxPath}.startCombat.allies[${ali}]: 未知的助战同伴 npcId "${al.npcId}"`)
           }
         })
-        eff.onWin.forEach((we, wi) => checkEffect(`${ctxPath}.startCombat.onWin[${wi}]`, we))
-        eff.onLose?.forEach((le, li) => checkEffect(`${ctxPath}.startCombat.onLose[${li}]`, le))
+        eff.onWin.forEach((we, wi) => checkEffect(`${ctxPath}.startCombat.onWin[${wi}]`, we, ownerQuestId))
+        eff.onLose?.forEach((le, li) => checkEffect(`${ctxPath}.startCombat.onLose[${li}]`, le, ownerQuestId))
         eff.onEscape?.forEach((ee, ei) =>
-          checkEffect(`${ctxPath}.startCombat.onEscape[${ei}]`, ee),
+          checkEffect(`${ctxPath}.startCombat.onEscape[${ei}]`, ee, ownerQuestId),
         )
-        eff.onDraw?.forEach((de, di) => checkEffect(`${ctxPath}.startCombat.onDraw[${di}]`, de))
+        eff.onDraw?.forEach((de, di) => checkEffect(`${ctxPath}.startCombat.onDraw[${di}]`, de, ownerQuestId))
         break
       case 'branch':
         checkCondition(`${ctxPath}.branch.condition`, eff.condition)
         eff.thenEffects.forEach((te, ti) =>
-          checkEffect(`${ctxPath}.branch.then[${ti}]`, te),
+          checkEffect(`${ctxPath}.branch.then[${ti}]`, te, ownerQuestId),
         )
         eff.elseEffects?.forEach((ee, ei) =>
-          checkEffect(`${ctxPath}.branch.else[${ei}]`, ee),
+          checkEffect(`${ctxPath}.branch.else[${ei}]`, ee, ownerQuestId),
         )
         break
       default: {
@@ -1217,18 +1189,28 @@ export function validateAllRegisteredQuests(
       }
     }
 
+    const loadedScenes = resolveQuestScenesForValidation(q.id)
+    if (loadedScenes) {
+      for (const [sceneKey, scene] of Object.entries(loadedScenes)) {
+        if (scene.id !== sceneKey) {
+          errors.push(`${qPrefix}.scenes.${sceneKey}: scene.id "${scene.id}" 与键名不一致`)
+        }
+        checkScene(`${qPrefix}.scenes.${sceneKey}`, scene, q.id)
+      }
+    }
+
     q.locationTriggers?.forEach((lt) => {
       const ltPath = `${qPrefix}.locationTriggers(${lt.id})`
       checkLocation(ltPath, lt.regionId, lt.buildingId ?? undefined, lt.spotId ?? undefined)
       if (lt.condition) checkCondition(`${ltPath}.condition`, lt.condition)
-      lt.effects.forEach((e, i) => checkEffect(`${ltPath}.effects[${i}]`, e))
+      lt.effects.forEach((e, i) => checkEffect(`${ltPath}.effects[${i}]`, e, q.id))
     })
 
     q.npcActions?.forEach((na) => {
       const naPath = `${qPrefix}.npcActions(${na.id})`
       checkCondition(`${naPath}.visibleWhen`, na.visibleWhen)
       if (na.enabledWhen) checkCondition(`${naPath}.enabledWhen`, na.enabledWhen)
-      na.effects.forEach((e, i) => checkEffect(`${naPath}.effects[${i}]`, e))
+      na.effects.forEach((e, i) => checkEffect(`${naPath}.effects[${i}]`, e, q.id))
     })
 
     q.spotActions?.forEach((sa) => {
@@ -1242,7 +1224,7 @@ export function validateAllRegisteredQuests(
       }
       if (sa.visibleWhen) checkCondition(`${saPath}.visibleWhen`, sa.visibleWhen)
       if (sa.enabledWhen) checkCondition(`${saPath}.enabledWhen`, sa.enabledWhen)
-      sa.effects.forEach((e, i) => checkEffect(`${saPath}.effects[${i}]`, e))
+      sa.effects.forEach((e, i) => checkEffect(`${saPath}.effects[${i}]`, e, q.id))
     })
 
     if (q.onDeadlineExpired) {
@@ -1252,7 +1234,7 @@ export function validateAllRegisteredQuests(
         )
       }
       q.onDeadlineExpired.effects.forEach((e, i) =>
-        checkEffect(`${qPrefix}.onDeadlineExpired.effects[${i}]`, e),
+        checkEffect(`${qPrefix}.onDeadlineExpired.effects[${i}]`, e, q.id),
       )
     }
   }

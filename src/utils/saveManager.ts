@@ -26,6 +26,7 @@ import {
   getArtExpRequired,
 } from '../data/playerMartialArts'
 import { cloneQuestRuntimeState } from '../engine/questEngine'
+import { VALID_TEN_ART_KEYS } from '../engine/shared/constants'
 import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from './heroStats'
 import { isBuildingUnlocked } from './mapMath'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from './npcFavor'
@@ -273,19 +274,6 @@ const ART_SLOT_KEYS: MartialArtSlotKey[] = [
   'move3',
   'move4',
 ]
-
-const VALID_TEN_ART_KEYS: ReadonlySet<TenArtKey> = new Set([
-  '骑术',
-  '算术',
-  '经义',
-  '策论',
-  '诗词',
-  '琴',
-  '棋',
-  '书',
-  '画',
-  '辩才',
-])
 
 export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   if (!isRecord(raw)) return null

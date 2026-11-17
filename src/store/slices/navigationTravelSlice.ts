@@ -13,10 +13,8 @@ import type {
 } from '../../types/game'
 import {
   NORTH_CHINA_REGION_IDS,
-  TAIHANG_BANDIT_ENCOUNTER_SCENE,
   TAIHANG_BANDIT_QUEST_ID,
-  TAIHANG_LEADERS_AMBUSH_SCENE,
-} from '../../data/quests/sects/kaifengTaihangBanditQuest'
+} from '../../engine/shared/constants'
 import {
   cloneHeroBaseStats,
   DAILY_INN_LODGING_COST,
@@ -24,7 +22,6 @@ import {
 } from '../../utils/heroStats'
 import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
 import {
-  ADJACENCY_MAP,
   findBestRoute,
   getBuildingLockMeta,
   getRegionAllBuildings,
@@ -39,6 +36,7 @@ import {
   createLogEntry,
   applyDailyVitalityRecovery,
   applyDayProgressionSectHooks,
+  rotateMonthlyRoamingMasters,
 } from '../storeHelpers'
 
 export type NavigationTravelKeys =
@@ -709,28 +707,17 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         }
       }
 
-      if ((nextDayCount - 1) % 30 === 0) {
-        nextMasters = s.roamingMasters.map((m) => {
-          const neighbors = (ADJACENCY_MAP[m.nodeId] ?? []).filter((edge) =>
-            isRegionUnlockedByInventory(edge.to, s.inventory),
-          )
-          if (neighbors.length === 0) return m
-          const pick = neighbors[Math.floor(Math.random() * neighbors.length)]
-          return { ...m, nodeId: pick.to }
-        })
-        const sample = nextMasters[Math.floor(Math.random() * nextMasters.length)]
-        if (sample) {
-          nextLogs.unshift(
-            createLogEntry(
-              nextDayCount,
-              '月度风云',
-              `《天下江湖风闻录》更新：【${sample.name}】近日现身于【${NODE_MAP[sample.nodeId]?.name ?? sample.nodeId}】！`,
-              true,
-              nextShichenIdx,
-            ),
-          )
-        }
-      }
+      const rot = rotateMonthlyRoamingMasters({
+        prevDayCount: s.dayCount,
+        nextDayCount,
+        shichenIdx: nextShichenIdx,
+        roamingMasters: nextMasters,
+        logs: nextLogs,
+        emitRumorLog: true,
+        canEnterNode: (regionId) => isRegionUnlockedByInventory(regionId, s.inventory),
+      })
+      nextMasters = rot.roamingMasters
+      nextLogs = rot.logs
 
       const dayHook = applyDayProgressionSectHooks({
         nextDayCount,
@@ -962,10 +949,28 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         const banditDone = stAfter.questState.completedQuests[TAIHANG_BANDIT_QUEST_ID]
         if (banditProg?.stepId === 'ambush_ready') {
           get().campStop()
-          get().runQuestEffects([{ type: 'openScene', scene: TAIHANG_LEADERS_AMBUSH_SCENE }], null)
+          get().runQuestEffects(
+            [
+              {
+                type: 'openScene',
+                sceneId: 'scene_thb_13_canyon_trap',
+                questId: TAIHANG_BANDIT_QUEST_ID,
+              },
+            ],
+            null,
+          )
         } else if (!banditProg && !banditDone && Math.random() < 0.01) {
           get().campStop()
-          get().runQuestEffects([{ type: 'openScene', scene: TAIHANG_BANDIT_ENCOUNTER_SCENE }], null)
+          get().runQuestEffects(
+            [
+              {
+                type: 'openScene',
+                sceneId: 'scene_thb_01_road_omen',
+                questId: TAIHANG_BANDIT_QUEST_ID,
+              },
+            ],
+            null,
+          )
         }
       }
     }

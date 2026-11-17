@@ -7,11 +7,11 @@ interface UniqueOwnershipProps {
 }
 
 export function UniqueOwnershipBadge({ itemId }: UniqueOwnershipProps) {
-  const inventory = useGameStore((s) => s.inventory)
+  const inBag = useGameStore((s) => s.inventory.some((st) => st.itemId === itemId && st.qty > 0))
   const equipped = useGameStore((s) => s.equipped)
   const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
 
-  const info = resolveUniqueArtifactLiveOwnership(itemId, inventory, equipped, consumedUniqueIds)
+  const info = resolveUniqueArtifactLiveOwnership(itemId, inBag, equipped, consumedUniqueIds)
   if (!info) return null
 
   const toneCls =
@@ -36,12 +36,12 @@ export function UniqueOwnershipBadge({ itemId }: UniqueOwnershipProps) {
 }
 
 export function UniqueOwnershipBanner({ itemId }: UniqueOwnershipProps) {
-  const inventory = useGameStore((s) => s.inventory)
+  const inBag = useGameStore((s) => s.inventory.some((st) => st.itemId === itemId && st.qty > 0))
   const equipped = useGameStore((s) => s.equipped)
   const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
   const openNpcDetailInCompendium = useGameStore((s) => s.openNpcDetailInCompendium)
 
-  const info = resolveUniqueArtifactLiveOwnership(itemId, inventory, equipped, consumedUniqueIds)
+  const info = resolveUniqueArtifactLiveOwnership(itemId, inBag, equipped, consumedUniqueIds)
   if (!info) return null
 
   const isPlayer = info.liveStatus === 'player_equipped' || info.liveStatus === 'player_bag'

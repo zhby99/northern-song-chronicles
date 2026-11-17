@@ -1,5 +1,5 @@
 import { memo, useEffect, useMemo, useRef } from 'react'
-import { isRegionUnlockedByInventory } from '../../data/itemsDb'
+import { getUnlockedLockedRegionKey, isRegionUnlockedByKey } from '../../data/itemsDb'
 import { WORLD_SVG_DEFS_MARKUP, WORLD_SVG_STATIC_GEO_MARKUP } from '../../data/worldBaseSvg'
 import { useGameStore } from '../../store/useGameStore'
 import type { FactionKind, WorldNode } from '../../types/game'
@@ -48,7 +48,7 @@ export function WorldMapCanvas() {
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const agility = useGameStore((s) => s.agility)
-  const inventory = useGameStore((s) => s.inventory)
+  const unlockedRegionKey = useGameStore((s) => getUnlockedLockedRegionKey(s.inventory))
   const roamingMasters = useGameStore((s) => s.roamingMasters)
   const traveling = useGameStore((s) => s.traveling)
   const campPos = useGameStore((s) => s.campPos)
@@ -183,7 +183,7 @@ export function WorldMapCanvas() {
         agility,
       },
       campPos,
-      inventory,
+      unlockedRegionKey,
     )
     return route && route.segments.length > 0 ? route : null
   }, [
@@ -195,7 +195,7 @@ export function WorldMapCanvas() {
     qinggongBonus,
     ridingSkill,
     agility,
-    inventory,
+    unlockedRegionKey,
   ])
 
   const activeRoutePoints = useMemo(() => {
@@ -417,7 +417,7 @@ export function WorldMapCanvas() {
             const isCapital = CAPITALS.has(n.id)
             const isSelected = selectedNodeId === n.id
             const isCurrent = currentNodeId === n.id && !traveling && !campPos
-            const isLocked = !isRegionUnlockedByInventory(n.id, inventory)
+            const isLocked = !isRegionUnlockedByKey(n.id, unlockedRegionKey)
             const baseShortName = n.name.replace('（万山之祖）', '')
             const shortName = isLocked ? `🔒${baseShortName}` : baseShortName
             const boxW = baseShortName.length * 10.5 + (isLocked ? 21 : 9)

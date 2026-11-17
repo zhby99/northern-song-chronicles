@@ -1,4 +1,63 @@
 import type { QuestRuntimeState } from './quest'
+export * from './ids.generated'
+
+export interface CompiledSectSystems {
+  stipends: Record<string, [number, number, number, number, number]>
+  referralBribes: Array<{
+    fromSectId: string
+    targetSectId: string
+    targetSectName: string
+    itemId: string
+    itemName: string
+    costSilver: number
+    elderRoleHint: string
+  }>
+  starterGearGifts: Record<string, string[]>
+  liaoSpy: {
+    locations: Array<{ regionId: string; buildingId: string; spotId: string | null }>
+    roster: Array<{ name: string; title: string }>
+    strengthTiers: Array<{
+      realm: string
+      hpRange: [number, number]
+      mpRange: [number, number]
+      agiRange: [number, number]
+      resRange: [number, number]
+      artLevel: number
+      isTier2: boolean
+    }>
+  }
+  tournament: {
+    rounds: Array<{
+      round: number
+      realm: string
+      rankRange: [number, number]
+      hpRange: [number, number]
+      mpRange: [number, number]
+      agiRange: [number, number]
+      resRange: [number, number]
+    }>
+    lastNames: string[]
+    firstNames: string[]
+  }
+  kaifeng: {
+    investigationCases: Array<{
+      name: string
+      subType: string
+      informantName: string
+      informantTitle: string
+      informantTalk: string
+      summary: string
+    }>
+    warrantCriminals: Array<{ name: string; title: string; realm: string }>
+  }
+  minorIntelTemplates: Array<{
+    title: string
+    informantName: string
+    informantTitle: string
+    informantTalk: string
+    summary: string
+  }>
+}
 
 export type NodeKind = 'city' | 'sect' | 'pass'
 export type RegimeKey = 'song' | 'liao' | 'xixia' | 'tubo' | 'dali' | 'wild'

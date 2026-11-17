@@ -219,6 +219,7 @@ export interface ActiveQuestCombatHook {
  */
 export type QuestEffect =
   | { type: 'openScene'; scene: StorySceneDef }
+  | { type: 'openScene'; sceneId: string; questId?: string }
   | {
       type: 'startQuest'
       questId: string
@@ -431,4 +432,6 @@ export interface QuestDefinition {
   npcActions?: QuestNpcActionDef[]
   spotActions?: QuestSpotActionDef[]
   onDeadlineExpired?: QuestDeadlineHandlerDef
+  scenes?: Record<string, StorySceneDef>
+  loadScenes?: () => Promise<Record<string, StorySceneDef>>
 }

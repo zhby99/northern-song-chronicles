@@ -19,56 +19,48 @@
 
 ---
 
-## 一、代码重构与优化
+## 一、代码重构与优化（✅ 已全部完成）
 
-### P0：先建安全网，再拆巨型函数
+### P0：先建安全网，再拆巨型函数（✅ 已完成）
 
-1. **引入 Vitest**（与 Vite 零配置集成）。按以下顺序补测试：
-   - `evaluateQuestCondition` / `collectUnmetQuestReasons`
-   - 战斗公式（`computeEffectiveAgility`、`canFighterEscape` 等）
-   - `evaluateSectEntry` / `evaluateSectPromotion`
-   - 存档的往返序列化
-   - 把 `validateAllRegisteredQuests` 改写成测试用例
-2. **战斗引擎注入 RNG**：`combatEngine.ts` 里有 14 处直接调用 `Math.random`，统一改成传入 `rng: () => number` 参数。这样才能做固定种子的快照测试，日后实现回放和存档读回也会用到。
-3. **拆分 `resolveCombatRound`**（[combatEngine.ts:925-2282](file:///home/antigravity/zhby99/northern-song-chronicles/src/utils/combatEngine.ts#L925-L2282)，单个函数约 1360 行）：
+1. - [x] **引入 Vitest（✅ 已完成）**（`npm test` → `vitest run`，共 6 组套件 19 项单测全绿，见 [`src/engine/__tests__/`](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/__tests__)）：
+   - [x] `evaluateQuestCondition` / `collectUnmetQuestReasons`（[questConditions.test.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/__tests__/questConditions.test.ts)）
+   - [x] 战斗公式与确定性 RNG 回放（`computeEffectiveAgility`、`canFighterEscape`、`resolveCombatRound` 等，[combatFormulas.test.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/__tests__/combatFormulas.test.ts)）
+   - [x] `evaluateSectEntry` / `evaluateSectPromotion` / `buildJoinSectPatch`（[sectEvaluation.test.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/__tests__/sectEvaluation.test.ts)）
+   - [x] 存档的往返序列化（[saveRoundtrip.test.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/__tests__/saveRoundtrip.test.ts)）
+   - [x] `validateAllRegisteredQuests` 全量任务链与分镜场景校验（[questValidation.test.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/__tests__/questValidation.test.ts)）
+   - [x] 统一时间推进 `commitTimeAdvance`、纯函数闭关 `tick()` 与 `runQuestEffects` 单次 `set()` 批处理校验（[timeAndQuestBatch.test.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/__tests__/timeAndQuestBatch.test.ts)）
+2. - [x] **战斗引擎注入 RNG（✅ 已完成）**：统一收敛至 [rng.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/combat/rng.ts)（`CombatRng = () => number` + `createSeededCombatRng`），全战斗链路零裸 `Math.random()` 调用，支持固定种子快照测试与回放。
+3. - [x] **拆分 `resolveCombatRound` 与天阶特效注册表（✅ 已完成）**：原 2,557 行 `combatEngine.ts` 已拆分为模块化纯引擎目录（[src/engine/combat/](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/combat)）：
    ```
-   engine/combat/{types, rng, formulas, combatants, ai}.ts
+   engine/combat/{types, rng, formulas, combatants, ai, index}.ts
    engine/combat/round/{context, initiative, resolveStep, endOfRound, outcome}.ts
-   engine/combat/effects/registry.ts   // Record<FxKey, {onBeforeHit, onAfterHit, onRoundEnd...}>
+   engine/combat/effects/registry.ts   // 54 项 FxKey 字面量联合 + COMBAT_EFFECT_REGISTRY
    ```
-   约 50 个天阶特效键（如 `xisui_ward`、`beiming_drain`）目前散落在主循环里，应收敛成 `FxKey` 联合类型加一张注册表。
-4. **抽出入派逻辑**：同一套「入派 + 海捕 + 赠礼」流程在三处复制粘贴（`sectSlice.ts:82-298`、`questSlice.ts:580-686`、`cultivationSlice.ts:840-856`）。建议抽成纯函数 `buildJoinSectPatch()`。
-5. **统一推进时间的副作用**：`advanceShichenClock → 日钩子 → 过期检查 → 伏击 → 自动存档` 这串逻辑散落在至少 9 处（`startNpcCombat` 被调用 20 次，`checkExpiredQuestDeadlines` 18 次）。建议统一成 `commitTimeAdvance()`。同时 `stepCultivationTick`（约 930 行）按 session 类型拆成 4 个纯函数 `tick()`。
-6. **改造 `runQuestEffects`**（`questSlice.ts:89-1024`，37 个 case 的巨型 switch）：改成按效果类型分发的处理器注册表，并把多个效果合并到一次 `set` 里提交，减少重复渲染。
+4. - [x] **抽出入派逻辑（✅ 已完成）**：三处入派与海捕/赠礼发放逻辑已统一抽为纯函数 [`buildJoinSectPatch()`](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/sect/joinSect.ts)，由 `sectSlice`、`quest/effectHandlers`、`cultivationTicks` 共用。
+5. - [x] **统一推进时间的副作用与拆分 `stepCultivationTick`（✅ 已完成）**：所有时辰推进统一走 [`commitTimeAdvance()`](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/time/clock.ts)（自动串联跨日钩子、任务期限检查、路途/伏击事件与自动存档）；闭关修行按会话类型拆为 `tickTenArtSession`、`tickScriptureSession`、`tickLaborSession`、`tickMartialArtSession` 四个纯函数（[cultivationTicks.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/time/cultivationTicks.ts)）。
+6. - [x] **改造 `runQuestEffects`（✅ 已完成）**：巨型 `switch` 已重构为按效果类型分发的处理器注册表 [`QUEST_EFFECT_HANDLERS`](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/quest/effectHandlers.ts)，同批同步效果合并为单次 Zustand `set()` 提交；[questSlice.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/store/slices/questSlice.ts) 由 1,167 行精简至 165 行。
 
-### P1：任务 DSL 瘦身与数据归位
+### P1：任务 DSL 瘦身与数据归位（✅ 已完成）
 
-- **任务文件可缩减 30~35%（约 1.5 万行），文字一字不改**：
+- [x] **任务 DSL 瘦身（✅ 已完成，文案一字未改）**：新增 [`src/engine/quest/dsl.ts`](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/quest/dsl.ts)（`N` / `P` / `S`、`atStep` / `qStatus`、`warn` / `toast`、`setStep`、`flag`、`openScene`）与 [`makeQuestNpc`](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/npcFactory.ts)，全量转换 26 个任务模块；首屏常驻任务定义代码由 **45,668 行降至 9,055 行（−80.2%）**。
+- [x] **场景改为按 ID 引用并按需懒加载（✅ 已完成）**：全部 788 幕 `StorySceneDef` 拆分为 26 个独立 `*.scenes.ts` 动态分片（`openScene: { sceneId }` + `loadScenes: () => import('./*.scenes')`，见 [sceneRegistry.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/quest/sceneRegistry.ts)）；首屏任务 JS 体积由 **1.8 MB 降至 311 KB（−82.7%）**。
+- [x] **硬编码数据回到 Markdown→Python→JSON 管线（✅ 已完成）**：
+  - [x] 四库百卷与非装备物品回归 [EQUIPMENT_COMPENDIUM.md](file:///home/antigravity/zhby99/northern-song-chronicles/docs/EQUIPMENT_COMPENDIUM.md)，由 [compile_game_db.py](file:///home/antigravity/zhby99/northern-song-chronicles/scripts/compile_game_db.py) 编译生成 `scrolls.json` 与 `nonEquipmentItems.json`（[scrollsDb.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/data/scrollsDb.ts) 由 1,424 行降至 7 行，[itemsDb.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/data/itemsDb.ts) 由 2,216 行降至 812 行）；
+  - [x] 门派俸禄表、入门赠礼表、燕云辽谍名录、大比规格与海捕池回归 [MARTIAL_ARTS_SECTS.md](file:///home/antigravity/zhby99/northern-song-chronicles/docs/MARTIAL_ARTS_SECTS.md)，编译生成 `sectSystems.json`；
+  - [x] [QuestTreeTab.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/menu/tabs/QuestTreeTab.tsx) 移除 573 行手写节点与连线，改由 [`buildQuestDependencyGraph`](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/quest/questGraphBuilder.ts) 从 `QUEST_REGISTRY` / `startCondition` 自动拓扑推导。
+- [x] **大文件拆分（✅ 已完成）**：
+  - [x] `sectMechanics.ts`（2,369 行）拆分为 [`src/engine/sect/`](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/sect)（`rules, ranks, referral, stipends, liaoSpy, tournament, kaifengWarrant, promotion, minorTasks, entry, joinSect`），并以表驱动 `SECT_RULES_BY_ID` 收敛门派特判；
+  - [x] [CombatOverlay.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/combat/CombatOverlay.tsx)（2,093 行 → 276 行）拆出 [`useCombatChoreography`](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/combat/useCombatChoreography.ts) 与 8 个子组件，并在 [App.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/App.tsx) 改为 `React.lazy()` 按需加载（独立 72 KB 分片）；
+  - [x] [NpcInteractionOverlay.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/hud/NpcInteractionOverlay.tsx)（1,787 行 → 472 行）拆出 [`SectAffairsPanel`](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/hud/npc/SectAffairsPanel.tsx) 及门派入门/晋升/差遣/传功、人物属性与赠礼子组件；
+  - [x] [ContextInspectorCard.tsx](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/hud/ContextInspectorCard.tsx)（1,689 行 → 223 行）抽出 [`useInspectorContext()`](file:///home/antigravity/zhby99/northern-song-chronicles/src/components/hud/inspector/useInspectorContext.ts) 及世界舆图、少林杂役、建筑修行、商铺采办与驻地群侠子面板。
+- [x] **目录约定与常量去重（✅ 已完成）**：`src/engine/` 承载纯规则模块（`combat, sect, quest, time, stats, social, world, shared`），`src/utils/` 承载平台 IO（`assetLoader, bgmManager, combatSfx, saveManager`）与轻量兼容重导出；NPC 构造统一至 [`npcFactory.ts`](file:///home/antigravity/zhby99/northern-song-chronicles/src/engine/npcFactory.ts)，`TEN_ART_KEYS`、`SHICHEN_LABELS`、`clamp` 完成全库去重。
 
-  | 模式 | 数量 | 处理方式 |
-  |---|---|---|
-  | 对白 beat，每条约 4 行 | 2,785 处 | `N('…')` / `P('…')` / `S(spk,'…')` 写成 1 行 |
-  | 任务专用 NPC 构造函数，平均 50 行 | 89 个 | `makeQuestNpc({...})` 自动补全默认字段，约 12 行 |
-  | `questStatus` 条件，每处 5~7 行 | 318 处 | `atStep(Q,'x')` 写成 1 行 |
-  | toast 提示 | 299 处 | `warn('…')` |
+### P2：订阅收敛、类型化 ID 与按需加载（✅ 已完成）
 
-- **场景改为按 ID 引用**：现在 `openScene:{scene: OBJ}` 把场景对象直接内联，导致任务数据既不能 JSON 化，也不能懒加载。改成 `openScene:{sceneId}` 加一张 `scenes` 表后，就能按任务 `import()`。目前首屏预加载约 6 MB JS，其中任务数据 1.8 MB。
-- **硬编码数据回到 Markdown→Python→JSON 管线**：
-  - `itemsDb.ts` 的 `NON_EQUIPMENT_ITEMS`（约 1400 行）和 `scrollsDb.ts`（1423 行），与 `EQUIPMENT_COMPENDIUM.md` 形成**两个数据源，容易漂移**；
-  - `sectMechanics.ts` 里的俸禄表、赠礼表、辽谍名录、大比规格等；
-  - `QuestTreeTab.tsx:144-713` 手写的节点和连线，应改为从 `startCondition` 自动推导。
-- **大文件拆分**：
-  - `sectMechanics.ts`（2347 行）拆为 `engine/sect/{ranks, referral, stipends, liaoSpy, tournament, kaifengWarrant, promotion, minorTasks, entry}.ts`，再把 14 处 `if (sectId === 'SECT-33')` 式的特判改成按门派查表的规则对象；
-  - `CombatOverlay` 拆成 8 个子组件，加一个 `useCombatChoreography` hook，并在 App 里改为 `lazy()` 加载；
-  - `NpcInteractionOverlay` 拆成 `SectAffairsPanel` + 各门派小组件；
-  - `ContextInspectorCard` 抽出 `useInspectorContext()`。
-- **目录约定**：`engine/` 只放纯规则（战斗、门派、任务、时间），`utils/` 只放平台 IO（asset、bgm、save）。NPC 构造逻辑现在散在三处，统一到 `engine/npcFactory.ts`。`TEN_ART_KEYS`、时辰标签、`clamp` 各有重复定义，一并去重。
-
-### P2
-
-- **减少重渲染**：18 个组件整体订阅 `s.inventory`，其中常驻的地图组件实际只用到区域解锁信息。改用派生 selector `getUnlockedLockedRegionKey(s.inventory)`，它返回字符串，便于比较。
-- **ID 类型化**：由 `compile_game_db.py` 生成 `ids.generated.ts`：`SectId` 用字面量联合，`NpcId`、`ArtId` 用品牌类型。任务 ID 现有三种命名风格（`QST-SECT-01-ENTRY` / `QST_SECT22_…` / `QST_TIANBO_…`），统一一种。
-- **延迟加载**：`bgmManager`（1190 行）和 `combatSfx` 首屏用不到，改为延迟加载。`registerExtraQuests` 会修改模块级数组，改成不可变注册表。
+- [x] **减少重渲染（✅ 已完成）**：常驻舆图与图鉴横幅组件（`WorldMapCanvas`、`MapTooltip`、`TopHud`、`WorldNodeInspectorCard`、`RegionCompendiumPanel`、`UniqueOwnershipBanner`）改用原始值 selector `getUnlockedLockedRegionKey(s.inventory)` 或布尔 selector，避免背包数量变动触发大面积重渲染。
+- [x] **ID 类型化与任务命名统一（✅ 已完成）**：[compile_game_db.py](file:///home/antigravity/zhby99/northern-song-chronicles/scripts/compile_game_db.py) 自动生成 [`ids.generated.ts`](file:///home/antigravity/zhby99/northern-song-chronicles/src/types/ids.generated.ts)（`SectId`、`OrgId`、`RegionId` 字面量联合及 `NpcId`、`ArtId`、`ItemId`、`BuildingId` 品牌类型）；全量 29 条任务链 ID 统一为连字符规范（`QST-...`）。
+- [x] **音频延迟加载与不可变任务注册表（✅ 已完成）**：[bgmManager.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/utils/bgmManager.ts) 与 [combatSfx.ts](file:///home/antigravity/zhby99/northern-song-chronicles/src/utils/combatSfx.ts) 改为轻量门面，Web Audio 核心（`bgmManagerCore` / `combatSfxCore`）延后至首次交互按需动态加载；移除可变 `registerExtraQuests`，[`QUEST_REGISTRY`](file:///home/antigravity/zhby99/northern-song-chronicles/src/data/quests/index.ts) 与 `QUEST_MAP` 改为 `Object.freeze` 不可变注册表。
 
 ---
 

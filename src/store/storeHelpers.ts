@@ -3,7 +3,6 @@ import { MARTIAL_ART_DB_MAP } from '../data/gameDb'
 import {
   DEFAULT_EQUIPPED_SLOTS,
   getEffectiveTalents,
-  ITEM_DB_MAP,
 } from '../data/itemsDb'
 import {
   DEFAULT_EQUIPPED_ARTS,
@@ -18,43 +17,27 @@ import {
 } from '../engine/questEngine'
 import type {
   HeroBaseStats,
-  InventoryStack,
   LabelToggleKey,
   LearnedArtEntry,
-  LogEntry,
   NodeNpc,
-  PlayerSectState,
   SerializableGameState,
 } from '../types/game'
 import {
   calcDailyCultivationExpGain,
   cloneHeroBaseStats,
-  DAYS_PER_YEAR,
   DEFAULT_HERO_BASE_STATS,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
 } from '../utils/heroStats'
-import {
-  getSongDateParts,
-  WORLD_GRAPH,
-} from '../utils/mapMath'
+import { WORLD_GRAPH } from '../utils/mapMath'
 import {
   INITIAL_NPC_FAVOR,
   MAX_NPC_FAVOR,
-  MIN_NPC_FAVOR,
 } from '../utils/npcFavor'
 import { type CombatSessionState } from '../utils/combatEngine'
 import {
   clonePlayerSectState,
   DEFAULT_PLAYER_SECT_STATE,
-  generateKaifengWarrant,
-  getChangshanMonthlyStipend,
-  getHalfYearPeriodInfo,
-  getImperialGuardMonthlyStipend,
-  getKaifengMonthlyStipend,
-  getSectLeaderNpcId,
-  SEMI_ANNUAL_DEADLINE_DAYS,
-  spawnAnnualLiaoSpy,
 } from '../utils/sectMechanics'
 
 export const LABEL_KEYS: LabelToggleKey[] = ['cityLabels', 'sectPassLabels', 'masters', 'distance']
@@ -106,66 +89,30 @@ export const ROAD_EVENTS: RoadEventDef[] = [
   },
 ]
 
-let nextLogSeq = 1
-export function createLogEntry(
-  dayCount: number,
-  tag: string,
-  text: string,
-  highlight = false,
-  shichenIdx?: number,
-): LogEntry {
-  const parts = getSongDateParts(dayCount, shichenIdx ?? 4)
-  const datePart =
-    typeof shichenIdx === 'number'
-      ? `${parts.monthDay}·${parts.shichen.name}`
-      : parts.monthDay
-  nextLogSeq += 1
-  return {
-    id: `log-${Date.now()}-${nextLogSeq}`,
-    date: datePart,
-    tag,
-    text,
-    highlight,
-  }
-}
+import {
+  addItemToInventory,
+  removeItemFromInventory,
+} from '../engine/shared/inventory'
+import {
+  advanceShichenClock,
+  applyDailyVitalityRecovery,
+  applyDayProgressionSectHooks,
+  commitTimeAdvance,
+  computeTimeAdvanceState,
+  createLogEntry,
+  rotateMonthlyRoamingMasters,
+} from '../engine/time'
 
-export function advanceShichenClock(dayCount: number, shichenIdx: number, deltaShichen: number) {
-  const total = shichenIdx + deltaShichen
-  const daysAdded = Math.floor(total / 12)
-  const nextShichen = ((total % 12) + 12) % 12
-  return {
-    dayCount: Math.max(1, dayCount + daysAdded),
-    shichenIdx: nextShichen,
-    daysAdded,
-  }
-}
-
-export function addItemToInventory(list: InventoryStack[], itemId: string, qty = 1): InventoryStack[] {
-  const def = ITEM_DB_MAP[itemId]
-  if (!def || qty <= 0) return list
-  const next = list.map((x) => ({ ...x }))
-  const existing = next.find((x) => x.itemId === itemId)
-  if (existing) {
-    existing.qty += qty
-  } else {
-    next.push({ itemId, qty })
-  }
-  return next
-}
-
-export function removeItemFromInventory(
-  list: InventoryStack[],
-  itemId: string,
-  qty = 1,
-): InventoryStack[] | null {
-  const idx = list.findIndex((x) => x.itemId === itemId)
-  if (idx === -1 || list[idx].qty < qty) return null
-  const next = list.map((x) => ({ ...x }))
-  next[idx].qty -= qty
-  if (next[idx].qty <= 0) {
-    next.splice(idx, 1)
-  }
-  return next
+export {
+  addItemToInventory,
+  advanceShichenClock,
+  applyDailyVitalityRecovery,
+  applyDayProgressionSectHooks,
+  commitTimeAdvance,
+  computeTimeAdvanceState,
+  createLogEntry,
+  removeItemFromInventory,
+  rotateMonthlyRoamingMasters,
 }
 
 export const INITIAL_DERIVED_STATS = deriveHeroEffectiveStats(
@@ -174,252 +121,6 @@ export const INITIAL_DERIVED_STATS = deriveHeroEffectiveStats(
   DEFAULT_EQUIPPED_ARTS,
   DEFAULT_LEARNED_ARTS,
 )
-
-export function applyDailyVitalityRecovery(params: {
-  hp: number
-  maxHp: number
-  mp: number
-  maxMp: number
-  daysAdded: number
-  factor?: number
-}): { hp: number; mp: number; hpGain: number; mpGain: number } {
-  const { hp, maxHp, mp, maxMp, daysAdded, factor = 1 } = params
-  if (daysAdded <= 0 || factor <= 0) {
-    return { hp, mp, hpGain: 0, mpGain: 0 }
-  }
-  const rawHpGain = maxHp > 0 ? Math.max(1, Math.round((maxHp / 20) * factor * daysAdded)) : 0
-  const rawMpGain = maxMp > 0 ? Math.max(1, Math.round((maxMp / 10) * factor * daysAdded)) : 0
-  const nextHp = Math.min(maxHp, hp + rawHpGain)
-  const nextMp = Math.min(maxMp, mp + rawMpGain)
-  return {
-    hp: nextHp,
-    mp: nextMp,
-    hpGain: Math.max(0, nextHp - hp),
-    mpGain: Math.max(0, nextMp - mp),
-  }
-}
-
-export function applyDayProgressionSectHooks(params: {
-  nextDayCount: number
-  shichenIdx: number
-  silver: number
-  sectState: PlayerSectState
-  logs: LogEntry[]
-  npcFavor?: Record<string, number>
-}): {
-  silver: number
-  sectState: PlayerSectState
-  logs: LogEntry[]
-  npcFavor: Record<string, number>
-  overdueSpyAmbush: NodeNpc | null
-} {
-  let nextSilver = params.silver
-  const nextSect = clonePlayerSectState(params.sectState)
-  const nextLogs = [...params.logs]
-  const nextNpcFavor = params.npcFavor ? { ...params.npcFavor } : {}
-  const overdueSpyAmbush: NodeNpc | null = null
-
-  if (nextSect.sectId === 'SECT-22') {
-    const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
-    if (curMonthIdx > nextSect.lastStipendMonth) {
-      const months = curMonthIdx - nextSect.lastStipendMonth
-      const perMonth = getChangshanMonthlyStipend(nextSect.rank)
-      const totalStipend = perMonth * months
-      nextSilver += totalStipend
-      nextSect.lastStipendMonth = curMonthIdx
-      nextLogs.unshift(
-        createLogEntry(
-          params.nextDayCount,
-          '常山军饷',
-          `河北边军按月支放【常山枪派 · ${nextSect.rankLabel}】月度军饷 +${totalStipend} 两纹银！`,
-          true,
-          params.shichenIdx,
-        ),
-      )
-    }
-
-    // 超过两个月（60日）任务自动消失，掌门好感度下降15点，连续两次开除
-    if (nextSect.activeLiaoSpy && params.nextDayCount >= nextSect.activeLiaoSpy.deadlineDay) {
-      const expiredSpy = nextSect.activeLiaoSpy
-      nextSect.activeLiaoSpy = null
-      nextSect.changshanMissedCount += 1
-      const leaderId = getSectLeaderNpcId('SECT-22')
-      if (leaderId) {
-        const curFavor = nextNpcFavor[leaderId] ?? INITIAL_NPC_FAVOR
-        nextNpcFavor[leaderId] = Math.max(MIN_NPC_FAVOR, curFavor - 15)
-      }
-      if (nextSect.changshanMissedCount >= 2) {
-        nextSect.sectId = null
-        nextSect.rank = 1
-        nextSect.rankLabel = '无门无派'
-        nextSect.contribution = 0
-        nextSect.activeSectTask = null
-        nextSect.changshanMissedCount = 0
-        nextLogs.unshift(
-          createLogEntry(
-            params.nextDayCount,
-            '军纪除名',
-            `半年度诛除辽谍【${expiredSpy.name}】军令逾两个月未成，任务自动撤销，掌门好感度 -15；因连续两次失期误事，少侠已被【常山枪派】开除出派！`,
-            true,
-            params.shichenIdx,
-          ),
-        )
-      } else {
-        nextLogs.unshift(
-          createLogEntry(
-            params.nextDayCount,
-            '军令逾限',
-            `半年度诛除辽谍【${expiredSpy.name}】军令逾两个月未成，任务已自动消失！掌门好感度下降 15 点（⚠️ 再失期一次将被开除出派）。`,
-            true,
-            params.shichenIdx,
-          ),
-        )
-      }
-    }
-
-    // 入门满一年后，每年2月1日和8月1日自动派发半年任务（限期两个月）
-    if (nextSect.sectId === 'SECT-22') {
-      const daysInSect = Math.max(0, params.nextDayCount - nextSect.joinedDay)
-      if (daysInSect >= DAYS_PER_YEAR) {
-        const { latestPeriod, latestDispatchDay } = getHalfYearPeriodInfo(params.nextDayCount)
-        if (!nextSect.activeLiaoSpy && latestPeriod > nextSect.lastLiaoSpyMissionYear) {
-          nextSect.lastLiaoSpyMissionYear = latestPeriod
-          const deadlineDay = latestDispatchDay + SEMI_ANNUAL_DEADLINE_DAYS
-          if (params.nextDayCount < deadlineDay) {
-            const spy = spawnAnnualLiaoSpy(latestPeriod, latestDispatchDay, nextSect.rank)
-            nextSect.activeLiaoSpy = spy
-            nextLogs.unshift(
-              createLogEntry(
-                params.nextDayCount,
-                '燕云锄奸',
-                `【常山枪派半年军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】现踪燕云【${spy.regionName} · ${spy.buildingName}】！须于两个月内（第 ${spy.deadlineDay} 日前）寻获并诛除！`,
-                true,
-                params.shichenIdx,
-              ),
-            )
-          }
-        }
-      }
-    }
-  }
-
-  if (nextSect.sectId === 'SECT-17') {
-    const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
-    if (curMonthIdx > nextSect.lastStipendMonth) {
-      const months = curMonthIdx - nextSect.lastStipendMonth
-      const perMonth = getKaifengMonthlyStipend(nextSect.rank)
-      const totalStipend = perMonth * months
-      nextSilver += totalStipend
-      nextSect.lastStipendMonth = curMonthIdx
-      nextLogs.unshift(
-        createLogEntry(
-          params.nextDayCount,
-          '开封府俸禄',
-          `大宋官府按月支放【开封府 / 六扇门 · ${nextSect.rankLabel}】月度官俸 +${totalStipend} 两纹银！`,
-          true,
-          params.shichenIdx,
-        ),
-      )
-    }
-
-    // 六扇门半年公案逾两个月（60日）自动消失，罚两年俸禄，连续两次开除
-    if (
-      nextSect.activeKaifengWarrant &&
-      nextSect.activeKaifengWarrant.deadlineDay &&
-      params.nextDayCount >= nextSect.activeKaifengWarrant.deadlineDay
-    ) {
-      const expiredCase = nextSect.activeKaifengWarrant
-      nextSect.activeKaifengWarrant = null
-      const twoYearSalaryFine = getKaifengMonthlyStipend(nextSect.rank) * 24
-      nextSilver = Math.max(0, nextSilver - twoYearSalaryFine)
-      nextSect.kaifengMissedCount += 1
-      if (nextSect.kaifengMissedCount >= 2) {
-        nextSect.sectId = null
-        nextSect.rank = 1
-        nextSect.rankLabel = '无门无派'
-        nextSect.contribution = 0
-        nextSect.kaifengCasesSolved = 0
-        nextSect.kaifengMissedCount = 0
-        nextSect.kaifengRank2Day = null
-        nextLogs.unshift(
-          createLogEntry(
-            params.nextDayCount,
-            '六扇门革职',
-            `六扇门公案【${expiredCase.targetName}】逾两个月未结，案卷自动撤销并罚没两年俸禄 ${twoYearSalaryFine} 两纹银；因连续两次失职，少侠已被【开封府 / 六扇门】开除！`,
-            true,
-            params.shichenIdx,
-          ),
-        )
-      } else {
-        nextLogs.unshift(
-          createLogEntry(
-            params.nextDayCount,
-            '公案逾限',
-            `六扇门公案【${expiredCase.targetName}】逾两个月未结，案卷已自动消失！依律罚没两年俸禄 ${twoYearSalaryFine} 两纹银（⚠️ 再失职一次将被开除）。`,
-            true,
-            params.shichenIdx,
-          ),
-        )
-      }
-    }
-
-    // 每年2月1日和8月1日自动派发一个案子（升级到Lv4后不再派发案子）
-    if (nextSect.sectId === 'SECT-17' && nextSect.rank < 4) {
-      const { latestPeriod, latestDispatchDay } = getHalfYearPeriodInfo(params.nextDayCount)
-      if (latestPeriod > nextSect.lastKaifengCasePeriod) {
-        nextSect.lastKaifengCasePeriod = latestPeriod
-        const deadlineDay = latestDispatchDay + SEMI_ANNUAL_DEADLINE_DAYS
-        if (
-          params.nextDayCount < deadlineDay &&
-          (!nextSect.activeKaifengWarrant || !nextSect.activeKaifengWarrant.deadlineDay)
-        ) {
-          const warrant = generateKaifengWarrant(latestDispatchDay, nextSect.rank, { deadlineDay })
-          if (warrant) {
-            nextSect.activeKaifengWarrant = warrant
-            const kindLabel = warrant.kind === 'investigate' ? '调查情报线索' : `缉拿要犯（${warrant.realm}）`
-            nextLogs.unshift(
-              createLogEntry(
-                params.nextDayCount,
-                '六扇门派案',
-                `【六扇门半年公案】奉命前往【${warrant.regionName} · ${warrant.buildingName}】办理「${warrant.targetName}」（${kindLabel}），须于两个月内（第 ${deadlineDay} 日前）结案！`,
-                true,
-                params.shichenIdx,
-              ),
-            )
-          }
-        }
-      }
-    }
-  }
-
-  if (nextSect.sectId === 'SECT-33') {
-    const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
-    if (curMonthIdx > nextSect.lastStipendMonth) {
-      const months = curMonthIdx - nextSect.lastStipendMonth
-      const perMonth = getImperialGuardMonthlyStipend(nextSect.rank)
-      const totalStipend = perMonth * months
-      nextSilver += totalStipend
-      nextSect.lastStipendMonth = curMonthIdx
-      nextLogs.unshift(
-        createLogEntry(
-          params.nextDayCount,
-          '禁军月俸',
-          `三衙司按月颁赐【大宋禁军 · ${nextSect.rankLabel}】月度军俸 +${totalStipend} 两纹银！`,
-          true,
-          params.shichenIdx,
-        ),
-      )
-    }
-  }
-
-  return {
-    silver: nextSilver,
-    sectState: nextSect,
-    logs: nextLogs,
-    npcFavor: nextNpcFavor,
-    overdueSpyAmbush,
-  }
-}
 
 export function grantArtProficiency(
   learnedArts: LearnedArtEntry[],

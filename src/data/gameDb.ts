@@ -6,8 +6,10 @@ import rawMounts from './mounts.json'
 import rawNpcsPart1 from 'virtual:npcs-part1'
 import rawNpcsPart2 from 'virtual:npcs-part2'
 import rawRegions from './regions.json'
+import rawSectSystems from './sectSystems.json'
 import rawUniqueArtifacts from './uniqueArtifacts.json'
 import rawWeapons from './weapons.json'
+import { TEN_ART_KEYS } from '../engine/shared/constants'
 import type {
   CanonicalFactionEntry,
   CanonicalIdRegistry,
@@ -17,24 +19,13 @@ import type {
   CompiledMountRecord,
   CompiledNpcRecord,
   CompiledRegionRecord,
+  CompiledSectSystems,
   CompiledUniqueArtifactRecord,
   CompiledWeaponRecord,
   RoamingMaster,
-  TenArtKey,
 } from '../types/game'
 
-export const TEN_ART_KEYS: readonly TenArtKey[] = [
-  '骑术',
-  '算术',
-  '经义',
-  '策论',
-  '诗词',
-  '琴',
-  '棋',
-  '书',
-  '画',
-  '辩才',
-]
+export { TEN_ART_KEYS }
 
 export const ID_REGISTRY = rawIdRegistry as unknown as CanonicalIdRegistry
 export const REGIONS_DB = rawRegions as unknown as CompiledRegionRecord[]
@@ -43,6 +34,7 @@ export const MARTIAL_ARTS_DB = rawMartialArts as unknown as CompiledMartialArtRe
 export const WEAPONS_DB = rawWeapons as unknown as CompiledWeaponRecord[]
 export const MOUNTS_DB = rawMounts as unknown as CompiledMountRecord[]
 export const GEAR_DB = rawGear as unknown as CompiledGearRecord[]
+export const SECT_SYSTEMS_DB = rawSectSystems as unknown as CompiledSectSystems
 export const UNIQUE_ARTIFACTS_DB = rawUniqueArtifacts as unknown as CompiledUniqueArtifactRecord[]
 export const NPCS_DB: CompiledNpcRecord[] = [...rawNpcsPart1, ...rawNpcsPart2]
 

@@ -22,11 +22,9 @@ import type {
 import { syncArtLevelsToExpsAndMilestones } from '../../utils/artsProgression'
 import {
   cloneHeroBaseStats,
-  DAILY_INN_LODGING_COST,
   DEFAULT_HERO_BASE_STATS,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
-  isPlayerInOwnSectRegion,
 } from '../../utils/heroStats'
 import {
   formatSongDate,
@@ -59,12 +57,10 @@ import {
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
 } from '../../utils/sectMechanics'
 import {
+  commitTimeAdvance,
   createLogEntry,
-  advanceShichenClock,
   addItemToInventory,
   removeItemFromInventory,
-  applyDailyVitalityRecovery,
-  applyDayProgressionSectHooks,
   computeCombatSettlement,
 } from '../storeHelpers'
 
@@ -94,12 +90,6 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
         })
         return
       }
-      const clock = advanceShichenClock(s.dayCount, s.shichenIdx, 2)
-      const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
-      const lodgingFee =
-        clock.daysAdded > 0 && !inOwnSectCity && !s.campPos
-          ? Math.min(s.silver, DAILY_INN_LODGING_COST * clock.daysAdded)
-          : 0
       const delta = Math.floor(Math.random() * 7) - 1
       const nextFavor = Math.max(MIN_NPC_FAVOR, Math.min(MAX_NPC_FAVOR, curFavor + delta))
       const actualDelta = nextFavor - curFavor
@@ -109,61 +99,27 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
           : actualDelta < 0
             ? `好感 ${actualDelta}`
             : '好感未变'
-      const dayHook =
-        clock.daysAdded > 0
-          ? applyDayProgressionSectHooks({
-              nextDayCount: clock.dayCount,
-              shichenIdx: clock.shichenIdx,
-              silver: s.silver - lodgingFee,
-              sectState: s.sectState,
-              logs: s.logs,
-              npcFavor: s.npcFavor,
-            })
-          : {
-              silver: s.silver - lodgingFee,
-              sectState: s.sectState,
-              logs: s.logs,
-              npcFavor: s.npcFavor,
-              overdueSpyAmbush: null,
-            }
-      const recTalk = applyDailyVitalityRecovery({
-        hp: s.hp,
-        maxHp: s.maxHp,
-        mp: s.mp,
-        maxMp: s.maxMp,
-        daysAdded: clock.daysAdded,
-        factor: 1,
-      })
-
       const talkLine = getNpcTalkDialogue(npc, delta)
 
-      set({
-        dayCount: clock.dayCount,
-        shichenIdx: clock.shichenIdx,
-        silver: dayHook.silver,
-        hp: recTalk.hp,
-        mp: recTalk.mp,
-        sectState: dayHook.sectState,
-        logs: dayHook.logs.slice(0, 60),
-        npcFavor: {
-          ...dayHook.npcFavor,
-          [npcKey]: nextFavor,
-        },
-        npcTalkedMonth: {
-          ...s.npcTalkedMonth,
-          [npcKey]: curMonthIdx,
-        },
-        actionFeedback: {
-          text: `${npc.name}：「${talkLine}」（耗 2 时辰 · ${deltaLabel}，当前好感度 ${nextFavor}/100${lodgingFee > 0 ? ` · 异乡宿费 -${lodgingFee}两` : ''}）`,
-          tone: actualDelta < 0 ? 'warn' : 'talk',
-        },
+      commitTimeAdvance(set, get, {
+        deltaShichen: 2,
+        chargeForeignLodging: true,
+        vitalityFactor: 1,
+        buildExtraPatch: (adv) => ({
+          npcFavor: {
+            ...adv.npcFavor,
+            [npcKey]: nextFavor,
+          },
+          npcTalkedMonth: {
+            ...s.npcTalkedMonth,
+            [npcKey]: curMonthIdx,
+          },
+          actionFeedback: {
+            text: `${npc.name}：「${talkLine}」（耗 2 时辰 · ${deltaLabel}，当前好感度 ${nextFavor}/100${adv.lodgingFee > 0 ? ` · 异乡宿费 -${adv.lodgingFee}两` : ''}）`,
+            tone: actualDelta < 0 ? 'warn' : 'talk',
+          },
+        }),
       })
-      if (clock.daysAdded > 0) {
-        get().checkExpiredQuestDeadlines()
-      }
-      if (dayHook.overdueSpyAmbush) {
-        get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
-      }
       return
     }
     if (mode === 'spar') {
@@ -231,86 +187,49 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       }
     }
 
-    const clock = advanceShichenClock(
-      s.dayCount,
-      s.shichenIdx,
-      effectiveStakes === 'spar' ? 2 : 1,
-    )
-    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
-    const lodgingFee =
-      !forceMandatory && clock.daysAdded > 0 && !inOwnSectCity && !s.campPos
-        ? Math.min(s.silver, DAILY_INN_LODGING_COST * clock.daysAdded)
-        : 0
-    const recCombat = applyDailyVitalityRecovery({
-      hp: Math.max(1, s.hp),
-      maxHp: s.maxHp,
-      mp: s.mp,
-      maxMp: s.maxMp,
-      daysAdded: clock.daysAdded,
-      factor: 1,
+    commitTimeAdvance(set, get, {
+      deltaShichen: effectiveStakes === 'spar' ? 2 : 1,
+      chargeForeignLodging: !forceMandatory,
+      skipSectDayHooks: forceMandatory,
+      skipAmbushTrigger: true,
+      hpOverride: Math.max(1, s.hp),
+      vitalityFactor: 1,
+      buildExtraPatch: (adv) => {
+        const startHp = Math.max(1, adv.hp)
+        const playerCombatant = buildPlayerCombatant({
+          playerName: s.playerName,
+          playerPortraitId: s.playerPortraitId,
+          hp: startHp,
+          mp: adv.mp,
+          baseStats: s.baseStats,
+          equipped: s.equipped,
+          equippedArts: s.equippedArts,
+          learnedArts: s.learnedArts,
+          heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury),
+        })
+        const session = createCombatSession({
+          mode: effectiveMode,
+          duelStakes: effectiveStakes,
+          player: playerCombatant,
+          npcNode: npc,
+        })
+        return {
+          ...(effectiveStakes === 'spar' && !forceMandatory
+            ? {
+                npcSparredMonth: {
+                  ...s.npcSparredMonth,
+                  [npcKey]: curMonthIdx,
+                },
+              }
+            : {}),
+          activeCombat: session,
+          menuOpen: false,
+          compendiumOpen: false,
+          tooltip: null,
+          actionFeedback: null,
+        }
+      },
     })
-    const dayHook =
-      !forceMandatory && clock.daysAdded > 0
-        ? applyDayProgressionSectHooks({
-            nextDayCount: clock.dayCount,
-            shichenIdx: clock.shichenIdx,
-            silver: s.silver - lodgingFee,
-            sectState: s.sectState,
-            logs: s.logs,
-            npcFavor: s.npcFavor,
-          })
-        : {
-            silver: s.silver - lodgingFee,
-            sectState: s.sectState,
-            logs: s.logs,
-            npcFavor: s.npcFavor,
-            overdueSpyAmbush: null,
-          }
-    const startHp = Math.max(1, recCombat.hp)
-    const playerCombatant = buildPlayerCombatant({
-      playerName: s.playerName,
-      playerPortraitId: s.playerPortraitId,
-      hp: startHp,
-      mp: recCombat.mp,
-      baseStats: s.baseStats,
-      equipped: s.equipped,
-      equippedArts: s.equippedArts,
-      learnedArts: s.learnedArts,
-      heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury),
-    })
-    const session = createCombatSession({
-      mode: effectiveMode,
-      duelStakes: effectiveStakes,
-      player: playerCombatant,
-      npcNode: npc,
-    })
-
-    set({
-      dayCount: clock.dayCount,
-      shichenIdx: clock.shichenIdx,
-      silver: dayHook.silver,
-      hp: recCombat.hp,
-      mp: recCombat.mp,
-      sectState: dayHook.sectState,
-      logs: dayHook.logs.slice(0, 60),
-      npcFavor: dayHook.npcFavor,
-      ...(effectiveStakes === 'spar' && !forceMandatory
-        ? {
-            npcSparredMonth: {
-              ...s.npcSparredMonth,
-              [npcKey]: curMonthIdx,
-            },
-          }
-        : {}),
-      activeCombat: session,
-      menuOpen: false,
-      compendiumOpen: false,
-      tooltip: null,
-      actionFeedback: null,
-    })
-    if (clock.daysAdded > 0) {
-      get().checkExpiredQuestDeadlines()
-    }
   },
 
   submitCombatAction: (choice) => {

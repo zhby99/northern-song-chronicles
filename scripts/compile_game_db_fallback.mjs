@@ -1044,9 +1044,10 @@ function main() {
 
   // Parse docs/MARTIAL_ARTS_SECTS.md
   const sectsMdText = fs.readFileSync(path.join(DOCS_DIR, 'MARTIAL_ARTS_SECTS.md'), 'utf8')
+  const sectsMainText = sectsMdText.split('\n## 六、 师门俸禄、举荐、大比与宗门差事规制总表', 1)[0]
   const sectTableMeta = {}
   const orgTableMeta = {}
-  for (const line of sectsMdText.split(/\r?\n/)) {
+  for (const line of sectsMainText.split(/\r?\n/)) {
     const rawLine = line.trim()
     if (rawLine.startsWith('| `SECT-')) {
       const cols = rawLine.slice(1, -1).split('|').map((c) => c.trim())
@@ -1078,13 +1079,13 @@ function main() {
 
   const sectSectionMeta = {}
   const secHeadingRe = /^#{3,4}\s+\d+[a-z]?\.\s+`(SECT-\d+)`\s+(.+)$/gm
-  const secMatches = Array.from(sectsMdText.matchAll(secHeadingRe))
+  const secMatches = Array.from(sectsMainText.matchAll(secHeadingRe))
   for (let i = 0; i < secMatches.length; i++) {
     const mObj = secMatches[i]
     const sid = mObj[1]
     const startPos = mObj.index + mObj[0].length
-    const endPos = i + 1 < secMatches.length ? secMatches[i + 1].index : sectsMdText.indexOf('## 五、', startPos)
-    const block = sectsMdText.slice(startPos, endPos !== -1 ? endPos : sectsMdText.length)
+    const endPos = i + 1 < secMatches.length ? secMatches[i + 1].index : sectsMainText.indexOf('## 五、', startPos)
+    const block = sectsMainText.slice(startPos, endPos !== -1 ? endPos : sectsMainText.length)
 
     let positioning = ''
     let hqDetail = ''

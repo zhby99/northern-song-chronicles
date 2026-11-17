@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 import { REGION_DB_MAP } from '../../data/gameDb'
 import {
   getRegionUnlockRequirement,
-  isRegionUnlockedByInventory,
+  getUnlockedLockedRegionKey,
+  isRegionUnlockedByKey,
 } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import { findBestRoute, resolveMountMeta } from '../../utils/mapMath'
@@ -16,7 +17,7 @@ export function MapTooltip() {
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const agility = useGameStore((s) => s.agility)
-  const inventory = useGameStore((s) => s.inventory)
+  const unlockedRegionKey = useGameStore((s) => getUnlockedLockedRegionKey(s.inventory))
   const roamingMasters = useGameStore((s) => s.roamingMasters)
 
   const hoveredWorldNodeId = tooltip?.kind === 'worldNode' ? tooltip.node.id : null
@@ -24,7 +25,7 @@ export function MapTooltip() {
     hoveredWorldNodeId && hoveredWorldNodeId === currentNodeId && !traveling && !campPos,
   )
   const isLocked = Boolean(
-    hoveredWorldNodeId && !isRegionUnlockedByInventory(hoveredWorldNodeId, inventory),
+    hoveredWorldNodeId && !isRegionUnlockedByKey(hoveredWorldNodeId, unlockedRegionKey),
   )
   const lockReq = hoveredWorldNodeId ? getRegionUnlockRequirement(hoveredWorldNodeId) : null
 
@@ -40,7 +41,7 @@ export function MapTooltip() {
         agility,
       },
       campPos,
-      inventory,
+      unlockedRegionKey,
     )
   }, [
     hoveredWorldNodeId,
@@ -52,7 +53,7 @@ export function MapTooltip() {
     ridingSkill,
     agility,
     campPos,
-    inventory,
+    unlockedRegionKey,
   ])
 
   const npcTotal = useMemo(() => {

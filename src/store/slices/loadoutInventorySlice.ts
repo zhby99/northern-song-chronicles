@@ -46,12 +46,10 @@ import {
 import { scaleMedicineRecovery } from '../../utils/realmUtils'
 import { SPOT_SHOPS_BY_SPOT_ID } from '../../data/spotShops'
 import {
+  commitTimeAdvance,
   createLogEntry,
-  advanceShichenClock,
   addItemToInventory,
   removeItemFromInventory,
-  applyDailyVitalityRecovery,
-  applyDayProgressionSectHooks,
 } from '../storeHelpers'
 
 export type LoadoutInventoryKeys =
@@ -201,60 +199,28 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       })
       return
     }
-    const clock = advanceShichenClock(s.dayCount, s.shichenIdx, days * 12)
-    const rec = applyDailyVitalityRecovery({
-      hp: s.hp,
-      maxHp: s.maxHp,
-      mp: s.mp,
-      maxMp: s.maxMp,
-      daysAdded: days,
-      factor: 2,
-    })
     const logTitle = inOwnSectCity ? '师门调息休养' : '客栈调息休养'
-    const logMsg = inOwnSectCity
-      ? `于本门驻地静室调息休养 ${days} 日（师门免宿费 · 恢复系数 2.0×）：气血 +${rec.hpGain}（${rec.hp}/${s.maxHp}）、内力 +${rec.mpGain}（${rec.mp}/${s.maxMp}）！`
-      : `花费 ${lodgingCost} 两纹银于客栈调息休养 ${days} 日（${DAILY_INN_LODGING_COST} 两/日 · 恢复系数 2.0×）：气血 +${rec.hpGain}（${rec.hp}/${s.maxHp}）、内力 +${rec.mpGain}（${rec.mp}/${s.maxMp}）！`
-    const baseLogs = [
-      createLogEntry(clock.dayCount, logTitle, logMsg, false, clock.shichenIdx),
-      ...s.logs,
-    ]
-    const dayHook =
-      clock.daysAdded > 0
-        ? applyDayProgressionSectHooks({
-            nextDayCount: clock.dayCount,
-            shichenIdx: clock.shichenIdx,
-            silver: s.silver - lodgingCost,
-            sectState: s.sectState,
-            logs: baseLogs,
-            npcFavor: s.npcFavor,
-          })
-        : {
-            silver: s.silver - lodgingCost,
-            sectState: s.sectState,
-            logs: baseLogs,
-            npcFavor: s.npcFavor,
-            overdueSpyAmbush: null,
-          }
-
-    set({
-      dayCount: clock.dayCount,
-      shichenIdx: clock.shichenIdx,
-      silver: dayHook.silver,
-      sectState: dayHook.sectState,
-      npcFavor: dayHook.npcFavor,
-      hp: rec.hp,
-      mp: rec.mp,
-      actionFeedback: {
-        text: logMsg,
-        tone: 'success',
+    const adv = commitTimeAdvance(set, get, {
+      deltaShichen: days * 12,
+      silverOverride: s.silver - lodgingCost,
+      vitalityFactor: 2,
+      buildExtraPatch: (res) => {
+        const logMsg = inOwnSectCity
+          ? `于本门驻地静室调息休养 ${days} 日（师门免宿费 · 恢复系数 2.0×）：气血 +${res.hpGain}（${res.hp}/${s.maxHp}）、内力 +${res.mpGain}（${res.mp}/${s.maxMp}）！`
+          : `花费 ${lodgingCost} 两纹银于客栈调息休养 ${days} 日（${DAILY_INN_LODGING_COST} 两/日 · 恢复系数 2.0×）：气血 +${res.hpGain}（${res.hp}/${s.maxHp}）、内力 +${res.mpGain}（${res.mp}/${s.maxMp}）！`
+        return {
+          actionFeedback: {
+            text: logMsg,
+            tone: 'success',
+          },
+          logs: [
+            createLogEntry(res.dayCount, logTitle, logMsg, false, res.shichenIdx),
+            ...res.logs,
+          ].slice(0, 60),
+        }
       },
-      logs: dayHook.logs.slice(0, 60),
     })
-    if (clock.daysAdded > 0) {
-      get().checkExpiredQuestDeadlines()
-    }
-    if (dayHook.overdueSpyAmbush) {
-      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
+    if (adv.overdueSpyAmbush) {
       return
     }
     const after = get()
@@ -899,10 +865,8 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
     let nextFood = s.food
     const notes: string[] = []
 
-    const clock =
-      def.category === 'tools' || def.category === 'scrolls'
-        ? advanceShichenClock(s.dayCount, s.shichenIdx, 1)
-        : { dayCount: s.dayCount, shichenIdx: s.shichenIdx, daysAdded: 0 }
+    const deltaShichen =
+      def.category === 'tools' || def.category === 'scrolls' ? 1 : 0
 
     if (eff.learnArtId && MARTIAL_ART_DB_MAP[eff.learnArtId]) {
       const targetArt = MARTIAL_ART_DB_MAP[eff.learnArtId]
@@ -1029,15 +993,6 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       notes.push(eff.learnArtHint)
     }
 
-    const inOwnSectCity = isPlayerInOwnSectRegion(s.currentNodeId, s.campPos, s.sectState.sectId)
-    const lodgingFee =
-      clock.daysAdded > 0 && !inOwnSectCity && !s.campPos
-        ? Math.min(s.silver, DAILY_INN_LODGING_COST * clock.daysAdded)
-        : 0
-    if (lodgingFee > 0) {
-      notes.push(`异乡宿费 -${lodgingFee}两`)
-    }
-
     const logTag =
       def.category === 'scrolls'
         ? '展卷研读'
@@ -1055,67 +1010,53 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         ? [...s.consumedOnceItemIds, itemId]
         : s.consumedOnceItemIds
 
-    const baseLogs = [
-      createLogEntry(
-        clock.dayCount,
-        logTag,
-        `使用【${def.name}】：${notes.join('，')}。`,
-        true,
-        clock.shichenIdx,
-      ),
-      ...s.logs,
-    ]
-    const dayHook =
-      clock.daysAdded > 0
-        ? applyDayProgressionSectHooks({
-            nextDayCount: clock.dayCount,
-            shichenIdx: clock.shichenIdx,
-            silver: s.silver - lodgingFee,
-            sectState: s.sectState,
-            logs: baseLogs,
-            npcFavor: s.npcFavor,
-          })
-        : {
-            silver: s.silver - lodgingFee,
-            sectState: s.sectState,
-            logs: baseLogs,
-            npcFavor: s.npcFavor,
-            overdueSpyAmbush: null,
-          }
-
-    set({
-      dayCount: clock.dayCount,
-      shichenIdx: clock.shichenIdx,
-      silver: dayHook.silver,
-      sectState: dayHook.sectState,
-      npcFavor: dayHook.npcFavor,
-      inventory: nextInv,
-      baseStats: nextBaseStats,
-      artExps: syncedArts.artExps,
-      artMilestoneFlags: syncedArts.artMilestoneFlags,
-      consumedUniqueIds: nextConsumedUnique,
-      consumedOnceItemIds: nextConsumedOnce,
-      learnedArts: nextLearnedArts,
-      mountKey: derived.mountKey,
-      qinggongBonus: derived.qinggongBonus,
-      hp: nextHp,
-      maxHp: derived.maxHp,
-      mp: nextMp,
-      maxMp: derived.maxMp,
-      agility: derived.agility,
-      res: derived.res,
-      ridingSkill: derived.ridingSkill,
-      food: nextFood,
-      skills: derived.skills,
-      actionFeedback: {
-        text: `${logTag}【${def.name}】：${notes.join('，')}。`,
-        tone: 'success',
+    commitTimeAdvance(set, get, {
+      deltaShichen,
+      chargeForeignLodging: true,
+      vitalityFactor: 0,
+      hpOverride: nextHp,
+      maxHpOverride: derived.maxHp,
+      mpOverride: nextMp,
+      maxMpOverride: derived.maxMp,
+      buildExtraPatch: (adv) => {
+        const finalNotes =
+          adv.lodgingFee > 0 ? [...notes, `异乡宿费 -${adv.lodgingFee}两`] : notes
+        return {
+          inventory: nextInv,
+          baseStats: nextBaseStats,
+          artExps: syncedArts.artExps,
+          artMilestoneFlags: syncedArts.artMilestoneFlags,
+          consumedUniqueIds: nextConsumedUnique,
+          consumedOnceItemIds: nextConsumedOnce,
+          learnedArts: nextLearnedArts,
+          mountKey: derived.mountKey,
+          qinggongBonus: derived.qinggongBonus,
+          hp: nextHp,
+          maxHp: derived.maxHp,
+          mp: nextMp,
+          maxMp: derived.maxMp,
+          agility: derived.agility,
+          res: derived.res,
+          ridingSkill: derived.ridingSkill,
+          food: nextFood,
+          skills: derived.skills,
+          actionFeedback: {
+            text: `${logTag}【${def.name}】：${finalNotes.join('，')}。`,
+            tone: 'success',
+          },
+          logs: [
+            createLogEntry(
+              adv.dayCount,
+              logTag,
+              `使用【${def.name}】：${finalNotes.join('，')}。`,
+              true,
+              adv.shichenIdx,
+            ),
+            ...adv.logs,
+          ].slice(0, 60),
+        }
       },
-      logs: dayHook.logs.slice(0, 60),
     })
-    if (dayHook.overdueSpyAmbush) {
-      get().startNpcCombat(dayHook.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
-    }
   },
 
   buySpotShopItem: (spotId, itemId, qty = 1) => {

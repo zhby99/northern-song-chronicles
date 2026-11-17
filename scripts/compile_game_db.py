@@ -2537,7 +2537,7 @@ def parse_unique_artifacts(npcs_by_id: dict[str, dict[str, Any]]) -> list[dict[s
     marker = "## 十、 天地阶孤品归属总录"
     if marker not in text:
         raise AssertionError("Missing section 十、 天地阶孤品归属总录 in EQUIPMENT_COMPENDIUM.md")
-    sec_text = text.split(marker, 1)[1]
+    sec_text = text.split(marker, 1)[1].split("\n## 十一、 四库百卷典籍总录", 1)[0]
 
     records: list[dict[str, Any]] = []
     seen_ids: set[str] = set()
@@ -2621,6 +2621,388 @@ def parse_unique_artifacts(npcs_by_id: dict[str, dict[str, Any]]) -> list[dict[s
 
     assert len(records) == 141, f"Expected 141 unique Heaven/Earth artifacts, got {len(records)}"
     return records
+
+
+def _unescape_md_cell(raw: str) -> str:
+    return raw.replace(r"\|", "|").replace("<br>", "\n")
+
+
+def _parse_item_rows_from_md_block(block: str, art_id_set: set[str]) -> list[dict[str, Any]]:
+    items: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    for line in block.splitlines():
+        s = line.strip()
+        if not s.startswith("| `ITM-"):
+            continue
+        cells = [c.strip() for c in re.split(r"(?<!\\)\|", s.strip("|"))]
+        if len(cells) != 12:
+            raise AssertionError(f"Expected 12 columns in item table row, got {len(cells)}: {s}")
+        item_id = cells[0].strip("`").strip()
+        if item_id in seen_ids:
+            raise AssertionError(f"Duplicate item ID in EQUIPMENT_COMPENDIUM.md: {item_id}")
+        seen_ids.add(item_id)
+
+        name_raw = cells[1]
+        if name_raw.startswith("**") and name_raw.endswith("**"):
+            name_raw = name_raw[2:-2]
+        name = _unescape_md_cell(name_raw)
+        category = cells[2].strip("`").strip()
+        sub_type = _unescape_md_cell(cells[3])
+        rarity = _unescape_md_cell(cells[4])
+        stackable = cells[5] == "是"
+        value = int(cells[6])
+        icon_url = None if cells[7] == "—" else cells[7].strip("`").strip()
+        equip_slot = None if cells[8] == "—" else cells[8].strip("`").strip()
+        spec_raw = cells[9]
+        desc = _unescape_md_cell(cells[10])
+        lore = None if cells[11] == "—" else _unescape_md_cell(cells[11])
+
+        spec_obj: dict[str, Any] = {}
+        if spec_raw != "—":
+            spec_json = spec_raw.strip("`").strip()
+            spec_obj = json.loads(spec_json)
+
+        use_effect = spec_obj.get("useEffect")
+        if use_effect and use_effect.get("learnArtId"):
+            assert use_effect["learnArtId"] in art_id_set, (
+                f"[{item_id}] Unknown learnArtId {use_effect['learnArtId']!r}"
+            )
+
+        rec: dict[str, Any] = {"id": item_id}
+        if icon_url is not None:
+            rec["iconUrl"] = icon_url
+        rec["name"] = name
+        rec["category"] = category
+        rec["subType"] = sub_type
+        rec["rarity"] = rarity
+        if equip_slot is not None:
+            rec["equipSlot"] = equip_slot
+        rec["stackable"] = stackable
+        rec["value"] = value
+        rec["desc"] = desc
+        if lore is not None:
+            rec["lore"] = lore
+        if "useEffect" in spec_obj:
+            rec["useEffect"] = spec_obj["useEffect"]
+        if "poisonEffect" in spec_obj:
+            rec["poisonEffect"] = spec_obj["poisonEffect"]
+        if "equipBonus" in spec_obj:
+            rec["equipBonus"] = spec_obj["equipBonus"]
+
+        items.append(rec)
+    return items
+
+
+def parse_markdown_item_catalog(art_id_set: set[str]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    text = (DOCS_DIR / "EQUIPMENT_COMPENDIUM.md").read_text(encoding="utf-8")
+    sec11_marker = "\n## 十一、 四库百卷典籍总录"
+    sec12_marker = "\n## 十二、 灵丹奇毒总录"
+    if sec11_marker not in text or sec12_marker not in text:
+        raise AssertionError("Missing sections 十一/十二 in docs/EQUIPMENT_COMPENDIUM.md")
+    after_11 = text.split(sec11_marker, 1)[1]
+    sec11_part, sec12_onwards = after_11.split(sec12_marker, 1)
+
+    scrolls = _parse_item_rows_from_md_block(sec11_part, art_id_set)
+    non_equip_items = _parse_item_rows_from_md_block(sec12_onwards, art_id_set)
+
+    assert len(scrolls) == 101, f"Expected 101 scroll items in section 十一, got {len(scrolls)}"
+    assert len(non_equip_items) == 115, f"Expected 115 non-equipment items in sections 十二~十四, got {len(non_equip_items)}"
+    return scrolls, non_equip_items
+
+
+def _parse_int_range(cell: str) -> list[int]:
+    m = re.match(r"^(\d+)\s*-\s*(\d+)$", cell.strip())
+    if not m:
+        raise AssertionError(f"Invalid int range cell: {cell!r}")
+    return [int(m.group(1)), int(m.group(2))]
+
+
+def parse_sect_systems(
+    sects_md_text: str,
+    faction_id_set: set[str],
+    region_id_set: set[str],
+    bldg_id_set: set[str],
+    all_item_ids: set[str],
+) -> dict[str, Any]:
+    marker = "## 六、 师门俸禄、举荐、大比与宗门差事规制总表"
+    if marker not in sects_md_text:
+        raise AssertionError("Missing section 六 in docs/MARTIAL_ARTS_SECTS.md")
+    sec = sects_md_text.split(marker, 1)[1]
+
+    def slice_between(start_h: str, end_h: str | None) -> str:
+        part = sec.split(start_h, 1)[1]
+        return part.split(end_h, 1)[0] if end_h else part
+
+    # 6.1 Stipends
+    stipends: dict[str, list[int]] = {}
+    for ln in slice_between("### 6.1", "### 6.2").splitlines():
+        s = ln.strip()
+        if not s.startswith("| `SECT-"):
+            continue
+        cols = [c.strip() for c in s.strip("|").split("|")]
+        sid = cols[0].strip("`").strip()
+        assert sid in faction_id_set, f"Invalid stipend sectId {sid}"
+        stipends[sid] = [int(cols[i]) for i in range(2, 7)]
+
+    # 6.2 Referral bribes
+    referral_bribes: list[dict[str, Any]] = []
+    for ln in slice_between("### 6.2", "### 6.3").splitlines():
+        s = ln.strip()
+        if not s.startswith("| `SECT-"):
+            continue
+        cols = [c.strip() for c in s.strip("|").split("|")]
+        from_sid = cols[0].strip("`").strip()
+        target_sid = cols[1].strip("`").strip()
+        item_id = cols[3].strip("`").strip()
+        assert from_sid in faction_id_set and target_sid in faction_id_set
+        assert item_id in all_item_ids, f"Invalid referral item {item_id}"
+        referral_bribes.append(
+            {
+                "fromSectId": from_sid,
+                "targetSectId": target_sid,
+                "targetSectName": cols[2],
+                "itemId": item_id,
+                "itemName": cols[4],
+                "costSilver": int(cols[5]),
+                "elderRoleHint": cols[6],
+            }
+        )
+
+    # 6.3 Starter gear gifts
+    starter_gear_gifts: dict[str, list[str]] = {}
+    for ln in slice_between("### 6.3", "### 6.4").splitlines():
+        s = ln.strip()
+        if not s.startswith("| `SECT-"):
+            continue
+        cols = [c.strip() for c in s.strip("|").split("|")]
+        sid = cols[0].strip("`").strip()
+        assert sid in faction_id_set
+        gear_ids = [g.strip().strip("`") for g in cols[1].split(",") if g.strip()]
+        for gid in gear_ids:
+            assert gid in all_item_ids, f"Invalid starter gear itemId {gid} for {sid}"
+        starter_gear_gifts[sid] = gear_ids
+
+    # 6.4 Liao spy
+    sec64 = slice_between("### 6.4", "### 6.5")
+    spy_locs_part = sec64.split("#### 潜伏点列表", 1)[1].split("#### 辽谍名录", 1)[0]
+    spy_roster_part = sec64.split("#### 辽谍名录", 1)[1].split("#### 实力档位表", 1)[0]
+    spy_tiers_part = sec64.split("#### 实力档位表", 1)[1]
+
+    spy_locations: list[dict[str, Any]] = []
+    for ln in spy_locs_part.splitlines():
+        s = ln.strip()
+        if not s.startswith("| `"):
+            continue
+        cols = [c.strip() for c in s.strip("|").split("|")]
+        rid = cols[0].strip("`").strip()
+        bid = cols[1].strip("`").strip()
+        spid = None if cols[2] == "—" else cols[2].strip("`").strip()
+        assert rid in region_id_set and bid in bldg_id_set
+        spy_locations.append({"regionId": rid, "buildingId": bid, "spotId": spid})
+
+    spy_roster: list[dict[str, str]] = []
+    for ln in spy_roster_part.splitlines():
+        s = ln.strip()
+        if not s.startswith("|") or "姓名" in s or ":---" in s:
+            continue
+        cols = [c.strip() for c in s.strip("|").split("|")]
+        spy_roster.append({"name": cols[0], "title": cols[1]})
+
+    spy_strength_tiers: list[dict[str, Any]] = []
+    for ln in spy_tiers_part.splitlines():
+        s = ln.strip()
+        if not s.startswith("|") or "境界" in s or ":---" in s:
+            continue
+        cols = [c.strip() for c in s.strip("|").split("|")]
+        spy_strength_tiers.append(
+            {
+                "realm": cols[0],
+                "hpRange": _parse_int_range(cols[1]),
+                "mpRange": _parse_int_range(cols[2]),
+                "agiRange": _parse_int_range(cols[3]),
+                "resRange": _parse_int_range(cols[4]),
+                "artLevel": int(cols[5]),
+                "isTier2": cols[6] == "是",
+            }
+        )
+
+    # 6.5 Tournament
+    sec65 = slice_between("### 6.5", "### 6.6")
+    tourn_rounds: list[dict[str, Any]] = []
+    last_names: list[str] = []
+    first_names: list[str] = []
+    for ln in sec65.splitlines():
+        s = ln.strip()
+        if s.startswith("|") and "轮次" not in s and ":---" not in s:
+            cols = [c.strip() for c in s.strip("|").split("|")]
+            tourn_rounds.append(
+                {
+                    "round": int(cols[0]),
+                    "realm": cols[1],
+                    "rankRange": _parse_int_range(cols[2]),
+                    "hpRange": _parse_int_range(cols[3]),
+                    "mpRange": _parse_int_range(cols[4]),
+                    "agiRange": _parse_int_range(cols[5]),
+                    "resRange": _parse_int_range(cols[6]),
+                }
+            )
+        elif s.startswith("- **大比候选姓氏池**："):
+            raw = s.split("：", 1)[1].strip().strip("`")
+            last_names = [x.strip() for x in raw.split(",") if x.strip()]
+        elif s.startswith("- **大比候选名字池**："):
+            raw = s.split("：", 1)[1].strip().strip("`")
+            first_names = [x.strip() for x in raw.split(",") if x.strip()]
+
+    # 6.6 Kaifeng cases & criminals
+    sec66 = slice_between("### 6.6", "### 6.7")
+    kf_cases_part, kf_crim_part = sec66.split("#### 海捕悍匪名录", 1)
+    investigation_cases: list[dict[str, str]] = []
+    for ln in kf_cases_part.splitlines():
+        s = ln.strip()
+        if not s.startswith("|") or "案卷名称" in s or ":---" in s:
+            continue
+        cols = [c.strip() for c in s.strip("|").split("|")]
+        investigation_cases.append(
+            {
+                "name": cols[0],
+                "subType": cols[1],
+                "informantName": cols[2],
+                "informantTitle": cols[3],
+                "informantTalk": cols[4],
+                "summary": cols[5],
+            }
+        )
+    warrant_criminals: list[dict[str, str]] = []
+    for ln in kf_crim_part.splitlines():
+        s = ln.strip()
+        if not s.startswith("|") or "悍匪姓名" in s or ":---" in s:
+            continue
+        cols = [c.strip() for c in s.strip("|").split("|")]
+        warrant_criminals.append({"name": cols[0], "title": cols[1], "realm": cols[2]})
+
+    # 6.7 Minor sect intel templates
+    sec67 = slice_between("### 6.7", None)
+    minor_intel_templates: list[dict[str, str]] = []
+    for ln in sec67.splitlines():
+        s = ln.strip()
+        if not s.startswith("|") or "差事标题" in s or ":---" in s:
+            continue
+        cols = [c.strip() for c in s.strip("|").split("|")]
+        minor_intel_templates.append(
+            {
+                "title": cols[0],
+                "informantName": cols[1],
+                "informantTitle": cols[2],
+                "informantTalk": cols[3],
+                "summary": cols[4],
+            }
+        )
+
+    return {
+        "stipends": stipends,
+        "referralBribes": referral_bribes,
+        "starterGearGifts": starter_gear_gifts,
+        "liaoSpy": {
+            "locations": spy_locations,
+            "roster": spy_roster,
+            "strengthTiers": spy_strength_tiers,
+        },
+        "tournament": {
+            "rounds": tourn_rounds,
+            "lastNames": last_names,
+            "firstNames": first_names,
+        },
+        "kaifeng": {
+            "investigationCases": investigation_cases,
+            "warrantCriminals": warrant_criminals,
+        },
+        "minorIntelTemplates": minor_intel_templates,
+    }
+
+
+def write_generated_ids_ts(
+    factions: list[dict[str, Any]],
+    regions: list[dict[str, Any]],
+) -> None:
+    sect_ids = sorted(f["id"] for f in factions if f["id"].startswith("SECT-"))
+    org_ids = sorted(f["id"] for f in factions if f["id"].startswith("ORG-"))
+    region_ids = [r["id"] for r in regions]
+
+    sect_union = " | ".join(f"'{sid}'" for sid in sect_ids)
+    org_union = " | ".join(f"'{oid}'" for oid in org_ids)
+    reg_union = "\n  | ".join(f"'{rid}'" for rid in region_ids)
+
+    types_dir = ROOT_DIR / "src" / "types"
+    out_file = types_dir / "ids.generated.ts"
+    content = f"""// AUTO-GENERATED by scripts/compile_game_db.py — DO NOT EDIT MANUALLY.
+
+declare const __brand: unique symbol
+export type Brand<T, B extends string> = T & {{ readonly [__brand]: B }}
+
+export const SECT_IDS = [{", ".join(f"'{s}'" for s in sect_ids)}] as const
+export type SectId = {sect_union}
+
+export const ORG_IDS = [{", ".join(f"'{o}'" for o in org_ids)}] as const
+export type OrgId = {org_union}
+
+export type FactionId = SectId | OrgId
+
+export const REGION_IDS = [{", ".join(f"'{r}'" for r in region_ids)}] as const
+export type RegionId =
+  | {reg_union}
+
+export type NpcId = Brand<string, 'NpcId'>
+export type ArtId = Brand<string, 'ArtId'>
+export type WeaponId = Brand<string, 'WeaponId'>
+export type MountId = Brand<string, 'MountId'>
+export type GearId = Brand<string, 'GearId'>
+export type BuildingId = Brand<string, 'BuildingId'>
+export type ItemId = Brand<string, 'ItemId'>
+
+export function asNpcId(id: string): NpcId {{
+  return id as NpcId
+}}
+
+export function asArtId(id: string): ArtId {{
+  return id as ArtId
+}}
+
+export function asWeaponId(id: string): WeaponId {{
+  return id as WeaponId
+}}
+
+export function asMountId(id: string): MountId {{
+  return id as MountId
+}}
+
+export function asGearId(id: string): GearId {{
+  return id as GearId
+}}
+
+export function asBuildingId(id: string): BuildingId {{
+  return id as BuildingId
+}}
+
+export function asItemId(id: string): ItemId {{
+  return id as ItemId
+}}
+
+const SECT_ID_SET: ReadonlySet<string> = new Set(SECT_IDS)
+const REGION_ID_SET: ReadonlySet<string> = new Set(REGION_IDS)
+
+export function isSectId(id: string | null | undefined): id is SectId {{
+  return typeof id === 'string' && SECT_ID_SET.has(id)
+}}
+
+export function isRegionId(id: string | null | undefined): id is RegionId {{
+  return typeof id === 'string' && REGION_ID_SET.has(id)
+}}
+"""
+    out_file.write_text(content, encoding="utf-8")
+    print(
+        f"[M0-3] Wrote src/types/ids.generated.ts ({len(sect_ids)} SectIds, {len(org_ids)} OrgIds, {len(region_ids)} RegionIds)"
+    )
+
 
 
 def populate_npc_loadouts(
@@ -3359,10 +3741,11 @@ def compile_all(do_normalize_docs: bool) -> None:
 
     # 5) Parse rich Sect & Organization lore from docs/MARTIAL_ARTS_SECTS.md & Compile idRegistry.json
     sects_md_text = (DOCS_DIR / "MARTIAL_ARTS_SECTS.md").read_text(encoding="utf-8")
+    sects_main_text = sects_md_text.split("\n## 六、 师门俸禄、举荐、大比与宗门差事规制总表", 1)[0]
     sect_table_meta: dict[str, dict[str, str]] = {}
     org_table_meta: dict[str, dict[str, str]] = {}
 
-    for line in sects_md_text.splitlines():
+    for line in sects_main_text.splitlines():
         raw_line = line.strip()
         if raw_line.startswith("| `SECT-"):
             cols = [c.strip() for c in raw_line.strip("|").split("|")]
@@ -3389,7 +3772,7 @@ def compile_all(do_normalize_docs: bool) -> None:
     # Parse detailed markdown sections for SECT-01..30
     sect_section_meta: dict[str, dict[str, Any]] = {}
     sec_heading_re = re.compile(r"^#{3,4}\s+\d+[a-z]?\.\s+`(SECT-\d+)`\s+(.+)$", re.MULTILINE)
-    sec_matches = list(sec_heading_re.finditer(sects_md_text))
+    sec_matches = list(sec_heading_re.finditer(sects_main_text))
     for idx_m, m_obj in enumerate(sec_matches):
         sid = m_obj.group(1)
         start_pos = m_obj.end()
@@ -3742,6 +4125,22 @@ def compile_all(do_normalize_docs: bool) -> None:
 
     populate_npc_loadouts(npcs, martial_arts, weapons, gear, mounts)
 
+    scrolls, non_equip_items = parse_markdown_item_catalog(art_id_set)
+    all_item_ids = (
+        {w["id"] for w in weapons}
+        | {m["id"] for m in mounts}
+        | {g["id"] for g in gear}
+        | {s["id"] for s in scrolls}
+        | {it["id"] for it in non_equip_items}
+    )
+    sect_systems = parse_sect_systems(
+        sects_md_text,
+        faction_id_set,
+        region_id_set,
+        bldg_id_set,
+        all_item_ids,
+    )
+
     outputs = {
         "idRegistry.json": id_registry,
         "regions.json": regions,
@@ -3750,6 +4149,9 @@ def compile_all(do_normalize_docs: bool) -> None:
         "weapons.json": weapons,
         "mounts.json": mounts,
         "gear.json": gear,
+        "scrolls.json": scrolls,
+        "nonEquipmentItems.json": non_equip_items,
+        "sectSystems.json": sect_systems,
         "uniqueArtifacts.json": unique_artifacts,
         "npcs.json": npcs,
     }
@@ -3761,7 +4163,9 @@ def compile_all(do_normalize_docs: bool) -> None:
             raise AssertionError(f"Base64 data URI detected in {filename}!")
         out_path.write_text(serialized, encoding="utf-8")
         size_kb = os.path.getsize(out_path) / 1024
-        print(f"[M0-3] Wrote src/data/{filename:18s} ({size_kb:7.1f} KB)")
+        print(f"[M0-3] Wrote src/data/{filename:22s} ({size_kb:7.1f} KB)")
+
+    write_generated_ids_ts(factions_enriched, regions)
 
     # Keep docs/MARTIAL_ARTS_STATS.md 100% synchronized with compiled martial_arts levels
     stats_doc_path = DOCS_DIR / "MARTIAL_ARTS_STATS.md"

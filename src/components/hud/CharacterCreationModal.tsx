@@ -5,6 +5,7 @@ import {
   getProtagonistPortrait,
   PROTAGONIST_PORTRAITS,
 } from '../../data/protagonistPresets'
+import { clamp } from '../../engine/shared/math'
 import { useGameStore } from '../../store/useGameStore'
 import type { HeroBaseStats } from '../../types/game'
 import { cloneHeroBaseStats } from '../../utils/heroStats'
@@ -91,8 +92,8 @@ function StatSliderRow({
   step = 1,
   onChange,
 }: StatSliderRowProps) {
-  const effectiveMax = Math.max(min, Math.min(max, cappedMax))
-  const clamp = (n: number) => Math.max(min, Math.min(effectiveMax, n))
+  const effectiveMax = clamp(max, min, cappedMax)
+  const clampRow = (n: number) => clamp(n, min, effectiveMax)
   const atMin = value <= min
   const atCap = value >= effectiveMax
   return (
@@ -101,7 +102,7 @@ function StatSliderRow({
       <button
         type="button"
         disabled={atMin}
-        onClick={() => onChange(clamp(value - step))}
+        onClick={() => onChange(clampRow(value - step))}
         className="w-6 h-6 xl:w-7 xl:h-7 rounded border border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center font-bold leading-none text-base shrink-0 cursor-pointer"
       >
         -
@@ -112,13 +113,13 @@ function StatSliderRow({
         max={max}
         step={step}
         value={value}
-        onChange={(e) => onChange(clamp(Number(e.target.value)))}
+        onChange={(e) => onChange(clampRow(Number(e.target.value)))}
         className="flex-1 accent-[#8f1d14] cursor-pointer h-2 min-w-[56px]"
       />
       <button
         type="button"
         disabled={atCap}
-        onClick={() => onChange(clamp(value + step))}
+        onClick={() => onChange(clampRow(value + step))}
         className="w-6 h-6 xl:w-7 xl:h-7 rounded border border-[#b5986e] bg-[#faf3e3] text-[#4a321a] hover:bg-[#e8d8b7] disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center font-bold leading-none text-base shrink-0 cursor-pointer"
       >
         +
@@ -130,7 +131,7 @@ function StatSliderRow({
         value={value}
         onChange={(e) => {
           const parsed = Number(e.target.value)
-          if (!Number.isNaN(parsed)) onChange(clamp(Math.round(parsed)))
+          if (!Number.isNaN(parsed)) onChange(clampRow(Math.round(parsed)))
         }}
         className="w-14 xl:w-16 px-1.5 py-0.5 text-right rounded border border-[#cbb693] bg-[#fffdf7] text-[#23180f] font-mono font-semibold text-xs xl:text-sm shrink-0"
       />

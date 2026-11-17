@@ -15,7 +15,7 @@ import {
   Zap,
 } from 'lucide-react'
 import { BUILDING_DB_MAP, ID_REGISTRY } from '../../data/gameDb'
-import { isRegionUnlockedByInventory } from '../../data/itemsDb'
+import { getUnlockedLockedRegionKey, isRegionUnlockedByKey } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import type { LabelToggleKey } from '../../types/game'
 import { ASSET_MANIFEST, formatByteSize, useAssetTelemetry } from '../../utils/assetLoader'
@@ -469,7 +469,7 @@ const SceneSubNavBar = memo(function SceneSubNavBar() {
   const overlays = useGameStore((s) => s.overlays)
   const worldScale = useGameStore((s) => s.worldPan.scale)
   const regionScale = useGameStore((s) => s.regionPan.scale)
-  const inventory = useGameStore((s) => s.inventory)
+  const unlockedRegionKey = useGameStore((s) => getUnlockedLockedRegionKey(s.inventory))
 
   const handleUpperLevelBack = useGameStore((s) => s.handleUpperLevelBack)
   const toggleRegionLabels = useGameStore((s) => s.toggleRegionLabels)
@@ -732,7 +732,7 @@ const SceneSubNavBar = memo(function SceneSubNavBar() {
           </optgroup>
           <optgroup label="十七名山宗门与雄关">
             {groupedRegions.sectsAndPasses.map((n) => {
-              const unlocked = isRegionUnlockedByInventory(n.id, inventory)
+              const unlocked = isRegionUnlockedByKey(n.id, unlockedRegionKey)
               return (
                 <option key={n.id} value={n.id} disabled={!unlocked}>
                   {!unlocked ? '🔒 ' : ''}

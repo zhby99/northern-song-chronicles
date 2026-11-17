@@ -12,15 +12,6 @@ import type {
   LogEntry,
   PlayerSectState,
 } from '../../types/game'
-import { EMEI_ENTRY_QUEST_ID } from '../../data/quests/sects/emeiEntryQuest'
-import { GAIBANG_ENTRY_QUEST_ID } from '../../data/quests/sects/gaibangEntryQuest'
-import { HUASHAN_ENTRY_QUEST_ID } from '../../data/quests/sects/huashanEntryQuest'
-import { NANSHAOLIN_ENTRY_QUEST_ID } from '../../data/quests/sects/nanshaolinEntryQuest'
-import { QINGCHENG_ENTRY_QUEST_ID } from '../../data/quests/sects/qingchengEntryQuest'
-import { TIEZHANG_ENTRY_QUEST_ID } from '../../data/quests/sects/tiezhangEntryQuest'
-import { WUTAI_ENTRY_QUEST_ID } from '../../data/quests/sects/wutaiEntryQuest'
-import { SHAOLIN_ENTRY_QUEST_ID } from '../../data/quests/sects/shaolinEntryQuest'
-import { TAISHAN_ENTRY_QUEST_ID } from '../../data/quests/sects/taishanEntryQuest'
 import {
   INITIAL_NPC_FAVOR,
   MAX_NPC_FAVOR,
@@ -28,6 +19,7 @@ import {
 } from '../../utils/npcFavor'
 import {
   applySongLiaoSuspicionFavorPenalty,
+  buildJoinSectPatch,
   buildNodeNpcFromTournamentOpponent,
   canPlayerLearnSectArt,
   canReceiveSectLeaderTask,
@@ -37,26 +29,21 @@ import {
   generateKaifengWarrant,
   generateMinorSectTask,
   generateSectTournament,
-  getChangshanMonthlyStipend,
-  getHalfYearPeriodInfo,
   getKaifengMonthlyStipend,
   getSectLeaderNpcId,
+  getSectRule,
   getSectTeachableArts,
   getSectTournamentDateInfo,
   isDaoSwordSect,
   isShaolinArtBlockedForLayDisciple,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
-  SECT_ENTRY_GEAR_GIFTS,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
-  SEMI_ANNUAL_DEADLINE_DAYS,
-  SHAOLIN_CHORE_TARGET_DAYS,
 } from '../../utils/sectMechanics'
 import { estimateHeroRealm } from '../../utils/realmUtils'
 import {
   createLogEntry,
   addItemToInventory,
-  removeItemFromInventory,
 } from '../storeHelpers'
 
 export type SectKeys =
@@ -96,116 +83,31 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       return
     }
 
-    const faction = FACTION_DB_MAP[targetSectId]
-    if (!faction) return
-
-    let nextSilver = s.silver - evalRes.costSilver
-    let nextInv = s.inventory
-    if (evalRes.consumeItemId) {
-      const removed = removeItemFromInventory(nextInv, evalRes.consumeItemId, 1)
-      if (!removed) {
-        set({
-          actionFeedback: { text: '行囊中缺少所需荐书信物！', tone: 'warn' },
-        })
-        return
-      }
-      nextInv = removed
-    }
-
-    const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
-    const prevPeriodInfo = getHalfYearPeriodInfo(Math.max(0, s.dayCount - 1))
-    const curPeriodInfo = getHalfYearPeriodInfo(s.dayCount)
-    const nextSect: PlayerSectState = {
-      ...clonePlayerSectState(s.sectState),
+    const joinRes = buildJoinSectPatch({
       sectId: targetSectId,
-      rank: evalRes.startingRank,
-      rankLabel: evalRes.startingRankLabel,
-      contribution: 0,
-      joinedDay: s.dayCount,
-      lastStipendMonth: curMonthIdx,
-      lastLiaoSpyMissionYear:
-        targetSectId === 'SECT-22'
-          ? prevPeriodInfo.latestPeriod
-          : s.sectState.lastLiaoSpyMissionYear,
-      changshanMissedCount: 0,
-      activeLiaoSpy: evalRes.allowOfficialTransferFromChangshan
-        ? null
-        : s.sectState.activeLiaoSpy,
-      activeSectTask: null,
-      wonSectTournament: false,
-      activeSectTournament: null,
-      xingxiuDefeatedRanks: [],
-      killedDingChunqiu: false,
-      kaifengCasesSolved: 0,
-      kaifengMissedCount: 0,
-      lastKaifengCasePeriod:
-        targetSectId === 'SECT-17' ? prevPeriodInfo.latestPeriod : 0,
-      kaifengRank2Day: targetSectId === 'SECT-17' && evalRes.startingRank >= 2 ? s.dayCount : null,
-      activeKaifengWarrant: null,
-      shaolinNoviceState:
-        targetSectId === 'SECT-01' ? 'completed' : s.sectState.shaolinNoviceState,
-      shaolinChoreDays:
-        targetSectId === 'SECT-01' ? SHAOLIN_CHORE_TARGET_DAYS : s.sectState.shaolinChoreDays,
-      shaolinDiscipleType:
-        targetSectId === 'SECT-01' || targetSectId === 'SECT-04'
-          ? 'lay'
-          : targetSectId === 'SECT-03'
-            ? 'monk'
-            : s.sectState.shaolinDiscipleType,
+      dayCount: s.dayCount,
+      silver: s.silver,
+      inventory: s.inventory,
+      sectState: s.sectState,
+      questState: s.questState,
+      startingRank: evalRes.startingRank,
+      costSilver: evalRes.costSilver,
+      consumeItemId: evalRes.consumeItemId,
+      allowOfficialTransfer: evalRes.allowOfficialTransferFromChangshan,
+      completeEntryQuest: true,
+      entryQuestOutcome: 'joined',
+    })
+
+    if (!joinRes.ok) {
+      set({
+        actionFeedback: { text: joinRes.errorReason ?? '入门失败。', tone: 'warn' },
+      })
+      return
     }
 
-    // 同步完结对应的入门剧情任务链（若曾开启）
-    const nextQuest = cloneQuestRuntimeState(s.questState)
-    const entryQuestBySect: Record<string, string> = {
-      'SECT-01': SHAOLIN_ENTRY_QUEST_ID,
-      'SECT-02': GAIBANG_ENTRY_QUEST_ID,
-      'SECT-03': WUTAI_ENTRY_QUEST_ID,
-      'SECT-04': NANSHAOLIN_ENTRY_QUEST_ID,
-      'SECT-05': HUASHAN_ENTRY_QUEST_ID,
-      'SECT-06': TAISHAN_ENTRY_QUEST_ID,
-      'SECT-07': EMEI_ENTRY_QUEST_ID,
-      'SECT-14': QINGCHENG_ENTRY_QUEST_ID,
-      'SECT-15': TIEZHANG_ENTRY_QUEST_ID,
-      'SECT-18': 'QST-SECT-18-TOUMINGZHUANG',
-      'SECT-16': 'QST-SECT-16-REFERRAL',
-      'SECT-23': 'QST-SECT-23-REFERRAL',
-      'SECT-24': 'QST-SECT-24-REFERRAL',
-    }
-    const linkedQuestId = entryQuestBySect[targetSectId]
-    if (
-      linkedQuestId &&
-      (nextQuest.activeQuests[linkedQuestId] ||
-        targetSectId === 'SECT-18' ||
-        targetSectId === 'SECT-01' ||
-        targetSectId === 'SECT-02' ||
-        targetSectId === 'SECT-03' ||
-        targetSectId === 'SECT-04' ||
-        targetSectId === 'SECT-05' ||
-        targetSectId === 'SECT-06' ||
-        targetSectId === 'SECT-07' ||
-        targetSectId === 'SECT-14' ||
-        targetSectId === 'SECT-15')
-    ) {
-      delete nextQuest.activeQuests[linkedQuestId]
-      const prevComp = nextQuest.completedQuests[linkedQuestId]
-      nextQuest.completedQuests[linkedQuestId] = {
-        questId: linkedQuestId,
-        outcome: 'joined',
-        completedDay: s.dayCount,
-        count: (prevComp?.count ?? 0) + 1,
-      }
-    }
-
+    const rule = getSectRule(targetSectId)
     const newLogs: LogEntry[] = []
-    let feedbackMsg = `正式拜入【${faction.name}】，授职【${evalRes.startingRankLabel}】${
-      targetSectId === 'SECT-01'
-        ? '（俗家弟子）'
-        : targetSectId === 'SECT-03'
-          ? '（出家僧众）'
-          : targetSectId === 'SECT-04'
-            ? '（护寺俗家）'
-            : ''
-    }！`
+    let feedbackMsg = `正式拜入【${joinRes.factionName}】，授职【${joinRes.startingRankLabel}】${joinRes.identitySuffix}！`
     if (evalRes.costSilver > 0) {
       feedbackMsg += `（奉上拜师束脩 ${evalRes.costSilver} 两纹银）`
     }
@@ -218,49 +120,26 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
         : '原门派'
       const letterName =
         (evalRes.consumeItemId && ITEM_DB_MAP[evalRes.consumeItemId]?.name) || '举荐公函'
-      feedbackMsg = `由【${originName}】呈验《${letterName}》，正式奉调入职【${faction.name} · ${evalRes.startingRankLabel}】（正当保举调任）！`
+      feedbackMsg = `由【${originName}】呈验《${letterName}》，正式奉调入职【${joinRes.factionName} · ${joinRes.startingRankLabel}】（正当保举调任）！`
     }
 
-    // 常山枪派：无年龄限制，入门即领军饷 15 两，入门满一年后每年2月1日和8月1日自动派发半年任务
-    if (targetSectId === 'SECT-22') {
-      const stipendAmt = getChangshanMonthlyStipend(nextSect.rank)
-      nextSilver += stipendAmt
-      feedbackMsg += ` 入门即支领首月边军饷银 +${stipendAmt} 两（此后每满一月领 ${stipendAmt} 两），入门满一年后，每年2月1日、8月1日自动派发半年军令（限两个月内完成）。`
+    if (joinRes.initialStipendPaid > 0) {
+      feedbackMsg += ` 入门即支领首月边军饷银 +${joinRes.initialStipendPaid} 两（此后每满一月领 ${joinRes.initialStipendPaid} 两），入门满一年后，每年2月1日、8月1日自动派发半年军令（限两个月内完成）。`
     }
 
-    if (targetSectId === 'SECT-17') {
-      const stipendAmt = getKaifengMonthlyStipend(nextSect.rank)
+    if (rule?.semiAnnualDutyKind === 'kaifeng_warrant') {
+      const stipendAmt = getKaifengMonthlyStipend(joinRes.nextSectState.rank)
       feedbackMsg += ` 每满一月可支领官俸 ${stipendAmt} 两纹银；每年2月1日、8月1日自动派发六扇门公案（限两个月内结案），并可随时领取公文办案升迁。`
-      if (
-        nextSect.rank < 4 &&
-        !nextSect.activeKaifengWarrant &&
-        curPeriodInfo.latestPeriod > nextSect.lastKaifengCasePeriod
-      ) {
-        nextSect.lastKaifengCasePeriod = curPeriodInfo.latestPeriod
-        const deadlineDay = curPeriodInfo.latestDispatchDay + SEMI_ANNUAL_DEADLINE_DAYS
-        const warrant = generateKaifengWarrant(curPeriodInfo.latestDispatchDay, nextSect.rank, {
-          deadlineDay,
-        })
-        if (warrant) {
-          nextSect.activeKaifengWarrant = warrant
-          const caseMsg = `【六扇门半年公案】奉命前往【${warrant.regionName} · ${warrant.buildingName}】办理「${warrant.targetName}」，须于第 ${deadlineDay} 日前结案！`
-          feedbackMsg += ` ${caseMsg}`
-          newLogs.push(createLogEntry(s.dayCount, '六扇门派案', caseMsg, true, s.shichenIdx))
-        }
+      if (joinRes.dispatchedWarrant && joinRes.dispatchedWarrantDeadlineDay !== null) {
+        const warrant = joinRes.dispatchedWarrant
+        const caseMsg = `【六扇门半年公案】奉命前往【${warrant.regionName} · ${warrant.buildingName}】办理「${warrant.targetName}」，须于第 ${joinRes.dispatchedWarrantDeadlineDay} 日前结案！`
+        feedbackMsg += ` ${caseMsg}`
+        newLogs.push(createLogEntry(s.dayCount, '六扇门派案', caseMsg, true, s.shichenIdx))
       }
     }
 
-    const entryGiftIds = SECT_ENTRY_GEAR_GIFTS[targetSectId] ?? []
-    const grantedGiftNames: string[] = []
-    for (const gid of entryGiftIds) {
-      const def = ITEM_DB_MAP[gid]
-      if (def) {
-        nextInv = addItemToInventory(nextInv, gid, 1)
-        grantedGiftNames.push(`【${def.name}】`)
-      }
-    }
-    if (grantedGiftNames.length > 0) {
-      feedbackMsg += ` 入门获赐制式披挂：${grantedGiftNames.join('、')}！`
+    if (joinRes.grantedGiftNames.length > 0) {
+      feedbackMsg += ` 入门获赐制式披挂：${joinRes.grantedGiftNames.join('、')}！`
     }
 
     newLogs.push(
@@ -274,10 +153,10 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     )
 
     set({
-      silver: nextSilver,
-      inventory: nextInv,
-      sectState: nextSect,
-      questState: nextQuest,
+      silver: joinRes.nextSilver,
+      inventory: joinRes.nextInventory,
+      sectState: joinRes.nextSectState,
+      questState: joinRes.nextQuestState,
       actionFeedback: { text: feedbackMsg, tone: 'success' },
       logs: [...newLogs, ...s.logs].slice(0, 60),
     })
@@ -288,8 +167,9 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     const curSectId = s.sectState.sectId
     if (!curSectId) return
     const factionName = FACTION_DB_MAP[curSectId]?.name ?? curSectId
+    const rule = getSectRule(curSectId)
 
-    if (curSectId === 'SECT-22') {
+    if (rule?.leaveTriggersLiaoSuspicion) {
       const { nextFavor, affectedCount } = applySongLiaoSuspicionFavorPenalty(s.npcFavor, 30)
       const nextSect: PlayerSectState = {
         ...clonePlayerSectState(s.sectState),
@@ -332,15 +212,13 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       killedDingChunqiu: false,
       kaifengRank2Day: null,
       activeKaifengWarrant: null,
-      shaolinDiscipleType:
-        curSectId === 'SECT-01' || curSectId === 'SECT-03' || curSectId === 'SECT-04'
-          ? 'lay'
-          : s.sectState.shaolinDiscipleType,
+      shaolinDiscipleType: rule?.resetsMonasticIdentityOnLeave
+        ? 'lay'
+        : s.sectState.shaolinDiscipleType,
     }
-    const msg =
-      curSectId === 'SECT-33'
-        ? `少侠已向枢密院与三衙缴回虎符腰牌，正式辞去【${factionName} · ${s.sectState.rankLabel}】军职，恢复自由游侠之身。`
-        : `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
+    const msg = rule?.buildLeaveMessage
+      ? rule.buildLeaveMessage(factionName, s.sectState.rankLabel)
+      : `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
     set({
       sectState: nextSect,
       actionFeedback: { text: msg, tone: 'talk' },
