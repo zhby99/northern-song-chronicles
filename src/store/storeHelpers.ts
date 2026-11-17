@@ -29,6 +29,7 @@ import type {
 import {
   calcDailyCultivationExpGain,
   cloneHeroBaseStats,
+  DAYS_PER_YEAR,
   DEFAULT_HERO_BASE_STATS,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
@@ -276,24 +277,27 @@ export function applyDayProgressionSectHooks(params: {
       }
     }
 
-    // 每年2月1日和8月1日自动派发半年任务（限期两个月）
+    // 入门满一年后，每年2月1日和8月1日自动派发半年任务（限期两个月）
     if (nextSect.sectId === 'SECT-22') {
-      const { latestPeriod, latestDispatchDay } = getHalfYearPeriodInfo(params.nextDayCount)
-      if (!nextSect.activeLiaoSpy && latestPeriod > nextSect.lastLiaoSpyMissionYear) {
-        nextSect.lastLiaoSpyMissionYear = latestPeriod
-        const deadlineDay = latestDispatchDay + SEMI_ANNUAL_DEADLINE_DAYS
-        if (params.nextDayCount < deadlineDay) {
-          const spy = spawnAnnualLiaoSpy(latestPeriod, latestDispatchDay)
-          nextSect.activeLiaoSpy = spy
-          nextLogs.unshift(
-            createLogEntry(
-              params.nextDayCount,
-              '燕云锄奸',
-              `【常山枪派半年军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】现踪燕云【${spy.regionName} · ${spy.buildingName}】！须于两个月内（第 ${spy.deadlineDay} 日前）寻获并诛除！`,
-              true,
-              params.shichenIdx,
-            ),
-          )
+      const daysInSect = Math.max(0, params.nextDayCount - nextSect.joinedDay)
+      if (daysInSect >= DAYS_PER_YEAR) {
+        const { latestPeriod, latestDispatchDay } = getHalfYearPeriodInfo(params.nextDayCount)
+        if (!nextSect.activeLiaoSpy && latestPeriod > nextSect.lastLiaoSpyMissionYear) {
+          nextSect.lastLiaoSpyMissionYear = latestPeriod
+          const deadlineDay = latestDispatchDay + SEMI_ANNUAL_DEADLINE_DAYS
+          if (params.nextDayCount < deadlineDay) {
+            const spy = spawnAnnualLiaoSpy(latestPeriod, latestDispatchDay, nextSect.rank)
+            nextSect.activeLiaoSpy = spy
+            nextLogs.unshift(
+              createLogEntry(
+                params.nextDayCount,
+                '燕云锄奸',
+                `【常山枪派半年军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】现踪燕云【${spy.regionName} · ${spy.buildingName}】！须于两个月内（第 ${spy.deadlineDay} 日前）寻获并诛除！`,
+                true,
+                params.shichenIdx,
+              ),
+            )
+          }
         }
       }
     }

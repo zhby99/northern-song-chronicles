@@ -53,7 +53,6 @@ import {
   SECT_ENTRY_GEAR_GIFTS,
   SEMI_ANNUAL_DEADLINE_DAYS,
   SHAOLIN_CHORE_TARGET_DAYS,
-  spawnAnnualLiaoSpy,
 } from '../../utils/sectMechanics'
 import {
   createLogEntry,
@@ -622,13 +621,6 @@ export const createQuestSlice: StoreSlice<QuestKeys> = (set, get) => ({
           let nextSilver = s.silver
           if (eff.sectId === 'SECT-22') {
             nextSilver += getChangshanMonthlyStipend(startRank)
-            if (!nextSect.activeLiaoSpy && curPeriodInfo.latestPeriod > nextSect.lastLiaoSpyMissionYear) {
-              nextSect.lastLiaoSpyMissionYear = curPeriodInfo.latestPeriod
-              nextSect.activeLiaoSpy = spawnAnnualLiaoSpy(
-                curPeriodInfo.latestPeriod,
-                curPeriodInfo.latestDispatchDay,
-              )
-            }
           }
           if (eff.sectId === 'SECT-33') {
             nextSilver += getImperialGuardMonthlyStipend(startRank)

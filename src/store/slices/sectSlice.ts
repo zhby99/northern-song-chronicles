@@ -51,7 +51,6 @@ import {
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
   SEMI_ANNUAL_DEADLINE_DAYS,
   SHAOLIN_CHORE_TARGET_DAYS,
-  spawnAnnualLiaoSpy,
 } from '../../utils/sectMechanics'
 import { estimateHeroRealm } from '../../utils/realmUtils'
 import {
@@ -222,22 +221,11 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       feedbackMsg = `由【${originName}】呈验《${letterName}》，正式奉调入职【${faction.name} · ${evalRes.startingRankLabel}】（正当保举调任）！`
     }
 
-    // 常山枪派：无年龄限制，入门即领军饷 15 两，每年2月1日和8月1日自动派发半年任务
+    // 常山枪派：无年龄限制，入门即领军饷 15 两，入门满一年后每年2月1日和8月1日自动派发半年任务
     if (targetSectId === 'SECT-22') {
       const stipendAmt = getChangshanMonthlyStipend(nextSect.rank)
       nextSilver += stipendAmt
-      feedbackMsg += ` 入门即支领首月边军饷银 +${stipendAmt} 两（此后每满一月领 ${stipendAmt} 两），每年2月1日、8月1日自动派发半年军令（限两个月内完成）。`
-      if (
-        !nextSect.activeLiaoSpy &&
-        curPeriodInfo.latestPeriod > nextSect.lastLiaoSpyMissionYear
-      ) {
-        nextSect.lastLiaoSpyMissionYear = curPeriodInfo.latestPeriod
-        const spy = spawnAnnualLiaoSpy(curPeriodInfo.latestPeriod, curPeriodInfo.latestDispatchDay)
-        nextSect.activeLiaoSpy = spy
-        const spyMsg = `【常山枪派半年军令】辽国密谍【${spy.name}（${spy.title} · ${spy.realm}）】已潜入燕云【${spy.regionName} · ${spy.buildingName}】！须于第 ${spy.deadlineDay} 日前诛除！`
-        feedbackMsg += ` ${spyMsg}`
-        newLogs.push(createLogEntry(s.dayCount, '燕云锄奸', spyMsg, true, s.shichenIdx))
-      }
+      feedbackMsg += ` 入门即支领首月边军饷银 +${stipendAmt} 两（此后每满一月领 ${stipendAmt} 两），入门满一年后，每年2月1日、8月1日自动派发半年军令（限两个月内完成）。`
     }
 
     if (targetSectId === 'SECT-17') {

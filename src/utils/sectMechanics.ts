@@ -476,15 +476,23 @@ function randomIntInclusive(min: number, max: number): number {
   return min + Math.floor(Math.random() * (max - min + 1))
 }
 
-export function spawnAnnualLiaoSpy(periodIndex: number, currentDay: number): ActiveLiaoSpyMission {
+export function spawnAnnualLiaoSpy(
+  periodIndex: number,
+  currentDay: number,
+  sectRank: SectRankLevel = 1,
+): ActiveLiaoSpyMission {
   const locPick =
     YANYUN_SPY_LOCATIONS[Math.floor(Math.random() * YANYUN_SPY_LOCATIONS.length)] ??
     YANYUN_SPY_LOCATIONS[0]!
   const spyIdentity =
     LIAO_SPY_ROSTER[(periodIndex - 1 + Math.floor(Math.random() * LIAO_SPY_ROSTER.length)) % LIAO_SPY_ROSTER.length] ??
     LIAO_SPY_ROSTER[0]!
+  const tierPool =
+    sectRank <= 1
+      ? LIAO_SPY_STRENGTH_TIERS.filter((t) => !t.isSecondTier)
+      : LIAO_SPY_STRENGTH_TIERS
   const strengthTier =
-    LIAO_SPY_STRENGTH_TIERS[Math.floor(Math.random() * LIAO_SPY_STRENGTH_TIERS.length)] ??
+    tierPool[Math.floor(Math.random() * tierPool.length)] ??
     LIAO_SPY_STRENGTH_TIERS[0]!
 
   const reg = REGION_DB_MAP[locPick.regionId]

@@ -1319,7 +1319,7 @@ export function NpcInteractionOverlay() {
                       </div>
                     ) : (
                       <div className="px-3 py-1.5 rounded bg-[#e2f2e8] border border-[#9fd0b4] text-[#1b5132] text-xs">
-                        当前暂无在身军令（每年2月1日、8月1日自动派发半年军令，须于两个月内完成，逾期掌门好感 -15，连续两次开除）。
+                        当前暂无在身军令（入门满一年后，每年2月1日、8月1日自动派发半年军令，须于两个月内完成，逾期掌门好感 -15，连续两次开除）。
                       </div>
                     )}
 
