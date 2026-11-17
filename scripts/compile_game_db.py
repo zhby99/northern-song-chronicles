@@ -2262,6 +2262,9 @@ def parse_npcs(
     existing_fullbody = {
         p.stem for p in (PUBLIC_DIR / "assets" / "characters" / "fullbody").glob("*.jpg")
     }
+    existing_cutout_fullbody = {
+        p.stem for p in (PUBLIC_DIR / "assets" / "characters" / "cutouts" / "fullbody").glob("*.webp")
+    }
 
     npcs: list[dict[str, Any]] = []
 
@@ -2375,8 +2378,21 @@ def parse_npcs(
                 if tok != "无":
                     specialty_tags.append(tok)
 
-        avatar_url = f"/assets/characters/avatars/{npc_id}.jpg" if npc_id in existing_avatars else None
-        fullbody_url = f"/assets/characters/fullbody/{npc_id}.jpg" if npc_id in existing_fullbody else None
+        cutout_fb_url = (
+            f"/assets/characters/cutouts/fullbody/{npc_id}.webp"
+            if npc_id in existing_cutout_fullbody
+            else None
+        )
+        fullbody_url = (
+            f"/assets/characters/fullbody/{npc_id}.jpg"
+            if npc_id in existing_fullbody
+            else cutout_fb_url
+        )
+        avatar_url = (
+            f"/assets/characters/avatars/{npc_id}.jpg"
+            if npc_id in existing_avatars
+            else (cutout_fb_url if npc_id not in existing_fullbody else None)
+        )
         template_url, template_avatar_url = pick_template_for_npc(faction_id, gender, role, category, title)
 
         npcs.append(

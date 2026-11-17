@@ -4107,6 +4107,11 @@
       "bytes": 129607
     },
     {
+      "id": "tpl_dali_prince_av",
+      "url": "/assets/characters/templates/tpl_dali_prince_av.jpg",
+      "bytes": 72618
+    },
+    {
       "id": "tpl_dali_prince_fb",
       "url": "/assets/characters/templates/tpl_dali_prince_fb.jpg",
       "bytes": 932812
@@ -4130,6 +4135,11 @@
       "id": "tpl_emei_female_fb",
       "url": "/assets/characters/templates/tpl_emei_female_fb.jpg",
       "bytes": 259013
+    },
+    {
+      "id": "tpl_emei_heroine_av",
+      "url": "/assets/characters/templates/tpl_emei_heroine_av.jpg",
+      "bytes": 73521
     },
     {
       "id": "tpl_emei_heroine_fb",
@@ -4175,6 +4185,11 @@
       "id": "tpl_gaibang_female_fb",
       "url": "/assets/characters/templates/tpl_gaibang_female_fb.jpg",
       "bytes": 197132
+    },
+    {
+      "id": "tpl_greenwood_hero_av",
+      "url": "/assets/characters/templates/tpl_greenwood_hero_av.jpg",
+      "bytes": 80990
     },
     {
       "id": "tpl_greenwood_hero_fb",
@@ -4280,6 +4295,11 @@
       "id": "tpl_jinjun_male_fb",
       "url": "/assets/characters/templates/tpl_jinjun_male_fb.jpg",
       "bytes": 155104
+    },
+    {
+      "id": "tpl_khitan_warrior_av",
+      "url": "/assets/characters/templates/tpl_khitan_warrior_av.jpg",
+      "bytes": 90355
     },
     {
       "id": "tpl_khitan_warrior_fb",
@@ -4447,6 +4467,11 @@
       "bytes": 216049
     },
     {
+      "id": "tpl_shaolin_monk_av",
+      "url": "/assets/characters/templates/tpl_shaolin_monk_av.jpg",
+      "bytes": 74613
+    },
+    {
       "id": "tpl_shaolin_monk_fb",
       "url": "/assets/characters/templates/tpl_shaolin_monk_fb.jpg",
       "bytes": 1074584
@@ -4472,14 +4497,29 @@
       "bytes": 141507
     },
     {
+      "id": "tpl_song_empress_av",
+      "url": "/assets/characters/templates/tpl_song_empress_av.jpg",
+      "bytes": 98750
+    },
+    {
       "id": "tpl_song_empress_fb",
       "url": "/assets/characters/templates/tpl_song_empress_fb.jpg",
       "bytes": 1071232
     },
     {
+      "id": "tpl_song_physician_av",
+      "url": "/assets/characters/templates/tpl_song_physician_av.jpg",
+      "bytes": 56767
+    },
+    {
       "id": "tpl_song_physician_fb",
       "url": "/assets/characters/templates/tpl_song_physician_fb.jpg",
       "bytes": 1012275
+    },
+    {
+      "id": "tpl_song_scholar_av",
+      "url": "/assets/characters/templates/tpl_song_scholar_av.jpg",
+      "bytes": 57813
     },
     {
       "id": "tpl_song_scholar_fb",
@@ -4527,6 +4567,11 @@
       "bytes": 208592
     },
     {
+      "id": "tpl_taohua_master_av",
+      "url": "/assets/characters/templates/tpl_taohua_master_av.jpg",
+      "bytes": 67003
+    },
+    {
       "id": "tpl_taohua_master_fb",
       "url": "/assets/characters/templates/tpl_taohua_master_fb.jpg",
       "bytes": 1097278
@@ -4550,6 +4595,11 @@
       "id": "tpl_taohuadao_male_fb",
       "url": "/assets/characters/templates/tpl_taohuadao_male_fb.jpg",
       "bytes": 288692
+    },
+    {
+      "id": "tpl_taoist_master_av",
+      "url": "/assets/characters/templates/tpl_taoist_master_av.jpg",
+      "bytes": 90088
     },
     {
       "id": "tpl_taoist_master_fb",
@@ -4607,9 +4657,19 @@
       "bytes": 207772
     },
     {
+      "id": "tpl_unorthodox_master_av",
+      "url": "/assets/characters/templates/tpl_unorthodox_master_av.jpg",
+      "bytes": 76489
+    },
+    {
       "id": "tpl_unorthodox_master_fb",
       "url": "/assets/characters/templates/tpl_unorthodox_master_fb.jpg",
       "bytes": 921546
+    },
+    {
+      "id": "tpl_woman_general_av",
+      "url": "/assets/characters/templates/tpl_woman_general_av.jpg",
+      "bytes": 71020
     },
     {
       "id": "tpl_woman_general_fb",

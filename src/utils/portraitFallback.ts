@@ -163,6 +163,20 @@ const KNOWN_AVATAR_COUNTERPARTS: Record<string, string> = {
     '/assets/characters/templates/tpl_song_scholar_av.jpg',
   '/assets/characters/templates/tpl_woman_general_fb.jpg':
     '/assets/characters/templates/tpl_woman_general_av.jpg',
+  '/assets/characters/templates/tpl_dali_prince_fb.jpg':
+    '/assets/characters/templates/tpl_dali_prince_av.jpg',
+  '/assets/characters/templates/tpl_emei_heroine_fb.jpg':
+    '/assets/characters/templates/tpl_emei_heroine_av.jpg',
+  '/assets/characters/templates/tpl_greenwood_hero_fb.jpg':
+    '/assets/characters/templates/tpl_greenwood_hero_av.jpg',
+  '/assets/characters/templates/tpl_song_empress_fb.jpg':
+    '/assets/characters/templates/tpl_song_empress_av.jpg',
+  '/assets/characters/templates/tpl_taoist_master_fb.jpg':
+    '/assets/characters/templates/tpl_taoist_master_av.jpg',
+  '/assets/characters/templates/tpl_taohua_master_fb.jpg':
+    '/assets/characters/templates/tpl_taohua_master_av.jpg',
+  '/assets/characters/templates/tpl_unorthodox_master_fb.jpg':
+    '/assets/characters/templates/tpl_unorthodox_master_av.jpg',
   '/assets/characters/templates/tpl_zhongnan_fb.jpg':
     '/assets/characters/templates/tpl_zhongnan_av.jpg',
   '/assets/characters/templates/tpl_zhongnan_female_fb.jpg':
