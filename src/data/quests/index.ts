@@ -9,6 +9,9 @@ import { GAIBANG_ENTRY_QUESTS } from './sects/gaibangEntryQuest'
 import { HUASHAN_ENTRY_QUESTS } from './sects/huashanEntryQuest'
 import { JINJUN_FANLOU_NIGHT_QUESTS } from './sects/jinjunFanlouNightQuest'
 import { JINJUN_HEBEI_SPY_QUESTS } from './sects/jinjunHebeiSpyQuest'
+import { JINJUN_MURONG_ARC_1_QUESTS } from './sects/jinjunMurongArc1Quest'
+import { JINJUN_MURONG_ARC_2_QUESTS } from './sects/jinjunMurongArc2Quest'
+import { JINJUN_MURONG_ARC_3_QUESTS } from './sects/jinjunMurongArc3Quest'
 import { JINJUN_QINZHOU_HORSE_QUESTS } from './sects/jinjunQinzhouHorseQuest'
 import { JINJUN_TAIHANG_QUEST_1 } from './sects/jinjunTaihangQuest1'
 import { JINJUN_TAIHANG_QUEST_2 } from './sects/jinjunTaihangQuest2'
@@ -64,6 +67,9 @@ export const QUEST_REGISTRY: readonly QuestDefinition[] = Object.freeze([
   ...JINJUN_YUJINYUAN_HORSE_QUESTS,
   ...JINJUN_TAIYUAN_IRON_QUESTS,
   ...JINJUN_QINZHOU_HORSE_QUESTS,
+  ...JINJUN_MURONG_ARC_1_QUESTS,
+  ...JINJUN_MURONG_ARC_2_QUESTS,
+  ...JINJUN_MURONG_ARC_3_QUESTS,
   ...ZHENWU_ENTRY_QUESTS,
 ])
 

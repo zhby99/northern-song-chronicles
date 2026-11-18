@@ -120,6 +120,21 @@
 | `CG-QST-108` | `[ ]` 待补绘 | `public/assets/quests/jinjun_taiyuan_grandmaster_duel.jpg` | `/assets/quests/jinjun_taiyuan_grandmaster_duel.jpg` | `QST-SECT-33-TAIYUAN-IRON`<br>《铁冶监 · 玄铁失耗案》 | 第八幕 · 火海斩宗师<br>（`scene_jj_ty_08_grandmaster_duel`） | `16:9` |
 | `CG-QST-109` | `[ ]` 待补绘 | `public/assets/quests/jinjun_qinzhou_maijishan_ambush.jpg` | `/assets/quests/jinjun_qinzhou_maijishan_ambush.jpg` | `QST-SECT-33-QINZHOU-HORSE`<br>《秦州道 · 茶马失纲录》 | 第五幕 · 麦积山伏<br>（`scene_jj_qz_05_maijishan_ambush`） | `16:9` |
 | `CG-QST-110` | `[ ]` 待补绘 | `public/assets/quests/jinjun_qinzhou_beacon_duel.jpg` | `/assets/quests/jinjun_qinzhou_beacon_duel.jpg` | `QST-SECT-33-QINZHOU-HORSE`<br>《秦州道 · 茶马失纲录》 | 第七幕 · 烽燧绝战<br>（`scene_jj_qz_07_beacon_duel`） | `16:9` |
+| `CG-QST-111` | `[ ]` 待补绘 | `public/assets/quests/murong_arc1_armory_crime.jpg` | `/assets/quests/murong_arc1_armory_crime.jpg` | `QST-SECT-33-MURONG-ARC-1`<br>《破燕 · 壹 · 汴梁暗影》 | 第二幕 · 军器监验尸<br>（`scene_jj_mr1_02_corpse_inspection`） | `16:9` |
+| `CG-QST-112` | `[ ]` 待补绘 | `public/assets/quests/murong_arc1_wharf_duel.jpg` | `/assets/quests/murong_arc1_wharf_duel.jpg` | `QST-SECT-33-MURONG-ARC-1`<br>《破燕 · 壹 · 汴梁暗影》 | 第十幕 · 力战一阵风<br>（`scene_jj_mr1_10_feng_boe_duel`） | `16:9` |
+| `CG-QST-113` | `[ ]` 待补绘 | `public/assets/quests/murong_arc2_shaolin_encircle.jpg` | `/assets/quests/murong_arc2_shaolin_encircle.jpg` | `QST-SECT-33-MURONG-ARC-2`<br>《破燕 · 贰 · 少室惊变》 | 第六幕 · 黑云压禅林<br>（`scene_jj_mr2_06_iron_encirclement`） | `16:9` |
+| `CG-QST-114` | `[ ]` 待补绘 | `public/assets/quests/murong_arc2_murongfu_duel.jpg` | `/assets/quests/murong_arc2_murongfu_duel.jpg` | `QST-SECT-33-MURONG-ARC-2`<br>《破燕 · 贰 · 少室惊变》 | 第十四幕 · 寺前败慕容<br>（`scene_jj_mr2_14_murong_fu_duel`） | `16:9` |
+| `CG-QST-115` | `[ ]` 待补绘 | `public/assets/quests/murong_arc2_murongbo_emerge.jpg` | `/assets/quests/murong_arc2_murongbo_emerge.jpg` | `QST-SECT-33-MURONG-ARC-2`<br>《破燕 · 贰 · 少室惊变》 | 第十九幕 · 参合指破空<br>（`scene_jj_mr2_19_murong_bo_emerge`） | `16:9` |
+| `CG-QST-116` | `[ ]` 待补绘 | `public/assets/quests/murong_arc2_three_rounds_blood.jpg` | `/assets/quests/murong_arc2_three_rounds_blood.jpg` | `QST-SECT-33-MURONG-ARC-2`<br>《破燕 · 贰 · 少室惊变》 | 第二十二幕 · 硬接三轮绝杀<br>（`scene_jj_mr2_22_three_rounds_survive`） | `16:9` |
+| `CG-QST-117` | `[ ]` 待补绘 | `public/assets/quests/murong_arc2_renzong_taixuan.jpg` | `/assets/quests/murong_arc2_renzong_taixuan.jpg` | `QST-SECT-33-MURONG-ARC-2`<br>《破燕 · 贰 · 少室惊变》 | 第二十九幕 · 御赐宫中《太玄经》<br>（`scene_jj_mr2_29_bestow_taixuan`） | `16:9` |
+| `CG-QST-118` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_muster_3000.jpg` | `/assets/quests/murong_arc3_muster_3000.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第三幕 · 三千铁甲南征<br>（`scene_jj_mr3_03_muster_3000`） | `16:9` |
+| `CG-QST-119` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_gongye_qian.jpg` | `/assets/quests/murong_arc3_gongye_qian.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第九幕 · 阵前生擒公冶乾<br>（`scene_jj_mr3_09_capture_gongye`） | `16:9` |
+| `CG-QST-120` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_taihu_water_ghosts.jpg` | `/assets/quests/murong_arc3_taihu_water_ghosts.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第十五幕 · 铁甲沉渊惨烈<br>（`scene_jj_mr3_15_red_lake_casualties`） | `16:9` |
+| `CG-QST-121` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_bao_feng_deck.jpg` | `/assets/quests/murong_arc3_bao_feng_deck.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第十八幕 · 甲板独斗包风<br>（`scene_jj_mr3_18_deck_1v2_duel`） | `16:9` |
+| `CG-QST-122` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_deng_baichuan.jpg` | `/assets/quests/murong_arc3_deng_baichuan.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第二十五幕 · 生擒邓百川<br>（`scene_jj_mr3_25_defeat_deng_baichuan`） | `16:9` |
+| `CG-QST-123` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_canhe_five_rounds.jpg` | `/assets/quests/murong_arc3_canhe_five_rounds.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第三十幕 · 参合堂终战五合<br>（`scene_jj_mr3_30_five_rounds_showdown`） | `16:9` |
+| `CG-QST-124` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_yanziwu_ablaze.jpg` | `/assets/quests/murong_arc3_yanziwu_ablaze.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第三十六幕 · 接管还施水阁 · 火照太湖<br>（`scene_jj_mr3_36_huanshi_library`） | `16:9` |
+| `CG-QST-125` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_kaifeng_execution.jpg` | `/assets/quests/murong_arc3_kaifeng_execution.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第三十九幕 · 市曹斩四将<br>（`scene_jj_mr3_39_public_execution`） | `16:9` |
 
 ---
 
@@ -2162,4 +2177,199 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color epic frontier duel, wide cinematic 16:9 composition. Blood-red sunset over weathered earthen beacon tower ruins on the Longyou steppe around 1050 AD, fifty fine Hequ warhorses tethered nearby in swirling desert dust. A towering dark-crimson-robed frontier grandmaster monk swings a heavy iron vajra pestle against the lunging strike of the Song Three-Commands commissioner. Sweeping desert wind, rich mineral pigments, strictly zero text or characters.
+  ```
+
+---
+
+### 111. `CG-QST-111`：秋雨军器监铁库 · 验尸寻获太湖苏绣帕子图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc1Quest.ts`](../src/data/quests/sects/jinjunMurongArc1Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc1_armory_crime.jpg`
+- **画框题跋**：`秋雨军器监铁库 · 验尸寻获太湖苏绣帕子`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color detective scene, wide cinematic 16:9 composition. Torchlight inside a damp stone imperial armory vault in Kaifeng on a rainy autumn night around 1050 AD, unlocked bronze doors and empty crossbow racks behind. Kneeling beside two fallen armored officers is the young Song Imperial Guard general (Dianqiansi Duyuhou, matching hero_03_spearman_fb.jpg: sharp-eyed young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver scale chest armor with a tiger-head emblem and lion pauldrons over a crimson tunic and flowing red cape, red-tasseled steel spear resting at his side), holding up a delicate white Suzhou-embroidered silk handkerchief found near the damp stone corner. Rich Song mineral pigments, dramatic torch shadows, strictly zero text or characters.
+  ```
+
+---
+
+### 112. `CG-QST-112`：秋雨汴河漕运码头 · 栈桥力战“一阵风”风波恶图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc1Quest.ts`](../src/data/quests/sects/jinjunMurongArc1Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc1_wharf_duel.jpg`
+- **画框题跋**：`秋雨汴河漕运码头 · 栈桥力战一阵风风波恶`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color wuxia duel, wide cinematic 16:9 composition. Heavy autumn rain over a wooden canal wharf in Kaifeng at night around 1050 AD, a black-sailed swift boat gliding into the dark river mist. On the rain-slicked pier, the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high black ponytail with crimson ribbon, silver tiger-emblem scale armor and lion pauldrons over crimson martial robes and billowing red cape) thrusts his long red-tasseled steel spear to clash in sparks against the saber of a wild laughing swordsman in dark Jiangnan attire (Feng Bo'e), as armored guards rush forward with lanterns. Splashing rain, dynamic sparks, strictly zero text or characters.
+  ```
+
+---
+
+### 113. `CG-QST-113`：少室山巅 · 一千大宋禁军铁甲列阵围禅林图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc2Quest.ts`](../src/data/quests/sects/jinjunMurongArc2Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc2_shaolin_encircle.jpg`
+- **画框题跋**：`少室山巅 · 一千大宋禁军铁甲列阵围禅林`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color grand military tableau, wide cinematic 16:9 composition. Autumn mist swirling around the ancient stone courtyard of Shaolin Temple on Mount Song around 1050 AD. One thousand armored Song Imperial Guards in gleaming iron mountain-pattern armor form a dense crescent encirclement with forests of long spears, cocked crossbows, and fluttering crimson dragon banners. At the forefront stands the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale breastplate and lion pauldrons, crimson tunic and flowing red cape, planted long red-tasseled steel spear in hand), confronting startled martial artists gathered before the temple hall. Epic scale, strictly zero text or characters.
+  ```
+
+---
+
+### 114. `CG-QST-114`：少室山大雄殿前 · 破斗转星移斩断慕容复佩剑图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc2Quest.ts`](../src/data/quests/sects/jinjunMurongArc2Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc2_murongfu_duel.jpg`
+- **画框题跋**：`少室山大雄殿前 · 破斗转星移斩断慕容复佩剑`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color martial arts climax, wide cinematic 16:9 composition. Before the grand hall of Shaolin Temple around 1050 AD, watched by Abbot Xuanci, crimson-armored Song troops, and stunned heroes. The young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale armor, crimson robe and billowing red cape) sweeps his long red-tasseled steel spear in a fierce battlefield strike that shatters the pale-yellow-robed aristocrat Murong Fu's sword in mid-air, sending Murong Fu reeling backward onto the cracked flagstones. Rich mineral pigments, strictly zero text or characters.
+  ```
+
+---
+
+### 115. `CG-QST-115`：少林禅院惊变 · 潜伏三十载的灰衣老僧慕容博掠出图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc2Quest.ts`](../src/data/quests/sects/jinjunMurongArc2Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc2_murongbo_emerge.jpg`
+- **画框题跋**：`少林禅院惊变 · 潜伏三十载的灰衣老僧慕容博掠出`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color dramatic wuxia scene, wide cinematic 16:9 composition. Shocking ambush in the Shaolin courtyard around 1050 AD: a gaunt elderly monk in a faded grey robe blurs forward like a phantom, sleeves billowing as invisible finger-qi blasts four armored Song executioners backward. In the foreground, the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale armor and lion pauldrons, crimson robe and cape) braces his long red-tasseled steel spear across his chest to intercept while Abbot Xuanci watches in horror. High tension, strictly zero text or characters.
+  ```
+
+---
+
+### 116. `CG-QST-116`：死战宗师上品慕容博 · 硬接三轮参合指绝杀图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc2Quest.ts`](../src/data/quests/sects/jinjunMurongArc2Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc2_three_rounds_blood.jpg`
+- **画框题跋**：`死战宗师上品慕容博 · 硬接三轮参合指绝杀`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color tragic heroic battle, wide cinematic 16:9 composition. In the Shaolin plaza around 1050 AD, the grey-robed grandmaster Murong Bo unleashes a devastating invisible finger-energy blast that cracks and shatters the silver tiger-emblem scale breastplate of the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, crimson robes, red cape, clutching his red-tasseled steel spear), sending him flying backward spitting blood while Shaolin elder monks rush to form a protective barrier and Song crossbowmen loose a storm of bolts. Strictly zero text or characters.
+  ```
+
+---
+
+### 117. `CG-QST-117`：官家微服亲探 · 御赐大内秘藏天阶心法《太玄经》图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc2Quest.ts`](../src/data/quests/sects/jinjunMurongArc2Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc2_renzong_taixuan.jpg`
+- **画框题跋**：`官家微服亲探 · 御赐大内秘藏天阶心法太玄经`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color warm courtly interior, wide cinematic 16:9 composition. Afternoon sunlight streaming into a quiet general's residence chamber in Kaifeng around 1050 AD. Emperor Renzong in plain imperial robes sits beside the sickbed of the recovering young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with black hair tied back with a crimson ribbon, dressed in plain crimson-and-white inner robes while his silver tiger-emblem scale armor and red-tasseled steel spear rest on a wooden rack nearby), presenting an ancient stone-rubbing scroll wrapped in imperial yellow silk brocade as Privy Councilor Wang Deyong stands respectfully nearby. Warm, dignified pigments, strictly zero text or characters.
+  ```
+
+---
+
+### 118. `CG-QST-118`：东京汴梁校场 · 统领三千精锐禁军祭旗南下太湖图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc3Quest.ts`](../src/data/quests/sects/jinjunMurongArc3Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc3_muster_3000.jpg`
+- **画框题跋**：`东京汴梁校场 · 统领三千精锐禁军祭旗南下太湖`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color grand expedition scene, wide cinematic 16:9 composition. Three thousand elite Song Imperial Guards in full iron armor and crimson cloaks assembled in vast formations on the Kaifeng parade ground around 1050 AD. On the raised command platform, the fully recovered young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, gleaming silver tiger-emblem scale armor and lion pauldrons over crimson robes and red cape, long red-tasseled steel spear held at his side) pours sacrificial wine to the war banners beneath bright autumn skies. Majestic scale, strictly zero text or characters.
+  ```
+
+---
+
+### 119. `CG-QST-119`：苏州秘密兵坊 · 铁甲合围生擒赤霞庄主公冶乾图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc3Quest.ts`](../src/data/quests/sects/jinjunMurongArc3Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc3_gongye_qian.jpg`
+- **画框题跋**：`苏州秘密兵坊 · 铁甲合围生擒赤霞庄主公冶乾`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color night raid illustration, wide cinematic 16:9 composition. Inside a blazing secret forge and granary outside Suzhou around 1050 AD, piles of dismantled crossbow parts and iron bolts illuminated by firelight. The young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale armor, crimson robes and cape) levels his long red-tasseled steel spear to subdue the red-palmed Jiangnan master Gongye Qian in front of an iron-armored wall of Song soldiers. Dynamic action, strictly zero text or characters.
+  ```
+
+---
+
+### 120. `CG-QST-120`：太湖五湖浓雾 · 慕容水鬼凿船拖兵血染碧波图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc3Quest.ts`](../src/data/quests/sects/jinjunMurongArc3Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc3_taihu_water_ghosts.jpg`
+- **画框题跋**：`太湖五湖浓雾 · 慕容水鬼凿船拖兵血染碧波`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color naval battle illustration, wide cinematic 16:9 composition. Dense white mist over Lake Taihu around 1050 AD. Several large Song war junks are tilting and sinking as oiled Murong underwater frogmen burst from the reddened waves to drag heavy iron-armored Song soldiers off the gunwales. On the flagship bow, the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale armor, billowing crimson cape) thrusts his long red-tasseled steel spear downward at surfacing frogmen while Song crossbowmen fire into the water. Chaotic, dramatic, strictly zero text or characters.
+  ```
+
+---
+
+### 121. `CG-QST-121`：狂涛摇晃主舰甲板 · 独斗包不同与风波恶联手图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc3Quest.ts`](../src/data/quests/sects/jinjunMurongArc3Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc3_bao_feng_deck.jpg`
+- **画框题跋**：`狂涛摇晃主舰甲板 · 独斗包不同与风波恶联手`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color naval deck duel, wide cinematic 16:9 composition. On the pitching wooden deck of the Song flagship amidst Lake Taihu mist around 1050 AD, narrow outlaw skiffs ramming the hull. The young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale armor, crimson robes and cape) stands firmly balanced, sweeping his long red-tasseled steel spear to fight both the mocking green-robed palm master Bao Butong and the fierce saber-wielding Feng Bo'e simultaneously. Splashing waves, strictly zero text or characters.
+  ```
+
+---
+
+### 122. `CG-QST-122`：听香水榭曲桥 · 踏血击溃并生擒四大家将之首邓百川图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc3Quest.ts`](../src/data/quests/sects/jinjunMurongArc3Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc3_deng_baichuan.jpg`
+- **画框题跋**：`听香水榭曲桥 · 踏血击溃并生擒四大家将之首邓百川`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color garden siege, wide cinematic 16:9 composition. A blood-stained zigzag wooden bridge leading to the elegant lakeside Tingxiang Pavilion in Yanziwu around 1050 AD, bamboo groves and lotus ponds damaged by battle. The young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale armor, crimson robe and tattered red cape) strikes down and captures the resolute elder retainer Deng Baichuan at the point of his red-tasseled steel spear as battle-hardened Song troops surge over the bridge with torches. Strictly zero text or characters.
+  ```
+
+---
+
+### 123. `CG-QST-123`：参合堂火光冲天 · 正面硬撼宗师上品慕容博五轮绝杀图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc3Quest.ts`](../src/data/quests/sects/jinjunMurongArc3Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc3_canhe_five_rounds.jpg`
+- **画框题跋**：`参合堂火光冲天 · 正面硬撼宗师上品慕容博五轮绝杀`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color grandmaster climax, wide cinematic 16:9 composition. Inside the burning Canhe Hall of Yanziwu around 1050 AD, bronze braziers burning secret ledgers. The young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, gleaming silver tiger-emblem scale armor, crimson robes and red cape) stands immovable on cracked flagstones, bracing his long red-tasseled steel spear to parry five relentless palm-and-finger strikes from Grandmaster Murong Bo while Murong Fu watches tensely and Song troops smash through the courtyard walls outside. Strictly zero text or characters.
+  ```
+
+---
+
+### 124. `CG-QST-124`：太湖夜空火光冲天 · 接管还施水阁起获玉玺印与参合指秘籍图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc3Quest.ts`](../src/data/quests/sects/jinjunMurongArc3Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc3_yanziwu_ablaze.jpg`
+- **画框题跋**：`太湖夜空火光冲天 · 接管还施水阁起获玉玺印与参合指秘籍`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color dramatic aftermath, wide cinematic 16:9 composition. Night over Lake Taihu around 1050 AD as Yanziwu's pavilions burn bright crimson against the dark sky. Inside the preserved Huanshi Library pavilion, the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale armor, crimson cape, red-tasseled steel spear leaning at his shoulder) holds an ancient jade imperial seal and a martial arts manual from an open rosewood chest while guards carry out recovered Song repeating crossbows. Strictly zero text or characters.
+  ```
+
+---
+
+### 125. `CG-QST-125`：午时三刻东京市曹 · 以谋反罪公开处斩慕容四大家将图
+
+- **关联文件**：[`src/data/quests/sects/jinjunMurongArc3Quest.ts`](../src/data/quests/sects/jinjunMurongArc3Quest.ts)
+- **目标路径**：`public/assets/quests/murong_arc3_kaifeng_execution.jpg`
+- **画框题跋**：`午时三刻东京市曹 · 以谋反罪公开处斩慕容四大家将`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color historical justice scene, wide cinematic 16:9 composition. High noon at the Kaifeng public execution ground around 1050 AD, crowded with cheering Song citizens and ringed by armored Imperial Guards. On the raised wooden platform, Judge Bao Zheng and Privy Councilor Wang Deyong oversee the solemn execution of the four chained Murong retainers for treason, while the victorious young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale armor and lion pauldrons, crimson robe and cape, holding his long red-tasseled steel spear upright) stands beside the Song banner. Strictly zero text or characters.
   ```
