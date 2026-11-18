@@ -97,6 +97,37 @@ const SCENE_25_EPILOGUE_UNLOCK: StorySceneDef = {
   ],
 }
 
+const SCENE_25B_EPILOGUE_UNLOCK_ACQUAINTED: StorySceneDef = {
+  id: 'scene_yzw_map_25_epilogue_unlock_acquainted',
+  title: '第二十五幕 · 烟波浩渺开燕坞',
+  subtitle: '苏州府 · 太湖烟波渡口锦帆画舫',
+  illustrationUrl: '/assets/quests/yanziwu_map_taihu_boat_unite.jpg',
+  illustrationCaption: '太湖烟波渡口锦帆画舫 · 沈括执铜规罗盘合绘三叠全图蒋平包不同共证',
+  beats: [
+    N('舱内松烟墨香袅袅，沈括以紫毫小楷将最后一道菱花水位线与钟山星度校准合拢，在澄心堂纸左下角郑重题下“{reignYear}重校太湖烟波三叠全图”十二字。只见画卷之上，东西洞庭诸山如青螺浮浪，三十六条芦荡明渠与七十二处水底梅花桩阵以朱墨二色分列得纤毫毕现，昔日令人望而却步的百里迷雾，此刻终于化作一条清晰可循的碧波航道。'),
+    S('NPC-0247', '（蒋平抚掌长笑，替少侠斟满一碗太湖白鱼羹与洞庭春绿蚁酒）“痛快！有了存中公子亲手合璧的这幅真图，太湖沿岸渔船商旅既可避开外围漩涡暗礁，寻常水匪若不知潮汐加减口诀，拿去反倒要撞碎船底。少侠横跨苏、扬、江宁三府，连破铁掌帮三道暗桩，这份胆识与脚力，蒋某佩服得五体投地！”'),
+    S('NPC-0213', '（包不同把折扇收拢在掌心轻轻一敲，斜睨了少侠一眼，神色却比前番渡口交手时缓和了许多）“非也，非也！包某与你虽在长埠动过拳脚、结过梁子，但我家公子爷向来恩怨分明——你此番替江南水道拔了焦沧澜这颗铁掌毒瘤，公私两便，这幅《太湖燕子坞烟波水路舆图》归你执掌，倒也不算辱没门风！日后乘舟入坞无需再夺谁家木牌，听香水榭的清茶自有你一盏。”'),
+    P('（双手接过装裱于湘妃竹轴中的舆图收入行囊，推开画舫雕窗远眺万顷烟波）“多谢蒋四爷、存中兄与包先生相助。自今日起，这八百里太湖烟波迷障，再也拦不住在下的孤帆轻舟了！”'),
+  ],
+  onFinishEffects: [
+    { type: 'removeItem', itemId: 'ITM-MSC-023', qty: 1 },
+    { type: 'giveItem', itemId: 'ITM-MSC-020', qty: 1 },
+    { type: 'giveSilver', amount: 180, reason: '江南三府水道商帮与平江士绅酬谢盘缠' },
+    { type: 'modifyRenown', delta: 45, reason: '勘定太湖三叠水图、扫清铁掌帮江南分水暗舵' },
+    { type: 'modifyChivalry', delta: 25, reason: '护佑太湖渔商免遭暗礁覆舟之厄' },
+    { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0247' }, delta: 25 },
+    { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0063' }, delta: 20 },
+    { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0213' }, delta: 15 },
+    {
+      type: 'completeQuest',
+      questId: QUEST_ID,
+      outcome: 'unlocked_yanziwu_map',
+      combatExp: 320,
+    },
+    toast('奇遇功成！已获得秘境舆图《太湖燕子坞烟波水路舆图》，天下舆图【太湖燕子坞】航道正式解锁！', 'success', '秘境解锁'),
+  ],
+}
+
 const SCENE_24_CHART_SYNTHESIS: StorySceneDef = {
   id: 'scene_yzw_map_24_chart_synthesis',
   title: '第二十四幕 · 三叠合璧绘真经',
@@ -107,7 +138,16 @@ const SCENE_24_CHART_SYNTHESIS: StorySceneDef = {
     S('NPC-0213', '（包不同探头看了一眼，神色微变，随即干咳两声背过手去）“哼，非也！这不过是我参合庄外围三十六湾的通航水道罢了，内坞机枢早随节气更易。不过嘛……只要按此图行船，确实能稳稳当当穿过芦苇迷阵，直抵听香水榭与参合庄码头，再不必在湖心里喂鱼鳖。”'),
     P('“存中兄以算学星度融通古图，方使这桩尘封数十年的江南水学奇珍重见天日。劳烦存中兄将三卷津要摹绘成一幅便携水路全图，至于原件铜符与旧帛，仍交由蒋四爷与包先生分掌封存，免得日后再惹宵小觊觎。”'),
   ],
-  onFinishEffects: [openScene('scene_yzw_map_25_epilogue_unlock', 'QST-ADV-YANZIWU-MAP')],
+  onFinishEffects: [
+    {
+      type: 'branch',
+      condition: { type: 'flag', flag: 'kf1_bao_defeated', op: 'truthy' },
+      thenEffects: [
+        openScene('scene_yzw_map_25_epilogue_unlock_acquainted', 'QST-ADV-YANZIWU-MAP'),
+      ],
+      elseEffects: [openScene('scene_yzw_map_25_epilogue_unlock', 'QST-ADV-YANZIWU-MAP')],
+    },
+  ],
 }
 
 const SCENE_23_RETURN_SUZHOU_BOAT: StorySceneDef = {
@@ -692,8 +732,38 @@ const SCENE_01_TAIHU_MIST_DISPUTE: StorySceneDef = {
   ],
 }
 
+const SCENE_01B_TAIHU_MIST_DISPUTE_ACQUAINTED: StorySceneDef = {
+  id: 'scene_yzw_map_01_taihu_mist_dispute_acquainted',
+  title: '第一幕 · 烟波渡口逢旧识',
+  subtitle: '苏州府 · 太湖烟波渡口木栈长埠',
+  beats: [
+    N('{reignYear}春深，八百里太湖白雾漫天，浩渺碧波与天际连成一片苍茫。苏州城外太湖烟波渡口的长埠木栈旁，两艘误入外围芦荡的丝绸商船正歪斜地搁浅在浅滩上，船底被水底暗桩刮出数道尺许长的裂口。栈桥尽头，“翻江鼠”蒋平正与姑苏慕容氏家臣“非也先生”包不同争执不下。'),
+    S('NPC-0213', '（包不同一眼瞥见走上栈桥的你，先是一愣，随即揉了揉肩头连声怪叫）“非也，非也！原来又是你这北方来的煞星！前番在木栈赢了包某半招、拿走通行木牌夜闯燕子坞还不算，今日怎地又来太湖渡口凑热闹？”'),
+    S('NPC-0247', '“哦？原来少侠与包三先生早打过交道！来得正好——这月余来已有七艘商渔船在三十六湾外围触了暗桩，包先生快把实情一并道明吧！”'),
+    S('NPC-0213', '“哼，说便说！并非我参合庄故意刁难渔商，实乃近月有一伙手掌练得漆黑的荆湖铁掌帮恶客潜入江南，夜夜派水鬼在太湖摸桩测水，比你们官面人物还可恶十倍！我家邓大哥不得已才命人移易外围浮标——如今若无完整的《太湖燕子坞烟波水路舆图》，连老艄公也辨不出三十六湾的生门！”'),
+    P('（抱拳朗声道）“前番公事多有得罪，还望包先生海涵。适闻荆湖恶客觊觎水图、累及太湖无辜商渔，不知这三叠水图究竟有何隐情？”'),
+  ],
+  choices: [
+    {
+      id: 'yzw_accept_quest_acq',
+      label: '向翻江鼠蒋平详询《太湖三叠烟波图》始末',
+      subLabel: '开启横跨苏州、扬州、江宁三府的二流中品奇遇 · 完成后永久解锁【太湖燕子坞】航道',
+      tone: 'gold',
+      effects: [openScene('scene_yzw_map_02_jiangping_entrust', 'QST-ADV-YANZIWU-MAP')],
+    },
+    {
+      id: 'yzw_hold_off_acq',
+      label: '暂且驻足观望，容后再议',
+      subLabel: '稍后仍可在太湖烟波渡口长埠向蒋平重提此事',
+      tone: 'default',
+      effects: [],
+    },
+  ],
+}
+
 export const SCENES: Record<string, StorySceneDef> = {
   [SCENE_25_EPILOGUE_UNLOCK.id]: SCENE_25_EPILOGUE_UNLOCK,
+  [SCENE_25B_EPILOGUE_UNLOCK_ACQUAINTED.id]: SCENE_25B_EPILOGUE_UNLOCK_ACQUAINTED,
   [SCENE_24_CHART_SYNTHESIS.id]: SCENE_24_CHART_SYNTHESIS,
   [SCENE_23_RETURN_SUZHOU_BOAT.id]: SCENE_23_RETURN_SUZHOU_BOAT,
   [SCENE_22_FAREWELL_JIANGNING.id]: SCENE_22_FAREWELL_JIANGNING,
@@ -718,4 +788,5 @@ export const SCENES: Record<string, StorySceneDef> = {
   [SCENE_03_SUZHOU_TAVERN_RUMOR.id]: SCENE_03_SUZHOU_TAVERN_RUMOR,
   [SCENE_02_JIANGPING_ENTRUST.id]: SCENE_02_JIANGPING_ENTRUST,
   [SCENE_01_TAIHU_MIST_DISPUTE.id]: SCENE_01_TAIHU_MIST_DISPUTE,
+  [SCENE_01B_TAIHU_MIST_DISPUTE_ACQUAINTED.id]: SCENE_01B_TAIHU_MIST_DISPUTE_ACQUAINTED,
 }

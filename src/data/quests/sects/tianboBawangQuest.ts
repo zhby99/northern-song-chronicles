@@ -128,6 +128,7 @@ const TAIYUAN_SPY_COMBAT_EFFECTS: QuestEffect[] = [
     introText:
       '【1v2 生死合击】内院书斋的檀木书架轰然倒塌，西夏细作没藏泽渊与大辽死士乌古文海同时撕破伪装，分持党项弯刀与契丹狼牙棒左右夹击而来！可点击敌手立绘或按 [Tab] 择一集火破敌！',
     onWin: [
+      { type: 'markNpcsDead', npcIds: ['NPC-0836', 'NPC-0871'] },
       { type: 'setFlag', flag: 'tb_taiyuan_spies_cleared', value: true },
       { type: 'addArtExp', amount: 700 },
       { type: 'modifySkill', key: '策论', delta: 4 },

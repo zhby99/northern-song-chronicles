@@ -1,5 +1,5 @@
 import type { QuestDefinition } from '../../../types/quest'
-import { atStep, qStatus, openScene } from '../../../engine/quest/dsl'
+import { atStep, flag, qStatus, openScene } from '../../../engine/quest/dsl'
 
 export const QUEST_ID = 'QST-ADV-YANZIWU-MAP'
 
@@ -194,7 +194,18 @@ export const YANZIWU_MAP_QUESTS: QuestDefinition[] = [
             qStatus(QUEST_ID, 'not_completed'),
           ],
         },
-        effects: [openScene('scene_yzw_map_01_taihu_mist_dispute', 'QST-ADV-YANZIWU-MAP')],
+        effects: [
+          {
+            type: 'branch',
+            condition: flag('kf1_bao_defeated', 'truthy'),
+            thenEffects: [
+              openScene('scene_yzw_map_01_taihu_mist_dispute_acquainted', 'QST-ADV-YANZIWU-MAP'),
+            ],
+            elseEffects: [
+              openScene('scene_yzw_map_01_taihu_mist_dispute', 'QST-ADV-YANZIWU-MAP'),
+            ],
+          },
+        ],
       },
       {
         id: 'spot_yzw_map_suzhou_tavern',

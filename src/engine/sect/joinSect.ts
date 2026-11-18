@@ -11,7 +11,7 @@ import type {
 import type { QuestRuntimeState } from '../../types/quest'
 import type { RngFn } from '../combat/rng'
 import { addItemToInventory, removeItemFromInventory } from '../shared/inventory'
-import { getSectExclusivityBlockReason } from './exclusivity'
+import { getEntryQuestSectId, getSectExclusivityBlockReason } from './exclusivity'
 import { generateKaifengWarrant } from './kaifengWarrant'
 import { getHalfYearPeriodInfo, SEMI_ANNUAL_DEADLINE_DAYS } from './liaoSpy'
 import { clonePlayerSectState, getSectRankTitle, SHAOLIN_CHORE_TARGET_DAYS } from './ranks'
@@ -52,6 +52,7 @@ export interface BuildJoinSectPatchResult {
   dispatchedWarrant: ActiveKaifengWarrant | null
   dispatchedWarrantDeadlineDay: number | null
   grantedGiftNames: string[]
+  droppedEntryQuestIds: string[]
 }
 
 /**
@@ -105,6 +106,7 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
       dispatchedWarrant: null,
       dispatchedWarrantDeadlineDay: null,
       grantedGiftNames: [],
+      droppedEntryQuestIds: [],
     }
   }
 
@@ -129,6 +131,7 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
         dispatchedWarrant: null,
         dispatchedWarrantDeadlineDay: null,
         grantedGiftNames: [],
+        droppedEntryQuestIds: [],
       }
     }
     nextInv = removed
@@ -233,6 +236,17 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
     }
   }
 
+  // 无论通过剧情还是门派事务面板拜师，其余门派尚在进行中的入门线一律作罢并清退临时演员
+  const droppedEntryQuestIds: string[] = []
+  for (const qid of Object.keys(nextQuest.activeQuests)) {
+    const entrySect = getEntryQuestSectId(qid)
+    if (entrySect && entrySect !== sectId) {
+      delete nextQuest.activeQuests[qid]
+      nextQuest.dynamicActors = nextQuest.dynamicActors.filter((a) => a.questId !== qid)
+      droppedEntryQuestIds.push(qid)
+    }
+  }
+
   return {
     ok: true,
     errorReason: null,
@@ -248,5 +262,6 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
     dispatchedWarrant,
     dispatchedWarrantDeadlineDay,
     grantedGiftNames,
+    droppedEntryQuestIds,
   }
 }

@@ -12,6 +12,7 @@ const XINGXIU_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'notInAnySect' },
     flag('shaolin_novice_state', 'eq', 'none'),
+    { type: 'npcAlive', npcId: 'NPC-0122', npcName: '丁春秋' },
     qStatus(XINGXIU_ENTRY_QUEST_ID, 'not_started'),
   ],
 }

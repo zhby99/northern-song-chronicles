@@ -6,6 +6,7 @@ import {
   resolveNpcByName,
 } from '../../data/gameDb'
 import { getEffectiveTalents, ITEM_DB_MAP } from '../../data/itemsDb'
+import { QUEST_MAP } from '../../data/quests'
 import { computeCelunBonusAmount, resolveNpcFavor } from '../../engine/economy'
 import { cloneQuestRuntimeState } from '../../engine/questEngine'
 import type {
@@ -25,6 +26,7 @@ import {
   canReceiveSectLeaderTask,
   clonePlayerSectState,
   resetSectMembership,
+  resolveMonasticSecularRestore,
   evaluateSectEntry,
   evaluateSectPromotion,
   generateKaifengWarrant,
@@ -146,6 +148,12 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     if (joinRes.grantedGiftNames.length > 0) {
       feedbackMsg += ` 入门获赐制式披挂：${joinRes.grantedGiftNames.join('、')}！`
     }
+    if (joinRes.droppedEntryQuestIds.length > 0) {
+      const droppedTitles = joinRes.droppedEntryQuestIds.map(
+        (qid) => `《${QUEST_MAP[qid]?.title ?? qid}》`,
+      )
+      feedbackMsg += ` 既已拜师，${droppedTitles.join('、')}等他派入门线自此作罢。`
+    }
 
     newLogs.push(
       createLogEntry(
@@ -173,6 +181,18 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     if (!curSectId) return
     const factionName = FACTION_DB_MAP[curSectId]?.name ?? curSectId
     const rule = getSectRule(curSectId)
+    const secular = resolveMonasticSecularRestore({
+      leavingSectId: curSectId,
+      prevDiscipleType: s.sectState.shaolinDiscipleType,
+      playerName: s.playerName,
+      playerPortraitId: s.playerPortraitId,
+      playerGender: s.playerGender,
+      questFlags: s.questState.flags,
+    })
+    const nextQuest = cloneQuestRuntimeState(s.questState)
+    if (curSectId === 'SECT-17' || curSectId === 'SECT-33') {
+      delete nextQuest.activeQuests['QST-SECT-17-TAIHANG-BANDIT']
+    }
 
     if (rule?.leaveTriggersLiaoSuspicion) {
       const { nextFavor, affectedCount } = applySongLiaoSuspicionFavorPenalty(s.npcFavor, 30)
@@ -180,10 +200,11 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
         ...resetSectMembership(s.sectState),
         liaoSuspicionDebuff: true,
       }
-      const nextQuest = cloneQuestRuntimeState(s.questState)
       nextQuest.flags.liao_suspicion_debuff = true
       const msg = `少侠主动退出【${factionName}】，因擅离河北抗辽军伍，背上【通辽嫌疑】恶名！所有大宋朝野与武林人物（共 ${affectedCount} 人）对少侠好感度 -30！`
       set({
+        playerName: secular.playerName,
+        playerPortraitId: secular.playerPortraitId,
         sectState: nextSect,
         questState: nextQuest,
         npcFavor: nextFavor,
@@ -197,11 +218,17 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     }
 
     const nextSect = resetSectMembership(s.sectState)
-    const msg = rule?.buildLeaveMessage
+    const baseLeaveMsg = rule?.buildLeaveMessage
       ? rule.buildLeaveMessage(factionName, s.sectState.rankLabel)
       : `少侠已向【${factionName}】缴回腰牌，正式脱离门墙，恢复自由游侠之身。`
+    const msg = secular.restored
+      ? `${baseLeaveMsg} 少侠蓄发换回俗家衣冠，复归本名「${secular.playerName}」。`
+      : baseLeaveMsg
     set({
+      playerName: secular.playerName,
+      playerPortraitId: secular.playerPortraitId,
       sectState: nextSect,
+      questState: nextQuest,
       actionFeedback: { text: msg, tone: 'talk' },
       logs: [
         createLogEntry(s.dayCount, '脱离门派', msg, true, s.shichenIdx),

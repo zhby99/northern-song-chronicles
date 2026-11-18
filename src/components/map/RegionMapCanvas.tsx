@@ -67,6 +67,8 @@ export function RegionMapCanvas() {
   const res = useGameStore((s) => s.res)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const baseStats = useGameStore((s) => s.baseStats)
+  const equipped = useGameStore((s) => s.equipped)
+  const equippedArts = useGameStore((s) => s.equippedArts)
   const skills = useGameStore((s) => s.skills)
   const inventory = useGameStore((s) => s.inventory)
   const learnedArts = useGameStore((s) => s.learnedArts)
@@ -125,10 +127,13 @@ export function RegionMapCanvas() {
       res,
       ridingSkill,
       baseStats,
+      equipped,
+      equippedArts,
       skills,
       inventory,
       learnedArts,
       npcFavor,
+      deadNpcIds,
       sectState,
       questState,
     })
@@ -230,6 +235,8 @@ export function RegionMapCanvas() {
     res,
     ridingSkill,
     baseStats,
+    equipped,
+    equippedArts,
     skills,
     inventory,
     learnedArts,

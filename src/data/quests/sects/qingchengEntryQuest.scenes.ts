@@ -425,14 +425,14 @@ const SCENE_QC_18_MOONLIGHT_TEMPTATION: StorySceneDef = {
     },
     {
       id: 'qc18_counter_scheme',
-      label: '【智取纹银转呈方正】（需先天悟性 ≥ 92 或 策论 ≥ 12）虚与委蛇收银，转手禀明方剑师',
+      label: '【智取纹银转呈方正】（需先天悟性 ≥ 90 或 策论 ≥ 12）虚与委蛇收银，转手禀明方剑师',
       subLabel: '获纹银 +20 两，方正好感 +15',
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需先天悟性 ≥ 92 或 十艺【策论】 ≥ 12',
+        hint: '需先天悟性 ≥ 90 或 十艺【策论】 ≥ 12',
         conditions: [
-          { type: 'talentAtLeast', key: '悟性', min: 92 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
           { type: 'skillAtLeast', key: '策论', min: 12 },
         ],
       },
@@ -692,10 +692,10 @@ const SCENE_QC_14_SAVE_QINGLAN: StorySceneDef = {
     },
     {
       id: 'qc14_carry_and_sprint',
-      label: '【悬崖采药 · 背负狂奔】（需先天根骨 ≥ 92）采草药封住寒毒，背起清岚冒雨狂奔百里归山！',
+      label: '【悬崖采药 · 背负狂奔】（需先天根骨 ≥ 90）采草药封住寒毒，背起清岚冒雨狂奔百里归山！',
       subLabel: '铁骨担当两全其美！获赠【青城松果挂坠】且不逾门规半步',
       tone: 'gold',
-      condition: { type: 'talentAtLeast', key: '根骨', min: 92 },
+      condition: { type: 'talentAtLeast', key: '根骨', min: 90 },
       effects: [openScene(regScene(buildSceneQc14AfterChoice('carry_run')), 'QST-SECT-14-ENTRY')],
     },
     {
@@ -790,14 +790,14 @@ const SCENE_QC_12_PINE_WAX_SEAL: StorySceneDef = {
   choices: [
     {
       id: 'qc12_inspect_seal_clever',
-      label: '【日光斜照 · 不损火漆辨墨迹】（需先天悟性 ≥ 92 或 算术/书 ≥ 12）借亭外天光透视夹层字迹',
+      label: '【日光斜照 · 不损火漆辨墨迹】（需先天悟性 ≥ 90 或 算术/书 ≥ 12）借亭外天光透视夹层字迹',
       subLabel: '不留痕迹查明沈怀舟旧案与嫁祸峨眉真相，沈清岚缘分大增',
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需先天悟性 ≥ 92 或 十艺【算术】 ≥ 12 或 十艺【书】 ≥ 12',
+        hint: '需先天悟性 ≥ 90 或 十艺【算术】 ≥ 12 或 十艺【书】 ≥ 12',
         conditions: [
-          { type: 'talentAtLeast', key: '悟性', min: 92 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
           { type: 'skillAtLeast', key: '算术', min: 12 },
           { type: 'skillAtLeast', key: '书', min: 12 },
         ],
@@ -892,21 +892,21 @@ const SCENE_QC_11_TEAHOUSE_EMEI: StorySceneDef = {
     },
     {
       id: 'qc11_charm_tea_treat',
-      label: '【风仪解围 · 奉茶探风】（需风姿颜值 ≥ 92 或 纹银 ≥ 8 两）请满座品蒙顶茶化干戈，顺探蜀道情报',
+      label: '【风仪解围 · 奉茶探风】（需风姿颜值 ≥ 90 或 纹银 ≥ 8 两）请满座品蒙顶茶化干戈，顺探蜀道情报',
       subLabel: '消弭剑气，并从茶博士口中获知【剑门关盐帮设伏】关键预警！',
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需风姿颜值 ≥ 92 或 随身纹银 ≥ 8 两',
+        hint: '需风姿颜值 ≥ 90 或 随身纹银 ≥ 8 两',
         conditions: [
-          { type: 'talentAtLeast', key: '颜值', min: 92 },
+          { type: 'talentAtLeast', key: '颜值', min: 90 },
           { type: 'silverAtLeast', min: 8 },
         ],
       },
       effects: [
         {
           type: 'branch',
-          condition: { type: 'talentAtLeast', key: '颜值', min: 92 },
+          condition: { type: 'talentAtLeast', key: '颜值', min: 90 },
           thenEffects: [{ type: 'modifySkill', key: '辩才', delta: 2 }],
           elseEffects: [{ type: 'giveSilver', amount: -8, reason: '锦江茶肆请峨眉师太与茶客品蒙顶茶' }],
         },
@@ -989,14 +989,14 @@ const SCENE_QC_10_BAMBOO_TANGMEN: StorySceneDef = {
   choices: [
     {
       id: 'qc10_bluff_retreat',
-      label: '【借势喝退 · 智取暗语】（需风姿颜值 ≥ 92 或 辩才 ≥ 12）昂然诈称方剑师率众巡山已至！',
+      label: '【借势喝退 · 智取暗语】（需风姿颜值 ≥ 90 或 辩才 ≥ 12）昂然诈称方剑师率众巡山已至！',
       subLabel: '兵不血刃惊走密会二人，截获剑门关暗语线索',
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需风姿颜值 ≥ 92 或 十艺【辩才】 ≥ 12',
+        hint: '需风姿颜值 ≥ 90 或 十艺【辩才】 ≥ 12',
         conditions: [
-          { type: 'talentAtLeast', key: '颜值', min: 92 },
+          { type: 'talentAtLeast', key: '颜值', min: 90 },
           { type: 'skillAtLeast', key: '辩才', min: 12 },
         ],
       },
@@ -1079,14 +1079,14 @@ const SCENE_QC_08_WELLS_COLD_TEA: StorySceneDef = {
   choices: [
     {
       id: 'qc08_spill_on_moss',
-      label: '【慧眼识寒 · 借礼泼苔】（需先天悟性 ≥ 92 或 已知山上两脉不睦）称谢之时借敬天之礼倾茶入石苔！',
+      label: '【慧眼识寒 · 借礼泼苔】（需先天悟性 ≥ 90 或 已知山上两脉不睦）称谢之时借敬天之礼倾茶入石苔！',
       subLabel: '石苔遇寒立枯，巴武讨没趣而退，直入高悟性传功分支！',
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需先天悟性 ≥ 92 或 此前与火工申勇焱同担松柴知悉两脉暗流',
+        hint: '需先天悟性 ≥ 90 或 此前与火工申勇焱同担松柴知悉两脉暗流',
         conditions: [
-          { type: 'talentAtLeast', key: '悟性', min: 92 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
           flag('qc_knew_two_factions', 'truthy'),
         ],
       },
@@ -1099,10 +1099,10 @@ const SCENE_QC_08_WELLS_COLD_TEA: StorySceneDef = {
     },
     {
       id: 'qc08_bone_endure',
-      label: '【天生虎骨 · 仰首饮尽】（需先天根骨 ≥ 92）面不改色一饮而尽，纯凭浑厚气血蒸散寒气！',
+      label: '【天生虎骨 · 仰首饮尽】（需先天根骨 ≥ 90）面不改色一饮而尽，纯凭浑厚气血蒸散寒气！',
       subLabel: '震慑丹泉来使，侯沧海暗暗赞赏，亦入高阶传功分支！',
       tone: 'jade',
-      condition: { type: 'talentAtLeast', key: '根骨', min: 92 },
+      condition: { type: 'talentAtLeast', key: '根骨', min: 90 },
       effects: [
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0220' }, delta: 12 },
         { type: 'addFlagNumber', flag: 'qc_ruthless_edge', delta: 1 },
@@ -1139,14 +1139,14 @@ const SCENE_QC_07_CLIFF_QIN: StorySceneDef = {
   choices: [
     {
       id: 'qc07_qin_comprehension',
-      label: '【知音识微 · 藏锋护道】（需先天悟性 ≥ 92 或 十艺【琴】 ≥ 12）道破第七徽“杀音骤敛、以道驭剑”真意！',
+      label: '【知音识微 · 藏锋护道】（需先天悟性 ≥ 90 或 十艺【琴】 ≥ 12）道破第七徽“杀音骤敛、以道驭剑”真意！',
       subLabel: '深契方正与沈清岚亡父剑道理想！琴艺 +3，方正好感与清岚缘分大增',
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需先天悟性 ≥ 92 或 十艺【琴】 ≥ 12',
+        hint: '需先天悟性 ≥ 90 或 十艺【琴】 ≥ 12',
         conditions: [
-          { type: 'talentAtLeast', key: '悟性', min: 92 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
           { type: 'skillAtLeast', key: '琴', min: 12 },
         ],
       },
@@ -1343,10 +1343,10 @@ const SCENE_QC_04_MOUNTAIN_STEPS: StorySceneDef = {
   choices: [
     {
       id: 'qc04_bone_carry_all',
-      label: '【神力担柴 · 直登丹梯】（需先天根骨 ≥ 92）一手接过百斤湿柴扁担，健步如飞直上山门！',
+      label: '【神力担柴 · 直登丹梯】（需先天根骨 ≥ 90）一手接过百斤湿柴扁担，健步如飞直上山门！',
       subLabel: '尽显天生上乘根骨！申勇焱好感 +15，沈清岚钦佩不已',
       tone: 'gold',
-      condition: { type: 'talentAtLeast', key: '根骨', min: 92 },
+      condition: { type: 'talentAtLeast', key: '根骨', min: 90 },
       effects: [
         { type: 'setFlag', flag: 'qc_knew_two_factions', value: true },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0933' }, delta: 15 },
@@ -1383,15 +1383,15 @@ const SCENE_QC_03_ACADEMY_LEDGER: StorySceneDef = {
   choices: [
     {
       id: 'qc03_abacus_deduce',
-      label: '【珠算核斤 · 智辨夹层】（需十艺【算术】 ≥ 12 或 先天悟性 ≥ 92）拨算盘核对车辙吃重与体积差！',
+      label: '【珠算核斤 · 智辨夹层】（需十艺【算术】 ≥ 12 或 先天悟性 ≥ 90）拨算盘核对车辙吃重与体积差！',
       subLabel: '不开封条精准算出箱底暗藏生铁机簧配重，算术 +3，清岚刮目相看',
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需十艺【算术】 ≥ 12 或 先天悟性 ≥ 92',
+        hint: '需十艺【算术】 ≥ 12 或 先天悟性 ≥ 90',
         conditions: [
           { type: 'skillAtLeast', key: '算术', min: 12 },
-          { type: 'talentAtLeast', key: '悟性', min: 92 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
         ],
       },
       effects: [
@@ -1420,10 +1420,10 @@ const SCENE_QC_03_ACADEMY_LEDGER: StorySceneDef = {
     },
     {
       id: 'qc03_strength_lift',
-      label: '【单臂托箱 · 听声辨器】（需先天根骨 ≥ 92）单手托起百斤黑樟箱轻晃听音！',
+      label: '【单臂托箱 · 听声辨器】（需先天根骨 ≥ 90）单手托起百斤黑樟箱轻晃听音！',
       subLabel: '神力惊呆侯清野，听出箱底铁器碰撞声，获赠【书院习礼桃木剑】',
       tone: 'jade',
-      condition: { type: 'talentAtLeast', key: '根骨', min: 92 },
+      condition: { type: 'talentAtLeast', key: '根骨', min: 90 },
       effects: [
         { type: 'giveCombatExp', amount: 15, reason: '文翁石室单臂托百斤樟箱辨器' },
         { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 1 },
@@ -1494,15 +1494,15 @@ const SCENE_QC_02_BRONZE_GOAT_DAO: StorySceneDef = {
   choices: [
     {
       id: 'qc02_dao_insight',
-      label: '【引都江堰水喻剑】（需十艺【经义】 ≥ 12 或 先天悟性 ≥ 92）“水善利万物而不争，然宝瓶口破石亦在一瞬奔雷！”',
+      label: '【引都江堰水喻剑】（需十艺【经义】 ≥ 12 或 先天悟性 ≥ 90）“水善利万物而不争，然宝瓶口破石亦在一瞬奔雷！”',
       subLabel: '妙解道剑合一！经义 +3，沈清岚眸泛异彩，缘分 +2',
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需十艺【经义】 ≥ 12 或 先天悟性 ≥ 92',
+        hint: '需十艺【经义】 ≥ 12 或 先天悟性 ≥ 90',
         conditions: [
           { type: 'skillAtLeast', key: '经义', min: 12 },
-          { type: 'talentAtLeast', key: '悟性', min: 92 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
         ],
       },
       effects: [
@@ -1575,15 +1575,15 @@ const SCENE_QC_01_QINGYANG_RAIN: StorySceneDef = {
   choices: [
     {
       id: 'qc01_eloquence_rebut',
-      label: '【唇枪舌剑 · 引律喝退】（需十艺【辩才】 ≥ 12 或 先天悟性 ≥ 92）点破私盐麻布伪充蜀锦与成都府衙条律！',
+      label: '【唇枪舌剑 · 引律喝退】（需十艺【辩才】 ≥ 12 或 先天悟性 ≥ 90）点破私盐麻布伪充蜀锦与成都府衙条律！',
       subLabel: '零武学智退恶汉！辩才 +2，青城小师姐初见倾心',
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需十艺【辩才】 ≥ 12 或 先天悟性 ≥ 92',
+        hint: '需十艺【辩才】 ≥ 12 或 先天悟性 ≥ 90',
         conditions: [
           { type: 'skillAtLeast', key: '辩才', min: 12 },
-          { type: 'talentAtLeast', key: '悟性', min: 92 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
         ],
       },
       effects: [
@@ -1594,10 +1594,10 @@ const SCENE_QC_01_QINGYANG_RAIN: StorySceneDef = {
     },
     {
       id: 'qc01_charm_crowd',
-      label: '【风仪凛然 · 邀众评理】（需风姿颜值 ≥ 92）拾起道经朗声唤来满廊蜀中士子香客共斥讹诈！',
+      label: '【风仪凛然 · 邀众评理】（需风姿颜值 ≥ 90）拾起道经朗声唤来满廊蜀中士子香客共斥讹诈！',
       subLabel: '气度清华折服众人，恶汉羞惭鼠窜！江湖声望 +3，缘分 +2',
       tone: 'jade',
-      condition: { type: 'talentAtLeast', key: '颜值', min: 92 },
+      condition: { type: 'talentAtLeast', key: '颜值', min: 90 },
       effects: [
         { type: 'modifyRenown', delta: 3, reason: '成都青羊道宫仗义执言喝退盐枭' },
         { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 2 },

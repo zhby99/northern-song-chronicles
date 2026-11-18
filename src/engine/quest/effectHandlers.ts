@@ -28,9 +28,9 @@ import {
 import {
   buildJoinSectPatch,
   clonePlayerSectState,
-  getEntryQuestSectId,
   getSectEntryQuestBlockReason,
   resetSectMembership,
+  resolveMonasticSecularRestore,
   getSectMonthlyStipend,
   getSectRankTitle,
   isSongAlignedNpc,
@@ -100,10 +100,13 @@ function buildDraftEvalContext(
     res: s.res,
     ridingSkill: s.ridingSkill,
     baseStats: s.baseStats,
+    equipped: s.equipped,
+    equippedArts: s.equippedArts,
     skills: s.skills,
     inventory: s.inventory,
     learnedArts: s.learnedArts,
     npcFavor: s.npcFavor,
+    deadNpcIds: s.deadNpcIds,
     sectState: s.sectState,
     questState: s.questState,
     targetNpc: targetNpc ?? null,
@@ -587,19 +590,9 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
       return
     }
 
-    // 已拜入本派：其余门派尚在进行中的入门线自此作罢，免得日后再走完他派终幕
-    const nextQuestState = cloneQuestRuntimeState(joinRes.nextQuestState)
-    const droppedTitles: string[] = []
-    for (const qid of Object.keys(nextQuestState.activeQuests)) {
-      const entrySect = getEntryQuestSectId(qid)
-      if (entrySect && entrySect !== eff.sectId) {
-        delete nextQuestState.activeQuests[qid]
-        nextQuestState.dynamicActors = nextQuestState.dynamicActors.filter(
-          (a) => a.questId !== qid,
-        )
-        droppedTitles.push(`《${QUEST_MAP[qid]?.title ?? qid}》`)
-      }
-    }
+    const droppedTitles = joinRes.droppedEntryQuestIds.map(
+      (qid) => `《${QUEST_MAP[qid]?.title ?? qid}》`,
+    )
 
     const giftSuffix =
       joinRes.grantedGiftNames.length > 0
@@ -612,7 +605,7 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
       silver: joinRes.nextSilver,
       inventory: joinRes.nextInventory,
       sectState: joinRes.nextSectState,
-      questState: nextQuestState,
+      questState: joinRes.nextQuestState,
       actionFeedback: { text: msg, tone: 'success' },
       logs: [createLogEntry(s.dayCount, '拜入宗门', msg, true, s.shichenIdx), ...s.logs].slice(
         0,
@@ -693,14 +686,29 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
     if (eff.skipPenalty) {
       const leavingSectId = s.sectState.sectId
       const factionName = FACTION_DB_MAP[leavingSectId]?.name ?? leavingSectId
+      const secular = resolveMonasticSecularRestore({
+        leavingSectId,
+        prevDiscipleType: s.sectState.shaolinDiscipleType,
+        playerName: s.playerName,
+        playerPortraitId: s.playerPortraitId,
+        playerGender: s.playerGender,
+        questFlags: s.questState.flags,
+      })
       const nextSect = resetSectMembership(s.sectState)
+      const nextQuest = cloneQuestRuntimeState(s.questState)
+      if (leavingSectId === 'SECT-17' || leavingSectId === 'SECT-33') {
+        delete nextQuest.activeQuests['QST-SECT-17-TAIHANG-BANDIT']
+      }
       ctx.patchDraft({
+        playerName: secular.playerName,
+        playerPortraitId: secular.playerPortraitId,
         sectState: nextSect,
+        questState: nextQuest,
         logs: [
           createLogEntry(
             s.dayCount,
             '奉命离宗',
-            `少侠依约脱离【${factionName}】。`,
+            `少侠依约脱离【${factionName}】${secular.restored ? `，换回俗家装束，复归本名「${secular.playerName}」` : ''}。`,
             false,
             s.shichenIdx,
           ),
@@ -747,17 +755,30 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
     const prevName = s.playerName
     const nextSect = clonePlayerSectState(s.sectState)
     nextSect.shaolinDiscipleType = 'monk'
+    const nextQuest = cloneQuestRuntimeState(s.questState)
+    if (!nextQuest.flags.secular_player_portrait_id) {
+      nextQuest.flags.secular_player_portrait_id = s.playerPortraitId
+    }
+    if (!nextQuest.flags.secular_player_name) {
+      nextQuest.flags.secular_player_name = prevName
+    }
+    nextQuest.flags.ordained_monk_dharma_name = eff.dharmaName
+    const nextPortraitId =
+      s.playerGender === '女' && eff.portraitId === 'hero_02_shaolin'
+        ? s.playerPortraitId
+        : eff.portraitId
     const isNanShaolin = eff.sectId === 'SECT-04' || nextSect.sectId === 'SECT-04'
     const isWutai = eff.sectId === 'SECT-03' || nextSect.sectId === 'SECT-03'
     const msg = isNanShaolin
-      ? `于莆田南少林九莲大雄宝殿礼拜方丈【元苦】落发受戒，俗名「${prevName}」化入空门，赐弘字辈法号【${eff.dharmaName}】！自此换穿佛子僧衣，南少林地阶秘传功法尽数向小师父敞开！`
+      ? `于莆田南少林九莲大雄宝殿礼拜方丈【元苦】受戒入佛门，俗名「${prevName}」化入空门，赐弘字辈法号【${eff.dharmaName}】！自此南少林地阶秘传功法尽数敞开！`
       : isWutai
-        ? `于五台山清凉寺大雄主殿礼拜方丈【道清】落发受戒，俗名「${prevName}」化入清凉空门，赐明字辈护法法号【${eff.dharmaName}】！自此换穿清凉僧衣，执杖护国，禅武双修！`
-        : `于少林大雄正殿礼拜方丈【玄慈】落发受戒，俗名「${prevName}」化入空门，赐慧字辈法号【${eff.dharmaName}】！自此换穿佛子僧衣，少林地阶与天阶秘传绝学尽数向小师父敞开！`
+        ? `于五台山清凉寺大雄主殿礼拜方丈【道清】受戒入清凉空门，俗名「${prevName}」赐明字辈护法法号【${eff.dharmaName}】！自此执杖护国，禅武双修！`
+        : `于少林大雄正殿礼拜方丈【玄慈】受戒入空门，俗名「${prevName}」赐慧字辈法号【${eff.dharmaName}】！自此少林地阶与天阶秘传绝学尽数敞开！`
     ctx.patchDraft({
       playerName: eff.dharmaName,
-      playerPortraitId: eff.portraitId,
+      playerPortraitId: nextPortraitId,
       sectState: nextSect,
+      questState: nextQuest,
       actionFeedback: { text: msg, tone: 'success' },
       logs: [createLogEntry(s.dayCount, '剃度受戒', msg, true, s.shichenIdx), ...s.logs].slice(
         0,

@@ -6,10 +6,12 @@ import {
   REGION_DB_MAP,
   resolveNpcByName,
 } from '../data/gameDb'
-import { ITEM_DB_MAP } from '../data/itemsDb'
+import { getEffectiveTalents, ITEM_DB_MAP } from '../data/itemsDb'
 import { getProtagonistPortrait } from '../data/protagonistPresets'
 import { QUEST_MAP, QUEST_REGISTRY } from '../data/quests'
 import type {
+  EquippedArtsMap,
+  EquippedSlotsMap,
   HeroBaseStats,
   HeroTalents,
   InventoryStack,
@@ -42,8 +44,52 @@ import {
 import { getLoadedQuestScenes } from './quest/sceneRegistry'
 import { SHICHEN_LABELS } from './shared/constants'
 import { getSectEntryQuestBlockReason } from './sect/exclusivity'
+import { interpolateReignYear } from './world/mapMath'
 
 export { buildNodeNpcFromCompiledId, buildNodeNpcFromDynamicActor, makeQuestNpc }
+
+export interface StoryTextInterpolationContext {
+  dayCount: number
+  playerGender?: '男' | '女'
+  sectId?: string | null
+  questState?: Pick<QuestRuntimeState, 'completedQuests' | 'flags'> | null
+}
+
+export function interpolateStoryText(
+  text: string,
+  ctx: StoryTextInterpolationContext,
+): string {
+  let out = interpolateReignYear(text, ctx.dayCount)
+  if (out.includes('{ifQuestDone:')) {
+    out = out.replace(
+      /\{ifQuestDone:([^|}]+)\|([^|}]*)\|([^}]*)\}/g,
+      (_m, questId: string, thenText: string, elseText: string) =>
+        ctx.questState?.completedQuests?.[questId.trim()] ? thenText : elseText,
+    )
+  }
+  if (out.includes('{ifFlag:')) {
+    out = out.replace(
+      /\{ifFlag:([^|}]+)\|([^|}]*)\|([^}]*)\}/g,
+      (_m, flagKey: string, thenText: string, elseText: string) =>
+        ctx.questState?.flags?.[flagKey.trim()] ? thenText : elseText,
+    )
+  }
+  if (out.includes('{ifSect:')) {
+    out = out.replace(
+      /\{ifSect:([^|}]+)\|([^|}]*)\|([^}]*)\}/g,
+      (_m, sectId: string, thenText: string, elseText: string) =>
+        ctx.sectId === sectId.trim() ? thenText : elseText,
+    )
+  }
+  if (out.includes('{gender:')) {
+    out = out.replace(
+      /\{gender:([^|}]*)\|([^}]*)\}/g,
+      (_m, maleText: string, femaleText: string) =>
+        ctx.playerGender === '女' ? femaleText : maleText,
+    )
+  }
+  return out
+}
 
 const TALENT_LABELS: Record<keyof HeroTalents, string> = {
   根骨: '先天根骨',
@@ -174,10 +220,14 @@ export interface QuestEvalContext {
   res: number
   ridingSkill?: number
   baseStats: HeroBaseStats
+  equipped?: EquippedSlotsMap
+  equippedArts?: EquippedArtsMap
+  effectiveTalents?: HeroTalents
   skills?: Record<string, number>
   inventory: InventoryStack[]
   learnedArts: LearnedArtEntry[]
   npcFavor: Record<string, number>
+  deadNpcIds?: readonly string[]
   sectState: PlayerSectState
   questState: QuestRuntimeState
   targetNpc?: NodeNpc | null
@@ -263,7 +313,17 @@ export function evaluateQuestCondition(
     }
 
     case 'talentAtLeast': {
-      const cur = ctx.baseStats.talents[cond.key] ?? 0
+      const talents =
+        ctx.effectiveTalents ??
+        (ctx.equipped
+          ? getEffectiveTalents(
+              ctx.baseStats.talents,
+              ctx.equipped,
+              ctx.equippedArts,
+              ctx.learnedArts,
+            )
+          : ctx.baseStats.talents)
+      const cur = talents[cond.key] ?? 0
       if (cur >= cond.min) return { passed: true, reason: null }
       return {
         passed: false,
@@ -272,7 +332,17 @@ export function evaluateQuestCondition(
     }
 
     case 'talentAtMost': {
-      const cur = ctx.baseStats.talents[cond.key] ?? 0
+      const talents =
+        ctx.effectiveTalents ??
+        (ctx.equipped
+          ? getEffectiveTalents(
+              ctx.baseStats.talents,
+              ctx.equipped,
+              ctx.equippedArts,
+              ctx.learnedArts,
+            )
+          : ctx.baseStats.talents)
+      const cur = talents[cond.key] ?? 0
       if (cur <= cond.max) return { passed: true, reason: null }
       return {
         passed: false,
@@ -513,6 +583,18 @@ export function evaluateQuestCondition(
       return {
         passed: false,
         reason: `需【${npcName}】好感度 ≥ ${cond.min}（当前 ${cur}）`,
+      }
+    }
+
+    case 'npcAlive': {
+      const isDead =
+        Boolean(ctx.deadNpcIds?.includes(cond.npcId)) ||
+        (cond.npcId === 'NPC-0122' && Boolean(ctx.sectState.killedDingChunqiu))
+      if (!isDead) return { passed: true, reason: null }
+      const npcName = cond.npcName ?? NPC_DB_MAP[cond.npcId]?.name ?? cond.npcId
+      return {
+        passed: false,
+        reason: `【${npcName}】已然身故`,
       }
     }
 
@@ -1013,6 +1095,7 @@ export function validateAllRegisteredQuests(
         break
       }
       case 'npcFavorAtLeast':
+      case 'npcAlive':
         if (!NPC_DB_MAP[cond.npcId] && !cond.npcId.startsWith('ACT-')) {
           errors.push(`${ctxPath}: 未知的 npcId "${cond.npcId}"`)
         }
@@ -1141,6 +1224,13 @@ export function validateAllRegisteredQuests(
         ) {
           errors.push(`${ctxPath}: 未知的 npcId "${eff.target.npcId}"`)
         }
+        break
+      case 'markNpcsDead':
+        eff.npcIds.forEach((nid) => {
+          if (!NPC_DB_MAP[nid] && !nid.startsWith('ACT-')) {
+            errors.push(`${ctxPath}.markNpcsDead: 未知的 npcId "${nid}"`)
+          }
+        })
         break
       case 'spawnDynamicActor':
         checkLocation(

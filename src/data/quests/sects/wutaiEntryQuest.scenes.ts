@@ -600,10 +600,10 @@ const SCENE_WT_07_TALENT_TRIAL: StorySceneDef = {
   choices: [
     {
       id: 'wt07_bone_stone_lock',
-      label: '【天生金刚骨】沉腰坐胯，双臂硬撼冰封百斤青石锁！（需根骨 ≥ 92）',
+      label: '【天生金刚骨】沉腰坐胯，双臂硬撼冰封百斤青石锁！（需根骨 ≥ 90）',
       subLabel: '展现非凡先天筋骨，入门后《五郎八卦棍》获额外 3000 熟练度加成',
       tone: 'gold',
-      condition: { type: 'talentAtLeast', key: '根骨', min: 92 },
+      condition: { type: 'talentAtLeast', key: '根骨', min: 90 },
       effects: [
         openScene(regScene(buildScene07TalentOutcome(
             'bone',
@@ -618,14 +618,14 @@ const SCENE_WT_07_TALENT_TRIAL: StorySceneDef = {
     },
     {
       id: 'wt07_wisdom_stele',
-      label: '【文殊顿悟心】抚摩残碑棍痕，解悟五郎“截枪化棍”真谛！（需悟性 ≥ 92 或 经义 ≥ 18）',
+      label: '【文殊顿悟心】抚摩残碑棍痕，解悟五郎“截枪化棍”真谛！（需悟性 ≥ 90 或 经义 ≥ 18）',
       subLabel: '展现上乘慧根与经义，经义 +4，入门后《清凉禅定吐纳法》获额外 4000 熟练度',
       tone: 'jade',
       condition: {
         type: 'any',
-        hint: '需先天悟性 ≥ 92 或 十艺【经义】 ≥ 18',
+        hint: '需先天悟性 ≥ 90 或 十艺【经义】 ≥ 18',
         conditions: [
-          { type: 'talentAtLeast', key: '悟性', min: 92 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
           { type: 'skillAtLeast', key: '经义', min: 18 },
         ],
       },
@@ -714,14 +714,14 @@ const SCENE_WT_05_SILENT_ORPHAN: StorySceneDef = {
   choices: [
     {
       id: 'wt05_charm_story',
-      label: '【温颜软语 · 春风化冰】蹲身平视，温和讲起塞北小木马寻家的故事（需颜值 ≥ 92 或 辩才 ≥ 18）',
+      label: '【温颜软语 · 春风化冰】蹲身平视，温和讲起塞北小木马寻家的故事（需颜值 ≥ 90 或 辩才 ≥ 18）',
       subLabel: '凭亲和风姿与善言卸下孤儿心防，辩才 +2，结下深厚【孤雏善缘】',
       tone: 'jade',
       condition: {
         type: 'any',
-        hint: '需风姿颜值 ≥ 92 或 十艺【辩才】 ≥ 18',
+        hint: '需风姿颜值 ≥ 90 或 十艺【辩才】 ≥ 18',
         conditions: [
-          { type: 'talentAtLeast', key: '颜值', min: 92 },
+          { type: 'talentAtLeast', key: '颜值', min: 90 },
           { type: 'skillAtLeast', key: '辩才', min: 18 },
         ],
       },
@@ -777,14 +777,14 @@ const SCENE_WT_04_HERB_APTITUDE: StorySceneDef = {
   choices: [
     {
       id: 'wt04_herb_genius',
-      label: '【慧心辨药】依算筹配比药量，麻黄先煎撇沫、雪草文火后下！（需悟性 ≥ 92 或 算术 ≥ 18）',
+      label: '【慧心辨药】依算筹配比药量，麻黄先煎撇沫、雪草文火后下！（需悟性 ≥ 90 或 算术 ≥ 18）',
       subLabel: '天资聪颖，分毫不差控住药性，经义 +3、算术 +2、智光好感 +15',
       tone: 'jade',
       condition: {
         type: 'any',
-        hint: '需先天悟性 ≥ 92 或 十艺【算术】 ≥ 18',
+        hint: '需先天悟性 ≥ 90 或 十艺【算术】 ≥ 18',
         conditions: [
-          { type: 'talentAtLeast', key: '悟性', min: 92 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
           { type: 'skillAtLeast', key: '算术', min: 18 },
         ],
       },

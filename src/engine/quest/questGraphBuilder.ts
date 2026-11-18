@@ -294,7 +294,7 @@ export function buildQuestDependencyGraph(
     }
     if (q.factionId === 'SECT-22') {
       spearLineageProducerIds.push(q.id)
-      itemProducerByItemId['ITM-MSC-001'] = {
+      itemProducerByItemId['ITM-MSC-013'] = {
         questId: q.id,
         mode: 'dashed',
         note: '《常山·定州联合举荐信》保举入职或同源转投',
@@ -302,7 +302,7 @@ export function buildQuestDependencyGraph(
     }
     if (q.id === 'QST-CITY-DAMING-BAJI') {
       spearLineageProducerIds.push(q.id)
-      itemProducerByItemId['ITM-MSC-002'] = {
+      itemProducerByItemId['ITM-MSC-007'] = {
         questId: q.id,
         mode: 'dashed',
         note: '《北京留守幕府举荐信》直授开封府 Lv.2 捕头都头',
@@ -407,7 +407,7 @@ export function buildQuestDependencyGraph(
 
     // Kaifeng Rank 2 -> Rank 3 referral & progression edges
     if (q.id === kaifengRank3GateQuestId) {
-      for (const itemId of ['ITM-MSC-001', 'ITM-MSC-002']) {
+      for (const itemId of ['ITM-MSC-013', 'ITM-MSC-007']) {
         const prod = itemProducerByItemId[itemId]
         if (prod) addEdge(prod.questId, q.id, 'dashed', prod.note)
       }
@@ -438,9 +438,9 @@ export function buildQuestDependencyGraph(
     }
 
     // Second-tier referral quests -> first-tier regional sister sects
-    if (q.factionId === 'SECT-03' && itemProducerByItemId['ITM-MSC-001']) {
+    if (q.factionId === 'SECT-03' && itemProducerByItemId['ITM-MSC-013']) {
       addEdge(
-        itemProducerByItemId['ITM-MSC-001'].questId,
+        itemProducerByItemId['ITM-MSC-013'].questId,
         q.id,
         'dashed',
         '持《常山·定州联合举荐信》可免责带功剃度入五台山',

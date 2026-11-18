@@ -784,8 +784,12 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       const blacklisted =
         nextSectState.songCourtBlacklisted || Boolean(s.questState.flags.song_court_blacklisted)
       if (arrivedNodeId === 'bianliang' && blacklisted) {
-        const ambushMsg =
-          '少侠身负绿林劫官海捕文书踏入东京【开封府】界，城门前红衣剑影一闪——御前四品带刀护卫【展昭】按巨阙宝剑拦路喝道：「朝廷钦犯休走！随展某回开封府伏法！」'
+        const isDamingMapTheftOnly =
+          Boolean(s.questState.flags.dm_stole_hebei_defense_map) &&
+          !s.questState.flags.toumingzhuang_completed
+        const ambushMsg = isDamingMapTheftOnly
+          ? '少侠身负夜盗北京留守行宫《河北防辽舆图》海捕文书踏入东京【开封府】界，城门前红衣剑影一闪——御前四品带刀护卫【展昭】按巨阙宝剑拦路喝道：「盗取边防机密钦犯休走！随展某回开封府伏法！」'
+          : '少侠身负绿林劫官海捕文书踏入东京【开封府】界，城门前红衣剑影一闪——御前四品带刀护卫【展昭】按巨阙宝剑拦路喝道：「朝廷钦犯休走！随展某回开封府伏法！」'
         nextLogs.unshift(
           createLogEntry(nextDayCount, '开封缉捕', ambushMsg, true, nextShichenIdx),
         )
@@ -1076,9 +1080,11 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         NORTH_CHINA_REGION_IDS.has(seg.from) || NORTH_CHINA_REGION_IDS.has(seg.to)
       const isKaifengLv3Plus =
         stAfter.sectState.sectId === 'SECT-17' && stAfter.sectState.rank >= 3
+      const canContinueTaihangBandit =
+        isKaifengLv3Plus || stAfter.sectState.sectId === 'SECT-33'
       if (
         inNorthChina &&
-        isKaifengLv3Plus &&
+        canContinueTaihangBandit &&
         !stAfter.activeStoryScene &&
         !stAfter.activeCombat &&
         !stAfter.gameOver
@@ -1097,7 +1103,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
             ],
             null,
           )
-        } else if (!banditProg && !banditDone && gameRng() < 0.01) {
+        } else if (isKaifengLv3Plus && !banditProg && !banditDone && gameRng() < 0.01) {
           get().campStop()
           get().runQuestEffects(
             [

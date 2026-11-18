@@ -303,6 +303,7 @@ const INLINE_SCENE_14_scene_tb_yanan_pre: StorySceneDef = {
                       introText:
                         '【2v2 沙场生死战】战鼓如雷，大地剧震！枢密副使狄青覆上青铜鬼面与你并肩迎敌，正面对决西夏一品堂一流上品高手努儿海与铁鹞子统帅漫咩！可点击敌将立绘或按 [Tab] 择一集火，于沙场绝境中打出平生第一记【绝命回马枪】！',
                       onWin: [
+                        { type: 'markNpcsDead', npcIds: ['NPC-0152'] },
                         { type: 'addArtExp', amount: 3500 },
                         { type: 'giveCombatExp', amount: 160, reason: '鄜延沙场破西夏铁鹞子' },
                         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0031' }, delta: 20 },

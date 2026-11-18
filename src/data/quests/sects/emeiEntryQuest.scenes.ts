@@ -407,16 +407,16 @@ const SCENE_EM_14_XIXIANG_ARRIVAL: StorySceneDef = {
   choices: [
     {
       id: 'em14_calm_with_qin_charm',
-      label: '【借竹楼琴箫清韵 · 抚奏一曲空山鸟语平复躁气】（琴 ≥ 14 / 诗词 ≥ 15 / 颜值 ≥ 92）',
+      label: '【借竹楼琴箫清韵 · 抚奏一曲空山鸟语平复躁气】（琴 ≥ 14 / 诗词 ≥ 15 / 颜值 ≥ 90）',
       subLabel: '清雅风姿：琴音涤荡惊惧，老白猿欢跃落崖，十艺【琴】+2',
       tone: 'jade',
       condition: {
         type: 'any',
-        hint: '需十艺【琴】≥ 14，或【诗词】≥ 15，或先天【颜值】≥ 92',
+        hint: '需十艺【琴】≥ 14，或【诗词】≥ 15，或先天【颜值】≥ 90',
         conditions: [
           { type: 'skillAtLeast', key: '琴', min: 14 },
           { type: 'skillAtLeast', key: '诗词', min: 15 },
-          { type: 'talentAtLeast', key: '颜值', min: 92 },
+          { type: 'talentAtLeast', key: '颜值', min: 90 },
         ],
       },
       effects: [
@@ -919,10 +919,10 @@ const SCENE_EM_02_WANLI_BRIDGE_RAIN: StorySceneDef = {
     },
     {
       id: 'em02_graceful_charm_reply',
-      label: '【拂去衣上雨水从容揖礼 · “药草关乎人命，岂因身无武功便袖手旁观？”】（颜值 ≥ 92）',
+      label: '【拂去衣上雨水从容揖礼 · “药草关乎人命，岂因身无武功便袖手旁观？”】（颜值 ≥ 90）',
       subLabel: '清朗风仪：虽沾泥水难掩出尘气度，苏梦清眸光微亮（羁绊 +1）',
       tone: 'jade',
-      condition: { type: 'talentAtLeast', key: '颜值', min: 92 },
+      condition: { type: 'talentAtLeast', key: '颜值', min: 90 },
       effects: [
         { type: 'addFlagNumber', flag: 'emei_smq_bond', delta: 1 },
         { type: 'addFlagNumber', flag: 'emei_aptitude_marks', delta: 1 },

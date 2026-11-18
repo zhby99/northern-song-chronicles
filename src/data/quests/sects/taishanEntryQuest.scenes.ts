@@ -304,14 +304,14 @@ const SCENE_TS_17_GNOMON_SWORD_CALC: StorySceneDef = {
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需十艺【算术】≥ 24，或（【算术】≥ 16 且 先天【悟性】≥ 94）',
+        hint: '需十艺【算术】≥ 24，或（【算术】≥ 16 且 先天【悟性】≥ 90）',
         conditions: [
           { type: 'skillAtLeast', key: '算术', min: 24 },
           {
             type: 'all',
             conditions: [
               { type: 'skillAtLeast', key: '算术', min: 16 },
-              { type: 'talentAtLeast', key: '悟性', min: 94 },
+              { type: 'talentAtLeast', key: '悟性', min: 90 },
             ],
           },
         ],
@@ -331,7 +331,7 @@ const SCENE_TS_17_GNOMON_SWORD_CALC: StorySceneDef = {
       subLabel:
         '【灵犀悟剑】获赐《岱宗日影剑理手札》+《泰山剑法》熟练度 +2500 + 褚玄机好感 +20',
       tone: 'jade',
-      condition: { type: 'talentAtLeast', key: '悟性', min: 92 },
+      condition: { type: 'talentAtLeast', key: '悟性', min: 90 },
       effects: [
         { type: 'giveItem', itemId: 'ITM-MSC-028', qty: 1 },
         { type: 'addArtExp', artId: 'MA-168', amount: 2500 },
@@ -606,10 +606,10 @@ const SCENE_TS_12_STELE_CORRIDOR_CLUES: StorySceneDef = {
       tone: 'gold',
       condition: {
         type: 'any',
-        hint: '需十艺【算术】≥ 20 或 先天【悟性】≥ 93',
+        hint: '需十艺【算术】≥ 20 或 先天【悟性】≥ 90',
         conditions: [
           { type: 'skillAtLeast', key: '算术', min: 20 },
-          { type: 'talentAtLeast', key: '悟性', min: 93 },
+          { type: 'talentAtLeast', key: '悟性', min: 90 },
         ],
       },
       effects: [
@@ -928,7 +928,7 @@ const SCENE_TS_07_FIVE_PINES_BREATH: StorySceneDef = {
       label: '【澄心绝虑，随五松涛声一呼一吸】顿悟“风过疏林气自生”之妙！',
       subLabel: '【悟性超凡】气血尽复，且预先感通任督气感（明日传授《泰山松风养气诀》额外获 +3500 熟练度！）',
       tone: 'gold',
-      condition: { type: 'talentAtLeast', key: '悟性', min: 92 },
+      condition: { type: 'talentAtLeast', key: '悟性', min: 90 },
       effects: [
         { type: 'healPlayer', hpPct: 100, mpPct: 100 },
         { type: 'setFlag', flag: 'taishan_pine_enlightened', value: true },
@@ -1001,9 +1001,9 @@ const SCENE_TS_06_BLOOD_ON_CLOUD_STEPS: StorySceneDef = {
     {
       id: 'ts06_climb_high_bone',
       label: '【气沉腰胯，凭天生龙虎根骨挑起百斤冰泉，更腾手稳住鲁苍岳扁担！】',
-      subLabel: '【先天根骨 ≥ 92】步履如铁铸磐石，令单天门大为震惊（好感 +20，鲁苍岳缘分 +15）',
+      subLabel: '【先天根骨 ≥ 90】步履如铁铸磐石，令单天门大为震惊（好感 +20，鲁苍岳缘分 +15）',
       tone: 'gold',
-      condition: { type: 'talentAtLeast', key: '根骨', min: 92 },
+      condition: { type: 'talentAtLeast', key: '根骨', min: 90 },
       effects: [
         { type: 'advanceShichen', count: 2 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0168' }, delta: 20 },
@@ -1181,9 +1181,9 @@ const SCENE_TS_03_BAOTU_TEA_TRIAL: StorySceneDef = {
     {
       id: 'ts03_reply_comprehension',
       label: '【以动静剑理破题】“泉涌虽急，水底青岩千载不动；外现雷霆而内守清静，方是东岳气象！”',
-      subLabel: '【先天悟性 ≥ 92】一言契合道门剑心，天松道人抚掌击节（好感 +15）',
+      subLabel: '【先天悟性 ≥ 90】一言契合道门剑心，天松道人抚掌击节（好感 +15）',
       tone: 'gold',
-      condition: { type: 'talentAtLeast', key: '悟性', min: 92 },
+      condition: { type: 'talentAtLeast', key: '悟性', min: 90 },
       effects: [
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0204' }, delta: 15 },
         { type: 'addFlagNumber', flag: 'taishan_aptitude_score', delta: 1 },
@@ -1193,13 +1193,13 @@ const SCENE_TS_03_BAOTU_TEA_TRIAL: StorySceneDef = {
     {
       id: 'ts03_reply_grace_poem',
       label: '【临轩赋诗从容雅辩】“莫道清流无铁骨，出山便是济民川！”',
-      subLabel: '【颜值 ≥ 92 或 诗词 ≥ 18】气度清华折服满座名士，十艺【诗词】+2，天松好感 +15',
+      subLabel: '【颜值 ≥ 90 或 诗词 ≥ 18】气度清华折服满座名士，十艺【诗词】+2，天松好感 +15',
       tone: 'jade',
       condition: {
         type: 'any',
-        hint: '需先天【颜值】≥ 92 或 十艺【诗词】≥ 18',
+        hint: '需先天【颜值】≥ 90 或 十艺【诗词】≥ 18',
         conditions: [
-          { type: 'talentAtLeast', key: '颜值', min: 92 },
+          { type: 'talentAtLeast', key: '颜值', min: 90 },
           { type: 'skillAtLeast', key: '诗词', min: 18 },
         ],
       },

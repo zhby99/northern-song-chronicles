@@ -167,11 +167,49 @@ const INLINE_SCENE_06_scene_zhenyuan_guide: StorySceneDef = {
               ],
             }
 
+const INLINE_SCENE_03B_scene_zhan_zhao_daming_map_arrest: StorySceneDef = {
+  id: 'scene_zhan_zhao_daming_map_arrest',
+  title: '天街剑影 · 南侠追图',
+  subtitle: '开封府海捕黑名单 · 盗图大案',
+  mandatory: true,
+  beats: [
+    N('甫踏入东京汴梁御街界碑，长街两侧马蹄声骤起，一抹耀眼猩红官袍如电掠至，森寒剑意瞬间封死四方退路！'),
+    S('NPC-0140', '“大胆叛逆狂徒！夜闯北京留守行宫沙盘阁、劫夺《河北防辽舆图》与河工官银，名列朝廷头等海捕黑名单，竟还敢踏入天子脚下？”'),
+    S('NPC-0140', '“御前四品带刀护卫展昭在此——休想走脱半步，交出边防残图，随展某回开封府狗头铡前伏法！”'),
+  ],
+  choices: [
+    {
+      id: 'choice_resist_zhan_zhao_daming',
+      label: '【困兽死斗】拔兵刃强闯御猫巨阙剑阵！',
+      subLabel: '强制生死战 · 不可逃跑 · 战败即押赴开封府狗头铡处斩',
+      tone: 'danger',
+      effects: [
+        {
+          type: 'startCombat',
+          questId: 'QST-SECT-18-TOUMINGZHUANG',
+          opponent: { kind: 'npc', npcId: 'NPC-0140' },
+          rule: 'duel',
+          duelStakesTag: 'zhan_zhao_arrest',
+          forbidEscapeReason: '御猫展昭剑气封锁长街，开封府重兵合围，绝无退路！',
+          deathTitle: '血溅天街 · 狗头铡下',
+          deathDetail:
+            '少侠因夜盗北京留守行宫《河北防辽舆图》身负朝廷海捕黑名单，踏入东京开封府时遭御前四品带刀护卫「南侠」展昭当街锁拿，力战败北，押赴开封府大堂狗头铡下问斩示众！',
+          forceMandatory: true,
+          onWin: [
+            warn('少侠竟在东京天街力挫「南侠」展昭杀出重围！然盗图海捕黑名单未消，再入开封仍将遭缉捕！', '震动东京'),
+          ],
+        },
+      ],
+    },
+  ],
+}
+
 export const SCENES_BY_QUEST: Record<string, Record<string, StorySceneDef>> = {
   'QST-SECT-18-TOUMINGZHUANG': {
     [INLINE_SCENE_01_scene_toumingzhuang_intro.id]: INLINE_SCENE_01_scene_toumingzhuang_intro,
     [INLINE_SCENE_02_scene_rob_official_ambush.id]: INLINE_SCENE_02_scene_rob_official_ambush,
     [INLINE_SCENE_03_scene_zhan_zhao_kaifeng_arrest.id]: INLINE_SCENE_03_scene_zhan_zhao_kaifeng_arrest,
+    [INLINE_SCENE_03B_scene_zhan_zhao_daming_map_arrest.id]: INLINE_SCENE_03B_scene_zhan_zhao_daming_map_arrest,
   },
   'QST-SECT-16-REFERRAL': {
     [INLINE_SCENE_04_scene_caobang_guide.id]: INLINE_SCENE_04_scene_caobang_guide,

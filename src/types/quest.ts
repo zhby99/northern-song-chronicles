@@ -122,6 +122,7 @@ export type QuestCondition =
       label?: string
     }
   | { type: 'npcFavorAtLeast'; npcId: string; min: number; npcName?: string }
+  | { type: 'npcAlive'; npcId: string; npcName?: string }
   | { type: 'shichenIn'; indices: number[]; label?: string }
   | {
       type: 'targetNpcMatch'

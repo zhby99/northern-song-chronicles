@@ -1,15 +1,19 @@
 import { shouldIgnoreOverlayHotkey } from '../../utils/hotkeys'
 import { useEffect, useMemo, useState } from 'react'
-import { getVisibleStoryChoices, resolveStorySpeaker } from '../../engine/questEngine'
+import {
+  getVisibleStoryChoices,
+  interpolateStoryText,
+  resolveStorySpeaker,
+} from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { resolveAssetUrl } from '../../utils/assetLoader'
-import { interpolateReignYear } from '../../engine/world/mapMath'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
 
 export function StorySceneModal() {
   const activeStoryScene = useGameStore((s) => s.activeStoryScene)
   const [failedImgUrl, setFailedImgUrl] = useState<string | null>(null)
   const playerName = useGameStore((s) => s.playerName)
+  const playerGender = useGameStore((s) => s.playerGender)
   const playerPortraitId = useGameStore((s) => s.playerPortraitId)
   const dayCount = useGameStore((s) => s.dayCount)
   const shichenIdx = useGameStore((s) => s.shichenIdx)
@@ -25,10 +29,13 @@ export function StorySceneModal() {
   const res = useGameStore((s) => s.res)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const baseStats = useGameStore((s) => s.baseStats)
+  const equipped = useGameStore((s) => s.equipped)
+  const equippedArts = useGameStore((s) => s.equippedArts)
   const skills = useGameStore((s) => s.skills)
   const inventory = useGameStore((s) => s.inventory)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const npcFavor = useGameStore((s) => s.npcFavor)
+  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
   const sectState = useGameStore((s) => s.sectState)
   const questState = useGameStore((s) => s.questState)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
@@ -55,10 +62,13 @@ export function StorySceneModal() {
           res,
           ridingSkill,
           baseStats,
+          equipped,
+          equippedArts,
           skills,
           inventory,
           learnedArts,
           npcFavor,
+          deadNpcIds,
           sectState,
           questState,
         },
@@ -79,10 +89,13 @@ export function StorySceneModal() {
       res,
       ridingSkill,
       baseStats,
+      equipped,
+      equippedArts,
       skills,
       inventory,
       learnedArts,
       npcFavor,
+      deadNpcIds,
       sectState,
       questState,
       activeStoryScene?.contextNpc,
@@ -138,13 +151,20 @@ export function StorySceneModal() {
   const activeIllustrationCaption =
     currentBeat.illustrationCaption ?? scene.illustrationCaption ?? scene.title
   const illustrationFailed = Boolean(activeIllustrationUrl && failedImgUrl === activeIllustrationUrl)
+  const fmtText = (text: string) =>
+    interpolateStoryText(text, {
+      dayCount,
+      playerGender,
+      sectId: sectState.sectId,
+      questState,
+    })
 
   return (
     <div
       className="fixed inset-0 z-42 pointer-events-auto flex flex-col justify-end items-center select-none"
       role="dialog"
       aria-modal="true"
-      aria-label={scene.title}
+      aria-label={fmtText(scene.title)}
     >
       {/* 宋式剧场暗角幕布 */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#0f0a06]/90 via-[#17100a]/45 to-[#0f0a06]/60" />
@@ -153,11 +173,11 @@ export function StorySceneModal() {
       <div className="absolute top-6 inset-x-0 z-20 flex justify-center px-4 pointer-events-none">
         <div className="px-6 py-2 rounded-full bg-[#24170d]/92 border-2 border-[#c89d54] shadow-2xl text-center">
           <div className="song-serif font-bold text-base sm:text-lg text-[#f7e3b5] tracking-widest">
-            《{interpolateReignYear(scene.title, dayCount)}》
+            《{fmtText(scene.title)}》
           </div>
           {scene.subtitle && (
             <div className="text-[11px] text-[#cbb289] tracking-wide">
-              {interpolateReignYear(scene.subtitle, dayCount)}
+              {fmtText(scene.subtitle)}
             </div>
           )}
         </div>
@@ -170,14 +190,14 @@ export function StorySceneModal() {
             {!illustrationFailed ? (
               <img
                 src={resolveAssetUrl(activeIllustrationUrl)}
-                alt={interpolateReignYear(activeIllustrationCaption, dayCount)}
+                alt={fmtText(activeIllustrationCaption)}
                 onError={() => setFailedImgUrl(activeIllustrationUrl)}
                 className="w-full h-full object-cover"
               />
             ) : (
               <div className="px-8 py-6 text-center space-y-2">
                 <div className="song-serif text-base font-bold text-[#e7c78b]">
-                  〔 绘卷留白 · {interpolateReignYear(activeIllustrationCaption, dayCount)} 〕
+                  〔 绘卷留白 · {fmtText(activeIllustrationCaption)} 〕
                 </div>
                 <div className="text-xs text-[#b59d78] font-mono">
                   插画路径：{activeIllustrationUrl}
@@ -186,7 +206,7 @@ export function StorySceneModal() {
             )}
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent px-4 py-2 text-center">
               <span className="text-xs song-serif text-[#f3dfb8] tracking-wider">
-                {interpolateReignYear(activeIllustrationCaption, dayCount)}
+                {fmtText(activeIllustrationCaption)}
               </span>
             </div>
           </div>
@@ -243,11 +263,11 @@ export function StorySceneModal() {
                   >
                     <div className="space-y-0.5">
                       <div className="font-bold song-serif text-sm">
-                        {interpolateReignYear(choice.label, dayCount)}
+                        {fmtText(choice.label)}
                       </div>
                       {choice.subLabel && (
                         <div className="text-[11px] opacity-85">
-                          {interpolateReignYear(choice.subLabel, dayCount)}
+                          {fmtText(choice.subLabel)}
                         </div>
                       )}
                     </div>
@@ -304,7 +324,7 @@ export function StorySceneModal() {
           </div>
 
           <p className="text-sm sm:text-base leading-relaxed text-[#faf0dc] min-h-[3.2rem]">
-            {interpolateReignYear(currentBeat.text, dayCount)}
+            {fmtText(currentBeat.text)}
           </p>
 
           {(!isLastBeat || evaluatedChoices.length === 0) && (

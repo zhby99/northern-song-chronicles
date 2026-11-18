@@ -352,6 +352,7 @@ opponent: {
                           introText:
                             '【2v2 马市雷霆灭口】行话露了破绽！完颜鹏豪与马市巡栏护卫同时拔刀，郭逵掣刀跃至你身侧并肩迎敌！',
                           onWin: [
+                            { type: 'markNpcsDead', npcIds: ['NPC-0767'] },
                             { type: 'addArtExp', amount: 600 },
                             { type: 'giveCombatExp', amount: 40, reason: '格杀燕京马市暗桩' },
                             { type: 'giveSilver', amount: 35, reason: '缴获辽暗桩银两' },
@@ -391,6 +392,7 @@ opponent: {
                       introText:
                         '【2v2 马市强闯灭口】不等完颜鹏豪拔刀，你挑飞草料担暴起发难，郭逵同时掣刀封死围栏退路，与完颜鹏豪及暗桩护卫展开生死搏杀！',
                       onWin: [
+                        { type: 'markNpcsDead', npcIds: ['NPC-0767'] },
                         { type: 'addArtExp', amount: 600 },
                         { type: 'giveCombatExp', amount: 40, reason: '格杀燕京马市暗桩' },
                         { type: 'giveSilver', amount: 35, reason: '缴获辽暗桩银两' },

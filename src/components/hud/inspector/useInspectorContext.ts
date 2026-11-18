@@ -80,6 +80,8 @@ export function useInspectorContext() {
   const activeEscortContract = useGameStore((s) => s.activeEscortContract)
   const activeYamenBounty = useGameStore((s) => s.activeYamenBounty)
   const yamenBountyDoneIds = useGameStore((s) => s.yamenBountyDoneIds)
+  const equipped = useGameStore((s) => s.equipped)
+  const equippedArts = useGameStore((s) => s.equippedArts)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const npcFavor = useGameStore((s) => s.npcFavor)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
@@ -279,10 +281,13 @@ export function useInspectorContext() {
       res,
       ridingSkill,
       baseStats,
+      equipped,
+      equippedArts,
       skills,
       inventory,
       learnedArts,
       npcFavor,
+      deadNpcIds,
       sectState,
       questState,
     })
@@ -313,10 +318,13 @@ export function useInspectorContext() {
     res,
     ridingSkill,
     baseStats,
+    equipped,
+    equippedArts,
     skills,
     inventory,
     learnedArts,
     npcFavor,
+    deadNpcIds,
     sectState,
     questState,
   ])

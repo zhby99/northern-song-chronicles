@@ -135,6 +135,24 @@ const SCENE_ZW_20_OUTER_DISCIPLE: StorySceneDef = {
       ],
     },
     {
+      type: 'branch',
+      condition: flag('zw_daoyuan_score', 'gte', 6),
+      thenEffects: [
+        { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0117' }, delta: 15 },
+        { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0148' }, delta: 10 },
+        { type: 'addSectContribution', amount: 60 },
+        { type: 'addArtExp', artId: 'MA-226', amount: 1800 },
+      ],
+    },
+    {
+      type: 'branch',
+      condition: flag('zw_cliff_insight', 'gte', 2),
+      thenEffects: [
+        { type: 'addArtExp', artId: 'MA-169', amount: 1500 },
+        { type: 'giveCombatExp', amount: 60, reason: '试剑崖石壁剑理参悟深厚，掌门嘉许' },
+      ],
+    },
+    {
       type: 'completeQuest',
       questId: ZHENWU_ENTRY_QUEST_ID,
       outcome: 'outer_disciple',
@@ -559,6 +577,23 @@ const SCENE_ZW_05_UNSHEATH_POOL: StorySceneDef = {
   ],
 }
 
+const SCENE_ZW_05B_UNSHEATH_POOL_ENTRUSTED: StorySceneDef = {
+  id: 'SCENE_ZW_05B_UNSHEATH_POOL_ENTRUSTED',
+  title: '第五幕 · 解剑池畔洗尘心',
+  subtitle: '武当山 · 太和绝顶真武金殿',
+  mandatory: true,
+  beats: [
+    S(SPEAKER_NARRATOR, '终抵武当山门解剑池畔，一泓清泉照见苍松云影，池旁古碑上书“至此解剑”四字。执事真人清鹤正立于山门石阶上清点香客名录，见你按时赶至，上下打量一番。'),
+    S(SPEAKER_QING_HE, '（接过你递上的解剑木牌与俞清虚手书，微微颔首）嗯，申时未过便准点登抵山门，莫师兄与俞师叔既肯托你带信送药，倒也守信稳重。'),
+    S(SPEAKER_PILGRIM_GRANNY, '（不多时，两名山道脚夫搀扶着那对还愿祖孙也平安赶到池畔，孙婆婆朝你感激合十）多谢这位小侠在半山腰留下的干粮与跌打伤药，又托脚夫大哥一路搭手，俺祖孙俩这才赶在落锁前上了金顶！'),
+    S(SPEAKER_QING_HE, '（闻言眉眼舒展几分）既不误师长急信，又妥善安置路途伤客，进退倒有章法。快请进铜铸配殿喝口热茶吧。'),
+  ],
+  onFinishEffects: [
+    setStep(ZHENWU_ENTRY_QUEST_ID, 'wudang_corridor'),
+    openScene('SCENE_ZW_06_LOT_CORRIDOR', 'QST-SECT-08-ENTRY'),
+  ],
+}
+
 const SCENE_ZW_04_MOUNTAIN_PATH: StorySceneDef = {
   id: 'SCENE_ZW_04_MOUNTAIN_PATH',
   title: '第四幕 · 襄樊古道踏青阶',
@@ -592,7 +627,7 @@ const SCENE_ZW_04_MOUNTAIN_PATH: StorySceneDef = {
         { type: 'addFlagNumber', flag: 'zw_daoyuan_score', delta: 1 },
         { type: 'advanceShichen', count: 1 },
         { type: 'teleportPlayer', regionId: 'wudangshan', buildingId: 'wd_golden', spotId: 'wd_golden_east' },
-        openScene('SCENE_ZW_05_UNSHEATH_POOL', 'QST-SECT-08-ENTRY'),
+        openScene('SCENE_ZW_05B_UNSHEATH_POOL_ENTRUSTED', 'QST-SECT-08-ENTRY'),
       ],
     },
   ],
@@ -911,6 +946,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   [SCENE_ZW_07_CLOUD_TERRACE.id]: SCENE_ZW_07_CLOUD_TERRACE,
   [SCENE_ZW_06_LOT_CORRIDOR.id]: SCENE_ZW_06_LOT_CORRIDOR,
   [SCENE_ZW_05_UNSHEATH_POOL.id]: SCENE_ZW_05_UNSHEATH_POOL,
+  [SCENE_ZW_05B_UNSHEATH_POOL_ENTRUSTED.id]: SCENE_ZW_05B_UNSHEATH_POOL_ENTRUSTED,
   [SCENE_ZW_04_MOUNTAIN_PATH.id]: SCENE_ZW_04_MOUNTAIN_PATH,
   [SCENE_ZW_03_LONGZHONG_QIN.id]: SCENE_ZW_03_LONGZHONG_QIN,
   [SCENE_ZW_02_QINGGU_TEA.id]: SCENE_ZW_02_QINGGU_TEA,

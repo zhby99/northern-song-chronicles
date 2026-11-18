@@ -439,7 +439,7 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
     },
     {
       id: 'choice_sandtable_outlaw_heist',
-      label: '【浑水摸鱼 · 夺银盗图】趁宋辽高手死斗，暴起格杀机要参谋、劫走赃银与防辽残图！',
+      label: '【浑水摸鱼 · 夺银盗图】趁宋辽高手死斗，暴起重创机要参谋、劫走赃银与防辽残图！',
       subLabel:
         '枭雄邪道生死战（战败必死）· 劫获 180 两赃银 +《河北防辽舆图残卷》，但列入大宋朝廷海捕黑名单并逐出正派！',
       tone: 'danger',
@@ -471,6 +471,7 @@ const SCENE_MIDNIGHT_SANDTABLE_CLIMAX: StorySceneDef = {
                   { type: 'inSect', sectId: 'SECT-23' },
                   { type: 'inSect', sectId: 'SECT-22' },
                   { type: 'inSect', sectId: 'SECT-17' },
+                  { type: 'inSect', sectId: 'SECT-33' },
                 ],
               },
               thenEffects: [{ type: 'leaveSect', skipPenalty: true }],

@@ -165,6 +165,52 @@ export function resetSectMembership(st: PlayerSectState): PlayerSectState {
   }
 }
 
+/**
+ * 剃度僧众脱离佛门（蓄发还俗）时，恢复剃度前封存的俗家立绘与俗家姓名。
+ */
+export function resolveMonasticSecularRestore(params: {
+  leavingSectId: string | null | undefined
+  prevDiscipleType?: 'lay' | 'monk'
+  playerName: string
+  playerPortraitId: string
+  playerGender: '男' | '女'
+  questFlags: Record<string, boolean | number | string>
+}): {
+  restored: boolean
+  playerName: string
+  playerPortraitId: string
+} {
+  const leavingRule = params.leavingSectId ? getSectRule(params.leavingSectId) : null
+  if (!leavingRule?.resetsMonasticIdentityOnLeave || params.prevDiscipleType !== 'monk') {
+    return {
+      restored: false,
+      playerName: params.playerName,
+      playerPortraitId: params.playerPortraitId,
+    }
+  }
+  const savedPortrait =
+    typeof params.questFlags.secular_player_portrait_id === 'string' &&
+    params.questFlags.secular_player_portrait_id.trim()
+      ? params.questFlags.secular_player_portrait_id.trim()
+      : params.playerGender === '女'
+        ? 'hero_11_swordmaiden'
+        : params.playerPortraitId === 'hero_02_shaolin'
+          ? 'hero_04_swordsman'
+          : params.playerPortraitId
+  const savedName =
+    typeof params.questFlags.secular_player_name === 'string' &&
+    params.questFlags.secular_player_name.trim() &&
+    params.playerName === params.questFlags.ordained_monk_dharma_name
+      ? params.questFlags.secular_player_name.trim()
+      : params.playerName
+  return {
+    restored:
+      savedPortrait !== params.playerPortraitId || savedName !== params.playerName,
+    playerName: savedName,
+    playerPortraitId: savedPortrait,
+  }
+}
+
 export function isJoinableSectFaction(factionId?: string | null): boolean {
   if (!factionId) return false
   const f = FACTION_DB_MAP[factionId]

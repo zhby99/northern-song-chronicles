@@ -104,7 +104,22 @@ export const SECOND_TIER_QUESTS: QuestDefinition[] = [
         triggerOnPassThrough: true,
         condition: flag('song_court_blacklisted', 'truthy'),
         effects: [
-          openScene('scene_zhan_zhao_kaifeng_arrest', 'QST-SECT-18-TOUMINGZHUANG'),
+          {
+            type: 'branch',
+            condition: {
+              type: 'all',
+              conditions: [
+                flag('dm_stole_hebei_defense_map', 'truthy'),
+                flag('toumingzhuang_completed', 'falsy'),
+              ],
+            },
+            thenEffects: [
+              openScene('scene_zhan_zhao_daming_map_arrest', 'QST-SECT-18-TOUMINGZHUANG'),
+            ],
+            elseEffects: [
+              openScene('scene_zhan_zhao_kaifeng_arrest', 'QST-SECT-18-TOUMINGZHUANG'),
+            ],
+          },
         ],
       },
     ],

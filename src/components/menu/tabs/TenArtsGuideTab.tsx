@@ -78,10 +78,17 @@ export const TenArtsGuideTab: React.FC = () => {
   const skills = useGameStore((s) => s.skills)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const equipped = useGameStore((s) => s.equipped)
+  const equippedArts = useGameStore((s) => s.equippedArts)
+  const learnedArts = useGameStore((s) => s.learnedArts)
   const artExps = useGameStore((s) => s.artExps)
   const artMilestoneFlags = useGameStore((s) => s.artMilestoneFlags)
 
-  const effectiveWuxing = getEffectiveTalents(baseStats.talents, equipped).悟性
+  const effectiveWuxing = getEffectiveTalents(
+    baseStats.talents,
+    equipped,
+    equippedArts,
+    learnedArts,
+  ).悟性
   const dailyGain = computeDailyArtExpGain(effectiveWuxing, 1.0, 0)
 
   return (

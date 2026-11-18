@@ -491,7 +491,8 @@ export function buildStoreEvalContext(
     | 'npcFavor'
     | 'sectState'
     | 'questState'
-  >,
+  > &
+    Partial<Pick<GameStoreState, 'equipped' | 'equippedArts' | 'deadNpcIds'>>,
   targetNpc?: NodeNpc | null,
 ): QuestEvalContext {
   return {
@@ -509,10 +510,16 @@ export function buildStoreEvalContext(
     res: s.res,
     ridingSkill: s.ridingSkill,
     baseStats: s.baseStats,
+    equipped: s.equipped,
+    equippedArts: s.equippedArts,
+    effectiveTalents: s.equipped
+      ? getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts)
+      : s.baseStats.talents,
     skills: s.skills,
     inventory: s.inventory,
     learnedArts: s.learnedArts,
     npcFavor: s.npcFavor,
+    deadNpcIds: s.deadNpcIds,
     sectState: s.sectState,
     questState: s.questState,
     targetNpc: targetNpc ?? null,

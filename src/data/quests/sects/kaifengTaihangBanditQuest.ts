@@ -95,7 +95,7 @@ export const KAIFENG_TAIHANG_BANDIT_QUEST: QuestDefinition = {
           atStep(TAIHANG_BANDIT_QUEST_ID, 'escort_to_kaifeng'),
         ],
       },
-      effects: [openScene('scene_thb_06_arrive_kaifeng')],
+      effects: [openScene('scene_thb_06_arrive_kaifeng', TAIHANG_BANDIT_QUEST_ID)],
     },
     {
       id: 'act_thb_report_injury',
@@ -111,7 +111,7 @@ export const KAIFENG_TAIHANG_BANDIT_QUEST: QuestDefinition = {
           atStep(TAIHANG_BANDIT_QUEST_ID, 'report_and_recuperate'),
         ],
       },
-      effects: [openScene('scene_thb_21_stagger_into_kaifeng')],
+      effects: [openScene('scene_thb_21_stagger_into_kaifeng', TAIHANG_BANDIT_QUEST_ID)],
     },
   ],
   onDeadlineExpired: {
@@ -119,7 +119,7 @@ export const KAIFENG_TAIHANG_BANDIT_QUEST: QuestDefinition = {
       {
         type: 'branch',
         condition: atStep(TAIHANG_BANDIT_QUEST_ID, 'await_execution'),
-        thenEffects: [openScene('scene_thb_10_dawn_prison_escort')],
+        thenEffects: [openScene('scene_thb_10_dawn_prison_escort', TAIHANG_BANDIT_QUEST_ID)],
         elseEffects: [
           {
             type: 'branch',

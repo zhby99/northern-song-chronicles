@@ -11,6 +11,7 @@ import {
 } from '../../data/gameDb'
 import {
   EQUIPMENT_SLOT_METAS,
+  getEffectiveTalents,
   ITEM_DB_MAP,
   TREASURE_VOLUME_METAS,
   type TreasureVolumeKey,
@@ -252,9 +253,9 @@ export function SystemMenuModal() {
       res,
       ridingSkill,
       skills,
-      talents: baseStats.talents,
+      talents: getEffectiveTalents(baseStats.talents, equipped, equippedArts, learnedArts),
     }),
-    [maxHp, maxMp, agility, res, ridingSkill, skills, baseStats.talents],
+    [maxHp, maxMp, agility, res, ridingSkill, skills, baseStats.talents, equipped, equippedArts, learnedArts],
   )
 
   if (!menuOpen && !compendiumOpen) return null
