@@ -14,7 +14,6 @@ import { spawn } from 'node:child_process'
 import { spawnSync } from 'node:child_process'
 import fs from 'node:fs'
 import http from 'node:http'
-import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 
@@ -26,6 +25,11 @@ const HARD_MAX_SIZE_MB = 220
 
 function fail(msg) {
   console.error(`❌ [verify:artifact] ${msg}`)
+  if (process.env.GITHUB_ACTIONS) {
+    // 写入 GitHub 错误标注：未登录也能经公开 API / 运行摘要读到失败原因
+    const oneLine = String(msg).replace(/%/g, '%25').replace(/\r?\n/g, '%0A').slice(0, 3000)
+    console.log(`::error title=verify:artifact::${oneLine}`)
+  }
   process.exit(1)
 }
 
@@ -153,7 +157,10 @@ async function main() {
             'chrome',
             'msedge',
           ]
-        : ['chromium', 'google-chrome', 'chromium-browser', 'microsoft-edge']
+        : // Linux 优先官方 Chrome：Ubuntu 的 chromium / chromium-browser 多为 snap 包，
+          // 其私有 /tmp 与沙箱读不到我们写出的测试文件（报 ERR_FILE_NOT_FOUND）
+          ['google-chrome', 'google-chrome-stable', 'chromium', 'chromium-browser', 'microsoft-edge']
+  if (process.env.NSC_BROWSER_BIN) candidates.unshift(process.env.NSC_BROWSER_BIN)
 
   let browserBin = null
   for (const bin of candidates) {
@@ -260,7 +267,10 @@ async function main() {
   const probedHtml = html.replace(/<\/body>/i, `${probeScript}\n</body>`)
   const probedBuf = Buffer.from(probedHtml, 'utf-8')
 
-  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'nsc-artifact-smoke-'))
+  // 测试页写在项目内（非隐藏目录）而非系统 /tmp：snap 版浏览器看不到宿主 /tmp
+  const smokeRoot = path.join(ROOT_DIR, 'dist-artifact')
+  fs.mkdirSync(smokeRoot, { recursive: true })
+  const tmpDir = fs.mkdtempSync(path.join(smokeRoot, 'smoke-'))
   try {
     // Mode A: Direct file:// open
     const directHtmlPath = path.join(tmpDir, 'direct_artifact.html')
