@@ -505,7 +505,7 @@ export function buildQuestDependencyGraph(
   // Zone 1 layout: standalone quests in rows of up to 7 columns, centered on the final row
   const COLS = 7
   const standaloneCoords = new Map<string, { row: number; col: number }>()
-  const standaloneRowCount = Math.max(1, Math.ceil(standaloneQuests.length / COLS))
+  const standaloneRowCount = Math.ceil(standaloneQuests.length / COLS)
   for (let r = 0; r < standaloneRowCount; r++) {
     const slice = standaloneQuests.slice(r * COLS, (r + 1) * COLS)
     const startCol = Math.floor((COLS - slice.length) / 2)
@@ -642,7 +642,7 @@ export function buildQuestDependencyGraph(
     }
   })
 
-  const maxRow = nodes.reduce((m, n) => Math.max(m, n.row), standaloneRowCount)
+  const maxRow = nodes.reduce((m, n) => Math.max(m, n.row), Math.max(0, standaloneRowCount - 1))
 
   return {
     nodes,

@@ -65,10 +65,10 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
   {
     key: 'questTree',
     numeral: '伍',
-    label: '江湖任务树',
+    label: '门派任务树',
     seal: '脉',
     subtitle:
-      '全门派入门、江湖奇遇、皇祐风云与朝堂公门禁军全任务脉络图（每卷任务一节点，鼠标悬停检视前置要求与存档达成度）',
+      '当前所属门派的任务脉络图（未入门派时列出各派入门任务；虚线标出可转投 / 调任的门派），鼠标悬停检视前置要求与存档达成度',
     badge: '全卷脉络',
   },
   {

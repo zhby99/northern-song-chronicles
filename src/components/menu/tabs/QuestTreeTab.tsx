@@ -19,43 +19,114 @@ import { getRegionUnlockRequirement, isRegionUnlockedByInventory } from '../../.
 import { QUEST_MAP, QUEST_REGISTRY } from '../../../data/quests'
 import {
   buildQuestDependencyGraph,
+  type BuiltQuestGraph,
   type QuestEdgeDef,
   type ResolvedQuestNode,
 } from '../../../engine/quest/questGraphBuilder'
+import { getSectTransferLinks, type SectTransferLink } from '../../../engine/sect/transferLinks'
 import { collectUnmetQuestReasons } from '../../../engine/questEngine'
 import { clamp } from '../../../engine/shared/math'
 import { useQuestEvalState } from '../../../hooks/useQuestEvalContext'
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
-import type { QuestCategoryKey, QuestTargetLocationHint } from '../../../types/quest'
+import type { QuestCategoryKey, QuestDefinition, QuestTargetLocationHint } from '../../../types/quest'
 import { interpolateReignYear } from '../../../engine/world/mapMath'
 import { assessQuestRealmReadiness } from '../../../engine/stats/realmUtils'
 
 type CategoryFilterKey = 'ALL' | 'sect_entry' | 'sect_mission' | 'adventure' | 'huangyou'
 type NodeStatus = 'completed' | 'active' | 'available' | 'locked'
 
-const QUEST_GRAPH = buildQuestDependencyGraph(QUEST_REGISTRY)
-const QUEST_EDGES = QUEST_GRAPH.edges
-const STANDALONE_ROW_COUNT = QUEST_GRAPH.standaloneRowCount
-
-// 7-column × dynamic-row collision-free layout
-const NODE_W = 222
-const NODE_H = 92
-const COL_STEP = 248
-const ROW_STEP = 148
-const ZONE_GAP_AFTER_STANDALONE = 46
+// 7-column × dynamic-row collision-free layout（单门派任务量少，节点与印章放大）
+const NODE_W = 248
+const NODE_H = 112
+const COL_STEP = 276
+const ROW_STEP = 172
+const ZONE_GAP = 46
 const PAD_X = 36
 const PAD_Y = 50
-const CANVAS_W = 1788
+const CANVAS_W = PAD_X * 2 + 6 * COL_STEP + NODE_W
 
 function colX(col: number): number {
   return PAD_X + col * COL_STEP
 }
 
-function rowY(row: number): number {
-  return PAD_Y + row * ROW_STEP + (row >= STANDALONE_ROW_COUNT ? ZONE_GAP_AFTER_STANDALONE : 0)
+/** 「可转投去向」虚线节点：挂在本门承接任务之后的一排独立卡片 */
+interface TransferNode {
+  key: string
+  link: SectTransferLink
+  toName: string
+  col: number
+  row: number
 }
 
-const CANVAS_H = Math.max(1480, rowY(QUEST_GRAPH.maxRow) + NODE_H + 96)
+/** 当前门派的任务子集：已入门派 → 本门任务；尚无门派 → 各派入门任务 */
+function selectSectQuests(sectId: string | null): QuestDefinition[] {
+  return sectId
+    ? QUEST_REGISTRY.filter((q) => q.factionId === sectId)
+    : QUEST_REGISTRY.filter((q) => q.category === 'sect_entry')
+}
+
+function buildTransferNodes(graph: BuiltQuestGraph, links: SectTransferLink[]): TransferNode[] {
+  const nodeById = new Map(graph.nodes.map((n) => [n.questId, n]))
+  const row = graph.maxRow + 1
+  const used = new Set<number>()
+  const out: TransferNode[] = []
+  for (const link of links) {
+    const via = nodeById.get(link.viaQuestId)
+    if (!via) continue
+    let col = via.col
+    for (let delta = 0; delta < 7 && used.has(col); delta++) {
+      if (via.col + delta < 7 && !used.has(via.col + delta)) col = via.col + delta
+      else if (via.col - delta >= 0 && !used.has(via.col - delta)) col = via.col - delta
+    }
+    used.add(col)
+    out.push({
+      key: `${link.viaQuestId}=>${link.toSectId}`,
+      link,
+      toName: FACTION_DB_MAP[link.toSectId]?.name ?? link.toSectId,
+      col,
+      row,
+    })
+  }
+  return out
+}
+
+export function QuestTreeTab() {
+  const sectId = useGameStore((s) => s.sectState.sectId)
+  const sectName = sectId ? (FACTION_DB_MAP[sectId]?.name ?? sectId) : null
+  const graph = useMemo(() => buildQuestDependencyGraph(selectSectQuests(sectId)), [sectId])
+  const transferNodes = useMemo(
+    () => buildTransferNodes(graph, getSectTransferLinks(sectId)),
+    [graph, sectId],
+  )
+
+  if (graph.nodes.length === 0) {
+    const links = getSectTransferLinks(sectId)
+    return (
+      <div className="h-[420px] flex flex-col items-center justify-center gap-3 rounded-lg border border-[#c8b28e] bg-[#f3e8d2] text-[#3d2814] text-sm p-6 text-center">
+        <GitBranch className="w-10 h-10 text-[#8f7754]" />
+        <div className="font-bold song-serif text-base">【{sectName ?? '无门无派'}】暂无专属剧情任务</div>
+        {links.length > 0 && (
+          <ul className="text-xs text-[#6b5235] space-y-1">
+            {links.map((l) => (
+              <li key={l.toSectId}>
+                可转投【{FACTION_DB_MAP[l.toSectId]?.name ?? l.toSectId}】：{l.note}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <SectQuestTreeCanvas
+      key={sectId ?? 'none'}
+      graph={graph}
+      transferNodes={transferNodes}
+      sectName={sectName}
+    />
+  )
+}
 
 const CATEGORY_VISUAL: Record<
   QuestCategoryKey,
@@ -154,7 +225,15 @@ const STATUS_STYLE: Record<
   },
 }
 
-export function QuestTreeTab() {
+function SectQuestTreeCanvas({
+  graph,
+  transferNodes,
+  sectName,
+}: {
+  graph: BuiltQuestGraph
+  transferNodes: TransferNode[]
+  sectName: string | null
+}) {
   const evalState = useQuestEvalState()
   const locateQuestTargetOnMap = useGameStore((s) => s.locateQuestTargetOnMap)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
@@ -162,14 +241,33 @@ export function QuestTreeTab() {
   const { maxHp, maxMp, inventory, questState } = evalState
   const questEvalCtx = useMemo(() => buildStoreEvalContext(evalState), [evalState])
 
-  const allNodes = QUEST_GRAPH.nodes
+  const allNodes = graph.nodes
+  const QUEST_EDGES = graph.edges
+  const standaloneRowCount = graph.standaloneRowCount
+  const hasConnected = graph.nodes.some((n) => n.row >= standaloneRowCount)
+  const transferRow = transferNodes[0]?.row ?? null
+  const rowY = useCallback(
+    (row: number): number =>
+      PAD_Y +
+      row * ROW_STEP +
+      (standaloneRowCount > 0 && row >= standaloneRowCount ? ZONE_GAP : 0) +
+      (transferRow !== null && row >= transferRow ? ZONE_GAP : 0),
+    [standaloneRowCount, transferRow],
+  )
+  const lastRow = transferRow ?? graph.maxRow
+  const CANVAS_H = Math.max(560, rowY(lastRow) + NODE_H + 96)
 
   const nodeMap = useMemo(
     () => Object.fromEntries(allNodes.map((n) => [n.questId, n])),
     [allNodes],
   )
 
-  const [selectedId, setSelectedId] = useState<string>('QST-SECT-17-MURONG-1')
+  const [selectedId, setSelectedId] = useState<string>(
+    () =>
+      graph.nodes.find((n) => evalState.questState.activeQuests[n.questId])?.questId ??
+      graph.nodes.find((n) => !evalState.questState.completedQuests[n.questId])?.questId ??
+      graph.nodes[0].questId,
+  )
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [pointerPos, setPointerPos] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
   const [categoryFilter, setCategoryFilter] = useState<CategoryFilterKey>('ALL')
@@ -232,7 +330,7 @@ export function QuestTreeTab() {
       map[node.questId] = reasons
     }
     return map
-  }, [allNodes, questEvalCtx, questState.completedQuests, inventory])
+  }, [allNodes, QUEST_EDGES, questEvalCtx, questState.completedQuests, inventory])
 
   const statusByQuestId = useMemo(() => {
     const map: Record<string, NodeStatus> = {}
@@ -259,7 +357,7 @@ export function QuestTreeTab() {
       }
     }
     return map
-  }, [allNodes, simMode, simCompleted, questState.completedQuests, questState.activeQuests, liveUnmetByQuestId])
+  }, [allNodes, QUEST_EDGES, simMode, simCompleted, questState.completedQuests, questState.activeQuests, liveUnmetByQuestId])
 
   const categoryCounts = useMemo(() => {
     const counts: Record<CategoryFilterKey, number> = {
@@ -300,7 +398,7 @@ export function QuestTreeTab() {
       if (e.to === focusId) s.add(e.from)
     }
     return s
-  }, [hoveredId, selectedId])
+  }, [hoveredId, selectedId, QUEST_EDGES])
 
   const matchesNodeFilter = useCallback(
     (node: ResolvedQuestNode): boolean => {
@@ -330,10 +428,24 @@ export function QuestTreeTab() {
     const vp = viewportRef.current
     if (!vp) return
     const rect = vp.getBoundingClientRect()
-    const fitS = clamp((rect.width - 24) / CANVAS_W, 0.45, 0.85)
-    setScale(Number(fitS.toFixed(2)))
-    setPan({ x: 12, y: 10 })
-  }, [])
+    // 单门派节点稀疏：按实际占用的列 / 行包围盒取景，而非整张 7 列画布
+    const cols = [...allNodes.map((n) => n.col), ...transferNodes.map((t) => t.col)]
+    const minX = colX(Math.min(...cols)) - 24
+    const maxX = colX(Math.max(...cols)) + NODE_W + 24
+    const minY = rowY(0) - 40
+    const maxY = rowY(lastRow) + NODE_H + 24
+    const fitS = clamp(
+      Math.min((rect.width - 24) / (maxX - minX), (rect.height - 60) / (maxY - minY)),
+      0.42,
+      1,
+    )
+    const s = Number(fitS.toFixed(2))
+    setScale(s)
+    setPan({
+      x: Math.round((rect.width - (maxX - minX) * s) / 2 - minX * s),
+      y: Math.round(10 - minY * s),
+    })
+  }, [allNodes, transferNodes, rowY, lastRow])
 
   const centerOnNode = useCallback(
     (questId: string, nextScale?: number) => {
@@ -350,7 +462,7 @@ export function QuestTreeTab() {
         y: Math.round(rect.height / 2 - cy * s),
       })
     },
-    [nodeMap, scale],
+    [nodeMap, scale, rowY],
   )
 
   // Auto-fit width once on initial mount so all 7 columns sit cleanly inside viewport
@@ -404,14 +516,14 @@ export function QuestTreeTab() {
       QUEST_EDGES.filter((e) => e.to === selectedNode.questId)
         .map((e) => ({ edge: e, node: nodeMap[e.from] }))
         .filter((x): x is { edge: QuestEdgeDef; node: ResolvedQuestNode } => Boolean(x.node)),
-    [selectedNode.questId, nodeMap],
+    [selectedNode.questId, nodeMap, QUEST_EDGES],
   )
   const selectedDownstream = useMemo(
     () =>
       QUEST_EDGES.filter((e) => e.from === selectedNode.questId)
         .map((e) => ({ edge: e, node: nodeMap[e.to] }))
         .filter((x): x is { edge: QuestEdgeDef; node: ResolvedQuestNode } => Boolean(x.node)),
-    [selectedNode.questId, nodeMap],
+    [selectedNode.questId, nodeMap, QUEST_EDGES],
   )
 
   const selectedLocateTarget = useMemo((): QuestTargetLocationHint | undefined => {
@@ -440,9 +552,11 @@ export function QuestTreeTab() {
   }, [pointerPos])
 
   const zone1Top = rowY(0) - 34
-  const zone1Height = rowY(Math.max(0, STANDALONE_ROW_COUNT - 1)) - rowY(0) + NODE_H + 50
-  const zone2Top = rowY(STANDALONE_ROW_COUNT) - 34
-  const zone2Height = rowY(QUEST_GRAPH.maxRow) - rowY(STANDALONE_ROW_COUNT) + NODE_H + 50
+  const zone1Height = rowY(Math.max(0, standaloneRowCount - 1)) - rowY(0) + NODE_H + 50
+  const zone2Top = rowY(standaloneRowCount) - 34
+  const zone2Height = rowY(graph.maxRow) - rowY(standaloneRowCount) + NODE_H + 50
+  const zone3Top = transferRow !== null ? rowY(transferRow) - 34 : 0
+  const zone3Height = NODE_H + 50
 
   return (
     <div className="flex flex-col gap-2.5 h-[690px] max-h-[calc(95vh-225px)] min-h-[520px] text-xs text-[#2a1d11] select-none">
@@ -618,7 +732,7 @@ export function QuestTreeTab() {
           {/* 左下角简洁图例条 */}
           <div className="absolute left-3 bottom-3 z-20 px-3 py-1.5 rounded-md bg-[#261910]/90 text-[#fbf2e0] border border-[#a58654] shadow-md flex flex-wrap items-center gap-3 text-[11px] pointer-events-none">
             <span className="font-bold text-[#f5d08a] song-serif">
-              全 {allNodes.length} 卷任务（1 任务 = 1 节点）：
+              {sectName ? `【${sectName}】` : '入门任务'} 共 {allNodes.length} 卷：
             </span>
             <span>
               已完结 <strong className="font-mono text-[#7ee2a8]">{statusCounts.completed}</strong>
@@ -632,7 +746,7 @@ export function QuestTreeTab() {
               可触发 <strong className="font-mono text-[#9ad4f5]">{statusCounts.available}</strong>
             </span>
             <span className="hidden xl:inline text-[#d8c7a9]">
-              ｜ 实线 = 必修前置任务 · 虚线 = 举荐信/同脉联动 · 鼠标悬停查看前置条件
+              ｜ 实线 = 必修前置任务 · 虚线 = 举荐 / 同脉联动 / 可转投去向 · 鼠标悬停查看前置条件
             </span>
           </div>
 
@@ -645,35 +759,50 @@ export function QuestTreeTab() {
             }}
             className="relative"
           >
-            {/* 分区 1：顶部独立宗门入门与江湖奇遇（单节点） */}
-            <div
-              style={{ top: zone1Top, left: 16, width: CANVAS_W - 32, height: zone1Height }}
-              className="absolute rounded-xl border border-[#cbb48c]/85 bg-gradient-to-r from-[#e9f2ec]/65 via-[#f7f1e3]/50 to-[#e9eff4]/65 px-4 py-2 pointer-events-none"
-            >
-              <div className="flex items-baseline justify-between gap-4 border-b border-[#d5c19c]/75 pb-1">
-                <span className="text-xs font-bold song-serif text-[#1f4d3b] tracking-wide">
-                  独立宗门入门与江湖奇遇（顶部独立单节点 · 无前后任务依赖）
-                </span>
-                <span className="text-[11px] text-[#6b5235]">
-                  少林 · 丐帮 · 华山 · 峨眉 · 武当 · 青城 · 星宿 · 太行绿林 · 八步赶蝉 · 东海桃花岛
-                </span>
+            {/* 分区 1：本门独立任务（无前后依赖） */}
+            {standaloneRowCount > 0 && (
+              <div
+                style={{ top: zone1Top, left: 16, width: CANVAS_W - 32, height: zone1Height }}
+                className="absolute rounded-xl border border-[#cbb48c]/85 bg-gradient-to-r from-[#e9f2ec]/65 via-[#f7f1e3]/50 to-[#e9eff4]/65 px-4 py-2 pointer-events-none"
+              >
+                <div className="flex items-baseline justify-between gap-4 border-b border-[#d5c19c]/75 pb-1">
+                  <span className="text-sm font-bold song-serif text-[#1f4d3b] tracking-wide">
+                    {sectName ? `【${sectName}】独立任务` : '尚未拜入门派 · 各派入门任务'}
+                  </span>
+                  <span className="text-[11px] text-[#6b5235]">无前后任务依赖</span>
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* 分区 2：跨派引荐与朝堂仕途串联任务树 */}
-            <div
-              style={{ top: zone2Top, left: 16, width: CANVAS_W - 32, height: zone2Height }}
-              className="absolute rounded-xl border border-[#cbb48c]/85 bg-gradient-to-r from-[#efe1c4]/65 via-[#f7eedb]/45 to-[#efe1c4]/65 px-4 py-2 pointer-events-none"
-            >
-              <div className="flex items-baseline justify-between gap-4 border-b border-[#d5c19c]/75 pb-1">
-                <span className="text-xs font-bold song-serif text-[#781710] tracking-wide">
-                  跨门派引荐与朝堂公门禁军任务树（前后置串联脉络）
-                </span>
-                <span className="text-[11px] text-[#6b5235]">
-                  常山枪派 / 大名府八极 / 燕子坞水图 ──► 开封府六扇门 ──► 大宋禁军（三征太行 & 河北暗桩）｜ 右侧：二流引荐支脉
-                </span>
+            {/* 分区 2：本门前后置串联任务脉络 */}
+            {hasConnected && (
+              <div
+                style={{ top: zone2Top, left: 16, width: CANVAS_W - 32, height: zone2Height }}
+                className="absolute rounded-xl border border-[#cbb48c]/85 bg-gradient-to-r from-[#efe1c4]/65 via-[#f7eedb]/45 to-[#efe1c4]/65 px-4 py-2 pointer-events-none"
+              >
+                <div className="flex items-baseline justify-between gap-4 border-b border-[#d5c19c]/75 pb-1">
+                  <span className="text-sm font-bold song-serif text-[#781710] tracking-wide">
+                    {sectName ? `【${sectName}】任务脉络` : '入门任务脉络'}
+                  </span>
+                  <span className="text-[11px] text-[#6b5235]">实线 = 必修前置 · 虚线 = 举荐 / 同脉联动</span>
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* 分区 3：可转投 / 调任去向（虚线提示） */}
+            {transferRow !== null && (
+              <div
+                style={{ top: zone3Top, left: 16, width: CANVAS_W - 32, height: zone3Height }}
+                className="absolute rounded-xl border border-dashed border-[#b8860b]/80 bg-[#fbf3dc]/55 px-4 py-2 pointer-events-none"
+              >
+                <div className="flex items-baseline justify-between gap-4 border-b border-dashed border-[#d5c19c]/75 pb-1">
+                  <span className="text-sm font-bold song-serif text-[#8a5a00] tracking-wide">
+                    可转投去向
+                  </span>
+                  <span className="text-[11px] text-[#6b5235]">虚线自承接任务引出 · 悬停查看转投条件</span>
+                </div>
+              </div>
+            )}
 
             {/* 正交不交叉 SVG 连线层 */}
             <svg
@@ -714,6 +843,17 @@ export function QuestTreeTab() {
                   orient="auto-start-reverse"
                 >
                   <path d="M 0 1 L 8.5 5 L 0 9 z" fill="#1f6b4a" />
+                </marker>
+                <marker
+                  id="qt2-arrow-transfer"
+                  viewBox="0 0 10 10"
+                  refX="7"
+                  refY="5"
+                  markerWidth="6.5"
+                  markerHeight="6.5"
+                  orient="auto-start-reverse"
+                >
+                  <path d="M 0 1 L 8.5 5 L 0 9 z" fill="#b8860b" />
                 </marker>
               </defs>
 
@@ -765,6 +905,33 @@ export function QuestTreeTab() {
                     strokeDasharray={edge.type === 'dashed' ? '6 4' : undefined}
                     markerEnd={markerEnd}
                     opacity={dimmed ? 0.15 : isBothDone || isFocusEdge ? 1 : 0.75}
+                  />
+                )
+              })}
+
+              {transferNodes.map((tn) => {
+                const src = nodeMap[tn.link.viaQuestId]
+                if (!src) return null
+                const x1 = colX(src.col) + NODE_W / 2
+                const y1 = rowY(src.row) + NODE_H
+                const x2 = colX(tn.col) + NODE_W / 2
+                const y2 = rowY(tn.row)
+                const turnY = y2 - 26
+                const d =
+                  x1 === x2
+                    ? `M ${x1} ${y1} L ${x2} ${y2 - 3}`
+                    : `M ${x1} ${y1} L ${x1} ${turnY} L ${x2} ${turnY} L ${x2} ${y2 - 3}`
+                const unlocked = statusByQuestId[tn.link.viaQuestId] === 'completed'
+                return (
+                  <path
+                    key={tn.key}
+                    d={d}
+                    fill="none"
+                    stroke={unlocked ? '#b8860b' : '#a58b5f'}
+                    strokeWidth={2.4}
+                    strokeDasharray="7 5"
+                    markerEnd="url(#qt2-arrow-transfer)"
+                    opacity={unlocked ? 1 : 0.8}
                   />
                 )
               })}
@@ -827,15 +994,15 @@ export function QuestTreeTab() {
                 >
                   <div className={`h-1.5 w-full ${catVis.barCls}`} />
 
-                  <div className="p-2 flex flex-col justify-between h-[calc(100%-6px)]">
-                    <div className="flex items-start gap-2">
+                  <div className="p-2.5 flex flex-col justify-between h-[calc(100%-6px)]">
+                    <div className="flex items-start gap-2.5">
                       <div
-                        className={`w-7 h-7 rounded border border-[#d6b77c]/80 flex items-center justify-center font-bold song-serif text-sm shrink-0 shadow-inner ${catVis.sealCls}`}
+                        className={`w-12 h-12 rounded border border-[#d6b77c]/80 flex items-center justify-center font-bold song-serif text-2xl shrink-0 shadow-inner ${catVis.sealCls}`}
                       >
                         {node.seal}
                       </div>
                       <div className="min-w-0 flex-1">
-                        <div className="font-bold song-serif text-[13px] leading-tight text-[#23180f] truncate">
+                        <div className="font-bold song-serif text-[15px] leading-tight text-[#23180f] truncate">
                           {node.qDef.title}
                         </div>
                         <div className="text-[11px] text-[#6b5235] truncate mt-0.5">
@@ -865,6 +1032,54 @@ export function QuestTreeTab() {
                     </div>
                   </div>
                 </button>
+              )
+            })}
+
+            {/* 可转投门派节点（虚线卡片） */}
+            {transferNodes.map((tn) => {
+              const unlocked =
+                tn.link.gatedByViaQuest !== false &&
+                statusByQuestId[tn.link.viaQuestId] === 'completed'
+              return (
+                <div
+                  key={tn.key}
+                  title={tn.link.note}
+                  style={{ left: colX(tn.col), top: rowY(tn.row), width: NODE_W, height: NODE_H }}
+                  className={`absolute z-10 rounded-lg border-2 border-dashed p-2.5 flex flex-col justify-between ${
+                    unlocked
+                      ? 'border-[#b8860b] bg-gradient-to-b from-[#fff8e6] to-[#f6e3b4] shadow-[0_3px_12px_rgba(184,134,11,0.22)]'
+                      : 'border-[#b8a587] bg-[#f6efdf]/90'
+                  }`}
+                >
+                  <div className="flex items-start gap-2.5">
+                    <div className="w-12 h-12 rounded border-2 border-dashed border-[#b8860b] flex items-center justify-center font-bold song-serif text-2xl shrink-0 bg-[#fdf4dd] text-[#8a5a00]">
+                      转
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-bold song-serif text-[15px] leading-tight text-[#23180f] truncate">
+                        转投 ▸ {tn.toName}
+                      </div>
+                      <div className="text-[11px] text-[#6b5235] leading-snug mt-0.5 line-clamp-2">
+                        {tn.link.note}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-end">
+                    <span
+                      className={`px-1.5 py-0.5 rounded border text-[10px] font-bold leading-none ${
+                        unlocked
+                          ? 'bg-[#8a5a00] text-[#fff8e6] border-[#d4a64a]'
+                          : 'bg-[#d9ccb4] text-[#6b563c] border-[#b8a587]'
+                      }`}
+                    >
+                      {unlocked
+                        ? '◆ 可转投'
+                        : tn.link.gatedByViaQuest === false
+                          ? '见转投条件'
+                          : '完结承接任务后开放'}
+                    </span>
+                  </div>
+                </div>
               )
             })}
           </div>
@@ -905,7 +1120,7 @@ export function QuestTreeTab() {
 
                 <div className="flex items-center gap-2">
                   <div
-                    className={`w-8 h-8 rounded flex items-center justify-center font-bold song-serif text-base shrink-0 ${catVis.sealCls}`}
+                    className={`w-12 h-12 rounded flex items-center justify-center font-bold song-serif text-2xl shrink-0 ${catVis.sealCls}`}
                   >
                     {selectedNode.seal}
                   </div>
