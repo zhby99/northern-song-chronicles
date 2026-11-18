@@ -73,6 +73,16 @@
    - 重开新局以 `createInitialStoreData()` 整体重置，只保留存档槽与界面偏好；行军途中存档记为原地扎营。
    - 战斗 / 剧情的捕获阶段快捷键经 `shouldIgnoreOverlayHotkey()` 守门（菜单、图鉴打开或正在输入时放行）；战斗拟音与背景雅乐共用一个 AudioContext。
 
+9. **数值调优与新玩法约定（2026-11 · 存档 `M1.5.5`）**：
+   - 创角三维共 `240` 点、单项 `70~90`；十艺共 `100` 点、单项至多 `40`。闭关曲线改为 `0.35 + 3.65·(T/100)^3`。
+   - 骑乘时【骑术】抵消塞外 / 蜀道地形减速（`getRidingTerrainCoeff`，满级抵消 60%）；【拳掌】大类本能「绵劲透甲」无视目标 20% 护体防御（`PALM_INSTINCT_PIERCE_PCT`）。
+   - 战中服丹施毒每场至多 `COMBAT_ITEM_USE_LIMIT = 3` 次（`CombatantState.itemUses`），不再解除禁连发同招锁；毒粉须过敌方闪避检定。
+   - 20 卷凡品武学秘籍（`ITM-SCR-061..080`）由 `spotShops.ts` 投放至 6 座州府书院书肆与 6 家三流武馆对外谱架。
+   - 州府衙门【悬赏缉凶榜】：`engine/world/yamenBounty.ts`（每城每月丙 / 乙 / 甲三张确定性榜文），状态 `activeYamenBounty` / `yamenBountyDoneIds`，战斗 `duelStakes: 'yamen_bounty'`（擒拿切磋，失手不致命），结算规则 `yamenBounty`。
+   - 门派排他：`engine/sect/exclusivity.ts`——已身属别派或少林杂役期时，他派入门线（`rules.entryQuestId`，`*-REFERRAL` 除外）的触发器、驻地行动与 `startQuest` 一律不生效；任务 `joinSect` 拒绝覆盖现有门派（官面转任 `allowOfficialTransfer` 与 `SECT_ENTRY_TRANSFER_SOURCES` 所列带艺投师除外），拜师成功后自动作罢其余门派入门线。门派事务面板路径已经 `evaluateSectEntry` 校验，传 `skipExclusivityCheck`。
+   - 同地多条弹窗类 `locationTriggers`（`effectsOpenModal`）每次到访只放行第一条，其余不消耗 `onceFlag`、留待下次到访。
+   - 剧情切磋战未设 `onEscape` 时默认禁止脱战；平局未设 `onDraw` 时走 `onLose`。《太行剿匪·第三部》三场关键战改为 `story_trial`（败阵不致命，保留整备重试分支）。
+
 ---
 
 ## 三、 下一步行动建议

@@ -25,7 +25,10 @@ import {
   getArtRawDamageAndKind,
   getLearnedLevel,
   getSlotEffectsMap,
+  canUseCombatItem,
+  COMBAT_ITEM_USE_LIMIT,
   mapArtCategoryToVfx,
+  PALM_INSTINCT_PIERCE_PCT,
 } from '../formulas'
 import { sampleDamageRoll } from '../rng'
 import {
@@ -143,13 +146,44 @@ function resolveItemStep(
   actorSide: 'player' | 'npc',
   targetSide: 'player' | 'npc',
 ): void {
-  actor.lastUsedArtId = null
+  // 服药施毒不解除「禁连发同招」锁：上回合刚施展的招式本回合之后仍不得连发
   const itemDef = ITEM_DB_MAP[itemId]
   if (!itemDef) return
+  if (!canUseCombatItem(actor)) {
+    ctx.pushLog(
+      'info',
+      `${actor.name}探囊摸索，随身丹药毒物本场已用满 ${COMBAT_ITEM_USE_LIMIT} 次，一时措手不及！`,
+    )
+    return
+  }
   // 丹药毒物仅在真正轮到出手时才算服下 / 施放（被先手击倒或敌阵已清空则原物退回行囊）
+  actor.itemUses = (actor.itemUses ?? 0) + 1
   if (actor.isPlayer) ctx.playerItemUsedId = itemId
 
   if (itemDef.poisonEffect) {
+    // 暗器毒粉须过敌方身法闪避检定（守御架势时更易拂袖避开）
+    const targetDefending = targetChoice.type === 'defend'
+    const dodgeChance = computeDodgeChancePreview(target, actor, targetDefending)
+    if (ctx.rng() < dodgeChance) {
+      ctx.pushLog(
+        'info',
+        `${actor.name}扬手撒出【${itemDef.name}】，${target.name}身形一晃拂袖避过，毒雾尽数落空！`,
+      )
+      ctx.flushBeat({
+        kind: 'attack',
+        actorSide,
+        targetSide,
+        bannerTitle: `奇毒 · ${itemDef.name}`,
+        bannerSubtitle: '被身法闪过',
+        vfxCategory: 'poison',
+        isHeavenTier: false,
+        shakeLevel: 0,
+        popups: [
+          { id: ctx.nextPopupId(), side: targetSide, text: '闪避', subText: '毒雾落空', style: 'dodge' },
+        ],
+      })
+      return
+    }
     const targetNgFx = getSlotEffectsMap(target, 'neigong')
     let antiPoisonBoost = 0
     for (const [key, val] of Object.entries(targetNgFx) as Array<[FxKey, number]>) {
@@ -597,10 +631,13 @@ export function resolveOrderedActionSteps(
         ? target.equipDefense * 1.5 + target.mp * 0.16
         : effRes * 5 + target.mp * 0.08
 
-    const effDef = Math.max(0, defRaw * (1 - beforeHitCtx.piercePct))
+    // 拳掌大类本能「绵劲透甲」：劲力透甲直入，额外无视目标 20% 护体防御（与破甲特效相乘叠加）
+    const isPalmPierceInstinct = art.category === '拳掌' && defRaw > 0
+    const palmPierceMult = isPalmPierceInstinct ? 1 - PALM_INSTINCT_PIERCE_PCT : 1
+    const effDef = Math.max(0, defRaw * (1 - beforeHitCtx.piercePct) * palmPierceMult)
     const mitigation = effDef / (effDef + 800)
 
-    // 防御姿态系数 & 武学大类本能（刀/棍破守+30%，枪后手反击+20%）& 破绽易伤+25%
+    // 防御姿态系数 & 武学大类本能（刀/棍破守+30%，枪后手反击+20%，拳掌透甲20%）& 破绽易伤+25%
     let postureMult = isTargetDefending ? 0.5 : 1.0
     if (isTargetDefending && beforeHitCtx.guardPenPct > 0) {
       postureMult = 0.5 + 0.5 * beforeHitCtx.guardPenPct
@@ -622,6 +659,7 @@ export function resolveOrderedActionSteps(
     const tacticalTags: string[] = []
     if (isGuardBreakInstinct) tacticalTags.push('刀棍破守+30%')
     if (isSpearCounterInstinct) tacticalTags.push('枪道后发+20%')
+    if (isPalmPierceInstinct) tacticalTags.push('拳掌透甲20%')
     if (isTargetExposed) tacticalTags.push('痛击破绽+25%')
     if (qinSoundAmp > 0) tacticalTags.push(`琴韵音杀+${(qinSoundAmp * 100).toFixed(1)}%`)
     if (shuBrushAmp > 0) tacticalTags.push(`书道笔意+${(shuBrushAmp * 100).toFixed(1)}%`)

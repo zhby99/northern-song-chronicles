@@ -4,6 +4,7 @@ import { ITEM_DB_MAP } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import {
   canFighterEscape,
+  COMBAT_ITEM_USE_LIMIT,
   computeDodgeChancePreview,
   computeEffectiveAgility,
   computeEscapeChancePreview,
@@ -298,6 +299,8 @@ export function CombatOverlay() {
         <CombatItemDrawer
           combatBagItems={combatBagItems}
           consumedOnceItemIds={consumedOnceItemIds}
+          itemUsesLeft={Math.max(0, COMBAT_ITEM_USE_LIMIT - (player.itemUses ?? 0))}
+          itemUseLimit={COMBAT_ITEM_USE_LIMIT}
           playerMaxHp={player.maxHp}
           playerMaxMp={player.maxMp}
           onClose={() => setBagOpen(false)}

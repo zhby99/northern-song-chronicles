@@ -190,7 +190,7 @@ export function calcDailyExpByCategory(
   const t = isNeigong
     ? talents.根骨 * 0.8 + talents.悟性 * 0.2
     : talents.悟性 * 0.8 + talents.根骨 * 0.2
-  const talentMult = 0.2 + 4 * Math.pow(t / 100, 4)
+  const talentMult = 0.35 + 3.65 * Math.pow(t / 100, 3)
   const jingyiMult = isNeigong ? computeJingyiNeigongMultiplier(jingyiSkill) : 1.0
   return Math.max(1, Math.round(100 * talentMult * venueMultiplier * jingyiMult))
 }

@@ -43,6 +43,8 @@ import {
 } from '../../engine/social/npcDialogues'
 import {
   buildPlayerCombatant,
+  canUseCombatItem,
+  COMBAT_ITEM_USE_LIMIT,
   createCombatSession,
   gameRng,
   resolveCombatRound,
@@ -143,7 +145,8 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
     const effectiveMode: 'spar' | 'duel' =
       effectiveStakes === 'spar' ||
       effectiveStakes === 'sect_tournament' ||
-      effectiveStakes === 'escort_ambush'
+      effectiveStakes === 'escort_ambush' ||
+      effectiveStakes === 'yamen_bounty'
         ? 'spar'
         : 'duel'
 
@@ -271,6 +274,15 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
         return
       }
       if (!s.inventory.some((st) => st.itemId === choice.itemId && st.qty > 0)) return
+      if (!canUseCombatItem(s.activeCombat.player)) {
+        set({
+          actionFeedback: {
+            text: `本场交锋已探囊 ${COMBAT_ITEM_USE_LIMIT} 次，随身丹药毒物一时再难取用。`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
     }
 
     let nextSession = resolveCombatRound(s.activeCombat, choice)
@@ -420,6 +432,8 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
         combatExp: res.nextCombatExp,
         chivalry: s.chivalry,
         escortContract: s.activeEscortContract,
+        yamenBounty: s.activeYamenBounty,
+        yamenBountyDoneIds: s.yamenBountyDoneIds,
         hp: res.nextHp,
         mp: res.nextMp,
         logTag: res.logTag,
@@ -443,6 +457,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       activeNpcInteraction:
         qHook ||
         session.duelStakes === 'escort_ambush' ||
+        (session.duelStakes === 'yamen_bounty' && session.outcome === 'player_win') ||
         ((session.duelStakes === 'liao_spy_duel' || session.duelStakes === 'kaifeng_warrant') &&
           session.outcome === 'player_win')
           ? null
@@ -451,6 +466,8 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       deadNpcIds: d.deadNpcIds,
       chivalry: d.chivalry,
       activeEscortContract: d.escortContract,
+      activeYamenBounty: d.yamenBounty,
+      yamenBountyDoneIds: d.yamenBountyDoneIds,
       silver: d.silver,
       inventory: d.inventory,
       sectState: d.sectState,
@@ -500,7 +517,8 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
             ? (qHook.onLose ?? [])
             : session.outcome === 'escaped'
               ? (qHook.onEscape ?? [])
-              : (qHook.onDraw ?? [])
+              : // 平局（含同归于尽）未设 onDraw 时按落败分支处理，以免触发器已消耗而任务死锁
+                (qHook.onDraw ?? qHook.onLose ?? [])
 
       if (followUp.length > 0) {
         get().runQuestEffects(followUp, session.targetNpcNode)

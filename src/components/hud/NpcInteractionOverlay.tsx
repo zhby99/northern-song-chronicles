@@ -73,6 +73,7 @@ export function NpcInteractionOverlay() {
       !npc ||
       npc.isDynamicLiaoSpy ||
       npc.isDynamicKaifengWarrant ||
+      npc.isDynamicYamenBounty ||
       npc.dynamicQuestActorId
     ) {
       return undefined
@@ -212,8 +213,11 @@ export function NpcInteractionOverlay() {
   const isKaifengClueTarget = Boolean(
     isKaifengWarrantTarget && npc.kaifengWarrantKind === 'investigate',
   )
+  const isYamenBountyTarget = Boolean(npc.isDynamicYamenBounty)
   const isHostileBountyTarget = Boolean(
-    npc.isDynamicLiaoSpy || (isKaifengWarrantTarget && !isKaifengClueTarget),
+    npc.isDynamicLiaoSpy ||
+      isYamenBountyTarget ||
+      (isKaifengWarrantTarget && !isKaifengClueTarget),
   )
   const resolvedNpcId = npc.id ?? dbRecord?.id
   const canOpenSectMenu =
@@ -292,6 +296,12 @@ export function NpcInteractionOverlay() {
         ? 'kaifeng_warrant'
         : 'duel'
     startNpcCombat(npc, 'duel', stakes)
+    setDialogueText(null)
+  }
+
+  const handleYamenBountyArrest = () => {
+    setSubPanel('none')
+    startNpcCombat(npc, 'spar', 'yamen_bounty')
     setDialogueText(null)
   }
 
@@ -566,6 +576,14 @@ export function NpcInteractionOverlay() {
               className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#9e1911] hover:bg-[#ba1f16] border-2 border-[#f2be8d] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
             >
               诛杀辽谍（生死决战）
+            </button>
+          ) : isYamenBountyTarget ? (
+            <button
+              type="button"
+              onClick={handleYamenBountyArrest}
+              className="px-4 py-2 rounded-lg text-xs sm:text-sm font-bold bg-[#7a3a12] hover:bg-[#93481a] border-2 border-[#f2be8d] text-[#fff8ee] shadow-lg transition-colors cursor-pointer"
+            >
+              缉拿悬赏要犯（失手不致命）
             </button>
           ) : isKaifengWarrantTarget && !isKaifengClueTarget ? (
             <button

@@ -184,8 +184,24 @@ export function getStrongestLivingEnemy(session: CombatSessionState): CombatantS
   )
 }
 
+/** 每场战斗至多服用 / 施放丹药毒物的次数 */
+export const COMBAT_ITEM_USE_LIMIT = 3
+
+/** 本场是否还能探囊取物 */
+export function canUseCombatItem(fighter: Pick<CombatantState, 'itemUses'>): boolean {
+  return (fighter.itemUses ?? 0) < COMBAT_ITEM_USE_LIMIT
+}
+
+/** 拳掌大类本能「绵劲透甲」无视目标护体防御的比例 */
+export const PALM_INSTINCT_PIERCE_PCT = 0.2
+
 export function getMartialCategoryInstinct(category: string): MartialCategoryInstinct | null {
   switch (category) {
+    case '拳掌':
+      return {
+        shortTag: '透甲20%',
+        detail: '绵劲透甲：劲力透体直入，命中时无视目标 20% 护体防御（甲胄越厚越见其功）',
+      }
     case '刀法':
     case '棍棒':
       return { shortTag: '破守+30%', detail: '刚猛破防：命中守御目标时伤害 +30%' }

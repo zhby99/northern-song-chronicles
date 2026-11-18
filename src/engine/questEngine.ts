@@ -41,6 +41,7 @@ import {
 } from './npcFactory'
 import { getLoadedQuestScenes } from './quest/sceneRegistry'
 import { SHICHEN_LABELS } from './shared/constants'
+import { getSectEntryQuestBlockReason } from './sect/exclusivity'
 
 export { buildNodeNpcFromCompiledId, buildNodeNpcFromDynamicActor, makeQuestNpc }
 
@@ -679,6 +680,7 @@ export function getAvailableSpotQuestActions(
         const vis = evaluateQuestCondition(action.visibleWhen, ctx)
         if (!vis.passed) continue
       }
+      if (getSectEntryQuestBlockReason(quest.id, ctx.sectState)) continue
 
       const en = action.enabledWhen
         ? evaluateQuestCondition(action.enabledWhen, ctx)
@@ -697,6 +699,22 @@ export function getAvailableSpotQuestActions(
 export interface MatchedLocationTrigger {
   quest: QuestDefinition
   trigger: QuestLocationTriggerDef
+}
+
+const MODAL_EFFECT_TYPES: ReadonlySet<QuestEffect['type']> = new Set([
+  'openScene',
+  'startCombat',
+  'triggerGameOver',
+])
+
+/** 效果链（含 branch 两支）中是否会弹出剧情场景 / 战斗 / 结局等独占弹窗 */
+export function effectsOpenModal(effects: readonly QuestEffect[] | undefined): boolean {
+  if (!effects) return false
+  return effects.some(
+    (e) =>
+      MODAL_EFFECT_TYPES.has(e.type) ||
+      (e.type === 'branch' && (effectsOpenModal(e.thenEffects) || effectsOpenModal(e.elseEffects))),
+  )
 }
 
 export function findMatchingLocationTriggers(
@@ -736,6 +754,9 @@ export function findMatchingLocationTriggers(
       if (trigger.onceFlag && Boolean(getEffectiveFlagValue(trigger.onceFlag, ctx))) {
         continue
       }
+
+      // 门派排他：已身属别派（或少林杂役期）时，他派入门线不再触发
+      if (getSectEntryQuestBlockReason(quest.id, ctx.sectState)) continue
 
       if (trigger.condition) {
         const res = evaluateQuestCondition(trigger.condition, ctx)

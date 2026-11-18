@@ -1,4 +1,9 @@
 import { buildCampFromTraveling } from '../../engine/world/travelCamp'
+import {
+  getYamenBountyPostings,
+  isYamenBountyBoardBuilding,
+  isYamenBountyExpired,
+} from '../../engine/world/yamenBounty'
 import { isNpcDead } from '../../engine/social/npcDeath'
 import type { StoreSlice } from '../storeTypes'
 import { gameRng } from '../../engine/combat/rng'
@@ -75,6 +80,8 @@ export type NavigationTravelKeys =
   | 'campStop'
   | 'acceptEscortContract'
   | 'abandonEscortContract'
+  | 'acceptYamenBounty'
+  | 'abandonYamenBounty'
   | 'navigateToNpcLeafInCurrentRegion'
 
 export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (set, get) => ({
@@ -1212,6 +1219,62 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         0,
         60,
       ),
+    })
+  },
+
+  acceptYamenBounty: (postingId) => {
+    const s = get()
+    if (s.traveling || s.campPos || s.cultivationSession) {
+      set({ actionFeedback: { text: '少侠正在行路、露营或闭关途中，无法揭榜。', tone: 'warn' } })
+      return
+    }
+    const cur = s.activeYamenBounty
+    if (cur && !isYamenBountyExpired(cur, s.dayCount)) {
+      set({
+        actionFeedback: {
+          text: `身上已揭有缉拿【${cur.targetName}】的悬赏榜文，请先拿人归案或撕榜作罢。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const bId = s.activeBuildingInteriorId ?? s.selectedBuildingId
+    if (s.currentNodeId !== s.activeRegionId || !isYamenBountyBoardBuilding(bId)) {
+      set({ actionFeedback: { text: '须亲临州府衙门方可揭榜缉凶。', tone: 'warn' } })
+      return
+    }
+    const posting = getYamenBountyPostings({
+      issueRegionId: s.currentNodeId,
+      dayCount: s.dayCount,
+      doneIds: s.yamenBountyDoneIds,
+    }).find((p) => p.id === postingId)
+    if (!posting) {
+      set({ actionFeedback: { text: '该张悬赏榜文已被揭走或逾期。', tone: 'warn' } })
+      return
+    }
+    const msg = `少侠于【${posting.issueRegionName}】衙门揭下${posting.gradeLabel}榜文：缉拿【${posting.targetName}】（${posting.targetTitle} · ${posting.realm}），据报潜匿【${posting.regionName} · ${posting.buildingName}】，限第 ${posting.deadlineDay} 日前拿人归案（赏银 ${posting.rewardSilver} 两 · 战斗经验 +${posting.rewardCombatExp} · 侠义 +${posting.rewardChivalry}）。`
+    set({
+      activeYamenBounty: posting,
+      selectedNodeId: posting.regionId,
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [createLogEntry(s.dayCount, '揭榜缉凶', msg, true, s.shichenIdx), ...s.logs].slice(0, 60),
+    })
+  },
+
+  abandonYamenBounty: () => {
+    const s = get()
+    const cur = s.activeYamenBounty
+    if (!cur) return
+    const expired = isYamenBountyExpired(cur, s.dayCount)
+    const nextRenown = expired ? s.renown : Math.max(0, s.renown - 1)
+    const msg = expired
+      ? `缉拿【${cur.targetName}】的悬赏榜文已然逾期作废。`
+      : `少侠撕去缉拿【${cur.targetName}】的悬赏榜文，交还${cur.issueRegionName}衙门（失信折损江湖声望 -1）。`
+    set({
+      activeYamenBounty: null,
+      renown: nextRenown,
+      actionFeedback: { text: msg, tone: 'warn' },
+      logs: [createLogEntry(s.dayCount, '撕榜作罢', msg, false, s.shichenIdx), ...s.logs].slice(0, 60),
     })
   },
 

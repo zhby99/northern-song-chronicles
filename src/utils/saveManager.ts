@@ -1,5 +1,6 @@
 import type {
   ActiveEscortContract,
+  ActiveYamenBounty,
   EquipmentSlotKey,
   EquippedArtsMap,
   EquippedSlotsMap,
@@ -33,7 +34,51 @@ import { isBuildingUnlocked } from '../engine/world/mapMath'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from '../engine/social/npcFavor'
 import { clonePlayerSectState } from '../engine/sect'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.4' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.5' as const
+
+function parseActiveYamenBounty(raw: unknown): ActiveYamenBounty | null {
+  if (!isRecord(raw)) return null
+  const str = (k: string) => (typeof raw[k] === 'string' ? (raw[k] as string) : null)
+  const num = (k: string, fallback: number) =>
+    typeof raw[k] === 'number' && Number.isFinite(raw[k]) ? (raw[k] as number) : fallback
+  const id = str('id')
+  const regionId = str('regionId')
+  const buildingId = str('buildingId')
+  const issueRegionId = str('issueRegionId')
+  const targetName = str('targetName')
+  if (!id || !regionId || !buildingId || !issueRegionId || !targetName || !isRecord(raw.stats)) {
+    return null
+  }
+  const stats = raw.stats
+  const grade = num('grade', 1)
+  return {
+    id,
+    grade: grade === 3 ? 3 : grade === 2 ? 2 : 1,
+    gradeLabel: str('gradeLabel') ?? '悬赏',
+    targetName,
+    targetTitle: str('targetTitle') ?? '通缉要犯',
+    realm: str('realm') ?? '三流中品',
+    stats: {
+      hp: Math.max(1, Number(stats.hp) || 600),
+      mp: Math.max(0, Number(stats.mp) || 0),
+      agi: Math.max(1, Number(stats.agi) || 20),
+      res: Math.max(0, Number(stats.res) || 0),
+      isBenchmark: false,
+    },
+    issueRegionId,
+    issueRegionName: str('issueRegionName') ?? issueRegionId,
+    regionId,
+    regionName: str('regionName') ?? regionId,
+    buildingId,
+    buildingName: str('buildingName') ?? buildingId,
+    routeLi: Math.max(0, num('routeLi', 0)),
+    acceptedDay: Math.max(1, Math.floor(num('acceptedDay', 1))),
+    deadlineDay: Math.max(1, Math.floor(num('deadlineDay', 1))),
+    rewardSilver: Math.max(0, Math.round(num('rewardSilver', 0))),
+    rewardCombatExp: Math.max(0, Math.round(num('rewardCombatExp', 0))),
+    rewardChivalry: Math.max(0, Math.round(num('rewardChivalry', 0))),
+  }
+}
 
 export const SAVE_SLOT_DEFS: Array<{
   slotId: SaveSlotId
@@ -630,6 +675,10 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
             ambushResolved: Boolean(st.activeEscortContract.ambushResolved),
           } satisfies ActiveEscortContract)
         : null,
+    activeYamenBounty: parseActiveYamenBounty(st.activeYamenBounty),
+    yamenBountyDoneIds: Array.isArray(st.yamenBountyDoneIds)
+      ? st.yamenBountyDoneIds.filter((x): x is string => typeof x === 'string').slice(-60)
+      : [],
     sectState: clonePlayerSectState(
       isRecord(st.sectState)
         ? (st.sectState as Partial<SerializableGameState['sectState']>)

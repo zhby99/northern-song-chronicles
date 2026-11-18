@@ -97,6 +97,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       consumeItemId: evalRes.consumeItemId,
       celunSkill: s.skills['策论'] ?? 0,
       allowOfficialTransfer: evalRes.allowOfficialTransferFromChangshan,
+      skipExclusivityCheck: true,
       completeEntryQuest: true,
       entryQuestOutcome: 'joined',
     })

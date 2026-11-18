@@ -85,6 +85,10 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "ITM-CUR-026", price: 44, note: "良品 · 文房雅器" },
       { itemId: "ITM-CUR-027", price: 41, note: "良品 · 筹算百工" },
       { itemId: "ITM-CUR-039", price: 15, note: "凡品 · 书院器具" },
+      { itemId: "ITM-SCR-061", price: 85, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-063", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-070", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-080", price: 70, note: "凡阶 · 武学秘籍" },
     ],
   },
   {
@@ -666,6 +670,9 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
     subtitle: "淮南名儒讲学碑刻拓片书肆",
     items: [
       { itemId: "ITM-SCR-049", price: 170, note: "良阶 · 法帖碑刻" },
+      { itemId: "ITM-SCR-073", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-076", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-077", price: 90, note: "凡阶 · 武学秘籍" },
     ],
   },
   {
@@ -736,6 +743,111 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
       { itemId: "WPN-090", price: 4, note: "凡阶下品 · 器物" },
       { itemId: "ARM-022", price: 49, note: "良阶中品 · 道袍" },
       { itemId: "ACC-024", price: 28, note: "良阶中品 · 玉佩" },
+    ],
+  },
+  {
+    spotId: "luoyang_base_academy",
+    regionId: "luoyang",
+    title: "洛滨崇儒书院书肆",
+    subtitle: "西京书坊刻本集散 · 道门剑谱与步法图册",
+    items: [
+      { itemId: "ITM-SCR-064", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-068", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-078", price: 80, note: "凡阶 · 武学秘籍" },
+    ],
+  },
+  {
+    spotId: "changan_base_academy",
+    regionId: "changan",
+    title: "横渠关学书院书肆",
+    subtitle: "关中书坊 · 华山剑谱、边军枪谱与操典",
+    items: [
+      { itemId: "ITM-SCR-067", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-066", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-071", price: 90, note: "凡阶 · 武学秘籍" },
+    ],
+  },
+  {
+    spotId: "daming_base_academy",
+    regionId: "daming",
+    title: "元城讲武书院书肆",
+    subtitle: "河北讲武刻本 · 军中鞭法、朴刀与单刀谱",
+    items: [
+      { itemId: "ITM-SCR-065", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-072", price: 80, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-074", price: 90, note: "凡阶 · 武学秘籍" },
+    ],
+  },
+  {
+    spotId: "hangzhou_base_academy",
+    regionId: "hangzhou",
+    title: "万松湖山书院书肆",
+    subtitle: "两浙书坊 · 佛门拳谱与静坐小册",
+    items: [
+      { itemId: "ITM-SCR-062", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-080", price: 70, note: "凡阶 · 武学秘籍" },
+    ],
+  },
+  {
+    spotId: "jn_chaquan_east",
+    regionId: "jinan",
+    title: "齐鲁查拳馆拳谱厢",
+    subtitle: "查拳馆对外传抄 · 北派拳腿筑基谱册（无需入门）",
+    items: [
+      { itemId: "ITM-SCR-075", price: 75, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-061", price: 85, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-062", price: 90, note: "凡阶 · 武学秘籍" },
+    ],
+  },
+  {
+    spotId: "hz_nuchao_east",
+    regionId: "hangzhou",
+    title: "怒潮帮器械房书架",
+    subtitle: "钱塘怒潮帮对外售卖 · 双刀与轻身术钞本（无需入门）",
+    items: [
+      { itemId: "ITM-SCR-073", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-070", price: 90, note: "凡阶 · 武学秘籍" },
+    ],
+  },
+  {
+    spotId: "gz_hongmen_west",
+    regionId: "guangzhou",
+    title: "洪门武馆木人坪书摊",
+    subtitle: "岭南洪门武馆对外售卖 · 掌法与擒拿手册（无需入门）",
+    items: [
+      { itemId: "ITM-SCR-069", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-076", price: 90, note: "凡阶 · 武学秘籍" },
+    ],
+  },
+  {
+    spotId: "qzf_jinhuan_west",
+    regionId: "qinzhou",
+    title: "金环刀堂黄沙坪谱架",
+    subtitle: "陇右金环刀堂对外售卖 · 刀枪筑基谱（无需入门）",
+    items: [
+      { itemId: "ITM-SCR-072", price: 80, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-074", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-066", price: 90, note: "凡阶 · 武学秘籍" },
+    ],
+  },
+  {
+    spotId: "cd_baicao_west",
+    regionId: "chengdu",
+    title: "百草药王门导引院",
+    subtitle: "巴蜀百草药王门对外结缘 · 吐纳静坐小册（无需入门）",
+    items: [
+      { itemId: "ITM-SCR-063", price: 90, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-080", price: 70, note: "凡阶 · 武学秘籍" },
+    ],
+  },
+  {
+    spotId: "tzf_wuxidojo_west",
+    regionId: "tanzhou",
+    title: "五溪讲武堂飞蝗石坪",
+    subtitle: "湘西五溪蛊寨对外售卖 · 暗器投掷诀（无需入门）",
+    items: [
+      { itemId: "ITM-SCR-079", price: 65, note: "凡阶 · 武学秘籍" },
+      { itemId: "ITM-SCR-077", price: 90, note: "凡阶 · 武学秘籍" },
     ],
   },
 ]

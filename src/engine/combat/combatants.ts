@@ -102,6 +102,7 @@ export function buildPlayerCombatant(params: {
     synergyBonusBySlot,
 
     lastUsedArtId: null,
+    itemUses: 0,
     stunnedNextRound: false,
     disarmedNextRound: false,
     exposed: false,
@@ -210,6 +211,7 @@ export function buildNpcCombatant(
       synergyBonusBySlot,
 
       lastUsedArtId: null,
+      itemUses: 0,
       stunnedNextRound: false,
       disarmedNextRound: false,
       exposed: false,
@@ -301,6 +303,7 @@ export function buildNpcCombatant(
     learnedArts: customLearnedArts,
     synergyBonusBySlot,
     lastUsedArtId: null,
+    itemUses: 0,
     stunnedNextRound: false,
     disarmedNextRound: false,
     exposed: false,
@@ -375,6 +378,8 @@ export function createCombatSession(params: {
             ? `【燕云锄奸·生死对决】契丹密谍 ${npc.name} 寒刃出鞘：“常山枪派的宋狗竟敢追查至此，今日不死不休！”（生死相搏，败则横尸塞北！）`
             : stakes === 'kaifeng_warrant'
               ? `【开封府海捕缉凶·生死战】海捕悍匪 ${npc.name} 凶相毕露拔刃死斗：“官府鹰犬也敢来拿爷爷？今日叫你有来无回！”（生死相搏，败则血溅当场！）`
+              : stakes === 'yamen_bounty'
+                ? `【州府悬赏·缉凶擒拿】悬赏要犯 ${npc.name}（${npc.realm}）见行藏败露，拔刃困兽犹斗！（擒拿之战：失手只受重伤不致命，可养伤再寻）`
               : stakes === 'rob_official'
                 ? `【绿林投名状·劫官死战】少侠蒙面拔刃拦住大宋命官 ${npc.name} 车驾！一旦失手必丧命当场——`
                 : params.mode === 'duel'

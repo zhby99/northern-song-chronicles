@@ -128,6 +128,7 @@ export interface NodeNpc {
   isDynamicLiaoSpy?: boolean
   isDynamicKaifengWarrant?: boolean
   kaifengWarrantKind?: 'investigate' | 'arrest'
+  isDynamicYamenBounty?: boolean
   dynamicQuestActorId?: string
   questBadgeLabel?: string
 }
@@ -996,6 +997,28 @@ export interface ActiveKaifengWarrant {
   clueDetail?: string
 }
 
+export interface ActiveYamenBounty {
+  id: string
+  grade: 1 | 2 | 3
+  gradeLabel: string
+  targetName: string
+  targetTitle: string
+  realm: string
+  stats: NpcCombatStats
+  issueRegionId: string
+  issueRegionName: string
+  regionId: string
+  regionName: string
+  buildingId: string
+  buildingName: string
+  routeLi: number
+  acceptedDay: number
+  deadlineDay: number
+  rewardSilver: number
+  rewardCombatExp: number
+  rewardChivalry: number
+}
+
 export interface GameOverState {
   reasonTitle: string
   reasonDetail: string
@@ -1059,6 +1082,8 @@ export interface SerializableGameState {
   deadNpcIds?: string[]
   auctionBoughtByMonth?: Record<string, string[]>
   activeEscortContract?: ActiveEscortContract | null
+  activeYamenBounty?: ActiveYamenBounty | null
+  yamenBountyDoneIds?: string[]
   sectState?: PlayerSectState
   questState?: QuestRuntimeState
   hiddenQuestIds?: string[]
@@ -1090,7 +1115,7 @@ export interface GameSaveSummary {
 
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
-  schemaVersion: 'M1.5.4'
+  schemaVersion: 'M1.5.5'
   slotId: SaveSlotId
   savedAt: string
   note: string

@@ -115,6 +115,8 @@ export interface CombatantState {
 
   // 回合动态状态
   lastUsedArtId: string | null
+  /** 本场战斗已服用 / 施放的丹药毒物次数（每场上限 COMBAT_ITEM_USE_LIMIT） */
+  itemUses: number
   stunnedNextRound: boolean
   disarmedNextRound: boolean
   exposed: boolean
@@ -212,6 +214,7 @@ export type DuelStakesKind =
   | 'kaifeng_warrant'
   | 'sect_tournament'
   | 'escort_ambush'
+  | 'yamen_bounty'
 
 export interface CombatSessionState {
   sessionId: string

@@ -1,6 +1,7 @@
 import type { StateCreator } from 'zustand'
 import type {
   ActiveEscortContract,
+  ActiveYamenBounty,
   BagCategoryKey,
   CameraPan,
   CompendiumTabKey,
@@ -235,6 +236,10 @@ export interface GameStoreState {
   acceptEscortContract: (contractId: string) => void
   abandonEscortContract: () => void
   activeEscortContract: ActiveEscortContract | null
+  acceptYamenBounty: (postingId: string) => void
+  abandonYamenBounty: () => void
+  activeYamenBounty: ActiveYamenBounty | null
+  yamenBountyDoneIds: string[]
 
   toggleLogDrawer: () => void
   openMenu: (tab?: MenuTabKey) => void

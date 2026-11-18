@@ -302,7 +302,11 @@ export function computeCombatSettlement(
       : Math.round((effTalents.颜值 - 50) / 5)
   let favorGain = 0
 
-  if (session.mode === 'spar' && session.duelStakes !== 'escort_ambush') {
+  if (
+    session.mode === 'spar' &&
+    session.duelStakes !== 'escort_ambush' &&
+    session.duelStakes !== 'yamen_bounty'
+  ) {
     if (outcome === 'player_win') {
       favorGain = 4
     } else if (outcome === 'draw') {
@@ -451,6 +455,10 @@ export function extractSerializableState(s: GameStoreState): SerializableGameSta
       Object.entries(s.auctionBoughtByMonth).map(([k, arr]) => [k, [...arr]]),
     ),
     activeEscortContract: s.activeEscortContract ? { ...s.activeEscortContract } : null,
+    activeYamenBounty: s.activeYamenBounty
+      ? { ...s.activeYamenBounty, stats: { ...s.activeYamenBounty.stats } }
+      : null,
+    yamenBountyDoneIds: [...s.yamenBountyDoneIds],
     sectState: clonePlayerSectState(s.sectState),
     questState: cloneQuestRuntimeState(s.questState),
     hiddenQuestIds: [...s.hiddenQuestIds],
@@ -570,6 +578,8 @@ export function createInitialStoreData(): GameStoreData {
     deadNpcIds: [],
     auctionBoughtByMonth: {},
     activeEscortContract: null,
+    activeYamenBounty: null,
+    yamenBountyDoneIds: [],
     activeBagCategory: 'scrolls',
 
     overlays: {

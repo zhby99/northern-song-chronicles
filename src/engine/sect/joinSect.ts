@@ -11,6 +11,7 @@ import type {
 import type { QuestRuntimeState } from '../../types/quest'
 import type { RngFn } from '../combat/rng'
 import { addItemToInventory, removeItemFromInventory } from '../shared/inventory'
+import { getSectExclusivityBlockReason } from './exclusivity'
 import { generateKaifengWarrant } from './kaifengWarrant'
 import { getHalfYearPeriodInfo, SEMI_ANNUAL_DEADLINE_DAYS } from './liaoSpy'
 import { clonePlayerSectState, getSectRankTitle, SHAOLIN_CHORE_TARGET_DAYS } from './ranks'
@@ -28,6 +29,8 @@ export interface BuildJoinSectPatchInput {
   costSilver?: number
   consumeItemId?: string | null
   allowOfficialTransfer?: boolean
+  /** 调用方（如门派事务面板 evaluateSectEntry）已完成门派排他与转任校验时跳过 */
+  skipExclusivityCheck?: boolean
   completeEntryQuest?: boolean
   entryQuestOutcome?: string
   celunSkill?: number
@@ -69,6 +72,7 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
     costSilver = 0,
     consumeItemId = null,
     allowOfficialTransfer = false,
+    skipExclusivityCheck = false,
     completeEntryQuest = false,
     entryQuestOutcome = 'joined',
     celunSkill = 0,
@@ -81,12 +85,15 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
     input.startingRank ?? (faction?.acceptsOuterDisciple === false ? 2 : 1)
   const startingRankLabel = getSectRankTitle(sectId, startingRank)
   const identitySuffix = rule?.joinIdentitySuffix ?? ''
+  const exclusivityReason = skipExclusivityCheck
+    ? null
+    : getSectExclusivityBlockReason(sectId, sectState, allowOfficialTransfer)
 
-  if (!faction) {
+  if (!faction || exclusivityReason) {
     return {
       ok: false,
-      errorReason: '未知势力，无法拜入。',
-      factionName: sectId,
+      errorReason: exclusivityReason ?? '未知势力，无法拜入。',
+      factionName: faction?.name ?? sectId,
       startingRank,
       startingRankLabel,
       identitySuffix,
@@ -159,7 +166,9 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
     activeKaifengWarrant: null,
     shaolinNoviceState: sectId === 'SECT-01' ? 'completed' : sectState.shaolinNoviceState,
     shaolinChoreDays: sectId === 'SECT-01' ? SHAOLIN_CHORE_TARGET_DAYS : sectState.shaolinChoreDays,
-    shaolinDiscipleType: rule?.defaultDiscipleTypeOnJoin ?? sectState.shaolinDiscipleType,
+    shaolinDiscipleType:
+      rule?.defaultDiscipleTypeOnJoin ??
+      (sectState.sectId === sectId ? sectState.shaolinDiscipleType : 'lay'),
   }
 
   let initialStipendPaid = 0

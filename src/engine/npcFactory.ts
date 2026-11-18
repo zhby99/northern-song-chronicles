@@ -42,6 +42,7 @@ export interface MakeQuestNpcInput {
   isDynamicLiaoSpy?: boolean
   isDynamicKaifengWarrant?: boolean
   kaifengWarrantKind?: 'investigate' | 'arrest'
+  isDynamicYamenBounty?: boolean
   dynamicQuestActorId?: string
   questBadgeLabel?: string
 }
@@ -109,6 +110,7 @@ export function makeQuestNpc(input: MakeQuestNpcInput): NodeNpc {
     isDynamicLiaoSpy: input.isDynamicLiaoSpy,
     isDynamicKaifengWarrant: input.isDynamicKaifengWarrant,
     kaifengWarrantKind: input.kaifengWarrantKind,
+    isDynamicYamenBounty: input.isDynamicYamenBounty,
     dynamicQuestActorId: input.dynamicQuestActorId,
     questBadgeLabel: input.questBadgeLabel,
     talk: input.talk,

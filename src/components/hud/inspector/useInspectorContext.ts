@@ -29,6 +29,10 @@ import {
   buildNodeNpcFromSectTaskIntel,
   buildNodeNpcFromSectTaskTrainee,
 } from '../../../engine/sect'
+import {
+  buildNodeNpcFromYamenBounty,
+  isYamenBountyExpired,
+} from '../../../engine/world/yamenBounty'
 
 export interface InspectedTargetSummary {
   id: string
@@ -77,6 +81,8 @@ export function useInspectorContext() {
   const auctionBoughtByMonth = useGameStore((s) => s.auctionBoughtByMonth)
   const inscribedPoemSpotIds = useGameStore((s) => s.inscribedPoemSpotIds)
   const activeEscortContract = useGameStore((s) => s.activeEscortContract)
+  const activeYamenBounty = useGameStore((s) => s.activeYamenBounty)
+  const yamenBountyDoneIds = useGameStore((s) => s.yamenBountyDoneIds)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const npcFavor = useGameStore((s) => s.npcFavor)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
@@ -166,6 +172,18 @@ export function useInspectorContext() {
       combined.push(buildNodeNpcFromKaifengWarrant(warrant))
     }
 
+    const bounty = activeYamenBounty
+    if (
+      bounty &&
+      !isYamenBountyExpired(bounty, dayCount) &&
+      bounty.regionId === node.id &&
+      bounty.buildingId === resolvedLeafBuildingId &&
+      resolvedLeafSpotId === null
+    ) {
+      seenNames.add(bounty.targetName)
+      combined.push(buildNodeNpcFromYamenBounty(bounty))
+    }
+
     const sectTask = sectState.activeSectTask
     if (
       sectTask &&
@@ -241,6 +259,8 @@ export function useInspectorContext() {
     deadNpcIds,
     sectState.activeLiaoSpy,
     sectState.activeKaifengWarrant,
+    activeYamenBounty,
+    dayCount,
     sectState.activeSectTask,
     questState.dynamicActors,
   ])
@@ -448,6 +468,8 @@ export function useInspectorContext() {
     auctionBoughtByMonth,
     inscribedPoemSpotIds,
     activeEscortContract,
+    activeYamenBounty,
+    yamenBountyDoneIds,
     sectState,
     actionFeedback,
   }

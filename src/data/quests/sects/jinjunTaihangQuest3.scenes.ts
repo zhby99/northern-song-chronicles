@@ -278,19 +278,13 @@ const SCENE_34_DEFEND_PLATFORM_1V2: StorySceneDef = {
               talkOverride: '“管你是禁军哪路都指挥，吃老子一记翻天崩山掌！”',
             },
           ],
-          rule: 'duel',
+          rule: 'story_trial',
           forbidEscapeReason: '身后便是钦犯王重岳与史万山的断头刑台，一旦退避则法场失守、前功尽弃！',
           introText:
-            '【1v2 法场护台死斗】外围浓烟蔽日，展昭与禁军正肃清绿林死士！少侠独自屹立东京市曹断头台前，迎战强劫法场的【京东义虎 · 晁云飞（一流中品）】与【立地太岁 · 阮惊涛（一流下品）】！',
-          deathTitle: '法场失守 · 血溅市曹',
-          deathDetail:
-            '你在东京市曹刑台前独战强劫法场的京东双寇晁云飞与阮惊涛，激战力竭不敌，倒于乱刃之下，钦犯趁乱脱逃。',
+            '【1v2 法场护台死斗】外围浓烟蔽日，展昭与禁军正肃清绿林死士！少侠独自屹立东京市曹断头台前，迎战强劫法场的【京东义虎 · 晁云飞（一流中品）】与【立地太岁 · 阮惊涛（一流下品）】！（此战败阵不致命：可退下调息整备后再战）',
           onWin: [openScene('scene_jtc3_35_chao_ruan_flee_wounded', 'QST-SECT-33-TAIHANG-CAMPAIGN-3')],
           onLose: [
             warn('法场恶战失利！请调息整顿披挂与武学后，前往【开封府衙 · 升堂正殿】重新赴市曹监斩护台。', '护台受挫'),
-          ],
-          onEscape: [
-            warn('暂退重整阵脚！请调息完毕后在【开封府衙 · 升堂正殿】重新触发市曹护台决战。', '重整旗鼓'),
           ],
           onDraw: [
             warn('双寇凶悍异常，百余合未分胜负！请整备兵刃丹药后于【开封府衙 · 升堂正殿】再赴法场决战。', '未分胜负'),
@@ -525,19 +519,13 @@ const SCENE_23_KICK_OPEN_JUYI_HALL_2V2: StorySceneDef = {
               npcId: 'NPC-0140',
             },
           ],
-          rule: 'duel',
+          rule: 'story_trial',
           forbidEscapeReason: '五十玄衣死士已在堂外封死退路，唯有一鼓作气擒下太行正副匪首！',
           introText:
-            '【2v2 聚义堂斩首决战】松明火光狂舞！少侠与【南侠 · 展昭（一流上品）】并肩联手，正面迎战太行绿林总瓢把子【太行天王 · 王重岳（一流上品）】与副首领【九纹狂龙 · 史万山（一流下品）】！',
-          deathTitle: '喋血聚义堂 · 奇袭功败',
-          deathDetail:
-            '你在太行聚义忠义大堂与王重岳、史万山的殊死决战中力竭不敌，奇袭斩首之计功败垂成，壮烈殉国。',
+            '【2v2 聚义堂斩首决战】松明火光狂舞！少侠与【南侠 · 展昭（一流上品）】并肩联手，正面迎战太行绿林总瓢把子【太行天王 · 王重岳（一流上品）】与副首领【九纹狂龙 · 史万山（一流下品）】！（此战败阵不致命：可退下调息整备后再战）',
           onWin: [openScene('scene_jtc3_24_shatter_blades_bind_chiefs', 'QST-SECT-33-TAIHANG-CAMPAIGN-3')],
           onLose: [
             warn('聚义堂激战受挫！请调息恢复并检查披挂武学后，在【聚义忠义大堂】重新发起 2v2 决战。', '奇袭受挫'),
-          ],
-          onEscape: [
-            warn('暂退堂外重整内息！就绪后可在【聚义忠义大堂 · 雄关箭楼】再次破门迎战双凶。', '重整态势'),
           ],
           onDraw: [
             warn('太行双凶负隅死守，久战未分胜负！请整备丹药兵刃后再次突入聚义大堂擒贼。', '久战未决'),
@@ -642,19 +630,13 @@ const SCENE_19_CLIFF_SENTRY_AMBUSH_BATTLE: StorySceneDef = {
           questId: JINJUN_TAIHANG_QUEST_3_ID,
           opponent: { kind: 'custom', npc: buildTaihangNightSentry1() },
           extraOpponents: [{ kind: 'custom', npc: buildTaihangNightSentry2() }],
-          rule: 'duel',
+          rule: 'story_trial',
           forbidEscapeReason: '一旦后退半步，警世铜锣敲响，整座太行后崖五十精锐将尽数葬身滚石火油之下！',
           introText:
-            '【1v2 绝壁暗哨灭口战】夜雾凛冽，铜锣在侧！展昭已飞身截杀高处号角手，少侠须以雷霆之势独力击毙鹰愁暗哨正副统领【石破山（二流上品）】与【裴夜枭（二流中品）】，决不可让警锣敲响！',
-          deathTitle: '暗哨失手 · 血染鹰愁崖',
-          deathDetail:
-            '你在太行后山鹰愁暗哨突袭战中失手落败，警世铜锣震响全山，山匪滚石火油倾泻而下，夜袭奇兵全军覆没。',
+            '【1v2 绝壁暗哨灭口战】夜雾凛冽，铜锣在侧！展昭已飞身截杀高处号角手，少侠须以雷霆之势独力击毙鹰愁暗哨正副统领【石破山（二流上品）】与【裴夜枭（二流中品）】，决不可让警锣敲响！（此战败阵不致命：可退下调息整备后再战）',
           onWin: [openScene('scene_jtc3_20_silent_kill_before_gong', 'QST-SECT-33-TAIHANG-CAMPAIGN-3')],
           onLose: [
             warn('突袭鹰愁暗哨受挫！请调匀内息、整备兵甲后，在【绝壁石刻 · 剑痕崖】重新发起暗哨灭口战。', '潜入受挫'),
-          ],
-          onEscape: [
-            warn('暂伏岩隙隐蔽！准备妥当后可在【绝壁石刻 · 剑痕崖】再次突袭鹰愁暗哨。', '隐蔽整备'),
           ],
           onDraw: [
             warn('暗哨双匪缠斗不休！请调理气血后在【绝壁石刻 · 剑痕崖】重新雷霆出击。', '缠斗未决'),

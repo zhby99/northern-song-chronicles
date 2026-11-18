@@ -46,14 +46,17 @@ const CIVIL_SKILL_KEYS = [
 ] as const
 
 const INITIAL_SILVER = 150
-const TALENT_BUDGET = 270
+const TALENT_BUDGET = 240
+const TALENT_MIN = 70
+const TALENT_MAX = 90
 const SKILL_BUDGET = 100
+const SKILL_MAX = 40
 
 const INITIAL_CREATION_STATS: HeroBaseStats = {
   talents: {
-    根骨: 90,
-    悟性: 90,
-    颜值: 90,
+    根骨: 80,
+    悟性: 80,
+    颜值: 80,
   },
   maxHp: 0,
   maxMp: 0,
@@ -193,8 +196,8 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
     setStats((prev) => {
       const prevUsed = prev.talents.根骨 + prev.talents.悟性 + prev.talents.颜值
       const otherUsed = prevUsed - prev.talents[key]
-      const maxAllowed = Math.min(100, TALENT_BUDGET - otherUsed)
-      const clamped = Math.max(1, Math.min(maxAllowed, Math.round(val)))
+      const maxAllowed = Math.min(TALENT_MAX, TALENT_BUDGET - otherUsed)
+      const clamped = Math.max(TALENT_MIN, Math.min(maxAllowed, Math.round(val)))
       return {
         ...prev,
         talents: { ...prev.talents, [key]: clamped },
@@ -205,7 +208,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
   const updateRidingSkill = (val: number) => {
     setStats((prev) => {
       const civilUsed = CIVIL_SKILL_KEYS.reduce((sum, k) => sum + (prev.skills[k] ?? 0), 0)
-      const maxAllowed = Math.min(100, SKILL_BUDGET - civilUsed)
+      const maxAllowed = Math.min(SKILL_MAX, SKILL_BUDGET - civilUsed)
       const clamped = Math.max(0, Math.min(maxAllowed, Math.round(val)))
       return { ...prev, ridingSkill: clamped }
     })
@@ -217,7 +220,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
         prev.ridingSkill +
         CIVIL_SKILL_KEYS.reduce((sum, k) => sum + (prev.skills[k] ?? 0), 0)
       const otherUsed = totalUsed - (prev.skills[key] ?? 0)
-      const maxAllowed = Math.min(100, SKILL_BUDGET - otherUsed)
+      const maxAllowed = Math.min(SKILL_MAX, SKILL_BUDGET - otherUsed)
       const clamped = Math.max(0, Math.min(maxAllowed, Math.round(val)))
       return {
         ...prev,
@@ -233,7 +236,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
     }
     if (mode === 'martial') {
       setStats({
-        talents: { 根骨: 100, 悟性: 95, 颜值: 75 },
+        talents: { 根骨: 90, 悟性: 80, 颜值: 70 },
         maxHp: 0,
         maxMp: 0,
         agility: 0,
@@ -255,7 +258,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
     }
     if (mode === 'scholar') {
       setStats({
-        talents: { 根骨: 75, 悟性: 95, 颜值: 100 },
+        talents: { 根骨: 70, 悟性: 85, 颜值: 85 },
         maxHp: 0,
         maxMp: 0,
         agility: 0,
@@ -276,7 +279,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
       return
     }
     setStats({
-      talents: { 根骨: 1, 悟性: 1, 颜值: 1 },
+      talents: { 根骨: TALENT_MIN, 悟性: TALENT_MIN, 颜值: TALENT_MIN },
       maxHp: 0,
       maxMp: 0,
       agility: 0,
@@ -536,7 +539,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
                 <div className="bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-2.5 xl:p-3 flex flex-col justify-between gap-2">
                   <div className="flex items-center justify-between gap-2 border-b border-[#cbb693] pb-1.5">
                     <span className="song-serif font-bold text-sm xl:text-base 2xl:text-lg text-[#23180f]">
-                      三、先天禀赋（270 点）
+                      三、先天禀赋（{TALENT_BUDGET} 点）
                     </span>
                     <span
                       className={`px-2.5 py-0.5 rounded-full text-xs font-bold border shrink-0 ${
@@ -552,25 +555,25 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
                     <StatSliderRow
                       label="根骨"
                       value={stats.talents.根骨}
-                      min={1}
-                      max={100}
-                      cappedMax={Math.min(100, stats.talents.根骨 + talentRemaining)}
+                      min={TALENT_MIN}
+                      max={TALENT_MAX}
+                      cappedMax={Math.min(TALENT_MAX, stats.talents.根骨 + talentRemaining)}
                       onChange={(v) => updateTalent('根骨', v)}
                     />
                     <StatSliderRow
                       label="悟性"
                       value={stats.talents.悟性}
-                      min={1}
-                      max={100}
-                      cappedMax={Math.min(100, stats.talents.悟性 + talentRemaining)}
+                      min={TALENT_MIN}
+                      max={TALENT_MAX}
+                      cappedMax={Math.min(TALENT_MAX, stats.talents.悟性 + talentRemaining)}
                       onChange={(v) => updateTalent('悟性', v)}
                     />
                     <StatSliderRow
                       label="颜值"
                       value={stats.talents.颜值}
-                      min={1}
-                      max={100}
-                      cappedMax={Math.min(100, stats.talents.颜值 + talentRemaining)}
+                      min={TALENT_MIN}
+                      max={TALENT_MAX}
+                      cappedMax={Math.min(TALENT_MAX, stats.talents.颜值 + talentRemaining)}
                       onChange={(v) => updateTalent('颜值', v)}
                     />
                   </div>
@@ -626,7 +629,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
               <div className="flex-1 min-h-0 bg-[#efe4cc] border-2 border-[#cbb693] rounded-xl p-2.5 xl:p-3 flex flex-col justify-between gap-2">
                 <div className="flex items-center justify-between gap-2 border-b border-[#cbb693] pb-1.5 shrink-0">
                   <span className="song-serif font-bold text-sm xl:text-base 2xl:text-lg text-[#23180f]">
-                    五、十艺百工（100 点自由分配）
+                    五、十艺百工（{SKILL_BUDGET} 点，单项至多 {SKILL_MAX}）
                   </span>
                   <span
                     className={`px-2.5 py-0.5 rounded-full text-xs font-bold border shrink-0 ${
@@ -643,8 +646,8 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
                     label="骑术"
                     value={stats.ridingSkill}
                     min={0}
-                    max={100}
-                    cappedMax={Math.min(100, stats.ridingSkill + skillRemaining)}
+                    max={SKILL_MAX}
+                    cappedMax={Math.min(SKILL_MAX, stats.ridingSkill + skillRemaining)}
                     onChange={updateRidingSkill}
                   />
                   {CIVIL_SKILL_KEYS.map((sk) => {
@@ -655,8 +658,8 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
                         label={sk}
                         value={currentVal}
                         min={0}
-                        max={100}
-                        cappedMax={Math.min(100, currentVal + skillRemaining)}
+                        max={SKILL_MAX}
+                        cappedMax={Math.min(SKILL_MAX, currentVal + skillRemaining)}
                         onChange={(v) => updateSkill(sk, v)}
                       />
                     )
@@ -669,7 +672,7 @@ export function CharacterCreationModal({ onBack }: CharacterCreationModalProps) 
           {/* 底部确认按钮 */}
           <div className="px-5 py-2 bg-[#e7d7b8] border-t-2 border-[#cbb693] flex items-center justify-between gap-4 shrink-0">
             <div className="text-xs xl:text-sm text-[#6b5235] truncate">
-              提示：先天禀赋总计 270 点、十艺百工总计 100 点可自由分配；初始银两固定 150 两。
+              提示：先天禀赋总计 {TALENT_BUDGET} 点（单项 {TALENT_MIN}~{TALENT_MAX}）、十艺百工总计 {SKILL_BUDGET} 点（单项至多 {SKILL_MAX}）；初始银两固定 {INITIAL_SILVER} 两。
             </div>
             <div className="ml-auto flex items-center gap-2.5 shrink-0">
               {onBack && (

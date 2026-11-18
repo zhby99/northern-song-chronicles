@@ -88,9 +88,29 @@ export interface SpeedParams {
   agility: number
 }
 
+/** 骑术满 100 级时，塞外戈壁 / 崇山蜀道的额外地形减速最多抵消此比例 */
+export const RIDING_TERRAIN_EASE_MAX = 0.6
+
+/**
+ * 骑乘时【骑术】对塞外/蜀道地形减速的抵消：有效地形系数 = 1 + (原系数 - 1) × (1 - 抵消比例)。
+ * 步行、官道与水路不受影响。
+ */
+export function getRidingTerrainCoeff(
+  terrainType: TerrainType,
+  ridingSkill: number,
+  isMounted: boolean,
+): number {
+  const coeff = WORLD_GRAPH.terrainMeta[terrainType].coeff
+  if (!isMounted || coeff <= 1 || (terrainType !== 'steppe' && terrainType !== 'mountain')) {
+    return coeff
+  }
+  const ease = (Math.max(0, Math.min(100, ridingSkill)) / 100) * RIDING_TERRAIN_EASE_MAX
+  return 1 + (coeff - 1) * (1 - ease)
+}
+
 export function getEffectiveSpeed(params: SpeedParams, terrainType: TerrainType = 'official') {
   const mount = resolveMountMeta(params.mountKey)
-  const T = WORLD_GRAPH.terrainMeta[terrainType].coeff
+  const T = getRidingTerrainCoeff(terrainType, params.ridingSkill, mount.isMounted)
   let modifier = 0
   if (!mount.isMounted) {
     modifier = params.qinggongBonus + params.agility / 250
@@ -114,6 +134,7 @@ export function getEffectiveSpeed(params: SpeedParams, terrainType: TerrainType 
     modifierPct: Math.round(modifier * 100),
     mountName: mount.name,
     mountBaseSpeed: mount.speed,
+    terrainCoeff: T,
   }
 }
 

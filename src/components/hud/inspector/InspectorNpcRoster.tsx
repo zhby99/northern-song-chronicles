@@ -238,6 +238,14 @@ export function InspectorNpcRoster({
                   >
                     查明案情线索
                   </button>
+                ) : p.isDynamicYamenBounty ? (
+                  <button
+                    type="button"
+                    onClick={() => onStartNpcCombat(p, 'spar', 'yamen_bounty')}
+                    className="px-2 py-0.5 rounded bg-[#7a3a12] hover:bg-[#93481a] border border-[#f2b98a] text-[#fff8ee] text-[11px] font-bold cursor-pointer"
+                  >
+                    缉拿悬赏要犯
+                  </button>
                 ) : p.isDynamicKaifengWarrant ? (
                   <button
                     type="button"
@@ -264,7 +272,7 @@ export function InspectorNpcRoster({
                     </button>
                   </>
                 )}
-                {!p.isDynamicLiaoSpy && !p.isDynamicKaifengWarrant && p.tenArts && (
+                {!p.isDynamicLiaoSpy && !p.isDynamicKaifengWarrant && !p.isDynamicYamenBounty && p.tenArts && (
                   <button
                     type="button"
                     onClick={() =>
@@ -284,6 +292,7 @@ export function InspectorNpcRoster({
                 {p.id &&
                   !p.isDynamicLiaoSpy &&
                   !p.isDynamicKaifengWarrant &&
+                  !p.isDynamicYamenBounty &&
                   !p.dynamicQuestActorId && (
                     <button
                       type="button"

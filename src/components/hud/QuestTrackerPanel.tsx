@@ -38,6 +38,7 @@ export function QuestTrackerPanel() {
   const maxHp = useGameStore((s) => s.maxHp)
   const maxMp = useGameStore((s) => s.maxMp)
   const sectState = useGameStore((s) => s.sectState)
+  const activeYamenBounty = useGameStore((s) => s.activeYamenBounty)
   const questState = useGameStore((s) => s.questState)
   const hiddenQuestIds = useGameStore((s) => s.hiddenQuestIds)
   const toggleHideTrackedQuest = useGameStore((s) => s.toggleHideTrackedQuest)
@@ -57,6 +58,8 @@ export function QuestTrackerPanel() {
   const activeKaifengWarrant =
     sectState.sectId === 'SECT-17' ? sectState.activeKaifengWarrant : null
   const activeSectTask = sectState.activeSectTask
+  const visibleYamenBounty =
+    activeYamenBounty && !hiddenSet.has('__yamen_bounty__') ? activeYamenBounty : null
 
   const visibleSpy = activeSpy && !hiddenSet.has('__liao_spy__') ? activeSpy : null
   const visibleKaifengWarrant =
@@ -72,11 +75,13 @@ export function QuestTrackerPanel() {
     activeList.length +
     (activeSpy ? 1 : 0) +
     (activeKaifengWarrant ? 1 : 0) +
+    (activeYamenBounty ? 1 : 0) +
     (activeSectTask ? 1 : 0)
   const visibleCount =
     visibleActiveList.length +
     (visibleSpy ? 1 : 0) +
     (visibleKaifengWarrant ? 1 : 0) +
+    (visibleYamenBounty ? 1 : 0) +
     (visibleSectTask ? 1 : 0)
   const hiddenActiveCount = Math.max(0, totalActiveCount - visibleCount)
 
@@ -309,6 +314,55 @@ export function QuestTrackerPanel() {
                 >
                   <Compass className="w-3 h-3" />
                   <span>舆图指引：{warrant.regionName}</span>
+                </button>
+              </div>
+            )
+          })()}
+
+          {/* 州府衙门悬赏缉凶 */}
+          {visibleYamenBounty && (() => {
+            const b = visibleYamenBounty
+            const remainDays = b.deadlineDay - dayCount
+            return (
+              <div className="p-2.5 rounded bg-[#2a1a0d]/90 border border-[#c98a4a]/75 space-y-1.5">
+                <div className="flex items-center justify-between gap-1.5">
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#7a3a12] text-[#fff1df]">
+                    悬赏缉凶
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[10px] font-mono text-amber-200 font-bold">
+                      {remainDays >= 0 ? `限期剩 ${remainDays} 日` : '已逾期作废'}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => toggleHideTrackedQuest('__yamen_bounty__')}
+                      title="暂时隐藏此任务，不在追踪面板显示"
+                      className="p-0.5 rounded hover:bg-[#4a2e16] text-amber-200/70 hover:text-amber-100 cursor-pointer"
+                    >
+                      <EyeOff className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+                <div className="song-serif font-bold text-[13px] text-amber-100 leading-snug">
+                  缉拿【{b.targetName}】
+                </div>
+                <div className="text-[11px] text-[#f1dfc4] leading-relaxed">
+                  <span className="text-amber-300 font-semibold">榜文：</span>
+                  {b.gradeLabel}，{b.targetTitle}（{b.realm}），潜匿于【{b.regionName} · {b.buildingName}】。擒获即领{b.issueRegionName}衙门赏银 {b.rewardSilver} 两、战斗经验 +{b.rewardCombatExp}、侠义 +{b.rewardChivalry}。
+                </div>
+                <button
+                  type="button"
+                  onClick={() =>
+                    locateQuestTargetOnMap({
+                      regionId: b.regionId,
+                      buildingId: b.buildingId,
+                      customLabel: `${b.regionName} · ${b.buildingName}`,
+                    })
+                  }
+                  className="w-full py-1 px-2 rounded bg-[#7a3a12] hover:bg-[#93481a] text-[#fff6e5] text-[11px] font-bold song-serif flex items-center justify-center gap-1 cursor-pointer"
+                >
+                  <Compass className="w-3 h-3" />
+                  <span>舆图指引：{b.regionName}</span>
                 </button>
               </div>
             )

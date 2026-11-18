@@ -2,6 +2,8 @@ import { useGameStore } from '../../store/useGameStore'
 import { InspectorBuildingActions } from './inspector/InspectorBuildingActions'
 import { InspectorNpcRoster } from './inspector/InspectorNpcRoster'
 import { InspectorShopSection } from './inspector/InspectorShopSection'
+import { InspectorYamenBountySection } from './inspector/InspectorYamenBountySection'
+import { isYamenBountyBoardBuilding } from '../../engine/world/yamenBounty'
 import { ShaolinChoreWidget } from './inspector/ShaolinChoreWidget'
 import { useInspectorContext } from './inspector/useInspectorContext'
 import { WorldNodeInspectorCard } from './inspector/WorldNodeInspectorCard'
@@ -62,6 +64,8 @@ function RegionBuildingInspectorCard() {
     auctionBoughtByMonth,
     inscribedPoemSpotIds,
     activeEscortContract,
+    activeYamenBounty,
+    yamenBountyDoneIds,
     sectState,
     actionFeedback,
   } = useInspectorContext()
@@ -189,6 +193,17 @@ function RegionBuildingInspectorCard() {
         activeEscortContract={activeEscortContract}
         onRunQuestEffects={runQuestEffects}
         onOpenMenu={openMenu}
+      />
+
+      <InspectorYamenBountySection
+        activeRegionId={activeRegionId}
+        regionName={regionNode.name}
+        dayCount={dayCount}
+        isAtCurrentRegion={isAtCurrentRegion}
+        isBoardBuilding={isLeafBuilding && isYamenBountyBoardBuilding(inspectedRootBldg?.id)}
+        activeYamenBounty={activeYamenBounty}
+        yamenBountyDoneIds={yamenBountyDoneIds}
+        celunSkill={skills['策论'] ?? 0}
       />
 
       {activeShop && (

@@ -28,6 +28,8 @@ import {
 import {
   buildJoinSectPatch,
   clonePlayerSectState,
+  getEntryQuestSectId,
+  getSectEntryQuestBlockReason,
   resetSectMembership,
   getSectMonthlyStipend,
   getSectRankTitle,
@@ -147,6 +149,11 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
     const s = ctx.draft
     ctx.questIdHint = eff.questId
     const qDef = QUEST_MAP[eff.questId]
+    const sectBlock = getSectEntryQuestBlockReason(eff.questId, s.sectState)
+    if (sectBlock) {
+      ctx.patchDraft({ actionFeedback: { text: sectBlock, tone: 'warn' } })
+      return
+    }
     const nextQuest = cloneQuestRuntimeState(s.questState)
     const stepId = eff.stepId ?? qDef?.initialStepId ?? 'init'
     nextQuest.activeQuests[eff.questId] = {
@@ -573,17 +580,39 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
       startingRank: eff.rank,
       allowOfficialTransfer: eff.allowOfficialTransfer,
     })
-    if (!joinRes.ok) return
+    if (!joinRes.ok) {
+      ctx.patchDraft({
+        actionFeedback: { text: joinRes.errorReason ?? '拜师未成。', tone: 'warn' },
+      })
+      return
+    }
+
+    // 已拜入本派：其余门派尚在进行中的入门线自此作罢，免得日后再走完他派终幕
+    const nextQuestState = cloneQuestRuntimeState(joinRes.nextQuestState)
+    const droppedTitles: string[] = []
+    for (const qid of Object.keys(nextQuestState.activeQuests)) {
+      const entrySect = getEntryQuestSectId(qid)
+      if (entrySect && entrySect !== eff.sectId) {
+        delete nextQuestState.activeQuests[qid]
+        nextQuestState.dynamicActors = nextQuestState.dynamicActors.filter(
+          (a) => a.questId !== qid,
+        )
+        droppedTitles.push(`《${QUEST_MAP[qid]?.title ?? qid}》`)
+      }
+    }
 
     const giftSuffix =
       joinRes.grantedGiftNames.length > 0
         ? ` 入门获赐制式披挂：${joinRes.grantedGiftNames.join('、')}！`
         : ''
-    const msg = `正式拜入【${joinRes.factionName}】，授职第 ${joinRes.startingRank} 阶【${joinRes.startingRankLabel}】${joinRes.identitySuffix}！${giftSuffix}`
+    const dropSuffix =
+      droppedTitles.length > 0 ? ` 既已拜师，${droppedTitles.join('、')}等他派入门线自此作罢。` : ''
+    const msg = `正式拜入【${joinRes.factionName}】，授职第 ${joinRes.startingRank} 阶【${joinRes.startingRankLabel}】${joinRes.identitySuffix}！${giftSuffix}${dropSuffix}`
     ctx.patchDraft({
       silver: joinRes.nextSilver,
       inventory: joinRes.nextInventory,
       sectState: joinRes.nextSectState,
+      questState: nextQuestState,
       actionFeedback: { text: msg, tone: 'success' },
       logs: [createLogEntry(s.dayCount, '拜入宗门', msg, true, s.shichenIdx), ...s.logs].slice(
         0,
@@ -900,7 +929,10 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
               : '师门考校试炼之中，不可临阵脱逃！'
             : isLethalDuel
               ? '任务生死交锋正值紧要关头，不可临阵脱逃！'
-              : null,
+              : eff.onEscape
+                ? null
+                : // 剧情切磋未设脱战分支：抽身既不推进剧情、又能保住战前所得，故一律锁定，杜绝「领奖→首合脱战」反复刷取
+                  '剧情交锋正值紧要关头，不可半途抽身！',
       customIntroText: eff.introText,
       questCombatHook: {
         questId: eff.questId,

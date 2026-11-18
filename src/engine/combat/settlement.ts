@@ -1,5 +1,6 @@
 import type {
   ActiveEscortContract,
+  ActiveYamenBounty,
   CompiledNpcRecord,
   GameOverState,
   InventoryStack,
@@ -97,6 +98,8 @@ export interface CombatSettlementDraft {
   combatExp: number
   chivalry: number
   escortContract: ActiveEscortContract | null
+  yamenBounty: ActiveYamenBounty | null
+  yamenBountyDoneIds: string[]
   hp: number
   mp: number
   logTag: string
@@ -312,6 +315,35 @@ export const COMBAT_SETTLEMENT_RULES: CombatSettlementRule[] = [
           d.logTag = '失镖受挫'
           d.logText = `少侠双拳难敌四手，被【${session.npc.name}】夺走镖车【${contract?.cargoName ?? '红货'}】${lostSilver > 0 ? `并搜去盘缠 ${lostSilver} 两` : ''}，幸得留下一命！`
         }
+      }
+    },
+  },
+  {
+    id: 'yamenBounty',
+    stakes: ['yamen_bounty'],
+    apply(d, ctx) {
+      const { session, res } = ctx
+      const bounty = d.yamenBounty
+      // 州府衙门「悬赏缉凶」：击败即拿人归案；失手 / 脱身只是放走一时，榜文仍在可再寻
+      if (!bounty || session.targetNpcNode.id !== `YAMEN_BOUNTY_${bounty.id}`) return
+      if (session.outcome === 'player_win') {
+        const silverGain = computeCelunBonusAmount(
+          bounty.rewardSilver,
+          res.derived.skills['策论'] ?? 0,
+        )
+        d.silver += silverGain
+        d.combatExp += bounty.rewardCombatExp
+        d.chivalry += bounty.rewardChivalry
+        d.yamenBounty = null
+        d.yamenBountyDoneIds = [...d.yamenBountyDoneIds, bounty.id].slice(-60)
+        d.logTag = '悬赏归案'
+        d.logText = `少侠力擒悬赏要犯【${bounty.targetName}】（${bounty.targetTitle}），押送${bounty.regionName}官府验明正身！领取${bounty.issueRegionName}衙门赏银 +${silverGain} 两${silverGain > bounty.rewardSilver ? `（含策论加成 +${silverGain - bounty.rewardSilver} 两）` : ''}、缉凶战斗经验 +${bounty.rewardCombatExp}（另得交手经验 +${res.combatExpGain}）、侠义 +${bounty.rewardChivalry}！`
+      } else if (session.outcome === 'npc_win') {
+        d.logTag = '缉凶失手'
+        d.logText = `少侠不敌悬赏要犯【${bounty.targetName}】，负伤倒地，眼睁睁看其遁走藏身（榜文仍在，第 ${bounty.deadlineDay} 日前养好伤可再来缉拿）。`
+      } else {
+        d.logTag = '缉凶未果'
+        d.logText = `少侠与悬赏要犯【${bounty.targetName}】缠斗未分胜负，暂且罢手（榜文仍在，第 ${bounty.deadlineDay} 日前可再来缉拿）。`
       }
     },
   },

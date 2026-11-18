@@ -244,6 +244,10 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
           )
         : {},
       activeEscortContract: st.activeEscortContract ? { ...st.activeEscortContract } : null,
+      activeYamenBounty: st.activeYamenBounty
+        ? { ...st.activeYamenBounty, stats: { ...st.activeYamenBounty.stats } }
+        : null,
+      yamenBountyDoneIds: [...(st.yamenBountyDoneIds ?? [])],
       sectState: clonePlayerSectState(st.sectState),
       questState: cloneQuestRuntimeState(st.questState),
       hiddenQuestIds: Array.isArray(st.hiddenQuestIds)

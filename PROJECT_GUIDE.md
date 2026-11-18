@@ -130,7 +130,7 @@ northern-song-chronicles/
 │   │       └── uiSaveSlice.ts           # 全局枢机/图鉴/日志抽屉 UI 控制与多槽位 IndexedDB 存取档
 │   │
 │   ├── types/                           # 全局 TypeScript 接口与类型定义
-│   │   └── game.ts                      # Region, Building, NPC, MartialArt, Weapon, Inventory, M1.5.4 存档等类型
+│   │   └── game.ts                      # Region, Building, NPC, MartialArt, Weapon, Inventory, M1.5.5 存档等类型
 │   │
 │   └── utils/                           # 工具方法库
 │       ├── assetLoader.ts               # 图片素材按需懒加载与字节监控工具
@@ -176,7 +176,7 @@ northern-song-chronicles/
   - **群侠与战斗 (`combatSocialSlice.ts`)**：NPC 交谈、赠礼好感结算、同步盲选六择一回合战斗与生死战 `GameOverModal` 重置。
   - **门派与公门 (`sectSlice.ts`)**：33 门派拜师晋升、二月初一宗门大比、常山半年诛谍、六扇门海捕公案、举荐帖与本门武学传授。
   - **剧情引擎 (`questSlice.ts`)**：声明式 `QuestEffect` 执行器、`StorySceneModal` 对白幕次与抉择推进、地点触发器与任务时限巡检。
-  - **界面与存取档 (`uiSaveSlice.ts`)**：十卷枢机菜单、万象图鉴、浮动笺纸提示及多槽位 `M1.5.4` IndexedDB/JSON 存取档。
+  - **界面与存取档 (`uiSaveSlice.ts`)**：十卷枢机菜单、万象图鉴、浮动笺纸提示及多槽位 `M1.5.5` IndexedDB/JSON 存取档。
 
 ### 2. 静态数据库与器物武学表 (`gameDb.ts` / `itemsDb.ts` / `scrollsDb.ts` / `playerMartialArts.ts`)
 - **`gameDb.ts`**：导出 `REGIONS_DB`（43）、`BUILDINGS_DB`（268）、`MARTIAL_ARTS_DB`（246）、`WEAPONS_DB`（100）、`NPCS_DB`（1,052）及 O(1) 哈希索引 Map。

@@ -14,6 +14,8 @@ export interface CombatBagStackEntry {
 interface CombatItemDrawerProps {
   combatBagItems: CombatBagStackEntry[]
   consumedOnceItemIds: string[]
+  itemUsesLeft: number
+  itemUseLimit: number
   playerMaxHp: number
   playerMaxMp: number
   onClose: () => void
@@ -23,6 +25,8 @@ interface CombatItemDrawerProps {
 export function CombatItemDrawer({
   combatBagItems,
   consumedOnceItemIds,
+  itemUsesLeft,
+  itemUseLimit,
   playerMaxHp,
   playerMaxMp,
   onClose,
@@ -50,7 +54,7 @@ export function CombatItemDrawer({
               随身行囊 · 临阵丹药与奇毒匣
             </h3>
             <span className="text-[11px] text-[#d6be99]">
-              （择一使用即作为本合亮牌行动，并解除连招锁）
+              （择一使用即作为本合亮牌行动，不解除连招锁；毒物须过敌方闪避）
             </span>
           </div>
           <button
@@ -64,6 +68,15 @@ export function CombatItemDrawer({
 
         {/* 分类筛选条 */}
         <div className="px-4 py-2 bg-[#eadbc0] border-b border-[#c9b086] flex items-center gap-2 text-xs">
+          <span
+            className={`ml-auto order-last px-2 py-0.5 rounded-full border font-bold ${
+              itemUsesLeft > 0
+                ? 'bg-[#f7efe0] border-[#bfa377] text-[#4a3520]'
+                : 'bg-[#8d7c65] border-[#8d7c65] text-white'
+            }`}
+          >
+            本场尚可探囊 {itemUsesLeft} / {itemUseLimit} 次
+          </span>
           <button
             type="button"
             onClick={() => setBagFilter('all')}
@@ -114,6 +127,8 @@ export function CombatItemDrawer({
               const isOnceUsed = Boolean(
                 item.useEffect?.onceOnly && consumedOnceItemIds.includes(item.id),
               )
+              const isOutOfUses = itemUsesLeft <= 0
+              const isDisabled = isOnceUsed || isOutOfUses
               const effTags: string[] = []
               if (item.useEffect?.hp) {
                 const scaledHp = scaleMedicineRecovery(
@@ -169,17 +184,23 @@ export function CombatItemDrawer({
                     <span className="text-[10px] text-[#785e3f]">{item.subType}</span>
                     <button
                       type="button"
-                      disabled={isOnceUsed}
+                      disabled={isDisabled}
                       onClick={() => onUseItem(item.id)}
                       className={`px-3 py-1 rounded-lg text-xs font-bold text-white shadow transition ${
-                        isOnceUsed
+                        isDisabled
                           ? 'bg-[#8d7c65] opacity-60 cursor-not-allowed'
                           : isPoison
                             ? 'bg-[#631d5c] hover:bg-[#7d2474] cursor-pointer'
                             : 'bg-[#8f1d14] hover:bg-[#ad2419] cursor-pointer'
                       }`}
                     >
-                      {isOnceUsed ? '再食无效' : isPoison ? '临阵施毒' : '探囊服食'}
+                      {isOnceUsed
+                        ? '再食无效'
+                        : isOutOfUses
+                          ? '本场已用尽'
+                          : isPoison
+                            ? '临阵施毒'
+                            : '探囊服食'}
                     </button>
                   </div>
                 </div>

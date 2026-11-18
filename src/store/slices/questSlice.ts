@@ -5,6 +5,7 @@ import {
   cloneQuestRuntimeState,
   evaluateQuestCondition,
   getVisibleStoryChoices,
+  effectsOpenModal,
   findMatchingLocationTriggers,
 } from '../../engine/questEngine'
 import { buildStoreEvalContext } from '../storeHelpers'
@@ -132,9 +133,15 @@ export const createQuestSlice: StoreSlice<QuestKeys> = (set, get) => ({
     const matched = findMatchingLocationTriggers(loc, buildStoreEvalContext(s))
     if (matched.length === 0) return false
 
+    // 同一地点多条触发器同时命中时，每次到访只放行第一条会弹出剧情 / 战斗的触发器；
+    // 其余弹窗类触发器不消耗 onceFlag，留待下次到访再触发，避免互相顶掉场景（如长安丐帮 vs 华山雨局）
+    let modalFired = false
     for (const { quest, trigger } of matched) {
       const latest = get()
       if (latest.gameOver || latest.activeCombat) break
+      const opensModal = effectsOpenModal(trigger.effects)
+      if (opensModal && (modalFired || latest.activeStoryScene)) continue
+      if (opensModal) modalFired = true
       if (trigger.onceFlag) {
         const nextQuest = cloneQuestRuntimeState(latest.questState)
         nextQuest.flags[trigger.onceFlag] = true
