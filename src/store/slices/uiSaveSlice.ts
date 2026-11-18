@@ -194,7 +194,7 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
       createLogEntry(
         st.dayCount,
         '卷宗启封',
-        `已读取存档【${envelope.summary.songDate} · ${envelope.summary.regionName}${envelope.summary.buildingName ? ` · ${envelope.summary.buildingName}` : ''}】。`,
+        `已读取存档【${envelope.summary.songDate} · ${envelope.summary.regionName}${envelope.summary.buildingName ? ` · ${envelope.summary.buildingName}` : ''}】。${envelope.migratedFrom ? `（卷宗已自 ${envelope.migratedFrom} 升级至 ${CURRENT_SAVE_SCHEMA_VERSION}，下次存档即按新版本写入）` : ''}`,
         true,
         st.shichenIdx,
       ),
@@ -266,7 +266,7 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
       saveNotice: closeAfterLoad
         ? null
         : {
-            text: `已成功回溯至【${envelope.summary.songDate} · ${envelope.summary.regionName}】！`,
+            text: `已成功回溯至【${envelope.summary.songDate} · ${envelope.summary.regionName}】！${envelope.migratedFrom ? `旧版卷宗（${envelope.migratedFrom}）已自动升级。` : ''}`,
             tone: 'success',
           },
     })

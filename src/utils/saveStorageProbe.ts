@@ -2,6 +2,56 @@ import type { SaveSlotId } from '../types/game'
 
 export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.5' as const
 
+/**
+ * 存档结构历代版本（自 `NorthernSongChroniclesSaves_v3` 库启用起，旧→新）。
+ * 递增 `CURRENT_SAVE_SCHEMA_VERSION` 时：把新版本号追加到末尾，并在 `saveMigrations.ts` 补一条迁移步骤。
+ */
+export const SAVE_SCHEMA_HISTORY = [
+  'M1.2.0',
+  'M1.3.0',
+  'M1.3.1',
+  'M1.4.0',
+  'M1.4.1',
+  'M1.5.0',
+  'M1.5.1',
+  'M1.5.2',
+  'M1.5.3',
+  'M1.5.4',
+  CURRENT_SAVE_SCHEMA_VERSION,
+] as const
+
+/** 解析 `M主.次.修` 版本号；格式不符返回 null */
+export function parseSaveSchemaVersion(v: unknown): [number, number, number] | null {
+  if (typeof v !== 'string') return null
+  const m = /^M(\d+)\.(\d+)\.(\d+)$/.exec(v.trim())
+  if (!m) return null
+  return [Number(m[1]), Number(m[2]), Number(m[3])]
+}
+
+/** a < b 返回负数，相等 0，a > b 正数（无法解析者视为最旧） */
+export function compareSaveSchemaVersions(a: unknown, b: unknown): number {
+  const pa = parseSaveSchemaVersion(a) ?? [0, 0, 0]
+  const pb = parseSaveSchemaVersion(b) ?? [0, 0, 0]
+  for (let i = 0; i < 3; i += 1) {
+    if (pa[i] !== pb[i]) return pa[i]! - pb[i]!
+  }
+  return 0
+}
+
+/** 可读取的存档版本：历代最早版本至当前版本（含）；更新版本写出的存档不可降级读取 */
+export function isSupportedSaveSchemaVersion(v: unknown): boolean {
+  if (!parseSaveSchemaVersion(v)) return false
+  return (
+    compareSaveSchemaVersions(v, SAVE_SCHEMA_HISTORY[0]) >= 0 &&
+    compareSaveSchemaVersions(v, CURRENT_SAVE_SCHEMA_VERSION) <= 0
+  )
+}
+
+/** 存档出自比本游戏更新的版本（不可读取，但也绝不自动删除） */
+export function isFutureSaveSchemaVersion(v: unknown): boolean {
+  return Boolean(parseSaveSchemaVersion(v)) && compareSaveSchemaVersions(v, CURRENT_SAVE_SCHEMA_VERSION) > 0
+}
+
 export const LEGACY_IDB_DB_NAMES = [
   'NorthernSongChroniclesDB',
   'NorthernSongChroniclesSaves_v2',
@@ -25,43 +75,20 @@ export const ALL_SAVE_SLOT_IDS: readonly SaveSlotId[] = [
 
 let legacyPurged = false
 
+/**
+ * 早期 v1 / v2 存档库（M1.2.0 以前，结构已无法迁移）。
+ * 存档兼容恢复后不再主动删除任何玩家数据：此函数保留为空操作，只为兼容既有调用点。
+ */
 export function purgeLegacySaveDatabases(): void {
   if (legacyPurged) return
   legacyPurged = true
-
-  try {
-    if (typeof localStorage !== 'undefined') {
-      const keysToRemove: string[] = []
-      for (let i = 0; i < localStorage.length; i += 1) {
-        const k = localStorage.key(i)
-        if (k && LEGACY_LS_PREFIXES.some((p) => k.startsWith(p))) {
-          keysToRemove.push(k)
-        }
-      }
-      for (const k of keysToRemove) {
-        localStorage.removeItem(k)
-      }
-    }
-  } catch {
-    // ignore storage errors
-  }
-
-  try {
-    if (typeof indexedDB !== 'undefined') {
-      for (const legacyDb of LEGACY_IDB_DB_NAMES) {
-        indexedDB.deleteDatabase(legacyDb)
-      }
-    }
-  } catch {
-    // ignore indexedDB errors
-  }
 }
 
 function isValidSchemaEnvelopeRecord(rec: unknown): boolean {
   if (!rec || typeof rec !== 'object' || Array.isArray(rec)) return false
   const obj = rec as Record<string, unknown>
   return (
-    obj.schemaVersion === CURRENT_SAVE_SCHEMA_VERSION &&
+    isSupportedSaveSchemaVersion(obj.schemaVersion) &&
     typeof obj.slotId === 'string' &&
     Boolean(obj.state && typeof obj.state === 'object')
   )

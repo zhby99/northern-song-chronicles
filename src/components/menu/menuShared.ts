@@ -92,7 +92,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     numeral: '捌',
     label: '读 档',
     seal: '启',
-    subtitle: '读取当前版本卷宗回溯三层空间、披挂武学与剧情任务现场，或从本地导入 .json 存档文件',
+    subtitle: '读取历代卷宗（旧版自动升级）回溯三层空间、披挂武学与剧情任务现场，或从本地导入 .json 存档文件',
     badge: 'M1.5 卷宗',
   },
   {

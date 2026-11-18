@@ -1116,6 +1116,8 @@ export interface GameSaveSummary {
 export interface GameSaveEnvelope {
   gameTitle: '北宋立志传'
   schemaVersion: 'M1.5.5'
+  /** 读档时由旧版本迁移而来：原存档版本号（新写出的存档不含此字段） */
+  migratedFrom?: string
   slotId: SaveSlotId
   savedAt: string
   note: string

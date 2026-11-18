@@ -22,7 +22,7 @@
   - `[M0-1]` 模块化前端工程：`Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5`，全量运行时原画与 Web Audio 无缝循环 BGM 抽离至 `public/assets/` 按需懒加载，代码包内嵌 Base64 为 `0 Bytes`。
   - `[M0-2]` 全局唯一标准 ID 字典：`src/data/idRegistry.json`（43 地区 `REG-01..43`、33 武林门派 `SECT-01..33`［21 一流势力（含独立拆分且零专属功法的 `SECT-33` 大宋禁军） + 12 二三流门派（6 二流 + 6 三流）］、11 朝堂四夷组织 `ORG-01..11`、246 武学 `MA-001..246`、100 武器 `WPN-001..100`），1,052 名 NPC（`NPC-0001..1052`）100% 挂载至最末层建筑/子建筑，零悬空引用。
   - `[M0-3]` 结构化数据库编译管线：`scripts/compile_game_db.py`（`npm run build:db`）将 `docs/*.md` 七大设定专卷一键编译为 `src/data/*.json` 与快速索引门面 `src/data/gameDb.ts`。
-  - `[M0-4]` 三层空间导航与存取档：`天下舆图 (world) -> 43 地区等轴全景 (region) -> 147 座特殊建筑内景 + 121 座基础建筑 (building)`；基于 `IndexedDB + localStorage` 实装 1 自动槽 + 6 手动槽存取档与 `.json` 存档导入导出（当前仅支持最新 `M1.5.5` Schema，开发期不保留旧版历史存档兼容包袱）。
+  - `[M0-4]` 三层空间导航与存取档：`天下舆图 (world) -> 43 地区等轴全景 (region) -> 147 座特殊建筑内景 + 121 座基础建筑 (building)`；基于 `IndexedDB + localStorage` 实装 1 自动槽 + 6 手动槽存取档与 `.json` 存档导入导出（当前 `M1.5.5` Schema，可跨版本读取 `M1.2.0` 起的历代存档并自动迁移）。
   - `[M1 & M2]` 开局创角（`CharacterCreationModal`）、全局顶部常驻状态栏、1.5× 宽幅枢机菜单（9 槽披挂 + 6 槽武学运使 + 三场所按日闭关且出关直接回到披挂与武学页、八大图鉴跨栏保留筛选状态）、246 门十一大类武学 1~10 重数值与 37 门天阶特效、全套九槽披挂与四库百卷入库、各地商铺分类买卖与二次确认弹窗、同步盲选六择一回合战斗（每场限用 3 次丹药毒物）、二三流门派及首批长篇/奇遇任务链、门派排他与 NPC 生死状态、州府衙门悬赏缉凶榜、每年六月开封大集已实装；银钱收支以门派月俸为物价锚（见 `docs/GAME_MECHANICS.md` 5.2 节）。
   - `[资产归档]` 跨分支未压缩高清母版原画归档于 `assets_raw_masters/`，早期原型脚本与画师 Agent 规范归档于 `legacy_prototypes_and_tools/`。
 - **下一阶段切入点**：**Phase M1-4（剩余一流门派独立入门任务链）→ Phase M3-2/3/4（确定性人脉社交、天下风云榜与路途奇遇池）**
@@ -43,8 +43,10 @@
    - **严禁在 `.ts/.tsx/.json` 代码中内嵌 Base64 图片字符串**；所有运行时图片与音频统一放入 `public/assets/{regions,buildings,characters,items,quests,audio}/`（未压缩母版统一归档于 `assets_raw_masters/`），按需懒加载。
    - **静态路径严禁裸绑**：组件渲染任何 `/assets/...` 图片时必须走 `<ManagedAssetImg>`、`<CutoutPortraitImg>`、`useLazyImage()` 或 `resolveAssetUrl()`（切勿直接写 `<img src={rawUrl} />` 或在 CSS 中写 `url(/assets/...)`）；访问 `localStorage` / `indexedDB` 必须包裹 `try/catch`，确保 `npm run build:artifact` 生成的单文件 HTML 在 `file://` 与严格沙箱预览下 100% 正常可玩。
    - 若用户要求新生成全景图或角色立绘，**严禁使用 PIL/Canvas/SVG 脚本程序化伪造、镜像复用或裁剪拼贴原画**，必须遵循 `.agents/skills/panorama-artist/SKILL.md` 与 `.agents/skills/portrait-artist/SKILL.md` 规范逐张调用 `generate_image`。
-4. **存档状态同步（开发期轻装迭代）**：
-   - 修改 `src/store/useGameStore.ts` 中的核心状态字段时，同步更新 `src/types/game.ts` 中的 `SerializableGameState` 与 `src/utils/saveManager.ts` 中的当前版本校验；当前开发阶段**无需维护旧版本历史存档向后兼容迁移代码**，数据结构大改时直接递增 `CURRENT_SAVE_SCHEMA_VERSION` 即可。
+4. **存档状态同步与跨版本兼容（必须保留玩家旧档）**：
+   - 修改 `src/store/useGameStore.ts` 中的核心状态字段时，同步更新 `src/types/game.ts` 中的 `SerializableGameState`、`src/store/storeHelpers.ts` 的序列化与初始值，以及 `src/utils/saveManager.ts` 的读档净化（缺失字段一律回填默认值）。
+   - 存档结构变化时递增 `CURRENT_SAVE_SCHEMA_VERSION`（`src/utils/saveStorageProbe.ts`），**同时**把新版本号追加到 `SAVE_SCHEMA_HISTORY` 末尾，并在 `src/utils/saveMigrations.ts` 的 `SAVE_MIGRATIONS` 追加一条迁移步骤（改名 / 删除 / 语义变化的字段在此处理）；`saveMigration.test.ts` 会校验两者一一对应。
+   - 严禁自动删除读不了的存档（损坏或出自更新版本者原样保留）；严禁再引入「仅支持最新版本」的版本硬校验。
 5. **代码质量与单文件包防回归校验**：
    - 每次完成功能修改后，运行 `npm run lint`（含 `oxlint` + `check_artifact_guardrails.mjs` 静态防回归护栏）与 `npm run build`（`tsc -b && vite build`）确保零类型错误、零 Lint 警告、零裸资源路径违规。
    - 若修改了构建配置、资源加载器（`assetLoader.ts` / `bgmManager.ts` / `saveManager.ts`）或大批量新增素材，同步运行 `npm run build:artifact && npm run verify:artifact` 执行无头浏览器双模式（`file://` + 严格 CSP 沙箱）端到端冒烟验证。

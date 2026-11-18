@@ -140,7 +140,9 @@ northern-song-chronicles/
 │       ├── assetLoader.ts               # 图片素材按需懒加载与字节监控工具
 │       ├── hotkeys.ts                   # 战斗 / 剧情快捷键守门（菜单、图鉴打开或正在输入时放行）
 │       ├── bgmManager.ts                # Web Audio 无缝循环与四分类场景 BGM 播放列表引擎
-│       └── saveManager.ts               # IndexedDB + LocalStorage 多槽位存取档与 JSON 导入导出校验
+│       ├── saveManager.ts               # IndexedDB + LocalStorage 多槽位存取档与 JSON 导入导出校验
+│       ├── saveStorageProbe.ts          # 存档版本号与历代版本表 SAVE_SCHEMA_HISTORY、首屏轻量存档计数
+│       └── saveMigrations.ts            # 跨版本存档迁移链 SAVE_MIGRATIONS（M1.2.0 起旧档读档时自动升级）
 │
 ├── public/                              # 生产运行资源静态目录 (被 Vite 直接托管)
 │   ├── icons.svg                        # 界面矢量图标集

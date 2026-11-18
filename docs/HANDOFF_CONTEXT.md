@@ -84,6 +84,8 @@
    - **银钱物价以门派俸禄为锚**（常山 15~110、六扇门 30~180、禁军 60~300 两/月，不改）：文职当差满级约 45 两/月且有十艺门槛，六扇门结案 30 两/件（`KAIFENG_CASE_BOUNTY_SILVER`）、常山诛谍 15 两（`LIAO_SPY_BOUNTY_SILVER`），大相国寺拍卖改为【开封大集】（`engine/economy/kaifengFair.ts`：每年六月整月，从 9 件无主地阶奇珍中随机陈列 3 件，售价 = 物值 × 3，购得记录 `kaifengFairPurchases`），走镖 `0.015 × 里程 × 险度`，悬赏 5 / 12 / 25 两，客栈京城 2 两/日、州府边镇 1 两/日。新增收入来源须低于或贴近同阶俸禄。
    - 剧情切磋战未设 `onEscape` 时默认禁止脱战；平局未设 `onDraw` 时走 `onLose`。《太行剿匪·第三部》三场关键战改为 `story_trial`（败阵不致命，保留整备重试分支）。
 
+10. **跨版本存档兼容（2026-11）**：读档不再只认当前版本——`validateSaveEnvelope` 先经 `utils/saveMigrations.ts` 的迁移链把 `M1.2.0` 起的历代存档升级到当前结构，再统一净化；升级来的卷宗带 `migratedFrom` 标记（读档提示、存档列表显示「旧版 · 读档自动升级」），再次存档即写成新版本。读不了的存档（损坏或出自更新版本）原样保留、不再自动删除；`purgeLegacySaveDatabases()` 已改为空操作。以后递增存档版本须同时更新 `SAVE_SCHEMA_HISTORY` 与 `SAVE_MIGRATIONS`（有测试守护）。
+
 ---
 
 ## 三、 下一步行动建议

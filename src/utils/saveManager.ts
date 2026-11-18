@@ -33,8 +33,12 @@ import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from '../engine/stats
 import { isBuildingUnlocked } from '../engine/world/mapMath'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from '../engine/social/npcFavor'
 import { clonePlayerSectState } from '../engine/sect'
+import { migrateRawSaveEnvelope } from './saveMigrations'
 import {
   CURRENT_SAVE_SCHEMA_VERSION,
+  isFutureSaveSchemaVersion,
+  isSupportedSaveSchemaVersion,
+  SAVE_SCHEMA_HISTORY,
   IDB_DB_NAME,
   IDB_DB_VERSION,
   IDB_STORE_NAME,
@@ -181,9 +185,9 @@ export async function getSaveEnvelope(slotId: SaveSlotId): Promise<GameSaveEnvel
       req.onerror = () => reject(req.error ?? new Error('IndexedDB get failed'))
     })
     if (record !== null) {
+      // 读不了的卷宗（损坏或出自更新版本）原样保留，绝不自动删除玩家数据
       const validated = validateSaveEnvelope(record)
       if (validated) return validated
-      await deleteSaveSlot(slotId)
     }
   } catch {
     // Fallback to localStorage / memory
@@ -193,11 +197,7 @@ export async function getSaveEnvelope(slotId: SaveSlotId): Promise<GameSaveEnvel
     const raw = localStorage.getItem(`${LS_FALLBACK_PREFIX}${slotId}`)
     if (raw) {
       const validated = validateSaveEnvelope(JSON.parse(raw))
-      if (!validated) {
-        localStorage.removeItem(`${LS_FALLBACK_PREFIX}${slotId}`)
-      } else {
-        return validated
-      }
+      if (validated) return validated
     }
   } catch {
     // Fallback to session memory store
@@ -206,11 +206,7 @@ export async function getSaveEnvelope(slotId: SaveSlotId): Promise<GameSaveEnvel
   const memRaw = memoryFallbackSaves.get(slotId)
   if (!memRaw) return null
   try {
-    const validated = validateSaveEnvelope(JSON.parse(memRaw))
-    if (!validated) {
-      memoryFallbackSaves.delete(slotId)
-    }
-    return validated
+    return validateSaveEnvelope(JSON.parse(memRaw))
   } catch {
     return null
   }
@@ -287,12 +283,13 @@ const ART_SLOT_KEYS: MartialArtSlotKey[] = [
   'move4',
 ]
 
-export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
-  if (!isRecord(raw)) return null
-  if (raw.gameTitle !== '北宋立志传') return null
-  if (raw.schemaVersion !== CURRENT_SAVE_SCHEMA_VERSION) {
-    return null
-  }
+export function validateSaveEnvelope(input: unknown): GameSaveEnvelope | null {
+  if (!isRecord(input)) return null
+  if (input.gameTitle !== '北宋立志传') return null
+  // 跨版本读档：历代受支持版本先经迁移链升级为当前结构，再走下方常规净化
+  const migration = migrateRawSaveEnvelope(input)
+  if (!migration.ok) return null
+  const raw = migration.raw
   if (!isRecord(raw.summary) || !isRecord(raw.state)) return null
 
   const st = raw.state
@@ -692,6 +689,7 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
   return {
     gameTitle: '北宋立志传',
     schemaVersion: CURRENT_SAVE_SCHEMA_VERSION,
+    ...(migration.migratedFrom ? { migratedFrom: migration.migratedFrom } : {}),
     slotId,
     savedAt: typeof raw.savedAt === 'string' ? raw.savedAt : new Date().toISOString(),
     note: typeof raw.note === 'string' ? raw.note : '',
@@ -748,9 +746,21 @@ export async function parseSaveJsonFile(file: File): Promise<GameSaveEnvelope> {
   }
   const validated = validateSaveEnvelope(parsed)
   if (!validated) {
-    throw new Error(
-      `非当前版本的《北宋立志传》卷宗存档（仅支持 ${CURRENT_SAVE_SCHEMA_VERSION}），旧版测试存档已停用。`,
-    )
+    const version = isRecord(parsed) ? parsed.schemaVersion : null
+    if (isFutureSaveSchemaVersion(version)) {
+      throw new Error(
+        `该卷宗出自更新的游戏版本（${String(version)}），当前版本（${CURRENT_SAVE_SCHEMA_VERSION}）无法读取，请先更新游戏。`,
+      )
+    }
+    if (!isRecord(parsed) || parsed.gameTitle !== '北宋立志传') {
+      throw new Error('这不是《北宋立志传》的卷宗存档文件。')
+    }
+    if (!isSupportedSaveSchemaVersion(version)) {
+      throw new Error(
+        `该卷宗版本（${String(version ?? '未知')}）早于 ${SAVE_SCHEMA_HISTORY[0]}，结构已无法迁移。`,
+      )
+    }
+    throw new Error('卷宗内容损坏或关键字段缺失（日期 / 所在地区无效），无法读取。')
   }
   return validated
 }

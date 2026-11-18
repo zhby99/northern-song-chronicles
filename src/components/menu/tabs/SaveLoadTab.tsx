@@ -217,6 +217,14 @@ export function SaveLoadTab({ mode, locationLabel }: SaveLoadTabProps) {
                       : ''}{' '}
                     · 银 {env.summary.silver}两 · 粮 {env.summary.food}份
                   </span>
+                  {env.migratedFrom && (
+                    <span
+                      title="旧版本卷宗：读档时自动升级到当前结构，再次存档后即为新版本"
+                      className="px-1.5 py-0.5 rounded bg-[#efe0c4] border border-[#b58742] text-[10px] text-[#6b4614] font-mono shrink-0"
+                    >
+                      旧版 {env.migratedFrom} · 读档自动升级
+                    </span>
+                  )}
                   {env.note && (
                     <span className="text-[#6b5235] italic truncate max-w-[220px]">
                       “{env.note}”
