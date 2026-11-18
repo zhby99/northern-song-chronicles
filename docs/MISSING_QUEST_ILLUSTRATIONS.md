@@ -112,6 +112,14 @@
 | `CG-QST-100` | `[x]` 已完成 | `public/assets/quests/taihang_camp3_bandits_surrender.jpg` | `/assets/quests/taihang_camp3_bandits_surrender.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-3`<br>《太行剿匪 · 叁 · 犁庭扫穴》 | 第二十六幕 · 大开寨门降群寇<br>（`scene_jtc3_26_gates_open_surrender`） | `16:9` |
 | `CG-QST-101` | `[x]` 已完成 | `public/assets/quests/taihang_camp3_execution_raid.jpg` | `/assets/quests/taihang_camp3_execution_raid.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-3`<br>《太行剿匪 · 叁 · 犁庭扫穴》 | 第三十三幕 · 京东双寇劫法场<br>（`scene_jtc3_33_chao_ruan_raid`） | `16:9` |
 | `CG-QST-102` | `[x]` 已完成 | `public/assets/quests/taihang_camp3_lv4_investiture.jpg` | `/assets/quests/taihang_camp3_lv4_investiture.jpg` | `QST-SECT-33-TAIHANG-CAMPAIGN-3`<br>《太行剿匪 · 叁 · 犁庭扫穴》 | 第三十九幕 · 紫宸受封都虞候<br>（`scene_jtc3_39_lv4_investiture`） | `16:9` |
+| `CG-QST-103` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fanlou_patrol.jpg` | `/assets/quests/jinjun_fanlou_patrol.jpg` | `QST-SECT-33-FANLOU-NIGHT`<br>《樊楼夜 · 禁军巡夜录》 | 第二幕 · 醉汉闹楼<br>（`scene_jj_fn_02_drunk_nobles`） | `16:9` |
+| `CG-QST-104` | `[ ]` 待补绘 | `public/assets/quests/jinjun_xiangguosi_alley_duel.jpg` | `/assets/quests/jinjun_xiangguosi_alley_duel.jpg` | `QST-SECT-33-FANLOU-NIGHT`<br>《樊楼夜 · 禁军巡夜录》 | 第八幕 · 相国寺巷斩枭<br>（`scene_jj_fn_08_xiangguosi_boss`） | `16:9` |
+| `CG-QST-105` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yujinyuan_horsemanship.jpg` | `/assets/quests/jinjun_yujinyuan_horsemanship.jpg` | `QST-SECT-33-YUJINYUAN-HORSE`<br>《玉津园 · 春日校马记》 | 第二幕 · 天驷挑驹<br>（`scene_jj_yj_02_tame_steed`） | `16:9` |
+| `CG-QST-106` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yujinyuan_spear_duel.jpg` | `/assets/quests/jinjun_yujinyuan_spear_duel.jpg` | `QST-SECT-33-YUJINYUAN-HORSE`<br>《玉津园 · 春日校马记》 | 第八幕 · 演武坪折戟<br>（`scene_jj_yj_08_repel_challenger`） | `16:9` |
+| `CG-QST-107` | `[ ]` 待补绘 | `public/assets/quests/jinjun_taiyuan_fen_river_ambush.jpg` | `/assets/quests/jinjun_taiyuan_fen_river_ambush.jpg` | `QST-SECT-33-TAIYUAN-IRON`<br>《铁冶监 · 玄铁失耗案》 | 第五幕 · 汾水截车<br>（`scene_jj_ty_05_fen_river_ambush`） | `16:9` |
+| `CG-QST-108` | `[ ]` 待补绘 | `public/assets/quests/jinjun_taiyuan_grandmaster_duel.jpg` | `/assets/quests/jinjun_taiyuan_grandmaster_duel.jpg` | `QST-SECT-33-TAIYUAN-IRON`<br>《铁冶监 · 玄铁失耗案》 | 第八幕 · 火海斩宗师<br>（`scene_jj_ty_08_grandmaster_duel`） | `16:9` |
+| `CG-QST-109` | `[ ]` 待补绘 | `public/assets/quests/jinjun_qinzhou_maijishan_ambush.jpg` | `/assets/quests/jinjun_qinzhou_maijishan_ambush.jpg` | `QST-SECT-33-QINZHOU-HORSE`<br>《秦州道 · 茶马失纲录》 | 第五幕 · 麦积山伏<br>（`scene_jj_qz_05_maijishan_ambush`） | `16:9` |
+| `CG-QST-110` | `[ ]` 待补绘 | `public/assets/quests/jinjun_qinzhou_beacon_duel.jpg` | `/assets/quests/jinjun_qinzhou_beacon_duel.jpg` | `QST-SECT-33-QINZHOU-HORSE`<br>《秦州道 · 茶马失纲录》 | 第七幕 · 烽燧绝战<br>（`scene_jj_qz_07_beacon_duel`） | `16:9` |
 
 ---
 
@@ -2059,3 +2067,99 @@
 1. 检查原画比例是否为 `16:9`，画面内无 AI 伪汉字乱码、无现代器物或清代剃发服饰；
 2. 将高清原图归档至 `assets_raw_masters/quests/`，并将压缩后的 `.jpg`（建议分辨率 `1600×900` 或 `1280×720`，质量 `85`）写入 `public/assets/quests/` 对应文件名；
 3. 启动游戏或通过剧情舞台预览对应幕次，确认宋风卷轴画框正常加载显示、不再回退至「绘卷留白」占位提示。
+
+---
+
+### 103. `CG-QST-103`：东京樊楼飞桥雅阁 · 四厢都指挥夜巡拍案弹压醉酒散官图
+
+- **关联文件**：[`src/data/quests/sects/jinjunFanlouNightQuest.ts`](../src/data/quests/sects/jinjunFanlouNightQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fanlou_patrol.jpg`
+- **画框题跋**：`东京樊楼飞桥雅阁 · 四厢都指挥夜巡拍案弹压醉酒散官`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color narrative illustration, wide cinematic 16:9 composition. Nighttime inside an opulent upper-story private pavilion of Fanlou Tavern in Kaifeng around 1050 AD, warm lantern glow illuminating shattered celadon wine cups and overturned screens. A resolute young Song Imperial Guard commander in crimson-and-violet brocade patrol robes slams a gilt tiger-tally onto a rosewood table, sternly rebuking three startled, drunken aristocratic junior officers while a trembling pipa musician and kneeling innkeeper watch in relief. Rich Song interior details, strictly zero text or characters.
+  ```
+
+---
+
+### 104. `CG-QST-104`：大相国寺后巷月夜 · 决战血手刀冷无忌图
+
+- **关联文件**：[`src/data/quests/sects/jinjunFanlouNightQuest.ts`](../src/data/quests/sects/jinjunFanlouNightQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_xiangguosi_alley_duel.jpg`
+- **画框题跋**：`大相国寺后巷月夜 · 决战血手刀冷无忌`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color wuxia duel illustration, wide cinematic 16:9 composition. Cold moonlight illuminating a secluded ruined courtyard behind Xiangguosi Temple in Kaifeng around 1050 AD, stacked with camphorwood chests of stolen silver. A fierce outlaw blade master in dark blue robes lunges downward with a heavy ghost-head saber, clashing sparks against the drawn blade of the young Song Imperial Guard commander. Dynamic midnight shadows, mineral pigments, strictly zero text or characters.
+  ```
+
+---
+
+### 105. `CG-QST-105`：玉津园大教场驰道 · 四厢都指挥飞身驯服河曲烈驹图
+
+- **关联文件**：[`src/data/quests/sects/jinjunYujinyuanHorseQuest.ts`](../src/data/quests/sects/jinjunYujinyuanHorseQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yujinyuan_horsemanship.jpg`
+- **画框题跋**：`玉津园大教场驰道 · 四厢都指挥飞身驯服河曲烈驹`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color equestrian illustration, wide cinematic 16:9 composition. Bright spring morning at the Imperial Guard training ground in Kaifeng around 1050 AD, willow catkins drifting over a packed-earth riding track. The young Song commander vaults gracefully onto the bare back of a rearing jet-black warhorse with four white hooves, steadying the reins with effortless balance as cheering Song officers and armored troops applaud from the wooden viewing gallery. Crisp mineral colors, strictly zero text or characters.
+  ```
+
+---
+
+### 106. `CG-QST-106`：大教场长枪演武坪 · 力挫塞外狂徒贺兰铁戟图
+
+- **关联文件**：[`src/data/quests/sects/jinjunYujinyuanHorseQuest.ts`](../src/data/quests/sects/jinjunYujinyuanHorseQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yujinyuan_spear_duel.jpg`
+- **画框题跋**：`大教场长枪演武坪 · 力挫塞外狂徒贺兰铁戟`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color martial arts duel, wide cinematic 16:9 composition. Afternoon sunlight at the spear-drill plaza of the Kaifeng Imperial Guard camp around 1050 AD, surrounded by hundreds of watching armored Song soldiers. In the center, the young Song commander deftly deflects a massive ninety-jin iron halberd wielded by a burly frontier challenger in lamellar armor, sending shockwaves of dust across the flagstones. Dynamic martial energy, strictly zero text or characters.
+  ```
+
+---
+
+### 107. `CG-QST-107`：太原汾水夜渡 · 截获河东私铁黑车激战统领图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaiyuanIronQuest.ts`](../src/data/quests/sects/jinjunTaiyuanIronQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_taiyuan_fen_river_ambush.jpg`
+- **画框题跋**：`太原汾水夜渡 · 截获河东私铁黑车激战统领`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color night ambush scene, wide cinematic 16:9 composition. Misty reeds along the Fen River ferry near Taiyuan around 1050 AD under a crescent moon. Heavy coal-dusted wagons loaded with gleaming iron armor scales are halted on a wooden pier as the young Song Imperial Guard commissioner clashes simultaneously against two fierce private-guard captains with sabers and darts. Mist, river reflections, mineral pigments, strictly zero text or characters.
+  ```
+
+---
+
+### 108. `CG-QST-108`：河东铁冶监火海 · 决战宗师下品寒铁手拓跋烈图
+
+- **关联文件**：[`src/data/quests/sects/jinjunTaiyuanIronQuest.ts`](../src/data/quests/sects/jinjunTaiyuanIronQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_taiyuan_grandmaster_duel.jpg`
+- **画框题跋**：`河东铁冶监火海 · 决战宗师下品寒铁手拓跋烈`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color grandmaster wuxia showdown, wide cinematic 16:9 composition. Blazing blast furnaces and flying sparks inside the Taiyuan Imperial Iron Works armory around 1050 AD. An elderly white-haired frontier grandmaster in an iron-black cloak strikes forward with frost-blue metallic palms that part the roaring flames, colliding with the fierce counterattack of the armored Song Three-Commands commissioner. Dramatic fire-and-ice contrast, strictly zero text or characters.
+  ```
+
+---
+
+### 109. `CG-QST-109`：麦积山千佛悬崖暗道 · 截击陇右沙匪盗马驼队图
+
+- **关联文件**：[`src/data/quests/sects/jinjunQinzhouHorseQuest.ts`](../src/data/quests/sects/jinjunQinzhouHorseQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_qinzhou_maijishan_ambush.jpg`
+- **画框题跋**：`麦积山千佛悬崖暗道 · 截击陇右沙匪盗马驼队`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color frontier action scene, wide cinematic 16:9 composition. Towering red sandstone cliffside of Maijishan Grottoes near Qinzhou at starlit dawn around 1050 AD, with ancient wooden plank walkways clinging to the cliff above. Along the narrow mountain trail below, the Song Imperial Guard commissioner leaps on horseback to intercept a caravan of camels laden with tea bricks and blindfolded warhorses guarded by two fierce desert bandits. Rich mineral pigments, strictly zero text or characters.
+  ```
+
+---
+
+### 110. `CG-QST-110`：陇右古战场烽燧残垣 · 单骑斩杀宗师铁莲尊者察罕图
+
+- **关联文件**：[`src/data/quests/sects/jinjunQinzhouHorseQuest.ts`](../src/data/quests/sects/jinjunQinzhouHorseQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_qinzhou_beacon_duel.jpg`
+- **画框题跋**：`陇右古战场烽燧残垣 · 单骑斩杀宗师铁莲尊者察罕`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic frontier duel, wide cinematic 16:9 composition. Blood-red sunset over weathered earthen beacon tower ruins on the Longyou steppe around 1050 AD, fifty fine Hequ warhorses tethered nearby in swirling desert dust. A towering dark-crimson-robed frontier grandmaster monk swings a heavy iron vajra pestle against the lunging strike of the Song Three-Commands commissioner. Sweeping desert wind, rich mineral pigments, strictly zero text or characters.
+  ```
