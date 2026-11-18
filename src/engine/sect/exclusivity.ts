@@ -31,7 +31,6 @@ export const OFFICIAL_TRANSFER_SOURCE_SECT_IDS: ReadonlySet<string> = new Set([
 export const SECT_ENTRY_TRANSFER_SOURCES: Readonly<Record<string, readonly string[]>> = Object.freeze({
   'SECT-03': ['SECT-22'], // 五台山清凉寺 ← 常山枪派（需持联合举荐信，由任务条件校验）
   'SECT-04': ['SECT-24', 'SECT-27'], // 莆田南少林 ← 闽海镇远镖局 / 岭南洪门武馆
-  'SECT-07': ['SECT-29'], // 峨眉派 ← 巴蜀百草药王门
   'SECT-15': ['SECT-16', 'SECT-26', 'SECT-30'], // 铁掌帮 ← 江淮漕帮 / 钱塘怒潮帮 / 湘西五溪蛊寨
 })
 

@@ -26,6 +26,8 @@ const START_CONDITION: QuestCondition = {
     { type: 'npcFavorAtLeast', npcId: 'NPC-0043', min: 20, npcName: '高怀亮' },
     { type: 'npcAlive', npcId: 'NPC-0043', npcName: '高怀亮' },
     { type: 'npcAlive', npcId: 'NPC-0154', npcName: '林铁衣' },
+    { type: 'npcAlive', npcId: 'NPC-0007', npcName: '曹佾' },
+    { type: 'npcAlive', npcId: 'NPC-0252', npcName: '杨排风' },
     qStatus(JINJUN_YUJINYUAN_HORSE_QUEST_ID, 'not_started'),
     qStatus(JINJUN_YUJINYUAN_HORSE_QUEST_ID, 'not_completed'),
   ],
@@ -52,7 +54,7 @@ export const JINJUN_YUJINYUAN_HORSE_QUEST: QuestDefinition = {
   startCondition: START_CONDITION,
   initialStepId: 'archery_field_contest',
   summary:
-    '春日暖风吹拂京郊，禁军名将曹佾与高怀亮在大教场筹办春日校马雅集，邀新晋四厢都指挥压阵。你先于驰道驯服河曲烈马、复与女将杨排风点到为止切磋试手，再于百步靶场较箭、以诗词兵略化解勋戚文武之争。不料雅集正酣之际，一名受雇于西夏黑市的狂徒“贺兰铁戟”竟闯营踢馆挑衅！你在林铁衣注目下 1v1 击败这名一流上品强敌，大振军威，获林铁衣亲授破招心得与天波穿云射日弓。',
+    '春日暖风吹拂京郊，禁军名将曹佾与高怀亮在大教场筹办春日校马雅集，邀新晋四厢都指挥压阵。你先于驰道驯服河曲烈马、复与女将杨排风点到为止切磋试手，再于百步靶场较箭、以诗词兵略化解勋戚文武之争。不料雅集正酣之际，一名受雇于西夏黑市的狂徒“贺兰铁戟”竟闯营踢馆挑衅！你在林铁衣注目下 1v1 击败这名一流上品强敌，大振军威，获林铁衣亲授破招心得与大宋边军克敌弓。',
   steps: {
     archery_field_contest: {
       id: 'archery_field_contest',

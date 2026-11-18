@@ -14,6 +14,8 @@ const START_CONDITION: QuestCondition = {
       minDays: 30,
     },
     { type: 'npcAlive', npcId: 'NPC-0038', npcName: '王德用' },
+    { type: 'npcAlive', npcId: 'NPC-0104', npcName: '慕容博' },
+    { type: 'npcAlive', npcId: 'NPC-0013', npcName: '包拯' },
     { type: 'npcAlive', npcId: 'NPC-0145', npcName: '邓百川' },
     { type: 'npcAlive', npcId: 'NPC-0161', npcName: '公冶乾' },
     { type: 'npcAlive', npcId: 'NPC-0213', npcName: '包不同' },
@@ -160,6 +162,34 @@ export const JINJUN_MURONG_ARC_3_QUEST: QuestDefinition = {
       tone: 'danger',
       visibleWhen: atStep(JINJUN_MURONG_ARC_3_ID, 'taihu_naval_battle'),
       effects: [openScene('scene_jj_mr3_13_board_ships', JINJUN_MURONG_ARC_3_ID)],
+    },
+    {
+      id: 'act_jj_mr3_taihu_return_ferry',
+      regionId: 'suzhou',
+      buildingId: 'sz_taihu',
+      spotId: 'sz_th_boat',
+      label: '【破燕 · 叁】乘征调战船重返燕子坞前线',
+      subtitle: '水师战船已控制太湖航道，即刻登船重返燕子坞大营再战！',
+      tone: 'danger',
+      visibleWhen: {
+        type: 'any',
+        conditions: [
+          atStep(JINJUN_MURONG_ARC_3_ID, 'storm_tingxiang_bridge'),
+          atStep(JINJUN_MURONG_ARC_3_ID, 'canhe_hall_showdown'),
+        ],
+      },
+      effects: [
+        {
+          type: 'branch',
+          condition: atStep(JINJUN_MURONG_ARC_3_ID, 'storm_tingxiang_bridge'),
+          thenEffects: [
+            { type: 'teleportPlayer', regionId: 'yanziwu', buildingId: 'yzw_tingxiang', spotId: 'yzw_tingxiang_main' },
+          ],
+          elseEffects: [
+            { type: 'teleportPlayer', regionId: 'yanziwu', buildingId: 'yzw_canhe', spotId: 'yzw_canhe_main' },
+          ],
+        },
+      ],
     },
     {
       id: 'act_jj_mr3_tingxiang',

@@ -85,11 +85,6 @@ function buildJindingSparDiscipleNpc(): NodeNpc {
 
 function buildJoinEmeiCoreEffects(extraEffects: QuestEffect[]): QuestEffect[] {
   return [
-    {
-      type: 'branch',
-      condition: { type: 'inSect', sectId: 'SECT-29' },
-      thenEffects: [{ type: 'leaveSect', skipPenalty: true }],
-    },
     { type: 'joinSect', sectId: 'SECT-07', rank: 1 },
     ...extraEffects,
     {
@@ -284,7 +279,7 @@ const SCENE_EM_17_JINDING_SPAR_INTRO: StorySceneDef = {
   mandatory: true,
   beats: [
     S('NPC-0340', '“峨眉虽重仁心，到底也是执剑护道的名门。昨夜梦清师妹在洗象池既已教你行气与分水刺法，光在池边比划竹枝可作不得数——清霜，你把内劲压到三成，替我试试这位新人的临阵定力！”'),
-    S(SPEAKER_JINDING_DISCIPLE, '“是，柳护法！这位少侠莫慌，只管将丹田那缕峨眉清气运起来，看准我的剑路旋腕拆招便是！”'),
+    S(SPEAKER_JINDING_DISCIPLE, '“是，柳护法！这位{gender:少侠|女侠}莫慌，只管将丹田那缕峨眉清气运起来，看准我的剑路旋腕拆招便是！”'),
     S('NPC-0207', '“别紧张，记住昨夜白猿折竹时的节奏——先守住气息绵长，胜负皆无妨，打出你自己的精气神来！”'),
   ],
   choices: [
@@ -824,23 +819,6 @@ const SCENE_EM_03_BAICAO_CLINIC: StorySceneDef = {
     S('NPC-0207', '（按剑守在堂口提防恶徒回扑，回头望向你）“我在门前戒备毒虫与暗算，药炉这边全仰仗你搭手了！”'),
   ],
   choices: [
-    {
-      id: 'em03_baicao_disciple_affinity',
-      label: '【百草同门 · 熟稔取药抓方，以本门炮制法三沸滤汤】（隶属巴蜀百草药王门）',
-      subLabel: '医门宿缘：苏百草与温秀璐欣慰激赏，结下深厚医道前缘',
-      tone: 'gold',
-      condition: { type: 'inSect', sectId: 'SECT-29' },
-      effects: [
-        { type: 'setFlag', flag: 'emei_baicao_affinity', value: true },
-        { type: 'addFlagNumber', flag: 'emei_aptitude_marks', delta: 2 },
-        { type: 'addFlagNumber', flag: 'emei_smq_bond', delta: 1 },
-        { type: 'giveItem', itemId: 'ITM-MED-127', qty: 2 },
-        { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0330' }, delta: 18 },
-        { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0316' }, delta: 15 },
-        setStep(EMEI_ENTRY_QUEST_ID, 'visit_dacisi_jingxu'),
-        toast('凭百草药王门医理干净利落化解蛇毒！请随苏梦清前往成都【大慈寺 · 大雄正殿】拜见静虚师太。', 'success', '医武前缘'),
-      ],
-    },
     {
       id: 'em03_math_smart_brew',
       label: '【算准戥秤分两与武文火候 · 分毫不差煎出解毒清汤】（算术 ≥ 15 或 悟性 ≥ 88）',

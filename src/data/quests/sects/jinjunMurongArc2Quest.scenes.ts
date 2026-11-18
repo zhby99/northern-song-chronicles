@@ -1,5 +1,5 @@
 import type { StorySceneDef } from '../../../types/quest'
-import { N, P, S, openScene, toast } from '../../../engine/quest/dsl'
+import { N, P, S, flag, openScene, toast } from '../../../engine/quest/dsl'
 import { JINJUN_MURONG_ARC_2_ID } from './jinjunMurongArc2Quest'
 
 const SCENE_01: StorySceneDef = {
@@ -337,7 +337,15 @@ const SCENE_24: StorySceneDef = {
     S('NPC-0104', '（慕容博见少林高僧拼死拦阻、千军箭雨势不可当，不敢恋战，一把抓起地上的慕容复）“好个硬骨头的宋廷军官！今日之账，老夫记下了！”'),
     N('话音未落，慕容博施展绝顶轻功踏树梢而起，瞬间带着慕容复翻入嵩山深处密林远遁无踪！'),
   ],
-  onFinishEffects: [openScene('scene_jj_mr2_25_xuanci_pill', JINJUN_MURONG_ARC_2_ID)],
+  onFinishEffects: [
+    { type: 'setFlag', flag: 'jj_mr2_murongbo_fled', value: true },
+    {
+      type: 'branch',
+      condition: flag('jj_spy_ending_branch', 'eq', 'counter_espionage'),
+      thenEffects: [openScene('scene_jj_mr2_25b_xuanci_heal', JINJUN_MURONG_ARC_2_ID)],
+      elseEffects: [openScene('scene_jj_mr2_25_xuanci_pill', JINJUN_MURONG_ARC_2_ID)],
+    },
+  ],
 }
 
 const SCENE_25: StorySceneDef = {
@@ -347,13 +355,32 @@ const SCENE_25: StorySceneDef = {
   mandatory: true,
   beats: [
     N('战局暂歇，亲卫急忙将你抬入少林方丈院。你体内参合指劲如附骨之疽般乱窜，面色苍白如雪。玄慈方丈神色悲悯，亲手开启一只紫檀锦盒，取出一枚龙眼大小、药香扑鼻的金色丹丸送至你唇边：'),
-    S('NPC-0112', '“阿弥陀佛！少侠以微末之躯硬撼那老魔头三记参合指而寸步不退，实乃忠勇义烈！这枚【少林九转大还丹】乃本寺镇寺灵药，快快服下，先护住心脉再班师回京调养罢！”'),
+    S('NPC-0112', '“阿弥陀佛！{gender:少侠|女侠}以微末之躯硬撼那老魔头三记参合指而寸步不退，实乃忠勇义烈！这枚【少林九转大还丹】乃本寺镇寺灵药，快快服下，先护住心脉再班师回京调养罢！”'),
   ],
   onFinishEffects: [
+    { type: 'setFlag', flag: 'jj_mr2_got_dahuandan', value: true },
     { type: 'giveItem', itemId: 'ITM-MED-101', qty: 1 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0112' }, delta: 20 },
     { type: 'setQuestStep', questId: JINJUN_MURONG_ARC_2_ID, stepId: 'return_kaifeng_recover' },
     toast('玄慈方丈赠予【少林九转大还丹】！请护军班师返回【开封府 · 八十万禁军大教场帅台】复命养伤。'),
+  ],
+}
+
+const SCENE_25B: StorySceneDef = {
+  id: 'scene_jj_mr2_25b_xuanci_heal',
+  title: '第二十五幕 · 少林护脉',
+  subtitle: '嵩山少林寺 · 方丈禅房',
+  mandatory: true,
+  beats: [
+    N('战局暂歇，亲卫急忙将你抬入少林方丈院。你体内参合指劲如附骨之疽般乱窜，面色苍白如雪。玄慈方丈神色悲悯，亲手开启一只紫檀锦盒，取出一枚温润丹丸化水喂你服下，又另将一只小瓷瓶放入你掌心：'),
+    S('NPC-0112', '“阿弥陀佛！{gender:少侠|女侠}以微末之躯硬撼那老魔头三记参合指而寸步不退，实乃忠勇义烈！老衲这便为你化开本寺灵药护住心脉，另赠两枚【嵩山少林小还丹】备归途调养罢！”'),
+  ],
+  onFinishEffects: [
+    { type: 'healPlayer', hpPct: 60, mpPct: 60 },
+    { type: 'giveItem', itemId: 'ITM-MED-111', qty: 2 },
+    { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0112' }, delta: 20 },
+    { type: 'setQuestStep', questId: JINJUN_MURONG_ARC_2_ID, stepId: 'return_kaifeng_recover' },
+    toast('玄慈方丈以灵药为你稳住心脉，并赠予两枚【嵩山少林小还丹】！请护军班师返回【开封府 · 八十万禁军大教场帅台】复命养伤。'),
   ],
 }
 
@@ -374,7 +401,7 @@ const SCENE_27: StorySceneDef = {
   subtitle: '开封府 · 都虞候府邸',
   mandatory: true,
   beats: [
-    N('回到京城后，你暂卸繁务闭门休养，借着少林大还丹药力一点点化去体内残留的霸道参合指劲。每一次吐纳虽如刀割般剧痛，却也在生死边缘将你昔日武学根基打磨得愈发精纯凝实。'),
+    N('回到京城后，你暂卸繁务闭门休养，借着少林灵丹药力一点点化去体内残留的霸道参合指劲。每一次吐纳虽如刀割般剧痛，却也在生死边缘将你昔日武学根基打磨得愈发精纯凝实。'),
   ],
   onFinishEffects: [openScene('scene_jj_mr2_28_imperial_visit', JINJUN_MURONG_ARC_2_ID)],
 }
@@ -423,7 +450,16 @@ const SCENE_30: StorySceneDef = {
     { type: 'modifyRenown', delta: 50 },
     { type: 'addSectContribution', amount: 180 },
     { type: 'completeQuest', questId: JINJUN_MURONG_ARC_2_ID, outcome: 'completed' },
-    toast('《破燕 · 贰 · 少室惊变》完成！已获【少林九转大还丹】与宫中秘藏天阶心法【太玄经】！休养 30 日后可赴大教场开启第三部《血染太湖》！'),
+    {
+      type: 'branch',
+      condition: flag('jj_mr2_got_dahuandan', 'truthy'),
+      thenEffects: [
+        toast('《破燕 · 贰 · 少室惊变》完成！已获【少林九转大还丹】与宫中秘藏天阶心法【太玄经】！休养 30 日后可赴大教场开启第三部《血染太湖》！'),
+      ],
+      elseEffects: [
+        toast('《破燕 · 贰 · 少室惊变》完成！已获宫中秘藏天阶心法【太玄经】！休养 30 日后可赴大教场开启第三部《血染太湖》！'),
+      ],
+    },
   ],
 }
 
@@ -453,6 +489,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_jj_mr2_23_mirror_shattered: SCENE_23,
   scene_jj_mr2_24_monks_and_arrows: SCENE_24,
   scene_jj_mr2_25_xuanci_pill: SCENE_25,
+  scene_jj_mr2_25b_xuanci_heal: SCENE_25B,
   scene_jj_mr2_26_return_kaifeng: SCENE_26,
   scene_jj_mr2_27_closed_door_healing: SCENE_27,
   scene_jj_mr2_28_imperial_visit: SCENE_28,

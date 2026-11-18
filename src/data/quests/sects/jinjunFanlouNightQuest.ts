@@ -24,6 +24,7 @@ const START_CONDITION: QuestCondition = {
       ],
     },
     { type: 'npcAlive', npcId: 'NPC-0284', npcName: '徐铁山' },
+    { type: 'npcAlive', npcId: 'NPC-0140', npcName: '展昭' },
     qStatus(JINJUN_FANLOU_NIGHT_QUEST_ID, 'not_started'),
     qStatus(JINJUN_FANLOU_NIGHT_QUEST_ID, 'not_completed'),
   ],

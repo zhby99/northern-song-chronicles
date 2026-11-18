@@ -223,7 +223,7 @@ const SCENE_15: StorySceneDef = {
     N('战鼓咚咚响彻秋夜，一千名身披冷锻步人甲、背负神臂强弩的殿前司禁军迅速集结成阵，长枪如林、大宋龙旗猎猎作响！你翻身上马按刀于阵前，一声令下，千骑踏破秋雨泥泞，如黑云般向河南登封少室山疾驰而去！'),
   ],
   onFinishEffects: [
-    { type: 'giveSilver', amount: 400 },
+    { type: 'giveSilver', amount: 120 },
     { type: 'giveCombatExp', amount: 1500 },
     { type: 'modifyRenown', delta: 35 },
     { type: 'addSectContribution', amount: 120 },

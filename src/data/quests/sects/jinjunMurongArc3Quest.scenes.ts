@@ -291,6 +291,11 @@ const SCENE_20: StorySceneDef = {
     N('你稳住军心、整顿余下的两千多名百战禁军，乘残存大船全速靠岸，顶着箭雨强行踏上了慕容氏百年老巢——【太湖燕子坞】！'),
   ],
   onFinishEffects: [
+    {
+      type: 'branch',
+      condition: { type: 'not', condition: { type: 'hasItem', itemId: 'ITM-MSC-020' } },
+      thenEffects: [{ type: 'giveItem', itemId: 'ITM-MSC-020', qty: 1 }],
+    },
     { type: 'setQuestStep', questId: JINJUN_MURONG_ARC_3_ID, stepId: 'storm_tingxiang_bridge' },
     { type: 'teleportPlayer', regionId: 'yanziwu', buildingId: 'yzw_tingxiang', spotId: 'yzw_tingxiang_main' },
     toast('已强行登陆燕子坞！请攻克【听香水榭主阁（yzw_tingxiang_main）】，生擒四大家将之首邓百川！'),
@@ -550,6 +555,7 @@ const SCENE_37: StorySceneDef = {
     N('翌日清晨，你率军押解着囚禁邓百川、公冶乾、包不同、风波恶的四辆重铁囚车，连同追回的神臂弓与满船抄没银两浩荡北返东京汴梁。沿途州府百姓夹道欢呼，声震江淮！'),
   ],
   onFinishEffects: [
+    { type: 'setFlag', flag: 'jj_mr3_yanziwu_razed', value: true },
     { type: 'setQuestStep', questId: JINJUN_MURONG_ARC_3_ID, stepId: 'kaifeng_treason_execution' },
     { type: 'teleportPlayer', regionId: 'bianliang', buildingId: 'bl_kaifengfu', spotId: 'bl_kf_court' },
     toast('已押囚凯旋归抵【开封府升堂正殿（bl_kf_court）】！请以谋反罪公开处斩慕容四大家将！'),
@@ -595,7 +601,7 @@ const SCENE_40: StorySceneDef = {
     N('然而在万里之外的西夏与大辽阴影之中，家破人亡、远遁他乡的慕容博与慕容复父子，正怀着刻骨仇恨舔舐伤口，成为日后边关烽火里潜伏的恶狼……属于大宋禁军三衙都虞候的铁血征途，仍在继续。'),
   ],
   onFinishEffects: [
-    { type: 'giveSilver', amount: 1500 },
+    { type: 'giveSilver', amount: 600 },
     { type: 'giveCombatExp', amount: 4500 },
     { type: 'modifyRenown', delta: 80 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0001' }, delta: 20 },
@@ -603,7 +609,7 @@ const SCENE_40: StorySceneDef = {
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0013' }, delta: 15 },
     { type: 'addSectContribution', amount: 300 },
     { type: 'completeQuest', questId: JINJUN_MURONG_ARC_3_ID, outcome: 'completed' },
-    toast('《破燕 · 叁 · 血染太湖》完成！获【姑苏慕容家传玉玺印】、【参合指】秘籍、纹银 1500 两、战斗经验 4500！慕容四大家将已于开封府伏法！'),
+    toast('《破燕 · 叁 · 血染太湖》完成！获【姑苏慕容家传玉玺印】、【参合指】秘籍、纹银 600 两、战斗经验 4500！慕容四大家将已于开封府伏法！'),
   ],
 }
 

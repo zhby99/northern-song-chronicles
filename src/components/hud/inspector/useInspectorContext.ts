@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { filterLivingNpcs, isNpcDead } from '../../../engine/social/npcDeath'
+import { filterLivingNpcs, isNpcAbsentFromWorld } from '../../../engine/social/npcDeath'
 import {
   BUILDING_DB_MAP,
   FACTION_DB_MAP,
@@ -131,7 +131,7 @@ export function useInspectorContext() {
     const rawLeafNpcs = isLeafInteriorSpot
       ? getCompiledNpcsBySpot(selectedSpotId!)
       : getCompiledNpcsByBuilding(resolvedLeafBuildingId).filter((c) => !c.assignedSpotId)
-    const leafNpcs = filterLivingNpcs(rawLeafNpcs, deadNpcIds)
+    const leafNpcs = filterLivingNpcs(rawLeafNpcs, deadNpcIds, questState.flags)
 
     const talkMap = new Map<string, string>()
     for (const legacyNpc of node.npcs ?? []) {
@@ -218,7 +218,7 @@ export function useInspectorContext() {
     for (const m of roamingAtThisLeaf) {
       const built = buildRoamingMasterNodeNpc(m, node.name)
       if (!built) continue
-      if (isNpcDead(deadNpcIds, built.resolvedRecord?.id)) continue
+      if (isNpcAbsentFromWorld(built.resolvedRecord?.id, deadNpcIds, questState.flags)) continue
       seenNames.add(m.name)
       if (built.resolvedRecord) seenNames.add(built.resolvedRecord.name)
       combined.push(built.npc)
@@ -248,6 +248,7 @@ export function useInspectorContext() {
     selectedSpotId,
     roamingMasters,
     deadNpcIds,
+    questState.flags,
     sectState.activeLiaoSpy,
     sectState.activeKaifengWarrant,
     activeYamenBounty,

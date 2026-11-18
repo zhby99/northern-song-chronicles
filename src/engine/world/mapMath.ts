@@ -624,11 +624,15 @@ export function clampMapPan(
 }
 
 export interface BuildingLockMeta {
-  unlockFlag: string
+  unlockFlag?: string
+  lockWhenFlag?: string
   lockedBadge: string
   lockedDesc: string
   lockedReason: string
 }
+
+const YANZIWU_RAZED_LOCK_DESC =
+  '大宋禁军三千铁甲已踏平太湖燕子坞，参合庄、还施水阁与听香水榭尽付一炬，慕容父子败逃塞外。'
 
 export const QUEST_LOCKED_BUILDINGS: Record<string, BuildingLockMeta> = {
   wl_langhuan: {
@@ -639,6 +643,38 @@ export const QUEST_LOCKED_BUILDINGS: Record<string, BuildingLockMeta> = {
     lockedReason:
       '谷底藤萝深锁、云雾迷障，暂未寻得【琅嬛福地】入洞秘径（需后续任务剧情解锁）。',
   },
+  yzw_canhe: {
+    lockWhenFlag: 'jj_mr3_yanziwu_razed',
+    lockedBadge: '焦土封禁 · 已化白地',
+    lockedDesc: YANZIWU_RAZED_LOCK_DESC,
+    lockedReason: '燕子坞庄院已在大火中化为焦土残垣，官军水师封禁此处！',
+  },
+  yzw_huanshi: {
+    lockWhenFlag: 'jj_mr3_yanziwu_razed',
+    lockedBadge: '焦土封禁 · 已化白地',
+    lockedDesc: YANZIWU_RAZED_LOCK_DESC,
+    lockedReason: '燕子坞庄院已在大火中化为焦土残垣，官军水师封禁此处！',
+  },
+  yzw_tingxiang: {
+    lockWhenFlag: 'jj_mr3_yanziwu_razed',
+    lockedBadge: '焦土封禁 · 已化白地',
+    lockedDesc: YANZIWU_RAZED_LOCK_DESC,
+    lockedReason: '燕子坞庄院已在大火中化为焦土残垣，官军水师封禁此处！',
+  },
+}
+
+function resolveLockMetaState(
+  meta: BuildingLockMeta | undefined,
+  questFlags?: Record<string, boolean | number | string> | null,
+): BuildingLockMeta | null {
+  if (!meta) return null
+  if (meta.lockWhenFlag) {
+    return questFlags && Boolean(questFlags[meta.lockWhenFlag]) ? meta : null
+  }
+  if (meta.unlockFlag) {
+    return questFlags && Boolean(questFlags[meta.unlockFlag]) ? null : meta
+  }
+  return null
 }
 
 export function getBuildingLockMeta(
@@ -646,12 +682,7 @@ export function getBuildingLockMeta(
   questFlags?: Record<string, boolean | number | string> | null,
 ): BuildingLockMeta | null {
   if (!buildingId) return null
-  const meta = QUEST_LOCKED_BUILDINGS[buildingId]
-  if (!meta) return null
-  if (questFlags && Boolean(questFlags[meta.unlockFlag])) {
-    return null
-  }
-  return meta
+  return resolveLockMetaState(QUEST_LOCKED_BUILDINGS[buildingId], questFlags)
 }
 
 export function isBuildingUnlocked(
@@ -677,10 +708,5 @@ export function getSpotLockMeta(
   questFlags?: Record<string, boolean | number | string> | null,
 ): BuildingLockMeta | null {
   if (!spotId) return null
-  const meta = QUEST_LOCKED_SPOTS[spotId]
-  if (!meta) return null
-  if (questFlags && Boolean(questFlags[meta.unlockFlag])) {
-    return null
-  }
-  return meta
+  return resolveLockMetaState(QUEST_LOCKED_SPOTS[spotId], questFlags)
 }

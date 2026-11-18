@@ -11,6 +11,9 @@ export const HUASHAN_ENTRY_START_CONDITION: QuestCondition = {
     flag('shaolin_novice_state', 'eq', 'none'),
     flag('hs_permanently_rejected', 'falsy'),
     { type: 'npcAlive', npcId: 'NPC-0118', npcName: '岳沧溟' },
+    { type: 'npcAlive', npcId: 'NPC-0167', npcName: '封不弃' },
+    { type: 'npcAlive', npcId: 'NPC-0147', npcName: '秦烈山' },
+    { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },
     qStatus(HUASHAN_ENTRY_QUEST_ID, 'not_started'),
   ],
 }

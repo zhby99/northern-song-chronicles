@@ -6,8 +6,15 @@ export const EMEI_ENTRY_QUEST_ID = 'QST-SECT-07-ENTRY'
 const EMEI_ELIGIBLE_SECT_CONDITION: QuestCondition = {
   type: 'all',
   conditions: [
-    { type: 'notInAnySect', allowTransferFromSectId: 'SECT-29' },
+    { type: 'notInAnySect' },
+    { type: 'neverJoinedAnySect' },
+    { type: 'noLearnedArtAtOrAboveTier', tier: '良品下品' },
+    { type: 'npcAlive', npcId: 'NPC-0128', npcName: '云慧师太' },
+    { type: 'npcAlive', npcId: 'NPC-0207', npcName: '苏梦清' },
+    { type: 'npcAlive', npcId: 'NPC-0206', npcName: '静虚师太' },
+    { type: 'npcAlive', npcId: 'NPC-0169', npcName: '静玄师太' },
     qStatus(EMEI_ENTRY_QUEST_ID, 'not_started'),
+    qStatus(EMEI_ENTRY_QUEST_ID, 'not_completed'),
   ],
 }
 
@@ -18,15 +25,16 @@ export const EMEI_ENTRY_QUESTS: QuestDefinition[] = [
     category: 'sect_entry',
     factionId: 'SECT-07',
     regionId: 'emeishan',
-    recommendedRealm: '不入流（零内功开局友好 · 男女主角全兼容）',
+    recommendedRealm: '不入流（仅限白纸弟子 · 男女主角全兼容）',
     maxOpponentRealm: '三流下品（友好切磋，胜败皆推进无卡关）',
     recommendedNote:
-      '专为初涉江湖无内功少侠（男女皆宜，亦支持巴蜀百草药王门医徒带艺转投）打造的二十幕沉浸入门长卷。重体验、重剧情、重与俗家首席【苏梦清】的蜀道羁绊及三维十艺资质互动。',
+      '专为从未加入过任何门派且未修习良品及以上武学的白纸少侠（男女皆宜）打造的二十幕沉浸入门长卷。重体验、重剧情、重与俗家首席【苏梦清】的蜀道羁绊及三维十艺资质互动。',
     startHint:
-      '无门无派（或隶属巴蜀百草药王门）时，前往【成都府 · 锦江万里桥茶肆】即可在春雨中偶遇峨眉俗家首席【苏梦清】开启剧情（提前赴剑门关见苏梦清更有隐藏前缘）。',
+      '从未加入过任何门派且未学良品及以上武学时，前往【成都府 · 锦江万里桥茶肆】即可在春雨中偶遇峨眉俗家首席【苏梦清】开启剧情（提前赴剑门关见苏梦清更有隐藏前缘）。',
     startLocation: {
       regionId: 'chengdu',
       buildingId: 'cd_teahouse',
+      spotId: 'cd_teahouse_main',
       customLabel: '成都府 · 锦江万里桥茶肆（春雨偶遇苏梦清）',
     },
     startCondition: EMEI_ELIGIBLE_SECT_CONDITION,

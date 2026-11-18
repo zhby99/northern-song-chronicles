@@ -232,8 +232,8 @@ export function RegionCompendiumPanel({
 
   const deadNpcIds = useGameStore((s) => s.deadNpcIds)
   const residentNpcs = useMemo(
-    () => filterLivingNpcs(getCompiledNpcsByRegion(activeRegion.id), deadNpcIds),
-    [activeRegion.id, deadNpcIds],
+    () => filterLivingNpcs(getCompiledNpcsByRegion(activeRegion.id), deadNpcIds, questFlags),
+    [activeRegion.id, deadNpcIds, questFlags],
   )
 
   const hqFactions = useMemo(

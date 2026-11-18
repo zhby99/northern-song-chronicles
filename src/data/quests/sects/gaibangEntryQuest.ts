@@ -79,6 +79,7 @@ export const GAIBANG_ENTRY_QUESTS: QuestDefinition[] = [
     startLocation: {
       regionId: 'luoyang',
       buildingId: 'ly_gaibang',
+      spotId: 'ly_gb_altar',
       customLabel: '中原九大州府长街（纹银 ≤ 3 两触发）或 洛阳杏子林总舵',
     },
     startCondition: DIRECT_INQUIRY_START_CONDITION,
@@ -95,6 +96,7 @@ export const GAIBANG_ENTRY_QUESTS: QuestDefinition[] = [
         targetLocation: {
           regionId: 'luoyang',
           buildingId: 'ly_gaibang',
+          spotId: 'ly_gb_altar',
         },
       },
       arena_trial: {

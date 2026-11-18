@@ -32,6 +32,7 @@ export const XINGXIU_ENTRY_QUESTS: QuestDefinition[] = [
     startLocation: {
       regionId: 'yanan',
       buildingId: 'ya_blackmkt',
+      spotId: 'ya_blackmkt_main',
       customLabel: '延安府 · 塞上番马黑市（步入即触发）',
     },
     startCondition: XINGXIU_START_CONDITION,

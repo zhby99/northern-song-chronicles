@@ -275,11 +275,11 @@ const SCENE_09: StorySceneDef = {
     {
       id: 'jjty_choice_capital',
       label: '【依律解京】全数封存赃银精铁解送三司，严明法度',
-      subLabel: '获朝廷重赏：纹银 800 两 + 地阶丹药《长白千年续命参丸》 + 篆刻刀匣',
+      subLabel: '获朝廷嘉赏：纹银 180 两 + 良阶灵药《太医局紫雪神丹》 + 河东篆刻刀匣',
       tone: 'primary',
       effects: [
-        { type: 'giveSilver', amount: 800 },
-        { type: 'giveItem', itemId: 'ITM-MED-106', qty: 1 },
+        { type: 'giveSilver', amount: 180 },
+        { type: 'giveItem', itemId: 'ITM-MED-113', qty: 1 },
         { type: 'giveItem', itemId: 'ITM-CUR-029', qty: 1 },
         { type: 'setFlag', flag: 'jjty_outcome', value: 'capital' },
         { type: 'setQuestStep', questId: JINJUN_TAIYUAN_IRON_QUEST_ID, stepId: 'farewell_jinci' },
@@ -289,12 +289,12 @@ const SCENE_09: StorySceneDef = {
     {
       id: 'jjty_choice_forge',
       label: '【就地铸甲】准张亢所请重开三炉赶铸边军寒甲，实惠三军',
-      subLabel: '获将门厚赠：地阶防具《天波杨府亮银铠》 + 地阶雅器《党项冷锻错金马镫匣》 + 纹银 450 两',
+      subLabel: '获将门厚赠：良品防具《河东边军锁子甲》 + 良品配饰《河东精铁护腕环》 + 纹银 120 两',
       tone: 'primary',
       effects: [
-        { type: 'giveSilver', amount: 450 },
-        { type: 'giveItem', itemId: 'ARM-008', qty: 1 },
-        { type: 'giveItem', itemId: 'ITM-CUR-015', qty: 1 },
+        { type: 'giveSilver', amount: 120 },
+        { type: 'giveItem', itemId: 'ARM-019', qty: 1 },
+        { type: 'giveItem', itemId: 'ACC-023', qty: 1 },
         { type: 'setFlag', flag: 'jjty_outcome', value: 'forge' },
         { type: 'setQuestStep', questId: JINJUN_TAIYUAN_IRON_QUEST_ID, stepId: 'farewell_jinci' },
         toast('重开三炉赶铸边甲！请前往【晋祠古柏圣境 · 贞观唐碑亭与卧龙周柏】饮别收官。'),

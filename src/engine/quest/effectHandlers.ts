@@ -837,7 +837,7 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
     const enterBldg = Boolean(bRec?.interior)
     const lockCfg = eff.buildingId ? QUEST_LOCKED_BUILDINGS[eff.buildingId] : undefined
     let nextQuest = s.questState
-    if (lockCfg && !s.questState.flags[lockCfg.unlockFlag]) {
+    if (lockCfg?.unlockFlag && !s.questState.flags[lockCfg.unlockFlag]) {
       nextQuest = cloneQuestRuntimeState(s.questState)
       nextQuest.flags[lockCfg.unlockFlag] = true
     }

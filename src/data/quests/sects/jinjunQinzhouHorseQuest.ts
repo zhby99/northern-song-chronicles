@@ -14,6 +14,7 @@ const START_CONDITION: QuestCondition = {
     { type: 'silverAtLeast', min: 200 },
     { type: 'npcFavorAtLeast', npcId: 'NPC-0045', min: 15, npcName: '刘沪' },
     { type: 'npcAlive', npcId: 'NPC-0045', npcName: '刘沪' },
+    { type: 'npcAlive', npcId: 'NPC-0522', npcName: '徐衡林' },
     qStatus(JINJUN_QINZHOU_HORSE_QUEST_ID, 'not_started'),
     qStatus(JINJUN_QINZHOU_HORSE_QUEST_ID, 'not_completed'),
   ],
@@ -39,7 +40,7 @@ export const JINJUN_QINZHOU_HORSE_QUEST: QuestDefinition = {
   startCondition: START_CONDITION,
   initialStepId: 'inspect_chama',
   summary:
-    'Lv.4 三衙都虞候西巡秦州，见边军战马多患蹄疫、羌部怒指官府克扣茶叶。你先赴茶马榷场携徐衡林验明病马与茶砖假账，复于陇上胡姬琵琶酒肆散财暗探、稳住羌部牧场，再追至麦积山千佛悬崖窟 1v2 击杀一流上品沙匪双煞，最终于陇右古战场烽燧下 1v1 斩杀护货的宗师下品黑教供奉“铁莲尊者”察罕！夺回五十匹河曲神骏与官茶，获羌部赠以青唐唃厮啰金翼驹。',
+    'Lv.4 三衙都虞候西巡秦州，见边军战马多患蹄疫、羌部怒指官府克扣茶叶。你先赴茶马榷场携徐衡林验明病马与茶砖假账，复于陇上胡姬琵琶酒肆散财暗探、稳住羌部牧场，再追至麦积山千佛悬崖窟 1v2 击杀一流上品沙匪双煞，最终于陇右古战场烽燧下 1v1 斩杀护货的宗师下品黑教供奉“铁莲尊者”察罕！夺回五十匹河曲神骏与官茶，获羌部赠以秦州茶马上等河曲驹。',
   steps: {
     inspect_chama: {
       id: 'inspect_chama',
@@ -180,7 +181,7 @@ export const JINJUN_QINZHOU_HORSE_QUEST: QuestDefinition = {
       regionId: 'qinzhou',
       buildingId: 'qinzhou_base_yamen',
       label: '【都虞候西巡】公堂退茶定案 · 接受羌部赠马',
-      subtitle: '公开审结黑牙行主犯，平息边贸风波并获赠西域神驹。',
+      subtitle: '公开审结黑牙行主犯，平息边贸风波并获赠上等河曲良驹。',
       tone: 'gold',
       visibleWhen: atStep(JINJUN_QINZHOU_HORSE_QUEST_ID, 'return_qinzhou_yamen'),
       effects: [openScene('scene_jj_qz_08_court_verdict', JINJUN_QINZHOU_HORSE_QUEST_ID)],

@@ -197,7 +197,7 @@ const SCENE_09: StorySceneDef = {
   mandatory: true,
   beats: [
     N('一番惊心动魄的激烈交锋后，你寻得破绽一招震飞贺兰铁戟手中沉铁大戟！那狂徒虎口崩裂、面色惨白，再不敢口出狂言，被军汉架出教场押入大牢审讯。全场数百名禁军甲士齐声欢呼“都指挥威武”，声震云霄！'),
-    S('NPC-0154', '（林铁衣大笑着走上坪来，亲手将一具雕纹古朴的宝弓递到你手中）“好！方才那几下破重兵的身法拿捏得恰到好处！这柄【天波穿云射日弓】乃老夫早年珍藏，今日赠予大人；另外这几路破戟拆招的心得，你且细细体会一番！”'),
+    S('NPC-0154', '（林铁衣大笑着走上坪来，亲手将一具雕纹古朴的宝弓递到你手中）“好！方才那几下破重兵的身法拿捏得恰到好处！这柄【大宋边军克敌弓】乃军器监精造劲弓，老夫早年珍藏，今日赠予大人；另外这几路破戟拆招的心得，你且细细体会一番！”'),
   ],
   onFinishEffects: [openScene('scene_jj_yj_10_moonlight_feast', JINJUN_YUJINYUAN_HORSE_QUEST_ID)],
 }
@@ -211,16 +211,16 @@ const SCENE_10: StorySceneDef = {
     N('暮色四合，明月升上汴梁城头。曹佾、高怀亮、杨排风与林铁衣举杯共贺，今日既赏了春风骏马、吟了诗策，又痛快折了狂徒锐气，实乃入职禁军以来最畅快的一日。'),
   ],
   onFinishEffects: [
-    { type: 'giveSilver', amount: 300 },
+    { type: 'giveSilver', amount: 60 },
     { type: 'giveCombatExp', amount: 1500 },
     { type: 'modifyRenown', delta: 30 },
-    { type: 'giveItem', itemId: 'BOW-005', qty: 1 },
+    { type: 'giveItem', itemId: 'BOW-009', qty: 1 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0007' }, delta: 15 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0043' }, delta: 15 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0154' }, delta: 15 },
     { type: 'addSectContribution', amount: 90 },
     { type: 'completeQuest', questId: JINJUN_YUJINYUAN_HORSE_QUEST_ID, outcome: 'completed' },
-    toast('《玉津园 · 春日校马记》完成！获天波穿云射日弓、纹银 300 两、战斗经验 1500！'),
+    toast('《玉津园 · 春日校马记》完成！获大宋边军克敌弓、纹银 60 两、战斗经验 1500！'),
   ],
 }
 

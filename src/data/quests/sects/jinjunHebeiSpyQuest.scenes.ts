@@ -237,6 +237,34 @@ const SCENE_43B_SHADOW_SEAL_REWARD: StorySceneDef = {
   ],
 }
 
+const SCENE_43B_SHADOW_SEAL_REWARD_ALT: StorySceneDef = {
+  id: 'scene_jj_spy_43b_shadow_seal_reward_alt',
+  title: '第四十三幕 · 紫宸玄牌授密使',
+  subtitle: '卷四 · 抉择乙：垂拱紫宸东暖阁',
+  mandatory: true,
+  illustrationUrl: CG_6_URL,
+  illustrationCaption: '紫宸暖阁秘赏 · 获赐天阶【紫宸玄枢密使腰牌】与太医局紫雪神丹',
+  beats: [
+    N('东暖阁内熏炉瑞脑香烟袅袅，今上赵祯屏退随侍内官，只留同平章事王德用与皇城司大内总供奉韦青衣在侧。内侍呈上一只乌木错金扁匣，匣内静静躺着一枚乌金错银、正面隐镌北斗玄枢云龙纹的沉重腰牌，旁侧更有一只羊脂白玉瓷瓶，盛着两枚清香凛冽的太医局紫雪神丹。'),
+    S('NPC-0001', '（亲手拈起那枚乌金错银腰牌递入你掌中，温言之中透出帝王深沉的器重）“雷霆震怒易，藏锋布局难。卿既能于黄河狂澜之上力挫强虏，又能在丹墀盛名之前捺住锋芒，替朝廷留一着反制北院的暗棋，足见文武兼资、深明庙堂大体！此枚【紫宸玄枢密使腰牌】与两枚大内【太医局紫雪神丹】，朕便私授于卿，另由内帑拨银一千二百两充作行军密费。”'),
+    S('NPC-0038', '（黑面微露赞许笑意，抚须颔首）“韩崇矩一脉死党今日午时便由殿前司以军法密决，至于那两条被架空的采买外线，今后每逢换季，老夫便与韦总供奉拟几份真假参半的河北布防草图喂给析津府。萧远风以为自己保住了残桩，殊不知已吞下了咱们的鱼钩！”'),
+    S('NPC-0132', '（抱臂轻叹一声，目光中多了几分真正的同行敬意）“往日我只道你刀快胆大，没料到论起反间算计，连皇城司几十年的老密侦也未必及得上你这份沉稳。佩好这块紫宸玄枢腰牌，今后北疆但有暗涌，皇城司暗线皆与你互通声气。”'),
+    P('（双手捧接乌金腰牌与玉瓶，深深一揖到底）“微臣领旨！兵者诡道，止戈为武。但叫这枚暗棋来日能在塞北战局替我大宋边军少流一滴冤血，微臣今日纵无朝堂扬名之誉，亦甘之如饴！”'),
+  ],
+  onFinishEffects: [
+    { type: 'setFlag', flag: 'jj_spy_ending_branch', value: 'counter_espionage' },
+    { type: 'giveItem', itemId: 'ITM-MSC-032', qty: 1 },
+    { type: 'giveItem', itemId: 'ITM-MED-113', qty: 2 },
+    { type: 'giveSilver', amount: 1200, reason: '紫宸暖阁内帑秘赐反间军资一千二百两' },
+    { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0001' }, delta: 30 },
+    { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0038' }, delta: 25 },
+    { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0132' }, delta: 20 },
+    { type: 'modifySkill', key: '策论', delta: 1 },
+    { type: 'modifyRenown', delta: 100, reason: '黄河铁索渡口力挫辽南京武林统制萧远风' },
+    openScene('scene_jj_spy_44_epilogue_north_wind', 'QST-SECT-33-HEBEI-SPY'),
+  ],
+}
+
 const SCENE_42B_COUNTER_ESPIONAGE_MEMORIAL: StorySceneDef = {
   id: 'scene_jj_spy_42b_counter_espionage_memorial',
   title: '第四十二幕 · 密火留线钓北狼',
@@ -251,7 +279,14 @@ const SCENE_42B_COUNTER_ESPIONAGE_MEMORIAL: StorySceneDef = {
     S('NPC-0013', '（包拯执笏沉吟片刻，黑面虽肃，却亦缓缓颔首）“法理昭昭，首恶必诛；至于兵家反间权宜，既已斩断其盗取紫宸真机之手足，留一空壳虚桩以惑强虏，老臣只要殿前司立下铁案底档，待战事落定后再按律追惩那两名贪鄙管事，开封府便不横加掣肘！”'),
     S('NPC-0038', '（眼中精光暴涨，拱手向御座沉声拜倒）“官家！老臣用兵四十年，最喜这等‘外示雷霆、内藏玄机’的宿将手笔！此议大善，请官家散朝后移步东暖阁密议章程！”'),
   ],
-  onFinishEffects: [openScene('scene_jj_spy_43b_shadow_seal_reward', 'QST-SECT-33-HEBEI-SPY')],
+  onFinishEffects: [
+    {
+      type: 'branch',
+      condition: flag('jj_mr2_got_dahuandan', 'truthy'),
+      thenEffects: [openScene('scene_jj_spy_43b_shadow_seal_reward_alt', 'QST-SECT-33-HEBEI-SPY')],
+      elseEffects: [openScene('scene_jj_spy_43b_shadow_seal_reward', 'QST-SECT-33-HEBEI-SPY')],
+    },
+  ],
 }
 
 const SCENE_43A_IRON_ARMOR_REWARD: StorySceneDef = {
@@ -326,6 +361,17 @@ const SCENE_41_ZICHEN_VERDICT_CHOICE: StorySceneDef = {
       label: '【密而不宣 · 将计就计】密诛知情死党，故意留两条不知情外围暗线喂送假军情，反钓辽国北院！',
       subLabel: '玄枢反间线 · 获赐专属天阶配饰【紫宸玄枢密使腰牌】+ 天阶【少林九转大还丹】+ 赏银 1,200 两 + 官家/王德用重信',
       tone: 'jade',
+      condition: { type: 'not', condition: flag('jj_mr2_got_dahuandan', 'truthy') },
+      hideWhenUnavailable: true,
+      effects: [openScene('scene_jj_spy_42b_counter_espionage_memorial', 'QST-SECT-33-HEBEI-SPY')],
+    },
+    {
+      id: 'choice_jj_spy_counter_spy_alt',
+      label: '【密而不宣 · 将计就计】密诛知情死党，故意留两条不知情外围暗线喂送假军情，反钓辽国北院！',
+      subLabel: '玄枢反间线 · 获赐专属天阶配饰【紫宸玄枢密使腰牌】+ 两枚【太医局紫雪神丹】+ 赏银 1,200 两 + 官家/王德用重信',
+      tone: 'jade',
+      condition: flag('jj_mr2_got_dahuandan', 'truthy'),
+      hideWhenUnavailable: true,
       effects: [openScene('scene_jj_spy_42b_counter_espionage_memorial', 'QST-SECT-33-HEBEI-SPY')],
     },
   ],
@@ -1377,6 +1423,7 @@ const SCENE_01_JINJUN_SECRET_EDICT: StorySceneDef = {
 export const SCENES: Record<string, StorySceneDef> = {
   [SCENE_44_EPILOGUE_NORTH_WIND.id]: SCENE_44_EPILOGUE_NORTH_WIND,
   [SCENE_43B_SHADOW_SEAL_REWARD.id]: SCENE_43B_SHADOW_SEAL_REWARD,
+  [SCENE_43B_SHADOW_SEAL_REWARD_ALT.id]: SCENE_43B_SHADOW_SEAL_REWARD_ALT,
   [SCENE_42B_COUNTER_ESPIONAGE_MEMORIAL.id]: SCENE_42B_COUNTER_ESPIONAGE_MEMORIAL,
   [SCENE_43A_IRON_ARMOR_REWARD.id]: SCENE_43A_IRON_ARMOR_REWARD,
   [SCENE_42A_RIGHTEOUS_IMPEACHMENT.id]: SCENE_42A_RIGHTEOUS_IMPEACHMENT,

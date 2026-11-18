@@ -62,6 +62,52 @@ try {
   } = await server.ssrLoadModule('/src/engine/questEngine.ts')
   const { SECT_RULES_BY_ID } = await server.ssrLoadModule('/src/engine/sect/rules.ts')
   const { SECT_ENTRY_TRANSFER_SOURCES } = await server.ssrLoadModule('/src/engine/sect/exclusivity.ts')
+  const { ITEM_DB_MAP } = await server.ssrLoadModule('/src/data/itemsDb.ts')
+
+  const WHITE_PAPER_ENTRY_QUEST_IDS = new Set([
+    'QST-SECT-05-ENTRY',
+    'QST-SECT-06-ENTRY',
+    'QST-SECT-07-ENTRY',
+    'QST-SECT-08-ENTRY',
+    'QST-SECT-14-ENTRY',
+  ])
+  const NO_HIGH_TIER_ITEM_QUEST_IDS = new Set([
+    'QST-SECT-33-FANLOU-NIGHT',
+    'QST-SECT-33-YUJINYUAN-HORSE',
+    'QST-SECT-33-TAIYUAN-IRON',
+    'QST-SECT-33-QINZHOU-HORSE',
+  ])
+
+  const hasNonNegatedConjunct = (cond, matcher) => {
+    if (!cond || typeof cond !== 'object') return false
+    if (matcher(cond)) return true
+    if (cond.type === 'all' && Array.isArray(cond.conditions)) {
+      return cond.conditions.some((sub) => hasNonNegatedConjunct(sub, matcher))
+    }
+    return false
+  }
+
+  const collectGivenItemsInEffects = (effs, outList, visitedScenes) => {
+    if (!Array.isArray(effs)) return
+    for (const eff of effs) {
+      if (!eff || typeof eff !== 'object') continue
+      if (eff.type === 'giveItem' && eff.itemId) {
+        outList.push(eff.itemId)
+      } else if (eff.type === 'branch') {
+        collectGivenItemsInEffects(eff.thenEffects, outList, visitedScenes)
+        collectGivenItemsInEffects(eff.elseEffects, outList, visitedScenes)
+      } else if (eff.type === 'startCombat') {
+        collectGivenItemsInEffects(eff.onWin, outList, visitedScenes)
+        collectGivenItemsInEffects(eff.onLose, outList, visitedScenes)
+        collectGivenItemsInEffects(eff.onEscape, outList, visitedScenes)
+        collectGivenItemsInEffects(eff.onDraw, outList, visitedScenes)
+      } else if (eff.type === 'openScene' && 'scene' in eff && eff.scene && !visitedScenes.has(eff.scene.id)) {
+        visitedScenes.add(eff.scene.id)
+        eff.scene.choices?.forEach((c) => collectGivenItemsInEffects(c.effects, outList, visitedScenes))
+        collectGivenItemsInEffects(eff.scene.onFinishEffects, outList, visitedScenes)
+      }
+    }
+  }
 
   await preloadAllQuestScenes()
   const baseResult = validateAllRegisteredQuests(QUEST_REGISTRY)
@@ -199,6 +245,43 @@ try {
       errors.push(
         `[${q.id}]: 单任务任意单周目路径累计十艺增幅达 +${maxTenArtsGain}，超过上限 +${MAX_QUEST_TEN_ARTS_GAIN}`,
       )
+    }
+
+    if (WHITE_PAPER_ENTRY_QUEST_IDS.has(q.id)) {
+      const hasNeverJoined = hasNonNegatedConjunct(
+        q.startCondition,
+        (c) => c.type === 'neverJoinedAnySect',
+      )
+      const hasNoLearnedArt = hasNonNegatedConjunct(
+        q.startCondition,
+        (c) => c.type === 'noLearnedArtAtOrAboveTier' && c.tier === '良品下品',
+      )
+      if (!hasNeverJoined || !hasNoLearnedArt) {
+        errors.push(
+          `[${q.id}]: 五派白纸入门任务 startCondition 必须同时包含 neverJoinedAnySect 与 noLearnedArtAtOrAboveTier(良品下品)`,
+        )
+      }
+    }
+
+    if (NO_HIGH_TIER_ITEM_QUEST_IDS.has(q.id)) {
+      const grantedItems = []
+      const seenInline = new Set()
+      q.locationTriggers?.forEach((t) => collectGivenItemsInEffects(t.effects, grantedItems, seenInline))
+      q.npcActions?.forEach((a) => collectGivenItemsInEffects(a.effects, grantedItems, seenInline))
+      q.spotActions?.forEach((a) => collectGivenItemsInEffects(a.effects, grantedItems, seenInline))
+      collectGivenItemsInEffects(q.onDeadlineExpired?.effects, grantedItems, seenInline)
+      for (const sc of Object.values(loadedScenes)) {
+        sc.choices?.forEach((c) => collectGivenItemsInEffects(c.effects, grantedItems, seenInline))
+        collectGivenItemsInEffects(sc.onFinishEffects, grantedItems, seenInline)
+      }
+      for (const itemId of grantedItems) {
+        const def = ITEM_DB_MAP[itemId]
+        if (def && (def.rarity === '天阶' || def.rarity === '地阶')) {
+          errors.push(
+            `[${q.id}]: 禁军日常/支线禁止发放天阶或地阶道具 (${itemId} ${def.name}: ${def.rarity})`,
+          )
+        }
+      }
     }
   }
 

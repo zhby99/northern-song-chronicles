@@ -5,6 +5,10 @@ export const JINJUN_TAIHANG_QUEST_1_ID = 'QST-SECT-33-TAIHANG-CAMPAIGN-1'
 
 const START_VISIBILITY_BASE_CONDITIONS: QuestCondition[] = [
   { type: 'inSect', sectId: 'SECT-33', minRank: 3 },
+  { type: 'npcAlive', npcId: 'NPC-0038', npcName: '王德用' },
+  { type: 'npcAlive', npcId: 'NPC-0001', npcName: '宋仁宗' },
+  { type: 'npcAlive', npcId: 'NPC-0154', npcName: '林铁衣' },
+  { type: 'npcAlive', npcId: 'NPC-0043', npcName: '高怀亮' },
   qStatus(JINJUN_TAIHANG_QUEST_1_ID, 'not_started'),
   qStatus(JINJUN_TAIHANG_QUEST_1_ID, 'not_completed'),
 ]

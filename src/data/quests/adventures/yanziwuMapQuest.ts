@@ -1,7 +1,22 @@
-import type { QuestDefinition } from '../../../types/quest'
+import type { QuestCondition, QuestDefinition } from '../../../types/quest'
 import { atStep, flag, qStatus, openScene } from '../../../engine/quest/dsl'
 
 export const QUEST_ID = 'QST-ADV-YANZIWU-MAP'
+
+const YANZIWU_MAP_START_CONDITION: QuestCondition = {
+  type: 'all',
+  conditions: [
+    qStatus(QUEST_ID, 'not_started'),
+    qStatus(QUEST_ID, 'not_completed'),
+    { type: 'npcAlive', npcId: 'NPC-0213', npcName: '包不同' },
+    qStatus('QST-SECT-33-MURONG-ARC-3', 'not_completed'),
+    {
+      type: 'not',
+      condition: flag('jj_mr3_yanziwu_razed', 'truthy'),
+      reason: '太湖燕子坞已被朝廷大军踏平焚毁，水路迷障已除',
+    },
+  ],
+}
 
 export const YANZIWU_MAP_QUESTS: QuestDefinition[] = [
   {
@@ -20,6 +35,7 @@ export const YANZIWU_MAP_QUESTS: QuestDefinition[] = [
       spotId: 'sz_th_pier',
       customLabel: '苏州府 · 太湖烟波渡口 · 烟波木栈长埠与镇湖石塔',
     },
+    startCondition: YANZIWU_MAP_START_CONDITION,
     initialStepId: 'suzhou_tavern_rumor',
     summary:
       '太湖三十六湾芦荡迷雾重重、水底梅花暗桩密布，外人无图寸步难行。荆湖铁掌帮江南分水堂暗中潜入苏州、扬州、江宁三府，企图强夺昔年吴越水师一分为三的《太湖三叠烟波图》。助翻江鼠蒋平、沈括与苏颂追回三叠秘卷合璧成图，即可打通前往【太湖燕子坞】的水上迷津。',
@@ -187,13 +203,7 @@ export const YANZIWU_MAP_QUESTS: QuestDefinition[] = [
         regionId: 'suzhou',
         buildingId: 'sz_taihu',
         spotId: 'sz_th_pier',
-        visibleWhen: {
-          type: 'all',
-          conditions: [
-            qStatus(QUEST_ID, 'not_started'),
-            qStatus(QUEST_ID, 'not_completed'),
-          ],
-        },
+        visibleWhen: YANZIWU_MAP_START_CONDITION,
         effects: [
           {
             type: 'branch',

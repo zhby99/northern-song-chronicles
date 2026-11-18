@@ -365,8 +365,8 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '苍松石坪演剑院',
     mandatory: true,
     beats: [
-      S('NPC-0205', '“光自己瞎练不行。来人，叫外门弟子与新来的师弟拆几招，看看他把泰山剑学进去了几分！”'),
-      S(SPEAKER_TAISHAN_SENIOR, '（拱手持剑而立）“师弟，得罪了！请亮剑吧！”'),
+      S('NPC-0205', '“光自己瞎练不行。来人，叫外门弟子与新来的{gender:师弟|师妹}拆几招，看看把泰山剑学进去了几分！”'),
+      S(SPEAKER_TAISHAN_SENIOR, '（拱手持剑而立）“{gender:师弟|师妹}，得罪了！请亮剑吧！”'),
     ],
     choices: [
       {

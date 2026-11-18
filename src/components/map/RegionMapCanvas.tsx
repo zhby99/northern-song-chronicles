@@ -122,7 +122,7 @@ export function RegionMapCanvas() {
           continue
         }
         const rawSpotNpcs = getCompiledNpcsBySpot(sp.id)
-        const npcs = filterLivingNpcs(rawSpotNpcs, curDeadNpcIds)
+        const npcs = filterLivingNpcs(rawSpotNpcs, curDeadNpcIds, curQuestState.flags)
         if (npcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
           spotIds.add(sp.id)
           continue
@@ -168,7 +168,7 @@ export function RegionMapCanvas() {
           }
         }
         const rawBldgNpcs = getCompiledNpcsByBuilding(b.id)
-        const bldgNpcs = filterLivingNpcs(rawBldgNpcs, curDeadNpcIds)
+        const bldgNpcs = filterLivingNpcs(rawBldgNpcs, curDeadNpcIds, curQuestState.flags)
         if (bldgNpcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
           buildingIds.add(b.id)
           continue
@@ -390,7 +390,7 @@ export function RegionMapCanvas() {
                   const isSelected = sp.id === selectedSpotId
                   const spotLockMeta = getSpotLockMeta(sp.id, questState.flags)
                   const isSpotLocked = spotLockMeta !== null
-                  const spotResidentCount = countLivingNpcIds(sp.residentNpcIds, deadNpcIds)
+                  const spotResidentCount = countLivingNpcIds(sp.residentNpcIds, deadNpcIds, questState.flags)
                   const spotTagLabel = isSpotLocked
                     ? spotLockMeta.lockedBadge
                     : spotResidentCount > 0
@@ -669,7 +669,7 @@ export function RegionMapCanvas() {
                             isSpecial: b.isSpecial,
                             interiorMode,
                             hasSubSpots,
-                            residentCount: countLivingNpcIds(dbBuilding?.residentNpcIds, deadNpcIds),
+                            residentCount: countLivingNpcIds(dbBuilding?.residentNpcIds, deadNpcIds, questState.flags),
                           },
                         })
                       }}

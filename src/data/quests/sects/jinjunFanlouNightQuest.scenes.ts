@@ -265,11 +265,11 @@ const SCENE_10: StorySceneDef = {
   subtitle: '开封府 · 八十万禁军大教场',
   mandatory: true,
   beats: [
-    N('辰时初刻，晨曦洒满八十万禁军大教场。你归营点卯交割案卷，枢密使王德用虽未多言，只微微颔首嘉许，特命内司拨银三百五十两赏赐巡夜有功之士，并赐下越州秘色青瓷温酒壶以为纪念。'),
+    N('辰时初刻，晨曦洒满八十万禁军大教场。你归营点卯交割案卷，枢密使王德用虽未多言，只微微颔首嘉许，特命内司拨银八十两赏赐巡夜有功之士，并赐下越州秘色青瓷温酒壶以为纪念。'),
     N('怀中还静静躺着那名退伍老兵临别前硬塞给你的铜哨，御街早市的炊烟与军营晨鼓交织在一起，守护这片人间烟火，正是大宋禁军立身之本。'),
   ],
   onFinishEffects: [
-    { type: 'giveSilver', amount: 350 },
+    { type: 'giveSilver', amount: 80 },
     { type: 'giveCombatExp', amount: 1200 },
     { type: 'modifyRenown', delta: 25 },
     { type: 'modifyChivalry', delta: 25 },
@@ -278,7 +278,7 @@ const SCENE_10: StorySceneDef = {
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0284' }, delta: 15 },
     { type: 'addSectContribution', amount: 80 },
     { type: 'completeQuest', questId: JINJUN_FANLOU_NIGHT_QUEST_ID, outcome: 'completed' },
-    toast('《樊楼夜 · 禁军巡夜录》完成！获纹银 350 两、战斗经验 1200、越州秘色青瓷莲花温酒执壶！'),
+    toast('《樊楼夜 · 禁军巡夜录》完成！获纹银 80 两、战斗经验 1200、越州秘色青瓷莲花温酒执壶！'),
   ],
 }
 

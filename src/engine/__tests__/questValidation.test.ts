@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest'
+import { ITEM_DB_MAP } from '../../data/itemsDb'
 import { QUEST_MAP, QUEST_REGISTRY } from '../../data/quests'
+import type { QuestCondition, QuestEffect } from '../../types/quest'
 import { buildQuestDependencyGraph } from '../quest/questGraphBuilder'
-import { preloadAllQuestScenes } from '../quest/sceneRegistry'
+import { getLoadedQuestScenes, preloadAllQuestScenes } from '../quest/sceneRegistry'
 import {
   computeQuestMaxTenArtsGain,
   MAX_QUEST_TEN_ARTS_GAIN,
@@ -86,6 +88,76 @@ describe('validateAllRegisteredQuests & buildQuestDependencyGraph', () => {
       expect(src).toBeDefined()
       expect(dst).toBeDefined()
       expect(src!.row).toBeLessThan(dst!.row)
+    }
+  })
+
+  it('enforces 5-sect white-paper entry rule and forbids 天阶/地阶 items in SECT-33 Lv.3-4 side quests', async () => {
+    await preloadAllQuestScenes()
+
+    const hasConjunct = (cond: QuestCondition | undefined, fn: (c: QuestCondition) => boolean): boolean => {
+      if (!cond) return false
+      if (fn(cond)) return true
+      if (cond.type === 'all') return cond.conditions.some((sub) => hasConjunct(sub, fn))
+      return false
+    }
+
+    const whitePaperIds = [
+      'QST-SECT-05-ENTRY',
+      'QST-SECT-06-ENTRY',
+      'QST-SECT-07-ENTRY',
+      'QST-SECT-08-ENTRY',
+      'QST-SECT-14-ENTRY',
+    ]
+    for (const qid of whitePaperIds) {
+      const q = QUEST_MAP[qid]!
+      expect(hasConjunct(q.startCondition, (c) => c.type === 'neverJoinedAnySect')).toBe(true)
+      expect(
+        hasConjunct(
+          q.startCondition,
+          (c) => c.type === 'noLearnedArtAtOrAboveTier' && c.tier === '良品下品',
+        ),
+      ).toBe(true)
+    }
+
+    const collectItems = (effs: readonly QuestEffect[] | undefined, out: string[]) => {
+      for (const e of effs ?? []) {
+        if (e.type === 'giveItem') out.push(e.itemId)
+        else if (e.type === 'branch') {
+          collectItems(e.thenEffects, out)
+          collectItems(e.elseEffects, out)
+        } else if (e.type === 'startCombat') {
+          collectItems(e.onWin, out)
+          collectItems(e.onLose, out)
+          collectItems(e.onEscape, out)
+          collectItems(e.onDraw, out)
+        } else if (e.type === 'openScene' && 'scene' in e) {
+          e.scene.choices?.forEach((c) => collectItems(c.effects, out))
+          collectItems(e.scene.onFinishEffects, out)
+        }
+      }
+    }
+
+    const sideQuestIds = [
+      'QST-SECT-33-FANLOU-NIGHT',
+      'QST-SECT-33-YUJINYUAN-HORSE',
+      'QST-SECT-33-TAIYUAN-IRON',
+      'QST-SECT-33-QINZHOU-HORSE',
+    ]
+    for (const qid of sideQuestIds) {
+      const q = QUEST_MAP[qid]!
+      const scenes = getLoadedQuestScenes(qid) ?? q.scenes ?? {}
+      const given: string[] = []
+      q.locationTriggers?.forEach((t) => collectItems(t.effects, given))
+      q.npcActions?.forEach((a) => collectItems(a.effects, given))
+      q.spotActions?.forEach((a) => collectItems(a.effects, given))
+      for (const sc of Object.values(scenes)) {
+        sc.choices?.forEach((c) => collectItems(c.effects, given))
+        collectItems(sc.onFinishEffects, given)
+      }
+      const forbidden = given
+        .map((id) => ITEM_DB_MAP[id])
+        .filter((d) => d && (d.rarity === '天阶' || d.rarity === '地阶'))
+      expect(forbidden).toEqual([])
     }
   })
 })

@@ -25,21 +25,41 @@ export function withNpcsMarkedDead(
   return npcIds.reduce<string[]>((acc, id) => withNpcMarkedDead(acc, id), [...deadNpcIds])
 }
 
-/** 过滤出仍在世的名录人物 */
+/**
+ * 判断名录 NPC 是否因身故或剧情逃遁而不应在常规地图建筑中现身。
+ */
+export function isNpcAbsentFromWorld(
+  npcId: string | null | undefined,
+  deadNpcIds: readonly string[] | null | undefined,
+  questFlags?: Record<string, unknown> | null,
+): boolean {
+  if (isNpcDead(deadNpcIds, npcId)) return true
+  if (npcId === 'NPC-0104' && questFlags?.jj_mr2_murongbo_fled) return true
+  if (npcId === 'NPC-0120' && questFlags?.jj_mr3_yanziwu_razed) return true
+  return false
+}
+
+/** 过滤出仍在世（且未因剧情遁走）的名录人物 */
 export function filterLivingNpcs<T extends { id: string }>(
   npcs: readonly T[],
   deadNpcIds: readonly string[] | null | undefined,
+  questFlags?: Record<string, unknown> | null,
 ): T[] {
-  if (!deadNpcIds || deadNpcIds.length === 0) return [...npcs]
-  return npcs.filter((n) => !deadNpcIds.includes(n.id))
+  const hasDead = Boolean(deadNpcIds && deadNpcIds.length > 0)
+  const hasFledFlag = Boolean(questFlags?.jj_mr2_murongbo_fled || questFlags?.jj_mr3_yanziwu_razed)
+  if (!hasDead && !hasFledFlag) return [...npcs]
+  return npcs.filter((n) => !isNpcAbsentFromWorld(n.id, deadNpcIds, questFlags))
 }
 
-/** 统计一组驻留人物 ID 中仍在世者数量 */
+/** 统计一组驻留人物 ID 中仍在世（且未因剧情遁走）者数量 */
 export function countLivingNpcIds(
   npcIds: readonly string[] | null | undefined,
   deadNpcIds: readonly string[] | null | undefined,
+  questFlags?: Record<string, unknown> | null,
 ): number {
   if (!npcIds) return 0
-  if (!deadNpcIds || deadNpcIds.length === 0) return npcIds.length
-  return npcIds.filter((id) => !deadNpcIds.includes(id)).length
+  const hasDead = Boolean(deadNpcIds && deadNpcIds.length > 0)
+  const hasFledFlag = Boolean(questFlags?.jj_mr2_murongbo_fled || questFlags?.jj_mr3_yanziwu_razed)
+  if (!hasDead && !hasFledFlag) return npcIds.length
+  return npcIds.filter((id) => !isNpcAbsentFromWorld(id, deadNpcIds, questFlags)).length
 }

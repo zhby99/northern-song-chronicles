@@ -234,10 +234,17 @@ function deriveSealChar(q: QuestDefinition): string {
     return '捕'
   }
   if (facName.includes('禁军')) {
-    if (q.title.includes('虎符')) return '符'
+    if (q.title.includes('暗桩') || q.title.includes('虎符')) return '符'
     if (q.title.includes('折戟')) return '折'
     if (q.title.includes('武经')) return '略'
     if (q.title.includes('犁庭')) return '侯'
+    if (q.title.includes('樊楼')) return '巡'
+    if (q.title.includes('玉津') || q.title.includes('校马')) return '驹'
+    if (q.title.includes('铁冶') || q.title.includes('玄铁')) return '铁'
+    if (q.title.includes('秦州') || q.title.includes('茶马')) return '茶'
+    if (q.title.includes('破燕 · 壹')) return '影'
+    if (q.title.includes('破燕 · 贰')) return '嵩'
+    if (q.title.includes('破燕 · 叁')) return '燕'
     return '军'
   }
   const clean = q.title.replace(/[^\u4e00-\u9fa5]/g, '')

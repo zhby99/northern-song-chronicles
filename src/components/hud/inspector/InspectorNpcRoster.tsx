@@ -37,6 +37,7 @@ export function InspectorNpcRoster({
   } | null>(null)
 
   const deadNpcIds = useGameStore((st) => st.deadNpcIds)
+  const questFlags = useGameStore((st) => st.questState.flags)
 
   if (!isLeafBuilding) {
     return (
@@ -45,7 +46,7 @@ export function InspectorNpcRoster({
           <>
             此建筑内设多处殿宇/子建筑（院内共驻{' '}
             <strong className="text-[#8f1d14]">
-              {countLivingNpcIds(targetBuildingDb?.residentNpcIds, deadNpcIds)}
+              {countLivingNpcIds(targetBuildingDb?.residentNpcIds, deadNpcIds, questFlags)}
             </strong>{' '}
             人），请步入内院并点选最末层子建筑寻访常驻人物。
           </>
@@ -53,7 +54,7 @@ export function InspectorNpcRoster({
           <>
             此建筑为可步入的市井独堂实景（堂内共驻{' '}
             <strong className="text-[#8f1d14]">
-              {countLivingNpcIds(targetBuildingDb?.residentNpcIds, deadNpcIds)}
+              {countLivingNpcIds(targetBuildingDb?.residentNpcIds, deadNpcIds, questFlags)}
             </strong>{' '}
             人，内无子建筑），请步入大堂互动与寻访人物。
           </>

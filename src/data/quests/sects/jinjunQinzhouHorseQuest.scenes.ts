@@ -88,7 +88,7 @@ function buildIronLotusGrandmaster(): NodeNpc {
       { artId: 'MA-071', level: 8 },
       { artId: 'MA-097', level: 8 },
     ],
-    equipped: { weapon: 'WPN-028', armor: 'ARM-007', shoes: 'BOT-004', bow: 'BOW-007', accessory1: 'ACC-014', accessory2: 'ACC-015', mount: 'MNT-005' },
+    equipped: { weapon: 'WPN-028', armor: 'ARM-007', shoes: 'BOT-004', bow: 'BOW-007', accessory1: 'ACC-014', accessory2: 'ACC-015', mount: 'MNT-009' },
     talk: '“五十匹河曲神骏与百车官茶已近在西境，区区大宋三衙都虞候，也敢孤身追来送死？”',
   })
 }
@@ -259,8 +259,8 @@ const SCENE_09: StorySceneDef = {
   subtitle: '秦州府 · 秦州府衙外',
   mandatory: true,
   beats: [
-    N('散衙之际，那位羌部老首领亲手牵着一匹神骏异常、毛色如金缎般流光溢彩的良驹走上前来，双手将缰绳递到你手中。'),
-    S({ name: '羌部老首领', title: '青唐羌部族长', factionName: '吐蕃羌部' }, '“大宋都虞候，这是我部最珍贵的【青唐唃厮啰金翼驹】，日行千里而不喘！唯有如您这般守信义、斩妖僧的真英雄，才配骑它！”'),
+    N('散衙之际，那位羌部老首领亲手牵着一匹体魄雄健、四蹄翻雪的良驹走上前来，双手将缰绳递到你手中。'),
+    S({ name: '羌部老首领', title: '青唐羌部族长', factionName: '吐蕃羌部' }, '“大宋都虞候，这是我部最珍贵的【秦州茶马上等河曲驹】，日行千里而不喘！唯有如您这般守信义、斩妖僧的真英雄，才配骑它！”'),
   ],
   onFinishEffects: [openScene('scene_jj_qz_10_frontier_victory', JINJUN_QINZHOU_HORSE_QUEST_ID)],
 }
@@ -271,20 +271,20 @@ const SCENE_10: StorySceneDef = {
   subtitle: '秦州府 · 天水关大道',
   mandatory: true,
   beats: [
-    N('辞别刘沪与徐衡林，你跨上新得的金翼驹缓缓踏上归程。秦凤一路驼铃清脆、茶马畅通，属于大宋禁军三衙都虞候的威名，已随西风传遍陇右群山。'),
+    N('辞别刘沪与徐衡林，你跨上新得的河曲骏马缓缓踏上归程。秦凤一路驼铃清脆、茶马畅通，属于大宋禁军三衙都虞候的威名，已随西风传遍陇右群山。'),
   ],
   onFinishEffects: [
-    { type: 'giveSilver', amount: 600 },
+    { type: 'giveSilver', amount: 150 },
     { type: 'giveCombatExp', amount: 2600 },
     { type: 'modifyChivalry', delta: 30 },
     { type: 'modifyRenown', delta: 40 },
-    { type: 'giveItem', itemId: 'MNT-005', qty: 1 },
-    { type: 'giveItem', itemId: 'ITM-MED-107', qty: 1 },
+    { type: 'giveItem', itemId: 'MNT-009', qty: 1 },
+    { type: 'giveItem', itemId: 'ITM-MED-112', qty: 1 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0045' }, delta: 20 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0522' }, delta: 15 },
     { type: 'addSectContribution', amount: 160 },
     { type: 'completeQuest', questId: JINJUN_QINZHOU_HORSE_QUEST_ID, outcome: 'completed' },
-    toast('《秦州道 · 茶马失纲录》完成！获地阶坐骑【青唐唃厮啰金翼驹】、天山雪莲碧灵丹、纹银 600 两、战斗经验 2600！'),
+    toast('《秦州道 · 茶马失纲录》完成！获良阶坐骑【秦州茶马上等河曲驹】、天香断续胶、纹银 150 两、战斗经验 2600！'),
   ],
 }
 

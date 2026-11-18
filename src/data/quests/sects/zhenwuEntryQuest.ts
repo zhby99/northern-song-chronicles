@@ -11,6 +11,10 @@ export const ZHENWU_START_CONDITION: QuestCondition = {
     flag('shaolin_novice_state', 'eq', 'none'),
     flag('zw_permanently_rejected', 'falsy'),
     { type: 'npcAlive', npcId: 'NPC-0119', npcName: '张玄素' },
+    { type: 'npcAlive', npcId: 'NPC-0208', npcName: '张清溪' },
+    { type: 'npcAlive', npcId: 'NPC-0209', npcName: '莫清谷' },
+    { type: 'npcAlive', npcId: 'NPC-0170', npcName: '俞清虚' },
+    { type: 'npcAlive', npcId: 'NPC-0148', npcName: '宋远乔' },
     qStatus(ZHENWU_ENTRY_QUEST_ID, 'not_started'),
   ],
 }
