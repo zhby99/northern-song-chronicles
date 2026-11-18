@@ -43,7 +43,7 @@ export const SYSTEM_NAV_ITEMS: Array<NavItemMeta<MenuTabKey>> = [
     numeral: '贰',
     label: '披挂与武学',
     seal: '武',
-    subtitle: '7 槽位可视化随身披挂（含兵武共鸣）+ 6 槽位运使武学（主运内功 · 轻功身法 · 四门出战招式）与按日闭关破境',
+    subtitle: '9 槽位可视化随身披挂（含兵武共鸣）+ 6 槽位运使武学（主运内功 · 轻功身法 · 四门出战招式）与按日闭关破境',
     badge: '闭关破境',
   },
   {

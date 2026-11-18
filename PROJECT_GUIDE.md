@@ -27,7 +27,7 @@ graph TD
     B --> C["src/App.tsx 根视口"]
     C --> D["HUD 交互层 (TopHud, BottomHud, ContextInspectorCard)"]
     C --> E["地图渲染层 (WorldMapCanvas, RegionMapCanvas, SVG Fallbacks)"]
-    C --> F["全局枢机弹窗层 (SystemMenuModal: 十卷枢机与四库总录)"]
+    C --> F["全局枢机弹窗层 (SystemMenuModal: 九卷枢机与八卷万象图鉴)"]
     
     D & E & F --> G["Zustand 状态机: src/store/useGameStore.ts"]
     G --> H["综合静态数据库: gameDb.ts / itemsDb.ts / scrollsDb.ts / playerMartialArts.ts"]
@@ -55,8 +55,8 @@ northern-song-chronicles/
 ├── docs/                                # 游戏系统与数值策划单一事实源
 │   ├── CHARACTER_COMPENDIUM.md          # 1,052 人物图鉴、三维与十艺派系全录
 │   ├── EQUIPMENT_COMPENDIUM.md          # 皇祐披挂总纲（第一卷：百兵谱 100 种武器）
-│   ├── GAME_MECHANICS.md                # 历法时辰、体能资粮、七槽四库、同步盲选战斗与核心机制总纲
-│   ├── MARTIAL_ARTS_SECTS.md            # 32 武林门派（20 一流 + 6 二流 + 6 三流）与 11 庙堂四夷组织专卷
+│   ├── GAME_MECHANICS.md                # 历法时辰、体能资粮、九槽四库、同步盲选战斗与核心机制总纲
+│   ├── MARTIAL_ARTS_SECTS.md            # 33 武林门派（21 一流含大宋禁军 + 6 二流 + 6 三流）与 11 庙堂四夷组织专卷
 │   ├── MARTIAL_ARTS_COMPENDIUM.md       # 246 门十一大类武学全典与天阶修习条件
 │   ├── MARTIAL_ARTS_STATS.md            # 246 门武学 1~10 重数值表与 37 门天阶战斗特效
 │   ├── REGIONAL_MAPS_AND_BUILDINGS.md   # 43 州府名山区域与 147 座特殊建筑名录（总计 268 座建筑）
@@ -71,8 +71,10 @@ northern-song-chronicles/
 │   ├── components/                      # React 视图组件库
 │   │   ├── hud/                         # 界面抬头显示与浮动信息
 │   │   │   ├── TopHud.tsx               # 常驻顶部状态栏 (年月日十二时辰/气血/体能/资金/粮草) + 二级舆图控制条
-│   │   │   ├── BottomHud.tsx            # 底部江湖行记日志、门派威望与当前坐标底栏
-│   │   │   ├── ContextInspectorCard.tsx # 选定实体详细检视舱 (城池/建筑/最末层驻留人物互动)
+│   │   │   ├── BottomHud.tsx            # 底部舆图/内景图例（默认收起为「图例」按钮）、缩放控件与江湖纪事/行纪入口
+│   │   │   ├── QuestTrackerPanel.tsx    # 左上江湖任务追踪（声明式任务链 + 辽谍军令 / 海捕公文 / 衙门悬赏；无任务时只留标题栏）
+│   │   │   ├── ContextInspectorCard.tsx # 选定实体详细检视舱 (城池/建筑/最末层驻留人物互动；2xl 以下收窄为 560px)
+│   │   │   ├── inspector/               # 检视舱子模块：InspectorShopSection（商铺买卖 + 开封大集页签）、KaifengFairPanel、InspectorYamenBountySection（衙门悬赏榜）、InspectorNpcRoster 等
 │   │   │   ├── MapTooltip.tsx           # 地图悬浮纯实色笺纸浮窗
 │   │   │   └── TravelBanner.tsx         # 大地图逐时辰行军进度与旷野随时扎营条
 │   │   ├── map/                         # 地图画布与交互组件
@@ -81,17 +83,17 @@ northern-song-chronicles/
 │   │   │   ├── SvgRegionPanoramaFallback.tsx   # 新辟 5 州府宋辽营造青绿等轴城郭矢量渲染器
 │   │   │   └── SvgBuildingInteriorFallback.tsx # 宋式《营造法式》室内建筑矢量渲染器
 │   │   └── menu/                        # 行囊枢机与皇祐万象图鉴双模态弹窗模块
-│   │       ├── SystemMenuModal.tsx      # 1.5× 双模态总控容器 (行囊枢机7卷 + 万象图鉴6卷调度与跨卷深链)
+│   │       ├── SystemMenuModal.tsx      # 1.5× 双模态总控容器 (行囊枢机9卷 + 万象图鉴8卷调度与跨卷深链)
 │   │       ├── RegionCompendiumPanel.tsx# 图鉴壹：43 地区山海舆地全鉴
-│   │       ├── SectCompendiumPanel.tsx  # 图鉴贰：32 武林门派与 11 庙堂四夷图鉴
+│   │       ├── SectCompendiumPanel.tsx  # 图鉴贰：33 武林门派与 11 庙堂四夷图鉴
 │   │       ├── PortraitLightbox.tsx     # 人物全身/头像与全景图高清放大品鉴灯箱
-│   │       ├── MenuIcons.tsx            # 七槽披挂、六槽武学与四库分类共享图标组件
+│   │       ├── MenuIcons.tsx            # 九槽披挂、六槽武学与四库分类共享图标组件
 │   │       ├── menuShared.ts            # 导航卷目元数据与博物收录统计纯函数
 │   │       └── tabs/                    # 独立拆分的业务子面板 (Hero/Loadout/Bag/Portraits/MartialArts/Armory/Treasures/Engineering/SaveLoad/Settings)
 │   │
 │   ├── data/                            # 游戏全量静态结构化数据库
 │   │   ├── gameDb.ts                    # 数据库聚合导出与 O(1) 索引模块
-│   │   ├── itemsDb.ts                   # 七槽位披挂定义、30 丹药毒物、50 雅器百工与兵武共鸣计算器
+│   │   ├── itemsDb.ts                   # 九槽位披挂定义、30 丹药毒物、50 雅器百工与兵武共鸣计算器
 │   │   ├── scrollsDb.ts                 # 皇祐百卷典籍书画库 (10天/20地/30良/40凡 共 100 卷)
 │   │   ├── playerMartialArts.ts         # 主角 6 槽武学运使、1~10 重火候演练与属性加成计算器
 │   │   ├── regions.json                 # 43 个区域州府与名山信息
@@ -103,17 +105,19 @@ northern-song-chronicles/
 │   │   ├── regionalConfigs.json         # 43 处区域坐标与建筑点位配置
 │   │   ├── worldGraph.json              # 43 节点 79 边陆路、运河、塞外与蜀道节点连接拓扑
 │   │   ├── worldBaseSvg.ts              # 华夏及东亚山海海岸线矢量轮廓
-│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表 (43地/32派+11组织/246功/100兵/1052人)
+│   │   ├── idRegistry.json              # 全局实体标准 ID 命名空间注册表 (43地/33派+11组织/246功/100兵/1052人)
 │   │   ├── assetManifest.json           # 生产资源清单索引
 │   │   └── portraitCatalog.json         # 人物立绘与模板映射表 (249 核心角色目录)
 │   │
 │   ├── engine/                          # 纯函数玩法引擎（不依赖 React / store，供切片与测试直接调用）
-│   │   ├── combat/                      # 同步盲选回合战斗：round/ 回合结算、effects/ 37 门天阶特效注册表、ai.ts、rng.ts
+│   │   ├── combat/                      # 同步盲选回合战斗：round/ 回合结算、effects/ 37 门天阶特效注册表、ai.ts、rng.ts、formulas.ts（大类本能、每场 3 次用药上限）
 │   │   │   └── settlement.ts            # 战后结算注册表：按 duelStakes 查表的终局文案 + 有序结算规则 COMBAT_SETTLEMENT_RULES
-│   │   ├── sect/                        # 门派入门 / 晋升 / 月俸 / 大比 / 诛谍 / 海捕；resetSectMembership() 统一离派重置
+│   │   ├── sect/                        # 门派入门 / 晋升 / 月俸 / 大比 / 诛谍 / 海捕；resetSectMembership() 统一离派重置；exclusivity.ts 门派排他
 │   │   ├── quest/ + questEngine.ts      # 声明式剧情 DSL、效果处理器与任务图
 │   │   ├── time/                        # 十二时辰推进、月度钩子与闭关结算
-│   │   ├── economy/ · social/ · stats/ · world/ · shared/
+│   │   ├── economy/                     # 物价、宿费、文职当差、走镖、典卖；kaifengFair.ts 每年六月开封大集
+│   │   ├── world/                       # mapMath.ts 舆图寻路与骑术地形减速、yamenBounty.ts 衙门悬赏、travelCamp.ts 行军途中扎营
+│   │   ├── social/ · stats/ · shared/
 │   │   └── __tests__/                   # vitest 单元测试（含 store 级战后结算测试）
 │   │
 │   ├── store/                           # 模块化全局状态管理 (Zustand Slices)
@@ -122,7 +126,7 @@ northern-song-chronicles/
 │   │   ├── storeHelpers.ts              # 初始状态工厂、时辰推进、战斗结算与序列化纯函数辅助库
 │   │   └── slices/                      # 七大高内聚业务域状态切片
 │   │       ├── navigationTravelSlice.ts # 三层空间视图导航、镜头缩放、驿路寻路行军与旷野安营
-│   │       ├── loadoutInventorySlice.ts # 开局创角、七槽披挂、六槽武学运使、破境转修、行囊与商铺买卖
+│   │       ├── loadoutInventorySlice.ts # 开局创角、九槽披挂、六槽武学运使、破境转修、行囊、商铺买卖与开封大集
 │   │       ├── cultivationSlice.ts      # 武学按日闭关、佛经参悟、少林杂役、酒肆打杂与十艺研习
 │   │       ├── combatSocialSlice.ts     # 群侠交谈赠礼、同步盲选六择一回合对决与生死终局重置
 │   │       ├── sectSlice.ts             # 33 门派拜师晋升、宗门大比、六扇门海捕、举荐信与传功
@@ -134,6 +138,7 @@ northern-song-chronicles/
 │   │
 │   └── utils/                           # 工具方法库
 │       ├── assetLoader.ts               # 图片素材按需懒加载与字节监控工具
+│       ├── hotkeys.ts                   # 战斗 / 剧情快捷键守门（菜单、图鉴打开或正在输入时放行）
 │       ├── bgmManager.ts                # Web Audio 无缝循环与四分类场景 BGM 播放列表引擎
 │       └── saveManager.ts               # IndexedDB + LocalStorage 多槽位存取档与 JSON 导入导出校验
 │
@@ -171,28 +176,31 @@ northern-song-chronicles/
 ### 1. 状态管理 (`src/store/`)
 - **`useGameStore` (`src/store/useGameStore.ts`)**: 聚合 `createInitialStoreData()` 与 `src/store/slices/*` 七大业务切片，对外维持单一数据源与零破坏导出（`useGameStore`、`buildStoreEvalContext`、`type GameStoreState`）：
   - **空间与行军 (`navigationTravelSlice.ts`)**：`viewMode`（`'world' | 'region' | 'building'`）、`currentNodeId`、`activeRegionId`、`activeBuildingInteriorId`、`traveling` 官道行军与 `campPos` 旷野驻扎。
-  - **披挂武学与商贸 (`loadoutInventorySlice.ts`)**：`completeCharacterCreation()`、7 槽 `equipped`、6 槽 `equippedArts`、`learnedArts` 破境转修、行囊 `inventory` 展卷服食与 `buySpotShopItem()` 商铺采办。
+  - **披挂武学与商贸 (`loadoutInventorySlice.ts`)**：`completeCharacterCreation()`、9 槽 `equipped`、6 槽 `equippedArts`、`learnedArts` 破境转修、行囊 `inventory` 展卷服食与 `buySpotShopItem()` 商铺采办。
   - **潜修与十艺 (`cultivationSlice.ts`)**：武学按日闭关、佛经参研、少林杂役、客栈酒楼月度打杂与北宋十艺百工修习（80/90 级反哺先天三维）。
   - **群侠与战斗 (`combatSocialSlice.ts`)**：NPC 交谈、赠礼好感结算、同步盲选六择一回合战斗与生死战 `GameOverModal` 重置。
   - **门派与公门 (`sectSlice.ts`)**：33 门派拜师晋升、二月初一宗门大比、常山半年诛谍、六扇门海捕公案、举荐帖与本门武学传授。
   - **剧情引擎 (`questSlice.ts`)**：声明式 `QuestEffect` 执行器、`StorySceneModal` 对白幕次与抉择推进、地点触发器与任务时限巡检。
-  - **界面与存取档 (`uiSaveSlice.ts`)**：十卷枢机菜单、万象图鉴、浮动笺纸提示及多槽位 `M1.5.5` IndexedDB/JSON 存取档。
+  - **界面与存取档 (`uiSaveSlice.ts`)**：九卷枢机菜单、八卷万象图鉴、浮动笺纸提示及多槽位 `M1.5.5` IndexedDB/JSON 存取档。
 
 ### 2. 静态数据库与器物武学表 (`gameDb.ts` / `itemsDb.ts` / `scrollsDb.ts` / `playerMartialArts.ts`)
 - **`gameDb.ts`**：导出 `REGIONS_DB`（43）、`BUILDINGS_DB`（268）、`MARTIAL_ARTS_DB`（246）、`WEAPONS_DB`（100）、`NPCS_DB`（1,052）及 O(1) 哈希索引 Map。
-- **`itemsDb.ts` & `scrollsDb.ts`**：定义 7 槽位元数据、4 分类行囊元数据、100 种百兵映射、100 卷典籍书画、30 种丹药毒物、50 件雅器百工，以及 `computeEquipmentTotals()` 与 `computeWeaponArtSynergy()` 兵武共鸣计算器。
+- **`itemsDb.ts` & `scrollsDb.ts`**：定义 9 槽位元数据、4 分类行囊元数据、100 种百兵映射、100 卷典籍书画、30 种丹药毒物、50 件雅器百工，以及 `computeEquipmentTotals()` 与 `computeWeaponArtSynergy()` 兵武共鸣计算器。
 - **`playerMartialArts.ts`**：定义 6 个武学运使槽位校验、1~10 重火候升级经验曲线与 `computeEquippedArtsTotals()`。
 
 ### 3. 素材懒加载、雅乐与历法数学库 (`assetLoader.ts` / `bgmManager.ts` / `engine/world/mapMath.ts`)
 - **`useLazyImage(src)`**：按需懒加载当前视口原画并统计累计解码体积。
 - **`bgmManager.ts`**：基于 Web Audio 无缝循环与 HTMLAudio 播放列表，按 `events > characters > regions > world` 优先级自动切换场景配乐。
-- **`findBestRoute()` / `getEffectiveSpeed()`**：基于装备栏第 7 槽【坐骑】与轻功/骑术修正计算真实地理行军速度与支持旷野营地起算的最短官道拓扑。
+- **`findBestRoute()` / `getEffectiveSpeed()`**：基于装备栏坐骑槽【坐骑】与轻功/骑术修正计算真实地理行军速度与支持旷野营地起算的最短官道拓扑。
 
 ### 4. 玩法引擎约定 (`src/engine/`)
 - **导入路径**：玩法逻辑一律从 `src/engine/*` 导入（旧的 `src/utils/{combatEngine,heroStats,mapMath,sectMechanics,...}` 转发文件已删除）。
 - **随机数**：所有玩法随机经由 `engine/combat/rng.ts` 的 `gameRng`；测试与回放可 `setGameRng(createSeededRng(seed))` 让整局 store 行为可复现（音效噪声合成不在此列）。
 - **战后结算**：新增一类战斗（新 `duelStakes`）时，在 `engine/combat/settlement.ts` 追加终局文案或结算规则，`combatSocialSlice.finishCombatSession()` 只负责提交草稿与后续跳转。
 - **战阵毒药数值**：由 `docs/EQUIPMENT_COMPENDIUM.md` 规格列 `poisonCombat` 字段编译生成，战斗代码不再按物品 ID 写死。
+- **门派排他**：已身属别派或少林杂役期时，他派入门线（`rules.entryQuestId`）不触发、不推进，任务 `joinSect` 不覆盖现有门派；带艺投师白名单 `SECT_ENTRY_TRANSFER_SOURCES` 须与任务数据一致（有测试守护）。
+- **银钱物价锚**：常山 / 六扇门 / 禁军月俸为全游戏定价基准，文职当差、走镖、悬赏、宿费均以此换算（`docs/GAME_MECHANICS.md` 5.2 节）；新增收入来源不得超过同阶俸禄。
+- **限时市集与悬赏**：开封大集（`engine/economy/kaifengFair.ts`，存档字段 `kaifengFairPurchases`）与衙门悬赏（`engine/world/yamenBounty.ts`，`activeYamenBounty` / `yamenBountyDoneIds`，战斗 `duelStakes: 'yamen_bounty'`）均为确定性生成，按年 / 月份种子取样。
 - **NPC 生死**：store 字段 `deadNpcIds`（随存档持久化）。主角主动发起的生死决斗（`duelStakes === 'duel'`、无剧情钩子）获胜即判对手身故；剧情可用 `{ type: 'markNpcsDead', npcIds: [...] }` 判定身故，名单显式写在剧情数据里（如太行剿匪终幕的 `TAIHANG_WING_NPC_IDS`）。新增任何列出 / 交互名录 NPC 的地方，须经 `engine/social/npcDeath.ts` 的 `filterLivingNpcs` / `isNpcDead` 过滤；门派事务对接人用 `getSectContactNpcId()`（掌门身故则由在世最高阶门人代掌）。
 
 ---
@@ -315,7 +323,7 @@ npm run build:artifact
 
 ### 2. 数据与素材自动化维护脚本 (`scripts/`)
 - **`scripts/compile_game_db.py` (`npm run build:db`)**：
-  解析七大 Markdown 设定专卷，幂等生成 `src/data/*.json` 并校验 43 地区、32 门派+11 组织、268 建筑、246 武学、100 武器与 1,047 名 NPC 零悬空引用。
+  解析七大 Markdown 设定专卷，幂等生成 `src/data/*.json` 并校验 43 地区、33 门派+11 组织、268 建筑、246 武学、100 武器与 1,052 名 NPC 零悬空引用。
 - **`scripts/archive_all_branch_assets.py` (`npm run archive:masters`)**：
   维护 `assets_raw_masters/` 与 `public/assets/` 资源对应关系并生成 SHA-256 校验表。
 - **`scripts/build_preview_artifact.mjs` (`npm run build:artifact`)**：
