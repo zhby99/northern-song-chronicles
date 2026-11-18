@@ -370,12 +370,56 @@ function evalFirstTierPending(
   }
 }
 
+function evalHuashanQuest(
+  params: EvaluateSectPromotionParams,
+): PromotionRequirementInfo | null {
+  const { sectId, currentRank } = params
+  if (currentRank >= 5) return null
+  const targetRank = (currentRank + 1) as SectRankLevel
+  const targetRankLabel = getSectRankTitle(sectId, targetRank)
+  if (currentRank === 1) {
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      reason:
+        '晋升【内门剑士（Lv.2）】须按西岳师承试剑：先完成外门《药王除恶 · 十二初试》，再赴【华山绝顶论剑台 · 博台孤峰弈棋亭】完成《博台大比 · 剑气分宗》夺魁并择定气宗或剑宗道途！',
+    }
+  }
+  if (currentRank === 2) {
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      reason:
+        '晋升【真传弟子（Lv.3）】须历练本脉内门三卷：气宗完成《楼观护道 · 希夷剑韵》、剑宗完成《云台残局 · 希夷求变》悟透希夷剑理后，由岳掌门或秦剑神亲擢真传！',
+    }
+  }
+  if (currentRank === 3) {
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      reason:
+        '晋升【护法/执剑长老（Lv.4）】须修成《太岳三青峰》、历思过崖秘洞抉择，并驰援长安完成《雁塔风雷 · 京兆除魔》救回同门宿老后，由四老联署册封！',
+    }
+  }
+  return {
+    targetRank,
+    targetRankLabel,
+    canPromote: false,
+    reason:
+      '【华山掌门（Lv.5）】统摄西岳剑气大权，须觉醒天阶绝学（气宗《紫霞神功》或剑宗《独孤九剑》）并完成终局战役（《紫霞浩荡》《剑压紫霞》或《两仪归元》）方可登位！',
+  }
+}
+
 const PROMOTION_STRATEGY_BY_KIND: Record<
   SectPromotionRuleKind,
   (params: EvaluateSectPromotionParams) => PromotionRequirementInfo | null
 > = {
   kaifeng_cases: evalKaifengCases,
   imperial_guard_merit: evalImperialGuardMerit,
+  huashan_quest: evalHuashanQuest,
   xingxiu_duel: evalXingxiuDuel,
   gaibang_favor: evalGaibangFavor,
   shaolin_zen: evalShaolinZen,

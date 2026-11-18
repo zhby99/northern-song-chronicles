@@ -93,6 +93,7 @@ export interface CombatantState {
   name: string
   title: string
   realm: string
+  factionId?: string
   factionName: string
   portraitUrl: string
   isPlayer: boolean
@@ -107,6 +108,8 @@ export interface CombatantState {
   equipDefense: number
   qinSkill?: number
   shuSkill?: number
+  hsSwordEssence?: boolean
+  hsPoyueGuijian?: boolean
 
   equipped: EquippedSlotsMap
   equippedArts: EquippedArtsMap

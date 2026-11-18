@@ -6,7 +6,29 @@ import { DAMING_BAJI_QUESTS } from './cities/damingBajiQuest'
 import { CHANGSHAN_LONGLING_QUESTS } from './sects/changshanLonglingQuest'
 import { EMEI_ENTRY_QUESTS } from './sects/emeiEntryQuest'
 import { GAIBANG_ENTRY_QUESTS } from './sects/gaibangEntryQuest'
+import { HUASHAN_Q02_QUESTS } from './sects/huashanBotaiDivisionQuest'
+import { HUASHAN_Q14_QUESTS } from './sects/huashanCaveHarmonyQuest'
+import { HUASHAN_Q15_QUESTS } from './sects/huashanCaveUsurpQuest'
+import { HUASHAN_Q21_QUESTS } from './sects/huashanEndingSwordHarmonyQuest'
+import { HUASHAN_Q20_QUESTS } from './sects/huashanEndingSwordUsurpQuest'
+import { HUASHAN_Q19_QUESTS } from './sects/huashanEndingZixiaMasterQuest'
 import { HUASHAN_ENTRY_QUESTS } from './sects/huashanEntryQuest'
+import { HUASHAN_Q18_QUESTS } from './sects/huashanJianDuguNineQuest'
+import { HUASHAN_Q07_QUESTS } from './sects/huashanJianLuoyanQuest'
+import { HUASHAN_Q12_QUESTS } from './sects/huashanJianSanqingQuest'
+import { HUASHAN_Q11_QUESTS } from './sects/huashanJianSanxianQuest'
+import { HUASHAN_Q08_QUESTS } from './sects/huashanJianXiyiQuest'
+import { HUASHAN_Q06_QUESTS } from './sects/huashanJianYangwuQuest'
+import { HUASHAN_Q22_QUESTS } from './sects/huashanMountaintopSummitQuest'
+import { HUASHAN_Q09_QUESTS } from './sects/huashanQiHunyuanGongQuest'
+import { HUASHAN_Q04_QUESTS } from './sects/huashanQiHunyuanPalmQuest'
+import { HUASHAN_Q10_QUESTS } from './sects/huashanQiSanqingQuest'
+import { HUASHAN_Q05_QUESTS } from './sects/huashanQiXiyiQuest'
+import { HUASHAN_Q03_QUESTS } from './sects/huashanQiYangwuQuest'
+import { HUASHAN_Q17_QUESTS } from './sects/huashanQiZixiaAwakenQuest'
+import { HUASHAN_Q13_QUESTS } from './sects/huashanSiguoyaSecretQuest'
+import { HUASHAN_Q16_QUESTS } from './sects/huashanYantaCrisisQuest'
+import { HUASHAN_Q01_QUESTS } from './sects/huashanYaowangTrialQuest'
 import { JINJUN_FANLOU_NIGHT_QUESTS } from './sects/jinjunFanlouNightQuest'
 import { JINJUN_FINAL_1_QUEST } from './sects/jinjunFinal1Quest'
 import { JINJUN_FINAL_2_QUEST } from './sects/jinjunFinal2Quest'
@@ -49,6 +71,28 @@ export const QUEST_REGISTRY: readonly QuestDefinition[] = Object.freeze([
   ...WUTAI_ENTRY_QUESTS,
   ...NANSHAOLIN_ENTRY_QUESTS,
   ...HUASHAN_ENTRY_QUESTS,
+  ...HUASHAN_Q01_QUESTS,
+  ...HUASHAN_Q02_QUESTS,
+  ...HUASHAN_Q03_QUESTS,
+  ...HUASHAN_Q04_QUESTS,
+  ...HUASHAN_Q05_QUESTS,
+  ...HUASHAN_Q06_QUESTS,
+  ...HUASHAN_Q07_QUESTS,
+  ...HUASHAN_Q08_QUESTS,
+  ...HUASHAN_Q09_QUESTS,
+  ...HUASHAN_Q10_QUESTS,
+  ...HUASHAN_Q11_QUESTS,
+  ...HUASHAN_Q12_QUESTS,
+  ...HUASHAN_Q13_QUESTS,
+  ...HUASHAN_Q14_QUESTS,
+  ...HUASHAN_Q15_QUESTS,
+  ...HUASHAN_Q16_QUESTS,
+  ...HUASHAN_Q17_QUESTS,
+  ...HUASHAN_Q18_QUESTS,
+  ...HUASHAN_Q19_QUESTS,
+  ...HUASHAN_Q20_QUESTS,
+  ...HUASHAN_Q21_QUESTS,
+  ...HUASHAN_Q22_QUESTS,
   ...TAISHAN_ENTRY_QUESTS,
   ...EMEI_ENTRY_QUESTS,
   ...QINGCHENG_ENTRY_QUESTS,

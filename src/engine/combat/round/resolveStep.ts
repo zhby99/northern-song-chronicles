@@ -656,11 +656,29 @@ export function resolveOrderedActionSteps(
     const isTargetExposed = target.exposed
     const exposedVulnMult = isTargetExposed ? 1.25 : 1.0
 
+    // 思过崖《石室止戈》气宗剑理贯通（剑法伤害 +12%）&《魔刻噬心》破岳诡剑（对华山门人与华山武学增伤 +25%）
+    const hsSwordEssenceMult = actor.hsSwordEssence && art.category === '剑法' ? 1.12 : 1.0
+    const isTargetHuashan =
+      Boolean(actor.hsPoyueGuijian) &&
+      (target.factionId === 'SECT-05' ||
+        target.factionName.includes('华山') ||
+        [
+          target.equippedArts.neigong,
+          target.equippedArts.qinggong,
+          target.equippedArts.move1,
+          target.equippedArts.move2,
+          target.equippedArts.move3,
+          target.equippedArts.move4,
+        ].some((aid) => Boolean(aid && MARTIAL_ART_DB_MAP[aid]?.sectId === 'SECT-05')))
+    const hsPoyueMult = isTargetHuashan ? 1.25 : 1.0
+
     const tacticalTags: string[] = []
     if (isGuardBreakInstinct) tacticalTags.push('刀棍破守+30%')
     if (isSpearCounterInstinct) tacticalTags.push('枪道后发+20%')
     if (isPalmPierceInstinct) tacticalTags.push('拳掌透甲20%')
     if (isTargetExposed) tacticalTags.push('痛击破绽+25%')
+    if (hsSwordEssenceMult > 1) tacticalTags.push('太岳剑髓+12%')
+    if (hsPoyueMult > 1) tacticalTags.push('破岳诡剑+25%')
     if (qinSoundAmp > 0) tacticalTags.push(`琴韵音杀+${(qinSoundAmp * 100).toFixed(1)}%`)
     if (shuBrushAmp > 0) tacticalTags.push(`书道笔意+${(shuBrushAmp * 100).toFixed(1)}%`)
     const tacticalNote = tacticalTags.length > 0 ? `【${tacticalTags.join('·')}】` : ''
@@ -676,6 +694,8 @@ export function resolveOrderedActionSteps(
           postureMult *
           spearCounterMult *
           exposedVulnMult *
+          hsSwordEssenceMult *
+          hsPoyueMult *
           roll.multiplier,
       ),
     )

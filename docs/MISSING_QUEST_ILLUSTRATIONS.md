@@ -183,6 +183,94 @@
 | `CG-QST-171` | `[x]` 已完成 | `public/assets/quests/jinjun_fn3_xiaofeng_farewell.jpg` | `/assets/quests/jinjun_fn3_xiaofeng_farewell.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第二十二幕 · 铁林退如潮<br>（`scene_fn3_22`） | `16:9` |
 | `CG-QST-172` | `[x]` 已完成 | `public/assets/quests/jinjun_fn3_kaifeng_welcome.jpg` | `/assets/quests/jinjun_fn3_kaifeng_welcome.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第二十四幕 · 纵马隐塞外<br>（`scene_fn3_24`） | `16:9` |
 | `CG-QST-173` | `[x]` 已完成 | `public/assets/quests/jinjun_fn3_daqing_hall.jpg` | `/assets/quests/jinjun_fn3_daqing_hall.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第三十五幕 · 君臣并马行<br>（`scene_fn3_35`） | `16:9` |
+| `CG-QST-174` | `[ ]` 待补绘 | `public/assets/quests/hs_q01_yaowang_depart.jpg` | `/assets/quests/hs_q01_yaowang_depart.jpg` | `QST-SECT-05-01`<br>《药王除恶 · 十二初试》 | 第三幕 · 玉女授命<br>（`scene_hsq01_03`） | `16:9` |
+| `CG-QST-175` | `[ ]` 待补绘 | `public/assets/quests/hs_q01_cypress_duel.jpg` | `/assets/quests/hs_q01_cypress_duel.jpg` | `QST-SECT-05-01`<br>《药王除恶 · 十二初试》 | 第八幕 · 古柏争锋<br>（`scene_hsq01_08`） | `16:9` |
+| `CG-QST-176` | `[ ]` 待补绘 | `public/assets/quests/hs_q02_botai_arena.jpg` | `/assets/quests/hs_q02_botai_arena.jpg` | `QST-SECT-05-02`<br>《博台大比 · 剑气分宗》 | 第三幕 · 四老临坛<br>（`scene_hsq02_03`） | `16:9` |
+| `CG-QST-177` | `[ ]` 待补绘 | `public/assets/quests/hs_q02_defeat_luzhanfeng.jpg` | `/assets/quests/hs_q02_defeat_luzhanfeng.jpg` | `QST-SECT-05-02`<br>《博台大比 · 剑气分宗》 | 第十幕 · 一剑夺魁<br>（`scene_hsq02_10`） | `16:9` |
+| `CG-QST-178` | `[ ]` 待补绘 | `public/assets/quests/hs_q02_zixia_division.jpg` | `/assets/quests/hs_q02_zixia_division.jpg` | `QST-SECT-05-02`<br>《博台大比 · 剑气分宗》 | 第十三幕 · 烛影挑明<br>（`scene_hsq02_13`） | `16:9` |
+| `CG-QST-179` | `[ ]` 待补绘 | `public/assets/quests/hs_q03_dawn_yangwu.jpg` | `/assets/quests/hs_q03_dawn_yangwu.jpg` | `QST-SECT-05-03`<br>《玉女晨钟 · 浩然养吾》 | 第三幕 · 亲授养吾<br>（`scene_hsq03_03`） | `16:9` |
+| `CG-QST-180` | `[ ]` 待补绘 | `public/assets/quests/hs_q03_guard_counter.jpg` | `/assets/quests/hs_q03_guard_counter.jpg` | `QST-SECT-05-03`<br>《玉女晨钟 · 浩然养吾》 | 第十一幕 · 守中破妄<br>（`scene_hsq03_11`） | `16:9` |
+| `CG-QST-181` | `[ ]` 待补绘 | `public/assets/quests/hs_q04_weishui_boat.jpg` | `/assets/quests/hs_q04_weishui_boat.jpg` | `QST-SECT-05-04`<br>《渭水惊澜 · 混元破寨》 | 第七幕 · 渭水传掌<br>（`scene_hsq04_07`） | `16:9` |
+| `CG-QST-182` | `[ ]` 待补绘 | `public/assets/quests/hs_q04_shatter_shields.jpg` | `/assets/quests/hs_q04_shatter_shields.jpg` | `QST-SECT-05-04`<br>《渭水惊澜 · 混元破寨》 | 第十一幕 · 混元裂盾<br>（`scene_hsq04_11`） | `16:9` |
+| `CG-QST-183` | `[ ]` 待补绘 | `public/assets/quests/hs_q04_fort_ablaze.jpg` | `/assets/quests/hs_q04_fort_ablaze.jpg` | `QST-SECT-05-04`<br>《渭水惊澜 · 混元破寨》 | 第十五幕 · 火焚水寨<br>（`scene_hsq04_15`） | `16:9` |
+| `CG-QST-184` | `[ ]` 待补绘 | `public/assets/quests/hs_q05_louguan_homage.jpg` | `/assets/quests/hs_q05_louguan_homage.jpg` | `QST-SECT-05-05`<br>《楼观护道 · 希夷剑韵》 | 第五幕 · 楼观礼祖<br>（`scene_hsq05_05`） | `16:9` |
+| `CG-QST-185` | `[ ]` 待补绘 | `public/assets/quests/hs_q05_pine_ambush.jpg` | `/assets/quests/hs_q05_pine_ambush.jpg` | `QST-SECT-05-05`<br>《楼观护道 · 希夷剑韵》 | 第十三幕 · 松碑授剑<br>（`scene_hsq05_13`） | `16:9` |
+| `CG-QST-186` | `[ ]` 待补绘 | `public/assets/quests/hs_q05_xiyi_triumph.jpg` | `/assets/quests/hs_q05_xiyi_triumph.jpg` | `QST-SECT-05-05`<br>《楼观护道 · 希夷剑韵》 | 第十七幕 · 大象无形<br>（`scene_hsq05_17`） | `16:9` |
+| `CG-QST-187` | `[ ]` 待补绘 | `public/assets/quests/hs_q06_jianlu_throw.jpg` | `/assets/quests/hs_q06_jianlu_throw.jpg` | `QST-SECT-05-06`<br>《潼关血刃 · 以快驭正》 | 第二幕 · 掷剑立诫<br>（`scene_hsq06_02`） | `16:9` |
+| `CG-QST-188` | `[ ]` 待补绘 | `public/assets/quests/hs_q06_tongguan_blitz.jpg` | `/assets/quests/hs_q06_tongguan_blitz.jpg` | `QST-SECT-05-06`<br>《潼关血刃 · 以快驭正》 | 第十一幕 · 以快驭正<br>（`scene_hsq06_11`） | `16:9` |
+| `CG-QST-189` | `[ ]` 待补绘 | `public/assets/quests/hs_q07_fengling_geese.jpg` | `/assets/quests/hs_q07_fengling_geese.jpg` | `QST-SECT-05-07`<br>《风陵夜渡 · 平沙落雁》 | 第三幕 · 秋雁扑波<br>（`scene_hsq07_03`） | `16:9` |
+| `CG-QST-190` | `[ ]` 待补绘 | `public/assets/quests/hs_q07_skiff_raid.jpg` | `/assets/quests/hs_q07_skiff_raid.jpg` | `QST-SECT-05-07`<br>《风陵夜渡 · 平沙落雁》 | 第七幕 · 孤舟破哨<br>（`scene_hsq07_07`） | `16:9` |
+| `CG-QST-191` | `[ ]` 待补绘 | `public/assets/quests/hs_q07_bloodless_blade.jpg` | `/assets/quests/hs_q07_bloodless_blade.jpg` | `QST-SECT-05-07`<br>《风陵夜渡 · 平沙落雁》 | 第十四幕 · 剑不沾衣<br>（`scene_hsq07_14`） | `16:9` |
+| `CG-QST-192` | `[ ]` 待补绘 | `public/assets/quests/hs_q08_qin_three_moves.jpg` | `/assets/quests/hs_q08_qin_three_moves.jpg` | `QST-SECT-05-08`<br>《云台残局 · 希夷求变》 | 第三幕 · 博台折锋<br>（`scene_hsq08_03`） | `16:9` |
+| `CG-QST-193` | `[ ]` 待补绘 | `public/assets/quests/hs_q08_yuntai_chess.jpg` | `/assets/quests/hs_q08_yuntai_chess.jpg` | `QST-SECT-05-08`<br>《云台残局 · 希夷求变》 | 第八幕 · 云台悟变<br>（`scene_hsq08_08`） | `16:9` |
+| `CG-QST-194` | `[ ]` 待补绘 | `public/assets/quests/hs_q08_falls_assassins.jpg` | `/assets/quests/hs_q08_falls_assassins.jpg` | `QST-SECT-05-08`<br>《云台残局 · 希夷求变》 | 第十五幕 · 银瀑封喉<br>（`scene_hsq08_15`） | `16:9` |
+| `CG-QST-195` | `[ ]` 待补绘 | `public/assets/quests/hs_q09_hunyuan_neigong.jpg` | `/assets/quests/hs_q09_hunyuan_neigong.jpg` | `QST-SECT-05-09`<br>《东峰迎曦 · 由外而内》 | 第二幕 · 由外而内<br>（`scene_hsq09_02`） | `16:9` |
+| `CG-QST-196` | `[ ]` 待补绘 | `public/assets/quests/hs_q09_xishi_firetrap.jpg` | `/assets/quests/hs_q09_xishi_firetrap.jpg` | `QST-SECT-05-09`<br>《东峰迎曦 · 由外而内》 | 第十幕 · 西市毒网<br>（`scene_hsq09_10`） | `16:9` |
+| `CG-QST-197` | `[ ]` 待补绘 | `public/assets/quests/hs_q09_rebound_poison.jpg` | `/assets/quests/hs_q09_rebound_poison.jpg` | `QST-SECT-05-09`<br>《东峰迎曦 · 由外而内》 | 第十二幕 · 混元返震<br>（`scene_hsq09_12`） | `16:9` |
+| `CG-QST-198` | `[ ]` 待补绘 | `public/assets/quests/hs_q09_zixia_robe.jpg` | `/assets/quests/hs_q09_zixia_robe.jpg` | `QST-SECT-05-09`<br>《东峰迎曦 · 由外而内》 | 第二十五幕 · 紫衫荣光<br>（`scene_hsq09_25`） | `16:9` |
+| `CG-QST-199` | `[ ]` 待补绘 | `public/assets/quests/hs_q10_ten_strikes.jpg` | `/assets/quests/hs_q10_ten_strikes.jpg` | `QST-SECT-05-10`<br>《落雁借剑 · 太岳三峰》 | 第七幕 · 十剑不退<br>（`scene_hsq10_07`） | `16:9` |
+| `CG-QST-200` | `[ ]` 待补绘 | `public/assets/quests/hs_q10_blood_monk_duel.jpg` | `/assets/quests/hs_q10_blood_monk_duel.jpg` | `QST-SECT-05-10`<br>《落雁借剑 · 太岳三峰》 | 第十五幕 · 出关斩恶<br>（`scene_hsq10_15`） | `16:9` |
+| `CG-QST-201` | `[ ]` 待补绘 | `public/assets/quests/hs_q10_jade_casket.jpg` | `/assets/quests/hs_q10_jade_casket.jpg` | `QST-SECT-05-10`<br>《落雁借剑 · 太岳三峰》 | 第二十一幕 · 白玉启匣<br>（`scene_hsq10_21`） | `16:9` |
+| `CG-QST-202` | `[ ]` 待补绘 | `public/assets/quests/hs_q10_three_peaks_sword.jpg` | `/assets/quests/hs_q10_three_peaks_sword.jpg` | `QST-SECT-05-10`<br>《落雁借剑 · 太岳三峰》 | 第二十四幕 · 三峰插云<br>（`scene_hsq10_24`） | `16:9` |
+| `CG-QST-203` | `[ ]` 待补绘 | `public/assets/quests/hs_q11_ruined_jianlu.jpg` | `/assets/quests/hs_q11_ruined_jianlu.jpg` | `QST-SECT-05-11`<br>《剑庐残烛 · 夺命三仙》 | 第三幕 · 残庐泣血<br>（`scene_hsq11_03`） | `16:9` |
+| `CG-QST-204` | `[ ]` 待补绘 | `public/assets/quests/hs_q11_sanxian_impart.jpg` | `/assets/quests/hs_q11_sanxian_impart.jpg` | `QST-SECT-05-11`<br>《剑庐残烛 · 夺命三仙》 | 第六幕 · 夺命三仙<br>（`scene_hsq11_06`） | `16:9` |
+| `CG-QST-205` | `[ ]` 待补绘 | `public/assets/quests/hs_q11_huayin_slay.jpg` | `/assets/quests/hs_q11_huayin_slay.jpg` | `QST-SECT-05-11`<br>《剑庐残烛 · 夺命三仙》 | 第十三幕 · 三剑无生<br>（`scene_hsq11_13`） | `16:9` |
+| `CG-QST-206` | `[ ]` 待补绘 | `public/assets/quests/hs_q11_qin_interrogate.jpg` | `/assets/quests/hs_q11_qin_interrogate.jpg` | `QST-SECT-05-11`<br>《剑庐残烛 · 夺命三仙》 | 第十七幕 · 寒月盘剑<br>（`scene_hsq11_17`） | `16:9` |
+| `CG-QST-207` | `[ ]` 待补绘 | `public/assets/quests/hs_q12_snow_ascent.jpg` | `/assets/quests/hs_q12_snow_ascent.jpg` | `QST-SECT-05-12`<br>《白玉问剑 · 潼关剑神》 | 第六幕 · 踏雪登落雁<br>（`scene_hsq12_06`） | `16:9` |
+| `CG-QST-208` | `[ ]` 待补绘 | `public/assets/quests/hs_q12_broken_blade.jpg` | `/assets/quests/hs_q12_broken_blade.jpg` | `QST-SECT-05-12`<br>《白玉问剑 · 潼关剑神》 | 第十幕 · 断刃指喉寸步不让<br>（`scene_hsq12_10`） | `16:9` |
+| `CG-QST-209` | `[ ]` 待补绘 | `public/assets/quests/hs_q12_black_inn.jpg` | `/assets/quests/hs_q12_black_inn.jpg` | `QST-SECT-05-12`<br>《白玉问剑 · 潼关剑神》 | 第十六幕 · 掀桌破局救商旅<br>（`scene_hsq12_16`） | `16:9` |
+| `CG-QST-210` | `[ ]` 待补绘 | `public/assets/quests/hs_q12_manual_bestow.jpg` | `/assets/quests/hs_q12_manual_bestow.jpg` | `QST-SECT-05-12`<br>《白玉问剑 · 潼关剑神》 | 第二十二幕 · 剑神托付镇山谱<br>（`scene_hsq12_22`） | `16:9` |
+| `CG-QST-211` | `[ ]` 待补绘 | `public/assets/quests/hs_q12_taiyue_mastery.jpg` | `/assets/quests/hs_q12_taiyue_mastery.jpg` | `QST-SECT-05-12`<br>《白玉问剑 · 潼关剑神》 | 第二十四幕 · 剑意贯通演太岳<br>（`scene_hsq12_24`） | `16:9` |
+| `CG-QST-212` | `[ ]` 待补绘 | `public/assets/quests/hs_q13_iron_lock_broken.jpg` | `/assets/quests/hs_q13_iron_lock_broken.jpg` | `QST-SECT-05-13`<br>《寒风面壁 · 铁锁惊雷》 | 第八幕 · 惊雷断锁黑影遁<br>（`scene_hsq13_08`） | `16:9` |
+| `CG-QST-213` | `[ ]` 待补绘 | `public/assets/quests/hs_q13_bones_and_carvings.jpg` | `/assets/quests/hs_q13_bones_and_carvings.jpg` | `QST-SECT-05-13`<br>《寒风面壁 · 铁锁惊雷》 | 第十二幕 · 枯骨枕藉泣同门<br>（`scene_hsq13_12`） | `16:9` |
+| `CG-QST-214` | `[ ]` 待补绘 | `public/assets/quests/hs_q13_cave_spy_duel.jpg` | `/assets/quests/hs_q13_cave_spy_duel.jpg` | `QST-SECT-05-13`<br>《寒风面壁 · 铁锁惊雷》 | 第十六幕 · 幽窟火影死生决<br>（`scene_hsq13_16`） | `16:9` |
+| `CG-QST-215` | `[ ]` 待补绘 | `public/assets/quests/hs_q13_wall_crossroad.jpg` | `/assets/quests/hs_q13_wall_crossroad.jpg` | `QST-SECT-05-13`<br>《寒风面壁 · 铁锁惊雷》 | 第二十幕 · 泣血石壁一念分途<br>（`scene_hsq13_20`） | `16:9` |
+| `CG-QST-216` | `[ ]` 待补绘 | `public/assets/quests/hs_q14_shave_cliff.jpg` | `/assets/quests/hs_q14_shave_cliff.jpg` | `QST-SECT-05-14`<br>《石室止戈 · 剑气同源》 | 第二幕 · 挥剑如雪削魔刻<br>（`scene_hsq14_02`） | `16:9` |
+| `CG-QST-217` | `[ ]` 待补绘 | `public/assets/quests/hs_q14_four_elders_mourn.jpg` | `/assets/quests/hs_q14_four_elders_mourn.jpg` | `QST-SECT-05-14`<br>《石室止戈 · 剑气同源》 | 第十三幕 · 四老抚冢泣拜先人<br>（`scene_hsq14_13`） | `16:9` |
+| `CG-QST-218` | `[ ]` 待补绘 | `public/assets/quests/hs_q14_cross_lineage_teach.jpg` | `/assets/quests/hs_q14_cross_lineage_teach.jpg` | `QST-SECT-05-14`<br>《石室止戈 · 剑气同源》 | 第十七幕 · 打破门户交叉授艺<br>（`scene_hsq14_17`） | `16:9` |
+| `CG-QST-219` | `[ ]` 待补绘 | `public/assets/quests/hs_q15_midnight_rubbing.jpg` | `/assets/quests/hs_q15_midnight_rubbing.jpg` | `QST-SECT-05-15`<br>《魔刻噬心 · 破尽同门》 | 第二幕 · 烛影摇红私拓魔刻<br>（`scene_hsq15_02`） | `16:9` |
+| `CG-QST-220` | `[ ]` 待补绘 | `public/assets/quests/hs_q15_cruel_spar.jpg` | `/assets/quests/hs_q15_cruel_spar.jpg` | `QST-SECT-05-15`<br>《魔刻噬心 · 破尽同门》 | 第十幕 · 刁钻一刺惊满座<br>（`scene_hsq15_10`） | `16:9` |
+| `CG-QST-221` | `[ ]` 待补绘 | `public/assets/quests/hs_q15_secret_plot.jpg` | `/assets/quests/hs_q15_secret_plot.jpg` | `QST-SECT-05-15`<br>《魔刻噬心 · 破尽同门》 | 第十七幕 · 寒庐密谋夺紫霞<br>（`scene_hsq15_17`） | `16:9` |
+| `CG-QST-222` | `[ ]` 待补绘 | `public/assets/quests/hs_q16_yanta_siege.jpg` | `/assets/quests/hs_q16_yanta_siege.jpg` | `QST-SECT-05-16`<br>《雁塔风雷 · 京兆除魔》 | 第六幕 · 雁塔风雷毒雾笼<br>（`scene_hsq16_06`） | `16:9` |
+| `CG-QST-223` | `[ ]` 待补绘 | `public/assets/quests/hs_q16_seven_floors_blood.jpg` | `/assets/quests/hs_q16_seven_floors_blood.jpg` | `QST-SECT-05-16`<br>《雁塔风雷 · 京兆除魔》 | 第十二幕 · 血战七层破刀阵<br>（`scene_hsq16_12`） | `16:9` |
+| `CG-QST-224` | `[ ]` 待补绘 | `public/assets/quests/hs_q16_pagoda_eaves_duel.jpg` | `/assets/quests/hs_q16_pagoda_eaves_duel.jpg` | `QST-SECT-05-16`<br>《雁塔风雷 · 京兆除魔》 | 第二十幕 · 飞檐凌空战双魔<br>（`scene_hsq16_20`） | `16:9` |
+| `CG-QST-225` | `[ ]` 待补绘 | `public/assets/quests/hs_q16_elder_investiture.jpg` | `/assets/quests/hs_q16_elder_investiture.jpg` | `QST-SECT-05-16`<br>《雁塔风雷 · 京兆除魔》 | 第二十六幕 · 四老联署封长老<br>（`scene_hsq16_26`） | `16:9` |
+| `CG-QST-226` | `[ ]` 待补绘 | `public/assets/quests/hs_q17_four_evils_raid.jpg` | `/assets/quests/hs_q17_four_evils_raid.jpg` | `QST-SECT-05-17`<br>《血染玉女 · 紫霞传薪》 | 第二幕 · 恶客如龙焚山道<br>（`scene_hsq17_02`） | `16:9` |
+| `CG-QST-227` | `[ ]` 待补绘 | `public/assets/quests/hs_q17_yue_hold_gate.jpg` | `/assets/quests/hs_q17_yue_hold_gate.jpg` | `QST-SECT-05-17`<br>《血染玉女 · 紫霞传薪》 | 第十五幕 · 掌门喋血护雏鹰<br>（`scene_hsq17_15`） | `16:9` |
+| `CG-QST-228` | `[ ]` 待补绘 | `public/assets/quests/hs_q17_zixia_impart.jpg` | `/assets/quests/hs_q17_zixia_impart.jpg` | `QST-SECT-05-17`<br>《血染玉女 · 紫霞传薪》 | 第二十一幕 · 灵前倾授先天卷<br>（`scene_hsq17_21`） | `16:9` |
+| `CG-QST-229` | `[ ]` 待补绘 | `public/assets/quests/hs_q17_sword_bestow.jpg` | `/assets/quests/hs_q17_sword_bestow.jpg` | `QST-SECT-05-17`<br>《血染玉女 · 紫霞传薪》 | 第二十四幕 · 神剑托命护西岳<br>（`scene_hsq17_24`） | `16:9` |
+| `CG-QST-230` | `[ ]` 待补绘 | `public/assets/quests/hs_q17_purple_rainbow.jpg` | `/assets/quests/hs_q17_purple_rainbow.jpg` | `QST-SECT-05-17`<br>《血染玉女 · 紫霞传薪》 | 第二十七幕 · 紫虹破门慑群凶<br>（`scene_hsq17_27`） | `16:9` |
+| `CG-QST-231` | `[ ]` 待补绘 | `public/assets/quests/hs_q17_duan_staff_fly.jpg` | `/assets/quests/hs_q17_duan_staff_fly.jpg` | `QST-SECT-05-17`<br>《血染玉女 · 紫霞传薪》 | 第三十二幕 · 二十合震飞精钢杖<br>（`scene_hsq17_32`） | `16:9` |
+| `CG-QST-232` | `[ ]` 待补绘 | `public/assets/quests/hs_q18_cliff_pursuit.jpg` | `/assets/quests/hs_q18_cliff_pursuit.jpg` | `QST-SECT-05-18`<br>《思过绝壁 · 独孤求败》 | 第六幕 · 绝壁追凶入古洞<br>（`scene_hsq18_06`） | `16:9` |
+| `CG-QST-233` | `[ ]` 待补绘 | `public/assets/quests/hs_q18_hidden_grotto.jpg` | `/assets/quests/hs_q18_hidden_grotto.jpg` | `QST-SECT-05-18`<br>《思过绝壁 · 独孤求败》 | 第十一幕 · 暗壁轰塌现古窟<br>（`scene_hsq18_11`） | `16:9` |
+| `CG-QST-234` | `[ ]` 待补绘 | `public/assets/quests/hs_q18_dugu_inscription.jpg` | `/assets/quests/hs_q18_dugu_inscription.jpg` | `QST-SECT-05-18`<br>《思过绝壁 · 独孤求败》 | 第十三幕 · 求败遗刻傲苍穹<br>（`scene_hsq18_13`） | `16:9` |
+| `CG-QST-235` | `[ ]` 待补绘 | `public/assets/quests/hs_q18_thunder_enlighten.jpg` | `/assets/quests/hs_q18_thunder_enlighten.jpg` | `QST-SECT-05-18`<br>《思过绝壁 · 独孤求败》 | 第二十幕 · 风雷惊夜悟九剑<br>（`scene_hsq18_20`） | `16:9` |
+| `CG-QST-236` | `[ ]` 待补绘 | `public/assets/quests/hs_q18_pojian_volley.jpg` | `/assets/quests/hs_q18_pojian_volley.jpg` | `QST-SECT-05-18`<br>《思过绝壁 · 独孤求败》 | 第二十五幕 · 天外飞仙破箭雨<br>（`scene_hsq18_25`） | `16:9` |
+| `CG-QST-237` | `[ ]` 待补绘 | `public/assets/quests/hs_q18_poqi_duan.jpg` | `/assets/quests/hs_q18_poqi_duan.jpg` | `QST-SECT-05-18`<br>《思过绝壁 · 独孤求败》 | 第三十二幕 · 破气惊神十招决<br>（`scene_hsq18_32`） | `16:9` |
+| `CG-QST-238` | `[ ]` 待补绘 | `public/assets/quests/hs_q19_night_march.jpg` | `/assets/quests/hs_q19_night_march.jpg` | `QST-SECT-05-19`<br>《紫霞浩荡 · 太岳正主》 | 第七幕 · 紫衫出关星月寒<br>（`scene_hsq19_07`） | `16:9` |
+| `CG-QST-239` | `[ ]` 待补绘 | `public/assets/quests/hs_q19_fengling_charge.jpg` | `/assets/quests/hs_q19_fengling_charge.jpg` | `QST-SECT-05-19`<br>《紫霞浩荡 · 太岳正主》 | 第十四幕 · 紫气十里卷连营<br>（`scene_hsq19_14`） | `16:9` |
+| `CG-QST-240` | `[ ]` 待补绘 | `public/assets/quests/hs_q19_slay_tuoba.jpg` | `/assets/quests/hs_q19_slay_tuoba.jpg` | `QST-SECT-05-19`<br>《紫霞浩荡 · 太岳正主》 | 第二十幕 · 太岳紫霞斩元凶<br>（`scene_hsq19_20`） | `16:9` |
+| `CG-QST-241` | `[ ]` 待补绘 | `public/assets/quests/hs_q19_burn_camp.jpg` | `/assets/quests/hs_q19_burn_camp.jpg` | `QST-SECT-05-19`<br>《紫霞浩荡 · 太岳正主》 | 第二十一幕 · 烈火焚营靖河山<br>（`scene_hsq19_21`） | `16:9` |
+| `CG-QST-242` | `[ ]` 待补绘 | `public/assets/quests/hs_q19_master_coronation.jpg` | `/assets/quests/hs_q19_master_coronation.jpg` | `QST-SECT-05-19`<br>《紫霞浩荡 · 太岳正主》 | 第二十七幕 · 冠簪授印登正主<br>（`scene_hsq19_27`） | `16:9` |
+| `CG-QST-243` | `[ ]` 待补绘 | `public/assets/quests/hs_q20_snow_march_yunv.jpg` | `/assets/quests/hs_q20_snow_march_yunv.jpg` | `QST-SECT-05-20`<br>《剑压紫霞 · 逆夺太岳》 | 第四幕 · 执剑逼宫上玉女<br>（`scene_hsq20_04`） | `16:9` |
+| `CG-QST-244` | `[ ]` 待补绘 | `public/assets/quests/hs_q20_defeat_gao.jpg` | `/assets/quests/hs_q20_defeat_gao.jpg` | `QST-SECT-05-20`<br>《剑压紫霞 · 逆夺太岳》 | 第九幕 · 首关夺衫挫首徒<br>（`scene_hsq20_09`） | `16:9` |
+| `CG-QST-245` | `[ ]` 待补绘 | `public/assets/quests/hs_q20_break_ning_qin.jpg` | `/assets/quests/hs_q20_break_ning_qin.jpg` | `QST-SECT-05-20`<br>《剑压紫霞 · 逆夺太岳》 | 第二十幕 · 连闯双关挫剑神<br>（`scene_hsq20_20`） | `16:9` |
+| `CG-QST-246` | `[ ]` 待补绘 | `public/assets/quests/hs_q20_clash_yue_zixia.jpg` | `/assets/quests/hs_q20_clash_yue_zixia.jpg` | `QST-SECT-05-20`<br>《剑压紫霞 · 逆夺太岳》 | 第二十六幕 · 剑撼紫霞决巅峰<br>（`scene_hsq20_26`） | `16:9` |
+| `CG-QST-247` | `[ ]` 待补绘 | `public/assets/quests/hs_q20_seize_taiyue_sword.jpg` | `/assets/quests/hs_q20_seize_taiyue_sword.jpg` | `QST-SECT-05-20`<br>《剑压紫霞 · 逆夺太岳》 | 第二十九幕 · 逆夺神锋掌太岳<br>（`scene_hsq20_29`） | `16:9` |
+| `CG-QST-248` | `[ ]` 待补绘 | `public/assets/quests/hs_q20_hegemon_throne.jpg` | `/assets/quests/hs_q20_hegemon_throne.jpg` | `QST-SECT-05-20`<br>《剑压紫霞 · 逆夺太岳》 | 第三十六幕 · 西岳霸主登绝位<br>（`scene_hsq20_36`） | `16:9` |
+| `CG-QST-249` | `[ ]` 待补绘 | `public/assets/quests/hs_q21_twin_lineage_march.jpg` | `/assets/quests/hs_q21_twin_lineage_march.jpg` | `QST-SECT-05-21`<br>《两仪归元 · 西岳共主》 | 第七幕 · 剑气并肩出雄关<br>（`scene_hsq21_07`） | `16:9` |
+| `CG-QST-250` | `[ ]` 待补绘 | `public/assets/quests/hs_q21_dugu_slay_tuoba.jpg` | `/assets/quests/hs_q21_dugu_slay_tuoba.jpg` | `QST-SECT-05-21`<br>《两仪归元 · 西岳共主》 | 第十八幕 · 九剑靖边枭敌酋<br>（`scene_hsq21_18`） | `16:9` |
+| `CG-QST-251` | `[ ]` 待补绘 | `public/assets/quests/hs_q21_present_banner.jpg` | `/assets/quests/hs_q21_present_banner.jpg` | `QST-SECT-05-21`<br>《两仪归元 · 西岳共主》 | 第二十五幕 · 献旗止争陈至理<br>（`scene_hsq21_25`） | `16:9` |
+| `CG-QST-252` | `[ ]` 待补绘 | `public/assets/quests/hs_q21_abdicate_ceremony.jpg` | `/assets/quests/hs_q21_abdicate_ceremony.jpg` | `QST-SECT-05-21`<br>《两仪归元 · 西岳共主》 | 第二十八幕 · 欣然禅位奉双珍<br>（`scene_hsq21_28`） | `16:9` |
+| `CG-QST-253` | `[ ]` 待补绘 | `public/assets/quests/hs_q21_harmony_master.jpg` | `/assets/quests/hs_q21_harmony_master.jpg` | `QST-SECT-05-21`<br>《两仪归元 · 西岳共主》 | 第三十一幕 · 两仪归元开盛世<br>（`scene_hsq21_31`） | `16:9` |
+| `CG-QST-254` | `[ ]` 待补绘 | `public/assets/quests/hs_q22_snow_summit_open.jpg` | `/assets/quests/hs_q22_snow_summit_open.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第五幕 · 绝顶开坛会群雄<br>（`scene_hsq22_05`） | `16:9` |
+| `CG-QST-255` | `[ ]` 待补绘 | `public/assets/quests/hs_q22_break_murongfu.jpg` | `/assets/quests/hs_q22_break_murongfu.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第十二幕 · 十合破燕落长剑<br>（`scene_hsq22_12`） | `16:9` |
+| `CG-QST-256` | `[ ]` 待补绘 | `public/assets/quests/hs_q22_clash_jiumozhi.jpg` | `/assets/quests/hs_q22_clash_jiumozhi.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第十八幕 · 暴雪战佛撼刀罡<br>（`scene_hsq22_18`） | `16:9` |
+| `CG-QST-257` | `[ ]` 待补绘 | `public/assets/quests/hs_q22_repel_jiumozhi.jpg` | `/assets/quests/hs_q22_repel_jiumozhi.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第二十二幕 · 剑碎刀影退明王<br>（`scene_hsq22_22`） | `16:9` |
+| `CG-QST-258` | `[ ]` 待补绘 | `public/assets/quests/hs_q22_murongbo_probe.jpg` | `/assets/quests/hs_q22_murongbo_probe.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第二十九幕 · 一剑惊老裂灰袖<br>（`scene_hsq22_29`） | `16:9` |
+| `CG-QST-259` | `[ ]` 待补绘 | `public/assets/quests/hs_q22_qiaofeng_toast.jpg` | `/assets/quests/hs_q22_qiaofeng_toast.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第三十五幕 · 英雄邀战摔巨碗<br>（`scene_hsq22_35`） | `16:9` |
+| `CG-QST-260` | `[ ]` 待补绘 | `public/assets/quests/hs_q22_dragon_vs_sword.jpg` | `/assets/quests/hs_q22_dragon_vs_sword.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第三十八幕 · 剑啸亢龙裂九霄<br>（`scene_hsq22_38`） | `16:9` |
+| `CG-QST-261` | `[ ]` 待补绘 | `public/assets/quests/hs_q22_myriad_swords_roar.jpg` | `/assets/quests/hs_q22_myriad_swords_roar.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第四十二幕 · 万剑齐鸣尊绝巅<br>（`scene_hsq22_42`） | `16:9` |
 
 ---
 
@@ -3044,4 +3132,1060 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "定鼎山河 · 大庆殿册封检校太尉枢密使，赐丹书铁券、绘像景灵宫" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 174. `CG-QST-174`：玉女授命 · 高沧云与宁清羽于偏院命外门弟子持剑下山除恶
+
+- **关联文件**：[`src/data/quests/sects/huashanYaowangTrialQuest.ts`](../src/data/quests/sects/huashanYaowangTrialQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q01_yaowang_depart.jpg`
+- **画框题跋**：`玉女授命 · 高沧云与宁清羽于偏院命外门弟子持剑下山除恶`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "玉女授命 · 高沧云与宁清羽于偏院命外门弟子持剑下山除恶" from 《药王除恶 · 十二初试》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 175. `CG-QST-175`：药王初锋 · 古柏石阶下入门十二式力挫铁背苍狼周横
+
+- **关联文件**：[`src/data/quests/sects/huashanYaowangTrialQuest.ts`](../src/data/quests/sects/huashanYaowangTrialQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q01_cypress_duel.jpg`
+- **画框题跋**：`药王初锋 · 古柏石阶下入门十二式力挫铁背苍狼周横`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "药王初锋 · 古柏石阶下入门十二式力挫铁背苍狼周横" from 《药王除恶 · 十二初试》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 176. `CG-QST-176`：博台试剑 · 四老观礼云海石坪，入门十二式连挫外门群英
+
+- **关联文件**：[`src/data/quests/sects/huashanBotaiDivisionQuest.ts`](../src/data/quests/sects/huashanBotaiDivisionQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q02_botai_arena.jpg`
+- **画框题跋**：`博台试剑 · 四老观礼云海石坪，入门十二式连挫外门群英`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "博台试剑 · 四老观礼云海石坪，入门十二式连挫外门群英" from 《博台大比 · 剑气分宗》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 177. `CG-QST-177`：一剑夺魁 · 奇正相生震落外门魁首陆展锋手中长剑
+
+- **关联文件**：[`src/data/quests/sects/huashanBotaiDivisionQuest.ts`](../src/data/quests/sects/huashanBotaiDivisionQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q02_defeat_luzhanfeng.jpg`
+- **画框题跋**：`一剑夺魁 · 奇正相生震落外门魁首陆展锋手中长剑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "一剑夺魁 · 奇正相生震落外门魁首陆展锋手中长剑" from 《博台大比 · 剑气分宗》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 178. `CG-QST-178`：烛影分宗 · 紫霞正气主殿岳沧溟与封不弃当众挑明剑气两脉
+
+- **关联文件**：[`src/data/quests/sects/huashanBotaiDivisionQuest.ts`](../src/data/quests/sects/huashanBotaiDivisionQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q02_zixia_division.jpg`
+- **画框题跋**：`烛影分宗 · 紫霞正气主殿岳沧溟与封不弃当众挑明剑气两脉`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "烛影分宗 · 紫霞正气主殿岳沧溟与封不弃当众挑明剑气两脉" from 《博台大比 · 剑气分宗》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 179. `CG-QST-179`：迎曦养吾 · 高沧云于东峰朝阳紫气中亲授养吾剑法
+
+- **关联文件**：[`src/data/quests/sects/huashanQiYangwuQuest.ts`](../src/data/quests/sects/huashanQiYangwuQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q03_dawn_yangwu.jpg`
+- **画框题跋**：`迎曦养吾 · 高沧云于东峰朝阳紫气中亲授养吾剑法`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "迎曦养吾 · 高沧云于东峰朝阳紫气中亲授养吾剑法" from 《玉女晨钟 · 浩然养吾》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 180. `CG-QST-180`：守中破妄 · 绵密养吾剑势十合震飞江南挑山快刀客兵刃
+
+- **关联文件**：[`src/data/quests/sects/huashanQiYangwuQuest.ts`](../src/data/quests/sects/huashanQiYangwuQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q03_guard_counter.jpg`
+- **画框题跋**：`守中破妄 · 绵密养吾剑势十合震飞江南挑山快刀客兵刃`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "守中破妄 · 绵密养吾剑势十合震飞江南挑山快刀客兵刃" from 《玉女晨钟 · 浩然养吾》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 181. `CG-QST-181`：渭水传掌 · 宁清羽于秋江孤舟之上亲授刚柔并济华山混元掌
+
+- **关联文件**：[`src/data/quests/sects/huashanQiHunyuanPalmQuest.ts`](../src/data/quests/sects/huashanQiHunyuanPalmQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q04_weishui_boat.jpg`
+- **画框题跋**：`渭水传掌 · 宁清羽于秋江孤舟之上亲授刚柔并济华山混元掌`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "渭水传掌 · 宁清羽于秋江孤舟之上亲授刚柔并济华山混元掌" from 《渭水惊澜 · 混元破寨》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 182. `CG-QST-182`：混元裂盾 · 子夜栈桥催动掌力震碎赤沙帮铁木重盾
+
+- **关联文件**：[`src/data/quests/sects/huashanQiHunyuanPalmQuest.ts`](../src/data/quests/sects/huashanQiHunyuanPalmQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q04_shatter_shields.jpg`
+- **画框题跋**：`混元裂盾 · 子夜栈桥催动掌力震碎赤沙帮铁木重盾`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "混元裂盾 · 子夜栈桥催动掌力震碎赤沙帮铁木重盾" from 《渭水惊澜 · 混元破寨》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 183. `CG-QST-183`：火焚水寨 · 掌毙赤沙帮主沙通海，夺回京兆府赈灾官粮
+
+- **关联文件**：[`src/data/quests/sects/huashanQiHunyuanPalmQuest.ts`](../src/data/quests/sects/huashanQiHunyuanPalmQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q04_fort_ablaze.jpg`
+- **画框题跋**：`火焚水寨 · 掌毙赤沙帮主沙通海，夺回京兆府赈灾官粮`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "火焚水寨 · 掌毙赤沙帮主沙通海，夺回京兆府赈灾官粮" from 《渭水惊澜 · 混元破寨》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 184. `CG-QST-184`：楼观礼祖 · 终南古观迎奉睡仙陈抟希夷先生道门遗卷
+
+- **关联文件**：[`src/data/quests/sects/huashanQiXiyiQuest.ts`](../src/data/quests/sects/huashanQiXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q05_louguan_homage.jpg`
+- **画框题跋**：`楼观礼祖 · 终南古观迎奉睡仙陈抟希夷先生道门遗卷`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "楼观礼祖 · 终南古观迎奉睡仙陈抟希夷先生道门遗卷" from 《楼观护道 · 希夷剑韵》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 185. `CG-QST-185`：松碑授剑 · 子午谷遭还施水阁伏击，宁清羽临阵传授希夷剑法
+
+- **关联文件**：[`src/data/quests/sects/huashanQiXiyiQuest.ts`](../src/data/quests/sects/huashanQiXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q05_pine_ambush.jpg`
+- **画框题跋**：`松碑授剑 · 子午谷遭还施水阁伏击，宁清羽临阵传授希夷剑法`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "松碑授剑 · 子午谷遭还施水阁伏击，宁清羽临阵传授希夷剑法" from 《楼观护道 · 希夷剑韵》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 186. `CG-QST-186`：大象无形 · 圆融剑幕后发先至重创慕容搜书客，返山晋位真传
+
+- **关联文件**：[`src/data/quests/sects/huashanQiXiyiQuest.ts`](../src/data/quests/sects/huashanQiXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q05_xiyi_triumph.jpg`
+- **画框题跋**：`大象无形 · 圆融剑幕后发先至重创慕容搜书客，返山晋位真传`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "大象无形 · 圆融剑幕后发先至重创慕容搜书客，返山晋位真传" from 《楼观护道 · 希夷剑韵》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 187. `CG-QST-187`：西峰立诫 · 封不弃于剑庐掷剑冷斥气宗旧架，命赴生死场拆招
+
+- **关联文件**：[`src/data/quests/sects/huashanJianYangwuQuest.ts`](../src/data/quests/sects/huashanJianYangwuQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q06_jianlu_throw.jpg`
+- **画框题跋**：`西峰立诫 · 封不弃于剑庐掷剑冷斥气宗旧架，命赴生死场拆招`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "西峰立诫 · 封不弃于剑庐掷剑冷斥气宗旧架，命赴生死场拆招" from 《潼关血刃 · 以快驭正》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 188. `CG-QST-188`：以快驭正 · 潼关乱葬岗化守为刺，疾剑连斩关外悍匪头目
+
+- **关联文件**：[`src/data/quests/sects/huashanJianYangwuQuest.ts`](../src/data/quests/sects/huashanJianYangwuQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q06_tongguan_blitz.jpg`
+- **画框题跋**：`以快驭正 · 潼关乱葬岗化守为刺，疾剑连斩关外悍匪头目`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "以快驭正 · 潼关乱葬岗化守为刺，疾剑连斩关外悍匪头目" from 《潼关血刃 · 以快驭正》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 189. `CG-QST-189`：寒渡观雁 · 黄河风陵渡口秋雁扑波，封不弃夜授落雁剑法
+
+- **关联文件**：[`src/data/quests/sects/huashanJianLuoyanQuest.ts`](../src/data/quests/sects/huashanJianLuoyanQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q07_fengling_geese.jpg`
+- **画框题跋**：`寒渡观雁 · 黄河风陵渡口秋雁扑波，封不弃夜授落雁剑法`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "寒渡观雁 · 黄河风陵渡口秋雁扑波，封不弃夜授落雁剑法" from 《风陵夜渡 · 平沙落雁》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 190. `CG-QST-190`：孤舟破哨 · 三更怒涛踏扁舟，半柱香连破九曲水匪三道哨卡
+
+- **关联文件**：[`src/data/quests/sects/huashanJianLuoyanQuest.ts`](../src/data/quests/sects/huashanJianLuoyanQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q07_skiff_raid.jpg`
+- **画框题跋**：`孤舟破哨 · 三更怒涛踏扁舟，半柱香连破九曲水匪三道哨卡`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "孤舟破哨 · 三更怒涛踏扁舟，半柱香连破九曲水匪三道哨卡" from 《风陵夜渡 · 平沙落雁》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 191. `CG-QST-191`：剑不沾衣 · 回风扑雁一剑双雕斩水寨头领，封不弃槐下抚掌
+
+- **关联文件**：[`src/data/quests/sects/huashanJianLuoyanQuest.ts`](../src/data/quests/sects/huashanJianLuoyanQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q07_bloodless_blade.jpg`
+- **画框题跋**：`剑不沾衣 · 回风扑雁一剑双雕斩水寨头领，封不弃槐下抚掌`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "剑不沾衣 · 回风扑雁一剑双雕斩水寨头领，封不弃槐下抚掌" from 《风陵夜渡 · 平沙落雁》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 192. `CG-QST-192`：博台折锋 · 潼关剑神秦烈山三合点破快剑空门，痛斥匹夫之勇
+
+- **关联文件**：[`src/data/quests/sects/huashanJianXiyiQuest.ts`](../src/data/quests/sects/huashanJianXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q08_qin_three_moves.jpg`
+- **画框题跋**：`博台折锋 · 潼关剑神秦烈山三合点破快剑空门，痛斥匹夫之勇`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "博台折锋 · 潼关剑神秦烈山三合点破快剑空门，痛斥匹夫之勇" from 《云台残局 · 希夷求变》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 193. `CG-QST-193`：云台悟变 · 陈抟对弈古亭参悟虚实奇正，获授地阶希夷剑法
+
+- **关联文件**：[`src/data/quests/sects/huashanJianXiyiQuest.ts`](../src/data/quests/sects/huashanJianXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q08_yuntai_chess.jpg`
+- **画框题跋**：`云台悟变 · 陈抟对弈古亭参悟虚实奇正，获授地阶希夷剑法`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "云台悟变 · 陈抟对弈古亭参悟虚实奇正，获授地阶希夷剑法" from 《云台残局 · 希夷求变》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 194. `CG-QST-194`：银瀑封喉 · 飞瀑寒潭下希夷诱敌合落雁快剑独斩西域双刺客
+
+- **关联文件**：[`src/data/quests/sects/huashanJianXiyiQuest.ts`](../src/data/quests/sects/huashanJianXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q08_falls_assassins.jpg`
+- **画框题跋**：`银瀑封喉 · 飞瀑寒潭下希夷诱敌合落雁快剑独斩西域双刺客`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "银瀑封喉 · 飞瀑寒潭下希夷诱敌合落雁快剑独斩西域双刺客" from 《云台残局 · 希夷求变》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 195. `CG-QST-195`：由外而内 · 东峰迎曦石坪宁清羽与高沧云合授地阶混元功
+
+- **关联文件**：[`src/data/quests/sects/huashanQiHunyuanGongQuest.ts`](../src/data/quests/sects/huashanQiHunyuanGongQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q09_hunyuan_neigong.jpg`
+- **画框题跋**：`由外而内 · 东峰迎曦石坪宁清羽与高沧云合授地阶混元功`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "由外而内 · 东峰迎曦石坪宁清羽与高沧云合授地阶混元功" from 《东峰迎曦 · 由外而内》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 196. `CG-QST-196`：西市毒网 · 夜探长安鬼市废宅，双剑陷入星宿火油毒阵重围
+
+- **关联文件**：[`src/data/quests/sects/huashanQiHunyuanGongQuest.ts`](../src/data/quests/sects/huashanQiHunyuanGongQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q09_xishi_firetrap.jpg`
+- **画框题跋**：`西市毒网 · 夜探长安鬼市废宅，双剑陷入星宿火油毒阵重围`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "西市毒网 · 夜探长安鬼市废宅，双剑陷入星宿火油毒阵重围" from 《东峰迎曦 · 由外而内》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 197. `CG-QST-197`：混元返震 · 催动混元真气引毒反震，正面击毙星宿腐骨道人
+
+- **关联文件**：[`src/data/quests/sects/huashanQiHunyuanGongQuest.ts`](../src/data/quests/sects/huashanQiHunyuanGongQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q09_rebound_poison.jpg`
+- **画框题跋**：`混元返震 · 催动混元真气引毒反震，正面击毙星宿腐骨道人`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "混元返震 · 催动混元真气引毒反震，正面击毙星宿腐骨道人" from 《东峰迎曦 · 由外而内》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 198. `CG-QST-198`：紫衫荣光 · 东峰霞光中获授地阶宝衣华山紫霞剑客衫
+
+- **关联文件**：[`src/data/quests/sects/huashanQiHunyuanGongQuest.ts`](../src/data/quests/sects/huashanQiHunyuanGongQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q09_zixia_robe.jpg`
+- **画框题跋**：`紫衫荣光 · 东峰霞光中获授地阶宝衣华山紫霞剑客衫`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "紫衫荣光 · 东峰霞光中获授地阶宝衣华山紫霞剑客衫" from 《东峰迎曦 · 由外而内》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 199. `CG-QST-199`：十剑不退 · 落雁峰白玉坛顶混元真气硬接秦烈山十剑考校
+
+- **关联文件**：[`src/data/quests/sects/huashanQiSanqingQuest.ts`](../src/data/quests/sects/huashanQiSanqingQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q10_ten_strikes.jpg`
+- **画框题跋**：`十剑不退 · 落雁峰白玉坛顶混元真气硬接秦烈山十剑考校`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "十剑不退 · 落雁峰白玉坛顶混元真气硬接秦烈山十剑考校" from 《落雁借剑 · 太岳三峰》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 200. `CG-QST-200`：出关斩恶 · 风雪潼关单骑截杀塞外凶徒血刀恶僧
+
+- **关联文件**：[`src/data/quests/sects/huashanQiSanqingQuest.ts`](../src/data/quests/sects/huashanQiSanqingQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q10_blood_monk_duel.jpg`
+- **画框题跋**：`出关斩恶 · 风雪潼关单骑截杀塞外凶徒血刀恶僧`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "出关斩恶 · 风雪潼关单骑截杀塞外凶徒血刀恶僧" from 《落雁借剑 · 太岳三峰》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 201. `CG-QST-201`：白玉启匣 · 秦烈山动容开启石匣，亲授太岳三青峰剑谱真卷
+
+- **关联文件**：[`src/data/quests/sects/huashanQiSanqingQuest.ts`](../src/data/quests/sects/huashanQiSanqingQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q10_jade_casket.jpg`
+- **画框题跋**：`白玉启匣 · 秦烈山动容开启石匣，亲授太岳三青峰剑谱真卷`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "白玉启匣 · 秦烈山动容开启石匣，亲授太岳三青峰剑谱真卷" from 《落雁借剑 · 太岳三峰》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 202. `CG-QST-202`：三峰插云 · 落雁绝顶一式三剑气贯苍穹，修成太岳三青峰
+
+- **关联文件**：[`src/data/quests/sects/huashanQiSanqingQuest.ts`](../src/data/quests/sects/huashanQiSanqingQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q10_three_peaks_sword.jpg`
+- **画框题跋**：`三峰插云 · 落雁绝顶一式三剑气贯苍穹，修成太岳三青峰`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "三峰插云 · 落雁绝顶一式三剑气贯苍穹，修成太岳三青峰" from 《落雁借剑 · 太岳三峰》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 203. `CG-QST-203`：残庐泣血 · 秋夜西峰荒庐祭拜先辈牌位，封不弃吐露三十载旧怨
+
+- **关联文件**：[`src/data/quests/sects/huashanJianSanxianQuest.ts`](../src/data/quests/sects/huashanJianSanxianQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q11_ruined_jianlu.jpg`
+- **画框题跋**：`残庐泣血 · 秋夜西峰荒庐祭拜先辈牌位，封不弃吐露三十载旧怨`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "残庐泣血 · 秋夜西峰荒庐祭拜先辈牌位，封不弃吐露三十载旧怨" from 《剑庐残烛 · 夺命三仙》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 204. `CG-QST-204`：夺命三仙 · 残烛孤影下倾囊传授地阶杀剑夺命连环三仙剑
+
+- **关联文件**：[`src/data/quests/sects/huashanJianSanxianQuest.ts`](../src/data/quests/sects/huashanJianSanxianQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q11_sanxian_impart.jpg`
+- **画框题跋**：`夺命三仙 · 残烛孤影下倾囊传授地阶杀剑夺命连环三仙剑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "夺命三仙 · 残烛孤影下倾囊传授地阶杀剑夺命连环三仙剑" from 《剑庐残烛 · 夺命三仙》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 205. `CG-QST-205`：三剑无生 · 华阴夜袭连环三剑瞬枭三名辽夏黑市死士
+
+- **关联文件**：[`src/data/quests/sects/huashanJianSanxianQuest.ts`](../src/data/quests/sects/huashanJianSanxianQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q11_huayin_slay.jpg`
+- **画框题跋**：`三剑无生 · 华阴夜袭连环三剑瞬枭三名辽夏黑市死士`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "三剑无生 · 华阴夜袭连环三剑瞬枭三名辽夏黑市死士" from 《剑庐残烛 · 夺命三仙》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 206. `CG-QST-206`：寒月盘剑 · 秦烈山巡山撞破夺命剑痕，冷目逼问剑心向背
+
+- **关联文件**：[`src/data/quests/sects/huashanJianSanxianQuest.ts`](../src/data/quests/sects/huashanJianSanxianQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q11_qin_interrogate.jpg`
+- **画框题跋**：`寒月盘剑 · 秦烈山巡山撞破夺命剑痕，冷目逼问剑心向背`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "寒月盘剑 · 秦烈山巡山撞破夺命剑痕，冷目逼问剑心向背" from 《剑庐残烛 · 夺命三仙》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 207. `CG-QST-207`：踏雪问剑 · 孤身登临落雁峰白玉论剑坛，秦烈山横剑云海相候
+
+- **关联文件**：[`src/data/quests/sects/huashanJianSanqingQuest.ts`](../src/data/quests/sects/huashanJianSanqingQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q12_snow_ascent.jpg`
+- **画框题跋**：`踏雪问剑 · 孤身登临落雁峰白玉论剑坛，秦烈山横剑云海相候`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "踏雪问剑 · 孤身登临落雁峰白玉论剑坛，秦烈山横剑云海相候" from 《白玉问剑 · 潼关剑神》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 208. `CG-QST-208`：断刃指喉 · 狂飙剑压激斗十五合，佩剑崩裂仍寸步不让
+
+- **关联文件**：[`src/data/quests/sects/huashanJianSanqingQuest.ts`](../src/data/quests/sects/huashanJianSanqingQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q12_broken_blade.jpg`
+- **画框题跋**：`断刃指喉 · 狂飙剑压激斗十五合，佩剑崩裂仍寸步不让`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "断刃指喉 · 狂飙剑压激斗十五合，佩剑崩裂仍寸步不让" from 《白玉问剑 · 潼关剑神》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 209. `CG-QST-209`：夜闯黑店 · 黄河风陵渡荒店孤剑破局，连斩塞外双煞证道
+
+- **关联文件**：[`src/data/quests/sects/huashanJianSanqingQuest.ts`](../src/data/quests/sects/huashanJianSanqingQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q12_black_inn.jpg`
+- **画框题跋**：`夜闯黑店 · 黄河风陵渡荒店孤剑破局，连斩塞外双煞证道`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "夜闯黑店 · 黄河风陵渡荒店孤剑破局，连斩塞外双煞证道" from 《白玉问剑 · 潼关剑神》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 210. `CG-QST-210`：剑神托谱 · 秦烈山欣慰长笑，亲手托付华山太岳三青峰剑谱
+
+- **关联文件**：[`src/data/quests/sects/huashanJianSanqingQuest.ts`](../src/data/quests/sects/huashanJianSanqingQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q12_manual_bestow.jpg`
+- **画框题跋**：`剑神托谱 · 秦烈山欣慰长笑，亲手托付华山太岳三青峰剑谱`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "剑神托谱 · 秦烈山欣慰长笑，亲手托付华山太岳三青峰剑谱" from 《白玉问剑 · 潼关剑神》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 211. `CG-QST-211`：西岳重光 · 白玉坛顶三剑齐发惊散流云，剑宗修成太岳三青峰
+
+- **关联文件**：[`src/data/quests/sects/huashanJianSanqingQuest.ts`](../src/data/quests/sects/huashanJianSanqingQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q12_taiyue_mastery.jpg`
+- **画框题跋**：`西岳重光 · 白玉坛顶三剑齐发惊散流云，剑宗修成太岳三青峰`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "西岳重光 · 白玉坛顶三剑齐发惊散流云，剑宗修成太岳三青峰" from 《白玉问剑 · 潼关剑神》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 212. `CG-QST-212`：惊雷断锁 · 暴风雨夜思过崖后洞重石铁锁遭西夏密谍斩断
+
+- **关联文件**：[`src/data/quests/sects/huashanSiguoyaSecretQuest.ts`](../src/data/quests/sects/huashanSiguoyaSecretQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q13_iron_lock_broken.jpg`
+- **画框题跋**：`惊雷断锁 · 暴风雨夜思过崖后洞重石铁锁遭西夏密谍斩断`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "惊雷断锁 · 暴风雨夜思过崖后洞重石铁锁遭西夏密谍斩断" from 《寒风面壁 · 铁锁惊雷》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 213. `CG-QST-213`：枯骨魔刻 · 火把映照满地先辈骸骨与石壁同室操戈破招剑痕
+
+- **关联文件**：[`src/data/quests/sects/huashanSiguoyaSecretQuest.ts`](../src/data/quests/sects/huashanSiguoyaSecretQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q13_bones_and_carvings.jpg`
+- **画框题跋**：`枯骨魔刻 · 火把映照满地先辈骸骨与石壁同室操戈破招剑痕`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "枯骨魔刻 · 火把映照满地先辈骸骨与石壁同室操戈破招剑痕" from 《寒风面壁 · 铁锁惊雷》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 214. `CG-QST-214`：幽窟诛谍 · 秘洞古剑刻石室深处激战斩杀西夏一品堂密谍
+
+- **关联文件**：[`src/data/quests/sects/huashanSiguoyaSecretQuest.ts`](../src/data/quests/sects/huashanSiguoyaSecretQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q13_cave_spy_duel.jpg`
+- **画框题跋**：`幽窟诛谍 · 秘洞古剑刻石室深处激战斩杀西夏一品堂密谍`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "幽窟诛谍 · 秘洞古剑刻石室深处激战斩杀西夏一品堂密谍" from 《寒风面壁 · 铁锁惊雷》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 215. `CG-QST-215`：一念正邪 · 独立泣血石壁之前，削壁止戈与私拓秘刻一念分途
+
+- **关联文件**：[`src/data/quests/sects/huashanSiguoyaSecretQuest.ts`](../src/data/quests/sects/huashanSiguoyaSecretQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q13_wall_crossroad.jpg`
+- **画框题跋**：`一念正邪 · 独立泣血石壁之前，削壁止戈与私拓秘刻一念分途`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "一念正邪 · 独立泣血石壁之前，削壁止戈与私拓秘刻一念分途" from 《寒风面壁 · 铁锁惊雷》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 216. `CG-QST-216`：挥剑削魔 · 剑光如雪削平石壁阴毒破招图谱，收敛先辈遗骸立冢
+
+- **关联文件**：[`src/data/quests/sects/huashanCaveHarmonyQuest.ts`](../src/data/quests/sects/huashanCaveHarmonyQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q14_shave_cliff.jpg`
+- **画框题跋**：`挥剑削魔 · 剑光如雪削平石壁阴毒破招图谱，收敛先辈遗骸立冢`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "挥剑削魔 · 剑光如雪削平石壁阴毒破招图谱，收敛先辈遗骸立冢" from 《石室止戈 · 剑气同源》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 217. `CG-QST-217`：四老泣拜 · 岳沧溟秦烈山宁清羽封不弃共入石室祭奠，三十载坚冰初融
+
+- **关联文件**：[`src/data/quests/sects/huashanCaveHarmonyQuest.ts`](../src/data/quests/sects/huashanCaveHarmonyQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q14_four_elders_mourn.jpg`
+- **画框题跋**：`四老泣拜 · 岳沧溟秦烈山宁清羽封不弃共入石室祭奠，三十载坚冰初融`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "四老泣拜 · 岳沧溟秦烈山宁清羽封不弃共入石室祭奠，三十载坚冰初融" from 《石室止戈 · 剑气同源》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 218. `CG-QST-218`：剑气同源 · 宁清羽与秦烈山打破门户藩篱，于思过崖交叉授艺
+
+- **关联文件**：[`src/data/quests/sects/huashanCaveHarmonyQuest.ts`](../src/data/quests/sects/huashanCaveHarmonyQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q14_cross_lineage_teach.jpg`
+- **画框题跋**：`剑气同源 · 宁清羽与秦烈山打破门户藩篱，于思过崖交叉授艺`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "剑气同源 · 宁清羽与秦烈山打破门户藩篱，于思过崖交叉授艺" from 《石室止戈 · 剑气同源》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 219. `CG-QST-219`：暗夜私拓 · 烛火摇曳间默记拓印石壁破尽本门诸般武学残招
+
+- **关联文件**：[`src/data/quests/sects/huashanCaveUsurpQuest.ts`](../src/data/quests/sects/huashanCaveUsurpQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q15_midnight_rubbing.jpg`
+- **画框题跋**：`暗夜私拓 · 烛火摇曳间默记拓印石壁破尽本门诸般武学残招`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "暗夜私拓 · 烛火摇曳间默记拓印石壁破尽本门诸般武学残招" from 《魔刻噬心 · 破尽同门》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 220. `CG-QST-220`：诡剑伤同 · 门内校剑刁钻一刺洞穿师兄护体剑幕，满场骇然
+
+- **关联文件**：[`src/data/quests/sects/huashanCaveUsurpQuest.ts`](../src/data/quests/sects/huashanCaveUsurpQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q15_cruel_spar.jpg`
+- **画框题跋**：`诡剑伤同 · 门内校剑刁钻一刺洞穿师兄护体剑幕，满场骇然`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "诡剑伤同 · 门内校剑刁钻一刺洞穿师兄护体剑幕，满场骇然" from 《魔刻噬心 · 破尽同门》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 221. `CG-QST-221`：寒庐密谋 · 封不弃暗夜狂喜召见，共谋倾覆紫霞夺位大计
+
+- **关联文件**：[`src/data/quests/sects/huashanCaveUsurpQuest.ts`](../src/data/quests/sects/huashanCaveUsurpQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q15_secret_plot.jpg`
+- **画框题跋**：`寒庐密谋 · 封不弃暗夜狂喜召见，共谋倾覆紫霞夺位大计`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "寒庐密谋 · 封不弃暗夜狂喜召见，共谋倾覆紫霞夺位大计" from 《魔刻噬心 · 破尽同门》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 222. `CG-QST-222`：雁塔毒烟 · 长安慈恩寺大雁塔风雨飘摇，强弩毒雾重困封高二人
+
+- **关联文件**：[`src/data/quests/sects/huashanYantaCrisisQuest.ts`](../src/data/quests/sects/huashanYantaCrisisQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q16_yanta_siege.jpg`
+- **画框题跋**：`雁塔毒烟 · 长安慈恩寺大雁塔风雨飘摇，强弩毒雾重困封高二人`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "雁塔毒烟 · 长安慈恩寺大雁塔风雨飘摇，强弩毒雾重困封高二人" from 《雁塔风雷 · 京兆除魔》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 223. `CG-QST-223`：血战七层 · 提剑自底层杀上浮屠绝顶，太岳三青峰连破番邦刀阵
+
+- **关联文件**：[`src/data/quests/sects/huashanYantaCrisisQuest.ts`](../src/data/quests/sects/huashanYantaCrisisQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q16_seven_floors_blood.jpg`
+- **画框题跋**：`血战七层 · 提剑自底层杀上浮屠绝顶，太岳三青峰连破番邦刀阵`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "血战七层 · 提剑自底层杀上浮屠绝顶，太岳三青峰连破番邦刀阵" from 《雁塔风雷 · 京兆除魔》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 224. `CG-QST-224`：飞檐除魔 · 大雁塔顶凌空力挫一品堂副使与星宿毒阵长老
+
+- **关联文件**：[`src/data/quests/sects/huashanYantaCrisisQuest.ts`](../src/data/quests/sects/huashanYantaCrisisQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q16_pagoda_eaves_duel.jpg`
+- **画框题跋**：`飞檐除魔 · 大雁塔顶凌空力挫一品堂副使与星宿毒阵长老`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "飞檐除魔 · 大雁塔顶凌空力挫一品堂副使与星宿毒阵长老" from 《雁塔风雷 · 京兆除魔》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 225. `CG-QST-225`：荣膺长老 · 紫霞殿四老联署册封四阶长老，一纸伪造血书暗掀风暴
+
+- **关联文件**：[`src/data/quests/sects/huashanYantaCrisisQuest.ts`](../src/data/quests/sects/huashanYantaCrisisQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q16_elder_investiture.jpg`
+- **画框题跋**：`荣膺长老 · 紫霞殿四老联署册封四阶长老，一纸伪造血书暗掀风暴`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "荣膺长老 · 紫霞殿四老联署册封四阶长老，一纸伪造血书暗掀风暴" from 《雁塔风雷 · 京兆除魔》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 226. `CG-QST-226`：恶客夜袭 · 四大恶人率五百西夏一品堂死士火把如龙奇袭西岳
+
+- **关联文件**：[`src/data/quests/sects/huashanQiZixiaAwakenQuest.ts`](../src/data/quests/sects/huashanQiZixiaAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q17_four_evils_raid.jpg`
+- **画框题跋**：`恶客夜袭 · 四大恶人率五百西夏一品堂死士火把如龙奇袭西岳`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "恶客夜袭 · 四大恶人率五百西夏一品堂死士火把如龙奇袭西岳" from 《血染玉女 · 紫霞传薪》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 227. `CG-QST-227`：掌门喋血 · 岳沧溟殿前独抗段延庆一阳指铁杖与岳老三夹击负创
+
+- **关联文件**：[`src/data/quests/sects/huashanQiZixiaAwakenQuest.ts`](../src/data/quests/sects/huashanQiZixiaAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q17_yue_hold_gate.jpg`
+- **画框题跋**：`掌门喋血 · 岳沧溟殿前独抗段延庆一阳指铁杖与岳老三夹击负创`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "掌门喋血 · 岳沧溟殿前独抗段延庆一阳指铁杖与岳老三夹击负创" from 《血染玉女 · 紫霞传薪》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 228. `CG-QST-228`：紫霞传薪 · 祖师灵位前岳沧溟倾囊传授天阶绝学紫霞神功先天太岳卷
+
+- **关联文件**：[`src/data/quests/sects/huashanQiZixiaAwakenQuest.ts`](../src/data/quests/sects/huashanQiZixiaAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q17_zixia_impart.jpg`
+- **画框题跋**：`紫霞传薪 · 祖师灵位前岳沧溟倾囊传授天阶绝学紫霞神功先天太岳卷`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "紫霞传薪 · 祖师灵位前岳沧溟倾囊传授天阶绝学紫霞神功先天太岳卷" from 《血染玉女 · 紫霞传薪》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 229. `CG-QST-229`：神剑托命 · 周天紫气大成，掌门亲授镇派神兵太岳紫霞长剑
+
+- **关联文件**：[`src/data/quests/sects/huashanQiZixiaAwakenQuest.ts`](../src/data/quests/sects/huashanQiZixiaAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q17_sword_bestow.jpg`
+- **画框题跋**：`神剑托命 · 周天紫气大成，掌门亲授镇派神兵太岳紫霞长剑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "神剑托命 · 周天紫气大成，掌门亲授镇派神兵太岳紫霞长剑" from 《血染玉女 · 紫霞传薪》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 230. `CG-QST-230`：紫虹破门 · 面泛紫霞推殿而出，十丈剑气瞬间斩断云中鹤钢爪
+
+- **关联文件**：[`src/data/quests/sects/huashanQiZixiaAwakenQuest.ts`](../src/data/quests/sects/huashanQiZixiaAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q17_purple_rainbow.jpg`
+- **画框题跋**：`紫虹破门 · 面泛紫霞推殿而出，十丈剑气瞬间斩断云中鹤钢爪`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "紫虹破门 · 面泛紫霞推殿而出，十丈剑气瞬间斩断云中鹤钢爪" from 《血染玉女 · 紫霞传薪》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 231. `CG-QST-231`：硬撼恶首 · 紫霞剑气激斗二十合震飞段延庆铁杖，一品堂溃逃下山
+
+- **关联文件**：[`src/data/quests/sects/huashanQiZixiaAwakenQuest.ts`](../src/data/quests/sects/huashanQiZixiaAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q17_duan_staff_fly.jpg`
+- **画框题跋**：`硬撼恶首 · 紫霞剑气激斗二十合震飞段延庆铁杖，一品堂溃逃下山`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "硬撼恶首 · 紫霞剑气激斗二十合震飞段延庆铁杖，一品堂溃逃下山" from 《血染玉女 · 紫霞传薪》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 232. `CG-QST-232`：绝壁追凶 · 西岳浴血之夜追击西夏绝顶剑客再入思过崖古剑刻石室
+
+- **关联文件**：[`src/data/quests/sects/huashanJianDuguNineQuest.ts`](../src/data/quests/sects/huashanJianDuguNineQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q18_cliff_pursuit.jpg`
+- **画框题跋**：`绝壁追凶 · 西岳浴血之夜追击西夏绝顶剑客再入思过崖古剑刻石室`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "绝壁追凶 · 西岳浴血之夜追击西夏绝顶剑客再入思过崖古剑刻石室" from 《思过绝壁 · 独孤求败》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 233. `CG-QST-233`：剑气破壁 · 轰碎石室最深处风化暗壁，惊现百年剑魔隐居石窟
+
+- **关联文件**：[`src/data/quests/sects/huashanJianDuguNineQuest.ts`](../src/data/quests/sects/huashanJianDuguNineQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q18_hidden_grotto.jpg`
+- **画框题跋**：`剑气破壁 · 轰碎石室最深处风化暗壁，惊现百年剑魔隐居石窟`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "剑气破壁 · 轰碎石室最深处风化暗壁，惊现百年剑魔隐居石窟" from 《思过绝壁 · 独孤求败》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 234. `CG-QST-234`：求败遗刻 · 仰观“败尽英雄天下更无抗手”孤傲铭文与九剑总纲
+
+- **关联文件**：[`src/data/quests/sects/huashanJianDuguNineQuest.ts`](../src/data/quests/sects/huashanJianDuguNineQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q18_dugu_inscription.jpg`
+- **画框题跋**：`求败遗刻 · 仰观“败尽英雄天下更无抗手”孤傲铭文与九剑总纲`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "求败遗刻 · 仰观“败尽英雄天下更无抗手”孤傲铭文与九剑总纲" from 《思过绝壁 · 独孤求败》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 235. `CG-QST-235`：风雷悟剑 · 绝壁惊雷夜剑心通明，一朝顿悟天阶绝学独孤九剑
+
+- **关联文件**：[`src/data/quests/sects/huashanJianDuguNineQuest.ts`](../src/data/quests/sects/huashanJianDuguNineQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q18_thunder_enlighten.jpg`
+- **画框题跋**：`风雷悟剑 · 绝壁惊雷夜剑心通明，一朝顿悟天阶绝学独孤九剑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "风雷悟剑 · 绝壁惊雷夜剑心通明，一朝顿悟天阶绝学独孤九剑" from 《思过绝壁 · 独孤求败》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 236. `CG-QST-236`：天外飞仙 · 一剑掠至紫霞观前，破箭式瞬间尽扫西夏漫天强弩
+
+- **关联文件**：[`src/data/quests/sects/huashanJianDuguNineQuest.ts`](../src/data/quests/sects/huashanJianDuguNineQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q18_pojian_volley.jpg`
+- **画框题跋**：`天外飞仙 · 一剑掠至紫霞观前，破箭式瞬间尽扫西夏漫天强弩`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "天外飞仙 · 一剑掠至紫霞观前，破箭式瞬间尽扫西夏漫天强弩" from 《思过绝壁 · 独孤求败》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 237. `CG-QST-237`：破气惊神 · 独孤九剑直指一阳指气机命门，十招刺伤段延庆逼退四恶
+
+- **关联文件**：[`src/data/quests/sects/huashanJianDuguNineQuest.ts`](../src/data/quests/sects/huashanJianDuguNineQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q18_poqi_duan.jpg`
+- **画框题跋**：`破气惊神 · 独孤九剑直指一阳指气机命门，十招刺伤段延庆逼退四恶`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "破气惊神 · 独孤九剑直指一阳指气机命门，十招刺伤段延庆逼退四恶" from 《思过绝壁 · 独孤求败》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 238. `CG-QST-238`：紫衫出关 · 身披紫霞衫手持太岳剑，率百名华山剑士星夜下潼关
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingZixiaMasterQuest.ts`](../src/data/quests/sects/huashanEndingZixiaMasterQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q19_night_march.jpg`
+- **画框题跋**：`紫衫出关 · 身披紫霞衫手持太岳剑，率百名华山剑士星夜下潼关`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "紫衫出关 · 身披紫霞衫手持太岳剑，率百名华山剑士星夜下潼关" from 《紫霞浩荡 · 太岳正主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 239. `CG-QST-239`：紫气十里 · 月夜风陵荒原圆满紫霞神功浩荡席卷西夏一品堂大营
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingZixiaMasterQuest.ts`](../src/data/quests/sects/huashanEndingZixiaMasterQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q19_fengling_charge.jpg`
+- **画框题跋**：`紫气十里 · 月夜风陵荒原圆满紫霞神功浩荡席卷西夏一品堂大营`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "紫气十里 · 月夜风陵荒原圆满紫霞神功浩荡席卷西夏一品堂大营" from 《紫霞浩荡 · 太岳正主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 240. `CG-QST-240`：阵斩元凶 · 万军丛中太岳紫霞剑正面斩杀西夏关中主帅拓跋雄
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingZixiaMasterQuest.ts`](../src/data/quests/sects/huashanEndingZixiaMasterQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q19_slay_tuoba.jpg`
+- **画框题跋**：`阵斩元凶 · 万军丛中太岳紫霞剑正面斩杀西夏关中主帅拓跋雄`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "阵斩元凶 · 万军丛中太岳紫霞剑正面斩杀西夏关中主帅拓跋雄" from 《紫霞浩荡 · 太岳正主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 241. `CG-QST-241`：烈火靖关 · 焚尽一品堂粮草军械，彻底粉碎西夏染指关中之谋
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingZixiaMasterQuest.ts`](../src/data/quests/sects/huashanEndingZixiaMasterQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q19_burn_camp.jpg`
+- **画框题跋**：`烈火靖关 · 焚尽一品堂粮草军械，彻底粉碎西夏染指关中之谋`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "烈火靖关 · 焚尽一品堂粮草军械，彻底粉碎西夏染指关中之谋" from 《紫霞浩荡 · 太岳正主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 242. `CG-QST-242`：太岳正主 · 漫天朝阳紫气中岳沧溟四老冠簪授印，登位华山派掌门
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingZixiaMasterQuest.ts`](../src/data/quests/sects/huashanEndingZixiaMasterQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q19_master_coronation.jpg`
+- **画框题跋**：`太岳正主 · 漫天朝阳紫气中岳沧溟四老冠簪授印，登位华山派掌门`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "太岳正主 · 漫天朝阳紫气中岳沧溟四老冠簪授印，登位华山派掌门" from 《紫霞浩荡 · 太岳正主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 243. `CG-QST-243`：执剑逼宫 · 封不弃率剑宗拥戴，踏雪直上玉女峰终结气宗统治
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordUsurpQuest.ts`](../src/data/quests/sects/huashanEndingSwordUsurpQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q20_snow_march_yunv.jpg`
+- **画框题跋**：`执剑逼宫 · 封不弃率剑宗拥戴，踏雪直上玉女峰终结气宗统治`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "执剑逼宫 · 封不弃率剑宗拥戴，踏雪直上玉女峰终结气宗统治" from 《剑压紫霞 · 逆夺太岳》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 244. `CG-QST-244`：首关夺衫 · 东峰石坪破剑式挑碎高沧云剑幕，强夺华山紫霞剑客衫
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordUsurpQuest.ts`](../src/data/quests/sects/huashanEndingSwordUsurpQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q20_defeat_gao.jpg`
+- **画框题跋**：`首关夺衫 · 东峰石坪破剑式挑碎高沧云剑幕，强夺华山紫霞剑客衫`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "首关夺衫 · 东峰石坪破剑式挑碎高沧云剑幕，强夺华山紫霞剑客衫" from 《剑压紫霞 · 逆夺太岳》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 245. `CG-QST-245`：连闯双关 · 破掌式挫败宁清羽，苍龙岭十五合硬破潼关剑神秦烈山
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordUsurpQuest.ts`](../src/data/quests/sects/huashanEndingSwordUsurpQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q20_break_ning_qin.jpg`
+- **画框题跋**：`连闯双关 · 破掌式挫败宁清羽，苍龙岭十五合硬破潼关剑神秦烈山`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "连闯双关 · 破掌式挫败宁清羽，苍龙岭十五合硬破潼关剑神秦烈山" from 《剑压紫霞 · 逆夺太岳》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 246. `CG-QST-246`：剑撼紫霞 · 紫霞正气主殿独孤九剑破气式直刺岳沧溟漫天紫气漩涡
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordUsurpQuest.ts`](../src/data/quests/sects/huashanEndingSwordUsurpQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q20_clash_yue_zixia.jpg`
+- **画框题跋**：`剑撼紫霞 · 紫霞正气主殿独孤九剑破气式直刺岳沧溟漫天紫气漩涡`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "剑撼紫霞 · 紫霞正气主殿独孤九剑破气式直刺岳沧溟漫天紫气漩涡" from 《剑压紫霞 · 逆夺太岳》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 247. `CG-QST-247`：逆夺神锋 · 震飞岳沧溟佩剑拾起太岳紫霞长剑，下山屠灭风陵夏营
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordUsurpQuest.ts`](../src/data/quests/sects/huashanEndingSwordUsurpQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q20_seize_taiyue_sword.jpg`
+- **画框题跋**：`逆夺神锋 · 震飞岳沧溟佩剑拾起太岳紫霞长剑，下山屠灭风陵夏营`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "逆夺神锋 · 震飞岳沧溟佩剑拾起太岳紫霞长剑，下山屠灭风陵夏营" from 《剑压紫霞 · 逆夺太岳》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 248. `CG-QST-248`：西岳霸主 · 唯快不破登基西岳霸剑宗主，满山剑客俯首号令江湖
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordUsurpQuest.ts`](../src/data/quests/sects/huashanEndingSwordUsurpQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q20_hegemon_throne.jpg`
+- **画框题跋**：`西岳霸主 · 唯快不破登基西岳霸剑宗主，满山剑客俯首号令江湖`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "西岳霸主 · 唯快不破登基西岳霸剑宗主，满山剑客俯首号令江湖" from 《剑压紫霞 · 逆夺太岳》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 249. `CG-QST-249`：剑气并肩 · 与高沧云统率剑气两脉弟子同出潼关奇袭西夏大营
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts`](../src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q21_twin_lineage_march.jpg`
+- **画框题跋**：`剑气并肩 · 与高沧云统率剑气两脉弟子同出潼关奇袭西夏大营`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "剑气并肩 · 与高沧云统率剑气两脉弟子同出潼关奇袭西夏大营" from 《两仪归元 · 西岳共主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 250. `CG-QST-250`：九剑靖边 · 独孤九剑合紫霞剑阵一举荡平风陵敌营斩杀主帅拓跋雄
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts`](../src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q21_dugu_slay_tuoba.jpg`
+- **画框题跋**：`九剑靖边 · 独孤九剑合紫霞剑阵一举荡平风陵敌营斩杀主帅拓跋雄`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "九剑靖边 · 独孤九剑合紫霞剑阵一举荡平风陵敌营斩杀主帅拓跋雄" from 《两仪归元 · 西岳共主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 251. `CG-QST-251`：献旗止争 · 拒封不弃逼宫之议，当殿献上敌酋战旗痛陈剑气互济之理
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts`](../src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q21_present_banner.jpg`
+- **画框题跋**：`献旗止争 · 拒封不弃逼宫之议，当殿献上敌酋战旗痛陈剑气互济之理`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "献旗止争 · 拒封不弃逼宫之议，当殿献上敌酋战旗痛陈剑气互济之理" from 《两仪归元 · 西岳共主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 252. `CG-QST-252`：欣然禅位 · 岳沧溟老怀大慰亲传太岳紫霞剑，高沧云奉紫霞剑客衫
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts`](../src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q21_abdicate_ceremony.jpg`
+- **画框题跋**：`欣然禅位 · 岳沧溟老怀大慰亲传太岳紫霞剑，高沧云奉紫霞剑客衫`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "欣然禅位 · 岳沧溟老怀大慰亲传太岳紫霞剑，高沧云奉紫霞剑客衫" from 《两仪归元 · 西岳共主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 253. `CG-QST-253`：两仪归元 · 三十载纷争消弭，继任华山掌门开创剑气并尊盛世
+
+- **关联文件**：[`src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts`](../src/data/quests/sects/huashanEndingSwordHarmonyQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q21_harmony_master.jpg`
+- **画框题跋**：`两仪归元 · 三十载纷争消弭，继任华山掌门开创剑气并尊盛世`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "两仪归元 · 三十载纷争消弭，继任华山掌门开创剑气并尊盛世" from 《两仪归元 · 西岳共主》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 254. `CG-QST-254`：绝顶开坛 · 大雪封山落雁峰白玉论剑坛重开甲子华山论剑，群雄毕至
+
+- **关联文件**：[`src/data/quests/sects/huashanMountaintopSummitQuest.ts`](../src/data/quests/sects/huashanMountaintopSummitQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q22_snow_summit_open.jpg`
+- **画框题跋**：`绝顶开坛 · 大雪封山落雁峰白玉论剑坛重开甲子华山论剑，群雄毕至`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "绝顶开坛 · 大雪封山落雁峰白玉论剑坛重开甲子华山论剑，群雄毕至" from 《西岳绝顶 · 华山论剑》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 255. `CG-QST-255`：十合破燕 · 白玉坛首战十合破去南慕容斗转星移，震落慕容复长剑
+
+- **关联文件**：[`src/data/quests/sects/huashanMountaintopSummitQuest.ts`](../src/data/quests/sects/huashanMountaintopSummitQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q22_break_murongfu.jpg`
+- **画框题跋**：`十合破燕 · 白玉坛首战十合破去南慕容斗转星移，震落慕容复长剑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "十合破燕 · 白玉坛首战十合破去南慕容斗转星移，震落慕容复长剑" from 《西岳绝顶 · 华山论剑》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 256. `CG-QST-256`：暴雪战佛 · 漫天风雪硬撼吐蕃国师鸠摩智小无相功与炽烈火焰刀
+
+- **关联文件**：[`src/data/quests/sects/huashanMountaintopSummitQuest.ts`](../src/data/quests/sects/huashanMountaintopSummitQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q22_clash_jiumozhi.jpg`
+- **画框题跋**：`暴雪战佛 · 漫天风雪硬撼吐蕃国师鸠摩智小无相功与炽烈火焰刀`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "暴雪战佛 · 漫天风雪硬撼吐蕃国师鸠摩智小无相功与炽烈火焰刀" from 《西岳绝顶 · 华山论剑》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 257. `CG-QST-257`：剑碎刀影 · 绝顶剑芒劈散漫天火焰刀气，迫使大轮明王合十退坛
+
+- **关联文件**：[`src/data/quests/sects/huashanMountaintopSummitQuest.ts`](../src/data/quests/sects/huashanMountaintopSummitQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q22_repel_jiumozhi.jpg`
+- **画框题跋**：`剑碎刀影 · 绝顶剑芒劈散漫天火焰刀气，迫使大轮明王合十退坛`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "剑碎刀影 · 绝顶剑芒劈散漫天火焰刀气，迫使大轮明王合十退坛" from 《西岳绝顶 · 华山论剑》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 258. `CG-QST-258`：一剑惊老 · 灰衣老僧慕容博暗施参合指试探，被凌厉剑意一剑逼退
+
+- **关联文件**：[`src/data/quests/sects/huashanMountaintopSummitQuest.ts`](../src/data/quests/sects/huashanMountaintopSummitQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q22_murongbo_probe.jpg`
+- **画框题跋**：`一剑惊老 · 灰衣老僧慕容博暗施参合指试探，被凌厉剑意一剑逼退`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "一剑惊老 · 灰衣老僧慕容博暗施参合指试探，被凌厉剑意一剑逼退" from 《西岳绝顶 · 华山论剑》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 259. `CG-QST-259`：英雄邀战 · 北乔峰踏雪登峰摔碗痛饮，豪气干云邀印证武道极境
+
+- **关联文件**：[`src/data/quests/sects/huashanMountaintopSummitQuest.ts`](../src/data/quests/sects/huashanMountaintopSummitQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q22_qiaofeng_toast.jpg`
+- **画框题跋**：`英雄邀战 · 北乔峰踏雪登峰摔碗痛饮，豪气干云邀印证武道极境`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "英雄邀战 · 北乔峰踏雪登峰摔碗痛饮，豪气干云邀印证武道极境" from 《西岳绝顶 · 华山论剑》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 260. `CG-QST-260`：剑啸亢龙 · 降龙十八掌金龙虚影与华山至高剑意激荡落雁云霄二十合
+
+- **关联文件**：[`src/data/quests/sects/huashanMountaintopSummitQuest.ts`](../src/data/quests/sects/huashanMountaintopSummitQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q22_dragon_vs_sword.jpg`
+- **画框题跋**：`剑啸亢龙 · 降龙十八掌金龙虚影与华山至高剑意激荡落雁云霄二十合`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "剑啸亢龙 · 降龙十八掌金龙虚影与华山至高剑意激荡落雁云霄二十合" from 《西岳绝顶 · 华山论剑》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 261. `CG-QST-261`：万剑齐鸣 · 与乔峰抚掌痛饮结义，西岳华山登顶天下第一剑派绝巅
+
+- **关联文件**：[`src/data/quests/sects/huashanMountaintopSummitQuest.ts`](../src/data/quests/sects/huashanMountaintopSummitQuest.ts)
+- **目标路径**：`public/assets/quests/hs_q22_myriad_swords_roar.jpg`
+- **画框题跋**：`万剑齐鸣 · 与乔峰抚掌痛饮结义，西岳华山登顶天下第一剑派绝巅`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "万剑齐鸣 · 与乔峰抚掌痛饮结义，西岳华山登顶天下第一剑派绝巅" from 《西岳绝顶 · 华山论剑》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
   ```

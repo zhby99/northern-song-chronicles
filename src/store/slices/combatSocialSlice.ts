@@ -222,6 +222,12 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
           equippedArts: s.equippedArts,
           learnedArts: s.learnedArts,
           heavyInjury: Boolean(s.questState.flags.taihang_heavy_injury),
+          hsSwordEssence: Boolean(s.questState.flags.hs_taiyue_sword_essence),
+          hsPoyueGuijian: Boolean(s.questState.flags.hs_poyue_guijian),
+          heroTitleOverride:
+            typeof s.questState.flags.hs_summit_title === 'string'
+              ? s.questState.flags.hs_summit_title
+              : undefined,
         })
         const session = createCombatSession({
           mode: effectiveMode,

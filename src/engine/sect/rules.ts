@@ -4,6 +4,7 @@ import type { PlayerSectState } from '../../types/game'
 export type SectPromotionRuleKind =
   | 'minor_or_second_tier'
   | 'dao_sword_tournament'
+  | 'huashan_quest'
   | 'shaolin_zen'
   | 'gaibang_favor'
   | 'kaifeng_cases'
@@ -119,7 +120,7 @@ const BASE_SECT_RULES: Record<string, Omit<SectRuleConfig, 'sectId' | 'starterGe
   },
   'SECT-05': {
     isDaoSwordTournamentSect: true,
-    promotionRuleKind: 'dao_sword_tournament',
+    promotionRuleKind: 'huashan_quest',
     entryQuestId: 'QST-SECT-05-ENTRY',
     autoCompleteEntryQuestOnJoin: true,
     bespokeEntryGuide: {

@@ -38,6 +38,7 @@ import {
   getSectTeachableArts,
   getSectTournamentDateInfo,
   isDaoSwordSect,
+  isHuashanArtBlockedBeforeMaster,
   isShaolinArtBlockedForLayDisciple,
   KAIFENG_CASE_BOUNTY_SILVER,
   KAIFENG_RECOMMENDATION_ITEM_ID,
@@ -844,6 +845,16 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       set({
         actionFeedback: {
           text: warnText,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    if (isHuashanArtBlockedBeforeMaster(sectId, entry.art, s.sectState.rank)) {
+      set({
+        actionFeedback: {
+          text: `华山派严循气剑两宗师承次第：《${entry.art.cleanName}》（${entry.art.fullTier}）须推进华山门派剧情由宗老亲传（继任第5阶掌门后方可通览全派武库）！`,
           tone: 'warn',
         },
       })

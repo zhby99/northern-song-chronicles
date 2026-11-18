@@ -50,6 +50,9 @@ export function buildPlayerCombatant(params: {
   equippedArts: EquippedArtsMap
   learnedArts: LearnedArtEntry[]
   heavyInjury?: boolean
+  hsSwordEssence?: boolean
+  hsPoyueGuijian?: boolean
+  heroTitleOverride?: string
 }): CombatantState {
   const eff = deriveHeroEffectiveStats(
     params.baseStats,
@@ -79,11 +82,13 @@ export function buildPlayerCombatant(params: {
     team: 'ally',
     id: 'HERO',
     name: params.playerName?.trim() || '少侠',
-    title: '江湖行者',
+    title: params.heroTitleOverride || '江湖行者',
     realm: estimateHeroRealmLabel(eff.maxHp, eff.maxMp),
     factionName: '自在游侠',
     portraitUrl: portrait.fullbodyUrl,
     isPlayer: true,
+    hsSwordEssence: Boolean(params.hsSwordEssence),
+    hsPoyueGuijian: Boolean(params.hsPoyueGuijian),
 
     hp: Math.max(1, Math.min(eff.maxHp, params.hp)),
     maxHp: eff.maxHp,
@@ -184,6 +189,7 @@ export function buildNpcCombatant(
       name: resolvedName,
       title: resolvedTitle,
       realm: resolvedRealm,
+      factionId: npcNode.factionId || dbRecord.factionId || undefined,
       factionName: resolvedFaction,
       portraitUrl:
         npcNode.portraitUrl ||
@@ -281,6 +287,7 @@ export function buildNpcCombatant(
     name: npcNode.name,
     title: resolvedTitle,
     realm: npcNode.realm || '三流中品',
+    factionId: npcNode.factionId || undefined,
     factionName: resolvedFaction,
     portraitUrl:
       npcNode.portraitUrl ||

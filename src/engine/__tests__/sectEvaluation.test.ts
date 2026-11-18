@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { MARTIAL_ART_DB_MAP } from '../../data/gameDb'
 import { cloneHeroBaseStats } from '../stats/heroStats'
 import {
   BAJI_IRON_TOKEN_ITEM_ID,
@@ -7,6 +8,7 @@ import {
   evaluateSectEntry,
   evaluateSectPromotion,
   generateKaifengWarrant,
+  isHuashanArtBlockedBeforeMaster,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   resetSectMembership,
 } from '../sect'
@@ -110,19 +112,41 @@ describe('evaluateSectEntry & evaluateSectPromotion', () => {
       })?.canPromote,
     ).toBe(true)
 
-    // Dao-Sword Lv2 -> Lv3 requires tournament win
+    // Dao-Sword (e.g. SECT-06 Taishan) Lv2 -> Lv3 requires tournament win
     expect(
       evaluateSectPromotion({
-        sectId: 'SECT-05',
+        sectId: 'SECT-06',
         currentRank: 2,
         dayCount: 800,
         joinedDay: 1,
         heroRealmRank: 6,
         heroRealmLabel: '二流上品',
-        npcFavor: { 'NPC-0174': 80, 'NPC-0175': 80 },
+        npcFavor: new Proxy({}, { get: () => 80 }),
         wonSectTournament: false,
       })?.canPromote,
     ).toBe(false)
+
+    // Huashan (SECT-05) promotions are strictly story-quest driven (huashan_quest)
+    const hsPromo = evaluateSectPromotion({
+      sectId: 'SECT-05',
+      currentRank: 1,
+      dayCount: 800,
+      joinedDay: 1,
+      heroRealmRank: 8,
+      heroRealmLabel: '一流中品',
+      npcFavor: new Proxy({}, { get: () => 100 }),
+      wonSectTournament: true,
+    })
+    expect(hsPromo?.canPromote).toBe(false)
+    expect(hsPromo?.reason).toContain('博台大比')
+
+    // Huashan art gating: Lv.1..4 can only learn 凡品 from panel; 良品/地阶 require quest impartation until Lv.5 Master
+    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-160']!, 1)).toBe(false)
+    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-167']!, 1)).toBe(false)
+    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-147']!, 1)).toBe(true)
+    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-128']!, 2)).toBe(true)
+    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-058']!, 4)).toBe(true)
+    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-058']!, 5)).toBe(false)
 
     // Third-tier sect Lv1 -> Lv2
     const tier3LeaderPromotion = evaluateSectPromotion({
