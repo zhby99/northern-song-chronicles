@@ -176,7 +176,6 @@ const SCENE_34_WUJING_WISDOM_SEAL_PASS: StorySceneDef = {
   onFinishEffects: [
     { type: 'giveCombatExp', amount: 150, reason: '飞狐索桥重创九纹狂龙史万山' },
     { type: 'addArtExp', amount: 1000 },
-    { type: 'modifySkill', key: '策论', delta: 5 },
     {
       type: 'setQuestStep',
       questId: JINJUN_TAIHANG_QUEST_2_ID,
@@ -725,7 +724,6 @@ const SCENE_11_EXAM_THREE_HEART_AND_VAULT: StorySceneDef = {
       subLabel: '仁义瓦解群匪死志，若残寇退守索桥天险则筑碉困锁，绝不轻损士卒',
       tone: 'gold',
       effects: [
-        { type: 'modifySkill', key: '经义', delta: 3 },
         { type: 'modifyChivalry', delta: 10, reason: '沙盘陈策主张胁从免死惜护兵民' },
         openScene('scene_jtc2_12_guamu_xiangkan_praise', 'QST-SECT-33-TAIHANG-CAMPAIGN-2'),
       ],
@@ -736,7 +734,6 @@ const SCENE_11_EXAM_THREE_HEART_AND_VAULT: StorySceneDef = {
       subLabel: '深合《孙子》《武经》围师必阙之妙，令王重岳不战自溃沦为瓮中之鳖',
       tone: 'primary',
       effects: [
-        { type: 'modifySkill', key: '策论', delta: 3 },
         openScene('scene_jtc2_12_guamu_xiangkan_praise', 'QST-SECT-33-TAIHANG-CAMPAIGN-2'),
       ],
     },
@@ -746,8 +743,6 @@ const SCENE_11_EXAM_THREE_HEART_AND_VAULT: StorySceneDef = {
       subLabel: '稳若泰山而动如雷霆，宁舍奇功虚名亦不拿儿郎性命强渡断索',
       tone: 'jade',
       effects: [
-        { type: 'modifySkill', key: '策论', delta: 2 },
-        { type: 'modifySkill', key: '经义', delta: 2 },
         openScene('scene_jtc2_12_guamu_xiangkan_praise', 'QST-SECT-33-TAIHANG-CAMPAIGN-2'),
       ],
     },
@@ -853,7 +848,7 @@ const SCENE_05_WUJING_ZONGYAO_GIFT: StorySceneDef = {
       condition: { type: 'not', condition: { type: 'hasItem', itemId: 'ITM-MSC-029' } },
       thenEffects: [{ type: 'giveItem', itemId: 'ITM-MSC-029', qty: 1 }],
     },
-    toast('获赐枢密使王德用亲批秘籍《武经总要 · 枢密院行军钞本》（可于行囊中使用，研读后策论 +15、经义 +8）！', 'success', '枢相赐书'),
+    toast('获赐枢密使王德用亲批秘籍《武经总要 · 枢密院行军钞本》（可于行囊中使用，研读后策论 +2、经义 +1）！', 'success', '枢相赐书'),
     openScene('scene_jtc2_06_scholarship_mandate', 'QST-SECT-33-TAIHANG-CAMPAIGN-2'),
   ],
 }

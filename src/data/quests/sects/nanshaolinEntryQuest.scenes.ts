@@ -135,7 +135,7 @@ const SCENE_NSL_20_FINAL_VOW: StorySceneDef = {
       id: 'nsl20_choose_monk_path',
       label: '【持戒参禅 · 清修武僧】愿落发受戒，受赐法号「弘毅」，承禅门地阶衣钵！',
       subLabel:
-        '剃度出家 · 头像与立绘切换为「少林佛子」，姓名改为法号「弘毅」，开放本门地阶功法，另赐佛珠/小还丹/经义+10',
+        '剃度出家 · 头像与立绘切换为「少林佛子」，姓名改为法号「弘毅」，开放本门地阶功法，另赐佛珠/小还丹/经义+2',
       tone: 'gold',
       effects: [
         { type: 'setFlag', flag: 'nsl_disciple_style', value: 'monk' },
@@ -148,7 +148,7 @@ const SCENE_NSL_20_FINAL_VOW: StorySceneDef = {
         },
         { type: 'giveItem', itemId: 'ACC-034', qty: 1 },
         { type: 'giveItem', itemId: 'ITM-MED-111', qty: 1 },
-        { type: 'modifySkill', key: '经义', delta: 10 },
+        { type: 'modifySkill', key: '经义', delta: 2 },
         { type: 'giveFood', amount: 5 },
         { type: 'giveSilver', amount: 25, reason: '南少林下院巡护盘缠津贴' },
         { type: 'modifyChivalry', delta: 15, reason: '护佑刺桐百姓、铁桥拜入南少林' },
@@ -283,7 +283,7 @@ const SCENE_NSL_17_ALLEY_APTITUDE: StorySceneDef = {
     {
       id: 'nsl17_break_by_wit',
       label: '【听风辨簧 · 以慧破巧】闭目默数地砖齿轮三息间隙，借力反撞！（悟性 ≥ 60 或算术 ≥ 35）',
-      subLabel: '洞悉阴阳枢机 · 经义 +4、武学熟练度精进，随后破除镇门木人',
+      subLabel: '洞悉阴阳枢机 · 武学熟练度精进，随后破除镇门木人',
       tone: 'jade',
       condition: {
         type: 'any',
@@ -294,7 +294,6 @@ const SCENE_NSL_17_ALLEY_APTITUDE: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '经义', delta: 4 },
         { type: 'addArtExp', amount: 450 },
         { type: 'healPlayer', hpPct: 100, mpPct: 100 },
         {
@@ -684,11 +683,10 @@ const SCENE_NSL_07_WATER_BUCKETS: StorySceneDef = {
     {
       id: 'nsl07_use_boatman_salve',
       label: '【敷上陈阿公所赠海桐壮骨散】药力护住筋膜，咬牙挑桶踏上梅花桩！',
-      subLabel: '刺桐渔家善缘显效 · 双臂抗寒倍增，额外提升【骑术】（腰马根基）+4',
+      subLabel: '刺桐渔家善缘显效 · 双臂抗寒倍增，稳步踏过梅花桩',
       tone: 'jade',
       condition: flag('nsl_karma_boatman_salve', 'truthy'),
       effects: [
-        { type: 'modifySkill', key: '骑术', delta: 4 },
         openScene('scene_nsl_08_cold_spring_cg', 'QST-SECT-04-ENTRY'),
       ],
     },
@@ -766,11 +764,10 @@ const SCENE_NSL_04_KAIYUAN_TEA: StorySceneDef = {
     {
       id: 'nsl04_vow_zen_martial',
       label: '【澄心合十】“久仰南少林禅武合一、由外入内之妙，特来参禅求道！”',
-      subLabel: '向道之心虔诚 · 经义 +4',
+      subLabel: '向道之心虔诚 · 获元觉首座另眼相看',
       tone: 'jade',
       effects: [
         { type: 'setFlag', flag: 'nsl_heart_vow', value: 'zen' },
-        { type: 'modifySkill', key: '经义', delta: 4 },
         openScene('scene_nsl_05_to_jiulian', 'QST-SECT-04-ENTRY'),
       ],
     },
@@ -839,7 +836,7 @@ const SCENE_NSL_02_FOUR_WAYS: StorySceneDef = {
     {
       id: 'nsl02_aptitude_wit',
       label: '【明察秋毫 · 拨算拆秤】一把夺过杆秤，当众敲开灌水银的空心秤锤算清假账！（悟性 ≥ 60 或算术 ≥ 35）',
-      subLabel: '重资质分支 · 算术 +4，满港番商哗然唾骂恶牙',
+      subLabel: '重资质分支 · 算术 +1，满港番商哗然唾骂恶牙',
       tone: 'jade',
       condition: {
         type: 'any',
@@ -850,14 +847,14 @@ const SCENE_NSL_02_FOUR_WAYS: StorySceneDef = {
       },
       effects: [
         { type: 'setFlag', flag: 'nsl_aptitude_route', value: 'wit' },
-        { type: 'modifySkill', key: '算术', delta: 4 },
+        { type: 'modifySkill', key: '算术', delta: 1 },
         openScene('scene_nsl_03_yuanjue_arrives', 'QST-SECT-04-ENTRY'),
       ],
     },
     {
       id: 'nsl02_aptitude_charm',
       label: '【凛然正气 · 条律喝止】朗声背诵《皇祐市舶司条法》，喝问鲨皮六敢否对簿公堂！（颜值 ≥ 60 或辩才 ≥ 35）',
-      subLabel: '重资质分支 · 辩才 +4，气度折服满埠海商',
+      subLabel: '重资质分支 · 辩才 +1，气度折服满埠海商',
       tone: 'primary',
       condition: {
         type: 'any',
@@ -868,7 +865,7 @@ const SCENE_NSL_02_FOUR_WAYS: StorySceneDef = {
       },
       effects: [
         { type: 'setFlag', flag: 'nsl_aptitude_route', value: 'charm' },
-        { type: 'modifySkill', key: '辩才', delta: 4 },
+        { type: 'modifySkill', key: '辩才', delta: 1 },
         openScene('scene_nsl_03_yuanjue_arrives', 'QST-SECT-04-ENTRY'),
       ],
     },

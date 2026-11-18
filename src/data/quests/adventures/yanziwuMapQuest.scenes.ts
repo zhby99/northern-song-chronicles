@@ -303,7 +303,7 @@ const SCENE_18_QIXIA_SUSONG_CAL: StorySceneDef = {
       },
       effects: [
         { type: 'setFlag', flag: 'yzw_map_jiao_flaw_spotted', value: true },
-        { type: 'modifySkill', key: '算术', delta: 3 },
+        { type: 'modifySkill', key: '算术', delta: 2 },
         {
           type: 'setQuestStep',
           questId: QUEST_ID,
@@ -487,7 +487,7 @@ const SCENE_11_24BRIDGE_CIPHER: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '诗词', delta: 2 },
+        { type: 'modifySkill', key: '诗词', delta: 1 },
         { type: 'modifyRenown', delta: 10, reason: '二十四桥琴词水阁破译水路暗令' },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0057' }, delta: 15 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0171' }, delta: 15 },

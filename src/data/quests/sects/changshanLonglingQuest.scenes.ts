@@ -200,13 +200,13 @@ const INLINE_SCENE_07_scene_cs_hanqi_briefing: StorySceneDef = {
                 {
                   id: 'choice_hanqi_pragmatic',
                   label: '【沉稳务实】既为守土安民，功名何足挂齿。请安抚使示下。',
-                  subLabel: '韩琦好感 +5、郭逵好感 +10、纹银 +50 两、策论 +3、江湖声望 +15',
+                  subLabel: '韩琦好感 +5、郭逵好感 +10、纹银 +50 两、策论 +1、江湖声望 +15',
                   tone: 'jade',
                   effects: [
                     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0011' }, delta: 5 },
                     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 10 },
                     { type: 'giveSilver', amount: 50, reason: '韩琦私库盘缠' },
-                    { type: 'modifySkill', key: '策论', delta: 3 },
+                    { type: 'modifySkill', key: '策论', delta: 1 },
                     { type: 'modifyRenown', delta: 15, reason: '沉稳受命定州幕府' },
                     setStep(QUEST_ID, 'yanjing_horse_market'),
                     openScene('scene_cs_hanqi_pragmatic_reply', 'QST-SECT-22-LONGLING'),
@@ -318,12 +318,6 @@ const INLINE_SCENE_14_scene_cs_horse_market: StorySceneDef = {
                         ],
                       },
                       thenEffects: [
-                        {
-                          type: 'branch',
-                          condition: { type: 'skillAtLeast', key: '骑术', min: 35 },
-                          thenEffects: [{ type: 'modifySkill', key: '骑术', delta: 3 }],
-                          elseEffects: [{ type: 'modifySkill', key: '辩才', delta: 3 }],
-                        },
                         { type: 'addArtExp', amount: 350 },
                         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0036' }, delta: 5 },
                         setStep(QUEST_ID, 'minzhong_temple'),

@@ -166,7 +166,7 @@ function buildScene20OrdinationFinale(
         ],
       },
       { type: 'healPlayer', hpPct: 100, mpPct: 100 },
-      { type: 'modifySkill', key: '经义', delta: 5 },
+      { type: 'modifySkill', key: '经义', delta: 1 },
       { type: 'modifyChivalry', delta: 22, reason: '雁门关绝壁护孤、五台山剃度护国' },
       { type: 'modifyRenown', delta: 20, reason: '礼拜五台神僧道清落发受戒，赐明字辈法号' },
       { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0123' }, delta: 25 },
@@ -528,11 +528,10 @@ const SCENE_WT_08_MINGAN_BEADS: StorySceneDef = {
     {
       id: 'wt08_pick_all_18_beads',
       label: '【挽袖跃入冰涧】拨开酸枣荆棘，将十八颗菩提子一颗不落寻回重穿',
-      subLabel: '结下【明安苦行善缘】，获授白身临敌卸力保命口诀，经义 +2',
+      subLabel: '结下【明安苦行善缘】，获授白身临敌卸力保命口诀',
       tone: 'gold',
       effects: [
         { type: 'setFlag', flag: 'wutai_karma_mingan', value: true },
-        { type: 'modifySkill', key: '经义', delta: 2 },
         { type: 'modifyChivalry', delta: 4, reason: '冒寒入荆棘涧为苦行僧明安寻回英烈念珠' },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0504' }, delta: 20 },
         openScene('scene_wt_08b_mingan_mantra', 'QST-SECT-03-ENTRY'),
@@ -619,7 +618,7 @@ const SCENE_WT_07_TALENT_TRIAL: StorySceneDef = {
     {
       id: 'wt07_wisdom_stele',
       label: '【文殊顿悟心】抚摩残碑棍痕，解悟五郎“截枪化棍”真谛！（需悟性 ≥ 90 或 经义 ≥ 18）',
-      subLabel: '展现上乘慧根与经义，经义 +4，入门后《清凉禅定吐纳法》获额外 4000 熟练度',
+      subLabel: '展现上乘慧根与经义，经义 +1，入门后《清凉禅定吐纳法》获额外 4000 熟练度',
       tone: 'jade',
       condition: {
         type: 'any',
@@ -635,7 +634,7 @@ const SCENE_WT_07_TALENT_TRIAL: StorySceneDef = {
             '“回首座大师！晚辈观这残碑八方凹痕皆圆融沉厚而无穿刺锐孔——昔年五郎将军在金沙滩见尽血海尸山，入寺截去枪尖，绝非忘却国仇，而是悟透『枪尖一点唯主夺命，木棍八面方能护生』！以八卦圆转破铁骑冲阵，正是佛门以慈悲统摄杀伐的无上禅机！”',
             '（智猛浑身剧震，手中浑铁禅杖险些脱手，半晌方喃喃赞叹）“阿弥陀佛……多少习武二十年的僧人只看到棍法狠辣，你一介白身少年竟一眼看穿五郎师祖的菩萨苦心！方丈师兄若听了此言，定要欢喜无限！”',
             [
-              { type: 'modifySkill', key: '经义', delta: 4 },
+              { type: 'modifySkill', key: '经义', delta: 1 },
               { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0199' }, delta: 18 },
             ],
           )), 'QST-SECT-03-ENTRY'),
@@ -715,7 +714,7 @@ const SCENE_WT_05_SILENT_ORPHAN: StorySceneDef = {
     {
       id: 'wt05_charm_story',
       label: '【温颜软语 · 春风化冰】蹲身平视，温和讲起塞北小木马寻家的故事（需颜值 ≥ 90 或 辩才 ≥ 18）',
-      subLabel: '凭亲和风姿与善言卸下孤儿心防，辩才 +2，结下深厚【孤雏善缘】',
+      subLabel: '凭亲和风姿与善言卸下孤儿心防，结下深厚【孤雏善缘】',
       tone: 'jade',
       condition: {
         type: 'any',
@@ -727,7 +726,6 @@ const SCENE_WT_05_SILENT_ORPHAN: StorySceneDef = {
       },
       effects: [
         { type: 'setFlag', flag: 'wutai_karma_orphan', value: true },
-        { type: 'modifySkill', key: '辩才', delta: 2 },
         { type: 'modifyChivalry', delta: 5, reason: '慈济院温言抚慰失语边关遗孤' },
         openScene('scene_wt_05b_orphan_token_charm', 'QST-SECT-03-ENTRY'),
       ],
@@ -778,7 +776,7 @@ const SCENE_WT_04_HERB_APTITUDE: StorySceneDef = {
     {
       id: 'wt04_herb_genius',
       label: '【慧心辨药】依算筹配比药量，麻黄先煎撇沫、雪草文火后下！（需悟性 ≥ 90 或 算术 ≥ 18）',
-      subLabel: '天资聪颖，分毫不差控住药性，经义 +3、算术 +2、智光好感 +15',
+      subLabel: '天资聪颖，分毫不差控住药性，算术 +1、智光好感 +15',
       tone: 'jade',
       condition: {
         type: 'any',
@@ -790,15 +788,14 @@ const SCENE_WT_04_HERB_APTITUDE: StorySceneDef = {
       },
       effects: [
         { type: 'setFlag', flag: 'wutai_aptitude_herb', value: 'genius' },
-        { type: 'modifySkill', key: '经义', delta: 3 },
-        { type: 'modifySkill', key: '算术', delta: 2 },
+        { type: 'modifySkill', key: '算术', delta: 1 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0162' }, delta: 15 },
         openScene('scene_wt_05_silent_orphan', 'QST-SECT-03-ENTRY')],
     },
     {
       id: 'wt04_herb_scripture',
       label: '【经卷印证】忆及古籍《伤寒》表实注疏，井然有序添柴扇火（需经义 ≥ 16 或 书 ≥ 16）',
-      subLabel: '博闻谨严，汤色澄明醇厚，经义 +3、智光好感 +12',
+      subLabel: '博闻谨严，汤色澄明醇厚，经义 +1、智光好感 +12',
       tone: 'gold',
       condition: {
         type: 'any',
@@ -810,7 +807,7 @@ const SCENE_WT_04_HERB_APTITUDE: StorySceneDef = {
       },
       effects: [
         { type: 'setFlag', flag: 'wutai_aptitude_herb', value: 'scholar' },
-        { type: 'modifySkill', key: '经义', delta: 3 },
+        { type: 'modifySkill', key: '经义', delta: 1 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0162' }, delta: 12 },
         openScene('scene_wt_05_silent_orphan', 'QST-SECT-03-ENTRY'),
       ],
@@ -818,12 +815,11 @@ const SCENE_WT_04_HERB_APTITUDE: StorySceneDef = {
     {
       id: 'wt04_herb_sincere_grit',
       label: '【守炉试汤】不通深奥医理，便劈柴百斤守定炉口，每沸亲口试温防烫伤孩童',
-      subLabel: '不限资质：手背烫起红泡亦不离寸步，智光感念赤诚，侠义 +5、经义 +2、好感 +15',
+      subLabel: '不限资质：手背烫起红泡亦不离寸步，智光感念赤诚，侠义 +5、好感 +15',
       tone: 'primary',
       effects: [
         { type: 'setFlag', flag: 'wutai_aptitude_herb', value: 'sincere' },
         { type: 'modifyChivalry', delta: 5, reason: '慈济院守炉亲口试药护边关孤儿' },
-        { type: 'modifySkill', key: '经义', delta: 2 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0162' }, delta: 15 },
         openScene('scene_wt_05_silent_orphan', 'QST-SECT-03-ENTRY'),
       ],

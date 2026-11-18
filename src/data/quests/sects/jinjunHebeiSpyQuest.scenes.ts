@@ -231,7 +231,7 @@ const SCENE_43B_SHADOW_SEAL_REWARD: StorySceneDef = {
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0001' }, delta: 30 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0038' }, delta: 25 },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0132' }, delta: 20 },
-    { type: 'modifySkill', key: '策论', delta: 4 },
+    { type: 'modifySkill', key: '策论', delta: 1 },
     { type: 'modifyRenown', delta: 100, reason: '黄河铁索渡口力挫辽南京武林统制萧远风' },
     openScene('scene_jj_spy_44_epilogue_north_wind', 'QST-SECT-33-HEBEI-SPY'),
   ],
@@ -671,7 +671,7 @@ const SCENE_30A_IMPERIAL_CROSSBOW_READY: StorySceneDef = {
   onFinishEffects: [
     { type: 'setFlag', flag: 'jj_spy_tactic', value: 'imperial_army' },
     { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0039' }, delta: 25 },
-    { type: 'modifySkill', key: '骑术', delta: 3 },
+    { type: 'modifySkill', key: '骑术', delta: 1 },
     setStep(QUEST_ID, 'daming_river_showdown'),
     toast('北京宿卫铁甲强弩已合围渡口！请前往【大名府 · 黄河铁索渡口 · 镇河铁牛与横江铁索浮桥】迎战萧远风！', 'success', '铁壁合围'),
   ],
@@ -707,7 +707,7 @@ const SCENE_28_SANDTABLE_STRATEGY_CHOICE: StorySceneDef = {
     {
       id: 'choice_jj_sandtable_imperial_army',
       label: '【执掌虎符 · 禁军铁甲正合】合验鎏金虎符，调王信麾下三百北京宿卫与神臂强弩正面锁死黄河水寨！',
-      subLabel: '庙堂统军路线 · 骑术 +3、王信好感大增，子夜决战可号令猛将王信披甲助阵',
+      subLabel: '庙堂统军路线 · 骑术 +1、王信好感大增，子夜决战可号令猛将王信披甲助阵',
       tone: 'gold',
       effects: [openScene('scene_jj_spy_29a_garrison_tiger_tally', 'QST-SECT-33-HEBEI-SPY')],
     },
@@ -885,11 +885,10 @@ const SCENE_20_SUTRA_PAVILION_ZEN: StorySceneDef = {
     {
       id: 'choice_jj_longxing_jingyi_check',
       label: '【经义对答 · 菩萨低眉亦金刚怒目】引《华严》护国仁王之义，阐明除内蠹即所以止边衅（经义 ≥ 60）',
-      subLabel: '检定通过：【经义】+2，额外获李正鹤点拨契丹玄阴枪刀换气破绽',
+      subLabel: '检定通过：额外获李正鹤点拨契丹玄阴枪刀换气破绽并增进战斗修为',
       tone: 'jade',
       condition: { type: 'skillAtLeast', key: '经义', min: 60 },
       effects: [
-        { type: 'modifySkill', key: '经义', delta: 2 },
         { type: 'giveCombatExp', amount: 60, reason: '与清凉寺护关武僧李正鹤印证护国禅武机锋' },
         { type: 'setFlag', flag: 'jj_spy_monk_insight', value: true },
         openScene('scene_jj_spy_21_guanyin_pavilion_secret', 'QST-SECT-33-HEBEI-SPY'),
@@ -1066,11 +1065,10 @@ const SCENE_13_IDENTIFY_KHITAN_STEEDS: StorySceneDef = {
     {
       id: 'choice_jj_market_riding_check',
       label: '【精研相马 · 一眼识破乌桓千里驹】观其碗口铁蹄、竹批双耳与皂汁染毛伪装（骑术 ≥ 70）',
-      subLabel: '检定通过：【骑术】+2，当场锁定急递信使今夜换乘潜逃之主力快骑',
+      subLabel: '检定通过：当场锁定急递信使今夜换乘潜逃之主力快骑并精进实战历练',
       tone: 'gold',
       condition: { type: 'skillAtLeast', key: '骑术', min: 70 },
       effects: [
-        { type: 'modifySkill', key: '骑术', delta: 2 },
         { type: 'giveCombatExp', amount: 50, reason: '真定榷场相马识破契丹乌桓快骑伪装' },
         openScene('scene_jj_spy_14_midnight_felt_tent', 'QST-SECT-33-HEBEI-SPY'),
       ],
@@ -1216,7 +1214,7 @@ const SCENE_06_CANDLELIGHT_CIPHER_CRACK: StorySceneDef = {
     {
       id: 'choice_jj_cipher_math_calligraphy',
       label: '【执筹亲算 · 勾股还原千字文马籍】取象牙算筹推演余数移位，并辨认馆阁体笔锋出处（算术 ≥ 65 或 书 ≥ 65）',
-      subLabel: '检定通过：【算术】+2、声望 +15，当场锁定群牧司副使周承业与真定榷场病马暗账',
+      subLabel: '检定通过：【算术】+1、声望 +15，当场锁定群牧司副使周承业与真定榷场病马暗账',
       tone: 'gold',
       condition: {
         type: 'any',
@@ -1227,7 +1225,7 @@ const SCENE_06_CANDLELIGHT_CIPHER_CRACK: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '算术', delta: 2 },
+        { type: 'modifySkill', key: '算术', delta: 1 },
         { type: 'modifyRenown', delta: 15, reason: '于开封府架阁库亲手破译契丹北院千字文勾股密押' },
         { type: 'setFlag', flag: 'jj_spy_deciphered_self', value: true },
         toast('算筹落定！“辰宿列张”对应群牧司第三槽北马字号，笔迹直指采买副使周承业，速赴【汴河漕运巡检司】截人！', 'success', '智破密押'),

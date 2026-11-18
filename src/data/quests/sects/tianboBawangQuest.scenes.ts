@@ -386,7 +386,6 @@ const INLINE_SCENE_17_scene_tb_final_pre: StorySceneDef = {
                         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0032' }, delta: 35 },
                         { type: 'modifyRenown', delta: 200, reason: '天波宗祠考校承接霸王枪谱' },
                         { type: 'modifyChivalry', delta: 100, reason: '承继天波忠魂' },
-                        { type: 'modifySkill', key: '策论', delta: 5 },
                         { type: 'giveSilver', amount: 500, reason: '朝廷鄜延军功赏银' },
                         { type: 'giveItem', itemId: 'ITM-MSC-019', qty: 1 },
                         {

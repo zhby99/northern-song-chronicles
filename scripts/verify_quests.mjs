@@ -55,7 +55,11 @@ try {
   const { preloadAllQuestScenes, getLoadedQuestScenes } = await server.ssrLoadModule(
     '/src/engine/quest/sceneRegistry.ts',
   )
-  const { validateAllRegisteredQuests } = await server.ssrLoadModule('/src/engine/questEngine.ts')
+  const {
+    validateAllRegisteredQuests,
+    computeQuestMaxTenArtsGain,
+    MAX_QUEST_TEN_ARTS_GAIN,
+  } = await server.ssrLoadModule('/src/engine/questEngine.ts')
   const { SECT_RULES_BY_ID } = await server.ssrLoadModule('/src/engine/sect/rules.ts')
   const { SECT_ENTRY_TRANSFER_SOURCES } = await server.ssrLoadModule('/src/engine/sect/exclusivity.ts')
 
@@ -188,6 +192,13 @@ try {
 
     for (const [sceneId, scene] of Object.entries(loadedScenes)) {
       walkScene(`[${q.id}].scenes.${sceneId}`, scene)
+    }
+
+    const maxTenArtsGain = computeQuestMaxTenArtsGain(q, loadedScenes)
+    if (maxTenArtsGain > MAX_QUEST_TEN_ARTS_GAIN) {
+      errors.push(
+        `[${q.id}]: 单任务任意单周目路径累计十艺增幅达 +${maxTenArtsGain}，超过上限 +${MAX_QUEST_TEN_ARTS_GAIN}`,
+      )
     }
   }
 

@@ -268,12 +268,12 @@ const SCENE_DAMING_VICTORY_CHOICE: StorySceneDef = {
       id: 'choice_ending_a_official_patronage',
       label: '【忠义入幕 · 河朔干城】拜领贾留守亲签举荐信，志在公门靖平天下！',
       subLabel:
-        '获《北京留守幕府举荐信》（可直入或奉调【开封府/六扇门】第2阶捕头都头）+ 纹银 100 两 + 策论 +3',
+        '获《北京留守幕府举荐信》（可直入或奉调【开封府/六扇门】第2阶捕头都头）+ 纹银 100 两 + 策论 +1',
       tone: 'gold',
       effects: [
         { type: 'giveItem', itemId: 'ITM-MSC-007', qty: 1 },
         { type: 'giveSilver', amount: 100, reason: '大名府破案赏银' },
-        { type: 'modifySkill', key: '策论', delta: 3 },
+        { type: 'modifySkill', key: '策论', delta: 1 },
         { type: 'modifyRenown', delta: 80, reason: '忠义入幕扬名河朔' },
         { type: 'modifyChivalry', delta: 80, reason: '护国安民大义' },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0028' }, delta: 35 },
@@ -530,7 +530,7 @@ const SCENE_JIA_COURT_TRAP: StorySceneDef = {
       condition: flag('dm_clues_count', 'gte', 3),
       thenEffects: [
         { type: 'giveSilver', amount: 30, reason: '贾昌朝密赏三线全满查案之功' },
-        { type: 'modifySkill', key: '策论', delta: 2 },
+        { type: 'modifySkill', key: '策论', delta: 1 },
         {
           type: 'modifyNpcFavor',
           target: { kind: 'npc', npcId: 'NPC-0028' },
@@ -541,7 +541,7 @@ const SCENE_JIA_COURT_TRAP: StorySceneDef = {
           target: { kind: 'npc', npcId: 'NPC-0275' },
           delta: 20,
         },
-        toast('【三线铁证俱全密赏】贾相公暗赞少侠算无遗策，私赐纹银 30 两、策论 +2！速赴【河北枪棒大校场 · 八角比武擂台】助阵！', 'success', '铁锁镇河朔'),
+        toast('【三线铁证俱全密赏】贾相公暗赞少侠算无遗策，私赐纹银 30 两、策论 +1！速赴【河北枪棒大校场 · 八角比武擂台】助阵！', 'success', '铁锁镇河朔'),
       ],
       elseEffects: [
         {
@@ -600,7 +600,7 @@ const INLINE_SCENE_03_scene_dm_epilogue_official: StorySceneDef = {
               S('NPC-0275', '“哈哈，好志气！日后少侠在东京公门执掌法度，大名府黄河渡口便有我沧州八极门替你守着北大门！咱们后会有期！”'),
             ],
             onFinishEffects: [
-              toast('【忠义入幕结局】获颁《北京留守幕府举荐信》、纹银 100 两、策论 +3！凭信可赴开封府直授第2阶【捕头都头】！', 'success', '铁锁镇河朔'),
+              toast('【忠义入幕结局】获颁《北京留守幕府举荐信》、纹银 100 两、策论 +1！凭信可赴开封府直授第2阶【捕头都头】！', 'success', '铁锁镇河朔'),
             ],
           }
 

@@ -179,7 +179,7 @@ const SCENE_EM_20_HUAZANG_CEREMONY: StorySceneDef = {
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0128' }, delta: 25 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0206' }, delta: 20 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0207' }, delta: 15 },
-        { type: 'modifySkill', key: '经义', delta: 4 },
+        { type: 'modifySkill', key: '经义', delta: 1 },
         { type: 'modifyRenown', delta: 15, reason: '拜入峨眉华藏净脉' },
         { type: 'addSectContribution', amount: 60 },
         { type: 'giveItem', itemId: 'ARM-036', qty: 1 },
@@ -234,10 +234,9 @@ const SCENE_EM_19_JINDING_BUDDHA_LIGHT: StorySceneDef = {
     {
       id: 'em19_vow_dao',
       label: '“为涤尽胸中浮躁俗尘，于佛道山水中求一个澄明自在。”',
-      subLabel: '清修见性：十艺【经义】+3，深契峨眉清静真意',
+      subLabel: '清修见性：澄心涤虑，深契峨眉清静真意',
       tone: 'jade',
       effects: [
-        { type: 'modifySkill', key: '经义', delta: 3 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0128' }, delta: 15 },
         { type: 'addFlagNumber', flag: 'emei_aptitude_marks', delta: 1 },
         openScene('scene_em_20_huazang_ceremony', 'QST-SECT-07-ENTRY'),
@@ -408,7 +407,7 @@ const SCENE_EM_14_XIXIANG_ARRIVAL: StorySceneDef = {
     {
       id: 'em14_calm_with_qin_charm',
       label: '【借竹楼琴箫清韵 · 抚奏一曲空山鸟语平复躁气】（琴 ≥ 14 / 诗词 ≥ 15 / 颜值 ≥ 90）',
-      subLabel: '清雅风姿：琴音涤荡惊惧，老白猿欢跃落崖，十艺【琴】+2',
+      subLabel: '清雅风姿：琴音涤荡惊惧，老白猿欢跃落崖，十艺【琴】+1',
       tone: 'jade',
       condition: {
         type: 'any',
@@ -420,7 +419,7 @@ const SCENE_EM_14_XIXIANG_ARRIVAL: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '琴', delta: 2 },
+        { type: 'modifySkill', key: '琴', delta: 1 },
         { type: 'addFlagNumber', flag: 'emei_aptitude_marks', delta: 1 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0376' }, delta: 12 },
         openScene('scene_em_15_xixiang_moon_ape', 'QST-SECT-07-ENTRY'),
@@ -574,7 +573,7 @@ const SCENE_EM_10_THREE_DAYS_CHORES: StorySceneDef = {
     {
       id: 'em10_calligraphy_sutra',
       label: '【凝神运腕 · 以端严宋楷一笔不苟写就《行愿品》】（书 ≥ 14 或 经义 ≥ 15）',
-      subLabel: '翰墨清修：字字珠玑澄净无瑕，十艺【书】+2、【经义】+2，获赠【白云熊胆丸】',
+      subLabel: '翰墨清修：字字珠玑澄净无瑕，十艺【书】+1，获赠【白云熊胆丸】',
       tone: 'jade',
       condition: {
         type: 'any',
@@ -587,8 +586,7 @@ const SCENE_EM_10_THREE_DAYS_CHORES: StorySceneDef = {
       effects: [
         { type: 'advanceShichen', count: 6 },
         { type: 'giveItem', itemId: 'ITM-MED-115', qty: 1 },
-        { type: 'modifySkill', key: '书', delta: 2 },
-        { type: 'modifySkill', key: '经义', delta: 2 },
+        { type: 'modifySkill', key: '书', delta: 1 },
         { type: 'addFlagNumber', flag: 'emei_aptitude_marks', delta: 1 },
         { type: 'addFlagNumber', flag: 'emei_smq_bond', delta: 1 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0361' }, delta: 12 },
@@ -661,7 +659,7 @@ const SCENE_EM_07_OUTWIT_QINGCHENG: StorySceneDef = {
     {
       id: 'em07_eloquence_bluff',
       label: '【借势喝止 · 亮出大慈寺官印药封高呼剑门巡检司拿贼】（辩才 ≥ 15 或 策论 ≥ 15）',
-      subLabel: '口才机锋：搬出成都府与蜀道军驿法度震慑宵小，十艺【辩才】+2',
+      subLabel: '口才机锋：搬出成都府与蜀道军驿法度震慑宵小',
       tone: 'jade',
       condition: {
         type: 'any',
@@ -672,7 +670,6 @@ const SCENE_EM_07_OUTWIT_QINGCHENG: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '辩才', delta: 2 },
         { type: 'addFlagNumber', flag: 'emei_aptitude_marks', delta: 1 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0582' }, delta: 12 },
         openScene('scene_em_08_jingxuan_arrives', 'QST-SECT-07-ENTRY'),
@@ -692,7 +689,6 @@ const SCENE_EM_07_OUTWIT_QINGCHENG: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '算术', delta: 2 },
         { type: 'addFlagNumber', flag: 'emei_aptitude_marks', delta: 1 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0582' }, delta: 12 },
         openScene('scene_em_08_jingxuan_arrives', 'QST-SECT-07-ENTRY'),
@@ -797,7 +793,6 @@ const SCENE_EM_04_DACISI_FRESCO: StorySceneDef = {
       },
       effects: [
         { type: 'addFlagNumber', flag: 'emei_aptitude_marks', delta: 1 },
-        { type: 'modifySkill', key: '经义', delta: 2 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0206' }, delta: 15 },
         openScene('scene_em_05_dacisi_letter', 'QST-SECT-07-ENTRY'),
       ],
@@ -849,7 +844,7 @@ const SCENE_EM_03_BAICAO_CLINIC: StorySceneDef = {
     {
       id: 'em03_math_smart_brew',
       label: '【算准戥秤分两与武文火候 · 分毫不差煎出解毒清汤】（算术 ≥ 15 或 悟性 ≥ 88）',
-      subLabel: '聪颖精细：虽非杏林中人亦一学即通，十艺【算术】+2，获赠【雄黄艾草辟瘴散】',
+      subLabel: '聪颖精细：虽非杏林中人亦一学即通，获赠【雄黄艾草辟瘴散】',
       tone: 'jade',
       condition: {
         type: 'any',
@@ -860,7 +855,6 @@ const SCENE_EM_03_BAICAO_CLINIC: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '算术', delta: 2 },
         { type: 'addFlagNumber', flag: 'emei_aptitude_marks', delta: 1 },
         { type: 'giveItem', itemId: 'ITM-MED-127', qty: 1 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0330' }, delta: 12 },

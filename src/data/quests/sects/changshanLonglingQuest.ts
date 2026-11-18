@@ -247,7 +247,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         id: 'spot_cs_market_audit',
         label: '核查走私马商账册（算术 ≥ 45）',
         badge: '可选查账',
-        subtitle: '若识破私货暗账，可得【幽燕马市通行暗记】与算术 +3',
+        subtitle: '若识破私货暗账，可得【幽燕马市通行暗记】与声望 +15',
         tone: 'jade',
         regionId: 'zhending',
         buildingId: 'zd_market',
@@ -266,7 +266,6 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
             condition: { type: 'skillAtLeast', key: '算术', min: 45 },
             thenEffects: [
               { type: 'giveItem', itemId: 'ITM-MSC-011', qty: 1 },
-              { type: 'modifySkill', key: '算术', delta: 3 },
               { type: 'modifyRenown', delta: 15, reason: '榷场查账识破私马暗账' },
               { type: 'addArtExp', amount: 200 },
               openScene('scene_cs_market_audit_win', 'QST-SECT-22-LONGLING'),
@@ -336,11 +335,11 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
               {
                 type: 'branch',
                 condition: { type: 'skillAtLeast', key: '经义', min: 45 },
-                thenEffects: [{ type: 'modifySkill', key: '经义', delta: 3 }],
-                elseEffects: [{ type: 'modifySkill', key: '书', delta: 3 }],
+                thenEffects: [{ type: 'modifySkill', key: '经义', delta: 1 }],
+                elseEffects: [{ type: 'modifySkill', key: '书', delta: 1 }],
               },
               { type: 'addArtExp', amount: 500 },
-              toast('精准定位并焚毁《南牧山川策》正本！经义/书 +3，武学熟练度 +500。', 'success', '元帅府焚图'),
+              toast('精准定位并焚毁《南牧山川策》正本！经义/书 +1，武学熟练度 +500。', 'success', '元帅府焚图'),
               ...MARSHAL_XIAO_COMBAT_EFFECTS,
             ],
             elseEffects: [
@@ -425,7 +424,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
             condition: flag('cs_longling_route_b', 'truthy'),
             thenEffects: [
               { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0011' }, delta: 15 },
-              { type: 'modifySkill', key: '策论', delta: 5 },
+              { type: 'modifySkill', key: '策论', delta: 1 },
             ],
             elseEffects: [
               { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0011' }, delta: 25 },

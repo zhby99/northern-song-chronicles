@@ -262,7 +262,7 @@ const SCENE_18_TIDE_PAVILION_QU: StorySceneDef = {
       },
       effects: [
         { type: 'setFlag', flag: 'thd_map_tide_rhythm_broken', value: true },
-        { type: 'modifySkill', key: '琴', delta: 3 },
+        { type: 'modifySkill', key: '琴', delta: 1 },
         {
           type: 'setQuestStep',
           questId: QUEST_ID,
@@ -564,8 +564,8 @@ const SCENE_06_CANGLANG_ACADEMY_LUOSHU: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '算术', delta: 2 },
-        { type: 'modifySkill', key: '经义', delta: 2 },
+        { type: 'modifySkill', key: '算术', delta: 1 },
+        { type: 'modifySkill', key: '经义', delta: 1 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0051' }, delta: 15 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0024' }, delta: 15 },
         {

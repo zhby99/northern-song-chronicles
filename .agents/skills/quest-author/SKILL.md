@@ -75,7 +75,7 @@ npm run lint && npm test && npm run build
 
 1. **动态时空与性别插值**：正文中纪年一律使用 `{reignYear}`（**严禁硬编码「皇祐二年」**）；称呼分支使用 `{gender:少侠|女侠}` / `{gender:师弟|师妹}`；跨任务记忆使用 `{ifQuestDone:QST-ID|曾历文案|初见文案}`、`{ifFlag:...}`、`{ifSect:...}`；对白中严禁出现“根骨≥85 / 气血+100”等现代数值术语。
 2. **禀赋门槛上限**：入门任务链（`QST-SECT-*-ENTRY`）中的 `talentAtLeast.min` **严禁超过 `90`**（创角单项上限），高阶分支应保留零门槛赤诚兜底路径。
-3. **银钱与属性禁区**：银两奖励严格锚定 `docs/GAME_MECHANICS.md` 5.2 节门派月俸基准；**严禁使用 `modifyTalent` 或 `modifyBaseStat`** 直接增减先天三维或裸四维。
+3. **银钱与属性禁区**：银两奖励严格锚定 `docs/GAME_MECHANICS.md` 5.2 节门派月俸基准；**严禁使用 `modifyTalent` 或 `modifyBaseStat`** 直接增减先天三维或裸四维；**单条任务任意单一通关路径累计永久十艺增幅（含 `modifySkill` 及经 `giveItem` 发放的永久十艺道具 `useEffect`）总和严禁超过 `3` 点**（`scripts/verify_quests.mjs` 与 `questValidation.test.ts` 强制校验）。
 4. **NPC 生死闭环**：凡可在大地图/沙盘被挑战击杀的关键接引人，任务 `startCondition` 必须加 `{ type: 'npcAlive', npcId, npcName }`；剧情明确击毙或处斩名录 NPC 时，必须配合 `{ type: 'markNpcsDead', npcIds: [...] }`。
 5. **子景点精确挂载**：凡目标建筑存在室内子景点（`bldg.interior.spots.length > 0`），`spotActions` 与 `targetLocation` 必须明确指定 `spotId`，否则玩家在游戏内无法交互触发。
 6. **自定义立绘真实存在**：`{ kind: 'custom' }` 对白发言人、`spawnDynamicActor` 动态角色及自定义战斗对手所填 `portraitUrl` / `avatarUrl` 必须在 `public/` 下真实存在，且模板 `_av` 与 `_fb` 保持一致。

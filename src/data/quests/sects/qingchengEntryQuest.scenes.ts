@@ -805,7 +805,6 @@ const SCENE_QC_12_PINE_WAX_SEAL: StorySceneDef = {
       effects: [
         { type: 'setFlag', flag: 'qc_full_truth', value: true },
         { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 3 },
-        { type: 'modifySkill', key: '书', delta: 2 },
         toast('借光辨出密函真容：侯沧海私结唐门外房毒杀盐帮头目并栽赃峨眉，三年前沈父正是因阻止此毒计遇害！', 'talk', '古柏验信'),
         openScene('scene_qc_13_jianmen_ambush', 'QST-SECT-14-ENTRY'),
       ],
@@ -906,9 +905,8 @@ const SCENE_QC_11_TEAHOUSE_EMEI: StorySceneDef = {
       effects: [
         {
           type: 'branch',
-          condition: { type: 'talentAtLeast', key: '颜值', min: 90 },
-          thenEffects: [{ type: 'modifySkill', key: '辩才', delta: 2 }],
-          elseEffects: [{ type: 'giveSilver', amount: -8, reason: '锦江茶肆请峨眉师太与茶客品蒙顶茶' }],
+          condition: { type: 'not', condition: { type: 'talentAtLeast', key: '颜值', min: 90 } },
+          thenEffects: [{ type: 'giveSilver', amount: -8, reason: '锦江茶肆请峨眉师太与茶客品蒙顶茶' }],
         },
         { type: 'setFlag', flag: 'qc_salt_ambush_warned', value: true },
         { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 2 },
@@ -1014,6 +1012,7 @@ const SCENE_QC_10_BAMBOO_TANGMEN: StorySceneDef = {
           questId: QINGCHENG_ENTRY_QUEST_ID,
           opponent: { kind: 'custom', npc: buildTangmenNightScoutNpc() },
           rule: 'spar',
+          forbidEscapeReason: '唐门探哨已扣紧机簧暗器，此刻转身必露空门，须运起青冥真气拆招惊退对方！',
           introText: '丹田内《青城青冥引气诀》真气初成，你持剑拦下断后的唐门夜巡哨卫！',
           onWin: [
             { type: 'giveCombatExp', amount: 30, reason: '后山竹海初运《青冥引气诀》击退唐门探哨' },
@@ -1140,7 +1139,7 @@ const SCENE_QC_07_CLIFF_QIN: StorySceneDef = {
     {
       id: 'qc07_qin_comprehension',
       label: '【知音识微 · 藏锋护道】（需先天悟性 ≥ 90 或 十艺【琴】 ≥ 12）道破第七徽“杀音骤敛、以道驭剑”真意！',
-      subLabel: '深契方正与沈清岚亡父剑道理想！琴艺 +3，方正好感与清岚缘分大增',
+      subLabel: '深契方正与沈清岚亡父剑道理想！琴艺 +1，方正好感与清岚缘分大增',
       tone: 'gold',
       condition: {
         type: 'any',
@@ -1151,7 +1150,7 @@ const SCENE_QC_07_CLIFF_QIN: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '琴', delta: 3 },
+        { type: 'modifySkill', key: '琴', delta: 1 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0354' }, delta: 25 },
         { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 3 },
         { type: 'addFlagNumber', flag: 'qc_dao_heart', delta: 2 },
@@ -1231,11 +1230,10 @@ function buildSceneQc06AfterSpar(survivedOrWon: boolean): StorySceneDef {
       {
         id: 'qc06_read_scripture',
         label: '【暮诵道藏 · 静参玄理】黄昏陪沈清岚在偏殿誊抄《黄庭经》，涵养经义书卷气',
-        subLabel: '十艺【经义】+4、【书】+2，沈清岚缘分 +2',
+        subLabel: '十艺【经义】+1，沈清岚缘分 +2',
         tone: 'jade',
         effects: [
-          { type: 'modifySkill', key: '经义', delta: 4 },
-          { type: 'modifySkill', key: '书', delta: 2 },
+          { type: 'modifySkill', key: '经义', delta: 1 },
           { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 2 },
           { type: 'addFlagNumber', flag: 'qc_dao_heart', delta: 1 },
           { type: 'healPlayer', hpPct: 100, mpPct: 100 },
@@ -1384,7 +1382,7 @@ const SCENE_QC_03_ACADEMY_LEDGER: StorySceneDef = {
     {
       id: 'qc03_abacus_deduce',
       label: '【珠算核斤 · 智辨夹层】（需十艺【算术】 ≥ 12 或 先天悟性 ≥ 90）拨算盘核对车辙吃重与体积差！',
-      subLabel: '不开封条精准算出箱底暗藏生铁机簧配重，算术 +3，清岚刮目相看',
+      subLabel: '不开封条精准算出箱底暗藏生铁机簧配重，清岚刮目相看',
       tone: 'gold',
       condition: {
         type: 'any',
@@ -1395,7 +1393,6 @@ const SCENE_QC_03_ACADEMY_LEDGER: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '算术', delta: 3 },
         { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 2 },
         { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0866' }, delta: 10 },
         { type: 'giveItem', itemId: 'WPN-088', qty: 1 },
@@ -1495,7 +1492,7 @@ const SCENE_QC_02_BRONZE_GOAT_DAO: StorySceneDef = {
     {
       id: 'qc02_dao_insight',
       label: '【引都江堰水喻剑】（需十艺【经义】 ≥ 12 或 先天悟性 ≥ 90）“水善利万物而不争，然宝瓶口破石亦在一瞬奔雷！”',
-      subLabel: '妙解道剑合一！经义 +3，沈清岚眸泛异彩，缘分 +2',
+      subLabel: '妙解道剑合一！沈清岚眸泛异彩，缘分 +2',
       tone: 'gold',
       condition: {
         type: 'any',
@@ -1506,7 +1503,6 @@ const SCENE_QC_02_BRONZE_GOAT_DAO: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '经义', delta: 3 },
         { type: 'giveFood', amount: 2 },
         { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 2 },
         { type: 'addFlagNumber', flag: 'qc_dao_heart', delta: 1 },
@@ -1535,7 +1531,6 @@ const SCENE_QC_02_BRONZE_GOAT_DAO: StorySceneDef = {
       subLabel: '真诚不欺，沈清岚温言相邀同赴文翁石室与青城山',
       tone: 'jade',
       effects: [
-        { type: 'modifySkill', key: '经义', delta: 1 },
         { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 1 },
         { type: 'addFlagNumber', flag: 'qc_dao_heart', delta: 1 },
         {
@@ -1576,7 +1571,7 @@ const SCENE_QC_01_QINGYANG_RAIN: StorySceneDef = {
     {
       id: 'qc01_eloquence_rebut',
       label: '【唇枪舌剑 · 引律喝退】（需十艺【辩才】 ≥ 12 或 先天悟性 ≥ 90）点破私盐麻布伪充蜀锦与成都府衙条律！',
-      subLabel: '零武学智退恶汉！辩才 +2，青城小师姐初见倾心',
+      subLabel: '零武学智退恶汉！引律折服盐枭，青城小师姐初见倾心',
       tone: 'gold',
       condition: {
         type: 'any',
@@ -1587,7 +1582,6 @@ const SCENE_QC_01_QINGYANG_RAIN: StorySceneDef = {
         ],
       },
       effects: [
-        { type: 'modifySkill', key: '辩才', delta: 2 },
         { type: 'addFlagNumber', flag: 'qc_qinglan_affinity', delta: 2 },
         openScene('scene_qc_02_bronze_goat_dao', 'QST-SECT-14-ENTRY'),
       ],
@@ -1629,9 +1623,9 @@ const SCENE_QC_POST_REUNION_TEA: StorySceneDef = {
   onFinishEffects: [
     { type: 'setFlag', flag: 'qc_qinglan_reunion_done', value: true },
     { type: 'healPlayer', hpPct: 100, mpPct: 100 },
-    { type: 'modifySkill', key: '琴', delta: 2 },
+    { type: 'modifySkill', key: '琴', delta: 1 },
     { type: 'addArtExp', artId: 'MA-228', amount: 3000 },
-    toast('于抚琴孤崖与沈清岚品茗听琴，气血内力全满，十艺【琴】+2，《青城青冥引气诀》熟练度 +3000！', 'success', '孤崖故人'),
+    toast('于抚琴孤崖与沈清岚品茗听琴，气血内力全满，十艺【琴】+1，《青城青冥引气诀》熟练度 +3000！', 'success', '孤崖故人'),
   ],
 }
 

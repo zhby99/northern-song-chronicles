@@ -31,6 +31,7 @@ import type {
   QuestRuntimeState,
   QuestSpotActionDef,
   StoryChoiceDef,
+  StorySceneDef,
   StorySpeakerSpec,
 } from '../types/quest'
 import { INITIAL_NPC_FAVOR } from './social/npcFavor'
@@ -1428,4 +1429,426 @@ export function validateAllRegisteredQuests(
     valid: errors.length === 0,
     errors,
   }
+}
+
+export const MAX_QUEST_TEN_ARTS_GAIN = 3
+
+type ProgState = '__not_started__' | `step:${string}` | '__completed__'
+
+function getPermanentItemTenArtsGain(itemId: string, qty: number): number {
+  if (qty <= 0) return 0
+  const item = ITEM_DB_MAP[itemId]
+  const u = item?.useEffect
+  if (!u) return 0
+  let perItem = 0
+  if (typeof u.riding === 'number' && u.riding > 0) perItem += u.riding
+  if (u.skillGain && u.skillGain[1] > 0) perItem += u.skillGain[1]
+  if (u.skillsGain) {
+    for (const val of Object.values(u.skillsGain)) {
+      if (typeof val === 'number' && val > 0) perItem += val
+    }
+  }
+  if (perItem <= 0) return 0
+  return perItem * (u.onceOnly ? 1 : qty)
+}
+
+function extractOnceKey(
+  onceFlag: string | undefined,
+  ...conditions: Array<QuestCondition | undefined>
+): string | null {
+  if (onceFlag) return `once:${onceFlag}`
+  const conjuncts: QuestCondition[] = []
+  const collectConjuncts = (cond?: QuestCondition) => {
+    if (!cond) return
+    if (cond.type === 'all') {
+      for (const sub of cond.conditions) collectConjuncts(sub)
+    } else {
+      conjuncts.push(cond)
+    }
+  }
+  for (const cond of conditions) collectConjuncts(cond)
+
+  for (const atom of conjuncts) {
+    if (
+      atom.type === 'flag' &&
+      (atom.op === 'falsy' || ((atom.op === 'eq' || atom.op === 'lte') && !atom.value))
+    ) {
+      return `once:${atom.flag}`
+    }
+    if (
+      atom.type === 'not' &&
+      atom.condition.type === 'flag' &&
+      (atom.condition.op === 'truthy' ||
+        atom.condition.op === undefined ||
+        (atom.condition.op === 'eq' && Boolean(atom.condition.value)))
+    ) {
+      return `once:${atom.condition.flag}`
+    }
+  }
+  return null
+}
+
+/**
+ * 基于任务进度状态机与一次性标记（onceFlag）图搜索，计算单条任务任意单一通关路径可获得的累计永久十艺点数上限。
+ */
+export function computeQuestMaxTenArtsGain(
+  quest: QuestDefinition,
+  loadedScenes?: Record<string, StorySceneDef>,
+): number {
+  const scenes = loadedScenes ?? getLoadedQuestScenes(quest.id) ?? quest.scenes ?? {}
+  const allStepStates = Object.keys(quest.steps).map((s): ProgState => `step:${s}`)
+  const allStates: ProgState[] = ['__not_started__', ...allStepStates, '__completed__']
+
+  const extractAllowedProgStates = (cond?: QuestCondition): Set<ProgState> => {
+    if (!cond) return new Set<ProgState>(allStates)
+    switch (cond.type) {
+      case 'all': {
+        let acc = new Set<ProgState>(allStates)
+        for (const sub of cond.conditions) {
+          const next = extractAllowedProgStates(sub)
+          acc = new Set([...acc].filter((s) => next.has(s)))
+        }
+        return acc
+      }
+      case 'any': {
+        const acc = new Set<ProgState>()
+        for (const sub of cond.conditions) {
+          for (const s of extractAllowedProgStates(sub)) acc.add(s)
+        }
+        return acc
+      }
+      case 'not': {
+        if (cond.condition.type === 'questStatus' && cond.condition.questId === quest.id) {
+          if (cond.condition.status === 'completed') {
+            return new Set<ProgState>(allStates.filter((s) => s !== '__completed__'))
+          }
+          if (cond.condition.status === 'not_started') {
+            return new Set<ProgState>(allStates.filter((s) => s !== '__not_started__'))
+          }
+          if (cond.condition.status === 'active') {
+            if (cond.condition.stepId) {
+              const excluded: ProgState = `step:${cond.condition.stepId}`
+              return new Set<ProgState>(allStates.filter((s) => s !== excluded))
+            }
+            return new Set<ProgState>(['__not_started__', '__completed__'])
+          }
+        }
+        return new Set<ProgState>(allStates)
+      }
+      case 'questStatus': {
+        if (cond.questId !== quest.id) return new Set<ProgState>(allStates)
+        if (cond.status === 'not_started') return new Set<ProgState>(['__not_started__'])
+        if (cond.status === 'completed') return new Set<ProgState>(['__completed__'])
+        if (cond.status === 'not_completed') {
+          return new Set<ProgState>(allStates.filter((s) => s !== '__completed__'))
+        }
+        if (cond.status === 'active') {
+          return cond.stepId
+            ? new Set<ProgState>([`step:${cond.stepId}`])
+            : new Set<ProgState>(allStepStates)
+        }
+        return new Set<ProgState>(allStates)
+      }
+      default:
+        return new Set<ProgState>(allStates)
+    }
+  }
+
+  const intersectAllowed = (...conditions: Array<QuestCondition | undefined>): Set<ProgState> => {
+    let acc = new Set<ProgState>(allStates)
+    for (const cond of conditions) {
+      if (!cond) continue
+      const allowed = extractAllowedProgStates(cond)
+      acc = new Set([...acc].filter((s) => allowed.has(s)))
+    }
+    return acc
+  }
+
+  const mergeOutcomes = (
+    dst: Map<ProgState, number>,
+    src: Map<ProgState, number>,
+    offset = 0,
+  ) => {
+    for (const [st, g] of src) {
+      const candidate = offset + g
+      const prev = dst.get(st)
+      if (prev === undefined || candidate > prev) {
+        dst.set(st, candidate)
+      }
+    }
+  }
+
+  const sceneMemo = new Map<string, Map<ProgState, number>>()
+
+  const evalEffects = (
+    effects: readonly QuestEffect[],
+    initialState: ProgState,
+    visiting: Set<string>,
+  ): { outcomes: Map<ProgState, number>; hitCycle: boolean } => {
+    let cur = new Map<ProgState, number>([[initialState, 0]])
+    let hitCycle = false
+
+    for (const eff of effects) {
+      switch (eff.type) {
+        case 'modifySkill': {
+          if (eff.delta > 0) {
+            for (const [st, g] of cur) cur.set(st, g + eff.delta)
+          }
+          break
+        }
+        case 'giveItem': {
+          const itemGain = getPermanentItemTenArtsGain(eff.itemId, eff.qty ?? 1)
+          if (itemGain > 0) {
+            for (const [st, g] of cur) cur.set(st, g + itemGain)
+          }
+          break
+        }
+        case 'startQuest': {
+          if (eff.questId === quest.id) {
+            const targetState: ProgState = `step:${eff.stepId ?? quest.initialStepId}`
+            cur = new Map([[targetState, Math.max(...cur.values())]])
+          }
+          break
+        }
+        case 'setQuestStep': {
+          if (eff.questId === quest.id) {
+            const targetState: ProgState = `step:${eff.stepId}`
+            cur = new Map([[targetState, Math.max(...cur.values())]])
+          }
+          break
+        }
+        case 'completeQuest':
+        case 'abandonQuest': {
+          if (eff.questId === quest.id) {
+            cur = new Map([['__completed__', Math.max(...cur.values())]])
+          }
+          break
+        }
+        case 'branch': {
+          const nextCur = new Map<ProgState, number>()
+          for (const [st, baseG] of cur) {
+            const thenRes = evalEffects(eff.thenEffects, st, visiting)
+            mergeOutcomes(nextCur, thenRes.outcomes, baseG)
+            const elseRes = evalEffects(eff.elseEffects ?? [], st, visiting)
+            mergeOutcomes(nextCur, elseRes.outcomes, baseG)
+            hitCycle ||= thenRes.hitCycle || elseRes.hitCycle
+          }
+          cur = nextCur
+          break
+        }
+        case 'startCombat': {
+          const nextCur = new Map<ProgState, number>()
+          const branches: Array<readonly QuestEffect[]> = [eff.onWin]
+          if (eff.onLose || (!eff.lethalOnLose && eff.rule !== 'duel')) {
+            branches.push(eff.onLose ?? [])
+          }
+          if (eff.onEscape || !eff.forbidEscapeReason) {
+            branches.push(eff.onEscape ?? [])
+          }
+          if (eff.onDraw) {
+            branches.push(eff.onDraw)
+          }
+          for (const [st, baseG] of cur) {
+            for (const branchEffects of branches) {
+              const res = evalEffects(branchEffects, st, visiting)
+              mergeOutcomes(nextCur, res.outcomes, baseG)
+              hitCycle ||= res.hitCycle
+            }
+          }
+          cur = nextCur
+          break
+        }
+        case 'openScene': {
+          const nextCur = new Map<ProgState, number>()
+          for (const [st, baseG] of cur) {
+            if ('scene' in eff) {
+              const res = evalScene(eff.scene, st, visiting, false)
+              mergeOutcomes(nextCur, res.outcomes, baseG)
+              hitCycle ||= res.hitCycle
+            } else if (!eff.questId || eff.questId === quest.id) {
+              const target = scenes[eff.sceneId]
+              if (target) {
+                const res = evalScene(target, st, visiting, true)
+                mergeOutcomes(nextCur, res.outcomes, baseG)
+                hitCycle ||= res.hitCycle
+              } else {
+                mergeOutcomes(nextCur, new Map([[st, 0]]), baseG)
+              }
+            } else {
+              mergeOutcomes(nextCur, new Map([[st, 0]]), baseG)
+            }
+          }
+          cur = nextCur
+          break
+        }
+        default:
+          break
+      }
+    }
+
+    return { outcomes: cur, hitCycle }
+  }
+
+  const evalScene = (
+    scene: StorySceneDef,
+    inState: ProgState,
+    visiting: Set<string>,
+    cacheable: boolean,
+  ): { outcomes: Map<ProgState, number>; hitCycle: boolean } => {
+    const memoKey = `${scene.id}@@${inState}`
+    if (cacheable && sceneMemo.has(memoKey)) {
+      return { outcomes: sceneMemo.get(memoKey)!, hitCycle: false }
+    }
+    if (visiting.has(scene.id)) {
+      return { outcomes: new Map([[inState, 0]]), hitCycle: true }
+    }
+    visiting.add(scene.id)
+
+    const outcomes = new Map<ProgState, number>()
+    let hitCycle = false
+    const choices = scene.choices ?? []
+    for (const choice of choices) {
+      const res = evalEffects(choice.effects, inState, visiting)
+      mergeOutcomes(outcomes, res.outcomes)
+      hitCycle ||= res.hitCycle
+    }
+
+    if (choices.length === 0 || choices.some((c) => c.hideWhenUnavailable)) {
+      const finishRes = evalEffects(scene.onFinishEffects ?? [], inState, visiting)
+      mergeOutcomes(outcomes, finishRes.outcomes)
+      hitCycle ||= finishRes.hitCycle
+    }
+
+    visiting.delete(scene.id)
+    if (cacheable && !hitCycle) {
+      sceneMemo.set(memoKey, outcomes)
+    }
+    return { outcomes, hitCycle }
+  }
+
+  interface EntryTransition {
+    allowedStates: Set<ProgState>
+    onceKey: string | null
+    outcomesByState: Map<ProgState, Map<ProgState, number>>
+  }
+
+  const entries: EntryTransition[] = []
+  const rawEntries: Array<{
+    allowedStates: Set<ProgState>
+    onceKey: string | null
+    effects: readonly QuestEffect[]
+  }> = []
+
+  for (const lt of quest.locationTriggers ?? []) {
+    rawEntries.push({
+      allowedStates: intersectAllowed(lt.condition),
+      onceKey: extractOnceKey(lt.onceFlag, lt.condition),
+      effects: lt.effects,
+    })
+  }
+  for (const na of quest.npcActions ?? []) {
+    rawEntries.push({
+      allowedStates: intersectAllowed(na.visibleWhen, na.enabledWhen),
+      onceKey: extractOnceKey(undefined, na.visibleWhen, na.enabledWhen),
+      effects: na.effects,
+    })
+  }
+  for (const sa of quest.spotActions ?? []) {
+    rawEntries.push({
+      allowedStates: intersectAllowed(sa.visibleWhen, sa.enabledWhen),
+      onceKey: extractOnceKey(undefined, sa.visibleWhen, sa.enabledWhen),
+      effects: sa.effects,
+    })
+  }
+  if (quest.onDeadlineExpired) {
+    rawEntries.push({
+      allowedStates: quest.onDeadlineExpired.stepId
+        ? new Set<ProgState>([`step:${quest.onDeadlineExpired.stepId}`])
+        : new Set<ProgState>(allStepStates),
+      onceKey: 'once:__deadline__',
+      effects: quest.onDeadlineExpired.effects,
+    })
+  }
+
+  const gainOnceKeys = new Set<string>()
+  for (const raw of rawEntries) {
+    const outcomesByState = new Map<ProgState, Map<ProgState, number>>()
+    let entryMaxGain = 0
+    for (const st of raw.allowedStates) {
+      const { outcomes } = evalEffects(raw.effects, st, new Set())
+      if (raw.onceKey === null && (outcomes.get(st) ?? 0) > 0) {
+        return Number.POSITIVE_INFINITY
+      }
+      for (const g of outcomes.values()) {
+        if (g > entryMaxGain) entryMaxGain = g
+      }
+      outcomesByState.set(st, outcomes)
+    }
+    if (raw.onceKey && entryMaxGain > 0) {
+      gainOnceKeys.add(raw.onceKey)
+    }
+    entries.push({
+      allowedStates: raw.allowedStates,
+      onceKey: raw.onceKey,
+      outcomesByState,
+    })
+  }
+
+  const startState: ProgState = entries.some((e) => e.allowedStates.has('__not_started__'))
+    ? '__not_started__'
+    : `step:${quest.initialStepId}`
+
+  const dpMemo = new Map<string, number>()
+
+  const search = (
+    st: ProgState,
+    usedOnce: Set<string>,
+    cumGain: number,
+    pathGains: Map<string, number>,
+  ): { bestRemaining: number; hitCycle: boolean } => {
+    const canonKey = `${st}|${[...usedOnce].sort().join(',')}`
+    const cached = dpMemo.get(canonKey)
+    if (cached !== undefined) {
+      return { bestRemaining: cached, hitCycle: false }
+    }
+    const prevPathGain = pathGains.get(canonKey)
+    if (prevPathGain !== undefined) {
+      if (cumGain > prevPathGain) {
+        return { bestRemaining: Number.POSITIVE_INFINITY, hitCycle: true }
+      }
+      return { bestRemaining: 0, hitCycle: true }
+    }
+
+    pathGains.set(canonKey, cumGain)
+    let best = 0
+    let hitCycle = false
+
+    for (const entry of entries) {
+      if (!entry.allowedStates.has(st)) continue
+      if (entry.onceKey && usedOnce.has(entry.onceKey)) continue
+      const outcomes = entry.outcomesByState.get(st)
+      if (!outcomes) continue
+
+      const nextUsed =
+        entry.onceKey && gainOnceKeys.has(entry.onceKey)
+          ? new Set([...usedOnce, entry.onceKey])
+          : usedOnce
+
+      for (const [nextSt, edgeGain] of outcomes) {
+        if (nextSt === st && edgeGain <= 0) continue
+        const sub = search(nextSt, nextUsed, cumGain + edgeGain, pathGains)
+        hitCycle ||= sub.hitCycle
+        const candidate = edgeGain + sub.bestRemaining
+        if (candidate > best) best = candidate
+      }
+    }
+
+    pathGains.delete(canonKey)
+    if (!hitCycle) {
+      dpMemo.set(canonKey, best)
+    }
+    return { bestRemaining: best, hitCycle }
+  }
+
+  return search(startState, new Set(), 0, new Map()).bestRemaining
 }
