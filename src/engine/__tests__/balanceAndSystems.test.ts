@@ -289,7 +289,25 @@ describe('sect exclusivity', () => {
 
 describe('quest triggers and story combat', () => {
   it('only one scene-opening trigger fires per visit; the other keeps its once-flag', () => {
-    const loc = { regionId: 'chengdu', buildingId: 'cd_teahouse' }
+    const prev = useGameStore.getState()
+    useGameStore.setState({
+      dayCount: 40,
+      shichenIdx: 10,
+      sectState: clonePlayerSectState({ sectId: 'SECT-33', rank: 4 }),
+      questState: {
+        ...prev.questState,
+        completedQuests: {
+          ...prev.questState.completedQuests,
+          'QST-SECT-33-MURONG-ARC-2': {
+            questId: 'QST-SECT-33-MURONG-ARC-2',
+            completedDay: 1,
+            outcome: 'success',
+            count: 1,
+          },
+        },
+      },
+    })
+    const loc = { regionId: 'bianliang', buildingId: 'bl_jinjun', spotId: 'bl_jj_platform' }
     const matched = findMatchingLocationTriggers(loc, buildStoreEvalContext(useGameStore.getState()))
     expect(matched.filter((m) => effectsOpenModal(m.trigger.effects)).length).toBeGreaterThanOrEqual(2)
 
