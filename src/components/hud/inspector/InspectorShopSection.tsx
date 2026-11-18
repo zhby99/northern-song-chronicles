@@ -464,7 +464,7 @@ export function InspectorShopSection({
           <div className="space-y-2">
             <div className="text-[10px] text-[#5c3d1e] bg-[#fbf1d9] px-2 py-1.5 rounded border border-[#b58742] flex items-center justify-between gap-2">
               <span>
-                大相国寺每年六月整月开启年度拍场（第 {auctionSchedule.yearIdx + 1} 年 · 四席孤品重器），一槌定音
+                大相国寺每年六月整月开启年度拍场（第 {auctionSchedule.yearIdx + 1} 年 · 四席良 / 地阶重器，起拍价为物值三倍），一槌定音
               </span>
               <span className="font-mono text-[#781710] font-bold shrink-0">每年六月限拍 1 次/席</span>
             </div>

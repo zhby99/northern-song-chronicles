@@ -228,6 +228,16 @@ describe('economy & inventory', () => {
     }
   })
 
+  it('auction lots top out at 地阶 and start at three times item value', () => {
+    for (let y = 0; y < 30; y += 1) {
+      for (const lot of getXiangguoMonthlyAuctionLots(y)) {
+        expect(lot.item.rarity.startsWith('天')).toBe(false)
+        expect(lot.estimatePrice).toBe(Math.round(lot.item.value * 3))
+        expect(lot.finalPrice).toBe(lot.estimatePrice)
+      }
+    }
+  })
+
   it('non-stackable items never stack past one copy', () => {
     let inv = addItemToInventory([], 'ITM-SCR-061', 1)
     inv = addItemToInventory(inv, 'ITM-SCR-061', 3)

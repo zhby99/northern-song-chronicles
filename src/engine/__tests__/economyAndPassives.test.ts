@@ -65,14 +65,14 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
     expect(isItemSellable('ITM-MSC-005')).toBe(false)
   })
 
-  it('computes tiered city lodging (6 / 3 / 2 silver), birthplace exemption, 12-shichen billing, and zero mount fodder', () => {
-    expect(getRegionLodgingInfo('bianliang').dailyCost).toBe(6)
-    expect(getRegionLodgingInfo('luoyang').dailyCost).toBe(6)
-    expect(getRegionLodgingInfo('suzhou').dailyCost).toBe(3)
-    expect(getRegionLodgingInfo('hangzhou').dailyCost).toBe(3)
-    expect(getRegionLodgingInfo('yanan').dailyCost).toBe(2)
-    expect(getRegionLodgingInfo('shaolin').dailyCost).toBe(2)
-    expect(getRegionLodgingInfo('yanmenguan').dailyCost).toBe(2)
+  it('computes tiered city lodging (2 / 1 / 1 silver), birthplace exemption, 12-shichen billing, and zero mount fodder', () => {
+    expect(getRegionLodgingInfo('bianliang').dailyCost).toBe(2)
+    expect(getRegionLodgingInfo('luoyang').dailyCost).toBe(2)
+    expect(getRegionLodgingInfo('suzhou').dailyCost).toBe(1)
+    expect(getRegionLodgingInfo('hangzhou').dailyCost).toBe(1)
+    expect(getRegionLodgingInfo('yanan').dailyCost).toBe(1)
+    expect(getRegionLodgingInfo('shaolin').dailyCost).toBe(1)
+    expect(getRegionLodgingInfo('yanmenguan').dailyCost).toBe(1)
 
     expect(getDailyMountFodderSilver(null)).toBe(0)
     expect(getDailyMountFodderSilver('MNT-017')).toBe(0)
@@ -109,7 +109,7 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
     expect(stay10.lodgingFee).toBe(0)
     expect(stay10.cityStayShichens).toBe(10)
 
-    // Advancing 4 more shichens (10 + 4 = 14) crosses 12 -> 1 lodging fee (6 silver) & remainder 2
+    // Advancing 4 more shichens (10 + 4 = 14) crosses 12 -> 1 lodging fee (2 silver) & remainder 2
     const stay14 = computeTimeAdvanceState({
       dayCount: stay10.dayCount,
       shichenIdx: stay10.shichenIdx,
@@ -130,7 +130,7 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
       chargeForeignLodging: true,
       rng: createSeededRng(1),
     })
-    expect(stay14.lodgingFee).toBe(6)
+    expect(stay14.lodgingFee).toBe(2)
     expect(stay14.cityStayShichens).toBe(2)
   })
 
@@ -271,12 +271,15 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
 
   it('computes vocation wages, runs vocation_work daily ticks & early checkout, and generates auctions/escorts', () => {
     const skills = { 算术: 50, 经义: 50, 书: 40, 画: 70, 辩才: 60 }
-    expect(calcVocationDailyWage('accountant', skills)).toBe(7) // 3 + 0.08*50
-    expect(calcVocationDailyWage('tutor', skills)).toBe(6) // 2 + 0.08*50
-    expect(calcVocationDailyWage('calligrapher', skills)).toBe(7) // 0.1 * max(40, 70)
-    expect(calcVocationDailyWage('litigator', skills)).toBe(4.8) // 0.08 * 60
+    expect(calcVocationDailyWage('accountant', skills)).toBe(0.75) // 0.015*50
+    expect(calcVocationDailyWage('tutor', skills)).toBe(0.7) // 0.014*50
+    expect(calcVocationDailyWage('calligrapher', skills)).toBe(1.05) // 0.015 * max(40, 70)
+    expect(calcVocationDailyWage('litigator', skills)).toBe(0.9) // 0.015 * 60
+    // 满级文职约 45 两/月，不超过常山枪派三阶月俸 50 两
+    expect(calcVocationDailyWage('accountant', { 算术: 100 }) * 30).toBeLessThanOrEqual(50)
 
     expect(checkVocationSkillMet('calligrapher', { 书: 2, 画: 3 }).ok).toBe(false)
+    expect(checkVocationSkillMet('accountant', { 算术: 10 }).ok).toBe(false)
     expect(checkVocationSkillMet('calligrapher', skills).ok).toBe(true)
 
     const storeSnap = useGameStore.getState()
@@ -342,7 +345,8 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
       inventory: [],
     })
     expect(escorts.length).toBeGreaterThan(0)
-    expect(escorts[0]!.rewardSilver).toBeGreaterThanOrEqual(15)
+    expect(escorts[0]!.rewardSilver).toBeGreaterThanOrEqual(3)
+    expect(Math.max(...escorts.map((e) => e.rewardSilver))).toBeLessThanOrEqual(60)
   })
 
   it('roundtrips M1.5.3 economy & passive persistence fields in saveManager', () => {

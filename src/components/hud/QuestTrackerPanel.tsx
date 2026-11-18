@@ -297,8 +297,8 @@ export function QuestTrackerPanel() {
                 <div className="text-[11px] text-[#dbe8f5] leading-relaxed">
                   <span className="text-sky-300 font-semibold">线索：</span>
                   {isInvestigate
-                    ? `${warrant.targetTitle}，前往【${warrant.regionName} · ${warrant.buildingName}】寻访【${warrant.clueNpcName ?? '知情人士'}】查明案情（赏银 +15 两）。`
-                    : `${warrant.targetTitle}（${warrant.realm}），潜匿于【${warrant.regionName} · ${warrant.buildingName}】。击败即可破案（赏银 +15 两）。`}
+                    ? `${warrant.targetTitle}，前往【${warrant.regionName} · ${warrant.buildingName}】寻访【${warrant.clueNpcName ?? '知情人士'}】查明案情（赏银 +30 两）。`
+                    : `${warrant.targetTitle}（${warrant.realm}），潜匿于【${warrant.regionName} · ${warrant.buildingName}】。击败即可破案（赏银 +30 两）。`}
                 </div>
 
                 <button

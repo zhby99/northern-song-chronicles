@@ -62,7 +62,7 @@ function buildTenArtPassiveSummary(
     }
     case '画': {
       const wage = calcVocationDailyWage('calligrapher', skills)
-      return `悬润卖字画润格 ${wage.toFixed(2)}两/日（0.1×max(书,画)）· 80级气韵反哺颜值+2`
+      return `悬润卖字画润格 ${wage.toFixed(2)}两/日（0.015×max(书,画)）· 80级气韵反哺颜值+2`
     }
     case '辩才': {
       const v = skills['辩才'] ?? 0

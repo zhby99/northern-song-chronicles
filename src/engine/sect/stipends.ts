@@ -4,6 +4,11 @@ import { npcFromDb } from '../npcFactory'
 import { INITIAL_NPC_FAVOR, MIN_NPC_FAVOR } from '../social/npcFavor'
 import { getSectRule } from './rules'
 
+/** 开封府 / 六扇门每结一件公案（查案或缉拿）的赏银基数（另享策论加成） */
+export const KAIFENG_CASE_BOUNTY_SILVER = 30
+/** 常山枪派每诛除一名辽国密谍的犒赏纹银基数（另享策论加成） */
+export const LIAO_SPY_BOUNTY_SILVER = 15
+
 export function getSectMonthlyStipend(sectId: string | null | undefined, rank: SectRankLevel): number {
   const stipends = getSectRule(sectId)?.monthlyStipends
   if (!stipends || stipends.length === 0) return 0

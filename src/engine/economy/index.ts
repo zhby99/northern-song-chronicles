@@ -86,7 +86,7 @@ export interface RegionLodgingInfo {
   dailyCost: number
 }
 
-/** 四朝都城与大宋三京（6 两/日） */
+/** 四朝都城与大宋三京（2 两/日） */
 const CAPITAL_REGION_IDS = new Set<string>([
   'bianliang', // 东京开封府
   'luoyang', // 西京洛阳府
@@ -98,7 +98,7 @@ const CAPITAL_REGION_IDS = new Set<string>([
   'dali_city', // 大理阳苴咩城
 ])
 
-/** 塞北重镇与西北边城（2 两/日；其余关隘与名门山门亦按 2 两/日计） */
+/** 塞北重镇与西北边城（1 两/日；其余关隘与名门山门亦按 1 两/日计） */
 const FRONTIER_CITY_IDS = new Set<string>([
   'yanan', // 延安府
   'qinzhou', // 秦州府
@@ -110,19 +110,20 @@ const FRONTIER_CITY_IDS = new Set<string>([
 
 /**
  * 按地区获取每日宿费分级：
- * - 京城：6 两/日
- * - 州府：3 两/日
- * - 边镇 / 关隘 / 山门：2 两/日
+ * 以门派俸禄为物价锚（六扇门役卒月俸 30 两 ≈ 1 两/日，常山枪派新兵 15 两/月）：
+ * - 京城：2 两/日
+ * - 州府：1 两/日
+ * - 边镇 / 关隘 / 山门：1 两/日
  */
 export function getRegionLodgingInfo(regionId: string): RegionLodgingInfo {
   if (CAPITAL_REGION_IDS.has(regionId)) {
-    return { tier: 'capital', tierLabel: '京城上房', dailyCost: 6 }
+    return { tier: 'capital', tierLabel: '京城上房', dailyCost: 2 }
   }
   const node = NODE_MAP[regionId]
   if (FRONTIER_CITY_IDS.has(regionId) || (node && node.type !== 'city')) {
-    return { tier: 'frontier', tierLabel: '边镇山门', dailyCost: 2 }
+    return { tier: 'frontier', tierLabel: '边镇山门', dailyCost: 1 }
   }
-  return { tier: 'prefecture', tierLabel: '州府邸店', dailyCost: 3 }
+  return { tier: 'prefecture', tierLabel: '州府邸店', dailyCost: 1 }
 }
 
 export function getDailyMountFodderSilver(_equippedMountId?: string | null): number {
@@ -300,6 +301,8 @@ const AUCTION_CANDIDATE_POOLS: {
     // 有主孤品（名宿随身神兵、御赐宝马、门派秘藏灵丹等）只经剧情 / 名宿获取，不进拍场以免出现双份
     if (UNIQUE_ARTIFACT_MAP[it.id]) return false
     const tier = normalizeItemTier(it.rarity)
+    // 拍场最高只到地阶：天阶神物一律不入拍
+    if (tier === '天阶') return false
     // 精选地阶重宝与高价良阶上品奇珍进入拍场，保留天阶唯一神兵于专属剧情与名宿手中；
     // 地阶兵甲与灵丹皆为有主孤品，故兵甲 / 灵丹两栏以良阶上品补位（披挂 ≥ 60 两、良阶丹药）
     if (tier === '地阶') return it.value >= 120
@@ -329,6 +332,9 @@ const AUCTION_CANDIDATE_POOLS: {
     ),
   }
 })()
+
+/** 大相国寺拍品起价 = 物品价值 × 3（另享【算术】采办折扣） */
+export const XIANGGUO_AUCTION_PRICE_MULT = 3
 
 function seededIndex(seed: number, salt: number, length: number): number {
   if (length <= 0) return 0
@@ -387,7 +393,7 @@ export function getXiangguoMonthlyAuctionLots(
     const item = filtered[idx]
     if (!item) continue
     pickedIds.add(item.id)
-    const estimatePrice = Math.max(30, Math.round(item.value * 1.15))
+    const estimatePrice = Math.round(item.value * XIANGGUO_AUCTION_PRICE_MULT)
     const finalPrice = computeShopBuyPrice(estimatePrice, arithmeticSkill)
     lots.push({
       itemId: item.id,
@@ -539,36 +545,36 @@ export const VOCATION_DEFS: Record<VocationKey, VocationDef> = {
     key: 'accountant',
     name: '账房掌算',
     roleLabel: '邸店商号账房',
-    formulaText: '3 + 0.08 × 算术 两/日',
+    formulaText: '0.015 × 算术 两/日（算术 100 约 45 两/月）',
     primaryArtLabel: '算术',
-    minSkillRequired: 0,
+    minSkillRequired: 20,
     desc: '替客栈商号勾稽流水、核算子母银票，食宿自理，按日支取薪俸。',
   },
   tutor: {
     key: 'tutor',
     name: '书院塾师',
     roleLabel: '蒙馆经义讲席',
-    formulaText: '2 + 0.08 × 经义 两/日',
+    formulaText: '0.014 × 经义 两/日（经义 100 约 42 两/月）',
     primaryArtLabel: '经义',
-    minSkillRequired: 0,
+    minSkillRequired: 20,
     desc: '于书院蒙馆开讲四书五经、批阅童生课艺，束脩丰俭随经义造诣而增。',
   },
   calligrapher: {
     key: 'calligrapher',
     name: '悬润卖字画',
     roleLabel: '市肆挥毫丹青',
-    formulaText: '0.1 × max(书, 画) 两/日',
+    formulaText: '0.015 × max(书, 画) 两/日（满级约 45 两/月）',
     primaryArtLabel: '书/画',
-    minSkillRequired: 5,
+    minSkillRequired: 20,
     desc: '设案代写春帖子、中堂条幅与扇面丹青，笔墨精妙则润格倍增。',
   },
   litigator: {
     key: 'litigator',
     name: '公门讼师',
     roleLabel: '衙前代书状师',
-    formulaText: '0.08 × 辩才 两/日',
+    formulaText: '0.015 × 辩才 两/日（辩才 100 约 45 两/月）',
     primaryArtLabel: '辩才',
-    minSkillRequired: 5,
+    minSkillRequired: 30,
     desc: '于州府衙前替百姓草拟诉状、剖析刑名律例，全凭三寸不烂之舌博取酬金。',
   },
 }
@@ -585,14 +591,15 @@ export function calcVocationDailyWage(
   const biancai = Math.max(0, skills['辩才'] ?? 0)
 
   switch (vocationKey) {
+    // 以门派俸禄为锚：文职满级约 45 两/月，与常山枪派三阶月俸（50 两）相当，不超过官面当差
     case 'accountant':
-      return Number((3 + 0.08 * arith).toFixed(2))
+      return Number((0.015 * arith).toFixed(2))
     case 'tutor':
-      return Number((2 + 0.08 * jingyi).toFixed(2))
+      return Number((0.014 * jingyi).toFixed(2))
     case 'calligrapher':
-      return Number((0.1 * Math.max(shu, hua)).toFixed(2))
+      return Number((0.015 * Math.max(shu, hua)).toFixed(2))
     case 'litigator':
-      return Number((0.08 * biancai).toFixed(2))
+      return Number((0.015 * biancai).toFixed(2))
   }
 }
 
@@ -601,15 +608,18 @@ export function checkVocationSkillMet(
   skills: Record<string, number>,
 ): { ok: boolean; reason: string | null } {
   const def = VOCATION_DEFS[vocationKey]
-  if (vocationKey === 'calligrapher') {
-    const best = Math.max(skills['书'] ?? 0, skills['画'] ?? 0)
-    if (best < def.minSkillRequired) {
-      return { ok: false, reason: `需【书】或【画】造诣 ≥ ${def.minSkillRequired} 方可悬润开张` }
-    }
-  } else if (vocationKey === 'litigator') {
-    const val = skills['辩才'] ?? 0
-    if (val < def.minSkillRequired) {
-      return { ok: false, reason: `需【辩才】造诣 ≥ ${def.minSkillRequired} 方可代写词状` }
+  const val =
+    vocationKey === 'accountant'
+      ? (skills['算术'] ?? 0)
+      : vocationKey === 'tutor'
+        ? (skills['经义'] ?? 0)
+        : vocationKey === 'calligrapher'
+          ? Math.max(skills['书'] ?? 0, skills['画'] ?? 0)
+          : (skills['辩才'] ?? 0)
+  if (val < def.minSkillRequired) {
+    return {
+      ok: false,
+      reason: `需【${def.primaryArtLabel}】造诣 ≥ ${def.minSkillRequired} 方可担任【${def.name}】`,
     }
   }
   return { ok: true, reason: null }
@@ -765,8 +775,8 @@ export function getAvailableEscortContracts(params: {
       ESCORT_CARGO_NAMES[
         seededIndex(originSeed + monthIdx * 5 + idx, b.salt + 3, ESCORT_CARGO_NAMES.length)
       ] ?? '重宝红货镖箱'
-    // 镖酬 = 里程 × 险度 × 0.085（近途约 15~30 两，千里险道约 65~130 两）
-    const rewardSilver = Math.max(15, Math.round(pick.totalLi * pick.dangerCoeff * 0.085))
+    // 镖酬 = 里程 × 险度 × 0.015（近途约 3~6 两，千里险道约 15~25 两；以门派俸禄为物价锚）
+    const rewardSilver = Math.max(3, Math.round(pick.totalLi * pick.dangerCoeff * 0.015))
     contracts.push({
       id: `ESC-${originRegionId}-${pick.destId}-M${monthIdx}`,
       cargoName,

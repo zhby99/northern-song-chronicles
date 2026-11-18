@@ -37,6 +37,7 @@ import {
   getSectTournamentDateInfo,
   isDaoSwordSect,
   isShaolinArtBlockedForLayDisciple,
+  KAIFENG_CASE_BOUNTY_SILVER,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   REFERRAL_BRIBE_BY_SOURCE_SECT,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
@@ -567,9 +568,9 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       kaifengCasesSolved: s.sectState.kaifengCasesSolved + 1,
       kaifengMissedCount: w.deadlineDay ? 0 : s.sectState.kaifengMissedCount,
     }
-    const bounty = computeCelunBonusAmount(15, s.skills['策论'] ?? 0)
+    const bounty = computeCelunBonusAmount(KAIFENG_CASE_BOUNTY_SILVER, s.skills['策论'] ?? 0)
     const nextSilver = s.silver + bounty
-    const msg = `查明六扇门案卷【${w.targetName}】：${w.clueDetail ?? '已取得关键口供与物证！'}（当前阶位办案量 +1，累计 ${nextSect.kaifengCasesSolved} 次；赏银 +${bounty} 两${bounty > 15 ? `［含策论加成 +${bounty - 15} 两］` : ''}）`
+    const msg = `查明六扇门案卷【${w.targetName}】：${w.clueDetail ?? '已取得关键口供与物证！'}（当前阶位办案量 +1，累计 ${nextSect.kaifengCasesSolved} 次；赏银 +${bounty} 两${bounty > KAIFENG_CASE_BOUNTY_SILVER ? `［含策论加成 +${bounty - KAIFENG_CASE_BOUNTY_SILVER} 两］` : ''}）`
     set({
       sectState: nextSect,
       silver: nextSilver,

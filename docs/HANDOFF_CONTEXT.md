@@ -81,6 +81,7 @@
    - 州府衙门【悬赏缉凶榜】：`engine/world/yamenBounty.ts`（每城每月丙 / 乙 / 甲三张确定性榜文），状态 `activeYamenBounty` / `yamenBountyDoneIds`，战斗 `duelStakes: 'yamen_bounty'`（擒拿切磋，失手不致命），结算规则 `yamenBounty`。
    - 门派排他：`engine/sect/exclusivity.ts`——已身属别派或少林杂役期时，他派入门线（`rules.entryQuestId`，`*-REFERRAL` 除外）的触发器、驻地行动与 `startQuest` 一律不生效；任务 `joinSect` 拒绝覆盖现有门派（官面转任 `allowOfficialTransfer` 与 `SECT_ENTRY_TRANSFER_SOURCES` 所列带艺投师除外），拜师成功后自动作罢其余门派入门线。门派事务面板路径已经 `evaluateSectEntry` 校验，传 `skipExclusivityCheck`。
    - 同地多条弹窗类 `locationTriggers`（`effectsOpenModal`）每次到访只放行第一条，其余不消耗 `onceFlag`、留待下次到访。
+   - **银钱物价以门派俸禄为锚**（常山 15~110、六扇门 30~180、禁军 60~300 两/月，不改）：文职当差满级约 45 两/月且有十艺门槛，六扇门结案 30 两/件（`KAIFENG_CASE_BOUNTY_SILVER`）、常山诛谍 15 两（`LIAO_SPY_BOUNTY_SILVER`），大相国寺拍场最高地阶、起拍价 = 物值 × 3，走镖 `0.015 × 里程 × 险度`，悬赏 5 / 12 / 25 两，客栈京城 2 两/日、州府边镇 1 两/日。新增收入来源须低于或贴近同阶俸禄。
    - 剧情切磋战未设 `onEscape` 时默认禁止脱战；平局未设 `onDraw` 时走 `onLose`。《太行剿匪·第三部》三场关键战改为 `story_trial`（败阵不致命，保留整备重试分支）。
 
 ---

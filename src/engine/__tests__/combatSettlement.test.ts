@@ -78,7 +78,8 @@ describe('finishCombatSession settlement registry (store level)', () => {
     expect(after.sectState.activeLiaoSpy).toBeNull()
     expect(after.sectState.changshanMissedCount).toBe(0)
     expect(after.sectState.contribution).toBe(110)
-    expect(after.silver).toBeGreaterThanOrEqual(before.silver + 50)
+    expect(after.silver).toBeGreaterThanOrEqual(before.silver + 15)
+    expect(after.silver).toBeLessThan(before.silver + 50)
     expect(after.logs[0]?.tag).toBe('燕云锄奸')
   })
 

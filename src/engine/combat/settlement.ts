@@ -13,6 +13,8 @@ import {
   buildNodeNpcFromTournamentOpponent,
   getSectLeaderNpcId,
   getSectRankTitle,
+  KAIFENG_CASE_BOUNTY_SILVER,
+  LIAO_SPY_BOUNTY_SILVER,
   SECT_TOURNAMENT_TOKEN_ITEM_ID,
 } from '../sect'
 import { addItemToInventory } from '../shared/inventory'
@@ -244,13 +246,13 @@ export const COMBAT_SETTLEMENT_RULES: CombatSettlementRule[] = [
       const { session, res } = ctx
       // 常山枪派「半年度燕云锄奸」诛杀辽谍胜利（赏银受【策论】干略加成）
       if (session.duelStakes === 'liao_spy_duel' && session.outcome === 'player_win') {
-        const spyBounty = computeCelunBonusAmount(50, res.derived.skills['策论'] ?? 0)
+        const spyBounty = computeCelunBonusAmount(LIAO_SPY_BOUNTY_SILVER, res.derived.skills['策论'] ?? 0)
         d.sectState.activeLiaoSpy = null
         d.sectState.changshanMissedCount = 0
         d.sectState.contribution += 100
         d.silver += spyBounty
         d.logTag = '燕云锄奸'
-        d.logText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派半年军令，获门派功绩 +100（现 ${d.sectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +${spyBounty} 两${spyBounty > 50 ? `（含策论加成 +${spyBounty - 50} 两）` : ''}！`
+        d.logText = `浴血诛除辽国密谍【${session.npc.name}】！圆满完成常山枪派半年军令，获门派功绩 +100（现 ${d.sectState.contribution}）、战斗经验 +${res.combatExpGain}、犒赏纹银 +${spyBounty} 两${spyBounty > LIAO_SPY_BOUNTY_SILVER ? `（含策论加成 +${spyBounty - LIAO_SPY_BOUNTY_SILVER} 两）` : ''}！`
       }
     },
   },
@@ -278,7 +280,7 @@ export const COMBAT_SETTLEMENT_RULES: CombatSettlementRule[] = [
         session.targetNpcNode.id === `KAIFENG_WARRANT_${d.sectState.activeKaifengWarrant.id}`
       ) {
         const warrant = d.sectState.activeKaifengWarrant
-        const warrantBounty = computeCelunBonusAmount(15, res.derived.skills['策论'] ?? 0)
+        const warrantBounty = computeCelunBonusAmount(KAIFENG_CASE_BOUNTY_SILVER, res.derived.skills['策论'] ?? 0)
         d.sectState.activeKaifengWarrant = null
         d.sectState.kaifengCasesSolved += 1
         if (warrant.deadlineDay) {
@@ -286,7 +288,7 @@ export const COMBAT_SETTLEMENT_RULES: CombatSettlementRule[] = [
         }
         d.silver += warrantBounty
         d.logTag = '缉拿归案'
-        d.logText = `少侠顺利擒获海捕要犯【${warrant.targetName}（${warrant.targetTitle}）】归案！当前阶位办案量 +1（累计 ${d.sectState.kaifengCasesSolved} 次），获开封府赏银 +${warrantBounty} 两${warrantBounty > 15 ? `（含策论加成 +${warrantBounty - 15} 两）` : ''}、战斗经验 +${res.combatExpGain}！`
+        d.logText = `少侠顺利擒获海捕要犯【${warrant.targetName}（${warrant.targetTitle}）】归案！当前阶位办案量 +1（累计 ${d.sectState.kaifengCasesSolved} 次），获开封府赏银 +${warrantBounty} 两${warrantBounty > KAIFENG_CASE_BOUNTY_SILVER ? `（含策论加成 +${warrantBounty - KAIFENG_CASE_BOUNTY_SILVER} 两）` : ''}、战斗经验 +${res.combatExpGain}！`
       }
     },
   },

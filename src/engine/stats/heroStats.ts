@@ -35,7 +35,7 @@ export const CIVIL_ART_KEYS = [
   '辩才',
 ] as const
 
-export const DAILY_INN_LODGING_COST = 3
+export const DAILY_INN_LODGING_COST = 1
 
 export const INITIAL_HERO_AGE = 12
 export const DAYS_PER_YEAR = 360

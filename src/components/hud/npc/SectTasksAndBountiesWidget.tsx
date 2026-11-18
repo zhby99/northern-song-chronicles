@@ -184,7 +184,7 @@ export function SectTasksAndBountiesWidget({
                       在案侦查线索：【{sectState.activeKaifengWarrant.targetName}】（{sectState.activeKaifengWarrant.targetTitle}）
                     </div>
                     <div className="mt-0.5 text-[#2d4665]">
-                      线索地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】寻访【{sectState.activeKaifengWarrant.clueNpcName ?? '知情人士'}】查明案情线索即可结案（办案量 +1，赏银 +15 两）。
+                      线索地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】寻访【{sectState.activeKaifengWarrant.clueNpcName ?? '知情人士'}】查明案情线索即可结案（办案量 +1，赏银 +30 两）。
                     </div>
                   </>
                 ) : (
@@ -193,7 +193,7 @@ export function SectTasksAndBountiesWidget({
                       在案海捕要犯：【{sectState.activeKaifengWarrant.targetName}】（{sectState.activeKaifengWarrant.targetTitle} · {sectState.activeKaifengWarrant.realm}）
                     </div>
                     <div className="mt-0.5 text-[#2d4665]">
-                      潜匿地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】。前往该处寻获此犯并在生死决战中将其击败，即可结案（办案量 +1，赏银 +15 两；⚠️ 若失手落败将命丧当场）。
+                      潜匿地点：【{sectState.activeKaifengWarrant.regionName} · {sectState.activeKaifengWarrant.buildingName}】。前往该处寻获此犯并在生死决战中将其击败，即可结案（办案量 +1，赏银 +30 两；⚠️ 若失手落败将命丧当场）。
                     </div>
                   </>
                 )}
