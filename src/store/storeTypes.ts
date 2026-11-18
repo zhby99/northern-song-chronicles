@@ -267,6 +267,8 @@ export interface GameStoreState {
   buildSaveEnvelope: (slotId: SaveSlotId, note?: string) => GameSaveEnvelope
   refreshSaveSlots: () => Promise<void>
   saveToSlot: (slotId: SaveSlotId, note?: string, silent?: boolean) => Promise<void>
+  /** 仅在无战斗 / 剧情 / 行军 / 闭关进行中时静默写入自动卷宗，供休养、买卖、服药、入建筑等「安定时刻」调用 */
+  autosaveIfIdle: (note: string) => void
   loadFromEnvelope: (envelope: GameSaveEnvelope, closeAfterLoad?: boolean) => void
   removeSaveSlot: (slotId: SaveSlotId) => Promise<void>
   setSaveNotice: (notice: { text: string; tone: 'success' | 'error' } | null) => void

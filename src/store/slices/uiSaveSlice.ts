@@ -38,6 +38,7 @@ export type UiSaveKeys =
   | 'buildSaveEnvelope'
   | 'refreshSaveSlots'
   | 'saveToSlot'
+  | 'autosaveIfIdle'
   | 'loadFromEnvelope'
   | 'removeSaveSlot'
   | 'setSaveNotice'
@@ -159,7 +160,8 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
     }
     const envelope = get().buildSaveEnvelope(slotId, note)
     const backend = await putSaveEnvelope(envelope)
-    const slots = await listAllSaveEnvelopes()
+    // 直接以刚写入的卷宗更新缓存槽位：避免多次自动存档并发时，较早一次的全量列举晚于较新一次落地而把缓存回滚成旧档
+    const slots = { ...get().saveSlots, [slotId]: envelope }
     if (silent) {
       set({ saveSlots: slots })
     } else {
@@ -178,6 +180,21 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
         },
       })
     }
+  },
+
+  autosaveIfIdle: (note) => {
+    const s = get()
+    if (
+      !s.characterCreated ||
+      s.gameOver ||
+      s.activeCombat ||
+      s.activeStoryScene ||
+      s.traveling ||
+      s.cultivationSession
+    ) {
+      return
+    }
+    void get().saveToSlot('autosave', note, true)
   },
 
   loadFromEnvelope: (envelope, closeAfterLoad = true) => {

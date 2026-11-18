@@ -204,6 +204,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         60,
       ),
     })
+    get().autosaveIfIdle('采买粮草补给')
   },
 
   restAndRecuperate: (days) => {
@@ -270,6 +271,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         spotId: null,
       })
     }
+    get().autosaveIfIdle(`${logTitle} ${days} 日`)
   },
 
   equipItemToSlot: (itemId, preferredSlot) => {
@@ -1063,7 +1065,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         ? [...s.consumedOnceItemIds, itemId]
         : s.consumedOnceItemIds
 
-    commitTimeAdvance(set, get, {
+    const consumeAdv = commitTimeAdvance(set, get, {
       deltaShichen,
       chargeForeignLodging: true,
       vitalityFactor: 0,
@@ -1110,6 +1112,9 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         }
       },
     })
+    if (!consumeAdv.overdueSpyAmbush) {
+      get().autosaveIfIdle(`使用${def.name}`)
+    }
   },
 
   buyKaifengFairLot: (itemId) => {
@@ -1166,6 +1171,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       actionFeedback: { text: msg, tone: 'success' },
       logs: [createLogEntry(s.dayCount, '开封大集', msg, true, s.shichenIdx), ...s.logs].slice(0, 60),
     })
+    get().autosaveIfIdle(`开封大集购得${lot.item.name}`)
   },
 
   buySpotShopItem: (spotId, itemId, qty = 1) => {
@@ -1241,6 +1247,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         ...s.logs,
       ].slice(0, 60),
     })
+    get().autosaveIfIdle(`${shop.title}购得${itemDef.name}`)
   },
 
   sellInventoryItem: (itemId, qty = 1) => {
@@ -1299,5 +1306,6 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         ...s.logs,
       ].slice(0, 60),
     })
+    get().autosaveIfIdle(`典卖${itemDef.name}`)
   },
 })

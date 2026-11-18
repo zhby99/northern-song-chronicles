@@ -267,6 +267,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         buildingId: bldgId,
         spotId: null,
       })
+      get().autosaveIfIdle(`步入${bRecord.name}`)
     }
   },
 
