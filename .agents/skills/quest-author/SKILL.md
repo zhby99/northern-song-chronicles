@@ -59,7 +59,7 @@ description: 为《北宋立志传》设计并实装声明式门派入门、师�
 #### 2. 三类任务美术规格速查（如需生成图片，调用 `/portrait-artist`）
 | 美术类别 | 触发标准 | 尺寸、格式与落盘路径 | 工程接入动作 |
 | :--- | :--- | :--- | :--- |
-| **① 剧情插画 CG**（`16:9` 横幅） | 15~22 幕入门/奇遇卷配 **2~4 幅**；35~50 幕史诗长卷配 **5~6 幅** | 母版 `assets_raw_masters/quests/<slug>.png`；压缩图 `public/assets/quests/<slug>.jpg`（250~450 KB，严禁 `> 4.5 MB`） | 预埋 `illustrationUrl` 即可，图片落盘自动挂载 |
+| **① 剧情插画 CG**（`16:9` 横幅） | **每个任务至少 `1` 张配图，且每有 `10` 幕剧情至少多配 `1` 张**（公式：`≥ 1 + ⌊幕数 / 10⌋`，即 1~9 幕 ≥ 1 张、10~19 幕 ≥ 2 张、20~29 幕 ≥ 3 张、30~39 幕 ≥ 4 张，以此类推） | 母版 `assets_raw_masters/quests/<slug>.png`；压缩图 `public/assets/quests/<slug>.jpg`（250~450 KB，严禁 `> 4.5 MB`） | 预埋 `illustrationUrl` 即可，图片落盘自动挂载 |
 | **② 编目任务 NPC 专属立绘**（`3:4` 透明抠图） | 单任务出场 ≥7 次核心配角，或外貌与门派默认模板明显不符者 | **无需绘制 `1:1` 头像！** 仅产出 1 张透明抠图 `public/assets/characters/cutouts/fullbody/NPC-XXXX.webp`（`768×1024`，头脚留白 6%~10%） | 登记 `src/data/cutoutMetrics.json`（前景高度占比），执行 `npm run build:db` |
 | **③ 通用模板 `tpl_*`**（双图） | 极少新增；仅当现有模板无法覆盖全新高频人群时 | 必须成对独立生图：`templates/tpl_<name>_av.jpg`（`512×512`）+ `templates/tpl_<name>_fb.jpg`（`768×1024`） | 登记 `src/utils/portraitFallback.ts` 的 `KNOWN_AVATAR_COUNTERPARTS` |
 
@@ -71,7 +71,7 @@ npm run lint && npm test && npm run build
 
 ---
 
-## 二、 七条代码与叙事红线（自检清单）
+## 二、 八条代码与叙事红线（自检清单）
 
 1. **动态时空与性别插值**：正文中纪年一律使用 `{reignYear}`（**严禁硬编码「皇祐二年」**）；称呼分支使用 `{gender:少侠|女侠}` / `{gender:师弟|师妹}`；跨任务记忆使用 `{ifQuestDone:QST-ID|曾历文案|初见文案}`、`{ifFlag:...}`、`{ifSect:...}`；对白中严禁出现“根骨≥85 / 气血+100”等现代数值术语。
 2. **禀赋门槛上限**：入门任务链（`QST-SECT-*-ENTRY`）中的 `talentAtLeast.min` **严禁超过 `90`**（创角单项上限），高阶分支应保留零门槛赤诚兜底路径。
@@ -80,3 +80,4 @@ npm run lint && npm test && npm run build
 5. **子景点精确挂载**：凡目标建筑存在室内子景点（`bldg.interior.spots.length > 0`），`spotActions` 与 `targetLocation` 必须明确指定 `spotId`，否则玩家在游戏内无法交互触发。
 6. **自定义立绘真实存在**：`{ kind: 'custom' }` 对白发言人、`spawnDynamicActor` 动态角色及自定义战斗对手所填 `portraitUrl` / `avatarUrl` 必须在 `public/` 下真实存在，且模板 `_av` 与 `_fb` 保持一致。
 7. **战后结算标签注册**：若剧情战斗使用了新的 `duelStakes` / `duelStakesTag`，须同步于 `src/engine/combat/settlement.ts` 注册终局文案与结算规则。
+8. **任务配图数量下限**：每条任务链至少预埋 `1` 张 `illustrationUrl`（`16:9` 剧情 CG），且每有 `10` 幕剧情至少增加 `1` 张（`≥ 1 + Math.floor(幕数 / 10)`）；所有预埋路径须同步登记至 `docs/MISSING_QUEST_ILLUSTRATIONS.md`。

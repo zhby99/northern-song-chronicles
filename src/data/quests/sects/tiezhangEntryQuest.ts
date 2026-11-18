@@ -1,5 +1,5 @@
 import type { QuestCondition, QuestDefinition } from '../../../types/quest'
-import { atStep, qStatus, openScene } from '../../../engine/quest/dsl'
+import { atStep, flag, qStatus, openScene } from '../../../engine/quest/dsl'
 
 export const TIEZHANG_ENTRY_QUEST_ID = 'QST-SECT-15-ENTRY'
 
@@ -7,6 +7,8 @@ export const TIEZHANG_START_CONDITION: QuestCondition = {
   type: 'all',
   conditions: [
     qStatus(TIEZHANG_ENTRY_QUEST_ID, 'not_started'),
+    flag('tz_permanently_rejected', 'falsy'),
+    { type: 'npcAlive', npcId: 'NPC-0117', npcName: '上官天鹏' },
     {
       type: 'not',
       condition: { type: 'inSect', sectId: 'SECT-15' },
@@ -28,16 +30,16 @@ export const TIEZHANG_START_CONDITION: QuestCondition = {
 export const TIEZHANG_ENTRY_QUESTS: QuestDefinition[] = [
   {
     id: TIEZHANG_ENTRY_QUEST_ID,
-    title: '烟波五指 · 铁砂问义',
+    title: '铁砂立威 · 五指拜山',
     category: 'sect_entry',
     factionId: 'SECT-15',
     regionId: 'tiezhangfeng',
-    recommendedRealm: '不入流（零内功零武学开局友好 · 赤砂淬掌破零传功）',
-    maxOpponentRealm: '三流下品（宗门试掌与少主问拳点到为止，胜败皆可通关）',
+    recommendedRealm: '不入流 ～ 三流上品（零武学友好，唯重胆色与立场抉择）',
+    maxOpponentRealm: '三流下品（码头夺船、夜袭水寨与少主三招，胜负皆可推进）',
     recommendedNote:
-      '专为零武学根基少侠打造的二十幕荆湘水陆武侠长卷：前八幕零战斗重体验与人物羁绊，第九幕赤砂淬手破零传授并自动运使内功与双路外功，历经洞庭雾夜追凶、屠芳云深情结缘、上官云豹束劲问拳与帮主上官天鹏三掌考心，饮雄黄烈酒堂堂正正拜入铁掌帮！',
+      '十六幕荆湘水陆枭雄长卷：汉水码头抢船立威、连环寨扛百斤铜桨、赤砂沸鼎淬掌破零习武、夜袭抗税飞鱼水寨夺旗、中峰接少帮主上官云豹三招。聚义正堂帮主上官天鹏四选一问心无任何提示，答错即被轰下山门且永不录用！（支持江淮漕帮、钱塘怒潮帮、湘西五溪蛊寨同脉转投）',
     startHint:
-      '前往【襄阳府 · 汉水大码头】（千帆栈桥或钞关厅，或直接赴【洞庭铁掌峰】向帮众打听拜山规矩），即可开启二十幕铁掌帮入门长卷。',
+      '前往【襄阳府 · 汉水大码头】（或直接赴【洞庭铁掌峰】向铁掌帮众叩问拜山规矩），即可开启十六幕铁掌帮入门长卷。',
     startLocation: {
       regionId: 'xiangyang',
       buildingId: 'xy_dock',
@@ -46,15 +48,15 @@ export const TIEZHANG_ENTRY_QUESTS: QuestDefinition[] = [
     },
     startCondition: TIEZHANG_START_CONDITION,
     summary:
-      '{reignYear}汉水涛急，尚无半分内功傍身的你，于襄阳汉水大码头挺身护住遭恶吏张横讹诈的运砂老船户爷孙，由此结识铁掌帮铜桨舵主焦木与外冷内热的女香主屠芳云，亦被桀骜少帮主上官云豹冷眼记名。持五指黑铁木令南入八百里洞庭烟波后，你在颠簸船坞苦撑百斤铜桨，于灯下受屠芳云细心敷药，更在百斤铁沙场以血肉凡掌硬熬三炷香滚烫赤砂，破零习得《铁掌烈火吐纳功》与《铁掌劈碑手》。当盗换五溪草药的阴谋浮出水面，你与屠芳云、焦木夜入迷雾芦荡擒获叛贼，于中峰飞瀑领悟步法、剑痕崖前赢取上官云豹敬重，终在聚义正堂接下「铁掌神鹰」上官天鹏三掌考心，豪饮雄黄烈酒归位铁掌峰！',
+      '汉水码头盐枭踹倒五指黑旗，铜桨舵主焦木冷眼试你胆色。替铁掌帮清场夺船、又于钞关见识黑白两道三七分账的水陆规矩后，持五指黑铁木令南入八百里洞庭。于连环寨船坞扛百斤铜桨稳住下盘，在毒砂堂主罗天豹的赤砂沸鼎里硬熬一炷香破零习得铁砂掌；随后随队夜袭抗税的飞鱼水寨夺旗立功，赴中峰外涧接下少帮主上官云豹三招。终登聚义正堂，面对帮主上官天鹏的严苛问心与青石试掌碑验劲，一言不合便永绝山门，唯有清醒忠狠者方能摔碗饮尽雄黄烈酒，归位五指峰！',
     initialStepId: 'sail_to_tiezhang',
     steps: {
       sail_to_tiezhang: {
         id: 'sail_to_tiezhang',
         title: '黑铁木令 · 南下洞庭',
         objective:
-          '已在襄阳汉水大码头与铜桨舵主【焦木】、精锐香主【屠芳云】结下渊源并获赐五指黑铁木令。请南下前往【洞庭铁掌峰 · 洞庭水陆连环寨】会合受训。',
-        nextHint: '大地图前往【洞庭铁掌峰】，进入【洞庭水陆连环寨】即可触发五指擎天入寨剧情。',
+          '已在汉水码头替铁掌帮清场立威并见识钞关分账规矩，获铜桨舵主【焦木】赐予五指黑铁木令。请南下前往【洞庭铁掌峰 · 洞庭水陆连环寨】报到。',
+        nextHint: '大地图前往【洞庭铁掌峰】，进入【洞庭水陆连环寨】触发烟波五指入寨与铜桨稳桩。',
         targetLocation: {
           regionId: 'tiezhangfeng',
           buildingId: 'tz_water',
@@ -63,34 +65,34 @@ export const TIEZHANG_ENTRY_QUESTS: QuestDefinition[] = [
       },
       temper_red_sand: {
         id: 'temper_red_sand',
-        title: '赤砂沸鼎 · 血肉淬掌',
+        title: '赤砂沸鼎 · 铁砂淬掌',
         objective:
-          '已在连环船坞稳住百斤铜桨下盘，并蒙【屠芳云】灯下敷妥五溪生肌膏。请登临第一指峰【铁掌帮聚义总堂 · 前坪百斤铁沙场】接受赤砂沸鼎筑基与传功！',
-        nextHint: '进入洞庭铁掌峰【铁掌帮聚义总堂】（或点击前坪百斤铁沙场）开启赤砂淬手与破零授艺。',
+          '已在连环寨船坞扛过百斤铜桨稳住下盘。请登临第一指峰【铁掌帮聚义总堂 · 前坪百斤铁沙场】，在毒砂堂主【罗天豹】面前硬熬滚烫赤砂淬手，破零习武！',
+        nextHint: '进入洞庭铁掌峰【铁掌帮聚义总堂】，点击【前坪百斤铁沙场】开启赤砂淬掌。',
         targetLocation: {
           regionId: 'tiezhangfeng',
           buildingId: 'tz_hall',
           spotId: 'tz_hall_west',
         },
       },
-      night_reed_raid: {
-        id: 'night_reed_raid',
-        title: '迷雾芦荡 · 夜截盗船',
+      raid_feiyu_stockade: {
+        id: 'raid_feiyu_stockade',
+        title: '雾夜夺旗 · 夜袭飞鱼寨',
         objective:
-          '铁沙场五溪解毒药材遭汉水恶吏黑齿张横暗中调换！请速下山返回【洞庭水陆连环寨】，与【焦木】、【屠芳云】乘乌篷快舟夜探芦苇荡追回真药！',
-        nextHint: '进入洞庭铁掌峰【洞庭水陆连环寨】（或与焦木对话）触发夜雾芦荡截船决战！',
+          '赤砂沸鼎已过，初成《铁砂掌》！洞庭南岸“飞鱼水寨”抗缴湖面抽成且扣我生铁货船。请返回【洞庭水陆连环寨】东侧泊船坞，随焦木夜袭飞鱼水寨夺旗立功！',
+        nextHint: '前往【洞庭水陆连环寨】点击东侧泊船坞（或与焦木对话）开启夜袭夺旗。',
         targetLocation: {
           regionId: 'tiezhangfeng',
           buildingId: 'tz_water',
           spotId: 'tz_water_east',
         },
       },
-      climb_middle_peak: {
-        id: 'climb_middle_peak',
-        title: '铁索寒云 · 中峰试步',
+      peak_young_chief: {
+        id: 'peak_young_chief',
+        title: '五指中峰 · 少主问拳',
         objective:
-          '钞关公堂风波已定，帮主铁羽令箭传召！请随【屠芳云】前往【五指中峰禁地秘冢】外涧参悟先辈飞瀑桩步，并赴剑痕崖会见少帮主【上官云豹】。',
-        nextHint: '进入洞庭铁掌峰【五指中峰禁地秘冢】触发铁索谈心、飞瀑踏桩与少主问拳剧情。',
+          '飞鱼水寨已俯首称臣！请前往【五指中峰禁地秘冢】外涧，接少帮主【上官云豹】三招问拳立威。',
+        nextHint: '进入洞庭铁掌峰【五指中峰禁地秘冢】触发少帮主三招试拳。',
         targetLocation: {
           regionId: 'tiezhangfeng',
           buildingId: 'tz_tomb',
@@ -99,10 +101,10 @@ export const TIEZHANG_ENTRY_QUESTS: QuestDefinition[] = [
       },
       hall_chief_trial: {
         id: 'hall_chief_trial',
-        title: '聚义三掌 · 雄黄盟誓',
+        title: '聚义正堂 · 问心验掌',
         objective:
-          '已在剑痕崖与少帮主【上官云豹】化嫌为友！请登临第一指峰【铁掌帮聚义总堂 · 铁掌帮聚义正堂】拜谒帮主「铁掌神鹰」【上官天鹏】，接三掌考心并共饮雄黄拜师烈酒！',
-        nextHint: '前往【铁掌帮聚义总堂 · 铁掌帮聚义正堂】与帮主【上官天鹏】对话完成入门大典。',
+          '已过少帮主【上官云豹】三招考校！请登临【铁掌帮聚义总堂 · 铁掌帮聚义正堂】觐见帮主「铁掌神鹰」【上官天鹏】，谨言明志并拍青石试掌碑验劲，成败在此一举！',
+        nextHint: '前往【铁掌帮聚义总堂 · 铁掌帮聚义正堂】与帮主【上官天鹏】对话（答错问心将永绝铁掌帮）。',
         targetLocation: {
           regionId: 'tiezhangfeng',
           buildingId: 'tz_hall',
@@ -112,160 +114,153 @@ export const TIEZHANG_ENTRY_QUESTS: QuestDefinition[] = [
     },
 
     locationTriggers: [
-      // 阶段 1 -> 踏入洞庭铁掌峰【洞庭水陆连环寨】自动触发第 5～7 幕（烟波五指 CG + 船坞铜桨 + 栈桥敷药）
+      // 1) 踏入【洞庭水陆连环寨】自动触发第 5 幕烟波五指
       {
         id: 'trig_tz_arrive_water_fort',
         regionId: 'tiezhangfeng',
         buildingId: 'tz_water',
         onceFlag: 'tz_water_fort_arrived',
         condition: atStep(TIEZHANG_ENTRY_QUEST_ID, 'sail_to_tiezhang'),
-        effects: [openScene('scene_tz_05_five_fingers_cg', 'QST-SECT-15-ENTRY')],
+        effects: [openScene('scene_tz_05_five_fingers', 'QST-SECT-15-ENTRY')],
       },
-      // 阶段 2 -> 踏入【铁掌帮聚义总堂】自动触发第 8～11 幕（赤砂沸鼎 CG + 烈火授艺 + 裂碑切磋 + 毒砂端倪）
+      // 2) 踏入【铁掌帮聚义总堂】自动触发第 7 幕初见毒砂堂
       {
-        id: 'trig_tz_enter_sand_ground',
+        id: 'trig_tz_arrive_red_sand',
         regionId: 'tiezhangfeng',
         buildingId: 'tz_hall',
-        onceFlag: 'tz_red_sand_triggered',
+        onceFlag: 'tz_red_sand_arrived',
         condition: atStep(TIEZHANG_ENTRY_QUEST_ID, 'temper_red_sand'),
-        effects: [openScene('scene_tz_08_red_sand_cauldron_cg', 'QST-SECT-15-ENTRY')],
+        effects: [openScene('scene_tz_07_poison_sand_hall', 'QST-SECT-15-ENTRY')],
       },
-      // 阶段 3 -> 返回【洞庭水陆连环寨】自动触发第 12～15 幕（芦荡故人 + 连舸擒贼 + 公堂辨生死 + 铁羽召见）
+      // 3) 踏入【五指中峰禁地秘冢】自动触发第 12 幕剑痕崖阻路
       {
-        id: 'trig_tz_night_reed_raid',
-        regionId: 'tiezhangfeng',
-        buildingId: 'tz_water',
-        onceFlag: 'tz_night_raid_triggered',
-        condition: atStep(TIEZHANG_ENTRY_QUEST_ID, 'night_reed_raid'),
-        effects: [openScene('scene_tz_12_mist_reed_ambush', 'QST-SECT-15-ENTRY')],
-      },
-      // 阶段 4 -> 踏入【五指中峰禁地秘冢】自动触发第 16～18 幕（铁索赠绳 + 飞瀑踏桩 + 少主问拳）
-      {
-        id: 'trig_tz_enter_middle_peak',
+        id: 'trig_tz_arrive_middle_peak',
         regionId: 'tiezhangfeng',
         buildingId: 'tz_tomb',
-        onceFlag: 'tz_middle_peak_triggered',
-        condition: atStep(TIEZHANG_ENTRY_QUEST_ID, 'climb_middle_peak'),
-        effects: [openScene('scene_tz_16_cliff_heart_talk', 'QST-SECT-15-ENTRY')],
+        onceFlag: 'tz_middle_peak_arrived',
+        condition: atStep(TIEZHANG_ENTRY_QUEST_ID, 'peak_young_chief'),
+        effects: [openScene('scene_tz_12_cliff_block', 'QST-SECT-15-ENTRY')],
       },
     ],
 
     spotActions: [
-      // 1) 襄阳汉水大码头 · 千帆栈桥主入口
+      // 1) 襄阳汉水大码头：千帆栈桥开启第 1 幕
       {
-        id: 'spot_tz_start_hanshui_east',
-        label: '排众上前 · 汉水砂船讹税风波',
-        badge: '铁掌帮机缘',
-        subtitle: '开启二十幕荆湘水陆入门长卷《烟波五指 · 铁砂问义》',
+        id: 'spot_tz_hanshui_dock_start',
+        label: '汉水栈桥 · 叩问铁掌帮门路',
+        badge: '铁掌入门',
+        subtitle: '替铁掌帮码头清场立威，赢取五指黑铁木令',
         tone: 'gold',
         regionId: 'xiangyang',
         buildingId: 'xy_dock',
         spotId: 'xy_dock_east',
         visibleWhen: TIEZHANG_START_CONDITION,
-        effects: [openScene('scene_tz_01_hanshui_tax', 'QST-SECT-15-ENTRY')],
+        effects: [openScene('scene_tz_01_hanshui_black_flag', 'QST-SECT-15-ENTRY')],
       },
-      // 2) 襄阳汉水大码头 · 水寨望楼钞关厅入口（平滑转至栈桥第一幕）
+      // 2) 汉水钞关公堂兜底入口
       {
-        id: 'spot_tz_start_hanshui_main',
-        label: '循声探看 · 栈桥运砂船户喧哗',
-        badge: '铁掌帮机缘',
-        subtitle: '步下钞关望楼，开启二十幕入门长卷《烟波五指 · 铁砂问义》',
-        tone: 'gold',
+        id: 'spot_tz_hanshui_office_start',
+        label: '前往千帆栈桥 · 投效洞庭铁掌帮',
+        badge: '铁掌机缘',
+        subtitle: '赴汉水栈桥寻铜桨舵主焦木',
+        tone: 'default',
         regionId: 'xiangyang',
         buildingId: 'xy_dock',
         spotId: 'xy_dock_main',
         visibleWhen: TIEZHANG_START_CONDITION,
         effects: [
           { type: 'teleportPlayer', regionId: 'xiangyang', buildingId: 'xy_dock', spotId: 'xy_dock_east' },
-          openScene('scene_tz_01_hanshui_tax', 'QST-SECT-15-ENTRY'),
+          openScene('scene_tz_01_hanshui_black_flag', 'QST-SECT-15-ENTRY'),
         ],
       },
-      // 3) 洞庭水陆连环寨拜山指引入口
+      // 3) 洞庭水陆连环寨序引
       {
-        id: 'spot_tz_start_from_water_fort',
-        label: '叩寨拜山 · 打听铁掌峰投效门径',
-        badge: '铁掌帮机缘',
-        subtitle: '遵水寨规矩北赴襄阳汉水大码头寻访焦木与屠芳云',
+        id: 'spot_tz_water_fort_prelude',
+        label: '叩问洞庭铁掌帮拜山规矩',
+        badge: '五指拜山',
+        subtitle: '向水陆连环寨帮众打听入帮门道',
         tone: 'gold',
         regionId: 'tiezhangfeng',
         buildingId: 'tz_water',
         spotId: 'tz_water_main',
         visibleWhen: TIEZHANG_START_CONDITION,
-        effects: [openScene('scene_tz_prelude_from_peak', 'QST-SECT-15-ENTRY')],
+        effects: [openScene('scene_tz_00_peak_prelude', 'QST-SECT-15-ENTRY')],
       },
-      // 4) 阶段 temper_red_sand 景点兜底入口（前坪百斤铁沙场）
+      // 4) 前坪百斤铁沙场（第 7~8 幕兜底触发）
       {
-        id: 'spot_tz_red_sand_ground',
-        label: '赤手入鼎 · 熬炼三炷香滚烫铁砂',
-        badge: '铁砂筑基',
-        subtitle: '接受焦木与沈平威督训，破零修习《铁掌烈火吐纳功》',
+        id: 'spot_tz_red_sand_spot',
+        label: '前坪赤砂沸鼎 · 淬掌破零',
+        badge: '赤砂淬手',
+        subtitle: '双手入沸砂熬足一炷香，习得铁掌筑基功夫',
         tone: 'gold',
         regionId: 'tiezhangfeng',
         buildingId: 'tz_hall',
         spotId: 'tz_hall_west',
         visibleWhen: atStep(TIEZHANG_ENTRY_QUEST_ID, 'temper_red_sand'),
-        effects: [
-          { type: 'setFlag', flag: 'tz_red_sand_triggered', value: true },
-          openScene('scene_tz_08_red_sand_cauldron_cg', 'QST-SECT-15-ENTRY'),
-        ],
+        effects: [openScene('scene_tz_07_poison_sand_hall', 'QST-SECT-15-ENTRY')],
       },
-      // 5) 阶段 climb_middle_peak 景点兜底入口（飞瀑深潭 · 试炼涧）
+      // 5) 水陆连环寨东侧泊船坞（第 10~11 幕夜袭飞鱼水寨）
       {
-        id: 'spot_tz_tomb_stakes_entry',
-        label: '携屠芳云登峰 · 参悟飞瀑松木桩阵',
-        badge: '中峰试步',
-        subtitle: '观历代帮主摩崖石刻，赴剑痕崖应少帮主问拳之约',
+        id: 'spot_tz_raid_feiyu_spot',
+        label: '连环寨泊船坞 · 随焦木夜袭飞鱼水寨',
+        badge: '雾夜夺旗',
+        subtitle: '惩戒抗税湖匪，立下入帮投名功劳',
+        tone: 'gold',
+        regionId: 'tiezhangfeng',
+        buildingId: 'tz_water',
+        spotId: 'tz_water_east',
+        visibleWhen: atStep(TIEZHANG_ENTRY_QUEST_ID, 'raid_feiyu_stockade'),
+        effects: [openScene('scene_tz_10_feiyu_tax_revolt', 'QST-SECT-15-ENTRY')],
+      },
+      // 6) 五指中峰禁地外涧（第 12~13 幕兜底触发）
+      {
+        id: 'spot_tz_middle_peak_spot',
+        label: '五指中峰外涧 · 接少帮主三招',
+        badge: '少主问拳',
+        subtitle: '迎战少帮主上官云豹三招试拳',
         tone: 'gold',
         regionId: 'tiezhangfeng',
         buildingId: 'tz_tomb',
         spotId: 'tz_tomb_west',
-        visibleWhen: atStep(TIEZHANG_ENTRY_QUEST_ID, 'climb_middle_peak'),
-        effects: [
-          { type: 'setFlag', flag: 'tz_middle_peak_triggered', value: true },
-          openScene('scene_tz_16_cliff_heart_talk', 'QST-SECT-15-ENTRY'),
-        ],
+        visibleWhen: atStep(TIEZHANG_ENTRY_QUEST_ID, 'peak_young_chief'),
+        effects: [openScene('scene_tz_12_cliff_block', 'QST-SECT-15-ENTRY')],
       },
-      // 6) 阶段 hall_chief_trial 聚义正堂景点入口
+      // 7) 聚义正堂拜见上官天鹏（第 14~16 幕）
       {
-        id: 'spot_tz_hall_chief_trial',
-        label: '步入聚义正堂 · 接帮主上官天鹏三掌考心',
-        badge: '铁掌归宗',
-        subtitle: '撑满三回合掌风不退，共饮雄黄铁砂拜师烈酒',
+        id: 'spot_tz_hall_chief_ceremony',
+        label: '聚义正堂 · 觐见上官帮主',
+        badge: '问心验掌',
+        subtitle: '虎皮交椅前问心（答错永绝铁掌帮）、青石试掌与雄黄入帮',
         tone: 'gold',
         regionId: 'tiezhangfeng',
         buildingId: 'tz_hall',
         spotId: 'tz_hall_main',
         visibleWhen: atStep(TIEZHANG_ENTRY_QUEST_ID, 'hall_chief_trial'),
-        effects: [openScene('scene_tz_19_chief_three_palms', 'QST-SECT-15-ENTRY')],
+        effects: [openScene('scene_tz_14_tiger_chair_test', 'QST-SECT-15-ENTRY')],
       },
     ],
 
     npcActions: [
-      // 1a) 在襄阳汉水码头或洪州找上官云豹（NPC-0222）、雷环（NPC-0352）、屠芳云（NPC-0539）可直接开启第 1 幕
       {
-        id: 'act_tz_xiangyang_npc_start',
-        label: '铁砂问义 · 介入汉水砂船风波（铁掌帮入门）',
-        badge: '铁掌帮入门',
+        id: 'act_tz_start_hanshui_npcs',
+        label: '投效铁掌帮 · 汉水立威',
+        badge: '铁掌入门',
         tone: 'gold',
         showInBottomBar: true,
         showInSectPanel: true,
         visibleWhen: {
           type: 'all',
           conditions: [
-            { type: 'targetNpcMatch', npcIds: ['NPC-0222', 'NPC-0352', 'NPC-0539'] },
+            { type: 'targetNpcMatch', npcIds: ['NPC-0223'] },
             TIEZHANG_START_CONDITION,
           ],
         },
-        effects: [
-          { type: 'teleportPlayer', regionId: 'xiangyang', buildingId: 'xy_dock', spotId: 'xy_dock_east' },
-          openScene('scene_tz_01_hanshui_tax', 'QST-SECT-15-ENTRY'),
-        ],
+        effects: [openScene('scene_tz_01_hanshui_black_flag', 'QST-SECT-15-ENTRY')],
       },
-      // 1b) 在洞庭铁掌峰等处找其他 SECT-15 帮众（排除已在汉水/洪州入口的 3 人），弹出序引送往襄阳汉水码头
       {
-        id: 'act_tz_peak_npc_start',
-        label: '叩访五指峰 · 求赐铁掌帮入门机缘',
-        badge: '铁掌帮入门',
+        id: 'act_tz_start_from_peak_npcs',
+        label: '叩问铁掌帮拜山门道',
+        badge: '五指拜山',
         tone: 'gold',
         showInBottomBar: true,
         showInSectPanel: true,
@@ -275,18 +270,17 @@ export const TIEZHANG_ENTRY_QUESTS: QuestDefinition[] = [
             { type: 'targetNpcMatch', factionIds: ['SECT-15'] },
             {
               type: 'not',
-              condition: { type: 'targetNpcMatch', npcIds: ['NPC-0222', 'NPC-0352', 'NPC-0539'] },
+              condition: { type: 'targetNpcMatch', npcIds: ['NPC-0223'] },
             },
             TIEZHANG_START_CONDITION,
           ],
         },
-        effects: [openScene('scene_tz_prelude_from_peak', 'QST-SECT-15-ENTRY')],
+        effects: [openScene('scene_tz_00_peak_prelude', 'QST-SECT-15-ENTRY')],
       },
-      // 2) 阶段 sail_to_tiezhang 兜底对话按钮（在洞庭水寨找焦木/罗天豹/雷艮磊均可触发第 5 幕）
       {
-        id: 'act_tz_present_iron_token',
-        label: '呈验五指黑铁木令 · 入连环船坞受训',
-        badge: '烟波入寨',
+        id: 'act_tz_water_fort_npc',
+        label: '呈递五指黑铁木令 · 入水陆连环寨',
+        badge: '铁掌拜山',
         tone: 'gold',
         showInBottomBar: true,
         showInSectPanel: true,
@@ -297,70 +291,74 @@ export const TIEZHANG_ENTRY_QUESTS: QuestDefinition[] = [
             atStep(TIEZHANG_ENTRY_QUEST_ID, 'sail_to_tiezhang'),
           ],
         },
-        effects: [
-          { type: 'setFlag', flag: 'tz_water_fort_arrived', value: true },
-          openScene('scene_tz_05_five_fingers_cg', 'QST-SECT-15-ENTRY'),
-        ],
+        effects: [openScene('scene_tz_05_five_fingers', 'QST-SECT-15-ENTRY')],
       },
-      // 3) 阶段 temper_red_sand 兜底按钮（找焦木/沈平威/上官天鹏均可开启赤砂沸鼎）
       {
-        id: 'act_tz_start_red_sand',
-        label: '前坪百斤铁沙场 · 赤手入鼎淬掌筑基',
-        badge: '赤砂淬心',
+        id: 'act_tz_red_sand_npc',
+        label: '入百斤铁沙场 · 赤砂沸鼎淬掌',
+        badge: '赤砂淬手',
         tone: 'gold',
         showInBottomBar: true,
         showInSectPanel: true,
         visibleWhen: {
           type: 'all',
           conditions: [
-            { type: 'targetNpcMatch', npcIds: ['NPC-0223', 'NPC-0693', 'NPC-0117', 'NPC-0885'] },
+            { type: 'targetNpcMatch', npcIds: ['NPC-0176', 'NPC-0223'] },
             atStep(TIEZHANG_ENTRY_QUEST_ID, 'temper_red_sand'),
           ],
         },
-        effects: [
-          { type: 'teleportPlayer', regionId: 'tiezhangfeng', buildingId: 'tz_hall', spotId: 'tz_hall_west' },
-          { type: 'setFlag', flag: 'tz_red_sand_triggered', value: true },
-          openScene('scene_tz_08_red_sand_cauldron_cg', 'QST-SECT-15-ENTRY'),
-        ],
+        effects: [openScene('scene_tz_07_poison_sand_hall', 'QST-SECT-15-ENTRY')],
       },
-      // 4) 阶段 night_reed_raid 兜底按钮（找焦木/雷艮磊/万定均可登舟夜探芦荡）
       {
-        id: 'act_tz_launch_night_skiff',
-        label: '登乌篷快舟 · 夜入迷雾芦荡截击张横',
-        badge: '芦荡追凶',
+        id: 'act_tz_raid_feiyu_npc',
+        label: '随焦木夜袭飞鱼水寨 · 夺旗立功',
+        badge: '雾夜夺旗',
         tone: 'gold',
         showInBottomBar: true,
         showInSectPanel: true,
         visibleWhen: {
           type: 'all',
           conditions: [
-            { type: 'targetNpcMatch', npcIds: ['NPC-0223', 'NPC-0885', 'NPC-0280', 'NPC-0555'] },
-            atStep(TIEZHANG_ENTRY_QUEST_ID, 'night_reed_raid'),
+            { type: 'targetNpcMatch', npcIds: ['NPC-0223'] },
+            atStep(TIEZHANG_ENTRY_QUEST_ID, 'raid_feiyu_stockade'),
           ],
         },
-        effects: [
-          { type: 'setFlag', flag: 'tz_night_raid_triggered', value: true },
-          openScene('scene_tz_12_mist_reed_ambush', 'QST-SECT-15-ENTRY'),
-        ],
+        effects: [openScene('scene_tz_10_feiyu_tax_revolt', 'QST-SECT-15-ENTRY')],
       },
-      // 5) 阶段 hall_chief_trial：在聚义正堂找帮主上官天鹏（NPC-0117）或沈平威（NPC-0693）接三掌入门
       {
-        id: 'act_tz_chief_three_palms',
-        label: '叩谒铁掌神鹰 · 接三掌考心饮酒入帮',
-        badge: '铁掌归宗',
+        id: 'act_tz_young_chief_npc',
+        label: '赴五指中峰 · 接少帮主三招',
+        badge: '少主问拳',
         tone: 'gold',
         showInBottomBar: true,
         showInSectPanel: true,
         visibleWhen: {
           type: 'all',
           conditions: [
-            { type: 'targetNpcMatch', npcIds: ['NPC-0117', 'NPC-0693'] },
+            { type: 'targetNpcMatch', npcIds: ['NPC-0222'] },
+            atStep(TIEZHANG_ENTRY_QUEST_ID, 'peak_young_chief'),
+          ],
+        },
+        effects: [openScene('scene_tz_12_cliff_block', 'QST-SECT-15-ENTRY')],
+      },
+      {
+        id: 'act_tz_chief_oath_npc',
+        label: '聚义正堂 · 觐见上官帮主',
+        badge: '问心验掌',
+        tone: 'gold',
+        showInBottomBar: true,
+        showInSectPanel: true,
+        visibleWhen: {
+          type: 'all',
+          conditions: [
+            { type: 'targetNpcMatch', npcIds: ['NPC-0117'] },
             atStep(TIEZHANG_ENTRY_QUEST_ID, 'hall_chief_trial'),
           ],
         },
-        effects: [openScene('scene_tz_19_chief_three_palms', 'QST-SECT-15-ENTRY')],
+        effects: [openScene('scene_tz_14_tiger_chair_test', 'QST-SECT-15-ENTRY')],
       },
     ],
+
     loadScenes: () => import('./tiezhangEntryQuest.scenes').then((m) => m.SCENES),
   },
 ]
