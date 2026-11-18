@@ -99,6 +99,20 @@ export type QuestCondition =
   | { type: 'learnedArtAtLeast'; artId: string; minLevel: number }
   | { type: 'inSect'; sectId: string | null; minRank?: SectRankLevel }
   | { type: 'notInAnySect'; allowTransferFromSectId?: string }
+  | { type: 'neverJoinedAnySect' }
+  | {
+      type: 'noLearnedArtAtOrAboveTier'
+      tier:
+        | '良品下品'
+        | '良品中品'
+        | '良品上品'
+        | '地阶下品'
+        | '地阶中品'
+        | '地阶上品'
+        | '天阶下品'
+        | '天阶中品'
+        | '天阶上品'
+    }
   | { type: 'kaifengRank2DaysAtLeast'; min: number }
   | { type: 'sectDaysAtLeast'; sectId: string; min: number }
   | {

@@ -531,6 +531,45 @@ export function evaluateQuestCondition(
       }
     }
 
+    case 'neverJoinedAnySect': {
+      if (!ctx.sectState.sectId && !ctx.questState.flags.ever_joined_any_sect) {
+        return { passed: true, reason: null }
+      }
+      return {
+        passed: false,
+        reason: '此派严禁曾投他门之弟子，少侠既曾入过江湖门墙，此生无缘拜入！',
+      }
+    }
+
+    case 'noLearnedArtAtOrAboveTier': {
+      const tierOrder: Record<string, number> = {
+        凡品下品: 1,
+        凡品中品: 2,
+        凡品上品: 3,
+        良品下品: 4,
+        良品中品: 5,
+        良品上品: 6,
+        地阶下品: 7,
+        地阶中品: 8,
+        地阶上品: 9,
+        天阶下品: 10,
+        天阶中品: 11,
+        天阶上品: 12,
+      }
+      const threshold = tierOrder[cond.tier] ?? 4
+      const blockedArt = ctx.learnedArts.find((entry) => {
+        const art = MARTIAL_ART_DB_MAP[entry.artId]
+        if (!art) return false
+        return (tierOrder[art.fullTier] ?? 0) >= threshold
+      })
+      if (!blockedArt) return { passed: true, reason: null }
+      const artName = MARTIAL_ART_DB_MAP[blockedArt.artId]?.name ?? blockedArt.artId
+      return {
+        passed: false,
+        reason: `此派只收未修高深武学之白纸弟子，少侠已修习《${artName}》（${MARTIAL_ART_DB_MAP[blockedArt.artId]?.fullTier ?? cond.tier}），恕难收留！`,
+      }
+    }
+
     case 'questStatus': {
       const active = ctx.questState.activeQuests[cond.questId]
       const completed = ctx.questState.completedQuests[cond.questId]
@@ -1080,6 +1119,9 @@ export function validateAllRegisteredQuests(
             `${ctxPath}: 未知的 allowTransferFromSectId "${cond.allowTransferFromSectId}"`,
           )
         }
+        break
+      case 'neverJoinedAnySect':
+      case 'noLearnedArtAtOrAboveTier':
         break
       case 'questCompletedDaysAgoAtLeast': {
         if (!byId.has(cond.questId)) {
