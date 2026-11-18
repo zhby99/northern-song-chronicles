@@ -720,10 +720,30 @@ export function validateSaveEnvelope(input: unknown): GameSaveEnvelope | null {
   }
 }
 
-export function downloadSaveAsJsonFile(envelope: GameSaveEnvelope): void {
+export function buildSaveExportFile(envelope: GameSaveEnvelope): { filename: string; text: string } {
   const safeRegion = envelope.summary.regionName.replace(/[^\u4e00-\u9fa5a-zA-Z0-9_-]/g, '')
-  const filename = `北宋立志传_${envelope.slotId}_第${envelope.summary.dayCount}日_${safeRegion}.json`
-  const blob = new Blob([JSON.stringify(envelope, null, 2)], {
+  return {
+    filename: `北宋立志传_${envelope.slotId}_第${envelope.summary.dayCount}日_${safeRegion}.json`,
+    text: JSON.stringify(envelope, null, 2),
+  }
+}
+
+/**
+ * 持久化存储（localStorage / IndexedDB）是否被宿主封锁——即单文件包运行于 `sandbox allow-scripts` 等无源沙箱。
+ * 此类沙箱通常同时禁止下载（缺 `allow-downloads`），【导出JSON】会被浏览器静默拦截，须提供复制文本兜底。
+ */
+export function isPersistentSaveStorageBlocked(): boolean {
+  try {
+    void window.localStorage.length
+    return false
+  } catch {
+    return true
+  }
+}
+
+export function downloadSaveAsJsonFile(envelope: GameSaveEnvelope): void {
+  const { filename, text } = buildSaveExportFile(envelope)
+  const blob = new Blob([text], {
     type: 'application/json;charset=utf-8',
   })
   const url = URL.createObjectURL(blob)

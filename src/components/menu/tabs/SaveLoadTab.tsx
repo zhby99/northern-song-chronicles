@@ -3,8 +3,11 @@ import { BUILDING_DB_MAP } from '../../../data/gameDb'
 import { useGameStore } from '../../../store/useGameStore'
 import type { SaveSlotId } from '../../../types/game'
 import { formatSongDate } from '../../../engine/world/mapMath'
+import type { GameSaveEnvelope } from '../../../types/game'
 import {
+  buildSaveExportFile,
   downloadSaveAsJsonFile,
+  isPersistentSaveStorageBlocked,
   parseSaveJsonFile,
   putSaveEnvelope,
   SAVE_SLOT_DEFS,
@@ -32,6 +35,39 @@ export function SaveLoadTab({ mode, locationLabel }: SaveLoadTabProps) {
   const setSaveNotice = useGameStore((s) => s.setSaveNotice)
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
+  // 无源沙箱多半同时禁止下载：导出时另行展开可复制的存档文本，供玩家另存为 .json 后再导入
+  const [exportFallback, setExportFallback] = useState<{ filename: string; text: string } | null>(
+    null,
+  )
+  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle')
+  const exportEnvelope = (env: GameSaveEnvelope): boolean => {
+    downloadSaveAsJsonFile(env)
+    if (isPersistentSaveStorageBlocked()) {
+      setExportFallback(buildSaveExportFile(env))
+      setCopyState('idle')
+      return false
+    }
+    return true
+  }
+  const copyExportText = async () => {
+    if (!exportFallback) return
+    try {
+      await navigator.clipboard.writeText(exportFallback.text)
+      setCopyState('copied')
+      return
+    } catch {
+      // 沙箱常禁剪贴板 API，退回选区复制
+    }
+    const ta = document.getElementById('nsc-export-fallback-text') as HTMLTextAreaElement | null
+    ta?.select()
+    let ok = false
+    try {
+      ok = document.execCommand('copy')
+    } catch {
+      ok = false
+    }
+    setCopyState(ok ? 'copied' : 'failed')
+  }
   const [saveNoteDraft, setSaveNoteDraft] = useState('')
   // 覆盖 / 抹除已有存档前需二次确认（第一次点击进入待确认状态，第二次点击才执行）
   const [pendingConfirm, setPendingConfirm] = useState<{
@@ -101,11 +137,12 @@ export function SaveLoadTab({ mode, locationLabel }: SaveLoadTabProps) {
                 type="button"
                 onClick={() => {
                   const snap = buildSaveEnvelope('slot-1', saveNoteDraft || '手动导出快照')
-                  downloadSaveAsJsonFile(snap)
-                  setSaveNotice({
-                    text: '已将当前实时进度导出为本地 .json 卷宗文件！',
-                    tone: 'success',
-                  })
+                  if (exportEnvelope(snap)) {
+                    setSaveNotice({
+                      text: '已将当前实时进度导出为本地 .json 卷宗文件！',
+                      tone: 'success',
+                    })
+                  }
                 }}
                 className="px-3.5 py-1.5 rounded bg-[#261910] hover:bg-[#3d291a] text-amber-200 border border-[#c89d54] font-bold song-serif text-xs cursor-pointer"
               >
@@ -146,6 +183,47 @@ export function SaveLoadTab({ mode, locationLabel }: SaveLoadTabProps) {
           )}
         </div>
       </div>
+
+      {exportFallback && (
+        <div className="p-3 rounded border border-[#b8860b] bg-[#fff8e6] space-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="text-xs text-[#5c3d1e] leading-relaxed">
+              <strong className="text-[#8a3b12]">当前运行环境禁止存储与下载，存档文件可能未能保存。</strong>
+              请复制下方全部文本，粘贴到记事本另存为
+              <code className="mx-1 px-1 rounded bg-[#f3e2bd] font-mono">{exportFallback.filename}</code>
+              ，日后用【⬆ 从本地导入存档 (.json)】读回。
+            </div>
+            <div className="flex items-center gap-1.5 shrink-0">
+              <button
+                type="button"
+                onClick={() => void copyExportText()}
+                className="px-3 py-1.5 rounded bg-[#8a5a00] hover:bg-[#a06a0a] text-[#fff8e6] font-bold song-serif text-xs cursor-pointer"
+              >
+                {copyState === 'copied' ? '✓ 已复制' : '复制存档文本'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setExportFallback(null)}
+                className="px-2.5 py-1.5 rounded bg-[#faf3e3] hover:bg-[#e8d8b9] border border-[#bca37b] text-[#3d2814] text-xs cursor-pointer"
+              >
+                收起
+              </button>
+            </div>
+          </div>
+          {copyState === 'failed' && (
+            <div className="text-[11px] text-[#7f1d1d]">
+              剪贴板被环境禁用：文本已全选，请按 Ctrl+C（Mac 为 ⌘+C）手动复制。
+            </div>
+          )}
+          <textarea
+            id="nsc-export-fallback-text"
+            readOnly
+            value={exportFallback.text}
+            onFocus={(e) => e.currentTarget.select()}
+            className="w-full h-32 p-2 rounded bg-[#fffdf7] border border-[#cbb48c] font-mono text-[11px] text-[#23180f]"
+          />
+        </div>
+      )}
 
       {saveNotice && (
         <div
@@ -268,7 +346,7 @@ export function SaveLoadTab({ mode, locationLabel }: SaveLoadTabProps) {
                     </button>
                     <button
                       type="button"
-                      onClick={() => downloadSaveAsJsonFile(env)}
+                      onClick={() => exportEnvelope(env)}
                       className="px-2.5 py-1.5 rounded bg-[#faf3e3] hover:bg-[#e5d6b8] border border-[#9e8462] text-[#3d2812] cursor-pointer"
                     >
                       导出JSON
