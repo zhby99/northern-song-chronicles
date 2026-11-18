@@ -1,4 +1,5 @@
 import type { StoreSlice } from '../storeTypes'
+import { getKaifengFairLots, getKaifengFairSchedule } from '../../engine/economy/kaifengFair'
 import {
   FACTION_DB_MAP,
   MARTIAL_ART_DB_MAP,
@@ -36,8 +37,6 @@ import {
   computeItemSellPrice,
   computeShopBuyPrice,
   getRegionLodgingInfo,
-  getXiangguoAuctionSchedule,
-  getXiangguoMonthlyAuctionLots,
   isItemSellable,
 } from '../../engine/economy'
 import { syncArtLevelsToExpsAndMilestones } from '../../engine/stats/artsProgression'
@@ -49,7 +48,6 @@ import {
   isPlayerInOwnSectRegion,
 } from '../../engine/stats/heroStats'
 import {
-  getSongDateParts,
   NODE_MAP,
 } from '../../engine/world/mapMath'
 import { scaleMedicineRecovery } from '../../engine/stats/realmUtils'
@@ -79,8 +77,8 @@ export type LoadoutInventoryKeys =
   | 'transferNeigongProficiency'
   | 'consumeInventoryItem'
   | 'buySpotShopItem'
+  | 'buyKaifengFairLot'
   | 'sellInventoryItem'
-  | 'buyXiangguoAuctionLot'
 
 export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (set, get) => ({
   completeCharacterCreation: ({ name, portraitId, gender, silver, baseStats, startNodeId }) => {
@@ -1114,6 +1112,62 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
     })
   },
 
+  buyKaifengFairLot: (itemId) => {
+    const s = get()
+    if (s.campPos || s.traveling || s.currentNodeId !== 'bianliang') {
+      set({
+        actionFeedback: {
+          text: '须亲临东京开封府【大相国寺 · 万姓交易雅市】方可在开封大集采办奇珍！',
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const schedule = getKaifengFairSchedule(s.dayCount)
+    if (!schedule.isOpen) {
+      set({
+        actionFeedback: {
+          text: `开封大集每年仅于【六月】开市一整个月（距下次开市尚余 ${schedule.monthsUntilOpen} 个月）。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const lot = getKaifengFairLots({
+      yearIdx: schedule.yearIdx,
+      arithmeticSkill: s.skills['算术'] ?? 0,
+      purchases: s.kaifengFairPurchases,
+      consumedUniqueIds: s.consumedUniqueIds,
+    }).find((l) => l.itemId === itemId)
+    if (!lot) {
+      set({ actionFeedback: { text: '今岁开封大集并未陈列此物。', tone: 'warn' } })
+      return
+    }
+    if (lot.boughtThisYear) {
+      set({ actionFeedback: { text: `【${lot.item.name}】已为少侠所得，天下仅此一件。`, tone: 'talk' } })
+      return
+    }
+    if (s.silver < lot.finalPrice) {
+      set({
+        actionFeedback: {
+          text: `纹银不足！购置【${lot.item.name}】需 ${lot.finalPrice.toLocaleString()} 两（当前 ${s.silver.toLocaleString()} 两）。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const savedNote =
+      lot.discountSaved > 0 ? `（算术议价省 ${lot.discountSaved.toLocaleString()} 两）` : ''
+    const msg = `于【开封大集 · 大相国寺万姓雅市】花费 ${lot.finalPrice.toLocaleString()} 两纹银${savedNote}购得地阶奇珍【${lot.item.name}】！`
+    set({
+      silver: s.silver - lot.finalPrice,
+      inventory: addItemToInventory(s.inventory, itemId, 1),
+      kaifengFairPurchases: { ...s.kaifengFairPurchases, [itemId]: schedule.yearIdx },
+      actionFeedback: { text: msg, tone: 'success' },
+      logs: [createLogEntry(s.dayCount, '开封大集', msg, true, s.shichenIdx), ...s.logs].slice(0, 60),
+    })
+  },
+
   buySpotShopItem: (spotId, itemId, qty = 1) => {
     const s = get()
     const shop = SPOT_SHOPS_BY_SPOT_ID[spotId]
@@ -1145,7 +1199,19 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
     const itemDef = ITEM_DB_MAP[itemId]
     if (!entry || !itemDef) return
 
-    const safeQty = Math.max(1, Math.floor(Number.isFinite(qty) ? qty : 1))
+    const isNonStackable = itemDef.stackable === false
+    if (isNonStackable && s.inventory.some((st) => st.itemId === itemId && st.qty > 0)) {
+      set({
+        actionFeedback: {
+          text: `行囊中已有一件【${itemDef.name}】，此物不可叠放，无需重复购置。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+    const safeQty = isNonStackable
+      ? 1
+      : Math.max(1, Math.floor(Number.isFinite(qty) ? qty : 1))
     const arithSkill = s.skills['算术'] ?? 0
     const unitPrice = computeShopBuyPrice(entry.price, arithSkill)
     const totalCost = unitPrice * safeQty
@@ -1230,101 +1296,6 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       actionFeedback: { text: msg, tone: 'success' },
       logs: [
         createLogEntry(s.dayCount, '典卖折银', msg, false, s.shichenIdx),
-        ...s.logs,
-      ].slice(0, 60),
-    })
-  },
-
-  buyXiangguoAuctionLot: (itemId) => {
-    const s = get()
-    if (s.campPos || s.currentNodeId !== 'bianliang') {
-      set({
-        actionFeedback: {
-          text: '须亲临东京开封府【大相国寺 · 万姓交易雅市】方可举牌竞拍年度奇珍！',
-          tone: 'warn',
-        },
-      })
-      return
-    }
-
-    const schedule = getXiangguoAuctionSchedule(s.dayCount)
-    if (!schedule.isOpen) {
-      const dateParts = getSongDateParts(s.dayCount, s.shichenIdx)
-      set({
-        actionFeedback: {
-          text: `大相国寺万姓雅市奇珍拍场每年仅于【六月】开市一整个月（当前为${dateParts.monthName}，距下次开拍尚余 ${schedule.monthsUntilOpen} 个月）。`,
-          tone: 'warn',
-        },
-      })
-      return
-    }
-
-    const yearKey = `Y${schedule.yearIdx}`
-    const boughtThisYear = s.auctionBoughtByMonth[yearKey] ?? []
-    if (boughtThisYear.includes(itemId)) {
-      set({
-        actionFeedback: {
-          text: '该件拍品本年已被少侠竞得落槌，请静候来年六月相国寺雅集开市！',
-          tone: 'talk',
-        },
-      })
-      return
-    }
-
-    const arithSkill = s.skills['算术'] ?? 0
-    const lots = getXiangguoMonthlyAuctionLots(
-      schedule.yearIdx,
-      arithSkill,
-      new Set(s.consumedUniqueIds),
-    )
-    const lot = lots.find((l) => l.itemId === itemId)
-    if (!lot) {
-      set({
-        actionFeedback: {
-          text: '本年六月拍品单中未见此物，或已随年度轮换下架。',
-          tone: 'warn',
-        },
-      })
-      return
-    }
-
-    const isEquipped = Object.values(s.equipped).includes(itemId)
-    const existingQty = s.inventory.find((x) => x.itemId === itemId)?.qty ?? 0
-    if (!lot.item.stackable && (isEquipped || existingQty > 0)) {
-      set({
-        actionFeedback: {
-          text: `【${lot.item.name}】已在少侠随身佩备或行囊之中，无需重复竞买！`,
-          tone: 'talk',
-        },
-      })
-      return
-    }
-
-    if (s.silver < lot.finalPrice) {
-      set({
-        actionFeedback: {
-          text: `纹银不足！竞得【${lot.item.name}】需落槌价 ${lot.finalPrice.toLocaleString()} 两纹银（当前 ${s.silver.toLocaleString()} 两）。`,
-          tone: 'warn',
-        },
-      })
-      return
-    }
-
-    const nextInv = addItemToInventory(s.inventory, itemId, 1)
-    const savedNote =
-      lot.discountSaved > 0 ? `（算术压价省 ${lot.discountSaved.toLocaleString()} 两）` : ''
-    const msg = `于【大相国寺万姓雅市 · 六月年度拍场】豪掷 ${lot.finalPrice.toLocaleString()} 两纹银${savedNote}一槌竞得${lot.lotCategoryLabel}【${lot.item.name}】！`
-
-    set({
-      silver: s.silver - lot.finalPrice,
-      inventory: nextInv,
-      auctionBoughtByMonth: {
-        ...s.auctionBoughtByMonth,
-        [yearKey]: [...boughtThisYear, itemId],
-      },
-      actionFeedback: { text: msg, tone: 'success' },
-      logs: [
-        createLogEntry(s.dayCount, '相国寺竞拍', msg, true, s.shichenIdx),
         ...s.logs,
       ].slice(0, 60),
     })

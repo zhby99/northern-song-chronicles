@@ -132,7 +132,7 @@ const TopHeroVitalsBar = memo(function TopHeroVitalsBar() {
         type="button"
         onClick={() => openMenu('hero')}
         title="点击打开【主角面板】检视气血、内力、战斗经验、先天三维与十艺修为"
-        className="flex items-center gap-3 px-2.5 py-1 rounded bg-[#1a110a]/75 hover:bg-[#332215] border border-[#8c6e46]/60 transition cursor-pointer"
+        className="flex items-center gap-3 px-2.5 py-1 rounded bg-[#1a110a]/75 hover:bg-[#332215] border border-[#8c6e46]/60 transition cursor-pointer shrink-0"
       >
         <div className="flex items-center gap-1.5">
           <Heart className="w-3.5 h-3.5 text-[#ef4444] fill-[#ef4444]/30 shrink-0" />
@@ -174,7 +174,7 @@ const TopHeroVitalsBar = memo(function TopHeroVitalsBar() {
 
         <div className="hidden md:block h-5 w-px bg-[#6e5539]/50" />
 
-        <div className="hidden md:flex items-center gap-1 text-xs">
+        <div className="hidden md:flex items-center gap-1 text-xs whitespace-nowrap">
           <Swords className="w-3.5 h-3.5 text-amber-300 shrink-0" />
           <span className="text-[#dfcfb0] song-serif">战经</span>
           <strong className="font-mono text-amber-200">{combatExp}</strong>
@@ -186,7 +186,7 @@ const TopHeroVitalsBar = memo(function TopHeroVitalsBar() {
         type="button"
         onClick={() => openMenu('bag')}
         title="点击打开【四分类行囊】管理银两、粮草、典籍丹药与百工器具"
-        className="flex items-center gap-2.5 px-2.5 py-1.5 rounded bg-[#1a110a]/75 hover:bg-[#332215] border border-[#8c6e46]/60 transition cursor-pointer text-xs"
+        className="flex items-center gap-2.5 px-2.5 py-1.5 rounded bg-[#1a110a]/75 hover:bg-[#332215] border border-[#8c6e46]/60 transition cursor-pointer text-xs whitespace-nowrap shrink-0"
       >
         <span className="flex items-center gap-1">
           <Coins className="w-3.5 h-3.5 text-amber-400 shrink-0" />
@@ -443,7 +443,7 @@ const TopAssetTelemetryBadge = memo(function TopAssetTelemetryBadge() {
       type="button"
       onClick={() => openMenu('engineering')}
       title={`点击检视内存驻留与自动回收详情 · 当前驻留原画 ${telemetry.residentImageCount} 张 (${formatByteSize(telemetry.residentImageBytes)}) · 解码音轨 ${telemetry.audioCachedCount}/${telemetry.audioMaxCap} 首 (PCM ${formatByteSize(telemetry.audioPcmBytes)}) · 本局累计调阅 ${telemetry.loadedCount}/${ASSET_MANIFEST.summary.totalExtractedImageFiles}`}
-      className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-[#1a110a]/90 hover:bg-[#382719] text-[#f5dfb5] border border-[#c89d54]/50 text-[11px] font-mono cursor-pointer transition"
+      className="hidden 2xl:flex items-center gap-1.5 px-2.5 py-1.5 rounded bg-[#1a110a]/90 hover:bg-[#382719] text-[#f5dfb5] border border-[#c89d54]/50 text-[11px] font-mono cursor-pointer transition whitespace-nowrap"
     >
       <span className="w-2 h-2 rounded-full bg-emerald-400" />
       <span>

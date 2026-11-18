@@ -183,9 +183,9 @@ export interface GameStoreState {
   transferNeigongProficiency: (fromArtId: string, toArtId: string) => void
   consumeInventoryItem: (itemId: string, forceUseEffect?: boolean) => void
 
+  buyKaifengFairLot: (itemId: string) => void
   buySpotShopItem: (spotId: string, itemId: string, qty?: number) => void
   sellInventoryItem: (itemId: string, qty?: number) => void
-  buyXiangguoAuctionLot: (itemId: string) => void
   interactNpc: (npc: NodeNpc, mode: 'talk' | 'spar') => void
   hostNpcBanquet: (npc: NodeNpc, tier: 'standard' | 'grand') => void
   startNpcCombat: (
@@ -239,6 +239,8 @@ export interface GameStoreState {
   acceptYamenBounty: (postingId: string) => void
   abandonYamenBounty: () => void
   activeYamenBounty: ActiveYamenBounty | null
+  /** 开封大集购得记录：itemId → 购入年份（往年购得者永久下架） */
+  kaifengFairPurchases: Record<string, number>
   yamenBountyDoneIds: string[]
 
   toggleLogDrawer: () => void
@@ -250,7 +252,6 @@ export interface GameStoreState {
   inscribedPoemSpotIds: string[]
   /** 已在生死决斗或剧情中身故的名录 NPC（NPC-xxxx），从世界中移除 */
   deadNpcIds: string[]
-  auctionBoughtByMonth: Record<string, string[]>
   openNpcInteraction: (npc: NodeNpc) => void
   closeNpcInteraction: () => void
   giftNpcItem: (npc: NodeNpc, itemId: string) => void

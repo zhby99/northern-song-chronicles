@@ -1080,9 +1080,9 @@ export interface SerializableGameState {
   npcBanquetedMonth?: Record<string, number>
   inscribedPoemSpotIds?: string[]
   deadNpcIds?: string[]
-  auctionBoughtByMonth?: Record<string, string[]>
   activeEscortContract?: ActiveEscortContract | null
   activeYamenBounty?: ActiveYamenBounty | null
+  kaifengFairPurchases?: Record<string, number>
   yamenBountyDoneIds?: string[]
   sectState?: PlayerSectState
   questState?: QuestRuntimeState

@@ -238,16 +238,12 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
       deadNpcIds: Array.isArray(st.deadNpcIds)
         ? st.deadNpcIds.filter((x): x is string => typeof x === 'string')
         : [],
-      auctionBoughtByMonth: st.auctionBoughtByMonth
-        ? Object.fromEntries(
-            Object.entries(st.auctionBoughtByMonth).map(([k, arr]) => [k, [...arr]]),
-          )
-        : {},
       activeEscortContract: st.activeEscortContract ? { ...st.activeEscortContract } : null,
       activeYamenBounty: st.activeYamenBounty
         ? { ...st.activeYamenBounty, stats: { ...st.activeYamenBounty.stats } }
         : null,
       yamenBountyDoneIds: [...(st.yamenBountyDoneIds ?? [])],
+      kaifengFairPurchases: { ...(st.kaifengFairPurchases ?? {}) },
       sectState: clonePlayerSectState(st.sectState),
       questState: cloneQuestRuntimeState(st.questState),
       hiddenQuestIds: Array.isArray(st.hiddenQuestIds)

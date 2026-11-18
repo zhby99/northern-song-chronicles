@@ -451,14 +451,12 @@ export function extractSerializableState(s: GameStoreState): SerializableGameSta
     npcBanquetedMonth: { ...s.npcBanquetedMonth },
     inscribedPoemSpotIds: [...s.inscribedPoemSpotIds],
     deadNpcIds: [...s.deadNpcIds],
-    auctionBoughtByMonth: Object.fromEntries(
-      Object.entries(s.auctionBoughtByMonth).map(([k, arr]) => [k, [...arr]]),
-    ),
     activeEscortContract: s.activeEscortContract ? { ...s.activeEscortContract } : null,
     activeYamenBounty: s.activeYamenBounty
       ? { ...s.activeYamenBounty, stats: { ...s.activeYamenBounty.stats } }
       : null,
     yamenBountyDoneIds: [...s.yamenBountyDoneIds],
+    kaifengFairPurchases: { ...s.kaifengFairPurchases },
     sectState: clonePlayerSectState(s.sectState),
     questState: cloneQuestRuntimeState(s.questState),
     hiddenQuestIds: [...s.hiddenQuestIds],
@@ -576,10 +574,10 @@ export function createInitialStoreData(): GameStoreData {
     npcBanquetedMonth: {},
     inscribedPoemSpotIds: [],
     deadNpcIds: [],
-    auctionBoughtByMonth: {},
     activeEscortContract: null,
     activeYamenBounty: null,
     yamenBountyDoneIds: [],
+    kaifengFairPurchases: {},
     activeBagCategory: 'scrolls',
 
     overlays: {

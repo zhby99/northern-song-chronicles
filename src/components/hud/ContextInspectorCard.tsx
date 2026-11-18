@@ -14,7 +14,6 @@ function RegionBuildingInspectorCard() {
   const enterBuildingMap = useGameStore((s) => s.enterBuildingMap)
   const buySpotShopItem = useGameStore((s) => s.buySpotShopItem)
   const sellInventoryItem = useGameStore((s) => s.sellInventoryItem)
-  const buyXiangguoAuctionLot = useGameStore((s) => s.buyXiangguoAuctionLot)
   const runQuestEffects = useGameStore((s) => s.runQuestEffects)
   const interactNpc = useGameStore((s) => s.interactNpc)
   const startNpcCombat = useGameStore((s) => s.startNpcCombat)
@@ -57,11 +56,8 @@ function RegionBuildingInspectorCard() {
     mp,
     maxMp,
     skills,
-    equipped,
     speedParams,
     inventory,
-    consumedUniqueIds,
-    auctionBoughtByMonth,
     inscribedPoemSpotIds,
     activeEscortContract,
     activeYamenBounty,
@@ -125,7 +121,7 @@ function RegionBuildingInspectorCard() {
   return (
     <div
       id="floating-context-card"
-      className="absolute bottom-3.5 right-3.5 z-20 w-[min(92vw,700px)] max-h-[84vh] overflow-y-auto scroll-thin bg-[#f8f1e1] text-[#23180f] border-2 border-[#6e5233] rounded-lg p-5 shadow-2xl space-y-3.5 text-sm select-none"
+      className="absolute bottom-3.5 right-3.5 z-20 w-[min(92vw,560px)] 2xl:w-[min(92vw,700px)] max-h-[calc(100vh-8rem)] overflow-y-auto scroll-thin bg-[#f8f1e1] text-[#23180f] border-2 border-[#6e5233] rounded-lg p-5 shadow-2xl space-y-3.5 text-sm select-none"
     >
       <div className="flex items-start justify-between gap-2 border-b border-[#cbb693] pb-3">
         <div>
@@ -213,15 +209,10 @@ function RegionBuildingInspectorCard() {
           isAtCurrentRegion={isAtCurrentRegion}
           playerSectId={sectState.sectId}
           silver={silver}
-          dayCount={dayCount}
           arithmeticSkill={skills['算术'] ?? 0}
-          equipped={equipped}
-          consumedUniqueIds={consumedUniqueIds}
-          auctionBoughtByMonth={auctionBoughtByMonth}
           inventory={inventory}
           onBuyItem={buySpotShopItem}
           onSellItem={sellInventoryItem}
-          onBuyAuctionLot={buyXiangguoAuctionLot}
         />
       )}
 

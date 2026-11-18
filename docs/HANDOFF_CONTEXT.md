@@ -69,7 +69,7 @@
    - 出招者被反震致死后，连击、吸血、点穴等出招方命中后特效不再发动；被破招打断不占用禁连发同招锁；迟缓 / 滞气到期清零幅度。
    - `getEffectiveTalents(talents, equipped, equippedArts?, learnedArts?)`：计入配饰 +颜值 与运使武学 +根骨 / +颜值；配饰的 +颜值 不再混入十艺字典。
    - 武学属性门槛（`statRequirements`）在门派传功、秘籍展卷与装配武学时统一由 `checkPlayerArtRequirements()` 校验；剧情强制传授不受限。
-   - 大相国寺拍场排除全部有主孤品（`UNIQUE_ARTIFACT_MAP`），兵甲 / 灵丹两栏以良阶上品补位；不可叠放物品行囊中至多一件。
+   - 大相国寺不卖有主孤品（`UNIQUE_ARTIFACT_MAP`）；不可叠放物品行囊中至多一件（商铺亦拒绝重复购置）。
    - 重开新局以 `createInitialStoreData()` 整体重置，只保留存档槽与界面偏好；行军途中存档记为原地扎营。
    - 战斗 / 剧情的捕获阶段快捷键经 `shouldIgnoreOverlayHotkey()` 守门（菜单、图鉴打开或正在输入时放行）；战斗拟音与背景雅乐共用一个 AudioContext。
 
@@ -81,7 +81,7 @@
    - 州府衙门【悬赏缉凶榜】：`engine/world/yamenBounty.ts`（每城每月丙 / 乙 / 甲三张确定性榜文），状态 `activeYamenBounty` / `yamenBountyDoneIds`，战斗 `duelStakes: 'yamen_bounty'`（擒拿切磋，失手不致命），结算规则 `yamenBounty`。
    - 门派排他：`engine/sect/exclusivity.ts`——已身属别派或少林杂役期时，他派入门线（`rules.entryQuestId`，`*-REFERRAL` 除外）的触发器、驻地行动与 `startQuest` 一律不生效；任务 `joinSect` 拒绝覆盖现有门派（官面转任 `allowOfficialTransfer` 与 `SECT_ENTRY_TRANSFER_SOURCES` 所列带艺投师除外），拜师成功后自动作罢其余门派入门线。门派事务面板路径已经 `evaluateSectEntry` 校验，传 `skipExclusivityCheck`。
    - 同地多条弹窗类 `locationTriggers`（`effectsOpenModal`）每次到访只放行第一条，其余不消耗 `onceFlag`、留待下次到访。
-   - **银钱物价以门派俸禄为锚**（常山 15~110、六扇门 30~180、禁军 60~300 两/月，不改）：文职当差满级约 45 两/月且有十艺门槛，六扇门结案 30 两/件（`KAIFENG_CASE_BOUNTY_SILVER`）、常山诛谍 15 两（`LIAO_SPY_BOUNTY_SILVER`），大相国寺拍场最高地阶、起拍价 = 物值 × 3，走镖 `0.015 × 里程 × 险度`，悬赏 5 / 12 / 25 两，客栈京城 2 两/日、州府边镇 1 两/日。新增收入来源须低于或贴近同阶俸禄。
+   - **银钱物价以门派俸禄为锚**（常山 15~110、六扇门 30~180、禁军 60~300 两/月，不改）：文职当差满级约 45 两/月且有十艺门槛，六扇门结案 30 两/件（`KAIFENG_CASE_BOUNTY_SILVER`）、常山诛谍 15 两（`LIAO_SPY_BOUNTY_SILVER`），大相国寺拍卖改为【开封大集】（`engine/economy/kaifengFair.ts`：每年六月整月，从 9 件无主地阶奇珍中随机陈列 3 件，售价 = 物值 × 3，购得记录 `kaifengFairPurchases`），走镖 `0.015 × 里程 × 险度`，悬赏 5 / 12 / 25 两，客栈京城 2 两/日、州府边镇 1 两/日。新增收入来源须低于或贴近同阶俸禄。
    - 剧情切磋战未设 `onEscape` 时默认禁止脱战；平局未设 `onDraw` 时走 `onLose`。《太行剿匪·第三部》三场关键战改为 `story_trial`（败阵不致命，保留整备重试分支）。
 
 ---

@@ -1,5 +1,51 @@
+import { useState } from 'react'
 import { useGameStore } from '../../store/useGameStore'
 import { formatSongDate } from '../../engine/world/mapMath'
+
+const LEGEND_OPEN_STORAGE_KEY = 'nsc.hud.legendOpen'
+
+function readLegendOpen(): boolean {
+  try {
+    return window.localStorage.getItem(LEGEND_OPEN_STORAGE_KEY) === '1'
+  } catch {
+    return false
+  }
+}
+
+function writeLegendOpen(open: boolean) {
+  try {
+    window.localStorage.setItem(LEGEND_OPEN_STORAGE_KEY, open ? '1' : '0')
+  } catch {
+    // 严格沙箱下无本地存储：仅本次会话内记忆
+  }
+}
+
+/** 图例默认收起为左下角一枚小按钮，点开再显示完整说明（小屏不遮挡地图） */
+function LegendToggleButton({ onOpen }: { onOpen: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      title="展开图例与操作说明"
+      className="px-2.5 py-2 rounded-md bg-[#f8f1e1] hover:bg-[#efe3c8] text-[#52391e] border border-[#6e5539] shadow-md text-xs song-serif font-bold cursor-pointer"
+    >
+      图例 ▸
+    </button>
+  )
+}
+
+function LegendCloseButton({ onClose }: { onClose: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClose}
+      title="收起图例"
+      className="ml-2 px-1.5 rounded hover:bg-[#e8dcc4] text-[#8f1d14] font-bold cursor-pointer"
+    >
+      ◂ 收起
+    </button>
+  )
+}
 
 export function BottomHud() {
   const viewMode = useGameStore((s) => s.viewMode)
@@ -20,6 +66,11 @@ export function BottomHud() {
   const resetRegionView = useGameStore((s) => s.resetRegionView)
   const toggleLogDrawer = useGameStore((s) => s.toggleLogDrawer)
   const openMenu = useGameStore((s) => s.openMenu)
+  const [legendOpen, setLegendOpenState] = useState(readLegendOpen)
+  const setLegendOpen = (open: boolean) => {
+    setLegendOpenState(open)
+    writeLegendOpen(open)
+  }
 
   const activeQuestCount =
     Object.keys(questState.activeQuests).length +
@@ -29,11 +80,15 @@ export function BottomHud() {
     <>
       {viewMode === 'world' ? (
         <div id="world-bottom-hud" className="absolute bottom-3 left-3 z-20 flex items-end gap-2">
-          <div className="bg-[#f8f1e1] text-[#2a1f16] border border-[#6e5539] rounded-md px-3 py-2 shadow-md text-xs space-y-1">
+          {!legendOpen ? (
+            <LegendToggleButton onOpen={() => setLegendOpen(true)} />
+          ) : (
+          <div className="bg-[#f8f1e1] text-[#2a1f16] border border-[#6e5539] rounded-md px-3 py-2 shadow-md text-xs space-y-1 max-w-[min(70vw,760px)]">
             <div className="font-bold song-serif text-[#52391e] border-b border-[#8c7353]/40 pb-0.5 mb-1 flex items-center justify-between gap-4">
               <span>《华夷山海全图》图例（滚轮缩小自动隐去地名、凸显列国疆界）</span>
-              <span className="font-mono text-[11px] text-[#8f1d14]">
+              <span className="font-mono text-[11px] text-[#8f1d14] flex items-center">
                 {formatSongDate(dayCount, shichenIdx)}
+                <LegendCloseButton onClose={() => setLegendOpen(false)} />
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-3">
@@ -70,6 +125,7 @@ export function BottomHud() {
               <span className="text-[#1e7e4e] font-semibold">╌╌ 寻路/行路路线（仅寻路与行路时显现）</span>
             </div>
           </div>
+          )}
 
           <div className="flex flex-col bg-[#f8f1e1] text-[#2a1f16] border border-[#6e5539] rounded-md overflow-hidden shadow-md text-xs">
             <button
@@ -137,13 +193,17 @@ export function BottomHud() {
         </div>
       ) : (
         <div id="region-bottom-hud" className="absolute bottom-3 left-3 z-20 flex items-end gap-2">
-          <div className="bg-[#f8f1e1] text-[#2a1f16] border-2 border-[#6e5539] rounded-md px-3 py-2 shadow-lg text-xs space-y-1">
+          {!legendOpen ? (
+            <LegendToggleButton onOpen={() => setLegendOpen(true)} />
+          ) : (
+          <div className="bg-[#f8f1e1] text-[#2a1f16] border-2 border-[#6e5539] rounded-md px-3 py-2 shadow-lg text-xs space-y-1 max-w-[min(70vw,760px)]">
             <div className="font-bold song-serif text-[#52391e] border-b border-[#8c7353]/40 pb-0.5 mb-1 flex items-center justify-between gap-4">
               <span>
                 地区互动建筑图例（滚轮缩放 · 按住左键自由拖拽平移 · 点击建筑移步入内）
               </span>
-              <span className="font-mono text-[11px] text-[#8f1d14]">
+              <span className="font-mono text-[11px] text-[#8f1d14] flex items-center">
                 {formatSongDate(dayCount, shichenIdx)}
+                <LegendCloseButton onClose={() => setLegendOpen(false)} />
               </span>
             </div>
             <div className="flex flex-wrap items-center gap-3.5">
@@ -161,6 +221,7 @@ export function BottomHud() {
               </span>
             </div>
           </div>
+          )}
 
           <div className="flex flex-col bg-[#f8f1e1] text-[#2a1f16] border-2 border-[#6e5539] rounded-md overflow-hidden shadow-lg text-xs">
             <button

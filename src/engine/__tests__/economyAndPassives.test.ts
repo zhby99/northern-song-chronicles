@@ -31,8 +31,6 @@ import {
   getDailyMountFodderSilver,
   getDailyMountTravelFoodCost,
   getRegionLodgingInfo,
-  getXiangguoAuctionSchedule,
-  getXiangguoMonthlyAuctionLots,
   isItemSellable,
   resolveNpcFavor,
 } from '../economy'
@@ -269,7 +267,7 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
     expect(5000 - sBrushHigh.npc.hp).toBeGreaterThan(5000 - sBrushLow.npc.hp)
   })
 
-  it('computes vocation wages, runs vocation_work daily ticks & early checkout, and generates auctions/escorts', () => {
+  it('computes vocation wages, runs vocation_work daily ticks & early checkout, and generates escorts', () => {
     const skills = { 算术: 50, 经义: 50, 书: 40, 画: 70, 辩才: 60 }
     expect(calcVocationDailyWage('accountant', skills)).toBe(0.75) // 0.015*50
     expect(calcVocationDailyWage('tutor', skills)).toBe(0.7) // 0.014*50
@@ -321,22 +319,6 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
     expect(earlyStop.patch.cultivationSession).toBeNull()
     expect(earlyStop.patch.actionFeedback?.text).toContain('+14 两')
 
-    // Xiangguo annual auction is open only in June (month 6) and applies arithmetic discount
-    const schedDay1 = getXiangguoAuctionSchedule(1)
-    expect(schedDay1.isOpen).toBe(false)
-    expect(schedDay1.monthOfYear).toBe(1)
-    expect(schedDay1.monthsUntilOpen).toBe(5)
-
-    const schedJune = getXiangguoAuctionSchedule(151) // Day 151 = Month 6 Day 1
-    expect(schedJune.isOpen).toBe(true)
-    expect(schedJune.monthOfYear).toBe(6)
-    expect(schedJune.monthsUntilOpen).toBe(0)
-
-    const lotsY0 = getXiangguoMonthlyAuctionLots(0, 0)
-    const lotsY0Discount = getXiangguoMonthlyAuctionLots(0, 100)
-    expect(lotsY0.length).toBeGreaterThanOrEqual(3)
-    expect(lotsY0Discount[0]!.finalPrice).toBeLessThan(lotsY0[0]!.estimatePrice)
-
     // Escort contracts scale by distance × terrain danger
     const escorts = getAvailableEscortContracts({
       originRegionId: 'bianliang',
@@ -360,7 +342,6 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
         cityStayShichens: 7,
         npcBanquetedMonth: { 'NPC-0012': 2 },
         inscribedPoemSpotIds: ['bl_fanlou', 'hzf_tengwang'],
-        auctionBoughtByMonth: { Y0: ['WPN-012'] },
         activeEscortContract: {
           id: 'ESC-bianliang-luoyang-M0',
           cargoName: '三司折帛官银鞘',
@@ -385,7 +366,6 @@ describe('P0 Economy Loop & P1 Talents / Ten-Arts Passives', () => {
     expect(validated?.state.cityStayShichens).toBe(7)
     expect(validated?.state.npcBanquetedMonth).toEqual({ 'NPC-0012': 2 })
     expect(validated?.state.inscribedPoemSpotIds).toEqual(['bl_fanlou', 'hzf_tengwang'])
-    expect(validated?.state.auctionBoughtByMonth).toEqual({ Y0: ['WPN-012'] })
     expect(validated?.state.activeEscortContract?.destRegionId).toBe('luoyang')
   })
 })

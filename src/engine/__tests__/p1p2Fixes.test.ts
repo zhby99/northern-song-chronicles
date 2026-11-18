@@ -14,7 +14,12 @@ import {
   type BeforeHitContext,
   type AfterHitContext,
 } from '../combat'
-import { getXiangguoMonthlyAuctionLots } from '../economy'
+import {
+  getKaifengFairLots,
+  getKaifengFairSchedule,
+  KAIFENG_FAIR_LOT_COUNT,
+  KAIFENG_FAIR_POOL,
+} from '../economy/kaifengFair'
 import { addItemToInventory } from '../shared/inventory'
 import { getExpForArtLevel, syncArtLevelsToExpsAndMilestones } from '../stats/artsProgression'
 import { cloneHeroBaseStats } from '../stats/heroStats'
@@ -220,22 +225,55 @@ describe('talents and art requirements', () => {
 })
 
 describe('economy & inventory', () => {
-  it('auctions never offer owned unique artifacts and still fill several lots', () => {
-    for (let y = 0; y < 30; y += 1) {
-      const lots = getXiangguoMonthlyAuctionLots(y)
-      expect(lots.length).toBeGreaterThanOrEqual(3)
-      for (const lot of lots) expect(UNIQUE_ARTIFACT_MAP[lot.itemId]).toBeUndefined()
+  it('开封大集 opens in June with 3 ownerless 地阶 lots at 3x value', () => {
+    expect(KAIFENG_FAIR_POOL.length).toBeGreaterThanOrEqual(KAIFENG_FAIR_LOT_COUNT)
+    for (const it of KAIFENG_FAIR_POOL) {
+      expect(it.rarity.startsWith('地')).toBe(true)
+      expect(UNIQUE_ARTIFACT_MAP[it.id]?.ownerNpcId ?? null).toBeNull()
+    }
+    expect(getKaifengFairSchedule(150).isOpen).toBe(false) // 五月三十
+    expect(getKaifengFairSchedule(151).isOpen).toBe(true) // 六月初一
+    expect(getKaifengFairSchedule(180).isOpen).toBe(true)
+    expect(getKaifengFairSchedule(181).isOpen).toBe(false)
+    const lots = getKaifengFairLots({ yearIdx: 0 })
+    expect(lots).toHaveLength(KAIFENG_FAIR_LOT_COUNT)
+    for (const lot of lots) expect(lot.finalPrice).toBe(lot.item.value * 3)
+  })
+
+  it('a 开封大集 purchase stays bought this year and never returns in later years', () => {
+    useGameStore.setState({
+      currentNodeId: 'bianliang',
+      activeRegionId: 'bianliang',
+      dayCount: 151,
+      silver: 99999,
+    })
+    const lot = getKaifengFairLots({
+      yearIdx: 0,
+      arithmeticSkill: useGameStore.getState().skills['算术'] ?? 0,
+    })[0]!
+    useGameStore.getState().buyKaifengFairLot(lot.itemId)
+    const s = useGameStore.getState()
+    expect(s.silver).toBe(99999 - lot.finalPrice)
+    expect(s.kaifengFairPurchases[lot.itemId]).toBe(0)
+    useGameStore.getState().buyKaifengFairLot(lot.itemId)
+    expect(useGameStore.getState().silver).toBe(s.silver)
+    for (let y = 1; y < 6; y += 1) {
+      const later = getKaifengFairLots({ yearIdx: y, purchases: s.kaifengFairPurchases })
+      expect(later.some((l) => l.itemId === lot.itemId)).toBe(false)
     }
   })
 
-  it('auction lots top out at 地阶 and start at three times item value', () => {
-    for (let y = 0; y < 30; y += 1) {
-      for (const lot of getXiangguoMonthlyAuctionLots(y)) {
-        expect(lot.item.rarity.startsWith('天')).toBe(false)
-        expect(lot.estimatePrice).toBe(Math.round(lot.item.value * 3))
-        expect(lot.finalPrice).toBe(lot.estimatePrice)
-      }
-    }
+  it('buying a non-stackable item you already carry is refused without charging', () => {
+    useGameStore.setState({
+      currentNodeId: 'bianliang',
+      activeRegionId: 'bianliang',
+      silver: 5000,
+      inventory: [{ itemId: 'WPN-031', qty: 1 }],
+    })
+    useGameStore.getState().buySpotShopItem('bl_xg_market', 'WPN-031', 3)
+    const s = useGameStore.getState()
+    expect(s.silver).toBe(5000)
+    expect(s.inventory).toEqual([{ itemId: 'WPN-031', qty: 1 }])
   })
 
   it('non-stackable items never stack past one copy', () => {

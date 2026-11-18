@@ -106,7 +106,7 @@ export const SPOT_SHOPS: SpotShopConfig[] = [
     spotId: "bl_xg_market",
     regionId: "bianliang",
     title: "大相国寺万姓交易雅市",
-    subtitle: "东京百货云集之地 · 凡良兵刃服饰雅玩皆可平价购置",
+    subtitle: "东京百货云集之地 · 凡良兵刃服饰雅玩皆可平价购置；每年六月逢开封大集另陈地阶奇珍",
     items: [
       { itemId: "WPN-061", price: 22, note: "凡阶上品 · 器物" },
       { itemId: "WPN-070", price: 23, note: "凡阶上品 · 器物" },

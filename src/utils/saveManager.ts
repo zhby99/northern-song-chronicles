@@ -632,16 +632,6 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
     deadNpcIds: Array.isArray(st.deadNpcIds)
       ? st.deadNpcIds.filter((id): id is string => typeof id === 'string' && Boolean(NPC_DB_MAP[id]))
       : [],
-    auctionBoughtByMonth: isRecord(st.auctionBoughtByMonth)
-      ? Object.fromEntries(
-          Object.entries(st.auctionBoughtByMonth)
-            .filter(([, v]) => Array.isArray(v))
-            .map(([k, v]) => [
-              k,
-              (v as unknown[]).filter((x): x is string => typeof x === 'string'),
-            ]),
-        )
-      : {},
     activeEscortContract:
       isRecord(st.activeEscortContract) &&
       typeof st.activeEscortContract.id === 'string' &&
@@ -676,6 +666,13 @@ export function validateSaveEnvelope(raw: unknown): GameSaveEnvelope | null {
           } satisfies ActiveEscortContract)
         : null,
     activeYamenBounty: parseActiveYamenBounty(st.activeYamenBounty),
+    kaifengFairPurchases: isRecord(st.kaifengFairPurchases)
+      ? Object.fromEntries(
+          Object.entries(st.kaifengFairPurchases).filter(
+            (e): e is [string, number] => typeof e[1] === 'number' && Number.isFinite(e[1]),
+          ),
+        )
+      : {},
     yamenBountyDoneIds: Array.isArray(st.yamenBountyDoneIds)
       ? st.yamenBountyDoneIds.filter((x): x is string => typeof x === 'string').slice(-60)
       : [],

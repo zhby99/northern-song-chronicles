@@ -7,16 +7,16 @@ import {
   computeArithmeticSellBonusRatio,
   computeItemSellPrice,
   computeShopBuyPrice,
-  getXiangguoAuctionSchedule,
-  getXiangguoMonthlyAuctionLots,
   isItemSellable,
 } from '../../../engine/economy'
-import type { EquippedSlotsMap, InventoryStack } from '../../../types/game'
+import type { InventoryStack } from '../../../types/game'
 import { NODE_MAP } from '../../../engine/world/mapMath'
+import { KAIFENG_FAIR_SPOT_ID } from '../../../engine/economy/kaifengFair'
+import { KaifengFairPanel } from './KaifengFairPanel'
 
 type SpotShopDef = NonNullable<(typeof SPOT_SHOPS_BY_SPOT_ID)[string]>
 type ShopGroupKey = 'weapon' | 'armor' | 'mount' | 'scrolls' | 'medicine' | 'tools' | 'misc'
-type ShopTradeTab = 'buy' | 'sell' | 'auction'
+type ShopTradeTab = 'buy' | 'sell' | 'fair'
 
 const SHOP_GROUP_ORDER: Array<{ key: ShopGroupKey; label: string }> = [
   { key: 'weapon', label: '神兵利器' },
@@ -34,15 +34,10 @@ interface InspectorShopSectionProps {
   isAtCurrentRegion: boolean
   playerSectId: string | null
   silver: number
-  dayCount: number
   arithmeticSkill: number
-  equipped: EquippedSlotsMap
-  consumedUniqueIds: string[]
-  auctionBoughtByMonth: Record<string, string[]>
   inventory: InventoryStack[]
   onBuyItem: (spotId: string, itemId: string, qty: number) => void
   onSellItem: (itemId: string, qty: number) => void
-  onBuyAuctionLot: (itemId: string) => void
 }
 
 export function InspectorShopSection({
@@ -51,15 +46,10 @@ export function InspectorShopSection({
   isAtCurrentRegion,
   playerSectId,
   silver,
-  dayCount,
   arithmeticSkill,
-  equipped,
-  consumedUniqueIds,
-  auctionBoughtByMonth,
   inventory,
   onBuyItem,
   onSellItem,
-  onBuyAuctionLot,
 }: InspectorShopSectionProps) {
   const [tradeTabState, setTradeTabState] = useState<{
     contextKey: string
@@ -90,10 +80,10 @@ export function InspectorShopSection({
     qty: number
   } | null>(null)
 
-  const isXiangguoAuctionVenue = activeShop.spotId === 'bl_xg_market'
+  // 开封大集页签（含开市倒计时）只在少侠亲临大相国寺雅市时显示
+  const isKaifengFairVenue = activeShop.spotId === KAIFENG_FAIR_SPOT_ID && isAtCurrentRegion
   const rawTab = tradeTabState?.contextKey === currentContextKey ? tradeTabState.tab : 'buy'
-  const activeTab: ShopTradeTab =
-    rawTab === 'auction' && !isXiangguoAuctionVenue ? 'buy' : rawTab
+  const activeTab: ShopTradeTab = rawTab === 'fair' && !isKaifengFairVenue ? 'buy' : rawTab
 
   const reqSectName = activeShop.requiredSectId
     ? (FACTION_DB_MAP[activeShop.requiredSectId]?.name ?? activeShop.requiredSectId)
@@ -169,17 +159,6 @@ export function InspectorShopSection({
       return b.unitSell - a.unitSell || a.def.name.localeCompare(b.def.name, 'zh-Hans-CN')
     })
 
-  const auctionSchedule = getXiangguoAuctionSchedule(dayCount)
-  const boughtAuctionIds = auctionBoughtByMonth[`Y${auctionSchedule.yearIdx}`] ?? []
-  const auctionLots =
-    isXiangguoAuctionVenue && auctionSchedule.isOpen
-      ? getXiangguoMonthlyAuctionLots(
-          auctionSchedule.yearIdx,
-          arithmeticSkill,
-          new Set(consumedUniqueIds),
-        )
-      : []
-
   return (
     <>
       <div className="p-2.5 rounded-md bg-[#f5e7cb] border-2 border-[#b58742] space-y-2">
@@ -225,17 +204,17 @@ export function InspectorShopSection({
           >
             典卖折银 ({bagSellEntries.length})
           </button>
-          {isXiangguoAuctionVenue && (
+          {isKaifengFairVenue && (
             <button
               type="button"
-              onClick={() => setTradeTabState({ contextKey: currentContextKey, tab: 'auction' })}
+              onClick={() => setTradeTabState({ contextKey: currentContextKey, tab: 'fair' })}
               className={`px-2.5 py-1 rounded text-[11px] font-bold song-serif border transition cursor-pointer ${
-                activeTab === 'auction'
+                activeTab === 'fair'
                   ? 'bg-[#6b4614] border-[#6b4614] text-[#fde68a] shadow-sm'
                   : 'bg-[#fbf1d9] hover:bg-[#f2e2bb] border-[#b58742] text-[#781710]'
               }`}
             >
-              ★ 六月拍场 ({auctionSchedule.isOpen ? auctionLots.length : '休市'})
+              ★ 开封大集（六月）
             </button>
           )}
         </div>
@@ -460,92 +439,8 @@ export function InspectorShopSection({
           </div>
         )}
 
-        {activeTab === 'auction' && isXiangguoAuctionVenue && (
-          <div className="space-y-2">
-            <div className="text-[10px] text-[#5c3d1e] bg-[#fbf1d9] px-2 py-1.5 rounded border border-[#b58742] flex items-center justify-between gap-2">
-              <span>
-                大相国寺每年六月整月开启年度拍场（第 {auctionSchedule.yearIdx + 1} 年 · 四席良 / 地阶重器，起拍价为物值三倍），一槌定音
-              </span>
-              <span className="font-mono text-[#781710] font-bold shrink-0">每年六月限拍 1 次/席</span>
-            </div>
-            {!auctionSchedule.isOpen ? (
-              <div className="p-3 rounded bg-[#efe4cc] border border-[#cbb693] text-[11px] text-[#5c3d1e] leading-relaxed">
-                本届大相国寺年度拍场须待每年<strong>六月整月</strong>方可开拍（当前第{' '}
-                <span className="font-mono font-bold text-[#781710]">
-                  {auctionSchedule.monthOfYear}
-                </span>{' '}
-                月，距六月开拍尚余{' '}
-                <span className="font-mono font-bold text-[#781710]">
-                  {auctionSchedule.monthsUntilOpen}
-                </span>{' '}
-                个月）。
-              </div>
-            ) : (
-              <div className="space-y-1.5 max-h-72 overflow-y-auto scroll-thin pr-0.5">
-                {auctionLots.map((lot) => {
-                  const alreadyBought = boughtAuctionIds.includes(lot.itemId)
-                  const isEquipped = Object.values(equipped).includes(lot.itemId)
-                  const ownedQty = inventory.find((st) => st.itemId === lot.itemId)?.qty ?? 0
-                  const alreadyOwnedNonStack = !lot.item.stackable && (isEquipped || ownedQty > 0)
-                  const canBid =
-                    isAtCurrentRegion &&
-                    !alreadyBought &&
-                    !alreadyOwnedNonStack &&
-                    silver >= lot.finalPrice
-                  return (
-                    <div
-                      key={lot.itemId}
-                      className="flex items-center justify-between gap-2 p-2 rounded bg-[#faf3e3] border border-[#b58742]"
-                    >
-                      <div className="min-w-0 space-y-0.5">
-                        <div className="flex items-center gap-1.5 flex-wrap">
-                          <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#781710] text-[#fde68a] font-bold">
-                            {lot.lotCategoryLabel}
-                          </span>
-                          <span className="font-bold song-serif text-xs text-[#23180f]">
-                            {lot.item.name}
-                          </span>
-                          <span className="text-[9px] px-1 py-0.2 rounded bg-[#efe0c4] text-[#6b4614]">
-                            {lot.item.rarity}
-                          </span>
-                        </div>
-                        <div className="text-[10px] text-[#6b5235] truncate">
-                          {lot.item.subType} · {lot.item.desc}
-                        </div>
-                        {lot.discountSaved > 0 && (
-                          <div className="text-[9px] text-[#1f4d3b] font-mono">
-                            起拍估价 {lot.estimatePrice} 两 · 算术压价省 {lot.discountSaved} 两
-                          </div>
-                        )}
-                      </div>
-                      {alreadyBought ? (
-                        <span className="px-2 py-1 rounded text-[10px] font-bold song-serif bg-[#e6dcc8] text-[#1f4d3b] border border-[#cbb693] shrink-0">
-                          ✓ 本年已拍得
-                        </span>
-                      ) : alreadyOwnedNonStack ? (
-                        <span className="px-2 py-1 rounded text-[10px] font-bold song-serif bg-[#e6dcc8] text-[#6b5235] border border-[#cbb693] shrink-0">
-                          已藏孤本
-                        </span>
-                      ) : (
-                        <button
-                          type="button"
-                          disabled={!canBid}
-                          onClick={() => onBuyAuctionLot(lot.itemId)}
-                          className={`px-2.5 py-1 rounded text-[11px] font-bold song-serif shrink-0 transition ${
-                            canBid
-                              ? 'bg-[#6b4614] hover:bg-[#825518] text-[#fde68a] cursor-pointer shadow-sm'
-                              : 'bg-[#c9bba3] text-[#7a6d5a] cursor-not-allowed'
-                          }`}
-                        >
-                          {lot.finalPrice.toLocaleString()} 两竞拍
-                        </button>
-                      )}
-                    </div>
-                  )
-                })}
-              </div>
-            )}
-          </div>
+        {activeTab === 'fair' && isKaifengFairVenue && (
+          <KaifengFairPanel isAtCurrentRegion={isAtCurrentRegion} />
         )}
       </div>
 

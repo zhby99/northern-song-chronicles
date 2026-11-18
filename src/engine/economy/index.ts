@@ -1,10 +1,4 @@
-import { UNIQUE_ARTIFACT_MAP } from '../../data/gameDb'
-import {
-  ITEM_DB_MAP,
-  ITEMS_DB,
-  NON_GIFTABLE_KEY_ITEM_IDS,
-  normalizeItemTier,
-} from '../../data/itemsDb'
+import { ITEM_DB_MAP, NON_GIFTABLE_KEY_ITEM_IDS } from '../../data/itemsDb'
 import type {
   ActiveEscortContract,
   CompiledMartialArtRecord,
@@ -278,134 +272,13 @@ export function computeBanquetFavorGain(
 }
 
 // ============================================================================
-// 五、 大相国寺万姓雅市 · 月度奇珍拍卖
+// 五、 确定性取样工具（大相国寺奇珍改为按物值三倍常设出售，见 spotShops.ts）
 // ============================================================================
-
-export interface XiangguoAuctionLot {
-  itemId: string
-  item: GameItemDef
-  estimatePrice: number
-  finalPrice: number
-  discountSaved: number
-  lotCategoryLabel: string
-}
-
-const AUCTION_CANDIDATE_POOLS: {
-  weaponsAndGear: GameItemDef[]
-  scrolls: GameItemDef[]
-  elixirs: GameItemDef[]
-  mountsAndCurios: GameItemDef[]
-} = (() => {
-  const isAuctionEligible = (it: GameItemDef): boolean => {
-    if (!isItemSellable(it.id, it)) return false
-    // 有主孤品（名宿随身神兵、御赐宝马、门派秘藏灵丹等）只经剧情 / 名宿获取，不进拍场以免出现双份
-    if (UNIQUE_ARTIFACT_MAP[it.id]) return false
-    const tier = normalizeItemTier(it.rarity)
-    // 拍场最高只到地阶：天阶神物一律不入拍
-    if (tier === '天阶') return false
-    // 精选地阶重宝与高价良阶上品奇珍进入拍场，保留天阶唯一神兵于专属剧情与名宿手中；
-    // 地阶兵甲与灵丹皆为有主孤品，故兵甲 / 灵丹两栏以良阶上品补位（披挂 ≥ 60 两、良阶丹药）
-    if (tier === '地阶') return it.value >= 120
-    if (tier === '良阶') {
-      if (it.value >= 140) return true
-      if (it.equipSlot && it.equipSlot !== 'mount') return it.value >= 60
-      return it.category === 'medicine'
-    }
-    return false
-  }
-
-  const eligible = ITEMS_DB.filter(isAuctionEligible)
-  return {
-    weaponsAndGear: eligible.filter(
-      (it) =>
-        it.equipSlot === 'weapon' ||
-        it.equipSlot === 'armor' ||
-        it.equipSlot === 'shoes' ||
-        it.equipSlot === 'bow' ||
-        it.equipSlot === 'accessory1' ||
-        it.equipSlot === 'accessory2',
-    ),
-    scrolls: eligible.filter((it) => it.category === 'scrolls'),
-    elixirs: eligible.filter((it) => it.category === 'medicine'),
-    mountsAndCurios: eligible.filter(
-      (it) => it.equipSlot === 'mount' || it.category === 'tools',
-    ),
-  }
-})()
-
-/** 大相国寺拍品起价 = 物品价值 × 3（另享【算术】采办折扣） */
-export const XIANGGUO_AUCTION_PRICE_MULT = 3
 
 function seededIndex(seed: number, salt: number, length: number): number {
   if (length <= 0) return 0
   const h = Math.imul(seed * 31 + salt * 997 + 17, 2654435761) >>> 0
   return h % length
-}
-
-export interface XiangguoAuctionSchedule {
-  yearIdx: number
-  monthOfYear: number
-  isOpen: boolean
-  monthsUntilOpen: number
-}
-
-/**
- * 大相国寺万姓雅市奇珍拍卖改为每年一次，于每年【六月】（第 6 月）开市一整个月
- */
-export function getXiangguoAuctionSchedule(dayCount: number): XiangguoAuctionSchedule {
-  const zeroIdx = Math.max(0, Math.floor(dayCount) - 1)
-  const yearIdx = Math.floor(zeroIdx / 360)
-  const monthOfYear = Math.floor((zeroIdx % 360) / 30) + 1 // 1..12
-  const isOpen = monthOfYear === 6
-  const monthsUntilOpen = monthOfYear <= 6 ? 6 - monthOfYear : 18 - monthOfYear
-  return {
-    yearIdx,
-    monthOfYear,
-    isOpen,
-    monthsUntilOpen,
-  }
-}
-
-/**
- * 按当前年份索引生成大相国寺当年六月 4 件拍品（神兵披挂 / 秘籍孤本 / 灵丹妙药 / 良驹雅器）
- */
-export function getXiangguoMonthlyAuctionLots(
-  yearOrMonthIdx: number,
-  arithmeticSkill = 0,
-  excludedItemIds?: ReadonlySet<string>,
-): XiangguoAuctionLot[] {
-  const buckets: Array<{ label: string; pool: GameItemDef[]; salt: number }> = [
-    { label: '兵甲重器', pool: AUCTION_CANDIDATE_POOLS.weaponsAndGear, salt: 11 },
-    { label: '孤本秘卷', pool: AUCTION_CANDIDATE_POOLS.scrolls, salt: 29 },
-    { label: '宫闱灵丹', pool: AUCTION_CANDIDATE_POOLS.elixirs, salt: 53 },
-    { label: '名驹雅器', pool: AUCTION_CANDIDATE_POOLS.mountsAndCurios, salt: 79 },
-  ]
-
-  const pickedIds = new Set<string>()
-  const lots: XiangguoAuctionLot[] = []
-
-  for (const bucket of buckets) {
-    const filtered = bucket.pool.filter(
-      (it) => !pickedIds.has(it.id) && !(excludedItemIds?.has(it.id) ?? false),
-    )
-    if (filtered.length === 0) continue
-    const idx = seededIndex(Math.max(0, yearOrMonthIdx), bucket.salt, filtered.length)
-    const item = filtered[idx]
-    if (!item) continue
-    pickedIds.add(item.id)
-    const estimatePrice = Math.round(item.value * XIANGGUO_AUCTION_PRICE_MULT)
-    const finalPrice = computeShopBuyPrice(estimatePrice, arithmeticSkill)
-    lots.push({
-      itemId: item.id,
-      item,
-      estimatePrice,
-      finalPrice,
-      discountSaved: Math.max(0, estimatePrice - finalPrice),
-      lotCategoryLabel: bucket.label,
-    })
-  }
-
-  return lots
 }
 
 // ============================================================================

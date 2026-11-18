@@ -90,7 +90,7 @@ export function QuestTrackerPanel() {
   return (
     <aside
       aria-label="江湖任务追踪面板"
-      className={`fixed left-3.5 ${topOffsetClass} z-20 w-72 sm:w-80 rounded-lg border border-[#a88754]/75 bg-[#1b120a]/90 backdrop-blur-md text-[#f6ebd4] shadow-2xl overflow-hidden transition-all`}
+      className={`fixed left-3.5 ${topOffsetClass} z-20 w-64 xl:w-72 2xl:w-80 rounded-lg border border-[#a88754]/75 bg-[#1b120a]/90 backdrop-blur-md text-[#f6ebd4] shadow-2xl overflow-hidden transition-all`}
     >
       {/* 顶栏：标题 + 当前修为 + 折叠按钮 */}
       <div className="px-3 py-2 bg-[#2a1b0e]/95 border-b border-[#8c6e46]/50 flex items-center justify-between gap-2">
@@ -137,8 +137,8 @@ export function QuestTrackerPanel() {
         </div>
       </div>
 
-      {/* 面板内容 */}
-      {!collapsed && (
+      {/* 面板内容（无任何追踪任务时只留标题栏，小屏不占地图） */}
+      {!collapsed && totalActiveCount > 0 && (
         <div className="max-h-[38vh] overflow-y-auto p-2.5 space-y-2.5 text-xs">
           {/* 常山枪派半年度辽谍军令 */}
           {visibleSpy && (() => {
@@ -493,12 +493,8 @@ export function QuestTrackerPanel() {
             )
           })}
 
-          {/* 无进行中任务或全部隐藏时：保持精简提示 */}
-          {totalActiveCount === 0 ? (
-            <div className="py-2 px-1 text-[11px] text-[#cbb693] text-center leading-relaxed">
-              当前暂无已承接的任务，可按 <kbd className="px-1 py-0.5 rounded bg-[#332212] border border-[#8c6e46]/50 text-amber-200 font-mono text-[10px]">J</kbd> 在《江湖纪事》中查阅江湖传闻。
-            </div>
-          ) : visibleCount === 0 ? (
+          {/* 全部隐藏时：保持精简提示 */}
+          {visibleCount === 0 ? (
             <div className="py-2 px-1 text-[11px] text-[#cbb693] text-center leading-relaxed space-y-1.5">
               <div>已隐藏全部 {hiddenActiveCount} 项追踪任务。</div>
               <button

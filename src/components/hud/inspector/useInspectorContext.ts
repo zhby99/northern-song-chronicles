@@ -69,7 +69,6 @@ export function useInspectorContext() {
   const res = useGameStore((s) => s.res)
   const baseStats = useGameStore((s) => s.baseStats)
   const skills = useGameStore((s) => s.skills)
-  const equipped = useGameStore((s) => s.equipped)
   const mountKey = useGameStore((s) => s.mountKey)
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
   const speedParams = useMemo(
@@ -77,8 +76,6 @@ export function useInspectorContext() {
     [mountKey, qinggongBonus, ridingSkill, agility],
   )
   const inventory = useGameStore((s) => s.inventory)
-  const consumedUniqueIds = useGameStore((s) => s.consumedUniqueIds)
-  const auctionBoughtByMonth = useGameStore((s) => s.auctionBoughtByMonth)
   const inscribedPoemSpotIds = useGameStore((s) => s.inscribedPoemSpotIds)
   const activeEscortContract = useGameStore((s) => s.activeEscortContract)
   const activeYamenBounty = useGameStore((s) => s.activeYamenBounty)
@@ -461,11 +458,8 @@ export function useInspectorContext() {
     mp,
     maxMp,
     skills,
-    equipped,
     speedParams,
     inventory,
-    consumedUniqueIds,
-    auctionBoughtByMonth,
     inscribedPoemSpotIds,
     activeEscortContract,
     activeYamenBounty,
