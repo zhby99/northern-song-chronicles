@@ -26,12 +26,16 @@ export function generateKaifengWarrant(
   const { investigationCases, warrantCriminals } = SECT_SYSTEMS_DB.kaifeng
 
   const nearbyCities = WORLD_GRAPH.nodes.filter((n) => {
-    if (n.type !== 'city' || n.id === 'bianliang') return false
+    if (n.type !== 'city' || n.regime !== 'song' || n.id === 'bianliang') return false
     const dist = getSectRouteDistanceLi('bianliang', n.id)
     return dist !== null && dist > 0 && dist <= 2500
   })
   const pool =
-    nearbyCities.length > 0 ? nearbyCities : WORLD_GRAPH.nodes.filter((n) => n.type === 'city')
+    nearbyCities.length > 0
+      ? nearbyCities
+      : WORLD_GRAPH.nodes.filter(
+          (n) => n.type === 'city' && n.regime === 'song' && n.id !== 'bianliang',
+        )
   const city = pool[Math.floor(rng() * pool.length)]
   if (!city) return null
 

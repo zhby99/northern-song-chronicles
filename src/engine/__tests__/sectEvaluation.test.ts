@@ -6,9 +6,11 @@ import {
   DAMING_RECOMMENDATION_ITEM_ID,
   evaluateSectEntry,
   evaluateSectPromotion,
+  generateKaifengWarrant,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   resetSectMembership,
 } from '../sect'
+import { NODE_MAP } from '../world/mapMath'
 
 describe('evaluateSectEntry & evaluateSectPromotion', () => {
   it('evaluates third-tier, second-tier, Changshan, Kaifeng, and Imperial Guard entry rules', () => {
@@ -175,5 +177,25 @@ describe('resetSectMembership', () => {
     expect(next.bribedReferralSects).toEqual(['SECT-25'])
     // 不修改入参
     expect(st.sectId).toBe('SECT-17')
+  })
+
+  it('generates Kaifeng Six Doors warrants only in Great Song cities', () => {
+    for (const rank of [1, 2, 3] as const) {
+      for (let i = 0; i < 60; i += 1) {
+        let step = 0
+        const rng = () => {
+          const val = ((i * 37 + step * 17) % 100) / 100
+          step += 1
+          return val
+        }
+        const warrant = generateKaifengWarrant(10 + i, rank, { rng })
+        expect(warrant).not.toBeNull()
+        const node = NODE_MAP[warrant!.regionId]
+        expect(node).toBeDefined()
+        expect(node?.type).toBe('city')
+        expect(node?.regime).toBe('song')
+        expect(warrant!.regionId).not.toBe('bianliang')
+      }
+    }
   })
 })
