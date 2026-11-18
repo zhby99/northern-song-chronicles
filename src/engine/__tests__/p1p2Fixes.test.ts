@@ -263,6 +263,22 @@ describe('economy & inventory', () => {
     }
   })
 
+  it('开封大集 keeps the same 3 lots all year even after buying and using one', () => {
+    const before = getKaifengFairLots({ yearIdx: 2 }).map((l) => l.itemId)
+    const bought = before[0]!
+    const after = getKaifengFairLots({
+      yearIdx: 2,
+      purchases: { [bought]: 2 },
+      consumedUniqueIds: [bought],
+    })
+    expect(after.map((l) => l.itemId)).toEqual(before)
+    expect(after.find((l) => l.itemId === bought)?.boughtThisYear).toBe(true)
+    // 来年才换货，且已售出的不再出现
+    const next = getKaifengFairLots({ yearIdx: 3, purchases: { [bought]: 2 }, consumedUniqueIds: [bought] })
+    expect(next).toHaveLength(3)
+    expect(next.some((l) => l.itemId === bought)).toBe(false)
+  })
+
   it('buying a non-stackable item you already carry is refused without charging', () => {
     useGameStore.setState({
       currentNodeId: 'bianliang',

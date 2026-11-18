@@ -78,9 +78,10 @@ export function getKaifengFairLots(params: {
   consumedUniqueIds?: readonly string[]
 }): KaifengFairLot[] {
   const { yearIdx, arithmeticSkill = 0, purchases = {}, consumedUniqueIds = [] } = params
+  // 每年的 3 件拍品只由「往年已售出 / 往年前已炼化」决定，本年买下、服食或展卷都不会让新货补位
   const available = KAIFENG_FAIR_POOL.filter((it) => {
     const boughtYear = purchases[it.id]
-    if (boughtYear !== undefined && boughtYear < yearIdx) return false
+    if (boughtYear !== undefined) return boughtYear >= yearIdx
     return !consumedUniqueIds.includes(it.id)
   })
   return seededShuffle(available, yearIdx + 1)
