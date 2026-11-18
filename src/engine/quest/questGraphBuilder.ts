@@ -552,10 +552,10 @@ export function buildQuestDependencyGraph(
   }
 
   const connectedCoords = new Map<string, { row: number; col: number }>()
+  let currentRow = standaloneRowCount
   for (let d = 0; d <= maxDepth; d++) {
     const layer = byDepth.get(d) ?? []
     if (layer.length === 0) continue
-    const row = standaloneRowCount + d
 
     // Compute desired column from parent barycenter (or evenly spaced across 0..6 for roots)
     const desired = layer.map((q, idx) => {
@@ -575,6 +575,10 @@ export function buildQuestDependencyGraph(
 
     const usedCols = new Set<number>()
     for (const item of desired) {
+      if (usedCols.size >= COLS) {
+        currentRow += 1
+        usedCols.clear()
+      }
       let bestCol = Math.round(Math.max(0, Math.min(COLS - 1, item.target)))
       if (usedCols.has(bestCol)) {
         // Find nearest free column in 0..6
@@ -590,8 +594,9 @@ export function buildQuestDependencyGraph(
         }
       }
       usedCols.add(bestCol)
-      connectedCoords.set(item.q.id, { row, col: bestCol })
+      connectedCoords.set(item.q.id, { row: currentRow, col: bestCol })
     }
+    currentRow += 1
   }
 
   // Assign fan-in dstOffsetX & trackOffset when multiple incoming edges target the same node

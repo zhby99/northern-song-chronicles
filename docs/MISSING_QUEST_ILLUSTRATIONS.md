@@ -135,6 +135,54 @@
 | `CG-QST-123` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_canhe_five_rounds.jpg` | `/assets/quests/murong_arc3_canhe_five_rounds.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第三十幕 · 参合堂终战五合<br>（`scene_jj_mr3_30_five_rounds_showdown`） | `16:9` |
 | `CG-QST-124` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_yanziwu_ablaze.jpg` | `/assets/quests/murong_arc3_yanziwu_ablaze.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第三十六幕 · 接管还施水阁 · 火照太湖<br>（`scene_jj_mr3_36_huanshi_library`） | `16:9` |
 | `CG-QST-125` | `[ ]` 待补绘 | `public/assets/quests/murong_arc3_kaifeng_execution.jpg` | `/assets/quests/murong_arc3_kaifeng_execution.jpg` | `QST-SECT-33-MURONG-ARC-3`<br>《破燕 · 叁 · 血染太湖》 | 第三十九幕 · 市曹斩四将<br>（`scene_jj_mr3_39_public_execution`） | `16:9` |
+| `CG-QST-126` | `[ ]` 待补绘 | `public/assets/quests/jinjun_twg_banquet_debate.jpg` | `/assets/quests/jinjun_twg_banquet_debate.jpg` | `QST-SECT-33-TONGWENGUAN`<br>《同文馆 · 四夷宾服录》 | 第一幕 · 瑞雪迎宾令<br>（`scene_twg_01`） | `16:9` |
+| `CG-QST-127` | `[ ]` 待补绘 | `public/assets/quests/jinjun_twg_night_fire.jpg` | `/assets/quests/jinjun_twg_night_fire.jpg` | `QST-SECT-33-TONGWENGUAN`<br>《同文馆 · 四夷宾服录》 | 第九幕 · 镇南王致敬<br>（`scene_twg_09`） | `16:9` |
+| `CG-QST-128` | `[ ]` 待补绘 | `public/assets/quests/jinjun_twg_duan_flame.jpg` | `/assets/quests/jinjun_twg_duan_flame.jpg` | `QST-SECT-33-TONGWENGUAN`<br>《同文馆 · 四夷宾服录》 | 第十四幕 · 火焰刀逼险<br>（`scene_twg_14`） | `16:9` |
+| `CG-QST-129` | `[ ]` 待补绘 | `public/assets/quests/jinjun_twg_jiumozhi_duel.jpg` | `/assets/quests/jinjun_twg_jiumozhi_duel.jpg` | `QST-SECT-33-TONGWENGUAN`<br>《同文馆 · 四夷宾服录》 | 第十五幕 · 挺枪救危局<br>（`scene_twg_15`） | `16:9` |
+| `CG-QST-130` | `[ ]` 待补绘 | `public/assets/quests/jinjun_twg_dali_treaty.jpg` | `/assets/quests/jinjun_twg_dali_treaty.jpg` | `QST-SECT-33-TONGWENGUAN`<br>《同文馆 · 四夷宾服录》 | 第十八幕 · 枪挑袈裟环<br>（`scene_twg_18`） | `16:9` |
+| `CG-QST-131` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yn_diqing_muster.jpg` | `/assets/quests/jinjun_yn_diqing_muster.jpg` | `QST-SECT-33-YONGZHOU-NANMAN`<br>《邕州道 · 蛮烟瘴雨平》 | 第一幕 · 岭南八百里加急<br>（`scene_yn_01`） | `16:9` |
+| `CG-QST-132` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yn_poison_altar.jpg` | `/assets/quests/jinjun_yn_poison_altar.jpg` | `QST-SECT-33-YONGZHOU-NANMAN`<br>《邕州道 · 蛮烟瘴雨平》 | 第三幕 · 帅旗双雄会<br>（`scene_yn_03`） | `16:9` |
+| `CG-QST-133` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yn_lantern_ruse.jpg` | `/assets/quests/jinjun_yn_lantern_ruse.jpg` | `QST-SECT-33-YONGZHOU-NANMAN`<br>《邕州道 · 蛮烟瘴雨平》 | 第十一幕 · 夺取解瘴药<br>（`scene_yn_11`） | `16:9` |
+| `CG-QST-134` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yn_elephant_charge.jpg` | `/assets/quests/jinjun_yn_elephant_charge.jpg` | `QST-SECT-33-YONGZHOU-NANMAN`<br>《邕州道 · 蛮烟瘴雨平》 | 第十三幕 · 暴雨渡昆仑<br>（`scene_yn_13`） | `16:9` |
+| `CG-QST-135` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yn_zhaixingzi_duel.jpg` | `/assets/quests/jinjun_yn_zhaixingzi_duel.jpg` | `QST-SECT-33-YONGZHOU-NANMAN`<br>《邕州道 · 蛮烟瘴雨平》 | 第十八幕 · 双枪凿敌阵<br>（`scene_yn_18`） | `16:9` |
+| `CG-QST-136` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yn_guirenpu_rout.jpg` | `/assets/quests/jinjun_yn_guirenpu_rout.jpg` | `QST-SECT-33-YONGZHOU-NANMAN`<br>《邕州道 · 蛮烟瘴雨平》 | 第二十一幕 · 妖道伏诛死<br>（`scene_yn_21`） | `16:9` |
+| `CG-QST-137` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yn_lijiang_spear.jpg` | `/assets/quests/jinjun_yn_lijiang_spear.jpg` | `QST-SECT-33-YONGZHOU-NANMAN`<br>《邕州道 · 蛮烟瘴雨平》 | 第二十四幕 · 漓江泛舟饮<br>（`scene_yn_24`） | `16:9` |
+| `CG-QST-138` | `[ ]` 待补绘 | `public/assets/quests/jinjun_yn_xuande_rank5.jpg` | `/assets/quests/jinjun_yn_xuande_rank5.jpg` | `QST-SECT-33-YONGZHOU-NANMAN`<br>《邕州道 · 蛮烟瘴雨平》 | 第二十六幕 · 整军北归途<br>（`scene_yn_26`） | `16:9` |
+| `CG-QST-139` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn1_cavalry_dispatch.jpg` | `/assets/quests/jinjun_fn1_cavalry_dispatch.jpg` | `QST-SECT-33-FINAL-1`<br>《裂夏 · 壹 · 杏林悲风》 | 第一幕 · 皇城司急报<br>（`scene_fn1_01`） | `16:9` |
+| `CG-QST-140` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn1_beisu_mist.jpg` | `/assets/quests/jinjun_fn1_beisu_mist.jpg` | `QST-SECT-33-FINAL-1`<br>《裂夏 · 壹 · 杏林悲风》 | 第五幕 · 急行两浙路<br>（`scene_fn1_05`） | `16:9` |
+| `CG-QST-141` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn1_shield_break.jpg` | `/assets/quests/jinjun_fn1_shield_break.jpg` | `QST-SECT-33-FINAL-1`<br>《裂夏 · 壹 · 杏林悲风》 | 第七幕 · 贼子狂笑声<br>（`scene_fn1_07`） | `16:9` |
+| `CG-QST-142` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn1_qiaofeng_duo.jpg` | `/assets/quests/jinjun_fn1_qiaofeng_duo.jpg` | `QST-SECT-33-FINAL-1`<br>《裂夏 · 壹 · 杏林悲风》 | 第十幕 · 仇人分外眼红<br>（`scene_fn1_10`） | `16:9` |
+| `CG-QST-143` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn1_duan_yanqing.jpg` | `/assets/quests/jinjun_fn1_duan_yanqing.jpg` | `QST-SECT-33-FINAL-1`<br>《裂夏 · 壹 · 杏林悲风》 | 第十三幕 · 腹语铁杖袭<br>（`scene_fn1_13`） | `16:9` |
+| `CG-QST-144` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn1_murongfu_cripple.jpg` | `/assets/quests/jinjun_fn1_murongfu_cripple.jpg` | `QST-SECT-33-FINAL-1`<br>《裂夏 · 壹 · 杏林悲风》 | 第十五幕 · 疯魔剑路乱<br>（`scene_fn1_15`） | `16:9` |
+| `CG-QST-145` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn1_songhelou_drink.jpg` | `/assets/quests/jinjun_fn1_songhelou_drink.jpg` | `QST-SECT-33-FINAL-1`<br>《裂夏 · 壹 · 杏林悲风》 | 第十七幕 · 毒烟遁残寇<br>（`scene_fn1_17`） | `16:9` |
+| `CG-QST-146` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn1_prisoner_confess.jpg` | `/assets/quests/jinjun_fn1_prisoner_confess.jpg` | `QST-SECT-33-FINAL-1`<br>《裂夏 · 壹 · 杏林悲风》 | 第二十七幕 · 互诉平生志<br>（`scene_fn1_27`） | `16:9` |
+| `CG-QST-147` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_shangfang_sword.jpg` | `/assets/quests/jinjun_fn2_shangfang_sword.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第一幕 · 泾原烽烟起<br>（`scene_fn2_01`） | `16:9` |
+| `CG-QST-148` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_tongguan_march.jpg` | `/assets/quests/jinjun_fn2_tongguan_march.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第四幕 · 军器监尽出<br>（`scene_fn2_04`） | `16:9` |
+| `CG-QST-149` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_zhong_sandtable.jpg` | `/assets/quests/jinjun_fn2_zhong_sandtable.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第六幕 · 初抵鄜延境<br>（`scene_fn2_06`） | `16:9` |
+| `CG-QST-150` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_tieyaozi_charge.jpg` | `/assets/quests/jinjun_fn2_tieyaozi_charge.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第十二幕 · 老帅请镇中<br>（`scene_fn2_12`） | `16:9` |
+| `CG-QST-151` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_chariot_wall.jpg` | `/assets/quests/jinjun_fn2_chariot_wall.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第二十幕 · 钢铁车城锁<br>（`scene_fn2_20`） | `16:9` |
+| `CG-QST-152` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_shenbi_volley.jpg` | `/assets/quests/jinjun_fn2_shenbi_volley.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第二十一幕 · 万箭穿重甲<br>（`scene_fn2_21`） | `16:9` |
+| `CG-QST-153` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_zhong_martyr.jpg` | `/assets/quests/jinjun_fn2_zhong_martyr.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第二十二幕 · 白虹袭车阵<br>（`scene_fn2_22`） | `16:9` |
+| `CG-QST-154` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_liqiushui_clash.jpg` | `/assets/quests/jinjun_fn2_liqiushui_clash.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第二十四幕 · 金枪战太妃<br>（`scene_fn2_24`） | `16:9` |
+| `CG-QST-155` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_taixuan_break.jpg` | `/assets/quests/jinjun_fn2_taixuan_break.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第二十五幕 · 太玄破白虹<br>（`scene_fn2_25`） | `16:9` |
+| `CG-QST-156` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_cavalry_flank.jpg` | `/assets/quests/jinjun_fn2_cavalry_flank.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第二十六幕 · 两翼捣王帐<br>（`scene_fn2_26`） | `16:9` |
+| `CG-QST-157` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_zhong_bequest.jpg` | `/assets/quests/jinjun_fn2_zhong_bequest.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第二十七幕 · 十万夏军溃<br>（`scene_fn2_27`） | `16:9` |
+| `CG-QST-158` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn2_hengshan_victory.jpg` | `/assets/quests/jinjun_fn2_hengshan_victory.jpg` | `QST-SECT-33-FINAL-2`<br>《裂夏 · 贰 · 横山铁鹞》 | 第三十幕 · 忠魂归天地<br>（`scene_fn2_30`） | `16:9` |
+| `CG-QST-159` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_black_feather.jpg` | `/assets/quests/jinjun_fn3_black_feather.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第一幕 · 雪夜黑羽檄<br>（`scene_fn3_01`） | `16:9` |
+| `CG-QST-160` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_court_panic.jpg` | `/assets/quests/jinjun_fn3_court_panic.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第二幕 · 朝野执笏谏<br>（`scene_fn3_02`） | `16:9` |
+| `CG-QST-161` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_xiaofeng_lonely.jpg` | `/assets/quests/jinjun_fn3_xiaofeng_lonely.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第三幕 · 不待圣旨行<br>（`scene_fn3_03`） | `16:9` |
+| `CG-QST-162` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_ambush_trap.jpg` | `/assets/quests/jinjun_fn3_ambush_trap.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第六幕 · 十面伏杀局<br>（`scene_fn3_06`） | `16:9` |
+| `CG-QST-163` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_gate_open.jpg` | `/assets/quests/jinjun_fn3_gate_open.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第七幕 · 千里终抵关<br>（`scene_fn3_07`） | `16:9` |
+| `CG-QST-164` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_xiaoyuanfeng_duel.jpg` | `/assets/quests/jinjun_fn3_xiaoyuanfeng_duel.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第十二幕 · 御弩破暗箭<br>（`scene_fn3_12`） | `16:9` |
+| `CG-QST-165` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_xiaoyuanfeng_slain.jpg` | `/assets/quests/jinjun_fn3_xiaoyuanfeng_slain.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第十四幕 · 了断数年仇<br>（`scene_fn3_14`） | `16:9` |
+| `CG-QST-166` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_murongbo_emerge.jpg` | `/assets/quests/jinjun_fn3_murongbo_emerge.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第十六幕 · 魔尊踏血出<br>（`scene_fn3_16`） | `16:9` |
+| `CG-QST-167` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_wall_duel.jpg` | `/assets/quests/jinjun_fn3_wall_duel.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第十七幕 · 风雪为之停<br>（`scene_fn3_17`） | `16:9` |
+| `CG-QST-168` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_armor_shatter.jpg` | `/assets/quests/jinjun_fn3_armor_shatter.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第十九幕 · 碎甲欺身入<br>（`scene_fn3_19`） | `16:9` |
+| `CG-QST-169` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_murongbo_nailed.jpg` | `/assets/quests/jinjun_fn3_murongbo_nailed.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第二十幕 · 金枪钉魔尊<br>（`scene_fn3_20`） | `16:9` |
+| `CG-QST-170` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_xiaofeng_capture.jpg` | `/assets/quests/jinjun_fn3_xiaofeng_capture.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第二十一幕 · 萧峰擒辽帅<br>（`scene_fn3_21`） | `16:9` |
+| `CG-QST-171` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_xiaofeng_farewell.jpg` | `/assets/quests/jinjun_fn3_xiaofeng_farewell.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第二十二幕 · 铁林退如潮<br>（`scene_fn3_22`） | `16:9` |
+| `CG-QST-172` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_kaifeng_welcome.jpg` | `/assets/quests/jinjun_fn3_kaifeng_welcome.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第二十四幕 · 纵马隐塞外<br>（`scene_fn3_24`） | `16:9` |
+| `CG-QST-173` | `[ ]` 待补绘 | `public/assets/quests/jinjun_fn3_daqing_hall.jpg` | `/assets/quests/jinjun_fn3_daqing_hall.jpg` | `QST-SECT-33-FINAL-3`<br>《定鼎 · 叁 · 血月雁门》 | 第三十五幕 · 君臣并马行<br>（`scene_fn3_35`） | `16:9` |
 
 ---
 
@@ -2372,4 +2420,628 @@
 - **推荐 `generate_image` Prompt（16:9）**：
   ```text
   Traditional Northern Song dynasty Chinese gongbi ink-and-color historical justice scene, wide cinematic 16:9 composition. High noon at the Kaifeng public execution ground around 1050 AD, crowded with cheering Song citizens and ringed by armored Imperial Guards. On the raised wooden platform, Judge Bao Zheng and Privy Councilor Wang Deyong oversee the solemn execution of the four chained Murong retainers for treason, while the victorious young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: high ponytail with crimson ribbon, silver tiger-emblem scale armor and lion pauldrons, crimson robe and cape, holding his long red-tasseled steel spear upright) stands beside the Song banner. Strictly zero text or characters.
+  ```
+
+---
+
+### 126. `CG-QST-126`：同文馆冬宴正厅 · 殿前司都虞候以礼乐兵略折服辽夏随使
+
+- **关联文件**：[`src/data/quests/sects/jinjunTongwenguanQuest.ts`](../src/data/quests/sects/jinjunTongwenguanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_twg_banquet_debate.jpg`
+- **画框题跋**：`同文馆冬宴正厅 · 殿前司都虞候以礼乐兵略折服辽夏随使`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "同文馆冬宴正厅 · 殿前司都虞候以礼乐兵略折服辽夏随使" from 《同文馆 · 四夷宾服录》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 127. `CG-QST-127`：风雪夜同文馆火起 · 吐蕃密宗护法番僧拦路截杀
+
+- **关联文件**：[`src/data/quests/sects/jinjunTongwenguanQuest.ts`](../src/data/quests/sects/jinjunTongwenguanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_twg_night_fire.jpg`
+- **画框题跋**：`风雪夜同文馆火起 · 吐蕃密宗护法番僧拦路截杀`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "风雪夜同文馆火起 · 吐蕃密宗护法番僧拦路截杀" from 《同文馆 · 四夷宾服录》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 128. `CG-QST-128`：红墙雪夜 · 段正淳护子力战鸠摩智火焰刀逼入绝境
+
+- **关联文件**：[`src/data/quests/sects/jinjunTongwenguanQuest.ts`](../src/data/quests/sects/jinjunTongwenguanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_twg_duan_flame.jpg`
+- **画框题跋**：`红墙雪夜 · 段正淳护子力战鸠摩智火焰刀逼入绝境`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "红墙雪夜 · 段正淳护子力战鸠摩智火焰刀逼入绝境" from 《同文馆 · 四夷宾服录》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 129. `CG-QST-129`：同文馆飞檐踏雪 · 太玄枪意挑碎大轮明王袈裟金环
+
+- **关联文件**：[`src/data/quests/sects/jinjunTongwenguanQuest.ts`](../src/data/quests/sects/jinjunTongwenguanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_twg_jiumozhi_duel.jpg`
+- **画框题跋**：`同文馆飞檐踏雪 · 太玄枪意挑碎大轮明王袈裟金环`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "同文馆飞檐踏雪 · 太玄枪意挑碎大轮明王袈裟金环" from 《同文馆 · 四夷宾服录》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 130. `CG-QST-130`：风波平息盟书既定 · 段正淳赠大理雪山骢与段氏纯阳吐纳诀
+
+- **关联文件**：[`src/data/quests/sects/jinjunTongwenguanQuest.ts`](../src/data/quests/sects/jinjunTongwenguanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_twg_dali_treaty.jpg`
+- **画框题跋**：`风波平息盟书既定 · 段正淳赠大理雪山骢与段氏纯阳吐纳诀`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "风波平息盟书既定 · 段正淳赠大理雪山骢与段氏纯阳吐纳诀" from 《同文馆 · 四夷宾服录》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 131. `CG-QST-131`：垂拱正殿 · 枢密副使狄青慨然请缨，点将调主角与杨文广任正副先锋
+
+- **关联文件**：[`src/data/quests/sects/jinjunYongzhouNanmanQuest.ts`](../src/data/quests/sects/jinjunYongzhouNanmanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yn_diqing_muster.jpg`
+- **画框题跋**：`垂拱正殿 · 枢密副使狄青慨然请缨，点将调主角与杨文广任正副先锋`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "垂拱正殿 · 枢密副使狄青慨然请缨，点将调主角与杨文广任正副先锋" from 《邕州道 · 蛮烟瘴雨平》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 132. `CG-QST-132`：十万大山密林夜火 · 禁军死士夜焚星宿派炼毒蛊坛
+
+- **关联文件**：[`src/data/quests/sects/jinjunYongzhouNanmanQuest.ts`](../src/data/quests/sects/jinjunYongzhouNanmanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yn_poison_altar.jpg`
+- **画框题跋**：`十万大山密林夜火 · 禁军死士夜焚星宿派炼毒蛊坛`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "十万大山密林夜火 · 禁军死士夜焚星宿派炼毒蛊坛" from 《邕州道 · 蛮烟瘴雨平》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 133. `CG-QST-133`：桂林元宵张灯麻痹敌哨 · 狄青定计子夜暴雨偷渡昆仑关
+
+- **关联文件**：[`src/data/quests/sects/jinjunYongzhouNanmanQuest.ts`](../src/data/quests/sects/jinjunYongzhouNanmanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yn_lantern_ruse.jpg`
+- **画框题跋**：`桂林元宵张灯麻痹敌哨 · 狄青定计子夜暴雨偷渡昆仑关`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "桂林元宵张灯麻痹敌哨 · 狄青定计子夜暴雨偷渡昆仑关" from 《邕州道 · 蛮烟瘴雨平》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 134. `CG-QST-134`：归仁铺旷野 · 火药箭雨惊散南蛮披甲巨象阵
+
+- **关联文件**：[`src/data/quests/sects/jinjunYongzhouNanmanQuest.ts`](../src/data/quests/sects/jinjunYongzhouNanmanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yn_elephant_charge.jpg`
+- **画框题跋**：`归仁铺旷野 · 火药箭雨惊散南蛮披甲巨象阵`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "归仁铺旷野 · 火药箭雨惊散南蛮披甲巨象阵" from 《邕州道 · 蛮烟瘴雨平》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 135. `CG-QST-135`：归仁铺毒雾阵中 · 一枪刺穿星宿派大师兄摘星子咽喉
+
+- **关联文件**：[`src/data/quests/sects/jinjunYongzhouNanmanQuest.ts`](../src/data/quests/sects/jinjunYongzhouNanmanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yn_zhaixingzi_duel.jpg`
+- **画框题跋**：`归仁铺毒雾阵中 · 一枪刺穿星宿派大师兄摘星子咽喉`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "归仁铺毒雾阵中 · 一枪刺穿星宿派大师兄摘星子咽喉" from 《邕州道 · 蛮烟瘴雨平》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 136. `CG-QST-136`：归仁铺大捷 · 狄青主力掩杀破敌，侬智高焚城夜遁
+
+- **关联文件**：[`src/data/quests/sects/jinjunYongzhouNanmanQuest.ts`](../src/data/quests/sects/jinjunYongzhouNanmanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yn_guirenpu_rout.jpg`
+- **画框题跋**：`归仁铺大捷 · 狄青主力掩杀破敌，侬智高焚城夜遁`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "归仁铺大捷 · 狄青主力掩杀破敌，侬智高焚城夜遁" from 《邕州道 · 蛮烟瘴雨平》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 137. `CG-QST-137`：桂林漓江庆功夜 · 杨文广解下天波透甲金枪托付英雄
+
+- **关联文件**：[`src/data/quests/sects/jinjunYongzhouNanmanQuest.ts`](../src/data/quests/sects/jinjunYongzhouNanmanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yn_lijiang_spear.jpg`
+- **画框题跋**：`桂林漓江庆功夜 · 杨文广解下天波透甲金枪托付英雄`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "桂林漓江庆功夜 · 杨文广解下天波透甲金枪托付英雄" from 《邕州道 · 蛮烟瘴雨平》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 138. `CG-QST-138`：宣德门受俘大典 · 宋仁宗亲授殿前都指挥使虎符
+
+- **关联文件**：[`src/data/quests/sects/jinjunYongzhouNanmanQuest.ts`](../src/data/quests/sects/jinjunYongzhouNanmanQuest.ts)
+- **目标路径**：`public/assets/quests/jinjun_yn_xuande_rank5.jpg`
+- **画框题跋**：`宣德门受俘大典 · 宋仁宗亲授殿前都指挥使虎符`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "宣德门受俘大典 · 宋仁宗亲授殿前都指挥使虎符" from 《邕州道 · 蛮烟瘴雨平》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 139. `CG-QST-139`：大教场点兵 · 殿前都指挥使亲率两百玄甲缇骑星夜南下
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal1Quest.ts`](../src/data/quests/sects/jinjunFinal1Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn1_cavalry_dispatch.jpg`
+- **画框题跋**：`大教场点兵 · 殿前都指挥使亲率两百玄甲缇骑星夜南下`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "大教场点兵 · 殿前都指挥使亲率两百玄甲缇骑星夜南下" from 《裂夏 · 壹 · 杏林悲风》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 140. `CG-QST-140`：杏子林毒雾弥漫 · 丐帮群豪瘫软，乔峰孤身血战双凶
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal1Quest.ts`](../src/data/quests/sects/jinjunFinal1Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn1_beisu_mist.jpg`
+- **画框题跋**：`杏子林毒雾弥漫 · 丐帮群豪瘫软，乔峰孤身血战双凶`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "杏子林毒雾弥漫 · 丐帮群豪瘫软，乔峰孤身血战双凶" from 《裂夏 · 壹 · 杏林悲风》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 141. `CG-QST-141`：玄甲破林 · 殿前司缇骑铁盾挡毒箭，主角飞身落马援乔峰
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal1Quest.ts`](../src/data/quests/sects/jinjunFinal1Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn1_shield_break.jpg`
+- **画框题跋**：`玄甲破林 · 殿前司缇骑铁盾挡毒箭，主角飞身落马援乔峰`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "玄甲破林 · 殿前司缇骑铁盾挡毒箭，主角飞身落马援乔峰" from 《裂夏 · 壹 · 杏林悲风》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 142. `CG-QST-142`：杏子林巅峰联手 · 降龙十八掌与天波透甲金枪背靠背死战
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal1Quest.ts`](../src/data/quests/sects/jinjunFinal1Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn1_qiaofeng_duo.jpg`
+- **画框题跋**：`杏子林巅峰联手 · 降龙十八掌与天波透甲金枪背靠背死战`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "杏子林巅峰联手 · 降龙十八掌与天波透甲金枪背靠背死战" from 《裂夏 · 壹 · 杏林悲风》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 143. `CG-QST-143`：亢龙有悔 · 乔峰降龙掌劲震断段延庆一阳指铁杖
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal1Quest.ts`](../src/data/quests/sects/jinjunFinal1Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn1_duan_yanqing.jpg`
+- **画框题跋**：`亢龙有悔 · 乔峰降龙掌劲震断段延庆一阳指铁杖`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "亢龙有悔 · 乔峰降龙掌劲震断段延庆一阳指铁杖" from 《裂夏 · 壹 · 杏林悲风》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 144. `CG-QST-144`：枪破心魔 · 天波透甲金枪横扫重创慕容复右肩经脉
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal1Quest.ts`](../src/data/quests/sects/jinjunFinal1Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn1_murongfu_cripple.jpg`
+- **画框题跋**：`枪破心魔 · 天波透甲金枪横扫重创慕容复右肩经脉`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "枪破心魔 · 天波透甲金枪横扫重创慕容复右肩经脉" from 《裂夏 · 壹 · 杏林悲风》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 145. `CG-QST-145`：松鹤楼夜饮 · 主角与乔峰痛饮三坛烈酒结为生死知己
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal1Quest.ts`](../src/data/quests/sects/jinjunFinal1Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn1_songhelou_drink.jpg`
+- **画框题跋**：`松鹤楼夜饮 · 主角与乔峰痛饮三坛烈酒结为生死知己`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "松鹤楼夜饮 · 主角与乔峰痛饮三坛烈酒结为生死知己" from 《裂夏 · 壹 · 杏林悲风》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 146. `CG-QST-146`：密室审俘 · 惊悉西夏十万铁鹞子叩关泾原与慕容博北引大辽
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal1Quest.ts`](../src/data/quests/sects/jinjunFinal1Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn1_prisoner_confess.jpg`
+- **画框题跋**：`密室审俘 · 惊悉西夏十万铁鹞子叩关泾原与慕容博北引大辽`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "密室审俘 · 惊悉西夏十万铁鹞子叩关泾原与慕容博北引大辽" from 《裂夏 · 壹 · 杏林悲风》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 147. `CG-QST-147`：紫宸殿早朝 · 宋仁宗亲赐尚方宝剑，拜泾原路行营都总管
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_shangfang_sword.jpg`
+- **画框题跋**：`紫宸殿早朝 · 宋仁宗亲赐尚方宝剑，拜泾原路行营都总管`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "紫宸殿早朝 · 宋仁宗亲赐尚方宝剑，拜泾原路行营都总管" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 148. `CG-QST-148`：两万殿前司百战禁军浩荡西出潼关，旌旗蔽空
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_tongguan_march.jpg`
+- **画框题跋**：`两万殿前司百战禁军浩荡西出潼关，旌旗蔽空`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "两万殿前司百战禁军浩荡西出潼关，旌旗蔽空" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 149. `CG-QST-149`：鄜延帅帐夜灯 · 主角与铁血老帅种世衡沙盘推演破铁鹞之策
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_zhong_sandtable.jpg`
+- **画框题跋**：`鄜延帅帐夜灯 · 主角与铁血老帅种世衡沙盘推演破铁鹞之策`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "鄜延帅帐夜灯 · 主角与铁血老帅种世衡沙盘推演破铁鹞之策" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 150. `CG-QST-150`：横山戈壁 · 西夏三千铁鹞子连环重骑如钢铁山岳正面碾压
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_tieyaozi_charge.jpg`
+- **画框题跋**：`横山戈壁 · 西夏三千铁鹞子连环重骑如钢铁山岳正面碾压`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "横山戈壁 · 西夏三千铁鹞子连环重骑如钢铁山岳正面碾压" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 151. `CG-QST-151`：偏厢鹿角车城 · 种世衡亲镇车阵中枢硬锁铁鹞子狂暴冲锋
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_chariot_wall.jpg`
+- **画框题跋**：`偏厢鹿角车城 · 种世衡亲镇车阵中枢硬锁铁鹞子狂暴冲锋`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "偏厢鹿角车城 · 种世衡亲镇车阵中枢硬锁铁鹞子狂暴冲锋" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 152. `CG-QST-152`：神臂三段轮射 · 三千神臂弓万矢齐发洞穿铁鹞子重甲
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_shenbi_volley.jpg`
+- **画框题跋**：`神臂三段轮射 · 三千神臂弓万矢齐发洞穿铁鹞子重甲`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "神臂三段轮射 · 三千神臂弓万矢齐发洞穿铁鹞子重甲" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 153. `CG-QST-153`：忠烈千秋 · 种世衡护翼变阵遭冷箭与白虹掌力震碎心脉，扶旗屹立不倒
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_zhong_martyr.jpg`
+- **画框题跋**：`忠烈千秋 · 种世衡护翼变阵遭冷箭与白虹掌力震碎心脉，扶旗屹立不倒`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "忠烈千秋 · 种世衡护翼变阵遭冷箭与白虹掌力震碎心脉，扶旗屹立不倒" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 154. `CG-QST-154`：横山绝战 · 天波透甲金枪与李秋水白虹掌力轰然对撞
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_liqiushui_clash.jpg`
+- **画框题跋**：`横山绝战 · 天波透甲金枪与李秋水白虹掌力轰然对撞`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "横山绝战 · 天波透甲金枪与李秋水白虹掌力轰然对撞" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 155. `CG-QST-155`：太玄破气 · 霸道真气震碎护体气墙，一枪刺伤李秋水肩头
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_taixuan_break.jpg`
+- **画框题跋**：`太玄破气 · 霸道真气震碎护体气墙，一枪刺伤李秋水肩头`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "太玄破气 · 霸道真气震碎护体气墙，一枪刺伤李秋水肩头" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 156. `CG-QST-156`：重骑扫荡 · 五千禁军重骑直捣夏军王帐生劈亲卫大将
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_cavalry_flank.jpg`
+- **画框题跋**：`重骑扫荡 · 五千禁军重骑直捣夏军王帐生劈亲卫大将`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "重骑扫荡 · 五千禁军重骑直捣夏军王帐生劈亲卫大将" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 157. `CG-QST-157`：老帅遗托 · 种世衡临终将皇祐神臂御赐弩交予主角
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_zhong_bequest.jpg`
+- **画框题跋**：`老帅遗托 · 种世衡临终将皇祐神臂御赐弩交予主角`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "老帅遗托 · 种世衡临终将皇祐神臂御赐弩交予主角" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 158. `CG-QST-158`：收复横山天险 · 宋军大旗插遍横山绝壁，打断西夏南侵脊梁
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal2Quest.ts`](../src/data/quests/sects/jinjunFinal2Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn2_hengshan_victory.jpg`
+- **画框题跋**：`收复横山天险 · 宋军大旗插遍横山绝壁，打断西夏南侵脊梁`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "收复横山天险 · 宋军大旗插遍横山绝壁，打断西夏南侵脊梁" from 《裂夏 · 贰 · 横山铁鹞》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 159. `CG-QST-159`：雪夜黑羽檄文 · 八百里急报慕容博萧远风引十万辽军压境雁门
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_black_feather.jpg`
+- **画框题跋**：`雪夜黑羽檄文 · 八百里急报慕容博萧远风引十万辽军压境雁门`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "雪夜黑羽檄文 · 八百里急报慕容博萧远风引十万辽军压境雁门" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 160. `CG-QST-160`：紫宸殿朝野震恐 · 包拯王德用韩琦执笏死谏固守雁门
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_court_panic.jpg`
+- **画框题跋**：`紫宸殿朝野震恐 · 包拯王德用韩琦执笏死谏固守雁门`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "紫宸殿朝野震恐 · 包拯王德用韩琦执笏死谏固守雁门" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 161. `CG-QST-161`：血月雁门 · 身世大白的萧峰孤立两军阵前苦劝辽军止戈
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_xiaofeng_lonely.jpg`
+- **画框题跋**：`血月雁门 · 身世大白的萧峰孤立两军阵前苦劝辽军止戈`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "血月雁门 · 身世大白的萧峰孤立两军阵前苦劝辽军止戈" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 162. `CG-QST-162`：暗箭伏杀 · 慕容博与萧远风率契丹重骑设下十面埋伏欲毙萧峰
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_ambush_trap.jpg`
+- **画框题跋**：`暗箭伏杀 · 慕容博与萧远风率契丹重骑设下十面埋伏欲毙萧峰`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "暗箭伏杀 · 慕容博与萧远风率契丹重骑设下十面埋伏欲毙萧峰" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 163. `CG-QST-163`：雄关洞开 · 万支火炬撕裂风雪，主角一马当先杀出雁门
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_gate_open.jpg`
+- **画框题跋**：`雄关洞开 · 万支火炬撕裂风雪，主角一马当先杀出雁门`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "雄关洞开 · 万支火炬撕裂风雪，主角一马当先杀出雁门" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 164. `CG-QST-164`：宿敌狭路 · 辽南京武林统制萧远风挺铁枪迎面杀来
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_xiaoyuanfeng_duel.jpg`
+- **画框题跋**：`宿敌狭路 · 辽南京武林统制萧远风挺铁枪迎面杀来`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "宿敌狭路 · 辽南京武林统制萧远风挺铁枪迎面杀来" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 165. `CG-QST-165`：心魔尽斩 · 天波透甲金枪震断萧远风铁枪将其挑落马下
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_xiaoyuanfeng_slain.jpg`
+- **画框题跋**：`心魔尽斩 · 天波透甲金枪震断萧远风铁枪将其挑落马下`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "心魔尽斩 · 天波透甲金枪震断萧远风铁枪将其挑落马下" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 166. `CG-QST-166`：绝顶现身 · 慕容博踏尸山血海走出，怒喝以大宋柱石祭大燕
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_murongbo_emerge.jpg`
+- **画框题跋**：`绝顶现身 · 慕容博踏尸山血海走出，怒喝以大宋柱石祭大燕`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "绝顶现身 · 慕容博踏尸山血海走出，怒喝以大宋柱石祭大燕" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 167. `CG-QST-167`：巅峰死战 · 雁门绝壁之下主角与慕容博斗转星移对百战枪意
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_wall_duel.jpg`
+- **画框题跋**：`巅峰死战 · 雁门绝壁之下主角与慕容博斗转星移对百战枪意`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "巅峰死战 · 雁门绝壁之下主角与慕容博斗转星移对百战枪意" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 168. `CG-QST-168`：不灭战意 · 胸前重甲尽碎，主角顶着参合神指劲欺身直入
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_armor_shatter.jpg`
+- **画框题跋**：`不灭战意 · 胸前重甲尽碎，主角顶着参合神指劲欺身直入`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "不灭战意 · 胸前重甲尽碎，主角顶着参合神指劲欺身直入" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 169. `CG-QST-169`：大燕梦碎 · 天波透甲金枪正面贯穿慕容博胸膛，钉死于雁门巨石之上
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_murongbo_nailed.jpg`
+- **画框题跋**：`大燕梦碎 · 天波透甲金枪正面贯穿慕容博胸膛，钉死于雁门巨石之上`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "大燕梦碎 · 天波透甲金枪正面贯穿慕容博胸膛，钉死于雁门巨石之上" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 170. `CG-QST-170`：凛然大义 · 萧峰乱军生擒辽军先锋主帅，迫辽廷立誓退兵
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_xiaofeng_capture.jpg`
+- **画框题跋**：`凛然大义 · 萧峰乱军生擒辽军先锋主帅，迫辽廷立誓退兵`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "凛然大义 · 萧峰乱军生擒辽军先锋主帅，迫辽廷立誓退兵" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 171. `CG-QST-171`：雪夜敬别 · 萧峰向城头主角遥遥举碗，纵马隐入塞外风雪
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_xiaofeng_farewell.jpg`
+- **画框题跋**：`雪夜敬别 · 萧峰向城头主角遥遥举碗，纵马隐入塞外风雪`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "雪夜敬别 · 萧峰向城头主角遥遥举碗，纵马隐入塞外风雪" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 172. `CG-QST-172`：凯旋东京 · 十里御街红毯铺地，宋仁宗率百官出城十里郊迎
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_kaifeng_welcome.jpg`
+- **画框题跋**：`凯旋东京 · 十里御街红毯铺地，宋仁宗率百官出城十里郊迎`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "凯旋东京 · 十里御街红毯铺地，宋仁宗率百官出城十里郊迎" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
+  ```
+
+---
+
+### 173. `CG-QST-173`：定鼎山河 · 大庆殿册封检校太尉枢密使，赐丹书铁券、绘像景灵宫
+
+- **关联文件**：[`src/data/quests/sects/jinjunFinal3Quest.ts`](../src/data/quests/sects/jinjunFinal3Quest.ts)
+- **目标路径**：`public/assets/quests/jinjun_fn3_daqing_hall.jpg`
+- **画框题跋**：`定鼎山河 · 大庆殿册封检校太尉枢密使，赐丹书铁券、绘像景灵宫`
+- **主角参考图**：`public/assets/characters/protagonists/hero_03_spearman_fb.jpg`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi ink-and-color epic historical wuxia illustration, wide cinematic 16:9 composition around 1050 AD. Depicting scene "定鼎山河 · 大庆殿册封检校太尉枢密使，赐丹书铁券、绘像景灵宫" from 《定鼎 · 叁 · 血月雁门》. Central protagonist is the young Song Imperial Guard general (matching hero_03_spearman_fb.jpg: sharp-featured young man with high black ponytail tied with a fluttering crimson ribbon, wearing silver tiger-emblem scale chest armor and lion pauldrons over a crimson martial robe and flowing red cape, wielding his long red-tasseled steel spear or Tianbo golden armor-piercing spear). Authentic Northern Song military armor, architecture, and mineral pigments, dramatic atmosphere, strictly zero text or characters.
   ```
