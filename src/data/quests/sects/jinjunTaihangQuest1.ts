@@ -3,18 +3,8 @@ import { atStep, qStatus, openScene } from '../../../engine/quest/dsl'
 
 export const JINJUN_TAIHANG_QUEST_1_ID = 'QST-SECT-33-TAIHANG-CAMPAIGN-1'
 
-const LACKS_MILITARY_SCHOLARSHIP_CONDITION: QuestCondition = {
-  type: 'any',
-  hint: '尚未深研兵书韬略（经义 ≤ 40 或 策论 ≤ 60）',
-  conditions: [
-    { type: 'skillAtMost', key: '经义', max: 40 },
-    { type: 'skillAtMost', key: '策论', max: 60 },
-  ],
-}
-
 const START_VISIBILITY_BASE_CONDITIONS: QuestCondition[] = [
   { type: 'inSect', sectId: 'SECT-33', minRank: 3 },
-  LACKS_MILITARY_SCHOLARSHIP_CONDITION,
   qStatus(JINJUN_TAIHANG_QUEST_1_ID, 'not_started'),
   qStatus(JINJUN_TAIHANG_QUEST_1_ID, 'not_completed'),
 ]
@@ -36,9 +26,9 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
   recommendedRealm: '二流上品 ~ 一流下品',
   maxOpponentRealm: '一流上品（王重岳、史万山三合断后）',
   recommendedNote:
-    '大宋禁军太行征讨三部曲 · 第一部（全四十幕）。触发条件：加入【大宋禁军】任 Lv.3 四厢都指挥满 365 天，且尚未通晓兵书（经义 ≤ 40 或 策论 ≤ 60）。',
+    '大宋禁军太行征讨三部曲 · 第一部（全四十幕）。触发条件：加入【大宋禁军】任 Lv.3 四厢都指挥满 365 天。剧情将依少侠【经义】【策论】造诣自动分流（未通兵书则蛮勇轻进，饱读经策则纸上谈兵反中连环计）。',
   startHint:
-    '在大宋禁军任职满 365 天、官居 Lv.3 四厢都指挥且经义 ≤ 40 或策论 ≤ 60 时，前往【开封府 · 八十万禁军大教场 · 擂鼓聚将点兵帅台】与枢密使王德用对话或点击场景任务开启。',
+    '在大宋禁军任职满 365 天、官居 Lv.3 四厢都指挥时，前往【开封府 · 八十万禁军大教场 · 擂鼓聚将点兵帅台】与枢密使王德用对话或点击场景任务开启。',
   startLocation: {
     regionId: 'bianliang',
     buildingId: 'bl_jinjun',
@@ -48,7 +38,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
   startCondition: FULL_START_CONDITION,
   initialStepId: 'summoned_to_zichen',
   summary:
-    '入值大宋禁军操练满一载后，太行天王王重岳与九纹狂龙史万山大肆劫掠河北边军纲银。今上赵祯召对紫宸殿，特晋少侠为【三衙都虞候】，钦命统率五千禁军精锐、以高怀亮为副将北上剿匪。初战虽连破外山口与东麓鹿角寨，然因少侠未读兵书（经义或策论不足）、不谙“穷寇莫追”与山川火攻之忌，斥退副将苦谏孤军追入黑风愁猿涧，惨遭断道火攻！少侠悔恨泣血，强命高怀亮率残部突围，独留一线天连战追寇并硬撼王重岳、史万山三合断后，终折损两千余名禁军将士败归汴梁。紫宸殿上奉旨削回 四厢都指挥、罚俸一年，于汴郊秋雨新冢前泣血立誓潜修经史兵略。',
+    '入值大宋禁军操练满一载后，太行天王王重岳与九纹狂龙史万山大肆劫掠河北边军纲银。今上赵祯召对紫宸殿，特晋少侠为【三衙都虞候】，钦命统率五千禁军精锐、以高怀亮为副将北上剿匪。初战虽连破外山口与东麓鹿角寨，然或因未读兵书轻进、或因尽信书本兵法反推疑兵之计，终斥退副将苦谏孤军追入黑风愁猿涧，惨遭断道火攻！少侠悔恨泣血，强命高怀亮率残部突围，独留一线天连战追寇并硬撼王重岳、史万山三合断后，终折损两千余名禁军将士败归汴梁。紫宸殿上奉旨削回四厢都指挥、罚俸一年，于汴郊秋雨新冢前泣血立誓切戒纸上骄狂。',
   steps: {
     summoned_to_zichen: {
       id: 'summoned_to_zichen',
@@ -241,7 +231,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
       label: '大教场晨操阅阵 · 开启《太行剿匪 · 骄兵折戟》',
       badge: '禁军太行篇·一',
       subtitle:
-        '需禁军 Lv.3 满 365 天且经义 ≤ 40 或策论 ≤ 60 · 奉旨晋阶统兵五千征太行',
+        '需禁军 Lv.3 满 365 天 · 奉旨晋阶统兵五千征太行（依经义策论造诣自动分流剧情）',
       tone: 'gold',
       regionId: 'bianliang',
       buildingId: 'bl_jinjun',

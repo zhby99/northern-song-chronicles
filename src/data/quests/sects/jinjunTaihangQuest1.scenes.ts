@@ -1,7 +1,15 @@
 import type { NodeNpc } from '../../../types/game'
-import type { StorySceneDef } from '../../../types/quest'
+import type { QuestCondition, StorySceneDef } from '../../../types/quest'
 import { N, P, S, warn, toast, openScene, makeQuestNpc } from '../../../engine/quest/dsl'
 import { JINJUN_TAIHANG_QUEST_1_ID } from './jinjunTaihangQuest1'
+
+const HAS_SCHOLARLY_MILITARY_THEORY: QuestCondition = {
+  type: 'all',
+  conditions: [
+    { type: 'skillAtLeast', key: '经义', min: 41 },
+    { type: 'skillAtLeast', key: '策论', min: 61 },
+  ],
+}
 
 const CG_1_DEPART_ARMY_URL = '/assets/quests/taihang_camp1_depart_army.jpg'
 
@@ -75,6 +83,32 @@ const SCENE_40_AWAKENING_VOW_FINALE: StorySceneDef = {
   ],
 }
 
+const SCENE_40_SCHOLAR_AWAKENING_VOW_FINALE: StorySceneDef = {
+  id: 'scene_jtc1_40_scholar_awakening_vow_finale',
+  title: '第四十幕 · 寒雨尽醒纸上兵',
+  subtitle: '汴京郊外 · 义冢荒冈破晓',
+  mandatory: true,
+  beats: [
+    N('深秋凄雨直下到五更将尽方才渐歇，荒冈黄土混着雨水与额前血迹凝在你的甲裙膝畔。东方天际裂开一线铅白微光，两千一百四十三块新削松木灵牌在湿冷晨雾中静默伫立，牌上朱砂墨迹被雨水冲出淡淡红痕，恍若两千双尚未瞑目的眼睛凝望着东京城头。'),
+    S('NPC-0038', '泥泞坡道上传来缓慢而沉重的靴声。年逾古稀的枢密使王德用竟未乘车轿，独自撑着一柄青竹油纸伞踏泥登冈，将一件厚实的玄色披风轻轻覆在你冰冷彻骨的双肩上：“跪了一整夜，膝骨都要冻坏了。起来罢……死在黑风涧的儿郎们，想看的不是大宋少一个冻死在坟前的四厢都指挥。”'),
+    P('（嗓音嘶哑如裂帛，双手仍死死攥着坟前湿泥，仰首望向鬓发皆白的王德用）“王枢相……末将昔日自诩熟读《孙子》《吴子》、胸藏经义策论，在黑风涧口甚至一眼便看出了粮车掺沙、林无飞鸟之异……可末将偏偏用书斋里的兵法套路自以为是，反推那是贼人疑兵拖延之计！书本上一句轻飘飘的‘兵贵神速’，落到山野血战里，竟是两千一百四十三条鲜活人命啊！”'),
+    S('NPC-0038', '王德用凝视着满坡新冢，苍老眼眸中既有痛惜亦有深沉的警醒，沉声道：“你比寻常莽夫更可怕的，正是这‘半部书生傲气’！古来赵括能言兵法而丧四十万于长平，岂是未读兵书？恰恰是把死书当成铁律，不知山川地利随人心诡变而迁！书斋里的纸上推演，从来没有湿土掩住的硫磺松脂气！”'),
+    S('NPC-0038', '“官家此次削你三衙都虞候冠带、罚俸一年，却留你在四厢都指挥任上戴罪图功，正是望你彻底洗去这身纸上骄气！经义策论虽已在胸，然‘尽信书则不如无书’——把黑风涧这场血淋淋的败仗刻进骨髓里，拿这血的教训去重读真兵书、重审太行真地形！待你真正从死人堆里悟出‘实战兵机’的那一日，老夫亲自上殿为你再请兵符，随你重征太行！”'),
+    P('（扶着赵铁柱与周小乙的木碑一寸寸站直身躯，晨风吹散满面雨水，眸中血丝未退却已澄澈如铁）“谨受枢相教诲！赵铁柱、小周，还有躺在此处的两千一百四十一员大宋好儿郎——你们且在九泉之下看着！我今日折断纸上傲骨，必以你们的血泪为鉴、重审兵书实务；待我重掌帅印北渡黄河之日，定叫太行三十六寨灰飞烟灭，接你们的英魂堂堂正正回家！”'),
+  ],
+  onFinishEffects: [
+    { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+    { type: 'setFlag', flag: 'jinjun_taihang_camp1_done', value: true },
+    {
+      type: 'completeQuest',
+      questId: JINJUN_TAIHANG_QUEST_1_ID,
+      outcome: 'defeated_and_awakened',
+      combatExp: 600,
+    },
+    toast('《太行剿匪 · 骄兵折戟》（第一部）完结！纸上谈兵终觉浅，唯有以黑风涧血战教训重审兵机实务，他日方能重整河朔旗鼓、雪耻太行！（战斗经验 +600）', 'success', '尽醒纸兵'),
+  ],
+}
+
 const SCENE_39_RAIN_GRAVEYARD_TEARS: StorySceneDef = {
   id: 'scene_jtc1_39_rain_graveyard_tears',
   title: '第三十九幕 · 汴郊孤冢哭忠魂',
@@ -85,16 +119,23 @@ const SCENE_39_RAIN_GRAVEYARD_TEARS: StorySceneDef = {
   beats: [
     N('乌云骤然低垂如墨，豆大的深秋冷雨噼里啪啦砸落荒冈，顷刻间将满山纸钱浇得贴在泥水之中。狂风卷过两千余座新坟，枯草呜咽翻飞，仿佛黑风愁猿涧底那无数声未能喊完的呼救与战吼穿透阴阳重回人间。'),
     S('NPC-0043', '高怀亮左臂悬着渗血绷带，急忙上前一步想将雨笠遮在你头顶，却被你轻轻推开。这位铁打的汉子眼眶通红，哽咽道：“都指挥……您在紫宸殿金砖上已受了责罚，在黑风涧一线天更流尽了半身鲜血，快莫在寒雨里糟践重伤初愈的身子……”'),
-    P('（任由冰冷雨水顺着发梢灌入领甲，望着漫山遍野看不到尽头的木牌，双膝如负万钧铁山般轰然跪入泥水之中）“高将军，林教头……你们退后三步。一线天那十七处刀枪外伤，抵得过两千一百四十三条鲜活人命么？他们出封丘门时，把性命完完整整交在我的帅旗之下；是我目无兵书、耳塞忠言，亲手把他们带进了死地！”'),
+    P('（任由冰冷雨水顺着发梢灌入领甲，望着漫山遍野看不到尽头的木牌，双膝如负万钧铁山般轰然跪入泥水之中）“高将军，林教头……你们退后三步。一线天那十七处刀枪外伤，抵得过两千一百四十三条鲜活人命么？他们出封丘门时，把性命完完整整交在我的帅旗之下；是我刚愎自用、耳塞忠言，亲手把他们带进了死地！”'),
     N('积压数日的悔恨、悲恸与屈辱在这一刻如决堤黄河轰然崩裂。你解下腰间兵刃横置泥中，面向两千余座孤冢重重俯身叩首，额角撞在碎石黄泥之上鲜血迸流，与冰冷秋雨混作殷红血水滑过脸庞，平生第一次在天地苍穹下放声恸哭，悲声震彻荒郊雨幕！'),
     S('NPC-0154', '身后林铁衣与高怀亮再也按捺不住，双双摘下毡笠跪倒在泥淖里，陪着你向漫山袍泽叩首长泣。雨声如鼓，泪血如注，这座汴京城南无名荒冈上的每一寸黄土，都将铭记一位大宋将领脱胎换骨前最惨烈的一课。'),
   ],
   choices: [
     {
       id: 'choice_jtc1_39_vow',
-      label: '【泣血叩首】以额触石长跪不起，立誓洗尽骄狂、遍读兵书以报忠魂',
+      label: '【泣血叩首】以额触石长跪不起，立誓洗尽骄狂、切记血泪教训以报忠魂',
       tone: 'danger',
-      effects: [openScene('scene_jtc1_40_awakening_vow_finale', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+      effects: [
+        {
+          type: 'branch',
+          condition: HAS_SCHOLARLY_MILITARY_THEORY,
+          thenEffects: [openScene('scene_jtc1_40_scholar_awakening_vow_finale', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+          elseEffects: [openScene('scene_jtc1_40_awakening_vow_finale', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+        },
+      ],
     },
   ],
 }
@@ -528,6 +569,29 @@ const SCENE_18_GAO_HUAILIANG_PLEA: StorySceneDef = {
   ],
 }
 
+const SCENE_18_SCHOLAR_GAO_HUAILIANG_PLEA: StorySceneDef = {
+  id: 'scene_jtc1_18_scholar_gao_huailiang_plea',
+  title: '第十八幕 · 尽信兵书误奇谋',
+  subtitle: '太行山 · 黑风愁猿涧谷口',
+  mandatory: true,
+  beats: [
+    S('NPC-0043', '眼看前锋各营争先恐后便要往黑风愁猿涧里追杀，行营副都监高怀亮骤然纵马横拦在谷口之前，翻身跳下战马，用佩刀挑开路旁一辆贼人遗弃的粮袋——只见面上一层薄薄小米底下，塞的竟全是干燥松针、麦秸与碎沙石！'),
+    S('NPC-0043', '高怀亮脸色煞白，双手死死拉住你坐骑的嚼环，急声谏道：“都虞候万万不可再追！您看这粮车全是诱饵！前面黑风愁猿涧全长十余里，两壁悬崖百丈如削，正是兵书所忌的‘天井、天牢、天隙’绝地！如今连月秋旱、满山枯松脂油一点即燃，咱们两翼未派斥候搜山，若孤军重甲钻进这条窄涧，万一王重岳在崖顶设伏火攻，五千弟兄插翅难飞啊！”'),
+    S({ name: '河北老塘骑', title: '随军向导斥候', factionName: '大宋禁军', portraitUrl: '/assets/characters/templates/tpl_zhenyuan_male_fb.jpg', avatarUrl: '/assets/characters/templates/tpl_zhenyuan_male_av.jpg' }, '两名随军河北老塘骑亦单膝跪地叩禀：“副都监所言极是！古兵法有云‘归师勿遏，穷寇莫追’，又云‘鸟起者伏也，尘高而锐者车来也’。小人方才观涧口林木幽深却无飞鸟惊起，恐崖上真藏有重兵，恳请大人先扎硬寨、遣轻兵攀两翼山脊探明虚实再进不迟！”'),
+    P('（勒马凝视着那袋掺沙小米与幽静异常的谷口林木，不仅没有慌乱，反而自信冷笑一声，挥鞭指点地形道）“我当高将军与老塘骑要说什么！‘鸟起者伏也’、‘天井天隙’，本帅自幼遍览《孙子》《武经》，岂会不知？”'),
+    P('（胸有成竹地侃侃而谈，自以为一眼看穿贼人虚实）“正因本帅深通兵略，才知这是贼人故意弄出来的‘假破绽’！试想王重岳不过草莽绿林，哪有在十里绝壁囤积万斤火油硫磺、又令数千山匪悄无声息伏于崖顶的能耐？粮车掺沙不过是贼众早已断粮、仓皇弃辎的实情；至于惊散林鸟、虚设疑阵，无非是学兵书皮毛吓唬我军，想逼我在此扎营搜山、拖延三日好趁夜翻过西岭遁逃！”'),
+    P('（抖缰挣脱高怀亮双手，眸中满是“智珠在握”的傲然）“《孙子》亦云‘兵闻拙速，未睹巧之久也’！敌已破胆而尚迟疑，正是兵家大忌！全军五千儿郎听令，趁贼众立足未稳、随本帅全速急穿黑风愁猿涧，先登总寨者赏银百两！”'),
+  ],
+  choices: [
+    {
+      id: 'choice_jtc1_18_scholar_force_pursuit',
+      label: '【智珠自负】以“兵闻拙速”反驳高怀亮，断定贼设疑兵拖延，全军急追入涧',
+      tone: 'danger',
+      effects: [openScene('scene_jtc1_19_blind_canyon_march', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+    },
+  ],
+}
+
 const SCENE_17_FEIGNED_ROUT_GRAIN: StorySceneDef = {
   id: 'scene_jtc1_17_feigned_rout_grain',
   title: '第十七幕 · 弃粮丢甲诱深涧',
@@ -540,7 +604,14 @@ const SCENE_17_FEIGNED_ROUT_GRAIN: StorySceneDef = {
     S({ name: '赵铁柱', title: '殿前司虎翼军什长', factionName: '大宋禁军', portraitUrl: '/assets/characters/templates/tpl_jinjun_male_fb.jpg', avatarUrl: '/assets/characters/templates/tpl_jinjun_male_av.jpg' }, '什长赵铁柱一脚踢翻寨前竖着的绿林黑旗，提着红缨长枪满脸兴奋地跑来禀报：“都虞候神威盖世！算上山口第一仗，咱们连破太行两座大寨，贼人连粮车衣甲都扔了满地，正往后头那条黑风涧里抱头鼠窜呢！弟兄们士气正旺，请都虞候下令追击，今夜便去王重岳的聚义厅喝酒吃肉！”'),
     N('看着满地狼藉的弃甲与旌旗，五千禁军欢声雷动，人人争欲抢夺头功。你立马于破寨门楼之下，胸中豪情万丈，只觉昔日令六扇门头疼不已的太行三十六寨，在绝对精锐的朝廷铁甲面前简直不堪一击！'),
   ],
-  onFinishEffects: [openScene('scene_jtc1_18_gao_huailiang_plea', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+  onFinishEffects: [
+    {
+      type: 'branch',
+      condition: HAS_SCHOLARLY_MILITARY_THEORY,
+      thenEffects: [openScene('scene_jtc1_18_scholar_gao_huailiang_plea', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+      elseEffects: [openScene('scene_jtc1_18_gao_huailiang_plea', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+    },
+  ],
 }
 
 const SCENE_16_STORM_EAST_PALISADE: StorySceneDef = {
@@ -689,6 +760,30 @@ const SCENE_11_DISMISS_DAMING_ADVICE: StorySceneDef = {
   ],
 }
 
+const SCENE_11_SCHOLAR_DISMISS_DAMING_ADVICE: StorySceneDef = {
+  id: 'scene_jtc1_11_scholar_dismiss_daming_advice',
+  title: '第十一幕 · 纸上谈兵急进师',
+  subtitle: '大名府 · 拔营西向太行',
+  mandatory: true,
+  beats: [
+    S('NPC-0039', '河北驻军将领王信手指羊皮舆图上纵横交错的红墨山谷线，正色建言道：“都虞候请看，太行东麓十八陉沟壑纵横，眼下正值{reignYear}深秋久晴无雨，山中老松枯草燥烈如柴。《武经总要》行军篇特戒‘秋深涉险，必先遣游奕轻骑占山脊、防火攻’。末将已备妥百辆偏厢鹿角车，咱们宜步步为营，每日推进二十里扎寨深沟，先剪除其外围耳目！”'),
+    P('（俯身细审羊皮舆图上的等高沟谷与水泉风向，虽对山川标注了然于胸，却反而引经据典从容笑道）“王将军过虑了！《武经总要》此条乃是防备契丹铁骑旷野突袭之法；至于太行山匪，方才将军亦言他们听说天兵过河便急忙收缩防线，足见贼胆已寒！”'),
+    S('NPC-0043', '高怀亮在旁急忙帮腔劝道：“都虞候，王公亮将军久戍大名府，最熟河北太行山情地势。偏厢战车虽慢，在狭谷遇袭时却能立刻连环结阵遮挡矢石，咱们不妨带上……”'),
+    P('（负手而立，引《孙子》《六韬》侃侃而谈）“兵法常讲‘以正合，以奇胜’——敌退而我迟疑，反予其聚众设防之机！若日行二十里、拖着笨重偏厢车在山道蜗行，正中‘师老兵疲’之忌！我麾下五千殿前司虎翼、神勇精兵人人披重甲、执长枪，更有神臂硬弓开路，正该效法古之名将轻装倍道、出其不意直捣黄龙！”'),
+    P('（提过令箭掷于案上）“王信将军留在北京大名府统筹后方粮饷即可，笨重偏厢车一概免带！全军每人只携十日干粮，随本帅轻装急进，直扑【太行山 · 飞狐断魂索桥 · 千帆栈桥·装卸埠】外山口前哨！”'),
+  ],
+  onFinishEffects: [
+    {
+      type: 'setQuestStep',
+      questId: JINJUN_TAIHANG_QUEST_1_ID,
+      stepId: 'advance_to_taihang',
+      deadlineDays: null,
+      silent: false,
+    },
+    toast('已在大名府补充干粮拔营西进！请前往【太行山绿林总寨 · 飞狐断魂索桥 · 千帆栈桥·装卸埠】扫荡太行外山口前哨。', 'talk', '兵发太行'),
+  ],
+}
+
 const SCENE_10_DAMING_RENDEZVOUS: StorySceneDef = {
   id: 'scene_jtc1_10_daming_rendezvous',
   title: '第十幕 · 北京校场会粮道',
@@ -701,7 +796,14 @@ const SCENE_10_DAMING_RENDEZVOUS: StorySceneDef = {
     S('NPC-0039', '王信面色渐转凝重，引你二人步入校场帅帐，指向案上一幅牛皮绘制的太行东麓地形草图：“正要向都虞候禀明此事！自朝廷五千禁军出封丘门的消息传过黄河，原本在真定、大名官道四处劫掠的太行游骑，竟在三日之内收缩得干干净净，连外围几个小卡子都主动撤空了！”'),
     P('（闻言嘴角微扬，抚掌大笑）“哈哈哈！我还当太行天王王重岳有多大胆魄，原来一听说本帅亲率五千皇城铁甲过河，连照面都不敢打便缩回山壳子里去了！”'),
   ],
-  onFinishEffects: [openScene('scene_jtc1_11_dismiss_daming_advice', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+  onFinishEffects: [
+    {
+      type: 'branch',
+      condition: HAS_SCHOLARLY_MILITARY_THEORY,
+      thenEffects: [openScene('scene_jtc1_11_scholar_dismiss_daming_advice', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+      elseEffects: [openScene('scene_jtc1_11_dismiss_daming_advice', 'QST-SECT-33-TAIHANG-CAMPAIGN-1')],
+    },
+  ],
 }
 
 const SCENE_09_YOUNG_SOLDIERS_VOW: StorySceneDef = {
@@ -889,6 +991,7 @@ const JINJUN_TAIHANG_QUEST_1_OPENING_SCENE: StorySceneDef = {
 
 export const SCENES: Record<string, StorySceneDef> = {
   [SCENE_40_AWAKENING_VOW_FINALE.id]: SCENE_40_AWAKENING_VOW_FINALE,
+  [SCENE_40_SCHOLAR_AWAKENING_VOW_FINALE.id]: SCENE_40_SCHOLAR_AWAKENING_VOW_FINALE,
   [SCENE_39_RAIN_GRAVEYARD_TEARS.id]: SCENE_39_RAIN_GRAVEYARD_TEARS,
   [SCENE_38_LIBATION_FOR_TIEZHU.id]: SCENE_38_LIBATION_FOR_TIEZHU,
   [SCENE_37_TWO_THOUSAND_WOODEN_MARKERS.id]: SCENE_37_TWO_THOUSAND_WOODEN_MARKERS,
@@ -911,6 +1014,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   [SCENE_20_BOULDERS_SEAL_EXIT.id]: SCENE_20_BOULDERS_SEAL_EXIT,
   [SCENE_19_BLIND_CANYON_MARCH.id]: SCENE_19_BLIND_CANYON_MARCH,
   [SCENE_18_GAO_HUAILIANG_PLEA.id]: SCENE_18_GAO_HUAILIANG_PLEA,
+  [SCENE_18_SCHOLAR_GAO_HUAILIANG_PLEA.id]: SCENE_18_SCHOLAR_GAO_HUAILIANG_PLEA,
   [SCENE_17_FEIGNED_ROUT_GRAIN.id]: SCENE_17_FEIGNED_ROUT_GRAIN,
   [SCENE_16_STORM_EAST_PALISADE.id]: SCENE_16_STORM_EAST_PALISADE,
   [SCENE_15_EAST_PALISADE_CONFRONT.id]: SCENE_15_EAST_PALISADE_CONFRONT,
@@ -918,6 +1022,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   [SCENE_13_CRUSHING_FIRST_VICTORY.id]: SCENE_13_CRUSHING_FIRST_VICTORY,
   [SCENE_12_OUTER_PASS_VANGUARD.id]: SCENE_12_OUTER_PASS_VANGUARD,
   [SCENE_11_DISMISS_DAMING_ADVICE.id]: SCENE_11_DISMISS_DAMING_ADVICE,
+  [SCENE_11_SCHOLAR_DISMISS_DAMING_ADVICE.id]: SCENE_11_SCHOLAR_DISMISS_DAMING_ADVICE,
   [SCENE_10_DAMING_RENDEZVOUS.id]: SCENE_10_DAMING_RENDEZVOUS,
   [SCENE_09_YOUNG_SOLDIERS_VOW.id]: SCENE_09_YOUNG_SOLDIERS_VOW,
   [SCENE_08_DEPART_FIVE_THOUSAND.id]: SCENE_08_DEPART_FIVE_THOUSAND,
