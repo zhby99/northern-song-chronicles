@@ -41,7 +41,7 @@ function buildKhitanVanguardNpc(): NodeNpc {
     learnedArts: [{ artId: 'MA-232', level: 3 }, { artId: 'MA-157', level: 2 }, { artId: 'MA-152', level: 3 }, { artId: 'MA-151', level: 3 }],
     equipped: { weapon: 'WPN-076', armor: 'ARM-045', shoes: 'BOT-022', bow: 'BOW-023', accessory1: 'ACC-045', accessory2: 'ACC-043', mount: 'MNT-021' },
     questBadgeLabel: '铁林先锋',
-    talk: '“俺乃辽东白山脚下讨生活的行商，今日特来领教八极门斤两——接得住俺五合重斧再狂言守河！”',
+    talk: '“俺乃辽东白山脚下讨生活的行商，今日特来领教八极门斤两——接得住俺三合重斧再狂言守河！”',
   })
 }
 
@@ -187,7 +187,7 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
   choices: [
     {
       id: 'choice_bout2_fight_survive',
-      label: '【登台硬撼】踏步抢入中宫，正面硬接这契丹先锋五合寒铁重斧！',
+      label: '【登台硬撼】踏步抢入中宫，正面硬接这契丹先锋三合寒铁重斧！',
       subLabel: '开启 5 合生死擂（撑满 5 合或将其击倒即胜 · ⚠️ 战败将直接丧命！）',
       tone: 'primary',
       effects: [
@@ -197,13 +197,13 @@ const SCENE_LEITAI_BOUT_TWO: StorySceneDef = {
           opponent: { kind: 'custom', npc: buildKhitanVanguardNpc() },
           rule: 'survive_rounds',
           lethalOnLose: true,
-          maxRounds: 5,
+          maxRounds: 3,
           forbidEscapeReason: '万军校场擂台之上，河北豪杰齐聚，岂可临阵退缩！',
           deathTitle: '血洒八角生死擂',
           deathDetail:
-            '少侠于大名府河北枪棒大校场登八角生死擂迎战契丹铁林先锋乌古乃，未能撑满五合寒铁重斧猛劈，重创喋血擂台。',
+            '少侠于大名府河北枪棒大校场登八角生死擂迎战契丹铁林先锋乌古乃，未能撑满三合寒铁重斧猛劈，重创喋血擂台。',
           introText:
-            '乌古乃双目凶光暴涨，两柄辽东寒铁重斧挟风雷之势劈面砸落——正是契丹铁林军破甲绝技！撑过五合逼出其北庭步法（生死擂台，败则丧命）！',
+            '乌古乃双目凶光暴涨，两柄辽东寒铁重斧挟风雷之势劈面砸落——正是契丹铁林军破甲绝技！撑过三合逼出其北庭步法（生死擂台，败则丧命）！',
           onWin: [
             { type: 'healPlayer', hpPct: 60, mpPct: 60 },
             { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0275' }, delta: 25 },
@@ -565,7 +565,7 @@ const INLINE_SCENE_01_scene_dm_leitai_after_fight_win: StorySceneDef = {
                 title: '八极崩云 · 敲山震虎成',
                 subtitle: '河北枪棒大校场',
                 beats: [
-                  N('五合硬撼，火星四溅！少侠生生架住乌古乃狂风暴雨般的寒铁双斧，逼得他下盘不由自主踏出契丹骑兵特有的「孤狼盘马步」！'),
+                  N('三合硬撼，火星四溅！少侠生生架住乌古乃狂风暴雨般的寒铁双斧，逼得他下盘不由自主踏出契丹骑兵特有的「孤狼盘马步」！'),
                   S('NPC-0275', '“露馅了！看老夫这记——八极铁山靠！”'),
                   N('但见卢铁山须发皆张，脚下一记震脚踏裂擂台条石，右肩如万钧崩山撞入乌古乃怀中！乌古乃口喷鲜血倒飞三丈，连滚带爬混入乱哄哄的人群遁逃而去。校场万军齐声暴喝：“文有太极安天下，武有八极定乾坤！”'),
                   S('NPC-0039', '（王信自崇政看台疾步走下，压低嗓音向你与卢铁山抱拳）“干得漂亮！刚刚在看台角落观战的转运司勾当公事周文焕面无人色，已借故提前溜出校场——鱼儿急了！今夜戌亥之交，【北京留守行宫 · 河北防辽舆图沙盘阁】收网捉鳖！”'),

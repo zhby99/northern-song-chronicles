@@ -1304,8 +1304,8 @@ const SCENE_02_SPEAR_FIELD_PRIDE: StorySceneDef = {
   choices: [
     {
       id: 'choice_jj_spar_lin_tieyi',
-      label: '【演武立威 · 十合论武林总教头】欣然拔刃，与八十万禁军总教头林铁衣点到为止切磋十合！',
-      subLabel: '同僚切磋（一流上品林铁衣，撑满 10 回合或取胜皆获满堂彩，败亦不伤和气继续推进）',
+      label: '【演武立威 · 五合论武林总教头】欣然拔刃，与八十万禁军总教头林铁衣点到为止切磋五合！',
+      subLabel: '同僚切磋（一流上品林铁衣，撑满 5 回合或取胜皆获满堂彩，败亦不伤和气继续推进）',
       tone: 'gold',
       effects: [
         {
@@ -1317,12 +1317,12 @@ const SCENE_02_SPEAR_FIELD_PRIDE: StorySceneDef = {
             talkOverride: '“四厢大人请看枪！林某这路八十万禁军六合大枪绝不藏私！”',
           },
           rule: 'survive_rounds',
-          maxRounds: 10,
+          maxRounds: 5,
           lethalOnLose: false,
           introText:
-            '八十万禁军演武坪万众瞩目！总教头【林铁衣】（一流上品）抖开枪花点到为止考较斤两，撑满 10 回合或正面胜出即可折服全军！',
+            '八十万禁军演武坪万众瞩目！总教头【林铁衣】（一流上品）抖开枪花点到为止考较斤两，撑满 5 回合或正面胜出即可折服全军！',
           onWin: [
-            { type: 'giveCombatExp', amount: 90, reason: '大教场演武十合折服八十万禁军总教头林铁衣' },
+            { type: 'giveCombatExp', amount: 90, reason: '大教场演武五合折服八十万禁军总教头林铁衣' },
             { type: 'modifyRenown', delta: 20, reason: '禁军大教场立威震服三衙骄兵' },
             { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0154' }, delta: 20 },
             { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0043' }, delta: 15 },

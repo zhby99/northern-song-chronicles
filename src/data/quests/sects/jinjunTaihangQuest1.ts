@@ -34,7 +34,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
   factionId: 'SECT-33',
   regionId: 'bianliang',
   recommendedRealm: '二流上品 ~ 一流下品',
-  maxOpponentRealm: '一流上品（王重岳、史万山六合断后）',
+  maxOpponentRealm: '一流上品（王重岳、史万山三合断后）',
   recommendedNote:
     '大宋禁军太行征讨三部曲 · 第一部（全四十幕）。触发条件：加入【大宋禁军】任 Lv.3 四厢都指挥满 365 天，且尚未通晓兵书（经义 ≤ 40 或 策论 ≤ 60）。',
   startHint:
@@ -48,7 +48,7 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
   startCondition: FULL_START_CONDITION,
   initialStepId: 'summoned_to_zichen',
   summary:
-    '入值大宋禁军操练满一载后，太行天王王重岳与九纹狂龙史万山大肆劫掠河北边军纲银。今上赵祯召对紫宸殿，特晋少侠为【三衙都虞候】，钦命统率五千禁军精锐、以高怀亮为副将北上剿匪。初战虽连破外山口与东麓鹿角寨，然因少侠未读兵书（经义或策论不足）、不谙“穷寇莫追”与山川火攻之忌，斥退副将苦谏孤军追入黑风愁猿涧，惨遭断道火攻！少侠悔恨泣血，强命高怀亮率残部突围，独留一线天连战追寇并硬撼王重岳、史万山六合断后，终折损两千余名禁军将士败归汴梁。紫宸殿上奉旨削回 四厢都指挥、罚俸一年，于汴郊秋雨新冢前泣血立誓潜修经史兵略。',
+    '入值大宋禁军操练满一载后，太行天王王重岳与九纹狂龙史万山大肆劫掠河北边军纲银。今上赵祯召对紫宸殿，特晋少侠为【三衙都虞候】，钦命统率五千禁军精锐、以高怀亮为副将北上剿匪。初战虽连破外山口与东麓鹿角寨，然因少侠未读兵书（经义或策论不足）、不谙“穷寇莫追”与山川火攻之忌，斥退副将苦谏孤军追入黑风愁猿涧，惨遭断道火攻！少侠悔恨泣血，强命高怀亮率残部突围，独留一线天连战追寇并硬撼王重岳、史万山三合断后，终折损两千余名禁军将士败归汴梁。紫宸殿上奉旨削回 四厢都指挥、罚俸一年，于汴郊秋雨新冢前泣血立誓潜修经史兵略。',
   steps: {
     summoned_to_zichen: {
       id: 'summoned_to_zichen',
@@ -130,10 +130,10 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
     },
     canyon_rearguard_2: {
       id: 'canyon_rearguard_2',
-      title: '一线天浴血六合',
+      title: '一线天浴血三合',
       objective:
-        '太行天王【王重岳】与九纹狂龙【史万山】踏火亲至！须在一线天绝隘独自死守撑满 6 个回合，掩护两千八百残军逃出太行山！',
-      nextHint: '补满状态后点击当前场景「浴血断后六合 · 独挡太行双雄」迎战王重岳与史万山（1v2 撑满 6 回合）。',
+        '太行天王【王重岳】与九纹狂龙【史万山】踏火亲至！须在一线天绝隘独自死守撑满 3 个回合，掩护两千八百残军逃出太行山！',
+      nextHint: '补满状态后点击当前场景「浴血断后三合 · 独挡太行双雄」迎战王重岳与史万山（1v2 撑满 3 回合）。',
       targetLocation: {
         regionId: 'taihang',
         buildingId: 'th_vault',
@@ -327,9 +327,9 @@ export const JINJUN_TAIHANG_CAMPAIGN_1_QUEST: QuestDefinition = {
     },
     {
       id: 'spot_jtc1_rearguard_twins',
-      label: '浴血断后六合 · 独挡太行天王王重岳与九纹狂龙史万山（撑满6合）',
+      label: '浴血断后三合 · 独挡太行天王王重岳与九纹狂龙史万山（撑满6合）',
       badge: '第29-30幕 · 绝境死战',
-      subtitle: '以一身血肉硬撼太行正副总瓢把子 6 个回合，换取两千八百残军突围生机！',
+      subtitle: '以一身血肉硬撼太行正副总瓢把子 3 个回合，换取两千八百残军突围生机！',
       tone: 'danger',
       regionId: 'taihang',
       buildingId: 'th_vault',

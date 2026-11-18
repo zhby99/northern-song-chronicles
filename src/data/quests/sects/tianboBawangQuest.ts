@@ -230,9 +230,9 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
       },
       finale_ancestral_hall: {
         id: 'finale_ancestral_hall',
-        title: '终章② · 天波宗祠十合考校',
+        title: '终章② · 天波宗祠五合考校',
         objective:
-          '鄜延大捷！返回【太原府 · 天波杨家旧祠】，于杨业令公牌位前迎战手持【天波透甲金枪】的杨文广，十合不倒或击退半步，即可承接天阶《杨家霸王枪》！',
+          '鄜延大捷！返回【太原府 · 天波杨家旧祠】，于杨业令公牌位前迎战手持【天波透甲金枪】的杨文广，五合不倒或击退半步，即可承接天阶《杨家霸王枪》！',
         targetLocation: {
           regionId: 'taiyuan',
           buildingId: 'ty_yang',
@@ -341,10 +341,10 @@ export const TIANBO_BAWANG_QUESTS: QuestDefinition[] = [
         ],
       },
 
-      // 【终章②】太原府 · 天波杨家旧祠：杨文广十合考校战
+      // 【终章②】太原府 · 天波杨家旧祠：杨文广五合考校战
       {
         id: 'act_tb_final_duel_wenguang',
-        label: '天波宗祠考校 · 接杨文广十合霸王枪',
+        label: '天波宗祠考校 · 接杨文广五合霸王枪',
         badge: '终章②',
         tone: 'gold',
         showInBottomBar: true,

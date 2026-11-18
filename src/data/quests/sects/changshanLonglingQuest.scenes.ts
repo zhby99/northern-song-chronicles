@@ -63,7 +63,7 @@ const CLIFF_WIN_A_EFFECTS: QuestEffect[] = [
 
 const CLIFF_WIN_B_EFFECTS: QuestEffect[] = [
   { type: 'addArtExp', amount: 2600 },
-  { type: 'giveCombatExp', amount: 120, reason: '雁门绝壁死守萧远风四合' },
+  { type: 'giveCombatExp', amount: 120, reason: '雁门绝壁死守萧远风三合' },
   { type: 'modifyRenown', delta: 20, reason: '绝壁力撼辽将萧远风' },
   { type: 'modifyChivalry', delta: 100, reason: '背水死战全员护送燕云遗老' },
   { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0185' }, delta: 25 },
@@ -109,7 +109,7 @@ const INLINE_SCENE_02_scene_cs_marshal_escape: StorySceneDef = {
           illustrationUrl: '/assets/quests/changshan_marshal_smoke_escape.jpg',
           illustrationCaption: '辽南京兵马元帅府 · 焚毁南牧山川策正本借霹雳烟幕突围',
           beats: [
-            N('四合硬撼，你的虎口已被震裂，鲜血顺着枪杆滴落青砖，而萧远风的镔铁长枪却愈发沉重如山。正值危殆之际，元帅府东侧马厩轰然炸起冲天火柱！'),
+            N('三合硬撼，你的虎口已被震裂，鲜血顺着枪杆滴落青砖，而萧远风的镔铁长枪却愈发沉重如山。正值危殆之际，元帅府东侧马厩轰然炸起冲天火柱！'),
             N('窗棂破响，三枚裹着硫磺硝石的霹雳烟幕弹凌空飞入签押房！浓黑刺鼻的烟雾瞬间吞没了烛火与萧远风凌厉的眼神。'),
             S('NPC-0184', '“南蛮鼠辈，竟敢烧我《南牧山川策》正本！传令铁林骑封锁四门——就算追到桑干河、雁门关，本统制也要把你们碎尸万段！”'),
             S('NPC-0036', '（郭逵一把扯住你的臂膀翻出矮墙，牵过两匹早已备好的乌骓快马）“正本已化飞灰，副本在我贴身夹袄里！幽州东门已被封死，随我西折直奔雁门关！”'),
@@ -140,14 +140,14 @@ const INLINE_SCENE_03_scene_cs_cliff_win_a: StorySceneDef = {
 
 const INLINE_SCENE_04_scene_cs_cliff_win_b: StorySceneDef = {
       id: 'scene_cs_cliff_win_b',
-      title: '义字当头 · 独撑四合',
+      title: '义字当头 · 独撑三合',
       subtitle: '雁门关外乱石绝壁 > 镇边李牧武安君祠',
       beats: [
         N('百余名须发皆白的幽州遗老相互搀扶着，深一脚浅一脚地在齐膝积雪中向李牧祠挪动。盲眼老僧将那卷《南牧山川策》副本死死抱在怀里，一步三回头。'),
         N('而你独自一人横枪立在绝壁窄口，面对盛怒追至的萧远风与辽军铁林百夫长！每一次铁枪相交都似炸响惊雷，虎口鲜血顺着冻僵的腕骨凝成冰柱，你却如生根磐石般一步不退！'),
-        S('NPC-0184', '“好一个狂徒！为了这群百年遗老，竟敢以残躯硬撼我辽南京铁枪四合而不倒——你究竟是赵氏哪一脉的传人？”'),
+        S('NPC-0184', '“好一个狂徒！为了这群百年遗老，竟敢以残躯硬撼我辽南京铁枪三合而不倒——你究竟是赵氏哪一脉的传人？”'),
         P('“无名小卒，大宋常山一枪客罢了！背后是百年不改汉家衣冠的父老，今日便是死，也不教胡骑跨过这半步！”'),
-        N('就在第四合枪尖将将抵住你咽喉的刹那，最后一名白发老者终于踉跄跨入镇边李牧武安君祠门槛！关内杀声震天，赵括苍与白烈山率常山精锐怒马冲出，生生将萧远风逼退三丈！'),
+        N('就在第三合枪尖将将抵住你咽喉的刹那，最后一名白发老者终于踉跄跨入镇边李牧武安君祠门槛！关内杀声震天，赵括苍与白烈山率常山精锐怒马冲出，生生将萧远风逼退三丈！'),
         S('NPC-0185', '（赵括苍勒马扶住摇摇欲坠的你，眼眶微红）“好一个常山义士！今日你不仅保住了燕云密报，更保住了百余名不肯剃发易服的汉家遗老！这等骨气，足令天下英雄汗颜！”'),
       ],
     }
@@ -508,7 +508,7 @@ const INLINE_SCENE_19_scene_cs_cliff_choice: StorySceneDef = {
                 {
                   id: 'choice_cliff_route_b',
                   label: '【路线 B · 全员死保】背水死战，护送所有幽州遗老撤入李牧祠！',
-                  subLabel: '生死断后（战败殉国）：死守半血萧远风 4 回合 · 胜得熟练度 +2600、战斗经验 +120、侠义 +100',
+                  subLabel: '生死断后（战败殉国）：死守半血萧远风 3 回合 · 胜得熟练度 +2600、战斗经验 +120、侠义 +100',
                   tone: 'danger',
                   condition: flag('cs_longling_route_b', 'truthy'),
                   effects: [
@@ -522,14 +522,14 @@ const INLINE_SCENE_19_scene_cs_cliff_choice: StorySceneDef = {
                           '“好个不肯舍弃幽州流民的常山小子！本帅今日倒要看看，你的枪能不能挡住铁林三百骑！”',
                       },
                       rule: 'survive_rounds',
-                      maxRounds: 4,
+                      maxRounds: 3,
                       lethalOnLose: true,
                       deathTitle: '血沃李牧祠前',
                       deathDetail:
                         '少侠为护送百余名幽州汉家遗老撤入雁门关，于乱石绝壁孤身死挡辽南京武林统制萧远风，力战殉国。',
                       forbidEscapeReason: '身后百余名幽州遗老尚未入祠，一步不可退！',
                       introText:
-                        '【生死断后 · 战败必死】萧远风长途奔袭气息虽疲，铁枪凶威犹在！死守 4 回合护送百余名幽州遗老撤入关内！',
+                        '【生死断后 · 战败必死】萧远风长途奔袭气息虽疲，铁枪凶威犹在！死守 3 回合护送百余名幽州遗老撤入关内！',
                       onWin: CLIFF_WIN_B_EFFECTS,
                     },
                   ],

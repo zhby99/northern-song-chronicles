@@ -11,7 +11,7 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
     factionId: 'SECT-17',
     regionId: 'bianliang',
     recommendedRealm: '一流中品及以上',
-    maxOpponentRealm: '绝顶宗师（慕容复十合对决）',
+    maxOpponentRealm: '绝顶宗师（慕容复五合对决）',
     recommendedNote:
       '刚性前置：加入【开封府 / 六扇门】且晋升至【Lv.3 金牌总捕】、已完成《燕子坞暗影 · 姑苏密查》；后续入燕子坞须持有《太湖燕子坞烟波水路舆图》。完成奖励：赏银 +260 两 · 战斗经验 +600 · 声望 +80 · 侠义 +40 · 解锁 Lv.4 御前护卫晋升。',
     startHint:
@@ -30,7 +30,7 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
       ],
     },
     summary:
-      '晋升开封府【金牌总捕】后，先于汴梁查获契丹密使口供、奉包拯与紫宸密旨再度南下姑苏。依次赴虎丘、寒山寺锁死铁证，于太湖渡口击败“江南二绝”公冶乾、于参合庄演武场正面击败“神掌震江南”邓百川，最终踏入还施水阁当面质问慕容复并与其交手十合，双方收手立约，解锁晋升【御前护卫】资格。',
+      '晋升开封府【金牌总捕】后，先于汴梁查获契丹密使口供、奉包拯与紫宸密旨再度南下姑苏。依次赴虎丘、寒山寺锁死铁证，于太湖渡口击败“江南二绝”公冶乾、于参合庄演武场正面击败“神掌震江南”邓百川，最终踏入还施水阁当面质问慕容复并与其交手五合，双方收手立约，解锁晋升【御前护卫】资格。',
     initialStepId: 'kaifeng_market_rumor',
     steps: {
       kaifeng_market_rumor: {
@@ -133,9 +133,9 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
       },
       huanshi_murong: {
         id: 'huanshi_murong',
-        title: '还施水阁，十合战慕容',
+        title: '还施水阁，五合战慕容',
         objective:
-          '已击败邓百川打通内院！步入【燕子坞 · 还施水阁 · 还施水阁藏书正楼】当面质问慕容复，并在其手下撑过 10 回合，促成双方收手立约。',
+          '已击败邓百川打通内院！步入【燕子坞 · 还施水阁 · 还施水阁藏书正楼】当面质问慕容复，并在其手下撑过 5 回合，促成双方收手立约。',
         targetLocation: {
           regionId: 'yanziwu',
           buildingId: 'yzw_huanshi',
@@ -275,9 +275,9 @@ export const KAIFENG_MURONG_QUEST_2: QuestDefinition[] = [
       },
       {
         id: 'spot_kf2_huanshi_murong',
-        label: '步入还施水阁 · 质问并十合战慕容复',
+        label: '步入还施水阁 · 质问并五合战慕容复',
         badge: '第40-49幕',
-        subtitle: '当面质问慕容复谋逆之嫌，交手撑过 10 回合，双方收手约定后续再说',
+        subtitle: '当面质问慕容复谋逆之嫌，交手撑过 5 回合，双方收手约定后续再说',
         tone: 'danger',
         regionId: 'yanziwu',
         buildingId: 'yzw_huanshi',

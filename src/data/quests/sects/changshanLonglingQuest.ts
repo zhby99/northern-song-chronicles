@@ -34,17 +34,17 @@ const MARSHAL_XIAO_COMBAT_EFFECTS: QuestEffect[] = [
       talkOverride: '“好胆的南朝刺客！敢焚本帅《南牧山川策》，且看你接得住我几记铁枪！”',
     },
     rule: 'survive_rounds',
-    maxRounds: 4,
+    maxRounds: 3,
     lethalOnLose: true,
     deathTitle: '血洒燕京元帅府',
     deathDetail:
-      '少侠潜入辽南京兵马元帅府焚毁《南牧山川策》正本后，未能撑过武林统制萧远风四合铁枪猛攻，力战殉国于析津府。',
-    forbidEscapeReason: '元帅府重围之下退无可退，须死守四回合待郭逵掷烟幕弹接应！',
+      '少侠潜入辽南京兵马元帅府焚毁《南牧山川策》正本后，未能撑过武林统制萧远风三合铁枪猛攻，力战殉国于析津府。',
+    forbidEscapeReason: '元帅府重围之下退无可退，须死守三回合待郭逵掷烟幕弹接应！',
     introText:
-      '【生死突围 · 战败必死】火光冲天，辽南京武林统制【萧远风】持铁枪破门而入！切记善用防御与金疮药撑过 4 回合，待郭逵掷出霹雳烟幕弹接应撤退！',
+      '【生死突围 · 战败必死】火光冲天，辽南京武林统制【萧远风】持铁枪破门而入！切记善用防御与金疮药撑过 3 回合，待郭逵掷出霹雳烟幕弹接应撤退！',
     onWin: [
       { type: 'addArtExp', amount: 1200 },
-      { type: 'giveCombatExp', amount: 60, reason: '元帅府硬撼萧远风四合' },
+      { type: 'giveCombatExp', amount: 60, reason: '元帅府硬撼萧远风三合' },
       openScene('scene_cs_marshal_escape', 'QST-SECT-22-LONGLING'),
     ],
   },
@@ -60,7 +60,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流下品',
     recommendedNote:
-      '第二幕需撑过一流中品【萧远风】4 回合，第三幕需决战二流下品辽军百夫长（路线 B 需死战半血萧远风 4 回合），建议至少【二流上品】再行启程。',
+      '第二幕需撑过一流中品【萧远风】3 回合，第三幕需决战二流下品辽军百夫长（路线 B 需死战半血萧远风 3 回合），建议至少【二流上品】再行启程。',
     startHint:
       '常山枪派第 2 阶「内堂枪士」且习得《杨氏梨花枪》或《六合大枪》≥ 3 重后，前往真定府【常山演武堂 > 常山龙胆枪脉宗祠正堂】触发。',
     startLocation: {
@@ -116,8 +116,8 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         id: 'marshal_burn_map',
         title: '第二幕 · 元帅府焚图与突围',
         objective:
-          '郭逵已在东侧马厩纵火引敌，速潜入【辽南京兵马元帅府 > 萧氏元帅正殿与金狼大帐】焚毁《南牧山川策》正本，并接住萧远风四合铁枪突围！',
-        nextHint: '潜入【辽南京兵马元帅府 > 萧氏元帅正殿与金狼大帐】焚毁正本并撑过萧远风 4 回合突围',
+          '郭逵已在东侧马厩纵火引敌，速潜入【辽南京兵马元帅府 > 萧氏元帅正殿与金狼大帐】焚毁《南牧山川策》正本，并接住萧远风三合铁枪突围！',
+        nextHint: '潜入【辽南京兵马元帅府 > 萧氏元帅正殿与金狼大帐】焚毁正本并撑过萧远风 3 回合突围',
         targetLocation: {
           regionId: 'xijin_liao',
           buildingId: 'xj_marshal',
@@ -315,7 +315,7 @@ export const CHANGSHAN_LONGLING_QUESTS: QuestDefinition[] = [
         id: 'spot_cs_marshal_burn',
         label: '潜入签押房焚毁《南牧山川策》正本',
         badge: '焚图突围',
-        subtitle: '持换防图免检定，否则需 经义/书 ≥ 45，随后生死死守萧远风 4 回合（战败殉国）',
+        subtitle: '持换防图免检定，否则需 经义/书 ≥ 45，随后生死死守萧远风 3 回合（战败殉国）',
         tone: 'danger',
         regionId: 'xijin_liao',
         buildingId: 'xj_marshal',
