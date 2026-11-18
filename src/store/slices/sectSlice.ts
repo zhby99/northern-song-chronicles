@@ -45,6 +45,7 @@ import { estimateHeroRealm } from '../../engine/stats/realmUtils'
 import {
   createLogEntry,
   addItemToInventory,
+  checkPlayerArtRequirements,
 } from '../storeHelpers'
 
 export type SectKeys =
@@ -453,7 +454,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     const curFavor = resolveNpcFavor(
       s.npcFavor,
       task.leaderNpcId,
-      getEffectiveTalents(s.baseStats.talents, s.equipped).颜值,
+      getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts).颜值,
     )
     const nextFavorVal = Math.max(MIN_NPC_FAVOR, curFavor - 5)
     const nextFavor = {
@@ -618,7 +619,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       })
       return
     }
-    const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped).颜值
+    const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts).颜值
     const curFavor = resolveNpcFavor(s.npcFavor, task.leaderNpcId, effCharm)
     const nextFavorVal = Math.min(MAX_NPC_FAVOR, curFavor + 10)
     const nextFavor = {
@@ -814,6 +815,17 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       set({
         actionFeedback: {
           text: warnText,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
+    const artReq = checkPlayerArtRequirements(s, entry.art)
+    if (!artReq.ok) {
+      set({
+        actionFeedback: {
+          text: `师门长辈摇头道：以少侠眼下根基，强练《${entry.art.cleanName}》恐走火入魔！未达门槛：${artReq.unmetText}`,
           tone: 'warn',
         },
       })

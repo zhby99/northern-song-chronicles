@@ -383,7 +383,11 @@ export const COMBAT_EFFECT_REGISTRY: Record<FxKey, CombatEffectSpec> = {
     slot: 'neigong',
     onBeforeHit(val, ctx, source) {
       if (source === 'target') {
-        const wallMult = ctx.targetNgLv >= 10 ? 0.55 : 1.0
+        // 「10重仅发挥55%效果」：面对已练至第 10 重的来招，无相气墙只能削去 55% 的标称比例
+        // （旧实现误按守方自身易筋经重数打折，导致 9 重 41% → 10 重反跌至 24.75%）
+        const attackerMoveLv =
+          ctx.actor.learnedArts.find((e) => e.artId === ctx.art.id)?.level ?? 1
+        const wallMult = attackerMoveLv >= 10 ? 0.55 : 1.0
         ctx.specRed += (val * wallMult) / 100
       }
     },
@@ -399,11 +403,7 @@ export const COMBAT_EFFECT_REGISTRY: Record<FxKey, CombatEffectSpec> = {
   zhemeishou_red: {
     slot: 'move',
     onBeforeHit(val, ctx, source) {
-      if (
-        source === 'target' &&
-        ctx.targetChoice.type === 'move' &&
-        ctx.target.zhemeishouStacks > 0
-      ) {
+      if (source === 'target' && ctx.target.zhemeishouStacks > 0) {
         ctx.specRed += (val * ctx.target.zhemeishouStacks) / 100
       }
     },
@@ -614,6 +614,12 @@ export const COMBAT_EFFECT_REGISTRY: Record<FxKey, CombatEffectSpec> = {
   yiyang_seal: {
     slot: 'move',
     onAfterHit(val, ctx, source) {
+      // 纯阳指力驱散自身 1 个中毒状态（命中即生效）
+      if (source === 'actor' && ctx.actor.poisonDotTurns > 0) {
+        ctx.actor.poisonDotTurns = 0
+        ctx.actor.poisonDotDmg = 0
+        ctx.pushLog('special', `${ctx.actor.name}纯阳指力运转周天，逼出体内奇毒！`)
+      }
       if (
         source === 'actor' &&
         !ctx.targetControlImmune &&

@@ -135,7 +135,8 @@
     "useEffect": {
       "maxHp": 80,
       "maxMp": 100,
-      "res": 6
+      "res": 6,
+      "onceOnly": true
     }
   },
   {

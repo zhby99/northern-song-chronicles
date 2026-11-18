@@ -64,6 +64,15 @@
    - 身死（`gameOver`）后系统菜单仅保留【读取存档】【设置】，`saveToSlot` 一律拒绝写入。
    - 剧情幕次的可见抉择统一由 `getVisibleStoryChoices()` 计算；全部被隐藏时按无抉择直接续行。
 
+8. **P1 / P2 修复约定（2026-11）**：
+   - 战中丹药毒物只在真正轮到出手时才扣减（`lastRoundSummary.playerItemUsedId`）；天 / 地阶永久灵丹战中服用同步回复当前气血内力。
+   - 出招者被反震致死后，连击、吸血、点穴等出招方命中后特效不再发动；被破招打断不占用禁连发同招锁；迟缓 / 滞气到期清零幅度。
+   - `getEffectiveTalents(talents, equipped, equippedArts?, learnedArts?)`：计入配饰 +颜值 与运使武学 +根骨 / +颜值；配饰的 +颜值 不再混入十艺字典。
+   - 武学属性门槛（`statRequirements`）在门派传功、秘籍展卷与装配武学时统一由 `checkPlayerArtRequirements()` 校验；剧情强制传授不受限。
+   - 大相国寺拍场排除全部有主孤品（`UNIQUE_ARTIFACT_MAP`），兵甲 / 灵丹两栏以良阶上品补位；不可叠放物品行囊中至多一件。
+   - 重开新局以 `createInitialStoreData()` 整体重置，只保留存档槽与界面偏好；行军途中存档记为原地扎营。
+   - 战斗 / 剧情的捕获阶段快捷键经 `shouldIgnoreOverlayHotkey()` 守门（菜单、图鉴打开或正在输入时放行）；战斗拟音与背景雅乐共用一个 AudioContext。
+
 ---
 
 ## 三、 下一步行动建议

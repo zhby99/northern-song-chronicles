@@ -1,3 +1,4 @@
+import { shouldIgnoreOverlayHotkey } from '../../utils/hotkeys'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   duckBgmForImpact,
@@ -288,6 +289,7 @@ export function useCombatChoreography({
     if (!session) return
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return
+      if (shouldIgnoreOverlayHotkey(e)) return
       if (isAnimating) {
         if (e.key === ' ' || e.key === 'Enter') {
           e.preventDefault()

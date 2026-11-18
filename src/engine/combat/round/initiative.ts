@@ -2,7 +2,14 @@ import { MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
 import { ITEM_DB_MAP } from '../../../data/itemsDb'
 import { chooseAiCombatDecision } from '../ai'
 import { COMBAT_EFFECT_REGISTRY } from '../effects/registry'
-import { computeEffectiveAgility, describeChoice, getSlotEffectsMap } from '../formulas'
+import {
+  computeEffectiveAgility,
+  computeMoveMpCost,
+  describeChoice,
+  getArtRawDamageAndKind,
+  getLearnedLevel,
+  getSlotEffectsMap,
+} from '../formulas'
 import type { CombatActionChoice, CombatFloatingPopup, FxKey } from '../types'
 import type { BlindDecisionEntry, CombatRoundContext, ScoredOrderEntry } from './context'
 
@@ -78,8 +85,18 @@ export function resolveBlindDecisionsAndInitiative(
     const chosenArt = chosenArtId ? MARTIAL_ART_DB_MAP[chosenArtId] : undefined
     const instinctInitBonus =
       chosenArt && (chosenArt.category === '剑法' || chosenArt.category === '指法') ? 10 : 0
+    // 内力不足以催动所选招式时，《独孤九剑》料敌机先的必先手同样失效
+    const canAffordChosenMove =
+      !chosenArt ||
+      fighter.mp >=
+        computeMoveMpCost(
+          fighter,
+          getArtRawDamageAndKind(chosenArt, getLearnedLevel(fighter.learnedArts, chosenArt.id))
+            .damage,
+        )
     const hasDuguPriority =
       choice.type === 'move' &&
+      canAffordChosenMove &&
       (Object.keys(moveFx) as FxKey[]).some(
         (k) => Boolean(moveFx[k]) && COMBAT_EFFECT_REGISTRY[k]?.hasInitiativePriority,
       )

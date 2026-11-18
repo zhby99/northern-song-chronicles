@@ -1,4 +1,8 @@
+import { getSharedAudioContext } from './bgmManagerCore'
 import { isCombatSfxEnabled, type CombatSfxVfxKind } from './combatSfx'
+
+/** 单次拟音最长约 1.2s（含混响尾音），留足余量后回收发送节点 */
+const SFX_SEND_RELEASE_MS = 4000
 
 // ============================================================================
 // Web Audio 武侠拟音合成引擎（木构厅堂混响 + 金石兵刃/罡风掌雷/古琴编钟）
@@ -16,13 +20,11 @@ function ensureSfxGraph(): {
   noise: AudioBuffer
 } | null {
   if (!isCombatSfxEnabled() || typeof window === 'undefined') return null
-  const Ctor =
-    window.AudioContext ||
-    (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
-  if (!Ctor) return null
 
   if (!sfxCtx) {
-    sfxCtx = new Ctor()
+    // 与背景雅乐共用同一个 AudioContext，不再另起第二个音频上下文
+    sfxCtx = getSharedAudioContext()
+    if (!sfxCtx) return null
     const comp = sfxCtx.createDynamicsCompressor()
     comp.threshold.value = -14
     comp.knee.value = 18
@@ -84,6 +86,14 @@ function ensureSfxGraph(): {
   send.gain.value = 1.0
   send.connect(dryBus)
   send.connect(wetBus)
+  // 每次拟音临时创建的发送节点在音效播完后断开，避免长期挂在总线上越积越多
+  setTimeout(() => {
+    try {
+      send.disconnect()
+    } catch {
+      // 已断开则忽略
+    }
+  }, SFX_SEND_RELEASE_MS)
 
   return { ctx: sfxCtx, out: send, noise: sharedNoiseBuffer }
 }

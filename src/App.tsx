@@ -109,6 +109,12 @@ export function App() {
         return
       }
       if (e.key === 'Escape') {
+        // 闭关途中若叠开了菜单 / 图鉴，ESC 先关掉上层弹窗，避免误把闭关腰斩
+        if (isCultivating && (menuOpen || compendiumOpen)) {
+          if (compendiumOpen) closeCompendium()
+          else closeMenu()
+          return
+        }
         if (isCultivating) {
           stopCultivationEarly()
           return

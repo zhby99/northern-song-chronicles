@@ -9,6 +9,7 @@ import {
   checkWeaponEquipRequirements,
   formatBonusBadges,
   RARITY_STYLE_MAP,
+  getEffectiveTalents,
 } from '../../../data/itemsDb'
 import { useGameStore } from '../../../store/useGameStore'
 import { resolveAssetUrl } from '../../../utils/assetLoader'
@@ -80,6 +81,8 @@ export function ArmoryTab({
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const skills = useGameStore((s) => s.skills)
   const equipped = useGameStore((s) => s.equipped)
+  const equippedArtsForTalents = useGameStore((s) => s.equippedArts)
+  const learnedArtsForTalents = useGameStore((s) => s.learnedArts)
   const inventory = useGameStore((s) => s.inventory)
 
   const equipItemToSlot = useGameStore((s) => s.equipItemToSlot)
@@ -100,9 +103,25 @@ export function ArmoryTab({
       res,
       ridingSkill,
       skills,
-      talents: baseStats.talents,
+      talents: getEffectiveTalents(
+        baseStats.talents,
+        equipped,
+        equippedArtsForTalents,
+        learnedArtsForTalents,
+      ),
     }),
-    [maxHp, maxMp, agility, res, ridingSkill, skills, baseStats.talents],
+    [
+      maxHp,
+      maxMp,
+      agility,
+      res,
+      ridingSkill,
+      skills,
+      baseStats.talents,
+      equipped,
+      equippedArtsForTalents,
+      learnedArtsForTalents,
+    ],
   )
 
   const inventoryQtyMap = useMemo(() => {

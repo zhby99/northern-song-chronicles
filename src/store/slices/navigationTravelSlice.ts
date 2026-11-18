@@ -1,3 +1,4 @@
+import { buildCampFromTraveling } from '../../engine/world/travelCamp'
 import { isNpcDead } from '../../engine/social/npcDeath'
 import type { StoreSlice } from '../storeTypes'
 import { gameRng } from '../../engine/combat/rng'
@@ -11,7 +12,6 @@ import {
 } from '../../data/itemsDb'
 import type {
   NodeNpc,
-  WildernessCamp,
 } from '../../types/game'
 import {
   NORTH_CHINA_REGION_IDS,
@@ -441,17 +441,17 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
               tone: 'success',
             },
           })
-          if (target.spotId) {
+          // 与正常步入建筑一致：先经过正堂（建筑级触发器），若未触发剧情再落到目标子景点
+          const firedAtHall = get().fireLocationTriggersForCurrentSpot({
+            regionId: target.regionId,
+            buildingId: bRec.id,
+            spotId: null,
+          })
+          if (target.spotId && !firedAtHall) {
             get().fireLocationTriggersForCurrentSpot({
               regionId: target.regionId,
               buildingId: bRec.id,
               spotId: target.spotId,
-            })
-          } else {
-            get().fireLocationTriggersForCurrentSpot({
-              regionId: target.regionId,
-              buildingId: bRec.id,
-              spotId: null,
             })
           }
           return
@@ -553,6 +553,11 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
 
     if (s.food <= 0) {
       set({
+        // 除写入日志外直接在检视卡上提示，避免点击「策马出发」毫无反应
+        actionFeedback: {
+          text: '行囊粮草已尽，无法远征！请先在城中市集或客栈补给干粮。',
+          tone: 'warn',
+        },
         logs: [
           createLogEntry(
             s.dayCount,
@@ -1105,46 +1110,8 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
   campStop: () => {
     const s = get()
     if (!s.traveling) return
-    const curPos = s.traveling.playerPos
-    const seg = s.traveling.route.segments[s.traveling.segIdx]
-    if (!seg) return
-
-    const r = Math.min(1, Math.max(0, s.traveling.segProgressDays / seg.days))
-    let camp: WildernessCamp
-    if (seg.campEdge) {
-      const { u, v, distU, distV, terrain } = seg.campEdge
-      if (seg.to === v) {
-        camp = {
-          x: curPos.x,
-          y: curPos.y,
-          u,
-          v,
-          distU: distU + distV * r,
-          distV: distV * (1 - r),
-          terrain,
-        }
-      } else {
-        camp = {
-          x: curPos.x,
-          y: curPos.y,
-          u,
-          v,
-          distU: distU * (1 - r),
-          distV: distV + distU * r,
-          terrain,
-        }
-      }
-    } else {
-      camp = {
-        x: curPos.x,
-        y: curPos.y,
-        u: seg.from,
-        v: seg.to,
-        distU: seg.dist * r,
-        distV: seg.dist * (1 - r),
-        terrain: seg.terrain,
-      }
-    }
+    const camp = buildCampFromTraveling(s.traveling)
+    if (!camp) return
 
     const fromName = NODE_MAP[camp.u]?.name ?? camp.u
     const toName = NODE_MAP[camp.v]?.name ?? camp.v

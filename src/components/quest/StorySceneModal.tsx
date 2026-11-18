@@ -1,3 +1,4 @@
+import { shouldIgnoreOverlayHotkey } from '../../utils/hotkeys'
 import { useEffect, useMemo, useState } from 'react'
 import { getVisibleStoryChoices, resolveStorySpeaker } from '../../engine/questEngine'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
@@ -90,11 +91,16 @@ export function StorySceneModal() {
 
   useEffect(() => {
     if (!activeStoryScene) return
-    const { scene, beatIndex } = activeStoryScene
+    const { scene, beatIndex, contextNpc } = activeStoryScene
     const isLastBeat = beatIndex >= scene.beats.length - 1
-    const hasChoices = Boolean(scene.choices && scene.choices.length > 0)
 
     const onKeyDown = (e: KeyboardEvent) => {
+      if (shouldIgnoreOverlayHotkey(e)) return
+      const hasChoices =
+        getVisibleStoryChoices(
+          scene.choices,
+          buildStoreEvalContext(useGameStore.getState(), contextNpc),
+        ).length > 0
       if (e.key === ' ' || e.key === 'Enter') {
         if (!isLastBeat || !hasChoices) {
           e.preventDefault()

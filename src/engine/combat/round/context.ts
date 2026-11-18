@@ -45,6 +45,8 @@ export interface CombatRoundContext {
   interruptedIds: Set<string>
   pendingExposedIds: Set<string>
   escapedSuccess: boolean
+  /** 本回合主角实际服下 / 施放的丹药毒物（未轮到出手则为 null，store 据此才扣减行囊） */
+  playerItemUsedId: string | null
   currentStepActorUnitId: string | undefined
   currentStepTargetUnitId: string | undefined
   getPrimaryNpc: () => CombatantState
@@ -121,6 +123,7 @@ export function createCombatRoundContext(
     interruptedIds: new Set<string>(),
     pendingExposedIds: new Set<string>(),
     escapedSuccess: false,
+    playerItemUsedId: null,
     currentStepActorUnitId: undefined,
     currentStepTargetUnitId: undefined,
     getPrimaryNpc,

@@ -60,6 +60,9 @@ export function resolveEndOfRoundTicks(ctx: CombatRoundContext): void {
 
       if (f.slowTurns > 0) f.slowTurns -= 1
       if (f.weakTurns > 0) f.weakTurns -= 1
+      // 迟缓 / 滞气到期后清空幅度，避免日后挂上低阶毒时被 Math.max 复活旧的高阶减益
+      if (f.slowTurns <= 0) f.slowPct = 0
+      if (f.weakTurns <= 0) f.weakPct = 0
       f.exposed = ctx.pendingExposedIds.has(f.unitId)
     }
   } else {

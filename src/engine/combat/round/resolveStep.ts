@@ -28,11 +28,13 @@ import {
   mapArtCategoryToVfx,
 } from '../formulas'
 import { sampleDamageRoll } from '../rng'
-import type {
-  CombatActionChoice,
-  CombatantState,
-  CombatFloatingPopup,
-  FxKey,
+import {
+  type CombatActionChoice,
+  type CombatantState,
+  type CombatFloatingPopup,
+  type FxKey,
+  MOVE_SLOT_KEYS,
+  type SlotEffectsMap,
 } from '../types'
 import type { BlindDecisionEntry, CombatRoundContext, ScoredOrderEntry } from './context'
 
@@ -144,6 +146,8 @@ function resolveItemStep(
   actor.lastUsedArtId = null
   const itemDef = ITEM_DB_MAP[itemId]
   if (!itemDef) return
+  // 丹药毒物仅在真正轮到出手时才算服下 / 施放（被先手击倒或敌阵已清空则原物退回行囊）
+  if (actor.isPlayer) ctx.playerItemUsedId = itemId
 
   if (itemDef.poisonEffect) {
     const targetNgFx = getSlotEffectsMap(target, 'neigong')
@@ -241,10 +245,12 @@ function resolveItemStep(
   if (itemDef.rarity === '天阶' || itemDef.rarity === '地阶') {
     if (eff.maxHp) {
       actor.maxHp += eff.maxHp
+      actor.hp = Math.min(actor.maxHp, actor.hp + eff.maxHp)
       notes.push(`气血上限 +${eff.maxHp}`)
     }
     if (eff.maxMp) {
       actor.maxMp += eff.maxMp
+      actor.mp = Math.min(actor.maxMp, actor.mp + eff.maxMp)
       notes.push(`内力上限 +${eff.maxMp}`)
     }
     if (eff.agi) {
@@ -340,7 +346,11 @@ export function resolveOrderedActionSteps(
     const choice = step.choice
     if (ctx.escapedSuccess || player.hp <= 0 || enemies.every((e) => e.hp <= 0)) break
     if (actor.hp <= 0) continue
-    if (ctx.interruptedIds.has(actor.unitId)) continue
+    if (ctx.interruptedIds.has(actor.unitId)) {
+      // 被破招打断：本回合并未施展任何武学，不应占用「禁连发同招」锁
+      actor.lastUsedArtId = null
+      continue
+    }
 
     const opposingTeam = actor.team === 'ally' ? enemies : allies
     const livingOpponents = opposingTeam.filter((o) => o.hp > 0)
@@ -402,8 +412,31 @@ export function resolveOrderedActionSteps(
     const actorQgFx = getSlotEffectsMap(actor, 'qinggong')
     const targetQgFx = getSlotEffectsMap(target, 'qinggong')
     let moveFx = getSlotEffectsMap(actor, choice.slot)
-    const targetMoveFx =
-      targetChoice.type === 'move' ? getSlotEffectsMap(target, targetChoice.slot) : {}
+    let targetMoveFx: SlotEffectsMap = {}
+    if (targetChoice.type === 'move') {
+      const tArtId = target.equippedArts[targetChoice.slot]
+      const tArt = tArtId ? MARTIAL_ART_DB_MAP[tArtId] : undefined
+      const tCost = tArt
+        ? computeMoveMpCost(
+            target,
+            getArtRawDamageAndKind(tArt, getLearnedLevel(target.learnedArts, tArt.id)).damage,
+          )
+        : 0
+      // 内力不足以催动所选招式时，招式附带的守御特效（如真武太极剑意）同样无从发动
+      if (target.mp >= tCost) {
+        targetMoveFx = { ...getSlotEffectsMap(target, targetChoice.slot) }
+      }
+    }
+    // 《天山折梅手》「学无止境」减伤为已看破路数后的常驻效果，不要求本回合恰好施展折梅手
+    if (targetMoveFx.zhemeishou_red === undefined && target.zhemeishouStacks > 0) {
+      for (const slot of MOVE_SLOT_KEYS) {
+        const fx = getSlotEffectsMap(target, slot)
+        if (fx.zhemeishou_red !== undefined) {
+          targetMoveFx.zhemeishou_red = fx.zhemeishou_red
+          break
+        }
+      }
+    }
     const targetNgLv = getLearnedLevel(target.learnedArts, target.equippedArts.neigong)
 
     // 1. 扣除招式内力消耗
@@ -736,7 +769,8 @@ export function resolveOrderedActionSteps(
       controlTriggered: { stunOrSeal: false },
     }
 
-    if (afterHitCtx.moveFx.yunv_double) {
+    const actorAliveAfterHit = actor.hp > 0
+    if (actorAliveAfterHit && afterHitCtx.moveFx.yunv_double) {
       COMBAT_EFFECT_REGISTRY.yunv_double.onAfterHit?.(
         afterHitCtx.moveFx.yunv_double,
         afterHitCtx,
@@ -786,7 +820,10 @@ export function resolveOrderedActionSteps(
       })
     }
 
-    runEffectAfterHit(afterHitCtx)
+    // 出招者被反震致死：连击、吸血回春、点穴等出招方命中后特效一概不再发动
+    if (actorAliveAfterHit) {
+      runEffectAfterHit(afterHitCtx)
+    }
 
     if (isMultiCombat && target.hp <= 0 && !target.isPlayer) {
       if (target.team === 'enemy') {

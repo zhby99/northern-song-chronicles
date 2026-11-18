@@ -12,6 +12,7 @@ import {
   toggleBgmPlayback,
   useBgmState,
 } from '../../../utils/bgmManager'
+import { setCombatSfxEnabled, useCombatSfxEnabled } from '../../../utils/combatSfx'
 
 export function SettingsTab() {
   const showRegionLabels = useGameStore((s) => s.showRegionLabels)
@@ -19,6 +20,7 @@ export function SettingsTab() {
   const setAllLabelToggles = useGameStore((s) => s.setAllLabelToggles)
 
   const bgm = useBgmState()
+  const combatSfxEnabled = useCombatSfxEnabled()
   const activeTrackItem = getActiveTrackItem(bgm)
   const audioCatalog = getAudioCatalogSummary()
 
@@ -146,6 +148,22 @@ export function SettingsTab() {
             <span className="font-mono font-bold text-[#52391e] w-12 text-right">
               {Math.round(bgm.volume * 100)}%
             </span>
+          </div>
+
+          <div className="flex items-center justify-between gap-3">
+            <span className="song-serif font-bold text-[#3d2812]">战斗拟音（兵刃金石 · 掌风罡雷）：</span>
+            <button
+              type="button"
+              onClick={() => setCombatSfxEnabled(!combatSfxEnabled)}
+              aria-pressed={combatSfxEnabled}
+              className={`px-3 py-1 rounded border font-bold song-serif cursor-pointer transition ${
+                combatSfxEnabled
+                  ? 'bg-[#1f5c3a] hover:bg-[#277048] border-[#8fc7ae] text-[#fff8eb]'
+                  : 'bg-[#faf3e3] hover:bg-[#e5d6b8] border-[#9e8462] text-[#3d2812]'
+              }`}
+            >
+              {combatSfxEnabled ? '已开启' : '已关闭'}
+            </button>
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-[#5e472d]">

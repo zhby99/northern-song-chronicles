@@ -9,7 +9,12 @@ import {
   WEAPON_DB_MAP,
   WEAPONS_DB,
 } from '../../data/gameDb'
-import { ITEM_DB_MAP, TREASURE_VOLUME_METAS, type TreasureVolumeKey } from '../../data/itemsDb'
+import {
+  EQUIPMENT_SLOT_METAS,
+  ITEM_DB_MAP,
+  TREASURE_VOLUME_METAS,
+  type TreasureVolumeKey,
+} from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
 import type {
   CompendiumTabKey,
@@ -577,7 +582,7 @@ export function SystemMenuModal() {
                 </div>
                 <div className="flex justify-between">
                   <span>随身披挂</span>
-                  <span className="font-mono font-bold text-[#1b5132]">{equippedCount} / 7 槽</span>
+                  <span className="font-mono font-bold text-[#1b5132]">{equippedCount} / {EQUIPMENT_SLOT_METAS.length} 槽</span>
                 </div>
                 <div className="flex justify-between">
                   <span>运使武学</span>

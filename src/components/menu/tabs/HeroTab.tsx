@@ -1,7 +1,12 @@
 import { useMemo } from 'react'
 import { Maximize2 } from 'lucide-react'
 import { FACTION_DB_MAP, MARTIAL_ART_DB_MAP } from '../../../data/gameDb'
-import { computeEquipmentTotals, computeWeaponArtSynergy } from '../../../data/itemsDb'
+import {
+  computeEquipmentTotals,
+  computeWeaponArtSynergy,
+  EQUIPMENT_SLOT_METAS,
+  getEffectiveTalents,
+} from '../../../data/itemsDb'
 import { computeEquippedArtsTotals } from '../../../data/playerMartialArts'
 import { getProtagonistPortrait } from '../../../data/protagonistPresets'
 import {
@@ -102,11 +107,12 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
   const dailyRestSilver = inFreeLodgingCity ? 0 : lodgingInfo.dailyCost
   const celunSkill = skills['策论'] ?? 0
   const jingyiSkill = skills['经义'] ?? 0
-  const charmVal = baseStats.talents.颜值
+  const effTalents = getEffectiveTalents(baseStats.talents, equipped, equippedArts, learnedArts)
+  const charmVal = effTalents.颜值
   const charmInitFavor = computeInitialNpcFavor(charmVal)
   const charmMult = computeCharmFavorMultiplier(charmVal)
-  const dailyNeigongExp = calcDailyExpByCategory(true, baseStats.talents, 1.0, jingyiSkill)
-  const dailyOuterExp = calcDailyExpByCategory(false, baseStats.talents, 1.0)
+  const dailyNeigongExp = calcDailyExpByCategory(true, effTalents, 1.0, jingyiSkill)
+  const dailyOuterExp = calcDailyExpByCategory(false, effTalents, 1.0)
 
   const mainNeigong = equippedArts.neigong ? MARTIAL_ART_DB_MAP[equippedArts.neigong] : null
   const mainQinggong = equippedArts.qinggong ? MARTIAL_ART_DB_MAP[equippedArts.qinggong] : null
@@ -123,7 +129,7 @@ export function HeroTab({ locationLabel, onOpenLightbox }: HeroTabProps) {
     onOpenLightbox({
       url: heroImgUrl,
       title: `${playerName} · 行侠全身绘像`,
-      subtitle: `年方${heroAge}岁 · 驻足【${locationLabel}】 · 武学境界【${heroRealm.label}】 · 门派【${currentSectName}·${sectState.rankLabel}】 · 已佩 ${equippedCount}/7 披挂 · 已运 ${equippedArtCount}/6 武学`,
+      subtitle: `年方${heroAge}岁 · 驻足【${locationLabel}】 · 武学境界【${heroRealm.label}】 · 门派【${currentSectName}·${sectState.rankLabel}】 · 已佩 ${equippedCount}/${EQUIPMENT_SLOT_METAS.length} 披挂 · 已运 ${equippedArtCount}/6 武学`,
     })
 
   return (

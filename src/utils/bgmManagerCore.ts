@@ -388,6 +388,11 @@ function getActiveItem(): BgmPlaylistItem | null {
   return metaSnapshot.playlist.tracks[safeIdx] ?? null
 }
 
+/** 供战斗拟音复用同一个 AudioContext（浏览器对并存 AudioContext 数量有限制） */
+export function getSharedAudioContext(): AudioContext | null {
+  return ensureAudioContext()
+}
+
 function ensureAudioContext(): AudioContext | null {
   if (typeof window === 'undefined') return null
   if (!audioCtx) {

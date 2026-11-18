@@ -6,7 +6,6 @@ import {
   UNIQUE_ARTIFACT_MAP,
 } from '../../data/gameDb'
 import {
-  DEFAULT_EQUIPPED_SLOTS,
   getEffectiveTalents,
   ITEM_DB_MAP,
   NON_GIFTABLE_KEY_ITEM_IDS,
@@ -19,18 +18,13 @@ import {
 } from '../../engine/economy'
 import {
   cloneQuestRuntimeState,
-  DEFAULT_QUEST_RUNTIME_STATE,
 } from '../../engine/questEngine'
 import type {
-  EquippedArtsMap,
   GameOverState,
-  LearnedArtEntry,
 } from '../../types/game'
 import { syncArtLevelsToExpsAndMilestones } from '../../engine/stats/artsProgression'
 import {
   cloneHeroBaseStats,
-  DEFAULT_HERO_BASE_STATS,
-  deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
 } from '../../engine/stats/heroStats'
 import {
@@ -61,7 +55,6 @@ import {
 import {
   buildZhanZhaoArrestNodeNpc,
   clonePlayerSectState,
-  DEFAULT_PLAYER_SECT_STATE,
   isSongOfficialForRobbery,
 } from '../../engine/sect'
 import {
@@ -69,6 +62,7 @@ import {
   createLogEntry,
   removeItemFromInventory,
   computeCombatSettlement,
+  createInitialStoreData,
 } from '../storeHelpers'
 
 export type CombatSocialKeys =
@@ -88,7 +82,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
     if (mode === 'talk') {
       const npcKey = npc.id ?? npc.name
       const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
-      const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped).颜值
+      const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts).颜值
       const curFavor = resolveNpcFavor(s.npcFavor, npcKey, effCharm)
       if (s.npcTalkedMonth[npcKey] === curMonthIdx) {
         set({
@@ -184,7 +178,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
     const npcKey = npc.id ?? npc.name
     const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
     if (effectiveStakes === 'spar' && !forceMandatory) {
-      const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped).颜值
+      const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts).颜值
       const curFavor = resolveNpcFavor(s.npcFavor, npcKey, effCharm)
       if (curFavor < 20) {
         set({
@@ -276,6 +270,16 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
         })
         return
       }
+      if (!s.inventory.some((st) => st.itemId === choice.itemId && st.qty > 0)) return
+    }
+
+    let nextSession = resolveCombatRound(s.activeCombat, choice)
+    // 只有真正轮到出手、药力 / 毒性已经生效时才从行囊扣除（被先手击倒或敌阵已清空则原物保留）
+    if (
+      choice.type === 'item' &&
+      nextSession.lastRoundSummary?.playerItemUsedId === choice.itemId
+    ) {
+      const def = ITEM_DB_MAP[choice.itemId]!
       const removed = removeItemFromInventory(s.inventory, choice.itemId, 1)
       if (!removed) return
       nextInventory = removed
@@ -301,7 +305,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
           const [sk, gain] = eff.skillGain
           cloned.skills[sk] = Math.min(
             HERO_BASE_CAPS.civilSkill,
-            (cloned.skills[sk] ?? 40) + gain,
+            (cloned.skills[sk] ?? 0) + gain,
           )
           const synced = syncArtLevelsToExpsAndMilestones({
             baseStats: cloned,
@@ -315,8 +319,6 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
         nextBaseStats = cloned
       }
     }
-
-    let nextSession = resolveCombatRound(s.activeCombat, choice)
     if (nextSession.outcome !== 'ongoing') {
       const preview = computeCombatSettlement(
         {
@@ -529,72 +531,17 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
   },
 
   restartAfterGameOver: () => {
-    const freshBase = cloneHeroBaseStats(DEFAULT_HERO_BASE_STATS)
-    const freshEquip = { ...DEFAULT_EQUIPPED_SLOTS }
-    const freshLearned: LearnedArtEntry[] = []
-    const freshEqArts: EquippedArtsMap = {
-      neigong: null,
-      qinggong: null,
-      move1: null,
-      move2: null,
-      move3: null,
-      move4: null,
-    }
-    const derived = deriveHeroEffectiveStats(freshBase, freshEquip, freshEqArts, freshLearned)
-
+    const s = get()
+    // 以初始存档数据为唯一来源整体重置（游历宗师、十艺经验、出生地、身故名录等一律清零），
+    // 仅保留存档槽列表与界面偏好，杜绝上一局状态污染新局
+    const fresh = createInitialStoreData()
     set({
+      ...fresh,
       characterCreated: false,
-      dayCount: 1,
-      shichenIdx: 4,
-      viewMode: 'region',
-      activeRegionId: 'bianliang',
-      activeBuildingInteriorId: null,
-      selectedNodeId: null,
-      selectedBuildingId: null,
-      selectedSpotId: null,
-      currentNodeId: 'bianliang',
-      traveling: null,
-      cultivationSession: null,
-      campPos: null,
-      baseStats: freshBase,
-      mountKey: derived.mountKey,
-      qinggongBonus: derived.qinggongBonus,
-      ridingSkill: derived.ridingSkill,
-      agility: derived.agility,
-      combatExp: 80,
-      renown: 0,
-      chivalry: 0,
-      silver: 150,
-      food: 25,
-      hp: derived.maxHp,
-      maxHp: derived.maxHp,
-      mp: derived.maxMp,
-      maxMp: derived.maxMp,
-      res: derived.res,
-      skills: { ...derived.skills },
-      equipped: freshEquip,
-      learnedArts: freshLearned,
-      equippedArts: freshEqArts,
-      inventory: [],
-      consumedUniqueIds: [],
-      consumedOnceItemIds: [],
-      npcFavor: {},
-      npcTalkedMonth: {},
-      npcSparredMonth: {},
-      npcBanquetedMonth: {},
-      inscribedPoemSpotIds: [],
-      deadNpcIds: [],
-      auctionBoughtByMonth: {},
-      activeEscortContract: null,
-      sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
-      questState: cloneQuestRuntimeState(DEFAULT_QUEST_RUNTIME_STATE),
-      hiddenQuestIds: [],
-      gameOver: null,
-      activeCombat: null,
-      activeStoryScene: null,
-      activeNpcInteraction: null,
-      menuOpen: false,
-      compendiumOpen: false,
+      saveSlots: s.saveSlots,
+      showRegionLabels: s.showRegionLabels,
+      overlays: s.overlays,
+      cultivationSpeedStep: s.cultivationSpeedStep,
       actionFeedback: {
         text: '大梦初醒，重返皇祐二年正月初一东京汴梁！',
         tone: 'success',
@@ -639,7 +586,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
     }
     const npcKey = npc.id ?? npc.name
     const curMonthIdx = Math.floor((s.dayCount - 1) / 30)
-    const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped).颜值
+    const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts).颜值
     const currentFavor = resolveNpcFavor(s.npcFavor, npcKey, effCharm)
 
     if (s.npcBanquetedMonth[npcKey] === curMonthIdx) {
@@ -722,7 +669,7 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       .filter((st) => st.qty > 0)
 
     const npcKey = npc.id ?? npc.name
-    const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped).颜值
+    const effCharm = getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts).颜值
     const currentFavor = resolveNpcFavor(s.npcFavor, npcKey, effCharm)
     const profile = getNpcFavorProfile(npc)
     const res = computeGiftFavorGain(currentFavor, item, profile, effCharm)

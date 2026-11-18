@@ -33,6 +33,13 @@ export function SaveLoadTab({ mode, locationLabel }: SaveLoadTabProps) {
 
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [saveNoteDraft, setSaveNoteDraft] = useState('')
+  // 覆盖 / 抹除已有存档前需二次确认（第一次点击进入待确认状态，第二次点击才执行）
+  const [pendingConfirm, setPendingConfirm] = useState<{
+    slotId: SaveSlotId
+    action: 'overwrite' | 'remove'
+  } | null>(null)
+  const isPending = (slotId: SaveSlotId, action: 'overwrite' | 'remove') =>
+    pendingConfirm?.slotId === slotId && pendingConfirm.action === action
   const [importTargetSlot, setImportTargetSlot] = useState<SaveSlotId | 'DIRECT_LOAD'>(
     'DIRECT_LOAD',
   )
@@ -224,12 +231,21 @@ export function SaveLoadTab({ mode, locationLabel }: SaveLoadTabProps) {
                     type="button"
                     disabled={saveBusy}
                     onClick={() => {
+                      if (env && !isPending(def.slotId, 'overwrite')) {
+                        setPendingConfirm({ slotId: def.slotId, action: 'overwrite' })
+                        return
+                      }
+                      setPendingConfirm(null)
                       void saveToSlot(def.slotId, saveNoteDraft)
                       setSaveNoteDraft('')
                     }}
                     className="px-3 py-1.5 rounded bg-[#8f1d14] hover:bg-[#a9251b] text-[#fff8eb] font-bold song-serif cursor-pointer transition"
                   >
-                    {env ? '覆盖封存' : '封入此卷'}
+                    {env
+                      ? isPending(def.slotId, 'overwrite')
+                        ? '确认覆盖？再点一次'
+                        : '覆盖封存'
+                      : '封入此卷'}
                   </button>
                 )}
 
@@ -252,10 +268,17 @@ export function SaveLoadTab({ mode, locationLabel }: SaveLoadTabProps) {
                     <button
                       type="button"
                       disabled={saveBusy}
-                      onClick={() => void removeSaveSlot(def.slotId)}
+                      onClick={() => {
+                        if (!isPending(def.slotId, 'remove')) {
+                          setPendingConfirm({ slotId: def.slotId, action: 'remove' })
+                          return
+                        }
+                        setPendingConfirm(null)
+                        void removeSaveSlot(def.slotId)
+                      }}
                       className="px-2.5 py-1.5 rounded bg-[#f8e8e6] hover:bg-[#f2cfcb] border border-[#c98a83] text-[#8f1d14] cursor-pointer"
                     >
-                      抹除
+                      {isPending(def.slotId, 'remove') ? '确认抹除？不可恢复' : '抹除'}
                     </button>
                   </>
                 )}

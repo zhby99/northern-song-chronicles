@@ -521,7 +521,7 @@ export function PortraitsTab({
                     {/* 1c) 七槽随身披挂 */}
                     <div className="shrink-0 bg-[#faf3e3] border border-[#cbb693] rounded p-2.5 space-y-1.5">
                       <div className="flex items-center justify-between text-[11px]">
-                        <span className="font-bold song-serif text-[#5e472d]">七槽随身披挂</span>
+                        <span className="font-bold song-serif text-[#5e472d]">九槽随身披挂</span>
                         <span className="text-[10px] text-[#7a5f3e]">兵甲弓履 · 双饰坐骑</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">

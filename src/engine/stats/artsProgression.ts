@@ -82,8 +82,16 @@ export function syncArtLevelsToExpsAndMilestones(params: {
     const floorExpForLv = getExpForArtLevel(clampedLv)
     const nextFloorExp = clampedLv >= 100 ? MAX_ART_EXP : getExpForArtLevel(clampedLv + 1) - 1
     const prevExp = nextExps[artKey]
-    if (prevExp === undefined || prevExp < floorExpForLv) {
+    if (prevExp === undefined) {
       nextExps[artKey] = floorExpForLv
+    } else if (prevExp < floorExpForLv) {
+      // 读经 / 奇遇直接 +N 级：保留原本在旧等级内已苦修攒下的进度比例，不清零子等级经验
+      let prevLv = 0
+      while (prevLv < 100 && getExpForArtLevel(prevLv + 1) <= prevExp) prevLv += 1
+      const prevSpan = Math.max(1, getExpForArtLevel(prevLv + 1) - getExpForArtLevel(prevLv))
+      const fraction = Math.min(0.999, Math.max(0, (prevExp - getExpForArtLevel(prevLv)) / prevSpan))
+      const newSpan = Math.max(0, nextFloorExp - floorExpForLv)
+      nextExps[artKey] = Math.min(nextFloorExp, floorExpForLv + Math.floor(newSpan * fraction))
     } else if (prevExp > nextFloorExp) {
       nextExps[artKey] = floorExpForLv
     }

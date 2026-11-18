@@ -199,6 +199,8 @@ export interface CombatRoundSummary {
   initialUnitSnapshots?: Record<string, CombatUnitSnapshot>
   beats: CombatRoundBeat[]
   events: CombatLogEntry[]
+  /** 本回合主角实际服下 / 施放的丹药毒物 ID（未轮到出手则为 null） */
+  playerItemUsedId?: string | null
 }
 
 export type DuelStakesKind =

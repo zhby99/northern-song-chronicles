@@ -54,8 +54,9 @@ function readInitialVolume(): number {
     const raw = localStorage.getItem(STORAGE_KEY_VOLUME)
     if (raw !== null) {
       const parsed = Number(raw)
-      if (!Number.isNaN(parsed) && parsed > 0) {
-        return Math.min(1, Math.max(0.05, parsed))
+      // 允许保存 0（静音）：旧逻辑要求 > 0，刷新后静音会被重置回默认音量
+      if (!Number.isNaN(parsed) && parsed >= 0) {
+        return Math.min(1, parsed)
       }
     }
   } catch {

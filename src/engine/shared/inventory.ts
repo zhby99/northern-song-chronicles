@@ -10,6 +10,11 @@ export function addItemToInventory(
   if (!def || qty <= 0) return list
   const next = list.map((x) => ({ ...x }))
   const existing = next.find((x) => x.itemId === itemId)
+  // 不可叠放的典籍 / 孤品行囊中至多一件：重复获得不再叠出第二件
+  if (def.stackable === false) {
+    if (!existing) next.push({ itemId, qty: 1 })
+    return next
+  }
   if (existing) {
     existing.qty += qty
   } else {

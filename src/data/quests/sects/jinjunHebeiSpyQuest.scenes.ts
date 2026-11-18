@@ -461,7 +461,7 @@ const SCENE_35_YELLOW_RIVER_BOSS_SHOWDOWN: StorySceneDef = {
             '黄河铁索浮桥狂澜怒卷！河北猛将王信披甲助阵，与你并肩迎战辽南京武林统制【萧远风】（一流中品）及修罗副统领【萧断索】！',
           onWin: [openScene('scene_jj_spy_36_seize_black_copper_box', 'QST-SECT-33-HEBEI-SPY')],
           onLose: [
-            { type: 'healPlayer', hpPct: 0.6, mpPct: 0.6 },
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
             warn('浮桥风急浪高，萧远风枪势凶猛！王信率盾兵死死护住铁索桥头，请调息整备后再次迎战！', '浮桥拉锯'),
           ],
         },
@@ -498,7 +498,7 @@ const SCENE_35_YELLOW_RIVER_BOSS_SHOWDOWN: StorySceneDef = {
             '北侠欧阳春豪笑跃上铁索浮桥，巨阙厚刀卷起狂风，与你联手迎击【萧远风】（一流中品）与【萧断索】！',
           onWin: [openScene('scene_jj_spy_36_seize_black_copper_box', 'QST-SECT-33-HEBEI-SPY')],
           onLose: [
-            { type: 'healPlayer', hpPct: 0.6, mpPct: 0.6 },
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
             warn('铁索剧烈颠簸，一时气血翻涌！欧阳春与陈孤雁联手逼退追兵，请整备丹药武学后再度闯桥！', '浮桥拉锯'),
           ],
         },
@@ -530,7 +530,7 @@ const SCENE_35_YELLOW_RIVER_BOSS_SHOWDOWN: StorySceneDef = {
             openScene('scene_jj_spy_36_seize_black_copper_box', 'QST-SECT-33-HEBEI-SPY'),
           ],
           onLose: [
-            { type: 'healPlayer', hpPct: 0.6, mpPct: 0.6 },
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
             warn('以一敌二压力如山！岸头盟友及时放箭掩护你退回铁牛桩调息，可重整旗鼓或改选盟友助战！', '重整再战'),
           ],
         },
@@ -550,7 +550,7 @@ const SCENE_34_CALM_BREATH_BEFORE_STORM: StorySceneDef = {
     N('刹那间，连日奔袭与方才前哨战的疲乏尽数散去，你周身气血内息重归巅峰饱满之境！'),
   ],
   onFinishEffects: [
-    { type: 'healPlayer', hpPct: 1, mpPct: 1 },
+    { type: 'healPlayer', hpPct: 100, mpPct: 100 },
     openScene('scene_jj_spy_35_yellow_river_boss_showdown', 'QST-SECT-33-HEBEI-SPY'),
   ],
 }
@@ -600,7 +600,7 @@ const SCENE_32_CHAIN_BRIDGE_VANGUARD_FIGHT: StorySceneDef = {
             openScene('scene_jj_spy_33_xiao_yuanfeng_arrives', 'QST-SECT-33-HEBEI-SPY'),
           ],
           onLose: [
-            { type: 'healPlayer', hpPct: 0.6, mpPct: 0.6 },
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
             warn('重装狼牙棒势大力沉，浮桥摇晃难立！退回铁牛桩稳住气息后再上浮桥截杀！', '前哨受挫'),
           ],
         },
@@ -771,7 +771,7 @@ const SCENE_26_LEITAI_PURGE_TRAITOR: StorySceneDef = {
             openScene('scene_jj_spy_27_traitor_confession', 'QST-SECT-33-HEBEI-SPY'),
           ],
           onLose: [
-            { type: 'healPlayer', hpPct: 0.6, mpPct: 0.6 },
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
             warn('韩崇矩久历军阵枪路刁钻！戍长郭铁率校场枪兵结阵拦住其去路，请调息整备后再次缉拿！', '校场苦战'),
           ],
         },
@@ -1031,7 +1031,7 @@ const SCENE_15_HORSE_MARKET_NIGHT_BATTLE: StorySceneDef = {
             openScene('scene_jj_spy_16_iron_fish_tally', 'QST-SECT-33-HEBEI-SPY'),
           ],
           onLose: [
-            { type: 'healPlayer', hpPct: 0.6, mpPct: 0.6 },
+            { type: 'healPlayer', hpPct: 60, mpPct: 60 },
             warn('风雪迷眼、惊马乱阵！凌寒一枪挑落木栅替你拦住去路，请调息片刻后再度上前截拿！', '雪夜重整'),
           ],
         },
@@ -1178,7 +1178,7 @@ const SCENE_08_CANAL_PIER_SILENCERS: StorySceneDef = {
             openScene('scene_jj_spy_09_dying_confession_hebei', 'QST-SECT-33-HEBEI-SPY'),
           ],
           onLose: [
-            { type: 'healPlayer', hpPct: 0.65, mpPct: 0.65 },
+            { type: 'healPlayer', hpPct: 65, mpPct: 65 },
             warn('甲板湿滑、黑水掌毒阴寒逼人！巡检司弓手鸣镝惊退二贼半步，请调息后立即再战救人！', '栈桥受阻'),
           ],
         },
@@ -1330,7 +1330,7 @@ const SCENE_02_SPEAR_FIELD_PRIDE: StorySceneDef = {
             setStep(QUEST_ID, 'kaifeng_palace_watch'),
           ],
           onLose: [
-            { type: 'healPlayer', hpPct: 1, mpPct: 1 },
+            { type: 'healPlayer', hpPct: 100, mpPct: 100 },
             { type: 'giveCombatExp', amount: 40, reason: '与总教头林铁衣切磋印证军阵枪理' },
             toast('林铁衣收枪抱拳赞你胆魄过人、招路刚正！军心既定，请前往【大内皇宫 · 皇城宿卫角楼】会见韦青衣！', 'talk', '以武会友'),
             setStep(QUEST_ID, 'kaifeng_palace_watch'),

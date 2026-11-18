@@ -116,6 +116,7 @@ export function finalizeCombatRoundOutcome(
       initialUnitSnapshots: ctx.initialUnitSnapshots,
       beats: ctx.beats,
       events: ctx.roundEvents,
+      playerItemUsedId: ctx.playerItemUsedId,
     },
   }
 }

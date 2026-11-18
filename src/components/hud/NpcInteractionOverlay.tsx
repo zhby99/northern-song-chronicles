@@ -51,6 +51,7 @@ export function NpcInteractionOverlay() {
   const baseStats = useGameStore((s) => s.baseStats)
   const skills = useGameStore((s) => s.skills)
   const learnedArts = useGameStore((s) => s.learnedArts)
+  const equippedArts = useGameStore((s) => s.equippedArts)
   const sectState = useGameStore((s) => s.sectState)
   const deadNpcIds = useGameStore((s) => s.deadNpcIds)
   const questState = useGameStore((s) => s.questState)
@@ -186,7 +187,7 @@ export function NpcInteractionOverlay() {
 
   if (!npc) return null
 
-  const effTalents = getEffectiveTalents(baseStats.talents, equipped)
+  const effTalents = getEffectiveTalents(baseStats.talents, equipped, equippedArts, learnedArts)
   const playerCharm = effTalents.颜值
   const eloquence = skills['辩才'] ?? 0
   const npcKey = npc.id ?? npc.name

@@ -6,7 +6,7 @@ import {
   UNIQUE_ARTIFACT_MAP,
   WEAPONS_DB,
 } from './gameDb'
-import { computeSingleArtBonus } from './playerMartialArts'
+import { computeEquippedArtsTotals, computeSingleArtBonus } from './playerMartialArts'
 import type {
   BagCategoryKey,
   CompiledGearRecord,
@@ -547,8 +547,11 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
 > & {
   mountKey: MountKey
   skills: Record<string, number>
+  /** 配饰雅器提供的【颜值】（先天禀赋，不计入十艺字典） */
+  charm: number
 } {
   const totals = {
+    charm: 0,
     maxHp: 0,
     maxMp: 0,
     agility: 0,
@@ -585,6 +588,11 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
     }
     if (b.skills) {
       for (const [k, v] of Object.entries(b.skills)) {
+        // 数据源把配饰的 +颜值 记在 skills 里；颜值是先天禀赋，单独汇总，不污染十艺字典
+        if (k === '颜值') {
+          totals.charm += v
+          continue
+        }
         totals.skills[k] = (totals.skills[k] ?? 0) + v
       }
     }
@@ -593,15 +601,22 @@ export function computeEquipmentTotals(equipped: EquippedSlotsMap): Required<
   return totals
 }
 
+/**
+ * 有效先天禀赋 = 裸身禀赋 + 披挂加成（悟性 / 颜值）+ 运使武学加成（根骨 / 颜值，传入武学时计入）。
+ */
 export function getEffectiveTalents(
   talents: { 根骨: number; 悟性: number; 颜值: number },
   equipped: EquippedSlotsMap,
+  equippedArts?: EquippedArtsMap | null,
+  learnedArts?: LearnedArtEntry[] | null,
 ): { 根骨: number; 悟性: number; 颜值: number } {
-  const equipWuxing = computeEquipmentTotals(equipped).wuxing
-  if (!equipWuxing) return talents
+  const equipTotals = computeEquipmentTotals(equipped)
+  const artTotals =
+    equippedArts && learnedArts ? computeEquippedArtsTotals(equippedArts, learnedArts) : null
   return {
-    ...talents,
-    悟性: talents.悟性 + equipWuxing,
+    根骨: talents.根骨 + (artTotals?.constitution ?? 0),
+    悟性: talents.悟性 + equipTotals.wuxing,
+    颜值: talents.颜值 + equipTotals.charm + (artTotals?.charm ?? 0),
   }
 }
 

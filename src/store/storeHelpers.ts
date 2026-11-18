@@ -1,6 +1,7 @@
 import type { GameStoreData, GameStoreState } from './storeTypes'
 import { MARTIAL_ART_DB_MAP } from '../data/gameDb'
 import {
+  checkStatRequirementList,
   DEFAULT_EQUIPPED_SLOTS,
   getEffectiveTalents,
 } from '../data/itemsDb'
@@ -16,6 +17,7 @@ import {
   type QuestEvalContext,
 } from '../engine/questEngine'
 import type {
+  CompiledMartialArtRecord,
   HeroBaseStats,
   LabelToggleKey,
   LearnedArtEntry,
@@ -30,6 +32,7 @@ import {
   HERO_BASE_CAPS,
 } from '../engine/stats/heroStats'
 import { WORLD_GRAPH } from '../engine/world/mapMath'
+import { buildCampFromTraveling } from '../engine/world/travelCamp'
 import { MAX_NPC_FAVOR } from '../engine/social/npcFavor'
 import { type CombatSessionState } from '../engine/combat'
 import {
@@ -118,6 +121,42 @@ export const INITIAL_DERIVED_STATS = deriveHeroEffectiveStats(
   DEFAULT_EQUIPPED_ARTS,
   DEFAULT_LEARNED_ARTS,
 )
+
+/**
+ * 校验主角当前是否满足某门武学的属性门槛（天阶神功的根骨 / 悟性 / 经义 / 内力等）。
+ * 门派传功、秘籍展卷与武学装配统一走此校验；剧情强制传授（teachMartialArt）不受限。
+ */
+export function checkPlayerArtRequirements(
+  s: Pick<
+    GameStoreState,
+    | 'baseStats'
+    | 'equipped'
+    | 'equippedArts'
+    | 'learnedArts'
+    | 'maxHp'
+    | 'maxMp'
+    | 'agility'
+    | 'res'
+    | 'ridingSkill'
+    | 'skills'
+  >,
+  art: CompiledMartialArtRecord,
+): { ok: boolean; unmetText: string } {
+  const res = checkStatRequirementList(art.statRequirements, {
+    maxHp: s.maxHp,
+    maxMp: s.maxMp,
+    agility: s.agility,
+    res: s.res,
+    ridingSkill: s.ridingSkill,
+    skills: s.skills,
+    talents: getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts),
+  })
+  const unmetText = res.details
+    .filter((d) => !d.met)
+    .map((d) => `${d.stat} ${d.current}/${d.min}`)
+    .join('、')
+  return { ok: res.ok, unmetText }
+}
 
 export function grantArtProficiency(
   learnedArts: LearnedArtEntry[],
@@ -236,7 +275,7 @@ export function computeCombatSettlement(
   const artGainNotes: string[] = []
   let anyBreakthrough = false
 
-  const effTalents = getEffectiveTalents(s.baseStats.talents, s.equipped)
+  const effTalents = getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts)
   const effJingyi =
     (s as { skills?: Record<string, number> }).skills?.['经义'] ??
     s.baseStats.skills['经义'] ??
@@ -372,7 +411,12 @@ export function extractSerializableState(s: GameStoreState): SerializableGameSta
     currentNodeId: s.currentNodeId,
     birthplaceId: s.birthplaceId,
     cityStayShichens: s.cityStayShichens,
-    campPos: s.campPos ? { ...s.campPos } : null,
+    // 官道行军不入档：途中存档记为原地扎营，读档后停在路途原处而非被送回出发城池
+    campPos: s.campPos
+      ? { ...s.campPos }
+      : s.traveling
+        ? buildCampFromTraveling(s.traveling)
+        : null,
     baseStats: cloneHeroBaseStats(s.baseStats),
     mountKey: s.mountKey,
     qinggongBonus: s.qinggongBonus,

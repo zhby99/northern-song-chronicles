@@ -232,7 +232,7 @@ export function NpcStatsSheetPanel({
             </div>
 
             <div className="p-2.5 rounded bg-[#efe4cc]/80 border border-[#cbb693] space-y-1.5">
-              <div className="font-bold text-[#5c3d1e] song-serif">七槽随身披挂</div>
+              <div className="font-bold text-[#5c3d1e] song-serif">九槽随身披挂</div>
               <div className="space-y-1">
                 {EQUIPMENT_SLOT_METAS.map((meta) => {
                   const eqItems = dbRecord?.equipped ?? npc.equipped

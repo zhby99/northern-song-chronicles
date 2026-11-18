@@ -144,7 +144,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
     const targetShichens = mode === 'until_breakthrough' ? 3600 * 12 : mode * 12
     const dailyGain = calcDailyCultivationExpGain(
       art,
-      getEffectiveTalents(s.baseStats.talents, s.equipped),
+      getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts),
       venueStatus.multiplier,
       s.skills['经义'] ?? 0,
     )
@@ -534,7 +534,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
     }
     const curExp = Math.max(s.artExps[artKey] ?? 0, getExpForArtLevel(curLv))
     const dailyGain = computeDailyArtExpGain(
-      getEffectiveTalents(s.baseStats.talents, s.equipped).悟性,
+      getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts).悟性,
       envMultiplier,
       0,
     )
@@ -642,7 +642,7 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
 
     const prevExp = Math.max(s.artExps[artKey] ?? 0, getExpForArtLevel(currentLv))
     const dailyGain = computeDailyArtExpGain(
-      getEffectiveTalents(nextBase.talents, s.equipped).悟性,
+      getEffectiveTalents(nextBase.talents, s.equipped, s.equippedArts, s.learnedArts).悟性,
       envMultiplier,
       0,
     )

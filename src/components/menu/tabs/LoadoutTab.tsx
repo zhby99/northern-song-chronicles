@@ -11,6 +11,7 @@ import {
   formatBonusBadges,
   ITEM_DB_MAP,
   RARITY_STYLE_MAP,
+  getEffectiveTalents,
 } from '../../../data/itemsDb'
 import {
   canArtFitSlot,
@@ -70,6 +71,10 @@ export function LoadoutTab({
   const equipped = useGameStore((s) => s.equipped)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const equippedArts = useGameStore((s) => s.equippedArts)
+  const effTalents = useMemo(
+    () => getEffectiveTalents(baseStats.talents, equipped, equippedArts, learnedArts),
+    [baseStats.talents, equipped, equippedArts, learnedArts],
+  )
   const inventory = useGameStore((s) => s.inventory)
   const traveling = useGameStore((s) => s.traveling)
   const campPos = useGameStore((s) => s.campPos)
@@ -152,9 +157,9 @@ export function LoadoutTab({
       res,
       ridingSkill,
       skills,
-      talents: baseStats.talents,
+      talents: effTalents,
     }),
-    [maxHp, maxMp, agility, res, ridingSkill, skills, baseStats.talents],
+    [maxHp, maxMp, agility, res, ridingSkill, skills, effTalents],
   )
   const learnedMap = useMemo(() => {
     const m = new Map<string, { level: number; exp: number }>()
@@ -355,7 +360,7 @@ export function LoadoutTab({
               上卷 · 随身披挂
             </span>
             <span className="song-serif font-bold text-sm sm:text-base text-[#23180f]">
-              少侠七槽可视化装备栏（武器 · 服饰 · 鞋履 · 弓箭 · 双配饰 · 坐骑）
+              少侠九槽可视化装备栏（武器 · 服饰 · 鞋履 · 弓箭 · 双配饰 · 双雅器 · 坐骑）
             </span>
           </div>
           <span className="text-xs text-[#6b5235] font-mono">
@@ -383,7 +388,7 @@ export function LoadoutTab({
                     className="w-full h-full object-cover object-top opacity-95"
                   />
                   <span className="absolute bottom-0 inset-x-0 bg-black/70 text-[#f5dfb5] text-[10px] py-0.5 song-serif">
-                    已佩 {equippedCount} / 7 件
+                    已佩 {equippedCount} / {EQUIPMENT_SLOT_METAS.length} 件
                   </span>
                 </div>
                 <div className="mt-2 text-[11px] font-mono font-bold text-[#7f1d1d]">
@@ -977,7 +982,7 @@ export function LoadoutTab({
               const reqCombatExp = getArtCombatExpRequired(inspectedArt, inspectedEntry.level)
               const singleDayGain = calcDailyCultivationExpGain(
                 inspectedArt,
-                baseStats.talents,
+                effTalents,
                 venueStatus.multiplier,
                 jingyiSkill,
               )

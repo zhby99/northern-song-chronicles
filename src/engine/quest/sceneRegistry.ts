@@ -66,7 +66,14 @@ export async function loadQuestScenesById(
 
   let pending = QUEST_SCENE_LOAD_PROMISES.get(questId)
   if (!pending) {
-    pending = qDef.loadScenes().then((loaded) => cacheQuestScenes(questId, loaded))
+    pending = qDef.loadScenes().then(
+      (loaded) => cacheQuestScenes(questId, loaded),
+      (err: unknown) => {
+        // 动态导入失败（断网 / 分片加载异常）时清除缓存的失败 Promise，下次可重新加载
+        QUEST_SCENE_LOAD_PROMISES.delete(questId)
+        throw err
+      },
+    )
     QUEST_SCENE_LOAD_PROMISES.set(questId, pending)
   }
   return pending

@@ -1,3 +1,4 @@
+import { UNIQUE_ARTIFACT_MAP } from '../../data/gameDb'
 import {
   ITEM_DB_MAP,
   ITEMS_DB,
@@ -296,10 +297,17 @@ const AUCTION_CANDIDATE_POOLS: {
 } = (() => {
   const isAuctionEligible = (it: GameItemDef): boolean => {
     if (!isItemSellable(it.id, it)) return false
+    // 有主孤品（名宿随身神兵、御赐宝马、门派秘藏灵丹等）只经剧情 / 名宿获取，不进拍场以免出现双份
+    if (UNIQUE_ARTIFACT_MAP[it.id]) return false
     const tier = normalizeItemTier(it.rarity)
-    // 精选地阶重宝与高价良阶上品奇珍进入月度拍场，保留天阶唯一神兵于专属剧情与名宿手中
+    // 精选地阶重宝与高价良阶上品奇珍进入拍场，保留天阶唯一神兵于专属剧情与名宿手中；
+    // 地阶兵甲与灵丹皆为有主孤品，故兵甲 / 灵丹两栏以良阶上品补位（披挂 ≥ 60 两、良阶丹药）
     if (tier === '地阶') return it.value >= 120
-    if (tier === '良阶') return it.value >= 140
+    if (tier === '良阶') {
+      if (it.value >= 140) return true
+      if (it.equipSlot && it.equipSlot !== 'mount') return it.value >= 60
+      return it.category === 'medicine'
+    }
     return false
   }
 
