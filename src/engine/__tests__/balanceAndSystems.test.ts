@@ -370,3 +370,17 @@ describe('quest triggers and story combat', () => {
     }
   })
 })
+
+describe('Taihang part-3 spoils', () => {
+  it('capturing 王重岳 hands the hero his 太行绿林响箭长弓', async () => {
+    const q = QUEST_REGISTRY.find((x) => x.id === 'QST-SECT-33-TAIHANG-CAMPAIGN-3')!
+    const scenes = (await q.loadScenes!()) as Record<
+      string,
+      { onFinishEffects?: Array<{ type: string; itemId?: string }> }
+    >
+    const capture = scenes['scene_jtc3_24_shatter_blades_bind_chiefs']!
+    expect(
+      capture.onFinishEffects?.some((e) => e.type === 'giveItem' && e.itemId === 'BOW-008'),
+    ).toBe(true)
+  })
+})
