@@ -289,23 +289,6 @@ describe('sect exclusivity', () => {
 
 describe('quest triggers and story combat', () => {
   it('only one scene-opening trigger fires per visit; the other keeps its once-flag', () => {
-    const s = useGameStore.getState()
-    const qs = s.questState
-    useGameStore.setState({
-      questState: {
-        ...qs,
-        activeQuests: {
-          ...qs.activeQuests,
-          'QST-SECT-14-ENTRY': {
-            questId: 'QST-SECT-14-ENTRY',
-            stepId: 'chengdu_teahouse_errand',
-            startedDay: 1,
-            deadlineDay: null,
-            vars: {},
-          },
-        },
-      },
-    })
     const loc = { regionId: 'chengdu', buildingId: 'cd_teahouse' }
     const matched = findMatchingLocationTriggers(loc, buildStoreEvalContext(useGameStore.getState()))
     expect(matched.filter((m) => effectsOpenModal(m.trigger.effects)).length).toBeGreaterThanOrEqual(2)
