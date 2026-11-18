@@ -412,7 +412,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('夜风刺骨，两百名玄甲缇骑再度化作一道黑色铁流，马不停蹄直奔东京汴梁。'),
       P('“（好水川旧恨未雪，没藏讹庞竟敢再犯泾原！这一次，有我大宋殿前司与西北老帅种世衡在，定叫夏虏有来无回！）”'),
     ],
-    onFinishEffects: [openScene('scene_fn1_35', JINJUN_FINAL_1_ID)],
+    onFinishEffects: [setStep(JINJUN_FINAL_1_ID, 'fn1_return_kaifeng')],
   },
   scene_fn1_35: {
     id: 'scene_fn1_35',

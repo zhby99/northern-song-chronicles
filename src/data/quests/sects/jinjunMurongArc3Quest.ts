@@ -150,7 +150,7 @@ export const JINJUN_MURONG_ARC_3_QUEST: QuestDefinition = {
       subtitle: '雷霆合围慕容氏苏州钱粮漕仓与兵坊，1v1 力挫并生擒公冶乾。',
       tone: 'danger',
       visibleWhen: atStep(JINJUN_MURONG_ARC_3_ID, 'suzhou_granary_raid'),
-      effects: [openScene('scene_jj_mr3_06_suzhou_surround', JINJUN_MURONG_ARC_3_ID)],
+      effects: [openScene('scene_jj_mr3_04_arrive_suzhou', JINJUN_MURONG_ARC_3_ID)],
     },
     {
       id: 'act_jj_mr3_taihu',

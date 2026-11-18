@@ -85,7 +85,7 @@ export const JINJUN_YONGZHOU_NANMAN_QUEST: QuestDefinition = {
       id: 'yn_lingnan_muster',
       title: '岭南瘴疠 · 夜焚炼毒蛊坛',
       objective:
-        '已随狄青与杨文广率三千京营精锐与蕃落铁骑抵定岭南前线！请前往【广州府 · 药洲九曜园（经制幕府） · 九曜石轩 · 经制帅堂】严查水井瘴毒，并亲率死士夜探密林焚毁星宿派蛊坛！',
+        '已随狄青与杨文广率三千京营精锐与蕃落铁骑南下岭南！请前往【广州府 · 药洲九曜园（经制幕府） · 九曜石轩 · 经制帅堂】严查水井瘴毒，并亲率死士夜探密林焚毁星宿派蛊坛！',
       nextHint: '前往【广州府 · 药洲九曜园 · 九曜石轩（gz_yaozhou_main）】，点击「整肃军纪 · 夜焚星宿蛊坛」。',
       targetLocation: {
         regionId: 'guangzhou',
@@ -144,7 +144,7 @@ export const JINJUN_YONGZHOU_NANMAN_QUEST: QuestDefinition = {
       badge: '焚坛破毒',
       tone: 'danger',
       visibleWhen: atStep(JINJUN_YONGZHOU_NANMAN_ID, 'yn_lingnan_muster'),
-      effects: [openScene('scene_yn_09', JINJUN_YONGZHOU_NANMAN_ID)],
+      effects: [openScene('scene_yn_06', JINJUN_YONGZHOU_NANMAN_ID)],
     },
     {
       id: 'act_jinjun_yn_battle',
@@ -168,7 +168,7 @@ export const JINJUN_YONGZHOU_NANMAN_QUEST: QuestDefinition = {
       badge: '登坛拜帅',
       tone: 'primary',
       visibleWhen: atStep(JINJUN_YONGZHOU_NANMAN_ID, 'yn_xuande_promotion'),
-      effects: [openScene('scene_yn_29', JINJUN_YONGZHOU_NANMAN_ID)],
+      effects: [openScene('scene_yn_27', JINJUN_YONGZHOU_NANMAN_ID)],
     },
   ],
   loadScenes: () => import('./jinjunYongzhouNanmanQuest.scenes').then((m) => m.SCENES),

@@ -78,7 +78,7 @@ export const JINJUN_FINAL_2_QUEST: QuestDefinition = {
       id: 'fn2_yanan_sandtable',
       title: '西出潼关 · 会师种老帅',
       objective:
-        '已受赐尚方宝剑拜泾原路行营都总管！请统两万殿前司禁军西出潼关，赶赴【延安府 · 鄜延边军大营 · 中军帅帐 · 沙盘台】会同铁血老帅种世衡推演破铁鹞子之策！',
+        '已受赐尚方宝剑拜泾原路行营都总管，大军已西出潼关！请赶赴【延安府 · 鄜延边军大营 · 中军帅帐 · 沙盘台】会同铁血老帅种世衡推演破铁鹞子之策！',
       nextHint: '前往【延安府 · 鄜延边军大营 · 中军帅帐 · 沙盘台（ya_camp_main）】，点击「会师种世衡 · 沙盘推演破铁鹞」。',
       targetLocation: {
         regionId: 'yanan',
@@ -98,6 +98,19 @@ export const JINJUN_FINAL_2_QUEST: QuestDefinition = {
         buildingId: 'qzf_longyou',
         spotId: 'qzf_longyou_east',
         customLabel: '秦州府 · 陇右古战场烽燧 · 断碑烽火望夏台（横山战线）',
+      },
+    },
+    fn2_return_yanan: {
+      id: 'fn2_return_yanan',
+      title: '班师鄜延 · 祭奠老帅',
+      objective:
+        '横山大捷，种世衡老帅以身殉国，临终托付《皇祐神臂御赐弩》。请率得胜之师返回【延安府 · 鄜延边军大营 · 中军帅帐 · 沙盘台】整顿西北防务、告慰老帅英灵！',
+      nextHint: '返回【延安府 · 鄜延边军大营 · 中军帅帐 · 沙盘台（ya_camp_main）】，点击「班师鄜延 · 整顿西北防务」。',
+      targetLocation: {
+        regionId: 'yanan',
+        buildingId: 'ya_camp',
+        spotId: 'ya_camp_main',
+        customLabel: '延安府 · 鄜延边军大营 · 中军帅帐 · 沙盘台',
       },
     },
   },
@@ -124,7 +137,7 @@ export const JINJUN_FINAL_2_QUEST: QuestDefinition = {
       badge: '帅帐推演',
       tone: 'primary',
       visibleWhen: atStep(JINJUN_FINAL_2_ID, 'fn2_yanan_sandtable'),
-      effects: [openScene('scene_fn2_11', JINJUN_FINAL_2_ID)],
+      effects: [openScene('scene_fn2_07', JINJUN_FINAL_2_ID)],
     },
     {
       id: 'act_jinjun_fn2_battle',
@@ -136,7 +149,19 @@ export const JINJUN_FINAL_2_QUEST: QuestDefinition = {
       badge: '横山决战',
       tone: 'danger',
       visibleWhen: atStep(JINJUN_FINAL_2_ID, 'fn2_hengshan_showdown'),
-      effects: [openScene('scene_fn2_19', JINJUN_FINAL_2_ID)],
+      effects: [openScene('scene_fn2_15', JINJUN_FINAL_2_ID)],
+    },
+    {
+      id: 'act_jinjun_fn2_return',
+      label: '班师鄜延 · 整顿西北防务',
+      subtitle: '告慰种世衡英灵，拨兵镇守青涧城',
+      regionId: 'yanan',
+      buildingId: 'ya_camp',
+      spotId: 'ya_camp_main',
+      badge: '班师鄜延',
+      tone: 'primary',
+      visibleWhen: atStep(JINJUN_FINAL_2_ID, 'fn2_return_yanan'),
+      effects: [openScene('scene_fn2_34', JINJUN_FINAL_2_ID)],
     },
   ],
   loadScenes: () => import('./jinjunFinal2Quest.scenes').then((m) => m.SCENES),

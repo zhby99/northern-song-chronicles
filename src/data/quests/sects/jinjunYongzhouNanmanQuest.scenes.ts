@@ -1,5 +1,5 @@
 import type { StorySceneDef } from '../../../types/quest'
-import { N, P, S, openScene, setStep } from '../../../engine/quest/dsl'
+import { N, P, S, flag, openScene, setStep } from '../../../engine/quest/dsl'
 import { buildXingxiuPoisonElderNpc, JINJUN_YONGZHOU_NANMAN_ID } from './jinjunYongzhouNanmanQuest'
 
 const RENZONG = { kind: 'npc' as const, npcId: 'NPC-0001' }
@@ -68,7 +68,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S(YANG_WENGUANG, '“是星宿老怪丁春秋门下的毒虫腐尸！蛮人不敢正面迎战我西北铁骑，便使这等下三滥阴招！”'),
       P('“文广兄熟稔山地营盘，烦请立刻严查全军水井、挖凿新泉稳住防线！军纪与蛊坛之事，交由我来处置！”'),
     ],
-    onFinishEffects: [openScene('scene_yn_06', JINJUN_YONGZHOU_NANMAN_ID)],
+    onFinishEffects: [setStep(JINJUN_YONGZHOU_NANMAN_ID, 'yn_lingnan_muster')],
   },
   scene_yn_06: {
     id: 'scene_yn_06',
@@ -93,7 +93,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     id: 'scene_yn_08',
     title: '第八幕 · 夜探苗疆林',
     subtitle: '广州府 · 药洲九曜园外',
-    onFinishEffects: [setStep(JINJUN_YONGZHOU_NANMAN_ID, 'yn_lingnan_muster')],
+    onFinishEffects: [openScene('scene_yn_09', JINJUN_YONGZHOU_NANMAN_ID)],
     beats: [
       P('“点齐三十名敢死亲兵，随我入林拔除妖人毒坛！”'),
     ],
@@ -325,7 +325,11 @@ export const SCENES: Record<string, StorySceneDef> = {
       S(YANG_WENGUANG, '“此乃我杨家世代相传的破甲神兵——《天波透甲金枪》！宝枪赠英雄，愿此枪随兄台饮血塞北，护我大宋河山！”'),
       P('“文广兄此托重若千钧！末将必不负杨门满门忠烈之望！”'),
     ],
-    onFinishEffects: [openScene('scene_yn_26', JINJUN_YONGZHOU_NANMAN_ID)],
+    onFinishEffects: [
+      { type: 'giveItem', itemId: 'WPN-004', qty: 1 },
+      { type: 'setFlag', flag: 'yn_spear_given', value: true },
+      openScene('scene_yn_26', JINJUN_YONGZHOU_NANMAN_ID),
+    ],
   },
   scene_yn_26: {
     id: 'scene_yn_26',
@@ -334,7 +338,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       S(DIQING, '“邕、广二州防务已交地方安抚司接管，我军押解蛮俘露布北归东京！”'),
     ],
-    onFinishEffects: [openScene('scene_yn_27', JINJUN_YONGZHOU_NANMAN_ID)],
+    onFinishEffects: [setStep(JINJUN_YONGZHOU_NANMAN_ID, 'yn_xuande_promotion')],
   },
   scene_yn_27: {
     id: 'scene_yn_27',
@@ -350,7 +354,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     id: 'scene_yn_28',
     title: '第二十八幕 · 宣德门前路',
     subtitle: '开封府 · 皇城门前',
-    onFinishEffects: [setStep(JINJUN_YONGZHOU_NANMAN_ID, 'yn_xuande_promotion')],
+    onFinishEffects: [openScene('scene_yn_29', JINJUN_YONGZHOU_NANMAN_ID)],
     beats: [
       P('“整理甲胄，随狄相公入宣德门受俘！”'),
     ],
@@ -425,7 +429,12 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
     onFinishEffects: [
       { type: 'setSectRank', sectId: 'SECT-33', rank: 5 },
-      { type: 'giveItem', itemId: 'WPN-004', qty: 1 },
+      // 旧档兼容：漓江托枪一幕已改为当场发放，仅为在改版前已越过该幕的玩家补发
+      {
+        type: 'branch',
+        condition: flag('yn_spear_given', 'falsy'),
+        thenEffects: [{ type: 'giveItem', itemId: 'WPN-004', qty: 1 }],
+      },
       { type: 'giveSilver', amount: 500 },
       { type: 'addArtExp', amount: 3000 },
       { type: 'addSectContribution', amount: 200 },

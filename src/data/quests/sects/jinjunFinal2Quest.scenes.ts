@@ -1,5 +1,5 @@
 import type { StorySceneDef } from '../../../types/quest'
-import { N, P, S, openScene, setStep } from '../../../engine/quest/dsl'
+import { N, P, S, flag, openScene, setStep } from '../../../engine/quest/dsl'
 import { buildXixiaGuardGeneralNpc, JINJUN_FINAL_2_ID } from './jinjunFinal2Quest'
 
 const RENZONG = { kind: 'npc' as const, npcId: 'NPC-0001' }
@@ -85,7 +85,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('越往西北行进，黄沙愈狂。沿途堡寨皆见宋军守卒枕戈待旦，青涧城巍然耸立于险峻山脊之上，正是老帅种世衡毕生心血所筑。'),
       S(GUARD, '“禀都总管！前方便是鄜延边军大营，种老帅已带伤在辕门外迎候多时！”'),
     ],
-    onFinishEffects: [openScene('scene_fn2_07', JINJUN_FINAL_2_ID)],
+    onFinishEffects: [setStep(JINJUN_FINAL_2_ID, 'fn2_yanan_sandtable')],
   },
   scene_fn2_07: {
     id: 'scene_fn2_07',
@@ -120,7 +120,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     id: 'scene_fn2_10',
     title: '第十幕 · 帅帐灯火明',
     subtitle: '延安府 · 鄜延边军大营',
-    onFinishEffects: [setStep(JINJUN_FINAL_2_ID, 'fn2_yanan_sandtable')],
+    onFinishEffects: [openScene('scene_fn2_11', JINJUN_FINAL_2_ID)],
     beats: [
       S(ZHONG_SHIHENG, '“好！老夫正想见识见识都总管的新法破敌之策！”'),
     ],
@@ -165,7 +165,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('三日后大军开拔，冒着漫天黄沙挺进横山前沿阵地。战车轮轴滚滚碾过戈壁砾石，三千名神臂弓手在车阵之后悄然张弦上箭。'),
       S(GUARD, '“禀都总管！前方十里发现西夏先锋游骑，没藏讹庞主力已全面压上！”'),
     ],
-    onFinishEffects: [openScene('scene_fn2_15', JINJUN_FINAL_2_ID)],
+    onFinishEffects: [setStep(JINJUN_FINAL_2_ID, 'fn2_hengshan_showdown')],
   },
   scene_fn2_15: {
     id: 'scene_fn2_15',
@@ -199,7 +199,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     id: 'scene_fn2_18',
     title: '第十八幕 · 地动山摇来',
     subtitle: '秦州府 · 横山戈壁',
-    onFinishEffects: [setStep(JINJUN_FINAL_2_ID, 'fn2_hengshan_showdown')],
+    onFinishEffects: [openScene('scene_fn2_19', JINJUN_FINAL_2_ID)],
     beats: [
       S(GUARD, '“来了！！夏军三千铁鹞子开始冲锋了！”'),
     ],
@@ -359,7 +359,12 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('残阳如血，漫天黄沙映照着老帅苍白却无比欣慰的脸庞。种世衡望着漫山遍野伏尸的西夏铁鹞子，用尽最后力气解下身畔一具龙纹斑驳的镇边神兵，颤巍巍交到你的手中。'),
       S(ZHONG_SHIHENG, '“不必……费力了……老夫守了一辈子西北……今日见铁鹞子伏尸横山，死而无憾！这把官家早年亲赐的【皇祐神臂御赐弩】与西北的城墙……往后便交予都帅了……”'),
     ],
-    onFinishEffects: [openScene('scene_fn2_30', JINJUN_FINAL_2_ID)],
+    onFinishEffects: [
+      { type: 'markNpcsDead', npcIds: ['NPC-0033'] },
+      { type: 'giveItem', itemId: 'BOW-001', qty: 1 },
+      { type: 'setFlag', flag: 'fn2_bow_given', value: true },
+      openScene('scene_fn2_30', JINJUN_FINAL_2_ID),
+    ],
   },
   scene_fn2_30: {
     id: 'scene_fn2_30',
@@ -399,7 +404,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       P('“以三牲烈酒祭奠种老帅与横山阵亡将士！”'),
     ],
-    onFinishEffects: [openScene('scene_fn2_34', JINJUN_FINAL_2_ID)],
+    onFinishEffects: [setStep(JINJUN_FINAL_2_ID, 'fn2_return_yanan')],
   },
   scene_fn2_34: {
     id: 'scene_fn2_34',
@@ -512,8 +517,15 @@ export const SCENES: Record<string, StorySceneDef> = {
       P('“且待河北黑羽檄文一到，全军千里东驰雁门！”'),
     ],
     onFinishEffects: [
-      { type: 'markNpcsDead', npcIds: ['NPC-0033'] },
-      { type: 'giveItem', itemId: 'BOW-001', qty: 1 },
+      // 旧档兼容：老帅托弩一幕已改为当场发放，仅为在改版前已越过该幕的玩家补发
+      {
+        type: 'branch',
+        condition: flag('fn2_bow_given', 'falsy'),
+        thenEffects: [
+          { type: 'markNpcsDead', npcIds: ['NPC-0033'] },
+          { type: 'giveItem', itemId: 'BOW-001', qty: 1 },
+        ],
+      },
       { type: 'giveSilver', amount: 600 },
       { type: 'addArtExp', amount: 4000 },
       { type: 'addSectContribution', amount: 260 },

@@ -35,7 +35,10 @@ const SCENE_03: StorySceneDef = {
   beats: [
     N('八十万禁军大教场鼓角齐鸣，三千步骑精锐甲光映日、杀气直冲霄汉！你立于点兵帅台，接过御酒洒地祭旗，随后挥兵南下，沿大运河水陆并进直扑江南两浙路平江府！'),
   ],
-  onFinishEffects: [openScene('scene_jj_mr3_04_arrive_suzhou', JINJUN_MURONG_ARC_3_ID)],
+  onFinishEffects: [
+    { type: 'setQuestStep', questId: JINJUN_MURONG_ARC_3_ID, stepId: 'suzhou_granary_raid' },
+    toast('三千禁军已开拔南下！请前往【苏州平江府衙（suzhou_base_yamen）】协同官兵合围慕容氏秘密漕仓与私造兵坊！'),
+  ],
 }
 
 const SCENE_04: StorySceneDef = {
@@ -57,10 +60,7 @@ const SCENE_05: StorySceneDef = {
   beats: [
     P('（指尖点在苏州城西一处隐秘水湾，冷笑开口）“慕容氏在太湖经营数代，燕子坞孤悬湖中，若直接乘船强攻，必受其外围粮草接应与陆上私兵牵制。传令全军：今夜先以雷霆之势合围慕容氏设在苏州城外的秘密钱粮漕仓与私造兵坊！”'),
   ],
-  onFinishEffects: [
-    { type: 'setQuestStep', questId: JINJUN_MURONG_ARC_3_ID, stepId: 'suzhou_granary_raid' },
-    toast('请前往【苏州平江府衙（suzhou_base_yamen）】协同官兵合围慕容氏秘密漕仓与私造兵坊！'),
-  ],
+  onFinishEffects: [openScene('scene_jj_mr3_06_suzhou_surround', JINJUN_MURONG_ARC_3_ID)],
 }
 
 const SCENE_06: StorySceneDef = {

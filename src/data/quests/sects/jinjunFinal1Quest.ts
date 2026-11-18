@@ -96,6 +96,19 @@ export const JINJUN_FINAL_1_QUEST: QuestDefinition = {
         customLabel: '苏州府 · 姑苏临河酒楼（松鹤楼）',
       },
     },
+    fn1_return_kaifeng: {
+      id: 'fn1_return_kaifeng',
+      title: '星夜返汴梁 · 面奏西北危局',
+      objective:
+        '已从一品堂俘虏口中审出西夏大军叩关泾原、辽军窥伺雁门的惊天密谋！请率缇骑星夜赶回【开封府 · 大内皇宫 · 垂拱紫宸正殿】面奏官家！',
+      nextHint: '返回【开封府 · 大内皇宫 · 垂拱紫宸正殿（bl_palace_hall）】，点击「星夜返京 · 面奏西北烽火」。',
+      targetLocation: {
+        regionId: 'bianliang',
+        buildingId: 'bl_palace',
+        spotId: 'bl_palace_hall',
+        customLabel: '开封府 · 大内皇宫 · 垂拱紫宸正殿',
+      },
+    },
   },
   spotActions: [
     {
@@ -132,6 +145,18 @@ export const JINJUN_FINAL_1_QUEST: QuestDefinition = {
       tone: 'primary',
       visibleWhen: atStep(JINJUN_FINAL_1_ID, 'fn1_songhelou_drink'),
       effects: [openScene('scene_fn1_26', JINJUN_FINAL_1_ID)],
+    },
+    {
+      id: 'act_jinjun_fn1_return',
+      label: '星夜返京 · 面奏西北烽火',
+      subtitle: '将一品堂密谋禀明官家',
+      regionId: 'bianliang',
+      buildingId: 'bl_palace',
+      spotId: 'bl_palace_hall',
+      badge: '面奏官家',
+      tone: 'primary',
+      visibleWhen: atStep(JINJUN_FINAL_1_ID, 'fn1_return_kaifeng'),
+      effects: [openScene('scene_fn1_35', JINJUN_FINAL_1_ID)],
     },
   ],
   loadScenes: () => import('./jinjunFinal1Quest.scenes').then((m) => m.SCENES),

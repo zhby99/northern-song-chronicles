@@ -69,7 +69,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('腊月狂雪漫天，一万名刚经历横山血战的殿前司铁甲将士紧咬牙关，日夜兼程踏雪渡过黄河、翻越晋北崇山峻岭。'),
       P('“（白沟河畔、常山枪祠、析津元帅府、黄河铁索……萧远风，你我纠缠数年的宿命，就在雁门关下彻底了断！）”'),
     ],
-    onFinishEffects: [openScene('scene_fn3_05', JINJUN_FINAL_3_ID)],
+    onFinishEffects: [setStep(JINJUN_FINAL_3_ID, 'fn3_yanmen_relief')],
   },
   scene_fn3_05: {
     id: 'scene_fn3_05',
@@ -129,7 +129,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     id: 'scene_fn3_10',
     title: '第十幕 · 门开万炬明',
     subtitle: '雁门关 · 雄关箭楼',
-    onFinishEffects: [setStep(JINJUN_FINAL_3_ID, 'fn3_yanmen_relief')],
+    onFinishEffects: [openScene('scene_fn3_11', JINJUN_FINAL_3_ID)],
     beats: [
       S(GUARD, '“开城门——！！”'),
     ],
@@ -385,7 +385,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('次年开春，柳色青青，和风煦日。你率领经历血火淬炼的殿前司凯旋之师，缓缓行近东京汴梁十里长亭。'),
       P('“（当年我从真定常山一路走到开封府六扇门、又入大宋禁军……如今大宋南北安澜，也算不负平生之志。）”'),
     ],
-    onFinishEffects: [openScene('scene_fn3_31', JINJUN_FINAL_3_ID)],
+    onFinishEffects: [setStep(JINJUN_FINAL_3_ID, 'fn3_kaifeng_triumph')],
   },
   scene_fn3_31: {
     id: 'scene_fn3_31',
@@ -410,7 +410,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     id: 'scene_fn3_33',
     title: '第三十三幕 · 归抵紫宸门',
     subtitle: '开封府 · 皇城门外',
-    onFinishEffects: [setStep(JINJUN_FINAL_3_ID, 'fn3_kaifeng_triumph')],
+    onFinishEffects: [openScene('scene_fn3_34', JINJUN_FINAL_3_ID)],
     beats: [
       P('“入朝面圣！”'),
     ],

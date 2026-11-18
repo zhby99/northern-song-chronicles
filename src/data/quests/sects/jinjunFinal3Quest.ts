@@ -123,7 +123,7 @@ export const JINJUN_FINAL_3_QUEST: QuestDefinition = {
       badge: '血月决战',
       tone: 'danger',
       visibleWhen: atStep(JINJUN_FINAL_3_ID, 'fn3_yanmen_relief'),
-      effects: [openScene('scene_fn3_11', JINJUN_FINAL_3_ID)],
+      effects: [openScene('scene_fn3_05', JINJUN_FINAL_3_ID)],
     },
     {
       id: 'act_jinjun_fn3_triumph',
@@ -135,7 +135,7 @@ export const JINJUN_FINAL_3_QUEST: QuestDefinition = {
       badge: '定鼎山河',
       tone: 'primary',
       visibleWhen: atStep(JINJUN_FINAL_3_ID, 'fn3_kaifeng_triumph'),
-      effects: [openScene('scene_fn3_34', JINJUN_FINAL_3_ID)],
+      effects: [openScene('scene_fn3_31', JINJUN_FINAL_3_ID)],
     },
   ],
   loadScenes: () => import('./jinjunFinal3Quest.scenes').then((m) => m.SCENES),
