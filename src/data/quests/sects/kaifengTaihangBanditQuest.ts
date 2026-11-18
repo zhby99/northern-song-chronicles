@@ -12,7 +12,7 @@ export const KAIFENG_TAIHANG_BANDIT_QUEST: QuestDefinition = {
   regionId: 'bianliang',
   recommendedRealm: '二流上品 ~ 一流下品',
   recommendedNote:
-    '开封府 / 六扇门晋升 Lv.3 金牌总捕后，于华北地区赶路时有概率触发（平均每百日一次）。全长二十五幕。',
+    '开封府 / 六扇门晋升 Lv.3 金牌总捕后，于华北地区赶路时有概率触发（每日约一成，平均十日一遇）。全长二十五幕。',
   startHint:
     '晋升开封府 Lv.3 后，在华北地区（汴洛、大名、真定、太原、济南、太行等）官道赶路时随机遭遇。',
   startLocation: {

@@ -1127,7 +1127,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
             ],
             null,
           )
-        } else if (isKaifengLv3Plus && !banditProg && !banditDone && gameRng() < 0.01) {
+        } else if (isKaifengLv3Plus && !banditProg && !banditDone && gameRng() < 0.1) {
           get().campStop()
           get().runQuestEffects(
             [
