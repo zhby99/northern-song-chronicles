@@ -660,3 +660,27 @@ export function isBuildingUnlocked(
 ): boolean {
   return getBuildingLockMeta(buildingId, questFlags) === null
 }
+
+export const QUEST_LOCKED_SPOTS: Record<string, BuildingLockMeta> = {
+  tg_sg_cave: {
+    unlockFlag: 'tg_sg_cave_unlocked',
+    lockedBadge: '秘洞深锁 · 剧情解锁',
+    lockedDesc:
+      '思过崖后洞石门沉重、铁锁封山，非掌门手谕或后续特定机缘不可开启，外门弟子与寻常侠客不得步入。',
+    lockedReason:
+      '思过崖【秘洞古剑刻石室】重石封门，暂不可入（需后续华山剧情解锁）。',
+  },
+}
+
+export function getSpotLockMeta(
+  spotId: string | null | undefined,
+  questFlags?: Record<string, boolean | number | string> | null,
+): BuildingLockMeta | null {
+  if (!spotId) return null
+  const meta = QUEST_LOCKED_SPOTS[spotId]
+  if (!meta) return null
+  if (questFlags && Boolean(questFlags[meta.unlockFlag])) {
+    return null
+  }
+  return meta
+}

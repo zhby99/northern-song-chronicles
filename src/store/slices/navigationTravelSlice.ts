@@ -39,6 +39,7 @@ import {
   clampMapPan,
   findBestRoute,
   getBuildingLockMeta,
+  getSpotLockMeta,
   getRegionAllBuildings,
   getRegionViewBoxSize,
   NODE_MAP,
@@ -115,6 +116,18 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
     }
   },
   selectBuildingSpot: (spotId) => {
+    if (spotId) {
+      const spotLock = getSpotLockMeta(spotId, get().questState.flags)
+      if (spotLock) {
+        set({
+          actionFeedback: {
+            text: `🔒 ${spotLock.lockedReason}`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
+    }
     set({ selectedSpotId: spotId, actionFeedback: null })
     if (spotId) {
       const s = get()

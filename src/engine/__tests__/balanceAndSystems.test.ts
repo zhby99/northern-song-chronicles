@@ -222,9 +222,10 @@ describe('sect exclusivity', () => {
     expect(getSectEntryQuestBlockReason('QST-SECT-15-ENTRY', inShaolin)).not.toBeNull()
     const novice = clonePlayerSectState({ shaolinNoviceState: 'active' })
     expect(getSectEntryQuestBlockReason('QST-SECT-05-ENTRY', novice)).not.toBeNull()
-    // 设计内的带艺投师 / 同脉转投白名单
+    // 华山（SECT-05）已改为白纸入门，不再接受陇右金环刀堂转投
     const jinhuan = clonePlayerSectState({ sectId: 'SECT-28', rank: 2 })
-    expect(getSectEntryQuestBlockReason('QST-SECT-05-ENTRY', jinhuan)).toBeNull()
+    expect(getSectEntryQuestBlockReason('QST-SECT-05-ENTRY', jinhuan)).not.toBeNull()
+    // 设计内的带艺投师 / 同脉转投白名单
     expect(
       getSectEntryQuestBlockReason('QST-SECT-03-ENTRY', clonePlayerSectState({ sectId: 'SECT-22', rank: 1 })),
     ).toBeNull()

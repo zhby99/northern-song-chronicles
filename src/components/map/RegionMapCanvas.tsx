@@ -16,6 +16,7 @@ import { useLazyImage } from '../../utils/assetLoader'
 import {
   clientToSvgCoords,
   getBuildingLockMeta,
+  getSpotLockMeta,
   getRegionAllBuildings,
   getRegionViewBoxSize,
   isBuildingUnlocked,
@@ -387,21 +388,26 @@ export function RegionMapCanvas() {
               <g id="building-spots-layer">
                 {activeInterior.spots.map((sp) => {
                   const isSelected = sp.id === selectedSpotId
+                  const spotLockMeta = getSpotLockMeta(sp.id, questState.flags)
+                  const isSpotLocked = spotLockMeta !== null
                   const spotResidentCount = countLivingNpcIds(sp.residentNpcIds, deadNpcIds)
-                  const spotTagLabel =
-                    spotResidentCount > 0 ? `${sp.tag} · ${spotResidentCount}人` : sp.tag
-                  const labelText = `★ ${sp.name}`
+                  const spotTagLabel = isSpotLocked
+                    ? spotLockMeta.lockedBadge
+                    : spotResidentCount > 0
+                      ? `${sp.tag} · ${spotResidentCount}人`
+                      : sp.tag
+                  const labelText = isSpotLocked ? `🔒 ${sp.name}` : `★ ${sp.name}`
                   const plateW = Math.max(100, labelText.length * 11.2 + 22)
-                  const plateFill = isSelected ? '#2b180b' : '#8f1d14'
-                  const plateStroke = isSelected ? '#fbbf24' : '#f6cf65'
-                  const hasQuest = questMarkers.spotIds.has(sp.id)
+                  const plateFill = isSpotLocked ? '#1c1917' : isSelected ? '#2b180b' : '#8f1d14'
+                  const plateStroke = isSpotLocked ? '#78716c' : isSelected ? '#fbbf24' : '#f6cf65'
+                  const hasQuest = !isSpotLocked && questMarkers.spotIds.has(sp.id)
                   const tagW = Math.max(66, spotTagLabel.length * 9.0 + 16)
 
                   return (
                     <g
                       key={sp.id}
                       data-spot-id={sp.id}
-                      className="cursor-pointer iso-hotspot-group"
+                      className={isSpotLocked ? 'cursor-not-allowed iso-hotspot-group' : 'cursor-pointer iso-hotspot-group'}
                       onMouseEnter={(e) => {
                         if (dragRef.current?.moved) return
                         setTooltip({
@@ -411,12 +417,14 @@ export function RegionMapCanvas() {
                           item: {
                             id: sp.id,
                             name: sp.name,
-                            desc: sp.desc,
-                            actLabel: sp.actLabel,
+                            desc: isSpotLocked ? spotLockMeta.lockedDesc : sp.desc,
+                            actLabel: isSpotLocked ? '尚未解锁' : sp.actLabel,
                             isSpecial: true,
                             isSpot: true,
                             interiorMode: activeInterior.mode,
                             residentCount: spotResidentCount,
+                            isLocked: isSpotLocked,
+                            lockedReason: spotLockMeta?.lockedReason,
                           },
                         })
                       }}
