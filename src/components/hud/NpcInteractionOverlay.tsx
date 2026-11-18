@@ -8,7 +8,8 @@ import {
   resolveNpcFavor,
 } from '../../engine/economy'
 import { getAvailableNpcQuestActions } from '../../engine/questEngine'
-import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
+import { useQuestEvalContext } from '../../hooks/useQuestEvalContext'
+import { useGameStore } from '../../store/useGameStore'
 import { getNpcFavorProfile } from '../../engine/social/npcFavor'
 import { inferTemplatePortrait } from '../../utils/portraitFallback'
 import {
@@ -35,26 +36,14 @@ export function NpcInteractionOverlay() {
   const giftNpcItem = useGameStore((s) => s.giftNpcItem)
   const equipped = useGameStore((s) => s.equipped)
   const dayCount = useGameStore((s) => s.dayCount)
-  const shichenIdx = useGameStore((s) => s.shichenIdx)
   const inventory = useGameStore((s) => s.inventory)
   const silver = useGameStore((s) => s.silver)
-  const renown = useGameStore((s) => s.renown)
-  const chivalry = useGameStore((s) => s.chivalry)
-  const food = useGameStore((s) => s.food)
-  const hp = useGameStore((s) => s.hp)
-  const maxHp = useGameStore((s) => s.maxHp)
-  const mp = useGameStore((s) => s.mp)
-  const maxMp = useGameStore((s) => s.maxMp)
-  const agility = useGameStore((s) => s.agility)
-  const res = useGameStore((s) => s.res)
-  const ridingSkill = useGameStore((s) => s.ridingSkill)
   const baseStats = useGameStore((s) => s.baseStats)
   const skills = useGameStore((s) => s.skills)
   const learnedArts = useGameStore((s) => s.learnedArts)
   const equippedArts = useGameStore((s) => s.equippedArts)
   const sectState = useGameStore((s) => s.sectState)
   const deadNpcIds = useGameStore((s) => s.deadNpcIds)
-  const questState = useGameStore((s) => s.questState)
   const npcFavorMap = useGameStore((s) => s.npcFavor)
   const npcTalkedMonth = useGameStore((s) => s.npcTalkedMonth)
   const npcSparredMonth = useGameStore((s) => s.npcSparredMonth)
@@ -111,72 +100,24 @@ export function NpcInteractionOverlay() {
   const npcSectRankLabel = npc?.sectRankLabel ?? dbRecord?.sectRankLabel ?? undefined
   const bio = dbRecord?.bio ?? undefined
 
+  const enrichedNpc = useMemo(
+    () =>
+      npc
+        ? {
+            ...npc,
+            id: npc.id ?? dbRecord?.id,
+            factionId: targetFactionId ?? undefined,
+            sectRank: npcSectRank,
+          }
+        : null,
+    [npc, dbRecord?.id, targetFactionId, npcSectRank],
+  )
+  const evalCtx = useQuestEvalContext(enrichedNpc)
+
   const npcQuestActions = useMemo(() => {
-    if (!npc) return []
-    const enrichedNpc = {
-      ...npc,
-      id: npc.id ?? dbRecord?.id,
-      factionId: targetFactionId ?? undefined,
-      sectRank: npcSectRank,
-    }
-    const evalCtx = buildStoreEvalContext(
-      {
-        dayCount,
-        shichenIdx,
-        silver,
-        renown,
-        chivalry,
-        food,
-        hp,
-        maxHp,
-        mp,
-        maxMp,
-        agility,
-        res,
-        ridingSkill,
-        baseStats,
-        equipped,
-        equippedArts,
-        skills,
-        inventory,
-        learnedArts,
-        npcFavor: npcFavorMap,
-        deadNpcIds,
-        sectState,
-        questState,
-      },
-      enrichedNpc,
-    )
+    if (!enrichedNpc) return []
     return getAvailableNpcQuestActions(enrichedNpc, evalCtx)
-  }, [
-    npc,
-    dbRecord?.id,
-    targetFactionId,
-    npcSectRank,
-    dayCount,
-    shichenIdx,
-    silver,
-    renown,
-    chivalry,
-    food,
-    hp,
-    maxHp,
-    mp,
-    maxMp,
-    agility,
-    res,
-    ridingSkill,
-    baseStats,
-    equipped,
-    equippedArts,
-    skills,
-    inventory,
-    learnedArts,
-    npcFavorMap,
-    deadNpcIds,
-    sectState,
-    questState,
-  ])
+  }, [enrichedNpc, evalCtx])
 
   const sectPanelQuestActions = useMemo(
     () => npcQuestActions.filter((x) => Boolean(x.action.showInSectPanel)),

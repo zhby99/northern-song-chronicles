@@ -1,10 +1,11 @@
 import { shouldIgnoreOverlayHotkey } from '../../utils/hotkeys'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   getVisibleStoryChoices,
   interpolateStoryText,
   resolveStorySpeaker,
 } from '../../engine/questEngine'
+import { useQuestEvalContext } from '../../hooks/useQuestEvalContext'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { resolveAssetUrl } from '../../utils/assetLoader'
 import { CutoutPortraitImg } from '../common/CutoutPortraitImg'
@@ -16,27 +17,7 @@ export function StorySceneModal() {
   const playerGender = useGameStore((s) => s.playerGender)
   const playerPortraitId = useGameStore((s) => s.playerPortraitId)
   const dayCount = useGameStore((s) => s.dayCount)
-  const shichenIdx = useGameStore((s) => s.shichenIdx)
-  const silver = useGameStore((s) => s.silver)
-  const renown = useGameStore((s) => s.renown)
-  const chivalry = useGameStore((s) => s.chivalry)
-  const food = useGameStore((s) => s.food)
-  const hp = useGameStore((s) => s.hp)
-  const maxHp = useGameStore((s) => s.maxHp)
-  const mp = useGameStore((s) => s.mp)
-  const maxMp = useGameStore((s) => s.maxMp)
-  const agility = useGameStore((s) => s.agility)
-  const res = useGameStore((s) => s.res)
-  const ridingSkill = useGameStore((s) => s.ridingSkill)
-  const baseStats = useGameStore((s) => s.baseStats)
-  const equipped = useGameStore((s) => s.equipped)
-  const equippedArts = useGameStore((s) => s.equippedArts)
-  const skills = useGameStore((s) => s.skills)
-  const inventory = useGameStore((s) => s.inventory)
-  const learnedArts = useGameStore((s) => s.learnedArts)
-  const npcFavor = useGameStore((s) => s.npcFavor)
-  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
-  const sectState = useGameStore((s) => s.sectState)
+  const sectId = useGameStore((s) => s.sectState.sectId)
   const questState = useGameStore((s) => s.questState)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
 
@@ -44,63 +25,7 @@ export function StorySceneModal() {
   const selectStoryChoice = useGameStore((s) => s.selectStoryChoice)
   const closeStoryScene = useGameStore((s) => s.closeStoryScene)
 
-  const evalCtx = useMemo(
-    () =>
-      buildStoreEvalContext(
-        {
-          dayCount,
-          shichenIdx,
-          silver,
-          renown,
-          chivalry,
-          food,
-          hp,
-          maxHp,
-          mp,
-          maxMp,
-          agility,
-          res,
-          ridingSkill,
-          baseStats,
-          equipped,
-          equippedArts,
-          skills,
-          inventory,
-          learnedArts,
-          npcFavor,
-          deadNpcIds,
-          sectState,
-          questState,
-        },
-        activeStoryScene?.contextNpc ?? null,
-      ),
-    [
-      dayCount,
-      shichenIdx,
-      silver,
-      renown,
-      chivalry,
-      food,
-      hp,
-      maxHp,
-      mp,
-      maxMp,
-      agility,
-      res,
-      ridingSkill,
-      baseStats,
-      equipped,
-      equippedArts,
-      skills,
-      inventory,
-      learnedArts,
-      npcFavor,
-      deadNpcIds,
-      sectState,
-      questState,
-      activeStoryScene?.contextNpc,
-    ],
-  )
+  const evalCtx = useQuestEvalContext(activeStoryScene?.contextNpc ?? null)
 
   useEffect(() => {
     if (!activeStoryScene) return
@@ -155,7 +80,7 @@ export function StorySceneModal() {
     interpolateStoryText(text, {
       dayCount,
       playerGender,
-      sectId: sectState.sectId,
+      sectId,
       questState,
     })
 

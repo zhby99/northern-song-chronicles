@@ -14,7 +14,6 @@ import {
 } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { useShallow } from 'zustand/react/shallow'
 import { FACTION_DB_MAP, REGION_DB_MAP } from '../../../data/gameDb'
 import { getRegionUnlockRequirement, isRegionUnlockedByInventory } from '../../../data/itemsDb'
 import { QUEST_MAP, QUEST_REGISTRY } from '../../../data/quests'
@@ -25,6 +24,7 @@ import {
 } from '../../../engine/quest/questGraphBuilder'
 import { collectUnmetQuestReasons } from '../../../engine/questEngine'
 import { clamp } from '../../../engine/shared/math'
+import { useQuestEvalState } from '../../../hooks/useQuestEvalContext'
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
 import type { QuestCategoryKey, QuestTargetLocationHint } from '../../../types/quest'
 import { interpolateReignYear } from '../../../engine/world/mapMath'
@@ -155,33 +155,7 @@ const STATUS_STYLE: Record<
 }
 
 export function QuestTreeTab() {
-  const evalState = useGameStore(
-    useShallow((s) => ({
-      dayCount: s.dayCount,
-      shichenIdx: s.shichenIdx,
-      silver: s.silver,
-      renown: s.renown,
-      chivalry: s.chivalry,
-      food: s.food,
-      hp: s.hp,
-      maxHp: s.maxHp,
-      mp: s.mp,
-      maxMp: s.maxMp,
-      agility: s.agility,
-      res: s.res,
-      ridingSkill: s.ridingSkill,
-      baseStats: s.baseStats,
-      equipped: s.equipped,
-      equippedArts: s.equippedArts,
-      skills: s.skills,
-      inventory: s.inventory,
-      learnedArts: s.learnedArts,
-      npcFavor: s.npcFavor,
-      deadNpcIds: s.deadNpcIds,
-      sectState: s.sectState,
-      questState: s.questState,
-    })),
-  )
+  const evalState = useQuestEvalState()
   const locateQuestTargetOnMap = useGameStore((s) => s.locateQuestTargetOnMap)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
 

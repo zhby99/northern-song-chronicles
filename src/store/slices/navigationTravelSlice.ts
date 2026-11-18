@@ -36,6 +36,7 @@ import {
 } from '../../engine/stats/heroStats'
 import { syncArtLevelsToExpsAndMilestones } from '../../engine/stats/artsProgression'
 import {
+  clampMapPan,
   findBestRoute,
   getBuildingLockMeta,
   getRegionAllBuildings,
@@ -170,11 +171,17 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       : s.logs
 
     if (isKaifengAmbush) {
+      const isDamingMapTheftOnly =
+        Boolean(s.questState.flags.dm_stole_hebei_defense_map) &&
+        !s.questState.flags.toumingzhuang_completed
+      const ambushText = isDamingMapTheftOnly
+        ? '少侠身负夜盗北京留守行宫《河北防辽舆图》之海捕黑名单，甫一踏入东京开封府，御前四品带刀护卫「南侠」展昭已执剑拦路，不死不休！'
+        : '少侠身负劫掠大宋朝廷官员之海捕黑名单，甫一踏入东京开封府，御前四品带刀护卫「南侠」展昭已执剑拦路，不死不休！'
       logs = [
         createLogEntry(
           s.dayCount,
           '开封缉捕',
-          '少侠身负劫掠大宋朝廷官员之海捕黑名单，甫一踏入东京开封府，御前四品带刀护卫「南侠」展昭已执剑拦路，不死不休！',
+          ambushText,
           true,
           s.shichenIdx,
         ),
@@ -339,18 +346,24 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       return { overlays: next }
     }),
 
-  setWorldPan: (pan) => set({ worldPan: pan }),
+  setWorldPan: (pan) => set({ worldPan: clampMapPan(pan, 1600, 1000, 0.56, 3.4) }),
 
   zoomWorldBy: (factor, cx = 800, cy = 500) =>
     set((s) => {
       const nextScale = Math.min(3.4, Math.max(0.56, s.worldPan.scale * factor))
       const ratio = nextScale / s.worldPan.scale
       return {
-        worldPan: {
-          x: cx - (cx - s.worldPan.x) * ratio,
-          y: cy - (cy - s.worldPan.y) * ratio,
-          scale: nextScale,
-        },
+        worldPan: clampMapPan(
+          {
+            x: cx - (cx - s.worldPan.x) * ratio,
+            y: cy - (cy - s.worldPan.y) * ratio,
+            scale: nextScale,
+          },
+          1600,
+          1000,
+          0.56,
+          3.4,
+        ),
       }
     }),
 
@@ -358,7 +371,11 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
   focusMacroRegimes: () => set({ worldPan: { x: 185, y: 112, scale: 0.74 } }),
   resetWorldView: () => set({ worldPan: { x: 0, y: 0, scale: 1 } }),
 
-  setRegionPan: (pan) => set({ regionPan: pan }),
+  setRegionPan: (pan) =>
+    set((s) => {
+      const [vw, vh] = getRegionViewBoxSize(s.viewMode, s.activeRegionId)
+      return { regionPan: clampMapPan(pan, vw, vh, 0.62, 4.2) }
+    }),
 
   zoomRegionBy: (factor, cx = null, cy = null) =>
     set((s) => {
@@ -368,11 +385,17 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       const nextScale = Math.min(4.2, Math.max(0.62, s.regionPan.scale * factor))
       const ratio = nextScale / s.regionPan.scale
       return {
-        regionPan: {
-          x: pivotX - (pivotX - s.regionPan.x) * ratio,
-          y: pivotY - (pivotY - s.regionPan.y) * ratio,
-          scale: nextScale,
-        },
+        regionPan: clampMapPan(
+          {
+            x: pivotX - (pivotX - s.regionPan.x) * ratio,
+            y: pivotY - (pivotY - s.regionPan.y) * ratio,
+            scale: nextScale,
+          },
+          vw,
+          vh,
+          0.62,
+          4.2,
+        ),
       }
     }),
 

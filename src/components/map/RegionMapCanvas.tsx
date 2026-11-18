@@ -10,7 +10,8 @@ import {
   getAvailableNpcQuestActions,
   getAvailableSpotQuestActions,
 } from '../../engine/questEngine'
-import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
+import { useQuestEvalContext } from '../../hooks/useQuestEvalContext'
+import { useGameStore } from '../../store/useGameStore'
 import { useLazyImage } from '../../utils/assetLoader'
 import {
   clientToSvgCoords,
@@ -37,6 +38,7 @@ const SvgRegionPanoramaFallback = lazy(() =>
 export function RegionMapCanvas() {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const dragRef = useRef<{
+    pointerId: number
     downClientX: number
     downClientY: number
     startSvgX: number
@@ -53,29 +55,18 @@ export function RegionMapCanvas() {
   const selectedSpotId = useGameStore((s) => s.selectedSpotId)
   const showRegionLabels = useGameStore((s) => s.showRegionLabels)
   const regionPan = useGameStore((s) => s.regionPan)
-  const dayCount = useGameStore((s) => s.dayCount)
-  const shichenIdx = useGameStore((s) => s.shichenIdx)
-  const silver = useGameStore((s) => s.silver)
-  const renown = useGameStore((s) => s.renown)
-  const chivalry = useGameStore((s) => s.chivalry)
-  const food = useGameStore((s) => s.food)
-  const hp = useGameStore((s) => s.hp)
-  const maxHp = useGameStore((s) => s.maxHp)
-  const mp = useGameStore((s) => s.mp)
-  const maxMp = useGameStore((s) => s.maxMp)
-  const agility = useGameStore((s) => s.agility)
-  const res = useGameStore((s) => s.res)
-  const ridingSkill = useGameStore((s) => s.ridingSkill)
-  const baseStats = useGameStore((s) => s.baseStats)
-  const equipped = useGameStore((s) => s.equipped)
-  const equippedArts = useGameStore((s) => s.equippedArts)
-  const skills = useGameStore((s) => s.skills)
-  const inventory = useGameStore((s) => s.inventory)
-  const learnedArts = useGameStore((s) => s.learnedArts)
-  const npcFavor = useGameStore((s) => s.npcFavor)
-  const sectState = useGameStore((s) => s.sectState)
-  const questState = useGameStore((s) => s.questState)
-  const deadNpcIds = useGameStore((s) => s.deadNpcIds)
+  const isCanvasOccluded = useGameStore(
+    (s) =>
+      s.cultivationSession !== null ||
+      s.activeCombat !== null ||
+      s.activeStoryScene !== null ||
+      s.menuOpen ||
+      s.compendiumOpen ||
+      !s.characterCreated,
+  )
+  const evalCtx = useQuestEvalContext(null, { paused: isCanvasOccluded })
+  const questState = evalCtx.questState
+  const deadNpcIds = evalCtx.deadNpcIds ?? []
 
   const setRegionPan = useGameStore((s) => s.setRegionPan)
   const zoomRegionBy = useGameStore((s) => s.zoomRegionBy)
@@ -112,33 +103,10 @@ export function RegionMapCanvas() {
   const questMarkers = useMemo(() => {
     const spotIds = new Set<string>()
     const buildingIds = new Set<string>()
-    const evalCtx = buildStoreEvalContext({
-      dayCount,
-      shichenIdx,
-      silver,
-      renown,
-      chivalry,
-      food,
-      hp,
-      maxHp,
-      mp,
-      maxMp,
-      agility,
-      res,
-      ridingSkill,
-      baseStats,
-      equipped,
-      equippedArts,
-      skills,
-      inventory,
-      learnedArts,
-      npcFavor,
-      deadNpcIds,
-      sectState,
-      questState,
-    })
+    const curDeadNpcIds = evalCtx.deadNpcIds ?? []
+    const curQuestState = evalCtx.questState
 
-    const dynActorsInRegion = questState.dynamicActors.filter(
+    const dynActorsInRegion = curQuestState.dynamicActors.filter(
       (a) => a.regionId === activeRegionId,
     )
 
@@ -153,7 +121,7 @@ export function RegionMapCanvas() {
           continue
         }
         const rawSpotNpcs = getCompiledNpcsBySpot(sp.id)
-        const npcs = filterLivingNpcs(rawSpotNpcs, deadNpcIds)
+        const npcs = filterLivingNpcs(rawSpotNpcs, curDeadNpcIds)
         if (npcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
           spotIds.add(sp.id)
           continue
@@ -171,7 +139,7 @@ export function RegionMapCanvas() {
       }
     } else if (viewMode === 'region') {
       for (const b of sortedBuildings) {
-        if (!isBuildingUnlocked(b.id, questState.flags)) continue
+        if (!isBuildingUnlocked(b.id, curQuestState.flags)) continue
         const dbBldg = BUILDING_DB_MAP[b.id]
         const spots = dbBldg?.interior?.spots ?? []
         if (spots.length > 0) {
@@ -199,7 +167,7 @@ export function RegionMapCanvas() {
           }
         }
         const rawBldgNpcs = getCompiledNpcsByBuilding(b.id)
-        const bldgNpcs = filterLivingNpcs(rawBldgNpcs, deadNpcIds)
+        const bldgNpcs = filterLivingNpcs(rawBldgNpcs, curDeadNpcIds)
         if (bldgNpcs.some((n) => getAvailableNpcQuestActions({ ...n, talk: '' }, evalCtx).length > 0)) {
           buildingIds.add(b.id)
           continue
@@ -215,35 +183,7 @@ export function RegionMapCanvas() {
       }
     }
     return { spotIds, buildingIds }
-  }, [
-    viewMode,
-    activeRegionId,
-    activeBuildingRecord,
-    sortedBuildings,
-    deadNpcIds,
-    dayCount,
-    shichenIdx,
-    silver,
-    renown,
-    chivalry,
-    food,
-    hp,
-    maxHp,
-    mp,
-    maxMp,
-    agility,
-    res,
-    ridingSkill,
-    baseStats,
-    equipped,
-    equippedArts,
-    skills,
-    inventory,
-    learnedArts,
-    npcFavor,
-    sectState,
-    questState,
-  ])
+  }, [viewMode, activeRegionId, activeBuildingRecord, sortedBuildings, evalCtx])
 
   useEffect(() => {
     const svg = svgRef.current
@@ -259,10 +199,10 @@ export function RegionMapCanvas() {
   }, [zoomRegionBy])
 
   useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
+    const onPointerMove = (e: PointerEvent) => {
       const session = dragRef.current
       const svg = svgRef.current
-      if (!session || !svg) return
+      if (!session || !svg || e.pointerId !== session.pointerId) return
       const movedPx = Math.hypot(e.clientX - session.downClientX, e.clientY - session.downClientY)
       if (movedPx > 5 && !session.moved) {
         session.moved = true
@@ -277,19 +217,21 @@ export function RegionMapCanvas() {
       })
     }
 
-    const onMouseUp = () => {
-      if (dragRef.current) {
+    const onPointerEnd = (e: PointerEvent) => {
+      if (dragRef.current && e.pointerId === dragRef.current.pointerId) {
         setTimeout(() => {
           dragRef.current = null
         }, 0)
       }
     }
 
-    window.addEventListener('mousemove', onMouseMove)
-    window.addEventListener('mouseup', onMouseUp)
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerEnd)
+    window.addEventListener('pointercancel', onPointerEnd)
     return () => {
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('mouseup', onMouseUp)
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerEnd)
+      window.removeEventListener('pointercancel', onPointerEnd)
     }
   }, [setRegionPan, setTooltip])
 
@@ -326,11 +268,12 @@ export function RegionMapCanvas() {
         ref={svgRef}
         viewBox={`0 0 ${vw} ${vh}`}
         preserveAspectRatio="xMidYMid meet"
-        className="w-full h-full block select-none"
-        onMouseDown={(e) => {
-          if (e.button !== 0) return
+        className="w-full h-full block select-none touch-none"
+        onPointerDown={(e) => {
+          if (!e.isPrimary || (e.pointerType === 'mouse' && e.button !== 0)) return
           const pt = clientToSvgCoords(svgRef.current, e.clientX, e.clientY)
           dragRef.current = {
+            pointerId: e.pointerId,
             downClientX: e.clientX,
             downClientY: e.clientY,
             startSvgX: pt.x,

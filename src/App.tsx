@@ -1,248 +1,76 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { BottomHud } from './components/hud/BottomHud'
-import { CharacterCreationModal } from './components/hud/CharacterCreationModal'
-import { ContextInspectorCard } from './components/hud/ContextInspectorCard'
-import { CultivationOverlay } from './components/hud/CultivationOverlay'
-import { GameOverModal } from './components/hud/GameOverModal'
-import { MapTooltip } from './components/hud/MapTooltip'
-import { NpcInteractionOverlay } from './components/hud/NpcInteractionOverlay'
-import { QuestTrackerPanel } from './components/hud/QuestTrackerPanel'
+import type { BootIntent } from './components/GameWorkspace'
 import { StartScreen } from './components/hud/StartScreen'
-import { TopHud } from './components/hud/TopHud'
-import { TravelBanner } from './components/hud/TravelBanner'
-import { RegionMapCanvas } from './components/map/RegionMapCanvas'
-import { StorySceneModal } from './components/quest/StorySceneModal'
-import { useGameStore } from './store/useGameStore'
 import { syncBgmSceneContext, toggleBgmPlayback } from './utils/bgmManager'
-import { purgeLegacySaveDatabases } from './utils/saveManager'
+import { peekExistingSaveCount } from './utils/saveStorageProbe'
 
-const WorldMapCanvas = lazy(() =>
-  import('./components/map/WorldMapCanvas').then((m) => ({ default: m.WorldMapCanvas })),
-)
-
-const SystemMenuModal = lazy(() =>
-  import('./components/menu/SystemMenuModal').then((m) => ({ default: m.SystemMenuModal })),
-)
-
-const CombatOverlay = lazy(() =>
-  import('./components/combat/CombatOverlay').then((m) => ({ default: m.CombatOverlay })),
+const GameWorkspace = lazy(() =>
+  import('./components/GameWorkspace').then((m) => ({ default: m.GameWorkspace })),
 )
 
 export function App() {
-  const [creatingNewGame, setCreatingNewGame] = useState(false)
-  const characterCreated = useGameStore((s) => s.characterCreated)
-  const [prevCharacterCreated, setPrevCharacterCreated] = useState(characterCreated)
-  if (characterCreated !== prevCharacterCreated) {
-    setPrevCharacterCreated(characterCreated)
-    if (characterCreated && creatingNewGame) {
-      setCreatingNewGame(false)
-    }
-  }
-  const viewMode = useGameStore((s) => s.viewMode)
-  const activeRegionId = useGameStore((s) => s.activeRegionId)
-  const isTraveling = useGameStore((s) => s.traveling !== null)
-  const isCultivating = useGameStore((s) => s.cultivationSession !== null)
-  const menuOpen = useGameStore((s) => s.menuOpen)
-  const activeMenuTab = useGameStore((s) => s.activeMenuTab)
-  const compendiumOpen = useGameStore((s) => s.compendiumOpen)
-  const activeNpcInteraction = useGameStore((s) => s.activeNpcInteraction)
-  const activeCombat = useGameStore((s) => s.activeCombat)
-  const activeStoryScene = useGameStore((s) => s.activeStoryScene)
-  const gameOver = useGameStore((s) => s.gameOver)
-  const stepTravelTick = useGameStore((s) => s.stepTravelTick)
-  const stepCultivationTick = useGameStore((s) => s.stepCultivationTick)
-  const stopCultivationEarly = useGameStore((s) => s.stopCultivationEarly)
-  const openMenu = useGameStore((s) => s.openMenu)
-  const closeMenu = useGameStore((s) => s.closeMenu)
-  const openCompendium = useGameStore((s) => s.openCompendium)
-  const closeCompendium = useGameStore((s) => s.closeCompendium)
-  const closeNpcInteraction = useGameStore((s) => s.closeNpcInteraction)
+  const [bootIntent, setBootIntent] = useState<BootIntent | null>(null)
+  const [bootSaveCount, setBootSaveCount] = useState(0)
 
-  // 启动时自动清除旧版浏览器残留存档库，并在首屏空闲后静默预热菜单壳层
   useEffect(() => {
-    purgeLegacySaveDatabases()
-    const timer = window.setTimeout(() => {
-      void import('./components/menu/SystemMenuModal')
-    }, 1500)
-    return () => window.clearTimeout(timer)
+    syncBgmSceneContext('region', 'bianliang')
+    let cancelled = false
+    void peekExistingSaveCount().then((count) => {
+      if (!cancelled) setBootSaveCount(count)
+    })
+
+    // 首屏完成绘制后，利用空闲窗口在后台静默预热主工作区与数据库分包，兼顾瞬开首屏与零等待入局
+    let timerId: number | null = null
+    const rafId = window.requestAnimationFrame(() => {
+      timerId = window.setTimeout(() => {
+        void import('./components/GameWorkspace')
+      }, 80)
+    })
+
+    return () => {
+      cancelled = true
+      window.cancelAnimationFrame(rafId)
+      if (timerId !== null) window.clearTimeout(timerId)
+    }
   }, [])
 
-  // Sync scene/region BGM playlist (world/1,2... vs regions/<id>/1,2...) automatically
   useEffect(() => {
-    syncBgmSceneContext(viewMode, activeRegionId)
-  }, [viewMode, activeRegionId])
-
-  // Global ESC shortcut for cultivation/system/compendium menu, G for Compendium, J for Quest Journal, & M for BGM toggle
-  useEffect(() => {
+    if (bootIntent !== null) return
     const onKeyDown = (e: KeyboardEvent) => {
-      if (activeCombat || activeStoryScene) {
-        if (!e.ctrlKey && !e.metaKey && !e.altKey && (e.key === 'm' || e.key === 'M')) {
-          toggleBgmPlayback()
-        }
-        return
-      }
-      if (!characterCreated) {
-        if (e.key === 'Escape') {
-          if (compendiumOpen) closeCompendium()
-          else if (menuOpen) closeMenu()
-          else if (creatingNewGame) setCreatingNewGame(false)
-          return
-        }
-        const isTypingTarget =
-          e.target instanceof HTMLInputElement ||
-          e.target instanceof HTMLTextAreaElement ||
-          e.target instanceof HTMLSelectElement
-        if (!e.ctrlKey && !e.metaKey && !e.altKey && !isTypingTarget) {
-          if (e.key === 'g' || e.key === 'G') {
-            if (compendiumOpen) closeCompendium()
-            else openCompendium()
-          } else if (e.key === 'm' || e.key === 'M') {
-            toggleBgmPlayback()
-          }
-        }
-        return
-      }
-      if (gameOver) {
-        if (e.key === 'Escape' && menuOpen) {
-          closeMenu()
-        }
-        return
-      }
-      if (e.key === 'Escape') {
-        // 闭关途中若叠开了菜单 / 图鉴，ESC 先关掉上层弹窗，避免误把闭关腰斩
-        if (isCultivating && (menuOpen || compendiumOpen)) {
-          if (compendiumOpen) closeCompendium()
-          else closeMenu()
-          return
-        }
-        if (isCultivating) {
-          stopCultivationEarly()
-          return
-        }
-        if (activeNpcInteraction) closeNpcInteraction()
-        else if (compendiumOpen) closeCompendium()
-        else if (menuOpen) closeMenu()
-        else openMenu()
-        return
-      }
-      const isTypingTarget =
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement ||
-        e.target instanceof HTMLSelectElement
-      if (!e.ctrlKey && !e.metaKey && !e.altKey && !isTypingTarget) {
-        if (!isCultivating && (e.key === 'g' || e.key === 'G')) {
-          if (compendiumOpen) closeCompendium()
-          else openCompendium()
-          return
-        }
-        if (!isCultivating && (e.key === 'j' || e.key === 'J')) {
-          if (menuOpen && activeMenuTab === 'quests') closeMenu()
-          else openMenu('quests')
-          return
-        }
-        if (e.key === 'm' || e.key === 'M') {
-          toggleBgmPlayback()
-        }
+      if (e.ctrlKey || e.metaKey || e.altKey) return
+      if (e.key === 'm' || e.key === 'M') {
+        toggleBgmPlayback()
+      } else if (e.key === 'g' || e.key === 'G') {
+        setBootIntent('compendium')
       }
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [
-    characterCreated,
-    creatingNewGame,
-    isCultivating,
-    menuOpen,
-    activeMenuTab,
-    compendiumOpen,
-    activeNpcInteraction,
-    activeCombat,
-    activeStoryScene,
-    gameOver,
-    stopCultivationEarly,
-    openMenu,
-    closeMenu,
-    openCompendium,
-    closeCompendium,
-    closeNpcInteraction,
-  ])
+  }, [bootIntent])
 
-  // 九州山海行路时钟：每 0.25s 前进一步（一个时辰），一日十二时辰累计 3.0s
-  useEffect(() => {
-    if (!isTraveling || gameOver || activeCombat || activeStoryScene) return
-    const timer = window.setInterval(() => {
-      stepTravelTick()
-    }, 250)
-    return () => window.clearInterval(timer)
-  }, [isTraveling, gameOver, activeCombat, activeStoryScene, stepTravelTick])
-
-  // 闭关吐纳与十艺修行时钟：每 0.1s 走一步（可于弹窗内调节 1 时辰 ~ 1 日/0.1s）
-  useEffect(() => {
-    if (!isCultivating || gameOver || activeCombat || activeStoryScene) return
-    const timer = window.setInterval(() => {
-      stepCultivationTick()
-    }, 100)
-    return () => window.clearInterval(timer)
-  }, [isCultivating, gameOver, activeCombat, activeStoryScene, stepCultivationTick])
+  if (bootIntent === null) {
+    return (
+      <main id="map-viewport" className="w-screen h-screen relative overflow-hidden bg-[#120c08]">
+        <StartScreen
+          onNewGame={() => setBootIntent('newGame')}
+          onOpenLoadMenu={() => setBootIntent('loadMenu')}
+          onOpenCompendium={() => setBootIntent('compendium')}
+          existingSaveCount={bootSaveCount}
+        />
+      </main>
+    )
+  }
 
   return (
-    <main
-      id="map-viewport"
-      className="w-screen h-screen relative overflow-hidden ocean-backdrop cursor-grab active:cursor-grabbing"
+    <Suspense
+      fallback={
+        <main className="w-screen h-screen flex items-center justify-center bg-[#120c08] text-[#f5dfb5] song-serif text-base tracking-widest">
+          正在展卷《皇祐九州百代典籍》……
+        </main>
+      }
     >
-      <TopHud />
-      <TravelBanner />
-
-      {viewMode === 'world' ? (
-        <Suspense
-          fallback={
-            <div className="w-full h-full flex items-center justify-center bg-[#1b130d] text-[#f5dfb5] song-serif text-sm">
-              正在铺展《皇祐九州山海舆图》……
-            </div>
-          }
-        >
-          <WorldMapCanvas />
-        </Suspense>
-      ) : (
-        <RegionMapCanvas />
-      )}
-
-      {!isCultivating && !activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
-        <BottomHud />
-      )}
-      {!isCultivating && !activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
-        <QuestTrackerPanel />
-      )}
-      {!isCultivating && !activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
-        <ContextInspectorCard />
-      )}
-      <MapTooltip />
-      {isCultivating && !activeCombat && !activeStoryScene && !gameOver && <CultivationOverlay />}
-      {activeNpcInteraction && !activeStoryScene && !activeCombat && !gameOver && (
-        <NpcInteractionOverlay
-          key={activeNpcInteraction.id ?? activeNpcInteraction.name}
-        />
-      )}
-      {activeStoryScene && !activeCombat && !gameOver && <StorySceneModal />}
-      {activeCombat && (
-        <Suspense fallback={null}>
-          <CombatOverlay />
-        </Suspense>
-      )}
-      {gameOver && <GameOverModal />}
-
-      {(menuOpen || compendiumOpen) && (
-        <Suspense fallback={null}>
-          <SystemMenuModal />
-        </Suspense>
-      )}
-      {!characterCreated && !menuOpen && !compendiumOpen && (
-        creatingNewGame ? (
-          <CharacterCreationModal onBack={() => setCreatingNewGame(false)} />
-        ) : (
-          <StartScreen onNewGame={() => setCreatingNewGame(true)} />
-        )
-      )}
-    </main>
+      <GameWorkspace initialIntent={bootIntent} />
+    </Suspense>
   )
 }
 

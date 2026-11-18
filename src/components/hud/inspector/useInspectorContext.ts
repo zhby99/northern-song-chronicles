@@ -14,7 +14,8 @@ import {
   buildRoamingMasterNodeNpc,
 } from '../../../engine/npcFactory'
 import { getAvailableSpotQuestActions } from '../../../engine/questEngine'
-import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
+import { useQuestEvalContext } from '../../../hooks/useQuestEvalContext'
+import { useGameStore } from '../../../store/useGameStore'
 import type { NodeNpc } from '../../../types/game'
 import { getBuildingArtTrainingOptions } from '../../../engine/stats/artsProgression'
 import {
@@ -48,7 +49,6 @@ export interface InspectedTargetSummary {
 export function useInspectorContext() {
   const viewMode = useGameStore((s) => s.viewMode)
   const dayCount = useGameStore((s) => s.dayCount)
-  const shichenIdx = useGameStore((s) => s.shichenIdx)
   const currentNodeId = useGameStore((s) => s.currentNodeId)
   const birthplaceId = useGameStore((s) => s.birthplaceId)
   const activeRegionId = useGameStore((s) => s.activeRegionId)
@@ -58,16 +58,11 @@ export function useInspectorContext() {
   const campPos = useGameStore((s) => s.campPos)
   const ridingSkill = useGameStore((s) => s.ridingSkill)
   const silver = useGameStore((s) => s.silver)
-  const renown = useGameStore((s) => s.renown)
-  const chivalry = useGameStore((s) => s.chivalry)
-  const food = useGameStore((s) => s.food)
   const hp = useGameStore((s) => s.hp)
   const maxHp = useGameStore((s) => s.maxHp)
   const mp = useGameStore((s) => s.mp)
   const maxMp = useGameStore((s) => s.maxMp)
   const agility = useGameStore((s) => s.agility)
-  const res = useGameStore((s) => s.res)
-  const baseStats = useGameStore((s) => s.baseStats)
   const skills = useGameStore((s) => s.skills)
   const mountKey = useGameStore((s) => s.mountKey)
   const qinggongBonus = useGameStore((s) => s.qinggongBonus)
@@ -80,15 +75,12 @@ export function useInspectorContext() {
   const activeEscortContract = useGameStore((s) => s.activeEscortContract)
   const activeYamenBounty = useGameStore((s) => s.activeYamenBounty)
   const yamenBountyDoneIds = useGameStore((s) => s.yamenBountyDoneIds)
-  const equipped = useGameStore((s) => s.equipped)
-  const equippedArts = useGameStore((s) => s.equippedArts)
-  const learnedArts = useGameStore((s) => s.learnedArts)
-  const npcFavor = useGameStore((s) => s.npcFavor)
   const roamingMasters = useGameStore((s) => s.roamingMasters)
   const deadNpcIds = useGameStore((s) => s.deadNpcIds)
   const sectState = useGameStore((s) => s.sectState)
   const questState = useGameStore((s) => s.questState)
   const actionFeedback = useGameStore((s) => s.actionFeedback)
+  const evalCtx = useQuestEvalContext()
 
   const currentContextKey = `${viewMode}:${activeRegionId}:${activeBuildingInteriorId ?? ''}:${selectedBuildingId ?? ''}:${selectedSpotId ?? ''}`
 
@@ -266,31 +258,6 @@ export function useInspectorContext() {
 
   const spotQuestActions = useMemo(() => {
     if (!isLeafBuilding || !leafBuildingId) return []
-    const evalCtx = buildStoreEvalContext({
-      dayCount,
-      shichenIdx,
-      silver,
-      renown,
-      chivalry,
-      food,
-      hp,
-      maxHp,
-      mp,
-      maxMp,
-      agility,
-      res,
-      ridingSkill,
-      baseStats,
-      equipped,
-      equippedArts,
-      skills,
-      inventory,
-      learnedArts,
-      npcFavor,
-      deadNpcIds,
-      sectState,
-      questState,
-    })
     return getAvailableSpotQuestActions(
       {
         regionId: activeRegionId,
@@ -299,35 +266,7 @@ export function useInspectorContext() {
       },
       evalCtx,
     )
-  }, [
-    isLeafBuilding,
-    leafBuildingId,
-    leafSpotId,
-    activeRegionId,
-    dayCount,
-    shichenIdx,
-    silver,
-    renown,
-    chivalry,
-    food,
-    hp,
-    maxHp,
-    mp,
-    maxMp,
-    agility,
-    res,
-    ridingSkill,
-    baseStats,
-    equipped,
-    equippedArts,
-    skills,
-    inventory,
-    learnedArts,
-    npcFavor,
-    deadNpcIds,
-    sectState,
-    questState,
-  ])
+  }, [isLeafBuilding, leafBuildingId, leafSpotId, activeRegionId, evalCtx])
 
   const regionNode = NODE_MAP[activeRegionId] ?? null
   const activeBldgRecord =

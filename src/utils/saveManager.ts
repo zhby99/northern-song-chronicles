@@ -33,8 +33,16 @@ import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from '../engine/stats
 import { isBuildingUnlocked } from '../engine/world/mapMath'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from '../engine/social/npcFavor'
 import { clonePlayerSectState } from '../engine/sect'
+import {
+  CURRENT_SAVE_SCHEMA_VERSION,
+  IDB_DB_NAME,
+  IDB_DB_VERSION,
+  IDB_STORE_NAME,
+  LS_FALLBACK_PREFIX,
+  purgeLegacySaveDatabases,
+} from './saveStorageProbe'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.5' as const
+export { CURRENT_SAVE_SCHEMA_VERSION, purgeLegacySaveDatabases }
 
 function parseActiveYamenBounty(raw: unknown): ActiveYamenBounty | null {
   if (!isRecord(raw)) return null
@@ -95,50 +103,8 @@ export const SAVE_SLOT_DEFS: Array<{
   { slotId: 'slot-6', label: '卷宗陆 · 开阳册', badge: '陆' },
 ]
 
-// 升级全新存储库命名并自动清理早期历史遗留存档
-const LEGACY_IDB_DB_NAMES = ['NorthernSongChroniclesDB', 'NorthernSongChroniclesSaves_v2']
-const LEGACY_LS_PREFIXES = ['nsc_save_v1_', 'nsc_save_v2_']
-
-const IDB_DB_NAME = 'NorthernSongChroniclesSaves_v3'
-const IDB_DB_VERSION = 1
-const IDB_STORE_NAME = 'saves'
-const LS_FALLBACK_PREFIX = 'nsc_save_v3_'
-
 let idbPromise: Promise<IDBDatabase> | null = null
-let legacyPurged = false
 const memoryFallbackSaves = new Map<SaveSlotId, string>()
-
-export function purgeLegacySaveDatabases(): void {
-  if (legacyPurged) return
-  legacyPurged = true
-
-  try {
-    if (typeof localStorage !== 'undefined') {
-      const keysToRemove: string[] = []
-      for (let i = 0; i < localStorage.length; i += 1) {
-        const k = localStorage.key(i)
-        if (k && LEGACY_LS_PREFIXES.some((p) => k.startsWith(p))) {
-          keysToRemove.push(k)
-        }
-      }
-      for (const k of keysToRemove) {
-        localStorage.removeItem(k)
-      }
-    }
-  } catch {
-    // ignore storage errors
-  }
-
-  try {
-    if (typeof indexedDB !== 'undefined') {
-      for (const legacyDb of LEGACY_IDB_DB_NAMES) {
-        indexedDB.deleteDatabase(legacyDb)
-      }
-    }
-  } catch {
-    // ignore indexedDB errors
-  }
-}
 
 function openSaveDatabase(): Promise<IDBDatabase> {
   purgeLegacySaveDatabases()

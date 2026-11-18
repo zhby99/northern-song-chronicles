@@ -395,6 +395,15 @@ export default defineConfig({
               if (normId.includes('node_modules')) {
                 return 'vendor'
               }
+              if (
+                normId.includes('/src/components/hud/StartScreen.tsx') ||
+                normId.includes('/src/utils/assetLoader.ts') ||
+                normId.includes('/src/data/assetManifest.json') ||
+                normId.includes('/src/utils/bgmManager.ts') ||
+                normId.includes('/src/utils/saveStorageProbe.ts')
+              ) {
+                return 'boot-core'
+              }
               if (normId.includes('virtual:npcs-part1')) {
                 return 'data-npcs-1'
               }
@@ -427,9 +436,7 @@ export default defineConfig({
               }
               if (
                 normId.includes('/src/data/worldGraph.json') ||
-                normId.includes('/src/data/regionalConfigs.json') ||
-                normId.includes('/src/data/buildingPanoramas.json') ||
-                normId.includes('/src/data/portraitCatalog.json')
+                normId.includes('/src/data/regionalConfigs.json')
               ) {
                 return 'data-world'
               }

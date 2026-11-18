@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
-import { useShallow } from 'zustand/react/shallow'
 import { FACTION_DB_MAP, REGION_DB_MAP } from '../../../data/gameDb'
 import { getRegionUnlockRequirement, isRegionUnlockedByInventory } from '../../../data/itemsDb'
 import { QUEST_MAP, QUEST_REGISTRY } from '../../../data/quests'
 import { collectUnmetQuestReasons, type QuestEvalContext } from '../../../engine/questEngine'
+import { useQuestEvalState } from '../../../hooks/useQuestEvalContext'
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
 import type { InventoryStack } from '../../../types/game'
 import type { QuestCategoryKey, QuestCondition, QuestTargetLocationHint } from '../../../types/quest'
@@ -188,33 +188,7 @@ function QuestLocateButton({
 }
 
 export function QuestsTab() {
-  const evalState = useGameStore(
-    useShallow((s) => ({
-      dayCount: s.dayCount,
-      shichenIdx: s.shichenIdx,
-      silver: s.silver,
-      renown: s.renown,
-      chivalry: s.chivalry,
-      food: s.food,
-      hp: s.hp,
-      maxHp: s.maxHp,
-      mp: s.mp,
-      maxMp: s.maxMp,
-      agility: s.agility,
-      res: s.res,
-      ridingSkill: s.ridingSkill,
-      baseStats: s.baseStats,
-      equipped: s.equipped,
-      equippedArts: s.equippedArts,
-      skills: s.skills,
-      inventory: s.inventory,
-      learnedArts: s.learnedArts,
-      npcFavor: s.npcFavor,
-      deadNpcIds: s.deadNpcIds,
-      sectState: s.sectState,
-      questState: s.questState,
-    })),
-  )
+  const evalState = useQuestEvalState()
   const locateQuestTargetOnMap = useGameStore((s) => s.locateQuestTargetOnMap)
   const setMenuTab = useGameStore((s) => s.setMenuTab)
 

@@ -477,9 +477,7 @@ export function buildStoreEvalContext(
     | 'renown'
     | 'chivalry'
     | 'food'
-    | 'hp'
     | 'maxHp'
-    | 'mp'
     | 'maxMp'
     | 'agility'
     | 'res'
@@ -492,7 +490,7 @@ export function buildStoreEvalContext(
     | 'sectState'
     | 'questState'
   > &
-    Partial<Pick<GameStoreState, 'equipped' | 'equippedArts' | 'deadNpcIds'>>,
+    Partial<Pick<GameStoreState, 'hp' | 'mp' | 'equipped' | 'equippedArts' | 'deadNpcIds'>>,
   targetNpc?: NodeNpc | null,
 ): QuestEvalContext {
   return {
@@ -502,9 +500,9 @@ export function buildStoreEvalContext(
     renown: s.renown,
     chivalry: s.chivalry,
     food: s.food,
-    hp: s.hp,
+    hp: s.hp ?? s.maxHp,
     maxHp: s.maxHp,
-    mp: s.mp,
+    mp: s.mp ?? s.maxMp,
     maxMp: s.maxMp,
     agility: s.agility,
     res: s.res,

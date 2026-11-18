@@ -1,8 +1,8 @@
-import { memo, useEffect, useMemo, useRef } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef } from 'react'
 import { getUnlockedLockedRegionKey, isRegionUnlockedByKey } from '../../data/itemsDb'
 import { WORLD_SVG_DEFS_MARKUP, WORLD_SVG_STATIC_GEO_MARKUP } from '../../data/worldBaseSvg'
 import { useGameStore } from '../../store/useGameStore'
-import type { FactionKind, WorldNode } from '../../types/game'
+import type { FactionKind, RoamingMaster, WorldNode } from '../../types/game'
 import { clientToSvgCoords, findBestRoute, NODE_MAP, WORLD_GRAPH } from '../../engine/world/mapMath'
 
 const CAPITALS = new Set([
@@ -12,6 +12,8 @@ const CAPITALS = new Set([
   'luoxie_tubo',
   'dali_city',
 ])
+
+const ALERT_NODES = WORLD_GRAPH.nodes.filter((n) => n.alert)
 
 const FACTION_GRAD: Record<FactionKind, string> = {
   orthodox: 'url(#factionGradOrthodox)',
@@ -28,9 +30,368 @@ const StaticGeography = memo(function StaticGeography() {
   return <g dangerouslySetInnerHTML={{ __html: WORLD_SVG_STATIC_GEO_MARKUP }} />
 })
 
+const WorldFactionsLayer = memo(function WorldFactionsLayer() {
+  return (
+    <g id="svg-layer-factions">
+      {WORLD_GRAPH.nodes.map((n) => (
+        <circle
+          key={`fac-${n.id}`}
+          cx={n.x}
+          cy={n.y}
+          r={n.type === 'city' ? 76 : 56}
+          fill={FACTION_GRAD[n.factionType] ?? FACTION_GRAD.orthodox}
+          pointerEvents="none"
+        />
+      ))}
+    </g>
+  )
+})
+
+interface WorldEdgesLayerProps {
+  hasActiveRoute: boolean
+  isMacroZoom: boolean
+  isTraveling: boolean
+  showDistanceOverlay: boolean
+  markerScale: number
+  activeEdgeKeys: ReadonlySet<string>
+}
+
+const WorldEdgesLayer = memo(function WorldEdgesLayer({
+  hasActiveRoute,
+  isMacroZoom,
+  isTraveling,
+  showDistanceOverlay,
+  markerScale,
+  activeEdgeKeys,
+}: WorldEdgesLayerProps) {
+  return (
+    <g
+      id="svg-layer-edges"
+      className="lod-fade"
+      style={{
+        opacity: hasActiveRoute ? (!isMacroZoom ? 1 : 0.4) : 0,
+        pointerEvents: 'none',
+      }}
+    >
+      {WORLD_GRAPH.edges.map(([u, v, dist, terrain], idx) => {
+        const nu = NODE_MAP[u]
+        const nv = NODE_MAP[v]
+        if (!nu || !nv) return null
+        const meta = WORLD_GRAPH.terrainMeta[terrain]
+        const onRoute = activeEdgeKeys.has(`${u}__${v}`)
+        const mx = (nu.x + nv.x) / 2
+        const my = (nu.y + nv.y) / 2
+        return (
+          <g key={`edge-${u}-${v}-${idx}`}>
+            <line
+              x1={nu.x}
+              y1={nu.y}
+              x2={nv.x}
+              y2={nv.y}
+              stroke={meta.stroke}
+              strokeWidth={meta.width * markerScale}
+              strokeOpacity={onRoute ? 0.16 : isTraveling ? 0.2 : 0.34}
+              className={meta.cls || undefined}
+            />
+            {hasActiveRoute && (showDistanceOverlay || onRoute) && !isMacroZoom && (
+              <g
+                transform={`translate(${mx}, ${my}) scale(${markerScale})`}
+                className="edge-dist-label lod-fade"
+                pointerEvents="none"
+              >
+                <rect
+                  x={-19}
+                  y={-6.5}
+                  width={38}
+                  height={12.5}
+                  rx={2}
+                  fill={onRoute ? '#eef8f1' : '#faf2e1'}
+                  stroke={onRoute ? '#1e7e4e' : '#8c7353'}
+                  strokeWidth={onRoute ? 0.8 : 0.5}
+                />
+                <text
+                  x={0}
+                  y={2.5}
+                  textAnchor="middle"
+                  fontSize={8.2}
+                  fontWeight={onRoute ? 700 : 600}
+                  fill={onRoute ? '#145334' : '#3a2918'}
+                >
+                  {dist}里
+                </text>
+              </g>
+            )}
+          </g>
+        )
+      })}
+    </g>
+  )
+})
+
+interface WorldAlertsLayerProps {
+  isMacroZoom: boolean
+  markerScale: number
+}
+
+const WorldAlertsLayer = memo(function WorldAlertsLayer({
+  isMacroZoom,
+  markerScale,
+}: WorldAlertsLayerProps) {
+  return (
+    <g id="svg-layer-alerts" className="lod-fade" style={{ opacity: !isMacroZoom ? 1 : 0.3 }}>
+      {ALERT_NODES.map((n) => (
+        <g
+          key={`alert-${n.id}`}
+          transform={`translate(${n.x}, ${n.y}) scale(${markerScale})`}
+          pointerEvents="none"
+        >
+          <circle
+            r={18}
+            fill="none"
+            stroke="#b8251e"
+            strokeWidth={1.8}
+            strokeDasharray="4 3"
+            className="alert-ring"
+          />
+        </g>
+      ))}
+    </g>
+  )
+})
+
+interface WorldNodesLayerProps {
+  selectedNodeId: string | null
+  currentNodeId: string
+  isOffCity: boolean
+  unlockedRegionKey: string
+  markerScale: number
+  isMacroZoom: boolean
+  isSub94Zoom: boolean
+  cityLabelsOverlay: boolean
+  showCityLabels: boolean
+  showMinorLabels: boolean
+  onNodeHover: (e: React.MouseEvent, node: WorldNode) => void
+  onNodeMove: (e: React.MouseEvent) => void
+  onNodeLeave: () => void
+  onNodeActivate: (e: React.MouseEvent, nodeId: string) => void
+}
+
+const WorldNodesLayer = memo(function WorldNodesLayer({
+  selectedNodeId,
+  currentNodeId,
+  isOffCity,
+  unlockedRegionKey,
+  markerScale,
+  isMacroZoom,
+  isSub94Zoom,
+  cityLabelsOverlay,
+  showCityLabels,
+  showMinorLabels,
+  onNodeHover,
+  onNodeMove,
+  onNodeLeave,
+  onNodeActivate,
+}: WorldNodesLayerProps) {
+  return (
+    <g id="svg-layer-nodes">
+      {WORLD_GRAPH.nodes.map((n) => {
+        const isCapital = CAPITALS.has(n.id)
+        const isSelected = selectedNodeId === n.id
+        const isCurrent = currentNodeId === n.id && !isOffCity
+        const isLocked = !isRegionUnlockedByKey(n.id, unlockedRegionKey)
+        const baseShortName = n.name.replace('（万山之祖）', '')
+        const shortName = isLocked ? `🔒${baseShortName}` : baseShortName
+        const boxW = baseShortName.length * 10.5 + (isLocked ? 21 : 9)
+
+        let markerOpacity = 1
+        if (isMacroZoom) {
+          markerOpacity = isCapital ? 0.92 : n.type === 'city' ? 0.52 : 0.25
+        } else if (isSub94Zoom && cityLabelsOverlay) {
+          markerOpacity = n.type === 'city' ? 1 : 0.78
+        }
+        if (isLocked && !isSelected) {
+          markerOpacity *= 0.72
+        }
+
+        const showLabel = n.type === 'city' ? showCityLabels : showMinorLabels
+        const regStyle =
+          (n.regime && WORLD_GRAPH.regimeBadge[n.regime]) || WORLD_GRAPH.regimeBadge.song
+        const sz = isCapital ? 8.6 : 7.5
+
+        return (
+          <g
+            key={n.id}
+            transform={`translate(${n.x}, ${n.y}) scale(${markerScale})`}
+            className="cursor-pointer map-node-group"
+            onMouseEnter={(e) => onNodeHover(e, n)}
+            onMouseMove={onNodeMove}
+            onMouseLeave={onNodeLeave}
+            onClick={(e) => onNodeActivate(e, n.id)}
+          >
+            {isSelected && (
+              <circle
+                r={15}
+                fill={isLocked ? '#6b5338' : '#d99b26'}
+                fillOpacity={0.32}
+                stroke={isLocked ? '#8f1d14' : '#a8620a'}
+                strokeWidth={1.6}
+              />
+            )}
+
+            {isLocked && !isMacroZoom && (
+              <circle
+                r={12.2}
+                fill="none"
+                stroke="#781710"
+                strokeWidth={1.15}
+                strokeDasharray="2.8 2.4"
+                strokeOpacity={0.75}
+              />
+            )}
+
+            <g className="node-marker lod-fade" style={{ opacity: markerOpacity }}>
+              {n.type === 'city' ? (
+                <>
+                  <rect
+                    x={-sz}
+                    y={-sz}
+                    width={sz * 2}
+                    height={sz * 2}
+                    rx={2}
+                    fill={regStyle.fill}
+                    stroke="#fbf4e4"
+                    strokeWidth={1.5}
+                  />
+                  <rect
+                    x={-3.5}
+                    y={-3.5}
+                    width={7.0}
+                    height={7.0}
+                    fill={isCapital ? '#f5cb5c' : regStyle.inner}
+                  />
+                </>
+              ) : n.type === 'sect' ? (
+                <>
+                  <circle
+                    r={n.id === 'kunlun' ? 8.8 : 6.8}
+                    fill={
+                      isLocked
+                        ? '#5a4d3f'
+                        : n.id === 'kunlun'
+                          ? '#1d566e'
+                          : '#285948'
+                    }
+                    stroke={isLocked ? '#d6c7ad' : '#fbf4e4'}
+                    strokeWidth={1.4}
+                  />
+                  <circle
+                    r={n.id === 'kunlun' ? 3.2 : 2.3}
+                    fill={
+                      isLocked
+                        ? '#cbb997'
+                        : n.id === 'kunlun'
+                          ? '#ffffff'
+                          : '#dfeee7'
+                    }
+                  />
+                </>
+              ) : (
+                <polygon
+                  points="0,-8.4 8.4,0 0,8.4 -8.4,0"
+                  fill="#8c5119"
+                  stroke="#fbf4e4"
+                  strokeWidth={1.4}
+                />
+              )}
+            </g>
+
+            <g
+              className="node-label-wrap lod-fade"
+              style={{
+                opacity: showLabel ? 1 : 0,
+                pointerEvents: showLabel ? 'auto' : 'none',
+              }}
+            >
+              <rect
+                x={-boxW / 2}
+                y={10}
+                width={boxW}
+                height={14.8}
+                rx={3}
+                fill={isCurrent ? '#3b2412' : isLocked ? '#ede2cb' : '#fbf4e3'}
+                stroke={isSelected ? '#b56e12' : isLocked ? '#8f1d14' : '#7a6345'}
+                strokeWidth={isSelected ? 1.15 : 0.75}
+              />
+              <text
+                x={0}
+                y={20.6}
+                textAnchor="middle"
+                fontSize={n.type === 'city' ? 10.4 : 9.6}
+                fontWeight={n.type === 'city' ? 700 : 600}
+                className="song-serif"
+                fill={
+                  isCurrent
+                    ? '#fde68a'
+                    : isLocked
+                      ? '#6b4d32'
+                      : n.regime && n.regime !== 'song' && n.type === 'city'
+                        ? '#3a224d'
+                        : '#24170e'
+                }
+              >
+                {shortName}
+              </text>
+            </g>
+          </g>
+        )
+      })}
+    </g>
+  )
+})
+
+interface WorldMastersLayerProps {
+  roamingMasters: readonly RoamingMaster[]
+  markerScale: number
+}
+
+const WorldMastersLayer = memo(function WorldMastersLayer({
+  roamingMasters,
+  markerScale,
+}: WorldMastersLayerProps) {
+  return (
+    <g id="svg-layer-masters" className="lod-fade" pointerEvents="none">
+      {roamingMasters.map((m, idx) => {
+        const n = NODE_MAP[m.nodeId]
+        if (!n) return null
+        const offsetX = idx % 2 === 0 ? 15 : -15
+        return (
+          <g key={m.id} transform={`translate(${n.x}, ${n.y}) scale(${markerScale})`}>
+            <g transform={`translate(${offsetX}, -13.5)`}>
+              <rect
+                x={-30}
+                y={-7.5}
+                width={60}
+                height={12.5}
+                rx={6}
+                fill="#1d473a"
+                stroke="#e6f5ee"
+                strokeWidth={0.85}
+              />
+              <text x={0} y={1.5} textAnchor="middle" fontSize={8} fill="#f0fdf4">
+                {m.name}
+              </text>
+            </g>
+          </g>
+        )
+      })}
+    </g>
+  )
+})
+
 export function WorldMapCanvas() {
   const svgRef = useRef<SVGSVGElement | null>(null)
   const dragRef = useRef<{
+    pointerId: number
     downClientX: number
     downClientY: number
     startSvgX: number
@@ -55,8 +416,6 @@ export function WorldMapCanvas() {
 
   const setWorldPan = useGameStore((s) => s.setWorldPan)
   const zoomWorldBy = useGameStore((s) => s.zoomWorldBy)
-  const selectWorldNode = useGameStore((s) => s.selectWorldNode)
-  const enterRegionMap = useGameStore((s) => s.enterRegionMap)
   const clearFloatingSelection = useGameStore((s) => s.clearFloatingSelection)
   const setTooltip = useGameStore((s) => s.setTooltip)
   const moveTooltip = useGameStore((s) => s.moveTooltip)
@@ -65,7 +424,8 @@ export function WorldMapCanvas() {
   // 放大舆图（s > 1）时反向抵消容器缩放，使城池/地区图标、文字与标记始终固定在视距 1.0× 的舒适尺寸，绝不随放大而膨胀拥挤
   const markerScale = s > 1 ? 1 / s : 1
   const isMacroZoom = s < 0.85
-  const showMinorLabels = overlays.sectPassLabels && s >= 0.94
+  const isSub94Zoom = s < 0.94
+  const showMinorLabels = overlays.sectPassLabels && !isSub94Zoom
   const showCityLabels = overlays.cityLabels && !isMacroZoom
   const anyPlaceLabelOn = overlays.cityLabels || overlays.sectPassLabels
 
@@ -90,7 +450,7 @@ export function WorldMapCanvas() {
         macroRegimes.style.opacity = '0.94'
       } else if (!anyPlaceLabelOn) {
         macroRegimes.style.opacity = '0'
-      } else if (s < 0.94) {
+      } else if (isSub94Zoom) {
         macroRegimes.style.opacity = '0.52'
       } else if (s > 1.35) {
         macroRegimes.style.opacity = '0.14'
@@ -115,7 +475,7 @@ export function WorldMapCanvas() {
         borderHalo.setAttribute('stroke-opacity', '0.66')
       }
     }
-  }, [s, markerScale, isMacroZoom, anyPlaceLabelOn])
+  }, [s, markerScale, isMacroZoom, isSub94Zoom, anyPlaceLabelOn])
 
   // Native non-passive wheel listener for smooth zoom around cursor
   useEffect(() => {
@@ -131,12 +491,12 @@ export function WorldMapCanvas() {
     return () => svg.removeEventListener('wheel', onWheel)
   }, [zoomWorldBy])
 
-  // Mouse drag pan listeners
+  // Pointer drag pan listeners (unified mouse + touch + trackpad + pen)
   useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
+    const onPointerMove = (e: PointerEvent) => {
       const session = dragRef.current
       const svg = svgRef.current
-      if (!session || !svg) return
+      if (!session || !svg || e.pointerId !== session.pointerId) return
       const movedPx = Math.hypot(e.clientX - session.downClientX, e.clientY - session.downClientY)
       if (movedPx > 5 && !session.moved) {
         session.moved = true
@@ -151,27 +511,26 @@ export function WorldMapCanvas() {
       })
     }
 
-    const onMouseUp = () => {
-      if (dragRef.current) {
+    const onPointerEnd = (e: PointerEvent) => {
+      if (dragRef.current && e.pointerId === dragRef.current.pointerId) {
         setTimeout(() => {
           dragRef.current = null
         }, 0)
       }
     }
 
-    window.addEventListener('mousemove', onMouseMove)
-    window.addEventListener('mouseup', onMouseUp)
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerEnd)
+    window.addEventListener('pointercancel', onPointerEnd)
     return () => {
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('mouseup', onMouseUp)
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerEnd)
+      window.removeEventListener('pointercancel', onPointerEnd)
     }
   }, [setTooltip, setWorldPan])
 
-  // 当前寻路（点选异地节点）或行路（traveling）激活的路线；平时为 null，隐藏所有城池连线
-  const activeRoute = useMemo(() => {
-    if (traveling) {
-      return traveling.route.segments.length > 0 ? traveling.route : null
-    }
+  const plannedRoute = useMemo(() => {
+    if (traveling) return null
     if (!selectedNodeId || (selectedNodeId === currentNodeId && !campPos)) return null
     const route = findBestRoute(
       currentNodeId,
@@ -197,6 +556,12 @@ export function WorldMapCanvas() {
     agility,
     unlockedRegionKey,
   ])
+
+  const activeRoute = traveling
+    ? traveling.route.segments.length > 0
+      ? traveling.route
+      : null
+    : plannedRoute
 
   const activeRoutePoints = useMemo(() => {
     if (!activeRoute || activeRoute.segments.length === 0) return null
@@ -224,48 +589,91 @@ export function WorldMapCanvas() {
     return pts.length >= 2 ? pts.join(' ') : null
   }, [activeRoute, traveling])
 
-  const activeEdgeKeys = useMemo(() => {
-    const keys = new Set<string>()
-    if (!activeRoute) return keys
+  const activeEdgeSignature = useMemo(() => {
+    if (!activeRoute) return ''
     const startIdx = traveling ? traveling.segIdx : 0
+    let sig = `${startIdx}:`
     for (let i = startIdx; i < activeRoute.segments.length; i++) {
       const seg = activeRoute.segments[i]
-      if (!seg) continue
-      keys.add(`${seg.from}__${seg.to}`)
-      keys.add(`${seg.to}__${seg.from}`)
+      if (seg) sig += `${seg.from}>${seg.to};`
     }
-    return keys
+    return sig
   }, [activeRoute, traveling])
 
+  const activeEdgeKeys = useMemo(() => {
+    const keys = new Set<string>()
+    if (!activeEdgeSignature) return keys
+    const body = activeEdgeSignature.slice(activeEdgeSignature.indexOf(':') + 1)
+    for (const pair of body.split(';')) {
+      if (!pair) continue
+      const [from, to] = pair.split('>')
+      if (from && to) {
+        keys.add(`${from}__${to}`)
+        keys.add(`${to}__${from}`)
+      }
+    }
+    return keys
+  }, [activeEdgeSignature])
+
   const hasActiveRoute = activeRoute !== null
+  const isTraveling = traveling !== null
+  const isOffCity = Boolean(traveling || campPos)
 
-  const playerCoords = useMemo(() => {
-    if (traveling) return traveling.playerPos
-    if (campPos) return { x: campPos.x, y: campPos.y }
-    const curr = NODE_MAP[currentNodeId]
-    return { x: curr?.x ?? 856.8, y: curr?.y ?? 379.9 }
-  }, [traveling, campPos, currentNodeId])
+  const playerCoords = traveling
+    ? traveling.playerPos
+    : campPos
+      ? { x: campPos.x, y: campPos.y }
+      : {
+          x: NODE_MAP[currentNodeId]?.x ?? 856.8,
+          y: NODE_MAP[currentNodeId]?.y ?? 379.9,
+        }
 
-  const handleNodeHover = (e: React.MouseEvent, node: WorldNode) => {
+  const handleNodeHover = useCallback(
+    (e: React.MouseEvent, node: WorldNode) => {
+      if (dragRef.current?.moved) return
+      setTooltip({
+        kind: 'worldNode',
+        x: e.clientX,
+        y: e.clientY,
+        node,
+      })
+    },
+    [setTooltip],
+  )
+
+  const handleNodeMove = useCallback(
+    (e: React.MouseEvent) => {
+      moveTooltip(e.clientX, e.clientY)
+    },
+    [moveTooltip],
+  )
+
+  const handleNodeLeave = useCallback(() => {
+    setTooltip(null)
+  }, [setTooltip])
+
+  const handleNodeActivate = useCallback((e: React.MouseEvent, nodeId: string) => {
     if (dragRef.current?.moved) return
-    setTooltip({
-      kind: 'worldNode',
-      x: e.clientX,
-      y: e.clientY,
-      node,
-    })
-  }
+    e.stopPropagation()
+    const st = useGameStore.getState()
+    if (st.currentNodeId === nodeId && !st.traveling && !st.campPos) {
+      st.enterRegionMap(nodeId)
+    } else {
+      st.selectWorldNode(nodeId)
+    }
+  }, [])
 
   return (
     <svg
       id="song-map-svg"
       ref={svgRef}
       viewBox="0 0 1600 1000"
-      className="w-full h-full block select-none"
-      onMouseDown={(e) => {
-        if (e.button !== 0) return
+      className="w-full h-full block select-none touch-none"
+      onPointerDown={(e) => {
+        if (!e.isPrimary || (e.pointerType === 'mouse' && e.button !== 0)) return
         const pt = clientToSvgCoords(svgRef.current, e.clientX, e.clientY)
         dragRef.current = {
+          pointerId: e.pointerId,
           downClientX: e.clientX,
           downClientY: e.clientY,
           startSvgX: pt.x,
@@ -289,82 +697,17 @@ export function WorldMapCanvas() {
         <StaticGeography />
 
         {/* 10. 门派与四国势力圈 */}
-        {overlays.factions && (
-          <g id="svg-layer-factions">
-            {WORLD_GRAPH.nodes.map((n) => (
-              <circle
-                key={`fac-${n.id}`}
-                cx={n.x}
-                cy={n.y}
-                r={n.type === 'city' ? 76 : 56}
-                fill={FACTION_GRAD[n.factionType] ?? FACTION_GRAD.orthodox}
-                pointerEvents="none"
-              />
-            ))}
-          </g>
-        )}
+        {overlays.factions && <WorldFactionsLayer />}
 
-        {/* 11. 水陆交通路网与可选里程牌（仅在寻路规划或策马行路时显现，平时完全隐藏） */}
-        <g
-          id="svg-layer-edges"
-          className="lod-fade"
-          style={{
-            opacity: hasActiveRoute ? (!isMacroZoom ? 1 : 0.4) : 0,
-            pointerEvents: 'none',
-          }}
-        >
-          {WORLD_GRAPH.edges.map(([u, v, dist, terrain], idx) => {
-            const nu = NODE_MAP[u]
-            const nv = NODE_MAP[v]
-            if (!nu || !nv) return null
-            const meta = WORLD_GRAPH.terrainMeta[terrain]
-            const onRoute = activeEdgeKeys.has(`${u}__${v}`)
-            const mx = (nu.x + nv.x) / 2
-            const my = (nu.y + nv.y) / 2
-            return (
-              <g key={`edge-${u}-${v}-${idx}`}>
-                <line
-                  x1={nu.x}
-                  y1={nu.y}
-                  x2={nv.x}
-                  y2={nv.y}
-                  stroke={meta.stroke}
-                  strokeWidth={meta.width * markerScale}
-                  strokeOpacity={onRoute ? 0.16 : traveling ? 0.2 : 0.34}
-                  className={meta.cls || undefined}
-                />
-                {hasActiveRoute && (overlays.distance || onRoute) && !isMacroZoom && (
-                  <g
-                    transform={`translate(${mx}, ${my}) scale(${markerScale})`}
-                    className="edge-dist-label lod-fade"
-                    pointerEvents="none"
-                  >
-                    <rect
-                      x={-19}
-                      y={-6.5}
-                      width={38}
-                      height={12.5}
-                      rx={2}
-                      fill={onRoute ? '#eef8f1' : '#faf2e1'}
-                      stroke={onRoute ? '#1e7e4e' : '#8c7353'}
-                      strokeWidth={onRoute ? 0.8 : 0.5}
-                    />
-                    <text
-                      x={0}
-                      y={2.5}
-                      textAnchor="middle"
-                      fontSize={8.2}
-                      fontWeight={onRoute ? 700 : 600}
-                      fill={onRoute ? '#145334' : '#3a2918'}
-                    >
-                      {dist}里
-                    </text>
-                  </g>
-                )}
-              </g>
-            )
-          })}
-        </g>
+        {/* 11. 水陆交通路网与可选里程牌（仅在切换城池路段时更新，4Hz 行军逐帧不重绘全图道路） */}
+        <WorldEdgesLayer
+          hasActiveRoute={hasActiveRoute}
+          isMacroZoom={isMacroZoom}
+          isTraveling={isTraveling}
+          showDistanceOverlay={overlays.distance}
+          markerScale={markerScale}
+          activeEdgeKeys={activeEdgeKeys}
+        />
 
         {/* 12. 最优寻路/行军路线高亮（翠绿虚线） */}
         <g id="svg-layer-route" pointerEvents="none">
@@ -387,224 +730,33 @@ export function WorldMapCanvas() {
           )}
         </g>
 
-        {/* 13. 边关渗透警报圈（默认关闭，开启时尺寸亦不随放大而膨胀） */}
-        {overlays.alerts && (
-          <g id="svg-layer-alerts" className="lod-fade" style={{ opacity: !isMacroZoom ? 1 : 0.3 }}>
-            {WORLD_GRAPH.nodes
-              .filter((n) => n.alert)
-              .map((n) => (
-                <g
-                  key={`alert-${n.id}`}
-                  transform={`translate(${n.x}, ${n.y}) scale(${markerScale})`}
-                  pointerEvents="none"
-                >
-                  <circle
-                    r={18}
-                    fill="none"
-                    stroke="#b8251e"
-                    strokeWidth={1.8}
-                    strokeDasharray="4 3"
-                    className="alert-ring"
-                  />
-                </g>
-              ))}
-          </g>
-        )}
+        {/* 13. 边关渗透警报圈 */}
+        {overlays.alerts && <WorldAlertsLayer isMacroZoom={isMacroZoom} markerScale={markerScale} />}
 
-        {/* 14. 四十三处州府、名山宗门与战略雄关节点（放大时保持视距 1.0× 恒定精致尺寸） */}
-        <g id="svg-layer-nodes">
-          {WORLD_GRAPH.nodes.map((n) => {
-            const isCapital = CAPITALS.has(n.id)
-            const isSelected = selectedNodeId === n.id
-            const isCurrent = currentNodeId === n.id && !traveling && !campPos
-            const isLocked = !isRegionUnlockedByKey(n.id, unlockedRegionKey)
-            const baseShortName = n.name.replace('（万山之祖）', '')
-            const shortName = isLocked ? `🔒${baseShortName}` : baseShortName
-            const boxW = baseShortName.length * 10.5 + (isLocked ? 21 : 9)
+        {/* 14. 四十三处州府、名山宗门与战略雄关节点（memo 隔离：4Hz 行军期间零重渲染） */}
+        <WorldNodesLayer
+          selectedNodeId={selectedNodeId}
+          currentNodeId={currentNodeId}
+          isOffCity={isOffCity}
+          unlockedRegionKey={unlockedRegionKey}
+          markerScale={markerScale}
+          isMacroZoom={isMacroZoom}
+          isSub94Zoom={isSub94Zoom}
+          cityLabelsOverlay={overlays.cityLabels}
+          showCityLabels={showCityLabels}
+          showMinorLabels={showMinorLabels}
+          onNodeHover={handleNodeHover}
+          onNodeMove={handleNodeMove}
+          onNodeLeave={handleNodeLeave}
+          onNodeActivate={handleNodeActivate}
+        />
 
-            let markerOpacity = 1
-            if (isMacroZoom) {
-              markerOpacity = isCapital ? 0.92 : n.type === 'city' ? 0.52 : 0.25
-            } else if (s < 0.94 && overlays.cityLabels) {
-              markerOpacity = n.type === 'city' ? 1 : 0.78
-            }
-            if (isLocked && !isSelected) {
-              markerOpacity *= 0.72
-            }
-
-            const showLabel = n.type === 'city' ? showCityLabels : showMinorLabels
-            const regStyle =
-              (n.regime && WORLD_GRAPH.regimeBadge[n.regime]) || WORLD_GRAPH.regimeBadge.song
-            const sz = isCapital ? 8.6 : 7.5
-
-            return (
-              <g
-                key={n.id}
-                transform={`translate(${n.x}, ${n.y}) scale(${markerScale})`}
-                className="cursor-pointer map-node-group"
-                onMouseEnter={(e) => handleNodeHover(e, n)}
-                onMouseMove={(e) => moveTooltip(e.clientX, e.clientY)}
-                onMouseLeave={() => setTooltip(null)}
-                onClick={(e) => {
-                  if (dragRef.current?.moved) return
-                  e.stopPropagation()
-                  if (currentNodeId === n.id && !traveling && !campPos) {
-                    enterRegionMap(n.id)
-                  } else {
-                    selectWorldNode(n.id)
-                  }
-                }}
-              >
-                {isSelected && (
-                  <circle
-                    r={15}
-                    fill={isLocked ? '#6b5338' : '#d99b26'}
-                    fillOpacity={0.32}
-                    stroke={isLocked ? '#8f1d14' : '#a8620a'}
-                    strokeWidth={1.6}
-                  />
-                )}
-
-                {isLocked && !isMacroZoom && (
-                  <circle
-                    r={12.2}
-                    fill="none"
-                    stroke="#781710"
-                    strokeWidth={1.15}
-                    strokeDasharray="2.8 2.4"
-                    strokeOpacity={0.75}
-                  />
-                )}
-
-                <g className="node-marker lod-fade" style={{ opacity: markerOpacity }}>
-                  {n.type === 'city' ? (
-                    <>
-                      <rect
-                        x={-sz}
-                        y={-sz}
-                        width={sz * 2}
-                        height={sz * 2}
-                        rx={2}
-                        fill={regStyle.fill}
-                        stroke="#fbf4e4"
-                        strokeWidth={1.5}
-                      />
-                      <rect
-                        x={-3.5}
-                        y={-3.5}
-                        width={7.0}
-                        height={7.0}
-                        fill={isCapital ? '#f5cb5c' : regStyle.inner}
-                      />
-                    </>
-                  ) : n.type === 'sect' ? (
-                    <>
-                      <circle
-                        r={n.id === 'kunlun' ? 8.8 : 6.8}
-                        fill={
-                          isLocked
-                            ? '#5a4d3f'
-                            : n.id === 'kunlun'
-                              ? '#1d566e'
-                              : '#285948'
-                        }
-                        stroke={isLocked ? '#d6c7ad' : '#fbf4e4'}
-                        strokeWidth={1.4}
-                      />
-                      <circle
-                        r={n.id === 'kunlun' ? 3.2 : 2.3}
-                        fill={
-                          isLocked
-                            ? '#cbb997'
-                            : n.id === 'kunlun'
-                              ? '#ffffff'
-                              : '#dfeee7'
-                        }
-                      />
-                    </>
-                  ) : (
-                    <polygon
-                      points="0,-8.4 8.4,0 0,8.4 -8.4,0"
-                      fill="#8c5119"
-                      stroke="#fbf4e4"
-                      strokeWidth={1.4}
-                    />
-                  )}
-                </g>
-
-                <g
-                  className="node-label-wrap lod-fade"
-                  style={{
-                    opacity: showLabel ? 1 : 0,
-                    pointerEvents: showLabel ? 'auto' : 'none',
-                  }}
-                >
-                  <rect
-                    x={-boxW / 2}
-                    y={10}
-                    width={boxW}
-                    height={14.8}
-                    rx={3}
-                    fill={isCurrent ? '#3b2412' : isLocked ? '#ede2cb' : '#fbf4e3'}
-                    stroke={isSelected ? '#b56e12' : isLocked ? '#8f1d14' : '#7a6345'}
-                    strokeWidth={isSelected ? 1.15 : 0.75}
-                  />
-                  <text
-                    x={0}
-                    y={20.6}
-                    textAnchor="middle"
-                    fontSize={n.type === 'city' ? 10.4 : 9.6}
-                    fontWeight={n.type === 'city' ? 700 : 600}
-                    className="song-serif"
-                    fill={
-                      isCurrent
-                        ? '#fde68a'
-                        : isLocked
-                          ? '#6b4d32'
-                          : n.regime && n.regime !== 'song' && n.type === 'city'
-                            ? '#3a224d'
-                            : '#24170e'
-                    }
-                  >
-                    {shortName}
-                  </text>
-                </g>
-              </g>
-            )
-          })}
-        </g>
-
-        {/* 15. 名侠游历踪迹胶囊（默认关闭，开启时尺寸亦保持恒定） */}
+        {/* 15. 名侠游历踪迹胶囊 */}
         {overlays.masters && !isMacroZoom && (
-          <g id="svg-layer-masters" className="lod-fade" pointerEvents="none">
-            {roamingMasters.map((m, idx) => {
-              const n = NODE_MAP[m.nodeId]
-              if (!n) return null
-              const offsetX = idx % 2 === 0 ? 15 : -15
-              return (
-                <g key={m.id} transform={`translate(${n.x}, ${n.y}) scale(${markerScale})`}>
-                  <g transform={`translate(${offsetX}, -13.5)`}>
-                    <rect
-                      x={-30}
-                      y={-7.5}
-                      width={60}
-                      height={12.5}
-                      rx={6}
-                      fill="#1d473a"
-                      stroke="#e6f5ee"
-                      strokeWidth={0.85}
-                    />
-                    <text x={0} y={1.5} textAnchor="middle" fontSize={8} fill="#f0fdf4">
-                      {m.name}
-                    </text>
-                  </g>
-                </g>
-              )
-            })}
-          </g>
+          <WorldMastersLayer roamingMasters={roamingMasters} markerScale={markerScale} />
         )}
 
-        {/* 16. 玩家动态脉冲令牌（放大时保持恒定精致尺寸） */}
+        {/* 16. 玩家动态脉冲令牌 */}
         <g
           id="svg-layer-player"
           transform={`translate(${playerCoords.x}, ${playerCoords.y}) scale(${markerScale})`}

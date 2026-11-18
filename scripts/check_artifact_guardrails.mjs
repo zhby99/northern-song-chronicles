@@ -116,15 +116,44 @@ for (const absFile of srcFiles) {
     )
   }
 
-  // Check actual Web Storage / IndexedDB API usage has try/catch in the file
-  const storageApiRe =
-    /\b(?:window\.)?(?:localStorage|sessionStorage)\s*\.\s*(?:getItem|setItem|removeItem|clear|key|length)\b|\b(?:window\.)?indexedDB\s*\.\s*(?:open|deleteDatabase)\b/
-  if (storageApiRe.test(content)) {
-    const stripped = content.replace(/\/\/.*$/gm, '').replace(/\/\*[\s\S]*?\*\//g, '')
-    if (storageApiRe.test(stripped) && !/\btry\s*\{/.test(stripped)) {
-      errors.push(
-        `${relFile} — 调用了 localStorage / sessionStorage / indexedDB API 但文件内缺少 try/catch 保护，在严格沙箱预览 (null origin) 下会抛出 SecurityError 导致白屏。`,
+  // Check every Web Storage / IndexedDB API call is enclosed within an active try { ... } block
+  const storageApiGlobalRe =
+    /\b(?:window\.)?(?:localStorage|sessionStorage)\s*\.\s*(?:getItem|setItem|removeItem|clear|key|length)\b|\b(?:window\.)?indexedDB\s*\.\s*(?:open|deleteDatabase)\b/g
+  if (storageApiGlobalRe.test(content)) {
+    // Blank out comments and string/template literals while preserving character offsets & newlines
+    const masked = content
+      .replace(/\/\*[\s\S]*?\*\/|\/\/[^\n]*|'(?:\\.|[^'\\])*'|"(?:\\.|[^"\\])*"|`(?:\\.|[^`\\])*`/g, (seg) =>
+        seg.replace(/[^\n]/g, ' '),
       )
+    storageApiGlobalRe.lastIndex = 0
+    /** @type {Array<{ start: number; end: number }>} */
+    const tryRanges = []
+    /** @type {Array<{ start: number; isTry: boolean }>} */
+    const braceStack = []
+    for (let i = 0; i < masked.length; i += 1) {
+      const ch = masked[i]
+      if (ch === '{') {
+        const prefix = masked.slice(Math.max(0, i - 32), i)
+        const isTry = /\btry\s*$/.test(prefix)
+        braceStack.push({ start: i, isTry })
+      } else if (ch === '}') {
+        const popped = braceStack.pop()
+        if (popped?.isTry) {
+          tryRanges.push({ start: popped.start, end: i })
+        }
+      }
+    }
+
+    let stMatch
+    while ((stMatch = storageApiGlobalRe.exec(masked)) !== null) {
+      const pos = stMatch.index
+      const enclosed = tryRanges.some((r) => pos > r.start && pos < r.end)
+      if (!enclosed) {
+        const line = lineNumberAt(content, pos)
+        errors.push(
+          `${relFile}:${line} — 调用了 ${stMatch[0].trim()} 但该调用点未被包裹在 try { ... } 块内，在严格沙箱预览 (null origin) 下会抛出 SecurityError 导致白屏。`,
+        )
+      }
     }
   }
 }

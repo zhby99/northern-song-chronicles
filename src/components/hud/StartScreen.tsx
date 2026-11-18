@@ -1,24 +1,20 @@
-import { useEffect } from 'react'
-import { useGameStore } from '../../store/useGameStore'
 import { resolveAssetUrl } from '../../utils/assetLoader'
 import { toggleBgmPlayback, useBgmMetaState } from '../../utils/bgmManager'
 
-interface StartScreenProps {
+export interface StartScreenProps {
   onNewGame: () => void
+  onOpenLoadMenu: () => void
+  onOpenCompendium: () => void
+  existingSaveCount: number
 }
 
-export function StartScreen({ onNewGame }: StartScreenProps) {
-  const openMenu = useGameStore((s) => s.openMenu)
-  const openCompendium = useGameStore((s) => s.openCompendium)
-  const refreshSaveSlots = useGameStore((s) => s.refreshSaveSlots)
-  const saveSlots = useGameStore((s) => s.saveSlots)
+export function StartScreen({
+  onNewGame,
+  onOpenLoadMenu,
+  onOpenCompendium,
+  existingSaveCount,
+}: StartScreenProps) {
   const { enabled: bgmEnabled } = useBgmMetaState()
-
-  useEffect(() => {
-    void refreshSaveSlots()
-  }, [refreshSaveSlots])
-
-  const existingSaveCount = Object.values(saveSlots).filter(Boolean).length
   const backdropUrl = resolveAssetUrl('/assets/regions/bianliang.jpg')
 
   return (
@@ -95,7 +91,7 @@ export function StartScreen({ onNewGame }: StartScreenProps) {
 
             <button
               type="button"
-              onClick={() => openMenu('load')}
+              onClick={onOpenLoadMenu}
               className="group w-full py-3.5 px-6 rounded-xl border-2 border-[#b5986e]/80 bg-[#2a1c12]/90 hover:bg-[#3b2719] text-[#f7e7c4] shadow-lg transition-all active:scale-[0.98] cursor-pointer flex items-center justify-between"
             >
               <div className="text-left">
@@ -120,7 +116,7 @@ export function StartScreen({ onNewGame }: StartScreenProps) {
 
             <button
               type="button"
-              onClick={() => openCompendium()}
+              onClick={onOpenCompendium}
               className="group w-full py-3.5 px-6 rounded-xl border-2 border-[#b5986e]/80 bg-[#2a1c12]/90 hover:bg-[#3b2719] text-[#f7e7c4] shadow-lg transition-all active:scale-[0.98] cursor-pointer flex items-center justify-between"
             >
               <div className="text-left">

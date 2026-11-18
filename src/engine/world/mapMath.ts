@@ -600,6 +600,29 @@ export function clientToSvgCoords(
   }
 }
 
+/**
+ * 钳制地图平移与缩放边界：保证画卷至少保留约 35% 视窗锚定区可见，
+ * 既允许任意边角城池/景点放大居中，又防止拖拽滑出屏幕落入纯黑虚空。
+ */
+export function clampMapPan(
+  pan: { x: number; y: number; scale: number },
+  viewWidth: number,
+  viewHeight: number,
+  minScale = 0.56,
+  maxScale = 3.4,
+): { x: number; y: number; scale: number } {
+  const scale = Math.min(maxScale, Math.max(minScale, pan.scale))
+  const minX = viewWidth * 0.35 - viewWidth * scale
+  const maxX = viewWidth * 0.65
+  const minY = viewHeight * 0.35 - viewHeight * scale
+  const maxY = viewHeight * 0.65
+  return {
+    x: Math.min(maxX, Math.max(minX, pan.x)),
+    y: Math.min(maxY, Math.max(minY, pan.y)),
+    scale,
+  }
+}
+
 export interface BuildingLockMeta {
   unlockFlag: string
   lockedBadge: string
