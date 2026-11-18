@@ -42,7 +42,7 @@
 3. **美术与静态资源规范（含单文件离线包兼容铁律）**：
    - **严禁在 `.ts/.tsx/.json` 代码中内嵌 Base64 图片字符串**；所有运行时图片与音频统一放入 `public/assets/{regions,buildings,characters,items,quests,audio}/`（未压缩母版统一归档于 `assets_raw_masters/`），按需懒加载。
    - **静态路径严禁裸绑**：组件渲染任何 `/assets/...` 图片时必须走 `<ManagedAssetImg>`、`<CutoutPortraitImg>`、`useLazyImage()` 或 `resolveAssetUrl()`（切勿直接写 `<img src={rawUrl} />` 或在 CSS 中写 `url(/assets/...)`）；访问 `localStorage` / `indexedDB` 必须包裹 `try/catch`，确保 `npm run build:artifact` 生成的单文件 HTML 在 `file://` 与严格沙箱预览下 100% 正常可玩。
-   - 若用户要求新生成全景图或角色立绘，**严禁使用 PIL/Canvas/SVG 脚本程序化伪造、镜像复用或裁剪拼贴原画**，必须遵循 `.agents/skills/panorama-artist/SKILL.md` 与 `.agents/skills/portrait-artist/SKILL.md` 规范逐张调用 `generate_image`。
+   - 若用户要求新生成全景图、角色立绘或剧情插画，**严禁使用 PIL/Canvas/SVG 脚本程序化伪造、镜像复用或裁剪拼贴原画**，必须遵循 `.agents/skills/panorama-artist/SKILL.md` 与 `.agents/skills/portrait-artist/SKILL.md` 规范逐张调用 `generate_image`。
 4. **存档状态同步与跨版本兼容（必须保留玩家旧档）**：
    - 修改 `src/store/useGameStore.ts` 中的核心状态字段时，同步更新 `src/types/game.ts` 中的 `SerializableGameState`、`src/store/storeHelpers.ts` 的序列化与初始值，以及 `src/utils/saveManager.ts` 的读档净化（缺失字段一律回填默认值）。
    - 存档结构变化时递增 `CURRENT_SAVE_SCHEMA_VERSION`（`src/utils/saveStorageProbe.ts`），**同时**把新版本号追加到 `SAVE_SCHEMA_HISTORY` 末尾，并在 `src/utils/saveMigrations.ts` 的 `SAVE_MIGRATIONS` 追加一条迁移步骤（改名 / 删除 / 语义变化的字段在此处理）；`saveMigration.test.ts` 会校验两者一一对应。
@@ -68,7 +68,10 @@
 | **皇祐披挂总纲（百兵谱）** | `docs/EQUIPMENT_COMPENDIUM.md` |
 | **43 地区与 147 特殊建筑** | `docs/REGIONAL_MAPS_AND_BUILDINGS.md` |
 | **1,052 名北宋历史与江湖人物** | `docs/CHARACTER_COMPENDIUM.md` |
+| **待补绘剧情插画（CG）台账** | `docs/MISSING_QUEST_ILLUSTRATIONS.md` |
+| **待补绘人物立绘与模板台账** | `docs/MISSING_NPC_PORTRAITS.md` |
 | **本地接手/恢复上下文技能** | 在聊天框输入 `/resume-context`（对应 `.agents/skills/resume-context/SKILL.md`） |
 | **数据库重编与校验技能** | 在聊天框输入 `/rebuild-db`（对应 `.agents/skills/rebuild-db/SKILL.md`） |
+| **剧情任务编纂与挂载技能** | 在聊天框输入 `/quest-author`（对应 `.agents/skills/quest-author/SKILL.md`） |
 | **宋风全景/建筑画师技能** | 在聊天框输入 `/panorama-artist`（对应 `.agents/skills/panorama-artist/SKILL.md`） |
-| **北宋人物考据立绘画师技能** | 在聊天框输入 `/portrait-artist`（对应 `.agents/skills/portrait-artist/SKILL.md`） |
+| **北宋人物立绘与剧情插画技能** | 在聊天框输入 `/portrait-artist`（对应 `.agents/skills/portrait-artist/SKILL.md`） |

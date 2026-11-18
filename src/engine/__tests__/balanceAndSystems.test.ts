@@ -217,32 +217,59 @@ describe('sect exclusivity', () => {
     const inShaolin = clonePlayerSectState({ sectId: 'SECT-01', rank: 1 })
     expect(getSectEntryQuestBlockReason('QST-SECT-19-ENTRY', inShaolin)).not.toBeNull()
     expect(getSectEntryQuestBlockReason('QST-SECT-01-ENTRY', inShaolin)).toBeNull()
+    expect(getSectEntryQuestBlockReason('QST-SECT-03-ENTRY', inShaolin)).not.toBeNull()
+    expect(getSectEntryQuestBlockReason('QST-SECT-04-ENTRY', inShaolin)).not.toBeNull()
+    expect(getSectEntryQuestBlockReason('QST-SECT-15-ENTRY', inShaolin)).not.toBeNull()
     const novice = clonePlayerSectState({ shaolinNoviceState: 'active' })
     expect(getSectEntryQuestBlockReason('QST-SECT-05-ENTRY', novice)).not.toBeNull()
-    // 设计内的带艺投师：陇右金环刀堂弟子可走华山入门线
+    // 设计内的带艺投师 / 同脉转投白名单
     const jinhuan = clonePlayerSectState({ sectId: 'SECT-28', rank: 2 })
     expect(getSectEntryQuestBlockReason('QST-SECT-05-ENTRY', jinhuan)).toBeNull()
+    expect(
+      getSectEntryQuestBlockReason('QST-SECT-03-ENTRY', clonePlayerSectState({ sectId: 'SECT-22', rank: 1 })),
+    ).toBeNull()
+    expect(
+      getSectEntryQuestBlockReason('QST-SECT-04-ENTRY', clonePlayerSectState({ sectId: 'SECT-24', rank: 1 })),
+    ).toBeNull()
+    expect(
+      getSectEntryQuestBlockReason('QST-SECT-15-ENTRY', clonePlayerSectState({ sectId: 'SECT-16', rank: 1 })),
+    ).toBeNull()
   })
 
-  it('transfer sources match the quests’ own notInAnySect exceptions', () => {
+  it('transfer sources match the quests’ own entry conditions bidirectionally', () => {
     const found: Record<string, Set<string>> = {}
-    const walk = (c: QuestCondition | undefined, sectId: string) => {
+    const walk = (c: QuestCondition | undefined, negated: boolean, sectId: string) => {
       if (!c) return
-      if (c.type === 'notInAnySect' && c.allowTransferFromSectId) {
+      if (c.type === 'not') {
+        walk(c.condition, !negated, sectId)
+        return
+      }
+      if (!negated && c.type === 'notInAnySect' && c.allowTransferFromSectId) {
         ;(found[sectId] ??= new Set()).add(c.allowTransferFromSectId)
       }
-      if (c.type === 'all' || c.type === 'any') c.conditions.forEach((x) => walk(x, sectId))
-      if (c.type === 'not') walk(c.condition, sectId)
+      if (!negated && c.type === 'inSect' && c.sectId && c.sectId !== sectId) {
+        ;(found[sectId] ??= new Set()).add(c.sectId)
+      }
+      if (c.type === 'all' || c.type === 'any') {
+        c.conditions.forEach((x) => walk(x, negated, sectId))
+      }
     }
     for (const q of QUEST_REGISTRY) {
       const m = /^QST-(SECT-\d+)-ENTRY$/.exec(q.id)
       if (!m) continue
-      for (const t of q.locationTriggers ?? []) walk(t.condition, m[1]!)
+      const sectId = m[1]!
+      walk(q.startCondition, false, sectId)
+      for (const t of q.locationTriggers ?? []) walk(t.condition, false, sectId)
+      for (const a of q.npcActions ?? []) {
+        walk(a.visibleWhen, false, sectId)
+        walk(a.enabledWhen, false, sectId)
+      }
       for (const a of q.spotActions ?? []) {
-        walk(a.visibleWhen, m[1]!)
-        walk(a.enabledWhen, m[1]!)
+        walk(a.visibleWhen, false, sectId)
+        walk(a.enabledWhen, false, sectId)
       }
     }
+    expect(Object.keys(found).sort()).toEqual(Object.keys(SECT_ENTRY_TRANSFER_SOURCES).sort())
     for (const [sectId, sources] of Object.entries(found)) {
       expect([...sources].sort()).toEqual([...(SECT_ENTRY_TRANSFER_SOURCES[sectId] ?? [])].sort())
     }

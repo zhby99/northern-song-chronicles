@@ -25,13 +25,16 @@ export const OFFICIAL_TRANSFER_SOURCE_SECT_IDS: ReadonlySet<string> = new Set([
 ])
 
 /**
- * 一流大派青睐同脉三流小派弟子「带艺应试」：入门线条件中 notInAnySect.allowTransferFromSectId 所列原属门派
- * （须与任务数据保持一致，见 sectExclusivity 测试）
+ * 一流大派青睐同脉弟子「带艺应试 / 同脉转投」：入门线条件（notInAnySect.allowTransferFromSectId 或非取反分支的 inSect）所允许的原属门派
+ * （须与任务数据保持双向一致，见 balanceAndSystems 测试与 scripts/verify_quests.mjs）
  */
 export const SECT_ENTRY_TRANSFER_SOURCES: Readonly<Record<string, readonly string[]>> = Object.freeze({
-  'SECT-05': ['SECT-28'], // 华山 ← 陇右金环刀堂
-  'SECT-06': ['SECT-25'], // 泰山 ← 齐鲁查拳馆
-  'SECT-07': ['SECT-29'], // 峨眉 ← 巴蜀百草药王门
+  'SECT-03': ['SECT-22'], // 五台山清凉寺 ← 常山枪派（需持联合举荐信，由任务条件校验）
+  'SECT-04': ['SECT-24', 'SECT-27'], // 莆田南少林 ← 闽海镇远镖局 / 岭南洪门武馆
+  'SECT-05': ['SECT-28'], // 华山派 ← 陇右金环刀堂
+  'SECT-06': ['SECT-25'], // 泰山派 ← 齐鲁查拳馆
+  'SECT-07': ['SECT-29'], // 峨眉派 ← 巴蜀百草药王门
+  'SECT-15': ['SECT-16', 'SECT-26', 'SECT-30'], // 铁掌帮 ← 江淮漕帮 / 钱塘怒潮帮 / 湘西五溪蛊寨
 })
 
 export function getEntryQuestSectId(questId: string): string | null {

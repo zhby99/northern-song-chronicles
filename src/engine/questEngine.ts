@@ -718,6 +718,8 @@ export function getAvailableNpcQuestActions(
 
   for (const quest of quests) {
     if (!quest.npcActions || quest.npcActions.length === 0) continue
+    // 门派排他：已身属别派（或少林杂役期）时，他派入门线不再露出交互选项
+    if (getSectEntryQuestBlockReason(quest.id, ctx.sectState)) continue
     for (const action of quest.npcActions) {
       const vis = evaluateQuestCondition(action.visibleWhen, ctxWithNpc)
       if (!vis.passed) continue
