@@ -274,6 +274,28 @@
 | `CG-QST-262` | `[x]` 已完成 | `public/assets/quests/tangmen_baicao_poison_smoke.jpg` | `/assets/quests/tangmen_baicao_poison_smoke.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第一幕 · 药廊紫烟掉包案<br>（`SCENE_TM_01_BAICAO_SWAP`） | `16:9` |
 | `CG-QST-263` | `[x]` 已完成 | `public/assets/quests/tangmen_wandu_miasma_pool.jpg` | `/assets/quests/tangmen_wandu_miasma_pool.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第四幕 · 五彩瘴泉吞丸试胆<br>（`SCENE_TM_04_WANDU_MIASMA`） | `16:9` |
 | `CG-QST-264` | `[x]` 已完成 | `public/assets/quests/tangmen_qianhuang_tower_oath.jpg` | `/assets/quests/tangmen_qianhuang_tower_oath.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第十一/十二幕 · 千簧总阁立世家契<br>（`SCENE_TM_11_TOWER_BRANCH_CHOICE`） | `16:9` |
+| `CG-QST-265` | `[ ]` 待补绘 | `public/assets/quests/hs_side01_cliff_repair.jpg` | `/assets/quests/hs_side01_cliff_repair.jpg` | `QST-SECT-05-SIDE-01`<br>《苍龙挑夫 · 栈道修缮记》 | 第四幕 · 悬索修栈<br>（`scene_hss01_04`） | `16:9` |
+| `CG-QST-266` | `[ ]` 待补绘 | `public/assets/quests/hs_side01_ridge_ambush.jpg` | `/assets/quests/hs_side01_ridge_ambush.jpg` | `QST-SECT-05-SIDE-01`<br>《苍龙挑夫 · 栈道修缮记》 | 第七幕 · 浓雾断匪<br>（`scene_hss01_07`） | `16:9` |
+| `CG-QST-267` | `[ ]` 待补绘 | `public/assets/quests/hs_side02_qinling_rescue.jpg` | `/assets/quests/hs_side02_qinling_rescue.jpg` | `QST-SECT-05-SIDE-02`<br>《玉泉药香 · 秦岭采参行》 | 第四幕 · 溪涧护医<br>（`scene_hss02_04`） | `16:9` |
+| `CG-QST-268` | `[ ]` 待补绘 | `public/assets/quests/hs_side02_night_tiger.jpg` | `/assets/quests/hs_side02_night_tiger.jpg` | `QST-SECT-05-SIDE-02`<br>《玉泉药香 · 秦岭采参行》 | 第七幕 · 山涧斩虎<br>（`scene_hss02_07`） | `16:9` |
+| `CG-QST-269` | `[ ]` 待补绘 | `public/assets/quests/hs_side03_chen_tuan_go.jpg` | `/assets/quests/hs_side03_chen_tuan_go.jpg` | `QST-SECT-05-SIDE-03`<br>《博台纹枰 · 希夷残局录》 | 第四幕 · 博台解枰<br>（`scene_hss03_04`） | `16:9` |
+| `CG-QST-270` | `[ ]` 待补绘 | `public/assets/quests/hs_side03_chess_sword_duel.jpg` | `/assets/quests/hs_side03_chess_sword_duel.jpg` | `QST-SECT-05-SIDE-03`<br>《博台纹枰 · 希夷残局录》 | 第九幕 · 以棋驭剑<br>（`scene_hss03_09`） | `16:9` |
+| `CG-QST-271` | `[ ]` 待补绘 | `public/assets/quests/hs_side04_mingde_inquiry.jpg` | `/assets/quests/hs_side04_mingde_inquiry.jpg` | `QST-SECT-05-SIDE-04`<br>《明德秋雨 · 长安捉刀客》 | 第二幕 · 明德暗访<br>（`scene_hss04_02`） | `16:9` |
+| `CG-QST-272` | `[ ]` 待补绘 | `public/assets/quests/hs_side04_rooftop_capture.jpg` | `/assets/quests/hs_side04_rooftop_capture.jpg` | `QST-SECT-05-SIDE-04`<br>《明德秋雨 · 长安捉刀客》 | 第八幕 · 雨脊擒凶<br>（`scene_hss04_08`） | `16:9` |
+| `CG-QST-273` | `[ ]` 待补绘 | `public/assets/quests/hs_side05_furnace_qi.jpg` | `/assets/quests/hs_side05_furnace_qi.jpg` | `QST-SECT-05-SIDE-05`<br>《紫气丹炉 · 朝阳守火记》 | 第三幕 · 朝阳温炉<br>（`scene_hss05_03`） | `16:9` |
+| `CG-QST-274` | `[ ]` 待补绘 | `public/assets/quests/hs_side05_poison_raid.jpg` | `/assets/quests/hs_side05_poison_raid.jpg` | `QST-SECT-05-SIDE-05`<br>《紫气丹炉 · 朝阳守火记》 | 第七幕 · 护炉斩毒<br>（`scene_hss05_07`） | `16:9` |
+| `CG-QST-275` | `[ ]` 待补绘 | `public/assets/quests/hs_side06_loess_ambush.jpg` | `/assets/quests/hs_side06_loess_ambush.jpg` | `QST-SECT-05-SIDE-06`<br>《潼关试铁 · 百步断刃行》 | 第三幕 · 黄土伏骑<br>（`scene_hss06_03`） | `16:9` |
+| `CG-QST-276` | `[ ]` 待补绘 | `public/assets/quests/hs_side06_sever_saber.jpg` | `/assets/quests/hs_side06_sever_saber.jpg` | `QST-SECT-05-SIDE-06`<br>《潼关试铁 · 百步断刃行》 | 第六幕 · 百步断刃<br>（`scene_hss06_06`） | `16:9` |
+| `CG-QST-277` | `[ ]` 待补绘 | `public/assets/quests/hs_side07_audit_ledger.jpg` | `/assets/quests/hs_side07_audit_ledger.jpg` | `QST-SECT-05-SIDE-07`<br>《渭北麦浪 · 侠剑护夏收》 | 第四幕 · 麦坪拆契<br>（`scene_hss07_04`） | `16:9` |
+| `CG-QST-278` | `[ ]` 待补绘 | `public/assets/quests/hs_side07_wheat_duel.jpg` | `/assets/quests/hs_side07_wheat_duel.jpg` | `QST-SECT-05-SIDE-07`<br>《渭北麦浪 · 侠剑护夏收》 | 第八幕 · 麦浪斩钩<br>（`scene_hss07_08`） | `16:9` |
+| `CG-QST-279` | `[ ]` 待补绘 | `public/assets/quests/hs_side08_ghost_market.jpg` | `/assets/quests/hs_side08_ghost_market.jpg` | `QST-SECT-05-SIDE-08`<br>《骊山鬼市 · 古剑寻踪录》 | 第四幕 · 鬼市辨剑<br>（`scene_hss08_04`） | `16:9` |
+| `CG-QST-280` | `[ ]` 待补绘 | `public/assets/quests/hs_side08_pine_intercept.jpg` | `/assets/quests/hs_side08_pine_intercept.jpg` | `QST-SECT-05-SIDE-08`<br>《骊山鬼市 · 古剑寻踪录》 | 第十幕 · 松林截剑<br>（`scene_hss08_10`） | `16:9` |
+| `CG-QST-281` | `[ ]` 待补绘 | `public/assets/quests/hs_side08_return_sword.jpg` | `/assets/quests/hs_side08_return_sword.jpg` | `QST-SECT-05-SIDE-08`<br>《骊山鬼市 · 古剑寻踪录》 | 第十三幕 · 白玉还锋<br>（`scene_hss08_13`） | `16:9` |
+| `CG-QST-282` | `[ ]` 待补绘 | `public/assets/quests/hs_side09_dao_debate.jpg` | `/assets/quests/hs_side09_dao_debate.jpg` | `QST-SECT-05-SIDE-09`<br>《终南论道 · 金莲净火劫》 | 第四幕 · 终南论道<br>（`scene_hss09_04`） | `16:9` |
+| `CG-QST-283` | `[ ]` 待补绘 | `public/assets/quests/hs_side09_shihouzi_clash.jpg` | `/assets/quests/hs_side09_shihouzi_clash.jpg` | `QST-SECT-05-SIDE-09`<br>《终南论道 · 金莲净火劫》 | 第十幕 · 净火破邪<br>（`scene_hss09_10`） | `16:9` |
+| `CG-QST-284` | `[ ]` 待补绘 | `public/assets/quests/hs_side10_qin_ride_west.jpg` | `/assets/quests/hs_side10_qin_ride_west.jpg` | `QST-SECT-05-SIDE-10`<br>《陇山断道 · 西夏折剑令》 | 第四幕 · 双剑西出<br>（`scene_hss10_04`） | `16:9` |
+| `CG-QST-285` | `[ ]` 待补绘 | `public/assets/quests/hs_side10_slave_array.jpg` | `/assets/quests/hs_side10_slave_array.jpg` | `QST-SECT-05-SIDE-10`<br>《陇山断道 · 西夏折剑令》 | 第八幕 · 残阳破阵<br>（`scene_hss10_08`） | `16:9` |
+| `CG-QST-286` | `[ ]` 待补绘 | `public/assets/quests/hs_side10_slay_helian.jpg` | `/assets/quests/hs_side10_slay_helian.jpg` | `QST-SECT-05-SIDE-10`<br>《陇山断道 · 西夏折剑令》 | 第十四幕 · 斩落魔陀<br>（`scene_hss10_14`） | `16:9` |
 
 ---
 
@@ -4229,3 +4251,266 @@
   Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD inside the grand octagonal Tianji Mechanism Tower of Tangjiabao, Sichuan. Massive interlocking bronze water-clock gears, tension springs, and Song-era wooden dougong brackets tower overhead in moody lantern light. On the dark ebony master throne sits Tangmen Patriarch Tang Wuying in imposing black-and-purple brocade robes, while white-bearded grand elder Tang Hexuan sits on an elevated bamboo-curtained dais cradling an intricate brass mechanism box; elders flank both sides as a young initiate presses a blood thumbprint onto a dark iron-gold covenant scroll in the center hall. Authentic Northern Song craftsmanship, mineral pigments, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
   ```
 
+---
+
+### 265. `CG-QST-265`：悬索修栈 · 苍龙岭百丈绝壁之上腰系麻绳与陈伯石匠共换铁索
+
+- **关联文件**：[`src/data/quests/sects/huashanSideCanglongPathQuest.ts`](../src/data/quests/sects/huashanSideCanglongPathQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side01_cliff_repair.jpg`
+- **画框题跋**：`悬索修栈 · 苍龙岭百丈绝壁之上腰系麻绳与陈伯石匠共换铁索`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "悬索修栈 · 苍龙岭百丈绝壁之上腰系麻绳与陈伯石匠共换铁索" from 《苍龙挑夫 · 栈道修缮记》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 266. `CG-QST-266`：浓雾断匪 · 湿滑石脊横剑立桩，入门十二式力擒断索悍匪
+
+- **关联文件**：[`src/data/quests/sects/huashanSideCanglongPathQuest.ts`](../src/data/quests/sects/huashanSideCanglongPathQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side01_ridge_ambush.jpg`
+- **画框题跋**：`浓雾断匪 · 湿滑石脊横剑立桩，入门十二式力擒断索悍匪`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "浓雾断匪 · 湿滑石脊横剑立桩，入门十二式力擒断索悍匪" from 《苍龙挑夫 · 栈道修缮记》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 267. `CG-QST-267`：溪涧护医 · 秦岭古洞外拔剑击退恶猎户，救下游方女医沈青黛
+
+- **关联文件**：[`src/data/quests/sects/huashanSideQinlingHerbQuest.ts`](../src/data/quests/sects/huashanSideQinlingHerbQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side02_qinling_rescue.jpg`
+- **画框题跋**：`溪涧护医 · 秦岭古洞外拔剑击退恶猎户，救下游方女医沈青黛`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "溪涧护医 · 秦岭古洞外拔剑击退恶猎户，救下游方女医沈青黛" from 《玉泉药香 · 秦岭采参行》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 268. `CG-QST-268`：山涧斩虎 · 夜雨篝火旁孤剑力毙秦岭吊睛猛虎，得赠紫阳老参
+
+- **关联文件**：[`src/data/quests/sects/huashanSideQinlingHerbQuest.ts`](../src/data/quests/sects/huashanSideQinlingHerbQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side02_night_tiger.jpg`
+- **画框题跋**：`山涧斩虎 · 夜雨篝火旁孤剑力毙秦岭吊睛猛虎，得赠紫阳老参`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "山涧斩虎 · 夜雨篝火旁孤剑力毙秦岭吊睛猛虎，得赠紫阳老参" from 《玉泉药香 · 秦岭采参行》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 269. `CG-QST-269`：博台解枰 · 绝顶石桌前执黑三子破陈抟希夷古谱残局
+
+- **关联文件**：[`src/data/quests/sects/huashanSideBotaiChessQuest.ts`](../src/data/quests/sects/huashanSideBotaiChessQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side03_chen_tuan_go.jpg`
+- **画框题跋**：`博台解枰 · 绝顶石桌前执黑三子破陈抟希夷古谱残局`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "博台解枰 · 绝顶石桌前执黑三子破陈抟希夷古谱残局" from 《博台纹枰 · 希夷残局录》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 270. `CG-QST-270`：以棋驭剑 · 识破慕容棋待诏袖箭暗算，十合剑势将其震落亭阶
+
+- **关联文件**：[`src/data/quests/sects/huashanSideBotaiChessQuest.ts`](../src/data/quests/sects/huashanSideBotaiChessQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side03_chess_sword_duel.jpg`
+- **画框题跋**：`以棋驭剑 · 识破慕容棋待诏袖箭暗算，十合剑势将其震落亭阶`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "以棋驭剑 · 识破慕容棋待诏袖箭暗算，十合剑势将其震落亭阶" from 《博台纹枰 · 希夷残局录》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 271. `CG-QST-271`：明德暗访 · 重临长安明德门秋雨茶棚，细察假冒华山剑客血案
+
+- **关联文件**：[`src/data/quests/sects/huashanSideChanganImpostorQuest.ts`](../src/data/quests/sects/huashanSideChanganImpostorQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side04_mingde_inquiry.jpg`
+- **画框题跋**：`明德暗访 · 重临长安明德门秋雨茶棚，细察假冒华山剑客血案`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "明德暗访 · 重临长安明德门秋雨茶棚，细察假冒华山剑客血案" from 《明德秋雨 · 长安捉刀客》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 272. `CG-QST-272`：雨脊擒凶 · 长安废园瓦脊正面震碎断魂剑柳残阳兵刃将其生擒
+
+- **关联文件**：[`src/data/quests/sects/huashanSideChanganImpostorQuest.ts`](../src/data/quests/sects/huashanSideChanganImpostorQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side04_rooftop_capture.jpg`
+- **画框题跋**：`雨脊擒凶 · 长安废园瓦脊正面震碎断魂剑柳残阳兵刃将其生擒`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "雨脊擒凶 · 长安废园瓦脊正面震碎断魂剑柳残阳兵刃将其生擒" from 《明德秋雨 · 长安捉刀客》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 273. `CG-QST-273`：朝阳温炉 · 东峰丹房雪夜运功控火，紫气与丹炉纯阳交融
+
+- **关联文件**：[`src/data/quests/sects/huashanSideQiFurnaceQuest.ts`](../src/data/quests/sects/huashanSideQiFurnaceQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side05_furnace_qi.jpg`
+- **画框题跋**：`朝阳温炉 · 东峰丹房雪夜运功控火，紫气与丹炉纯阳交融`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "朝阳温炉 · 东峰丹房雪夜运功控火，紫气与丹炉纯阳交融" from 《紫气丹炉 · 朝阳守火记》. Central figure is a Huashan Qi-lineage disciple in cyan-white and dawn-purple Northern Song Daoist-scholar robe wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 274. `CG-QST-274`：护炉斩毒 · 方寸丹室以养吾剑与混元掌力毙星宿盗药二恶徒
+
+- **关联文件**：[`src/data/quests/sects/huashanSideQiFurnaceQuest.ts`](../src/data/quests/sects/huashanSideQiFurnaceQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side05_poison_raid.jpg`
+- **画框题跋**：`护炉斩毒 · 方寸丹室以养吾剑与混元掌力毙星宿盗药二恶徒`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "护炉斩毒 · 方寸丹室以养吾剑与混元掌力毙星宿盗药二恶徒" from 《紫气丹炉 · 朝阳守火记》. Central figure is a Huashan Qi-lineage disciple in cyan-white and dawn-purple Northern Song Daoist-scholar robe wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 275. `CG-QST-275`：黄土伏骑 · 严冬黄河冰封，随边军老斥候潜伏十里烽燧断崖
+
+- **关联文件**：[`src/data/quests/sects/huashanSideJianTongguanQuest.ts`](../src/data/quests/sects/huashanSideJianTongguanQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side06_loess_ambush.jpg`
+- **画框题跋**：`黄土伏骑 · 严冬黄河冰封，随边军老斥候潜伏十里烽燧断崖`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "黄土伏骑 · 严冬黄河冰封，随边军老斥候潜伏十里烽燧断崖" from 《潼关试铁 · 百步断刃行》. Central figure is a Huashan Sword-lineage disciple in slate-indigo and white Northern Song swordsman robe wielding a swift cold-gleaming jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 276. `CG-QST-276`：百步断刃 · 落雁快剑掠马交错一瞬斩断党项百夫长冷锻弯刀
+
+- **关联文件**：[`src/data/quests/sects/huashanSideJianTongguanQuest.ts`](../src/data/quests/sects/huashanSideJianTongguanQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side06_sever_saber.jpg`
+- **画框题跋**：`百步断刃 · 落雁快剑掠马交错一瞬斩断党项百夫长冷锻弯刀`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "百步断刃 · 落雁快剑掠马交错一瞬斩断党项百夫长冷锻弯刀" from 《潼关试铁 · 百步断刃行》. Central figure is a Huashan Sword-lineage disciple in slate-indigo and white Northern Song swordsman robe wielding a swift cold-gleaming jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 277. `CG-QST-277`：麦坪拆契 · 渭北金黄麦浪前核账揭穿霸天虎阴阳印子钱毒计
+
+- **关联文件**：[`src/data/quests/sects/huashanSideWeibeiHarvestQuest.ts`](../src/data/quests/sects/huashanSideWeibeiHarvestQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side07_audit_ledger.jpg`
+- **画框题跋**：`麦坪拆契 · 渭北金黄麦浪前核账揭穿霸天虎阴阳印子钱毒计`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "麦坪拆契 · 渭北金黄麦浪前核账揭穿霸天虎阴阳印子钱毒计" from 《渭北麦浪 · 侠剑护夏收》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 278. `CG-QST-278`：麦浪斩钩 · 滚滚麦穗间长剑破双钩鬼哭贺兰狰，焚毁百顷黑契
+
+- **关联文件**：[`src/data/quests/sects/huashanSideWeibeiHarvestQuest.ts`](../src/data/quests/sects/huashanSideWeibeiHarvestQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side07_wheat_duel.jpg`
+- **画框题跋**：`麦浪斩钩 · 滚滚麦穗间长剑破双钩鬼哭贺兰狰，焚毁百顷黑契`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "麦浪斩钩 · 滚滚麦穗间长剑破双钩鬼哭贺兰狰，焚毁百顷黑契" from 《渭北麦浪 · 侠剑护夏收》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 279. `CG-QST-279`：鬼市辨剑 · 佩面夜探骊山地下鬼市，火光幽冥中识得青霜古剑
+
+- **关联文件**：[`src/data/quests/sects/huashanSideLishanGhostMarketQuest.ts`](../src/data/quests/sects/huashanSideLishanGhostMarketQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side08_ghost_market.jpg`
+- **画框题跋**：`鬼市辨剑 · 佩面夜探骊山地下鬼市，火光幽冥中识得青霜古剑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "鬼市辨剑 · 佩面夜探骊山地下鬼市，火光幽冥中识得青霜古剑" from 《骊山鬼市 · 古剑寻踪录》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 280. `CG-QST-280`：松林截剑 · 华清后山冷月下孤剑力战断金帮副帮主与辽国密使
+
+- **关联文件**：[`src/data/quests/sects/huashanSideLishanGhostMarketQuest.ts`](../src/data/quests/sects/huashanSideLishanGhostMarketQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side08_pine_intercept.jpg`
+- **画框题跋**：`松林截剑 · 华清后山冷月下孤剑力战断金帮副帮主与辽国密使`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "松林截剑 · 华清后山冷月下孤剑力战断金帮副帮主与辽国密使" from 《骊山鬼市 · 古剑寻踪录》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 281. `CG-QST-281`：白玉还锋 · 落雁峰白玉坛双手奉还青霜古剑，秦烈山抚剑动容
+
+- **关联文件**：[`src/data/quests/sects/huashanSideLishanGhostMarketQuest.ts`](../src/data/quests/sects/huashanSideLishanGhostMarketQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side08_return_sword.jpg`
+- **画框题跋**：`白玉还锋 · 落雁峰白玉坛双手奉还青霜古剑，秦烈山抚剑动容`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "白玉还锋 · 落雁峰白玉坛双手奉还青霜古剑，秦烈山抚剑动容" from 《骊山鬼市 · 古剑寻踪录》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 282. `CG-QST-282`：终南论道 · 古观大殿坐而论经，陈抟阴阳剑理折服关中玄门
+
+- **关联文件**：[`src/data/quests/sects/huashanSideZhongnanTaoQuest.ts`](../src/data/quests/sects/huashanSideZhongnanTaoQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side09_dao_debate.jpg`
+- **画框题跋**：`终南论道 · 古观大殿坐而论经，陈抟阴阳剑理折服关中玄门`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "终南论道 · 古观大殿坐而论经，陈抟阴阳剑理折服关中玄门" from 《终南论道 · 金莲净火劫》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 283. `CG-QST-283`：净火破邪 · 丹墀之上浩然太岳剑势斩断狮吼子毒铜钹将其逐山
+
+- **关联文件**：[`src/data/quests/sects/huashanSideZhongnanTaoQuest.ts`](../src/data/quests/sects/huashanSideZhongnanTaoQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side09_shihouzi_clash.jpg`
+- **画框题跋**：`净火破邪 · 丹墀之上浩然太岳剑势斩断狮吼子毒铜钹将其逐山`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "净火破邪 · 丹墀之上浩然太岳剑势斩断狮吼子毒铜钹将其逐山" from 《终南论道 · 金莲净火劫》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 284. `CG-QST-284`：双剑西出 · 秦烈山破例下落雁峰，携主角并骑疾驰赴陇山古道
+
+- **关联文件**：[`src/data/quests/sects/huashanSideLongshanBrokenSwordQuest.ts`](../src/data/quests/sects/huashanSideLongshanBrokenSwordQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side10_qin_ride_west.jpg`
+- **画框题跋**：`双剑西出 · 秦烈山破例下落雁峰，携主角并骑疾驰赴陇山古道`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "双剑西出 · 秦烈山破例下落雁峰，携主角并骑疾驰赴陇山古道" from 《陇山断道 · 西夏折剑令》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 285. `CG-QST-285`：残阳破阵 · 芦苇如雪古烽燧下，与潼关剑神双剑合璧破金牌剑奴阵
+
+- **关联文件**：[`src/data/quests/sects/huashanSideLongshanBrokenSwordQuest.ts`](../src/data/quests/sects/huashanSideLongshanBrokenSwordQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side10_slave_array.jpg`
+- **画框题跋**：`残阳破阵 · 芦苇如雪古烽燧下，与潼关剑神双剑合璧破金牌剑奴阵`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "残阳破阵 · 芦苇如雪古烽燧下，与潼关剑神双剑合璧破金牌剑奴阵" from 《陇山断道 · 西夏折剑令》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 286. `CG-QST-286`：斩落魔陀 · 绝学震裂百斤玄铁重剑，一剑枭首西夏供奉赫连断岳
+
+- **关联文件**：[`src/data/quests/sects/huashanSideLongshanBrokenSwordQuest.ts`](../src/data/quests/sects/huashanSideLongshanBrokenSwordQuest.ts)
+- **目标路径**：`public/assets/quests/hs_side10_slay_helian.jpg`
+- **画框题跋**：`斩落魔陀 · 绝学震裂百斤玄铁重剑，一剑枭首西夏供奉赫连断岳`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Guanzhong / Mount Huashan / Longshan. Depicting scene "斩落魔陀 · 绝学震裂百斤玄铁重剑，一剑枭首西夏供奉赫连断岳" from 《陇山断道 · 西夏折剑令》. Central figure is a young Huashan Sect swordsman in authentic Northern Song cyan-and-white martial robes wielding a long jian. Authentic Northern Song architecture, mountains, pines, and mineral pigments (azurite, malachite, cinnabar, ink wash), dynamic wuxia atmosphere, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```

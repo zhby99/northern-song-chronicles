@@ -26,6 +26,16 @@ import { HUASHAN_Q10_QUESTS } from './sects/huashanQiSanqingQuest'
 import { HUASHAN_Q05_QUESTS } from './sects/huashanQiXiyiQuest'
 import { HUASHAN_Q03_QUESTS } from './sects/huashanQiYangwuQuest'
 import { HUASHAN_Q17_QUESTS } from './sects/huashanQiZixiaAwakenQuest'
+import { HUASHAN_SIDE03_QUESTS } from './sects/huashanSideBotaiChessQuest'
+import { HUASHAN_SIDE01_QUESTS } from './sects/huashanSideCanglongPathQuest'
+import { HUASHAN_SIDE04_QUESTS } from './sects/huashanSideChanganImpostorQuest'
+import { HUASHAN_SIDE06_QUESTS } from './sects/huashanSideJianTongguanQuest'
+import { HUASHAN_SIDE08_QUESTS } from './sects/huashanSideLishanGhostMarketQuest'
+import { HUASHAN_SIDE10_QUESTS } from './sects/huashanSideLongshanBrokenSwordQuest'
+import { HUASHAN_SIDE05_QUESTS } from './sects/huashanSideQiFurnaceQuest'
+import { HUASHAN_SIDE02_QUESTS } from './sects/huashanSideQinlingHerbQuest'
+import { HUASHAN_SIDE07_QUESTS } from './sects/huashanSideWeibeiHarvestQuest'
+import { HUASHAN_SIDE09_QUESTS } from './sects/huashanSideZhongnanTaoQuest'
 import { HUASHAN_Q13_QUESTS } from './sects/huashanSiguoyaSecretQuest'
 import { HUASHAN_Q16_QUESTS } from './sects/huashanYantaCrisisQuest'
 import { HUASHAN_Q01_QUESTS } from './sects/huashanYaowangTrialQuest'
@@ -94,6 +104,16 @@ export const QUEST_REGISTRY: readonly QuestDefinition[] = Object.freeze([
   ...HUASHAN_Q20_QUESTS,
   ...HUASHAN_Q21_QUESTS,
   ...HUASHAN_Q22_QUESTS,
+  ...HUASHAN_SIDE01_QUESTS,
+  ...HUASHAN_SIDE02_QUESTS,
+  ...HUASHAN_SIDE03_QUESTS,
+  ...HUASHAN_SIDE04_QUESTS,
+  ...HUASHAN_SIDE05_QUESTS,
+  ...HUASHAN_SIDE06_QUESTS,
+  ...HUASHAN_SIDE07_QUESTS,
+  ...HUASHAN_SIDE08_QUESTS,
+  ...HUASHAN_SIDE09_QUESTS,
+  ...HUASHAN_SIDE10_QUESTS,
   ...TAISHAN_ENTRY_QUESTS,
   ...EMEI_ENTRY_QUESTS,
   ...TANGMEN_ENTRY_QUESTS,
