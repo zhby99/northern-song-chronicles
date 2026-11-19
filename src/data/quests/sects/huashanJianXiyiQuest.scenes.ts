@@ -517,7 +517,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '双手接过华山真传玄玉剑牌，拜谢两位前辈',
         tone: 'gold',
         effects: [
-          { type: 'setSectRank', sectId: 'SECT-05', rank: 3 },
+          { type: 'setSectRank', sectId: 'SECT-05', rank: 3, promoteOnly: true },
           toast('恭喜晋升华山派第 3 阶【真传弟子】！', 'success', '晋位真传'),
           openScene('scene_hsq08_21', HUASHAN_Q08_QUEST_ID),
         ],

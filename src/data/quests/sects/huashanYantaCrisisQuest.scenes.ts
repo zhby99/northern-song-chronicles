@@ -622,7 +622,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '佩紧四阶长老剑绶，巡视山门迎候即将到来的决战',
         tone: 'gold',
         effects: [
-          { type: 'setSectRank', sectId: 'SECT-05', rank: 4 },
+          { type: 'setSectRank', sectId: 'SECT-05', rank: 4, promoteOnly: true },
           { type: 'giveSilver', amount: 240, reason: '雁塔除魔救护同门与晋升四阶长老厚赏' },
           { type: 'addSectContribution', amount: 150 },
           { type: 'giveCombatExp', amount: 320, reason: '血战大雁塔七层力挫拓跋雄与星宿长老' },

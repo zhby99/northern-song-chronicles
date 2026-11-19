@@ -467,7 +467,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '叩谢掌门与宁师叔授剑之恩，正式晋位【华山真传弟子】！',
         tone: 'gold',
         effects: [
-          { type: 'setSectRank', sectId: 'SECT-05', rank: 3 },
+          { type: 'setSectRank', sectId: 'SECT-05', rank: 3, promoteOnly: true },
           { type: 'addArtExp', artId: 'MA-089', amount: 280 },
           { type: 'giveSilver', amount: 120, reason: '护送希夷道卷归山并挫败还施水阁赏银' },
           { type: 'addSectContribution', amount: 90 },

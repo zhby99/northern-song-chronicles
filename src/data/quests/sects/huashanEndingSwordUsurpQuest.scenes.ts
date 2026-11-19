@@ -734,7 +734,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '执掌太岳霸权，正式晋升 Lv.5 西岳霸剑宗主！',
         tone: 'gold',
         effects: [
-          { type: 'setSectRank', sectId: 'SECT-05', rank: 5 },
+          { type: 'setSectRank', sectId: 'SECT-05', rank: 5, promoteOnly: true },
           { type: 'setFlag', flag: 'hs_ending', value: 'sword_usurp' },
           { type: 'giveSilver', amount: 450, reason: '屠灭风陵夏营登基西岳霸剑宗主' },
           { type: 'addSectContribution', amount: 300 },

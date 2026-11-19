@@ -623,6 +623,7 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
   setSectRank: (eff, ctx) => {
     const s = ctx.draft
     if (s.sectState.sectId !== eff.sectId) return
+    if (eff.promoteOnly && eff.rank <= s.sectState.rank) return
     const nextRankLabel = getSectRankTitle(eff.sectId, eff.rank)
     const nextSect: PlayerSectState = {
       ...clonePlayerSectState(s.sectState),
@@ -631,15 +632,22 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
     }
     const isPromo = eff.rank >= s.sectState.rank
     const fName = FACTION_DB_MAP[eff.sectId]?.name ?? eff.sectId
+    // 官面军伍（禁军 / 常山边军）沿用「奉诏 · 军职」措辞，开封府为官职，其余江湖门派为门派职阶
+    const isMilitary = eff.sectId === 'SECT-33' || eff.sectId === 'SECT-22'
+    const isOfficial = isMilitary || eff.sectId === 'SECT-17'
     const logMsg = isPromo
-      ? `奉诏晋升【${fName}】第 ${eff.rank} 阶军职——【${nextRankLabel}】！`
-      : `朝堂问责降级：【${fName}】职衔贬为第 ${eff.rank} 阶【${nextRankLabel}】！`
+      ? isOfficial
+        ? `奉诏晋升【${fName}】第 ${eff.rank} 阶${isMilitary ? '军职' : '官职'}——【${nextRankLabel}】！`
+        : `师门擢升：晋为【${fName}】第 ${eff.rank} 阶【${nextRankLabel}】！`
+      : isOfficial
+        ? `朝堂问责降级：【${fName}】职衔贬为第 ${eff.rank} 阶【${nextRankLabel}】！`
+        : `师门惩戒：【${fName}】职阶降为第 ${eff.rank} 阶【${nextRankLabel}】！`
     ctx.patchDraft({
       sectState: nextSect,
       logs: [
         createLogEntry(
           s.dayCount,
-          isPromo ? '军职晋升' : '削职降级',
+          isPromo ? (isOfficial ? '军职晋升' : '门派晋升') : isOfficial ? '削职降级' : '门派降阶',
           logMsg,
           true,
           s.shichenIdx,

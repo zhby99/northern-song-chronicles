@@ -570,7 +570,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '受禅执掌太岳玉印，正式晋升 Lv.5 华山剑气共主！',
         tone: 'gold',
         effects: [
-          { type: 'setSectRank', sectId: 'SECT-05', rank: 5 },
+          { type: 'setSectRank', sectId: 'SECT-05', rank: 5, promoteOnly: true },
           { type: 'setFlag', flag: 'hs_ending', value: 'sword_harmony' },
           { type: 'giveSilver', amount: 450, reason: '剑气联师荡平风陵受禅继任共主贺仪' },
           { type: 'addSectContribution', amount: 320 },

@@ -431,7 +431,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         tone: 'gold',
         effects: [
           { type: 'setFlag', flag: 'hs_branch', value: 'qi' },
-          { type: 'setSectRank', sectId: 'SECT-05', rank: 2 },
+          { type: 'setSectRank', sectId: 'SECT-05', rank: 2, promoteOnly: true },
           { type: 'addArtExp', artId: 'MA-167', amount: 300 },
           { type: 'addArtExp', artId: 'MA-160', amount: 260 },
           { type: 'giveSilver', amount: 60, reason: '博台大比夺魁晋升内门赏银' },
@@ -462,7 +462,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         tone: 'danger',
         effects: [
           { type: 'setFlag', flag: 'hs_branch', value: 'jian' },
-          { type: 'setSectRank', sectId: 'SECT-05', rank: 2 },
+          { type: 'setSectRank', sectId: 'SECT-05', rank: 2, promoteOnly: true },
           { type: 'addArtExp', artId: 'MA-167', amount: 300 },
           { type: 'addArtExp', artId: 'MA-160', amount: 260 },
           { type: 'giveSilver', amount: 60, reason: '博台大比夺魁晋升内门赏银' },

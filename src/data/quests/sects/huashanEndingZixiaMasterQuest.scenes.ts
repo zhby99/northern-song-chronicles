@@ -584,7 +584,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '执掌太岳玉印，正式晋升 Lv.5 华山派掌门！',
         tone: 'gold',
         effects: [
-          { type: 'setSectRank', sectId: 'SECT-05', rank: 5 },
+          { type: 'setSectRank', sectId: 'SECT-05', rank: 5, promoteOnly: true },
           { type: 'setFlag', flag: 'hs_ending', value: 'zixia_master' },
           { type: 'giveSilver', amount: 420, reason: '荡平风陵夏营荣登华山掌门贺仪' },
           { type: 'addSectContribution', amount: 300 },

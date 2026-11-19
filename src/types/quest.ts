@@ -286,7 +286,11 @@ export type QuestEffect =
       allowOfficialTransfer?: boolean
     }
   | { type: 'confirmJoinSect'; sectId: string }
-  | { type: 'setSectRank'; sectId: string; rank: SectRankLevel }
+  /**
+   * 设定门派职阶。默认按给定值直接设定（禁军等官面势力可借此削职降级）；
+   * `promoteOnly` 为 true 时只升不降——已高于该阶者（如旧档经宗门大比晋升）保持原职阶。
+   */
+  | { type: 'setSectRank'; sectId: string; rank: SectRankLevel; promoteOnly?: boolean }
   | { type: 'fineSectSalary'; months: number }
   | { type: 'leaveSect'; skipPenalty?: boolean }
   | { type: 'addSectContribution'; amount: number }
