@@ -1,6 +1,5 @@
-import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q35_QUEST_ID } from './shaolinWulinAssemblyScandalQuest'
 
 const SPEAKER_XINGXIU_DISCIPLE: StorySpeakerSpec = {
@@ -28,39 +27,6 @@ const SPEAKER_JIANGHU_SCHOLAR: StorySpeakerSpec = {
   factionName: '中原武林',
   portraitUrl: '/assets/characters/templates/tpl_song_scholar_fb.jpg',
   avatarUrl: '/assets/characters/templates/tpl_song_scholar_av.jpg',
-}
-
-function buildDingChunqiuAssemblyBoss(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_SLQ35_DING_CHUNQIU',
-    name: '丁春秋',
-    title: '星宿老怪（化功毒掌全力）',
-    realm: '宗师中品',
-    factionName: '星宿派',
-    sectRank: 5,
-    sectRankLabel: '星宿老仙',
-    avatarUrl: '/assets/characters/templates/tpl_xingxiu_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_xingxiu_fb.jpg',
-    talk: '“哈哈哈！少林寺果然无人，竟派个后辈来送死！且尝尝老仙十合化功毒掌的滋味！”',
-    stats: { hp: 5620, mp: 5340, agi: 82, res: 76 },
-    talents: { bone: 84, comprehension: 88, charm: 70 },
-    equippedArts: {
-      neigong: 'MA-026',
-      qinggong: 'MA-097',
-      move1: 'MA-055',
-      move2: 'MA-065',
-      move3: 'MA-127',
-      move4: 'MA-091',
-    },
-    learnedArts: [
-      { artId: 'MA-026', level: 9 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-055', level: 9 },
-      { artId: 'MA-065', level: 9 },
-      { artId: 'MA-127', level: 8 },
-      { artId: 'MA-091', level: 8 },
-    ],
-  })
 }
 
 export const SHAOLIN_Q35_SCENES: Record<string, StorySceneDef> = {
@@ -198,7 +164,12 @@ export const SHAOLIN_Q35_SCENES: Record<string, StorySceneDef> = {
           {
             type: 'startCombat',
             questId: SHAOLIN_Q35_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildDingChunqiuAssemblyBoss() },
+            opponent: {
+              kind: 'npc',
+              npcId: 'NPC-0122',
+              talkOverride:
+                '“哈哈哈！少林寺果然无人，竟派个后辈来送死！且尝尝老仙十合化功毒掌的滋味！”',
+            },
             rule: 'survive_rounds',
             maxRounds: 10,
             forbidEscapeReason: '数千群雄环伺演武坪，退避一步则少林千年颜面扫地！',

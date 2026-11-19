@@ -17,6 +17,8 @@ export const HUASHAN_Q16_START_CONDITION: QuestCondition = {
     },
     qStatus(HUASHAN_Q16_QUEST_ID, 'not_started'),
     { type: 'npcAlive', npcId: 'NPC-0118', npcName: '岳沧溟' },
+    { type: 'npcAlive', npcId: 'NPC-0147', npcName: '秦烈山' },
+    { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },
     { type: 'npcAlive', npcId: 'NPC-0167', npcName: '封不弃' },
     { type: 'npcAlive', npcId: 'NPC-0202', npcName: '高沧云' },
   ],
@@ -29,9 +31,9 @@ export const HUASHAN_Q16_QUEST: QuestDefinition = {
   factionId: 'SECT-05',
   regionId: 'tongguan',
   recommendedRealm: '一流中品 ～ 一流上品',
-  maxOpponentRealm: '一流上品（一品堂关中副使拓跋雄 · 星宿毒阵长老双凶合击）',
+  maxOpponentRealm: '一流上品（一品堂关中副使拓跋烈 · 星宿毒阵长老双凶合击）',
   recommendedNote:
-    '华山派晋升四阶长老核心大战长卷（二十八幕）。西夏权臣没藏讹庞欲寇泾原，密令一品堂关中主事拓跋雄勾结星宿妖人将封不弃、高沧云诱困于【京兆府 · 慈恩寺大雁塔】！你亲率二十名华山精锐星夜驰援长安，自大雁塔底层血战杀上七层飞檐，连破强弩刀阵与腐骨毒雾救出同门，凯旋晋封四阶长老（护法长老 / 执剑长老）！',
+    '华山派晋升四阶长老核心大战长卷（二十八幕）。西夏权臣没藏讹庞欲寇泾原，密令一品堂关中主事拓跋烈勾结星宿妖人将封不弃、高沧云诱困于【京兆府 · 慈恩寺大雁塔】！你亲率二十名华山精锐星夜驰援长安，自大雁塔底层血战杀上七层飞檐，连破强弩刀阵与腐骨毒雾救出同门，凯旋晋封四阶长老（护法长老 / 执剑长老）！',
   startHint:
     '完结《石室止戈 · 剑气同源》或《魔刻噬心 · 破尽同门》后，前往【玉女峰紫霞道观 · 紫霞正气主殿】向岳沧溟接领十万火急军情。',
   startLocation: {
@@ -42,7 +44,7 @@ export const HUASHAN_Q16_QUEST: QuestDefinition = {
   },
   startCondition: HUASHAN_Q16_START_CONDITION,
   summary:
-    '{reignYear}冬寒彻骨，西夏权臣没藏讹庞图谋大举进犯泾原路，为剪除大宋关中武林羽翼，密令一品堂关中副使拓跋雄勾结星宿海毒师设下绝户陷阱，将追查敌踪的封不弃与大师兄高沧云死死围困于【长安慈恩寺大雁塔】顶层！你于【紫霞正气主殿】临危受命，统领二十名华山剑客星夜疾驰长安，顶着强弩与毒烟自大雁塔一层血战杀至七层飞檐，力挫拓跋雄与星宿毒阵长老联手，救下封、高二人。败退西夏人故意遗落一封挑拨华山气剑相疑的伪造血书；返山之后，四老联署册封你为四阶长老，而山门之外更大的风暴已然逼近！',
+    '{reignYear}冬寒彻骨，西夏权臣没藏讹庞图谋大举进犯泾原路，为剪除大宋关中武林羽翼，密令一品堂关中副使拓跋烈勾结星宿海毒师设下绝户陷阱，将追查敌踪的封不弃与大师兄高沧云死死围困于【长安慈恩寺大雁塔】顶层！你于【紫霞正气主殿】临危受命，统领二十名华山剑客星夜疾驰长安，顶着强弩与毒烟自大雁塔一层血战杀至七层飞檐，力挫拓跋烈与星宿毒阵长老联手，救下封、高二人。败退西夏人故意遗落一封挑拨华山气剑相疑的伪造血书；返山之后，四老联署册封你为四阶长老，而山门之外更大的风暴已然逼近！',
   initialStepId: 'q16_yanta_base',
   steps: {
     q16_yanta_base: {
@@ -75,9 +77,9 @@ export const HUASHAN_Q16_QUEST: QuestDefinition = {
       id: 'q16_yanta_top',
       title: '七层飞檐战 · 力挫双凶首',
       objective:
-        '中层毒阵已破，塔顶喊杀震天！请直登【慈恩寺大雁塔 · 绝顶佛龛 · 凭栏远眺】，迎战一品堂副使拓跋雄与星宿毒阵长老，救出封不弃与高沧云！',
+        '中层毒阵已破，塔顶喊杀震天！请直登【慈恩寺大雁塔 · 绝顶佛龛 · 凭栏远眺】，迎战一品堂副使拓跋烈与星宿毒阵长老，救出封不弃与高沧云！',
       nextHint:
-        '前往【慈恩寺大雁塔 · 绝顶佛龛 · 凭栏远眺（ca_dayanta_west）】，点击「跃上七层飞檐 · 死战拓跋雄与星宿长老」。',
+        '前往【慈恩寺大雁塔 · 绝顶佛龛 · 凭栏远眺（ca_dayanta_west）】，点击「跃上七层飞檐 · 死战拓跋烈与星宿长老」。',
       targetLocation: {
         regionId: 'changan',
         buildingId: 'ca_dayanta',
@@ -166,7 +168,7 @@ export const HUASHAN_Q16_QUEST: QuestDefinition = {
     },
     {
       id: 'spot_hsq16_yanta_top',
-      label: '跃上七层飞檐 · 死战拓跋雄与星宿长老',
+      label: '跃上七层飞檐 · 死战拓跋烈与星宿长老',
       badge: '飞檐除魔',
       subtitle: '绝顶佛龛凭栏远眺 · 解救封高二人',
       tone: 'danger',

@@ -555,9 +555,40 @@ export const SCENES: Record<string, StorySceneDef> = {
       },
       {
         id: 'hs14_right_balance',
-        label: '“剑气本出一源，当内外兼修、不偏不倚；至于外敌秘籍诱惑，华山弟子宁死不背师门，守正笃行方为君子剑！”',
+        label: '“剑气本出一源，当内外兼修、不偏不倚；至于外敌秘籍诱惑，华山弟子宁死不背师门，守正笃行方为太岳正道！”',
         tone: 'default',
-        effects: [openScene('scene_hs_15_join_huashan', HUASHAN_ENTRY_QUEST_ID)],
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'noLearnedArtAtOrAboveTier', tier: '良品下品' },
+            thenEffects: [openScene('scene_hs_15_join_huashan', HUASHAN_ENTRY_QUEST_ID)],
+            elseEffects: [openScene('scene_hs_14_fail_not_whitepaper', HUASHAN_ENTRY_QUEST_ID)],
+          },
+        ],
+      },
+    ],
+  },
+
+  // 第 14 幕失败分支（偷学高阶武学破坏白纸根基）
+  scene_hs_14_fail_not_whitepaper: {
+    id: 'scene_hs_14_fail_not_whitepaper',
+    title: '杂学已杂 · 难续白纸',
+    subtitle: '紫霞正气主殿',
+    mandatory: true,
+    beats: [
+      S('NPC-0118', '（伸指搭你腕脉，眉头骤然一紧）“咦？你体内真气驳杂，分明已在外私修过良品及以上的外派高阶武学！我华山收徒重在白纸筑基、剑气纯粹，既已别有所学，便难再入我太岳门墙！”'),
+      N('你只得交还玄铁剑令，拱手辞别玉女峰。'),
+    ],
+    choices: [
+      {
+        id: 'hs14_fail_not_wp_confirm',
+        label: '交还剑令，辞别华山',
+        tone: 'danger',
+        effects: [
+          { type: 'abandonQuest', questId: HUASHAN_ENTRY_QUEST_ID },
+          { type: 'teleportPlayer', regionId: 'changan', buildingId: 'changan_base_inn' },
+          toast('身负良品及以上外学，已不符华山派白纸入门门规！', 'warn', '白纸门禁'),
+        ],
       },
     ],
   },

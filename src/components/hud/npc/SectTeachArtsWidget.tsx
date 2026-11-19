@@ -67,9 +67,11 @@ export function SectTeachArtsWidget({
               sectState.rank,
             )
             const unlocked = rankOk && !blockedByLay && !blockedByHuashanLineage
-            const isShaolinMonkOnlyTier =
-              (targetFactionId === 'SECT-01' || targetFactionId === 'SECT-04') &&
-              (entry.art.tier === '地阶' || entry.art.tier === '天阶')
+            const isShaolinMonkOnlyTier = isShaolinArtBlockedForLayDisciple(
+              targetFactionId,
+              entry.art,
+              'lay',
+            )
             const isHuashanQuestTier =
               targetFactionId === 'SECT-05' && entry.art.tier !== '凡品'
             return (

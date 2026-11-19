@@ -77,6 +77,7 @@ export function SectAffairsPanel({
         silver,
         baseStats,
         inventory,
+        questFlags: questState.flags,
       })
     : null
 

@@ -12,15 +12,6 @@ const SPEAKER_HELIAN: StorySpeakerSpec = {
   avatarUrl: '/assets/characters/templates/tpl_xixia_court_male_av.jpg',
 }
 
-const SPEAKER_NUERHAI: StorySpeakerSpec = {
-  kind: 'custom',
-  name: '努儿海',
-  title: '西夏一品堂铁骑先锋',
-  factionName: '西夏一品堂',
-  portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
-}
-
 const SPEAKER_CORPSE_POISON: StorySpeakerSpec = {
   kind: 'custom',
   name: '腐尸老鬼',
@@ -68,30 +59,6 @@ function buildPoisonVanguardBoss(): NodeNpc {
       { artId: 'MA-097', level: 9 },
       { artId: 'MA-055', level: 9 },
       { artId: 'MA-065', level: 9 },
-    ],
-  })
-}
-
-function buildNuerhaiBoss(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_SLQ41_NUERHAI',
-    name: '努儿海',
-    title: '西夏一品堂铁骑先锋',
-    realm: '宗师下品',
-    factionName: '西夏一品堂',
-    sectRank: 0,
-    sectRankLabel: '铁骑先锋',
-    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-    talk: '“赫连大将军有令，踏平罗汉堂者赏黄金千两！儿郎们，冲锋！”',
-    stats: { hp: 5120, mp: 4650, agi: 81, res: 74 },
-    talents: { bone: 84, comprehension: 72, charm: 36 },
-    equippedArts: { neigong: 'MA-081', qinggong: 'MA-097', move1: 'MA-091', move2: 'MA-107' },
-    learnedArts: [
-      { artId: 'MA-081', level: 9 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-091', level: 9 },
-      { artId: 'MA-107', level: 9 },
     ],
   })
 }
@@ -300,7 +267,7 @@ export const SHAOLIN_Q41_SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('罗汉堂前血光冲天！五百罗汉棍阵与西夏黑甲死士狠狠撞在一起，熟铜棍扫断弯刀，鲜血染红了每一级石阶！'),
       S(SPEAKER_CORPSE_POISON, '（袖中甩出两道乌黑毒磷火，直扑罗汉阵心）“少林掌门受死！尝尝我星宿海的炼心尸毒！”'),
-      S(SPEAKER_NUERHAI, '（挥舞重达八十斤的西夏狼牙铁锤狂吼劈来）“破开这秃驴的脑袋，少林寺便是咱们的了！”'),
+      S('NPC-0152', '（挥舞重达八十斤的西夏狼牙铁锤狂吼劈来）“破开这秃驴的脑袋，少林寺便是咱们的了！”'),
     ],
     onFinishEffects: [openScene('scene_slq41_14', SHAOLIN_Q41_QUEST_ID)],
   },
@@ -325,7 +292,13 @@ export const SHAOLIN_Q41_SCENES: Record<string, StorySceneDef> = {
             type: 'startCombat',
             questId: SHAOLIN_Q41_QUEST_ID,
             opponent: { kind: 'custom', npc: buildPoisonVanguardBoss() },
-            extraOpponents: [{ kind: 'custom', npc: buildNuerhaiBoss() }],
+            extraOpponents: [
+              {
+                kind: 'npc',
+                npcId: 'NPC-0152',
+                talkOverride: '“赫连大将军有令，踏平罗汉堂者赏黄金千两！儿郎们，冲锋！”',
+              },
+            ],
             allies: [{ kind: 'npc', npcId: 'NPC-0127' }],
             rule: 'story_trial',
             forbidEscapeReason: '罗汉堂乃少林中路咽喉，退后一步便是满寺浩劫！',
@@ -389,7 +362,7 @@ export const SHAOLIN_Q41_SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('轰隆隆——！一道刚猛绝伦、宛如实质金龙般的磅礴掌风凭空撕裂青绿毒雾，瞬间将西夏左翼十余匹铁骑连人带马震飞三丈，三辆火油车轰然炸碎！'),
       N('但见一条虎背熊腰、浓眉大眼、披着粗布大氅的盖世豪雄如天神下凡般踏破敌阵疾驰而来，身后更跟着数十名丐帮精锐长老与江湖豪侠——正是万里日夜兼程驰援嵩山的【萧峰】！'),
-      S('NPC-0110', '（哈哈大笑，大步跃至你身前抱拳，豪气干云）“{gender:大师|女侠}！萧某在洛阳道上截获少林急鸽，星夜策马赶来，幸好未曾来迟！”'),
+      S('NPC-0110', '（哈哈大笑，大步跃至你身前抱拳，豪气干云）“{ifFlag:sl_branch==layman|大居士|大师}！萧某在洛阳道上截获少林急鸽，星夜策马赶来，幸好未曾来迟！”'),
     ],
     onFinishEffects: [openScene('scene_slq41_19', SHAOLIN_Q41_QUEST_ID)],
   },
@@ -401,7 +374,7 @@ export const SHAOLIN_Q41_SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       P('（心中热流激荡，畅快大笑，紧紧回礼）“萧大侠来得正是时候！有萧大侠降龙神掌助阵，区区赫连铁树与丁春秋何足道哉！”'),
-      S('NPC-0110', '（目光如电锁定山坡下方那杆飘扬的西夏黑狼帅旗，冷哼一声）“擒贼先擒王！赫连铁树与丁春秋就在中军帅旗之下！{gender:掌门|大居士}，可敢随萧某杀入敌阵，斩了他的帅旗，废了那老毒物？！”'),
+      S('NPC-0110', '（目光如电锁定山坡下方那杆飘扬的西夏黑狼帅旗，冷哼一声）“擒贼先擒王！赫连铁树与丁春秋就在中军帅旗之下！{ifFlag:sl_branch==layman|大居士|掌门}，可敢随萧某杀入敌阵，斩了他的帅旗，废了那老毒物？！”'),
       P('（衣袍振风，傲然昂首）“有何不敢！玄难、玄痛、玄寂三位师伯率千僧稳住两翼，今日我与萧大侠便直取中军！”'),
     ],
     onFinishEffects: [openScene('scene_slq41_20', SHAOLIN_Q41_QUEST_ID)],
@@ -458,7 +431,7 @@ export const SHAOLIN_Q41_SCENES: Record<string, StorySceneDef> = {
     subtitle: '演武坪外中军帅旗下（与萧峰并肩 2v2 宗师上品决战）',
     mandatory: true,
     beats: [
-      S('NPC-0110', '（双掌缓缓推出，虎啸龙吟之声震耳欲聋）“{gender:掌门|大居士}！赫连铁树霸道刚猛，丁春秋阴毒诡诈——你我背靠背联手，今日便在此斩碎西夏帅旗！”'),
+      S('NPC-0110', '（双掌缓缓推出，虎啸龙吟之声震耳欲聋）“{ifFlag:sl_branch==layman|大居士|掌门}！赫连铁树霸道刚猛，丁春秋阴毒诡诈——你我背靠背联手，今日便在此斩碎西夏帅旗！”'),
       P('（真气催至绝巅，目如寒星）“正合我意！杀——！”'),
     ],
     choices: [
@@ -570,7 +543,7 @@ export const SHAOLIN_Q41_SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       P('（望向身旁豪气不减的萧峰，郑重拱手）“萧大侠千里驰援、生死相托，救我少林于倒悬！大雄正殿已备下素宴与清茶，还请萧大侠移步入殿，受少林全寺一拜！”'),
-      S('NPC-0110', '（哈哈大笑，拍了拍你的肩膀）“萧某与少林渊源深厚，更有{gender:大师|大居士}这等知己在此，何必客套！不过大殿之上吃茶可以，待会儿出了山门，你可莫拦着萧某痛饮十坛烈酒！”'),
+      S('NPC-0110', '（哈哈大笑，拍了拍你的肩膀）“萧某与少林渊源深厚，更有{ifFlag:sl_branch==layman|大居士|大师}这等知己在此，何必客套！不过大殿之上吃茶可以，待会儿出了山门，你可莫拦着萧某痛饮十坛烈酒！”'),
     ],
     onFinishEffects: [openScene('scene_slq41_31', SHAOLIN_Q41_QUEST_ID)],
   },
@@ -603,7 +576,7 @@ export const SHAOLIN_Q41_SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('大雄正殿内灯火通明。玄难、玄痛、玄寂三位高僧携四十八房长老齐齐向萧峰合十致谢，萧峰连连抱拳还礼。'),
-      S('NPC-0110', '（举起清茶以茶代酒，神色忽而凝重几分）“{gender:掌门|大居士}，此战虽击退了赫连铁树与丁春秋，但我一路追查西夏与大辽暗桩时，却隐隐察觉到一股更深沉的暗流——有人似乎一直在暗中窥伺少林藏经阁，而且牵扯到三十年前雁门关的一桩血海旧案……”'),
+      S('NPC-0110', '（举起清茶以茶代酒，神色忽而凝重几分）“{ifFlag:sl_branch==layman|大居士|掌门}，此战虽击退了赫连铁树与丁春秋，但我一路追查西夏与大辽暗桩时，却隐隐察觉到一股更深沉的暗流——有人似乎一直在暗中窥伺少林藏经阁，而且牵扯到三十年前雁门关的一桩血海旧案……”'),
     ],
     onFinishEffects: [openScene('scene_slq41_33', SHAOLIN_Q41_QUEST_ID)],
   },
@@ -648,7 +621,7 @@ export const SHAOLIN_Q41_SCENES: Record<string, StorySceneDef> = {
     subtitle: '嵩山少林寺 · 山门古道',
     mandatory: true,
     beats: [
-      N('山门之外，秋风萧瑟。萧峰翻身上马，冲你朗声抱拳道：“{gender:掌门|大居士}留步！待萧某查明北方身世与旧案真相，咱们藏经阁下再会！”'),
+      N('山门之外，秋风萧瑟。萧峰翻身上马，冲你朗声抱拳道：“{ifFlag:sl_branch==layman|大居士|掌门}留步！待萧某查明北方身世与旧案真相，咱们藏经阁下再会！”'),
       N('马蹄疾驰而去，唯余豪迈笑声回荡山谷。你心中隐隐预感，半年之后的藏经阁，必将迎来一场真正决定江湖格局的绝顶风暴。'),
     ],
     onFinishEffects: [openScene('scene_slq41_37', SHAOLIN_Q41_QUEST_ID)],

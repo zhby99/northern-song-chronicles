@@ -1,5 +1,5 @@
 import type { QuestCondition, QuestDefinition } from '../../../types/quest'
-import { atStep, openScene, qStatus } from '../../../engine/quest/dsl'
+import { atStep, flag, openScene, qStatus } from '../../../engine/quest/dsl'
 
 export const HUASHAN_SIDE03_QUEST_ID = 'QST-SECT-05-SIDE-03'
 
@@ -9,6 +9,7 @@ export const HUASHAN_SIDE03_START_CONDITION: QuestCondition = {
     qStatus('QST-SECT-05-02', 'completed'),
     { type: 'inSect', sectId: 'SECT-05', minRank: 2 },
     qStatus(HUASHAN_SIDE03_QUEST_ID, 'not_started'),
+    flag('hs_ending', 'neq', 'sword_usurp'),
     { type: 'skillAtLeast', key: '棋', min: 25 },
     { type: 'npcAlive', npcId: 'NPC-0118', npcName: '岳沧溟' },
     { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },

@@ -34,6 +34,38 @@ export const SECT_ENTRY_TRANSFER_SOURCES: Readonly<Record<string, readonly strin
   'SECT-15': ['SECT-16', 'SECT-26', 'SECT-30'], // 铁掌帮 ← 江淮漕帮 / 钱塘怒潮帮 / 湘西五溪蛊寨
 })
 
+/**
+ * 中原正派名录（凡曾拜入西域毒宗 SECT-19 星宿派者，此生不得再入以下任何中原正道/朝廷正统门派）
+ */
+export const CENTRAL_PLAINS_ORTHODOX_SECT_IDS: ReadonlySet<string> = new Set([
+  'SECT-01', // 嵩山少林寺
+  'SECT-02', // 丐帮
+  'SECT-03', // 五台山清凉寺
+  'SECT-04', // 莆田南少林
+  'SECT-05', // 华山派
+  'SECT-06', // 泰山派
+  'SECT-07', // 峨眉派
+  'SECT-08', // 真武道宗
+  'SECT-11', // 终南隐宗
+  'SECT-14', // 青城派
+  'SECT-17', // 开封府 / 六扇门
+  'SECT-33', // 大宋禁军
+  'SECT-21', // 洛阳金刀门
+  'SECT-22', // 常山枪派
+  'SECT-23', // 沧州八极门
+  'SECT-24', // 闽海镇远镖局
+  'SECT-25', // 齐鲁查拳馆
+  'SECT-27', // 岭南洪门武馆
+  'SECT-29', // 巴蜀百草药王门
+])
+
+export function hasEverJoinedXingxiu(
+  sectState: Pick<PlayerSectState, 'sectId'>,
+  questFlags?: Record<string, unknown>,
+): boolean {
+  return sectState.sectId === 'SECT-19' || Boolean(questFlags?.ever_joined_xingxiu)
+}
+
 export function getEntryQuestSectId(questId: string): string | null {
   return ENTRY_QUEST_TO_SECT[questId] ?? null
 }
@@ -42,17 +74,25 @@ export function getEntryQuestSectId(questId: string): string | null {
 export function getSectEntryQuestBlockReason(
   questId: string,
   sectState: Pick<PlayerSectState, 'sectId' | 'shaolinNoviceState'>,
+  questFlags?: Record<string, unknown>,
 ): string | null {
   const targetSectId = getEntryQuestSectId(questId)
   if (!targetSectId) return null
-  return getSectExclusivityBlockReason(targetSectId, sectState)
+  return getSectExclusivityBlockReason(targetSectId, sectState, false, questFlags)
 }
 
 export function getSectExclusivityBlockReason(
   targetSectId: string,
   sectState: Pick<PlayerSectState, 'sectId' | 'shaolinNoviceState'>,
   allowOfficialTransfer = false,
+  questFlags?: Record<string, unknown>,
 ): string | null {
+  if (
+    CENTRAL_PLAINS_ORTHODOX_SECT_IDS.has(targetSectId) &&
+    hasEverJoinedXingxiu(sectState, questFlags)
+  ) {
+    return '少侠曾拜入西域毒宗【星宿派】，中原正道各派皆视星宿门人为邪道公敌，此生绝不收录！'
+  }
   const cur = sectState.sectId
   if (cur && cur !== targetSectId) {
     if (allowOfficialTransfer && OFFICIAL_TRANSFER_SOURCE_SECT_IDS.has(cur)) return null

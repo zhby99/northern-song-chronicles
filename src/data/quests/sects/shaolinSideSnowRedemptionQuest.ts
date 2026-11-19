@@ -11,6 +11,7 @@ export const SHAOLIN_SIDE17_START_CONDITION: QuestCondition = {
     { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 7400 },
     { type: 'skillAtLeast', key: '经义', min: 85 },
     { type: 'npcAlive', npcId: 'NPC-0112', npcName: '玄慈' },
+    { type: 'not', condition: { type: 'flag', flag: 'sl_xuanci_deposed', op: 'truthy' } },
     { type: 'npcAlive', npcId: 'NPC-0134', npcName: '玄寂' },
   ],
 }

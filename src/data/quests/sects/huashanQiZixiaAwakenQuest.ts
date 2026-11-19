@@ -1,6 +1,5 @@
-import type { NodeNpc } from '../../../types/game'
 import type { QuestCondition, QuestDefinition } from '../../../types/quest'
-import { atStep, makeQuestNpc, openScene, qStatus } from '../../../engine/quest/dsl'
+import { atStep, openScene, qStatus } from '../../../engine/quest/dsl'
 
 export const HUASHAN_Q17_QUEST_ID = 'QST-SECT-05-17'
 
@@ -21,45 +20,12 @@ export const HUASHAN_Q17_START_CONDITION: QuestCondition = {
     { type: 'npcAlive', npcId: 'NPC-0147', npcName: '秦烈山' },
     { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },
     { type: 'npcAlive', npcId: 'NPC-0167', npcName: '封不弃' },
+    { type: 'npcAlive', npcId: 'NPC-0202', npcName: '高沧云' },
+    { type: 'npcAlive', npcId: 'NPC-1053', npcName: '段延庆' },
+    { type: 'npcAlive', npcId: 'NPC-0233', npcName: '叶二娘' },
+    { type: 'npcAlive', npcId: 'NPC-0183', npcName: '岳老三' },
+    { type: 'npcAlive', npcId: 'NPC-0182', npcName: '云中鹤' },
   ],
-}
-
-export function buildDuanYanqingNpc(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_HSQ17_DUAN_YANQING',
-    name: '段延庆 · 恶贯满盈',
-    title: '西夏一品堂客卿首座 · 四大恶人之首',
-    realm: '宗师中品',
-    factionId: 'SECT-20',
-    factionName: '西夏一品堂',
-    sectRank: 5,
-    sectRankLabel: '客卿首座',
-    avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
-    talk: '“（腹语冷笑）岳沧溟已废半条命，凭你个新晋长老初成紫霞功，也敢硬撼老夫的一阳指铁杖？！”',
-    stats: { hp: 4180, mp: 3500, agi: 74, res: 69 },
-    equipped: {
-      weapon: 'WPN-036',
-      armor: 'ARM-012',
-      shoes: 'BOT-006',
-      bow: 'BOW-006',
-      accessory1: 'ACC-012',
-      accessory2: 'ACC-014',
-      mount: 'MNT-008',
-    },
-    equippedArts: {
-      neigong: 'MA-220',
-      qinggong: 'MA-157',
-      move1: 'MA-023',
-      move2: 'MA-133',
-    },
-    learnedArts: [
-      { artId: 'MA-220', level: 8 },
-      { artId: 'MA-157', level: 7 },
-      { artId: 'MA-023', level: 7 },
-      { artId: 'MA-133', level: 7 },
-    ],
-  })
 }
 
 export const HUASHAN_Q17_QUEST: QuestDefinition = {

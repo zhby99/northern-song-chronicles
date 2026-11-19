@@ -62,38 +62,6 @@ function buildWoodenDummyBeta(): NodeNpc {
   })
 }
 
-function buildHuiTongExamOpponent(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_SLQ04_HUITONG',
-    name: '慧通',
-    title: '持戒僧 · 外门大考终场劲敌',
-    realm: '二流下品',
-    factionId: 'SECT-01',
-    factionName: '嵩山少林寺',
-    sectRank: 2,
-    sectRankLabel: '持戒武僧',
-    avatarUrl: '/assets/characters/templates/tpl_shaolin_songshan_male_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_shaolin_songshan_male_fb.jpg',
-    talk: '“阿弥陀佛！师弟连闯木桩廊气势如虹，贫僧奉三位师伯法谕压阵，今日且以少林正宗拳杖领教高招！”',
-    stats: { hp: 1080, mp: 720, agi: 44, res: 27 },
-    talents: { bone: 68, comprehension: 60, charm: 48 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-197',
-      move1: 'MA-105',
-      move2: 'MA-117',
-      move3: 'MA-114',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 5 },
-      { artId: 'MA-197', level: 5 },
-      { artId: 'MA-105', level: 5 },
-      { artId: 'MA-117', level: 5 },
-      { artId: 'MA-114', level: 4 },
-    ],
-  })
-}
-
 function buildCommonPromoteRewards(
   branchKey: 'luohan' | 'damo' | 'jielv' | 'layman',
   branchLabel: string,
@@ -102,7 +70,7 @@ function buildCommonPromoteRewards(
     { type: 'setFlag', flag: 'sl_branch', value: branchKey },
     { type: 'teachMartialArt', artId: 'MA-100' },
     { type: 'setSectRank', sectId: 'SECT-01', rank: 2, promoteOnly: true },
-    { type: 'giveItem', itemId: 'ARM-020', qty: 1 },
+    { type: 'giveItem', itemId: branchKey === 'layman' ? 'ARM-018' : 'ARM-020', qty: 1 },
     { type: 'giveCombatExp', amount: 240, reason: '木桩百劫大考与慧通较技晋升内门' },
     { type: 'addSectContribution', amount: 120 },
     { type: 'modifySkill', key: '经义', delta: 2 },
@@ -274,7 +242,12 @@ export const SCENES: Record<string, StorySceneDef> = {
           {
             type: 'startCombat',
             questId: SHAOLIN_Q04_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildHuiTongExamOpponent() },
+            opponent: {
+              kind: 'npc',
+              npcId: 'NPC-0315',
+              talkOverride:
+                '“阿弥陀佛！师弟连闯木桩廊气势如虹，贫僧奉三位师伯法谕压阵，今日且以少林正宗拳杖领教高招！”',
+            },
             rule: 'spar',
             forbidEscapeReason: '外门晋升终场较技，三位高僧临殿监考，岂可临阵退场！',
             introText:
@@ -457,7 +430,13 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '容弟子先思量片刻，或于大雄宝殿寻方丈剃度后再择堂院',
         subLabel: '暂不完结：可先向玄慈方丈剃度为出家弟子，再回佛前蒲团择入罗汉/达摩/戒律三堂',
         tone: 'default',
-        condition: { type: 'flag', flag: 'shaolin_disciple_type', op: 'neq', value: 'monk' },
+        condition: {
+          type: 'all',
+          conditions: [
+            { type: 'flag', flag: 'shaolin_disciple_type', op: 'neq', value: 'monk' },
+            { type: 'flag', flag: 'player_gender', op: 'eq', value: '男' },
+          ],
+        },
         hideWhenUnavailable: true,
         effects: [
           toast(

@@ -113,7 +113,7 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
     beats: [
       S('NPC-0156', '（玄痛手捧漆黑沉重的戒律玄铁禅杖，双目赤红却字字铿锵）“阿弥陀佛！少林戒律院立院五百年，上自方丈，下至行童，犯淫戒而累及大德者，依《少林清规》当受戒杖二百！师兄既愿以身明法，玄痛……纵使肝肠寸断，亦不敢徇私！”'),
       S('NPC-0112', '（朗声道）“玄痛师弟说得极是！当年老衲亲手定下的清规，今日若在老衲自己身上坏了，少林寺便真要亡于吾手！”'),
-      P('（环视满殿悲恸与躁动交织的众僧，声音清越如金玉交鸣）“方丈坦荡担业，乃大慈大悲、大勇大悟之举！然公审受杖之际，寺外正有居心叵测的邪派宵小伺机生事。弟子请命亲立丹墀护持法场——既守少林千年戒律之公，亦护方丈与孤寡免受宵小凌辱！”'),
+      P('（环视满殿悲恸与躁动交织的众僧，声音清越如金玉交鸣）“方丈坦荡担业，乃大慈大悲、大勇大悟之举！然公审受杖之际，寺外正有居心叵测的邪派宵小伺机生事。弟子请命亲立丹墀护持法场——既守少林千年戒律之公，亦护方丈及其母子免受宵小凌辱！”'),
     ],
     onFinishEffects: [openScene('scene_slq38_04', SHAOLIN_Q38_QUEST_ID)],
   },
@@ -203,7 +203,7 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('刑杖行至一百五十记，满寺高僧与执事的目光尽数牵系在丹墀之上，山门西侧的防务一时现出破绽！'),
       N('忽听钟鼓禅院方向传来一阵凄厉的刀兵破空声与武僧怒喝！一名浑身浴血的知客僧踉跄奔上丹墀高呼：“报——！大批邪道恶徒翻越西墙闯入钟鼓禅院，扬言要趁乱活剐叶二娘母子，羞辱我少林！”'),
-      S('NPC-0112', '（浑身剧震，一口鲜血险些喷出，强撑着回首望向西院，眼中满是焦灼与哀求）“阿弥陀佛……罪在老衲一人，稚子无辜，二娘已然悔悟……”'),
+      S('NPC-0112', '（浑身剧震，一口鲜血险些喷出，强撑着回首望向西院，眼中满是焦灼与哀求）“阿弥陀佛……罪在老衲一人，吾儿虚竹自幼出家修行、全然无辜，二娘亦已悔悟……”'),
     ],
     onFinishEffects: [openScene('scene_slq38_10', SHAOLIN_Q38_QUEST_ID)],
   },
@@ -214,8 +214,8 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
     subtitle: '大雄正殿 · 丹墀广场',
     mandatory: true,
     beats: [
-      P('（一步跨至玄慈身前，沉声截断他的忧虑）“方丈安心还业！有弟子在，绝不容任何邪道宵小在少室山上伤及无辜母子一根毫毛！”'),
-      S('NPC-0134', '（玄寂厉声道）“这群黑道鼠辈，竟敢趁我寺大难上门落井下石！{gender:师侄|女居士}，大殿法场由老衲与玄难、玄痛守着，西院群邪便交予你雷霆荡平！”'),
+      P('（一步跨至玄慈身前，沉声截断他的忧虑）“方丈安心还业！有弟子在，绝不容任何邪道宵小在少室山上伤及方丈骨肉与叶二娘一根毫毛！”'),
+      S('NPC-0134', '（玄寂厉声道）“这群黑道鼠辈，竟敢趁我寺大难上门落井下石！师侄，大殿法场由老衲与玄难、玄痛守着，西院群邪便交予你雷霆荡平！”'),
       P('（衣袂鼓风，足尖点地掠向西院）“领命！诸位师伯放心！”'),
     ],
     onFinishEffects: [openScene('scene_slq38_11', SHAOLIN_Q38_QUEST_ID)],
@@ -264,7 +264,7 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('“阿弥陀佛——！尔等畜生，也敢在少林佛地行凶作恶？！”'),
       N('一声清朗却如九霄惊雷般的佛喝震响演武坪！你如大鹏展翅般自钟楼飞檐凌空扑落，双足踏碎青砖，稳稳挡在叶二娘母子身前！'),
-      P('（衣袍无风自动，宗师级浑厚佛门内力如潮水般铺开）“叶二娘前罪自有公论与因果报应，岂容尔等借机凌虐孤寡、玷污佛门清净地！血刀厉千煞、阴风阎三毒，今日你们既敢踏上少室山，便一并留下罢！”'),
+      P('（衣袍无风自动，宗师级浑厚佛门内力如潮水般铺开）“叶二娘前罪自有公论与因果报应，岂容尔等借机趁乱寻仇、玷污佛门清净地！血刀厉千煞、阴风阎三毒，今日你们既敢踏上少室山，便一并留下罢！”'),
     ],
     onFinishEffects: [openScene('scene_slq38_14', SHAOLIN_Q38_QUEST_ID)],
   },
@@ -292,7 +292,7 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
             opponent: { kind: 'custom', npc: buildBloodBladeBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildYinClawBoss() }],
             rule: 'story_trial',
-            forbidEscapeReason: '背后便是孤寡母子与少林千年威严，绝不可退！',
+            forbidEscapeReason: '背后便是叶二娘母子与少林千年威严，绝不可退！',
             introText: '【1v2 钟院护孤】于钟鼓禅院演武坪迎战邪道双魔【厉千煞】与【阎三毒】！',
             onWin: [openScene('scene_slq38_15', SHAOLIN_Q38_QUEST_ID)],
             onLose: [
@@ -444,7 +444,7 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('三日之后，玄慈方丈法体入塔安葬，叶二娘亦由少林破例葬于山南清净坡，令其孤子得以春秋祭扫。少林四十八房高僧与诸院首座齐聚大雄正殿。'),
-      S('NPC-0127', '（玄难拭干泪痕，向满堂高僧合十朗声道）“阿弥陀佛！国不可一日无君，寺不可一日无主。先方丈临终前当着满殿高僧的面，亲手将达摩祖师袈裟披于{gender:师侄|居士}肩头，此乃天意人心所归！”'),
+      S('NPC-0127', '（玄难拭干泪痕，向满堂高僧合十朗声道）“阿弥陀佛！国不可一日无君，寺不可一日无主。先方丈临终前当着满殿高僧的面，亲手将达摩祖师袈裟披于师侄肩头，此乃天意人心所归！”'),
       S('NPC-0134', '（玄寂与玄痛、玄渡、玄生齐齐步出班列）“先方丈遗命昭然，且新主二十二载苦修功德圆满，经义、武学、仁德皆冠绝当世！老衲等愿奉新主登坛升座，统摄少林！”'),
     ],
     onFinishEffects: [openScene('scene_slq38_25', SHAOLIN_Q38_QUEST_ID)],
@@ -457,7 +457,7 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       P('（望向满堂须发皆白的玄字辈师伯，心头沉重而肃然）“诸位师伯德高望重，弟子虽承先方丈传衣，然少林千年基业重逾泰山，诚恐才疏德薄、有负众望……”'),
-      S('NPC-0156', '（玄痛沉声一喝，竟向你单膝行大礼）“戒律院素来只认法度与公心！今日若非你既守戒律、又护孤寡、更以绝世武功震慑群邪，少林早已沦为天下笑柄！还请新方丈莫再推辞，早定寺纲！”'),
+      S('NPC-0156', '（玄痛沉声一喝，竟向你单膝行大礼）“戒律院素来只认法度与公心！今日若非你既守戒律、又护全方丈骨肉、更以绝世武功震慑群邪，少林早已沦为天下笑柄！还请新方丈莫再推辞，早定寺纲！”'),
       S(SPEAKER_MONK_CHOIR, '（四十八房高僧齐齐合十躬身，声震大殿）“请新方丈登坛升座，光大禅宗！”'),
     ],
     onFinishEffects: [openScene('scene_slq38_26', SHAOLIN_Q38_QUEST_ID)],
@@ -566,7 +566,7 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
           { type: 'giveItem', itemId: 'ARM-004', qty: 1 },
           { type: 'giveCombatExp', amount: 1600, reason: '护持玄慈还业、力挫群邪并承接达摩袈裟登位少林慈悲方丈' },
           { type: 'modifyRenown', delta: 300, reason: '继任嵩山少林寺慈悲方丈，威震天下禅林与中原武林' },
-          { type: 'modifyChivalry', delta: 100, reason: '以大慈大悲护持孤寡、守正不阿，仁义传颂天下' },
+          { type: 'modifyChivalry', delta: 100, reason: '以大慈大悲护持方丈骨肉、守正不阿，仁义传颂天下' },
           { type: 'modifySkill', key: '经义', delta: 2 },
           { type: 'modifySkill', key: '辩才', delta: 1 },
           { type: 'setFlag', flag: 'sl_ending', value: 'merciful_abbot' },

@@ -18,10 +18,15 @@ export const HUASHAN_Q22_START_CONDITION: QuestCondition = {
     },
     qStatus(HUASHAN_Q22_QUEST_ID, 'not_started'),
     { type: 'npcAlive', npcId: 'NPC-0118', npcName: '岳沧溟' },
+    { type: 'npcAlive', npcId: 'NPC-0147', npcName: '秦烈山' },
+    { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },
+    { type: 'npcAlive', npcId: 'NPC-0167', npcName: '封不弃' },
+    { type: 'npcAlive', npcId: 'NPC-0202', npcName: '高沧云' },
     { type: 'npcAlive', npcId: 'NPC-0110', npcName: '乔峰' },
     { type: 'npcAlive', npcId: 'NPC-0113', npcName: '鸠摩智' },
     { type: 'npcAlive', npcId: 'NPC-0120', npcName: '慕容复' },
     { type: 'npcAlive', npcId: 'NPC-0104', npcName: '慕容博' },
+    { type: 'npcAlive', npcId: 'NPC-1053', npcName: '段延庆' },
   ],
 }
 

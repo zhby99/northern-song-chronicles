@@ -124,7 +124,8 @@ export const SCENES: Record<string, StorySceneDef> = {
       },
       {
         id: 'slq33_spar_xuannan',
-        label: '合十请战达摩院首座【玄难】，以宗师气度印证少林至高绝学！',
+        label: '合十请战达摩院首座【玄难】，在宗师全力下撑住三回合印证禅武！',
+        subLabel: '宗师下品演武试锋：在玄难全力攻势下撑住 3 回合即可印证过关',
         tone: 'danger',
         effects: [
           {
@@ -133,12 +134,13 @@ export const SCENES: Record<string, StorySceneDef> = {
             opponent: {
               kind: 'npc',
               npcId: 'NPC-0127',
-              talkOverride: '“善哉！老衲便以宗师下品全力试你二十载禅武根基，请出招！”',
+              talkOverride: '“善哉！老衲便以宗师下品全力试你禅武根基，若能撑过老衲三合，便算过关！”',
             },
-            rule: 'spar',
+            rule: 'survive_rounds',
+            maxRounds: 3,
             duelStakesTag: 'spar',
             forbidEscapeReason: '全寺高僧观礼演武印证，岂可临阵退缩！',
-            introText: '达摩院首座玄难内力深厚如海，堂堂正正印证宗师修为！',
+            introText: '达摩院首座玄难内力深厚如海，稳住气血撑过三回合即可印证长老修为！',
             onWin: [openScene('scene_slq33_09', SHAOLIN_Q33_QUEST_ID)],
             onLose: [openScene('scene_slq33_10', SHAOLIN_Q33_QUEST_ID)],
           },

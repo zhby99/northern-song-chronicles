@@ -14,6 +14,10 @@ export const HUASHAN_Q18_START_CONDITION: QuestCondition = {
     { type: 'npcAlive', npcId: 'NPC-0147', npcName: '秦烈山' },
     { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },
     { type: 'npcAlive', npcId: 'NPC-0167', npcName: '封不弃' },
+    { type: 'npcAlive', npcId: 'NPC-1053', npcName: '段延庆' },
+    { type: 'npcAlive', npcId: 'NPC-0233', npcName: '叶二娘' },
+    { type: 'npcAlive', npcId: 'NPC-0183', npcName: '岳老三' },
+    { type: 'npcAlive', npcId: 'NPC-0182', npcName: '云中鹤' },
   ],
 }
 

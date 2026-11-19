@@ -2,19 +2,12 @@ import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
 import { N, P, S, flag, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { HUASHAN_Q22_QUEST_ID } from './huashanMountaintopSummitQuest'
 
-const SPEAKER_DUAN_YANQING: StorySpeakerSpec = {
-  kind: 'custom',
-  name: '段延庆',
-  title: '恶贯满盈 · 四大恶人之首',
-  factionName: '西夏一品堂',
-  avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_av.jpg',
-  portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
-}
+const SPEAKER_DUAN_YANQING: StorySpeakerSpec = { kind: 'npc', npcId: 'NPC-1053' }
 
 const SPEAKER_SUMMIT_HERO: StorySpeakerSpec = {
   kind: 'custom',
   name: '中原观礼名宿',
-  title: '五岳与关中武林耆宿',
+  title: '关中与中原武林耆宿',
   factionName: '中原武林',
   avatarUrl: '/assets/characters/templates/tpl_greenwood_hero_av.jpg',
   portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
@@ -29,7 +22,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('{reignYear}腊月十五，连绵三日三夜的鹅毛瑞雪将西岳华山万仞绝壁裹成一片晶莹琼瑶世界。自风陵荒原一战斩灭拓跋雄以来，华山派威震河朔秦川，声势一时无两。'),
       N('你身披《华山紫霞剑客衫》，腰悬《太岳紫霞长剑》，立于丹墀回廊观雪。{ifFlag:hs_q22_is_qi|体内《紫霞神功（先天太岳卷）》渊深似海，呼出一口白气经久不散|腰间长剑与《独孤九剑》无招剑意浑然一体，方圆三丈落雪自动分流}。'),
-      S('NPC-0118', '（踏雪缓步走来，神色庄重欣慰）“六十年一甲子。自先祖开坛以来，落雁峰‘华山绝顶论剑’已尘封整整一甲子——今日四海应邀名宿皆已冒雪登山，正是重开白玉论剑坛之吉时！”'),
+      S('NPC-0118', '{ifFlag:hs_q22_is_usurp|（自后山幽谷破例出关，踏雪立于廊下，神色沉凝复杂）“老夫虽已退隐后山不过问前山琐务，但今日乃六十年一甲子重开落雁峰白玉论剑坛之公事，四海豪杰齐至西岳，老夫特来观礼作证，免教外人笑我华山失礼！”|（踏雪缓步走来，神色庄重欣慰）“六十年一甲子。自先祖开坛以来，落雁峰‘华山绝顶论剑’已尘封整整一甲子——今日四海应邀名宿皆已冒雪登山，正是重开白玉论剑坛之吉时！”}'),
     ],
     onFinishEffects: [
       {
@@ -54,7 +47,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '玉女峰紫霞道观 · 紫霞正气主殿',
     mandatory: true,
     beats: [
-      S('NPC-0202', '（呈上名帖禀报）“禀{ifFlag:hs_q22_is_usurp|宗主|掌门}：除五岳同道、关中群豪与少林武当观礼使者外，江南姑苏‘南慕容’慕容复已携家将登临南峰！”'),
+      S('NPC-0202', '（呈上名帖禀报）“禀{ifFlag:hs_q22_is_usurp|宗主|掌门}：除关中群豪与少林武当观礼使者外，江南姑苏‘南慕容’慕容复已携家将登临南峰！”'),
       S('NPC-0147', '（虎目精光闪动）“不止慕容复！老夫方才在苍龙岭望见一队吐蕃番僧踏雪如飞，为首之人宝相庄严，分明是吐蕃国师‘大轮明王’鸠摩智！”'),
       S('NPC-0166', '“更有山下弟子飞报，见一名背负酒坛的魁梧豪杰孤身自千尺幢拾级而上，一步三丈，极似丐帮帮主‘北乔峰’！”'),
     ],
@@ -68,7 +61,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       S('NPC-0167', '“南慕容、北乔峰、吐蕃国师鸠摩智齐至西岳！哈哈哈，{ifFlag:hs_q22_is_usurp|今日便教天下群雄见识我西岳霸剑的雷霆威仪|今日正叫四海英雄一睹我华山剑气归元的绝代风采}！”'),
-      P('“凡登我落雁峰者，无论中原巨擘抑或番邦国师，皆以武道堂皇论高下！请太上掌门与诸位师叔师伯同登南峰绝顶！”'),
+      P('“凡登我落雁峰者，无论中原巨擘抑或番邦国师，皆以武道堂皇论高下！{ifFlag:hs_q22_is_usurp|既蒙岳前辈出关观礼，便请诸位长老随我同登南峰绝顶|请太上掌门与诸位师叔师伯同登南峰绝顶}！”'),
     ],
     onFinishEffects: [openScene('scene_hsq22_04', HUASHAN_Q22_QUEST_ID)],
   },

@@ -345,7 +345,7 @@ export const SHAOLIN_ENTRY_QUESTS: QuestDefinition[] = [
         ],
       },
 
-      // 6) 正式成为少林俗家弟子后：随时可找方丈玄慈互动剃度转为出家弟子（法号「慧见」+ 佛子立绘）
+      // 6) 正式成为少林俗家弟子后、四脉定脉（Q04）前：男号可找方丈玄慈互动剃度转为出家弟子（法号「慧见」+ 佛子立绘）
       {
         id: 'act_shaolin_xuanci_tonsure',
         label: '恳请方丈剃度 · 转为出家弟子',
@@ -359,6 +359,11 @@ export const SHAOLIN_ENTRY_QUESTS: QuestDefinition[] = [
             { type: 'targetNpcMatch', npcIds: ['NPC-0112'] },
             { type: 'inSect', sectId: 'SECT-01' },
             flag('shaolin_disciple_type', 'neq', 'monk'),
+            flag('player_gender', 'eq', '男'),
+            { type: 'not', condition: qStatus('QST-SECT-01-04', 'completed') },
+            flag('sl_branch', 'neq', 'layman'),
+            { type: 'not', condition: flag('sl_xuanci_deposed', 'truthy') },
+            { type: 'npcAlive', npcId: 'NPC-0112', npcName: '玄慈' },
           ],
         },
         effects: [

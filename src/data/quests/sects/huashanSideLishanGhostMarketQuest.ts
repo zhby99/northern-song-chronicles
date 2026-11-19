@@ -24,7 +24,7 @@ export const HUASHAN_SIDE08_START_CONDITION: QuestCondition = {
       ],
     },
     { type: 'npcAlive', npcId: 'NPC-0147', npcName: '秦烈山' },
-    { type: 'shichenIn', indices: [9, 10, 11, 0, 1], label: '夜间（酉亥子丑时）' },
+    { type: 'shichenIn', indices: [10, 11, 0, 1], label: '夜间（戌时至丑时）' },
     qStatus(HUASHAN_SIDE08_QUEST_ID, 'not_started'),
   ],
 }

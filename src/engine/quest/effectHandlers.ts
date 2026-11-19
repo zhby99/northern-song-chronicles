@@ -107,6 +107,7 @@ function buildDraftEvalContext(
     learnedArts: s.learnedArts,
     npcFavor: s.npcFavor,
     deadNpcIds: s.deadNpcIds,
+    playerGender: s.playerGender,
     sectState: s.sectState,
     questState: s.questState,
     targetNpc: targetNpc ?? null,
@@ -152,7 +153,7 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
     const s = ctx.draft
     ctx.questIdHint = eff.questId
     const qDef = QUEST_MAP[eff.questId]
-    const sectBlock = getSectEntryQuestBlockReason(eff.questId, s.sectState)
+    const sectBlock = getSectEntryQuestBlockReason(eff.questId, s.sectState, s.questState.flags)
     if (sectBlock) {
       ctx.patchDraft({ actionFeedback: { text: sectBlock, tone: 'warn' } })
       return

@@ -14,6 +14,7 @@ import {
   KAIFENG_RECOMMENDATION_ITEM_ID,
   REFERRAL_REQ_BY_TARGET_SECT,
 } from './referral'
+import { CENTRAL_PLAINS_ORTHODOX_SECT_IDS, hasEverJoinedXingxiu } from './exclusivity'
 import { getSectRule } from './rules'
 
 /**
@@ -36,8 +37,9 @@ export function evaluateSectEntry(params: {
   silver: number
   baseStats: HeroBaseStats
   inventory: InventoryStack[]
+  questFlags?: Record<string, unknown>
 }): SectJoinEvaluation {
-  const { targetSectId, sectState, silver, baseStats, inventory } = params
+  const { targetSectId, sectState, silver, baseStats, inventory, questFlags } = params
   const faction: CanonicalFactionEntry | undefined = FACTION_DB_MAP[targetSectId]
   const startingRank: SectRankLevel = faction?.acceptsOuterDisciple === false ? 2 : 1
   const startingRankLabel = getSectRankTitle(targetSectId, startingRank)
@@ -64,6 +66,22 @@ export function evaluateSectEntry(params: {
       consumeItemId: null,
       requirementSummary: '暂未开放加入（后续剧情 / DLC 敬请期待）',
       blockedReason: `【${faction.name}】暂不开放拜入，相关专属剧情与武学传承将于后续剧情/DLC推出，敬请期待！`,
+    }
+  }
+
+  if (
+    CENTRAL_PLAINS_ORTHODOX_SECT_IDS.has(targetSectId) &&
+    hasEverJoinedXingxiu(sectState, questFlags)
+  ) {
+    return {
+      canJoin: false,
+      startingRank,
+      startingRankLabel,
+      costSilver: 0,
+      consumeItemId: null,
+      requirementSummary: '中原正道名门，严拒曾入星宿毒宗者',
+      blockedReason:
+        '少侠曾拜入西域毒宗【星宿派】，中原正道各派皆视星宿门人为邪道公敌，此生绝不收录！',
     }
   }
 

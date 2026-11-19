@@ -7,6 +7,7 @@ export const SHAOLIN_Q15_START_CONDITION: QuestCondition = {
   type: 'all',
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
+    { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-14', 'completed'),
     qStatus(SHAOLIN_Q15_QUEST_ID, 'not_started'),
     { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1095 },

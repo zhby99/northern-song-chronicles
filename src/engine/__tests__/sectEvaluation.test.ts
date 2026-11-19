@@ -110,33 +110,23 @@ describe('evaluateSectEntry & evaluateSectPromotion', () => {
       })?.canPromote,
     ).toBe(true)
 
-    // Xingxiu Lv4 -> Lv5 requires killing Ding Chunqiu
-    expect(
-      evaluateSectPromotion({
-        sectId: 'SECT-19',
-        currentRank: 4,
-        dayCount: 500,
-        joinedDay: 1,
-        heroRealmRank: 10,
-        heroRealmLabel: '宗师下品',
-        npcFavor: {},
-        killedDingChunqiu: true,
-      })?.canPromote,
-    ).toBe(true)
-
-    // Dao-Sword (e.g. SECT-06 Taishan) Lv2 -> Lv3 requires tournament win
-    expect(
-      evaluateSectPromotion({
-        sectId: 'SECT-06',
-        currentRank: 2,
-        dayCount: 800,
-        joinedDay: 1,
-        heroRealmRank: 6,
-        heroRealmLabel: '二流上品',
-        npcFavor: new Proxy({}, { get: () => 80 }),
-        wonSectTournament: false,
-      })?.canPromote,
-    ).toBe(false)
+    // All first-tier sects except SECT-17 (Kaifeng/Six Doors) disable panel promotion (quest-only)
+    for (const firstTierId of ['SECT-01', 'SECT-02', 'SECT-06', 'SECT-19'] as const) {
+      expect(
+        evaluateSectPromotion({
+          sectId: firstTierId,
+          currentRank: 1,
+          dayCount: 8000,
+          joinedDay: 1,
+          heroRealmRank: 10,
+          heroRealmLabel: '宗师下品',
+          npcFavor: new Proxy({}, { get: () => 100 }),
+          skills: { 经义: 100 },
+          wonSectTournament: true,
+          killedDingChunqiu: true,
+        })?.canPromote,
+      ).toBe(false)
+    }
 
     // Huashan (SECT-05) promotions are strictly story-quest driven (huashan_quest)
     const hsPromo = evaluateSectPromotion({

@@ -10,9 +10,10 @@ export const HUASHAN_SIDE05_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-05', minRank: 2 },
     qStatus(HUASHAN_SIDE05_QUEST_ID, 'not_started'),
     flag('hs_branch', 'eq', 'qi'),
+    flag('hs_ending', 'neq', 'sword_usurp'),
     { type: 'npcAlive', npcId: 'NPC-0202', npcName: '高沧云' },
     { type: 'npcAlive', npcId: 'NPC-0118', npcName: '岳沧溟' },
-    { type: 'shichenIn', indices: [9, 10, 11, 0, 1], label: '夜间（戌时至丑时）' },
+    { type: 'shichenIn', indices: [10, 11, 0, 1], label: '夜间（戌时至丑时）' },
   ],
 }
 

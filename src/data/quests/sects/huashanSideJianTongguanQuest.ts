@@ -6,9 +6,12 @@ export const HUASHAN_SIDE06_QUEST_ID = 'QST-SECT-05-SIDE-06'
 export const HUASHAN_SIDE06_START_CONDITION: QuestCondition = {
   type: 'all',
   conditions: [
-    qStatus('QST-SECT-05-06', 'completed'),
+    qStatus('QST-SECT-05-07', 'completed'),
     { type: 'inSect', sectId: 'SECT-05', minRank: 2 },
     flag('hs_branch', 'eq', 'jian'),
+    qStatus('QST-SECT-05-19', 'not_completed'),
+    qStatus('QST-SECT-05-20', 'not_completed'),
+    qStatus('QST-SECT-05-21', 'not_completed'),
     { type: 'skillAtLeast', key: '骑术', min: 15 },
     { type: 'npcAlive', npcId: 'NPC-0167', npcName: '封不弃' },
     qStatus(HUASHAN_SIDE06_QUEST_ID, 'not_started'),
@@ -27,7 +30,7 @@ export const HUASHAN_SIDE06_QUESTS: QuestDefinition[] = [
     recommendedNote:
       '十幕华山剑宗专属支线：封不弃严冬蹴你下山，命赴黄河惊涛烽火台随陕西边军老斥候风餐露宿，借冰河伏骑磨砺快剑。夜截踏冰南下的西夏一品堂马队，掠马交错间以《落雁剑法》百步断刃斩杀百夫长嵬名悍。',
     startHint:
-      '华山剑宗第 2 阶弟子完成《潼关血刃 · 以快驭正》（QST-SECT-05-06）且骑术 ≥ 15 后，前往【潼关天险瓮城 > 黄河大折惊涛烽火台】或寻【封不弃】开启。',
+      '华山剑宗第 2 阶弟子完成《风陵夜渡 · 平沙落雁》（QST-SECT-05-07）且骑术 ≥ 15 后（继任掌门前），前往【潼关天险瓮城 > 黄河大折惊涛烽火台】或寻【封不弃】开启。',
     startLocation: {
       regionId: 'tongguan',
       buildingId: 'tg_fort',

@@ -1,37 +1,6 @@
-import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q25_QUEST_ID } from './shaolinDamoBoruoPalmQuest'
-
-function buildYueLaoSanBoss(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_SLQ25_YUELAO3',
-    name: '岳老三',
-    title: '凶神恶煞 · 西夏四大恶人（南海鳄神）',
-    realm: '一流中品',
-    factionId: 'SECT-20',
-    factionName: '西夏一品堂',
-    sectRank: 3,
-    sectRankLabel: '四大恶人',
-    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-    talk: '“老子是南海鳄神岳老三，排行第二——不对，排行老三！小和尚你脑袋圆滚滚的，跟老子太投缘了！快给老子磕八个响头拜师，不然我这把鳄嘴剪可要咔嚓了！”',
-    stats: { hp: 3420, mp: 2150, agi: 70, res: 66 },
-    talents: { bone: 92, comprehension: 58, charm: 38 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-158',
-      move1: 'MA-151',
-      move2: 'MA-053',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 8 },
-      { artId: 'MA-158', level: 7 },
-      { artId: 'MA-151', level: 8 },
-      { artId: 'MA-053', level: 8 },
-    ],
-  })
-}
 
 export const SCENES: Record<string, StorySceneDef> = {
   scene_slq25_01: {
@@ -221,7 +190,12 @@ export const SCENES: Record<string, StorySceneDef> = {
           {
             type: 'startCombat',
             questId: SHAOLIN_Q25_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildYueLaoSanBoss() },
+            opponent: {
+              kind: 'npc',
+              npcId: 'NPC-0183',
+              talkOverride:
+                '“老子是南海鳄神岳老三，排行第二——不对，排行老三！小和尚你脑袋圆滚滚的，跟老子太投缘了！快给老子磕八个响头拜师，不然我这把鳄嘴剪可要咔嚓了！”',
+            },
             rule: 'story_trial',
             duelStakesTag: 'spar',
             introText: '幽谷松坪大战南海鳄神！岳老三力大无穷、招式暴烈，快以《般若掌》十八掌叠浪震服这位四大恶人！',

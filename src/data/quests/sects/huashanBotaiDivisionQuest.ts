@@ -15,6 +15,7 @@ export const HUASHAN_Q02_START_CONDITION: QuestCondition = {
     { type: 'npcAlive', npcId: 'NPC-0147', npcName: '秦烈山' },
     { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },
     { type: 'npcAlive', npcId: 'NPC-0167', npcName: '封不弃' },
+    { type: 'npcAlive', npcId: 'NPC-0202', npcName: '高沧云' },
   ],
 }
 

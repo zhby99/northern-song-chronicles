@@ -590,7 +590,13 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
           { type: 'giveItem', itemId: 'ARM-004', qty: 1 },
           {
             type: 'branch',
-            condition: { type: 'not', condition: { type: 'hasItem', itemId: 'WPN-013', qty: 1 } },
+            condition: {
+              type: 'all',
+              conditions: [
+                { type: 'not', condition: { type: 'hasItem', itemId: 'WPN-013', qty: 1 } },
+                { type: 'not', condition: { type: 'questStatus', questId: 'QST-SECT-01-22', status: 'completed' } },
+              ],
+            },
             thenEffects: [
               { type: 'giveItem', itemId: 'WPN-013', qty: 1 },
               toast('兼获少林武库镇派神兵【少林燃木戒刀】！', 'success', '铁腕法王'),
@@ -601,6 +607,7 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
           { type: 'modifySkill', key: '策论', delta: 2 },
           { type: 'modifySkill', key: '辩才', delta: 1 },
           { type: 'setFlag', flag: 'sl_ending', value: 'iron_dharma_king' },
+          { type: 'setFlag', flag: 'sl_xuanci_deposed', value: true },
           { type: 'completeQuest', questId: SHAOLIN_Q39_QUEST_ID, outcome: 'completed' },
           toast(
             '已完成终局《雷霆涤寺 · 铁腕法王》！晋升少林 Lv.5 铁腕法王，获天阶圣衣【少林达摩袈裟】，威望 +300！',

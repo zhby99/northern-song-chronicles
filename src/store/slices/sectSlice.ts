@@ -79,6 +79,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       silver: s.silver,
       baseStats: s.baseStats,
       inventory: s.inventory,
+      questFlags: s.questState.flags,
     })
 
     if (!evalRes.canJoin) {
@@ -841,7 +842,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       const warnText =
         sectId === 'SECT-04'
           ? `南少林祖训：少侠入门时已择定【带发入世 · 护寺俗家】名册，不可再行剃度，本门地阶秘传功法《${entry.art.cleanName}》（${entry.art.fullTier}）对少侠永远不开放！`
-          : `少林清规：地阶与天阶秘传绝学概不轻授俗家弟子！《${entry.art.cleanName}》（${entry.art.fullTier}）须先赴【大雄宝殿方丈院 · 大雄正殿】拜见方丈【玄慈】剃度出家（受法号「慧见」）后方可修习。`
+          : `少林清规：俗家弟子除《韦陀杵》《龙爪手》《盘山铁布衫》《大力金刚指》四门护寺外功外，其余地阶与天阶禅武绝学概不轻授！《${entry.art.cleanName}》（${entry.art.fullTier}）须在四脉定脉前拜见方丈【玄慈】剃度出家（受法号「慧见」）后方可修习。`
       set({
         actionFeedback: {
           text: warnText,

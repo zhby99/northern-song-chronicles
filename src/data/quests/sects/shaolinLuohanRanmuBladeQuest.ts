@@ -7,6 +7,7 @@ export const SHAOLIN_Q22_START_CONDITION: QuestCondition = {
   type: 'all',
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 3 },
+    { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-21', 'completed'),
     qStatus(SHAOLIN_Q22_QUEST_ID, 'not_started'),
     flag('sl_branch', 'eq', 'luohan'),

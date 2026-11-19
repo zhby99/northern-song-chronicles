@@ -78,35 +78,6 @@ function buildRogueMonkB(): NodeNpc {
   })
 }
 
-function buildZhouHaiTrial(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_SLQ01_ZHOU_HAI',
-    name: '周海',
-    title: '富家外门 · 铁掌郎',
-    realm: '三流下品',
-    factionName: '嵩山少林寺',
-    sectRank: 1,
-    sectRankLabel: '外门弟子',
-    avatarUrl: '/assets/characters/templates/tpl_shaolin_monk_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_shaolin_monk_fb.jpg',
-    talk: '“哼！我家老太爷捐了半座偏殿的香油钱，岂是你这种寒酸杂役可比的？接我铁砂掌！”',
-    stats: { hp: 460, mp: 200, agi: 23, res: 14 },
-    talents: { bone: 52, comprehension: 38, charm: 42 },
-    equippedArts: {
-      neigong: 'MA-159',
-      qinggong: 'MA-218',
-      move1: 'MA-186',
-      move2: 'MA-163',
-    },
-    learnedArts: [
-      { artId: 'MA-159', level: 2 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-186', level: 3 },
-      { artId: 'MA-163', level: 2 },
-    ],
-  })
-}
-
 export const SCENES: Record<string, StorySceneDef> = {
   scene_slq01_01: {
     id: 'scene_slq01_01',
@@ -283,7 +254,12 @@ export const SCENES: Record<string, StorySceneDef> = {
           {
             type: 'startCombat',
             questId: SHAOLIN_Q01_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildZhouHaiTrial() },
+            opponent: {
+              kind: 'npc',
+              npcId: 'NPC-0673',
+              talkOverride:
+                '“哼！我家老太爷捐了半座偏殿的香油钱，岂是你这种寒酸杂役可比的？接我铁砂掌！”',
+            },
             rule: 'story_trial',
             forbidEscapeReason: '众目睽睽之下，护持同门与少林清规绝不可退！',
             introText: '【1v1 演武惩霸】迎战富家外门【周海】！',

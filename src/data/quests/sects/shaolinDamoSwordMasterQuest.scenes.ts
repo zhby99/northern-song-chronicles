@@ -1,67 +1,6 @@
-import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q24_QUEST_ID } from './shaolinDamoSwordMasterQuest'
-
-function buildBaoButongOpponent(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_SLQ24_BAOBUTONG',
-    name: '包不同',
-    title: '非也先生 · 姑苏慕容家将',
-    realm: '一流下品',
-    factionId: 'SECT-10',
-    factionName: '姑苏慕容氏',
-    sectRank: 3,
-    sectRankLabel: '慕容家将',
-    avatarUrl: '/assets/characters/templates/tpl_murong_male_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_murong_male_fb.jpg',
-    talk: '“非也，非也！少林《达摩剑法》虽妙，却也未必胜过我姑苏慕容家刀剑合璧！风四弟，咱俩一齐上，瞧瞧这小和尚有几分火候！”',
-    stats: { hp: 2380, mp: 1680, agi: 70, res: 50 },
-    talents: { bone: 80, comprehension: 84, charm: 58 },
-    equippedArts: {
-      neigong: 'MA-221',
-      qinggong: 'MA-158',
-      move1: 'MA-071',
-      move2: 'MA-131',
-    },
-    learnedArts: [
-      { artId: 'MA-221', level: 7 },
-      { artId: 'MA-158', level: 7 },
-      { artId: 'MA-071', level: 7 },
-      { artId: 'MA-131', level: 7 },
-    ],
-  })
-}
-
-function buildFengBoeOpponent(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_SLQ24_FENGBOE',
-    name: '风波恶',
-    title: '一阵风 · 姑苏慕容家将',
-    realm: '一流下品',
-    factionId: 'SECT-10',
-    factionName: '姑苏慕容氏',
-    sectRank: 3,
-    sectRankLabel: '慕容家将',
-    avatarUrl: '/assets/characters/templates/tpl_murong_male_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_murong_male_fb.jpg',
-    talk: '“好哇好哇！风某平生最爱跟绝顶高手打架！这剑痕崖风大地方宽，正是放手一战的好去处！看刀！”',
-    stats: { hp: 2320, mp: 1620, agi: 74, res: 48 },
-    talents: { bone: 82, comprehension: 78, charm: 60 },
-    equippedArts: {
-      neigong: 'MA-221',
-      qinggong: 'MA-158',
-      move1: 'MA-131',
-      move2: 'MA-189',
-    },
-    learnedArts: [
-      { artId: 'MA-221', level: 7 },
-      { artId: 'MA-158', level: 8 },
-      { artId: 'MA-131', level: 8 },
-      { artId: 'MA-189', level: 8 },
-    ],
-  })
-}
 
 export const SCENES: Record<string, StorySceneDef> = {
   scene_slq24_01: {
@@ -277,8 +216,20 @@ export const SCENES: Record<string, StorySceneDef> = {
           {
             type: 'startCombat',
             questId: SHAOLIN_Q24_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildBaoButongOpponent() },
-            extraOpponents: [{ kind: 'custom', npc: buildFengBoeOpponent() }],
+            opponent: {
+              kind: 'npc',
+              npcId: 'NPC-0213',
+              talkOverride:
+                '“非也，非也！少林《达摩剑法》虽妙，却也未必胜过我姑苏慕容家刀剑合璧！风四弟，咱俩一齐上，瞧瞧这小和尚有几分火候！”',
+            },
+            extraOpponents: [
+              {
+                kind: 'npc',
+                npcId: 'NPC-0214',
+                talkOverride:
+                  '“好哇好哇！风某平生最爱跟绝顶高手打架！这剑痕崖风大地方宽，正是放手一战的好去处！看刀！”',
+              },
+            ],
             rule: 'story_trial',
             duelStakesTag: 'spar',
             introText: '剑痕崖绝巅 1v2 激战！包不同招式刁钻、风波恶快刀如狂风，务必以《达摩剑法》圆融禅意逐个击破！',

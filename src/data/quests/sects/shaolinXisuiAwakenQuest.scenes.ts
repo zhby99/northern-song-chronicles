@@ -328,8 +328,8 @@ export const SHAOLIN_Q36_SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq36_fight_jiumozhi',
-        label: '以《洗髓经》破妄识真，迎战吐蕃国师【鸠摩智】！（宗师中品决战）',
-        subLabel: '二十合拆解小无相功虚妄根底，震退大轮明王',
+        label: '以《洗髓经》破妄识真，在吐蕃国师【鸠摩智】攻势下撑住五回合！',
+        subLabel: '宗师中品试锋：撑住 5 回合拆解小无相功虚妄根底，借势破功震退大轮明王',
         tone: 'danger',
         effects: [
           {
@@ -341,9 +341,10 @@ export const SHAOLIN_Q36_SCENES: Record<string, StorySceneDef> = {
               talkOverride:
                 '“狂妄小僧！竟敢妄言小僧所施乃小无相功虚妄！今日便叫你死在少林七十二绝技之下！”',
             },
-            rule: 'story_trial',
+            rule: 'survive_rounds',
+            maxRounds: 5,
             forbidEscapeReason: '此战关乎少林五百年正宗法统，唯有破妄退敌方能重振山门！',
-            introText: '【破妄震敌】以《洗髓经》无垢佛门真气迎战吐蕃护国法王【鸠摩智】！',
+            introText: '【破妄震敌】在吐蕃护国法王【鸠摩智】猛攻下撑住五回合，识破其小无相功破绽！',
             onWin: [openScene('scene_slq36_24', SHAOLIN_Q36_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 90, mpPct: 90 },

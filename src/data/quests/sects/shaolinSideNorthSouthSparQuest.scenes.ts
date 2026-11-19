@@ -3,15 +3,6 @@ import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
 import { N, P, S, makeQuestNpc, openScene, qStatus, setStep, toast } from '../../../engine/quest/dsl'
 import { SHAOLIN_SIDE14_QUEST_ID } from './shaolinSideNorthSouthSparQuest'
 
-const SPEAKER_YUANTONG: StorySpeakerSpec = {
-  kind: 'custom',
-  name: '元通',
-  title: '南少林护寺大首座 · 铁线神拳',
-  factionName: '莆田南少林',
-  portraitUrl: '/assets/characters/templates/tpl_nanshaolin_male_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_nanshaolin_male_av.jpg',
-}
-
 const SPEAKER_TIEQIAO: StorySpeakerSpec = {
   kind: 'custom',
   name: '铁桥师兄',
@@ -61,37 +52,6 @@ function buildTieqiao(): NodeNpc {
   })
 }
 
-function buildYuantong(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_SLS14_YUANTONG',
-    name: '元通',
-    title: '南少林护寺大首座 · 铁线神拳',
-    realm: '一流上品',
-    factionName: '莆田南少林',
-    sectRank: 3,
-    sectRankLabel: '护寺大首座',
-    avatarUrl: '/assets/characters/templates/tpl_nanshaolin_male_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_nanshaolin_male_fb.jpg',
-    talk: '“南拳北腿本出一脉！且看今日嵩山演武坪上，谁能以禅入拳、技高一筹！”',
-    stats: { hp: 3560, mp: 3320, agi: 73, res: 64 },
-    talents: { bone: 88, comprehension: 82, charm: 64 },
-    equippedArts: {
-      neigong: 'MA-080',
-      qinggong: 'MA-077',
-      move1: 'MA-106',
-      move2: 'MA-062',
-      move3: 'MA-046',
-    },
-    learnedArts: [
-      { artId: 'MA-080', level: 9 },
-      { artId: 'MA-077', level: 8 },
-      { artId: 'MA-106', level: 10 },
-      { artId: 'MA-062', level: 8 },
-      { artId: 'MA-046', level: 8 },
-    ],
-  })
-}
-
 export const SCENES: Record<string, StorySceneDef> = {
   scene_sls14_01: {
     id: 'scene_sls14_01',
@@ -102,7 +62,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('{reignYear}金秋，嵩山丹枫如火。大雄宝殿方丈院西侧的钟鼓禅院演武坪上，晨钟余韵尚未散尽，山门外已迎来三位身着灰褐短打僧衣、肌骨如铜铸般的南方高僧。'),
       N('为首一人面庞方正、双臂微垂过膝，腕骨粗壮如生铁浇铸；身旁两位师弟亦个个太阳穴高高鼓起、下盘沉稳似扎根青石。铁掌禅师玄痛亲自出迎，朗笑声震得松枝落叶纷纷。'),
       S('NPC-0156', '“哈哈哈！有朋自八闽九莲山来，不亦乐乎！这位便是莆田南少林护寺大首座元通大师，旁侧二位乃铁桥师兄、洪刚师兄。三位千里北访嵩山，意在以武印证南北禅拳！”'),
-      S(SPEAKER_YUANTONG, '“阿弥陀佛，久仰嵩山祖庭威名！我兄弟三人奉南少林方丈之命北上礼祖，一来瞻仰达摩祖师遗迹，二来亦想请教北宗高徒的绝艺，看看我南宗硬桥硬马究竟差了祖庭几分火候！”'),
+      S('NPC-0164', '“阿弥陀佛，久仰嵩山祖庭威名！我兄弟三人奉南少林方丈之命北上礼祖，一来瞻仰达摩祖师遗迹，二来亦想请教北宗高徒的绝艺，看看我南宗硬桥硬马究竟差了祖庭几分火候！”'),
     ],
     onFinishEffects: [openScene('scene_sls14_02', SHAOLIN_SIDE14_QUEST_ID)],
   },
@@ -133,7 +93,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('元通、铁桥与洪刚三人一见你面容，先是一怔，旋即齐齐露出惊喜交加之色，大步上前合十行礼！'),
-      S(SPEAKER_YUANTONG, '“哎呀！原是昔年携嵩山法帖千里南渡莆田、在九莲山门连闯三关，又与我南少林同门于海滨盐场浴血斩杀东瀛海寇鬼丸浪人的故友！元苦师叔临行前还再三叮嘱，若在嵩山见到你，务必要代他问安！”'),
+      S('NPC-0164', '“哎呀！原是昔年携嵩山法帖千里南渡莆田、在九莲山门连闯三关，又与我南少林同门于海滨盐场浴血斩杀东瀛海寇鬼丸浪人的故友！元苦师叔临行前还再三叮嘱，若在嵩山见到你，务必要代他问安！”'),
       S(SPEAKER_TIEQIAO, '“哈哈哈！当年在九莲山只恨未能与师兄痛快打上一场，如今师兄修为早已今非昔比，今日在嵩山演武坪上，可一定要让洒家领教领教！”'),
       P('“阿弥陀佛！当年九莲山盐场并肩御寇历历在目，元苦师叔安康便好！三位师兄远道而来，小弟自当倾力奉陪，绝不藏私！”'),
     ],
@@ -147,7 +107,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('元通上下打量你片刻，见你气息沉凝如渊、双目炯炯有神，不由暗赞嵩山底蕴深厚，双手合十朗声道。'),
-      S(SPEAKER_YUANTONG, '“早闻嵩山少林人才辈出，今日一见师兄气度，果然名不虚传！南拳刚猛沉实、北腿舒展雄浑，本是达摩一脉分枝，今日便请师兄不吝赐教！”'),
+      S('NPC-0164', '“早闻嵩山少林人才辈出，今日一见师兄气度，果然名不虚传！南拳刚猛沉实、北腿舒展雄浑，本是达摩一脉分枝，今日便请师兄不吝赐教！”'),
       S(SPEAKER_HONGGANG, '“待会儿交手之时，师兄只管放手施为，我兄弟三人练的皆是铜皮铁骨硬功夫，最喜痛快淋漓的真切磋！”'),
       P('“阿弥陀佛！三位师兄千里北访，小弟敢不从命？今日定当以礼相待、全力印证！”'),
     ],
@@ -249,7 +209,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('元通首座解下外袍交予洪刚，缓步走入演武坪中央。他并未立刻出招，而是缓缓吐出一口长气，只听其咽喉间竟隐隐发出似金铁震颤般的低沉“哼哈”二音，双臂筋骨节节作响，指掌之间劲风呼啸，仿佛缠绕着千百根无形钢丝！'),
       S('NPC-0156', '“小心了！元通大师已将南少林镇派外功《铁线拳》练至十重化境，兼以声催气、以气运力，举手投足皆有一流上品宗师气度！”'),
-      S(SPEAKER_YUANTONG, '“师兄既破了我二师弟的铁桥劲，便请接贫僧这路《铁线拳》！你我皆不必留手，放开一战，方不负千里北访之行！”'),
+      S('NPC-0164', '“师兄既破了我二师弟的铁桥劲，便请接贫僧这路《铁线拳》！你我皆不必留手，放开一战，方不负千里北访之行！”'),
       P('“正合我意！元通首座，请赐教！”'),
     ],
     onFinishEffects: [openScene('scene_sls14_09', SHAOLIN_SIDE14_QUEST_ID)],
@@ -273,7 +233,12 @@ export const SCENES: Record<string, StorySceneDef> = {
           {
             type: 'startCombat',
             questId: SHAOLIN_SIDE14_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildYuantong() },
+            opponent: {
+              kind: 'npc',
+              npcId: 'NPC-0164',
+              talkOverride:
+                '“南拳北腿本出一脉！且看今日嵩山演武坪上，谁能以禅入拳、技高一筹！”',
+            },
             rule: 'spar',
             duelStakesTag: 'spar',
             introText: '元通首座以声催劲，十重《铁线拳》如怒潮拍岸、钢丝绞空，南北少林巅峰对决正式展开！',
@@ -299,7 +264,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('二人拳掌相交数十合，劲风四溢，连钟楼垂悬的麻绳都被罡气激得轻轻晃动！元通一记“铁线穿云”直取中宫，刚劲如山岳倾压；你不退反进，化直为圆，以浑厚禅功卸开七分力道，反手一指轻点其肘弯曲池穴前半寸，倏然收势！'),
       N('元通身形一顿，低头看着距自己肘穴仅差半寸的指尖，怔了半晌，忽地仰天大笑，双掌合十深深一揖！'),
-      S(SPEAKER_YUANTONG, '“哈哈哈！痛快！真是平生未有之痛快！贫僧自负将铁线拳炼至刚柔相济、以声催气，不意嵩山祖庭竟有师兄这般人物，收放之间竟还有余力留情半寸！这一战，贫僧输得心服口服！”'),
+      S('NPC-0164', '“哈哈哈！痛快！真是平生未有之痛快！贫僧自负将铁线拳炼至刚柔相济、以声催气，不意嵩山祖庭竟有师兄这般人物，收放之间竟还有余力留情半寸！这一战，贫僧输得心服口服！”'),
       P('“元通首座过谦了！首座铁线拳劲如惊涛连绵不绝，小弟不过侥幸占了半招地利与先机，实是棋逢对手！”'),
     ],
     onFinishEffects: [openScene('scene_sls14_11', SHAOLIN_SIDE14_QUEST_ID)],
@@ -313,7 +278,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('演武坪四周爆发出山呼海啸般的掌声与赞叹声，铁桥与洪刚亦快步上前拱手致敬，南北同门之间毫无芥蒂，唯有惺惺相惜。'),
       S('NPC-0156', '“好一场龙争虎斗！南北少林同根同源，今日这场印证足以载入寺志。诸位方才激战耗气，老衲已在【东厢碑廊 · 藏经橱】备下嵩山松针清茶，请随我移步叙话！”'),
-      S(SPEAKER_YUANTONG, '“正有几句铁线拳的运劲秘诀，愿于茶席间赠予师兄印证！”'),
+      S('NPC-0164', '“正有几句铁线拳的运劲秘诀，愿于茶席间赠予师兄印证！”'),
     ],
     onFinishEffects: [
       setStep(SHAOLIN_SIDE14_QUEST_ID, 'corridor_tea_gift'),
@@ -331,7 +296,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('东厢碑廊古碑林立，案上嵩山松针茶清香四溢。玄痛长老与元通、铁桥、洪刚诸僧围案而坐，畅论南北少林数百年来拳脉分合与护国安民之志，言谈甚欢。'),
       N('茶过三巡，元通首座从怀中郑重取出一卷抄录工整的蓝布手札，双手推至你面前。'),
-      S(SPEAKER_YUANTONG, '“师兄，此卷乃我莆田南少林秘传《铁线拳》运劲呼吸口诀，讲究『刚而不僵、柔而不软，以十二桥手合五脏之音』。今日见师兄禅武双修、胸怀宽广，这卷心法留予师兄，方不算明珠暗投！”'),
+      S('NPC-0164', '“师兄，此卷乃我莆田南少林秘传《铁线拳》运劲呼吸口诀，讲究『刚而不僵、柔而不软，以十二桥手合五脏之音』。今日见师兄禅武双修、胸怀宽广，这卷心法留予师兄，方不算明珠暗投！”'),
     ],
     onFinishEffects: [openScene('scene_sls14_13', SHAOLIN_SIDE14_QUEST_ID)],
   },
@@ -355,7 +320,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '大雄宝殿方丈院 · 东厢碑廊 · 藏经橱',
     mandatory: true,
     beats: [
-      S(SPEAKER_YUANTONG, '“青山不改，绿水长流！来日师兄若再南下福建，莆田九莲山永远为你扫榻以待！”'),
+      S('NPC-0164', '“青山不改，绿水长流！来日师兄若再南下福建，莆田九莲山永远为你扫榻以待！”'),
       N('夕阳映红了少室山脊，你与玄痛长老送元通、铁桥、洪刚三位首座步出碑廊。这场跨越千里的南北少林铁线争锋，很快便在江湖传为一段佳话。'),
     ],
     onFinishEffects: [

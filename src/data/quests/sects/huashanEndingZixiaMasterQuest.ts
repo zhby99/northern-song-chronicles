@@ -12,6 +12,9 @@ export const HUASHAN_Q19_START_CONDITION: QuestCondition = {
     { type: 'learnedArtAtLeast', artId: 'MA-030', minLevel: 5 },
     qStatus(HUASHAN_Q19_QUEST_ID, 'not_started'),
     { type: 'npcAlive', npcId: 'NPC-0118', npcName: '岳沧溟' },
+    { type: 'npcAlive', npcId: 'NPC-0147', npcName: '秦烈山' },
+    { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },
+    { type: 'npcAlive', npcId: 'NPC-0167', npcName: '封不弃' },
     { type: 'npcAlive', npcId: 'NPC-0202', npcName: '高沧云' },
   ],
 }

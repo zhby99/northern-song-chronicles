@@ -26,6 +26,7 @@ export type QuestEvalStateSlice = Pick<
   | 'learnedArts'
   | 'npcFavor'
   | 'deadNpcIds'
+  | 'playerGender'
   | 'sectState'
   | 'questState'
 >
@@ -51,6 +52,7 @@ function pickQuestEvalState(s: GameStoreState): QuestEvalStateSlice {
     learnedArts: s.learnedArts,
     npcFavor: s.npcFavor,
     deadNpcIds: s.deadNpcIds,
+    playerGender: s.playerGender,
     sectState: s.sectState,
     questState: s.questState,
   }

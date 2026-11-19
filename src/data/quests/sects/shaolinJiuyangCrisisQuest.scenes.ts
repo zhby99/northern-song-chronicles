@@ -511,20 +511,50 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-0127', '（望向远方西域天际，神色转沉）“只是丁春秋远在星宿海，素来诡计多端，此次怎会精准知晓老衲今日巡视剑痕崖，甚至暗中窥伺寒玉榻？恐怕中原暗处，还有人与西域魔头暗通款曲……”'),
       N('你听罢心头微动，隐隐将此事与七夕夜藏经阁的双影暗流联系在了一起。山雨欲来风满楼，少林寺的真正考验还在后头。'),
     ],
-    onFinishEffects: [
-      { type: 'teachMartialArt', artId: 'MA-038' },
-      { type: 'giveItem', itemId: 'ITM-SCR-011', qty: 1 },
-      { type: 'giveCombatExp', amount: 880, reason: '剑痕浴血 · 少林九阳' },
-      { type: 'addSectContribution', amount: 300 },
-      { type: 'modifySkill', key: '经义', delta: 2 },
-      { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0127' }, delta: 30 },
-      { type: 'completeQuest', questId: SHAOLIN_Q29_QUEST_ID, outcome: 'completed' },
-      toast(
-        '《剑痕浴血 · 少林九阳》完结！习得《少林九阳功》，获赐《少林九阳禅功密钞》，实战经验 +880，师门贡献 +300，经义 +2，玄难好感 +30！',
-        'success',
-        '少林九阳',
-      ),
-      openScene('scene_slq29_28', SHAOLIN_Q29_QUEST_ID),
+    choices: [
+      {
+        id: 'slq29_complete_monk',
+        label: '珍藏《少林九阳禅功密钞》，修习《少林九阳功》（完成）',
+        tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'neq', value: 'layman' },
+        hideWhenUnavailable: true,
+        effects: [
+          { type: 'teachMartialArt', artId: 'MA-038' },
+          { type: 'giveItem', itemId: 'ITM-SCR-011', qty: 1 },
+          { type: 'giveCombatExp', amount: 880, reason: '剑痕浴血 · 少林九阳' },
+          { type: 'addSectContribution', amount: 300 },
+          { type: 'modifySkill', key: '经义', delta: 2 },
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0127' }, delta: 30 },
+          { type: 'completeQuest', questId: SHAOLIN_Q29_QUEST_ID, outcome: 'completed' },
+          toast(
+            '《剑痕浴血 · 少林九阳》完结！习得《少林九阳功》，获赐《少林九阳禅功密钞》，实战经验 +880，师门贡献 +300，经义 +2，玄难好感 +30！',
+            'success',
+            '少林九阳',
+          ),
+          openScene('scene_slq29_28', SHAOLIN_Q29_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq29_complete_layman',
+        label: '遵祖训将《少林九阳禅功密钞》交还达摩洞封存（完成）',
+        subLabel: '俗家弟子依少林清规不授《少林九阳功》与密钞，改获额外实战历练',
+        tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'eq', value: 'layman' },
+        hideWhenUnavailable: true,
+        effects: [
+          { type: 'giveCombatExp', amount: 1200, reason: '剑痕崖血战退星宿毒师、力救玄难首座' },
+          { type: 'addSectContribution', amount: 300 },
+          { type: 'modifySkill', key: '经义', delta: 2 },
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0127' }, delta: 30 },
+          { type: 'completeQuest', questId: SHAOLIN_Q29_QUEST_ID, outcome: 'completed' },
+          toast(
+            '《剑痕浴血 · 少林九阳》完结！（俗家不授《少林九阳功》）实战经验 +1200，师门贡献 +300，经义 +2，玄难好感 +30！',
+            'success',
+            '剑痕救师',
+          ),
+          openScene('scene_slq29_28', SHAOLIN_Q29_QUEST_ID),
+        ],
+      },
     ],
   },
 
@@ -534,7 +564,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '嵩山少林寺 · 达摩院',
     mandatory: true,
     beats: [
-      N('夕阳西下，漫山红叶在纯阳清风中沙沙作响。你怀揣《少林九阳禅功密钞》，体内真气如江河奔涌生生不息——自此一役，你「纯阳真传」之名已传遍少室内外。'),
+      N('夕阳西下，漫山红叶在清风中沙沙作响。{ifFlag:sl_branch==layman|你将密钞安然封回达摩洞暗格，虽未逾矩修习本寺至阳内功，然此役力挫摘星毒师、力救玄难首座之义举，已传遍少室内外。|你怀揣《少林九阳禅功密钞》，体内真气如江河奔涌生生不息——自此一役，你「纯阳真传」之名已传遍少室内外。}'),
     ],
   },
 }

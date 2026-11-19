@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { MARTIAL_ART_DB_MAP } from '../../data/gameDb'
 import { DEFAULT_EQUIPPED_SLOTS } from '../../data/itemsDb'
 import { QUEST_REGISTRY } from '../../data/quests'
 import { SPOT_SHOPS } from '../../data/spotShops'
@@ -18,7 +19,9 @@ import { effectsOpenModal, findMatchingLocationTriggers } from '../questEngine'
 import {
   buildJoinSectPatch,
   clonePlayerSectState,
+  evaluateSectEntry,
   getSectEntryQuestBlockReason,
+  isShaolinArtBlockedForLayDisciple,
   SECT_ENTRY_TRANSFER_SOURCES,
 } from '../sect'
 import { calcDailyExpByCategory, cloneHeroBaseStats } from '../stats/heroStats'
@@ -235,6 +238,49 @@ describe('sect exclusivity', () => {
     expect(
       getSectEntryQuestBlockReason('QST-SECT-15-ENTRY', clonePlayerSectState({ sectId: 'SECT-16', rank: 1 })),
     ).toBeNull()
+  })
+
+  it('Songshan Shaolin lay disciples may learn only the 4 designated Earth arts, not other Earth/Heaven arts', () => {
+    for (const id of ['MA-094', 'MA-062', 'MA-080', 'MA-044']) {
+      expect(isShaolinArtBlockedForLayDisciple('SECT-01', MARTIAL_ART_DB_MAP[id]!, 'lay')).toBe(false)
+    }
+    for (const id of ['MA-057', 'MA-043', 'MA-038', 'MA-018', 'MA-001']) {
+      expect(isShaolinArtBlockedForLayDisciple('SECT-01', MARTIAL_ART_DB_MAP[id]!, 'lay')).toBe(true)
+      expect(isShaolinArtBlockedForLayDisciple('SECT-01', MARTIAL_ART_DB_MAP[id]!, 'monk')).toBe(false)
+    }
+  })
+
+  it('joining Xingxiu (SECT-19) permanently bars the hero from all Central Plains Orthodox sects', () => {
+    const base = useGameStore.getState()
+    const joined = buildJoinSectPatch({
+      sectId: 'SECT-19',
+      dayCount: 1,
+      silver: 100,
+      inventory: [],
+      sectState: clonePlayerSectState(),
+      questState: base.questState,
+    })
+    expect(joined.ok).toBe(true)
+    expect(joined.nextQuestState.flags.ever_joined_xingxiu).toBe(true)
+
+    // Even after leaving Xingxiu, all Central Plains Orthodox sects remain permanently blocked
+    const leftSectState = clonePlayerSectState({ sectId: null })
+    const flags = joined.nextQuestState.flags
+    for (const orthodoxId of ['SECT-01', 'SECT-02', 'SECT-05', 'SECT-17', 'SECT-21']) {
+      const ev = evaluateSectEntry({
+        targetSectId: orthodoxId,
+        sectState: leftSectState,
+        silver: 1000,
+        baseStats: cloneHeroBaseStats(),
+        inventory: [],
+        questFlags: flags,
+      })
+      expect(ev.canJoin).toBe(false)
+      expect(ev.blockedReason).toContain('星宿派')
+    }
+    expect(getSectEntryQuestBlockReason('QST-SECT-01-ENTRY', leftSectState, flags)).toContain('星宿派')
+    // Non-orthodox sects remain open to former Xingxiu disciples
+    expect(getSectEntryQuestBlockReason('QST-SECT-15-ENTRY', leftSectState, flags)).toBeNull()
   })
 
   it('transfer sources match the quests’ own entry conditions bidirectionally', () => {

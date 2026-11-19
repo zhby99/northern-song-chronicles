@@ -150,7 +150,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     illustrationCaption: '绝壁追凶 · 西岳浴血之夜追击西夏绝顶剑客再入思过崖古剑刻石室',
     mandatory: true,
     beats: [
-      N('寒风如刀刮过思过崖外坪，两名守崖外门弟子已被一剑封住哑穴倒在洞口。你一剑挑飞那人射向背后的三枚透骨丧门钉，紧咬不舍，逼得那道黑影不得不退入三十年前气剑两脉前辈遗骨横陈的秘洞古剑刻石室！'),
+      N('寒风如刀刮过思过崖外坪，两名守崖外门弟子已被一剑封住哑穴倒在洞口。你一剑挑飞那人射向背后的三枚透骨丧门钉，紧咬不舍，{ifFlag:hs_q18_cave_usurp|对方竟寻得当年崩岩侧隙强行凿开了一道暗口，被你逼得退入|逼得那道黑影不得不退入}三十年前气剑两脉前辈遗骨横陈的秘洞古剑刻石室！'),
       S(SPEAKER_XIXIA_SWORDMASTER, '（缓缓转过身来，手中夏国冷锻长剑在幽暗火折下泛着森蓝寒芒）“好俊的身法！原以为华山派早被气宗那帮腐儒练成了乌龟壳，想不到剑宗里还藏着你这号快剑人物。”'),
       P('“西夏一品堂首席剑客‘朔漠孤鸿’嵬名孤鸿？不在兴庆府享你的荣华富贵，今夜闯我太华禁地，便是自寻死路！”'),
     ],
@@ -375,8 +375,9 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           { type: 'teachMartialArt', artId: 'MA-007', level: 1, autoEquip: true },
           { type: 'addArtExp', artId: 'MA-007', amount: 450 },
+          { type: 'healPlayer', hpPct: 100, mpPct: 100 },
           { type: 'modifySkill', key: '书', delta: 1 },
-          toast('剑心通明！习得天阶上品剑法《独孤九剑》并获大宗师剑刻感悟！', 'success', '独孤九剑'),
+          toast('剑心通明！习得天阶上品剑法《独孤九剑》，气血内力尽数回满！', 'success', '独孤九剑'),
           openScene('scene_hsq18_21', HUASHAN_Q18_QUEST_ID),
         ],
       },
@@ -403,18 +404,16 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('你一步掠出思过崖洞口，遥见玉女峰紫霞道观外围防线已被攻破，黑压压的西夏一品堂武士与四大恶人已将紫霞正气主殿团团围困，紧急护山钟声一声紧似一声！'),
-      P('“四大恶人已攻至紫霞主殿！正好拿西夏群凶与段延庆，祭我初成的《独孤九剑》！”'),
+      P('“四大恶人已攻至紫霞主殿！先调匀真气、运使初成的《独孤九剑》，再速赴紫霞正气主殿驰援同门！”'),
     ],
     choices: [
       {
         id: 'hsq18_ch_rush_zixia',
-        label: '踏崖借风，火速飞掠驰援【玉女峰紫霞道观 · 紫霞正气主殿】',
+        label: '整备兵刃与新悟剑法，准备驰援【玉女峰紫霞道观 · 紫霞正气主殿】',
         tone: 'danger',
         effects: [
           setStep(HUASHAN_Q18_QUEST_ID, 'rescue_zixia'),
-          { type: 'teleportPlayer', regionId: 'tongguan', buildingId: 'tg_zixia', spotId: 'tg_zx_hall' },
-          toast('已掠返玉女峰！请在【紫霞正气主殿】迎击四大恶人！', 'warn', '驰援紫霞'),
-          openScene('scene_hsq18_23', HUASHAN_Q18_QUEST_ID),
+          toast('请整备状态与《独孤九剑》后，前往【玉女峰紫霞道观 · 紫霞正气主殿】迎击四大恶人！', 'warn', '驰援紫霞'),
         ],
       },
     ],
@@ -560,25 +559,28 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '玉女峰紫霞道观 · 紫霞正气主殿',
     mandatory: true,
     beats: [
-      P('“掌门放心！弟子既不与他拼内力，亦不挡他铁杖锋芒——段延庆，今夜便教你见识《独孤九剑》第九式‘破气式’，看我十招之内破你一阳指！”'),
+      N('先前岳沧溟拼着硬接数记一阳指才将段延庆挡在殿外，此刻段延庆真气亦已耗损三成，见你一个年轻剑宗长老竟敢以无招薄剑迎上，眼中寒芒大盛，难免存了几分轻敌之意。'),
+      P('“掌门放心！弟子既不与他拼内力，亦不挡他铁杖锋芒——段延庆，今夜便教你见识《独孤九剑》第九式‘破气式’，撑过三合便破你一阳指气机！”'),
       S(SPEAKER_DUAN_YANQING, '“（腹语）狂妄无知！接老夫一杖！”'),
-      N('段延庆左拐撑地腾空丈许，右首细铁杖尖端凝聚起一点炽烈刺目的赤金纯阳指芒，挟着排山倒海的宗师威压当胸点落！'),
+      N('段延庆左拐撑地腾空丈许，右首寒铁拐杖尖端凝聚起一点炽烈刺目的赤金纯阳指芒，挟着排山倒海的宗师威压当胸点落！'),
     ],
     choices: [
       {
         id: 'hsq18_ch_duel_duanyanqing',
-        label: '催动《独孤九剑·破气式》，十招决战宗师中品段延庆！',
+        label: '催动《独孤九剑·破气式》，在宗师段延庆手下撑住三合寻机破气！',
+        subLabel: '宗师三合破局 · 恶贯满盈段延庆（宗师中品 · 撑满 3 回合即胜）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
             questId: HUASHAN_Q18_QUEST_ID,
             opponent: { kind: 'npc', npcId: 'NPC-1053' },
-            rule: 'duel',
+            rule: 'survive_rounds',
+            maxRounds: 3,
             forbidEscapeReason: '紫霞主殿存亡系于此剑，退后一步则满门俱危！',
-            introText: '【破气惊神】以天阶《独孤九剑》迎战四大恶人之首段延庆（宗师中品），寻其一阳指气机命门一剑破之！',
+            introText: '【破气惊神】以天阶《独孤九剑》迎战四大恶人之首段延庆（宗师中品），在寒铁双拐与一阳指攻势下撑满三回合寻其气机命门一剑破之！',
             onWin: [
-              { type: 'giveCombatExp', amount: 190, reason: '独孤九剑破气式十招刺伤宗师段延庆' },
+              { type: 'giveCombatExp', amount: 190, reason: '独孤九剑破气式三合寻隙刺伤宗师段延庆' },
               openScene('scene_hsq18_32', HUASHAN_Q18_QUEST_ID),
             ],
           },

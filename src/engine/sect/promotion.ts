@@ -1,4 +1,4 @@
-import { FACTION_DB_MAP, NPCS_DB, NPC_DB_MAP } from '../../data/gameDb'
+import { FACTION_DB_MAP, NPC_DB_MAP } from '../../data/gameDb'
 import type { SectRankLevel } from '../../types/game'
 import { INITIAL_NPC_FAVOR } from '../social/npcFavor'
 import { getSectLeaderNpcId, getSectRankTitle } from './ranks'
@@ -6,7 +6,7 @@ import { getSectRule, type SectPromotionRuleKind } from './rules'
 
 /**
  * Promotion requirements within a sect (Lv.1 -> Lv.2 -> Lv.3 -> Lv.4).
- * 不可通过常规晋升成为掌门 (Lv.5)（星宿派挑战丁春秋除外）。
+ * 除开封府/六扇门（SECT-17）外，所有一流大派均取消面板直晋，一律改由本门剧情任务册封。
  */
 export interface PromotionRequirementInfo {
   targetRank: SectRankLevel
@@ -135,176 +135,47 @@ function evalImperialGuardMerit(
   }
 }
 
-function evalXingxiuDuel(params: EvaluateSectPromotionParams): PromotionRequirementInfo | null {
-  const {
-    sectId,
-    currentRank,
-    xingxiuDefeatedRanks = [],
-    killedDingChunqiu = false,
-  } = params
+function evalShaolinQuest(params: EvaluateSectPromotionParams): PromotionRequirementInfo | null {
+  const { sectId, currentRank } = params
   if (currentRank >= 5) return null
   const targetRank = (currentRank + 1) as SectRankLevel
   const targetRankLabel = getSectRankTitle(sectId, targetRank)
-  if (currentRank === 4) {
-    return {
-      targetRank: 5,
-      targetRankLabel,
-      canPromote: killedDingChunqiu,
-      reason: killedDingChunqiu
-        ? `已手刃星宿老怪丁春秋，可正式登临【${targetRankLabel}】尊位！`
-        : '星宿派弱肉强食，须在生死决斗中杀死掌门【丁春秋】方可取而代之成为掌门！',
-    }
+  if (sectId !== 'SECT-01') {
+    return evalFirstTierPending(params)
   }
-  const beaten = xingxiuDefeatedRanks.includes(targetRank)
-  const targetHint =
-    targetRank === 4
-      ? '1 名第 4 阶同门或大师兄【摘星子】'
-      : `1 名第 ${targetRank} 阶【${targetRankLabel}】同门`
-  return {
-    targetRank,
-    targetRankLabel,
-    canPromote: beaten,
-    reason: beaten
-      ? `已在门派交锋中击败${targetHint}，可立即晋升【${targetRankLabel}】！`
-      : `星宿派晋升只看实力，须先击败${targetHint}方可晋升【${targetRankLabel}】！`,
-  }
-}
-
-function evalGaibangFavor(params: EvaluateSectPromotionParams): PromotionRequirementInfo | null {
-  const { sectId, currentRank, npcFavor } = params
-  if (currentRank >= 4) return null
-  const targetRank = (currentRank + 1) as SectRankLevel
-  const targetRankLabel = getSectRankTitle(sectId, targetRank)
-  const reqByRank: Record<2 | 3 | 4, { count: number; favor: number }> = {
-    2: { count: 3, favor: 30 },
-    3: { count: 5, favor: 50 },
-    4: { count: 10, favor: 80 },
-  }
-  const req = reqByRank[targetRank as 2 | 3 | 4]
-  const qualifiedCount = NPCS_DB.filter(
-    (n) => n.factionId === sectId && (npcFavor[n.id] ?? INITIAL_NPC_FAVOR) >= req.favor,
-  ).length
-  const ok = qualifiedCount >= req.count
-  return {
-    targetRank,
-    targetRankLabel,
-    canPromote: ok,
-    reason: ok
-      ? `已有 ${qualifiedCount} 位丐帮同门好感度 ≥ ${req.favor}，兄弟拥戴，可晋升【${targetRankLabel}】！`
-      : `晋升【${targetRankLabel}】需至少 ${req.count} 位丐帮同门好感度 ≥ ${req.favor}（当前已达标 ${qualifiedCount}/${req.count} 人）。`,
-  }
-}
-
-function evalShaolinZen(params: EvaluateSectPromotionParams): PromotionRequirementInfo | null {
-  const { sectId, currentRank, dayCount, joinedDay, heroRealmRank, heroRealmLabel, npcFavor, skills } =
-    params
-  if (currentRank >= 4) return null
-  const targetRank = (currentRank + 1) as SectRankLevel
-  const targetRankLabel = getSectRankTitle(sectId, targetRank)
-  const leaderId = getSectLeaderNpcId(sectId)
-  const leaderName = (leaderId ? NPC_DB_MAP[leaderId]?.name : null) ?? '掌门'
-  const leaderFavor = leaderId ? (npcFavor[leaderId] ?? INITIAL_NPC_FAVOR) : INITIAL_NPC_FAVOR
-  const daysInSect = Math.max(0, dayCount - joinedDay)
-
-  const shaolinReqs: Record<
-    2 | 3 | 4,
-    { minRealmRank: number; minRealmLabel: string; minDays: number; minFavor: number; minScripture: number }
-  > = {
-    2: { minRealmRank: 4, minRealmLabel: '二流下品', minDays: 365, minFavor: 20, minScripture: 50 },
-    3: { minRealmRank: 7, minRealmLabel: '一流下品', minDays: 1800, minFavor: 50, minScripture: 70 },
-    4: { minRealmRank: 10, minRealmLabel: '宗师下品', minDays: 7200, minFavor: 80, minScripture: 85 },
-  }
-  const req = shaolinReqs[targetRank as 2 | 3 | 4]
-  const scriptureVal = skills?.['经义'] ?? 0
-  const missing: string[] = []
-  if (heroRealmRank < req.minRealmRank) {
-    missing.push(`境界须达【${req.minRealmLabel}】（当前【${heroRealmLabel}】）`)
-  }
-  if (daysInSect < req.minDays) {
-    missing.push(`在派天数 ${daysInSect}/${req.minDays} 天`)
-  }
-  if (leaderFavor < req.minFavor) {
-    missing.push(`掌门【${leaderName}】好感度 ${leaderFavor}/${req.minFavor}`)
-  }
-  if (scriptureVal < req.minScripture) {
-    missing.push(`经义 ${scriptureVal}/${req.minScripture}`)
-  }
-  return {
-    targetRank,
-    targetRankLabel,
-    canPromote: missing.length === 0,
-    reason:
-      missing.length === 0
-        ? `禅武兼修（境界${heroRealmLabel}、在派 ${daysInSect} 天、掌门好感 ${leaderFavor}、经义 ${scriptureVal}），可晋升【${targetRankLabel}】！`
-        : `晋升【${targetRankLabel}】尚缺：${missing.join('、')}`,
-  }
-}
-
-function evalDaoSwordTournament(
-  params: EvaluateSectPromotionParams,
-): PromotionRequirementInfo | null {
-  const {
-    sectId,
-    currentRank,
-    dayCount,
-    joinedDay,
-    heroRealmRank,
-    heroRealmLabel,
-    npcFavor,
-    wonSectTournament,
-    hasTournamentToken,
-  } = params
-  if (currentRank >= 4) return null
-  const targetRank = (currentRank + 1) as SectRankLevel
-  const targetRankLabel = getSectRankTitle(sectId, targetRank)
-  const faction = FACTION_DB_MAP[sectId]
-  if (currentRank >= 3) {
+  if (currentRank === 1) {
     return {
       targetRank,
       targetRankLabel,
       canPromote: false,
-      isFirstTierPendingDesign: true,
-      reason: `【${faction?.name ?? sectId}】第4阶【${targetRankLabel}】晋升任务线将于后续单独设计开放（且掌门之位不可通过常规晋升获得）。`,
+      reason:
+        '晋升【内门弟子（Lv.2）】不可经由面板直晋：须完成外门历练并赴大雄宝殿完成《木桩试锋 · 四脉分流》（Q04）择定堂脉后由方丈亲擢！',
     }
   }
-  const leaderId = getSectLeaderNpcId(sectId)
-  const leaderName = (leaderId ? NPC_DB_MAP[leaderId]?.name : null) ?? '掌门'
-  const leaderFavor = leaderId ? (npcFavor[leaderId] ?? INITIAL_NPC_FAVOR) : INITIAL_NPC_FAVOR
-  const daysInSect = Math.max(0, dayCount - joinedDay)
-
-  const missing: string[] = []
-  if (targetRank === 2) {
-    if (heroRealmRank < 3) {
-      missing.push(`境界须达【三流上品】（当前【${heroRealmLabel}】）`)
+  if (currentRank === 2) {
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      reason:
+        '晋升【真传弟子（Lv.3）】不可经由面板直晋：须完成所属堂脉（罗汉/达摩/戒律/俗家）晋升真传试炼任务，由各院首座联署擢升！',
     }
-    if (daysInSect < 120) {
-      missing.push(`在派天数 ${daysInSect}/120 天`)
-    }
-    if (leaderFavor < 20) {
-      missing.push(`掌门【${leaderName}】好感度 ${leaderFavor}/20`)
-    }
-  } else if (targetRank === 3) {
-    if (heroRealmRank < 6) {
-      missing.push(`境界须达【二流上品】（当前【${heroRealmLabel}】）`)
-    }
-    if (daysInSect < 730) {
-      missing.push(`在派天数 ${daysInSect}/730 天`)
-    }
-    if (leaderFavor < 60) {
-      missing.push(`掌门【${leaderName}】好感度 ${leaderFavor}/60`)
-    }
-    if (!wonSectTournament && !hasTournamentToken) {
-      missing.push('须曾夺得【宗门大比】第一名并持有《宗门大比冠军信物》')
+  }
+  if (currentRank === 3) {
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      reason:
+        '晋升【长老（Lv.4）】不可经由面板直晋：须完成真传合流历练并推进《禅武合参 · 晋升长老》（Q33），方可由满寺高僧册封！',
     }
   }
   return {
     targetRank,
     targetRankLabel,
-    canPromote: missing.length === 0,
+    canPromote: false,
     reason:
-      missing.length === 0
-        ? `境界（${heroRealmLabel}）、资历（在派 ${daysInSect} 天）与掌门好感（${leaderFavor}）皆已齐备，可晋升为【${targetRankLabel}】！`
-        : `晋升【${targetRankLabel}】尚缺：${missing.join('、')}`,
+      '晋升【掌门 / 白衣大居士（Lv.5）】须完成少林终局抉择任务（《慈悲方丈》《铁腕法王》或《白衣大居士》）方可登临尊位！',
   }
 }
 
@@ -357,7 +228,7 @@ function evalFirstTierPending(
   params: EvaluateSectPromotionParams,
 ): PromotionRequirementInfo | null {
   const { sectId, currentRank } = params
-  if (currentRank >= 4) return null
+  if (currentRank >= 5) return null
   const targetRank = (currentRank + 1) as SectRankLevel
   const targetRankLabel = getSectRankTitle(sectId, targetRank)
   const faction = FACTION_DB_MAP[sectId]
@@ -366,7 +237,7 @@ function evalFirstTierPending(
     targetRankLabel,
     canPromote: false,
     isFirstTierPendingDesign: true,
-    reason: `【${faction?.name ?? sectId}】乃一流宗门，专属晋升考核体系将于后续单独实装（且掌门之位不可通过常规晋升获得）。`,
+    reason: `【${faction?.name ?? sectId}】乃一流大派，晋升【${targetRankLabel}（Lv.${targetRank}）】不可经由门派事务面板直晋，须推进本门专属剧情任务由师门册封！`,
   }
 }
 
@@ -420,10 +291,10 @@ const PROMOTION_STRATEGY_BY_KIND: Record<
   kaifeng_cases: evalKaifengCases,
   imperial_guard_merit: evalImperialGuardMerit,
   huashan_quest: evalHuashanQuest,
-  xingxiu_duel: evalXingxiuDuel,
-  gaibang_favor: evalGaibangFavor,
-  shaolin_zen: evalShaolinZen,
-  dao_sword_tournament: evalDaoSwordTournament,
+  xingxiu_duel: evalFirstTierPending,
+  gaibang_favor: evalFirstTierPending,
+  shaolin_zen: evalShaolinQuest,
+  dao_sword_tournament: evalFirstTierPending,
   minor_or_second_tier: evalMinorOrSecondTier,
   first_tier_pending: evalFirstTierPending,
 }
@@ -433,6 +304,13 @@ export function evaluateSectPromotion(
 ): PromotionRequirementInfo | null {
   const rule = getSectRule(params.sectId)
   const faction = FACTION_DB_MAP[params.sectId]
+  // 除开封府/六扇门（SECT-17）外，所有一流大派均取消面板直晋，一律改由本门剧情任务册封
+  if (faction?.sectTier === '一流大派' && params.sectId !== 'SECT-17') {
+    if (rule?.promotionRuleKind === 'huashan_quest') return evalHuashanQuest(params)
+    if (rule?.promotionRuleKind === 'imperial_guard_merit') return evalImperialGuardMerit(params)
+    if (params.sectId === 'SECT-01') return evalShaolinQuest(params)
+    return evalFirstTierPending(params)
+  }
   const resolvedKind: SectPromotionRuleKind =
     rule?.promotionRuleKind ??
     (faction && (faction.sectTier === '二流门派' || faction.sectTier === '三流小派')

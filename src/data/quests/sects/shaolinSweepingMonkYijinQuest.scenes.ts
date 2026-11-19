@@ -23,7 +23,7 @@ export const SHAOLIN_Q42_SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('话音未落，琉璃主阁东窗猛然被一道刚猛无匹的掌风震开！一名身材伟岸的豪雄大步踏入阁中，紧追着前方一道如鬼魅般灰袍飘飞的魁梧老者——正是【萧峰】与他的生父【萧远山】！'),
-      S('NPC-0110', '（见你也在阁中，先是一怔，随即沉声急呼）“{gender:掌门|大居士}小心！当年雁门关害死我娘亲、陷害我父子三十年的幕后真凶，就藏在这藏经阁里！”'),
+      S('NPC-0110', '（见你也在阁中，先是一怔，随即沉声急呼）“{ifFlag:sl_branch==layman|大居士|掌门}小心！当年雁门关害死我娘亲、陷害我父子三十年的幕后真凶，就藏在这藏经阁里！”'),
       S('NPC-0105', '（萧远山白发飞扬，双目如血，冷冷扫向经架阴影深处）“鼠辈！你装死躲在少林藏经阁偷学七十二绝技整整三十年，今日老夫父子寻上门来，你还不滚出来受死？！”'),
     ],
     onFinishEffects: [openScene('scene_slq42_03', SHAOLIN_Q42_QUEST_ID)],
@@ -124,7 +124,7 @@ export const SHAOLIN_Q42_SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('就在慕容博抬指欲发之际，鸠摩智忽然抢先一记火焰刀炽浪横扫萧远山与萧峰，慕容复亦拔剑直扑萧峰侧翼，瞬间将萧氏父子暂且牵制在阁楼东侧！'),
       S('NPC-0113', '（朗声大笑）“慕容老施主，萧氏父子便交由小僧与令郎暂且招呼！您只管先拿下这少林掌门，夺了藏经阁镇阁秘籍再说！”'),
-      S('NPC-0110', '（挥降龙掌逼退慕容复，焦急大喝）“{gender:掌门|大居士}小心！慕容博的修为深不可测，绝不在老父与我之下！”'),
+      S('NPC-0110', '（挥降龙掌逼退慕容复，焦急大喝）“{ifFlag:sl_branch==layman|大居士|掌门}小心！慕容博的修为深不可测，绝不在老父与我之下！”'),
     ],
     onFinishEffects: [openScene('scene_slq42_10', SHAOLIN_Q42_QUEST_ID)],
   },
@@ -516,7 +516,7 @@ export const SHAOLIN_Q42_SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('一场震动天下三十年的滔天血案，竟在法空谈笑挥袖之间，化作两声清越的皈依佛号！'),
-      S('NPC-0110', '（萧峰眼眶微红，向法空与生父萧远山深深叩首，复起身向你重重抱拳）“多谢神僧慈悲，救我生父性命、解我父子三十年心结！也多谢{gender:掌门|大居士}今夜力战慕容博、护持大局！如今家父既已皈依清净佛门，萧某再无牵挂，日后纵横天下，必永记少林大恩！”'),
+      S('NPC-0110', '（萧峰眼眶微红，向法空与生父萧远山深深叩首，复起身向你重重抱拳）“多谢神僧慈悲，救我生父性命、解我父子三十年心结！也多谢{ifFlag:sl_branch==layman|大居士|掌门}今夜力战慕容博、护持大局！如今家父既已皈依清净佛门，萧某再无牵挂，日后纵横天下，必永记少林大恩！”'),
       P('（含笑回礼）“阿弥陀佛。萧大侠珍重，少室山门永远是你归家之处。”'),
     ],
     onFinishEffects: [openScene('scene_slq42_37', SHAOLIN_Q42_QUEST_ID)],
@@ -674,15 +674,18 @@ export const SHAOLIN_Q42_SCENES: Record<string, StorySceneDef> = {
     subtitle: '嵩山少林寺 · 绝顶圆满',
     mandatory: true,
     beats: [
-      N('【少林绝顶封神终章 · 古杏扫叶 · 易筋真经】至此功德圆满！扫地僧法空展卷口授《达摩易筋真经》梵夹本无上秘要，你亲承少林创派第一神功【易筋经】，更获赐天阶圣物【达摩一苇渡江履】，名垂北宋江湖青史！'),
+      N('{ifFlag:sl_branch==layman|【少林绝顶封神终章 · 古杏扫叶 · 易筋真经】至此功德圆满！扫地僧法空赞你白衣护法功德无量，依少林祖训将《达摩易筋真经》梵夹本留藏阁中，特赐天阶圣物【达摩一苇渡江履】以彰大居士护教奇功，名垂北宋江湖青史！|【少林绝顶封神终章 · 古杏扫叶 · 易筋真经】至此功德圆满！扫地僧法空展卷口授并亲赐《达摩易筋真经》梵夹本，你亲承少林创派第一神功【易筋经】，更获赐天阶圣物【达摩一苇渡江履】，名垂北宋江湖青史！}'),
     ],
     choices: [
       {
         id: 'slq42_complete',
-        label: '拜谢扫地僧法空，承接《易筋经》与【达摩一苇渡江履】（绝顶封神）',
+        label: '拜谢扫地僧法空，承接《易筋经》、梵夹本真经与【达摩一苇渡江履】（绝顶封神）',
         tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'neq', value: 'layman' },
+        hideWhenUnavailable: true,
         effects: [
           { type: 'teachMartialArt', artId: 'MA-001', level: 1 },
+          { type: 'giveItem', itemId: 'ITM-SCR-001', qty: 1 },
           { type: 'giveItem', itemId: 'BOT-003', qty: 1 },
           {
             type: 'giveCombatExp',
@@ -694,14 +697,42 @@ export const SHAOLIN_Q42_SCENES: Record<string, StorySceneDef> = {
             delta: 600,
             reason: '少林绝顶封神，承接《易筋经》与达摩一苇渡江履，誉满天下武林',
           },
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0101' }, delta: 30 },
+          { type: 'completeQuest', questId: SHAOLIN_Q42_QUEST_ID, outcome: 'completed' },
+          toast(
+            '已完成绝顶封神终章《古杏扫叶 · 易筋真经》！习得创派神功【易筋经】，获天阶圣物【《达摩易筋真经》梵夹本】与【达摩一苇渡江履】，威望 +600，法空好感 +30！',
+            'success',
+            '易筋封神',
+          ),
+        ],
+      },
+      {
+        id: 'slq42_complete_layman',
+        label: '拜谢扫地僧法空，领受【达摩一苇渡江履】扬白衣护法威名（绝顶圆满）',
+        subLabel: '俗家弟子依少林清规不授《易筋经》与梵夹真经，改获额外实战历练',
+        tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'eq', value: 'layman' },
+        hideWhenUnavailable: true,
+        effects: [
+          { type: 'giveItem', itemId: 'BOT-003', qty: 1 },
+          {
+            type: 'giveCombatExp',
+            amount: 4000,
+            reason: '琉璃藏经阁硬撼慕容博、以白衣大居士之身护持千年禅宗',
+          },
+          {
+            type: 'modifyRenown',
+            delta: 600,
+            reason: '白衣大居士力保藏经阁，获扫地僧法空赐【达摩一苇渡江履】，誉满天下武林',
+          },
           { type: 'modifySkill', key: '经义', delta: 2 },
           { type: 'modifySkill', key: '书', delta: 1 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0101' }, delta: 30 },
           { type: 'completeQuest', questId: SHAOLIN_Q42_QUEST_ID, outcome: 'completed' },
           toast(
-            '已完成绝顶封神终章《古杏扫叶 · 易筋真经》！习得创派神功【易筋经】，获天阶圣物【达摩一苇渡江履】，威望 +600，法空好感 +30！',
+            '已完成绝顶终章《古杏扫叶 · 易筋真经》！（俗家不授《易筋经》）获天阶圣物【达摩一苇渡江履】，武学经验 +4000，威望 +600，法空好感 +30！',
             'success',
-            '易筋封神',
+            '白衣封神',
           ),
         ],
       },

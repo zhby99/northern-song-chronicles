@@ -1,16 +1,9 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
 import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
-import { buildDuanYanqingNpc, HUASHAN_Q17_QUEST_ID } from './huashanQiZixiaAwakenQuest'
+import { HUASHAN_Q17_QUEST_ID } from './huashanQiZixiaAwakenQuest'
 
-const SPEAKER_DUAN_YANQING: StorySpeakerSpec = {
-  kind: 'custom',
-  name: '段延庆 · 恶贯满盈',
-  title: '四大恶人之首 · 一品堂客卿首座',
-  factionName: '西夏一品堂',
-  portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
-  avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_av.jpg',
-}
+const SPEAKER_DUAN_YANQING: StorySpeakerSpec = { kind: 'npc', npcId: 'NPC-1053' }
 
 const SPEAKER_DEATHSWORN_COMMANDER: StorySpeakerSpec = {
   kind: 'custom',
@@ -569,16 +562,18 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hsq17_c31_boss_duan',
-        label: '全力催动天阶《紫霞神功》，与恶首段延庆正面血战二十合！',
+        label: '全力催动天阶《紫霞神功》，在恶首段延庆手下硬撑三合震飞其铁杖！',
+        subLabel: '宗师三合破局 · 恶贯满盈段延庆（宗师中品 · 撑满 3 回合即胜）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
             questId: HUASHAN_Q17_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildDuanYanqingNpc() },
-            rule: 'duel',
-            forbidEscapeReason: '身后便是掌门与百名华山同门，唯有一剑击败恶首方能定鼎乾坤！',
-            introText: '【硬撼恶首】在紫霞主殿丹墀正面死战四大恶人之首段延庆（宗师中品），以紫霞剑气破其一阳指铁杖！',
+            opponent: { kind: 'npc', npcId: 'NPC-1053' },
+            rule: 'survive_rounds',
+            maxRounds: 3,
+            forbidEscapeReason: '身后便是掌门与百名华山同门，唯有力撑三合震退恶首方能定鼎乾坤！',
+            introText: '【硬撼恶首】在紫霞主殿丹墀迎战四大恶人之首段延庆（宗师中品），以先天紫霞气撑满三回合破其一阳指铁杖！',
             onWin: [openScene('scene_hsq17_32', HUASHAN_Q17_QUEST_ID)],
           },
         ],
@@ -588,14 +583,14 @@ export const SCENES: Record<string, StorySceneDef> = {
 
   scene_hsq17_32: {
     id: 'scene_hsq17_32',
-    title: '第三十二幕 · 二十合震飞精钢杖',
+    title: '第三十二幕 · 紫霞激荡震铁杖',
     subtitle: '玉女峰紫霞道观 · 紫霞正气主殿丹墀',
     illustrationUrl: '/assets/quests/hs_q17_duan_staff_fly.jpg',
-    illustrationCaption: '硬撼恶首 · 紫霞剑气激斗二十合震飞段延庆铁杖，一品堂溃逃下山',
+    illustrationCaption: '硬撼恶首 · 紫霞剑气激斗震飞段延庆铁杖，一品堂溃逃下山',
     mandatory: true,
     beats: [
-      N('紫芒与金指在雪夜丹墀上疯狂碰撞！十合、十五合、十九合——起初段延庆指力刚猛霸道占尽上风，岂料你体内《紫霞神功》越战越盛、绵绵无尽，到了第二十合，三道凝若实质的紫霞剑气轰然叠成《太岳三青峰》绝杀一击！'),
-      N('“当——！！”震耳欲聋的巨响声中，段延庆虎口鲜血迸溅，右手那根无坚不摧的精钢铁杖竟被你一剑硬生生震飞上天，打着旋儿斜插进三丈外的青石兽首之中！'),
+      N('紫芒与金指在雪夜丹墀上疯狂碰撞！起初段延庆指力刚猛霸道占尽上风，岂料你体内《紫霞神功》越战越盛、绵绵无尽，硬撑三合借势反震，三道凝若实质的紫霞剑气轰然叠成《太岳三青峰》绝杀一击！'),
+      N('“当——！！”震耳欲聋的巨响声中，段延庆虎口鲜血迸溅，右手那根无坚不摧的寒铁拐杖竟被你一剑硬生生震飞上天，打着旋儿斜插进三丈外的青石兽首之中！'),
       S(SPEAKER_DUAN_YANQING, '（仅凭单拐连退七步，喉头一甜溢出一丝血迹，腹语骇然）“好霸道的先天紫霞气……绵绵若存、后劲无穷！点子扎手！”'),
     ],
     onFinishEffects: [openScene('scene_hsq17_33', HUASHAN_Q17_QUEST_ID)],
@@ -609,7 +604,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       N('恰在此时，东峰方向剑啸冲霄——宁清羽与封不弃已联手刺伤叶二娘左臂杀回主殿；山道下方秦烈山更提着滴血长剑杀散死士后队疾驰登峰！'),
       S('NPC-0233', '（捂着淌血的肩膀冲入外院急喊）“老大快走！华山那几个老剑客全合围过来了！”'),
-      N('段延庆内力一吸拔回铁杖，深知大势已去，冷冷盯了你一眼：“小辈，今日老夫记下你的紫霞剑了！老二、老三、老四，撤！”四大恶人借着夜色翻下西侧悬崖，残余一品堂死士顿时兵败如山倒，哭爹喊娘滚下苍龙岭逃命而去！'),
+      N('段延庆内力一吸拔回铁杖，深知大势已去，冷冷盯了你一眼，喉间不张却滚出森寒腹语：“小辈，今日老夫记下你的紫霞剑了！老二、老三、老四，撤！”四大恶人借着夜色翻下西侧悬崖，残余一品堂死士顿时兵败如山倒，哭爹喊娘滚下苍龙岭逃命而去！'),
     ],
     onFinishEffects: [openScene('scene_hsq17_34', HUASHAN_Q17_QUEST_ID)],
   },

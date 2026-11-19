@@ -343,13 +343,15 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '嵩山少林寺 · 东厢碑廊 · 藏经橱',
     mandatory: true,
     beats: [
-      N('子夜护碑大功告成，你已得《般若掌》真传！而戒律与护法之路上的更深考校，正静待着你去迎接。'),
+      N('子夜护碑大功告成！{ifFlag:sl_branch==layman|依少林清规，《般若掌》禅门密传不授俗家，然玄寂大师盛赞你护碑奇功，并许你日后共参护寺刚猛绝艺《大力金刚指》。|你已得《般若掌》真传！而戒律与护法之路上的更深考校，正静待着你去迎接。}'),
     ],
     choices: [
       {
         id: 'slq26_complete',
         label: '习得《般若掌》，圆满完成【东厢古碑 · 掌吐梵音】',
         tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'neq', value: 'layman' },
+        hideWhenUnavailable: true,
         effects: [
           { type: 'teachMartialArt', artId: 'MA-043', level: 1 },
           {
@@ -366,6 +368,31 @@ export const SCENES: Record<string, StorySceneDef> = {
             '【东厢古碑 · 掌吐梵音】圆满完成！习得《般若掌》，实战经验 +650、贡献 +220、书 +2、经义 +1、玄寂好感 +20！',
             'success',
             '掌吐梵音',
+          ),
+        ],
+      },
+      {
+        id: 'slq26_complete_layman',
+        label: '遵祖训不越佛门清规，领受护碑嘉奖圆满完成【东厢古碑 · 掌吐梵音】',
+        subLabel: '俗家弟子依少林清规不授《般若掌》，改获额外实战历练',
+        tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'eq', value: 'layman' },
+        hideWhenUnavailable: true,
+        effects: [
+          {
+            type: 'giveCombatExp',
+            amount: 850,
+            reason: '子夜护全东厢唐代《心经》古碑，擒拿辽探盗拓飞贼首鬼手陈',
+          },
+          { type: 'addSectContribution', amount: 220 },
+          { type: 'modifySkill', key: '书', delta: 2 },
+          { type: 'modifySkill', key: '经义', delta: 1 },
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0134' }, delta: 20 },
+          { type: 'completeQuest', questId: SHAOLIN_Q26_QUEST_ID, outcome: 'completed' },
+          toast(
+            '【东厢古碑 · 掌吐梵音】圆满完成！（俗家不授《般若掌》）实战经验 +850、贡献 +220、书 +2、经义 +1、玄寂好感 +20！',
+            'success',
+            '子夜护碑',
           ),
         ],
       },

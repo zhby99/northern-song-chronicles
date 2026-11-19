@@ -352,13 +352,15 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '嵩山少林寺 · 飞瀑深潭',
     mandatory: true,
     beats: [
-      N('朝阳跃出嵩岳东峰，十丈飞瀑在金光中化作一道七彩长虹。你身怀《一苇渡江》绝世轻功，真传单脉的更深试炼，已然在你脚下徐徐铺开。'),
+      N('朝阳跃出嵩岳东峰，十丈飞瀑在金光中化作一道七彩长虹。{ifFlag:sl_branch==layman|虽依祖训《一苇渡江》内家禅门身法不传俗家，但你此役洛水追谍身法已臻化境，真传护法的更深试炼，已然在你脚下徐徐铺开。|你身怀《一苇渡江》绝世轻功，真传单脉的更深试炼，已然在你脚下徐徐铺开。}'),
     ],
     choices: [
       {
         id: 'slq21_complete',
         label: '习得少林绝学《一苇渡江》，圆满完成【飞瀑深潭 · 一苇渡江】',
         tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'neq', value: 'layman' },
+        hideWhenUnavailable: true,
         effects: [
           { type: 'teachMartialArt', artId: 'MA-057', level: 1 },
           {
@@ -374,6 +376,30 @@ export const SCENES: Record<string, StorySceneDef> = {
             '【飞瀑深潭 · 一苇渡江】圆满完成！习得《一苇渡江》，实战经验 +580、门派贡献 +200、经义 +1、玄渡好感 +18！',
             'success',
             '一苇渡江',
+          ),
+        ],
+      },
+      {
+        id: 'slq21_complete_layman',
+        label: '遵祖训辞谢秘传身法，领受玄渡指点圆满完成【飞瀑深潭 · 一苇渡江】',
+        subLabel: '俗家弟子依少林清规不授《一苇渡江》，改获额外实战历练',
+        tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'eq', value: 'layman' },
+        hideWhenUnavailable: true,
+        effects: [
+          {
+            type: 'giveCombatExp',
+            amount: 780,
+            reason: '洛水急流生擒西夏轻功谍探云中燕，获玄渡尊者指点外家步法',
+          },
+          { type: 'addSectContribution', amount: 200 },
+          { type: 'modifySkill', key: '经义', delta: 1 },
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0135' }, delta: 18 },
+          { type: 'completeQuest', questId: SHAOLIN_Q21_QUEST_ID, outcome: 'completed' },
+          toast(
+            '【飞瀑深潭 · 一苇渡江】圆满完成！（俗家不授《一苇渡江》）实战经验 +780、门派贡献 +200、经义 +1、玄渡好感 +18！',
+            'success',
+            '洛水擒谍',
           ),
         ],
       },

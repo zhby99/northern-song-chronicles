@@ -18,6 +18,7 @@ export const HUASHAN_Q15_START_CONDITION: QuestCondition = {
     qStatus('QST-SECT-05-14', 'not_completed'),
     qStatus(HUASHAN_Q15_QUEST_ID, 'not_started'),
     { type: 'npcAlive', npcId: 'NPC-0118', npcName: '岳沧溟' },
+    { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },
     { type: 'npcAlive', npcId: 'NPC-0167', npcName: '封不弃' },
   ],
 }

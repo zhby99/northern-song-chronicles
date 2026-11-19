@@ -12,6 +12,7 @@ export const SHAOLIN_SIDE16_START_CONDITION: QuestCondition = {
     { type: 'skillAtLeast', key: '策论', min: 55 },
     { type: 'skillAtLeast', key: '算术', min: 45 },
     { type: 'npcAlive', npcId: 'NPC-0112', npcName: '玄慈' },
+    { type: 'not', condition: { type: 'flag', flag: 'sl_xuanci_deposed', op: 'truthy' } },
     { type: 'npcAlive', npcId: 'NPC-0013', npcName: '包拯' },
     { type: 'npcAlive', npcId: 'NPC-0140', npcName: '展昭' },
     { type: 'npcAlive', npcId: 'NPC-0193', npcName: '玄净' },

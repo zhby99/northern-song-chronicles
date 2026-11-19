@@ -329,8 +329,19 @@ export function canPlayerLearnSectArt(
 }
 
 /**
+ * 嵩山少林寺（SECT-01）俗家护法弟子可修习的地阶外功名录：
+ * 韦陀杵（MA-094）、龙爪手（MA-062）、盘山铁布衫（MA-080）、大力金刚指（MA-044）。
+ */
+export const SHAOLIN_LAY_ALLOWED_HIGH_TIER_ARTS: ReadonlySet<string> = new Set([
+  'MA-094', // 韦陀杵
+  'MA-062', // 龙爪手
+  'MA-080', // 盘山铁布衫（大成）
+  'MA-044', // 大力金刚指
+])
+
+/**
  * 南北少林专属僧俗戒律：
- * - 嵩山少林寺（SECT-01）：所有地阶与天阶武学均不对俗家弟子开放，须找方丈玄慈剃度转为出家弟子（法号慧见）方可修习。
+ * - 嵩山少林寺（SECT-01）：俗家弟子可修习《韦陀杵》《龙爪手》《盘山铁布衫》《大力金刚指》四门护寺外功，其余地阶与天阶秘传禅武须剃度出家（法号慧见）方可修习。
  * - 莆田南少林（SECT-04）：入门奉茶择定衣钵时若选【带发入世 · 护寺俗家】，不可事后补剃度，本门地阶功法对主角永远不开放。
  */
 export function isShaolinArtBlockedForLayDisciple(
@@ -341,6 +352,9 @@ export function isShaolinArtBlockedForLayDisciple(
   const rule = getSectRule(sectId)
   if (!rule?.blocksHighTierForLayDisciple) return false
   if (shaolinDiscipleType === 'monk') return false
+  if (sectId === 'SECT-01' && SHAOLIN_LAY_ALLOWED_HIGH_TIER_ARTS.has(art.id)) {
+    return false
+  }
   return art.tier === '地阶' || art.tier === '天阶'
 }
 

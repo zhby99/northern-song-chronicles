@@ -235,6 +235,7 @@ export interface QuestEvalContext {
   learnedArts: LearnedArtEntry[]
   npcFavor: Record<string, number>
   deadNpcIds?: readonly string[]
+  playerGender?: '男' | '女'
   sectState: PlayerSectState
   questState: QuestRuntimeState
   targetNpc?: NodeNpc | null
@@ -255,6 +256,7 @@ function getEffectiveFlagValue(
   if (flag === 'shaolin_novice_state') return ctx.sectState.shaolinNoviceState
   if (flag === 'shaolin_chore_days') return ctx.sectState.shaolinChoreDays
   if (flag === 'shaolin_disciple_type') return ctx.sectState.shaolinDiscipleType
+  if (flag === 'player_gender') return ctx.playerGender ?? '男'
   return undefined
 }
 
@@ -765,7 +767,7 @@ export function getAvailableNpcQuestActions(
   for (const quest of quests) {
     if (!quest.npcActions || quest.npcActions.length === 0) continue
     // 门派排他：已身属别派（或少林杂役期）时，他派入门线不再露出交互选项
-    if (getSectEntryQuestBlockReason(quest.id, ctx.sectState)) continue
+    if (getSectEntryQuestBlockReason(quest.id, ctx.sectState, ctx.questState.flags)) continue
     for (const action of quest.npcActions) {
       const vis = evaluateQuestCondition(action.visibleWhen, ctxWithNpc)
       if (!vis.passed) continue
@@ -810,7 +812,7 @@ export function getAvailableSpotQuestActions(
         const vis = evaluateQuestCondition(action.visibleWhen, ctx)
         if (!vis.passed) continue
       }
-      if (getSectEntryQuestBlockReason(quest.id, ctx.sectState)) continue
+      if (getSectEntryQuestBlockReason(quest.id, ctx.sectState, ctx.questState.flags)) continue
 
       const en = action.enabledWhen
         ? evaluateQuestCondition(action.enabledWhen, ctx)
@@ -886,7 +888,7 @@ export function findMatchingLocationTriggers(
       }
 
       // 门派排他：已身属别派（或少林杂役期）时，他派入门线不再触发
-      if (getSectEntryQuestBlockReason(quest.id, ctx.sectState)) continue
+      if (getSectEntryQuestBlockReason(quest.id, ctx.sectState, ctx.questState.flags)) continue
 
       if (trigger.condition) {
         const res = evaluateQuestCondition(trigger.condition, ctx)

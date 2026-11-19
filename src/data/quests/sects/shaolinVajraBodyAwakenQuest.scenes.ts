@@ -333,8 +333,8 @@ export const SHAOLIN_Q37_SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq37_fight_jiumozhi',
-        label: '以金刚不坏金身迎战吐蕃国师【鸠摩智】！（宗师中品决战）',
-        subLabel: '正面硬撼火焰刀罡气，雷霆震飞大轮明王',
+        label: '迎战吐蕃国师【鸠摩智】，硬撼火焰刀撑住五回合！',
+        subLabel: '宗师中品试锋：撑住 5 回合正面硬撼火焰刀罡气，蓄势雷霆震飞大轮明王',
         tone: 'danger',
         effects: [
           {
@@ -344,15 +344,16 @@ export const SHAOLIN_Q37_SCENES: Record<string, StorySceneDef> = {
               kind: 'npc',
               npcId: 'NPC-0113',
               talkOverride:
-                '“小僧不信世间真有刀火不伤之躯！今日必以火焰刀破你这金刚不坏金身！”',
+                '“小僧不信世间真有刀火不伤之躯！今日必以火焰刀破你这护体硬功！”',
             },
-            rule: 'story_trial',
-            forbidEscapeReason: '金刚金身已成，岂有在天下数千群雄前退避番僧之理！',
-            introText: '【金刚镇世】以《金刚不坏体神功》正面硬撼吐蕃护国法王【鸠摩智】火焰刀！',
+            rule: 'survive_rounds',
+            maxRounds: 5,
+            forbidEscapeReason: '大敌当前，岂有在天下数千群雄前退避番僧之理！',
+            introText: '【金刚镇世】在吐蕃护国法王【鸠摩智】火焰刀攻势下撑住五回合，借势反震破敌！',
             onWin: [openScene('scene_slq37_24', SHAOLIN_Q37_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 90, mpPct: 90 },
-              toast('鸠摩智火焰刀连绵不绝，暂催金刚不坏真气稳住气血后再战！', 'warn', '金刚镇世'),
+              toast('鸠摩智火焰刀连绵不绝，暂稳气血重整架势后再战！', 'warn', '金刚镇世'),
             ],
           },
         ],
@@ -441,13 +442,15 @@ export const SHAOLIN_Q37_SCENES: Record<string, StorySceneDef> = {
     subtitle: '嵩山少林寺 · 威震天下',
     mandatory: true,
     beats: [
-      N('烈火淬金身，一战镇群豪！少林天阶护体神功《金刚不坏体神功》已彻悟于身，你的威名随之传遍大江南北！'),
+      N('{ifFlag:sl_branch==layman|烈火淬铁骨，一战镇群豪！虽依少林清规天阶神功《金刚不坏体神功》唯授出家僧众，然你凭《盘山铁布衫》与《大力金刚指》硬撼火焰刀、力退鸠摩智，俗家护法威名亦随之传遍大江南北！|烈火淬金身，一战镇群豪！少林天阶护体神功《金刚不坏体神功》已彻悟于身，你的威名随之传遍大江南北！}'),
     ],
     choices: [
       {
         id: 'slq37_finish_reward',
         label: '稳固《金刚不坏体神功》境界，威镇少室群豪（完成）',
         tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'neq', value: 'layman' },
+        hideWhenUnavailable: true,
         effects: [
           { type: 'teachMartialArt', artId: 'MA-018', level: 1 },
           {
@@ -476,6 +479,43 @@ export const SHAOLIN_Q37_SCENES: Record<string, StorySceneDef> = {
             '已完成《烈火金身 · 金刚不坏》！习得天阶神功《金刚不坏体神功》，武学经验 +1400、威望 +150、经义 +1、玄痛/玄寂好感 +20！',
             'success',
             '金刚不坏',
+          ),
+        ],
+      },
+      {
+        id: 'slq37_finish_reward_layman',
+        label: '以《盘山铁布衫》与《大力金刚指》立威丹墀，威镇群豪（完成）',
+        subLabel: '俗家弟子依少林清规不授《金刚不坏体神功》，改获额外实战历练',
+        tone: 'gold',
+        condition: { type: 'flag', flag: 'sl_branch', op: 'eq', value: 'layman' },
+        hideWhenUnavailable: true,
+        effects: [
+          {
+            type: 'giveCombatExp',
+            amount: 1800,
+            reason: '丹墀烈火毒雾中凭盘山铁布衫与大力金刚指正面震退鸠摩智',
+          },
+          {
+            type: 'modifyRenown',
+            delta: 150,
+            reason: '少室丹墀以俗家护法之身硬撼火焰刀震退大轮明王，威镇群豪',
+          },
+          { type: 'modifySkill', key: '经义', delta: 1 },
+          {
+            type: 'modifyNpcFavor',
+            target: { kind: 'npc', npcId: 'NPC-0156' },
+            delta: 20,
+          },
+          {
+            type: 'modifyNpcFavor',
+            target: { kind: 'npc', npcId: 'NPC-0134' },
+            delta: 20,
+          },
+          { type: 'completeQuest', questId: SHAOLIN_Q37_QUEST_ID, outcome: 'completed' },
+          toast(
+            '已完成《烈火金身 · 金刚不坏》！（俗家不授《金刚不坏体神功》）武学经验 +1800、威望 +150、经义 +1、玄痛/玄寂好感 +20！',
+            'success',
+            '丹墀镇魔',
           ),
         ],
       },

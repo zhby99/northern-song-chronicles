@@ -17,7 +17,7 @@ export const HUASHAN_SIDE04_START_CONDITION: QuestCondition = {
       ],
       hint: '辩才达到 20 或 侠义达到 20',
     },
-    { type: 'shichenIn', indices: [9, 10, 11, 0, 1], label: '夜间（戌时至丑时）' },
+    { type: 'shichenIn', indices: [10, 11, 0, 1], label: '夜间（戌时至丑时）' },
   ],
 }
 

@@ -88,7 +88,7 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
   const identitySuffix = rule?.joinIdentitySuffix ?? ''
   const exclusivityReason = skipExclusivityCheck
     ? null
-    : getSectExclusivityBlockReason(sectId, sectState, allowOfficialTransfer)
+    : getSectExclusivityBlockReason(sectId, sectState, allowOfficialTransfer, questState.flags)
 
   if (!faction || exclusivityReason) {
     return {
@@ -205,6 +205,9 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
 
   const nextQuest = cloneQuestRuntimeState(questState)
   nextQuest.flags.ever_joined_any_sect = true
+  if (sectId === 'SECT-19') {
+    nextQuest.flags.ever_joined_xingxiu = true
+  }
 
   // 入门披挂兵刃每个门派一生只赐一次：防止「拜师 → 退派 → 再拜师」反复领取后变卖刷银
   const grantedGiftNames: string[] = []

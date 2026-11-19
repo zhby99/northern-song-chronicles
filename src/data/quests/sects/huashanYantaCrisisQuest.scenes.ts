@@ -5,7 +5,7 @@ import { HUASHAN_Q16_QUEST_ID } from './huashanYantaCrisisQuest'
 
 const SPEAKER_TUOBA_XIONG: StorySpeakerSpec = {
   kind: 'custom',
-  name: '拓跋雄 · 一品堂副使',
+  name: '拓跋烈 · 一品堂副使',
   title: '西夏一品堂关中总领副使',
   factionName: '西夏一品堂',
   portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
@@ -111,7 +111,7 @@ function buildXingxiuMidDiscipleNpc(): NodeNpc {
 function buildTuobaXiongNpc(): NodeNpc {
   return makeQuestNpc({
     id: 'QUEST_HSQ16_TUOBA_XIONG',
-    name: '拓跋雄 · 一品堂副使',
+    name: '拓跋烈 · 一品堂副使',
     title: '西夏一品堂 · 关中总领副使',
     realm: '一流上品',
     factionId: 'SECT-20',
@@ -200,7 +200,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '玉女峰紫霞道观 · 紫霞正气主殿',
     mandatory: true,
     beats: [
-      S('NPC-0118', '“西夏权臣没藏讹庞欲在开春前寇掠泾原路，深忌我华山派扼守潼关、呼应陕北边军，竟派一品堂关中总领副使拓跋雄重金请来星宿海毒师！”'),
+      S('NPC-0118', '“西夏权臣没藏讹庞欲在开春前寇掠泾原路，深忌我华山派扼守潼关、呼应陕北边军，竟派一品堂关中总领副使拓跋烈重金请来星宿海毒师！”'),
       S('NPC-0118', '“他们故意抛出假粮道密图，将封师弟与沧云诱入长安城南慈恩寺大雁塔中，随即以百名神臂强弩手与腐骨毒烟封死塔底，欲将二人活活困杀于七层浮屠之上！”'),
       P('“大雁塔孤耸城南，四面无遮，一旦火起或毒烟攻顶，封师叔与大师兄必无生路！”'),
     ],
@@ -227,7 +227,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('宁清羽快步取来一匣清香扑鼻的玉女辟毒丸分授众人，叮嘱道：“星宿妖人善使腐骨碧烟，入塔前切记含服辟毒丸，湿巾掩鼻，先毁其毒炉再救人！”'),
-      P('“多谢掌门与宁师叔！弟子立誓：塔在人在，定斩拓跋雄之流救回封师叔与高师兄！”'),
+      P('“多谢掌门与宁师叔！弟子立誓：塔在人在，定斩拓跋烈之流救回封师叔与高师兄！”'),
     ],
     onFinishEffects: [openScene('scene_hsq16_05', HUASHAN_Q16_QUEST_ID)],
   },
@@ -425,7 +425,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('恰在此时，七层绝顶传来一声木栏崩碎的轰鸣，紧接着是高沧云闷哼吐血与封不弃嘶哑怒喝之声！'),
-      S('NPC-0167', '“沧云退后！老夫便是拼得经脉寸断，今日也要拉拓跋雄这狗贼垫背！”'),
+      S('NPC-0167', '“沧云退后！老夫便是拼得经脉寸断，今日也要拉拓跋烈这狗贼垫背！”'),
       P('“封师叔、大师兄撑住——我来了！”'),
     ],
     onFinishEffects: [openScene('scene_hsq16_17', HUASHAN_Q16_QUEST_ID)],
@@ -446,7 +446,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         tone: 'danger',
         effects: [
           setStep(HUASHAN_Q16_QUEST_ID, 'q16_yanta_top'),
-          toast('毒瘴已清！请于【绝顶佛龛 · 凭栏远眺】迎战拓跋雄与星宿毒阵长老！', 'warn', '决战塔顶'),
+          toast('毒瘴已清！请于【绝顶佛龛 · 凭栏远眺】迎战拓跋烈与星宿毒阵长老！', 'warn', '决战塔顶'),
         ],
       },
     ],
@@ -458,7 +458,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '慈恩寺大雁塔 · 绝顶佛龛 · 凭栏远眺',
     mandatory: true,
     beats: [
-      N('七层佛龛外狂风呼啸，百尺高空雨如飞蝗。只见高沧云左肩中了一记碧磷毒掌，半跪于栏边摇摇欲坠；封不弃浑身浴血横剑相护，正被身材魁梧的一品堂副使拓跋雄与鹤发鸠面的星宿长老乌摩天步步紧逼至飞檐绝境！'),
+      N('七层佛龛外狂风呼啸，百尺高空雨如飞蝗。只见高沧云左肩中了一记碧磷毒掌，半跪于栏边摇摇欲坠；封不弃浑身浴血横剑相护，正被身材魁梧的一品堂副使拓跋烈与鹤发鸠面的星宿长老乌摩天步步紧逼至飞檐绝境！'),
       S('NPC-0202', '（惊喜交集）“是{gender:师弟|师妹}！小心那星宿老怪的冰蚕毒掌！”'),
       S(SPEAKER_TUOBA_XIONG, '（眼神阴鸷）“竟能单剑杀穿六层刀阵？好个华山后起之秀，可惜撞上了本使与乌摩长老联手！”'),
     ],
@@ -472,7 +472,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('你闪身挡在封不弃与高沧云身前，抛过两枚玉女辟毒丸令二人服下调息，独自面对两大强敌的凛冽杀机！'),
-      P('“西夏一品堂与星宿海狼狈为奸，也只配做些诱敌放毒的鼠辈勾当！拓跋雄、乌摩天，敢接我华山三尺青锋否？！”'),
+      P('“西夏一品堂与星宿海狼狈为奸，也只配做些诱敌放毒的鼠辈勾当！拓跋烈、乌摩天，敢接我华山三尺青锋否？！”'),
       S(SPEAKER_XINGXIU_ELDER, '“牙尖嘴利！拓跋副使，你攻他正面，老夫以冰蚕寒毒封他退路，三招之内震他坠塔！”'),
     ],
     onFinishEffects: [openScene('scene_hsq16_20', HUASHAN_Q16_QUEST_ID)],
@@ -486,12 +486,12 @@ export const SCENES: Record<string, StorySceneDef> = {
     illustrationCaption: '飞檐除魔 · 大雁塔顶凌空力挫一品堂副使与星宿毒阵长老',
     mandatory: true,
     beats: [
-      N('电闪雷鸣映亮七层浮屠飞檐！拓跋雄金背狼牙弯刀挟风雷劈落，乌摩天双掌凝满惨白寒霜左右夹攻，你长啸一声踏檐凌空迎战！'),
+      N('电闪雷鸣映亮七层浮屠飞檐！拓跋烈金背狼牙弯刀挟风雷劈落，乌摩天双掌凝满惨白寒霜左右夹攻，你长啸一声踏檐凌空迎战！'),
     ],
     choices: [
       {
         id: 'hsq16_c20_boss_duel',
-        label: '凌空施展太岳绝剑，以一敌二力战拓跋雄与乌摩天！',
+        label: '凌空施展太岳绝剑，以一敌二力战拓跋烈与乌摩天！',
         tone: 'danger',
         effects: [
           {
@@ -501,7 +501,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             extraOpponents: [{ kind: 'custom', npc: buildXingxiuPoisonElderNpc() }],
             rule: 'duel',
             forbidEscapeReason: '身后便是重伤的封师叔与大师兄，退一步同门俱亡！',
-            introText: '【飞檐除魔】在大雁塔绝顶独战一品堂副使拓跋雄（一流上品）与星宿毒阵长老乌摩天（一流中品）！',
+            introText: '【飞檐除魔】在大雁塔绝顶独战一品堂副使拓跋烈（一流上品）与星宿毒阵长老乌摩天（一流中品）！',
             onWin: [openScene('scene_hsq16_21', HUASHAN_Q16_QUEST_ID)],
           },
         ],
@@ -515,7 +515,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '慈恩寺大雁塔 · 绝顶佛龛 · 凭栏远眺',
     mandatory: true,
     beats: [
-      N('绝顶飞檐之上剑气纵横！你硬接拓跋雄一记重刀借力旋身，反手《太岳三青峰》连环三刺逼得乌摩天吐血倒退，紧接着剑锋回转直削拓跋雄左肩琵琶骨，将其半片铁甲连皮带肉削飞出去！'),
+      N('绝顶飞檐之上剑气纵横！你硬接拓跋烈一记重刀借力旋身，反手《太岳三青峰》连环三刺逼得乌摩天吐血倒退，紧接着剑锋回转直削拓跋烈左肩琵琶骨，将其半片铁甲连皮带肉削飞出去！'),
       S(SPEAKER_TUOBA_XIONG, '（捂住血如泉涌的肩头，骇然暴退）“好凶的太岳剑法！京兆府厢军马蹄声已近，乌摩长老，快抛飞索撤！”'),
     ],
     onFinishEffects: [openScene('scene_hsq16_22', HUASHAN_Q16_QUEST_ID)],
@@ -527,7 +527,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '慈恩寺大雁塔 · 绝顶佛龛 · 凭栏远眺',
     mandatory: true,
     beats: [
-      N('拓跋雄与乌摩天甩出飞爪铁索借着夜雨滑下塔背仓皇逃窜。就在拓跋雄翻出塔栏的刹那，他怀中一封火漆密函似是不慎滑落，啪地掉在飞檐青砖之上——可你分明瞥见，他回头望向那封信时眼底掠过一抹阴冷狡黠的诡笑！'),
+      N('拓跋烈与乌摩天甩出飞爪铁索借着夜雨滑下塔背仓皇逃窜。就在拓跋烈翻出塔栏的刹那，他怀中一封火漆密函似是不慎滑落，啪地掉在飞檐青砖之上——可你分明瞥见，他回头望向那封信时眼底掠过一抹阴冷狡黠的诡笑！'),
       N('你拾起密函一看，信封上竟赫然用西夏官印写着：「致华山内应密约 · 雁塔除异己事成后平分西岳」！拆开细看，字里行间半遮半掩，既像指认气宗借刀杀人除封不弃，又像指认剑宗设局害高沧云！'),
     ],
     onFinishEffects: [openScene('scene_hsq16_23', HUASHAN_Q16_QUEST_ID)],
@@ -563,7 +563,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('翌日正午，紫霞正气主殿钟鼓齐鸣。岳沧溟、秦烈山、宁清羽与伤势包扎妥当的封不弃四位宿老齐聚殿上，高沧云与二十名随征剑客分列两厢，人人脸上皆带振奋之色。'),
-      S('NPC-0202', '“禀师父、秦师伯、宁师叔！昨夜大雁塔毒烟锁道、强弩如林，若非{gender:师弟|师妹}单剑连破六层、于七层飞檐以一敌二击溃拓跋雄与乌摩天，弟子与封师叔今日已成塔下冤魂！”'),
+      S('NPC-0202', '“禀师父、秦师伯、宁师叔！昨夜大雁塔毒烟锁道、强弩如林，若非{gender:师弟|师妹}单剑连破六层、于七层飞檐以一敌二击溃拓跋烈与乌摩天，弟子与封师叔今日已成塔下冤魂！”'),
     ],
     onFinishEffects: [openScene('scene_hsq16_25', HUASHAN_Q16_QUEST_ID)],
   },
@@ -574,9 +574,9 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '玉女峰紫霞道观 · 紫霞正气主殿',
     mandatory: true,
     beats: [
-      N('你上前一步，将战况如实禀明，并双手呈上拓跋雄败逃时遗落的那封火漆血书。'),
+      N('你上前一步，将战况如实禀明，并双手呈上拓跋烈败逃时遗落的那封火漆血书。'),
       S('NPC-0147', '（接过血书扫了一眼，冷哼一声震碎半角信笺）“拙劣至极！西夏一品堂在思过崖与大雁塔连折两阵，知道正面拿不下我华山，便使出这等挑拨气剑猜忌的下三滥伎俩！”'),
-      S('NPC-0118', '“秦师兄明鉴。只是没藏讹庞狼子野心，反间不成，不日必有雷霆反扑！我华山当务之急，是立刻提拔擎天栋梁分掌山门防务！”'),
+      S('NPC-0118', '“秦师弟明鉴。只是没藏讹庞狼子野心，反间不成，不日必有雷霆反扑！我华山当务之急，是立刻提拔擎天栋梁分掌山门防务！”'),
     ],
     onFinishEffects: [openScene('scene_hsq16_26', HUASHAN_Q16_QUEST_ID)],
   },
@@ -603,7 +603,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('你双手接过沉甸甸的紫金长老剑绶佩于腰间。殿堂之上看似同心欢庆，然而角落里几名曾经历过昔年门户纷争的旧执事望着案上那封残破血书，眼神深处仍掠过一丝不安的阴翳。'),
-      S('NPC-0166', '“西夏一品堂在关中折损了副使拓跋雄，绝不会善罢甘休。传令全山各峰：自今夜起百尺峡、苍龙岭、玉女峰三道关卡昼夜双岗戒备！”'),
+      S('NPC-0166', '“西夏一品堂在关中折损了副使拓跋烈，绝不会善罢甘休。传令全山各峰：自今夜起百尺峡、苍龙岭、玉女峰三道关卡昼夜双岗戒备！”'),
     ],
     onFinishEffects: [openScene('scene_hsq16_28', HUASHAN_Q16_QUEST_ID)],
   },
@@ -625,7 +625,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'setSectRank', sectId: 'SECT-05', rank: 4, promoteOnly: true },
           { type: 'giveSilver', amount: 240, reason: '雁塔除魔救护同门与晋升四阶长老厚赏' },
           { type: 'addSectContribution', amount: 150 },
-          { type: 'giveCombatExp', amount: 320, reason: '血战大雁塔七层力挫拓跋雄与星宿长老' },
+          { type: 'giveCombatExp', amount: 320, reason: '血战大雁塔七层力挫拓跋烈与星宿长老' },
           { type: 'modifyChivalry', delta: 20, reason: '星夜驰援慈恩寺，粉碎西夏星宿毒烟阴谋' },
           { type: 'modifyRenown', delta: 45, reason: '长安大雁塔单剑闯七层，名动关中武林' },
           {

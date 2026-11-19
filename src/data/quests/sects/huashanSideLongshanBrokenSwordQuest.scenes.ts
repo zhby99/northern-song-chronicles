@@ -388,18 +388,18 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hss10_14_duel',
-        label: '华山绝学全开，正面决战宗师「断剑魔陀 · 赫连断岳」！',
-        subLabel: '宗师生死决战 · 「断剑魔陀」赫连断岳（宗师中品）',
+        label: '华山绝学全开，在宗师「断剑魔陀 · 赫连断岳」手下死撑三合破其重锋！',
+        subLabel: '宗师三合破局 · 「断剑魔陀」赫连断岳（宗师中品 · 撑满 3 回合即胜）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
             questId: HUASHAN_SIDE10_QUEST_ID,
             opponent: { kind: 'custom', npc: buildHelianDuanyueNpc() },
-            rule: 'duel',
-            forbidEscapeReason: '秦烈山正在身后运功逼毒，此战唯死而已，绝无半步退路！',
-            deathTitle: '剑折陇山望夏台',
-            deathDetail: '你在陇右古道独战西夏宗师供奉「断剑魔陀 · 赫连断岳」，力竭战死于百斤玄铁重剑之下。',
+            rule: 'survive_rounds',
+            maxRounds: 3,
+            forbidEscapeReason: '秦烈山正在身后运功逼毒，至少须在重剑狂涛下死撑三合寻得破绽！',
+            introText: '【三合破重剑】在西夏宗师供奉「断剑魔陀 · 赫连断岳」（宗师中品）百斤玄铁重剑下撑满三回合，寻其剑脊暗伤一击裂铁！',
             onWin: [openScene('scene_hss10_15', HUASHAN_SIDE10_QUEST_ID)],
           },
         ],

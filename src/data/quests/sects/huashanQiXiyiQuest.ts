@@ -19,6 +19,7 @@ export const HUASHAN_Q05_START_CONDITION: QuestCondition = {
     qStatus(HUASHAN_Q05_QUEST_ID, 'not_started'),
     { type: 'npcAlive', npcId: 'NPC-0118', npcName: '岳沧溟' },
     { type: 'npcAlive', npcId: 'NPC-0166', npcName: '宁清羽' },
+    { type: 'npcAlive', npcId: 'NPC-0202', npcName: '高沧云' },
   ],
 }
 
