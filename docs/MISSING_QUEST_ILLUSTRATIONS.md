@@ -293,173 +293,173 @@
 | `CG-QST-281` | `[x]` 已完成 | `public/assets/quests/hs_side08_return_sword.jpg` | `/assets/quests/hs_side08_return_sword.jpg` | `QST-SECT-05-SIDE-08`<br>《骊山鬼市 · 古剑寻踪录》 | 第十三幕 · 白玉还锋<br>（`scene_hss08_13`） | `16:9` |
 | `CG-QST-282` | `[x]` 已完成 | `public/assets/quests/hs_side09_dao_debate.jpg` | `/assets/quests/hs_side09_dao_debate.jpg` | `QST-SECT-05-SIDE-09`<br>《终南论道 · 金莲净火劫》 | 第四幕 · 终南论道<br>（`scene_hss09_04`） | `16:9` |
 | `CG-QST-283` | `[x]` 已完成 | `public/assets/quests/hs_side09_shihouzi_clash.jpg` | `/assets/quests/hs_side09_shihouzi_clash.jpg` | `QST-SECT-05-SIDE-09`<br>《终南论道 · 金莲净火劫》 | 第十幕 · 净火破邪<br>（`scene_hss09_10`） | `16:9` |
-| `CG-QST-284` | `[ ]` 待补绘 | `public/assets/quests/hs_side10_qin_ride_west.jpg` | `/assets/quests/hs_side10_qin_ride_west.jpg` | `QST-SECT-05-SIDE-10`<br>《陇山断道 · 西夏折剑令》 | 第四幕 · 双剑西出<br>（`scene_hss10_04`） | `16:9` |
-| `CG-QST-285` | `[ ]` 待补绘 | `public/assets/quests/hs_side10_slave_array.jpg` | `/assets/quests/hs_side10_slave_array.jpg` | `QST-SECT-05-SIDE-10`<br>《陇山断道 · 西夏折剑令》 | 第八幕 · 残阳破阵<br>（`scene_hss10_08`） | `16:9` |
-| `CG-QST-286` | `[ ]` 待补绘 | `public/assets/quests/hs_side10_slay_helian.jpg` | `/assets/quests/hs_side10_slay_helian.jpg` | `QST-SECT-05-SIDE-10`<br>《陇山断道 · 西夏折剑令》 | 第十四幕 · 斩落魔陀<br>（`scene_hss10_14`） | `16:9` |
-| `CG-QST-287` | `[ ]` 待补绘 | 《晨钟木鱼 · 罗汉开蒙》（`QST-SECT-01-01`） | `public/assets/quests/sl_01_morning_bell.jpg` | 钟鼓禅院 · 五更晨钟响彻演武坪，虚松虚音开蒙授罗汉拳 |
-| `CG-QST-288` | `[ ]` 待补绘 | 《晨钟木鱼 · 罗汉开蒙》（`QST-SECT-01-01`） | `public/assets/quests/sl_01_luohan_duel.jpg` | 演武青石 · 罗汉拳连挫挂单恶僧与周海，玄痛巡堂嘉许 |
-| `CG-QST-289` | `[ ]` 待补绘 | 《少室庄田 · 拳棍止争》（`QST-SECT-01-02`） | `public/assets/quests/sl_02_estate_clash.jpg` | 少室南麓 · 登封矿霸刘横强占庄田水渠，佃农与矿徒剑拔弩张 |
-| `CG-QST-290` | `[ ]` 待补绘 | 《少室庄田 · 拳棍止争》（`QST-SECT-01-02`） | `public/assets/quests/sl_02_fist_staff_win.jpg` | 拳棍止争 · 伏虎拳近身擒王或齐眉棍横扫窄桥生擒刘横 |
-| `CG-QST-291` | `[ ]` 待补绘 | 《香火黑账 · 知客暗流》（`QST-SECT-01-03`） | `public/assets/quests/sl_03_pine_ambush.jpg` | 古柏寒林 · 救下血污牙人贾通宝，力战黑市断魂刀赵魁 |
-| `CG-QST-292` | `[ ]` 待补绘 | 《香火黑账 · 知客暗流》（`QST-SECT-01-03`） | `public/assets/quests/sl_03_incense_ledger.jpg` | 香火私册 · 钟鼓禅院孤灯验账，空名度牒黑幕水落石出 |
-| `CG-QST-293` | `[ ]` 待补绘 | 《木桩百劫 · 铜人初试》（`QST-SECT-01-04`） | `public/assets/quests/sl_04_wooden_alley.jpg` | 木桩百劫 · 十八铜人木桩廊机关齐发，棍影拳风破阵而出 |
-| `CG-QST-294` | `[ ]` 待补绘 | 《木桩百劫 · 铜人初试》（`QST-SECT-01-04`） | `public/assets/quests/sl_04_huitong_spar.jpg` | 终场较技 · 演武正殿力挫外门劲敌慧通，禅武根基大成 |
-| `CG-QST-295` | `[ ]` 待补绘 | 《木桩百劫 · 铜人初试》（`QST-SECT-01-04`） | `public/assets/quests/sl_04_four_branches.jpg` | 大雄丹墀 · 玄慈授罗汉伏虎功晋内门，罗汉达摩戒律俗家四脉分流 |
-| `CG-QST-296` | `[ ]` 待补绘 | 《灶房残薪 · 烧火奇棍》（`QST-SECT-01-SIDE-01`） | `public/assets/quests/sl_s01_kitchen_stick.jpg` | 少室大斋堂 · 灶膛抽薪，觉尘传授质朴刁钻拨火棍诀 |
-| `CG-QST-297` | `[ ]` 待补绘 | 《灶房残薪 · 烧火奇棍》（`QST-SECT-01-SIDE-01`） | `public/assets/quests/sl_s01_ash_thieves.jpg` | 锅底乌灰 · 烧火奇棍连戳三贼下盘，满院僧众哄堂大笑 |
-| `CG-QST-298` | `[ ]` 待补绘 | 《东庑拓碑 · 拳棍双修》（`QST-SECT-01-SIDE-02`） | `public/assets/quests/sl_s02_stele_rub.jpg` | 东庑碑院 · 净法携墨拓修补唐代武僧演武砖雕 |
-| `CG-QST-299` | `[ ]` 待补绘 | 《东庑拓碑 · 拳棍双修》（`QST-SECT-01-SIDE-02`） | `public/assets/quests/sl_s02_protect_stele.jpg` | 护碑驱恶 · 逐退偷拓古碑恶奴，慧轮补授拳棍双全 |
-| `CG-QST-300` | `[ ]` 待补绘 | 《登封买粮 · 斗秤破奸》（`QST-SECT-01-SIDE-03`） | `public/assets/quests/sl_s03_grain_scale.jpg` | 登封粮行 · 算术当场识破夹层灌水银暗秤，拆穿奸商克扣 |
-| `CG-QST-301` | `[ ]` 待补绘 | 《登封买粮 · 斗秤破奸》（`QST-SECT-01-SIDE-03`） | `public/assets/quests/sl_s03_thug_brawl.jpg` | 追银护斋 · 1v2 痛扁粮行恶护院，追回百两差额纹银 |
-| `CG-QST-302` | `[ ]` 待补绘 | 《塔林寒夜 · 孤魂盗墓》（`QST-SECT-01-SIDE-04`） | `public/assets/quests/sl_s04_pagoda_ghost.jpg` | 塔林幽火 · 寒夜百座高僧砖塔磷火闪烁，识破摸金校尉伪装 |
-| `CG-QST-303` | `[ ]` 待补绘 | 《塔林寒夜 · 孤魂盗墓》（`QST-SECT-01-SIDE-04`） | `public/assets/quests/sl_s04_tomb_raiders.jpg` | 砖塔迷阵 · 齐眉棍影破洛阳铲围攻，护住唐代高僧舍利地宫 |
-| `CG-QST-304` | `[ ]` 待补绘 | 《嵩阳借书 · 儒释之辩》（`QST-SECT-01-SIDE-05`） | `public/assets/quests/sl_s05_songyang_debate.jpg` | 嵩阳杏坛 · 汉柏树下儒释会通，妙语折服排佛迂儒 |
-| `CG-QST-305` | `[ ]` 待补绘 | 《嵩阳借书 · 儒释之辩》（`QST-SECT-01-SIDE-05`） | `public/assets/quests/sl_s05_apricot_spar.jpg` | 以武证礼 · 书院石阶点到为止挫狂生武师，促成两院藏书互通 |
-| `CG-QST-306` | `[ ]` 待补绘 | 《东庑刀鸣 · 慈悲度寇》（`QST-SECT-01-05`） | `public/assets/quests/sl_05_east_corridor_blade.jpg` | 东庑刀鸣 · 玄灭于唐碑青石间传授《慈悲刀法》，刀光如雪而不伤落叶 |
-| `CG-QST-307` | `[ ]` 待补绘 | 《东庑刀鸣 · 慈悲度寇》（`QST-SECT-01-05`） | `public/assets/quests/sl_05_yingyang_mercy.jpg` | 慈悲度寇 · 戒刀背震脱朴刀，流民跪地痛哭，悍匪屠三提鬼头刀怒冲而至 |
-| `CG-QST-308` | `[ ]` 待补绘 | 《释源白马 · 韦陀降魔》（`QST-SECT-01-06`） | `public/assets/quests/sl_06_baima_fire.jpg` | 白马寺夜变 · 西夏一品堂假僧现出弯刀与火折，玄悲与你联手护住大佛宝殿 |
-| `CG-QST-309` | `[ ]` 待补绘 | 《释源白马 · 韦陀降魔》（`QST-SECT-01-06`） | `public/assets/quests/sl_06_qiyun_pagoda_win.jpg` | 韦陀降魔 · 齐云古塔顶层月色如霜，一记大韦陀杵势震毙西夏密宗番僧摩诃巴 |
-| `CG-QST-310` | `[ ]` 待补绘 | 《释源白马 · 韦陀降魔》（`QST-SECT-01-06`） | `public/assets/quests/sl_06_xuanbei_gift.jpg` | 玄悲赠杵 · 银杏金叶纷飞间，大韦陀僧玄悲将少林韦陀伏魔杵郑重托付于你 |
-| `CG-QST-311` | `[ ]` 待补绘 | 《碎碑擒龙 · 少室捉谍》（`QST-SECT-01-07`） | `public/assets/quests/sl_07_stele_mist.jpg` | 碎碑擒龙 · 东庑古碑寒雾缭绕，玄石与玄痛五指成爪示范少林绝技《龙爪手》 |
-| `CG-QST-312` | `[ ]` 待补绘 | 《碎碑擒龙 · 少室捉谍》（`QST-SECT-01-07`） | `public/assets/quests/sl_07_dragon_claw_capture.jpg` | 碎碑擒龙 · 三更寒雾间《龙爪手》撕裂幽州软甲，一爪扣脉生擒辽谍耶律青影 |
-| `CG-QST-313` | `[ ]` 待补绘 | 《碎碑擒龙 · 少室捉谍》（`QST-SECT-01-07`） | `public/assets/quests/sl_07_map_preserved.jpg` | 山河无恙 · 朝阳映照东庑唐碑，西半幅拓片焚毁归尘，玄痛与玄石合授《龙爪手》全本 |
-| `CG-QST-314` | `[ ]` 待补绘 | 《十八铜人 · 罗汉金身》（`QST-SECT-01-08`） | `public/assets/quests/sl_08_arhat_array_1.jpg` | 十八铜人阵 · 金漆罗汉列成三才六合大阵，齐眉长棍交织如林，直压中宫 |
-| `CG-QST-315` | `[ ]` 待补绘 | 《十八铜人 · 罗汉金身》（`QST-SECT-01-08`） | `public/assets/quests/sl_08_arhat_breakthrough.jpg` | 罗汉金身 · 正殿金光震荡，你以融汇贯通的罗汉绝艺震退阵眼慧轮，十八铜人齐齐合十让道 |
-| `CG-QST-316` | `[ ]` 待补绘 | 《十八铜人 · 罗汉金身》（`QST-SECT-01-08`） | `public/assets/quests/sl_08_zhenchuan_bell.jpg` | 钟鸣九响 · 大雄正殿香云缭绕，玄慈方丈亲为你披上少林真传紫金袈裟，群僧同颂佛号 |
-| `CG-QST-317` | `[ ]` 待补绘 | 《剑痕绝壁 · 达摩初剑》（`QST-SECT-01-09`） | `public/assets/quests/sl_09_sword_cliff.jpg` | 绝壁剑痕崖 · 玄难指点青壁剑刻，初传少林《伏魔剑》意 |
-| `CG-QST-318` | `[ ]` 待补绘 | 《剑痕绝壁 · 达摩初剑》（`QST-SECT-01-09`） | `public/assets/quests/sl_09_fumo_sword_duel.jpg` | 剑痕崖决锋 · 玄铁戒剑直破阴风诡刺，禅心不动伏邪剑 |
-| `CG-QST-319` | `[ ]` 待补绘 | 《洛水飞花 · 散花破幻》（`QST-SECT-01-10`） | `public/assets/quests/sl_10_luoshui_boat.jpg` | 洛水夜舫 · 紫灯雾笼瑶华舟，毒香暗浮藏妖踪 |
-| `CG-QST-320` | `[ ]` 待补绘 | 《洛水飞花 · 散花破幻》（`QST-SECT-01-10`） | `public/assets/quests/sl_10_xingxiu_defeat.jpg` | 散花破幻 · 双掌翻飞震晕星宿妖女与护法，洛水波平 |
-| `CG-QST-321` | `[ ]` 待补绘 | 《迦叶微笑 · 灵山拈花》（`QST-SECT-01-11`） | `public/assets/quests/sl_11_silent_debate.jpg` | 无声禅辩 · 碎玉之前拈莲微笑，一言未发压服大轮寺三番僧 |
-| `CG-QST-322` | `[ ]` 待补绘 | 《迦叶微笑 · 灵山拈花》（`QST-SECT-01-11`） | `public/assets/quests/sl_11_nianhua_finger.jpg` | 灵山拈花 · 双指柔劲破铁掌罡风，禅意与烈焰交锋演武坪 |
-| `CG-QST-323` | `[ ]` 待补绘 | 《迦叶微笑 · 灵山拈花》（`QST-SECT-01-11`） | `public/assets/quests/sl_11_tubo_bow.jpg` | 番僧长揖 · 吐蕃大轮寺三护法折服赔礼，恭敬辞别嵩山 |
-| `CG-QST-324` | `[ ]` 待补绘 | 《寒玉问禅 · 七十二障》（`QST-SECT-01-12`） | `public/assets/quests/sl_12_cold_jade_bed.jpg` | 寒玉问禅 · 幽谷石室长明灯下，瘫痪神僧玄澄剖白七十二障秘辛 |
-| `CG-QST-325` | `[ ]` 待补绘 | 《寒玉问禅 · 七十二障》（`QST-SECT-01-12`） | `public/assets/quests/sl_12_cave_assassin.jpg` | 狭洞死战 · 幽暗石室中独挡一流下品慕容暗探首燕影客，寸步不退 |
-| `CG-QST-326` | `[ ]` 待补绘 | 《寒玉问禅 · 七十二障》（`QST-SECT-01-12`） | `public/assets/quests/sl_12_damo_zhenchuan.jpg` | 达摩真传 · 黎明幽谷石室中，玄慈宣谕晋升少林真传弟子，玄澄玄难欣慰颔首 |
-| `CG-QST-327` | `[ ]` 待补绘 | 《钟鼓执杖 · 清规如铁》（`QST-SECT-01-13`） | `public/assets/quests/sl_13_pumen_staff.jpg` | 钟鼓执杖 · 玄寂长老亲演《普门杖法》，杖影如莲，刚柔并济 |
-| `CG-QST-328` | `[ ]` 待补绘 | 《钟鼓执杖 · 清规如铁》（`QST-SECT-01-13`） | `public/assets/quests/sl_13_ruzhou_temple.jpg` | 荒庙夜雨 · 破戒叛僧慧癞横杖守于残烛之前，身畔孤老泣血 |
-| `CG-QST-329` | `[ ]` 待补绘 | 《一拍两散 · 汴京缉凶》（`QST-SECT-01-14`） | `public/assets/quests/sl_14_zisheng_teach.jpg` | 一拍两散 · 资圣宝塔顶层朔风飞雪，玄寂亲演示惊世掌力 |
-| `CG-QST-330` | `[ ]` 待补绘 | 《一拍两散 · 汴京缉凶》（`QST-SECT-01-14`） | `public/assets/quests/sl_14_tianshui_roof.jpg` | 子夜甜水巷 · 飞雪青瓦之上，铁罗汉严横现身周府屋脊 |
-| `CG-QST-331` | `[ ]` 待补绘 | 《一拍两散 · 汴京缉凶》（`QST-SECT-01-14`） | `public/assets/quests/sl_14_yanheng_capture.jpg` | 一拍两散 · 凝练掌劲破尽横练铁臂，生擒铁罗汉严横 |
-| `CG-QST-332` | `[ ]` 待补绘 | 《药王百草 · 拈花截脉》（`QST-SECT-01-15`） | `public/assets/quests/sl_15_finger_heal.jpg` | 拈花截脉 · 郑州药棚之内，以柔绵指劲隔衣点穴救治染瘴流民 |
-| `CG-QST-333` | `[ ]` 待补绘 | 《药王百草 · 拈花截脉》（`QST-SECT-01-15`） | `public/assets/quests/sl_15_bandit_repel.jpg` | 指掌齐施 · 药棚之前刚掌震敌、拈花点穴，生擒太行匪首独眼狼 |
-| `CG-QST-334` | `[ ]` 待补绘 | 《药王百草 · 拈花截脉》（`QST-SECT-01-15`） | `public/assets/quests/sl_15_yaowang_praise.jpg` | 药王嘉许 · 东厢碑廊之下，玄生亲授《拈花指》全卷真传 |
-| `CG-QST-335` | `[ ]` 待补绘 | 《戒台问罪 · 贪嗔痴慢》（`QST-SECT-01-16`） | `public/assets/quests/sl_16_rescue_xuqing.jpg` | 后山截杀 · 绝壁枯松之下，挺身力救怀抱印匣的苦行僧虚清 |
-| `CG-QST-336` | `[ ]` 待补绘 | 《戒台问罪 · 贪嗔痴慢》（`QST-SECT-01-16`） | `public/assets/quests/sl_16_jietai_trial.jpg` | 戒台问罪 · 大雄正殿三堂会审，携虚清与影刃客当堂对质玄净 |
-| `CG-QST-337` | `[ ]` 待补绘 | 《戒台问罪 · 贪嗔痴慢》（`QST-SECT-01-16`） | `public/assets/quests/sl_16_jielv_zhenchuan.jpg` | 戒律真传 · 大雄正殿佛光之下，玄慈方丈亲授戒律院真传法衣与禅杖 |
-| `CG-QST-338` | `[ ]` 待补绘 | 《相国暗影 · 红尘刀杖》（`QST-SECT-01-17`） | `public/assets/quests/sl_17_xiangguo_market.jpg` | 大相国寺万姓雅市 · 慧照、卫弘龙与郑刚共议护持寺院商铺 |
-| `CG-QST-339` | `[ ]` 待补绘 | 《相国暗影 · 红尘刀杖》（`QST-SECT-01-17`） | `public/assets/quests/sl_17_wazi_brawl.jpg` | 瓦子暗巷 · 带发提刀使出普门杖法与慈悲刀法，力战毒蛇钱五 |
-| `CG-QST-340` | `[ ]` 待补绘 | 《洛阳护镖 · 金刀少林》（`QST-SECT-01-18`） | `public/assets/quests/sl_18_longmen_escort.jpg` | 伊阙古道 · 金刀王家镖旗与少林护佛车队并辔南行 |
-| `CG-QST-341` | `[ ]` 待补绘 | 《洛阳护镖 · 金刀少林》（`QST-SECT-01-18`） | `public/assets/quests/sl_18_weituo_bridge.jpg` | 龙门石桥 · 玄悲抛赠少林韦陀伏魔杵，危局破格点拨《韦陀杵》力战拓跋烈 |
-| `CG-QST-342` | `[ ]` 待补绘 | 《洛阳护镖 · 金刀少林》（`QST-SECT-01-18`） | `public/assets/quests/sl_18_golden_buddha.jpg` | 白马大佛宝殿 · 千斤紫金佛像安奉放光，玄悲破格传授《韦陀杵》并赠伏魔宝杵 |
-| `CG-QST-343` | `[ ]` 待补绘 | 《莆田南渡 · 南北少林》（`QST-SECT-01-19`） | `public/assets/quests/sl_19_jiulian_spar.jpg` | 九莲山门演武坪 · 北宗龙爪手对决南宗铁桥硬马，以武会友赢尽敬重 |
-| `CG-QST-344` | `[ ]` 待补绘 | 《莆田南渡 · 南北少林》（`QST-SECT-01-19`） | `public/assets/quests/sl_19_saltfield_pirates.jpg` | 莆田海滨盐场 · 夜战火光冲天，与南少林同门并肩力敌东瀛海寇头目鬼丸浪人 |
-| `CG-QST-345` | `[ ]` 待补绘 | 《莆田南渡 · 南北少林》（`QST-SECT-01-19`） | `public/assets/quests/sl_19_yuanku_scroll.jpg` | 大雄正殿 · 铜身罗汉元苦打破门户之见，亲授《盘山铁布衫（大成）》与《铁线拳》 |
-| `CG-QST-346` | `[ ]` 待补绘 | 《紫衣护寺 · 俗家都统》（`QST-SECT-01-20`） | `public/assets/quests/sl_20_imperial_writ.jpg` | 资圣八角琉璃宝塔 · 手握朝廷朱印护寺勘合文书，破围策马星夜驰援嵩山 |
-| `CG-QST-347` | `[ ]` 待补绘 | 《紫衣护寺 · 俗家都统》（`QST-SECT-01-20`） | `public/assets/quests/sl_20_blacktiger_rain.jpg` | 子夜暴雨 · 单刀孤身镇守嵩山药庄牌坊，雷电交加中力战绿林双煞 |
-| `CG-QST-348` | `[ ]` 待补绘 | 《紫衣护寺 · 俗家都统》（`QST-SECT-01-20`） | `public/assets/quests/sl_20_layman_commander.jpg` | 大雄正殿 · 玄慈方丈亲赐紫衣与玄铁令牌，破格晋升少林 Lv.3 俗家护法都统 |
+| `CG-QST-284` | `[x]` 已完成 | `public/assets/quests/hs_side10_qin_ride_west.jpg` | `/assets/quests/hs_side10_qin_ride_west.jpg` | `QST-SECT-05-SIDE-10`<br>《陇山断道 · 西夏折剑令》 | 第四幕 · 双剑西出<br>（`scene_hss10_04`） | `16:9` |
+| `CG-QST-285` | `[x]` 已完成 | `public/assets/quests/hs_side10_slave_array.jpg` | `/assets/quests/hs_side10_slave_array.jpg` | `QST-SECT-05-SIDE-10`<br>《陇山断道 · 西夏折剑令》 | 第八幕 · 残阳破阵<br>（`scene_hss10_08`） | `16:9` |
+| `CG-QST-286` | `[x]` 已完成 | `public/assets/quests/hs_side10_slay_helian.jpg` | `/assets/quests/hs_side10_slay_helian.jpg` | `QST-SECT-05-SIDE-10`<br>《陇山断道 · 西夏折剑令》 | 第十四幕 · 斩落魔陀<br>（`scene_hss10_14`） | `16:9` |
+| `CG-QST-287` | `[x]` 已完成 | 《晨钟木鱼 · 罗汉开蒙》（`QST-SECT-01-01`） | `public/assets/quests/sl_01_morning_bell.jpg` | 钟鼓禅院 · 五更晨钟响彻演武坪，虚松虚音开蒙授罗汉拳 |
+| `CG-QST-288` | `[x]` 已完成 | 《晨钟木鱼 · 罗汉开蒙》（`QST-SECT-01-01`） | `public/assets/quests/sl_01_luohan_duel.jpg` | 演武青石 · 罗汉拳连挫挂单恶僧与周海，玄痛巡堂嘉许 |
+| `CG-QST-289` | `[x]` 已完成 | 《少室庄田 · 拳棍止争》（`QST-SECT-01-02`） | `public/assets/quests/sl_02_estate_clash.jpg` | 少室南麓 · 登封矿霸刘横强占庄田水渠，佃农与矿徒剑拔弩张 |
+| `CG-QST-290` | `[x]` 已完成 | 《少室庄田 · 拳棍止争》（`QST-SECT-01-02`） | `public/assets/quests/sl_02_fist_staff_win.jpg` | 拳棍止争 · 伏虎拳近身擒王或齐眉棍横扫窄桥生擒刘横 |
+| `CG-QST-291` | `[x]` 已完成 | 《香火黑账 · 知客暗流》（`QST-SECT-01-03`） | `public/assets/quests/sl_03_pine_ambush.jpg` | 古柏寒林 · 救下血污牙人贾通宝，力战黑市断魂刀赵魁 |
+| `CG-QST-292` | `[x]` 已完成 | 《香火黑账 · 知客暗流》（`QST-SECT-01-03`） | `public/assets/quests/sl_03_incense_ledger.jpg` | 香火私册 · 钟鼓禅院孤灯验账，空名度牒黑幕水落石出 |
+| `CG-QST-293` | `[x]` 已完成 | 《木桩百劫 · 铜人初试》（`QST-SECT-01-04`） | `public/assets/quests/sl_04_wooden_alley.jpg` | 木桩百劫 · 十八铜人木桩廊机关齐发，棍影拳风破阵而出 |
+| `CG-QST-294` | `[x]` 已完成 | 《木桩百劫 · 铜人初试》（`QST-SECT-01-04`） | `public/assets/quests/sl_04_huitong_spar.jpg` | 终场较技 · 演武正殿力挫外门劲敌慧通，禅武根基大成 |
+| `CG-QST-295` | `[x]` 已完成 | 《木桩百劫 · 铜人初试》（`QST-SECT-01-04`） | `public/assets/quests/sl_04_four_branches.jpg` | 大雄丹墀 · 玄慈授罗汉伏虎功晋内门，罗汉达摩戒律俗家四脉分流 |
+| `CG-QST-296` | `[x]` 已完成 | 《灶房残薪 · 烧火奇棍》（`QST-SECT-01-SIDE-01`） | `public/assets/quests/sl_s01_kitchen_stick.jpg` | 少室大斋堂 · 灶膛抽薪，觉尘传授质朴刁钻拨火棍诀 |
+| `CG-QST-297` | `[x]` 已完成 | 《灶房残薪 · 烧火奇棍》（`QST-SECT-01-SIDE-01`） | `public/assets/quests/sl_s01_ash_thieves.jpg` | 锅底乌灰 · 烧火奇棍连戳三贼下盘，满院僧众哄堂大笑 |
+| `CG-QST-298` | `[x]` 已完成 | 《东庑拓碑 · 拳棍双修》（`QST-SECT-01-SIDE-02`） | `public/assets/quests/sl_s02_stele_rub.jpg` | 东庑碑院 · 净法携墨拓修补唐代武僧演武砖雕 |
+| `CG-QST-299` | `[x]` 已完成 | 《东庑拓碑 · 拳棍双修》（`QST-SECT-01-SIDE-02`） | `public/assets/quests/sl_s02_protect_stele.jpg` | 护碑驱恶 · 逐退偷拓古碑恶奴，慧轮补授拳棍双全 |
+| `CG-QST-300` | `[x]` 已完成 | 《登封买粮 · 斗秤破奸》（`QST-SECT-01-SIDE-03`） | `public/assets/quests/sl_s03_grain_scale.jpg` | 登封粮行 · 算术当场识破夹层灌水银暗秤，拆穿奸商克扣 |
+| `CG-QST-301` | `[x]` 已完成 | 《登封买粮 · 斗秤破奸》（`QST-SECT-01-SIDE-03`） | `public/assets/quests/sl_s03_thug_brawl.jpg` | 追银护斋 · 1v2 痛扁粮行恶护院，追回百两差额纹银 |
+| `CG-QST-302` | `[x]` 已完成 | 《塔林寒夜 · 孤魂盗墓》（`QST-SECT-01-SIDE-04`） | `public/assets/quests/sl_s04_pagoda_ghost.jpg` | 塔林幽火 · 寒夜百座高僧砖塔磷火闪烁，识破摸金校尉伪装 |
+| `CG-QST-303` | `[x]` 已完成 | 《塔林寒夜 · 孤魂盗墓》（`QST-SECT-01-SIDE-04`） | `public/assets/quests/sl_s04_tomb_raiders.jpg` | 砖塔迷阵 · 齐眉棍影破洛阳铲围攻，护住唐代高僧舍利地宫 |
+| `CG-QST-304` | `[x]` 已完成 | 《嵩阳借书 · 儒释之辩》（`QST-SECT-01-SIDE-05`） | `public/assets/quests/sl_s05_songyang_debate.jpg` | 嵩阳杏坛 · 汉柏树下儒释会通，妙语折服排佛迂儒 |
+| `CG-QST-305` | `[x]` 已完成 | 《嵩阳借书 · 儒释之辩》（`QST-SECT-01-SIDE-05`） | `public/assets/quests/sl_s05_apricot_spar.jpg` | 以武证礼 · 书院石阶点到为止挫狂生武师，促成两院藏书互通 |
+| `CG-QST-306` | `[x]` 已完成 | 《东庑刀鸣 · 慈悲度寇》（`QST-SECT-01-05`） | `public/assets/quests/sl_05_east_corridor_blade.jpg` | 东庑刀鸣 · 玄灭于唐碑青石间传授《慈悲刀法》，刀光如雪而不伤落叶 |
+| `CG-QST-307` | `[x]` 已完成 | 《东庑刀鸣 · 慈悲度寇》（`QST-SECT-01-05`） | `public/assets/quests/sl_05_yingyang_mercy.jpg` | 慈悲度寇 · 戒刀背震脱朴刀，流民跪地痛哭，悍匪屠三提鬼头刀怒冲而至 |
+| `CG-QST-308` | `[x]` 已完成 | 《释源白马 · 韦陀降魔》（`QST-SECT-01-06`） | `public/assets/quests/sl_06_baima_fire.jpg` | 白马寺夜变 · 西夏一品堂假僧现出弯刀与火折，玄悲与你联手护住大佛宝殿 |
+| `CG-QST-309` | `[x]` 已完成 | 《释源白马 · 韦陀降魔》（`QST-SECT-01-06`） | `public/assets/quests/sl_06_qiyun_pagoda_win.jpg` | 韦陀降魔 · 齐云古塔顶层月色如霜，一记大韦陀杵势震毙西夏密宗番僧摩诃巴 |
+| `CG-QST-310` | `[x]` 已完成 | 《释源白马 · 韦陀降魔》（`QST-SECT-01-06`） | `public/assets/quests/sl_06_xuanbei_gift.jpg` | 玄悲赠杵 · 银杏金叶纷飞间，大韦陀僧玄悲将少林韦陀伏魔杵郑重托付于你 |
+| `CG-QST-311` | `[x]` 已完成 | 《碎碑擒龙 · 少室捉谍》（`QST-SECT-01-07`） | `public/assets/quests/sl_07_stele_mist.jpg` | 碎碑擒龙 · 东庑古碑寒雾缭绕，玄石与玄痛五指成爪示范少林绝技《龙爪手》 |
+| `CG-QST-312` | `[x]` 已完成 | 《碎碑擒龙 · 少室捉谍》（`QST-SECT-01-07`） | `public/assets/quests/sl_07_dragon_claw_capture.jpg` | 碎碑擒龙 · 三更寒雾间《龙爪手》撕裂幽州软甲，一爪扣脉生擒辽谍耶律青影 |
+| `CG-QST-313` | `[x]` 已完成 | 《碎碑擒龙 · 少室捉谍》（`QST-SECT-01-07`） | `public/assets/quests/sl_07_map_preserved.jpg` | 山河无恙 · 朝阳映照东庑唐碑，西半幅拓片焚毁归尘，玄痛与玄石合授《龙爪手》全本 |
+| `CG-QST-314` | `[x]` 已完成 | 《十八铜人 · 罗汉金身》（`QST-SECT-01-08`） | `public/assets/quests/sl_08_arhat_array_1.jpg` | 十八铜人阵 · 金漆罗汉列成三才六合大阵，齐眉长棍交织如林，直压中宫 |
+| `CG-QST-315` | `[x]` 已完成 | 《十八铜人 · 罗汉金身》（`QST-SECT-01-08`） | `public/assets/quests/sl_08_arhat_breakthrough.jpg` | 罗汉金身 · 正殿金光震荡，你以融汇贯通的罗汉绝艺震退阵眼慧轮，十八铜人齐齐合十让道 |
+| `CG-QST-316` | `[x]` 已完成 | 《十八铜人 · 罗汉金身》（`QST-SECT-01-08`） | `public/assets/quests/sl_08_zhenchuan_bell.jpg` | 钟鸣九响 · 大雄正殿香云缭绕，玄慈方丈亲为你披上少林真传紫金袈裟，群僧同颂佛号 |
+| `CG-QST-317` | `[x]` 已完成 | 《剑痕绝壁 · 达摩初剑》（`QST-SECT-01-09`） | `public/assets/quests/sl_09_sword_cliff.jpg` | 绝壁剑痕崖 · 玄难指点青壁剑刻，初传少林《伏魔剑》意 |
+| `CG-QST-318` | `[x]` 已完成 | 《剑痕绝壁 · 达摩初剑》（`QST-SECT-01-09`） | `public/assets/quests/sl_09_fumo_sword_duel.jpg` | 剑痕崖决锋 · 玄铁戒剑直破阴风诡刺，禅心不动伏邪剑 |
+| `CG-QST-319` | `[x]` 已完成 | 《洛水飞花 · 散花破幻》（`QST-SECT-01-10`） | `public/assets/quests/sl_10_luoshui_boat.jpg` | 洛水夜舫 · 紫灯雾笼瑶华舟，毒香暗浮藏妖踪 |
+| `CG-QST-320` | `[x]` 已完成 | 《洛水飞花 · 散花破幻》（`QST-SECT-01-10`） | `public/assets/quests/sl_10_xingxiu_defeat.jpg` | 散花破幻 · 双掌翻飞震晕星宿妖女与护法，洛水波平 |
+| `CG-QST-321` | `[x]` 已完成 | 《迦叶微笑 · 灵山拈花》（`QST-SECT-01-11`） | `public/assets/quests/sl_11_silent_debate.jpg` | 无声禅辩 · 碎玉之前拈莲微笑，一言未发压服大轮寺三番僧 |
+| `CG-QST-322` | `[x]` 已完成 | 《迦叶微笑 · 灵山拈花》（`QST-SECT-01-11`） | `public/assets/quests/sl_11_nianhua_finger.jpg` | 灵山拈花 · 双指柔劲破铁掌罡风，禅意与烈焰交锋演武坪 |
+| `CG-QST-323` | `[x]` 已完成 | 《迦叶微笑 · 灵山拈花》（`QST-SECT-01-11`） | `public/assets/quests/sl_11_tubo_bow.jpg` | 番僧长揖 · 吐蕃大轮寺三护法折服赔礼，恭敬辞别嵩山 |
+| `CG-QST-324` | `[x]` 已完成 | 《寒玉问禅 · 七十二障》（`QST-SECT-01-12`） | `public/assets/quests/sl_12_cold_jade_bed.jpg` | 寒玉问禅 · 幽谷石室长明灯下，瘫痪神僧玄澄剖白七十二障秘辛 |
+| `CG-QST-325` | `[x]` 已完成 | 《寒玉问禅 · 七十二障》（`QST-SECT-01-12`） | `public/assets/quests/sl_12_cave_assassin.jpg` | 狭洞死战 · 幽暗石室中独挡一流下品慕容暗探首燕影客，寸步不退 |
+| `CG-QST-326` | `[x]` 已完成 | 《寒玉问禅 · 七十二障》（`QST-SECT-01-12`） | `public/assets/quests/sl_12_damo_zhenchuan.jpg` | 达摩真传 · 黎明幽谷石室中，玄慈宣谕晋升少林真传弟子，玄澄玄难欣慰颔首 |
+| `CG-QST-327` | `[x]` 已完成 | 《钟鼓执杖 · 清规如铁》（`QST-SECT-01-13`） | `public/assets/quests/sl_13_pumen_staff.jpg` | 钟鼓执杖 · 玄寂长老亲演《普门杖法》，杖影如莲，刚柔并济 |
+| `CG-QST-328` | `[x]` 已完成 | 《钟鼓执杖 · 清规如铁》（`QST-SECT-01-13`） | `public/assets/quests/sl_13_ruzhou_temple.jpg` | 荒庙夜雨 · 破戒叛僧慧癞横杖守于残烛之前，身畔孤老泣血 |
+| `CG-QST-329` | `[x]` 已完成 | 《一拍两散 · 汴京缉凶》（`QST-SECT-01-14`） | `public/assets/quests/sl_14_zisheng_teach.jpg` | 一拍两散 · 资圣宝塔顶层朔风飞雪，玄寂亲演示惊世掌力 |
+| `CG-QST-330` | `[x]` 已完成 | 《一拍两散 · 汴京缉凶》（`QST-SECT-01-14`） | `public/assets/quests/sl_14_tianshui_roof.jpg` | 子夜甜水巷 · 飞雪青瓦之上，铁罗汉严横现身周府屋脊 |
+| `CG-QST-331` | `[x]` 已完成 | 《一拍两散 · 汴京缉凶》（`QST-SECT-01-14`） | `public/assets/quests/sl_14_yanheng_capture.jpg` | 一拍两散 · 凝练掌劲破尽横练铁臂，生擒铁罗汉严横 |
+| `CG-QST-332` | `[x]` 已完成 | 《药王百草 · 拈花截脉》（`QST-SECT-01-15`） | `public/assets/quests/sl_15_finger_heal.jpg` | 拈花截脉 · 郑州药棚之内，以柔绵指劲隔衣点穴救治染瘴流民 |
+| `CG-QST-333` | `[x]` 已完成 | 《药王百草 · 拈花截脉》（`QST-SECT-01-15`） | `public/assets/quests/sl_15_bandit_repel.jpg` | 指掌齐施 · 药棚之前刚掌震敌、拈花点穴，生擒太行匪首独眼狼 |
+| `CG-QST-334` | `[x]` 已完成 | 《药王百草 · 拈花截脉》（`QST-SECT-01-15`） | `public/assets/quests/sl_15_yaowang_praise.jpg` | 药王嘉许 · 东厢碑廊之下，玄生亲授《拈花指》全卷真传 |
+| `CG-QST-335` | `[x]` 已完成 | 《戒台问罪 · 贪嗔痴慢》（`QST-SECT-01-16`） | `public/assets/quests/sl_16_rescue_xuqing.jpg` | 后山截杀 · 绝壁枯松之下，挺身力救怀抱印匣的苦行僧虚清 |
+| `CG-QST-336` | `[x]` 已完成 | 《戒台问罪 · 贪嗔痴慢》（`QST-SECT-01-16`） | `public/assets/quests/sl_16_jietai_trial.jpg` | 戒台问罪 · 大雄正殿三堂会审，携虚清与影刃客当堂对质玄净 |
+| `CG-QST-337` | `[x]` 已完成 | 《戒台问罪 · 贪嗔痴慢》（`QST-SECT-01-16`） | `public/assets/quests/sl_16_jielv_zhenchuan.jpg` | 戒律真传 · 大雄正殿佛光之下，玄慈方丈亲授戒律院真传法衣与禅杖 |
+| `CG-QST-338` | `[x]` 已完成 | 《相国暗影 · 红尘刀杖》（`QST-SECT-01-17`） | `public/assets/quests/sl_17_xiangguo_market.jpg` | 大相国寺万姓雅市 · 慧照、卫弘龙与郑刚共议护持寺院商铺 |
+| `CG-QST-339` | `[x]` 已完成 | 《相国暗影 · 红尘刀杖》（`QST-SECT-01-17`） | `public/assets/quests/sl_17_wazi_brawl.jpg` | 瓦子暗巷 · 带发提刀使出普门杖法与慈悲刀法，力战毒蛇钱五 |
+| `CG-QST-340` | `[x]` 已完成 | 《洛阳护镖 · 金刀少林》（`QST-SECT-01-18`） | `public/assets/quests/sl_18_longmen_escort.jpg` | 伊阙古道 · 金刀王家镖旗与少林护佛车队并辔南行 |
+| `CG-QST-341` | `[x]` 已完成 | 《洛阳护镖 · 金刀少林》（`QST-SECT-01-18`） | `public/assets/quests/sl_18_weituo_bridge.jpg` | 龙门石桥 · 玄悲抛赠少林韦陀伏魔杵，危局破格点拨《韦陀杵》力战拓跋烈 |
+| `CG-QST-342` | `[x]` 已完成 | 《洛阳护镖 · 金刀少林》（`QST-SECT-01-18`） | `public/assets/quests/sl_18_golden_buddha.jpg` | 白马大佛宝殿 · 千斤紫金佛像安奉放光，玄悲破格传授《韦陀杵》并赠伏魔宝杵 |
+| `CG-QST-343` | `[x]` 已完成 | 《莆田南渡 · 南北少林》（`QST-SECT-01-19`） | `public/assets/quests/sl_19_jiulian_spar.jpg` | 九莲山门演武坪 · 北宗龙爪手对决南宗铁桥硬马，以武会友赢尽敬重 |
+| `CG-QST-344` | `[x]` 已完成 | 《莆田南渡 · 南北少林》（`QST-SECT-01-19`） | `public/assets/quests/sl_19_saltfield_pirates.jpg` | 莆田海滨盐场 · 夜战火光冲天，与南少林同门并肩力敌东瀛海寇头目鬼丸浪人 |
+| `CG-QST-345` | `[x]` 已完成 | 《莆田南渡 · 南北少林》（`QST-SECT-01-19`） | `public/assets/quests/sl_19_yuanku_scroll.jpg` | 大雄正殿 · 铜身罗汉元苦打破门户之见，亲授《盘山铁布衫（大成）》与《铁线拳》 |
+| `CG-QST-346` | `[x]` 已完成 | 《紫衣护寺 · 俗家都统》（`QST-SECT-01-20`） | `public/assets/quests/sl_20_imperial_writ.jpg` | 资圣八角琉璃宝塔 · 手握朝廷朱印护寺勘合文书，破围策马星夜驰援嵩山 |
+| `CG-QST-347` | `[x]` 已完成 | 《紫衣护寺 · 俗家都统》（`QST-SECT-01-20`） | `public/assets/quests/sl_20_blacktiger_rain.jpg` | 子夜暴雨 · 单刀孤身镇守嵩山药庄牌坊，雷电交加中力战绿林双煞 |
+| `CG-QST-348` | `[x]` 已完成 | 《紫衣护寺 · 俗家都统》（`QST-SECT-01-20`） | `public/assets/quests/sl_20_layman_commander.jpg` | 大雄正殿 · 玄慈方丈亲赐紫衣与玄铁令牌，破格晋升少林 Lv.3 俗家护法都统 |
 
-| `CG-QST-349` | `[ ]` 待补绘 | `public/assets/quests/sl_21_waterfall_reed.jpg` | `/assets/quests/sl_21_waterfall_reed.jpg` | `QST-SECT-01-21`<br>《飞瀑深潭 · 一苇渡江》 | 第三幕 · 枯芦掷潭<br>（`scene_slq21_03`） | `16:9` |
-| `CG-QST-350` | `[ ]` 待补绘 | `public/assets/quests/sl_21_luoshui_chase.jpg` | `/assets/quests/sl_21_luoshui_chase.jpg` | `QST-SECT-01-21`<br>《飞瀑深潭 · 一苇渡江》 | 第十一幕 · 踏苇十里<br>（`scene_slq21_11`） | `16:9` |
-| `CG-QST-351` | `[ ]` 待补绘 | `public/assets/quests/sl_21_cloud_swallow.jpg` | `/assets/quests/sl_21_cloud_swallow.jpg` | `QST-SECT-01-21`<br>《飞瀑深潭 · 一苇渡江》 | 洛水江心礁石 · 步法压制<br>（`scene_slq21_15`） | `16:9` |
-| `CG-QST-352` | `[ ]` 待补绘 | `public/assets/quests/sl_22_burning_wood.jpg` | `/assets/quests/sl_22_burning_wood.jpg` | `QST-SECT-01-22`<br>《枯木生烟 · 玄苦授刀》 | 罗汉堂演武正殿 · 烈风如潮<br>（`scene_slq22_05`） | `16:9` |
-| `CG-QST-353` | `[ ]` 待补绘 | `public/assets/quests/sl_22_xuanku_entrust.jpg` | `/assets/quests/sl_22_xuanku_entrust.jpg` | `QST-SECT-01-22`<br>《枯木生烟 · 玄苦授刀》 | 第十一幕 · 薪火相传<br>（`scene_slq22_10`） | `16:9` |
-| `CG-QST-354` | `[ ]` 待补绘 | `public/assets/quests/sl_22_night_repel.jpg` | `/assets/quests/sl_22_night_repel.jpg` | `QST-SECT-01-22`<br>《枯木生烟 · 玄苦授刀》 | 第十九幕 · 逼退黑影<br>（`scene_slq22_19`） | `16:9` |
-| `CG-QST-355` | `[ ]` 待补绘 | `public/assets/quests/sl_23_gongxian_grotto.jpg` | `/assets/quests/sl_23_gongxian_grotto.jpg` | `QST-SECT-01-23`<br>《金刚怒目 · 碎石成粉》 | 第九幕 · 疾驰伊洛<br>（`slq23_accept_rescue`） | `16:9` |
-| `CG-QST-356` | `[ ]` 待补绘 | `public/assets/quests/sl_23_shatter_mirror.jpg` | `/assets/quests/sl_23_shatter_mirror.jpg` | `QST-SECT-01-23`<br>《金刚怒目 · 碎石成粉》 | 巩县石窟 · 凝指蓄势<br>（`scene_slq23_15`） | `16:9` |
-| `CG-QST-357` | `[ ]` 待补绘 | `public/assets/quests/sl_23_save_masons.jpg` | `/assets/quests/sl_23_save_masons.jpg` | `QST-SECT-01-23`<br>《金刚怒目 · 碎石成粉》 | 第十八幕 · 满窟生春<br>（`scene_slq23_18`） | `16:9` |
-| `CG-QST-358` | `[ ]` 待补绘 | `public/assets/quests/sl_24_damo_shadow.jpg` | `/assets/quests/sl_24_damo_shadow.jpg` | `QST-SECT-01-24`<br>《面壁九年 · 剑化禅机》 | 达摩石洞 · 笔意通剑<br>（`scene_slq24_03`） | `16:9` |
-| `CG-QST-359` | `[ ]` 待补绘 | `public/assets/quests/sl_24_bao_feng_duel.jpg` | `/assets/quests/sl_24_bao_feng_duel.jpg` | `QST-SECT-01-24`<br>《面壁九年 · 剑化禅机》 | 剑痕崖 · 破局一剑<br>（`scene_slq24_17`） | `16:9` |
-| `CG-QST-360` | `[ ]` 待补绘 | `public/assets/quests/sl_24_cliff_zen.jpg` | `/assets/quests/sl_24_cliff_zen.jpg` | `QST-SECT-01-24`<br>《面壁九年 · 剑化禅机》 | 绝壁石刻 · 剑痕崖<br>（`scene_slq24_20`） | `16:9` |
-| `CG-QST-361` | `[ ]` 待补绘 | `public/assets/quests/sl_25_boruo_palm.jpg` | `/assets/quests/sl_25_boruo_palm.jpg` | `QST-SECT-01-25`<br>《空色无相 · 般若波罗》 | 第四幕 · 掌演空色<br>（`scene_slq25_04`） | `16:9` |
-| `CG-QST-362` | `[ ]` 待补绘 | `public/assets/quests/sl_25_yuelao3_retreat.jpg` | `/assets/quests/sl_25_yuelao3_retreat.jpg` | `QST-SECT-01-25`<br>《空色无相 · 般若波罗》 | 第十六幕 · 震裂虎口<br>（`scene_slq25_16`） | `16:9` |
-| `CG-QST-363` | `[ ]` 待补绘 | `public/assets/quests/sl_25_empty_zen.jpg` | `/assets/quests/sl_25_empty_zen.jpg` | `QST-SECT-01-25`<br>《空色无相 · 般若波罗》 | 达摩院 · 幽谷石室 · 寒玉榻<br>（`scene_slq25_18`） | `16:9` |
-| `CG-QST-364` | `[ ]` 待补绘 | `public/assets/quests/sl_26_tang_stele.jpg` | `/assets/quests/sl_26_tang_stele.jpg` | `QST-SECT-01-26`<br>《东厢古碑 · 掌吐梵音》 | 第三幕 · 碑前示掌<br>（`scene_slq26_03`） | `16:9` |
-| `CG-QST-365` | `[ ]` 待补绘 | `public/assets/quests/sl_26_corridor_night.jpg` | `/assets/quests/sl_26_corridor_night.jpg` | `QST-SECT-01-26`<br>《东厢古碑 · 掌吐梵音》 | 第九幕 · 廊影微动<br>（`slq26_accept_guard`） | `16:9` |
-| `CG-QST-366` | `[ ]` 待补绘 | `public/assets/quests/sl_26_stele_safe.jpg` | `/assets/quests/sl_26_stele_safe.jpg` | `QST-SECT-01-26`<br>《东厢古碑 · 掌吐梵音》 | 第十七幕 · 唐碑无恙<br>（`scene_slq26_17`） | `16:9` |
-| `CG-QST-367` | `[ ]` 待补绘 | `public/assets/quests/sl_27_ruined_crypt.jpg` | `/assets/quests/sl_27_ruined_crypt.jpg` | `QST-SECT-01-27`<br>《铁指断欲 · 降伏其心》 | 第八幕 · 暗访汝许<br>（`slq27_accept_purge`） | `16:9` |
-| `CG-QST-368` | `[ ]` 待补绘 | `public/assets/quests/sl_27_iron_finger.jpg` | `/assets/quests/sl_27_iron_finger.jpg` | `QST-SECT-01-27`<br>《铁指断欲 · 降伏其心》 | 第十五幕 · 气门破绽<br>（`scene_slq27_15`） | `16:9` |
-| `CG-QST-369` | `[ ]` 待补绘 | `public/assets/quests/sl_27_law_plaque.jpg` | `/assets/quests/sl_27_law_plaque.jpg` | `QST-SECT-01-27`<br>《铁指断欲 · 降伏其心》 | 第十九幕 · 演武典刑<br>（`slq27_return_shaolin`） | `16:9` |
-| `CG-QST-370` | `[ ]` 待补绘 | `public/assets/quests/sl_28_rain_pavilion.jpg` | `/assets/quests/sl_28_rain_pavilion.jpg` | `QST-SECT-01-28`<br>《琉璃夜影 · 曝书惊变》 | 第七幕 · 琉璃夜影<br>（`scene_slq28_07`） | `16:9` |
-| `CG-QST-371` | `[ ]` 待补绘 | `public/assets/quests/sl_28_pine_chase.jpg` | `/assets/quests/sl_28_pine_chase.jpg` | `QST-SECT-01-28`<br>《琉璃夜影 · 曝书惊变》 | 藏经阁 · 琉璃飞檐外<br>（`scene_slq28_09`） | `16:9` |
-| `CG-QST-372` | `[ ]` 待补绘 | `public/assets/quests/sl_28_two_notes.jpg` | `/assets/quests/sl_28_two_notes.jpg` | `QST-SECT-01-28`<br>《琉璃夜影 · 曝书惊变》 | 第十五幕 · 案缝双笺<br>（`scene_slq28_15`） | `16:9` |
-| `CG-QST-373` | `[ ]` 待补绘 | `public/assets/quests/sl_29_xingxiu_raid.jpg` | `/assets/quests/sl_29_xingxiu_raid.jpg` | `QST-SECT-01-29`<br>《剑痕浴血 · 少林九阳》 | 达摩院 · 绝壁石刻 · 剑痕崖<br>（`scene_slq29_02`） | `16:9` |
-| `CG-QST-374` | `[ ]` 待补绘 | `public/assets/quests/sl_29_jiuyang_scroll.jpg` | `/assets/quests/sl_29_jiuyang_scroll.jpg` | `QST-SECT-01-29`<br>《剑痕浴血 · 少林九阳》 | 第十三幕 · 九阳密钞<br>（`scene_slq29_13`） | `16:9` |
-| `CG-QST-375` | `[ ]` 待补绘 | `public/assets/quests/sl_29_pure_yang_blast.jpg` | `/assets/quests/sl_29_pure_yang_blast.jpg` | `QST-SECT-01-29`<br>《剑痕浴血 · 少林九阳》 | 第二十二幕 · 纯阳佛掌<br>（`scene_slq29_22`） | `16:9` |
-| `CG-QST-376` | `[ ]` 待补绘 | `public/assets/quests/sl_30_ginkgo_sweep.jpg` | `/assets/quests/sl_30_ginkgo_sweep.jpg` | `QST-SECT-01-30`<br>《慈悲默察 · 扫叶听风》 | 第五幕 · 朝霜暮雪<br>（`scene_slq30_05`） | `16:9` |
-| `CG-QST-377` | `[ ]` 待补绘 | `public/assets/quests/sl_30_copy_sutra.jpg` | `/assets/quests/sl_30_copy_sutra.jpg` | `QST-SECT-01-30`<br>《慈悲默察 · 扫叶听风》 | 第十一幕 · 焚香净手<br>（`scene_slq30_11`） | `16:9` |
-| `CG-QST-378` | `[ ]` 待补绘 | `public/assets/quests/sl_30_empty_broom.jpg` | `/assets/quests/sl_30_empty_broom.jpg` | `QST-SECT-01-30`<br>《慈悲默察 · 扫叶听风》 | 藏经阁 · 古银杏无名老僧扫叶庭<br>（`scene_slq30_15`） | `16:9` |
-| `CG-QST-379` | `[ ]` 待补绘 | `public/assets/quests/sl_31_iron_net.jpg` | `/assets/quests/sl_31_iron_net.jpg` | `QST-SECT-01-31`<br>《铁血伏魔 · 暗布天罗》 | 第三幕 · 伏魔铁网<br>（`scene_slq31_03`） | `16:9` |
-| `CG-QST-380` | `[ ]` 待补绘 | `public/assets/quests/sl_31_slay_blackwater.jpg` | `/assets/quests/sl_31_slay_blackwater.jpg` | `QST-SECT-01-31`<br>《铁血伏魔 · 暗布天罗》 | 第九幕 · 伏魔斩妖<br>（`scene_slq31_09`） | `16:9` |
-| `CG-QST-381` | `[ ]` 待补绘 | `public/assets/quests/sl_31_iron_prestige.jpg` | `/assets/quests/sl_31_iron_prestige.jpg` | `QST-SECT-01-31`<br>《铁血伏魔 · 暗布天罗》 | 第十三幕 · 黎明传捷<br>（`scene_slq31_13`） | `16:9` |
-| `CG-QST-382` | `[ ]` 待补绘 | `public/assets/quests/sl_32_ice_cliff_herb.jpg` | `/assets/quests/sl_32_ice_cliff_herb.jpg` | `QST-SECT-01-32`<br>《药王瘟劫 · 九转回魂》 | 达摩院 · 飞瀑深潭 · 试炼涧<br>（`scene_slq32_06`） | `16:9` |
-| `CG-QST-383` | `[ ]` 待补绘 | `public/assets/quests/sl_32_guard_furnace.jpg` | `/assets/quests/sl_32_guard_furnace.jpg` | `QST-SECT-01-32`<br>《药王瘟劫 · 九转回魂》 | 第十三幕 · 护炉死战<br>（`scene_slq32_13`） | `16:9` |
-| `CG-QST-384` | `[ ]` 待补绘 | `public/assets/quests/sl_32_nine_turn_pill.jpg` | `/assets/quests/sl_32_nine_turn_pill.jpg` | `QST-SECT-01-32`<br>《药王瘟劫 · 九转回魂》 | 第十九幕 · 九转赐丹<br>（`scene_slq32_19`） | `16:9` |
-| `CG-QST-385` | `[ ]` 待补绘 | `public/assets/quests/sl_33_bodhi_council.jpg` | `/assets/quests/sl_33_bodhi_council.jpg` | `QST-SECT-01-33`<br>《菩提院议 · 首座之争》 | 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团<br>（`scene_slq33_01`） | `16:9` |
-| `CG-QST-386` | `[ ]` 待补绘 | `public/assets/quests/sl_33_elder_spar.jpg` | `/assets/quests/sl_33_elder_spar.jpg` | `QST-SECT-01-33`<br>《菩提院议 · 首座之争》 | 第七幕 · 择师印证<br>（`scene_slq33_07`） | `16:9` |
-| `CG-QST-387` | `[ ]` 待补绘 | `public/assets/quests/sl_33_elder_robe.jpg` | `/assets/quests/sl_33_elder_robe.jpg` | `QST-SECT-01-33`<br>《菩提院议 · 首座之争》 | 第十九幕 · 授衣晋阶<br>（`scene_slq33_18`） | `16:9` |
-| `CG-QST-388` | `[ ]` 待补绘 | `public/assets/quests/sl_34_xuanbei_death.jpg` | `/assets/quests/sl_34_xuanbei_death.jpg` | `QST-SECT-01-34`<br>《大智大悲 · 身死之谜》 | 第五幕 · 白马惨象<br>（`scene_slq34_05`） | `16:9` |
-| `CG-QST-389` | `[ ]` 待补绘 | `public/assets/quests/sl_34_xuanku_farewell.jpg` | `/assets/quests/sl_34_xuanku_farewell.jpg` | `QST-SECT-01-34`<br>《大智大悲 · 身死之谜》 | 第十四幕 · 双僧归寂<br>（`scene_slq34_14`） | `16:9` |
-| `CG-QST-390` | `[ ]` 待补绘 | `public/assets/quests/sl_34_two_palms.jpg` | `/assets/quests/sl_34_two_palms.jpg` | `QST-SECT-01-34`<br>《大智大悲 · 身死之谜》 | 第二十三幕 · 双掌辨影<br>（`scene_slq34_23`） | `16:9` |
-| `CG-QST-391` | `[ ]` 待补绘 | `public/assets/quests/sl_35_wulin_gathering.jpg` | `/assets/quests/sl_35_wulin_gathering.jpg` | `QST-SECT-01-35`<br>《少室群雄 · 方丈丑闻》 | 第四幕 · 群雄沸腾<br>（`scene_slq35_04`） | `16:9` |
-| `CG-QST-392` | `[ ]` 待补绘 | `public/assets/quests/sl_35_ding_poison.jpg` | `/assets/quests/sl_35_ding_poison.jpg` | `QST-SECT-01-35`<br>《少室群雄 · 方丈丑闻》 | 第十二幕 · 毒焰暂敛<br>（`scene_slq35_12`） | `16:9` |
-| `CG-QST-393` | `[ ]` 待补绘 | `public/assets/quests/sl_35_jiumozhi_show.jpg` | `/assets/quests/sl_35_jiumozhi_show.jpg` | `QST-SECT-01-35`<br>《少室群雄 · 方丈丑闻》 | 第二十一幕 · 明王炫技<br>（`scene_slq35_21`） | `16:9` |
-| `CG-QST-394` | `[ ]` 待补绘 | `public/assets/quests/sl_35_scandal_exposed.jpg` | `/assets/quests/sl_35_scandal_exposed.jpg` | `QST-SECT-01-35`<br>《少室群雄 · 方丈丑闻》 | 第三十幕 · 丑闻惊世<br>（`scene_slq35_30`） | `16:9` |
-| `CG-QST-395` | `[ ]` 待补绘 | `public/assets/quests/sl_36_sarira_beads.jpg` | `/assets/quests/sl_36_sarira_beads.jpg` | `QST-SECT-01-36`<br>《寒玉百日 · 洗髓换骨》 | 第五幕 · 舍利伽蓝<br>（`scene_slq36_05`） | `16:9` |
-| `CG-QST-396` | `[ ]` 待补绘 | `public/assets/quests/sl_36_damo_wall.jpg` | `/assets/quests/sl_36_damo_wall.jpg` | `QST-SECT-01-36`<br>《寒玉百日 · 洗髓换骨》 | 第十一幕 · 达摩石壁<br>（`scene_slq36_11`） | `16:9` |
-| `CG-QST-397` | `[ ]` 待补绘 | `public/assets/quests/sl_36_hundred_day_zen.jpg` | `/assets/quests/sl_36_hundred_day_zen.jpg` | `QST-SECT-01-36`<br>《寒玉百日 · 洗髓换骨》 | 第十六幕 · 洗髓换骨<br>（`scene_slq36_15`） | `16:9` |
-| `CG-QST-398` | `[ ]` 待补绘 | `public/assets/quests/sl_36_defeat_jiumozhi.jpg` | `/assets/quests/sl_36_defeat_jiumozhi.jpg` | `QST-SECT-01-36`<br>《寒玉百日 · 洗髓换骨》 | 第二十六幕 · 退败下山<br>（`scene_slq36_25`） | `16:9` |
-| `CG-QST-399` | `[ ]` 待补绘 | `public/assets/quests/sl_38_xuanci_rod.jpg` | `/assets/quests/sl_38_xuanci_rod.jpg` | `QST-SECT-01-38`<br>《杖责还业 · 达摩传衣》 | 第八幕 · 血染青阶<br>（`scene_slq38_08`） | `16:9` |
-| `CG-QST-400` | `[ ]` 待补绘 | `public/assets/quests/sl_38_kasaya_handover.jpg` | `/assets/quests/sl_38_kasaya_handover.jpg` | `QST-SECT-01-38`<br>《杖责还业 · 达摩传衣》 | 第二十一幕 · 达摩传衣<br>（`scene_slq38_21`） | `16:9` |
-| `CG-QST-401` | `[ ]` 待补绘 | `public/assets/quests/sl_38_leaf_bell.jpg` | `/assets/quests/sl_38_leaf_bell.jpg` | `QST-SECT-01-38`<br>《杖责还业 · 达摩传衣》 | 第二十三幕 · 叶落暮钟<br>（`scene_slq38_23`） | `16:9` |
-| `CG-QST-402` | `[ ]` 待补绘 | `public/assets/quests/sl_38_merciful_abbot.jpg` | `/assets/quests/sl_38_merciful_abbot.jpg` | `QST-SECT-01-38`<br>《杖责还业 · 达摩传衣》 | 第二十七幕 · 慈悲升座<br>（`slq38_go_enthrone`） | `16:9` |
-| `CG-QST-403` | `[ ]` 待补绘 | `public/assets/quests/sl_39_iron_verdict.jpg` | `/assets/quests/sl_39_iron_verdict.jpg` | `QST-SECT-01-39`<br>《雷霆涤寺 · 铁腕法王》 | 第五幕 · 高台宣律<br>（`slq39_accept`） | `16:9` |
-| `CG-QST-404` | `[ ]` 待补绘 | `public/assets/quests/sl_39_iron_hall.jpg` | `/assets/quests/sl_39_iron_hall.jpg` | `QST-SECT-01-39`<br>《雷霆涤寺 · 铁腕法王》 | 第十三幕 · 法堂新颜<br>（`scene_slq39_13`） | `16:9` |
-| `CG-QST-405` | `[ ]` 待补绘 | `public/assets/quests/sl_39_break_blades.jpg` | `/assets/quests/sl_39_break_blades.jpg` | `QST-SECT-01-39`<br>《雷霆涤寺 · 铁腕法王》 | 第二十幕 · 金刚断刃<br>（`scene_slq39_20`） | `16:9` |
-| `CG-QST-406` | `[ ]` 待补绘 | `public/assets/quests/sl_39_dharma_king.jpg` | `/assets/quests/sl_39_dharma_king.jpg` | `QST-SECT-01-39`<br>《雷霆涤寺 · 铁腕法王》 | 第二十六幕 · 铁腕法王<br>（`scene_slq39_26`） | `16:9` |
-| `CG-QST-407` | `[ ]` 待补绘 | `public/assets/quests/sl_40_white_robe_zen.jpg` | `/assets/quests/sl_40_white_robe_zen.jpg` | `QST-SECT-01-40`<br>《不着袈裟 · 维摩护法》 | 第五幕 · 心中有佛<br>（`slq40_accept`） | `16:9` |
-| `CG-QST-408` | `[ ]` 待补绘 | `public/assets/quests/sl_40_vimalakirti_duel.jpg` | `/assets/quests/sl_40_vimalakirti_duel.jpg` | `QST-SECT-01-40`<br>《不着袈裟 · 维摩护法》 | 第十三幕 · 白衣伏魔<br>（`scene_slq40_13`） | `16:9` |
-| `CG-QST-409` | `[ ]` 待补绘 | `public/assets/quests/sl_40_alliance_seal.jpg` | `/assets/quests/sl_40_alliance_seal.jpg` | `QST-SECT-01-40`<br>《不着袈裟 · 维摩护法》 | 第二十幕 · 愧赠圣衣<br>（`scene_slq40_20`） | `16:9` |
-| `CG-QST-410` | `[ ]` 待补绘 | `public/assets/quests/sl_40_layman_banner.jpg` | `/assets/quests/sl_40_layman_banner.jpg` | `QST-SECT-01-40`<br>《不着袈裟 · 维摩护法》 | 第二十六幕 · 白衣盟主<br>（`slq40_go_alliance`） | `16:9` |
-| `CG-QST-411` | `[ ]` 待补绘 | `public/assets/quests/sl_s06_fake_meds.jpg` | `/assets/quests/sl_s06_fake_meds.jpg` | `QST-SECT-01-SIDE-06`<br>《万姓雅市 · 假药风波》 | 第二幕 · 银针辨毒<br>（`scene_sls06_02`） | `16:9` |
-| `CG-QST-412` | `[ ]` 待补绘 | `public/assets/quests/sl_s06_black_workshop.jpg` | `/assets/quests/sl_s06_black_workshop.jpg` | `QST-SECT-01-SIDE-06`<br>《万姓雅市 · 假药风波》 | 第六幕 · 揭帽亮明<br>（`scene_sls06_06`） | `16:9` |
-| `CG-QST-413` | `[ ]` 待补绘 | `public/assets/quests/sl_s07_pagoda_rain.jpg` | `/assets/quests/sl_s07_pagoda_rain.jpg` | `QST-SECT-01-SIDE-07`<br>《资圣宝塔 · 夜雨护经》 | 第五幕 · 暴雨惊雷<br>（`scene_sls07_05`） | `16:9` |
-| `CG-QST-414` | `[ ]` 待补绘 | `public/assets/quests/sl_s07_capture_swallow.jpg` | `/assets/quests/sl_s07_capture_swallow.jpg` | `QST-SECT-01-SIDE-07`<br>《资圣宝塔 · 夜雨护经》 | 第九幕 · 折翼就擒<br>（`scene_sls07_09`） | `16:9` |
-| `CG-QST-415` | `[ ]` 待补绘 | `public/assets/quests/sl_s08_jindao_arrows.jpg` | `/assets/quests/sl_s08_jindao_arrows.jpg` | `QST-SECT-01-SIDE-08`<br>《金刀寿宴 · 洛阳暗箭》 | 第七幕 · 掀桌挡箭<br>（`scene_sls08_07`） | `16:9` |
-| `CG-QST-416` | `[ ]` 待补绘 | `public/assets/quests/sl_s08_alliance_toast.jpg` | `/assets/quests/sl_s08_alliance_toast.jpg` | `QST-SECT-01-SIDE-08`<br>《金刀寿宴 · 洛阳暗箭》 | 第十三幕 · 正气举盏<br>（`sls08_to_hall`） | `16:9` |
-| `CG-QST-417` | `[ ]` 待补绘 | `public/assets/quests/sl_s09_qiyun_relic.jpg` | `/assets/quests/sl_s09_qiyun_relic.jpg` | `QST-SECT-01-SIDE-09`<br>《齐云古塔 · 舍利迷踪》 | 第四幕 · 黑教夜袭<br>（`scene_sls09_04`） | `16:9` |
-| `CG-QST-418` | `[ ]` 待补绘 | `public/assets/quests/sl_s09_pagoda_summit.jpg` | `/assets/quests/sl_s09_pagoda_summit.jpg` | `QST-SECT-01-SIDE-09`<br>《齐云古塔 · 舍利迷踪》 | 第十一幕 · 掌定宝函<br>（`scene_sls09_11`） | `16:9` |
-| `CG-QST-419` | `[ ]` 待补绘 | `public/assets/quests/sl_s10_sun_sutras.jpg` | `/assets/quests/sl_s10_sun_sutras.jpg` | `QST-SECT-01-SIDE-10`<br>《西厢晒经 · 芸香防蠹》 | 第四幕 · 轻拂晒经<br>（`scene_sls10_04`） | `16:9` |
-| `CG-QST-420` | `[ ]` 待补绘 | `public/assets/quests/sl_s10_fakuo_nod.jpg` | `/assets/quests/sl_s10_fakuo_nod.jpg` | `QST-SECT-01-SIDE-10`<br>《西厢晒经 · 芸香防蠹》 | 第八幕 · 古杏扫叶<br>（`scene_sls10_08`） | `16:9` |
-| `CG-QST-421` | `[ ]` 待补绘 | `public/assets/quests/sl_s11_mini_arhat.jpg` | `/assets/quests/sl_s11_mini_arhat.jpg` | `QST-SECT-01-SIDE-11`<br>《罗汉涂金 · 顽徒试炼》 | 第四幕 · 奇正相生<br>（`scene_sls11_04`） | `16:9` |
-| `CG-QST-422` | `[ ]` 待补绘 | `public/assets/quests/sl_s11_hammer_defeat.jpg` | `/assets/quests/sl_s11_hammer_defeat.jpg` | `QST-SECT-01-SIDE-11`<br>《罗汉涂金 · 顽徒试炼》 | 第九幕 · 震锤折锋<br>（`scene_sls11_09`） | `16:9` |
-| `CG-QST-423` | `[ ]` 待补绘 | `public/assets/quests/sl_s12_misty_gorge.jpg` | `/assets/quests/sl_s12_misty_gorge.jpg` | `QST-SECT-01-SIDE-12`<br>《寒玉护脉 · 伏虎除魔》 | 寒雾深涧 · 毒瘴漫崖<br>（`scene_sls12_04`） | `16:9` |
-| `CG-QST-424` | `[ ]` 待补绘 | `public/assets/quests/sl_s12_jade_dragon.jpg` | `/assets/quests/sl_s12_jade_dragon.jpg` | `QST-SECT-01-SIDE-12`<br>《寒玉护脉 · 伏虎除魔》 | 玉面露峥嵘 · 寒掌逼人<br>（`scene_sls12_06`） | `16:9` |
-| `CG-QST-425` | `[ ]` 待补绘 | `public/assets/quests/sl_s13_lion_roar.jpg` | `/assets/quests/sl_s13_lion_roar.jpg` | `QST-SECT-01-SIDE-13`<br>《大雄狮吼 · 番僧问难》 | 大雄狮吼 · 梵音撼塔<br>（`debate_q3_lotus`） | `16:9` |
-| `CG-QST-426` | `[ ]` 待补绘 | `public/assets/quests/sl_s13_imperial_bowl.jpg` | `/assets/quests/sl_s13_imperial_bowl.jpg` | `QST-SECT-01-SIDE-13`<br>《大雄狮吼 · 番僧问难》 | 御赐金钵 · 仁宗嘉奖<br>（`scene_sls13_12`） | `16:9` |
-| `CG-QST-427` | `[ ]` 待补绘 | `public/assets/quests/sl_s14_north_south.jpg` | `/assets/quests/sl_s14_north_south.jpg` | `QST-SECT-01-SIDE-14`<br>《铁线争锋 · 闽僧北访》 | 压轴印证 · 铁线神拳<br>（`scene_sls14_08`） | `16:9` |
-| `CG-QST-428` | `[ ]` 待补绘 | `public/assets/quests/sl_s14_iron_wire_gift.jpg` | `/assets/quests/sl_s14_iron_wire_gift.jpg` | `QST-SECT-01-SIDE-14`<br>《铁线争锋 · 闽僧北访》 | 碑廊清茗 · 共论禅武<br>（`scene_sls14_12`） | `16:9` |
-| `CG-QST-429` | `[ ]` 待补绘 | `public/assets/quests/sl_s15_yellow_river.jpg` | `/assets/quests/sl_s15_yellow_river.jpg` | `QST-SECT-01-SIDE-15`<br>《黄河水陆 · 孤忠超度》 | 黄河水陆 · 河灯万盏<br>（`scene_sls15_05`） | `16:9` |
-| `CG-QST-430` | `[ ]` 待补绘 | `public/assets/quests/sl_s15_floating_bridge.jpg` | `/assets/quests/sl_s15_floating_bridge.jpg` | `QST-SECT-01-SIDE-15`<br>《黄河水陆 · 孤忠超度》 | 鬼刃现形 · 浮桥断水<br>（`scene_sls15_07`） | `16:9` |
-| `CG-QST-431` | `[ ]` 待补绘 | `public/assets/quests/sl_s16_kaifeng_ally.jpg` | `/assets/quests/sl_s16_kaifeng_ally.jpg` | `QST-SECT-01-SIDE-16`<br>《清源正本 · 度牒大案》 | 第六幕 · 佛官合谋<br>（`scene_sls16_06`） | `16:9` |
-| `CG-QST-432` | `[ ]` 待补绘 | `public/assets/quests/sl_s16_blood_kasaya.jpg` | `/assets/quests/sl_s16_blood_kasaya.jpg` | `QST-SECT-01-SIDE-16`<br>《清源正本 · 度牒大案》 | 第十一幕 · 伏魔诛邪<br>（`scene_sls16_11`） | `16:9` |
-| `CG-QST-433` | `[ ]` 待补绘 | `public/assets/quests/sl_s17_snow_gate.jpg` | `/assets/quests/sl_s17_snow_gate.jpg` | `QST-SECT-01-SIDE-17`<br>《少室大雪 · 慈航度恶》 | 第七幕 · 雪落降魔<br>（`scene_sls17_07`） | `16:9` |
-| `CG-QST-434` | `[ ]` 待补绘 | `public/assets/quests/sl_s17_snow_redemption.jpg` | `/assets/quests/sl_s17_snow_redemption.jpg` | `QST-SECT-01-SIDE-17`<br>《少室大雪 · 慈航度恶》 | 第十三幕 · 慈航度恶<br>（`scene_sls17_13`） | `16:9` |
-| `CG-QST-435` | `[ ]` 待补绘 | `public/assets/quests/sl_s18_sea_chart.jpg` | `/assets/quests/sl_s18_sea_chart.jpg` | `QST-SECT-01-SIDE-18`<br>《达摩东渡 · 沧海遗图》 | 第四幕 · 沧海遗图<br>（`scene_sls18_04`） | `16:9` |
-| `CG-QST-436` | `[ ]` 待补绘 | `public/assets/quests/sl_s18_cloud_sea_duel.jpg` | `/assets/quests/sl_s18_cloud_sea_duel.jpg` | `QST-SECT-01-SIDE-18`<br>《达摩东渡 · 沧海遗图》 | 第十一幕 · 禅破柔劲<br>（`scene_sls18_11`） | `16:9` |
-| `CG-QST-437` | `[ ]` 待补绘 | `public/assets/quests/sl_37_flame_knife.jpg` | `/assets/quests/sl_37_flame_knife.jpg` | `QST-SECT-01-37`<br>《烈火金身 · 金刚不坏》 | 第六幕 · 火焰连伤<br>（`scene_slq37_06`） | `16:9` |
-| `CG-QST-438` | `[ ]` 待补绘 | `public/assets/quests/sl_37_poison_fog.jpg` | `/assets/quests/sl_37_poison_fog.jpg` | `QST-SECT-01-37`<br>《烈火金身 · 金刚不坏》 | 第十一幕 · 毒雾炼心<br>（`scene_slq37_11`） | `16:9` |
-| `CG-QST-439` | `[ ]` 待补绘 | `public/assets/quests/sl_37_golden_body.jpg` | `/assets/quests/sl_37_golden_body.jpg` | `QST-SECT-01-37`<br>《烈火金身 · 金刚不坏》 | 第十七幕 · 烈火金身<br>（`scene_slq37_17`） | `16:9` |
-| `CG-QST-440` | `[ ]` 待补绘 | `public/assets/quests/sl_37_crush_jiumozhi.jpg` | `/assets/quests/sl_37_crush_jiumozhi.jpg` | `QST-SECT-01-37`<br>《烈火金身 · 金刚不坏》 | 第二十五幕 · 镇压群豪<br>（`scene_slq37_25`） | `16:9` |
-| `CG-QST-441` | `[ ]` 待补绘 | `public/assets/quests/sl_41_ninety_nine_bells.jpg` | `/assets/quests/sl_41_ninety_nine_bells.jpg` | `QST-SECT-01-41`<br>《千僧列阵 · 血护少室》 | 第一幕 · 急钟九十九<br>（`scene_slq41_01`） | `16:9` |
-| `CG-QST-442` | `[ ]` 待补绘 | `public/assets/quests/sl_41_five_hundred_arhats.jpg` | `/assets/quests/sl_41_five_hundred_arhats.jpg` | `QST-SECT-01-41`<br>《千僧列阵 · 血护少室》 | 第七幕 · 五百罗汉<br>（`scene_slq41_07`） | `16:9` |
-| `CG-QST-443` | `[ ]` 待补绘 | `public/assets/quests/sl_41_qiaofeng_ally.jpg` | `/assets/quests/sl_41_qiaofeng_ally.jpg` | `QST-SECT-01-41`<br>《千僧列阵 · 血护少室》 | 第十八幕 · 万里驰援<br>（`scene_slq41_18`） | `16:9` |
-| `CG-QST-444` | `[ ]` 待补绘 | `public/assets/quests/sl_41_shatter_banner.jpg` | `/assets/quests/sl_41_shatter_banner.jpg` | `QST-SECT-01-41`<br>《千僧列阵 · 血护少室》 | 第二十五幕 · 斩碎帅旗<br>（`scene_slq41_25`） | `16:9` |
-| `CG-QST-445` | `[ ]` 待补绘 | `public/assets/quests/sl_42_pavilion_standoff.jpg` | `/assets/quests/sl_42_pavilion_standoff.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第六幕 · 五强对峙<br>（`slq42_accept`） | `16:9` |
-| `CG-QST-446` | `[ ]` 待补绘 | `public/assets/quests/sl_42_murongbo_clash.jpg` | `/assets/quests/sl_42_murongbo_clash.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第十五幕 · 十五合硬撼<br>（`slq42_to_murongbo`） | `16:9` |
-| `CG-QST-447` | `[ ]` 待补绘 | `public/assets/quests/sl_42_three_foot_wall.jpg` | `/assets/quests/sl_42_three_foot_wall.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第二十三幕 · 三尺气墙<br>（`slq42_to_qiwall`） | `16:9` |
-| `CG-QST-448` | `[ ]` 待补绘 | `public/assets/quests/sl_42_convert_rivals.jpg` | `/assets/quests/sl_42_convert_rivals.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第三十三幕 · 度化归佛<br>（`scene_slq42_33`） | `16:9` |
-| `CG-QST-449` | `[ ]` 待补绘 | `public/assets/quests/sl_42_ginkgo_yijin.jpg` | `/assets/quests/sl_42_ginkgo_yijin.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第四十二幕 · 古杏传经<br>（`scene_slq42_42`） | `16:9` |
+| `CG-QST-349` | `[x]` 已完成 | `public/assets/quests/sl_21_waterfall_reed.jpg` | `/assets/quests/sl_21_waterfall_reed.jpg` | `QST-SECT-01-21`<br>《飞瀑深潭 · 一苇渡江》 | 第三幕 · 枯芦掷潭<br>（`scene_slq21_03`） | `16:9` |
+| `CG-QST-350` | `[x]` 已完成 | `public/assets/quests/sl_21_luoshui_chase.jpg` | `/assets/quests/sl_21_luoshui_chase.jpg` | `QST-SECT-01-21`<br>《飞瀑深潭 · 一苇渡江》 | 第十一幕 · 踏苇十里<br>（`scene_slq21_11`） | `16:9` |
+| `CG-QST-351` | `[x]` 已完成 | `public/assets/quests/sl_21_cloud_swallow.jpg` | `/assets/quests/sl_21_cloud_swallow.jpg` | `QST-SECT-01-21`<br>《飞瀑深潭 · 一苇渡江》 | 洛水江心礁石 · 步法压制<br>（`scene_slq21_15`） | `16:9` |
+| `CG-QST-352` | `[x]` 已完成 | `public/assets/quests/sl_22_burning_wood.jpg` | `/assets/quests/sl_22_burning_wood.jpg` | `QST-SECT-01-22`<br>《枯木生烟 · 玄苦授刀》 | 罗汉堂演武正殿 · 烈风如潮<br>（`scene_slq22_05`） | `16:9` |
+| `CG-QST-353` | `[x]` 已完成 | `public/assets/quests/sl_22_xuanku_entrust.jpg` | `/assets/quests/sl_22_xuanku_entrust.jpg` | `QST-SECT-01-22`<br>《枯木生烟 · 玄苦授刀》 | 第十一幕 · 薪火相传<br>（`scene_slq22_10`） | `16:9` |
+| `CG-QST-354` | `[x]` 已完成 | `public/assets/quests/sl_22_night_repel.jpg` | `/assets/quests/sl_22_night_repel.jpg` | `QST-SECT-01-22`<br>《枯木生烟 · 玄苦授刀》 | 第十九幕 · 逼退黑影<br>（`scene_slq22_19`） | `16:9` |
+| `CG-QST-355` | `[x]` 已完成 | `public/assets/quests/sl_23_gongxian_grotto.jpg` | `/assets/quests/sl_23_gongxian_grotto.jpg` | `QST-SECT-01-23`<br>《金刚怒目 · 碎石成粉》 | 第九幕 · 疾驰伊洛<br>（`slq23_accept_rescue`） | `16:9` |
+| `CG-QST-356` | `[x]` 已完成 | `public/assets/quests/sl_23_shatter_mirror.jpg` | `/assets/quests/sl_23_shatter_mirror.jpg` | `QST-SECT-01-23`<br>《金刚怒目 · 碎石成粉》 | 巩县石窟 · 凝指蓄势<br>（`scene_slq23_15`） | `16:9` |
+| `CG-QST-357` | `[x]` 已完成 | `public/assets/quests/sl_23_save_masons.jpg` | `/assets/quests/sl_23_save_masons.jpg` | `QST-SECT-01-23`<br>《金刚怒目 · 碎石成粉》 | 第十八幕 · 满窟生春<br>（`scene_slq23_18`） | `16:9` |
+| `CG-QST-358` | `[x]` 已完成 | `public/assets/quests/sl_24_damo_shadow.jpg` | `/assets/quests/sl_24_damo_shadow.jpg` | `QST-SECT-01-24`<br>《面壁九年 · 剑化禅机》 | 达摩石洞 · 笔意通剑<br>（`scene_slq24_03`） | `16:9` |
+| `CG-QST-359` | `[x]` 已完成 | `public/assets/quests/sl_24_bao_feng_duel.jpg` | `/assets/quests/sl_24_bao_feng_duel.jpg` | `QST-SECT-01-24`<br>《面壁九年 · 剑化禅机》 | 剑痕崖 · 破局一剑<br>（`scene_slq24_17`） | `16:9` |
+| `CG-QST-360` | `[x]` 已完成 | `public/assets/quests/sl_24_cliff_zen.jpg` | `/assets/quests/sl_24_cliff_zen.jpg` | `QST-SECT-01-24`<br>《面壁九年 · 剑化禅机》 | 绝壁石刻 · 剑痕崖<br>（`scene_slq24_20`） | `16:9` |
+| `CG-QST-361` | `[x]` 已完成 | `public/assets/quests/sl_25_boruo_palm.jpg` | `/assets/quests/sl_25_boruo_palm.jpg` | `QST-SECT-01-25`<br>《空色无相 · 般若波罗》 | 第四幕 · 掌演空色<br>（`scene_slq25_04`） | `16:9` |
+| `CG-QST-362` | `[x]` 已完成 | `public/assets/quests/sl_25_yuelao3_retreat.jpg` | `/assets/quests/sl_25_yuelao3_retreat.jpg` | `QST-SECT-01-25`<br>《空色无相 · 般若波罗》 | 第十六幕 · 震裂虎口<br>（`scene_slq25_16`） | `16:9` |
+| `CG-QST-363` | `[x]` 已完成 | `public/assets/quests/sl_25_empty_zen.jpg` | `/assets/quests/sl_25_empty_zen.jpg` | `QST-SECT-01-25`<br>《空色无相 · 般若波罗》 | 达摩院 · 幽谷石室 · 寒玉榻<br>（`scene_slq25_18`） | `16:9` |
+| `CG-QST-364` | `[x]` 已完成 | `public/assets/quests/sl_26_tang_stele.jpg` | `/assets/quests/sl_26_tang_stele.jpg` | `QST-SECT-01-26`<br>《东厢古碑 · 掌吐梵音》 | 第三幕 · 碑前示掌<br>（`scene_slq26_03`） | `16:9` |
+| `CG-QST-365` | `[x]` 已完成 | `public/assets/quests/sl_26_corridor_night.jpg` | `/assets/quests/sl_26_corridor_night.jpg` | `QST-SECT-01-26`<br>《东厢古碑 · 掌吐梵音》 | 第九幕 · 廊影微动<br>（`slq26_accept_guard`） | `16:9` |
+| `CG-QST-366` | `[x]` 已完成 | `public/assets/quests/sl_26_stele_safe.jpg` | `/assets/quests/sl_26_stele_safe.jpg` | `QST-SECT-01-26`<br>《东厢古碑 · 掌吐梵音》 | 第十七幕 · 唐碑无恙<br>（`scene_slq26_17`） | `16:9` |
+| `CG-QST-367` | `[x]` 已完成 | `public/assets/quests/sl_27_ruined_crypt.jpg` | `/assets/quests/sl_27_ruined_crypt.jpg` | `QST-SECT-01-27`<br>《铁指断欲 · 降伏其心》 | 第八幕 · 暗访汝许<br>（`slq27_accept_purge`） | `16:9` |
+| `CG-QST-368` | `[x]` 已完成 | `public/assets/quests/sl_27_iron_finger.jpg` | `/assets/quests/sl_27_iron_finger.jpg` | `QST-SECT-01-27`<br>《铁指断欲 · 降伏其心》 | 第十五幕 · 气门破绽<br>（`scene_slq27_15`） | `16:9` |
+| `CG-QST-369` | `[x]` 已完成 | `public/assets/quests/sl_27_law_plaque.jpg` | `/assets/quests/sl_27_law_plaque.jpg` | `QST-SECT-01-27`<br>《铁指断欲 · 降伏其心》 | 第十九幕 · 演武典刑<br>（`slq27_return_shaolin`） | `16:9` |
+| `CG-QST-370` | `[x]` 已完成 | `public/assets/quests/sl_28_rain_pavilion.jpg` | `/assets/quests/sl_28_rain_pavilion.jpg` | `QST-SECT-01-28`<br>《琉璃夜影 · 曝书惊变》 | 第七幕 · 琉璃夜影<br>（`scene_slq28_07`） | `16:9` |
+| `CG-QST-371` | `[x]` 已完成 | `public/assets/quests/sl_28_pine_chase.jpg` | `/assets/quests/sl_28_pine_chase.jpg` | `QST-SECT-01-28`<br>《琉璃夜影 · 曝书惊变》 | 藏经阁 · 琉璃飞檐外<br>（`scene_slq28_09`） | `16:9` |
+| `CG-QST-372` | `[x]` 已完成 | `public/assets/quests/sl_28_two_notes.jpg` | `/assets/quests/sl_28_two_notes.jpg` | `QST-SECT-01-28`<br>《琉璃夜影 · 曝书惊变》 | 第十五幕 · 案缝双笺<br>（`scene_slq28_15`） | `16:9` |
+| `CG-QST-373` | `[x]` 已完成 | `public/assets/quests/sl_29_xingxiu_raid.jpg` | `/assets/quests/sl_29_xingxiu_raid.jpg` | `QST-SECT-01-29`<br>《剑痕浴血 · 少林九阳》 | 达摩院 · 绝壁石刻 · 剑痕崖<br>（`scene_slq29_02`） | `16:9` |
+| `CG-QST-374` | `[x]` 已完成 | `public/assets/quests/sl_29_jiuyang_scroll.jpg` | `/assets/quests/sl_29_jiuyang_scroll.jpg` | `QST-SECT-01-29`<br>《剑痕浴血 · 少林九阳》 | 第十三幕 · 九阳密钞<br>（`scene_slq29_13`） | `16:9` |
+| `CG-QST-375` | `[x]` 已完成 | `public/assets/quests/sl_29_pure_yang_blast.jpg` | `/assets/quests/sl_29_pure_yang_blast.jpg` | `QST-SECT-01-29`<br>《剑痕浴血 · 少林九阳》 | 第二十二幕 · 纯阳佛掌<br>（`scene_slq29_22`） | `16:9` |
+| `CG-QST-376` | `[x]` 已完成 | `public/assets/quests/sl_30_ginkgo_sweep.jpg` | `/assets/quests/sl_30_ginkgo_sweep.jpg` | `QST-SECT-01-30`<br>《慈悲默察 · 扫叶听风》 | 第五幕 · 朝霜暮雪<br>（`scene_slq30_05`） | `16:9` |
+| `CG-QST-377` | `[x]` 已完成 | `public/assets/quests/sl_30_copy_sutra.jpg` | `/assets/quests/sl_30_copy_sutra.jpg` | `QST-SECT-01-30`<br>《慈悲默察 · 扫叶听风》 | 第十一幕 · 焚香净手<br>（`scene_slq30_11`） | `16:9` |
+| `CG-QST-378` | `[x]` 已完成 | `public/assets/quests/sl_30_empty_broom.jpg` | `/assets/quests/sl_30_empty_broom.jpg` | `QST-SECT-01-30`<br>《慈悲默察 · 扫叶听风》 | 藏经阁 · 古银杏无名老僧扫叶庭<br>（`scene_slq30_15`） | `16:9` |
+| `CG-QST-379` | `[x]` 已完成 | `public/assets/quests/sl_31_iron_net.jpg` | `/assets/quests/sl_31_iron_net.jpg` | `QST-SECT-01-31`<br>《铁血伏魔 · 暗布天罗》 | 第三幕 · 伏魔铁网<br>（`scene_slq31_03`） | `16:9` |
+| `CG-QST-380` | `[x]` 已完成 | `public/assets/quests/sl_31_slay_blackwater.jpg` | `/assets/quests/sl_31_slay_blackwater.jpg` | `QST-SECT-01-31`<br>《铁血伏魔 · 暗布天罗》 | 第九幕 · 伏魔斩妖<br>（`scene_slq31_09`） | `16:9` |
+| `CG-QST-381` | `[x]` 已完成 | `public/assets/quests/sl_31_iron_prestige.jpg` | `/assets/quests/sl_31_iron_prestige.jpg` | `QST-SECT-01-31`<br>《铁血伏魔 · 暗布天罗》 | 第十三幕 · 黎明传捷<br>（`scene_slq31_13`） | `16:9` |
+| `CG-QST-382` | `[x]` 已完成 | `public/assets/quests/sl_32_ice_cliff_herb.jpg` | `/assets/quests/sl_32_ice_cliff_herb.jpg` | `QST-SECT-01-32`<br>《药王瘟劫 · 九转回魂》 | 达摩院 · 飞瀑深潭 · 试炼涧<br>（`scene_slq32_06`） | `16:9` |
+| `CG-QST-383` | `[x]` 已完成 | `public/assets/quests/sl_32_guard_furnace.jpg` | `/assets/quests/sl_32_guard_furnace.jpg` | `QST-SECT-01-32`<br>《药王瘟劫 · 九转回魂》 | 第十三幕 · 护炉死战<br>（`scene_slq32_13`） | `16:9` |
+| `CG-QST-384` | `[x]` 已完成 | `public/assets/quests/sl_32_nine_turn_pill.jpg` | `/assets/quests/sl_32_nine_turn_pill.jpg` | `QST-SECT-01-32`<br>《药王瘟劫 · 九转回魂》 | 第十九幕 · 九转赐丹<br>（`scene_slq32_19`） | `16:9` |
+| `CG-QST-385` | `[x]` 已完成 | `public/assets/quests/sl_33_bodhi_council.jpg` | `/assets/quests/sl_33_bodhi_council.jpg` | `QST-SECT-01-33`<br>《菩提院议 · 首座之争》 | 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团<br>（`scene_slq33_01`） | `16:9` |
+| `CG-QST-386` | `[x]` 已完成 | `public/assets/quests/sl_33_elder_spar.jpg` | `/assets/quests/sl_33_elder_spar.jpg` | `QST-SECT-01-33`<br>《菩提院议 · 首座之争》 | 第七幕 · 择师印证<br>（`scene_slq33_07`） | `16:9` |
+| `CG-QST-387` | `[x]` 已完成 | `public/assets/quests/sl_33_elder_robe.jpg` | `/assets/quests/sl_33_elder_robe.jpg` | `QST-SECT-01-33`<br>《菩提院议 · 首座之争》 | 第十九幕 · 授衣晋阶<br>（`scene_slq33_18`） | `16:9` |
+| `CG-QST-388` | `[x]` 已完成 | `public/assets/quests/sl_34_xuanbei_death.jpg` | `/assets/quests/sl_34_xuanbei_death.jpg` | `QST-SECT-01-34`<br>《大智大悲 · 身死之谜》 | 第五幕 · 白马惨象<br>（`scene_slq34_05`） | `16:9` |
+| `CG-QST-389` | `[x]` 已完成 | `public/assets/quests/sl_34_xuanku_farewell.jpg` | `/assets/quests/sl_34_xuanku_farewell.jpg` | `QST-SECT-01-34`<br>《大智大悲 · 身死之谜》 | 第十四幕 · 双僧归寂<br>（`scene_slq34_14`） | `16:9` |
+| `CG-QST-390` | `[x]` 已完成 | `public/assets/quests/sl_34_two_palms.jpg` | `/assets/quests/sl_34_two_palms.jpg` | `QST-SECT-01-34`<br>《大智大悲 · 身死之谜》 | 第二十三幕 · 双掌辨影<br>（`scene_slq34_23`） | `16:9` |
+| `CG-QST-391` | `[x]` 已完成 | `public/assets/quests/sl_35_wulin_gathering.jpg` | `/assets/quests/sl_35_wulin_gathering.jpg` | `QST-SECT-01-35`<br>《少室群雄 · 方丈丑闻》 | 第四幕 · 群雄沸腾<br>（`scene_slq35_04`） | `16:9` |
+| `CG-QST-392` | `[x]` 已完成 | `public/assets/quests/sl_35_ding_poison.jpg` | `/assets/quests/sl_35_ding_poison.jpg` | `QST-SECT-01-35`<br>《少室群雄 · 方丈丑闻》 | 第十二幕 · 毒焰暂敛<br>（`scene_slq35_12`） | `16:9` |
+| `CG-QST-393` | `[x]` 已完成 | `public/assets/quests/sl_35_jiumozhi_show.jpg` | `/assets/quests/sl_35_jiumozhi_show.jpg` | `QST-SECT-01-35`<br>《少室群雄 · 方丈丑闻》 | 第二十一幕 · 明王炫技<br>（`scene_slq35_21`） | `16:9` |
+| `CG-QST-394` | `[x]` 已完成 | `public/assets/quests/sl_35_scandal_exposed.jpg` | `/assets/quests/sl_35_scandal_exposed.jpg` | `QST-SECT-01-35`<br>《少室群雄 · 方丈丑闻》 | 第三十幕 · 丑闻惊世<br>（`scene_slq35_30`） | `16:9` |
+| `CG-QST-395` | `[x]` 已完成 | `public/assets/quests/sl_36_sarira_beads.jpg` | `/assets/quests/sl_36_sarira_beads.jpg` | `QST-SECT-01-36`<br>《寒玉百日 · 洗髓换骨》 | 第五幕 · 舍利伽蓝<br>（`scene_slq36_05`） | `16:9` |
+| `CG-QST-396` | `[x]` 已完成 | `public/assets/quests/sl_36_damo_wall.jpg` | `/assets/quests/sl_36_damo_wall.jpg` | `QST-SECT-01-36`<br>《寒玉百日 · 洗髓换骨》 | 第十一幕 · 达摩石壁<br>（`scene_slq36_11`） | `16:9` |
+| `CG-QST-397` | `[x]` 已完成 | `public/assets/quests/sl_36_hundred_day_zen.jpg` | `/assets/quests/sl_36_hundred_day_zen.jpg` | `QST-SECT-01-36`<br>《寒玉百日 · 洗髓换骨》 | 第十六幕 · 洗髓换骨<br>（`scene_slq36_15`） | `16:9` |
+| `CG-QST-398` | `[x]` 已完成 | `public/assets/quests/sl_36_defeat_jiumozhi.jpg` | `/assets/quests/sl_36_defeat_jiumozhi.jpg` | `QST-SECT-01-36`<br>《寒玉百日 · 洗髓换骨》 | 第二十六幕 · 退败下山<br>（`scene_slq36_25`） | `16:9` |
+| `CG-QST-399` | `[x]` 已完成 | `public/assets/quests/sl_38_xuanci_rod.jpg` | `/assets/quests/sl_38_xuanci_rod.jpg` | `QST-SECT-01-38`<br>《杖责还业 · 达摩传衣》 | 第八幕 · 血染青阶<br>（`scene_slq38_08`） | `16:9` |
+| `CG-QST-400` | `[x]` 已完成 | `public/assets/quests/sl_38_kasaya_handover.jpg` | `/assets/quests/sl_38_kasaya_handover.jpg` | `QST-SECT-01-38`<br>《杖责还业 · 达摩传衣》 | 第二十一幕 · 达摩传衣<br>（`scene_slq38_21`） | `16:9` |
+| `CG-QST-401` | `[x]` 已完成 | `public/assets/quests/sl_38_leaf_bell.jpg` | `/assets/quests/sl_38_leaf_bell.jpg` | `QST-SECT-01-38`<br>《杖责还业 · 达摩传衣》 | 第二十三幕 · 叶落暮钟<br>（`scene_slq38_23`） | `16:9` |
+| `CG-QST-402` | `[x]` 已完成 | `public/assets/quests/sl_38_merciful_abbot.jpg` | `/assets/quests/sl_38_merciful_abbot.jpg` | `QST-SECT-01-38`<br>《杖责还业 · 达摩传衣》 | 第二十七幕 · 慈悲升座<br>（`slq38_go_enthrone`） | `16:9` |
+| `CG-QST-403` | `[x]` 已完成 | `public/assets/quests/sl_39_iron_verdict.jpg` | `/assets/quests/sl_39_iron_verdict.jpg` | `QST-SECT-01-39`<br>《雷霆涤寺 · 铁腕法王》 | 第五幕 · 高台宣律<br>（`slq39_accept`） | `16:9` |
+| `CG-QST-404` | `[x]` 已完成 | `public/assets/quests/sl_39_iron_hall.jpg` | `/assets/quests/sl_39_iron_hall.jpg` | `QST-SECT-01-39`<br>《雷霆涤寺 · 铁腕法王》 | 第十三幕 · 法堂新颜<br>（`scene_slq39_13`） | `16:9` |
+| `CG-QST-405` | `[x]` 已完成 | `public/assets/quests/sl_39_break_blades.jpg` | `/assets/quests/sl_39_break_blades.jpg` | `QST-SECT-01-39`<br>《雷霆涤寺 · 铁腕法王》 | 第二十幕 · 金刚断刃<br>（`scene_slq39_20`） | `16:9` |
+| `CG-QST-406` | `[x]` 已完成 | `public/assets/quests/sl_39_dharma_king.jpg` | `/assets/quests/sl_39_dharma_king.jpg` | `QST-SECT-01-39`<br>《雷霆涤寺 · 铁腕法王》 | 第二十六幕 · 铁腕法王<br>（`scene_slq39_26`） | `16:9` |
+| `CG-QST-407` | `[x]` 已完成 | `public/assets/quests/sl_40_white_robe_zen.jpg` | `/assets/quests/sl_40_white_robe_zen.jpg` | `QST-SECT-01-40`<br>《不着袈裟 · 维摩护法》 | 第五幕 · 心中有佛<br>（`slq40_accept`） | `16:9` |
+| `CG-QST-408` | `[x]` 已完成 | `public/assets/quests/sl_40_vimalakirti_duel.jpg` | `/assets/quests/sl_40_vimalakirti_duel.jpg` | `QST-SECT-01-40`<br>《不着袈裟 · 维摩护法》 | 第十三幕 · 白衣伏魔<br>（`scene_slq40_13`） | `16:9` |
+| `CG-QST-409` | `[x]` 已完成 | `public/assets/quests/sl_40_alliance_seal.jpg` | `/assets/quests/sl_40_alliance_seal.jpg` | `QST-SECT-01-40`<br>《不着袈裟 · 维摩护法》 | 第二十幕 · 愧赠圣衣<br>（`scene_slq40_20`） | `16:9` |
+| `CG-QST-410` | `[x]` 已完成 | `public/assets/quests/sl_40_layman_banner.jpg` | `/assets/quests/sl_40_layman_banner.jpg` | `QST-SECT-01-40`<br>《不着袈裟 · 维摩护法》 | 第二十六幕 · 白衣盟主<br>（`slq40_go_alliance`） | `16:9` |
+| `CG-QST-411` | `[x]` 已完成 | `public/assets/quests/sl_s06_fake_meds.jpg` | `/assets/quests/sl_s06_fake_meds.jpg` | `QST-SECT-01-SIDE-06`<br>《万姓雅市 · 假药风波》 | 第二幕 · 银针辨毒<br>（`scene_sls06_02`） | `16:9` |
+| `CG-QST-412` | `[x]` 已完成 | `public/assets/quests/sl_s06_black_workshop.jpg` | `/assets/quests/sl_s06_black_workshop.jpg` | `QST-SECT-01-SIDE-06`<br>《万姓雅市 · 假药风波》 | 第六幕 · 揭帽亮明<br>（`scene_sls06_06`） | `16:9` |
+| `CG-QST-413` | `[x]` 已完成 | `public/assets/quests/sl_s07_pagoda_rain.jpg` | `/assets/quests/sl_s07_pagoda_rain.jpg` | `QST-SECT-01-SIDE-07`<br>《资圣宝塔 · 夜雨护经》 | 第五幕 · 暴雨惊雷<br>（`scene_sls07_05`） | `16:9` |
+| `CG-QST-414` | `[x]` 已完成 | `public/assets/quests/sl_s07_capture_swallow.jpg` | `/assets/quests/sl_s07_capture_swallow.jpg` | `QST-SECT-01-SIDE-07`<br>《资圣宝塔 · 夜雨护经》 | 第九幕 · 折翼就擒<br>（`scene_sls07_09`） | `16:9` |
+| `CG-QST-415` | `[x]` 已完成 | `public/assets/quests/sl_s08_jindao_arrows.jpg` | `/assets/quests/sl_s08_jindao_arrows.jpg` | `QST-SECT-01-SIDE-08`<br>《金刀寿宴 · 洛阳暗箭》 | 第七幕 · 掀桌挡箭<br>（`scene_sls08_07`） | `16:9` |
+| `CG-QST-416` | `[x]` 已完成 | `public/assets/quests/sl_s08_alliance_toast.jpg` | `/assets/quests/sl_s08_alliance_toast.jpg` | `QST-SECT-01-SIDE-08`<br>《金刀寿宴 · 洛阳暗箭》 | 第十三幕 · 正气举盏<br>（`sls08_to_hall`） | `16:9` |
+| `CG-QST-417` | `[x]` 已完成 | `public/assets/quests/sl_s09_qiyun_relic.jpg` | `/assets/quests/sl_s09_qiyun_relic.jpg` | `QST-SECT-01-SIDE-09`<br>《齐云古塔 · 舍利迷踪》 | 第四幕 · 黑教夜袭<br>（`scene_sls09_04`） | `16:9` |
+| `CG-QST-418` | `[x]` 已完成 | `public/assets/quests/sl_s09_pagoda_summit.jpg` | `/assets/quests/sl_s09_pagoda_summit.jpg` | `QST-SECT-01-SIDE-09`<br>《齐云古塔 · 舍利迷踪》 | 第十一幕 · 掌定宝函<br>（`scene_sls09_11`） | `16:9` |
+| `CG-QST-419` | `[x]` 已完成 | `public/assets/quests/sl_s10_sun_sutras.jpg` | `/assets/quests/sl_s10_sun_sutras.jpg` | `QST-SECT-01-SIDE-10`<br>《西厢晒经 · 芸香防蠹》 | 第四幕 · 轻拂晒经<br>（`scene_sls10_04`） | `16:9` |
+| `CG-QST-420` | `[x]` 已完成 | `public/assets/quests/sl_s10_fakuo_nod.jpg` | `/assets/quests/sl_s10_fakuo_nod.jpg` | `QST-SECT-01-SIDE-10`<br>《西厢晒经 · 芸香防蠹》 | 第八幕 · 古杏扫叶<br>（`scene_sls10_08`） | `16:9` |
+| `CG-QST-421` | `[x]` 已完成 | `public/assets/quests/sl_s11_mini_arhat.jpg` | `/assets/quests/sl_s11_mini_arhat.jpg` | `QST-SECT-01-SIDE-11`<br>《罗汉涂金 · 顽徒试炼》 | 第四幕 · 奇正相生<br>（`scene_sls11_04`） | `16:9` |
+| `CG-QST-422` | `[x]` 已完成 | `public/assets/quests/sl_s11_hammer_defeat.jpg` | `/assets/quests/sl_s11_hammer_defeat.jpg` | `QST-SECT-01-SIDE-11`<br>《罗汉涂金 · 顽徒试炼》 | 第九幕 · 震锤折锋<br>（`scene_sls11_09`） | `16:9` |
+| `CG-QST-423` | `[x]` 已完成 | `public/assets/quests/sl_s12_misty_gorge.jpg` | `/assets/quests/sl_s12_misty_gorge.jpg` | `QST-SECT-01-SIDE-12`<br>《寒玉护脉 · 伏虎除魔》 | 寒雾深涧 · 毒瘴漫崖<br>（`scene_sls12_04`） | `16:9` |
+| `CG-QST-424` | `[x]` 已完成 | `public/assets/quests/sl_s12_jade_dragon.jpg` | `/assets/quests/sl_s12_jade_dragon.jpg` | `QST-SECT-01-SIDE-12`<br>《寒玉护脉 · 伏虎除魔》 | 玉面露峥嵘 · 寒掌逼人<br>（`scene_sls12_06`） | `16:9` |
+| `CG-QST-425` | `[x]` 已完成 | `public/assets/quests/sl_s13_lion_roar.jpg` | `/assets/quests/sl_s13_lion_roar.jpg` | `QST-SECT-01-SIDE-13`<br>《大雄狮吼 · 番僧问难》 | 大雄狮吼 · 梵音撼塔<br>（`debate_q3_lotus`） | `16:9` |
+| `CG-QST-426` | `[x]` 已完成 | `public/assets/quests/sl_s13_imperial_bowl.jpg` | `/assets/quests/sl_s13_imperial_bowl.jpg` | `QST-SECT-01-SIDE-13`<br>《大雄狮吼 · 番僧问难》 | 御赐金钵 · 仁宗嘉奖<br>（`scene_sls13_12`） | `16:9` |
+| `CG-QST-427` | `[x]` 已完成 | `public/assets/quests/sl_s14_north_south.jpg` | `/assets/quests/sl_s14_north_south.jpg` | `QST-SECT-01-SIDE-14`<br>《铁线争锋 · 闽僧北访》 | 压轴印证 · 铁线神拳<br>（`scene_sls14_08`） | `16:9` |
+| `CG-QST-428` | `[x]` 已完成 | `public/assets/quests/sl_s14_iron_wire_gift.jpg` | `/assets/quests/sl_s14_iron_wire_gift.jpg` | `QST-SECT-01-SIDE-14`<br>《铁线争锋 · 闽僧北访》 | 碑廊清茗 · 共论禅武<br>（`scene_sls14_12`） | `16:9` |
+| `CG-QST-429` | `[x]` 已完成 | `public/assets/quests/sl_s15_yellow_river.jpg` | `/assets/quests/sl_s15_yellow_river.jpg` | `QST-SECT-01-SIDE-15`<br>《黄河水陆 · 孤忠超度》 | 黄河水陆 · 河灯万盏<br>（`scene_sls15_05`） | `16:9` |
+| `CG-QST-430` | `[x]` 已完成 | `public/assets/quests/sl_s15_floating_bridge.jpg` | `/assets/quests/sl_s15_floating_bridge.jpg` | `QST-SECT-01-SIDE-15`<br>《黄河水陆 · 孤忠超度》 | 鬼刃现形 · 浮桥断水<br>（`scene_sls15_07`） | `16:9` |
+| `CG-QST-431` | `[x]` 已完成 | `public/assets/quests/sl_s16_kaifeng_ally.jpg` | `/assets/quests/sl_s16_kaifeng_ally.jpg` | `QST-SECT-01-SIDE-16`<br>《清源正本 · 度牒大案》 | 第六幕 · 佛官合谋<br>（`scene_sls16_06`） | `16:9` |
+| `CG-QST-432` | `[x]` 已完成 | `public/assets/quests/sl_s16_blood_kasaya.jpg` | `/assets/quests/sl_s16_blood_kasaya.jpg` | `QST-SECT-01-SIDE-16`<br>《清源正本 · 度牒大案》 | 第十一幕 · 伏魔诛邪<br>（`scene_sls16_11`） | `16:9` |
+| `CG-QST-433` | `[x]` 已完成 | `public/assets/quests/sl_s17_snow_gate.jpg` | `/assets/quests/sl_s17_snow_gate.jpg` | `QST-SECT-01-SIDE-17`<br>《少室大雪 · 慈航度恶》 | 第七幕 · 雪落降魔<br>（`scene_sls17_07`） | `16:9` |
+| `CG-QST-434` | `[x]` 已完成 | `public/assets/quests/sl_s17_snow_redemption.jpg` | `/assets/quests/sl_s17_snow_redemption.jpg` | `QST-SECT-01-SIDE-17`<br>《少室大雪 · 慈航度恶》 | 第十三幕 · 慈航度恶<br>（`scene_sls17_13`） | `16:9` |
+| `CG-QST-435` | `[x]` 已完成 | `public/assets/quests/sl_s18_sea_chart.jpg` | `/assets/quests/sl_s18_sea_chart.jpg` | `QST-SECT-01-SIDE-18`<br>《达摩东渡 · 沧海遗图》 | 第四幕 · 沧海遗图<br>（`scene_sls18_04`） | `16:9` |
+| `CG-QST-436` | `[x]` 已完成 | `public/assets/quests/sl_s18_cloud_sea_duel.jpg` | `/assets/quests/sl_s18_cloud_sea_duel.jpg` | `QST-SECT-01-SIDE-18`<br>《达摩东渡 · 沧海遗图》 | 第十一幕 · 禅破柔劲<br>（`scene_sls18_11`） | `16:9` |
+| `CG-QST-437` | `[x]` 已完成 | `public/assets/quests/sl_37_flame_knife.jpg` | `/assets/quests/sl_37_flame_knife.jpg` | `QST-SECT-01-37`<br>《烈火金身 · 金刚不坏》 | 第六幕 · 火焰连伤<br>（`scene_slq37_06`） | `16:9` |
+| `CG-QST-438` | `[x]` 已完成 | `public/assets/quests/sl_37_poison_fog.jpg` | `/assets/quests/sl_37_poison_fog.jpg` | `QST-SECT-01-37`<br>《烈火金身 · 金刚不坏》 | 第十一幕 · 毒雾炼心<br>（`scene_slq37_11`） | `16:9` |
+| `CG-QST-439` | `[x]` 已完成 | `public/assets/quests/sl_37_golden_body.jpg` | `/assets/quests/sl_37_golden_body.jpg` | `QST-SECT-01-37`<br>《烈火金身 · 金刚不坏》 | 第十七幕 · 烈火金身<br>（`scene_slq37_17`） | `16:9` |
+| `CG-QST-440` | `[x]` 已完成 | `public/assets/quests/sl_37_crush_jiumozhi.jpg` | `/assets/quests/sl_37_crush_jiumozhi.jpg` | `QST-SECT-01-37`<br>《烈火金身 · 金刚不坏》 | 第二十五幕 · 镇压群豪<br>（`scene_slq37_25`） | `16:9` |
+| `CG-QST-441` | `[x]` 已完成 | `public/assets/quests/sl_41_ninety_nine_bells.jpg` | `/assets/quests/sl_41_ninety_nine_bells.jpg` | `QST-SECT-01-41`<br>《千僧列阵 · 血护少室》 | 第一幕 · 急钟九十九<br>（`scene_slq41_01`） | `16:9` |
+| `CG-QST-442` | `[x]` 已完成 | `public/assets/quests/sl_41_five_hundred_arhats.jpg` | `/assets/quests/sl_41_five_hundred_arhats.jpg` | `QST-SECT-01-41`<br>《千僧列阵 · 血护少室》 | 第七幕 · 五百罗汉<br>（`scene_slq41_07`） | `16:9` |
+| `CG-QST-443` | `[x]` 已完成 | `public/assets/quests/sl_41_qiaofeng_ally.jpg` | `/assets/quests/sl_41_qiaofeng_ally.jpg` | `QST-SECT-01-41`<br>《千僧列阵 · 血护少室》 | 第十八幕 · 万里驰援<br>（`scene_slq41_18`） | `16:9` |
+| `CG-QST-444` | `[x]` 已完成 | `public/assets/quests/sl_41_shatter_banner.jpg` | `/assets/quests/sl_41_shatter_banner.jpg` | `QST-SECT-01-41`<br>《千僧列阵 · 血护少室》 | 第二十五幕 · 斩碎帅旗<br>（`scene_slq41_25`） | `16:9` |
+| `CG-QST-445` | `[x]` 已完成 | `public/assets/quests/sl_42_pavilion_standoff.jpg` | `/assets/quests/sl_42_pavilion_standoff.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第六幕 · 五强对峙<br>（`slq42_accept`） | `16:9` |
+| `CG-QST-446` | `[x]` 已完成 | `public/assets/quests/sl_42_murongbo_clash.jpg` | `/assets/quests/sl_42_murongbo_clash.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第十五幕 · 十五合硬撼<br>（`slq42_to_murongbo`） | `16:9` |
+| `CG-QST-447` | `[x]` 已完成 | `public/assets/quests/sl_42_three_foot_wall.jpg` | `/assets/quests/sl_42_three_foot_wall.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第二十三幕 · 三尺气墙<br>（`slq42_to_qiwall`） | `16:9` |
+| `CG-QST-448` | `[x]` 已完成 | `public/assets/quests/sl_42_convert_rivals.jpg` | `/assets/quests/sl_42_convert_rivals.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第三十三幕 · 度化归佛<br>（`scene_slq42_33`） | `16:9` |
+| `CG-QST-449` | `[x]` 已完成 | `public/assets/quests/sl_42_ginkgo_yijin.jpg` | `/assets/quests/sl_42_ginkgo_yijin.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第四十二幕 · 古杏传经<br>（`scene_slq42_42`） | `16:9` |
 ---
 
 ## 二、 逐张画面考据要求与生图 Prompt 规范
