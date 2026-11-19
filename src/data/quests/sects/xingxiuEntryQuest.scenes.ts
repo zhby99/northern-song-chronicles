@@ -631,19 +631,26 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('你起身披上那件绣着星宿暗纹的紫衣，堂下锣鼓丝竹再次震天响起，众弟子无论心中如何嫉恨，脸上都挤出谄媚笑容齐声高喊。'),
-      S(SPEAKER_DRUM_DISCIPLE, '“恭贺新师{gender:兄,姐}荣登紫衣！星宿老仙，法驾中原，神通广大，法力无边！”'),
-      N('你摸了摸袖口尚未洗净的血渍，望向窗外滚滚黄沙。从此正道唾弃、恶名初扬——你已正式踏入星宿邪宗，在这弱肉强食的江湖里只管凭毒功与狠辣向上爬去！'),
+      S(SPEAKER_DRUM_DISCIPLE, '“恭贺新师{gender:兄|姐}荣登紫衣！星宿老仙，法驾中原，神通广大，法力无边！”'),
+      N('那名敲锣的星宿门人快步凑上前，弓腰谄笑着从怀中摸出一卷绘满冰川罡风暗道与星宿海毒泉标记的羊皮舆图，双手奉上。'),
+      S(SPEAKER_DRUM_DISCIPLE, '“师{gender:兄|姐}既已正式入我门墙，往后每月须回昆仑星宿海总舵领药听差。这卷《万山之祖昆仑雪域舆图》乃本门引路密图，您贴身收好，日后不必再候驼队，凭此图便可径直穿行雪线直抵总舵！”'),
+      N('你收下雪域舆图，摸了摸袖口尚未洗净的血渍，望向窗外滚滚黄沙。从此正道唾弃、恶名初扬——你已正式踏入星宿邪宗，在这弱肉强食的江湖里只管凭毒功与狠辣向上爬去！'),
     ],
     choices: [
       {
         id: 'xx16_join_xingxiu',
-        label: '整肃紫衣，正式拜入星宿派（SECT-19）',
+        label: '收下昆仑雪域舆图，正式拜入星宿派（SECT-19）',
         tone: 'gold',
         effects: [
+          { type: 'giveItem', itemId: 'ITM-MSC-022', qty: 1 },
           { type: 'joinSect', sectId: 'SECT-19', rank: 1 },
           { type: 'removeDynamicActor', actorId: ACTOR_CHUCHENZI_KUNLUN_ID },
           { type: 'completeQuest', questId: XINGXIU_ENTRY_QUEST_ID },
-          toast('已拜入【星宿派】成为外门弟子！习得《五毒砂掌》《毒蒺藜散手》《星宿腐毒行气诀》！', 'success', '拜入星宿'),
+          toast(
+            '已拜入【星宿派】成为外门弟子！习得《五毒砂掌》《毒蒺藜散手》《星宿腐毒行气诀》，并获星宿门人赠予《万山之祖昆仑雪域舆图》（大地图已解锁【昆仑山】）！',
+            'success',
+            '拜入星宿',
+          ),
         ],
       },
     ],

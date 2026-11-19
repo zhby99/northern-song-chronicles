@@ -160,4 +160,17 @@ describe('validateAllRegisteredQuests & buildQuestDependencyGraph', () => {
       expect(forbidden).toEqual([])
     }
   })
+
+  it('grants ITM-MSC-022 (Kunlun map) upon completing Xingxiu entry quest so disciples can reach HQ', async () => {
+    await preloadAllQuestScenes()
+    const scenes = getLoadedQuestScenes('QST-SECT-19-ENTRY')
+    const finale = scenes?.scene_xx_16_purple_robe_oath
+    expect(finale).toBeDefined()
+    const joinChoice = finale?.choices?.find((c) => c.id === 'xx16_join_xingxiu')
+    expect(joinChoice).toBeDefined()
+    const grantsKunlunMap = joinChoice?.effects?.some(
+      (e) => e.type === 'giveItem' && e.itemId === 'ITM-MSC-022' && (e.qty ?? 1) >= 1,
+    )
+    expect(grantsKunlunMap).toBe(true)
+  })
 })
