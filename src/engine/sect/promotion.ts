@@ -299,6 +299,49 @@ const PROMOTION_STRATEGY_BY_KIND: Record<
   first_tier_pending: evalFirstTierPending,
 }
 
+function evalZhongnanQuest(
+  params: EvaluateSectPromotionParams,
+): PromotionRequirementInfo | null {
+  const { sectId, currentRank } = params
+  if (currentRank >= 5) return null
+  const targetRank = (currentRank + 1) as SectRankLevel
+  const targetRankLabel = getSectRankTitle(sectId, targetRank)
+  if (currentRank === 1) {
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      reason:
+        '晋升【内门弟子（Lv.2）】不可经由面板直晋：须完成外门历练并赴终南后山寒玉涧完成《寒涧试剑 · 观墓分途》（Q03），正式择定「重阳古观脉」或「活死人墓脉」后由师门擢升！',
+    }
+  }
+  if (currentRank === 2) {
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      reason:
+        '晋升【真传弟子（Lv.3）】不可经由面板直晋：古观脉须完成《华岳论剑 · 睡仙希夷》（Q08），古墓脉须完成《烟波试剑 · 越女惊鸿》（Q15），方可晋位真传！',
+    }
+  }
+  if (currentRank === 3) {
+    return {
+      targetRank,
+      targetRankLabel,
+      canPromote: false,
+      reason:
+        '晋升【长老 / 护法尊使（Lv.4）】不可经由面板直晋：古观脉须完成《北斗封山 · 古观长老》（Q24），古墓脉须完成《断龙血夜 · 毒海孤星》（Q28），由紫阳真人或寒玉仙子亲册！',
+    }
+  }
+  return {
+    targetRank,
+    targetRankLabel,
+    canPromote: false,
+    reason:
+      '晋升【掌教 / 共主 / 尊主 / 太上隐尊（Lv.5）】须完成终南隐宗四大终局抉择任务（Q36《紫阳掌教》、Q37《双剑共主》、Q38《黯然孤鸿》或 Q39《道藏真君》）方可登临尊位！',
+  }
+}
+
 export function evaluateSectPromotion(
   params: EvaluateSectPromotionParams,
 ): PromotionRequirementInfo | null {
@@ -309,6 +352,7 @@ export function evaluateSectPromotion(
     if (rule?.promotionRuleKind === 'huashan_quest') return evalHuashanQuest(params)
     if (rule?.promotionRuleKind === 'imperial_guard_merit') return evalImperialGuardMerit(params)
     if (params.sectId === 'SECT-01') return evalShaolinQuest(params)
+    if (params.sectId === 'SECT-11') return evalZhongnanQuest(params)
     return evalFirstTierPending(params)
   }
   const resolvedKind: SectPromotionRuleKind =

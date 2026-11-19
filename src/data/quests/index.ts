@@ -130,6 +130,56 @@ import { TIEZHANG_ENTRY_QUESTS } from './sects/tiezhangEntryQuest'
 import { WUTAI_ENTRY_QUESTS } from './sects/wutaiEntryQuest'
 import { XINGXIU_ENTRY_QUESTS } from './sects/xingxiuEntryQuest'
 import { ZHENWU_ENTRY_QUESTS } from './sects/zhenwuEntryQuest'
+import { ZHONGNAN_Q31_QUESTS } from './sects/zhongnanBitterSplitQuest'
+import { ZHONGNAN_Q38_QUESTS } from './sects/zhongnanEndingAnranTombMasterQuest'
+import { ZHONGNAN_Q39_QUESTS } from './sects/zhongnanEndingTaoistImmortalQuest'
+import { ZHONGNAN_Q37_QUESTS } from './sects/zhongnanEndingTwinSwordMasterQuest'
+import { ZHONGNAN_Q36_QUESTS } from './sects/zhongnanEndingZiyangMasterQuest'
+import { ZHONGNAN_ENTRY_QUESTS } from './sects/zhongnanEntryQuest'
+import { ZHONGNAN_Q01_QUESTS } from './sects/zhongnanFoundationSongQuest'
+import { ZHONGNAN_Q04_QUESTS } from './sects/zhongnanGuanBigDipperQuest'
+import { ZHONGNAN_Q11_QUESTS } from './sects/zhongnanGuanChunyangQuest'
+import { ZHONGNAN_Q09_QUESTS } from './sects/zhongnanGuanDayantaQuest'
+import { ZHONGNAN_Q24_QUESTS } from './sects/zhongnanGuanElderPromoteQuest'
+import { ZHONGNAN_Q05_QUESTS } from './sects/zhongnanGuanGoldenGooseQuest'
+import { ZHONGNAN_Q23_QUESTS } from './sects/zhongnanGuanHuangShangQuest'
+import { ZHONGNAN_Q08_QUESTS } from './sects/zhongnanGuanHuashanXiyiQuest'
+import { ZHONGNAN_Q21_QUESTS } from './sects/zhongnanGuanLuoyangYijingQuest'
+import { ZHONGNAN_Q07_QUESTS } from './sects/zhongnanGuanQinzhouHorseQuest'
+import { ZHONGNAN_Q33_QUESTS } from './sects/zhongnanGuanSevenStarSwordQuest'
+import { ZHONGNAN_Q10_QUESTS } from './sects/zhongnanGuanWudangVisitQuest'
+import { ZHONGNAN_Q32_QUESTS } from './sects/zhongnanGuanXiantianAwakenQuest'
+import { ZHONGNAN_Q22_QUESTS } from './sects/zhongnanGuanYananWarQuest'
+import { ZHONGNAN_Q06_QUESTS } from './sects/zhongnanGuanZhangZaiQuest'
+import { ZHONGNAN_Q30_QUESTS } from './sects/zhongnanHarmonyUniteQuest'
+import { ZHONGNAN_Q16_QUESTS } from './sects/zhongnanMuColdPoolVowQuest'
+import { ZHONGNAN_Q28_QUESTS } from './sects/zhongnanMuElderPromoteQuest'
+import { ZHONGNAN_Q17_QUESTS } from './sects/zhongnanMuFrostNeedleQuest'
+import { ZHONGNAN_Q34_QUESTS } from './sects/zhongnanMuIceSoulSwordQuest'
+import { ZHONGNAN_Q26_QUESTS } from './sects/zhongnanMuJiangningSwordQuest'
+import { ZHONGNAN_Q27_QUESTS } from './sects/zhongnanMuKunlunJadeQuest'
+import { ZHONGNAN_Q18_QUESTS } from './sects/zhongnanMuLuoyangChessQuest'
+import { ZHONGNAN_Q25_QUESTS } from './sects/zhongnanMuQingchengDuelQuest'
+import { ZHONGNAN_Q14_QUESTS } from './sects/zhongnanMuSichuanBeeQuest'
+import { ZHONGNAN_Q12_QUESTS } from './sects/zhongnanMuSparrowNetQuest'
+import { ZHONGNAN_Q35_QUESTS } from './sects/zhongnanMuSuxinAwakenQuest'
+import { ZHONGNAN_Q15_QUESTS } from './sects/zhongnanMuSuzhouSwordQuest'
+import { ZHONGNAN_Q13_QUESTS } from './sects/zhongnanMuWestMarketQuest'
+import { ZHONGNAN_Q19_QUESTS } from './sects/zhongnanMuYunvSutraQuest'
+import { ZHONGNAN_SIDE08_QUESTS } from './sects/zhongnanSideColdStreamTeaQuest'
+import { ZHONGNAN_SIDE04_QUESTS } from './sects/zhongnanSideDayantaSteleQuest'
+import { ZHONGNAN_SIDE02_QUESTS } from './sects/zhongnanSideHengquScholarQuest'
+import { ZHONGNAN_SIDE07_QUESTS } from './sects/zhongnanSideHuashanEnvoyQuest'
+import { ZHONGNAN_SIDE01_QUESTS } from './sects/zhongnanSideJadeBeeHoneyQuest'
+import { ZHONGNAN_SIDE05_QUESTS } from './sects/zhongnanSidePersianMerchantQuest'
+import { ZHONGNAN_SIDE06_QUESTS } from './sects/zhongnanSideWoodcutterDaoQuest'
+import { ZHONGNAN_SIDE03_QUESTS } from './sects/zhongnanSideYaowareFurnaceQuest'
+import { ZHONGNAN_Q03_QUESTS } from './sects/zhongnanStreamDivisionQuest'
+import { ZHONGNAN_Q41_QUESTS } from './sects/zhongnanTaiyiSummitQuest'
+import { ZHONGNAN_Q20_QUESTS } from './sects/zhongnanThirtyYearWagerQuest'
+import { ZHONGNAN_Q40_QUESTS } from './sects/zhongnanXixiaIceCellarQuest'
+import { ZHONGNAN_Q29_QUESTS } from './sects/zhongnanXixiaInvasionQuest'
+import { ZHONGNAN_Q02_QUESTS } from './sects/zhongnanZiwuScoutQuest'
 
 /**
  * 全局不可变声明式剧情任务链注册表：
@@ -236,6 +286,56 @@ export const QUEST_REGISTRY: readonly QuestDefinition[] = Object.freeze([
   ...HUASHAN_SIDE10_QUESTS,
   ...TAISHAN_ENTRY_QUESTS,
   ...EMEI_ENTRY_QUESTS,
+  ...ZHONGNAN_ENTRY_QUESTS,
+  ...ZHONGNAN_Q01_QUESTS,
+  ...ZHONGNAN_Q02_QUESTS,
+  ...ZHONGNAN_Q03_QUESTS,
+  ...ZHONGNAN_Q04_QUESTS,
+  ...ZHONGNAN_Q05_QUESTS,
+  ...ZHONGNAN_Q06_QUESTS,
+  ...ZHONGNAN_Q07_QUESTS,
+  ...ZHONGNAN_Q08_QUESTS,
+  ...ZHONGNAN_Q09_QUESTS,
+  ...ZHONGNAN_Q10_QUESTS,
+  ...ZHONGNAN_Q11_QUESTS,
+  ...ZHONGNAN_Q12_QUESTS,
+  ...ZHONGNAN_Q13_QUESTS,
+  ...ZHONGNAN_Q14_QUESTS,
+  ...ZHONGNAN_Q15_QUESTS,
+  ...ZHONGNAN_Q16_QUESTS,
+  ...ZHONGNAN_Q17_QUESTS,
+  ...ZHONGNAN_Q18_QUESTS,
+  ...ZHONGNAN_Q19_QUESTS,
+  ...ZHONGNAN_Q20_QUESTS,
+  ...ZHONGNAN_Q21_QUESTS,
+  ...ZHONGNAN_Q22_QUESTS,
+  ...ZHONGNAN_Q23_QUESTS,
+  ...ZHONGNAN_Q24_QUESTS,
+  ...ZHONGNAN_Q25_QUESTS,
+  ...ZHONGNAN_Q26_QUESTS,
+  ...ZHONGNAN_Q27_QUESTS,
+  ...ZHONGNAN_Q28_QUESTS,
+  ...ZHONGNAN_Q29_QUESTS,
+  ...ZHONGNAN_Q30_QUESTS,
+  ...ZHONGNAN_Q31_QUESTS,
+  ...ZHONGNAN_Q32_QUESTS,
+  ...ZHONGNAN_Q33_QUESTS,
+  ...ZHONGNAN_Q34_QUESTS,
+  ...ZHONGNAN_Q35_QUESTS,
+  ...ZHONGNAN_Q36_QUESTS,
+  ...ZHONGNAN_Q37_QUESTS,
+  ...ZHONGNAN_Q38_QUESTS,
+  ...ZHONGNAN_Q39_QUESTS,
+  ...ZHONGNAN_Q40_QUESTS,
+  ...ZHONGNAN_Q41_QUESTS,
+  ...ZHONGNAN_SIDE01_QUESTS,
+  ...ZHONGNAN_SIDE02_QUESTS,
+  ...ZHONGNAN_SIDE03_QUESTS,
+  ...ZHONGNAN_SIDE04_QUESTS,
+  ...ZHONGNAN_SIDE05_QUESTS,
+  ...ZHONGNAN_SIDE06_QUESTS,
+  ...ZHONGNAN_SIDE07_QUESTS,
+  ...ZHONGNAN_SIDE08_QUESTS,
   ...TANGMEN_ENTRY_QUESTS,
   ...QINGCHENG_ENTRY_QUESTS,
   ...TIEZHANG_ENTRY_QUESTS,

@@ -460,6 +460,198 @@
 | `CG-QST-447` | `[x]` 已完成 | `public/assets/quests/sl_42_three_foot_wall.jpg` | `/assets/quests/sl_42_three_foot_wall.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第二十三幕 · 三尺气墙<br>（`slq42_to_qiwall`） | `16:9` |
 | `CG-QST-448` | `[x]` 已完成 | `public/assets/quests/sl_42_convert_rivals.jpg` | `/assets/quests/sl_42_convert_rivals.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第三十三幕 · 度化归佛<br>（`scene_slq42_33`） | `16:9` |
 | `CG-QST-449` | `[x]` 已完成 | `public/assets/quests/sl_42_ginkgo_yijin.jpg` | `/assets/quests/sl_42_ginkgo_yijin.jpg` | `QST-SECT-01-42`<br>《古杏扫叶 · 易筋真经》 | 第四十二幕 · 古杏传经<br>（`scene_slq42_42`） | `16:9` |
+| `CG-QST-450` | `[ ]` 待补绘 | `public/assets/quests/zn_entry_caotang_tea.jpg` | `/assets/quests/zn_entry_caotang_tea.jpg` | `QST-SECT-11-ENTRY`<br>《太乙烟霞 · 双脉问心》 | 京兆府 · 终南草堂 · 主阁讲席<br>（`scene_zn_entry_01`） | `16:9` |
+| `CG-QST-451` | `[ ]` 待补绘 | `public/assets/quests/zn_entry_stream_bees.jpg` | `/assets/quests/zn_entry_stream_bees.jpg` | `QST-SECT-11-ENTRY`<br>《太乙烟霞 · 双脉问心》 | 终南后山寒玉涧 · 临水抚琴榭<br>（`scene_zn_entry_07`） | `16:9` |
+| `CG-QST-452` | `[ ]` 待补绘 | `public/assets/quests/zn_entry_chongyang_oath.jpg` | `/assets/quests/zn_entry_chongyang_oath.jpg` | `QST-SECT-11-ENTRY`<br>《太乙烟霞 · 双脉问心》 | 重阳古观前脉道院 · 清修主殿<br>（`scene_zn_entry_14`） | `16:9` |
+| `CG-QST-453` | `[ ]` 待补绘 | `public/assets/quests/zn_q01_morning_chant.jpg` | `/assets/quests/zn_q01_morning_chant.jpg` | `QST-SECT-11-01`<br>《松风鹤影 · 大道筑基》 | 重阳古观 · 清修主殿<br>（`scene_zn_q01_01`） | `16:9` |
+| `CG-QST-454` | `[ ]` 待补绘 | `public/assets/quests/zn_q01_falls_bandits.jpg` | `/assets/quests/zn_q01_falls_bandits.jpg` | `QST-SECT-11-01`<br>《松风鹤影 · 大道筑基》 | 终南后山寒玉涧 · 银练飞瀑<br>（`scene_zn_q01_07`） | `16:9` |
+| `CG-QST-455` | `[ ]` 待补绘 | `public/assets/quests/zn_q02_changan_inn_secret.jpg` | `/assets/quests/zn_q02_changan_inn_secret.jpg` | `QST-SECT-11-02`<br>《子午毒雾 · 长安暗哨》 | 京兆府 · 明德门丝路迎宾栈<br>（`scene_zn_q02_05`） | `16:9` |
+| `CG-QST-456` | `[ ]` 待补绘 | `public/assets/quests/zn_q02_xishi_poison_raid.jpg` | `/assets/quests/zn_q02_xishi_poison_raid.jpg` | `QST-SECT-11-02`<br>《子午毒雾 · 长安暗哨》 | 西市胡商坊 · 斗茶品香轩<br>（`scene_zn_q02_09`） | `16:9` |
+| `CG-QST-457` | `[ ]` 待补绘 | `public/assets/quests/zn_q03_sword_terrace.jpg` | `/assets/quests/zn_q03_sword_terrace.jpg` | `QST-SECT-11-03`<br>《寒涧试剑 · 观墓分途》 | 终南后山寒玉涧 · 双剑合璧坪<br>（`scene_zn_q03_01`） | `16:9` |
+| `CG-QST-458` | `[ ]` 待补绘 | `public/assets/quests/zn_q03_three_duels.jpg` | `/assets/quests/zn_q03_three_duels.jpg` | `QST-SECT-11-03`<br>《寒涧试剑 · 观墓分途》 | 双剑合璧坪 · 对阵沈清扬<br>（`scene_zn_q03_04`） | `16:9` |
+| `CG-QST-459` | `[ ]` 待补绘 | `public/assets/quests/zn_q03_twin_patriarchs.jpg` | `/assets/quests/zn_q03_twin_patriarchs.jpg` | `QST-SECT-11-03`<br>《寒涧试剑 · 观墓分途》 | 双剑合璧坪 · 宗师开示<br>（`scene_zn_q03_14`） | `16:9` |
+| `CG-QST-460` | `[ ]` 待补绘 | `public/assets/quests/zn_q03_branch_oath.jpg` | `/assets/quests/zn_q03_branch_oath.jpg` | `QST-SECT-11-03`<br>《寒涧试剑 · 观墓分途》 | 双剑合璧坪 · 不可逆之抉择<br>（`scene_zn_q03_18`） | `16:9` |
+| `CG-QST-461` | `[ ]` 待补绘 | `public/assets/quests/zn_q04_dipper_formation.jpg` | `/assets/quests/zn_q04_dipper_formation.jpg` | `QST-SECT-11-04`<br>《北斗璇玑 · 三才归元》 | 重阳古观 · 天罡北斗七星演剑坛<br>（`scene_zn_q04_01`） | `16:9` |
+| `CG-QST-462` | `[ ]` 待补绘 | `public/assets/quests/zn_q04_night_bandits.jpg` | `/assets/quests/zn_q04_night_bandits.jpg` | `QST-SECT-11-04`<br>《北斗璇玑 · 三才归元》 | 天罡北斗七星演剑坛 · 贼首现身<br>（`scene_zn_q04_10`） | `16:9` |
+| `CG-QST-463` | `[ ]` 待补绘 | `public/assets/quests/zn_q05_cliff_goose.jpg` | `/assets/quests/zn_q05_cliff_goose.jpg` | `QST-SECT-11-05`<br>《太白金雁 · 绝壁凌虚》 | 终南后山寒玉涧 · 银练飞瀑<br>（`scene_zn_q05_01`） | `16:9` |
+| `CG-QST-464` | `[ ]` 待补绘 | `public/assets/quests/zn_q05_xixia_ambush.jpg` | `/assets/quests/zn_q05_xixia_ambush.jpg` | `QST-SECT-11-05`<br>《太白金雁 · 绝壁凌虚》 | 绝壁谷道 · 生死一线<br>（`scene_zn_q05_09`） | `16:9` |
+| `CG-QST-465` | `[ ]` 待补绘 | `public/assets/quests/zn_q05_scout_rescue.jpg` | `/assets/quests/zn_q05_scout_rescue.jpg` | `QST-SECT-11-05`<br>《太白金雁 · 绝壁凌虚》 | 绝壁谷道 · 救治边军<br>（`scene_zn_q05_12`） | `16:9` |
+| `CG-QST-466` | `[ ]` 待补绘 | `public/assets/quests/zn_q06_yamen_yanshu.jpg` | `/assets/quests/zn_q06_yamen_yanshu.jpg` | `QST-SECT-11-06`<br>《草堂护道 · 正气劈空》 | 京兆府 · 永兴军路京兆府衙<br>（`scene_zn_q06_05`） | `16:9` |
+| `CG-QST-467` | `[ ]` 待补绘 | `public/assets/quests/zn_q06_academy_lecture.jpg` | `/assets/quests/zn_q06_academy_lecture.jpg` | `QST-SECT-11-06`<br>《草堂护道 · 正气劈空》 | 京兆府 · 长安横渠关学书院<br>（`scene_zn_q06_09`） | `16:9` |
+| `CG-QST-468` | `[ ]` 待补绘 | `public/assets/quests/zn_q06_pikong_palm.jpg` | `/assets/quests/zn_q06_pikong_palm.jpg` | `QST-SECT-11-06`<br>《草堂护道 · 正气劈空》 | 横渠书院 · 悟得劈空掌<br>（`scene_zn_q06_12`） | `16:9` |
+| `CG-QST-469` | `[ ]` 待补绘 | `public/assets/quests/zn_q07_chama_horses.jpg` | `/assets/quests/zn_q07_chama_horses.jpg` | `QST-SECT-11-07`<br>《秦州烽火 · 铁骑护马》 | 秦州府 · 吐蕃青唐验马阑<br>（`scene_zn_q07_01`） | `16:9` |
+| `CG-QST-470` | `[ ]` 待补绘 | `public/assets/quests/zn_q07_longyou_beacon.jpg` | `/assets/quests/zn_q07_longyou_beacon.jpg` | `QST-SECT-11-07`<br>《秦州烽火 · 铁骑护马》 | 陇右古战场烽燧 · 金环聚义堂<br>（`scene_zn_q07_07`） | `16:9` |
+| `CG-QST-471` | `[ ]` 待补绘 | `public/assets/quests/zn_q07_qinzhou_choice.jpg` | `/assets/quests/zn_q07_qinzhou_choice.jpg` | `QST-SECT-11-07`<br>《秦州烽火 · 铁骑护马》 | 陇右古塞 · 古观心志之辨<br>（`scene_zn_q07_15`） | `16:9` |
+| `CG-QST-472` | `[ ]` 待补绘 | `public/assets/quests/zn_q08_zixia_meeting.jpg` | `/assets/quests/zn_q08_zixia_meeting.jpg` | `QST-SECT-11-08`<br>《华岳论剑 · 睡仙希夷》 | 玉女峰紫霞道观 · 紫霞正气主殿<br>（`scene_zn_q08_01`） | `16:9` |
+| `CG-QST-473` | `[ ]` 待补绘 | `public/assets/quests/zn_q08_botai_sword_debate.jpg` | `/assets/quests/zn_q08_botai_sword_debate.jpg` | `QST-SECT-11-08`<br>《华岳论剑 · 睡仙希夷》 | 华山绝顶论剑台 · 博台孤峰弈棋亭<br>（`scene_zn_q08_07`） | `16:9` |
+| `CG-QST-474` | `[ ]` 待补绘 | `public/assets/quests/zn_q08_murong_thief.jpg` | `/assets/quests/zn_q08_murong_thief.jpg` | `QST-SECT-11-08`<br>《华岳论剑 · 睡仙希夷》 | 华山绝壁栈道 · 现出原形<br>（`scene_zn_q08_12`） | `16:9` |
+| `CG-QST-475` | `[ ]` 待补绘 | `public/assets/quests/zn_q08_xiyi_promotion.jpg` | `/assets/quests/zn_q08_xiyi_promotion.jpg` | `QST-SECT-11-08`<br>《华岳论剑 · 睡仙希夷》 | 重阳古观前脉道院 · 重阳玄门清修主殿<br>（`scene_zn_q08_20`） | `16:9` |
+| `CG-QST-476` | `[ ]` 待补绘 | `public/assets/quests/zn_q09_alchemy_explosion.jpg` | `/assets/quests/zn_q09_alchemy_explosion.jpg` | `QST-SECT-11-09`<br>《紫金丹劫 · 大雁除妖》 | 重阳古观 · 道藏经阁与紫金丹院<br>（`scene_zn_q09_01`） | `16:9` |
+| `CG-QST-477` | `[ ]` 待补绘 | `public/assets/quests/zn_q09_dayanta_summit.jpg` | `/assets/quests/zn_q09_dayanta_summit.jpg` | `QST-SECT-11-09`<br>《紫金丹劫 · 大雁除妖》 | 慈恩寺大雁塔 · 绝顶佛龛 · 凭栏远眺<br>（`scene_zn_q09_09`） | `16:9` |
+| `CG-QST-478` | `[ ]` 待补绘 | `public/assets/quests/zn_q09_lion_roar_duel.jpg` | `/assets/quests/zn_q09_lion_roar_duel.jpg` | `QST-SECT-11-09`<br>《紫金丹劫 · 大雁除妖》 | 绝顶佛龛 · 屏息凝神<br>（`scene_zn_q09_11`） | `16:9` |
+| `CG-QST-479` | `[ ]` 待补绘 | `public/assets/quests/zn_q10_xiangyang_dock.jpg` | `/assets/quests/zn_q10_xiangyang_dock.jpg` | `QST-SECT-11-10`<br>《太和云海 · 武当问真》 | 襄阳 · 汉水大码头<br>（`scene_znq10_05`） | `16:9` |
+| `CG-QST-480` | `[ ]` 待补绘 | `public/assets/quests/zn_q10_wudang_golden.jpg` | `/assets/quests/zn_q10_wudang_golden.jpg` | `QST-SECT-11-10`<br>《太和云海 · 武当问真》 | 武当山 · 太和绝顶真武金殿<br>（`scene_znq10_11`） | `16:9` |
+| `CG-QST-481` | `[ ]` 待补绘 | `public/assets/quests/zn_q10_zixiao_dao.jpg` | `/assets/quests/zn_q10_zixiao_dao.jpg` | `QST-SECT-11-10`<br>《太和云海 · 武当问真》 | 武当山 · 紫霄道宫丹房<br>（`scene_znq10_16`） | `16:9` |
+| `CG-QST-482` | `[ ]` 待补绘 | `public/assets/quests/zn_q10_alchemy_cure.jpg` | `/assets/quests/zn_q10_alchemy_cure.jpg` | `QST-SECT-11-10`<br>《太和云海 · 武当问真》 | 终南山隐宗 · 道藏经阁与紫金丹院<br>（`scene_znq10_21`） | `16:9` |
+| `CG-QST-483` | `[ ]` 待补绘 | `public/assets/quests/zn_q11_snow_dipper.jpg` | `/assets/quests/zn_q11_snow_dipper.jpg` | `QST-SECT-11-11`<br>《纯阳无极 · 七星聚首》 | 终南山隐宗 · 天罡北斗七星演剑坛<br>（`scene_znq11_01`） | `16:9` |
+| `CG-QST-484` | `[ ]` 待补绘 | `public/assets/quests/zn_q11_seven_masters.jpg` | `/assets/quests/zn_q11_seven_masters.jpg` | `QST-SECT-11-11`<br>《纯阳无极 · 七星聚首》 | 天罡北斗七星演剑坛<br>（`scene_znq11_03`） | `16:9` |
+| `CG-QST-485` | `[ ]` 待补绘 | `public/assets/quests/zn_q11_chunyang_aura.jpg` | `/assets/quests/zn_q11_chunyang_aura.jpg` | `QST-SECT-11-11`<br>《纯阳无极 · 七星聚首》 | 天罡北斗七星演剑坛<br>（`scene_znq11_06`） | `16:9` |
+| `CG-QST-486` | `[ ]` 待补绘 | `public/assets/quests/zn_q11_nuerhai_retreat.jpg` | `/assets/quests/zn_q11_nuerhai_retreat.jpg` | `QST-SECT-11-11`<br>《纯阳无极 · 七星聚首》 | 天罡北斗七星演剑坛<br>（`scene_znq11_16`） | `16:9` |
+| `CG-QST-487` | `[ ]` 待补绘 | `public/assets/quests/zn_q12_sparrow_hall.jpg` | `/assets/quests/zn_q12_sparrow_hall.jpg` | `QST-SECT-11-12`<br>《幽谷百雀 · 金针渡影》 | 终南山隐宗 · 天罗地网捕雀轻功厅<br>（`scene_znq12_01`） | `16:9` |
+| `CG-QST-488` | `[ ]` 待补绘 | `public/assets/quests/zn_q12_golden_swallow.jpg` | `/assets/quests/zn_q12_golden_swallow.jpg` | `QST-SECT-11-12`<br>《幽谷百雀 · 金针渡影》 | 天罗地网捕雀轻功厅<br>（`scene_znq12_05`） | `16:9` |
+| `CG-QST-489` | `[ ]` 待补绘 | `public/assets/quests/zn_q12_falls_poachers.jpg` | `/assets/quests/zn_q12_falls_poachers.jpg` | `QST-SECT-11-12`<br>《幽谷百雀 · 金针渡影》 | 终南后山寒玉涧 · 银练飞瀑清泉石茗案<br>（`scene_znq12_09`） | `16:9` |
+| `CG-QST-490` | `[ ]` 待补绘 | `public/assets/quests/zn_q13_xishi_east.jpg` | `/assets/quests/zn_q13_xishi_east.jpg` | `QST-SECT-11-13`<br>《西市飞霜 · 踏雪无痕》 | 长安府 · 西市胡商坊（东市）<br>（`scene_znq13_04`） | `16:9` |
+| `CG-QST-491` | `[ ]` 待补绘 | `public/assets/quests/zn_q13_snow_step.jpg` | `/assets/quests/zn_q13_snow_step.jpg` | `QST-SECT-11-13`<br>《西市飞霜 · 踏雪无痕》 | 西市东坊小院<br>（`scene_znq13_07`） | `16:9` |
+| `CG-QST-492` | `[ ]` 待补绘 | `public/assets/quests/zn_q13_xishi_raid.jpg` | `/assets/quests/zn_q13_xishi_raid.jpg` | `QST-SECT-11-13`<br>《西市飞霜 · 踏雪无痕》 | 长安府 · 西市胡商坊（西市）<br>（`scene_znq13_11`） | `16:9` |
+| `CG-QST-493` | `[ ]` 待补绘 | `public/assets/quests/zn_q14_jianmen_plank.jpg` | `/assets/quests/zn_q14_jianmen_plank.jpg` | `QST-SECT-11-14`<br>《玉蜂琼浆 · 蜀道求药》 | 剑门关 · 剑阁鸟道悬空栈<br>（`scene_znq14_04`） | `16:9` |
+| `CG-QST-494` | `[ ]` 待补绘 | `public/assets/quests/zn_q14_poison_bridge.jpg` | `/assets/quests/zn_q14_poison_bridge.jpg` | `QST-SECT-11-14`<br>《玉蜂琼浆 · 蜀道求药》 | 青城山 · 飞瀑铁索采药悬栈<br>（`scene_znq14_12`） | `16:9` |
+| `CG-QST-495` | `[ ]` 待补绘 | `public/assets/quests/zn_q14_chengdu_tea.jpg` | `/assets/quests/zn_q14_chengdu_tea.jpg` | `QST-SECT-11-14`<br>《玉蜂琼浆 · 蜀道求药》 | 成都府 · 锦江万里桥茶肆<br>（`scene_znq14_15`） | `16:9` |
+| `CG-QST-496` | `[ ]` 待补绘 | `public/assets/quests/zn_q15_canglang_pavilion.jpg` | `/assets/quests/zn_q15_canglang_pavilion.jpg` | `QST-SECT-11-15`<br>《烟波试剑 · 越女惊鸿》 | 苏州府 · 沧浪亭书院<br>（`scene_znq15_05`） | `16:9` |
+| `CG-QST-497` | `[ ]` 待补绘 | `public/assets/quests/zn_q15_huqiu_pool.jpg` | `/assets/quests/zn_q15_huqiu_pool.jpg` | `QST-SECT-11-15`<br>《烟波试剑 · 越女惊鸿》 | 苏州府 · 裂崖飞梁吴王剑池<br>（`scene_znq15_10`） | `16:9` |
+| `CG-QST-498` | `[ ]` 待补绘 | `public/assets/quests/zn_q15_yuenv_sword.jpg` | `/assets/quests/zn_q15_yuenv_sword.jpg` | `QST-SECT-11-15`<br>《烟波试剑 · 越女惊鸿》 | 裂崖飞梁吴王剑池<br>（`scene_znq15_11`） | `16:9` |
+| `CG-QST-499` | `[ ]` 待补绘 | `public/assets/quests/zn_q15_gumu_promotion.jpg` | `/assets/quests/zn_q15_gumu_promotion.jpg` | `QST-SECT-11-15`<br>《烟波试剑 · 越女惊鸿》 | 终南山隐宗 · 昆仑寒玉床冰魄石室<br>（`scene_znq15_21`） | `16:9` |
+| `CG-QST-500` | `[ ]` 待补绘 | `public/assets/quests/zn_q16_qin_pavilion.jpg` | `/assets/quests/zn_q16_qin_pavilion.jpg` | `QST-SECT-11-16`<br>《寒潭孤影 · 誓词问情》 | 终南山隐宗 · 寒玉涧临水抚琴榭<br>（`scene_znq16_01`） | `16:9` |
+| `CG-QST-501` | `[ ]` 待补绘 | `public/assets/quests/zn_q16_intruder_duel.jpg` | `/assets/quests/zn_q16_intruder_duel.jpg` | `QST-SECT-11-16`<br>《寒潭孤影 · 誓词问情》 | 寒玉涧临水抚琴榭<br>（`scene_znq16_04`） | `16:9` |
+| `CG-QST-502` | `[ ]` 待补绘 | `public/assets/quests/zn_q16_cold_pool_vow.jpg` | `/assets/quests/zn_q16_cold_pool_vow.jpg` | `QST-SECT-11-16`<br>《寒潭孤影 · 誓词问情》 | 终南山隐宗 · 昆仑寒玉床冰魄石室<br>（`scene_znq16_12`） | `16:9` |
+| `CG-QST-503` | `[ ]` 待补绘 | `public/assets/quests/zn_q16_heart_choice.jpg` | `/assets/quests/zn_q16_heart_choice.jpg` | `QST-SECT-11-16`<br>《寒潭孤影 · 誓词问情》 | 昆仑寒玉床冰魄石室<br>（`scene_znq16_14`） | `16:9` |
+| `CG-QST-504` | `[ ]` 待补绘 | `public/assets/quests/zn_q17_frost_palm.jpg` | `/assets/quests/zn_q17_frost_palm.jpg` | `QST-SECT-11-17`<br>《冰魄银针 · 含沙凝霜》 | 昆仑寒玉床冰魄石室<br>（`scene_znq17_03`） | `16:9` |
+| `CG-QST-505` | `[ ]` 待补绘 | `public/assets/quests/zn_q17_shadow_needles.jpg` | `/assets/quests/zn_q17_shadow_needles.jpg` | `QST-SECT-11-17`<br>《冰魄银针 · 含沙凝霜》 | 昆仑寒玉床冰魄石室<br>（`scene_znq17_05`） | `16:9` |
+| `CG-QST-506` | `[ ]` 待补绘 | `public/assets/quests/zn_q17_midnight_falls.jpg` | `/assets/quests/zn_q17_midnight_falls.jpg` | `QST-SECT-11-17`<br>《冰魄银针 · 含沙凝霜》 | 终南后山寒玉涧 · 银练飞瀑清泉石茗案<br>（`scene_znq17_11`） | `16:9` |
+| `CG-QST-507` | `[ ]` 待补绘 | `public/assets/quests/zn_q18_luoyang_pavilion.jpg` | `/assets/quests/zn_q18_luoyang_pavilion.jpg` | `QST-SECT-11-18`<br>《洛水琴棋 · 聪辩雅集》 | 洛阳府 · 白马书院 · 垂柳荷池手谈水亭<br>（`scene_znq18_01`） | `16:9` |
+| `CG-QST-508` | `[ ]` 待补绘 | `public/assets/quests/zn_q18_chess_meeting.jpg` | `/assets/quests/zn_q18_chess_meeting.jpg` | `QST-SECT-11-18`<br>《洛水琴棋 · 聪辩雅集》 | 垂柳荷池手谈水亭<br>（`scene_znq18_03`） | `16:9` |
+| `CG-QST-509` | `[ ]` 待补绘 | `public/assets/quests/zn_q18_peony_waterside.jpg` | `/assets/quests/zn_q18_peony_waterside.jpg` | `QST-SECT-11-18`<br>《洛水琴棋 · 聪辩雅集》 | 洛阳府 · 洛阳牡丹园 · 碧溪虹桥琴画水榭<br>（`scene_znq18_10`） | `16:9` |
+| `CG-QST-510` | `[ ]` 待补绘 | `public/assets/quests/zn_q18_yunzhonghe_chase.jpg` | `/assets/quests/zn_q18_yunzhonghe_chase.jpg` | `QST-SECT-11-18`<br>《洛水琴棋 · 聪辩雅集》 | 碧溪虹桥琴画水榭<br>（`scene_znq18_12`） | `16:9` |
+| `CG-QST-511` | `[ ]` 待补绘 | `public/assets/quests/zn_q19_silk_scroll.jpg` | `/assets/quests/zn_q19_silk_scroll.jpg` | `QST-SECT-11-19`<br>《寒玉蒸霞 · 素绢真经》 | 昆仑寒玉床冰魄石室<br>（`scene_znq19_02`） | `16:9` |
+| `CG-QST-512` | `[ ]` 待补绘 | `public/assets/quests/zn_q19_jadebed_mist.jpg` | `/assets/quests/zn_q19_jadebed_mist.jpg` | `QST-SECT-11-19`<br>《寒玉蒸霞 · 素绢真经》 | 昆仑寒玉床冰魄石室<br>（`scene_znq19_05`） | `16:9` |
+| `CG-QST-513` | `[ ]` 待补绘 | `public/assets/quests/zn_q19_dual_cultivation.jpg` | `/assets/quests/zn_q19_dual_cultivation.jpg` | `QST-SECT-11-19`<br>《寒玉蒸霞 · 素绢真经》 | 昆仑寒玉床冰魄石室<br>（`scene_znq19_06`） | `16:9` |
+| `CG-QST-514` | `[ ]` 待补绘 | `public/assets/quests/zn_q19_stone_gate.jpg` | `/assets/quests/zn_q19_stone_gate.jpg` | `QST-SECT-11-19`<br>《寒玉蒸霞 · 素绢真经》 | 活死人墓石门<br>（`scene_znq19_11`） | `16:9` |
+| `CG-QST-515` | `[ ]` 待补绘 | `public/assets/quests/zn_q19_frost_seal.jpg` | `/assets/quests/zn_q19_frost_seal.jpg` | `QST-SECT-11-19`<br>《寒玉蒸霞 · 素绢真经》 | 繁花幽谷双剑合璧坪<br>（`scene_znq19_17`） | `16:9` |
+| `CG-QST-516` | `[ ]` 待补绘 | `public/assets/quests/zn_q20_rain_patrol.jpg` | `/assets/quests/zn_q20_rain_patrol.jpg` | `QST-SECT-11-20`<br>《寒涧残碑 · 三十载赌约》 | 终南后山寒玉涧 · 繁花幽谷双剑合璧坪<br>（`scene_znq20_01`） | `16:9` |
+| `CG-QST-517` | `[ ]` 待补绘 | `public/assets/quests/zn_q20_li_yanzong_ambush.jpg` | `/assets/quests/zn_q20_li_yanzong_ambush.jpg` | `QST-SECT-11-20`<br>《寒涧残碑 · 三十载赌约》 | 繁花幽谷双剑合璧坪<br>（`scene_znq20_04`） | `16:9` |
+| `CG-QST-518` | `[ ]` 待补绘 | `public/assets/quests/zn_q20_twin_sword_clash.jpg` | `/assets/quests/zn_q20_twin_sword_clash.jpg` | `QST-SECT-11-20`<br>《寒涧残碑 · 三十载赌约》 | 繁花幽谷双剑合璧坪<br>（`scene_znq20_09`） | `16:9` |
+| `CG-QST-519` | `[ ]` 待补绘 | `public/assets/quests/zn_q20_broken_stele.jpg` | `/assets/quests/zn_q20_broken_stele.jpg` | `QST-SECT-11-20`<br>《寒涧残碑 · 三十载赌约》 | 繁花幽谷双剑合璧坪 · 残碑前<br>（`scene_znq20_12`） | `16:9` |
+| `CG-QST-520` | `[ ]` 待补绘 | `public/assets/quests/zn_q20_thirty_year_oath.jpg` | `/assets/quests/zn_q20_thirty_year_oath.jpg` | `QST-SECT-11-20`<br>《寒涧残碑 · 三十载赌约》 | 繁花幽谷双剑合璧坪<br>（`scene_znq20_19`） | `16:9` |
+| `CG-QST-521` | `[ ]` 待补绘 | `public/assets/quests/zn_q21_luoyang_shaoyong.jpg` | `/assets/quests/zn_q21_luoyang_shaoyong.jpg` | `QST-SECT-11-21`<br>《皇极经世 · 洛阳问数》 | 洛阳府 · 白马书院 · 垂柳荷池手谈水亭<br>（`scene_znq21_01`） | `16:9` |
+| `CG-QST-522` | `[ ]` 待补绘 | `public/assets/quests/zn_q21_dipper_astrolabe.jpg` | `/assets/quests/zn_q21_dipper_astrolabe.jpg` | `QST-SECT-11-21`<br>《皇极经世 · 洛阳问数》 | 白马书院 · 垂柳荷池手谈水亭<br>（`scene_znq21_03`） | `16:9` |
+| `CG-QST-523` | `[ ]` 待补绘 | `public/assets/quests/zn_q21_luoshui_tavern_ambush.jpg` | `/assets/quests/zn_q21_luoshui_tavern_ambush.jpg` | `QST-SECT-11-21`<br>《皇极经世 · 洛阳问数》 | 洛阳府 · 洛水天津酒楼<br>（`scene_znq21_11`） | `16:9` |
+| `CG-QST-524` | `[ ]` 待补绘 | `public/assets/quests/zn_q22_yanan_snow_camp.jpg` | `/assets/quests/zn_q22_yanan_snow_camp.jpg` | `QST-SECT-11-22`<br>《延水悲歌 · 青涧铁血》 | 延安府 · 鄜延边军大营 · 中军帅帐 · 沙盘台<br>（`scene_znq22_01`） | `16:9` |
+| `CG-QST-525` | `[ ]` 待补绘 | `public/assets/quests/zn_q22_jialing_pagoda_plan.jpg` | `/assets/quests/zn_q22_jialing_pagoda_plan.jpg` | `QST-SECT-11-22`<br>《延水悲歌 · 青涧铁血》 | 延安府 · 嘉岭山宝塔 · 宝塔底层 · 舍利地宫<br>（`scene_znq22_09`） | `16:9` |
+| `CG-QST-526` | `[ ]` 待补绘 | `public/assets/quests/zn_q22_blizzard_tent_defense.jpg` | `/assets/quests/zn_q22_blizzard_tent_defense.jpg` | `QST-SECT-11-22`<br>《延水悲歌 · 青涧铁血》 | 延安府 · 鄜延边军大营 · 中军帅帐 · 沙盘台<br>（`scene_znq22_15`） | `16:9` |
+| `CG-QST-527` | `[ ]` 待补绘 | `public/assets/quests/zn_q22_qingjian_blood_dawn.jpg` | `/assets/quests/zn_q22_qingjian_blood_dawn.jpg` | `QST-SECT-11-22`<br>《延水悲歌 · 青涧铁血》 | 鄜延边军大营 · 中军帅帐 · 沙盘台<br>（`scene_znq22_20`） | `16:9` |
+| `CG-QST-528` | `[ ]` 待补绘 | `public/assets/quests/zn_q23_kaiyuan_huangshang.jpg` | `/assets/quests/zn_q23_kaiyuan_huangshang.jpg` | `QST-SECT-11-23`<br>《刺桐校经 · 万寿道藏》 | 泉州府 · 泉州开元寺东西双塔 · 中层回廊 · 浮雕壁画<br>（`scene_znq23_01`） | `16:9` |
+| `CG-QST-529` | `[ ]` 待补绘 | `public/assets/quests/zn_q23_manichaean_raid.jpg` | `/assets/quests/zn_q23_manichaean_raid.jpg` | `QST-SECT-11-23`<br>《刺桐校经 · 万寿道藏》 | 泉州开元寺东西双塔<br>（`scene_znq23_08`） | `16:9` |
+| `CG-QST-530` | `[ ]` 待补绘 | `public/assets/quests/zn_q23_west_tower_battle.jpg` | `/assets/quests/zn_q23_west_tower_battle.jpg` | `QST-SECT-11-23`<br>《刺桐校经 · 万寿道藏》 | 泉州府 · 泉州开元寺东西双塔 · 绝顶佛龛 · 凭栏远眺<br>（`scene_znq23_13`） | `16:9` |
+| `CG-QST-531` | `[ ]` 待补绘 | `public/assets/quests/zn_q23_daozang_yinyang_night.jpg` | `/assets/quests/zn_q23_daozang_yinyang_night.jpg` | `QST-SECT-11-23`<br>《刺桐校经 · 万寿道藏》 | 泉州府 · 泉州开元寺东西双塔 · 中层回廊 · 浮雕壁画<br>（`scene_znq23_21`） | `16:9` |
+| `CG-QST-532` | `[ ]` 待补绘 | `public/assets/quests/zn_q24_dipper_formation_rise.jpg` | `/assets/quests/zn_q24_dipper_formation_rise.jpg` | `QST-SECT-11-24`<br>《北斗封山 · 古观长老》 | 终南山隐宗 · 重阳古观前脉道院 · 天罡北斗七星演剑坛<br>（`scene_znq24_01`） | `16:9` |
+| `CG-QST-533` | `[ ]` 待补绘 | `public/assets/quests/zn_q24_nuerhai_assault.jpg` | `/assets/quests/zn_q24_nuerhai_assault.jpg` | `QST-SECT-11-24`<br>《北斗封山 · 古观长老》 | 天罡北斗七星演剑坛<br>（`scene_znq24_04`） | `16:9` |
+| `CG-QST-534` | `[ ]` 待补绘 | `public/assets/quests/zn_q24_seven_stars_break.jpg` | `/assets/quests/zn_q24_seven_stars_break.jpg` | `QST-SECT-11-24`<br>《北斗封山 · 古观长老》 | 天罡北斗七星演剑坛<br>（`scene_znq24_09`） | `16:9` |
+| `CG-QST-535` | `[ ]` 待补绘 | `public/assets/quests/zn_q24_guguan_elder_investiture.jpg` | `/assets/quests/zn_q24_guguan_elder_investiture.jpg` | `QST-SECT-11-24`<br>《北斗封山 · 古观长老》 | 终南山隐宗 · 重阳古观前脉道院 · 重阳玄门清修主殿<br>（`scene_znq24_19`） | `16:9` |
+| `CG-QST-536` | `[ ]` 待补绘 | `public/assets/quests/zn_q25_jianmen_rescue.jpg` | `/assets/quests/zn_q25_jianmen_rescue.jpg` | `QST-SECT-11-25`<br>《剑阁猿啼 · 巴山折剑》 | 剑门关 · 剑门雄关箭楼 · 雄关箭楼 · 望胡台<br>（`scene_znq25_01`） | `16:9` |
+| `CG-QST-537` | `[ ]` 待补绘 | `public/assets/quests/zn_q25_shangqing_challenge.jpg` | `/assets/quests/zn_q25_shangqing_challenge.jpg` | `QST-SECT-11-25`<br>《剑阁猿啼 · 巴山折剑》 | 青城山 / 唐家堡 · 青城山上清宫松风殿 · 上清松风演剑主殿<br>（`scene_znq25_12`） | `16:9` |
+| `CG-QST-538` | `[ ]` 待补绘 | `public/assets/quests/zn_q25_yucanglan_crown_split.jpg` | `/assets/quests/zn_q25_yucanglan_crown_split.jpg` | `QST-SECT-11-25`<br>《剑阁猿啼 · 巴山折剑》 | 青城山上清宫松风殿 · 上清松风演剑主殿<br>（`scene_znq25_15`） | `16:9` |
+| `CG-QST-539` | `[ ]` 待补绘 | `public/assets/quests/zn_q26_chibi_yeguhong_duel.jpg` | `/assets/quests/zn_q26_chibi_yeguhong_duel.jpg` | `QST-SECT-11-26`<br>《赤壁听涛 · 钟山问剑》 | 江宁府 · 石头城遗址（江南剑庐） · 虎踞赤壁临江试剑台<br>（`scene_znq26_01`） | `16:9` |
+| `CG-QST-540` | `[ ]` 待补绘 | `public/assets/quests/zn_q26_soft_overcomes_hard.jpg` | `/assets/quests/zn_q26_soft_overcomes_hard.jpg` | `QST-SECT-11-26`<br>《赤壁听涛 · 钟山问剑》 | 虎踞赤壁临江试剑台<br>（`scene_znq26_04`） | `16:9` |
+| `CG-QST-541` | `[ ]` 待补绘 | `public/assets/quests/zn_q26_qinhuai_boat_meeting.jpg` | `/assets/quests/zn_q26_qinhuai_boat_meeting.jpg` | `QST-SECT-11-26`<br>《赤壁听涛 · 钟山问剑》 | 江宁府 · 十里秦淮画舫 · 十里秦淮双层鎏金画舫<br>（`scene_znq26_12`） | `16:9` |
+| `CG-QST-542` | `[ ]` 待补绘 | `public/assets/quests/zn_q26_murong_spy_purge.jpg` | `/assets/quests/zn_q26_murong_spy_purge.jpg` | `QST-SECT-11-26`<br>《赤壁听涛 · 钟山问剑》 | 十里秦淮双层鎏金画舫<br>（`scene_znq26_14`） | `16:9` |
+| `CG-QST-543` | `[ ]` 待补绘 | `public/assets/quests/zn_q27_changan_kunlun_map.jpg` | `/assets/quests/zn_q27_changan_kunlun_map.jpg` | `QST-SECT-11-27`<br>《瑶池万里 · 昆仑采玉》 | 京兆府 · 西市胡商坊（丝路起点） · 番坊正市 · 奇货堂<br>（`scene_znq27_01`） | `16:9` |
+| `CG-QST-544` | `[ ]` 待补绘 | `public/assets/quests/zn_q27_yaochi_zhonglixue.jpg` | `/assets/quests/zn_q27_yaochi_zhonglixue.jpg` | `QST-SECT-11-27`<br>《瑶池万里 · 昆仑采玉》 | 昆仑山（万山之祖） · 昆仑瑶池万年冰窟 · 西王母翡翠雪莲池<br>（`scene_znq27_07`） | `16:9` |
+| `CG-QST-545` | `[ ]` 待补绘 | `public/assets/quests/zn_q27_wulaoda_clash.jpg` | `/assets/quests/zn_q27_wulaoda_clash.jpg` | `QST-SECT-11-27`<br>《瑶池万里 · 昆仑采玉》 | 西王母翡翠雪莲池<br>（`scene_znq27_10`） | `16:9` |
+| `CG-QST-546` | `[ ]` 待补绘 | `public/assets/quests/zn_q27_wuxingyun_pressure.jpg` | `/assets/quests/zn_q27_wuxingyun_pressure.jpg` | `QST-SECT-11-27`<br>《瑶池万里 · 昆仑采玉》 | 昆仑山（万山之祖） · 昆仑瑶池万年冰窟 · 万年寒玉冰床晶坛<br>（`scene_znq27_16`） | `16:9` |
+| `CG-QST-547` | `[ ]` 待补绘 | `public/assets/quests/zn_q27_jade_marrow_return.jpg` | `/assets/quests/zn_q27_jade_marrow_return.jpg` | `QST-SECT-11-27`<br>《瑶池万里 · 昆仑采玉》 | 终南山隐宗 · 活死人墓幽谷石室 · 昆仑寒玉床冰魄石室<br>（`scene_znq27_25`） | `16:9` |
+| `CG-QST-548` | `[ ]` 待补绘 | `public/assets/quests/zn_q28_duanlong_poison_night.jpg` | `/assets/quests/zn_q28_duanlong_poison_night.jpg` | `QST-SECT-11-28`<br>《断龙血夜 · 毒海孤星》 | 终南山隐宗 · 活死人墓幽谷石室 · 天罗地网捕雀轻功厅<br>（`scene_znq28_01`） | `16:9` |
+| `CG-QST-549` | `[ ]` 待补绘 | `public/assets/quests/zn_q28_zhaixingzi_ambush.jpg` | `/assets/quests/zn_q28_zhaixingzi_ambush.jpg` | `QST-SECT-11-28`<br>《断龙血夜 · 毒海孤星》 | 天罗地网捕雀轻功厅<br>（`scene_znq28_02`） | `16:9` |
+| `CG-QST-550` | `[ ]` 待补绘 | `public/assets/quests/zn_q28_sparrow_hall_counter.jpg` | `/assets/quests/zn_q28_sparrow_hall_counter.jpg` | `QST-SECT-11-28`<br>《断龙血夜 · 毒海孤星》 | 天罗地网捕雀轻功厅<br>（`scene_znq28_05`） | `16:9` |
+| `CG-QST-551` | `[ ]` 待补绘 | `public/assets/quests/zn_q28_gumu_elder_investiture.jpg` | `/assets/quests/zn_q28_gumu_elder_investiture.jpg` | `QST-SECT-11-28`<br>《断龙血夜 · 毒海孤星》 | 终南山隐宗 · 活死人墓幽谷石室 · 昆仑寒玉床冰魄石室<br>（`scene_znq28_19`） | `16:9` |
+| `CG-QST-552` | `[ ]` 待补绘 | `public/assets/quests/zn_q29_helan_black_cloud.jpg` | `/assets/quests/zn_q29_helan_black_cloud.jpg` | `QST-SECT-11-29`<br>《贺兰黑云 · 一品叩关》 | 终南山隐宗 · 重阳古观前脉道院 · 重阳玄门清修主殿<br>（`scene_znq29_01`） | `16:9` |
+| `CG-QST-553` | `[ ]` 待补绘 | `public/assets/quests/zn_q29_beisu_qingfeng_mist.jpg` | `/assets/quests/zn_q29_beisu_qingfeng_mist.jpg` | `QST-SECT-11-29`<br>《贺兰黑云 · 一品叩关》 | 重阳玄门清修主殿前坪<br>（`scene_znq29_07`） | `16:9` |
+| `CG-QST-554` | `[ ]` 待补绘 | `public/assets/quests/zn_q29_duan_helian_siege.jpg` | `/assets/quests/zn_q29_duan_helian_siege.jpg` | `QST-SECT-11-29`<br>《贺兰黑云 · 一品叩关》 | 终南山隐宗 · 重阳古观前脉道院 · 重阳玄门清修主殿<br>（`scene_znq29_11`） | `16:9` |
+| `CG-QST-555` | `[ ]` 待补绘 | `public/assets/quests/zn_q29_twin_masters_retreat.jpg` | `/assets/quests/zn_q29_twin_masters_retreat.jpg` | `QST-SECT-11-29`<br>《贺兰黑云 · 一品叩关》 | 终南后山寒玉涧 · 繁花幽谷双剑合璧坪<br>（`scene_znq29_18`） | `16:9` |
+| `CG-QST-556` | `[ ]` 待补绘 | `public/assets/quests/zn_q29_harmony_or_split.jpg` | `/assets/quests/zn_q29_harmony_or_split.jpg` | `QST-SECT-11-29`<br>《贺兰黑云 · 一品叩关》 | 终南山隐宗 · 终南后山寒玉涧 · 繁花幽谷双剑合璧坪<br>（`scene_znq29_25`） | `16:9` |
+| `CG-QST-557` | `[ ]` 待补绘 | `public/assets/quests/zn_q30_tao_plea.jpg` | `/assets/quests/zn_q30_tao_plea.jpg` | `QST-SECT-11-30`<br>《寒涧同心 · 剑道合流》 | 重阳古观 · 紫阳托笺<br>（`scene_znq30_05`） | `16:9` |
+| `CG-QST-558` | `[ ]` 待补绘 | `public/assets/quests/zn_q30_tomb_jadebed.jpg` | `/assets/quests/zn_q30_tomb_jadebed.jpg` | `QST-SECT-11-30`<br>《寒涧同心 · 剑道合流》 | 活死人墓 · 寒玉出关<br>（`scene_znq30_11`） | `16:9` |
+| `CG-QST-559` | `[ ]` 待补绘 | `public/assets/quests/zn_q30_qin_heal.jpg` | `/assets/quests/zn_q30_qin_heal.jpg` | `QST-SECT-11-30`<br>《寒涧同心 · 剑道合流》 | 寒玉涧临水抚琴榭 · 月下合功<br>（`scene_znq30_17`） | `16:9` |
+| `CG-QST-560` | `[ ]` 待补绘 | `public/assets/quests/zn_q30_dual_arts.jpg` | `/assets/quests/zn_q30_dual_arts.jpg` | `QST-SECT-11-30`<br>《寒涧同心 · 剑道合流》 | 终南后山寒玉涧 · 道墓同心<br>（`scene_znq30_23`） | `16:9` |
+| `CG-QST-561` | `[ ]` 待补绘 | `public/assets/quests/zn_q31_stream_confront.jpg` | `/assets/quests/zn_q31_stream_confront.jpg` | `QST-SECT-11-31`<br>《孤峰执念 · 道墓决裂》 | 繁花幽谷双剑合璧坪 · 道墓对峙<br>（`scene_znq31_06`） | `16:9` |
+| `CG-QST-562` | `[ ]` 待补绘 | `public/assets/quests/zn_q31_bridge_sever.jpg` | `/assets/quests/zn_q31_bridge_sever.jpg` | `QST-SECT-11-31`<br>《孤峰执念 · 道墓决裂》 | 寒玉涧 · 封涧断桥<br>（`scene_znq31_12`） | `16:9` |
+| `CG-QST-563` | `[ ]` 待补绘 | `public/assets/quests/zn_q31_vanguard_duel.jpg` | `/assets/quests/zn_q31_vanguard_duel.jpg` | `QST-SECT-11-31`<br>《孤峰执念 · 道墓决裂》 | 银练飞瀑 · 血战退敌<br>（`scene_znq31_18`） | `16:9` |
+| `CG-QST-564` | `[ ]` 待补绘 | `public/assets/quests/zn_q31_lone_oath.jpg` | `/assets/quests/zn_q31_lone_oath.jpg` | `QST-SECT-11-31`<br>《孤峰执念 · 道墓决裂》 | 终南后山 · 孤峰立誓<br>（`scene_znq31_23`） | `16:9` |
+| `CG-QST-565` | `[ ]` 待补绘 | `public/assets/quests/zn_q32_ziyang_robe.jpg` | `/assets/quests/zn_q32_ziyang_robe.jpg` | `QST-SECT-11-32`<br>《先天一炁 · 紫阳传衣》 | 重阳玄门清修主殿 · 传衣授道<br>（`scene_znq32_06`） | `16:9` |
+| `CG-QST-566` | `[ ]` 待补绘 | `public/assets/quests/zn_q32_xiantian_qi.jpg` | `/assets/quests/zn_q32_xiantian_qi.jpg` | `QST-SECT-11-32`<br>《先天一炁 · 紫阳传衣》 | 道藏经阁与紫金丹院 · 贯通周天<br>（`scene_znq32_12`） | `16:9` |
+| `CG-QST-567` | `[ ]` 待补绘 | `public/assets/quests/zn_q32_dipper_dawn.jpg` | `/assets/quests/zn_q32_dipper_dawn.jpg` | `QST-SECT-11-32`<br>《先天一炁 · 紫阳传衣》 | 天罡北斗七星演剑坛 · 铁鹞临城<br>（`scene_znq32_17`） | `16:9` |
+| `CG-QST-568` | `[ ]` 待补绘 | `public/assets/quests/zn_q32_helian_clash.jpg` | `/assets/quests/zn_q32_helian_clash.jpg` | `QST-SECT-11-32`<br>《先天一炁 · 紫阳传衣》 | 天罡北斗七星演剑坛 · 破晓大捷<br>（`scene_znq32_22`） | `16:9` |
+| `CG-QST-569` | `[ ]` 待补绘 | `public/assets/quests/zn_q32_sunrise_dao.jpg` | `/assets/quests/zn_q32_sunrise_dao.jpg` | `QST-SECT-11-32`<br>《先天一炁 · 紫阳传衣》 | 重阳古观 · 紫阳传衣<br>（`scene_znq32_27`） | `16:9` |
+| `CG-QST-570` | `[ ]` 待补绘 | `public/assets/quests/zn_q33_sevenstar_bestow.jpg` | `/assets/quests/zn_q33_sevenstar_bestow.jpg` | `QST-SECT-11-33`<br>《天罡神剑 · 横绝塞北》 | 重阳古观 · 拜领神剑<br>（`scene_znq33_06`） | `16:9` |
+| `CG-QST-571` | `[ ]` 待补绘 | `public/assets/quests/zn_q33_tongguan_spear.jpg` | `/assets/quests/zn_q33_tongguan_spear.jpg` | `QST-SECT-11-33`<br>《天罡神剑 · 横绝塞北》 | 潼关瓮城 · 大破燕云铁枪<br>（`scene_znq33_13`） | `16:9` |
+| `CG-QST-572` | `[ ]` 待补绘 | `public/assets/quests/zn_q33_yanan_array.jpg` | `/assets/quests/zn_q33_yanan_array.jpg` | `QST-SECT-11-33`<br>《天罡神剑 · 横绝塞北》 | 延安西营 · 天罡北斗大阵<br>（`scene_znq33_19`） | `16:9` |
+| `CG-QST-573` | `[ ]` 待补绘 | `public/assets/quests/zn_q33_duan_duel.jpg` | `/assets/quests/zn_q33_duan_duel.jpg` | `QST-SECT-11-33`<br>《天罡神剑 · 横绝塞北》 | 延安西营 · 大破段延庆<br>（`scene_znq33_24`） | `16:9` |
+| `CG-QST-574` | `[ ]` 待补绘 | `public/assets/quests/zn_q33_north_triumph.jpg` | `/assets/quests/zn_q33_north_triumph.jpg` | `QST-SECT-11-33`<br>《天罡神剑 · 横绝塞北》 | 重阳古观 · 横绝塞北<br>（`scene_znq33_29`） | `16:9` |
+| `CG-QST-575` | `[ ]` 待补绘 | `public/assets/quests/zn_q34_jadebed_entrust.jpg` | `/assets/quests/zn_q34_jadebed_entrust.jpg` | `QST-SECT-11-34`<br>《冰魄凝心 · 寒玉托剑》 | 昆仑寒玉床冰魄石室 · 传宝授剑<br>（`scene_znq34_06`） | `16:9` |
+| `CG-QST-576` | `[ ]` 待补绘 | `public/assets/quests/zn_q34_ice_meditation.jpg` | `/assets/quests/zn_q34_ice_meditation.jpg` | `QST-SECT-11-34`<br>《冰魄凝心 · 寒玉托剑》 | 捕雀轻功厅 · 剑玦共鸣<br>（`scene_znq34_11`） | `16:9` |
+| `CG-QST-577` | `[ ]` 待补绘 | `public/assets/quests/zn_q34_falls_ambush.jpg` | `/assets/quests/zn_q34_falls_ambush.jpg` | `QST-SECT-11-34`<br>《冰魄凝心 · 寒玉托剑》 | 银练飞瀑 · 双凶袭杀<br>（`scene_znq34_16`） | `16:9` |
+| `CG-QST-578` | `[ ]` 待补绘 | `public/assets/quests/zn_q34_dual_villains.jpg` | `/assets/quests/zn_q34_dual_villains.jpg` | `QST-SECT-11-34`<br>《冰魄凝心 · 寒玉托剑》 | 银练飞瀑 · 一战慑双恶<br>（`scene_znq34_21`） | `16:9` |
+| `CG-QST-579` | `[ ]` 待补绘 | `public/assets/quests/zn_q34_tomb_glory.jpg` | `/assets/quests/zn_q34_tomb_glory.jpg` | `QST-SECT-11-34`<br>《冰魄凝心 · 寒玉托剑》 | 活死人墓 · 寒玉承传<br>（`scene_znq34_27`） | `16:9` |
+| `CG-QST-580` | `[ ]` 待补绘 | `public/assets/quests/zn_q35_flower_valley.jpg` | `/assets/quests/zn_q35_flower_valley.jpg` | `QST-SECT-11-35`<br>《繁花似锦 · 玉女素心》 | 繁花幽谷双剑合璧坪 · 梅下论剑<br>（`scene_znq35_05`） | `16:9` |
+| `CG-QST-581` | `[ ]` 待补绘 | `public/assets/quests/zn_q35_duan_arrival.jpg` | `/assets/quests/zn_q35_duan_arrival.jpg` | `QST-SECT-11-35`<br>《繁花似锦 · 玉女素心》 | 双剑合璧坪 · 段延庆显威<br>（`scene_znq35_10`） | `16:9` |
+| `CG-QST-582` | `[ ]` 待补绘 | `public/assets/quests/zn_q35_suxin_epiphany.jpg` | `/assets/quests/zn_q35_suxin_epiphany.jpg` | `QST-SECT-11-35`<br>《繁花似锦 · 玉女素心》 | 繁花幽谷双剑合璧坪 · 剑道觉醒<br>（`scene_znq35_16`） | `16:9` |
+| `CG-QST-583` | `[ ]` 待补绘 | `public/assets/quests/zn_q35_suxin_clash.jpg` | `/assets/quests/zn_q35_suxin_clash.jpg` | `QST-SECT-11-35`<br>《繁花似锦 · 玉女素心》 | 双剑合璧坪 · 重创段延庆<br>（`scene_znq35_21`） | `16:9` |
+| `CG-QST-584` | `[ ]` 待补绘 | `public/assets/quests/zn_q35_duan_retreat.jpg` | `/assets/quests/zn_q35_duan_retreat.jpg` | `QST-SECT-11-35`<br>《繁花似锦 · 玉女素心》 | 终南后山 · 逐敌出山<br>（`scene_znq35_25`） | `16:9` |
+| `CG-QST-585` | `[ ]` 待补绘 | `public/assets/quests/zn_q35_suxin_mastery.jpg` | `/assets/quests/zn_q35_suxin_mastery.jpg` | `QST-SECT-11-35`<br>《繁花似锦 · 玉女素心》 | 繁花幽谷 · 剑道大成<br>（`scene_znq35_29`） | `16:9` |
+| `CG-QST-586` | `[ ]` 待补绘 | `public/assets/quests/zn_q36_ziyang_summon.jpg` | `/assets/quests/zn_q36_ziyang_summon.jpg` | `QST-SECT-11-36`<br>《玄门正统 · 紫阳掌教》 | 重阳玄门主殿 · 传道定计<br>（`scene_znq36_06`） | `16:9` |
+| `CG-QST-587` | `[ ]` 待补绘 | `public/assets/quests/zn_q36_dipper_trial.jpg` | `/assets/quests/zn_q36_dipper_trial.jpg` | `QST-SECT-11-36`<br>《玄门正统 · 紫阳掌教》 | 天罡北斗七星演剑坛 · 宗师演武<br>（`scene_znq36_13`） | `16:9` |
+| `CG-QST-588` | `[ ]` 待补绘 | `public/assets/quests/zn_q36_seal_bestow.jpg` | `/assets/quests/zn_q36_seal_bestow.jpg` | `QST-SECT-11-36`<br>《玄门正统 · 紫阳掌教》 | 重阳玄门清修主殿 · 传印大典<br>（`scene_znq36_19`） | `16:9` |
+| `CG-QST-589` | `[ ]` 待补绘 | `public/assets/quests/zn_q36_wandering_cloud.jpg` | `/assets/quests/zn_q36_wandering_cloud.jpg` | `QST-SECT-11-36`<br>《玄门正统 · 紫阳掌教》 | 终南古道 · 紫阳云游<br>（`scene_znq36_24`） | `16:9` |
+| `CG-QST-590` | `[ ]` 待补绘 | `public/assets/quests/zn_q36_ziyang_master.jpg` | `/assets/quests/zn_q36_ziyang_master.jpg` | `QST-SECT-11-36`<br>《玄门正统 · 紫阳掌教》 | 重阳古观 · 玄门正统终局<br>（`scene_znq36_29`） | `16:9` |
+| `CG-QST-591` | `[ ]` 待补绘 | `public/assets/quests/zn_q37_qin_farewell.jpg` | `/assets/quests/zn_q37_qin_farewell.jpg` | `QST-SECT-11-37`<br>《太乙仙侣 · 双剑共主》 | 寒玉涧临水抚琴榭 · 仙侣偕隐之愿<br>（`scene_znq37_06`） | `16:9` |
+| `CG-QST-592` | `[ ]` 待补绘 | `public/assets/quests/zn_q37_dual_test.jpg` | `/assets/quests/zn_q37_dual_test.jpg` | `QST-SECT-11-37`<br>《太乙仙侣 · 双剑共主》 | 双剑合璧坪 · 二老试剑<br>（`scene_znq37_13`） | `16:9` |
+| `CG-QST-593` | `[ ]` 待补绘 | `public/assets/quests/zn_q37_sword_reunite.jpg` | `/assets/quests/zn_q37_sword_reunite.jpg` | `QST-SECT-11-37`<br>《太乙仙侣 · 双剑共主》 | 繁花幽谷双剑合璧坪 · 补授神兵<br>（`scene_znq37_19`） | `16:9` |
+| `CG-QST-594` | `[ ]` 待补绘 | `public/assets/quests/zn_q37_couple_depart.jpg` | `/assets/quests/zn_q37_couple_depart.jpg` | `QST-SECT-11-37`<br>《太乙仙侣 · 双剑共主》 | 终南云海 · 偕隐江湖<br>（`scene_znq37_25`） | `16:9` |
+| `CG-QST-595` | `[ ]` 待补绘 | `public/assets/quests/zn_q37_two_branches.jpg` | `/assets/quests/zn_q37_two_branches.jpg` | `QST-SECT-11-37`<br>《太乙仙侣 · 双剑共主》 | 终南隐宗 · 盛世新篇<br>（`scene_znq37_29`） | `16:9` |
+| `CG-QST-596` | `[ ]` 待补绘 | `public/assets/quests/zn_q37_twinsword_master.jpg` | `/assets/quests/zn_q37_twinsword_master.jpg` | `QST-SECT-11-37`<br>《太乙仙侣 · 双剑共主》 | 终南山巅 · 大团圆终局<br>（`scene_znq37_33`） | `16:9` |
+| `CG-QST-597` | `[ ]` 待补绘 | `public/assets/quests/zn_q38_thunder_ambush.jpg` | `/assets/quests/zn_q38_thunder_ambush.jpg` | `QST-SECT-11-38`<br>《断龙绝响 · 黯然孤鸿》 | 活死人墓 · 毒焰漫廊<br>（`scene_znq38_06`） | `16:9` |
+| `CG-QST-598` | `[ ]` 待补绘 | `public/assets/quests/zn_q38_dragon_stone.jpg` | `/assets/quests/zn_q38_dragon_stone.jpg` | `QST-SECT-11-38`<br>《断龙绝响 · 黯然孤鸿》 | 活死人墓 · 千斤巨石封门<br>（`scene_znq38_13`） | `16:9` |
+| `CG-QST-599` | `[ ]` 待补绘 | `public/assets/quests/zn_q38_ice_coffin.jpg` | `/assets/quests/zn_q38_ice_coffin.jpg` | `QST-SECT-11-38`<br>《断龙绝响 · 黯然孤鸿》 | 冰魄石室 · 寒玉冰封<br>（`scene_znq38_19`） | `16:9` |
+| `CG-QST-600` | `[ ]` 待补绘 | `public/assets/quests/zn_q38_biefu_grief.jpg` | `/assets/quests/zn_q38_biefu_grief.jpg` | `QST-SECT-11-38`<br>《断龙绝响 · 黯然孤鸿》 | 银练飞瀑 · 吟《别赋》悟掌<br>（`scene_znq38_24`） | `16:9` |
+| `CG-QST-601` | `[ ]` 待补绘 | `public/assets/quests/zn_q38_anran_palm.jpg` | `/assets/quests/zn_q38_anran_palm.jpg` | `QST-SECT-11-38`<br>《断龙绝响 · 黯然孤鸿》 | 银练飞瀑 · 黯然销魂掌威<br>（`scene_znq38_30`） | `16:9` |
+| `CG-QST-602` | `[ ]` 待补绘 | `public/assets/quests/zn_q38_tomb_master.jpg` | `/assets/quests/zn_q38_tomb_master.jpg` | `QST-SECT-11-38`<br>《断龙绝响 · 黯然孤鸿》 | 终南后山 · 黯然孤鸿终局<br>（`scene_znq38_35`） | `16:9` |
+| `CG-QST-603` | `[ ]` 待补绘 | `public/assets/quests/zn_q39_decline_throne.jpg` | `/assets/quests/zn_q39_decline_throne.jpg` | `QST-SECT-11-39`<br>《坐忘太虚 · 道藏真君》 | 重阳玄门主殿 · 举贤让能<br>（`scene_znq39_06`） | `16:9` |
+| `CG-QST-604` | `[ ]` 待补绘 | `public/assets/quests/zn_q39_guests_arrive.jpg` | `/assets/quests/zn_q39_guests_arrive.jpg` | `QST-SECT-11-39`<br>《坐忘太虚 · 道藏真君》 | 银练飞瀑清泉石茗案 · 迎贤设茗<br>（`scene_znq39_12`） | `16:9` |
+| `CG-QST-605` | `[ ]` 待补绘 | `public/assets/quests/zn_q39_dao_debate.jpg` | `/assets/quests/zn_q39_dao_debate.jpg` | `QST-SECT-11-39`<br>《坐忘太虚 · 道藏真君》 | 银练飞瀑 · 三贤坐忘<br>（`scene_znq39_18`） | `16:9` |
+| `CG-QST-606` | `[ ]` 待补绘 | `public/assets/quests/zn_q39_void_epiphany.jpg` | `/assets/quests/zn_q39_void_epiphany.jpg` | `QST-SECT-11-39`<br>《坐忘太虚 · 道藏真君》 | 银练飞瀑 · 坐忘悟道<br>（`scene_znq39_25`） | `16:9` |
+| `CG-QST-607` | `[ ]` 待补绘 | `public/assets/quests/zn_q39_immortal_recluse.jpg` | `/assets/quests/zn_q39_immortal_recluse.jpg` | `QST-SECT-11-39`<br>《坐忘太虚 · 道藏真君》 | 终南山巅 · 道藏真君终局<br>（`scene_znq39_31`） | `16:9` |
+| `CG-QST-608` | `[ ]` 待补绘 | `public/assets/quests/zn_q40_autumn_dispatch.jpg` | `/assets/quests/zn_q40_autumn_dispatch.jpg` | `QST-SECT-11-40`<br>《贺兰破冰 · 寒窖问尊》 | 终南山隐宗 · 重阳玄门清修主殿<br>（`scene_zn40_01`） | `16:9` |
+| `CG-QST-609` | `[ ]` 待补绘 | `public/assets/quests/zn_q40_desert_march.jpg` | `/assets/quests/zn_q40_desert_march.jpg` | `QST-SECT-11-40`<br>《贺兰破冰 · 寒窖问尊》 | 河西沙道 · 贺兰山麓<br>（`scene_zn40_06`） | `16:9` |
+| `CG-QST-610` | `[ ]` 待补绘 | `public/assets/quests/zn_q40_yipin_gate.jpg` | `/assets/quests/zn_q40_yipin_gate.jpg` | `QST-SECT-11-40`<br>《贺兰破冰 · 寒窖问尊》 | 兴庆府 · 一品堂绿琉璃聚贤殿<br>（`scene_zn40_09`） | `16:9` |
+| `CG-QST-611` | `[ ]` 待补绘 | `public/assets/quests/zn_q40_shatter_plaque.jpg` | `/assets/quests/zn_q40_shatter_plaque.jpg` | `QST-SECT-11-40`<br>《贺兰破冰 · 寒窖问尊》 | 兴庆府 · 一品堂绿琉璃聚贤殿<br>（`scene_zn40_14`） | `16:9` |
+| `CG-QST-612` | `[ ]` 待补绘 | `public/assets/quests/zn_q40_ice_cellar_hall.jpg` | `/assets/quests/zn_q40_ice_cellar_hall.jpg` | `QST-SECT-11-40`<br>《贺兰破冰 · 寒窖问尊》 | 兴庆府 · 西夏皇宫寒玉冰窖<br>（`scene_zn40_21`） | `16:9` |
+| `CG-QST-613` | `[ ]` 待补绘 | `public/assets/quests/zn_q40_ice_duel.jpg` | `/assets/quests/zn_q40_ice_duel.jpg` | `QST-SECT-11-40`<br>《贺兰破冰 · 寒窖问尊》 | 兴庆府 · 西夏皇宫寒玉冰窖<br>（`scene_zn40_25`） | `16:9` |
+| `CG-QST-614` | `[ ]` 待补绘 | `public/assets/quests/zn_q40_pillar_cleave.jpg` | `/assets/quests/zn_q40_pillar_cleave.jpg` | `QST-SECT-11-40`<br>《贺兰破冰 · 寒窖问尊》 | 兴庆府 · 西夏皇宫寒玉冰窖<br>（`scene_zn40_27`） | `16:9` |
+| `CG-QST-615` | `[ ]` 待补绘 | `public/assets/quests/zn_q40_return_dawn.jpg` | `/assets/quests/zn_q40_return_dawn.jpg` | `QST-SECT-11-40`<br>《贺兰破冰 · 寒窖问尊》 | 河西古道 · 关中边关<br>（`scene_zn40_33`） | `16:9` |
+| `CG-QST-616` | `[ ]` 待补绘 | `public/assets/quests/zn_q40_zhongnan_peace.jpg` | `/assets/quests/zn_q40_zhongnan_peace.jpg` | `QST-SECT-11-40`<br>《贺兰破冰 · 寒窖问尊》 | 终南山隐宗 · 重阳玄门清修主殿<br>（`scene_zn40_39`） | `16:9` |
+| `CG-QST-617` | `[ ]` 待补绘 | `public/assets/quests/zn_q41_chongyang_clouds.jpg` | `/assets/quests/zn_q41_chongyang_clouds.jpg` | `QST-SECT-11-41`<br>《云深不知 · 太乙论道》 | 终南山隐宗 · 银练飞瀑清泉石茗案<br>（`scene_zn41_01`） | `16:9` |
+| `CG-QST-618` | `[ ]` 待补绘 | `public/assets/quests/zn_q41_masters_gather.jpg` | `/assets/quests/zn_q41_masters_gather.jpg` | `QST-SECT-11-41`<br>《云深不知 · 太乙论道》 | 终南山隐宗 · 银练飞瀑清泉石茗案<br>（`scene_zn41_06`） | `16:9` |
+| `CG-QST-619` | `[ ]` 待补绘 | `public/assets/quests/zn_q41_duel_feng.jpg` | `/assets/quests/zn_q41_duel_feng.jpg` | `QST-SECT-11-41`<br>《云深不知 · 太乙论道》 | 终南山隐宗 · 繁花幽谷双剑合璧坪<br>（`scene_zn41_11`） | `16:9` |
+| `CG-QST-620` | `[ ]` 待补绘 | `public/assets/quests/zn_q41_duel_jiumozhi.jpg` | `/assets/quests/zn_q41_duel_jiumozhi.jpg` | `QST-SECT-11-41`<br>《云深不知 · 太乙论道》 | 终南山隐宗 · 繁花幽谷双剑合璧坪<br>（`scene_zn41_21`） | `16:9` |
+| `CG-QST-621` | `[ ]` 待补绘 | `public/assets/quests/zn_q41_duel_murong.jpg` | `/assets/quests/zn_q41_duel_murong.jpg` | `QST-SECT-11-41`<br>《云深不知 · 太乙论道》 | 终南山隐宗 · 繁花幽谷双剑合璧坪<br>（`scene_zn41_31`） | `16:9` |
+| `CG-QST-622` | `[ ]` 待补绘 | `public/assets/quests/zn_q41_victory_ovation.jpg` | `/assets/quests/zn_q41_victory_ovation.jpg` | `QST-SECT-11-41`<br>《云深不知 · 太乙论道》 | 终南山隐宗 · 繁花幽谷双剑合璧坪<br>（`scene_zn41_34`） | `16:9` |
+| `CG-QST-623` | `[ ]` 待补绘 | `public/assets/quests/zn_q41_waterfall_tea.jpg` | `/assets/quests/zn_q41_waterfall_tea.jpg` | `QST-SECT-11-41`<br>《云深不知 · 太乙论道》 | 终南山隐宗 · 银练飞瀑清泉石茗案<br>（`scene_zn41_39`） | `16:9` |
+| `CG-QST-624` | `[ ]` 待补绘 | `public/assets/quests/zn_q41_taiyi_apotheosis.jpg` | `/assets/quests/zn_q41_taiyi_apotheosis.jpg` | `QST-SECT-11-41`<br>《云深不知 · 太乙论道》 | 终南山隐宗 · 银练飞瀑清泉石茗案<br>（`scene_zn41_43`） | `16:9` |
+| `CG-QST-625` | `[ ]` 待补绘 | `public/assets/quests/zn_q41_eternal_pine.jpg` | `/assets/quests/zn_q41_eternal_pine.jpg` | `QST-SECT-11-41`<br>《云深不知 · 太乙论道》 | 终南山隐宗 · 银练飞瀑清泉石茗案<br>（`scene_zn41_45`） | `16:9` |
+| `CG-QST-626` | `[ ]` 待补绘 | `public/assets/quests/zn_side01_bee_garden.jpg` | `/assets/quests/zn_side01_bee_garden.jpg` | `QST-SECT-11-SIDE-01`<br>《玉蜂百花 · 清芬酿蜜记》 | 终南山隐宗 · 玉蜂百花酿蜜幽轩<br>（`scene_zns01_01`） | `16:9` |
+| `CG-QST-627` | `[ ]` 待补绘 | `public/assets/quests/zn_side01_thief_ambush.jpg` | `/assets/quests/zn_side01_thief_ambush.jpg` | `QST-SECT-11-SIDE-01`<br>《玉蜂百花 · 清芬酿蜜记》 | 终南山隐宗 · 玉蜂百花酿蜜幽轩<br>（`scene_zns01_07`） | `16:9` |
+| `CG-QST-628` | `[ ]` 待补绘 | `public/assets/quests/zn_side02_hengqu_lecture.jpg` | `/assets/quests/zn_side02_hengqu_lecture.jpg` | `QST-SECT-11-SIDE-02`<br>《横渠问剑 · 立心立命录》 | 京兆府 · 长安横渠关学书院<br>（`scene_zns02_01`） | `16:9` |
+| `CG-QST-629` | `[ ]` 待补绘 | `public/assets/quests/zn_side02_roof_chase.jpg` | `/assets/quests/zn_side02_roof_chase.jpg` | `QST-SECT-11-SIDE-02`<br>《横渠问剑 · 立心立命录》 | 京兆府 · 永兴军路京兆府衙<br>（`scene_zns02_08`） | `16:9` |
+| `CG-QST-630` | `[ ]` 待补绘 | `public/assets/quests/zn_side03_alchemy_furnace.jpg` | `/assets/quests/zn_side03_alchemy_furnace.jpg` | `QST-SECT-11-SIDE-03`<br>《紫金丹火 · 耀州博山炉》 | 终南山隐宗 · 道藏经阁与紫金丹院<br>（`scene_zns03_01`） | `16:9` |
+| `CG-QST-631` | `[ ]` 待补绘 | `public/assets/quests/zn_side03_bandit_ambush.jpg` | `/assets/quests/zn_side03_bandit_ambush.jpg` | `QST-SECT-11-SIDE-03`<br>《紫金丹火 · 耀州博山炉》 | 终南山口 · 松林石径<br>（`scene_zns03_06`） | `16:9` |
+| `CG-QST-632` | `[ ]` 待补绘 | `public/assets/quests/zn_side04_dayanta_stele.jpg` | `/assets/quests/zn_side04_dayanta_stele.jpg` | `QST-SECT-11-SIDE-04`<br>《雁塔题名 · 先秦石鼓考》 | 京兆府 · 慈恩寺大雁塔<br>（`scene_zns04_01`） | `16:9` |
+| `CG-QST-633` | `[ ]` 待补绘 | `public/assets/quests/zn_side04_spy_duel.jpg` | `/assets/quests/zn_side04_spy_duel.jpg` | `QST-SECT-11-SIDE-04`<br>《雁塔题名 · 先秦石鼓考》 | 京兆府 · 慈恩寺大雁塔<br>（`scene_zns04_06`） | `16:9` |
+| `CG-QST-634` | `[ ]` 待补绘 | `public/assets/quests/zn_side05_xishi_case.jpg` | `/assets/quests/zn_side05_xishi_case.jpg` | `QST-SECT-11-SIDE-05`<br>《西市迷香 · 波斯胡商案》 | 京兆府 · 西市胡商坊<br>（`scene_zns05_01`） | `16:9` |
+| `CG-QST-635` | `[ ]` 待补绘 | `public/assets/quests/zn_side05_cellar_fight.jpg` | `/assets/quests/zn_side05_cellar_fight.jpg` | `QST-SECT-11-SIDE-05`<br>《西市迷香 · 波斯胡商案》 | 京兆府 · 西市荒废酒窖<br>（`scene_zns05_06`） | `16:9` |
+| `CG-QST-636` | `[ ]` 待补绘 | `public/assets/quests/zn_side06_snow_woodcutter.jpg` | `/assets/quests/zn_side06_snow_woodcutter.jpg` | `QST-SECT-11-SIDE-06`<br>《太白积雪 · 樵夫劈柴意》 | 终南山隐宗 · 银练飞瀑清泉石茗案<br>（`scene_zns06_01`） | `16:9` |
+| `CG-QST-637` | `[ ]` 待补绘 | `public/assets/quests/zn_side06_wolf_pack.jpg` | `/assets/quests/zn_side06_wolf_pack.jpg` | `QST-SECT-11-SIDE-06`<br>《太白积雪 · 樵夫劈柴意》 | 终南山隐宗 · 太白雪崖茅庐<br>（`scene_zns06_06`） | `16:9` |
+| `CG-QST-638` | `[ ]` 待补绘 | `public/assets/quests/zn_side07_caotang_rescue.jpg` | `/assets/quests/zn_side07_caotang_rescue.jpg` | `QST-SECT-11-SIDE-07`<br>《秦晋同盟 · 西岳送剑帖》 | 京兆府 · 终南草堂<br>（`scene_zns07_01`） | `16:9` |
+| `CG-QST-639` | `[ ]` 待补绘 | `public/assets/quests/zn_side07_tongguan_clash.jpg` | `/assets/quests/zn_side07_tongguan_clash.jpg` | `QST-SECT-11-SIDE-07`<br>《秦晋同盟 · 西岳送剑帖》 | 潼关 / 西岳华山 · 潼关天险瓮城<br>（`scene_zns07_06`） | `16:9` |
+| `CG-QST-640` | `[ ]` 待补绘 | `public/assets/quests/zn_side08_winter_tea.jpg` | `/assets/quests/zn_side08_winter_tea.jpg` | `QST-SECT-11-SIDE-08`<br>《寒涧松茗 · 岁寒三友会》 | 终南山隐宗 · 银练飞瀑清泉石茗案<br>（`scene_zns08_01`） | `16:9` |
+| `CG-QST-641` | `[ ]` 待补绘 | `public/assets/quests/zn_side08_qin_sword_spar.jpg` | `/assets/quests/zn_side08_qin_sword_spar.jpg` | `QST-SECT-11-SIDE-08`<br>《寒涧松茗 · 岁寒三友会》 | 终南山隐宗 · 银练飞瀑清泉石茗案<br>（`scene_zns08_06`） | `16:9` |
 ---
 
 ## 二、 逐张画面考据要求与生图 Prompt 规范
@@ -6634,3 +6826,2306 @@
   Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Song Shaolin / Luoyang / Bianliang / Putian). Depicting scene "古银杏扫叶庭 · 漫天黄叶纷飞中，扫地僧法空点化主角二十三载禅武苦修，亲传创派神功《易筋经》与天阶双圣物" from 《古杏扫叶 · 易筋真经》. Authentic Northern Song Buddhist architecture, martial monks and wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
   ```
 
+---
+
+### 450. `CG-QST-450`：太乙烟霞 · 终南草堂内郝大玄与冷薇蓉对席煮茗，双脉气象初现
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEntryQuest.ts`](../src/data/quests/sects/zhongnanEntryQuest.ts)
+- **目标路径**：`public/assets/quests/zn_entry_caotang_tea.jpg`
+- **画框题跋**：`太乙烟霞 · 终南草堂内郝大玄与冷薇蓉对席煮茗，双脉气象初现`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "太乙烟霞 · 终南草堂内郝大玄与冷薇蓉对席煮茗，双脉气象初现" from 《太乙烟霞 · 双脉问心》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 451. `CG-QST-451`：寒玉驱匪 · 涧畔花林玉蜂纷飞，丘芷霜护坛斥山贼
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEntryQuest.ts`](../src/data/quests/sects/zhongnanEntryQuest.ts)
+- **目标路径**：`public/assets/quests/zn_entry_stream_bees.jpg`
+- **画框题跋**：`寒玉驱匪 · 涧畔花林玉蜂纷飞，丘芷霜护坛斥山贼`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒玉驱匪 · 涧畔花林玉蜂纷飞，丘芷霜护坛斥山贼" from 《太乙烟霞 · 双脉问心》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 452. `CG-QST-452`：太乙传薪 · 重阳玄门主殿松香缭绕，马钰玄验身授剑
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEntryQuest.ts`](../src/data/quests/sects/zhongnanEntryQuest.ts)
+- **目标路径**：`public/assets/quests/zn_entry_chongyang_oath.jpg`
+- **画框题跋**：`太乙传薪 · 重阳玄门主殿松香缭绕，马钰玄验身授剑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "太乙传薪 · 重阳玄门主殿松香缭绕，马钰玄验身授剑" from 《太乙烟霞 · 双脉问心》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 453. `CG-QST-453`：大道筑基 · 重阳主殿晨光透窗，马钰玄与刘处静开坛授歌
+
+- **关联文件**：[`src/data/quests/sects/zhongnanFoundationSongQuest.ts`](../src/data/quests/sects/zhongnanFoundationSongQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q01_morning_chant.jpg`
+- **画框题跋**：`大道筑基 · 重阳主殿晨光透窗，马钰玄与刘处静开坛授歌`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "大道筑基 · 重阳主殿晨光透窗，马钰玄与刘处静开坛授歌" from 《松风鹤影 · 大道筑基》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 454. `CG-QST-454`：飞瀑护柏 · 银练飞瀑旁水雾漫天，双贼挥斧截路
+
+- **关联文件**：[`src/data/quests/sects/zhongnanFoundationSongQuest.ts`](../src/data/quests/sects/zhongnanFoundationSongQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q01_falls_bandits.jpg`
+- **画框题跋**：`飞瀑护柏 · 银练飞瀑旁水雾漫天，双贼挥斧截路`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "飞瀑护柏 · 银练飞瀑旁水雾漫天，双贼挥斧截路" from 《松风鹤影 · 大道筑基》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 455. `CG-QST-455`：迎宾密会 · 丝路客栈灯影摇曳，冷玄远低声指点西市毒哨
+
+- **关联文件**：[`src/data/quests/sects/zhongnanZiwuScoutQuest.ts`](../src/data/quests/sects/zhongnanZiwuScoutQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q02_changan_inn_secret.jpg`
+- **画框题跋**：`迎宾密会 · 丝路客栈灯影摇曳，冷玄远低声指点西市毒哨`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "迎宾密会 · 丝路客栈灯影摇曳，冷玄远低声指点西市毒哨" from 《子午毒雾 · 长安暗哨》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 456. `CG-QST-456`：西市除毒 · 品香轩后院绿焰升腾，星宿双凶现身截杀
+
+- **关联文件**：[`src/data/quests/sects/zhongnanZiwuScoutQuest.ts`](../src/data/quests/sects/zhongnanZiwuScoutQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q02_xishi_poison_raid.jpg`
+- **画框题跋**：`西市除毒 · 品香轩后院绿焰升腾，星宿双凶现身截杀`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "西市除毒 · 品香轩后院绿焰升腾，星宿双凶现身截杀" from 《子午毒雾 · 长安暗哨》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 457. `CG-QST-457`：寒涧试剑 · 繁花幽谷青石坪上玉磬清鸣，双脉长老齐聚
+
+- **关联文件**：[`src/data/quests/sects/zhongnanStreamDivisionQuest.ts`](../src/data/quests/sects/zhongnanStreamDivisionQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q03_sword_terrace.jpg`
+- **画框题跋**：`寒涧试剑 · 繁花幽谷青石坪上玉磬清鸣，双脉长老齐聚`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒涧试剑 · 繁花幽谷青石坪上玉磬清鸣，双脉长老齐聚" from 《寒涧试剑 · 观墓分途》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 458. `CG-QST-458`：连战三杰 · 繁花落雨间长剑交鸣，玄门剑意纵横
+
+- **关联文件**：[`src/data/quests/sects/zhongnanStreamDivisionQuest.ts`](../src/data/quests/sects/zhongnanStreamDivisionQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q03_three_duels.jpg`
+- **画框题跋**：`连战三杰 · 繁花落雨间长剑交鸣，玄门剑意纵横`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "连战三杰 · 繁花落雨间长剑交鸣，玄门剑意纵横" from 《寒涧试剑 · 观墓分途》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 459. `CG-QST-459`：双尊并立 · 明月下王重楼与林朝瑶娓娓道来终南双脉渊源
+
+- **关联文件**：[`src/data/quests/sects/zhongnanStreamDivisionQuest.ts`](../src/data/quests/sects/zhongnanStreamDivisionQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q03_twin_patriarchs.jpg`
+- **画框题跋**：`双尊并立 · 明月下王重楼与林朝瑶娓娓道来终南双脉渊源`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "双尊并立 · 明月下王重楼与林朝瑶娓娓道来终南双脉渊源" from 《寒涧试剑 · 观墓分途》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 460. `CG-QST-460`：观墓分途 · 剑指明月立下终生无悔之誓，前山古观与后山幽谷自此分流
+
+- **关联文件**：[`src/data/quests/sects/zhongnanStreamDivisionQuest.ts`](../src/data/quests/sects/zhongnanStreamDivisionQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q03_branch_oath.jpg`
+- **画框题跋**：`观墓分途 · 剑指明月立下终生无悔之誓，前山古观与后山幽谷自此分流`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "观墓分途 · 剑指明月立下终生无悔之誓，前山古观与后山幽谷自此分流" from 《寒涧试剑 · 观墓分途》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 461. `CG-QST-461`：北斗璇玑 · 七星青石坛上剑影如星，谭处真与林弘毅指点阵法
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanBigDipperQuest.ts`](../src/data/quests/sects/zhongnanGuanBigDipperQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q04_dipper_formation.jpg`
+- **画框题跋**：`北斗璇玑 · 七星青石坛上剑影如星，谭处真与林弘毅指点阵法`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "北斗璇玑 · 七星青石坛上剑影如星，谭处真与林弘毅指点阵法" from 《北斗璇玑 · 三才归元》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 462. `CG-QST-462`：星夜护观 · 火把映红七星石坛，太行悍匪挥刀强攻重阳山门
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanBigDipperQuest.ts`](../src/data/quests/sects/zhongnanGuanBigDipperQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q04_night_bandits.jpg`
+- **画框题跋**：`星夜护观 · 火把映红七星石坛，太行悍匪挥刀强攻重阳山门`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "星夜护观 · 火把映红七星石坛，太行悍匪挥刀强攻重阳山门" from 《北斗璇玑 · 三才归元》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 463. `CG-QST-463`：太白金雁 · 玉阳子王处阳踏松凌虚，白雁掠过银练飞瀑
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanGoldenGooseQuest.ts`](../src/data/quests/sects/zhongnanGuanGoldenGooseQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q05_cliff_goose.jpg`
+- **画框题跋**：`太白金雁 · 玉阳子王处阳踏松凌虚，白雁掠过银练飞瀑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "太白金雁 · 玉阳子王处阳踏松凌虚，白雁掠过银练飞瀑" from 《太白金雁 · 绝壁凌虚》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 464. `CG-QST-464`：绝壁救险 · 寒泉道剑凌空斩落，替负伤大宋斥候格开西夏弯刀
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanGoldenGooseQuest.ts`](../src/data/quests/sects/zhongnanGuanGoldenGooseQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q05_xixia_ambush.jpg`
+- **画框题跋**：`绝壁救险 · 寒泉道剑凌空斩落，替负伤大宋斥候格开西夏弯刀`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "绝壁救险 · 寒泉道剑凌空斩落，替负伤大宋斥候格开西夏弯刀" from 《太白金雁 · 绝壁凌虚》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 465. `CG-QST-465`：山道救孤 · 王处阳以金创药救治宋军斥候，染血竹筒揭露西夏密谋
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanGoldenGooseQuest.ts`](../src/data/quests/sects/zhongnanGuanGoldenGooseQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q05_scout_rescue.jpg`
+- **画框题跋**：`山道救孤 · 王处阳以金创药救治宋军斥候，染血竹筒揭露西夏密谋`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "山道救孤 · 王处阳以金创药救治宋军斥候，染血竹筒揭露西夏密谋" from 《太白金雁 · 绝壁凌虚》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 466. `CG-QST-466`：府衙呈情 · 晏殊从容披阅军报，丘处玄与主角共议长安布防
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanZhangZaiQuest.ts`](../src/data/quests/sects/zhongnanGuanZhangZaiQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q06_yamen_yanshu.jpg`
+- **画框题跋**：`府衙呈情 · 晏殊从容披阅军报，丘处玄与主角共议长安布防`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "府衙呈情 · 晏殊从容披阅军报，丘处玄与主角共议长安布防" from 《草堂护道 · 正气劈空》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 467. `CG-QST-467`：横渠薪火 · 书院灯火通明，张载与尹源侃侃讲学，浩然气贯青衿
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanZhangZaiQuest.ts`](../src/data/quests/sects/zhongnanGuanZhangZaiQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q06_academy_lecture.jpg`
+- **画框题跋**：`横渠薪火 · 书院灯火通明，张载与尹源侃侃讲学，浩然气贯青衿`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "横渠薪火 · 书院灯火通明，张载与尹源侃侃讲学，浩然气贯青衿" from 《草堂护道 · 正气劈空》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 468. `CG-QST-468`：正气劈空 · 丘处玄隔空震散毒烟，亲传全真刚猛绝学《劈空掌》
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanZhangZaiQuest.ts`](../src/data/quests/sects/zhongnanGuanZhangZaiQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q06_pikong_palm.jpg`
+- **画框题跋**：`正气劈空 · 丘处玄隔空震散毒烟，亲传全真刚猛绝学《劈空掌》`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "正气劈空 · 丘处玄隔空震散毒烟，亲传全真刚猛绝学《劈空掌》" from 《草堂护道 · 正气劈空》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 469. `CG-QST-469`：茶马边塞 · 秋风卷过秦州验马阑，吐蕃河曲骏马嘶鸣如雷
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanQinzhouHorseQuest.ts`](../src/data/quests/sects/zhongnanGuanQinzhouHorseQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q07_chama_horses.jpg`
+- **画框题跋**：`茶马边塞 · 秋风卷过秦州验马阑，吐蕃河曲骏马嘶鸣如雷`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "茶马边塞 · 秋风卷过秦州验马阑，吐蕃河曲骏马嘶鸣如雷" from 《秦州烽火 · 铁骑护马》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 470. `CG-QST-470`：陇右烽火 · 古塞石堡狼烟冲天，刘沪与雷万里列阵迎击西夏铁骑
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanQinzhouHorseQuest.ts`](../src/data/quests/sects/zhongnanGuanQinzhouHorseQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q07_longyou_beacon.jpg`
+- **画框题跋**：`陇右烽火 · 古塞石堡狼烟冲天，刘沪与雷万里列阵迎击西夏铁骑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "陇右烽火 · 古塞石堡狼烟冲天，刘沪与雷万里列阵迎击西夏铁骑" from 《秦州烽火 · 铁骑护马》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 471. `CG-QST-471`：道风分途 · 丘处玄按剑望北欲追歼夏骑，马钰玄提药箱赴村抚民
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanQinzhouHorseQuest.ts`](../src/data/quests/sects/zhongnanGuanQinzhouHorseQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q07_qinzhou_choice.jpg`
+- **画框题跋**：`道风分途 · 丘处玄按剑望北欲追歼夏骑，马钰玄提药箱赴村抚民`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "道风分途 · 丘处玄按剑望北欲追歼夏骑，马钰玄提药箱赴村抚民" from 《秦州烽火 · 铁骑护马》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 472. `CG-QST-472`：道剑同盟 · 紫霞正气主殿内岳沧溟设茗迎客，终南华山两派高人齐聚
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanHuashanXiyiQuest.ts`](../src/data/quests/sects/zhongnanGuanHuashanXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q08_zixia_meeting.jpg`
+- **画框题跋**：`道剑同盟 · 紫霞正气主殿内岳沧溟设茗迎客，终南华山两派高人齐聚`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "道剑同盟 · 紫霞正气主殿内岳沧溟设茗迎客，终南华山两派高人齐聚" from 《华岳论剑 · 睡仙希夷》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 473. `CG-QST-473`：博台论剑 · 云海翻涌孤峰亭畔，与紫霞首徒高沧云切磋剑意
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanHuashanXiyiQuest.ts`](../src/data/quests/sects/zhongnanGuanHuashanXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q08_botai_sword_debate.jpg`
+- **画框题跋**：`博台论剑 · 云海翻涌孤峰亭畔，与紫霞首徒高沧云切磋剑意`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "博台论剑 · 云海翻涌孤峰亭畔，与紫霞首徒高沧云切磋剑意" from 《华岳论剑 · 睡仙希夷》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 474. `CG-QST-474`：绝壁擒奸 · 寒泉道剑截住云海栈道，慕容暗探怀抱紫檀剑匣现形
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanHuashanXiyiQuest.ts`](../src/data/quests/sects/zhongnanGuanHuashanXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q08_murong_thief.jpg`
+- **画框题跋**：`绝壁擒奸 · 寒泉道剑截住云海栈道，慕容暗探怀抱紫檀剑匣现形`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "绝壁擒奸 · 寒泉道剑截住云海栈道，慕容暗探怀抱紫檀剑匣现形" from 《华岳论剑 · 睡仙希夷》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 475. `CG-QST-475`：古观真传 · 重阳主殿香烟缭绕，马钰玄与刘处静亲颁真传玉符
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanHuashanXiyiQuest.ts`](../src/data/quests/sects/zhongnanGuanHuashanXiyiQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q08_xiyi_promotion.jpg`
+- **画框题跋**：`古观真传 · 重阳主殿香烟缭绕，马钰玄与刘处静亲颁真传玉符`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "古观真传 · 重阳主殿香烟缭绕，马钰玄与刘处静亲颁真传玉符" from 《华岳论剑 · 睡仙希夷》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 476. `CG-QST-476`：紫金丹劫 · 紫金丹院炉火轰然炸裂，黑烟毒火冲天而起
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanDayantaQuest.ts`](../src/data/quests/sects/zhongnanGuanDayantaQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q09_alchemy_explosion.jpg`
+- **画框题跋**：`紫金丹劫 · 紫金丹院炉火轰然炸裂，黑烟毒火冲天而起`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "紫金丹劫 · 紫金丹院炉火轰然炸裂，黑烟毒火冲天而起" from 《紫金丹劫 · 大雁除妖》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 477. `CG-QST-477`：大雁塔顶 · 拂晓云雾缭绕七层高塔，白星焱与宋河麟已封锁塔阶
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanDayantaQuest.ts`](../src/data/quests/sects/zhongnanGuanDayantaQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q09_dayanta_summit.jpg`
+- **画框题跋**：`大雁塔顶 · 拂晓云雾缭绕七层高塔，白星焱与宋河麟已封锁塔阶`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "大雁塔顶 · 拂晓云雾缭绕七层高塔，白星焱与宋河麟已封锁塔阶" from 《紫金丹劫 · 大雁除妖》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 478. `CG-QST-478`：塔顶决战 · 寒泉道剑划破晓雾，迎战星宿狂狮护法狮吼子
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanDayantaQuest.ts`](../src/data/quests/sects/zhongnanGuanDayantaQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q09_lion_roar_duel.jpg`
+- **画框题跋**：`塔顶决战 · 寒泉道剑划破晓雾，迎战星宿狂狮护法狮吼子`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "塔顶决战 · 寒泉道剑划破晓雾，迎战星宿狂狮护法狮吼子" from 《紫金丹劫 · 大雁除妖》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 479. `CG-QST-479`：汉水风波 · 襄阳渡口铁掌少主截击武当道长
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanWudangVisitQuest.ts`](../src/data/quests/sects/zhongnanGuanWudangVisitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q10_xiangyang_dock.jpg`
+- **画框题跋**：`汉水风波 · 襄阳渡口铁掌少主截击武当道长`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "汉水风波 · 襄阳渡口铁掌少主截击武当道长" from 《太和云海 · 武当问真》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 480. `CG-QST-480`：太和云海 · 绝顶金殿拜谒太和真人张玄素
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanWudangVisitQuest.ts`](../src/data/quests/sects/zhongnanGuanWudangVisitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q10_wudang_golden.jpg`
+- **画框题跋**：`太和云海 · 绝顶金殿拜谒太和真人张玄素`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "太和云海 · 绝顶金殿拜谒太和真人张玄素" from 《太和云海 · 武当问真》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 481. `CG-QST-481`：紫霄论道 · 丹炉松烟间南北道脉印证三日
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanWudangVisitQuest.ts`](../src/data/quests/sects/zhongnanGuanWudangVisitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q10_zixiao_dao.jpg`
+- **画框题跋**：`紫霄论道 · 丹炉松烟间南北道脉印证三日`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "紫霄论道 · 丹炉松烟间南北道脉印证三日" from 《太和云海 · 武当问真》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 482. `CG-QST-482`：丹成除疴 · 紫霄玄丹化去长生子多年寒毒
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanWudangVisitQuest.ts`](../src/data/quests/sects/zhongnanGuanWudangVisitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q10_alchemy_cure.jpg`
+- **画框题跋**：`丹成除疴 · 紫霄玄丹化去长生子多年寒毒`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "丹成除疴 · 紫霄玄丹化去长生子多年寒毒" from 《太和云海 · 武当问真》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 483. `CG-QST-483`：朔风雪夜 · 七星演剑坛剑气冲霄
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanChunyangQuest.ts`](../src/data/quests/sects/zhongnanGuanChunyangQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q11_snow_dipper.jpg`
+- **画框题跋**：`朔风雪夜 · 七星演剑坛剑气冲霄`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "朔风雪夜 · 七星演剑坛剑气冲霄" from 《纯阳无极 · 七星聚首》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 484. `CG-QST-484`：七星聚首 · 终南七子齐传纯阳无极真诀
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanChunyangQuest.ts`](../src/data/quests/sects/zhongnanGuanChunyangQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q11_seven_masters.jpg`
+- **画框题跋**：`七星聚首 · 终南七子齐传纯阳无极真诀`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "七星聚首 · 终南七子齐传纯阳无极真诀" from 《纯阳无极 · 七星聚首》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 485. `CG-QST-485`：纯阳无极 · 漫天鹅毛大雪未近身便化作轻烟
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanChunyangQuest.ts`](../src/data/quests/sects/zhongnanGuanChunyangQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q11_chunyang_aura.jpg`
+- **画框题跋**：`纯阳无极 · 漫天鹅毛大雪未近身便化作轻烟`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "纯阳无极 · 漫天鹅毛大雪未近身便化作轻烟" from 《纯阳无极 · 七星聚首》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 486. `CG-QST-486`：力退血鹰 · 努儿海慑于纯阳剑威与道钟之势遁入风雪
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanChunyangQuest.ts`](../src/data/quests/sects/zhongnanGuanChunyangQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q11_nuerhai_retreat.jpg`
+- **画框题跋**：`力退血鹰 · 努儿海慑于纯阳剑威与道钟之势遁入风雪`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "力退血鹰 · 努儿海慑于纯阳剑威与道钟之势遁入风雪" from 《纯阳无极 · 七星聚首》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 487. `CG-QST-487`：幽谷百雀 · 天罗地网石室中八十一雀振翅齐飞
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSparrowNetQuest.ts`](../src/data/quests/sects/zhongnanMuSparrowNetQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q12_sparrow_hall.jpg`
+- **画框题跋**：`幽谷百雀 · 天罗地网石室中八十一雀振翅齐飞`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "幽谷百雀 · 天罗地网石室中八十一雀振翅齐飞" from 《幽谷百雀 · 金针渡影》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 488. `CG-QST-488`：金雁渡影 · 轻功身法如飞燕穿花，八十一雀尽入掌势
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSparrowNetQuest.ts`](../src/data/quests/sects/zhongnanMuSparrowNetQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q12_golden_swallow.jpg`
+- **画框题跋**：`金雁渡影 · 轻功身法如飞燕穿花，八十一雀尽入掌势`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "金雁渡影 · 轻功身法如飞燕穿花，八十一雀尽入掌势" from 《幽谷百雀 · 金针渡影》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 489. `CG-QST-489`：飞瀑护蜂 · 银练飞瀑下截击湘西五溪偷蜂恶客
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSparrowNetQuest.ts`](../src/data/quests/sects/zhongnanMuSparrowNetQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q12_falls_poachers.jpg`
+- **画框题跋**：`飞瀑护蜂 · 银练飞瀑下截击湘西五溪偷蜂恶客`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "飞瀑护蜂 · 银练飞瀑下截击湘西五溪偷蜂恶客" from 《幽谷百雀 · 金针渡影》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 490. `CG-QST-490`：西市飞霜 · 胡商驼铃声中与白清霜暗室接头
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuWestMarketQuest.ts`](../src/data/quests/sects/zhongnanMuWestMarketQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q13_xishi_east.jpg`
+- **画框题跋**：`西市飞霜 · 胡商驼铃声中与白清霜暗室接头`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "西市飞霜 · 胡商驼铃声中与白清霜暗室接头" from 《西市飞霜 · 踏雪无痕》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 491. `CG-QST-491`：踏雪无痕 · 白清霜于暮色细沙庭院亲授古墓绝顶轻功
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuWestMarketQuest.ts`](../src/data/quests/sects/zhongnanMuWestMarketQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q13_snow_step.jpg`
+- **画框题跋**：`踏雪无痕 · 白清霜于暮色细沙庭院亲授古墓绝顶轻功`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "踏雪无痕 · 白清霜于暮色细沙庭院亲授古墓绝顶轻功" from 《西市飞霜 · 踏雪无痕》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 492. `CG-QST-492`：夜潜西市 · 踏雪无痕飞掠皮货暗栈斩杀一品堂头目
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuWestMarketQuest.ts`](../src/data/quests/sects/zhongnanMuWestMarketQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q13_xishi_raid.jpg`
+- **画框题跋**：`夜潜西市 · 踏雪无痕飞掠皮货暗栈斩杀一品堂头目`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "夜潜西市 · 踏雪无痕飞掠皮货暗栈斩杀一品堂头目" from 《西市飞霜 · 踏雪无痕》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 493. `CG-QST-493`：蜀道求药 · 踏雪无痕飞渡剑门关绝壁悬空栈道
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSichuanBeeQuest.ts`](../src/data/quests/sects/zhongnanMuSichuanBeeQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q14_jianmen_plank.jpg`
+- **画框题跋**：`蜀道求药 · 踏雪无痕飞渡剑门关绝壁悬空栈道`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "蜀道求药 · 踏雪无痕飞渡剑门关绝壁悬空栈道" from 《玉蜂琼浆 · 蜀道求药》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 494. `CG-QST-494`：万毒悬栈 · 铁索飞瀑间凌空采摘紫雪断肠花
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSichuanBeeQuest.ts`](../src/data/quests/sects/zhongnanMuSichuanBeeQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q14_poison_bridge.jpg`
+- **画框题跋**：`万毒悬栈 · 铁索飞瀑间凌空采摘紫雪断肠花`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "万毒悬栈 · 铁索飞瀑间凌空采摘紫雪断肠花" from 《玉蜂琼浆 · 蜀道求药》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 495. `CG-QST-495`：万里桥茶肆 · 与蜀中唐门毒观音切磋换药并退青城恶徒
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSichuanBeeQuest.ts`](../src/data/quests/sects/zhongnanMuSichuanBeeQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q14_chengdu_tea.jpg`
+- **画框题跋**：`万里桥茶肆 · 与蜀中唐门毒观音切磋换药并退青城恶徒`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "万里桥茶肆 · 与蜀中唐门毒观音切磋换药并退青城恶徒" from 《玉蜂琼浆 · 蜀道求药》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 496. `CG-QST-496`：沧浪问古 · 姑苏沧浪亭畔拜访大宋诗豪苏舜钦
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuzhouSwordQuest.ts`](../src/data/quests/sects/zhongnanMuSuzhouSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q15_canglang_pavilion.jpg`
+- **画框题跋**：`沧浪问古 · 姑苏沧浪亭畔拜访大宋诗豪苏舜钦`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "沧浪问古 · 姑苏沧浪亭畔拜访大宋诗豪苏舜钦" from 《烟波试剑 · 越女惊鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 497. `CG-QST-497`：吴王剑池 · 裂崖飞梁秋水映照春秋越女古剑石刻
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuzhouSwordQuest.ts`](../src/data/quests/sects/zhongnanMuSuzhouSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q15_huqiu_pool.jpg`
+- **画框题跋**：`吴王剑池 · 裂崖飞梁秋水映照春秋越女古剑石刻`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "吴王剑池 · 裂崖飞梁秋水映照春秋越女古剑石刻" from 《烟波试剑 · 越女惊鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 498. `CG-QST-498`：越女惊鸿 · 悟得越女古剑术，剑光如秋水飞燕
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuzhouSwordQuest.ts`](../src/data/quests/sects/zhongnanMuSuzhouSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q15_yuenv_sword.jpg`
+- **画框题跋**：`越女惊鸿 · 悟得越女古剑术，剑光如秋水飞燕`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "越女惊鸿 · 悟得越女古剑术，剑光如秋水飞燕" from 《烟波试剑 · 越女惊鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 499. `CG-QST-499`：古墓真传 · 昆仑寒玉床前寒玉仙子亲授真传玉印
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuzhouSwordQuest.ts`](../src/data/quests/sects/zhongnanMuSuzhouSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q15_gumu_promotion.jpg`
+- **画框题跋**：`古墓真传 · 昆仑寒玉床前寒玉仙子亲授真传玉印`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "古墓真传 · 昆仑寒玉床前寒玉仙子亲授真传玉印" from 《烟波试剑 · 越女惊鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 500. `CG-QST-500`：寒潭孤影 · 临水抚琴榭秋月映寒波
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuColdPoolVowQuest.ts`](../src/data/quests/sects/zhongnanMuColdPoolVowQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q16_qin_pavilion.jpg`
+- **画框题跋**：`寒潭孤影 · 临水抚琴榭秋月映寒波`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒潭孤影 · 临水抚琴榭秋月映寒波" from 《寒潭孤影 · 誓词问情》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 501. `CG-QST-501`：临水退敌 · 剑挑痴狂世家剑客，力抗五溪迷心蛊师
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuColdPoolVowQuest.ts`](../src/data/quests/sects/zhongnanMuColdPoolVowQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q16_intruder_duel.jpg`
+- **画框题跋**：`临水退敌 · 剑挑痴狂世家剑客，力抗五溪迷心蛊师`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "临水退敌 · 剑挑痴狂世家剑客，力抗五溪迷心蛊师" from 《寒潭孤影 · 誓词问情》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 502. `CG-QST-502`：誓词问情 · 冰魄石室孤灯下寒玉仙子叩问古墓本心
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuColdPoolVowQuest.ts`](../src/data/quests/sects/zhongnanMuColdPoolVowQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q16_cold_pool_vow.jpg`
+- **画框题跋**：`誓词问情 · 冰魄石室孤灯下寒玉仙子叩问古墓本心`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "誓词问情 · 冰魄石室孤灯下寒玉仙子叩问古墓本心" from 《寒潭孤影 · 誓词问情》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 503. `CG-QST-503`：一念问心 · 冰心止水或情深不悔，皆由己心定夺
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuColdPoolVowQuest.ts`](../src/data/quests/sects/zhongnanMuColdPoolVowQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q16_heart_choice.jpg`
+- **画框题跋**：`一念问心 · 冰心止水或情深不悔，皆由己心定夺`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "一念问心 · 冰心止水或情深不悔，皆由己心定夺" from 《寒潭孤影 · 誓词问情》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 504. `CG-QST-504`：寒冰绵掌 · 轻柔掌影过处，石室水钵瞬结莲花冰霜
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuFrostNeedleQuest.ts`](../src/data/quests/sects/zhongnanMuFrostNeedleQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q17_frost_palm.jpg`
+- **画框题跋**：`寒冰绵掌 · 轻柔掌影过处，石室水钵瞬结莲花冰霜`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒冰绵掌 · 轻柔掌影过处，石室水钵瞬结莲花冰霜" from 《冰魄银针 · 含沙凝霜》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 505. `CG-QST-505`：含沙射影 · 冰魄银针裹挟霜雾破空，洞穿十丈石灯
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuFrostNeedleQuest.ts`](../src/data/quests/sects/zhongnanMuFrostNeedleQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q17_shadow_needles.jpg`
+- **画框题跋**：`含沙射影 · 冰魄银针裹挟霜雾破空，洞穿十丈石灯`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "含沙射影 · 冰魄银针裹挟霜雾破空，洞穿十丈石灯" from 《冰魄银针 · 含沙凝霜》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 506. `CG-QST-506`：子夜歼敌 · 银练飞瀑寒霜与星宿鬼火激烈交锋
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuFrostNeedleQuest.ts`](../src/data/quests/sects/zhongnanMuFrostNeedleQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q17_midnight_falls.jpg`
+- **画框题跋**：`子夜歼敌 · 银练飞瀑寒霜与星宿鬼火激烈交锋`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "子夜歼敌 · 银练飞瀑寒霜与星宿鬼火激烈交锋" from 《冰魄银针 · 含沙凝霜》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 507. `CG-QST-507`：聪辩雅集 · 白马书院荷池水亭手谈论易
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuLuoyangChessQuest.ts`](../src/data/quests/sects/zhongnanMuLuoyangChessQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q18_luoyang_pavilion.jpg`
+- **画框题跋**：`聪辩雅集 · 白马书院荷池水亭手谈论易`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "聪辩雅集 · 白马书院荷池水亭手谈论易" from 《洛水琴棋 · 聪辩雅集》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 508. `CG-QST-508`：手谈破局 · 苏星河以珍珑之意点化古墓真传
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuLuoyangChessQuest.ts`](../src/data/quests/sects/zhongnanMuLuoyangChessQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q18_chess_meeting.jpg`
+- **画框题跋**：`手谈破局 · 苏星河以珍珑之意点化古墓真传`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "手谈破局 · 苏星河以珍珑之意点化古墓真传" from 《洛水琴棋 · 聪辩雅集》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 509. `CG-QST-509`：虹桥危局 · 云中鹤钢爪逼近手捧古卷的书呆苟读
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuLuoyangChessQuest.ts`](../src/data/quests/sects/zhongnanMuLuoyangChessQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q18_peony_waterside.jpg`
+- **画框题跋**：`虹桥危局 · 云中鹤钢爪逼近手捧古卷的书呆苟读`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "虹桥危局 · 云中鹤钢爪逼近手捧古卷的书呆苟读" from 《洛水琴棋 · 聪辩雅集》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 510. `CG-QST-510`：踏雪压鹤 · 碧溪虹桥上古墓踏雪无痕力压云中鹤
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuLuoyangChessQuest.ts`](../src/data/quests/sects/zhongnanMuLuoyangChessQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q18_yunzhonghe_chase.jpg`
+- **画框题跋**：`踏雪压鹤 · 碧溪虹桥上古墓踏雪无痕力压云中鹤`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "踏雪压鹤 · 碧溪虹桥上古墓踏雪无痕力压云中鹤" from 《洛水琴棋 · 聪辩雅集》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 511. `CG-QST-511`：素绢真经 · 林朝瑶启开祖师暗匣亲赐《终南玉女心经素绢谱》
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuYunvSutraQuest.ts`](../src/data/quests/sects/zhongnanMuYunvSutraQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q19_silk_scroll.jpg`
+- **画框题跋**：`素绢真经 · 林朝瑶启开祖师暗匣亲赐《终南玉女心经素绢谱》`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "素绢真经 · 林朝瑶启开祖师暗匣亲赐《终南玉女心经素绢谱》" from 《寒玉蒸霞 · 素绢真经》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 512. `CG-QST-512`：寒玉蒸霞 · 昆仑寒玉床上白雾漫室，真气奔腾如潮
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuYunvSutraQuest.ts`](../src/data/quests/sects/zhongnanMuYunvSutraQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q19_jadebed_mist.jpg`
+- **画框题跋**：`寒玉蒸霞 · 昆仑寒玉床上白雾漫室，真气奔腾如潮`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒玉蒸霞 · 昆仑寒玉床上白雾漫室，真气奔腾如潮" from 《寒玉蒸霞 · 素绢真经》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 513. `CG-QST-513`：双心印脉 · 与冷清秋抵掌共运玉女心经冲破玄关
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuYunvSutraQuest.ts`](../src/data/quests/sects/zhongnanMuYunvSutraQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q19_dual_cultivation.jpg`
+- **画框题跋**：`双心印脉 · 与冷清秋抵掌共运玉女心经冲破玄关`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "双心印脉 · 与冷清秋抵掌共运玉女心经冲破玄关" from 《寒玉蒸霞 · 素绢真经》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 514. `CG-QST-514`：掠出石门 · 身法如玉龙惊鸿冲破漫天风雪
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuYunvSutraQuest.ts`](../src/data/quests/sects/zhongnanMuYunvSutraQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q19_stone_gate.jpg`
+- **画框题跋**：`掠出石门 · 身法如玉龙惊鸿冲破漫天风雪`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "掠出石门 · 身法如玉龙惊鸿冲破漫天风雪" from 《寒玉蒸霞 · 素绢真经》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 515. `CG-QST-515`：三招冰封 · 玉女心经配寒冰绵掌，三招之内将叛徒莫寒烟冻成冰雕
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuYunvSutraQuest.ts`](../src/data/quests/sects/zhongnanMuYunvSutraQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q19_frost_seal.jpg`
+- **画框题跋**：`三招冰封 · 玉女心经配寒冰绵掌，三招之内将叛徒莫寒烟冻成冰雕`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "三招冰封 · 玉女心经配寒冰绵掌，三招之内将叛徒莫寒烟冻成冰雕" from 《寒玉蒸霞 · 素绢真经》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 516. `CG-QST-516`：秋夜雷雨倾盆，寒玉涧水雾迷蒙，两道终南剑影自幽谷两端踏雨而至
+
+- **关联文件**：[`src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts`](../src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q20_rain_patrol.jpg`
+- **画框题跋**：`秋夜雷雨倾盆，寒玉涧水雾迷蒙，两道终南剑影自幽谷两端踏雨而至`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "秋夜雷雨倾盆，寒玉涧水雾迷蒙，两道终南剑影自幽谷两端踏雨而至" from 《寒涧残碑 · 三十载赌约》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 517. `CG-QST-517`：电闪雷鸣间，西夏银枪客卿李延宗率黑衣死士自竹林扑出，寒芒直指残碑
+
+- **关联文件**：[`src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts`](../src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q20_li_yanzong_ambush.jpg`
+- **画框题跋**：`电闪雷鸣间，西夏银枪客卿李延宗率黑衣死士自竹林扑出，寒芒直指残碑`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "电闪雷鸣间，西夏银枪客卿李延宗率黑衣死士自竹林扑出，寒芒直指残碑" from 《寒涧残碑 · 三十载赌约》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 518. `CG-QST-518`：古观长剑与古墓素剑于雷雨中交错映辉，硬撼西夏银枪李延宗的暴雨梨花枪势
+
+- **关联文件**：[`src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts`](../src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q20_twin_sword_clash.jpg`
+- **画框题跋**：`古观长剑与古墓素剑于雷雨中交错映辉，硬撼西夏银枪李延宗的暴雨梨花枪势`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "古观长剑与古墓素剑于雷雨中交错映辉，硬撼西夏银枪李延宗的暴雨梨花枪势" from 《寒涧残碑 · 三十载赌约》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 519. `CG-QST-519`：一道紫电劈落古碑覆苔，露出一阴一阳交缠而刻的剑诀残文与三十载前旧题
+
+- **关联文件**：[`src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts`](../src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q20_broken_stele.jpg`
+- **画框题跋**：`一道紫电劈落古碑覆苔，露出一阴一阳交缠而刻的剑诀残文与三十载前旧题`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "一道紫电劈落古碑覆苔，露出一阴一阳交缠而刻的剑诀残文与三十载前旧题" from 《寒涧残碑 · 三十载赌约》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 520. `CG-QST-520`：王重楼与林朝瑶三十载后再度并立寒玉涧残碑前，雨雾朦胧，往事如烟
+
+- **关联文件**：[`src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts`](../src/data/quests/sects/zhongnanThirtyYearWagerQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q20_thirty_year_oath.jpg`
+- **画框题跋**：`王重楼与林朝瑶三十载后再度并立寒玉涧残碑前，雨雾朦胧，往事如烟`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "王重楼与林朝瑶三十载后再度并立寒玉涧残碑前，雨雾朦胧，往事如烟" from 《寒涧残碑 · 三十载赌约》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 521. `CG-QST-521`：秋柳疏荷掩映水亭，邵雍素袍临池手谈，郝大玄携徒恭敬拜谒
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanLuoyangYijingQuest.ts`](../src/data/quests/sects/zhongnanGuanLuoyangYijingQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q21_luoyang_shaoyong.jpg`
+- **画框题跋**：`秋柳疏荷掩映水亭，邵雍素袍临池手谈，郝大玄携徒恭敬拜谒`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "秋柳疏荷掩映水亭，邵雍素袍临池手谈，郝大玄携徒恭敬拜谒" from 《皇极经世 · 洛阳问数》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 522. `CG-QST-522`：黑白棋子化作天罡北斗七星，邵雍以先天易数点破阵眼生克流转之妙
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanLuoyangYijingQuest.ts`](../src/data/quests/sects/zhongnanGuanLuoyangYijingQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q21_dipper_astrolabe.jpg`
+- **画框题跋**：`黑白棋子化作天罡北斗七星，邵雍以先天易数点破阵眼生克流转之妙`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "黑白棋子化作天罡北斗七星，邵雍以先天易数点破阵眼生克流转之妙" from 《皇极经世 · 洛阳问数》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 523. `CG-QST-523`：洛水天津酒楼灯火摇曳，辽国南院密探拔刀掀桌，剑光瞬间照亮夜江
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanLuoyangYijingQuest.ts`](../src/data/quests/sects/zhongnanGuanLuoyangYijingQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q21_luoshui_tavern_ambush.jpg`
+- **画框题跋**：`洛水天津酒楼灯火摇曳，辽国南院密探拔刀掀桌，剑光瞬间照亮夜江`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "洛水天津酒楼灯火摇曳，辽国南院密探拔刀掀桌，剑光瞬间照亮夜江" from 《皇极经世 · 洛阳问数》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 524. `CG-QST-524`：塞外大雪纷飞，鄜延大营旌旗猎猎，中军帅帐内炭火熊熊、沙盘陈列
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanYananWarQuest.ts`](../src/data/quests/sects/zhongnanGuanYananWarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q22_yanan_snow_camp.jpg`
+- **画框题跋**：`塞外大雪纷飞，鄜延大营旌旗猎猎，中军帅帐内炭火熊熊、沙盘陈列`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "塞外大雪纷飞，鄜延大营旌旗猎猎，中军帅帐内炭火熊熊、沙盘陈列" from 《延水悲歌 · 青涧铁血》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 525. `CG-QST-525`：嘉岭宝塔地宫灯火摇曳，少将种谔指点边关舆图，与丘处玄共定风雪伏击之策
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanYananWarQuest.ts`](../src/data/quests/sects/zhongnanGuanYananWarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q22_jialing_pagoda_plan.jpg`
+- **画框题跋**：`嘉岭宝塔地宫灯火摇曳，少将种谔指点边关舆图，与丘处玄共定风雪伏击之策`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "嘉岭宝塔地宫灯火摇曳，少将种谔指点边关舆图，与丘处玄共定风雪伏击之策" from 《延水悲歌 · 青涧铁血》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 526. `CG-QST-526`：暴雪漫天，西夏一品堂死士挥舞弯刀扑向帅帐，终南双剑寒光如练死守辕门
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanYananWarQuest.ts`](../src/data/quests/sects/zhongnanGuanYananWarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q22_blizzard_tent_defense.jpg`
+- **画框题跋**：`暴雪漫天，西夏一品堂死士挥舞弯刀扑向帅帐，终南双剑寒光如练死守辕门`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "暴雪漫天，西夏一品堂死士挥舞弯刀扑向帅帐，终南双剑寒光如练死守辕门" from 《延水悲歌 · 青涧铁血》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 527. `CG-QST-527`：雪霁天明，延水东岸朝霞映红残雪，狄青与种氏父子向终南双剑举酒致敬
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanYananWarQuest.ts`](../src/data/quests/sects/zhongnanGuanYananWarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q22_qingjian_blood_dawn.jpg`
+- **画框题跋**：`雪霁天明，延水东岸朝霞映红残雪，狄青与种氏父子向终南双剑举酒致敬`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "雪霁天明，延水东岸朝霞映红残雪，狄青与种氏父子向终南双剑举酒致敬" from 《延水悲歌 · 青涧铁血》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 528. `CG-QST-528`：开元寺石塔回廊墨香袅袅，道藏真君黄裳端坐万卷竹简帛书之间，神光内敛
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanHuangShangQuest.ts`](../src/data/quests/sects/zhongnanGuanHuangShangQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q23_kaiyuan_huangshang.jpg`
+- **画框题跋**：`开元寺石塔回廊墨香袅袅，道藏真君黄裳端坐万卷竹简帛书之间，神光内敛`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "开元寺石塔回廊墨香袅袅，道藏真君黄裳端坐万卷竹简帛书之间，神光内敛" from 《刺桐校经 · 万寿道藏》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 529. `CG-QST-529`：夜色浓重，数道黑袍身影携幽蓝火油攀上西塔石檐，黑道海寇刀光映月
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanHuangShangQuest.ts`](../src/data/quests/sects/zhongnanGuanHuangShangQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q23_manichaean_raid.jpg`
+- **画框题跋**：`夜色浓重，数道黑袍身影携幽蓝火油攀上西塔石檐，黑道海寇刀光映月`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "夜色浓重，数道黑袍身影携幽蓝火油攀上西塔石檐，黑道海寇刀光映月" from 《刺桐校经 · 万寿道藏》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 530. `CG-QST-530`：西塔绝顶海风狂卷，终南长剑清光破开赤焰掌风，硬撼波斯圣火使者与江南巨寇
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanHuangShangQuest.ts`](../src/data/quests/sects/zhongnanGuanHuangShangQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q23_west_tower_battle.jpg`
+- **画框题跋**：`西塔绝顶海风狂卷，终南长剑清光破开赤焰掌风，硬撼波斯圣火使者与江南巨寇`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "西塔绝顶海风狂卷，终南长剑清光破开赤焰掌风，硬撼波斯圣火使者与江南巨寇" from 《刺桐校经 · 万寿道藏》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 531. `CG-QST-531`：古塔残夜孤灯明，黄裳与你对坐万卷道藏之前，纵论阴阳互济、刚柔并生之无上天道
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanHuangShangQuest.ts`](../src/data/quests/sects/zhongnanGuanHuangShangQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q23_daozang_yinyang_night.jpg`
+- **画框题跋**：`古塔残夜孤灯明，黄裳与你对坐万卷道藏之前，纵论阴阳互济、刚柔并生之无上天道`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "古塔残夜孤灯明，黄裳与你对坐万卷道藏之前，纵论阴阳互济、刚柔并生之无上天道" from 《刺桐校经 · 万寿道藏》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 532. `CG-QST-532`：重阳古观警钟长鸣，七星演剑坛青袍林立，北斗剑阵迎风而起
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanElderPromoteQuest.ts`](../src/data/quests/sects/zhongnanGuanElderPromoteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q24_dipper_formation_rise.jpg`
+- **画框题跋**：`重阳古观警钟长鸣，七星演剑坛青袍林立，北斗剑阵迎风而起`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳古观警钟长鸣，七星演剑坛青袍林立，北斗剑阵迎风而起" from 《北斗封山 · 古观长老》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 533. `CG-QST-533`：西夏大将努儿海披挂血色鹰甲，率吐蕃密宗番僧踏雪杀上七星演剑坛
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanElderPromoteQuest.ts`](../src/data/quests/sects/zhongnanGuanElderPromoteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q24_nuerhai_assault.jpg`
+- **画框题跋**：`西夏大将努儿海披挂血色鹰甲，率吐蕃密宗番僧踏雪杀上七星演剑坛`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "西夏大将努儿海披挂血色鹰甲，率吐蕃密宗番僧踏雪杀上七星演剑坛" from 《北斗封山 · 古观长老》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 534. `CG-QST-534`：七星剑气汇于天枢，你迎着贺兰血鹰努儿海的狂猛爪刀，一剑划破漫天风雪
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanElderPromoteQuest.ts`](../src/data/quests/sects/zhongnanGuanElderPromoteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q24_seven_stars_break.jpg`
+- **画框题跋**：`七星剑气汇于天枢，你迎着贺兰血鹰努儿海的狂猛爪刀，一剑划破漫天风雪`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "七星剑气汇于天枢，你迎着贺兰血鹰努儿海的狂猛爪刀，一剑划破漫天风雪" from 《北斗封山 · 古观长老》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 535. `CG-QST-535`：重阳主殿香烟缭绕，紫阳真人王重楼亲授青玉长老冠，册封你为古观长老
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanElderPromoteQuest.ts`](../src/data/quests/sects/zhongnanGuanElderPromoteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q24_guguan_elder_investiture.jpg`
+- **画框题跋**：`重阳主殿香烟缭绕，紫阳真人王重楼亲授青玉长老冠，册封你为古观长老`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳主殿香烟缭绕，紫阳真人王重楼亲授青玉长老冠，册封你为古观长老" from 《北斗封山 · 古观长老》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 536. `CG-QST-536`：剑门雄关云雾缭绕，冷清秋与你素衣按剑踏上望胡台，与青城鹤道人贾天鹤隔风对峙
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuQingchengDuelQuest.ts`](../src/data/quests/sects/zhongnanMuQingchengDuelQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q25_jianmen_rescue.jpg`
+- **画框题跋**：`剑门雄关云雾缭绕，冷清秋与你素衣按剑踏上望胡台，与青城鹤道人贾天鹤隔风对峙`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "剑门雄关云雾缭绕，冷清秋与你素衣按剑踏上望胡台，与青城鹤道人贾天鹤隔风对峙" from 《剑阁猿啼 · 巴山折剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 537. `CG-QST-537`：上清宫松风主殿青石坪上，青城众弟子列剑相迎，你与冷清秋素衣孤剑昂然登阶
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuQingchengDuelQuest.ts`](../src/data/quests/sects/zhongnanMuQingchengDuelQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q25_shangqing_challenge.jpg`
+- **画框题跋**：`上清宫松风主殿青石坪上，青城众弟子列剑相迎，你与冷清秋素衣孤剑昂然登阶`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "上清宫松风主殿青石坪上，青城众弟子列剑相迎，你与冷清秋素衣孤剑昂然登阶" from 《剑阁猿啼 · 巴山折剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 538. `CG-QST-538`：第十合剑光一闪，玉女素剑轻挑余沧澜头顶玉冠，道冠应声裂作两半坠地
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuQingchengDuelQuest.ts`](../src/data/quests/sects/zhongnanMuQingchengDuelQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q25_yucanglan_crown_split.jpg`
+- **画框题跋**：`第十合剑光一闪，玉女素剑轻挑余沧澜头顶玉冠，道冠应声裂作两半坠地`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "第十合剑光一闪，玉女素剑轻挑余沧澜头顶玉冠，道冠应声裂作两半坠地" from 《剑阁猿啼 · 巴山折剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 539. `CG-QST-539`：石头城赤壁悬崖临江而立，孤峰剑客叶孤鸿白衣抱剑观涛，剑气凌云
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuJiangningSwordQuest.ts`](../src/data/quests/sects/zhongnanMuJiangningSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q26_chibi_yeguhong_duel.jpg`
+- **画框题跋**：`石头城赤壁悬崖临江而立，孤峰剑客叶孤鸿白衣抱剑观涛，剑气凌云`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "石头城赤壁悬崖临江而立，孤峰剑客叶孤鸿白衣抱剑观涛，剑气凌云" from 《赤壁听涛 · 钟山问剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 540. `CG-QST-540`：重剑如山倾下，素剑如寒泉绕石轻滑而过，四两拨千斤震散漫天江雾
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuJiangningSwordQuest.ts`](../src/data/quests/sects/zhongnanMuJiangningSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q26_soft_overcomes_hard.jpg`
+- **画框题跋**：`重剑如山倾下，素剑如寒泉绕石轻滑而过，四两拨千斤震散漫天江雾`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重剑如山倾下，素剑如寒泉绕石轻滑而过，四两拨千斤震散漫天江雾" from 《赤壁听涛 · 钟山问剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 541. `CG-QST-541`：秦淮河心画舫灯火通明，王安石临窗执卷论政，暗处慕容与辽国水鬼悄然逼近
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuJiangningSwordQuest.ts`](../src/data/quests/sects/zhongnanMuJiangningSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q26_qinhuai_boat_meeting.jpg`
+- **画框题跋**：`秦淮河心画舫灯火通明，王安石临窗执卷论政，暗处慕容与辽国水鬼悄然逼近`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "秦淮河心画舫灯火通明，王安石临窗执卷论政，暗处慕容与辽国水鬼悄然逼近" from 《赤壁听涛 · 钟山问剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 542. `CG-QST-542`：秦淮河面灯火碎成万点金鳞，你与叶孤鸿一柔一刚联手合击姑苏慕容暗探头目
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuJiangningSwordQuest.ts`](../src/data/quests/sects/zhongnanMuJiangningSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q26_murong_spy_purge.jpg`
+- **画框题跋**：`秦淮河面灯火碎成万点金鳞，你与叶孤鸿一柔一刚联手合击姑苏慕容暗探头目`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "秦淮河面灯火碎成万点金鳞，你与叶孤鸿一柔一刚联手合击姑苏慕容暗探头目" from 《赤壁听涛 · 钟山问剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 543. `CG-QST-543`：长安西市驼铃叮当，奇货堂内胡商展开一卷羊皮绘制的昆仑雪域古图
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts`](../src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q27_changan_kunlun_map.jpg`
+- **画框题跋**：`长安西市驼铃叮当，奇货堂内胡商展开一卷羊皮绘制的昆仑雪域古图`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "长安西市驼铃叮当，奇货堂内胡商展开一卷羊皮绘制的昆仑雪域古图" from 《瑶池万里 · 昆仑采玉》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 544. `CG-QST-544`：翡翠雪莲池畔寒雾氤氲，雪山隐士钟离雪白衣如雪，正以寒玉剑护住冰池雪莲
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts`](../src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q27_yaochi_zhonglixue.jpg`
+- **画框题跋**：`翡翠雪莲池畔寒雾氤氲，雪山隐士钟离雪白衣如雪，正以寒玉剑护住冰池雪莲`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "翡翠雪莲池畔寒雾氤氲，雪山隐士钟离雪白衣如雪，正以寒玉剑护住冰池雪莲" from 《瑶池万里 · 昆仑采玉》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 545. `CG-QST-545`：翡翠冰池之上寒气四溢，你以古墓轻灵剑法硬撼万仙盟魁乌老大的绿波香露刀
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts`](../src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q27_wulaoda_clash.jpg`
+- **画框题跋**：`翡翠冰池之上寒气四溢，你以古墓轻灵剑法硬撼万仙盟魁乌老大的绿波香露刀`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "翡翠冰池之上寒气四溢，你以古墓轻灵剑法硬撼万仙盟魁乌老大的绿波香露刀" from 《瑶池万里 · 昆仑采玉》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 546. `CG-QST-546`：万年寒玉冰床晶坛蓝光流转，天山童姥巫行云虽形如女童却威压如天崩海啸，你傲立冰阶寸步不跪
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts`](../src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q27_wuxingyun_pressure.jpg`
+- **画框题跋**：`万年寒玉冰床晶坛蓝光流转，天山童姥巫行云虽形如女童却威压如天崩海啸，你傲立冰阶寸步不跪`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "万年寒玉冰床晶坛蓝光流转，天山童姥巫行云虽形如女童却威压如天崩海啸，你傲立冰阶寸步不跪" from 《瑶池万里 · 昆仑采玉》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 547. `CG-QST-547`：寒玉床裂痕在万年寒玉髓碧光中缓缓愈合，林朝瑶神色欣慰，暗赞弟子万里奇功
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts`](../src/data/quests/sects/zhongnanMuKunlunJadeQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q27_jade_marrow_return.jpg`
+- **画框题跋**：`寒玉床裂痕在万年寒玉髓碧光中缓缓愈合，林朝瑶神色欣慰，暗赞弟子万里奇功`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒玉床裂痕在万年寒玉髓碧光中缓缓愈合，林朝瑶神色欣慰，暗赞弟子万里奇功" from 《瑶池万里 · 昆仑采玉》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 548. `CG-QST-548`：幽蓝磷火与腥甜毒烟涌入活死人墓石廊，冷清秋与白清霜持剑苦撑捕雀大厅
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuElderPromoteQuest.ts`](../src/data/quests/sects/zhongnanMuElderPromoteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q28_duanlong_poison_night.jpg`
+- **画框题跋**：`幽蓝磷火与腥甜毒烟涌入活死人墓石廊，冷清秋与白清霜持剑苦撑捕雀大厅`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "幽蓝磷火与腥甜毒烟涌入活死人墓石廊，冷清秋与白清霜持剑苦撑捕雀大厅" from 《断龙血夜 · 毒海孤星》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 549. `CG-QST-549`：幽绿毒雾散开，星宿大弟子摘星子率碧磷毒师狞笑步入捕雀厅，双掌紫黑泛毒
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuElderPromoteQuest.ts`](../src/data/quests/sects/zhongnanMuElderPromoteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q28_zhaixingzi_ambush.jpg`
+- **画框题跋**：`幽绿毒雾散开，星宿大弟子摘星子率碧磷毒师狞笑步入捕雀厅，双掌紫黑泛毒`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "幽绿毒雾散开，星宿大弟子摘星子率碧磷毒师狞笑步入捕雀厅，双掌紫黑泛毒" from 《断龙血夜 · 毒海孤星》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 550. `CG-QST-550`：天罗地网捕雀厅内寒芒四射，你孤身游走毒雾之间，以一敌二反攻摘星子与碧磷毒师
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuElderPromoteQuest.ts`](../src/data/quests/sects/zhongnanMuElderPromoteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q28_sparrow_hall_counter.jpg`
+- **画框题跋**：`天罗地网捕雀厅内寒芒四射，你孤身游走毒雾之间，以一敌二反攻摘星子与碧磷毒师`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "天罗地网捕雀厅内寒芒四射，你孤身游走毒雾之间，以一敌二反攻摘星子与碧磷毒师" from 《断龙血夜 · 毒海孤星》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 551. `CG-QST-551`：冰魄石室碧光如月，林朝瑶亲授寒玉护法尊印，册封你为活死人墓护法尊使
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuElderPromoteQuest.ts`](../src/data/quests/sects/zhongnanMuElderPromoteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q28_gumu_elder_investiture.jpg`
+- **画框题跋**：`冰魄石室碧光如月，林朝瑶亲授寒玉护法尊印，册封你为活死人墓护法尊使`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "冰魄石室碧光如月，林朝瑶亲授寒玉护法尊印，册封你为活死人墓护法尊使" from 《断龙血夜 · 毒海孤星》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 552. `CG-QST-552`：腊月黑云压顶，千百支西夏火把如黑龙盘旋终南山道，重阳古观警钟震彻寒夜
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaInvasionQuest.ts`](../src/data/quests/sects/zhongnanXixiaInvasionQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q29_helan_black_cloud.jpg`
+- **画框题跋**：`腊月黑云压顶，千百支西夏火把如黑龙盘旋终南山道，重阳古观警钟震彻寒夜`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "腊月黑云压顶，千百支西夏火把如黑龙盘旋终南山道，重阳古观警钟震彻寒夜" from 《贺兰黑云 · 一品叩关》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 553. `CG-QST-553`：无色无味的悲酥清风露随西北寒风席卷广场，终南弟子纷纷泪流满面、内力顿失
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaInvasionQuest.ts`](../src/data/quests/sects/zhongnanXixiaInvasionQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q29_beisu_qingfeng_mist.jpg`
+- **画框题跋**：`无色无味的悲酥清风露随西北寒风席卷广场，终南弟子纷纷泪流满面、内力顿失`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "无色无味的悲酥清风露随西北寒风席卷广场，终南弟子纷纷泪流满面、内力顿失" from 《贺兰黑云 · 一品叩关》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 554. `CG-QST-554`：火光冲天毒雾弥漫，你孤剑死守丹墀石阶，迎着赫连霸先铁刀与段延庆双拐苦撑破围
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaInvasionQuest.ts`](../src/data/quests/sects/zhongnanXixiaInvasionQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q29_duan_helian_siege.jpg`
+- **画框题跋**：`火光冲天毒雾弥漫，你孤剑死守丹墀石阶，迎着赫连霸先铁刀与段延庆双拐苦撑破围`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "火光冲天毒雾弥漫，你孤剑死守丹墀石阶，迎着赫连霸先铁刀与段延庆双拐苦撑破围" from 《贺兰黑云 · 一品叩关》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 555. `CG-QST-555`：寒玉涧残碑雾气迷蒙，王重楼与林朝瑶虽俱负重伤，仍各自静坐溪水两侧调息护阵
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaInvasionQuest.ts`](../src/data/quests/sects/zhongnanXixiaInvasionQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q29_twin_masters_retreat.jpg`
+- **画框题跋**：`寒玉涧残碑雾气迷蒙，王重楼与林朝瑶虽俱负重伤，仍各自静坐溪水两侧调息护阵`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒玉涧残碑雾气迷蒙，王重楼与林朝瑶虽俱负重伤，仍各自静坐溪水两侧调息护阵" from 《贺兰黑云 · 一品叩关》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 556. `CG-QST-556`：残碑矗立寒雾之中，你的抉择将决定终南双脉是「双剑合璧 · 阴阳归元」，还是「独守本脉 · 孤峰血战」
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaInvasionQuest.ts`](../src/data/quests/sects/zhongnanXixiaInvasionQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q29_harmony_or_split.jpg`
+- **画框题跋**：`残碑矗立寒雾之中，你的抉择将决定终南双脉是「双剑合璧 · 阴阳归元」，还是「独守本脉 · 孤峰血战」`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "残碑矗立寒雾之中，你的抉择将决定终南双脉是「双剑合璧 · 阴阳归元」，还是「独守本脉 · 孤峰血战」" from 《贺兰黑云 · 一品叩关》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 557. `CG-QST-557`：重阳玄门清修主殿 · 王重楼亲书八字旧笺托付使者，放下二十载执念求道墓同心
+
+- **关联文件**：[`src/data/quests/sects/zhongnanHarmonyUniteQuest.ts`](../src/data/quests/sects/zhongnanHarmonyUniteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q30_tao_plea.jpg`
+- **画框题跋**：`重阳玄门清修主殿 · 王重楼亲书八字旧笺托付使者，放下二十载执念求道墓同心`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳玄门清修主殿 · 王重楼亲书八字旧笺托付使者，放下二十载执念求道墓同心" from 《寒涧同心 · 剑道合流》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 558. `CG-QST-558`：昆仑寒玉床冰魄石室 · 林朝瑶展读紫阳旧笺，冰封二十载的眉宇终见春融
+
+- **关联文件**：[`src/data/quests/sects/zhongnanHarmonyUniteQuest.ts`](../src/data/quests/sects/zhongnanHarmonyUniteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q30_tomb_jadebed.jpg`
+- **画框题跋**：`昆仑寒玉床冰魄石室 · 林朝瑶展读紫阳旧笺，冰封二十载的眉宇终见春融`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "昆仑寒玉床冰魄石室 · 林朝瑶展读紫阳旧笺，冰封二十载的眉宇终见春融" from 《寒涧同心 · 剑道合流》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 559. `CG-QST-559`：寒玉涧临水抚琴榭 · 王重楼与林朝瑶阴阳调和共愈沉疴，剑气冲霄震散残敌
+
+- **关联文件**：[`src/data/quests/sects/zhongnanHarmonyUniteQuest.ts`](../src/data/quests/sects/zhongnanHarmonyUniteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q30_qin_heal.jpg`
+- **画框题跋**：`寒玉涧临水抚琴榭 · 王重楼与林朝瑶阴阳调和共愈沉疴，剑气冲霄震散残敌`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒玉涧临水抚琴榭 · 王重楼与林朝瑶阴阳调和共愈沉疴，剑气冲霄震散残敌" from 《寒涧同心 · 剑道合流》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 560. `CG-QST-560`：寒玉涧晨曦 · 王重楼与林朝瑶联手传功，重阳纯阳气与古墓寒玉意合流太极
+
+- **关联文件**：[`src/data/quests/sects/zhongnanHarmonyUniteQuest.ts`](../src/data/quests/sects/zhongnanHarmonyUniteQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q30_dual_arts.jpg`
+- **画框题跋**：`寒玉涧晨曦 · 王重楼与林朝瑶联手传功，重阳纯阳气与古墓寒玉意合流太极`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒玉涧晨曦 · 王重楼与林朝瑶联手传功，重阳纯阳气与古墓寒玉意合流太极" from 《寒涧同心 · 剑道合流》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 561. `CG-QST-561`：繁花幽谷双剑合璧坪 · 王重楼与林朝瑶剑气裂石，终南两脉二十载情缘彻底割席
+
+- **关联文件**：[`src/data/quests/sects/zhongnanBitterSplitQuest.ts`](../src/data/quests/sects/zhongnanBitterSplitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q31_stream_confront.jpg`
+- **画框题跋**：`繁花幽谷双剑合璧坪 · 王重楼与林朝瑶剑气裂石，终南两脉二十载情缘彻底割席`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "繁花幽谷双剑合璧坪 · 王重楼与林朝瑶剑气裂石，终南两脉二十载情缘彻底割席" from 《孤峰执念 · 道墓决裂》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 562. `CG-QST-562`：寒玉涧断桥 · 铁索既断、界石既立，你提剑孤身奔赴银练飞瀑迎击西夏先锋
+
+- **关联文件**：[`src/data/quests/sects/zhongnanBitterSplitQuest.ts`](../src/data/quests/sects/zhongnanBitterSplitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q31_bridge_sever.jpg`
+- **画框题跋**：`寒玉涧断桥 · 铁索既断、界石既立，你提剑孤身奔赴银练飞瀑迎击西夏先锋`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒玉涧断桥 · 铁索既断、界石既立，你提剑孤身奔赴银练飞瀑迎击西夏先锋" from 《孤峰执念 · 道墓决裂》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 563. `CG-QST-563`：银练飞瀑之下 · 你孤身一剑斩退西夏铁骑先锋，水雾染血而本脉脊梁不弯
+
+- **关联文件**：[`src/data/quests/sects/zhongnanBitterSplitQuest.ts`](../src/data/quests/sects/zhongnanBitterSplitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q31_vanguard_duel.jpg`
+- **画框题跋**：`银练飞瀑之下 · 你孤身一剑斩退西夏铁骑先锋，水雾染血而本脉脊梁不弯`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "银练飞瀑之下 · 你孤身一剑斩退西夏铁骑先锋，水雾染血而本脉脊梁不弯" from 《孤峰执念 · 道墓决裂》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 564. `CG-QST-564`：繁花幽谷界碑前 · 残雨初歇，孤峰剑客横剑立誓，自此道墓割席各行其道
+
+- **关联文件**：[`src/data/quests/sects/zhongnanBitterSplitQuest.ts`](../src/data/quests/sects/zhongnanBitterSplitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q31_lone_oath.jpg`
+- **画框题跋**：`繁花幽谷界碑前 · 残雨初歇，孤峰剑客横剑立誓，自此道墓割席各行其道`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "繁花幽谷界碑前 · 残雨初歇，孤峰剑客横剑立誓，自此道墓割席各行其道" from 《孤峰执念 · 道墓决裂》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 565. `CG-QST-565`：重阳玄门主殿 · 王重楼亲手将紫阳先天八卦鹤氅披于弟子肩头，口授天阶先天功总纲
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts`](../src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q32_ziyang_robe.jpg`
+- **画框题跋**：`重阳玄门主殿 · 王重楼亲手将紫阳先天八卦鹤氅披于弟子肩头，口授天阶先天功总纲`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳玄门主殿 · 王重楼亲手将紫阳先天八卦鹤氅披于弟子肩头，口授天阶先天功总纲" from 《先天一炁 · 紫阳传衣》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 566. `CG-QST-566`：紫金丹院 · 先天一炁破关而出，紫阳鹤氅星纹大亮，道藏经阁紫气盈室
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts`](../src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q32_xiantian_qi.jpg`
+- **画框题跋**：`紫金丹院 · 先天一炁破关而出，紫阳鹤氅星纹大亮，道藏经阁紫气盈室`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "紫金丹院 · 先天一炁破关而出，紫阳鹤氅星纹大亮，道藏经阁紫气盈室" from 《先天一炁 · 紫阳传衣》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 567. `CG-QST-567`：破晓演剑坛 · 赫连霸先率西夏铁鹞重甲压境，你身披紫阳鹤氅孤身立于北斗阵眼
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts`](../src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q32_dipper_dawn.jpg`
+- **画框题跋**：`破晓演剑坛 · 赫连霸先率西夏铁鹞重甲压境，你身披紫阳鹤氅孤身立于北斗阵眼`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "破晓演剑坛 · 赫连霸先率西夏铁鹞重甲压境，你身披紫阳鹤氅孤身立于北斗阵眼" from 《先天一炁 · 紫阳传衣》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 568. `CG-QST-568`：天罡演剑坛 · 先天一炁紫光冲霄，一掌震裂铁鹞重甲正面击退赫连霸先
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts`](../src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q32_helian_clash.jpg`
+- **画框题跋**：`天罡演剑坛 · 先天一炁紫光冲霄，一掌震裂铁鹞重甲正面击退赫连霸先`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "天罡演剑坛 · 先天一炁紫光冲霄，一掌震裂铁鹞重甲正面击退赫连霸先" from 《先天一炁 · 紫阳传衣》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 569. `CG-QST-569`：重阳古观雪霁 · 朝阳满坛，紫阳鹤氅迎风舒展，先天一炁薪火相传
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts`](../src/data/quests/sects/zhongnanGuanXiantianAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q32_sunrise_dao.jpg`
+- **画框题跋**：`重阳古观雪霁 · 朝阳满坛，紫阳鹤氅迎风舒展，先天一炁薪火相传`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳古观雪霁 · 朝阳满坛，紫阳鹤氅迎风舒展，先天一炁薪火相传" from 《先天一炁 · 紫阳传衣》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 570. `CG-QST-570`：重阳玄门清修主殿 · 王重楼亲授重阳天罡七星剑，全真七子佩剑列阵誓师出关
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts`](../src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q33_sevenstar_bestow.jpg`
+- **画框题跋**：`重阳玄门清修主殿 · 王重楼亲授重阳天罡七星剑，全真七子佩剑列阵誓师出关`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳玄门清修主殿 · 王重楼亲授重阳天罡七星剑，全真七子佩剑列阵誓师出关" from 《天罡神剑 · 横绝塞北》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 571. `CG-QST-571`：潼关镇河城楼 · 七星神剑斩落燕云铁枪红缨，黄河冰涛间力挽关中门户
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts`](../src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q33_tongguan_spear.jpg`
+- **画框题跋**：`潼关镇河城楼 · 七星神剑斩落燕云铁枪红缨，黄河冰涛间力挽关中门户`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "潼关镇河城楼 · 七星神剑斩落燕云铁枪红缨，黄河冰涛间力挽关中门户" from 《天罡神剑 · 横绝塞北》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 572. `CG-QST-572`：鄜延边军西营 · 风雪夜火光冲天，你执七星神剑率全真七子列天罡北斗大阵围锁段延庆
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts`](../src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q33_yanan_array.jpg`
+- **画框题跋**：`鄜延边军西营 · 风雪夜火光冲天，你执七星神剑率全真七子列天罡北斗大阵围锁段延庆`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "鄜延边军西营 · 风雪夜火光冲天，你执七星神剑率全真七子列天罡北斗大阵围锁段延庆" from 《天罡神剑 · 横绝塞北》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 573. `CG-QST-573`：延安风雪夜 · 七星神剑紫芒破去一阳指铁杖，段延庆负伤遁走，十万军粮安然无恙
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts`](../src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q33_duan_duel.jpg`
+- **画框题跋**：`延安风雪夜 · 七星神剑紫芒破去一阳指铁杖，段延庆负伤遁走，十万军粮安然无恙`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "延安风雪夜 · 七星神剑紫芒破去一阳指铁杖，段延庆负伤遁走，十万军粮安然无恙" from 《天罡神剑 · 横绝塞北》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 574. `CG-QST-574`：重阳山巅 · 塞北风雪初霁，你佩带重阳天罡七星剑远眺关陕万里河山
+
+- **关联文件**：[`src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts`](../src/data/quests/sects/zhongnanGuanSevenStarSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q33_north_triumph.jpg`
+- **画框题跋**：`重阳山巅 · 塞北风雪初霁，你佩带重阳天罡七星剑远眺关陕万里河山`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳山巅 · 塞北风雪初霁，你佩带重阳天罡七星剑远眺关陕万里河山" from 《天罡神剑 · 横绝塞北》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 575. `CG-QST-575`：冰魄石室 · 林朝瑶于寒玉床前亲授寒玉素心冰魄剑与昆仑寒玉冰心玦，霜华满室
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts`](../src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q34_jadebed_entrust.jpg`
+- **画框题跋**：`冰魄石室 · 林朝瑶于寒玉床前亲授寒玉素心冰魄剑与昆仑寒玉冰心玦，霜华满室`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "冰魄石室 · 林朝瑶于寒玉床前亲授寒玉素心冰魄剑与昆仑寒玉冰心玦，霜华满室" from 《冰魄凝心 · 寒玉托剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 576. `CG-QST-576`：天罗地网捕雀厅 · 霜白剑光与寒玉冰心玦交相辉映，满室灵雀安然栖止
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts`](../src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q34_ice_meditation.jpg`
+- **画框题跋**：`天罗地网捕雀厅 · 霜白剑光与寒玉冰心玦交相辉映，满室灵雀安然栖止`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "天罗地网捕雀厅 · 霜白剑光与寒玉冰心玦交相辉映，满室灵雀安然栖止" from 《冰魄凝心 · 寒玉托剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 577. `CG-QST-577`：银练飞瀑 · 叶二娘柳叶双刀与岳老三鳄嘴剪左右夹击，寒玉冰魄剑气骤然凝霜
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts`](../src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q34_falls_ambush.jpg`
+- **画框题跋**：`银练飞瀑 · 叶二娘柳叶双刀与岳老三鳄嘴剪左右夹击，寒玉冰魄剑气骤然凝霜`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "银练飞瀑 · 叶二娘柳叶双刀与岳老三鳄嘴剪左右夹击，寒玉冰魄剑气骤然凝霜" from 《冰魄凝心 · 寒玉托剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 578. `CG-QST-578`：银练飞瀑之下 · 霜白剑光如冰莲绽放，一剑冻裂鳄剪震退叶二娘与岳老三
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts`](../src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q34_dual_villains.jpg`
+- **画框题跋**：`银练飞瀑之下 · 霜白剑光如冰莲绽放，一剑冻裂鳄剪震退叶二娘与岳老三`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "银练飞瀑之下 · 霜白剑光如冰莲绽放，一剑冻裂鳄剪震退叶二娘与岳老三" from 《冰魄凝心 · 寒玉托剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 579. `CG-QST-579`：活死人墓幽谷 · 佩冰心玦执冰魄剑立于石门之前，寒雾凝华，古墓新锋威震终南
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts`](../src/data/quests/sects/zhongnanMuIceSoulSwordQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q34_tomb_glory.jpg`
+- **画框题跋**：`活死人墓幽谷 · 佩冰心玦执冰魄剑立于石门之前，寒雾凝华，古墓新锋威震终南`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "活死人墓幽谷 · 佩冰心玦执冰魄剑立于石门之前，寒雾凝华，古墓新锋威震终南" from 《冰魄凝心 · 寒玉托剑》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 580. `CG-QST-580`：繁花幽谷双剑合璧坪 · 漫天梅瓣随剑风飞舞，林朝瑶以梅枝点破玉女素心剑法极意
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts`](../src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q35_flower_valley.jpg`
+- **画框题跋**：`繁花幽谷双剑合璧坪 · 漫天梅瓣随剑风飞舞，林朝瑶以梅枝点破玉女素心剑法极意`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "繁花幽谷双剑合璧坪 · 漫天梅瓣随剑风飞舞，林朝瑶以梅枝点破玉女素心剑法极意" from 《繁花似锦 · 玉女素心》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 581. `CG-QST-581`：繁花幽谷双剑合璧坪 · 段延庆双杖挟一阳指劲破空点来，落花尽碎
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts`](../src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q35_duan_arrival.jpg`
+- **画框题跋**：`繁花幽谷双剑合璧坪 · 段延庆双杖挟一阳指劲破空点来，落花尽碎`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "繁花幽谷双剑合璧坪 · 段延庆双杖挟一阳指劲破空点来，落花尽碎" from 《繁花似锦 · 玉女素心》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 582. `CG-QST-582`：繁花幽谷 · 落梅漫天化剑雨，玉女素心剑法彻悟大成，两仪剑光照耀山谷
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts`](../src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q35_suxin_epiphany.jpg`
+- **画框题跋**：`繁花幽谷 · 落梅漫天化剑雨，玉女素心剑法彻悟大成，两仪剑光照耀山谷`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "繁花幽谷 · 落梅漫天化剑雨，玉女素心剑法彻悟大成，两仪剑光照耀山谷" from 《繁花似锦 · 玉女素心》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 583. `CG-QST-583`：繁花幽谷 · 素心剑雨连点七处要穴，重创恶贯满盈段延庆并将其逐出终南山
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts`](../src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q35_suxin_clash.jpg`
+- **画框题跋**：`繁花幽谷 · 素心剑雨连点七处要穴，重创恶贯满盈段延庆并将其逐出终南山`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "繁花幽谷 · 素心剑雨连点七处要穴，重创恶贯满盈段延庆并将其逐出终南山" from 《繁花似锦 · 玉女素心》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 584. `CG-QST-584`：终南山道 · 段延庆折杖遁走，山梅落英纷飞，终南幽谷重归清宁
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts`](../src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q35_duan_retreat.jpg`
+- **画框题跋**：`终南山道 · 段延庆折杖遁走，山梅落英纷飞，终南幽谷重归清宁`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "终南山道 · 段延庆折杖遁走，山梅落英纷飞，终南幽谷重归清宁" from 《繁花似锦 · 玉女素心》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 585. `CG-QST-585`：繁花幽谷双剑合璧坪 · 玉女素心剑道大成，漫天梅影随剑心流转，威震天下剑林
+
+- **关联文件**：[`src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts`](../src/data/quests/sects/zhongnanMuSuxinAwakenQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q35_suxin_mastery.jpg`
+- **画框题跋**：`繁花幽谷双剑合璧坪 · 玉女素心剑道大成，漫天梅影随剑心流转，威震天下剑林`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "繁花幽谷双剑合璧坪 · 玉女素心剑道大成，漫天梅影随剑心流转，威震天下剑林" from 《繁花似锦 · 玉女素心》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 586. `CG-QST-586`：重阳玄门清修主殿 · 王重楼换上云游青袍，于三清像前宣布传印托付玄门正统
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q36_ziyang_summon.jpg`
+- **画框题跋**：`重阳玄门清修主殿 · 王重楼换上云游青袍，于三清像前宣布传印托付玄门正统`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳玄门清修主殿 · 王重楼换上云游青袍，于三清像前宣布传印托付玄门正统" from 《玄门正统 · 紫阳掌教》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 587. `CG-QST-587`：天罡演剑坛 · 紫阳真人以青竹杖印证七星神剑，两代先天紫气冲霄映彻终南
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q36_dipper_trial.jpg`
+- **画框题跋**：`天罡演剑坛 · 紫阳真人以青竹杖印证七星神剑，两代先天紫气冲霄映彻终南`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "天罡演剑坛 · 紫阳真人以青竹杖印证七星神剑，两代先天紫气冲霄映彻终南" from 《玄门正统 · 紫阳掌教》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 588. `CG-QST-588`：重阳主殿 · 全真七子与百余道众稽首见证，王重楼亲授紫阳掌教玉印
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q36_seal_bestow.jpg`
+- **画框题跋**：`重阳主殿 · 全真七子与百余道众稽首见证，王重楼亲授紫阳掌教玉印`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳主殿 · 全真七子与百余道众稽首见证，王重楼亲授紫阳掌教玉印" from 《玄门正统 · 紫阳掌教》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 589. `CG-QST-589`：终南山门外 · 王重楼芒鞋竹杖踏云远游，背影融入苍翠松海云雾之间
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q36_wandering_cloud.jpg`
+- **画框题跋**：`终南山门外 · 王重楼芒鞋竹杖踏云远游，背影融入苍翠松海云雾之间`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "终南山门外 · 王重楼芒鞋竹杖踏云远游，背影融入苍翠松海云雾之间" from 《玄门正统 · 紫阳掌教》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 590. `CG-QST-590`：终南重阳古观 · 紫阳掌教真人立于七星高台，万松朝宗，紫气浩荡护佑关中
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingZiyangMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q36_ziyang_master.jpg`
+- **画框题跋**：`终南重阳古观 · 紫阳掌教真人立于七星高台，万松朝宗，紫气浩荡护佑关中`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "终南重阳古观 · 紫阳掌教真人立于七星高台，万松朝宗，紫气浩荡护佑关中" from 《玄门正统 · 紫阳掌教》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 591. `CG-QST-591`：寒玉涧临水抚琴榭 · 王重楼与林朝瑶琴箫合鸣，相视含笑吐露携手偕隐天涯之志
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q37_qin_farewell.jpg`
+- **画框题跋**：`寒玉涧临水抚琴榭 · 王重楼与林朝瑶琴箫合鸣，相视含笑吐露携手偕隐天涯之志`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "寒玉涧临水抚琴榭 · 王重楼与林朝瑶琴箫合鸣，相视含笑吐露携手偕隐天涯之志" from 《太乙仙侣 · 双剑共主》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 592. `CG-QST-592`：繁花幽谷双剑合璧坪 · 王重楼与林朝瑶联手试剑，三道剑光卷起漫天花雨化作太极星图
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q37_dual_test.jpg`
+- **画框题跋**：`繁花幽谷双剑合璧坪 · 王重楼与林朝瑶联手试剑，三道剑光卷起漫天花雨化作太极星图`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "繁花幽谷双剑合璧坪 · 王重楼与林朝瑶联手试剑，三道剑光卷起漫天花雨化作太极星图" from 《太乙仙侣 · 双剑共主》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 593. `CG-QST-593`：繁花幽谷双剑合璧坪 · 重阳天罡七星剑与寒玉素心冰魄剑双剑齐鸣，星光霜华交融冲霄
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q37_sword_reunite.jpg`
+- **画框题跋**：`繁花幽谷双剑合璧坪 · 重阳天罡七星剑与寒玉素心冰魄剑双剑齐鸣，星光霜华交融冲霄`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "繁花幽谷双剑合璧坪 · 重阳天罡七星剑与寒玉素心冰魄剑双剑齐鸣，星光霜华交融冲霄" from 《太乙仙侣 · 双剑共主》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 594. `CG-QST-594`：终南云海之间 · 王重楼背琴、林朝瑶执剑，二人携手踏云偕隐，终成太乙仙侣佳话
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q37_couple_depart.jpg`
+- **画框题跋**：`终南云海之间 · 王重楼背琴、林朝瑶执剑，二人携手踏云偕隐，终成太乙仙侣佳话`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "终南云海之间 · 王重楼背琴、林朝瑶执剑，二人携手踏云偕隐，终成太乙仙侣佳话" from 《太乙仙侣 · 双剑共主》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 595. `CG-QST-595`：终南玉虹桥 · 青袍道众与白衣女侠往来论剑，重阳古观与活死人墓永结同心
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q37_two_branches.jpg`
+- **画框题跋**：`终南玉虹桥 · 青袍道众与白衣女侠往来论剑，重阳古观与活死人墓永结同心`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "终南玉虹桥 · 青袍道众与白衣女侠往来论剑，重阳古观与活死人墓永结同心" from 《太乙仙侣 · 双剑共主》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 596. `CG-QST-596`：终南绝顶 · 双剑共主身负七星与冰魄双剑俯瞰云海，终南两仪总宗威震天下
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingTwinSwordMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q37_twinsword_master.jpg`
+- **画框题跋**：`终南绝顶 · 双剑共主身负七星与冰魄双剑俯瞰云海，终南两仪总宗威震天下`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "终南绝顶 · 双剑共主身负七星与冰魄双剑俯瞰云海，终南两仪总宗威震天下" from 《太乙仙侣 · 双剑共主》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 597. `CG-QST-597`：活死人墓前厅 · 西夏一品堂死士引爆九幽雷火剧毒，紫黑毒焰吞噬青石甬道
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q38_thunder_ambush.jpg`
+- **画框题跋**：`活死人墓前厅 · 西夏一品堂死士引爆九幽雷火剧毒，紫黑毒焰吞噬青石甬道`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "活死人墓前厅 · 西夏一品堂死士引爆九幽雷火剧毒，紫黑毒焰吞噬青石甬道" from 《断龙绝响 · 黯然孤鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 598. `CG-QST-598`：活死人墓石门 · 万斤断龙石轰然坠地，隔绝漫天九幽毒焰，震彻终南幽谷
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q38_dragon_stone.jpg`
+- **画框题跋**：`活死人墓石门 · 万斤断龙石轰然坠地，隔绝漫天九幽毒焰，震彻终南幽谷`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "活死人墓石门 · 万斤断龙石轰然坠地，隔绝漫天九幽毒焰，震彻终南幽谷" from 《断龙绝响 · 黯然孤鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 599. `CG-QST-599`：昆仑寒玉石室 · 冷清秋冰封玄冰石棺沉眠待醒，林朝瑶负伤远引，独留孤影守墓
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q38_ice_coffin.jpg`
+- **画框题跋**：`昆仑寒玉石室 · 冷清秋冰封玄冰石棺沉眠待醒，林朝瑶负伤远引，独留孤影守墓`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "昆仑寒玉石室 · 冷清秋冰封玄冰石棺沉眠待醒，林朝瑶负伤远引，独留孤影守墓" from 《断龙绝响 · 黯然孤鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 600. `CG-QST-600`：银练飞瀑雨夜 · 弃剑仰天长吟江淹《别赋》，至悲至痛间周身掌气令飞瀑倒流
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q38_biefu_grief.jpg`
+- **画框题跋**：`银练飞瀑雨夜 · 弃剑仰天长吟江淹《别赋》，至悲至痛间周身掌气令飞瀑倒流`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "银练飞瀑雨夜 · 弃剑仰天长吟江淹《别赋》，至悲至痛间周身掌气令飞瀑倒流" from 《断龙绝响 · 黯然孤鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 601. `CG-QST-601`：银练飞瀑 · 天阶《黯然销魂掌》一掌崩崖震退暴雨，一品堂毒火死士尽数伏诛
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q38_anran_palm.jpg`
+- **画框题跋**：`银练飞瀑 · 天阶《黯然销魂掌》一掌崩崖震退暴雨，一品堂毒火死士尽数伏诛`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "银练飞瀑 · 天阶《黯然销魂掌》一掌崩崖震退暴雨，一品堂毒火死士尽数伏诛" from 《断龙绝响 · 黯然孤鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 602. `CG-QST-602`：终南银练飞瀑 · 黯然孤鸿白衣临渊而立，天阶黯然销魂掌威慑江湖，独守幽谷待故人归
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts`](../src/data/quests/sects/zhongnanEndingAnranTombMasterQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q38_tomb_master.jpg`
+- **画框题跋**：`终南银练飞瀑 · 黯然孤鸿白衣临渊而立，天阶黯然销魂掌威慑江湖，独守幽谷待故人归`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "终南银练飞瀑 · 黯然孤鸿白衣临渊而立，天阶黯然销魂掌威慑江湖，独守幽谷待故人归" from 《断龙绝响 · 黯然孤鸿》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 603. `CG-QST-603`：重阳玄门清修主殿 · 婉辞俗务掌门位，举荐马钰玄掌观、冷清秋理墓，超然求道
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts`](../src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q39_decline_throne.jpg`
+- **画框题跋**：`重阳玄门清修主殿 · 婉辞俗务掌门位，举荐马钰玄掌观、冷清秋理墓，超然求道`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳玄门清修主殿 · 婉辞俗务掌门位，举荐马钰玄掌观、冷清秋理墓，超然求道" from 《坐忘太虚 · 道藏真君》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 604. `CG-QST-604`：银练飞瀑清泉石茗案 · 黄裳与张玄素联袂登临终南，三贤烹茶论道气度超凡
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts`](../src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q39_guests_arrive.jpg`
+- **画框题跋**：`银练飞瀑清泉石茗案 · 黄裳与张玄素联袂登临终南，三贤烹茶论道气度超凡`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "银练飞瀑清泉石茗案 · 黄裳与张玄素联袂登临终南，三贤烹茶论道气度超凡" from 《坐忘太虚 · 道藏真君》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 605. `CG-QST-605`：清泉石茗案 · 星河倒映飞瀑，你与黄裳、张玄素坐忘论道七昼夜，青石茶痕暗合天道
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts`](../src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q39_dao_debate.jpg`
+- **画框题跋**：`清泉石茗案 · 星河倒映飞瀑，你与黄裳、张玄素坐忘论道七昼夜，青石茶痕暗合天道`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "清泉石茗案 · 星河倒映飞瀑，你与黄裳、张玄素坐忘论道七昼夜，青石茶痕暗合天道" from 《坐忘太虚 · 道藏真君》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 606. `CG-QST-606`：银练飞瀑晨曦 · 坐忘太虚终悟天人合一，云霞绕身，松鹤自来相伴
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts`](../src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q39_void_epiphany.jpg`
+- **画框题跋**：`银练飞瀑晨曦 · 坐忘太虚终悟天人合一，云霞绕身，松鹤自来相伴`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "银练飞瀑晨曦 · 坐忘太虚终悟天人合一，云霞绕身，松鹤自来相伴" from 《坐忘太虚 · 道藏真君》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 607. `CG-QST-607`：终南绝顶云海 · 终南太上隐尊独坐松下烹茶，仙鹤绕云，坐忘太虚与天地同游
+
+- **关联文件**：[`src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts`](../src/data/quests/sects/zhongnanEndingTaoistImmortalQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q39_immortal_recluse.jpg`
+- **画框题跋**：`终南绝顶云海 · 终南太上隐尊独坐松下烹茶，仙鹤绕云，坐忘太虚与天地同游`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "终南绝顶云海 · 终南太上隐尊独坐松下烹茶，仙鹤绕云，坐忘太虚与天地同游" from 《坐忘太虚 · 道藏真君》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 608. `CG-QST-608`：秋风卷叶入重阳大殿，西夏密探玄铁令牌陈于案前
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts`](../src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q40_autumn_dispatch.jpg`
+- **画框题跋**：`秋风卷叶入重阳大殿，西夏密探玄铁令牌陈于案前`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "秋风卷叶入重阳大殿，西夏密探玄铁令牌陈于案前" from 《贺兰破冰 · 寒窖问尊》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 609. `CG-QST-609`：长河落日之下，白衣剑客踏沙孤行，遥指贺兰山阙
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts`](../src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q40_desert_march.jpg`
+- **画框题跋**：`长河落日之下，白衣剑客踏沙孤行，遥指贺兰山阙`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "长河落日之下，白衣剑客踏沙孤行，遥指贺兰山阙" from 《贺兰破冰 · 寒窖问尊》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 610. `CG-QST-610`：正午烈日下白衣剑客只身立于一品堂绿琉璃阶前，气贯长虹
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts`](../src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q40_yipin_gate.jpg`
+- **画框题跋**：`正午烈日下白衣剑客只身立于一品堂绿琉璃阶前，气贯长虹`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "正午烈日下白衣剑客只身立于一品堂绿琉璃阶前，气贯长虹" from 《贺兰破冰 · 寒窖问尊》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 611. `CG-QST-611`：一道璀璨青虹冲天而起，西夏一品堂鎏金巨匾应声中分坠落
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts`](../src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q40_shatter_plaque.jpg`
+- **画框题跋**：`一道璀璨青虹冲天而起，西夏一品堂鎏金巨匾应声中分坠落`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "一道璀璨青虹冲天而起，西夏一品堂鎏金巨匾应声中分坠落" from 《贺兰破冰 · 寒窖问尊》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 612. `CG-QST-612`：百丈玄冰铸就地底玉宫，白纱太妃端坐冰莲御座之上
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts`](../src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q40_ice_cellar_hall.jpg`
+- **画框题跋**：`百丈玄冰铸就地底玉宫，白纱太妃端坐冰莲御座之上`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "百丈玄冰铸就地底玉宫，白纱太妃端坐冰莲御座之上" from 《贺兰破冰 · 寒窖问尊》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 613. `CG-QST-613`：白虹掌劲折转如蛇，青锋剑气化圆破极，玄冰碎屑漫天飞舞
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts`](../src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q40_ice_duel.jpg`
+- **画框题跋**：`白虹掌劲折转如蛇，青锋剑气化圆破极，玄冰碎屑漫天飞舞`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "白虹掌劲折转如蛇，青锋剑气化圆破极，玄冰碎屑漫天飞舞" from 《贺兰破冰 · 寒窖问尊》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 614. `CG-QST-614`：至纯剑芒洞穿漫天冰刃，轰然劈裂镇窖万年寒玉柱
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts`](../src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q40_pillar_cleave.jpg`
+- **画框题跋**：`至纯剑芒洞穿漫天冰刃，轰然劈裂镇窖万年寒玉柱`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "至纯剑芒洞穿漫天冰刃，轰然劈裂镇窖万年寒玉柱" from 《贺兰破冰 · 寒窖问尊》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 615. `CG-QST-615`：晨曦铺满秦川古道，孤剑破冰威名已先传遍关洛江湖
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts`](../src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q40_return_dawn.jpg`
+- **画框题跋**：`晨曦铺满秦川古道，孤剑破冰威名已先传遍关洛江湖`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "晨曦铺满秦川古道，孤剑破冰威名已先传遍关洛江湖" from 《贺兰破冰 · 寒窖问尊》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 616. `CG-QST-616`：云海翻涌太乙峰，终南群道共贺贺兰破冰凯旋
+
+- **关联文件**：[`src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts`](../src/data/quests/sects/zhongnanXixiaIceCellarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q40_zhongnan_peace.jpg`
+- **画框题跋**：`云海翻涌太乙峰，终南群道共贺贺兰破冰凯旋`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "云海翻涌太乙峰，终南群道共贺贺兰破冰凯旋" from 《贺兰破冰 · 寒窖问尊》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 617. `CG-QST-617`：重阳佳节云海漫卷太乙峰，银练飞瀑旁松风煮茗迎四海高人
+
+- **关联文件**：[`src/data/quests/sects/zhongnanTaiyiSummitQuest.ts`](../src/data/quests/sects/zhongnanTaiyiSummitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q41_chongyang_clouds.jpg`
+- **画框题跋**：`重阳佳节云海漫卷太乙峰，银练飞瀑旁松风煮茗迎四海高人`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "重阳佳节云海漫卷太乙峰，银练飞瀑旁松风煮茗迎四海高人" from 《云深不知 · 太乙论道》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 618. `CG-QST-618`：黄裳执盏作证，冯默岚、鸠摩智、慕容博三大绝顶宗师齐聚寒玉涧
+
+- **关联文件**：[`src/data/quests/sects/zhongnanTaiyiSummitQuest.ts`](../src/data/quests/sects/zhongnanTaiyiSummitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q41_masters_gather.jpg`
+- **画框题跋**：`黄裳执盏作证，冯默岚、鸠摩智、慕容博三大绝顶宗师齐聚寒玉涧`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "黄裳执盏作证，冯默岚、鸠摩智、慕容博三大绝顶宗师齐聚寒玉涧" from 《云深不知 · 太乙论道》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 619. `CG-QST-619`：碧玉箫影与终南青锋交错繁花之间，桂雨纷飞如画
+
+- **关联文件**：[`src/data/quests/sects/zhongnanTaiyiSummitQuest.ts`](../src/data/quests/sects/zhongnanTaiyiSummitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q41_duel_feng.jpg`
+- **画框题跋**：`碧玉箫影与终南青锋交错繁花之间，桂雨纷飞如画`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "碧玉箫影与终南青锋交错繁花之间，桂雨纷飞如画" from 《云深不知 · 太乙论道》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 620. `CG-QST-620`：赤金火焰刀罡漫卷剑坪，青霜剑芒如银练断火，水火激荡轰鸣
+
+- **关联文件**：[`src/data/quests/sects/zhongnanTaiyiSummitQuest.ts`](../src/data/quests/sects/zhongnanTaiyiSummitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q41_duel_jiumozhi.jpg`
+- **画框题跋**：`赤金火焰刀罡漫卷剑坪，青霜剑芒如银练断火，水火激荡轰鸣`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "赤金火焰刀罡漫卷剑坪，青霜剑芒如银练断火，水火激荡轰鸣" from 《云深不知 · 太乙论道》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 621. `CG-QST-621`：斗转星移气旋撕裂云雾，太乙剑意空灵无迹，直透潜龙中宫
+
+- **关联文件**：[`src/data/quests/sects/zhongnanTaiyiSummitQuest.ts`](../src/data/quests/sects/zhongnanTaiyiSummitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q41_duel_murong.jpg`
+- **画框题跋**：`斗转星移气旋撕裂云雾，太乙剑意空灵无迹，直透潜龙中宫`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "斗转星移气旋撕裂云雾，太乙剑意空灵无迹，直透潜龙中宫" from 《云深不知 · 太乙论道》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 622. `CG-QST-622`：三战连胜四海宗师，终南群道欢呼震谷，漫山红叶随风起舞
+
+- **关联文件**：[`src/data/quests/sects/zhongnanTaiyiSummitQuest.ts`](../src/data/quests/sects/zhongnanTaiyiSummitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q41_victory_ovation.jpg`
+- **画框题跋**：`三战连胜四海宗师，终南群道欢呼震谷，漫山红叶随风起舞`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "三战连胜四海宗师，终南群道欢呼震谷，漫山红叶随风起舞" from 《云深不知 · 太乙论道》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 623. `CG-QST-623`：银练飞瀑之下，黄裳与四海宗师举盏共饮重阳松茗
+
+- **关联文件**：[`src/data/quests/sects/zhongnanTaiyiSummitQuest.ts`](../src/data/quests/sects/zhongnanTaiyiSummitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q41_waterfall_tea.jpg`
+- **画框题跋**：`银练飞瀑之下，黄裳与四海宗师举盏共饮重阳松茗`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "银练飞瀑之下，黄裳与四海宗师举盏共饮重阳松茗" from 《云深不知 · 太乙论道》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 624. `CG-QST-624`：明月悬照终南太乙峰，白衣剑尊独立飞瀑绝顶，俯瞰千里秦川
+
+- **关联文件**：[`src/data/quests/sects/zhongnanTaiyiSummitQuest.ts`](../src/data/quests/sects/zhongnanTaiyiSummitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q41_taiyi_apotheosis.jpg`
+- **画框题跋**：`明月悬照终南太乙峰，白衣剑尊独立飞瀑绝顶，俯瞰千里秦川`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "明月悬照终南太乙峰，白衣剑尊独立飞瀑绝顶，俯瞰千里秦川" from 《云深不知 · 太乙论道》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 625. `CG-QST-625`：太乙云深松风万里，终南隐宗超然封神，传奇永载史册
+
+- **关联文件**：[`src/data/quests/sects/zhongnanTaiyiSummitQuest.ts`](../src/data/quests/sects/zhongnanTaiyiSummitQuest.ts)
+- **目标路径**：`public/assets/quests/zn_q41_eternal_pine.jpg`
+- **画框题跋**：`太乙云深松风万里，终南隐宗超然封神，传奇永载史册`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "太乙云深松风万里，终南隐宗超然封神，传奇永载史册" from 《云深不知 · 太乙论道》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 626. `CG-QST-626`：山谷百花盛放，玉蜂嗡嗡绕木箱飞舞，清甜花蜜香气四溢
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideJadeBeeHoneyQuest.ts`](../src/data/quests/sects/zhongnanSideJadeBeeHoneyQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side01_bee_garden.jpg`
+- **画框题跋**：`山谷百花盛放，玉蜂嗡嗡绕木箱飞舞，清甜花蜜香气四溢`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "山谷百花盛放，玉蜂嗡嗡绕木箱飞舞，清甜花蜜香气四溢" from 《玉蜂百花 · 清芬酿蜜记》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 627. `CG-QST-627`：暮色幽谷中烟雾弥漫，白衣弟子飞身截住手持熏烟竹筒的偷蜂药贩
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideJadeBeeHoneyQuest.ts`](../src/data/quests/sects/zhongnanSideJadeBeeHoneyQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side01_thief_ambush.jpg`
+- **画框题跋**：`暮色幽谷中烟雾弥漫，白衣弟子飞身截住手持熏烟竹筒的偷蜂药贩`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "暮色幽谷中烟雾弥漫，白衣弟子飞身截住手持熏烟竹筒的偷蜂药贩" from 《玉蜂百花 · 清芬酿蜜记》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 628. `CG-QST-628`：古槐之下青衿环坐，张载坐拥虎皮高座论易讲学，气象轩昂
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideHengquScholarQuest.ts`](../src/data/quests/sects/zhongnanSideHengquScholarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side02_hengqu_lecture.jpg`
+- **画框题跋**：`古槐之下青衿环坐，张载坐拥虎皮高座论易讲学，气象轩昂`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "古槐之下青衿环坐，张载坐拥虎皮高座论易讲学，气象轩昂" from 《横渠问剑 · 立心立命录》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 629. `CG-QST-629`：长安府衙飞檐之上，白衣终南剑客与徐弘毅夹击怀揣古籍的盗书贼
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideHengquScholarQuest.ts`](../src/data/quests/sects/zhongnanSideHengquScholarQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side02_roof_chase.jpg`
+- **画框题跋**：`长安府衙飞檐之上，白衣终南剑客与徐弘毅夹击怀揣古籍的盗书贼`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "长安府衙飞檐之上，白衣终南剑客与徐弘毅夹击怀揣古籍的盗书贼" from 《横渠问剑 · 立心立命录》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 630. `CG-QST-630`：紫金丹院青烟缭绕，林勇虎与谭涛俯身查验生出暗纹的旧香炉
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideYaowareFurnaceQuest.ts`](../src/data/quests/sects/zhongnanSideYaowareFurnaceQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side03_alchemy_furnace.jpg`
+- **画框题跋**：`紫金丹院青烟缭绕，林勇虎与谭涛俯身查验生出暗纹的旧香炉`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "紫金丹院青烟缭绕，林勇虎与谭涛俯身查验生出暗纹的旧香炉" from 《紫金丹火 · 耀州博山炉》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 631. `CG-QST-631`：终南山口松影森森，渭北悍匪挥刀拦道，白衣弟子背匣拔剑护珍炉
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideYaowareFurnaceQuest.ts`](../src/data/quests/sects/zhongnanSideYaowareFurnaceQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side03_bandit_ambush.jpg`
+- **画框题跋**：`终南山口松影森森，渭北悍匪挥刀拦道，白衣弟子背匣拔剑护珍炉`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "终南山口松影森森，渭北悍匪挥刀拦道，白衣弟子背匣拔剑护珍炉" from 《紫金丹火 · 耀州博山炉》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 632. `CG-QST-632`：大雁塔青砖碑廊之下，刘敞俯首辨识先秦石鼓拓本，古意盎然
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideDayantaSteleQuest.ts`](../src/data/quests/sects/zhongnanSideDayantaSteleQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side04_dayanta_stele.jpg`
+- **画框题跋**：`大雁塔青砖碑廊之下，刘敞俯首辨识先秦石鼓拓本，古意盎然`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "大雁塔青砖碑廊之下，刘敞俯首辨识先秦石鼓拓本，古意盎然" from 《雁塔题名 · 先秦石鼓考》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 633. `CG-QST-633`：大雁塔回廊墨砚飞溅，终南弟子与谭婉翠联手截杀现形的大辽细作
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideDayantaSteleQuest.ts`](../src/data/quests/sects/zhongnanSideDayantaSteleQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side04_spy_duel.jpg`
+- **画框题跋**：`大雁塔回廊墨砚飞溅，终南弟子与谭婉翠联手截杀现形的大辽细作`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "大雁塔回廊墨砚飞溅，终南弟子与谭婉翠联手截杀现形的大辽细作" from 《雁塔题名 · 先秦石鼓考》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 634. `CG-QST-634`：西市胡栈外围满商旅，波斯商队首领焦急指着残留诡异紫烟的窗棂
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSidePersianMerchantQuest.ts`](../src/data/quests/sects/zhongnanSidePersianMerchantQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side05_xishi_case.jpg`
+- **画框题跋**：`西市胡栈外围满商旅，波斯商队首领焦急指着残留诡异紫烟的窗棂`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "西市胡栈外围满商旅，波斯商队首领焦急指着残留诡异紫烟的窗棂" from 《西市迷香 · 波斯胡商案》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 635. `CG-QST-635`：阴暗酒窖磷火幽幽，终南白衣剑客一脚踹开木门，独战星宿二贼
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSidePersianMerchantQuest.ts`](../src/data/quests/sects/zhongnanSidePersianMerchantQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side05_cellar_fight.jpg`
+- **画框题跋**：`阴暗酒窖磷火幽幽，终南白衣剑客一脚踹开木门，独战星宿二贼`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "阴暗酒窖磷火幽幽，终南白衣剑客一脚踹开木门，独战星宿二贼" from 《西市迷香 · 波斯胡商案》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 636. `CG-QST-636`：太白积雪素裹银装，老樵夫雪松下挥刀劈柴，木屑纷飞暗合自然大道
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideWoodcutterDaoQuest.ts`](../src/data/quests/sects/zhongnanSideWoodcutterDaoQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side06_snow_woodcutter.jpg`
+- **画框题跋**：`太白积雪素裹银装，老樵夫雪松下挥刀劈柴，木屑纷飞暗合自然大道`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "太白积雪素裹银装，老樵夫雪松下挥刀劈柴，木屑纷飞暗合自然大道" from 《太白积雪 · 樵夫劈柴意》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 637. `CG-QST-637`：风雪寒夜茅庐前，终南弟子迎战双目泛绿的太白雪狼王与狼群
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideWoodcutterDaoQuest.ts`](../src/data/quests/sects/zhongnanSideWoodcutterDaoQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side06_wolf_pack.jpg`
+- **画框题跋**：`风雪寒夜茅庐前，终南弟子迎战双目泛绿的太白雪狼王与狼群`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "风雪寒夜茅庐前，终南弟子迎战双目泛绿的太白雪狼王与狼群" from 《太白积雪 · 樵夫劈柴意》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 638. `CG-QST-638`：秋林草堂竹篱之前，负伤的华山女侠紧捂鎏金剑帖，终南弟子挺身扶救
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideHuashanEnvoyQuest.ts`](../src/data/quests/sects/zhongnanSideHuashanEnvoyQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side07_caotang_rescue.jpg`
+- **画框题跋**：`秋林草堂竹篱之前，负伤的华山女侠紧捂鎏金剑帖，终南弟子挺身扶救`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "秋林草堂竹篱之前，负伤的华山女侠紧捂鎏金剑帖，终南弟子挺身扶救" from 《秦晋同盟 · 西岳送剑帖》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 639. `CG-QST-639`：潼关雄城烽火之下，终南弟子与梁惊风并肩迎战挥舞双斧的绿林悍匪
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideHuashanEnvoyQuest.ts`](../src/data/quests/sects/zhongnanSideHuashanEnvoyQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side07_tongguan_clash.jpg`
+- **画框题跋**：`潼关雄城烽火之下，终南弟子与梁惊风并肩迎战挥舞双斧的绿林悍匪`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "潼关雄城烽火之下，终南弟子与梁惊风并肩迎战挥舞双斧的绿林悍匪" from 《秦晋同盟 · 西岳送剑帖》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 640. `CG-QST-640`：腊月雪霁松梅映瀑，终南诸老围坐石案煮雪烹茗，抚琴清歌
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideColdStreamTeaQuest.ts`](../src/data/quests/sects/zhongnanSideColdStreamTeaQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side08_winter_tea.jpg`
+- **画框题跋**：`腊月雪霁松梅映瀑，终南诸老围坐石案煮雪烹茗，抚琴清歌`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "腊月雪霁松梅映瀑，终南诸老围坐石案煮雪烹茗，抚琴清歌" from 《寒涧松茗 · 岁寒三友会》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 641. `CG-QST-641`：飞瀑白雪之间，终南弟子与桃花岛曲松璋以剑印琴，招式清雅飘逸
+
+- **关联文件**：[`src/data/quests/sects/zhongnanSideColdStreamTeaQuest.ts`](../src/data/quests/sects/zhongnanSideColdStreamTeaQuest.ts)
+- **目标路径**：`public/assets/quests/zn_side08_qin_sword_spar.jpg`
+- **画框题跋**：`飞瀑白雪之间，终南弟子与桃花岛曲松璋以剑印琴，招式清雅飘逸`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Northern Song China (Mount Zhongnan Chongyang Taoist Temple / Ancient Tomb Jade Valley / Chang'an / Qinling / Northwest Frontier). Depicting scene "飞瀑白雪之间，终南弟子与桃花岛曲松璋以剑印琴，招式清雅飘逸" from 《寒涧松茗 · 岁寒三友会》. Authentic Northern Song Taoist architecture, misty Qinling peaks, jade stream or snowbound frontier wuxia atmosphere, mineral pigments (azurite, malachite, cinnabar, ink wash), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```

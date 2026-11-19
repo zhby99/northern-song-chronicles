@@ -314,7 +314,61 @@ function deriveSealChar(q: QuestDefinition): string {
   if (facName.includes('泰山')) return '岱'
   if (facName.includes('峨眉')) return '峨'
   if (facName.includes('真武')) return '武'
-  if (facName.includes('终南')) return '隐'
+  if (facName.includes('终南')) {
+    const znSeals: Record<string, string> = {
+      'QST-SECT-11-ENTRY': '隐',
+      'QST-SECT-11-01': '筑',
+      'QST-SECT-11-02': '午',
+      'QST-SECT-11-03': '分',
+      'QST-SECT-11-04': '斗',
+      'QST-SECT-11-05': '雁',
+      'QST-SECT-11-06': '劈',
+      'QST-SECT-11-07': '马',
+      'QST-SECT-11-08': '夷',
+      'QST-SECT-11-09': '丹',
+      'QST-SECT-11-10': '真',
+      'QST-SECT-11-11': '阳',
+      'QST-SECT-11-12': '雀',
+      'QST-SECT-11-13': '霜',
+      'QST-SECT-11-14': '蜂',
+      'QST-SECT-11-15': '越',
+      'QST-SECT-11-16': '誓',
+      'QST-SECT-11-17': '针',
+      'QST-SECT-11-18': '棋',
+      'QST-SECT-11-19': '玉',
+      'QST-SECT-11-20': '碑',
+      'QST-SECT-11-21': '数',
+      'QST-SECT-11-22': '延',
+      'QST-SECT-11-23': '藏',
+      'QST-SECT-11-24': '封',
+      'QST-SECT-11-25': '猿',
+      'QST-SECT-11-26': '涛',
+      'QST-SECT-11-27': '昆',
+      'QST-SECT-11-28': '龙',
+      'QST-SECT-11-29': '劫',
+      'QST-SECT-11-30': '合',
+      'QST-SECT-11-31': '裂',
+      'QST-SECT-11-32': '先',
+      'QST-SECT-11-33': '星',
+      'QST-SECT-11-34': '冰',
+      'QST-SECT-11-35': '素',
+      'QST-SECT-11-36': '紫',
+      'QST-SECT-11-37': '侣',
+      'QST-SECT-11-38': '黯',
+      'QST-SECT-11-39': '虚',
+      'QST-SECT-11-40': '窖',
+      'QST-SECT-11-41': '巅',
+      'QST-SECT-11-SIDE-01': '蜜',
+      'QST-SECT-11-SIDE-02': '渠',
+      'QST-SECT-11-SIDE-03': '炉',
+      'QST-SECT-11-SIDE-04': '鼓',
+      'QST-SECT-11-SIDE-05': '香',
+      'QST-SECT-11-SIDE-06': '樵',
+      'QST-SECT-11-SIDE-07': '帖',
+      'QST-SECT-11-SIDE-08': '茗',
+    }
+    return znSeals[q.id] ?? '隐'
+  }
   if (facName.includes('唐门')) return '唐'
   if (facName.includes('青城')) return '青'
   if (facName.includes('铁掌')) return '掌'

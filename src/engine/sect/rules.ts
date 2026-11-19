@@ -169,6 +169,14 @@ const BASE_SECT_RULES: Record<string, Omit<SectRuleConfig, 'sectId' | 'starterGe
   'SECT-11': {
     isDaoSwordTournamentSect: true,
     promotionRuleKind: 'dao_sword_tournament',
+    entryQuestId: 'QST-SECT-11-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '须从未加入过任何门派且未修习良品及以上武学之白纸弟子，满足【根骨 ≥ 60 且 经义 ≥ 30（契合古观）】或【身法 ≥ 30 且 颜值 ≥ 75（契合古墓）】任一条件！前往【京兆府 · 终南草堂（隐逸别业） · 主阁讲席 · 抚琴台】开启十六幕《太乙烟霞 · 双脉问心》：随广宁子郝大玄击退西市恶霸与星宿敲钹童子、南入终南助丘芷霜驱匪护蜂（私窃玉蜂浆即永绝山门）、于寒玉涧接受孙清静与冷清秋琴诗双脉问心，终由丹阳子马钰玄收归外门、亲授《全真入门剑法》',
+      buildBlockedReason: () =>
+        '终南隐宗观墓双脉只纳白纸良才（须从未入过他派且未修习良品及以上武学，且根骨≥60兼经义≥30，或身法≥30兼颜值≥75）——请先前往【京兆府 · 终南草堂（隐逸别业） · 主阁讲席 · 抚琴台】开启《太乙烟霞 · 双脉问心》十六幕试炼，历琴剑问心后方得入籍终南外门！',
+    },
   },
   'SECT-13': {
     isDaoSwordTournamentSect: true,

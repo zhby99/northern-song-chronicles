@@ -460,6 +460,9 @@ export default defineConfig({
               if (normId.includes('/src/data/quests/sects/shaolin')) {
                 return 'data-quests-shaolin'
               }
+              if (normId.includes('/src/data/quests/sects/zhongnan')) {
+                return 'data-quests-zhongnan'
+              }
               if (
                 normId.includes('/src/data/quests/sects/nanshaolin') ||
                 normId.includes('/src/data/quests/sects/wutai') ||
