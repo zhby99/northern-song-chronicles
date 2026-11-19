@@ -271,9 +271,9 @@
 | `CG-QST-259` | `[x]` 已完成 | `public/assets/quests/hs_q22_qiaofeng_toast.jpg` | `/assets/quests/hs_q22_qiaofeng_toast.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第三十五幕 · 英雄邀战摔巨碗<br>（`scene_hsq22_35`） | `16:9` |
 | `CG-QST-260` | `[x]` 已完成 | `public/assets/quests/hs_q22_dragon_vs_sword.jpg` | `/assets/quests/hs_q22_dragon_vs_sword.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第三十八幕 · 剑啸亢龙裂九霄<br>（`scene_hsq22_38`） | `16:9` |
 | `CG-QST-261` | `[x]` 已完成 | `public/assets/quests/hs_q22_myriad_swords_roar.jpg` | `/assets/quests/hs_q22_myriad_swords_roar.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第四十二幕 · 万剑齐鸣尊绝巅<br>（`scene_hsq22_42`） | `16:9` |
-| `CG-QST-262` | `[ ]` 待补绘 | `public/assets/quests/tangmen_baicao_poison_smoke.jpg` | `/assets/quests/tangmen_baicao_poison_smoke.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第一幕 · 药廊紫烟掉包案<br>（`SCENE_TM_01_BAICAO_SWAP`） | `16:9` |
-| `CG-QST-263` | `[ ]` 待补绘 | `public/assets/quests/tangmen_wandu_miasma_pool.jpg` | `/assets/quests/tangmen_wandu_miasma_pool.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第四幕 · 五彩瘴泉吞丸试胆<br>（`SCENE_TM_04_WANDU_MIASMA`） | `16:9` |
-| `CG-QST-264` | `[ ]` 待补绘 | `public/assets/quests/tangmen_qianhuang_tower_oath.jpg` | `/assets/quests/tangmen_qianhuang_tower_oath.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第十一/十二幕 · 千簧总阁立世家契<br>（`SCENE_TM_11_TOWER_BRANCH_CHOICE`） | `16:9` |
+| `CG-QST-262` | `[x]` 已完成 | `public/assets/quests/tangmen_baicao_poison_smoke.jpg` | `/assets/quests/tangmen_baicao_poison_smoke.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第一幕 · 药廊紫烟掉包案<br>（`SCENE_TM_01_BAICAO_SWAP`） | `16:9` |
+| `CG-QST-263` | `[x]` 已完成 | `public/assets/quests/tangmen_wandu_miasma_pool.jpg` | `/assets/quests/tangmen_wandu_miasma_pool.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第四幕 · 五彩瘴泉吞丸试胆<br>（`SCENE_TM_04_WANDU_MIASMA`） | `16:9` |
+| `CG-QST-264` | `[x]` 已完成 | `public/assets/quests/tangmen_qianhuang_tower_oath.jpg` | `/assets/quests/tangmen_qianhuang_tower_oath.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第十一/十二幕 · 千簧总阁立世家契<br>（`SCENE_TM_11_TOWER_BRANCH_CHOICE`） | `16:9` |
 
 ---
 
