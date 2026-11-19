@@ -13,10 +13,10 @@
     "cityBaseBuildings": 121,
     "totalBuildings": 268,
     "interiorSubBuildings": 441,
-    "martialArts": 246,
-    "weapons": 100,
+    "martialArts": 247,
+    "weapons": 101,
     "mounts": 28,
-    "npcs": 1052,
+    "npcs": 1053,
     "npcsWithAvatar": 376,
     "npcsWithFullbody": 376
   },
@@ -257,7 +257,7 @@
       "legacyAliases": [
         "兴庆府（银川）"
       ],
-      "npcCount": 36,
+      "npcCount": 37,
       "specialBuildingCount": 4
     },
     {
@@ -1575,19 +1575,21 @@
         "xq_yipin",
         "xq_tieyaozi"
       ],
-      "highestArtTier": "地阶中品",
+      "highestArtTier": "地阶上品",
       "summary": "一流大派 · 西夏征东司外邦宗门（西夏朝廷重金礼聘四方恶人与党项铁鹞武尊所建，雄踞兴庆府）",
       "entryAndFeatures": "暂未开放常规拜入（后续西夏剧情长卷待启）；现阶段为西夏征东司重要敌对与剧情交互势力。",
-      "memberCount": 34,
+      "memberCount": 35,
       "martialArtIds": [
         "MA-133",
         "MA-232",
         "MA-245",
-        "MA-246"
+        "MA-246",
+        "MA-247"
       ],
       "weaponIds": [
         "WPN-012",
-        "WPN-043"
+        "WPN-043",
+        "WPN-101"
       ],
       "acceptsOuterDisciple": true,
       "sharedMartialArtRule": null,
@@ -5208,6 +5210,15 @@
       "fullTier": "地阶下品",
       "category": "轻功",
       "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-247",
+      "code": "247",
+      "name": "追魂铁杖法",
+      "cleanName": "追魂铁杖法",
+      "fullTier": "地阶上品",
+      "category": "棍棒",
+      "sectId": "SECT-20"
     }
   ],
   "weaponIndex": [
@@ -6110,6 +6121,15 @@
       "weaponType": "暗器",
       "regionId": "hangzhou",
       "sectId": null
+    },
+    {
+      "id": "WPN-101",
+      "code": "101",
+      "name": "寒铁双拐杖",
+      "fullTier": "地阶上品",
+      "weaponType": "棍棒",
+      "regionId": "xingqing_xixia",
+      "sectId": "SECT-20"
     }
   ],
   "mountIndex": [

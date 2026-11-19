@@ -1465,6 +1465,7 @@ def parse_martial_arts() -> list[dict[str, Any]]:
         "MA-232": "SECT-20",  # 大漠狼息功 -> 西夏一品堂
         "MA-245": "SECT-20",  # 西夏秘藏玄功 -> 西夏一品堂
         "MA-246": "SECT-20",  # 大漠踏沙行 -> 西夏一品堂
+        "MA-247": "SECT-20",  # 追魂铁杖法 -> 西夏一品堂
     }
 
     for art in arts:
@@ -1510,8 +1511,8 @@ def parse_martial_arts() -> list[dict[str, Any]]:
         art["levels"] = compute_martial_art_levels(art)
 
     arts.sort(key=lambda x: int(x["code"]))
-    if len(arts) != 246:
-        raise AssertionError(f"Expected 246 martial arts, got {len(arts)}")
+    if len(arts) != 247:
+        raise AssertionError(f"Expected 247 martial arts, got {len(arts)}")
     return arts
 
 
@@ -1661,10 +1662,10 @@ def parse_weapons() -> list[dict[str, Any]]:
         )
 
     weapons.sort(key=lambda x: int(x["code"]))
-    if len(weapons) != 100:
-        raise AssertionError(f"Expected 100 weapons, got {len(weapons)}")
+    if len(weapons) != 101:
+        raise AssertionError(f"Expected 101 weapons, got {len(weapons)}")
     tier_counts = Counter(w["tier"] for w in weapons)
-    expected_tiers = {"天阶": 10, "地阶": 20, "良阶": 30, "凡阶": 40}
+    expected_tiers = {"天阶": 10, "地阶": 21, "良阶": 30, "凡阶": 40}
     if dict(tier_counts) != expected_tiers:
         raise AssertionError(f"Weapon tier counts mismatch: {dict(tier_counts)} != {expected_tiers}")
     return weapons
@@ -2438,8 +2439,8 @@ def parse_npcs(
     seen_npc_names = [n["name"] for n in npcs]
     if len(seen_npc_names) != len(set(seen_npc_names)):
         raise AssertionError("Duplicate NPC names detected in CHARACTER_COMPENDIUM.md")
-    if len(npcs) != 1052:
-        raise AssertionError(f"Expected 1052 NPCs, got {len(npcs)}")
+    if len(npcs) != 1053:
+        raise AssertionError(f"Expected 1053 NPCs, got {len(npcs)}")
     return npcs
 
 
@@ -3508,6 +3509,32 @@ def populate_npc_loadouts(
                 if e["artId"] == neigong_id:
                     e["level"] = max(1, e["level"] - 1)
                     break
+        elif npc["id"] == "NPC-1053":  # 段延庆：寒铁双拐杖 + 枯荣禅意功8重 + 瞬息千里8重 + 一阳指/追魂铁杖法，双足残废无坐骑、双手执拐不佩弓
+            npc["equipped"] = {
+                "weapon": "WPN-101",
+                "armor": "ARM-016",
+                "shoes": "BOT-016",
+                "bow": None,
+                "accessory1": "ACC-014",
+                "accessory2": "ACC-013",
+                "mount": None,
+            }
+            npc["equippedArts"] = {
+                "neigong": "MA-060",
+                "qinggong": "MA-077",
+                "move1": "MA-023",
+                "move2": "MA-247",
+                "move3": "MA-053",
+                "move4": "MA-088",
+            }
+            npc["learnedArts"] = [
+                {"artId": "MA-060", "level": 8, "exp": 0},
+                {"artId": "MA-077", "level": 8, "exp": 0},
+                {"artId": "MA-023", "level": 8, "exp": 0},
+                {"artId": "MA-247", "level": 8, "exp": 0},
+                {"artId": "MA-053", "level": 8, "exp": 0},
+                {"artId": "MA-088", "level": 8, "exp": 0},
+            ]
 
 
 def compile_all(do_normalize_docs: bool) -> None:
@@ -4337,7 +4364,7 @@ def compile_all(do_normalize_docs: bool) -> None:
         f"{special_count} special buildings ({len(spot_by_id)} sub-spots) + "
         f"{len(buildings) - special_count} base buildings ({enterable_base_count} single-hall taverns/inns) | "
         f"{len(martial_arts)} martial arts | "
-        f"{len(weapons)} weapons (10天/20地/30良/40凡) | "
+        f"{len(weapons)} weapons (10天/21地/30良/40凡) | "
         f"{len(mounts)} mounts (3天/5地/8良/12凡) | "
         f"{len(npcs)} NPCs (100% leaf-assigned & full stats)"
     )

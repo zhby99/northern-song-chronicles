@@ -14669,8 +14669,8 @@
       "qinggong": "MA-077",
       "move1": "MA-073",
       "move2": "MA-133",
-      "move3": "MA-096",
-      "move4": "MA-091"
+      "move3": "MA-247",
+      "move4": "MA-085"
     },
     "learnedArts": [
       {
@@ -14694,12 +14694,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-091",
+        "artId": "MA-085",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-096",
+        "artId": "MA-247",
         "level": 8,
         "exp": 0
       }
@@ -17163,8 +17163,8 @@
       "qinggong": "MA-246",
       "move1": "MA-055",
       "move2": "MA-133",
-      "move3": "MA-149",
-      "move4": "MA-152"
+      "move3": "MA-247",
+      "move4": "MA-149"
     },
     "learnedArts": [
       {
@@ -17188,12 +17188,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-152",
-        "level": 9,
+        "artId": "MA-246",
+        "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-246",
+        "artId": "MA-247",
         "level": 7,
         "exp": 0
       }
@@ -20532,8 +20532,8 @@
       "qinggong": "MA-077",
       "move1": "MA-146",
       "move2": "MA-133",
-      "move3": "MA-107",
-      "move4": "MA-152"
+      "move3": "MA-247",
+      "move4": "MA-107"
     },
     "learnedArts": [
       {
@@ -20562,13 +20562,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-152",
-        "level": 8,
+        "artId": "MA-245",
+        "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-245",
-        "level": 5,
+        "artId": "MA-247",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -20649,7 +20649,7 @@
       "move1": "MA-125",
       "move2": "MA-173",
       "move3": "MA-133",
-      "move4": "MA-107"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -20668,17 +20668,17 @@
         "exp": 0
       },
       {
-        "artId": "MA-107",
-        "level": 8,
-        "exp": 0
-      },
-      {
         "artId": "MA-133",
         "level": 8,
         "exp": 0
       },
       {
         "artId": "MA-246",
+        "level": 7,
+        "exp": 0
+      },
+      {
+        "artId": "MA-247",
         "level": 7,
         "exp": 0
       }
@@ -26243,7 +26243,7 @@
       "move1": "MA-086",
       "move2": "MA-170",
       "move3": "MA-133",
-      "move4": "MA-125"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -26262,11 +26262,6 @@
         "exp": 0
       },
       {
-        "artId": "MA-125",
-        "level": 8,
-        "exp": 0
-      },
-      {
         "artId": "MA-133",
         "level": 8,
         "exp": 0
@@ -26274,6 +26269,11 @@
       {
         "artId": "MA-245",
         "level": 3,
+        "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -38968,7 +38968,7 @@
       "move1": "MA-131",
       "move2": "MA-146",
       "move3": "MA-133",
-      "move4": "MA-135"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -38992,13 +38992,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-135",
-        "level": 6,
+        "artId": "MA-232",
+        "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-232",
-        "level": 9,
+        "artId": "MA-247",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -40967,7 +40967,7 @@
       "move1": "MA-131",
       "move2": "MA-146",
       "move3": "MA-133",
-      "move4": "MA-115"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -40986,11 +40986,6 @@
         "exp": 0
       },
       {
-        "artId": "MA-115",
-        "level": 6,
-        "exp": 0
-      },
-      {
         "artId": "MA-133",
         "level": 6,
         "exp": 0
@@ -40998,6 +40993,11 @@
       {
         "artId": "MA-232",
         "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -45091,8 +45091,8 @@
       "qinggong": "MA-246",
       "move1": "MA-133",
       "move2": "MA-152",
-      "move3": "MA-125",
-      "move4": "MA-135"
+      "move3": "MA-247",
+      "move4": "MA-130"
     },
     "learnedArts": [
       {
@@ -45106,12 +45106,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-125",
-        "level": 5,
-        "exp": 0
-      },
-      {
-        "artId": "MA-135",
+        "artId": "MA-130",
         "level": 5,
         "exp": 0
       },
@@ -45122,6 +45117,11 @@
       },
       {
         "artId": "MA-246",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-247",
         "level": 5,
         "exp": 0
       }
@@ -46210,8 +46210,8 @@
       "qinggong": "MA-246",
       "move1": "MA-133",
       "move2": "MA-152",
-      "move3": "MA-107",
-      "move4": "MA-135"
+      "move3": "MA-247",
+      "move4": "MA-115"
     },
     "learnedArts": [
       {
@@ -46225,12 +46225,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-107",
-        "level": 5,
-        "exp": 0
-      },
-      {
-        "artId": "MA-135",
+        "artId": "MA-115",
         "level": 5,
         "exp": 0
       },
@@ -46243,10 +46238,15 @@
         "artId": "MA-246",
         "level": 5,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 5,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-091",
+      "weapon": "WPN-066",
       "armor": "ARM-048",
       "shoes": "BOT-024",
       "bow": "BOW-025",
@@ -46433,7 +46433,7 @@
       "move1": "MA-131",
       "move2": "MA-146",
       "move3": "MA-133",
-      "move4": "MA-115"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -46452,11 +46452,6 @@
         "exp": 0
       },
       {
-        "artId": "MA-115",
-        "level": 5,
-        "exp": 0
-      },
-      {
         "artId": "MA-133",
         "level": 5,
         "exp": 0
@@ -46465,10 +46460,15 @@
         "artId": "MA-232",
         "level": 6,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 5,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-066",
+      "weapon": "WPN-064",
       "armor": "ARM-038",
       "shoes": "BOT-026",
       "bow": "BOW-023",
@@ -68923,7 +68923,7 @@
       "move1": "MA-189",
       "move2": "MA-185",
       "move3": "MA-133",
-      "move4": "MA-215"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -68942,17 +68942,17 @@
         "exp": 0
       },
       {
-        "artId": "MA-215",
-        "level": 4,
-        "exp": 0
-      },
-      {
         "artId": "MA-232",
         "level": 2,
         "exp": 0
       },
       {
         "artId": "MA-246",
+        "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-247",
         "level": 1,
         "exp": 0
       }
@@ -71481,7 +71481,7 @@
       "move1": "MA-189",
       "move2": "MA-185",
       "move3": "MA-133",
-      "move4": "MA-166"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -71500,17 +71500,17 @@
         "exp": 0
       },
       {
-        "artId": "MA-166",
-        "level": 4,
-        "exp": 0
-      },
-      {
         "artId": "MA-232",
         "level": 2,
         "exp": 0
       },
       {
         "artId": "MA-246",
+        "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-247",
         "level": 1,
         "exp": 0
       }
@@ -78148,8 +78148,8 @@
       "qinggong": "MA-178",
       "move1": "MA-133",
       "move2": "MA-175",
-      "move3": "MA-215",
-      "move4": "MA-166"
+      "move3": "MA-247",
+      "move4": "MA-194"
     },
     "learnedArts": [
       {
@@ -78168,12 +78168,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-166",
-        "level": 4,
-        "exp": 0
-      },
-      {
-        "artId": "MA-215",
+        "artId": "MA-194",
         "level": 4,
         "exp": 0
       },
@@ -78181,10 +78176,15 @@
         "artId": "MA-232",
         "level": 2,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-100",
+      "weapon": "WPN-082",
       "armor": "ARM-041",
       "shoes": "BOT-022",
       "bow": "BOW-028",
@@ -80589,8 +80589,8 @@
       "qinggong": "MA-178",
       "move1": "MA-133",
       "move2": "MA-175",
-      "move3": "MA-166",
-      "move4": "MA-191"
+      "move3": "MA-247",
+      "move4": "MA-201"
     },
     "learnedArts": [
       {
@@ -80609,12 +80609,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-166",
-        "level": 3,
-        "exp": 0
-      },
-      {
-        "artId": "MA-191",
+        "artId": "MA-201",
         "level": 3,
         "exp": 0
       },
@@ -80622,10 +80617,15 @@
         "artId": "MA-232",
         "level": 1,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-077",
+      "weapon": "WPN-099",
       "armor": "ARM-048",
       "shoes": "BOT-021",
       "bow": "BOW-022",
@@ -89947,7 +89947,7 @@
       "move1": "MA-189",
       "move2": "MA-185",
       "move3": "MA-133",
-      "move4": "MA-206"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -89966,11 +89966,6 @@
         "exp": 0
       },
       {
-        "artId": "MA-206",
-        "level": 3,
-        "exp": 0
-      },
-      {
         "artId": "MA-232",
         "level": 1,
         "exp": 0
@@ -89979,10 +89974,15 @@
         "artId": "MA-246",
         "level": 1,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-088",
+      "weapon": "WPN-076",
       "armor": "ARM-041",
       "shoes": "BOT-022",
       "bow": "BOW-028",
@@ -93406,8 +93406,8 @@
       "qinggong": "MA-178",
       "move1": "MA-133",
       "move2": "MA-175",
-      "move3": "MA-205",
-      "move4": "MA-213"
+      "move3": "MA-247",
+      "move4": "MA-212"
     },
     "learnedArts": [
       {
@@ -93426,12 +93426,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-205",
-        "level": 3,
-        "exp": 0
-      },
-      {
-        "artId": "MA-213",
+        "artId": "MA-212",
         "level": 3,
         "exp": 0
       },
@@ -93439,10 +93434,15 @@
         "artId": "MA-232",
         "level": 1,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-097",
+      "weapon": "WPN-070",
       "armor": "ARM-038",
       "shoes": "BOT-028",
       "bow": "BOW-023",
@@ -95520,8 +95520,8 @@
       "qinggong": "MA-178",
       "move1": "MA-133",
       "move2": "MA-175",
-      "move3": "MA-203",
-      "move4": "MA-212"
+      "move3": "MA-247",
+      "move4": "MA-210"
     },
     "learnedArts": [
       {
@@ -95540,12 +95540,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-203",
-        "level": 3,
-        "exp": 0
-      },
-      {
-        "artId": "MA-212",
+        "artId": "MA-210",
         "level": 3,
         "exp": 0
       },
@@ -95553,10 +95548,15 @@
         "artId": "MA-232",
         "level": 1,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-096",
+      "weapon": "WPN-093",
       "armor": "ARM-050",
       "shoes": "BOT-023",
       "bow": "BOW-019",
@@ -99277,8 +99277,8 @@
       "qinggong": "MA-217",
       "move1": "MA-210",
       "move2": "MA-133",
-      "move3": "MA-166",
-      "move4": "MA-205"
+      "move3": "MA-247",
+      "move4": "MA-194"
     },
     "learnedArts": [
       {
@@ -99297,17 +99297,17 @@
         "exp": 0
       },
       {
-        "artId": "MA-166",
-        "level": 2,
-        "exp": 0
-      },
-      {
-        "artId": "MA-205",
+        "artId": "MA-194",
         "level": 2,
         "exp": 0
       },
       {
         "artId": "MA-232",
+        "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-247",
         "level": 1,
         "exp": 0
       }
@@ -102592,8 +102592,8 @@
       "qinggong": "MA-217",
       "move1": "MA-210",
       "move2": "MA-133",
-      "move3": "MA-203",
-      "move4": "MA-166"
+      "move3": "MA-247",
+      "move4": "MA-211"
     },
     "learnedArts": [
       {
@@ -102612,12 +102612,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-166",
-        "level": 2,
-        "exp": 0
-      },
-      {
-        "artId": "MA-203",
+        "artId": "MA-211",
         "level": 2,
         "exp": 0
       },
@@ -102625,10 +102620,15 @@
         "artId": "MA-232",
         "level": 1,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-093",
+      "weapon": "WPN-098",
       "armor": "ARM-041",
       "shoes": "BOT-022",
       "bow": "BOW-028",
@@ -104687,8 +104687,8 @@
       "qinggong": "MA-217",
       "move1": "MA-210",
       "move2": "MA-133",
-      "move3": "MA-194",
-      "move4": "MA-215"
+      "move3": "MA-247",
+      "move4": "MA-208"
     },
     "learnedArts": [
       {
@@ -104707,12 +104707,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-194",
-        "level": 2,
-        "exp": 0
-      },
-      {
-        "artId": "MA-215",
+        "artId": "MA-208",
         "level": 2,
         "exp": 0
       },
@@ -104720,10 +104715,15 @@
         "artId": "MA-232",
         "level": 1,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-100",
+      "weapon": "WPN-091",
       "armor": "ARM-048",
       "shoes": "BOT-022",
       "bow": "BOW-023",
@@ -108102,8 +108102,8 @@
       "qinggong": "MA-217",
       "move1": "MA-210",
       "move2": "MA-133",
-      "move3": "MA-212",
-      "move4": "MA-204"
+      "move3": "MA-247",
+      "move4": "MA-187"
     },
     "learnedArts": [
       {
@@ -108122,12 +108122,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-204",
-        "level": 2,
-        "exp": 0
-      },
-      {
-        "artId": "MA-212",
+        "artId": "MA-187",
         "level": 2,
         "exp": 0
       },
@@ -108135,10 +108130,15 @@
         "artId": "MA-232",
         "level": 1,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-096",
+      "weapon": "WPN-061",
       "armor": "ARM-041",
       "shoes": "BOT-022",
       "bow": "BOW-028",
@@ -110302,8 +110302,8 @@
       "qinggong": "MA-217",
       "move1": "MA-210",
       "move2": "MA-133",
-      "move3": "MA-211",
-      "move4": "MA-204"
+      "move3": "MA-247",
+      "move4": "MA-175"
     },
     "learnedArts": [
       {
@@ -110322,12 +110322,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-204",
-        "level": 2,
-        "exp": 0
-      },
-      {
-        "artId": "MA-211",
+        "artId": "MA-175",
         "level": 2,
         "exp": 0
       },
@@ -110335,10 +110330,15 @@
         "artId": "MA-232",
         "level": 1,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-098",
+      "weapon": "WPN-093",
       "armor": "ARM-048",
       "shoes": "BOT-025",
       "bow": "BOW-026",
@@ -115513,8 +115513,8 @@
       "qinggong": "MA-246",
       "move1": "MA-135",
       "move2": "MA-133",
-      "move3": "MA-107",
-      "move4": "MA-130"
+      "move3": "MA-247",
+      "move4": "MA-115"
     },
     "learnedArts": [
       {
@@ -115538,18 +115538,18 @@
         "exp": 0
       },
       {
-        "artId": "MA-107",
+        "artId": "MA-115",
         "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-130",
-        "level": 7,
+        "artId": "MA-247",
+        "level": 6,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-078",
+      "weapon": "WPN-066",
       "armor": "ARM-048",
       "shoes": "BOT-024",
       "bow": "BOW-025",
@@ -115625,8 +115625,8 @@
       "qinggong": "MA-139",
       "move1": "MA-133",
       "move2": "MA-131",
-      "move3": "MA-115",
-      "move4": "MA-130"
+      "move3": "MA-247",
+      "move4": "MA-115"
     },
     "learnedArts": [
       {
@@ -115655,8 +115655,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-130",
-        "level": 7,
+        "artId": "MA-247",
+        "level": 6,
         "exp": 0
       }
     ],
@@ -115737,8 +115737,8 @@
       "qinggong": "MA-138",
       "move1": "MA-133",
       "move2": "MA-146",
-      "move3": "MA-125",
-      "move4": "MA-135"
+      "move3": "MA-247",
+      "move4": "MA-125"
     },
     "learnedArts": [
       {
@@ -115767,8 +115767,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-135",
-        "level": 6,
+        "artId": "MA-247",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -115849,8 +115849,8 @@
       "qinggong": "MA-157",
       "move1": "MA-133",
       "move2": "MA-175",
-      "move3": "MA-130",
-      "move4": "MA-149"
+      "move3": "MA-247",
+      "move4": "MA-130"
     },
     "learnedArts": [
       {
@@ -115879,7 +115879,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-149",
+        "artId": "MA-247",
         "level": 5,
         "exp": 0
       }
@@ -115961,8 +115961,8 @@
       "qinggong": "MA-138",
       "move1": "MA-133",
       "move2": "MA-137",
-      "move3": "MA-135",
-      "move4": "MA-152"
+      "move3": "MA-247",
+      "move4": "MA-135"
     },
     "learnedArts": [
       {
@@ -115991,7 +115991,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-152",
+        "artId": "MA-247",
         "level": 5,
         "exp": 0
       }
@@ -116071,9 +116071,9 @@
       "neigong": "MA-232",
       "qinggong": "MA-178",
       "move1": "MA-133",
-      "move2": "MA-208",
-      "move3": "MA-192",
-      "move4": "MA-175"
+      "move2": "MA-247",
+      "move3": "MA-215",
+      "move4": "MA-206"
     },
     "learnedArts": [
       {
@@ -116092,23 +116092,23 @@
         "exp": 0
       },
       {
-        "artId": "MA-175",
+        "artId": "MA-206",
         "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-192",
+        "artId": "MA-215",
         "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-208",
-        "level": 5,
+        "artId": "MA-247",
+        "level": 1,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-070",
+      "weapon": "WPN-088",
       "armor": "ARM-048",
       "shoes": "BOT-017",
       "bow": "BOW-018",
@@ -116183,8 +116183,8 @@
       "qinggong": "MA-246",
       "move1": "MA-133",
       "move2": "MA-175",
-      "move3": "MA-194",
-      "move4": "MA-191"
+      "move3": "MA-247",
+      "move4": "MA-208"
     },
     "learnedArts": [
       {
@@ -116203,12 +116203,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-191",
-        "level": 5,
-        "exp": 0
-      },
-      {
-        "artId": "MA-194",
+        "artId": "MA-208",
         "level": 5,
         "exp": 0
       },
@@ -116216,10 +116211,15 @@
         "artId": "MA-246",
         "level": 1,
         "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
+        "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-077",
+      "weapon": "WPN-070",
       "armor": "ARM-048",
       "shoes": "BOT-018",
       "bow": "BOW-019",
@@ -116295,7 +116295,7 @@
       "move1": "MA-189",
       "move2": "MA-165",
       "move3": "MA-133",
-      "move4": "MA-201"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -116319,18 +116319,18 @@
         "exp": 0
       },
       {
-        "artId": "MA-201",
-        "level": 4,
+        "artId": "MA-246",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-246",
+        "artId": "MA-247",
         "level": 1,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-099",
+      "weapon": "WPN-076",
       "armor": "ARM-046",
       "shoes": "BOT-019",
       "bow": "BOW-020",
@@ -116405,8 +116405,8 @@
       "qinggong": "MA-197",
       "move1": "MA-133",
       "move2": "MA-175",
-      "move3": "MA-203",
-      "move4": "MA-193"
+      "move3": "MA-247",
+      "move4": "MA-210"
     },
     "learnedArts": [
       {
@@ -116425,18 +116425,18 @@
         "exp": 0
       },
       {
-        "artId": "MA-193",
-        "level": 4,
-        "exp": 0
-      },
-      {
-        "artId": "MA-203",
+        "artId": "MA-210",
         "level": 4,
         "exp": 0
       },
       {
         "artId": "MA-232",
         "level": 2,
+        "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -116517,7 +116517,7 @@
       "move1": "MA-170",
       "move2": "MA-175",
       "move3": "MA-133",
-      "move4": "MA-211"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -116541,13 +116541,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-211",
-        "level": 4,
+        "artId": "MA-232",
+        "level": 2,
         "exp": 0
       },
       {
-        "artId": "MA-232",
-        "level": 2,
+        "artId": "MA-247",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -116627,8 +116627,8 @@
       "qinggong": "MA-217",
       "move1": "MA-189",
       "move2": "MA-133",
-      "move3": "MA-191",
-      "move4": "MA-212"
+      "move3": "MA-247",
+      "move4": "MA-205"
     },
     "learnedArts": [
       {
@@ -116652,18 +116652,18 @@
         "exp": 0
       },
       {
-        "artId": "MA-191",
+        "artId": "MA-205",
         "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-212",
-        "level": 3,
+        "artId": "MA-247",
+        "level": 1,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-096",
+      "weapon": "WPN-076",
       "armor": "ARM-048",
       "shoes": "BOT-022",
       "bow": "BOW-023",
@@ -116739,7 +116739,7 @@
       "move1": "MA-190",
       "move2": "MA-175",
       "move3": "MA-133",
-      "move4": "MA-213"
+      "move4": "MA-247"
     },
     "learnedArts": [
       {
@@ -116763,18 +116763,18 @@
         "exp": 0
       },
       {
-        "artId": "MA-213",
-        "level": 3,
+        "artId": "MA-232",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-232",
+        "artId": "MA-247",
         "level": 1,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-097",
+      "weapon": "WPN-066",
       "armor": "ARM-038",
       "shoes": "BOT-023",
       "bow": "BOW-023",
@@ -117336,6 +117336,118 @@
       "accessory1": "ACC-054",
       "accessory2": "ACC-033",
       "mount": "MNT-021"
+    }
+  },
+  {
+    "id": "NPC-1053",
+    "name": "段延庆",
+    "title": "恶贯满盈",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 45,
+    "factionId": "SECT-20",
+    "factionName": "西夏一品堂",
+    "role": "西夏一品堂首席恶客 · 大理废太子",
+    "regionId": "xingqing_xixia",
+    "locationLabel": "兴庆府",
+    "subLocation": null,
+    "assignedBuildingId": "xq_yipin",
+    "assignedBuildingName": "西夏一品堂总堂",
+    "assignedSpotId": "xq_yp_hall",
+    "assignedSpotName": "一品堂绿琉璃聚贤殿",
+    "fullLocationLabel": "兴庆府 > 西夏一品堂总堂 > 一品堂绿琉璃聚贤殿",
+    "realm": "宗师中品",
+    "majorRealm": "宗师",
+    "minorRealm": "中品",
+    "realmRank": 5,
+    "stats": {
+      "hp": 5685,
+      "mp": 5625,
+      "agi": 65,
+      "res": 73,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 86,
+      "comprehension": 92,
+      "charm": 18
+    },
+    "tenArts": {
+      "骑术": 12,
+      "算术": 42,
+      "经义": 74,
+      "策论": 76,
+      "诗词": 55,
+      "琴": 38,
+      "棋": 90,
+      "书": 62,
+      "画": 44,
+      "辩才": 28
+    },
+    "artsText": "一阳指、追魂铁杖法、《枯荣禅意功》、瞬息千里",
+    "knownArtIds": [
+      "MA-023",
+      "MA-247",
+      "MA-060",
+      "MA-077"
+    ],
+    "specialtyTags": [],
+    "bio": "西夏一品堂西夏一品堂首席恶客 · 大理废太子，常驻【兴庆府 > 西夏一品堂总堂 > 一品堂绿琉璃聚贤殿】，武道修为居【宗师中品】，主修一阳指、追魂铁杖法、《枯荣禅意功》、瞬息千里。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_yipintang_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_yipintang_av.jpg",
+    "sectRank": 3,
+    "sectRankLabel": "客卿供奉",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-060",
+      "qinggong": "MA-077",
+      "move1": "MA-023",
+      "move2": "MA-247",
+      "move3": "MA-053",
+      "move4": "MA-088"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-060",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-077",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-023",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-247",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-053",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-088",
+        "level": 8,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-101",
+      "armor": "ARM-016",
+      "shoes": "BOT-016",
+      "bow": null,
+      "accessory1": "ACC-014",
+      "accessory2": "ACC-013",
+      "mount": null
     }
   }
 ]

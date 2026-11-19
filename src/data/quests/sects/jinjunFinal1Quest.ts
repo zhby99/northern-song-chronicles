@@ -1,6 +1,5 @@
-import type { NodeNpc } from '../../../types/game'
 import type { QuestCondition, QuestDefinition } from '../../../types/quest'
-import { atStep, openScene, qStatus, makeQuestNpc } from '../../../engine/quest/dsl'
+import { atStep, openScene, qStatus } from '../../../engine/quest/dsl'
 import { JINJUN_YONGZHOU_NANMAN_ID } from './jinjunYongzhouNanmanQuest'
 
 export const JINJUN_FINAL_1_ID = 'QST-SECT-33-FINAL-1'
@@ -12,40 +11,10 @@ const START_CONDITION: QuestCondition = {
     qStatus(JINJUN_YONGZHOU_NANMAN_ID, 'completed'),
     { type: 'npcAlive', npcId: 'NPC-0110', npcName: '乔峰' },
     { type: 'npcAlive', npcId: 'NPC-0120', npcName: '慕容复' },
+    { type: 'npcAlive', npcId: 'NPC-1053', npcName: '段延庆' },
     qStatus(JINJUN_FINAL_1_ID, 'not_started'),
     qStatus(JINJUN_FINAL_1_ID, 'not_completed'),
   ],
-}
-
-export function buildDuanYanqingNpc(): NodeNpc {
-  return makeQuestNpc({
-    id: 'fn1_duan_yanqing',
-    name: '段延庆',
-    title: '恶贯满盈 · 四大恶人之首',
-    realm: '宗师中品',
-    factionId: 'SECT-20',
-    factionName: '西夏一品堂',
-    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-    talk: '“（腹语）大宋禁军统帅与乔峰联手又如何？尝尝老夫的一阳指铁杖！”',
-    stats: { hp: 5250, mp: 4650, agi: 81, res: 75 },
-    equipped: {
-      weapon: 'WPN-020',
-      armor: 'ARM-012',
-      shoes: 'BOT-006',
-      bow: 'BOW-006',
-      accessory1: 'ACC-012',
-      accessory2: 'ACC-014',
-      mount: 'MNT-008',
-    },
-    equippedArts: { neigong: 'MA-220', qinggong: 'MA-157', move1: 'MA-023', move2: 'MA-133' },
-    learnedArts: [
-      { artId: 'MA-220', level: 8 },
-      { artId: 'MA-157', level: 8 },
-      { artId: 'MA-023', level: 8 },
-      { artId: 'MA-133', level: 8 },
-    ],
-  })
 }
 
 export const JINJUN_FINAL_1_QUEST: QuestDefinition = {
@@ -55,7 +24,7 @@ export const JINJUN_FINAL_1_QUEST: QuestDefinition = {
   factionId: 'SECT-33',
   regionId: 'bianliang',
   recommendedRealm: '宗师上品',
-  maxOpponentRealm: '宗师下品（段延庆一阳指铁杖 · 慕容复疯魔剑路）',
+  maxOpponentRealm: '宗师中品（段延庆寒铁双拐一阳指 · 慕容复疯魔剑路）',
   recommendedNote:
     '大宋禁军 Lv.5 终局三部曲第一部（全三十五幕）。完成《邕州道 · 蛮烟瘴雨平》晋升 Lv.5 殿前都指挥使后，赴【开封府 · 八十万禁军大教场 · 擂鼓聚将点兵帅台】领密报南下无锡！',
   startHint:

@@ -253,3 +253,5 @@
 | `NPC-0555` ✅ | 屠夏梅（烈火袖） | 女 / 35 | 铁掌帮 · 荆州码头恶霸执事 | 三流上品 | 1 | `tpl_tiezhang_female_fb.jpg` | `tiezhangEntryQuest` |
 | `NPC-0304` ✅ | 法辱（云游僧） | 男 / 29 | 五台山清凉寺 · 伏魔堂执事 | 二流中品 | 1 | `tpl_wutai_monk_male_fb.jpg` | `wutaiEntryQuest` |
 | `NPC-0795` ✅ | 明法（伏虎僧） | 男 / 31 | 五台山清凉寺 · 巡山僧 | 三流下品 | 1 | `tpl_wutai_monk_male_fb.jpg` | `wutaiEntryQuest` |
+| `NPC-1053` ⏳ | 段延庆（恶贯满盈） | 男 / 45 | 西夏一品堂 · 首席恶客（大理废太子） | 宗师中品 | 8 | `tpl_yipintang_fb.jpg` | `jinjunFinal1Quest`, `huashanJianDuguNineQuest` |
+

@@ -3763,5 +3763,45 @@
     "prerequisitesText": null,
     "statRequirements": [],
     "iconUrl": "/assets/items/weapons/wpn_100.jpg"
+  },
+  {
+    "id": "WPN-101",
+    "code": "101",
+    "name": "寒铁双拐杖",
+    "slot": "weapon",
+    "weaponType": "棍棒",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "regionId": "xingqing_xixia",
+    "locationLabel": "兴庆府",
+    "origin": "西夏一品堂恶贯满盈佩杖",
+    "originFull": "兴庆府·西夏一品堂恶贯满盈佩杖",
+    "sectId": "SECT-20",
+    "forceTrait": "奇巧",
+    "attackRange": 2,
+    "value": 265,
+    "equipBonus": {
+      "attack": 148
+    },
+    "synergies": [
+      {
+        "category": "棍棒",
+        "bonusPct": 22
+      },
+      {
+        "category": "指法",
+        "bonusPct": 18
+      }
+    ],
+    "signatureArtIds": [
+      "MA-023",
+      "MA-247"
+    ],
+    "specialTag": "【以杖运指】",
+    "description": "【以杖运指】采贺兰山玄寒精铁合滇南百炼铜芯铸就的一对沉重铁拐，杖身中空暗藏导气铜脉；段延庆双足残废后以双杖代足腾跃，更能将大理一阳指纯阳指力贯注杖端隔空点穴，凶险无俦。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "iconUrl": null
   }
 ]

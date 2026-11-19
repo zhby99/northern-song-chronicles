@@ -26169,5 +26169,84 @@
         "agility": 62
       }
     ]
+  },
+  {
+    "id": "MA-247",
+    "code": "247",
+    "name": "追魂铁杖法",
+    "cleanName": "追魂铁杖法",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "category": "棍棒",
+    "origin": "西夏一品堂/大理废脉",
+    "sectId": "SECT-20",
+    "description": "恶贯满盈段延庆双足残废后所创绝顶杖法，以寒铁双杖代足点地腾跃，杖端暗运大理纯阳指劲，点刺扫击皆直取敌手周身死穴，凶险诡异防不胜防。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 24700,
+        "combatExpRequired": 35,
+        "physicalDamage": 168
+      },
+      {
+        "level": 2,
+        "expRequired": 30400,
+        "combatExpRequired": 50,
+        "physicalDamage": 246
+      },
+      {
+        "level": 3,
+        "expRequired": 36100,
+        "combatExpRequired": 65,
+        "physicalDamage": 336
+      },
+      {
+        "level": 4,
+        "expRequired": 41800,
+        "combatExpRequired": 90,
+        "physicalDamage": 437
+      },
+      {
+        "level": 5,
+        "expRequired": 45600,
+        "combatExpRequired": 115,
+        "physicalDamage": 549
+      },
+      {
+        "level": 6,
+        "expRequired": 47500,
+        "combatExpRequired": 140,
+        "physicalDamage": 672
+      },
+      {
+        "level": 7,
+        "expRequired": 49400,
+        "combatExpRequired": 165,
+        "physicalDamage": 795
+      },
+      {
+        "level": 8,
+        "expRequired": 51300,
+        "combatExpRequired": 195,
+        "physicalDamage": 918
+      },
+      {
+        "level": 9,
+        "expRequired": 53200,
+        "combatExpRequired": 225,
+        "physicalDamage": 1019
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "physicalDamage": 1120
+      }
+    ]
   }
 ]

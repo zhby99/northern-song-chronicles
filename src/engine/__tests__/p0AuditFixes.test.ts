@@ -521,5 +521,35 @@ describe('P1 audit fixes regression suite', () => {
       }).passed,
     ).toBe(false)
   })
+
+  it('Canonical NPC-1053 Duan Yanqing: WPN-101 + MA-247 + empty bow/mount derives 宗师中品 stats naturally', () => {
+    const duan = NPC_DB_MAP['NPC-1053']
+    expect(duan).toBeDefined()
+    expect(duan.name).toBe('段延庆')
+    expect(duan.factionId).toBe('SECT-20')
+    expect(duan.realm).toBe('宗师中品')
+    expect(duan.equipped.weapon).toBe('WPN-101')
+    expect(duan.equipped.bow).toBeNull()
+    expect(duan.equipped.mount).toBeNull()
+    expect(duan.equippedArts.neigong).toBe('MA-060')
+    expect(duan.equippedArts.qinggong).toBe('MA-077')
+    expect(duan.equippedArts.move1).toBe('MA-023')
+    expect(duan.equippedArts.move2).toBe('MA-247')
+
+    const combatant = buildNpcCombatant({
+      id: 'NPC-1053',
+      name: '段延庆',
+      title: '恶贯满盈 · 西夏一品堂首席恶客',
+      realm: '宗师中品',
+      talk: '',
+    })
+    expect(combatant.maxHp).toBe(5685)
+    expect(combatant.maxMp).toBe(5625)
+    expect(combatant.agility).toBe(65)
+    expect(combatant.res).toBe(73)
+    expect(combatant.equipAttack).toBe(164)
+    expect(combatant.synergyBonusBySlot.move1).toBeGreaterThan(0)
+    expect(combatant.synergyBonusBySlot.move2).toBeGreaterThan(0)
+  })
 })
 

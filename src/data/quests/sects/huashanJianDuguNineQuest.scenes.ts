@@ -3,14 +3,7 @@ import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
 import { N, P, S, flag, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { HUASHAN_Q18_QUEST_ID } from './huashanJianDuguNineQuest'
 
-const SPEAKER_DUAN_YANQING: StorySpeakerSpec = {
-  kind: 'custom',
-  name: '段延庆',
-  title: '恶贯满盈 · 四大恶人之首',
-  factionName: '西夏一品堂',
-  avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
-  portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-}
+const SPEAKER_DUAN_YANQING: StorySpeakerSpec = { kind: 'npc', npcId: 'NPC-1053' }
 
 const SPEAKER_XIXIA_SWORDMASTER: StorySpeakerSpec = {
   kind: 'custom',
@@ -61,40 +54,6 @@ function buildXixiaSupremeSwordsmanNpc(): NodeNpc {
       { artId: 'MA-246', level: 8 },
       { artId: 'MA-068', level: 8 },
       { artId: 'MA-128', level: 8 },
-      { artId: 'MA-133', level: 8 },
-    ],
-  })
-}
-
-function buildQ18DuanYanqingNpc(): NodeNpc {
-  return makeQuestNpc({
-    id: 'QUEST_HSQ18_DUAN_YANQING',
-    name: '段延庆',
-    title: '恶贯满盈 · 四大恶人之首',
-    realm: '宗师中品',
-    factionId: 'SECT-20',
-    factionName: '西夏一品堂',
-    sectRank: 4,
-    sectRankLabel: '一品堂供奉',
-    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-    talk: '“（腹语）凭你一柄薄剑，也想破老夫纯阳一阳指劲？找死！”',
-    stats: { hp: 5250, mp: 4650, agi: 81, res: 75 },
-    talents: { bone: 84, comprehension: 86, charm: 25 },
-    equipped: {
-      weapon: 'WPN-020',
-      armor: 'ARM-012',
-    },
-    equippedArts: {
-      neigong: 'MA-220',
-      qinggong: 'MA-246',
-      move1: 'MA-023',
-      move2: 'MA-133',
-    },
-    learnedArts: [
-      { artId: 'MA-220', level: 9 },
-      { artId: 'MA-246', level: 8 },
-      { artId: 'MA-023', level: 9 },
       { artId: 'MA-133', level: 8 },
     ],
   })
@@ -614,7 +573,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           {
             type: 'startCombat',
             questId: HUASHAN_Q18_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildQ18DuanYanqingNpc() },
+            opponent: { kind: 'npc', npcId: 'NPC-1053' },
             rule: 'duel',
             forbidEscapeReason: '紫霞主殿存亡系于此剑，退后一步则满门俱危！',
             introText: '【破气惊神】以天阶《独孤九剑》迎战四大恶人之首段延庆（宗师中品），寻其一阳指气机命门一剑破之！',

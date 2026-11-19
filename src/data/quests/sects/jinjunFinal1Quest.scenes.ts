@@ -1,6 +1,6 @@
 import type { StorySceneDef } from '../../../types/quest'
 import { N, P, S, openScene, setStep } from '../../../engine/quest/dsl'
-import { buildDuanYanqingNpc, JINJUN_FINAL_1_ID } from './jinjunFinal1Quest'
+import { JINJUN_FINAL_1_ID } from './jinjunFinal1Quest'
 
 const RENZONG = { kind: 'npc' as const, npcId: 'NPC-0001' }
 const QIAOFENG = { kind: 'npc' as const, npcId: 'NPC-0110' }
@@ -12,13 +12,7 @@ const HELIAN = {
   avatarUrl: '/assets/characters/templates/tpl_xixia_court_male_av.jpg',
   portraitUrl: '/assets/characters/templates/tpl_xixia_court_male_fb.jpg',
 }
-const DUAN_YANQING = {
-  kind: 'custom' as const,
-  name: '段延庆',
-  title: '恶贯满盈 · 四大恶人之首',
-  avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
-  portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-}
+const DUAN_YANQING = { kind: 'npc' as const, npcId: 'NPC-1053' }
 const YIPINTANG_CAPTIVE = {
   kind: 'custom' as const,
   name: '一品堂被俘都统',
@@ -177,9 +171,9 @@ export const SCENES: Record<string, StorySceneDef> = {
       {
         type: 'startCombat',
         questId: JINJUN_FINAL_1_ID,
-        opponent: { kind: 'custom', npc: buildDuanYanqingNpc() },
+        opponent: { kind: 'npc', npcId: 'NPC-1053' },
         rule: 'duel',
-        introText: '【杏林联战】迎击西夏一品堂四大恶人之首段延庆（宗师下品），配合乔峰破其铁杖！',
+        introText: '【杏林联战】迎击西夏一品堂四大恶人之首段延庆（宗师中品），配合乔峰破其寒铁双拐！',
         onWin: [
           { type: 'giveCombatExp', amount: 140, reason: '杏子林联手乔峰击溃恶贯满盈段延庆' },
           openScene('scene_fn1_14', JINJUN_FINAL_1_ID),
