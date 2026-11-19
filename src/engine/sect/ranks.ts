@@ -359,18 +359,12 @@ export function isShaolinArtBlockedForLayDisciple(
 }
 
 /**
- * 华山派（SECT-05）剑气分宗师承门禁：
- * - Lv.1 外门弟子严禁修习良品及以上武学（仅修凡品《华山基础心法》《华山剑法（入门十二式）》）；
- * - Lv.2 ~ Lv.4 气宗/剑宗分脉武学均须通过对应师门剧情由宗老亲授，继任 Lv.5 掌门后方可通览全派良阶与地阶武库。
+ * 一流大派武学一律由本门剧情任务亲授（teachMartialArt），不再按职阶从门派名录自取；
+ * 唯开封府 / 六扇门（SECT-17）保留按职阶领取功法。二流、三流门派不受影响。
  */
-export function isHuashanArtBlockedBeforeMaster(
-  sectId: string | null | undefined,
-  art: CompiledMartialArtRecord,
-  playerRank: SectRankLevel,
-): boolean {
-  if (sectId !== 'SECT-05') return false
-  if (art.tier === '凡品') return false
-  return playerRank < 5
+export function isSectArtCatalogQuestOnly(sectId: string | null | undefined): boolean {
+  if (!sectId || sectId === 'SECT-17') return false
+  return FACTION_DB_MAP[sectId]?.sectTier === '一流大派'
 }
 
 export function isMinorOrSecondTierSect(sectId?: string | null): boolean {

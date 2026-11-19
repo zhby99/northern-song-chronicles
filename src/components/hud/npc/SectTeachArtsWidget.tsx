@@ -3,8 +3,8 @@ import type { LearnedArtEntry, PlayerSectState } from '../../../types/game'
 import {
   canPlayerLearnSectArt,
   getSectTeachableArts,
-  isHuashanArtBlockedBeforeMaster,
   isJoinableSectFaction,
+  isSectArtCatalogQuestOnly,
   isShaolinArtBlockedForLayDisciple,
 } from '../../../engine/sect'
 
@@ -32,6 +32,8 @@ export function SectTeachArtsWidget({
     return getSectTeachableArts(targetFactionId)
   }, [targetFactionId])
 
+  const questOnly = isSectArtCatalogQuestOnly(targetFactionId)
+
   const learnedArtMap = useMemo(
     () => new Map(learnedArts.map((e) => [e.artId, e])),
     [learnedArts],
@@ -43,10 +45,12 @@ export function SectTeachArtsWidget({
       <div className="p-3.5 rounded-lg bg-[#efe4cc]/85 border border-[#cbb693] space-y-2">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="font-bold text-[#5c3d1e] song-serif text-sm sm:text-base">
-            本门武学传授名录（共 {sectTeachableArts.length} 门）
+            本门武学{questOnly ? '谱系' : '传授名录'}（共 {sectTeachableArts.length} 门）
           </span>
           <span className="text-[11px] text-[#6b5235]">
-            良阶上品起需内门 · 地阶上品起需真传/长老（同权） · 天阶上品唯掌门可学
+            {questOnly
+              ? '本门武学不按职阶自取，一律随本门剧情任务由师门亲授'
+              : '良阶上品起需内门 · 地阶上品起需真传/长老（同权） · 天阶上品唯掌门可学'}
           </span>
         </div>
 
@@ -61,19 +65,12 @@ export function SectTeachArtsWidget({
               entry.art,
               sectState.shaolinDiscipleType,
             )
-            const blockedByHuashanLineage = isHuashanArtBlockedBeforeMaster(
-              targetFactionId,
-              entry.art,
-              sectState.rank,
-            )
-            const unlocked = rankOk && !blockedByLay && !blockedByHuashanLineage
+            const unlocked = !questOnly && rankOk && !blockedByLay
             const isShaolinMonkOnlyTier = isShaolinArtBlockedForLayDisciple(
               targetFactionId,
               entry.art,
               'lay',
             )
-            const isHuashanQuestTier =
-              targetFactionId === 'SECT-05' && entry.art.tier !== '凡品'
             return (
               <div
                 key={entry.art.id}
@@ -97,20 +94,24 @@ export function SectTeachArtsWidget({
                     )}
                   </div>
                   <div className="text-[11px] text-[#6b5235]">
-                    门槛：Lv.{entry.requiredRank}【{entry.requiredRankLabel}】
+                    {questOnly
+                      ? '剧情亲授'
+                      : `门槛：Lv.${entry.requiredRank}【${entry.requiredRankLabel}】`}
                     {isShaolinMonkOnlyTier
                       ? targetFactionId === 'SECT-04'
                         ? ' · 限清修武僧（俗家永不开放）'
                         : ' · 限出家僧众'
-                      : isHuashanQuestTier
-                        ? ' · 剑气师承亲授（掌门通览）'
-                        : ''}
+                      : ''}
                   </div>
                 </div>
 
                 {learned ? (
                   <span className="text-[11px] font-mono px-2 py-1 rounded bg-[#e2f2e8] border border-[#9fd0b4] text-[#1b5132] shrink-0">
                     已习·{learned.level}重
+                  </span>
+                ) : isPlayerInThisSect && questOnly ? (
+                  <span className="text-[11px] px-2 py-0.5 rounded bg-[#f4e1c1] border border-[#d8b98a] text-[#8a4b0f] shrink-0">
+                    待剧情传授
                   </span>
                 ) : isPlayerInThisSect ? (
                   <button
@@ -119,20 +120,18 @@ export function SectTeachArtsWidget({
                     className={`px-2.5 py-1 rounded text-xs font-bold border shrink-0 cursor-pointer ${
                       unlocked
                         ? 'bg-[#781710] hover:bg-[#961f16] border-[#d49a6a] text-[#fff8ee]'
-                        : (blockedByLay || blockedByHuashanLineage) && rankOk
+                        : blockedByLay && rankOk
                           ? 'bg-[#6b4614]/20 border-[#b58742] text-[#781710]'
                           : 'bg-[#dcd1be] border-[#bfb097] text-[#7a6a53]'
                     }`}
                   >
                     {unlocked
                       ? '修习入门'
-                      : blockedByHuashanLineage
-                        ? '师承亲授'
-                        : !rankOk
-                          ? '职阶不足'
-                          : targetFactionId === 'SECT-04'
-                            ? '俗家永不开放'
-                            : '需剃度出家'}
+                      : !rankOk
+                        ? '职阶不足'
+                        : targetFactionId === 'SECT-04'
+                          ? '俗家永不开放'
+                          : '需剃度出家'}
                   </button>
                 ) : (
                   <span className="text-[11px] px-2 py-0.5 rounded bg-[#efe4cc] text-[#7a6a53] shrink-0">

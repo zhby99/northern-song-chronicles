@@ -38,7 +38,7 @@ import {
   getSectTeachableArts,
   getSectTournamentDateInfo,
   isDaoSwordSect,
-  isHuashanArtBlockedBeforeMaster,
+  isSectArtCatalogQuestOnly,
   isShaolinArtBlockedForLayDisciple,
   KAIFENG_CASE_BOUNTY_SILVER,
   KAIFENG_RECOMMENDATION_ITEM_ID,
@@ -826,6 +826,16 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       return
     }
 
+    if (isSectArtCatalogQuestOnly(sectId)) {
+      set({
+        actionFeedback: {
+          text: `本门武学不按职阶自取：《${entry.art.cleanName}》（${entry.art.fullTier}）须推进本门剧情任务，由师门长辈亲自传授。`,
+          tone: 'warn',
+        },
+      })
+      return
+    }
+
     if (!canPlayerLearnSectArt(s.sectState.rank, entry.requiredRank)) {
       set({
         actionFeedback: {
@@ -852,15 +862,6 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       return
     }
 
-    if (isHuashanArtBlockedBeforeMaster(sectId, entry.art, s.sectState.rank)) {
-      set({
-        actionFeedback: {
-          text: `华山派严循气剑两宗师承次第：《${entry.art.cleanName}》（${entry.art.fullTier}）须推进华山门派剧情由宗老亲传（继任第5阶掌门后方可通览全派武库）！`,
-          tone: 'warn',
-        },
-      })
-      return
-    }
 
     const artReq = checkPlayerArtRequirements(s, entry.art)
     if (!artReq.ok) {

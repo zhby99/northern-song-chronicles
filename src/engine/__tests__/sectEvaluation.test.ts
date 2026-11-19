@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { MARTIAL_ART_DB_MAP } from '../../data/gameDb'
 import { cloneHeroBaseStats } from '../stats/heroStats'
 import {
   BAJI_IRON_TOKEN_ITEM_ID,
@@ -8,7 +7,7 @@ import {
   evaluateSectEntry,
   evaluateSectPromotion,
   generateKaifengWarrant,
-  isHuashanArtBlockedBeforeMaster,
+  isSectArtCatalogQuestOnly,
   KAIFENG_RECOMMENDATION_ITEM_ID,
   resetSectMembership,
 } from '../sect'
@@ -142,13 +141,14 @@ describe('evaluateSectEntry & evaluateSectPromotion', () => {
     expect(hsPromo?.canPromote).toBe(false)
     expect(hsPromo?.reason).toContain('博台大比')
 
-    // Huashan art gating: Lv.1..4 can only learn 凡品 from panel; 良品/地阶 require quest impartation until Lv.5 Master
-    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-160']!, 1)).toBe(false)
-    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-167']!, 1)).toBe(false)
-    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-147']!, 1)).toBe(true)
-    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-128']!, 2)).toBe(true)
-    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-058']!, 4)).toBe(true)
-    expect(isHuashanArtBlockedBeforeMaster('SECT-05', MARTIAL_ART_DB_MAP['MA-058']!, 5)).toBe(false)
+    // First-tier sects (except SECT-17 开封府/六扇门) only teach arts via quests; minor sects keep rank-based catalog learning
+    expect(isSectArtCatalogQuestOnly('SECT-05')).toBe(true)
+    expect(isSectArtCatalogQuestOnly('SECT-01')).toBe(true)
+    expect(isSectArtCatalogQuestOnly('SECT-33')).toBe(true)
+    expect(isSectArtCatalogQuestOnly('SECT-17')).toBe(false)
+    expect(isSectArtCatalogQuestOnly('SECT-22')).toBe(false)
+    expect(isSectArtCatalogQuestOnly('SECT-25')).toBe(false)
+    expect(isSectArtCatalogQuestOnly(null)).toBe(false)
 
     // Third-tier sect Lv1 -> Lv2
     const tier3LeaderPromotion = evaluateSectPromotion({
