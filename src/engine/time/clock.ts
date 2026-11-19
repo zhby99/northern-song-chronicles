@@ -1,4 +1,5 @@
 import { FACTION_DB_MAP, resolveNpcByName } from '../../data/gameDb'
+import { isRegionUnlockedByInventory } from '../../data/itemsDb'
 import type {
   LogEntry,
   NodeNpc,
@@ -602,7 +603,9 @@ export function commitTimeAdvance(
     rotateMasters: options.rotateMasters,
     emitMasterRumorLog: options.emitMasterRumorLog,
     deadNpcIds: s.deadNpcIds,
-    canMasterEnterNode: options.canMasterEnterNode,
+    canMasterEnterNode:
+      options.canMasterEnterNode ??
+      ((regionId) => isRegionUnlockedByInventory(regionId, s.inventory)),
     rng: options.rng,
   })
 

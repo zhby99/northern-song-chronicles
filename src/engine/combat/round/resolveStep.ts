@@ -330,7 +330,9 @@ function resolveItemStep(
   if (eff.curePoison) {
     if (actor.slowTurns > 0 || actor.weakTurns > 0 || actor.poisonDotTurns > 0) {
       actor.slowTurns = 0
+      actor.slowPct = 0
       actor.weakTurns = 0
+      actor.weakPct = 0
       actor.poisonDotTurns = 0
       actor.poisonDotDmg = 0
       notes.push('涤除体内滞涩奇毒')
@@ -564,28 +566,11 @@ export function resolveOrderedActionSteps(
           style: 'dodge',
         },
       ]
-      let exposeNote = ''
-      if (
-        isTargetDefending &&
-        actor.hp > 0 &&
-        target.hp > 0 &&
-        !ctx.pendingExposedIds.has(actor.unitId)
-      ) {
-        ctx.pendingExposedIds.add(actor.unitId)
-        exposeNote = `（强攻守御落空招老，${actor.name}下回合陷入【破绽】！）`
-        dodgePopups.push({
-          id: ctx.nextPopupId(),
-          side: actorSide,
-          text: '招老露破绽！',
-          subText: '下合受创+25%·闪-50%',
-          style: 'debuff',
-        })
-      }
       ctx.pushLog(
         'dodge',
         `${actor.name}施展《${art.cleanName}》（${mpNote}），${target.name}展开${qgName}潇洒滑开，片叶不沾！（闪避率 ${Math.round(
           dodgeChance * 100,
-        )}%）${exposeNote}`,
+        )}%）`,
       )
       ctx.flushBeat({
         kind: 'dodge',

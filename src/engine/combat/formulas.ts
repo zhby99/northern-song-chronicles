@@ -228,14 +228,19 @@ export function computeDodgeChancePreview(
 ): number {
   const defAgi = computeEffectiveAgility(defender)
   const atkAgi = computeEffectiveAgility(attacker)
-  // 常规身法闪避封顶 35%
+  // 常规身法闪避封顶 35%；天阶轻功（凌波微步/神行百变）在此基础上额外叠加，常态封顶 55%、守御封顶 65%
   let dodge = Math.max(0, Math.min(0.35, ((defAgi - atkAgi) * 0.35 + defAgi * 0.15) / 100))
   const qgDef = getSlotEffectsMap(defender, 'qinggong')
+  let qgDodgeBonus = 0
   for (const [key, val] of Object.entries(qgDef) as Array<[FxKey, number]>) {
     const fn = COMBAT_EFFECT_REGISTRY[key]?.computeDodgeOverridePct
     if (fn) {
-      dodge = Math.max(dodge, fn(val, defenderDefending, qgDef))
+      qgDodgeBonus = Math.max(qgDodgeBonus, fn(val, defenderDefending, qgDef))
     }
+  }
+  if (qgDodgeBonus > 0) {
+    const qgDodgeCap = defenderDefending ? 0.65 : 0.55
+    dodge = Math.min(qgDodgeCap, dodge + qgDodgeBonus)
   }
   if (defender.exposed) {
     dodge *= 0.5

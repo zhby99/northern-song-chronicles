@@ -523,8 +523,11 @@ export const COMBAT_EFFECT_REGISTRY: Record<FxKey, CombatEffectSpec> = {
           })
         }
         if (ctx.actorNgFx.huagong_weak) {
-          ctx.target.weakTurns = 2
-          ctx.target.weakPct = Math.round(ctx.actorNgFx.huagong_weak * ctx.wardScale)
+          ctx.target.weakTurns = Math.max(ctx.target.weakTurns, 2)
+          ctx.target.weakPct = Math.max(
+            ctx.target.weakPct,
+            Math.round(ctx.actorNgFx.huagong_weak * ctx.wardScale),
+          )
         }
       }
     },
@@ -670,8 +673,8 @@ export const COMBAT_EFFECT_REGISTRY: Record<FxKey, CombatEffectSpec> = {
     slot: 'move',
     onAfterHit(val, ctx, source) {
       if (source === 'actor' && !ctx.targetControlImmune && ctx.target.hp > 0) {
-        ctx.target.slowTurns = 2
-        ctx.target.slowPct = Math.round(val * ctx.wardScale)
+        ctx.target.slowTurns = Math.max(ctx.target.slowTurns, 2)
+        ctx.target.slowPct = Math.max(ctx.target.slowPct, Math.round(val * ctx.wardScale))
         ctx.pushLog(
           'special',
           `《打狗棒法》绊缠字诀缠住双足！${ctx.target.name}两回合内身法降低 ${ctx.target.slowPct}% 且无法逃跑！`,

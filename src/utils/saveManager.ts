@@ -30,7 +30,7 @@ import {
 import { cloneQuestRuntimeState } from '../engine/questEngine'
 import { VALID_TEN_ART_KEYS } from '../engine/shared/constants'
 import { deriveHeroEffectiveStats, sanitizeHeroBaseStats } from '../engine/stats/heroStats'
-import { isBuildingUnlocked } from '../engine/world/mapMath'
+import { getSpotLockMeta, isBuildingUnlocked } from '../engine/world/mapMath'
 import { MAX_NPC_FAVOR, MIN_NPC_FAVOR } from '../engine/social/npcFavor'
 import { clonePlayerSectState } from '../engine/sect'
 import { migrateRawSaveEnvelope } from './saveMigrations'
@@ -320,12 +320,25 @@ export function validateSaveEnvelope(input: unknown): GameSaveEnvelope | null {
       normalizedInteriorId = null
       normalizedSelectedBldgId = null
       normalizedSelectedSpotId = null
+    } else if (
+      normalizedSelectedSpotId &&
+      getSpotLockMeta(normalizedSelectedSpotId, cleanQuestState.flags)
+    ) {
+      normalizedSelectedSpotId = null
     }
-  } else if (
-    normalizedSelectedBldgId &&
-    !isBuildingUnlocked(normalizedSelectedBldgId, cleanQuestState.flags)
-  ) {
-    normalizedSelectedBldgId = null
+  } else {
+    if (
+      normalizedSelectedBldgId &&
+      !isBuildingUnlocked(normalizedSelectedBldgId, cleanQuestState.flags)
+    ) {
+      normalizedSelectedBldgId = null
+    }
+    if (
+      normalizedSelectedSpotId &&
+      getSpotLockMeta(normalizedSelectedSpotId, cleanQuestState.flags)
+    ) {
+      normalizedSelectedSpotId = null
+    }
   }
 
   const slotId = SAVE_SLOT_DEFS.some((d) => d.slotId === raw.slotId)

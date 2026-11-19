@@ -28,7 +28,6 @@ import {
 } from '../../../data/playerMartialArts'
 import { getProtagonistPortrait } from '../../../data/protagonistPresets'
 import { useGameStore } from '../../../store/useGameStore'
-import { resolveAssetUrl } from '../../../utils/assetLoader'
 import {
   calcDailyCultivationExpGain,
   calcDailyExpByCategory,
@@ -243,8 +242,8 @@ export function LoadoutTab({
             itemDef?.gearMeta?.iconUrl ??
             null
           return slotIconUrl ? (
-            <img
-              src={resolveAssetUrl(slotIconUrl)}
+            <ManagedAssetImg
+              url={slotIconUrl}
               alt={itemDef?.name ?? meta.shortLabel}
               className="w-10 h-10 rounded-md border border-[#b89658] object-cover shrink-0 bg-[#1a120b] shadow-inner"
             />

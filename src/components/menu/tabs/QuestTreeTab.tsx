@@ -19,6 +19,7 @@ import { getRegionUnlockRequirement, isRegionUnlockedByInventory } from '../../.
 import { QUEST_MAP, QUEST_REGISTRY } from '../../../data/quests'
 import {
   buildQuestDependencyGraph,
+  selectSectQuests,
   type BuiltQuestGraph,
   type QuestEdgeDef,
   type ResolvedQuestNode,
@@ -28,7 +29,7 @@ import { collectUnmetQuestReasons } from '../../../engine/questEngine'
 import { clamp } from '../../../engine/shared/math'
 import { useQuestEvalState } from '../../../hooks/useQuestEvalContext'
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
-import type { QuestCategoryKey, QuestDefinition, QuestTargetLocationHint } from '../../../types/quest'
+import type { QuestCategoryKey, QuestTargetLocationHint } from '../../../types/quest'
 import { interpolateReignYear } from '../../../engine/world/mapMath'
 import { assessQuestRealmReadiness } from '../../../engine/stats/realmUtils'
 
@@ -56,13 +57,6 @@ interface TransferNode {
   toName: string
   col: number
   row: number
-}
-
-/** 当前门派的任务子集：已入门派 → 本门任务；尚无门派 → 各派入门任务 */
-function selectSectQuests(sectId: string | null): QuestDefinition[] {
-  return sectId
-    ? QUEST_REGISTRY.filter((q) => q.factionId === sectId)
-    : QUEST_REGISTRY.filter((q) => q.category === 'sect_entry')
 }
 
 function buildTransferNodes(graph: BuiltQuestGraph, links: SectTransferLink[]): TransferNode[] {
@@ -93,7 +87,10 @@ function buildTransferNodes(graph: BuiltQuestGraph, links: SectTransferLink[]): 
 export function QuestTreeTab() {
   const sectId = useGameStore((s) => s.sectState.sectId)
   const sectName = sectId ? (FACTION_DB_MAP[sectId]?.name ?? sectId) : null
-  const graph = useMemo(() => buildQuestDependencyGraph(selectSectQuests(sectId)), [sectId])
+  const graph = useMemo(
+    () => buildQuestDependencyGraph(selectSectQuests(QUEST_REGISTRY, sectId)),
+    [sectId],
+  )
   const transferNodes = useMemo(
     () => buildTransferNodes(graph, getSectTransferLinks(sectId)),
     [graph, sectId],

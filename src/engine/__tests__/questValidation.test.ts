@@ -8,7 +8,7 @@ import {
   computeQuestMaxTenArtsGain,
   MAX_QUEST_TEN_ARTS_GAIN,
   validateAllRegisteredQuests,
-} from '../questEngine'
+} from '../quest/questValidator'
 
 describe('validateAllRegisteredQuests & buildQuestDependencyGraph', () => {
   it('validates all 29 registered quest chains (including lazy scenes) with zero broken references', async () => {

@@ -625,6 +625,7 @@ export function createInitialStoreData(): GameStoreData {
     activeNpcInteraction: null,
     activeCombat: null,
     activeStoryScene: null,
+    pendingSceneLoad: null,
     gameOver: null,
     sectState: clonePlayerSectState(DEFAULT_PLAYER_SECT_STATE),
     questState: cloneQuestRuntimeState(DEFAULT_QUEST_RUNTIME_STATE),

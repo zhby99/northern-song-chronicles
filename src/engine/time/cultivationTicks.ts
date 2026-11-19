@@ -1,4 +1,5 @@
 import { MARTIAL_ART_DB_MAP } from '../../data/gameDb'
+import { isRegionUnlockedByInventory } from '../../data/itemsDb'
 import { getArtCombatExpRequired, getArtExpRequired } from '../../data/playerMartialArts'
 import type { GameStoreData } from '../../store/storeTypes'
 import type { CultivationSessionState, NodeNpc } from '../../types/game'
@@ -69,6 +70,56 @@ function getSnapshotCelun(s: CultivationStateSnapshot): number {
   return effSkills?.['策论'] ?? s.baseStats.skills['策论'] ?? 0
 }
 
+function canMasterEnterFromSnapshot(s: CultivationStateSnapshot): (regionId: string) => boolean {
+  return (regionId: string) => isRegionUnlockedByInventory(regionId, s.inventory)
+}
+
+interface StepSessionShichenOptions {
+  deltaShichen: number
+  silver?: number
+  maxHp?: number
+  maxMp?: number
+  chargeForeignLodging?: boolean
+  emitMasterRumorLog?: boolean
+  vitalityFactor?: number
+  rng?: RngFn
+}
+
+/**
+ * 统一闭关 / 十艺 / 抄经 / 做工 / 杂役六条通道的时辰推进封装，
+ * 确保 celunSkill、deadNpcIds、canMasterEnterNode 与 birthplaceId/cityStayShichens 永不漏传。
+ */
+function stepSessionShichen(
+  s: CultivationStateSnapshot,
+  opts: StepSessionShichenOptions,
+) {
+  return computeTimeAdvanceState({
+    dayCount: s.dayCount,
+    shichenIdx: s.shichenIdx,
+    deltaShichen: opts.deltaShichen,
+    silver: opts.silver ?? s.silver,
+    hp: s.hp,
+    maxHp: opts.maxHp ?? s.maxHp,
+    mp: s.mp,
+    maxMp: opts.maxMp ?? s.maxMp,
+    currentNodeId: s.currentNodeId,
+    birthplaceId: s.birthplaceId,
+    cityStayShichens: s.cityStayShichens,
+    campPos: s.campPos,
+    sectState: s.sectState,
+    npcFavor: s.npcFavor,
+    roamingMasters: s.roamingMasters,
+    logs: s.logs,
+    chargeForeignLodging: opts.chargeForeignLodging,
+    emitMasterRumorLog: opts.emitMasterRumorLog,
+    celunSkill: getSnapshotCelun(s),
+    deadNpcIds: s.deadNpcIds,
+    canMasterEnterNode: canMasterEnterFromSnapshot(s),
+    vitalityFactor: opts.vitalityFactor ?? 1,
+    rng: opts.rng ?? defaultRng,
+  })
+}
+
 function formatDurationLabel(shichensElapsed: number): string {
   const fullDays = Math.floor(shichensElapsed / 12)
   const remShichen = shichensElapsed % 12
@@ -108,28 +159,6 @@ export function tickTenArtSession(
       nextSilverSpent += neededSilver
     }
   }
-
-  const adv = computeTimeAdvanceState({
-    dayCount: s.dayCount,
-    shichenIdx: s.shichenIdx,
-    deltaShichen,
-    silver: preSilver,
-    hp: s.hp,
-    maxHp: s.maxHp,
-    mp: s.mp,
-    maxMp: s.maxMp,
-    currentNodeId: s.currentNodeId,
-    birthplaceId: s.birthplaceId,
-    cityStayShichens: s.cityStayShichens,
-    campPos: s.campPos,
-    sectState: s.sectState,
-    npcFavor: s.npcFavor,
-    roamingMasters: s.roamingMasters,
-    logs: s.logs,
-    celunSkill: getSnapshotCelun(s),
-    vitalityFactor: 0,
-    rng,
-  })
 
   const targetFloor = stopNote
     ? session.settledExpFloor
@@ -177,23 +206,12 @@ export function tickTenArtSession(
     s.learnedArts,
     heavyInjuryOpt,
   )
-  const rec = computeTimeAdvanceState({
-    dayCount: s.dayCount,
-    shichenIdx: s.shichenIdx,
+
+  const adv = stepSessionShichen(s, {
     deltaShichen,
-    silver: 0,
-    hp: s.hp,
+    silver: preSilver,
     maxHp: nextDerived.maxHp,
-    mp: s.mp,
     maxMp: nextDerived.maxMp,
-    currentNodeId: s.currentNodeId,
-    campPos: s.campPos,
-    sectState: s.sectState,
-    npcFavor: s.npcFavor,
-    roamingMasters: s.roamingMasters,
-    logs: [],
-    skipSectDayHooks: true,
-    rotateMasters: false,
     vitalityFactor: 1,
     rng,
   })
@@ -244,9 +262,9 @@ export function tickTenArtSession(
         skills: nextDerived.skills,
         agility: nextDerived.agility,
         maxHp: nextDerived.maxHp,
-        hp: rec.hp,
+        hp: adv.hp,
         maxMp: nextDerived.maxMp,
-        mp: rec.mp,
+        mp: adv.mp,
         res: nextDerived.res,
         cultivationSession: null,
         actionFeedback: { text: summary, tone: stopNote ? 'warn' : 'success' },
@@ -273,9 +291,9 @@ export function tickTenArtSession(
       skills: nextDerived.skills,
       agility: nextDerived.agility,
       maxHp: nextDerived.maxHp,
-      hp: rec.hp,
+      hp: adv.hp,
       maxMp: nextDerived.maxMp,
-      mp: rec.mp,
+      mp: adv.mp,
       res: nextDerived.res,
       logs: nextLogs,
       cultivationSession: {
@@ -303,23 +321,8 @@ export function tickScriptureSession(
   const deltaShichen = Math.min(speedStep, remainTarget)
   const nextShichensElapsed = session.shichensElapsed + deltaShichen
 
-  const adv = computeTimeAdvanceState({
-    dayCount: s.dayCount,
-    shichenIdx: s.shichenIdx,
+  const adv = stepSessionShichen(s, {
     deltaShichen,
-    silver: s.silver,
-    hp: s.hp,
-    maxHp: s.maxHp,
-    mp: s.mp,
-    maxMp: s.maxMp,
-    currentNodeId: s.currentNodeId,
-    birthplaceId: s.birthplaceId,
-    cityStayShichens: s.cityStayShichens,
-    campPos: s.campPos,
-    sectState: s.sectState,
-    npcFavor: s.npcFavor,
-    roamingMasters: s.roamingMasters,
-    logs: s.logs,
     chargeForeignLodging: true,
     vitalityFactor: 1,
     rng,
@@ -453,21 +456,9 @@ export function tickLaborSession(
     const silverGainNow = Math.max(0, targetSilverEarned - session.settledExpFloor)
     const nextTotalEarned = session.totalExpGained + silverGainNow
 
-    const adv = computeTimeAdvanceState({
-      dayCount: s.dayCount,
-      shichenIdx: s.shichenIdx,
+    const adv = stepSessionShichen(s, {
       deltaShichen,
       silver: s.silver + silverGainNow,
-      hp: s.hp,
-      maxHp: s.maxHp,
-      mp: s.mp,
-      maxMp: s.maxMp,
-      currentNodeId: s.currentNodeId,
-      campPos: s.campPos,
-      sectState: s.sectState,
-      npcFavor: s.npcFavor,
-      roamingMasters: s.roamingMasters,
-      logs: s.logs,
       vitalityFactor: 1,
       rng,
     })
@@ -541,25 +532,10 @@ export function tickLaborSession(
     const silverGainNow = Math.max(0, targetSilverEarned - session.settledExpFloor)
     const nextTotalEarned = session.totalExpGained + silverGainNow
 
-    const adv = computeTimeAdvanceState({
-      dayCount: s.dayCount,
-      shichenIdx: s.shichenIdx,
+    const adv = stepSessionShichen(s, {
       deltaShichen,
       silver: s.silver + silverGainNow,
-      hp: s.hp,
-      maxHp: s.maxHp,
-      mp: s.mp,
-      maxMp: s.maxMp,
-      currentNodeId: s.currentNodeId,
-      birthplaceId: s.birthplaceId,
-      cityStayShichens: s.cityStayShichens,
-      campPos: s.campPos,
-      sectState: s.sectState,
-      npcFavor: s.npcFavor,
-      roamingMasters: s.roamingMasters,
-      logs: s.logs,
       chargeForeignLodging: true,
-      celunSkill: getSnapshotCelun(s),
       vitalityFactor: 1,
       rng,
     })
@@ -630,21 +606,8 @@ export function tickLaborSession(
   }
 
   // shaolin_chore
-  const adv = computeTimeAdvanceState({
-    dayCount: s.dayCount,
-    shichenIdx: s.shichenIdx,
+  const adv = stepSessionShichen(s, {
     deltaShichen,
-    silver: s.silver,
-    hp: s.hp,
-    maxHp: s.maxHp,
-    mp: s.mp,
-    maxMp: s.maxMp,
-    currentNodeId: s.currentNodeId,
-    campPos: s.campPos,
-    sectState: s.sectState,
-    npcFavor: s.npcFavor,
-    roamingMasters: s.roamingMasters,
-    logs: s.logs,
     vitalityFactor: 1,
     rng,
   })
@@ -978,25 +941,12 @@ export function tickMartialArtSession(
     heavyInjuryOpt,
   )
 
-  const adv = computeTimeAdvanceState({
-    dayCount: s.dayCount,
-    shichenIdx: s.shichenIdx,
+  const adv = stepSessionShichen(s, {
     deltaShichen,
     silver: preSilver,
-    hp: s.hp,
     maxHp: derived.maxHp,
-    mp: s.mp,
     maxMp: derived.maxMp,
-    currentNodeId: s.currentNodeId,
-    birthplaceId: s.birthplaceId,
-    cityStayShichens: s.cityStayShichens,
-    campPos: s.campPos,
-    sectState: s.sectState,
-    npcFavor: s.npcFavor,
-    roamingMasters: s.roamingMasters,
-    logs: s.logs,
     emitMasterRumorLog: true,
-    deadNpcIds: s.deadNpcIds,
     vitalityFactor: session.venue === 'wilderness_camp' ? 0.4 : 1,
     rng,
   })

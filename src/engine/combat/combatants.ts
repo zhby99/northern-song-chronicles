@@ -1,5 +1,5 @@
 import { NPC_DB_MAP, resolveNpcByName } from '../../data/gameDb'
-import { computeEquipmentTotals, computeWeaponArtSynergy } from '../../data/itemsDb'
+import { computeEquipmentTotals, computeWeaponArtSynergy } from '../equipment/equipmentStats'
 import { computeEquippedArtsTotals } from '../../data/playerMartialArts'
 import { getProtagonistPortrait } from '../../data/protagonistPresets'
 import type {
@@ -166,10 +166,18 @@ export function buildNpcCombatant(
       npcNode.equipped || npcNode.equippedArts || npcNode.learnedArts,
     )
 
-    const finalMaxHp = npcNode.stats?.hp ?? dbEff.maxHp
-    const finalMaxMp = npcNode.stats?.mp ?? dbEff.maxMp
-    const finalAgi = npcNode.stats?.agi ?? dbEff.agility
-    const finalRes = npcNode.stats?.res ?? dbEff.res
+    const hasExplicitStatsOverride = Boolean(
+      npcNode.stats &&
+        (npcNode.stats.hp !== dbRecord.stats.hp ||
+          npcNode.stats.mp !== dbRecord.stats.mp ||
+          npcNode.stats.agi !== dbRecord.stats.agi ||
+          npcNode.stats.res !== dbRecord.stats.res),
+    )
+
+    const finalMaxHp = hasExplicitStatsOverride ? (npcNode.stats?.hp ?? dbEff.maxHp) : dbEff.maxHp
+    const finalMaxMp = hasExplicitStatsOverride ? (npcNode.stats?.mp ?? dbEff.maxMp) : dbEff.maxMp
+    const finalAgi = hasExplicitStatsOverride ? (npcNode.stats?.agi ?? dbEff.agility) : dbEff.agility
+    const finalRes = hasExplicitStatsOverride ? (npcNode.stats?.res ?? dbEff.res) : dbEff.res
     const finalEquipAttack = hasCustomLoadout
       ? eqTotals.attack || dbEff.equipAttack || 35
       : dbEff.equipAttack

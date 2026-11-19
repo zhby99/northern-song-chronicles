@@ -223,12 +223,24 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       spotId: null,
     })
 
-    if (isKaifengAmbush && !get().activeStoryScene && !get().activeCombat && !get().gameOver) {
+    if (
+      isKaifengAmbush &&
+      !get().activeStoryScene &&
+      !get().pendingSceneLoad &&
+      !get().activeCombat &&
+      !get().gameOver
+    ) {
       get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
       return
     }
 
-    if (logSwitch && !get().activeStoryScene && !get().activeCombat && !get().gameOver) {
+    if (
+      logSwitch &&
+      !get().activeStoryScene &&
+      !get().pendingSceneLoad &&
+      !get().activeCombat &&
+      !get().gameOver
+    ) {
       void get().saveToSlot('autosave', `踏入${node.name}`, true)
     }
   },
@@ -470,6 +482,10 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       if (target.buildingId && !targetLock) {
         const bRec = BUILDING_DB_MAP[target.buildingId]
         if (bRec?.interior) {
+          const spotLock = target.spotId
+            ? getSpotLockMeta(target.spotId, s.questState.flags)
+            : null
+          const resolvedSpotId = spotLock ? null : (target.spotId ?? null)
           set({
             menuOpen: false,
             compendiumOpen: false,
@@ -477,25 +493,37 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
             viewMode: 'building',
             activeRegionId: target.regionId,
             activeBuildingInteriorId: bRec.id,
-            selectedBuildingId: target.spotId ? null : bRec.id,
-            selectedSpotId: target.spotId ?? null,
+            selectedBuildingId: resolvedSpotId ? null : bRec.id,
+            selectedSpotId: resolvedSpotId,
             regionPan: { x: 0, y: 0, scale: 1 },
-            actionFeedback: {
-              text: `已循任务卷宗步入【${target.customLabel ?? bRec.name}】！`,
-              tone: 'success',
-            },
+            actionFeedback: spotLock
+              ? {
+                  text: `🔒 ${spotLock.lockedReason}`,
+                  tone: 'warn',
+                }
+              : {
+                  text: `已循任务卷宗步入【${target.customLabel ?? bRec.name}】！`,
+                  tone: 'success',
+                },
           })
-          // 与正常步入建筑一致：先经过正堂（建筑级触发器），若未触发剧情再落到目标子景点
-          const firedAtHall = get().fireLocationTriggersForCurrentSpot({
+          // 与正常步入建筑一致：先经过正堂（建筑级触发器），若未弹出模态剧情/战斗/异步剧本再落到目标子景点
+          get().fireLocationTriggersForCurrentSpot({
             regionId: target.regionId,
             buildingId: bRec.id,
             spotId: null,
           })
-          if (target.spotId && !firedAtHall) {
+          const afterHall = get()
+          if (
+            resolvedSpotId &&
+            !afterHall.activeStoryScene &&
+            !afterHall.pendingSceneLoad &&
+            !afterHall.activeCombat &&
+            !afterHall.gameOver
+          ) {
             get().fireLocationTriggersForCurrentSpot({
               regionId: target.regionId,
               buildingId: bRec.id,
-              spotId: target.spotId,
+              spotId: resolvedSpotId,
             })
           }
           return
@@ -869,7 +897,12 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           spotId: null,
           isPassThrough: true,
         })
-        if (!get().activeStoryScene && !get().activeCombat && !get().gameOver) {
+        if (
+          !get().activeStoryScene &&
+          !get().pendingSceneLoad &&
+          !get().activeCombat &&
+          !get().gameOver
+        ) {
           get().startNpcCombat(buildZhanZhaoArrestNodeNpc(), 'duel', 'zhan_zhao_arrest', true)
         }
         return
@@ -943,7 +976,7 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
             spotId: null,
             isPassThrough: false,
           })
-          if (!get().activeCombat && !get().gameOver) {
+          if (!get().activeCombat && !get().pendingSceneLoad && !get().gameOver) {
             void get().saveToSlot('autosave', `策马抵达${destName}`, true)
           }
         }
@@ -1001,7 +1034,13 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
         spotId: null,
         isPassThrough: true,
       })
-      if (passTriggered && (get().activeCombat || get().activeStoryScene || get().gameOver)) {
+      if (
+        passTriggered &&
+        (get().activeCombat ||
+          get().activeStoryScene ||
+          get().pendingSceneLoad ||
+          get().gameOver)
+      ) {
         set({
           traveling: null,
           campPos: null,
@@ -1353,6 +1392,19 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
       return
     }
 
+    if (npc.assignedSpotId) {
+      const spotLock = getSpotLockMeta(npc.assignedSpotId, s.questState.flags)
+      if (spotLock) {
+        set({
+          actionFeedback: {
+            text: `🔒 ${spotLock.lockedReason}`,
+            tone: 'warn',
+          },
+        })
+        return
+      }
+    }
+
     if (npc.assignedSpotId && bRecord.interior) {
       set({
         menuOpen: false,
@@ -1370,6 +1422,24 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           tone: 'success',
         },
       })
+      get().fireLocationTriggersForCurrentSpot({
+        regionId: npc.regionId,
+        buildingId: bRecord.id,
+        spotId: null,
+      })
+      const afterHall = get()
+      if (
+        !afterHall.activeStoryScene &&
+        !afterHall.pendingSceneLoad &&
+        !afterHall.activeCombat &&
+        !afterHall.gameOver
+      ) {
+        get().fireLocationTriggersForCurrentSpot({
+          regionId: npc.regionId,
+          buildingId: bRecord.id,
+          spotId: npc.assignedSpotId,
+        })
+      }
     } else if (bRecord.interior) {
       set({
         menuOpen: false,
@@ -1387,6 +1457,11 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           tone: 'success',
         },
       })
+      get().fireLocationTriggersForCurrentSpot({
+        regionId: npc.regionId,
+        buildingId: bRecord.id,
+        spotId: null,
+      })
     } else {
       set({
         menuOpen: false,
@@ -1403,6 +1478,11 @@ export const createNavigationTravelSlice: StoreSlice<NavigationTravelKeys> = (se
           text: `已循名帖前往【${npc.fullLocationLabel}】，可与 ${npc.name} 交互。`,
           tone: 'success',
         },
+      })
+      get().fireLocationTriggersForCurrentSpot({
+        regionId: npc.regionId,
+        buildingId: bRecord.id,
+        spotId: null,
       })
     }
   },

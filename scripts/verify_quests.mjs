@@ -59,10 +59,10 @@ try {
     validateAllRegisteredQuests,
     computeQuestMaxTenArtsGain,
     MAX_QUEST_TEN_ARTS_GAIN,
-  } = await server.ssrLoadModule('/src/engine/questEngine.ts')
+  } = await server.ssrLoadModule('/src/engine/quest/questValidator.ts')
   const { SECT_RULES_BY_ID } = await server.ssrLoadModule('/src/engine/sect/rules.ts')
   const { SECT_ENTRY_TRANSFER_SOURCES } = await server.ssrLoadModule('/src/engine/sect/exclusivity.ts')
-  const { ITEM_DB_MAP } = await server.ssrLoadModule('/src/data/itemsDb.ts')
+  const { ITEM_DB_MAP, REGION_UNLOCK_MAP_REQUIREMENTS } = await server.ssrLoadModule('/src/data/itemsDb.ts')
 
   const WHITE_PAPER_ENTRY_QUEST_IDS = new Set([
     'QST-SECT-05-ENTRY',
@@ -177,6 +177,9 @@ try {
       checkCgUrl(`${bPath}.illustrationUrl`, beat.illustrationUrl)
       if (typeof beat.text === 'string' && beat.text.includes('皇祐二年')) {
         errors.push(`${bPath}: 对白硬编码了“皇祐二年”，请改用 {reignYear} 动态插值`)
+      }
+      if (typeof beat.text === 'string' && /\{gender:[^|}]*[,，]/.test(beat.text)) {
+        errors.push(`${bPath}: {gender:...} 插值宏缺少竖线分隔符“|”（误用了逗号）`)
       }
       if (beat.speaker?.kind === 'custom') {
         checkPortraitUrl(`${bPath}.speaker.portraitUrl`, beat.speaker.portraitUrl)
@@ -313,6 +316,41 @@ try {
           `SECT_ENTRY_TRANSFER_SOURCES["${sectId}"]=[${expectedList.join(', ')}] 与任务条件允许的转投源 [${actualList.join(', ')}] 不一致`,
         )
       }
+    }
+  }
+
+  const grantedItemIds = new Set()
+  const collectGrantedItems = (effects) => {
+    if (!Array.isArray(effects)) return
+    for (const ef of effects) {
+      if (!ef) continue
+      if (ef.type === 'giveItem' && ef.itemId) grantedItemIds.add(ef.itemId)
+      if (ef.type === 'conditional') {
+        collectGrantedItems(ef.thenEffects)
+        collectGrantedItems(ef.elseEffects)
+      }
+      if (ef.type === 'startQuestCombat') {
+        collectGrantedItems(ef.onVictoryEffects)
+        collectGrantedItems(ef.onDefeatEffects)
+      }
+    }
+  }
+  for (const q of QUEST_REGISTRY) {
+    for (const t of q.locationTriggers ?? []) collectGrantedItems(t.effects)
+    for (const a of q.spotActions ?? []) collectGrantedItems(a.effects)
+    for (const a of q.npcActions ?? []) collectGrantedItems(a.effects)
+    const scenes = getLoadedQuestScenes(q.id) ?? q.scenes ?? {}
+    for (const sc of Object.values(scenes)) {
+      collectGrantedItems(sc.onEnterEffects)
+      collectGrantedItems(sc.onFinishEffects)
+      for (const ch of sc.choices ?? []) collectGrantedItems(ch.effects)
+    }
+  }
+  for (const [regionId, req] of Object.entries(REGION_UNLOCK_MAP_REQUIREMENTS)) {
+    if (!grantedItemIds.has(req.mapItemId)) {
+      errors.push(
+        `REGION_UNLOCK_MAP_REQUIREMENTS["${regionId}"] 所需舆图 "${req.mapItemId}" (${req.mapItemName}) 在全库任务中无任何 giveItem 产出路径！`,
+      )
     }
   }
 

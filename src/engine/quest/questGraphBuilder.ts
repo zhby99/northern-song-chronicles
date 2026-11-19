@@ -290,6 +290,18 @@ function deriveShortTag(q: QuestDefinition): string {
 /**
  * 从 `QUEST_REGISTRY` 各卷的 `startCondition`、触发器条件、门派职阶与信物闭环自动推导节点与有向边。
  */
+/** 当前生涯任务子集：已入门派 → 本门任务 + 江湖奇遇/皇祐风云；尚无门派 → 各派入门 + 江湖奇遇/皇祐风云 */
+export function selectSectQuests(
+  allQuests: readonly QuestDefinition[],
+  sectId: string | null,
+): QuestDefinition[] {
+  const isGlobalStory = (q: QuestDefinition) =>
+    q.category === 'adventure' || q.category === 'main_story' || q.category === 'city_story'
+  return sectId
+    ? allQuests.filter((q) => q.factionId === sectId || isGlobalStory(q))
+    : allQuests.filter((q) => q.category === 'sect_entry' || isGlobalStory(q))
+}
+
 export function buildQuestDependencyGraph(
   quests: readonly QuestDefinition[],
 ): BuiltQuestGraph {
@@ -314,17 +326,17 @@ export function buildQuestDependencyGraph(
   for (const q of quests) {
     const blob = `${q.title} ${q.summary}`
     if (blob.includes('燕子坞') && q.category === 'adventure') {
-      itemProducerByItemId['ITM-MAP-002'] = {
+      itemProducerByItemId['ITM-MSC-020'] = {
         questId: q.id,
         mode: 'solid',
         note: '必修前置：须先绘成《太湖燕子坞烟波水路舆图》方可渡湖查案',
       }
     }
     if (blob.includes('桃花岛') && q.category === 'adventure') {
-      itemProducerByItemId['ITM-MAP-001'] = {
+      itemProducerByItemId['ITM-MSC-021'] = {
         questId: q.id,
         mode: 'solid',
-        note: '必修前置：须先取得《东海桃花岛奇门海图》方可渡海',
+        note: '必修前置：须先取得《东海桃花岛奇门海道舆图》方可渡海',
       }
     }
     if (q.factionId === 'SECT-22') {

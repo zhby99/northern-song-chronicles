@@ -22,11 +22,7 @@ import {
 import type {
   GameOverState,
 } from '../../types/game'
-import { syncArtLevelsToExpsAndMilestones } from '../../engine/stats/artsProgression'
-import {
-  cloneHeroBaseStats,
-  HERO_BASE_CAPS,
-} from '../../engine/stats/heroStats'
+import { applyConsumableStatEffects } from '../../engine/stats/elixirEffects'
 import {
   formatSongDate,
   NODE_MAP,
@@ -310,31 +306,18 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       if (def.useEffect?.onceOnly && !s.consumedOnceItemIds.includes(choice.itemId)) {
         nextConsumedOnceItemIds = [...s.consumedOnceItemIds, choice.itemId]
       }
-      const eff = def.useEffect
-      if (eff) {
-        const cloned = cloneHeroBaseStats(s.baseStats)
-        if (def.rarity === '天阶' || def.rarity === '地阶') {
-          if (eff.maxHp) cloned.maxHp = (cloned.maxHp ?? 0) + eff.maxHp
-          if (eff.maxMp) cloned.maxMp = (cloned.maxMp ?? 0) + eff.maxMp
-          if (eff.agi) cloned.agility = (cloned.agility ?? 0) + eff.agi
-          if (eff.res) cloned.res = (cloned.res ?? 0) + eff.res
-        }
-        if (eff.skillGain) {
-          const [sk, gain] = eff.skillGain
-          cloned.skills[sk] = Math.min(
-            HERO_BASE_CAPS.civilSkill,
-            (cloned.skills[sk] ?? 0) + gain,
-          )
-          const synced = syncArtLevelsToExpsAndMilestones({
-            baseStats: cloned,
-            artExps: nextArtExps,
-            artMilestoneFlags: nextArtMilestoneFlags,
-          })
-          nextArtExps = synced.artExps
-          nextArtMilestoneFlags = synced.artMilestoneFlags
-        }
-        if (eff.food) nextFood += eff.food
-        nextBaseStats = cloned
+      if (def.useEffect) {
+        const applied = applyConsumableStatEffects({
+          itemDef: def,
+          baseStats: s.baseStats,
+          artExps: nextArtExps,
+          artMilestoneFlags: nextArtMilestoneFlags,
+          food: nextFood,
+        })
+        nextBaseStats = applied.baseStats
+        nextArtExps = applied.artExps
+        nextArtMilestoneFlags = applied.artMilestoneFlags
+        nextFood = applied.food
       }
     }
     if (nextSession.outcome !== 'ongoing') {

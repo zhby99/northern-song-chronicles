@@ -117,6 +117,7 @@ export interface GameStoreState {
   activeNpcInteraction: NodeNpc | null
   activeCombat: CombatSessionState | null
   activeStoryScene: ActiveStorySceneState | null
+  pendingSceneLoad: { sceneId: string; questId?: string; token: number } | null
   gameOver: GameOverState | null
   sectState: PlayerSectState
   questState: QuestRuntimeState

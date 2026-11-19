@@ -292,6 +292,9 @@ function evictOverflowAudioBuffers(forceAllIdle = false): number {
       continue
     }
     decodedBufferCache.delete(url)
+    if (url === pinnedBattleTrackUrl) {
+      battlePreloadScheduled = false
+    }
     audioEvictedCount += 1
     freed += 1
   }

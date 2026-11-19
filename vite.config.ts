@@ -454,12 +454,14 @@ export default defineConfig({
               ) {
                 return 'data-quests-court'
               }
+              if (normId.includes('/src/data/quests/sects/huashan')) {
+                return 'data-quests-huashan'
+              }
               if (
                 normId.includes('/src/data/quests/sects/shaolin') ||
                 normId.includes('/src/data/quests/sects/nanshaolin') ||
                 normId.includes('/src/data/quests/sects/wutai') ||
                 normId.includes('/src/data/quests/sects/gaibang') ||
-                normId.includes('/src/data/quests/sects/huashan') ||
                 normId.includes('/src/data/quests/sects/taishan') ||
                 normId.includes('/src/data/quests/sects/zhenwu')
               ) {

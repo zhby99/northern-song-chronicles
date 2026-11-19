@@ -320,7 +320,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '华山绝顶论剑台',
     mandatory: true,
     beats: [
-      S(SPEAKER_HUASHAN_DISCIPLE, '（横剑行礼）“新入门的{gender:师弟,师妹}，请了！”'),
+      S(SPEAKER_HUASHAN_DISCIPLE, '（横剑行礼）“新入门的{gender:师弟|师妹}，请了！”'),
       N('岳沧溟与秦烈山立于石亭旁静观，是检验华山基础心法与十二式剑法之时！'),
     ],
     choices: [

@@ -30,7 +30,7 @@ export function buildMurongBoFinalNpc(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_murong_male_av.jpg',
     portraitUrl: '/assets/characters/cutouts/fullbody/NPC-0104.webp',
     talk: '“少室山三合未杀你，燕子坞五合未留你，今日在雁门关下，便拿你这大宋柱石的人头祭我大燕江山！”',
-    stats: { hp: 7200, mp: 5800, agi: 92, res: 88 },
+    stats: { hp: 7800, mp: 7600, agi: 96, res: 88 },
     equipped: {
       weapon: 'WPN-010',
       armor: 'ARM-004',
@@ -40,10 +40,10 @@ export function buildMurongBoFinalNpc(): NodeNpc {
       accessory2: 'ACC-008',
       mount: 'MNT-002',
     },
-    equippedArts: { neigong: 'MA-013', qinggong: 'MA-029', move1: 'MA-025', move2: 'MA-045' },
+    equippedArts: { neigong: 'MA-008', qinggong: 'MA-097', move1: 'MA-025', move2: 'MA-045' },
     learnedArts: [
-      { artId: 'MA-013', level: 10 },
-      { artId: 'MA-029', level: 10 },
+      { artId: 'MA-008', level: 10 },
+      { artId: 'MA-097', level: 10 },
       { artId: 'MA-025', level: 10 },
       { artId: 'MA-045', level: 10 },
     ],

@@ -154,7 +154,7 @@ export function buildJoinSectPatch(input: BuildJoinSectPatchInput): BuildJoinSec
         ? prevPeriodInfo.latestPeriod
         : sectState.lastLiaoSpyMissionYear,
     changshanMissedCount: 0,
-    activeLiaoSpy: allowOfficialTransfer ? null : sectState.activeLiaoSpy,
+    activeLiaoSpy: null,
     activeSectTask: null,
     wonSectTournament: false,
     activeSectTournament: null,

@@ -1,7 +1,10 @@
 import type {
   QuestCondition,
   QuestEffect,
+  QuestLocationTriggerDef,
+  QuestNpcActionDef,
   QuestPrimitiveValue,
+  QuestSpotActionDef,
   StoryBeatDef,
   StorySpeakerSpec,
 } from '../../types/quest'
@@ -177,3 +180,74 @@ export function flag(
     ...(value !== undefined ? { value } : {}),
   }
 }
+
+export interface BindSceneTriggerOptions {
+  id: string
+  questId: string
+  sceneId: string
+  regionId: string
+  buildingId?: string | null
+  spotId?: string | null
+  npcId?: string
+  actionLabel?: string
+  actionSubtitle?: string
+  condition: QuestCondition
+  onceFlag?: string
+  preEffects?: QuestEffect[]
+  priority?: number
+}
+
+/**
+ * 统一绑定「进场触发器 / 据点按钮 / NPC 对话动作」的 DSL 宏，消除三处重复样板代码。
+ */
+export function bindSceneTrigger(opts: BindSceneTriggerOptions): {
+  locationTrigger: QuestLocationTriggerDef
+  spotAction?: QuestSpotActionDef
+  npcAction?: QuestNpcActionDef
+} {
+  const effects: QuestEffect[] = [
+    ...(opts.preEffects ?? []),
+    openScene(opts.sceneId, opts.questId),
+  ]
+  const locationTrigger: QuestLocationTriggerDef = {
+    id: `${opts.id}_loc`,
+    regionId: opts.regionId,
+    ...(opts.buildingId !== undefined ? { buildingId: opts.buildingId } : {}),
+    ...(opts.spotId !== undefined ? { spotId: opts.spotId } : {}),
+    condition: opts.condition,
+    ...(opts.onceFlag !== undefined ? { onceFlag: opts.onceFlag } : {}),
+    ...(opts.priority !== undefined ? { priority: opts.priority } : {}),
+    effects,
+  }
+  const spotAction: QuestSpotActionDef | undefined =
+    opts.actionLabel && opts.buildingId
+      ? {
+          id: `${opts.id}_spot`,
+          regionId: opts.regionId,
+          buildingId: opts.buildingId,
+          ...(opts.spotId !== undefined ? { spotId: opts.spotId } : {}),
+          label: opts.actionLabel,
+          ...(opts.actionSubtitle !== undefined ? { subtitle: opts.actionSubtitle } : {}),
+          visibleWhen: opts.condition,
+          effects,
+        }
+      : undefined
+  const npcAction: QuestNpcActionDef | undefined =
+    opts.npcId && opts.actionLabel
+      ? {
+          id: `${opts.id}_npc`,
+          label: opts.actionLabel,
+          visibleWhen: {
+            type: 'all',
+            conditions: [{ type: 'targetNpcMatch', npcIds: [opts.npcId] }, opts.condition],
+          },
+          effects,
+        }
+      : undefined
+  return {
+    locationTrigger,
+    ...(spotAction ? { spotAction } : {}),
+    ...(npcAction ? { npcAction } : {}),
+  }
+}
+

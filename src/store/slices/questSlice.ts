@@ -129,7 +129,7 @@ export const createQuestSlice: StoreSlice<QuestKeys> = (set, get) => ({
 
   fireLocationTriggersForCurrentSpot: (loc) => {
     const s = get()
-    if (s.gameOver || s.activeCombat) return false
+    if (s.gameOver || s.activeCombat || s.pendingSceneLoad) return false
     const matched = findMatchingLocationTriggers(loc, buildStoreEvalContext(s))
     if (matched.length === 0) return false
 
@@ -140,7 +140,7 @@ export const createQuestSlice: StoreSlice<QuestKeys> = (set, get) => ({
       const latest = get()
       if (latest.gameOver || latest.activeCombat) break
       const opensModal = effectsOpenModal(trigger.effects)
-      if (opensModal && (modalFired || latest.activeStoryScene)) continue
+      if (opensModal && (modalFired || latest.activeStoryScene || latest.pendingSceneLoad)) continue
       if (opensModal) modalFired = true
       if (trigger.onceFlag) {
         const nextQuest = cloneQuestRuntimeState(latest.questState)

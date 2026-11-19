@@ -1054,6 +1054,8 @@ function dispatchSingleQuestEffect<E extends QuestEffect>(
   handler(eff, ctx)
 }
 
+let nextAsyncSceneToken = 1
+
 /**
  * Execute a list of `QuestEffect`s via the handler registry, coalescing synchronous
  * mutations into a single Zustand `set()` call to minimize React re-renders.
@@ -1064,9 +1066,13 @@ export function executeQuestEffectsBatch(params: {
   questIdHint?: string | null
   set: (partial: Partial<GameStoreState>) => void
   get: () => GameStoreState
+  _continuationToken?: number
 }): void {
-  const { effects, contextNpc, set, get } = params
+  const { effects, contextNpc, set, get, _continuationToken } = params
   if (effects.length === 0 || get().gameOver) return
+  // 异步剧本分片加载窗口期内阻断外部重复点击/重入触发，仅放行同一 token 的续行批次
+  const inFlight = get().pendingSceneLoad
+  if (inFlight && inFlight.token !== _continuationToken) return
 
   const dirtyKeys = new Set<keyof GameStoreData>()
   const ctx: QuestEffectBatchContext = {
@@ -1113,44 +1119,80 @@ export function executeQuestEffectsBatch(params: {
   }
 
   runSlice(effects)
+
+  let asyncToken: number | null = null
+  if (ctx.pendingAsyncScene && !ctx.draft.gameOver) {
+    asyncToken = nextAsyncSceneToken++
+    ctx.patchDraft({
+      pendingSceneLoad: {
+        sceneId: ctx.pendingAsyncScene.sceneId,
+        questId: ctx.pendingAsyncScene.questId,
+        token: asyncToken,
+      },
+      traveling: null,
+      activeNpcInteraction: null,
+      menuOpen: false,
+      compendiumOpen: false,
+      tooltip: null,
+    })
+  }
+
   ctx.flushDraft()
 
   if (ctx.daysAddedTotal > 0 && !get().gameOver) {
     get().checkExpiredQuestDeadlines()
   }
   if (ctx.overdueSpyAmbush && !get().gameOver && !get().activeCombat) {
+    if (asyncToken !== null && get().pendingSceneLoad?.token === asyncToken) {
+      set({ pendingSceneLoad: null })
+    }
     get().startNpcCombat(ctx.overdueSpyAmbush, 'duel', 'liao_spy_duel', true)
     return
   }
 
-  if (ctx.pendingAsyncScene) {
+  if (ctx.pendingAsyncScene && asyncToken !== null) {
     const { sceneId, questId } = ctx.pendingAsyncScene
     const rest = remainingAfterAsync
     const finalHint = ctx.questIdHint
-    void resolveQuestSceneAsync(sceneId, questId).then((loadedScene) => {
-      if (get().gameOver) return
-      if (loadedScene) {
+    const token = asyncToken
+    void resolveQuestSceneAsync(sceneId, questId)
+      .then((loadedScene) => {
+        if (get().pendingSceneLoad?.token !== token) return
+        set({ pendingSceneLoad: null })
+        if (get().gameOver || get().activeCombat) return
+        if (loadedScene) {
+          set({
+            activeStoryScene: {
+              scene: loadedScene,
+              beatIndex: 0,
+              contextNpc: contextNpc ?? null,
+            },
+            activeNpcInteraction: null,
+            menuOpen: false,
+            compendiumOpen: false,
+            tooltip: null,
+          })
+        }
+        if (rest.length > 0) {
+          executeQuestEffectsBatch({
+            effects: rest,
+            contextNpc,
+            questIdHint: finalHint,
+            set,
+            get,
+            _continuationToken: token,
+          })
+        }
+      })
+      .catch(() => {
+        if (get().pendingSceneLoad?.token !== token) return
         set({
-          activeStoryScene: {
-            scene: loadedScene,
-            beatIndex: 0,
-            contextNpc: contextNpc ?? null,
+          pendingSceneLoad: null,
+          actionFeedback: {
+            text: '剧情卷宗加载受阻，请稍后重试。',
+            tone: 'warn',
           },
-          activeNpcInteraction: null,
-          menuOpen: false,
-          compendiumOpen: false,
-          tooltip: null,
         })
-      }
-      if (rest.length > 0) {
-        executeQuestEffectsBatch({
-          effects: rest,
-          contextNpc,
-          questIdHint: finalHint,
-          set,
-          get,
-        })
-      }
-    })
+      })
   }
 }

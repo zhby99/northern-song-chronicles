@@ -29,7 +29,6 @@ import type {
   EquippedSlotsMap,
   LearnedArtEntry,
   MartialArtSlotKey,
-  TenArtKey,
 } from '../../types/game'
 import type { ProtagonistGender } from '../../types/game'
 import { getProtagonistGender } from '../../data/protagonistPresets'
@@ -39,11 +38,10 @@ import {
   getRegionLodgingInfo,
   isItemSellable,
 } from '../../engine/economy'
-import { syncArtLevelsToExpsAndMilestones } from '../../engine/stats/artsProgression'
+import { applyConsumableStatEffects } from '../../engine/stats/elixirEffects'
 import {
   cloneHeroBaseStats,
   deriveHeroEffectiveStats,
-  HERO_BASE_CAPS,
   isPlayerInFreeLodgingRegion,
   isPlayerInOwnSectRegion,
 } from '../../engine/stats/heroStats'
@@ -915,9 +913,7 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       ? (removeItemFromInventory(s.inventory, itemId, 1) ?? s.inventory)
       : s.inventory
 
-    const nextBaseStats = cloneHeroBaseStats(s.baseStats)
     const nextLearnedArts = s.learnedArts.map((x) => ({ ...x }))
-    let nextFood = s.food
     const notes: string[] = []
 
     const deltaShichen =
@@ -928,89 +924,22 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
       nextLearnedArts.push({ artId: eff.learnArtId, level: 1, exp: 0 })
       notes.push(`初窥门径，习得武学【${targetArt.name}（第1重）】`)
     }
+    const appliedStats = applyConsumableStatEffects({
+      itemDef: def,
+      baseStats: s.baseStats,
+      artExps: s.artExps,
+      artMilestoneFlags: s.artMilestoneFlags,
+      food: s.food,
+    })
+    const nextBaseStats = appliedStats.baseStats
+    const nextFood = appliedStats.food
+    const syncedArts = {
+      artExps: appliedStats.artExps,
+      artMilestoneFlags: appliedStats.artMilestoneFlags,
+    }
     const isPermanentElixir =
       def.category === 'medicine' && (def.rarity === '天阶' || def.rarity === '地阶')
-    if (isPermanentElixir) {
-      if (eff.maxHp) {
-        nextBaseStats.maxHp = (nextBaseStats.maxHp ?? 0) + eff.maxHp
-        notes.push(`气血上限永久 +${eff.maxHp}`)
-      }
-      if (eff.maxMp) {
-        nextBaseStats.maxMp = (nextBaseStats.maxMp ?? 0) + eff.maxMp
-        notes.push(`内力上限永久 +${eff.maxMp}`)
-      }
-      if (eff.agi) {
-        nextBaseStats.agility = (nextBaseStats.agility ?? 0) + eff.agi
-        notes.push(`身法永久 +${eff.agi}`)
-      }
-      if (eff.res) {
-        nextBaseStats.res = (nextBaseStats.res ?? 0) + eff.res
-        notes.push(`抗性永久 +${eff.res}`)
-      }
-    }
-    const touchedArtKeys: TenArtKey[] = []
-    if (eff.riding) {
-      const prev = nextBaseStats.ridingSkill
-      nextBaseStats.ridingSkill = Math.min(HERO_BASE_CAPS.ridingSkill, prev + eff.riding)
-      touchedArtKeys.push('骑术')
-      notes.push(
-        nextBaseStats.ridingSkill > prev
-          ? `【骑术】+${nextBaseStats.ridingSkill - prev}`
-          : `【骑术】根基已满 (${HERO_BASE_CAPS.ridingSkill})`,
-      )
-    }
-    if (eff.skillGain) {
-      const [sk, gain] = eff.skillGain
-      const prev = nextBaseStats.skills[sk] ?? 40
-      nextBaseStats.skills[sk] = Math.min(HERO_BASE_CAPS.civilSkill, prev + gain)
-      touchedArtKeys.push(sk as TenArtKey)
-      notes.push(
-        nextBaseStats.skills[sk] > prev
-          ? `【${sk}】+${nextBaseStats.skills[sk] - prev}`
-          : `【${sk}】根基已满 (${HERO_BASE_CAPS.civilSkill})`,
-      )
-    }
-    if (eff.skillsGain) {
-      for (const [sk, gain] of Object.entries(eff.skillsGain)) {
-        const prev = nextBaseStats.skills[sk] ?? 40
-        nextBaseStats.skills[sk] = Math.min(HERO_BASE_CAPS.civilSkill, prev + gain)
-        touchedArtKeys.push(sk as TenArtKey)
-        notes.push(
-          nextBaseStats.skills[sk] > prev
-            ? `【${sk}】+${nextBaseStats.skills[sk] - prev}`
-            : `【${sk}】根基已满 (${HERO_BASE_CAPS.civilSkill})`,
-        )
-      }
-    }
-    if (eff.wuxing) {
-      const prev = nextBaseStats.talents.悟性
-      nextBaseStats.talents.悟性 = Math.min(HERO_BASE_CAPS.talent, prev + eff.wuxing)
-      notes.push(
-        nextBaseStats.talents.悟性 > prev
-          ? `【悟性】永久 +${nextBaseStats.talents.悟性 - prev}`
-          : `【悟性】天赋已满 (${HERO_BASE_CAPS.talent})`,
-      )
-    }
-    const syncedArts =
-      touchedArtKeys.length > 0
-        ? syncArtLevelsToExpsAndMilestones({
-            baseStats: nextBaseStats,
-            artExps: s.artExps,
-            artMilestoneFlags: s.artMilestoneFlags,
-            keysToSync: touchedArtKeys,
-          })
-        : {
-            artExps: s.artExps,
-            artMilestoneFlags: s.artMilestoneFlags,
-            milestoneNotes: [],
-          }
-    if (syncedArts.milestoneNotes.length > 0) {
-      notes.push(...syncedArts.milestoneNotes)
-    }
-    if (eff.food) {
-      nextFood += eff.food
-      notes.push(`粮草 +${eff.food}日份`)
-    }
+    notes.push(...appliedStats.notes)
 
     const derived = deriveHeroEffectiveStats(
       nextBaseStats,

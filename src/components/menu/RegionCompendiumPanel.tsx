@@ -473,7 +473,7 @@ export function RegionCompendiumPanel({
                         )}
                         <span>
                           {reg.specialBuildingIds.length + reg.baseBuildingIds.length}建 ·{' '}
-                          {reg.residentNpcIds.length}人
+                          {filterLivingNpcs(getCompiledNpcsByRegion(reg.id), deadNpcIds, questFlags).length}人
                         </span>
                       </span>
                     </div>

@@ -1,9 +1,6 @@
 import { BUILDING_DB_MAP, FACTION_DB_MAP } from '../../data/gameDb'
-import {
-  computeEquipmentTotals,
-  computeWeaponArtSynergy,
-  DEFAULT_HERO_TALENTS,
-} from '../../data/itemsDb'
+import { DEFAULT_HERO_TALENTS } from '../../data/itemsDb'
+import { computeEquipmentTotals, computeWeaponArtSynergy } from '../equipment/equipmentStats'
 import { computeEquippedArtsTotals, isArtNeigong } from '../../data/playerMartialArts'
 import type {
   CompiledBuildingRecord,

@@ -220,6 +220,10 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
 
     set({
       ...st,
+      equipped: structuredClone(st.equipped),
+      equippedArts: structuredClone(st.equippedArts),
+      learnedArts: structuredClone(st.learnedArts),
+      inventory: structuredClone(st.inventory),
       characterCreated: st.characterCreated ?? true,
       playerName: st.playerName || '无名少侠',
       playerPortraitId: st.playerPortraitId || 'hero_04_swordsman',
@@ -274,6 +278,7 @@ export const createUiSaveSlice: StoreSlice<UiSaveKeys> = (set, get) => ({
       cultivationSession: null,
       activeCombat: null,
       activeStoryScene: null,
+      pendingSceneLoad: null,
       activeNpcInteraction: null,
       tooltip: null,
       actionFeedback: null,
