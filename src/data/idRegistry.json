@@ -14,9 +14,9 @@
     "totalBuildings": 268,
     "interiorSubBuildings": 441,
     "martialArts": 247,
-    "weapons": 101,
+    "weapons": 103,
     "mounts": 28,
-    "npcs": 1053,
+    "npcs": 1059,
     "npcsWithAvatar": 411,
     "npcsWithFullbody": 411
   },
@@ -92,7 +92,7 @@
       "legacyAliases": [
         "京兆长安"
       ],
-      "npcCount": 43,
+      "npcCount": 44,
       "specialBuildingCount": 3
     },
     {
@@ -367,7 +367,7 @@
       "legacyAliases": [
         "终南山"
       ],
-      "npcCount": 21,
+      "npcCount": 26,
       "specialBuildingCount": 3
     },
     {
@@ -1127,7 +1127,7 @@
       "highestArtTier": "天阶中品",
       "summary": "一流大派 · 隐世奇门传承（终南太乙幽谷双脉并立，轻灵冷冽超然物外）",
       "entryAndFeatures": "专属入门试炼任务链筹备中（敬请先历练其他已开放门派）；古墓脉偏好高 【身法】【颜值】 且清心寡欲者，古观脉偏好高 【根骨】【经义】 者。",
-      "memberCount": 30,
+      "memberCount": 36,
       "martialArtIds": [
         "MA-013",
         "MA-031",
@@ -1138,7 +1138,9 @@
       ],
       "weaponIds": [
         "WPN-051",
-        "WPN-090"
+        "WPN-090",
+        "WPN-102",
+        "WPN-103"
       ],
       "acceptsOuterDisciple": true,
       "sharedMartialArtRule": null,
@@ -6130,6 +6132,24 @@
       "weaponType": "棍棒",
       "regionId": "xingqing_xixia",
       "sectId": "SECT-20"
+    },
+    {
+      "id": "WPN-102",
+      "code": "102",
+      "name": "重阳天罡七星剑",
+      "fullTier": "地阶上品",
+      "weaponType": "剑",
+      "regionId": "zhongnanshan",
+      "sectId": "SECT-11"
+    },
+    {
+      "id": "WPN-103",
+      "code": "103",
+      "name": "寒玉素心冰魄剑",
+      "fullTier": "地阶上品",
+      "weaponType": "剑",
+      "regionId": "zhongnanshan",
+      "sectId": "SECT-11"
     }
   ],
   "mountIndex": [

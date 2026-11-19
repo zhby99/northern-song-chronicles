@@ -3803,5 +3803,76 @@
     "prerequisitesText": null,
     "statRequirements": [],
     "iconUrl": "/assets/items/weapons/wpn_101.jpg"
+  },
+  {
+    "id": "WPN-102",
+    "code": "102",
+    "name": "重阳天罡七星剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "regionId": "zhongnanshan",
+    "locationLabel": "终南山隐宗",
+    "origin": "重阳古观前脉道院镇观玄剑",
+    "originFull": "终南山隐宗·重阳古观前脉道院镇观玄剑",
+    "sectId": "SECT-11",
+    "forceTrait": "中正",
+    "attackRange": 1,
+    "value": 268,
+    "equipBonus": {
+      "attack": 146
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 22
+      }
+    ],
+    "signatureArtIds": [
+      "MA-089",
+      "MA-031"
+    ],
+    "specialTag": "【天罡护道】",
+    "description": "【天罡护道】采秦岭玄铁参北斗七星铜钉锻成之终南古观镇派道剑，剑脊镌七星璇玑暗纹，以先天纯阳真气催运时剑鸣如龙吟清越，邪魔毒雾难近三尺。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "iconUrl": null
+  },
+  {
+    "id": "WPN-103",
+    "code": "103",
+    "name": "寒玉素心冰魄剑",
+    "slot": "weapon",
+    "weaponType": "剑",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "regionId": "zhongnanshan",
+    "locationLabel": "终南山隐宗",
+    "origin": "活死人墓寒玉石室秘铸",
+    "originFull": "终南山隐宗·活死人墓寒玉石室秘铸",
+    "sectId": "SECT-11",
+    "forceTrait": "轻灵",
+    "attackRange": 1,
+    "value": 264,
+    "equipBonus": {
+      "attack": 144
+    },
+    "synergies": [
+      {
+        "category": "剑法",
+        "bonusPct": 22
+      }
+    ],
+    "signatureArtIds": [
+      "MA-031"
+    ],
+    "specialTag": "【冰魄惊鸿】",
+    "description": "【冰魄惊鸿】林朝瑶以昆仑寒玉髓杂百炼霜钢于古墓寒潭浸淬十载而成的素白细剑，刃薄如蝉翼、寒气透骨，施展玉女素心剑法时剑影连绵快逾惊鸿。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "iconUrl": null
   }
 ]

@@ -296,6 +296,28 @@
     "iconUrl": "/assets/items/gear/arm_011.jpg"
   },
   {
+    "id": "ARM-057",
+    "name": "紫阳先天八卦鹤氅",
+    "slot": "armor",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "道袍",
+    "origin": "终南山隐宗",
+    "regionId": "zhongnanshan",
+    "sectId": "SECT-11",
+    "value": 198,
+    "equipBonus": {
+      "defense": 116,
+      "res": 22,
+      "maxHp": 230
+    },
+    "specialTag": "先天归元",
+    "description": "终南古观以秦岭雪蚕丝合天青道绸织就的紫阳真传鹤氅，背绣先天八卦太极暗纹，寒暑不侵，助长先天一炁生生不息。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "iconUrl": null
+  },
+  {
     "id": "ARM-012",
     "name": "契丹狼裘金甲",
     "slot": "armor",
@@ -2723,6 +2745,28 @@
     "prerequisitesText": null,
     "statRequirements": [],
     "iconUrl": "/assets/items/gear/acc_010.jpg"
+  },
+  {
+    "id": "ACC-057",
+    "name": "昆仑寒玉冰心玦",
+    "slot": "accessory",
+    "tier": "地阶",
+    "grade": "中品",
+    "subType": "玉佩",
+    "origin": "终南山隐宗",
+    "regionId": "zhongnanshan",
+    "sectId": "SECT-11",
+    "value": 155,
+    "equipBonus": {
+      "maxMp": 105,
+      "res": 10,
+      "agility": 5
+    },
+    "specialTag": "寒玉清心",
+    "description": "截自活死人墓千年寒玉床边角琢成的素白冰心玉玦，贴身佩之清凉彻骨，可抑走火入魔、令轻功身法愈见轻灵。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "iconUrl": null
   },
   {
     "id": "ACC-011",

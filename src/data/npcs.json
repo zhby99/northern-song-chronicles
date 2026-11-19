@@ -12832,6 +12832,8 @@
     "sectRank": 5,
     "sectRankLabel": "掌门",
     "ownedArtifactIds": [
+      "WPN-103",
+      "ACC-057",
       "ITM-SCR-012"
     ],
     "equippedArts": {
@@ -12875,12 +12877,12 @@
       }
     ],
     "equipped": {
-      "weapon": "WPN-051",
+      "weapon": "WPN-103",
       "armor": "ARM-022",
       "shoes": "BOT-014",
       "bow": "BOW-015",
-      "accessory1": "ACC-024",
-      "accessory2": "ACC-017",
+      "accessory1": "ACC-057",
+      "accessory2": "ACC-024",
       "mount": "MNT-010"
     }
   },
@@ -14958,15 +14960,15 @@
     "assignedSpotId": "zn_to_hall",
     "assignedSpotName": "重阳玄门清修主殿",
     "fullLocationLabel": "终南山隐宗 > 重阳古观前脉道院 > 重阳玄门清修主殿",
-    "realm": "宗师下品",
+    "realm": "宗师上品",
     "majorRealm": "宗师",
-    "minorRealm": "下品",
-    "realmRank": 6,
+    "minorRealm": "上品",
+    "realmRank": 4,
     "stats": {
-      "hp": 4523,
-      "mp": 4524,
-      "agi": 83,
-      "res": 66,
+      "hp": 6400,
+      "mp": 6620,
+      "agi": 84,
+      "res": 78,
       "isBenchmark": false
     },
     "talents": {
@@ -15000,7 +15002,10 @@
     "templateAvatarUrl": "/assets/characters/templates/tpl_zhongnan_av.jpg",
     "sectRank": 5,
     "sectRankLabel": "掌门",
-    "ownedArtifactIds": [],
+    "ownedArtifactIds": [
+      "WPN-102",
+      "ARM-057"
+    ],
     "equippedArts": {
       "neigong": "MA-013",
       "qinggong": "MA-119",
@@ -15012,27 +15017,27 @@
     "learnedArts": [
       {
         "artId": "MA-013",
-        "level": 5,
-        "exp": 0
-      },
-      {
-        "artId": "MA-089",
-        "level": 8,
-        "exp": 0
-      },
-      {
-        "artId": "MA-119",
-        "level": 9,
-        "exp": 0
-      },
-      {
-        "artId": "MA-031",
         "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-096",
+        "artId": "MA-089",
+        "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-119",
+        "level": 10,
+        "exp": 0
+      },
+      {
+        "artId": "MA-031",
         "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-096",
+        "level": 9,
         "exp": 0
       },
       {
@@ -15042,8 +15047,8 @@
       }
     ],
     "equipped": {
-      "weapon": "WPN-060",
-      "armor": "ARM-022",
+      "weapon": "WPN-102",
+      "armor": "ARM-057",
       "shoes": "BOT-009",
       "bow": "BOW-010",
       "accessory1": "ACC-024",
@@ -24285,7 +24290,7 @@
   {
     "id": "NPC-0216",
     "name": "丘处玄",
-    "title": "重阳首徒",
+    "title": "长春子",
     "category": "武林群侠",
     "gender": "男",
     "age": 39,
@@ -24300,15 +24305,15 @@
     "assignedSpotId": "zn_to_dipper",
     "assignedSpotName": "天罡北斗七星演剑坛",
     "fullLocationLabel": "终南山隐宗 > 重阳古观前脉道院 > 天罡北斗七星演剑坛",
-    "realm": "一流下品",
+    "realm": "一流上品",
     "majorRealm": "一流",
-    "minorRealm": "下品",
-    "realmRank": 9,
+    "minorRealm": "上品",
+    "realmRank": 7,
     "stats": {
-      "hp": 2264,
-      "mp": 1861,
-      "agi": 62,
-      "res": 52,
+      "hp": 3620,
+      "mp": 3580,
+      "agi": 75,
+      "res": 64,
       "isBenchmark": false
     },
     "talents": {
@@ -24328,14 +24333,16 @@
       "画": 19,
       "辩才": 20
     },
-    "artsText": "希夷剑法、《纯阳无极功》、金雁功",
+    "artsText": "《纯阳无极功》、希夷剑法、三才归元剑、金雁功、劈空掌",
     "knownArtIds": [
-      "MA-089",
       "MA-078",
-      "MA-119"
+      "MA-089",
+      "MA-149",
+      "MA-119",
+      "MA-107"
     ],
     "specialtyTags": [],
-    "bio": "王重楼大弟子，侠肝义胆，力主道门下山抗击西夏番僧。",
+    "bio": "终南古观七子居四，侠肝义胆，剑术冠绝古观七子，力主道门下山抗击西夏番僧。",
     "avatarUrl": "/assets/characters/avatars/NPC-0216.jpg",
     "fullbodyUrl": "/assets/characters/fullbody/NPC-0216.jpg",
     "templateUrl": "/assets/characters/templates/tpl_zhongnan_fb.jpg",
@@ -24347,44 +24354,44 @@
       "neigong": "MA-078",
       "qinggong": "MA-119",
       "move1": "MA-089",
-      "move2": "MA-235",
-      "move3": "MA-031",
-      "move4": "MA-152"
+      "move2": "MA-149",
+      "move3": "MA-235",
+      "move4": "MA-107"
     },
     "learnedArts": [
       {
-        "artId": "MA-089",
+        "artId": "MA-078",
         "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-078",
-        "level": 4,
-        "exp": 0
-      },
-      {
         "artId": "MA-119",
-        "level": 8,
+        "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-031",
-        "level": 5,
+        "artId": "MA-089",
+        "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-152",
-        "level": 8,
+        "artId": "MA-149",
+        "level": 9,
         "exp": 0
       },
       {
         "artId": "MA-235",
-        "level": 8,
+        "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-107",
+        "level": 9,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-047",
+      "weapon": "WPN-031",
       "armor": "ARM-022",
       "shoes": "BOT-012",
       "bow": "BOW-013",
@@ -117448,6 +117455,678 @@
       "accessory1": "ACC-014",
       "accessory2": "ACC-013",
       "mount": null
+    }
+  },
+  {
+    "id": "NPC-1054",
+    "name": "马钰玄",
+    "title": "丹阳子",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 46,
+    "factionId": "SECT-11",
+    "factionName": "终南隐宗",
+    "role": "终南古观掌院大长老 · 古观首徒",
+    "regionId": "zhongnanshan",
+    "locationLabel": "终南山隐宗",
+    "subLocation": null,
+    "assignedBuildingId": "zn_tao",
+    "assignedBuildingName": "重阳古观前脉道院",
+    "assignedSpotId": "zn_to_hall",
+    "assignedSpotName": "重阳玄门清修主殿",
+    "fullLocationLabel": "终南山隐宗 > 重阳古观前脉道院 > 重阳玄门清修主殿",
+    "realm": "一流上品",
+    "majorRealm": "一流",
+    "minorRealm": "上品",
+    "realmRank": 7,
+    "stats": {
+      "hp": 3520,
+      "mp": 3680,
+      "agi": 74,
+      "res": 64,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 82,
+      "comprehension": 84,
+      "charm": 76
+    },
+    "tenArts": {
+      "骑术": 28,
+      "算术": 45,
+      "经义": 86,
+      "策论": 52,
+      "诗词": 48,
+      "琴": 46,
+      "棋": 72,
+      "书": 68,
+      "画": 50,
+      "辩才": 64
+    },
+    "artsText": "《纯阳无极功》、希夷剑法、金雁功、全真入门剑法",
+    "knownArtIds": [
+      "MA-078",
+      "MA-089",
+      "MA-119",
+      "MA-235"
+    ],
+    "specialtyTags": [],
+    "bio": "终南隐宗终南古观掌院大长老 · 古观首徒，常驻【终南山隐宗 > 重阳古观前脉道院 > 重阳玄门清修主殿】，武道修为居【一流上品】，主修《纯阳无极功》、希夷剑法、金雁功、全真入门剑法。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_zhongnan_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_zhongnan_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "长老",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-078",
+      "qinggong": "MA-119",
+      "move1": "MA-089",
+      "move2": "MA-149",
+      "move3": "MA-235",
+      "move4": "MA-107"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-078",
+        "level": 7,
+        "exp": 0
+      },
+      {
+        "artId": "MA-119",
+        "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-089",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-149",
+        "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-235",
+        "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-107",
+        "level": 9,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-031",
+      "armor": "ARM-022",
+      "shoes": "BOT-010",
+      "bow": "BOW-011",
+      "accessory1": "ACC-024",
+      "accessory2": "ACC-028",
+      "mount": "MNT-014"
+    }
+  },
+  {
+    "id": "NPC-1055",
+    "name": "谭处真",
+    "title": "长真子",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 44,
+    "factionId": "SECT-11",
+    "factionName": "终南隐宗",
+    "role": "终南古观护法长老",
+    "regionId": "zhongnanshan",
+    "locationLabel": "终南山隐宗",
+    "subLocation": null,
+    "assignedBuildingId": "zn_tao",
+    "assignedBuildingName": "重阳古观前脉道院",
+    "assignedSpotId": "zn_to_dipper",
+    "assignedSpotName": "天罡北斗七星演剑坛",
+    "fullLocationLabel": "终南山隐宗 > 重阳古观前脉道院 > 天罡北斗七星演剑坛",
+    "realm": "一流中品",
+    "majorRealm": "一流",
+    "minorRealm": "中品",
+    "realmRank": 8,
+    "stats": {
+      "hp": 2960,
+      "mp": 2840,
+      "agi": 68,
+      "res": 60,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 80,
+      "comprehension": 72,
+      "charm": 64
+    },
+    "tenArts": {
+      "骑术": 32,
+      "算术": 34,
+      "经义": 74,
+      "策论": 48,
+      "诗词": 36,
+      "琴": 30,
+      "棋": 44,
+      "书": 72,
+      "画": 42,
+      "辩才": 46
+    },
+    "artsText": "《纯阳无极功》、希夷剑法、金雁功、全真入门剑法",
+    "knownArtIds": [
+      "MA-078",
+      "MA-089",
+      "MA-119",
+      "MA-235"
+    ],
+    "specialtyTags": [],
+    "bio": "终南隐宗终南古观护法长老，常驻【终南山隐宗 > 重阳古观前脉道院 > 天罡北斗七星演剑坛】，武道修为居【一流中品】，主修《纯阳无极功》、希夷剑法、金雁功、全真入门剑法。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_zhongnan_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_zhongnan_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "长老",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-078",
+      "qinggong": "MA-119",
+      "move1": "MA-089",
+      "move2": "MA-149",
+      "move3": "MA-235",
+      "move4": "MA-107"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-078",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-119",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-089",
+        "level": 7,
+        "exp": 0
+      },
+      {
+        "artId": "MA-149",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-235",
+        "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-107",
+        "level": 8,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-051",
+      "armor": "ARM-022",
+      "shoes": "BOT-011",
+      "bow": "BOW-012",
+      "accessory1": "ACC-024",
+      "accessory2": "ACC-029",
+      "mount": "MNT-015"
+    }
+  },
+  {
+    "id": "NPC-1056",
+    "name": "刘处静",
+    "title": "长生子",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 42,
+    "factionId": "SECT-11",
+    "factionName": "终南隐宗",
+    "role": "终南古观典籍长老",
+    "regionId": "zhongnanshan",
+    "locationLabel": "终南山隐宗",
+    "subLocation": null,
+    "assignedBuildingId": "zn_tao",
+    "assignedBuildingName": "重阳古观前脉道院",
+    "assignedSpotId": "zn_to_alchemy",
+    "assignedSpotName": "道藏经阁与紫金丹院",
+    "fullLocationLabel": "终南山隐宗 > 重阳古观前脉道院 > 道藏经阁与紫金丹院",
+    "realm": "一流中品",
+    "majorRealm": "一流",
+    "minorRealm": "中品",
+    "realmRank": 8,
+    "stats": {
+      "hp": 2820,
+      "mp": 2950,
+      "agi": 69,
+      "res": 59,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 76,
+      "comprehension": 82,
+      "charm": 72
+    },
+    "tenArts": {
+      "骑术": 24,
+      "算术": 58,
+      "经义": 84,
+      "策论": 44,
+      "诗词": 54,
+      "琴": 48,
+      "棋": 58,
+      "书": 70,
+      "画": 56,
+      "辩才": 58
+    },
+    "artsText": "《纯阳无极功》、希夷剑法、金雁功、全真入门剑法",
+    "knownArtIds": [
+      "MA-078",
+      "MA-089",
+      "MA-119",
+      "MA-235"
+    ],
+    "specialtyTags": [],
+    "bio": "终南隐宗终南古观典籍长老，常驻【终南山隐宗 > 重阳古观前脉道院 > 道藏经阁与紫金丹院】，武道修为居【一流中品】，主修《纯阳无极功》、希夷剑法、金雁功、全真入门剑法。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_zhongnan_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_zhongnan_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "长老",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-078",
+      "qinggong": "MA-119",
+      "move1": "MA-089",
+      "move2": "MA-149",
+      "move3": "MA-235",
+      "move4": "MA-107"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-078",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-119",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-089",
+        "level": 7,
+        "exp": 0
+      },
+      {
+        "artId": "MA-149",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-235",
+        "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-107",
+        "level": 8,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-051",
+      "armor": "ARM-022",
+      "shoes": "BOT-012",
+      "bow": "BOW-013",
+      "accessory1": "ACC-024",
+      "accessory2": "ACC-030",
+      "mount": "MNT-016"
+    }
+  },
+  {
+    "id": "NPC-1057",
+    "name": "王处阳",
+    "title": "玉阳子",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 38,
+    "factionId": "SECT-11",
+    "factionName": "终南隐宗",
+    "role": "终南古观铁脚长老",
+    "regionId": "zhongnanshan",
+    "locationLabel": "终南山隐宗",
+    "subLocation": null,
+    "assignedBuildingId": "zn_stream",
+    "assignedBuildingName": "终南后山寒玉涧",
+    "assignedSpotId": "zn_st_falls",
+    "assignedSpotName": "银练飞瀑清泉石茗案",
+    "fullLocationLabel": "终南山隐宗 > 终南后山寒玉涧 > 银练飞瀑清泉石茗案",
+    "realm": "一流中品",
+    "majorRealm": "一流",
+    "minorRealm": "中品",
+    "realmRank": 8,
+    "stats": {
+      "hp": 2910,
+      "mp": 2880,
+      "agi": 72,
+      "res": 60,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 84,
+      "comprehension": 74,
+      "charm": 70
+    },
+    "tenArts": {
+      "骑术": 40,
+      "算术": 36,
+      "经义": 72,
+      "策论": 54,
+      "诗词": 38,
+      "琴": 34,
+      "棋": 46,
+      "书": 48,
+      "画": 40,
+      "辩才": 50
+    },
+    "artsText": "《纯阳无极功》、希夷剑法、金雁功、全真入门剑法",
+    "knownArtIds": [
+      "MA-078",
+      "MA-089",
+      "MA-119",
+      "MA-235"
+    ],
+    "specialtyTags": [],
+    "bio": "终南隐宗终南古观铁脚长老，常驻【终南山隐宗 > 终南后山寒玉涧 > 银练飞瀑清泉石茗案】，武道修为居【一流中品】，主修《纯阳无极功》、希夷剑法、金雁功、全真入门剑法。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_zhongnan_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_zhongnan_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "长老",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-078",
+      "qinggong": "MA-119",
+      "move1": "MA-089",
+      "move2": "MA-149",
+      "move3": "MA-235",
+      "move4": "MA-107"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-078",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-119",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-089",
+        "level": 7,
+        "exp": 0
+      },
+      {
+        "artId": "MA-149",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-235",
+        "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-107",
+        "level": 8,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-051",
+      "armor": "ARM-022",
+      "shoes": "BOT-013",
+      "bow": "BOW-014",
+      "accessory1": "ACC-024",
+      "accessory2": "ACC-031",
+      "mount": "MNT-009"
+    }
+  },
+  {
+    "id": "NPC-1058",
+    "name": "郝大玄",
+    "title": "广宁子",
+    "category": "武林群侠",
+    "gender": "男",
+    "age": 36,
+    "factionId": "SECT-11",
+    "factionName": "终南隐宗",
+    "role": "终南古观易数长老",
+    "regionId": "changan",
+    "locationLabel": "京兆府",
+    "subLocation": null,
+    "assignedBuildingId": "ca_caotang",
+    "assignedBuildingName": "终南草堂（隐逸别业）",
+    "assignedSpotId": "ca_caotang_main",
+    "assignedSpotName": "主阁讲席 · 抚琴台",
+    "fullLocationLabel": "京兆府 > 终南草堂（隐逸别业） > 主阁讲席 · 抚琴台",
+    "realm": "一流下品",
+    "majorRealm": "一流",
+    "minorRealm": "下品",
+    "realmRank": 9,
+    "stats": {
+      "hp": 2340,
+      "mp": 2420,
+      "agi": 64,
+      "res": 55,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 72,
+      "comprehension": 86,
+      "charm": 68
+    },
+    "tenArts": {
+      "骑术": 22,
+      "算术": 82,
+      "经义": 80,
+      "策论": 60,
+      "诗词": 46,
+      "琴": 44,
+      "棋": 76,
+      "书": 62,
+      "画": 52,
+      "辩才": 62
+    },
+    "artsText": "《纯阳无极功》、希夷剑法、金雁功、全真入门剑法",
+    "knownArtIds": [
+      "MA-078",
+      "MA-089",
+      "MA-119",
+      "MA-235"
+    ],
+    "specialtyTags": [],
+    "bio": "终南隐宗终南古观易数长老，常驻【京兆府 > 终南草堂（隐逸别业） > 主阁讲席 · 抚琴台】，武道修为居【一流下品】，主修《纯阳无极功》、希夷剑法、金雁功、全真入门剑法。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_zhongnan_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_zhongnan_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "长老",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-078",
+      "qinggong": "MA-119",
+      "move1": "MA-089",
+      "move2": "MA-149",
+      "move3": "MA-235",
+      "move4": "MA-107"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-078",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-119",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-089",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-149",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-235",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-107",
+        "level": 8,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-051",
+      "armor": "ARM-022",
+      "shoes": "BOT-014",
+      "bow": "BOW-015",
+      "accessory1": "ACC-024",
+      "accessory2": "ACC-032",
+      "mount": "MNT-010"
+    }
+  },
+  {
+    "id": "NPC-1059",
+    "name": "孙清静",
+    "title": "清静散人",
+    "category": "武林群侠",
+    "gender": "女",
+    "age": 35,
+    "factionId": "SECT-11",
+    "factionName": "终南隐宗",
+    "role": "终南古观女冠长老",
+    "regionId": "zhongnanshan",
+    "locationLabel": "终南山隐宗",
+    "subLocation": null,
+    "assignedBuildingId": "zn_stream",
+    "assignedBuildingName": "终南后山寒玉涧",
+    "assignedSpotId": "zn_st_qin",
+    "assignedSpotName": "寒玉涧临水抚琴榭",
+    "fullLocationLabel": "终南山隐宗 > 终南后山寒玉涧 > 寒玉涧临水抚琴榭",
+    "realm": "一流下品",
+    "majorRealm": "一流",
+    "minorRealm": "下品",
+    "realmRank": 9,
+    "stats": {
+      "hp": 2280,
+      "mp": 2390,
+      "agi": 67,
+      "res": 56,
+      "isBenchmark": false
+    },
+    "talents": {
+      "bone": 70,
+      "comprehension": 80,
+      "charm": 88
+    },
+    "tenArts": {
+      "骑术": 26,
+      "算术": 40,
+      "经义": 78,
+      "策论": 38,
+      "诗词": 72,
+      "琴": 82,
+      "棋": 56,
+      "书": 68,
+      "画": 70,
+      "辩才": 54
+    },
+    "artsText": "《纯阳无极功》、希夷剑法、金雁功、全真入门剑法",
+    "knownArtIds": [
+      "MA-078",
+      "MA-089",
+      "MA-119",
+      "MA-235"
+    ],
+    "specialtyTags": [],
+    "bio": "终南隐宗终南古观女冠长老，常驻【终南山隐宗 > 终南后山寒玉涧 > 寒玉涧临水抚琴榭】，武道修为居【一流下品】，主修《纯阳无极功》、希夷剑法、金雁功、全真入门剑法。",
+    "avatarUrl": null,
+    "fullbodyUrl": null,
+    "templateUrl": "/assets/characters/templates/tpl_zhongnan_female_fb.jpg",
+    "templateAvatarUrl": "/assets/characters/templates/tpl_zhongnan_female_av.jpg",
+    "sectRank": 4,
+    "sectRankLabel": "长老",
+    "ownedArtifactIds": [],
+    "equippedArts": {
+      "neigong": "MA-078",
+      "qinggong": "MA-119",
+      "move1": "MA-089",
+      "move2": "MA-149",
+      "move3": "MA-235",
+      "move4": "MA-107"
+    },
+    "learnedArts": [
+      {
+        "artId": "MA-078",
+        "level": 5,
+        "exp": 0
+      },
+      {
+        "artId": "MA-119",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-089",
+        "level": 6,
+        "exp": 0
+      },
+      {
+        "artId": "MA-149",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-235",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-107",
+        "level": 8,
+        "exp": 0
+      }
+    ],
+    "equipped": {
+      "weapon": "WPN-051",
+      "armor": "ARM-022",
+      "shoes": "BOT-015",
+      "bow": "BOW-016",
+      "accessory1": "ACC-024",
+      "accessory2": "ACC-017",
+      "mount": "MNT-011"
     }
   }
 ]

@@ -1662,10 +1662,10 @@ def parse_weapons() -> list[dict[str, Any]]:
         )
 
     weapons.sort(key=lambda x: int(x["code"]))
-    if len(weapons) != 101:
-        raise AssertionError(f"Expected 101 weapons, got {len(weapons)}")
+    if len(weapons) != 103:
+        raise AssertionError(f"Expected 103 weapons, got {len(weapons)}")
     tier_counts = Counter(w["tier"] for w in weapons)
-    expected_tiers = {"天阶": 10, "地阶": 21, "良阶": 30, "凡阶": 40}
+    expected_tiers = {"天阶": 10, "地阶": 23, "良阶": 30, "凡阶": 40}
     if dict(tier_counts) != expected_tiers:
         raise AssertionError(f"Weapon tier counts mismatch: {dict(tier_counts)} != {expected_tiers}")
     return weapons
@@ -2439,8 +2439,8 @@ def parse_npcs(
     seen_npc_names = [n["name"] for n in npcs]
     if len(seen_npc_names) != len(set(seen_npc_names)):
         raise AssertionError("Duplicate NPC names detected in CHARACTER_COMPENDIUM.md")
-    if len(npcs) != 1053:
-        raise AssertionError(f"Expected 1053 NPCs, got {len(npcs)}")
+    if len(npcs) != 1059:
+        raise AssertionError(f"Expected 1059 NPCs, got {len(npcs)}")
     return npcs
 
 
@@ -2545,7 +2545,7 @@ def parse_gear() -> list[dict[str, Any]]:
             }
         )
 
-    assert len(gear_list) == 168, f"Expected 168 gear items, got {len(gear_list)}"
+    assert len(gear_list) == 170, f"Expected 170 gear items, got {len(gear_list)}"
     return gear_list
 
 
@@ -2636,7 +2636,7 @@ def parse_unique_artifacts(npcs_by_id: dict[str, dict[str, Any]]) -> list[dict[s
                 }
             )
 
-    assert len(records) == 141, f"Expected 141 unique Heaven/Earth artifacts, got {len(records)}"
+    assert len(records) == 145, f"Expected 145 unique Heaven/Earth artifacts, got {len(records)}"
     return records
 
 
@@ -3534,6 +3534,33 @@ def populate_npc_loadouts(
                 {"artId": "MA-247", "level": 8, "exp": 0},
                 {"artId": "MA-053", "level": 8, "exp": 0},
                 {"artId": "MA-088", "level": 8, "exp": 0},
+            ]
+        elif npc["id"] in ("NPC-0216", "NPC-1054", "NPC-1055", "NPC-1056", "NPC-1057", "NPC-1058", "NPC-1059"):
+            # 终南古观七子：统一去除古墓脉 MA-031 与外道兵刃，配道剑 WPN-031/WPN-051 + 道门剑掌武学
+            is_upper = npc["id"] in ("NPC-0216", "NPC-1054")
+            is_mid = npc["id"] in ("NPC-1055", "NPC-1056", "NPC-1057")
+            npc["equipped"]["weapon"] = "WPN-031" if is_upper else "WPN-051"
+            npc["equipped"]["armor"] = "ARM-022"
+            npc["equipped"]["accessory1"] = "ACC-024"
+            npc["equippedArts"] = {
+                "neigong": "MA-078",
+                "qinggong": "MA-119",
+                "move1": "MA-089",
+                "move2": "MA-149",
+                "move3": "MA-235",
+                "move4": "MA-107",
+            }
+            xiyi_lv = 9 if npc["id"] == "NPC-0216" else (8 if npc["id"] == "NPC-1054" else (7 if is_mid else 6))
+            ng_lv = 7 if is_upper else (6 if is_mid else 5)
+            qg_lv = 9 if is_upper else 8
+            sub_lv = 9 if is_upper else 8
+            npc["learnedArts"] = [
+                {"artId": "MA-078", "level": ng_lv, "exp": 0},
+                {"artId": "MA-119", "level": qg_lv, "exp": 0},
+                {"artId": "MA-089", "level": xiyi_lv, "exp": 0},
+                {"artId": "MA-149", "level": sub_lv, "exp": 0},
+                {"artId": "MA-235", "level": 9 if (is_upper or is_mid) else 8, "exp": 0},
+                {"artId": "MA-107", "level": sub_lv, "exp": 0},
             ]
 
 

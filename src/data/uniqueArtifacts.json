@@ -420,6 +420,34 @@
     "note": "开封府皇城司大内总供奉韦青衣执掌宣德御扇"
   },
   {
+    "itemId": "WPN-102",
+    "itemName": "重阳天罡七星剑",
+    "tier": "地阶",
+    "categoryLabel": "武器",
+    "ownerType": "npc",
+    "ownerNpcId": "NPC-0133",
+    "ownerNpcName": "王重楼",
+    "ownerNpcTitle": "紫阳真人",
+    "ownerFactionName": "终南隐宗",
+    "ownerRegionId": "zhongnanshan",
+    "ownerLocationLabel": "终南山隐宗 > 重阳古观前脉道院 > 重阳玄门清修主殿",
+    "note": "终南山重阳古观观主紫阳真人王重楼镇观玄剑"
+  },
+  {
+    "itemId": "WPN-103",
+    "itemName": "寒玉素心冰魄剑",
+    "tier": "地阶",
+    "categoryLabel": "武器",
+    "ownerType": "npc",
+    "ownerNpcId": "NPC-0114",
+    "ownerNpcName": "林朝瑶",
+    "ownerNpcTitle": "寒玉仙子",
+    "ownerFactionName": "终南隐宗",
+    "ownerRegionId": "zhongnanshan",
+    "ownerLocationLabel": "终南山隐宗 > 活死人墓幽谷石室 > 昆仑寒玉床冰魄石室",
+    "note": "终南山活死人墓寒玉仙子林朝瑶佩剑"
+  },
+  {
     "itemId": "ARM-001",
     "itemName": "金丝软猬宝甲",
     "tier": "天阶",
@@ -628,6 +656,20 @@
     "ownerRegionId": "tongguan",
     "ownerLocationLabel": "潼关 / 西岳华山 > 玉女峰紫霞道观 > 东峰紫气迎曦石坪",
     "note": "西岳华山派紫霞首徒高沧云随身紫霞剑衫"
+  },
+  {
+    "itemId": "ARM-057",
+    "itemName": "紫阳先天八卦鹤氅",
+    "tier": "地阶",
+    "categoryLabel": "服饰",
+    "ownerType": "npc",
+    "ownerNpcId": "NPC-0133",
+    "ownerNpcName": "王重楼",
+    "ownerNpcTitle": "紫阳真人",
+    "ownerFactionName": "终南隐宗",
+    "ownerRegionId": "zhongnanshan",
+    "ownerLocationLabel": "终南山隐宗 > 重阳古观前脉道院 > 重阳玄门清修主殿",
+    "note": "终南山重阳古观观主紫阳真人王重楼真传八卦鹤氅"
   },
   {
     "itemId": "ARM-016",
@@ -1076,6 +1118,20 @@
     "ownerRegionId": "wutaishan",
     "ownerLocationLabel": "五台山清凉寺 > 边关遗孤慈济院 > 正堂议事厅",
     "note": "五台山清凉寺智光医僧随身开光文殊慧珠"
+  },
+  {
+    "itemId": "ACC-057",
+    "itemName": "昆仑寒玉冰心玦",
+    "tier": "地阶",
+    "categoryLabel": "配饰",
+    "ownerType": "npc",
+    "ownerNpcId": "NPC-0114",
+    "ownerNpcName": "林朝瑶",
+    "ownerNpcTitle": "寒玉仙子",
+    "ownerFactionName": "终南隐宗",
+    "ownerRegionId": "zhongnanshan",
+    "ownerLocationLabel": "终南山隐宗 > 活死人墓幽谷石室 > 昆仑寒玉床冰魄石室",
+    "note": "终南山活死人墓寒玉仙子林朝瑶贴身冰心玉玦"
   },
   {
     "itemId": "ACC-016",
