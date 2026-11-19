@@ -54,6 +54,7 @@ import { QINGCHENG_ENTRY_QUESTS } from './sects/qingchengEntryQuest'
 import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
 import { SHAOLIN_ENTRY_QUESTS } from './sects/shaolinEntryQuest'
 import { TAISHAN_ENTRY_QUESTS } from './sects/taishanEntryQuest'
+import { TANGMEN_ENTRY_QUESTS } from './sects/tangmenEntryQuest'
 import { TIANBO_BAWANG_QUESTS } from './sects/tianboBawangQuest'
 import { TIEZHANG_ENTRY_QUESTS } from './sects/tiezhangEntryQuest'
 import { WUTAI_ENTRY_QUESTS } from './sects/wutaiEntryQuest'
@@ -95,6 +96,7 @@ export const QUEST_REGISTRY: readonly QuestDefinition[] = Object.freeze([
   ...HUASHAN_Q22_QUESTS,
   ...TAISHAN_ENTRY_QUESTS,
   ...EMEI_ENTRY_QUESTS,
+  ...TANGMEN_ENTRY_QUESTS,
   ...QINGCHENG_ENTRY_QUESTS,
   ...TIEZHANG_ENTRY_QUESTS,
   ...XINGXIU_ENTRY_QUESTS,

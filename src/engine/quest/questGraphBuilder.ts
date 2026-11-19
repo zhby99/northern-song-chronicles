@@ -242,6 +242,8 @@ function deriveSealChar(q: QuestDefinition): string {
   if (facName.includes('泰山')) return '岱'
   if (facName.includes('峨眉')) return '峨'
   if (facName.includes('真武')) return '武'
+  if (facName.includes('终南')) return '隐'
+  if (facName.includes('唐门')) return '唐'
   if (facName.includes('青城')) return '青'
   if (facName.includes('铁掌')) return '掌'
   if (facName.includes('星宿')) return '毒'

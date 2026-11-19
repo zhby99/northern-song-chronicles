@@ -173,6 +173,14 @@ const BASE_SECT_RULES: Record<string, Omit<SectRuleConfig, 'sectId' | 'starterGe
   'SECT-13': {
     isDaoSwordTournamentSect: true,
     promotionRuleKind: 'dao_sword_tournament',
+    entryQuestId: 'QST-SECT-13-ENTRY',
+    autoCompleteEntryQuestOnJoin: true,
+    bespokeEntryGuide: {
+      requirementSummary:
+        '须从未加入过任何门派，且未学过任何良品及良品以上武学！前往【成都府 · 西川百草药武堂】开启十二幕《川药血引 · 万毒试药》：助唐红袖与唐天镖诱擒掉包紫乌头的苗疆毒贩、赴万毒试炼涧吞丸入五彩瘴潭修习《唐门闭毒养气功》并截杀盗药蛊师、入梅花桩百靶院随唐千机习《甩手袖箭》通过试镖与铜案守密考校（私拓草图即永绝堡门），终登千簧总阁在唐无影与唐鹤轩座前择【天机机括房】或【万毒百草房】立契入籍外宅门客、受传《毒蒺藜散手》',
+      buildBlockedReason: () =>
+        '蜀中唐门严防他派细作，只纳白纸外姓（须从未入过他派且未修习良品及以上武学）——请先前往【成都府 · 西川百草药武堂】（或与唐红袖 / 唐天镖交谈）开启《川药血引 · 万毒试药》十二幕试炼，历万毒试药与梅花桩试镖后于千簧总阁立契入堡！',
+    },
   },
   'SECT-14': {
     isDaoSwordTournamentSect: true,

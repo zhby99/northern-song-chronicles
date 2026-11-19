@@ -69,6 +69,7 @@ try {
     'QST-SECT-06-ENTRY',
     'QST-SECT-07-ENTRY',
     'QST-SECT-08-ENTRY',
+    'QST-SECT-13-ENTRY',
     'QST-SECT-14-ENTRY',
   ])
   const NO_HIGH_TIER_ITEM_QUEST_IDS = new Set([

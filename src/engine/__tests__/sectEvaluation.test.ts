@@ -81,6 +81,18 @@ describe('evaluateSectEntry & evaluateSectPromotion', () => {
         inventory: [],
       }).canJoin,
     ).toBe(false)
+
+    // SECT-13 Tangmen requires bespoke white-paper entry quest QST-SECT-13-ENTRY
+    const tangEval = evaluateSectEntry({
+      targetSectId: 'SECT-13',
+      sectState: emptySect,
+      silver: 200,
+      baseStats,
+      inventory: [],
+    })
+    expect(tangEval.canJoin).toBe(false)
+    expect(tangEval.requirementSummary).toContain('川药血引 · 万毒试药')
+    expect(tangEval.blockedReason).toContain('西川百草药武堂')
   })
 
   it('evaluates sect promotion rules across Kaifeng, Xingxiu, Shaolin, Dao-Sword, and 2nd/3rd-tier sects', () => {

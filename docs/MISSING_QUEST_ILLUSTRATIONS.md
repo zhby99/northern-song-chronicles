@@ -271,6 +271,9 @@
 | `CG-QST-259` | `[x]` 已完成 | `public/assets/quests/hs_q22_qiaofeng_toast.jpg` | `/assets/quests/hs_q22_qiaofeng_toast.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第三十五幕 · 英雄邀战摔巨碗<br>（`scene_hsq22_35`） | `16:9` |
 | `CG-QST-260` | `[x]` 已完成 | `public/assets/quests/hs_q22_dragon_vs_sword.jpg` | `/assets/quests/hs_q22_dragon_vs_sword.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第三十八幕 · 剑啸亢龙裂九霄<br>（`scene_hsq22_38`） | `16:9` |
 | `CG-QST-261` | `[x]` 已完成 | `public/assets/quests/hs_q22_myriad_swords_roar.jpg` | `/assets/quests/hs_q22_myriad_swords_roar.jpg` | `QST-SECT-05-22`<br>《西岳绝顶 · 华山论剑》 | 第四十二幕 · 万剑齐鸣尊绝巅<br>（`scene_hsq22_42`） | `16:9` |
+| `CG-QST-262` | `[ ]` 待补绘 | `public/assets/quests/tangmen_baicao_poison_smoke.jpg` | `/assets/quests/tangmen_baicao_poison_smoke.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第一幕 · 药廊紫烟掉包案<br>（`SCENE_TM_01_BAICAO_SWAP`） | `16:9` |
+| `CG-QST-263` | `[ ]` 待补绘 | `public/assets/quests/tangmen_wandu_miasma_pool.jpg` | `/assets/quests/tangmen_wandu_miasma_pool.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第四幕 · 五彩瘴泉吞丸试胆<br>（`SCENE_TM_04_WANDU_MIASMA`） | `16:9` |
+| `CG-QST-264` | `[ ]` 待补绘 | `public/assets/quests/tangmen_qianhuang_tower_oath.jpg` | `/assets/quests/tangmen_qianhuang_tower_oath.jpg` | `QST-SECT-13-ENTRY`<br>《川药血引 · 万毒试药》 | 第十一/十二幕 · 千簧总阁立世家契<br>（`SCENE_TM_11_TOWER_BRANCH_CHOICE`） | `16:9` |
 
 ---
 
@@ -4189,3 +4192,40 @@
   ```text
   Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD on Mount Huashan / Guanzhong. Depicting scene "万剑齐鸣 · 与乔峰抚掌痛饮结义，西岳华山登顶天下第一剑派绝巅" from 《西岳绝顶 · 华山论剑》. Central figure is a Huashan Qi-lineage disciple in clean cyan-white and dawn-purple Northern Song Daoist-scholar sword robe with long steel/purple-glow jian. Steep granite cliffs of Mount Huashan, ancient pines, sea of clouds, Song-era Daoist timber halls, authentic mineral pigments (azurite, malachite, cinnabar,ink wash), dynamic martial choreography, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
   ```
+
+---
+
+### 262. `CG-QST-262`：千味药廊突腾腥甜紫烟 · 毒观音唐红袖与唐天镖封院揪奸
+
+- **关联文件**：[`src/data/quests/sects/tangmenEntryQuest.ts`](../src/data/quests/sects/tangmenEntryQuest.ts)
+- **目标路径**：`public/assets/quests/tangmen_baicao_poison_smoke.jpg`
+- **画框题跋**：`千味药廊突腾腥甜紫烟，毒观音唐红袖冷眼锁院揪内奸`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color wuxia illustration, wide cinematic 16:9 composition around 1050 AD in Chengdu, Sichuan. Inside a bustling Song-era open timber herbal drying corridor stacked with bamboo trays of Sichuan medicinal roots, two overturned woven herb baskets emit eerie wisps of violet-purple poisonous smoke while an elderly Song physician kneels with silver acupuncture needles beside a poisoned clerk. By the carved wooden pillars stand two elite Tangmen clan figures: a poised cold beauty in dark plum-violet Song narrow-sleeved attire holding a sheer purple silk veil, and a stern middle-aged enforcer in obsidian-cyan martial robes holding steel throwing darts, looking toward a calm young traveler in plain linen robes. Authentic Northern Song architectural joinery, mineral pigments (malachite, azurite, cinnabar, deep violet), strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 263. `CG-QST-263`：幽涧五彩瘴雾翻涌 · 毒观音捻丸立潭畔试外姓死生胆魄
+
+- **关联文件**：[`src/data/quests/sects/tangmenEntryQuest.ts`](../src/data/quests/sects/tangmenEntryQuest.ts)
+- **目标路径**：`public/assets/quests/tangmen_wandu_miasma_pool.jpg`
+- **画框题跋**：`幽涧五彩瘴雾翻涌，毒观音捻丸立潭畔试外姓死生胆魄`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color wuxia illustration, wide cinematic 16:9 composition around 1050 AD in a secluded misty bamboo gorge of Mount Qingcheng / Tangjiabao, Sichuan. An emerald-and-indigo mountain spirit pool shimmers with iridescent five-colored poisonous miasma mist, hanging vines, and faint crimson water serpents beneath the surface, with an iron-chain suspension bridge visible across a distant waterfall. Standing on a mossy boulder at the pool's edge, Tang Hongxiu in dark ink-purple Northern Song martial attire holds a gleaming black medicinal test pill between her fingers, facing a resolute young initiate stepping toward the cold glowing waters. Rich mineral pigments, atmospheric Sichuan bamboo sea mist, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
+---
+
+### 264. `CG-QST-264`：八角千簧铜轮悬顶 · 千手毒王唐无影与天机老祖唐鹤轩俯瞰立契
+
+- **关联文件**：[`src/data/quests/sects/tangmenEntryQuest.ts`](../src/data/quests/sects/tangmenEntryQuest.ts)
+- **目标路径**：`public/assets/quests/tangmen_qianhuang_tower_oath.jpg`
+- **画框题跋**：`八角千簧铜轮悬顶，千手毒王唐无影与天机老祖唐鹤轩俯瞰立契之人`
+- **推荐 `generate_image` Prompt（16:9）**：
+  ```text
+  Traditional Northern Song dynasty Chinese gongbi blue-and-green ink-and-color epic wuxia illustration, wide cinematic 16:9 composition around 1050 AD inside the grand octagonal Tianji Mechanism Tower of Tangjiabao, Sichuan. Massive interlocking bronze water-clock gears, tension springs, and Song-era wooden dougong brackets tower overhead in moody lantern light. On the dark ebony master throne sits Tangmen Patriarch Tang Wuying in imposing black-and-purple brocade robes, while white-bearded grand elder Tang Hexuan sits on an elevated bamboo-curtained dais cradling an intricate brass mechanism box; elders flank both sides as a young initiate presses a blood thumbprint onto a dark iron-gold covenant scroll in the center hall. Authentic Northern Song craftsmanship, mineral pigments, strictly zero text, calligraphy, or pseudo-Chinese characters anywhere in the image.
+  ```
+
