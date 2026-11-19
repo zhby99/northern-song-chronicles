@@ -122,21 +122,21 @@
 
 ## 三、 游戏剧情发展与叙事连续性建议
 
-### 1. P0：修复六大跨任务世界状态撕裂（「活尸登场」与「平行宇宙失忆」）
-当前全库共有 9 处 `markNpcsDead`（累计处决 54 名具名 NPC），随着长篇支线交织，出现了六处必须止血的连续性穿帮：
+### 1. P0：修复六大跨任务世界状态撕裂（已全部修复 ✅）
+当前全库共有 9 处 `markNpcsDead`（累计处决 54 名具名 NPC），六处跨线连续性穿帮已全部收口：
 
-1. ⬜ **燕子坞焚毁后的「活尸包不同」与「21 名慕容门人照常营业」**：
-   - 在禁军 `MURONG-ARC-3` 处斩四大家将并焚毁燕子坞后：① 若玩家此前已接取《燕子坞水图》停在半途，回太湖渡口合成水图时**已被枭首的包不同（`NPC-0213`）会摇舟复活迎客**；② [`npcDeath.ts`](../src/engine/social/npcDeath.ts#L31-L42) 的 `isNpcAbsentFromWorld` 仅屏蔽了慕容博父子，`SECT-10` 其余 **21 名门人（含燕子坞内 12 人）仍完好站在“已烧成白地”的水榭内**。
-   - **修复**：`jj_mr3_yanziwu_razed` 置位后将燕子坞驻地 `SECT-10` 门人全部纳入缺席过滤（并自动完结/旁白改写半途的《燕子坞水图》）。
-2. ⬜ **跨线亡者复活（摘星子 / 史万山 / 樊威渊）与沙盒决斗软死锁**：
-   - 禁军《邕州道》阵斩摘星子（`NPC-0181`）后若辞官赴延安触发《星宿紫烟》，摘星子原地复活训话；禁军《太行剿匪·叁》处决史万山（`NPC-0229`）、樊威渊（`NPC-0681`）后若赴大名府做《铁锁镇河朔》，二人死而复生。此外，全库有 **21 条任务**的关键接引人未加 `npcAlive` 守卫，沙盒 `duel` 击杀后会导致任务悬空卡死。
-   - **修复**：补齐 `npcAlive` 守卫（或为未完结主线关键接引人设沙盒决斗「重伤惜败不死」保护）。
-3. ⬜ **禁军终章硬编码「常山枪派」出身篡改玩家履历**：
-   - [`jinjunFinal3Quest.scenes.ts`](../src/data/quests/sects/jinjunFinal3Quest.scenes.ts#L70) 第 70、168、386、485、576 行未加条件判断，直接让慕容博怒斥「常山小儿」、主角自述「自白沟河畔起步，历常山、六扇门、禁军」，导致白身或八极门出身玩家直接穿帮。应改为 `{ifQuestDone:QST-SECT-22-LONGLING|...|...}` 动态履历插值。
-4. ⬜ **六扇门→禁军破燕失忆 & 雁门关后萧峰分身**：
-   - 在 `jinjunMurongArc1` 补入 `{ifQuestDone:QST-SECT-17-MURONG-2|...}` 承接六扇门旧案，避免王德用与主角初见苏绣丝帕时假装初闻慕容氏；
-   - 补写 `FINAL-1`（杏子林未揭身世）到 `FINAL-3`（突然旁白带过“已复姓为萧”）之间的军情通报过渡，并在 `FINAL-3` 萧峰远走塞外后于 `isNpcAbsentFromWorld` 屏蔽洛阳杏子林的 `NPC-0110`；
-   - 统一华山 Q18 与禁军 `FINAL-1` 中两套数值/立绘打架的临时 NPC `段延庆`。
+1. ✅ **已修复｜燕子坞焚毁后的慕容满门清场**：
+   - [`npcDeath.ts`](../src/engine/social/npcDeath.ts#L31-L45) 的 `isNpcAbsentFromWorld` 在 `jj_mr3_yanziwu_razed` 置位后已将全部 `SECT-10` 门人与 `yanziwu` 驻地 NPC 纳入缺席过滤（因触发焚毁必先完成六扇门 Lv.3/4 晋升，故《燕子坞水图》无需半途改写）。
+2. ✅ **已修复｜跨线亡者互斥（摘星子 / 史万山 / 樊威渊）与 `npcAlive` 守卫补齐**：
+   - [`xingxiuEntryQuest.ts`](../src/data/quests/sects/xingxiuEntryQuest.ts) 已增加 `QST-SECT-33-YONGZHOU-NANMAN`（《邕州道》）未触发/未完成及 `npcAlive(NPC-0181 摘星子)` 守卫；
+   - [`damingBajiQuest.ts`](../src/data/quests/cities/damingBajiQuest.ts) 已增加 `QST-SECT-33-TAIHANG-CAMPAIGN-3`（《太行剿匪·叁》）未完成及 `npcAlive(史万山/樊威渊/卢婉月/贾昌朝/陈孤雁)` 守卫；
+   - 已为其余 10 个缺守卫的门派/城池任务（常山、禁军河北反谍/太行二三、仁宗护驾、开封太行悍匪、南少林/少林/五台山入门、天波霸王枪）补齐核心接引人 `npcAlive` 守卫。
+3. ✅ **已修复｜禁军终章动态履历插值**：
+   - [`jinjunFinal3Quest.scenes.ts`](../src/data/quests/sects/jinjunFinal3Quest.scenes.ts) 全部 6 处硬编码「常山 / 白沟」出身对白与旁白已改为 `{ifQuestDone:QST-SECT-22-LONGLING|...|...}` 动态履历插值。
+4. ✅ **已修复｜六扇门→禁军破燕承接、雁门关后萧峰离场与段延庆统一**：
+   - [`jinjunMurongArc1Quest.scenes.ts`](../src/data/quests/sects/jinjunMurongArc1Quest.scenes.ts) 已补入 `{ifQuestDone:QST-SECT-17-MURONG-2|...|...}` 承接六扇门慕容旧案；
+   - [`jinjunFinal3Quest.scenes.ts`](../src/data/quests/sects/jinjunFinal3Quest.scenes.ts) 已补入皇城司密报过渡交代乔峰复姓为萧，并在终幕置位 `jj_final3_xiaofeng_departed` 于 [`npcDeath.ts`](../src/engine/social/npcDeath.ts) 屏蔽洛阳杏子林的 `NPC-0110`；
+   - 已统一 [`jinjunFinal1Quest.ts`](../src/data/quests/sects/jinjunFinal1Quest.ts) 与 [`huashanJianDuguNineQuest.scenes.ts`](../src/data/quests/sects/huashanJianDuguNineQuest.scenes.ts) 中 `段延庆` 的名号、宗师中品面板、兵器（`WPN-020`）与立绘模板（`tpl_yipintang`）。
 
 ### 2. P1：1050 皇祐正典校准与北宋细节打磨
 - ⬜ **统一天龙人物年龄口径**：[`AGENTS.md`](../AGENTS.md#L12) 仍写「少年乔峰」，而图鉴为 30 岁帮主、丐帮入门写「二十出头」、华山论剑写「三十来岁」。建议正式确立 **「天龙正篇整体前移约 40 年至仁宗皇祐—嘉祐朝」** 的校准基准（如此原著耶律洪基 1055 即位、1063 平重元之乱均与史实严丝合缝），统一乔峰开局为 26~30 岁壮年帮主，并修正 `AGENTS.md`。

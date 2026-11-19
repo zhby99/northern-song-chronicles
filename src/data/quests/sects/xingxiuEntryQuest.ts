@@ -11,7 +11,10 @@ const XINGXIU_START_CONDITION: QuestCondition = {
     { type: 'notInAnySect' },
     flag('shaolin_novice_state', 'eq', 'none'),
     flag('xx_permanently_rejected', 'falsy'),
+    qStatus('QST-SECT-33-YONGZHOU-NANMAN', 'not_started'),
+    qStatus('QST-SECT-33-YONGZHOU-NANMAN', 'not_completed'),
     { type: 'npcAlive', npcId: 'NPC-0122', npcName: '丁春秋' },
+    { type: 'npcAlive', npcId: 'NPC-0181', npcName: '摘星子' },
     qStatus(XINGXIU_ENTRY_QUEST_ID, 'not_started'),
   ],
 }

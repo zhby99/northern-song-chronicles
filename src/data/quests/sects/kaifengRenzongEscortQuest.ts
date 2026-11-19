@@ -27,6 +27,7 @@ export const KAIFENG_RENZONG_ESCORT_QUEST: QuestDefinition[] = [
       conditions: [
         { type: 'inSect', sectId: 'SECT-17', minRank: 4 },
         { type: 'npcFavorAtLeast', npcId: 'NPC-0001', min: 20 },
+        { type: 'npcAlive', npcId: 'NPC-0001', npcName: '赵祯' },
       ],
     },
     summary:

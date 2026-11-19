@@ -10,6 +10,9 @@ const START_JINJUN_TAIHANG_3_CONDITIONS = [
     minDays: 60,
   },
   { type: 'inSect' as const, sectId: 'SECT-33', minRank: 3 as const },
+  { type: 'npcAlive' as const, npcId: 'NPC-0140', npcName: '展昭' },
+  { type: 'npcAlive' as const, npcId: 'NPC-0013', npcName: '包拯' },
+  { type: 'npcAlive' as const, npcId: 'NPC-0038', npcName: '王德用' },
   {
     type: 'questStatus' as const,
     questId: JINJUN_TAIHANG_QUEST_3_ID,

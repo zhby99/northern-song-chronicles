@@ -82,6 +82,8 @@ export const SHAOLIN_ENTRY_QUESTS: QuestDefinition[] = [
       conditions: [
         { type: 'notInAnySect' },
         flag('shaolin_novice_state', 'eq', 'none'),
+        { type: 'npcAlive', npcId: 'NPC-0193', npcName: '玄净' },
+        { type: 'npcAlive', npcId: 'NPC-0112', npcName: '玄慈' },
       ],
     },
     summary:

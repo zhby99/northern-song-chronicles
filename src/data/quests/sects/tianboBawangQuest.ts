@@ -30,6 +30,7 @@ const PROLOGUE_ENTRY_CONDITION: QuestCondition = {
     { type: 'skillAtLeast', key: '骑术', min: 65 },
     // 合流终幕硬性要求根骨 ≥ 82，且开局后几乎无法再提升根骨：前置到开启条件，避免半途永久卡死
     { type: 'talentAtLeast', key: '根骨', min: 82 },
+    { type: 'npcAlive', npcId: 'NPC-0032', npcName: '杨文广' },
   ],
 }
 

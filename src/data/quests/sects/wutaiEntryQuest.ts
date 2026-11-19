@@ -26,6 +26,8 @@ export const WUTAI_START_CONDITION: QuestCondition = {
       condition: flag('song_court_blacklisted', 'truthy'),
       reason: '身负朝廷海捕恶名之人，五台山护国禅林断不容留',
     },
+    { type: 'npcAlive', npcId: 'NPC-0123', npcName: '道清' },
+    { type: 'npcAlive', npcId: 'NPC-0162', npcName: '智光' },
   ],
 }
 

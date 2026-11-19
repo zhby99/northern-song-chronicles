@@ -21,7 +21,15 @@ export const KAIFENG_TAIHANG_BANDIT_QUEST: QuestDefinition = {
     spotId: 'bl_kf_court',
     customLabel: '华北官道（随机遭遇） / 开封府衙',
   },
-  startCondition: { type: 'inSect', sectId: 'SECT-17', minRank: 3 },
+  startCondition: {
+    type: 'all',
+    conditions: [
+      { type: 'inSect', sectId: 'SECT-17', minRank: 3 },
+      { type: 'npcAlive', npcId: 'NPC-0140', npcName: '展昭' },
+      { type: 'npcAlive', npcId: 'NPC-0013', npcName: '包拯' },
+      { type: 'npcAlive', npcId: 'NPC-0229', npcName: '史万山' },
+    ],
+  },
   summary:
     '晋升六扇门 后于华北官道赶路时，偶遇太行山二流上品悍匪雷震山拦路劫杀。将其生擒并救下幸存茶商后押送开封府交展昭与包拯会审，五日后于东京市曹处斩；冷却三十日再行华北官道，将遭太行天王王重岳与九纹狂龙史万山 1v2 联手围堵。须死守硬撑三合坠涧突围，身负【太行重创】返开封向展昭汇报并强制闭门养伤一月方得痊愈结案。',
   initialStepId: 'escort_to_kaifeng',

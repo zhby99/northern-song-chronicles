@@ -15,7 +15,8 @@ import { computeCelunBonusAmount } from '../economy'
 import { computeEquipmentTotals } from '../equipment/equipmentStats'
 import { bindSceneTrigger } from '../quest/dsl'
 import { buildQuestDependencyGraph, selectSectQuests } from '../quest/questGraphBuilder'
-import { interpolateStoryText } from '../questEngine'
+import { evaluateQuestCondition, interpolateStoryText } from '../questEngine'
+import { isNpcAbsentFromWorld } from '../social/npcDeath'
 import {
   buildJoinSectPatch,
   clonePlayerSectState,
@@ -420,6 +421,105 @@ describe('P1 audit fixes regression suite', () => {
     expect(totals.mountKey).toBe('MNT-001')
     expect(computeEquipmentTotals({ ...DEFAULT_EQUIPPED_SLOTS, mount: null }).mountKey).toBe('walk')
     expect(totals.attack).toBeGreaterThanOrEqual(0)
+  })
+
+  it('Section 3.1: filters all SECT-10/Yanziwu NPCs on raze, Qiao Feng after FINAL-3, and blocks Xingxiu/Daming after Yongzhou/Taihang-3', () => {
+    const sect10Npcs = Object.values(NPC_DB_MAP).filter(
+      (n) => n.factionId === 'SECT-10' || n.regionId === 'yanziwu',
+    )
+    expect(sect10Npcs.length).toBeGreaterThan(20)
+    for (const npc of sect10Npcs) {
+      expect(isNpcAbsentFromWorld(npc.id, [], { jj_mr3_yanziwu_razed: true })).toBe(true)
+    }
+    expect(isNpcAbsentFromWorld('NPC-0110', [], { jj_final3_xiaofeng_departed: true })).toBe(true)
+    expect(isNpcAbsentFromWorld('NPC-0110', [], {})).toBe(false)
+
+    const xingxiuQ = QUEST_REGISTRY.find((q) => q.id === 'QST-SECT-19-ENTRY')!
+    const damingQ = QUEST_REGISTRY.find((q) => q.id === 'QST-CITY-DAMING-BAJI')!
+    const baseState = useGameStore.getState()
+    const cleanCtx = {
+      dayCount: 10,
+      shichenIdx: 2,
+      silver: 100,
+      food: 10,
+      renown: 0,
+      chivalry: 0,
+      hp: 500,
+      mp: 200,
+      maxHp: 500,
+      maxMp: 200,
+      agility: 30,
+      res: 20,
+      baseStats: baseState.baseStats,
+      equipped: baseState.equipped,
+      equippedArts: baseState.equippedArts,
+      learnedArts: baseState.learnedArts,
+      inventory: [],
+      sectState: clonePlayerSectState({ ...baseState.sectState, sectId: null }),
+      questState: {
+        activeQuests: {},
+        completedQuests: {},
+        flags: { shaolin_novice_state: 'none' },
+        dynamicActors: [],
+      },
+      npcFavor: {},
+      deadNpcIds: [] as string[],
+    }
+
+    const xingxiuCond = xingxiuQ.startCondition!
+    const damingCond = damingQ.startCondition!
+    expect(xingxiuCond).toBeDefined()
+    expect(damingCond).toBeDefined()
+
+    // Xingxiu blocked once Yongzhou Nanman is active or completed
+    expect(
+      evaluateQuestCondition(xingxiuCond, {
+        ...cleanCtx,
+        questState: {
+          ...cleanCtx.questState,
+          activeQuests: {
+            'QST-SECT-33-YONGZHOU-NANMAN': {
+              questId: 'QST-SECT-33-YONGZHOU-NANMAN',
+              stepId: 'step_1',
+              startedDay: 1,
+              deadlineDay: null,
+              vars: {},
+            },
+          },
+        },
+      }).passed,
+    ).toBe(false)
+    expect(
+      evaluateQuestCondition(xingxiuCond, {
+        ...cleanCtx,
+        deadNpcIds: ['NPC-0181'],
+      }).passed,
+    ).toBe(false)
+
+    // Daming Baji blocked once Taihang Campaign 3 is completed or Shi Wanshan dead
+    expect(evaluateQuestCondition(damingCond, cleanCtx).passed).toBe(true)
+    expect(
+      evaluateQuestCondition(damingCond, {
+        ...cleanCtx,
+        questState: {
+          ...cleanCtx.questState,
+          completedQuests: {
+            'QST-SECT-33-TAIHANG-CAMPAIGN-3': {
+              questId: 'QST-SECT-33-TAIHANG-CAMPAIGN-3',
+              completedDay: 5,
+              outcome: 'success' as const,
+              count: 1,
+            },
+          },
+        },
+      }).passed,
+    ).toBe(false)
+    expect(
+      evaluateQuestCondition(damingCond, {
+        ...cleanCtx,
+        deadNpcIds: ['NPC-0229'],
+      }).passed,
+    ).toBe(false)
   })
 })
 

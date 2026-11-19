@@ -21,6 +21,8 @@ export const NANSHAOLIN_START_CONDITION: QuestCondition = {
         { type: 'inSect', sectId: 'SECT-27' },
       ],
     },
+    { type: 'npcAlive', npcId: 'NPC-0165', npcName: '元觉' },
+    { type: 'npcAlive', npcId: 'NPC-0164', npcName: '元通' },
   ],
 }
 

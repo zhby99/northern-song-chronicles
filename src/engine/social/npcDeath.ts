@@ -35,7 +35,12 @@ export function isNpcAbsentFromWorld(
 ): boolean {
   if (isNpcDead(deadNpcIds, npcId)) return true
   if (npcId === 'NPC-0104' && questFlags?.jj_mr2_murongbo_fled) return true
-  if (npcId === 'NPC-0120' && questFlags?.jj_mr3_yanziwu_razed) return true
+  if (questFlags?.jj_mr3_yanziwu_razed && npcId) {
+    if (npcId === 'NPC-0120') return true
+    const rec = NPC_DB_MAP[npcId]
+    if (rec && (rec.factionId === 'SECT-10' || rec.regionId === 'yanziwu')) return true
+  }
+  if (npcId === 'NPC-0110' && questFlags?.jj_final3_xiaofeng_departed) return true
   return false
 }
 
@@ -46,7 +51,11 @@ export function filterLivingNpcs<T extends { id: string }>(
   questFlags?: Record<string, unknown> | null,
 ): T[] {
   const hasDead = Boolean(deadNpcIds && deadNpcIds.length > 0)
-  const hasFledFlag = Boolean(questFlags?.jj_mr2_murongbo_fled || questFlags?.jj_mr3_yanziwu_razed)
+  const hasFledFlag = Boolean(
+    questFlags?.jj_mr2_murongbo_fled ||
+      questFlags?.jj_mr3_yanziwu_razed ||
+      questFlags?.jj_final3_xiaofeng_departed,
+  )
   if (!hasDead && !hasFledFlag) return [...npcs]
   return npcs.filter((n) => !isNpcAbsentFromWorld(n.id, deadNpcIds, questFlags))
 }
@@ -59,7 +68,11 @@ export function countLivingNpcIds(
 ): number {
   if (!npcIds) return 0
   const hasDead = Boolean(deadNpcIds && deadNpcIds.length > 0)
-  const hasFledFlag = Boolean(questFlags?.jj_mr2_murongbo_fled || questFlags?.jj_mr3_yanziwu_razed)
+  const hasFledFlag = Boolean(
+    questFlags?.jj_mr2_murongbo_fled ||
+      questFlags?.jj_mr3_yanziwu_razed ||
+      questFlags?.jj_final3_xiaofeng_departed,
+  )
   if (!hasDead && !hasFledFlag) return npcIds.length
   return npcIds.filter((id) => !isNpcAbsentFromWorld(id, deadNpcIds, questFlags)).length
 }

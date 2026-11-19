@@ -11,6 +11,19 @@ const CAN_STILL_INVESTIGATE_CLUES: QuestCondition = {
   ],
 }
 
+const DAMING_BAJI_START_CONDITION: QuestCondition = {
+  type: 'all',
+  conditions: [
+    qStatus(QUEST_ID, 'not_started'),
+    qStatus('QST-SECT-33-TAIHANG-CAMPAIGN-3', 'not_completed'),
+    { type: 'npcAlive', npcId: 'NPC-0229', npcName: '史万山' },
+    { type: 'npcAlive', npcId: 'NPC-0681', npcName: '樊威渊' },
+    { type: 'npcAlive', npcId: 'NPC-0366', npcName: '卢婉月' },
+    { type: 'npcAlive', npcId: 'NPC-0028', npcName: '贾昌朝' },
+    { type: 'npcAlive', npcId: 'NPC-0137', npcName: '陈孤雁' },
+  ],
+}
+
 export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
   {
     id: QUEST_ID,
@@ -28,6 +41,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
       buildingId: 'daming_base_tavern',
       customLabel: '大名府 · 黄河北岸临津酒楼',
     },
+    startCondition: DAMING_BAJI_START_CONDITION,
     summary:
       '{reignYear}春汛将至，北京大名府黄河浮桥三根镇河铁索一夜遭寒刃斩断，二十箱修埽生铁与三千贯河工银饷离奇失踪，护运的沧州八极门真传教习崔帆坤含冤下狱。前宰相贾昌朝坐镇留守行宫深藏机锋，总馆主卢铁山横枪护犊，一场牵动河北河防蠹虫与契丹铁林骁骑的局中局正悄然收网……',
     initialStepId: 'meet_lu_wanyue',
@@ -107,7 +121,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
         regionId: 'daming',
         buildingId: 'daming_base_tavern',
         onceFlag: 'dm_baji_tavern_hook_seen',
-        condition: qStatus(QUEST_ID, 'not_started'),
+        condition: DAMING_BAJI_START_CONDITION,
         effects: [
           openScene('scene_dm_tavern_confrontation', 'QST-CITY-DAMING-BAJI'),
         ],
@@ -163,7 +177,7 @@ export const DAMING_BAJI_QUESTS: QuestDefinition[] = [
             {
               type: 'any',
               conditions: [
-                qStatus(QUEST_ID, 'not_started'),
+                DAMING_BAJI_START_CONDITION,
                 atStep(QUEST_ID, 'meet_lu_wanyue'),
               ],
             },

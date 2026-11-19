@@ -8,8 +8,8 @@ const SPEAKER_DUAN_YANQING: StorySpeakerSpec = {
   name: '段延庆',
   title: '恶贯满盈 · 四大恶人之首',
   factionName: '西夏一品堂',
-  avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_av.jpg',
-  portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
+  portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
 }
 
 const SPEAKER_XIXIA_SWORDMASTER: StorySpeakerSpec = {
@@ -76,8 +76,8 @@ function buildQ18DuanYanqingNpc(): NodeNpc {
     factionName: '西夏一品堂',
     sectRank: 4,
     sectRankLabel: '一品堂供奉',
-    avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_av.jpg',
-    portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
+    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
     talk: '“（腹语）凭你一柄薄剑，也想破老夫纯阳一阳指劲？找死！”',
     stats: { hp: 5250, mp: 4650, agi: 81, res: 75 },
     talents: { bone: 84, comprehension: 86, charm: 25 },

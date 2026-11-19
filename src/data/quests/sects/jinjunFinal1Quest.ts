@@ -20,17 +20,17 @@ const START_CONDITION: QuestCondition = {
 export function buildDuanYanqingNpc(): NodeNpc {
   return makeQuestNpc({
     id: 'fn1_duan_yanqing',
-    name: '段延庆 · 恶贯满盈',
-    title: '西夏一品堂四大恶人之首',
-    realm: '宗师下品',
+    name: '段延庆',
+    title: '恶贯满盈 · 四大恶人之首',
+    realm: '宗师中品',
     factionId: 'SECT-20',
     factionName: '西夏一品堂',
     avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
     talk: '“（腹语）大宋禁军统帅与乔峰联手又如何？尝尝老夫的一阳指铁杖！”',
-    stats: { hp: 3800, mp: 3000, agi: 76, res: 72 },
+    stats: { hp: 5250, mp: 4650, agi: 81, res: 75 },
     equipped: {
-      weapon: 'WPN-036',
+      weapon: 'WPN-020',
       armor: 'ARM-012',
       shoes: 'BOT-006',
       bow: 'BOW-006',

@@ -67,7 +67,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '河东 · 太行雪夜急行军',
     beats: [
       N('腊月狂雪漫天，一万名刚经历横山血战的殿前司铁甲将士紧咬牙关，日夜兼程踏雪渡过黄河、翻越晋北崇山峻岭。'),
-      P('“（白沟河畔、常山枪祠、析津元帅府、黄河铁索……萧远风，你我纠缠数年的宿命，就在雁门关下彻底了断！）”'),
+      P('“（{ifQuestDone:QST-SECT-22-LONGLING|白沟河畔、常山枪祠、析津元帅府、黄河铁索|汴梁暗桩、黄河铁索、横山烽火}……萧远风，你我纠缠数年的宿命，就在雁门关下彻底了断！）”'),
     ],
     onFinishEffects: [setStep(JINJUN_FINAL_3_ID, 'fn3_yanmen_relief')],
   },
@@ -78,7 +78,8 @@ export const SCENES: Record<string, StorySceneDef> = {
     illustrationUrl: '/assets/quests/jinjun_fn3_xiaofeng_lonely.jpg',
     illustrationCaption: '血月雁门 · 身世大白的萧峰孤立两军阵前苦劝辽军止戈',
     beats: [
-      N('腊月寒夜，一轮诡异暗红的血月高悬于雁门关苍穹之上。此时已身世大白、复姓为萧的乔峰陷于家国忠义两难绝境，竟孤身骑马立于十万辽军与雁门城墙之间，苦劝辽廷止戈退兵。'),
+      N('皇城司八百里加急早先已递至马前：自杏子林风波之后，康敏与马大元遗书泄露了乔峰乃契丹后裔的旧秘，乔峰辞去丐帮帮主之位、复姓为萧，只身北上塞外追查带头大哥真相。'),
+      N('腊月寒夜，一轮诡异暗红的血月高悬于雁门关苍穹之上。陷于家国忠义两难绝境的萧峰，竟孤身骑马立于十万辽军与雁门城墙之间，苦劝辽廷止戈退兵。'),
       S(XIAOFENG, '“宋辽两国百姓皆受生养之恩，若铁林军南下，必是千里白骨、生灵涂炭！萧峰愿以死相劝，请大辽止戈！”'),
     ],
     onFinishEffects: [openScene('scene_fn3_06', JINJUN_FINAL_3_ID)],
@@ -165,7 +166,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     illustrationCaption: '宿敌狭路 · 辽南京武林统制萧远风挺铁枪迎面杀来',
     beats: [
       N('乱军铁蹄溅起漫天雪血，一道披着乌金双层铁甲、左眉一道长疤直贯耳根的魁梧身影纵马如山般冲破人群，手挺一根沉重镔铁长枪直指你的咽喉——正是自析津府、黄河渡口一路死斗至今的宿敌萧远风！'),
-      S(XIAOYUANFENG, '“好一个常山小儿！从幽州烧我《南牧山川策》，到黄河坏我大事，今日竟成了大宋殿前都指挥使！拿命来结清旧账！”'),
+      S(XIAOYUANFENG, '“好一个{ifQuestDone:QST-SECT-22-LONGLING|常山小儿！从幽州烧我《南牧山川策》，到黄河坏我大事|大宋狂徒！昔日黄河坏我大事}，今日竟成了大宋殿前都指挥使！拿命来结清旧账！”'),
       P('“萧远风，你我也该做个彻底了断了！接我天波透甲金枪！”'),
     ],
     onFinishEffects: [openScene('scene_fn3_14', JINJUN_FINAL_3_ID)],
@@ -203,7 +204,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     illustrationUrl: '/assets/quests/jinjun_fn3_xiaoyuanfeng_slain.jpg',
     illustrationCaption: '心魔尽斩 · 天波透甲金枪震断萧远风铁枪将其挑落马下',
     beats: [
-      N('交锋仅数合，你借马力旋身一记霸道无比的霸王回马枪，伴随“当啷”一声巨响震断萧远风手中镔铁长枪，金色枪锋顺势贯甲而过，将其狠狠挑落马下！昔年横亘于白沟河畔的死仇心魔，自此一枪斩断！'),
+      N('交锋仅数合，你借马力旋身一记霸道无比的霸王回马枪，伴随“当啷”一声巨响震断萧远风手中镔铁长枪，金色枪锋顺势贯甲而过，将其狠狠挑落马下！{ifQuestDone:QST-SECT-22-LONGLING|昔年横亘于白沟河畔的死仇心魔|多年横亘于宋辽边陲的死敌宿仇}，自此一枪斩断！'),
       S(XIAOYUANFENG, '“好……好快的枪……大宋竟出了你这等将星……”'),
     ],
     onFinishEffects: [openScene('scene_fn3_16', JINJUN_FINAL_3_ID)],
@@ -383,7 +384,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '中原 · 东京郊外官道',
     beats: [
       N('次年开春，柳色青青，和风煦日。你率领经历血火淬炼的殿前司凯旋之师，缓缓行近东京汴梁十里长亭。'),
-      P('“（当年我从真定常山一路走到开封府六扇门、又入大宋禁军……如今大宋南北安澜，也算不负平生之志。）”'),
+      P('“（当年我{ifQuestDone:QST-SECT-22-LONGLING|从真定常山一路走到开封府六扇门|自草莽初出江湖一路走到开封府六扇门}、又入大宋禁军……如今大宋南北安澜，也算不负平生之志。）”'),
     ],
     onFinishEffects: [setStep(JINJUN_FINAL_3_ID, 'fn3_kaifeng_triumph')],
   },
@@ -482,7 +483,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     title: '第四十幕 · 四海尽升平',
     subtitle: '开封府 · 东京汴梁',
     beats: [
-      P('“（自白沟河畔一名无名枪客起兵，历常山、六扇门、大宋禁军，终至此境……）”'),
+      P('“（自{ifQuestDone:QST-SECT-22-LONGLING|白沟河畔一名无名枪客起兵，历常山、六扇门、大宋禁军|江湖白身起步，历开封府六扇门、大宋禁军百战功勋}，终至此境……）”'),
     ],
     onFinishEffects: [openScene('scene_fn3_41', JINJUN_FINAL_3_ID)],
   },
@@ -573,10 +574,11 @@ export const SCENES: Record<string, StorySceneDef> = {
     title: '第五十幕 · 大宋军神传（终）',
     subtitle: '开封府 · 大庆殿',
     beats: [
-      N('自白沟河畔一介无名枪客起步，历常山、六扇门、大宋禁军百战死生，终至平岭南、破横山、定雁门，受封检校太尉枢密使，绘像景灵宫。一代定鼎山河的大宋军神传奇，永载青史，万古流芳！'),
+      N('自{ifQuestDone:QST-SECT-22-LONGLING|白沟河畔一介无名枪客起步，历常山、六扇门、大宋禁军|江湖一介无名少侠起步，历六扇门、大宋禁军}百战死生，终至平岭南、破横山、定雁门，受封检校太尉枢密使，绘像景灵宫。一代定鼎山河的大宋军神传奇，永载青史，万古流芳！'),
       P('“山河既定，四海承平！”'),
     ],
     onFinishEffects: [
+      { type: 'setFlag', flag: 'jj_final3_xiaofeng_departed', value: true },
       { type: 'giveSilver', amount: 1000 },
       { type: 'addArtExp', amount: 6000 },
       { type: 'addSectContribution', amount: 500 },

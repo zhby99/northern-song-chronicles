@@ -27,6 +27,9 @@ export const JINJUN_HEBEI_SPY_QUESTS: QuestDefinition[] = [
       conditions: [
         { type: 'inSect', sectId: 'SECT-33', minRank: 3 },
         qStatus('QST-SECT-17-RENZONG-ESCORT', 'completed'),
+        { type: 'npcAlive', npcId: 'NPC-0038', npcName: '王德用' },
+        { type: 'npcAlive', npcId: 'NPC-0001', npcName: '赵祯' },
+        { type: 'npcAlive', npcId: 'NPC-0184', npcName: '萧远风' },
       ],
     },
     summary:
