@@ -3,6 +3,9 @@ import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
 import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q01_QUEST_ID } from './shaolinLuohanInitQuest'
 
+/** 罗汉开蒙所授：《少林小乘禅功》（MA-159）与《罗汉拳》（MA-163） */
+const LUOHAN_INIT_ARTS = ['MA-159', 'MA-163'] as const
+
 const SPEAKER_POOR_NOVICE: StorySpeakerSpec = {
   kind: 'custom',
   name: '阿木',
@@ -130,7 +133,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     mandatory: true,
     beats: [
       N('辰时三刻，晨课方毕。虚松师兄走近拍了拍你发酸的肩头，眼中露出一丝难得的赞许。'),
-      S('NPC-0483', '“你先前在山门踏实熬满一年杂役，下盘比旁人沉稳许多。《少林小乘禅功》与《罗汉拳》的口诀暂记心间，待你们过几日通过戒律院演武验看，便可正式领受法本。”'),
+      S('NPC-0483', '“你先前在山门踏实熬满一年杂役，下盘比旁人沉稳许多。《少林小乘禅功》吐纳法门与《罗汉拳》起手架子，今日已尽数传你，务必勤加演练。待你们过几日通过戒律院演武验看，便可正式领受法本。”'),
       P('“多谢虚松师兄、虚音师兄指点！弟子定当勤加琢磨，不敢懈怠。”'),
       N('二位师兄前脚刚赴藏经阁领诵早经，西侧外门寮房方向却忽传来一阵刺耳的瓷碗碎裂声与凄厉呼救！'),
     ],
@@ -141,6 +144,8 @@ export const SCENES: Record<string, StorySceneDef> = {
         tone: 'gold',
         effects: [
           { type: 'startQuest', questId: SHAOLIN_Q01_QUEST_ID, stepId: 'morning_drill' },
+          { type: 'teachMartialArt', artId: 'MA-159', autoEquip: true },
+          { type: 'teachMartialArt', artId: 'MA-163', autoEquip: true },
           setStep(SHAOLIN_Q01_QUEST_ID, 'morning_drill'),
           toast('已开启《晨钟木鱼 · 罗汉开蒙》！请留在【钟鼓禅院】查明外门寮房骚动！', 'talk', '罗汉开蒙'),
         ],
@@ -202,6 +207,13 @@ export const SCENES: Record<string, StorySceneDef> = {
         subLabel: '迎战铁头净彪与黑面净莽',
         tone: 'danger',
         effects: [
+          // 旧档补发：在晨课传功前已推进到此处的存档，迎战前补授两门开蒙武学
+          ...LUOHAN_INIT_ARTS.map((artId) => ({
+            type: 'branch' as const,
+            condition: { type: 'learnedArtAtLeast' as const, artId, minLevel: 1 },
+            thenEffects: [],
+            elseEffects: [{ type: 'teachMartialArt' as const, artId, autoEquip: true }],
+          })),
           {
             type: 'startCombat',
             questId: SHAOLIN_Q01_QUEST_ID,
@@ -318,8 +330,12 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '合十谢恩，正式领受《少林小乘禅功》与《罗汉拳》（完成开蒙）',
         tone: 'gold',
         effects: [
-          { type: 'teachMartialArt', artId: 'MA-159' },
-          { type: 'teachMartialArt', artId: 'MA-163' },
+          ...LUOHAN_INIT_ARTS.map((artId) => ({
+            type: 'branch' as const,
+            condition: { type: 'learnedArtAtLeast' as const, artId, minLevel: 1 },
+            thenEffects: [],
+            elseEffects: [{ type: 'teachMartialArt' as const, artId }],
+          })),
           { type: 'giveCombatExp', amount: 80, reason: '钟鼓禅院演武青石连挫恶僧与周海' },
           { type: 'addSectContribution', amount: 30 },
           { type: 'modifySkill', key: '经义', delta: 2 },
