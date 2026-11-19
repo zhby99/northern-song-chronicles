@@ -3838,7 +3838,7 @@
     "description": "【天罡护道】采秦岭玄铁参北斗七星铜钉锻成之终南古观镇派道剑，剑脊镌七星璇玑暗纹，以先天纯阳真气催运时剑鸣如龙吟清越，邪魔毒雾难近三尺。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/weapons/wpn_102.jpg"
   },
   {
     "id": "WPN-103",
@@ -3873,6 +3873,6 @@
     "description": "【冰魄惊鸿】林朝瑶以昆仑寒玉髓杂百炼霜钢于古墓寒潭浸淬十载而成的素白细剑，刃薄如蝉翼、寒气透骨，施展玉女素心剑法时剑影连绵快逾惊鸿。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/weapons/wpn_103.jpg"
   }
 ]

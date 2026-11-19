@@ -253,11 +253,11 @@
 | `NPC-0555` ✅ | 屠夏梅（烈火袖） | 女 / 35 | 铁掌帮 · 荆州码头恶霸执事 | 三流上品 | 1 | `tpl_tiezhang_female_fb.jpg` | `tiezhangEntryQuest` |
 | `NPC-0304` ✅ | 法辱（云游僧） | 男 / 29 | 五台山清凉寺 · 伏魔堂执事 | 二流中品 | 1 | `tpl_wutai_monk_male_fb.jpg` | `wutaiEntryQuest` |
 | `NPC-0795` ✅ | 明法（伏虎僧） | 男 / 31 | 五台山清凉寺 · 巡山僧 | 三流下品 | 1 | `tpl_wutai_monk_male_fb.jpg` | `wutaiEntryQuest` |
-| `NPC-1053` ⏳ | 段延庆（恶贯满盈） | 男 / 45 | 西夏一品堂 · 首席恶客（大理废太子） | 宗师中品 | 8 | `tpl_yipintang_fb.jpg` | `jinjunFinal1Quest`, `huashanJianDuguNineQuest` |
-| `NPC-1054` ⏳ | 马钰玄（丹阳子） | 男 / 46 | 终南隐宗 · 终南古观掌院大长老（古观首徒） | 一流上品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
-| `NPC-1055` ⏳ | 谭处真（长真子） | 男 / 44 | 终南隐宗 · 终南古观护法长老 | 一流中品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
-| `NPC-1056` ⏳ | 刘处静（长生子） | 男 / 42 | 终南隐宗 · 终南古观典籍长老 | 一流中品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
-| `NPC-1057` ⏳ | 王处阳（玉阳子） | 男 / 38 | 终南隐宗 · 终南古观铁脚长老 | 一流中品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
-| `NPC-1058` ⏳ | 郝大玄（广宁子） | 男 / 36 | 终南隐宗 · 终南古观易数长老 | 一流下品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
-| `NPC-1059` ⏳ | 孙清静（清静散人） | 女 / 35 | 终南隐宗 · 终南古观女冠长老 | 一流下品 | — | `tpl_zhongnan_female_fb.jpg` | 终南隐宗任务线（规划中） |
+| `NPC-1053` ✅ | 段延庆（恶贯满盈） | 男 / 45 | 西夏一品堂 · 首席恶客（大理废太子） | 宗师中品 | 8 | `tpl_yipintang_fb.jpg` | `jinjunFinal1Quest`, `huashanJianDuguNineQuest` |
+| `NPC-1054` ✅ | 马钰玄（丹阳子） | 男 / 46 | 终南隐宗 · 终南古观掌院大长老（古观首徒） | 一流上品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
+| `NPC-1055` ✅ | 谭处真（长真子） | 男 / 44 | 终南隐宗 · 终南古观护法长老 | 一流中品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
+| `NPC-1056` ✅ | 刘处静（长生子） | 男 / 42 | 终南隐宗 · 终南古观典籍长老 | 一流中品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
+| `NPC-1057` ✅ | 王处阳（玉阳子） | 男 / 38 | 终南隐宗 · 终南古观铁脚长老 | 一流中品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
+| `NPC-1058` ✅ | 郝大玄（广宁子） | 男 / 36 | 终南隐宗 · 终南古观易数长老 | 一流下品 | — | `tpl_zhongnan_fb.jpg` | 终南隐宗任务线（规划中） |
+| `NPC-1059` ✅ | 孙清静（清静散人） | 女 / 35 | 终南隐宗 · 终南古观女冠长老 | 一流下品 | — | `tpl_zhongnan_female_fb.jpg` | 终南隐宗任务线（规划中） |
 

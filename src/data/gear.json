@@ -315,7 +315,7 @@
     "description": "终南古观以秦岭雪蚕丝合天青道绸织就的紫阳真传鹤氅，背绣先天八卦太极暗纹，寒暑不侵，助长先天一炁生生不息。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/arm_057.jpg"
   },
   {
     "id": "ARM-012",
@@ -2766,7 +2766,7 @@
     "description": "截自活死人墓千年寒玉床边角琢成的素白冰心玉玦，贴身佩之清凉彻骨，可抑走火入魔、令轻功身法愈见轻灵。",
     "prerequisitesText": null,
     "statRequirements": [],
-    "iconUrl": null
+    "iconUrl": "/assets/items/gear/acc_057.jpg"
   },
   {
     "id": "ACC-011",
