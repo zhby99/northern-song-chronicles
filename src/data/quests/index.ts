@@ -62,7 +62,67 @@ import { KAIFENG_TAIHANG_BANDIT_QUESTS } from './sects/kaifengTaihangBanditQuest
 import { NANSHAOLIN_ENTRY_QUESTS } from './sects/nanshaolinEntryQuest'
 import { QINGCHENG_ENTRY_QUESTS } from './sects/qingchengEntryQuest'
 import { SECOND_TIER_QUESTS } from './sects/secondTierQuests'
+import { SHAOLIN_Q25_QUESTS } from './sects/shaolinDamoBoruoPalmQuest'
+import { SHAOLIN_Q09_QUESTS } from './sects/shaolinDamoFumoSwordQuest'
+import { SHAOLIN_Q11_QUESTS } from './sects/shaolinDamoNianhuaFingerQuest'
+import { SHAOLIN_Q10_QUESTS } from './sects/shaolinDamoSanhuaPalmQuest'
+import { SHAOLIN_Q24_QUESTS } from './sects/shaolinDamoSwordMasterQuest'
+import { SHAOLIN_Q12_QUESTS } from './sects/shaolinDamoXuanchengQuest'
+import { SHAOLIN_Q33_QUESTS } from './sects/shaolinElderPromotionQuest'
+import { SHAOLIN_Q39_QUESTS } from './sects/shaolinEndingIronDharmaKingQuest'
+import { SHAOLIN_Q38_QUESTS } from './sects/shaolinEndingMercifulAbbotQuest'
+import { SHAOLIN_Q40_QUESTS } from './sects/shaolinEndingVimalakirtiLaymanQuest'
 import { SHAOLIN_ENTRY_QUESTS } from './sects/shaolinEntryQuest'
+import { SHAOLIN_Q02_QUESTS } from './sects/shaolinEstateDisputeQuest'
+import { SHAOLIN_Q03_QUESTS } from './sects/shaolinIncenseLedgerQuest'
+import { SHAOLIN_Q31_QUESTS } from './sects/shaolinIronNetTrapQuest'
+import { SHAOLIN_Q26_QUESTS } from './sects/shaolinJielvBoruoQuest'
+import { SHAOLIN_Q14_QUESTS } from './sects/shaolinJielvOneSlapQuest'
+import { SHAOLIN_Q13_QUESTS } from './sects/shaolinJielvPumenStaffQuest'
+import { SHAOLIN_Q16_QUESTS } from './sects/shaolinJielvTrialPromoteQuest'
+import { SHAOLIN_Q27_QUESTS } from './sects/shaolinJielvVajraQuest'
+import { SHAOLIN_Q15_QUESTS } from './sects/shaolinJielvYaowangFingerQuest'
+import { SHAOLIN_Q29_QUESTS } from './sects/shaolinJiuyangCrisisQuest'
+import { SHAOLIN_Q20_QUESTS } from './sects/shaolinLaymanCommanderQuest'
+import { SHAOLIN_Q18_QUESTS } from './sects/shaolinLaymanLuoyangEscortQuest'
+import { SHAOLIN_Q19_QUESTS } from './sects/shaolinLaymanPutianSouthQuest'
+import { SHAOLIN_Q17_QUESTS } from './sects/shaolinLaymanXiangguoQuest'
+import { SHAOLIN_Q08_QUESTS } from './sects/shaolinLuohanArhatArrayQuest'
+import { SHAOLIN_Q05_QUESTS } from './sects/shaolinLuohanCibeiBladeQuest'
+import { SHAOLIN_Q07_QUESTS } from './sects/shaolinLuohanDragonClawQuest'
+import { SHAOLIN_Q01_QUESTS } from './sects/shaolinLuohanInitQuest'
+import { SHAOLIN_Q22_QUESTS } from './sects/shaolinLuohanRanmuBladeQuest'
+import { SHAOLIN_Q23_QUESTS } from './sects/shaolinLuohanVajraFingerQuest'
+import { SHAOLIN_Q06_QUESTS } from './sects/shaolinLuohanWeituoQuest'
+import { SHAOLIN_Q32_QUESTS } from './sects/shaolinNineTurnPillQuest'
+import { SHAOLIN_Q28_QUESTS } from './sects/shaolinPavilionShadowsQuest'
+import { SHAOLIN_SIDE11_QUESTS } from './sects/shaolinSideArhatDrillQuest'
+import { SHAOLIN_SIDE18_QUESTS } from './sects/shaolinSideBodhidharmaChartQuest'
+import { SHAOLIN_SIDE12_QUESTS } from './sects/shaolinSideColdJadeGuardQuest'
+import { SHAOLIN_SIDE01_QUESTS } from './sects/shaolinSideFireStickQuest'
+import { SHAOLIN_SIDE08_QUESTS } from './sects/shaolinSideGoldenBladeBanquetQuest'
+import { SHAOLIN_SIDE03_QUESTS } from './sects/shaolinSideGrainScaleQuest'
+import { SHAOLIN_SIDE14_QUESTS } from './sects/shaolinSideNorthSouthSparQuest'
+import { SHAOLIN_SIDE16_QUESTS } from './sects/shaolinSideOrdinationPurgeQuest'
+import { SHAOLIN_SIDE04_QUESTS } from './sects/shaolinSidePagodaForestQuest'
+import { SHAOLIN_SIDE09_QUESTS } from './sects/shaolinSideQiyunRelicQuest'
+import { SHAOLIN_SIDE17_QUESTS } from './sects/shaolinSideSnowRedemptionQuest'
+import { SHAOLIN_SIDE05_QUESTS } from './sects/shaolinSideSongyangDebateQuest'
+import { SHAOLIN_SIDE02_QUESTS } from './sects/shaolinSideSteleRubbingQuest'
+import { SHAOLIN_SIDE10_QUESTS } from './sects/shaolinSideSunScriptureQuest'
+import { SHAOLIN_SIDE13_QUESTS } from './sects/shaolinSideTibetanDebateQuest'
+import { SHAOLIN_SIDE06_QUESTS } from './sects/shaolinSideXiangguoFakeMedQuest'
+import { SHAOLIN_SIDE15_QUESTS } from './sects/shaolinSideYellowRiverRitualQuest'
+import { SHAOLIN_SIDE07_QUESTS } from './sects/shaolinSideZishengPagodaQuest'
+import { SHAOLIN_Q30_QUESTS } from './sects/shaolinSweepLeafZenQuest'
+import { SHAOLIN_Q42_QUESTS } from './sects/shaolinSweepingMonkYijinQuest'
+import { SHAOLIN_Q41_QUESTS } from './sects/shaolinThousandMonkWarQuest'
+import { shaolinTwinMonkMurderQuest } from './sects/shaolinTwinMonkMurderQuest'
+import { shaolinVajraBodyAwakenQuest } from './sects/shaolinVajraBodyAwakenQuest'
+import { SHAOLIN_Q04_QUESTS } from './sects/shaolinWoodenDummyPromoteQuest'
+import { shaolinWulinAssemblyScandalQuest } from './sects/shaolinWulinAssemblyScandalQuest'
+import { shaolinXisuiAwakenQuest } from './sects/shaolinXisuiAwakenQuest'
+import { SHAOLIN_Q21_QUESTS } from './sects/shaolinYiweiLightnessQuest'
 import { TAISHAN_ENTRY_QUESTS } from './sects/taishanEntryQuest'
 import { TANGMEN_ENTRY_QUESTS } from './sects/tangmenEntryQuest'
 import { TIANBO_BAWANG_QUESTS } from './sects/tianboBawangQuest'
@@ -78,6 +138,66 @@ import { ZHENWU_ENTRY_QUESTS } from './sects/zhenwuEntryQuest'
 export const QUEST_REGISTRY: readonly QuestDefinition[] = Object.freeze([
   ...SECOND_TIER_QUESTS,
   ...SHAOLIN_ENTRY_QUESTS,
+  ...SHAOLIN_Q01_QUESTS,
+  ...SHAOLIN_Q02_QUESTS,
+  ...SHAOLIN_Q03_QUESTS,
+  ...SHAOLIN_Q04_QUESTS,
+  ...SHAOLIN_Q05_QUESTS,
+  ...SHAOLIN_Q06_QUESTS,
+  ...SHAOLIN_Q07_QUESTS,
+  ...SHAOLIN_Q08_QUESTS,
+  ...SHAOLIN_Q09_QUESTS,
+  ...SHAOLIN_Q10_QUESTS,
+  ...SHAOLIN_Q11_QUESTS,
+  ...SHAOLIN_Q12_QUESTS,
+  ...SHAOLIN_Q13_QUESTS,
+  ...SHAOLIN_Q14_QUESTS,
+  ...SHAOLIN_Q15_QUESTS,
+  ...SHAOLIN_Q16_QUESTS,
+  ...SHAOLIN_Q17_QUESTS,
+  ...SHAOLIN_Q18_QUESTS,
+  ...SHAOLIN_Q19_QUESTS,
+  ...SHAOLIN_Q20_QUESTS,
+  ...SHAOLIN_Q21_QUESTS,
+  ...SHAOLIN_Q22_QUESTS,
+  ...SHAOLIN_Q23_QUESTS,
+  ...SHAOLIN_Q24_QUESTS,
+  ...SHAOLIN_Q25_QUESTS,
+  ...SHAOLIN_Q26_QUESTS,
+  ...SHAOLIN_Q27_QUESTS,
+  ...SHAOLIN_Q28_QUESTS,
+  ...SHAOLIN_Q29_QUESTS,
+  ...SHAOLIN_Q30_QUESTS,
+  ...SHAOLIN_Q31_QUESTS,
+  ...SHAOLIN_Q32_QUESTS,
+  ...SHAOLIN_Q33_QUESTS,
+  shaolinTwinMonkMurderQuest,
+  shaolinWulinAssemblyScandalQuest,
+  shaolinXisuiAwakenQuest,
+  shaolinVajraBodyAwakenQuest,
+  ...SHAOLIN_Q38_QUESTS,
+  ...SHAOLIN_Q39_QUESTS,
+  ...SHAOLIN_Q40_QUESTS,
+  ...SHAOLIN_Q41_QUESTS,
+  ...SHAOLIN_Q42_QUESTS,
+  ...SHAOLIN_SIDE01_QUESTS,
+  ...SHAOLIN_SIDE02_QUESTS,
+  ...SHAOLIN_SIDE03_QUESTS,
+  ...SHAOLIN_SIDE04_QUESTS,
+  ...SHAOLIN_SIDE05_QUESTS,
+  ...SHAOLIN_SIDE06_QUESTS,
+  ...SHAOLIN_SIDE07_QUESTS,
+  ...SHAOLIN_SIDE08_QUESTS,
+  ...SHAOLIN_SIDE09_QUESTS,
+  ...SHAOLIN_SIDE10_QUESTS,
+  ...SHAOLIN_SIDE11_QUESTS,
+  ...SHAOLIN_SIDE12_QUESTS,
+  ...SHAOLIN_SIDE13_QUESTS,
+  ...SHAOLIN_SIDE14_QUESTS,
+  ...SHAOLIN_SIDE15_QUESTS,
+  ...SHAOLIN_SIDE16_QUESTS,
+  ...SHAOLIN_SIDE17_QUESTS,
+  ...SHAOLIN_SIDE18_QUESTS,
   ...GAIBANG_ENTRY_QUESTS,
   ...WUTAI_ENTRY_QUESTS,
   ...NANSHAOLIN_ENTRY_QUESTS,

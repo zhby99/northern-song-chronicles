@@ -1,0 +1,193 @@
+import type { QuestCondition, QuestDefinition } from '../../../types/quest'
+import { atStep, openScene, qStatus } from '../../../engine/quest/dsl'
+
+export const SHAOLIN_SIDE12_QUEST_ID = 'QST-SECT-01-SIDE-12'
+
+export const SHAOLIN_SIDE12_START_CONDITION: QuestCondition = {
+  type: 'all',
+  conditions: [
+    { type: 'inSect', sectId: 'SECT-01', minRank: 3 },
+    qStatus(SHAOLIN_SIDE12_QUEST_ID, 'not_started'),
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 2200 },
+    { type: 'npcAlive', npcId: 'NPC-0109', npcName: '玄澄' },
+    { type: 'npcAlive', npcId: 'NPC-0322', npcName: '慧清' },
+    { type: 'npcAlive', npcId: 'NPC-0255', npcName: '慧真' },
+  ],
+}
+
+export const SHAOLIN_SIDE12_QUESTS: QuestDefinition[] = [
+  {
+    id: SHAOLIN_SIDE12_QUEST_ID,
+    title: '寒玉护脉 · 伏虎除魔',
+    category: 'sect_mission',
+    factionId: 'SECT-01',
+    regionId: 'shaolin',
+    recommendedRealm: '一流下品 ～ 一流中品',
+    maxOpponentRealm: '一流中品（邪派毒盗 · 玉面毒龙）',
+    recommendedNote:
+      '少林寺 Lv.3 高阶护法支线（全十四幕）。入寺满 2200 日后，于达摩面壁石洞幽谷石室寒玉榻听慧清、慧真急报：昔日被玄澄长老废去邪功的毒盗「玉面毒龙」重修阴寒毒功潜回嵩山寻仇，趁玄澄坐榻调息之际企图施毒暗算。须速赴飞瀑深潭试炼涧协同慧真截杀毒贼，独斗斩杀玉面毒龙护住师长经脉，复归石室受玄澄指点内息法门。',
+    startHint:
+      '跻身少林寺三阶高徒且入寺满 2200 日后，前往【嵩山少林寺 · 达摩面壁石洞 · 幽谷石室 · 寒玉榻】寻玄澄、慧清即可触发。',
+    startLocation: {
+      regionId: 'shaolin',
+      buildingId: 'sl_damo',
+      spotId: 'sl_damo_main',
+      customLabel: '嵩山少林寺 · 达摩面壁石洞 · 幽谷石室 · 寒玉榻',
+    },
+    startCondition: SHAOLIN_SIDE12_START_CONDITION,
+    summary:
+      '{reignYear}深冬，少室山幽谷寒雾沉沉，少林神僧【玄澄】正于【达摩面壁石洞 · 幽谷石室 · 寒玉榻】闭目调息。护经僧【慧清】与持杵武僧【慧真】忽带伤急报：十年前因残害豫西乡民而被玄澄一掌废去武功的邪派毒盗「玉面毒龙」竟未伏诛，反遁入西域苦炼冰蚕毒砂邪功至一流中品，今夜率余孽潜入后山，妄图趁玄澄行功紧要关头以毒烟封洞报仇！你当机立断请命迎敌，随慧真急赴【飞瀑深潭 · 试炼涧】截住来敌。慧真以韦陀杵独挡涧口其余毒徒，你则于寒雾飞瀑之间一对一力战并斩杀「玉面毒龙」，绝除后患。凯旋石室后，玄澄出定欣慰颔首，亲口点拨禅门调息护脉之精义。',
+    initialStepId: 'ambush_misty_gorge',
+    steps: {
+      ambush_misty_gorge: {
+        id: 'ambush_misty_gorge',
+        title: '寒雾截魔 · 飞瀑斩毒龙',
+        objective:
+          '邪派毒盗「玉面毒龙」已率毒徒潜入后山涧谷，企图以毒烟暗算闭关中的玄澄长老！请速赴【嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，配合慧真截杀毒龙一伙。',
+        nextHint:
+          '前往【达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，点击「协同慧真于寒雾深涧截杀玉面毒龙」。',
+        targetLocation: {
+          regionId: 'shaolin',
+          buildingId: 'sl_damo',
+          spotId: 'sl_damo_west',
+          customLabel: '嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧',
+        },
+      },
+      return_cold_jade: {
+        id: 'return_cold_jade',
+        title: '魔氛尽涤 · 归榻复命',
+        objective:
+          '玉面毒龙已伏诛于寒雾深涧，余孽亦为慧真与巡山武僧尽数擒拿！请速返【达摩面壁石洞 · 幽谷石室 · 寒玉榻（sl_damo_main）】向玄澄长老与慧清复命。',
+        nextHint:
+          '返回【达摩面壁石洞 · 幽谷石室 · 寒玉榻（sl_damo_main）】，点击「向玄澄长老禀报寒涧除魔始末」或与玄澄交谈。',
+        targetLocation: {
+          regionId: 'shaolin',
+          buildingId: 'sl_damo',
+          spotId: 'sl_damo_main',
+          customLabel: '嵩山少林寺 · 达摩面壁石洞 · 幽谷石室 · 寒玉榻',
+        },
+      },
+    },
+
+    locationTriggers: [
+      {
+        id: 'trig_sls12_start_damo_main',
+        regionId: 'shaolin',
+        buildingId: 'sl_damo',
+        spotId: 'sl_damo_main',
+        onceFlag: 'sl_side12_start_triggered',
+        condition: SHAOLIN_SIDE12_START_CONDITION,
+        effects: [openScene('scene_sls12_01', SHAOLIN_SIDE12_QUEST_ID)],
+      },
+      {
+        id: 'trig_sls12_ambush_damo_west',
+        regionId: 'shaolin',
+        buildingId: 'sl_damo',
+        spotId: 'sl_damo_west',
+        onceFlag: 'sl_side12_ambush_triggered',
+        condition: atStep(SHAOLIN_SIDE12_QUEST_ID, 'ambush_misty_gorge'),
+        effects: [openScene('scene_sls12_04', SHAOLIN_SIDE12_QUEST_ID)],
+      },
+      {
+        id: 'trig_sls12_return_damo_main',
+        regionId: 'shaolin',
+        buildingId: 'sl_damo',
+        spotId: 'sl_damo_main',
+        onceFlag: 'sl_side12_report_triggered',
+        condition: atStep(SHAOLIN_SIDE12_QUEST_ID, 'return_cold_jade'),
+        effects: [openScene('scene_sls12_12', SHAOLIN_SIDE12_QUEST_ID)],
+      },
+    ],
+
+    spotActions: [
+      {
+        id: 'spot_sls12_start',
+        label: '【少林支线】听慧清慧真急报毒贼寻仇',
+        badge: '寒玉护脉',
+        subtitle: '幽谷石室 · 寒玉榻',
+        tone: 'gold',
+        regionId: 'shaolin',
+        buildingId: 'sl_damo',
+        spotId: 'sl_damo_main',
+        visibleWhen: SHAOLIN_SIDE12_START_CONDITION,
+        effects: [
+          { type: 'setFlag', flag: 'sl_side12_start_triggered', value: true },
+          openScene('scene_sls12_01', SHAOLIN_SIDE12_QUEST_ID),
+        ],
+      },
+      {
+        id: 'spot_sls12_ambush',
+        label: '【少林支线】协同慧真于寒雾深涧截杀玉面毒龙',
+        badge: '伏虎除魔',
+        subtitle: '飞瀑深潭 · 试炼涧',
+        tone: 'danger',
+        regionId: 'shaolin',
+        buildingId: 'sl_damo',
+        spotId: 'sl_damo_west',
+        visibleWhen: atStep(SHAOLIN_SIDE12_QUEST_ID, 'ambush_misty_gorge'),
+        effects: [
+          { type: 'setFlag', flag: 'sl_side12_ambush_triggered', value: true },
+          openScene('scene_sls12_04', SHAOLIN_SIDE12_QUEST_ID),
+        ],
+      },
+      {
+        id: 'spot_sls12_return',
+        label: '【少林支线】向玄澄长老禀报寒涧除魔始末',
+        badge: '护脉复命',
+        subtitle: '幽谷石室 · 寒玉榻',
+        tone: 'gold',
+        regionId: 'shaolin',
+        buildingId: 'sl_damo',
+        spotId: 'sl_damo_main',
+        visibleWhen: atStep(SHAOLIN_SIDE12_QUEST_ID, 'return_cold_jade'),
+        effects: [
+          { type: 'setFlag', flag: 'sl_side12_report_triggered', value: true },
+          openScene('scene_sls12_12', SHAOLIN_SIDE12_QUEST_ID),
+        ],
+      },
+    ],
+
+    npcActions: [
+      {
+        id: 'act_sls12_start_npc',
+        label: '问询后山毒烟异动并请命护持玄澄长老',
+        badge: '寒玉护脉',
+        tone: 'gold',
+        showInBottomBar: true,
+        showInSectPanel: true,
+        visibleWhen: {
+          type: 'all',
+          conditions: [
+            { type: 'targetNpcMatch', npcIds: ['NPC-0109', 'NPC-0322', 'NPC-0255'] },
+            SHAOLIN_SIDE12_START_CONDITION,
+          ],
+        },
+        effects: [
+          { type: 'setFlag', flag: 'sl_side12_start_triggered', value: true },
+          openScene('scene_sls12_01', SHAOLIN_SIDE12_QUEST_ID),
+        ],
+      },
+      {
+        id: 'act_sls12_report_npc',
+        label: '向玄澄长老复命并聆听内息护脉指点',
+        badge: '护脉复命',
+        tone: 'gold',
+        showInBottomBar: true,
+        showInSectPanel: true,
+        visibleWhen: {
+          type: 'all',
+          conditions: [
+            { type: 'targetNpcMatch', npcIds: ['NPC-0109', 'NPC-0322'] },
+            atStep(SHAOLIN_SIDE12_QUEST_ID, 'return_cold_jade'),
+          ],
+        },
+        effects: [
+          { type: 'setFlag', flag: 'sl_side12_report_triggered', value: true },
+          openScene('scene_sls12_12', SHAOLIN_SIDE12_QUEST_ID),
+        ],
+      },
+    ],
+
+    loadScenes: () => import('./shaolinSideColdJadeGuardQuest.scenes').then((m) => m.SCENES),
+  },
+]

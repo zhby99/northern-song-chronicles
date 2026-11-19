@@ -1,0 +1,193 @@
+import type { QuestCondition, QuestDefinition } from '../../../types/quest'
+import { atStep, openScene, qStatus } from '../../../engine/quest/dsl'
+
+export const SHAOLIN_SIDE03_QUEST_ID = 'QST-SECT-01-SIDE-03'
+
+export const SHAOLIN_SIDE03_START_CONDITION: QuestCondition = {
+  type: 'all',
+  conditions: [
+    { type: 'inSect', sectId: 'SECT-01', minRank: 1 },
+    qStatus('QST-SECT-01-ENTRY', 'completed'),
+    qStatus(SHAOLIN_SIDE03_QUEST_ID, 'not_started'),
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 90 },
+    { type: 'skillAtLeast', key: '算术', min: 25 },
+    { type: 'npcAlive', npcId: 'NPC-0789', npcName: '虚清' },
+  ],
+}
+
+export const SHAOLIN_SIDE03_QUESTS: QuestDefinition[] = [
+  {
+    id: SHAOLIN_SIDE03_QUEST_ID,
+    title: '登封买粮 · 斗秤破奸',
+    category: 'sect_mission',
+    factionId: 'SECT-01',
+    regionId: 'shaolin',
+    recommendedRealm: '三流中品',
+    maxOpponentRealm: '三流中品（粮行恶护院 · 钱大棒）',
+    recommendedNote:
+      '少林寺 Lv.1 外门日常支线（全十幕）。入寺满九十日且算术初成后，于大雄宝殿方丈院钟鼓禅院演武坪随苦行僧虚清领命下山，赴登封县城恒丰粮行采办千僧秋粮，以算术当场识破夹层灌水银暗秤，并 1v2 痛扁粮行恶护院追回百两差银。',
+    startHint:
+      '拜入嵩山少林寺满九十日且具相当算术造诣后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】寻苦行僧虚清即可领命。',
+    startLocation: {
+      regionId: 'shaolin',
+      buildingId: 'sl_daxiong',
+      spotId: 'sl_daxiong_west',
+      customLabel: '嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
+    },
+    startCondition: SHAOLIN_SIDE03_START_CONDITION,
+    summary:
+      '{reignYear}秋收时节，少室山千余僧众斋粮渐紧。苦行僧虚清常年奔走采办，却觉登封县城「恒丰粮行」所售秋稻斤两暗亏、账目存疑，遂邀精于算学的你一同下山核验。你先往罗汉堂东庑核对官颁铁斛尺寸并备妥护身齐眉棍，随即随虚清赴登封粮行过斗验粮。你在喧闹粮市中默算斛容比重，当场拆穿奸商贾算盘在木斛夹层灌入水银压秤、每石暗扣两斗的鬼把戏，一棍震裂暗斛令水银滚落青砖。奸商恼羞成怒喝令恶护院「钱大棒」与打手封门夺账，你挺身而出以一敌二放翻恶奴，在里正与乡邻见证下追回历年克扣的百两差额纹银，满载新稻归山改善外门斋饭。',
+    initialStepId: 'depart_dengfeng',
+    steps: {
+      depart_dengfeng: {
+        id: 'depart_dengfeng',
+        title: '校斛下山 · 登封验粮',
+        objective:
+          '已领苦行僧虚清所托！请前往【嵩山少林寺 · 十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】核对官颁铁斛尺寸、备妥护身短棍，随后随虚清下山赴登封县城恒丰粮行采办秋粮。',
+        nextHint:
+          '前往【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】，点击「校斛领棍，随虚清下山赴登封粮行」。',
+        targetLocation: {
+          regionId: 'shaolin',
+          buildingId: 'sl_luohan',
+          spotId: 'sl_luohan_west',
+          customLabel: '嵩山少林寺 · 十八铜人罗汉堂 · 东庑碑帖武库院',
+        },
+      },
+      return_report: {
+        id: 'return_report',
+        title: '满载归山 · 结账复命',
+        objective:
+          '恒丰粮行暗秤已破，百两差额纹银与足秤千僧秋粮皆已运回少室山！请返回【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】向苦行僧虚清结账复命。',
+        nextHint:
+          '返回【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】，点击「向虚清结清登封买粮账目」或与虚清交谈。',
+        targetLocation: {
+          regionId: 'shaolin',
+          buildingId: 'sl_daxiong',
+          spotId: 'sl_daxiong_west',
+          customLabel: '嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
+        },
+      },
+    },
+
+    locationTriggers: [
+      {
+        id: 'trig_sls03_start_daxiong_west',
+        regionId: 'shaolin',
+        buildingId: 'sl_daxiong',
+        spotId: 'sl_daxiong_west',
+        onceFlag: 'sl_side03_start_triggered',
+        condition: SHAOLIN_SIDE03_START_CONDITION,
+        effects: [openScene('scene_sls03_01', SHAOLIN_SIDE03_QUEST_ID)],
+      },
+      {
+        id: 'trig_sls03_depart_luohan_west',
+        regionId: 'shaolin',
+        buildingId: 'sl_luohan',
+        spotId: 'sl_luohan_west',
+        onceFlag: 'sl_side03_depart_triggered',
+        condition: atStep(SHAOLIN_SIDE03_QUEST_ID, 'depart_dengfeng'),
+        effects: [openScene('scene_sls03_03', SHAOLIN_SIDE03_QUEST_ID)],
+      },
+      {
+        id: 'trig_sls03_return_daxiong_west',
+        regionId: 'shaolin',
+        buildingId: 'sl_daxiong',
+        spotId: 'sl_daxiong_west',
+        onceFlag: 'sl_side03_report_triggered',
+        condition: atStep(SHAOLIN_SIDE03_QUEST_ID, 'return_report'),
+        effects: [openScene('scene_sls03_10', SHAOLIN_SIDE03_QUEST_ID)],
+      },
+    ],
+
+    spotActions: [
+      {
+        id: 'spot_sls03_start',
+        label: '【少林支线】问询千僧秋粮采办事宜',
+        badge: '登封买粮',
+        subtitle: '钟鼓禅院 · 演武坪',
+        tone: 'gold',
+        regionId: 'shaolin',
+        buildingId: 'sl_daxiong',
+        spotId: 'sl_daxiong_west',
+        visibleWhen: SHAOLIN_SIDE03_START_CONDITION,
+        effects: [
+          { type: 'setFlag', flag: 'sl_side03_start_triggered', value: true },
+          openScene('scene_sls03_01', SHAOLIN_SIDE03_QUEST_ID),
+        ],
+      },
+      {
+        id: 'spot_sls03_depart',
+        label: '【少林支线】校斛领棍，随虚清下山赴登封粮行',
+        badge: '斗秤破奸',
+        subtitle: '东庑碑帖武库院',
+        tone: 'jade',
+        regionId: 'shaolin',
+        buildingId: 'sl_luohan',
+        spotId: 'sl_luohan_west',
+        visibleWhen: atStep(SHAOLIN_SIDE03_QUEST_ID, 'depart_dengfeng'),
+        effects: [
+          { type: 'setFlag', flag: 'sl_side03_depart_triggered', value: true },
+          openScene('scene_sls03_03', SHAOLIN_SIDE03_QUEST_ID),
+        ],
+      },
+      {
+        id: 'spot_sls03_return',
+        label: '【少林支线】向虚清结清登封买粮账目',
+        badge: '斋粮归仓',
+        subtitle: '钟鼓禅院 · 演武坪',
+        tone: 'gold',
+        regionId: 'shaolin',
+        buildingId: 'sl_daxiong',
+        spotId: 'sl_daxiong_west',
+        visibleWhen: atStep(SHAOLIN_SIDE03_QUEST_ID, 'return_report'),
+        effects: [
+          { type: 'setFlag', flag: 'sl_side03_report_triggered', value: true },
+          openScene('scene_sls03_10', SHAOLIN_SIDE03_QUEST_ID),
+        ],
+      },
+    ],
+
+    npcActions: [
+      {
+        id: 'act_sls03_start_npc',
+        label: '随虚清师兄下山赴登封采办秋粮',
+        badge: '登封买粮',
+        tone: 'gold',
+        showInBottomBar: true,
+        showInSectPanel: true,
+        visibleWhen: {
+          type: 'all',
+          conditions: [
+            { type: 'targetNpcMatch', npcIds: ['NPC-0789'] },
+            SHAOLIN_SIDE03_START_CONDITION,
+          ],
+        },
+        effects: [
+          { type: 'setFlag', flag: 'sl_side03_start_triggered', value: true },
+          openScene('scene_sls03_01', SHAOLIN_SIDE03_QUEST_ID),
+        ],
+      },
+      {
+        id: 'act_sls03_report_npc',
+        label: '向虚清师兄交割登封秋粮与追回纹银',
+        badge: '斋粮归仓',
+        tone: 'gold',
+        showInBottomBar: true,
+        showInSectPanel: true,
+        visibleWhen: {
+          type: 'all',
+          conditions: [
+            { type: 'targetNpcMatch', npcIds: ['NPC-0789'] },
+            atStep(SHAOLIN_SIDE03_QUEST_ID, 'return_report'),
+          ],
+        },
+        effects: [
+          { type: 'setFlag', flag: 'sl_side03_report_triggered', value: true },
+          openScene('scene_sls03_10', SHAOLIN_SIDE03_QUEST_ID),
+        ],
+      },
+    ],
+
+    loadScenes: () => import('./shaolinSideGrainScaleQuest.scenes').then((m) => m.SCENES),
+  },
+]
