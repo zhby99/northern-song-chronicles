@@ -75,6 +75,18 @@ export function PortraitsTab({
   const curNode = NODE_MAP[currentNodeId] ?? WORLD_GRAPH.nodes[0]
   const activeRegionNode = NODE_MAP[activeRegionId] ?? curNode
 
+  const scopeCounts = useMemo(() => {
+    let historical = 0
+    let grandmasterMaster = 0
+    let firstRate = 0
+    for (const c of NPCS_DB) {
+      if (c.category === '历史名人') historical += 1
+      if (c.realmRank <= 6) grandmasterMaster += 1
+      if (c.realmRank >= 7 && c.realmRank <= 9) firstRate += 1
+    }
+    return { historical, grandmasterMaster, firstRate }
+  }, [])
+
   const filteredNpcs = useMemo(() => {
     const q = npcQuery.trim().toLowerCase()
     return NPCS_DB.filter((c) => {
@@ -128,9 +140,11 @@ export function PortraitsTab({
           </option>
           <option value="ALL">全部群侠名录 ({ID_REGISTRY.counts.npcs})</option>
           <option value="HERE">当前地区：{activeRegionNode?.name}</option>
-          <option value="HISTORICAL">庙堂四夷历史百杰 (100)</option>
-          <option value="GRANDMASTER_MASTER">大宗师与宗师 (34)</option>
-          <option value="FIRST_RATE">一流高手 (120)</option>
+          <option value="HISTORICAL">庙堂四夷历史百杰 ({scopeCounts.historical})</option>
+          <option value="GRANDMASTER_MASTER">
+            大宗师与宗师 ({scopeCounts.grandmasterMaster})
+          </option>
+          <option value="FIRST_RATE">一流高手 ({scopeCounts.firstRate})</option>
         </select>
         <select
           value={npcRegionFilter}
