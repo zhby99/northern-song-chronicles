@@ -311,7 +311,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq19_09: {
     id: 'scene_slq19_09',
     title: '第九幕 · 闯关会友',
-    subtitle: '九莲山门演武坪（1v2 切磋）',
+    subtitle: '九莲山门演武坪（车轮连战 切磋）',
     mandatory: true,
     beats: [
       N('戒铁与戒磐施展南宗正统《铁线拳》与《盘山铁布衫》，桥手沉重如铁柱压顶！你运起《龙爪手》灵动擒拿，专破硬桥劲道，与二僧切磋较技！'),
@@ -319,18 +319,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq19_spar_nsl',
-        label: '以《龙爪手》会友，闯【戒铁】与【戒磐】铁桥硬马关！（1v2 切磋）',
+        label: '以《龙爪手》会友，闯【戒铁】与【戒磐】铁桥硬马关！（车轮连战 切磋）',
         subLabel: '点到为止，以堂堂正正之艺赢得南少林敬重',
         tone: 'gold',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q19_QUEST_ID,
             opponent: { kind: 'custom', npc: buildNslMonkA() },
             extraOpponents: [{ kind: 'custom', npc: buildNslMonkB() }],
             rule: 'spar',
             forbidEscapeReason: '身负嵩山法帖拜山，岂可半途退场！',
-            introText: '【1v2 九莲闯关】切磋莆田南少林护法【戒铁武僧】与【戒磐武僧】！',
+            introText: '【车轮连战 · 九莲闯关】切磋莆田南少林护法【戒铁武僧】与【戒磐武僧】！',
             onWin: [openScene('scene_slq19_10', SHAOLIN_Q19_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 90, mpPct: 90 },
@@ -472,7 +473,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq19_17: {
     id: 'scene_slq19_17',
     title: '第十七幕 · 夜斩海寇',
-    subtitle: '海滨盐场（1v2 首领决战）',
+    subtitle: '海滨盐场（车轮连战 首领决战）',
     mandatory: true,
     beats: [
       N('鬼丸浪人刀法快如鬼魅，隐隐带着断魂杀意，佐助则从侧翼疾掠补刀！海潮拍岸、火光冲天，你沉气凝神，以少林正统绝学正面迎击东瀛海寇头目！'),
@@ -480,18 +481,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq19_fight_onimaru',
-        label: '火光中决战东瀛海寇头目【鬼丸浪人】与【佐助】！（二流上品 1v2）',
+        label: '火光中决战东瀛海寇头目【鬼丸浪人】与【佐助】！（二流上品 车轮连战）',
         subLabel: '斩杀海寇首恶，护全莆田海滨盐场百姓',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q19_QUEST_ID,
             opponent: { kind: 'custom', npc: buildOnimaruBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildPirateMate() }],
             rule: 'story_trial',
             forbidEscapeReason: '东瀛海寇头目近在眼前，今日必斩此獠以安闽海！',
-            introText: '【1v2 盐场斩寇】决战东瀛海寇头目【鬼丸浪人】与副首【佐助】！',
+            introText: '【车轮连战 · 盐场斩寇】决战东瀛海寇头目【鬼丸浪人】与副首【佐助】！',
             onWin: [openScene('scene_slq19_18', SHAOLIN_Q19_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 85, mpPct: 85 },

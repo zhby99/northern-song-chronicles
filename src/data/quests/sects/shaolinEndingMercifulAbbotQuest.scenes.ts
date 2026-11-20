@@ -272,7 +272,7 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
   scene_slq38_14: {
     id: 'scene_slq38_14',
     title: '第十四幕 · 双魔合击',
-    subtitle: '钟鼓禅院 · 演武坪（宗师 1v2 实战）',
+    subtitle: '钟鼓禅院 · 演武坪（宗师 车轮连战 实战）',
     mandatory: true,
     beats: [
       S(SPEAKER_BLOOD_BLADE, '（瞳孔骤缩，随即凶性大发）“好深厚的少林内功！老鬼，这小子是少林真传长老，莫要单打独斗，咱们双魔并肩上，先剁了他再说！”'),
@@ -282,18 +282,19 @@ export const SHAOLIN_Q38_SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq38_fight_evils',
-        label: '以金刚怒目迎战【血刀厉千煞】与【阴风阎三毒】！（宗师级 1v2 决战）',
+        label: '以金刚怒目迎战【血刀厉千煞】与【阴风阎三毒】！（宗师级 车轮连战 决战）',
         subLabel: '护持叶二娘母子，荡平趁乱辱寺之邪徒',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q38_QUEST_ID,
             opponent: { kind: 'custom', npc: buildBloodBladeBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildYinClawBoss() }],
             rule: 'story_trial',
             forbidEscapeReason: '背后便是叶二娘母子与少林千年威严，绝不可退！',
-            introText: '【1v2 钟院护孤】于钟鼓禅院演武坪迎战邪道双魔【厉千煞】与【阎三毒】！',
+            introText: '【车轮连战 · 钟院护孤】于钟鼓禅院演武坪迎战邪道双魔【厉千煞】与【阎三毒】！',
             onWin: [openScene('scene_slq38_15', SHAOLIN_Q38_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 85, mpPct: 85 },

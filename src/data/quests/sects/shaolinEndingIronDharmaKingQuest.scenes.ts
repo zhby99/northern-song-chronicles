@@ -377,7 +377,7 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
   scene_slq39_19: {
     id: 'scene_slq39_19',
     title: '第十九幕 · 独战三魔',
-    subtitle: '钟鼓禅院 · 演武坪（宗师 1v3 硬仗）',
+    subtitle: '钟鼓禅院 · 演武坪（宗师 车轮连战 硬仗）',
     mandatory: true,
     beats: [
       N('赤练刀风如火海倾泻，玄冥鞭影似毒蛇缠绕，血手铁剑直取咽喉死穴！三大邪派掌门联手合击，威势震得演武坪四周古柏枝叶尽折！'),
@@ -385,12 +385,13 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq39_fight_three',
-        label: '运起金刚金身，1v3 独战【殷无咎】【杜阴山】【莫断魂】！（宗师级硬仗）',
+        label: '运起金刚金身，车轮连战 独战【殷无咎】【杜阴山】【莫断魂】！（宗师级硬仗）',
         subLabel: '当场震断三名邪派掌门兵刃，扬少林铁腕神威',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q39_QUEST_ID,
             opponent: { kind: 'custom', npc: buildRedBladeMaster() },
             extraOpponents: [
@@ -399,7 +400,7 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
             ],
             rule: 'story_trial',
             forbidEscapeReason: '少林新立铁律之日，岂容邪派掌门嚣张而退！',
-            introText: '【1v3 金刚断刃】独战河东赤练刀主、太行玄冥鞭王与淮南血手铁剑！',
+            introText: '【车轮连战 · 金刚断刃】独战河东赤练刀主、太行玄冥鞭王与淮南血手铁剑！',
             onWin: [openScene('scene_slq39_20', SHAOLIN_Q39_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 85, mpPct: 85 },

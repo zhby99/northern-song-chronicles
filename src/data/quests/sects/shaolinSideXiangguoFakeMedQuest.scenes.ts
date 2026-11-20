@@ -204,7 +204,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_sls06_08: {
     id: 'scene_sls06_08',
     title: '第八幕 · 力挫双煞',
-    subtitle: '城外废窑 · 1v2 激战江淮毒贩双煞',
+    subtitle: '城外废窑 · 车轮连战 激战江淮毒贩双煞',
     mandatory: true,
     beats: [
       S(SPEAKER_HU_SAN, '“狂妄秃驴！今日便让你见识见识江淮双煞的毒掌与快刀！”'),
@@ -213,11 +213,12 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'sls06_fight_duo',
-        label: '屏息凝气，以一敌二迎战江淮毒贩双煞【砒霜手胡三】与【断肠客钱五】',
+        label: '屏息凝气，车轮连战迎战江淮毒贩双煞【砒霜手胡三】与【断肠客钱五】',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_SIDE06_QUEST_ID,
             opponent: { kind: 'custom', npc: buildHuSan() },
             extraOpponents: [{ kind: 'custom', npc: buildQianWu() }],

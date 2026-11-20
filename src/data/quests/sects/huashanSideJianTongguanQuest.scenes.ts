@@ -195,6 +195,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_SIDE06_QUEST_ID,
             opponent: { kind: 'custom', npc: buildTangutScoutNpc(1) },
             extraOpponents: [{ kind: 'custom', npc: buildTangutScoutNpc(2) }],

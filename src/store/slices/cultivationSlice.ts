@@ -35,6 +35,7 @@ import {
   DAYS_PER_MONTH,
   deriveHeroEffectiveStats,
   HERO_BASE_CAPS,
+  isFreeSectTenArtStudy,
   isInnBuildingRecord,
   isTavernBuildingRecord,
   MONTHLY_ODD_JOB_SILVER,
@@ -509,10 +510,13 @@ export const createCultivationSlice: StoreSlice<CultivationKeys> = (set, get) =>
     })
   },
 
-  startTenArtPractice: (artKey, days, venueLabel, envMultiplier, dailySilverCost) => {
+  startTenArtPractice: (artKey, days, venueLabel, envMultiplier, rawDailySilverCost) => {
     const s = get()
     if (s.gameOver || s.activeCombat || s.activeStoryScene) return
     if (s.cultivationSession || s.traveling) return
+    const dailySilverCost = isFreeSectTenArtStudy(s.currentNodeId, s.campPos, s.sectState.sectId)
+      ? 0
+      : rawDailySilverCost
     if (dailySilverCost > 0 && s.silver < dailySilverCost) {
       set({
         actionFeedback: {

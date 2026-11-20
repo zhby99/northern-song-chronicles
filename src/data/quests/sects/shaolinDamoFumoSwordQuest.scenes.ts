@@ -273,7 +273,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq09_10: {
     id: 'scene_slq09_10',
     title: '第十幕 · 双邪合围',
-    subtitle: '剑痕崖实战（1v2 破诡刺）',
+    subtitle: '剑痕崖实战（车轮连战 破诡刺）',
     mandatory: true,
     beats: [
       N('断魂剑曹枭与冷蛇剑魏七双剑交织成一张阴森剑网，寒光映着绝壁青石步步紧逼。你凝神守中，以戒剑沉雄剑脊架开诡刺！'),
@@ -281,18 +281,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq09_fight_duo',
-        label: '挥戒剑迎战曹枭与魏七！（1v2 实战）',
+        label: '挥戒剑迎战曹枭与魏七！（车轮连战 实战）',
         subLabel: '连破关西二邪剑的诡刺合击',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q09_QUEST_ID,
             opponent: { kind: 'custom', npc: buildCaoXiao() },
             extraOpponents: [{ kind: 'custom', npc: buildWeiQi() }],
             rule: 'story_trial',
             forbidEscapeReason: '身后便是达摩院历代先贤剑刻，岂容邪徒亵渎！',
-            introText: '【1v2 剑痕崖护刻】迎战关西邪剑【断魂剑 · 曹枭】与【冷蛇剑 · 魏七】！',
+            introText: '【车轮连战 · 剑痕崖护刻】迎战关西邪剑【断魂剑 · 曹枭】与【冷蛇剑 · 魏七】！',
             onWin: [
               { type: 'setFlag', flag: 'sl_q09_minions_cleared', value: true },
               { type: 'healPlayer', hpPct: 65, mpPct: 65 },

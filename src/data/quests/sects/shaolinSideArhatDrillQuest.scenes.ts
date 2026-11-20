@@ -221,6 +221,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_SIDE11_QUEST_ID,
             opponent: { kind: 'custom', npc: buildIronHammerTyrant() },
             extraOpponents: [

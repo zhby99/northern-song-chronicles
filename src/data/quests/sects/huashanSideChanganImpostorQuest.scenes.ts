@@ -214,7 +214,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_hss04_06: {
     id: 'scene_hss04_06',
     title: '第六幕 · 恶奴扑杀',
-    subtitle: '西市废园庭院（1v2 实战）',
+    subtitle: '西市废园庭院（车轮连战 实战）',
     mandatory: true,
     beats: [
       S(SPEAKER_LIU_CANYANG, '（神色微变，旋即狞笑后退半步）“哟，竟真引来一个华山正主！胡三、钱九，替老子剁了这多管闲事的小辈，赏银加倍！”'),
@@ -223,12 +223,13 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hss04_fight_thugs',
-        label: '拔剑迎敌，先斩断柳残阳左右爪牙！（1v2 生死战）',
+        label: '拔剑迎敌，先斩断柳残阳左右爪牙！（车轮连战 生死战）',
         subLabel: '对手：冷面胡三与铁钩钱九（二流下品）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_SIDE04_QUEST_ID,
             opponent: { kind: 'custom', npc: buildImpostorThug1() },
             extraOpponents: [{ kind: 'custom', npc: buildImpostorThug2() }],
@@ -237,7 +238,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             forbidEscapeReason: '恶徒已堵死院门，唯有一战到底方能擒凶！',
             deathTitle: '血染西市废园',
             deathDetail: '你在长安大西市西坊废园被黑道打手围攻力竭，饮恨秋雨之中。',
-            introText: '【1v2 废园扫恶】迎战二流下品黑道打手【冷面胡三】与【铁钩钱九】！',
+            introText: '【车轮连战 · 废园扫恶】迎战二流下品黑道打手【冷面胡三】与【铁钩钱九】！',
             onWin: [openScene('scene_hss04_07', HUASHAN_SIDE04_QUEST_ID)],
           },
         ],

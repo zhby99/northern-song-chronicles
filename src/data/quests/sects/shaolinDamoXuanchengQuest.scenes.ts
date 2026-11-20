@@ -246,7 +246,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq12_10: {
     id: 'scene_slq12_10',
     title: '第十幕 · 双探截杀',
-    subtitle: '幽谷石室实战（1v2 慕容暗探）',
+    subtitle: '幽谷石室实战（车轮连战 慕容暗探）',
     mandatory: true,
     beats: [
       N('幽谷石室空间狭小，柳青与燕回仗着身法诡谲、剑招凌厉，左右夹攻直逼寒玉榻！你须在寸步之地护住榻上玄澄，先行击溃这两名夜行死士！'),
@@ -254,18 +254,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq12_fight_scouts',
-        label: '寸步不退护卫寒玉榻，迎战姑苏双探！（1v2 实战）',
+        label: '寸步不退护卫寒玉榻，迎战姑苏双探！（车轮连战 实战）',
         subLabel: '两名二流中品姑苏慕容暗探联手突袭',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q12_QUEST_ID,
             opponent: { kind: 'custom', npc: buildMurongScoutA() },
             extraOpponents: [{ kind: 'custom', npc: buildMurongScoutB() }],
             rule: 'story_trial',
             forbidEscapeReason: '玄澄师伯瘫痪榻上，绝不可退后半步！',
-            introText: '【1v2 狭洞护师】迎战潜入石室的姑苏慕容暗探【柳青】与【燕回】！',
+            introText: '【车轮连战 · 狭洞护师】迎战潜入石室的姑苏慕容暗探【柳青】与【燕回】！',
             onWin: [
               { type: 'setFlag', flag: 'sl_q12_scouts_cleared', value: true },
               { type: 'healPlayer', hpPct: 65, mpPct: 65 },

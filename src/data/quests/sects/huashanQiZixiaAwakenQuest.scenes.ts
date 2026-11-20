@@ -222,6 +222,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_Q17_QUEST_ID,
             opponent: { kind: 'custom', npc: buildDeathswornCommanderNpc() },
             extraOpponents: [{ kind: 'custom', npc: buildDeathswornGuardNpc() }],

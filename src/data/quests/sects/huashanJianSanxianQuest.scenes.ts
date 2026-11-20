@@ -364,12 +364,13 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hsq11_13_fight',
-        label: '催动《夺命连环三仙剑》，以一敌三瞬斩辽夏黑市死士！',
+        label: '催动《夺命连环三仙剑》，车轮连战瞬斩辽夏黑市死士！',
         subLabel: '生死决战 · 耶律黑鹫等三名辽夏死士（一流下品合围）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_Q11_QUEST_ID,
             opponent: { kind: 'custom', npc: buildDeathSwornLeaderNpc() },
             extraOpponents: [

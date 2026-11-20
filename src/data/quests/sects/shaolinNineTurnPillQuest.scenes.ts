@@ -283,7 +283,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq32_13: {
     id: 'scene_slq32_13',
     title: '第十三幕 · 护炉死战',
-    subtitle: '大雄宝殿方丈院 · 东厢碑廊（1v3 死战）',
+    subtitle: '大雄宝殿方丈院 · 东厢碑廊（车轮连战 死战）',
     illustrationUrl: '/assets/quests/sl_32_guard_furnace.jpg',
     illustrationCaption: '独守丹房 · 风雪夜独战西夏一品堂毁炉死士三煞，寸步不让',
     mandatory: true,
@@ -293,11 +293,12 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq32_fight_three_sha',
-        label: '寸步不退，以一敌三死战西夏一品堂毁炉三煞！（1v3 死战）',
+        label: '寸步不退，车轮连战死战西夏一品堂毁炉三煞！（车轮连战 死战）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q32_QUEST_ID,
             opponent: { kind: 'custom', npc: buildShaOneLeader() },
             extraOpponents: [

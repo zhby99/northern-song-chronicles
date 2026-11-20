@@ -178,6 +178,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_SIDE02_QUEST_ID,
             opponent: { kind: 'custom', npc: buildIronBackBear() },
             extraOpponents: [{ kind: 'custom', npc: buildMerchantThug() }],

@@ -236,7 +236,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq20_07: {
     id: 'scene_slq20_07',
     title: '第七幕 · 宝塔破围',
-    subtitle: '资圣宝塔暗廊（1v2 实战）',
+    subtitle: '资圣宝塔暗廊（车轮连战 实战）',
     mandatory: true,
     beats: [
       N('严府死士首领阴面张与黑虎涧暗桩鬼手陆杀招尽出，欲在相国寺护院赶来前夺取勘合文书！你护紧怀中文书，迎面强攻！'),
@@ -244,18 +244,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq20_fight_assassins',
-        label: '护住勘合文书，迎战【阴面张】与【鬼手陆】！（1v2 实战）',
+        label: '护住勘合文书，迎战【阴面张】与【鬼手陆】！（车轮连战 实战）',
         subLabel: '击溃严世昌派来的汴京截杀死士',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q20_QUEST_ID,
             opponent: { kind: 'custom', npc: buildAssassinLead() },
             extraOpponents: [{ kind: 'custom', npc: buildAssassinMate() }],
             rule: 'story_trial',
             forbidEscapeReason: '护寺勘合文书关乎少林千年清誉，寸步不可退！',
-            introText: '【1v2 宝塔破围】迎战严府死士首领【阴面张】与黑虎涧暗桩【鬼手陆】！',
+            introText: '【车轮连战 · 宝塔破围】迎战严府死士首领【阴面张】与黑虎涧暗桩【鬼手陆】！',
             onWin: [openScene('scene_slq20_08', SHAOLIN_Q20_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 85, mpPct: 85 },
@@ -376,7 +377,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq20_15: {
     id: 'scene_slq20_15',
     title: '第十五幕 · 雨夜斩煞',
-    subtitle: '嵩山药庄牌坊（1v2 终极决战）',
+    subtitle: '嵩山药庄牌坊（车轮连战 终极决战）',
     mandatory: true,
     beats: [
       N('黑风煞一流下品毒砂内劲轰然爆发，刀势如黑风卷地；血狼煞二流上品断魂刀法从雨幕死角暴袭而至！雷雨交加之中，你单刀直进，与嵩山绿林双煞展开终极死战！'),
@@ -384,7 +385,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq20_fight_twins',
-        label: '暴雨中单刀迎战【黑风煞】与【血狼煞】！（一流下品 1v2 决战）',
+        label: '暴雨中单刀迎战【黑风煞】与【血狼煞】！（一流下品 车轮连战 决战）',
         subLabel: '荡平黑虎涧双煞，护全嵩山少林药庄',
         tone: 'danger',
         effects: [
@@ -395,12 +396,13 @@ export const SCENES: Record<string, StorySceneDef> = {
           },
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q20_QUEST_ID,
             opponent: { kind: 'custom', npc: buildBlackWindBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildBloodWolfBoss() }],
             rule: 'story_trial',
             forbidEscapeReason: '药庄医僧与少林清誉尽在身后，此战唯有斩煞方休！',
-            introText: '【1v2 雨夜斩煞】暴雨中单刀迎战嵩山绿林双煞【黑风煞】与【血狼煞】！',
+            introText: '【车轮连战 · 雨夜斩煞】暴雨中单刀迎战嵩山绿林双煞【黑风煞】与【血狼煞】！',
             onWin: [openScene('scene_slq20_16', SHAOLIN_Q20_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 85, mpPct: 85 },

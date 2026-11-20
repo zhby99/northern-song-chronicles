@@ -2,6 +2,7 @@ import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
 import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q01_QUEST_ID } from './shaolinLuohanInitQuest'
+import { SHAOLIN_STARTER_KIT_EFFECTS } from './sectStarterKits'
 
 /** 罗汉开蒙所授：《少林小乘禅功》（MA-159）与《罗汉拳》（MA-163） */
 const LUOHAN_INIT_ARTS = ['MA-159', 'MA-163'] as const
@@ -194,7 +195,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq01_07: {
     id: 'scene_slq01_07',
     title: '第七幕 · 双恶扑击',
-    subtitle: '钟鼓禅院演武坪（1v2 实战）',
+    subtitle: '钟鼓禅院演武坪（车轮连战）',
     mandatory: true,
     beats: [
       N('寒风卷过演武坪青石，众外门新徒闻讯围在廊下惊呼不已。铁头净彪与黑面净莽一左一右晃着粗壮臂膀逼近，招式狠辣肮脏，全无半分佛门气象！'),
@@ -203,7 +204,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq01_fight_rogues',
-        label: '稳守马步，以罗汉拳迎战两名挂单恶僧！（1v2 实战）',
+        label: '稳守马步，以罗汉拳迎战两名挂单恶僧！（车轮连战）',
         subLabel: '迎战铁头净彪与黑面净莽',
         tone: 'danger',
         effects: [
@@ -216,12 +217,13 @@ export const SCENES: Record<string, StorySceneDef> = {
           })),
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q01_QUEST_ID,
             opponent: { kind: 'custom', npc: buildRogueMonkA() },
             extraOpponents: [{ kind: 'custom', npc: buildRogueMonkB() }],
             rule: 'story_trial',
             forbidEscapeReason: '阿木尚在身后，岂能向挂单恶僧低头退缩！',
-            introText: '【1v2 演武初锋】迎战周海雇来的游方挂单恶僧【铁头净彪】与【黑面净莽】！',
+            introText: '【车轮连战 · 演武初锋】迎战周海雇来的游方挂单恶僧【铁头净彪】与【黑面净莽】！',
             onWin: [openScene('scene_slq01_08', SHAOLIN_Q01_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 80, mpPct: 80 },
@@ -269,6 +271,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             opponent: {
               kind: 'npc',
               npcId: 'NPC-0673',
+              realmCap: '三流下品',
               talkOverride:
                 '“哼！我家老太爷捐了半座偏殿的香油钱，岂是你这种寒酸杂役可比的？接我铁砂掌！”',
             },
@@ -323,6 +326,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('玄痛长老亲手自袖中取出两卷装帧古朴的线装法本，交予你掌中。微风吹过古刹檐角铜铃，清越之声涤荡心胸。'),
       S('NPC-0156', '“武学之道，如登嵩岳，不可一日懈怠。勤修《少林小乘禅功》以固本培元，熟习《罗汉拳》以强筋健骨。日后少林门下若有外务历练，老衲定会举荐于你。”'),
       P('（双手接过法本，肃然合十行礼）“弟子谨记玄痛师伯与虚松、虚音师兄教诲！定当严守戒律，潜心参悟禅武之道！”'),
+      S('NPC-0483', '（自廊下抱来一只包袱）“师伯另有吩咐：外门行脚护寺，不能再穿杂役短打。这是常住拨下的护法杖、僧袍、马靴与念珠，你且收好。我再把少室山上下纵跃的《穿云纵》身法传你——打不过时，至少走得脱！”'),
     ],
     choices: [
       {
@@ -341,6 +345,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'modifySkill', key: '经义', delta: 2 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0156' }, delta: 8 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0483' }, delta: 8 },
+          ...SHAOLIN_STARTER_KIT_EFFECTS,
           { type: 'completeQuest', questId: SHAOLIN_Q01_QUEST_ID, outcome: 'completed' },
           toast(
             '已完成《晨钟木鱼 · 罗汉开蒙》！习得《少林小乘禅功》与《罗汉拳》，获玄痛长老与虚松师兄嘉许！',

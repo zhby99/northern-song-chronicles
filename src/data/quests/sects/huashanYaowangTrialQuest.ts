@@ -1,5 +1,10 @@
 import type { QuestCondition, QuestDefinition } from '../../../types/quest'
 import { atStep, openScene, qStatus } from '../../../engine/quest/dsl'
+import {
+  buildStarterKitBackfillAction,
+  HUASHAN_STARTER_KIT_EFFECTS,
+  HUASHAN_STARTER_KIT_FLAG,
+} from './sectStarterKits'
 
 export const HUASHAN_Q01_QUEST_ID = 'QST-SECT-05-01'
 
@@ -164,6 +169,15 @@ export const HUASHAN_Q01_QUESTS: QuestDefinition[] = [
     ],
 
     npcActions: [
+      buildStarterKitBackfillAction({
+        id: 'act_hsq01_starter_kit_backfill',
+        sectId: 'SECT-05',
+        questId: HUASHAN_Q01_QUEST_ID,
+        flag: HUASHAN_STARTER_KIT_FLAG,
+        npcIds: ['NPC-0166'],
+        label: '向宁师姐请教轻身功夫 · 学《穿云纵》',
+        effects: HUASHAN_STARTER_KIT_EFFECTS,
+      }),
       {
         id: 'act_hsq01_start_npc',
         label: '请教入门十二式晨课 · 领受药王庙除恶历练',

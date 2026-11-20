@@ -185,6 +185,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'healPlayer', hpPct: 100, mpPct: 100 },
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: ZHONGNAN_Q01_QUEST_ID,
             opponent: { kind: 'custom', npc: buildLongyouRaiderBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildLongyouRaiderAxe() }],

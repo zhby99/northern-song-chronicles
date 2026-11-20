@@ -37,6 +37,7 @@ import { inferTemplatePortrait, resolveAvatarForFullbody } from '../utils/portra
 import { getSectRankTitle, isSongOfficialForRobbery } from './sect'
 import {
   buildNodeNpcFromCompiledId,
+  scaleNodeNpcDownToRealm,
   buildNodeNpcFromDynamicActor,
   makeQuestNpc,
 } from './npcFactory'
@@ -909,8 +910,10 @@ export function resolveQuestCombatOpponent(
   switch (spec.kind) {
     case 'interactedNpc':
       return contextNpc
-    case 'npc':
-      return buildNodeNpcFromCompiledId(spec.npcId, spec.talkOverride)
+    case 'npc': {
+      const built = buildNodeNpcFromCompiledId(spec.npcId, spec.talkOverride)
+      return built && spec.realmCap ? scaleNodeNpcDownToRealm(built, spec.realmCap) : built
+    }
     case 'dynamicActor': {
       const found = dynamicActors.find((a) => a.actorId === spec.actorId)
       return found ? buildNodeNpcFromDynamicActor(found) : null

@@ -280,7 +280,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq18_11: {
     id: 'scene_slq18_11',
     title: '第十一幕 · 桥头扫匪',
-    subtitle: '伊阙龙门石桥（1v2 实战）',
+    subtitle: '伊阙龙门石桥（车轮连战 实战）',
     mandatory: true,
     beats: [
       N('翻浪彪与水鬼二当家铁篙陈见你单骑突阵，齐声怪叫，一左一右挥刀抡篙猛扑而来！你催动内力，正面迎击！'),
@@ -288,18 +288,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq18_fight_bandits',
-        label: '策马挺刃，迎战【翻浪彪】与【铁篙陈】！（1v2 实战）',
+        label: '策马挺刃，迎战【翻浪彪】与【铁篙陈】！（车轮连战 实战）',
         subLabel: '击溃黄河水匪前锋，夺回龙门石桥通道',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q18_QUEST_ID,
             opponent: { kind: 'custom', npc: buildWaterBanditLead() },
             extraOpponents: [{ kind: 'custom', npc: buildWaterBanditMate() }],
             rule: 'story_trial',
             forbidEscapeReason: '千斤紫金佛像正在身后石桥之上，半步不可退让！',
-            introText: '【1v2 桥头扫匪】迎战黄河水匪头目【翻浪彪】与副首【铁篙陈】！',
+            introText: '【车轮连战 · 桥头扫匪】迎战黄河水匪头目【翻浪彪】与副首【铁篙陈】！',
             onWin: [
               { type: 'setFlag', flag: 'sl_q18_pirates_cleared', value: true },
               openScene('scene_slq18_12', SHAOLIN_Q18_QUEST_ID),
@@ -347,7 +348,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq18_14: {
     id: 'scene_slq18_14',
     title: '第十四幕 · 韦陀镇桥',
-    subtitle: '伊阙龙门石桥（1v2 首领决战）',
+    subtitle: '伊阙龙门石桥（车轮连战 首领决战）',
     mandatory: true,
     beats: [
       N('拓跋烈催动西夏秘藏玄功，蛇矛如毒龙出海直刺咽喉，副将野利虎挥西夏弯刀斜劈马腹！你手执少林韦陀伏魔杵，步踏金刚，奋起神威死守龙门石桥！'),
@@ -355,18 +356,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq18_fight_tuoba',
-        label: '执伏魔杵迎战西夏百夫长【拓跋烈】与【野利虎】！（二流上品 1v2）',
+        label: '执伏魔杵迎战西夏百夫长【拓跋烈】与【野利虎】！（二流上品 车轮连战）',
         subLabel: '以《韦陀杵》刚猛重器大破党项铁骑',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q18_QUEST_ID,
             opponent: { kind: 'custom', npc: buildTuobaLieBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildXixiaScout() }],
             rule: 'story_trial',
             forbidEscapeReason: '紫金佛像与同门性命皆系于此桥，誓死不退！',
-            introText: '【1v2 龙门血战】手执韦陀伏魔杵迎战西夏游骑百夫长【拓跋烈】与副将【野利虎】！',
+            introText: '【车轮连战 · 龙门血战】手执韦陀伏魔杵迎战西夏游骑百夫长【拓跋烈】与副将【野利虎】！',
             onWin: [openScene('scene_slq18_15', SHAOLIN_Q18_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 85, mpPct: 85 },

@@ -38,7 +38,7 @@ export const SHAOLIN_Q03_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q03_START_CONDITION,
     summary:
-      '{reignYear}深秋暮色，昔日收你二百五十两纹银牵线入少林的洛阳牙人【贾通宝】浑身血污逃上少室山麓。你在古柏寒林以一敌二击退黑市刀客「断魂刀」赵魁及其副手，救下贾通宝并取得《知客院香火私册》。孤灯之下你凭算术逐笔核账，惊觉知客禅师【玄净】暗中倒卖朝廷免税空名度牒、牟利数千两，而账册末页竟赫然记着你当年行贿入寺之名！面对玄净的威逼利诱，你携私册步向【十八铜人罗汉堂 · 罗汉堂演武正殿】，在替其焚账换银与密呈【玄苦】清查之间迎来道心拷问。',
+      '{reignYear}深秋暮色，昔日收你二百五十两纹银牵线入少林的洛阳牙人【贾通宝】浑身血污逃上少室山麓。你在古柏寒林车轮连战击退黑市刀客「断魂刀」赵魁及其副手，救下贾通宝并取得《知客院香火私册》。孤灯之下你凭算术逐笔核账，惊觉知客禅师【玄净】暗中倒卖朝廷免税空名度牒、牟利数千两，而账册末页竟赫然记着你当年行贿入寺之名！面对玄净的威逼利诱，你携私册步向【十八铜人罗汉堂 · 罗汉堂演武正殿】，在替其焚账换银与密呈【玄苦】清查之间迎来道心拷问。',
     initialStepId: 'pine_forest_rescue',
     steps: {
       pine_forest_rescue: {
@@ -112,7 +112,7 @@ export const SHAOLIN_Q03_QUESTS: QuestDefinition[] = [
         id: 'spot_slq03_pine_ambush',
         label: '【少林师门】赴古柏寒林 · 迎战黑市断魂刀赵魁',
         badge: '古柏寒林',
-        subtitle: '第三幕 · 1v2 实战护下贾通宝',
+        subtitle: '第三幕 · 车轮连战 实战护下贾通宝',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',

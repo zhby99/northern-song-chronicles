@@ -19,6 +19,7 @@ import { useGameStore } from '../../../store/useGameStore'
 import type { NodeNpc } from '../../../types/game'
 import { getBuildingArtTrainingOptions } from '../../../engine/stats/artsProgression'
 import {
+  isFreeSectTenArtStudy,
   isInnBuildingRecord,
   isPlayerInFreeLodgingRegion,
   isTavernBuildingRecord,
@@ -365,10 +366,14 @@ export function useInspectorContext() {
           selectedBuildingId === 'nsl_main')),
   )
 
-  const artOptions = useMemo(
-    () => (inspectedRootBldg ? getBuildingArtTrainingOptions(inspectedRootBldg) : []),
-    [inspectedRootBldg],
-  )
+  const freeSectStudy =
+    Boolean(inspectedRootBldg) &&
+    inspectedRootBldg?.regionId === currentNodeId &&
+    isFreeSectTenArtStudy(currentNodeId, campPos, sectState.sectId)
+  const artOptions = useMemo(() => {
+    const opts = inspectedRootBldg ? getBuildingArtTrainingOptions(inspectedRootBldg) : []
+    return freeSectStudy ? opts.map((o) => ({ ...o, dailySilverCost: 0 })) : opts
+  }, [inspectedRootBldg, freeSectStudy])
 
   const activeShopId = leafSpotId ?? leafBuildingId
   const activeShop = activeShopId ? SPOT_SHOPS_BY_SPOT_ID[activeShopId] : undefined

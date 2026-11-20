@@ -171,6 +171,11 @@ const STIPEND_LOG_FORMAT_BY_SECT: Record<
     format: (rankLabel, total) =>
       `大宋官府按月支放【开封府 / 六扇门 · ${rankLabel}】月度官俸 +${total} 两纹银！`,
   },
+  'SECT-01': {
+    tag: '少林单银',
+    format: (rankLabel, total) =>
+      `少林常住按月拨给【嵩山少林寺 · ${rankLabel}】衣单杂用单银 +${total} 两纹银。`,
+  },
   'SECT-33': {
     tag: '禁军月俸',
     format: (rankLabel, total) =>
@@ -205,7 +210,8 @@ export function applyDayProgressionSectHooks(params: {
   if (nextSect.sectId && rule?.monthlyStipends) {
     const curMonthIdx = Math.floor((params.nextDayCount - 1) / 30)
     if (curMonthIdx > nextSect.lastStipendMonth) {
-      const months = curMonthIdx - nextSect.lastStipendMonth
+      // 积欠月俸至多补发三月（新设月俸的门派老存档不至一次补发多年）
+      const months = Math.min(3, curMonthIdx - nextSect.lastStipendMonth)
       const basePerMonth = getSectMonthlyStipend(nextSect.sectId, nextSect.rank)
       const perMonth = computeCelunBonusAmount(basePerMonth, celunSkill)
       const totalStipend = perMonth * months

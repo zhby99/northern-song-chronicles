@@ -274,7 +274,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq15_14: {
     id: 'scene_slq15_14',
     title: '第十四幕 · 药棚死守',
-    subtitle: '郑州官道药棚前（1v2 实战）',
+    subtitle: '郑州官道药棚前（车轮连战 实战）',
     mandatory: true,
     beats: [
       N('你沉气凝神，左手蓄《一拍两散掌》刚猛雷霆，右手拈《拈花指》柔绵截脉，迎着漫天刀影毅然踏步向前！'),
@@ -282,18 +282,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq15_fight_wolf',
-        label: '指掌齐施，迎战太行溃匪首【独眼狼】与心腹【黑风疤】！（1v2 实战）',
+        label: '指掌齐施，迎战太行溃匪首【独眼狼】与心腹【黑风疤】！（车轮连战 实战）',
         subLabel: '主敌二流上品独眼狼 + 副手二流下品黑风疤',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q15_QUEST_ID,
             opponent: { kind: 'custom', npc: buildOneEyeWolfBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildBanditDeputy() }],
             rule: 'story_trial',
             forbidEscapeReason: '身后便是药王院药箱与百余染疫流民，寸步不可后退！',
-            introText: '【1v2 郑州药棚护民战】迎战太行溃匪首【独眼狼】与悍匪【黑风疤】！',
+            introText: '【车轮连战 · 郑州药棚护民战】迎战太行溃匪首【独眼狼】与悍匪【黑风疤】！',
             onWin: [openScene('scene_slq15_15', SHAOLIN_Q15_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 80, mpPct: 80 },

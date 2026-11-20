@@ -204,7 +204,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_hss01_06: {
     id: 'scene_hss01_06',
     title: '第六幕 · 石脊阻匪',
-    subtitle: '苍龙岭湿滑石脊（1v2 实战）',
+    subtitle: '苍龙岭湿滑石脊（车轮连战）',
     mandatory: true,
     beats: [
       N('石脊窄仅三尺，脚下青苔湿滑，两名残匪一前一后挥刀逼近，企图将你逼落悬崖！你沉气立桩，青钢长剑斜指浓雾，迎敌而上！'),
@@ -212,12 +212,13 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hss01_fight_scouts',
-        label: '稳住下盘，以入门十二式迎战两名断索残匪！（1v2 生死战）',
+        label: '稳住下盘，以入门十二式迎战两名断索残匪！（车轮连战 生死战）',
         subLabel: '对手：黑脸毛五与尖嘴钱七（不入流）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_SIDE01_QUEST_ID,
             opponent: { kind: 'custom', npc: buildRemnantBandit1() },
             extraOpponents: [{ kind: 'custom', npc: buildRemnantBandit2() }],
@@ -226,7 +227,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             forbidEscapeReason: '身后便是陈伯与华阴石匠，狭路相逢绝不可退！',
             deathTitle: '陨落苍龙岭',
             deathDetail: '你在苍龙岭浓雾湿滑石脊上力战关中残匪不敌，失足坠入绝渊。',
-            introText: '【1v2 狭脊阻匪】在苍龙岭湿滑石脊上迎战断索残匪【黑脸毛五】与【尖嘴钱七】！',
+            introText: '【车轮连战 · 狭脊阻匪】在苍龙岭湿滑石脊上迎战断索残匪【黑脸毛五】与【尖嘴钱七】！',
             onWin: [openScene('scene_hss01_07', HUASHAN_SIDE01_QUEST_ID)],
           },
         ],

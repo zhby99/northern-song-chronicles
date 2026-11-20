@@ -290,6 +290,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q07_QUEST_ID,
             opponent: { kind: 'custom', npc: buildYelvQingyingBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildXiaoWuhenSpy() }],

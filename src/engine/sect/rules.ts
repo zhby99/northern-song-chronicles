@@ -36,6 +36,8 @@ export interface SectRuleConfig {
   autoCompleteEntryQuestOnJoin?: boolean
   bespokeEntryGuide?: BespokeSectEntryGuide
   hasExclusiveMartialArts?: boolean
+  /** 门人在本派驻地（hqRegionId）修习十艺免束脩 */
+  freeTenArtStudyAtHome?: boolean
   semiAnnualDutyKind?: 'liao_spy' | 'kaifeng_warrant'
   leaveTriggersLiaoSuspicion?: boolean
   buildLeaveMessage?: (factionName: string, rankLabel?: string) => string
@@ -73,6 +75,8 @@ const BASE_SECT_RULES: Record<string, Omit<SectRuleConfig, 'sectId' | 'starterGe
     resetsMonasticIdentityOnLeave: true,
     entryQuestId: 'QST-SECT-01-ENTRY',
     autoCompleteEntryQuestOnJoin: true,
+    stipendTitle: '少林常住单银',
+    freeTenArtStudyAtHome: true,
   },
   'SECT-02': {
     promotionRuleKind: 'gaibang_favor',

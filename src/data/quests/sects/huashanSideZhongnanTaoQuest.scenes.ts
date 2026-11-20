@@ -257,6 +257,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_SIDE09_QUEST_ID,
             opponent: { kind: 'custom', npc: buildXingxiuVanguardNpc(1) },
             extraOpponents: [{ kind: 'custom', npc: buildXingxiuVanguardNpc(2) }],
@@ -315,6 +316,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_SIDE09_QUEST_ID,
             opponent: { kind: 'npc', npcId: 'NPC-0231' },
             extraOpponents: [{ kind: 'custom', npc: buildDujiuziNpc() }],

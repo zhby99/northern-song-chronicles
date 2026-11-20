@@ -202,7 +202,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq24_16: {
     id: 'scene_slq24_16',
     title: '第十六幕 · 独斗双将',
-    subtitle: '绝壁石刻 · 1v2 决战包风',
+    subtitle: '绝壁石刻 · 车轮连战 决战包风',
     mandatory: true,
     beats: [
       N('剑痕崖上罡风呼啸！姑苏慕容家将包不同与风波恶联手猛扑而上，立刻以新悟之《达摩剑法》迎战二人，挑落其佩刀！'),
@@ -210,11 +210,12 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq24_fight_bao_feng',
-        label: '剑化禅机，1v2 力战慕容家将【包不同】与【风波恶】',
+        label: '剑化禅机，车轮连战 力战慕容家将【包不同】与【风波恶】',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q24_QUEST_ID,
             opponent: {
               kind: 'npc',
@@ -232,7 +233,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             ],
             rule: 'story_trial',
             duelStakesTag: 'spar',
-            introText: '剑痕崖绝巅 1v2 激战！包不同招式刁钻、风波恶快刀如狂风，务必以《达摩剑法》圆融禅意逐个击破！',
+            introText: '剑痕崖绝巅 车轮连战 激战！包不同招式刁钻、风波恶快刀如狂风，务必以《达摩剑法》圆融禅意逐个击破！',
             onWin: [openScene('scene_slq24_17', SHAOLIN_Q24_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 100, mpPct: 100 },

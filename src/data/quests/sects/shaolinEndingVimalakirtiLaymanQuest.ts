@@ -186,7 +186,7 @@ export const shaolinEndingVimalakirtiLaymanQuest: QuestDefinition = {
       id: 'spot_slq40_repel',
       label: '【维摩护法】白衣出阵 · 力退大辽暗院使与西夏黑莲客',
       badge: '钟院逐虏',
-      subtitle: '第十二幕 · 宗师级 1v2 决战，斩断辽夏窥伺山门之谋',
+      subtitle: '第十二幕 · 宗师级 车轮连战 决战，斩断辽夏窥伺山门之谋',
       tone: 'danger',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

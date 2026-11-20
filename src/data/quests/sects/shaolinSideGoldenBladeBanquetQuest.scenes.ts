@@ -233,7 +233,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_sls08_10: {
     id: 'scene_sls08_10',
     title: '第十幕 · 力战三刺客',
-    subtitle: '金刀演武中庭 · 1v3 激战关西暗器杀手',
+    subtitle: '金刀演武中庭 · 车轮连战 激战关西暗器杀手',
     mandatory: true,
     beats: [
       S(SPEAKER_ASSASSIN_BOSS, '“动手！暗器封眼，短刀断脉，绝不能让他近身！”'),
@@ -247,6 +247,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_SIDE08_QUEST_ID,
             opponent: { kind: 'custom', npc: buildPoisonNeedleShadow() },
             extraOpponents: [

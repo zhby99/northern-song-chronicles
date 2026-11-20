@@ -184,7 +184,7 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       id: 'spot_slq38_defend',
       label: '【杖责还业】截杀血刀邪客与阴风邪老 · 护持叶二娘母子',
       badge: '钟院护孤',
-      subtitle: '第十二幕 · 宗师级 1v2 硬仗，力挫趁乱辱寺群邪',
+      subtitle: '第十二幕 · 宗师级 车轮连战 硬仗，力挫趁乱辱寺群邪',
       tone: 'danger',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

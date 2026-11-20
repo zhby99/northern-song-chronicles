@@ -163,7 +163,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_hss02_04: {
     id: 'scene_hss02_04',
     title: '第四幕 · 溪涧护医',
-    subtitle: '秦岭古洞外溪涧（1v2 实战）',
+    subtitle: '秦岭古洞外溪涧（车轮连战 实战）',
     illustrationUrl: '/assets/quests/hs_side02_qinling_rescue.jpg',
     illustrationCaption: '溪涧护医 · 秦岭古洞外拔剑击退恶猎户，救下游方女医沈青黛',
     mandatory: true,
@@ -175,12 +175,13 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hss02_fight_poachers',
-        label: '拔剑护住女医，迎战两名盗药恶猎户！（1v2 生死战）',
+        label: '拔剑护住女医，迎战两名盗药恶猎户！（车轮连战 生死战）',
         subLabel: '对手：麻脸熊二与刀疤柴四（三流下品）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_SIDE02_QUEST_ID,
             opponent: { kind: 'custom', npc: buildPoacher1() },
             extraOpponents: [{ kind: 'custom', npc: buildPoacher2() }],
@@ -189,7 +190,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             forbidEscapeReason: '身后女医手无缚鸡之力，岂能弃之而逃！',
             deathTitle: '血溅秦岭涧',
             deathDetail: '你在秦岭古洞外为护游方女医与恶猎户死斗不敌，饮恨溪涧。',
-            introText: '【1v2 溪涧护医】拔剑迎战受洛阳豪商雇佣的恶猎户【麻脸熊二】与【刀疤柴四】！',
+            introText: '【车轮连战 · 溪涧护医】拔剑迎战受洛阳豪商雇佣的恶猎户【麻脸熊二】与【刀疤柴四】！',
             onWin: [openScene('scene_hss02_05', HUASHAN_SIDE02_QUEST_ID)],
           },
         ],

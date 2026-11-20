@@ -19,6 +19,7 @@ import {
   getRegionLodgingInfo,
 } from '../economy'
 import { clampInt } from '../shared/math'
+import { getSectRule } from '../sect/rules'
 
 export const CIVIL_ART_KEYS = [
   '算术',
@@ -210,6 +211,16 @@ export function isPlayerInOwnSectRegion(
   const faction = FACTION_DB_MAP[sectId]
   if (!faction?.hqRegionId) return false
   return currentNodeId === faction.hqRegionId
+}
+
+/** 本派驻地免束脩修习十艺（如嵩山少林寺门人在寺内学艺一律不花钱） */
+export function isFreeSectTenArtStudy(
+  currentNodeId: string,
+  campPos: WildernessCamp | null | undefined,
+  sectId: string | null | undefined,
+): boolean {
+  if (!getSectRule(sectId)?.freeTenArtStudyAtHome) return false
+  return isPlayerInOwnSectRegion(currentNodeId, campPos, sectId)
 }
 
 export function isPlayerInFreeLodgingRegion(

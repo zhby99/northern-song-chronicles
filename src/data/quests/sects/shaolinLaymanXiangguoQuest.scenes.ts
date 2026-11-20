@@ -233,7 +233,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq17_07: {
     id: 'scene_slq17_07',
     title: '第七幕 · 雅市截恶',
-    subtitle: '相国寺西廊（1v2 实战）',
+    subtitle: '相国寺西廊（车轮连战 实战）',
     mandatory: true,
     beats: [
       N('过街鼠老六与铁棒张一左一右扑杀而来，刀风狠辣刁钻，专攻下盘与咽喉！四周商贾纷纷惊呼退避，你沉气凝神，稳扎少林马步迎上！'),
@@ -241,18 +241,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq17_fight_thugs',
-        label: '当街亮剑挺身，迎战过街鼠老六与铁棒张！（1v2 实战）',
+        label: '当街亮剑挺身，迎战过街鼠老六与铁棒张！（车轮连战 实战）',
         subLabel: '护持西廊药铺，震慑青蛇帮恶党',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q17_QUEST_ID,
             opponent: { kind: 'custom', npc: buildSnakeThugB() },
             extraOpponents: [{ kind: 'custom', npc: buildSnakeThugA() }],
             rule: 'story_trial',
             forbidEscapeReason: '满街商贾皆在身后，俗家护法岂能临阵退缩！',
-            introText: '【1v2 雅市擒恶】迎战青蛇堂香主【过街鼠老六】与悍徒【铁棒张】！',
+            introText: '【车轮连战 · 雅市擒恶】迎战青蛇堂香主【过街鼠老六】与悍徒【铁棒张】！',
             onWin: [openScene('scene_slq17_08', SHAOLIN_Q17_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 80, mpPct: 80 },
@@ -384,7 +385,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq17_15: {
     id: 'scene_slq17_15',
     title: '第十五幕 · 荡平青蛇',
-    subtitle: '瓦子暗巷（1v2 首领实战）',
+    subtitle: '瓦子暗巷（车轮连战 首领实战）',
     mandatory: true,
     beats: [
       N('毒蛇钱五刀势狠毒诡谲，独眼豹从旁以八卦游身刀与鹰爪功夹击！你稳守门户，将慧照方才传授的刀杖真意融会贯通，正面迎战！'),
@@ -392,18 +393,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq17_fight_boss',
-        label: '刀杖齐施，正面迎战【毒蛇钱五】与【独眼豹】！（二流中品 1v2）',
+        label: '刀杖齐施，正面迎战【毒蛇钱五】与【独眼豹】！（二流中品 车轮连战）',
         subLabel: '荡平青蛇帮，护持大相国寺雅市商道',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q17_QUEST_ID,
             opponent: { kind: 'custom', npc: buildQianWuBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildQianWuGuard() }],
             rule: 'story_trial',
             forbidEscapeReason: '毒蛇钱五近在咫尺，今夜若纵虎归山，西廊药铺必遭火劫！',
-            introText: '【1v2 瓦子决战】迎战青蛇帮主【毒蛇钱五】与死士护法【独眼豹】！',
+            introText: '【车轮连战 · 瓦子决战】迎战青蛇帮主【毒蛇钱五】与死士护法【独眼豹】！',
             onWin: [openScene('scene_slq17_16', SHAOLIN_Q17_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 80, mpPct: 80 },

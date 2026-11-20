@@ -491,11 +491,12 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hsq16_c20_boss_duel',
-        label: '凌空施展太岳绝剑，以一敌二力战拓跋烈与乌摩天！',
+        label: '凌空施展太岳绝剑，车轮连战力战拓跋烈与乌摩天！',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_Q16_QUEST_ID,
             opponent: { kind: 'custom', npc: buildTuobaXiongNpc() },
             extraOpponents: [{ kind: 'custom', npc: buildXingxiuPoisonElderNpc() }],

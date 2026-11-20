@@ -28,7 +28,7 @@ export const SHAOLIN_Q10_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品',
     maxOpponentRealm: '二流中品（星宿派妖女 · 毒罗刹）',
     recommendedNote:
-      '嵩山少林寺达摩院脉 Lv.2 中阶历练任务链（全十八幕）。须完成《剑痕绝壁 · 达摩初剑》、入寺满 730 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30。玄难借落英与禅棋步法传授《散花掌》，命你下山赴洛阳酒肆查探牡丹会画舫毒案，夜探洛水画舫以散花掌风卷回星宿毒粉反噬妖人，1v2 震晕毒罗刹与星宿护法救出中原名宿。',
+      '嵩山少林寺达摩院脉 Lv.2 中阶历练任务链（全十八幕）。须完成《剑痕绝壁 · 达摩初剑》、入寺满 730 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30。玄难借落英与禅棋步法传授《散花掌》，命你下山赴洛阳酒肆查探牡丹会画舫毒案，夜探洛水画舫以散花掌风卷回星宿毒粉反噬妖人，车轮连战 震晕毒罗刹与星宿护法救出中原名宿。',
     startHint:
       '完成《剑痕绝壁 · 达摩初剑》、入寺满 730 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖】（或寻玄难首座）开启任务。',
     startLocation: {
@@ -59,7 +59,7 @@ export const SHAOLIN_Q10_QUESTS: QuestDefinition[] = [
         id: 'luoshui_boat_battle',
         title: '散花破幻 · 画舫擒妖',
         objective:
-          '你已锁定星宿派妖女「毒罗刹」藏身的洛水画舫！请在【洛阳府 · 洛阳酒肆（luoyang_base_tavern）】乘小舟夜袭画舫，以《散花掌》反卷毒粉，1v2 震晕毒罗刹与星宿护法救出人质！',
+          '你已锁定星宿派妖女「毒罗刹」藏身的洛水画舫！请在【洛阳府 · 洛阳酒肆（luoyang_base_tavern）】乘小舟夜袭画舫，以《散花掌》反卷毒粉，车轮连战 震晕毒罗刹与星宿护法救出人质！',
         nextHint:
           '在【洛阳府 · 洛阳酒肆（luoyang_base_tavern）】点击「夜探洛水画舫 · 以散花掌力战星宿妖女」。',
         targetLocation: {
@@ -124,7 +124,7 @@ export const SHAOLIN_Q10_QUESTS: QuestDefinition[] = [
         id: 'spot_slq10_boat_battle',
         label: '【达摩院脉】夜探洛水画舫 · 以散花掌力战星宿妖女',
         badge: '散花破幻',
-        subtitle: '洛水画舫 1v2 实战 · 救出中原名宿',
+        subtitle: '洛水画舫 车轮连战 实战 · 救出中原名宿',
         tone: 'danger',
         regionId: 'luoyang',
         buildingId: 'luoyang_base_tavern',

@@ -2,6 +2,7 @@ import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
 import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { HUASHAN_Q01_QUEST_ID } from './huashanYaowangTrialQuest'
+import { HUASHAN_STARTER_KIT_EFFECTS } from './sectStarterKits'
 
 const SPEAKER_ACOLYTE: StorySpeakerSpec = {
   kind: 'custom',
@@ -205,7 +206,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_hsq01_06: {
     id: 'scene_hsq01_06',
     title: '第六幕 · 初试青锋',
-    subtitle: '药王古庙山门（1v2 实战）',
+    subtitle: '药王古庙山门（车轮连战 实战）',
     mandatory: true,
     beats: [
       N('两名恶匪一左一右挥刀猛扑而来，刀风腥恶，专往咽喉与肋下招呼！你凝神运气，摆开《华山剑法（入门十二式）》起手剑架！'),
@@ -213,18 +214,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hsq01_fight_thugs',
-        label: '运剑迎敌，扫清霸门恶匪！（1v2 实战）',
+        label: '运剑迎敌，扫清霸门恶匪！（车轮连战 实战）',
         subLabel: '迎战疤面刘六与恶虎刀丁四',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_Q01_QUEST_ID,
             opponent: { kind: 'custom', npc: buildYaowangThug2() },
             extraOpponents: [{ kind: 'custom', npc: buildYaowangThug1() }],
             rule: 'story_trial',
             forbidEscapeReason: '小药童尚在贼手，华山剑客岂能临阵退缩！',
-            introText: '【1v2 山门初锋】以华山入门十二式迎战药王庙霸门恶汉【恶虎刀丁四】与【疤面刘六】！',
+            introText: '【车轮连战 · 山门初锋】以华山入门十二式迎战药王庙霸门恶汉【恶虎刀丁四】与【疤面刘六】！',
             onWin: [openScene('scene_hsq01_07', HUASHAN_Q01_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 80, mpPct: 80 },
@@ -346,6 +348,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-0167', '“哼，对付一个三流中品的山野粗汉，居然还要耐着性子拆上十几个回合等他力竭？若是老夫门下剑法，一照面抢入中宫，三剑之内早挑断他手筋脚筋了！把年轻弟子教得这般四平八稳、慢吞吞如老牛拉车，真遇上绝顶快刀，十条命也不够送！”'),
       S('NPC-0166', '（神色微凛，淡淡道）“封师兄此言差矣。外门筑基不求行险侥幸，若一味贪图快奇而荒废内息根基，终究难臻化境。”'),
       N('封不弃冷哼一声拂袖而去。高沧云轻叹口气，拍了拍你的肩头，嘱你安心勤修《华山基础心法》与《华山剑法》，备战日后博台外门大比。你隐隐觉出——这西岳云海之下，剑与气的百年分歧远未消散。'),
+      S('NPC-0166', '（待封不弃走远，轻声道）“方才你步法滞重，是吃了没练轻身功夫的亏。华山千尺幢、苍龙岭处处绝险，我先把《穿云纵》的提纵口诀传你，往后上山下山、临敌闪避都用得上。”'),
     ],
     choices: [
       {
@@ -362,6 +365,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'modifyRenown', delta: 10, reason: '华山新秀药王庙剑挫铁背苍狼' },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0202' }, delta: 10 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0166' }, delta: 8 },
+          ...HUASHAN_STARTER_KIT_EFFECTS,
           { type: 'completeQuest', questId: HUASHAN_Q01_QUEST_ID },
           toast('已完成《药王除恶 · 十二初试》！华山剑法与基础心法修为精进！', 'success', '师门初试'),
         ],

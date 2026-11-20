@@ -1,5 +1,10 @@
 import type { QuestCondition, QuestDefinition } from '../../../types/quest'
 import { atStep, openScene, qStatus } from '../../../engine/quest/dsl'
+import {
+  buildStarterKitBackfillAction,
+  SHAOLIN_STARTER_KIT_EFFECTS,
+  SHAOLIN_STARTER_KIT_FLAG,
+} from './sectStarterKits'
 
 export const SHAOLIN_Q01_QUEST_ID = 'QST-SECT-01-01'
 
@@ -137,6 +142,15 @@ export const SHAOLIN_Q01_QUESTS: QuestDefinition[] = [
     ],
 
     npcActions: [
+      buildStarterKitBackfillAction({
+        id: 'act_slq01_starter_kit_backfill',
+        sectId: 'SECT-01',
+        questId: SHAOLIN_Q01_QUEST_ID,
+        flag: SHAOLIN_STARTER_KIT_FLAG,
+        npcIds: ['NPC-0483', 'NPC-0627'],
+        label: '领取外门行脚披挂 · 学《穿云纵》身法',
+        effects: SHAOLIN_STARTER_KIT_EFFECTS,
+      }),
       {
         id: 'act_slq01_start_npc',
         label: '拜见师兄 · 领受五更晨课与罗汉拳开蒙',

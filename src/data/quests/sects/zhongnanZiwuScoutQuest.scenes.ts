@@ -175,7 +175,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           {
             type: 'startCombat',
             questId: ZHONGNAN_Q02_QUEST_ID,
-            opponent: { kind: 'npc', npcId: 'NPC-0544' },
+            opponent: { kind: 'npc', npcId: 'NPC-0544', realmCap: '三流中品' },
             rule: 'story_trial',
             forbidEscapeReason: '星宿毒窖就在眼前，此时退缩必令毒虫四散！',
             introText: '褚浪森双掌泛起青黑毒雾，阴狠扑来！',

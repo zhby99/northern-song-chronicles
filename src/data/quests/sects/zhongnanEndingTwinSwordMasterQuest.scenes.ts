@@ -161,6 +161,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'healPlayer', hpPct: 100, mpPct: 100 },
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: ZHONGNAN_Q37_QUEST_ID,
             opponent: { kind: 'npc', npcId: 'NPC-0133' },
             extraOpponents: [{ kind: 'npc', npcId: 'NPC-0114' }],

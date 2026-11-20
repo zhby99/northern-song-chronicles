@@ -20,9 +20,9 @@ export const zhongnanSidePersianMerchantQuest: QuestDefinition = {
   factionId: 'SECT-11',
   regionId: 'changan',
   recommendedRealm: '三流上品 ～ 二流中品',
-  maxOpponentRealm: '三流中品 × 2（星宿乌承海及其毒功同伙 1v2）',
+  maxOpponentRealm: '三流中品 × 2（星宿乌承海及其毒功同伙 车轮连战）',
   recommendedNote:
-    '终南隐宗二阶西市探案支线（全十二幕）。长安西市胡商坊频发迷香劫宝案，波斯大商队珍藏的苏合辟毒香与明珠被窃。你在西市偶遇同在追查此事的华山剑宗高手封不弃，循着异香蛛丝马迹锁定西市废窖，孤身夜捣暗窖以一敌二击溃星宿派恶徒乌承海及其同伙、追回全部赃物，获胡商厚赠纹银与辟毒良药。',
+    '终南隐宗二阶西市探案支线（全十二幕）。长安西市胡商坊频发迷香劫宝案，波斯大商队珍藏的苏合辟毒香与明珠被窃。你在西市偶遇同在追查此事的华山剑宗高手封不弃，循着异香蛛丝马迹锁定西市废窖，孤身夜捣暗窖车轮连战击溃星宿派恶徒乌承海及其同伙、追回全部赃物，获胡商厚赠纹银与辟毒良药。',
   startHint:
     '晋升终南隐宗二阶后，前往【京兆府 · 西市胡商坊（ca_xishi_main）】偶遇封不弃即可触发。',
   startLocation: {
@@ -33,16 +33,16 @@ export const zhongnanSidePersianMerchantQuest: QuestDefinition = {
   },
   startCondition: ZHONGNAN_SIDE05_START_CONDITION,
   summary:
-    '{reignYear}夏末，长安【西市胡商坊（ca_xishi_main）】连发奇案，波斯大商队夜宿胡栈竟遭剧烈迷香放倒，西域苏合辟毒香与数箱明珠不翼而飞。你下山采办时偶遇华山剑宗名宿封不弃，二人识破此迷香乃西域星宿派毒术所制，顺藤摸瓜查出贼窝藏于西市荒废酒窖。入夜后由封不弃在外封锁巷口，你孤身破门直捣暗窖，1v2 激战星宿恶徒乌承海及其同伙，一举歼破毒阵、追回全部失物，获波斯胡商重金酬谢与西域辟毒良药。',
+    '{reignYear}夏末，长安【西市胡商坊（ca_xishi_main）】连发奇案，波斯大商队夜宿胡栈竟遭剧烈迷香放倒，西域苏合辟毒香与数箱明珠不翼而飞。你下山采办时偶遇华山剑宗名宿封不弃，二人识破此迷香乃西域星宿派毒术所制，顺藤摸瓜查出贼窝藏于西市荒废酒窖。入夜后由封不弃在外封锁巷口，你孤身破门直捣暗窖，车轮连战 激战星宿恶徒乌承海及其同伙，一举歼破毒阵、追回全部失物，获波斯胡商重金酬谢与西域辟毒良药。',
   initialStepId: 'raid_xishi_cellar',
   steps: {
     raid_xishi_cellar: {
       id: 'raid_xishi_cellar',
-      title: '夜捣暗窖 · 1v2 破星宿',
+      title: '夜捣暗窖 · 车轮连战 破星宿',
       objective:
-        '已锁定星宿贼人藏身于【京兆府 · 西市胡商坊（ca_xishi_main）】后的荒废酒窖！封不弃已在巷口布防，请速入暗窖以一敌二击溃乌承海及其同伙，夺回波斯商队失物。',
+        '已锁定星宿贼人藏身于【京兆府 · 西市胡商坊（ca_xishi_main）】后的荒废酒窖！封不弃已在巷口布防，请速入暗窖车轮连战击溃乌承海及其同伙，夺回波斯商队失物。',
       nextHint:
-        '在【京兆府 · 西市胡商坊（ca_xishi_main）】点击「夜捣西市暗窖，1v2 破星宿乌承海及其同伙」。',
+        '在【京兆府 · 西市胡商坊（ca_xishi_main）】点击「夜捣西市暗窖，车轮连战 破星宿乌承海及其同伙」。',
       targetLocation: {
         regionId: 'changan',
         buildingId: 'ca_xishi',
@@ -82,7 +82,7 @@ export const zhongnanSidePersianMerchantQuest: QuestDefinition = {
     },
     {
       id: 'spot_zn_side05_raid',
-      label: '【终南风物】夜捣西市暗窖，1v2 破星宿乌承海及其同伙',
+      label: '【终南风物】夜捣西市暗窖，车轮连战 破星宿乌承海及其同伙',
       badge: '暗窖破毒',
       subtitle: '西市胡商坊',
       tone: 'danger',

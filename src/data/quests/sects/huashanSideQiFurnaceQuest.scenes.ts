@@ -176,7 +176,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_hss05_07: {
     id: 'scene_hss05_07',
     title: '第七幕 · 护炉斩毒',
-    subtitle: '方寸丹室（1v2 实战）',
+    subtitle: '方寸丹室（车轮连战 实战）',
     illustrationUrl: '/assets/quests/hs_side05_poison_raid.jpg',
     illustrationCaption: '护炉斩毒 · 方寸丹室以养吾剑与混元掌力毙星宿盗药二恶徒',
     mandatory: true,
@@ -186,12 +186,13 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hss05_fight_xingxiu',
-        label: '死守紫阳丹炉，以养吾剑与混元掌力毙星宿二恶徒！（1v2 生死战）',
+        label: '死守紫阳丹炉，以养吾剑与混元掌力毙星宿二恶徒！（车轮连战 生死战）',
         subLabel: '对手：二流上品阴九与二流中品碧磷童子',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_SIDE05_QUEST_ID,
             opponent: { kind: 'custom', npc: buildXingxiuRaider2() },
             extraOpponents: [{ kind: 'custom', npc: buildXingxiuRaider1() }],
@@ -200,7 +201,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             forbidEscapeReason: '身后便是三日心血炼就的太岳紫阳丹炉，一步不可退！',
             deathTitle: '丹房殉道',
             deathDetail: '你在东峰丹房力战星宿派盗药二恶徒不敌，中腐骨剧毒而亡。',
-            introText: '【1v2 护炉斩毒】于方寸丹室迎战星宿派恶徒【腐骨手 · 阴九】与【碧磷童子】！',
+            introText: '【车轮连战 · 护炉斩毒】于方寸丹室迎战星宿派恶徒【腐骨手 · 阴九】与【碧磷童子】！',
             onWin: [openScene('scene_hss05_08', HUASHAN_SIDE05_QUEST_ID)],
           },
         ],

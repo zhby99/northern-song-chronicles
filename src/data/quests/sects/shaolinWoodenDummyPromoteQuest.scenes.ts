@@ -159,6 +159,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q04_QUEST_ID,
             opponent: { kind: 'custom', npc: buildWoodenDummyAlpha() },
             extraOpponents: [{ kind: 'custom', npc: buildWoodenDummyBeta() }],
@@ -245,6 +246,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             opponent: {
               kind: 'npc',
               npcId: 'NPC-0315',
+              realmCap: '二流下品',
               talkOverride:
                 '“阿弥陀佛！师弟连闯木桩廊气势如虹，贫僧奉三位师伯法谕压阵，今日且以少林正宗拳杖领教高招！”',
             },

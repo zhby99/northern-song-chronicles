@@ -276,7 +276,7 @@ export const SHAOLIN_Q40_SCENES: Record<string, StorySceneDef> = {
   scene_slq40_14: {
     id: 'scene_slq40_14',
     title: '第十四幕 · 钟院死战',
-    subtitle: '钟鼓禅院 · 演武坪（宗师 1v2 硬仗）',
+    subtitle: '钟鼓禅院 · 演武坪（宗师 车轮连战 硬仗）',
     mandatory: true,
     beats: [
       N('演武坪飞沙走石，大辽与西夏两大绝顶暗使联手杀来，此战只许胜、不许败！'),
@@ -284,18 +284,19 @@ export const SHAOLIN_Q40_SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq40_fight_spies',
-        label: '白衣出阵，迎战【耶律赤鹰】与【拓跋冥】！（宗师级 1v2 决战）',
+        label: '白衣出阵，迎战【耶律赤鹰】与【拓跋冥】！（宗师级 车轮连战 决战）',
         subLabel: '击退窥伺山门的辽夏邪客，震慑异域暗桩',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q40_QUEST_ID,
             opponent: { kind: 'custom', npc: buildLiaoEnvoyBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildXixiaAgentBoss() }],
             rule: 'story_trial',
             forbidEscapeReason: '满寺高僧与中原佛门声威尽在身后，绝不可退让半步！',
-            introText: '【1v2 钟院逐虏】白衣孤身迎战大辽暗院使【耶律赤鹰】与西夏黑莲客【拓跋冥】！',
+            introText: '【车轮连战 · 钟院逐虏】白衣孤身迎战大辽暗院使【耶律赤鹰】与西夏黑莲客【拓跋冥】！',
             onWin: [openScene('scene_slq40_15', SHAOLIN_Q40_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 85, mpPct: 85 },

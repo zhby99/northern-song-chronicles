@@ -1,8 +1,11 @@
 import { useMemo, useState } from 'react'
 import { ChevronDown, ChevronUp, Compass, Eye, EyeOff, ScrollText, ShieldAlert } from 'lucide-react'
 import { REGION_DB_MAP } from '../../data/gameDb'
-import { QUEST_MAP } from '../../data/quests'
-import { useGameStore } from '../../store/useGameStore'
+import { getRegionUnlockRequirement, isRegionUnlockedByInventory } from '../../data/itemsDb'
+import { QUEST_MAP, QUEST_REGISTRY } from '../../data/quests'
+import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
+import { useQuestEvalState } from '../../hooks/useQuestEvalContext'
+import { getSuggestedSectMainQuest } from '../../engine/quest/sectQuestGuide'
 import type { QuestCategoryKey, QuestPrimitiveValue } from '../../types/quest'
 import {
   assessQuestRealmReadiness,
@@ -48,7 +51,21 @@ export function QuestTrackerPanel() {
 
   const [collapsed, setCollapsed] = useState(false)
 
+  const evalState = useQuestEvalState()
+  const suggestion = useMemo(() => {
+    const sug = getSuggestedSectMainQuest(buildStoreEvalContext(evalState), QUEST_REGISTRY, QUEST_MAP)
+    if (!sug) return null
+    const loc = sug.quest.startLocation
+    const reasons = [...sug.unmetReasons]
+    if (loc && !isRegionUnlockedByInventory(loc.regionId, evalState.inventory)) {
+      const req = getRegionUnlockRequirement(loc.regionId)
+      if (req) reasons.push(`需先持有${req.mapItemName}解锁【${req.regionName}】`)
+    }
+    return { ...sug, unmetReasons: reasons, available: reasons.length === 0 }
+  }, [evalState])
+
   const hiddenSet = useMemo(() => new Set(hiddenQuestIds), [hiddenQuestIds])
+  const visibleSuggestion = suggestion && !hiddenSet.has('__sect_suggest__') ? suggestion : null
   const playerRealm = useMemo(() => estimateHeroRealm(maxHp, maxMp), [maxHp, maxMp])
   const activeList = useMemo(
     () => Object.values(questState.activeQuests),
@@ -76,13 +93,15 @@ export function QuestTrackerPanel() {
     (activeSpy ? 1 : 0) +
     (activeKaifengWarrant ? 1 : 0) +
     (activeYamenBounty ? 1 : 0) +
-    (activeSectTask ? 1 : 0)
+    (activeSectTask ? 1 : 0) +
+    (suggestion ? 1 : 0)
   const visibleCount =
     visibleActiveList.length +
     (visibleSpy ? 1 : 0) +
     (visibleKaifengWarrant ? 1 : 0) +
     (visibleYamenBounty ? 1 : 0) +
-    (visibleSectTask ? 1 : 0)
+    (visibleSectTask ? 1 : 0) +
+    (visibleSuggestion ? 1 : 0)
   const hiddenActiveCount = Math.max(0, totalActiveCount - visibleCount)
 
   const topOffsetClass = viewMode === 'world' ? 'top-[112px]' : 'top-[120px]'
@@ -364,6 +383,95 @@ export function QuestTrackerPanel() {
                   <Compass className="w-3 h-3" />
                   <span>舆图指引：{b.regionName}</span>
                 </button>
+              </div>
+            )
+          })()}
+
+          {/* 门派主线：建议下一个任务 */}
+          {visibleSuggestion && (() => {
+            const { quest, available, unmetReasons } = visibleSuggestion
+            const loc = quest.startLocation
+            const locLabel = loc
+              ? (loc.customLabel ?? REGION_DB_MAP[loc.regionId]?.name ?? loc.regionId)
+              : null
+            return (
+              <div className="p-2.5 rounded bg-[#2a1a10]/90 border border-dashed border-[#d4a556]/80 space-y-1.5">
+                <div className="flex items-center justify-between gap-1.5">
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#9a6a1c] text-[#fff8e6]">
+                    门派主线 · 下一步
+                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className={`text-[10px] font-bold ${available ? 'text-emerald-300' : 'text-amber-300/80'}`}
+                    >
+                      {available ? '可开启' : '条件未满'}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => toggleHideTrackedQuest('__sect_suggest__')}
+                      title="暂时隐藏此建议，不在追踪面板显示"
+                      className="p-0.5 rounded hover:bg-[#3f2a17] text-amber-200/70 hover:text-amber-100 cursor-pointer"
+                    >
+                      <EyeOff className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="song-serif font-bold text-[13px] text-amber-100 leading-snug">
+                  《{quest.title}》
+                </div>
+
+                {quest.recommendedRealm && (
+                  <div className="text-[10px]">
+                    <span className="px-1.5 py-0.5 rounded bg-[#3b2715] border border-[#a88754]/50 text-amber-200">
+                      建议修为：{quest.recommendedRealm}
+                    </span>
+                  </div>
+                )}
+
+                <div className="text-[11px] text-[#e7d6b8] leading-relaxed">
+                  <span className="text-amber-300 font-semibold">{available ? '开启：' : '待满足：'}</span>
+                  {available
+                    ? (quest.startHint ?? '前往师门寻访师长开启。')
+                    : unmetReasons.join('；')}
+                </div>
+
+                {loc && (
+                  available ? (
+                    <button
+                      type="button"
+                      onClick={() => locateQuestTargetOnMap(loc)}
+                      className="w-full py-1 px-2 rounded bg-[#9a6a1c] hover:bg-[#b07a22] text-[#fff6e5] text-[11px] font-bold song-serif flex items-center justify-center gap-1 cursor-pointer"
+                    >
+                      <Compass className="w-3 h-3" />
+                      <span>舆图指引：{locLabel}</span>
+                    </button>
+                  ) : (
+                    <div className="group">
+                      <button
+                        type="button"
+                        disabled
+                        aria-disabled="true"
+                        title={`尚未满足开启条件：\n${unmetReasons.map((r) => `• ${r}`).join('\n')}`}
+                        className="w-full py-1 px-2 rounded bg-[#4a4036] text-[#a89a86] border border-[#6b5d4b] text-[11px] font-bold song-serif flex items-center justify-center gap-1 cursor-not-allowed"
+                      >
+                        <Compass className="w-3 h-3" />
+                        <span>舆图指引：{locLabel}</span>
+                      </button>
+                      <div
+                        role="tooltip"
+                        className="hidden group-hover:block pointer-events-none mt-1 w-full p-2 rounded-md bg-[#23180f] text-[#fdf6e7] border border-[#a58654] shadow-xl text-[11px] leading-relaxed"
+                      >
+                        <div className="font-bold text-[#f5d08a] mb-1 song-serif">尚未满足开启条件：</div>
+                        <ul className="space-y-0.5 list-disc list-inside text-[#f5ead4]">
+                          {unmetReasons.map((r) => (
+                            <li key={r}>{r}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )
+                )}
               </div>
             )
           })()}

@@ -214,7 +214,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_sls04_06: {
     id: 'scene_sls04_06',
     title: '第六幕 · 铲影初交',
-    subtitle: '砖塔石巷（1v2 实战）',
+    subtitle: '砖塔石巷（车轮连战 实战）',
     mandatory: true,
     beats: [
       N('「钻地鼠」孙二与「倒斗驴」赵六厉喝一声，挥舞沉重铁柄洛阳铲一左一右合围而来！铲刃在寒月下泛起森冷幽光，招招直取下三路与咽喉要害！'),
@@ -224,12 +224,13 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'sls04_fight_minions',
-        label: '借砖塔地势腾挪，以齐眉棍迎战孙二与赵六！（1v2 实战）',
+        label: '借砖塔地势腾挪，以齐眉棍迎战孙二与赵六！（车轮连战 实战）',
         subLabel: '对手：孙二（三流中品）与赵六（三流下品）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_SIDE04_QUEST_ID,
             opponent: { kind: 'custom', npc: buildRaiderSun() },
             extraOpponents: [{ kind: 'custom', npc: buildRaiderZhao() }],
@@ -238,7 +239,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             forbidEscapeReason: '身后便是唐代高僧舍利地宫，宁折不退！',
             deathTitle: '血洒高僧塔林',
             deathDetail: '你在少林塔林寒夜力战洛阳摸金盗贼不敌，倒在砖塔之下。',
-            introText: '【1v2 砖塔护陵】迎战持洛阳铲围攻的摸金贼【孙二】与【赵六】！',
+            introText: '【车轮连战 · 砖塔护陵】迎战持洛阳铲围攻的摸金贼【孙二】与【赵六】！',
             onWin: [openScene('scene_sls04_07', SHAOLIN_SIDE04_QUEST_ID)],
           },
         ],

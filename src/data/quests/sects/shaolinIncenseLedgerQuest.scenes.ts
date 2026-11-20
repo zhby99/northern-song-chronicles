@@ -149,7 +149,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq03_04: {
     id: 'scene_slq03_04',
     title: '第四幕 · 寒林死斗',
-    subtitle: '少室古柏寒林（1v2 实战）',
+    subtitle: '少室古柏寒林（车轮连战 实战）',
     mandatory: true,
     beats: [
       N('赵魁暴喝一声，鬼头大刀化作森寒刀幕当头劈落，副手孙七则如毒蛇般斜刺下盘！二贼配合默契、招招夺命，绝非寻常山野草寇可比！'),
@@ -157,18 +157,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq03_fight_zhaokui',
-        label: '全力运功，以一敌二迎战「断魂刀」赵魁与孙七！（1v2 实战）',
+        label: '全力运功，车轮连战迎战「断魂刀」赵魁与孙七！（车轮连战 实战）',
         subLabel: '主敌三流上品赵魁 + 副手三流中品孙七',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q03_QUEST_ID,
             opponent: { kind: 'custom', npc: buildZhaoKuiBoss() },
             extraOpponents: [{ kind: 'custom', npc: buildSunQiDeputy() }],
             rule: 'story_trial',
             forbidEscapeReason: '身后便是重伤的贾通宝，此时退步二人必死无疑！',
-            introText: '【1v2 古柏寒林死斗】迎战洛阳黑市杀手【断魂刀 · 赵魁】与副手【血爪 · 孙七】！',
+            introText: '【车轮连战 · 古柏寒林死斗】迎战洛阳黑市杀手【断魂刀 · 赵魁】与副手【血爪 · 孙七】！',
             onWin: [openScene('scene_slq03_05', SHAOLIN_Q03_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 80, mpPct: 80 },

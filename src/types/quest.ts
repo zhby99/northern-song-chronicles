@@ -213,7 +213,13 @@ export interface ActiveStorySceneState {
 export type QuestCombatRule = 'spar' | 'duel' | 'survive_rounds' | 'story_trial'
 
 export type QuestCombatOpponentSpec =
-  | { kind: 'npc'; npcId: string; talkOverride?: string }
+  | {
+      kind: 'npc'
+      npcId: string
+      talkOverride?: string
+      /** 难度护栏：该 NPC 图鉴境界高于此值时，本场战斗按此境界等比压低四维与武学重数 */
+      realmCap?: string
+    }
   | { kind: 'dynamicActor'; actorId: string }
   | { kind: 'interactedNpc' }
   | { kind: 'custom'; npc: NodeNpc }
@@ -323,6 +329,13 @@ export type QuestEffect =
       opponent: QuestCombatOpponentSpec
       extraOpponents?: QuestCombatOpponentSpec[]
       allies?: QuestCombatOpponentSpec[]
+      /**
+       * 'gauntlet'：车轮连战——对手（opponent 与 extraOpponents）依次单挑出阵，
+       * 每胜一阵调息回复三成气血内力再迎下一阵，全部击败后才执行 onWin；任一阵落败即执行 onLose。
+       */
+      format?: 'gauntlet'
+      /** 车轮连战内部计数（第几阵 / 共几阵），由引擎自动填写，数据无需设置 */
+      gauntletStage?: { index: number; total: number }
       rule: QuestCombatRule
       lethalOnLose?: boolean
       duelStakesTag?:

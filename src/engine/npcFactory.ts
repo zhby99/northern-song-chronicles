@@ -6,6 +6,7 @@ import {
   resolveNpcByName,
 } from '../data/gameDb'
 import { DEFAULT_EQUIPPED_SLOTS } from '../data/itemsDb'
+import { parseRealmTier } from './stats/realmUtils'
 import type {
   CompiledNpcRecord,
   EquippedArtsMap,
@@ -261,4 +262,32 @@ export function buildRoamingMasterNodeNpc(
       talk: `“某近日游历至${nodeName}，暂歇于此，幸晤少侠，当浮一大白！”`,
     },
   }
+}
+
+/**
+ * 剧情战难度护栏：把一名 NPC 等比压低到目标境界（只降不升）。
+ * 四维按 REALM_TIERS 门槛比例缩放，武学重数同比下调（至少 1 重），境界标签改为目标境界。
+ */
+export function scaleNodeNpcDownToRealm(npc: NodeNpc, targetRealm: string): NodeNpc {
+  const cur = parseRealmTier(npc.realm)
+  const target = parseRealmTier(targetRealm)
+  if (target.rank >= cur.rank) return npc
+  const avgRatio = cur.minAvg > 0 ? target.minAvg / cur.minAvg : 1
+  const mpRatio = cur.minMp > 0 ? target.minMp / cur.minMp : avgRatio
+  const ratio = Math.max(0.35, Math.min(1, avgRatio))
+  const stats = npc.stats
+    ? {
+        ...npc.stats,
+        hp: Math.max(150, Math.round(npc.stats.hp * ratio)),
+        mp: Math.max(60, Math.round(npc.stats.mp * Math.max(0.35, Math.min(1, mpRatio)))),
+        agi: Math.max(10, Math.round(npc.stats.agi * Math.sqrt(ratio))),
+        res: Math.max(5, Math.round(npc.stats.res * Math.sqrt(ratio))),
+      }
+    : npc.stats
+  const levelDrop = Math.max(0, cur.rank - target.rank)
+  const learnedArts = npc.learnedArts?.map((a) => ({
+    ...a,
+    level: Math.max(1, a.level - levelDrop),
+  }))
+  return { ...npc, realm: target.label, stats, learnedArts }
 }

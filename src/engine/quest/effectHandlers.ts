@@ -904,6 +904,62 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
   },
 
   startCombat: (eff, ctx) => {
+    // 车轮连战：拆成逐阵单挑，胜一阵调息后再迎下一阵，最后一阵获胜才执行原 onWin
+    if (eff.format === 'gauntlet' && (eff.extraOpponents?.length ?? 0) > 0) {
+      const [nextOpp, ...restOpps] = eff.extraOpponents ?? []
+      const stage = eff.gauntletStage ?? { index: 1, total: 1 + (eff.extraOpponents?.length ?? 0) }
+      const firstOpp = resolveQuestCombatOpponent(
+        eff.opponent,
+        ctx.contextNpc ?? null,
+        ctx.draft.questState.dynamicActors,
+      )
+      const stageTag =
+        stage.index === 1 && eff.introText?.includes('车轮连战')
+          ? `【第 ${stage.index} / ${stage.total} 阵】`
+          : `【车轮连战 · 第 ${stage.index} / ${stage.total} 阵】`
+      const nextStage: QuestEffect = {
+        ...eff,
+        opponent: nextOpp!,
+        extraOpponents: restOpps,
+        gauntletStage: { index: stage.index + 1, total: stage.total },
+        introText: undefined,
+      }
+      QUEST_EFFECT_HANDLERS.startCombat(
+        {
+          ...eff,
+          format: undefined,
+          gauntletStage: undefined,
+          extraOpponents: [],
+          introText:
+            stage.index === 1 && eff.introText
+              ? `${stageTag}${eff.introText}`
+              : `${stageTag}迎战【${firstOpp?.name ?? '强敌'}】！`,
+          onWin: [
+            { type: 'healPlayer', hpPct: 30, mpPct: 30 },
+            {
+              type: 'toast',
+              text: `第 ${stage.index} 阵得胜！趁隙调息片刻（气血、内力各回复三成），准备迎战下一阵。`,
+              tone: 'success',
+              logTag: '车轮连战',
+            },
+            nextStage,
+          ],
+        },
+        ctx,
+      )
+      return
+    }
+    if (eff.gauntletStage && !eff.introText) {
+      const named = resolveQuestCombatOpponent(
+        eff.opponent,
+        ctx.contextNpc ?? null,
+        ctx.draft.questState.dynamicActors,
+      )
+      eff = {
+        ...eff,
+        introText: `【车轮连战 · 第 ${eff.gauntletStage.index} / ${eff.gauntletStage.total} 阵】迎战【${named?.name ?? '强敌'}】！`,
+      }
+    }
     const s = ctx.draft
     const opp = resolveQuestCombatOpponent(
       eff.opponent,

@@ -258,6 +258,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q08_QUEST_ID,
             opponent: { kind: 'custom', npc: buildHuiYinStaffLeader() },
             extraOpponents: [{ kind: 'custom', npc: buildStaffArhatMonk() }],
@@ -337,6 +338,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q08_QUEST_ID,
             opponent: { kind: 'custom', npc: buildBladeArhatMonk() },
             extraOpponents: [{ kind: 'custom', npc: buildShieldArhatMonk() }],

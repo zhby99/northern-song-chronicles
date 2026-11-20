@@ -147,17 +147,18 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'zns05_fight_xingxiu',
-        label: '屏息拔剑，1v2 激战星宿【乌承海】及其同伙！',
+        label: '屏息拔剑，车轮连战 激战星宿【乌承海】及其同伙！',
         subLabel: '对手：乌承海（三流中品）+ 星宿毒手丁老四（三流中品）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: ZHONGNAN_SIDE05_QUEST_ID,
             opponent: { kind: 'npc', npcId: 'NPC-0705' },
             extraOpponents: [{ kind: 'custom', npc: buildXingxiuAccomplice() }],
             rule: 'story_trial',
-            introText: '【夜捣暗窖】于西市荒废酒窖以一敌二，激战星宿【乌承海】与【星宿毒手 · 丁老四】！',
+            introText: '【夜捣暗窖】于西市荒废酒窖车轮连战，激战星宿【乌承海】与【星宿毒手 · 丁老四】！',
             onWin: [openScene('scene_zns05_07', ZHONGNAN_SIDE05_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 60, mpPct: 60 },

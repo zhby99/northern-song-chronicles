@@ -188,7 +188,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_sls03_06: {
     id: 'scene_sls03_06',
     title: '第六幕 · 恶奴拦门',
-    subtitle: '恒丰粮行后院（1v2 实战）',
+    subtitle: '恒丰粮行后院（车轮连战 实战）',
     mandatory: true,
     beats: [
       N('两扇厚重柏木院门轰然闭拢！一名膀大腰圆的恶护院提着熟铜裹头大棒大步跨出，身旁跟着提着杀猪短刀的麻脸打手，一左一右将你与虚清围在粮袋堆前！'),
@@ -199,12 +199,13 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'sls03_fight_thugs',
-        label: '稳住马步，以少林武学迎战钱大棒与麻脸李四！（1v2 实战）',
+        label: '稳住马步，以少林武学迎战钱大棒与麻脸李四！（车轮连战 实战）',
         subLabel: '对手：钱大棒（三流中品）与麻脸李四（三流下品）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_SIDE03_QUEST_ID,
             opponent: { kind: 'custom', npc: buildQianDabang() },
             extraOpponents: [{ kind: 'custom', npc: buildThugLisi() }],
@@ -213,7 +214,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             forbidEscapeReason: '虚清师兄与暗斛证物皆在身后，绝不可退缩半步！',
             deathTitle: '饮恨恒丰院',
             deathDetail: '你在登封恒丰粮行院内力战恶护院钱大棒与打手不敌，重伤身亡。',
-            introText: '【1v2 护账破恶】迎战恒丰粮行恶护院头目【钱大棒】与打手【麻脸李四】！',
+            introText: '【车轮连战 · 护账破恶】迎战恒丰粮行恶护院头目【钱大棒】与打手【麻脸李四】！',
             onWin: [openScene('scene_sls03_07', SHAOLIN_SIDE03_QUEST_ID)],
           },
         ],

@@ -89,27 +89,28 @@ export const SCENES: Record<string, StorySceneDef> = {
     title: '第五幕 · 毒海孤星一敌二',
     subtitle: '天罗地网捕雀轻功厅',
     illustrationUrl: '/assets/quests/zn_q28_sparrow_hall_counter.jpg',
-    illustrationCaption: '天罗地网捕雀厅内寒芒四射，你孤身游走毒雾之间，以一敌二反攻摘星子与碧磷毒师',
+    illustrationCaption: '天罗地网捕雀厅内寒芒四射，你孤身游走毒雾之间，车轮连战反攻摘星子与碧磷毒师',
     mandatory: true,
     beats: [
       N('摘星子双掌紫黑如墨，携腐骨腥风从正面扑来；碧磷毒师同时抖动毒幡自侧翼偷袭，漫天毒针封死你左右退路！'),
-      N('生死一瞬，你足尖点在石厅暗藏的天罗地网麻雀飞檐步点上，身形如九天孤星般飘忽穿梭，素剑挽出万点寒花，悍然以一敌二反扑而上！'),
+      N('生死一瞬，你足尖点在石厅暗藏的天罗地网麻雀飞檐步点上，身形如九天孤星般飘忽穿梭，素剑挽出万点寒花，悍然车轮连战反扑而上！'),
     ],
     choices: [
       {
         id: 'znq28_ch_battle_1v2',
-        label: '孤剑凌空，以一敌二力战摘星子与星宿碧磷毒师！',
+        label: '孤剑凌空，车轮连战力战摘星子与星宿碧磷毒师！',
         tone: 'danger',
         effects: [
           { type: 'healPlayer', hpPct: 100, mpPct: 100 },
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: ZHONGNAN_Q28_QUEST_ID,
             opponent: { kind: 'npc', npcId: 'NPC-0181' },
             extraOpponents: [{ kind: 'custom', npc: XINGXIU_ELITE_NPC }],
             rule: 'duel',
             lethalOnLose: false,
-            introText: '毒雾弥漫捕雀厅！你孤剑挺身，以一敌二迎战西域毒仙摘星子与星宿碧磷毒师！',
+            introText: '毒雾弥漫捕雀厅！你孤剑挺身，车轮连战迎战西域毒仙摘星子与星宿碧磷毒师！',
             onWin: [openScene('scene_znq28_06', ZHONGNAN_Q28_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 65, mpPct: 65 },

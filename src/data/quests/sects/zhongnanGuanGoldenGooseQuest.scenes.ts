@@ -211,6 +211,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'healPlayer', hpPct: 100, mpPct: 100 },
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: ZHONGNAN_Q05_QUEST_ID,
             opponent: { kind: 'custom', npc: buildXixiaBlade1() },
             extraOpponents: [{ kind: 'custom', npc: buildXixiaBlade2() }],

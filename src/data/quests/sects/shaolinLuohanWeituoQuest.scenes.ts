@@ -216,6 +216,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q06_QUEST_ID,
             opponent: { kind: 'custom', npc: buildFakeMonkAlpha() },
             extraOpponents: [{ kind: 'custom', npc: buildFakeMonkBeta() }],

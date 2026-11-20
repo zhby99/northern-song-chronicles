@@ -391,7 +391,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_hsq08_15: {
     id: 'scene_hsq08_15',
     title: '第十五幕 · 银瀑封喉',
-    subtitle: '绝壁银瀑涤心寒潭 · 以一敌二',
+    subtitle: '绝壁银瀑涤心寒潭 · 车轮连战',
     illustrationUrl: '/assets/quests/hs_q08_falls_assassins.jpg',
     illustrationCaption: '银瀑封喉 · 飞瀑寒潭下希夷诱敌合落雁快剑独斩西域双刺客',
     mandatory: true,
@@ -408,6 +408,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_Q08_QUEST_ID,
             opponent: { kind: 'custom', npc: buildAssassinSabreNpc() },
             extraOpponents: [{ kind: 'custom', npc: buildAssassinBrushNpc() }],

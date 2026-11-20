@@ -373,12 +373,13 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: HUASHAN_Q12_QUEST_ID,
             opponent: { kind: 'custom', npc: buildSaiwaiElderNpc() },
             extraOpponents: [{ kind: 'custom', npc: buildSaiwaiYoungerNpc() }],
             rule: 'duel',
             forbidEscapeReason: '柴房尚有无辜客商待救，岂可弃剑退缩！',
-            introText: '【夜闯黑店】以一敌二迎战「塞外双煞」贺兰枭（一流中品）与贺兰桀（一流下品）！',
+            introText: '【夜闯黑店】车轮连战迎战「塞外双煞」贺兰枭（一流中品）与贺兰桀（一流下品）！',
             onWin: [openScene('scene_hsq12_18', HUASHAN_Q12_QUEST_ID)],
           },
         ],

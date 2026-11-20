@@ -295,7 +295,7 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq10_14: {
     id: 'scene_slq10_14',
     title: '第十四幕 · 画舫决锋',
-    subtitle: '洛水画舫甲板（1v2 实战）',
+    subtitle: '洛水画舫甲板（车轮连战 实战）',
     mandatory: true,
     beats: [
       N('月映洛水，舟身随浪起伏。毒罗刹身法诡魅飘忽，腐骨子掌风腥臭逼人，二人一快一狠联手扑杀！你须以《散花掌》步法灵动周旋，震晕二凶！'),
@@ -303,18 +303,19 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq10_fight_xingxiu',
-        label: '施展《散花掌》迎战毒罗刹与腐骨子！（1v2 实战）',
+        label: '施展《散花掌》迎战毒罗刹与腐骨子！（车轮连战 实战）',
         subLabel: '二流中品妖女与二流下品护法联手围攻',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
+            format: 'gauntlet',
             questId: SHAOLIN_Q10_QUEST_ID,
             opponent: { kind: 'custom', npc: buildPoisonDemoness() },
             extraOpponents: [{ kind: 'custom', npc: buildXingxiuGuard() }],
             rule: 'story_trial',
             forbidEscapeReason: '船舱内尚有数位中毒名宿待救，绝不可弃舟而走！',
-            introText: '【1v2 洛水破毒】迎战星宿妖女【毒罗刹 · 柳碧烟】（二流中品）与护法【腐骨子】！',
+            introText: '【车轮连战 · 洛水破毒】迎战星宿妖女【毒罗刹 · 柳碧烟】（二流中品）与护法【腐骨子】！',
             onWin: [openScene('scene_slq10_15', SHAOLIN_Q10_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 85, mpPct: 85 },
