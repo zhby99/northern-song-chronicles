@@ -283,6 +283,8 @@ export type QuestEffect =
       level?: number
       exp?: number
       autoEquip?: boolean
+      /** autoEquip 时，若对应栏位当前运使的是这些武学（如入门心法），也一并替换 */
+      replaceArtIds?: string[]
     }
   | { type: 'addArtExp'; amount: number; artId?: string }
   | {

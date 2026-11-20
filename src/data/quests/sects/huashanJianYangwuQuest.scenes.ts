@@ -93,6 +93,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-0167', '（嘴角噙着一抹森冷笑意）“意外么？岳沧溟与宁清羽每日教弟子默诵孟子‘吾善养吾浩然之气’，把一套剑法练得四平八稳、步步求全，仿佛只要架子摆得够端正，刀匪胡骑就会自己撞死在剑盾上！”'),
       S('NPC-0167', '“知己知彼方能立宗，先学会气宗这套四平八稳的架子，再在生死场上把它拆成杀招！今日你便在寒潭边把《养吾剑法》的路数记熟，天黑之后，随我下山杀人！”'),
       P('“先学正门守势，再拆为贴身杀招……弟子明白了！”'),
+      S('NPC-0167', '（又从怀中摸出一卷薄薄的手抄口诀，随手丢来）“还有这个——气宗那帮人当宝贝的《混元功》行气诀。剑宗练剑不练气是被人讥笑了几十年的混话，快剑也得有内力撑着才砍得透甲！你那点《华山基础心法》，留着哄外门小鬼吧。”'),
     ],
     choices: [
       {
@@ -102,7 +103,8 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           { type: 'startQuest', questId: HUASHAN_Q06_QUEST_ID, stepId: 'jianlu_drill' },
           { type: 'teachMartialArt', artId: 'MA-147', level: 1, autoEquip: true },
-          toast('已习得《养吾剑法》！请前往【思过崖古山洞 > 绝壁银瀑涤心寒潭】演剑拆招！', 'success', '西峰授剑'),
+          { type: 'teachMartialArt', artId: 'MA-058', level: 1, autoEquip: true, replaceArtIds: ['MA-160'] },
+          toast('已习得《养吾剑法》与地阶中品内功《混元功》！请前往【思过崖古山洞 > 绝壁银瀑涤心寒潭】演剑拆招！', 'success', '西峰授剑'),
         ],
       },
     ],

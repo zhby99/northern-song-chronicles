@@ -481,16 +481,18 @@ export const QUEST_EFFECT_HANDLERS: QuestEffectHandlerMap = {
       const alreadySlotted = (Object.keys(nextEquippedArts) as MartialArtSlotKey[]).some(
         (k) => nextEquippedArts[k] === eff.artId,
       )
+      const replaceable = (cur: string | null) =>
+        cur === null || (eff.replaceArtIds ?? []).includes(cur)
       if (!alreadySlotted) {
         if (
           art.category === '内功' &&
-          (nextEquippedArts.neigong === null || nextEquippedArts.neigong === 'MA-199')
+          (replaceable(nextEquippedArts.neigong) || nextEquippedArts.neigong === 'MA-199')
         ) {
           nextEquippedArts.neigong = eff.artId
           autoEquippedLabel = '，并已运使为主修内功'
         } else if (
           art.category === '轻功' &&
-          (nextEquippedArts.qinggong === null || nextEquippedArts.qinggong === 'MA-217')
+          (replaceable(nextEquippedArts.qinggong) || nextEquippedArts.qinggong === 'MA-217')
         ) {
           nextEquippedArts.qinggong = eff.artId
           autoEquippedLabel = '，并已运使为轻功身法'

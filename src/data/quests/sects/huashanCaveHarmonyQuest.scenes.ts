@@ -303,9 +303,9 @@ export const SCENES: Record<string, StorySceneDef> = {
             type: 'branch',
             condition: flag('hs_branch', 'eq', 'jian'),
             thenEffects: [
-              { type: 'teachMartialArt', artId: 'MA-058', level: 1, autoEquip: true },
+              { type: 'teachMartialArt', artId: 'MA-058', level: 1, autoEquip: true, replaceArtIds: ['MA-160'] },
               { type: 'addArtExp', artId: 'MA-058', amount: 300 },
-              toast('宁清羽破格传授气宗地阶中品绝学《混元功》！气剑自此同源并济！', 'success', '跨宗授艺'),
+              toast('宁清羽破格点拨气宗《混元功》正宗心诀！气剑自此同源并济！', 'success', '跨宗授艺'),
             ],
             elseEffects: [
               { type: 'setFlag', flag: 'hs_taiyue_sword_essence', value: true },

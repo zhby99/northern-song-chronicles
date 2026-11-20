@@ -31,7 +31,7 @@ export const HUASHAN_Q03_QUESTS: QuestDefinition[] = [
     recommendedRealm: '三流上品 ～ 二流下品',
     maxOpponentRealm: '二流下品（江南挑山快刀首领 · 柳千刃）',
     recommendedNote:
-      '华山气宗正脉 Lv.2 内门首篇（全十五幕）。博台分宗择定气宗后，于东峰紫气迎曦石坪得大师兄高沧云阐发孟子浩然之旨并亲授良品《养吾剑法》（MA-147）。数日后江南快刀客登玉女峰挑衅，以守中绵密的养吾剑势十合之内震飞刀首兵刃！',
+      '华山气宗正脉 Lv.2 内门首篇（全十五幕）。博台分宗择定气宗后，于东峰紫气迎曦石坪得大师兄高沧云阐发孟子浩然之旨并亲授良品《养吾剑法》（MA-147），宁清羽同传气宗根本内功地阶中品《混元功》（MA-058）。数日后江南快刀客登玉女峰挑衅，以守中绵密的养吾剑势十合之内震飞刀首兵刃！',
     startHint:
       '博台大比择定【紫霞气宗正脉】晋升内门剑士后，前往【玉女峰紫霞道观 · 东峰紫气迎曦石坪】（或寻高沧云、宁清羽）开启气宗内门授剑。',
     startLocation: {
@@ -154,6 +154,36 @@ export const HUASHAN_Q03_QUESTS: QuestDefinition[] = [
     ],
 
     npcActions: [
+      {
+        // 旧档补授：《混元功》改为气宗 Q03 / 剑宗 Q06 即传，已过这两卷而未习得者可在此补领
+        id: 'act_hs_hunyuan_catchup_npc',
+        label: '内息不济 · 恳请师长补授《混元功》',
+        badge: '由外而内',
+        tone: 'gold',
+        showInBottomBar: true,
+        showInSectPanel: true,
+        visibleWhen: {
+          type: 'all',
+          conditions: [
+            { type: 'targetNpcMatch', npcIds: ['NPC-0166', 'NPC-0202', 'NPC-0167'] },
+            { type: 'inSect', sectId: 'SECT-05', minRank: 2 },
+            {
+              type: 'any',
+              conditions: [
+                qStatus(HUASHAN_Q03_QUEST_ID, 'active'),
+                qStatus(HUASHAN_Q03_QUEST_ID, 'completed'),
+                qStatus('QST-SECT-05-06', 'active'),
+                qStatus('QST-SECT-05-06', 'completed'),
+              ],
+            },
+            { type: 'not', condition: { type: 'learnedArtAtLeast', artId: 'MA-058', minLevel: 1 } },
+          ],
+        },
+        effects: [
+          { type: 'teachMartialArt', artId: 'MA-058', level: 1, autoEquip: true, replaceArtIds: ['MA-160'] },
+          { type: 'toast', text: '师长补授地阶中品内功《混元功》，已替换《华山基础心法》为主修内功！', tone: 'success', logTag: '由外而内' },
+        ],
+      },
       {
         id: 'act_hsq03_start_npc',
         label: '初入气宗内门 · 恭请传授《养吾剑法》',

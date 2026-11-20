@@ -114,9 +114,9 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_hsq09_02: {
     id: 'scene_hsq09_02',
     title: '第二幕 · 由外而内',
-    subtitle: '东峰紫气迎曦石坪 · 合授混元',
+    subtitle: '东峰紫气迎曦石坪 · 点拨混元',
     illustrationUrl: '/assets/quests/hs_q09_hunyuan_neigong.jpg',
-    illustrationCaption: '由外而内 · 东峰迎曦石坪宁清羽与高沧云合授地阶混元功',
+    illustrationCaption: '由外而内 · 东峰迎曦石坪宁清羽与高沧云合力点拨地阶混元功',
     mandatory: true,
     beats: [
       N('宁清羽伸出双掌，但见掌缘隐现一层温润如玉的淡紫微光，四周散碎晨露竟被掌心气旋引得悬而不落！'),
@@ -127,11 +127,12 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'hsq09_02_learn',
-        label: '凝神引紫气由掌归脉，修习地阶中品《混元功》',
+        label: '凝神引紫气由掌归脉，精进地阶中品《混元功》',
         tone: 'gold',
         effects: [
-          { type: 'teachMartialArt', artId: 'MA-058', level: 1, autoEquip: true },
-          toast('已习得地阶中品内功《混元功》！', 'success', '由外而内'),
+          { type: 'teachMartialArt', artId: 'MA-058', level: 1, autoEquip: true, replaceArtIds: ['MA-160'] },
+          { type: 'addArtExp', artId: 'MA-058', amount: 400 },
+          toast('得宁清羽与高沧云合力点拨，《混元功》更进一层！', 'success', '由外而内'),
           openScene('scene_hsq09_03', HUASHAN_Q09_QUEST_ID),
         ],
       },
