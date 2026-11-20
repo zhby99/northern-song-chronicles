@@ -39,6 +39,8 @@ export interface BeforeHitContext extends EffectLogHelpers {
   piercePct: number
   nullifyPierce: boolean
   specRed: number
+  /** 主动护体外功（《金刚不坏体神功》）的独立减伤乘区，不计入 specRed 的 75% 上限 */
+  guardRed: number
   guardPenPct: number
 }
 
@@ -351,6 +353,15 @@ export const COMBAT_EFFECT_REGISTRY: Record<FxKey, CombatEffectSpec> = {
   xiantian_antipoison: {
     slot: 'neigong',
     modifyAntiPoisonPct: (val) => val / 100,
+  },
+  jingang_guard: {
+    // 《金刚不坏体神功》主动护体：守方以此功守御时，在「受创减半」之外再减免该比例（每重 9%，独立乘区，10 重 90%）
+    slot: 'move',
+    onBeforeHit(val, ctx, source) {
+      if (source === 'target' && ctx.targetChoice.type === 'defend' && ctx.targetChoice.guardSlot) {
+        ctx.guardRed = Math.max(ctx.guardRed, val / 100)
+      }
+    },
   },
   jingang_phys_red: {
     slot: 'neigong',

@@ -65,6 +65,15 @@ export function resolveBlindDecisionsAndInitiative(
     })
   }
 
+  // 主动护体外功（《金刚不坏体神功》）按「守御」结算：同享受创减半、回内与诱敌破绽，另加该功免伤
+  for (const entry of decisionMap.values()) {
+    if (entry.choice.type !== 'move') continue
+    const slot = entry.choice.slot
+    if (getSlotEffectsMap(entry.fighter, slot).jingang_guard !== undefined) {
+      entry.choice = { type: 'defend', guardSlot: slot }
+    }
+  }
+
   for (const entry of decisionMap.values()) {
     entry.fighter.consecutiveMoveRounds =
       entry.choice.type === 'move' ? entry.fighter.consecutiveMoveRounds + 1 : 0
@@ -184,7 +193,12 @@ export function resolveBlindDecisionsAndInitiative(
 
   for (const entry of decisionMap.values()) {
     if (entry.choice.type === 'defend') {
-      entry.fighter.lastUsedArtId = null
+      // 以护体外功守御：记入「禁连发同招」，下回合不可再运同一门护体功
+      const guardArtId = entry.choice.guardSlot ? entry.fighter.equippedArts[entry.choice.guardSlot] : null
+      const guardPct = entry.choice.guardSlot
+        ? getSlotEffectsMap(entry.fighter, entry.choice.guardSlot).jingang_guard
+        : undefined
+      entry.fighter.lastUsedArtId = guardArtId ?? null
       const mpRecoverRatio = isMutualDefend ? 0.15 : 0.1
       const rawMpGain = Math.max(1, Math.round(entry.fighter.maxMp * mpRecoverRatio))
       const mpBefore = entry.fighter.mp
@@ -192,17 +206,20 @@ export function resolveBlindDecisionsAndInitiative(
       const actualMpGain = entry.fighter.mp - mpBefore
       const fSide: 'player' | 'npc' = entry.fighter.team === 'ally' ? 'player' : 'npc'
       const actorTitle = entry.fighter.isPlayer ? '少侠' : entry.fighter.name
+      const guardArtName = guardArtId ? MARTIAL_ART_DB_MAP[guardArtId]?.cleanName : null
       ctx.pushLog(
         fSide === 'player' ? 'player' : 'enemy',
-        isMutualDefend
-          ? `${actorTitle}与对手皆抱元守一，吐纳调息回复 ${actualMpGain} 点内力（双守15%上限，受创减半）。`
-          : `${actorTitle}沉腰敛气摆出守御架势，凝神回气 +${actualMpGain} 点内力（受创减半，诱敌破绽）。`,
+        guardArtName
+          ? `${actorTitle}运起《${guardArtName}》，周身淡金禅光流转，凝神回气 +${actualMpGain} 点内力（受创减半，另减免 ${guardPct}%，诱敌破绽）。`
+          : isMutualDefend
+            ? `${actorTitle}与对手皆抱元守一，吐纳调息回复 ${actualMpGain} 点内力（双守15%上限，受创减半）。`
+            : `${actorTitle}沉腰敛气摆出守御架势，凝神回气 +${actualMpGain} 点内力（受创减半，诱敌破绽）。`,
       )
       revealPopups.push({
         id: ctx.nextPopupId(),
         side: fSide,
         unitId: entry.fighter.unitId,
-        text: entry.fighter.isPlayer ? '沉腰守御' : '凝神守御',
+        text: guardArtName ? '金刚护体' : entry.fighter.isPlayer ? '沉腰守御' : '凝神守御',
         subText:
           actualMpGain > 0 ? `受创减半 · +${actualMpGain}内力` : '受创减半 · 诱敌破绽',
         style: 'guard',

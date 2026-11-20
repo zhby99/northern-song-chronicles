@@ -109,6 +109,19 @@ export const SAVE_MIGRATIONS: readonly SaveMigrationStep[] = [
       setDefault(st, 'yamenBountyDoneIds', [])
     },
   },
+  {
+    to: 'M1.5.6',
+    note: '《金刚不坏体神功》改为天阶外功主动护体：从内功槽移入空出的招式槽',
+    migrate: (st) => {
+      const arts = st.equippedArts
+      if (!arts || typeof arts !== 'object' || Array.isArray(arts)) return
+      const slots = arts as Record<string, unknown>
+      if (slots.neigong !== 'MA-018') return
+      slots.neigong = null
+      const freeMove = ['move1', 'move2', 'move3', 'move4'].find((k) => !slots[k])
+      if (freeMove) slots[freeMove] = 'MA-018'
+    },
+  },
 ]
 
 export type SaveMigrationOutcome =

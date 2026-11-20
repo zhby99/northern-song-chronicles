@@ -26,6 +26,7 @@ export const FX_KEYS = [
   'hujia_gap',
   'huoyan_burn',
   'huoyan_pen',
+  'jingang_guard',
   'jingang_phys_red',
   'jingang_rebound',
   'jiuyin_heal',
@@ -80,7 +81,8 @@ export type CombatTeam = 'ally' | 'enemy'
 
 export type CombatActionChoice =
   | { type: 'move'; slot: MoveSlotKey; targetId?: string }
-  | { type: 'defend' }
+  /** guardSlot：以主动护体外功（如《金刚不坏体神功》）施展的守御，兼享该功的额外免伤 */
+  | { type: 'defend'; guardSlot?: MoveSlotKey }
   | { type: 'escape' }
   | { type: 'item'; itemId: string; targetId?: string }
 

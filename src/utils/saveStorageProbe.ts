@@ -1,6 +1,6 @@
 import type { SaveSlotId } from '../types/game'
 
-export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.5' as const
+export const CURRENT_SAVE_SCHEMA_VERSION = 'M1.5.6' as const
 
 /**
  * 存档结构历代版本（自 `NorthernSongChroniclesSaves_v3` 库启用起，旧→新）。
@@ -17,6 +17,7 @@ export const SAVE_SCHEMA_HISTORY = [
   'M1.5.2',
   'M1.5.3',
   'M1.5.4',
+  'M1.5.5',
   CURRENT_SAVE_SCHEMA_VERSION,
 ] as const
 

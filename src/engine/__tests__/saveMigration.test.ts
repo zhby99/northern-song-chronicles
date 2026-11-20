@@ -109,3 +109,22 @@ describe('cross-version loading', () => {
     if (!res.ok) expect(res.reason).toBe('future_version')
   })
 })
+
+describe('M1.5.6：金刚不坏体神功移出内功槽', () => {
+  it('旧档内功槽的 MA-018 移入第一个空招式槽，内功槽清空', async () => {
+    const { migrateRawSaveEnvelope } = await import('../../utils/saveMigrations')
+    const out = migrateRawSaveEnvelope({
+      gameTitle: '北宋立志传',
+      schemaVersion: 'M1.5.5',
+      state: {
+        equippedArts: { neigong: 'MA-018', qinggong: null, move1: 'MA-043', move2: null, move3: null, move4: null },
+      },
+    })
+    expect(out.ok).toBe(true)
+    if (!out.ok) return
+    const arts = (out.raw.state as { equippedArts: Record<string, string | null> }).equippedArts
+    expect(arts.neigong).toBeNull()
+    expect(arts.move2).toBe('MA-018')
+    expect(arts.move1).toBe('MA-043')
+  })
+})

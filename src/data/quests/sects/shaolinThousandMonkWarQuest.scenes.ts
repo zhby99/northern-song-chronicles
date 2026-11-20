@@ -77,9 +77,10 @@ function buildHelianTieshuBoss(): NodeNpc {
     talk: '“本将亲率西夏两千铁骑与一品堂死士横扫中原，今日便要火烧嵩山少林，叫大宋武林从此俯首称臣！”',
     stats: { hp: 6980, mp: 6650, agi: 89, res: 83 },
     talents: { bone: 92, comprehension: 86, charm: 56 },
-    equippedArts: { neigong: 'MA-018', qinggong: 'MA-077', move1: 'MA-045', move2: 'MA-085' },
+    equippedArts: { neigong: 'MA-245', qinggong: 'MA-077', move1: 'MA-045', move2: 'MA-085', move3: 'MA-018' },
     learnedArts: [
       { artId: 'MA-018', level: 10 },
+      { artId: 'MA-245', level: 10 },
       { artId: 'MA-077', level: 10 },
       { artId: 'MA-045', level: 10 },
       { artId: 'MA-085', level: 10 },

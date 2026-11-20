@@ -4239,10 +4239,10 @@
     "tier": "天阶",
     "subTier": "中品",
     "fullTier": "天阶中品",
-    "category": "内功",
+    "category": "外功",
     "origin": "嵩山少林/南少林",
     "sectId": "SECT-01",
-    "description": "佛门护体至高绝学，运功时周身隐现淡金禅光，气血与抗性暴涨，刀砍斧劈、烈火寒冰皆难以破防分毫。",
+    "description": "佛门护体至高绝学（主动护体外功）：临阵运功时周身隐现淡金禅光，按守御结算（受创减半、回气、令出招者招老力竭），不伤敌、不耗内力，另再每重减免所受伤害 9%（10 重 90%），刀砍斧劈、烈火寒冰皆难以破防分毫。",
     "prerequisitesText": "`根骨≥90`、`气血≥3800`、`抗性≥75`、`经义≥75`；需先修成《盘山铁布衫（大成）》或《少林九阳功》。",
     "statRequirements": [
       {
@@ -4267,217 +4267,127 @@
     "levels": [
       {
         "level": 1,
-        "expRequired": 89700,
+        "expRequired": 29900,
         "combatExpRequired": 75,
-        "maxMp": 1295,
-        "maxHp": 1349,
-        "resistance": 14,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 5,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 9,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 4,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       },
       {
         "level": 2,
-        "expRequired": 110400,
+        "expRequired": 36800,
         "combatExpRequired": 105,
-        "maxMp": 1899,
-        "maxHp": 1979,
-        "resistance": 20,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 8,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 18,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 7,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       },
       {
         "level": 3,
-        "expRequired": 131100,
+        "expRequired": 43700,
         "combatExpRequired": 135,
-        "maxMp": 2590,
-        "maxHp": 2699,
-        "resistance": 27,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 10,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 27,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 9,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       },
       {
         "level": 4,
-        "expRequired": 151800,
+        "expRequired": 50600,
         "combatExpRequired": 180,
-        "maxMp": 3367,
-        "maxHp": 3508,
-        "resistance": 35,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 14,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 36,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 12,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       },
       {
         "level": 5,
-        "expRequired": 165600,
+        "expRequired": 55200,
         "combatExpRequired": 225,
-        "maxMp": 4230,
-        "maxHp": 4408,
-        "resistance": 44,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 17,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 45,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 15,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       },
       {
         "level": 6,
-        "expRequired": 172500,
+        "expRequired": 57500,
         "combatExpRequired": 275,
-        "maxMp": 5180,
-        "maxHp": 5398,
-        "resistance": 54,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 21,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 54,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 18,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       },
       {
         "level": 7,
-        "expRequired": 179400,
+        "expRequired": 59800,
         "combatExpRequired": 330,
-        "maxMp": 6129,
-        "maxHp": 6387,
-        "resistance": 64,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 25,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 63,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 21,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       },
       {
         "level": 8,
-        "expRequired": 186300,
+        "expRequired": 62100,
         "combatExpRequired": 395,
-        "maxMp": 7079,
-        "maxHp": 7377,
-        "resistance": 74,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 29,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 72,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 25,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       },
       {
         "level": 9,
-        "expRequired": 193200,
+        "expRequired": 64400,
         "combatExpRequired": 480,
-        "maxMp": 7856,
-        "maxHp": 8186,
-        "resistance": 82,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 32,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 81,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 27,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       },
@@ -4485,23 +4395,13 @@
         "level": 10,
         "expRequired": 0,
         "combatExpRequired": 0,
-        "maxMp": 8633,
-        "maxHp": 8996,
-        "resistance": 90,
         "specialEffects": [
           {
-            "id": "jingang_phys_red",
-            "name": "不坏金身（物理减伤）",
-            "value": 35,
+            "id": "jingang_guard",
+            "name": "不坏金身（主动护体）",
+            "value": 90,
             "unit": "%",
-            "desc": "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"
-          },
-          {
-            "id": "jingang_rebound",
-            "name": "不动明王（防御反震）",
-            "value": 30,
-            "unit": "%",
-            "desc": "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"
+            "desc": "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"
           }
         ]
       }
@@ -26246,6 +26146,332 @@
         "expRequired": 0,
         "combatExpRequired": 0,
         "physicalDamage": 1120
+      }
+    ]
+  },
+  {
+    "id": "MA-248",
+    "code": "248",
+    "name": "逍遥游剑",
+    "cleanName": "逍遥游剑",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "category": "剑法",
+    "origin": "逍遥派",
+    "sectId": "SECT-09",
+    "description": "逍遥三老晚年合参《庄子·逍遥游》所创剑法，起手如北冥之鲲沉潜蓄势，后招化鹏扶摇直上九万里，剑势由敛至放、一剑长似一剑，专破守御之敌。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 24700,
+        "combatExpRequired": 35,
+        "physicalDamage": 168
+      },
+      {
+        "level": 2,
+        "expRequired": 30400,
+        "combatExpRequired": 50,
+        "physicalDamage": 246
+      },
+      {
+        "level": 3,
+        "expRequired": 36100,
+        "combatExpRequired": 65,
+        "physicalDamage": 336
+      },
+      {
+        "level": 4,
+        "expRequired": 41800,
+        "combatExpRequired": 90,
+        "physicalDamage": 437
+      },
+      {
+        "level": 5,
+        "expRequired": 45600,
+        "combatExpRequired": 115,
+        "physicalDamage": 549
+      },
+      {
+        "level": 6,
+        "expRequired": 47500,
+        "combatExpRequired": 140,
+        "physicalDamage": 672
+      },
+      {
+        "level": 7,
+        "expRequired": 49400,
+        "combatExpRequired": 165,
+        "physicalDamage": 795
+      },
+      {
+        "level": 8,
+        "expRequired": 51300,
+        "combatExpRequired": 195,
+        "physicalDamage": 918
+      },
+      {
+        "level": 9,
+        "expRequired": 53200,
+        "combatExpRequired": 225,
+        "physicalDamage": 1019
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "physicalDamage": 1120
+      }
+    ]
+  },
+  {
+    "id": "MA-249",
+    "code": "249",
+    "name": "齐物指",
+    "cleanName": "齐物指",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "category": "指法",
+    "origin": "逍遥派",
+    "sectId": "SECT-09",
+    "description": "取《庄子·齐物论》「天地与我并生，万物与我为一」之理，指力不分刚柔、不辨远近，借北冥真气隔空点穴，以敌之势还制敌身。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 24700,
+        "combatExpRequired": 35,
+        "physicalDamage": 171
+      },
+      {
+        "level": 2,
+        "expRequired": 30400,
+        "combatExpRequired": 50,
+        "physicalDamage": 251
+      },
+      {
+        "level": 3,
+        "expRequired": 36100,
+        "combatExpRequired": 65,
+        "physicalDamage": 343
+      },
+      {
+        "level": 4,
+        "expRequired": 41800,
+        "combatExpRequired": 90,
+        "physicalDamage": 445
+      },
+      {
+        "level": 5,
+        "expRequired": 45600,
+        "combatExpRequired": 115,
+        "physicalDamage": 560
+      },
+      {
+        "level": 6,
+        "expRequired": 47500,
+        "combatExpRequired": 140,
+        "physicalDamage": 685
+      },
+      {
+        "level": 7,
+        "expRequired": 49400,
+        "combatExpRequired": 165,
+        "physicalDamage": 811
+      },
+      {
+        "level": 8,
+        "expRequired": 51300,
+        "combatExpRequired": 195,
+        "physicalDamage": 936
+      },
+      {
+        "level": 9,
+        "expRequired": 53200,
+        "combatExpRequired": 225,
+        "physicalDamage": 1039
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "physicalDamage": 1142
+      }
+    ]
+  },
+  {
+    "id": "MA-250",
+    "code": "250",
+    "name": "缥缈御风步",
+    "cleanName": "缥缈御风步",
+    "tier": "地阶",
+    "subTier": "上品",
+    "fullTier": "地阶上品",
+    "category": "轻功",
+    "origin": "逍遥派·天山灵鹫宫",
+    "sectId": "SECT-09",
+    "description": "天山童姥返老还童后于缥缈峰绝顶独创的提纵身法，「列子御风而行，泠然善也」，足不点地而身随风转，冰崖雪岭往来如履平地。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 3,
+    "minSectRankLabel": "真传/长老",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 24700,
+        "combatExpRequired": 35,
+        "maxMp": 54,
+        "agility": 11
+      },
+      {
+        "level": 2,
+        "expRequired": 30400,
+        "combatExpRequired": 50,
+        "maxMp": 79,
+        "agility": 16
+      },
+      {
+        "level": 3,
+        "expRequired": 36100,
+        "combatExpRequired": 65,
+        "maxMp": 108,
+        "agility": 22
+      },
+      {
+        "level": 4,
+        "expRequired": 41800,
+        "combatExpRequired": 90,
+        "maxMp": 140,
+        "agility": 28
+      },
+      {
+        "level": 5,
+        "expRequired": 45600,
+        "combatExpRequired": 115,
+        "maxMp": 176,
+        "agility": 35
+      },
+      {
+        "level": 6,
+        "expRequired": 47500,
+        "combatExpRequired": 140,
+        "maxMp": 216,
+        "agility": 43
+      },
+      {
+        "level": 7,
+        "expRequired": 49400,
+        "combatExpRequired": 165,
+        "maxMp": 256,
+        "agility": 51
+      },
+      {
+        "level": 8,
+        "expRequired": 51300,
+        "combatExpRequired": 195,
+        "maxMp": 295,
+        "agility": 59
+      },
+      {
+        "level": 9,
+        "expRequired": 53200,
+        "combatExpRequired": 225,
+        "maxMp": 328,
+        "agility": 66
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "maxMp": 360,
+        "agility": 72
+      }
+    ]
+  },
+  {
+    "id": "MA-251",
+    "code": "251",
+    "name": "梦蝶掌",
+    "cleanName": "梦蝶掌",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "拳掌",
+    "origin": "逍遥派",
+    "sectId": "SECT-09",
+    "description": "逍遥三老合参「庄周梦蝶」物我两忘之境所创掌法，掌影翩跹如蝶穿花，虚实相生、不知孰为庄周孰为蝶，敌手方欲封架，掌力已自意想不到之处轻轻印至。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "physicalDamage": 108
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "physicalDamage": 158
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "physicalDamage": 216
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "physicalDamage": 281
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "physicalDamage": 353
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "physicalDamage": 432
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "physicalDamage": 511
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "physicalDamage": 590
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "physicalDamage": 655
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "physicalDamage": 720
       }
     ]
   }

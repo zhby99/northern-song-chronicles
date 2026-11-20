@@ -11340,7 +11340,7 @@
       "neigong": "MA-001",
       "qinggong": "MA-057",
       "move1": "MA-043",
-      "move2": "MA-062",
+      "move2": "MA-018",
       "move3": "MA-048",
       "move4": "MA-063"
     },
@@ -11442,12 +11442,14 @@
       "画": 86,
       "辩才": 60
     },
-    "artsText": "《八荒六合唯我独尊功》、天山折梅手、天山六阳掌、生死符、凌波微步",
+    "artsText": "《八荒六合唯我独尊功》、天山折梅手、天山六阳掌、生死符、缥缈御风步、逍遥游剑、齐物指",
     "knownArtIds": [
       "MA-009",
       "MA-014",
       "MA-015",
-      "MA-010"
+      "MA-250",
+      "MA-248",
+      "MA-249"
     ],
     "specialtyTags": [],
     "bio": "逍遥派大师姐，身材永如女童而煞气震慑西域三十六洞七十二岛，常赴昆仑冰川采寒玉调伏神功，游戏内唯一大宗师中品。",
@@ -11463,16 +11465,21 @@
     ],
     "equippedArts": {
       "neigong": "MA-009",
-      "qinggong": "MA-010",
+      "qinggong": "MA-250",
       "move1": "MA-014",
       "move2": "MA-015",
-      "move3": "MA-027",
-      "move4": "MA-033"
+      "move3": "MA-248",
+      "move4": "MA-249"
     },
     "learnedArts": [
       {
         "artId": "MA-009",
         "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-250",
+        "level": 9,
         "exp": 0
       },
       {
@@ -11486,17 +11493,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-010",
+        "artId": "MA-248",
         "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-027",
-        "level": 9,
-        "exp": 0
-      },
-      {
-        "artId": "MA-033",
+        "artId": "MA-249",
         "level": 9,
         "exp": 0
       }
@@ -11557,12 +11559,14 @@
       "画": 94,
       "辩才": 89
     },
-    "artsText": "《小无相功》、白虹掌力、凌波微步、天山六阳掌",
+    "artsText": "《小无相功》、白虹掌力、凌波微步、逍遥游剑、齐物指、梦蝶掌",
     "knownArtIds": [
       "MA-012",
       "MA-027",
       "MA-010",
-      "MA-015"
+      "MA-248",
+      "MA-249",
+      "MA-251"
     ],
     "specialtyTags": [],
     "bio": "逍遥派小师妹，风姿绝世而心机深沉，潜居西夏兴庆府深宫幕后指点一品堂绝学，与天山童姥宿怨纠缠数十载，位列大宗师下品。",
@@ -11579,18 +11583,13 @@
       "neigong": "MA-012",
       "qinggong": "MA-010",
       "move1": "MA-027",
-      "move2": "MA-015",
-      "move3": "MA-033",
-      "move4": "MA-014"
+      "move2": "MA-248",
+      "move3": "MA-249",
+      "move4": "MA-251"
     },
     "learnedArts": [
       {
         "artId": "MA-012",
-        "level": 9,
-        "exp": 0
-      },
-      {
-        "artId": "MA-027",
         "level": 9,
         "exp": 0
       },
@@ -11600,23 +11599,28 @@
         "exp": 0
       },
       {
-        "artId": "MA-015",
+        "artId": "MA-027",
         "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-014",
+        "artId": "MA-248",
         "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-033",
+        "artId": "MA-249",
+        "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-251",
         "level": 9,
         "exp": 0
       }
     ],
     "equipped": {
-      "weapon": "WPN-039",
+      "weapon": "WPN-057",
       "armor": "ARM-002",
       "shoes": "BOT-016",
       "bow": "BOW-012",
@@ -11802,12 +11806,12 @@
     "sectRankLabel": null,
     "ownedArtifactIds": [],
     "equippedArts": {
-      "neigong": "MA-018",
+      "neigong": "MA-060",
       "qinggong": "MA-077",
       "move1": "MA-045",
       "move2": "MA-062",
       "move3": "MA-043",
-      "move4": "MA-085"
+      "move4": "MA-018"
     },
     "learnedArts": [
       {
@@ -11902,12 +11906,15 @@
       "画": 99,
       "辩才": 90
     },
-    "artsText": "《北冥神功》、天山折梅手、凌波微步、七弦无形剑",
+    "artsText": "《北冥神功》、《小无相功》、凌波微步、七弦无形剑、逍遥游剑、齐物指、梦蝶掌",
     "knownArtIds": [
       "MA-002",
-      "MA-014",
+      "MA-012",
       "MA-010",
-      "MA-033"
+      "MA-033",
+      "MA-248",
+      "MA-249",
+      "MA-251"
     ],
     "specialtyTags": [],
     "bio": "琴棋书画医卜星相无所不精，丰神俊朗，隐居大理无量山剑湖与洛阳秘宅之间摆设珍珑棋局，因早年受暗算旧伤未愈居宗师上品巅峰。",
@@ -11924,20 +11931,15 @@
     "equippedArts": {
       "neigong": "MA-002",
       "qinggong": "MA-010",
-      "move1": "MA-014",
-      "move2": "MA-033",
-      "move3": "MA-015",
-      "move4": "MA-027"
+      "move1": "MA-033",
+      "move2": "MA-248",
+      "move3": "MA-249",
+      "move4": "MA-251"
     },
     "learnedArts": [
       {
         "artId": "MA-002",
         "level": 6,
-        "exp": 0
-      },
-      {
-        "artId": "MA-014",
-        "level": 8,
         "exp": 0
       },
       {
@@ -11951,12 +11953,22 @@
         "exp": 0
       },
       {
-        "artId": "MA-015",
+        "artId": "MA-248",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-027",
+        "artId": "MA-249",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-251",
+        "level": 8,
+        "exp": 0
+      },
+      {
+        "artId": "MA-012",
         "level": 8,
         "exp": 0
       }
@@ -13977,22 +13989,22 @@
       "WPN-015"
     ],
     "equippedArts": {
-      "neigong": "MA-018",
+      "neigong": "MA-080",
       "qinggong": "MA-097",
       "move1": "MA-044",
       "move2": "MA-106",
       "move3": "MA-091",
-      "move4": "MA-085"
+      "move4": "MA-018"
     },
     "learnedArts": [
       {
         "artId": "MA-018",
-        "level": 5,
+        "level": 7,
         "exp": 0
       },
       {
         "artId": "MA-080",
-        "level": 8,
+        "level": 7,
         "exp": 0
       },
       {

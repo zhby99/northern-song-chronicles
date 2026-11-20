@@ -53,9 +53,10 @@ function buildLiaoEnvoyBoss(): NodeNpc {
     talk: '“区区一个未剃度的白衣居士，也敢妄称少林之主？今日趁尔等内讧，本使便取下你的首级与藏经阁密卷，献予大辽南院大王！”',
     stats: { hp: 5720, mp: 5340, agi: 86, res: 77 },
     talents: { bone: 87, comprehension: 80, charm: 45 },
-    equippedArts: { neigong: 'MA-018', qinggong: 'MA-077', move1: 'MA-045', move2: 'MA-085' },
+    equippedArts: { neigong: 'MA-060', qinggong: 'MA-077', move1: 'MA-045', move2: 'MA-085', move3: 'MA-018' },
     learnedArts: [
       { artId: 'MA-018', level: 9 },
+      { artId: 'MA-060', level: 9 },
       { artId: 'MA-077', level: 9 },
       { artId: 'MA-045', level: 9 },
       { artId: 'MA-085', level: 9 },

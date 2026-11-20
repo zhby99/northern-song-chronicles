@@ -1241,8 +1241,7 @@ def compute_martial_art_levels(art: dict[str, Any]) -> list[dict[str, Any]]:
             ("taiji_sap", "化劲卸力（削内）", 5, "%", "命中后卸去对手该比例的当前内力"),
         ],
         "018": [
-            ("jingang_phys_red", "不坏金身（物理减伤）", 35, "%", "所受物理伤害直接减免该比例，且10重完全免疫敌方无视防御/破甲效果"),
-            ("jingang_rebound", "不动明王（防御反震）", 30, "%", "当自身本回合选择【防御】时，将对手物理出招伤害的该比例震回给对手"),
+            ("jingang_guard", "不坏金身（主动护体）", 90, "%", "主动施展：按【守御】结算（受创减半、回内力、诱敌破绽），不出伤害、不耗内力，并在此之外再减免所受伤害该比例（每重 9%，10 重 90%）；不可连续两回合施展"),
         ],
         "019": [
             ("huoyan_pen", "无形焰气（穿防）", 50, "%", "无视对手【防御】姿态的该比例额外减伤"),
@@ -1351,7 +1350,8 @@ def compute_martial_art_levels(art: dict[str, Any]) -> list[dict[str, Any]]:
                 {
                     "id": eid,
                     "name": ename,
-                    "value": max(1, round(eval_max * ratio)),
+                    # 金刚不坏体神功按重数线性：每重 9%
+                    "value": 9 * lv if eid == "jingang_guard" else max(1, round(eval_max * ratio)),
                     "unit": unit,
                     "desc": edesc,
                 }
@@ -1466,6 +1466,10 @@ def parse_martial_arts() -> list[dict[str, Any]]:
         "MA-245": "SECT-20",  # 西夏秘藏玄功 -> 西夏一品堂
         "MA-246": "SECT-20",  # 大漠踏沙行 -> 西夏一品堂
         "MA-247": "SECT-20",  # 追魂铁杖法 -> 西夏一品堂
+        "MA-248": "SECT-09",  # 逍遥游剑 -> 逍遥派（三老合创）
+        "MA-249": "SECT-09",  # 齐物指 -> 逍遥派（三老合创）
+        "MA-250": "SECT-09",  # 缥缈御风步 -> 逍遥派（天山童姥独创）
+        "MA-251": "SECT-09",  # 梦蝶掌 -> 逍遥派（三老合创）
     }
 
     for art in arts:
@@ -1511,8 +1515,8 @@ def parse_martial_arts() -> list[dict[str, Any]]:
         art["levels"] = compute_martial_art_levels(art)
 
     arts.sort(key=lambda x: int(x["code"]))
-    if len(arts) != 247:
-        raise AssertionError(f"Expected 247 martial arts, got {len(arts)}")
+    if len(arts) != 251:
+        raise AssertionError(f"Expected 251 martial arts, got {len(arts)}")
     return arts
 
 
@@ -3029,6 +3033,27 @@ export function isRegionId(id: string | null | undefined): id is RegionId {{
 
 
 
+XIAOYAO_ELDER_NEW_ARTS = {"MA-248", "MA-249", "MA-250", "MA-251"}
+# 不进入门派武学自动配给池的武学：三老合创武学 + 金刚不坏体神功（天阶外功主动护体，仅指定宗师运使）
+AUTO_POOL_EXCLUDED_ARTS = XIAOYAO_ELDER_NEW_ARTS | {"MA-018"}
+# 金刚不坏体神功的指定运使者：(招式槽, 重数)
+JINGANG_GUARD_HOLDERS: dict[str, tuple[str, int]] = {
+    "NPC-0101": ("move2", 10),  # 法空：替下地阶中品《龙爪手》
+    "NPC-0105": ("move4", 8),  # 萧远山
+    "NPC-0124": ("move4", 7),  # 元苦（莆田南少林）
+}
+
+# 逍遥三老按原著收束的运使武学：(内功, 轻功, [出战招式], [另会但不运使], 新武学默认重数)
+XIAOYAO_ELDER_LOADOUTS: dict[str, tuple[str, str | None, list[str], list[str], int]] = {
+    # 无崖子：北冥神功 / 凌波微步 / 七弦无形剑（设定特许）+ 逍遥游剑 / 齐物指 / 梦蝶掌；另会小无相功
+    "NPC-0106": ("MA-002", "MA-010", ["MA-033", "MA-248", "MA-249", "MA-251"], ["MA-012"], 8),
+    # 巫行云：八荒六合唯我独尊功 / 天山折梅手 / 天山六阳掌 + 缥缈御风步 / 逍遥游剑 / 齐物指
+    "NPC-0102": ("MA-009", "MA-250", ["MA-014", "MA-015", "MA-248", "MA-249"], [], 9),
+    # 李秋水：小无相功 / 白虹掌力 / 凌波微步（设定特许）+ 逍遥游剑 / 齐物指 / 梦蝶掌
+    "NPC-0103": ("MA-012", "MA-010", ["MA-027", "MA-248", "MA-249", "MA-251"], [], 9),
+}
+
+
 def populate_npc_loadouts(
     npcs: list[dict[str, Any]],
     martial_arts: list[dict[str, Any]],
@@ -3218,7 +3243,10 @@ def populate_npc_loadouts(
         pref_tiers = allowed_art_tiers(realm_rank)
 
         # 1) 6 槽武学选配
-        known_arts = [art_by_id[aid] for aid in npc.get("knownArtIds", []) if aid in art_by_id]
+        # 金刚不坏体神功只经由 JINGANG_GUARD_HOLDERS 指定上槽，不按「已知武学优先」自动塞入招式槽
+        known_arts = [
+            art_by_id[aid] for aid in npc.get("knownArtIds", []) if aid in art_by_id and aid != "MA-018"
+        ]
         known_arts.sort(key=lambda a: tier_rank.get(a["tier"], 1), reverse=True)
 
         neigong_id: str | None = None
@@ -3233,8 +3261,11 @@ def populate_npc_loadouts(
             elif a["category"] not in ("内功", "轻功") and len(move_ids) < 4:
                 move_ids.append(a["id"])
 
-        sect_arts = [a for a in martial_arts if a.get("sectId") == faction_id]
-        generic_arts = [a for a in martial_arts if a.get("sectId") is None]
+        # 三老合创武学只给逍遥三老本人运使，不进入门派武学自动配给池
+        sect_arts = [
+            a for a in martial_arts if a.get("sectId") == faction_id and a["id"] not in AUTO_POOL_EXCLUDED_ARTS
+        ]
+        generic_arts = [a for a in martial_arts if a.get("sectId") is None and a["id"] not in AUTO_POOL_EXCLUDED_ARTS]
 
         used_ids: set[str] = set()
         if neigong_id:
@@ -3488,18 +3519,19 @@ def populate_npc_loadouts(
                         e["level"] = max(1, e["level"] - drop_lv)
                         break
 
-        # 4) 指定宗师内功微调
-        if npc["id"] == "NPC-0105":  # 萧远山：金刚不坏体神功 8 重
-            equipped_arts["neigong"] = "MA-018"
-            found = False
-            for e in learned_arts:
-                if e["artId"] == "MA-018":
-                    e["level"] = 8
-                    found = True
-                    break
-            if not found:
-                learned_arts.append({"artId": "MA-018", "level": 8, "exp": 0})
-        elif npc["id"] in ("NPC-0108", "NPC-0119", "NPC-0117", "NPC-0125", "NPC-0132", "NPC-0128") and neigong_id:
+        # 4) 金刚不坏体神功（天阶外功主动护体）：只装入指定宗师的招式槽
+        if npc["id"] in JINGANG_GUARD_HOLDERS:
+            jg_slot, jg_lv = JINGANG_GUARD_HOLDERS[npc["id"]]
+            equipped_arts[jg_slot] = "MA-018"
+            jg_entry = next((e for e in learned_arts if e["artId"] == "MA-018"), None)
+            if jg_entry:
+                jg_entry["level"] = jg_lv
+            else:
+                learned_arts.append({"artId": "MA-018", "level": jg_lv, "exp": 0})
+            # 被替下的招式与其他未运使的旧武学保留在已会列表中
+
+        # 5) 指定宗师内功微调
+        if npc["id"] in ("NPC-0108", "NPC-0119", "NPC-0117", "NPC-0125", "NPC-0132", "NPC-0128") and neigong_id:
             for e in learned_arts:
                 if e["artId"] == neigong_id:
                     e["level"] = min(10, e["level"] + 1)
@@ -3509,6 +3541,24 @@ def populate_npc_loadouts(
                 if e["artId"] == neigong_id:
                     e["level"] = max(1, e["level"] - 1)
                     break
+        elif npc["id"] in XIAOYAO_ELDER_LOADOUTS:
+            # 逍遥三老：只运使原著明写的武学（另依设定给无崖子七弦无形剑、李秋水凌波微步），
+            # 空槽以三老合创地阶武学补足，不再由门派武学池自动串配
+            neigong, qinggong, moves, extra_learned, lv = XIAOYAO_ELDER_LOADOUTS[npc["id"]]
+            npc["equippedArts"] = {
+                "neigong": neigong,
+                "qinggong": qinggong,
+                "move1": moves[0] if len(moves) > 0 else None,
+                "move2": moves[1] if len(moves) > 1 else None,
+                "move3": moves[2] if len(moves) > 2 else None,
+                "move4": moves[3] if len(moves) > 3 else None,
+            }
+            old_levels = {e["artId"]: e["level"] for e in learned_arts}
+            keep_ids = [neigong, qinggong, *moves, *extra_learned]
+            npc["learnedArts"] = [
+                {"artId": aid, "level": lv if aid in XIAOYAO_ELDER_NEW_ARTS else old_levels.get(aid, lv), "exp": 0}
+                for aid in dict.fromkeys(a for a in keep_ids if a)
+            ]
         elif npc["id"] == "NPC-1053":  # 段延庆：寒铁双拐杖 + 枯荣禅意功8重 + 瞬息千里8重 + 一阳指/追魂铁杖法，双足残废无坐骑、双手执拐不佩弓
             npc["equipped"] = {
                 "weapon": "WPN-101",

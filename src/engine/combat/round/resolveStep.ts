@@ -449,6 +449,10 @@ export function resolveOrderedActionSteps(
     const targetQgFx = getSlotEffectsMap(target, 'qinggong')
     let moveFx = getSlotEffectsMap(actor, choice.slot)
     let targetMoveFx: SlotEffectsMap = {}
+    if (targetChoice.type === 'defend' && targetChoice.guardSlot) {
+      // 以护体外功守御：该功的免伤特效（jingang_guard）本回合生效
+      targetMoveFx = { ...getSlotEffectsMap(target, targetChoice.guardSlot) }
+    }
     if (targetChoice.type === 'move') {
       const tArtId = target.equippedArts[targetChoice.slot]
       const tArt = tArtId ? MARTIAL_ART_DB_MAP[tArtId] : undefined
@@ -524,6 +528,7 @@ export function resolveOrderedActionSteps(
       piercePct: 0,
       nullifyPierce: false,
       specRed: 0,
+      guardRed: 0,
       guardPenPct: 0,
     }
 
@@ -676,6 +681,7 @@ export function resolveOrderedActionSteps(
         attackPower *
           (1 - mitigation) *
           (1 - beforeHitCtx.specRed) *
+          (1 - Math.min(0.9, beforeHitCtx.guardRed)) *
           postureMult *
           spearCounterMult *
           exposedVulnMult *

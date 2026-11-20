@@ -920,7 +920,8 @@ function populateNpcLoadouts(npcs, martialArts, weapons, gear, mounts) {
     }
 
     if (npc.id === 'NPC-0105') {
-      equippedArts.neigong = 'MA-018'
+      // 金刚不坏体神功已改为天阶外功主动护体，装入招式槽
+      equippedArts.move4 = 'MA-018'
       const found = learnedArts.find((e) => e.artId === 'MA-018')
       if (found) found.level = 8
       else learnedArts.push({ artId: 'MA-018', level: 8, exp: 0 })

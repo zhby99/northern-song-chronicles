@@ -46,10 +46,16 @@ export function getSlotEffectsMap(
   return map
 }
 
+/** 主动护体外功（如《金刚不坏体神功》）：施展时不出伤害、不耗内力，只在本回合护体减伤 */
+export function isGuardMartialArt(art: CompiledMartialArtRecord, level: number): boolean {
+  return Boolean(getArtLevelStats(art, level)?.specialEffects?.some((fx) => fx.id === 'jingang_guard'))
+}
+
 export function getArtRawDamageAndKind(
   art: CompiledMartialArtRecord,
   level: number,
 ): { damage: number; kind: '物理' | '奇门'; subTypeLabel: string } {
+  if (isGuardMartialArt(art, level)) return { damage: 0, kind: '物理', subTypeLabel: '护体' }
   const st = getArtLevelStats(art, level)
   if (!st) return { damage: 40, kind: '物理', subTypeLabel: '外功' }
   if ((st.poisonDamage ?? 0) > 0) {
@@ -80,6 +86,8 @@ export function computeEffectiveAgility(fighter: CombatantState): number {
 }
 
 export function computeMoveMpCost(fighter: CombatantState, moveDamage: number): number {
+  // 不出伤害的护体外功不耗内力
+  if (moveDamage <= 0) return 0
   const ngFx = getSlotEffectsMap(fighter, 'neigong')
   let savePct = 0
   for (const [key, val] of Object.entries(ngFx) as Array<[FxKey, number]>) {
@@ -270,7 +278,11 @@ export function computeEscapeChancePreview(
 }
 
 export function describeChoice(fighter: CombatantState, choice: CombatActionChoice): string {
-  if (choice.type === 'defend') return '【守御架势】'
+  if (choice.type === 'defend') {
+    const gid = choice.guardSlot ? fighter.equippedArts[choice.guardSlot] : null
+    const gArt = gid ? MARTIAL_ART_DB_MAP[gid] : null
+    return gArt ? `《${gArt.cleanName}》（护体守御）` : '【守御架势】'
+  }
   if (choice.type === 'escape') return '【抽身脱战】'
   if (choice.type === 'item') {
     const def = ITEM_DB_MAP[choice.itemId]

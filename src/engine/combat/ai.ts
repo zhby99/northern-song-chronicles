@@ -44,11 +44,21 @@ export function chooseNpcCombatAction(
     defendProb = 0.22
   }
 
+  // 主动护体外功（《金刚不坏体神功》）按守御结算且免伤更高：凡欲守御时优先运功护体
+  const guardMove = availMoves.find(
+    (m) =>
+      m.art?.levels?.[Math.max(0, m.level - 1)]?.specialEffects?.some((fx) => fx.id === 'jingang_guard'),
+  )
   if (rng() < defendProb) {
-    return { type: 'defend' }
+    return guardMove ? { type: 'move', slot: guardMove.slot } : { type: 'defend' }
   }
 
-  const pool = affordableMoves.length > 0 ? affordableMoves : availMoves
+  const attackMoves = availMoves.filter((m) => m !== guardMove)
+  const affordableAttacks = affordableMoves.filter((m) => m !== guardMove)
+  if (attackMoves.length === 0) {
+    return guardMove ? { type: 'move', slot: guardMove.slot } : { type: 'defend' }
+  }
+  const pool = affordableAttacks.length > 0 ? affordableAttacks : attackMoves
   const weights = pool.map((m) => {
     const fxBonus =
       (m.art?.levels?.[Math.max(0, m.level - 1)]?.specialEffects?.length ?? 0) > 0

@@ -13,7 +13,7 @@
     "cityBaseBuildings": 121,
     "totalBuildings": 268,
     "interiorSubBuildings": 441,
-    "martialArts": 247,
+    "martialArts": 251,
     "weapons": 103,
     "mounts": 28,
     "npcs": 1059,
@@ -1034,7 +1034,11 @@
         "MA-015",
         "MA-027",
         "MA-033",
-        "MA-219"
+        "MA-219",
+        "MA-248",
+        "MA-249",
+        "MA-250",
+        "MA-251"
       ],
       "weaponIds": [
         "WPN-005",
@@ -3158,7 +3162,7 @@
       "name": "金刚不坏体神功",
       "cleanName": "金刚不坏体神功",
       "fullTier": "天阶中品",
-      "category": "内功",
+      "category": "外功",
       "sectId": "SECT-01"
     },
     {
@@ -5221,6 +5225,42 @@
       "fullTier": "地阶上品",
       "category": "棍棒",
       "sectId": "SECT-20"
+    },
+    {
+      "id": "MA-248",
+      "code": "248",
+      "name": "逍遥游剑",
+      "cleanName": "逍遥游剑",
+      "fullTier": "地阶上品",
+      "category": "剑法",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-249",
+      "code": "249",
+      "name": "齐物指",
+      "cleanName": "齐物指",
+      "fullTier": "地阶上品",
+      "category": "指法",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-250",
+      "code": "250",
+      "name": "缥缈御风步",
+      "cleanName": "缥缈御风步",
+      "fullTier": "地阶上品",
+      "category": "轻功",
+      "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-251",
+      "code": "251",
+      "name": "梦蝶掌",
+      "cleanName": "梦蝶掌",
+      "fullTier": "地阶下品",
+      "category": "拳掌",
+      "sectId": "SECT-09"
     }
   ],
   "weaponIndex": [
