@@ -78,3 +78,30 @@ describe('天下风云榜', () => {
     expect(high.total).toBeGreaterThan(low.total)
   })
 })
+
+describe('战力公式', () => {
+  it('气血×1.5+内力×1.8+身法×30+抗性×30+攻击×2+防御×1.5 + 最高一门外功(品阶×重数×30) + 天阶特效×1000', () => {
+    // 内功 MA-001 易筋经（天阶上品）不计；外功 MA-043 般若掌 地阶上品(9) 10 重 → 2700，MA-062 龙爪手 地阶中品(8) 10 重 → 2400，只取最高一门
+    const p = computeMartialPower({
+      maxHp: 1000,
+      maxMp: 2000,
+      agility: 10,
+      res: 20,
+      totalAttack: 100,
+      totalDefense: 50,
+      equippedArts: { neigong: 'MA-001', qinggong: 'MA-057', move1: 'MA-062', move2: 'MA-043', move3: null, move4: null },
+      learnedArts: [
+        { artId: 'MA-001', level: 10, exp: 0 },
+        { artId: 'MA-057', level: 10, exp: 0 },
+        { artId: 'MA-043', level: 10, exp: 0 },
+        { artId: 'MA-062', level: 10, exp: 0 },
+      ],
+    })
+    expect(p.vitals).toBe(1500 + 3600 + 300 + 600)
+    expect(p.offense).toBe(200 + 75)
+    expect(p.arts).toBe(9 * 10 * 30)
+    expect(p.signatureArt).toContain('般若掌')
+    expect(p.heaven).toBe(p.heavenEffectCount * 1000)
+    expect(p.total).toBe(p.vitals + p.offense + p.arts + p.heaven)
+  })
+})

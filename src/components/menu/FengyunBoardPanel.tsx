@@ -123,7 +123,7 @@ export function FengyunBoardPanel({
           })}
         </ol>
         <p className="text-[11px] text-[#7a5f3e] leading-relaxed">
-          排名规则：先比境界，同一境界再比战力。战力依据实时有效四维（气血 · 内力 · 身法 · 抗性）+ 披挂与武学攻守 + 运使武学「品阶 × 重数」+ 天阶特效。已身故的人物不再入榜；换上更好的披挂、运使更高阶的武学、闭关提升重数都会即时反映在榜上。
+          排名规则：先比境界，同一境界再比战力。战力 = 气血 ×1.5 + 内力 ×1.8 + 身法 ×30 + 抗性 ×30 + 攻击 ×2 + 防御 ×1.5 + 最高一门外功武学「品阶 × 重数 × 30」+ 天阶特效每条 1000（均为披挂与运使武学后的实时值）。已身故的人物不再入榜；换上更好的披挂、运使更高阶的武学、闭关提升重数都会即时反映在榜上。
         </p>
       </div>
 
@@ -251,7 +251,7 @@ function FengyunDetailCard({
   const rows: [string, number][] = [
     ['四维根基', p.vitals],
     ['攻守披挂', p.offense],
-    ['武学品阶 × 重数', p.arts],
+    ['最高外功 品阶×重数×30', p.arts],
     [`天阶特效 × ${p.heavenEffectCount}`, p.heaven],
   ]
   return (
@@ -275,7 +275,7 @@ function FengyunDetailCard({
 
       {p.signatureArt && (
         <div className="text-xs px-2.5 py-1.5 rounded bg-[#f5ecd7] border border-[#d8c49e] text-[#5c3d1e]">
-          <strong>压箱绝学：</strong>
+          <strong>压箱外功：</strong>
           {p.signatureArt}
         </div>
       )}

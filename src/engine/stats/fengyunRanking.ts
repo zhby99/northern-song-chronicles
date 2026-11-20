@@ -16,10 +16,10 @@ import type { HeroBaseStats } from '../../types/game'
  * 《天下风云榜》排名规则：先比境界（大宗师上品 > 大宗师中品 > …），同一境界内再比战力。
  * 境界是人物修为的定论（如法空为全游戏唯一的大宗师上品），战力只在同境界之间分高下。
  *
- * 战力评定：
- * 以实时有效四维（气血 / 内力 / 身法 / 抗性）为根基，叠加披挂与武学的攻守总值、
- * 运使武学的「品阶 × 重数」，以及天阶特效的额外权重。
- * 仅作排名之用，不参与任何战斗结算。
+ * 战力 = 气血 ×1.5 + 内力 ×1.8 + 身法 ×30 + 抗性 ×30 + 攻击 ×2 + 防御 ×1.5
+ *      + 武学（四门出战外功中「品阶 × 重数 × 30」最高的一门；内功、轻功不计）
+ *      + 天阶特效（每条生效特效 +1000）
+ * 四维与攻守均为披挂、运使武学后的实时有效值。仅作排名之用，不参与任何战斗结算。
  */
 
 const TIER_WEIGHT: Record<string, number> = {
@@ -40,7 +40,9 @@ const TIER_WEIGHT: Record<string, number> = {
 /** 每个「品阶权重 × 重数」点折算的战力 */
 const ART_POINT = 30
 /** 每条已生效的天阶特效折算的战力 */
-const HEAVEN_EFFECT_POINT = 450
+const HEAVEN_EFFECT_POINT = 1000
+
+const MOVE_SLOTS: MartialArtSlotKey[] = ['move1', 'move2', 'move3', 'move4']
 
 export interface PowerInput {
   maxHp: number
@@ -60,7 +62,7 @@ export interface PowerBreakdown {
   arts: number
   heaven: number
   heavenEffectCount: number
-  /** 运使中最高品阶的武学名（含重数），用于榜单展示 */
+  /** 计入战力的那一门外功武学（品阶 × 重数最高者，含重数），用于榜单展示 */
   signatureArt: string | null
 }
 
@@ -76,24 +78,26 @@ export function compareRankedPower(a: RankedPower, b: RankedPower): number {
 }
 
 export function computeMartialPower(input: PowerInput): PowerBreakdown {
-  const vitals = input.maxHp * 0.6 + input.maxMp * 0.5 + input.agility * 30 + input.res * 30
-  const offense = input.totalAttack * 4 + input.totalDefense * 3
+  const vitals = input.maxHp * 1.5 + input.maxMp * 1.8 + input.agility * 30 + input.res * 30
+  const offense = input.totalAttack * 2 + input.totalDefense * 1.5
 
   const levelMap = new Map(input.learnedArts.map((a) => [a.artId, a.level]))
-  let arts = 0
-  let best: { weight: number; level: number; label: string } | null = null
-  for (const slot of Object.keys(input.equippedArts) as MartialArtSlotKey[]) {
+  let best: { score: number; weight: number; label: string } | null = null
+  // 只看四门出战外功（内功、轻功不计）
+  for (const slot of MOVE_SLOTS) {
     const artId = input.equippedArts[slot]
     if (!artId) continue
     const art = MARTIAL_ART_DB_MAP[artId]
     if (!art) continue
     const level = levelMap.get(artId) ?? 1
     const weight = TIER_WEIGHT[art.fullTier] ?? TIER_WEIGHT[`${art.tier}${art.subTier}`] ?? 1
-    arts += weight * level * ART_POINT
-    if (!best || weight > best.weight || (weight === best.weight && level > best.level)) {
-      best = { weight, level, label: `《${art.cleanName}》${level} 重` }
+    const score = weight * level * ART_POINT
+    if (!best || score > best.score || (score === best.score && weight > best.weight)) {
+      best = { score, weight, label: `《${art.cleanName}》${level} 重` }
     }
   }
+  // 只取最高的一门外功武学计入战力
+  const arts = best?.score ?? 0
 
   const heavenEffectCount = computeEquippedArtsTotals(input.equippedArts, input.learnedArts)
     .specialEffects.length
