@@ -9,10 +9,14 @@ import type {
   MartialArtSlotKey,
 } from '../../types/game'
 import { deriveHeroEffectiveStats, deriveNpcEffectiveStats } from './heroStats'
+import { estimateHeroRealm, parseRealmTier } from './realmUtils'
 import type { HeroBaseStats } from '../../types/game'
 
 /**
- * 《天下风云榜》战力评定：
+ * 《天下风云榜》排名规则：先比境界（大宗师上品 > 大宗师中品 > …），同一境界内再比战力。
+ * 境界是人物修为的定论（如法空为全游戏唯一的大宗师上品），战力只在同境界之间分高下。
+ *
+ * 战力评定：
  * 以实时有效四维（气血 / 内力 / 身法 / 抗性）为根基，叠加披挂与武学的攻守总值、
  * 运使武学的「品阶 × 重数」，以及天阶特效的额外权重。
  * 仅作排名之用，不参与任何战斗结算。
@@ -60,6 +64,17 @@ export interface PowerBreakdown {
   signatureArt: string | null
 }
 
+export interface RankedPower extends PowerBreakdown {
+  /** 境界序（0 不入流 … 15 大宗师上品），排名第一关键字 */
+  realmRank: number
+  realmLabel: string
+}
+
+/** 风云榜排序：境界高者在前，同境界战力高者在前 */
+export function compareRankedPower(a: RankedPower, b: RankedPower): number {
+  return b.realmRank - a.realmRank || b.total - a.total
+}
+
 export function computeMartialPower(input: PowerInput): PowerBreakdown {
   const vitals = input.maxHp * 0.6 + input.maxMp * 0.5 + input.agility * 30 + input.res * 30
   const offense = input.totalAttack * 4 + input.totalDefense * 3
@@ -96,9 +111,13 @@ export function computeMartialPower(input: PowerInput): PowerBreakdown {
   }
 }
 
-export function computeNpcMartialPower(rec: CompiledNpcRecord): PowerBreakdown {
+export function computeNpcMartialPower(rec: CompiledNpcRecord): RankedPower {
   const eff = deriveNpcEffectiveStats(rec)
-  return computeMartialPower({
+  const tier = parseRealmTier(rec.realm)
+  return {
+    realmRank: tier.rank,
+    realmLabel: rec.realm || tier.label,
+    ...computeMartialPower({
     maxHp: eff.maxHp,
     maxMp: eff.maxMp,
     agility: eff.agility,
@@ -107,7 +126,8 @@ export function computeNpcMartialPower(rec: CompiledNpcRecord): PowerBreakdown {
     totalDefense: eff.totalDefense,
     equippedArts: rec.equippedArts,
     learnedArts: rec.learnedArts,
-  })
+    }),
+  }
 }
 
 export function computeHeroMartialPower(hero: {
@@ -116,14 +136,18 @@ export function computeHeroMartialPower(hero: {
   equippedArts: EquippedArtsMap
   learnedArts: LearnedArtEntry[]
   heavyInjury?: boolean
-}): PowerBreakdown {
+}): RankedPower {
   const eff = deriveHeroEffectiveStats(hero.baseStats, hero.equipped, hero.equippedArts, hero.learnedArts, {
     heavyInjury: hero.heavyInjury,
   })
   const equipTotals = computeEquipmentTotals(hero.equipped)
   const artTotals = computeEquippedArtsTotals(hero.equippedArts, hero.learnedArts)
   const synergy = computeWeaponArtSynergy(hero.equipped.weapon, hero.equippedArts, hero.learnedArts)
-  return computeMartialPower({
+  const tier = estimateHeroRealm(eff.maxHp, eff.maxMp)
+  return {
+    realmRank: tier.rank,
+    realmLabel: tier.label,
+    ...computeMartialPower({
     maxHp: eff.maxHp,
     maxMp: eff.maxMp,
     agility: eff.agility,
@@ -132,23 +156,24 @@ export function computeHeroMartialPower(hero: {
     totalDefense: equipTotals.defense + artTotals.defense,
     equippedArts: hero.equippedArts,
     learnedArts: hero.learnedArts,
-  })
+    }),
+  }
 }
 
 export interface FengyunEntry {
   rank: number
   isHero: boolean
   npc: CompiledNpcRecord | null
-  power: PowerBreakdown
+  power: RankedPower
 }
 
-let npcPowerCache: { rec: CompiledNpcRecord; power: PowerBreakdown }[] | null = null
+let npcPowerCache: { rec: CompiledNpcRecord; power: RankedPower }[] | null = null
 
 /** 固定 NPC 的战力只取决于编译库数据，首次计算后缓存（按战力降序） */
 function getNpcPowerTable() {
   if (!npcPowerCache) {
     npcPowerCache = NPCS_DB.map((rec) => ({ rec, power: computeNpcMartialPower(rec) })).sort(
-      (a, b) => b.power.total - a.power.total || a.rec.id.localeCompare(b.rec.id),
+      (a, b) => compareRankedPower(a.power, b.power) || a.rec.id.localeCompare(b.rec.id),
     )
   }
   return npcPowerCache
@@ -161,18 +186,18 @@ export interface FengyunBoard {
   entries: FengyunEntry[]
   /** 主角在全天下（在世固定人物 + 主角）中的位次，1 起 */
   heroRank: number
-  heroPower: PowerBreakdown
+  heroPower: RankedPower
   /** 参评总人数 */
   totalCount: number
-  /** 第 N 名（N = 100 / 50 / 10 / 1）当前的战力门槛（不含主角） */
-  thresholds: Record<100 | 50 | 10 | 1, number>
+  /** 第 N 名（N = 100 / 50 / 10 / 1）当前的门槛人物（不含主角）的境界与战力 */
+  thresholds: Record<100 | 50 | 10 | 1, RankedPower | null>
 }
 
 /**
  * 排出当世前 100 位高手：已身故的人物不再入榜；主角与固定人物同台竞排，同分时主角居后。
  */
 export function buildFengyunBoard(params: {
-  heroPower: PowerBreakdown
+  heroPower: RankedPower
   deadNpcIds: readonly string[]
   isNpcDead?: (npcId: string) => boolean
 }): FengyunBoard {
@@ -180,8 +205,7 @@ export function buildFengyunBoard(params: {
   const living = getNpcPowerTable().filter(
     ({ rec }) => !dead.has(rec.id) && !(params.isNpcDead?.(rec.id) ?? false),
   )
-  const heroTotal = params.heroPower.total
-  const heroIdx = living.findIndex(({ power }) => power.total < heroTotal)
+  const heroIdx = living.findIndex(({ power }) => compareRankedPower(params.heroPower, power) < 0)
   const heroPos = heroIdx === -1 ? living.length : heroIdx
 
   const merged: FengyunEntry[] = []
@@ -195,7 +219,7 @@ export function buildFengyunBoard(params: {
     }
   }
 
-  const thresholdAt = (n: number) => living[n - 1]?.power.total ?? 0
+  const thresholdAt = (n: number) => living[n - 1]?.power ?? null
   return {
     entries: merged,
     heroRank: heroPos + 1,
@@ -219,4 +243,13 @@ export function getFengyunTitle(rank: number): string {
   if (rank <= 50) return '风云前五十'
   if (rank <= 100) return '风云百强'
   return '榜上无名'
+}
+
+/** 少侠要越过某位门槛人物还缺什么：境界不足时提示境界，境界相同时提示战力差 */
+export function describeFengyunGap(hero: RankedPower, target: RankedPower | null): string | null {
+  if (!target) return null
+  if (hero.realmRank < target.realmRank) return `修为须至【${target.realmLabel}】`
+  if (hero.realmRank > target.realmRank) return null
+  if (hero.total > target.total) return null
+  return `同为【${target.realmLabel}】，战力尚差 ${(target.total - hero.total + 1).toLocaleString('en-US')}`
 }

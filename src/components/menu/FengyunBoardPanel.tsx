@@ -5,11 +5,11 @@ import { getProtagonistPortrait } from '../../data/protagonistPresets'
 import {
   buildFengyunBoard,
   computeHeroMartialPower,
+  describeFengyunGap,
   FENGYUN_MILESTONES,
   getFengyunTitle,
   type FengyunEntry,
 } from '../../engine/stats/fengyunRanking'
-import { estimateHeroRealm } from '../../engine/stats/realmUtils'
 import { useGameStore } from '../../store/useGameStore'
 import type { CompiledNpcRecord } from '../../types/game'
 import { ManagedAssetImg } from '../common/ManagedAssetImg'
@@ -38,8 +38,6 @@ export function FengyunBoardPanel({
   const killedDing = useGameStore((s) => s.sectState.killedDingChunqiu)
   const playerName = useGameStore((s) => s.playerName)
   const playerPortraitId = useGameStore((s) => s.playerPortraitId)
-  const maxHp = useGameStore((s) => s.maxHp)
-  const maxMp = useGameStore((s) => s.maxMp)
   const inventory = useGameStore((s) => s.inventory)
   const locateQuestTargetOnMap = useGameStore((s) => s.locateQuestTargetOnMap)
 
@@ -56,11 +54,12 @@ export function FengyunBoardPanel({
   const selected: FengyunEntry | null =
     board.entries.find((e) => (e.isHero ? '__hero__' : e.npc!.id) === selectedId) ?? board.entries[0] ?? null
 
-  const heroRealm = estimateHeroRealm(maxHp, maxMp)
   const heroPortrait = getProtagonistPortrait(playerPortraitId)
   const heroOnBoard = board.heroRank <= board.entries.length
   const nextMilestone = [...FENGYUN_MILESTONES].find((m) => board.heroRank > m.rank)
-  const nextGap = nextMilestone ? Math.max(1, board.thresholds[nextMilestone.rank] - board.heroPower.total + 1) : 0
+  const nextTarget = nextMilestone ? board.thresholds[nextMilestone.rank] : null
+  const nextGap = nextMilestone ? describeFengyunGap(board.heroPower, nextTarget) : null
+  const fmtThreshold = (t: typeof nextTarget) => (t ? `${t.realmLabel} · 战力 ${formatPower(t.total)}` : '—')
 
   return (
     <div className="space-y-4 text-xs sm:text-sm text-[#2a1d11]">
@@ -81,7 +80,7 @@ export function FengyunBoardPanel({
                 </span>
               </div>
               <div className="text-xs text-[#6b5235] mt-0.5">
-                {heroRealm.label} · 战力 <strong className="font-mono text-[#781710]">{formatPower(board.heroPower.total)}</strong>
+                {board.heroPower.realmLabel} · 战力 <strong className="font-mono text-[#781710]">{formatPower(board.heroPower.total)}</strong>
                 {' · '}天下第 <strong className="font-mono text-[#781710]">{board.heroRank}</strong> / {board.totalCount} 位
               </div>
             </div>
@@ -89,9 +88,8 @@ export function FengyunBoardPanel({
           <div className="text-xs text-[#5c3d1e] max-w-sm">
             {nextMilestone ? (
               <>
-                距【{nextMilestone.label}】尚差战力{' '}
-                <strong className="font-mono text-[#781710]">{formatPower(nextGap)}</strong>
-                （当前第 {nextMilestone.rank} 位门槛 {formatPower(board.thresholds[nextMilestone.rank])}）
+                距【{nextMilestone.label}】：<strong className="text-[#781710]">{nextGap ?? '已可跻身'}</strong>
+                （当前第 {nextMilestone.rank} 位为 {fmtThreshold(nextTarget)}）
               </>
             ) : (
               <strong className="text-[#781710]">已问鼎天下第一，傲视群雄！</strong>
@@ -125,7 +123,7 @@ export function FengyunBoardPanel({
           })}
         </ol>
         <p className="text-[11px] text-[#7a5f3e] leading-relaxed">
-          评定依据：实时有效四维（气血 · 内力 · 身法 · 抗性）+ 披挂与武学攻守 + 运使武学「品阶 × 重数」+ 天阶特效。已身故的人物不再入榜；换上更好的披挂、运使更高阶的武学、闭关提升重数都会即时反映在榜上。
+          排名规则：先比境界，同一境界再比战力。战力依据实时有效四维（气血 · 内力 · 身法 · 抗性）+ 披挂与武学攻守 + 运使武学「品阶 × 重数」+ 天阶特效。已身故的人物不再入榜；换上更好的披挂、运使更高阶的武学、闭关提升重数都会即时反映在榜上。
         </p>
       </div>
 
@@ -182,7 +180,7 @@ export function FengyunBoardPanel({
                           {e.isHero && <span className="ml-1 text-[10px] px-1.5 py-px rounded bg-[#781710] text-[#fff8ee]">少侠</span>}
                         </span>
                         <span className="block text-[11px] text-[#7a5f3e] truncate">
-                          {e.isHero ? heroRealm.label : `${e.npc!.realm} · ${e.npc!.factionName}`}
+                          {e.isHero ? e.power.realmLabel : `${e.npc!.realm} · ${e.npc!.factionName}`}
                           {e.power.signatureArt ? ` · ${e.power.signatureArt}` : ''}
                         </span>
                       </span>
@@ -199,7 +197,7 @@ export function FengyunBoardPanel({
             <div className="px-3 py-2 border-t border-[#c8b28e] bg-[#fdf0d5] text-xs text-[#5c3d1e]">
               少侠尚在榜外：天下第 <strong className="font-mono text-[#781710]">{board.heroRank}</strong> 位，战力{' '}
               <strong className="font-mono text-[#781710]">{formatPower(board.heroPower.total)}</strong>。
-              风云百强门槛 {formatPower(board.thresholds[100])}。
+              风云百强门槛：{fmtThreshold(board.thresholds[100])}。
             </div>
           )}
         </div>
@@ -209,7 +207,7 @@ export function FengyunBoardPanel({
           <FengyunDetailCard
             entry={selected}
             heroName={playerName || '少侠'}
-            heroRealmLabel={heroRealm.label}
+            heroRealmLabel={board.heroPower.realmLabel}
             heroAvatar={heroPortrait.fullbodyUrl}
             regionLocked={
               selected.npc ? !isRegionUnlockedByInventory(selected.npc.regionId, inventory) : false
