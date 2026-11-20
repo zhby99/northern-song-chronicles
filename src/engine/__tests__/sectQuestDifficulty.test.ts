@@ -204,3 +204,24 @@ describe('江湖纪事可接列表：本门优先、他派隐藏、绝路不列'
     expect(entries.filter((e) => e.quest.category === 'sect_mission')).toEqual([])
   })
 })
+
+describe('门派支线日常均奖励江湖声望', () => {
+  it('少林 / 华山 / 终南每条 SIDE 支线结算时都有 modifyRenown 正向奖励', async () => {
+    await preloadAllQuestScenes()
+    const missing: string[] = []
+    for (const q of QUEST_REGISTRY) {
+      if (!/^QST-SECT-(01|05|11)-SIDE-/.test(q.id)) continue
+      const found: number[] = []
+      const walk = (n: unknown) => {
+        if (!n || typeof n !== 'object') return
+        if (Array.isArray(n)) return n.forEach(walk)
+        const o = n as Record<string, unknown>
+        if (o.type === 'modifyRenown' && typeof o.delta === 'number') found.push(o.delta)
+        Object.values(o).forEach(walk)
+      }
+      walk([getLoadedQuestScenes(q.id), q.npcActions, q.spotActions, q.locationTriggers])
+      if (!found.some((d) => d > 0)) missing.push(q.id)
+    }
+    expect(missing).toEqual([])
+  })
+})

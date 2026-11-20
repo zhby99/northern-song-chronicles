@@ -295,6 +295,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'addArtExp', amount: 120 },
           { type: 'modifySkill', key: '经义', delta: 2 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0377' }, delta: 15 },
+          { type: 'modifyRenown', delta: 40, reason: '完成门派差事《齐云古塔 · 舍利迷踪》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE09_QUEST_ID, outcome: 'completed' },
           toast(
             '【齐云古塔 · 舍利迷踪】圆满完结！经义大进，获宗门贡献 160、武学阅历 120 与实战经验 400！',

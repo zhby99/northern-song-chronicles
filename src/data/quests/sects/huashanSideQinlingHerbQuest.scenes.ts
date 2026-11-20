@@ -321,6 +321,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'modifySkill', key: '经义', delta: 1 },
           { type: 'giveItem', itemId: 'ITM-CUR-045', qty: 1 },
           { type: 'giveItem', itemId: 'ITM-MED-123', qty: 2 },
+          { type: 'modifyRenown', delta: 12, reason: '完成门派差事《玉泉药香 · 秦岭采参行》' },
           { type: 'completeQuest', questId: HUASHAN_SIDE02_QUEST_ID },
           toast('已完成《玉泉药香 · 秦岭采参行》！经义精进，获得采药药锄与太乙回气清心散！', 'success', '秦岭采参'),
         ],

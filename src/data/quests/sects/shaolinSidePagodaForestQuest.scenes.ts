@@ -366,6 +366,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'modifySkill', key: '经义', delta: 1 },
           { type: 'modifyChivalry', delta: 15, reason: '夜巡少林塔林护住唐代高僧舍利地宫' },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0951' }, delta: 15 },
+          { type: 'modifyRenown', delta: 25, reason: '完成门派差事《塔林寒夜 · 孤魂盗墓》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE04_QUEST_ID, outcome: 'completed' },
           toast('已完成《塔林寒夜 · 孤魂盗墓》！获得师门贡献、实战历练、武学修为与经义进益！', 'success', '塔林夜巡'),
         ],

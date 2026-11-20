@@ -448,6 +448,7 @@ export const SHAOLIN_SIDE18_SCENES: Record<string, StorySceneDef> = {
           { type: 'modifySkill', key: '书', delta: 1 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0135' }, delta: 20 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0127' }, delta: 20 },
+          { type: 'modifyRenown', delta: 140, reason: '完成门派差事《达摩东渡 · 沧海遗图》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE18_QUEST_ID },
           toast(
             '【达摩东渡 · 沧海遗图】圆满完成！获实战经验+1250、师门贡献+400、武学修为+320、经义+2、书+1，玄渡与玄难好感各+20！',

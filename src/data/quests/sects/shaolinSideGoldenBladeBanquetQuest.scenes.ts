@@ -348,6 +348,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'giveSilver', amount: 120, reason: '金刀王元霸重谢护寿纹银' },
           { type: 'modifySkill', key: '策论', delta: 1 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0186' }, delta: 20 },
+          { type: 'modifyRenown', delta: 35, reason: '完成门派差事《金刀寿宴 · 洛阳暗箭》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE08_QUEST_ID, outcome: 'completed' },
           toast(
             '【金刀寿宴 · 洛阳暗箭】圆满完结！王元霸好感大增，获纹银 120 两、宗门贡献 140 与策论精进！',

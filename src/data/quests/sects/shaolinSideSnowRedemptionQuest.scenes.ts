@@ -351,6 +351,7 @@ export const SHAOLIN_SIDE17_SCENES: Record<string, StorySceneDef> = {
           { type: 'modifyChivalry', delta: 90, reason: '外退虎狼、内断恶功抚恤苦主，彰显侠义慈悲' },
           { type: 'addArtExp', amount: 260 },
           { type: 'modifySkill', key: '经义', delta: 2 },
+          { type: 'modifyRenown', delta: 120, reason: '完成门派差事《少室大雪 · 慈航度恶》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE17_QUEST_ID },
           toast(
             '【少室大雪 · 慈航度恶】圆满完成！获实战经验+1100、师门贡献+350、侠义+90、武学修为+260、经义+2！',

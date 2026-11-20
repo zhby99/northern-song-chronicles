@@ -315,6 +315,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'modifyChivalry', delta: 25 },
           { type: 'giveItem', itemId: 'ITM-MED-111', qty: 2 },
           { type: 'modifySkill', key: '辩才', delta: 1 },
+          { type: 'modifyRenown', delta: 30, reason: '完成门派差事《万姓雅市 · 假药风波》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE06_QUEST_ID, outcome: 'completed' },
           toast(
             '【万姓雅市 · 假药风波】圆满完结！获赠【嵩山少林小还丹】×2、纹银 80 两与宗门贡献 110！',

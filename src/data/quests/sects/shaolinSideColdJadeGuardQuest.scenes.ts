@@ -300,6 +300,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       { type: 'addArtExp', amount: 180 },
       { type: 'modifyChivalry', delta: 35, reason: '斩除邪派毒盗玉面毒龙' },
       { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0109' }, delta: 18 },
+      { type: 'modifyRenown', delta: 60, reason: '完成门派差事《寒玉护脉 · 伏虎除魔》' },
       { type: 'completeQuest', questId: SHAOLIN_SIDE12_QUEST_ID, outcome: 'completed' },
       toast(
         '【寒玉护脉 · 伏虎除魔】圆满完成！实战经验 +620，门派贡献 +200，武学修为 +180，侠义 +35，玄澄好感 +18！',

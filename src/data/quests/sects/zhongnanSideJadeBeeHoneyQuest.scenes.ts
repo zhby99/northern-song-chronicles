@@ -253,6 +253,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'addSectContribution', amount: 160 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0629' }, delta: 12 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0931' }, delta: 12 },
+          { type: 'modifyRenown', delta: 15, reason: '完成门派差事《玉蜂百花 · 清芬酿蜜记》' },
           { type: 'completeQuest', questId: ZHONGNAN_SIDE01_QUEST_ID, outcome: 'honey_saved' },
           toast(
             '【玉蜂百花 · 清芬酿蜜记】完成！获赠辟毒丹药、战历与终南门派贡献！',

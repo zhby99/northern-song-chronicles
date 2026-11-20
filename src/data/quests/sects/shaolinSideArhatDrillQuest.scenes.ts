@@ -307,6 +307,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'modifySkill', key: '策论', delta: 2 },
           { type: 'addArtExp', amount: 100 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0254' }, delta: 12 },
+          { type: 'modifyRenown', delta: 40, reason: '完成门派差事《罗汉涂金 · 顽徒试炼》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE11_QUEST_ID, outcome: 'completed' },
           toast(
             '【罗汉涂金 · 顽徒试炼】圆满完结！策论 +2、武学阅历 +100、宗门贡献 +150，慧轮对你大为赞赏！',

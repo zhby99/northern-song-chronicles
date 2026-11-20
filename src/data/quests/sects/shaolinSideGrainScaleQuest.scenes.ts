@@ -295,6 +295,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'modifySkill', key: '算术', delta: 2 },
           { type: 'giveCombatExp', amount: 110, reason: '恒丰粮行力挫钱大棒与恶打手' },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0789' }, delta: 15 },
+          { type: 'modifyRenown', delta: 20, reason: '完成门派差事《登封买粮 · 斗秤破奸》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE03_QUEST_ID, outcome: 'completed' },
           toast('已完成《登封买粮 · 斗秤破奸》！获得纹银、师门贡献、算术进益与实战历练！', 'success', '登封买粮'),
         ],

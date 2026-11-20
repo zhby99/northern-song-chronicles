@@ -283,6 +283,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'addSectContribution', amount: 30 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0901' }, delta: 15 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0842' }, delta: 10 },
+          { type: 'modifyRenown', delta: 15, reason: '完成门派差事《灶房残薪 · 烧火奇棍》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE01_QUEST_ID, outcome: 'completed' },
           toast(
             '习得《少林烧火棍》并获赠【少室灶房烧火棍】！觉尘与虚真对你大为赞赏！',

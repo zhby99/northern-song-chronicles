@@ -157,6 +157,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'modifySkill', key: '经义', delta: 1 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0101' }, delta: 12 },
           { type: 'addSectContribution', amount: 100 },
+          { type: 'modifyRenown', delta: 35, reason: '完成门派差事《西厢晒经 · 芸香防蠹》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE10_QUEST_ID, outcome: 'completed' },
           toast(
             '【西厢晒经 · 芸香防蠹】圆满完结！书法 +2、经义 +1、武学阅历 +150，获扫地僧法空颔首垂青！',

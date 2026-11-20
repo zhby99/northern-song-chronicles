@@ -282,6 +282,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'giveCombatExp', amount: 100, reason: '东庑护碑逐退恶奴实战历练' },
           { type: 'addSectContribution', amount: 40 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0918' }, delta: 12 },
+          { type: 'modifyRenown', delta: 20, reason: '完成门派差事《东庑拓碑 · 拳棍双修》' },
           { type: 'completeQuest', questId: SHAOLIN_SIDE02_QUEST_ID, outcome: 'completed' },
           toast('东庑拓碑护院圆满成功！书、画造诣精进，获净法与慧轮盛赞！', 'success', '东庑拓碑'),
         ],

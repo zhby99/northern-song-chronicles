@@ -209,6 +209,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'giveCombatExp', amount: 360, reason: '太白积雪 · 樵夫劈柴意' },
           { type: 'addSectContribution', amount: 200 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0922' }, delta: 16 },
+          { type: 'modifyRenown', delta: 20, reason: '完成门派差事《太白积雪 · 樵夫劈柴意》' },
           { type: 'completeQuest', questId: ZHONGNAN_SIDE06_QUEST_ID, outcome: 'woodcutter_dao_gained' },
           toast(
             '【太白积雪 · 樵夫劈柴意】完成！获赠【樵夫劈山柴刀】与丰厚战历！',

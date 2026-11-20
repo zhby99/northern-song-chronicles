@@ -235,6 +235,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'addSectContribution', amount: 220 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0530' }, delta: 14 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0766' }, delta: 14 },
+          { type: 'modifyRenown', delta: 20, reason: '完成门派差事《紫金丹火 · 耀州博山炉》' },
           { type: 'completeQuest', questId: ZHONGNAN_SIDE03_QUEST_ID, outcome: 'furnace_delivered' },
           toast(
             '【紫金丹火 · 耀州博山炉】完成！获赠紫金灵丹、战历与门派贡献！',
