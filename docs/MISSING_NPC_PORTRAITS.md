@@ -12,12 +12,13 @@
 
 1. **时代与画风锚点**：
    - 严格锚定 **公元 1050 年（北宋仁宗皇祐二年）**，采用北宋翰林图画院工笔重彩人物画风（绢本矿物设色、铁线描/兰叶描衣纹、温润仿古素绢底色），严禁出现明清剃发辫子、清代马褂顶戴、现代服饰或二次元网红脸。
-2. **构图与去背铁律（严禁脚本裁剪伪造）**：
-   - **任务剧情编目人物（`NPC-xxxx`）——仅需无背景抠图版 `3:4` 全身立绘**：**不再需要绘制 `1:1` 方形小头像（`avatars/NPC-xxxx.jpg`）**，仅需直接产出**无背景透明抠图版 `3:4` 全身立绘**（`public/assets/characters/cutouts/fullbody/NPC-xxxx.webp`，`768×1024` 透明底 PNG/WebP）。构图须**从发冠顶端至鞋履足底完整入画（Head-to-Toe）**，头顶与脚底各留 6%~10% 呼吸留白，严禁裁切脚部或头冠；前端圆形/方形小头像位自动以全身立绘 `object-top` 兜底呈现。
+2. **构图与去背铁律（严禁脚本裁剪伪造，严格区分核心人物与龙套）**：
+   - **固定核心人物（`NPC-0001..0240`、宗师 `realmRank <= 6`、门派掌门/长老及 `NPC-1053+` 重要剧情人物）——必须三件套齐备**：必须同时拥有带宋风背景的 `1:1` 特写头像（`avatars/NPC-xxxx.jpg`）、带宋风背景的 `3:4` 全身立绘（`fullbody/NPC-xxxx.jpg`），以及**直接从该带背景全身立绘提取的透明抠图版**（`cutouts/fullbody/NPC-xxxx.webp`），由 [check_artifact_guardrails.mjs](../scripts/check_artifact_guardrails.mjs) 强制校验。
+   - **普通任务剧情龙套（`NPC-0241..1052` 中非宗师/非长老配角）——单抠图制**：无需绘制 `1:1` 方形小头像与带背景全身立绘，仅需直接产出**无背景透明抠图版 `3:4` 全身立绘**（`public/assets/characters/cutouts/fullbody/NPC-xxxx.webp`，`768×1024` 透明底 PNG/WebP）。构图须**从发冠顶端至鞋履足底完整入画（Head-to-Toe）**，头顶与脚底各留 6%~10% 呼吸留白，严禁裁切脚部或头冠；前端圆形/方形小头像位自动以全身立绘 `object-top` 兜底呈现。
    - **通用模板（`tpl_*`）`1:1` 方形头像（`512×512` JPG）**：仅适用于第二章所列单图通用模板补齐，需为胸肩以上特写，聚焦五官神态、发冠头巾与领口纹样；严禁使用 Python/PIL/Canvas 将 `*_fb.jpg` 裁剪放大充当 `*_av.jpg`。
 3. **无乱码文字铁律**：服饰腰牌、旌旗、书卷仅保留纹样肌理，**严禁生成可读汉字或 AI 伪汉字乱码**。
 4. **自动挂载机制**：
-   - **任务剧情编目人物（`NPC-xxxx`）**：将无背景抠图版 `3:4` 全身立绘落盘至 `public/assets/characters/cutouts/fullbody/NPC-xxxx.webp`（并同步登记至 [`src/data/cutoutMetrics.json`](../src/data/cutoutMetrics.json) 与 [`src/data/npcs.json`](../src/data/npcs.json) 对应 `portraitUri`），即可在对话、战斗与大地图检视中以透明抠图形式生效，无需再配 `avatars/NPC-xxxx.jpg`。
+   - **任务剧情编目人物（`NPC-xxxx`）**：将 `avatars/NPC-xxxx.jpg`、`fullbody/NPC-xxxx.jpg`、`cutouts/fullbody/NPC-xxxx.webp` 落盘后运行 `npm run build:db`（并同步登记至 [`src/data/cutoutMetrics.json`](../src/data/cutoutMetrics.json)），即可自动挂载至 [`src/data/npcs.json`](../src/data/npcs.json)。
    - **单图模板补齐 `_av.jpg`**：将图片落盘至 `public/assets/characters/templates/<tpl_name>_av.jpg` 后，在 [`src/utils/portraitFallback.ts`](../src/utils/portraitFallback.ts) 的 `KNOWN_AVATAR_COUNTERPARTS` 登记一行映射，即可在对话小头像与战斗界面自动生效。
 
 ---

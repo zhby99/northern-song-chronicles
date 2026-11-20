@@ -196,6 +196,47 @@ for (const absAsset of assetFiles) {
   }
 }
 
+// 4. Check NPC three-piece portrait symmetry (avatars + fullbody-with-bg + cutouts)
+const charDir = path.join(PUBLIC_ASSETS_DIR, 'characters')
+const avatarsDir = path.join(charDir, 'avatars')
+const fullbodyDir = path.join(charDir, 'fullbody')
+const cutoutsDir = path.join(charDir, 'cutouts', 'fullbody')
+if (fs.existsSync(avatarsDir) && fs.existsSync(fullbodyDir) && fs.existsSync(cutoutsDir)) {
+  const avIds = new Set(fs.readdirSync(avatarsDir).filter((f) => /^NPC-\d+\.jpg$/.test(f)).map((f) => f.replace(/\.jpg$/, '')))
+  const fbIds = new Set(fs.readdirSync(fullbodyDir).filter((f) => /^NPC-\d+\.jpg$/.test(f)).map((f) => f.replace(/\.jpg$/, '')))
+  const cutIds = new Set(fs.readdirSync(cutoutsDir).filter((f) => /^NPC-\d+\.webp$/.test(f)).map((f) => f.replace(/\.webp$/, '')))
+
+  for (const id of avIds) {
+    if (!fbIds.has(id)) {
+      errors.push(`public/assets/characters/avatars/${id}.jpg 缺少对应的带背景全身立绘 fullbody/${id}.jpg（三件套不对称）`)
+    }
+    if (!cutIds.has(id)) {
+      errors.push(`public/assets/characters/avatars/${id}.jpg 缺少对应的透明抠图 cutouts/fullbody/${id}.webp（三件套不对称）`)
+    }
+  }
+  for (const id of fbIds) {
+    if (!avIds.has(id)) {
+      errors.push(`public/assets/characters/fullbody/${id}.jpg 缺少对应的 1:1 头像 avatars/${id}.jpg（三件套不对称）`)
+    }
+    if (!cutIds.has(id)) {
+      errors.push(`public/assets/characters/fullbody/${id}.jpg 缺少对应的透明抠图 cutouts/fullbody/${id}.webp（三件套不对称）`)
+    }
+  }
+
+  const npcsJsonPath = path.join(ROOT_DIR, 'src', 'data', 'npcs.json')
+  if (fs.existsSync(npcsJsonPath)) {
+    const npcs = JSON.parse(fs.readFileSync(npcsJsonPath, 'utf8'))
+    for (const npc of npcs) {
+      const id = npc.id
+      const num = Number.parseInt(String(id).split('-')[1] || '0', 10)
+      const isMajor = (npc.realmRank ?? 99) <= 6 || num <= 240 || num >= 1053
+      if (isMajor && cutIds.has(id) && (!fbIds.has(id) || !avIds.has(id))) {
+        errors.push(`${id} (${npc.name}·${npc.realm}) 属于核心固定/宗师级人物，严禁仅有透明抠图！必须补齐 avatars/${id}.jpg 与带背景 fullbody/${id}.jpg`)
+      }
+    }
+  }
+}
+
 if (errors.length > 0) {
   console.error(`\n❌ [artifact-guardrails] 检测到 ${errors.length} 项单文件离线版防回归违规：`)
   for (const e of errors) {

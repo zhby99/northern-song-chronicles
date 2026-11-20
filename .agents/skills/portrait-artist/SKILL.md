@@ -26,8 +26,9 @@ description: 为《北宋立志传》考据并独立绘制公元 1050 年历史�
 
 ## 二、 四条资产产线规范（按需求精准选用）
 
-### 产线 A · 任务剧情编目配角（`NPC-0241..1052` 等，见 `docs/MISSING_NPC_PORTRAITS.md` 第三章）
-- **单图制（无需绘制 `1:1` 方形头像）**：仅需 **1 次独立 `generate_image`（`AspectRatio: "3:4"`）** 产出全身立绘，并去背制作透明底图（头部头像位由前端以全身图 `object-top` 自动兜底）。
+### 产线 A · 普通任务龙套/配角（仅限 `realmRank >= 7` 且非掌门/长老/固定核心人物，见 `docs/MISSING_NPC_PORTRAITS.md` 第三章）
+- **单图制（无需绘制 `1:1` 方形头像与带背景全身立绘）**：仅需 **1 次独立 `generate_image`（`AspectRatio: "3:4"`）** 产出全身立绘，并去背制作透明底图（头部头像位由前端以全身图 `object-top` 自动兜底）。
+- **严禁误用**：凡宗师及以上（`realmRank <= 6`）、历史名臣、各派掌门/长老（含 `NPC-1053+` 固定剧情强豪）**严禁走产线 A**，必须走下方 **产线 B 三件套**。
 - **构图与尺寸**：`768×1024` 透明底 `.webp`，头顶与鞋底各留 `6%~10%` 呼吸留白，严禁裁切发冠或脚履。
 - **落盘与接入**：
   1. 原始高清母版保存至 `assets_raw_masters/characters/`。
@@ -35,11 +36,13 @@ description: 为《北宋立志传》考据并独立绘制公元 1050 年历史�
   3. 计算非透明像素包围盒占画布高度百分比（保留 1 位小数，常规约 `88.0 ~ 93.0`），登记至 `src/data/cutoutMetrics.json`。
   4. 运行 `npm run build:db`（由 `scripts/compile_game_db.py` 自动扫描绑定至 `src/data/npcs.json`，**切勿手改 `npcs.json`**），并勾选 `docs/MISSING_NPC_PORTRAITS.md` 对应条目。
 
-### 产线 B · 核心历史名臣与一流宗师 / 掌门（`NPC-0001..0240` 等）
-- **双图独立调用**：必须分别发起两次完全独立的 `generate_image` 调用：
-  - 调用 1（`AspectRatio: "1:1"`）：半身胸肩以上特写头像 → 缩放为 `512×512` JPG 存入 `public/assets/characters/avatars/NPC-XXXX.jpg`
-  - 调用 2（`AspectRatio: "3:4"`）：完整全身立绘 → 缩放为 `768×1024` JPG 存入 `public/assets/characters/fullbody/NPC-XXXX.jpg`
-- **透明抠图与入库**：同步导出透明抠图 `public/assets/characters/cutouts/fullbody/NPC-XXXX.webp` 并登记 `src/data/cutoutMetrics.json`；母版存 `assets_raw_masters/characters/`；运行 `npm run build:db && npm run build` 同步 `src/data/portraitCatalog.json` 与 `src/data/npcs.json`。
+### 产线 B · 核心历史名臣、宗师、掌门与固定长老（`NPC-0001..0240`、`NPC-1053+` 及所有 `realmRank <= 6` 人物，必须三件套齐备）
+- **双图独立调用（均须带完整宋风氛围背景）**：必须分别发起两次完全独立的 `generate_image` 调用：
+  - 调用 1（`AspectRatio: "1:1"`）：半身胸肩以上特写头像（带背景）→ 缩放为 `512×512` JPG 存入 `public/assets/characters/avatars/NPC-XXXX.jpg`
+  - 调用 2（`AspectRatio: "3:4"`）：完整全身立绘（带宋风山川/建筑氛围背景）→ 缩放为 `768×1024` JPG 存入 `public/assets/characters/fullbody/NPC-XXXX.jpg`
+- **透明抠图必须源自带背景原画（严禁另起白底重画导致两张图不一致）**：
+  - 必须以刚刚落盘的 `public/assets/characters/fullbody/NPC-XXXX.jpg` 为唯一底稿提取透明抠图 `public/assets/characters/cutouts/fullbody/NPC-XXXX.webp`（本地优先用 `scripts/extract_npc_cutouts.py`；若环境无 `rembg`，须将 `fullbody/NPC-XXXX.jpg` 作为参考图传入去背景，再像素级透明化），并登记 `src/data/cutoutMetrics.json`。
+  - 母版存 `assets_raw_masters/characters/`；运行 `npm run build:db && node scripts/check_artifact_guardrails.mjs` 校验三件套对称性与护栏。
 
 ### 产线 C · 通用龙套人设模板（`tpl_*`，见 `docs/MISSING_NPC_PORTRAITS.md` 第一、二章）
 - **双图配对制**：必须分别独立生成 `1:1` 头像（`512×512`）与 `3:4` 全身立绘（`768×1024`）：
