@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q23_QUEST_ID } from './shaolinLuohanVajraFingerQuest'
 
 const SPEAKER_IRON_CORPSE: StorySpeakerSpec = {
@@ -99,7 +99,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-0156', '“你书法已逾六十，可知颜真卿楷书『锥画沙、印印泥』之妙？《大力金刚指》运劲便如铁画银钩，全身内力循肩、肘、腕三节层层压缩，至指尖一寸方轰然透发！”'),
       S('NPC-0126', '“更须记住：金刚怒目，原为降伏四魔！若无七十六分经义定住心猿，指力越刚猛，越易反折己指。你试着以中宫真气贯指，点向这根熟铁木桩！”'),
     ],
-    onFinishEffects: [openScene('scene_slq23_05', SHAOLIN_Q23_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-044'), openScene('scene_slq23_05', SHAOLIN_Q23_QUEST_ID)],
   },
 
   scene_slq23_05: {

@@ -159,6 +159,20 @@ export function openScene(sceneId: string, questId?: string): QuestEffect {
 }
 
 /**
+ * 临阵传功积木：`teachArtNow('MA-094')`
+ * 师长在战前传授的武学须当场习得（第 1 重并自动运使），以便玩家带入随后的剧情战斗；
+ * 已习得者不重复传授。任务了结时原有的 teachMartialArt 仍会按奖励重数提升。
+ */
+export function teachArtNow(artId: string): QuestEffect {
+  return {
+    type: 'branch',
+    condition: { type: 'learnedArtAtLeast', artId, minLevel: 1 },
+    thenEffects: [],
+    elseEffects: [{ type: 'teachMartialArt', artId, autoEquip: true }],
+  }
+}
+
+/**
  * 推进任务步骤积木：`setStep('QST-xxx', 'step_2')`
  */
 export function setStep(questId: string, stepId: string): QuestEffect {

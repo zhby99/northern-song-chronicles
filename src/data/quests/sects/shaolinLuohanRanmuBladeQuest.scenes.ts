@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q22_QUEST_ID } from './shaolinLuohanRanmuBladeQuest'
 
 const SPEAKER_NIGHT_SHADOW: StorySpeakerSpec = {
@@ -116,7 +116,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('“轰——！”第八十一刀收势归鞘的刹那，那截百年枯菩提木竟在众人目瞪口呆中冒出一缕青烟，紧接着“腾”地窜起一尺高的金色烈焰，木香四溢、满殿生温！'),
       N('而木桩表面竟连一道刀痕也无！刀锋未曾触木，单凭炽热刀风便将百年古木隔空引燃，这正是少林绝技《燃木刀法》的登峰造极之境！'),
     ],
-    onFinishEffects: [openScene('scene_slq22_07', SHAOLIN_Q22_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-052'), openScene('scene_slq22_07', SHAOLIN_Q22_QUEST_ID)],
   },
 
   scene_slq22_07: {

@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q29_QUEST_ID } from './shaolinJiuyangCrisisQuest'
 
 const SPEAKER_ZHAIXING: StorySpeakerSpec = {
@@ -364,7 +364,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-0127', '（睁开双眼，满面欣慰之色）“善哉！善哉！竟在半个时辰内便贯通了《少林九阳功》第一重纯阳根基！快，以此纯阳真气替老衲逼出心脉余毒！”'),
       N('你立刻坐于玄难身后，双掌抵住其灵台大穴，绵绵不绝的纯阳真气涌入经脉——顷刻间，玄难口中吐出一大口腥臭黑血，眉心那抹妖异嫣红随之消散过半！'),
     ],
-    onFinishEffects: [openScene('scene_slq29_18', SHAOLIN_Q29_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-038'), openScene('scene_slq29_18', SHAOLIN_Q29_QUEST_ID)],
   },
 
   scene_slq29_18: {

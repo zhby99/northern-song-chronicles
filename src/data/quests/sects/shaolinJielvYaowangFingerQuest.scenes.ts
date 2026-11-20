@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q15_QUEST_ID } from './shaolinJielvYaowangFingerQuest'
 
 const SPEAKER_ONE_EYE_WOLF: StorySpeakerSpec = {
@@ -164,7 +164,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('奇景骤生——那片枯叶应指飘落，叶面上晶莹剔透的晨露却稳稳凝在原处未曾碎裂半滴！'),
       S('NPC-0158', '“《拈花指》妙处不在刚狠，而在『柔、细、准』三字！以一缕春风细丝般的禅劲透入穴道，对敌可悄无声息截断经脉，对民可隔衣化瘀、立起沉疴！你方才抄校过《药王脉诀》，穴位早熟于胸，且随老衲试运三转！”'),
     ],
-    onFinishEffects: [openScene('scene_slq15_06', SHAOLIN_Q15_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-063'), openScene('scene_slq15_06', SHAOLIN_Q15_QUEST_ID)],
   },
 
   scene_slq15_06: {

@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q19_QUEST_ID } from './shaolinLaymanPutianSouthQuest'
 
 const SPEAKER_NSL_MONK_A: StorySpeakerSpec = {
@@ -230,7 +230,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('玄痛长老话音甫落，双掌连环翻飞，时而如苍龙探海、时而如神龙摆尾，三十六式《龙爪手》招招直指人体关节筋脉破绽，专克天下横练硬功！'),
       P('（全神贯注，依着玄痛长老指点演练起手七式，只觉指梢内劲吞吐灵动，刚中有柔）“好精妙的擒拿分筋之法！以《龙爪手》化劲拆桥，正可与南宗铁桥硬马一较高下！”'),
     ],
-    onFinishEffects: [openScene('scene_slq19_04', SHAOLIN_Q19_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-062'), openScene('scene_slq19_04', SHAOLIN_Q19_QUEST_ID)],
   },
 
   scene_slq19_04: {

@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { ZHONGNAN_Q38_QUEST_ID } from './zhongnanEndingAnranTombMasterQuest'
 
 const SPEAKER_POISON_COMMANDER: StorySpeakerSpec = {
@@ -343,7 +343,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('“心惊肉跳”、“杞人忧天”、“无中生有”、“拖泥带水”、“徘徊空谷”、“力不从心”、“行尸走肉”、“魂不守舍”、“倒行逆施”、“废寝忘食”、“孤形只影”、“饮恨吞声”、“六神不安”、“穷途末路”、“面无人色”、“想入非非”、“呆若木鸡”……'),
       N('一十七式惊世骇俗的天阶掌法，竟在这一瞬间自你血泪交迸的肺腑之中自然破茧而出——【黯然销魂掌】！'),
     ],
-    onFinishEffects: [openScene('scene_znq38_25', ZHONGNAN_Q38_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-020'), openScene('scene_znq38_25', ZHONGNAN_Q38_QUEST_ID)],
   },
 
   scene_znq38_25: {

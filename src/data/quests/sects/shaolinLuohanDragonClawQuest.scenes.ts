@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q07_QUEST_ID } from './shaolinLuohanDragonClawQuest'
 
 const SPEAKER_YELV_QINGYING: StorySpeakerSpec = {
@@ -170,7 +170,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('至日暮晚钟敲响之际，你凌空一招「捕风捉影」疾探而出，五指竟稳稳扣住玄石随手掷来的一枚飞旋铁胆，劲力吞吐间将铁胆捏出五道浅浅指印！'),
       S('NPC-0191', '（抚须大笑）“好！半日之内竟已初成「擒龙锁脉」火候！纵然对上二流上品的轻功好手，你也绝不会落于下风！”'),
     ],
-    onFinishEffects: [openScene('scene_slq07_07', SHAOLIN_Q07_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-062'), openScene('scene_slq07_07', SHAOLIN_Q07_QUEST_ID)],
   },
 
   scene_slq07_07: {

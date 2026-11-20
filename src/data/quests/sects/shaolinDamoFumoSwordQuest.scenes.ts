@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q09_QUEST_ID } from './shaolinDamoFumoSwordQuest'
 
 const SPEAKER_HAN_LI: StorySpeakerSpec = {
@@ -194,14 +194,14 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '先摹壁上深痕，锤炼「韦陀献杵」沉雄压剑之势',
         subLabel: '以重剑练定力，稳固中宫剑架',
         tone: 'gold',
-        effects: [openScene('scene_slq09_06', SHAOLIN_Q09_QUEST_ID)],
+        effects: [teachArtNow('MA-110'), openScene('scene_slq09_06', SHAOLIN_Q09_QUEST_ID)],
       },
       {
         id: 'slq09_study_stop',
         label: '先摹壁上浅痕，锤炼「半寸回锋」骤止收劲之法',
         subLabel: '以巧劲练收势，明悟戒杀伏魔真意',
         tone: 'default',
-        effects: [openScene('scene_slq09_06', SHAOLIN_Q09_QUEST_ID)],
+        effects: [teachArtNow('MA-110'), openScene('scene_slq09_06', SHAOLIN_Q09_QUEST_ID)],
       },
     ],
   },

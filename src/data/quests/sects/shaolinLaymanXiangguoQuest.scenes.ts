@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q17_QUEST_ID } from './shaolinLaymanXiangguoQuest'
 
 const SPEAKER_HERB_MERCHANT: StorySpeakerSpec = {
@@ -327,7 +327,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-0728', '（在殿廊下拍案叫绝）“好一招『刀背留情、刀锋断恶』！师叔这手慈悲刀法，最合咱们俗家弟子在红尘里行侠护法的心境！”'),
       P('（凝神默记刀杖双谱心诀，心头豁然开朗）“弟子谨记师叔教诲！心存慈悲而不失金刚霹雳手段，今夜定叫毒蛇钱五俯首伏诛！”'),
     ],
-    onFinishEffects: [openScene('scene_slq17_12', SHAOLIN_Q17_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-117'), teachArtNow('MA-114'), openScene('scene_slq17_12', SHAOLIN_Q17_QUEST_ID)],
   },
 
   scene_slq17_12: {

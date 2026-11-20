@@ -1,5 +1,5 @@
 import type { StorySceneDef } from '../../../types/quest'
-import { N, P, S, flag, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, flag, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { ZHONGNAN_Q35_QUEST_ID } from './zhongnanMuSuxinAwakenQuest'
 
 export const SCENES: Record<string, StorySceneDef> = {
@@ -156,7 +156,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-1053', '（攻势骤然受阻，独眼瞳孔猛缩，腹语第一次透出惊怒）“怎么可能？！重阳剑法与玉女剑法本是水火不容，怎会如此天衣无缝地合为一式？！”'),
       P('（剑意如泉涌，朗声清喝）“相克到极致，便是相生！段延庆，这便是终南至高剑道——《玉女素心剑法》！”'),
     ],
-    onFinishEffects: [openScene('scene_znq35_13', ZHONGNAN_Q35_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-031'), openScene('scene_znq35_13', ZHONGNAN_Q35_QUEST_ID)],
   },
 
   scene_znq35_13: {

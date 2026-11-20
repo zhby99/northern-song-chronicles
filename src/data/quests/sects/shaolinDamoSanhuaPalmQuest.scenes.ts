@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q10_QUEST_ID } from './shaolinDamoSanhuaPalmQuest'
 
 const SPEAKER_BOATMAN: StorySpeakerSpec = {
@@ -145,7 +145,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('你脚踏棋盘星位，双掌如蝴蝶穿花般连环翻飞。起初花瓣四下乱飞，待你沉心收束内息、以《罗汉伏虎功》柔劲贯注掌缘，漫天落英竟真的随你掌势聚散成环，反向山崖外飘飞数丈！'),
       S('NPC-0127', '（含笑点头）“善哉！短短半日便能卷英不沾衣，你在书棋禅定上下的苦功果然没有白费。”'),
     ],
-    onFinishEffects: [openScene('scene_slq10_05', SHAOLIN_Q10_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-105'), openScene('scene_slq10_05', SHAOLIN_Q10_QUEST_ID)],
   },
 
   scene_slq10_05: {

@@ -1,5 +1,5 @@
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q37_QUEST_ID } from './shaolinVajraBodyAwakenQuest'
 
 const SPEAKER_WULIN_HERO: StorySpeakerSpec = {
@@ -221,7 +221,7 @@ export const SHAOLIN_Q37_SCENES: Record<string, StorySceneDef> = {
       S('NPC-0134', '（挣扎抬首，望着你背影上流转的淡金宝光，老泪纵横、失声惊呼）“金……金身宝光！百毒不侵，水火难伤！这是少林寺数百年来唯有达摩祖师与寥寥数位神僧曾修成的天阶至高护体神功——【金刚不坏体神功】啊！！”'),
       N('千钧一发、九死一生之际，你借丹墀烈火毒雾之洪炉，硬生生打破了宗师壁垒，当场破关悟成少林镇寺天阶神功——【金刚不坏体神功】！'),
     ],
-    onFinishEffects: [openScene('scene_slq37_16', SHAOLIN_Q37_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-018'), openScene('scene_slq37_16', SHAOLIN_Q37_QUEST_ID)],
   },
 
   scene_slq37_16: {

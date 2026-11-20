@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q27_QUEST_ID } from './shaolinJielvVajraQuest'
 
 const SPEAKER_DEMON_MONK: StorySpeakerSpec = {
@@ -89,7 +89,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('演武坪青石之上，玄痛为你演示《大力金刚指》刚猛凌厉的「穿金裂石」指劲，一指点出竟在三尺外的铜钟裙边留下清晰指印；玄寂则以禅理为你拆解如何以《般若掌》绵厚内息温养指脉，做到「刚而不折、怒而不乱」。'),
       P('（凝神领悟，指风呼啸破空）“外现金刚怒目之威，内守般若澄明之心！弟子已悟透《大力金刚指》破邪断欲之诀！”'),
     ],
-    onFinishEffects: [openScene('scene_slq27_05', SHAOLIN_Q27_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-044'), openScene('scene_slq27_05', SHAOLIN_Q27_QUEST_ID)],
   },
 
   scene_slq27_05: {

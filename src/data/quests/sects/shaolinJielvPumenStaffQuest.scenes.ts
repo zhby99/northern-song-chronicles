@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q13_QUEST_ID } from './shaolinJielvPumenStaffQuest'
 
 const SPEAKER_HUILAI: StorySpeakerSpec = {
@@ -103,7 +103,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-0134', '（收杖而立，气息不喘）“看清了么？普门杖法讲究『破邪不伤正，制敌不绝生』。横扫可退群魔，点穴可锁筋脉，每一杖皆留三分余地，正合戒律院『严中有慈』四字真谛。”'),
       N('你依着玄寂口诀反复拆招演练，直练至日影西斜，已将《普门杖法》起手式与锁腕卸兵诸般变化牢记于心，只待实战印证圆满。'),
     ],
-    onFinishEffects: [openScene('scene_slq13_04', SHAOLIN_Q13_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-117'), openScene('scene_slq13_04', SHAOLIN_Q13_QUEST_ID)],
   },
 
   scene_slq13_04: {

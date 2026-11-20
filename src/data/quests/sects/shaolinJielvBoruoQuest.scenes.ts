@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q26_QUEST_ID } from './shaolinJielvBoruoQuest'
 
 const SPEAKER_GHOST_HAND: StorySpeakerSpec = {
@@ -92,7 +92,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('玄寂随即逐一为你拆解《般若掌》三十六式掌诀，尤其将压箱绝招「一空到底」的蓄势、吐纳、化实为空三层妙境倾囊相授。'),
       N('你依碑上楷书笔势默演掌法，果然觉得书法中的「中锋行笔」与《般若掌》的「中宫平推」如出一辙，不多时便已领悟七八分神韵！'),
     ],
-    onFinishEffects: [openScene('scene_slq26_05', SHAOLIN_Q26_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-043'), openScene('scene_slq26_05', SHAOLIN_Q26_QUEST_ID)],
   },
 
   scene_slq26_05: {

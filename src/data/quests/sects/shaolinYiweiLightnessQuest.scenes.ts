@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q21_QUEST_ID } from './shaolinYiweiLightnessQuest'
 
 const SPEAKER_CLOUD_SWALLOW: StorySpeakerSpec = {
@@ -126,7 +126,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('一连三日，你在飞瀑深潭畔废寝忘食地苦练。头一日落水十余次，浑身湿透仍不气馁；第二日已能踏着浮木连渡五丈；待到第三日暮色降临时，你足尖点过三枝枯芦，终于一口气横掠深潭、衣角不湿！'),
       S('NPC-0135', '（抚掌大笑）“好悟性！三日便摸到了《一苇渡江》的门径，老衲当年可足足泡了半个月冷水！不过轻功一道，终须在生死疾追中见真章……”'),
     ],
-    onFinishEffects: [openScene('scene_slq21_07', SHAOLIN_Q21_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-057'), openScene('scene_slq21_07', SHAOLIN_Q21_QUEST_ID)],
   },
 
   scene_slq21_07: {

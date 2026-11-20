@@ -1,5 +1,5 @@
 import type { StorySceneDef } from '../../../types/quest'
-import { N, P, S, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { ZHONGNAN_Q32_QUEST_ID } from './zhongnanGuanXiantianAwakenQuest'
 
 export const SCENES: Record<string, StorySceneDef> = {
@@ -64,7 +64,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-0133', '（指尖轻点你眉心，朗声口授总纲）“听真了！世间武学，皆以后天呼吸鼓荡内息，用一分便少一分；唯我道门《先天功》，返本还原，引天地先天一炁入体，绵绵若存，用之不勤！”'),
       S('NPC-0133', '“待会儿你持此衣入【道藏经阁与紫金丹院】，趁黎明前三个时辰抱元守一。我会在丹院外为你护法，助你一举冲破后天藩篱！”'),
     ],
-    onFinishEffects: [openScene('scene_znq32_06', ZHONGNAN_Q32_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-013'), openScene('scene_znq32_06', ZHONGNAN_Q32_QUEST_ID)],
   },
 
   scene_znq32_06: {

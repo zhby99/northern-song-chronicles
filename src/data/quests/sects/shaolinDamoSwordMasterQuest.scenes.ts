@@ -1,5 +1,5 @@
 import type { StorySceneDef } from '../../../types/quest'
-import { N, P, S, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q24_QUEST_ID } from './shaolinDamoSwordMasterQuest'
 
 export const SCENES: Record<string, StorySceneDef> = {
@@ -64,7 +64,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('第三昼夜黎明将至，朝霞微露。刹那间，石洞中的达摩石影仿佛活了过来，与绝壁三十六道剑痕融为一体！你手中青竹剑不知不觉随心而动，在洞中缓缓划出一道圆融无瑕的弧光！'),
       N('剑尖所过之处，山洞尘埃竟纹丝不动，剑气却凝练如实质！『一花开五叶，结果自然成』——少林七十二绝技之《达摩剑法》，终在这一刻于你灵台豁然贯通！'),
     ],
-    onFinishEffects: [openScene('scene_slq24_06', SHAOLIN_Q24_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-048'), openScene('scene_slq24_06', SHAOLIN_Q24_QUEST_ID)],
   },
 
   scene_slq24_06: {

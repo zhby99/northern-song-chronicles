@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q14_QUEST_ID } from './shaolinJielvOneSlapQuest'
 
 const SPEAKER_YAN_HENG: StorySpeakerSpec = {
@@ -161,7 +161,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('你盘膝坐于冰凉石砖之上，依玄寂口诀引《罗汉伏虎功》内息汇入右掌，同时默诵《金刚经》「应无所住而生其心」之偈。初时劲力散漫难聚，经玄寂以指风轻点肩井穴引导，刹那间真气如百川归海，掌心隐隐发出低沉雷鸣！'),
       S('NPC-0134', '（微微颔首，目露赞赏）“悟性颇佳！短短两柱香便已摸到《一拍两散掌》的蓄劲门槛。待今夜实战对敌，以严横的铁布衫作磨刀石，此掌便可彻底融会贯通！”'),
     ],
-    onFinishEffects: [
+    onFinishEffects: [teachArtNow('MA-083'), 
       { type: 'setFlag', flag: 'sl_q14_taught_palm', value: true },
       openScene('scene_slq14_09', SHAOLIN_Q14_QUEST_ID),
     ],

@@ -1,5 +1,5 @@
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q36_QUEST_ID } from './shaolinXisuiAwakenQuest'
 
 const SPEAKER_WULIN_SPECTATOR: StorySpeakerSpec = {
@@ -192,7 +192,7 @@ export const SHAOLIN_Q36_SCENES: Record<string, StorySceneDef> = {
       N('第六十日，洞外已是瑞雪初降。你周身毛孔忽渗出细密如墨的腥臭浊汗，骨骼深处传来仿佛春冰初裂般的细微酥痒——那是二十年来强练高阶武学沉积在骨髓经脉中的暗伤与戾气，正在《洗髓经》无垢心法的冲刷下一点点剥离排出！'),
       N('呼吸渐渐微不可闻，心跳绵长如蛰龙冬眠，整个人竟仿佛与眼前五百年的达摩石壁融为一体。'),
     ],
-    onFinishEffects: [openScene('scene_slq36_14', SHAOLIN_Q36_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-011'), openScene('scene_slq36_14', SHAOLIN_Q36_QUEST_ID)],
   },
 
   scene_slq36_14: {

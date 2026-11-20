@@ -1,5 +1,5 @@
 import type { StorySceneDef } from '../../../types/quest'
-import { N, P, S, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q25_QUEST_ID } from './shaolinDamoBoruoPalmQuest'
 
 export const SCENES: Record<string, StorySceneDef> = {
@@ -51,7 +51,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('玄难起身步至石室空地，衣袖轻拂，缓步演练《般若掌》前九式。只见他双掌起落极缓，既无呼啸恶风，亦无炫目威势，然而石壁上渗出的晶莹水珠却被无形掌劲托得悬空颤动、层层叠浪，半晌方悄然滑落！'),
       N('玄澄在寒玉榻上以清朗低语逐句拆解每式经脉流转、吐纳换气之法。一演一讲、相得益彰，令你如醍醐灌顶！'),
     ],
-    onFinishEffects: [openScene('scene_slq25_05', SHAOLIN_Q25_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-043'), openScene('scene_slq25_05', SHAOLIN_Q25_QUEST_ID)],
   },
 
   scene_slq25_05: {

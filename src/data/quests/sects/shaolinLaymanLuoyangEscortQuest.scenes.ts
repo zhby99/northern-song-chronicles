@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q18_QUEST_ID } from './shaolinLaymanLuoyangEscortQuest'
 
 const SPEAKER_WATER_BANDIT: StorySpeakerSpec = {
@@ -342,7 +342,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('你腾身跃起一把接住那柄沉逾四十斤的乌金重杵，只觉杵身微温，隐隐与体内少林内劲共鸣！电光石火间，玄悲大师的法言与佛门护法韦陀降魔之象在脑中轰然贯通！'),
       P('（横杵立于石桥正中，目射神光，长啸迎敌）“西夏贼将休得猖狂！且尝我少林《韦陀杵》！”'),
     ],
-    onFinishEffects: [openScene('scene_slq18_14', SHAOLIN_Q18_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-094'), openScene('scene_slq18_14', SHAOLIN_Q18_QUEST_ID)],
   },
 
   scene_slq18_14: {

@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q06_QUEST_ID } from './shaolinLuohanWeituoQuest'
 
 const SPEAKER_BAIMA_MONK: StorySpeakerSpec = {
@@ -274,7 +274,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       S('NPC-0157', '“《韦陀杵》讲究「以重制重、以刚克刚、借地脉而生雷霆」！摩诃巴的西夏秘藏玄功外坚内燥，你只需以《罗汉伏虎功》托住丹田，运使《韦陀杵》直砸其中宫门户，便能一举震散其护体罡气！”'),
       P('（双手接过玄悲暂借的重杵，只觉沉甸甸的铜身微微震鸣，胸中九式杵路豁然贯通）“弟子悟透了！以正大刚猛之杵，破西夏阴狠之魔！师伯且在此稳守经阁，弟子这就登齐云古塔夺回舍利！”'),
     ],
-    onFinishEffects: [openScene('scene_slq06_11', SHAOLIN_Q06_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-094'), openScene('scene_slq06_11', SHAOLIN_Q06_QUEST_ID)],
   },
 
   scene_slq06_11: {

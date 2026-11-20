@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q11_QUEST_ID } from './shaolinDamoNianhuaFingerQuest'
 
 const SPEAKER_SAJIA_MONK: StorySpeakerSpec = {
@@ -229,6 +229,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '拜谢玄难首座，移步钟鼓禅院演武坪迎战吐蕃护法！',
         tone: 'gold',
         effects: [
+          teachArtNow('MA-063'),
           { type: 'startQuest', questId: SHAOLIN_Q11_QUEST_ID, stepId: 'tubo_courtyard_spar' },
           setStep(SHAOLIN_Q11_QUEST_ID, 'tubo_courtyard_spar'),
           toast('已开启《迦叶微笑 · 灵山拈花》！请前往【钟鼓禅院 · 演武坪】迎战吐蕃大轮寺护法！', 'talk', '灵山拈花'),

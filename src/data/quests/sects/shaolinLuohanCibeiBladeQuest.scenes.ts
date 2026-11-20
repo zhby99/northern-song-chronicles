@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q05_QUEST_ID } from './shaolinLuohanCibeiBladeQuest'
 
 const SPEAKER_VILLAGE_ELDER: StorySpeakerSpec = {
@@ -183,7 +183,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       N('一记「回风度厄」横扫而出，竟稳稳托住半空飘落的一片残叶，顺势轻送至唐碑檐角，分毫未损！'),
       S('NPC-0126', '（眼中露出赞许之色）“好悟性！短短半个时辰便摸到了「刀重意轻、刚中含慈」的门径。玄灭师弟，此子已可随你下山历练。”'),
     ],
-    onFinishEffects: [openScene('scene_slq05_06', SHAOLIN_Q05_QUEST_ID)],
+    onFinishEffects: [teachArtNow('MA-114'), openScene('scene_slq05_06', SHAOLIN_Q05_QUEST_ID)],
   },
 
   scene_slq05_06: {
