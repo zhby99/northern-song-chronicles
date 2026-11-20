@@ -5,7 +5,7 @@ import type { QuestCombatOpponentSpec, QuestDefinition, QuestEffect } from '../.
 import { parseRealmTier } from '../stats/realmUtils'
 import { scaleNodeNpcDownToRealm, buildNodeNpcFromCompiledId } from '../npcFactory'
 import { getLoadedQuestScenes, preloadAllQuestScenes } from '../quest/sceneRegistry'
-import { getSuggestedSectMainQuest } from '../quest/sectQuestGuide'
+import { buildAvailableQuestEntries, getSuggestedSectMainQuest, isQuestPermanentlyClosed } from '../quest/sectQuestGuide'
 import { getSectMonthlyStipend } from '../sect/stipends'
 import { isFreeSectTenArtStudy } from '../stats/heroStats'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
@@ -165,5 +165,42 @@ describe('门派主线下一步建议', () => {
     const sug2 = getSuggestedSectMainQuest(buildStoreEvalContext(useGameStore.getState()), QUEST_REGISTRY, QUEST_MAP)
     expect(sug2?.quest.id).toBe('QST-SECT-01-02')
     if (!sug2!.available) expect(sug2!.unmetReasons.length).toBeGreaterThan(0)
+  })
+})
+
+describe('江湖纪事可接列表：本门优先、他派隐藏、绝路不列', () => {
+  it('只列本门师门要务，主线在前、支线在后，路线已断的任务不列', () => {
+    const st = useGameStore.getState()
+    useGameStore.setState({
+      sectState: { ...st.sectState, sectId: 'SECT-01', rank: 1, rankLabel: '外门' },
+      deadNpcIds: [],
+      questState: {
+        ...st.questState,
+        activeQuests: {},
+        flags: { shaolin_disciple_type: 'layman', sl_branch: 'layman' },
+        completedQuests: { 'QST-SECT-01-ENTRY': { questId: 'QST-SECT-01-ENTRY', outcome: 'completed', completedDay: 1, count: 1 } },
+      } as typeof st.questState,
+    })
+    const ctx = buildStoreEvalContext(useGameStore.getState())
+    const entries = buildAvailableQuestEntries(ctx, QUEST_REGISTRY, QUEST_MAP)
+    const ids = entries.map((e) => e.quest.id)
+
+    const foreign = entries.filter((e) => e.quest.category === 'sect_mission' && e.quest.factionId !== 'SECT-01')
+    expect(foreign).toEqual([])
+    expect(ids[0]).toBe('QST-SECT-01-01')
+    expect(entries[0].suggested).toBe(true)
+    const groups = entries.map((e) => e.group)
+    expect([...groups].sort((a, b) => a - b)).toEqual(groups)
+    expect(entries.some((e) => e.group === 1)).toBe(true)
+    // 俗家路线：出家专属终局《铁腕法王》永久关闭
+    expect(ids).not.toContain('QST-SECT-01-39')
+    expect(isQuestPermanentlyClosed(QUEST_MAP['QST-SECT-01-39'], ctx, QUEST_MAP)).toBe(true)
+  })
+
+  it('未入门派时不列任何师门要务', () => {
+    const st = useGameStore.getState()
+    useGameStore.setState({ sectState: { ...st.sectState, sectId: null, rank: 1, rankLabel: '' } })
+    const entries = buildAvailableQuestEntries(buildStoreEvalContext(useGameStore.getState()), QUEST_REGISTRY, QUEST_MAP)
+    expect(entries.filter((e) => e.quest.category === 'sect_mission')).toEqual([])
   })
 })

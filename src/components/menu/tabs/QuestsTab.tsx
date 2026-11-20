@@ -3,6 +3,7 @@ import { FACTION_DB_MAP, REGION_DB_MAP } from '../../../data/gameDb'
 import { getRegionUnlockRequirement, isRegionUnlockedByInventory } from '../../../data/itemsDb'
 import { QUEST_MAP, QUEST_REGISTRY } from '../../../data/quests'
 import { collectUnmetQuestReasons, type QuestEvalContext } from '../../../engine/questEngine'
+import { buildAvailableQuestEntries } from '../../../engine/quest/sectQuestGuide'
 import { useQuestEvalState } from '../../../hooks/useQuestEvalContext'
 import { buildStoreEvalContext, useGameStore } from '../../../store/useGameStore'
 import type { InventoryStack } from '../../../types/game'
@@ -201,13 +202,11 @@ export function QuestsTab() {
   const playerRealm = useMemo(() => estimateHeroRealm(maxHp, maxMp), [maxHp, maxMp])
   const activeList = Object.values(questState.activeQuests)
   const completedList = Object.values(questState.completedQuests)
-  const availableList = useMemo(
-    () =>
-      QUEST_REGISTRY.filter(
-        (q) => !questState.activeQuests[q.id] && !questState.completedQuests[q.id],
-      ),
-    [questState.activeQuests, questState.completedQuests],
+  const availableEntries = useMemo(
+    () => buildAvailableQuestEntries(questEvalCtx, QUEST_REGISTRY, QUEST_MAP),
+    [questEvalCtx],
   )
+  const availableList = useMemo(() => availableEntries.map((e) => e.quest), [availableEntries])
   const availableCategoryCounts = useMemo(() => {
     const counts: Record<AvailableQuestCategoryFilter, number> = {
       ALL: availableList.length,
@@ -224,10 +223,11 @@ export function QuestsTab() {
     }
     return counts
   }, [availableList])
-  const filteredAvailableList = useMemo(
-    () => availableList.filter((q) => matchesAvailableCategory(q.category, availableCategory)),
-    [availableList, availableCategory],
+  const filteredAvailableEntries = useMemo(
+    () => availableEntries.filter((e) => matchesAvailableCategory(e.quest.category, availableCategory)),
+    [availableEntries, availableCategory],
   )
+  const filteredAvailableList = filteredAvailableEntries
   const activeSpy = sectState.sectId === 'SECT-22' ? sectState.activeLiaoSpy : null
   const totalActiveCount = activeList.length + (activeSpy ? 1 : 0)
 
@@ -553,7 +553,7 @@ export function QuestsTab() {
               </button>
             </div>
           ) : (
-            filteredAvailableList.map((qDef) => {
+            filteredAvailableEntries.map(({ quest: qDef, startable, group, suggested }, i, arr) => {
               const catMeta =
                 QUEST_CATEGORY_META[qDef.category] ?? QUEST_CATEGORY_META.adventure
               const factionName = qDef.factionId
@@ -567,10 +567,30 @@ export function QuestsTab() {
                 qDef.maxOpponentRealm,
               )
 
+              const groupHeading =
+                i === 0 || arr[i - 1].group !== group
+                  ? group === 0
+                    ? '本门主线'
+                    : group === 1
+                      ? '本门支线 · 日常差事'
+                      : arr.some((e) => e.group !== 2)
+                        ? '其余江湖传闻'
+                        : null
+                  : null
+
               return (
+                <div key={qDef.id} className="space-y-2">
+                {groupHeading && (
+                  <div className="pt-1 flex items-center gap-2 text-xs font-bold song-serif text-[#5c3d1e]">
+                    <span className="h-px flex-1 bg-[#cbb693]" />
+                    {groupHeading}
+                    <span className="h-px flex-1 bg-[#cbb693]" />
+                  </div>
+                )}
                 <div
-                  key={qDef.id}
-                  className="p-4 rounded-lg bg-[#faf3e3] border border-[#c8b28e] shadow-sm space-y-2"
+                  className={`p-4 rounded-lg bg-[#faf3e3] shadow-sm space-y-2 ${
+                    suggested ? 'border-2 border-[#a87b2d]' : 'border border-[#c8b28e]'
+                  }`}
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e2d3b5] pb-2">
                     <div className="flex flex-wrap items-center gap-2">
@@ -578,6 +598,20 @@ export function QuestsTab() {
                         className={`px-2 py-0.5 rounded text-xs font-bold ${catMeta.bg} ${catMeta.text}`}
                       >
                         {catMeta.label}
+                      </span>
+                      {suggested && (
+                        <span className="px-2 py-0.5 rounded text-xs font-bold bg-[#a87b2d] text-[#fff8ee]">
+                          下一步
+                        </span>
+                      )}
+                      <span
+                        className={`px-2 py-0.5 rounded text-xs font-bold border ${
+                          startable
+                            ? 'bg-[#e2f2e8] border-[#78b791] text-[#1b5132]'
+                            : 'bg-[#efe4cc] border-[#cbb693] text-[#7a5f3e]'
+                        }`}
+                      >
+                        {startable ? '可开启' : '条件未满'}
                       </span>
                       <span className="font-bold song-serif text-base text-[#23180f]">
                         《{qDef.title}》
@@ -634,6 +668,7 @@ export function QuestsTab() {
                       />
                     )}
                   </div>
+                </div>
                 </div>
               )
             })
