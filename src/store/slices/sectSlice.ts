@@ -39,6 +39,7 @@ import {
   getSectTournamentDateInfo,
   isDaoSwordSect,
   isSectArtCatalogQuestOnly,
+  isSectHeadFreeStudy,
   isShaolinArtBlockedForLayDisciple,
   KAIFENG_CASE_BOUNTY_SILVER,
   KAIFENG_RECOMMENDATION_ITEM_ID,
@@ -826,7 +827,8 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       return
     }
 
-    if (isSectArtCatalogQuestOnly(sectId)) {
+    const isHead = isSectHeadFreeStudy(s.sectState.rank)
+    if (isSectArtCatalogQuestOnly(sectId) && !isHead) {
       set({
         actionFeedback: {
           text: `本门武学不按职阶自取：《${entry.art.cleanName}》（${entry.art.fullTier}）须推进本门剧情任务，由师门长辈亲自传授。`,
@@ -847,6 +849,7 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
     }
 
     if (
+      !isHead &&
       isShaolinArtBlockedForLayDisciple(sectId, entry.art, s.sectState.shaolinDiscipleType)
     ) {
       const warnText =
@@ -879,7 +882,9 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       { artId: entry.art.id, level: 1, exp: 0 },
     ]
     const sharedTag = entry.isSharedFromShaolin ? '（南北少林同源共传）' : ''
-    const msg = `蒙师门传授，正式习得${entry.art.fullTier}${entry.art.category}《${entry.art.cleanName}》第 1 重入门${sharedTag}！`
+    const msg = isHead
+      ? `执掌门户，于本门藏经秘阁亲取${entry.art.fullTier}${entry.art.category}《${entry.art.cleanName}》研习，正式习得第 1 重入门${sharedTag}！`
+      : `蒙师门传授，正式习得${entry.art.fullTier}${entry.art.category}《${entry.art.cleanName}》第 1 重入门${sharedTag}！`
 
     set({
       learnedArts: nextLearned,

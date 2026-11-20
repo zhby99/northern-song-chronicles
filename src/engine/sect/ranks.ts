@@ -367,6 +367,17 @@ export function isSectArtCatalogQuestOnly(sectId: string | null | undefined): bo
   return FACTION_DB_MAP[sectId]?.sectTier === '一流大派'
 }
 
+/** 掌门职阶（Lv.5）：执掌门户，可在【门派事务】中自取修习本门全部功法 */
+export const SECT_HEAD_RANK = 5
+
+/**
+ * 掌门自取本门功法：一旦升任掌门，不再受「剧情亲授」「职阶门槛」与少林俗家清规限制，
+ * 可直接修习本门武学名录中的任何一门（根基门槛仍须达标）。
+ */
+export function isSectHeadFreeStudy(rank: number | null | undefined): boolean {
+  return (rank ?? 0) >= SECT_HEAD_RANK
+}
+
 export function isMinorOrSecondTierSect(sectId?: string | null): boolean {
   if (!sectId) return false
   const f = FACTION_DB_MAP[sectId]

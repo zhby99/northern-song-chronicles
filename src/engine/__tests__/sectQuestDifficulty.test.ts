@@ -225,3 +225,29 @@ describe('门派支线日常均奖励江湖声望', () => {
     expect(missing).toEqual([])
   })
 })
+
+describe('掌门自取本门全部功法', () => {
+  it('一流门派掌门（Lv.5）可在门派事务中直接修习剧情亲授的本门功法，Lv.4 仍不可', async () => {
+    const { getSectTeachableArts } = await import('../sect')
+    const st = useGameStore.getState()
+    const target = [...getSectTeachableArts('SECT-05')].sort((a, b) => b.requiredRank - a.requiredRank)[0]!
+    const maxed = (o: Record<string, number>) => Object.fromEntries(Object.keys(o).map((k) => [k, 100]))
+    const strong = { ...st.baseStats, talents: { 根骨: 100, 悟性: 100, 颜值: 100 } }
+    for (const [rank, expectLearned] of [[4, false], [5, true]] as const) {
+      useGameStore.setState({
+        sectState: { ...st.sectState, sectId: 'SECT-05', rank, rankLabel: rank === 5 ? '掌门' : '长老' },
+        learnedArts: [],
+        baseStats: strong,
+        skills: maxed(st.skills),
+        ridingSkill: 100,
+        maxHp: 99999,
+        maxMp: 99999,
+        agility: 999,
+        res: 999,
+      })
+      useGameStore.getState().learnSectMartialArt(target.art.id)
+      const learned = useGameStore.getState().learnedArts.some((a) => a.artId === target.art.id)
+      expect(learned, `${rank} → ${useGameStore.getState().actionFeedback?.text}`).toBe(expectLearned)
+    }
+  })
+})

@@ -5,6 +5,7 @@ import {
   getSectTeachableArts,
   isJoinableSectFaction,
   isSectArtCatalogQuestOnly,
+  isSectHeadFreeStudy,
   isShaolinArtBlockedForLayDisciple,
 } from '../../../engine/sect'
 
@@ -32,7 +33,9 @@ export function SectTeachArtsWidget({
     return getSectTeachableArts(targetFactionId)
   }, [targetFactionId])
 
-  const questOnly = isSectArtCatalogQuestOnly(targetFactionId)
+  // 掌门（Lv.5）可自取本门全部功法，不受剧情亲授、职阶与俗家清规限制
+  const isHead = isPlayerInThisSect && isSectHeadFreeStudy(sectState.rank)
+  const questOnly = isSectArtCatalogQuestOnly(targetFactionId) && !isHead
 
   const learnedArtMap = useMemo(
     () => new Map(learnedArts.map((e) => [e.artId, e])),
@@ -48,7 +51,9 @@ export function SectTeachArtsWidget({
             本门武学{questOnly ? '谱系' : '传授名录'}（共 {sectTeachableArts.length} 门）
           </span>
           <span className="text-[11px] text-[#6b5235]">
-            {questOnly
+            {isHead
+              ? '少侠已执掌门户，本门全部功法均可自取修习（根基门槛仍须达标）'
+              : questOnly
               ? '本门武学不按职阶自取，一律随本门剧情任务由师门亲授'
               : '良阶上品起需内门 · 地阶上品起需真传/长老（同权） · 天阶上品唯掌门可学'}
           </span>
@@ -60,7 +65,7 @@ export function SectTeachArtsWidget({
             const rankOk =
               isPlayerInThisSect &&
               canPlayerLearnSectArt(sectState.rank, entry.requiredRank)
-            const blockedByLay = isShaolinArtBlockedForLayDisciple(
+            const blockedByLay = !isHead && isShaolinArtBlockedForLayDisciple(
               targetFactionId,
               entry.art,
               sectState.shaolinDiscipleType,
@@ -94,10 +99,12 @@ export function SectTeachArtsWidget({
                     )}
                   </div>
                   <div className="text-[11px] text-[#6b5235]">
-                    {questOnly
-                      ? '剧情亲授'
-                      : `门槛：Lv.${entry.requiredRank}【${entry.requiredRankLabel}】`}
-                    {isShaolinMonkOnlyTier
+                    {isHead
+                      ? '掌门自取'
+                      : questOnly
+                        ? '剧情亲授'
+                        : `门槛：Lv.${entry.requiredRank}【${entry.requiredRankLabel}】`}
+                    {!isHead && isShaolinMonkOnlyTier
                       ? targetFactionId === 'SECT-04'
                         ? ' · 限清修武僧（俗家永不开放）'
                         : ' · 限出家僧众'
