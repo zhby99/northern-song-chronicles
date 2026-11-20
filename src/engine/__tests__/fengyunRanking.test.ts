@@ -80,7 +80,7 @@ describe('天下风云榜', () => {
 })
 
 describe('战力公式', () => {
-  it('气血×1.5+内力×1.8+身法×30+抗性×30+攻击×2+防御×1.5 + 最高一门外功(品阶×重数×30) + 天阶特效×1000', () => {
+  it('气血×1.5+内力×1.8+身法×30+抗性×30+攻击×2+防御×1.5 + 最高一门外功(品阶×重数×30) + 天阶特效×500（外功特效最多 2 条）', () => {
     // 内功 MA-001 易筋经（天阶上品）不计；外功 MA-043 般若掌 地阶上品(9) 10 重 → 2700，MA-062 龙爪手 地阶中品(8) 10 重 → 2400，只取最高一门
     const p = computeMartialPower({
       maxHp: 1000,
@@ -101,7 +101,33 @@ describe('战力公式', () => {
     expect(p.offense).toBe(200 + 75)
     expect(p.arts).toBe(9 * 10 * 30)
     expect(p.signatureArt).toContain('般若掌')
-    expect(p.heaven).toBe(p.heavenEffectCount * 1000)
+    expect(p.heaven).toBe(p.heavenEffectCount * 500)
     expect(p.total).toBe(p.vitals + p.offense + p.arts + p.heaven)
+  })
+})
+
+describe('天阶特效计数', () => {
+  it('内功、轻功特效全计；四门外功特效合计最多 2 条', () => {
+    const common = { maxHp: 0, maxMp: 0, agility: 0, res: 0, totalAttack: 0, totalDefense: 0 }
+    // 巫行云式配置：八荒六合（内功 2 条）+ 天山折梅手（外功 2 条）+ 天山六阳掌（外功 1 条）
+    const p = computeMartialPower({
+      ...common,
+      equippedArts: { neigong: 'MA-009', qinggong: null, move1: 'MA-014', move2: 'MA-015', move3: null, move4: null },
+      learnedArts: [
+        { artId: 'MA-009', level: 10, exp: 0 },
+        { artId: 'MA-014', level: 10, exp: 0 },
+        { artId: 'MA-015', level: 10, exp: 0 },
+      ],
+    })
+    expect(p.heavenEffectCount).toBe(2 + 2)
+    expect(p.heaven).toBe(4 * 500)
+  })
+
+  it('攻击只算最强一招及其兵器契合，不累加四招契合', () => {
+    const wu = NPC_DB_MAP['NPC-0102']!
+    const p = buildFengyunBoard({ heroPower: freshHero(), deadNpcIds: [] }).entries.find((e) => e.npc?.id === 'NPC-0102')!.power
+    // 装备 208 + 天山折梅手 1547 + 该招契合 611 = 2366（旧算法累加三招契合为 3219）
+    expect(p.offense).toBeLessThan(3219 * 2)
+    expect(wu.id).toBe('NPC-0102')
   })
 })

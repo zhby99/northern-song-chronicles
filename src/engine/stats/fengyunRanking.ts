@@ -1,5 +1,5 @@
 import { MARTIAL_ART_DB_MAP, NPCS_DB } from '../../data/gameDb'
-import { computeEquippedArtsTotals } from '../../data/playerMartialArts'
+import { computeSingleArtBonus, getArtLevelStats } from '../../data/playerMartialArts'
 import { computeEquipmentTotals, computeWeaponArtSynergy } from '../equipment/equipmentStats'
 import type {
   CompiledNpcRecord,
@@ -18,7 +18,8 @@ import type { HeroBaseStats } from '../../types/game'
  *
  * 战力 = 气血 ×1.5 + 内力 ×1.8 + 身法 ×30 + 抗性 ×30 + 攻击 ×2 + 防御 ×1.5
  *      + 武学（四门出战外功中「品阶 × 重数 × 30」最高的一门；内功、轻功不计）
- *      + 天阶特效（每条生效特效 +1000）
+ *      + 天阶特效（每条生效特效 +500；内功、轻功特效全计，四门外功的特效合计最多计 2 条）
+ * 攻击取「装备攻击 + 最强一招的招式伤害与该招的兵器契合加成」：每回合只出一招，不累加四招的契合。
  * 四维与攻守均为披挂、运使武学后的实时有效值。仅作排名之用，不参与任何战斗结算。
  */
 
@@ -40,7 +41,9 @@ const TIER_WEIGHT: Record<string, number> = {
 /** 每个「品阶权重 × 重数」点折算的战力 */
 const ART_POINT = 30
 /** 每条已生效的天阶特效折算的战力 */
-const HEAVEN_EFFECT_POINT = 1000
+const HEAVEN_EFFECT_POINT = 500
+/** 四门出战外功的天阶特效合计最多计入的条数 */
+const MOVE_EFFECT_CAP = 2
 
 const MOVE_SLOTS: MartialArtSlotKey[] = ['move1', 'move2', 'move3', 'move4']
 
@@ -99,8 +102,17 @@ export function computeMartialPower(input: PowerInput): PowerBreakdown {
   // 只取最高的一门外功武学计入战力
   const arts = best?.score ?? 0
 
-  const heavenEffectCount = computeEquippedArtsTotals(input.equippedArts, input.learnedArts)
-    .specialEffects.length
+  let innerEffects = 0
+  let moveEffects = 0
+  for (const slot of Object.keys(input.equippedArts) as MartialArtSlotKey[]) {
+    const artId = input.equippedArts[slot]
+    const art = artId ? MARTIAL_ART_DB_MAP[artId] : undefined
+    if (!art) continue
+    const n = getArtLevelStats(art, levelMap.get(art.id) ?? 1)?.specialEffects?.length ?? 0
+    if (MOVE_SLOTS.includes(slot)) moveEffects += n
+    else innerEffects += n
+  }
+  const heavenEffectCount = innerEffects + Math.min(MOVE_EFFECT_CAP, moveEffects)
   const heaven = heavenEffectCount * HEAVEN_EFFECT_POINT
 
   const total = Math.round(vitals + offense + arts + heaven)
@@ -115,6 +127,27 @@ export function computeMartialPower(input: PowerInput): PowerBreakdown {
   }
 }
 
+/** 最强一招的实战攻击：招式伤害 + 该招自身的兵器契合加成（不累加其余招式的契合） */
+function bestMoveAttack(
+  equipped: EquippedSlotsMap,
+  equippedArts: EquippedArtsMap,
+  learnedArts: LearnedArtEntry[],
+): number {
+  const levelMap = new Map(learnedArts.map((a) => [a.artId, a.level]))
+  const synBySlot = new Map(
+    computeWeaponArtSynergy(equipped.weapon, equippedArts, learnedArts).matches.map((m) => [m.slot, m.bonusAttack]),
+  )
+  let best = 0
+  for (const slot of MOVE_SLOTS) {
+    const artId = equippedArts[slot]
+    const art = artId ? MARTIAL_ART_DB_MAP[artId] : undefined
+    if (!art) continue
+    const hit = computeSingleArtBonus(art, levelMap.get(art.id) ?? 1, slot).attack + (synBySlot.get(slot) ?? 0)
+    best = Math.max(best, hit)
+  }
+  return best
+}
+
 export function computeNpcMartialPower(rec: CompiledNpcRecord): RankedPower {
   const eff = deriveNpcEffectiveStats(rec)
   const tier = parseRealmTier(rec.realm)
@@ -126,7 +159,7 @@ export function computeNpcMartialPower(rec: CompiledNpcRecord): RankedPower {
     maxMp: eff.maxMp,
     agility: eff.agility,
     res: eff.res,
-    totalAttack: eff.totalAttack,
+    totalAttack: eff.equipAttack + bestMoveAttack(rec.equipped, rec.equippedArts, rec.learnedArts),
     totalDefense: eff.totalDefense,
     equippedArts: rec.equippedArts,
     learnedArts: rec.learnedArts,
@@ -145,8 +178,12 @@ export function computeHeroMartialPower(hero: {
     heavyInjury: hero.heavyInjury,
   })
   const equipTotals = computeEquipmentTotals(hero.equipped)
-  const artTotals = computeEquippedArtsTotals(hero.equippedArts, hero.learnedArts)
-  const synergy = computeWeaponArtSynergy(hero.equipped.weapon, hero.equippedArts, hero.learnedArts)
+  const artDefense = (Object.keys(hero.equippedArts) as MartialArtSlotKey[]).reduce((sum, slot) => {
+    const artId = hero.equippedArts[slot]
+    const art = artId ? MARTIAL_ART_DB_MAP[artId] : undefined
+    const lv = hero.learnedArts.find((a) => a.artId === artId)?.level ?? 1
+    return sum + (art ? computeSingleArtBonus(art, lv, slot).defense : 0)
+  }, 0)
   const tier = estimateHeroRealm(eff.maxHp, eff.maxMp)
   return {
     realmRank: tier.rank,
@@ -156,8 +193,8 @@ export function computeHeroMartialPower(hero: {
     maxMp: eff.maxMp,
     agility: eff.agility,
     res: eff.res,
-    totalAttack: equipTotals.attack + artTotals.attack + synergy.totalSynergyAttack,
-    totalDefense: equipTotals.defense + artTotals.defense,
+    totalAttack: equipTotals.attack + bestMoveAttack(hero.equipped, hero.equippedArts, hero.learnedArts),
+    totalDefense: equipTotals.defense + artDefense,
     equippedArts: hero.equippedArts,
     learnedArts: hero.learnedArts,
     }),
