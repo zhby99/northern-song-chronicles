@@ -33,13 +33,8 @@ function buildAssassinSabreNpc(): NodeNpc {
     talk: '“这口陈抟老道留下的太华古铜钟，兴庆府贵人出了重金！挡路的小剑客死！”',
     stats: { hp: 1620, mp: 1380, agi: 54, res: 38 },
     talents: { bone: 68, comprehension: 58, charm: 32 },
-    equippedArts: { neigong: 'MA-245', qinggong: 'MA-246', move1: 'MA-133', move2: 'MA-095' },
-    learnedArts: [
-      { artId: 'MA-245', level: 4 },
-      { artId: 'MA-246', level: 4 },
-      { artId: 'MA-133', level: 5 },
-      { artId: 'MA-095', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-133', move2: 'MA-155' },
+    learnedArts: [{ artId: 'MA-243', level: 4 }, { artId: 'MA-133', level: 5 }, { artId: 'MA-155', level: 4 }],
     equipped: { weapon: 'WPN-044' },
     questBadgeLabel: '西域刺客',
   })
@@ -57,13 +52,8 @@ function buildAssassinBrushNpc(): NodeNpc {
     talk: '“{gender:他|她}剑招突然变慢了，定是内力不济！左右齐上锁{gender:他|她}琵琶骨！”',
     stats: { hp: 1540, mp: 1420, agi: 55, res: 37 },
     talents: { bone: 64, comprehension: 62, charm: 34 },
-    equippedArts: { neigong: 'MA-245', qinggong: 'MA-246', move1: 'MA-096', move2: 'MA-118' },
-    learnedArts: [
-      { artId: 'MA-245', level: 4 },
-      { artId: 'MA-246', level: 4 },
-      { artId: 'MA-096', level: 4 },
-      { artId: 'MA-118', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-130', move2: 'MA-155' },
+    learnedArts: [{ artId: 'MA-243', level: 4 }, { artId: 'MA-130', level: 4 }, { artId: 'MA-155', level: 5 }],
     equipped: { weapon: 'WPN-023' },
     questBadgeLabel: '奇门杀手',
   })

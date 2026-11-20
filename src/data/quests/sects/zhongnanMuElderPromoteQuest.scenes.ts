@@ -12,18 +12,8 @@ const XINGXIU_ELITE_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_xingxiu_fb.jpg',
   talk: '“摘星大师兄有令！把这群古墓女娃通通炼成毒人！”',
   stats: { hp: 2650, mp: 1450, agi: 76, res: 64 },
-  equippedArts: {
-    neigong: 'MA-231',
-    qinggong: 'MA-157',
-    move1: 'MA-065',
-    move2: 'MA-150',
-  },
-  learnedArts: [
-    { artId: 'MA-231', level: 7 },
-    { artId: 'MA-157', level: 7 },
-    { artId: 'MA-065', level: 6 },
-    { artId: 'MA-150', level: 6 },
-  ],
+  equippedArts: { neigong: 'MA-231', move1: 'MA-127', move2: 'MA-150' },
+  learnedArts: [{ artId: 'MA-231', level: 7 }, { artId: 'MA-127', level: 6 }, { artId: 'MA-150', level: 6 }],
 })
 
 export const SCENES: Record<string, StorySceneDef> = {

@@ -47,13 +47,8 @@ function buildDongThugNpc(index: 1 | 2): NodeNpc {
       ? { hp: 1360, mp: 1120, agi: 48, res: 33 }
       : { hp: 1310, mp: 1080, agi: 47, res: 32 },
     talents: { bone: 64, comprehension: 44, charm: 25 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-151', move2: 'MA-131' },
-    learnedArts: [
-      { artId: 'MA-103', level: 5 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-151', level: 5 },
-      { artId: 'MA-131', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-151', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-151', level: 5 }, { artId: 'MA-131', level: 4 }],
     equipped: { weapon: 'WPN-033' },
     questBadgeLabel: '董府恶奴',
   })
@@ -71,13 +66,8 @@ function buildHelanZhengNpc(): NodeNpc {
     talk: '“嘿嘿嘿……华山派的小娃娃，听见我这对狼牙鬼哭钩的啸声没有？割开喉管可痛快得很哪！”',
     stats: { hp: 3120, mp: 2740, agi: 69, res: 56 },
     talents: { bone: 80, comprehension: 72, charm: 20 },
-    equippedArts: { neigong: 'MA-086', qinggong: 'MA-056', move1: 'MA-085', move2: 'MA-131' },
-    learnedArts: [
-      { artId: 'MA-086', level: 7 },
-      { artId: 'MA-056', level: 6 },
-      { artId: 'MA-085', level: 7 },
-      { artId: 'MA-131', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-086', move1: 'MA-085', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-086', level: 7 }, { artId: 'MA-085', level: 7 }, { artId: 'MA-131', level: 7 }],
     equipped: { weapon: 'WPN-018' },
     questBadgeLabel: '双钩鬼哭',
   })

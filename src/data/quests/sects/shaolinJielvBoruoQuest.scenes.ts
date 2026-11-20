@@ -27,18 +27,8 @@ function buildGhostHandChenBoss(): NodeNpc {
     talk: '“嘿嘿嘿，辽国贵人出三千两雪花银买这通唐碑的秘拓！小和尚识相的快滚一边去，莫逼陈爷用毒针寒掌送你上西天！”',
     stats: { hp: 3120, mp: 2220, agi: 78, res: 58 },
     talents: { bone: 84, comprehension: 86, charm: 48 },
-    equippedArts: {
-      neigong: 'MA-243',
-      qinggong: 'MA-158',
-      move1: 'MA-244',
-      move2: 'MA-076',
-    },
-    learnedArts: [
-      { artId: 'MA-243', level: 8 },
-      { artId: 'MA-158', level: 8 },
-      { artId: 'MA-244', level: 8 },
-      { artId: 'MA-076', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-244', move2: 'MA-076' },
+    learnedArts: [{ artId: 'MA-243', level: 8 }, { artId: 'MA-244', level: 8 }, { artId: 'MA-076', level: 7 }],
   })
 }
 

@@ -35,18 +35,8 @@ function buildXixiaVanguardNpc(): NodeNpc {
     talk: '“莫姑娘已指明断龙石暗门所在！弟兄们，冲进活死人墓抢夺《玉女心经》！”',
     stats: { hp: 2520, mp: 2200, agi: 59, res: 47 },
     talents: { bone: 76, comprehension: 72, charm: 52 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-158',
-      move1: 'MA-244',
-      move2: 'MA-145',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 8 },
-      { artId: 'MA-158', level: 7 },
-      { artId: 'MA-244', level: 8 },
-      { artId: 'MA-145', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-244', move2: 'MA-145' },
+    learnedArts: [{ artId: 'MA-245', level: 8 }, { artId: 'MA-244', level: 8 }, { artId: 'MA-145', level: 8 }],
   })
 }
 
@@ -64,18 +54,8 @@ function buildGumuTraitorNpc(): NodeNpc {
     talk: '“林朝瑶当年不肯传我《玉女心经》，还把我逐出石门！今日我便带西夏高手踏平古墓，亲手取回本该属于我的素绢真经！”',
     stats: { hp: 2920, mp: 2680, agi: 64, res: 52 },
     talents: { bone: 80, comprehension: 82, charm: 74 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-098',
-      move1: 'MA-085',
-      move2: 'MA-076',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 8 },
-      { artId: 'MA-098', level: 8 },
-      { artId: 'MA-085', level: 8 },
-      { artId: 'MA-076', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-085', move2: 'MA-076' },
+    learnedArts: [{ artId: 'MA-245', level: 8 }, { artId: 'MA-085', level: 8 }, { artId: 'MA-076', level: 8 }],
   })
 }
 

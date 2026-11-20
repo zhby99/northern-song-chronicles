@@ -35,20 +35,8 @@ function buildShadowBladeBoss(): NodeNpc {
     talk: '“拿人钱财，替人消灾！撞破了今夜少室后山的买卖，便只好请少林高徒与这小和尚一同坠崖封口了！”',
     stats: { hp: 2280, mp: 2020, agi: 60, res: 47 },
     talents: { bone: 86, comprehension: 84, charm: 42 },
-    equippedArts: {
-      neigong: 'MA-082',
-      qinggong: 'MA-097',
-      move1: 'MA-069',
-      move2: 'MA-076',
-      move3: 'MA-095',
-    },
-    learnedArts: [
-      { artId: 'MA-082', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-069', level: 8 },
-      { artId: 'MA-076', level: 7 },
-      { artId: 'MA-095', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-082', move1: 'MA-069', move2: 'MA-076' },
+    learnedArts: [{ artId: 'MA-082', level: 8 }, { artId: 'MA-069', level: 8 }, { artId: 'MA-076', level: 7 }],
   })
 }
 

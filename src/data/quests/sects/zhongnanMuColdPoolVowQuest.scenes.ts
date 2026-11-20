@@ -35,18 +35,8 @@ function buildObsessiveSwordsmanNpc(): NodeNpc {
     talk: '“清秋姑娘！我千里迢迢追到终南山，你为何连看我一眼都不肯？挡我路者，死！”',
     stats: { hp: 1920, mp: 1620, agi: 56, res: 40 },
     talents: { bone: 70, comprehension: 72, charm: 68 },
-    equippedArts: {
-      neigong: 'MA-221',
-      qinggong: 'MA-158',
-      move1: 'MA-187',
-      move2: 'MA-188',
-    },
-    learnedArts: [
-      { artId: 'MA-221', level: 7 },
-      { artId: 'MA-158', level: 7 },
-      { artId: 'MA-187', level: 7 },
-      { artId: 'MA-188', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-187', move2: 'MA-188' },
+    learnedArts: [{ artId: 'MA-121', level: 7 }, { artId: 'MA-187', level: 7 }, { artId: 'MA-188', level: 7 }],
   })
 }
 
@@ -64,18 +54,8 @@ function buildWuxiGushiNpc(): NodeNpc {
     talk: '“收了柳公子的千两黄金，今夜便请古墓美人尝尝我湘西同心迷情蛊的滋味吧！”',
     stats: { hp: 2280, mp: 2040, agi: 57, res: 44 },
     talents: { bone: 72, comprehension: 76, charm: 64 },
-    equippedArts: {
-      neigong: 'MA-227',
-      qinggong: 'MA-158',
-      move1: 'MA-105',
-      move2: 'MA-145',
-    },
-    learnedArts: [
-      { artId: 'MA-227', level: 8 },
-      { artId: 'MA-158', level: 7 },
-      { artId: 'MA-105', level: 8 },
-      { artId: 'MA-145', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-227', move1: 'MA-105', move2: 'MA-145' },
+    learnedArts: [{ artId: 'MA-227', level: 8 }, { artId: 'MA-105', level: 8 }, { artId: 'MA-145', level: 7 }],
   })
 }
 

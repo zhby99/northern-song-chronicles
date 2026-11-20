@@ -53,13 +53,8 @@ function buildPoisonVanguardBoss(): NodeNpc {
     talk: '“桀桀桀！老仙亲赐的悲酥清风与三笑逍遥散早已漫山遍野！尔等秃驴的五百罗汉阵，今日全要化作脓水！”',
     stats: { hp: 5600, mp: 5300, agi: 84, res: 76 },
     talents: { bone: 85, comprehension: 80, charm: 20 },
-    equippedArts: { neigong: 'MA-026', qinggong: 'MA-097', move1: 'MA-055', move2: 'MA-065' },
-    learnedArts: [
-      { artId: 'MA-026', level: 9 },
-      { artId: 'MA-097', level: 9 },
-      { artId: 'MA-055', level: 9 },
-      { artId: 'MA-065', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-026', move1: 'MA-055', move2: 'MA-065' },
+    learnedArts: [{ artId: 'MA-026', level: 9 }, { artId: 'MA-055', level: 9 }, { artId: 'MA-065', level: 9 }],
   })
 }
 
@@ -77,14 +72,8 @@ function buildHelianTieshuBoss(): NodeNpc {
     talk: '“本将亲率西夏两千铁骑与一品堂死士横扫中原，今日便要火烧嵩山少林，叫大宋武林从此俯首称臣！”',
     stats: { hp: 6980, mp: 6650, agi: 89, res: 83 },
     talents: { bone: 92, comprehension: 86, charm: 56 },
-    equippedArts: { neigong: 'MA-245', qinggong: 'MA-077', move1: 'MA-045', move2: 'MA-085', move3: 'MA-018' },
-    learnedArts: [
-      { artId: 'MA-018', level: 10 },
-      { artId: 'MA-245', level: 10 },
-      { artId: 'MA-077', level: 10 },
-      { artId: 'MA-045', level: 10 },
-      { artId: 'MA-085', level: 10 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-045', move2: 'MA-085' },
+    learnedArts: [{ artId: 'MA-245', level: 10 }, { artId: 'MA-045', level: 10 }, { artId: 'MA-085', level: 10 }],
   })
 }
 

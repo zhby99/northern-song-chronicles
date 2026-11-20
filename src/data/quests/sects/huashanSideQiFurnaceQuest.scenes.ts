@@ -35,18 +35,8 @@ function buildXingxiuRaider1(): NodeNpc {
     talk: '“嘿嘿！华山派炼了三天的纯阳宝丹，拿去给咱们星宿老仙炼腐尸毒正合适！”',
     stats: { hp: 1180, mp: 620, agi: 46, res: 28 },
     talents: { bone: 60, comprehension: 58, charm: 26 },
-    equippedArts: {
-      neigong: 'MA-231',
-      qinggong: 'MA-138',
-      move1: 'MA-137',
-      move2: 'MA-127',
-    },
-    learnedArts: [
-      { artId: 'MA-231', level: 6 },
-      { artId: 'MA-138', level: 5 },
-      { artId: 'MA-137', level: 5 },
-      { artId: 'MA-127', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-231', move1: 'MA-137', move2: 'MA-127' },
+    learnedArts: [{ artId: 'MA-231', level: 6 }, { artId: 'MA-137', level: 5 }, { artId: 'MA-127', level: 5 }],
   })
 }
 
@@ -64,20 +54,8 @@ function buildXingxiuRaider2(): NodeNpc {
     talk: '“高沧云已被咱们调虎离山引去崖边了！就凭你一个华山小辈，也敢挡我腐骨毒掌？！”',
     stats: { hp: 1460, mp: 760, agi: 52, res: 33 },
     talents: { bone: 66, comprehension: 62, charm: 28 },
-    equippedArts: {
-      neigong: 'MA-231',
-      qinggong: 'MA-138',
-      move1: 'MA-127',
-      move2: 'MA-137',
-      move3: 'MA-105',
-    },
-    learnedArts: [
-      { artId: 'MA-231', level: 7 },
-      { artId: 'MA-138', level: 6 },
-      { artId: 'MA-127', level: 6 },
-      { artId: 'MA-137', level: 6 },
-      { artId: 'MA-105', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-231', move1: 'MA-127', move2: 'MA-137' },
+    learnedArts: [{ artId: 'MA-231', level: 7 }, { artId: 'MA-127', level: 6 }, { artId: 'MA-137', level: 6 }],
   })
 }
 

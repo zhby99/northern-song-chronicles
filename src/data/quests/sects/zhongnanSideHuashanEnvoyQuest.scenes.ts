@@ -24,18 +24,8 @@ function buildGreenwoodChief(): NodeNpc {
     talk: '“金主出了五百两黄金买这封华山剑帖！终南与华山的崽子，统统留命在潼关瓮城吧！”',
     stats: { hp: 1480, mp: 680, agi: 52, res: 46 },
     talents: { bone: 74, comprehension: 56, charm: 32 },
-    equippedArts: {
-      neigong: 'MA-103',
-      qinggong: 'MA-119',
-      move1: 'MA-115',
-      move2: 'MA-107',
-    },
-    learnedArts: [
-      { artId: 'MA-103', level: 6 },
-      { artId: 'MA-119', level: 6 },
-      { artId: 'MA-115', level: 6 },
-      { artId: 'MA-107', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-124' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-131', level: 6 }, { artId: 'MA-124', level: 5 }],
   })
 }
 

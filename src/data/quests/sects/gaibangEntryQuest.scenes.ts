@@ -57,13 +57,8 @@ function buildApricotDiscipleNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_gaibang_fb.jpg',
     stats: { hp: 340, mp: 160, agi: 22, res: 12 },
     talents: { bone: 48, comprehension: 45, charm: 46 },
-    equippedArts: { neigong: 'MA-223', qinggong: 'MA-177', move1: 'MA-211', move2: 'MA-182' },
-    learnedArts: [
-      { artId: 'MA-223', level: 2 },
-      { artId: 'MA-177', level: 2 },
-      { artId: 'MA-211', level: 3 },
-      { artId: 'MA-182', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-179', move1: 'MA-211', move2: 'MA-182' },
+    learnedArts: [{ artId: 'MA-179', level: 2 }, { artId: 'MA-211', level: 3 }, { artId: 'MA-182', level: 2 }],
     equipped: {
       weapon: 'WPN-080',
       armor: 'ARM-041',

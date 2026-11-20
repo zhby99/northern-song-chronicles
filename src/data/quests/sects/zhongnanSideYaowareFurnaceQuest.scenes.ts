@@ -33,18 +33,8 @@ function buildWeibeiBlade(): NodeNpc {
     talk: '“耀州窑青釉刻牡丹三足博山炉，听说运到开封能换一座大宅子！道士，留下木匣饶你一命！”',
     stats: { hp: 960, mp: 420, agi: 42, res: 36 },
     talents: { bone: 64, comprehension: 52, charm: 34 },
-    equippedArts: {
-      neigong: 'MA-103',
-      qinggong: 'MA-139',
-      move1: 'MA-113',
-      move2: 'MA-132',
-    },
-    learnedArts: [
-      { artId: 'MA-103', level: 5 },
-      { artId: 'MA-139', level: 5 },
-      { artId: 'MA-113', level: 5 },
-      { artId: 'MA-132', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-132', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-132', level: 5 }, { artId: 'MA-131', level: 4 }],
   })
 }
 

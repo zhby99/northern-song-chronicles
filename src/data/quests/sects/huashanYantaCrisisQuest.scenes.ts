@@ -58,18 +58,8 @@ function buildYipintangBaseCaptainNpc(): NodeNpc {
       armor: 'ARM-026',
       shoes: 'BOT-016',
     },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-246',
-      move1: 'MA-133',
-      move2: 'MA-132',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 5 },
-      { artId: 'MA-246', level: 5 },
-      { artId: 'MA-133', level: 6 },
-      { artId: 'MA-132', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-133', move2: 'MA-132' },
+    learnedArts: [{ artId: 'MA-245', level: 5 }, { artId: 'MA-133', level: 6 }, { artId: 'MA-132', level: 5 }],
   })
 }
 
@@ -93,18 +83,8 @@ function buildXingxiuMidDiscipleNpc(): NodeNpc {
       shoes: 'BOT-016',
       accessory1: 'ACC-025',
     },
-    equippedArts: {
-      neigong: 'MA-081',
-      qinggong: 'MA-157',
-      move1: 'MA-065',
-      move2: 'MA-127',
-    },
-    learnedArts: [
-      { artId: 'MA-081', level: 6 },
-      { artId: 'MA-157', level: 6 },
-      { artId: 'MA-065', level: 6 },
-      { artId: 'MA-127', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-081', move1: 'MA-065', move2: 'MA-127' },
+    learnedArts: [{ artId: 'MA-081', level: 6 }, { artId: 'MA-065', level: 6 }, { artId: 'MA-127', level: 6 }],
   })
 }
 
@@ -130,18 +110,8 @@ function buildTuobaXiongNpc(): NodeNpc {
       accessory1: 'ACC-028',
       accessory2: 'ACC-025',
     },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-246',
-      move1: 'MA-133',
-      move2: 'MA-113',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 7 },
-      { artId: 'MA-246', level: 7 },
-      { artId: 'MA-133', level: 8 },
-      { artId: 'MA-113', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-133', move2: 'MA-113' },
+    learnedArts: [{ artId: 'MA-245', level: 7 }, { artId: 'MA-133', level: 8 }, { artId: 'MA-113', level: 7 }],
   })
 }
 
@@ -165,18 +135,8 @@ function buildXingxiuPoisonElderNpc(): NodeNpc {
       shoes: 'BOT-016',
       accessory1: 'ACC-029',
     },
-    equippedArts: {
-      neigong: 'MA-026',
-      qinggong: 'MA-097',
-      move1: 'MA-055',
-      move2: 'MA-065',
-    },
-    learnedArts: [
-      { artId: 'MA-026', level: 6 },
-      { artId: 'MA-097', level: 6 },
-      { artId: 'MA-055', level: 7 },
-      { artId: 'MA-065', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-026', move1: 'MA-055', move2: 'MA-065' },
+    learnedArts: [{ artId: 'MA-026', level: 6 }, { artId: 'MA-055', level: 7 }, { artId: 'MA-065', level: 7 }],
   })
 }
 

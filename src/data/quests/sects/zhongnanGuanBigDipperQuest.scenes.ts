@@ -53,11 +53,8 @@ function buildTaihangVice(): NodeNpc {
     talk: '“大哥先劈那小道士，我来放火烧经阁！”',
     stats: { hp: 820, mp: 300, agi: 36, res: 20 },
     talents: { bone: 56, comprehension: 44, charm: 30 },
-    equippedArts: { neigong: 'MA-234', move1: 'MA-184' },
-    learnedArts: [
-      { artId: 'MA-234', level: 4 },
-      { artId: 'MA-184', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-184' },
+    learnedArts: [{ artId: 'MA-180', level: 4 }, { artId: 'MA-184', level: 4 }],
   })
 }
 

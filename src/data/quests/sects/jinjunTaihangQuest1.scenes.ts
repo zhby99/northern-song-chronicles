@@ -50,8 +50,8 @@ function buildTaihangVanguardDeputyNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     sectRank: 2,
     sectRankLabel: '前哨把总头目',
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-151', move2: 'MA-189', move3: 'MA-131', move4: 'MA-196' },
-    learnedArts: [{ artId: 'MA-103', level: 4 }, { artId: 'MA-157', level: 5 }, { artId: 'MA-151', level: 6 }, { artId: 'MA-189', level: 6 }, { artId: 'MA-131', level: 5 }, { artId: 'MA-196', level: 5 }],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-151', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-140', level: 4 }, { artId: 'MA-151', level: 6 }, { artId: 'MA-189', level: 6 }],
     equipped: { weapon: 'WPN-043', armor: 'ARM-026', shoes: 'BOT-012', bow: 'BOW-013', accessory1: 'ACC-023', accessory2: 'ACC-026', mount: 'MNT-012' },
     talk: '“天王早有钧令：东京来的铁甲鹰犬踏入山口半步，管叫你们有来无回！”',
   })

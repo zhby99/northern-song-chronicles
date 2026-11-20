@@ -35,22 +35,8 @@ function buildPavilionShadowOpponent(): NodeNpc {
     talk: '“少林小辈倒有几分眼力，可惜这五合之间，你连老夫衣角也摸不着！”',
     stats: { hp: 4180, mp: 3950, agi: 80, res: 68 },
     talents: { bone: 90, comprehension: 90, charm: 68 },
-    equippedArts: {
-      neigong: 'MA-060',
-      qinggong: 'MA-097',
-      move1: 'MA-044',
-      move2: 'MA-083',
-      move3: 'MA-085',
-      move4: 'MA-018',
-    },
-    learnedArts: [
-      { artId: 'MA-018', level: 8 },
-      { artId: 'MA-060', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-044', level: 8 },
-      { artId: 'MA-083', level: 8 },
-      { artId: 'MA-085', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-060', move1: 'MA-044', move2: 'MA-083' },
+    learnedArts: [{ artId: 'MA-060', level: 8 }, { artId: 'MA-044', level: 8 }, { artId: 'MA-083', level: 8 }],
   })
 }
 

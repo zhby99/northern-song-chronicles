@@ -260,7 +260,7 @@ export function buildNpcCombatant(
     ? { ...npcNode.equippedArts }
     : {
         neigong: 'MA-179',
-        qinggong: 'MA-177',
+        qinggong: null,
         move1: 'MA-182',
         move2: 'MA-187',
         move3: null,
@@ -270,7 +270,6 @@ export function buildNpcCombatant(
     ? npcNode.learnedArts.map((e) => ({ ...e }))
     : [
         { artId: 'MA-179', level: 4, exp: 0 },
-        { artId: 'MA-177', level: 4, exp: 0 },
         { artId: 'MA-182', level: 5, exp: 0 },
         { artId: 'MA-187', level: 5, exp: 0 },
       ]

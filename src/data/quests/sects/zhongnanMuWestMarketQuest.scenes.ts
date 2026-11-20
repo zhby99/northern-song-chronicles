@@ -35,18 +35,8 @@ function buildYipintangGuardNpc(): NodeNpc {
     talk: '“什么人夜闯胡商私栈？吃我一掌！”',
     stats: { hp: 1420, mp: 1180, agi: 50, res: 34 },
     talents: { bone: 64, comprehension: 60, charm: 50 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-158',
-      move1: 'MA-244',
-      move2: 'MA-186',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 5 },
-      { artId: 'MA-158', level: 5 },
-      { artId: 'MA-244', level: 6 },
-      { artId: 'MA-186', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-244', move2: 'MA-186' },
+    learnedArts: [{ artId: 'MA-243', level: 5 }, { artId: 'MA-244', level: 6 }, { artId: 'MA-186', level: 6 }],
   })
 }
 
@@ -64,18 +54,8 @@ function buildRedBadgeBossNpc(): NodeNpc {
     talk: '“古墓的小鬼竟敢孤身摸进本座的红牌据点！今夜便叫你化作西市枯骨！”',
     stats: { hp: 1860, mp: 1580, agi: 55, res: 40 },
     talents: { bone: 70, comprehension: 66, charm: 52 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-158',
-      move1: 'MA-244',
-      move2: 'MA-145',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 6 },
-      { artId: 'MA-158', level: 6 },
-      { artId: 'MA-244', level: 7 },
-      { artId: 'MA-145', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-244', move2: 'MA-145' },
+    learnedArts: [{ artId: 'MA-243', level: 6 }, { artId: 'MA-244', level: 7 }, { artId: 'MA-145', level: 7 }],
   })
 }
 

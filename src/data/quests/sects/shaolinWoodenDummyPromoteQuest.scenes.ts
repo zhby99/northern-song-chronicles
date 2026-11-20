@@ -27,13 +27,8 @@ function buildWoodenDummyAlpha(): NodeNpc {
     talk: '（机簧咔咔作响，铜箍硬木双臂横扫中宫，隐隐挟带少林罗汉拳刚猛劲风！）',
     stats: { hp: 620, mp: 260, agi: 28, res: 20 },
     talents: { bone: 58, comprehension: 40, charm: 30 },
-    equippedArts: { neigong: 'MA-159', qinggong: 'MA-197', move1: 'MA-163', move2: 'MA-143' },
-    learnedArts: [
-      { artId: 'MA-159', level: 4 },
-      { artId: 'MA-197', level: 3 },
-      { artId: 'MA-163', level: 4 },
-      { artId: 'MA-143', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-182', move2: 'MA-184' },
+    learnedArts: [{ artId: 'MA-180', level: 4 }, { artId: 'MA-182', level: 4 }, { artId: 'MA-184', level: 3 }],
   })
 }
 
@@ -52,13 +47,8 @@ function buildWoodenDummyBeta(): NodeNpc {
     talk: '（脚底石砖下陷半寸，转轴疾旋，包铜木棍自斜刺里横扫下盘！）',
     stats: { hp: 580, mp: 240, agi: 31, res: 18 },
     talents: { bone: 55, comprehension: 42, charm: 30 },
-    equippedArts: { neigong: 'MA-159', qinggong: 'MA-197', move1: 'MA-153', move2: 'MA-163' },
-    learnedArts: [
-      { artId: 'MA-159', level: 4 },
-      { artId: 'MA-197', level: 4 },
-      { artId: 'MA-153', level: 4 },
-      { artId: 'MA-163', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-192', move2: 'MA-182' },
+    learnedArts: [{ artId: 'MA-180', level: 4 }, { artId: 'MA-192', level: 4 }, { artId: 'MA-182', level: 3 }],
   })
 }
 

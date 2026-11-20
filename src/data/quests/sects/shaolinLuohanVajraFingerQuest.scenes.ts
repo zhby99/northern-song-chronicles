@@ -36,18 +36,8 @@ function buildIronCorpseBoss(): NodeNpc {
     talk: '“哈哈哈！老夫横练铁尸金身三十年，胸前更有天外乌金护心镜！刀枪不入、水火不侵，你这少林秃驴拿什么破我金身！”',
     stats: { hp: 3560, mp: 2050, agi: 66, res: 72 },
     talents: { bone: 94, comprehension: 72, charm: 34 },
-    equippedArts: {
-      neigong: 'MA-080',
-      qinggong: 'MA-158',
-      move1: 'MA-046',
-      move2: 'MA-106',
-    },
-    learnedArts: [
-      { artId: 'MA-080', level: 8 },
-      { artId: 'MA-158', level: 6 },
-      { artId: 'MA-046', level: 8 },
-      { artId: 'MA-106', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-080', move1: 'MA-046', move2: 'MA-106' },
+    learnedArts: [{ artId: 'MA-080', level: 8 }, { artId: 'MA-046', level: 8 }, { artId: 'MA-106', level: 8 }],
   })
 }
 

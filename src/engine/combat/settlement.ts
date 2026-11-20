@@ -375,6 +375,8 @@ export const COMBAT_SETTLEMENT_RULES: CombatSettlementRule[] = [
             // 连胜三轮夺魁
             d.sectState.activeSectTournament = null
             d.sectState.wonSectTournament = true
+            d.hp = res.derived.maxHp
+            d.mp = res.derived.maxMp
             d.inventory = addItemToInventory(d.inventory, SECT_TOURNAMENT_TOKEN_ITEM_ID, 1)
             d.inventory = addItemToInventory(d.inventory, 'ITM-MED-111', 1)
             d.inventory = addItemToInventory(d.inventory, 'ITM-MED-113', 1)

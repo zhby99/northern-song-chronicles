@@ -44,20 +44,8 @@ function buildTuobaLieBoss(): NodeNpc {
     talk: '“少林寺藏污纳垢、庇护我一品堂叛徒！老秃驴，今日便让你尝尝我西夏玄霜冰蚕掌的滋味！”',
     stats: { hp: 5120, mp: 4680, agi: 83, res: 72 },
     talents: { bone: 92, comprehension: 88, charm: 58 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-246',
-      move1: 'MA-055',
-      move2: 'MA-085',
-      move3: 'MA-065',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 9 },
-      { artId: 'MA-246', level: 9 },
-      { artId: 'MA-055', level: 9 },
-      { artId: 'MA-085', level: 9 },
-      { artId: 'MA-065', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-055', move2: 'MA-085' },
+    learnedArts: [{ artId: 'MA-245', level: 9 }, { artId: 'MA-055', level: 9 }, { artId: 'MA-085', level: 9 }],
   })
 }
 

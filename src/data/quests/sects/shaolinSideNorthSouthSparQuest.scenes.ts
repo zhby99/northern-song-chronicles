@@ -35,20 +35,8 @@ function buildTieqiao(): NodeNpc {
     talk: '“请北宗师兄领教我莆田南少林硬桥硬马、稳如磐石的铁桥劲！”',
     stats: { hp: 3150, mp: 2780, agi: 64, res: 60 },
     talents: { bone: 84, comprehension: 72, charm: 56 },
-    equippedArts: {
-      neigong: 'MA-080',
-      qinggong: 'MA-139',
-      move1: 'MA-106',
-      move2: 'MA-124',
-      move3: 'MA-107',
-    },
-    learnedArts: [
-      { artId: 'MA-080', level: 8 },
-      { artId: 'MA-139', level: 7 },
-      { artId: 'MA-106', level: 8 },
-      { artId: 'MA-124', level: 8 },
-      { artId: 'MA-107', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-080', move1: 'MA-106', move2: 'MA-124' },
+    learnedArts: [{ artId: 'MA-080', level: 8 }, { artId: 'MA-106', level: 8 }, { artId: 'MA-124', level: 8 }],
   })
 }
 

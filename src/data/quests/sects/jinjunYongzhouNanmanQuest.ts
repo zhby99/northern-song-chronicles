@@ -48,13 +48,8 @@ export function buildXingxiuPoisonElderNpc(index: 1 | 2): NodeNpc {
       accessory2: 'ACC-019',
       mount: 'MNT-014',
     },
-    equippedArts: { neigong: 'MA-095', qinggong: 'MA-158', move1: 'MA-104', move2: 'MA-108' },
-    learnedArts: [
-      { artId: 'MA-095', level: 8 },
-      { artId: 'MA-158', level: 7 },
-      { artId: 'MA-104', level: 8 },
-      { artId: 'MA-108', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-095', move1: 'MA-104', move2: 'MA-108' },
+    learnedArts: [{ artId: 'MA-095', level: 8 }, { artId: 'MA-104', level: 8 }, { artId: 'MA-108', level: 7 }],
   })
 }
 

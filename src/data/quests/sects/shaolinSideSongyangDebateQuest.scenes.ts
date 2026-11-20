@@ -44,20 +44,8 @@ function buildLeiZhenzi(): NodeNpc {
     talk: '“周公子出十两纹银请老夫教训狂妄沙弥！小和尚，接老夫一记劈山雷掌！”',
     stats: { hp: 800, mp: 480, agi: 34, res: 22 },
     talents: { bone: 62, comprehension: 44, charm: 30 },
-    equippedArts: {
-      neigong: 'MA-162',
-      qinggong: 'MA-198',
-      move1: 'MA-165',
-      move2: 'MA-182',
-      move3: 'MA-185',
-    },
-    learnedArts: [
-      { artId: 'MA-162', level: 5 },
-      { artId: 'MA-198', level: 5 },
-      { artId: 'MA-165', level: 5 },
-      { artId: 'MA-182', level: 4 },
-      { artId: 'MA-185', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-186', move2: 'MA-182' },
+    learnedArts: [{ artId: 'MA-180', level: 5 }, { artId: 'MA-186', level: 5 }, { artId: 'MA-182', level: 4 }],
   })
 }
 

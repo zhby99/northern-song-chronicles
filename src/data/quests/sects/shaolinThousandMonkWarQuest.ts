@@ -18,7 +18,7 @@ export const SHAOLIN_Q41_START_CONDITION: QuestCondition = {
     },
     qStatus(SHAOLIN_Q41_QUEST_ID, 'not_started'),
     { type: 'skillAtLeast', key: '经义', min: 88 },
-    { type: 'skillAtLeast', key: '策论', min: 60 },
+    { type: 'skillAtLeast', key: '辩才', min: 60 },
     { type: 'npcAlive', npcId: 'NPC-0110', npcName: '乔峰' },
     { type: 'npcAlive', npcId: 'NPC-0122', npcName: '丁春秋' },
     { type: 'npcAlive', npcId: 'NPC-0127', npcName: '玄难' },
@@ -36,9 +36,9 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
   recommendedRealm: '宗师上品',
   maxOpponentRealm: '宗师上品（西夏一品堂统领 · 赫连铁树 / 星宿老怪 · 丁春秋）',
   recommendedNote:
-    '嵩山少林寺终局大合战（全三十八幕）。须已登位少林 Lv.5 掌门、完成三大终局之一满 90 日且经义 ≥ 88、策论 ≥ 60。西夏一品堂统领赫连铁树联合星宿老怪丁春秋率两千铁骑毒人三路火烧少林！晨钟急撞九十九响，你亲布五百罗汉伏魔大阵，与玄难、玄痛、玄寂及万里驰援的萧峰并肩冲阵，连破毒雾前军、斩碎赫连铁树帅旗、重创丁春秋退兵！',
+    '嵩山少林寺终局大合战（全三十八幕）。须已登位少林 Lv.5 掌门、完成三大终局之一满 90 日且经义 ≥ 88、辩才 ≥ 60。西夏一品堂统领赫连铁树联合星宿老怪丁春秋率两千铁骑毒人三路火烧少林！晨钟急撞九十九响，你亲布五百罗汉伏魔大阵，与玄难、玄痛、玄寂及万里驰援的萧峰并肩冲阵，连破毒雾前军、斩碎赫连铁树帅旗、重创丁春秋退兵！',
   startHint:
-    '登位少林 Lv.5 掌门满 90 日且经义 ≥ 88、策论 ≥ 60 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】即可听闻九十九响急钟警报。',
+    '登位少林 Lv.5 掌门满 90 日且经义 ≥ 88、辩才 ≥ 60 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】即可听闻九十九响急钟警报。',
   startLocation: {
     regionId: 'shaolin',
     buildingId: 'sl_daxiong',

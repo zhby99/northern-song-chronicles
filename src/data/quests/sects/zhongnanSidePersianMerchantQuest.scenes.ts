@@ -33,18 +33,8 @@ function buildXingxiuAccomplice(): NodeNpc {
     talk: '“乌师兄，这终南小道士自己送上门来，正好拿他试咱们的腐骨迷香！”',
     stats: { hp: 680, mp: 380, agi: 36, res: 30 },
     talents: { bone: 54, comprehension: 58, charm: 30 },
-    equippedArts: {
-      neigong: 'MA-099',
-      qinggong: 'MA-157',
-      move1: 'MA-127',
-      move2: 'MA-137',
-    },
-    learnedArts: [
-      { artId: 'MA-099', level: 4 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-127', level: 4 },
-      { artId: 'MA-137', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-196', move2: 'MA-186' },
+    learnedArts: [{ artId: 'MA-181', level: 4 }, { artId: 'MA-196', level: 4 }, { artId: 'MA-186', level: 4 }],
   })
 }
 

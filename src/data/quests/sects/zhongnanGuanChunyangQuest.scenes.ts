@@ -26,18 +26,8 @@ function buildFrostPalmSquadNpc(): NodeNpc {
     talk: '“终南牛鼻子，今夜这天罡北斗坛便是你们的葬身雪窖！吃我一记黑水寒风掌！”',
     stats: { hp: 2350, mp: 2050, agi: 57, res: 46 },
     talents: { bone: 76, comprehension: 72, charm: 54 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-158',
-      move1: 'MA-244',
-      move2: 'MA-145',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 7 },
-      { artId: 'MA-158', level: 7 },
-      { artId: 'MA-244', level: 8 },
-      { artId: 'MA-145', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-244', move2: 'MA-145' },
+    learnedArts: [{ artId: 'MA-245', level: 7 }, { artId: 'MA-244', level: 8 }, { artId: 'MA-145', level: 7 }],
   })
 }
 

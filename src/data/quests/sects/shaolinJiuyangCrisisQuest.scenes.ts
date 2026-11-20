@@ -44,18 +44,8 @@ function buildXingxiuRaiderA(): NodeNpc {
     talk: '“少林秃驴休想逃！尝尝星宿派抽髓毒掌的滋味！”',
     stats: { hp: 2380, mp: 1850, agi: 66, res: 46 },
     talents: { bone: 76, comprehension: 72, charm: 34 },
-    equippedArts: {
-      neigong: 'MA-231',
-      qinggong: 'MA-098',
-      move1: 'MA-065',
-      move2: 'MA-084',
-    },
-    learnedArts: [
-      { artId: 'MA-231', level: 8 },
-      { artId: 'MA-098', level: 7 },
-      { artId: 'MA-065', level: 7 },
-      { artId: 'MA-084', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-231', move1: 'MA-065', move2: 'MA-084' },
+    learnedArts: [{ artId: 'MA-231', level: 8 }, { artId: 'MA-065', level: 7 }, { artId: 'MA-084', level: 7 }],
   })
 }
 
@@ -73,18 +63,8 @@ function buildXingxiuRaiderB(): NodeNpc {
     talk: '“嘻嘻，三笑逍遥散都放倒玄难老秃驴了，你个小和尚还敢硬撑？”',
     stats: { hp: 2150, mp: 1920, agi: 70, res: 44 },
     talents: { bone: 72, comprehension: 78, charm: 60 },
-    equippedArts: {
-      neigong: 'MA-231',
-      qinggong: 'MA-097',
-      move1: 'MA-065',
-      move2: 'MA-095',
-    },
-    learnedArts: [
-      { artId: 'MA-231', level: 8 },
-      { artId: 'MA-097', level: 7 },
-      { artId: 'MA-065', level: 7 },
-      { artId: 'MA-095', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-231', move1: 'MA-065', move2: 'MA-095' },
+    learnedArts: [{ artId: 'MA-231', level: 8 }, { artId: 'MA-065', level: 7 }, { artId: 'MA-095', level: 7 }],
   })
 }
 
@@ -102,20 +82,8 @@ function buildZhaixingBoss(): NodeNpc {
     talk: '“星宿老仙，法驾中原！今日便拿少林达摩院首座的性命与九阳密钞，作我星宿海开山大礼！”',
     stats: { hp: 3560, mp: 3320, agi: 77, res: 58 },
     talents: { bone: 86, comprehension: 88, charm: 48 },
-    equippedArts: {
-      neigong: 'MA-026',
-      qinggong: 'MA-097',
-      move1: 'MA-065',
-      move2: 'MA-095',
-      move3: 'MA-085',
-    },
-    learnedArts: [
-      { artId: 'MA-026', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-065', level: 9 },
-      { artId: 'MA-095', level: 8 },
-      { artId: 'MA-085', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-026', move1: 'MA-065', move2: 'MA-095' },
+    learnedArts: [{ artId: 'MA-026', level: 8 }, { artId: 'MA-065', level: 9 }, { artId: 'MA-095', level: 8 }],
   })
 }
 

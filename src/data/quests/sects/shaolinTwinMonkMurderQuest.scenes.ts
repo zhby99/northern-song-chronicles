@@ -44,13 +44,8 @@ function buildShadowLeadBoss(): NodeNpc {
     talk: '“乔峰杀师叛义，少林人证皆死！尔等休想留得活口走出东庑武库！”',
     stats: { hp: 4550, mp: 4280, agi: 77, res: 70 },
     talents: { bone: 84, comprehension: 80, charm: 48 },
-    equippedArts: { neigong: 'MA-025', qinggong: 'MA-097', move1: 'MA-043', move2: 'MA-071' },
-    learnedArts: [
-      { artId: 'MA-025', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-043', level: 8 },
-      { artId: 'MA-071', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-025', move1: 'MA-043', move2: 'MA-071' },
+    learnedArts: [{ artId: 'MA-025', level: 8 }, { artId: 'MA-043', level: 8 }, { artId: 'MA-071', level: 8 }],
   })
 }
 
@@ -68,13 +63,8 @@ function buildShadowBladeAide(): NodeNpc {
     talk: '“主上吩咐，不留半点掌印证物！杀！”',
     stats: { hp: 3320, mp: 2980, agi: 73, res: 58 },
     talents: { bone: 78, comprehension: 68, charm: 38 },
-    equippedArts: { neigong: 'MA-081', qinggong: 'MA-097', move1: 'MA-062', move2: 'MA-091' },
-    learnedArts: [
-      { artId: 'MA-081', level: 7 },
-      { artId: 'MA-097', level: 7 },
-      { artId: 'MA-062', level: 7 },
-      { artId: 'MA-091', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-081', move1: 'MA-062', move2: 'MA-091' },
+    learnedArts: [{ artId: 'MA-081', level: 7 }, { artId: 'MA-062', level: 7 }, { artId: 'MA-091', level: 7 }],
   })
 }
 

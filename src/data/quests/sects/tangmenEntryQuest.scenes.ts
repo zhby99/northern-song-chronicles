@@ -115,11 +115,8 @@ const TM_TANG_GEN_SPAR_NPC: NodeNpc = makeQuestNpc({
     画: 15,
     辩才: 20,
   },
-  equippedArts: { neigong: 'MA-227', move1: 'MA-175' },
-  learnedArts: [
-    { artId: 'MA-227', level: 1 },
-    { artId: 'MA-175', level: 1 },
-  ],
+  equippedArts: { neigong: 'MA-242', move1: 'MA-195' },
+  learnedArts: [{ artId: 'MA-242', level: 1 }, { artId: 'MA-195', level: 1 }],
 })
 
 const SCENE_TM_01_BAICAO_SWAP: StorySceneDef = {

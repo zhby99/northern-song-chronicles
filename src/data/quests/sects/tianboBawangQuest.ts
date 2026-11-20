@@ -64,8 +64,12 @@ export function buildWutaiGuardianMonkNpc(isStoneTrial: boolean): NodeNpc {
       : '得罪了，请施主赐教清凉寺齐眉棍！',
     stats: isStoneTrial ? { hp: 1620, mp: 1350, agi: 55, res: 50 } : { hp: 780, mp: 620, agi: 42, res: 32 },
     equipped: { weapon: isStoneTrial ? 'WPN-036' : 'WPN-080', armor: isStoneTrial ? 'ARM-020' : 'ARM-047', shoes: isStoneTrial ? 'BOT-009' : 'BOT-021', bow: isStoneTrial ? 'BOW-009' : 'BOW-023', accessory1: isStoneTrial ? 'ACC-019' : 'ACC-042', accessory2: isStoneTrial ? 'ACC-020' : 'ACC-043', mount: isStoneTrial ? 'MNT-009' : 'MNT-021' },
-    equippedArts: { neigong: 'MA-140', qinggong: isStoneTrial ? 'MA-157' : 'MA-177', move1: 'MA-134', move2: 'MA-117' },
-    learnedArts: [{ artId: 'MA-140', level: isStoneTrial ? 6 : 4 }, { artId: isStoneTrial ? 'MA-157' : 'MA-177', level: isStoneTrial ? 6 : 4 }, { artId: 'MA-134', level: isStoneTrial ? 7 : 4 }, { artId: 'MA-117', level: isStoneTrial ? 6 : 4 }],
+    equippedArts: isStoneTrial
+      ? { neigong: 'MA-140', move1: 'MA-134', move2: 'MA-117' }
+      : { neigong: 'MA-180', move1: 'MA-192', move2: 'MA-182' },
+    learnedArts: isStoneTrial
+      ? [{ artId: 'MA-140', level: 6 }, { artId: 'MA-134', level: 7 }, { artId: 'MA-117', level: 6 }]
+      : [{ artId: 'MA-180', level: 4 }, { artId: 'MA-192', level: 4 }, { artId: 'MA-182', level: 4 }],
   })
 }
 
@@ -82,8 +86,8 @@ function buildYanmenLiaoVanguardNpc(advantaged: boolean): NodeNpc {
     talk: '踏平雁门粮道，断绝河东宋军军资！',
     stats: { hp: 2150, mp: 1650, agi: advantaged ? 48 : 57, res: 56 },
     equipped: { weapon: 'WPN-034', armor: 'ARM-019', shoes: 'BOT-009', bow: 'BOW-010', accessory1: 'ACC-020', accessory2: 'ACC-018', mount: 'MNT-011' },
-    equippedArts: { neigong: 'MA-243', qinggong: 'MA-246', move1: 'MA-073', move2: 'MA-115' },
-    learnedArts: [{ artId: 'MA-243', level: 6 }, { artId: 'MA-246', level: 6 }, { artId: 'MA-073', level: 5 }, { artId: 'MA-115', level: 6 }],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-073', move2: 'MA-115' },
+    learnedArts: [{ artId: 'MA-243', level: 6 }, { artId: 'MA-073', level: 5 }, { artId: 'MA-115', level: 6 }],
   })
 }
 
@@ -100,8 +104,8 @@ function buildYanmenLiaoHeavyCavalryNpc(advantaged: boolean): NodeNpc {
     talk: '铁林重铠刀枪不入，碾碎宋军前哨！',
     stats: { hp: 1580, mp: 1200, agi: advantaged ? 44 : 52, res: 54 },
     equipped: { weapon: 'WPN-047', armor: 'ARM-025', shoes: 'BOT-012', bow: 'BOW-012', accessory1: 'ACC-023', accessory2: 'ACC-026', mount: 'MNT-013' },
-    equippedArts: { neigong: 'MA-243', qinggong: 'MA-246', move1: 'MA-152', move2: 'MA-116' },
-    learnedArts: [{ artId: 'MA-243', level: 5 }, { artId: 'MA-246', level: 5 }, { artId: 'MA-152', level: 6 }, { artId: 'MA-116', level: 5 }],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-152', move2: 'MA-135' },
+    learnedArts: [{ artId: 'MA-243', level: 5 }, { artId: 'MA-152', level: 6 }, { artId: 'MA-135', level: 5 }],
   })
 }
 

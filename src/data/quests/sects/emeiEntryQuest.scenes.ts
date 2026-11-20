@@ -52,8 +52,8 @@ const EM_GRAIN_THUG_NPC: NodeNpc = makeQuestNpc({
     画: 0,
     辩才: 15,
   },
-  equippedArts: { move1: 'MA-171' },
-  learnedArts: [{ artId: 'MA-171', level: 1 }],
+  equippedArts: { move1: 'MA-189' },
+  learnedArts: [{ artId: 'MA-189', level: 1 }],
 })
 
 const EM_POACHER_NPC: NodeNpc = makeQuestNpc({
@@ -82,8 +82,8 @@ const EM_POACHER_NPC: NodeNpc = makeQuestNpc({
     画: 0,
     辩才: 15,
   },
-  equippedArts: { move1: 'MA-171' },
-  learnedArts: [{ artId: 'MA-171', level: 1 }],
+  equippedArts: { move1: 'MA-189' },
+  learnedArts: [{ artId: 'MA-189', level: 1 }],
 })
 
 const EM_JINDING_GUARD_NPC: NodeNpc = makeQuestNpc({
@@ -112,11 +112,8 @@ const EM_JINDING_GUARD_NPC: NodeNpc = makeQuestNpc({
     画: 20,
     辩才: 25,
   },
-  equippedArts: { neigong: 'MA-161', move1: 'MA-171' },
-  learnedArts: [
-    { artId: 'MA-161', level: 1 },
-    { artId: 'MA-171', level: 1 },
-  ],
+  equippedArts: { neigong: 'MA-181', move1: 'MA-189' },
+  learnedArts: [{ artId: 'MA-181', level: 1 }, { artId: 'MA-189', level: 1 }],
 })
 
 const SCENE_EM_01_DACISI_PORRIDGE: StorySceneDef = {

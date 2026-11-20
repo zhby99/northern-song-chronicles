@@ -26,20 +26,8 @@ function buildMurongEnvoy(): NodeNpc {
     talk: '“华山剑客只会舞刀弄棒，既破了我棋局，便再尝尝江南袖箭与越女古剑吧！”',
     stats: { hp: 1250, mp: 680, agi: 48, res: 30 },
     talents: { bone: 64, comprehension: 72, charm: 66 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-138',
-      move1: 'MA-130',
-      move2: 'MA-175',
-      move3: 'MA-112',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 5 },
-      { artId: 'MA-138', level: 5 },
-      { artId: 'MA-130', level: 5 },
-      { artId: 'MA-175', level: 6 },
-      { artId: 'MA-112', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-159', move1: 'MA-130', move2: 'MA-175' },
+    learnedArts: [{ artId: 'MA-159', level: 5 }, { artId: 'MA-130', level: 5 }, { artId: 'MA-175', level: 6 }],
   })
 }
 

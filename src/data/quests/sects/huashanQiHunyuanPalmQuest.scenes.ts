@@ -53,18 +53,8 @@ function buildChishaShieldCaptainNpc(): NodeNpc {
     talk: '“铁木重盾已被这小子一掌震裂！抄分水短刀剁了他，别让他冲进粮仓！”',
     stats: { hp: 1060, mp: 820, agi: 43, res: 32 },
     talents: { bone: 66, comprehension: 50, charm: 34 },
-    equippedArts: {
-      neigong: 'MA-230',
-      qinggong: 'MA-120',
-      move1: 'MA-237',
-      move2: 'MA-186',
-    },
-    learnedArts: [
-      { artId: 'MA-230', level: 5 },
-      { artId: 'MA-120', level: 5 },
-      { artId: 'MA-237', level: 6 },
-      { artId: 'MA-186', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-230', move1: 'MA-237', move2: 'MA-186' },
+    learnedArts: [{ artId: 'MA-230', level: 5 }, { artId: 'MA-237', level: 6 }, { artId: 'MA-186', level: 5 }],
   })
 }
 
@@ -82,20 +72,8 @@ function buildShaTonghaiBossNpc(): NodeNpc {
     talk: '“敢坏老子同西夏贵人的大买卖！把这华山小畜生劈成两段喂黄河铁头鱼！”',
     stats: { hp: 1380, mp: 1120, agi: 47, res: 33 },
     talents: { bone: 72, comprehension: 58, charm: 36 },
-    equippedArts: {
-      neigong: 'MA-104',
-      qinggong: 'MA-120',
-      move1: 'MA-151',
-      move2: 'MA-133',
-      move3: 'MA-237',
-    },
-    learnedArts: [
-      { artId: 'MA-104', level: 6 },
-      { artId: 'MA-120', level: 6 },
-      { artId: 'MA-151', level: 6 },
-      { artId: 'MA-133', level: 6 },
-      { artId: 'MA-237', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-151', move2: 'MA-133' },
+    learnedArts: [{ artId: 'MA-121', level: 6 }, { artId: 'MA-151', level: 6 }, { artId: 'MA-133', level: 6 }],
   })
 }
 

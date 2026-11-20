@@ -19,15 +19,8 @@ function buildHelanTieji(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_xixia_court_male_fb.jpg',
     sectRank: 4,
     sectRankLabel: '塞外狂将',
-    equippedArts: { neigong: 'MA-037', qinggong: 'MA-092', move1: 'MA-123', move2: 'MA-130', move3: 'MA-132', move4: 'MA-151' },
-    learnedArts: [
-      { artId: 'MA-037', level: 8 },
-      { artId: 'MA-092', level: 8 },
-      { artId: 'MA-123', level: 9 },
-      { artId: 'MA-130', level: 9 },
-      { artId: 'MA-132', level: 8 },
-      { artId: 'MA-151', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-037', move1: 'MA-123', move2: 'MA-130' },
+    learnedArts: [{ artId: 'MA-037', level: 8 }, { artId: 'MA-123', level: 9 }, { artId: 'MA-130', level: 9 }],
     equipped: { weapon: 'WPN-014', armor: 'ARM-007', shoes: 'BOT-007', bow: 'BOW-004', accessory1: 'ACC-014', accessory2: 'ACC-023', mount: 'MNT-012' },
     talk: '“听说东京八十万禁军整日只知喝花酒打马球？今日某家倒要领教领教四厢都指挥的斤两！”',
   })

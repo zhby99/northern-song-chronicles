@@ -44,18 +44,8 @@ function buildMurongScoutNpc(): NodeNpc {
     talk: '“我水阁看中的关中道藏秘卷，岂容你们华山派带回玉女峰！识相的把木匣留下！”',
     stats: { hp: 1450, mp: 1220, agi: 51, res: 35 },
     talents: { bone: 64, comprehension: 72, charm: 60 },
-    equippedArts: {
-      neigong: 'MA-221',
-      qinggong: 'MA-158',
-      move1: 'MA-071',
-      move2: 'MA-170',
-    },
-    learnedArts: [
-      { artId: 'MA-221', level: 6 },
-      { artId: 'MA-158', level: 6 },
-      { artId: 'MA-071', level: 5 },
-      { artId: 'MA-170', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-130', move2: 'MA-170' },
+    learnedArts: [{ artId: 'MA-121', level: 6 }, { artId: 'MA-130', level: 5 }, { artId: 'MA-170', level: 6 }],
   })
 }
 
@@ -73,20 +63,8 @@ function buildMurongYanBossNpc(): NodeNpc {
     talk: '“华山气宗的剑路我已在燕子坞图谱上看熟七分！想凭临时学来的希夷剑意挡我？痴人说梦！”',
     stats: { hp: 2380, mp: 2120, agi: 58, res: 45 },
     talents: { bone: 74, comprehension: 82, charm: 68 },
-    equippedArts: {
-      neigong: 'MA-221',
-      qinggong: 'MA-158',
-      move1: 'MA-071',
-      move2: 'MA-131',
-      move3: 'MA-170',
-    },
-    learnedArts: [
-      { artId: 'MA-221', level: 8 },
-      { artId: 'MA-158', level: 8 },
-      { artId: 'MA-071', level: 8 },
-      { artId: 'MA-131', level: 7 },
-      { artId: 'MA-170', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-221', move1: 'MA-071', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-221', level: 8 }, { artId: 'MA-071', level: 8 }, { artId: 'MA-131', level: 7 }],
   })
 }
 

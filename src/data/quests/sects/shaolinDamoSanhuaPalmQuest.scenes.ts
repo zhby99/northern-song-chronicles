@@ -53,20 +53,8 @@ function buildPoisonDemoness(): NodeNpc {
     talk: '“小和尚竟能把本姑娘的百花迷魂散原样吹回来？哼，那就尝尝星宿五毒砂掌的厉害！”',
     stats: { hp: 1460, mp: 920, agi: 53, res: 34 },
     talents: { bone: 70, comprehension: 72, charm: 76 },
-    equippedArts: {
-      neigong: 'MA-081',
-      qinggong: 'MA-158',
-      move1: 'MA-127',
-      move2: 'MA-137',
-      move3: 'MA-065',
-    },
-    learnedArts: [
-      { artId: 'MA-081', level: 5 },
-      { artId: 'MA-158', level: 5 },
-      { artId: 'MA-127', level: 6 },
-      { artId: 'MA-137', level: 5 },
-      { artId: 'MA-065', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-123', move1: 'MA-127', move2: 'MA-137' },
+    learnedArts: [{ artId: 'MA-123', level: 5 }, { artId: 'MA-127', level: 6 }, { artId: 'MA-137', level: 5 }],
   })
 }
 
@@ -84,13 +72,8 @@ function buildXingxiuGuard(): NodeNpc {
     talk: '“柳师姐莫慌，待我以腐毒掌封死这小秃驴的退路，将他推进洛水喂鱼！”',
     stats: { hp: 1120, mp: 680, agi: 45, res: 27 },
     talents: { bone: 64, comprehension: 58, charm: 32 },
-    equippedArts: { neigong: 'MA-231', qinggong: 'MA-157', move1: 'MA-127', move2: 'MA-137' },
-    learnedArts: [
-      { artId: 'MA-231', level: 6 },
-      { artId: 'MA-157', level: 5 },
-      { artId: 'MA-127', level: 5 },
-      { artId: 'MA-137', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-231', move1: 'MA-127', move2: 'MA-137' },
+    learnedArts: [{ artId: 'MA-231', level: 6 }, { artId: 'MA-127', level: 5 }, { artId: 'MA-137', level: 5 }],
   })
 }
 

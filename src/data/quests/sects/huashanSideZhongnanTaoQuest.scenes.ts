@@ -47,13 +47,8 @@ function buildXingxiuVanguardNpc(index: 1 | 2): NodeNpc {
       ? { hp: 1740, mp: 1620, agi: 55, res: 42 }
       : { hp: 1700, mp: 1580, agi: 54, res: 41 },
     talents: { bone: 68, comprehension: 58, charm: 22 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-055', move2: 'MA-086' },
-    learnedArts: [
-      { artId: 'MA-103', level: 6 },
-      { artId: 'MA-157', level: 5 },
-      { artId: 'MA-055', level: 5 },
-      { artId: 'MA-086', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-127', move2: 'MA-125' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-127', level: 5 }, { artId: 'MA-125', level: 5 }],
     equipped: { weapon: 'WPN-021' },
     questBadgeLabel: '星宿毒徒',
   })
@@ -71,13 +66,8 @@ function buildDujiuziNpc(): NodeNpc {
     talk: '“狮吼师兄震慑其心神，看我碧磷毒掌蚀穿你的华山护体真气！”',
     stats: { hp: 3060, mp: 2880, agi: 68, res: 56 },
     talents: { bone: 74, comprehension: 78, charm: 24 },
-    equippedArts: { neigong: 'MA-085', qinggong: 'MA-056', move1: 'MA-055', move2: 'MA-086' },
-    learnedArts: [
-      { artId: 'MA-085', level: 7 },
-      { artId: 'MA-056', level: 6 },
-      { artId: 'MA-055', level: 8 },
-      { artId: 'MA-086', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-085', move1: 'MA-055', move2: 'MA-086' },
+    learnedArts: [{ artId: 'MA-085', level: 7 }, { artId: 'MA-055', level: 8 }, { artId: 'MA-086', level: 7 }],
     equipped: { weapon: 'WPN-021' },
     questBadgeLabel: '碧磷毒手',
   })

@@ -62,13 +62,8 @@ function buildRedBladeMaster(): NodeNpc {
     talk: '“少林内乱方兴、旧方丈刚被革位，正是群雄分拆嵩山武库的大好时机！小和尚，把《易筋经》与七十二绝技交出来！”',
     stats: { hp: 5150, mp: 4800, agi: 82, res: 73 },
     talents: { bone: 84, comprehension: 76, charm: 34 },
-    equippedArts: { neigong: 'MA-026', qinggong: 'MA-097', move1: 'MA-091', move2: 'MA-107' },
-    learnedArts: [
-      { artId: 'MA-026', level: 9 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-091', level: 9 },
-      { artId: 'MA-107', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-026', move1: 'MA-091', move2: 'MA-107' },
+    learnedArts: [{ artId: 'MA-026', level: 9 }, { artId: 'MA-091', level: 9 }, { artId: 'MA-107', level: 9 }],
   })
 }
 
@@ -86,13 +81,8 @@ function buildDarkWhipMaster(): NodeNpc {
     talk: '“嘿嘿，我这玄冥乌金鞭专破少林护体硬功！三位掌门联手，看你这秃驴拿什么挡！”',
     stats: { hp: 4480, mp: 4200, agi: 80, res: 69 },
     talents: { bone: 79, comprehension: 74, charm: 28 },
-    equippedArts: { neigong: 'MA-081', qinggong: 'MA-097', move1: 'MA-055', move2: 'MA-065' },
-    learnedArts: [
-      { artId: 'MA-081', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-055', level: 8 },
-      { artId: 'MA-065', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-081', move1: 'MA-055', move2: 'MA-065' },
+    learnedArts: [{ artId: 'MA-081', level: 8 }, { artId: 'MA-055', level: 8 }, { artId: 'MA-065', level: 8 }],
   })
 }
 
@@ -110,13 +100,8 @@ function buildBloodSwordMaster(): NodeNpc {
     talk: '“废什么话！今日踏平少林大雄宝殿，我等三派便能称霸中原！”',
     stats: { hp: 3820, mp: 3600, agi: 77, res: 63 },
     talents: { bone: 76, comprehension: 72, charm: 30 },
-    equippedArts: { neigong: 'MA-081', qinggong: 'MA-097', move1: 'MA-115', move2: 'MA-125' },
-    learnedArts: [
-      { artId: 'MA-081', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-115', level: 8 },
-      { artId: 'MA-125', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-081', move1: 'MA-115', move2: 'MA-125' },
+    learnedArts: [{ artId: 'MA-081', level: 8 }, { artId: 'MA-115', level: 8 }, { artId: 'MA-125', level: 8 }],
   })
 }
 

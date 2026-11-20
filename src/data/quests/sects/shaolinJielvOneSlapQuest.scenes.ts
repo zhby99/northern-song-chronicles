@@ -26,20 +26,8 @@ function buildYanHengBoss(): NodeNpc {
     talk: '“哈哈哈哈！老子练就二十载横练铁布衫，寻常刀剑难伤分毫！少林小秃驴竟敢孤身来送死！”',
     stats: { hp: 1380, mp: 1040, agi: 46, res: 34 },
     talents: { bone: 80, comprehension: 56, charm: 32 },
-    equippedArts: {
-      neigong: 'MA-080',
-      qinggong: 'MA-119',
-      move1: 'MA-106',
-      move2: 'MA-124',
-      move3: 'MA-107',
-    },
-    learnedArts: [
-      { artId: 'MA-080', level: 6 },
-      { artId: 'MA-119', level: 5 },
-      { artId: 'MA-106', level: 6 },
-      { artId: 'MA-124', level: 6 },
-      { artId: 'MA-107', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-144', move2: 'MA-124' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-144', level: 6 }, { artId: 'MA-124', level: 6 }],
   })
 }
 

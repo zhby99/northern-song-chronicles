@@ -44,13 +44,8 @@ function buildPoacher1(): NodeNpc {
     talk: '“洛阳大东家出价百两买这株紫阳老参，识相的滚一边去！”',
     stats: { hp: 370, mp: 140, agi: 21, res: 13 },
     talents: { bone: 45, comprehension: 32, charm: 22 },
-    equippedArts: { neigong: 'MA-229', qinggong: 'MA-217', move1: 'MA-210', move2: 'MA-189' },
-    learnedArts: [
-      { artId: 'MA-229', level: 2 },
-      { artId: 'MA-217', level: 2 },
-      { artId: 'MA-210', level: 3 },
-      { artId: 'MA-189', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-210', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-238', level: 2 }, { artId: 'MA-210', level: 3 }, { artId: 'MA-189', level: 2 }],
   })
 }
 
@@ -68,13 +63,8 @@ function buildPoacher2(): NodeNpc {
     talk: '“华山派管得倒宽！这深山老林里杀了你，谁知道是我们哥俩干的？”',
     stats: { hp: 390, mp: 150, agi: 22, res: 14 },
     talents: { bone: 47, comprehension: 34, charm: 23 },
-    equippedArts: { neigong: 'MA-229', qinggong: 'MA-218', move1: 'MA-209', move2: 'MA-210' },
-    learnedArts: [
-      { artId: 'MA-229', level: 3 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-209', level: 3 },
-      { artId: 'MA-210', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-209', move2: 'MA-210' },
+    learnedArts: [{ artId: 'MA-238', level: 3 }, { artId: 'MA-209', level: 3 }, { artId: 'MA-210', level: 3 }],
   })
 }
 
@@ -92,18 +82,8 @@ function buildQinlingTiger(): NodeNpc {
     talk: '“嗷呜——！”（腥风骤起，铜铃虎目在夜雨火光中泛出幽冷杀机！）',
     stats: { hp: 620, mp: 260, agi: 32, res: 18 },
     talents: { bone: 60, comprehension: 30, charm: 20 },
-    equippedArts: {
-      neigong: 'MA-229',
-      qinggong: 'MA-198',
-      move1: 'MA-125',
-      move2: 'MA-143',
-    },
-    learnedArts: [
-      { artId: 'MA-229', level: 4 },
-      { artId: 'MA-198', level: 4 },
-      { artId: 'MA-125', level: 3 },
-      { artId: 'MA-143', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-186', move2: 'MA-182' },
+    learnedArts: [{ artId: 'MA-238', level: 4 }, { artId: 'MA-186', level: 3 }, { artId: 'MA-182', level: 4 }],
   })
 }
 

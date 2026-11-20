@@ -42,13 +42,8 @@ function buildDeathSwornLeaderNpc(): NodeNpc {
     talk: '“三才死阵合击！管他是华山哪一脉，连村里活口一并屠光！”',
     stats: { hp: 1680, mp: 1520, agi: 58, res: 42 },
     talents: { bone: 72, comprehension: 60, charm: 28 },
-    equippedArts: { neigong: 'MA-243', qinggong: 'MA-077', move1: 'MA-073', move2: 'MA-244' },
-    learnedArts: [
-      { artId: 'MA-243', level: 5 },
-      { artId: 'MA-077', level: 4 },
-      { artId: 'MA-073', level: 5 },
-      { artId: 'MA-244', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-073', move2: 'MA-244' },
+    learnedArts: [{ artId: 'MA-243', level: 5 }, { artId: 'MA-073', level: 5 }, { artId: 'MA-244', level: 5 }],
     equipped: { weapon: 'WPN-019' },
     questBadgeLabel: '死士首领',
   })
@@ -66,13 +61,8 @@ function buildDeathSwornLeftNpc(): NodeNpc {
     talk: '“缠住{gender:他|她}的剑，我先拿村口那对母子祭刀！”',
     stats: { hp: 1180, mp: 1080, agi: 56, res: 38 },
     talents: { bone: 66, comprehension: 54, charm: 24 },
-    equippedArts: { neigong: 'MA-245', qinggong: 'MA-246', move1: 'MA-133', move2: 'MA-095' },
-    learnedArts: [
-      { artId: 'MA-245', level: 4 },
-      { artId: 'MA-246', level: 4 },
-      { artId: 'MA-133', level: 5 },
-      { artId: 'MA-095', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-133', move2: 'MA-095' },
+    learnedArts: [{ artId: 'MA-245', level: 4 }, { artId: 'MA-133', level: 5 }, { artId: 'MA-095', level: 4 }],
     equipped: { weapon: 'WPN-043' },
     questBadgeLabel: '左翼死士',
   })
@@ -90,13 +80,8 @@ function buildDeathSwornRightNpc(): NodeNpc {
     talk: '“休想救人，吃我一刀！”',
     stats: { hp: 1180, mp: 1080, agi: 55, res: 38 },
     talents: { bone: 68, comprehension: 52, charm: 25 },
-    equippedArts: { neigong: 'MA-243', qinggong: 'MA-139', move1: 'MA-073', move2: 'MA-131' },
-    learnedArts: [
-      { artId: 'MA-243', level: 4 },
-      { artId: 'MA-139', level: 4 },
-      { artId: 'MA-073', level: 4 },
-      { artId: 'MA-131', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-073', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-243', level: 4 }, { artId: 'MA-073', level: 4 }, { artId: 'MA-131', level: 5 }],
     equipped: { weapon: 'WPN-034' },
     questBadgeLabel: '右翼死士',
   })

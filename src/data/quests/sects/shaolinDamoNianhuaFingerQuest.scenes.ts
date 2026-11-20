@@ -44,13 +44,8 @@ function buildBasangMonk(): NodeNpc {
     talk: '“哈哈！中原和尚的指头细得像绣花针，怎破得了我雪域密宗二十年练成的赤铜铁掌！”',
     stats: { hp: 1520, mp: 920, agi: 51, res: 36 },
     talents: { bone: 78, comprehension: 58, charm: 40 },
-    equippedArts: { neigong: 'MA-140', qinggong: 'MA-139', move1: 'MA-046', move2: 'MA-087' },
-    learnedArts: [
-      { artId: 'MA-140', level: 6 },
-      { artId: 'MA-139', level: 5 },
-      { artId: 'MA-046', level: 5 },
-      { artId: 'MA-087', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-124', move2: 'MA-145' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-124', level: 5 }, { artId: 'MA-145', level: 5 }],
   })
 }
 
@@ -68,20 +63,8 @@ function buildSajiaIronMonk(): NodeNpc {
     talk: '“小僧好诡异的柔劲！且看老僧以雪域密宗铁掌与烈焰刀意，试你少林七十二绝技的真成色！”',
     stats: { hp: 1860, mp: 1220, agi: 61, res: 41 },
     talents: { bone: 82, comprehension: 72, charm: 48 },
-    equippedArts: {
-      neigong: 'MA-140',
-      qinggong: 'MA-098',
-      move1: 'MA-046',
-      move2: 'MA-083',
-      move3: 'MA-072',
-    },
-    learnedArts: [
-      { artId: 'MA-140', level: 7 },
-      { artId: 'MA-098', level: 6 },
-      { artId: 'MA-046', level: 6 },
-      { artId: 'MA-083', level: 6 },
-      { artId: 'MA-072', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-124', move2: 'MA-143' },
+    learnedArts: [{ artId: 'MA-140', level: 7 }, { artId: 'MA-124', level: 6 }, { artId: 'MA-143', level: 6 }],
   })
 }
 

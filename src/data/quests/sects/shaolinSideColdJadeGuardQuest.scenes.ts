@@ -35,20 +35,8 @@ function buildJadeDragon(): NodeNpc {
     talk: '“十年前玄澄老秃驴废我丹田，今日我炼成冰蚕毒砂邪功归来，少林上下一个也别想活！”',
     stats: { hp: 3120, mp: 2860, agi: 68, res: 57 },
     talents: { bone: 78, comprehension: 72, charm: 42 },
-    equippedArts: {
-      neigong: 'MA-081',
-      qinggong: 'MA-138',
-      move1: 'MA-055',
-      move2: 'MA-127',
-      move3: 'MA-137',
-    },
-    learnedArts: [
-      { artId: 'MA-081', level: 8 },
-      { artId: 'MA-138', level: 7 },
-      { artId: 'MA-055', level: 8 },
-      { artId: 'MA-127', level: 8 },
-      { artId: 'MA-137', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-081', move1: 'MA-055', move2: 'MA-127' },
+    learnedArts: [{ artId: 'MA-081', level: 8 }, { artId: 'MA-055', level: 8 }, { artId: 'MA-127', level: 8 }],
   })
 }
 

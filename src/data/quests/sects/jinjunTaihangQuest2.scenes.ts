@@ -30,8 +30,8 @@ function buildFeihuDiehardGuardNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     sectRank: 3,
     sectRankLabel: '总寨亲卫死士',
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-151', move2: 'MA-124', move3: 'MA-131', move4: 'MA-196' },
-    learnedArts: [{ artId: 'MA-103', level: 5 }, { artId: 'MA-157', level: 5 }, { artId: 'MA-151', level: 6 }, { artId: 'MA-124', level: 6 }, { artId: 'MA-131', level: 6 }, { artId: 'MA-196', level: 6 }],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-151', move2: 'MA-124' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-151', level: 6 }, { artId: 'MA-124', level: 6 }],
     equipped: { weapon: 'WPN-044', armor: 'ARM-025', shoes: 'BOT-012', bow: 'BOW-013', accessory1: 'ACC-023', accessory2: 'ACC-026', mount: 'MNT-013' },
     talk: '“天王正在过桥，纵是碎骨坠入千丈寒渊，也休想踏过东桥头半步！”',
   })

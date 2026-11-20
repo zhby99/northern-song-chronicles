@@ -53,14 +53,8 @@ function buildLiaoEnvoyBoss(): NodeNpc {
     talk: '“区区一个未剃度的白衣居士，也敢妄称少林之主？今日趁尔等内讧，本使便取下你的首级与藏经阁密卷，献予大辽南院大王！”',
     stats: { hp: 5720, mp: 5340, agi: 86, res: 77 },
     talents: { bone: 87, comprehension: 80, charm: 45 },
-    equippedArts: { neigong: 'MA-060', qinggong: 'MA-077', move1: 'MA-045', move2: 'MA-085', move3: 'MA-018' },
-    learnedArts: [
-      { artId: 'MA-018', level: 9 },
-      { artId: 'MA-060', level: 9 },
-      { artId: 'MA-077', level: 9 },
-      { artId: 'MA-045', level: 9 },
-      { artId: 'MA-085', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-060', move1: 'MA-045', move2: 'MA-085' },
+    learnedArts: [{ artId: 'MA-060', level: 9 }, { artId: 'MA-045', level: 9 }, { artId: 'MA-085', level: 9 }],
   })
 }
 
@@ -78,13 +72,8 @@ function buildXixiaAgentBoss(): NodeNpc {
     talk: '“哈哈！大宋少林竟要靠一个俗家白衣撑场，看来中原武林气数已尽！受死吧！”',
     stats: { hp: 4860, mp: 4520, agi: 82, res: 72 },
     talents: { bone: 82, comprehension: 76, charm: 38 },
-    equippedArts: { neigong: 'MA-026', qinggong: 'MA-097', move1: 'MA-055', move2: 'MA-065' },
-    learnedArts: [
-      { artId: 'MA-026', level: 8 },
-      { artId: 'MA-097', level: 9 },
-      { artId: 'MA-055', level: 9 },
-      { artId: 'MA-065', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-026', move1: 'MA-055', move2: 'MA-065' },
+    learnedArts: [{ artId: 'MA-026', level: 8 }, { artId: 'MA-055', level: 9 }, { artId: 'MA-065', level: 8 }],
   })
 }
 

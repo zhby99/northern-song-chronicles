@@ -43,15 +43,10 @@ function buildRound1Disciple(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_huashan_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_huashan_fb.jpg',
     talk: '“久闻同门药王庙除恶威名，今日博台首轮，周某以入门十二式请教！”',
-    stats: { hp: 460, mp: 210, agi: 24, res: 15 },
+    stats: { hp: 320, mp: 150, agi: 20, res: 10 },
     talents: { bone: 48, comprehension: 48, charm: 45 },
-    equippedArts: { neigong: 'MA-160', qinggong: 'MA-197', move1: 'MA-167', move2: 'MA-184' },
-    learnedArts: [
-      { artId: 'MA-160', level: 2 },
-      { artId: 'MA-197', level: 2 },
-      { artId: 'MA-167', level: 3 },
-      { artId: 'MA-184', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-187', move2: 'MA-184' },
+    learnedArts: [{ artId: 'MA-181', level: 2 }, { artId: 'MA-187', level: 2 }, { artId: 'MA-184', level: 2 }],
   })
 }
 
@@ -68,15 +63,10 @@ function buildRound2Disciple(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_huashan_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_huashan_fb.jpg',
     talk: '“愚兄苦练华山十二式四载有余，剑下绝不容情，小心了！”',
-    stats: { hp: 680, mp: 350, agi: 33, res: 19 },
+    stats: { hp: 480, mp: 260, agi: 28, res: 15 },
     talents: { bone: 55, comprehension: 52, charm: 44 },
-    equippedArts: { neigong: 'MA-160', qinggong: 'MA-197', move1: 'MA-167', move2: 'MA-184' },
-    learnedArts: [
-      { artId: 'MA-160', level: 4 },
-      { artId: 'MA-197', level: 4 },
-      { artId: 'MA-167', level: 4 },
-      { artId: 'MA-184', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-187', move2: 'MA-184' },
+    learnedArts: [{ artId: 'MA-181', level: 3 }, { artId: 'MA-187', level: 3 }, { artId: 'MA-184', level: 3 }],
   })
 }
 
@@ -93,15 +83,10 @@ function buildLuZhanfengChampion(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_huashan_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_huashan_fb.jpg',
     talk: '“入山七年，今日这内门魁首之位陆某志在必得！且看你挡不挡得住我快过半拍的十二式！”',
-    stats: { hp: 870, mp: 560, agi: 40, res: 22 },
+    stats: { hp: 660, mp: 430, agi: 34, res: 18 },
     talents: { bone: 62, comprehension: 60, charm: 52 },
-    equippedArts: { neigong: 'MA-160', qinggong: 'MA-197', move1: 'MA-167', move2: 'MA-184' },
-    learnedArts: [
-      { artId: 'MA-160', level: 5 },
-      { artId: 'MA-197', level: 5 },
-      { artId: 'MA-167', level: 6 },
-      { artId: 'MA-184', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-187', move2: 'MA-184' },
+    learnedArts: [{ artId: 'MA-181', level: 4 }, { artId: 'MA-187', level: 4 }, { artId: 'MA-184', level: 3 }],
   })
 }
 
@@ -179,7 +164,11 @@ export const SCENES: Record<string, StorySceneDef> = {
             rule: 'spar',
             forbidEscapeReason: '博台升堂大比当众校剑，岂可临阵弃权！',
             introText: '【博台大比 · 首轮】同以华山入门十二式切磋外门新锐【周云帆（三流下品）】！',
-            onWin: [openScene('scene_hsq02_05', HUASHAN_Q02_QUEST_ID)],
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('博台首轮胜出！于场边调息片刻，气血与内力已尽数恢复。', 'success', '博台大比'),
+              openScene('scene_hsq02_05', HUASHAN_Q02_QUEST_ID),
+            ],
             onLose: [
               { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               toast('剑招稍露破绽惜败半招，调匀内息后再登博台重战！', 'warn', '博台大比'),
@@ -226,7 +215,11 @@ export const SCENES: Record<string, StorySceneDef> = {
             rule: 'spar',
             forbidEscapeReason: '博台大比次轮晋级之战，不可退缩！',
             introText: '【博台大比 · 次轮】迎战剑势刚猛的资深外门师兄【赵承钧（三流中品）】！',
-            onWin: [openScene('scene_hsq02_07', HUASHAN_Q02_QUEST_ID)],
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('博台次轮胜出！于场边调息片刻，气血与内力已尽数恢复。', 'success', '博台大比'),
+              openScene('scene_hsq02_07', HUASHAN_Q02_QUEST_ID),
+            ],
             onLose: [
               { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               toast('被赵承钧刚猛连环剑势逼退，凝神定气后再行登台挑战！', 'warn', '博台大比'),
@@ -285,7 +278,10 @@ export const SCENES: Record<string, StorySceneDef> = {
             rule: 'spar',
             forbidEscapeReason: '魁首决胜之战万众瞩目，绝无退路！',
             introText: '【博台大比 · 决胜魁首】迎战剑走偏锋、迅捷凌厉的外门魁首【陆展锋（三流上品）】！',
-            onWin: [openScene('scene_hsq02_10', HUASHAN_Q02_QUEST_ID)],
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_hsq02_10', HUASHAN_Q02_QUEST_ID),
+            ],
             onLose: [
               { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               toast('陆展锋快剑凌厉，静心回想十二式奇正转换之妙再战！', 'warn', '博台决战'),

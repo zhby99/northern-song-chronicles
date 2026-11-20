@@ -24,11 +24,8 @@ function buildLongyouRaiderBoss(): NodeNpc {
     talk: '“终南古柏一根能卖五十贯，哪来的小道士敢断老子财路！”',
     stats: { hp: 340, mp: 130, agi: 21, res: 13 },
     talents: { bone: 44, comprehension: 36, charm: 30 },
-    equippedArts: { neigong: 'MA-234', move1: 'MA-184' },
-    learnedArts: [
-      { artId: 'MA-234', level: 2 },
-      { artId: 'MA-184', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-184' },
+    learnedArts: [{ artId: 'MA-180', level: 2 }, { artId: 'MA-184', level: 2 }],
   })
 }
 
@@ -44,11 +41,8 @@ function buildLongyouRaiderAxe(): NodeNpc {
     talk: '“老大别废话，大斧子招呼，砍翻这小道士！”',
     stats: { hp: 260, mp: 90, agi: 18, res: 11 },
     talents: { bone: 38, comprehension: 32, charm: 26 },
-    equippedArts: { neigong: 'MA-234', move1: 'MA-184' },
-    learnedArts: [
-      { artId: 'MA-234', level: 1 },
-      { artId: 'MA-184', level: 1 },
-    ],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-184' },
+    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-184', level: 1 }],
   })
 }
 

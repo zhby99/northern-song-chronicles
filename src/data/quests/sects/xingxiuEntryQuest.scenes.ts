@@ -74,13 +74,8 @@ function buildWuChengshanNpc(poisoned: boolean): NodeNpc {
       res: poisoned ? 7 : 9,
     },
     talents: { bone: 42, comprehension: 35, charm: 25 },
-    equippedArts: { neigong: 'MA-231', qinggong: 'MA-218', move1: 'MA-196', move2: 'MA-201' },
-    learnedArts: [
-      { artId: 'MA-231', level: 1 },
-      { artId: 'MA-218', level: 1 },
-      { artId: 'MA-196', level: 1 },
-      { artId: 'MA-201', level: 1 },
-    ],
+    equippedArts: { neigong: 'MA-242', move1: 'MA-196', move2: 'MA-201' },
+    learnedArts: [{ artId: 'MA-242', level: 1 }, { artId: 'MA-196', level: 1 }, { artId: 'MA-201', level: 1 }],
   })
 }
 
@@ -99,13 +94,8 @@ function buildZhaoQingfengNpc(): NodeNpc {
     talk: '“无耻小人！年纪轻轻为何甘为丁春秋鹰犬、行此下作勾当！”',
     stats: { hp: 230, mp: 100, agi: 14, res: 9 },
     talents: { bone: 48, comprehension: 45, charm: 50 },
-    equippedArts: { neigong: 'MA-229', qinggong: 'MA-218', move1: 'MA-184', move2: 'MA-188' },
-    learnedArts: [
-      { artId: 'MA-229', level: 2 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-184', level: 2 },
-      { artId: 'MA-188', level: 1 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-184', move2: 'MA-188' },
+    learnedArts: [{ artId: 'MA-238', level: 2 }, { artId: 'MA-184', level: 2 }, { artId: 'MA-188', level: 1 }],
   })
 }
 
@@ -128,20 +118,8 @@ export const DYNAMIC_NPCS: DynamicQuestNpc[] = [
     talk: '“星宿老仙法力无边！新来的，有孝敬尽管拿来！”',
     stats: { hp: 1680, mp: 980, agi: 42, res: 36, isBenchmark: false },
     talents: { bone: 64, comprehension: 68, charm: 42 },
-    equippedArts: {
-      neigong: 'MA-231',
-      qinggong: 'MA-197',
-      move1: 'MA-137',
-      move2: 'MA-127',
-      move3: null,
-      move4: null,
-    },
-    learnedArts: [
-      { artId: 'MA-231', level: 3, exp: 0 },
-      { artId: 'MA-197', level: 2, exp: 0 },
-      { artId: 'MA-137', level: 2, exp: 0 },
-      { artId: 'MA-127', level: 2, exp: 0 },
-    ],
+    equippedArts: { neigong: 'MA-231', qinggong: null, move1: 'MA-137', move2: 'MA-127', move3: null, move4: null },
+    learnedArts: [{ artId: 'MA-231', level: 3, exp: 0 }, { artId: 'MA-137', level: 2, exp: 0 }, { artId: 'MA-127', level: 2, exp: 0 }],
   },
 ]
 

@@ -53,20 +53,8 @@ function buildQianDabang(): NodeNpc {
     talk: '“少林寺的穷和尚也敢来恒丰粮行砸场子？尝尝老子这根熟铜裹头大棒的厉害！”',
     stats: { hp: 560, mp: 260, agi: 28, res: 16 },
     talents: { bone: 56, comprehension: 38, charm: 26 },
-    equippedArts: {
-      neigong: 'MA-179',
-      qinggong: 'MA-197',
-      move1: 'MA-193',
-      move2: 'MA-186',
-      move3: 'MA-204',
-    },
-    learnedArts: [
-      { artId: 'MA-179', level: 4 },
-      { artId: 'MA-197', level: 3 },
-      { artId: 'MA-193', level: 4 },
-      { artId: 'MA-186', level: 3 },
-      { artId: 'MA-204', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-179', move1: 'MA-193', move2: 'MA-186' },
+    learnedArts: [{ artId: 'MA-179', level: 4 }, { artId: 'MA-193', level: 4 }, { artId: 'MA-186', level: 3 }],
   })
 }
 
@@ -84,18 +72,8 @@ function buildThugLisi(): NodeNpc {
     talk: '“关上院门！把这多管闲事的少林弟子打断腿扔出登封城！”',
     stats: { hp: 390, mp: 140, agi: 22, res: 12 },
     talents: { bone: 45, comprehension: 32, charm: 22 },
-    equippedArts: {
-      neigong: 'MA-199',
-      qinggong: 'MA-218',
-      move1: 'MA-204',
-      move2: 'MA-191',
-    },
-    learnedArts: [
-      { artId: 'MA-199', level: 3 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-204', level: 3 },
-      { artId: 'MA-191', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-204', move2: 'MA-191' },
+    learnedArts: [{ artId: 'MA-199', level: 3 }, { artId: 'MA-204', level: 3 }, { artId: 'MA-191', level: 2 }],
   })
 }
 

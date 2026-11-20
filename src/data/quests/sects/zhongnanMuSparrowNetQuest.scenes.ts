@@ -26,18 +26,8 @@ function buildPoacherTrioNpc(): NodeNpc {
     talk: '“终南古墓的玉蜂乃炼制百毒金蚕的绝佳药引！小娃娃，识相的别挡大爷财路！”',
     stats: { hp: 1380, mp: 1120, agi: 49, res: 32 },
     talents: { bone: 62, comprehension: 60, charm: 48 },
-    equippedArts: {
-      neigong: 'MA-227',
-      qinggong: 'MA-158',
-      move1: 'MA-105',
-      move2: 'MA-186',
-    },
-    learnedArts: [
-      { artId: 'MA-227', level: 6 },
-      { artId: 'MA-158', level: 5 },
-      { artId: 'MA-105', level: 6 },
-      { artId: 'MA-186', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-227', move1: 'MA-143', move2: 'MA-186' },
+    learnedArts: [{ artId: 'MA-227', level: 6 }, { artId: 'MA-143', level: 6 }, { artId: 'MA-186', level: 6 }],
   })
 }
 

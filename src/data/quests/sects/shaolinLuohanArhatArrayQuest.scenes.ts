@@ -27,20 +27,8 @@ function buildHuiYinStaffLeader(): NodeNpc {
     talk: '“阿弥陀佛！师弟连闯五载试炼声名远播，第一阵「伏魔棍阵」，便由贫僧携师弟以齐眉棍与普门杖法领教！”',
     stats: { hp: 1540, mp: 980, agi: 52, res: 36 },
     talents: { bone: 74, comprehension: 66, charm: 48 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-197',
-      move1: 'MA-153',
-      move2: 'MA-117',
-      move3: 'MA-105',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 6 },
-      { artId: 'MA-197', level: 6 },
-      { artId: 'MA-153', level: 7 },
-      { artId: 'MA-117', level: 6 },
-      { artId: 'MA-105', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-159', move1: 'MA-153', move2: 'MA-134' },
+    learnedArts: [{ artId: 'MA-159', level: 6 }, { artId: 'MA-153', level: 7 }, { artId: 'MA-134', level: 6 }],
   })
 }
 
@@ -59,18 +47,8 @@ function buildStaffArhatMonk(): NodeNpc {
     talk: '“三才换位，棍影如墙！接阵！”',
     stats: { hp: 1460, mp: 920, agi: 50, res: 34 },
     talents: { bone: 72, comprehension: 62, charm: 45 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-197',
-      move1: 'MA-153',
-      move2: 'MA-143',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 6 },
-      { artId: 'MA-197', level: 5 },
-      { artId: 'MA-153', level: 6 },
-      { artId: 'MA-143', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-159', move1: 'MA-153', move2: 'MA-143' },
+    learnedArts: [{ artId: 'MA-159', level: 6 }, { artId: 'MA-153', level: 6 }, { artId: 'MA-143', level: 6 }],
   })
 }
 
@@ -89,18 +67,8 @@ function buildBladeArhatMonk(): NodeNpc {
     talk: '“第二阵刀盾相济，攻守一体！破不开金身防线，休想见慧轮师兄！”',
     stats: { hp: 1920, mp: 1220, agi: 58, res: 44 },
     talents: { bone: 80, comprehension: 68, charm: 46 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-057',
-      move1: 'MA-114',
-      move2: 'MA-052',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 7 },
-      { artId: 'MA-057', level: 6 },
-      { artId: 'MA-114', level: 7 },
-      { artId: 'MA-052', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-159', move1: 'MA-132', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-159', level: 7 }, { artId: 'MA-132', level: 7 }, { artId: 'MA-131', level: 5 }],
   })
 }
 
@@ -119,18 +87,8 @@ function buildShieldArhatMonk(): NodeNpc {
     talk: '“金刚不动，万法难侵！且看师弟能否震裂我这面熟铜护法盾！”',
     stats: { hp: 2150, mp: 1180, agi: 52, res: 50 },
     talents: { bone: 84, comprehension: 64, charm: 44 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-197',
-      move1: 'MA-143',
-      move2: 'MA-094',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 7 },
-      { artId: 'MA-197', level: 6 },
-      { artId: 'MA-143', level: 7 },
-      { artId: 'MA-094', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-159', move1: 'MA-143', move2: 'MA-134' },
+    learnedArts: [{ artId: 'MA-159', level: 7 }, { artId: 'MA-143', level: 7 }, { artId: 'MA-134', level: 6 }],
   })
 }
 
@@ -149,20 +107,8 @@ function buildHuiLunCoreBoss(): NodeNpc {
     talk: '“阿弥陀佛！十年来你是第一位连破棍阵与刀盾阵直抵阵眼之人。贫僧今日便以罗汉堂压箱绝学，为你印证真传金身！”',
     stats: { hp: 2780, mp: 1850, agi: 68, res: 56 },
     talents: { bone: 88, comprehension: 80, charm: 56 },
-    equippedArts: {
-      neigong: 'MA-038',
-      qinggong: 'MA-057',
-      move1: 'MA-094',
-      move2: 'MA-062',
-      move3: 'MA-114',
-    },
-    learnedArts: [
-      { artId: 'MA-038', level: 7 },
-      { artId: 'MA-057', level: 7 },
-      { artId: 'MA-094', level: 8 },
-      { artId: 'MA-062', level: 7 },
-      { artId: 'MA-114', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-038', move1: 'MA-094', move2: 'MA-062' },
+    learnedArts: [{ artId: 'MA-038', level: 7 }, { artId: 'MA-094', level: 8 }, { artId: 'MA-062', level: 7 }],
   })
 }
 

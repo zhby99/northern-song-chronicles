@@ -35,18 +35,8 @@ function buildYipintangAssassinNpc(): NodeNpc {
     talk: '“既被你撞破行藏，今夜这飞瀑之下便留不得活口！受死！”',
     stats: { hp: 2350, mp: 2020, agi: 58, res: 45 },
     talents: { bone: 74, comprehension: 70, charm: 50 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-158',
-      move1: 'MA-244',
-      move2: 'MA-145',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 7 },
-      { artId: 'MA-158', level: 7 },
-      { artId: 'MA-244', level: 8 },
-      { artId: 'MA-145', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-244', move2: 'MA-145' },
+    learnedArts: [{ artId: 'MA-245', level: 7 }, { artId: 'MA-244', level: 8 }, { artId: 'MA-145', level: 7 }],
   })
 }
 
@@ -64,18 +54,8 @@ function buildXingxiuAssassinNpc(): NodeNpc {
     talk: '“桀桀桀！西夏重金请我星宿门人来焚毁活死人墓，正好拿你的血肉喂我的化功毒粉！”',
     stats: { hp: 2560, mp: 2280, agi: 60, res: 48 },
     talents: { bone: 76, comprehension: 78, charm: 48 },
-    equippedArts: {
-      neigong: 'MA-231',
-      qinggong: 'MA-158',
-      move1: 'MA-105',
-      move2: 'MA-244',
-    },
-    learnedArts: [
-      { artId: 'MA-231', level: 8 },
-      { artId: 'MA-158', level: 8 },
-      { artId: 'MA-105', level: 8 },
-      { artId: 'MA-244', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-231', move1: 'MA-105', move2: 'MA-244' },
+    learnedArts: [{ artId: 'MA-231', level: 8 }, { artId: 'MA-105', level: 8 }, { artId: 'MA-244', level: 8 }],
   })
 }
 

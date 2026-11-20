@@ -42,13 +42,8 @@ function buildScoutAllyNpc(): NodeNpc {
     talk: '“少侠专攻他左肋下盘，老汉的横刀替你架住马头！”',
     stats: { hp: 1020, mp: 760, agi: 44, res: 32 },
     talents: { bone: 62, comprehension: 45, charm: 40 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-131', move2: 'MA-135' },
-    learnedArts: [
-      { artId: 'MA-103', level: 4 },
-      { artId: 'MA-157', level: 3 },
-      { artId: 'MA-131', level: 4 },
-      { artId: 'MA-135', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-135' },
+    learnedArts: [{ artId: 'MA-140', level: 4 }, { artId: 'MA-131', level: 4 }, { artId: 'MA-135', level: 4 }],
     equipped: { weapon: 'WPN-034' },
     questBadgeLabel: '边军老斥候',
   })
@@ -71,13 +66,8 @@ function buildTangutScoutNpc(index: 1 | 2): NodeNpc {
       ? { hp: 980, mp: 780, agi: 45, res: 30 }
       : { hp: 940, mp: 740, agi: 44, res: 29 },
     talents: { bone: 60, comprehension: 42, charm: 28 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-151', move2: 'MA-189' },
-    learnedArts: [
-      { artId: 'MA-103', level: 4 },
-      { artId: 'MA-157', level: 3 },
-      { artId: 'MA-151', level: 4 },
-      { artId: 'MA-189', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-151', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-140', level: 4 }, { artId: 'MA-151', level: 4 }, { artId: 'MA-189', level: 4 }],
     equipped: { weapon: 'WPN-043' },
     questBadgeLabel: '党项游骑',
   })
@@ -95,13 +85,8 @@ function buildWeimingHanNpc(): NodeNpc {
     talk: '“我这口夏国冷锻弯刀连宋军步人甲都能一刀劈裂，你那根细铁条拿什么接？！”',
     stats: { hp: 1780, mp: 1520, agi: 56, res: 42 },
     talents: { bone: 74, comprehension: 55, charm: 34 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-131', move2: 'MA-151' },
-    learnedArts: [
-      { artId: 'MA-103', level: 6 },
-      { artId: 'MA-157', level: 5 },
-      { artId: 'MA-131', level: 6 },
-      { artId: 'MA-151', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-151' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-131', level: 6 }, { artId: 'MA-151', level: 6 }],
     equipped: { weapon: 'WPN-043' },
     questBadgeLabel: '铁骨刀百夫长',
   })

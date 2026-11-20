@@ -27,18 +27,8 @@ function buildNightShadowBoss(): NodeNpc {
     talk: '“哼！区区少林小辈也敢提燃木戒刀拦路？十合之内，先废你双臂！”',
     stats: { hp: 3180, mp: 2240, agi: 76, res: 62 },
     talents: { bone: 88, comprehension: 86, charm: 50 },
-    equippedArts: {
-      neigong: 'MA-243',
-      qinggong: 'MA-158',
-      move1: 'MA-244',
-      move2: 'MA-073',
-    },
-    learnedArts: [
-      { artId: 'MA-243', level: 8 },
-      { artId: 'MA-158', level: 8 },
-      { artId: 'MA-244', level: 8 },
-      { artId: 'MA-073', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-244', move2: 'MA-073' },
+    learnedArts: [{ artId: 'MA-243', level: 8 }, { artId: 'MA-244', level: 8 }, { artId: 'MA-073', level: 7 }],
   })
 }
 

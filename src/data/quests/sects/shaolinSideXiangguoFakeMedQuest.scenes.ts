@@ -53,13 +53,8 @@ function buildHuSan(): NodeNpc {
     talk: '“秃驴好大的狗胆，敢追到爷爷的炼丹窑来！尝尝我这浸了三年红信石的五毒砂掌！”',
     stats: { hp: 1320, mp: 1050, agi: 49, res: 32 },
     talents: { bone: 60, comprehension: 52, charm: 24 },
-    equippedArts: { neigong: 'MA-121', qinggong: 'MA-138', move1: 'MA-127', move2: 'MA-137' },
-    learnedArts: [
-      { artId: 'MA-121', level: 5 },
-      { artId: 'MA-138', level: 4 },
-      { artId: 'MA-127', level: 5 },
-      { artId: 'MA-137', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-127', move2: 'MA-137' },
+    learnedArts: [{ artId: 'MA-121', level: 5 }, { artId: 'MA-127', level: 5 }, { artId: 'MA-137', level: 4 }],
   })
 }
 
@@ -77,13 +72,8 @@ function buildQianWu(): NodeNpc {
     talk: '“三哥别跟他废话，撒迷烟放倒他，丢进汴河喂鱼！”',
     stats: { hp: 1080, mp: 840, agi: 44, res: 27 },
     talents: { bone: 56, comprehension: 44, charm: 26 },
-    equippedArts: { neigong: 'MA-104', qinggong: 'MA-157', move1: 'MA-176', move2: 'MA-131' },
-    learnedArts: [
-      { artId: 'MA-104', level: 4 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-176', level: 5 },
-      { artId: 'MA-131', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-176', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-121', level: 4 }, { artId: 'MA-176', level: 5 }, { artId: 'MA-131', level: 4 }],
   })
 }
 

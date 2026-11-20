@@ -62,13 +62,8 @@ function buildNslMonkA(): NodeNpc {
     talk: '“既携嵩山法帖而来，便请接贫僧一式南宗『铁桥硬马』！若连山门三关都过不去，休怪贫僧不放行！”',
     stats: { hp: 1560, mp: 1120, agi: 47, res: 35 },
     talents: { bone: 68, comprehension: 48, charm: 34 },
-    equippedArts: { neigong: 'MA-080', qinggong: 'MA-157', move1: 'MA-106', move2: 'MA-143' },
-    learnedArts: [
-      { artId: 'MA-080', level: 5 },
-      { artId: 'MA-157', level: 5 },
-      { artId: 'MA-106', level: 6 },
-      { artId: 'MA-143', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-144', move2: 'MA-143' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-144', level: 6 }, { artId: 'MA-143', level: 5 }],
   })
 }
 
@@ -86,13 +81,8 @@ function buildNslMonkB(): NodeNpc {
     talk: '“阿弥陀佛！北宗师兄留神了，南拳短打贴身最重桥手沉劲！”',
     stats: { hp: 1280, mp: 880, agi: 44, res: 30 },
     talents: { bone: 64, comprehension: 44, charm: 30 },
-    equippedArts: { neigong: 'MA-140', qinggong: 'MA-157', move1: 'MA-106', move2: 'MA-124' },
-    learnedArts: [
-      { artId: 'MA-140', level: 5 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-106', level: 5 },
-      { artId: 'MA-124', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-144', move2: 'MA-124' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-144', level: 5 }, { artId: 'MA-124', level: 5 }],
   })
 }
 
@@ -110,13 +100,8 @@ function buildPirateVanguardA(): NodeNpc {
     talk: '“八嘎！宋朝和尚敢坏我海船劫盐大计，统统斩了！”',
     stats: { hp: 1260, mp: 860, agi: 46, res: 27 },
     talents: { bone: 60, comprehension: 44, charm: 24 },
-    equippedArts: { neigong: 'MA-104', qinggong: 'MA-139', move1: 'MA-131', move2: 'MA-150' },
-    learnedArts: [
-      { artId: 'MA-104', level: 5 },
-      { artId: 'MA-139', level: 5 },
-      { artId: 'MA-131', level: 5 },
-      { artId: 'MA-150', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-131', move2: 'MA-150' },
+    learnedArts: [{ artId: 'MA-121', level: 5 }, { artId: 'MA-131', level: 5 }, { artId: 'MA-150', level: 5 }],
   })
 }
 
@@ -134,13 +119,8 @@ function buildPirateVanguardB(): NodeNpc {
     talk: '“盐堆点着了！把这几个冲过来的宋人乱刀分尸！”',
     stats: { hp: 1200, mp: 840, agi: 47, res: 26 },
     talents: { bone: 58, comprehension: 46, charm: 22 },
-    equippedArts: { neigong: 'MA-104', qinggong: 'MA-158', move1: 'MA-131', move2: 'MA-115' },
-    learnedArts: [
-      { artId: 'MA-104', level: 5 },
-      { artId: 'MA-158', level: 5 },
-      { artId: 'MA-131', level: 5 },
-      { artId: 'MA-115', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-131', move2: 'MA-132' },
+    learnedArts: [{ artId: 'MA-121', level: 5 }, { artId: 'MA-131', level: 5 }, { artId: 'MA-132', level: 5 }],
   })
 }
 
@@ -158,13 +138,8 @@ function buildOnimaruBoss(): NodeNpc {
     talk: '“哈哈哈哈！什么北少林南少林，在我『鬼丸流』快刀之下不过是一群秃头木桩！受死吧！”',
     stats: { hp: 1960, mp: 1520, agi: 55, res: 40 },
     talents: { bone: 70, comprehension: 58, charm: 32 },
-    equippedArts: { neigong: 'MA-140', qinggong: 'MA-139', move1: 'MA-131', move2: 'MA-115' },
-    learnedArts: [
-      { artId: 'MA-140', level: 7 },
-      { artId: 'MA-139', level: 7 },
-      { artId: 'MA-131', level: 7 },
-      { artId: 'MA-115', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-132' },
+    learnedArts: [{ artId: 'MA-140', level: 7 }, { artId: 'MA-131', level: 7 }, { artId: 'MA-132', level: 6 }],
   })
 }
 
@@ -182,13 +157,8 @@ function buildPirateMate(): NodeNpc {
     talk: '“头目莫急，在下断他下盘，叫这宋人武夫插翅难逃！”',
     stats: { hp: 1480, mp: 1080, agi: 49, res: 33 },
     talents: { bone: 64, comprehension: 50, charm: 26 },
-    equippedArts: { neigong: 'MA-104', qinggong: 'MA-158', move1: 'MA-132', move2: 'MA-150' },
-    learnedArts: [
-      { artId: 'MA-104', level: 6 },
-      { artId: 'MA-158', level: 6 },
-      { artId: 'MA-132', level: 6 },
-      { artId: 'MA-150', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-132', move2: 'MA-150' },
+    learnedArts: [{ artId: 'MA-121', level: 6 }, { artId: 'MA-132', level: 6 }, { artId: 'MA-150', level: 5 }],
   })
 }
 

@@ -35,20 +35,8 @@ function buildKasyapaYogiBoss(): NodeNpc {
     talk: '“达摩尊者本出自南天竺香至国！中土少林若真承初祖正脉，便以禅武破我天竺古瑜伽之柔印！”',
     stats: { hp: 5350, mp: 5180, agi: 84, res: 76 },
     talents: { bone: 93, comprehension: 95, charm: 78 },
-    equippedArts: {
-      neigong: 'MA-060',
-      qinggong: 'MA-057',
-      move1: 'MA-043',
-      move2: 'MA-063',
-      move3: 'MA-045',
-    },
-    learnedArts: [
-      { artId: 'MA-060', level: 10 },
-      { artId: 'MA-057', level: 9 },
-      { artId: 'MA-043', level: 10 },
-      { artId: 'MA-063', level: 9 },
-      { artId: 'MA-045', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-060', move1: 'MA-043', move2: 'MA-063' },
+    learnedArts: [{ artId: 'MA-060', level: 10 }, { artId: 'MA-043', level: 10 }, { artId: 'MA-063', level: 9 }],
   })
 }
 
@@ -66,20 +54,8 @@ function buildBahmanFireBoss(): NodeNpc {
     talk: '“圣火燃尽诸相！中土宗师，且看你少林禅功可挡得住我波斯明火连环烈焰！”',
     stats: { hp: 5480, mp: 5260, agi: 86, res: 75 },
     talents: { bone: 94, comprehension: 92, charm: 82 },
-    equippedArts: {
-      neigong: 'MA-038',
-      qinggong: 'MA-022',
-      move1: 'MA-019',
-      move2: 'MA-052',
-      move3: 'MA-046',
-    },
-    learnedArts: [
-      { artId: 'MA-038', level: 10 },
-      { artId: 'MA-022', level: 9 },
-      { artId: 'MA-019', level: 9 },
-      { artId: 'MA-052', level: 9 },
-      { artId: 'MA-046', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-038', move1: 'MA-019', move2: 'MA-052' },
+    learnedArts: [{ artId: 'MA-038', level: 10 }, { artId: 'MA-019', level: 9 }, { artId: 'MA-052', level: 9 }],
   })
 }
 

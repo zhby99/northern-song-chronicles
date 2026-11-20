@@ -32,18 +32,8 @@ function buildSeniorSparDiscipleNpc(): NodeNpc {
       shoes: 'BOT-011',
       accessory1: 'ACC-030',
     },
-    equippedArts: {
-      neigong: 'MA-058',
-      qinggong: 'MA-139',
-      move1: 'MA-089',
-      move2: 'MA-147',
-    },
-    learnedArts: [
-      { artId: 'MA-058', level: 5 },
-      { artId: 'MA-139', level: 5 },
-      { artId: 'MA-089', level: 5 },
-      { artId: 'MA-147', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-058', move1: 'MA-089', move2: 'MA-147' },
+    learnedArts: [{ artId: 'MA-058', level: 5 }, { artId: 'MA-089', level: 5 }, { artId: 'MA-147', level: 6 }],
   })
 }
 

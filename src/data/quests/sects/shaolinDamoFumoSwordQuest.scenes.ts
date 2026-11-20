@@ -44,13 +44,8 @@ function buildCaoXiao(): NodeNpc {
     talk: '“秃驴还想拿块破铁片装剑客？看我断魂剑挑断你的手筋！”',
     stats: { hp: 820, mp: 460, agi: 36, res: 21 },
     talents: { bone: 58, comprehension: 50, charm: 34 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-139', move1: 'MA-148', move2: 'MA-128' },
-    learnedArts: [
-      { artId: 'MA-103', level: 4 },
-      { artId: 'MA-139', level: 4 },
-      { artId: 'MA-148', level: 4 },
-      { artId: 'MA-128', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-187', move2: 'MA-188' },
+    learnedArts: [{ artId: 'MA-238', level: 4 }, { artId: 'MA-187', level: 4 }, { artId: 'MA-188', level: 4 }],
   })
 }
 
@@ -68,13 +63,8 @@ function buildWeiQi(): NodeNpc {
     talk: '“嘿嘿，曹二哥攻他上三路，我专刺这小和尚的膝弯下阴！”',
     stats: { hp: 780, mp: 440, agi: 39, res: 20 },
     talents: { bone: 54, comprehension: 52, charm: 30 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-149', move2: 'MA-148' },
-    learnedArts: [
-      { artId: 'MA-103', level: 4 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-149', level: 4 },
-      { artId: 'MA-148', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-187', move2: 'MA-188' },
+    learnedArts: [{ artId: 'MA-238', level: 4 }, { artId: 'MA-187', level: 4 }, { artId: 'MA-188', level: 3 }],
   })
 }
 
@@ -92,20 +82,8 @@ function buildHanLiBoss(): NodeNpc {
     talk: '“哼！两个废物竟被个少林小沙弥放倒！且接韩某浸淫二十载的阴风诡剑！”',
     stats: { hp: 1180, mp: 760, agi: 46, res: 28 },
     talents: { bone: 68, comprehension: 66, charm: 42 },
-    equippedArts: {
-      neigong: 'MA-103',
-      qinggong: 'MA-139',
-      move1: 'MA-148',
-      move2: 'MA-128',
-      move3: 'MA-112',
-    },
-    learnedArts: [
-      { artId: 'MA-103', level: 5 },
-      { artId: 'MA-139', level: 5 },
-      { artId: 'MA-148', level: 6 },
-      { artId: 'MA-128', level: 5 },
-      { artId: 'MA-112', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-148', move2: 'MA-128' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-148', level: 6 }, { artId: 'MA-128', level: 5 }],
   })
 }
 

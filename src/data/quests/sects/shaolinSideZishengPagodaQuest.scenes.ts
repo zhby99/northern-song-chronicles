@@ -26,13 +26,8 @@ function buildCloudSwallow(): NodeNpc {
     talk: '“啧啧，百尺琉璃塔檐，暴雨如注，小和尚你站得稳脚跟么？且追得上燕某的燕子三抄水再说！”',
     stats: { hp: 1380, mp: 1120, agi: 58, res: 30 },
     talents: { bone: 58, comprehension: 60, charm: 48 },
-    equippedArts: { neigong: 'MA-121', qinggong: 'MA-158', move1: 'MA-118', move2: 'MA-131' },
-    learnedArts: [
-      { artId: 'MA-121', level: 5 },
-      { artId: 'MA-158', level: 6 },
-      { artId: 'MA-118', level: 5 },
-      { artId: 'MA-131', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-155', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-121', level: 5 }, { artId: 'MA-155', level: 5 }, { artId: 'MA-131', level: 5 }],
   })
 }
 

@@ -44,20 +44,8 @@ function buildLiuHengBoss(): NodeNpc {
     talk: '“老子靠一双铁膀子在登封矿坑里撞翻过十几条好汉！小和尚，接我一记铁山靠！”',
     stats: { hp: 640, mp: 300, agi: 29, res: 19 },
     talents: { bone: 60, comprehension: 38, charm: 28 },
-    equippedArts: {
-      neigong: 'MA-229',
-      qinggong: 'MA-218',
-      move1: 'MA-186',
-      move2: 'MA-209',
-      move3: 'MA-204',
-    },
-    learnedArts: [
-      { artId: 'MA-229', level: 4 },
-      { artId: 'MA-218', level: 3 },
-      { artId: 'MA-186', level: 4 },
-      { artId: 'MA-209', level: 4 },
-      { artId: 'MA-204', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-186', move2: 'MA-209' },
+    learnedArts: [{ artId: 'MA-238', level: 4 }, { artId: 'MA-186', level: 4 }, { artId: 'MA-209', level: 4 }],
   })
 }
 

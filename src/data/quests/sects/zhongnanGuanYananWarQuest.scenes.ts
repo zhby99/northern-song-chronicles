@@ -30,18 +30,8 @@ const XIXIA_VANGUARD_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
   talk: '“直取宋军中军帅帐！挡路道士统统剁成肉泥！”',
   stats: { hp: 2900, mp: 1500, agi: 76, res: 65 },
-  equippedArts: {
-    neigong: 'MA-232',
-    qinggong: 'MA-157',
-    move1: 'MA-132',
-    move2: 'MA-150',
-  },
-  learnedArts: [
-    { artId: 'MA-232', level: 7 },
-    { artId: 'MA-157', level: 7 },
-    { artId: 'MA-132', level: 7 },
-    { artId: 'MA-150', level: 7 },
-  ],
+  equippedArts: { neigong: 'MA-232', move1: 'MA-132', move2: 'MA-150' },
+  learnedArts: [{ artId: 'MA-232', level: 7 }, { artId: 'MA-132', level: 7 }, { artId: 'MA-150', level: 7 }],
 })
 
 const XIXIA_COMMANDER_NPC = makeQuestNpc({
@@ -54,18 +44,8 @@ const XIXIA_COMMANDER_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_xixia_court_male_fb.jpg',
   talk: '“漫咩大人就在营外督战，今日必烧毁宋军沙盘帅帐！”',
   stats: { hp: 3300, mp: 1750, agi: 82, res: 72 },
-  equippedArts: {
-    neigong: 'MA-080',
-    qinggong: 'MA-098',
-    move1: 'MA-072',
-    move2: 'MA-132',
-  },
-  learnedArts: [
-    { artId: 'MA-080', level: 7 },
-    { artId: 'MA-098', level: 6 },
-    { artId: 'MA-072', level: 6 },
-    { artId: 'MA-132', level: 7 },
-  ],
+  equippedArts: { neigong: 'MA-080', move1: 'MA-072', move2: 'MA-132' },
+  learnedArts: [{ artId: 'MA-080', level: 7 }, { artId: 'MA-072', level: 6 }, { artId: 'MA-132', level: 7 }],
 })
 
 export const SCENES: Record<string, StorySceneDef> = {

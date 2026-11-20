@@ -53,11 +53,8 @@ function buildXixiaBlade2(): NodeNpc {
     talk: '“速战速决，莫让军报传进长安城！”',
     stats: { hp: 820, mp: 340, agi: 40, res: 20 },
     talents: { bone: 58, comprehension: 50, charm: 36 },
-    equippedArts: { neigong: 'MA-234', move1: 'MA-184' },
-    learnedArts: [
-      { artId: 'MA-234', level: 4 },
-      { artId: 'MA-184', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-184' },
+    learnedArts: [{ artId: 'MA-180', level: 4 }, { artId: 'MA-184', level: 4 }],
   })
 }
 

@@ -53,13 +53,8 @@ function buildSnakeThugA(): NodeNpc {
     talk: '“少林俗家狗腿子也敢管汴京瓦子的规矩？先吃爷爷一记断门刀！”',
     stats: { hp: 920, mp: 580, agi: 39, res: 22 },
     talents: { bone: 56, comprehension: 38, charm: 24 },
-    equippedArts: { neigong: 'MA-140', qinggong: 'MA-157', move1: 'MA-132', move2: 'MA-143' },
-    learnedArts: [
-      { artId: 'MA-140', level: 4 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-132', level: 4 },
-      { artId: 'MA-143', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-179', move1: 'MA-189', move2: 'MA-182' },
+    learnedArts: [{ artId: 'MA-179', level: 4 }, { artId: 'MA-189', level: 4 }, { artId: 'MA-182', level: 4 }],
   })
 }
 
@@ -77,13 +72,8 @@ function buildSnakeThugB(): NodeNpc {
     talk: '“相国寺这片肥肉五爷盯了半年，今日谁拦路便剁谁的手！”',
     stats: { hp: 1180, mp: 820, agi: 44, res: 27 },
     talents: { bone: 60, comprehension: 44, charm: 28 },
-    equippedArts: { neigong: 'MA-123', qinggong: 'MA-138', move1: 'MA-131', move2: 'MA-125' },
-    learnedArts: [
-      { artId: 'MA-123', level: 5 },
-      { artId: 'MA-138', level: 5 },
-      { artId: 'MA-131', level: 5 },
-      { artId: 'MA-125', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-123', move1: 'MA-131', move2: 'MA-125' },
+    learnedArts: [{ artId: 'MA-123', level: 5 }, { artId: 'MA-131', level: 5 }, { artId: 'MA-125', level: 4 }],
   })
 }
 
@@ -101,13 +91,8 @@ function buildQianWuBoss(): NodeNpc {
     talk: '“嘿嘿，嵩山派来的带发护法？老子在汴京瓦子混迹二十年，倒要看看少林刀杖能不能破我这双毒砂鬼头刀！”',
     stats: { hp: 1580, mp: 1180, agi: 49, res: 34 },
     talents: { bone: 66, comprehension: 52, charm: 34 },
-    equippedArts: { neigong: 'MA-140', qinggong: 'MA-139', move1: 'MA-151', move2: 'MA-125' },
-    learnedArts: [
-      { artId: 'MA-140', level: 6 },
-      { artId: 'MA-139', level: 6 },
-      { artId: 'MA-151', level: 6 },
-      { artId: 'MA-125', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-151', move2: 'MA-125' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-151', level: 6 }, { artId: 'MA-125', level: 5 }],
   })
 }
 
@@ -125,13 +110,8 @@ function buildQianWuGuard(): NodeNpc {
     talk: '“五爷莫慌，小的从旁封死这小子的退路！”',
     stats: { hp: 1120, mp: 760, agi: 43, res: 26 },
     talents: { bone: 58, comprehension: 40, charm: 22 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-150', move2: 'MA-146' },
-    learnedArts: [
-      { artId: 'MA-103', level: 5 },
-      { artId: 'MA-157', level: 5 },
-      { artId: 'MA-150', level: 5 },
-      { artId: 'MA-146', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-150', move2: 'MA-146' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-150', level: 5 }, { artId: 'MA-146', level: 4 }],
   })
 }
 

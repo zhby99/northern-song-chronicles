@@ -54,13 +54,8 @@ function buildYaowangThug1(): NodeNpc {
     talk: '“华山派的小毛孩也敢下山管爷爷们收药税？剁了他！”',
     stats: { hp: 310, mp: 120, agi: 18, res: 11 },
     talents: { bone: 42, comprehension: 30, charm: 22 },
-    equippedArts: { neigong: 'MA-229', qinggong: 'MA-218', move1: 'MA-189', move2: 'MA-186' },
-    learnedArts: [
-      { artId: 'MA-229', level: 2 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-189', level: 2 },
-      { artId: 'MA-186', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-189', move2: 'MA-186' },
+    learnedArts: [{ artId: 'MA-238', level: 2 }, { artId: 'MA-189', level: 2 }, { artId: 'MA-186', level: 2 }],
   })
 }
 
@@ -78,13 +73,8 @@ function buildYaowangThug2(): NodeNpc {
     talk: '“刘六哥，并肩子上，把这华山剑童手里的青钢剑抢来换酒喝！”',
     stats: { hp: 380, mp: 145, agi: 20, res: 13 },
     talents: { bone: 46, comprehension: 32, charm: 24 },
-    equippedArts: { neigong: 'MA-229', qinggong: 'MA-218', move1: 'MA-209', move2: 'MA-189' },
-    learnedArts: [
-      { artId: 'MA-229', level: 2 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-209', level: 3 },
-      { artId: 'MA-189', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-209', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-238', level: 2 }, { artId: 'MA-209', level: 3 }, { artId: 'MA-189', level: 2 }],
   })
 }
 
@@ -102,20 +92,8 @@ function buildZhouHengBoss(): NodeNpc {
     talk: '“老子一柄厚背砍山刀劈翻过八家镖局趟子手！区区华山入门十二式，给爷挠痒都不够！”',
     stats: { hp: 650, mp: 320, agi: 31, res: 18 },
     talents: { bone: 58, comprehension: 42, charm: 30 },
-    equippedArts: {
-      neigong: 'MA-229',
-      qinggong: 'MA-218',
-      move1: 'MA-151',
-      move2: 'MA-209',
-      move3: 'MA-186',
-    },
-    learnedArts: [
-      { artId: 'MA-229', level: 4 },
-      { artId: 'MA-218', level: 4 },
-      { artId: 'MA-151', level: 3 },
-      { artId: 'MA-209', level: 4 },
-      { artId: 'MA-186', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-189', move2: 'MA-209' },
+    learnedArts: [{ artId: 'MA-238', level: 4 }, { artId: 'MA-189', level: 3 }, { artId: 'MA-209', level: 4 }],
   })
 }
 

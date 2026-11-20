@@ -42,13 +42,8 @@ function buildFuguDaorenNpc(): NodeNpc {
     talk: '“嘿嘿嘿！吸了贫道的腐尸磷烟还敢强运内力？等着五脏化成脓水吧！”',
     stats: { hp: 2280, mp: 2050, agi: 57, res: 44 },
     talents: { bone: 66, comprehension: 68, charm: 20 },
-    equippedArts: { neigong: 'MA-231', qinggong: 'MA-138', move1: 'MA-065', move2: 'MA-127' },
-    learnedArts: [
-      { artId: 'MA-231', level: 5 },
-      { artId: 'MA-138', level: 4 },
-      { artId: 'MA-065', level: 5 },
-      { artId: 'MA-127', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-231', move1: 'MA-065', move2: 'MA-127' },
+    learnedArts: [{ artId: 'MA-231', level: 5 }, { artId: 'MA-065', level: 5 }, { artId: 'MA-127', level: 5 }],
     equipped: { weapon: 'WPN-029' },
     questBadgeLabel: '星宿妖人',
   })
@@ -66,13 +61,8 @@ function buildXixiaCaptainNpc(): NodeNpc {
     talk: '“高沧云已经中了腐骨毒砂，把你们师兄弟两个一并剁碎喂火！”',
     stats: { hp: 1780, mp: 1460, agi: 55, res: 40 },
     talents: { bone: 70, comprehension: 54, charm: 30 },
-    equippedArts: { neigong: 'MA-245', qinggong: 'MA-246', move1: 'MA-133', move2: 'MA-189' },
-    learnedArts: [
-      { artId: 'MA-245', level: 4 },
-      { artId: 'MA-246', level: 4 },
-      { artId: 'MA-133', level: 5 },
-      { artId: 'MA-189', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-133', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-243', level: 4 }, { artId: 'MA-133', level: 5 }, { artId: 'MA-189', level: 5 }],
     equipped: { weapon: 'WPN-043' },
     questBadgeLabel: '死士统领',
   })
@@ -90,13 +80,8 @@ function buildXixiaPaymasterNpc(): NodeNpc {
     talk: '“好狠心的华山真传，连自家大师兄的死活都不顾也要追来抢密匣？找死！”',
     stats: { hp: 1740, mp: 1520, agi: 56, res: 39 },
     talents: { bone: 64, comprehension: 66, charm: 38 },
-    equippedArts: { neigong: 'MA-245', qinggong: 'MA-246', move1: 'MA-133', move2: 'MA-095' },
-    learnedArts: [
-      { artId: 'MA-245', level: 4 },
-      { artId: 'MA-246', level: 5 },
-      { artId: 'MA-133', level: 5 },
-      { artId: 'MA-095', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-133', move2: 'MA-155' },
+    learnedArts: [{ artId: 'MA-243', level: 4 }, { artId: 'MA-133', level: 5 }, { artId: 'MA-155', level: 4 }],
     equipped: { weapon: 'WPN-086' },
     questBadgeLabel: '西夏主使',
   })

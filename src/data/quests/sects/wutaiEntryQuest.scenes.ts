@@ -59,8 +59,8 @@ function buildWoodenStaffTrialMonkNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_wutai_monk_male_fb.jpg',
     stats: { hp: 76, mp: 40, agi: 5, res: 1 },
     talents: { bone: 45, comprehension: 38, charm: 55 },
-    equippedArts: { neigong: 'MA-180', qinggong: 'MA-177', move1: 'MA-192' },
-    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-177', level: 1 }, { artId: 'MA-192', level: 1 }],
+    equippedArts: { neigong: 'MA-180', qinggong: 'MA-197', move1: 'MA-192' },
+    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-197', level: 1 }, { artId: 'MA-192', level: 1 }],
     equipped: { weapon: 'WPN-068', armor: 'ARM-046', shoes: 'BOT-019', bow: 'BOW-020', accessory1: 'ACC-049', accessory2: 'ACC-035', mount: 'MNT-023' },
     talk: '“小施主莫慌，贫僧已尽数敛去内息，只使三分木杆力道——且看你如何立身守门户！”',
   })
@@ -78,8 +78,8 @@ function buildKhitanCaveScoutNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_liao_spy_male_fb.jpg',
     stats: { hp: 88, mp: 45, agi: 6, res: 1 },
     talents: { bone: 46, comprehension: 32, charm: 24 },
-    equippedArts: { neigong: 'MA-232', qinggong: 'MA-218', move1: 'MA-201' },
-    learnedArts: [{ artId: 'MA-232', level: 1 }, { artId: 'MA-218', level: 1 }, { artId: 'MA-201', level: 1 }],
+    equippedArts: { neigong: 'MA-238', qinggong: 'MA-218', move1: 'MA-201' },
+    learnedArts: [{ artId: 'MA-238', level: 1 }, { artId: 'MA-218', level: 1 }, { artId: 'MA-201', level: 1 }],
     equipped: { weapon: 'WPN-083', armor: 'ARM-045', shoes: 'BOT-022', bow: 'BOW-023', accessory1: 'ACC-045', accessory2: 'ACC-043', mount: 'MNT-021' },
     talk: '“好个不知死活的宋人毛头小子！这窄石缝挥不开长弯刀，老子照样一拳砸碎你的胸骨！”',
   })
@@ -97,8 +97,8 @@ function buildYeluLieBossNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
     stats: { hp: 620, mp: 320, agi: 24, res: 14 },
     talents: { bone: 62, comprehension: 48, charm: 36 },
-    equippedArts: { neigong: 'MA-243', qinggong: 'MA-246', move1: 'MA-152', move2: 'MA-151' },
-    learnedArts: [{ artId: 'MA-243', level: 4 }, { artId: 'MA-246', level: 4 }, { artId: 'MA-152', level: 5 }, { artId: 'MA-151', level: 4 }],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-152', move2: 'MA-151' },
+    learnedArts: [{ artId: 'MA-243', level: 4 }, { artId: 'MA-152', level: 5 }, { artId: 'MA-151', level: 4 }],
     equipped: { weapon: 'WPN-047', armor: 'ARM-025', shoes: 'BOT-012', bow: 'BOW-012', accessory1: 'ACC-023', accessory2: 'ACC-026', mount: 'MNT-013' },
     talk: '“五台山的秃驴竟敢坏我北院大事！结狼牙阵，踏平这座石窟！”',
   })

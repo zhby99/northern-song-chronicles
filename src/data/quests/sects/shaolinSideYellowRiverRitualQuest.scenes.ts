@@ -44,20 +44,8 @@ function buildGuiren(): NodeNpc {
     talk: '“大宋败军之魂也配享黄河水陆大醮？今夜便拿你的和尚血，浇熄这一江长明灯！”',
     stats: { hp: 3360, mp: 3120, agi: 76, res: 60 },
     talents: { bone: 80, comprehension: 82, charm: 58 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-077',
-      move1: 'MA-133',
-      move2: 'MA-131',
-      move3: 'MA-137',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 9 },
-      { artId: 'MA-077', level: 9 },
-      { artId: 'MA-133', level: 9 },
-      { artId: 'MA-131', level: 9 },
-      { artId: 'MA-137', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-133', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-245', level: 9 }, { artId: 'MA-133', level: 9 }, { artId: 'MA-131', level: 9 }],
   })
 }
 
@@ -75,20 +63,8 @@ function buildShalang(): NodeNpc {
     talk: '“哈哈哈哈！火油已泼满浮桥，待老子撕碎了你们两个秃驴，叫三川口与好水川的宋狗魂魄永世不得超生！”',
     stats: { hp: 3620, mp: 3380, agi: 74, res: 65 },
     talents: { bone: 88, comprehension: 78, charm: 45 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-139',
-      move1: 'MA-073',
-      move2: 'MA-092',
-      move3: 'MA-125',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 9 },
-      { artId: 'MA-139', level: 8 },
-      { artId: 'MA-073', level: 9 },
-      { artId: 'MA-092', level: 9 },
-      { artId: 'MA-125', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-073', move2: 'MA-092' },
+    learnedArts: [{ artId: 'MA-245', level: 9 }, { artId: 'MA-073', level: 9 }, { artId: 'MA-092', level: 9 }],
   })
 }
 

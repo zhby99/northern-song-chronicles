@@ -24,18 +24,8 @@ function buildWolfPackLeader(): NodeNpc {
     talk: '“嗷呜——！！”双目泛着幽绿寒光的雪狼王低伏身躯，率狼群扑向柴门！',
     stats: { hp: 920, mp: 300, agi: 48, res: 32 },
     talents: { bone: 66, comprehension: 28, charm: 10 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-139',
-      move1: 'MA-105',
-      move2: 'MA-107',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 5 },
-      { artId: 'MA-139', level: 5 },
-      { artId: 'MA-105', level: 5 },
-      { artId: 'MA-107', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-159', move1: 'MA-143', move2: 'MA-124' },
+    learnedArts: [{ artId: 'MA-159', level: 5 }, { artId: 'MA-143', level: 5 }, { artId: 'MA-124', level: 4 }],
   })
 }
 

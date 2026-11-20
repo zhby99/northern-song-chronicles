@@ -36,13 +36,8 @@ function buildQinLieshan70PctNpc(): NodeNpc {
     talk: '“老夫压住三成剑力，看你那一身《混元功》接不接得下这十剑！”',
     stats: { hp: 2624, mp: 2286, agi: 56, res: 48 },
     talents: { bone: 76, comprehension: 78, charm: 60 },
-    equippedArts: { neigong: 'MA-058', qinggong: 'MA-138', move1: 'MA-049', move2: 'MA-147' },
-    learnedArts: [
-      { artId: 'MA-058', level: 6 },
-      { artId: 'MA-138', level: 5 },
-      { artId: 'MA-049', level: 6 },
-      { artId: 'MA-147', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-058', move1: 'MA-049', move2: 'MA-147' },
+    learnedArts: [{ artId: 'MA-058', level: 6 }, { artId: 'MA-049', level: 6 }, { artId: 'MA-147', level: 6 }],
     equipped: { weapon: 'WPN-017' },
     questBadgeLabel: '十剑考校',
   })
@@ -60,13 +55,8 @@ function buildBloodBladeMonkNpc(): NodeNpc {
     talk: '“白皮细肉的华山小道士也敢追出潼关？正好用你的心头热血祭佛爷这口宝刀！”',
     stats: { hp: 2880, mp: 2420, agi: 63, res: 51 },
     talents: { bone: 78, comprehension: 64, charm: 18 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-139', move1: 'MA-072', move2: 'MA-131' },
-    learnedArts: [
-      { artId: 'MA-103', level: 6 },
-      { artId: 'MA-139', level: 5 },
-      { artId: 'MA-072', level: 6 },
-      { artId: 'MA-131', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-103', move1: 'MA-072', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-103', level: 6 }, { artId: 'MA-072', level: 6 }, { artId: 'MA-131', level: 6 }],
     equipped: { weapon: 'WPN-018' },
     questBadgeLabel: '边塞凶徒',
   })

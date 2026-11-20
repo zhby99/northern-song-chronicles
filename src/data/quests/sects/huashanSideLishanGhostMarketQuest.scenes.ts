@@ -47,13 +47,8 @@ function buildDuanjinRiderNpc(index: 1 | 2): NodeNpc {
       ? { hp: 1760, mp: 1520, agi: 55, res: 41 }
       : { hp: 1720, mp: 1480, agi: 54, res: 40 },
     talents: { bone: 70, comprehension: 52, charm: 28 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-131', move2: 'MA-151' },
-    learnedArts: [
-      { artId: 'MA-103', level: 6 },
-      { artId: 'MA-157', level: 5 },
-      { artId: 'MA-131', level: 6 },
-      { artId: 'MA-151', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-151' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-131', level: 6 }, { artId: 'MA-151', level: 5 }],
     equipped: { weapon: 'WPN-033' },
     questBadgeLabel: '断金帮夜哨',
   })
@@ -71,13 +66,8 @@ function buildWeiWuchangNpc(): NodeNpc {
     talk: '“洛阳金刀门那帮老顽固讲什么侠义道，老子断金帮只认白花花的辽国银锭！接我鬼面修罗刀！”',
     stats: { hp: 3100, mp: 2680, agi: 68, res: 55 },
     talents: { bone: 80, comprehension: 68, charm: 32 },
-    equippedArts: { neigong: 'MA-086', qinggong: 'MA-056', move1: 'MA-131', move2: 'MA-151' },
-    learnedArts: [
-      { artId: 'MA-086', level: 7 },
-      { artId: 'MA-056', level: 6 },
-      { artId: 'MA-131', level: 8 },
-      { artId: 'MA-151', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-086', move1: 'MA-131', move2: 'MA-151' },
+    learnedArts: [{ artId: 'MA-086', level: 7 }, { artId: 'MA-131', level: 8 }, { artId: 'MA-151', level: 7 }],
     equipped: { weapon: 'WPN-019' },
     questBadgeLabel: '鬼面刀',
   })
@@ -95,13 +85,8 @@ function buildLiaoEnvoyNpc(): NodeNpc {
     talk: '“既被你撞破大辽秘图下落，便只好请华山高徒永远长眠于华清松林了！”',
     stats: { hp: 2960, mp: 2820, agi: 70, res: 54 },
     talents: { bone: 74, comprehension: 80, charm: 56 },
-    equippedArts: { neigong: 'MA-085', qinggong: 'MA-056', move1: 'MA-054', move2: 'MA-096' },
-    learnedArts: [
-      { artId: 'MA-085', level: 7 },
-      { artId: 'MA-056', level: 7 },
-      { artId: 'MA-054', level: 7 },
-      { artId: 'MA-096', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-085', move1: 'MA-054', move2: 'MA-096' },
+    learnedArts: [{ artId: 'MA-085', level: 7 }, { artId: 'MA-054', level: 7 }, { artId: 'MA-096', level: 7 }],
     equipped: { weapon: 'WPN-030' },
     questBadgeLabel: '辽国密使',
   })

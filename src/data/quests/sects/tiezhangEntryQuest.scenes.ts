@@ -47,13 +47,8 @@ function buildSaltBullyNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     stats: { hp: 200, mp: 70, agi: 15, res: 7 },
     talents: { bone: 36, comprehension: 30, charm: 20 },
-    equippedArts: { neigong: 'MA-199', qinggong: 'MA-218', move1: 'MA-201', move2: 'MA-189' },
-    learnedArts: [
-      { artId: 'MA-199', level: 1 },
-      { artId: 'MA-218', level: 1 },
-      { artId: 'MA-201', level: 2 },
-      { artId: 'MA-189', level: 1 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-201', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-201', level: 2 }, { artId: 'MA-189', level: 1 }],
     equipped: {
       weapon: 'WPN-076',
       armor: 'ARM-044',
@@ -79,13 +74,8 @@ function buildFeiyuBanditNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     stats: { hp: 310, mp: 130, agi: 20, res: 11 },
     talents: { bone: 44, comprehension: 36, charm: 24 },
-    equippedArts: { neigong: 'MA-199', qinggong: 'MA-218', move1: 'MA-189', move2: 'MA-201' },
-    learnedArts: [
-      { artId: 'MA-199', level: 2 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-189', level: 2 },
-      { artId: 'MA-201', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-189', move2: 'MA-201' },
+    learnedArts: [{ artId: 'MA-199', level: 2 }, { artId: 'MA-189', level: 2 }, { artId: 'MA-201', level: 2 }],
     equipped: {
       weapon: 'WPN-076',
       armor: 'ARM-041',
@@ -113,13 +103,8 @@ function buildYoungChiefNpc(): NodeNpc {
     portraitUrl: '/assets/characters/fullbody/NPC-0222.jpg',
     stats: { hp: 380, mp: 180, agi: 24, res: 14 },
     talents: { bone: 55, comprehension: 48, charm: 50 },
-    equippedArts: { neigong: 'MA-229', qinggong: 'MA-198', move1: 'MA-236', move2: 'MA-186' },
-    learnedArts: [
-      { artId: 'MA-229', level: 3 },
-      { artId: 'MA-198', level: 2 },
-      { artId: 'MA-236', level: 3 },
-      { artId: 'MA-186', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-186', move2: 'MA-182' },
+    learnedArts: [{ artId: 'MA-238', level: 3 }, { artId: 'MA-186', level: 3 }, { artId: 'MA-182', level: 2 }],
     equipped: {
       weapon: 'WPN-069',
       armor: 'ARM-038',

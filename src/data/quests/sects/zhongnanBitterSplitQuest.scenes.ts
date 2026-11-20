@@ -26,13 +26,8 @@ function buildXixiaVanguardBoss(): NodeNpc {
     talk: '“哈哈哈！听说终南山的牛鼻子老道和活死人墓的婆娘闹翻了？正好省了本将军一番手脚，今夜便先拿你祭旗！”',
     stats: { hp: 3980, mp: 3420, agi: 76, res: 69 },
     talents: { bone: 81, comprehension: 68, charm: 30 },
-    equippedArts: { neigong: 'MA-081', qinggong: 'MA-097', move1: 'MA-091', move2: 'MA-065' },
-    learnedArts: [
-      { artId: 'MA-081', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-091', level: 8 },
-      { artId: 'MA-065', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-081', move1: 'MA-091', move2: 'MA-065' },
+    learnedArts: [{ artId: 'MA-081', level: 8 }, { artId: 'MA-091', level: 8 }, { artId: 'MA-065', level: 8 }],
   })
 }
 

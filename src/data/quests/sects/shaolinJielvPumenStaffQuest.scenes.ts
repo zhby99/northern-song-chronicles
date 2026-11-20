@@ -35,20 +35,8 @@ function buildHuiLaiBoss(): NodeNpc {
     talk: '“少林清规只管得着咱们苦命人，管不着贪官恶吏！你今日要拿我归山，先吃我这口浑铁禅杖！”',
     stats: { hp: 1120, mp: 760, agi: 42, res: 28 },
     talents: { bone: 70, comprehension: 52, charm: 34 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-197',
-      move1: 'MA-117',
-      move2: 'MA-105',
-      move3: 'MA-114',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 5 },
-      { artId: 'MA-197', level: 5 },
-      { artId: 'MA-117', level: 5 },
-      { artId: 'MA-105', level: 5 },
-      { artId: 'MA-114', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-159', move1: 'MA-153', move2: 'MA-143' },
+    learnedArts: [{ artId: 'MA-159', level: 5 }, { artId: 'MA-153', level: 5 }, { artId: 'MA-143', level: 5 }],
   })
 }
 

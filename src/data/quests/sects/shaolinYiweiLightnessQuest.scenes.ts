@@ -36,18 +36,8 @@ function buildCloudSwallowBoss(): NodeNpc {
     talk: '“少林小秃驴竟能踏苇追我十里至此！这洛水急流湍急无比，今日便让你葬身鱼腹！”',
     stats: { hp: 2680, mp: 1880, agi: 78, res: 52 },
     talents: { bone: 80, comprehension: 82, charm: 68 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-158',
-      move1: 'MA-133',
-      move2: 'MA-076',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 7 },
-      { artId: 'MA-158', level: 8 },
-      { artId: 'MA-133', level: 7 },
-      { artId: 'MA-076', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-133', move2: 'MA-076' },
+    learnedArts: [{ artId: 'MA-245', level: 7 }, { artId: 'MA-133', level: 7 }, { artId: 'MA-076', level: 7 }],
   })
 }
 

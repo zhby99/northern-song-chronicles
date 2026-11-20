@@ -43,13 +43,8 @@ function buildFakeMonkAlpha(): NodeNpc {
     talk: '“既然被少林秃驴识破了西夏梵押，那便一把火烧了白马寺，一个活口也别留！”',
     stats: { hp: 1020, mp: 620, agi: 44, res: 24 },
     talents: { bone: 64, comprehension: 56, charm: 38 },
-    equippedArts: { neigong: 'MA-232', qinggong: 'MA-246', move1: 'MA-133', move2: 'MA-247' },
-    learnedArts: [
-      { artId: 'MA-232', level: 5 },
-      { artId: 'MA-246', level: 4 },
-      { artId: 'MA-133', level: 5 },
-      { artId: 'MA-247', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-232', move1: 'MA-133', move2: 'MA-152' },
+    learnedArts: [{ artId: 'MA-232', level: 5 }, { artId: 'MA-133', level: 5 }, { artId: 'MA-152', level: 4 }],
   })
 }
 
@@ -66,13 +61,8 @@ function buildFakeMonkBeta(): NodeNpc {
     talk: '“大佛宝殿的火油早已泼好，少林和尚自寻死路！”',
     stats: { hp: 980, mp: 600, agi: 46, res: 23 },
     talents: { bone: 62, comprehension: 55, charm: 36 },
-    equippedArts: { neigong: 'MA-232', qinggong: 'MA-246', move1: 'MA-247', move2: 'MA-133' },
-    learnedArts: [
-      { artId: 'MA-232', level: 5 },
-      { artId: 'MA-246', level: 4 },
-      { artId: 'MA-247', level: 5 },
-      { artId: 'MA-133', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-232', move1: 'MA-152', move2: 'MA-133' },
+    learnedArts: [{ artId: 'MA-232', level: 5 }, { artId: 'MA-152', level: 5 }, { artId: 'MA-133', level: 4 }],
   })
 }
 
@@ -89,20 +79,8 @@ function buildMohebaBoss(): NodeNpc {
     talk: '“中原佛门早已腐朽！这齐云塔中的古佛舍利，合该归我大白高国兴庆府供奉！看杖！”',
     stats: { hp: 1620, mp: 1080, agi: 53, res: 36 },
     talents: { bone: 78, comprehension: 66, charm: 40 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-246',
-      move1: 'MA-247',
-      move2: 'MA-133',
-      move3: 'MA-046',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 6 },
-      { artId: 'MA-246', level: 5 },
-      { artId: 'MA-247', level: 6 },
-      { artId: 'MA-133', level: 6 },
-      { artId: 'MA-046', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-152', move2: 'MA-133' },
+    learnedArts: [{ artId: 'MA-243', level: 6 }, { artId: 'MA-152', level: 6 }, { artId: 'MA-133', level: 6 }],
   })
 }
 

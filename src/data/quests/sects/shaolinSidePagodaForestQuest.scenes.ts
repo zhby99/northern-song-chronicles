@@ -53,18 +53,8 @@ function buildRaiderSun(): NodeNpc {
     talk: '“撞破爷们倒斗的好事，拿洛阳铲把你这小和尚一道埋进塔底！”',
     stats: { hp: 540, mp: 240, agi: 29, res: 16 },
     talents: { bone: 52, comprehension: 38, charm: 24 },
-    equippedArts: {
-      neigong: 'MA-238',
-      qinggong: 'MA-177',
-      move1: 'MA-193',
-      move2: 'MA-189',
-    },
-    learnedArts: [
-      { artId: 'MA-238', level: 4 },
-      { artId: 'MA-177', level: 3 },
-      { artId: 'MA-193', level: 4 },
-      { artId: 'MA-189', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-193', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-238', level: 4 }, { artId: 'MA-193', level: 4 }, { artId: 'MA-189', level: 3 }],
   })
 }
 
@@ -82,18 +72,8 @@ function buildRaiderZhao(): NodeNpc {
     talk: '“先撒他一把生石灰，再拿洛阳铲拍扁他的光头！”',
     stats: { hp: 410, mp: 160, agi: 25, res: 13 },
     talents: { bone: 45, comprehension: 34, charm: 22 },
-    equippedArts: {
-      neigong: 'MA-199',
-      qinggong: 'MA-218',
-      move1: 'MA-209',
-      move2: 'MA-196',
-    },
-    learnedArts: [
-      { artId: 'MA-199', level: 3 },
-      { artId: 'MA-218', level: 3 },
-      { artId: 'MA-209', level: 3 },
-      { artId: 'MA-196', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-209', move2: 'MA-196' },
+    learnedArts: [{ artId: 'MA-199', level: 3 }, { artId: 'MA-209', level: 3 }, { artId: 'MA-196', level: 3 }],
   })
 }
 
@@ -111,20 +91,8 @@ function buildChuanshangui(): NodeNpc {
     talk: '“老子在北邙山倒了一辈子斗，今日偏要开一开唐代少林高僧的舍利地宫，挡路者死！”',
     stats: { hp: 780, mp: 460, agi: 35, res: 21 },
     talents: { bone: 60, comprehension: 48, charm: 28 },
-    equippedArts: {
-      neigong: 'MA-238',
-      qinggong: 'MA-157',
-      move1: 'MA-151',
-      move2: 'MA-196',
-      move3: 'MA-193',
-    },
-    learnedArts: [
-      { artId: 'MA-238', level: 5 },
-      { artId: 'MA-157', level: 5 },
-      { artId: 'MA-151', level: 5 },
-      { artId: 'MA-196', level: 4 },
-      { artId: 'MA-193', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-189', move2: 'MA-196' },
+    learnedArts: [{ artId: 'MA-238', level: 5 }, { artId: 'MA-189', level: 5 }, { artId: 'MA-196', level: 4 }],
   })
 }
 

@@ -24,18 +24,8 @@ function buildBookThief(): NodeNpc {
     talk: '“这卷唐代孤本《周易正义》可是有人出百两雪花银悬赏的！别挡道！”',
     stats: { hp: 640, mp: 300, agi: 38, res: 26 },
     talents: { bone: 50, comprehension: 58, charm: 45 },
-    equippedArts: {
-      neigong: 'MA-099',
-      qinggong: 'MA-138',
-      move1: 'MA-118',
-      move2: 'MA-128',
-    },
-    learnedArts: [
-      { artId: 'MA-099', level: 4 },
-      { artId: 'MA-138', level: 4 },
-      { artId: 'MA-118', level: 3 },
-      { artId: 'MA-128', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-195', move2: 'MA-187' },
+    learnedArts: [{ artId: 'MA-181', level: 4 }, { artId: 'MA-195', level: 3 }, { artId: 'MA-187', level: 3 }],
   })
 }
 

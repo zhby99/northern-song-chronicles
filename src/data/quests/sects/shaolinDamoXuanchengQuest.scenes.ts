@@ -44,13 +44,8 @@ function buildMurongScoutA(): NodeNpc {
     talk: '“少林小僧坏我大事，留你不得！看慕容剑法！”',
     stats: { hp: 1420, mp: 880, agi: 55, res: 33 },
     talents: { bone: 68, comprehension: 70, charm: 56 },
-    equippedArts: { neigong: 'MA-221', qinggong: 'MA-158', move1: 'MA-071', move2: 'MA-148' },
-    learnedArts: [
-      { artId: 'MA-221', level: 6 },
-      { artId: 'MA-158', level: 6 },
-      { artId: 'MA-071', level: 5 },
-      { artId: 'MA-148', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-130', move2: 'MA-148' },
+    learnedArts: [{ artId: 'MA-121', level: 6 }, { artId: 'MA-130', level: 5 }, { artId: 'MA-148', level: 5 }],
   })
 }
 
@@ -68,13 +63,8 @@ function buildMurongScoutB(): NodeNpc {
     talk: '“柳兄拖住他正面，我去寒玉榻上取玄澄那卷手札！”',
     stats: { hp: 1380, mp: 860, agi: 57, res: 32 },
     talents: { bone: 66, comprehension: 72, charm: 54 },
-    equippedArts: { neigong: 'MA-221', qinggong: 'MA-098', move1: 'MA-071', move2: 'MA-118' },
-    learnedArts: [
-      { artId: 'MA-221', level: 6 },
-      { artId: 'MA-098', level: 5 },
-      { artId: 'MA-071', level: 5 },
-      { artId: 'MA-118', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-130', move2: 'MA-155' },
+    learnedArts: [{ artId: 'MA-121', level: 6 }, { artId: 'MA-130', level: 5 }, { artId: 'MA-155', level: 5 }],
   })
 }
 
@@ -92,20 +82,8 @@ function buildYanYingkeBoss(): NodeNpc {
     talk: '“能在我姑苏慕容氏的『以彼之道、还施彼身』下撑过十招，这小和尚倒真有几分玄澄当年的影子——可惜今夜你必须死在这里！”',
     stats: { hp: 2420, mp: 1680, agi: 72, res: 49 },
     talents: { bone: 84, comprehension: 88, charm: 74 },
-    equippedArts: {
-      neigong: 'MA-221',
-      qinggong: 'MA-098',
-      move1: 'MA-071',
-      move2: 'MA-025',
-      move3: 'MA-063',
-    },
-    learnedArts: [
-      { artId: 'MA-221', level: 8 },
-      { artId: 'MA-098', level: 8 },
-      { artId: 'MA-071', level: 8 },
-      { artId: 'MA-025', level: 6 },
-      { artId: 'MA-063', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-221', move1: 'MA-071', move2: 'MA-025' },
+    learnedArts: [{ artId: 'MA-221', level: 8 }, { artId: 'MA-071', level: 8 }, { artId: 'MA-025', level: 6 }],
   })
 }
 

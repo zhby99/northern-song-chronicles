@@ -65,8 +65,8 @@ const ZW_DOCK_BRAWLER_NPC: NodeNpc = makeQuestNpc({
     画: 0,
     辩才: 15,
   },
-  equippedArts: { move1: 'MA-171' },
-  learnedArts: [{ artId: 'MA-171', level: 1 }],
+  equippedArts: { move1: 'MA-189' },
+  learnedArts: [{ artId: 'MA-189', level: 1 }],
 })
 
 const ZW_YIN_SPAR_NPC: NodeNpc = makeQuestNpc({
@@ -95,8 +95,8 @@ const ZW_YIN_SPAR_NPC: NodeNpc = makeQuestNpc({
     画: 10,
     辩才: 30,
   },
-  equippedArts: { move1: 'MA-169' },
-  learnedArts: [{ artId: 'MA-169', level: 1 }],
+  equippedArts: { move1: 'MA-188' },
+  learnedArts: [{ artId: 'MA-188', level: 1 }],
 })
 
 const ZW_SHEN_CANG_NPC: NodeNpc = makeQuestNpc({
@@ -125,8 +125,8 @@ const ZW_SHEN_CANG_NPC: NodeNpc = makeQuestNpc({
     画: 0,
     辩才: 15,
   },
-  equippedArts: { move1: 'MA-171' },
-  learnedArts: [{ artId: 'MA-171', level: 1 }],
+  equippedArts: { move1: 'MA-189' },
+  learnedArts: [{ artId: 'MA-189', level: 1 }],
 })
 
 const SCENE_ZW_01_HANSHUI_DISPUTE: StorySceneDef = {

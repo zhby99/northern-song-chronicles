@@ -45,13 +45,8 @@ export function buildTuboGuardianMonkNpc(index: 1 | 2): NodeNpc {
       accessory2: 'ACC-020',
       mount: 'MNT-011',
     },
-    equippedArts: { neigong: 'MA-142', qinggong: 'MA-157', move1: 'MA-133', move2: 'MA-136' },
-    learnedArts: [
-      { artId: 'MA-142', level: 7 },
-      { artId: 'MA-157', level: 6 },
-      { artId: 'MA-133', level: 7 },
-      { artId: 'MA-136', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-142', move1: 'MA-133', move2: 'MA-136' },
+    learnedArts: [{ artId: 'MA-142', level: 7 }, { artId: 'MA-133', level: 7 }, { artId: 'MA-136', level: 6 }],
   })
 }
 

@@ -30,18 +30,8 @@ const MURONG_AGENT_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_murong_male_fb.jpg',
   talk: '“王介甫留在大宋朝堂终是大患，挡我复燕大业者死！”',
   stats: { hp: 3350, mp: 1850, agi: 86, res: 72 },
-  equippedArts: {
-    neigong: 'MA-221',
-    qinggong: 'MA-098',
-    move1: 'MA-071',
-    move2: 'MA-150',
-  },
-  learnedArts: [
-    { artId: 'MA-221', level: 8 },
-    { artId: 'MA-098', level: 7 },
-    { artId: 'MA-071', level: 8 },
-    { artId: 'MA-150', level: 7 },
-  ],
+  equippedArts: { neigong: 'MA-221', move1: 'MA-071', move2: 'MA-150' },
+  learnedArts: [{ artId: 'MA-221', level: 8 }, { artId: 'MA-071', level: 8 }, { artId: 'MA-150', level: 7 }],
 })
 
 const LIAO_BOAT_SPY_NPC = makeQuestNpc({
@@ -54,18 +44,8 @@ const LIAO_BOAT_SPY_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_liao_spy_male_fb.jpg',
   talk: '“秦淮河底冷得很，二位剑客还是下去喂鱼吧！”',
   stats: { hp: 2950, mp: 1550, agi: 80, res: 66 },
-  equippedArts: {
-    neigong: 'MA-243',
-    qinggong: 'MA-157',
-    move1: 'MA-132',
-    move2: 'MA-152',
-  },
-  learnedArts: [
-    { artId: 'MA-243', level: 7 },
-    { artId: 'MA-157', level: 7 },
-    { artId: 'MA-132', level: 7 },
-    { artId: 'MA-152', level: 7 },
-  ],
+  equippedArts: { neigong: 'MA-243', move1: 'MA-132', move2: 'MA-152' },
+  learnedArts: [{ artId: 'MA-243', level: 7 }, { artId: 'MA-132', level: 7 }, { artId: 'MA-152', level: 7 }],
 })
 
 export const SCENES: Record<string, StorySceneDef> = {

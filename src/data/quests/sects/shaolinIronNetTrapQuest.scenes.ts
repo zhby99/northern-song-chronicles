@@ -26,20 +26,8 @@ function buildBlackwaterMonkBoss(): NodeNpc {
     talk: '“区区三十六名少林武僧也想困住本座？待老夫血洗藏经阁，将中原兵书尽献兴庆府！”',
     stats: { hp: 4320, mp: 4050, agi: 78, res: 70 },
     talents: { bone: 90, comprehension: 86, charm: 38 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-097',
-      move1: 'MA-046',
-      move2: 'MA-085',
-      move3: 'MA-133',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 9 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-046', level: 9 },
-      { artId: 'MA-085', level: 8 },
-      { artId: 'MA-133', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-046', move2: 'MA-085' },
+    learnedArts: [{ artId: 'MA-245', level: 9 }, { artId: 'MA-046', level: 9 }, { artId: 'MA-085', level: 8 }],
   })
 }
 

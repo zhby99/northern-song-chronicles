@@ -62,8 +62,8 @@ function buildHongchanSparNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_hongmen_male_fb.jpg',
     stats: { hp: 225, mp: 90, agi: 15, res: 6 },
     talents: { bone: 52, comprehension: 46, charm: 45 },
-    equippedArts: { neigong: 'MA-180', qinggong: 'MA-218', move1: 'MA-183', move2: 'MA-163' },
-    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-218', level: 1 }, { artId: 'MA-183', level: 1 }, { artId: 'MA-163', level: 1 }],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-183', move2: 'MA-182' },
+    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-183', level: 1 }, { artId: 'MA-182', level: 1 }],
     equipped: { weapon: 'WPN-099', armor: 'ARM-036', shoes: 'BOT-020', bow: 'BOW-023', accessory1: 'ACC-040', accessory2: 'ACC-047', mount: 'MNT-026' },
     talk: '“扎稳四平马，沉桥莫眨眼！咱们南拳规矩，桥来桥上过，点到为止！”',
   })
@@ -81,8 +81,8 @@ function buildShapiliuDockNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     stats: { hp: 250, mp: 85, agi: 16, res: 7 },
     talents: { bone: 45, comprehension: 35, charm: 25 },
-    equippedArts: { neigong: 'MA-199', qinggong: 'MA-218', move1: 'MA-209', move2: 'MA-204' },
-    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-218', level: 1 }, { artId: 'MA-209', level: 1 }, { artId: 'MA-204', level: 1 }],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-209', move2: 'MA-204' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-209', level: 1 }, { artId: 'MA-204', level: 1 }],
     equipped: { weapon: 'WPN-076', armor: 'ARM-046', shoes: 'BOT-023', bow: 'BOW-021', accessory1: 'ACC-047', accessory2: 'ACC-043', mount: 'MNT-022' },
     talk: '“天堂有路你不走！把老船工的海道针经和少林血竭统统交出来！”',
   })
@@ -100,8 +100,8 @@ function buildWoodenDummyGuardianNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_wooden_dummy_fb.jpg',
     stats: { hp: 285, mp: 120, agi: 14, res: 10 },
     talents: { bone: 65, comprehension: 40, charm: 40 },
-    equippedArts: { neigong: 'MA-180', qinggong: 'MA-218', move1: 'MA-163', move2: 'MA-192' },
-    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-218', level: 1 }, { artId: 'MA-163', level: 1 }, { artId: 'MA-192', level: 1 }],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-182', move2: 'MA-192' },
+    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-182', level: 1 }, { artId: 'MA-192', level: 1 }],
     equipped: { weapon: 'WPN-081', armor: 'ARM-046', shoes: 'BOT-024', bow: 'BOW-024', accessory1: 'ACC-047', accessory2: 'ACC-043', mount: 'MNT-022' },
     talk: '（机括铮然咬合，包裹熟铜护胸的楠木傀儡双臂一振，挟沉猛劲风当门横拦！）',
   })

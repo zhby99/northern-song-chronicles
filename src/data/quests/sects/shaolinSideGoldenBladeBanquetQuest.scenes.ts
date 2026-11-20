@@ -35,13 +35,8 @@ function buildPoisonNeedleShadow(): NodeNpc {
     talk: '“坏我关西血仇大计的少林和尚，拿一张破木桌挡得住第一波袖箭，挡得住老子的追魂夺命镖么！”',
     stats: { hp: 1620, mp: 1360, agi: 57, res: 38 },
     talents: { bone: 64, comprehension: 58, charm: 30 },
-    equippedArts: { neigong: 'MA-099', qinggong: 'MA-138', move1: 'MA-118', move2: 'MA-137' },
-    learnedArts: [
-      { artId: 'MA-099', level: 5 },
-      { artId: 'MA-138', level: 5 },
-      { artId: 'MA-118', level: 6 },
-      { artId: 'MA-137', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-142', move1: 'MA-155', move2: 'MA-137' },
+    learnedArts: [{ artId: 'MA-142', level: 5 }, { artId: 'MA-155', level: 6 }, { artId: 'MA-137', level: 5 }],
   })
 }
 
@@ -59,13 +54,8 @@ function buildAssassinMinion1(): NodeNpc {
     talk: '“金刀老儿的项上人头值三千两黄金，挡路者和尚一并去死！”',
     stats: { hp: 960, mp: 780, agi: 46, res: 24 },
     talents: { bone: 54, comprehension: 48, charm: 25 },
-    equippedArts: { neigong: 'MA-121', qinggong: 'MA-157', move1: 'MA-175', move2: 'MA-131' },
-    learnedArts: [
-      { artId: 'MA-121', level: 4 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-175', level: 5 },
-      { artId: 'MA-131', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-175', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-121', level: 4 }, { artId: 'MA-175', level: 5 }, { artId: 'MA-131', level: 4 }],
   })
 }
 
@@ -83,13 +73,8 @@ function buildAssassinMinion2(): NodeNpc {
     talk: '“别让少林武僧合围，先封死他退路！”',
     stats: { hp: 940, mp: 760, agi: 47, res: 24 },
     talents: { bone: 52, comprehension: 46, charm: 24 },
-    equippedArts: { neigong: 'MA-121', qinggong: 'MA-157', move1: 'MA-155', move2: 'MA-133' },
-    learnedArts: [
-      { artId: 'MA-121', level: 4 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-155', level: 5 },
-      { artId: 'MA-133', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-155', move2: 'MA-133' },
+    learnedArts: [{ artId: 'MA-121', level: 4 }, { artId: 'MA-155', level: 5 }, { artId: 'MA-133', level: 4 }],
   })
 }
 

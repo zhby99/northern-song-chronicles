@@ -32,20 +32,8 @@ export const SHAOLIN_LUOYANG_BROKER_ACTOR: DynamicQuestNpc = {
     comprehension: 58,
     charm: 56,
   },
-  equippedArts: {
-    neigong: 'MA-199', // 粗浅呼吸法
-    qinggong: 'MA-218', // 翻滚躲闪步
-    move1: 'MA-201', // 市井王八拳
-    move2: 'MA-204', // 护院拦门掌
-    move3: null,
-    move4: null,
-  },
-  learnedArts: [
-    { artId: 'MA-199', level: 1, exp: 0 },
-    { artId: 'MA-218', level: 1, exp: 0 },
-    { artId: 'MA-201', level: 2, exp: 0 },
-    { artId: 'MA-204', level: 1, exp: 0 },
-  ],
+  equippedArts: { neigong: 'MA-199', qinggong: null, move1: 'MA-201', move2: 'MA-204', move3: null, move4: null },
+  learnedArts: [{ artId: 'MA-199', level: 1, exp: 0 }, { artId: 'MA-201', level: 2, exp: 0 }, { artId: 'MA-204', level: 1, exp: 0 }],
   equipped: {
     weapon: 'WPN-083', // 生牛皮裹指拳带（凡阶中品）
     armor: 'ARM-044', // 市井茶博士围裙衫（凡阶中品）

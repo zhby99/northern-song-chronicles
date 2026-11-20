@@ -35,20 +35,8 @@ function buildBloodKasayaBoss(): NodeNpc {
     talk: '“少林老秃驴也敢管赵判官的财路？今日老衲便拿你这首座的鲜血，再染红我这领血袈裟！”',
     stats: { hp: 4380, mp: 3920, agi: 79, res: 65 },
     talents: { bone: 90, comprehension: 86, charm: 42 },
-    equippedArts: {
-      neigong: 'MA-028',
-      qinggong: 'MA-077',
-      move1: 'MA-072',
-      move2: 'MA-073',
-      move3: 'MA-083',
-    },
-    learnedArts: [
-      { artId: 'MA-028', level: 8 },
-      { artId: 'MA-077', level: 8 },
-      { artId: 'MA-072', level: 9 },
-      { artId: 'MA-073', level: 9 },
-      { artId: 'MA-083', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-028', move1: 'MA-072', move2: 'MA-073' },
+    learnedArts: [{ artId: 'MA-028', level: 8 }, { artId: 'MA-072', level: 9 }, { artId: 'MA-073', level: 9 }],
   })
 }
 

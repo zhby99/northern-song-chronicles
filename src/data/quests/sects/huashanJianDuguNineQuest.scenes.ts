@@ -42,20 +42,8 @@ function buildXixiaSupremeSwordsmanNpc(): NodeNpc {
       weapon: 'WPN-012',
       armor: 'ARM-012',
     },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-246',
-      move1: 'MA-068',
-      move2: 'MA-128',
-      move3: 'MA-133',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 8 },
-      { artId: 'MA-246', level: 8 },
-      { artId: 'MA-068', level: 8 },
-      { artId: 'MA-128', level: 8 },
-      { artId: 'MA-133', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-068', move2: 'MA-128' },
+    learnedArts: [{ artId: 'MA-245', level: 8 }, { artId: 'MA-068', level: 8 }, { artId: 'MA-128', level: 8 }],
   })
 }
 

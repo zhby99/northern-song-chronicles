@@ -34,20 +34,8 @@ function buildYelvQingyingBoss(): NodeNpc {
     talk: '“少林小僧好利的一双眼睛！可惜我身披幽州冰蚕软甲、足踏瞬息千里步，这世上还没人能留住我耶律青影！”',
     stats: { hp: 2050, mp: 1320, agi: 66, res: 42 },
     talents: { bone: 76, comprehension: 78, charm: 56 },
-    equippedArts: {
-      neigong: 'MA-243',
-      qinggong: 'MA-077',
-      move1: 'MA-084',
-      move2: 'MA-118',
-      move3: 'MA-152',
-    },
-    learnedArts: [
-      { artId: 'MA-243', level: 7 },
-      { artId: 'MA-077', level: 7 },
-      { artId: 'MA-084', level: 7 },
-      { artId: 'MA-118', level: 6 },
-      { artId: 'MA-152', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-146', move2: 'MA-155' },
+    learnedArts: [{ artId: 'MA-243', level: 7 }, { artId: 'MA-146', level: 7 }, { artId: 'MA-155', level: 6 }],
   })
 }
 
@@ -64,18 +52,8 @@ function buildXiaoWuhenSpy(): NodeNpc {
     talk: '“头领你带着拓片先走，这小和尚交给我用透骨暗器拖住！”',
     stats: { hp: 1420, mp: 920, agi: 58, res: 32 },
     talents: { bone: 68, comprehension: 70, charm: 48 },
-    equippedArts: {
-      neigong: 'MA-243',
-      qinggong: 'MA-138',
-      move1: 'MA-118',
-      move2: 'MA-146',
-    },
-    learnedArts: [
-      { artId: 'MA-243', level: 6 },
-      { artId: 'MA-138', level: 6 },
-      { artId: 'MA-118', level: 6 },
-      { artId: 'MA-146', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-155', move2: 'MA-146' },
+    learnedArts: [{ artId: 'MA-243', level: 6 }, { artId: 'MA-155', level: 6 }, { artId: 'MA-146', level: 5 }],
   })
 }
 

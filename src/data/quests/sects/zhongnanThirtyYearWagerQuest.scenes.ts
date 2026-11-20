@@ -21,18 +21,8 @@ const XIXIA_SCOUT_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
   talk: '“终南残碑拓片必须带回兴庆府，阻路者杀无赦！”',
   stats: { hp: 2200, mp: 1200, agi: 68, res: 54 },
-  equippedArts: {
-    neigong: 'MA-232',
-    qinggong: 'MA-157',
-    move1: 'MA-132',
-    move2: 'MA-150',
-  },
-  learnedArts: [
-    { artId: 'MA-232', level: 6 },
-    { artId: 'MA-157', level: 6 },
-    { artId: 'MA-132', level: 6 },
-    { artId: 'MA-150', level: 5 },
-  ],
+  equippedArts: { neigong: 'MA-232', move1: 'MA-132', move2: 'MA-150' },
+  learnedArts: [{ artId: 'MA-232', level: 6 }, { artId: 'MA-132', level: 6 }, { artId: 'MA-150', level: 5 }],
 })
 
 export const SCENES: Record<string, StorySceneDef> = {

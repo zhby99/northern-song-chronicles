@@ -35,13 +35,8 @@ function buildThiefLeader(): NodeNpc {
     talk: '“嘿嘿，一个烧火的小和尚拿根黑炭木棍也敢拦爷爷财路？弟兄们，先敲晕他再扛米！”',
     stats: { hp: 440, mp: 180, agi: 26, res: 14 },
     talents: { bone: 45, comprehension: 38, charm: 24 },
-    equippedArts: { neigong: 'MA-199', qinggong: 'MA-218', move1: 'MA-189', move2: 'MA-201' },
-    learnedArts: [
-      { artId: 'MA-199', level: 3 },
-      { artId: 'MA-218', level: 3 },
-      { artId: 'MA-189', level: 3 },
-      { artId: 'MA-201', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-189', move2: 'MA-201' },
+    learnedArts: [{ artId: 'MA-199', level: 3 }, { artId: 'MA-189', level: 3 }, { artId: 'MA-201', level: 3 }],
   })
 }
 
@@ -59,13 +54,8 @@ function buildThiefMinion1(): NodeNpc {
     talk: '“哎哟这黑棍子专捅脚脖子！大哥快帮我一把！”',
     stats: { hp: 250, mp: 90, agi: 18, res: 9 },
     talents: { bone: 36, comprehension: 30, charm: 22 },
-    equippedArts: { neigong: 'MA-199', qinggong: 'MA-218', move1: 'MA-201', move2: 'MA-204' },
-    learnedArts: [
-      { artId: 'MA-199', level: 1 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-201', level: 2 },
-      { artId: 'MA-204', level: 1 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-201', move2: 'MA-204' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-201', level: 2 }, { artId: 'MA-204', level: 1 }],
   })
 }
 
@@ -83,13 +73,8 @@ function buildThiefMinion2(): NodeNpc {
     talk: '“少林寺的腊八新米最值钱，抢两袋就溜！”',
     stats: { hp: 240, mp: 85, agi: 19, res: 9 },
     talents: { bone: 35, comprehension: 28, charm: 20 },
-    equippedArts: { neigong: 'MA-199', qinggong: 'MA-218', move1: 'MA-204', move2: 'MA-201' },
-    learnedArts: [
-      { artId: 'MA-199', level: 1 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-204', level: 2 },
-      { artId: 'MA-201', level: 1 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-204', move2: 'MA-201' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-204', level: 2 }, { artId: 'MA-201', level: 1 }],
   })
 }
 

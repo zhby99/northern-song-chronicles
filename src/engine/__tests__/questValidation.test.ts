@@ -174,4 +174,139 @@ describe('validateAllRegisteredQuests & buildQuestDependencyGraph', () => {
     )
     expect(grantsKunlunMap).toBe(true)
   })
+
+  it('requires 经义 and 辩才 (not 策论) for Shaolin 千僧列阵 (QST-SECT-01-41)', () => {
+    const q = QUEST_MAP['QST-SECT-01-41']
+    expect(q).toBeDefined()
+    const conds = q?.startCondition?.type === 'all' ? q.startCondition.conditions : []
+    const skillReqs = conds.filter((c) => c.type === 'skillAtLeast')
+    expect(skillReqs.some((c) => c.key === '经义')).toBe(true)
+    expect(skillReqs.some((c) => c.key === '辩才')).toBe(true)
+    expect(skillReqs.some((c) => c.key === '策论')).toBe(false)
+  })
+
+  it('rejects synthetic temporary quest NPCs with >=4 martial arts or over-tier arts for 三流/二流', () => {
+    const mkSyntheticQuest = (
+      id: string,
+      realm: string,
+      equippedArts: Record<string, string | null>,
+      learnedArts: Array<{ artId: string; level: number }>,
+    ) => ({
+      id,
+      title: '测试临时NPC护栏',
+      category: 'adventure' as const,
+      summary: '测试',
+      initialStepId: 's1',
+      steps: { s1: { id: 's1', title: '一', objective: '一' } },
+      npcActions: [
+        {
+          id: 'a1',
+          label: '试招',
+          visibleWhen: { type: 'questStatus' as const, questId: id, status: 'not_started' as const },
+          effects: [
+            {
+              type: 'startCombat' as const,
+              rule: 'spar' as const,
+              opponent: {
+                kind: 'custom' as const,
+                npc: {
+                  name: '测试临时敌手',
+                  title: '测试',
+                  realm,
+                  talk: '……',
+                  stats: { hp: 300, mp: 100, agi: 30, res: 10, isBenchmark: false },
+                  equippedArts: {
+                    neigong: equippedArts.neigong ?? null,
+                    qinggong: equippedArts.qinggong ?? null,
+                    move1: equippedArts.move1 ?? null,
+                    move2: equippedArts.move2 ?? null,
+                    move3: equippedArts.move3 ?? null,
+                    move4: equippedArts.move4 ?? null,
+                  },
+                  learnedArts: learnedArts.map((x) => ({ ...x, exp: 0 })),
+                },
+              },
+              onWin: [],
+            },
+          ],
+        },
+      ],
+    })
+
+    // 4 martial arts on any realm should fail
+    const res4Arts = validateAllRegisteredQuests([
+      mkSyntheticQuest(
+        'QST-TEST-4ARTS',
+        '一流下品',
+        { neigong: 'MA-179', qinggong: 'MA-197', move1: 'MA-182', move2: 'MA-187' },
+        [
+          { artId: 'MA-179', level: 2 },
+          { artId: 'MA-197', level: 2 },
+          { artId: 'MA-182', level: 2 },
+          { artId: 'MA-187', level: 2 },
+        ],
+      ),
+    ])
+    expect(res4Arts.valid).toBe(false)
+    expect(res4Arts.errors.some((e) => e.includes('武学数量超限'))).toBe(true)
+
+    // 三流 with 凡品上品 (MA-163) should fail
+    const resSanliu = validateAllRegisteredQuests([
+      mkSyntheticQuest(
+        'QST-TEST-SANLIU',
+        '三流上品',
+        { neigong: 'MA-179', move1: 'MA-163' },
+        [
+          { artId: 'MA-179', level: 2 },
+          { artId: 'MA-163', level: 2 },
+        ],
+      ),
+    ])
+    expect(resSanliu.valid).toBe(false)
+    expect(resSanliu.errors.some((e) => e.includes('凡品下品/中品'))).toBe(true)
+
+    // 二流 with 良品上品 (MA-103) or 地阶 (MA-046) should fail
+    const resErliu = validateAllRegisteredQuests([
+      mkSyntheticQuest(
+        'QST-TEST-ERLIU',
+        '二流上品',
+        { neigong: 'MA-103', move1: 'MA-046' },
+        [
+          { artId: 'MA-103', level: 3 },
+          { artId: 'MA-046', level: 3 },
+        ],
+      ),
+    ])
+    expect(resErliu.valid).toBe(false)
+    expect(resErliu.errors.filter((e) => e.includes('良品中品及以下')).length).toBe(2)
+  })
+
+  it('heals player after every round and ramps 三流下品 -> 三流中品 -> 三流上品 in Huashan Botai Division (QST-SECT-05-02)', async () => {
+    await preloadAllQuestScenes()
+    const scenes = getLoadedQuestScenes('QST-SECT-05-02')
+    expect(scenes).toBeDefined()
+    const rounds = [
+      { sceneId: 'scene_hsq02_04', expectedRealm: '三流下品' },
+      { sceneId: 'scene_hsq02_06', expectedRealm: '三流中品' },
+      { sceneId: 'scene_hsq02_09', expectedRealm: '三流上品' },
+    ]
+    for (const r of rounds) {
+      const sc = scenes?.[r.sceneId]
+      const combat = sc?.choices
+        ?.flatMap((c) => c.effects)
+        .find((e) => e.type === 'startCombat')
+      expect(combat?.type).toBe('startCombat')
+      if (combat?.type === 'startCombat') {
+        expect(combat.opponent.kind).toBe('custom')
+        if (combat.opponent.kind === 'custom') {
+          expect(combat.opponent.npc.realm).toBe(r.expectedRealm)
+        }
+        expect(
+          combat.onWin.some(
+            (e) => e.type === 'healPlayer' && e.hpPct === 100 && e.mpPct === 100,
+          ),
+        ).toBe(true)
+      }
+    }
+  })
 })

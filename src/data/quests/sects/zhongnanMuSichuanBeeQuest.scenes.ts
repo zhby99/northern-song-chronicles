@@ -26,18 +26,8 @@ function buildQingchengThugNpc(): NodeNpc {
     talk: '“青城山崖的紫雪断肠花，岂容你这外乡小辈私自采走！留下药匣，饶你不死！”',
     stats: { hp: 1820, mp: 1520, agi: 55, res: 38 },
     talents: { bone: 68, comprehension: 66, charm: 50 },
-    equippedArts: {
-      neigong: 'MA-228',
-      qinggong: 'MA-158',
-      move1: 'MA-187',
-      move2: 'MA-188',
-    },
-    learnedArts: [
-      { artId: 'MA-228', level: 7 },
-      { artId: 'MA-158', level: 6 },
-      { artId: 'MA-187', level: 7 },
-      { artId: 'MA-188', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-228', move1: 'MA-187', move2: 'MA-188' },
+    learnedArts: [{ artId: 'MA-228', level: 7 }, { artId: 'MA-187', level: 7 }, { artId: 'MA-188', level: 7 }],
   })
 }
 

@@ -44,13 +44,8 @@ function buildBloodBladeBoss(): NodeNpc {
     talk: '“哈哈哈哈！少林方丈自己破了色戒，还装什么大慈大悲？今日老子便在佛祖眼皮底下宰了那妖妇母子，让天下人看看少林的笑话！”',
     stats: { hp: 5650, mp: 5200, agi: 84, res: 76 },
     talents: { bone: 86, comprehension: 78, charm: 32 },
-    equippedArts: { neigong: 'MA-026', qinggong: 'MA-097', move1: 'MA-091', move2: 'MA-107' },
-    learnedArts: [
-      { artId: 'MA-026', level: 9 },
-      { artId: 'MA-097', level: 9 },
-      { artId: 'MA-091', level: 10 },
-      { artId: 'MA-107', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-026', move1: 'MA-091', move2: 'MA-107' },
+    learnedArts: [{ artId: 'MA-026', level: 9 }, { artId: 'MA-091', level: 10 }, { artId: 'MA-107', level: 9 }],
   })
 }
 
@@ -68,13 +63,8 @@ function buildYinClawBoss(): NodeNpc {
     talk: '“少林小辈莫挡路！叶二娘当年杀过老夫的侄儿，今日趁乱讨债，顺便拆了你们少林的牌匾！”',
     stats: { hp: 4720, mp: 4380, agi: 81, res: 71 },
     talents: { bone: 80, comprehension: 74, charm: 26 },
-    equippedArts: { neigong: 'MA-081', qinggong: 'MA-097', move1: 'MA-055', move2: 'MA-065' },
-    learnedArts: [
-      { artId: 'MA-081', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-055', level: 9 },
-      { artId: 'MA-065', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-081', move1: 'MA-055', move2: 'MA-065' },
+    learnedArts: [{ artId: 'MA-081', level: 8 }, { artId: 'MA-055', level: 9 }, { artId: 'MA-065', level: 9 }],
   })
 }
 

@@ -53,13 +53,8 @@ function buildRemnantBandit1(): NodeNpc {
     talk: '“锯断这条铁索，叫华山那群小道士连人带石匠一道摔成肉泥！”',
     stats: { hp: 280, mp: 100, agi: 17, res: 10 },
     talents: { bone: 40, comprehension: 28, charm: 20 },
-    equippedArts: { neigong: 'MA-199', qinggong: 'MA-218', move1: 'MA-189', move2: 'MA-186' },
-    learnedArts: [
-      { artId: 'MA-199', level: 2 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-189', level: 2 },
-      { artId: 'MA-186', level: 1 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-189', move2: 'MA-186' },
+    learnedArts: [{ artId: 'MA-199', level: 2 }, { artId: 'MA-189', level: 2 }, { artId: 'MA-186', level: 1 }],
   })
 }
 
@@ -77,13 +72,8 @@ function buildRemnantBandit2(): NodeNpc {
     talk: '“雾这么大，石阶又滑，咱哥俩前后夹击，把这外门娃子推下万丈深渊！”',
     stats: { hp: 295, mp: 110, agi: 19, res: 11 },
     talents: { bone: 41, comprehension: 30, charm: 21 },
-    equippedArts: { neigong: 'MA-199', qinggong: 'MA-218', move1: 'MA-209', move2: 'MA-189' },
-    learnedArts: [
-      { artId: 'MA-199', level: 2 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-209', level: 2 },
-      { artId: 'MA-189', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-209', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-199', level: 2 }, { artId: 'MA-209', level: 2 }, { artId: 'MA-189', level: 2 }],
   })
 }
 
@@ -101,20 +91,8 @@ function buildBanditLeader(): NodeNpc {
     talk: '“潼关官兵与你们华山派端了老子山寨，今日老子便拿苍龙岭这十来条人命祭旗！”',
     stats: { hp: 460, mp: 200, agi: 25, res: 15 },
     talents: { bone: 50, comprehension: 36, charm: 24 },
-    equippedArts: {
-      neigong: 'MA-229',
-      qinggong: 'MA-218',
-      move1: 'MA-209',
-      move2: 'MA-189',
-      move3: 'MA-186',
-    },
-    learnedArts: [
-      { artId: 'MA-229', level: 3 },
-      { artId: 'MA-218', level: 3 },
-      { artId: 'MA-209', level: 3 },
-      { artId: 'MA-189', level: 3 },
-      { artId: 'MA-186', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-209', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-238', level: 3 }, { artId: 'MA-209', level: 3 }, { artId: 'MA-189', level: 3 }],
   })
 }
 

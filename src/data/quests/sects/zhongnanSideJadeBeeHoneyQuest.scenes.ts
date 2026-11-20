@@ -24,16 +24,8 @@ function buildQinlingBear(): NodeNpc {
     talk: '“吼——！！”黑熊人立而起，巨掌带着劲风朝蜂箱扑来！',
     stats: { hp: 520, mp: 180, agi: 26, res: 24 },
     talents: { bone: 68, comprehension: 20, charm: 10 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-157',
-      move1: 'MA-106',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 3 },
-      { artId: 'MA-157', level: 2 },
-      { artId: 'MA-106', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-180', qinggong: 'MA-197', move1: 'MA-183' },
+    learnedArts: [{ artId: 'MA-180', level: 3 }, { artId: 'MA-197', level: 2 }, { artId: 'MA-183', level: 3 }],
   })
 }
 
@@ -49,18 +41,8 @@ function buildBeeThief(): NodeNpc {
     talk: '“嘿嘿，终南玉蜂蜂王在长安黑市能卖三百贯！小道士休要多管闲事，吃我一把迷烟砂！”',
     stats: { hp: 620, mp: 320, agi: 34, res: 26 },
     talents: { bone: 52, comprehension: 56, charm: 38 },
-    equippedArts: {
-      neigong: 'MA-099',
-      qinggong: 'MA-157',
-      move1: 'MA-176',
-      move2: 'MA-131',
-    },
-    learnedArts: [
-      { artId: 'MA-099', level: 4 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-176', level: 4 },
-      { artId: 'MA-131', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-196', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-181', level: 4 }, { artId: 'MA-196', level: 4 }, { artId: 'MA-189', level: 3 }],
   })
 }
 

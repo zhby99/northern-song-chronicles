@@ -27,18 +27,8 @@ function buildJoyousDemonMonkBoss(): NodeNpc {
     talk: '“哈哈哈！少林寺的戒律黑铁法牌？正好拿来给本座垫酒壶！本座一身闭穴邪功刀枪不入，点穴手法对我屁用没有，小和尚你来试试看啊！”',
     stats: { hp: 3480, mp: 2300, agi: 72, res: 68 },
     talents: { bone: 90, comprehension: 80, charm: 42 },
-    equippedArts: {
-      neigong: 'MA-080',
-      qinggong: 'MA-158',
-      move1: 'MA-072',
-      move2: 'MA-244',
-    },
-    learnedArts: [
-      { artId: 'MA-080', level: 8 },
-      { artId: 'MA-158', level: 7 },
-      { artId: 'MA-072', level: 8 },
-      { artId: 'MA-244', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-080', move1: 'MA-072', move2: 'MA-244' },
+    learnedArts: [{ artId: 'MA-080', level: 8 }, { artId: 'MA-072', level: 8 }, { artId: 'MA-244', level: 8 }],
   })
 }
 

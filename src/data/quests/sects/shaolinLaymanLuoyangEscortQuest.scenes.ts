@@ -44,13 +44,8 @@ function buildWaterBanditLead(): NodeNpc {
     talk: '“金刀王家铸的千斤紫金佛，熔了够弟兄们吃喝三辈子！秃驴与护镖的都给老子滚下伊水喂鱼！”',
     stats: { hp: 1320, mp: 920, agi: 45, res: 29 },
     talents: { bone: 62, comprehension: 44, charm: 26 },
-    equippedArts: { neigong: 'MA-104', qinggong: 'MA-120', move1: 'MA-151', move2: 'MA-145' },
-    learnedArts: [
-      { artId: 'MA-104', level: 5 },
-      { artId: 'MA-120', level: 5 },
-      { artId: 'MA-151', level: 5 },
-      { artId: 'MA-145', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-151', move2: 'MA-145' },
+    learnedArts: [{ artId: 'MA-121', level: 5 }, { artId: 'MA-151', level: 5 }, { artId: 'MA-145', level: 5 }],
   })
 }
 
@@ -68,13 +63,8 @@ function buildWaterBanditMate(): NodeNpc {
     talk: '“大哥截前车，俺来斩断马缰！休叫佛像过了龙门桥！”',
     stats: { hp: 960, mp: 620, agi: 41, res: 24 },
     talents: { bone: 56, comprehension: 38, charm: 22 },
-    equippedArts: { neigong: 'MA-104', qinggong: 'MA-120', move1: 'MA-134', move2: 'MA-144' },
-    learnedArts: [
-      { artId: 'MA-104', level: 4 },
-      { artId: 'MA-120', level: 4 },
-      { artId: 'MA-134', level: 4 },
-      { artId: 'MA-144', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-179', move1: 'MA-192', move2: 'MA-182' },
+    learnedArts: [{ artId: 'MA-179', level: 4 }, { artId: 'MA-192', level: 4 }, { artId: 'MA-182', level: 4 }],
   })
 }
 
@@ -92,13 +82,8 @@ function buildTuobaLieBoss(): NodeNpc {
     talk: '“大宋和尚也敢挡我党项铁骑的弯刀？这尊紫金佛像，本百夫长便替兴庆府一品堂笑纳了！”',
     stats: { hp: 1880, mp: 1480, agi: 53, res: 39 },
     talents: { bone: 70, comprehension: 56, charm: 40 },
-    equippedArts: { neigong: 'MA-245', qinggong: 'MA-139', move1: 'MA-133', move2: 'MA-135' },
-    learnedArts: [
-      { artId: 'MA-245', level: 6 },
-      { artId: 'MA-139', level: 6 },
-      { artId: 'MA-133', level: 7 },
-      { artId: 'MA-135', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-243', move1: 'MA-133', move2: 'MA-135' },
+    learnedArts: [{ artId: 'MA-243', level: 6 }, { artId: 'MA-133', level: 7 }, { artId: 'MA-135', level: 6 }],
   })
 }
 
@@ -116,13 +101,8 @@ function buildXixiaScout(): NodeNpc {
     talk: '“百夫长莫与宋人废话，斩了这护法小将，立刻拖走佛车！”',
     stats: { hp: 1460, mp: 1080, agi: 48, res: 33 },
     talents: { bone: 64, comprehension: 48, charm: 32 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-119', move1: 'MA-133', move2: 'MA-115' },
-    learnedArts: [
-      { artId: 'MA-103', level: 5 },
-      { artId: 'MA-119', level: 5 },
-      { artId: 'MA-133', level: 6 },
-      { artId: 'MA-115', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-133', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-133', level: 6 }, { artId: 'MA-131', level: 5 }],
   })
 }
 

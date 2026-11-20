@@ -51,13 +51,8 @@ function buildPirateVanguardNpc(): NodeNpc {
     talk: '“三更半夜敢驾孤舟闯我九曲苇荡？勾穿你的琵琶骨喂黄河王八！”',
     stats: { hp: 1080, mp: 820, agi: 45, res: 29 },
     talents: { bone: 56, comprehension: 42, charm: 26 },
-    equippedArts: { neigong: 'MA-104', qinggong: 'MA-197', move1: 'MA-237', move2: 'MA-193' },
-    learnedArts: [
-      { artId: 'MA-104', level: 3 },
-      { artId: 'MA-197', level: 3 },
-      { artId: 'MA-237', level: 4 },
-      { artId: 'MA-193', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-237', move2: 'MA-193' },
+    learnedArts: [{ artId: 'MA-121', level: 3 }, { artId: 'MA-237', level: 4 }, { artId: 'MA-193', level: 4 }],
     equipped: { weapon: 'WPN-078' },
     questBadgeLabel: '水寨先锋',
   })
@@ -75,13 +70,8 @@ function buildPirateDeputyNpc(): NodeNpc {
     talk: '“华山旱鸭子也敢在摇晃船舷上逞剑快？看你站不站得稳一合！”',
     stats: { hp: 1290, mp: 1020, agi: 48, res: 32 },
     talents: { bone: 62, comprehension: 46, charm: 28 },
-    equippedArts: { neigong: 'MA-104', qinggong: 'MA-138', move1: 'MA-237', move2: 'MA-131' },
-    learnedArts: [
-      { artId: 'MA-104', level: 4 },
-      { artId: 'MA-138', level: 4 },
-      { artId: 'MA-237', level: 5 },
-      { artId: 'MA-131', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-237', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-121', level: 4 }, { artId: 'MA-237', level: 5 }, { artId: 'MA-131', level: 4 }],
     equipped: { weapon: 'WPN-081' },
     questBadgeLabel: '水寨二当家',
   })
@@ -99,13 +89,8 @@ function buildPirateChiefNpc(): NodeNpc {
     talk: '“破我三道水栅！吃老子一记翻江分水大枪，连船带人给你砸沉河底！”',
     stats: { hp: 1420, mp: 1150, agi: 50, res: 34 },
     talents: { bone: 68, comprehension: 50, charm: 25 },
-    equippedArts: { neigong: 'MA-104', qinggong: 'MA-139', move1: 'MA-093', move2: 'MA-237' },
-    learnedArts: [
-      { artId: 'MA-104', level: 5 },
-      { artId: 'MA-139', level: 4 },
-      { artId: 'MA-093', level: 4 },
-      { artId: 'MA-237', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-121', move1: 'MA-154', move2: 'MA-237' },
+    learnedArts: [{ artId: 'MA-121', level: 5 }, { artId: 'MA-154', level: 4 }, { artId: 'MA-237', level: 5 }],
     equipped: { weapon: 'WPN-027' },
     questBadgeLabel: '连环寨主',
   })

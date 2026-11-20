@@ -40,8 +40,8 @@ function buildTaihangBanditRobberNpc(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     sectRank: 3,
     sectRankLabel: '山寨悍匪头目',
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-151', move2: 'MA-124', move3: 'MA-131', move4: 'MA-189' },
-    learnedArts: [{ artId: 'MA-103', level: 5 }, { artId: 'MA-157', level: 6 }, { artId: 'MA-151', level: 7 }, { artId: 'MA-124', level: 7 }, { artId: 'MA-131', level: 6 }, { artId: 'MA-189', level: 7 }],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-151', move2: 'MA-124' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-151', level: 7 }, { artId: 'MA-124', level: 7 }],
     equipped: { weapon: 'WPN-076', armor: 'ARM-039', shoes: 'BOT-025', bow: 'BOW-026', accessory1: 'ACC-054', accessory2: 'ACC-035', mount: 'MNT-021' },
     talk: '“此山是我开，此树是我栽！管你是不是开封府的鹰犬，留下买路财与身上腰牌！”',
   })

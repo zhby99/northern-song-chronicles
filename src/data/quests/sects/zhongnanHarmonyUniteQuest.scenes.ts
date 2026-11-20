@@ -26,13 +26,8 @@ function buildYipinAssassinBoss(): NodeNpc {
     talk: '“嘿嘿！王重楼与林朝瑶两个老怪物正在运功疗伤，此刻正是取他们项上人头的天赐良机！挡路小辈，纳命来！”',
     stats: { hp: 3850, mp: 3500, agi: 77, res: 66 },
     talents: { bone: 78, comprehension: 72, charm: 34 },
-    equippedArts: { neigong: 'MA-081', qinggong: 'MA-097', move1: 'MA-055', move2: 'MA-065' },
-    learnedArts: [
-      { artId: 'MA-081', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-055', level: 8 },
-      { artId: 'MA-065', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-081', move1: 'MA-055', move2: 'MA-065' },
+    learnedArts: [{ artId: 'MA-081', level: 8 }, { artId: 'MA-055', level: 8 }, { artId: 'MA-065', level: 8 }],
   })
 }
 

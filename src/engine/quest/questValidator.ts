@@ -15,6 +15,23 @@ import type {
 } from '../../types/quest'
 import { getLoadedQuestScenes } from './sceneRegistry'
 
+const MAX_TEMP_QUEST_NPC_ARTS = 3
+
+const MARTIAL_ART_TIER_RANK: Record<string, number> = {
+  凡品下品: 1,
+  凡品中品: 2,
+  凡品上品: 3,
+  良品下品: 4,
+  良品中品: 5,
+  良品上品: 6,
+  地阶下品: 7,
+  地阶中品: 8,
+  地阶上品: 9,
+  天阶下品: 10,
+  天阶中品: 11,
+  天阶上品: 12,
+}
+
 /**
  * 静态任务链全量引用校验器：
  * 确保所有声明式任务链中的地区、建筑、子景点、NPC、门派、物品、武学与步骤跳转 ID 100% 合法无悬空。
@@ -30,6 +47,54 @@ export function validateAllRegisteredQuests(
       errors.push(`[${q.id}] 任务 ID 重复定义`)
     }
     byId.set(q.id, q)
+  }
+
+  const checkTempQuestNpcLoadout = (
+    ctxPath: string,
+    npcName: string,
+    realm: string | undefined,
+    equippedArts?: Partial<Record<'neigong' | 'qinggong' | 'move1' | 'move2' | 'move3' | 'move4', string | null>>,
+    learnedArts?: Array<{ artId: string; level: number }>,
+  ) => {
+    const artIds = new Set<string>()
+    if (equippedArts) {
+      for (const artId of Object.values(equippedArts)) {
+        if (artId) artIds.add(artId)
+      }
+    }
+    if (learnedArts) {
+      for (const la of learnedArts) {
+        if (la.artId) artIds.add(la.artId)
+      }
+    }
+
+    if (artIds.size > MAX_TEMP_QUEST_NPC_ARTS) {
+      errors.push(
+        `${ctxPath}(${npcName}): 任务临时 NPC 武学数量超限（${artIds.size} > ${MAX_TEMP_QUEST_NPC_ARTS}）`,
+      )
+    }
+
+    const realmText = realm ?? ''
+    const isSanliuOrLower = realmText.startsWith('不入流') || realmText.startsWith('三流')
+    const isErliu = realmText.startsWith('二流')
+
+    for (const artId of artIds) {
+      const art = MARTIAL_ART_DB_MAP[artId]
+      if (!art) {
+        errors.push(`${ctxPath}(${npcName}): 未知的武学 artId "${artId}"`)
+        continue
+      }
+      const rank = MARTIAL_ART_TIER_RANK[art.fullTier] ?? 0
+      if (isSanliuOrLower && rank > 2) {
+        errors.push(
+          `${ctxPath}(${npcName}·${realmText}): 三流/不入流任务临时 NPC 仅可配凡品下品/中品武学，禁止装配 ${artId}(${art.name}·${art.fullTier})`,
+        )
+      } else if (isErliu && rank > 5) {
+        errors.push(
+          `${ctxPath}(${npcName}·${realmText}): 二流任务临时 NPC 仅可配良品中品及以下武学，禁止装配 ${artId}(${art.name}·${art.fullTier})`,
+        )
+      }
+    }
   }
 
   const checkLocation = (
@@ -262,13 +327,13 @@ export function validateAllRegisteredQuests(
             `${ctxPath}.spawnDynamicActor(${eff.actor.actorId}): 未知的 factionId "${eff.actor.factionId}"`,
           )
         }
-        eff.actor.learnedArts?.forEach((la) => {
-          if (!MARTIAL_ART_DB_MAP[la.artId]) {
-            errors.push(
-              `${ctxPath}.spawnDynamicActor(${eff.actor.actorId}): 未知的武学 artId "${la.artId}"`,
-            )
-          }
-        })
+        checkTempQuestNpcLoadout(
+          `${ctxPath}.spawnDynamicActor(${eff.actor.actorId})`,
+          eff.actor.name,
+          eff.actor.realm,
+          eff.actor.equippedArts,
+          eff.actor.learnedArts,
+        )
         break
       case 'teleportPlayer':
         checkLocation(
@@ -284,15 +349,39 @@ export function validateAllRegisteredQuests(
         }
         if (eff.opponent.kind === 'npc' && !NPC_DB_MAP[eff.opponent.npcId]) {
           errors.push(`${ctxPath}.startCombat: 未知的对手 npcId "${eff.opponent.npcId}"`)
+        } else if (eff.opponent.kind === 'custom') {
+          checkTempQuestNpcLoadout(
+            `${ctxPath}.startCombat.opponent`,
+            eff.opponent.npc.name,
+            eff.opponent.npc.realm,
+            eff.opponent.npc.equippedArts,
+            eff.opponent.npc.learnedArts,
+          )
         }
         eff.extraOpponents?.forEach((eo, eoi) => {
           if (eo.kind === 'npc' && !NPC_DB_MAP[eo.npcId]) {
             errors.push(`${ctxPath}.startCombat.extraOpponents[${eoi}]: 未知的对手 npcId "${eo.npcId}"`)
+          } else if (eo.kind === 'custom') {
+            checkTempQuestNpcLoadout(
+              `${ctxPath}.startCombat.extraOpponents[${eoi}]`,
+              eo.npc.name,
+              eo.npc.realm,
+              eo.npc.equippedArts,
+              eo.npc.learnedArts,
+            )
           }
         })
         eff.allies?.forEach((al, ali) => {
           if (al.kind === 'npc' && !NPC_DB_MAP[al.npcId]) {
             errors.push(`${ctxPath}.startCombat.allies[${ali}]: 未知的助战同伴 npcId "${al.npcId}"`)
+          } else if (al.kind === 'custom') {
+            checkTempQuestNpcLoadout(
+              `${ctxPath}.startCombat.allies[${ali}]`,
+              al.npc.name,
+              al.npc.realm,
+              al.npc.equippedArts,
+              al.npc.learnedArts,
+            )
           }
         })
         eff.onWin.forEach((we, wi) => checkEffect(`${ctxPath}.startCombat.onWin[${wi}]`, we, ownerQuestId))

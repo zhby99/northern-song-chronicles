@@ -44,18 +44,8 @@ function buildShaOneLeader(): NodeNpc {
     talk: '“砸碎药王丹炉！少林秃驴今夜便全数毒发身亡！”',
     stats: { hp: 3120, mp: 2780, agi: 74, res: 56 },
     talents: { bone: 86, comprehension: 78, charm: 34 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-098',
-      move1: 'MA-133',
-      move2: 'MA-046',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 8 },
-      { artId: 'MA-098', level: 8 },
-      { artId: 'MA-133', level: 8 },
-      { artId: 'MA-046', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-133', move2: 'MA-046' },
+    learnedArts: [{ artId: 'MA-245', level: 8 }, { artId: 'MA-133', level: 8 }, { artId: 'MA-046', level: 8 }],
   })
 }
 
@@ -73,18 +63,8 @@ function buildShaTwoGhost(): NodeNpc {
     talk: '“我绕后掀翻丹炉，大哥拖住这小和尚！”',
     stats: { hp: 2560, mp: 2350, agi: 76, res: 50 },
     talents: { bone: 80, comprehension: 80, charm: 36 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-097',
-      move1: 'MA-084',
-      move2: 'MA-085',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 7 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-084', level: 8 },
-      { artId: 'MA-085', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-084', move2: 'MA-085' },
+    learnedArts: [{ artId: 'MA-245', level: 7 }, { artId: 'MA-084', level: 8 }, { artId: 'MA-085', level: 7 }],
   })
 }
 
@@ -102,18 +82,8 @@ function buildShaThreeScorpion(): NodeNpc {
     talk: '“把悲酥毒粉泼进药炉里，叫他们炼出一炉穿肠剧毒！”',
     stats: { hp: 2380, mp: 2480, agi: 75, res: 48 },
     talents: { bone: 78, comprehension: 82, charm: 62 },
-    equippedArts: {
-      neigong: 'MA-231',
-      qinggong: 'MA-097',
-      move1: 'MA-065',
-      move2: 'MA-095',
-    },
-    learnedArts: [
-      { artId: 'MA-231', level: 8 },
-      { artId: 'MA-097', level: 8 },
-      { artId: 'MA-065', level: 7 },
-      { artId: 'MA-095', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-231', move1: 'MA-065', move2: 'MA-095' },
+    learnedArts: [{ artId: 'MA-231', level: 8 }, { artId: 'MA-065', level: 7 }, { artId: 'MA-095', level: 8 }],
   })
 }
 

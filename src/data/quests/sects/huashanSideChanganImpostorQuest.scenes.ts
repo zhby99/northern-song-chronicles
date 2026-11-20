@@ -53,13 +53,8 @@ function buildImpostorThug1(): NodeNpc {
     talk: '“柳爷正数银子呢，哪来不懂规矩的野猫敢闯废园！”',
     stats: { hp: 820, mp: 360, agi: 36, res: 22 },
     talents: { bone: 56, comprehension: 44, charm: 30 },
-    equippedArts: { neigong: 'MA-229', qinggong: 'MA-198', move1: 'MA-151', move2: 'MA-132' },
-    learnedArts: [
-      { artId: 'MA-229', level: 5 },
-      { artId: 'MA-198', level: 4 },
-      { artId: 'MA-151', level: 4 },
-      { artId: 'MA-132', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-229', move1: 'MA-151', move2: 'MA-132' },
+    learnedArts: [{ artId: 'MA-229', level: 5 }, { artId: 'MA-151', level: 4 }, { artId: 'MA-132', level: 4 }],
   })
 }
 
@@ -77,13 +72,8 @@ function buildImpostorThug2(): NodeNpc {
     talk: '“管他是真华山还是假华山，进了这座院子就别想活着出去！”',
     stats: { hp: 860, mp: 380, agi: 38, res: 24 },
     talents: { bone: 58, comprehension: 45, charm: 32 },
-    equippedArts: { neigong: 'MA-229', qinggong: 'MA-198', move1: 'MA-146', move2: 'MA-151' },
-    learnedArts: [
-      { artId: 'MA-229', level: 5 },
-      { artId: 'MA-198', level: 4 },
-      { artId: 'MA-146', level: 4 },
-      { artId: 'MA-151', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-229', move1: 'MA-146', move2: 'MA-151' },
+    learnedArts: [{ artId: 'MA-229', level: 5 }, { artId: 'MA-146', level: 4 }, { artId: 'MA-151', level: 4 }],
   })
 }
 
@@ -101,20 +91,8 @@ function buildLiuCanyangBoss(): NodeNpc {
     talk: '“老子偷学过几年华山旧谱，杀完人留个华山名号，官府和苦主谁敢查到我头上？今日你也一并留下吧！”',
     stats: { hp: 1620, mp: 840, agi: 56, res: 36 },
     talents: { bone: 70, comprehension: 66, charm: 48 },
-    equippedArts: {
-      neigong: 'MA-100',
-      qinggong: 'MA-138',
-      move1: 'MA-147',
-      move2: 'MA-128',
-      move3: 'MA-110',
-    },
-    learnedArts: [
-      { artId: 'MA-100', level: 6 },
-      { artId: 'MA-138', level: 6 },
-      { artId: 'MA-147', level: 6 },
-      { artId: 'MA-128', level: 6 },
-      { artId: 'MA-110', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-159', move1: 'MA-147', move2: 'MA-128' },
+    learnedArts: [{ artId: 'MA-159', level: 6 }, { artId: 'MA-147', level: 6 }, { artId: 'MA-128', level: 6 }],
   })
 }
 

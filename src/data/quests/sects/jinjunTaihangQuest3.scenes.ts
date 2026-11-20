@@ -30,8 +30,8 @@ function buildTaihangNightSentry1(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     sectRank: 3,
     sectRankLabel: '暗哨铁卫统领',
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-132', move2: 'MA-151', move3: 'MA-124', move4: 'MA-131' },
-    learnedArts: [{ artId: 'MA-103', level: 6 }, { artId: 'MA-157', level: 6 }, { artId: 'MA-132', level: 7 }, { artId: 'MA-151', level: 7 }, { artId: 'MA-124', level: 6 }, { artId: 'MA-131', level: 7 }],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-132', move2: 'MA-151' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-132', level: 7 }, { artId: 'MA-151', level: 7 }],
     equipped: { weapon: 'WPN-043', armor: 'ARM-026', shoes: 'BOT-012', bow: 'BOW-013', accessory1: 'ACC-023', accessory2: 'ACC-026', mount: 'MNT-012' },
     talk: '“后崖暗道怎会有黑影摸上来？！裴兄弟快敲警世铜锣禀报大当家，老子剁了这厮！”',
   })
@@ -64,8 +64,8 @@ function buildTaihangNightSentry2(): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     sectRank: 3,
     sectRankLabel: '暗哨巡崖头目',
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-144', move2: 'MA-131', move3: 'MA-151', move4: 'MA-189' },
-    learnedArts: [{ artId: 'MA-103', level: 5 }, { artId: 'MA-157', level: 6 }, { artId: 'MA-144', level: 6 }, { artId: 'MA-131', level: 6 }, { artId: 'MA-151', level: 6 }, { artId: 'MA-189', level: 6 }],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-144', move2: 'MA-131' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-144', level: 6 }, { artId: 'MA-131', level: 6 }],
     equipped: { weapon: 'WPN-044', armor: 'ARM-025', shoes: 'BOT-012', bow: 'BOW-013', accessory1: 'ACC-023', accessory2: 'ACC-026', mount: 'MNT-013' },
     talk: '“休想过去！只要这面铜锣一响，聚义厅三百死士瞬息便把你们射成刺猬！”',
   })

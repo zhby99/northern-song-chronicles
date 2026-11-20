@@ -35,18 +35,8 @@ function buildJiangnanVanguardNpc(): NodeNpc {
     talk: '“听说华山气宗出剑前还要先念两句圣贤书？看爷这专削脚踝的飞燕矮身刀！”',
     stats: { hp: 820, mp: 520, agi: 41, res: 21 },
     talents: { bone: 56, comprehension: 52, charm: 40 },
-    equippedArts: {
-      neigong: 'MA-233',
-      qinggong: 'MA-218',
-      move1: 'MA-170',
-      move2: 'MA-189',
-    },
-    learnedArts: [
-      { artId: 'MA-233', level: 4 },
-      { artId: 'MA-218', level: 5 },
-      { artId: 'MA-170', level: 5 },
-      { artId: 'MA-189', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-241', move1: 'MA-189', move2: 'MA-190' },
+    learnedArts: [{ artId: 'MA-241', level: 4 }, { artId: 'MA-189', level: 5 }, { artId: 'MA-190', level: 5 }],
   })
 }
 
@@ -64,20 +54,8 @@ function buildLiuQianrenBossNpc(): NodeNpc {
     talk: '“十合？狂妄！柳某这双柳叶追风刀一息六斩，专破你们名门正派的呆板守势！”',
     stats: { hp: 1020, mp: 780, agi: 46, res: 29 },
     talents: { bone: 64, comprehension: 62, charm: 46 },
-    equippedArts: {
-      neigong: 'MA-233',
-      qinggong: 'MA-158',
-      move1: 'MA-131',
-      move2: 'MA-170',
-      move3: 'MA-132',
-    },
-    learnedArts: [
-      { artId: 'MA-233', level: 5 },
-      { artId: 'MA-158', level: 5 },
-      { artId: 'MA-131', level: 5 },
-      { artId: 'MA-170', level: 6 },
-      { artId: 'MA-132', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-233', move1: 'MA-131', move2: 'MA-170' },
+    learnedArts: [{ artId: 'MA-233', level: 5 }, { artId: 'MA-131', level: 5 }, { artId: 'MA-170', level: 6 }],
   })
 }
 

@@ -44,20 +44,8 @@ function buildZhaoKuiBoss(): NodeNpc {
     talk: '“少林小和尚多管闲事！见过老子这口断魂刀出鞘的，还没一个活过三更！”',
     stats: { hp: 820, mp: 420, agi: 37, res: 23 },
     talents: { bone: 64, comprehension: 48, charm: 28 },
-    equippedArts: {
-      neigong: 'MA-229',
-      qinggong: 'MA-218',
-      move1: 'MA-151',
-      move2: 'MA-189',
-      move3: 'MA-209',
-    },
-    learnedArts: [
-      { artId: 'MA-229', level: 5 },
-      { artId: 'MA-218', level: 5 },
-      { artId: 'MA-151', level: 5 },
-      { artId: 'MA-189', level: 5 },
-      { artId: 'MA-209', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-189', move2: 'MA-190' },
+    learnedArts: [{ artId: 'MA-238', level: 5 }, { artId: 'MA-189', level: 5 }, { artId: 'MA-190', level: 5 }],
   })
 }
 
@@ -75,18 +63,8 @@ function buildSunQiDeputy(): NodeNpc {
     talk: '“魁哥，废话少说！把这小和尚和贾通宝一并剁了喂嵩山野狼！”',
     stats: { hp: 560, mp: 260, agi: 28, res: 16 },
     talents: { bone: 54, comprehension: 38, charm: 22 },
-    equippedArts: {
-      neigong: 'MA-229',
-      qinggong: 'MA-218',
-      move1: 'MA-189',
-      move2: 'MA-209',
-    },
-    learnedArts: [
-      { artId: 'MA-229', level: 4 },
-      { artId: 'MA-218', level: 3 },
-      { artId: 'MA-189', level: 4 },
-      { artId: 'MA-209', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-189', move2: 'MA-209' },
+    learnedArts: [{ artId: 'MA-238', level: 4 }, { artId: 'MA-189', level: 4 }, { artId: 'MA-209', level: 4 }],
   })
 }
 

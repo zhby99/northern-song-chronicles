@@ -33,13 +33,8 @@ function buildRaiderVanguardNpc(): NodeNpc {
     talk: '“拿华山派四平八稳的臭剑架子来唬爷爷？一刀劈碎你的剑脊！”',
     stats: { hp: 920, mp: 680, agi: 42, res: 27 },
     talents: { bone: 58, comprehension: 38, charm: 24 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-151', move2: 'MA-189' },
-    learnedArts: [
-      { artId: 'MA-103', level: 3 },
-      { artId: 'MA-157', level: 3 },
-      { artId: 'MA-151', level: 3 },
-      { artId: 'MA-189', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-151', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-140', level: 3 }, { artId: 'MA-151', level: 3 }, { artId: 'MA-189', level: 4 }],
     equipped: { weapon: 'WPN-065' },
     questBadgeLabel: '刀匪头目',
   })
@@ -57,13 +52,8 @@ function buildRaiderBossNpc(): NodeNpc {
     talk: '“敢宰我兄弟？看爷爷这口九环恶刀把你连人带剑剁进乱葬坑！”',
     stats: { hp: 1040, mp: 760, agi: 45, res: 30 },
     talents: { bone: 64, comprehension: 42, charm: 22 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-131', move2: 'MA-151' },
-    learnedArts: [
-      { artId: 'MA-103', level: 4 },
-      { artId: 'MA-157', level: 3 },
-      { artId: 'MA-131', level: 4 },
-      { artId: 'MA-151', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-151' },
+    learnedArts: [{ artId: 'MA-140', level: 4 }, { artId: 'MA-131', level: 4 }, { artId: 'MA-151', level: 4 }],
     equipped: { weapon: 'WPN-052' },
     questBadgeLabel: '悍匪首恶',
   })

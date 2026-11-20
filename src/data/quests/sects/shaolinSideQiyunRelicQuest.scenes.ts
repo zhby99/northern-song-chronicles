@@ -35,13 +35,8 @@ function buildBasang(): NodeNpc {
     talk: '“中原小僧倒有几分脚力，竟能追上齐云塔十三层绝顶！可这佛骨舍利合该归我雪域密教供奉，今日便送你坠落古塔！”',
     stats: { hp: 1740, mp: 1480, agi: 55, res: 42 },
     talents: { bone: 70, comprehension: 56, charm: 32 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-139', move1: 'MA-107', move2: 'MA-133' },
-    learnedArts: [
-      { artId: 'MA-103', level: 6 },
-      { artId: 'MA-139', level: 5 },
-      { artId: 'MA-107', level: 6 },
-      { artId: 'MA-133', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-124', move2: 'MA-133' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-124', level: 6 }, { artId: 'MA-133', level: 6 }],
   })
 }
 

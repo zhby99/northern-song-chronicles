@@ -63,8 +63,8 @@ const QC_SALT_SPY_NPC: NodeNpc = makeQuestNpc({
     画: 0,
     辩才: 20,
   },
-  equippedArts: { move1: 'MA-171' },
-  learnedArts: [{ artId: 'MA-171', level: 1 }],
+  equippedArts: { move1: 'MA-189' },
+  learnedArts: [{ artId: 'MA-189', level: 1 }],
 })
 
 const QC_TANG_SCOUT_NPC: NodeNpc = makeQuestNpc({

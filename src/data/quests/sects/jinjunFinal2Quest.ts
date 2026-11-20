@@ -41,13 +41,8 @@ export function buildXixiaGuardGeneralNpc(): NodeNpc {
       accessory2: 'ACC-015',
       mount: 'MNT-003',
     },
-    equippedArts: { neigong: 'MA-244', qinggong: 'MA-246', move1: 'MA-075', move2: 'MA-115' },
-    learnedArts: [
-      { artId: 'MA-244', level: 8 },
-      { artId: 'MA-246', level: 8 },
-      { artId: 'MA-075', level: 8 },
-      { artId: 'MA-115', level: 8 },
-    ],
+    equippedArts: { neigong: 'MA-244', move1: 'MA-075', move2: 'MA-115' },
+    learnedArts: [{ artId: 'MA-244', level: 8 }, { artId: 'MA-075', level: 8 }, { artId: 'MA-115', level: 8 }],
   })
 }
 

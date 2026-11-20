@@ -52,13 +52,8 @@ function buildSwordSlaveCaptainNpc(index: 1 | 2 | 3): NodeNpc {
     talk: talks[index],
     stats: { hp: 2480, mp: 2220, agi: 60, res: 47 },
     talents: { bone: 74, comprehension: 66, charm: 30 },
-    equippedArts: { neigong: 'MA-078', qinggong: 'MA-056', move1: 'MA-067', move2: 'MA-112' },
-    learnedArts: [
-      { artId: 'MA-078', level: 6 },
-      { artId: 'MA-056', level: 6 },
-      { artId: 'MA-067', level: 7 },
-      { artId: 'MA-112', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-078', move1: 'MA-067', move2: 'MA-112' },
+    learnedArts: [{ artId: 'MA-078', level: 6 }, { artId: 'MA-067', level: 7 }, { artId: 'MA-112', level: 7 }],
     equipped: { weapon: 'WPN-012' },
     questBadgeLabel: '金牌剑奴',
   })
@@ -76,13 +71,8 @@ function buildHelianDuanyueNpc(): NodeNpc {
     talk: '“本座这口百斤玄铁重剑，已斩断关西三十六柄名锋！华山小辈，你拿什么挡我一剑崩山？！”',
     stats: { hp: 5860, mp: 5420, agi: 84, res: 76 },
     talents: { bone: 96, comprehension: 86, charm: 36 },
-    equippedArts: { neigong: 'MA-078', qinggong: 'MA-056', move1: 'MA-075', move2: 'MA-067' },
-    learnedArts: [
-      { artId: 'MA-078', level: 10 },
-      { artId: 'MA-056', level: 9 },
-      { artId: 'MA-075', level: 10 },
-      { artId: 'MA-067', level: 10 },
-    ],
+    equippedArts: { neigong: 'MA-078', move1: 'MA-075', move2: 'MA-067' },
+    learnedArts: [{ artId: 'MA-078', level: 10 }, { artId: 'MA-075', level: 10 }, { artId: 'MA-067', level: 10 }],
     equipped: { weapon: 'WPN-001' },
     questBadgeLabel: '断剑魔陀',
   })

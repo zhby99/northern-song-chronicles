@@ -33,11 +33,8 @@ function buildXishiBully(): NodeNpc {
     talk: '“哪来的不知死活的毛头小子，也敢管爷们在草堂讨茶钱的闲事！”',
     stats: { hp: 230, mp: 80, agi: 16, res: 10 },
     talents: { bone: 35, comprehension: 30, charm: 25 },
-    equippedArts: { neigong: 'MA-234', move1: 'MA-184' },
-    learnedArts: [
-      { artId: 'MA-234', level: 1 },
-      { artId: 'MA-184', level: 1 },
-    ],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-184' },
+    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-184', level: 1 }],
   })
 }
 
@@ -53,11 +50,8 @@ function buildBeeBandit(): NodeNpc {
     talk: '“终南山玉蜂浆一罐能换二十贯钱，小道姑识相的快滚开！”',
     stats: { hp: 310, mp: 110, agi: 19, res: 12 },
     talents: { bone: 40, comprehension: 34, charm: 28 },
-    equippedArts: { neigong: 'MA-234', move1: 'MA-184' },
-    learnedArts: [
-      { artId: 'MA-234', level: 1 },
-      { artId: 'MA-184', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-180', move1: 'MA-184' },
+    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-184', level: 2 }],
   })
 }
 

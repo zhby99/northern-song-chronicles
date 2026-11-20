@@ -44,20 +44,8 @@ function buildLangdama(): NodeNpc {
     talk: '“中原禅徒口舌虽利，且看你能不能接住贫僧这声西域大自在梵音狮吼！”',
     stats: { hp: 3180, mp: 2960, agi: 66, res: 59 },
     talents: { bone: 76, comprehension: 82, charm: 55 },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-139',
-      move1: 'MA-063',
-      move2: 'MA-107',
-      move3: 'MA-073',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 8 },
-      { artId: 'MA-139', level: 7 },
-      { artId: 'MA-063', level: 8 },
-      { artId: 'MA-107', level: 8 },
-      { artId: 'MA-073', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-063', move2: 'MA-107' },
+    learnedArts: [{ artId: 'MA-245', level: 8 }, { artId: 'MA-063', level: 8 }, { artId: 'MA-107', level: 8 }],
   })
 }
 

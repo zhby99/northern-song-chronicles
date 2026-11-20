@@ -35,20 +35,8 @@ function buildIronBackBear(): NodeNpc {
     talk: '“秃驴少管闲事！我家东家出大价钱要这幅唐代武僧拓本，识相的乖乖让开，免得吃爷爷一记铁砂掌！”',
     stats: { hp: 660, mp: 320, agi: 31, res: 21 },
     talents: { bone: 58, comprehension: 38, charm: 24 },
-    equippedArts: {
-      neigong: 'MA-229',
-      qinggong: 'MA-218',
-      move1: 'MA-186',
-      move2: 'MA-209',
-      move3: 'MA-204',
-    },
-    learnedArts: [
-      { artId: 'MA-229', level: 4 },
-      { artId: 'MA-218', level: 3 },
-      { artId: 'MA-186', level: 4 },
-      { artId: 'MA-209', level: 3 },
-      { artId: 'MA-204', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-186', move2: 'MA-209' },
+    learnedArts: [{ artId: 'MA-238', level: 4 }, { artId: 'MA-186', level: 4 }, { artId: 'MA-209', level: 3 }],
   })
 }
 
@@ -66,13 +54,8 @@ function buildMerchantThug(): NodeNpc {
     talk: '“熊爷，小的帮您按住这小和尚，东家那边已经把拓纸卷起来了！”',
     stats: { hp: 410, mp: 160, agi: 23, res: 13 },
     talents: { bone: 45, comprehension: 32, charm: 24 },
-    equippedArts: { neigong: 'MA-199', qinggong: 'MA-218', move1: 'MA-189', move2: 'MA-204' },
-    learnedArts: [
-      { artId: 'MA-199', level: 3 },
-      { artId: 'MA-218', level: 2 },
-      { artId: 'MA-189', level: 3 },
-      { artId: 'MA-204', level: 2 },
-    ],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-189', move2: 'MA-204' },
+    learnedArts: [{ artId: 'MA-199', level: 3 }, { artId: 'MA-189', level: 3 }, { artId: 'MA-204', level: 2 }],
   })
 }
 

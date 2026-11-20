@@ -24,18 +24,8 @@ function buildLiaoSpy(): NodeNpc {
     talk: '“哼，一个终南小道士也敢坏我大辽南院大事！既看穿了拓片夹层，今日便留你不得！”',
     stats: { hp: 1120, mp: 540, agi: 48, res: 40 },
     talents: { bone: 66, comprehension: 72, charm: 52 },
-    equippedArts: {
-      neigong: 'MA-103',
-      qinggong: 'MA-119',
-      move1: 'MA-115',
-      move2: 'MA-118',
-    },
-    learnedArts: [
-      { artId: 'MA-103', level: 5 },
-      { artId: 'MA-119', level: 5 },
-      { artId: 'MA-115', level: 5 },
-      { artId: 'MA-118', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-155' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-131', level: 5 }, { artId: 'MA-155', level: 5 }],
   })
 }
 

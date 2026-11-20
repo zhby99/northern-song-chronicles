@@ -44,20 +44,8 @@ function buildOneEyeWolfBoss(): NodeNpc {
     talk: '“少林药王院的大黑续命膏千金难买！小和尚识相的滚开，不然连你一块剁碎喂黄河王八！”',
     stats: { hp: 1760, mp: 1500, agi: 55, res: 42 },
     talents: { bone: 82, comprehension: 60, charm: 30 },
-    equippedArts: {
-      neigong: 'MA-103',
-      qinggong: 'MA-119',
-      move1: 'MA-115',
-      move2: 'MA-151',
-      move3: 'MA-124',
-    },
-    learnedArts: [
-      { artId: 'MA-103', level: 7 },
-      { artId: 'MA-119', level: 6 },
-      { artId: 'MA-115', level: 7 },
-      { artId: 'MA-151', level: 6 },
-      { artId: 'MA-124', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-151' },
+    learnedArts: [{ artId: 'MA-140', level: 7 }, { artId: 'MA-131', level: 7 }, { artId: 'MA-151', level: 6 }],
   })
 }
 
@@ -75,18 +63,8 @@ function buildBanditDeputy(): NodeNpc {
     talk: '“老大，跟这秃驴废什么话！弟兄们一起上，抢完药箱立刻撤回太行山！”',
     stats: { hp: 1020, mp: 680, agi: 41, res: 26 },
     talents: { bone: 68, comprehension: 48, charm: 26 },
-    equippedArts: {
-      neigong: 'MA-103',
-      qinggong: 'MA-218',
-      move1: 'MA-151',
-      move2: 'MA-189',
-    },
-    learnedArts: [
-      { artId: 'MA-103', level: 5 },
-      { artId: 'MA-218', level: 5 },
-      { artId: 'MA-151', level: 5 },
-      { artId: 'MA-189', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-151', move2: 'MA-189' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-151', level: 5 }, { artId: 'MA-189', level: 5 }],
   })
 }
 

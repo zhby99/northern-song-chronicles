@@ -50,18 +50,8 @@ function buildSaiwaiElderNpc(): NodeNpc {
       shoes: 'BOT-011',
       accessory1: 'ACC-025',
     },
-    equippedArts: {
-      neigong: 'MA-232',
-      qinggong: 'MA-157',
-      move1: 'MA-132',
-      move2: 'MA-133',
-    },
-    learnedArts: [
-      { artId: 'MA-232', level: 6 },
-      { artId: 'MA-157', level: 6 },
-      { artId: 'MA-132', level: 6 },
-      { artId: 'MA-133', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-232', move1: 'MA-132', move2: 'MA-133' },
+    learnedArts: [{ artId: 'MA-232', level: 6 }, { artId: 'MA-132', level: 6 }, { artId: 'MA-133', level: 6 }],
   })
 }
 
@@ -84,18 +74,8 @@ function buildSaiwaiYoungerNpc(): NodeNpc {
       armor: 'ARM-015',
       shoes: 'BOT-011',
     },
-    equippedArts: {
-      neigong: 'MA-232',
-      qinggong: 'MA-139',
-      move1: 'MA-150',
-      move2: 'MA-133',
-    },
-    learnedArts: [
-      { artId: 'MA-232', level: 5 },
-      { artId: 'MA-139', level: 5 },
-      { artId: 'MA-150', level: 5 },
-      { artId: 'MA-133', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-232', move1: 'MA-150', move2: 'MA-133' },
+    learnedArts: [{ artId: 'MA-232', level: 5 }, { artId: 'MA-150', level: 5 }, { artId: 'MA-133', level: 5 }],
   })
 }
 

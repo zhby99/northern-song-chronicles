@@ -21,18 +21,8 @@ const TUBO_MONK_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_tubo_esoteric_male_fb.jpg',
   talk: '“中原道士的剑阵不过虚张声势，看我金刚轮破你七星！”',
   stats: { hp: 3500, mp: 1900, agi: 82, res: 76 },
-  equippedArts: {
-    neigong: 'MA-079',
-    qinggong: 'MA-098',
-    move1: 'MA-072',
-    move2: 'MA-152',
-  },
-  learnedArts: [
-    { artId: 'MA-079', level: 8 },
-    { artId: 'MA-098', level: 7 },
-    { artId: 'MA-072', level: 7 },
-    { artId: 'MA-152', level: 8 },
-  ],
+  equippedArts: { neigong: 'MA-079', move1: 'MA-072', move2: 'MA-152' },
+  learnedArts: [{ artId: 'MA-079', level: 8 }, { artId: 'MA-072', level: 7 }, { artId: 'MA-152', level: 8 }],
 })
 
 export const SCENES: Record<string, StorySceneDef> = {

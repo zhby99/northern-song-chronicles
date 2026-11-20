@@ -35,13 +35,8 @@ function buildIronHammerTyrant(): NodeNpc {
     talk: '“哈哈哈哈！什么天下第一少林罗汉阵，不过一群拿齐眉棍的娃娃兵！吃老子百斤镔铁双锤，砸烂你们这块招牌！”',
     stats: { hp: 1780, mp: 1420, agi: 51, res: 44 },
     talents: { bone: 74, comprehension: 44, charm: 26 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-152', move2: 'MA-124' },
-    learnedArts: [
-      { artId: 'MA-103', level: 6 },
-      { artId: 'MA-157', level: 5 },
-      { artId: 'MA-152', level: 6 },
-      { artId: 'MA-124', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-152', move2: 'MA-124' },
+    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-152', level: 6 }, { artId: 'MA-124', level: 6 }],
   })
 }
 
@@ -59,13 +54,8 @@ function buildBruteMinion1(): NodeNpc {
     talk: '“大哥砸正面，兄弟们拆了这破罗汉阵的两翼！”',
     stats: { hp: 1020, mp: 760, agi: 43, res: 28 },
     talents: { bone: 58, comprehension: 40, charm: 22 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-131', move2: 'MA-236' },
-    learnedArts: [
-      { artId: 'MA-103', level: 4 },
-      { artId: 'MA-157', level: 4 },
-      { artId: 'MA-131', level: 4 },
-      { artId: 'MA-236', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-236' },
+    learnedArts: [{ artId: 'MA-140', level: 4 }, { artId: 'MA-131', level: 4 }, { artId: 'MA-236', level: 4 }],
   })
 }
 
@@ -83,13 +73,8 @@ function buildBruteMinion2(): NodeNpc {
     talk: '“谁敢挡铁锤大哥的路，一棒子扫断他腿骨！”',
     stats: { hp: 1060, mp: 740, agi: 41, res: 30 },
     talents: { bone: 60, comprehension: 38, charm: 20 },
-    equippedArts: { neigong: 'MA-103', qinggong: 'MA-157', move1: 'MA-152', move2: 'MA-236' },
-    learnedArts: [
-      { artId: 'MA-103', level: 4 },
-      { artId: 'MA-157', level: 3 },
-      { artId: 'MA-152', level: 4 },
-      { artId: 'MA-236', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-152', move2: 'MA-236' },
+    learnedArts: [{ artId: 'MA-140', level: 4 }, { artId: 'MA-152', level: 4 }, { artId: 'MA-236', level: 4 }],
   })
 }
 

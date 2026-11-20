@@ -62,13 +62,8 @@ function buildAssassinLead(): NodeNpc {
     talk: '“严大人有令，绝不能让这纸勘合文书出了开封府！把命和文书都留下！”',
     stats: { hp: 1580, mp: 1150, agi: 49, res: 34 },
     talents: { bone: 64, comprehension: 52, charm: 26 },
-    equippedArts: { neigong: 'MA-123', qinggong: 'MA-139', move1: 'MA-131', move2: 'MA-125' },
-    learnedArts: [
-      { artId: 'MA-123', level: 6 },
-      { artId: 'MA-139', level: 6 },
-      { artId: 'MA-131', level: 6 },
-      { artId: 'MA-125', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-123', move1: 'MA-131', move2: 'MA-125' },
+    learnedArts: [{ artId: 'MA-123', level: 6 }, { artId: 'MA-131', level: 6 }, { artId: 'MA-125', level: 6 }],
   })
 }
 
@@ -86,13 +81,8 @@ function buildAssassinMate(): NodeNpc {
     talk: '“嘿嘿，宝塔阴暗处正好埋骨！纳命来！”',
     stats: { hp: 1320, mp: 900, agi: 46, res: 29 },
     talents: { bone: 60, comprehension: 48, charm: 24 },
-    equippedArts: { neigong: 'MA-140', qinggong: 'MA-138', move1: 'MA-150', move2: 'MA-146' },
-    learnedArts: [
-      { artId: 'MA-140', level: 5 },
-      { artId: 'MA-138', level: 5 },
-      { artId: 'MA-150', level: 5 },
-      { artId: 'MA-146', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-150', move2: 'MA-146' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-150', level: 5 }, { artId: 'MA-146', level: 5 }],
   })
 }
 
@@ -110,13 +100,8 @@ function buildBlackWindBoss(): NodeNpc {
     talk: '“坏了严通判与俺兄弟的好事，还敢在暴雨夜独自守在药庄门前？今日便拿你的人头祭我黑风鬼头刀！”',
     stats: { hp: 2420, mp: 1960, agi: 59, res: 46 },
     talents: { bone: 76, comprehension: 62, charm: 34 },
-    equippedArts: { neigong: 'MA-081', qinggong: 'MA-097', move1: 'MA-091', move2: 'MA-107' },
-    learnedArts: [
-      { artId: 'MA-081', level: 7 },
-      { artId: 'MA-097', level: 7 },
-      { artId: 'MA-091', level: 8 },
-      { artId: 'MA-107', level: 7 },
-    ],
+    equippedArts: { neigong: 'MA-081', move1: 'MA-091', move2: 'MA-107' },
+    learnedArts: [{ artId: 'MA-081', level: 7 }, { artId: 'MA-091', level: 8 }, { artId: 'MA-107', level: 7 }],
   })
 }
 
@@ -134,13 +119,8 @@ function buildBloodWolfBoss(): NodeNpc {
     talk: '“大哥劈他中路，俺从雨幕里掏他心窝！烧光这药庄，谁也查不到严大人的头上！”',
     stats: { hp: 1860, mp: 1420, agi: 53, res: 39 },
     talents: { bone: 70, comprehension: 54, charm: 28 },
-    equippedArts: { neigong: 'MA-140', qinggong: 'MA-139', move1: 'MA-115', move2: 'MA-125' },
-    learnedArts: [
-      { artId: 'MA-140', level: 7 },
-      { artId: 'MA-139', level: 7 },
-      { artId: 'MA-115', level: 7 },
-      { artId: 'MA-125', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-125' },
+    learnedArts: [{ artId: 'MA-140', level: 7 }, { artId: 'MA-131', level: 7 }, { artId: 'MA-125', level: 6 }],
   })
 }
 

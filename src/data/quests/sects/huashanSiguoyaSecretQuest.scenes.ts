@@ -32,18 +32,8 @@ function buildYipintangCaveSpyNpc(): NodeNpc {
       shoes: 'BOT-016',
       accessory1: 'ACC-028',
     },
-    equippedArts: {
-      neigong: 'MA-245',
-      qinggong: 'MA-246',
-      move1: 'MA-133',
-      move2: 'MA-127',
-    },
-    learnedArts: [
-      { artId: 'MA-245', level: 6 },
-      { artId: 'MA-246', level: 6 },
-      { artId: 'MA-133', level: 7 },
-      { artId: 'MA-127', level: 6 },
-    ],
+    equippedArts: { neigong: 'MA-245', move1: 'MA-133', move2: 'MA-127' },
+    learnedArts: [{ artId: 'MA-245', level: 6 }, { artId: 'MA-133', level: 7 }, { artId: 'MA-127', level: 6 }],
   })
 }
 

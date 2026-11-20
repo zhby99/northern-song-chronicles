@@ -30,18 +30,8 @@ const MANICHAEAN_ENVOY_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
   talk: '“黄裳校刻道藏欲破我明尊圣火之秘，今日便连人带经一并化作灰烬！”',
   stats: { hp: 3350, mp: 1850, agi: 84, res: 72 },
-  equippedArts: {
-    neigong: 'MA-079',
-    qinggong: 'MA-098',
-    move1: 'MA-072',
-    move2: 'MA-150',
-  },
-  learnedArts: [
-    { artId: 'MA-079', level: 7 },
-    { artId: 'MA-098', level: 7 },
-    { artId: 'MA-072', level: 7 },
-    { artId: 'MA-150', level: 7 },
-  ],
+  equippedArts: { neigong: 'MA-079', move1: 'MA-072', move2: 'MA-150' },
+  learnedArts: [{ artId: 'MA-079', level: 7 }, { artId: 'MA-072', level: 7 }, { artId: 'MA-150', level: 7 }],
 })
 
 const BANDIT_LORD_NPC = makeQuestNpc({
@@ -54,18 +44,8 @@ const BANDIT_LORD_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_ronin_pirate_fb.jpg',
   talk: '“听说《万寿道藏》里藏着天下武学总纲，老子今晚便替江湖好汉收了！”',
   stats: { hp: 3750, mp: 1950, agi: 88, res: 78 },
-  equippedArts: {
-    neigong: 'MA-080',
-    qinggong: 'MA-098',
-    move1: 'MA-072',
-    move2: 'MA-132',
-  },
-  learnedArts: [
-    { artId: 'MA-080', level: 8 },
-    { artId: 'MA-098', level: 7 },
-    { artId: 'MA-072', level: 8 },
-    { artId: 'MA-132', level: 8 },
-  ],
+  equippedArts: { neigong: 'MA-080', move1: 'MA-072', move2: 'MA-132' },
+  learnedArts: [{ artId: 'MA-080', level: 8 }, { artId: 'MA-072', level: 8 }, { artId: 'MA-132', level: 8 }],
 })
 
 export const SCENES: Record<string, StorySceneDef> = {

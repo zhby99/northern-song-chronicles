@@ -40,13 +40,8 @@ export function buildMurongBoFinalNpc(): NodeNpc {
       accessory2: 'ACC-008',
       mount: 'MNT-002',
     },
-    equippedArts: { neigong: 'MA-008', qinggong: 'MA-097', move1: 'MA-025', move2: 'MA-045' },
-    learnedArts: [
-      { artId: 'MA-008', level: 10 },
-      { artId: 'MA-097', level: 10 },
-      { artId: 'MA-025', level: 10 },
-      { artId: 'MA-045', level: 10 },
-    ],
+    equippedArts: { neigong: 'MA-008', qinggong: 'MA-097', move1: 'MA-025' },
+    learnedArts: [{ artId: 'MA-008', level: 10 }, { artId: 'MA-097', level: 10 }, { artId: 'MA-025', level: 10 }],
   })
 }
 

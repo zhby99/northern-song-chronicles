@@ -26,13 +26,8 @@ function buildPoisonCommanderBoss(): NodeNpc {
     talk: '“哈哈哈哈！重阳古观早已与你们断桥绝交，今日谁来救你们活死人墓？！吃了我西夏九幽雷火毒弹，连神仙也要化作脓血！”',
     stats: { hp: 5850, mp: 5400, agi: 85, res: 78 },
     talents: { bone: 86, comprehension: 80, charm: 28 },
-    equippedArts: { neigong: 'MA-026', qinggong: 'MA-097', move1: 'MA-091', move2: 'MA-065' },
-    learnedArts: [
-      { artId: 'MA-026', level: 9 },
-      { artId: 'MA-097', level: 9 },
-      { artId: 'MA-091', level: 10 },
-      { artId: 'MA-065', level: 9 },
-    ],
+    equippedArts: { neigong: 'MA-026', move1: 'MA-091', move2: 'MA-065' },
+    learnedArts: [{ artId: 'MA-026', level: 9 }, { artId: 'MA-091', level: 10 }, { artId: 'MA-065', level: 9 }],
   })
 }
 

@@ -30,18 +30,8 @@ const LIAO_SPY_CHIEF_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_liao_spy_male_fb.jpg',
   talk: '“终南天罡阵图若落入我大辽之手，中原道门便再无险可守！”',
   stats: { hp: 2800, mp: 1550, agi: 78, res: 64 },
-  equippedArts: {
-    neigong: 'MA-243',
-    qinggong: 'MA-157',
-    move1: 'MA-152',
-    move2: 'MA-150',
-  },
-  learnedArts: [
-    { artId: 'MA-243', level: 7 },
-    { artId: 'MA-157', level: 7 },
-    { artId: 'MA-152', level: 7 },
-    { artId: 'MA-150', level: 6 },
-  ],
+  equippedArts: { neigong: 'MA-243', move1: 'MA-152', move2: 'MA-150' },
+  learnedArts: [{ artId: 'MA-243', level: 7 }, { artId: 'MA-152', level: 7 }, { artId: 'MA-150', level: 6 }],
 })
 
 const LIAO_ASSASSIN_NPC = makeQuestNpc({
@@ -54,18 +44,8 @@ const LIAO_ASSASSIN_NPC = makeQuestNpc({
   portraitUrl: '/assets/characters/templates/tpl_khitan_warrior_fb.jpg',
   talk: '“拦住这两个牛鼻子，莫叫他们逃出天津酒楼！”',
   stats: { hp: 2300, mp: 1200, agi: 70, res: 58 },
-  equippedArts: {
-    neigong: 'MA-243',
-    qinggong: 'MA-157',
-    move1: 'MA-132',
-    move2: 'MA-152',
-  },
-  learnedArts: [
-    { artId: 'MA-243', level: 6 },
-    { artId: 'MA-157', level: 6 },
-    { artId: 'MA-132', level: 6 },
-    { artId: 'MA-152', level: 6 },
-  ],
+  equippedArts: { neigong: 'MA-243', move1: 'MA-132', move2: 'MA-152' },
+  learnedArts: [{ artId: 'MA-243', level: 6 }, { artId: 'MA-132', level: 6 }, { artId: 'MA-152', level: 6 }],
 })
 
 export const SCENES: Record<string, StorySceneDef> = {

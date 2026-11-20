@@ -45,11 +45,8 @@ function buildPeerRound1(): NodeNpc {
     talk: '“久闻同门在长安破了星宿暗哨，首轮便让沈某以入门十三剑讨教一二！”',
     stats: { hp: 460, mp: 220, agi: 24, res: 15 },
     talents: { bone: 50, comprehension: 48, charm: 46 },
-    equippedArts: { neigong: 'MA-142', move1: 'MA-235' },
-    learnedArts: [
-      { artId: 'MA-142', level: 2 },
-      { artId: 'MA-235', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-188' },
+    learnedArts: [{ artId: 'MA-181', level: 2 }, { artId: 'MA-188', level: 3 }],
   })
 }
 
@@ -68,11 +65,8 @@ function buildPeerRound2(): NodeNpc {
     talk: '“剑贵轻灵，气贵绵长。{gender:师兄|师姐}，小心我的连环斜挑！”',
     stats: { hp: 640, mp: 340, agi: 32, res: 18 },
     talents: { bone: 54, comprehension: 56, charm: 62 },
-    equippedArts: { neigong: 'MA-142', move1: 'MA-235' },
-    learnedArts: [
-      { artId: 'MA-142', level: 3 },
-      { artId: 'MA-235', level: 4 },
-    ],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-188' },
+    learnedArts: [{ artId: 'MA-181', level: 3 }, { artId: 'MA-188', level: 4 }],
   })
 }
 
@@ -91,11 +85,8 @@ function buildPeerRound3(): NodeNpc {
     talk: '“苦修六载，今日内门魁首之位赵某志在必得！请亮剑！”',
     stats: { hp: 820, mp: 480, agi: 37, res: 21 },
     talents: { bone: 62, comprehension: 58, charm: 50 },
-    equippedArts: { neigong: 'MA-142', move1: 'MA-235' },
-    learnedArts: [
-      { artId: 'MA-142', level: 4 },
-      { artId: 'MA-235', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-188' },
+    learnedArts: [{ artId: 'MA-181', level: 4 }, { artId: 'MA-188', level: 5 }],
   })
 }
 

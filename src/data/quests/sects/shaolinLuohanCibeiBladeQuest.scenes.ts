@@ -42,13 +42,8 @@ function buildPeasantRaiderAlpha(): NodeNpc {
     talk: '“大师莫怪！屠三爷押着俺娘俩在山坳里，不抢这车官粮俺全家都得饿死！”',
     stats: { hp: 560, mp: 180, agi: 26, res: 16 },
     talents: { bone: 50, comprehension: 38, charm: 35 },
-    equippedArts: { neigong: 'MA-238', qinggong: 'MA-157', move1: 'MA-207', move2: 'MA-209' },
-    learnedArts: [
-      { artId: 'MA-238', level: 3 },
-      { artId: 'MA-157', level: 2 },
-      { artId: 'MA-207', level: 4 },
-      { artId: 'MA-209', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-207', move2: 'MA-209' },
+    learnedArts: [{ artId: 'MA-238', level: 3 }, { artId: 'MA-207', level: 4 }, { artId: 'MA-209', level: 3 }],
   })
 }
 
@@ -64,13 +59,8 @@ function buildPeasantRaiderBeta(): NodeNpc {
     talk: '“俺只求抢两斗糙米活命，大和尚快闪开，莫叫朴刀伤了你！”',
     stats: { hp: 600, mp: 170, agi: 24, res: 18 },
     talents: { bone: 54, comprehension: 35, charm: 34 },
-    equippedArts: { neigong: 'MA-238', qinggong: 'MA-157', move1: 'MA-209', move2: 'MA-207' },
-    learnedArts: [
-      { artId: 'MA-238', level: 3 },
-      { artId: 'MA-157', level: 2 },
-      { artId: 'MA-209', level: 4 },
-      { artId: 'MA-207', level: 3 },
-    ],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-209', move2: 'MA-207' },
+    learnedArts: [{ artId: 'MA-238', level: 3 }, { artId: 'MA-209', level: 4 }, { artId: 'MA-207', level: 3 }],
   })
 }
 
@@ -86,20 +76,8 @@ function buildTuSanBoss(): NodeNpc {
     talk: '“秃驴好大的狗胆！敢挡老子截粮财路，尝尝这口饮过十三条人命的豁口鬼头刀！”',
     stats: { hp: 1180, mp: 680, agi: 44, res: 28 },
     talents: { bone: 70, comprehension: 52, charm: 32 },
-    equippedArts: {
-      neigong: 'MA-103',
-      qinggong: 'MA-157',
-      move1: 'MA-151',
-      move2: 'MA-191',
-      move3: 'MA-131',
-    },
-    learnedArts: [
-      { artId: 'MA-103', level: 5 },
-      { artId: 'MA-157', level: 5 },
-      { artId: 'MA-151', level: 6 },
-      { artId: 'MA-191', level: 6 },
-      { artId: 'MA-131', level: 5 },
-    ],
+    equippedArts: { neigong: 'MA-140', move1: 'MA-151', move2: 'MA-191' },
+    learnedArts: [{ artId: 'MA-140', level: 5 }, { artId: 'MA-151', level: 6 }, { artId: 'MA-191', level: 6 }],
   })
 }
 
