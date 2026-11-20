@@ -371,7 +371,7 @@ export default defineConfig({
         emptyOutDir: true,
         copyPublicDir: false,
         modulePreload: false,
-        chunkSizeWarningLimit: 8000,
+        chunkSizeWarningLimit: 14000,
         cssCodeSplit: false,
         rolldownOptions: {
           transform: {

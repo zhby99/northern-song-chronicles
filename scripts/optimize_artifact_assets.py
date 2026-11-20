@@ -23,7 +23,7 @@ from typing import Any
 
 from PIL import Image
 
-PROFILE_VERSION = "v2"
+PROFILE_VERSION = "v3"
 ROOT_DIR = Path(__file__).resolve().parent.parent
 PUBLIC_ASSETS_DIR = ROOT_DIR / "public" / "assets"
 CACHE_DIR = ROOT_DIR / "node_modules" / ".cache" / "nsc-artifact-pack"
@@ -68,20 +68,20 @@ def sniff_audio_mime(file_name: str, data: bytes) -> str:
 def classify_image_spec(rel_url: str) -> tuple[int, int]:
     """返回 (max_dim, webp_quality)"""
     if rel_url.startswith("/assets/characters/avatars/"):
-        return (160, 74)
+        return (144, 70)
     if rel_url.startswith("/assets/items/"):
-        return (192, 75)
+        return (176, 72)
     if rel_url.startswith("/assets/characters/cutouts/"):
-        return (640, 74)
+        return (560, 68)
     if rel_url.startswith("/assets/characters/"):
-        return (600, 72)
+        return (540, 68)
     if rel_url.startswith("/assets/regions/"):
-        return (1088, 74)
+        return (1024, 70)
     if rel_url.startswith("/assets/quests/"):
-        return (1088, 74)
+        return (840, 64)
     if rel_url.startswith("/assets/buildings/"):
-        return (960, 70)
-    return (960, 72)
+        return (840, 65)
+    return (840, 66)
 
 
 def process_one_item(task: dict[str, Any]) -> dict[str, Any]:
@@ -142,8 +142,8 @@ def process_one_item(task: dict[str, Any]) -> dict[str, Any]:
                 out_bytes = raw
                 out_mime = sniff_image_mime(full_path.name, raw)
     else:
-        # Audio optimization: transcode >1.3MB high-bitrate tracks to 64kbps stereo MP3 (-vn strips album art)
-        if HAS_FFMPEG and orig_len > int(1.3 * 1024 * 1024):
+        # Audio optimization: transcode >0.85MB tracks to 56kbps stereo MP3 (-vn strips album art)
+        if HAS_FFMPEG and orig_len > int(0.85 * 1024 * 1024):
             tmp_mp3 = BLOBS_DIR / f"{cache_key}.tmp.mp3"
             try:
                 subprocess.run(
@@ -162,13 +162,13 @@ def process_one_item(task: dict[str, Any]) -> dict[str, Any]:
                         "-c:a",
                         "libmp3lame",
                         "-b:a",
-                        "64k",
+                        "56k",
                         str(tmp_mp3),
                     ],
                     check=True,
                 )
                 candidate = tmp_mp3.read_bytes()
-                if 0 < len(candidate) < int(orig_len * 0.88):
+                if 0 < len(candidate) < int(orig_len * 0.92):
                     out_bytes = candidate
                     out_mime = "audio/mpeg"
                 else:
@@ -220,7 +220,7 @@ def collect_tasks() -> list[dict[str, Any]]:
             spec_tag = f"{classify_image_spec(rel_url)}"
         elif is_in_audio and ext in AUDIO_EXTS:
             kind = "audio"
-            spec_tag = f"mp3_64k_ffmpeg={HAS_FFMPEG}"
+            spec_tag = f"mp3_56k_ffmpeg={HAS_FFMPEG}"
         else:
             continue
 

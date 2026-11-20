@@ -331,13 +331,20 @@ async function main() {
   outStream.end()
   await once(outStream, 'finish')
 
-  fs.copyFileSync(distOutPath, rootOutPath)
-
-  const totalBytes = fs.statSync(rootOutPath).size
+  const totalBytes = fs.statSync(distOutPath).size
   const sizeMb = totalBytes / (1024 * 1024)
   const codeMb = (Buffer.byteLength(safeJs, 'utf-8') + Buffer.byteLength(safeCss, 'utf-8')) / 1048576
   const imgMb = totalImageBytes / 1048576
   const audMb = totalAudioBytes / 1048576
+
+  if (optimizedMap && sizeMb > HARD_HTML_BUDGET_MB) {
+    fs.rmSync(distOutPath, { force: true })
+    throw new Error(
+      `[build:artifact] 单文件体积 (${sizeMb.toFixed(2)} MB) 超过硬上限 (${HARD_HTML_BUDGET_MB} MB)，已中止并清理临时产物！请调优 scripts/optimize_artifact_assets.py 压缩参数。`,
+    )
+  }
+
+  fs.copyFileSync(distOutPath, rootOutPath)
 
   console.log(
     `[OK] 已生成单文件 HTML (${sizeMb.toFixed(2)} MB | ${indexedCount} 项素材 | ${shards.length} 个懒加载数据分片):`,
@@ -348,11 +355,6 @@ async function main() {
   console.log(`  -> ${rootOutPath}`)
   console.log(`  -> ${distOutPath}`)
 
-  if (optimizedMap && sizeMb > HARD_HTML_BUDGET_MB) {
-    throw new Error(
-      `[build:artifact] 单文件体积 (${sizeMb.toFixed(2)} MB) 超过硬上限 (${HARD_HTML_BUDGET_MB} MB)，触发宿主要素字符串上限保护！请调优 scripts/optimize_artifact_assets.py 压缩参数。`,
-    )
-  }
   if (sizeMb > SOFT_HTML_BUDGET_MB) {
     console.warn(
       `[WARN] 单文件体积 (${sizeMb.toFixed(2)} MB) 已超过软预警线 (${SOFT_HTML_BUDGET_MB} MB)，建议关注新增大体积素材。`,
