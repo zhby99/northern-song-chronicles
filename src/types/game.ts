@@ -85,6 +85,7 @@ export type CompendiumTabKey =
   | 'mounts'
   | 'treasures'
   | 'arts'
+  | 'fengyun'
 
 export type TenArtKey =
   | '骑术'

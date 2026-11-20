@@ -171,6 +171,14 @@ export const COMPENDIUM_NAV_ITEMS: Array<NavItemMeta<CompendiumTabKey>> = [
     subtitle: '北宋十艺五年（1,800日）修习总纲、四阶经验曲线、书院/客舍/雅器/奇遇指引及 80/90 级先天三维反哺',
     badge: '十艺指引',
   },
+  {
+    key: 'fengyun',
+    numeral: '玖',
+    label: '天下风云榜',
+    seal: '榜',
+    subtitle: `以全库 ${ID_REGISTRY.counts.npcs.toLocaleString('en-US')} 位人物与少侠的实时有效四维、运使武学品阶重数及天阶特效动态评定当世前百位高手，点击可查风闻驻地`,
+    badge: '当世百强',
+  },
 ]
 
 export function formatSavedTime(iso: string): string {

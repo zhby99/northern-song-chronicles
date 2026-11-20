@@ -1,0 +1,222 @@
+import { MARTIAL_ART_DB_MAP, NPCS_DB } from '../../data/gameDb'
+import { computeEquippedArtsTotals } from '../../data/playerMartialArts'
+import { computeEquipmentTotals, computeWeaponArtSynergy } from '../equipment/equipmentStats'
+import type {
+  CompiledNpcRecord,
+  EquippedArtsMap,
+  EquippedSlotsMap,
+  LearnedArtEntry,
+  MartialArtSlotKey,
+} from '../../types/game'
+import { deriveHeroEffectiveStats, deriveNpcEffectiveStats } from './heroStats'
+import type { HeroBaseStats } from '../../types/game'
+
+/**
+ * 《天下风云榜》战力评定：
+ * 以实时有效四维（气血 / 内力 / 身法 / 抗性）为根基，叠加披挂与武学的攻守总值、
+ * 运使武学的「品阶 × 重数」，以及天阶特效的额外权重。
+ * 仅作排名之用，不参与任何战斗结算。
+ */
+
+const TIER_WEIGHT: Record<string, number> = {
+  天阶上品: 12,
+  天阶中品: 11,
+  天阶下品: 10,
+  地阶上品: 9,
+  地阶中品: 8,
+  地阶下品: 7,
+  良品上品: 6,
+  良品中品: 5,
+  良品下品: 4,
+  凡品上品: 3,
+  凡品中品: 2,
+  凡品下品: 1,
+}
+
+/** 每个「品阶权重 × 重数」点折算的战力 */
+const ART_POINT = 30
+/** 每条已生效的天阶特效折算的战力 */
+const HEAVEN_EFFECT_POINT = 450
+
+export interface PowerInput {
+  maxHp: number
+  maxMp: number
+  agility: number
+  res: number
+  totalAttack: number
+  totalDefense: number
+  equippedArts: EquippedArtsMap
+  learnedArts: LearnedArtEntry[]
+}
+
+export interface PowerBreakdown {
+  total: number
+  vitals: number
+  offense: number
+  arts: number
+  heaven: number
+  heavenEffectCount: number
+  /** 运使中最高品阶的武学名（含重数），用于榜单展示 */
+  signatureArt: string | null
+}
+
+export function computeMartialPower(input: PowerInput): PowerBreakdown {
+  const vitals = input.maxHp * 0.6 + input.maxMp * 0.5 + input.agility * 30 + input.res * 30
+  const offense = input.totalAttack * 4 + input.totalDefense * 3
+
+  const levelMap = new Map(input.learnedArts.map((a) => [a.artId, a.level]))
+  let arts = 0
+  let best: { weight: number; level: number; label: string } | null = null
+  for (const slot of Object.keys(input.equippedArts) as MartialArtSlotKey[]) {
+    const artId = input.equippedArts[slot]
+    if (!artId) continue
+    const art = MARTIAL_ART_DB_MAP[artId]
+    if (!art) continue
+    const level = levelMap.get(artId) ?? 1
+    const weight = TIER_WEIGHT[art.fullTier] ?? TIER_WEIGHT[`${art.tier}${art.subTier}`] ?? 1
+    arts += weight * level * ART_POINT
+    if (!best || weight > best.weight || (weight === best.weight && level > best.level)) {
+      best = { weight, level, label: `《${art.cleanName}》${level} 重` }
+    }
+  }
+
+  const heavenEffectCount = computeEquippedArtsTotals(input.equippedArts, input.learnedArts)
+    .specialEffects.length
+  const heaven = heavenEffectCount * HEAVEN_EFFECT_POINT
+
+  const total = Math.round(vitals + offense + arts + heaven)
+  return {
+    total,
+    vitals: Math.round(vitals),
+    offense: Math.round(offense),
+    arts: Math.round(arts),
+    heaven,
+    heavenEffectCount,
+    signatureArt: best?.label ?? null,
+  }
+}
+
+export function computeNpcMartialPower(rec: CompiledNpcRecord): PowerBreakdown {
+  const eff = deriveNpcEffectiveStats(rec)
+  return computeMartialPower({
+    maxHp: eff.maxHp,
+    maxMp: eff.maxMp,
+    agility: eff.agility,
+    res: eff.res,
+    totalAttack: eff.totalAttack,
+    totalDefense: eff.totalDefense,
+    equippedArts: rec.equippedArts,
+    learnedArts: rec.learnedArts,
+  })
+}
+
+export function computeHeroMartialPower(hero: {
+  baseStats: HeroBaseStats
+  equipped: EquippedSlotsMap
+  equippedArts: EquippedArtsMap
+  learnedArts: LearnedArtEntry[]
+  heavyInjury?: boolean
+}): PowerBreakdown {
+  const eff = deriveHeroEffectiveStats(hero.baseStats, hero.equipped, hero.equippedArts, hero.learnedArts, {
+    heavyInjury: hero.heavyInjury,
+  })
+  const equipTotals = computeEquipmentTotals(hero.equipped)
+  const artTotals = computeEquippedArtsTotals(hero.equippedArts, hero.learnedArts)
+  const synergy = computeWeaponArtSynergy(hero.equipped.weapon, hero.equippedArts, hero.learnedArts)
+  return computeMartialPower({
+    maxHp: eff.maxHp,
+    maxMp: eff.maxMp,
+    agility: eff.agility,
+    res: eff.res,
+    totalAttack: equipTotals.attack + artTotals.attack + synergy.totalSynergyAttack,
+    totalDefense: equipTotals.defense + artTotals.defense,
+    equippedArts: hero.equippedArts,
+    learnedArts: hero.learnedArts,
+  })
+}
+
+export interface FengyunEntry {
+  rank: number
+  isHero: boolean
+  npc: CompiledNpcRecord | null
+  power: PowerBreakdown
+}
+
+let npcPowerCache: { rec: CompiledNpcRecord; power: PowerBreakdown }[] | null = null
+
+/** 固定 NPC 的战力只取决于编译库数据，首次计算后缓存（按战力降序） */
+function getNpcPowerTable() {
+  if (!npcPowerCache) {
+    npcPowerCache = NPCS_DB.map((rec) => ({ rec, power: computeNpcMartialPower(rec) })).sort(
+      (a, b) => b.power.total - a.power.total || a.rec.id.localeCompare(b.rec.id),
+    )
+  }
+  return npcPowerCache
+}
+
+export const FENGYUN_BOARD_SIZE = 100
+
+export interface FengyunBoard {
+  /** 榜上前 100 位（含主角，若已上榜） */
+  entries: FengyunEntry[]
+  /** 主角在全天下（在世固定人物 + 主角）中的位次，1 起 */
+  heroRank: number
+  heroPower: PowerBreakdown
+  /** 参评总人数 */
+  totalCount: number
+  /** 第 N 名（N = 100 / 50 / 10 / 1）当前的战力门槛（不含主角） */
+  thresholds: Record<100 | 50 | 10 | 1, number>
+}
+
+/**
+ * 排出当世前 100 位高手：已身故的人物不再入榜；主角与固定人物同台竞排，同分时主角居后。
+ */
+export function buildFengyunBoard(params: {
+  heroPower: PowerBreakdown
+  deadNpcIds: readonly string[]
+  isNpcDead?: (npcId: string) => boolean
+}): FengyunBoard {
+  const dead = new Set(params.deadNpcIds)
+  const living = getNpcPowerTable().filter(
+    ({ rec }) => !dead.has(rec.id) && !(params.isNpcDead?.(rec.id) ?? false),
+  )
+  const heroTotal = params.heroPower.total
+  const heroIdx = living.findIndex(({ power }) => power.total < heroTotal)
+  const heroPos = heroIdx === -1 ? living.length : heroIdx
+
+  const merged: FengyunEntry[] = []
+  for (let i = 0; i < living.length + 1 && merged.length < FENGYUN_BOARD_SIZE; i++) {
+    if (i === heroPos) {
+      merged.push({ rank: merged.length + 1, isHero: true, npc: null, power: params.heroPower })
+    }
+    const npc = living[i]
+    if (npc && merged.length < FENGYUN_BOARD_SIZE) {
+      merged.push({ rank: merged.length + 1, isHero: false, npc: npc.rec, power: npc.power })
+    }
+  }
+
+  const thresholdAt = (n: number) => living[n - 1]?.power.total ?? 0
+  return {
+    entries: merged,
+    heroRank: heroPos + 1,
+    heroPower: params.heroPower,
+    totalCount: living.length + 1,
+    thresholds: { 100: thresholdAt(100), 50: thresholdAt(50), 10: thresholdAt(10), 1: thresholdAt(1) },
+  }
+}
+
+/** 成长里程碑：榜上无名 → 风云百强 → 前五十 → 前十 → 问鼎榜首 */
+export const FENGYUN_MILESTONES = [
+  { key: 'top100', label: '跻身风云百强', rank: 100 },
+  { key: 'top50', label: '名列前五十', rank: 50 },
+  { key: 'top10', label: '位列十大高手', rank: 10 },
+  { key: 'top1', label: '问鼎天下第一', rank: 1 },
+] as const
+
+export function getFengyunTitle(rank: number): string {
+  if (rank === 1) return '天下第一'
+  if (rank <= 10) return '十大高手'
+  if (rank <= 50) return '风云前五十'
+  if (rank <= 100) return '风云百强'
+  return '榜上无名'
+}

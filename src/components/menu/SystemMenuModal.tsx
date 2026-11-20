@@ -44,6 +44,9 @@ import { PortraitLightbox } from './PortraitLightbox'
 import type { RegionRegimeFilterKey, RegionTypeFilterKey } from './RegionCompendiumPanel'
 import type { SectTierFilterKey } from './SectCompendiumPanel'
 
+const FengyunBoardPanel = lazy(() =>
+  import('./FengyunBoardPanel').then((m) => ({ default: m.FengyunBoardPanel })),
+)
 const MountCompendiumPanel = lazy(() =>
   import('./MountCompendiumPanel').then((m) => ({ default: m.MountCompendiumPanel })),
 )
@@ -833,6 +836,8 @@ export function SystemMenuModal() {
                 )}
 
                 {activeViewKey === 'arts' && <TenArtsGuideTab />}
+
+                {activeViewKey === 'fengyun' && <FengyunBoardPanel onJumpToNpc={jumpToCompendiumNpc} />}
 
                 {activeViewKey === 'treasures' && (
                   <TreasuresTab
