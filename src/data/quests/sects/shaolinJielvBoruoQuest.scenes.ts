@@ -17,7 +17,7 @@ function buildGhostHandChenBoss(): NodeNpc {
     id: 'QUEST_SLQ26_GHOST_HAND',
     name: '鬼手陈',
     title: '辽探买通 · 盗拓飞贼首',
-    realm: '一流中品',
+    realm: '一流下品',
     factionId: 'SECT-18',
     factionName: '大辽暗探',
     sectRank: 3,

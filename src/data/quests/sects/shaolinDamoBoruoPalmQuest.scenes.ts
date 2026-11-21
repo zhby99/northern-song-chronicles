@@ -193,6 +193,7 @@ export const SCENES: Record<string, StorySceneDef> = {
             opponent: {
               kind: 'npc',
               npcId: 'NPC-0183',
+              realmCap: '一流下品',
               talkOverride:
                 '“老子是南海鳄神岳老三，排行第二——不对，排行老三！小和尚你脑袋圆滚滚的，跟老子太投缘了！快给老子磕八个响头拜师，不然我这把鳄嘴剪可要咔嚓了！”',
             },

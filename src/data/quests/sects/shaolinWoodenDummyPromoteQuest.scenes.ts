@@ -227,7 +227,7 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'slq04_fight_huitong',
-        label: '稳扎马步，终场一对一较技外门劲敌慧通（二流下品）',
+        label: '稳扎马步，终场一对一较技外门劲敌慧通（三流上品）',
         tone: 'danger',
         effects: [
           {
@@ -236,14 +236,14 @@ export const SCENES: Record<string, StorySceneDef> = {
             opponent: {
               kind: 'npc',
               npcId: 'NPC-0315',
-              realmCap: '二流下品',
+              realmCap: '三流上品',
               talkOverride:
                 '“阿弥陀佛！师弟连闯木桩廊气势如虹，贫僧奉三位师伯法谕压阵，今日且以少林正宗拳杖领教高招！”',
             },
             rule: 'spar',
             forbidEscapeReason: '外门晋升终场较技，三位高僧临殿监考，岂可临阵退场！',
             introText:
-              '【外门大考 · 终场较技】于演武正殿迎战外门第一劲敌【慧通（二流下品）】！',
+              '【外门大考 · 终场较技】于演武正殿迎战外门第一劲敌【慧通（三流上品）】！',
             onWin: [openScene('scene_slq04_09', SHAOLIN_Q04_QUEST_ID)],
             onLose: [
               { type: 'healPlayer', hpPct: 100, mpPct: 100 },

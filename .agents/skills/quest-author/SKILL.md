@@ -82,3 +82,4 @@ npm run lint && npm test && npm run build
 7. **战后结算标签注册**：若剧情战斗使用了新的 `duelStakes` / `duelStakesTag`，须同步于 `src/engine/combat/settlement.ts` 注册终局文案与结算规则。
 8. **任务配图数量下限**：每条任务链至少预埋 `1` 张 `illustrationUrl`（`16:9` 剧情 CG），且每有 `10` 幕剧情至少增加 `1` 张（`≥ 1 + Math.floor(幕数 / 10)`）；所有预埋路径须同步登记至 `docs/MISSING_QUEST_ILLUSTRATIONS.md`。
 9. **五派白纸入门铁律**：**青城（`SECT-14`）、华山（`SECT-05`）、泰山（`SECT-06`）、真武（`SECT-08`）、峨眉（`SECT-07`）** 入门 `startCondition` 必须同时包含 `{ type: 'neverJoinedAnySect' }`（从未加入过任何门派）与 `{ type: 'noLearnedArtAtOrAboveTier', tier: '良品下品' }`（未修习任何良品及良品以上武学）。
+10. **主线内功实力覆盖铁律（严禁强逼肝满淘汰心法）**：校验主线任意必胜战（非 `survive_rounds` 且非败北推进战）对手境界时，按玩家当前已授最高内功的合理养成等级计算可达境界——**凡品 / 良品内功按 Lv.6、地阶内功按 Lv.8、天阶内功按 Lv.9**；对手境界**严禁超过**该可达境界（若本卷才授新内功，须在传功后通过 `setStep` 停步留出闭关窗口，或在更早卷数提前传授并用 `replaceArtIds` 替换旧心法；由 `src/engine/__tests__/sectQuestDifficulty.test.ts` 自动巡检）。

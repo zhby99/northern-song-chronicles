@@ -26,7 +26,7 @@ function buildIronCorpseBoss(): NodeNpc {
     id: 'QUEST_SLQ23_IRON_CORPSE',
     name: '铁尸尊者',
     title: '塞外黑教 · 横练炼体狂人',
-    realm: '一流中品',
+    realm: '一流下品',
     factionId: 'SECT-21',
     factionName: '塞外黑教',
     sectRank: 3,

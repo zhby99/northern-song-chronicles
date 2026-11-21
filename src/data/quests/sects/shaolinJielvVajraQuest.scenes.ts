@@ -17,7 +17,7 @@ function buildJoyousDemonMonkBoss(): NodeNpc {
     id: 'QUEST_SLQ27_DEMON_MONK',
     name: '欢喜魔僧',
     title: '关洛邪道巨擘 · 闭穴妖僧',
-    realm: '一流中品',
+    realm: '一流下品',
     factionId: 'SECT-21',
     factionName: '关洛邪道',
     sectRank: 3,

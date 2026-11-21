@@ -191,8 +191,15 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '驰赴【天罡北斗七星演剑坛】，正面迎战铁鹞大将军赫连霸先！',
         tone: 'danger',
         effects: [
+          {
+            type: 'teachMartialArt',
+            artId: 'MA-013',
+            level: 1,
+            autoEquip: true,
+            replaceArtIds: ['MA-078'],
+          },
           setStep(ZHONGNAN_Q32_QUEST_ID, 'dawn_helian_duel'),
-          toast('请前往【天罡北斗七星演剑坛（zn_to_dipper）】击退赫连霸先！', 'warn', '破晓退敌'),
+          toast('已初悟天阶内功《先天功》！可先闭关调息，再赴【天罡北斗七星演剑坛（zn_to_dipper）】击退赫连霸先！', 'warn', '破晓退敌'),
         ],
       },
     ],

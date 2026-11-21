@@ -113,10 +113,17 @@ export const SCENES: Record<string, StorySceneDef> = {
     choices: [
       {
         id: 'zn_q04_learn_sancai',
-        label: '凝神挥剑 · 习得良品剑法《三才归元剑》',
+        label: '凝神挥剑 · 习得《三才归元剑》与地阶内功《纯阳无极功》',
         tone: 'gold',
         effects: [
           { type: 'teachMartialArt', artId: 'MA-149', level: 1, autoEquip: true },
+          {
+            type: 'teachMartialArt',
+            artId: 'MA-078',
+            level: 1,
+            autoEquip: true,
+            replaceArtIds: ['MA-142'],
+          },
           openScene('scene_zn_q04_05', ZHONGNAN_Q04_QUEST_ID),
         ],
       },

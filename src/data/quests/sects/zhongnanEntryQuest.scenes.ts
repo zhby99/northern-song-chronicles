@@ -43,7 +43,7 @@ function buildBeeBandit(): NodeNpc {
     id: 'QUEST_ZN_ENTRY_BANDIT',
     name: '刁三儿',
     title: '秦岭盗蜜山匪头目',
-    realm: '三流下品',
+    realm: '不入流',
     factionName: '关中山匪',
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',

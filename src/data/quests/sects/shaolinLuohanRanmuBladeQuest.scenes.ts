@@ -17,7 +17,7 @@ function buildNightShadowBoss(): NodeNpc {
     id: 'QUEST_SLQ22_NIGHT_SHADOW',
     name: '夜探黑影高手',
     title: '潜袭罗汉堂 · 神秘黑衣人',
-    realm: '一流中品',
+    realm: '一流下品',
     factionId: 'SECT-10',
     factionName: '神秘势力',
     sectRank: 3,

@@ -26,7 +26,7 @@ function buildQ20TuobaXiongNpc(): NodeNpc {
     id: 'QUEST_HSQ20_TUOBA_XIONG',
     name: '拓跋雄',
     title: '西夏关中主帅 · 一品堂征东大都督',
-    realm: '宗师中品',
+    realm: '宗师下品',
     factionId: 'SECT-20',
     factionName: '西夏一品堂',
     sectRank: 5,
