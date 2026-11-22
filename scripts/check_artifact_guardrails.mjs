@@ -237,6 +237,28 @@ if (fs.existsSync(avatarsDir) && fs.existsSync(fullbodyDir) && fs.existsSync(cut
   }
 }
 
+// 5. Check cutoutMetrics.json key format (/assets/characters/cutouts/<sub >/<name>.webp) and completeness
+const cutoutMetricsPath = path.join(ROOT_DIR, 'src', 'data', 'cutoutMetrics.json')
+if (fs.existsSync(cutoutMetricsPath)) {
+  const cm = JSON.parse(fs.readFileSync(cutoutMetricsPath, 'utf8'))
+  for (const key of Object.keys(cm)) {
+    if (!/^\/assets\/characters\/cutouts\/(fullbody|templates|protagonists)\/[^/]+\.webp$/.test(key)) {
+      errors.push(`src/data/cutoutMetrics.json 存在非法键名 "${key}"（必须为 "/assets/characters/cutouts/{fullbody,templates,protagonists}/<name>.webp"，否则 CutoutPortraitImg 会回退成带背景原图！）`)
+    }
+  }
+  for (const sub of ['fullbody', 'templates', 'protagonists']) {
+    const subDir = path.join(charDir, 'cutouts', sub)
+    if (!fs.existsSync(subDir)) continue
+    for (const f of fs.readdirSync(subDir)) {
+      if (!f.endsWith('.webp')) continue
+      const expectedKey = `/assets/characters/cutouts/${sub}/${f}`
+      if (!Object.prototype.hasOwnProperty.call(cm, expectedKey)) {
+        errors.push(`public/assets/characters/cutouts/${sub}/${f} 未登记在 src/data/cutoutMetrics.json 中（会导致前端无法切换透明抠图！）`)
+      }
+    }
+  }
+}
+
 if (errors.length > 0) {
   console.error(`\n❌ [artifact-guardrails] 检测到 ${errors.length} 项单文件离线版防回归违规：`)
   for (const e of errors) {
