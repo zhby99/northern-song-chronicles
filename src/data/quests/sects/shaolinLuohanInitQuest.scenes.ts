@@ -46,10 +46,10 @@ function buildRogueMonkA(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_shaolin_monk_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_shaolin_monk_fb.jpg',
     talk: '“刚脱杂役短打的毛头小子也敢管周公子的闲事？吃洒家一拳！”',
-    stats: { hp: 280, mp: 100, agi: 16, res: 10 },
+    stats: { hp: 145, mp: 55, agi: 11, res: 4 },
     talents: { bone: 44, comprehension: 28, charm: 20 },
-    equippedArts: { neigong: 'MA-199', move1: 'MA-201', move2: 'MA-204' },
-    learnedArts: [{ artId: 'MA-199', level: 2 }, { artId: 'MA-201', level: 2 }, { artId: 'MA-204', level: 1 }],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-201' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-201', level: 1 }],
   })
 }
 
@@ -65,10 +65,10 @@ function buildRogueMonkB(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_shaolin_monk_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_shaolin_monk_fb.jpg',
     talk: '“净彪师兄，莫留手！打断他两根肋骨，周公子少不了咱们十两酒肉钱！”',
-    stats: { hp: 310, mp: 110, agi: 17, res: 11 },
+    stats: { hp: 155, mp: 60, agi: 12, res: 4 },
     talents: { bone: 46, comprehension: 26, charm: 18 },
-    equippedArts: { neigong: 'MA-199', move1: 'MA-204', move2: 'MA-201' },
-    learnedArts: [{ artId: 'MA-199', level: 2 }, { artId: 'MA-204', level: 2 }, { artId: 'MA-201', level: 2 }],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-204' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-204', level: 1 }],
   })
 }
 

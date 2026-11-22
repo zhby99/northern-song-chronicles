@@ -1,13 +1,13 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { QUEST_MAP, QUEST_REGISTRY } from '../../data/quests'
-import { NPC_DB_MAP } from '../../data/gameDb'
+import { MARTIAL_ART_DB_MAP, NPC_DB_MAP } from '../../data/gameDb'
+import { deriveNpcEffectiveStats, isFreeSectTenArtStudy } from '../stats/heroStats'
 import type { QuestCombatOpponentSpec, QuestDefinition, QuestEffect } from '../../types/quest'
 import { parseRealmTier } from '../stats/realmUtils'
 import { scaleNodeNpcDownToRealm, buildNodeNpcFromCompiledId } from '../npcFactory'
 import { getLoadedQuestScenes, preloadAllQuestScenes } from '../quest/sceneRegistry'
 import { buildAvailableQuestEntries, getSuggestedSectMainQuest, isQuestPermanentlyClosed } from '../quest/sectQuestGuide'
 import { getSectMonthlyStipend } from '../sect/stipends'
-import { isFreeSectTenArtStudy } from '../stats/heroStats'
 import { buildStoreEvalContext, useGameStore } from '../../store/useGameStore'
 import { makeQuestNpc } from '../quest/dsl'
 import { SHAOLIN_STARTER_GEAR_IDS, SHAOLIN_STARTER_KIT_EFFECTS } from '../../data/quests/sects/sectStarterKits'
@@ -554,4 +554,81 @@ describe('少林 / 华山 / 终南：主线可用内功合理养成境界 ≥ �
     expect(violations).toEqual([])
   })
 })
+
+describe('不入流对手难度护栏（二重初始凡品心法 + 二重初始凡品武学可稳过）', () => {
+  it('全库所有不入流 NPC 不得带披挂、不得含非凡品武学、外功限 1 门 1 重，面板低于二重初始主角', () => {
+    const violations: string[] = []
+    const starterHeroEff = deriveNpcEffectiveStats({
+      equipped: {
+        weapon: null,
+        armor: null,
+        shoes: null,
+        bow: null,
+        accessory1: null,
+        accessory2: null,
+        curio1: null,
+        curio2: null,
+        mount: null,
+      },
+      equippedArts: { neigong: 'MA-180', qinggong: null, move1: 'MA-184', move2: null, move3: null, move4: null },
+      learnedArts: [
+        { artId: 'MA-180', level: 2, exp: 0 },
+        { artId: 'MA-184', level: 2, exp: 0 },
+      ],
+    })
+
+    for (const npc of Object.values(NPC_DB_MAP)) {
+      if (npc.realm !== '不入流') continue
+      const eqCount = Object.values(npc.equipped).filter(Boolean).length
+      const ownedCount = npc.ownedArtifactIds?.length ?? 0
+      if (eqCount > ownedCount) {
+        violations.push(`${npc.id}(${npc.name}): 不入流带有 ${eqCount} 件披挂`)
+      }
+      const extraMoves = [npc.equippedArts.move2, npc.equippedArts.move3, npc.equippedArts.move4].filter(Boolean)
+      if (extraMoves.length > 0) {
+        violations.push(`${npc.id}(${npc.name}): 不入流外功超过 1 门 (${extraMoves.join(',')})`)
+      }
+      for (const la of npc.learnedArts) {
+        const art = MARTIAL_ART_DB_MAP[la.artId]
+        if (!art || art.tier !== '凡品' || la.level > 1) {
+          violations.push(`${npc.id}(${npc.name}): 非法武学 ${la.artId}(${art?.tier ?? '?'} Lv.${la.level})`)
+        }
+      }
+      const eff = deriveNpcEffectiveStats(npc)
+      if (ownedCount === 0 && eff.maxHp >= starterHeroEff.maxHp) {
+        violations.push(`${npc.id}(${npc.name}): maxHp(${eff.maxHp}) >= 二重初始主角(${starterHeroEff.maxHp})`)
+      }
+    }
+    expect(violations).toEqual([])
+  })
+
+  it('全库剧情中所有不入流自定义对手均无披挂、HP <= 165、仅限凡品 1 重单招', async () => {
+    await preloadAllQuestScenes()
+    const violations: string[] = []
+    for (const q of QUEST_REGISTRY) {
+      const combats: Extract<QuestEffect, { type: 'startCombat' }>[] = []
+      const actors: Record<string, string> = {}
+      collectCombats(getLoadedQuestScenes(q.id), combats, actors)
+      for (const c of combats) {
+        for (const spec of [c.opponent, ...(c.extraOpponents ?? [])]) {
+          if (spec.kind !== 'custom' || spec.npc.realm !== '不入流') continue
+          const n = spec.npc
+          const eqCount = n.equipped ? Object.values(n.equipped).filter(Boolean).length : 0
+          if (eqCount > 0) violations.push(`${q.id}/${n.name}: 不入流带有 ${eqCount} 件披挂`)
+          if ((n.stats?.hp ?? 0) > 165) violations.push(`${q.id}/${n.name}: hp=${n.stats?.hp} > 165`)
+          const extraMoves = [n.equippedArts?.move2, n.equippedArts?.move3, n.equippedArts?.move4].filter(Boolean)
+          if (extraMoves.length > 0) violations.push(`${q.id}/${n.name}: 外功超过 1 门`)
+          for (const la of n.learnedArts ?? []) {
+            const art = MARTIAL_ART_DB_MAP[la.artId]
+            if (!art || art.tier !== '凡品' || la.level > 1) {
+              violations.push(`${q.id}/${n.name}: 非法武学 ${la.artId}(${art?.tier ?? '?'} Lv.${la.level})`)
+            }
+          }
+        }
+      }
+    }
+    expect(violations).toEqual([])
+  })
+})
+
 

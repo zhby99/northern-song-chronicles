@@ -49,10 +49,10 @@ function buildTongguanBanditNpc(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     talk: '“把银子和那块华山玄铁令留下，滚！”',
-    stats: { hp: 165, mp: 60, agi: 11, res: 6 },
+    stats: { hp: 135, mp: 50, agi: 10, res: 4 },
     talents: { bone: 34, comprehension: 28, charm: 20 },
-    equippedArts: { neigong: 'MA-238', move1: 'MA-189', move2: 'MA-186' },
-    learnedArts: [{ artId: 'MA-238', level: 1 }, { artId: 'MA-189', level: 1 }, { artId: 'MA-186', level: 1 }],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-189' },
+    learnedArts: [{ artId: 'MA-238', level: 1 }, { artId: 'MA-189', level: 1 }],
   })
 }
 
@@ -69,10 +69,10 @@ function buildHuashanDiscipleNpc(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_huashan_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_huashan_fb.jpg',
     talk: '“请出剑！让掌门与秦师叔瞧瞧你的华山十二式！”',
-    stats: { hp: 220, mp: 90, agi: 14, res: 8 },
+    stats: { hp: 150, mp: 60, agi: 12, res: 4 },
     talents: { bone: 44, comprehension: 46, charm: 42 },
-    equippedArts: { neigong: 'MA-181', move1: 'MA-187', move2: 'MA-184' },
-    learnedArts: [{ artId: 'MA-181', level: 1 }, { artId: 'MA-187', level: 1 }, { artId: 'MA-184', level: 1 }],
+    equippedArts: { neigong: 'MA-181', move1: 'MA-187' },
+    learnedArts: [{ artId: 'MA-181', level: 1 }, { artId: 'MA-187', level: 1 }],
   })
 }
 

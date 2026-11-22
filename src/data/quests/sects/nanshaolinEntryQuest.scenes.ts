@@ -60,11 +60,10 @@ function buildHongchanSparNpc(): NodeNpc {
     sectRankLabel: '外门弟子',
     avatarUrl: '/assets/characters/templates/tpl_hongmen_male_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_hongmen_male_fb.jpg',
-    stats: { hp: 225, mp: 90, agi: 15, res: 6 },
+    stats: { hp: 135, mp: 55, agi: 10, res: 3 },
     talents: { bone: 52, comprehension: 46, charm: 45 },
-    equippedArts: { neigong: 'MA-180', move1: 'MA-183', move2: 'MA-182' },
-    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-183', level: 1 }, { artId: 'MA-182', level: 1 }],
-    equipped: { weapon: 'WPN-099', armor: 'ARM-036', shoes: 'BOT-020', bow: 'BOW-023', accessory1: 'ACC-040', accessory2: 'ACC-047', mount: 'MNT-026' },
+    equippedArts: { neigong: 'MA-180', move1: 'MA-183' },
+    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-183', level: 1 }],
     talk: '“扎稳四平马，沉桥莫眨眼！咱们南拳规矩，桥来桥上过，点到为止！”',
   })
 }
@@ -79,11 +78,10 @@ function buildShapiliuDockNpc(): NodeNpc {
     factionName: '黑鲨海寇',
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
-    stats: { hp: 250, mp: 85, agi: 16, res: 7 },
+    stats: { hp: 145, mp: 60, agi: 11, res: 4 },
     talents: { bone: 45, comprehension: 35, charm: 25 },
-    equippedArts: { neigong: 'MA-199', move1: 'MA-209', move2: 'MA-204' },
-    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-209', level: 1 }, { artId: 'MA-204', level: 1 }],
-    equipped: { weapon: 'WPN-076', armor: 'ARM-046', shoes: 'BOT-023', bow: 'BOW-021', accessory1: 'ACC-047', accessory2: 'ACC-043', mount: 'MNT-022' },
+    equippedArts: { neigong: 'MA-199', move1: 'MA-209' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-209', level: 1 }],
     talk: '“天堂有路你不走！把老船工的海道针经和少林血竭统统交出来！”',
   })
 }

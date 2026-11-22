@@ -39,7 +39,7 @@ function buildLongyouRaiderAxe(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     talk: '“老大别废话，大斧子招呼，砍翻这小道士！”',
-    stats: { hp: 260, mp: 90, agi: 18, res: 11 },
+    stats: { hp: 145, mp: 55, agi: 11, res: 4 },
     talents: { bone: 38, comprehension: 32, charm: 26 },
     equippedArts: { neigong: 'MA-180', move1: 'MA-184' },
     learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-184', level: 1 }],

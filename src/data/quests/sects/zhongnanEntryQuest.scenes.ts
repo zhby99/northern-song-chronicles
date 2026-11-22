@@ -31,7 +31,7 @@ function buildXishiBully(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     talk: '“哪来的不知死活的毛头小子，也敢管爷们在草堂讨茶钱的闲事！”',
-    stats: { hp: 230, mp: 80, agi: 16, res: 10 },
+    stats: { hp: 120, mp: 50, agi: 10, res: 3 },
     talents: { bone: 35, comprehension: 30, charm: 25 },
     equippedArts: { neigong: 'MA-180', move1: 'MA-184' },
     learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-184', level: 1 }],
@@ -48,10 +48,10 @@ function buildBeeBandit(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     talk: '“终南山玉蜂浆一罐能换二十贯钱，小道姑识相的快滚开！”',
-    stats: { hp: 310, mp: 110, agi: 19, res: 12 },
+    stats: { hp: 145, mp: 60, agi: 12, res: 4 },
     talents: { bone: 40, comprehension: 34, charm: 28 },
     equippedArts: { neigong: 'MA-180', move1: 'MA-184' },
-    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-184', level: 2 }],
+    learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-184', level: 1 }],
   })
 }
 

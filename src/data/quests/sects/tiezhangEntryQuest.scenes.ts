@@ -45,19 +45,10 @@ function buildSaltBullyNpc(): NodeNpc {
     factionName: '汉水匪帮',
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
-    stats: { hp: 200, mp: 70, agi: 15, res: 7 },
+    stats: { hp: 140, mp: 55, agi: 11, res: 4 },
     talents: { bone: 36, comprehension: 30, charm: 20 },
-    equippedArts: { neigong: 'MA-199', move1: 'MA-201', move2: 'MA-189' },
-    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-201', level: 2 }, { artId: 'MA-189', level: 1 }],
-    equipped: {
-      weapon: 'WPN-076',
-      armor: 'ARM-044',
-      shoes: 'BOT-023',
-      bow: 'BOW-022',
-      accessory1: 'ACC-041',
-      accessory2: 'ACC-043',
-      mount: 'MNT-021',
-    },
+    equippedArts: { neigong: 'MA-199', move1: 'MA-201' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-201', level: 1 }],
     talk: '“铁掌帮的五指旗又如何？这船黑铁砂今天老子截定了！”',
   })
 }

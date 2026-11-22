@@ -61,7 +61,6 @@ function buildWoodenStaffTrialMonkNpc(): NodeNpc {
     talents: { bone: 45, comprehension: 38, charm: 55 },
     equippedArts: { neigong: 'MA-180', qinggong: 'MA-197', move1: 'MA-192' },
     learnedArts: [{ artId: 'MA-180', level: 1 }, { artId: 'MA-197', level: 1 }, { artId: 'MA-192', level: 1 }],
-    equipped: { weapon: 'WPN-068', armor: 'ARM-046', shoes: 'BOT-019', bow: 'BOW-020', accessory1: 'ACC-049', accessory2: 'ACC-035', mount: 'MNT-023' },
     talk: '“小施主莫慌，贫僧已尽数敛去内息，只使三分木杆力道——且看你如何立身守门户！”',
   })
 }
@@ -80,7 +79,6 @@ function buildKhitanCaveScoutNpc(): NodeNpc {
     talents: { bone: 46, comprehension: 32, charm: 24 },
     equippedArts: { neigong: 'MA-238', qinggong: 'MA-218', move1: 'MA-201' },
     learnedArts: [{ artId: 'MA-238', level: 1 }, { artId: 'MA-218', level: 1 }, { artId: 'MA-201', level: 1 }],
-    equipped: { weapon: 'WPN-083', armor: 'ARM-045', shoes: 'BOT-022', bow: 'BOW-023', accessory1: 'ACC-045', accessory2: 'ACC-043', mount: 'MNT-021' },
     talk: '“好个不知死活的宋人毛头小子！这窄石缝挥不开长弯刀，老子照样一拳砸碎你的胸骨！”',
   })
 }

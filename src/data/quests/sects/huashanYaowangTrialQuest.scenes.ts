@@ -52,10 +52,10 @@ function buildYaowangThug1(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     talk: '“华山派的小毛孩也敢下山管爷爷们收药税？剁了他！”',
-    stats: { hp: 310, mp: 120, agi: 18, res: 11 },
+    stats: { hp: 155, mp: 60, agi: 12, res: 4 },
     talents: { bone: 42, comprehension: 30, charm: 22 },
-    equippedArts: { neigong: 'MA-238', move1: 'MA-189', move2: 'MA-186' },
-    learnedArts: [{ artId: 'MA-238', level: 2 }, { artId: 'MA-189', level: 2 }, { artId: 'MA-186', level: 2 }],
+    equippedArts: { neigong: 'MA-238', move1: 'MA-189' },
+    learnedArts: [{ artId: 'MA-238', level: 1 }, { artId: 'MA-189', level: 1 }],
   })
 }
 

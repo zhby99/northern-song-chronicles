@@ -5,7 +5,6 @@ import {
   REGION_DB_MAP,
   resolveNpcByName,
 } from '../data/gameDb'
-import { DEFAULT_EQUIPPED_SLOTS } from '../data/itemsDb'
 import { parseRealmTier } from './stats/realmUtils'
 import type {
   CompiledNpcRecord,
@@ -20,6 +19,18 @@ import type {
 } from '../types/game'
 import type { DynamicQuestNpc } from '../types/quest'
 import { inferTemplatePortrait, resolveAvatarForFullbody } from '../utils/portraitFallback'
+
+const EMPTY_EQUIPPED_SLOTS: EquippedSlotsMap = {
+  weapon: null,
+  armor: null,
+  shoes: null,
+  bow: null,
+  accessory1: null,
+  accessory2: null,
+  curio1: null,
+  curio2: null,
+  mount: null,
+}
 
 export interface MakeQuestNpcInput {
   id?: string
@@ -105,7 +116,7 @@ export function makeQuestNpc(input: MakeQuestNpcInput): NodeNpc {
     equippedArts,
     learnedArts,
     equipped: {
-      ...DEFAULT_EQUIPPED_SLOTS,
+      ...EMPTY_EQUIPPED_SLOTS,
       ...input.equipped,
     },
     isDynamicLiaoSpy: input.isDynamicLiaoSpy,

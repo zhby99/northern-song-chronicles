@@ -68,14 +68,14 @@ function buildWuChengshanNpc(poisoned: boolean): NodeNpc {
     portraitUrl: '/assets/characters/templates/tpl_xingxiu_fb.jpg',
     talk: '“好个阴险小贼，今日老子撕了你的皮！”',
     stats: {
-      hp: poisoned ? 195 : 245,
-      mp: 95,
-      agi: poisoned ? 12 : 15,
-      res: poisoned ? 7 : 9,
+      hp: poisoned ? 115 : 150,
+      mp: 60,
+      agi: poisoned ? 9 : 12,
+      res: poisoned ? 3 : 4,
     },
     talents: { bone: 42, comprehension: 35, charm: 25 },
-    equippedArts: { neigong: 'MA-242', move1: 'MA-196', move2: 'MA-201' },
-    learnedArts: [{ artId: 'MA-242', level: 1 }, { artId: 'MA-196', level: 1 }, { artId: 'MA-201', level: 1 }],
+    equippedArts: { neigong: 'MA-242', move1: 'MA-196' },
+    learnedArts: [{ artId: 'MA-242', level: 1 }, { artId: 'MA-196', level: 1 }],
   })
 }
 

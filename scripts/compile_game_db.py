@@ -3170,8 +3170,8 @@ def populate_npc_loadouts(
             if art_tier == "良品":
                 return 2
             return 3
-        # 不入流 (realm_rank == 16)
-        return 2 if art_tier == "凡品" else 1
+        # 不入流 (realm_rank == 16)：一律 1 重
+        return 1
 
     def pick_from_pool(
         pool: list[dict[str, Any]],
@@ -3244,21 +3244,26 @@ def populate_npc_loadouts(
 
         # 1) 6 槽武学选配
         # 金刚不坏体神功只经由 JINGANG_GUARD_HOLDERS 指定上槽，不按「已知武学优先」自动塞入招式槽
+        is_buruliu = realm_rank == 16
         known_arts = [
-            art_by_id[aid] for aid in npc.get("knownArtIds", []) if aid in art_by_id and aid != "MA-018"
+            art_by_id[aid]
+            for aid in npc.get("knownArtIds", [])
+            if aid in art_by_id and aid != "MA-018" and (not is_buruliu or art_by_id[aid]["tier"] == "凡品")
         ]
         known_arts.sort(key=lambda a: tier_rank.get(a["tier"], 1), reverse=True)
 
         neigong_id: str | None = None
         qinggong_id: str | None = None
         move_ids: list[str] = []
+        max_moves = 1 if is_buruliu else 4
 
         for a in known_arts:
             if a["category"] == "内功" and neigong_id is None:
-                neigong_id = a["id"]
+                if not is_buruliu or a.get("subTier") in ("下品", "中品"):
+                    neigong_id = a["id"]
             elif a["category"] == "轻功" and qinggong_id is None:
                 qinggong_id = a["id"]
-            elif a["category"] not in ("内功", "轻功") and len(move_ids) < 4:
+            elif a["category"] not in ("内功", "轻功") and len(move_ids) < max_moves:
                 move_ids.append(a["id"])
 
         # 三老合创武学只给逍遥三老本人运使，不进入门派武学自动配给池
@@ -3276,6 +3281,8 @@ def populate_npc_loadouts(
 
         if neigong_id is None:
             def _ng_allowed(a: dict[str, Any]) -> bool:
+                if is_buruliu:
+                    return a["tier"] == "凡品" and a.get("subTier") in ("下品", "中品")
                 if realm_rank >= 13:
                     return a["tier"] == "凡品" or (a["tier"] == "良品" and a.get("subTier") == "下品")
                 if realm_rank >= 10:
@@ -3297,7 +3304,7 @@ def populate_npc_loadouts(
                 neigong_id = picked["id"]
                 used_ids.add(neigong_id)
 
-        if qinggong_id is None:
+        if qinggong_id is None and not is_buruliu:
             picked = pick_from_pool(
                 [a for a in sect_arts if a["category"] == "轻功"],
                 pref_tiers,
@@ -3313,9 +3320,17 @@ def populate_npc_loadouts(
                 qinggong_id = picked["id"]
                 used_ids.add(qinggong_id)
 
-        sect_moves = [a for a in sect_arts if a["category"] not in ("内功", "轻功")]
-        generic_moves = [a for a in generic_arts if a["category"] not in ("内功", "轻功")]
-        while len(move_ids) < 4:
+        sect_moves = [
+            a
+            for a in sect_arts
+            if a["category"] not in ("内功", "轻功") and (not is_buruliu or a["tier"] == "凡品")
+        ]
+        generic_moves = [
+            a
+            for a in generic_arts
+            if a["category"] not in ("内功", "轻功") and (not is_buruliu or a["tier"] == "凡品")
+        ]
+        while len(move_ids) < max_moves:
             seed = npc_num + len(move_ids) * 7
             picked = pick_from_pool(sect_moves, pref_tiers, used_ids, seed) or pick_from_pool(
                 generic_moves, pref_tiers, used_ids, seed
@@ -3333,7 +3348,11 @@ def populate_npc_loadouts(
             "move3": move_ids[2] if len(move_ids) > 2 else None,
             "move4": move_ids[3] if len(move_ids) > 3 else None,
         }
-        all_npc_art_ids = list(dict.fromkeys([*npc.get("knownArtIds", []), *sorted(used_ids)]))
+        all_npc_art_ids = (
+            list(dict.fromkeys(sorted(used_ids)))
+            if is_buruliu
+            else list(dict.fromkeys([*npc.get("knownArtIds", []), *sorted(used_ids)]))
+        )
         learned_arts = [
             {
                 "artId": aid,
@@ -3374,55 +3393,57 @@ def populate_npc_loadouts(
             elif oid.startswith("MNT-") and equipped["mount"] is None:
                 equipped["mount"] = oid
 
-        fill_tier = "良阶" if realm_rank <= 9 else "凡阶"
-        move1_cat = art_by_id[move_ids[0]]["category"] if move_ids and move_ids[0] in art_by_id else ""
-        pref_wpn_type = cat_to_weapon_type.get(move1_cat)
+        # 不入流 (realm_rank == 16) 不自动塞满 7 槽披挂，仅保留孤品（若有）
+        if not is_buruliu:
+            fill_tier = "良阶" if realm_rank <= 9 else "凡阶"
+            move1_cat = art_by_id[move_ids[0]]["category"] if move_ids and move_ids[0] in art_by_id else ""
+            pref_wpn_type = cat_to_weapon_type.get(move1_cat)
 
-        if equipped["weapon"] is None:
-            tiered_wpns = [w for w in weapons if w["tier"] == fill_tier] or weapons
-            move_id_set = set(move_ids)
-            move_cats = [art_by_id[mid]["category"] for mid in move_ids if mid in art_by_id]
+            if equipped["weapon"] is None:
+                tiered_wpns = [w for w in weapons if w["tier"] == fill_tier] or weapons
+                move_id_set = set(move_ids)
+                move_cats = [art_by_id[mid]["category"] for mid in move_ids if mid in art_by_id]
 
-            def _wpn_has_cat(w: dict[str, Any], cat: str) -> bool:
-                return any(s["category"] in cat for s in w.get("synergies", []))
+                def _wpn_has_cat(w: dict[str, Any], cat: str) -> bool:
+                    return any(s["category"] in cat for s in w.get("synergies", []))
 
-            sig_wpns = [w for w in tiered_wpns if move_id_set.intersection(w.get("signatureArtIds", []))]
-            cat1_wpns = [w for w in tiered_wpns if move1_cat and _wpn_has_cat(w, move1_cat)]
-            any_cat_wpns = [w for w in tiered_wpns if any(_wpn_has_cat(w, c) for c in move_cats)]
-            wpn_pool = sig_wpns or cat1_wpns or any_cat_wpns or weapons
-            equipped["weapon"] = pick_gear_for_slot(
-                wpn_pool,
-                fill_tier,
-                faction_id,
-                region_id,
-                npc_num,
-                preferred_weapon_type=None if (sig_wpns or cat1_wpns or any_cat_wpns) else pref_wpn_type,
-            )
-        if equipped["armor"] is None:
-            equipped["armor"] = pick_gear_for_slot(
-                gear_by_slot["armor"], fill_tier, faction_id, region_id, npc_num + 2
-            )
-        if equipped["shoes"] is None:
-            equipped["shoes"] = pick_gear_for_slot(
-                gear_by_slot["shoes"], fill_tier, faction_id, region_id, npc_num + 3
-            )
-        if equipped["bow"] is None:
-            equipped["bow"] = pick_gear_for_slot(
-                gear_by_slot["bow"], fill_tier, faction_id, region_id, npc_num + 4
-            )
-        if equipped["accessory1"] is None:
-            equipped["accessory1"] = pick_gear_for_slot(
-                gear_by_slot["accessory"], fill_tier, faction_id, region_id, npc_num + 5
-            )
-        if equipped["accessory2"] is None:
-            excl = {equipped["accessory1"]} if equipped["accessory1"] else set()
-            equipped["accessory2"] = pick_gear_for_slot(
-                gear_by_slot["accessory"], fill_tier, faction_id, region_id, npc_num + 6, exclude_ids=excl
-            )
-        if equipped["mount"] is None:
-            equipped["mount"] = pick_gear_for_slot(
-                mounts, fill_tier, faction_id, region_id, npc_num + 7
-            )
+                sig_wpns = [w for w in tiered_wpns if move_id_set.intersection(w.get("signatureArtIds", []))]
+                cat1_wpns = [w for w in tiered_wpns if move1_cat and _wpn_has_cat(w, move1_cat)]
+                any_cat_wpns = [w for w in tiered_wpns if any(_wpn_has_cat(w, c) for c in move_cats)]
+                wpn_pool = sig_wpns or cat1_wpns or any_cat_wpns or weapons
+                equipped["weapon"] = pick_gear_for_slot(
+                    wpn_pool,
+                    fill_tier,
+                    faction_id,
+                    region_id,
+                    npc_num,
+                    preferred_weapon_type=None if (sig_wpns or cat1_wpns or any_cat_wpns) else pref_wpn_type,
+                )
+            if equipped["armor"] is None:
+                equipped["armor"] = pick_gear_for_slot(
+                    gear_by_slot["armor"], fill_tier, faction_id, region_id, npc_num + 2
+                )
+            if equipped["shoes"] is None:
+                equipped["shoes"] = pick_gear_for_slot(
+                    gear_by_slot["shoes"], fill_tier, faction_id, region_id, npc_num + 3
+                )
+            if equipped["bow"] is None:
+                equipped["bow"] = pick_gear_for_slot(
+                    gear_by_slot["bow"], fill_tier, faction_id, region_id, npc_num + 4
+                )
+            if equipped["accessory1"] is None:
+                equipped["accessory1"] = pick_gear_for_slot(
+                    gear_by_slot["accessory"], fill_tier, faction_id, region_id, npc_num + 5
+                )
+            if equipped["accessory2"] is None:
+                excl = {equipped["accessory1"]} if equipped["accessory1"] else set()
+                equipped["accessory2"] = pick_gear_for_slot(
+                    gear_by_slot["accessory"], fill_tier, faction_id, region_id, npc_num + 6, exclude_ids=excl
+                )
+            if equipped["mount"] is None:
+                equipped["mount"] = pick_gear_for_slot(
+                    mounts, fill_tier, faction_id, region_id, npc_num + 7
+                )
 
         npc["equipped"] = equipped
 
@@ -3490,7 +3511,7 @@ def populate_npc_loadouts(
 
         preset_hp = npc.get("stats", {}).get("hp", 0)
         preset_mp = npc.get("stats", {}).get("mp", 0)
-        if realm_rank >= 7 and neigong_id and neigong_id in art_by_id:
+        if 7 <= realm_rank <= 15 and neigong_id and neigong_id in art_by_id:
             ng_lv_cur = lv_map.get(neigong_id, 1)
             ng_st_cur = art_by_id[neigong_id]["levels"][ng_lv_cur - 1]
             base_hp_no_ng = calc_hp - ng_st_cur.get("maxHp", 0)

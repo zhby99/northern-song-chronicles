@@ -51,10 +51,10 @@ function buildRemnantBandit1(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     talk: '“锯断这条铁索，叫华山那群小道士连人带石匠一道摔成肉泥！”',
-    stats: { hp: 280, mp: 100, agi: 17, res: 10 },
+    stats: { hp: 145, mp: 55, agi: 11, res: 4 },
     talents: { bone: 40, comprehension: 28, charm: 20 },
-    equippedArts: { neigong: 'MA-199', move1: 'MA-189', move2: 'MA-186' },
-    learnedArts: [{ artId: 'MA-199', level: 2 }, { artId: 'MA-189', level: 2 }, { artId: 'MA-186', level: 1 }],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-189' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-189', level: 1 }],
   })
 }
 
@@ -70,10 +70,10 @@ function buildRemnantBandit2(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     talk: '“雾这么大，石阶又滑，咱哥俩前后夹击，把这外门娃子推下万丈深渊！”',
-    stats: { hp: 295, mp: 110, agi: 19, res: 11 },
+    stats: { hp: 150, mp: 60, agi: 12, res: 4 },
     talents: { bone: 41, comprehension: 30, charm: 21 },
-    equippedArts: { neigong: 'MA-199', move1: 'MA-209', move2: 'MA-189' },
-    learnedArts: [{ artId: 'MA-199', level: 2 }, { artId: 'MA-209', level: 2 }, { artId: 'MA-189', level: 2 }],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-209' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-209', level: 1 }],
   })
 }
 

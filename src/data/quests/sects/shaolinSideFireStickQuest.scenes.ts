@@ -52,10 +52,10 @@ function buildThiefMinion1(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     talk: '“哎哟这黑棍子专捅脚脖子！大哥快帮我一把！”',
-    stats: { hp: 250, mp: 90, agi: 18, res: 9 },
+    stats: { hp: 140, mp: 55, agi: 11, res: 4 },
     talents: { bone: 36, comprehension: 30, charm: 22 },
-    equippedArts: { neigong: 'MA-199', move1: 'MA-201', move2: 'MA-204' },
-    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-201', level: 2 }, { artId: 'MA-204', level: 1 }],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-201' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-201', level: 1 }],
   })
 }
 
@@ -71,10 +71,10 @@ function buildThiefMinion2(): NodeNpc {
     avatarUrl: '/assets/characters/templates/tpl_greenwood_sect_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_sect_fb.jpg',
     talk: '“少林寺的腊八新米最值钱，抢两袋就溜！”',
-    stats: { hp: 240, mp: 85, agi: 19, res: 9 },
+    stats: { hp: 140, mp: 55, agi: 12, res: 4 },
     talents: { bone: 35, comprehension: 28, charm: 20 },
-    equippedArts: { neigong: 'MA-199', move1: 'MA-204', move2: 'MA-201' },
-    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-204', level: 2 }, { artId: 'MA-201', level: 1 }],
+    equippedArts: { neigong: 'MA-199', move1: 'MA-204' },
+    learnedArts: [{ artId: 'MA-199', level: 1 }, { artId: 'MA-204', level: 1 }],
   })
 }
 
