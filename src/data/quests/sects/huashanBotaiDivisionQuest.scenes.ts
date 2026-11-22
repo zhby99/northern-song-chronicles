@@ -418,16 +418,23 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       P('（整衣敛衽，转身向岳沧溟与宁清羽端端正正叩首奉茶）“弟子以为，无根之木难抗狂飙，无源之水易涸中道。弟子愿入【紫霞气宗正脉】，求内外兼修、守正致远之剑道！”'),
       S('NPC-0167', '（脸色微沉，随即重重哼了一声拂袖转身）“罢了！人各有志，但愿日后在江湖上遇到快刀狠手时，你的浩然正气来得及救命！”'),
-      S('NPC-0118', '（双手扶起你，欣慰抚须朗笑）“好！心定如岳，不为速成奇巧所动！今日起你便是我华山气宗【内门剑士】——明日拂晓赴东峰迎曦石坪，让沧云传你气宗内门第一剑！”'),
+      S('NPC-0118', '（双手扶起你，欣慰抚须朗笑）“好！心定如岳，不为速成奇巧所动！今日起你便是我华山气宗【内门剑士】，且将本门绝壁轻功《苍龙凌虚步》一并传你——明日拂晓赴东峰迎曦石坪，让沧云传你气宗内门第一剑！”'),
     ],
     choices: [
       {
         id: 'hsq02_finish_qi',
-        label: '接过内门剑士腰牌，正式归入华山紫霞气宗正脉！',
+        label: '接过内门剑士腰牌与《苍龙凌虚步》，归入华山紫霞气宗正脉！',
         tone: 'gold',
         effects: [
           { type: 'setFlag', flag: 'hs_branch', value: 'qi' },
           { type: 'setSectRank', sectId: 'SECT-05', rank: 2, promoteOnly: true },
+          {
+            type: 'teachMartialArt',
+            artId: 'MA-255',
+            level: 1,
+            autoEquip: true,
+            replaceArtIds: ['MA-197'],
+          },
           { type: 'addArtExp', artId: 'MA-167', amount: 300 },
           { type: 'addArtExp', artId: 'MA-160', amount: 260 },
           { type: 'giveSilver', amount: 60, reason: '博台大比夺魁晋升内门赏银' },
@@ -435,7 +442,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'giveCombatExp', amount: 90, reason: '博台大比三战夺魁实战感悟' },
           { type: 'modifyRenown', delta: 18, reason: '华山博台大比夺魁晋升内门剑士' },
           { type: 'completeQuest', questId: HUASHAN_Q02_QUEST_ID, outcome: 'qi' },
-          toast('已晋升华山派【内门剑士】并拜入【紫霞气宗正脉】！', 'success', '剑气分宗'),
+          toast('已晋升华山派【内门剑士】、拜入【紫霞气宗正脉】并习得地阶轻功《苍龙凌虚步》！', 'success', '剑气分宗'),
         ],
       },
     ],
@@ -449,16 +456,23 @@ export const SCENES: Record<string, StorySceneDef> = {
     beats: [
       P('（目光澄澈如电，转身向封不弃抱剑躬身一礼）“弟子以为，剑客既佩三尺青锋，当于生死毫厘间破尽虚妄、一往无前！弟子愿入【西峰剑宗支脉】，随封师叔磨砺至快至奇之剑！”'),
       S('NPC-0167', '（先是一怔，旋即仰天狂笑，重重一拍你的肩头）“好小子！有种！老夫就知道你博台最后一剑挑飞陆展锋兵刃的狠辣决断，绝不是甘心在蒲团上枯坐的老学究！”'),
-      S('NPC-0118', '（轻叹一声，仍依门规将内门剑士青铜腰牌递予你手，肃容叮嘱）“既入西峰剑脉，亦是我华山门人。切记快剑易折、杀伐伤心，万不可堕入恃剑行凶之魔道！”'),
+      S('NPC-0118', '（轻叹一声，仍依门规将内门剑士青铜腰牌与本门轻功《苍龙凌虚步》图谱递予你手，肃容叮嘱）“既入西峰剑脉，亦是我华山门人。切记快剑易折、杀伐伤心，万不可堕入恃剑行凶之魔道！”'),
     ],
     choices: [
       {
         id: 'hsq02_finish_jian',
-        label: '接过内门剑士腰牌，正式归入华山西峰剑宗支脉！',
+        label: '接过内门剑士腰牌与《苍龙凌虚步》，归入华山西峰剑宗支脉！',
         tone: 'danger',
         effects: [
           { type: 'setFlag', flag: 'hs_branch', value: 'jian' },
           { type: 'setSectRank', sectId: 'SECT-05', rank: 2, promoteOnly: true },
+          {
+            type: 'teachMartialArt',
+            artId: 'MA-255',
+            level: 1,
+            autoEquip: true,
+            replaceArtIds: ['MA-197'],
+          },
           { type: 'addArtExp', artId: 'MA-167', amount: 300 },
           { type: 'addArtExp', artId: 'MA-160', amount: 260 },
           { type: 'giveSilver', amount: 60, reason: '博台大比夺魁晋升内门赏银' },
@@ -466,7 +480,7 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'giveCombatExp', amount: 90, reason: '博台大比三战夺魁实战感悟' },
           { type: 'modifyRenown', delta: 18, reason: '华山博台大比夺魁晋升内门剑士' },
           { type: 'completeQuest', questId: HUASHAN_Q02_QUEST_ID, outcome: 'jian' },
-          toast('已晋升华山派【内门剑士】并拜入【西峰剑宗支脉】！', 'success', '剑气分宗'),
+          toast('已晋升华山派【内门剑士】、拜入【西峰剑宗支脉】并习得地阶轻功《苍龙凌虚步》！', 'success', '剑气分宗'),
         ],
       },
     ],

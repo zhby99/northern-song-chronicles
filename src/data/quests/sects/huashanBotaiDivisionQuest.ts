@@ -177,6 +177,39 @@ export const HUASHAN_Q02_QUESTS: QuestDefinition[] = [
 
     npcActions: [
       {
+        // 旧档补授：《苍龙凌虚步》现于博台分宗（Q02）晋升内门时亲授，已过 Q02 而未习得者可在此补领
+        id: 'act_hs_canglong_catchup_npc',
+        label: '身法未精 · 恳请师长补授《苍龙凌虚步》',
+        badge: '苍龙凌虚',
+        tone: 'gold',
+        showInBottomBar: true,
+        showInSectPanel: true,
+        visibleWhen: {
+          type: 'all',
+          conditions: [
+            { type: 'inSect', sectId: 'SECT-05', minRank: 2 },
+            { type: 'targetNpcMatch', npcIds: ['NPC-0118', 'NPC-0147', 'NPC-0166', 'NPC-0167', 'NPC-0202'] },
+            qStatus(HUASHAN_Q02_QUEST_ID, 'completed'),
+            { type: 'not', condition: { type: 'learnedArtAtLeast', artId: 'MA-255', minLevel: 1 } },
+          ],
+        },
+        effects: [
+          {
+            type: 'teachMartialArt',
+            artId: 'MA-255',
+            level: 1,
+            autoEquip: true,
+            replaceArtIds: ['MA-197'],
+          },
+          {
+            type: 'toast',
+            text: '师长补授华山地阶下品轻功《苍龙凌虚步》，已自动装备至轻功槽！',
+            tone: 'success',
+            logTag: '苍龙凌虚',
+          },
+        ],
+      },
+      {
         id: 'act_hsq02_start_npc',
         label: '禀请参加三年一度【博台外门升堂大比】',
         badge: '博台大比',
