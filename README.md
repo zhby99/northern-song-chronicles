@@ -1,71 +1,98 @@
 # 《北宋立志传》（Northern Song Chronicles）
 
-公元 1050 年（北宋仁宗皇祐二年 · 《天龙八部》黄金前传时代）开放世界历史武侠 RPG 模块化前端工程。
+公元 1050 年（北宋仁宗皇祐二年 · 正月初一开局 · 《天龙八部》黄金前传时代）开放世界历史武侠 RPG。致敬《太阁立志传》×《金庸群侠传》，以确定性量化数值骨架与长卷声明式剧情驱动，纯本地断网即可完整游玩。
 
-## 当前工程里程碑进度（Phase M0 全部完成 · Phase M1 & M3-1 稳步推进中）
-- **[x] M0-1：模块化前端工程、静态原画懒加载与无缝雅乐引擎**
-  - 技术栈：`Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5`
-  - 静态原画抽离：**366 张独立 JPG 生产原画（65.8 MB）** 存放于 `public/assets/` 按需懒加载，代码与 JSON 数据层内嵌 Base64 为 **0 Bytes**。
-  - 皇祐雅乐坊：内置 Web Audio 无缝循环与 Vite 自动曲目扫描插件（`public/assets/audio/`），支持天下舆图与 43 地区场景配乐自动切换。
-- **[x] M0-2 & M0-3：全局唯一标准 ID 字典与七大设定集结构化编译**
-  - 建立全局唯一标准字典（`src/data/idRegistry.json`）：**43 地区 ID**（`REG-01..43`：大宋 19 府 + 四夷 7 城 + 17 名山雄关）、**30 武林门派**（`SECT-01..30`：20 一流大派 + 10 二三流世家武馆）+ **11 朝堂四夷组织**（`ORG-01..11`）、**216 门武学**（`MA-001..216`）、**100 种百兵武器**（`WPN-001..100`）、**1,000 名历史与江湖人物**（`NPC-0001..1000`）。
-  - `scripts/compile_game_db.py`（`npm run build:db`）一键解析七大 Markdown 设定专卷，生成严格类型校验的静态 JSON 数据库，外键悬空引用为 **0**。
-- **[x] M0-4 & M3-1：三层空间无缝漫游、千人最末层入驻与多槽位存取档**
-  - 打通 `天下舆图 (world) -> 43 地区全景 (region: 38 手绘 JPG + 5 青绿营造 SVG) -> 138 座特殊建筑内景 (building: 58 手绘 JPG + 80 宋式营造 SVG)`，支持按时辰行军与旷野原地扎营。
-  - 1,000 名 NPC 全部具备实战四维、先天三维与十艺百工属性，并精确挂载至 43 地区最末层建筑与 414 处室内子点位；100 位历史名臣全员与 29 位武林宗师已实装独立头像与全身立绘（共 258 张人物原画）。
-  - `src/utils/saveManager.ts` 基于 `IndexedDB + localStorage` 提供 1 自动槽 + 6 手动槽存取档与 `.json` 导入导出（`M1.2.0` Schema）。
-- **[x] M1-0 & M1-2 & M1-3a/b：1.5× 十卷枢机菜单、216 武学重数特效与百兵四库**
-  - **常驻顶部状态栏（`TopHud.tsx`）**：实时显示年月日十二时辰、气血/体能双进度条、纹银与行军干粮。
-  - **独立三大核心面板（`SystemMenuModal.tsx`）**：【壹·主角面板】、【贰·披挂与武学（7 槽可视化披挂 + 6 槽武学运使 + 1~10 重火候演练）】、【叁·行囊四库】。
-  - **全量武学与器物入库**：216 门十一大类武学 1~10 重数值与 37 门天阶战斗特效、百兵谱 100 种武器（含兵武共鸣）、100 卷典籍书画、30 种丹药毒物、50 件雅器百工全部定稿入库。
+---
+
+## 核心特性与当前进度
+
+> 详细路线图与门派进度矩阵见 [`docs/ROADMAP_AND_TODO.md`](./docs/ROADMAP_AND_TODO.md)（当前主线：**Phase P1 · 补齐剩余 10 大已开放一流门派 Lv.1→Lv.5 全本剧情**）。
+
+- **工程底座与离线包架构（已完成 ✅）**
+  - 技术栈：`Vite 8 + React 19 + TypeScript 7 + Tailwind CSS v4 + Zustand 5 + Vitest 5`。
+  - 零 Base64 按需懒加载：运行时静态资源统一收拢于 `public/assets/`，内置防回归护栏（`check_artifact_guardrails.mjs`）与单文件离线 HTML 预览包构建（`npm run build:artifact`）。
+  - 单一事实源编译管线：`scripts/compile_game_db.py`（`npm run build:db`）将 `docs/*.md` 七大设定专卷一键编译为严格类型校验的 `src/data/*.json`（外键零悬空引用）。
+  - 跨版本存取档：`IndexedDB + localStorage` 提供 1 自动槽 + 6 手动槽及 `.json` 导入导出（当前 `M1.5.5` Schema，兼容历史版本自动迁移）。
+  - 皇祐雅乐坊：Web Audio 无缝循环与自动曲目扫描（`public/assets/audio/`，25 首场景/战斗配乐）。
+
+- **世界观数据与 100% 实景美术资产（已完成 ✅）**
+  - **43 处疆域重镇名山**（`REG-01..43`）半 3D 青绿等轴全景 100% 齐全；**268 座建筑**（147 座特殊建筑独立内景 + 30 套六域基础建筑模板）100% 实景覆盖；支持按十二时辰骑马行军与旷野扎营。
+  - **33 大武林门派 + 11 朝堂四夷组织**：含 21 一流势力（含独立建制 `SECT-33` 大宋禁军）+ 12 二三流世家武馆。
+  - **1,059 名历史名臣与江湖群侠**（`NPC-0001..1059`）100% 挂载至最末层建筑，全员配齐独立原画或门派模板（含透明抠图三件套）。
+  - **251 门十一大类武学**（1~10 重数值表、强天赋三次方闭关公式、战斗经验破境与 37 门天阶特效）与 **九槽披挂 / 皇祐四库**（含 103 件百兵武器、兵武共鸣与百卷典籍书画）。
+
+- **玩法闭环与剧情内容（持续扩充中）**
+  - **养成与经济**：开局创角、1.5× 宽幅十卷枢机菜单、三场所按日闭关、各地商铺分类买卖、州府衙门悬赏缉凶榜、每年六月开封大集、**《天下风云榜》百强武道榜**。
+  - **同步盲选回合制战斗**：每轮双方盲选【四式外功 / 守御架势 / 抽身脱战】，身法先后手结算、双轨护体减伤、守御回气与破绽博弈、心理博弈 AI、切磋与生死决斗（`deadNpcIds` 持久化）。
+  - **184 条声明式剧情任务链（零断链，641 幅剧情 CG）**：
+    - 12 派二三流世家武馆 100% 跑通；
+    - **4 套一流大派 Lv.1→Lv.5 全本史诗已完结**：开封府/六扇门 + 大宋禁军（20 卷）、华山派（33 卷）、嵩山少林寺（61 卷）、终南隐宗（50 卷）；
+    - 其余 10 个已开放一流门派均已完成入门长卷（除开封府外，所有一流大派均实行任务晋升制，曾入星宿派永禁再入中原正派）；7 大隐世/异族势力归入远期 DLC 锁定池。
+
+---
 
 ## 常用开发命令
 
 ```bash
-npm run dev              # 启动本地开发服务器 (0.0.0.0:5173)
+npm run dev              # 启动本地开发服务器 (Vite)
 npm run build:db         # 从 docs/*.md 重新编译结构化静态 JSON 数据库
 npm run normalize:docs   # 幂等规范化 Markdown 设定文档地名与链接并重编数据库
-npm run archive:masters  # 归档全部跨分支原始高清母版原画与哈希清单
-npm run build:artifact   # 编译单文件离线可交互预览包 (Node.js 零 Python 依赖)
-npm run lint             # 运行 oxlint 静态检查
+npm run verify:quests    # 校验全部 184 条剧情任务链 ID、CG、门派规则与十艺上限
+npm run lint             # 运行 oxlint + 单文件包防回归护栏 + 任务链静态校验
+npm test                 # 运行 Vitest 单元测试套件
 npm run build            # 运行 tsc -b 严格类型校验与 Vite 生产分包构建
+npm run build:artifact   # 编译单文件离线可交互 HTML 预览包
+npm run verify:artifact  # 无头浏览器双模式（file:// + 严格沙箱）端到端冒烟验证
+npm run archive:masters  # 归档高清母版原画与哈希清单
 ```
 
-## 完整目录与素材清单
+---
+
+## 目录结构
 
 ```text
 northern-song-chronicles/
-├── docs/                              # 七大核心设定专卷、路线图与交接文档
-│   ├── ROADMAP_AND_TODO.md            # 全局研发路线图与主线任务看板 (M0 ~ M5)
-│   ├── HANDOFF_CONTEXT.md             # 跨会话演进历史与工程避坑备忘
-│   ├── GAME_MECHANICS.md              # 历法时辰、三维/四维/十艺、七槽四库与同步盲选战斗总纲
-│   ├── MARTIAL_ARTS_SECTS.md          # 30 武林门派（20 一流 + 10 二三流）与 11 庙堂四夷组织专卷
-│   ├── MARTIAL_ARTS_COMPENDIUM.md     # 216 门十一大类武学全典与天阶修习前置条件
-│   ├── MARTIAL_ARTS_STATS.md          # 216 门武学 1~10 重数值表、四系伤害公式与 37 天阶特效
-│   ├── EQUIPMENT_COMPENDIUM.md        # 皇祐披挂总纲（第一卷：百兵谱 100 种武器全录）
-│   ├── REGIONAL_MAPS_AND_BUILDINGS.md # 43 处疆域重镇名山与 138 座特殊建筑设定（共 268 座建筑）
-│   └── CHARACTER_COMPENDIUM.md        # 1,000 名北宋历史名臣与江湖人物全录
-├── public/assets/                     # 运行时按需懒加载生产资源
-│   ├── regions/                       # 38 张州府名山半3D等轴全景图 (JPG)
-│   ├── buildings/                     # 58 张特殊建筑半3D内景图 (JPG)
-│   ├── characters/                    # 270 张人物立绘资源 (129 头像 + 129 全身 + 12 门派模板)
-│   └── audio/                         # 四分类场景配乐目录 (world / regions / characters / events)
-├── assets_raw_masters/                # 未压缩高清母版原画归档（共 364 张，373.9 MB + MANIFEST.json）
-├── legacy_prototypes_and_tools/       # 早期原型脚本与画师 Agent 提示词规范归档
-├── scripts/                           # 数据编译 (compile_game_db.py) 与单文件构建脚本
+├── docs/                              # 七大设定专卷、路线图、交接录与美术台账
+│   ├── ROADMAP_AND_TODO.md            # 全局研发路线图与主线看板（Single Source of Truth）
+│   ├── HANDOFF_CONTEXT.md             # 跨会话历史交接与关键设计决策
+│   ├── DESIGN_NOTES_AND_FUTURE_PLAN.md# 中后期系统深化与玩法演进思考录
+│   ├── GAME_MECHANICS.md              # 历法时辰、三维/四维/十艺、九槽四库与战斗总纲
+│   ├── MARTIAL_ARTS_SECTS.md          # 33 武林门派与 11 朝堂四夷组织专卷
+│   ├── MARTIAL_ARTS_COMPENDIUM.md     # 251 门武学名录与前置总纲
+│   ├── MARTIAL_ARTS_STATS.md          # 251 门武学 1~10 重数值表与 37 门天阶特效
+│   ├── EQUIPMENT_COMPENDIUM.md        # 皇祐披挂总纲（百兵谱 103 武器 + 四库典籍器物）
+│   ├── REGIONAL_MAPS_AND_BUILDINGS.md # 43 处疆域名山与 147 特殊建筑（共 268 建筑）
+│   ├── CHARACTER_COMPENDIUM.md        # 1,059 名北宋历史名臣与江湖人物全录
+│   ├── MISSING_QUEST_ILLUSTRATIONS.md # 待补绘剧情插画（CG）台账
+│   └── MISSING_NPC_PORTRAITS.md       # 待补绘人物立绘与三件套台账
+├── public/assets/                     # 运行时按需懒加载静态资源（零 Base64）
+│   ├── regions/                       # 43 张州府名山半 3D 等轴全景图
+│   ├── buildings/                     # 177 张特殊建筑与六域通用基础建筑实景内景图
+│   ├── characters/                    # 1,306 张人物头像、全身像、透明抠图与门派模板
+│   ├── items/                         # 515 张武器、披挂、典籍、丹药与雅器图标
+│   ├── quests/                        # 641 幅 16:9 剧情插画（CG）
+│   └── audio/                         # 25 首场景与战斗无损循环配乐
+├── assets_raw_masters/                # 未压缩高清母版原画归档与哈希清单
+├── legacy_prototypes_and_tools/       # 早期原型脚本与画师提示词规范归档
+├── scripts/                           # 数据库编译、任务校验、护栏检查与单文件包构建脚本
 └── src/                               # 模块化 React 19 + TypeScript 7 + Zustand 5 源码
-    ├── components/                    # 三层地图画布 (含青绿营造 SVG 兜底)、顶部 HUD、十卷枢机弹窗
-    ├── data/                          # 编译生成的静态 JSON 数据库与 scrollsDb / itemsDb / playerMartialArts
-    ├── store/                         # Zustand 全局状态机 (useGameStore.ts)
-    ├── types/                         # 严格 TypeScript 领域接口定义 (game.ts)
-    └── utils/                         # 懒加载器、历法寻路数学库、Web Audio 雅乐管理与存取档管理
+    ├── components/                    # 三层地图画布、顶部 HUD、战斗舞台、十卷枢机与剧情弹窗
+    ├── data/                          # 编译生成的 JSON 数据库与 184 条懒加载剧情脚本
+    ├── engine/                        # 纯函数领域引擎（战斗、任务、门派、经济、风云榜、测试）
+    ├── hooks/                         # 状态订阅与图片懒加载 Hooks
+    ├── store/                         # Zustand 切片状态机（useGameStore + slices/）
+    ├── types/                         # 严格 TypeScript 领域类型定义
+    └── utils/                         # 资源加载器、雅乐管理、跨版本存档迁移与校验
 ```
 
-## Antigravity 无缝接手与专属技能
+---
 
-- **自动加载规则**：[`AGENTS.md`](./AGENTS.md) 与 [`.gemini/GEMINI.md`](./.gemini/GEMINI.md) 会在每次开启新会话时自动注入公元 1050 年时空锚点、同步盲选回合战斗规范与工程铁律。
-- **内置快捷技能（在聊天框直接输入 `/` 调用）**：
-  - `/resume-context`：一键读取 [`docs/HANDOFF_CONTEXT.md`](./docs/HANDOFF_CONTEXT.md) 与 [`docs/ROADMAP_AND_TODO.md`](./docs/ROADMAP_AND_TODO.md)，汇报当前进度并切入下一里程碑（当前推荐从 `M1-1` 开局创角开始）。
-  - `/rebuild-db`：修改 `docs/*.md` 设定文档后一键重编 `src/data/*.json` 并执行零悬空引用与类型检查。
-  - `/panorama-artist`：按北宋青绿工笔 2.5D 规范补绘场景/建筑全景图并校准点击热点。
-  - `/portrait-artist`：按宋代舆服考据与零复用铁律补绘人物 `1:1` 头像与 `3:4` 全身立绘。
+## Antigravity 工程守则与专属技能
+
+- **自动上下文注入**：[`AGENTS.md`](./AGENTS.md) 与 [`.gemini/GEMINI.md`](./.gemini/GEMINI.md) 会在每次新会话自动加载公元 1050 年时空锚点、当前里程碑进度与工程铁律。
+- **内置快捷技能（在聊天框输入 `/` 调用）**：
+  - `/resume-context`：快速读取交接录与路线图，恢复全局上下文并切入当前主线任务。
+  - `/rebuild-db`：修改 `docs/*.md` 后重编 `src/data/*.json` 并执行零悬空引用与类型检查。
+  - `/quest-author`：按声明式双文件懒加载规范设计、挂载并校验新剧情任务链。
+  - `/panorama-artist`：按北宋青绿工笔 2.5D 规范补绘场景/建筑全景并校准点击热点。
+  - `/portrait-artist`：按宋代舆服考据补绘人物立绘三件套与 16:9 剧情插画（CG）。
