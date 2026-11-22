@@ -1,7 +1,6 @@
 import type { GameStoreData, GameStoreState } from './storeTypes'
 import { MARTIAL_ART_DB_MAP } from '../data/gameDb'
 import {
-  checkStatRequirementList,
   DEFAULT_EQUIPPED_SLOTS,
   getEffectiveTalents,
 } from '../data/itemsDb'
@@ -17,7 +16,6 @@ import {
   type QuestEvalContext,
 } from '../engine/questEngine'
 import type {
-  CompiledMartialArtRecord,
   HeroBaseStats,
   LabelToggleKey,
   LearnedArtEntry,
@@ -121,42 +119,6 @@ export const INITIAL_DERIVED_STATS = deriveHeroEffectiveStats(
   DEFAULT_EQUIPPED_ARTS,
   DEFAULT_LEARNED_ARTS,
 )
-
-/**
- * 校验主角当前是否满足某门武学的属性门槛（天阶神功的根骨 / 悟性 / 经义 / 内力等）。
- * 门派传功、秘籍展卷与武学装配统一走此校验；剧情强制传授（teachMartialArt）不受限。
- */
-export function checkPlayerArtRequirements(
-  s: Pick<
-    GameStoreState,
-    | 'baseStats'
-    | 'equipped'
-    | 'equippedArts'
-    | 'learnedArts'
-    | 'maxHp'
-    | 'maxMp'
-    | 'agility'
-    | 'res'
-    | 'ridingSkill'
-    | 'skills'
-  >,
-  art: CompiledMartialArtRecord,
-): { ok: boolean; unmetText: string } {
-  const res = checkStatRequirementList(art.statRequirements, {
-    maxHp: s.maxHp,
-    maxMp: s.maxMp,
-    agility: s.agility,
-    res: s.res,
-    ridingSkill: s.ridingSkill,
-    skills: s.skills,
-    talents: getEffectiveTalents(s.baseStats.talents, s.equipped, s.equippedArts, s.learnedArts),
-  })
-  const unmetText = res.details
-    .filter((d) => !d.met)
-    .map((d) => `${d.stat} ${d.current}/${d.min}`)
-    .join('、')
-  return { ok: res.ok, unmetText }
-}
 
 export function grantArtProficiency(
   learnedArts: LearnedArtEntry[],

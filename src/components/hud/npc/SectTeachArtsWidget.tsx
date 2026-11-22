@@ -52,7 +52,7 @@ export function SectTeachArtsWidget({
           </span>
           <span className="text-[11px] text-[#6b5235]">
             {isHead
-              ? '少侠已执掌门户，本门全部功法均可自取修习（根基门槛仍须达标）'
+              ? '少侠已执掌门户，本门全部功法均可自取修习'
               : questOnly
               ? '本门武学不按职阶自取，一律随本门剧情任务由师门亲授'
               : '良阶上品起需内门 · 地阶上品起需真传/长老（同权） · 天阶上品唯掌门可学'}

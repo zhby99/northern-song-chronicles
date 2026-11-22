@@ -265,28 +265,6 @@ export function MartialArtsTab({
                 </div>
               )}
 
-              {selectedArt.prerequisitesText && (
-                <div className="p-3 rounded bg-[#faf3e3] border border-[#b89f78] space-y-2">
-                  <div className="font-bold song-serif text-sm text-[#8f1d14]">
-                    天阶前置修行条件：
-                  </div>
-                  <div className="text-xs text-[#4a3219] leading-relaxed">
-                    {selectedArt.prerequisitesText}
-                  </div>
-                  {selectedArt.statRequirements.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {selectedArt.statRequirements.map((req) => (
-                        <span
-                          key={req.stat}
-                          className="px-2 py-0.5 rounded bg-[#efe4cc] border border-[#9e8462] font-mono text-[11px] text-[#23180f]"
-                        >
-                          {req.stat} ≥ {req.min}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
             </>
           ) : null}
         </div>

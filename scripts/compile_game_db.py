@@ -1370,12 +1370,11 @@ def parse_martial_arts() -> list[dict[str, Any]]:
 
     sub_heading_re = re.compile(r"^###\s+\d+\.\d+\s+(天阶|地阶|良品|凡品)(上品|中品|下品)")
     table_row_re = re.compile(
-        r"^\|\s*(\d{3})\s*\|\s*\*\*([^*]+)\*\*\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|"
+        r"^\|\s*(\d{3})\s*\|\s*\*\*([^*]+)\*\*\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*(?:\|\s*[^|]*?)?\|"
     )
     bullet_row_re = re.compile(
         r"^\*\s*\*\*(\d{3})\.\s*([^*]+?)\*\*（([^·]+)·([^）]+)）：(.+)$"
     )
-    req_token_re = re.compile(r"`([^`]+?)≥(\d+)`")
 
     for ln in lines:
         m_sub = sub_heading_re.match(ln)
@@ -1386,12 +1385,8 @@ def parse_martial_arts() -> list[dict[str, Any]]:
 
         m_tbl = table_row_re.match(ln)
         if m_tbl:
-            code, raw_name, cat, origin, desc, prereq_raw = m_tbl.groups()
+            code, raw_name, cat, origin, desc = m_tbl.groups()
             clean_name = strip_art_book_marks(raw_name)
-            stat_reqs = [
-                {"stat": k.strip(), "min": int(v)}
-                for k, v in req_token_re.findall(prereq_raw)
-            ]
             arts.append(
                 {
                     "id": f"MA-{code}",
@@ -1405,8 +1400,8 @@ def parse_martial_arts() -> list[dict[str, Any]]:
                     "origin": origin.strip(),
                     "sectId": resolve_sect_for_origin(origin),
                     "description": desc.strip(),
-                    "prerequisitesText": prereq_raw.strip(),
-                    "statRequirements": stat_reqs,
+                    "prerequisitesText": None,
+                    "statRequirements": [],
                 }
             )
             continue

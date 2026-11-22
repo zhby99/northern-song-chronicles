@@ -55,7 +55,6 @@ import {
   createLogEntry,
   addItemToInventory,
   removeItemFromInventory,
-  checkPlayerArtRequirements,
 } from '../storeHelpers'
 
 export type LoadoutInventoryKeys =
@@ -576,16 +575,6 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
     const art = MARTIAL_ART_DB_MAP[artId]
     if (!art || !canArtFitSlot(art, slot)) return
     if (!s.learnedArts.some((x) => x.artId === artId)) return
-    const artReq = checkPlayerArtRequirements(s, art)
-    if (!artReq.ok) {
-      set({
-        actionFeedback: {
-          text: `根基未足，难以运使《${art.cleanName}》！未达门槛：${artReq.unmetText}`,
-          tone: 'warn',
-        },
-      })
-      return
-    }
 
     const nextEquippedArts: EquippedArtsMap = { ...s.equippedArts }
 
@@ -890,16 +879,6 @@ export const createLoadoutInventorySlice: StoreSlice<LoadoutInventoryKeys> = (se
         set({
           actionFeedback: {
             text: `少侠已通晓【${targetArt.name}】入门心法！秘籍仅作初窥门径之用，无法靠重复翻阅提升熟练度，请赴【披挂与武学】按日闭关精修。`,
-            tone: 'warn',
-          },
-        })
-        return
-      }
-      const artReq = checkPlayerArtRequirements(s, targetArt)
-      if (!artReq.ok) {
-        set({
-          actionFeedback: {
-            text: `展卷良久，终觉【${targetArt.name}】玄奥难明，根基未足以参悟入门！未达门槛：${artReq.unmetText}`,
             tone: 'warn',
           },
         })

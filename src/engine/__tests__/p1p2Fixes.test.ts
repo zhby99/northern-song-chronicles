@@ -194,17 +194,15 @@ describe('talents and art requirements', () => {
     expect(eff.根骨).toBe(52)
   })
 
-  it('cannot equip a 天阶 art without meeting its stat requirements', () => {
+  it('can equip a 天阶 art regardless of low stats once learned', () => {
     const s = useGameStore.getState()
     useGameStore.setState({
       learnedArts: [...s.learnedArts, { artId: 'MA-001', level: 1, exp: 0 }],
       baseStats: { ...s.baseStats, talents: { 根骨: 40, 悟性: 40, 颜值: 40 } },
     })
-    const prev = useGameStore.getState().equippedArts.neigong
     useGameStore.getState().equipArtToSlot('MA-001', 'neigong')
     const after = useGameStore.getState()
-    expect(after.equippedArts.neigong).toBe(prev)
-    expect(after.actionFeedback?.text).toContain('未达门槛')
+    expect(after.equippedArts.neigong).toBe('MA-001')
   })
 
   it('a book granting +1 level keeps the progress already earned inside the old level', () => {

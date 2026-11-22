@@ -50,7 +50,6 @@ import { estimateHeroRealm } from '../../engine/stats/realmUtils'
 import {
   createLogEntry,
   addItemToInventory,
-  checkPlayerArtRequirements,
 } from '../storeHelpers'
 
 export type SectKeys =
@@ -865,17 +864,6 @@ export const createSectSlice: StoreSlice<SectKeys> = (set, get) => ({
       return
     }
 
-
-    const artReq = checkPlayerArtRequirements(s, entry.art)
-    if (!artReq.ok) {
-      set({
-        actionFeedback: {
-          text: `师门长辈摇头道：以少侠眼下根基，强练《${entry.art.cleanName}》恐走火入魔！未达门槛：${artReq.unmetText}`,
-          tone: 'warn',
-        },
-      })
-      return
-    }
 
     const nextLearned: LearnedArtEntry[] = [
       ...s.learnedArts.map((x) => ({ ...x })),
