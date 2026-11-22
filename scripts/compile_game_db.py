@@ -1470,6 +1470,17 @@ def parse_martial_arts() -> list[dict[str, Any]]:
         "MA-249": "SECT-09",  # 齐物指 -> 逍遥派（三老合创）
         "MA-250": "SECT-09",  # 缥缈御风步 -> 逍遥派（天山童姥独创）
         "MA-251": "SECT-09",  # 梦蝶掌 -> 逍遥派（三老合创）
+        "MA-252": "SECT-02",  # 逍遥游身法 -> 丐帮
+        "MA-253": "SECT-03",  # 如影随形步 -> 五台山清凉寺
+        "MA-254": "SECT-04",  # 铁桥渡海步 -> 莆田南少林
+        "MA-255": "SECT-05",  # 苍龙凌虚步 -> 华山派
+        "MA-256": "SECT-06",  # 十八盘御风步 -> 泰山派
+        "MA-257": "SECT-10",  # 踏波折柳步 -> 姑苏慕容氏
+        "MA-258": "SECT-12",  # 落英踏波步 -> 东海桃花岛
+        "MA-259": "SECT-13",  # 鬼影迷踪步 -> 蜀中唐门
+        "MA-260": "SECT-14",  # 松风穿云步 -> 青城派
+        "MA-261": "SECT-19",  # 摘星换斗步 -> 星宿派
+        "MA-262": "SECT-32",  # 大轮凌空步 -> 吐蕃密宗
     }
 
     for art in arts:
@@ -1515,8 +1526,8 @@ def parse_martial_arts() -> list[dict[str, Any]]:
         art["levels"] = compute_martial_art_levels(art)
 
     arts.sort(key=lambda x: int(x["code"]))
-    if len(arts) != 251:
-        raise AssertionError(f"Expected 251 martial arts, got {len(arts)}")
+    if len(arts) != 262:
+        raise AssertionError(f"Expected 262 martial arts, got {len(arts)}")
     return arts
 
 

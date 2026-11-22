@@ -1796,7 +1796,7 @@
     "sectRankLabel": null,
     "ownedArtifactIds": [],
     "equippedArts": {
-      "neigong": "MA-179",
+      "neigong": "MA-199",
       "qinggong": null,
       "move1": "MA-212",
       "move2": null,
@@ -1811,6 +1811,11 @@
       },
       {
         "artId": "MA-212",
+        "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-199",
         "level": 1,
         "exp": 0
       }
@@ -10965,7 +10970,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-008",
-      "qinggong": "MA-097",
+      "qinggong": "MA-257",
       "move1": "MA-025",
       "move2": "MA-043",
       "move3": "MA-063",
@@ -10998,7 +11003,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-097",
+        "artId": "MA-257",
         "level": 9,
         "exp": 0
       }
@@ -11663,7 +11668,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-042",
-      "qinggong": "MA-097",
+      "qinggong": "MA-252",
       "move1": "MA-005",
       "move2": "MA-016",
       "move3": "MA-045",
@@ -11696,7 +11701,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-097",
+        "artId": "MA-252",
         "level": 8,
         "exp": 0
       }
@@ -12235,7 +12240,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-040",
-      "qinggong": "MA-097",
+      "qinggong": "MA-258",
       "move1": "MA-021",
       "move2": "MA-070",
       "move3": "MA-047",
@@ -12268,7 +12273,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-097",
+        "artId": "MA-258",
         "level": 8,
         "exp": 0
       }
@@ -13033,7 +13038,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-026",
-      "qinggong": "MA-097",
+      "qinggong": "MA-261",
       "move1": "MA-055",
       "move2": "MA-065",
       "move3": "MA-127",
@@ -13066,7 +13071,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-097",
+        "artId": "MA-261",
         "level": 8,
         "exp": 0
       }
@@ -13146,7 +13151,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-011",
-      "qinggong": "MA-097",
+      "qinggong": "MA-253",
       "move1": "MA-024",
       "move2": "MA-075",
       "move3": "MA-134",
@@ -13174,13 +13179,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-097",
-        "level": 8,
+        "artId": "MA-134",
+        "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-134",
-        "level": 9,
+        "artId": "MA-253",
+        "level": 8,
         "exp": 0
       }
     ],
@@ -13260,7 +13265,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-080",
-      "qinggong": "MA-097",
+      "qinggong": "MA-254",
       "move1": "MA-044",
       "move2": "MA-106",
       "move3": "MA-091",
@@ -13298,7 +13303,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-097",
+        "artId": "MA-254",
         "level": 8,
         "exp": 0
       }
@@ -13380,7 +13385,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-082",
-      "qinggong": "MA-097",
+      "qinggong": "MA-259",
       "move1": "MA-032",
       "move2": "MA-054",
       "move3": "MA-095",
@@ -13413,7 +13418,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-097",
+        "artId": "MA-259",
         "level": 8,
         "exp": 0
       }
@@ -13834,7 +13839,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-078",
-      "qinggong": "MA-097",
+      "qinggong": "MA-256",
       "move1": "MA-050",
       "move2": "MA-090",
       "move3": "MA-129",
@@ -13857,11 +13862,6 @@
         "exp": 0
       },
       {
-        "artId": "MA-097",
-        "level": 8,
-        "exp": 0
-      },
-      {
         "artId": "MA-129",
         "level": 9,
         "exp": 0
@@ -13869,6 +13869,11 @@
       {
         "artId": "MA-168",
         "level": 10,
+        "exp": 0
+      },
+      {
+        "artId": "MA-256",
+        "level": 8,
         "exp": 0
       }
     ],
@@ -14309,7 +14314,7 @@
       },
       {
         "artId": "MA-119",
-        "level": 10,
+        "level": 9,
         "exp": 0
       },
       {
@@ -14740,7 +14745,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-103",
-      "qinggong": "MA-138",
+      "qinggong": "MA-252",
       "move1": "MA-053",
       "move2": "MA-087",
       "move3": "MA-045",
@@ -14768,13 +14773,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
+        "artId": "MA-164",
         "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-164",
-        "level": 9,
+        "artId": "MA-252",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -14969,7 +14974,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-099",
-      "qinggong": "MA-138",
+      "qinggong": "MA-260",
       "move1": "MA-069",
       "move2": "MA-108",
       "move3": "MA-148",
@@ -14992,11 +14997,6 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 9,
-        "exp": 0
-      },
-      {
         "artId": "MA-148",
         "level": 9,
         "exp": 0
@@ -15004,6 +15004,11 @@
       {
         "artId": "MA-152",
         "level": 9,
+        "exp": 0
+      },
+      {
+        "artId": "MA-260",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -15878,7 +15883,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-058",
-      "qinggong": "MA-138",
+      "qinggong": "MA-255",
       "move1": "MA-068",
       "move2": "MA-049",
       "move3": "MA-147",
@@ -15906,13 +15911,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
+        "artId": "MA-147",
         "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-147",
-        "level": 9,
+        "artId": "MA-255",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -16108,7 +16113,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-082",
-      "qinggong": "MA-138",
+      "qinggong": "MA-259",
       "move1": "MA-054",
       "move2": "MA-076",
       "move3": "MA-095",
@@ -16141,8 +16146,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 9,
+        "artId": "MA-259",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -16221,7 +16226,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-040",
-      "qinggong": "MA-139",
+      "qinggong": "MA-258",
       "move1": "MA-070",
       "move2": "MA-064",
       "move3": "MA-047",
@@ -16254,8 +16259,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 9,
+        "artId": "MA-258",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -16558,7 +16563,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-028",
-      "qinggong": "MA-138",
+      "qinggong": "MA-262",
       "move1": "MA-019",
       "move2": "MA-075",
       "move3": "MA-072",
@@ -16586,13 +16591,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
+        "artId": "MA-152",
         "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-152",
-        "level": 9,
+        "artId": "MA-262",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -17453,7 +17458,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-221",
-      "qinggong": "MA-138",
+      "qinggong": "MA-257",
       "move1": "MA-025",
       "move2": "MA-071",
       "move3": "MA-107",
@@ -17481,13 +17486,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
+        "artId": "MA-221",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-221",
-        "level": 8,
+        "artId": "MA-257",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -17566,7 +17571,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-011",
-      "qinggong": "MA-139",
+      "qinggong": "MA-253",
       "move1": "MA-075",
       "move2": "MA-110",
       "move3": "MA-134",
@@ -17599,8 +17604,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 8,
+        "artId": "MA-253",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -17677,7 +17682,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-100",
-      "qinggong": "MA-138",
+      "qinggong": "MA-253",
       "move1": "MA-075",
       "move2": "MA-117",
       "move3": "MA-134",
@@ -17710,8 +17715,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 8,
+        "artId": "MA-253",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -17788,7 +17793,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-080",
-      "qinggong": "MA-139",
+      "qinggong": "MA-254",
       "move1": "MA-106",
       "move2": "MA-153",
       "move3": "MA-130",
@@ -17816,13 +17821,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-152",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-152",
-        "level": 8,
+        "artId": "MA-254",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -17899,7 +17904,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-100",
-      "qinggong": "MA-138",
+      "qinggong": "MA-254",
       "move1": "MA-044",
       "move2": "MA-114",
       "move3": "MA-106",
@@ -17932,8 +17937,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 8,
+        "artId": "MA-254",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -18010,7 +18015,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-058",
-      "qinggong": "MA-139",
+      "qinggong": "MA-255",
       "move1": "MA-049",
       "move2": "MA-128",
       "move3": "MA-109",
@@ -18038,13 +18043,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-147",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-147",
-        "level": 8,
+        "artId": "MA-255",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -18232,7 +18237,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-078",
-      "qinggong": "MA-139",
+      "qinggong": "MA-256",
       "move1": "MA-090",
       "move2": "MA-129",
       "move3": "MA-050",
@@ -18260,13 +18265,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 8,
+        "artId": "MA-168",
+        "level": 9,
         "exp": 0
       },
       {
-        "artId": "MA-168",
-        "level": 9,
+        "artId": "MA-256",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -18913,7 +18918,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-222",
-      "qinggong": "MA-139",
+      "qinggong": "MA-258",
       "move1": "MA-047",
       "move2": "MA-064",
       "move3": "MA-070",
@@ -18941,12 +18946,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 8,
+        "artId": "MA-222",
+        "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-222",
+        "artId": "MA-258",
         "level": 7,
         "exp": 0
       }
@@ -21288,7 +21293,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-123",
-      "qinggong": "MA-138",
+      "qinggong": "MA-252",
       "move1": "MA-087",
       "move2": "MA-172",
       "move3": "MA-053",
@@ -21321,8 +21326,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 8,
+        "artId": "MA-252",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -21512,7 +21517,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-042",
-      "qinggong": "MA-138",
+      "qinggong": "MA-252",
       "move1": "MA-156",
       "move2": "MA-164",
       "move3": "MA-053",
@@ -21545,8 +21550,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 8,
+        "artId": "MA-252",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -21624,7 +21629,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-224",
-      "qinggong": "MA-139",
+      "qinggong": "MA-253",
       "move1": "MA-110",
       "move2": "MA-117",
       "move3": "MA-134",
@@ -21652,13 +21657,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 8,
+        "artId": "MA-224",
+        "level": 10,
         "exp": 0
       },
       {
-        "artId": "MA-224",
-        "level": 10,
+        "artId": "MA-253",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -21734,7 +21739,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-224",
-      "qinggong": "MA-138",
+      "qinggong": "MA-253",
       "move1": "MA-075",
       "move2": "MA-163",
       "move3": "MA-134",
@@ -21762,13 +21767,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 8,
+        "artId": "MA-224",
+        "level": 10,
         "exp": 0
       },
       {
-        "artId": "MA-224",
-        "level": 10,
+        "artId": "MA-253",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -21845,7 +21850,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-080",
-      "qinggong": "MA-139",
+      "qinggong": "MA-254",
       "move1": "MA-106",
       "move2": "MA-183",
       "move3": "MA-135",
@@ -21873,13 +21878,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-152",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-152",
-        "level": 8,
+        "artId": "MA-254",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -21957,7 +21962,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-080",
-      "qinggong": "MA-138",
+      "qinggong": "MA-254",
       "move1": "MA-105",
       "move2": "MA-153",
       "move3": "MA-106",
@@ -21985,13 +21990,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
+        "artId": "MA-149",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-149",
-        "level": 8,
+        "artId": "MA-254",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -22070,7 +22075,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-058",
-      "qinggong": "MA-139",
+      "qinggong": "MA-255",
       "move1": "MA-109",
       "move2": "MA-128",
       "move3": "MA-147",
@@ -22098,13 +22103,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-147",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-147",
-        "level": 8,
+        "artId": "MA-255",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -22292,7 +22297,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-078",
-      "qinggong": "MA-139",
+      "qinggong": "MA-256",
       "move1": "MA-090",
       "move2": "MA-129",
       "move3": "MA-050",
@@ -22320,13 +22325,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-168",
         "level": 8,
         "exp": 0
       },
       {
-        "artId": "MA-168",
-        "level": 8,
+        "artId": "MA-256",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -23299,7 +23304,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-121",
-      "qinggong": "MA-138",
+      "qinggong": "MA-257",
       "move1": "MA-071",
       "move2": "MA-145",
       "move3": "MA-025",
@@ -23332,8 +23337,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 8,
+        "artId": "MA-257",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -23540,7 +23545,7 @@
       },
       {
         "artId": "MA-119",
-        "level": 8,
+        "level": 7,
         "exp": 0
       },
       {
@@ -23860,7 +23865,7 @@
     ],
     "equippedArts": {
       "neigong": "MA-082",
-      "qinggong": "MA-139",
+      "qinggong": "MA-259",
       "move1": "MA-076",
       "move2": "MA-137",
       "move3": "MA-118",
@@ -23893,8 +23898,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 8,
+        "artId": "MA-259",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -24084,7 +24089,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-099",
-      "qinggong": "MA-139",
+      "qinggong": "MA-260",
       "move1": "MA-148",
       "move2": "MA-108",
       "move3": "MA-069",
@@ -24117,8 +24122,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 8,
+        "artId": "MA-260",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -25306,7 +25311,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-081",
-      "qinggong": "MA-138",
+      "qinggong": "MA-261",
       "move1": "MA-065",
       "move2": "MA-127",
       "move3": "MA-055",
@@ -25339,8 +25344,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 8,
+        "artId": "MA-261",
+        "level": 7,
         "exp": 0
       }
     ],
@@ -28108,7 +28113,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-221",
-      "qinggong": "MA-139",
+      "qinggong": "MA-257",
       "move1": "MA-064",
       "move2": "MA-130",
       "move3": "MA-025",
@@ -28136,13 +28141,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 7,
+        "artId": "MA-221",
+        "level": 4,
         "exp": 0
       },
       {
-        "artId": "MA-221",
-        "level": 4,
+        "artId": "MA-257",
+        "level": 6,
         "exp": 0
       }
     ],
@@ -28220,7 +28225,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-121",
-      "qinggong": "MA-138",
+      "qinggong": "MA-257",
       "move1": "MA-130",
       "move2": "MA-025",
       "move3": "MA-071",
@@ -28253,8 +28258,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 7,
+        "artId": "MA-257",
+        "level": 6,
         "exp": 0
       }
     ],
@@ -30349,7 +30354,7 @@
     "learnedArts": [
       {
         "artId": "MA-119",
-        "level": 7,
+        "level": 6,
         "exp": 0
       },
       {
@@ -30673,7 +30678,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-140",
-      "qinggong": "MA-138",
+      "qinggong": "MA-254",
       "move1": "MA-106",
       "move2": "MA-153",
       "move3": "MA-152",
@@ -30701,13 +30706,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
+        "artId": "MA-152",
         "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-152",
-        "level": 7,
+        "artId": "MA-254",
+        "level": 6,
         "exp": 0
       }
     ],
@@ -31007,7 +31012,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-222",
-      "qinggong": "MA-139",
+      "qinggong": "MA-258",
       "move1": "MA-130",
       "move2": "MA-155",
       "move3": "MA-021",
@@ -31035,13 +31040,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 7,
+        "artId": "MA-222",
+        "level": 4,
         "exp": 0
       },
       {
-        "artId": "MA-222",
-        "level": 4,
+        "artId": "MA-258",
+        "level": 6,
         "exp": 0
       }
     ],
@@ -31118,7 +31123,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-121",
-      "qinggong": "MA-138",
+      "qinggong": "MA-257",
       "move1": "MA-130",
       "move2": "MA-155",
       "move3": "MA-071",
@@ -31151,8 +31156,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 7,
+        "artId": "MA-257",
+        "level": 6,
         "exp": 0
       }
     ],
@@ -32120,7 +32125,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-104",
-      "qinggong": "MA-139",
+      "qinggong": "MA-254",
       "move1": "MA-143",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -32148,13 +32153,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-149",
         "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-149",
-        "level": 7,
+        "artId": "MA-254",
+        "level": 6,
         "exp": 0
       }
     ],
@@ -33013,7 +33018,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-104",
-      "qinggong": "MA-139",
+      "qinggong": "MA-254",
       "move1": "MA-143",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -33041,13 +33046,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-152",
         "level": 7,
         "exp": 0
       },
       {
-        "artId": "MA-152",
-        "level": 7,
+        "artId": "MA-254",
+        "level": 6,
         "exp": 0
       }
     ],
@@ -33457,7 +33462,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-100",
-      "qinggong": "MA-139",
+      "qinggong": "MA-253",
       "move1": "MA-117",
       "move2": "MA-110",
       "move3": "MA-134",
@@ -33490,8 +33495,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 6,
+        "artId": "MA-253",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -35032,7 +35037,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-100",
-      "qinggong": "MA-139",
+      "qinggong": "MA-253",
       "move1": "MA-117",
       "move2": "MA-110",
       "move3": "MA-134",
@@ -35065,8 +35070,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 6,
+        "artId": "MA-253",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -36587,7 +36592,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-121",
-      "qinggong": "MA-139",
+      "qinggong": "MA-262",
       "move1": "MA-133",
       "move2": "MA-152",
       "move3": "MA-019",
@@ -36620,8 +36625,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 6,
+        "artId": "MA-262",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -38476,7 +38481,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-222",
-      "qinggong": "MA-138",
+      "qinggong": "MA-258",
       "move1": "MA-130",
       "move2": "MA-155",
       "move3": "MA-070",
@@ -38504,13 +38509,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 6,
+        "artId": "MA-222",
+        "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-222",
-        "level": 3,
+        "artId": "MA-258",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -38920,7 +38925,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-104",
-      "qinggong": "MA-138",
+      "qinggong": "MA-254",
       "move1": "MA-143",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -38953,8 +38958,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 6,
+        "artId": "MA-254",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -40030,7 +40035,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-160",
-      "qinggong": "MA-138",
+      "qinggong": "MA-255",
       "move1": "MA-147",
       "move2": "MA-146",
       "move3": "MA-128",
@@ -40063,8 +40068,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 6,
+        "artId": "MA-255",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -40476,7 +40481,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-222",
-      "qinggong": "MA-138",
+      "qinggong": "MA-258",
       "move1": "MA-130",
       "move2": "MA-155",
       "move3": "MA-047",
@@ -40504,13 +40509,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 6,
+        "artId": "MA-222",
+        "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-222",
-        "level": 3,
+        "artId": "MA-258",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -41267,7 +41272,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-104",
-      "qinggong": "MA-139",
+      "qinggong": "MA-254",
       "move1": "MA-143",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -41300,8 +41305,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 6,
+        "artId": "MA-254",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -41378,7 +41383,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-160",
-      "qinggong": "MA-138",
+      "qinggong": "MA-255",
       "move1": "MA-147",
       "move2": "MA-146",
       "move3": "MA-128",
@@ -41411,8 +41416,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 6,
+        "artId": "MA-255",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -42821,7 +42826,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-100",
-      "qinggong": "MA-139",
+      "qinggong": "MA-253",
       "move1": "MA-117",
       "move2": "MA-110",
       "move3": "MA-134",
@@ -42854,7 +42859,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-253",
         "level": 5,
         "exp": 0
       }
@@ -43265,7 +43270,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-104",
-      "qinggong": "MA-139",
+      "qinggong": "MA-254",
       "move1": "MA-143",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -43298,7 +43303,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-254",
         "level": 5,
         "exp": 0
       }
@@ -45384,7 +45389,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-222",
-      "qinggong": "MA-138",
+      "qinggong": "MA-258",
       "move1": "MA-130",
       "move2": "MA-155",
       "move3": "MA-047",
@@ -45412,13 +45417,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 5,
+        "artId": "MA-222",
+        "level": 2,
         "exp": 0
       },
       {
-        "artId": "MA-222",
-        "level": 2,
+        "artId": "MA-258",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -46051,7 +46056,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-104",
-      "qinggong": "MA-138",
+      "qinggong": "MA-254",
       "move1": "MA-143",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -46084,7 +46089,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
+        "artId": "MA-254",
         "level": 5,
         "exp": 0
       }
@@ -46939,7 +46944,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-140",
-      "qinggong": "MA-138",
+      "qinggong": "MA-254",
       "move1": "MA-106",
       "move2": "MA-153",
       "move3": "MA-149",
@@ -46967,12 +46972,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
+        "artId": "MA-149",
         "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-149",
+        "artId": "MA-254",
         "level": 5,
         "exp": 0
       }
@@ -47272,7 +47277,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-160",
-      "qinggong": "MA-139",
+      "qinggong": "MA-255",
       "move1": "MA-147",
       "move2": "MA-146",
       "move3": "MA-109",
@@ -47305,7 +47310,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-255",
         "level": 5,
         "exp": 0
       }
@@ -48509,7 +48514,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-140",
-      "qinggong": "MA-138",
+      "qinggong": "MA-256",
       "move1": "MA-107",
       "move2": "MA-168",
       "move3": "MA-129",
@@ -48542,7 +48547,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
+        "artId": "MA-256",
         "level": 5,
         "exp": 0
       }
@@ -48620,7 +48625,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-104",
-      "qinggong": "MA-139",
+      "qinggong": "MA-254",
       "move1": "MA-143",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -48648,12 +48653,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-152",
         "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-152",
+        "artId": "MA-254",
         "level": 5,
         "exp": 0
       }
@@ -51292,7 +51297,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-140",
-      "qinggong": "MA-139",
+      "qinggong": "MA-254",
       "move1": "MA-106",
       "move2": "MA-153",
       "move3": "MA-125",
@@ -51320,12 +51325,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-152",
         "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-152",
+        "artId": "MA-254",
         "level": 5,
         "exp": 0
       }
@@ -52183,7 +52188,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-121",
-      "qinggong": "MA-139",
+      "qinggong": "MA-257",
       "move1": "MA-130",
       "move2": "MA-155",
       "move3": "MA-025",
@@ -52216,7 +52221,7 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
+        "artId": "MA-257",
         "level": 5,
         "exp": 0
       }
@@ -52739,7 +52744,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-222",
-      "qinggong": "MA-138",
+      "qinggong": "MA-258",
       "move1": "MA-130",
       "move2": "MA-155",
       "move3": "MA-070",
@@ -52767,13 +52772,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-138",
-        "level": 5,
+        "artId": "MA-222",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-222",
-        "level": 1,
+        "artId": "MA-258",
+        "level": 5,
         "exp": 0
       }
     ],
@@ -53189,7 +53194,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-217",
+      "qinggong": "MA-253",
       "move1": "MA-153",
       "move2": "MA-163",
       "move3": "MA-134",
@@ -53222,8 +53227,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-217",
-        "level": 5,
+        "artId": "MA-253",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -53633,7 +53638,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-231",
-      "qinggong": "MA-217",
+      "qinggong": "MA-261",
       "move1": "MA-186",
       "move2": "MA-176",
       "move3": "MA-196",
@@ -53661,13 +53666,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-217",
-        "level": 5,
+        "artId": "MA-231",
+        "level": 4,
         "exp": 0
       },
       {
-        "artId": "MA-231",
-        "level": 4,
+        "artId": "MA-261",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -54416,7 +54421,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-231",
-      "qinggong": "MA-197",
+      "qinggong": "MA-261",
       "move1": "MA-186",
       "move2": "MA-176",
       "move3": "MA-196",
@@ -54444,13 +54449,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-197",
+        "artId": "MA-231",
         "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-231",
-        "level": 5,
+        "artId": "MA-261",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -54637,7 +54642,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-218",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-164",
@@ -54665,13 +54670,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 5,
+        "artId": "MA-223",
+        "level": 4,
         "exp": 0
       },
       {
-        "artId": "MA-223",
-        "level": 4,
+        "artId": "MA-252",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -57308,7 +57313,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-218",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -57341,8 +57346,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 5,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -58759,7 +58764,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-177",
+      "qinggong": "MA-253",
       "move1": "MA-153",
       "move2": "MA-163",
       "move3": "MA-134",
@@ -58792,8 +58797,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 5,
+        "artId": "MA-253",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -59875,7 +59880,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-231",
-      "qinggong": "MA-217",
+      "qinggong": "MA-261",
       "move1": "MA-186",
       "move2": "MA-176",
       "move3": "MA-196",
@@ -59903,13 +59908,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-217",
-        "level": 5,
+        "artId": "MA-231",
+        "level": 4,
         "exp": 0
       },
       {
-        "artId": "MA-231",
-        "level": 4,
+        "artId": "MA-261",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -60430,7 +60435,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-218",
+      "qinggong": "MA-253",
       "move1": "MA-153",
       "move2": "MA-163",
       "move3": "MA-134",
@@ -60463,8 +60468,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 5,
+        "artId": "MA-253",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -60541,7 +60546,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-177",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -60569,13 +60574,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
+        "artId": "MA-212",
         "level": 5,
         "exp": 0
       },
       {
-        "artId": "MA-212",
-        "level": 5,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -63658,7 +63663,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-177",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -63691,8 +63696,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 5,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -66767,7 +66772,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-177",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-172",
@@ -66795,12 +66800,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 4,
+        "artId": "MA-223",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-223",
+        "artId": "MA-252",
         "level": 1,
         "exp": 0
       }
@@ -68096,7 +68101,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-177",
+      "qinggong": "MA-253",
       "move1": "MA-153",
       "move2": "MA-163",
       "move3": "MA-134",
@@ -68129,8 +68134,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 4,
+        "artId": "MA-253",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -68652,7 +68657,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-197",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -68685,8 +68690,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-197",
-        "level": 4,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -69878,7 +69883,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-177",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -69906,13 +69911,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
+        "artId": "MA-208",
         "level": 4,
         "exp": 0
       },
       {
-        "artId": "MA-208",
-        "level": 4,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -72431,7 +72436,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-218",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-164",
@@ -72459,13 +72464,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 4,
+        "artId": "MA-223",
+        "level": 2,
         "exp": 0
       },
       {
-        "artId": "MA-223",
-        "level": 2,
+        "artId": "MA-252",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -72652,7 +72657,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-197",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-164",
@@ -72680,13 +72685,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-197",
-        "level": 4,
+        "artId": "MA-223",
+        "level": 2,
         "exp": 0
       },
       {
-        "artId": "MA-223",
-        "level": 2,
+        "artId": "MA-252",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -74099,7 +74104,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-217",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -74132,8 +74137,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-217",
-        "level": 4,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -74654,7 +74659,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-218",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -74687,8 +74692,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 4,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -76879,7 +76884,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-218",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-164",
@@ -76907,13 +76912,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 4,
+        "artId": "MA-223",
+        "level": 2,
         "exp": 0
       },
       {
-        "artId": "MA-223",
-        "level": 2,
+        "artId": "MA-252",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -78100,7 +78105,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-231",
-      "qinggong": "MA-217",
+      "qinggong": "MA-261",
       "move1": "MA-186",
       "move2": "MA-176",
       "move3": "MA-196",
@@ -78128,13 +78133,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-217",
-        "level": 4,
+        "artId": "MA-231",
+        "level": 2,
         "exp": 0
       },
       {
-        "artId": "MA-231",
-        "level": 2,
+        "artId": "MA-261",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -78655,7 +78660,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-231",
-      "qinggong": "MA-218",
+      "qinggong": "MA-261",
       "move1": "MA-186",
       "move2": "MA-176",
       "move3": "MA-196",
@@ -78683,13 +78688,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 4,
+        "artId": "MA-231",
+        "level": 2,
         "exp": 0
       },
       {
-        "artId": "MA-231",
-        "level": 2,
+        "artId": "MA-261",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -79209,7 +79214,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-177",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-172",
@@ -79237,12 +79242,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 4,
+        "artId": "MA-223",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-223",
+        "artId": "MA-252",
         "level": 1,
         "exp": 0
       }
@@ -79542,7 +79547,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-218",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -79575,8 +79580,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 4,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -80873,7 +80878,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-218",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-164",
@@ -80901,12 +80906,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 3,
+        "artId": "MA-223",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-223",
+        "artId": "MA-252",
         "level": 1,
         "exp": 0
       }
@@ -81428,7 +81433,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-177",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -81456,13 +81461,13 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
+        "artId": "MA-201",
         "level": 3,
         "exp": 0
       },
       {
-        "artId": "MA-201",
-        "level": 3,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -82993,7 +82998,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-199",
-      "qinggong": "MA-217",
+      "qinggong": "MA-262",
       "move1": "MA-189",
       "move2": "MA-185",
       "move3": "MA-072",
@@ -83026,8 +83031,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-217",
-        "level": 3,
+        "artId": "MA-262",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -83659,7 +83664,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-177",
+      "qinggong": "MA-253",
       "move1": "MA-153",
       "move2": "MA-163",
       "move3": "MA-134",
@@ -83692,8 +83697,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 3,
+        "artId": "MA-253",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -83992,7 +83997,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-218",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -84025,8 +84030,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 3,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -89120,7 +89125,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-197",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-164",
@@ -89148,12 +89153,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-197",
-        "level": 3,
+        "artId": "MA-223",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-223",
+        "artId": "MA-252",
         "level": 1,
         "exp": 0
       }
@@ -89898,7 +89903,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-231",
-      "qinggong": "MA-177",
+      "qinggong": "MA-261",
       "move1": "MA-186",
       "move2": "MA-176",
       "move3": "MA-196",
@@ -89926,12 +89931,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 3,
+        "artId": "MA-231",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-231",
+        "artId": "MA-261",
         "level": 1,
         "exp": 0
       }
@@ -90008,7 +90013,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-197",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-164",
@@ -90036,12 +90041,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-197",
-        "level": 3,
+        "artId": "MA-223",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-223",
+        "artId": "MA-252",
         "level": 1,
         "exp": 0
       }
@@ -90119,7 +90124,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-180",
-      "qinggong": "MA-217",
+      "qinggong": "MA-254",
       "move1": "MA-153",
       "move2": "MA-183",
       "move3": "MA-106",
@@ -90152,8 +90157,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-217",
-        "level": 3,
+        "artId": "MA-254",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -90784,7 +90789,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-177",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-172",
@@ -90812,12 +90817,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 3,
+        "artId": "MA-223",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-223",
+        "artId": "MA-252",
         "level": 1,
         "exp": 0
       }
@@ -93802,7 +93807,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-223",
-      "qinggong": "MA-218",
+      "qinggong": "MA-252",
       "move1": "MA-186",
       "move2": "MA-211",
       "move3": "MA-164",
@@ -93830,12 +93835,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-218",
-        "level": 3,
+        "artId": "MA-223",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-223",
+        "artId": "MA-252",
         "level": 1,
         "exp": 0
       }
@@ -95695,7 +95700,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-231",
-      "qinggong": "MA-177",
+      "qinggong": "MA-261",
       "move1": "MA-186",
       "move2": "MA-176",
       "move3": "MA-196",
@@ -95723,12 +95728,12 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 3,
+        "artId": "MA-231",
+        "level": 1,
         "exp": 0
       },
       {
-        "artId": "MA-231",
+        "artId": "MA-261",
         "level": 1,
         "exp": 0
       }
@@ -98687,7 +98692,7 @@
     "sectRankLabel": "外宅门客",
     "ownedArtifactIds": [],
     "equippedArts": {
-      "neigong": "MA-179",
+      "neigong": "MA-199",
       "qinggong": null,
       "move1": "MA-215",
       "move2": null,
@@ -98702,6 +98707,11 @@
       },
       {
         "artId": "MA-215",
+        "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-199",
         "level": 1,
         "exp": 0
       }
@@ -99057,7 +99067,7 @@
     "sectRankLabel": "役卒巡捕",
     "ownedArtifactIds": [],
     "equippedArts": {
-      "neigong": "MA-179",
+      "neigong": "MA-199",
       "qinggong": null,
       "move1": "MA-190",
       "move2": null,
@@ -99072,6 +99082,11 @@
       },
       {
         "artId": "MA-190",
+        "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-199",
         "level": 1,
         "exp": 0
       }
@@ -99782,7 +99797,7 @@
     "sectRankLabel": "外门帮众",
     "ownedArtifactIds": [],
     "equippedArts": {
-      "neigong": "MA-179",
+      "neigong": "MA-199",
       "qinggong": "MA-218",
       "move1": "MA-201",
       "move2": null,
@@ -99802,6 +99817,11 @@
       },
       {
         "artId": "MA-218",
+        "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-199",
         "level": 1,
         "exp": 0
       }
@@ -102532,7 +102552,7 @@
     "sectRankLabel": "外门弟子",
     "ownedArtifactIds": [],
     "equippedArts": {
-      "neigong": "MA-179",
+      "neigong": "MA-199",
       "qinggong": null,
       "move1": "MA-206",
       "move2": null,
@@ -102547,6 +102567,11 @@
       },
       {
         "artId": "MA-206",
+        "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-199",
         "level": 1,
         "exp": 0
       }
@@ -104552,7 +104577,7 @@
     "sectRankLabel": "役卒巡捕",
     "ownedArtifactIds": [],
     "equippedArts": {
-      "neigong": "MA-179",
+      "neigong": "MA-199",
       "qinggong": null,
       "move1": "MA-190",
       "move2": null,
@@ -104567,6 +104592,11 @@
       },
       {
         "artId": "MA-190",
+        "level": 1,
+        "exp": 0
+      },
+      {
+        "artId": "MA-199",
         "level": 1,
         "exp": 0
       }
@@ -111261,7 +111291,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-159",
-      "qinggong": "MA-139",
+      "qinggong": "MA-262",
       "move1": "MA-072",
       "move2": "MA-110",
       "move3": "MA-019",
@@ -111294,8 +111324,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-139",
-        "level": 7,
+        "artId": "MA-262",
+        "level": 6,
         "exp": 0
       }
     ],
@@ -111372,7 +111402,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-159",
-      "qinggong": "MA-177",
+      "qinggong": "MA-262",
       "move1": "MA-143",
       "move2": "MA-153",
       "move3": "MA-072",
@@ -111405,8 +111435,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-177",
-        "level": 5,
+        "artId": "MA-262",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -111483,7 +111513,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-159",
-      "qinggong": "MA-197",
+      "qinggong": "MA-262",
       "move1": "MA-163",
       "move2": "MA-189",
       "move3": "MA-019",
@@ -111516,8 +111546,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-197",
-        "level": 4,
+        "artId": "MA-262",
+        "level": 1,
         "exp": 0
       }
     ],
@@ -111594,7 +111624,7 @@
     "ownedArtifactIds": [],
     "equippedArts": {
       "neigong": "MA-179",
-      "qinggong": "MA-217",
+      "qinggong": "MA-262",
       "move1": "MA-192",
       "move2": "MA-165",
       "move3": "MA-072",
@@ -111627,8 +111657,8 @@
         "exp": 0
       },
       {
-        "artId": "MA-217",
-        "level": 4,
+        "artId": "MA-262",
+        "level": 1,
         "exp": 0
       }
     ],

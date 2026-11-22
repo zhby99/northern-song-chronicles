@@ -13,7 +13,7 @@
     "cityBaseBuildings": 121,
     "totalBuildings": 268,
     "interiorSubBuildings": 441,
-    "martialArts": 251,
+    "martialArts": 262,
     "weapons": 103,
     "mounts": 28,
     "npcs": 1059,
@@ -675,7 +675,8 @@
         "MA-087",
         "MA-164",
         "MA-172",
-        "MA-223"
+        "MA-223",
+        "MA-252"
       ],
       "weaponIds": [
         "WPN-002",
@@ -723,7 +724,8 @@
         "MA-024",
         "MA-075",
         "MA-134",
-        "MA-224"
+        "MA-224",
+        "MA-253"
       ],
       "weaponIds": [
         "WPN-007",
@@ -769,7 +771,8 @@
       "memberCount": 39,
       "martialArtIds": [
         "MA-080",
-        "MA-106"
+        "MA-106",
+        "MA-254"
       ],
       "weaponIds": [
         "WPN-015",
@@ -827,7 +830,8 @@
         "MA-128",
         "MA-147",
         "MA-160",
-        "MA-167"
+        "MA-167",
+        "MA-255"
       ],
       "weaponIds": [
         "WPN-017",
@@ -876,7 +880,8 @@
         "MA-090",
         "MA-129",
         "MA-168",
-        "MA-225"
+        "MA-225",
+        "MA-256"
       ],
       "weaponIds": [
         "WPN-032"
@@ -1086,7 +1091,8 @@
         "MA-008",
         "MA-025",
         "MA-071",
-        "MA-221"
+        "MA-221",
+        "MA-257"
       ],
       "weaponIds": [
         "WPN-009",
@@ -1190,7 +1196,8 @@
         "MA-047",
         "MA-064",
         "MA-070",
-        "MA-222"
+        "MA-222",
+        "MA-258"
       ],
       "weaponIds": [
         "WPN-010"
@@ -1240,7 +1247,8 @@
         "MA-095",
         "MA-118",
         "MA-137",
-        "MA-227"
+        "MA-227",
+        "MA-259"
       ],
       "weaponIds": [
         "WPN-003",
@@ -1290,7 +1298,8 @@
         "MA-099",
         "MA-108",
         "MA-148",
-        "MA-228"
+        "MA-228",
+        "MA-260"
       ],
       "weaponIds": [],
       "acceptsOuterDisciple": true,
@@ -1543,7 +1552,8 @@
         "MA-055",
         "MA-065",
         "MA-127",
-        "MA-231"
+        "MA-231",
+        "MA-261"
       ],
       "weaponIds": [
         "WPN-029"
@@ -1682,7 +1692,8 @@
       "martialArtIds": [
         "MA-019",
         "MA-028",
-        "MA-072"
+        "MA-072",
+        "MA-262"
       ],
       "weaponIds": [],
       "acceptsOuterDisciple": true,
@@ -4070,7 +4081,7 @@
       "code": "119",
       "name": "金雁功",
       "cleanName": "金雁功",
-      "fullTier": "良品上品",
+      "fullTier": "地阶下品",
       "category": "轻功",
       "sectId": "SECT-11"
     },
@@ -5261,6 +5272,105 @@
       "fullTier": "地阶下品",
       "category": "拳掌",
       "sectId": "SECT-09"
+    },
+    {
+      "id": "MA-252",
+      "code": "252",
+      "name": "逍遥游身法",
+      "cleanName": "逍遥游身法",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-02"
+    },
+    {
+      "id": "MA-253",
+      "code": "253",
+      "name": "如影随形步",
+      "cleanName": "如影随形步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-03"
+    },
+    {
+      "id": "MA-254",
+      "code": "254",
+      "name": "铁桥渡海步",
+      "cleanName": "铁桥渡海步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-04"
+    },
+    {
+      "id": "MA-255",
+      "code": "255",
+      "name": "苍龙凌虚步",
+      "cleanName": "苍龙凌虚步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-05"
+    },
+    {
+      "id": "MA-256",
+      "code": "256",
+      "name": "十八盘御风步",
+      "cleanName": "十八盘御风步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-06"
+    },
+    {
+      "id": "MA-257",
+      "code": "257",
+      "name": "踏波折柳步",
+      "cleanName": "踏波折柳步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-10"
+    },
+    {
+      "id": "MA-258",
+      "code": "258",
+      "name": "落英踏波步",
+      "cleanName": "落英踏波步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-12"
+    },
+    {
+      "id": "MA-259",
+      "code": "259",
+      "name": "鬼影迷踪步",
+      "cleanName": "鬼影迷踪步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-13"
+    },
+    {
+      "id": "MA-260",
+      "code": "260",
+      "name": "松风穿云步",
+      "cleanName": "松风穿云步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-14"
+    },
+    {
+      "id": "MA-261",
+      "code": "261",
+      "name": "摘星换斗步",
+      "cleanName": "摘星换斗步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-19"
+    },
+    {
+      "id": "MA-262",
+      "code": "262",
+      "name": "大轮凌空步",
+      "cleanName": "大轮凌空步",
+      "fullTier": "地阶下品",
+      "category": "轻功",
+      "sectId": "SECT-32"
     }
   ],
   "weaponIndex": [

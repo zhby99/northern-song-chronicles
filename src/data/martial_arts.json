@@ -15143,13 +15143,13 @@
     "code": "119",
     "name": "金雁功",
     "cleanName": "金雁功",
-    "tier": "良品",
-    "subTier": "上品",
-    "fullTier": "良品上品",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
     "category": "轻功",
     "origin": "终南山道脉",
     "sectId": "SECT-11",
-    "description": "模拟金雁斜飞冲天之姿，盘旋上升与山地翻越速度极快。",
+    "description": "模拟金雁斜飞冲天之姿，盘旋上升与山地翻越速度极快，乃终南道脉上乘凌虚轻功。",
     "prerequisitesText": null,
     "statRequirements": [],
     "minSectRank": 2,
@@ -15157,63 +15157,63 @@
     "levels": [
       {
         "level": 1,
-        "expRequired": 16900,
-        "combatExpRequired": 15,
-        "agility": 8
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
       },
       {
         "level": 2,
-        "expRequired": 20800,
-        "combatExpRequired": 20,
-        "agility": 12
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
       },
       {
         "level": 3,
-        "expRequired": 24700,
-        "combatExpRequired": 25,
-        "agility": 17
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
       },
       {
         "level": 4,
-        "expRequired": 28600,
-        "combatExpRequired": 35,
-        "agility": 22
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
       },
       {
         "level": 5,
-        "expRequired": 31200,
-        "combatExpRequired": 40,
-        "agility": 27
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
       },
       {
         "level": 6,
-        "expRequired": 32500,
-        "combatExpRequired": 50,
-        "agility": 34
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
       },
       {
         "level": 7,
-        "expRequired": 33800,
-        "combatExpRequired": 60,
-        "agility": 40
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
       },
       {
         "level": 8,
-        "expRequired": 35100,
-        "combatExpRequired": 70,
-        "agility": 46
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
       },
       {
         "level": 9,
-        "expRequired": 36400,
-        "combatExpRequired": 85,
-        "agility": 51
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
       },
       {
         "level": 10,
         "expRequired": 0,
         "combatExpRequired": 0,
-        "agility": 56
+        "agility": 62
       }
     ]
   },
@@ -26472,6 +26472,875 @@
         "expRequired": 0,
         "combatExpRequired": 0,
         "physicalDamage": 720
+      }
+    ]
+  },
+  {
+    "id": "MA-252",
+    "code": "252",
+    "name": "逍遥游身法",
+    "cleanName": "逍遥游身法",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "丐帮",
+    "sectId": "SECT-02",
+    "description": "丐帮长老一脉相传之江湖绝顶身法，行云流水、飘逸灵动，兼顾万里传讯之脚力与近身腾挪之奇变。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-253",
+    "code": "253",
+    "name": "如影随形步",
+    "cleanName": "如影随形步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "五台山清凉寺",
+    "sectId": "SECT-03",
+    "description": "五台佛门护法上乘步法，借雪岭禅定吐纳凝气足底，步随敌影、后发先至。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-254",
+    "code": "254",
+    "name": "铁桥渡海步",
+    "cleanName": "铁桥渡海步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "莆田南少林",
+    "sectId": "SECT-04",
+    "description": "闽南南拳「铁桥硬马」化入刺桐海潮之步法，下盘沉稳却能借浪纵跃，踏舟如履平地。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-255",
+    "code": "255",
+    "name": "苍龙凌虚步",
+    "cleanName": "苍龙凌虚步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "华山派",
+    "sectId": "SECT-05",
+    "description": "脱胎于西岳苍龙岭险峰与落雁绝壁之凌虚步法，纵跃间气势峭拔，气剑两宗皆可修习。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-256",
+    "code": "256",
+    "name": "十八盘御风步",
+    "cleanName": "十八盘御风步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "泰山派",
+    "sectId": "SECT-06",
+    "description": "取泰山十八盘千级石阶与岱宗登云之意，步步登高、居高临下抢占先手。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-257",
+    "code": "257",
+    "name": "踏波折柳步",
+    "cleanName": "踏波折柳步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "姑苏慕容氏",
+    "sectId": "SECT-10",
+    "description": "燕子坞太湖烟波间所创世家身法，轻舟折柳、潇洒自如，极擅以巧借力闪避锋芒。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-258",
+    "code": "258",
+    "name": "落英踏波步",
+    "cleanName": "落英踏波步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "东海桃花岛",
+    "sectId": "SECT-12",
+    "description": "依奇门五行八卦方位踏步闪转，身法如落英随风、碧海穿花，令敌手极难捉摸。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-259",
+    "code": "259",
+    "name": "鬼影迷踪步",
+    "cleanName": "鬼影迷踪步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "蜀中唐门",
+    "sectId": "SECT-13",
+    "description": "蜀中唐门暗器名家秘传身法，一闪数丈、残影难辨，专配暗器先手抢攻与瞬息脱身。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-260",
+    "code": "260",
+    "name": "松风穿云步",
+    "cleanName": "松风穿云步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "青城派",
+    "sectId": "SECT-14",
+    "description": "呼应巴蜀青城松风幽林之道门轻功，借松枝竹梢点水穿行，轻灵诡快。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-261",
+    "code": "261",
+    "name": "摘星换斗步",
+    "cleanName": "摘星换斗步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "星宿派",
+    "sectId": "SECT-19",
+    "description": "西域星宿海诡道身法，踏毒雾碧磷而行，起落无声、阴森迅捷如鬼魅。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
+      }
+    ]
+  },
+  {
+    "id": "MA-262",
+    "code": "262",
+    "name": "大轮凌空步",
+    "cleanName": "大轮凌空步",
+    "tier": "地阶",
+    "subTier": "下品",
+    "fullTier": "地阶下品",
+    "category": "轻功",
+    "origin": "吐蕃密宗",
+    "sectId": "SECT-32",
+    "description": "取密宗神足通与高原雪峰大轮气象，真气鼓荡衣袍凌空滑翔，气势磅礴。",
+    "prerequisitesText": null,
+    "statRequirements": [],
+    "minSectRank": 2,
+    "minSectRankLabel": "内门弟子",
+    "levels": [
+      {
+        "level": 1,
+        "expRequired": 19500,
+        "combatExpRequired": 25,
+        "agility": 9
+      },
+      {
+        "level": 2,
+        "expRequired": 24000,
+        "combatExpRequired": 35,
+        "agility": 14
+      },
+      {
+        "level": 3,
+        "expRequired": 28500,
+        "combatExpRequired": 45,
+        "agility": 19
+      },
+      {
+        "level": 4,
+        "expRequired": 33000,
+        "combatExpRequired": 60,
+        "agility": 24
+      },
+      {
+        "level": 5,
+        "expRequired": 36000,
+        "combatExpRequired": 75,
+        "agility": 30
+      },
+      {
+        "level": 6,
+        "expRequired": 37500,
+        "combatExpRequired": 90,
+        "agility": 37
+      },
+      {
+        "level": 7,
+        "expRequired": 39000,
+        "combatExpRequired": 110,
+        "agility": 44
+      },
+      {
+        "level": 8,
+        "expRequired": 40500,
+        "combatExpRequired": 130,
+        "agility": 51
+      },
+      {
+        "level": 9,
+        "expRequired": 42000,
+        "combatExpRequired": 150,
+        "agility": 56
+      },
+      {
+        "level": 10,
+        "expRequired": 0,
+        "combatExpRequired": 0,
+        "agility": 62
       }
     ]
   }
