@@ -81,6 +81,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         tone: 'gold',
         effects: [
           { type: 'startQuest', questId: HUASHAN_Q22_QUEST_ID, stepId: 'open_summit' },
+          { type: 'healPlayer', hpPct: 100, mpPct: 100 },
           { type: 'teleportPlayer', regionId: 'tongguan', buildingId: 'tg_summit', spotId: 'tg_sm_altar' },
           openScene('scene_hsq22_05', HUASHAN_Q22_QUEST_ID),
         ],
@@ -192,11 +193,13 @@ export const SCENES: Record<string, StorySceneDef> = {
             introText: '【论剑首战】迎战姑苏「南慕容」慕容复（宗师下品），十合破去其斗转星移！',
             onWin: [
               { type: 'giveCombatExp', amount: 160, reason: '白玉论剑坛首战十合击败南慕容慕容复' },
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('十合破燕后吐纳调息，气血与内力已尽数回复至巅峰！', 'success', '调息回元'),
               openScene('scene_hsq22_12', HUASHAN_Q22_QUEST_ID),
             ],
             onLose: [
-              { type: 'healPlayer', hpPct: 85, mpPct: 85 },
-              toast('斗转星移借力诡奇，凝神洞穿其挪移枢纽再发一剑！', 'warn', '剑意重凝'),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('斗转星移借力诡奇，调息回满状态再发一剑！', 'warn', '剑意重凝'),
               openScene('scene_hsq22_11', HUASHAN_Q22_QUEST_ID),
             ],
           },
@@ -323,11 +326,13 @@ export const SCENES: Record<string, StorySceneDef> = {
             introText: '【论剑次战】暴雪之中迎战吐蕃国师「大轮明王」鸠摩智（宗师中品），破其小无相功与火焰刀！',
             onWin: [
               { type: 'giveCombatExp', amount: 200, reason: '白玉论剑坛暴雪击败吐蕃国师鸠摩智' },
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('剑碎火焰刀后吐纳调息，气血与内力已尽数回复至巅峰！', 'success', '调息回元'),
               openScene('scene_hsq22_20', HUASHAN_Q22_QUEST_ID),
             ],
             onLose: [
-              { type: 'healPlayer', hpPct: 85, mpPct: 85 },
-              toast('火焰刀虚空凝刃变幻莫测，辨明小无相气机根源再战！', 'warn', '剑意重凝'),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('火焰刀虚空凝刃变幻莫测，调息回满状态再破无相！', 'warn', '剑意重凝'),
               openScene('scene_hsq22_19', HUASHAN_Q22_QUEST_ID),
             ],
           },
@@ -474,11 +479,13 @@ export const SCENES: Record<string, StorySceneDef> = {
             introText: '【孤松暗战】迎击潜藏试探的灰衣老僧慕容博（宗师上品），以绝顶剑意逼退其参合神指！',
             onWin: [
               { type: 'giveCombatExp', amount: 240, reason: '朝阳孤松亭正面一剑逼退宗师上品慕容博' },
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('孤松退敌后敛息运功，气血与内力已尽数回复至巅峰！', 'success', '调息回元'),
               openScene('scene_hsq22_29', HUASHAN_Q22_QUEST_ID),
             ],
             onLose: [
-              { type: 'healPlayer', hpPct: 85, mpPct: 85 },
-              toast('参合指无形透骨、斗转星移已臻化境，全力凝聚绝顶剑意再破之！', 'warn', '剑心极境'),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('参合指无形透骨、斗转星移已臻化境，调息回满状态再破之！', 'warn', '剑心极境'),
               openScene('scene_hsq22_28', HUASHAN_Q22_QUEST_ID),
             ],
           },
@@ -627,11 +634,13 @@ export const SCENES: Record<string, StorySceneDef> = {
             introText: '【华山论剑终极战】与丐帮帮主「北乔峰」乔峰（宗师中品）于落雁绝顶印证二十合武道极境！',
             onWin: [
               { type: 'giveCombatExp', amount: 300, reason: '落雁峰白玉坛与北乔峰巅峰论剑二十合' },
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('二十合绝顶论剑收势调息，气血与内力已回复圆满！', 'success', '调息回元'),
               openScene('scene_hsq22_38', HUASHAN_Q22_QUEST_ID),
             ],
             onLose: [
-              { type: 'healPlayer', hpPct: 90, mpPct: 90 },
-              toast('降龙十八掌刚猛绝伦愈战愈勇，提振全部剑心气魄再与乔帮主战满二十合！', 'warn', '极境争锋'),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('降龙十八掌刚猛绝伦愈战愈勇，调息回满状态再与乔帮主战满二十合！', 'warn', '极境争锋'),
               openScene('scene_hsq22_37', HUASHAN_Q22_QUEST_ID),
             ],
           },
