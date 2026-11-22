@@ -207,6 +207,54 @@ describe('P0 audit fixes regression suite', () => {
     expect(validated).not.toBeNull()
     expect(validated?.state.selectedSpotId).toBeNull()
   })
+
+  it('unlocks tg_sg_cave in Huashan Q13 scene_hsq13_10 and heals legacy saves stuck at q13_cave_pursuit', async () => {
+    const { SCENES } = await import('../../data/quests/sects/huashanSiguoyaSecretQuest.scenes')
+    const choice = SCENES.scene_hsq13_10.choices?.find((c) => c.id === 'hsq13_c10_enter_cave')
+    expect(choice).toBeDefined()
+    expect(choice?.effects).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ type: 'setFlag', flag: 'tg_sg_cave_unlocked', value: true }),
+      ]),
+    )
+
+    const baseEnvelope = useGameStore.getState().buildSaveEnvelope('slot-2', '华山思过崖旧档')
+    const baseQuestState = baseEnvelope.state.questState ?? {
+      activeQuests: {},
+      completedQuests: {},
+      flags: {},
+      dynamicActors: [],
+    }
+    const stuckEnvelope = {
+      ...baseEnvelope,
+      state: {
+        ...baseEnvelope.state,
+        viewMode: 'building' as const,
+        activeRegionId: 'tongguan',
+        currentNodeId: 'tongguan',
+        activeBuildingInteriorId: 'tg_siguoya',
+        selectedSpotId: 'tg_sg_cave',
+        questState: {
+          ...baseQuestState,
+          flags: {},
+          activeQuests: {
+            ...baseQuestState.activeQuests,
+            'QST-SECT-05-13': {
+              questId: 'QST-SECT-05-13',
+              stepId: 'q13_cave_pursuit',
+              startedDay: 100,
+              deadlineDay: null,
+              vars: {},
+            },
+          },
+        },
+      },
+    }
+    const healed = validateSaveEnvelope(stuckEnvelope)
+    expect(healed).not.toBeNull()
+    expect(healed?.state.questState?.flags.tg_sg_cave_unlocked).toBe(true)
+    expect(healed?.state.selectedSpotId).toBe('tg_sg_cave')
+  })
 })
 
 describe('P1 audit fixes regression suite', () => {

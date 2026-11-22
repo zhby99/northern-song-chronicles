@@ -305,6 +305,18 @@ export function validateSaveEnvelope(input: unknown): GameSaveEnvelope | null {
   }
 
   const cleanQuestState = cloneQuestRuntimeState(st.questState)
+  // 存量存档自愈：早期版本《寒风面壁 · 铁锁惊雷》(QST-SECT-05-13) 第十幕断锁后漏设 tg_sg_cave_unlocked，
+  // 导致玩家在 q13_cave_pursuit 及后续思过崖后洞任务中无法进入【秘洞古剑刻石室】。
+  const hsQ13Active = cleanQuestState.activeQuests['QST-SECT-05-13']
+  const hsQ13Completed = Boolean(cleanQuestState.completedQuests['QST-SECT-05-13'])
+  if (
+    !cleanQuestState.flags.tg_sg_cave_unlocked &&
+    (hsQ13Completed ||
+      hsQ13Active?.stepId === 'q13_cave_pursuit' ||
+      Boolean(cleanQuestState.flags.hs_cave))
+  ) {
+    cleanQuestState.flags.tg_sg_cave_unlocked = true
+  }
 
   let normalizedViewMode = st.viewMode as ViewMode
   let normalizedInteriorId =

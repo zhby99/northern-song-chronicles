@@ -174,6 +174,7 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '高举松脂火把，紧追密谍踏入秘洞古剑刻石室',
         tone: 'danger',
         effects: [
+          { type: 'setFlag', flag: 'tg_sg_cave_unlocked', value: true },
           setStep(HUASHAN_Q13_QUEST_ID, 'q13_cave_pursuit'),
           toast('后洞铁锁已断！请进入【秘洞古剑刻石室】诛杀西夏一品堂密谍！', 'warn', '铁锁惊雷'),
         ],
