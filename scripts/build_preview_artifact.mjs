@@ -110,7 +110,7 @@ function tryRunCachedAssetOptimizer() {
 }
 
 function collectRawAssetList() {
-  /** @type {Array<{ relUrl: string; fullPath: string; kind: 'image' | 'audio' }>} */
+  /** @type {Array<{ relUrl: string; fullPath: string; kind: 'image' | 'audio' | 'model' }>} */
   const list = []
 
   function walkImages(dirAbs, relPrefix) {
@@ -128,6 +128,8 @@ function collectRawAssetList() {
         walkImages(fullPath, relUrl)
       } else if (entry.isFile() && /\.(jpg|jpeg|png|webp|gif|svg)$/i.test(entry.name)) {
         list.push({ relUrl, fullPath, kind: 'image' })
+      } else if (entry.isFile() && /\.glb$/i.test(entry.name)) {
+        list.push({ relUrl, fullPath, kind: 'model' })
       }
     }
   }
@@ -202,6 +204,7 @@ async function main() {
   let curShardLen = 0
   let totalImageBytes = 0
   let totalAudioBytes = 0
+  let totalModelBytes = 0
 
   for (const item of rawAssetList) {
     const opt = optimizedMap?.get(item.relUrl)
@@ -215,10 +218,13 @@ async function main() {
       mime =
         item.kind === 'image'
           ? sniffImageMime(item.fullPath, buf)
-          : sniffAudioMime(item.fullPath, buf)
+          : item.kind === 'model'
+            ? 'model/gltf-binary'
+            : sniffAudioMime(item.fullPath, buf)
     }
 
     if (item.kind === 'image') totalImageBytes += buf.length
+    else if (item.kind === 'model') totalModelBytes += buf.length
     else totalAudioBytes += buf.length
 
     const b64 = buf.toString('base64')
@@ -336,6 +342,7 @@ async function main() {
   const codeMb = (Buffer.byteLength(safeJs, 'utf-8') + Buffer.byteLength(safeCss, 'utf-8')) / 1048576
   const imgMb = totalImageBytes / 1048576
   const audMb = totalAudioBytes / 1048576
+  const mdlMb = totalModelBytes / 1048576
 
   if (optimizedMap && sizeMb > HARD_HTML_BUDGET_MB) {
     fs.rmSync(distOutPath, { force: true })
@@ -350,7 +357,7 @@ async function main() {
     `[OK] 已生成单文件 HTML (${sizeMb.toFixed(2)} MB | ${indexedCount} 项素材 | ${shards.length} 个懒加载数据分片):`,
   )
   console.log(
-    `     构成明细: 代码与样式 ${codeMb.toFixed(2)} MB | 原画压缩体 ${imgMb.toFixed(2)} MB | 雅乐压缩体 ${audMb.toFixed(2)} MB`,
+    `     构成明细: 代码与样式 ${codeMb.toFixed(2)} MB | 原画压缩体 ${imgMb.toFixed(2)} MB | 3D模型 ${mdlMb.toFixed(2)} MB | 雅乐压缩体 ${audMb.toFixed(2)} MB`,
   )
   console.log(`  -> ${rootOutPath}`)
   console.log(`  -> ${distOutPath}`)

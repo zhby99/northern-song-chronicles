@@ -156,3 +156,39 @@ export function playSfxCombatEnd(
   }
   void ensureSfxCore().then((m) => m?.playSfxCombatEndCore(outcome))
 }
+
+export function playSfxParryClang(): void {
+  if (!sfxEnabled) return
+  if (loadedSfxCore) {
+    loadedSfxCore.playSfxParryClangCore()
+    return
+  }
+  void ensureSfxCore().then((m) => m?.playSfxParryClangCore())
+}
+
+export function playSfxSwordSwing(kind: CombatSfxVfxKind = 'sword'): void {
+  if (!sfxEnabled) return
+  if (loadedSfxCore) {
+    loadedSfxCore.playSfxSwordSwingCore(kind)
+    return
+  }
+  void ensureSfxCore().then((m) => m?.playSfxSwordSwingCore(kind))
+}
+
+export function playSfxCounterExecute(): void {
+  if (!sfxEnabled) return
+  if (loadedSfxCore) {
+    loadedSfxCore.playSfxCounterExecuteCore()
+    return
+  }
+  void ensureSfxCore().then((m) => m?.playSfxCounterExecuteCore())
+}
+
+export function playSfxTelegraphWarn(): void {
+  if (!sfxEnabled) return
+  if (loadedSfxCore) {
+    loadedSfxCore.playSfxTelegraphWarnCore()
+    return
+  }
+  void ensureSfxCore().then((m) => m?.playSfxTelegraphWarnCore())
+}

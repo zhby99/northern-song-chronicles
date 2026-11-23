@@ -495,3 +495,71 @@ export function playSfxCombatEndCore(
     triggerMetallicClang(ctx, out, t + 0.02, 261.63, [1, 1.414, 1.86, 2.54], 0.85, 0.26)
   }
 }
+
+export function playSfxParryClangCore(): void {
+  const g = ensureSfxGraph()
+  if (!g) return
+  const { ctx, out, noise } = g
+  const t = ctx.currentTime + 0.002
+
+  // 双层高频金铁泛音 + 清脆撞击（全场最响最脆的确认音）
+  triggerMetallicClang(ctx, out, t, 1046.5, [1, 1.48, 2.32, 3.17], 0.55, 0.42)
+  triggerMetallicClang(ctx, out, t + 0.015, 1567.98, [1, 1.62, 2.71], 0.42, 0.36)
+  triggerSubPunch(ctx, out, t, 180, 58, 0.14, 0.52)
+  triggerFilteredNoise(ctx, out, noise, {
+    startTime: t,
+    duration: 0.09,
+    filterType: 'highpass',
+    freqStart: 3200,
+    freqEnd: 6400,
+    q: 1.6,
+    peakGain: 0.28,
+  })
+}
+
+export function playSfxSwordSwingCore(kind: CombatSfxVfxKind = 'sword'): void {
+  const g = ensureSfxGraph()
+  if (!g) return
+  const { ctx, out, noise } = g
+  const t = ctx.currentTime + 0.003
+  const pitchJitter = 0.92 + Math.random() * 0.16
+  const isHeavy = kind === 'blade' || kind === 'polearm' || kind === 'palm'
+  triggerFilteredNoise(ctx, out, noise, {
+    startTime: t,
+    duration: isHeavy ? 0.22 : 0.16,
+    filterType: 'bandpass',
+    freqStart: (isHeavy ? 420 : 780) * pitchJitter,
+    freqEnd: (isHeavy ? 1850 : 3200) * pitchJitter,
+    q: isHeavy ? 2.2 : 3.1,
+    peakGain: isHeavy ? 0.28 : 0.22,
+    attack: 0.02,
+  })
+}
+
+export function playSfxCounterExecuteCore(): void {
+  const g = ensureSfxGraph()
+  if (!g) return
+  const { ctx, out, noise } = g
+  const t = ctx.currentTime + 0.003
+
+  triggerSubPunch(ctx, out, t, 145, 34, 0.45, 0.72)
+  triggerMetallicClang(ctx, out, t + 0.01, 783.99, [1, 1.5, 2.02, 2.98], 0.72, 0.38)
+  triggerMetallicClang(ctx, out, t + 0.045, 1174.66, [1, 1.5, 2.5], 0.58, 0.32)
+  triggerFilteredNoise(ctx, out, noise, {
+    startTime: t,
+    duration: 0.28,
+    filterType: 'bandpass',
+    freqStart: 620,
+    freqEnd: 4600,
+    q: 2.0,
+    peakGain: 0.32,
+  })
+}
+
+export function playSfxTelegraphWarnCore(): void {
+  const g = ensureSfxGraph()
+  if (!g) return
+  const { ctx, out } = g
+  const t = ctx.currentTime + 0.004
+  triggerMetallicClang(ctx, out, t, 440, [1, 1.414, 2.0], 0.24, 0.18)
+}

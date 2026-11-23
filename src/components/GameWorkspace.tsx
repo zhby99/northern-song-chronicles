@@ -1,6 +1,9 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
+import { NPC_DB_MAP, NPCS_DB } from '../data/gameDb'
+import { buildNpcCombatant, createCombatSession } from '../engine/combat'
 import { useGameStore } from '../store/useGameStore'
 import { syncBgmSceneContext, toggleBgmPlayback } from '../utils/bgmManager'
+import { setCombatSfxEnabled } from '../utils/combatSfx'
 import { purgeLegacySaveDatabases } from '../utils/saveManager'
 import { BottomHud } from './hud/BottomHud'
 import { CharacterCreationModal } from './hud/CharacterCreationModal'
@@ -28,7 +31,7 @@ const CombatOverlay = lazy(() =>
   import('./combat/CombatOverlay').then((m) => ({ default: m.CombatOverlay })),
 )
 
-export type BootIntent = 'newGame' | 'loadMenu' | 'compendium'
+export type BootIntent = 'newGame' | 'loadMenu' | 'compendium' | 'demoCombat'
 
 interface GameWorkspaceProps {
   initialIntent: BootIntent
@@ -74,6 +77,73 @@ export function GameWorkspace({ initialIntent }: GameWorkspaceProps) {
       openMenu('load')
     } else if (initialIntent === 'compendium') {
       openCompendium()
+    } else if (initialIntent === 'demoCombat') {
+      try {
+        const params = new URLSearchParams(window.location.search)
+        if (params.get('mute') === '1') {
+          setCombatSfxEnabled(false)
+        }
+      } catch {
+        // ignore
+      }
+      const st = useGameStore.getState()
+      const murongRec = NPC_DB_MAP['NPC-0104'] ?? NPCS_DB[0]
+      const xiaoRec = NPC_DB_MAP['NPC-0105'] ?? NPCS_DB[1]
+      if (murongRec && xiaoRec && !st.activeCombat) {
+        const murongCombatant = {
+          ...buildNpcCombatant(
+            {
+              id: murongRec.id,
+              name: murongRec.name,
+              title: murongRec.title,
+              realm: murongRec.realm,
+              factionId: murongRec.factionId,
+              factionName: murongRec.factionName,
+              talk: '以彼之道，还施彼身！',
+            },
+            { unitId: 'ally-0', team: 'ally' },
+          ),
+          isPlayer: true,
+        }
+        const xiaoNode = {
+          id: xiaoRec.id,
+          name: xiaoRec.name,
+          title: xiaoRec.title,
+          realm: xiaoRec.realm,
+          factionId: xiaoRec.factionId,
+          factionName: xiaoRec.factionName,
+          talk: '少林藏经阁一别，今日正好分个高下！',
+        }
+        const session = createCombatSession({
+          mode: 'spar',
+          duelStakes: 'spar',
+          player: murongCombatant,
+          npcNode: xiaoNode,
+        })
+        useGameStore.setState({
+          characterCreated: true,
+          playerName: murongRec.name,
+          playerPortraitId: 'hero-male-1',
+          viewMode: 'building',
+          currentNodeId: 'shaolin',
+          activeRegionId: 'shaolin',
+          activeBuildingInteriorId: 'sl_cangjing',
+          hp: murongCombatant.hp,
+          maxHp: murongCombatant.maxHp,
+          mp: murongCombatant.mp,
+          maxMp: murongCombatant.maxMp,
+          agility: murongCombatant.agility,
+          res: murongCombatant.res,
+          equipped: { ...murongCombatant.equipped },
+          equippedArts: { ...murongCombatant.equippedArts },
+          learnedArts: murongCombatant.learnedArts.map((e) => ({ ...e })),
+          inventory: [{ itemId: 'ITM-MED-121', qty: 3 }],
+          activeCombat: session,
+          menuOpen: false,
+          compendiumOpen: false,
+          tooltip: null,
+        })
+      }
     } else {
       const timer = window.setTimeout(() => {
         void import('./menu/SystemMenuModal')

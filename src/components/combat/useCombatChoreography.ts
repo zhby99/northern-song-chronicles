@@ -28,6 +28,7 @@ import {
 export type CombatPaceMode = 'slow' | 'normal' | 'fast'
 
 interface UseCombatChoreographyParams {
+  enabled?: boolean
   session: CombatSessionState | null
   moveOptions: MoveActionAvailability[]
   escapeAllowed: boolean
@@ -41,6 +42,7 @@ interface UseCombatChoreographyParams {
 }
 
 export function useCombatChoreography({
+  enabled = true,
   session,
   moveOptions,
   escapeAllowed,
@@ -136,16 +138,16 @@ export function useCombatChoreography({
 
   // Switch into & out of battle BGM
   useEffect(() => {
-    if (!activeSessionId) return
+    if (!enabled || !activeSessionId) return
     startCombatBgmSession()
     return () => {
       endCombatBgmSession()
     }
-  }, [activeSessionId])
+  }, [enabled, activeSessionId])
 
   // Dynamic battle BGM mood progression
   useEffect(() => {
-    if (!activeSessionId) return
+    if (!enabled || !activeSessionId) return
     if (isVisualAftermath) {
       setBgmCombatMood('aftermath')
     } else if (isVisualClimax) {
@@ -153,10 +155,11 @@ export function useCombatChoreography({
     } else {
       setBgmCombatMood('duel')
     }
-  }, [activeSessionId, isVisualAftermath, isVisualClimax])
+  }, [enabled, activeSessionId, isVisualAftermath, isVisualClimax])
 
   // Opening war drum & sword draw SFX
   useEffect(() => {
+    if (!enabled) return
     if (!session) {
       lastStartedSessionIdRef.current = null
       return
@@ -165,11 +168,11 @@ export function useCombatChoreography({
       lastStartedSessionIdRef.current = session.sessionId
       playSfxCombatStart()
     }
-  }, [session])
+  }, [enabled, session])
 
   // Beat-by-beat choreography timer & SFX triggers
   useEffect(() => {
-    if (!isAnimating || !activeBeat || !currentRoundKey || !session) return
+    if (!enabled || !isAnimating || !activeBeat || !currentRoundKey || !session) return
 
     const hasSettleBreather =
       activeBeat.kind === 'attack' ||
@@ -258,6 +261,7 @@ export function useCombatChoreography({
 
     return () => window.clearTimeout(timer)
   }, [
+    enabled,
     isAnimating,
     activeBeat,
     currentRoundKey,
@@ -286,7 +290,7 @@ export function useCombatChoreography({
 
   // Global combat keyboard shortcuts
   useEffect(() => {
-    if (!session) return
+    if (!enabled || !session) return
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey || e.metaKey || e.altKey) return
       if (shouldIgnoreOverlayHotkey(e)) return
@@ -346,6 +350,7 @@ export function useCombatChoreography({
     window.addEventListener('keydown', onKeyDown, true)
     return () => window.removeEventListener('keydown', onKeyDown, true)
   }, [
+    enabled,
     session,
     isAnimating,
     bagOpen,

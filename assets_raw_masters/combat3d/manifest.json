@@ -1,0 +1,44 @@
+{
+  "updatedAt": "2026-11-23T04:08:19.188Z",
+  "items": {
+    "npc_NPC-0104": {
+      "imageToken": "84e83562-2942-4d5e-81be-c760f29d176f",
+      "status": "ready",
+      "lastError": {
+        "code": 2010,
+        "message": "You don't have enough credit to create this task",
+        "suggestion": "Please purchase more credit"
+      },
+      "modelTaskId": "d3b1f782-1f37-4e40-ab37-a7bf06c6c790",
+      "rigTaskId": "f8020163-2066-45ca-916f-d4ab5dd4de71",
+      "rigged": true
+    },
+    "npc_NPC-0105": {
+      "imageToken": "3fa49b1b-233c-45e7-b6a8-a3e6314b6ff8",
+      "status": "ready",
+      "lastError": {
+        "code": 2010,
+        "message": "You don't have enough credit to create this task",
+        "suggestion": "Please purchase more credit"
+      },
+      "modelTaskId": "db070567-7d31-4694-87bb-277db8056fbd",
+      "rigTaskId": "c5001817-382d-422c-b497-9db957be8d96",
+      "rigged": true
+    },
+    "prop_shaolin_censer": {
+      "imageToken": "aa9696f0-502b-40c7-bc93-35d9e9dc797f",
+      "status": "ready",
+      "lastError": {
+        "code": 2010,
+        "message": "You don't have enough credit to create this task",
+        "suggestion": "Please purchase more credit"
+      },
+      "modelTaskId": "432c8884-3a1e-4120-b1ab-ffb6a31b4244"
+    },
+    "prop_shaolin_pillar": {
+      "imageToken": "94a4c2cb-bb21-4cbb-a94f-0750f4d8a7e8",
+      "status": "ready",
+      "modelTaskId": "aca7cfd0-b7d4-49ce-b8a9-d0a11dc0fa00"
+    }
+  }
+}

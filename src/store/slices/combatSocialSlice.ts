@@ -68,6 +68,8 @@ export type CombatSocialKeys =
   | 'hostNpcBanquet'
   | 'startNpcCombat'
   | 'submitCombatAction'
+  | 'consumeArenaCombatItem'
+  | 'syncArenaCombatProgress'
   | 'finishCombatSession'
   | 'restartAfterGameOver'
   | 'openNpcInteraction'
@@ -364,6 +366,168 @@ export const createCombatSocialSlice: StoreSlice<CombatSocialKeys> = (set, get) 
       consumedOnceItemIds: nextConsumedOnceItemIds,
       food: nextFood,
     })
+  },
+
+  consumeArenaCombatItem: (itemId) => {
+    const s = get()
+    if (!s.activeCombat || s.activeCombat.outcome !== 'ongoing') {
+      return { applied: false, itemName: '', healHp: 0, healMp: 0, poisonDmg: 0, reason: '战斗未在进行中' }
+    }
+    const def = ITEM_DB_MAP[itemId]
+    if (!def || def.category !== 'medicine') {
+      return { applied: false, itemName: '', healHp: 0, healMp: 0, poisonDmg: 0, reason: '此物不可在战中服用' }
+    }
+    if (def.useEffect?.onceOnly && s.consumedOnceItemIds.includes(itemId)) {
+      return {
+        applied: false,
+        itemName: def.name,
+        healHp: 0,
+        healMp: 0,
+        poisonDmg: 0,
+        reason: `【${def.name}】初品已尽得其效，再食已无裨益。`,
+      }
+    }
+    if (!s.inventory.some((st) => st.itemId === itemId && st.qty > 0)) {
+      return { applied: false, itemName: def.name, healHp: 0, healMp: 0, poisonDmg: 0, reason: '行囊中已无此物' }
+    }
+    if (!canUseCombatItem(s.activeCombat.player)) {
+      return {
+        applied: false,
+        itemName: def.name,
+        healHp: 0,
+        healMp: 0,
+        poisonDmg: 0,
+        reason: `本场交锋已探囊 ${COMBAT_ITEM_USE_LIMIT} 次，随身丹药毒物一时再难取用。`,
+      }
+    }
+    const removed = removeItemFromInventory(s.inventory, itemId, 1)
+    if (!removed) {
+      return { applied: false, itemName: def.name, healHp: 0, healMp: 0, poisonDmg: 0, reason: '行囊扣减失败' }
+    }
+
+    let nextBaseStats = s.baseStats
+    let nextArtExps = s.artExps
+    let nextArtMilestoneFlags = s.artMilestoneFlags
+    let nextFood = s.food
+    let nextConsumedUniqueIds = s.consumedUniqueIds
+    let nextConsumedOnceItemIds = s.consumedOnceItemIds
+
+    if (UNIQUE_ARTIFACT_MAP[itemId] && !s.consumedUniqueIds.includes(itemId)) {
+      nextConsumedUniqueIds = [...s.consumedUniqueIds, itemId]
+    }
+    if (def.useEffect?.onceOnly && !s.consumedOnceItemIds.includes(itemId)) {
+      nextConsumedOnceItemIds = [...s.consumedOnceItemIds, itemId]
+    }
+    if (def.useEffect) {
+      const applied = applyConsumableStatEffects({
+        itemDef: def,
+        baseStats: s.baseStats,
+        artExps: nextArtExps,
+        artMilestoneFlags: nextArtMilestoneFlags,
+        food: nextFood,
+      })
+      nextBaseStats = applied.baseStats
+      nextArtExps = applied.artExps
+      nextArtMilestoneFlags = applied.artMilestoneFlags
+      nextFood = applied.food
+    }
+
+    const healHp = def.useEffect?.hp ?? 0
+    const healMp = def.useEffect?.mp ?? 0
+    const poisonDmg = def.poisonEffect ? 35 : 0
+    const nextItemUses = (s.activeCombat.player.itemUses ?? 0) + 1
+    const nextPlayer = { ...s.activeCombat.player, itemUses: nextItemUses }
+
+    set({
+      inventory: removed,
+      baseStats: nextBaseStats,
+      artExps: nextArtExps,
+      artMilestoneFlags: nextArtMilestoneFlags,
+      food: nextFood,
+      consumedUniqueIds: nextConsumedUniqueIds,
+      consumedOnceItemIds: nextConsumedOnceItemIds,
+      activeCombat: {
+        ...s.activeCombat,
+        player: nextPlayer,
+        allies: s.activeCombat.allies.map((a) => (a.isPlayer ? { ...a, itemUses: nextItemUses } : a)),
+      },
+    })
+    return { applied: true, itemName: def.name, healHp, healMp, poisonDmg }
+  },
+
+  syncArenaCombatProgress: (payload) => {
+    const s = get()
+    if (!s.activeCombat) return
+    const cur = s.activeCombat
+    const nextPlayerHp = Math.max(0, Math.min(cur.player.maxHp, Math.round(payload.playerHp)))
+    const nextPlayerMp = Math.max(0, Math.min(cur.player.maxMp, Math.round(payload.playerMp)))
+    const nextAllies = cur.allies.map((a) => {
+      if (a.isPlayer) return { ...a, hp: nextPlayerHp, mp: nextPlayerMp }
+      const ahp = payload.allyHps?.[a.unitId]
+      return typeof ahp === 'number' ? { ...a, hp: Math.max(0, Math.min(a.maxHp, Math.round(ahp))) } : a
+    })
+    const nextEnemies = cur.enemies.map((e) => {
+      const ehp = payload.enemyHps[e.unitId]
+      return typeof ehp === 'number' ? { ...e, hp: Math.max(0, Math.min(e.maxHp, Math.round(ehp))) } : e
+    })
+    const nextNpc = nextEnemies.find((e) => e.unitId === cur.npc.unitId) ?? nextEnemies[0] ?? cur.npc
+    const nextRound =
+      typeof payload.elapsedRounds === 'number' && payload.elapsedRounds > cur.round
+        ? Math.min(cur.maxRounds, payload.elapsedRounds)
+        : cur.round
+
+    let nextSession: typeof cur = {
+      ...cur,
+      round: nextRound,
+      outcome: payload.outcome,
+      player: { ...cur.player, hp: nextPlayerHp, mp: nextPlayerMp },
+      npc: nextNpc,
+      allies: nextAllies,
+      enemies: nextEnemies,
+      logs: payload.summaryLogText
+        ? [
+            ...cur.logs,
+            {
+              id: `arena3d-${Date.now()}`,
+              round: nextRound,
+              tone: payload.outcome === 'player_win' ? 'special' : payload.outcome === 'npc_win' ? 'enemy' : 'info',
+              text: payload.summaryLogText,
+            },
+          ]
+        : cur.logs,
+    }
+
+    if (payload.outcome !== 'ongoing') {
+      const preview = computeCombatSettlement(
+        { ...s, baseStats: s.baseStats, learnedArts: s.learnedArts },
+        nextSession,
+      )
+      const qHook = nextSession.questCombatHook
+      const killerLabel =
+        nextSession.enemies && nextSession.enemies.length > 1
+          ? nextSession.enemies.map((e) => e.name).join('、')
+          : nextSession.npc.name
+      const deathNotice =
+        nextSession.mode === 'duel' && nextSession.outcome === 'npc_win'
+          ? qHook?.deathDetail
+            ? `${qHook.deathDetail}（游戏结束）`
+            : nextSession.duelStakes === 'zhan_zhao_arrest'
+              ? '少侠重伤被南侠展昭生擒归案，即将押赴开封府市曹处斩（游戏结束）！'
+              : nextSession.duelStakes === 'kaifeng_warrant'
+                ? `缉拿海捕要犯失手！少侠命陨于凶徒【${killerLabel}】毒刃之下（游戏结束）！`
+                : `生死决斗败亡！少侠命陨于【${killerLabel}】之手（游戏结束）！`
+          : nextSession.surviveToWin &&
+              nextSession.outcome === 'player_win' &&
+              nextSession.npc.hp > 0
+            ? `稳守撑满 ${nextSession.maxRounds} 合考校不倒！ · ${preview.rewardsSummary}`
+            : preview.rewardsSummary
+      nextSession = {
+        ...nextSession,
+        rewardsSummary: deathNotice,
+      }
+    }
+
+    set({ activeCombat: nextSession })
   },
 
   finishCombatSession: () => {

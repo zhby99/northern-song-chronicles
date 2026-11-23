@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { lazy, Suspense, useCallback, useMemo, useState } from 'react'
 import { BUILDING_DB_MAP, NPC_DB_MAP, resolveNpcByName } from '../../data/gameDb'
 import { ITEM_DB_MAP } from '../../data/itemsDb'
 import { useGameStore } from '../../store/useGameStore'
@@ -11,6 +11,7 @@ import {
   getMoveActionsAvailability,
   getStrongestLivingEnemy,
 } from '../../engine/combat'
+import type { CombatDisplayMode } from '../../engine/combat3d'
 import { NODE_MAP, REGIONAL_CONFIGS } from '../../engine/world/mapMath'
 import { AllyStatusPanel } from './AllyStatusPanel'
 import { CombatActionDeck } from './CombatActionDeck'
@@ -22,6 +23,12 @@ import { CombatVfxStage } from './CombatVfxStage'
 import { EnemyStatusPanel } from './EnemyStatusPanel'
 import { useCombatChoreography } from './useCombatChoreography'
 
+const CombatArena3DView = lazy(() =>
+  import('./arena3d/CombatArena3DView').then((m) => ({ default: m.CombatArena3DView })),
+)
+
+const STORAGE_KEY_COMBAT_DISPLAY = 'nsc_combat_display_mode_v1'
+
 export function CombatOverlay() {
   const session = useGameStore((s) => s.activeCombat)
   const activeRegionId = useGameStore((s) => s.activeRegionId)
@@ -30,7 +37,28 @@ export function CombatOverlay() {
   const inventory = useGameStore((s) => s.inventory)
   const consumedOnceItemIds = useGameStore((s) => s.consumedOnceItemIds)
   const submitCombatAction = useGameStore((s) => s.submitCombatAction)
+  const consumeArenaCombatItem = useGameStore((s) => s.consumeArenaCombatItem)
+  const syncArenaCombatProgress = useGameStore((s) => s.syncArenaCombatProgress)
   const finishCombatSession = useGameStore((s) => s.finishCombatSession)
+
+  const [displayMode, setDisplayMode] = useState<CombatDisplayMode>(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_COMBAT_DISPLAY)
+      if (saved === 'arena3d' || saved === 'classic') return saved
+    } catch {
+      // ignore
+    }
+    return 'arena3d'
+  })
+
+  const switchDisplayMode = useCallback((next: CombatDisplayMode) => {
+    setDisplayMode(next)
+    try {
+      localStorage.setItem(STORAGE_KEY_COMBAT_DISPLAY, next)
+    } catch {
+      // ignore
+    }
+  }, [])
 
   const [bagOpen, setBagOpen] = useState(false)
   const [selectedTargetId, setSelectedTargetId] = useState<string>('enemy-0')
@@ -159,6 +187,7 @@ export function CombatOverlay() {
     getUnitShownHp,
     getUnitShownMp,
   } = useCombatChoreography({
+    enabled: displayMode === 'classic',
     session,
     moveOptions,
     escapeAllowed: escapeStatus.allowed,
@@ -172,6 +201,30 @@ export function CombatOverlay() {
   })
 
   if (!session) return null
+
+  if (displayMode === 'arena3d') {
+    return (
+      <Suspense
+        fallback={
+          <div className="fixed inset-0 z-45 flex items-center justify-center bg-[#120d09] text-[#f5dfb5] song-serif text-base">
+            正在铺开北宋三维演武场……
+          </div>
+        }
+      >
+        <CombatArena3DView
+          session={session}
+          sceneTitle={sceneTitle}
+          escapeAllowed={escapeStatus.allowed}
+          combatBagItems={combatBagItems}
+          consumedOnceItemIds={consumedOnceItemIds}
+          onConsumeItem={consumeArenaCombatItem}
+          onSyncProgress={syncArenaCombatProgress}
+          onFinishCombat={finishCombatSession}
+          onSwitchToClassic={() => switchDisplayMode('classic')}
+        />
+      </Suspense>
+    )
+  }
 
   const { player, allies, enemies, lastRoundSummary, outcome } = session
   const npc = effectiveTargetEnemy ?? session.npc
@@ -271,6 +324,7 @@ export function CombatOverlay() {
           npcName={npc.name}
           playerEffAgi={playerEffAgi}
           npcEffAgi={npcEffAgi}
+          onSwitchToArena3D={() => switchDisplayMode('arena3d')}
         />
 
         <EnemyStatusPanel

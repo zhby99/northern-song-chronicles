@@ -3,6 +3,7 @@ import {
   Flame,
   HelpCircle,
   Music,
+  Swords,
   Volume2,
   VolumeX,
   X,
@@ -28,6 +29,7 @@ interface CombatCenterBannerProps {
   npcName: string
   playerEffAgi: number
   npcEffAgi: number
+  onSwitchToArena3D?: () => void
 }
 
 export function CombatCenterBanner({
@@ -42,6 +44,7 @@ export function CombatCenterBanner({
   npcName,
   playerEffAgi,
   npcEffAgi,
+  onSwitchToArena3D,
 }: CombatCenterBannerProps) {
   const [showRulesHelp, setShowRulesHelp] = useState(false)
   const sfxEnabled = useCombatSfxEnabled()
@@ -131,12 +134,25 @@ export function CombatCenterBanner({
         </button>
       </div>
 
-      <div className="px-3 py-0.5 rounded-full bg-[#170f09]/75 border border-[#a8844c]/45 text-[11px] text-[#e6d2b3]">
-        实战身法比（对 {npcName}）：<strong className="text-[#ffe3ad]">{playerEffAgi}</strong> vs{' '}
-        <strong className="text-[#f7c5b9]">{npcEffAgi}</strong>
-        <span className="ml-2 text-[#bfa886]">
-          （{agiDiff >= 0 ? `少侠快 ${agiDiff}` : `对手快 ${-agiDiff}`}）
-        </span>
+      <div className="flex flex-wrap items-center justify-center gap-2">
+        <div className="px-3 py-0.5 rounded-full bg-[#170f09]/75 border border-[#a8844c]/45 text-[11px] text-[#e6d2b3]">
+          实战身法比（对 {npcName}）：<strong className="text-[#ffe3ad]">{playerEffAgi}</strong> vs{' '}
+          <strong className="text-[#f7c5b9]">{npcEffAgi}</strong>
+          <span className="ml-2 text-[#bfa886]">
+            （{agiDiff >= 0 ? `少侠快 ${agiDiff}` : `对手快 ${-agiDiff}`}）
+          </span>
+        </div>
+        {onSwitchToArena3D && (
+          <button
+            type="button"
+            onClick={onSwitchToArena3D}
+            className="px-3 py-0.5 rounded-full bg-[#2b1d12]/90 hover:bg-[#3f2a19] border border-[#f5c76b]/80 text-[11px] song-serif font-bold text-[#ffe9b8] shadow-lg flex items-center gap-1 cursor-pointer transition"
+            title="切换为 Three.js 斜俯视 3D 即时演武场"
+          >
+            <Swords className="w-3 h-3 text-[#fbbf24]" />
+            切至 3D 即时演武
+          </button>
+        )}
       </div>
 
       {showRulesHelp && (

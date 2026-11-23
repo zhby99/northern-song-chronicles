@@ -43,6 +43,7 @@ import type {
 } from '../types/quest'
 import {
   type CombatActionChoice,
+  type CombatOutcome,
   type CombatSessionState,
   type DuelStakesKind,
 } from '../engine/combat'
@@ -196,6 +197,23 @@ export interface GameStoreState {
     forceMandatory?: boolean,
   ) => void
   submitCombatAction: (choice: CombatActionChoice) => void
+  consumeArenaCombatItem: (itemId: string) => {
+    applied: boolean
+    itemName: string
+    healHp: number
+    healMp: number
+    poisonDmg: number
+    reason?: string
+  }
+  syncArenaCombatProgress: (payload: {
+    playerHp: number
+    playerMp: number
+    enemyHps: Record<string, number>
+    allyHps?: Record<string, number>
+    outcome: CombatOutcome
+    elapsedRounds?: number
+    summaryLogText?: string
+  }) => void
   finishCombatSession: () => void
   restartAfterGameOver: () => void
 

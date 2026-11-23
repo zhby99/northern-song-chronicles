@@ -9,7 +9,15 @@ const GameWorkspace = lazy(() =>
 )
 
 export function App() {
-  const [bootIntent, setBootIntent] = useState<BootIntent | null>(null)
+  const [bootIntent, setBootIntent] = useState<BootIntent | null>(() => {
+    try {
+      const params = new URLSearchParams(window.location.search)
+      if (params.get('demoCombat') === '1') return 'demoCombat'
+    } catch {
+      // ignore
+    }
+    return null
+  })
   const [bootSaveCount, setBootSaveCount] = useState(0)
 
   useEffect(() => {
