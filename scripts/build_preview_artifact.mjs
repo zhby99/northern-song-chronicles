@@ -67,10 +67,42 @@ function sniffAudioMime(fileName, buf) {
   return 'audio/mpeg'
 }
 
+function readManifestMap() {
+  if (!fs.existsSync(CACHE_MANIFEST_PATH)) return null
+  try {
+    const parsed = JSON.parse(fs.readFileSync(CACHE_MANIFEST_PATH, 'utf-8'))
+    const map = new Map()
+    for (const item of parsed.items ?? []) {
+      if (item.relUrl && item.blobPath && fs.existsSync(item.blobPath)) {
+        map.set(item.relUrl, item)
+      }
+    }
+    return map.size > 0 ? map : null
+  } catch {
+    return null
+  }
+}
+
 function tryRunCachedAssetOptimizer() {
   if (process.env.NSC_SKIP_ASSET_OPTIMIZE === '1') {
     return null
   }
+
+  // 1. Prefer cross-platform Node.js optimizer (sharp + ffmpeg-static)
+  const nodeOptScript = path.join(__dirname, 'optimize_artifact_assets.mjs')
+  if (fs.existsSync(nodeOptScript)) {
+    const nodeRes = spawnSync(process.execPath, [nodeOptScript], {
+      stdio: 'inherit',
+      cwd: ROOT_DIR,
+    })
+    if (!nodeRes.error && nodeRes.status === 0) {
+      const map = readManifestMap()
+      if (map) return map
+    }
+    console.warn('[build:artifact] Node 素材压缩器执行失败，尝试回退至 Python + Pillow 模式...')
+  }
+
+  // 2. Fallback to Python + Pillow optimizer if available
   const candidates =
     process.platform === 'win32' ? ['python', 'py', 'python3'] : ['python3', 'python']
   let pyBin = null
@@ -83,30 +115,19 @@ function tryRunCachedAssetOptimizer() {
   }
   if (!pyBin) {
     console.warn(
-      '[build:artifact] 未检测到 Python + Pillow，回退至原始素材分片直出模式（仍受 12MB 懒加载分片保护，不会触发 V8 崩溃）。',
+      '[build:artifact] 未检测到可用的 Node 压缩器或 Python + Pillow，回退至原始素材分片直出模式（仍受 12MB 懒加载分片保护，不会触发 V8 崩溃）。',
     )
     return null
   }
 
   const optScript = path.join(__dirname, 'optimize_artifact_assets.py')
   const res = spawnSync(pyBin, [optScript], { stdio: 'inherit', cwd: ROOT_DIR })
-  if (res.error || res.status !== 0 || !fs.existsSync(CACHE_MANIFEST_PATH)) {
+  if (res.error || res.status !== 0) {
     console.warn('[build:artifact] 素材缓存压缩执行失败，回退至原始素材分片直出模式。')
     return null
   }
 
-  try {
-    const parsed = JSON.parse(fs.readFileSync(CACHE_MANIFEST_PATH, 'utf-8'))
-    const map = new Map()
-    for (const item of parsed.items ?? []) {
-      if (item.relUrl && item.blobPath && fs.existsSync(item.blobPath)) {
-        map.set(item.relUrl, item)
-      }
-    }
-    return map
-  } catch {
-    return null
-  }
+  return readManifestMap()
 }
 
 function collectRawAssetList() {
@@ -340,7 +361,7 @@ async function main() {
   if (optimizedMap && sizeMb > HARD_HTML_BUDGET_MB) {
     fs.rmSync(distOutPath, { force: true })
     throw new Error(
-      `[build:artifact] 单文件体积 (${sizeMb.toFixed(2)} MB) 超过硬上限 (${HARD_HTML_BUDGET_MB} MB)，已中止并清理临时产物！请调优 scripts/optimize_artifact_assets.py 压缩参数。`,
+      `[build:artifact] 单文件体积 (${sizeMb.toFixed(2)} MB) 超过硬上限 (${HARD_HTML_BUDGET_MB} MB)，已中止并清理临时产物！请调优 scripts/optimize_artifact_assets.mjs / scripts/optimize_artifact_assets.py 压缩参数。`,
     )
   }
 

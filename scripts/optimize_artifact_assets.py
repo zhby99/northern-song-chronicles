@@ -72,16 +72,16 @@ def classify_image_spec(rel_url: str) -> tuple[int, int]:
     if rel_url.startswith("/assets/items/"):
         return (176, 72)
     if rel_url.startswith("/assets/characters/cutouts/"):
-        return (560, 68)
+        return (480, 62)
     if rel_url.startswith("/assets/characters/"):
-        return (540, 68)
+        return (480, 60)
     if rel_url.startswith("/assets/regions/"):
         return (1024, 70)
     if rel_url.startswith("/assets/quests/"):
-        return (840, 64)
+        return (720, 56)
     if rel_url.startswith("/assets/buildings/"):
-        return (840, 65)
-    return (840, 66)
+        return (760, 58)
+    return (760, 60)
 
 
 def process_one_item(task: dict[str, Any]) -> dict[str, Any]:
