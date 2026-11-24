@@ -10,7 +10,7 @@ export const SHAOLIN_Q38_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-36', 'completed'),
     qStatus(SHAOLIN_Q38_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 8030 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 900 },
     { type: 'skillAtLeast', key: '经义', min: 90 },
     { type: 'skillAtLeast', key: '书', min: 75 },
     { type: 'skillAtLeast', key: '辩才', min: 65 },
@@ -29,9 +29,9 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
   recommendedRealm: '宗师中品 ～ 宗师上品',
   maxOpponentRealm: '宗师中品（血刀邪客 · 厉千煞 / 阴风邪老 · 阎三毒）',
   recommendedNote:
-    '嵩山少林寺终局抉择之一【慈悲方丈线】（全三十二幕）。须入寺满 8030 日（二十二载）、完成前序慈悲抉择《QST-SECT-01-36》、经义 ≥ 90、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600。大雄宝殿前，你护持玄慈方丈坦然自领戒律二百刑杖还业，力挫趁乱围杀叶二娘母子的邪派恶徒；玄慈圆寂前亲手将天阶圣衣《少林达摩袈裟》披于你肩头托付禅宗正统，四十八房高僧合十恭迎新任方丈！',
+    '嵩山少林寺终局抉择之一【慈悲方丈线】（全三十二幕）。须入寺满 900 日（二年半）、完成前序慈悲抉择《QST-SECT-01-36》、经义 ≥ 90、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600。大雄宝殿前，你护持玄慈方丈坦然自领戒律二百刑杖还业，力挫趁乱围杀叶二娘母子的邪派恶徒；玄慈圆寂前亲手将天阶圣衣《少林达摩袈裟》披于你肩头托付禅宗正统，四十八房高僧合十恭迎新任方丈！',
   startHint:
-    '完成《QST-SECT-01-36》、入寺满 8030 日且经义 ≥ 90、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】即可触发终局。',
+    '完成《QST-SECT-01-36》、入寺满 900 日且经义 ≥ 90、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】即可触发终局。',
   startLocation: {
     regionId: 'shaolin',
     buildingId: 'sl_daxiong',

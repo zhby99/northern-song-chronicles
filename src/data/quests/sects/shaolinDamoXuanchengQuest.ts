@@ -10,7 +10,7 @@ export const SHAOLIN_Q12_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-11', 'completed'),
     qStatus(SHAOLIN_Q12_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1800 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 300 },
     { type: 'skillAtLeast', key: '经义', min: 70 },
     { type: 'skillAtLeast', key: '书', min: 50 },
     { type: 'npcFavorAtLeast', npcId: 'NPC-0112', min: 50, npcName: '玄慈' },
@@ -30,9 +30,9 @@ export const SHAOLIN_Q12_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品 ～ 一流下品',
     maxOpponentRealm: '一流下品（姑苏慕容暗探首 · 燕影客）',
     recommendedNote:
-      '嵩山少林寺达摩院脉 Lv.2 晋升 Lv.3 真传弟子终局大考（全二十二幕）。须完成《迦叶微笑 · 灵山拈花》、入寺满 1800 日、经义 ≥ 70、书 ≥ 50 且玄慈方丈好感 ≥ 50。奉命入幽谷石室侍奉瘫痪寒玉榻的少林神僧玄澄，亲闻强练十三门绝技未以慈悲佛法化解戾气致「武学障」的秘辛；当夜姑苏慕容暗探潜入石室盗取手札，你于狭洞血战连破暗探并死战击溃一流下品暗探首「燕影客」，终获玄澄与玄难联袂举荐，晋升少林派【Lv.3 真传弟子】！',
+      '嵩山少林寺达摩院脉 Lv.2 晋升 Lv.3 真传弟子终局大考（全二十二幕）。须完成《迦叶微笑 · 灵山拈花》、入寺满 300 日、经义 ≥ 70、书 ≥ 50 且玄慈方丈好感 ≥ 50。奉命入幽谷石室侍奉瘫痪寒玉榻的少林神僧玄澄，亲闻强练十三门绝技未以慈悲佛法化解戾气致「武学障」的秘辛；当夜姑苏慕容暗探潜入石室盗取手札，你于狭洞血战连破暗探并死战击溃一流下品暗探首「燕影客」，终获玄澄与玄难联袂举荐，晋升少林派【Lv.3 真传弟子】！',
     startHint:
-      '完成《迦叶微笑 · 灵山拈花》、入寺满 1800 日、经义 ≥ 70、书 ≥ 50 且玄慈好感 ≥ 50 后，前往【嵩山少林寺 · 达摩院 · 幽谷石室 · 寒玉榻】（或寻玄澄、玄难、玄慈）开启晋升真传终章。',
+      '完成《迦叶微笑 · 灵山拈花》、入寺满 300 日、经义 ≥ 70、书 ≥ 50 且玄慈好感 ≥ 50 后，前往【嵩山少林寺 · 达摩院 · 幽谷石室 · 寒玉榻】（或寻玄澄、玄难、玄慈）开启晋升真传终章。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',

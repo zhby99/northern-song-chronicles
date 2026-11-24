@@ -9,7 +9,7 @@ export const SHAOLIN_Q04_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 1 },
     qStatus('QST-SECT-01-03', 'completed'),
     qStatus(SHAOLIN_Q04_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 365 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 90 },
     { type: 'skillAtLeast', key: '经义', min: 50 },
     { type: 'skillAtLeast', key: '书', min: 25 },
     { type: 'npcFavorAtLeast', npcId: 'NPC-0112', min: 20, npcName: '玄慈' },
@@ -28,12 +28,12 @@ export const SHAOLIN_Q04_QUESTS: QuestDefinition[] = [
     category: 'sect_mission',
     factionId: 'SECT-01',
     regionId: 'shaolin',
-    recommendedRealm: '三流上品 ～ 二流下品',
-    maxOpponentRealm: '二流下品（外门劲敌 · 慧通）',
+    recommendedRealm: '三流中品 ～ 三流上品',
+    maxOpponentRealm: '三流上品（外门劲敌 · 慧通）',
     recommendedNote:
-      '嵩山少林寺 Lv.1 外门晋升 Lv.2 内门核心分流大考（全二十幕）。须入寺满三百六十五日、完成前三回外门历练，且经义 ≥ 50、书法 ≥ 25、玄慈方丈好感 ≥ 20。先闯十八铜人木桩廊破机关铜傀，再于演武正殿力挫外门劲敌慧通；终赴大雄正殿应玄慈方丈《金刚经》笔义考校，习得《罗汉伏虎功》晋升内门，并于罗汉、达摩、戒律药王（出家弟子专属）与俗家护法四脉间择定师承！',
+      '嵩山少林寺 Lv.1 外门晋升 Lv.2 内门核心分流大考（全十二幕）。须入寺满一季（90 日）、完成前三回外门历练，且经义 ≥ 50、书法 ≥ 25、玄慈方丈好感 ≥ 20。闯十八铜人木桩廊时可凭算术或悟性破中枢铜榫智取、抑或刚猛车轮破双傀，再于正殿较技外门劲敌慧通，终赴大雄正殿应玄慈方丈无提示《金刚经》禅辩，习得《罗汉伏虎功》晋升内门并于四脉间择定师承！',
     startHint:
-      '入寺满 365 日、完成前置外门历练且经义 ≥ 50、书 ≥ 25、玄慈好感 ≥ 20 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊】（或寻玄苦、玄难、玄寂、慧通）开启外门晋升大考。',
+      '入寺满一季（90 日）、完成前置外门历练且经义 ≥ 50、书 ≥ 25、玄慈好感 ≥ 20 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊】（或寻玄苦、玄难、玄寂、慧通）开启外门晋升大考。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',
@@ -42,14 +42,14 @@ export const SHAOLIN_Q04_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q04_START_CONDITION,
     summary:
-      '{reignYear}嵩山霜钟悠扬，你在少林入寺已满整整一载，迎来外门弟子晋升内门的【木桩百劫 · 铜人初试】大考。在玄苦、玄难、玄寂三位高僧监考下，你单身闯入机关重重的【十八铜人木桩廊】，拳风棍影破尽铜臂木傀连环围击；继而于演武正殿迎战外门第一劲敌【慧通】，十余合间以刚柔并济之势挫其锋芒。终赴【大雄正殿 · 佛前蒲团】，当众挥毫应答【玄慈】方丈《金刚经》笔义考校，蒙方丈亲授少林内门筑基心法《罗汉伏虎功》并晋升【内门弟子】，在罗汉堂、达摩院、戒律药王院与俗家护法四脉之间择定此生禅武正途。',
+      '{reignYear}嵩山霜钟九响，你在少林入寺已满一季，迎来外门晋升内门的【木桩百劫 · 铜人初试】大考。在玄苦、玄难、玄寂三位高僧监考下，你步入【十八铜人木桩廊】——或观机识眼震断八卦中枢铜榫智破双傀，或凭刚猛禅功车轮硬闯——继而于演武正殿力挫外门劲敌【慧通】。终赴【大雄正殿 · 佛前蒲团】，于【玄慈】方丈前挥毫应答《金刚经》禅辩，蒙授内门正宗心法《罗汉伏虎功》并晋升【内门弟子】，在罗汉、达摩、戒律药王与俗家护法四脉之间择定此生禅武正途。',
     initialStepId: 'wooden_alley_trial',
     steps: {
       wooden_alley_trial: {
         id: 'wooden_alley_trial',
         title: '闯廊破傀 · 较技慧通',
         objective:
-          '少林外门晋升大考已鸣钟启幕！请前往【十八铜人罗汉堂 · 十八铜人木桩廊（sl_luohan_east）】，先闯机关铜人木桩傀儡阵，再于终场一对一击败外门劲敌【慧通】！',
+          '少林外门晋升大考已鸣钟启幕！请前往【十八铜人罗汉堂 · 十八铜人木桩廊（sl_luohan_east）】，先闯机关铜人木桩傀儡阵（可智破铜榫或正面硬闯），再于终场一对一击败外门劲敌【慧通】！',
         nextHint:
           '前往【十八铜人罗汉堂 · 十八铜人木桩廊（sl_luohan_east）】，点击「步入十八铜人木桩廊 · 应战外门大考」。',
         targetLocation: {
@@ -61,11 +61,11 @@ export const SHAOLIN_Q04_QUESTS: QuestDefinition[] = [
       },
       daxiong_branch_hub: {
         id: 'daxiong_branch_hub',
-        title: '佛前问经 · 四脉分流',
+        title: '佛前禅辩 · 四脉分流',
         objective:
-          '你已破木桩阵并力挫外门劲敌慧通！请前往【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，应玄慈方丈《金刚经》笔义考校、领受《罗汉伏虎功》晋升内门，并择定罗汉、达摩、戒律或俗家四脉师承（欲入三堂者须先向方丈剃度）。',
+          '你已破木桩阵并力挫外门劲敌慧通！请前往【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，应玄慈方丈《金刚经》禅辩考校、领受《罗汉伏虎功》晋升内门，并择定罗汉、达摩、戒律或俗家四脉师承（欲入三堂者须先向方丈剃度）。',
         nextHint:
-          '前往【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，点击「登大雄正殿 · 应方丈笔义考校并择定四脉」。',
+          '前往【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，点击「登大雄正殿 · 应方丈禅辩考校并择定四脉」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_daxiong',
@@ -108,9 +108,9 @@ export const SHAOLIN_Q04_QUESTS: QuestDefinition[] = [
     spotActions: [
       {
         id: 'spot_slq04_start_east',
-        label: '【少林大考】岁满听钟 · 赴十八铜人木桩廊外门晋升大考',
+        label: '【少林大考】季满听钟 · 赴十八铜人木桩廊外门晋升大考',
         badge: '木桩大考',
-        subtitle: '入寺满一载 · 十八铜人木桩廊',
+        subtitle: '入寺满一季 · 十八铜人木桩廊',
         tone: 'gold',
         regionId: 'shaolin',
         buildingId: 'sl_luohan',

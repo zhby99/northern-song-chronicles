@@ -10,7 +10,7 @@ export const SHAOLIN_Q07_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-06', 'completed'),
     qStatus(SHAOLIN_Q07_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1095 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 210 },
     { type: 'skillAtLeast', key: '经义', min: 62 },
     { type: 'skillAtLeast', key: '书', min: 45 },
     { type: 'npcAlive', npcId: 'NPC-0191', npcName: '玄石' },
@@ -28,9 +28,9 @@ export const SHAOLIN_Q07_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流上品（大辽枢密院轻功谍探 · 耶律青影）',
     recommendedNote:
-      '嵩山少林寺罗汉堂脉 Lv.2 内门第三回任务链（全二十幕）。须入寺满 1095 日、完成洛阳白马寺韦陀降魔之役，且经义 ≥ 62、书法 ≥ 45。东庑《秦王碑》背阴暗刻的河朔古边防舆图忽现辽墨偷拓残痕，铁掌禅师玄痛与碎碑僧玄石合授少林七十二绝技《龙爪手》，三更寒雾设伏碑廊，以三十六式龙爪擒拿一挑二撕甲扣脉，活捉大辽枢密院轻功谍探耶律青影！',
+      '嵩山少林寺罗汉堂脉 Lv.2 内门第三回任务链（全二十幕）。须入寺满 210 日、完成洛阳白马寺韦陀降魔之役，且经义 ≥ 62、书法 ≥ 45。东庑《秦王碑》背阴暗刻的河朔古边防舆图忽现辽墨偷拓残痕，铁掌禅师玄痛与碎碑僧玄石合授少林七十二绝技《龙爪手》，三更寒雾设伏碑廊，以三十六式龙爪擒拿一挑二撕甲扣脉，活捉大辽枢密院轻功谍探耶律青影！',
     startHint:
-      '入寺满 1095 日、完成【释源白马 · 韦陀降魔】且经义 ≥ 62、书 ≥ 45 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 东庑碑帖武库院】（或寻玄石、玄痛师伯）查验《秦王碑》偷拓异变。',
+      '入寺满 210 日、完成【释源白马 · 韦陀降魔】且经义 ≥ 62、书 ≥ 45 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 东庑碑帖武库院】（或寻玄石、玄痛师伯）查验《秦王碑》偷拓异变。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',

@@ -17,7 +17,7 @@ export const SHAOLIN_Q28_START_CONDITION: QuestCondition = {
       hint: '完成任一 Lv.3 真传高阶功法任务',
     },
     qStatus(SHAOLIN_Q28_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 4380 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 480 },
     { type: 'skillAtLeast', key: '经义', min: 78 },
     { type: 'skillAtLeast', key: '书', min: 65 },
     { type: 'npcAlive', npcId: 'NPC-0498', npcName: '虚广' },
@@ -37,7 +37,7 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
     recommendedNote:
       '嵩山少林寺 Lv.3 真传合流主线第一回（全二十四幕）。须入寺满十二载（4380 日）、完成任一 Lv.3 真传高阶功法任务，且经义 ≥ 78、书法 ≥ 65。七月初七晒经节暴雨夜，你与虚广、虚光抢收经卷后重返重檐琉璃藏经主阁，撞见灰衣老僧与黑衣夜行客无声对掌；追击五合试探后于案缝拾获两份迥异笔迹的七十二绝技批注残纸，终在「慈悲默察」与「铁血伏魔」两条治寺方略间择定前路！',
     startHint:
-      '入寺满 4380 日、完成任一 Lv.3 真传高阶功法任务且经义 ≥ 78、书 ≥ 65 后，前往【嵩山少林寺 · 藏经阁 · 西厢晒经校勘石台】（或寻虚广、虚光）触发七夕晒经之变。',
+      '入寺满 480 日、完成任一 Lv.3 真传高阶功法任务且经义 ≥ 78、书 ≥ 65 后，前往【嵩山少林寺 · 藏经阁 · 西厢晒经校勘石台】（或寻虚广、虚光）触发七夕晒经之变。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_cangjing',

@@ -9,7 +9,7 @@ export const SHAOLIN_Q27_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 3 },
     qStatus('QST-SECT-01-26', 'completed'),
     qStatus(SHAOLIN_Q27_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 3650 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 420 },
     { type: 'skillAtLeast', key: '经义', min: 76 },
     { type: 'skillAtLeast', key: '书', min: 60 },
     { type: 'npcAlive', npcId: 'NPC-0134', npcName: '玄寂' },
@@ -27,9 +27,9 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流中品',
     maxOpponentRealm: '一流中品（关洛邪道巨擘 · 欢喜魔僧）',
     recommendedNote:
-      '嵩山少林寺戒律药王脉 / 俗家护法脉真传单脉终章（全二十二幕）。须完成《东厢古碑 · 掌吐梵音》、入寺满 3650 日且经义 ≥ 76、书 ≥ 60。关洛邪道巨擘「欢喜魔僧」冒穿少林袈裟祸乱汝州、许州一带，败坏佛门清誉；戒律二老玄寂与玄痛于钟鼓禅院演武坪联手传授《大力金刚指》，赐你「戒律黑铁法牌」代寺行刑。你孤身杀入汝许废寺地宫，一指戳破欢喜魔僧的闭穴邪功，剥其伪袈裟、押回嵩山依律典刑！',
+      '嵩山少林寺戒律药王脉 / 俗家护法脉真传单脉终章（全二十二幕）。须完成《东厢古碑 · 掌吐梵音》、入寺满 420 日且经义 ≥ 76、书 ≥ 60。关洛邪道巨擘「欢喜魔僧」冒穿少林袈裟祸乱汝州、许州一带，败坏佛门清誉；戒律二老玄寂与玄痛于钟鼓禅院演武坪联手传授《大力金刚指》，赐你「戒律黑铁法牌」代寺行刑。你孤身杀入汝许废寺地宫，一指戳破欢喜魔僧的闭穴邪功，剥其伪袈裟、押回嵩山依律典刑！',
     startHint:
-      '完成《东厢古碑 · 掌吐梵音》、入寺满 3650 日且经义 ≥ 76、书 ≥ 60 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】（或寻玄寂、玄痛）领受戒律法牌。',
+      '完成《东厢古碑 · 掌吐梵音》、入寺满 420 日且经义 ≥ 76、书 ≥ 60 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】（或寻玄寂、玄痛）领受戒律法牌。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

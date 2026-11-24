@@ -9,7 +9,7 @@ export const SHAOLIN_Q29_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 3 },
     qStatus('QST-SECT-01-28', 'completed'),
     qStatus(SHAOLIN_Q29_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 5110 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 540 },
     { type: 'skillAtLeast', key: '经义', min: 80 },
     { type: 'skillAtLeast', key: '书', min: 65 },
     { type: 'npcAlive', npcId: 'NPC-0127', npcName: '玄难' },
@@ -28,7 +28,7 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
     recommendedNote:
       '嵩山少林寺 Lv.3 真传合流核心传承任务（全二十八幕）。须入寺满十四载（5110 日）、完成《琉璃夜影 · 曝书惊变》，且经义 ≥ 80、书法 ≥ 65。星宿老怪丁春秋遣三大毒徒伪装西域胡商毒袭达摩院剑痕崖，达摩院首座玄难猝不及防中了「三笑逍遥散」剧毒！你需先浴血杀出毒围，背负玄难退入达摩洞寒玉榻，获赐《少林九阳禅功密钞》并领受玄难临危口授《少林九阳功》，继而运纯阳佛掌重返剑痕崖击溃星宿派大弟子摘星毒师、震散满崖腐毒！',
     startHint:
-      '入寺满 5110 日、完成《琉璃夜影 · 曝书惊变》且经义 ≥ 80、书 ≥ 65 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖】（或寻玄难）触发星宿毒袭之变。',
+      '入寺满 540 日、完成《琉璃夜影 · 曝书惊变》且经义 ≥ 80、书 ≥ 65 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖】（或寻玄难）触发星宿毒袭之变。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',

@@ -11,7 +11,7 @@ export const SHAOLIN_Q31_START_CONDITION: QuestCondition = {
     flag('sl_pavilion_choice', 'eq', 'ironfist'),
     qStatus(SHAOLIN_Q31_QUEST_ID, 'not_started'),
     qStatus('QST-SECT-01-30', 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 5475 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 570 },
     { type: 'skillAtLeast', key: '经义', min: 78 },
     { type: 'skillAtLeast', key: '策论', min: 55 },
     { type: 'npcAlive', npcId: 'NPC-0156', npcName: '玄痛' },
@@ -31,7 +31,7 @@ export const SHAOLIN_Q31_QUESTS: QuestDefinition[] = [
     recommendedNote:
       '嵩山少林寺 Lv.3 真传合流分支任务（铁血伏魔线 · 全二十幕）。须入寺满十五载（5475 日）、于《琉璃夜影 · 曝书惊变》择定「铁血伏魔」方略、未开启《慈悲默察 · 扫叶听风》，且经义 ≥ 78、策论 ≥ 55。你密会戒律院首座玄痛与一拍神僧玄寂，运筹帷幄抽调三十六名精锐武僧于藏经主阁周遭暗布「伏魔天罗铁网」；子夜伏击潜入盗取宋夏边防秘卷与绝技兵书的西夏一品堂宗师下品「黑水魔僧」，亲手将其斩毙于琉璃阁前，铁血护寺威望震动全寺！',
     startHint:
-      '入寺满 5475 日、于《曝书惊变》选择铁血伏魔且经义 ≥ 78、策论 ≥ 55 后，前往【嵩山少林寺 · 藏经阁 · 重檐琉璃藏经主阁】（或寻玄痛、玄寂）共商伏魔天罗之计。',
+      '入寺满 570 日、于《曝书惊变》选择铁血伏魔且经义 ≥ 78、策论 ≥ 55 后，前往【嵩山少林寺 · 藏经阁 · 重檐琉璃藏经主阁】（或寻玄痛、玄寂）共商伏魔天罗之计。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_cangjing',

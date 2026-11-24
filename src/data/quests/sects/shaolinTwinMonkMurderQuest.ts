@@ -9,7 +9,7 @@ export const SHAOLIN_Q34_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 4 },
     qStatus('QST-SECT-01-33', 'completed'),
     qStatus(SHAOLIN_Q34_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 7300 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 750 },
     { type: 'skillAtLeast', key: '经义', min: 85 },
     { type: 'npcAlive', npcId: 'NPC-0112', npcName: '玄慈' },
     { type: 'npcAlive', npcId: 'NPC-0110', npcName: '乔峰' },
@@ -27,9 +27,9 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
   recommendedRealm: '宗师下品',
   maxOpponentRealm: '宗师下品（玄影死士首领 · 燕漠残锋）',
   recommendedNote:
-    '嵩山少林寺 Lv.4 核心主线（全二十六幕）。须跻身少林四阶高僧/护法、完成前置主线（QST-SECT-01-33）、入寺满 7300 日且经义 ≥ 85。玄悲大师赴洛阳白马寺议事竟惨死于少林绝技「大韦陀杵」下，继而玄苦大师亦于嵩山罗汉堂遭刚猛异掌重创圆寂！你与北乔峰同验遗体、于东庑武库联手击退灭口嫁祸的暗影死士，终在大雄宝殿烛影之下辨出两股截然不同的三十年暗影掌力。',
+    '嵩山少林寺 Lv.4 核心主线（全二十六幕）。须跻身少林四阶高僧/护法、完成前置主线（QST-SECT-01-33）、入寺满 750 日且经义 ≥ 85。玄悲大师赴洛阳白马寺议事竟惨死于少林绝技「大韦陀杵」下，继而玄苦大师亦于嵩山罗汉堂遭刚猛异掌重创圆寂！你与北乔峰同验遗体、于东庑武库联手击退灭口嫁祸的暗影死士，终在大雄宝殿烛影之下辨出两股截然不同的三十年暗影掌力。',
   startHint:
-    '完成前置主线、入寺满 7300 日且经义 ≥ 85 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团】（或拜见玄慈方丈）即可接获洛阳白马寺急变之讯。',
+    '完成前置主线、入寺满 750 日且经义 ≥ 85 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团】（或拜见玄慈方丈）即可接获洛阳白马寺急变之讯。',
   startLocation: {
     regionId: 'shaolin',
     buildingId: 'sl_daxiong',

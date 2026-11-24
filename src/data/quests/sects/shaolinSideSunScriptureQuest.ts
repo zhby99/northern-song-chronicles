@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE10_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
     qStatus(SHAOLIN_SIDE10_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 900 },
     { type: 'skillAtLeast', key: '经义', min: 55 },
     { type: 'skillAtLeast', key: '书', min: 40 },
     { type: 'npcAlive', npcId: 'NPC-0498', npcName: '虚广' },
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE10_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品',
     maxOpponentRealm: '无战斗（校勘文德专项）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门文德支线（全十幕，无战斗）。入寺满九百日且经义五十五、书法四十后，于少林藏经阁西厢晒经校勘石台助虚广依古方调配芸香樟脑抢救受蠹宋版孤本，偶读前代高僧留下的禅武批注而大有进益，并获扫地僧法空于古杏树下远观颔首。',
+      '嵩山少林寺 Lv.2 内门文德支线（全十幕，无战斗）。经义五十五、书法四十后，于少林藏经阁西厢晒经校勘石台助虚广依古方调配芸香樟脑抢救受蠹宋版孤本，偶读前代高僧留下的禅武批注而大有进益，并获扫地僧法空于古杏树下远观颔首。',
     startHint:
-      '晋升少林内门且入寺满九百日、经义不低于五十五、书法不低于四十后，前往【嵩山少林寺 · 少林藏经阁 · 西厢晒经校勘石台】寻虚广即可触发。',
+      '晋升少林内门经义不低于五十五、书法不低于四十后，前往【嵩山少林寺 · 少林藏经阁 · 西厢晒经校勘石台】寻虚广即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_cangjing',

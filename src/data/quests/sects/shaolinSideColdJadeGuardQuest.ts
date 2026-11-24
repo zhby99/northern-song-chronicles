@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE12_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 3 },
     qStatus(SHAOLIN_SIDE12_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 2200 },
     { type: 'npcAlive', npcId: 'NPC-0109', npcName: '玄澄' },
     { type: 'npcAlive', npcId: 'NPC-0322', npcName: '慧清' },
     { type: 'npcAlive', npcId: 'NPC-0255', npcName: '慧真' },
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE12_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品 ～ 一流中品',
     maxOpponentRealm: '一流中品（邪派毒盗 · 玉面毒龙）',
     recommendedNote:
-      '少林寺 Lv.3 高阶护法支线（全十四幕）。入寺满 2200 日后，于达摩面壁石洞幽谷石室寒玉榻听慧清、慧真急报：昔日被玄澄长老废去邪功的毒盗「玉面毒龙」重修阴寒毒功潜回嵩山寻仇，趁玄澄坐榻调息之际企图施毒暗算。须速赴飞瀑深潭试炼涧协同慧真截杀毒贼，独斗斩杀玉面毒龙护住师长经脉，复归石室受玄澄指点内息法门。',
+      '少林寺 Lv.3 高阶护法支线（全十四幕）。、后，于达摩面壁石洞幽谷石室寒玉榻听慧清、慧真急报：昔日被玄澄长老废去邪功的毒盗「玉面毒龙」重修阴寒毒功潜回嵩山寻仇，趁玄澄坐榻调息之际企图施毒暗算。须速赴飞瀑深潭试炼涧协同慧真截杀毒贼，独斗斩杀玉面毒龙护住师长经脉，复归石室受玄澄指点内息法门。',
     startHint:
-      '跻身少林寺三阶高徒且入寺满 2200 日后，前往【嵩山少林寺 · 达摩面壁石洞 · 幽谷石室 · 寒玉榻】寻玄澄、慧清即可触发。',
+      '跻身少林寺三阶高徒、后，前往【嵩山少林寺 · 达摩面壁石洞 · 幽谷石室 · 寒玉榻】寻玄澄、慧清即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',

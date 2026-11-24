@@ -14,7 +14,7 @@ export const SHAOLIN_Q26_START_CONDITION: QuestCondition = {
       conditions: [flag('sl_branch', 'eq', 'jielv'), flag('sl_branch', 'eq', 'layman')],
       hint: '戒律药王脉或俗家护法脉',
     },
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 2555 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 360 },
     { type: 'skillAtLeast', key: '经义', min: 74 },
     { type: 'skillAtLeast', key: '书', min: 55 },
     { type: 'npcAlive', npcId: 'NPC-0134', npcName: '玄寂' },
@@ -31,9 +31,9 @@ export const SHAOLIN_Q26_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品 ～ 一流中品',
     maxOpponentRealm: '一流中品（辽探盗拓飞贼首 · 鬼手陈）',
     recommendedNote:
-      '嵩山少林寺戒律药王脉 / 俗家护法脉真传单脉首章（全二十二幕）。须为戒律药王脉或俗家护法脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满 2555 日且经义 ≥ 74、书 ≥ 55。于大雄宝殿东厢碑廊唐代《心经》古碑前，得「一拍神僧」玄寂传授少林绝技《般若掌》；子夜时分辽探重金买通的盗拓飞贼首「鬼手陈」率众潜入碑廊欲盗拓古碑暗纹，你挺身守护古碑，一式「一空到底」将其震印院墙、护全唐碑！',
+      '嵩山少林寺戒律药王脉 / 俗家护法脉真传单脉首章（全二十二幕）。须为戒律药王脉或俗家护法脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55。于大雄宝殿东厢碑廊唐代《心经》古碑前，得「一拍神僧」玄寂传授少林绝技《般若掌》；子夜时分辽探重金买通的盗拓飞贼首「鬼手陈」率众潜入碑廊欲盗拓古碑暗纹，你挺身守护古碑，一式「一空到底」将其震印院墙、护全唐碑！',
     startHint:
-      '戒律药王脉或俗家护法脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满 2555 日且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】（或寻玄寂）参悟唐代《心经》古碑。',
+      '戒律药王脉或俗家护法脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】（或寻玄寂）参悟唐代《心经》古碑。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

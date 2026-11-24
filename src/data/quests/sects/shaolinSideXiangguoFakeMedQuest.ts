@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE06_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
     qStatus(SHAOLIN_SIDE06_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 450 },
     { type: 'skillAtLeast', key: '经义', min: 50 },
     { type: 'npcAlive', npcId: 'NPC-0984', npcName: '净安' },
     { type: 'npcAlive', npcId: 'NPC-0418', npcName: '慧音' },
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE06_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流下品 ～ 二流中品',
     maxOpponentRealm: '二流中品（江淮毒贩双煞 · 砒霜手胡三）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门支线（全十二幕）。入寺满四百五十日且经义达五十后，于开封府大相国寺万姓交易雅市接净安、慧音急报：有歹徒冒充“少林药王院大力丸”兜售掺入微量砒霜的毒假药。乔装暗访摸清黑坊巢穴，车轮连战 击败江淮毒贩双煞并焚毁假药还少林清誉。',
+      '嵩山少林寺 Lv.2 内门支线（全十二幕）。经义达五十后，于开封府大相国寺万姓交易雅市接净安、慧音急报：有歹徒冒充“少林药王院大力丸”兜售掺入微量砒霜的毒假药。乔装暗访摸清黑坊巢穴，车轮连战 击败江淮毒贩双煞并焚毁假药还少林清誉。',
     startHint:
-      '晋升少林内门且入寺满四百五十日、经义不低于五十后，前往【开封府 · 大相国寺（八角宝塔） · 相国寺万姓交易雅市】寻净安或慧音即可触发。',
+      '晋升少林内门经义不低于五十后，前往【开封府 · 大相国寺（八角宝塔） · 相国寺万姓交易雅市】寻净安或慧音即可触发。',
     startLocation: {
       regionId: 'bianliang',
       buildingId: 'bl_xiangguosi',

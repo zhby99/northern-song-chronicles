@@ -11,7 +11,7 @@ export const SHAOLIN_Q39_START_CONDITION: QuestCondition = {
     qStatus('QST-SECT-01-37', 'completed'),
     qStatus(SHAOLIN_Q39_QUEST_ID, 'not_started'),
     flag('sl_branch', 'neq', 'layman'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 8030 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 900 },
     { type: 'skillAtLeast', key: '经义', min: 85 },
     { type: 'skillAtLeast', key: '策论', min: 65 },
     { type: 'skillAtLeast', key: '书', min: 75 },
@@ -32,9 +32,9 @@ export const shaolinEndingIronDharmaKingQuest: QuestDefinition = {
   recommendedRealm: '宗师中品 ～ 宗师上品',
   maxOpponentRealm: '宗师中品（赤练刀主 · 殷无咎 / 玄冥鞭王 · 杜阴山 / 血手铁剑 · 莫断魂 车轮连战）',
   recommendedNote:
-    '嵩山少林寺终局抉择之二【铁腕法王线 · 出家剃度专属】（全三十二幕）。须为已剃度出家弟子（sl_branch != layman）、入寺满 8030 日、完成前序铁腕抉择《QST-SECT-01-37》、经义 ≥ 85、策论 ≥ 65、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600。高台执杖宣律，监刑杖责玄慈革去方丈之位令其入后山闭死关忏悔，雷霆整肃戒律与知客多年积弊；面对趁火打劫的三名邪派掌门，金刚金身当场震断三人兵刃！玄痛、玄寂率众拥戴你披《少林达摩袈裟》登位少林护教铁腕方丈！',
+    '嵩山少林寺终局抉择之二【铁腕法王线 · 出家剃度专属】（全三十二幕）。须为已剃度出家弟子（sl_branch != layman）、入寺满 900 日、完成前序铁腕抉择《QST-SECT-01-37》、经义 ≥ 85、策论 ≥ 65、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600。高台执杖宣律，监刑杖责玄慈革去方丈之位令其入后山闭死关忏悔，雷霆整肃戒律与知客多年积弊；面对趁火打劫的三名邪派掌门，金刚金身当场震断三人兵刃！玄痛、玄寂率众拥戴你披《少林达摩袈裟》登位少林护教铁腕方丈！',
   startHint:
-    '已剃度出家、完成《QST-SECT-01-37》、入寺满 8030 日且经义 ≥ 85、策论 ≥ 65、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】即可触发终局。',
+    '已剃度出家、完成《QST-SECT-01-37》、入寺满 900 日且经义 ≥ 85、策论 ≥ 65、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】即可触发终局。',
   startLocation: {
     regionId: 'shaolin',
     buildingId: 'sl_daxiong',

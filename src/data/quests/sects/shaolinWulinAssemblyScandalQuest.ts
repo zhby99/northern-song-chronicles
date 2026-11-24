@@ -9,7 +9,7 @@ export const SHAOLIN_Q35_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 4 },
     qStatus('QST-SECT-01-34', 'completed'),
     qStatus(SHAOLIN_Q35_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 7665 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 780 },
     { type: 'skillAtLeast', key: '经义', min: 86 },
     { type: 'skillAtLeast', key: '辩才', min: 60 },
     { type: 'npcAlive', npcId: 'NPC-0112', npcName: '玄慈' },
@@ -29,9 +29,9 @@ export const shaolinWulinAssemblyScandalQuest: QuestDefinition = {
   recommendedRealm: '宗师中品',
   maxOpponentRealm: '宗师中品（星宿老怪 · 丁春秋［化功毒掌十合］）',
   recommendedNote:
-    '嵩山少林寺 Lv.4 核心大戏（全三十六幕）。须完成《大智大悲 · 身死之谜》、入寺满 7665 日、经义 ≥ 86 且辩才 ≥ 60。天下数千群雄齐聚少室山坪，星宿老怪丁春秋吹吹打打叫阵，你阵前以辩才折其嚣焰并硬接十合化功毒掌；吐蕃国师鸠摩智继而施展少林七十二绝技挑衅全寺；危急关头，黑衣萧远山自大雄宝殿飞檐掠下，当着天下群雄揭破玄慈方丈与四大恶人叶二娘二十四年前私生子惊天丑闻，千年古刹清誉摇摇欲坠！',
+    '嵩山少林寺 Lv.4 核心大戏（全三十六幕）。须完成《大智大悲 · 身死之谜》、入寺满 780 日、经义 ≥ 86 且辩才 ≥ 60。天下数千群雄齐聚少室山坪，星宿老怪丁春秋吹吹打打叫阵，你阵前以辩才折其嚣焰并硬接十合化功毒掌；吐蕃国师鸠摩智继而施展少林七十二绝技挑衅全寺；危急关头，黑衣萧远山自大雄宝殿飞檐掠下，当着天下群雄揭破玄慈方丈与四大恶人叶二娘二十四年前私生子惊天丑闻，千年古刹清誉摇摇欲坠！',
   startHint:
-    '完成《大智大悲 · 身死之谜》、入寺满 7665 日、经义 ≥ 86 且辩才 ≥ 60 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】（或拜见玄慈方丈）即可迎来少室山数千群雄大会。',
+    '完成《大智大悲 · 身死之谜》、入寺满 780 日、经义 ≥ 86 且辩才 ≥ 60 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】（或拜见玄慈方丈）即可迎来少室山数千群雄大会。',
   startLocation: {
     regionId: 'shaolin',
     buildingId: 'sl_daxiong',

@@ -10,7 +10,7 @@ export const SHAOLIN_Q11_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-10', 'completed'),
     qStatus(SHAOLIN_Q11_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1095 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 210 },
     { type: 'skillAtLeast', key: '经义', min: 62 },
     { type: 'skillAtLeast', key: '书', min: 45 },
     { type: 'skillAtLeast', key: '辩才', min: 45 },
@@ -29,9 +29,9 @@ export const SHAOLIN_Q11_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流上品（吐蕃大轮寺护法 · 萨迦铁僧）',
     recommendedNote:
-      '嵩山少林寺达摩院脉 Lv.2 高阶绝学传承任务链（全二十幕）。须完成《洛水飞花 · 散花破幻》、入寺满 1095 日且经义 ≥ 62、书 ≥ 45、辩才 ≥ 45。吐蕃大轮寺三护法番僧登嵩山探听七十二绝技虚实、当殿捏碎青玉瓶示威；你先以无声禅机辩经压阵，再领受玄难所授地阶绝学《拈花指》，于钟鼓禅院演武坪以柔劲透穴连破两名番僧铁掌硬功，令大轮寺众僧折服长揖。',
+      '嵩山少林寺达摩院脉 Lv.2 高阶绝学传承任务链（全二十幕）。须完成《洛水飞花 · 散花破幻》、入寺满 210 日且经义 ≥ 62、书 ≥ 45、辩才 ≥ 45。吐蕃大轮寺三护法番僧登嵩山探听七十二绝技虚实、当殿捏碎青玉瓶示威；你先以无声禅机辩经压阵，再领受玄难所授地阶绝学《拈花指》，于钟鼓禅院演武坪以柔劲透穴连破两名番僧铁掌硬功，令大轮寺众僧折服长揖。',
     startHint:
-      '完成《洛水飞花 · 散花破幻》、入寺满 1095 日且经义 ≥ 62、书 ≥ 45、辩才 ≥ 45 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团】（或寻玄慈、玄难）开启任务。',
+      '完成《洛水飞花 · 散花破幻》、入寺满 210 日且经义 ≥ 62、书 ≥ 45、辩才 ≥ 45 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团】（或寻玄慈、玄难）开启任务。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

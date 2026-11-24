@@ -9,7 +9,7 @@ export const SHAOLIN_Q19_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
     qStatus('QST-SECT-01-18', 'completed'),
     qStatus(SHAOLIN_Q19_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1095 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 210 },
     { type: 'skillAtLeast', key: '经义', min: 62 },
     { type: 'skillAtLeast', key: '书', min: 40 },
     { type: 'npcAlive', npcId: 'NPC-0124', npcName: '元苦' },
@@ -27,9 +27,9 @@ export const SHAOLIN_Q19_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流上品（东瀛海寇头目 · 鬼丸浪人）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 俗家护法脉第三回历练（全二十四幕）。须入寺满 1095 日、完成洛阳护镖历练且经义 ≥ 62、书法 ≥ 40。奉玄痛长老之命携嵩山法帖千里南渡莆田南少林拜会铜身罗汉元苦；行前蒙玄痛传授《龙爪手》，抵九莲山连闯南宗铁桥硬马三关赢得敬重，更与南少林武僧并肩夜战盐场斩杀东瀛海寇头目鬼丸浪人，终使元苦打破南北门户之见，破格双授《盘山铁布衫（大成）》与《铁线拳》！',
+      '嵩山少林寺 Lv.2 俗家护法脉第三回历练（全二十四幕）。须入寺满 210 日、完成洛阳护镖历练且经义 ≥ 62、书法 ≥ 40。奉玄痛长老之命携嵩山法帖千里南渡莆田南少林拜会铜身罗汉元苦；行前蒙玄痛传授《龙爪手》，抵九莲山连闯南宗铁桥硬马三关赢得敬重，更与南少林武僧并肩夜战盐场斩杀东瀛海寇头目鬼丸浪人，终使元苦打破南北门户之见，破格双授《盘山铁布衫（大成）》与《铁线拳》！',
     startHint:
-      '完成《洛阳护镖 · 金刀少林》、入寺满 1095 日且经义 ≥ 62、书 ≥ 40 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊】（或寻玄痛长老）即可领受嵩山法帖南渡莆田。',
+      '完成《洛阳护镖 · 金刀少林》、入寺满 210 日且经义 ≥ 62、书 ≥ 40 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊】（或寻玄痛长老）即可领受嵩山法帖南渡莆田。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',

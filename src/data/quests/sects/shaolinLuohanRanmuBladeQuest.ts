@@ -11,7 +11,7 @@ export const SHAOLIN_Q22_START_CONDITION: QuestCondition = {
     qStatus('QST-SECT-01-21', 'completed'),
     qStatus(SHAOLIN_Q22_QUEST_ID, 'not_started'),
     flag('sl_branch', 'eq', 'luohan'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 2555 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 360 },
     { type: 'skillAtLeast', key: '经义', min: 74 },
     { type: 'skillAtLeast', key: '书', min: 55 },
     { type: 'npcAlive', npcId: 'NPC-0126', npcName: '玄苦' },
@@ -28,9 +28,9 @@ export const SHAOLIN_Q22_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品 ～ 一流中品',
     maxOpponentRealm: '一流中品（夜探黑影高手）',
     recommendedNote:
-      '嵩山少林寺罗汉堂真传单脉首章（全二十四幕）。须为罗汉堂脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满 2555 日且经义 ≥ 74、书 ≥ 55。时值乔峰蒙冤风波前夕，降魔尊者玄苦隐觉少林寺外黑影幢幢、杀机暗伏，遂于深夜演武殿中以八十一刀劈燃百年枯菩提木，倾囊传授少林七十二绝技《燃木刀法》并提前托付传世宝刀【WPN-013 少林燃木戒刀】；当夜神秘黑影高手夜袭禅房，你挥动烈焰刀风十合逼退强敌！',
+      '嵩山少林寺罗汉堂真传单脉首章（全二十四幕）。须为罗汉堂脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55。时值乔峰蒙冤风波前夕，降魔尊者玄苦隐觉少林寺外黑影幢幢、杀机暗伏，遂于深夜演武殿中以八十一刀劈燃百年枯菩提木，倾囊传授少林七十二绝技《燃木刀法》并提前托付传世宝刀【WPN-013 少林燃木戒刀】；当夜神秘黑影高手夜袭禅房，你挥动烈焰刀风十合逼退强敌！',
     startHint:
-      '罗汉堂脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满 2555 日且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】（或寻玄苦）聆听深夜授刀。',
+      '罗汉堂脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】（或寻玄苦）聆听深夜授刀。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',

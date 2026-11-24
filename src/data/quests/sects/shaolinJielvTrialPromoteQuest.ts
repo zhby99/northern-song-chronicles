@@ -10,7 +10,7 @@ export const SHAOLIN_Q16_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-15', 'completed'),
     qStatus(SHAOLIN_Q16_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1800 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 300 },
     { type: 'skillAtLeast', key: '经义', min: 70 },
     { type: 'skillAtLeast', key: '书', min: 50 },
     { type: 'skillAtLeast', key: '辩才', min: 45 },
@@ -34,7 +34,7 @@ export const SHAOLIN_Q16_QUESTS: QuestDefinition[] = [
     recommendedNote:
       '嵩山少林寺 Lv.2 戒律药王脉晋升 Lv.3 真传弟子终章大案（全二十二幕）。入寺满一千八百日、完成戒律药王脉前三回且经义 ≥ 70、书 ≥ 50、辩才 ≥ 45、玄慈好感 ≥ 50 后触发。朝廷户部暗查私卖空名度牒旧案，知客玄净欲嫁祸苦行僧虚清并雇黑市一流杀手「影刃客」于后山灭口！你星夜截杀力战影刃客救下虚清与真凭底簿，继而登大雄正殿三堂会审当众对质玄净（回扣当年香火黑账抉择），削其知客职司罚入后山苦役，终蒙玄慈方丈亲授晋升【戒律院真传弟子】！',
     startHint:
-      '入寺满 1800 日、完成《药王百草 · 拈花截脉》且经义 ≥ 70、书 ≥ 50、辩才 ≥ 45、玄慈好感 ≥ 50 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】拜见玄寂即可触发。',
+      '入寺满 300 日、完成《药王百草 · 拈花截脉》且经义 ≥ 70、书 ≥ 50、辩才 ≥ 45、玄慈好感 ≥ 50 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】拜见玄寂即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

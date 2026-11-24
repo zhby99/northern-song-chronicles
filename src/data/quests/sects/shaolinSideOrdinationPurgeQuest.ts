@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE16_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 4 },
     qStatus(SHAOLIN_SIDE16_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 7200 },
     { type: 'skillAtLeast', key: '策论', min: 55 },
     { type: 'skillAtLeast', key: '算术', min: 45 },
     { type: 'npcAlive', npcId: 'NPC-0112', npcName: '玄慈' },
@@ -28,9 +27,9 @@ export const shaolinSideOrdinationPurgeQuest: QuestDefinition = {
   recommendedRealm: '宗师下品',
   maxOpponentRealm: '宗师下品（官府供奉邪僧 · 血袈裟摩罗）',
   recommendedNote:
-    '少林寺 Lv.4 宗师级清源支线（全十六幕）。已登长老首座且入寺满 7200 日、策论与算术兼通后，于大雄宝殿正殿承玄慈方丈密托，追查昔年「佛缘有价」度牒索贿背后牵连官府的私卖度牒大案。奉旨赴汴京开封府正堂会同包拯与御猫展昭勘核密档，夜袭京西贪官私庄，一对一击毙宗师供奉邪僧「血袈裟」摩罗，回山当众颁立新规彻底废除少林索贿陋习。',
+    '少林寺 Lv.4 宗师级清源支线（全十六幕）。已登长老首座、策论与算术兼通后，于大雄宝殿正殿承玄慈方丈密托，追查昔年「佛缘有价」度牒索贿背后牵连官府的私卖度牒大案。奉旨赴汴京开封府正堂会同包拯与御猫展昭勘核密档，夜袭京西贪官私庄，一对一击毙宗师供奉邪僧「血袈裟」摩罗，回山当众颁立新规彻底废除少林索贿陋习。',
   startHint:
-    '跻身少林寺四阶首座长老、入寺满 7200 日且精修策论与算术后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄宝殿正殿】拜见玄慈方丈即可领命。',
+    '跻身少林寺四阶首座长老、且精修策论与算术后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄宝殿正殿】拜见玄慈方丈即可领命。',
   startLocation: {
     regionId: 'shaolin',
     buildingId: 'sl_daxiong',

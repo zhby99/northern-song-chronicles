@@ -10,7 +10,7 @@ export const SHAOLIN_Q08_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-07', 'completed'),
     qStatus(SHAOLIN_Q08_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1800 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 300 },
     { type: 'skillAtLeast', key: '经义', min: 70 },
     { type: 'skillAtLeast', key: '书', min: 50 },
     { type: 'npcFavorAtLeast', npcId: 'NPC-0112', min: 50, npcName: '玄慈' },
@@ -31,9 +31,9 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品 ～ 一流下品',
     maxOpponentRealm: '一流下品（铜人阵眼 · 慧轮）',
     recommendedNote:
-      '嵩山少林寺罗汉堂脉 Lv.2 内门晋升 Lv.3 真传弟子终极考阵（全二十二幕）。须入寺满 1800 日、完成碎碑擒龙之役，且经义 ≥ 70、书法 ≥ 50、玄慈方丈好感 ≥ 50。于罗汉堂演武正殿单身硬闯慧轮、慧印等十八金漆铜人所布「三才六合大阵」，连破伏魔棍阵、金身刀盾阵与核心阵眼慧轮三关；破阵而出时少林古钟连鸣九响，赴大雄正殿蒙玄慈方丈亲赐袈裟、册封少林派 Lv.3【真传弟子】！',
+      '嵩山少林寺罗汉堂脉 Lv.2 内门晋升 Lv.3 真传弟子终极考阵（全二十二幕）。须入寺满 300 日、完成碎碑擒龙之役，且经义 ≥ 70、书法 ≥ 50、玄慈方丈好感 ≥ 50。于罗汉堂演武正殿单身硬闯慧轮、慧印等十八金漆铜人所布「三才六合大阵」，连破伏魔棍阵、金身刀盾阵与核心阵眼慧轮三关；破阵而出时少林古钟连鸣九响，赴大雄正殿蒙玄慈方丈亲赐袈裟、册封少林派 Lv.3【真传弟子】！',
     startHint:
-      '入寺满 1800 日、完成【碎碑擒龙 · 少室捉谍】且经义 ≥ 70、书 ≥ 50、玄慈好感 ≥ 50 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿】（或寻玄苦、玄痛、慧轮）叩关挑战十八铜人三才六合大阵。',
+      '入寺满 300 日、完成【碎碑擒龙 · 少室捉谍】且经义 ≥ 70、书 ≥ 50、玄慈好感 ≥ 50 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿】（或寻玄苦、玄痛、慧轮）叩关挑战十八铜人三才六合大阵。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',

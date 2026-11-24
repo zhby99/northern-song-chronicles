@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE14_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 3 },
     qStatus(SHAOLIN_SIDE14_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 4000 },
     { type: 'npcAlive', npcId: 'NPC-0156', npcName: '玄痛' },
   ],
 }
@@ -23,9 +22,9 @@ export const SHAOLIN_SIDE14_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流中品 ～ 一流上品',
     maxOpponentRealm: '一流上品（南少林护寺首座 · 元通 / 铁桥师兄）',
     recommendedNote:
-      '少林寺 Lv.3 南北印证支线（全十四幕）。入寺满 4000 日后，于大雄宝殿方丈院钟鼓禅院演武坪遇莆田南少林三护寺首座（元通、铁桥师兄、洪刚师兄）奉南宗法帖北上嵩山切磋印证（若曾完成《莆田南渡 · 南北少林》更有故友重逢叙旧剧情）。须于演武坪连战南宗硬桥硬马绝学：先过铁桥师兄一流中品之关，再与元通首座展开一流上品巅峰印证，战后赴大雄宝殿礼佛叙茗，未习得《铁线拳》者可获南宗倾囊相授（已习得者则化为深厚武学修为）。',
+      '少林寺 Lv.3 南北印证支线（全十四幕）。、后，于大雄宝殿方丈院钟鼓禅院演武坪遇莆田南少林三护寺首座（元通、铁桥师兄、洪刚师兄）奉南宗法帖北上嵩山切磋印证（若曾完成《莆田南渡 · 南北少林》更有故友重逢叙旧剧情）。须于演武坪连战南宗硬桥硬马绝学：先过铁桥师兄一流中品之关，再与元通首座展开一流上品巅峰印证，战后赴大雄宝殿礼佛叙茗，未习得《铁线拳》者可获南宗倾囊相授（已习得者则化为深厚武学修为）。',
     startHint:
-      '跻身少林寺三阶高徒且入寺满 4000 日后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】寻玄痛长老即可触发。',
+      '跻身少林寺三阶高徒、后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】寻玄痛长老即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

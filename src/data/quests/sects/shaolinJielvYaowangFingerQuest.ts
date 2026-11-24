@@ -10,7 +10,7 @@ export const SHAOLIN_Q15_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-14', 'completed'),
     qStatus(SHAOLIN_Q15_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1095 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 210 },
     { type: 'skillAtLeast', key: '经义', min: 62 },
     { type: 'skillAtLeast', key: '书', min: 45 },
     { type: 'npcAlive', npcId: 'NPC-0158', npcName: '玄生' },
@@ -29,7 +29,7 @@ export const SHAOLIN_Q15_QUESTS: QuestDefinition[] = [
     recommendedNote:
       '嵩山少林寺 Lv.2 戒律药王脉第三回核心任务链（全二十幕）。入寺满三载、完成《一拍两散 · 汴京缉凶》且经义 ≥ 62、书 ≥ 45 后，于大雄宝殿东厢碑廊助药王院主玄生整理医典。适逢黄河泛滥郑州流民爆发「锁喉瘴」，玄生以医道传授地阶绝学《拈花指》，令你下山隔衣点穴疏脉救民；太行溃匪首领「独眼狼」趁乱率众劫掠药棚，你指掌齐施封穴破敌，活人无数，获药王院主高度嘉许。',
     startHint:
-      '入寺满 1095 日、完成《一拍两散 · 汴京缉凶》且经义 ≥ 62、书 ≥ 45 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】拜见玄生即可触发。',
+      '入寺满 210 日、完成《一拍两散 · 汴京缉凶》且经义 ≥ 62、书 ≥ 45 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】拜见玄生即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

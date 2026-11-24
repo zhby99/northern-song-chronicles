@@ -10,7 +10,7 @@ export const SHAOLIN_Q25_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-24', 'completed'),
     qStatus(SHAOLIN_Q25_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 3650 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 420 },
     { type: 'skillAtLeast', key: '经义', min: 76 },
     { type: 'skillAtLeast', key: '书', min: 60 },
     { type: 'npcAlive', npcId: 'NPC-0127', npcName: '玄难' },
@@ -28,9 +28,9 @@ export const SHAOLIN_Q25_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流中品',
     maxOpponentRealm: '一流中品（四大恶人 · 凶神恶煞岳老三）',
     recommendedNote:
-      '嵩山少林寺达摩院真传单脉终章（全二十二幕）。须完成《面壁九年 · 剑化禅机》、入寺满 3650 日且经义 ≥ 76、书 ≥ 60。于幽谷石室寒玉榻畔得玄难与神僧玄澄合授少林七十二绝技中掌法至极之《般若掌》；适逢西夏四大恶人「凶神恶煞」岳老三手持鳄嘴剪大闹少室山、扬言要强收少林真传作徒弟，你挺身迎战，以《般若掌》十八掌叠浪震裂其虎口，当众逼退南海鳄神、名震中原！',
+      '嵩山少林寺达摩院真传单脉终章（全二十二幕）。须完成《面壁九年 · 剑化禅机》、入寺满 420 日且经义 ≥ 76、书 ≥ 60。于幽谷石室寒玉榻畔得玄难与神僧玄澄合授少林七十二绝技中掌法至极之《般若掌》；适逢西夏四大恶人「凶神恶煞」岳老三手持鳄嘴剪大闹少室山、扬言要强收少林真传作徒弟，你挺身迎战，以《般若掌》十八掌叠浪震裂其虎口，当众逼退南海鳄神、名震中原！',
     startHint:
-      '完成《面壁九年 · 剑化禅机》、入寺满 3650 日且经义 ≥ 76、书 ≥ 60 后，前往【嵩山少林寺 · 达摩院 · 幽谷石室 · 寒玉榻（sl_damo_main）】（或寻玄难、玄澄）求学《般若掌》。',
+      '完成《面壁九年 · 剑化禅机》、入寺满 420 日且经义 ≥ 76、书 ≥ 60 后，前往【嵩山少林寺 · 达摩院 · 幽谷石室 · 寒玉榻（sl_damo_main）】（或寻玄难、玄澄）求学《般若掌》。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',

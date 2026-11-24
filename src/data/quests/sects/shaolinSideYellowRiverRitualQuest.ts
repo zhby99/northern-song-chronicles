@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE15_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 3 },
     qStatus(SHAOLIN_SIDE15_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 5000 },
     { type: 'skillAtLeast', key: '经义', min: 78 },
     { type: 'skillAtLeast', key: '骑术', min: 40 },
     { type: 'npcAlive', npcId: 'NPC-0450', npcName: '慧慈' },
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE15_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流上品',
     maxOpponentRealm: '一流上品（西夏一品堂渡口双刺客 · 沙狼 / 鬼刃）',
     recommendedNote:
-      '少林寺 Lv.3 终极护国支线（全十六幕）。入寺满 5000 日且经义 ≥ 78、骑术 ≥ 40 后，于达摩面壁石洞飞瀑深潭试炼涧应护法僧慧慈相邀，先往大雄宝殿方丈院领受皇家水陆法幢与敕牒，随即策马北赴孟州黄河渡口主持皇家水陆法会，超度历年抗辽夏阵亡将士英灵。夜半渡口风浪骤起，西夏一品堂一流上品双刺客「鬼刃」「沙狼」潜渡袭坛、企图焚毁忠魂牌位，须与慧慈于滔滔浮桥血战诛魔，护住水陆法会梵唱彻夜不绝！',
+      '少林寺 Lv.3 终极护国支线（全十六幕）。、且经义 ≥ 78、骑术 ≥ 40 后，于达摩面壁石洞飞瀑深潭试炼涧应护法僧慧慈相邀，先往大雄宝殿方丈院领受皇家水陆法幢与敕牒，随即策马北赴孟州黄河渡口主持皇家水陆法会，超度历年抗辽夏阵亡将士英灵。夜半渡口风浪骤起，西夏一品堂一流上品双刺客「鬼刃」「沙狼」潜渡袭坛、企图焚毁忠魂牌位，须与慧慈于滔滔浮桥血战诛魔，护住水陆法会梵唱彻夜不绝！',
     startHint:
-      '跻身少林寺三阶高徒、入寺满 5000 日且经义 ≥ 78、骑术 ≥ 40 后，前往【嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧】寻慧慈即可触发。',
+      '跻身少林寺三阶高徒、且经义 ≥ 78、骑术 ≥ 40 后，前往【嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧】寻慧慈即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',

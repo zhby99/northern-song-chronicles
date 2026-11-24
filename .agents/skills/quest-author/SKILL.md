@@ -71,11 +71,11 @@ npm run lint && npm test && npm run build
 
 ---
 
-## 二、 九条代码与叙事红线（自检清单）
+## 二、 十五条代码与叙事红线（自检清单）
 
-1. **动态时空与性别插值**：正文中纪年一律使用 `{reignYear}`（**严禁硬编码「皇祐二年」**）；称呼分支使用 `{gender:少侠|女侠}` / `{gender:师弟|师妹}`；跨任务记忆使用 `{ifQuestDone:QST-ID|曾历文案|初见文案}`、`{ifFlag:...}`、`{ifSect:...}`；对白中严禁出现“根骨≥85 / 气血+100”等现代数值术语。
+1. **动态时空与性别插值**：正文中纪年一律使用 `{reignYear}`（**严禁硬编码「皇祐二年」**）；称呼分支使用 `{gender:少侠|女侠}` / `{gender:师弟|师妹}`；跨任务记忆使用 `{ifQuestDone:QST-ID|曾历文案|初见文案}`、`{ifFlag:...}`、`{ifFlagEq:key=val|...|...}`、`{ifSect:...}`（**严禁在宏内部再嵌套大括号宏**）；对白中严禁出现“根骨≥85 / 气血+100”等现代数值术语。
 2. **禀赋门槛上限**：入门任务链（`QST-SECT-*-ENTRY`）中的 `talentAtLeast.min` **严禁超过 `90`**（创角单项上限），高阶分支应保留零门槛赤诚兜底路径。
-3. **银钱与属性禁区**：银两奖励严格锚定 `docs/GAME_MECHANICS.md` 5.2 节门派月俸基准；**严禁使用 `modifyTalent` 或 `modifyBaseStat`** 直接增减先天三维或裸四维；**单条任务任意单一通关路径累计永久十艺增幅（含 `modifySkill` 及经 `giveItem` 发放的永久十艺道具 `useEffect`）总和严禁超过 `3` 点**（`scripts/verify_quests.mjs` 与 `questValidation.test.ts` 强制校验）。
+3. **银钱与属性禁区**：银两奖励严格锚定 `docs/GAME_MECHANICS.md` 5.2 节门派月俸基准；**严禁使用 `modifyTalent` 或 `modifyBaseStat`** 直接增减先天三维或裸四维；**单条任务任意单一通关路径累计永久十艺增幅（含 `modifySkill` 及经 `giveItem` 发放的永久十艺道具 `useEffect`）总和严禁超过 `3` 点**（`scripts/verify_quests.mjs` 与 `questValidation.test.ts` 强制校验；注意凡可重试步骤中的 `modifySkill` 须延后至 `completeQuest` 处按 flag 分支结算，避免触发无限刷点误判）。
 4. **NPC 生死闭环**：凡可在大地图/沙盘被挑战击杀的关键接引人，任务 `startCondition` 必须加 `{ type: 'npcAlive', npcId, npcName }`；剧情明确击毙或处斩名录 NPC 时，必须配合 `{ type: 'markNpcsDead', npcIds: [...] }`。
 5. **子景点精确挂载**：凡目标建筑存在室内子景点（`bldg.interior.spots.length > 0`），`spotActions` 与 `targetLocation` 必须明确指定 `spotId`，否则玩家在游戏内无法交互触发。
 6. **自定义立绘真实存在**：`{ kind: 'custom' }` 对白发言人、`spawnDynamicActor` 动态角色及自定义战斗对手所填 `portraitUrl` / `avatarUrl` 必须在 `public/` 下真实存在，且模板 `_av` 与 `_fb` 保持一致。
@@ -86,3 +86,9 @@ npm run lint && npm test && npm run build
 11. **锁闭景点/秘境解锁 Flag 同步铁律**：凡 `setStep` / `targetLocation` 引导玩家进入带有门锁条件的建筑或子景点（如华山思过崖后洞 `tg_sg_cave_unlocked` 等），在剧情破锁/放行的同一幕**必须显式写入对应的 `{ type: 'setFlag', flag: '<unlock_flag>', value: true }`**，严禁只在文案里写“铁锁已断”却漏写解锁标记导致玩家被门锁卡死。
 12. **多场连战 / 论剑车轮战全回满铁律**：单卷任务内的多场连续战斗（尤其是论剑连战、大比多轮战、宗师连战），每一场的 **`onWin` 与 `onLose` 均须附带 `{ type: 'healPlayer', hpPct: 100, mpPct: 100 }`**，严禁让玩家残血残蓝衔接下一场，亦严禁只回复 `85%/90%` 这种半残比例。
 13. **`不入流` 对手白纸友好硬上限**：所有 `不入流` 自定义任务对手（`makeQuestNpc`）必须**零披挂**、**`stats.hp <= 165`**、**仅配凡品 1 重武学且外功限 1 门**（禁止 `move2`/`move3`/`move4`，所有 `learnedArts` 均为凡品 `level: 1`），确保白纸主角以二重初始凡品心法+凡品外功即可稳过（由 `sectQuestDifficulty.test.ts` 自动巡检）。
+14. **反套路高交互铁律（杜绝「点下一步机器」）**：
+    - **严禁 1～2 句注水过渡幕**：单任务以 **8～12 幕高密度场景**为佳（单幕建议 3～5 句扎实描写与交锋），绝不把一段对话硬拆成 3～4 幕空壳凑幕数。
+    - **高密度真抉择与幕内检定**：每条主线任务须包含 **≥ 15%（建议 25%～40%）的多选项场景**，且每条主线至少提供 **1 处以上幕内多解检定**（十艺 `skillAtLeast`、银钱代价 `silverAtLeast`、道具 `hasItem`、身法/轻功 `combatStatAtLeast`/`learnedArtAtLeast` 或好感/线索 `flag`），允许玩家凭智谋、人脉、财力或奇袭**跳过杂兵战、削弱头目或改写战局**，同时务必保留零门槛正攻兜底，并处理战败重试时的防重复扣费/防重复加计数。
+    - **真推演与跨卷因果**：解谜/核账/禅辩/审讯类选项严禁在按钮上剧透对错答案；利用 `questState.flags` 与 `addFlagNumber` 搭建门派专属长期维度（如少林 `sl_zen_merit` 禅心慈悲 vs `sl_karma_wrath` 怒目杀业），并通过 `{ifFlag:...}` / `{ifFlagEq:...}` 在后续任务中真实回响。
+15. **反空转时间墙铁律**：门派主线 `sectDaysAtLeast` 严禁堆砌动辄十年、二十年的空转跨度（一条完整 Lv.1→Lv.5 门派史诗总跨度建议控制在 **1～3 年 / 365～1080 日**内，匹配正常养成节奏）；所有门派支线（`SIDE`）严禁附加硬性入派天数门锁（`sectDaysAtLeast`），让玩家随时可玩。
+

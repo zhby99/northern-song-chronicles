@@ -9,7 +9,7 @@ export const SHAOLIN_Q20_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
     qStatus('QST-SECT-01-19', 'completed'),
     qStatus(SHAOLIN_Q20_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1800 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 300 },
     { type: 'skillAtLeast', key: '经义', min: 70 },
     { type: 'skillAtLeast', key: '书', min: 45 },
     { type: 'skillAtLeast', key: '策论', min: 40 },
@@ -28,9 +28,9 @@ export const SHAOLIN_Q20_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品 ～ 一流下品',
     maxOpponentRealm: '一流下品（嵩山绿林双煞 · 黑风煞）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 俗家护法脉终极晋升任务链（全二十二幕）。须入寺满 1800 日、完成莆田南渡历练且经义 ≥ 70、书 ≥ 45、策论 ≥ 40、玄慈方丈好感 ≥ 50。登封贪官勾结黑虎涧绿林双煞诬告少林私藏甲胄企图强夺药庄；你以俗家之身入汴京相国寺请出皇家护寺勘合文书当堂喝退贪官，复于暴雨夜单刀斩杀嵩山绿林双煞，终在大雄宝殿破格晋升 Lv.3 俗家护法都统（真传职级）！',
+      '嵩山少林寺 Lv.2 俗家护法脉终极晋升任务链（全二十二幕）。须入寺满 300 日、完成莆田南渡历练且经义 ≥ 70、书 ≥ 45、策论 ≥ 40、玄慈方丈好感 ≥ 50。登封贪官勾结黑虎涧绿林双煞诬告少林私藏甲胄企图强夺药庄；你以俗家之身入汴京相国寺请出皇家护寺勘合文书当堂喝退贪官，复于暴雨夜单刀斩杀嵩山绿林双煞，终在大雄宝殿破格晋升 Lv.3 俗家护法都统（真传职级）！',
     startHint:
-      '完成《莆田南渡 · 南北少林》、入寺满 1800 日且经义 ≥ 70、书 ≥ 45、策论 ≥ 40、玄慈好感 ≥ 50 后，前往【开封府 · 大相国寺 · 大雄宝殿（香云宝鼎）】即可接获嵩山急信。',
+      '完成《莆田南渡 · 南北少林》、入寺满 300 日且经义 ≥ 70、书 ≥ 45、策论 ≥ 40、玄慈好感 ≥ 50 后，前往【开封府 · 大相国寺 · 大雄宝殿（香云宝鼎）】即可接获嵩山急信。',
     startLocation: {
       regionId: 'bianliang',
       buildingId: 'bl_xiangguosi',

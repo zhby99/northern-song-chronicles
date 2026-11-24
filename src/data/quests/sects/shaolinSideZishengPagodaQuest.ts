@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE07_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
     qStatus(SHAOLIN_SIDE07_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 600 },
     { type: 'skillAtLeast', key: '书', min: 35 },
     { type: 'npcAlive', npcId: 'NPC-0378', npcName: '慧禅' },
     { type: 'npcAlive', npcId: 'NPC-0902', npcName: '净清' },
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE07_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品',
     maxOpponentRealm: '二流中品（江南飞贼 · 踏云燕）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门支线（全十二幕）。入寺满六百日且书法达三十五后，于开封府大相国寺资圣八角琉璃宝塔接驻僧慧禅、净清急报：江南飞贼“踏云燕”下帖预告夜盗御赐金字《华严经》。雨夜百尺飞檐设伏生擒飞贼，并自密函中牵出姑苏慕容外围商号线索。',
+      '嵩山少林寺 Lv.2 内门支线（全十二幕）。书法达三十五后，于开封府大相国寺资圣八角琉璃宝塔接驻僧慧禅、净清急报：江南飞贼“踏云燕”下帖预告夜盗御赐金字《华严经》。雨夜百尺飞檐设伏生擒飞贼，并自密函中牵出姑苏慕容外围商号线索。',
     startHint:
-      '晋升少林内门且入寺满六百日、书法不低于三十五后，前往【开封府 · 大相国寺（八角宝塔） · 资圣八角琉璃宝塔】寻慧禅或净清即可触发。',
+      '晋升少林内门书法不低于三十五后，前往【开封府 · 大相国寺（八角宝塔） · 资圣八角琉璃宝塔】寻慧禅或净清即可触发。',
     startLocation: {
       regionId: 'bianliang',
       buildingId: 'bl_xiangguosi',

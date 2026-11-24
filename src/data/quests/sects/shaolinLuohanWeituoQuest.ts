@@ -10,7 +10,7 @@ export const SHAOLIN_Q06_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-05', 'completed'),
     qStatus(SHAOLIN_Q06_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 730 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 150 },
     { type: 'skillAtLeast', key: '经义', min: 55 },
     { type: 'skillAtLeast', key: '书', min: 35 },
     { type: 'npcAlive', npcId: 'NPC-0157', npcName: '玄悲' },
@@ -28,9 +28,9 @@ export const SHAOLIN_Q06_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品',
     maxOpponentRealm: '二流中品（西夏密宗番僧 · 摩诃巴）',
     recommendedNote:
-      '嵩山少林寺罗汉堂脉 Lv.2 内门第二回任务链（全二十幕）。须入寺满 730 日、完成《慈悲刀法》试炼，且经义 ≥ 55、书法 ≥ 35。奉玄苦尊者急谕星夜驰援洛阳府白马寺，助大韦陀僧玄悲识破潜伏寺中的西夏一品堂假僧，临阵习得罗汉堂重器绝学《韦陀杵》，再登齐云密檐舍利古塔一对一击毙西夏密宗番僧摩诃巴；玄悲临赴大理陆凉州公干前，亲将镇魔重器【少林韦陀伏魔杵】赠予于你。',
+      '嵩山少林寺罗汉堂脉 Lv.2 内门第二回任务链（全二十幕）。须入寺满 150 日、完成《慈悲刀法》试炼，且经义 ≥ 55、书法 ≥ 35。奉玄苦尊者急谕星夜驰援洛阳府白马寺，助大韦陀僧玄悲识破潜伏寺中的西夏一品堂假僧，临阵习得罗汉堂重器绝学《韦陀杵》，再登齐云密檐舍利古塔一对一击毙西夏密宗番僧摩诃巴；玄悲临赴大理陆凉州公干前，亲将镇魔重器【少林韦陀伏魔杵】赠予于你。',
     startHint:
-      '入寺满 730 日、完成【东庑刀鸣 · 慈悲度寇】且经义 ≥ 55、书 ≥ 35 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿】（或寻玄苦师伯）领受驰援洛阳白马寺急令。',
+      '入寺满 150 日、完成【东庑刀鸣 · 慈悲度寇】且经义 ≥ 55、书 ≥ 35 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿】（或寻玄苦师伯）领受驰援洛阳白马寺急令。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',

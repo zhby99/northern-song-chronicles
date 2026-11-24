@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE08_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
     qStatus(SHAOLIN_SIDE08_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 800 },
     { type: 'npcAlive', npcId: 'NPC-0186', npcName: '王元霸' },
     { type: 'npcAlive', npcId: 'NPC-0667', npcName: '虚净' },
     { type: 'npcAlive', npcId: 'NPC-0737', npcName: '虚慧' },
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品 ～ 二流上品',
     maxOpponentRealm: '二流上品（关西暗器杀手 · 毒针影）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门支线（全十四幕）。入寺满八百日后，赴洛阳金刀王家翠竹曲水藏刀八角亭祝贺王元霸寿诞，与驻院俗家弟子虚净、虚慧会合；演武祝寿之际仇家杀手混入戏班暴起发毒箭，掀八仙桌护住寿星并与众人并肩力挫三刺客，缔结少林与金刀王家铁血盟谊。',
+      '嵩山少林寺 Lv.2 内门支线（全十四幕）。赴洛阳金刀王家翠竹曲水藏刀八角亭祝贺王元霸寿诞，与驻院俗家弟子虚净、虚慧会合；演武祝寿之际仇家杀手混入戏班暴起发毒箭，掀八仙桌护住寿星并与众人并肩力挫三刺客，缔结少林与金刀王家铁血盟谊。',
     startHint:
-      '晋升少林内门且入寺满八百日后，前往【洛阳府 · 金刀王家大宅 · 翠竹曲水藏刀八角亭】寻虚净或王元霸即可触发寿宴风波。',
+      '晋升少林内门后，前往【洛阳府 · 金刀王家大宅 · 翠竹曲水藏刀八角亭】寻虚净或王元霸即可触发寿宴风波。',
     startLocation: {
       regionId: 'luoyang',
       buildingId: 'ly_jindao',

@@ -31,7 +31,7 @@ export const SHAOLIN_Q01_QUESTS: QuestDefinition[] = [
     recommendedRealm: '不入流 ～ 三流下品',
     maxOpponentRealm: '三流下品（富家外门 · 周海）',
     recommendedNote:
-      '嵩山少林寺 Lv.1 外门弟子开蒙任务链（全十二幕）。杂役满期初入外门寮房，五更闻钟随虚松、虚音师兄于钟鼓禅院演武坪习练《少林小乘禅功》与《罗汉拳》，并挺身制止富家外门周海伙同挂单恶僧强占寮房冬衣，终获巡堂戒律长老玄痛嘉许。',
+      '嵩山少林寺 Lv.1 外门弟子开蒙任务链（全十幕）。杂役满期初入外门寮房，五更闻钟随虚松、虚音师兄演武开蒙并定下拳心志向；面对富家外门周海伙同挂单恶僧强夺寒门同门阿木冬衣，可凭佛理辩才舌剑退僧、散银解围或正面青石连战，并在战后于玄痛长老面前亲裁周海惩处，开启少林「禅心慈悲 / 怒目杀业」双轨因果。',
     startHint:
       '完成少林入门后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院】（或寻虚松、虚音师兄）即可开启罗汉开蒙晨课。',
     startLocation: {
@@ -42,14 +42,14 @@ export const SHAOLIN_Q01_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q01_START_CONDITION,
     summary:
-      '{reignYear}杂役满期，你初入少林外门寮房。五更晨钟未响，【虚松】与【虚音】二位师兄便以井水泼醒新晋弟子，于【大雄宝殿方丈院 · 钟鼓禅院】演武坪传授少林筑基心法《少林小乘禅功》与入门拳架《罗汉拳》。同批富商之子【周海】仗着家中丰厚香油钱，勾结两名挂单恶僧在寮房强抢寒门同门冬衣、霸占暖炕。你怒而挺身，于演武青石上连战两场，先以罗汉拳架击退两名挂单恶僧，再正面力挫周海。巡堂至此的戒律长老【玄痛】亲睹全程，沉声赞许「佛门亦有金刚怒目」，正式准你领受《少林小乘禅功》与《罗汉拳》法本。',
+      '{reignYear}杂役满期，你初入少林外门寮房。五更冷水泼醒通铺，【虚松】与【虚音】二位师兄于【钟鼓禅院】演武坪传授少林筑基心法《少林小乘禅功》与《罗汉拳》，并叩问你习武本心。同批富商之子【周海】仗着香油钱勾结两名挂单恶僧在寮房强抢寒门新徒阿木的棉衣。你挺身而出——或引佛门清规舌战喝退恶僧，或散银护下阿木，或踏青石连战双恶——终与恼羞成怒的周海正面对决。戒律长老【玄痛】巡堂而至，由你建言宽宥悔过抑或重责戒棍，自此踏上少林禅武之途。',
     initialStepId: 'morning_drill',
     steps: {
       morning_drill: {
         id: 'morning_drill',
         title: '五更闻钟 · 演武开蒙',
         objective:
-          '已在钟鼓禅院演武坪随虚松、虚音二位师兄初习《少林小乘禅功》与《罗汉拳》起手式。午后寮房忽传喧闹，速留守【大雄宝殿方丈院 · 钟鼓禅院】查明同门争执原委。',
+          '已在钟鼓禅院演武坪随虚松、虚音二位师兄初习《少林小乘禅功》与《罗汉拳》起手式。午后寮房忽传瓷碗碎裂与呼救声，速留守【大雄宝殿方丈院 · 钟鼓禅院】查明同门争执原委。',
         nextHint:
           '在【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院（sl_daxiong_west）】点击「查看外门寮房风波 · 挺身护同门」。',
         targetLocation: {
@@ -63,9 +63,9 @@ export const SHAOLIN_Q01_QUESTS: QuestDefinition[] = [
         id: 'confront_zhouhai',
         title: '金刚怒目 · 演武惩霸',
         objective:
-          '富家外门周海仗香油钱伙同两名挂单恶僧欺凌寒门同门！请于【大雄宝殿方丈院 · 钟鼓禅院】演武坪青石上连战恶僧与周海，护住外门清规！',
+          '富家外门周海仗香油钱欺凌寒门同门！请于【大雄宝殿方丈院 · 钟鼓禅院】演武坪青石上迎战强敌，护住外门清规！',
         nextHint:
-          '在【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院（sl_daxiong_west）】点击「登演武坪青石 · 迎战周海与挂单恶僧」。',
+          '在【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院（sl_daxiong_west）】点击「登演武坪青石 · 迎战周海」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_daxiong',
@@ -116,7 +116,7 @@ export const SHAOLIN_Q01_QUESTS: QuestDefinition[] = [
         id: 'spot_slq01_dorm_brawl',
         label: '【少林师门】查看外门寮房风波 · 挺身护同门',
         badge: '寮房风波',
-        subtitle: '第五幕 · 富家外门周海仗势强抢冬衣',
+        subtitle: '富家外门周海仗势强抢寒门冬衣',
         tone: 'gold',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
@@ -129,15 +129,22 @@ export const SHAOLIN_Q01_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_slq01_duel_zhouhai',
-        label: '【少林师门】登演武坪青石 · 迎战周海与挂单恶僧',
+        label: '【少林师门】登演武坪青石 · 迎战周海',
         badge: '金刚怒目',
-        subtitle: '演武实战 · 连战挂单恶僧与周海',
+        subtitle: '演武实战 · 护持外门清规',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
         spotId: 'sl_daxiong_west',
         visibleWhen: atStep(SHAOLIN_Q01_QUEST_ID, 'confront_zhouhai'),
-        effects: [openScene('scene_slq01_07', SHAOLIN_Q01_QUEST_ID)],
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q01_rogues_cleared', op: 'truthy' },
+            thenEffects: [openScene('scene_slq01_08', SHAOLIN_Q01_QUEST_ID)],
+            elseEffects: [openScene('scene_slq01_07', SHAOLIN_Q01_QUEST_ID)],
+          },
+        ],
       },
     ],
 

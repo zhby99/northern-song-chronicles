@@ -14,7 +14,7 @@ export const SHAOLIN_Q32_START_CONDITION: QuestCondition = {
       hint: '完成《扫叶听风》或《暗布天罗》',
     },
     qStatus(SHAOLIN_Q32_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 6205 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 630 },
     { type: 'skillAtLeast', key: '经义', min: 82 },
     { type: 'skillAtLeast', key: '书', min: 70 },
     { type: 'npcAlive', npcId: 'NPC-0158', npcName: '玄生' },
@@ -33,7 +33,7 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
     recommendedNote:
       '嵩山少林寺 Lv.3 真传合流危机大考（全二十四幕）。须入寺满十七载（6205 日）、完成《剑痕浴血 · 少林九阳》及《扫叶听风》/《暗布天罗》任一线，且经义 ≥ 82、书法 ≥ 70。西夏一品堂与姑苏慕容暗中勾结，于嵩山山泉投下奇毒「悲酥瘟瘴」，寺中数百僧众突发寒热咳血！你需先施展「一苇渡江」奇绝轻功赴达摩院飞瀑深潭绝壁采得千年血灵芝，再独守东厢碑廊药王丹房，车轮连战死战西夏一品堂毁炉死士三煞护炉成药！劫难既平，药王院主玄生亲赠少林天阶无上圣药《少林九转大还丹》！',
     startHint:
-      '入寺满 6205 日、完成《少林九阳》及《扫叶听风》或《暗布天罗》，且经义 ≥ 82、书 ≥ 70 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】（或寻玄生）应对嵩山投毒瘟劫。',
+      '入寺满 630 日、完成《少林九阳》及《扫叶听风》或《暗布天罗》，且经义 ≥ 82、书 ≥ 70 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】（或寻玄生）应对嵩山投毒瘟劫。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

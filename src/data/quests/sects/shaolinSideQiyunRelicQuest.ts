@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE09_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
     qStatus(SHAOLIN_SIDE09_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1000 },
     { type: 'skillAtLeast', key: '经义', min: 60 },
     { type: 'npcAlive', npcId: 'NPC-0377', npcName: '慧博' },
     { type: 'npcAlive', npcId: 'NPC-0551', npcName: '虚空' },
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE09_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流上品（吐蕃黑教盗宝护法 · 巴桑）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门支线（全十四幕）。入寺满千日且经义达六十后，于洛阳白马寺齐云密檐舍利古塔协助慧博、虚智、虚空、净云修缮地宫；吐蕃黑教盗宝护法巴桑率众夜袭强抢佛骨舍利宝函，自塔底一路血战追至十三层绝顶，1v1 击败巴桑夺回宝函。',
+      '嵩山少林寺 Lv.2 内门支线（全十四幕）。经义达六十后，于洛阳白马寺齐云密檐舍利古塔协助慧博、虚智、虚空、净云修缮地宫；吐蕃黑教盗宝护法巴桑率众夜袭强抢佛骨舍利宝函，自塔底一路血战追至十三层绝顶，1v1 击败巴桑夺回宝函。',
     startHint:
-      '晋升少林内门且入寺满千日、经义不低于六十后，前往【洛阳府 · 白马寺（释源祖庭） · 齐云密檐舍利古塔】寻慧博、虚空或虚智即可触发。',
+      '晋升少林内门经义不低于六十后，前往【洛阳府 · 白马寺（释源祖庭） · 齐云密檐舍利古塔】寻慧博、虚空或虚智即可触发。',
     startLocation: {
       regionId: 'luoyang',
       buildingId: 'ly_baimasi',

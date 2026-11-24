@@ -11,7 +11,7 @@ export const SHAOLIN_Q30_START_CONDITION: QuestCondition = {
     flag('sl_pavilion_choice', 'eq', 'compassion'),
     qStatus(SHAOLIN_Q30_QUEST_ID, 'not_started'),
     qStatus('QST-SECT-01-31', 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 5475 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 570 },
     { type: 'skillAtLeast', key: '经义', min: 82 },
     { type: 'skillAtLeast', key: '书', min: 70 },
     { type: 'npcAlive', npcId: 'NPC-0101', npcName: '法空' },
@@ -30,7 +30,7 @@ export const SHAOLIN_Q30_QUESTS: QuestDefinition[] = [
     recommendedNote:
       '嵩山少林寺 Lv.3 真传合流分支任务（慈悲默察线 · 全二十幕）。须入寺满十五载（5475 日）、于《琉璃夜影 · 曝书惊变》择定「慈悲默察」方略、未开启《铁血伏魔 · 暗布天罗》，且经义 ≥ 82、书法 ≥ 70。你于古银杏无名老僧扫叶庭陪伴扫地老僧法空默扫月余，听风观叶间闻得「武学障深唯有佛法能解」之无上禅机；更于藏经阁案头亲抄《楞伽经》留置绝技橱侧，以大慈悲心欲度潜伏盗经之人，终得心境圆明、武学大进！',
     startHint:
-      '入寺满 5475 日、于《曝书惊变》选择慈悲默察且经义 ≥ 82、书 ≥ 70 后，前往【嵩山少林寺 · 藏经阁 · 古银杏无名老僧扫叶庭】（或寻法空）开启扫叶禅悟。',
+      '入寺满 570 日、于《曝书惊变》选择慈悲默察且经义 ≥ 82、书 ≥ 70 后，前往【嵩山少林寺 · 藏经阁 · 古银杏无名老僧扫叶庭】（或寻法空）开启扫叶禅悟。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_cangjing',

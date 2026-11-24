@@ -10,7 +10,7 @@ export const SHAOLIN_Q10_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-09', 'completed'),
     qStatus(SHAOLIN_Q10_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 730 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 150 },
     { type: 'skillAtLeast', key: '经义', min: 55 },
     { type: 'skillAtLeast', key: '书', min: 35 },
     { type: 'skillAtLeast', key: '棋', min: 30 },
@@ -28,9 +28,9 @@ export const SHAOLIN_Q10_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品',
     maxOpponentRealm: '二流中品（星宿派妖女 · 毒罗刹）',
     recommendedNote:
-      '嵩山少林寺达摩院脉 Lv.2 中阶历练任务链（全十八幕）。须完成《剑痕绝壁 · 达摩初剑》、入寺满 730 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30。玄难借落英与禅棋步法传授《散花掌》，命你下山赴洛阳酒肆查探牡丹会画舫毒案，夜探洛水画舫以散花掌风卷回星宿毒粉反噬妖人，车轮连战 震晕毒罗刹与星宿护法救出中原名宿。',
+      '嵩山少林寺达摩院脉 Lv.2 中阶历练任务链（全十八幕）。须完成《剑痕绝壁 · 达摩初剑》、入寺满 150 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30。玄难借落英与禅棋步法传授《散花掌》，命你下山赴洛阳酒肆查探牡丹会画舫毒案，夜探洛水画舫以散花掌风卷回星宿毒粉反噬妖人，车轮连战 震晕毒罗刹与星宿护法救出中原名宿。',
     startHint:
-      '完成《剑痕绝壁 · 达摩初剑》、入寺满 730 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖】（或寻玄难首座）开启任务。',
+      '完成《剑痕绝壁 · 达摩初剑》、入寺满 150 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖】（或寻玄难首座）开启任务。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',

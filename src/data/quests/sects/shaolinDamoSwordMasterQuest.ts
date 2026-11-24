@@ -11,7 +11,7 @@ export const SHAOLIN_Q24_START_CONDITION: QuestCondition = {
     qStatus('QST-SECT-01-21', 'completed'),
     qStatus(SHAOLIN_Q24_QUEST_ID, 'not_started'),
     flag('sl_branch', 'eq', 'damo'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 2555 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 360 },
     { type: 'skillAtLeast', key: '经义', min: 74 },
     { type: 'skillAtLeast', key: '书', min: 55 },
     { type: 'npcAlive', npcId: 'NPC-0127', npcName: '玄难' },
@@ -28,9 +28,9 @@ export const SHAOLIN_Q24_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品 ～ 一流中品',
     maxOpponentRealm: '一流中品（姑苏慕容家将 · 包不同 / 风波恶）',
     recommendedNote:
-      '嵩山少林寺达摩院真传单脉首章（全二十四幕）。须为达摩院脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满 2555 日且经义 ≥ 74、书 ≥ 55。奉伏魔首座玄难之命，于达摩院绝壁石刻剑痕崖观摩初祖面壁石影三昼夜，终将书法笔意与禅宗顿悟融于一炉，悟得少林剑道绝艺《达摩剑法》；岂料姑苏慕容氏家将「非也先生」包不同与「一阵风」风波恶竟悄然闯上剑痕崖偷窥剑意，你车轮连战，剑化禅机当场挑落二人佩刀！',
+      '嵩山少林寺达摩院真传单脉首章（全二十四幕）。须为达摩院脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55。奉伏魔首座玄难之命，于达摩院绝壁石刻剑痕崖观摩初祖面壁石影三昼夜，终将书法笔意与禅宗顿悟融于一炉，悟得少林剑道绝艺《达摩剑法》；岂料姑苏慕容氏家将「非也先生」包不同与「一阵风」风波恶竟悄然闯上剑痕崖偷窥剑意，你车轮连战，剑化禅机当场挑落二人佩刀！',
     startHint:
-      '达摩院脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满 2555 日且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】（或寻玄难）观摩初祖面壁石影。',
+      '达摩院脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】（或寻玄难）观摩初祖面壁石影。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',

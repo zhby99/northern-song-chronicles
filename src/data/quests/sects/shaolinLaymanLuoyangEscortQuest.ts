@@ -9,7 +9,7 @@ export const SHAOLIN_Q18_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
     qStatus('QST-SECT-01-17', 'completed'),
     qStatus(SHAOLIN_Q18_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 730 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 150 },
     { type: 'skillAtLeast', key: '经义', min: 55 },
     { type: 'skillAtLeast', key: '骑术', min: 30 },
     { type: 'npcAlive', npcId: 'NPC-0157', npcName: '玄悲' },
@@ -27,9 +27,9 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品 ～ 二流上品',
     maxOpponentRealm: '二流上品（西夏游骑百夫长 · 拓跋烈）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 俗家护法脉第二回历练（全二十幕）。须入寺满 730 日、完成相国寺雅市历练且经义 ≥ 55、骑术 ≥ 30。奉命赴洛阳金刀王家，携手王元霸、虚净、虚慧与白马寺玄悲大师共护千斤紫金佛像入嵩山；伊阙龙门石窟突遭水匪与西夏游骑联手劫杀，危局中蒙玄悲破格传授《韦陀杵》并赠地阶神兵《少林韦陀伏魔杵》。',
+      '嵩山少林寺 Lv.2 俗家护法脉第二回历练（全二十幕）。须入寺满 150 日、完成相国寺雅市历练且经义 ≥ 55、骑术 ≥ 30。奉命赴洛阳金刀王家，携手王元霸、虚净、虚慧与白马寺玄悲大师共护千斤紫金佛像入嵩山；伊阙龙门石窟突遭水匪与西夏游骑联手劫杀，危局中蒙玄悲破格传授《韦陀杵》并赠地阶神兵《少林韦陀伏魔杵》。',
     startHint:
-      '完成《相国暗影 · 红尘刀杖》、入寺满 730 日且经义 ≥ 55、骑术 ≥ 30 后，前往【洛阳府 · 金刀王家 · 金刀威震正气大厅】（或寻王元霸、玄悲）即可共议护镖大计。',
+      '完成《相国暗影 · 红尘刀杖》、入寺满 150 日且经义 ≥ 55、骑术 ≥ 30 后，前往【洛阳府 · 金刀王家 · 金刀威震正气大厅】（或寻王元霸、玄悲）即可共议护镖大计。',
     startLocation: {
       regionId: 'luoyang',
       buildingId: 'ly_jindao',

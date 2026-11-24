@@ -9,7 +9,7 @@ export const SHAOLIN_Q02_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 1 },
     qStatus('QST-SECT-01-01', 'completed'),
     qStatus(SHAOLIN_Q02_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 60 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 15 },
     { type: 'skillAtLeast', key: '经义', min: 25 },
     { type: 'npcAlive', npcId: 'NPC-0254', npcName: '慧轮' },
     { type: 'npcAlive', npcId: 'NPC-0782', npcName: '虚石' },
@@ -26,9 +26,9 @@ export const SHAOLIN_Q02_QUESTS: QuestDefinition[] = [
     recommendedRealm: '三流下品 ～ 三流中品',
     maxOpponentRealm: '三流中品（登封矿霸 · 刘横）',
     recommendedNote:
-      '嵩山少林寺 Lv.1 外门弟子护庄历练任务链（全十五幕）。入寺满六十日且经义达标后，于十八铜人木桩廊受慧轮师叔征召，探望遭矿霸打伤的收租执事虚石，并赴少室南麓平息登封矿霸“铁山靠”刘横强占水渠之乱。临阵可择《伏虎拳》赤手擒王或《少林齐眉棍》封桥止争。',
+      '嵩山少林寺 Lv.1 外门弟子护庄历练任务链（全十幕）。入寺满 15 日且经义达标后，受慧轮师叔征召探望遭矿霸打伤的执事虚石（算术达标可查出刘横私采官铁黑幕），再赴少室南麓于《伏虎拳》或《少林齐眉棍》中择一临阵领悟；水闸前可择亮底牌攻心、轻功撬闸或正面硬撼三策破局，并于战后裁定受胁流民去留。',
     startHint:
-      '拜入少林满六十日、完成罗汉开蒙且经义精进后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊】（或寻慧轮师叔）即可领命。',
+      '拜入少林满 15 日、完成罗汉开蒙且经义精进后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊】（或寻慧轮师叔）即可领命。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',
@@ -37,14 +37,14 @@ export const SHAOLIN_Q02_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q02_START_CONDITION,
     summary:
-      '{reignYear}春耕时节，登封矿霸「铁山靠」刘横率矿徒强占少林常住庄田水渠，更打伤下山催租调解的执事【虚石】。「大金刚僧」【慧轮】于【十八铜人罗汉堂 · 十八铜人木桩廊】召你先往【大雄宝殿方丈院 · 东厢碑廊】探望虚石、取回地契水图，再同下少室南麓庄田止争。面对矿徒混杂于佃农之间的危局，你于赤手施展《伏虎拳》贴身擒王与执《少林齐眉棍》横扫窄桥之间择一破局，终生擒三流中品矿霸刘横、重开水闸护住千亩春田。',
+      '{reignYear}春耕时节，登封矿霸「铁山靠」刘横率矿徒截断少林常住庄田灌溉水渠，更打伤执事【虚石】。「大金刚僧」【慧轮】召你先往【东厢碑廊】探望虚石、取回地契水图与矿车签单（精于算术者更能识破其私采官铁重罪），再同下少室南麓。面对混迹佃农间的矿徒，你临阵择修《伏虎拳》或《少林齐眉棍》，更可凭揭秘攻心、身法潜袭撬闸或正面硬撼生擒刘横，战后还需在捐银减租安置受胁流民与押官严办之间权衡取舍。',
     initialStepId: 'visit_xushi',
     steps: {
       visit_xushi: {
         id: 'visit_xushi',
         title: '碑廊探伤 · 查明水案',
         objective:
-          '已奉慧轮师叔之命查明少室南麓庄田风波。请前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊】探望养伤的收租执事【虚石】，取回庄田地契抄本与水渠旧图。',
+          '已奉慧轮师叔之命查明少室南麓庄田风波。请前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊】探望养伤的收租执事【虚石】，取回庄田地契抄本与水渠旧图，并查验刘横矿场遗留的签单线索。',
         nextHint:
           '前往【大雄宝殿方丈院 · 东厢碑廊（sl_daxiong_east）】，点击「探望养伤执事虚石 · 详询庄田水渠案情」或与虚石交谈。',
         targetLocation: {
@@ -120,7 +120,7 @@ export const SHAOLIN_Q02_QUESTS: QuestDefinition[] = [
         id: 'spot_slq02_visit_xushi',
         label: '【少林师门】探望养伤执事虚石 · 详询庄田水渠案情',
         badge: '碑廊探伤',
-        subtitle: '第三幕 · 东厢碑廊',
+        subtitle: '东厢碑廊 · 查验契图与矿单',
         tone: 'gold',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
@@ -135,7 +135,7 @@ export const SHAOLIN_Q02_QUESTS: QuestDefinition[] = [
         id: 'spot_slq02_depart_estate',
         label: '【少林师门】会合慧轮师叔下山 · 赴少室南麓庄田止争',
         badge: '南麓止争',
-        subtitle: '第五幕 · 迎战登封矿霸刘横',
+        subtitle: '迎战登封矿霸刘横 · 三策破局',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_luohan',
@@ -143,7 +143,12 @@ export const SHAOLIN_Q02_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q02_QUEST_ID, 'estate_showdown'),
         effects: [
           { type: 'setFlag', flag: 'sl_q02_depart_triggered', value: true },
-          openScene('scene_slq02_05', SHAOLIN_Q02_QUEST_ID),
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q02_choice', op: 'truthy' },
+            thenEffects: [openScene('scene_slq02_06_tactics', SHAOLIN_Q02_QUEST_ID)],
+            elseEffects: [openScene('scene_slq02_05', SHAOLIN_Q02_QUEST_ID)],
+          },
         ],
       },
     ],
@@ -203,7 +208,12 @@ export const SHAOLIN_Q02_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q02_depart_triggered', value: true },
-          openScene('scene_slq02_05', SHAOLIN_Q02_QUEST_ID),
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q02_choice', op: 'truthy' },
+            thenEffects: [openScene('scene_slq02_06_tactics', SHAOLIN_Q02_QUEST_ID)],
+            elseEffects: [openScene('scene_slq02_05', SHAOLIN_Q02_QUEST_ID)],
+          },
         ],
       },
     ],

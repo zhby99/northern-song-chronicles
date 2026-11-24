@@ -9,7 +9,6 @@ export const SHAOLIN_SIDE03_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 1 },
     qStatus('QST-SECT-01-ENTRY', 'completed'),
     qStatus(SHAOLIN_SIDE03_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 90 },
     { type: 'skillAtLeast', key: '算术', min: 25 },
     { type: 'npcAlive', npcId: 'NPC-0789', npcName: '虚清' },
   ],
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE03_QUESTS: QuestDefinition[] = [
     recommendedRealm: '三流中品',
     maxOpponentRealm: '三流中品（粮行恶护院 · 钱大棒）',
     recommendedNote:
-      '少林寺 Lv.1 外门日常支线（全十幕）。入寺满九十日且算术初成后，于大雄宝殿方丈院钟鼓禅院演武坪随苦行僧虚清领命下山，赴登封县城恒丰粮行采办千僧秋粮，以算术当场识破夹层灌水银暗秤，并 车轮连战 痛扁粮行恶护院追回百两差银。',
+      '少林寺 Lv.1 外门日常支线（全十幕）。算术初成后，于大雄宝殿方丈院钟鼓禅院演武坪随苦行僧虚清领命下山，赴登封县城恒丰粮行采办千僧秋粮，以算术当场识破夹层灌水银暗秤，并 车轮连战 痛扁粮行恶护院追回百两差银。',
     startHint:
-      '拜入嵩山少林寺满九十日且具相当算术造诣后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】寻苦行僧虚清即可领命。',
+      '拜入嵩山少林寺且具相当算术造诣后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】寻苦行僧虚清即可领命。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

@@ -10,7 +10,7 @@ export const SHAOLIN_Q40_START_CONDITION: QuestCondition = {
     qStatus('QST-SECT-01-37', 'completed'),
     qStatus(SHAOLIN_Q40_QUEST_ID, 'not_started'),
     flag('sl_branch', 'eq', 'layman'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 8030 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 900 },
     { type: 'skillAtLeast', key: '经义', min: 85 },
     { type: 'skillAtLeast', key: '策论', min: 65 },
     { type: 'skillAtLeast', key: '书', min: 75 },
@@ -31,9 +31,9 @@ export const shaolinEndingVimalakirtiLaymanQuest: QuestDefinition = {
   recommendedRealm: '宗师中品 ～ 宗师上品',
   maxOpponentRealm: '宗师中品（大辽暗院使 · 耶律赤鹰 / 西夏黑莲客 · 拓跋冥）',
   recommendedNote:
-    '嵩山少林寺终局抉择之三【白衣大居士线 · 俗家护法专属】（全三十二幕）。须为俗家护法弟子（sl_branch == layman）、入寺满 8030 日、完成前序铁腕抉择《QST-SECT-01-37》、经义 ≥ 85、策论 ≥ 65、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600。你一袭白衣长发立于佛前，朗喝“心中有佛何必剃发”，引《维摩诘经》禅语震醒满寺高僧并力退窥伺山门的辽夏邪客；玄慈愧赠《少林达摩袈裟》含笑圆寂；你推玄难大师主掌早课清修，己以白衣大居士总摄少林僧兵与大相国寺、白马寺、莆田南少林天下同盟！',
+    '嵩山少林寺终局抉择之三【白衣大居士线 · 俗家护法专属】（全三十二幕）。须为俗家护法弟子（sl_branch == layman）、入寺满 900 日、完成前序铁腕抉择《QST-SECT-01-37》、经义 ≥ 85、策论 ≥ 65、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600。你一袭白衣长发立于佛前，朗喝“心中有佛何必剃发”，引《维摩诘经》禅语震醒满寺高僧并力退窥伺山门的辽夏邪客；玄慈愧赠《少林达摩袈裟》含笑圆寂；你推玄难大师主掌早课清修，己以白衣大居士总摄少林僧兵与大相国寺、白马寺、莆田南少林天下同盟！',
   startHint:
-    '俗家护法弟子完成《QST-SECT-01-37》、入寺满 8030 日且经义 ≥ 85、策论 ≥ 65、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】即可触发终局。',
+    '俗家护法弟子完成《QST-SECT-01-37》、入寺满 900 日且经义 ≥ 85、策论 ≥ 65、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】即可触发终局。',
   startLocation: {
     regionId: 'shaolin',
     buildingId: 'sl_daxiong',

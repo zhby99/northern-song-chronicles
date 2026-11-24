@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE18_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 4 },
     qStatus(SHAOLIN_SIDE18_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 7600 },
     { type: 'skillAtLeast', key: '经义', min: 88 },
     { type: 'skillAtLeast', key: '书', min: 75 },
     { type: 'npcAlive', npcId: 'NPC-0127', npcName: '玄难' },
@@ -25,9 +24,9 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
   recommendedRealm: '宗师中品',
   maxOpponentRealm: '宗师中品（天竺瑜伽大宗师 · 迦叶尊者 ／ 波斯明火宗师 · 巴赫曼尊使连战）',
   recommendedNote:
-    '少林寺 Lv.4 宗师级压轴秘闻支线（全十八幕）。已登长老首座、入寺满 7600 日且经义与书法皆臻化境后，于达摩院整理初祖秘档时与玄难、玄渡偶然发掘菩提达摩泛海东渡羊皮古卷与海路禅偈。远渡重洋追寻圣物的天竺瑜伽大宗师与波斯明火宗师随之登临少室绝顶万丈冰崖递帖较技，须于云海日出之际以少林禅武连战两名宗师中品异域奇人，以禅武合一折服二人、护住初祖东渡遗图。',
+    '少林寺 Lv.4 宗师级压轴秘闻支线（全十八幕）。已登长老首座、且经义与书法皆臻化境后，于达摩院整理初祖秘档时与玄难、玄渡偶然发掘菩提达摩泛海东渡羊皮古卷与海路禅偈。远渡重洋追寻圣物的天竺瑜伽大宗师与波斯明火宗师随之登临少室绝顶万丈冰崖递帖较技，须于云海日出之际以少林禅武连战两名宗师中品异域奇人，以禅武合一折服二人、护住初祖东渡遗图。',
   startHint:
-    '跻身少林寺四阶首座长老、入寺满 7600 日且经义达 88、书达 75 后，前往【嵩山少林寺 · 达摩面壁石洞 · 东侧密禅室】寻玄难、玄渡即可触发。',
+    '跻身少林寺四阶首座长老、且经义达 88、书达 75 后，前往【嵩山少林寺 · 达摩面壁石洞 · 东侧密禅室】寻玄难、玄渡即可触发。',
   startLocation: {
     regionId: 'shaolin',
     buildingId: 'sl_damo',

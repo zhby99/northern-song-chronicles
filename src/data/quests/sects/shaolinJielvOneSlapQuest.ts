@@ -10,7 +10,7 @@ export const SHAOLIN_Q14_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-13', 'completed'),
     qStatus(SHAOLIN_Q14_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 730 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 150 },
     { type: 'skillAtLeast', key: '经义', min: 55 },
     { type: 'skillAtLeast', key: '书', min: 35 },
     { type: 'skillAtLeast', key: '辩才', min: 30 },
@@ -31,7 +31,7 @@ export const SHAOLIN_Q14_QUESTS: QuestDefinition[] = [
     recommendedNote:
       '嵩山少林寺 Lv.2 戒律药王脉第二回核心任务链（全二十幕）。入寺满二载、完成《钟鼓执杖 · 清规如铁》且经义 ≥ 55、书 ≥ 35、辩才 ≥ 30 后，于钟鼓禅院接获汴京血案急报：城内连死三名富绅，凶手竟留佛珠嫁祸少林！随玄寂驰赴开封大相国寺资圣八角琉璃宝塔会见慧禅，于塔顶亲受地阶绝学《一拍两散掌》，子夜甜水巷屋脊硬撼西夏黑道悍匪「铁罗汉」严横，一掌震碎其横练铁臂擒拿洗冤。',
     startHint:
-      '入寺满 730 日、完成《钟鼓执杖 · 清规如铁》且经义 ≥ 55、书 ≥ 35、辩才 ≥ 30 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】拜见玄寂即可触发。',
+      '入寺满 150 日、完成《钟鼓执杖 · 清规如铁》且经义 ≥ 55、书 ≥ 35、辩才 ≥ 30 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】拜见玄寂即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',

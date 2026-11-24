@@ -18,7 +18,7 @@ export const SHAOLIN_Q21_START_CONDITION: QuestCondition = {
       hint: '完成任一 Lv.2 晋升真传任务',
     },
     qStatus(SHAOLIN_Q21_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1800 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 300 },
     { type: 'skillAtLeast', key: '经义', min: 70 },
     { type: 'npcAlive', npcId: 'NPC-0135', npcName: '玄渡' },
   ],
@@ -34,9 +34,9 @@ export const SHAOLIN_Q21_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品',
     maxOpponentRealm: '一流下品（西夏一品堂轻功谍探 · 云中燕）',
     recommendedNote:
-      '嵩山少林寺真传弟子共通首章（全二十幕）。须晋升少林 Lv.3 真传弟子并完成任一脉晋升试炼，入寺满 1800 日且经义 ≥ 70。赴达摩院飞瀑深潭拜见「芦苇尊者」玄渡，借初祖达摩折苇渡江之禅机领悟少林至高轻功《一苇渡江》；旋即奉命急追窃走少林防务舆图的西夏一品堂轻功谍探「云中燕」，踏苇十里横渡洛水急流将其生擒！',
+      '嵩山少林寺真传弟子共通首章（全二十幕）。须晋升少林 Lv.3 真传弟子并完成任一脉晋升试炼，入寺满 300 日且经义 ≥ 70。赴达摩院飞瀑深潭拜见「芦苇尊者」玄渡，借初祖达摩折苇渡江之禅机领悟少林至高轻功《一苇渡江》；旋即奉命急追窃走少林防务舆图的西夏一品堂轻功谍探「云中燕」，踏苇十里横渡洛水急流将其生擒！',
     startHint:
-      '成为少林 Lv.3 真传弟子、入寺满 1800 日且经义 ≥ 70 后，前往【嵩山少林寺 · 达摩院 · 飞瀑深潭 · 试炼涧（sl_damo_west）】（或寻玄渡）求学《一苇渡江》。',
+      '成为少林 Lv.3 真传弟子、入寺满 300 日且经义 ≥ 70 后，前往【嵩山少林寺 · 达摩院 · 飞瀑深潭 · 试炼涧（sl_damo_west）】（或寻玄渡）求学《一苇渡江》。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',

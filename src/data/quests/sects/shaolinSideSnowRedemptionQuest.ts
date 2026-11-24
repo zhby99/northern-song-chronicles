@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE17_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 4 },
     qStatus(SHAOLIN_SIDE17_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 7400 },
     { type: 'skillAtLeast', key: '经义', min: 85 },
     { type: 'npcAlive', npcId: 'NPC-0112', npcName: '玄慈' },
     { type: 'not', condition: { type: 'flag', flag: 'sl_xuanci_deposed', op: 'truthy' } },
@@ -25,9 +24,9 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
   recommendedRealm: '宗师下品 ～ 宗师中品',
   maxOpponentRealm: '宗师中品（西夏一品堂追魂使 · 玄霜鬼手拓跋烈）',
   recommendedNote:
-    '少林寺 Lv.4 宗师级禅心慈悲支线（全十六幕）。跻身首座长老、入寺满 7400 日且经义湛深后，腊月大雪封山之际于钟鼓禅院遇重伤叛逃的西夏凶徒「断魂铁爪」贺兰枭叩门泣血求庇，山门外西夏一品堂宗师追魂使携关洛仇家逼门讨人。须辨明佛门慈悲与因果之界——先于漫天飞雪山门前独力击退嚣张跋扈的一品堂追魂使，再亲手废去悍匪一生毒爪恶功、罚其披麻扫雪塔林终生赎罪，令关洛苦主心服口服。',
+    '少林寺 Lv.4 宗师级禅心慈悲支线（全十六幕）。跻身首座长老、且经义湛深后，腊月大雪封山之际于钟鼓禅院遇重伤叛逃的西夏凶徒「断魂铁爪」贺兰枭叩门泣血求庇，山门外西夏一品堂宗师追魂使携关洛仇家逼门讨人。须辨明佛门慈悲与因果之界——先于漫天飞雪山门前独力击退嚣张跋扈的一品堂追魂使，再亲手废去悍匪一生毒爪恶功、罚其披麻扫雪塔林终生赎罪，令关洛苦主心服口服。',
   startHint:
-    '跻身少林寺四阶首座长老、入寺满 7400 日且经义达 85 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院】寻玄寂首座即可触发。',
+    '跻身少林寺四阶首座长老、且经义达 85 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院】寻玄寂首座即可触发。',
   startLocation: {
     regionId: 'shaolin',
     buildingId: 'sl_daxiong',

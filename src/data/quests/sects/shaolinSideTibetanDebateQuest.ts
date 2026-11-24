@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE13_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 3 },
     qStatus(SHAOLIN_SIDE13_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 3000 },
     { type: 'skillAtLeast', key: '经义', min: 75 },
     { type: 'skillAtLeast', key: '辩才', min: 50 },
     { type: 'npcAlive', npcId: 'NPC-0360', npcName: '慧光' },
@@ -26,9 +25,9 @@ export const SHAOLIN_SIDE13_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流中品',
     maxOpponentRealm: '一流中品（西夏密宗音功高僧 · 朗达玛）',
     recommendedNote:
-      '少林寺 Lv.3 汴京护法支线（全十四幕）。入寺满 3000 日且经义 ≥ 75、辩才 ≥ 50 后，赴开封府大相国寺大雄宝殿（香云宝鼎）见下院主持慧光、慧空正遭西夏密宗音功高僧朗达玛借因明辩难发难。须移步资圣八角琉璃宝塔法坛连破三道佛理死题，再以浑厚禅功硬抗梵音狮吼并击败朗达玛，赢得满城欢呼并获仁宗御赐赏赉。',
+      '少林寺 Lv.3 汴京护法支线（全十四幕）。、且经义 ≥ 75、辩才 ≥ 50 后，赴开封府大相国寺大雄宝殿（香云宝鼎）见下院主持慧光、慧空正遭西夏密宗音功高僧朗达玛借因明辩难发难。须移步资圣八角琉璃宝塔法坛连破三道佛理死题，再以浑厚禅功硬抗梵音狮吼并击败朗达玛，赢得满城欢呼并获仁宗御赐赏赉。',
     startHint:
-      '跻身少林寺三阶高徒、入寺满 3000 日且经义 ≥ 75、辩才 ≥ 50 后，前往【开封府 · 大相国寺（八角宝塔） · 大雄宝殿（香云宝鼎）】寻慧光、慧空即可触发。',
+      '跻身少林寺三阶高徒、且经义 ≥ 75、辩才 ≥ 50 后，前往【开封府 · 大相国寺（八角宝塔） · 大雄宝殿（香云宝鼎）】寻慧光、慧空即可触发。',
     startLocation: {
       regionId: 'bianliang',
       buildingId: 'bl_xiangguosi',

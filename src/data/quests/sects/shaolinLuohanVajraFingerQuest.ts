@@ -10,7 +10,7 @@ export const SHAOLIN_Q23_START_CONDITION: QuestCondition = {
     { type: 'flag', flag: 'shaolin_disciple_type', op: 'eq', value: 'monk', label: '已剃度出家为少林僧众' },
     qStatus('QST-SECT-01-22', 'completed'),
     qStatus(SHAOLIN_Q23_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 3650 },
+    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 420 },
     { type: 'skillAtLeast', key: '经义', min: 76 },
     { type: 'skillAtLeast', key: '书', min: 60 },
     { type: 'npcAlive', npcId: 'NPC-0156', npcName: '玄痛' },
@@ -27,9 +27,9 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流中品',
     maxOpponentRealm: '一流中品（塞外黑教炼体狂人 · 铁尸尊者）',
     recommendedNote:
-      '嵩山少林寺罗汉堂真传单脉终章（全二十二幕）。须完成《枯木生烟 · 玄苦授刀》、入寺满 3650 日且经义 ≥ 76、书 ≥ 60。于十八铜人木桩廊得玄痛与玄苦合授少林至刚指法《大力金刚指》；适逢塞外黑教炼体狂人「铁尸尊者」血洗巩县石窟佛像并劫持满窟石匠，你奉命下山驰援，于千佛洞前硬撼其横练金身，一指点穿乌金护心铜镜，救下满窟无辜石匠！',
+      '嵩山少林寺罗汉堂真传单脉终章（全二十二幕）。须完成《枯木生烟 · 玄苦授刀》、入寺满 420 日且经义 ≥ 76、书 ≥ 60。于十八铜人木桩廊得玄痛与玄苦合授少林至刚指法《大力金刚指》；适逢塞外黑教炼体狂人「铁尸尊者」血洗巩县石窟佛像并劫持满窟石匠，你奉命下山驰援，于千佛洞前硬撼其横练金身，一指点穿乌金护心铜镜，救下满窟无辜石匠！',
     startHint:
-      '完成《枯木生烟 · 玄苦授刀》、入寺满 3650 日且经义 ≥ 76、书 ≥ 60 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊（sl_luohan_east）】（或寻玄痛）求学《大力金刚指》。',
+      '完成《枯木生烟 · 玄苦授刀》、入寺满 420 日且经义 ≥ 76、书 ≥ 60 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊（sl_luohan_east）】（或寻玄痛）求学《大力金刚指》。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',

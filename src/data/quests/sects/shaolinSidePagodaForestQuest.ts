@@ -9,7 +9,6 @@ export const SHAOLIN_SIDE04_START_CONDITION: QuestCondition = {
     { type: 'inSect', sectId: 'SECT-01', minRank: 1 },
     qStatus('QST-SECT-01-ENTRY', 'completed'),
     qStatus(SHAOLIN_SIDE04_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 150 },
     { type: 'shichenIn', indices: [10, 11, 0, 1], label: '亥时至丑时夜间' },
     { type: 'npcAlive', npcId: 'NPC-0951', npcName: '韩河源' },
   ],
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE04_QUESTS: QuestDefinition[] = [
     recommendedRealm: '三流上品',
     maxOpponentRealm: '三流上品（洛阳摸金头目 · 穿山鬼）',
     recommendedNote:
-      '少林寺 Lv.1 外门日常支线（全十二幕）。入寺满一百五十日后，于亥时至丑时夜间前往达摩面壁石洞绝壁石刻剑痕崖寻塔林洒扫沙弥韩河源，持棍夜巡少林西侧历代高僧塔林，揭穿洛阳摸金校尉涂磷粉装鬼盗掘唐代高僧舍利地宫之阴谋，连败三名盗墓贼护住先辈灵骨。',
+      '少林寺 Lv.1 外门日常支线（全十二幕）。于亥时至丑时夜间前往达摩面壁石洞绝壁石刻剑痕崖寻塔林洒扫沙弥韩河源，持棍夜巡少林西侧历代高僧塔林，揭穿洛阳摸金校尉涂磷粉装鬼盗掘唐代高僧舍利地宫之阴谋，连败三名盗墓贼护住先辈灵骨。',
     startHint:
-      '拜入嵩山少林寺满一百五十日后，于亥时至丑时夜间前往【嵩山少林寺 · 达摩面壁石洞 · 绝壁石刻 · 剑痕崖】寻韩河源即可触发。',
+      '拜入嵩山少林寺后，于亥时至丑时夜间前往【嵩山少林寺 · 达摩面壁石洞 · 绝壁石刻 · 剑痕崖】寻韩河源即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',

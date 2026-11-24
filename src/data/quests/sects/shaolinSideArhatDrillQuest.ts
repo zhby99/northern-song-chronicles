@@ -8,7 +8,6 @@ export const SHAOLIN_SIDE11_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 2 },
     qStatus(SHAOLIN_SIDE11_QUEST_ID, 'not_started'),
-    { type: 'sectDaysAtLeast', sectId: 'SECT-01', min: 1200 },
     { type: 'skillAtLeast', key: '策论', min: 35 },
     { type: 'npcAlive', npcId: 'NPC-0254', npcName: '慧轮' },
     { type: 'npcAlive', npcId: 'NPC-0769', npcName: '虚胜' },
@@ -25,9 +24,9 @@ export const SHAOLIN_SIDE11_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流上品（嵩山绿林狂徒 · 铁锤霸）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门压轴支线（全十二幕）。入寺满一千二百日且策论达三十五后，于十八铜人罗汉堂演武正殿协助慧轮督导虚胜、虚觉等年轻弟子排演“小罗汉阵”；三名嵩山绿林狂徒携双柄重锤闯山门叫阵，你以小罗汉阵困锁群寇并亲出阵眼重创狂徒首领铁锤霸。',
+      '嵩山少林寺 Lv.2 内门压轴支线（全十二幕）。策论达三十五后，于十八铜人罗汉堂演武正殿协助慧轮督导虚胜、虚觉等年轻弟子排演“小罗汉阵”；三名嵩山绿林狂徒携双柄重锤闯山门叫阵，你以小罗汉阵困锁群寇并亲出阵眼重创狂徒首领铁锤霸。',
     startHint:
-      '晋升少林内门且入寺满一千二百日、策论不低于三十五后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿】寻慧轮或虚胜即可触发。',
+      '晋升少林内门策论不低于三十五后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿】寻慧轮或虚胜即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',
