@@ -28,9 +28,9 @@ export const SHAOLIN_Q22_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品 ～ 一流中品',
     maxOpponentRealm: '一流中品（夜探黑影高手）',
     recommendedNote:
-      '嵩山少林寺罗汉堂真传单脉首章（全二十四幕）。须为罗汉堂脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55。时值乔峰蒙冤风波前夕，降魔尊者玄苦隐觉少林寺外黑影幢幢、杀机暗伏，遂于深夜演武殿中以八十一刀劈燃百年枯菩提木，倾囊传授少林七十二绝技《燃木刀法》并提前托付传世宝刀【WPN-013 少林燃木戒刀】；当夜神秘黑影高手夜袭禅房，你挥动烈焰刀风十合逼退强敌！',
+      '嵩山少林寺罗汉堂真传单脉首章（全十幕高交互）。须为罗汉堂脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满 360 日且经义 ≥ 74、书 ≥ 55。降魔尊者玄苦察觉少室山黑影暗伏，深夜于演武正殿劈燃百年枯菩提木考校刀意，传授《燃木刀法》并托付【WPN-013 少林燃木戒刀】；三更神秘黑影破窗夜袭，你择策反伏击逼退强敌！',
     startHint:
-      '罗汉堂脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】（或寻玄苦）聆听深夜授刀。',
+      '罗汉堂脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满 360 日且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】（或寻玄苦）聆听深夜授刀。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_luohan',
@@ -39,7 +39,7 @@ export const SHAOLIN_Q22_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q22_START_CONDITION,
     summary:
-      '{reignYear}入寺七载寒暑，江湖风雨欲来。降魔尊者【玄苦】感念爱徒乔峰在外身陷猜忌暗潮，又察觉近日少室山中屡有深不可测的黑影窥伺罗汉堂，隐隐有山雨欲来之感。深夜子时，玄苦召你独入【罗汉堂演武正殿】，于佛前以八十一刀疾劈百年枯菩提木，刀刃擦风炽热生烟、枯木轰然自燃，当场倾囊传授少林绝技《燃木刀法》，并将镇堂宝刀【少林燃木戒刀】提前托付于你。是夜三更，果有一名身法诡绝、掌力阴寒的一流中品黑影高手潜入禅院暗袭！你手握燃木戒刀挺身护师，以刚猛炽热的烈焰刀风力战十合，硬生生逼退黑影，护得玄苦周全。',
+      '{reignYear}入寺逾载，江湖风雨欲来。降魔尊者【玄苦】感念爱徒乔峰在外身陷猜忌暗潮，又察觉近日少室山中屡有深不可测的黑影窥伺罗汉堂，隐隐有山雨欲来之感。深夜子时，玄苦召你独入【罗汉堂演武正殿】，于佛前以八十一刀疾劈百年枯菩提木，刀风炽热生烟、枯木自燃而无刀痕，当场考校刀意传授《燃木刀法》，并将镇堂宝刀【少林燃木戒刀】托付于你。是夜三更，神秘黑影高手果真破窗夜袭！你执燃木戒刀择策识破敌影，十合烈焰刀风逼退强敌，护得玄苦周全。',
     initialStepId: 'night_guard_luohan',
     steps: {
       night_guard_luohan: {
@@ -75,7 +75,7 @@ export const SHAOLIN_Q22_QUESTS: QuestDefinition[] = [
         spotId: 'sl_luohan_main',
         onceFlag: 'sl_q22_night_triggered',
         condition: atStep(SHAOLIN_Q22_QUEST_ID, 'night_guard_luohan'),
-        effects: [openScene('scene_slq22_14', SHAOLIN_Q22_QUEST_ID)],
+        effects: [openScene('scene_slq22_06', SHAOLIN_Q22_QUEST_ID)],
       },
     ],
 
@@ -99,7 +99,7 @@ export const SHAOLIN_Q22_QUESTS: QuestDefinition[] = [
         id: 'spot_slq22_night_main',
         label: '【罗汉真传】三更手握燃木戒刀护师 · 迎战夜袭黑影高手',
         badge: '烈焰逼影',
-        subtitle: '演武正殿夜战 · 逼退一流中品夜探黑影高手',
+        subtitle: '演武正殿夜战 · 逼退神秘夜探黑影高手',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_luohan',
@@ -110,8 +110,8 @@ export const SHAOLIN_Q22_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q22_shadow_appeared', op: 'truthy' },
-            thenEffects: [openScene('scene_slq22_17', SHAOLIN_Q22_QUEST_ID)],
-            elseEffects: [openScene('scene_slq22_14', SHAOLIN_Q22_QUEST_ID)],
+            thenEffects: [openScene('scene_slq22_07', SHAOLIN_Q22_QUEST_ID)],
+            elseEffects: [openScene('scene_slq22_06', SHAOLIN_Q22_QUEST_ID)],
           },
         ],
       },
@@ -156,8 +156,8 @@ export const SHAOLIN_Q22_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q22_shadow_appeared', op: 'truthy' },
-            thenEffects: [openScene('scene_slq22_17', SHAOLIN_Q22_QUEST_ID)],
-            elseEffects: [openScene('scene_slq22_14', SHAOLIN_Q22_QUEST_ID)],
+            thenEffects: [openScene('scene_slq22_07', SHAOLIN_Q22_QUEST_ID)],
+            elseEffects: [openScene('scene_slq22_06', SHAOLIN_Q22_QUEST_ID)],
           },
         ],
       },

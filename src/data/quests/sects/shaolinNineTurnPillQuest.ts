@@ -31,7 +31,7 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流上品 ～ 宗师下品',
     maxOpponentRealm: '一流上品（西夏一品堂毁炉死士三煞）',
     recommendedNote:
-      '嵩山少林寺 Lv.3 真传合流危机大考（全二十四幕）。须入寺满十七载（6205 日）、完成《剑痕浴血 · 少林九阳》及《扫叶听风》/《暗布天罗》任一线，且经义 ≥ 82、书法 ≥ 70。西夏一品堂与姑苏慕容暗中勾结，于嵩山山泉投下奇毒「悲酥瘟瘴」，寺中数百僧众突发寒热咳血！你需先施展「一苇渡江」奇绝轻功赴达摩院飞瀑深潭绝壁采得千年血灵芝，再独守东厢碑廊药王丹房，车轮连战死战西夏一品堂毁炉死士三煞护炉成药！劫难既平，药王院主玄生亲赠少林天阶无上圣药《少林九转大还丹》！',
+      '嵩山少林寺 Lv.3 真传合流危机大考（全十一幕）。须入寺满 630 日、完成《剑痕浴血 · 少林九阳》及《扫叶听风》/《暗布天罗》任一线，且经义 ≥ 82、书法 ≥ 70。西夏一品堂与姑苏暗流勾结于嵩山山泉投下「悲酥瘟瘴」，数百僧众危在旦夕！你可凭轻功无伤凌空或冒寒强攀于冰崖采得千年血灵芝，复于药王丹炉定君臣佐使火候；面对夜袭丹房的西夏毁炉三煞，更可巧借炉气迷雾先放倒二煞 1v1 斩首领，或以身护炉车轮死战三煞！劫后获药王院主玄生亲赠天阶圣药《少林九转大还丹》！',
     startHint:
       '入寺满 630 日、完成《少林九阳》及《扫叶听风》或《暗布天罗》，且经义 ≥ 82、书 ≥ 70 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】（或寻玄生）应对嵩山投毒瘟劫。',
     startLocation: {
@@ -42,16 +42,16 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q32_START_CONDITION,
     summary:
-      '{reignYear}寒冬，少室山突发骇人瘟劫！西夏一品堂暗桩与姑苏慕容秘使联手在嵩山上游泉眼投下秘制奇毒「悲酥瘟瘴」，少林各院数百僧众相继发热咳血、真气溃散。药王院主【玄生】查明毒源后，急需生于极寒冰壁之上的「千年血灵芝」为君药开炉炼制解毒大丹。你挺身而出，于冰封雪瀑间施展少林绝顶轻功「一苇渡江」，勇赴【达摩院 · 飞瀑深潭 · 试炼涧】采得千年血灵芝归寺。岂料开炉七七四十九刻将成之际，三名西夏一品堂毁炉死士夜袭【东厢碑廊 · 藏经橱】丹房！你独守铜炉之前，车轮连战浴血斩退毁炉三煞，力保药炉不倾、全寺僧众转危为安。劫后玄生倾囊相报，亲赠少林天阶至宝「少林九转大还丹」一枚！',
+      '{reignYear}寒冬，少室山突发骇人瘟劫！西夏一品堂暗桩与江南秘使联手在嵩山上游泉眼投下「悲酥瘟瘴」，少林三百余僧众相继发热咳血。药王院主【玄生】急需生于冰壁的「千年血灵芝」为君药开炉炼制解毒大丹。你挺身赴【达摩院 · 飞瀑深潭 · 试炼涧】采得血灵芝归寺，助玄生定下君臣佐使火候开炉熬药！岂料药成将至之际，西夏一品堂毁炉死士三煞夜闯【东厢碑廊 · 藏经橱】丹房。你或巧借炉气迷雾先破二煞再孤斩首领，或寸步不让车轮血战三煞，终保药鼎鸣龙、全寺僧众转危为安，获赐天阶圣药「少林九转大还丹」！',
     initialStepId: 'fetch_blood_lingzhi',
     steps: {
       fetch_blood_lingzhi: {
         id: 'fetch_blood_lingzhi',
         title: '冰崖采芝 · 一苇渡涧',
         objective:
-          '嵩山山泉遭投毒「悲酥瘟瘴」，数百僧众危在旦夕！请速赴【达摩院 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，踏冰渡潭采摘生于寒壁的「千年血灵芝」！',
+          '嵩山山泉遭投毒「悲酥瘟瘴」，数百僧众危在旦夕！请速赴【达摩院 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，渡冰潭攀绝壁采摘「千年血灵芝」！',
         nextHint:
-          '前往【达摩院 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，点击「施展一苇渡江 · 踏冰崖采摘千年血灵芝」。',
+          '前往【达摩院 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，点击「踏冰崖绝壁 · 采摘千年血灵芝」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_damo',
@@ -61,11 +61,11 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
       },
       guard_pill_furnace: {
         id: 'guard_pill_furnace',
-        title: '独守丹房 · 死战三煞',
+        title: '独守丹房 · 破煞护炉',
         objective:
           '千年血灵芝已入炉化药，丹成尚需半柱香！西夏一品堂毁炉死士三煞已杀至【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】，请火速守住丹房、击溃三煞护炉成药！',
         nextHint:
-          '前往【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】，点击「独守药王丹房 · 死战西夏毁炉死士三煞」。',
+          '前往【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】，点击「独守药王丹房 · 迎战西夏毁炉死士三煞」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_daxiong',
@@ -92,7 +92,7 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
         spotId: 'sl_damo_west',
         onceFlag: 'sl_q32_herb_triggered',
         condition: atStep(SHAOLIN_Q32_QUEST_ID, 'fetch_blood_lingzhi'),
-        effects: [openScene('scene_slq32_06', SHAOLIN_Q32_QUEST_ID)],
+        effects: [openScene('scene_slq32_02', SHAOLIN_Q32_QUEST_ID)],
       },
       {
         id: 'trig_slq32_furnace_east',
@@ -101,7 +101,7 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_east',
         onceFlag: 'sl_q32_furnace_triggered',
         condition: atStep(SHAOLIN_Q32_QUEST_ID, 'guard_pill_furnace'),
-        effects: [openScene('scene_slq32_13', SHAOLIN_Q32_QUEST_ID)],
+        effects: [openScene('scene_slq32_06_defense_choice', SHAOLIN_Q32_QUEST_ID)],
       },
     ],
 
@@ -123,7 +123,7 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_slq32_herb_west',
-        label: '【少林瘟劫】施展一苇渡江 · 踏冰崖采摘千年血灵芝',
+        label: '【少林瘟劫】踏冰崖绝壁 · 采摘千年血灵芝',
         badge: '冰崖采芝',
         subtitle: '飞瀑深潭 · 试炼涧',
         tone: 'gold',
@@ -133,14 +133,14 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q32_QUEST_ID, 'fetch_blood_lingzhi'),
         effects: [
           { type: 'setFlag', flag: 'sl_q32_herb_triggered', value: true },
-          openScene('scene_slq32_06', SHAOLIN_Q32_QUEST_ID),
+          openScene('scene_slq32_02', SHAOLIN_Q32_QUEST_ID),
         ],
       },
       {
         id: 'spot_slq32_furnace_east',
-        label: '【少林瘟劫】独守药王丹房 · 死战西夏毁炉死士三煞',
+        label: '【少林瘟劫】独守药王丹房 · 迎战西夏毁炉死士三煞',
         badge: '护炉血战',
-        subtitle: '东厢碑廊（车轮连战 死战）',
+        subtitle: '东厢碑廊（迷雾拆阵 1v1 / 车轮死战三煞）',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
@@ -148,7 +148,7 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q32_QUEST_ID, 'guard_pill_furnace'),
         effects: [
           { type: 'setFlag', flag: 'sl_q32_furnace_triggered', value: true },
-          openScene('scene_slq32_13', SHAOLIN_Q32_QUEST_ID),
+          openScene('scene_slq32_06_defense_choice', SHAOLIN_Q32_QUEST_ID),
         ],
       },
     ],
@@ -189,7 +189,7 @@ export const SHAOLIN_Q32_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q32_furnace_triggered', value: true },
-          openScene('scene_slq32_13', SHAOLIN_Q32_QUEST_ID),
+          openScene('scene_slq32_06_defense_choice', SHAOLIN_Q32_QUEST_ID),
         ],
       },
     ],

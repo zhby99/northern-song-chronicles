@@ -21,190 +21,218 @@ const SPEAKER_BLACK_SHADOW: StorySpeakerSpec = {
   avatarUrl: '/assets/characters/templates/tpl_liao_spy_male_av.jpg',
 }
 
-function buildPavilionShadowOpponent(): NodeNpc {
+function buildPavilionShadowOpponent(mode: 'zen' | 'fierce'): NodeNpc {
+  const isZen = mode === 'zen'
   return makeQuestNpc({
-    id: 'QUEST_SLQ28_BLACK_SHADOW',
+    id: isZen ? 'QUEST_SLQ28_BLACK_SHADOW_ZEN' : 'QUEST_SLQ28_BLACK_SHADOW',
     name: '藏经阁黑衣夜影',
-    title: '琉璃雨夜截击 · 试探五合',
+    title: isZen ? '琉璃雨夜截击 · 禅定卸锋五合' : '琉璃雨夜截击 · 凌厉试探五合',
     realm: '宗师下品',
     factionName: '未知高人',
     sectRank: 4,
     sectRankLabel: '蒙面宗师',
     avatarUrl: '/assets/characters/templates/tpl_liao_spy_male_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_liao_spy_male_fb.jpg',
-    talk: '“少林小辈倒有几分眼力，可惜这五合之间，你连老夫衣角也摸不着！”',
-    stats: { hp: 4180, mp: 3950, agi: 80, res: 68 },
+    talk: isZen
+      ? '“小和尚竟懂得借松涛禅定卸我刚猛掌锋？倒有点少林正宗的味道，接住这五合再说！”'
+      : '“少林小辈好大胆子，竟敢抢攻老夫中宫？五合之内，看你挡不挡得住！”',
+    stats: isZen
+      ? { hp: 3920, mp: 3720, agi: 76, res: 64 }
+      : { hp: 4180, mp: 3950, agi: 80, res: 68 },
     talents: { bone: 90, comprehension: 90, charm: 68 },
     equippedArts: { neigong: 'MA-060', move1: 'MA-044', move2: 'MA-083' },
-    learnedArts: [{ artId: 'MA-060', level: 8 }, { artId: 'MA-044', level: 8 }, { artId: 'MA-083', level: 8 }],
+    learnedArts: [
+      { artId: 'MA-060', level: 8 },
+      { artId: 'MA-044', level: 8 },
+      { artId: 'MA-083', level: 8 },
+    ],
   })
 }
 
 export const SCENES: Record<string, StorySceneDef> = {
   scene_slq28_01: {
     id: 'scene_slq28_01',
-    title: '第一幕 · 七夕曝书',
+    title: '第一幕 · 七夕曝书 · 湿印惊心',
     subtitle: '藏经阁 · 西厢晒经校勘石台',
     mandatory: true,
     beats: [
-      N('{reignYear}七月初七，正是少林寺一年一度「晒经曝书」大节。午后天色骤沉，少室山顶乌云压檐，西厢晒经校勘石台上铺陈的数百函唐宋贝叶孤本被狂风吹得哗啦翻卷。'),
-      S('NPC-0498', '（抱着一摞《华严经》急步奔来，额头满是细汗）“{playerName}师弟来得正好！西南峰已起雷鸣，快帮我与虚光把这几匣最珍贵的唐抄孤本收进主阁二楼，切莫沾了半分雨水！”'),
-      S('NPC-0648', '（合起竹匾，眉头紧锁望向主阁琉璃瓦顶）“奇怪……方才我搬运《般若心经》回东橱时，明明记得『般若』『禅定』两格的樟木插销是反锁着的，怎的松开了一指宽的缝隙？”'),
-      P('（接过经匣，目光扫过石台青砖）“虚光师兄莫急，先把经卷抢收归橱。待雨势稍歇，我亲去主阁查验封条。”'),
+      N('{reignYear}七月初七，正是嵩山少林寺一年一度「晒经曝书」大节。午后少室山顶乌云骤压，一道惨白电光撕裂暮色，豆大雨点如铁珠般砸落西厢晒经石台！你与虚广、虚光急忙抢收数百函唐宋贝叶孤本送入回廊，僧衣已尽数湿透。'),
+      S('NPC-0498', '（抱着《华严经》匣长舒一口气，忽又压低嗓音）“{playerName}师弟，方才点验书目时我发现怪事——《般若掌图录》与《摩诃指注疏》的竹签次序被人挪了半寸，连『般若』『禅定』两格的樟木插销也松开了一指宽的缝隙！”'),
+      S('NPC-0648', '（神色凝重地望向暴雨中的琉璃主阁）“并非今日才如此。近三五年来每逢晦夜大雨，二楼经橱总隐隐飘出极淡的陈年沉水与松烟墨香，偏偏去查时连半个贼影也寻不见！”'),
+      N('你提过一盏防风琉璃罩灯俯身细勘石阶回廊，竟在廊柱阴影下瞥见半枚极浅的窄长草鞋湿印——落地不过两刻钟，足底受力轻如飘絮，绝非少林制式僧履！虚广变色欲去鸣钟唤武僧，你却抬手止住了他。'),
     ],
-    onFinishEffects: [openScene('scene_slq28_02', SHAOLIN_Q28_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq28_start_silent',
+        label: '【止钟暗察】令虚广、虚光静守西厢与暗梯，莫打草惊蛇，孤身提灯入主阁！',
+        subLabel: '承接任务，前往【重檐琉璃藏经主阁】勘察经橱异状',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q28_patrol_mode', value: 'stealth' },
+          { type: 'startQuest', questId: SHAOLIN_Q28_QUEST_ID, stepId: 'night_pavilion_patrol' },
+          setStep(SHAOLIN_Q28_QUEST_ID, 'night_pavilion_patrol'),
+          toast(
+            '已开启《琉璃夜影 · 曝书惊变》！请前往【重檐琉璃藏经主阁（sl_cj_pavilion）】夜巡查探。',
+            'talk',
+            '曝书惊变',
+          ),
+        ],
+      },
+      {
+        id: 'slq28_start_cordon',
+        label: '【暗抄底册】嘱虚广核对借阅书目、虚光暗卡东厢角门，你提灯直探琉璃主阁！',
+        subLabel: '承接任务，前往【重檐琉璃藏经主阁】勘察经橱异状',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q28_patrol_mode', value: 'cordon' },
+          { type: 'startQuest', questId: SHAOLIN_Q28_QUEST_ID, stepId: 'night_pavilion_patrol' },
+          setStep(SHAOLIN_Q28_QUEST_ID, 'night_pavilion_patrol'),
+          toast(
+            '已开启《琉璃夜影 · 曝书惊变》！请前往【重檐琉璃藏经主阁（sl_cj_pavilion）】夜巡查探。',
+            'talk',
+            '曝书惊变',
+          ),
+        ],
+      },
+    ],
   },
 
   scene_slq28_02: {
     id: 'scene_slq28_02',
-    title: '第二幕 · 倾盆骤雨',
-    subtitle: '藏经阁 · 西厢晒经校勘石台',
+    title: '第二幕 · 阁中勘微 · 蛛丝马迹',
+    subtitle: '藏经阁 · 重檐琉璃藏经主阁一层（细节推演）',
     mandatory: true,
     beats: [
-      N('话音刚落，一道惨白电光撕裂暮色，豆大雨点如铁珠般砸落青石台面。三人手脚麻利地将最后一匣贝叶经送入回廊避雨，衣衫已尽数湿透。'),
-      S('NPC-0498', '（长舒一口气，抹去脸上雨水）“阿弥陀佛，总算没叫雨水浸坏半页经文。只是方才盘点书目时，我瞧见《般若掌图录》与《摩诃指注疏》的竹签次序竟被人挪动过半寸……”'),
-      S('NPC-0648', '（压低声音，神色凝重）“并非今日才如此！近三五年来，每逢大雨晦夜，二楼经橱总有极淡的松烟墨香与陈年沉水气，可咱们去查时却连半个脚印都寻不见。”'),
+      N('你收束呼吸推开主阁侧扉，浓重的樟木与旧纸气息扑面而来。一层大藏经架寂然无声，唯窗外骤雨敲打琉璃瓦檐噼啪作响。你借着风灯微光与闪电幽芒，细细勘察阁中三处寻常人绝难留意的痕迹——'),
+      N('其一，窗外重檐琉璃瓦上积水映电如镜，沿瓦槽顺流而下，竟无半分飞贼翻窗踩踏溅起的水渍泥痕；其二，阁门铁闩与黄铜暗锁严丝合缝，锁孔内积尘未动，绝无铁丝撬拨刮擦之迹。'),
+      N('其三，你行至偏架细嗅《袈裟伏魔功》与《般若掌》两匣旧抄——经卷放回原位分毫不差，书脊却残留着一缕极淡的陈年旧檀香，其间竟夹杂着一丝若有若无的塞外胡马熟皮气息！'),
+      P('（心中电光石火般将三处迹象串连一处，暗暗推演来人底细）“屋瓦积水未扰、铜锁完好无损、翻阅绝技后复归原位且檀香与塞外革气交织……莫非——”'),
     ],
-    onFinishEffects: [openScene('scene_slq28_03', SHAOLIN_Q28_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq28_deduce_thief',
+        label: '必是江湖飞贼趁暴雨撬窗入阁盗经，因听见寺僧抢书动静才仓促逃遁',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q28_deduce_pick', value: 'thief' },
+          openScene('scene_slq28_03', SHAOLIN_Q28_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq28_deduce_lurker',
+        label: '绝非寻常飞贼，而是长年潜伏少林暗处的绝顶高人，熟稔阁中陈设、阅毕复归原位',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q28_shadow_deduced', value: true },
+          { type: 'setFlag', flag: 'sl_q28_deduce_pick', value: 'lurker' },
+          openScene('scene_slq28_03', SHAOLIN_Q28_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq28_deduce_monk',
+        label: '多半是寺内某位贪功执事私藏钥匙偷阅绝技，畏惧戒律院责罚才悄悄放回',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q28_deduce_pick', value: 'monk' },
+          openScene('scene_slq28_03', SHAOLIN_Q28_QUEST_ID),
+        ],
+      },
+    ],
   },
 
   scene_slq28_03: {
     id: 'scene_slq28_03',
-    title: '第三幕 · 湿印疑踪',
-    subtitle: '藏经阁 · 西厢石阶回廊',
+    title: '第三幕 · 琉璃夜影 · 无声对掌',
+    subtitle: '藏经阁 · 重檐琉璃藏经主阁二层',
+    illustrationUrl: '/assets/quests/sl_28_rain_pavilion.jpg',
+    illustrationCaption: '琉璃夜影 · 七夕暴雨夜藏经主阁，灰衣老僧与黑衣客无声对掌',
     mandatory: true,
     beats: [
-      N('你提过一盏防风琉璃罩灯，俯身细察西厢石台通往主阁的青石回廊。在廊柱阴影处，竟赫然留着半枚极浅的草鞋湿印——鞋尖窄而长，绝非少林制式僧履！'),
-      P('（以指尖轻蘸湿印边缘泥沙，辨其干湿）“这枚足印落地不过两刻钟，且足底受力极轻，踏在青石上竟无半点水花溅痕——来人轻功已臻登峰造极之境！”'),
-      S('NPC-0498', '（脸色微变）“莫非今夜暴雨掩声，那盗经高人又潜入藏经主阁了？咱们快去敲钟禀报戒律院！”'),
+      N('{ifFlag:sl_q28_shadow_deduced|念头方落，你背脊骤然生寒——能令铜锁无痕、瓦水不惊且从容归卷者，普天之下唯长年潜伏古刹的绝世高人方能为之！话音未落，二楼木板深处忽传来一丝极细微的「嗤嗤」气劲震颤！|念头方起，二楼木板深处忽传来一丝令人毛骨悚然的「嗤嗤」声——那绝非寻常飞贼或贪功执事所能发出的动静，而是两股沛然莫御的绝顶内力正隔空相激！}'),
+      N('你屏息沿旋梯无声掠上二楼。恰在此时惊雷乍亮，惨白电光透过雕花木棂倾泻而入——只见「七十二绝技」经橱前的狭长过道里，两道人影正凌空无声对掌！'),
+      N('左首一人身披宽大灰布旧僧袍，身形清瘦而隐带江南世家儒雅气度，双掌划弧似借力打力；右首一人黑衣蒙面、魁伟如山，掌势雄浑霸烈如北地苍狼！二人内力俱已登峰造极，双掌相交竟无半点爆响，只将周遭数十卷佛经齐齐震得浮空半寸，又随劲力收发悄然落回原位！'),
+      S(SPEAKER_GRAY_MONK_SHADOW, '（觉察楼梯阴影中你的微弱脚步，沙哑压低嗓音，拂袖倒退三步）“哼，少林小辈倒会挑时辰。今日之账，来日再算！”'),
+      S(SPEAKER_BLACK_SHADOW, '（黑巾下双目寒芒暴涨，反手拍开西窗欲纵入松林）“藏头露尾的老匹夫，跑得了和尚跑不了庙！——小和尚，滚开！”'),
     ],
     onFinishEffects: [openScene('scene_slq28_04', SHAOLIN_Q28_QUEST_ID)],
   },
 
   scene_slq28_04: {
     id: 'scene_slq28_04',
-    title: '第四幕 · 止钟暗察',
-    subtitle: '藏经阁 · 西厢晒经校勘石台',
-    mandatory: true,
-    beats: [
-      P('（抬手按住虚广肩头，沉声道）“且慢！若此刻贸然鸣钟惊动全寺，来人轻功盖世，必在武僧合围前遁出少室山，反而打草惊蛇。你二人守住西厢门户与暗梯，切莫露声色，我独自提灯入主阁探个虚实！”'),
-      S('NPC-0648', '（双手合十，神色肃然）“师弟如今已是本寺真传高手，可那盗经之人深不可测，千万不可硬拼，但求看清来路便好！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_05', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_05: {
-    id: 'scene_slq28_05',
-    title: '第五幕 · 提灯赴阁',
-    subtitle: '藏经阁 · 雨幕长阶',
-    mandatory: true,
-    beats: [
-      N('夜雨如瀑，重檐琉璃藏经主阁在电闪雷鸣中宛如一头沉默盘踞的青铜巨兽。你收束全身气息，将呼吸压至若有若无，踏着雨声节拍迈向主阁朱漆大门。'),
-    ],
-    choices: [
-      {
-        id: 'slq28_start_patrol',
-        label: '敛息提灯，前往重檐琉璃藏经主阁夜探异动！',
-        tone: 'danger',
-        effects: [
-          { type: 'startQuest', questId: SHAOLIN_Q28_QUEST_ID, stepId: 'night_pavilion_patrol' },
-          setStep(SHAOLIN_Q28_QUEST_ID, 'night_pavilion_patrol'),
-          toast('已开启《琉璃夜影 · 曝书惊变》！请前往重檐琉璃藏经主阁查探。', 'talk', '曝书惊变'),
-          openScene('scene_slq28_06', SHAOLIN_Q28_QUEST_ID),
-        ],
-      },
-    ],
-  },
-
-  scene_slq28_06: {
-    id: 'scene_slq28_06',
-    title: '第六幕 · 阁中寂然',
-    subtitle: '藏经阁 · 重檐琉璃藏经主阁一层',
-    mandatory: true,
-    beats: [
-      N('推开主阁侧扉，浓重的樟木与旧纸气息扑面而来。一层佛经大藏寂静无声，唯有窗外骤雨敲打琉璃檐角的噼啪乱响。'),
-      N('你屏息倾听，忽然察觉二楼木地板深处传来一丝极其细微的「嗤嗤」声——并非虫蛀，而是两股沛然莫御的纯厚内力隔空相激、擦过经橱木棱的震颤！'),
-      P('（心中剧震，暗暗提聚十成内功护住心脉）“二楼竟不止一人！是谁敢在少林藏经阁内动掌交手？”'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_07', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_07: {
-    id: 'scene_slq28_07',
-    title: '第七幕 · 琉璃夜影',
-    subtitle: '藏经阁 · 重檐琉璃藏经主阁二层',
-    illustrationUrl: '/assets/quests/sl_28_rain_pavilion.jpg',
-    illustrationCaption: '琉璃夜影 · 七夕暴雨夜藏经主阁，灰衣老僧与黑衣客无声对掌',
-    mandatory: true,
-    beats: [
-      N('你沿旋梯无声掠上二楼。恰在此时，窗外惊雷乍亮，惨白电光透过雕花木棂倾泻而入——只见「七十二绝技」经橱前的狭长过道里，两道人影正凌空对掌！'),
-      N('左首一人身披宽大灰布旧僧袍，身形瘦削却隐隐透出江南世家般的儒雅气度，双掌划弧似借力打力；右首一人黑衣蒙面、身躯魁伟如山，掌势雄浑刚猛，一举一动皆带北地苍狼般的惨烈霸气！'),
-      N('更令你毛骨悚然的是：二人内力俱已登峰造极，双掌相交竟无半点爆响，只将周遭经橱里数十卷佛经震得齐齐浮起半寸，又随劲力收发悄然落回原位！'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_08', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_08: {
-    id: 'scene_slq28_08',
-    title: '第八幕 · 双雄惊觉',
-    subtitle: '藏经阁 · 重檐琉璃藏经主阁二层',
-    mandatory: true,
-    beats: [
-      N('你脚下木板微微一沉，虽轻如落羽，仍逃不过两位绝世高手的耳目！二人同时收掌倒退三步，目光如冷电般齐齐射向楼梯阴影处！'),
-      S(SPEAKER_GRAY_MONK_SHADOW, '（沙哑嗓音刻意压低，听不出原声，只淡然一拂灰袖）“哼，少林小辈倒会挑时辰。今日之账，来日再算！”'),
-      S(SPEAKER_BLACK_SHADOW, '（黑巾下双目寒芒暴涨，冷笑一声）“藏头露尾的老匹夫，跑得了和尚跑不了庙！——小和尚，滚开！”'),
-      N('灰衣老僧身形如一缕青烟，撞开东窗破雨而去；黑衣高大客人则顺势一掌拍开西窗，欲借飞檐纵入后山松林！'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_09', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_09: {
-    id: 'scene_slq28_09',
-    title: '第九幕 · 破窗截影',
-    subtitle: '藏经阁 · 琉璃飞檐外',
-    mandatory: true,
-    beats: [
-      P('（暴喝一声，足尖一点栏杆化作离弦之箭扑向西窗）“盗阅少林典籍，岂容尔等来去自如！留下名号来！”'),
-      N('你借暴雨掩护连踏三道琉璃飞檐，竟硬生生截在黑衣夜行客落脚的古松枝头之前！那黑衣客见去路受阻，眼中闪过一丝讶色，随即反手一掌拍落松枝积雨，漫天雨箭迎面激射而来！'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_10', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_10: {
-    id: 'scene_slq28_10',
-    title: '第十幕 · 松林雨战',
-    subtitle: '藏经阁外松林 · 试探五合',
+    title: '第四幕 · 古松雨幕 · 五合试锋',
+    subtitle: '藏经阁外古松林 · 试探五合（宗师下品）',
     illustrationUrl: '/assets/quests/sl_28_pine_chase.jpg',
     illustrationCaption: '松林雨幕 · 截击藏经阁黑衣夜影，五合之间惊见宗师绝威',
     mandatory: true,
     beats: [
-      S(SPEAKER_BLACK_SHADOW, '（嗓音沉浑如闷雷，掌势虽未尽全力却已山崩海啸般压来）“好俊的少林真传！念你并非那姓慕容的奸贼一伙，老夫只试你五合——接得住便留你活口！”'),
-      N('狂风卷雨，松涛怒吼！此人内力之雄厚宛如江海倒灌，五合之内须得全力周旋，窥其武学路数！'),
+      N('灰衣老僧如一缕青烟掠出东窗没入暴雨，你暴喝一声足尖点栏，连踏三道琉璃飞檐，竟硬生生截在黑衣夜行客落脚的古松枝头之前！那黑衣客眼中闪过一丝讶色，反手一掌拍落松枝积雨，漫天雨箭迎面激射而来！'),
+      S(SPEAKER_BLACK_SHADOW, '（嗓音沉浑如闷雷，雄浑内力如江海倒灌压得松涛怒吼）“好俊的少林真传！念你并非那姓慕容的奸贼一伙，老夫只试你五合——接得住便留你活口！”'),
+      N('狂风卷雨，此人修为深不可测，每一掌皆带着惨烈苍茫的宗师绝威！你须在五合之内稳住阵脚，窥其武学路数！'),
     ],
     choices: [
       {
-        id: 'slq28_fight_shadow',
-        label: '提聚毕生内力，与黑衣夜影在松林雨幕中交锋五合！',
-        tone: 'danger',
+        id: 'slq28_stance_zen',
+        label: '【运禅定以静守御】借松涛雨声稳守中宫、卸力化劲，细察其掌势底细！（撑过 5 合）',
+        subLabel: '以佛学禅定消解黑影三分杀锋，稳守五合即可逼退黑影',
+        tone: 'jade',
+        condition: { type: 'skillAtLeast', key: '经义', min: 75 },
         effects: [
+          { type: 'setFlag', flag: 'sl_q28_stance', value: 'zen' },
           {
             type: 'startCombat',
             questId: SHAOLIN_Q28_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildPavilionShadowOpponent() },
-            rule: 'spar',
+            opponent: { kind: 'custom', npc: buildPavilionShadowOpponent('zen') },
+            rule: 'survive_rounds',
             maxRounds: 5,
             forbidEscapeReason: '黑衣夜影气机已锁死松林方圆三丈，唯有硬接五合方能脱身！',
-            introText: '暴雨如注，藏经阁黑衣夜影掌风如潮袭来！切记稳守反击，熬过或击退这五合试探！',
+            introText: '【禅定守御 · 五合试锋】暴雨如注，稳守中宫撑满 5 合（或提前击退黑衣夜影）即可破局！',
             onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               { type: 'setFlag', flag: 'sl_q28_shadow_fought', value: true },
-              openScene('scene_slq28_11', SHAOLIN_Q28_QUEST_ID),
+              openScene('scene_slq28_05', SHAOLIN_Q28_QUEST_ID),
             ],
             onDraw: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               { type: 'setFlag', flag: 'sl_q28_shadow_fought', value: true },
-              openScene('scene_slq28_11', SHAOLIN_Q28_QUEST_ID),
+              openScene('scene_slq28_05', SHAOLIN_Q28_QUEST_ID),
             ],
             onLose: [
-              openScene('scene_slq28_12', SHAOLIN_Q28_QUEST_ID),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              { type: 'setFlag', flag: 'sl_q28_shadow_fought', value: true },
+              openScene('scene_slq28_06', SHAOLIN_Q28_QUEST_ID),
+            ],
+          },
+        ],
+      },
+      {
+        id: 'slq28_stance_fierce',
+        label: '【凌厉抢攻试其底细】不避宗师锋芒，抢攻中宫逼黑衣夜影显露真路数！（撑过 5 合）',
+        subLabel: '零门槛正面抢攻；撑过 5 合或力战不屈皆可推进剧情',
+        tone: 'danger',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q28_stance', value: 'fierce' },
+          {
+            type: 'startCombat',
+            questId: SHAOLIN_Q28_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildPavilionShadowOpponent('fierce') },
+            rule: 'survive_rounds',
+            maxRounds: 5,
+            forbidEscapeReason: '黑衣夜影气机已锁死松林方圆三丈，唯有硬接五合方能脱身！',
+            introText: '【抢攻试锋 · 五合交手】藏经阁黑衣夜影掌风如潮袭来！全力周旋 5 合试其底细！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              { type: 'setFlag', flag: 'sl_q28_shadow_fought', value: true },
+              openScene('scene_slq28_05', SHAOLIN_Q28_QUEST_ID),
+            ],
+            onDraw: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              { type: 'setFlag', flag: 'sl_q28_shadow_fought', value: true },
+              openScene('scene_slq28_05', SHAOLIN_Q28_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              { type: 'setFlag', flag: 'sl_q28_shadow_fought', value: true },
+              openScene('scene_slq28_06', SHAOLIN_Q28_QUEST_ID),
             ],
           },
         ],
@@ -212,228 +240,195 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq28_11: {
-    id: 'scene_slq28_11',
-    title: '第十一幕 · 掌风惊退',
+  scene_slq28_05: {
+    id: 'scene_slq28_05',
+    title: '第五幕 · 五合惊退 · 松针余威',
     subtitle: '藏经阁外古松林',
     mandatory: true,
     beats: [
-      N('第五合掌风轰然相撞，碗口粗的古松树干竟被气劲削去半边树皮！你虎口震裂，连退七步方稳住身形，而那黑衣夜行客却也微微一晃，眼中透出几分难以掩饰的赞叹。'),
-      S(SPEAKER_BLACK_SHADOW, '（冷哼一声，却未再下杀手，反手将一蓬松针震向半空遮蔽视线）“少林寺新一代里，倒还真养出个有骨气的真传弟子！只是凭你今日修为，还管不了藏经阁里三十年的血海旧债！”'),
-      N('话音犹在雨幕中回荡，黑衣夜行客已如大鹏展翅般掠过绝壁松梢，转瞬没入茫茫雨夜，再无踪影。'),
+      N('第五合掌风轰然相撞，碗口粗的古松树干竟被气劲削去半边树皮！{ifFlagEq:sl_q28_stance=zen|你以禅定心法借势卸力，连退五步便稳住足根，反将对方掌风中那股惨烈北地刚劲看得清清楚楚！|你虎口震裂、连退七步方稳住身形，却以凌厉反击逼得黑衣客微晃半寸，显露出一丝少林大力金刚指与伏魔杖的化用影子！}'),
+      S(SPEAKER_BLACK_SHADOW, '（眼中闪过一抹难以掩饰的激赏，却未再下杀手，反手震起漫天松针遮蔽雨幕）“少林寺新一代里，倒还真养出个有骨气的真传弟子！只是凭你今日修为，还管不了藏经阁里三十年的血海旧债！”'),
+      N('话音犹在雨夜回荡，黑衣夜行客已如大鹏展翅般掠过绝壁松梢，转瞬没入茫茫山雨，再无踪影。你强压翻涌气血，冒雨疾返琉璃主阁。'),
     ],
-    onFinishEffects: [openScene('scene_slq28_13', SHAOLIN_Q28_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq28_07', SHAOLIN_Q28_QUEST_ID)],
   },
 
-  scene_slq28_12: {
-    id: 'scene_slq28_12',
-    title: '第十二幕 · 气劲震伤',
+  scene_slq28_06: {
+    id: 'scene_slq28_06',
+    title: '第五幕 · 气劲震退 · 手下留情',
     subtitle: '藏经阁外古松林',
     mandatory: true,
     beats: [
-      N('那黑衣夜行客的掌力沉雄霸道至极，你一时大意被其隔空掌风扫中肩头，整个人倒飞数丈跌入湿滑松针堆中，胸口气血翻涌不止。'),
-      S(SPEAKER_BLACK_SHADOW, '（居高临下冷瞥一眼，并未补掌，转身隐入雨雾）“这点火候也敢来拦老夫？回寺里再练十年罢！”'),
-      P('（强忍胸口剧痛翻身跃起，望向空荡松林，心头暗凛）“此人武功深不可测，虽只一触即分，却分明在最后一刻收了三成杀劲……待我调息片刻，定要回阁查明他们究竟在抢何物！”'),
+      N('那黑衣夜行客的掌力沉雄霸道至极，纵你拼力抵挡，仍被其隔空掌风扫中肩头，整个人倒滑数丈跌入湿滑松针堆中，胸口气血剧烈翻涌。'),
+      S(SPEAKER_BLACK_SHADOW, '（居高临下冷瞥一眼，并未补掌，转身纵入雨雾）“这点火候也敢来拦老夫？回寺里再练十年罢！少林藏经阁三十年的血海旧债，不是你这小和尚管得了的！”'),
+      P('（翻身跃起，拂去僧袍松针，心头暗凛）“此人武功深不可测，可方才掌力及身最后一瞬竟收了三成杀劲，显然无意取我性命……事不宜迟，快回主阁查明他们究竟在抢何物！”'),
     ],
-    onFinishEffects: [
-      { type: 'healPlayer', hpPct: 50, mpPct: 50 },
-      { type: 'setFlag', flag: 'sl_q28_shadow_fought', value: true },
-      openScene('scene_slq28_13', SHAOLIN_Q28_QUEST_ID),
-    ],
+    onFinishEffects: [openScene('scene_slq28_07', SHAOLIN_Q28_QUEST_ID)],
   },
 
-  scene_slq28_13: {
-    id: 'scene_slq28_13',
-    title: '第十三幕 · 重返主阁',
-    subtitle: '藏经阁 · 重檐琉璃藏经主阁二层',
-    mandatory: true,
-    beats: [
-      N('你冒雨折返重檐琉璃藏经主阁二层。虚广、虚光闻得雷雨声中夹杂的掌风震响，早已提灯急奔上楼，见你僧衣湿透、虎口渗血，皆大惊失色。'),
-      S('NPC-0498', '（连忙递上干布与金创药）“{playerName}师弟！方才那两股如山岳崩塌般的气劲……当真有人潜入二楼交手了？经橱里的七十二绝技秘籍可有失窃？”'),
-      P('（接过琉璃灯，快步走向「般若」「禅定」两座经橱）“快随我逐格清点！那二人仓促破窗而去，必有遗落之物！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_14', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_14: {
-    id: 'scene_slq28_14',
-    title: '第十四幕 · 经橱无失',
-    subtitle: '藏经阁 · 重檐琉璃藏经主阁二层',
-    mandatory: true,
-    beats: [
-      N('三人挑灯细查半个时辰，结果却叫虚广、虚光面面相觑——橱内七十二绝技与历代高僧手注竟一卷未少，连镇阁的《洗髓经》残抄与《金刚禅狮子吼》竹匣都纹丝未动！'),
-      S('NPC-0648', '（百思不得其解）“怪事！绝世高手冒着天下大不韪潜入少林藏经阁，连番斗掌，却一卷书都不偷，图的是什么？”'),
-      P('（俯身抚过经案底沿一道极细的木缝，指尖忽触到两片冰凉坚韧的宣纸角）“书虽未偷，却早已被人日复一日地读透、抄透了！你们看——这是什么？”'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_15', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_15: {
-    id: 'scene_slq28_15',
-    title: '第十五幕 · 案缝双笺',
+  scene_slq28_07: {
+    id: 'scene_slq28_07',
+    title: '第六幕 · 经橱无失 · 案缝双笺',
     subtitle: '藏经阁 · 重檐琉璃藏经主阁二层',
     illustrationUrl: '/assets/quests/sl_28_two_notes.jpg',
     illustrationCaption: '案缝双笺 · 纸背指印各异，一份飘逸江南行楷，一份刚烈北地劲笔',
     mandatory: true,
     beats: [
-      N('你将两张从案缝夹出的残纸摊在琉璃灯下细观。凭你多年书法功底与经义造诣，一眼便看出这两张批注出自截然不同的两人之手！'),
-      N('左首一张以极细的姑苏狼毫小楷写就，笔锋飘逸灵动，专批《无相劫指》与《般若掌》的借力化劲之法，纸背留有一道极浅的剑指印痕，隐隐透着一股江南世家「以彼之道、还施彼身」的机巧气度。'),
-      N('右首一张却是以枯枝蘸墨疾书，笔力透背、横折如刀，批注《伏魔杖法》与《大力金刚指》时字字皆透着惨烈悲愤，纸角更被一双雄浑大手捏出五道深陷指印！'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_16', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_16: {
-    id: 'scene_slq28_16',
-    title: '第十六幕 · 暗流惊心',
-    subtitle: '藏经阁 · 重檐琉璃藏经主阁二层',
-    mandatory: true,
-    beats: [
-      P('（凝视两张残纸上的朱砂日期印痕，背脊生出一股寒意）“你们看这墨色新旧……最早的一处批注，竟已是十余年前的旧墨！这两个人，恐怕已在少林藏经阁里潜伏了整整十几年，彼此暗中窥伺，直到今夜才终于撞破对掌！”'),
-      S('NPC-0498', '（倒吸一口凉气，手中铜灯险些滑落）“十……十余年？！两位宗师级数的人物日夜藏身在咱们头顶偷阅七十二绝技，寺中上下竟浑然不觉！这还了得！”'),
-      S('NPC-0648', '（急声道）“{playerName}师弟，事关少林千年根基！这两张残纸切不可外传，你速回西厢石台静思对策，究竟该如何处置，全凭你定夺！”'),
+      N('虚广、虚光闻得掌风雷响早已提灯急奔二楼，三人挑灯逐格点验半个时辰，结果却叫二人面面相觑——七十二绝技秘籍与《洗髓经》残抄竟一卷未少，连竹匣封签都纹丝未动！'),
+      P('（俯身摸过经案底沿一道极细木缝，指尖夹出两片坚韧宣纸角）“书虽未偷，却早已被人日复一日读透、抄透了！你们看——这是他们仓促对掌时自经页震落的批注残笺！”'),
+      N('你将双笺摊于琉璃灯下：左首一张以极细的姑苏狼毫小楷写就，笔锋飘逸灵动，专批《无相劫指》与《般若掌》的借力化劲之法，纸背留有一道极浅的剑指印痕，隐透江南世家「以彼之道、还施彼身」的机巧；右首一张却以枯枝蘸墨疾书，横折如刀，批注《伏魔杖法》与《大力金刚指》时字字惨烈悲愤，纸角更被雄浑大手捏出五道深陷指印！'),
+      P('（凝视笺角朱砂日期印痕，声音发沉）“最早一处墨迹已是十余年前的旧墨……这两位宗师已在少林头顶潜伏十余载，暗中彼此窥伺，直到今夜才终于撞破对掌！”'),
+      S('NPC-0648', '（倒吸凉气，急声道）“事关少林千年根基！这两张残笺万不可外泄，师弟速携笺回西厢石台静思对策，如何处置全凭你定夺！”'),
     ],
     onFinishEffects: [
       setStep(SHAOLIN_Q28_QUEST_ID, 'residual_notes_choice'),
-      toast('已寻获两份绝技批注残纸！请择定藏经阁治寺方略。', 'talk', '案缝残纸'),
-      openScene('scene_slq28_17', SHAOLIN_Q28_QUEST_ID),
+      toast('已寻获两份绝技批注残笺！请于西厢石台或主阁择定治寺方略。', 'talk', '案缝残笺'),
+      openScene('scene_slq28_08', SHAOLIN_Q28_QUEST_ID),
     ],
   },
 
-  scene_slq28_17: {
-    id: 'scene_slq28_17',
-    title: '第十七幕 · 晨光初霁',
+  scene_slq28_08: {
+    id: 'scene_slq28_08',
+    title: '第七幕 · 晨霁古杏 · 默观深机',
     subtitle: '藏经阁 · 西厢晒经校勘石台',
     mandatory: true,
     beats: [
-      N('黎明时分，暴雨渐歇。少室山云海翻涌，清晨第一缕金光斜照在西厢晒经石台上。你独自立于石台边，指间摩挲着那两张气息迥异的残纸，思绪万千。'),
-      N('放眼望去，阁外古银杏树下，那名终年默不作声的无名老扫地僧正握着一把秃竹扫帚，不紧不慢地清扫着雨夜打落的湿叶，仿佛昨夜那场惊天动地的宗师对掌从未发生过。'),
+      N('黎明时分，暴雨渐歇。少室山云海翻涌，清晨第一缕金光斜照在西厢晒经石台上。你指间摩挲着那两张气息迥异的残笺，反复推敲其中批注字句——无论是灰衣老僧还是黑衣夜客，虽将少林绝技练至炉火纯青，字里行间却皆隐隐透出戾气淤积、心火逆冲之兆。'),
+      N('极目远眺，阁外千年古银杏树下，那名终年默不作声的无名灰袍老扫地僧正握着一柄秃竹扫帚，不紧不慢地清扫着雨夜打落的湿叶，仿佛昨夜那场震动琉璃阁的宗师对掌，不过是秋风拂檐的寻常旧事。'),
+      N('虚广、虚光远远候在回廊尽头不敢打扰。在立定治寺方略之前，你静下心神，先细察眼前的关键端倪——'),
     ],
-    onFinishEffects: [openScene('scene_slq28_18', SHAOLIN_Q28_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq28_inspect_sweeper',
+        label: '【凝神默观古杏扫叶老僧】细看其执帚步频与气息虚实，探寻阁中另有一重玄机',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q28_watched_sweeper', value: true },
+          openScene('scene_slq28_09', SHAOLIN_Q28_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq28_inspect_notes',
+        label: '【覆勘双笺墨迹与飞檐路线】核算二人潜入规律与绝技破绽，为布防筹谋底牌',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q28_studied_notes', value: true },
+          openScene('scene_slq28_09', SHAOLIN_Q28_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_slq28_18: {
-    id: 'scene_slq28_18',
-    title: '第十八幕 · 佛理与铁律',
-    subtitle: '藏经阁 · 西厢晒经校勘石台',
+  scene_slq28_09: {
+    id: 'scene_slq28_09',
+    title: '第八幕 · 慈悲与铁血 · 治寺定轨',
+    subtitle: '藏经阁 · 西厢晒经校勘石台（重大路线抉择）',
     mandatory: true,
     beats: [
-      N('你回想起方才二楼经橱中那些批注字句——无论是灰衣老僧还是黑衣夜客，虽将少林七十二绝技练至炉火纯青，字里行间却无一不透出戾气淤积、心火攻心之兆。'),
-      P('（心中暗自权衡）“七十二绝技本须以佛法慈悲化解戾气。若依佛门本怀，或许应于古银杏树下静察参悟佛理，以慈悲心化去这桩潜伏多年的武学魔障……”'),
-      P('“可若念及少林百年清誉与大宋武林安危，贼人既敢在佛门圣地来去自如，岂能坐视不管？若密禀武僧堂口与戒律院，抽调精锐暗布天罗杀阵，定能将潜伏宵小一网打尽！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_19', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_19: {
-    id: 'scene_slq28_19',
-    title: '第十九幕 · 治寺之择',
-    subtitle: '藏经阁 · 西厢晒经校勘石台',
-    mandatory: true,
-    beats: [
-      N('虚广、虚光远远候在回廊尽头，静待你的决断。此念一动，不仅关乎藏经阁往后数年的安危，更将决定你在少林寺的禅武道心与后续传承分支！'),
+      N('{ifFlag:sl_q28_watched_sweeper|你凝目细观片刻，心头竟微生骇然——那无名老僧竹帚掠过积水青石，落叶成堆而水波不兴，步履间浑无半点内力外泄，却与天地山风融作一体！他日日守在藏经阁外，岂会不知阁中十年暗影？|你将双笺折痕与主阁飞檐暗道逐一对照，算定二人皆趁晦夜雷雨自东西偏窗与古柏暗影往来；更兼边关近来风声吃紧，藏经阁中除了武学绝技，尚存有唐宋兵书与边防阵图！}'),
+      P('（心中天人交战，缓缓抬眼望向古银杏与琉璃飞檐）“七十二绝技本须佛法慈悲化戾。若效法扫地老僧暂不惊动武僧，以佛法默察度化潜伏恶念，或许能解这场三十年武学魔障……”'),
+      P('“可若念及少林百年清誉与中原安危，强敌敢在佛门禁地来去自如，岂能坐视姑息？若密禀戒律院与武僧堂口暗布天罗铁网，必能以雷霆手段肃清古刹内患外敌！”'),
+      N('此念一动，不仅决定藏经阁往后数年的命运，更将定下你在少林寺的禅武道心与后续专属主线分支（慈悲默察《扫叶听风》 / 铁血伏魔《暗布天罗》）！'),
     ],
     choices: [
       {
         id: 'slq28_choose_compassion',
-        label: '【慈悲默察】暂不惊动武僧，往古银杏树下静察参悟佛理，寻以佛法化解武学戾气之道',
-        tone: 'gold',
+        label: '【慈悲默察脉】效法扫地老僧，暂不惊动武僧，以佛法慈悲静察度化潜伏恶念！',
+        subLabel: '开启 Q30《慈悲默察 · 扫叶听风》分支（禅心慈悲 +3）',
+        tone: 'jade',
         effects: [
           { type: 'setFlag', flag: 'sl_pavilion_choice', value: 'compassion' },
-          openScene('scene_slq28_20', SHAOLIN_Q28_QUEST_ID),
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q28_policy_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_q28_policy_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 3 },
+            ],
+          },
+          openScene('scene_slq28_10_compassion', SHAOLIN_Q28_QUEST_ID),
         ],
       },
       {
         id: 'slq28_choose_ironfist',
-        label: '【铁血伏魔】密呈戒律院与武僧堂口，抽调精锐于藏经阁暗布天罗杀阵，绝不容外敌猖狂！',
+        label: '【铁血伏魔脉】火漆密呈戒律院与武僧堂口，誓以天罗地网肃清古刹内患外敌！',
+        subLabel: '开启 Q31《铁血伏魔 · 暗布天罗》分支（怒目杀业 +3）',
         tone: 'danger',
         effects: [
           { type: 'setFlag', flag: 'sl_pavilion_choice', value: 'ironfist' },
-          openScene('scene_slq28_22', SHAOLIN_Q28_QUEST_ID),
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q28_policy_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_q28_policy_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 3 },
+            ],
+          },
+          openScene('scene_slq28_11_ironfist', SHAOLIN_Q28_QUEST_ID),
         ],
       },
     ],
   },
 
-  scene_slq28_20: {
-    id: 'scene_slq28_20',
-    title: '第二十幕 · 古杏闻禅',
-    subtitle: '藏经阁 · 古银杏无名老僧扫叶庭外',
+  scene_slq28_10_compassion: {
+    id: 'scene_slq28_10_compassion',
+    title: '第九幕 · 古杏定心 · 慈悲默察',
+    subtitle: '藏经阁 · 古银杏扫叶庭外',
     mandatory: true,
     beats: [
-      N('你将两张残纸妥善收入怀中，嘱咐虚广、虚光切莫声张，随即独自步下石阶，望向古银杏树下那道佝偻却沉静如山的背影。'),
-      P('（遥遥合十，心中渐趋澄明）“冤冤相报何时了，杀阵纵能捉贼，却未必能解人心之魔。既见那老僧数十年扫叶于此却安然无恙，藏经阁的真正破局之法，或许便在这无声落叶之间。”'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_21', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_21: {
-    id: 'scene_slq28_21',
-    title: '第二十一幕 · 默察定心',
-    subtitle: '藏经阁 · 西厢晒经校勘石台',
-    mandatory: true,
-    beats: [
-      N('清晨山风拂过，银杏叶纷纷扬扬落下。你立定心志，日后必常赴扫叶庭静察参悟，以大慈悲、大智慧面对这桩潜藏少林多年的惊天暗流。'),
-      S('NPC-0498', '（合十低诵佛号）“师弟胸襟如海，我二人定当守口如瓶，暗中照看经橱，静候师弟参破玄机！”'),
+      N('你将两张批注残笺妥善收入怀中，嘱咐虚广、虚光切莫声张，随即独自步下石阶，望向古银杏树下那道佝偻却沉静如山的灰袍背影，遥遥合十行了一礼。'),
+      P('（心境渐趋澄明如水）“冤冤相报何时了，杀阵纵能捉贼，却未必能解人心之魔。既见那无名老僧数十年扫叶于此却安然无恙，藏经阁真正的破局之道，或许便藏在这无声落叶之间。”'),
+      S('NPC-0498', '（合十低诵佛号，满目敬服）“师弟胸襟如海，不愧本寺真传！我与虚光定当守口如瓶，暗中照看经橱，静候师弟于扫叶庭参破玄机！”'),
+      N('晨钟撞响，回荡在雨后初晴的少室群峰之间。你知道，昨夜琉璃阁中的无声对掌绝非终点——一场席卷大宋武林与少林百年的惊天风暴，才刚刚露出冰山一角。'),
     ],
     onFinishEffects: [
       { type: 'giveCombatExp', amount: 750, reason: '琉璃夜影 · 曝书惊变（慈悲默察）' },
+      {
+        type: 'branch',
+        condition: { type: 'flag', flag: 'sl_q28_shadow_deduced', op: 'truthy' },
+        thenEffects: [{ type: 'giveCombatExp', amount: 80, reason: '敏锐勘微推演出藏经阁潜伏绝顶高人' }],
+        elseEffects: [],
+      },
       { type: 'addSectContribution', amount: 200 },
       { type: 'modifySkill', key: '书', delta: 2 },
       { type: 'modifySkill', key: '经义', delta: 1 },
       { type: 'completeQuest', questId: SHAOLIN_Q28_QUEST_ID, outcome: 'compassion' },
       toast(
-        '《琉璃夜影 · 曝书惊变》完结（慈悲默察线）！实战经验 +750，师门贡献 +200，书法 +2，经义 +1！',
+        '《琉璃夜影 · 曝书惊变》完结（慈悲默察线）！实战经验 +750，师门贡献 +200，书法 +2，经义 +1，禅心慈悲 +3！',
         'success',
         '曝书惊变',
       ),
-      openScene('scene_slq28_24', SHAOLIN_Q28_QUEST_ID),
     ],
   },
 
-  scene_slq28_22: {
-    id: 'scene_slq28_22',
-    title: '第二十二幕 · 密报堂口',
+  scene_slq28_11_ironfist: {
+    id: 'scene_slq28_11_ironfist',
+    title: '第九幕 · 密缄呈堂 · 铁血伏魔',
     subtitle: '藏经阁 · 重檐琉璃藏经主阁前',
     mandatory: true,
     beats: [
-      N('你目光一凛，将两张批注残纸以火漆封缄，亲自交付虚光连夜转呈戒律院与武僧堂口各位首座，并详绘主阁飞檐暗道与松林退路图！'),
-      P('（沉声断喝）“少林乃天下武学正宗，岂容藏头露尾之辈视作无人之境？纵是宗师级数，只要敢再踏入藏经阁一步，便教他有来无回！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq28_23', SHAOLIN_Q28_QUEST_ID)],
-  },
-
-  scene_slq28_23: {
-    id: 'scene_slq28_23',
-    title: '第二十三幕 · 天罗初定',
-    subtitle: '藏经阁 · 西厢晒经校勘石台',
-    mandatory: true,
-    beats: [
-      N('虚广、虚光见你雷厉风行、胆魄过人，俱肃然起敬。自此日起，藏经阁外松林暗哨渐密，一张针对盗经贼人的无形铁网已悄然拉开帷幕。'),
-      S('NPC-0648', '（躬身行礼）“师弟铁血果决，护寺之心日月可鉴！戒律院与武僧堂口诸位长老得报后，必会与师弟共商伏魔大计！”'),
+      N('你目光一凛，将两张批注残笺以红泥火漆严密封缄，连同亲手测绘的主阁飞檐暗道与古柏松林退路图一并交付虚光，命其即刻秘呈戒律院与武僧堂口诸位首座！'),
+      P('（声音冷峻如铁）“少林乃天下武学正宗，岂容藏头露尾之辈视作无人之境？纵是宗师级数，只要敢再踏入藏经阁一步，便教他尝尝少林天罗地网的滋味！”'),
+      S('NPC-0648', '（躬身受命，肃然起敬）“师弟铁血果决，护寺之心日月可鉴！戒律院玄痛首座与玄寂师伯得报后，必会与师弟共商伏魔大计！”'),
+      N('晨钟撞响，震散雨后山岚。自此日起，藏经阁外松林暗哨渐密，一张针对盗经宵小的无形铁网已悄然拉开帷幕，而属于少林的百年风暴正加速逼近。'),
     ],
     onFinishEffects: [
       { type: 'giveCombatExp', amount: 750, reason: '琉璃夜影 · 曝书惊变（铁血伏魔）' },
+      {
+        type: 'branch',
+        condition: { type: 'flag', flag: 'sl_q28_shadow_deduced', op: 'truthy' },
+        thenEffects: [{ type: 'giveCombatExp', amount: 80, reason: '敏锐勘微推演出藏经阁潜伏绝顶高人' }],
+        elseEffects: [],
+      },
       { type: 'addSectContribution', amount: 200 },
       { type: 'modifySkill', key: '书', delta: 2 },
       { type: 'modifySkill', key: '经义', delta: 1 },
       { type: 'completeQuest', questId: SHAOLIN_Q28_QUEST_ID, outcome: 'ironfist' },
       toast(
-        '《琉璃夜影 · 曝书惊变》完结（铁血伏魔线）！实战经验 +750，师门贡献 +200，书法 +2，经义 +1！',
+        '《琉璃夜影 · 曝书惊变》完结（铁血伏魔线）！实战经验 +750，师门贡献 +200，书法 +2，经义 +1，怒目杀业 +3！',
         'success',
         '曝书惊变',
       ),
-      openScene('scene_slq28_24', SHAOLIN_Q28_QUEST_ID),
-    ],
-  },
-
-  scene_slq28_24: {
-    id: 'scene_slq28_24',
-    title: '第二十四幕 · 山雨欲来',
-    subtitle: '嵩山少林寺 · 藏经阁',
-    mandatory: true,
-    beats: [
-      N('晨钟撞响，回荡在雨后初晴的少室群峰之间。你知道，昨夜琉璃阁中的那场无声对掌绝非终点——一场席卷大宋武林与少林百年的惊天风暴，才刚刚露出冰山一角。'),
     ],
   },
 }

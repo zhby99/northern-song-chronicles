@@ -31,9 +31,9 @@ export const SHAOLIN_Q26_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品 ～ 一流中品',
     maxOpponentRealm: '一流中品（辽探盗拓飞贼首 · 鬼手陈）',
     recommendedNote:
-      '嵩山少林寺戒律药王脉 / 俗家护法脉真传单脉首章（全二十二幕）。须为戒律药王脉或俗家护法脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55。于大雄宝殿东厢碑廊唐代《心经》古碑前，得「一拍神僧」玄寂传授少林绝技《般若掌》；子夜时分辽探重金买通的盗拓飞贼首「鬼手陈」率众潜入碑廊欲盗拓古碑暗纹，你挺身守护古碑，一式「一空到底」将其震印院墙、护全唐碑！',
+      '嵩山少林寺戒律药王脉 / 俗家护法脉真传单脉首章（全十幕高交互）。须为戒律药王脉或俗家护法脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满 360 日且经义 ≥ 74、书 ≥ 55。于东厢碑廊唐代《心经》古碑前得玄寂传授《般若掌》；子夜辨破辽探盗拓飞贼首「鬼手陈」的松脂假拓片与藻井声东击西之计，以「一空到底」生擒贼首并顺藤摸瓜问出辽国暗桩！',
     startHint:
-      '戒律药王脉或俗家护法脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】（或寻玄寂）参悟唐代《心经》古碑。',
+      '戒律药王脉或俗家护法脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满 360 日且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】（或寻玄寂）参悟唐代《心经》古碑。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -42,14 +42,14 @@ export const SHAOLIN_Q26_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q26_START_CONDITION,
     summary:
-      '{reignYear}入寺七载，戒律院首座、一拍神僧【玄寂】召你独赴大雄宝殿【东厢碑廊 · 藏经橱】，立于一通唐代高僧手书《般若波罗蜜多心经》古碑之前。玄寂借唐碑铁画银钩之法度为你点破佛门掌道至理，传授少林七十二绝技之《般若掌》，更提醒你此碑背面暗刻前朝少林护寺秘记，近来已有辽国细作垂涎。果不其然，当夜子时，辽探重金收买的江湖盗拓飞贼首【鬼手陈】率手下潜入东厢碑廊，企图强拓古碑并毁碑灭迹！你于夜色碑廊中迎战鬼手陈，以新悟《般若掌》「一空到底」凌空一掌将其震印青砖院墙，擒贼护碑、大扬少林正气！',
+      '{reignYear}入寺逾载，戒律院首座、一拍神僧【玄寂】召你独赴大雄宝殿【东厢碑廊 · 藏经橱】，借唐代高僧手书《心经》古碑铁画银钩之法度传授少林七十二绝技之《般若掌》，并密告碑阴暗刻前朝河洛山川暗记，辽国细作已重金收买江湖盗拓飞贼首【鬼手陈】图谋盗拓毁碑。子夜碑廊之中，你细辨三处蹊跷勘破松脂假拓与藻井潜伏之诡计，择策擒拿鬼手陈、以「一空到底」将其震印院墙，护全唐碑并审出辽国豫西暗桩！',
     initialStepId: 'guard_tang_stele',
     steps: {
       guard_tang_stele: {
         id: 'guard_tang_stele',
-        title: '子夜护碑 · 擒拿鬼手陈',
+        title: '子夜护碑 · 鉴伪擒贼',
         objective:
-          '玄寂师伯已于唐代《心经》古碑前传你《般若掌》精义。子夜阴风骤起，辽探买通之盗拓飞贼首【鬼手陈】即将潜入【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】盗拓古碑，请留守碑廊击退飞贼、护全唐碑！',
+          '玄寂师伯已于唐代《心经》古碑前指点《般若掌》精义。子夜阴风骤起，辽探买通之盗拓飞贼首【鬼手陈】即将潜入【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】，请留守碑廊鉴破诡计、生擒贼首护全唐碑！',
         nextHint:
           '在【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】点击「子夜守卫唐代《心经》古碑 · 截击盗拓飞贼首鬼手陈」。',
         targetLocation: {
@@ -78,7 +78,7 @@ export const SHAOLIN_Q26_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_east',
         onceFlag: 'sl_q26_night_triggered',
         condition: atStep(SHAOLIN_Q26_QUEST_ID, 'guard_tang_stele'),
-        effects: [openScene('scene_slq26_10', SHAOLIN_Q26_QUEST_ID)],
+        effects: [openScene('scene_slq26_04', SHAOLIN_Q26_QUEST_ID)],
       },
     ],
 
@@ -102,7 +102,7 @@ export const SHAOLIN_Q26_QUESTS: QuestDefinition[] = [
         id: 'spot_slq26_night_east',
         label: '【子夜护碑】守卫唐代《心经》古碑 · 截击盗拓飞贼首鬼手陈',
         badge: '一空到底',
-        subtitle: '东厢碑廊夜战 · 迎战一流中品盗拓贼首鬼手陈',
+        subtitle: '东厢碑廊夜战 · 鉴伪擒拿盗拓贼首鬼手陈',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
@@ -113,8 +113,8 @@ export const SHAOLIN_Q26_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q26_thief_spotted', op: 'truthy' },
-            thenEffects: [openScene('scene_slq26_14', SHAOLIN_Q26_QUEST_ID)],
-            elseEffects: [openScene('scene_slq26_10', SHAOLIN_Q26_QUEST_ID)],
+            thenEffects: [openScene('scene_slq26_05', SHAOLIN_Q26_QUEST_ID)],
+            elseEffects: [openScene('scene_slq26_04', SHAOLIN_Q26_QUEST_ID)],
           },
         ],
       },
@@ -159,8 +159,8 @@ export const SHAOLIN_Q26_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q26_thief_spotted', op: 'truthy' },
-            thenEffects: [openScene('scene_slq26_14', SHAOLIN_Q26_QUEST_ID)],
-            elseEffects: [openScene('scene_slq26_10', SHAOLIN_Q26_QUEST_ID)],
+            thenEffects: [openScene('scene_slq26_05', SHAOLIN_Q26_QUEST_ID)],
+            elseEffects: [openScene('scene_slq26_04', SHAOLIN_Q26_QUEST_ID)],
           },
         ],
       },

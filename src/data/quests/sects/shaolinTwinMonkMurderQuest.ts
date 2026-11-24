@@ -27,7 +27,7 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
   recommendedRealm: '宗师下品',
   maxOpponentRealm: '宗师下品（玄影死士首领 · 燕漠残锋）',
   recommendedNote:
-    '嵩山少林寺 Lv.4 核心主线（全二十六幕）。须跻身少林四阶高僧/护法、完成前置主线（QST-SECT-01-33）、入寺满 750 日且经义 ≥ 85。玄悲大师赴洛阳白马寺议事竟惨死于少林绝技「大韦陀杵」下，继而玄苦大师亦于嵩山罗汉堂遭刚猛异掌重创圆寂！你与北乔峰同验遗体、于东庑武库联手击退灭口嫁祸的暗影死士，终在大雄宝殿烛影之下辨出两股截然不同的三十年暗影掌力。',
+    '嵩山少林寺 Lv.4 核心悬疑主线（全十三幕）。须跻身少林四阶高僧/护法、完成前置主线（QST-SECT-01-33）、入寺满 750 日且经义 ≥ 85。玄悲大师赴洛阳白马寺议事竟惨死于本门绝技「大韦陀杵」下，继而玄苦大师亦于嵩山罗汉堂遭疑似「燃木刀法」兼刚猛异掌重创圆寂！你将赴白马寺刑侦验伤、于罗汉堂送别玄苦、破东庑暗伏死士，并于大雄正殿孤烛之下亲断两桩奇案真凶！',
   startHint:
     '完成前置主线、入寺满 750 日且经义 ≥ 85 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团】（或拜见玄慈方丈）即可接获洛阳白马寺急变之讯。',
   startLocation: {
@@ -38,7 +38,7 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
   },
   startCondition: SHAOLIN_Q34_START_CONDITION,
   summary:
-    '{reignYear}深秋，少室山连日阴霾不散。赴洛阳【白马寺】议事的少林高僧【玄悲】忽遭横祸，竟惨死于本门绝技「大韦陀杵」反噬之下！你奉【玄慈】方丈之命星夜赶赴白马寺查验，恰逢闻讯追查江湖血案的【乔峰】同至，二人细察伤痕皆觉杀机诡谲。未及回山，嵩山急羽又至——乔峰恩师【玄苦】大师在【罗汉堂】遭神秘强敌以刚猛无匹的掌力暗算，弥留之际仅吐露片言便溘然圆寂！东庑武库外黑影骤现，欲行灭口并嫁祸乔峰，你与乔峰并肩血战击溃暗影死士。是夜大雄正殿烛火摇曳，你与乔峰、玄慈同验二僧遗伤，终辨出两股截然不同的三十年暗影掌力：一为姑苏慕容「以彼之道、还施彼身」，一为契丹草原撼山巨掌，幕后黑手并非一人！',
+    '{reignYear}深秋，少室山霜钟骤鸣。赴洛阳【白马寺】议事的少林高僧【玄悲】惨死于自家绝技「大韦陀杵」反噬之下！你奉【玄慈】方丈之命星夜赶赴白马寺勘验，恰逢蒙冤追凶的北【乔峰】同至，共察伤痕端倪。未及回山，嵩山急羽又至——乔峰恩师【玄苦】大师在【罗汉堂】遭疑似「燃木刀法」兼塞外霸掌重创，弥留托孤后溘然圆寂！东庑武库暗伏死士欲行灭口栽赃，你临阵破伏击溃玄影死士首领燕漠残锋。子夜大雄正殿孤烛摇曳，你将二僧伤状并置细推，于重重迷雾中抽丝剥茧，揭开姑苏慕容「以彼之道还施彼身」与蛰伏藏经阁三十载绝世暗影的冰山一角！',
   initialStepId: 'luoyang_xuanbei',
   steps: {
     luoyang_xuanbei: {
@@ -71,11 +71,11 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
     },
     shadow_ambush: {
       id: 'shadow_ambush',
-      title: '东庑截杀 · 并肩破影',
+      title: '东庑截杀 · 破伏玄影',
       objective:
-        '玄苦大师圆寂未寒，暗处竟伏有神秘死士企图灭口并嫁祸乔峰！请速赴【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】，与乔峰并肩迎战暗影死士！',
+        '玄苦大师圆寂未寒，暗处竟伏有神秘死士企图焚毁卷宗、灭口栽赃乔峰！请速赴【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】，迎战暗影死士！',
       nextHint:
-        '前往【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】，点击「与乔峰并肩截杀灭口暗影死士」。',
+        '前往【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】，点击「截杀东庑暗影死士 · 迎战燕漠残锋」。',
       targetLocation: {
         regionId: 'shaolin',
         buildingId: 'sl_luohan',
@@ -85,11 +85,11 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
     },
     candle_forensics: {
       id: 'candle_forensics',
-      title: '烛下辨掌 · 双影初现',
+      title: '孤烛验案 · 双影初现',
       objective:
-        '暗影死士已被击溃！请随乔峰前往【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，于烛火之下同玄慈方丈细辨玄悲、玄苦两位高僧的致命掌力。',
+        '暗影死士已被击溃！请携证物前往【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，于孤烛之下同玄慈方丈与乔峰并置双案伤状，推演真凶！',
       nextHint:
-        '前往【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，点击「大雄正殿烛下验伤 · 辨析两股三十年暗影掌力」。',
+        '前往【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，点击「大雄正殿孤烛验双案 · 推理玄悲玄苦身死真相」。',
       targetLocation: {
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
@@ -116,7 +116,7 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       spotId: 'ly_bm_main',
       onceFlag: 'sl_q34_baimasi_triggered',
       condition: atStep(SHAOLIN_Q34_QUEST_ID, 'luoyang_xuanbei'),
-      effects: [openScene('scene_slq34_05', SHAOLIN_Q34_QUEST_ID)],
+      effects: [openScene('scene_slq34_03', SHAOLIN_Q34_QUEST_ID)],
     },
     {
       id: 'trig_slq34_luohan',
@@ -125,7 +125,7 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       spotId: 'sl_luohan_main',
       onceFlag: 'sl_q34_luohan_triggered',
       condition: atStep(SHAOLIN_Q34_QUEST_ID, 'shaolin_xuanku'),
-      effects: [openScene('scene_slq34_11', SHAOLIN_Q34_QUEST_ID)],
+      effects: [openScene('scene_slq34_06', SHAOLIN_Q34_QUEST_ID)],
     },
     {
       id: 'trig_slq34_ambush',
@@ -134,7 +134,7 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       spotId: 'sl_luohan_west',
       onceFlag: 'sl_q34_ambush_triggered',
       condition: atStep(SHAOLIN_Q34_QUEST_ID, 'shadow_ambush'),
-      effects: [openScene('scene_slq34_17', SHAOLIN_Q34_QUEST_ID)],
+      effects: [openScene('scene_slq34_08', SHAOLIN_Q34_QUEST_ID)],
     },
     {
       id: 'trig_slq34_forensics',
@@ -143,7 +143,7 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       spotId: 'sl_daxiong_main',
       onceFlag: 'sl_q34_forensics_triggered',
       condition: atStep(SHAOLIN_Q34_QUEST_ID, 'candle_forensics'),
-      effects: [openScene('scene_slq34_21', SHAOLIN_Q34_QUEST_ID)],
+      effects: [openScene('scene_slq34_10', SHAOLIN_Q34_QUEST_ID)],
     },
   ],
 
@@ -167,7 +167,7 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       id: 'spot_slq34_baimasi',
       label: '【大智大悲】查验玄悲大师遇害现场 · 会合乔峰勘验掌伤',
       badge: '释源惨变',
-      subtitle: '第五幕 · 白马大佛宝殿验伤，追索「大韦陀杵」反噬之谜',
+      subtitle: '第三幕 · 白马大佛宝殿刑侦验伤，追索「大韦陀杵」反噬之谜',
       tone: 'danger',
       regionId: 'luoyang',
       buildingId: 'ly_baimasi',
@@ -175,14 +175,14 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q34_QUEST_ID, 'luoyang_xuanbei'),
       effects: [
         { type: 'setFlag', flag: 'sl_q34_baimasi_triggered', value: true },
-        openScene('scene_slq34_05', SHAOLIN_Q34_QUEST_ID),
+        openScene('scene_slq34_03', SHAOLIN_Q34_QUEST_ID),
       ],
     },
     {
       id: 'spot_slq34_luohan',
       label: '【大智大悲】驰援罗汉堂演武正殿 · 见玄苦大师最后一面',
       badge: '罗汉临终',
-      subtitle: '第十一幕 · 玄苦大师弥留遗言，契丹巨掌遗恨嵩山',
+      subtitle: '第六幕 · 玄苦大师弥留遗言，遗恨嵩山',
       tone: 'danger',
       regionId: 'shaolin',
       buildingId: 'sl_luohan',
@@ -190,14 +190,14 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q34_QUEST_ID, 'shaolin_xuanku'),
       effects: [
         { type: 'setFlag', flag: 'sl_q34_luohan_triggered', value: true },
-        openScene('scene_slq34_11', SHAOLIN_Q34_QUEST_ID),
+        openScene('scene_slq34_06', SHAOLIN_Q34_QUEST_ID),
       ],
     },
     {
       id: 'spot_slq34_ambush',
-      label: '【大智大悲】与乔峰并肩截杀灭口暗影死士',
+      label: '【大智大悲】截杀东庑暗影死士 · 迎战燕漠残锋',
       badge: '东庑破影',
-      subtitle: '第十七幕 · 击溃企图灭口嫁祸的宗师下品暗影死士',
+      subtitle: '第八幕 · 识破伏击先手克敌或正面连破宗师下品暗影死士',
       tone: 'danger',
       regionId: 'shaolin',
       buildingId: 'sl_luohan',
@@ -205,14 +205,14 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q34_QUEST_ID, 'shadow_ambush'),
       effects: [
         { type: 'setFlag', flag: 'sl_q34_ambush_triggered', value: true },
-        openScene('scene_slq34_17', SHAOLIN_Q34_QUEST_ID),
+        openScene('scene_slq34_08', SHAOLIN_Q34_QUEST_ID),
       ],
     },
     {
       id: 'spot_slq34_forensics',
-      label: '【大智大悲】大雄正殿烛下验伤 · 辨析两股三十年暗影掌力',
-      badge: '烛下辨掌',
-      subtitle: '第二十一幕 · 抽丝剥茧，洞悉慕容与契丹双影迷局',
+      label: '【大智大悲】大雄正殿孤烛验双案 · 推理玄悲玄苦身死真相',
+      badge: '孤烛验案',
+      subtitle: '第十幕 · 并置两桩奇案伤状，洞悉慕容与藏经阁暗影迷局',
       tone: 'gold',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -220,7 +220,7 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q34_QUEST_ID, 'candle_forensics'),
       effects: [
         { type: 'setFlag', flag: 'sl_q34_forensics_triggered', value: true },
-        openScene('scene_slq34_21', SHAOLIN_Q34_QUEST_ID),
+        openScene('scene_slq34_10', SHAOLIN_Q34_QUEST_ID),
       ],
     },
   ],
@@ -244,8 +244,8 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
     },
     {
       id: 'act_slq34_forensics_xuanci',
-      label: '于大雄正殿烛下向玄慈方丈呈报二僧验伤结果',
-      badge: '烛下辨掌',
+      label: '于大雄正殿孤烛下向玄慈方丈呈报双案推演结果',
+      badge: '孤烛验案',
       tone: 'gold',
       showInBottomBar: true,
       showInSectPanel: true,
@@ -258,7 +258,7 @@ export const shaolinTwinMonkMurderQuest: QuestDefinition = {
       },
       effects: [
         { type: 'setFlag', flag: 'sl_q34_forensics_triggered', value: true },
-        openScene('scene_slq34_21', SHAOLIN_Q34_QUEST_ID),
+        openScene('scene_slq34_10', SHAOLIN_Q34_QUEST_ID),
       ],
     },
   ],

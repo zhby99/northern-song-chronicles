@@ -30,7 +30,7 @@ export const SHAOLIN_Q33_QUESTS: QuestDefinition[] = [
     recommendedRealm: '宗师下品',
     maxOpponentRealm: '宗师下品（首座演武印证 · 玄痛 / 玄难）',
     recommendedNote:
-      '嵩山少林寺 Lv.3 真传晋升 Lv.4 长老/堂院首座终极合流大典（全二十二幕）。须入寺满二载（7200 日）、完成《药王瘟劫 · 九转回魂》，且经义 ≥ 85、书法 ≥ 70、辩才 ≥ 55、玄慈方丈好感 ≥ 80。大雄正殿召开全寺玄字辈菩提院大议，你须先赴钟鼓禅院演武坪择战戒律院首座玄痛或达摩院首座玄难演武印证宗师修为，再返大雄正殿就「少室山天下武林大会」应对之策舌战群僧，折服众玄字辈长老！终蒙玄慈方丈亲赐红锦袈裟与堂院首座印信，正式晋升少林 Lv.4 长老/堂院首座！',
+      '嵩山少林寺 Lv.3 真传晋升 Lv.4 长老/堂院首座终极合流大典（全十一幕）。须入寺满二载（720 日）、完成《药王瘟劫 · 九转回魂》，且经义 ≥ 85、书法 ≥ 70、辩才 ≥ 55、玄慈方丈好感 ≥ 80。大雄正殿召开全寺玄字辈菩提院大议，你先赴钟鼓禅院演武坪自选向刚猛铁掌玄痛或宗师下品禅武玄难演武印证，再返大雄正殿就「乱世少林当闭寺清修抑或入世护国」舌战群僧，玄慈与诸老依你的治寺纲领与藏经阁旧择给出差异化评语，终亲赐红锦首座袈裟晋升 Lv.4 少林长老！',
     startHint:
       '入寺满二载（720 日）、完成《药王瘟劫 · 九转回魂》且经义 ≥ 85、书 ≥ 70、辩才 ≥ 55、玄慈好感 ≥ 80 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团】（或寻玄慈、玄难、玄痛）开启首座晋升大议。',
     startLocation: {
@@ -41,14 +41,14 @@ export const SHAOLIN_Q33_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q33_START_CONDITION,
     summary:
-      '{reignYear}仲春，你拜入嵩山少林寺已满整整二载！玄慈方丈于【大雄正殿 · 佛前蒲团】召集全寺玄字辈高僧召开「菩提院大议」，议定新一任少林长老与堂院首座人选，并共商应对少室山天下英雄大会之大计。面对众玄字辈高僧严苛考校，你先步入【钟鼓禅院 · 演武坪】，择请戒律院首座【玄痛】或达摩院首座【玄难】演武印证，以宗师气度力证武功火候；继而重返大雄正殿，凭八十五重以上佛学经义与五十五重以上辩才舌战群僧，剖析天下局势、定鼎少室山大会方略，赢得全寺高僧一致折服！最终玄慈方丈亲授红锦首座袈裟，你正式晋升【少林长老 / 堂院首座】（Lv.4），位列少林中枢！',
+      '{reignYear}仲春，你入嵩山少林寺已满二载！玄慈方丈于【大雄正殿 · 佛前蒲团】召集全寺玄字辈高僧召开「菩提院大议」，议定新一任少林长老与堂院首座人选，并辩论乱世治寺方略。你先步入【钟鼓禅院 · 演武坪】，自选向戒律院首座【玄痛】印证刚猛武道或向达摩院首座【玄难】印证宗师禅机；继而重返大雄正殿，就「山河动荡、辽夏窥伺，少林当闭寺清修抑或入世护国」的核心辩题舌战群僧！玄慈与诸位高僧印证你的肺腑纲领与藏经阁旧择后一致折服，亲授红锦首座袈裟与紫檀印信，正式敕封你晋升【少林长老 / 堂院首座】（Lv.4）！',
     initialStepId: 'elder_spar_verification',
     steps: {
       elder_spar_verification: {
         id: 'elder_spar_verification',
         title: '演武印证 · 首座考校',
         objective:
-          '菩提院大议已启，须先以武会友印证宗师火候！请前往【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】，择请戒律院首座玄痛或达摩院首座玄难演武印证！',
+          '菩提院大议已启，按少林祖制须先以武印道！请前往【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】，择请戒律院首座玄痛或达摩院首座玄难演武印证！',
         nextHint:
           '前往【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】，点击「登钟鼓演武坪 · 与玄痛或玄难首座演武印证」。',
         targetLocation: {
@@ -62,7 +62,7 @@ export const SHAOLIN_Q33_QUESTS: QuestDefinition[] = [
         id: 'bodhi_hall_debate',
         title: '舌战群僧 · 授衣晋阶',
         objective:
-          '演武印证已令众僧折服！请重返【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，就少室山天下武林大会方略舌战玄字辈群僧，领受首座红锦袈裟、晋升 Lv.4 长老/堂院首座！',
+          '演武印证已令满坪折服！请重返【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，就乱世治寺纲领舌战玄字辈群僧，领受首座红锦袈裟、晋升 Lv.4 长老/堂院首座！',
         nextHint:
           '前往【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，点击「返大雄正殿 · 舌战群僧并领受首座袈裟」。',
         targetLocation: {
@@ -91,7 +91,7 @@ export const SHAOLIN_Q33_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_west',
         onceFlag: 'sl_q33_spar_triggered',
         condition: atStep(SHAOLIN_Q33_QUEST_ID, 'elder_spar_verification'),
-        effects: [openScene('scene_slq33_06', SHAOLIN_Q33_QUEST_ID)],
+        effects: [openScene('scene_slq33_02', SHAOLIN_Q33_QUEST_ID)],
       },
       {
         id: 'trig_slq33_debate_main',
@@ -100,14 +100,14 @@ export const SHAOLIN_Q33_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_main',
         onceFlag: 'sl_q33_debate_triggered',
         condition: atStep(SHAOLIN_Q33_QUEST_ID, 'bodhi_hall_debate'),
-        effects: [openScene('scene_slq33_13', SHAOLIN_Q33_QUEST_ID)],
+        effects: [openScene('scene_slq33_05_hall_return', SHAOLIN_Q33_QUEST_ID)],
       },
     ],
 
     spotActions: [
       {
         id: 'spot_slq33_start_main',
-        label: '【首座晋升】廿载听钟 · 赴大雄正殿菩提院大议',
+        label: '【首座晋升】二载听钟 · 赴大雄正殿菩提院大议',
         badge: '首座之争',
         subtitle: '大雄正殿 · 佛前蒲团 · 晋升 Lv.4 长老/首座',
         tone: 'gold',
@@ -132,7 +132,7 @@ export const SHAOLIN_Q33_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q33_QUEST_ID, 'elder_spar_verification'),
         effects: [
           { type: 'setFlag', flag: 'sl_q33_spar_triggered', value: true },
-          openScene('scene_slq33_06', SHAOLIN_Q33_QUEST_ID),
+          openScene('scene_slq33_02', SHAOLIN_Q33_QUEST_ID),
         ],
       },
       {
@@ -147,7 +147,7 @@ export const SHAOLIN_Q33_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q33_QUEST_ID, 'bodhi_hall_debate'),
         effects: [
           { type: 'setFlag', flag: 'sl_q33_debate_triggered', value: true },
-          openScene('scene_slq33_13', SHAOLIN_Q33_QUEST_ID),
+          openScene('scene_slq33_05_hall_return', SHAOLIN_Q33_QUEST_ID),
         ],
       },
     ],
@@ -188,7 +188,7 @@ export const SHAOLIN_Q33_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q33_spar_triggered', value: true },
-          openScene('scene_slq33_06', SHAOLIN_Q33_QUEST_ID),
+          openScene('scene_slq33_02', SHAOLIN_Q33_QUEST_ID),
         ],
       },
       {
@@ -207,7 +207,7 @@ export const SHAOLIN_Q33_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q33_debate_triggered', value: true },
-          openScene('scene_slq33_13', SHAOLIN_Q33_QUEST_ID),
+          openScene('scene_slq33_05_hall_return', SHAOLIN_Q33_QUEST_ID),
         ],
       },
     ],

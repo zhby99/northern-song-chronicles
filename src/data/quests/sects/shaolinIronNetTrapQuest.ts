@@ -8,6 +8,7 @@ export const SHAOLIN_Q31_START_CONDITION: QuestCondition = {
   conditions: [
     { type: 'inSect', sectId: 'SECT-01', minRank: 3 },
     qStatus('QST-SECT-01-28', 'completed'),
+    qStatus('QST-SECT-01-29', 'completed'),
     flag('sl_pavilion_choice', 'eq', 'ironfist'),
     qStatus(SHAOLIN_Q31_QUEST_ID, 'not_started'),
     qStatus('QST-SECT-01-30', 'not_started'),
@@ -29,9 +30,9 @@ export const SHAOLIN_Q31_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流上品',
     maxOpponentRealm: '宗师下品（西夏一品堂 · 黑水魔僧）',
     recommendedNote:
-      '嵩山少林寺 Lv.3 真传合流分支任务（铁血伏魔线 · 全二十幕）。须入寺满十五载（5475 日）、于《琉璃夜影 · 曝书惊变》择定「铁血伏魔」方略、未开启《慈悲默察 · 扫叶听风》，且经义 ≥ 78、策论 ≥ 55。你密会戒律院首座玄痛与一拍神僧玄寂，运筹帷幄抽调三十六名精锐武僧于藏经主阁周遭暗布「伏魔天罗铁网」；子夜伏击潜入盗取宋夏边防秘卷与绝技兵书的西夏一品堂宗师下品「黑水魔僧」，亲手将其斩毙于琉璃阁前，铁血护寺威望震动全寺！',
+      '嵩山少林寺 Lv.3 真传合流分支任务（铁血伏魔线 · 全十幕）。须入寺满 570 日、完成《剑痕浴血 · 少林九阳》并于《琉璃夜影 · 曝书惊变》择定「铁血伏魔」方略、未开启《慈悲默察 · 扫叶听风》，且经义 ≥ 78、策论 ≥ 55。你密会戒律院首座玄痛与一拍神僧玄寂，亲自主持三十六精锐武僧双阶段伏魔布阵（诱饵选址 + 收网时机），可一网兜死外围一品堂死士 1v1 孤斩宗师下品黑水魔僧，或正面车轮血战诛魔，战后更决断悬首立威抑或留尸呈令，铁血威望震动少林！',
     startHint:
-      '入寺满 570 日、于《曝书惊变》选择铁血伏魔且经义 ≥ 78、策论 ≥ 55 后，前往【嵩山少林寺 · 藏经阁 · 重檐琉璃藏经主阁】（或寻玄痛、玄寂）共商伏魔天罗之计。',
+      '入寺满 570 日、完成《剑痕浴血 · 少林九阳》、于《曝书惊变》选择铁血伏魔且经义 ≥ 78、策论 ≥ 55 后，前往【嵩山少林寺 · 藏经阁 · 重檐琉璃藏经主阁】（或寻玄痛、玄寂）共商伏魔天罗之计。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_cangjing',
@@ -40,14 +41,14 @@ export const SHAOLIN_Q31_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q31_START_CONDITION,
     summary:
-      '{reignYear}寒秋，你依七夕曝书之夜立下的「铁血伏魔」方略，于【重檐琉璃藏经主阁】密会戒律院首座【玄痛】与一拍神僧【玄寂】。三人凭你测绘的飞檐暗道图与五十五重以上兵略策论，秘密抽调三十六名少林精锐武僧，以精钢链网、伏魔铜棍在藏经主阁内外布下密不透风的「伏魔天罗阵」！子夜三更，一名奉西夏一品堂之命潜入盗取兵书与少林绝技的宗师下品恶客「黑水魔僧」果真踏入死局。你率阵合围、亲身截杀，于琉璃阁前血战击毙黑水魔僧、夺回失窃典籍，铁血护寺之威自此震动少林上下！',
+      '{reignYear}寒秋，你依七夕曝书之夜立下的「铁血伏魔」方略，于【重檐琉璃藏经主阁】密会戒律院首座【玄痛】与一拍神僧【玄寂】，亲自主持三十六名戒律与罗汉堂精锐武僧布下「伏魔天罗铁网」！子夜三更，奉西夏一品堂之命潜入盗取宋夏边防阵图与绝技兵书的宗师下品客卿【黑水魔僧】携死士踏入死局。你精准调度诱饵与收网时机，于火光冲天的琉璃阁前亲手斩毙黑水魔僧、夺回兵书与一品堂玄铁令，战后铁腕立威震慑四夷！',
     initialStepId: 'deploy_iron_net',
     steps: {
       deploy_iron_net: {
         id: 'deploy_iron_net',
         title: '密会布网 · 天罗待敌',
         objective:
-          '你已与玄痛、玄寂拟定「伏魔天罗铁网」之策，三十六名精锐武僧皆已暗伏藏经阁周遭！请留在【藏经阁 · 重檐琉璃藏经主阁（sl_cj_pavilion）】，待子夜信号响起，亲率伏兵截杀潜入之西夏魔僧！',
+          '你已与玄痛、玄寂拟定「伏魔天罗铁网」之策，三十六名精锐武僧皆已暗伏藏经阁周遭！请留在【藏经阁 · 重檐琉璃藏经主阁（sl_cj_pavilion）】，待子夜信号响起，亲控收网时机截杀西夏黑水魔僧！',
         nextHint:
           '在【藏经阁 · 重檐琉璃藏经主阁（sl_cj_pavilion）】点击「收网伏魔 · 子夜截杀西夏黑水魔僧」。',
         targetLocation: {
@@ -91,13 +92,13 @@ export const SHAOLIN_Q31_QUESTS: QuestDefinition[] = [
         id: 'spot_slq31_ambush_pavilion',
         label: '【少林伏魔】收网伏魔 · 子夜截杀西夏黑水魔僧',
         badge: '决战魔僧',
-        subtitle: '重檐琉璃藏经主阁（决战宗师下品）',
+        subtitle: '重檐琉璃藏经主阁（收网决断 · 宗师下品）',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_cangjing',
         spotId: 'sl_cj_pavilion',
         visibleWhen: atStep(SHAOLIN_Q31_QUEST_ID, 'deploy_iron_net'),
-        effects: [openScene('scene_slq31_08', SHAOLIN_Q31_QUEST_ID)],
+        effects: [openScene('scene_slq31_03', SHAOLIN_Q31_QUEST_ID)],
       },
     ],
 
@@ -135,7 +136,7 @@ export const SHAOLIN_Q31_QUESTS: QuestDefinition[] = [
             atStep(SHAOLIN_Q31_QUEST_ID, 'deploy_iron_net'),
           ],
         },
-        effects: [openScene('scene_slq31_08', SHAOLIN_Q31_QUEST_ID)],
+        effects: [openScene('scene_slq31_03', SHAOLIN_Q31_QUEST_ID)],
       },
     ],
 

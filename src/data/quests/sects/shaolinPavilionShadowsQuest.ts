@@ -35,7 +35,7 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流中品 ～ 一流上品',
     maxOpponentRealm: '宗师下品（藏经阁黑影交锋 · 试探五合）',
     recommendedNote:
-      '嵩山少林寺 Lv.3 真传合流主线第一回（全二十四幕）。须入寺满十二载（4380 日）、完成任一 Lv.3 真传高阶功法任务，且经义 ≥ 78、书法 ≥ 65。七月初七晒经节暴雨夜，你与虚广、虚光抢收经卷后重返重檐琉璃藏经主阁，撞见灰衣老僧与黑衣夜行客无声对掌；追击五合试探后于案缝拾获两份迥异笔迹的七十二绝技批注残纸，终在「慈悲默察」与「铁血伏魔」两条治寺方略间择定前路！',
+      '嵩山少林寺 Lv.3 真传合流主线第一回（全十一幕）。须入寺满 480 日、完成任一 Lv.3 真传高阶功法任务，且经义 ≥ 78、书法 ≥ 65。七月初七晒经节暴雨夜，你与虚广、虚光抢收经卷后潜入重檐琉璃藏经主阁，从三处细微痕迹推演潜伏绝顶高人，撞见灰衣老僧与黑衣夜行客无声对掌；古松五合试锋后自案缝查获两份笔锋迥异的绝技批注残笺，终在「慈悲默察」与「铁血伏魔」双轨治寺方略间择定前路！',
     startHint:
       '入寺满 480 日、完成任一 Lv.3 真传高阶功法任务且经义 ≥ 78、书 ≥ 65 后，前往【嵩山少林寺 · 藏经阁 · 西厢晒经校勘石台】（或寻虚广、虚光）触发七夕晒经之变。',
     startLocation: {
@@ -46,14 +46,14 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q28_START_CONDITION,
     summary:
-      '{reignYear}七月初七晒经节，嵩山忽降倾盆暴雨。你在【西厢晒经校勘石台】助虚广、虚光抢收贝叶古卷后，子夜携灯重巡【重檐琉璃藏经主阁】，竟撞见一名灰衣老僧与一名黑衣高大客人在琉璃檐下无声对掌，劲风震得经橱簌簌作响！你纵身截击，与黑衣夜影在松林雨幕中试探交锋五合，虽未窥见真容，却于折返阁中检视经案时，自暗缝寻获两份指印笔锋截然不同的绝技批注残纸。面对潜伏藏经阁多年的绝世暗流，你在古银杏树下默察佛理与禀报武僧堂口暗布天罗之间做出抉择，亦为日后扫叶听风或铁血伏魔埋下伏笔。',
+      '{reignYear}七月初七晒经节，嵩山忽降倾盆暴雨。你在【西厢晒经校勘石台】助虚广、虚光抢收贝叶古卷后，子夜携灯重巡【重檐琉璃藏经主阁】，于经橱蛛丝马迹间察觉潜伏多年的绝世异动，更亲眼撞见灰衣老僧与黑衣高大客人在琉璃檐下无声对掌！你纵身截击，与黑衣夜影在松林雨幕中试探交锋五合，复于阁中案缝查获两份笔迹与指印截然不同的绝技批注残笺。黎明古杏之下，面对潜伏藏经阁多年的惊天暗流，你在「慈悲默察」与「铁血伏魔」之间立定治寺方略，由此开启扫叶听风或暗布天罗的双轨前尘。',
     initialStepId: 'night_pavilion_patrol',
     steps: {
       night_pavilion_patrol: {
         id: 'night_pavilion_patrol',
         title: '暴雨夜巡 · 琉璃惊影',
         objective:
-          '晒经节暴雨骤至，经卷方才抢收归阁，西厢石台却遗落一串湿透的陌生足印直指主阁！请前往【藏经阁 · 重檐琉璃藏经主阁（sl_cj_pavilion）】夜巡查探，揭开阁中异动。',
+          '晒经节暴雨骤至，经卷方才抢收归阁，西厢石阶却遗落半枚窄长草鞋湿印直指主阁！请前往【藏经阁 · 重檐琉璃藏经主阁（sl_cj_pavilion）】夜巡勘察，揭开阁中异动。',
         nextHint:
           '前往【藏经阁 · 重檐琉璃藏经主阁（sl_cj_pavilion）】，点击「提灯入藏经主阁 · 夜探琉璃阁异动」。',
         targetLocation: {
@@ -65,11 +65,11 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
       },
       residual_notes_choice: {
         id: 'residual_notes_choice',
-        title: '案缝残纸 · 治寺方略',
+        title: '案缝残笺 · 治寺方略',
         objective:
-          '雨夜松林与黑衣夜影交锋五合后，你已于藏经主阁案缝查获两份不同笔迹与指印的绝技批注残纸！请回到【藏经阁 · 西厢晒经校勘石台（sl_cj_terrace）】或留在【重檐琉璃藏经主阁（sl_cj_pavilion）】，静思潜伏暗流并择定治寺方略。',
+          '雨夜松林与黑衣夜影五合试锋后，你已于藏经主阁案缝查获两份笔锋与指印迥异的绝技批注残笺！请前往【藏经阁 · 西厢晒经校勘石台（sl_cj_terrace）】或留在【重檐琉璃藏经主阁（sl_cj_pavilion）】，静思潜伏暗流并择定治寺方略。',
         nextHint:
-          '在【藏经阁 · 西厢晒经校勘石台（sl_cj_terrace）】或【重檐琉璃藏经主阁（sl_cj_pavilion）】点击「端详案缝残纸 · 择定藏经阁治寺方略」。',
+          '在【藏经阁 · 西厢晒经校勘石台（sl_cj_terrace）】或【重檐琉璃藏经主阁（sl_cj_pavilion）】点击「端详案缝残笺 · 择定藏经阁治寺方略」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_cangjing',
@@ -96,7 +96,14 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
         spotId: 'sl_cj_pavilion',
         onceFlag: 'sl_q28_patrol_triggered',
         condition: atStep(SHAOLIN_Q28_QUEST_ID, 'night_pavilion_patrol'),
-        effects: [openScene('scene_slq28_06', SHAOLIN_Q28_QUEST_ID)],
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q28_shadow_fought', op: 'truthy' },
+            thenEffects: [openScene('scene_slq28_07', SHAOLIN_Q28_QUEST_ID)],
+            elseEffects: [openScene('scene_slq28_02', SHAOLIN_Q28_QUEST_ID)],
+          },
+        ],
       },
       {
         id: 'trig_slq28_choice_terrace',
@@ -105,7 +112,7 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
         spotId: 'sl_cj_terrace',
         onceFlag: 'sl_q28_choice_triggered',
         condition: atStep(SHAOLIN_Q28_QUEST_ID, 'residual_notes_choice'),
-        effects: [openScene('scene_slq28_17', SHAOLIN_Q28_QUEST_ID)],
+        effects: [openScene('scene_slq28_08', SHAOLIN_Q28_QUEST_ID)],
       },
     ],
 
@@ -129,7 +136,7 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
         id: 'spot_slq28_pavilion_patrol',
         label: '【少林主线】提灯入藏经主阁 · 夜探琉璃阁异动',
         badge: '琉璃夜影',
-        subtitle: '重檐琉璃藏经主阁 · 试探五合交锋',
+        subtitle: '重檐琉璃藏经主阁 · 勘微与五合试锋',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_cangjing',
@@ -140,14 +147,14 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q28_shadow_fought', op: 'truthy' },
-            thenEffects: [openScene('scene_slq28_14', SHAOLIN_Q28_QUEST_ID)],
-            elseEffects: [openScene('scene_slq28_06', SHAOLIN_Q28_QUEST_ID)],
+            thenEffects: [openScene('scene_slq28_07', SHAOLIN_Q28_QUEST_ID)],
+            elseEffects: [openScene('scene_slq28_02', SHAOLIN_Q28_QUEST_ID)],
           },
         ],
       },
       {
         id: 'spot_slq28_choice_terrace',
-        label: '【少林主线】端详案缝残纸 · 择定藏经阁治寺方略',
+        label: '【少林主线】端详案缝残笺 · 择定藏经阁治寺方略',
         badge: '方略抉择',
         subtitle: '西厢晒经校勘石台 · 慈悲默察或铁血伏魔',
         tone: 'gold',
@@ -157,7 +164,7 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q28_QUEST_ID, 'residual_notes_choice'),
         effects: [
           { type: 'setFlag', flag: 'sl_q28_choice_triggered', value: true },
-          openScene('scene_slq28_17', SHAOLIN_Q28_QUEST_ID),
+          openScene('scene_slq28_08', SHAOLIN_Q28_QUEST_ID),
         ],
       },
       {
@@ -172,7 +179,7 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q28_QUEST_ID, 'residual_notes_choice'),
         effects: [
           { type: 'setFlag', flag: 'sl_q28_choice_triggered', value: true },
-          openScene('scene_slq28_17', SHAOLIN_Q28_QUEST_ID),
+          openScene('scene_slq28_08', SHAOLIN_Q28_QUEST_ID),
         ],
       },
     ],
@@ -199,7 +206,7 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'act_slq28_choice_npc',
-        label: '就藏经阁案缝残纸密议 · 择定治寺方略',
+        label: '就藏经阁案缝残笺密议 · 择定治寺方略',
         badge: '方略抉择',
         tone: 'gold',
         showInBottomBar: true,
@@ -213,7 +220,7 @@ export const SHAOLIN_Q28_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q28_choice_triggered', value: true },
-          openScene('scene_slq28_17', SHAOLIN_Q28_QUEST_ID),
+          openScene('scene_slq28_08', SHAOLIN_Q28_QUEST_ID),
         ],
       },
     ],

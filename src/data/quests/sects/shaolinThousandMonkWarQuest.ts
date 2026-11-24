@@ -36,7 +36,7 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
   recommendedRealm: '宗师上品',
   maxOpponentRealm: '宗师上品（西夏一品堂统领 · 赫连铁树 / 星宿老怪 · 丁春秋）',
   recommendedNote:
-    '嵩山少林寺终局大合战（全三十八幕）。须已登位少林 Lv.5 掌门、完成三大终局之一满 30 日且经义 ≥ 88、辩才 ≥ 60。西夏一品堂统领赫连铁树联合星宿老怪丁春秋率两千铁骑毒人三路火烧少林！晨钟急撞九十九响，你亲布五百罗汉伏魔大阵，与玄难、玄痛、玄寂及万里驰援的萧峰并肩冲阵，连破毒雾前军、斩碎赫连铁树帅旗、重创丁春秋退兵！',
+    '嵩山少林寺终局大合战（精炼十五幕军阵史诗）。须已登位少林 Lv.5 掌门、完成三大终局之一满 30 日且经义 ≥ 88、辩才 ≥ 60。西夏一品堂统领赫连铁树联合星宿老怪丁春秋率两千铁骑毒人三路火烧少林！晨钟急撞九十九响，你以掌门总指挥之身亲布五百罗汉伏魔大阵、三次临阵调度改写战局，与玄难、玄痛、玄寂及万里驰援的萧峰并肩冲阵，斩碎赫连铁树帅旗、重创丁春秋退兵！',
   startHint:
     '登位少林 Lv.5 掌门满 30 日且经义 ≥ 88、辩才 ≥ 60 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】即可听闻九十九响急钟警报。',
   startLocation: {
@@ -47,14 +47,14 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
   },
   startCondition: SHAOLIN_Q41_START_CONDITION,
   summary:
-    '{reignYear}寒冬将至，嵩山北麓烽烟骤起！西夏一品堂统领【赫连铁树】怀恨中原佛门势大，竟暗中勾结星宿海毒魔【丁春秋】，亲率两千铁骑精锐与数百星宿毒人兵分三路合围少室山，扬言要一夜火烧少林、断绝中原武林脊梁！大难临头，嵩山晨钟急撞九十九响震彻百里。你临危不乱，于【钟鼓禅院】升帐点兵，亲布五百罗汉伏魔大阵，与【玄难】、【玄痛】、【玄寂】三院高僧死守山门，先于【罗汉堂演武正殿】前破灭星宿毒雾前军！正当两千敌骑压顶、千钧一发之际，豪雄【萧峰】万里驰援、降龙掌风如天雷滚滚撕裂敌阵！你与萧峰并肩冲入中军，联手迎战赫连铁树与丁春秋，一举斩碎西夏一品堂帅旗、重创星宿老怪，迫使两千铁骑毒人仓皇溃退，血护少林千年祖庭！',
+    '{reignYear}寒冬将至，嵩山北麓烽烟骤起！西夏一品堂统领【赫连铁树】怀恨中原佛门势大，竟暗中勾结星宿海毒魔【丁春秋】，亲率两千铁骑精锐与数百星宿毒人兵分三路合围少室山，扬言一夜火烧少林！大难临头，嵩山晨钟急撞九十九响震彻百里。你临危不乱，于【钟鼓禅院】升帐总领全寺千僧，亲布五百罗汉伏魔大阵，与【玄难】、【玄痛】、【玄寂】三院高僧死守山门，更凭精妙阵法调度于【罗汉堂演武正殿】前击溃星宿毒雾前军！正当两千敌骑压顶、千钧一发之际，豪雄【萧峰】万里驰援、降龙掌风如天雷滚滚撕裂敌阵！你与萧峰议定主攻方略并肩冲入中军，一举斩碎西夏一品堂黑狼帅旗、重创星宿老怪，迫使两千铁骑毒人仓皇溃退，血护少林千年祖庭！',
   initialStepId: 'bell_alarm',
   steps: {
     bell_alarm: {
       id: 'bell_alarm',
       title: '急钟九十九 · 点兵布阵',
       objective:
-        '西夏一品堂赫连铁树与星宿老怪丁春秋率两千铁骑毒人三路压境！请速赴【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】集结千僧，亲布五百罗汉伏魔大阵！',
+        '西夏一品堂赫连铁树与星宿老怪丁春秋率两千铁骑毒人三路压境！请速赴【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】集结千僧，亲布五百罗汉伏魔大阵并定破毒调度！',
       nextHint:
         '前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】，点击「升帐点兵 · 亲布五百罗汉伏魔大阵」。',
       targetLocation: {
@@ -82,7 +82,7 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       id: 'qiaofeng_charge',
       title: '降龙驰援 · 斩旗破敌',
       objective:
-        '萧峰已万里驰援杀破西夏左翼！请速返【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】与萧峰并肩冲锋中军，斩碎赫连铁树帅旗、重创丁春秋！',
+        '萧峰已万里驰援杀破西夏左翼！请速返【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】依与萧峰议定之方略并肩冲锋中军，斩碎赫连铁树帅旗、重创丁春秋！',
       nextHint:
         '前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】，点击「与萧峰并肩冲阵 · 决战赫连铁树与丁春秋」。',
       targetLocation: {
@@ -96,7 +96,7 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       id: 'victory_memorial',
       title: '血护少室 · 铭碑志功',
       objective:
-        '赫连铁树帅旗已断，丁春秋重伤溃逃，两千敌军尽数逐出嵩山！请步入【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】点检伤亡、拜谢萧峰驰援并铭碑志功！',
+        '赫连铁树帅旗已断，丁春秋重伤溃逃，两千敌军尽数逐出嵩山！请步入【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】拜谢萧峰驰援、共商雁门暗流并铭碑志功！',
       nextHint:
         '前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，点击「凯旋大雄正殿 · 与萧峰论侠并铭碑志功」。',
       targetLocation: {
@@ -125,7 +125,7 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       spotId: 'sl_daxiong_west',
       onceFlag: 'sl_q41_bell_triggered',
       condition: atStep(SHAOLIN_Q41_QUEST_ID, 'bell_alarm'),
-      effects: [openScene('scene_slq41_06', SHAOLIN_Q41_QUEST_ID)],
+      effects: [openScene('scene_slq41_02', SHAOLIN_Q41_QUEST_ID)],
     },
     {
       id: 'trig_slq41_vanguard',
@@ -134,7 +134,7 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       spotId: 'sl_luohan_main',
       onceFlag: 'sl_q41_vanguard_triggered',
       condition: atStep(SHAOLIN_Q41_QUEST_ID, 'break_poison_vanguard'),
-      effects: [openScene('scene_slq41_13', SHAOLIN_Q41_QUEST_ID)],
+      effects: [openScene('scene_slq41_04', SHAOLIN_Q41_QUEST_ID)],
     },
     {
       id: 'trig_slq41_charge',
@@ -143,7 +143,14 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       spotId: 'sl_daxiong_west',
       onceFlag: 'sl_q41_charge_triggered',
       condition: atStep(SHAOLIN_Q41_QUEST_ID, 'qiaofeng_charge'),
-      effects: [openScene('scene_slq41_22', SHAOLIN_Q41_QUEST_ID)],
+      effects: [
+        {
+          type: 'branch',
+          condition: { type: 'flag', flag: 'sl_q41_target', op: 'eq', value: 'ding' },
+          thenEffects: [openScene('scene_slq41_08b', SHAOLIN_Q41_QUEST_ID)],
+          elseEffects: [openScene('scene_slq41_08a', SHAOLIN_Q41_QUEST_ID)],
+        },
+      ],
     },
     {
       id: 'trig_slq41_memorial',
@@ -152,7 +159,7 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       spotId: 'sl_daxiong_main',
       onceFlag: 'sl_q41_memorial_triggered',
       condition: atStep(SHAOLIN_Q41_QUEST_ID, 'victory_memorial'),
-      effects: [openScene('scene_slq41_32', SHAOLIN_Q41_QUEST_ID)],
+      effects: [openScene('scene_slq41_12', SHAOLIN_Q41_QUEST_ID)],
     },
   ],
 
@@ -176,7 +183,7 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       id: 'spot_slq41_bell',
       label: '【千僧列阵】升帐点兵 · 亲布五百罗汉伏魔大阵',
       badge: '点兵布阵',
-      subtitle: '第六幕 · 调度玄难、玄痛、玄寂三路迎敌',
+      subtitle: '调度玄难、玄痛、玄寂三路迎敌，亲定破毒阵略',
       tone: 'gold',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -184,14 +191,14 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q41_QUEST_ID, 'bell_alarm'),
       effects: [
         { type: 'setFlag', flag: 'sl_q41_bell_triggered', value: true },
-        openScene('scene_slq41_06', SHAOLIN_Q41_QUEST_ID),
+        openScene('scene_slq41_02', SHAOLIN_Q41_QUEST_ID),
       ],
     },
     {
       id: 'spot_slq41_vanguard',
       label: '【千僧列阵】催动五百罗汉大阵 · 破灭星宿毒雾前军',
       badge: '罗汉破毒',
-      subtitle: '第十三幕 · 与玄难并肩冲破腐尸老鬼与西夏先锋',
+      subtitle: '火风反吹奇袭或重盾罗汉血战，与玄难共破前军',
       tone: 'danger',
       regionId: 'shaolin',
       buildingId: 'sl_luohan',
@@ -199,14 +206,14 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q41_QUEST_ID, 'break_poison_vanguard'),
       effects: [
         { type: 'setFlag', flag: 'sl_q41_vanguard_triggered', value: true },
-        openScene('scene_slq41_13', SHAOLIN_Q41_QUEST_ID),
+        openScene('scene_slq41_04', SHAOLIN_Q41_QUEST_ID),
       ],
     },
     {
       id: 'spot_slq41_charge',
       label: '【千僧列阵】与萧峰并肩冲阵 · 决战赫连铁树与丁春秋',
       badge: '斩旗破敌',
-      subtitle: '第二十二幕 · 宗师上品终极合战，斩碎西夏帅旗重创毒魔',
+      subtitle: '宗师上品终极合战 · 依商定主攻顺序斩旗破毒',
       tone: 'danger',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -214,14 +221,19 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q41_QUEST_ID, 'qiaofeng_charge'),
       effects: [
         { type: 'setFlag', flag: 'sl_q41_charge_triggered', value: true },
-        openScene('scene_slq41_22', SHAOLIN_Q41_QUEST_ID),
+        {
+          type: 'branch',
+          condition: { type: 'flag', flag: 'sl_q41_target', op: 'eq', value: 'ding' },
+          thenEffects: [openScene('scene_slq41_08b', SHAOLIN_Q41_QUEST_ID)],
+          elseEffects: [openScene('scene_slq41_08a', SHAOLIN_Q41_QUEST_ID)],
+        },
       ],
     },
     {
       id: 'spot_slq41_memorial',
       label: '【千僧列阵】凯旋大雄正殿 · 与萧峰论侠并铭碑志功',
       badge: '血护少室',
-      subtitle: '第三十二幕 · 少林千年大捷，萧峰生死结义',
+      subtitle: '少林千年大捷，获赐御笔「护国禅林」金匾',
       tone: 'gold',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -229,7 +241,7 @@ export const shaolinThousandMonkWarQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q41_QUEST_ID, 'victory_memorial'),
       effects: [
         { type: 'setFlag', flag: 'sl_q41_memorial_triggered', value: true },
-        openScene('scene_slq41_32', SHAOLIN_Q41_QUEST_ID),
+        openScene('scene_slq41_12', SHAOLIN_Q41_QUEST_ID),
       ],
     },
   ],

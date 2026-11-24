@@ -26,7 +26,7 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流上品',
     maxOpponentRealm: '一流上品（星宿派大弟子 · 摘星毒师）',
     recommendedNote:
-      '嵩山少林寺 Lv.3 真传合流核心传承任务（全二十八幕）。须入寺满十四载（5110 日）、完成《琉璃夜影 · 曝书惊变》，且经义 ≥ 80、书法 ≥ 65。星宿老怪丁春秋遣三大毒徒伪装西域胡商毒袭达摩院剑痕崖，达摩院首座玄难猝不及防中了「三笑逍遥散」剧毒！你需先浴血杀出毒围，背负玄难退入达摩洞寒玉榻，获赐《少林九阳禅功密钞》并领受玄难临危口授《少林九阳功》，继而运纯阳佛掌重返剑痕崖击溃星宿派大弟子摘星毒师、震散满崖腐毒！',
+      '嵩山少林寺 Lv.3 真传合流核心传承任务（全十幕）。须入寺满 540 日、完成《琉璃夜影 · 曝书惊变》，且经义 ≥ 80、书法 ≥ 65。星宿老怪丁春秋遣大弟子摘星毒师率毒徒伪装西域胡商毒袭达摩院剑痕崖，首座玄难护雏中了「三笑逍遥散」剧毒！你可借山风破毒囊巧突重围或正面车轮血战，护玄难退入寒玉榻暗格参悟《少林九阳禅功密钞》真谛、当场习得《少林九阳功》（留步闭关精修），继而重返剑痕崖护雏斩魔、以纯阳佛掌击溃摘星毒师！',
     startHint:
       '入寺满 540 日、完成《琉璃夜影 · 曝书惊变》且经义 ≥ 80、书 ≥ 65 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖】（或寻玄难）触发星宿毒袭之变。',
     startLocation: {
@@ -37,14 +37,14 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q29_START_CONDITION,
     summary:
-      '{reignYear}晚秋，星宿老怪丁春秋遣派大弟子【摘星毒师】率两名星宿毒徒伪装西域敬香胡商潜上少室山，于【绝壁石刻 · 剑痕崖】骤发阴毒奇袭！达摩院首座【玄难】为护身旁幼僧，猝不及防吸入「三笑逍遥散」与腐尸毒烟，内息骤滞、危在旦夕。你临危挺身，先于剑痕崖血战杀退星宿毒徒，背负重伤的玄难杀入【幽谷石室 · 寒玉榻】。生死一线间，玄难自寒玉榻暗格取出镇院孤本《少林九阳禅功密钞》，亲口传授少林至阳内功《少林九阳功》为你贯通纯阳真气！你功成出洞，重返剑痕崖以纯阳佛掌力战摘星毒师、震散漫崖毒雾，救下玄难性命并扬少林正气！',
+      '{reignYear}晚秋，星宿老怪丁春秋遣派大弟子【摘星毒师】率碧磷毒徒与腐骨毒女伪装西域胡商潜上少室山，于【绝壁石刻 · 剑痕崖】骤发阴毒奇袭！达摩院首座【玄难】为护扫崖小沙弥猝中「三笑逍遥散」，危在旦夕。你临危应变，或借山风逆袭破其毒囊、或车轮血战杀出血路，背负玄难退入【幽谷石室 · 寒玉榻】。生死一线间，玄难启寒玉榻暗格取出《少林九阳禅功密钞》亲口指点至阳行气真诀，为你贯通《少林九阳功》纯阳真气！待你调息闭关稳固修为，重返剑痕崖护出中毒幼僧、以纯阳佛掌力挫摘星毒师并震散满崖腐毒！',
     initialStepId: 'cliff_ambush_breakout',
     steps: {
       cliff_ambush_breakout: {
         id: 'cliff_ambush_breakout',
         title: '剑痕毒袭 · 护师突围',
         objective:
-          '星宿派三大毒徒伪装胡商在剑痕崖骤发毒袭，玄难首座身中「三笑逍遥散」剧毒危急！请留在【达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】，迎战星宿毒徒护住玄难并杀出血路！',
+          '星宿派三大毒徒在剑痕崖骤发毒袭，玄难首座身中「三笑逍遥散」危急！请留在【达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】，择策破毒围或正面车轮血战，护玄难退入达摩洞！',
         nextHint:
           '在【达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】点击「迎战星宿毒徒 · 护玄难杀出剑痕崖」。',
         targetLocation: {
@@ -58,7 +58,7 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
         id: 'damo_cave_inheritance',
         title: '背师入洞 · 密钞九阳',
         objective:
-          '你已暂退星宿先锋，须刻不容缓背负中毒的玄难前往【达摩院 · 幽谷石室 · 寒玉榻（sl_damo_main）】，借千年寒玉压制剧毒并聆听玄难口授《少林九阳功》！',
+          '你已突围并放下断龙石暂阻星宿追兵，请刻不容缓背负中毒的玄难前往【达摩院 · 幽谷石室 · 寒玉榻（sl_damo_main）】，借千年寒玉压制剧毒并参悟《少林九阳禅功密钞》！',
         nextHint:
           '前往【达摩院 · 幽谷石室 · 寒玉榻（sl_damo_main）】，点击「安顿玄难于寒玉榻 · 领受少林九阳传承」。',
         targetLocation: {
@@ -72,9 +72,9 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
         id: 'pure_yang_showdown',
         title: '纯阳出洞 · 决战摘星',
         objective:
-          '你已得玄难口授《少林九阳功》并获赐《少林九阳禅功密钞》！星宿派大弟子摘星毒师正于崖外布毒封山，请重返【达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】，以纯阳佛掌击溃摘星毒师、震散毒雾！',
+          '你已领受玄难纯阳行气真诀（出家弟子已当场习得并运使《少林九阳功》，可先闭关精修数重）。摘星毒师正于崖外焚毒封山，请整备就绪后重返【达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】，击溃摘星毒师！',
         nextHint:
-          '前往【达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】，点击「运少林九阳纯阳佛掌 · 决战星宿摘星毒师」。',
+          '闭关稳固《少林九阳功》后前往【达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】，点击「运纯阳佛掌 · 决战星宿摘星毒师」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_damo',
@@ -101,7 +101,7 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
         spotId: 'sl_damo_main',
         onceFlag: 'sl_q29_cave_triggered',
         condition: atStep(SHAOLIN_Q29_QUEST_ID, 'damo_cave_inheritance'),
-        effects: [openScene('scene_slq29_11', SHAOLIN_Q29_QUEST_ID)],
+        effects: [openScene('scene_slq29_05', SHAOLIN_Q29_QUEST_ID)],
       },
       {
         id: 'trig_slq29_showdown_east',
@@ -110,7 +110,7 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
         spotId: 'sl_damo_east',
         onceFlag: 'sl_q29_showdown_triggered',
         condition: atStep(SHAOLIN_Q29_QUEST_ID, 'pure_yang_showdown'),
-        effects: [openScene('scene_slq29_20', SHAOLIN_Q29_QUEST_ID)],
+        effects: [openScene('scene_slq29_07_showdown', SHAOLIN_Q29_QUEST_ID)],
       },
     ],
 
@@ -134,13 +134,13 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
         id: 'spot_slq29_breakout_east',
         label: '【少林传承】迎战星宿毒徒 · 护玄难杀出剑痕崖',
         badge: '血战突围',
-        subtitle: '绝壁石刻 · 剑痕崖（1v2 毒战）',
+        subtitle: '绝壁石刻 · 剑痕崖（破囊巧突 / 车轮血战）',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_damo',
         spotId: 'sl_damo_east',
         visibleWhen: atStep(SHAOLIN_Q29_QUEST_ID, 'cliff_ambush_breakout'),
-        effects: [openScene('scene_slq29_06', SHAOLIN_Q29_QUEST_ID)],
+        effects: [openScene('scene_slq29_02', SHAOLIN_Q29_QUEST_ID)],
       },
       {
         id: 'spot_slq29_cave_main',
@@ -154,12 +154,12 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q29_QUEST_ID, 'damo_cave_inheritance'),
         effects: [
           { type: 'setFlag', flag: 'sl_q29_cave_triggered', value: true },
-          openScene('scene_slq29_11', SHAOLIN_Q29_QUEST_ID),
+          openScene('scene_slq29_05', SHAOLIN_Q29_QUEST_ID),
         ],
       },
       {
         id: 'spot_slq29_showdown_east',
-        label: '【少林传承】运少林九阳纯阳佛掌 · 决战星宿摘星毒师',
+        label: '【少林传承】运纯阳佛掌 · 决战星宿摘星毒师',
         badge: '纯阳伏魔',
         subtitle: '绝壁石刻 · 剑痕崖（决战一流上品）',
         tone: 'danger',
@@ -169,7 +169,7 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q29_QUEST_ID, 'pure_yang_showdown'),
         effects: [
           { type: 'setFlag', flag: 'sl_q29_showdown_triggered', value: true },
-          openScene('scene_slq29_20', SHAOLIN_Q29_QUEST_ID),
+          openScene('scene_slq29_07_showdown', SHAOLIN_Q29_QUEST_ID),
         ],
       },
     ],
@@ -196,7 +196,7 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'act_slq29_cave_npc',
-        label: '于寒玉榻前护法 · 领受玄难《少林九阳功》秘传',
+        label: '于寒玉榻前护法 · 领受玄难九阳秘传',
         badge: '密钞九阳',
         tone: 'gold',
         showInBottomBar: true,
@@ -210,7 +210,7 @@ export const SHAOLIN_Q29_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q29_cave_triggered', value: true },
-          openScene('scene_slq29_11', SHAOLIN_Q29_QUEST_ID),
+          openScene('scene_slq29_05', SHAOLIN_Q29_QUEST_ID),
         ],
       },
     ],

@@ -28,9 +28,9 @@ export const SHAOLIN_Q24_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品 ～ 一流中品',
     maxOpponentRealm: '一流中品（姑苏慕容家将 · 包不同 / 风波恶）',
     recommendedNote:
-      '嵩山少林寺达摩院真传单脉首章（全二十四幕）。须为达摩院脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55。奉伏魔首座玄难之命，于达摩院绝壁石刻剑痕崖观摩初祖面壁石影三昼夜，终将书法笔意与禅宗顿悟融于一炉，悟得少林剑道绝艺《达摩剑法》；岂料姑苏慕容氏家将「非也先生」包不同与「一阵风」风波恶竟悄然闯上剑痕崖偷窥剑意，你车轮连战，剑化禅机当场挑落二人佩刀！',
+      '嵩山少林寺达摩院真传单脉首章（全十一幕高交互）。须为达摩院脉 Lv.3 真传弟子、完成《飞瀑深潭 · 一苇渡江》、入寺满 360 日且经义 ≥ 74、书 ≥ 55。于绝壁石刻剑痕崖观摩初祖面壁石影三昼夜悟得《达摩剑法》；姑苏慕容家将包不同、风波恶闯崖窥剑，你以禅锋机辩舌战「非也非也」包不同，复以青竹剑挑落佩刀！',
     startHint:
-      '达摩院脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满一季（360 日）且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】（或寻玄难）观摩初祖面壁石影。',
+      '达摩院脉真传弟子完成《飞瀑深潭 · 一苇渡江》、入寺满 360 日且经义 ≥ 74、书 ≥ 55 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】（或寻玄难）观摩初祖面壁石影。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',
@@ -39,16 +39,16 @@ export const SHAOLIN_Q24_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q24_START_CONDITION,
     summary:
-      '{reignYear}入寺七载，你在达摩院潜心参禅习剑，蒙伏魔首座【玄难】准许独登【绝壁石刻 · 剑痕崖】，面对初祖达摩面壁九年所留的淡墨石影静坐悟剑。三昼夜风雪不移，你由石影纹路与绝壁残剑痕中豁然悟透「无剑之剑、一念化千锋」的禅门剑意，贯通少林七十二绝技之《达摩剑法》。方欲收剑礼佛，姑苏慕容氏四大家将中的【包不同】与【风波恶】竟趁暮色闯上剑痕崖窥伺偷学，更出言挑衅欲试少林真传深浅！你寸步不让，以初悟之《达摩剑法》独斗慕容双将，剑光如禅影随形，当场挑落二人佩刀，令二人心服退山！',
+      '{reignYear}入寺逾载，你在达摩院潜心参禅习剑，蒙伏魔首座【玄难】准许独登【绝壁石刻 · 剑痕崖】，面对初祖达摩面壁九年所留淡墨石影静坐三昼夜，豁然贯通少林七十二绝技之《达摩剑法》。方欲收剑礼佛，姑苏慕容氏家将【包不同】与【风波恶】竟闯崖窥剑、连抛「非也非也」诡辩挑衅！你以禅锋舌辩折服包不同（或车轮连战慕容双将），复以青竹剑化禅机挑落佩刀，令二人心服下山！',
     initialStepId: 'cliff_duel_murong',
     steps: {
       cliff_duel_murong: {
         id: 'cliff_duel_murong',
-        title: '剑痕截客 · 独斗包风双将',
+        title: '剑痕截客 · 舌辩斗双将',
         objective:
-          '你已于剑痕崖观初祖石影三昼夜悟得《达摩剑法》真意！姑苏慕容氏家将【包不同】与【风波恶】潜闯【达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】窥剑挑衅，请车轮连战击退二人、挑落其佩刀！',
+          '你已于剑痕崖观初祖石影三昼夜悟得《达摩剑法》真意！姑苏慕容氏家将【包不同】与【风波恶】潜闯【达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】窥剑挑衅，请舌战机锋并击退来敌、挑落其佩刀！',
         nextHint:
-          '在【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】点击「剑化禅机 · 独斗姑苏慕容包不同与风波恶」。',
+          '在【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖（sl_damo_east）】点击「剑化禅机 · 迎战姑苏慕容包不同与风波恶」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_damo',
@@ -75,7 +75,7 @@ export const SHAOLIN_Q24_QUESTS: QuestDefinition[] = [
         spotId: 'sl_damo_east',
         onceFlag: 'sl_q24_duel_triggered',
         condition: atStep(SHAOLIN_Q24_QUEST_ID, 'cliff_duel_murong'),
-        effects: [openScene('scene_slq24_12', SHAOLIN_Q24_QUEST_ID)],
+        effects: [openScene('scene_slq24_05', SHAOLIN_Q24_QUEST_ID)],
       },
     ],
 
@@ -97,9 +97,9 @@ export const SHAOLIN_Q24_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_slq24_duel_east',
-        label: '【剑痕截客】剑化禅机 · 车轮连战 迎战慕容家将包不同与风波恶',
-        badge: '一剑挑双刀',
-        subtitle: '剑痕崖实战 · 独斗包不同、风波恶（一流中品战局）',
+        label: '【剑痕截客】剑化禅机 · 迎战慕容家将包不同与风波恶',
+        badge: '一剑挑锋',
+        subtitle: '剑痕崖实战 · 舌辩机锋并挫败慕容双将',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_damo',
@@ -110,8 +110,8 @@ export const SHAOLIN_Q24_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q24_murong_arrived', op: 'truthy' },
-            thenEffects: [openScene('scene_slq24_16', SHAOLIN_Q24_QUEST_ID)],
-            elseEffects: [openScene('scene_slq24_12', SHAOLIN_Q24_QUEST_ID)],
+            thenEffects: [openScene('scene_slq24_07', SHAOLIN_Q24_QUEST_ID)],
+            elseEffects: [openScene('scene_slq24_05', SHAOLIN_Q24_QUEST_ID)],
           },
         ],
       },
@@ -140,7 +140,7 @@ export const SHAOLIN_Q24_QUESTS: QuestDefinition[] = [
       {
         id: 'act_slq24_duel_npc',
         label: '禀明玄难首座 · 速赴剑痕崖击退窥剑之包不同与风波恶',
-        badge: '一剑挑双刀',
+        badge: '一剑挑锋',
         tone: 'danger',
         showInBottomBar: true,
         showInSectPanel: true,
@@ -156,8 +156,8 @@ export const SHAOLIN_Q24_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q24_murong_arrived', op: 'truthy' },
-            thenEffects: [openScene('scene_slq24_16', SHAOLIN_Q24_QUEST_ID)],
-            elseEffects: [openScene('scene_slq24_12', SHAOLIN_Q24_QUEST_ID)],
+            thenEffects: [openScene('scene_slq24_07', SHAOLIN_Q24_QUEST_ID)],
+            elseEffects: [openScene('scene_slq24_05', SHAOLIN_Q24_QUEST_ID)],
           },
         ],
       },

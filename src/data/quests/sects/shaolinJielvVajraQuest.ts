@@ -27,7 +27,7 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流中品',
     maxOpponentRealm: '一流中品（关洛邪道巨擘 · 欢喜魔僧）',
     recommendedNote:
-      '嵩山少林寺戒律药王脉 / 俗家护法脉真传单脉终章（全二十二幕）。须完成《东厢古碑 · 掌吐梵音》、入寺满 420 日且经义 ≥ 76、书 ≥ 60。关洛邪道巨擘「欢喜魔僧」冒穿少林袈裟祸乱汝州、许州一带，败坏佛门清誉；戒律二老玄寂与玄痛于钟鼓禅院演武坪联手传授《大力金刚指》，赐你「戒律黑铁法牌」代寺行刑。你孤身杀入汝许废寺地宫，一指戳破欢喜魔僧的闭穴邪功，剥其伪袈裟、押回嵩山依律典刑！',
+      '嵩山少林寺戒律药王脉 / 俗家护法脉真传单脉终章（全十一幕高交互）。须完成《东厢古碑 · 掌吐梵音》、入寺满 420 日且经义 ≥ 76、书 ≥ 60。关洛邪道「欢喜魔僧」冒穿少林袈裟祸乱汝许；玄寂与玄痛联手传授《大力金刚指》并赐「戒律黑铁法牌」。你直捣废寺地宫，于迷香铜铃幻阵中定心破幻，一指戳破闭穴邪功、妥善安置被掳女子并押魔返山典刑！',
     startHint:
       '完成《东厢古碑 · 掌吐梵音》、入寺满 420 日且经义 ≥ 76、书 ≥ 60 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】（或寻玄寂、玄痛）领受戒律法牌。',
     startLocation: {
@@ -38,14 +38,14 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q27_START_CONDITION,
     summary:
-      '{reignYear}入寺十载，汝州与许州一带忽起滔天丑闻：关洛邪道巨擘【欢喜魔僧】竟冒穿少林红黄袈裟、假托少林高僧名号设坛敛财害民，致使少林清誉蒙尘！一拍神僧【玄寂】与铁掌禅师【玄痛】震怒之下，于【钟鼓禅院 · 演武坪】联手为你传授克制邪道横练闭穴功的少林绝艺《大力金刚指》，并亲授象征少林戒律最高权柄的【戒律黑铁法牌】！你奉旨下山直捣汝许荒山废寺地宫，于阴森妖坛前迎战一流中品欢喜魔僧，凭刚猛至阳之《大力金刚指》一指戳破其闭穴气功、废其邪艺，将其剥去伪袈裟、铁链锁拿押回嵩山典刑，正气震彻关洛！',
+      '{reignYear}入寺逾载，汝州、许州忽起滔天丑闻：关洛邪道巨擘【欢喜魔僧】冒穿少林红黄袈裟设坛害民、掳掠良家女子，致使少林清誉蒙尘！一拍神僧【玄寂】与铁掌禅师【玄痛】于【钟鼓禅院 · 演武坪】联手传授克制闭穴邪功的《大力金刚指》，并亲赐【戒律黑铁法牌】！你奉旨直捣汝许废寺地宫，勘破迷香铜铃欢喜禅幻阵，凭刚猛至阳之《大力金刚指》一指戳破魔僧闭穴罩门，妥善护送被掳女子归乡，并将妖僧锁拿押回嵩山典刑！',
     initialStepId: 'purge_ruxu_crypt',
     steps: {
       purge_ruxu_crypt: {
         id: 'purge_ruxu_crypt',
-        title: '执牌清门 · 杀入废寺地宫',
+        title: '执牌清门 · 破幻伏魔',
         objective:
-          '你已得玄寂、玄痛联手传授《大力金刚指》并受领【戒律黑铁法牌】！冒穿少林袈裟祸乱汝许的【欢喜魔僧】正盘踞汝许荒山废寺地宫，请自【钟鼓禅院 · 演武坪（sl_daxiong_west）】启程讨魔，戳破其闭穴气功、将其押回嵩山！',
+          '你已得玄寂、玄痛联手传授《大力金刚指》并受领【戒律黑铁法牌】！冒穿少林袈裟祸乱汝许的【欢喜魔僧】正盘踞汝许荒山废寺地宫，请自【钟鼓禅院 · 演武坪（sl_daxiong_west）】启程讨魔，破迷香幻阵、戳破其闭穴气功并解救被掳女子！',
         nextHint:
           '在【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】点击「手持戒律黑铁法牌杀入汝许废寺地宫 · 缉拿欢喜魔僧」。',
         targetLocation: {
@@ -59,7 +59,7 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
         id: 'return_daxiong_west',
         title: '押魔返山 · 钟鼓院典刑',
         objective:
-          '你已戳破欢喜魔僧的闭穴邪功并剥下其伪冒袈裟！请押解此獠返回【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】交由玄寂、玄痛二位长老依律典刑，圆满收束真传单脉！',
+          '你已戳破欢喜魔僧的闭穴邪功、剥下伪袈裟并妥善安置被掳女子！请押解此獠返回【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】交由玄寂、玄痛二位长老依律典刑，圆满收束真传单脉！',
         nextHint:
           '返回【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】（或寻玄寂、玄痛），点击「押解欢喜魔僧返山典刑 · 交还戒律黑铁法牌」。',
         targetLocation: {
@@ -88,7 +88,7 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_west',
         onceFlag: 'sl_q27_crypt_triggered',
         condition: atStep(SHAOLIN_Q27_QUEST_ID, 'purge_ruxu_crypt'),
-        effects: [openScene('scene_slq27_09', SHAOLIN_Q27_QUEST_ID)],
+        effects: [openScene('scene_slq27_04', SHAOLIN_Q27_QUEST_ID)],
       },
       {
         id: 'trig_slq27_report_west',
@@ -97,7 +97,7 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_west',
         onceFlag: 'sl_q27_report_triggered',
         condition: atStep(SHAOLIN_Q27_QUEST_ID, 'return_daxiong_west'),
-        effects: [openScene('scene_slq27_19', SHAOLIN_Q27_QUEST_ID)],
+        effects: [openScene('scene_slq27_10', SHAOLIN_Q27_QUEST_ID)],
       },
     ],
 
@@ -119,9 +119,9 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_slq27_crypt_west',
-        label: '【执牌讨魔】杀入汝许废寺地宫 · 戳破欢喜魔僧闭穴气功',
+        label: '【执牌讨魔】杀入汝许废寺地宫 · 破幻缉拿欢喜魔僧',
         badge: '地宫伏魔',
-        subtitle: '废寺地宫实战 · 生擒关洛邪道巨擘欢喜魔僧（一流中品）',
+        subtitle: '废寺地宫实战 · 破欢喜禅迷阵生擒欢喜魔僧',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
@@ -132,8 +132,8 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q27_crypt_entered', op: 'truthy' },
-            thenEffects: [openScene('scene_slq27_14', SHAOLIN_Q27_QUEST_ID)],
-            elseEffects: [openScene('scene_slq27_09', SHAOLIN_Q27_QUEST_ID)],
+            thenEffects: [openScene('scene_slq27_06', SHAOLIN_Q27_QUEST_ID)],
+            elseEffects: [openScene('scene_slq27_04', SHAOLIN_Q27_QUEST_ID)],
           },
         ],
       },
@@ -149,7 +149,7 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q27_QUEST_ID, 'return_daxiong_west'),
         effects: [
           { type: 'setFlag', flag: 'sl_q27_report_triggered', value: true },
-          openScene('scene_slq27_19', SHAOLIN_Q27_QUEST_ID),
+          openScene('scene_slq27_10', SHAOLIN_Q27_QUEST_ID),
         ],
       },
     ],
@@ -193,8 +193,8 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q27_crypt_entered', op: 'truthy' },
-            thenEffects: [openScene('scene_slq27_14', SHAOLIN_Q27_QUEST_ID)],
-            elseEffects: [openScene('scene_slq27_09', SHAOLIN_Q27_QUEST_ID)],
+            thenEffects: [openScene('scene_slq27_06', SHAOLIN_Q27_QUEST_ID)],
+            elseEffects: [openScene('scene_slq27_04', SHAOLIN_Q27_QUEST_ID)],
           },
         ],
       },
@@ -214,7 +214,7 @@ export const SHAOLIN_Q27_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q27_report_triggered', value: true },
-          openScene('scene_slq27_19', SHAOLIN_Q27_QUEST_ID),
+          openScene('scene_slq27_10', SHAOLIN_Q27_QUEST_ID),
         ],
       },
     ],

@@ -29,7 +29,7 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
   recommendedRealm: '宗师中品 ～ 宗师上品',
   maxOpponentRealm: '宗师中品（血刀邪客 · 厉千煞 / 阴风邪老 · 阎三毒）',
   recommendedNote:
-    '嵩山少林寺终局抉择之一【慈悲方丈线】（全三十二幕）。须入寺满 900 日（二年半）、完成前序慈悲抉择《QST-SECT-01-36》、经义 ≥ 90、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600。大雄宝殿前，你护持玄慈方丈坦然自领戒律二百刑杖还业，力挫趁乱围杀叶二娘母子的邪派恶徒；玄慈圆寂前亲手将天阶圣衣《少林达摩袈裟》披于你肩头托付禅宗正统，四十八房高僧合十恭迎新任方丈！',
+    '嵩山少林寺终局抉择之一【慈悲方丈线】（精炼十四幕史诗）。须入寺满 900 日（二年半）、完成前序慈悲抉择《QST-SECT-01-36》、经义 ≥ 90、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600。大雄宝殿前，你护持玄慈方丈坦然自领戒律二百刑杖还业，于钟院力挫趁乱围杀叶二娘母子的邪派双凶；玄慈圆寂前亲手将天阶圣衣《少林达摩袈裟》披于你肩头托付禅宗正统，四十八房高僧合十恭迎新任方丈！',
   startHint:
     '完成《QST-SECT-01-36》、入寺满 900 日且经义 ≥ 90、书 ≥ 75、辩才 ≥ 65、威望 ≥ 600 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】即可触发终局。',
   startLocation: {
@@ -40,7 +40,7 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
   },
   startCondition: SHAOLIN_Q38_START_CONDITION,
   summary:
-    '{reignYear}深秋，嵩山钟声苍凉彻云。尘封二十余载的旧日私情终在天下群雄与满寺僧众面前大白于天下，少林千年清誉悬于一线。你没有落井下石，亦未包庇徇私，而是于【大雄正殿】护持方丈【玄慈】坦然脱去袈裟、自领戒律院二百记玄铁戒杖，以血肉之躯还尽一生情债与寺规重业！岂料血刀邪客【厉千煞】与阴风邪老【阎三毒】趁乱率众闯入钟鼓禅院，欲当场虐杀虚弱的【叶二娘】母子以羞辱少林。你含怒出手，以无上佛门神功于演武坪力挫双凶、护住孤寡。刑满之际，玄慈伤重垂危却面露解脱微笑，亲手将天阶圣衣【少林达摩袈裟】披于你的肩头，托付禅宗千年衣钵后含笑圆寂；叶二娘亦殉情随去。四十八房玄字辈高僧齐声合十，共迎你继任少林新一代【慈悲方丈】！',
+    '{reignYear}深秋，嵩山钟声苍凉彻云。尘封二十余载的旧日私情终在天下群雄与满寺僧众面前大白于天下，少林千年清誉悬于一线。你没有落井下石，亦未包庇徇私，而是于【大雄正殿】护持方丈【玄慈】坦然脱去袈裟、自领戒律院二百记玄铁戒杖，以血肉之躯还尽一生情债与寺规重业！岂料血刀邪客【厉千煞】与阴风邪老【阎三毒】趁乱率众闯入钟鼓禅院，欲当场虐杀虚弱的【叶二娘】母子以羞辱少林。你含怒出手，于演武坪力挫邪徒、护住孤寡。刑满之际，玄慈伤重垂危却面露解脱微笑，亲手将天阶圣衣【少林达摩袈裟】披于你的肩头，托付禅宗千年衣钵后含笑圆寂；叶二娘亦殉情随去。四十八房玄字辈高僧齐声合十，共迎你继任少林新一代【慈悲方丈】并亲颁首道法谕！',
   initialStepId: 'confession_hall',
   steps: {
     confession_hall: {
@@ -89,7 +89,7 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       id: 'merciful_enthronement',
       title: '禅宗正统 · 慈悲升座',
       objective:
-        '玄慈方丈与叶二娘俱已化去，达摩袈裟已披于你肩头。请于【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】登坛升座，受四十八房高僧合十礼拜，正式继任少林方丈！',
+        '玄慈方丈与叶二娘俱已化去，达摩袈裟已披于你肩头。请于【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】登坛升座、颁布首道方丈法谕，正式继任少林方丈！',
       nextHint:
         '在【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】点击「身披达摩袈裟 · 登坛继任少林慈悲方丈」。',
       targetLocation: {
@@ -118,7 +118,14 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       spotId: 'sl_daxiong_main',
       onceFlag: 'sl_q38_confession_triggered',
       condition: atStep(SHAOLIN_Q38_QUEST_ID, 'confession_hall'),
-      effects: [openScene('scene_slq38_05', SHAOLIN_Q38_QUEST_ID)],
+      effects: [
+        {
+          type: 'branch',
+          condition: { type: 'flag', flag: 'sl_zen_merit', op: 'gte', value: 10 },
+          thenEffects: [openScene('scene_slq38_02a', SHAOLIN_Q38_QUEST_ID)],
+          elseEffects: [openScene('scene_slq38_02b', SHAOLIN_Q38_QUEST_ID)],
+        },
+      ],
     },
     {
       id: 'trig_slq38_defend',
@@ -127,7 +134,7 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       spotId: 'sl_daxiong_west',
       onceFlag: 'sl_q38_defend_triggered',
       condition: atStep(SHAOLIN_Q38_QUEST_ID, 'defend_mother_child'),
-      effects: [openScene('scene_slq38_12', SHAOLIN_Q38_QUEST_ID)],
+      effects: [openScene('scene_slq38_05', SHAOLIN_Q38_QUEST_ID)],
     },
     {
       id: 'trig_slq38_entrust',
@@ -136,7 +143,7 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       spotId: 'sl_daxiong_main',
       onceFlag: 'sl_q38_entrust_triggered',
       condition: atStep(SHAOLIN_Q38_QUEST_ID, 'kasaya_entrust'),
-      effects: [openScene('scene_slq38_19', SHAOLIN_Q38_QUEST_ID)],
+      effects: [openScene('scene_slq38_07', SHAOLIN_Q38_QUEST_ID)],
     },
     {
       id: 'trig_slq38_enthrone',
@@ -145,7 +152,7 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       spotId: 'sl_daxiong_main',
       onceFlag: 'sl_q38_enthrone_triggered',
       condition: atStep(SHAOLIN_Q38_QUEST_ID, 'merciful_enthronement'),
-      effects: [openScene('scene_slq38_27', SHAOLIN_Q38_QUEST_ID)],
+      effects: [openScene('scene_slq38_11', SHAOLIN_Q38_QUEST_ID)],
     },
   ],
 
@@ -169,7 +176,7 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       id: 'spot_slq38_confession',
       label: '【杖责还业】护持大殿公审 · 见证玄慈方丈自领二百刑杖',
       badge: '二百刑杖',
-      subtitle: '第五幕 · 法不阿贵，慈悲不弃，血肉还尽三十年旧业',
+      subtitle: '法不阿贵，慈悲不弃，血肉还尽二十四载旧业',
       tone: 'gold',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -177,14 +184,19 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q38_QUEST_ID, 'confession_hall'),
       effects: [
         { type: 'setFlag', flag: 'sl_q38_confession_triggered', value: true },
-        openScene('scene_slq38_05', SHAOLIN_Q38_QUEST_ID),
+        {
+          type: 'branch',
+          condition: { type: 'flag', flag: 'sl_zen_merit', op: 'gte', value: 10 },
+          thenEffects: [openScene('scene_slq38_02a', SHAOLIN_Q38_QUEST_ID)],
+          elseEffects: [openScene('scene_slq38_02b', SHAOLIN_Q38_QUEST_ID)],
+        },
       ],
     },
     {
       id: 'spot_slq38_defend',
       label: '【杖责还业】截杀血刀邪客与阴风邪老 · 护持叶二娘母子',
       badge: '钟院护孤',
-      subtitle: '第十二幕 · 宗师级 车轮连战 硬仗，力挫趁乱辱寺群邪',
+      subtitle: '禅音喝破邪阵或单骑车轮连战，力挫趁乱辱寺群邪',
       tone: 'danger',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -192,14 +204,14 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q38_QUEST_ID, 'defend_mother_child'),
       effects: [
         { type: 'setFlag', flag: 'sl_q38_defend_triggered', value: true },
-        openScene('scene_slq38_12', SHAOLIN_Q38_QUEST_ID),
+        openScene('scene_slq38_05', SHAOLIN_Q38_QUEST_ID),
       ],
     },
     {
       id: 'spot_slq38_entrust',
       label: '【杖责还业】步入大雄正殿 · 聆听玄慈方丈临终传衣',
       badge: '达摩传衣',
-      subtitle: '第十九幕 · 亲授天阶达摩袈裟，叶落暮钟',
+      subtitle: '亲授天阶达摩袈裟，叶落暮钟',
       tone: 'gold',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -207,14 +219,14 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q38_QUEST_ID, 'kasaya_entrust'),
       effects: [
         { type: 'setFlag', flag: 'sl_q38_entrust_triggered', value: true },
-        openScene('scene_slq38_19', SHAOLIN_Q38_QUEST_ID),
+        openScene('scene_slq38_07', SHAOLIN_Q38_QUEST_ID),
       ],
     },
     {
       id: 'spot_slq38_enthrone',
       label: '【杖责还业】身披达摩袈裟 · 登坛继任少林慈悲方丈',
       badge: '慈悲升座',
-      subtitle: '第二十七幕 · 四十八房高僧合十恭迎，晋升少林 Lv.5 掌门',
+      subtitle: '四十八房高僧合十恭迎，亲颁首道法谕晋升少林 Lv.5 掌门',
       tone: 'gold',
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -222,7 +234,7 @@ export const shaolinEndingMercifulAbbotQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_Q38_QUEST_ID, 'merciful_enthronement'),
       effects: [
         { type: 'setFlag', flag: 'sl_q38_enthrone_triggered', value: true },
-        openScene('scene_slq38_27', SHAOLIN_Q38_QUEST_ID),
+        openScene('scene_slq38_11', SHAOLIN_Q38_QUEST_ID),
       ],
     },
   ],

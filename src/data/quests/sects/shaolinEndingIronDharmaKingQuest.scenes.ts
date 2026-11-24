@@ -59,11 +59,15 @@ function buildRedBladeMaster(): NodeNpc {
     sectRankLabel: '邪派掌门',
     avatarUrl: '/assets/characters/templates/tpl_unorthodox_master_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_unorthodox_master_fb.jpg',
-    talk: '“少林内乱方兴、旧方丈刚被革位，正是群雄分拆嵩山武库的大好时机！小和尚，把《易筋经》与七十二绝技交出来！”',
+    talk: '“少林内乱方兴、旧方丈刚被革位，正是群雄分拆嵩山武库的大好时机！小和尚，把镇寺绝学抄本交出来！”',
     stats: { hp: 5150, mp: 4800, agi: 82, res: 73 },
     talents: { bone: 84, comprehension: 76, charm: 34 },
     equippedArts: { neigong: 'MA-026', move1: 'MA-091', move2: 'MA-107' },
-    learnedArts: [{ artId: 'MA-026', level: 9 }, { artId: 'MA-091', level: 9 }, { artId: 'MA-107', level: 9 }],
+    learnedArts: [
+      { artId: 'MA-026', level: 9 },
+      { artId: 'MA-091', level: 9 },
+      { artId: 'MA-107', level: 9 },
+    ],
   })
 }
 
@@ -78,11 +82,15 @@ function buildDarkWhipMaster(): NodeNpc {
     sectRankLabel: '邪派掌门',
     avatarUrl: '/assets/characters/templates/tpl_greenwood_hero_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
-    talk: '“嘿嘿，我这玄冥乌金鞭专破少林护体硬功！三位掌门联手，看你这秃驴拿什么挡！”',
+    talk: '“嘿嘿，我这玄冥乌金鞭专破少林护体硬功！看你这秃驴拿什么挡！”',
     stats: { hp: 4480, mp: 4200, agi: 80, res: 69 },
     talents: { bone: 79, comprehension: 74, charm: 28 },
     equippedArts: { neigong: 'MA-081', move1: 'MA-055', move2: 'MA-065' },
-    learnedArts: [{ artId: 'MA-081', level: 8 }, { artId: 'MA-055', level: 8 }, { artId: 'MA-065', level: 8 }],
+    learnedArts: [
+      { artId: 'MA-081', level: 8 },
+      { artId: 'MA-055', level: 8 },
+      { artId: 'MA-065', level: 8 },
+    ],
   })
 }
 
@@ -101,7 +109,11 @@ function buildBloodSwordMaster(): NodeNpc {
     stats: { hp: 3820, mp: 3600, agi: 77, res: 63 },
     talents: { bone: 76, comprehension: 72, charm: 30 },
     equippedArts: { neigong: 'MA-081', move1: 'MA-115', move2: 'MA-125' },
-    learnedArts: [{ artId: 'MA-081', level: 8 }, { artId: 'MA-115', level: 8 }, { artId: 'MA-125', level: 8 }],
+    learnedArts: [
+      { artId: 'MA-081', level: 8 },
+      { artId: 'MA-115', level: 8 },
+      { artId: 'MA-125', level: 8 },
+    ],
   })
 }
 
@@ -112,135 +124,124 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
     subtitle: '嵩山少林寺 · 大雄正殿 · 佛前蒲团',
     mandatory: true,
     beats: [
-      N('{reignYear}深秋，冷霜压檐，铁磬长鸣。大雄宝殿前的演武香炉尚未熄灭，空气中却弥漫着肃杀如铁的寒意。'),
-      N('前番旧案撕开了少林维持三十余年的温情面纱——方丈【玄慈】破戒生子，更有寺内部分知客、执事借方丈宽仁之机暗结外豪、虚报香火、松弛清规。整座千年古刹，已在不知不觉间积弊深重。'),
-      S('NPC-0156', '（戒律院首座玄痛身披铁灰直裰，手按玄铁戒杖步至你身侧，目光如刀）“师侄，乱世须用重典，沉疴必下猛药！你既于前番大议中力排众议、主张以铁律肃清山门，今日四十八房皆在殿外候命，便由你登台执杖宣律罢！”'),
+      N('{reignYear}深秋，冷霜压檐，铁磬长鸣。玄慈破戒旧案撕开了少林三十余年的温情面纱，更暴露出寺内部分知客、执事借宽仁之机虚报香火、私通外豪的沉疴积弊。三百名戒律院铁杖武僧已在殿外列成黑压压的铜墙铁壁。'),
+      S('NPC-0156', '（玄痛身披铁灰直裰，将乌沉玄铁法杖递至你手，目光如刀）“师侄，乱世须用重典，沉疴必下猛药！你既力排众议主张以铁律肃清山门，今日四十八房皆在殿外候命，便由你登台执杖宣律！”'),
+      S('NPC-0134', '（玄寂合十沉声附议）“外有辽夏窥伺，内有邪魔觊觎。此刻若仍姑息宽纵，不出三载，千年祖庭必毁于内溃！”'),
+      S('NPC-0112', '（早已卸去袈裟立于佛前，沧桑而平静）“老衲一生宽纵过甚，终铸大错。今日你以铁腕涤寺，老衲甘愿受罚，绝无怨言。”'),
+      S('NPC-0127', '（玄难长叹退后半步，声音微哑）“只望师侄念在师兄三十年护寺苦劳，留他一条性命，令其入后山闭死关忏悔余生……”'),
     ],
-    onFinishEffects: [openScene('scene_slq39_02', SHAOLIN_Q39_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq39_accept_thunder',
+        label: '【霹雳宣律 · 绝不姑息】执玄铁法杖登台监刑，当众革去玄慈方丈法位以震慑内外',
+        subLabel: '正式开启终局《雷霆涤寺 · 铁腕法王》',
+        tone: 'danger',
+        effects: [
+          { type: 'startQuest', questId: SHAOLIN_Q39_QUEST_ID, stepId: 'iron_verdict' },
+          setStep(SHAOLIN_Q39_QUEST_ID, 'iron_verdict'),
+          { type: 'setFlag', flag: 'sl_q39_verdict_triggered', value: true },
+          { type: 'setFlag', flag: 'sl_q39_verdict_tone', value: 'thunder' },
+          toast('已开启终局《雷霆涤寺 · 铁腕法王》！执杖登台宣律！', 'talk', '雷霆涤寺'),
+          {
+            type: 'branch',
+            condition: {
+              type: 'any',
+              conditions: [
+                { type: 'flag', flag: 'sl_xuanjing_debt', op: 'truthy' },
+                { type: 'flag', flag: 'sl_karma_wrath', op: 'gte', value: 8 },
+              ],
+            },
+            thenEffects: [openScene('scene_slq39_02a', SHAOLIN_Q39_QUEST_ID)],
+            elseEffects: [openScene('scene_slq39_02b', SHAOLIN_Q39_QUEST_ID)],
+          },
+        ],
+      },
+      {
+        id: 'slq39_accept_strict_mercy',
+        label: '【法严情存 · 闭关赎罪】应允玄难留其残生，依法杖责革位、永禁后山达摩洞面壁思过',
+        subLabel: '正式开启终局《雷霆涤寺 · 铁腕法王》',
+        tone: 'gold',
+        effects: [
+          { type: 'startQuest', questId: SHAOLIN_Q39_QUEST_ID, stepId: 'iron_verdict' },
+          setStep(SHAOLIN_Q39_QUEST_ID, 'iron_verdict'),
+          { type: 'setFlag', flag: 'sl_q39_verdict_triggered', value: true },
+          { type: 'setFlag', flag: 'sl_q39_verdict_tone', value: 'strict_mercy' },
+          toast('已开启终局《雷霆涤寺 · 铁腕法王》！执杖登台宣律！', 'talk', '雷霆涤寺'),
+          {
+            type: 'branch',
+            condition: {
+              type: 'any',
+              conditions: [
+                { type: 'flag', flag: 'sl_xuanjing_debt', op: 'truthy' },
+                { type: 'flag', flag: 'sl_karma_wrath', op: 'gte', value: 8 },
+              ],
+            },
+            thenEffects: [openScene('scene_slq39_02a', SHAOLIN_Q39_QUEST_ID)],
+            elseEffects: [openScene('scene_slq39_02b', SHAOLIN_Q39_QUEST_ID)],
+          },
+        ],
+      },
+    ],
   },
 
-  scene_slq39_02: {
-    id: 'scene_slq39_02',
-    title: '第二幕 · 慈悲与霹雳',
-    subtitle: '大雄正殿 · 佛前蒲团',
+  scene_slq39_02a: {
+    id: 'scene_slq39_02a',
+    title: '第二幕 · 怒目心劫',
+    subtitle: '大雄正殿 · 监刑法台（旧账与业报回响）',
     mandatory: true,
     beats: [
-      S('NPC-0134', '（罗汉堂长老玄寂合十沉声道）“阿弥陀佛。外有辽夏兵锋虎视中原，内有邪魔外道窥伺七十二绝技。若少林此刻仍只讲姑息宽纵，不出三载，千年祖庭必毁于内溃！”'),
-      P('（接过玄痛递来的玄铁监刑法杖，指节微紧，声音冷峻如金铁交击）“佛门有菩萨低眉，亦有金刚怒目！不施霹雳手段，何以显菩萨心肠？今日若不立铁律、革旧弊，少林便无明日！”'),
-      S('NPC-0112', '（早已卸去袈裟立于佛前，神色平静而沧桑）“阿弥陀佛。老衲一生姑息过甚，终铸大错。今日你以铁腕涤寺，正是达摩祖师所愿。老衲甘愿受罚，绝无怨言。”'),
+      N('你手握冰冷沉重的玄铁法杖步出殿门，朔风卷起青灰直裰。{ifFlag:sl_xuanjing_debt|刹那间，昔年外门香火铜炉前焚毁知客私册的滚滚黑烟竟又掠过心头——当年被迫向腐朽低头埋下的心魔，今日终于到了由你亲手斩断根株、彻清知客千年积弊的时刻！|回望这一路自罗汉、戒律杀出重围的血火长途，你比寺中任何人都更明白：唯有以怒目金刚之雷霆杀伐护教，方能保古刹不堕！}'),
+      S('NPC-0156', '（步于你身侧半步，低声沉赞）“师侄一路行事凌厉如霜、嫉恶如仇，这根监刑玄铁法杖握在你手中，远比握在老衲手里更具慑服天下之威！”'),
+      P('（冷眸俯瞰丹墀下两千僧众与四方观礼豪客，字字如金铁交击）“佛门有菩萨低眉，亦有金刚怒目！不施霹雳手段，何以显菩萨心肠？今日便由我斩尽旧日优柔与积弊，重铸少林铁骨！”'),
+    ],
+    onFinishEffects: [openScene('scene_slq39_03', SHAOLIN_Q39_QUEST_ID)],
+  },
+
+  scene_slq39_02b: {
+    id: 'scene_slq39_02b',
+    title: '第二幕 · 重典起势',
+    subtitle: '大雄正殿 · 监刑法台',
+    mandatory: true,
+    beats: [
+      N('寒风猎猎，三百名戒律院铁杖武僧齐齐顿杖，肃杀之气令前来观礼的各路江湖豪客无不心头一凛。'),
+      P('（接过玄痛手中玄铁法杖，缓步踏上丹墀高台，声音冷冽如霜）“佛门有菩萨低眉，亦有金刚怒目！今日若不以重典革旧弊、立铁律，明日少林便要在内溃与外侮之中灰飞烟灭！”'),
+      S('NPC-0134', '（玄寂朗声传谕）“四十八房诸院弟子听令——戒律重典已开，敢有哗变徇私者，立按寺规严惩！”'),
     ],
     onFinishEffects: [openScene('scene_slq39_03', SHAOLIN_Q39_QUEST_ID)],
   },
 
   scene_slq39_03: {
     id: 'scene_slq39_03',
-    title: '第三幕 · 戒律森严',
-    subtitle: '大雄正殿 · 玉阶高台',
+    title: '第三幕 · 高台宣律',
+    subtitle: '大雄正殿 · 丹墀高台',
+    illustrationUrl: '/assets/quests/sl_39_iron_verdict.jpg',
+    illustrationCaption: '大雄宝殿高台 · 主角手执玄铁法杖宣读少林铁律，监刑杖责玄慈并革去其方丈法位',
     mandatory: true,
     beats: [
-      S('NPC-0127', '（玄难虽心疼师兄，却亦知大局不可违，长叹一声退后半步）“只望师侄念在方丈师兄三十年护寺苦劳，留他一条性命，令其入后山闭死关忏悔余生……”'),
-      P('（微微颔首，目光凛然）“玄难师伯放心。依《少林铁律》，方丈破戒自当监刑杖责、革去方丈法位、永禁后山达摩洞面壁思过，以儆效尤——既全佛门不杀之戒，亦彰千年清规之威！”'),
+      N('你猛然将玄铁法杖重顿高台——“轰”的一声，厚重青石板应声震裂三尺！'),
+      P('（声如洪钟震彻少室山谷）“少林清规第一条：上自方丈首座，下至烧火行童，犯淫戒而乱寺纲者，杖责一百、革去法职、永禁思过！今前任方丈玄慈自承旧罪，本座奉四十八房公议，依法监刑！”'),
+      N('玄慈坦然伏于法毯，戒律院执刑僧齐声喝数，玄铁重杖一记记砸落，杖杖见血！满山屏息，四方江湖豪客骇然变色——谁也没想到少林寺竟真有如此霹雳手腕，当众革去一代方丈法位！'),
+      S('NPC-0112', '（挨满百杖，浑身血汗交加却眼神清明，艰难抬首望向高台）“阿弥陀佛……好一个雷霆手段……少林有如此铁律，千年不倒矣……”'),
+      P('（合十肃然宣判）“刑满！即日起革去玄慈方丈法位、收回方丈印信与达摩袈裟，敷药护送至后山达摩洞闭死关终生忏悔！既全佛门不杀之戒，亦彰千年清规之威！”'),
     ],
     onFinishEffects: [openScene('scene_slq39_04', SHAOLIN_Q39_QUEST_ID)],
   },
 
   scene_slq39_04: {
     id: 'scene_slq39_04',
-    title: '第四幕 · 执杖登台',
-    subtitle: '大雄正殿 · 监刑法台',
+    title: '第四幕 · 锁拿蠹虫',
+    subtitle: '大雄宝殿 · 东厢告急',
     mandatory: true,
     beats: [
-      N('三百名戒律院铁杖武僧列成两道黑压压的铜墙铁壁，自大雄正殿一直排至山门石阶！满寺鸦雀无声，唯余寒风猎猎。'),
-    ],
-    choices: [
-      {
-        id: 'slq39_accept',
-        label: '执玄铁法杖登台宣律，监刑革去玄慈方丈之位',
-        tone: 'gold',
-        effects: [
-          { type: 'startQuest', questId: SHAOLIN_Q39_QUEST_ID, stepId: 'iron_verdict' },
-          setStep(SHAOLIN_Q39_QUEST_ID, 'iron_verdict'),
-          toast('已开启终局《雷霆涤寺 · 铁腕法王》！请登大雄正殿高台执杖宣律！', 'talk', '雷霆涤寺'),
-        ],
-      },
-    ],
-  },
-
-  scene_slq39_05: {
-    id: 'scene_slq39_05',
-    title: '第五幕 · 高台宣律',
-    subtitle: '大雄正殿 · 丹墀高台',
-    illustrationUrl: '/assets/quests/sl_39_iron_verdict.jpg',
-    illustrationCaption: '大雄宝殿高台 · 主角手执玄铁法杖宣读少林铁律，监刑杖责玄慈并革去其方丈法位',
-    mandatory: true,
-    beats: [
-      N('你手持乌黑玄铁法杖缓步登上丹墀高台，俯瞰殿前两千名少林僧众与四方观礼豪客，猛然将铁杖顿地——“轰”的一声，青石板震裂三尺！'),
-      P('（声如洪钟震彻少室山谷）“少林清规第一条：上自方丈首座，下至烧火行童，犯淫戒而乱寺纲者，杖责一百、革去法职、永禁思过！今前任方丈玄慈自承旧罪，本座奉四十八房公议，依法监刑！”'),
-      N('话音未落，满山屏息！所有观礼的江湖豪客无不骇然变色——谁也没想到少林寺竟真有如此雷霆铁腕，当众革去一代方丈之位！'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_06', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_06: {
-    id: 'scene_slq39_06',
-    title: '第六幕 · 铁杖明法',
-    subtitle: '大雄正殿 · 丹墀高台',
-    mandatory: true,
-    beats: [
-      N('玄慈坦然伏于青石法毯之上，戒律院执刑僧齐声喝数，沉重的玄铁戒杖一记记砸落，杖杖见血，声声惊心！'),
-      S('NPC-0112', '（咬牙挨满百杖，浑身血汗交加却眼神清明，艰难抬首望向高台上的你）“阿弥陀佛……好……好一个雷霆手段……少林有如此铁律，千年不倒矣……”'),
-      P('（居高临下，合十肃然宣判）“刑满！即日起革去玄慈少林方丈法位，收回方丈印信与达摩袈裟，由戒律院护送至后山幽谷石室闭死关忏悔，终身不得踏出半步！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_07', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_07: {
-    id: 'scene_slq39_07',
-    title: '第七幕 · 闭关忏悔',
-    subtitle: '大雄正殿 · 后山小径',
-    mandatory: true,
-    beats: [
-      N('两名戒律院高僧上前为玄慈敷上少林大还金创药，搀扶着这位曾经统领中原武林三十年的老方丈一步步走向后山深谷。玄慈临转过山坳前，最后回头望了一眼高台之上青衫如铁的你，深深合十致意。'),
-      S('NPC-0156', '（玄痛望见这一幕，神色肃穆如钢）“师兄罪业已定，但寺内借师兄宽仁之名贪墨香火、私通外客的蛀虫尚未拔除！知客执事慧贪等人此刻正在东厢藏经橱妄图焚毁账册！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_08', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_08: {
-    id: 'scene_slq39_08',
-    title: '第八幕 · 锁拿蠹虫',
-    subtitle: '大雄宝殿 · 殿前广场',
-    mandatory: true,
-    beats: [
-      P('（眼中寒芒一闪，铁杖直指东厢）“好大的狗胆！方丈尚且受杖革位，区区知客贪僧竟敢销毁暗账？玄痛师伯，封锁全寺山门，随我直扑东厢碑廊藏经橱！”'),
-      S('NPC-0134', '（玄寂大步跟上）“罗汉堂弟子已将东厢团团围住，一只苍蝇也飞不出去！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_09', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_09: {
-    id: 'scene_slq39_09',
-    title: '第九幕 · 群豪震慑',
-    subtitle: '大雄宝殿 · 东厢回廊',
-    mandatory: true,
-    beats: [
-      N('你率领数十名铁面武僧大步穿廊而过，沿途僧众无不屏息垂首。连几名原本打算看笑话的江湖门派长老，也忍不住暗自嘀咕：“少林出了这位铁腕高僧，往后只怕比从前还要难惹十倍……”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_10', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_10: {
-    id: 'scene_slq39_10',
-    title: '第十幕 · 直扑东厢',
-    subtitle: '东厢碑廊 · 藏经橱外',
-    mandatory: true,
-    beats: [
-      N('行至东厢碑廊，果然见藏经橱内火光隐隐、焦烟弥漫！你一脚踹开朱漆木门，大喝一声踏入其中！'),
+      N('戒律院高僧为玄慈敷上大还金创药，搀扶这位统领中原武林三十载的老方丈步入后山幽谷。玄慈转过山坳前，最后回望高台上青衫如铁的你，深深合十致意。'),
+      S('NPC-0156', '（玄痛神色陡寒，快步近前急报）“师兄罪业已定，但寺内借其宽仁贪墨香火、私通外魔的蛀虫正狗急跳墙！知客执事【慧贪】与几名徇私执事此刻正在东厢碑廊藏经橱焚毁暗账！”'),
+      S('NPC-0134', '（玄寂冷哼一声）“罗汉堂精锐已将东厢团团围死，一只苍蝇也飞不出去！”'),
+      P('（寒芒迸射，玄铁法杖直指东厢）“好大的狗胆！方丈尚且受杖革位，区区知客贪僧竟敢毁证灭迹？随我直扑东厢藏经橱！”'),
     ],
     choices: [
       {
         id: 'slq39_go_purge',
-        label: '踏入【东厢碑廊 · 藏经橱】，查封暗账雷霆整肃积弊',
+        label: '直扑【东厢碑廊 · 藏经橱】，灰烬夺册雷霆整肃积弊！',
         tone: 'gold',
         effects: [
           setStep(SHAOLIN_Q39_QUEST_ID, 'purge_corrupt'),
@@ -250,81 +251,76 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq39_11: {
-    id: 'scene_slq39_11',
-    title: '第十一幕 · 灰烬夺册',
-    subtitle: '东厢碑廊 · 藏经橱',
+  scene_slq39_05: {
+    id: 'scene_slq39_05',
+    title: '第五幕 · 灰烬夺册',
+    subtitle: '东厢碑廊 · 藏经橱（整肃古刹积弊三策）',
     mandatory: true,
     beats: [
-      N('藏经橱内，知客执事【慧贪】与三名戒律院徇私执事正将一摞摞私账往炭盆里塞！你袖袍一挥，刚猛无匹的佛门掌风瞬间震灭炭火，将半焦的账册尽数卷入掌中！'),
-      S(SPEAKER_CORRUPT_MONK, '（面如死灰，扑通跪地颤抖求饶）“师……师叔饶命！弟子只是一时糊涂，私收了河东赤练堂与太行黑水帮的几千两香火银，替他们打探过几回寺中虚实……”'),
-      P('（冷笑一声，翻开焦边账册，目光如炬）“好啊！原来你们不仅虚报药庄田租、私卖武库残谱，竟还勾结河东、太行、淮南三路邪派掌门，把今日公审的时辰透了出去！”'),
+      N('你一脚踹开朱漆木门，袖袍卷起刚猛罡风瞬间震灭炭盆烈火，将半焦的厚厚私账尽数夺入掌中！知客执事【慧贪】与三名戒律院徇私执事面如死灰，扑通跪地筛糠般叩头求饶。'),
+      S(SPEAKER_CORRUPT_MONK, '（颤声涕泪横流）“师叔饶命！弟子只是一时猪油蒙心，私收了河东赤练堂、太行黑水帮、淮南断魂门几千两黑银，替他们打探过今日公审时辰与寺中布防……”'),
+      N('你冷眸翻阅焦边暗账，赫然见其中牵连甚广——上至各省下院田租药庄的历年虚报，下至被裹挟记账的十余名寒门小僧！{ifFlag:sl_xuanjing_debt|看着纸页间那枚再熟悉不过的知客暗记，昔年焚账收银的心魔此刻轰然碎裂——今日由你亲定整肃力度，彻底了断这桩宿业！|玄痛怒发冲冠、铁杖砸地，静候你亲口裁定整肃古刹积弊的铁腕方略！}'),
     ],
-    onFinishEffects: [openScene('scene_slq39_12', SHAOLIN_Q39_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq39_purge_audit',
+        label: '【雷霆彻查 · 追缴军资】逐页核查知客院与各省下院暗账，连根追缴贪墨赃银充作僧兵军资！',
+        subLabel: '需算术 ≥ 55 或策论 ≥ 65 · 彻底拔清宿弊，额外收获寺库军资厚赏',
+        tone: 'gold',
+        condition: {
+          type: 'any',
+          conditions: [
+            { type: 'skillAtLeast', key: '算术', min: 55 },
+            { type: 'skillAtLeast', key: '策论', min: 65 },
+          ],
+          hint: '需算术 ≥ 55 或策论 ≥ 65',
+        },
+        effects: [
+          { type: 'setFlag', flag: 'sl_q39_purge_policy', value: 'audit' },
+          openScene('scene_slq39_06', SHAOLIN_Q39_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq39_purge_lenient',
+        label: '【首恶必办 · 胁从宽宥】废慧贪等首恶逐山送官，宽宥受胁旧吏令其戴罪立功重理田亩！',
+        subLabel: '刚中带仁，稳住各房人心而不伤寺脉元气',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q39_purge_policy', value: 'lenient' },
+          openScene('scene_slq39_06', SHAOLIN_Q39_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq39_purge_burn_law',
+        label: '【焚尽旧账 · 重订铁律】一把火斩断陈年烂账瓜葛，亲立《少林铁律十二条》违者立诛！',
+        subLabel: '快刀斩乱麻，以雷霆新法开启少林全新纪元',
+        tone: 'danger',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q39_purge_policy', value: 'burn_new_law' },
+          openScene('scene_slq39_06', SHAOLIN_Q39_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_slq39_12: {
-    id: 'scene_slq39_12',
-    title: '第十二幕 · 肃清门户',
-    subtitle: '东厢碑廊 · 藏经橱',
-    mandatory: true,
-    beats: [
-      S('NPC-0156', '（玄痛气得须发皆张，铁杖重重砸地）“畜生！吃着少林的斋饭，竟敢勾结外魔谋害祖庭！立刻废去他们半身武功、逐出山门，押送河南府按律治罪！”'),
-      P('（提笔在东厢石碑前以苍劲楷书写下《少林重修铁律十二条》，字字如刀刻斧凿）“自今日起，知客房账目月月公示于碑廊，戒律院与罗汉堂互为监察，凡徇私通敌者，绝不姑息！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_13', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_13: {
-    id: 'scene_slq39_13',
-    title: '第十三幕 · 法堂新颜',
-    subtitle: '东厢碑廊 · 藏经橱',
+  scene_slq39_06: {
+    id: 'scene_slq39_06',
+    title: '第六幕 · 法堂新颜',
+    subtitle: '东厢碑廊 → 西院急报',
     illustrationUrl: '/assets/quests/sl_39_iron_hall.jpg',
     illustrationCaption: '东厢碑廊 · 主角雷霆查封暗账、手书《少林重修铁律十二条》，森严法堂气象一新',
     mandatory: true,
     beats: [
-      N('十二条铁律高悬东厢碑廊，十余名尸位素餐的贪墨执事被当场革除僧籍，全寺风气为之一肃！不少原本心存懈怠的弟子无不凛然整衣，齐声称颂法度严明。'),
-      N('就在此时，西侧钟鼓禅院忽然传来三声刺耳的怪啸与兵刃碰撞巨响！'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_14', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_14: {
-    id: 'scene_slq39_14',
-    title: '第十四幕 · 三魔压境',
-    subtitle: '东厢碑廊 · 西院急报',
-    mandatory: true,
-    beats: [
-      N('一名罗汉堂武僧急步奔来禀报：“启禀长老！河东赤练刀主【殷无咎】、太行玄冥鞭王【杜阴山】、淮南血手铁剑【莫断魂】三名邪派掌门趁我寺革位整肃之际，竟率百余邪徒打伤山门守僧，闯入钟鼓禅院演武坪叫阵！”'),
-      S('NPC-0134', '（玄寂冷哼一声）“果然是慧贪这孽障暗中通风报信！三名邪派掌门联手而来，来者不善，老衲即刻点齐十八罗汉阵相助！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_15', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_15: {
-    id: 'scene_slq39_15',
-    title: '第十五幕 · 独步迎魔',
-    subtitle: '大雄宝殿西廊',
-    mandatory: true,
-    beats: [
-      P('（抬手止住玄寂，衣袍在劲风中猎猎翻飞，眉宇间傲然生威）“玄寂师伯不必动用罗汉阵！今日我少林刚立铁律，正缺一块试刀石来震慑天下宵小——这三个邪派掌门，便由我一人去会！”'),
-      S('NPC-0156', '（玄痛眼中精光大盛）“好！若能以一人之力当众镇压三派邪主，莫说中原黑道，便是天下群雄亦再不敢轻视我少林半寸！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_16', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_16: {
-    id: 'scene_slq39_16',
-    title: '第十六幕 · 步入演武坪',
-    subtitle: '钟鼓禅院 · 演武坪前',
-    mandatory: true,
-    beats: [
-      N('你孤身一人负手步入钟鼓禅院演武坪，只见三名凶焰滔天的邪派掌门各自横持神兵，正肆无忌惮地狂笑叫嚣。'),
+      N('{ifFlagEq:sl_q39_purge_policy=audit|你当场依账核对各省下院田庄虚报，一夜追缴贪墨黑银数千两悉数拨入罗汉堂充作僧兵军资，铁算雷霆令全寺贪蠹闻风丧胆！|}{ifFlagEq:sl_q39_purge_policy=lenient|你当众废去慧贪等四名首恶武功押交河南府治罪，同时宽宥十余名受胁小僧令其戴罪整理田亩账册，满寺弟子既畏铁律又感公心！|}{ifFlagEq:sl_q39_purge_policy=burn_new_law|你废除慧贪等首恶僧籍逐出山门，旋即将陈年烂账付之一炬，挥毫在东厢石碑前写下字字如刀的《少林重修铁律十二条》，凡再敢徇私通敌者绝不姑息！|}'),
+      N('十二条铁律高悬碑廊，全寺风气为之一肃！正当众僧凛然整衣之际，西侧钟鼓禅院骤然炸响三声刺耳怪啸与兵刃碰撞巨响！'),
+      N('一名罗汉堂武僧急奔来报：“启禀长老！河东赤练刀主【殷无咎】、太行玄冥鞭王【杜阴山】、淮南血手铁剑【莫断魂】三名邪派掌门果然收到慧贪密信，率百余邪徒打伤守僧，闯入钟鼓禅院演武坪叫阵！”'),
+      S('NPC-0134', '（玄寂冷哼起身）“三名邪派掌门联手趁火打劫，老衲立刻点齐十八罗汉阵迎敌！”'),
+      P('（抬手止住玄寂，衣袍在劲风中猎猎翻飞，眉宇傲然如怒目明王）“不必动用罗汉阵！少林刚立铁律，正缺三块试刀石来震慑天下宵小——这三魔，便由我一人去会！”'),
     ],
     choices: [
       {
         id: 'slq39_go_west',
-        label: '踏入【钟鼓禅院 · 演武坪】，以金刚金身独战三名邪派掌门',
+        label: '孤身踏入【钟鼓禅院 · 演武坪】，以金刚金身独战三大邪派掌门！',
         tone: 'danger',
         effects: [
           setStep(SHAOLIN_Q39_QUEST_ID, 'shatter_three_masters'),
@@ -334,46 +330,62 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq39_17: {
-    id: 'scene_slq39_17',
-    title: '第十七幕 · 邪主逼宫',
-    subtitle: '钟鼓禅院 · 演武坪',
+  scene_slq39_07: {
+    id: 'scene_slq39_07',
+    title: '第七幕 · 邪主逼宫',
+    subtitle: '钟鼓禅院 · 演武坪（宗师级独战三魔）',
     mandatory: true,
     beats: [
-      S(SPEAKER_RED_BLADE, '（将九环赤练大刀往青石上一插，狂傲大笑）“哈哈哈哈！玄慈老秃驴刚被你们自己废了，群龙无首的少林寺还敢关门整顿？识相的，把少林武库钥匙和七十二绝技抄本交出来，老子饶你们全寺不死！”'),
-      S(SPEAKER_DARK_WHIP, '（抖动漆黑乌金长鞭，啪的一声抽裂石柱）“小和尚，听说你在大殿上威风八面？可惜今日站在你面前的，是河东、太行、淮南三大宗门之主！”'),
-      S(SPEAKER_BLOOD_SWORD, '（铁剑斜指你的咽喉，阴恻恻一笑）“少林历代高僧都死了不成？竟派你一个人出来送死！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_18', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_18: {
-    id: 'scene_slq39_18',
-    title: '第十八幕 · 金刚护体',
-    subtitle: '钟鼓禅院 · 演武坪',
-    mandatory: true,
-    beats: [
-      P('（缓步走至演武坪中央，体内二十二载少林至阳内功轰然鼓荡，周身隐隐浮现一层淡金色金刚护体罡气，连飘落的秋叶皆在三尺之外化作齑粉）“阿弥陀佛。三个跳梁小丑，也敢在达摩祖庭大放厥词？并肩上吧——今日不震断尔等手中兵刃，本座誓不回殿！”'),
-      S(SPEAKER_RED_BLADE, '（脸色微变，怒吼出声）“好狂的秃驴！两位帮主，莫跟他讲江湖规矩，三路齐发，先剁碎他的乌龟壳！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_19', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_19: {
-    id: 'scene_slq39_19',
-    title: '第十九幕 · 独战三魔',
-    subtitle: '钟鼓禅院 · 演武坪（宗师 车轮连战 硬仗）',
-    mandatory: true,
-    beats: [
-      N('赤练刀风如火海倾泻，玄冥鞭影似毒蛇缠绕，血手铁剑直取咽喉死穴！三大邪派掌门联手合击，威势震得演武坪四周古柏枝叶尽折！'),
+      N('你孤身负手步入钟鼓禅院演武坪，四周古柏在凛冽杀气中簌簌落叶。三名凶焰滔天的邪派掌门横持神兵、呈品字形封住去路。'),
+      S(SPEAKER_RED_BLADE, '（将九环赤练大刀猛插青石，狂傲大笑）“哈哈！玄慈刚被你们自己废了，群龙无首的少林寺还敢关门整顿？把少林武库钥匙和七十二绝技抄本交出来，老子饶你们全寺不死！”'),
+      S(SPEAKER_DARK_WHIP, '（抖动漆黑乌金长鞭，啪的一声抽裂石柱）“我这玄冥乌金鞭专破少林护体硬功！三大掌门联手，看你这狂妄小僧拿什么挡！”'),
+      S(SPEAKER_BLOOD_SWORD, '（精钢铁剑斜指你咽喉，阴恻恻冷笑）“少林老秃驴都死绝了不成？派你一人送死，先尝尝老子的断魂快剑！”'),
+      P('（体内少林至阳真气轰然鼓荡，周身隐现淡金护体罡气，飘落秋叶在三尺外尽化齑粉）“三个跳梁小丑，也敢在达摩祖庭大放厥词？今日不震断尔等兵刃，本座誓不回殿！”'),
     ],
     choices: [
       {
-        id: 'slq39_fight_three',
-        label: '运起金刚金身，车轮连战 独战【殷无咎】【杜阴山】【莫断魂】！（宗师级硬仗）',
-        subLabel: '当场震断三名邪派掌门兵刃，扬少林铁腕神威',
+        id: 'slq39_fight_shatter_first',
+        label: '【金刚不坏 · 震刃破气】开场一喝催发金刚罡气震碎莫断魂长剑，跳过莫断魂连战殷无咎、杜阴山！',
+        subLabel: '需《金刚不坏体神功》≥ 3 重或先天根骨 ≥ 80 · 震胆先废一魔，车轮连战余下双魔',
+        tone: 'gold',
+        condition: {
+          type: 'any',
+          conditions: [
+            { type: 'learnedArtAtLeast', artId: 'MA-018', minLevel: 3 },
+            { type: 'talentAtLeast', key: '根骨', min: 80 },
+          ],
+          hint: '需《金刚不坏体神功》≥ 3 重或先天根骨 ≥ 80',
+        },
+        effects: [
+          { type: 'setFlag', flag: 'sl_q39_battle_tactic', value: 'shatter_first' },
+          toast('金刚不坏罡气轰然外放！莫断魂刺来铁剑当场崩作数截、心胆俱裂踉跄退阵，你直逼殷无咎与杜阴山车轮决战！', 'success', '震刃破气'),
+          {
+            type: 'startCombat',
+            format: 'gauntlet',
+            questId: SHAOLIN_Q39_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildRedBladeMaster() },
+            extraOpponents: [{ kind: 'custom', npc: buildDarkWhipMaster() }],
+            rule: 'story_trial',
+            forbidEscapeReason: '少林新立铁律之日，岂容邪派掌门嚣张而退！',
+            introText: '【金刚破气 · 车轮连战】先震碎莫断魂铁剑后，独战赤练刀主【殷无咎】与玄冥鞭王【杜阴山】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_slq39_08', SHAOLIN_Q39_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('殷无咎刀势刚猛、杜阴山鞭影刁钻，稳住金刚真气调息回满再战！', 'warn', '金刚断刃'),
+            ],
+          },
+        ],
+      },
+      {
+        id: 'slq39_fight_all_three',
+        label: '【三魔齐来 · 老衲一并接下】正面车轮连战【殷无咎】【杜阴山】【莫断魂】三魔！（宗师车轮连战）',
+        subLabel: '无门槛正攻 · 车轮连战三大邪派掌门，当场震断三人神兵',
         tone: 'danger',
         effects: [
+          { type: 'setFlag', flag: 'sl_q39_battle_tactic', value: 'all_three' },
           {
             type: 'startCombat',
             format: 'gauntlet',
@@ -386,10 +398,13 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
             rule: 'story_trial',
             forbidEscapeReason: '少林新立铁律之日，岂容邪派掌门嚣张而退！',
             introText: '【车轮连战 · 金刚断刃】独战河东赤练刀主、太行玄冥鞭王与淮南血手铁剑！',
-            onWin: [openScene('scene_slq39_20', SHAOLIN_Q39_QUEST_ID)],
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_slq39_08', SHAOLIN_Q39_QUEST_ID),
+            ],
             onLose: [
-              { type: 'healPlayer', hpPct: 85, mpPct: 85 },
-              toast('三大邪派掌门合击凌厉异常，稳住金刚真气重整架势再战！', 'warn', '金刚断刃'),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('三大邪派掌门攻势凌厉异常，稳住金刚真气调息回满再战！', 'warn', '金刚断刃'),
             ],
           },
         ],
@@ -397,73 +412,53 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq39_20: {
-    id: 'scene_slq39_20',
-    title: '第二十幕 · 金刚断刃',
+  scene_slq39_08: {
+    id: 'scene_slq39_08',
+    title: '第八幕 · 金刚断刃',
     subtitle: '钟鼓禅院 · 演武坪',
     illustrationUrl: '/assets/quests/sl_39_break_blades.jpg',
     illustrationCaption: '钟鼓禅院演武坪 · 金刚不坏金身光芒大作，主角徒手震断三名邪派掌门神兵',
     mandatory: true,
     beats: [
-      N('五十余合惊天搏杀！面对三派掌门孤注一掷的绝命合围，你非但不退，反而低喝一声佛号，金刚不坏金身催发至绝巅，浑身绽出宛如怒目明王般的炽盛罡气！'),
-      N('“锵！咔嚓！崩！”三声裂金碎铁的爆响几乎在同一瞬炸开！莫断魂的血手铁剑刺在你左肩罡气上寸寸崩断；杜阴山的玄冥乌金鞭被你反手一扯化作数截废铁；殷无咎的九环赤练刀更被你一记至刚至阳的伏魔神掌正面震断，刀身倒飞插进十丈外的石壁之中！'),
-      N('三大邪派掌门齐齐口吐鲜血、如断线风筝般翻滚倒地，手中仅余三截冒烟的断柄！'),
+      N('五十余合惊天搏杀！面对邪主孤注一掷的绝命猛攻，你低喝一声佛号，金刚不坏金身催发至绝巅，浑身绽出宛如怒目明王般的炽盛金芒！'),
+      N('{ifFlagEq:sl_q39_battle_tactic=shatter_first|莫断魂的血手铁剑早先已被你金刚罡气震作废铁；此刻你反手一扯令杜阴山乌金长鞭寸寸崩断，再以一记至阳伏魔神掌正面震断殷无咎九环赤练刀，半截刀身倒飞插进十丈外石壁！|“锵！咔嚓！崩！”三声裂金碎铁爆响几乎同时炸开！莫断魂铁剑刺在你左肩罡气上寸寸崩断，杜阴山乌金鞭被反手扯碎，殷无咎九环赤练刀更被伏魔神掌正面震断、倒飞插进十丈石壁！}'),
+      S(SPEAKER_RED_BLADE, '（望着手中冒烟断柄，面无人色魂飞魄散）“金刚不坏神功……徒手震断我等百炼神兵……怪物！少林竟藏着这等怪物！”'),
+      P('（负手立于满地断刃之间，声音冷冽如霜）“滚下山去！告诉中原黑道诸派——今日少林革故鼎新、铁律森严！谁敢再犯少室山一草一木，断的便不只是兵刃，而是尔等项上人头！”'),
+      N('三名邪派掌门连滚带爬逃窜下山，百余邪徒丢盔弃甲哭爹喊娘，从此数十年不敢再望嵩山一眼！'),
     ],
-    onFinishEffects: [openScene('scene_slq39_21', SHAOLIN_Q39_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq39_09', SHAOLIN_Q39_QUEST_ID)],
   },
 
-  scene_slq39_21: {
-    id: 'scene_slq39_21',
-    title: '第二十一幕 · 慑服群邪',
-    subtitle: '钟鼓禅院 · 演武坪',
+  scene_slq39_09: {
+    id: 'scene_slq39_09',
+    title: '第九幕 · 铁血归心',
+    subtitle: '钟鼓禅院 → 大雄宝殿前广场',
     mandatory: true,
     beats: [
-      S(SPEAKER_RED_BLADE, '（看着手中半截断刀，面无人色，魂飞魄散）“金刚……金刚不坏神功……一掌震断我等三人百炼神兵……怪物！少林竟藏着这等怪物！”'),
-      P('（负手立于断刃之间，声音冷冽如霜）“滚下山去！告诉中原黑道诸派——今日少林革故鼎新，铁律森严！谁敢再犯少室山一草一木，断的便不只是兵刃，而是尔等项上人头！”'),
-      N('三名不可一世的邪派掌门连滚带爬、狼狈逃窜下山，随行百余邪徒更是丢盔弃甲，沿途哭爹喊娘，从此数十年不敢再望嵩山一眼！'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_22', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_22: {
-    id: 'scene_slq39_22',
-    title: '第二十二幕 · 满寺雷动',
-    subtitle: '钟鼓禅院 · 演武坪',
-    mandatory: true,
-    beats: [
-      N('演武坪四周，数百名戒律院、罗汉堂与达摩院僧众亲眼目睹你一人震断三魔神兵，先是一静，随即爆发出山呼海啸般的佛号与欢呼！'),
-      S('NPC-0156', '（玄痛大步上前，神色激动得微微发颤）“阿弥陀佛！师侄今日以铁律涤清门户，又以金刚金身独挫三魔，真乃我少林五百年一遇之护教法王！”'),
-      S('NPC-0134', '（玄寂朗声道）“大雄宝殿方丈法座空悬，唯师侄有此威望、武功与铁腕！老衲与玄痛师兄已传谕四十八房，恭请师侄移步大雄正殿，披达摩袈裟，登位少林护教方丈！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_23', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_23: {
-    id: 'scene_slq39_23',
-    title: '第二十三幕 · 铁血归心',
-    subtitle: '大雄宝殿前广场',
-    mandatory: true,
-    beats: [
-      S(SPEAKER_IRON_MONKS, '（千余名少林武僧齐齐立杖肃立，声震嵩岳）“恭请护教法王登位方丈！重振少林千年雄风！”'),
-      P('（望向满山肃杀而昂扬的少林铁血僧众，心中豪情激荡）“好！既然诸位师伯与全寺同门信我铁腕，我便担起这副重担，叫天下人再见我少林金刚伏魔之威！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_24', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_24: {
-    id: 'scene_slq39_24',
-    title: '第二十四幕 · 重返大殿',
-    subtitle: '大雄宝殿 · 玉阶之前',
-    mandatory: true,
-    beats: [
-      N('夕阳如血，将大雄宝殿的金瓦映照得威严无匹。玄痛与玄寂分立左右，恭迎你步入大雄正殿登坛受衣。'),
+      N('四周观战的戒律院、罗汉堂与达摩院千余武僧先是一静，随即爆发出山呼海啸般的佛号与顿杖轰鸣！'),
+      S('NPC-0156', '（玄痛大步上前，铁面之上难掩激荡）“阿弥陀佛！师侄以铁律涤清门户，复以金刚金身独挫三魔，真乃我少林五百年一遇之护教法王！”'),
+      S('NPC-0134', '（玄寂捧着武库宝刀匣朗声道）“大雄宝殿方丈法座空悬，唯师侄有此铁腕、威望与神功！老衲与玄痛师兄已传谕四十八房，恭请移步大雄正殿，披达摩袈裟、佩燃木戒刀，登位护教法王！”'),
+      S(SPEAKER_IRON_MONKS, '（千余名武僧齐齐立杖肃立，声震嵩岳）“恭请护教法王登位方丈！重振少林千年雄风！”'),
     ],
     choices: [
       {
-        id: 'slq39_go_enthrone',
-        label: '步入【大雄正殿 · 佛前蒲团】，受玄痛玄寂拥戴登位铁腕法王',
+        id: 'slq39_go_enthrone_blade',
+        label: '【降魔宝刃 · 护教除邪】颔首受印，宣称「兵刃握于护法之手便是降魔杵」，步入大雄正殿！',
+        subLabel: '前往大雄正殿披达摩袈裟登位铁腕法王',
         tone: 'gold',
         effects: [
+          { type: 'setFlag', flag: 'sl_q39_enthronement_vow', value: 'blade' },
+          setStep(SHAOLIN_Q39_QUEST_ID, 'iron_enthronement'),
+          toast('请前往【大雄正殿 · 佛前蒲团】披达摩袈裟登位少林护教铁腕法王！', 'success', '铁腕法王'),
+        ],
+      },
+      {
+        id: 'slq39_go_enthrone_army',
+        label: '【整训铁僧 · 御敌北疆】励兵聚心，誓以千年少林护教僧兵迎接北辽西夏风暴，步入大雄正殿！',
+        subLabel: '前往大雄正殿披达摩袈裟登位铁腕法王',
+        tone: 'danger',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q39_enthronement_vow', value: 'army' },
           setStep(SHAOLIN_Q39_QUEST_ID, 'iron_enthronement'),
           toast('请前往【大雄正殿 · 佛前蒲团】披达摩袈裟登位少林护教铁腕法王！', 'success', '铁腕法王'),
         ],
@@ -471,99 +466,79 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq39_25: {
-    id: 'scene_slq39_25',
-    title: '第二十五幕 · 达摩披衣',
-    subtitle: '大雄正殿 · 佛前蒲团',
-    mandatory: true,
-    beats: [
-      N('大雄正殿内，玄痛亲手捧出镇寺天阶圣衣【少林达摩袈裟】，玄寂则捧出象征降魔护教的【少林燃木戒刀】仪仗，步至你的身前！'),
-      S('NPC-0156', '（沉声宣礼）“少林护教新方丈，上承达摩衣钵，下握戒律雷霆！请披天阶圣衣【少林达摩袈裟】！”'),
-      N('你接过古朴厚重的绯红金纹袈裟，反手一振披于肩头！刹那间，大殿铜钟齐鸣，威压如岳！'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_26', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_26: {
-    id: 'scene_slq39_26',
-    title: '第二十六幕 · 铁腕法王',
-    subtitle: '大雄正殿 · 护教登座',
+  scene_slq39_10: {
+    id: 'scene_slq39_10',
+    title: '第十幕 · 铁腕法王',
+    subtitle: '嵩山少林寺 · 大雄正殿 · 护教登座',
     illustrationUrl: '/assets/quests/sl_39_dharma_king.jpg',
     illustrationCaption: '大雄宝殿 · 玄痛、玄寂率四十八房拥戴主角披《少林达摩袈裟》登位少林护教铁腕法王',
     mandatory: true,
     beats: [
-      N('你大步踏上方丈法座，眉宇冷峻如金刚明王。殿内玄痛、玄寂、玄难、玄渡、玄生及四十八房高僧齐声合十行礼：“阿弥陀佛！恭迎护教法王登位！”'),
-      P('（声音如铁，震彻大殿）“今日起，少林寺废除一切虚文积弊！戒律院昼夜巡山，罗汉堂日夜操演伏魔大阵，达摩院广授绝艺不拘一格——外敌敢来，便以铁杖迎之；内蠹敢生，便以重典诛之！”'),
+      N('夕阳如血，将大雄宝殿金瓦映照得威严无匹。殿内玄痛亲捧镇寺天阶圣衣【少林达摩袈裟】，玄寂奉上象征降魔护教的【少林燃木戒刀】仪仗，齐步至你身前。'),
+      S('NPC-0156', '（沉声宣礼）“少林护教新方丈，上承达摩衣钵，下握戒律雷霆！请披天阶圣衣【少林达摩袈裟】！”'),
+      N('你反手振披古朴厚重的绯红金纹袈裟，大步踏上方丈法座！铜钟齐鸣，威压如岳，玄痛、玄寂、玄难、玄渡、玄生及四十八房高僧齐齐合十行礼：“阿弥陀佛！恭迎护教法王登位！”'),
+      S('NPC-0134', '（玄寂恭呈武库宝刀匣）“法王以金刚手段护持禅林，若尚未佩执本寺镇派神兵【少林燃木戒刀】，便请一并执掌，以备日后斩妖除魔之用！”'),
     ],
-    onFinishEffects: [openScene('scene_slq39_27', SHAOLIN_Q39_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq39_11', SHAOLIN_Q39_QUEST_ID)],
   },
 
-  scene_slq39_27: {
-    id: 'scene_slq39_27',
-    title: '第二十七幕 · 燃木护教',
-    subtitle: '大雄正殿 · 佛前蒲团',
+  scene_slq39_11: {
+    id: 'scene_slq39_11',
+    title: '第十一幕 · 法王国策',
+    subtitle: '大雄正殿 · 护教立制（法王登基国策抉择）',
     mandatory: true,
     beats: [
-      S('NPC-0134', '（玄寂恭敬呈上武库宝刀匣）“法王以金刚手段护持禅林，若尚未佩执本寺镇派戒刀【少林燃木戒刀】，便请一并执掌，以备日后斩妖除魔之用！”'),
-      P('（微微颔首）“善。兵刃虽为杀伐之器，握于护法之手，便是降魔杵！”'),
+      N('不过数日，嵩山少林新立「铁腕法王」、徒手震断三大邪派掌门神兵的消息便如惊雷传遍大宋诸路与辽夏边疆！黑道群邪闻风敛迹，朝廷枢密院亦遣使致贺，盛赞少林严整肃穆、堪为国之屏障。'),
+      S('NPC-0156', '（立于阶下拱手请示）“法王，如今寺内积弊既除、四方震动，唯北辽暗桩与西夏一品堂仍虎视中原。不知法王定下何等治寺长策，以统摄少林新气象？”'),
+      N('满殿四十八房执事凝神静候。你手按方丈法印，目眺山门之外翻涌风云，亲定铁腕法王治寺国策——'),
     ],
-    onFinishEffects: [openScene('scene_slq39_28', SHAOLIN_Q39_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq39_policy_iron',
+        label: '【铁腕护法 · 震慑辽夏】编练常备护教僧兵、广铸刀杖日夜操演伏魔大阵，以雷霆军威震慑外敌！',
+        subLabel: '威震辽夏黑道，大增江湖威望与怒目杀业',
+        tone: 'danger',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q39_king_policy', value: 'iron_deterrence' },
+          openScene('scene_slq39_12', SHAOLIN_Q39_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq39_policy_balance',
+        label: '【刚柔并济 · 重振清誉】铁律对外、仁心对内，严明考绩并重开药王院普济四方，令祖庭威德并彰！',
+        subLabel: '威德兼备凝聚禅林人心，增进侠义与禅心慈悲',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q39_king_policy', value: 'balance_prestige' },
+          openScene('scene_slq39_12', SHAOLIN_Q39_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_slq39_28: {
-    id: 'scene_slq39_28',
-    title: '第二十八幕 · 后山回响',
-    subtitle: '大雄宝殿 · 远望达摩洞',
+  scene_slq39_12: {
+    id: 'scene_slq39_12',
+    title: '第十二幕 · 后山扫叶',
+    subtitle: '大雄宝殿后廊 → 藏经阁外月夜',
     mandatory: true,
     beats: [
-      N('大典毕，你立于殿后廊下，遥望后山烟雾缭绕的达摩面壁石洞。玄慈已在那里闭死关忏悔，昔日温厚慈和的旧时代已彻底落幕。'),
-      P('（轻叹一声，复又目光如铁）“前辈以慈悲守成，晚辈以铁腕辟新。功过是非，留待百年之后由后人评说罢。”'),
+      N('{ifFlagEq:sl_q39_king_policy=iron_deterrence|法谕颁行，罗汉堂与戒律院昼夜操演伏魔大阵，铁杖寒光映彻少室峰，辽夏细作无不骇然远遁！|法谕颁行，少林对外铁律森严不可侵犯，对内药王济世、赏罚清朗，禅林威德之盛竟远胜往昔！}'),
+      N('大典毕，你独步殿后廊下，遥望后山烟雾缭绕的达摩面壁石洞。玄慈已在那里闭死关忏悔，昔日温厚守成的旧时代已彻底落幕。“前辈以慈悲守成，晚辈以铁腕辟新；功过是非，留待百年后人评说罢。”'),
+      N('夜深人静，你巡视山门经过藏经阁外，昏黄月色下，一名灰衣老僧正拄着竹帚静静清扫阶前银杏黄叶。'),
+      S('NPC-0101', '（头也未抬，声音温和如水却直透心底）“雷霆虽能涤污，莫忘铁骨之下，仍须留一寸佛心。方丈日后自会明白。”'),
+      P('（停步肃容，合十微微一礼）“多谢前辈提点，弟子谨记。”'),
     ],
-    onFinishEffects: [openScene('scene_slq39_29', SHAOLIN_Q39_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq39_13', SHAOLIN_Q39_QUEST_ID)],
   },
 
-  scene_slq39_29: {
-    id: 'scene_slq39_29',
-    title: '第二十九幕 · 声震四方',
-    subtitle: '嵩山少林寺 · 山门',
-    mandatory: true,
-    beats: [
-      N('不过半月，嵩山少林寺新立「铁腕法王」、独手震断三大邪派掌门神兵的消息便如惊雷般传遍大宋诸路与西夏大辽！'),
-      N('中原黑道群邪闻风丧胆，纷纷约束门徒不得靠近河南府半步；朝廷枢密院亦遣使致贺，盛赞少林严整肃穆、堪为国之屏障。'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_30', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_30: {
-    id: 'scene_slq39_30',
-    title: '第三十幕 · 扫叶微言',
-    subtitle: '大雄宝殿 · 秋风过廊',
-    mandatory: true,
-    beats: [
-      N('夜深人静，你巡视山门经过藏经阁外，只见昏黄月色下，一名灰衣老僧正静静清扫着阶前银杏叶。'),
-      S('NPC-0101', '（头也未抬，淡淡一笑）“雷霆虽能涤污，莫忘铁骨之下，仍须留一寸佛心。方丈日后自会明白。”'),
-      P('（驻足合十，微微一礼）“多谢前辈提点，弟子谨记。”'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_31', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_31: {
-    id: 'scene_slq39_31',
-    title: '第三十一幕 · 厉兵秣马',
-    subtitle: '嵩山少林寺 · 演武高台',
-    mandatory: true,
-    beats: [
-      N('你深知真正的血战尚在前方。西北边关密报频传，西夏一品堂与星宿毒人正蠢蠢欲动。此刻整肃一新的千名铁血少林武僧，已如出鞘利刃，静候来犯强敌！'),
-    ],
-    onFinishEffects: [openScene('scene_slq39_32', SHAOLIN_Q39_QUEST_ID)],
-  },
-
-  scene_slq39_32: {
-    id: 'scene_slq39_32',
-    title: '第三十二幕 · 铁腕法王',
+  scene_slq39_13: {
+    id: 'scene_slq39_13',
+    title: '第十三幕 · 厉兵秣马',
     subtitle: '嵩山少林寺 · 终局归位',
     mandatory: true,
     beats: [
+      N('你深知真正的血战尚在前方。西北边关密报频传，西夏一品堂与星宿毒人正蠢蠢欲动；此刻整肃一新的千名少林铁血武僧，已如出鞘利刃静候来犯强敌！'),
+      N('你披紧肩头流转金辉的【少林达摩袈裟】，手按法印俯瞰灯火连绵的千年古刹，心如铁石、意气冲霄。'),
       N('【少林终局 · 铁腕法王】已然铸成！你以雷霆铁律涤清千年古刹、以金刚金身震断三魔神兵，登临少林掌门（Lv.5）尊位，威震中原与西域！'),
     ],
     choices: [
@@ -586,6 +561,34 @@ export const SHAOLIN_Q39_SCENES: Record<string, StorySceneDef> = {
             thenEffects: [
               { type: 'giveItem', itemId: 'WPN-013', qty: 1 },
               toast('兼获少林武库镇派神兵【少林燃木戒刀】！', 'success', '铁腕法王'),
+            ],
+          },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q39_purge_policy', op: 'eq', value: 'audit' },
+            thenEffects: [
+              { type: 'giveSilver', amount: 150, reason: '雷霆彻查知客院与各省下院暗账，追缴贪墨充作僧兵军资分赏' },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 2 },
+            ],
+            elseEffects: [
+              {
+                type: 'branch',
+                condition: { type: 'flag', flag: 'sl_q39_purge_policy', op: 'eq', value: 'lenient' },
+                thenEffects: [{ type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 }],
+                elseEffects: [{ type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 }],
+              },
+            ],
+          },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q39_king_policy', op: 'eq', value: 'iron_deterrence' },
+            thenEffects: [
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 2 },
+              { type: 'modifyRenown', delta: 50, reason: '法王登基誓以铁腕护法震慑北辽西夏，军威震世' },
+            ],
+            elseEffects: [
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+              { type: 'modifyChivalry', delta: 50, reason: '法王登基刚柔并济、重开药王济世，威德并彰' },
             ],
           },
           { type: 'giveCombatExp', amount: 1600, reason: '高台宣律涤清寺弊、金刚金身独挫三魔并登位铁腕法王' },

@@ -27,7 +27,7 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流中品',
     maxOpponentRealm: '一流中品（塞外黑教炼体狂人 · 铁尸尊者）',
     recommendedNote:
-      '嵩山少林寺罗汉堂真传单脉终章（全二十二幕）。须完成《枯木生烟 · 玄苦授刀》、入寺满 420 日且经义 ≥ 76、书 ≥ 60。于十八铜人木桩廊得玄痛与玄苦合授少林至刚指法《大力金刚指》；适逢塞外黑教炼体狂人「铁尸尊者」血洗巩县石窟佛像并劫持满窟石匠，你奉命下山驰援，于千佛洞前硬撼其横练金身，一指点穿乌金护心铜镜，救下满窟无辜石匠！',
+      '嵩山少林寺罗汉堂真传单脉终章（全十幕高交互）。须完成《枯木生烟 · 玄苦授刀》、入寺满 420 日且经义 ≥ 76、书 ≥ 60。于十八铜人木桩廊得玄痛与玄苦合授《大力金刚指》；适逢塞外黑教狂人「铁尸尊者」劫持巩县石窟满窟石匠，你驰援伊洛、择策破敌，一指点穿乌金护心铜镜救出满窟石匠并妥善善后！',
     startHint:
       '完成《枯木生烟 · 玄苦授刀》、入寺满 420 日且经义 ≥ 76、书 ≥ 60 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊（sl_luohan_east）】（或寻玄痛）求学《大力金刚指》。',
     startLocation: {
@@ -38,14 +38,14 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q23_START_CONDITION,
     summary:
-      '{reignYear}入寺十载春秋，你在罗汉堂苦修禅武已臻一流中品之境。戒律铁掌禅师【玄痛】与【玄苦】于【十八铜人木桩廊】联手为你点破指劲凝于一线之奥义，合授少林七十二绝技中破甲摧坚第一的《大力金刚指》。适逢巩县石窟寺急报：塞外黑教炼体狂人【铁尸尊者】身披乌金护心铜镜、横练铁布衫大成，率众邪徒闯入北魏石窟毁佛伤民、挟持数十名修佛石匠！你奉命疾驰巩县石窟，直面铁尸尊者狂暴铁掌，以新悟《大力金刚指》凝劲破防，一指点穿乌金护心铜镜，重创狂人、救下满窟石匠，扬威中州！',
+      '{reignYear}入寺逾载，你在罗汉堂苦修禅武已渐臻一流化境。戒律铁掌禅师【玄痛】与【玄苦】于【十八铜人木桩廊】联手为你点破指劲凝于一线之奥义，合授少林七十二绝技中破甲摧坚第一的《大力金刚指》。适逢巩县石窟寺急报：塞外黑教炼体狂人【铁尸尊者】身披乌金护心铜镜、横练铁布衫大成，率众邪徒闯入北魏石窟毁佛伤民、挟持六十余名修佛石匠炼功！你奉命疾驰巩县石窟，择策解救人质、破其邪徒，最终以《大力金刚指》一指点穿两寸乌金护心铜镜，救下满窟石匠，扬威中州！',
     initialStepId: 'gongxian_grotto_rescue',
     steps: {
       gongxian_grotto_rescue: {
         id: 'gongxian_grotto_rescue',
         title: '驰援巩县 · 破镜伏魔',
         objective:
-          '你已于十八铜人木桩廊领悟《大力金刚指》凝劲破坚之法。塞外黑教炼体狂人【铁尸尊者】正在巩县石窟毁佛劫匠，请即刻自【十八铜人罗汉堂 · 十八铜人木桩廊（sl_luohan_east）】动身驰援，击败铁尸尊者救下满窟石匠！',
+          '你已于十八铜人木桩廊领悟《大力金刚指》凝劲破坚之法。塞外黑教炼体狂人【铁尸尊者】正在巩县石窟毁佛劫匠，请即刻自【十八铜人罗汉堂 · 十八铜人木桩廊（sl_luohan_east）】动身驰援，择策击败铁尸尊者救下满窟石匠！',
         nextHint:
           '在【嵩山少林寺 · 十八铜人罗汉堂 · 十八铜人木桩廊（sl_luohan_east）】点击「驰援巩县石窟 · 以大力金刚指迎战铁尸尊者」。',
         targetLocation: {
@@ -88,7 +88,7 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
         spotId: 'sl_luohan_east',
         onceFlag: 'sl_q23_rescue_triggered',
         condition: atStep(SHAOLIN_Q23_QUEST_ID, 'gongxian_grotto_rescue'),
-        effects: [openScene('scene_slq23_09', SHAOLIN_Q23_QUEST_ID)],
+        effects: [openScene('scene_slq23_04', SHAOLIN_Q23_QUEST_ID)],
       },
       {
         id: 'trig_slq23_report_east',
@@ -97,7 +97,7 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
         spotId: 'sl_luohan_east',
         onceFlag: 'sl_q23_report_triggered',
         condition: atStep(SHAOLIN_Q23_QUEST_ID, 'return_luohan_east'),
-        effects: [openScene('scene_slq23_20', SHAOLIN_Q23_QUEST_ID)],
+        effects: [openScene('scene_slq23_09', SHAOLIN_Q23_QUEST_ID)],
       },
     ],
 
@@ -121,7 +121,7 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
         id: 'spot_slq23_rescue_east',
         label: '【驰援石窟】下山疾驰巩县石窟 · 迎战铁尸尊者救石匠',
         badge: '破镜伏魔',
-        subtitle: '巩县石窟实战 · 力战黑教狂人铁尸尊者（一流中品）',
+        subtitle: '巩县石窟实战 · 力战黑教狂人铁尸尊者',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_luohan',
@@ -132,8 +132,8 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q23_grotto_reached', op: 'truthy' },
-            thenEffects: [openScene('scene_slq23_14', SHAOLIN_Q23_QUEST_ID)],
-            elseEffects: [openScene('scene_slq23_09', SHAOLIN_Q23_QUEST_ID)],
+            thenEffects: [openScene('scene_slq23_05', SHAOLIN_Q23_QUEST_ID)],
+            elseEffects: [openScene('scene_slq23_04', SHAOLIN_Q23_QUEST_ID)],
           },
         ],
       },
@@ -149,7 +149,7 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q23_QUEST_ID, 'return_luohan_east'),
         effects: [
           { type: 'setFlag', flag: 'sl_q23_report_triggered', value: true },
-          openScene('scene_slq23_20', SHAOLIN_Q23_QUEST_ID),
+          openScene('scene_slq23_09', SHAOLIN_Q23_QUEST_ID),
         ],
       },
     ],
@@ -193,8 +193,8 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q23_grotto_reached', op: 'truthy' },
-            thenEffects: [openScene('scene_slq23_14', SHAOLIN_Q23_QUEST_ID)],
-            elseEffects: [openScene('scene_slq23_09', SHAOLIN_Q23_QUEST_ID)],
+            thenEffects: [openScene('scene_slq23_05', SHAOLIN_Q23_QUEST_ID)],
+            elseEffects: [openScene('scene_slq23_04', SHAOLIN_Q23_QUEST_ID)],
           },
         ],
       },
@@ -214,7 +214,7 @@ export const SHAOLIN_Q23_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q23_report_triggered', value: true },
-          openScene('scene_slq23_20', SHAOLIN_Q23_QUEST_ID),
+          openScene('scene_slq23_09', SHAOLIN_Q23_QUEST_ID),
         ],
       },
     ],
