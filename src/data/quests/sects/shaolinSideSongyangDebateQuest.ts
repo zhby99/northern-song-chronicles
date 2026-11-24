@@ -25,7 +25,7 @@ export const SHAOLIN_SIDE05_QUESTS: QuestDefinition[] = [
     recommendedRealm: '三流上品',
     maxOpponentRealm: '三流上品（狂生雇佣武师 · 雷震子）',
     recommendedNote:
-      '少林寺 Lv.1 外门文武支线（全十幕）。经义与辩才兼具后，于少林藏经阁西厢晒经校勘石台奉虚广之托赴太室山南麓嵩阳书院归还孤本古籍，于千年汉柏下以儒释会通妙语折服排佛迂儒，再在杏坛石阶点到为止挫败狂生雇佣的武师雷震子，促成两院藏书互通。',
+      '少林寺 Lv.1 外门文武支线（全九幕）。经义与辩才兼具后，于少林藏经阁西厢晒经校勘石台奉虚广之托赴太室山南麓嵩阳书院归还孤本古籍，于千年汉柏下亲历两轮无提示儒释公案辩论折服排佛狂生，再于杏坛石阶点到为止挫败雇佣武师雷震子，促成两院藏书互通。',
     startHint:
       '拜入嵩山少林寺并精修经义与辩才后，前往【嵩山少林寺 · 少林藏经阁 · 西厢晒经校勘石台】寻虚广即可领命。',
     startLocation: {
@@ -36,7 +36,7 @@ export const SHAOLIN_SIDE05_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE05_START_CONDITION,
     summary:
-      '{reignYear}秋爽，少林藏经阁校勘旧籍告一段落。虚广见你经义湛深、口才便给，遂于【少林藏经阁 · 西厢晒经校勘石台】托你携三卷借阅孤本赴太室山南麓「嵩阳书院」奉还，并洽谈两院古籍互借之约。你先往【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】领妥勘合文牒，随即捧匣下山。不料刚入嵩阳书院，便遭排佛狂生周迂夫纠集迂儒围堵刁难，你于汉柏杏坛侃侃而谈儒释会通之理，令满庭学子折服。周迂夫恼羞成怒雇出三流上品武师「雷震子」欲强夺书匣羞辱佛门，你立约点到为止、以武证礼挫其锋芒，终获嵩阳山长赞许，签下两院藏书互通之约。',
+      '{reignYear}秋爽，少林藏经阁校勘旧籍告一段落。虚广见你经义湛深、口才便给，托你携借阅孤本赴太室山南麓「嵩阳书院」奉还，并洽谈两院古籍互借之约。你先往【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】领妥勘合文牒，随即捧匣下山。不料刚入嵩阳书院，便遭排佛狂生周迂夫连抛「忠孝众生」「致用明心」两道难关发难！你于汉柏杏坛从容论辩儒释圆融互补之理，再以点到为止的少林武艺折服狂生雇来的武师「雷震子」，终获程山长赞许，定下两院藏书互通佳约。',
     initialStepId: 'visit_songyang',
     steps: {
       visit_songyang: {
@@ -57,7 +57,7 @@ export const SHAOLIN_SIDE05_QUESTS: QuestDefinition[] = [
         id: 'return_report',
         title: '怀契归林 · 复命藏经阁',
         objective:
-          '嵩阳杏坛儒释之辩大获全胜，山长已亲笔立下两院藏书互通之约！请返回【少林藏经阁 · 西厢晒经校勘石台（sl_cj_terrace）】向虚广复命。',
+          '嵩阳杏坛儒释之辩已结硕果，山长已亲笔立下两院藏书互通之约！请返回【少林藏经阁 · 西厢晒经校勘石台（sl_cj_terrace）】向虚广复命。',
         nextHint:
           '返回【少林藏经阁 · 西厢晒经校勘石台（sl_cj_terrace）】，点击「向虚广呈上嵩阳书院藏书互通契书」或与虚广交谈。',
         targetLocation: {
@@ -86,7 +86,7 @@ export const SHAOLIN_SIDE05_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_east',
         onceFlag: 'sl_side05_songyang_triggered',
         condition: atStep(SHAOLIN_SIDE05_QUEST_ID, 'visit_songyang'),
-        effects: [openScene('scene_sls05_03', SHAOLIN_SIDE05_QUEST_ID)],
+        effects: [openScene('scene_sls05_02', SHAOLIN_SIDE05_QUEST_ID)],
       },
       {
         id: 'trig_sls05_return_terrace',
@@ -95,7 +95,7 @@ export const SHAOLIN_SIDE05_QUESTS: QuestDefinition[] = [
         spotId: 'sl_cj_terrace',
         onceFlag: 'sl_side05_report_triggered',
         condition: atStep(SHAOLIN_SIDE05_QUEST_ID, 'return_report'),
-        effects: [openScene('scene_sls05_10', SHAOLIN_SIDE05_QUEST_ID)],
+        effects: [openScene('scene_sls05_09', SHAOLIN_SIDE05_QUEST_ID)],
       },
     ],
 
@@ -127,7 +127,12 @@ export const SHAOLIN_SIDE05_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE05_QUEST_ID, 'visit_songyang'),
         effects: [
           { type: 'setFlag', flag: 'sl_side05_songyang_triggered', value: true },
-          openScene('scene_sls05_03', SHAOLIN_SIDE05_QUEST_ID),
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_side05_lei_ready', op: 'truthy' },
+            thenEffects: [openScene('scene_sls05_05', SHAOLIN_SIDE05_QUEST_ID)],
+            elseEffects: [openScene('scene_sls05_02', SHAOLIN_SIDE05_QUEST_ID)],
+          },
         ],
       },
       {
@@ -142,7 +147,7 @@ export const SHAOLIN_SIDE05_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE05_QUEST_ID, 'return_report'),
         effects: [
           { type: 'setFlag', flag: 'sl_side05_report_triggered', value: true },
-          openScene('scene_sls05_10', SHAOLIN_SIDE05_QUEST_ID),
+          openScene('scene_sls05_09', SHAOLIN_SIDE05_QUEST_ID),
         ],
       },
     ],
@@ -183,7 +188,7 @@ export const SHAOLIN_SIDE05_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_side05_report_triggered', value: true },
-          openScene('scene_sls05_10', SHAOLIN_SIDE05_QUEST_ID),
+          openScene('scene_sls05_09', SHAOLIN_SIDE05_QUEST_ID),
         ],
       },
     ],

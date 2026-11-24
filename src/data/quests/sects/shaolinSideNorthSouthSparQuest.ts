@@ -19,12 +19,12 @@ export const SHAOLIN_SIDE14_QUESTS: QuestDefinition[] = [
     category: 'sect_mission',
     factionId: 'SECT-01',
     regionId: 'shaolin',
-    recommendedRealm: '一流中品 ～ 一流上品',
-    maxOpponentRealm: '一流上品（南少林护寺首座 · 元通 / 铁桥师兄）',
+    recommendedRealm: '一流中品',
+    maxOpponentRealm: '一流中品（南少林护寺首座 · 元通 / 铁桥师兄）',
     recommendedNote:
-      '少林寺 Lv.3 南北印证支线（全十四幕）。、后，于大雄宝殿方丈院钟鼓禅院演武坪遇莆田南少林三护寺首座（元通、铁桥师兄、洪刚师兄）奉南宗法帖北上嵩山切磋印证（若曾完成《莆田南渡 · 南北少林》更有故友重逢叙旧剧情）。须于演武坪连战南宗硬桥硬马绝学：先过铁桥师兄一流中品之关，再与元通首座展开一流上品巅峰印证，战后赴大雄宝殿礼佛叙茗，未习得《铁线拳》者可获南宗倾囊相授（已习得者则化为深厚武学修为）。',
+      '少林寺 Lv.3 南北印证支线（全九幕）。跻身三阶高徒后，于大雄宝殿方丈院钟鼓禅院演武坪遇莆田南少林三位护寺首座（元通、铁桥师兄、洪刚师兄）奉南宗法帖北上嵩山以武会友（若曾完成《莆田南渡 · 南北少林》更有故友重逢叙旧剧情）。先雅论南北禅武异同，再于演武坪依次切磋一流中品铁桥师兄与元通首座；战后赴东厢碑廊品茗论艺，倾囊交流或谦逊请教皆可获南宗倾授《铁线拳》（已习得者化为深厚武学修为）。',
     startHint:
-      '跻身少林寺三阶高徒、后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】寻玄痛长老即可触发。',
+      '跻身少林寺三阶高徒后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】寻玄痛长老即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_daxiong',
@@ -33,7 +33,7 @@ export const SHAOLIN_SIDE14_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE14_START_CONDITION,
     summary:
-      '{reignYear}金秋，福建莆田南少林三位护寺首座——【元通】、【铁桥师兄】与【洪刚师兄】携南宗拜帖千里北上嵩山，于【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】拜会铁掌禅师【玄痛】，愿以武会友、印证南北少林拳脉。玄痛长老点名由你代表嵩山出战迎客。演武坪上风卷落叶，你先以精妙步法与深厚内劲力克刚猛沉稳的一流中品【铁桥师兄】，再与南少林护寺大首座、一流上品高手【元通】展开硬桥硬马的巅峰印证，刚柔相济险胜半招！切磋既毕，南北同门移步【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】共品清茶、互赠禅武心得，元通慨然相赠南宗秘传《铁线拳》要诀（若已习得则印证精进，大增武学修为），南北少林情谊益笃。',
+      '{reignYear}金秋，福建莆田南少林三位护寺首座——【元通】、【铁桥师兄】与【洪刚师兄】携南宗拜帖千里北上嵩山，于【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】拜会铁掌禅师【玄痛】，愿以武会友、印证南北少林拳脉。玄痛长老点名由你代表嵩山迎客。你先与南宗诸僧雅论南北禅武异同，旋即于秋风演武坪依次切磋一流中品【铁桥师兄】与南少林大首座【元通】，刚柔互破险胜半招。切磋既毕，南北同门移步【东厢碑廊 · 藏经橱】品茗论艺、互赠心得，元通慨然相授南宗秘传《铁线拳》（若已习得则化为深厚武学修为），南北少林情谊益笃。',
     initialStepId: 'courtyard_spar',
     steps: {
       courtyard_spar: {
@@ -54,7 +54,7 @@ export const SHAOLIN_SIDE14_QUESTS: QuestDefinition[] = [
         id: 'corridor_tea_gift',
         title: '碑廊品茗 · 铁线相赠',
         objective:
-          '钟鼓禅院南北少林巅峰切磋圆满落幕，元通首座对你大为倾佩！请移步【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】，与玄痛长老及南少林诸僧共品清茶、互赠武学心得。',
+          '钟鼓禅院南北少林切磋圆满落幕，元通首座对你大为倾佩！请移步【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】，与玄痛长老及南少林诸僧共品清茶、互赠武学心得。',
         nextHint:
           '前往【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】，点击「与元通首座及玄痛长老碑廊叙茗」。',
         targetLocation: {
@@ -83,7 +83,7 @@ export const SHAOLIN_SIDE14_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_west',
         onceFlag: 'sl_side14_spar_triggered',
         condition: atStep(SHAOLIN_SIDE14_QUEST_ID, 'courtyard_spar'),
-        effects: [openScene('scene_sls14_06', SHAOLIN_SIDE14_QUEST_ID)],
+        effects: [openScene('scene_sls14_03', SHAOLIN_SIDE14_QUEST_ID)],
       },
       {
         id: 'trig_sls14_tea_daxiong_east',
@@ -92,7 +92,7 @@ export const SHAOLIN_SIDE14_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_east',
         onceFlag: 'sl_side14_tea_triggered',
         condition: atStep(SHAOLIN_SIDE14_QUEST_ID, 'corridor_tea_gift'),
-        effects: [openScene('scene_sls14_12', SHAOLIN_SIDE14_QUEST_ID)],
+        effects: [openScene('scene_sls14_07', SHAOLIN_SIDE14_QUEST_ID)],
       },
     ],
 
@@ -124,7 +124,7 @@ export const SHAOLIN_SIDE14_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE14_QUEST_ID, 'courtyard_spar'),
         effects: [
           { type: 'setFlag', flag: 'sl_side14_spar_triggered', value: true },
-          openScene('scene_sls14_06', SHAOLIN_SIDE14_QUEST_ID),
+          openScene('scene_sls14_03', SHAOLIN_SIDE14_QUEST_ID),
         ],
       },
       {
@@ -139,7 +139,7 @@ export const SHAOLIN_SIDE14_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE14_QUEST_ID, 'corridor_tea_gift'),
         effects: [
           { type: 'setFlag', flag: 'sl_side14_tea_triggered', value: true },
-          openScene('scene_sls14_12', SHAOLIN_SIDE14_QUEST_ID),
+          openScene('scene_sls14_07', SHAOLIN_SIDE14_QUEST_ID),
         ],
       },
     ],
@@ -180,7 +180,7 @@ export const SHAOLIN_SIDE14_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_side14_tea_triggered', value: true },
-          openScene('scene_sls14_12', SHAOLIN_SIDE14_QUEST_ID),
+          openScene('scene_sls14_07', SHAOLIN_SIDE14_QUEST_ID),
         ],
       },
     ],

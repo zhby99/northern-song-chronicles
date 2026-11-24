@@ -24,7 +24,7 @@ export const SHAOLIN_SIDE15_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流上品',
     maxOpponentRealm: '一流上品（西夏一品堂渡口双刺客 · 沙狼 / 鬼刃）',
     recommendedNote:
-      '少林寺 Lv.3 终极护国支线（全十六幕）。、且经义 ≥ 78、骑术 ≥ 40 后，于达摩面壁石洞飞瀑深潭试炼涧应护法僧慧慈相邀，先往大雄宝殿方丈院领受皇家水陆法幢与敕牒，随即策马北赴孟州黄河渡口主持皇家水陆法会，超度历年抗辽夏阵亡将士英灵。夜半渡口风浪骤起，西夏一品堂一流上品双刺客「鬼刃」「沙狼」潜渡袭坛、企图焚毁忠魂牌位，须与慧慈于滔滔浮桥血战诛魔，护住水陆法会梵唱彻夜不绝！',
+      '少林寺 Lv.3 终极护国支线（全十幕）。跻身三阶高徒、且经义 ≥ 78、骑术 ≥ 40 后，于达摩面壁石洞飞瀑深潭试炼涧应护法僧慧慈相邀，往大雄宝殿方丈院领受皇家水陆金幢并策马北赴孟州黄河渡口主持皇家水陆法会。子夜渡口西夏一品堂一流上品双刺客「鬼刃」「沙狼」潜近浮桥企图毁坛，可借鼓钹声辨气泡先断浮桥暗索困住鬼刃再斩沙狼，或护坛车轮连战双凶，战后还可抉择捐银托民岁祭或诵经三昼夜超度英灵。',
     startHint:
       '跻身少林寺三阶高徒、且经义 ≥ 78、骑术 ≥ 40 后，前往【嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧】寻慧慈即可触发。',
     startLocation: {
@@ -35,7 +35,7 @@ export const SHAOLIN_SIDE15_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE15_START_CONDITION,
     summary:
-      '{reignYear}深秋，朝廷颁敕于孟州黄河渡口设皇家水陆法会，超度历年血战西北、抗辽拒夏而殉国的大宋将士英灵。少林达摩院护法僧【慧慈】深感此行路途险恶、恐有西夏细作暗中破坏，特于【达摩面壁石洞 · 飞瀑深潭 · 试炼涧】诚邀你一同北行护法。你二人先赴【大雄宝殿方丈院（sl_daxiong_main）】领受水陆金幢与皇家敕牒，随后策马疾驰北渡孟州黄河。法会当夜，黄河水灯万盏、梵唱彻天，西夏一品堂两大一流上品刺客「鬼刃」与「沙狼」果然趁黑潜渡浮桥，妄图火焚忠魂牌位、震慑中原军心！你于滔滔浊浪之上的晃动浮桥先斩诡谲狠辣的「鬼刃」，再携慧慈于法坛前血战斩杀凶悍霸道的「沙狼」，自始至终未教法坛梵唱断绝一声！三军将士与两岸百姓无不感泣，你也终回试炼涧复命归宗。',
+      '{reignYear}深秋，朝廷颁敕于孟州黄河渡口设皇家水陆法会，超度历年血战西北、抗辽拒夏而殉国的大宋将士英灵。少林达摩院护法僧【慧慈】深恐西夏细作暗中破坏，于【飞瀑深潭 · 试炼涧】诚邀你一同北行护法。你二人先赴【大雄宝殿方丈院（sl_daxiong_main）】领受水陆金幢与敕牒，策马疾驰北渡孟州黄河。法会当夜，黄河水灯万盏、梵唱彻天，西夏一品堂一流上品双刺客「鬼刃」「沙狼」果然潜近浮桥企图毁坛！你于滔滔浊浪之上识破奇袭、或断暗索困鬼刃斩沙狼、或正面车轮连破双凶，终教法坛梵唱彻夜不绝。黎明既至，你妥善安顿忠魂祭扫后南归试炼涧焚香回向，三军与两岸百姓无不感泣。',
     initialStepId: 'depart_yellow_river',
     steps: {
       depart_yellow_river: {
@@ -56,7 +56,7 @@ export const SHAOLIN_SIDE15_QUESTS: QuestDefinition[] = [
         id: 'return_damo_west',
         title: '孤忠既安 · 归涧复命',
         objective:
-          '孟州黄河渡口水陆法会圆满礼成，西夏一品堂双刺客「鬼刃」「沙狼」尽数伏诛于浮桥之上！请返回【达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】与慧慈一同焚香回向、复命归宗。',
+          '孟州黄河渡口水陆法会圆满礼成，西夏一品堂双刺客「鬼刃」「沙狼」尽数挫败！请返回【达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】与慧慈一同焚香回向、复命归宗。',
         nextHint:
           '返回【达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，点击「与慧慈于试炼涧焚香回向 · 了结水陆功德」或与慧慈交谈。',
         targetLocation: {
@@ -85,7 +85,7 @@ export const SHAOLIN_SIDE15_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_main',
         onceFlag: 'sl_side15_depart_triggered',
         condition: atStep(SHAOLIN_SIDE15_QUEST_ID, 'depart_yellow_river'),
-        effects: [openScene('scene_sls15_04', SHAOLIN_SIDE15_QUEST_ID)],
+        effects: [openScene('scene_sls15_03', SHAOLIN_SIDE15_QUEST_ID)],
       },
       {
         id: 'trig_sls15_return_damo_west',
@@ -94,7 +94,7 @@ export const SHAOLIN_SIDE15_QUESTS: QuestDefinition[] = [
         spotId: 'sl_damo_west',
         onceFlag: 'sl_side15_return_triggered',
         condition: atStep(SHAOLIN_SIDE15_QUEST_ID, 'return_damo_west'),
-        effects: [openScene('scene_sls15_14', SHAOLIN_SIDE15_QUEST_ID)],
+        effects: [openScene('scene_sls15_09', SHAOLIN_SIDE15_QUEST_ID)],
       },
     ],
 
@@ -126,7 +126,7 @@ export const SHAOLIN_SIDE15_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE15_QUEST_ID, 'depart_yellow_river'),
         effects: [
           { type: 'setFlag', flag: 'sl_side15_depart_triggered', value: true },
-          openScene('scene_sls15_04', SHAOLIN_SIDE15_QUEST_ID),
+          openScene('scene_sls15_03', SHAOLIN_SIDE15_QUEST_ID),
         ],
       },
       {
@@ -141,7 +141,7 @@ export const SHAOLIN_SIDE15_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE15_QUEST_ID, 'return_damo_west'),
         effects: [
           { type: 'setFlag', flag: 'sl_side15_return_triggered', value: true },
-          openScene('scene_sls15_14', SHAOLIN_SIDE15_QUEST_ID),
+          openScene('scene_sls15_09', SHAOLIN_SIDE15_QUEST_ID),
         ],
       },
     ],
@@ -182,7 +182,7 @@ export const SHAOLIN_SIDE15_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_side15_return_triggered', value: true },
-          openScene('scene_sls15_14', SHAOLIN_SIDE15_QUEST_ID),
+          openScene('scene_sls15_09', SHAOLIN_SIDE15_QUEST_ID),
         ],
       },
     ],

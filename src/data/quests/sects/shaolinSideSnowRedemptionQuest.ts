@@ -24,7 +24,7 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
   recommendedRealm: '宗师下品 ～ 宗师中品',
   maxOpponentRealm: '宗师中品（西夏一品堂追魂使 · 玄霜鬼手拓跋烈）',
   recommendedNote:
-    '少林寺 Lv.4 宗师级禅心慈悲支线（全十六幕）。跻身首座长老、且经义湛深后，腊月大雪封山之际于钟鼓禅院遇重伤叛逃的西夏凶徒「断魂铁爪」贺兰枭叩门泣血求庇，山门外西夏一品堂宗师追魂使携关洛仇家逼门讨人。须辨明佛门慈悲与因果之界——先于漫天飞雪山门前独力击退嚣张跋扈的一品堂追魂使，再亲手废去悍匪一生毒爪恶功、罚其披麻扫雪塔林终生赎罪，令关洛苦主心服口服。',
+    '少林寺 Lv.4 宗师级禅心慈悲支线（全十幕，深度回响禅心与杀业积累）。跻身首座长老、且经义湛深后，腊月大雪封山之际于钟鼓禅院遇身受重伤、怀抱幼女的西夏逃亡杀手「断魂铁爪」贺兰枭叩门求庇，山门外西夏一品堂宗师追魂使拓跋烈裹挟关洛苦主逼门讨人。须于漫天飞雪中择策当雪喝退傲气或正面死战击退拓跋烈，再于佛前废其毒爪恶功、抉择剃度收留塔林或伤愈押交官府赎罪并妥善安顿其幼女。',
   startHint:
     '跻身少林寺四阶首座长老、且经义达 85 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院】寻玄寂首座即可触发。',
   startLocation: {
@@ -35,7 +35,7 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
   },
   startCondition: SHAOLIN_SIDE17_START_CONDITION,
   summary:
-    '{reignYear}腊月，大雪封锁少室山。暮色骤暗之际，【大雄宝殿方丈院 · 钟鼓禅院】外忽传急促叩门声，浑身浴血的西夏叛徒「断魂铁爪」贺兰枭拖着残躯伏倒石阶，泣血哀求佛门垂怜庇护。未及半柱香，西夏一品堂宗师追魂使「玄霜鬼手」拓跋烈便裹挟数十名关洛苦主杀气腾腾逼至【罗汉堂 · 演武大坪】前山门，嚣张喝令少林交人受戮。你深明佛门慈悲不纵恶、因果岂容异邦私刑之理：先于漫天飞雪山门前挺身而出，一对一击退咄咄逼人的宗师追魂使拓跋烈，守住少林千年威严；继而引关洛苦主步入【大雄宝殿正殿】佛祖座前，亲手以金刚指力废去贺兰枭一生毒爪恶功，令其尽吐赃银抚恤遗孤，并披麻执帚终生扫雪塔林忏悔血债。苦主见恶功尽废、因果昭然，无不合十心服。',
+    '{reignYear}腊月，大雪封锁少室山。暮色骤暗之际，【大雄宝殿方丈院 · 钟鼓禅院】外急促叩门，身受重伤、怀抱五岁幼女的西夏逃亡杀手「断魂铁爪」贺兰枭伏倒雪阶泣血求庇。未及半柱香，西夏一品堂宗师追魂使「玄霜鬼手」拓跋烈裹挟关洛苦主逼至【罗汉堂 · 演武大坪】前山门嚣张索人。你明辨慈悲与戒律之界：先于漫天飞雪山门前以佛门正理或铁骨威仪独力击退宗师追魂使拓跋烈，守住少林千年威严；继而引关洛苦主入【大雄宝殿正殿】佛祖座前，亲手废去贺兰枭毒爪恶功、令其尽吐赃银抚恤遗孤，并于佛前对这名已生悔悟的罪人与其无辜幼女作出终极度恶抉择，令关洛苦主合十心服。',
   initialStepId: 'confront_snow_gate',
   steps: {
     confront_snow_gate: {
@@ -54,11 +54,11 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
     },
     redeem_in_pagoda: {
       id: 'redeem_in_pagoda',
-      title: '佛前断恶 · 塔林扫雪忏罪',
+      title: '佛前断恶 · 慈航度余生',
       objective:
-        '已于漫天飞雪中击退一品堂追魂使拓跋烈！请引关洛苦主前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄宝殿正殿（sl_daxiong_main）】佛祖座前，亲手废去贺兰枭毒爪恶功，给关洛苦主一个公道。',
+        '已于漫天飞雪中击退一品堂追魂使拓跋烈！请引关洛苦主前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄宝殿正殿（sl_daxiong_main）】佛祖座前，亲手废去贺兰枭毒爪恶功，公断因果并安顿其幼女。',
       nextHint:
-        '前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄宝殿正殿（sl_daxiong_main）】，点击「于佛前废去悍匪毒爪恶功，判其塔林终生扫雪赎罪」。',
+        '前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄宝殿正殿（sl_daxiong_main）】，点击「于佛前废去悍匪毒爪恶功，公断因果度恶」。',
       targetLocation: {
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
@@ -85,7 +85,7 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
       spotId: 'sl_luohan_main',
       onceFlag: 'sl_side17_gate_triggered',
       condition: atStep(SHAOLIN_SIDE17_QUEST_ID, 'confront_snow_gate'),
-      effects: [openScene('scene_sls17_05', SHAOLIN_SIDE17_QUEST_ID)],
+      effects: [openScene('scene_sls17_03', SHAOLIN_SIDE17_QUEST_ID)],
     },
     {
       id: 'trig_sls17_redeem_daxiong',
@@ -94,7 +94,7 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
       spotId: 'sl_daxiong_main',
       onceFlag: 'sl_side17_redeem_triggered',
       condition: atStep(SHAOLIN_SIDE17_QUEST_ID, 'redeem_in_pagoda'),
-      effects: [openScene('scene_sls17_11', SHAOLIN_SIDE17_QUEST_ID)],
+      effects: [openScene('scene_sls17_07', SHAOLIN_SIDE17_QUEST_ID)],
     },
   ],
 
@@ -126,12 +126,12 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_SIDE17_QUEST_ID, 'confront_snow_gate'),
       effects: [
         { type: 'setFlag', flag: 'sl_side17_gate_triggered', value: true },
-        openScene('scene_sls17_05', SHAOLIN_SIDE17_QUEST_ID),
+        openScene('scene_sls17_03', SHAOLIN_SIDE17_QUEST_ID),
       ],
     },
     {
       id: 'spot_sls17_redeem',
-      label: '【少林支线】于佛前废去悍匪毒爪恶功，判其塔林扫雪赎罪',
+      label: '【少林支线】于佛前废去悍匪毒爪恶功，公断因果度恶',
       badge: '因果度恶',
       subtitle: '大雄宝殿正殿',
       tone: 'gold',
@@ -141,7 +141,7 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_SIDE17_QUEST_ID, 'redeem_in_pagoda'),
       effects: [
         { type: 'setFlag', flag: 'sl_side17_redeem_triggered', value: true },
-        openScene('scene_sls17_11', SHAOLIN_SIDE17_QUEST_ID),
+        openScene('scene_sls17_07', SHAOLIN_SIDE17_QUEST_ID),
       ],
     },
   ],
@@ -149,7 +149,7 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
   npcActions: [
     {
       id: 'act_sls17_start_npc',
-      label: '与玄寂首座察看大雪夜叩门求庇的西夏凶徒',
+      label: '与玄寂首座察看大雪夜叩门求庇的西夏逃亡者',
       badge: '慈航度恶',
       tone: 'gold',
       showInBottomBar: true,
@@ -182,7 +182,7 @@ export const shaolinSideSnowRedemptionQuest: QuestDefinition = {
       },
       effects: [
         { type: 'setFlag', flag: 'sl_side17_redeem_triggered', value: true },
-        openScene('scene_sls17_11', SHAOLIN_SIDE17_QUEST_ID),
+        openScene('scene_sls17_07', SHAOLIN_SIDE17_QUEST_ID),
       ],
     },
   ],

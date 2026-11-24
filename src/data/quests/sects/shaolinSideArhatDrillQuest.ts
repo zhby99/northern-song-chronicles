@@ -24,7 +24,7 @@ export const SHAOLIN_SIDE11_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流上品（嵩山绿林狂徒 · 铁锤霸）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门压轴支线（全十二幕）。策论达三十五后，于十八铜人罗汉堂演武正殿协助慧轮督导虚胜、虚觉等年轻弟子排演“小罗汉阵”；三名嵩山绿林狂徒携双柄重锤闯山门叫阵，你以小罗汉阵困锁群寇并亲出阵眼重创狂徒首领铁锤霸。',
+      '嵩山少林寺 Lv.2 内门压轴支线（全九幕）。策论达三十五后，于十八铜人罗汉堂演武正殿受慧轮之托调教偷懒顽劣的外门武僧排演“小罗汉阵”：可凭弈理经义寓阵于弈激励士气，临战由顽徒牵制喽啰助你单挑铁锤霸；亦可铁律严训加桩立威，独自车轮连破闯山三狂徒，战后亲裁奖惩。',
     startHint:
       '晋升少林内门策论不低于三十五后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿】寻慧轮或虚胜即可触发。',
     startLocation: {
@@ -35,14 +35,14 @@ export const SHAOLIN_SIDE11_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE11_START_CONDITION,
     summary:
-      '{reignYear}嵩山少林寺十八铜人罗汉堂正值秋操大演，罗汉堂慧字辈首徒【慧轮】见门下年轻俗家护院弟子【虚胜】、【虚觉】等人血气方刚却各自为战、难成阵势，特邀通晓兵法策论的你协助督导排演“小罗汉阵”。你以奇正相生、首尾相应之法悉心调教，令顽徒们初成进退有序之阵。恰在此时，三名嚣张跋扈的嵩山绿林狂徒由二流上品悍匪【铁锤霸】领头，抡着百斤精铁双锤硬闯山门叫阵扬威。你临危不乱，喝令虚胜、虚觉等六僧布下小罗汉阵锁住两翼喽啰，自己亲出阵眼迎战铁锤霸与两名狂徒，以巧破力重创狂徒，令顽徒们彻底折服于少林阵法与武德。',
+      '{reignYear}嵩山少林寺十八铜人罗汉堂正值秋操大演，罗汉堂慧字辈首徒【慧轮】见门下年轻外门顽徒【虚胜】、【虚觉】等人偷懒打盹、各行其是，特邀通晓兵法策论的你出任教习督导排演“小罗汉阵”。你或因材施教寓阵于弈、或铁律戒尺严训立威，正逢嵩山绿林狂徒【铁锤霸】携双锤闯山门叫阵，你亲出阵眼重创狂徒、令顽徒心悦诚服，并亲定战后奖惩之法。',
     initialStepId: 'drill_and_defend',
     steps: {
       drill_and_defend: {
         id: 'drill_and_defend',
         title: '排演罗汉 · 阵困狂徒',
         objective:
-          '已领慧轮师兄之托督导虚胜、虚觉演练小罗汉阵！请留在【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】完成合阵操练，并迎击闯山叫阵的嵩山绿林狂徒。',
+          '已领慧轮师兄之托督导虚胜、虚觉演练小罗汉阵！请留在【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】调教顽徒合阵，并迎击闯山叫阵的嵩山绿林狂徒。',
         nextHint:
           '在【十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】点击「督导小罗汉阵合练，迎击闯山狂徒铁锤霸」或与慧轮交谈。',
         targetLocation: {
@@ -71,7 +71,7 @@ export const SHAOLIN_SIDE11_QUESTS: QuestDefinition[] = [
         spotId: 'sl_luohan_main',
         onceFlag: 'sl_side11_drill_triggered',
         condition: atStep(SHAOLIN_SIDE11_QUEST_ID, 'drill_and_defend'),
-        effects: [openScene('scene_sls11_04', SHAOLIN_SIDE11_QUEST_ID)],
+        effects: [openScene('scene_sls11_03', SHAOLIN_SIDE11_QUEST_ID)],
       },
     ],
 
@@ -106,8 +106,8 @@ export const SHAOLIN_SIDE11_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side11_hammer_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls11_08', SHAOLIN_SIDE11_QUEST_ID)],
-            elseEffects: [openScene('scene_sls11_04', SHAOLIN_SIDE11_QUEST_ID)],
+            thenEffects: [openScene('scene_sls11_06', SHAOLIN_SIDE11_QUEST_ID)],
+            elseEffects: [openScene('scene_sls11_03', SHAOLIN_SIDE11_QUEST_ID)],
           },
         ],
       },
@@ -152,8 +152,8 @@ export const SHAOLIN_SIDE11_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side11_hammer_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls11_08', SHAOLIN_SIDE11_QUEST_ID)],
-            elseEffects: [openScene('scene_sls11_04', SHAOLIN_SIDE11_QUEST_ID)],
+            thenEffects: [openScene('scene_sls11_06', SHAOLIN_SIDE11_QUEST_ID)],
+            elseEffects: [openScene('scene_sls11_03', SHAOLIN_SIDE11_QUEST_ID)],
           },
         ],
       },

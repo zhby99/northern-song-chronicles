@@ -24,7 +24,7 @@ export const SHAOLIN_SIDE06_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流下品 ～ 二流中品',
     maxOpponentRealm: '二流中品（江淮毒贩双煞 · 砒霜手胡三）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门支线（全十二幕）。经义达五十后，于开封府大相国寺万姓交易雅市接净安、慧音急报：有歹徒冒充“少林药王院大力丸”兜售掺入微量砒霜的毒假药。乔装暗访摸清黑坊巢穴，车轮连战 击败江淮毒贩双煞并焚毁假药还少林清誉。',
+      '嵩山少林寺 Lv.2 内门支线（全十幕）。经义达五十后，于开封府大相国寺万姓交易雅市接净安、慧音急报：江淮毒贩假冒少林小还丹骗财害命。现场三丸无提示辨伪揭穿骗局，再于城外废窑黑坊以联合开封厢兵封门、买通市井脚夫走暗窗或正门强冲三策生擒砒霜手胡三，并自决善后救民抑封存证物。',
     startHint:
       '晋升少林内门经义不低于五十后，前往【开封府 · 大相国寺（八角宝塔） · 相国寺万姓交易雅市】寻净安或慧音即可触发。',
     startLocation: {
@@ -35,14 +35,14 @@ export const SHAOLIN_SIDE06_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE06_START_CONDITION,
     summary:
-      '{reignYear}开封府大相国寺万姓交易雅市人声鼎沸，驻寺僧人【净安】与【慧音】却忧心忡忡——近半月来，雅市西角有游方药贩冒用“少林药王院秘制大力丸”之名高价兜售丹药，数名京城百姓服后腹痛吐血、险些丧命。你以深厚佛门经义与药理识破假丸中暗掺微毒砒霜以图立竿见影的歹毒伎俩，乔装香客假意大宗购药，一路暗哨追踪至开封城外荒废砖窑黑坊。面对江淮毒贩双煞【砒霜手胡三】与【断肠客钱五】的毒砂夹击，你车轮连战力挫群凶，当众焚毁满缸假药并移交官府法办，护住少林百年药王清誉。',
+      '{reignYear}开封府大相国寺万姓交易雅市人声鼎沸，驻寺僧人【净安】与【慧音】却忧心忡忡——近半月来，雅市西角有江淮毒贩冒用“嵩山少林小还丹”之名高价兜售假药，数名京城百姓服后腹痛吐血、险些丧命。你当场勘验三味药丸识破朱砂掺石灰、遇醋发青的致命毒假丸，易装顺藤摸瓜追至城外废窑黑坊，凭联合开封厢兵封门、买通脚夫潜入后窗或正门强冲破窟，生擒【砒霜手胡三】并焚毁假药，护住少林百年药王清誉。',
     initialStepId: 'raid_black_workshop',
     steps: {
       raid_black_workshop: {
         id: 'raid_black_workshop',
         title: '乔装暗访 · 捣毁黑坊',
         objective:
-          '已识破假冒少林大力丸掺毒真相！请在【开封府 · 大相国寺（八角宝塔） · 相国寺万姓交易雅市（bl_xg_market）】换装接头，顺藤摸瓜直捣城外假药黑坊。',
+          '已识破假冒少林丹丸掺毒真相！请在【开封府 · 大相国寺（八角宝塔） · 相国寺万姓交易雅市（bl_xg_market）】换装接头，顺藤摸瓜直捣城外假药黑坊。',
         nextHint:
           '在【相国寺万姓交易雅市（bl_xg_market）】点击「乔装购药，循迹直捣城外假药黑坊」或与慧音交谈。',
         targetLocation: {
@@ -56,7 +56,7 @@ export const SHAOLIN_SIDE06_QUESTS: QuestDefinition[] = [
         id: 'return_report',
         title: '焚药归寺 · 昭雪清誉',
         objective:
-          '江淮毒贩双煞已伏法、城外假药黑坊尽数焚毁！请返回【大相国寺（八角宝塔） · 大雄宝殿（香云宝鼎）（bl_xg_hall）】向慧音与净安复命并安抚香客。',
+          '江淮毒贩已伏法、城外假药黑坊尽数捣毁！请返回【大相国寺（八角宝塔） · 大雄宝殿（香云宝鼎）（bl_xg_hall）】向慧音与净安复命并安抚香客。',
         nextHint:
           '前往【大雄宝殿（香云宝鼎）（bl_xg_hall）】点击「向慧音、净安复命并布告清誉」。',
         targetLocation: {
@@ -94,7 +94,7 @@ export const SHAOLIN_SIDE06_QUESTS: QuestDefinition[] = [
         spotId: 'bl_xg_hall',
         onceFlag: 'sl_side06_report_triggered',
         condition: atStep(SHAOLIN_SIDE06_QUEST_ID, 'return_report'),
-        effects: [openScene('scene_sls06_11', SHAOLIN_SIDE06_QUEST_ID)],
+        effects: [openScene('scene_sls06_09', SHAOLIN_SIDE06_QUEST_ID)],
       },
     ],
 
@@ -129,7 +129,7 @@ export const SHAOLIN_SIDE06_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side06_boss_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls06_08', SHAOLIN_SIDE06_QUEST_ID)],
+            thenEffects: [openScene('scene_sls06_05', SHAOLIN_SIDE06_QUEST_ID)],
             elseEffects: [openScene('scene_sls06_04', SHAOLIN_SIDE06_QUEST_ID)],
           },
         ],
@@ -146,7 +146,7 @@ export const SHAOLIN_SIDE06_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE06_QUEST_ID, 'return_report'),
         effects: [
           { type: 'setFlag', flag: 'sl_side06_report_triggered', value: true },
-          openScene('scene_sls06_11', SHAOLIN_SIDE06_QUEST_ID),
+          openScene('scene_sls06_09', SHAOLIN_SIDE06_QUEST_ID),
         ],
       },
     ],
@@ -154,7 +154,7 @@ export const SHAOLIN_SIDE06_QUESTS: QuestDefinition[] = [
     npcActions: [
       {
         id: 'act_sls06_start_npc',
-        label: '问询万姓雅市假冒“少林大力丸”风波',
+        label: '问询万姓雅市假冒“少林小还丹”风波',
         badge: '假药风波',
         tone: 'gold',
         showInBottomBar: true,
@@ -190,7 +190,7 @@ export const SHAOLIN_SIDE06_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side06_boss_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls06_08', SHAOLIN_SIDE06_QUEST_ID)],
+            thenEffects: [openScene('scene_sls06_05', SHAOLIN_SIDE06_QUEST_ID)],
             elseEffects: [openScene('scene_sls06_04', SHAOLIN_SIDE06_QUEST_ID)],
           },
         ],

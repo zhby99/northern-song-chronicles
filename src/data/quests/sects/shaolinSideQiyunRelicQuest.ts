@@ -24,7 +24,7 @@ export const SHAOLIN_SIDE09_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流上品（吐蕃黑教盗宝护法 · 巴桑）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门支线（全十四幕）。经义达六十后，于洛阳白马寺齐云密檐舍利古塔协助慧博、虚智、虚空、净云修缮地宫；吐蕃黑教盗宝护法巴桑率众夜袭强抢佛骨舍利宝函，自塔底一路血战追至十三层绝顶，1v1 击败巴桑夺回宝函。',
+      '嵩山少林寺 Lv.2 内门支线（全九幕）。经义达六十后，于洛阳白马寺齐云密檐舍利古塔协助慧博、虚智、虚空、净云移护舍利宝函；吐蕃黑教盗宝护法巴桑夜袭盗宝，须借齐云塔「击掌蛙鸣回音」无提示辨明贼人藏匿塔层，于十三层绝顶破咒独斗巴桑，战后更可捐银重修金函添置长明灯油。',
     startHint:
       '晋升少林内门经义不低于六十后，前往【洛阳府 · 白马寺（释源祖庭） · 齐云密檐舍利古塔】寻慧博、虚空或虚智即可触发。',
     startLocation: {
@@ -35,12 +35,12 @@ export const SHAOLIN_SIDE09_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE09_START_CONDITION,
     summary:
-      '{reignYear}洛阳白马寺齐云密檐舍利古塔因连日阴雨致使地宫渗水，少林达摩院护经僧【慧博】奉命携【虚智】、【虚空】、【净云】暂启地宫、移护汉唐历代佛骨舍利宝函。岂料修缮消息走漏，吐蕃黑教盗宝护法【巴桑】率密宗精锐趁夜潜入祖庭，击伤守塔僧众并强夺舍利宝函欲攀塔顶借绳索遁走。你挺身而出接住残局，自阴湿塔底一路冲破伏兵追至十三层古塔绝顶，在朔风呼啸的塔刹之下与二流上品强敌巴桑展开 1v1 生死对决，终以正大佛门武学将其击溃、完壁夺回舍利宝函，护住释源祖庭千年圣物。',
+      '{reignYear}洛阳白马寺齐云密檐舍利古塔因连日阴雨致使地宫渗水，少林达摩院护经僧【慧博】奉命携【虚智】、【虚空】、【净云】暂启地宫、移护汉唐历代佛骨舍利宝函。岂料修缮消息走漏，吐蕃黑教盗宝护法【巴桑】率密宗精锐趁夜潜入祖庭强夺宝函。你借齐云塔闻名天下的「击掌蛙鸣回音」辨破暗格异响，一路追至十三层古塔绝顶，以佛号经义破散邪咒或硬撼黑教金杵，1v1 击败巴桑完壁夺回舍利宝函，随后护送圣物回白马大佛宝殿妥善安奉。',
     initialStepId: 'defend_pagoda_night',
     steps: {
       defend_pagoda_night: {
         id: 'defend_pagoda_night',
-        title: '夜护地宫 · 绝顶追凶',
+        title: '夜护地宫 · 回音追凶',
         objective:
           '已协助慧博等人勘验齐云塔地宫渗水并移置舍利宝函！请守在【洛阳府 · 白马寺（释源祖庭） · 齐云密檐舍利古塔（ly_bm_pagoda）】，提防吐蕃黑教夜袭并夺回宝函。',
         nextHint:
@@ -85,7 +85,7 @@ export const SHAOLIN_SIDE09_QUESTS: QuestDefinition[] = [
         spotId: 'ly_bm_pagoda',
         onceFlag: 'sl_side09_defend_triggered',
         condition: atStep(SHAOLIN_SIDE09_QUEST_ID, 'defend_pagoda_night'),
-        effects: [openScene('scene_sls09_04', SHAOLIN_SIDE09_QUEST_ID)],
+        effects: [openScene('scene_sls09_03', SHAOLIN_SIDE09_QUEST_ID)],
       },
       {
         id: 'trig_sls09_return',
@@ -94,7 +94,7 @@ export const SHAOLIN_SIDE09_QUESTS: QuestDefinition[] = [
         spotId: 'ly_bm_main',
         onceFlag: 'sl_side09_return_triggered',
         condition: atStep(SHAOLIN_SIDE09_QUEST_ID, 'return_main_hall'),
-        effects: [openScene('scene_sls09_13', SHAOLIN_SIDE09_QUEST_ID)],
+        effects: [openScene('scene_sls09_07', SHAOLIN_SIDE09_QUEST_ID)],
       },
     ],
 
@@ -129,8 +129,8 @@ export const SHAOLIN_SIDE09_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side09_basang_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls09_10', SHAOLIN_SIDE09_QUEST_ID)],
-            elseEffects: [openScene('scene_sls09_04', SHAOLIN_SIDE09_QUEST_ID)],
+            thenEffects: [openScene('scene_sls09_05', SHAOLIN_SIDE09_QUEST_ID)],
+            elseEffects: [openScene('scene_sls09_03', SHAOLIN_SIDE09_QUEST_ID)],
           },
         ],
       },
@@ -146,7 +146,7 @@ export const SHAOLIN_SIDE09_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE09_QUEST_ID, 'return_main_hall'),
         effects: [
           { type: 'setFlag', flag: 'sl_side09_return_triggered', value: true },
-          openScene('scene_sls09_13', SHAOLIN_SIDE09_QUEST_ID),
+          openScene('scene_sls09_07', SHAOLIN_SIDE09_QUEST_ID),
         ],
       },
     ],
@@ -187,7 +187,7 @@ export const SHAOLIN_SIDE09_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_side09_return_triggered', value: true },
-          openScene('scene_sls09_13', SHAOLIN_SIDE09_QUEST_ID),
+          openScene('scene_sls09_07', SHAOLIN_SIDE09_QUEST_ID),
         ],
       },
     ],

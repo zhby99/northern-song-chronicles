@@ -24,7 +24,7 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品 ～ 二流上品',
     maxOpponentRealm: '二流上品（关西暗器杀手 · 毒针影）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 内门支线（全十四幕）。赴洛阳金刀王家翠竹曲水藏刀八角亭祝贺王元霸寿诞，与驻院俗家弟子虚净、虚慧会合；演武祝寿之际仇家杀手混入戏班暴起发毒箭，掀八仙桌护住寿星并与众人并肩力挫三刺客，缔结少林与金刀王家铁血盟谊。',
+      '嵩山少林寺 Lv.2 内门支线（全九幕）。赴洛阳金刀王家祝贺王元霸六秩寿诞，筵席暗藏关西暗器杀手“毒针影”与两名死士；须于三名举止微异的赴宴者中无提示辨出真刺客——指中者先手掀翻毒酒震退死士直擒毒针影，失察则迎战暗箭连环车轮战，战后更可择结盟济世或立威震慑洛阳绿林。',
     startHint:
       '晋升少林内门后，前往【洛阳府 · 金刀王家大宅 · 翠竹曲水藏刀八角亭】寻虚净或王元霸即可触发寿宴风波。',
     startLocation: {
@@ -35,16 +35,16 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE08_START_CONDITION,
     summary:
-      '{reignYear}洛阳第一武林世家金刀王家家主【王元霸】喜逢六秩寿诞，嵩山少林与金刀门历代交好，你奉寺中命赴洛阳贺寿，于翠竹曲水藏刀八角亭会合少林俗家护院弟子【虚净】与【虚慧】。宴饮演武正酣，戏台之下忽有关西仇家重金雇佣的暗器杀手【毒针影】率两名死士混入戏班，猝然暴起齐射淬毒袖箭直取王元霸要害。千钧一发之际，你疾步掀翻紫檀八仙桌凌空挡下漫天毒针，护住王老爷子与满堂宾客，随后跃入中庭车轮连战力挫三名刺客。风波平息后，王元霸于正气大厅盛情设宴，与嵩山少林缔结守望相助的铁血盟谊。',
+      '{reignYear}洛阳第一武林世家金刀王家家主【王元霸】喜逢六秩寿诞，嵩山少林与金刀门历代交好，你奉寺中命赴洛阳贺寿，于翠竹曲水藏刀八角亭会合少林俗家护院弟子【虚净】与【虚慧】。宴饮演武正酣，关西仇家重金雇佣的暗器杀手【毒针影】率两名死士暗中混入寿宴伺机行刺。你在宾客如云的中庭明察秋毫、掀桌挡箭护住王老爷子，继而力挫暗杀堂刺客。风波平息后，王元霸于正气大厅盛情设宴，与嵩山少林缔结守望相助的铁血盟谊。',
     initialStepId: 'courtyard_banquet',
     steps: {
       courtyard_banquet: {
         id: 'courtyard_banquet',
-        title: '中庭演武 · 戏班暗变',
+        title: '中庭演武 · 筵席辨奸',
         objective:
-          '已于藏刀八角亭会合虚净并察觉戏班异样！请移步【洛阳府 · 金刀王家大宅 · 金刀石锁演武中庭（ly_jd_courtyard）】与虚慧一同护卫王元霸寿宴演武，谨防暗箭偷袭。',
+          '已于藏刀八角亭会合虚净并闻关西杀手潜伏之讯！请移步【洛阳府 · 金刀王家大宅 · 金刀石锁演武中庭（ly_jd_courtyard）】与虚慧一同护卫王元霸寿宴，辨识潜伏刺客、谨防暗箭偷袭。',
         nextHint:
-          '前往【金刀王家大宅 · 金刀石锁演武中庭（ly_jd_courtyard）】，点击「赴中庭寿宴演武，暗防戏班刺客」。',
+          '前往【金刀王家大宅 · 金刀石锁演武中庭（ly_jd_courtyard）】，点击「赴中庭寿宴演武，暗防筵席刺客」。',
         targetLocation: {
           regionId: 'luoyang',
           buildingId: 'ly_jindao',
@@ -56,7 +56,7 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
         id: 'hall_alliance_toast',
         title: '正气大厅 · 缔结盟谊',
         objective:
-          '三名关西暗器刺客皆已伏诛，寿宴转危为安！请前往【金刀王家大宅 · 金刀威震正气大厅（ly_jd_hall）】赴王元霸答谢雅宴。',
+          '关西暗器刺客悉数伏诛，寿宴转危为安！请前往【金刀王家大宅 · 金刀威震正气大厅（ly_jd_hall）】赴王元霸答谢雅宴。',
         nextHint:
           '前往【金刀王家大宅 · 金刀威震正气大厅（ly_jd_hall）】，点击「赴王元霸答谢之宴，缔结铁血盟谊」或与王元霸交谈。',
         targetLocation: {
@@ -85,7 +85,7 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
         spotId: 'ly_jd_courtyard',
         onceFlag: 'sl_side08_courtyard_triggered',
         condition: atStep(SHAOLIN_SIDE08_QUEST_ID, 'courtyard_banquet'),
-        effects: [openScene('scene_sls08_05', SHAOLIN_SIDE08_QUEST_ID)],
+        effects: [openScene('scene_sls08_03', SHAOLIN_SIDE08_QUEST_ID)],
       },
       {
         id: 'trig_sls08_hall',
@@ -94,7 +94,7 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
         spotId: 'ly_jd_hall',
         onceFlag: 'sl_side08_hall_triggered',
         condition: atStep(SHAOLIN_SIDE08_QUEST_ID, 'hall_alliance_toast'),
-        effects: [openScene('scene_sls08_13', SHAOLIN_SIDE08_QUEST_ID)],
+        effects: [openScene('scene_sls08_07', SHAOLIN_SIDE08_QUEST_ID)],
       },
     ],
 
@@ -116,7 +116,7 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_sls08_courtyard',
-        label: '【少林支线】赴中庭寿宴演武，暗防戏班刺客',
+        label: '【少林支线】赴中庭寿宴演武，暗防筵席刺客',
         badge: '洛阳暗箭',
         subtitle: '金刀石锁演武中庭',
         tone: 'jade',
@@ -129,8 +129,8 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side08_assassins_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls08_10', SHAOLIN_SIDE08_QUEST_ID)],
-            elseEffects: [openScene('scene_sls08_05', SHAOLIN_SIDE08_QUEST_ID)],
+            thenEffects: [openScene('scene_sls08_05', SHAOLIN_SIDE08_QUEST_ID)],
+            elseEffects: [openScene('scene_sls08_03', SHAOLIN_SIDE08_QUEST_ID)],
           },
         ],
       },
@@ -146,7 +146,7 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE08_QUEST_ID, 'hall_alliance_toast'),
         effects: [
           { type: 'setFlag', flag: 'sl_side08_hall_triggered', value: true },
-          openScene('scene_sls08_13', SHAOLIN_SIDE08_QUEST_ID),
+          openScene('scene_sls08_07', SHAOLIN_SIDE08_QUEST_ID),
         ],
       },
     ],
@@ -190,8 +190,8 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side08_assassins_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls08_10', SHAOLIN_SIDE08_QUEST_ID)],
-            elseEffects: [openScene('scene_sls08_05', SHAOLIN_SIDE08_QUEST_ID)],
+            thenEffects: [openScene('scene_sls08_05', SHAOLIN_SIDE08_QUEST_ID)],
+            elseEffects: [openScene('scene_sls08_03', SHAOLIN_SIDE08_QUEST_ID)],
           },
         ],
       },
@@ -211,7 +211,7 @@ export const SHAOLIN_SIDE08_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_side08_hall_triggered', value: true },
-          openScene('scene_sls08_13', SHAOLIN_SIDE08_QUEST_ID),
+          openScene('scene_sls08_07', SHAOLIN_SIDE08_QUEST_ID),
         ],
       },
     ],

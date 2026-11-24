@@ -24,7 +24,7 @@ export const SHAOLIN_SIDE04_QUESTS: QuestDefinition[] = [
     recommendedRealm: '三流上品',
     maxOpponentRealm: '三流上品（洛阳摸金头目 · 穿山鬼）',
     recommendedNote:
-      '少林寺 Lv.1 外门日常支线（全十二幕）。于亥时至丑时夜间前往达摩面壁石洞绝壁石刻剑痕崖寻塔林洒扫沙弥韩河源，持棍夜巡少林西侧历代高僧塔林，揭穿洛阳摸金校尉涂磷粉装鬼盗掘唐代高僧舍利地宫之阴谋，连败三名盗墓贼护住先辈灵骨。',
+      '少林寺 Lv.1 外门日常支线（全十幕）。于亥时至丑时夜间前往达摩面壁石洞绝壁石刻剑痕崖寻沙弥韩河源，持棍夜巡历代高僧塔林。细勘湿土铲痕、涂磷细线与市井线香三处蛛丝马迹无提示破迷，或反借鬼影惊散喽啰单擒「穿山鬼」，或正面拿贼，并自决塔前善后发落。',
     startHint:
       '拜入嵩山少林寺后，于亥时至丑时夜间前往【嵩山少林寺 · 达摩面壁石洞 · 绝壁石刻 · 剑痕崖】寻韩河源即可触发。',
     startLocation: {
@@ -35,7 +35,7 @@ export const SHAOLIN_SIDE04_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE04_START_CONDITION,
     summary:
-      '{reignYear}寒冬深夜，少林寺西侧历代高僧塔林连夜鬼火闪烁、阴风呜咽，平日负责洒扫塔林的新晋沙弥韩河源惊惧难眠，于【达摩面壁石洞 · 绝壁石刻 · 剑痕崖】向你吐露异象。你断定千年古刹绝无厉鬼作祟，遂持齐眉棍自【飞瀑深潭 · 试炼涧】潜入西侧塔林夜巡。百座唐宋高僧砖塔间幽绿磷火飘荡，你借风向辨出磷粉与桐油气味，当场揭穿一伙洛阳摸金校尉装神弄鬼、妄图以洛阳铲盗掘唐代高僧舍利地宫的阴谋。你于砖塔迷阵间先破两名持铲喽啰，再以少林棍法力擒三流上品头目「穿山鬼」胡七，护住先辈灵骨无损。',
+      '{reignYear}寒冬深夜，少林寺西侧历代高僧塔林连夜磷火幽幽、传言先辈高僧显灵哭嚎，洒扫沙弥韩河源惊惧难眠。你于【绝壁石刻 · 剑痕崖】宽慰同门，持齐眉棍自【飞瀑深潭 · 试炼涧】潜入西侧塔林夜巡。查验塔底新翻湿土月牙铲痕、牵动铜铃的涂磷枯骨细线与香炉市井线香后，识破洛阳摸金头目「穿山鬼」装神弄鬼盗掘唐代高僧舍利地宫之阴谋。你或剪断磷线反借鬼影惊散小喽啰独擒首恶、或佛号震林正面拿贼，护住先辈灵骨无损。',
     initialStepId: 'patrol_pagoda_forest',
     steps: {
       patrol_pagoda_forest: {
@@ -56,7 +56,7 @@ export const SHAOLIN_SIDE04_QUESTS: QuestDefinition[] = [
         id: 'return_report',
         title: '晓钟破祟 · 归崖报平安',
         objective:
-          '三名洛阳摸金盗墓贼已尽数生擒押交巡夜武僧，唐代高僧舍利地宫安然无恙！请返回【达摩面壁石洞 · 绝壁石刻 · 剑痕崖（sl_damo_east）】告知韩河源真相。',
+          '洛阳摸金盗墓贼已尽数伏法，唐代高僧舍利地宫安然无恙！请返回【达摩面壁石洞 · 绝壁石刻 · 剑痕崖（sl_damo_east）】告知韩河源真相。',
         nextHint:
           '返回【达摩面壁石洞 · 绝壁石刻 · 剑痕崖（sl_damo_east）】，点击「向韩河源道明塔林鬼火真相」或与韩河源交谈。',
         targetLocation: {
@@ -85,7 +85,7 @@ export const SHAOLIN_SIDE04_QUESTS: QuestDefinition[] = [
         spotId: 'sl_damo_west',
         onceFlag: 'sl_side04_patrol_triggered',
         condition: atStep(SHAOLIN_SIDE04_QUEST_ID, 'patrol_pagoda_forest'),
-        effects: [openScene('scene_sls04_03', SHAOLIN_SIDE04_QUEST_ID)],
+        effects: [openScene('scene_sls04_02', SHAOLIN_SIDE04_QUEST_ID)],
       },
       {
         id: 'trig_sls04_return_damo_east',
@@ -94,7 +94,7 @@ export const SHAOLIN_SIDE04_QUESTS: QuestDefinition[] = [
         spotId: 'sl_damo_east',
         onceFlag: 'sl_side04_report_triggered',
         condition: atStep(SHAOLIN_SIDE04_QUEST_ID, 'return_report'),
-        effects: [openScene('scene_sls04_12', SHAOLIN_SIDE04_QUEST_ID)],
+        effects: [openScene('scene_sls04_09', SHAOLIN_SIDE04_QUEST_ID)],
       },
     ],
 
@@ -126,7 +126,12 @@ export const SHAOLIN_SIDE04_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE04_QUEST_ID, 'patrol_pagoda_forest'),
         effects: [
           { type: 'setFlag', flag: 'sl_side04_patrol_triggered', value: true },
-          openScene('scene_sls04_03', SHAOLIN_SIDE04_QUEST_ID),
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_side04_raiders_ready', op: 'truthy' },
+            thenEffects: [openScene('scene_sls04_04', SHAOLIN_SIDE04_QUEST_ID)],
+            elseEffects: [openScene('scene_sls04_02', SHAOLIN_SIDE04_QUEST_ID)],
+          },
         ],
       },
       {
@@ -141,7 +146,7 @@ export const SHAOLIN_SIDE04_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE04_QUEST_ID, 'return_report'),
         effects: [
           { type: 'setFlag', flag: 'sl_side04_report_triggered', value: true },
-          openScene('scene_sls04_12', SHAOLIN_SIDE04_QUEST_ID),
+          openScene('scene_sls04_09', SHAOLIN_SIDE04_QUEST_ID),
         ],
       },
     ],
@@ -182,7 +187,7 @@ export const SHAOLIN_SIDE04_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_side04_report_triggered', value: true },
-          openScene('scene_sls04_12', SHAOLIN_SIDE04_QUEST_ID),
+          openScene('scene_sls04_09', SHAOLIN_SIDE04_QUEST_ID),
         ],
       },
     ],

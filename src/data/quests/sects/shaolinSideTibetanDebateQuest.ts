@@ -25,7 +25,7 @@ export const SHAOLIN_SIDE13_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流中品',
     maxOpponentRealm: '一流中品（西夏密宗音功高僧 · 朗达玛）',
     recommendedNote:
-      '少林寺 Lv.3 汴京护法支线（全十四幕）。、且经义 ≥ 75、辩才 ≥ 50 后，赴开封府大相国寺大雄宝殿（香云宝鼎）见下院主持慧光、慧空正遭西夏密宗音功高僧朗达玛借因明辩难发难。须移步资圣八角琉璃宝塔法坛连破三道佛理死题，再以浑厚禅功硬抗梵音狮吼并击败朗达玛，赢得满城欢呼并获仁宗御赐赏赉。',
+      '少林寺 Lv.3 汴京护法支线（全十幕）。跻身三阶高徒、且经义 ≥ 75、辩才 ≥ 50 后，赴开封府大相国寺大雄宝殿（香云宝鼎）见下院主持慧光、慧空正遭西夏密宗音功高僧朗达玛借紫金宝钵与梵音辩难发难。须移步资圣八角琉璃宝塔法坛临机辨破空有死题，再择策以梵钟共鸣或金刚狮吼力克朗达玛，并抉择战后礼待之道，赢得满城欢呼与仁宗御赐赏赉。',
     startHint:
       '跻身少林寺三阶高徒、且经义 ≥ 75、辩才 ≥ 50 后，前往【开封府 · 大相国寺（八角宝塔） · 大雄宝殿（香云宝鼎）】寻慧光、慧空即可触发。',
     startLocation: {
@@ -36,14 +36,14 @@ export const SHAOLIN_SIDE13_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE13_START_CONDITION,
     summary:
-      '{reignYear}仲夏，西夏使团随行密宗音功高僧【朗达玛】携鎏金法螺与因明辩帖闯入汴京【大相国寺】，口称「中原禅宗徒有虚名、不敢一辩」，于【大雄宝殿（香云宝鼎）】连震数声密宗梵音，将少林下院主持【慧光】、【慧空】逼得气血翻涌、难以招架。你恰逢巡礼汴京，挺身而出接下辩难之约，移步【资圣八角琉璃宝塔】前高筑法坛，当着汴梁千余僧俗与朝臣之面连破朗达玛三道因明死题；朗达玛理屈词穷，暗运密宗音功欲以「狮吼梵音」震慑全场，你以少林浑厚禅功正面迎战，苦斗数十合将其折服！满城欢呼雷动，消息传入大内，宋仁宗龙颜大悦，遣内侍赍诏赐赏银两与御赐灵药，少林声威震动京师。',
+      '{reignYear}仲夏，西夏使团随行密宗音功高僧【朗达玛】携紫金宝钵与鎏金法螺闯入汴京【大相国寺】，口称「中原禅宗徒有虚名、不敢一辩」，于【大雄宝殿（香云宝鼎）】暗催梵音声浪震伤少林下院主持【慧光】、【慧空】。你恰逢巡礼汴京，挺身接下辩难之约，移步【资圣八角琉璃宝塔】前高筑法坛，当着汴梁千余僧俗与太学生之面直破朗达玛的密宗空有死题，旋即择策迎撼其一流中品「大自在梵音狮吼」，苦斗数十合将其折服。消息传入大内，宋仁宗龙颜大悦，遣宣旨内侍赐赏护法银两与御前赞语，下院亦奉上少林小还丹，嵩山声威震动京华。',
     initialStepId: 'pagoda_debate_duel',
     steps: {
       pagoda_debate_duel: {
         id: 'pagoda_debate_duel',
         title: '登坛破难 · 狮吼斗番僧',
         objective:
-          '已在大雄宝殿替慧光、慧空接下西夏密宗高僧朗达玛的因明辩难之约！请前往【开封府 · 大相国寺（八角宝塔） · 资圣八角琉璃宝塔（bl_xg_pagoda）】登坛斗辩，以经义与禅功折服番僧。',
+          '已在大雄宝殿替慧光、慧空接下西夏密宗高僧朗达玛的辩难之约！请前往【开封府 · 大相国寺（八角宝塔） · 资圣八角琉璃宝塔（bl_xg_pagoda）】登坛斗辩，以经义与禅功折服番僧。',
         nextHint:
           '前往【大相国寺（八角宝塔） · 资圣八角琉璃宝塔（bl_xg_pagoda）】，点击「登法坛迎战西夏密宗高僧朗达玛」。',
         targetLocation: {
@@ -57,7 +57,7 @@ export const SHAOLIN_SIDE13_QUESTS: QuestDefinition[] = [
         id: 'hall_imperial_reward',
         title: '京师传颂 · 宝殿接御赏',
         objective:
-          '你已于八角宝塔下连破三题、以浑厚禅功力克西夏高僧朗达玛！大内宣旨内侍已抵大相国寺，请速返【大雄宝殿（香云宝鼎）（bl_xg_hall）】与慧光、慧空一同接诏受赏。',
+          '你已于八角宝塔下辨破空有死题、以浑厚禅功力克西夏高僧朗达玛！大内宣旨内侍已抵大相国寺，请速返【大雄宝殿（香云宝鼎）（bl_xg_hall）】与慧光、慧空一同接诏受赏。',
         nextHint:
           '返回【大相国寺（八角宝塔） · 大雄宝殿（香云宝鼎）（bl_xg_hall）】，点击「赴大雄宝殿接领官家御赐赏赉」或与慧光交谈。',
         targetLocation: {
@@ -86,7 +86,7 @@ export const SHAOLIN_SIDE13_QUESTS: QuestDefinition[] = [
         spotId: 'bl_xg_pagoda',
         onceFlag: 'sl_side13_debate_triggered',
         condition: atStep(SHAOLIN_SIDE13_QUEST_ID, 'pagoda_debate_duel'),
-        effects: [openScene('scene_sls13_04', SHAOLIN_SIDE13_QUEST_ID)],
+        effects: [openScene('scene_sls13_03', SHAOLIN_SIDE13_QUEST_ID)],
       },
       {
         id: 'trig_sls13_reward_xg_hall',
@@ -95,7 +95,7 @@ export const SHAOLIN_SIDE13_QUESTS: QuestDefinition[] = [
         spotId: 'bl_xg_hall',
         onceFlag: 'sl_side13_reward_triggered',
         condition: atStep(SHAOLIN_SIDE13_QUEST_ID, 'hall_imperial_reward'),
-        effects: [openScene('scene_sls13_12', SHAOLIN_SIDE13_QUEST_ID)],
+        effects: [openScene('scene_sls13_09', SHAOLIN_SIDE13_QUEST_ID)],
       },
     ],
 
@@ -127,7 +127,7 @@ export const SHAOLIN_SIDE13_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE13_QUEST_ID, 'pagoda_debate_duel'),
         effects: [
           { type: 'setFlag', flag: 'sl_side13_debate_triggered', value: true },
-          openScene('scene_sls13_04', SHAOLIN_SIDE13_QUEST_ID),
+          openScene('scene_sls13_03', SHAOLIN_SIDE13_QUEST_ID),
         ],
       },
       {
@@ -142,7 +142,7 @@ export const SHAOLIN_SIDE13_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE13_QUEST_ID, 'hall_imperial_reward'),
         effects: [
           { type: 'setFlag', flag: 'sl_side13_reward_triggered', value: true },
-          openScene('scene_sls13_12', SHAOLIN_SIDE13_QUEST_ID),
+          openScene('scene_sls13_09', SHAOLIN_SIDE13_QUEST_ID),
         ],
       },
     ],
@@ -183,7 +183,7 @@ export const SHAOLIN_SIDE13_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_side13_reward_triggered', value: true },
-          openScene('scene_sls13_12', SHAOLIN_SIDE13_QUEST_ID),
+          openScene('scene_sls13_09', SHAOLIN_SIDE13_QUEST_ID),
         ],
       },
     ],

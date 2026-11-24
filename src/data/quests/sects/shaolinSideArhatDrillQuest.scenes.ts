@@ -36,7 +36,34 @@ function buildIronHammerTyrant(): NodeNpc {
     stats: { hp: 1780, mp: 1420, agi: 51, res: 44 },
     talents: { bone: 74, comprehension: 44, charm: 26 },
     equippedArts: { neigong: 'MA-140', move1: 'MA-152', move2: 'MA-124' },
-    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-152', level: 6 }, { artId: 'MA-124', level: 6 }],
+    learnedArts: [
+      { artId: 'MA-140', level: 6 },
+      { artId: 'MA-152', level: 6 },
+      { artId: 'MA-124', level: 6 },
+    ],
+  })
+}
+
+function buildIronHammerTyrantLocked(): NodeNpc {
+  return makeQuestNpc({
+    id: 'QUEST_SLS11_HAMMER_TYRANT_LOCKED',
+    name: '铁锤霸',
+    title: '孤立无援的绿林狂徒 · 铁锤霸',
+    realm: '二流上品',
+    factionName: '嵩山绿林',
+    sectRank: 0,
+    sectRankLabel: '绿林狂徒',
+    avatarUrl: '/assets/characters/templates/tpl_greenwood_hero_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_greenwood_hero_fb.jpg',
+    talk: '“可恶！那群小秃驴竟然用棍阵把我两个兄弟死死缠住了！小子，老子单凭这双百斤铁锤也能砸扁你！”',
+    stats: { hp: 1520, mp: 1220, agi: 47, res: 38 },
+    talents: { bone: 74, comprehension: 44, charm: 26 },
+    equippedArts: { neigong: 'MA-140', move1: 'MA-152', move2: 'MA-124' },
+    learnedArts: [
+      { artId: 'MA-140', level: 5 },
+      { artId: 'MA-152', level: 5 },
+      { artId: 'MA-124', level: 5 },
+    ],
   })
 }
 
@@ -55,7 +82,11 @@ function buildBruteMinion1(): NodeNpc {
     stats: { hp: 1020, mp: 760, agi: 43, res: 28 },
     talents: { bone: 58, comprehension: 40, charm: 22 },
     equippedArts: { neigong: 'MA-140', move1: 'MA-131', move2: 'MA-236' },
-    learnedArts: [{ artId: 'MA-140', level: 4 }, { artId: 'MA-131', level: 4 }, { artId: 'MA-236', level: 4 }],
+    learnedArts: [
+      { artId: 'MA-140', level: 4 },
+      { artId: 'MA-131', level: 4 },
+      { artId: 'MA-236', level: 4 },
+    ],
   })
 }
 
@@ -74,56 +105,67 @@ function buildBruteMinion2(): NodeNpc {
     stats: { hp: 1060, mp: 740, agi: 41, res: 30 },
     talents: { bone: 60, comprehension: 38, charm: 20 },
     equippedArts: { neigong: 'MA-140', move1: 'MA-152', move2: 'MA-236' },
-    learnedArts: [{ artId: 'MA-140', level: 4 }, { artId: 'MA-152', level: 4 }, { artId: 'MA-236', level: 4 }],
+    learnedArts: [
+      { artId: 'MA-140', level: 4 },
+      { artId: 'MA-152', level: 4 },
+      { artId: 'MA-236', level: 4 },
+    ],
   })
 }
 
 export const SCENES: Record<string, StorySceneDef> = {
   scene_sls11_01: {
     id: 'scene_sls11_01',
-    title: '第一幕 · 顽徒难驯',
+    title: '第一幕 · 顽徒难驯 · 阵理之托',
     subtitle: '嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿',
     mandatory: true,
     beats: [
-      N('{reignYear}秋风掠过少室山，十八铜人罗汉堂演武正殿内喝声震天，却显得颇为杂乱。只见几名年轻气盛的护院武僧各舞齐眉棍互相抢位，险些自己绊倒自己；罗汉堂慧字辈首徒慧轮立于阶前，看得直摇头。'),
-      S('NPC-0769', '（收棍叉腰，满脸不服气）“虚觉，你走位慢了半拍，挡着我出棍了！要我说，练这劳什子小罗汉阵还不如咱们各自凭真本事单打独斗来得痛快！”'),
-      S('NPC-0861', '（同样梗着脖子回嘴）“分明是你自己贪功冒进抢出阵眼！慧轮师叔教的步法你记熟了没有？”'),
+      N('{reignYear}秋风掠过少室山，十八铜人罗汉堂演武正殿内喝声震天却乱作一团。几个外门顽徒正偷偷靠在红漆大柱后打盹，坪心的虚胜与虚觉则舞着齐眉棍互相抢位、险些绊倒自己，罗汉堂慧字辈首徒慧轮立于阶前看得直摇头。'),
+      S('NPC-0769', '（收棍叉腰，满脸不服气）“虚觉，你步子慢了半拍挡着我出棍了！要我说，练这劳什子小罗汉阵还不如咱们各自凭真本事单打独斗来得痛快！”'),
+      S('NPC-0861', '（同样梗着脖子回嘴）“分明是你自己贪功冒进抢出阵眼！还有廊下那两个，站桩都能睡着，这阵还怎么排？”'),
+      S('NPC-0254', '（见你步入正殿，眸光一亮招手唤你近前）“师弟来得正好！这帮顽徒筋骨俱佳却血气方刚、偷懒散漫，排了半个月『小罗汉阵』还是散沙一盘。我知师弟通晓兵法策论，可愿替我出任半日教习，好好磨一磨他们的性子？”'),
     ],
     onFinishEffects: [openScene('scene_sls11_02', SHAOLIN_SIDE11_QUEST_ID)],
   },
 
   scene_sls11_02: {
     id: 'scene_sls11_02',
-    title: '第二幕 · 阵理之托',
-    subtitle: '罗汉堂演武正殿',
-    mandatory: true,
-    beats: [
-      S('NPC-0254', '（见你步入正殿，眸光一亮，招手唤你近前）“师弟来得正好！你也瞧见了，虚胜、虚觉这批年轻护院武僧筋骨俱佳，却个个血气方刚、不服管束，排了半个月『小罗汉阵』还是散沙一盘。”'),
-      S('NPC-0254', '“我知师弟通晓兵法策论，又在内门颇有威望。可愿替我督导他们半日，教他们明白什么叫『阵势如金、以弱胜强』？”'),
-      P('（合十含笑，目光扫过一众摩拳擦掌的年轻武僧）“治军如布阵，徒以呵斥难服顽徒之心，须得先讲透阵理、再以实战验真章。弟子愿助慧轮师兄督导这回试炼！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls11_03', SHAOLIN_SIDE11_QUEST_ID)],
-  },
-
-  scene_sls11_03: {
-    id: 'scene_sls11_03',
-    title: '第三幕 · 立约督阵',
+    title: '第二幕 · 立约督阵 · 整肃坪心',
     subtitle: '罗汉堂演武正殿 · 演武坪',
     mandatory: true,
     beats: [
-      N('你步入演武坪中央，朗声向虚胜、虚觉与其余四名护院僧说道：“单打独斗，三流武僧遇上二流强敌十战九败；但若六人结成小罗汉阵，进退相依、攻守互补，便连二流上品悍匪亦能困于掌中！”'),
-      S('NPC-0769', '（将信将疑，抱拳道）“师兄既这般说，咱们便听师兄号令排演一回！倒要瞧瞧这阵法真有那么神效？”'),
+      P('（合十含笑，目光扫过坪上交头接耳的外门顽徒）“治军如布阵，顽铁须经淬炼方成利器。弟子愿助慧轮师兄督导这回小罗汉阵试炼！”'),
+      N('你大步踏上演武坪心，廊下打盹的两名沙弥吓得慌忙爬起抓棍。虚胜抱臂斜睨着你，显是想瞧瞧你这位内门教习有何本事镇住全场。'),
+      S('NPC-0769', '（将信将疑，抱拳道）“师兄既要当咱们的教习，总得先叫兄弟们心服口服——单打独斗痛快利落，这小罗汉阵真有那么神效么？”'),
     ],
     choices: [
       {
-        id: 'sls11_accept',
-        label: '执令旗登台，督导虚胜、虚觉等六僧排演小罗汉阵',
+        id: 'sls11_wager_demo',
+        label: '【徒手示阵 · 借力化棍】叫虚胜、虚觉齐攻三招，以阵眼错步轻松化开双棍先立威信',
+        subLabel: '承接支线【罗汉涂金 · 顽徒试炼】，留驻罗汉堂演武正殿操演',
         tone: 'gold',
         effects: [
+          { type: 'setFlag', flag: 'sl_s11_wager', value: 'demo' },
           { type: 'startQuest', questId: SHAOLIN_SIDE11_QUEST_ID, stepId: 'drill_and_defend' },
           setStep(SHAOLIN_SIDE11_QUEST_ID, 'drill_and_defend'),
           toast(
-            '已接下督阵之责！请在【罗汉堂演武正殿（sl_luohan_main）】完成小罗汉阵合练。',
+            '已接下罗汉堂督阵之责！请在【罗汉堂演武正殿（sl_luohan_main）】调教顽徒合练。',
+            'talk',
+            '罗汉涂金',
+          ),
+        ],
+      },
+      {
+        id: 'sls11_wager_talk',
+        label: '【以策服众 · 阵前立约】直陈“三流合阵可困二流悍匪”之兵理，与众顽徒击掌为约',
+        subLabel: '承接支线【罗汉涂金 · 顽徒试炼】，留驻罗汉堂演武正殿操演',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s11_wager', value: 'talk' },
+          { type: 'startQuest', questId: SHAOLIN_SIDE11_QUEST_ID, stepId: 'drill_and_defend' },
+          setStep(SHAOLIN_SIDE11_QUEST_ID, 'drill_and_defend'),
+          toast(
+            '已与众顽徒立下操练之约！请在【罗汉堂演武正殿（sl_luohan_main）】调教顽徒合练。',
             'talk',
             '罗汉涂金',
           ),
@@ -132,92 +174,149 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_sls11_04: {
-    id: 'scene_sls11_04',
-    title: '第四幕 · 奇正相生',
+  scene_sls11_03: {
+    id: 'scene_sls11_03',
+    title: '第三幕 · 顽徒操演 · 教习抉择',
     subtitle: '罗汉堂演武正殿 · 演武坪',
     illustrationUrl: '/assets/quests/sl_s11_mini_arhat.jpg',
     illustrationCaption: '小罗汉阵 · 督导虚胜、虚觉等六僧踏位合棍，初成金汤阵势',
     mandatory: true,
     beats: [
-      N('你以兵法奇正之理拆解小罗汉阵：虚胜勇猛居中前锋为“正”，虚觉沉稳居后补漏为“奇”，其余四僧分守四隅互为犄角；一棍击出，必有二棍护其空门，一人后撤，必有两人错步补位。'),
-      N('起初六僧仍偶有错乱，但在你清越精准的口令调度之下，不过一个时辰，六根齐眉白蜡棍已挥舞得密不透风，步法踏在青砖之上铿锵如一，竟隐隐生出铜墙铁壁之气象！'),
-      S('NPC-0861', '（抹去汗珠，眼中绽出异彩）“咦！方才我差点露了左肋空门，虚胜师兄的棍尾竟刚好顺势帮我遮住了——这阵法果真奇妙无比！”'),
+      N('{ifFlagEq:sl_s11_wager=demo|方才你徒手错步化开虚胜与虚觉双棍，众人虽暂收起轻视之心，真排起阵来却依旧毛躁；|众人虽嘴上应了兵法之约，真演练起枯燥的六合步法，没过半柱香便又开始叫苦连天；}两名贪睡外门僧脚步拖沓，虚胜又嫌阵势拘束频频抢步出头，整座小罗汉阵眼看又要散架！'),
+      S('NPC-0861', '（抹着汗喘气）“师兄，这『进二退一、左护右掣』的口诀实在绕口，咱们记着棍招便忘了步位，记着步位又忘了补空门……”'),
+      N('日头渐高，演武坪上浮躁之气弥漫。身为今日罗汉堂教习，你该如何调教这群顽劣却不乏血性的年轻武僧？'),
+    ],
+    choices: [
+      {
+        id: 'sls11_teach_chess',
+        label: '【因材施教 · 寓阵于弈】在青砖划出黑白棋坪，以棋子劫争拆解六合阵位，激起顽徒好胜心！',
+        subLabel: '需棋 ≥ 30 或经义 ≥ 50 · 顽徒士气大振，临战牵制外围喽啰跳过杂兵战！（禅心慈悲 +2）',
+        tone: 'jade',
+        condition: {
+          type: 'any',
+          conditions: [
+            { type: 'skillAtLeast', key: '棋', min: 30 },
+            { type: 'skillAtLeast', key: '经义', min: 50 },
+          ],
+          hint: '需十艺【棋】≥ 30 或【经义】≥ 50',
+        },
+        effects: [
+          { type: 'setFlag', flag: 'sl_s11_novices_ready', value: true },
+          { type: 'setFlag', flag: 'sl_s11_teach_style', value: 'chess' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s11_teach_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s11_teach_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 2 },
+            ],
+          },
+          openScene('scene_sls11_04', SHAOLIN_SIDE11_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls11_teach_strict',
+        label: '【铁律严训 · 戒尺加桩】手持红木戒尺严明堂规，但有错步偷懒者全队加扎马步半炷香！',
+        subLabel: '零门槛教习立威 · 临战须独挑大梁车轮连破闯山三狂徒（怒目杀业 +1）',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s11_novices_ready', value: false },
+          { type: 'setFlag', flag: 'sl_s11_teach_style', value: 'strict' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s11_teach_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s11_teach_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+            ],
+          },
+          openScene('scene_sls11_04', SHAOLIN_SIDE11_QUEST_ID),
+        ],
+      },
+    ],
+  },
+
+  scene_sls11_04: {
+    id: 'scene_sls11_04',
+    title: '第四幕 · 奇正初成 · 狂徒闯山',
+    subtitle: '罗汉堂演武正殿外 · 山门骚动',
+    mandatory: true,
+    beats: [
+      N('{ifFlag:sl_s11_novices_ready|你取来白灰在青石地上画出纵横棋路，以“虚胜为先锋劫材、虚觉为后应眼位、四隅为连片铁壁”把小罗汉阵讲得活灵活现！众顽徒顿时眼中放光，争相演练抢步补位，不过一个时辰，六根白蜡棍挥舞如林，士气如虹！|你红木戒尺拍得啪啪作响，错一步罚扎马步、慢半拍重来十遍！顽徒们虽个个累得双腿打颤、大气不敢喘，却也硬生生记牢了基本步位，再不敢有半点懈怠。}'),
+      N('恰在此时，山门方向骤然传来一阵轰然巨响，宛如铁塔砸碎石狮底座！紧接着三道嚣张狂笑震彻山谷，三名满脸横肉的嵩山绿林悍匪竟推倒知客沙弥、大摇大摆闯入罗汉堂外院！'),
+      N('为首悍匪身高近九尺，黑毛虬结的双臂各提一柄重逾五十斤的八棱镔铁大锤，正是近来四处踢馆扬名的绿林狂徒【铁锤霸】；身后紧跟着持刀的【独眼狼】与扛铁棒的【黑熊精】。'),
+      S(SPEAKER_HAMMER_BOSS, '（双锤轰然一碰火星四溅，声如破锣）“少林秃驴听着！江湖都吹你们十八铜人罗汉堂天下无双，老子铁锤霸今日特来讨教——接不住这双百斤铁锤，趁早把罗汉堂匾额摘了当柴烧！”'),
+      S('NPC-0254', '（按兵不动，含笑对你颔首）“师弟，这三个狂徒正好拿来作一块试金石！我替你护住大殿佛像，如何迎敌，全凭你这位罗汉教习调遣！”'),
     ],
     onFinishEffects: [openScene('scene_sls11_05', SHAOLIN_SIDE11_QUEST_ID)],
   },
 
   scene_sls11_05: {
     id: 'scene_sls11_05',
-    title: '第五幕 · 狂徒闯山',
-    subtitle: '罗汉堂演武正殿外 · 山门骚动',
+    title: '第五幕 · 阵锁狂澜 · 临阵号令',
+    subtitle: '罗汉堂演武正殿 · 坪心对峙',
     mandatory: true,
     beats: [
-      N('众僧正练得兴起，忽闻山门方向传来一阵轰然巨响，仿佛两座铁塔砸碎了石狮底座！紧接着三道狂妄大笑震彻山谷，三名满脸横肉的嵩山绿林狂徒竟推倒知客沙弥、大摇大摆闯入罗汉堂外院！'),
-      N('为首悍匪身高近九尺，裸露着黑毛虬结的双臂，左右各提一柄重逾五十斤的八棱镔铁大锤，正是盘踞嵩山阴坡、近来四处踢馆扬名的绿林狂徒【铁锤霸】；其身后跟着持刀的【独眼狼】与扛铁棒的【黑熊精】。'),
-      S(SPEAKER_HAMMER_BOSS, '（双锤一碰，火星四溅，声如破锣）“少林秃驴听着！江湖都吹你们十八铜人罗汉堂天下无双，老子铁锤霸今日特来讨教讨教——若连老子这双铁锤都接不住，趁早把罗汉堂匾额摘了当柴烧！”'),
+      N('{ifFlag:sl_s11_novices_ready|虚胜与虚觉听得狂徒辱及少林门楣，不仅丝毫不乱，反而按你方才所授棋局阵位齐喝一声，六根齐眉棍如铁闸合拢，硬生生将跃跃欲试的独眼狼与黑熊精隔断在阵外两翼！|顽徒们方经严训两腿犹酸，虽咬牙挺棍护住受伤知客沙弥与大殿门阶，一时却难以合阵困死外围两匪。你沉步向前，独自拦下三名狞笑逼近的绿林悍匪！}'),
+      S(SPEAKER_BRUTE_A, '{ifFlag:sl_s11_novices_ready|（被虚胜、虚觉六棍缠得脱身不得，气急败坏）“大哥！这群小和尚步法怪得很，兄弟们一时冲不过去！”|（挥刀指向你，嗤笑连连）“大哥瞧瞧，这小和尚还想一个人挑咱们哥仨呢！兄弟们，轮流上去砸烂他的筋骨！”}'),
+      N('铁锤霸双目圆睁，百斤镔铁双锤挟着撕裂空气的恶风轰然压近！临战一瞬间，你向坪心发出总攻号令——'),
     ],
-    onFinishEffects: [openScene('scene_sls11_06', SHAOLIN_SIDE11_QUEST_ID)],
+    choices: [
+      {
+        id: 'sls11_cmd_deflect',
+        label: '【传令卸力化刚】喝令众僧护稳两翼莫贪功，自己脚踏罗汉桩先泄其百斤双锤头阵狂势！',
+        subLabel: '沉稳布势，准备迎战闯山狂徒',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s11_cmd', value: 'deflect' },
+          { type: 'setFlag', flag: 'sl_side11_hammer_ready', value: true },
+          openScene('scene_sls11_06', SHAOLIN_SIDE11_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls11_cmd_charge',
+        label: '【直抢中宫震胆】不待铁锤霸蓄足蛮力，亲出阵眼抢步进击先折其锐气！',
+        subLabel: '凌厉抢攻，准备迎战闯山狂徒',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s11_cmd', value: 'charge' },
+          { type: 'setFlag', flag: 'sl_side11_hammer_ready', value: true },
+          openScene('scene_sls11_06', SHAOLIN_SIDE11_QUEST_ID),
+        ],
+      },
+    ],
   },
 
   scene_sls11_06: {
     id: 'scene_sls11_06',
-    title: '第六幕 · 慧轮观阵',
-    subtitle: '罗汉堂演武正殿',
+    title: '第六幕 · 阵眼破锤 · 演武决战',
+    subtitle: '罗汉堂演武正殿 · 激战铁锤霸',
     mandatory: true,
     beats: [
-      N('虚胜见外贼辱及少林门楣，顿时气血上涌，拎棍便欲独自冲出去拼命，却被你一把按住肩头。慧轮在一旁按兵不动，含笑对你微微颔首。'),
-      S('NPC-0254', '“师弟，来得早不如来得巧——这三个狂徒虽蛮力惊人，正好拿来给顽徒们做一块试金石！我替你压阵护住大殿，如何破敌，全凭师弟调遣！”'),
-      P('（目光沉凝，朗声传令）“虚胜、虚觉听令！今日便叫这群狂徒见识见识何谓少林小罗汉阵！切莫单打独斗，按方才所练六合步法，先用长棍封锁他们身侧腾挪空间，阵眼由我亲自镇守！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls11_07', SHAOLIN_SIDE11_QUEST_ID)],
-  },
-
-  scene_sls11_07: {
-    id: 'scene_sls11_07',
-    title: '第七幕 · 阵锁狂澜',
-    subtitle: '罗汉堂演武正殿 · 坪心对峙',
-    mandatory: true,
-    beats: [
-      N('一声喝令之下，虚胜、虚觉等六僧齐齐大喝，六根齐眉棍如林竖起，瞬间踏出六合方位将三名狂徒隐隐合围！'),
-      S(SPEAKER_BRUTE_A, '（嗤笑一声，挥刀劈开一根探来的棍影）“大哥瞧瞧，一群毛头小和尚还学人摆阵呢！兄弟们，一鼓作气撞碎这群泥菩萨！”'),
-      N('铁锤霸狞笑一声，双锤挟着撕裂空气的恶风轰然砸向阵前！虚胜与虚觉不敢硬接其蛮力，依你所授口诀顺势错步卸力、棍尾连点其下盘，竟生生逼得铁锤霸落锤慢了半拍！恰在此时，你自阵眼纵身踏出，正面接下三狂徒锋芒！'),
-    ],
-    onFinishEffects: [
-      { type: 'setFlag', flag: 'sl_side11_hammer_ready', value: true },
-      openScene('scene_sls11_08', SHAOLIN_SIDE11_QUEST_ID),
-    ],
-  },
-
-  scene_sls11_08: {
-    id: 'scene_sls11_08',
-    title: '第八幕 · 阵眼破锤',
-    subtitle: '罗汉堂演武正殿 · 激战铁锤霸三狂徒',
-    mandatory: true,
-    beats: [
-      S(SPEAKER_HAMMER_BOSS, '“好小子，原来你才是阵眼头领！来来来，看你这副身板接不接得住老子一记泰山压顶！”'),
-      N('你稳立小罗汉阵阵眼，借同门游走牵制之势，迎战二流上品狂徒【铁锤霸】与两名绿林悍匪！'),
+      S(SPEAKER_HAMMER_BOSS, '“好小子，原来你才是这罗汉堂的教习头领！来来来，看你这副身板接不接得住老子一记泰山压顶！”'),
+      N('{ifFlag:sl_s11_novices_ready|六名顽徒士气如虹，已用小罗汉阵将独眼狼与黑熊精死死牵制在两翼！你亲出阵眼，1v1 直破孤立无援的二流上品悍匪铁锤霸！|你令累乏的顽徒守住受伤同门，自己独挑大梁立于坪心，迎战独眼狼、黑熊精与铁锤霸三狂徒车轮恶斗！}'),
     ],
     choices: [
       {
-        id: 'sls11_fight_hammer',
-        label: '亲出阵眼、以巧破力，迎战【铁锤霸（二流上品）】与两名绿林狂徒',
-        tone: 'danger',
+        id: 'sls11_fight_boss_only',
+        label: '【乘阵单破铁锤霸】顽徒已牵制两翼喽啰，1v1 亲出阵眼力破【铁锤霸（二流上品）】',
+        subLabel: '寓阵于弈士气如虹 · 跳过两名外围喽啰，单挑孤立无援的铁锤霸',
+        tone: 'jade',
+        condition: { type: 'flag', flag: 'sl_s11_novices_ready', op: 'truthy' },
+        hideWhenUnavailable: true,
         effects: [
           {
             type: 'startCombat',
-            format: 'gauntlet',
             questId: SHAOLIN_SIDE11_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildIronHammerTyrant() },
-            extraOpponents: [
-              { kind: 'custom', npc: buildBruteMinion1() },
-              { kind: 'custom', npc: buildBruteMinion2() },
-            ],
+            opponent: { kind: 'custom', npc: buildIronHammerTyrantLocked() },
             rule: 'story_trial',
             forbidEscapeReason: '少林罗汉堂正殿之前，岂容绿林狂徒嚣张践踏！',
             introText:
-              '【罗汉涂金】亲出小罗汉阵阵眼，在罗汉堂演武正殿迎战嵩山绿林狂徒【铁锤霸（二流上品）】及两名同伙！',
-            onWin: [openScene('scene_sls11_09', SHAOLIN_SIDE11_QUEST_ID)],
+              '【罗汉涂金 · 众志成阵】顽徒已锁住外围喽啰，1v1 阵眼直破【铁锤霸（二流上品）】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls11_07', SHAOLIN_SIDE11_QUEST_ID),
+            ],
             onLose: [
               { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               toast(
@@ -229,57 +328,120 @@ export const SCENES: Record<string, StorySceneDef> = {
           },
         ],
       },
+      {
+        id: 'sls11_fight_gauntlet',
+        label: '【独挑大梁车轮破匪】依次迎战【独眼狼】【黑熊精】与【铁锤霸（二流上品）】',
+        subLabel: '铁律严训独当一面 · 车轮连战三名嵩山绿林狂徒',
+        tone: 'danger',
+        condition: { type: 'flag', flag: 'sl_s11_novices_ready', op: 'falsy' },
+        hideWhenUnavailable: true,
+        effects: [
+          {
+            type: 'startCombat',
+            format: 'gauntlet',
+            questId: SHAOLIN_SIDE11_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildBruteMinion1() },
+            extraOpponents: [
+              { kind: 'custom', npc: buildBruteMinion2() },
+              { kind: 'custom', npc: buildIronHammerTyrant() },
+            ],
+            rule: 'story_trial',
+            forbidEscapeReason: '少林罗汉堂正殿之前，岂容绿林狂徒嚣张践踏！',
+            introText:
+              '【罗汉涂金 · 车轮破匪】独挑大梁，先破独眼狼、黑熊精，再迎【铁锤霸（二流上品）】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls11_07', SHAOLIN_SIDE11_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast(
+                '双铁锤势大力沉一时受挫！慧轮出手震退狂徒掩护调息，重整气息后可于【罗汉堂演武正殿】再战狂徒。',
+                'warn',
+                '罗汉涂金',
+              ),
+            ],
+          },
+        ],
+      },
     ],
   },
 
-  scene_sls11_09: {
-    id: 'scene_sls11_09',
-    title: '第九幕 · 震锤折锋',
+  scene_sls11_07: {
+    id: 'scene_sls11_07',
+    title: '第七幕 · 震锤折锋 · 顽徒折服',
     subtitle: '罗汉堂演武正殿 · 演武坪',
     illustrationUrl: '/assets/quests/sl_s11_hammer_defeat.jpg',
     illustrationCaption: '阵眼破狂徒 · 巧借小罗汉阵合围之势，一举震飞百斤铁锤重创狂徒',
     mandatory: true,
     beats: [
-      N('激斗之间，独眼狼与黑熊精被你连环重手击退，又撞上小罗汉阵密不透风的棍网，登时被打得抱头鼠窜、瘫软在地。铁锤霸双目赤红，举起百斤双锤孤注一掷砸下！'),
-      N('你不避不退，脚踏罗汉桩稳如泰山，顺着双锤下坠之势侧身沾粘借力，一掌切入其双肘空门，澎湃的少林正宗阳刚劲透臂而入！只听“当啷”两声巨响，百斤镔铁双锤竟脱手飞出两丈，深深砸进青石板中，铁锤霸惨哼一声跪倒在地！'),
-      S(SPEAKER_HAMMER_BOSS, '（捂着发麻的双臂，脸色惨白，再无半分狂气）“这……这小罗汉阵竟能卸去老子七成蛮力，阵眼大师的内功更是深不可测……俺铁锤霸认栽了！”'),
+      N('{ifFlagEq:sl_s11_cmd=deflect|你脚踏罗汉桩稳如泰山，顺着百斤双锤下坠狂势侧身沾粘借力，一掌切入其双肘空门！|你步走中宫抢在铁锤霸二次蓄力之前突入怀中，澎湃的少林正宗阳刚劲透臂而出！}只听“当啷”两声巨响，百斤镔铁双锤脱手飞出两丈深深砸入青石板，铁锤霸惨哼一声跪倒在地！'),
+      S(SPEAKER_HAMMER_BOSS, '（捂着发麻的双臂脸色惨白，再无半分狂气）“好深厚的少林内功……好厉害的罗汉堂……俺铁锤霸认栽了！”'),
+      N('独眼狼与黑熊精亦早已抱头鼠窜、被罗汉堂武僧卸去兵刃押送登封官府。演武坪短暂寂静后，虚胜、虚觉与其余四名外门顽徒齐齐收棍单膝跪地，向你诚心合十！'),
+      S('NPC-0769', '{ifFlag:sl_s11_novices_ready|（满面羞愧继而亢奋万分）“师兄那套棋局阵法真是神了！方才我和虚觉六人合棍，竟然真把两个绿林悍匪死死困住！往后再也不敢小看小罗汉阵了！”|（满面羞愧、低头认错）“师兄今日为护咱们独力车轮连破三名狂徒，弟子先前偷懒骄躁实在羞愧无地！从今往后定收起浮气，老老实实苦练罗汉阵法！”}'),
     ],
-    onFinishEffects: [openScene('scene_sls11_10', SHAOLIN_SIDE11_QUEST_ID)],
+    onFinishEffects: [openScene('scene_sls11_08', SHAOLIN_SIDE11_QUEST_ID)],
   },
 
-  scene_sls11_10: {
-    id: 'scene_sls11_10',
-    title: '第十幕 · 顽徒折服',
+  scene_sls11_08: {
+    id: 'scene_sls11_08',
+    title: '第八幕 · 涂金成器 · 奖惩抉择',
     subtitle: '罗汉堂演武正殿',
     mandatory: true,
     beats: [
-      N('三名狂徒被罗汉堂武僧卸去兵刃押下山门送交登封官府。演武坪上短暂寂静之后，虚胜、虚觉与其余四名护院僧齐齐收棍单膝跪地，向你与慧轮诚心合十致敬！'),
-      S('NPC-0769', '（满面愧色，继而心悦诚服）“师兄今日真令弟子羞愧无地！若方才是我独自冲上去硬拼，早已被铁锤霸一锤震断筋骨；唯有依着师兄教导的小罗汉阵彼此照应，才能将二流上品悍匪困得束手无策！”'),
-      S('NPC-0861', '“弟子从今往后定收起骄躁之心，潜心苦练罗汉阵法，再不敢轻慢同门配合！”'),
+      S('NPC-0254', '（大步走下石阶，朗笑抚掌）“好一个『罗汉涂金』！顽铁经千锤百炼方成利器，顽徒经此一战方知法度。师弟临阵布势、以策统武的气度，令我罗汉堂上下刮目相看！”'),
+      S('NPC-0861', '（揉着发酸的胳膊偷瞄你一眼，小声嘀咕）“那个……教习师兄，今日咱们好歹也守住了罗汉堂匾额，不知晚课可否……”'),
+      N('六名顽徒眼巴巴望着你，慧轮则含笑退后半步，将战后奖惩之权全权交由你这位今日教习定夺——'),
     ],
-    onFinishEffects: [openScene('scene_sls11_11', SHAOLIN_SIDE11_QUEST_ID)],
+    choices: [
+      {
+        id: 'sls11_after_feast',
+        label: '【大加夸赞 · 破例加餐素斋】赞其临危不惧，特请香积厨破例添一席罗汉斋犒赏众顽徒！',
+        subLabel: '宽厚爱徒、鼓舞士气（禅心慈悲 +1，额外增侠义与同门好感）',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s11_after', value: 'feast' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s11_after_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s11_after_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+            ],
+          },
+          openScene('scene_sls11_09', SHAOLIN_SIDE11_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls11_after_drill',
+        label: '【戒骄戒躁 · 次日加练半柱香】嘉许其志却严诫莫生骄矜，命次日卯时仍加练半柱香步法！',
+        subLabel: '严师出高徒、杜绝骄气（怒目杀业 +1，额外增宗门贡献与江湖声望）',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s11_after', value: 'drill' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s11_after_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s11_after_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+            ],
+          },
+          openScene('scene_sls11_09', SHAOLIN_SIDE11_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_sls11_11: {
-    id: 'scene_sls11_11',
-    title: '第十一幕 · 涂金成器',
+  scene_sls11_09: {
+    id: 'scene_sls11_09',
+    title: '第九幕 · 功成罗汉 · 卷终嘉奖',
     subtitle: '罗汉堂演武正殿',
     mandatory: true,
     beats: [
-      S('NPC-0254', '（大步走下石阶，朗笑抚掌）“好一个『罗汉涂金』！顽铁经千锤百炼方成利器，顽徒经此阵战方知法度。师弟不仅一身武艺已臻二流上品火候，这番临阵布势、以策统武的将帅气度，更令我罗汉堂上下刮目相看！”'),
-      P('（扶起虚胜与虚觉，微笑合十）“独木难支大厦，众志方成金城。今日能击退狂徒，乃诸位师弟齐心合阵之功。”'),
-    ],
-    onFinishEffects: [openScene('scene_sls11_12', SHAOLIN_SIDE11_QUEST_ID)],
-  },
-
-  scene_sls11_12: {
-    id: 'scene_sls11_12',
-    title: '第十二幕 · 功成罗汉',
-    subtitle: '罗汉堂演武正殿',
-    mandatory: true,
-    beats: [
+      N('{ifFlagEq:sl_s11_after=feast|众顽徒闻言欢呼雀跃，虚胜与虚觉更是拍着胸脯保证明日绝不迟到偷懒！慧轮含笑点头，赞你深得“张弛有度、以德服人”之道。|众顽徒闻言虽苦了脸，却无一人敢再顶嘴，齐齐抱拳高声应诺“谨遵师兄教诲”！慧轮朗声大笑，赞你治堂严谨、深得达摩铁律遗风。}'),
       S('NPC-0254', '“此事我必禀明达摩院与方丈玄慈大师，替师弟记上罗汉堂头等督训与护山大功！待你日后修为再进一步，少林内门真传之位必有你一席！”'),
-      P('（合十稽首）“多谢慧轮师兄提携！弟子定当勤修不辍，不负罗汉堂期许！”'),
+      P('（合十稽首）“独木难支大厦，众志方成金城。多谢慧轮师兄提携，弟子定当勤修不辍！”'),
     ],
     choices: [
       {
@@ -293,6 +455,27 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'addArtExp', amount: 100 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0254' }, delta: 12 },
           { type: 'modifyRenown', delta: 40, reason: '完成门派差事《罗汉涂金 · 顽徒试炼》' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s11_novices_ready', op: 'truthy' },
+            thenEffects: [
+              { type: 'modifySkill', key: '棋', delta: 1 },
+              { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0769' }, delta: 15 },
+            ],
+            elseEffects: [],
+          },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s11_after', op: 'eq', value: 'feast' },
+            thenEffects: [
+              { type: 'modifyChivalry', delta: 15, reason: '宽厚犒赏演武护寺顽徒' },
+              { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0254' }, delta: 6 },
+            ],
+            elseEffects: [
+              { type: 'addSectContribution', amount: 30 },
+              { type: 'modifyRenown', delta: 10, reason: '严明罗汉堂教习法度' },
+            ],
+          },
           { type: 'completeQuest', questId: SHAOLIN_SIDE11_QUEST_ID, outcome: 'completed' },
           toast(
             '【罗汉涂金 · 顽徒试炼】圆满完结！策论 +2、武学阅历 +100、宗门贡献 +150，慧轮对你大为赞赏！',

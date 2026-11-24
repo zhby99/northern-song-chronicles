@@ -24,9 +24,9 @@ export const SHAOLIN_SIDE12_QUESTS: QuestDefinition[] = [
     recommendedRealm: '一流下品 ～ 一流中品',
     maxOpponentRealm: '一流中品（邪派毒盗 · 玉面毒龙）',
     recommendedNote:
-      '少林寺 Lv.3 高阶护法支线（全十四幕）。、后，于达摩面壁石洞幽谷石室寒玉榻听慧清、慧真急报：昔日被玄澄长老废去邪功的毒盗「玉面毒龙」重修阴寒毒功潜回嵩山寻仇，趁玄澄坐榻调息之际企图施毒暗算。须速赴飞瀑深潭试炼涧协同慧真截杀毒贼，独斗斩杀玉面毒龙护住师长经脉，复归石室受玄澄指点内息法门。',
+      '少林寺 Lv.3 高阶护法支线（全九幕）。跻身少林三阶高徒后，于达摩面壁石洞幽谷石室寒玉榻听慧清、慧真急报：昔日邪派毒盗「玉面毒龙」重修阴寒毒功潜回嵩山寻仇，在后山寒峡设毒瘴伏击并企图暗算闭关中的玄澄长老。于试炼涧反伏击可选逆风引山泉破瘴、轻功掠树梢抢解药或正面硬闯决战，战后亲裁押送戒律院或废其毒功，再返寒玉榻受玄澄点拨内息。',
     startHint:
-      '跻身少林寺三阶高徒、后，前往【嵩山少林寺 · 达摩面壁石洞 · 幽谷石室 · 寒玉榻】寻玄澄、慧清即可触发。',
+      '跻身少林寺三阶高徒后，前往【嵩山少林寺 · 达摩面壁石洞 · 幽谷石室 · 寒玉榻】寻玄澄、慧清即可触发。',
     startLocation: {
       regionId: 'shaolin',
       buildingId: 'sl_damo',
@@ -35,14 +35,14 @@ export const SHAOLIN_SIDE12_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE12_START_CONDITION,
     summary:
-      '{reignYear}深冬，少室山幽谷寒雾沉沉，少林神僧【玄澄】正于【达摩面壁石洞 · 幽谷石室 · 寒玉榻】闭目调息。护经僧【慧清】与持杵武僧【慧真】忽带伤急报：十年前因残害豫西乡民而被玄澄一掌废去武功的邪派毒盗「玉面毒龙」竟未伏诛，反遁入西域苦炼冰蚕毒砂邪功至一流中品，今夜率余孽潜入后山，妄图趁玄澄行功紧要关头以毒烟封洞报仇！你当机立断请命迎敌，随慧真急赴【飞瀑深潭 · 试炼涧】截住来敌。慧真以韦陀杵独挡涧口其余毒徒，你则于寒雾飞瀑之间一对一力战并斩杀「玉面毒龙」，绝除后患。凯旋石室后，玄澄出定欣慰颔首，亲口点拨禅门调息护脉之精义。',
+      '{reignYear}深冬，少室山幽谷寒雾沉沉，少林神僧【玄澄】正于【达摩面壁石洞 · 幽谷石室 · 寒玉榻】闭目调息。护经僧【慧清】与持杵武僧【慧真】忽带伤急报：十年前被玄澄废去邪功的毒盗「玉面毒龙」重修冰蚕毒砂至一流中品，今夜率余孽潜入后山寒峡设毒瘴伏击同门，妄图趁玄澄行功紧要关头以毒烟封洞报仇！你当机立断请命赴【飞瀑深潭 · 试炼涧】破瘴截敌，或引山泉冲散毒雾、或掠树梢抢夺解药、或以阳刚内劲硬破毒峡，力挫玉面毒龙并亲裁其去留，凯旋石室后受玄澄亲授寒玉护脉精义。',
     initialStepId: 'ambush_misty_gorge',
     steps: {
       ambush_misty_gorge: {
         id: 'ambush_misty_gorge',
-        title: '寒雾截魔 · 飞瀑斩毒龙',
+        title: '寒雾截魔 · 飞瀑破毒龙',
         objective:
-          '邪派毒盗「玉面毒龙」已率毒徒潜入后山涧谷，企图以毒烟暗算闭关中的玄澄长老！请速赴【嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，配合慧真截杀毒龙一伙。',
+          '邪派毒盗「玉面毒龙」已率毒徒潜入后山寒峡设毒瘴伏击，企图暗算闭关中的玄澄长老！请速赴【嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，配合慧真破瘴擒魔。',
         nextHint:
           '前往【达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，点击「协同慧真于寒雾深涧截杀玉面毒龙」。',
         targetLocation: {
@@ -56,7 +56,7 @@ export const SHAOLIN_SIDE12_QUESTS: QuestDefinition[] = [
         id: 'return_cold_jade',
         title: '魔氛尽涤 · 归榻复命',
         objective:
-          '玉面毒龙已伏诛于寒雾深涧，余孽亦为慧真与巡山武僧尽数擒拿！请速返【达摩面壁石洞 · 幽谷石室 · 寒玉榻（sl_damo_main）】向玄澄长老与慧清复命。',
+          '玉面毒龙已于寒雾深涧伏法，中毒武僧亦已得救！请速返【达摩面壁石洞 · 幽谷石室 · 寒玉榻（sl_damo_main）】向玄澄长老与慧清复命。',
         nextHint:
           '返回【达摩面壁石洞 · 幽谷石室 · 寒玉榻（sl_damo_main）】，点击「向玄澄长老禀报寒涧除魔始末」或与玄澄交谈。',
         targetLocation: {
@@ -94,7 +94,7 @@ export const SHAOLIN_SIDE12_QUESTS: QuestDefinition[] = [
         spotId: 'sl_damo_main',
         onceFlag: 'sl_side12_report_triggered',
         condition: atStep(SHAOLIN_SIDE12_QUEST_ID, 'return_cold_jade'),
-        effects: [openScene('scene_sls12_12', SHAOLIN_SIDE12_QUEST_ID)],
+        effects: [openScene('scene_sls12_08', SHAOLIN_SIDE12_QUEST_ID)],
       },
     ],
 
@@ -126,7 +126,12 @@ export const SHAOLIN_SIDE12_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE12_QUEST_ID, 'ambush_misty_gorge'),
         effects: [
           { type: 'setFlag', flag: 'sl_side12_ambush_triggered', value: true },
-          openScene('scene_sls12_04', SHAOLIN_SIDE12_QUEST_ID),
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_side12_dragon_ready', op: 'truthy' },
+            thenEffects: [openScene('scene_sls12_05', SHAOLIN_SIDE12_QUEST_ID)],
+            elseEffects: [openScene('scene_sls12_04', SHAOLIN_SIDE12_QUEST_ID)],
+          },
         ],
       },
       {
@@ -141,7 +146,7 @@ export const SHAOLIN_SIDE12_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_SIDE12_QUEST_ID, 'return_cold_jade'),
         effects: [
           { type: 'setFlag', flag: 'sl_side12_report_triggered', value: true },
-          openScene('scene_sls12_12', SHAOLIN_SIDE12_QUEST_ID),
+          openScene('scene_sls12_08', SHAOLIN_SIDE12_QUEST_ID),
         ],
       },
     ],
@@ -182,7 +187,7 @@ export const SHAOLIN_SIDE12_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_side12_report_triggered', value: true },
-          openScene('scene_sls12_12', SHAOLIN_SIDE12_QUEST_ID),
+          openScene('scene_sls12_08', SHAOLIN_SIDE12_QUEST_ID),
         ],
       },
     ],

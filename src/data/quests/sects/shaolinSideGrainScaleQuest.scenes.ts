@@ -1,5 +1,5 @@
 import type { NodeNpc } from '../../../types/game'
-import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
+import type { QuestEffect, StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
 import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { SHAOLIN_SIDE03_QUEST_ID } from './shaolinSideGrainScaleQuest'
 
@@ -54,7 +54,11 @@ function buildQianDabang(): NodeNpc {
     stats: { hp: 560, mp: 260, agi: 28, res: 16 },
     talents: { bone: 56, comprehension: 38, charm: 26 },
     equippedArts: { neigong: 'MA-179', move1: 'MA-193', move2: 'MA-186' },
-    learnedArts: [{ artId: 'MA-179', level: 4 }, { artId: 'MA-193', level: 4 }, { artId: 'MA-186', level: 3 }],
+    learnedArts: [
+      { artId: 'MA-179', level: 4 },
+      { artId: 'MA-193', level: 4 },
+      { artId: 'MA-186', level: 3 },
+    ],
   })
 }
 
@@ -73,128 +77,275 @@ function buildThugLisi(): NodeNpc {
     stats: { hp: 390, mp: 140, agi: 22, res: 12 },
     talents: { bone: 45, comprehension: 32, charm: 22 },
     equippedArts: { neigong: 'MA-199', move1: 'MA-204', move2: 'MA-191' },
-    learnedArts: [{ artId: 'MA-199', level: 3 }, { artId: 'MA-204', level: 3 }, { artId: 'MA-191', level: 2 }],
+    learnedArts: [
+      { artId: 'MA-199', level: 3 },
+      { artId: 'MA-204', level: 3 },
+      { artId: 'MA-191', level: 2 },
+    ],
   })
+}
+
+function addKarmaOnce(
+  guardFlag: string,
+  karmaFlag: 'sl_zen_merit' | 'sl_karma_wrath',
+  delta: number,
+): QuestEffect {
+  return {
+    type: 'branch',
+    condition: { type: 'flag', flag: guardFlag, op: 'truthy' },
+    thenEffects: [],
+    elseEffects: [
+      { type: 'setFlag', flag: guardFlag, value: true },
+      { type: 'addFlagNumber', flag: karmaFlag, delta },
+    ],
+  }
 }
 
 export const SCENES: Record<string, StorySceneDef> = {
   scene_sls03_01: {
     id: 'scene_sls03_01',
-    title: '第一幕 · 斋粮告急',
+    title: '第一幕 · 斋粮告急 · 领命校斛',
     subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
     mandatory: true,
     beats: [
-      N('{reignYear}深秋，少室山松风渐凉。你行至钟鼓禅院演武坪时，只见苦行僧虚清正对着一摞泛黄的斋堂粮簿愁眉深锁，脚边搁着两只空荡荡的粗麻米袋。'),
-      S('NPC-0789', '“阿弥陀佛，师弟来得正好。近日外门添了不少新晋弟子，晨昏习武耗粮甚巨，可大寮米缸却比往年见底早了足足半月有余。”'),
-      P('“师兄，寺中每季拨付的采粮香火银不是一文未少吗？怎会凭空短了半月口粮？”'),
-      S('NPC-0789', '“贫僧也百思不得其解。这三年千僧秋粮皆是从登封县城『恒丰粮行』采办，每回过斗过秤皆当面点数，偏生运回大寮后怎么熬粥都觉得米粒不经吃。听闻师弟深谙算学，此番可愿随贫僧下山走一遭，细细核对斗秤账目？”'),
-    ],
-    onFinishEffects: [openScene('scene_sls03_02', SHAOLIN_SIDE03_QUEST_ID)],
-  },
-
-  scene_sls03_02: {
-    id: 'scene_sls03_02',
-    title: '第二幕 · 领命校斛',
-    subtitle: '钟鼓禅院石阶',
-    mandatory: true,
-    beats: [
-      N('你接过虚清递来的旧粮簿翻阅片刻，但见每笔单价皆依官市时价，并无虚报，蹊跷之处十有八九藏在粮行的斗斛与杆秤之间。'),
-      P('“师兄放心，凡器物作伪，必难逃尺度容积之算。我先往罗汉堂东庑核验寺中旧存的官颁铁斛寸尺，再顺手领根齐眉短棍防身，随后便与师兄一道下山！”'),
-      S('NPC-0789', '“善哉！师弟行事周密。贫僧这就去雇妥下山拉粮的骡车，在东庑院外候你同行。”'),
+      N('{reignYear}春寒料峭，少室山松风渐紧。你行至钟鼓禅院演武坪时，只见苦行僧虚清正对着一摞泛黄的斋堂粮簿愁眉深锁，脚边搁着两只空荡荡的粗麻米袋。'),
+      S('NPC-0789', '“阿弥陀佛，{gender:师弟|师妹}来得正好。今春大寮米缸比往年见底早了足足半月有余！这三年千僧常住春粮皆从登封县城『恒丰粮行』采办，每回过斗过秤皆当面点数，账面时价丝毫不差，偏生运回大寮后怎么熬粥都觉得米粒短缺！”'),
+      P('（接过旧粮簿细细翻看）“单价既依官市时价、毫无虚报，蹊跷之处十有八九藏在粮行的斗斛与杆秤之间！”'),
+      S('NPC-0789', '“闻听{gender:师弟|师妹}深谙算学，此番采买三十石常住春粮，可愿随贫僧先赴东庑校量寺中官颁铁斛寸尺，再一道下山查个水落石出？”'),
     ],
     choices: [
       {
-        id: 'sls03_accept',
-        label: '领下采粮核账之托，前往罗汉堂东庑校斛备棍',
-        tone: 'gold',
+        id: 'sls03_accept_measure',
+        label: '【暗校官斛 · 筹算破奸】先量准官颁铁斛容积斤两，不动声色下山核账',
+        subLabel: '承接任务，赴东庑碑帖武库院校斛后下山',
+        tone: 'jade',
         effects: [
+          { type: 'setFlag', flag: 'sl_s03_prep', value: 'measure' },
           { type: 'startQuest', questId: SHAOLIN_SIDE03_QUEST_ID, stepId: 'depart_dengfeng' },
           setStep(SHAOLIN_SIDE03_QUEST_ID, 'depart_dengfeng'),
-          toast('已接下登封买粮之托！请前往【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】校斛领棍下山。', 'talk', '登封买粮'),
+          toast(
+            '已接下登封买粮之托！请前往【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】校斛领棍下山。',
+            'talk',
+            '登封买粮',
+          ),
+        ],
+      },
+      {
+        id: 'sls03_accept_staff',
+        label: '【校斛备棍 · 有备无患】既防黑心粮商，便顺手领根齐眉短棍防身同行',
+        subLabel: '承接任务，赴东庑碑帖武库院校斛领棍下山',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s03_prep', value: 'staff' },
+          { type: 'startQuest', questId: SHAOLIN_SIDE03_QUEST_ID, stepId: 'depart_dengfeng' },
+          setStep(SHAOLIN_SIDE03_QUEST_ID, 'depart_dengfeng'),
+          toast(
+            '已接下登封买粮之托！请前往【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】校斛领棍下山。',
+            'talk',
+            '登封买粮',
+          ),
         ],
       },
     ],
   },
 
-  scene_sls03_03: {
-    id: 'scene_sls03_03',
-    title: '第三幕 · 登封粮市',
+  scene_sls03_02: {
+    id: 'scene_sls03_02',
+    title: '第二幕 · 登封粮市 · 斗秤露痕',
     subtitle: '登封县城 · 恒丰粮行',
     mandatory: true,
     beats: [
-      N('你在罗汉堂东庑细细量过官颁铁斛的口宽、底径与内深，记熟于心后提棍随虚清下山。晌午时分，二人已抵登封县城西街的「恒丰粮行」。'),
-      N('粮行门前车马喧阗，掌柜贾算盘身着绸面团花袄，晃着满手油光迎出柜台，满面堆笑地向虚清合十作揖。'),
-      S(SPEAKER_MERCHANT_JIA, '“哎哟，虚清大师大驾光临！今年嵩南新稻颗粒饱满，小号早早替贵寺留出五十石上等糙米！伙计们，快拿咱家的大木斛替大师过斗装车，休叫佛爷久等！”'),
-      S('NPC-0789', '“阿弥陀佛，有劳贾掌柜费心。这位乃敝寺师弟，今日特来随同过目验收。”'),
-      S(SPEAKER_MERCHANT_JIA, '（眼中闪过一丝异色，随即笑道）“好说，好说！咱恒丰粮行在登封做了二十年老字号，童叟无欺，小师傅尽管瞧着便是！”'),
+      N('你在罗汉堂东庑量准了大宋官颁铁斛标准——每石官斛实容足秤一百二十斤，随后提棍随虚清下山。晌午时分，二人抵登封西街「恒丰粮行」，掌柜贾算盘晃着满手油光满面堆笑迎出柜台。'),
+      S(SPEAKER_MERCHANT_JIA, '“哎哟，虚清大师大驾光临！今春官市糙米每石纹银二两四钱，贵寺定下的三十石常住春粮合银七十二两，小号早备妥上等新米！伙计们，快拿黑漆木斛过斗过秤！”'),
+      N('你不动声色地绕到粮堆后侧细察：只见后院收乡农新谷时用的是口阔肚大的「大斗」，转到前堂卖与少林装袋时却悄然换成了内壁垫浅的「小斗」！'),
+      N('待伙计高唱「足秤一石」扛过麻袋，你顺手搭肩一掂——沉手分明仅有整整一百斤，远不足官斛一百二十斤之数！可方才大杆秤明明秤尾高翘，你定睛瞥见那只沉甸甸的黑铁秤砣底面，赫然有一圈锡焊修补的暗缝，里头分明灌了重铅压秤！'),
     ],
-    onFinishEffects: [openScene('scene_sls03_04', SHAOLIN_SIDE03_QUEST_ID)],
+    onFinishEffects: [openScene('scene_sls03_03', SHAOLIN_SIDE03_QUEST_ID)],
   },
 
-  scene_sls03_04: {
-    id: 'scene_sls03_04',
-    title: '第四幕 · 斗秤生疑',
-    subtitle: '恒丰粮行粮仓',
-    mandatory: true,
-    beats: [
-      N('三名赤膊伙计吆喝着将新稻舀入一只黑漆包铁的大木斛，刮平斛口后连斛带米往大杆秤上一挂，秤尾高高翘起，口中高唱「足秤一石！」。'),
-      N('你不动声色地绕到粮堆旁，以目测步量比对木斛外形：这木斛外壁看去与官颁铁斛一般无二，可倒入麻袋后，谷堆却比官斛所盛明显矮了一截！'),
-      N('你又俯身拈起一把新稻掂量干湿，暗中默算稻谷比重与方圆台容积——若按此等饱满干稻折算，一官石的体积绝不止眼前这点堆头，偏偏连斛过秤时却分毫不轻！'),
-      P('（心下雪亮，低声对虚清道）“师兄，问题出在那只黑漆木斛与大杆秤上！那木斛内底垫高了近两寸，每石凭空短少足足两斗，可过秤时却偏偏不轻，定是斛底夹层里灌了极沉的暗物压秤！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls03_05', SHAOLIN_SIDE03_QUEST_ID)],
-  },
-
-  scene_sls03_05: {
-    id: 'scene_sls03_05',
-    title: '第五幕 · 破斛显汞',
-    subtitle: '恒丰粮行大堂',
+  scene_sls03_03: {
+    id: 'scene_sls03_03',
+    title: '第三幕 · 实数对账 · 斗秤破奸',
+    subtitle: '恒丰粮行大堂（当堂核账）',
     illustrationUrl: '/assets/quests/sl_s03_grain_scale.jpg',
-    illustrationCaption: '登封粮行 · 算术当场识破夹层灌水银暗秤，拆穿奸商克扣',
+    illustrationCaption: '登封粮行 · 算术当场识破小斗暗斛与灌铅秤砣，拆穿奸商克扣',
     mandatory: true,
     beats: [
-      N('趁伙计正要倾倒第三斛新稻，你一步跨上粮台，以齐眉棍轻抵木斛边缘，朗声喝道：「且慢过斗！」满堂买粮的登封乡邻顿时静了下来。'),
-      P('“贾掌柜，官颁一石铁斛口方底阔、内深几何，我方才已拿木尺量过。你这只黑漆木斛外高相符，内腔却浅了寸许，算来每石足足少装了两斗稻谷！既少了两斗米，过秤时秤星却纹丝不差，莫非你这木斛底板里藏了见不得人的沉铁水银？”'),
-      S(SPEAKER_MERCHANT_JIA, '（脸色骤变，厉声强辩）“休得血口喷人！你一个小和尚凭空污蔑老字号商誉，信不信我报官拿你！”'),
-      N('你冷哼一声，手腕沉劲，齐眉棍尾朝黑漆木斛底板「啪」地一震！只听咔嚓脆响，双层暗板应声裂开，滚滚银亮水银顺着木缝哗啦啦淌落青砖，在秋阳下泛起刺目寒光！'),
-      S(SPEAKER_VILLAGE_HEAD, '（挤在门外瞧热闹的周里正与众乡民轰然大哗）“天杀的黑心奸商！竟在斛底夹层灌水银压秤！难怪咱们年年来这买米总不够吃！”'),
-      S(SPEAKER_MERCHANT_JIA, '（见丑事彻底败露，索性撕破脸皮尖叫）“反了反了！钱大棒！李四！给我关上大门，把这两个多事的秃驴连人带账本统统拿下！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls03_06', SHAOLIN_SIDE03_QUEST_ID)],
-  },
-
-  scene_sls03_06: {
-    id: 'scene_sls03_06',
-    title: '第六幕 · 恶奴拦门',
-    subtitle: '恒丰粮行后院（车轮连战 实战）',
-    mandatory: true,
-    beats: [
-      N('两扇厚重柏木院门轰然闭拢！一名膀大腰圆的恶护院提着熟铜裹头大棒大步跨出，身旁跟着提着杀猪短刀的麻脸打手，一左一右将你与虚清围在粮袋堆前！'),
-      S(SPEAKER_QIAN_DABANG, '“少林寺的外门小子，敢砸贾掌柜的饭碗，今日叫你竖着进来横着出去！”'),
-      S(SPEAKER_THUG_LISI, '“大哥别跟他废话，先把那本旧粮账抢回来烧了！”'),
-      P('（横棍护在虚清与旧粮账前，眼神如电）“师兄护好账簿与暗斛证物，这两个仗势欺人的恶奴交由我来料理！”'),
+      N('趁伙计正要倾倒下一斛米，你大步跨上粮台以棍轻压斛口喝道：「且慢过斗！」堂外采买的周里正与数十名登封乡邻顿时围拢过来。'),
+      S(SPEAKER_MERCHANT_JIA, '（脸色微僵，强自拔高嗓门）“小师傅这是何意？我恒丰粮行开了二十年老字号，每石官斛一百二十斤、时价二两四钱，三十石照单过秤、童叟无欺！你平白污蔑老字号，拿得出实数铁证么？”'),
+      P('（心念电转，迅速核清实数账单）“官斛每石一百二十斤、时价二两四钱；你大斗进、小斗出，每石实称不过一百斤，却硬按一百二十斤记账收银。买这三十石常住春粮，你究竟短了多少斤米、多吞了多少两黑银，今日便当着满城乡邻算个明白——”'),
     ],
     choices: [
       {
-        id: 'sls03_fight_thugs',
-        label: '稳住马步，以少林武学迎战钱大棒与麻脸李四！（车轮连战 实战）',
-        subLabel: '对手：钱大棒（三流中品）与麻脸李四（三流下品）',
+        id: 'sls03_calc_wrong_low',
+        label: '「每石短十斤，三十石共少三百斤、多吞黑银六两——定是伙计刮斗不平克扣所致！」',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s03_calc_pick', value: 'wrong_low' },
+          { type: 'setFlag', flag: 'sl_side03_fight_ready', value: true },
+          openScene('scene_sls03_04_fail', SHAOLIN_SIDE03_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls03_calc_exact',
+        label: '「每石短二十斤，三十石共少六百斤、合多吞黑银十二两——全凭小斗出米与灌铅秤砣作伪！」',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s03_scam_exposed', value: true },
+          { type: 'setFlag', flag: 'sl_s03_calc_pick', value: 'exact' },
+          { type: 'setFlag', flag: 'sl_side03_fight_ready', value: true },
+          addKarmaOnce('sl_s03_expose_karma_done', 'sl_zen_merit', 1),
+          openScene('scene_sls03_04_expose', SHAOLIN_SIDE03_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls03_calc_wrong_high',
+        label: '「三十石足足短少八百斤、多吞黑银十六两——休听狡辩，直接砸开暗秤揪他见官！」',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s03_calc_pick', value: 'wrong_high' },
+          { type: 'setFlag', flag: 'sl_side03_fight_ready', value: true },
+          addKarmaOnce('sl_s03_expose_karma_done', 'sl_karma_wrath', 1),
+          openScene('scene_sls03_04_fail', SHAOLIN_SIDE03_QUEST_ID),
+        ],
+      },
+    ],
+  },
+
+  scene_sls03_04_expose: {
+    id: 'scene_sls03_04_expose',
+    title: '第四幕 · 铁证显铅 · 孤棒阻门',
+    subtitle: '恒丰粮行院落 · 1v1 破钱大棒',
+    mandatory: true,
+    beats: [
+      N('话音未落，你手腕沉劲，棍尾朝那只黑铁秤砣焊缝与黑漆小斗底板接连「啪啪」两震！咔嚓脆响之中，秤砣铅块滚落、小斗夹层水银铅砂淌满青砖，在春阳下泛起刺目寒光！'),
+      S(SPEAKER_VILLAGE_HEAD, '（周里正与众乡邻轰然大哗，齐声怒骂作证）“天杀的黑心奸商！每石短二十斤、三十石整整吞了六百斤米十二两黑银！难怪咱们年年在这买米总不够吃！拿住他见官！”'),
+      S(SPEAKER_THUG_LISI, '（见门外群情激愤、满堂铁证如山，吓得脸色惨白转身便往后巷溜走）“不妙！满街乡邻都围上来了，这浑水小的可不敢蹚！”'),
+      S(SPEAKER_QIAN_DABANG, '（眼见帮手逃遁，咬牙拎着熟铜裹头大棒横拦后院门前）“跑了个软蛋算什么！小和尚，把旧粮账和灌铅秤砣留下，否则休想踏出这院门半步！”'),
+    ],
+    choices: [
+      {
+        id: 'sls03_fight_qian_solo',
+        label: '护住账簿与铁证，1v1 迎战恶护院头目【钱大棒】（三流中品）',
+        subLabel: '乡邻齐声作证吓退小护院麻脸李四，独战钱大棒',
+        tone: 'danger',
+        effects: [
+          {
+            type: 'startCombat',
+            questId: SHAOLIN_SIDE03_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildQianDabang() },
+            rule: 'story_trial',
+            forbidEscapeReason: '虚清师兄与灌铅暗秤证物皆在身后，绝不可退缩半步！',
+            introText: '【1v1 护账破奸】乡邻作证吓退帮凶，正面力破恶护院头目【钱大棒（三流中品）】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls03_05', SHAOLIN_SIDE03_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast(
+                '被钱大棒熟铜大棒震退数步！暂退门外调息后再赴【东庑碑帖武库院】续战破奸！',
+                'warn',
+                '登封买粮',
+              ),
+            ],
+          },
+        ],
+      },
+    ],
+  },
+
+  scene_sls03_04_fail: {
+    id: 'scene_sls03_04_fail',
+    title: '第四幕 · 奸商反咬 · 恶奴封门',
+    subtitle: '恒丰粮行后院 · 车轮连战',
+    mandatory: true,
+    beats: [
+      S(SPEAKER_MERCHANT_JIA, '（见你报出的斤两银数竟有出入，顿时抓住把柄冷笑连连，冲门外乡邻拱手倒打一耙）“诸位乡亲听听！这小和尚连账都算不清，张口便乱泼脏水！分明是来我恒丰粮行找茬讹诈的！”'),
+      N('围观乡邻一时面面相觑，将信将疑。贾算盘眼见有机可乘，陡然变脸尖叫：「钱大棒、李四！关上院门，把这两个秃驴打断腿扔出城去，连账本一块儿烧了！」'),
+      N('两扇厚重柏木院门轰然闭拢！提着杀猪短刀的麻脸李四与挥舞熟铜大棒的钱大棒一前一后扑杀上来，你只得横棍护住虚清，正面硬撼两名恶护院！'),
+    ],
+    choices: [
+      {
+        id: 'sls03_fight_thugs_gauntlet',
+        label: '稳住马步，车轮连战【麻脸李四】与【钱大棒】（三流中品）',
+        subLabel: '先后迎战麻脸李四（三流下品）与钱大棒（三流中品）',
         tone: 'danger',
         effects: [
           {
             type: 'startCombat',
             format: 'gauntlet',
             questId: SHAOLIN_SIDE03_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildQianDabang() },
-            extraOpponents: [{ kind: 'custom', npc: buildThugLisi() }],
-            rule: 'duel',
-            lethalOnLose: true,
-            forbidEscapeReason: '虚清师兄与暗斛证物皆在身后，绝不可退缩半步！',
-            deathTitle: '饮恨恒丰院',
-            deathDetail: '你在登封恒丰粮行院内力战恶护院钱大棒与打手不敌，重伤身亡。',
-            introText: '【车轮连战 · 护账破恶】迎战恒丰粮行恶护院头目【钱大棒】与打手【麻脸李四】！',
-            onWin: [openScene('scene_sls03_07', SHAOLIN_SIDE03_QUEST_ID)],
+            opponent: { kind: 'custom', npc: buildThugLisi() },
+            extraOpponents: [{ kind: 'custom', npc: buildQianDabang() }],
+            rule: 'story_trial',
+            forbidEscapeReason: '虚清师兄与旧粮账皆在身后，绝不可退缩半步！',
+            introText: '【车轮连战 · 护账破恶】迎战恒丰粮行恶打手【麻脸李四】与护院头目【钱大棒】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls03_05', SHAOLIN_SIDE03_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast(
+                '双恶合围凶猛，护着虚清退至街口调息！整顿后可经【东庑碑帖武库院】再破粮行恶奴！',
+                'warn',
+                '登封买粮',
+              ),
+            ],
           },
+        ],
+      },
+    ],
+  },
+
+  scene_sls03_05: {
+    id: 'scene_sls03_05',
+    title: '第五幕 · 追银护斋 · 恶奴伏诛',
+    subtitle: '恒丰粮行院落',
+    illustrationUrl: '/assets/quests/sl_s03_thug_brawl.jpg',
+    illustrationCaption: '追银护斋 · 力破粮行恶护院，铁证如山迫奸商退赔黑银',
+    mandatory: true,
+    beats: [
+      N('钱大棒怒吼着举起熟铜大棒当头砸下，你沉腰坐马不退反进，贴棒滑入中门一记罗汉掌印在其胸口檀中，将这魁梧恶汉震得连退七步，噗通坐倒在米袋之间，虎口崩裂再也提不起兵器！'),
+      N('{ifFlag:sl_s03_scam_exposed|院外乡邻轰然叫好，县衙巡检与周里正早已收妥散落一地的灌铅秤砣与暗底小斗。|你顺手一棍敲裂堂前黑漆小斗与焊缝秤砣，滚落一地的重铅水银登时令破门而入的周里正与众乡邻哗然变色，贾算盘再无半句抵赖之词！}'),
+      S(SPEAKER_QIAN_DABANG, '（捂胸喘气，满脸骇然）“好沉的少林内劲！爷爷饶命，小人只是拿钱替贾掌柜看场子，再也不敢了！”'),
+      S(SPEAKER_MERCHANT_JIA, '（瘫软在柜台后连连磕头）“大师饶命！小人一时鬼迷心窍，愿赔！三十石春粮克扣的六百斤新米全数用官斛足斤补齐，多吞的十二两黑银并往年亏欠亦即刻奉还！”'),
+    ],
+    onFinishEffects: [openScene('scene_sls03_06', SHAOLIN_SIDE03_QUEST_ID)],
+  },
+
+  scene_sls03_06: {
+    id: 'scene_sls03_06',
+    title: '第六幕 · 黑银追赔 · 济民抑归寺',
+    subtitle: '登封县城恒丰粮行前（战后抉择）',
+    mandatory: true,
+    beats: [
+      N('在周里正与县衙巡检见证下，贾算盘哭丧着脸借来县衙官颁铁斛，足斤足两重新过斗补齐三十石饱满新米，又颤巍巍捧出今春多吞的那十二两雪花黑银与往年退赔文书。'),
+      S(SPEAKER_VILLAGE_HEAD, '（抚须叹息，望向街角几名衣衫单薄的孤寡老人）“少林高徒除害安民，老朽代登封百姓谢过！唉，贾算盘这黑心暗秤坑害的不止贵寺，城西那几户孤寡老弱今春买粮也被他克扣得揭不开锅了……”'),
+      S('NPC-0789', '（双手合十，征询地看向你）“阿弥陀佛。往年旧账须依寺规入库，唯独今春现追回的这十二两黑银，是{gender:师弟|师妹}亲手识奸追索而得。依你之见，这十二两黑银是当场买米分发给登封孤寡乡邻，还是全数折抵少林常住粮款？”'),
+    ],
+    choices: [
+      {
+        id: 'sls03_silver_charity',
+        label: '【买粮济孤寡】将十二两黑银当场买成足秤新米，分发登封受坑孤寡乡邻',
+        subLabel: '慈悲济困，侠义与江湖声望大增（禅心慈悲 +2 · 侠义 +20）',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s03_silver_use', value: 'charity' },
+          addKarmaOnce('sl_s03_silver_karma_done', 'sl_zen_merit', 2),
+          { type: 'modifyChivalry', delta: 20, reason: '以追回的十二两黑银买粮分发登封孤寡乡邻' },
+          openScene('scene_sls03_07', SHAOLIN_SIDE03_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls03_silver_temple',
+        label: '【折抵常住粮款】依寺规将十二两黑银全数归入少林常住公账，充实千僧斋粮',
+        subLabel: '公私分明，寺库将另赐更高纹银与师门贡献嘉奖',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s03_silver_use', value: 'temple' },
+          openScene('scene_sls03_07', SHAOLIN_SIDE03_QUEST_ID),
         ],
       },
     ],
@@ -202,42 +353,13 @@ export const SCENES: Record<string, StorySceneDef> = {
 
   scene_sls03_07: {
     id: 'scene_sls03_07',
-    title: '第七幕 · 追银护斋',
-    subtitle: '恒丰粮行院落',
-    illustrationUrl: '/assets/quests/sl_s03_thug_brawl.jpg',
-    illustrationCaption: '追银护斋 · 1v2 痛扁粮行恶护院，追回百两差额纹银',
+    title: '第七幕 · 满载归山 · 骡车登岭',
+    subtitle: '少室山道 · 夕阳西斜',
     mandatory: true,
     beats: [
-      N('你身法一转避开李四劈来的短刀，齐眉棍顺势下扫，一记「横扫千军」正中李四胫骨，打得他嗷呜惨叫滚进稻糠堆里！'),
-      N('钱大棒怒吼着举起熟铜大棒当头砸下，你沉腰坐马不退反进，棍身贴棒滑入中门，顺势一记少林罗汉掌印在其胸口檀中，将这魁梧恶汉震得连退七步，噗通一声坐倒在米袋之间，虎口崩裂再也提不起兵器！'),
-      S(SPEAKER_QIAN_DABANG, '（捂胸喘气，满脸骇然）“好……好沉的少林内劲！爷爷饶命，小人只是拿钱替贾掌柜看场子，再也不敢了！”'),
-      S(SPEAKER_MERCHANT_JIA, '（早已吓得瘫软在柜台后，连连磕头）“大师饶命！小师傅饶命！小人一时鬼迷心窍，愿赔！小人全数退赔！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls03_08', SHAOLIN_SIDE03_QUEST_ID)],
-  },
-
-  scene_sls03_08: {
-    id: 'scene_sls03_08',
-    title: '第八幕 · 退赃赔银',
-    subtitle: '登封县城恒丰粮行前',
-    mandatory: true,
-    beats: [
-      N('院门重新大开，周里正带着几名登封乡绅与衙门巡检步入粮行。见青砖上赫然淌着水银，又见你摊开少林三年旧粮账逐笔核算，铁证如山，贾算盘再无半句抵赖之词。'),
-      N('按三年来每石克扣两斗的细账一笔笔折算，贾算盘不仅当场从内库捧出一百两雪花纹银作为历年差额退赔，更老老实实借来县衙官颁铁斛，足斤足两重新过斗补足五十石新稻。'),
-      S(SPEAKER_VILLAGE_HEAD, '（抚须叹服）“少林高徒果然文武双全！今日不仅护住了贵寺千僧口粮，更替咱们登封满城百姓除了这桩暗秤大害！”'),
-      S('NPC-0789', '（双手合十，眉间郁气尽消）“阿弥陀佛，恶有恶报。周里正，这只灌汞暗斛便交予官府留作罪证，免得日后再有奸商效尤。”'),
-    ],
-    onFinishEffects: [openScene('scene_sls03_09', SHAOLIN_SIDE03_QUEST_ID)],
-  },
-
-  scene_sls03_09: {
-    id: 'scene_sls03_09',
-    title: '第九幕 · 满载归山',
-    subtitle: '少室山道',
-    mandatory: true,
-    beats: [
-      N('夕阳西斜时，十余辆骡车满载饱满新稻，吱吱呀呀驶上少室山道。山门外轮值的外门沙弥见这批秋粮袋袋鼓胀、比往年足足多出两车，顿时喜出望外，纷纷奔走相告。'),
-      S('NPC-0789', '“师弟，大寮执事已着人接管入仓。你且随贫僧回钟鼓禅院演武坪，将这笔追回的差银账目一并交割清楚。”'),
+      N('{ifFlagEq:sl_s03_silver_use=charity|你当场将十二两黑银换成足秤糙米，亲手分装与城西十余户孤寡老人；满街乡邻含泪合十相送，一路称颂「少林活佛」之声不绝于耳。|你将十二两黑银连同官府赔账文书封入铁匣，随足秤粮车一并押运上山，一路账目清白分毫不差。}'),
+      N('暮色四合时，十余辆骡车满载足斤足两的饱满新米吱吱呀呀驶上少室山道。山门外轮值的外门沙弥见这批春粮袋袋鼓胀、比往年足足多出两大车，无不欢欣鼓舞。'),
+      S('NPC-0789', '“{gender:师弟|师妹}，大寮执事已着人接管入仓。且随贫僧回钟鼓禅院演武坪，将此番登封买粮账目一并交割清楚。”'),
     ],
     choices: [
       {
@@ -246,34 +368,112 @@ export const SCENES: Record<string, StorySceneDef> = {
         tone: 'gold',
         effects: [
           setStep(SHAOLIN_SIDE03_QUEST_ID, 'return_report'),
-          toast('暗秤已破、百两差银与足秤秋粮已运回少林！请返回【钟鼓禅院 · 演武坪（sl_daxiong_west）】向虚清复命。', 'success', '登封买粮'),
+          toast(
+            '暗秤已破、足秤春粮已运回少林！请返回【钟鼓禅院 · 演武坪（sl_daxiong_west）】向虚清复命。',
+            'success',
+            '登封买粮',
+          ),
         ],
       },
     ],
   },
 
-  scene_sls03_10: {
-    id: 'scene_sls03_10',
-    title: '第十幕 · 斋堂飘香',
+  scene_sls03_08: {
+    id: 'scene_sls03_08',
+    title: '第八幕 · 斋堂飘香 · 结账复命',
     subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
     mandatory: true,
     beats: [
-      N('暮鼓敲响，大寮方向飘来阵阵新米熬粥的清香。虚清在钟鼓禅院演武坪核毕新账，将一只沉甸甸的银袋郑重交到你手中。'),
-      S('NPC-0789', '“方丈与执事长老听闻师弟下山以算学识破灌汞暗斛、又力挫粮行恶护院护回千僧口粮，赞你智勇双全、不辱佛门清名。”'),
-      S('NPC-0789', '“追回的百两差银已由大寮另行记账贴补外门斋饭，执事特批这百两纹银与师门功勋赏予师弟，盼师弟日后勤修不辍、常怀护法之心！”'),
+      N('暮鼓敲响，大寮方向飘来阵阵新米熬粥的浓郁清香。虚清在钟鼓禅院演武坪核毕新账，将一只沉甸甸的赏银钱袋郑重交到你手中。'),
+      S('NPC-0789', '“执事长老听闻你下山{ifFlag:sl_s03_scam_exposed|当堂以实数筹算识破灌铅暗秤、一言服众，又单棍制伏恶护院钱大棒|拆穿恒丰粮行灌铅暗秤、力挫恶护院护回千僧春粮}，深赞你智勇双全、不辱少林门风！”'),
+      S('NPC-0789', '“{ifFlagEq:sl_s03_silver_use=charity|更难得你将追回的十二两黑银尽数买米济助登封孤寡，今晨山下已有乡绅送来感恩功德牌，江湖清誉大振！|更难得你严守常住账目分毫不苟，库房执事特批额外纹银与功勋重赏，以嘉你护寺廉明之功！}”'),
+      P('（合十还礼，鼻端粥香沁脾）“护持千僧烟火、斥奸安民，皆乃佛门弟子本分！”'),
     ],
     choices: [
       {
-        id: 'sls03_complete',
-        label: '合十谢过虚清师兄，收下赏银与功勋（完成支线）',
+        id: 'sls03_complete_zen',
+        label: '【斗秤明心 · 收赏结案】合十谢过虚清师兄，收下酬银与师门功勋',
         tone: 'gold',
         effects: [
-          { type: 'giveSilver', amount: 100, reason: '登封买粮破奸追银师门酬赏' },
-          { type: 'addSectContribution', amount: 60 },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s03_silver_use', op: 'eq', value: 'temple' },
+            thenEffects: [{ type: 'giveSilver', amount: 120, reason: '登封买粮破奸归账寺库重赏' }],
+            elseEffects: [{ type: 'giveSilver', amount: 100, reason: '登封买粮破奸追银师门酬赏' }],
+          },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s03_silver_use', op: 'eq', value: 'temple' },
+            thenEffects: [{ type: 'addSectContribution', amount: 75 }],
+            elseEffects: [{ type: 'addSectContribution', amount: 60 }],
+          },
           { type: 'modifySkill', key: '算术', delta: 2 },
-          { type: 'giveCombatExp', amount: 110, reason: '恒丰粮行力挫钱大棒与恶打手' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s03_scam_exposed', op: 'truthy' },
+            thenEffects: [{ type: 'modifySkill', key: '辩才', delta: 1 }],
+            elseEffects: [],
+          },
+          { type: 'giveCombatExp', amount: 110, reason: '恒丰粮行力挫钱大棒破奸护粮' },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0789' }, delta: 15 },
-          { type: 'modifyRenown', delta: 20, reason: '完成门派差事《登封买粮 · 斗秤破奸》' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s03_silver_use', op: 'eq', value: 'charity' },
+            thenEffects: [
+              {
+                type: 'modifyRenown',
+                delta: 35,
+                reason: '完成门派差事《登封买粮 · 斗秤破奸》并散银买粮济助登封孤寡',
+              },
+            ],
+            elseEffects: [
+              { type: 'modifyRenown', delta: 20, reason: '完成门派差事《登封买粮 · 斗秤破奸》' },
+            ],
+          },
+          { type: 'completeQuest', questId: SHAOLIN_SIDE03_QUEST_ID, outcome: 'completed' },
+          toast('已完成《登封买粮 · 斗秤破奸》！获得纹银、师门贡献、算术进益与实战历练！', 'success', '登封买粮'),
+        ],
+      },
+      {
+        id: 'sls03_complete_sharp',
+        label: '【算武并行 · 收赏结案】笑纳酬银，深感行走世间筹算与棍法缺一不可',
+        tone: 'jade',
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s03_silver_use', op: 'eq', value: 'temple' },
+            thenEffects: [{ type: 'giveSilver', amount: 120, reason: '登封买粮破奸归账寺库重赏' }],
+            elseEffects: [{ type: 'giveSilver', amount: 100, reason: '登封买粮破奸追银师门酬赏' }],
+          },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s03_silver_use', op: 'eq', value: 'temple' },
+            thenEffects: [{ type: 'addSectContribution', amount: 75 }],
+            elseEffects: [{ type: 'addSectContribution', amount: 60 }],
+          },
+          { type: 'modifySkill', key: '算术', delta: 2 },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s03_scam_exposed', op: 'truthy' },
+            thenEffects: [{ type: 'modifySkill', key: '辩才', delta: 1 }],
+            elseEffects: [],
+          },
+          { type: 'giveCombatExp', amount: 110, reason: '恒丰粮行力挫钱大棒破奸护粮' },
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0789' }, delta: 15 },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s03_silver_use', op: 'eq', value: 'charity' },
+            thenEffects: [
+              {
+                type: 'modifyRenown',
+                delta: 35,
+                reason: '完成门派差事《登封买粮 · 斗秤破奸》并散银买粮济助登封孤寡',
+              },
+            ],
+            elseEffects: [
+              { type: 'modifyRenown', delta: 20, reason: '完成门派差事《登封买粮 · 斗秤破奸》' },
+            ],
+          },
           { type: 'completeQuest', questId: SHAOLIN_SIDE03_QUEST_ID, outcome: 'completed' },
           toast('已完成《登封买粮 · 斗秤破奸》！获得纹银、师门贡献、算术进益与实战历练！', 'success', '登封买粮'),
         ],

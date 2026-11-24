@@ -1,6 +1,6 @@
 import type { NodeNpc } from '../../../types/game'
 import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
-import { N, P, S, makeQuestNpc, openScene, qStatus, setStep, toast } from '../../../engine/quest/dsl'
+import { N, P, S, makeQuestNpc, openScene, setStep, toast } from '../../../engine/quest/dsl'
 import { SHAOLIN_SIDE14_QUEST_ID } from './shaolinSideNorthSouthSparQuest'
 
 const SPEAKER_TIEQIAO: StorySpeakerSpec = {
@@ -21,9 +21,9 @@ const SPEAKER_HONGGANG: StorySpeakerSpec = {
   avatarUrl: '/assets/characters/templates/tpl_nanshaolin_male_av.jpg',
 }
 
-function buildTieqiao(): NodeNpc {
+function buildTieqiao(outmaneuvered = false): NodeNpc {
   return makeQuestNpc({
-    id: 'QUEST_SLS14_TIEQIAO',
+    id: outmaneuvered ? 'QUEST_SLS14_TIEQIAO_OFFBALANCE' : 'QUEST_SLS14_TIEQIAO',
     name: '铁桥师兄',
     title: '南少林护寺首座 · 铁桥硬马',
     realm: '一流中品',
@@ -32,11 +32,19 @@ function buildTieqiao(): NodeNpc {
     sectRankLabel: '护寺首座',
     avatarUrl: '/assets/characters/templates/tpl_nanshaolin_male_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_nanshaolin_male_fb.jpg',
-    talk: '“请北宗师兄领教我莆田南少林硬桥硬马、稳如磐石的铁桥劲！”',
-    stats: { hp: 3150, mp: 2780, agi: 64, res: 60 },
+    talk: outmaneuvered
+      ? '“好俊的北宗身法！才一照面便晃开了洒家半步重心，且再接我一记铁桥横拦！”'
+      : '“请北宗师兄领教我莆田南少林硬桥硬马、稳如磐石的铁桥劲！”',
+    stats: outmaneuvered
+      ? { hp: 2680, mp: 2420, agi: 60, res: 55 }
+      : { hp: 3150, mp: 2780, agi: 64, res: 60 },
     talents: { bone: 84, comprehension: 72, charm: 56 },
     equippedArts: { neigong: 'MA-080', move1: 'MA-106', move2: 'MA-124' },
-    learnedArts: [{ artId: 'MA-080', level: 8 }, { artId: 'MA-106', level: 8 }, { artId: 'MA-124', level: 8 }],
+    learnedArts: [
+      { artId: 'MA-080', level: 8 },
+      { artId: 'MA-106', level: 8 },
+      { artId: 'MA-124', level: 8 },
+    ],
   })
 }
 
@@ -47,84 +55,77 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
     mandatory: true,
     beats: [
-      N('{reignYear}金秋，嵩山丹枫如火。大雄宝殿方丈院西侧的钟鼓禅院演武坪上，晨钟余韵尚未散尽，山门外已迎来三位身着灰褐短打僧衣、肌骨如铜铸般的南方高僧。'),
-      N('为首一人面庞方正、双臂微垂过膝，腕骨粗壮如生铁浇铸；身旁两位师弟亦个个太阳穴高高鼓起、下盘沉稳似扎根青石。铁掌禅师玄痛亲自出迎，朗笑声震得松枝落叶纷纷。'),
-      S('NPC-0156', '“哈哈哈！有朋自八闽九莲山来，不亦乐乎！这位便是莆田南少林护寺大首座元通大师，旁侧二位乃铁桥师兄、洪刚师兄。三位千里北访嵩山，意在以武印证南北禅拳！”'),
-      S('NPC-0164', '“阿弥陀佛，久仰嵩山祖庭威名！我兄弟三人奉南少林方丈之命北上礼祖，一来瞻仰达摩祖师遗迹，二来亦想请教北宗高徒的绝艺，看看我南宗硬桥硬马究竟差了祖庭几分火候！”'),
+      N('{reignYear}金秋，嵩山丹枫如火。大雄宝殿方丈院西侧的钟鼓禅院演武坪上，晨钟余韵未歇，山门外已迎来三位身着灰褐短打僧衣、肌骨如铜铸般的南方高僧。'),
+      N('为首一人面庞方正、双臂微垂过膝，腕骨粗壮如生铁浇铸；身旁两位师弟亦太阳穴高鼓、下盘沉稳似扎根青石。铁掌禅师玄痛亲自出迎，朗笑声震得松枝落叶纷纷。'),
+      S(
+        'NPC-0156',
+        '“哈哈哈！有朋自八闽九莲山来，不亦乐乎！这位便是莆田南少林铁罗汉堂主元通大师，旁侧二位乃铁桥师兄、洪刚师兄。你既已跻身本寺三阶高徒，正好代嵩山同门迎客印证！”',
+      ),
+      S(
+        'NPC-0164',
+        '{ifQuestDone:QST-SECT-01-19|“哎呀！原是昔年携嵩山法帖千里南渡莆田、与我南少林于海滨盐场并肩斩杀东瀛海寇的故友！元苦师叔临行前还再三嘱我代他问安，今日重逢嵩山，真乃大幸！”|“阿弥陀佛，久仰嵩山祖庭威名！我兄弟三人奉南少林方丈之命北上礼祖，见师兄气息沉凝如渊，今日定要请教北宗高招！”}',
+      ),
+      S(
+        SPEAKER_HONGGANG,
+        '“我兄弟三人练的皆是铜皮铁骨硬功夫，最喜先论拳理、再痛快切磋！不知北宗高徒怎么看南北少林数百年分枝的拳脉异同？”',
+      ),
     ],
     onFinishEffects: [openScene('scene_sls14_02', SHAOLIN_SIDE14_QUEST_ID)],
   },
 
   scene_sls14_02: {
     id: 'scene_sls14_02',
-    title: '玄痛点将 · 南北照面',
+    title: '南北论拳 · 立约演武',
     subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
     mandatory: true,
     beats: [
-      N('玄痛长老目光一转，落在刚步入演武坪的你身上，眼中露出几分藏不住的赞许，抬手向三位南少林高僧引见。'),
-      S('NPC-0156', '“元通大师来得正巧！这位便是我嵩山少林当代三阶高徒，文武兼修、历练已久，由他代嵩山同门与三位切磋印证，最是恰当不过！”'),
-    ],
-    onFinishEffects: [
-      {
-        type: 'branch',
-        condition: qStatus('QST-SECT-01-19', 'completed'),
-        thenEffects: [openScene('scene_sls14_03', SHAOLIN_SIDE14_QUEST_ID)],
-        elseEffects: [openScene('scene_sls14_04', SHAOLIN_SIDE14_QUEST_ID)],
-      },
-    ],
-  },
-
-  scene_sls14_03: {
-    id: 'scene_sls14_03',
-    title: '九莲旧谊 · 故友重逢',
-    subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
-    mandatory: true,
-    beats: [
-      N('元通、铁桥与洪刚三人一见你面容，先是一怔，旋即齐齐露出惊喜交加之色，大步上前合十行礼！'),
-      S('NPC-0164', '“哎呀！原是昔年携嵩山法帖千里南渡莆田、在九莲山门连闯三关，又与我南少林同门于海滨盐场浴血斩杀东瀛海寇鬼丸浪人的故友！元苦师叔临行前还再三叮嘱，若在嵩山见到你，务必要代他问安！”'),
-      S(SPEAKER_TIEQIAO, '“哈哈哈！当年在九莲山只恨未能与师兄痛快打上一场，如今师兄修为早已今非昔比，今日在嵩山演武坪上，可一定要让洒家领教领教！”'),
-      P('“阿弥陀佛！当年九莲山盐场并肩御寇历历在目，元苦师叔安康便好！三位师兄远道而来，小弟自当倾力奉陪，绝不藏私！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls14_05', SHAOLIN_SIDE14_QUEST_ID)],
-  },
-
-  scene_sls14_04: {
-    id: 'scene_sls14_04',
-    title: '南北初会 · 礼敬同源',
-    subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
-    mandatory: true,
-    beats: [
-      N('元通上下打量你片刻，见你气息沉凝如渊、双目炯炯有神，不由暗赞嵩山底蕴深厚，双手合十朗声道。'),
-      S('NPC-0164', '“早闻嵩山少林人才辈出，今日一见师兄气度，果然名不虚传！南拳刚猛沉实、北腿舒展雄浑，本是达摩一脉分枝，今日便请师兄不吝赐教！”'),
-      S(SPEAKER_HONGGANG, '“待会儿交手之时，师兄只管放手施为，我兄弟三人练的皆是铜皮铁骨硬功夫，最喜痛快淋漓的真切磋！”'),
-      P('“阿弥陀佛！三位师兄千里北访，小弟敢不从命？今日定当以礼相待、全力印证！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls14_05', SHAOLIN_SIDE14_QUEST_ID)],
-  },
-
-  scene_sls14_05: {
-    id: 'scene_sls14_05',
-    title: '立约演武 · 连战二关',
-    subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
-    mandatory: true,
-    beats: [
-      S('NPC-0156', '“既是以武印证，便依祖庭古例：点到为止，不伤和气！先由铁桥师兄试一试铁桥硬马，再由元通大师压轴印证铁线神拳。你可愿应下这场南北切磋？”'),
+      N('玄痛长老抚须含笑，退至一旁听你与南宗诸僧论艺。元通合十微揖，目光如炬地望向你：“北少林居于中岳平川，南少林起于八闽舟楫山海；一北一南，拳理各有千秋，师兄以为何者为先？”'),
+      N('四周闻讯聚拢的嵩山众僧亦凝神倾听。你望向眼前三位气度豪迈的南少林首座，沉吟片刻作出回应：'),
     ],
     choices: [
       {
-        id: 'accept_north_south_spar',
-        label: '“弟子愿登演武坪，依次领教铁桥师兄与元通首座高招！”',
-        subLabel: '承接支线【铁线争锋 · 闽僧北访】',
+        id: 'theory_north_thunder',
+        label: '【重北派雄浑】“北宗拳腿大开大合、劲如奔雷，先立浩然气势方能制敌于十步之外！”',
+        subLabel: '承接支线【铁线争锋 · 闽僧北访】并立约切磋（怒目杀业 +1）',
         tone: 'gold',
         effects: [
+          { type: 'setFlag', flag: 'sl_s14_theory', value: 'north' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s14_theory_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s14_theory_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+            ],
+          },
           { type: 'startQuest', questId: SHAOLIN_SIDE14_QUEST_ID, stepId: 'courtyard_spar' },
-          toast('任务已接取：在【钟鼓禅院 · 演武坪】迎战南少林护寺首座！', 'success', '铁线争锋'),
-          openScene('scene_sls14_06', SHAOLIN_SIDE14_QUEST_ID),
+          toast('任务已接取：于【钟鼓禅院 · 演武坪】与南少林首座切磋印证！', 'success', '铁线争锋'),
+          openScene('scene_sls14_03', SHAOLIN_SIDE14_QUEST_ID),
+        ],
+      },
+      {
+        id: 'theory_south_inch',
+        label: '【重南派精微】“南宗短桥窄马、寸劲归柔，于方寸之间收发由心，最合禅门定慧双修！”',
+        subLabel: '承接支线【铁线争锋 · 闽僧北访】并立约切磋（禅心慈悲 +1）',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s14_theory', value: 'south' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s14_theory_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s14_theory_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+            ],
+          },
+          { type: 'startQuest', questId: SHAOLIN_SIDE14_QUEST_ID, stepId: 'courtyard_spar' },
+          toast('任务已接取：于【钟鼓禅院 · 演武坪】与南少林首座切磋印证！', 'success', '铁线争锋'),
+          openScene('scene_sls14_03', SHAOLIN_SIDE14_QUEST_ID),
         ],
       },
       {
         id: 'defer_north_south_spar',
-        label: '“请容我先整备披挂与武学运使，稍后即登坪赐教。”',
+        label: '“南北拳理博大精深，容我先整备披挂与武学运使，稍后即登坪赐教。”',
         subLabel: '暂缓接取（可随时再返钟鼓禅院开启）',
         tone: 'default',
         effects: [
@@ -135,37 +136,95 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_sls14_06: {
-    id: 'scene_sls14_06',
+  scene_sls14_03: {
+    id: 'scene_sls14_03',
     title: '第一关 · 铁桥硬马',
     subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
     mandatory: true,
     beats: [
-      N('洪刚师兄击响场边铜锣，演武坪四周早已聚满闻讯赶来观战的嵩山众僧。铁桥师兄大步踏入场中，扎下一个四平大马，双足踏处青石砖竟微微一沉，双臂架起如两根铸铁横梁！'),
-      S(SPEAKER_TIEQIAO, '“北宗师兄请了！我这身《盘山铁布衫》配南宗铁桥劲，最耐硬拼硬打，师兄若能破我架势，便算过了第一关！”'),
-      P('“铁桥师兄好沉稳的下盘！小弟得罪了！”'),
+      N('{ifFlagEq:sl_s14_theory=north|洪刚与铁桥听你盛赞北宗奔雷气象，战意顿燃，齐声喝彩；玄痛点头定例：“点到为止，先由铁桥师兄试招，再由元通大师压轴印证！”|元通听你一语道破南宗短桥寸劲之精妙，眼中露出惊喜赞许；玄痛含笑定例：“点到为止，先由铁桥师兄试招，再由元通大师压轴印证！”}'),
+      N('洪刚击响场边铜锣！铁桥师兄大步踏入演武坪，扎下四平大马，双足踏处青石微沉，双臂如铸铁横梁般架起铜墙铁壁。'),
+      S(SPEAKER_TIEQIAO, '“北宗师兄请了！我这身《盘山铁布衫》配南宗铁桥劲最耐硬拼硬打，师兄欲如何破我架势？”'),
     ],
     choices: [
       {
-        id: 'spar_tieqiao',
-        label: '踏步入场，与一流中品「铁桥师兄」切磋印证！',
-        subLabel: '南北印证第一战 · 切磋（点到为止）',
+        id: 'spar_tieqiao_agile',
+        label: '【以巧破刚】借北宗游走身法晃开其四平大马重心，攻其侧肋转圜之隙！',
+        subLabel: '先行破去铁桥架势再切磋（一流中品，禅心慈悲 +1）',
         tone: 'jade',
+        condition: {
+          type: 'any',
+          hint: '需身法 ≥ 60，或方才雅论中洞悉南派短桥寸劲',
+          conditions: [
+            { type: 'combatStatAtLeast', key: 'agility', min: 60 },
+            { type: 'flag', flag: 'sl_s14_theory', op: 'eq', value: 'south' },
+          ],
+        },
         effects: [
+          { type: 'setFlag', flag: 'sl_s14_tieqiao_tactic', value: 'agile' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s14_tieqiao_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s14_tieqiao_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+            ],
+          },
           {
             type: 'startCombat',
             questId: SHAOLIN_SIDE14_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildTieqiao() },
+            opponent: { kind: 'custom', npc: buildTieqiao(true) },
             rule: 'spar',
             duelStakesTag: 'spar',
-            introText: '铁桥师兄稳扎马步、双臂如铁桥横拦，携滚滚刚劲沉肩压迫而来！',
-            onWin: [openScene('scene_sls14_07', SHAOLIN_SIDE14_QUEST_ID)],
+            introText: '你步履如风先晃开铁桥师兄下盘重心，南宗硬桥被迫变招迎击！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls14_04', SHAOLIN_SIDE14_QUEST_ID),
+            ],
             onLose: [
-              toast(
-                '铁桥师兄下盘稳如泰山，你暂且退下调息，可随时在演武坪重新挑战！',
-                'warn',
-                '铁线争锋',
-              ),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('铁桥师兄下盘稳如泰山，你暂退调息，可随时在演武坪再次切磋！', 'warn', '铁线争锋'),
+            ],
+            onDraw: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('双方拆招难分上下，调息片刻后可再登演武坪切磋！', 'warn', '铁线争锋'),
+            ],
+          },
+        ],
+      },
+      {
+        id: 'spar_tieqiao_direct',
+        label: '【硬桥硬马】沉腰坐马，以嵩山刚猛劲力正面撼动南宗铁桥！',
+        subLabel: '零门槛正面切磋全盛铁桥师兄（一流中品，怒目杀业 +1）',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s14_tieqiao_tactic', value: 'direct' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s14_tieqiao_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s14_tieqiao_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+            ],
+          },
+          {
+            type: 'startCombat',
+            questId: SHAOLIN_SIDE14_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildTieqiao(false) },
+            rule: 'spar',
+            duelStakesTag: 'spar',
+            introText: '铁桥师兄双臂如铁桥横拦，携滚滚刚劲沉肩压迫而来！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls14_04', SHAOLIN_SIDE14_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('铁桥师兄铁布衫果然厚重，调息回元后可随时于演武坪再战！', 'warn', '铁线争锋'),
+            ],
+            onDraw: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('二人硬拼难分伯仲，调息后再战一场！', 'warn', '铁线争锋'),
             ],
           },
         ],
@@ -173,70 +232,121 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_sls14_07: {
-    id: 'scene_sls14_07',
-    title: '以巧破刚 · 铁桥叹服',
-    subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
-    mandatory: true,
-    beats: [
-      N('你与铁桥师兄硬拼十余合，渐摸清其“守若铁壁、攻若奔雷”的路数，当即化硬拼为游走，借北宗舒展身法绕至其侧肋，一记刚柔并济的劲力轻吐，竟将稳如磐石的铁桥师兄震得退后三步！'),
-      S(SPEAKER_TIEQIAO, '“好！好一个借力打力、以巧破刚！若非师兄最后收了三分劲，洒家这半边膀子怕是要麻上半日！痛快，洒家认输！”'),
-      S(SPEAKER_HONGGANG, '“好俊的北宗身法与内劲！元通师兄，看来这一趟嵩山之行，真教咱们遇上劲敌了！”'),
-      N('四周嵩山众僧齐声喝彩，玄痛长老亦抚须微笑，随即抬手示意场中肃静。'),
-    ],
-    onFinishEffects: [openScene('scene_sls14_08', SHAOLIN_SIDE14_QUEST_ID)],
-  },
-
-  scene_sls14_08: {
-    id: 'scene_sls14_08',
-    title: '压轴印证 · 铁线神拳',
+  scene_sls14_04: {
+    id: 'scene_sls14_04',
+    title: '铁桥叹服 · 压轴登场',
     subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
     illustrationUrl: '/assets/quests/sl_s14_north_south.jpg',
-    illustrationCaption: '钟鼓禅院演武坪秋风卷叶，南北少林顶尖高徒硬桥硬马巅峰交锋',
+    illustrationCaption: '钟鼓禅院演武坪秋风卷叶，南北少林顶尖高徒硬桥硬马切磋印证',
     mandatory: true,
     beats: [
-      N('元通首座解下外袍交予洪刚，缓步走入演武坪中央。他并未立刻出招，而是缓缓吐出一口长气，只听其咽喉间竟隐隐发出似金铁震颤般的低沉“哼哈”二音，双臂筋骨节节作响，指掌之间劲风呼啸，仿佛缠绕着千百根无形钢丝！'),
-      S('NPC-0156', '“小心了！元通大师已将南少林镇派外功《铁线拳》练至十重化境，兼以声催气、以气运力，举手投足皆有一流上品宗师气度！”'),
-      S('NPC-0164', '“师兄既破了我二师弟的铁桥劲，便请接贫僧这路《铁线拳》！你我皆不必留手，放开一战，方不负千里北访之行！”'),
-      P('“正合我意！元通首座，请赐教！”'),
+      N('{ifFlagEq:sl_s14_tieqiao_tactic=agile|你化硬拼为游走，借柔劲贴肋轻吐，竟将稳如磐石的铁桥师兄震得退后三步！|你以纯正嵩山阳刚内劲连撼铁桥双臂，震得他四平大马连退两步，青石砖上留下两道深印！}'),
+      S(SPEAKER_TIEQIAO, '“好！痛快！若非师兄最后收了三分劲，洒家这半边膀子怕是要麻上半日！这一阵，洒家认输！”'),
+      N('元通首座解下外袍交予洪刚，缓步走入演武坪中央。他并未急着出手，而是缓缓吐出一口长气——咽喉间竟隐隐发出似金铁震颤的低沉「哼哈」二音，双臂筋骨节节作响，指掌间仿佛缠绕着千百根无形钢丝！'),
+      S('NPC-0156', '“小心了！元通大师深通南少林秘传《铁线拳》，以声催气、以气运力，刚而不僵、柔而不软，正是一流中品绝顶火候！”'),
+      S('NPC-0164', '“师兄既破了我师弟的铁桥劲，便请接贫僧这路《铁线拳》！你我放开印证，方不负千里北访之行！”'),
     ],
-    onFinishEffects: [openScene('scene_sls14_09', SHAOLIN_SIDE14_QUEST_ID)],
+    onFinishEffects: [openScene('scene_sls14_05', SHAOLIN_SIDE14_QUEST_ID)],
   },
 
-  scene_sls14_09: {
-    id: 'scene_sls14_09',
-    title: '南北巅峰 · 拳震钟鼓',
+  scene_sls14_05: {
+    id: 'scene_sls14_05',
+    title: '铁线争锋 · 拳震钟鼓',
     subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
     mandatory: true,
     beats: [
-      N('秋风骤止，演武坪上尘沙微扬。元通首座双拳一错，刚猛无匹的铁线拳劲直冲面门！你凝神敛气，迎着这位南少林一流上品大首座正面踏出一步！'),
+      N('秋风骤止，演武坪上丹枫凝空。元通首座双拳一错，十二桥手配合低沉哼哈之音化作绵密铁线拳风，刚柔相济直压中宫！'),
+      N('你凝神敛气，察觉其劲力随呼吸音韵起伏成势，迎着这位南少林大首座决意以何法破招？'),
     ],
     choices: [
       {
-        id: 'spar_yuantong',
-        label: '凝神运劲，与一流上品「元通首座」展开南北巅峰切磋！',
-        subLabel: '南北印证压轴战 · 一流上品切磋（点到为止）',
-        tone: 'gold',
+        id: 'spar_yuantong_zen',
+        label: '【听音化劲】以禅定静听其哼哈呼吸节奏，后发先至、以柔克刚切磋元通！',
+        subLabel: '切磋一流中品元通首座（点到为止，禅心慈悲 +1）',
+        tone: 'jade',
+        condition: {
+          type: 'any',
+          hint: '需十艺【经义】≥ 65 或【琴】≥ 35',
+          conditions: [
+            { type: 'skillAtLeast', key: '经义', min: 65 },
+            { type: 'skillAtLeast', key: '琴', min: 35 },
+          ],
+        },
         effects: [
+          { type: 'setFlag', flag: 'sl_s14_yuantong_tactic', value: 'zen' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s14_yuantong_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s14_yuantong_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+            ],
+          },
           {
             type: 'startCombat',
             questId: SHAOLIN_SIDE14_QUEST_ID,
             opponent: {
               kind: 'npc',
               npcId: 'NPC-0164',
-              talkOverride:
-                '“南拳北腿本出一脉！且看今日嵩山演武坪上，谁能以禅入拳、技高一筹！”',
+              realmCap: '一流中品',
+              talkOverride: '“南拳北腿本出一脉！且看今日嵩山演武坪上，谁能以禅入拳、技高一筹！”',
             },
             rule: 'spar',
             duelStakesTag: 'spar',
-            introText: '元通首座以声催劲，十重《铁线拳》如怒潮拍岸、钢丝绞空，南北少林巅峰对决正式展开！',
-            onWin: [openScene('scene_sls14_10', SHAOLIN_SIDE14_QUEST_ID)],
+            introText: '你静听元通以声催气之节拍，沉心迎战南少林秘传《铁线拳》！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls14_06', SHAOLIN_SIDE14_QUEST_ID),
+            ],
             onLose: [
-              toast(
-                '元通首座的十重铁线拳果然霸道绝伦！你暂且退下调息，可随时在演武坪再次切磋！',
-                'warn',
-                '铁线争锋',
-              ),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('元通首座的《铁线拳》果然收发如钢丝！调息后可再登演武坪切磋。', 'warn', '铁线争锋'),
+            ],
+            onDraw: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('南北高招棋逢对手，调息片刻后再分高下！', 'warn', '铁线争锋'),
+            ],
+          },
+        ],
+      },
+      {
+        id: 'spar_yuantong_power',
+        label: '【浩然硬撼】催动少林纯正浑厚内力，正面硬接元通首座《铁线拳》！',
+        subLabel: '零门槛正面切磋一流中品元通首座（点到为止，怒目杀业 +1）',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s14_yuantong_tactic', value: 'power' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s14_yuantong_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s14_yuantong_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+            ],
+          },
+          {
+            type: 'startCombat',
+            questId: SHAOLIN_SIDE14_QUEST_ID,
+            opponent: {
+              kind: 'npc',
+              npcId: 'NPC-0164',
+              realmCap: '一流中品',
+              talkOverride: '“南拳北腿本出一脉！且看今日嵩山演武坪上，谁能以禅入拳、技高一筹！”',
+            },
+            rule: 'spar',
+            duelStakesTag: 'spar',
+            introText: '元通首座以声催劲，《铁线拳》如怒潮拍岸、钢丝绞空，南北印证正式展开！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls14_06', SHAOLIN_SIDE14_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('元通首座的铁线拳霸道绝伦！你暂且退下调息，可随时在演武坪再战！', 'warn', '铁线争锋'),
+            ],
+            onDraw: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('双方拳风激荡未分胜负，调息片刻后可再印证一场！', 'warn', '铁线争锋'),
             ],
           },
         ],
@@ -244,77 +354,121 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_sls14_10: {
-    id: 'scene_sls14_10',
+  scene_sls14_06: {
+    id: 'scene_sls14_06',
     title: '刚柔互破 · 半招定鼎',
     subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
     mandatory: true,
     beats: [
-      N('二人拳掌相交数十合，劲风四溢，连钟楼垂悬的麻绳都被罡气激得轻轻晃动！元通一记“铁线穿云”直取中宫，刚劲如山岳倾压；你不退反进，化直为圆，以浑厚禅功卸开七分力道，反手一指轻点其肘弯曲池穴前半寸，倏然收势！'),
+      N('二人拳掌相交数十合，劲风四溢，连钟楼垂悬的麻绳都被罡气激得轻轻晃动！元通一记「铁线穿云」直取中宫，{ifFlagEq:sl_s14_yuantong_tactic=zen|你早听透其呼吸换气微隙，化直为圆轻卸七分刚劲|你不退反进，以沉雄嵩山禅劲硬生生架开其刚猛铁桥}，反手一指轻点其肘弯曲池穴前半寸，倏然收势！'),
       N('元通身形一顿，低头看着距自己肘穴仅差半寸的指尖，怔了半晌，忽地仰天大笑，双掌合十深深一揖！'),
-      S('NPC-0164', '“哈哈哈！痛快！真是平生未有之痛快！贫僧自负将铁线拳炼至刚柔相济、以声催气，不意嵩山祖庭竟有师兄这般人物，收放之间竟还有余力留情半寸！这一战，贫僧输得心服口服！”'),
-      P('“元通首座过谦了！首座铁线拳劲如惊涛连绵不绝，小弟不过侥幸占了半招地利与先机，实是棋逢对手！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls14_11', SHAOLIN_SIDE14_QUEST_ID)],
-  },
-
-  scene_sls14_11: {
-    id: 'scene_sls14_11',
-    title: '众僧喝彩 · 移步碑廊',
-    subtitle: '大雄宝殿方丈院 · 钟鼓禅院 · 演武坪',
-    mandatory: true,
-    beats: [
-      N('演武坪四周爆发出山呼海啸般的掌声与赞叹声，铁桥与洪刚亦快步上前拱手致敬，南北同门之间毫无芥蒂，唯有惺惺相惜。'),
-      S('NPC-0156', '“好一场龙争虎斗！南北少林同根同源，今日这场印证足以载入寺志。诸位方才激战耗气，老衲已在【东厢碑廊 · 藏经橱】备下嵩山松针清茶，请随我移步叙话！”'),
-      S('NPC-0164', '“正有几句铁线拳的运劲秘诀，愿于茶席间赠予师兄印证！”'),
+      S(
+        'NPC-0164',
+        '“哈哈哈！痛快！真是平生未有之痛快！嵩山祖庭竟有师兄这般人物，收放之间犹有余力留情半寸！这一战，贫僧输得心服口服！”',
+      ),
+      S(
+        'NPC-0156',
+        '“好一场龙争虎斗！南北少林同根同源，今日印证足以载入寺志。老衲已在【东厢碑廊 · 藏经橱】备下嵩山松针清茶，诸位请移步叙话！”',
+      ),
     ],
     onFinishEffects: [
       setStep(SHAOLIN_SIDE14_QUEST_ID, 'corridor_tea_gift'),
-      toast('巅峰切磋圆满获胜！请前往【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】共品清茶。', 'success', '铁线争锋'),
+      toast('切磋圆满获胜！请前往【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】共品清茶。', 'success', '铁线争锋'),
     ],
   },
 
-  scene_sls14_12: {
-    id: 'scene_sls14_12',
-    title: '碑廊清茗 · 共论禅武',
+  scene_sls14_07: {
+    id: 'scene_sls14_07',
+    title: '碑廊清茗 · 茶廊论艺',
     subtitle: '大雄宝殿方丈院 · 东厢碑廊 · 藏经橱',
     illustrationUrl: '/assets/quests/sl_s14_iron_wire_gift.jpg',
     illustrationCaption: '东厢碑廊松烟袅袅，元通首座手书《铁线拳》运劲秘诀相赠北宗同门',
     mandatory: true,
     beats: [
-      N('东厢碑廊古碑林立，案上嵩山松针茶清香四溢。玄痛长老与元通、铁桥、洪刚诸僧围案而坐，畅论南北少林数百年来拳脉分合与护国安民之志，言谈甚欢。'),
-      N('茶过三巡，元通首座从怀中郑重取出一卷抄录工整的蓝布手札，双手推至你面前。'),
-      S('NPC-0164', '“师兄，此卷乃我莆田南少林秘传《铁线拳》运劲呼吸口诀，讲究『刚而不僵、柔而不软，以十二桥手合五脏之音』。今日见师兄禅武双修、胸怀宽广，这卷心法留予师兄，方不算明珠暗投！”'),
+      N('东厢碑廊古碑林立，案上嵩山松针茶清香四溢。玄痛长老与元通、铁桥、洪刚围案而坐，畅论南北少林数百年来拳脉分合与护国安民之志，言谈甚欢。'),
+      N('茶过三巡，元通首座从怀中郑重取出一卷抄录工整的蓝布手札，双手推至你面前，眼中满是惜才敬重之意。'),
+      S(
+        'NPC-0164',
+        '“师兄，此卷乃我莆田南少林秘传《铁线拳》运劲呼吸口诀，讲究『刚而不僵、柔而不软，以十二桥手合五脏之音』。今日见师兄禅武双修，这卷心法留予师兄印证，方不算明珠暗投！”',
+      ),
+      N('见南宗大首座如此破除门户之见、慨赠绝艺，你双手微顿，茶席之上你决意如何回礼论艺？'),
     ],
-    onFinishEffects: [openScene('scene_sls14_13', SHAOLIN_SIDE14_QUEST_ID)],
+    choices: [
+      {
+        id: 'tea_share_foundation',
+        label: '【倾囊相告】将自己对少林筑基心法与北宗行气转圜的体悟全盘相授，互换禅武心得',
+        subLabel: '获授《铁线拳》且元通大喜，额外大增好感与江湖声望（禅心慈悲 +1）',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s14_tea_choice', value: 'share' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s14_tea_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s14_tea_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+            ],
+          },
+          openScene('scene_sls14_08', SHAOLIN_SIDE14_QUEST_ID),
+        ],
+      },
+      {
+        id: 'tea_humble_inquire',
+        label: '【谦逊请教】虚心求问南派十二桥手化劲与鼻息吐纳之精要，细细记下每处法门',
+        subLabel: '获元通倾心点拨并受赠《铁线拳》秘录',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s14_tea_choice', value: 'humble' },
+          openScene('scene_sls14_08', SHAOLIN_SIDE14_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_sls14_13: {
-    id: 'scene_sls14_13',
+  scene_sls14_08: {
+    id: 'scene_sls14_08',
     title: '铁线传薪 · 融会贯通',
     subtitle: '大雄宝殿方丈院 · 东厢碑廊 · 藏经橱',
     mandatory: true,
     beats: [
-      N('你双手接过蓝布手札细细翻阅，只觉其中关于桥手蓄劲、鼻息吞吐的批注字字珠玑，与嵩山内功心法相互印证之下，竟生出许多前所未有的武道妙悟！'),
-      S('NPC-0156', '“阿弥陀佛。元通大师破除门户之见，慨赠南宗精髓，老衲代嵩山少林谢过！你既得此机缘，若尚未修习《铁线拳》，正好借此入门；若早已学成，亦可借此卷细参印证，化作深厚修为！”'),
+      N('{ifFlagEq:sl_s14_tea_choice=share|你毫不藏私，将嵩山筑基内功中「以静养动、气沉涌泉」的心得娓娓道来，更当场以指蘸茶水在青石案上勾勒行气经络。元通听得拍案叫绝，连声赞叹困扰多年的刚柔转换瓶颈豁然洞开！|你虚心执礼请教南宗十二桥手沉肩坠肘与以声催气之要，元通见你胜而不骄、求道赤诚，当即在茶案旁逐式拆解演示，将三十年苦练窍门倾囊相授！}'),
+      N('你双手接过蓝布手札细细翻阅，只觉其中关于桥手蓄劲、鼻息吞吐的批注字字珠玑，与嵩山心法相互印证之下，胸中顿生诸多前所未有的武道妙悟。'),
+      S(
+        'NPC-0156',
+        '“阿弥陀佛！南北少林破除门户之见，此乃达摩祖师最乐见之事。你若尚未修习《铁线拳》，正好借此入门；若早已学成，亦可借此卷细参印证，化作深厚修为！”',
+      ),
       P('“多谢元通首座与二位师兄厚赠！南北少林同气连枝，这份情谊弟子铭刻肺腑！”'),
     ],
-    onFinishEffects: [openScene('scene_sls14_14', SHAOLIN_SIDE14_QUEST_ID)],
+    onFinishEffects: [openScene('scene_sls14_09', SHAOLIN_SIDE14_QUEST_ID)],
   },
 
-  scene_sls14_14: {
-    id: 'scene_sls14_14',
+  scene_sls14_09: {
+    id: 'scene_sls14_09',
     title: '南北同源 · 挥袖相别',
     subtitle: '大雄宝殿方丈院 · 东厢碑廊 · 藏经橱',
     mandatory: true,
     beats: [
-      S('NPC-0164', '“青山不改，绿水长流！来日师兄若再南下福建，莆田九莲山永远为你扫榻以待！”'),
-      N('夕阳映红了少室山脊，你与玄痛长老送元通、铁桥、洪刚三位首座步出碑廊。这场跨越千里的南北少林铁线争锋，很快便在江湖传为一段佳话。'),
+      S(
+        'NPC-0164',
+        '{ifFlagEq:sl_s14_tea_choice=share|“得师兄倾囊印证筑基心法，此番北上真乃满载而归！青山不改，绿水长流，来日师兄若再南下福建，莆田九莲山必倒履相迎！”|“师兄谦冲好学、武德昭然，诚乃北宗翘楚！来日若再南下福建，莆田九莲山永远为你扫榻以待！”}',
+      ),
+      N('夕阳映红了少室山脊，你与玄痛长老送元通、铁桥、洪刚三位首座步出碑廊。这场跨越千里的南北少林铁线争锋与茶廊论艺，很快便在江湖传为一段佳话。'),
     ],
     onFinishEffects: [
-      { type: 'giveCombatExp', amount: 720, reason: '南北少林钟鼓禅院巅峰印证' },
+      { type: 'giveCombatExp', amount: 720, reason: '南北少林钟鼓禅院切磋印证' },
       { type: 'addSectContribution', amount: 240 },
       { type: 'modifyRenown', delta: 70, reason: '南北少林禅武印证名扬中原' },
+      {
+        type: 'branch',
+        condition: { type: 'flag', flag: 'sl_s14_tea_choice', op: 'eq', value: 'share' },
+        thenEffects: [
+          { type: 'modifyRenown', delta: 20, reason: '碑廊倾囊论艺传扬南北少林佳话' },
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0164' }, delta: 18 },
+        ],
+        elseEffects: [
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0164' }, delta: 10 },
+        ],
+      },
       {
         type: 'branch',
         condition: { type: 'learnedArtAtLeast', artId: 'MA-106', minLevel: 1 },
@@ -333,7 +487,7 @@ export const SCENES: Record<string, StorySceneDef> = {
       },
       { type: 'completeQuest', questId: SHAOLIN_SIDE14_QUEST_ID, outcome: 'completed' },
       toast(
-        '【铁线争锋 · 闽僧北访】圆满完成！实战经验 +720，门派贡献 +240，声望 +70！',
+        '【铁线争锋 · 闽僧北访】圆满完成！实战经验 +720，门派贡献 +240，声望 +70（倾囊论艺另 +20），并获南宗《铁线拳》秘传！',
         'success',
         '铁线争锋',
       ),

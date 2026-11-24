@@ -32,7 +32,7 @@ export const SHAOLIN_SIDE02_QUESTS: QuestDefinition[] = [
     recommendedRealm: '三流中品',
     maxOpponentRealm: '三流中品（黑市书商护院 · 铁背熊）',
     recommendedNote:
-      '嵩山少林寺 Lv.1 外门艺武双修支线（全十幕）。须完成少林外门第二回历练且「书」或「画」造诣 ≥ 20。于东庑碑帖武库院助云游僧净法墨拓修补唐代武僧演武砖雕，逐退偷拓古碑的洛阳黑市书商与恶奴护院「铁背熊」，蒙大金刚僧慧轮嘉许，补授当年入门未选的另一门少林良阶外门武学（《伏虎拳》或《少林齐眉棍》）！',
+      '嵩山少林寺 Lv.1 外门艺武双修支线（全九幕）。须完成少林外门第二回历练且「书」或「画」造诣 ≥ 20。于东庑碑帖武库院助云游僧净法墨拓修补唐代武僧演武砖雕，以书画鉴伪识破黑市奸商暗夹硫酸腐液毁碑图谋或正面护碑击退护院「铁背熊」，自择拓本归属，蒙慧轮嘉许补授另一门少林良阶拳棍绝学！',
     startHint:
       '完成少林外门第二回历练且书或画造诣 ≥ 20 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 东庑碑帖武库院】寻云游僧净法即可接取。',
     startLocation: {
@@ -43,7 +43,7 @@ export const SHAOLIN_SIDE02_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE02_START_CONDITION,
     summary:
-      '{reignYear}嵩山秋意渐浓，【东庑碑帖武库院】中数方唐代少林武僧演武砖雕因风雨剥蚀日渐漫漶。云游僧【净法】见你书画造诣不俗，邀你共敷宣纸、施松烟墨拓印留存古碑真迹。岂料洛阳黑市奸商垂涎古拓重利，竟携三流中品恶奴护院【铁背熊】暗入碑院企图强抢并凿取残砖！你于碑廊之间临危迎敌，以刚柔并济之势击退铁背熊、护全古碑与拓本。大金刚僧【慧轮】闻讯赶来，赞你艺武双全、好学不倦，当即补授你当年外门择艺时未选的另一门良阶绝学，使你达成拳棍双修之境。',
+      '{reignYear}嵩山秋意渐浓，【东庑碑帖武库院】中数方唐代少林武僧演武砖雕因风雨剥蚀日渐漫漶。云游僧【净法】慕你南麓止争威名与书画功底，邀你共施松烟墨拓印留存古碑真迹。岂料洛阳黑市书商贾文赝携恶奴护院【铁背熊】潜入碑院，竟妄图强拓后泼洒硫酸腐液毁碑以抬高孤本价码！你或以书画鉴伪当众点破其伪印腐液惊退帮凶、或横身硬撼逐退群恶，终护全古碑与拓本。大金刚僧【慧轮】闻讯盛赞，依你当年南麓择艺补授另一门外门上品武学，成拳棍双修之基。',
     initialStepId: 'stele_rubbing_guard',
     steps: {
       stele_rubbing_guard: {
@@ -79,7 +79,7 @@ export const SHAOLIN_SIDE02_QUESTS: QuestDefinition[] = [
         spotId: 'sl_luohan_west',
         onceFlag: 'sl_side02_rubbing_triggered',
         condition: atStep(SHAOLIN_SIDE02_QUEST_ID, 'stele_rubbing_guard'),
-        effects: [openScene('scene_sls02_03', SHAOLIN_SIDE02_QUEST_ID)],
+        effects: [openScene('scene_sls02_02', SHAOLIN_SIDE02_QUEST_ID)],
       },
     ],
 
@@ -114,8 +114,8 @@ export const SHAOLIN_SIDE02_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side02_bear_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls02_06', SHAOLIN_SIDE02_QUEST_ID)],
-            elseEffects: [openScene('scene_sls02_03', SHAOLIN_SIDE02_QUEST_ID)],
+            thenEffects: [openScene('scene_sls02_04', SHAOLIN_SIDE02_QUEST_ID)],
+            elseEffects: [openScene('scene_sls02_02', SHAOLIN_SIDE02_QUEST_ID)],
           },
         ],
       },
@@ -160,8 +160,8 @@ export const SHAOLIN_SIDE02_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side02_bear_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls02_06', SHAOLIN_SIDE02_QUEST_ID)],
-            elseEffects: [openScene('scene_sls02_03', SHAOLIN_SIDE02_QUEST_ID)],
+            thenEffects: [openScene('scene_sls02_04', SHAOLIN_SIDE02_QUEST_ID)],
+            elseEffects: [openScene('scene_sls02_02', SHAOLIN_SIDE02_QUEST_ID)],
           },
         ],
       },

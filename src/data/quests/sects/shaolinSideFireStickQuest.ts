@@ -23,7 +23,7 @@ export const SHAOLIN_SIDE01_QUESTS: QuestDefinition[] = [
     recommendedRealm: '不入流 ～ 三流下品',
     maxOpponentRealm: '三流下品（偷粮贼首 · 瘦猴孙七）',
     recommendedNote:
-      '嵩山少林寺 Lv.1 外门日常支线（全十幕）。于罗汉堂演武正殿偶遇虚真与自汴梁大相国寺回山述职的烧火僧觉尘，助大斋堂担水添薪并在夜半以焦黑烧火棍击退潜入粮仓的偷粮三贼，悟得《少林烧火棍》并获赠老枣木【少室灶房烧火棍】。',
+      '嵩山少林寺 Lv.1 外门日常支线（全九幕）。于罗汉堂演武正殿偶遇虚真与自汴梁大相国寺回山述职的烧火僧觉尘，助大斋堂担水添薪、战前获授《少林烧火棍》与老枣木【少室灶房烧火棍】，夜半于灶房以灶灰布阵、施斋化贼或正面对敌三策拿获偷粮贼首瘦猴孙七，并自决初犯发落。',
     startHint:
       '正式拜入少林外门后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿】寻虚真即可触发大斋堂帮厨奇遇。',
     startLocation: {
@@ -34,7 +34,7 @@ export const SHAOLIN_SIDE01_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_SIDE01_START_CONDITION,
     summary:
-      '{reignYear}汴梁大相国寺烧火僧【觉尘】奉差回嵩山述职，与【虚真】在罗汉堂大斋堂劈柴生火、筹备千僧斋粮。你热心上前担水添薪，无意间得觉尘点拨灶膛拨火捅灰的刁钻巧劲。是夜三更，三名偷粮毛贼潜入大斋堂粮仓，你仓促间顺手抄起灶旁焦黑老枣木烧火棍，在觉尘口诀指点下连戳三贼下盘，将贼首【瘦猴孙七】与两名同伙打得满脸锅底乌灰、连连求饶，不仅惹得满院僧众哄堂大笑，更一举悟透质朴奇诡的《少林烧火棍》。',
+      '{reignYear}汴梁大相国寺烧火僧【觉尘】奉差回嵩山述职，与【虚真】在罗汉堂大斋堂劈柴生火、筹备千僧斋粮。你热心上前担水添薪，得觉尘临灶传授《少林烧火棍》拨火刁钻巧劲，并先手相借焦黑老枣木【少室灶房烧火棍】。是夜三更，偷粮贼首【瘦猴孙七】携两名同伙翻窗潜入粮仓。你或撒松灰辨步巧捉、或施冷馒感化饥盗、或持棍正面破贼，终将贼首打得满脸锅底乌灰、连连求饶，不仅护住千僧斋粮，更悟透质朴奇诡的《少林烧火棍》真意。',
     initialStepId: 'kitchen_night_watch',
     steps: {
       kitchen_night_watch: {
@@ -70,7 +70,7 @@ export const SHAOLIN_SIDE01_QUESTS: QuestDefinition[] = [
         spotId: 'sl_luohan_main',
         onceFlag: 'sl_side01_watch_triggered',
         condition: atStep(SHAOLIN_SIDE01_QUEST_ID, 'kitchen_night_watch'),
-        effects: [openScene('scene_sls01_03', SHAOLIN_SIDE01_QUEST_ID)],
+        effects: [openScene('scene_sls01_02', SHAOLIN_SIDE01_QUEST_ID)],
       },
     ],
 
@@ -105,8 +105,8 @@ export const SHAOLIN_SIDE01_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side01_thieves_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls01_07', SHAOLIN_SIDE01_QUEST_ID)],
-            elseEffects: [openScene('scene_sls01_03', SHAOLIN_SIDE01_QUEST_ID)],
+            thenEffects: [openScene('scene_sls01_04', SHAOLIN_SIDE01_QUEST_ID)],
+            elseEffects: [openScene('scene_sls01_02', SHAOLIN_SIDE01_QUEST_ID)],
           },
         ],
       },
@@ -151,8 +151,8 @@ export const SHAOLIN_SIDE01_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_side01_thieves_ready', op: 'truthy' },
-            thenEffects: [openScene('scene_sls01_07', SHAOLIN_SIDE01_QUEST_ID)],
-            elseEffects: [openScene('scene_sls01_03', SHAOLIN_SIDE01_QUEST_ID)],
+            thenEffects: [openScene('scene_sls01_04', SHAOLIN_SIDE01_QUEST_ID)],
+            elseEffects: [openScene('scene_sls01_02', SHAOLIN_SIDE01_QUEST_ID)],
           },
         ],
       },

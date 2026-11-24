@@ -36,7 +36,34 @@ function buildPoisonNeedleShadow(): NodeNpc {
     stats: { hp: 1620, mp: 1360, agi: 57, res: 38 },
     talents: { bone: 64, comprehension: 58, charm: 30 },
     equippedArts: { neigong: 'MA-142', move1: 'MA-155', move2: 'MA-137' },
-    learnedArts: [{ artId: 'MA-142', level: 5 }, { artId: 'MA-155', level: 6 }, { artId: 'MA-137', level: 5 }],
+    learnedArts: [
+      { artId: 'MA-142', level: 5 },
+      { artId: 'MA-155', level: 6 },
+      { artId: 'MA-137', level: 5 },
+    ],
+  })
+}
+
+function buildPoisonNeedleShadowExposed(): NodeNpc {
+  return makeQuestNpc({
+    id: 'QUEST_SLS08_POISON_SHADOW_EXPOSED',
+    name: '毒针影',
+    title: '仓促迎战的暗器首领 · 毒针影',
+    realm: '二流上品',
+    factionName: '关西暗杀堂',
+    sectRank: 0,
+    sectRankLabel: '暗器首领',
+    avatarUrl: '/assets/characters/templates/tpl_tangmen_male_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_tangmen_male_fb.jpg',
+    talk: '“好贼秃，竟一眼看穿老子易容！纵然两名死士被你震开，我这袖里毒针照样取你性命！”',
+    stats: { hp: 1380, mp: 1160, agi: 51, res: 33 },
+    talents: { bone: 64, comprehension: 58, charm: 30 },
+    equippedArts: { neigong: 'MA-142', move1: 'MA-155', move2: 'MA-137' },
+    learnedArts: [
+      { artId: 'MA-142', level: 5 },
+      { artId: 'MA-155', level: 5 },
+      { artId: 'MA-137', level: 5 },
+    ],
   })
 }
 
@@ -55,7 +82,11 @@ function buildAssassinMinion1(): NodeNpc {
     stats: { hp: 960, mp: 780, agi: 46, res: 24 },
     talents: { bone: 54, comprehension: 48, charm: 25 },
     equippedArts: { neigong: 'MA-121', move1: 'MA-175', move2: 'MA-131' },
-    learnedArts: [{ artId: 'MA-121', level: 4 }, { artId: 'MA-175', level: 5 }, { artId: 'MA-131', level: 4 }],
+    learnedArts: [
+      { artId: 'MA-121', level: 4 },
+      { artId: 'MA-175', level: 5 },
+      { artId: 'MA-131', level: 4 },
+    ],
   })
 }
 
@@ -74,69 +105,69 @@ function buildAssassinMinion2(): NodeNpc {
     stats: { hp: 940, mp: 760, agi: 47, res: 24 },
     talents: { bone: 52, comprehension: 46, charm: 24 },
     equippedArts: { neigong: 'MA-121', move1: 'MA-155', move2: 'MA-133' },
-    learnedArts: [{ artId: 'MA-121', level: 4 }, { artId: 'MA-155', level: 5 }, { artId: 'MA-133', level: 4 }],
+    learnedArts: [
+      { artId: 'MA-121', level: 4 },
+      { artId: 'MA-155', level: 5 },
+      { artId: 'MA-133', level: 4 },
+    ],
   })
 }
 
 export const SCENES: Record<string, StorySceneDef> = {
   scene_sls08_01: {
     id: 'scene_sls08_01',
-    title: '第一幕 · 洛阳贺寿',
+    title: '第一幕 · 洛阳贺寿 · 亭中拜谒',
     subtitle: '洛阳府 · 金刀王家大宅 · 翠竹曲水藏刀八角亭',
     mandatory: true,
     beats: [
-      N('{reignYear}洛阳牡丹初绽，金刀王家大宅张灯结彩、宾客云集。今日乃“金刀老爷子”王元霸六秩寿诞，你奉嵩山少林寺之命携贺礼檀香佛珠前来拜寿，行至翠竹曲水藏刀八角亭，先遇上了在此担任护院的少林俗家弟子虚净。'),
-      S('NPC-0667', '（迎上前合十行礼）“阿弥陀佛！本山师兄远道而来辛苦了！王老爷子素来敬重嵩山少林，每逢中原抗辽义举皆倾囊相助，今日听说少林派内门高足亲至，高兴得合不拢嘴呢！”'),
-      P('（还礼微笑）“王老爷子义薄云天，本寺方丈亦常赞誉。今日大宅宾客众多，不知府中各处防务可还妥当？”'),
+      N('{reignYear}洛阳牡丹初绽，金刀王家大宅张灯结彩、宾客云集。你奉嵩山少林寺之命携檀香佛珠前来祝贺家主王元霸六秩寿诞，刚入翠竹曲水藏刀八角亭，便遇上在此护院的少林俗家弟子虚净。'),
+      S('NPC-0667', '（迎上前合十行礼）“阿弥陀佛！本山师兄远道而来辛苦了！王老爷子素来敬重嵩山少林，每逢中原义举皆倾囊相助，今日听说少林内门高足亲至，高兴得合不拢嘴呢！”'),
+      N('话音未落，一阵洪亮笑声自竹林曲桥传来。只见王元霸身着绛紫团花锦袍，须发微霜却虎步生风，双手托着一对鎏金铁胆大步步入八角亭中。'),
+      S('NPC-0186', '（抱拳朗笑）“哈哈哈哈！贵客临门，有失远迎！少林寺派你这般英气勃勃的内门俊彦来给老夫拜寿，比送十箱黄金还令老夫开怀！快随老夫移步中庭观演武、吃寿茶！”'),
+      P('（双手奉上嵩山檀香佛珠与方丈贺柬）“晚辈奉嵩山少林方丈之命，恭祝王老爷子福如东海、金刀常啸！”'),
     ],
     onFinishEffects: [openScene('scene_sls08_02', SHAOLIN_SIDE08_QUEST_ID)],
   },
 
   scene_sls08_02: {
     id: 'scene_sls08_02',
-    title: '第二幕 · 亭中拜谒',
-    subtitle: '翠竹曲水藏刀八角亭',
-    mandatory: true,
-    beats: [
-      N('话音未落，一阵洪亮笑声自竹林曲桥传来。只见王元霸身着绛紫团花锦袍，须发虽微霜却虎步生风，双手托着一对鎏金铁胆大步走入八角亭中。'),
-      S('NPC-0186', '（抱拳朗笑）“哈哈哈哈！贵客临门，有失远迎！少林寺派你这般英气勃勃的内门俊彦来给老夫拜寿，比送十箱黄金还令老夫开怀！虚净，快请上茶！”'),
-      P('（双手奉上嵩山檀香佛珠与方丈贺柬）“晚辈奉嵩山少林方丈之命，恭祝王老爷子福如东海、金刀常啸！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls08_03', SHAOLIN_SIDE08_QUEST_ID)],
-  },
-
-  scene_sls08_03: {
-    id: 'scene_sls08_03',
-    title: '第三幕 · 戏班疑云',
+    title: '第二幕 · 暗流浮影 · 亭畔筹防',
     subtitle: '翠竹曲水藏刀八角亭 · 曲水畔',
     mandatory: true,
     beats: [
-      N('王元霸正欲引你赴中庭观演武、看大戏，却见一名青衣家丁匆匆报称新请来的“庆云杂剧班”已在中庭搭好戏台。你隔着翠竹疏影望去，眉头却微微一蹙。'),
-      P('（压低声音对虚净道）“虚净师弟，你看那三个抬道具箱的戏班武生——寻常梨园子弟步履轻浮，这三人抬着沉重红漆木箱却脚尖着地、呼吸绵长，袖口沉甸甸的仿佛暗藏机括！”'),
-      S('NPC-0667', '（脸色微变）“师兄好眼力！近来听闻王老爷子早年剿灭关西马贼时结下的死仇曾扬言报复……只是今日满堂贵客，若无实据贸然拿人，恐扫了寿宴兴致。”'),
-    ],
-    onFinishEffects: [openScene('scene_sls08_04', SHAOLIN_SIDE08_QUEST_ID)],
-  },
-
-  scene_sls08_04: {
-    id: 'scene_sls08_04',
-    title: '第四幕 · 暗中布防',
-    subtitle: '翠竹曲水藏刀八角亭',
-    mandatory: true,
-    beats: [
-      P('（从容筹划）“宁可备而无患，不可疏而招祸。虚净你先随王老爷子从容入席，莫要打草惊蛇；我去中庭知会虚慧师弟暗中守住东西角门，我则贴身坐于王老爷子身侧紧盯戏台动静。”'),
-      S('NPC-0667', '“师兄谋划周全！这就移步金刀石锁演武中庭！”'),
+      N('王元霸爽朗先行赴中庭招呼洛阳群豪，虚净却暗中拉住你衣袖，神色凝重地指向曲桥外熙攘的宾客与往来仆役。'),
+      S('NPC-0667', '（压低声音）“师兄，方才河洛镖局传来暗信——王老爷子早年剿灭关西马贼时结下的死仇，竟重金雇了关西暗器杀手【毒针影】与两名死士，扬言今日混入寿宴血洗主桌！”'),
+      P('（目光微敛）“满堂皆是洛阳乡绅与武林同道，若无实据贸然搜查，非但扫了王老爷子寿兴，更恐惊动刺客狗急跳墙、伤及无辜妇孺。”'),
+      S('NPC-0667', '“虚慧师弟已暗中守在中庭东廊盯防。眼下中庭演武即将开场，师兄打算如何暗中布防？”'),
     ],
     choices: [
       {
-        id: 'sls08_accept',
-        label: '暗中戒备，移步【金刀石锁演武中庭】护卫王元霸寿宴',
+        id: 'sls08_prep_observe',
+        label: '【佯装赏武 · 细察宾客与仆役手眼】嘱虚净伴随寿星，自己留心贴近主桌之人细微破绽',
+        subLabel: '承接支线【金刀寿宴 · 洛阳暗箭】，移步金刀石锁演武中庭',
         tone: 'gold',
         effects: [
+          { type: 'setFlag', flag: 'sl_s08_prep', value: 'observe' },
           { type: 'startQuest', questId: SHAOLIN_SIDE08_QUEST_ID, stepId: 'courtyard_banquet' },
           setStep(SHAOLIN_SIDE08_QUEST_ID, 'courtyard_banquet'),
           toast(
-            '已察觉戏班暗藏杀机！请前往【金刀王家大宅 · 金刀石锁演武中庭（ly_jd_courtyard）】护卫寿宴。',
+            '已暗中戒备！请前往【金刀王家大宅 · 金刀石锁演武中庭（ly_jd_courtyard）】察看寿宴动静。',
+            'talk',
+            '金刀寿宴',
+          ),
+        ],
+      },
+      {
+        id: 'sls08_prep_guard',
+        label: '【密嘱封锁角门 · 贴身护持主桌】嘱虚净、虚慧盯紧东西角门，自己坐于主桌侧翼见机行事',
+        subLabel: '承接支线【金刀寿宴 · 洛阳暗箭】，移步金刀石锁演武中庭',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s08_prep', value: 'guard' },
+          { type: 'startQuest', questId: SHAOLIN_SIDE08_QUEST_ID, stepId: 'courtyard_banquet' },
+          setStep(SHAOLIN_SIDE08_QUEST_ID, 'courtyard_banquet'),
+          toast(
+            '已布好中庭暗防！请前往【金刀王家大宅 · 金刀石锁演武中庭（ly_jd_courtyard）】护卫王元霸寿宴。',
             'talk',
             '金刀寿宴',
           ),
@@ -145,105 +176,146 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_sls08_05: {
-    id: 'scene_sls08_05',
-    title: '第五幕 · 中庭演武',
-    subtitle: '金刀王家大宅 · 金刀石锁演武中庭',
+  scene_sls08_03: {
+    id: 'scene_sls08_03',
+    title: '第三幕 · 筵席辨奸 · 三疑现形',
+    subtitle: '金刀石锁演武中庭 · 寿宴推理',
     mandatory: true,
     beats: [
-      N('金刀石锁演武中庭摆开二十余桌流水寿席，王家子弟正轮番上场演练祖传《洛阳金刀谱》，刀光霍霍引得满座喝彩。虚慧早已得你传音，按兵不动地守在东廊柱后。'),
-      S('NPC-0737', '（以微不可闻的嗓音低语）“师兄，那三名可疑武生方才借口换戏服，将一只长条铁箍木箱搬到了离主桌不到三丈的戏台前沿，目光一直死死锁着王老爷子！”'),
-      P('“盯紧他们手势！待锣鼓最响、众人拍手叫好之时，便是他们发难的一刻！”'),
+      N('金刀石锁演武中庭摆开二十余桌流水寿席，王家子弟正演练祖传《洛阳金刀谱》，刀风霍霍、喝彩震天。{ifFlagEq:sl_s08_prep=observe|你借斟茶之机缓步巡视主桌三丈之内，目光如电扫过每一张面孔；|你贴身坐于王元霸左侧，与东廊柱后的虚慧交换眼色，凝神扫视正朝主桌靠拢的人群；}虚慧以手势暗指席间，竟有三名举止微异之人恰在此时聚近主桌！'),
+      N('其一，席边一名满脸虬髯的醉酒镖头满口江湖粗话，一手拎着酒坛大声嚷嚷着当年押镖旧事，脚步摇晃间却一连三次贴近锣鼓架与戏箱，腰间宽带鼓鼓囊囊；'),
+      N('其二，主桌后方一名低眉顺眼的青衣斟酒仆役手托雕花漆盘，盘中那盏替王元霸备好的凉茶自开席便未见热气、旁人亦未动过一口；你偶瞥其托盘左手，见他虎口竟长满一层细密发黑的铁针老茧，藏在帽檐下的双眼更是毫无喜色，冷冰冰死死盯住王元霸的后心大穴！'),
+      N('其三，西廊入口一名满头大汗的洛阳绸缎商正急切地捧着一只长条红漆锦匣，频频垫脚朝王元霸招手挤过护院，口中直催着要趁演武收招前亲手献上“镇店奇珍”。'),
+      N('恰在此时，演武场大锣猛然高举将敲——满座欢声即将达到顶峰！千钧一发之间，你断定真正的关西刺客首领究竟是哪一人？'),
     ],
-    onFinishEffects: [openScene('scene_sls08_06', SHAOLIN_SIDE08_QUEST_ID)],
+    choices: [
+      {
+        id: 'sls08_pick_escort',
+        label: '指向满口江湖粗话、脚步屡屡逼近鼓架戏箱的醉酒镖头',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s08_guess', value: 'escort' },
+          { type: 'setFlag', flag: 'sl_s08_assassin_spotted', value: false },
+          openScene('scene_sls08_04', SHAOLIN_SIDE08_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls08_pick_servant',
+        label: '指向左手虎口满布铁针老茧、端着凉茶冷眼盯住寿星后心的青衣斟酒仆役',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s08_guess', value: 'servant' },
+          { type: 'setFlag', flag: 'sl_s08_assassin_spotted', value: true },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s08_spot_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s08_spot_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 2 },
+            ],
+          },
+          openScene('scene_sls08_04', SHAOLIN_SIDE08_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls08_pick_merchant',
+        label: '指向怀抱长条红漆锦匣、神色焦躁急着挤向主桌献礼的洛阳绸缎商',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s08_guess', value: 'merchant' },
+          { type: 'setFlag', flag: 'sl_s08_assassin_spotted', value: false },
+          openScene('scene_sls08_04', SHAOLIN_SIDE08_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_sls08_06: {
-    id: 'scene_sls08_06',
-    title: '第六幕 · 锣鼓骤变',
-    subtitle: '金刀石锁演武中庭 · 寿席主桌',
-    mandatory: true,
-    beats: [
-      N('恰在此时，王家子弟一式“金刀劈浪”收招，满场轰然叫好，戏台上大锣猛敲三记！王元霸哈哈大笑举杯欲饮，恰是全身空门大开之瞬间！'),
-      N('说时迟那时快，戏台前沿那三名浓妆武生陡然撕破戏袍，露出玄黑夜行劲装！为首瘦长汉子狞笑一声，猛拍红漆木箱暗簧，数十枚淬着幽蓝剧毒的机括短箭与牛毛毒针如骤雨般直扑王元霸面门！'),
-      S(SPEAKER_ASSASSIN_BOSS, '“王元霸！关西血债今日血偿，纳命来吧！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls08_07', SHAOLIN_SIDE08_QUEST_ID)],
-  },
-
-  scene_sls08_07: {
-    id: 'scene_sls08_07',
-    title: '第七幕 · 掀桌挡箭',
+  scene_sls08_04: {
+    id: 'scene_sls08_04',
+    title: '第四幕 · 掀桌破箭 · 杀机暴发',
     subtitle: '金刀石锁演武中庭 · 千钧一发',
     illustrationUrl: '/assets/quests/sl_s08_jindao_arrows.jpg',
     illustrationCaption: '洛阳暗箭 · 疾步掀翻紫檀八仙桌，凌空挡下漫天淬毒袖箭',
     mandatory: true,
     beats: [
-      N('宾客惊呼四起，王元霸虽身怀绝艺却正值举杯无兵，眼看毒箭已至三尺之内！电光石火间，你早有提防，一声沉喝气沉丹田，双掌猛托身前沉重的紫檀八仙桌，凌空掀立挡在王元霸身前！'),
-      N('“咄咄咄咄——”数十支幽蓝毒箭与细如发丝的毒针尽数钉入厚实紫檀桌面，箭尾嗡嗡颤抖，竟无一支漏过！酒盏菜肴泼洒满地，王元霸与满席老幼安然无恙！'),
-      S('NPC-0186', '（惊怒交加，反手自侍卫手中夺过百炼金刀）“好贼子，竟敢在老夫寿诞施放毒箭！小师父救命之恩，老夫铭记在心！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls08_08', SHAOLIN_SIDE08_QUEST_ID)],
-  },
-
-  scene_sls08_08: {
-    id: 'scene_sls08_08',
-    title: '第八幕 · 护宾截敌',
-    subtitle: '金刀石锁演武中庭',
-    mandatory: true,
-    beats: [
-      N('毒针影一击失手，眼中杀机更炽，长啸一声率两名死士纵身跃下戏台，欲趁人群混乱强行近身搏杀！'),
-      P('（将插满毒箭的八仙桌震向前方逼退刺客，朗声调度）“王老爷子与虚净、虚慧师弟速护宾客退入后廊，谨防余党混入人群！这三个暗器刺客交由弟子来截住！”'),
-      S('NPC-0667', '“师兄小心！那首领乃是关西恶名昭彰的暗器杀手【毒针影】，袖中机括阴毒无比！”'),
-    ],
-    onFinishEffects: [openScene('scene_sls08_09', SHAOLIN_SIDE08_QUEST_ID)],
-  },
-
-  scene_sls08_09: {
-    id: 'scene_sls08_09',
-    title: '第九幕 · 三煞合围',
-    subtitle: '金刀石锁演武中庭 · 庭心恶斗',
-    mandatory: true,
-    beats: [
-      S(SPEAKER_ASSASSIN_A, '（怪笑连连，甩出三枚金钱镖封住你左翼）“哪来的少林多事和尚，真以为凭一己之力能拦住我关西暗杀堂三人联手？”'),
-      S(SPEAKER_ASSASSIN_BOSS, '（十指扣满追魂夺命镖，身形如鬼魅般游走）“坏我三千两黄金的大买卖，今日便先拿你这少林内门僧祭旗！”'),
-      N('你沉肩坠肘，以浑厚少林内力护住周身要穴，大步踏入中庭石锁阵间，独自迎上关西三煞！'),
+      N('{ifFlagEq:sl_s08_guess=servant|电光石火之间，你一声沉喝如平地惊雷，左手一拂掀翻那青衣仆役托盘中的幽碧毒茶，右手同时猛托紫檀八仙桌狠狠撞向戏台前沿！“轰隆”一声巨响，藏于桌下与戏箱后的两名死士冷袖鬼、青竹蛇还未来得及按动暗簧，已被沉重桌案与漫天碎瓷震退丈余，登时被早有防备的虚净、虚慧与王家护院合围死锁！|}{ifFlagEq:sl_s08_guess=escort|你箭步抢上先截住那醉酒镖头，对方大呼冤枉，腰间揣的不过是两锭贺礼元宝！恰在锣声轰鸣的刹那，主桌后方那名青衣斟酒仆役骤然暴起，扯碎青衣露出玄黑劲装，与戏台下跃出的两名死士齐发数十枚幽蓝淬毒袖箭直扑王元霸后心！|}{ifFlagEq:sl_s08_guess=merchant|你箭步抢上先截住那绸缎商，对方吓得跌坐于地，红漆锦匣滚出一轴寻常祝寿蜀锦！恰在锣声轰鸣的刹那，主桌后方那名青衣斟酒仆役骤然暴起，扯碎青衣露出玄黑劲装，与戏台下跃出的两名死士齐发数十枚幽蓝淬毒袖箭直扑王元霸后心！|}'),
+      N('{ifFlag:sl_s08_assassin_spotted|那青衣仆役眼见偷袭败露、同伙受制，袖筒暗簧仓促扣动射出十余枚牛毛毒针，尽数叮叮当当钉入你横举的紫檀桌面！王元霸与满席老幼分毫无损，那仆役撕下易容假须，露出阴鸷冷笑——正是关西暗器首领【毒针影】！|千钧一发之际，你回身暴喝、气沉丹田，双掌猛掀沉重紫檀八仙桌凌空挡于王元霸身前！“咄咄咄咄——”数十支幽蓝毒箭尽数钉入厚实桌面，箭尾嗡嗡颤抖，竟无一支漏过！酒菜倾翻满地，王元霸安然无恙，反手自侍卫手中夺过百炼金刀！}'),
+      S('NPC-0186', '（惊怒交加，怒目圆睁）“好贼子，竟敢易容混入老夫寿诞放毒暗算！小师父救命之恩，老夫铭记在心！”'),
+      S(SPEAKER_ASSASSIN_BOSS, '{ifFlag:sl_s08_assassin_spotted|（十指扣满追魂毒镖，眼中杀意森寒）“好个贼秃，竟一眼看穿我左手虎口练针的老茧！纵然两名手下被你们拦住，老子单凭这双毒手也要先取你性命！”|（与冷袖鬼、青竹蛇成品字形跃入庭心，狞笑喝道）“坏我三千两黄金的大买卖，今日便拿你这少林多事和尚祭我暗杀堂毒镖！”}'),
     ],
     onFinishEffects: [
       { type: 'setFlag', flag: 'sl_side08_assassins_ready', value: true },
-      openScene('scene_sls08_10', SHAOLIN_SIDE08_QUEST_ID),
+      openScene('scene_sls08_05', SHAOLIN_SIDE08_QUEST_ID),
     ],
   },
 
-  scene_sls08_10: {
-    id: 'scene_sls08_10',
-    title: '第十幕 · 力战三刺客',
-    subtitle: '金刀演武中庭 · 车轮连战 激战关西暗器杀手',
+  scene_sls08_05: {
+    id: 'scene_sls08_05',
+    title: '第五幕 · 庭心恶斗 · 截杀暗器堂',
+    subtitle: '金刀演武中庭 · 决战关西暗器杀手',
     mandatory: true,
     beats: [
-      S(SPEAKER_ASSASSIN_BOSS, '“动手！暗器封眼，短刀断脉，绝不能让他近身！”'),
-      N('三名关西刺客呈三角品字形扑来，毒镖短刀交错成网，中庭杀气冲天！'),
+      S(SPEAKER_ASSASSIN_A, '{ifFlag:sl_s08_assassin_spotted|（在走廊外被虚净、虚慧双棍逼退，嘶声大喊）“老大快撤！少林和尚早把咱们看穿了！”|（甩出三枚金钱镖封住左翼，怪笑连连）“兄弟们齐上！暗器封眼，短刀断脉，绝不能让这和尚近身！”}'),
+      P('（将插满毒箭的八仙桌震退半步，朗声喝道）“王老爷子速护宾客退入后廊！这关西暗杀堂的魔爪，便由弟子来斩断！”'),
+      N('你沉肩坠肘、真气护体，大步踏入中庭石锁阵间迎战关西杀手！'),
     ],
     choices: [
       {
-        id: 'sls08_fight_assassins',
-        label: '护住中庭退路，迎战【毒针影（二流上品）】与两名关西暗器死士',
+        id: 'sls08_fight_boss_only',
+        label: '【乘势单擒首领】外围死士已被震退锁拿，1v1 直擒暗器首领【毒针影（二流上品）】',
+        subLabel: '先手识破真刺客 · 跳过两名外围死士，单挑仓促迎战的毒针影',
+        tone: 'jade',
+        condition: { type: 'flag', flag: 'sl_s08_assassin_spotted', op: 'truthy' },
+        hideWhenUnavailable: true,
+        effects: [
+          {
+            type: 'startCombat',
+            questId: SHAOLIN_SIDE08_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildPoisonNeedleShadowExposed() },
+            rule: 'story_trial',
+            forbidEscapeReason: '王家满堂宾客就在身后，岂容刺客首领脱逃！',
+            introText:
+              '【洛阳暗箭 · 先声夺人】两名死士已被同门牵制，1v1 直擒仓促迎战的【毒针影（二流上品）】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls08_06', SHAOLIN_SIDE08_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast(
+                '毒针影连环毒镖阴狠异常，一时受挫！幸得虚净掷出石锁援护，调息后可于【金刀石锁演武中庭】再战。',
+                'warn',
+                '金刀寿宴',
+              ),
+            ],
+          },
+        ],
+      },
+      {
+        id: 'sls08_fight_gauntlet',
+        label: '【车轮死战护宴】以一敌三车轮连战【冷袖鬼】【青竹蛇】与【毒针影（二流上品）】',
+        subLabel: '失察遇袭 · 车轮连战两名关西死士与全盛毒针影',
         tone: 'danger',
+        condition: { type: 'flag', flag: 'sl_s08_assassin_spotted', op: 'falsy' },
+        hideWhenUnavailable: true,
         effects: [
           {
             type: 'startCombat',
             format: 'gauntlet',
             questId: SHAOLIN_SIDE08_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildPoisonNeedleShadow() },
+            opponent: { kind: 'custom', npc: buildAssassinMinion1() },
             extraOpponents: [
-              { kind: 'custom', npc: buildAssassinMinion1() },
               { kind: 'custom', npc: buildAssassinMinion2() },
+              { kind: 'custom', npc: buildPoisonNeedleShadow() },
             ],
             rule: 'story_trial',
             forbidEscapeReason: '王家满堂宾客就在身后，一步不可后退！',
             introText:
-              '【洛阳暗箭】在金刀王家演武中庭迎战关西暗器杀手首领【毒针影（二流上品）】及两名死士！',
-            onWin: [openScene('scene_sls08_11', SHAOLIN_SIDE08_QUEST_ID)],
+              '【洛阳暗箭 · 车轮护宴】先破两名关西死士，再迎暗器首领【毒针影（二流上品）】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_sls08_06', SHAOLIN_SIDE08_QUEST_ID),
+            ],
             onLose: [
               { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               toast(
@@ -258,28 +330,16 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_sls08_11: {
-    id: 'scene_sls08_11',
-    title: '第十一幕 · 破网擒凶',
+  scene_sls08_06: {
+    id: 'scene_sls08_06',
+    title: '第六幕 · 破网擒凶 · 肃清余波',
     subtitle: '金刀石锁演武中庭 · 尘埃落定',
     mandatory: true,
     beats: [
-      N('激战数十合，你借庭中石锁掩护避开毒针影连环毒镖，先以迅雷不及掩耳之势放翻冷袖鬼与青竹蛇，再迎着漫天寒芒欺身直入毒针影怀中，一掌震碎其袖中铜筒机括，将其重重掼倒在青石板上！'),
-      N('王元霸提着百炼金刀大步赶至，虚净与虚慧亦率王家护院合围上来，将三名动弹不得的关西刺客五花大绑。'),
-      S(SPEAKER_ASSASSIN_BOSS, '（咬牙切齿，满脸不甘）“少林功夫……果然名不虚传……”'),
-    ],
-    onFinishEffects: [openScene('scene_sls08_12', SHAOLIN_SIDE08_QUEST_ID)],
-  },
-
-  scene_sls08_12: {
-    id: 'scene_sls08_12',
-    title: '第十二幕 · 肃清余波',
-    subtitle: '金刀石锁演武中庭',
-    mandatory: true,
-    beats: [
-      S('NPC-0186', '（收刀入鞘，望向插满毒箭的紫檀八仙桌，动容抱拳）“若非小师父早早识破戏班破绽、又在危急关头掀桌挡箭，老夫今日非但寿宴成丧宴，连满座洛阳乡绅都要遭殃！”'),
-      S('NPC-0737', '（擦去额汗笑道）“方才我与虚净已搜查过戏班后台，真正的戏班班主被他们绑在柴房里，现已安然解救，绝无漏网之鱼！”'),
-      S('NPC-0186', '“好！将这三个关西恶贼押交洛阳府衙严审！小师父，快随老夫移步【金刀威震正气大厅】，今日老夫定要重开雅席、当着洛阳群豪的面敬少林一杯大茶！”'),
+      N('{ifFlag:sl_s08_assassin_spotted|少了外围死士牵制，毒针影的连环暗器难成合围之势；你借石锁掩护欺身直入其怀，一掌震碎其袖中铜筒机括，将其重重掼倒青石之上！|数十合车轮鏖战过后，你先后放翻冷袖鬼与青竹蛇，终迎着漫天寒芒欺身震碎毒针影袖中铜筒机括，将三名关西刺客尽数制伏于青石板上！}'),
+      S(SPEAKER_ASSASSIN_BOSS, '（咬牙吐血，满脸不甘）“少林功夫……果然名不虚传……关西暗杀堂今日栽得彻底……”'),
+      S('NPC-0737', '（擦去额汗大步奔来）“师兄放心！方才我与虚净搜遍后厨与戏班后台，真正的斟酒老仆与戏班班主都被捆在柴房里，现已安然解救，再无漏网之鱼！”'),
+      S('NPC-0186', '（收刀入鞘，望着插满毒箭的紫檀桌面动容抱拳）“若非小师父明察秋毫、舍身挡箭，老夫今日寿宴险成丧宴！来人，将这三个恶贼锁拿看押！小师父，快随老夫移步【金刀威震正气大厅】，今日老夫定要当着洛阳群豪的面敬少林一杯大茶！”'),
     ],
     choices: [
       {
@@ -298,27 +358,99 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_sls08_13: {
-    id: 'scene_sls08_13',
-    title: '第十三幕 · 正气举盏',
+  scene_sls08_07: {
+    id: 'scene_sls08_07',
+    title: '第七幕 · 正气举盏 · 结盟辞令',
     subtitle: '金刀王家大宅 · 金刀威震正气大厅',
     illustrationUrl: '/assets/quests/sl_s08_alliance_toast.jpg',
     illustrationCaption: '铁血盟谊 · 正气大厅以茶代酒，少林与洛阳金刀王家缔结守望之盟',
     mandatory: true,
     beats: [
-      N('金刀威震正气大厅内灯火辉煌，重整的寿宴气氛更胜先前。王元霸执意邀你坐于首席上座，以清茶代烈酒，高举白玉盏向满堂中原武林豪杰朗声宣告：'),
-      S('NPC-0186', '“诸位英雄见证！今日少林内门高足救老夫于暗箭之下、护满堂宾客于危难之中，其智谋布局与一身正气，令老夫折服！自今日起，洛阳金刀王家与嵩山少林寺便是休戚与共的铁血盟友——凡少林有所需，王家倾尽家资人手，万死不辞！”'),
-      N('满堂豪杰齐声叫好，虚净与虚慧亦深感与有荣焉。你在宴间就中原正道联防、河洛商道护镖之策与王元霸畅谈良久，言辞切中要害，令王老爷子频频击节。'),
+      N('金刀威震正气大厅内灯火辉煌，重整的寿宴气氛更胜先前。王元霸执意邀你坐于首席上座，以清茶代烈酒，高举白玉盏向满堂洛阳豪杰朗声宣告少林护寿大义。'),
+      S('NPC-0186', '“诸位英雄见证！今日少林内门高足救老夫于暗箭之下、护满堂宾客于危难之中！自今日起，洛阳金刀王家与嵩山少林寺便是休戚与共的铁血盟友——凡少林有所需，王家倾尽家资人手，万死不辞！”'),
+      N('满堂群豪轰然起身拱手，无数道敬佩目光齐聚在你身上。此时代表嵩山少林向洛阳武林致答谢盟辞，你意欲如何定调？'),
     ],
-    onFinishEffects: [openScene('scene_sls08_14', SHAOLIN_SIDE08_QUEST_ID)],
+    choices: [
+      {
+        id: 'sls08_rhetoric_mercy',
+        label: '【佛门济世 · 护商安民】愿与金刀王家结为护法盟友，共保河洛商道畅通、黎民安居乐业！',
+        subLabel: '弘扬佛门慈悲护法之道（禅心慈悲 +1，额外大增王元霸好感与侠义）',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s08_rhetoric', value: 'mercy' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s08_rhetoric_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s08_rhetoric_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+            ],
+          },
+          openScene('scene_sls08_08', SHAOLIN_SIDE08_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls08_rhetoric_awe',
+        label: '【立威河洛 · 震慑绿林】明告洛阳绿林宵小：凡敢暗算正道盟友者，嵩山铁棍必诛不贷！',
+        subLabel: '借破刺之威震慑四方绿林（怒目杀业 +1，额外大增江湖声望）',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s08_rhetoric', value: 'awe' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s08_rhetoric_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_s08_rhetoric_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+            ],
+          },
+          openScene('scene_sls08_08', SHAOLIN_SIDE08_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_sls08_14: {
-    id: 'scene_sls08_14',
-    title: '第十四幕 · 厚礼铁盟',
+  scene_sls08_08: {
+    id: 'scene_sls08_08',
+    title: '第八幕 · 群豪击节 · 暗堂余讯',
+    subtitle: '金刀威震正气大厅 · 席间密议',
+    mandatory: true,
+    beats: [
+      N('{ifFlagEq:sl_s08_rhetoric=mercy|你一番济世护商、安民息争的佛门正论出口，满堂镖师商贾无不动容喝彩，王元霸更是抚须大笑，直赞少林气象宏大、不愧中原正道魁首！|你一番金刚立威的凛然宣言落地，厅内几名素日心怀叵测的绿林客顿时面色发白、忙不迭举盏称颂，洛阳城中少林威名登时再添三分凛冽！}'),
+      N('宴罢宾客渐散，王元霸留你与虚净、虚慧于屏风后细语，取出从毒针影怀中搜得的一枚关西黑铁杀手令。'),
+      S('NPC-0186', '“小师父，这关西暗杀堂拿钱办事，背后买主恐仍在潼关以西蠢蠢欲动。老夫打算明日处置这三名贼人，不知少林意下如何？”'),
+    ],
+    choices: [
+      {
+        id: 'sls08_after_yamen',
+        label: '【移交洛阳府衙明正典刑】请官府张榜昭告其罪，以国法震慑关西匪类，免生江湖私仇',
+        subLabel: '循法而行，以正道声威止戈',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s08_followup', value: 'yamen' },
+          openScene('scene_sls08_09', SHAOLIN_SIDE08_QUEST_ID),
+        ],
+      },
+      {
+        id: 'sls08_after_trace',
+        label: '【借王家镖路暗查关西黑线】先由洛阳留守司收押，同时托金刀镖局暗中摸清关西暗杀堂巢穴',
+        subLabel: '运筹深远，防患未然',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_s08_followup', value: 'trace' },
+          openScene('scene_sls08_09', SHAOLIN_SIDE08_QUEST_ID),
+        ],
+      },
+    ],
+  },
+
+  scene_sls08_09: {
+    id: 'scene_sls08_09',
+    title: '第九幕 · 厚礼铁盟 · 卷终嘉奖',
     subtitle: '金刀威震正气大厅',
     mandatory: true,
     beats: [
+      S('NPC-0186', '{ifFlagEq:sl_s08_followup=yamen|“好！就按小师父说的办，明晨便连人带证送交洛阳府衙明正典刑，叫天下人看看暗算正道的下场！”|“小师父思虑深远！老夫明日便修书潼关与长安分号，替少林盯死关西暗杀堂一举一动！”}'),
       S('NPC-0186', '（亲手奉上一匣百二十两雪花纹银）“小师父切莫推辞！这百二十两纹银非是俗礼，乃老夫捐助嵩山少林与师父游历江湖、行侠济贫的香火盘缠，日后但凡来洛阳，金刀王家的大门永远为你敞开！”'),
       P('（合十郑重接过，微笑还礼）“多谢王老爷子厚爱！愿金刀王家与嵩山少林情谊长存，共护河洛平安！”'),
     ],
@@ -328,12 +460,32 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '以茶代酒缔结铁血盟谊，收下王家厚礼与宗门嘉奖！',
         tone: 'gold',
         effects: [
-          { type: 'giveCombatExp', amount: 360, reason: '洛阳金刀寿宴以一敌三力挫关西暗器杀手' },
+          { type: 'giveCombatExp', amount: 360, reason: '洛阳金刀寿宴护寿破敌、力挫关西暗器杀手' },
           { type: 'addSectContribution', amount: 140 },
           { type: 'giveSilver', amount: 120, reason: '金刀王元霸重谢护寿纹银' },
           { type: 'modifySkill', key: '策论', delta: 1 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0186' }, delta: 20 },
           { type: 'modifyRenown', delta: 35, reason: '完成门派差事《金刀寿宴 · 洛阳暗箭》' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s08_assassin_spotted', op: 'truthy' },
+            thenEffects: [
+              { type: 'addArtExp', amount: 60 },
+              { type: 'modifySkill', key: '辩才', delta: 1 },
+            ],
+            elseEffects: [],
+          },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_s08_rhetoric', op: 'eq', value: 'mercy' },
+            thenEffects: [
+              { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0186' }, delta: 12 },
+              { type: 'modifyChivalry', delta: 15, reason: '以佛门济世护商之名缔结河洛护法盟谊' },
+            ],
+            elseEffects: [
+              { type: 'modifyRenown', delta: 20, reason: '借寿宴擒凶立下洛阳绿林震慑之威' },
+            ],
+          },
           { type: 'completeQuest', questId: SHAOLIN_SIDE08_QUEST_ID, outcome: 'completed' },
           toast(
             '【金刀寿宴 · 洛阳暗箭】圆满完结！王元霸好感大增，获纹银 120 两、宗门贡献 140 与策论精进！',

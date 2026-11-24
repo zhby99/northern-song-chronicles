@@ -24,7 +24,7 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
   recommendedRealm: '宗师中品',
   maxOpponentRealm: '宗师中品（天竺瑜伽大宗师 · 迦叶尊者 ／ 波斯明火宗师 · 巴赫曼尊使连战）',
   recommendedNote:
-    '少林寺 Lv.4 宗师级压轴秘闻支线（全十八幕）。已登长老首座、且经义与书法皆臻化境后，于达摩院整理初祖秘档时与玄难、玄渡偶然发掘菩提达摩泛海东渡羊皮古卷与海路禅偈。远渡重洋追寻圣物的天竺瑜伽大宗师与波斯明火宗师随之登临少室绝顶万丈冰崖递帖较技，须于云海日出之际以少林禅武连战两名宗师中品异域奇人，以禅武合一折服二人、护住初祖东渡遗图。',
+    '少林寺 Lv.4 宗师级压轴秘闻支线（全十幕）。已登长老首座、且经义与书法皆臻化境后，于达摩院整理初祖秘档时与玄难、玄渡发掘菩提达摩泛海东渡羊皮古卷《沧海遗图》。须赴藏经阁亲破古梵文海路密码，并于云海日出之际登临少室绝顶万丈冰崖，择策以古梵文「一花开五叶」先折迦叶傲气或正面车轮连战天竺、波斯两大宗师中品奇人，战后更可抉择公开拓本造福市舶海商或严密封藏达摩院密室。',
   startHint:
     '跻身少林寺四阶首座长老、且经义达 88、书达 75 后，前往【嵩山少林寺 · 达摩面壁石洞 · 东侧密禅室】寻玄难、玄渡即可触发。',
   startLocation: {
@@ -35,14 +35,14 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
   },
   startCondition: SHAOLIN_SIDE18_START_CONDITION,
   summary:
-    '{reignYear}暮春，你与达摩院首座玄难、罗汉堂高僧玄渡于【达摩面壁石洞 · 东侧密禅室】清点初祖旧档时，意外从一截古沉香经轴芯中发掘出一卷密封五百余年的羊皮古卷——竟是当年初祖菩提达摩自天竺泛海东渡广州、北上少室的亲绘《沧海东渡遗图》与梵汉双文海路禅偈！你携古卷赴【少林藏经阁 · 经阁正楼】对照南北朝古译梵典破译禅偈，岂料消息早已引来两名远涉重洋追寻圣物的异域宗师：天竺古瑜伽大宗师「迦叶尊者」与波斯圣火宗师「巴赫曼尊使」齐递金帖，邀约翌日拂晓于少室绝顶万丈冰崖（【达摩面壁石洞 · 飞瀑深潭 · 试炼涧】绝顶崖畔）论禅较武。云海日出之际，你凭少林禅武合一之境连战两位宗师中品奇人，既破天竺柔劲又化波斯明火，更以「法无东西、心海同源」的禅理令二人心悦诚服。最终你亲笔临摹禅偈副本相赠，将初祖羊皮原卷安然封藏达摩院。',
+    '{reignYear}暮春，你与达摩院首座玄难、高僧玄渡于【达摩面壁石洞 · 东侧密禅室】清点初祖旧档时，自沉香经轴芯中发掘出密封五百余年的羊皮古卷——初祖菩提达摩亲绘《沧海东渡遗图》与古梵文海路禅偈！你携古卷赴【少林藏经阁 · 经阁正楼】破译海路密码，岂料引来天竺古瑜伽大宗师「迦叶尊者」与波斯圣火宗师「阿胡拉·巴赫曼」递帖邀战。翌日拂晓，你登临少室绝顶万丈冰崖（【飞瀑深潭 · 试炼涧】绝顶崖畔），于云海日出之际以古梵妙义或无上少林绝学车轮连战两大宗师中品异域奇人，以禅武合一令二人心悦诚服。归返达摩院后，你更对这份凝聚五百年航海星象与禅脉的《沧海遗图》作出终极归处抉择。',
   initialStepId: 'decipher_sutra_pavilion',
   steps: {
     decipher_sutra_pavilion: {
       id: 'decipher_sutra_pavilion',
-      title: '经阁释偈 · 异域金帖',
+      title: '经阁释偈 · 沧海密码',
       objective:
-        '初祖菩提达摩《沧海东渡遗图》重见天日！请携羊皮古卷随玄渡前往【嵩山少林寺 · 少林藏经阁 · 经阁正楼（sl_cj_pavilion）】，对照南北朝古梵典考释海路禅偈。',
+        '初祖菩提达摩《沧海东渡遗图》重见天日！请携羊皮古卷随玄渡前往【嵩山少林寺 · 少林藏经阁 · 经阁正楼（sl_cj_pavilion）】，对照南北朝古梵典破译海路密码与禅偈。',
       nextHint:
         '前往【嵩山少林寺 · 少林藏经阁 · 经阁正楼（sl_cj_pavilion）】，点击「对照古梵典考释达摩《沧海东渡遗图》禅偈」。',
       targetLocation: {
@@ -56,7 +56,7 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
       id: 'cloud_sea_duel',
       title: '绝顶云海 · 连战异域双尊',
       objective:
-        '天竺瑜伽大宗师「迦叶尊者」与波斯明火宗师「巴赫曼尊使」已登临少室绝顶万丈冰崖！请速赴【嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】攀上绝顶冰崖，于云海日出之际连战二位异域宗师！',
+        '天竺瑜伽大宗师「迦叶尊者」与波斯明火宗师「巴赫曼尊使」已登临少室绝顶万丈冰崖！请速赴【嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】攀上绝顶冰崖，于云海日出之际迎战二位异域宗师！',
       nextHint:
         '前往【嵩山少林寺 · 达摩面壁石洞 · 飞瀑深潭 · 试炼涧（sl_damo_west）】，点击「登临少室绝顶万丈冰崖，于云海日出之际迎战异域双尊」。',
       targetLocation: {
@@ -68,11 +68,11 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
     },
     seal_chart_damo: {
       id: 'seal_chart_damo',
-      title: '沧海归藏 · 复命达摩院',
+      title: '沧海归处 · 复命达摩院',
       objective:
-        '已于云海日出之际以禅武合一折服天竺、波斯两位异域宗师，护住初祖羊皮遗图！请返回【嵩山少林寺 · 达摩面壁石洞 · 东侧密禅室（sl_damo_east）】与玄难、玄渡共封古卷入藏。',
+        '已于云海日出之际以禅武合一折服天竺、波斯两位异域宗师，护住初祖羊皮遗图！请返回【嵩山少林寺 · 达摩面壁石洞 · 东侧密禅室（sl_damo_east）】与玄难、玄渡共定《沧海遗图》归处。',
       nextHint:
-        '返回【嵩山少林寺 · 达摩面壁石洞 · 东侧密禅室（sl_damo_east）】，点击「与玄难、玄渡共封《沧海东渡遗图》入藏达摩院」。',
+        '返回【嵩山少林寺 · 达摩面壁石洞 · 东侧密禅室（sl_damo_east）】，点击「与玄难、玄渡共定《沧海东渡遗图》归处」。',
       targetLocation: {
         regionId: 'shaolin',
         buildingId: 'sl_damo',
@@ -99,7 +99,7 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
       spotId: 'sl_cj_pavilion',
       onceFlag: 'sl_side18_decipher_triggered',
       condition: atStep(SHAOLIN_SIDE18_QUEST_ID, 'decipher_sutra_pavilion'),
-      effects: [openScene('scene_sls18_05', SHAOLIN_SIDE18_QUEST_ID)],
+      effects: [openScene('scene_sls18_03', SHAOLIN_SIDE18_QUEST_ID)],
     },
     {
       id: 'trig_sls18_duel_damo_west',
@@ -108,7 +108,7 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
       spotId: 'sl_damo_west',
       onceFlag: 'sl_side18_duel_triggered',
       condition: atStep(SHAOLIN_SIDE18_QUEST_ID, 'cloud_sea_duel'),
-      effects: [openScene('scene_sls18_09', SHAOLIN_SIDE18_QUEST_ID)],
+      effects: [openScene('scene_sls18_05', SHAOLIN_SIDE18_QUEST_ID)],
     },
     {
       id: 'trig_sls18_return_damo_east',
@@ -117,7 +117,7 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
       spotId: 'sl_damo_east',
       onceFlag: 'sl_side18_seal_triggered',
       condition: atStep(SHAOLIN_SIDE18_QUEST_ID, 'seal_chart_damo'),
-      effects: [openScene('scene_sls18_16', SHAOLIN_SIDE18_QUEST_ID)],
+      effects: [openScene('scene_sls18_08', SHAOLIN_SIDE18_QUEST_ID)],
     },
   ],
 
@@ -149,7 +149,7 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_SIDE18_QUEST_ID, 'decipher_sutra_pavilion'),
       effects: [
         { type: 'setFlag', flag: 'sl_side18_decipher_triggered', value: true },
-        openScene('scene_sls18_05', SHAOLIN_SIDE18_QUEST_ID),
+        openScene('scene_sls18_03', SHAOLIN_SIDE18_QUEST_ID),
       ],
     },
     {
@@ -164,12 +164,12 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_SIDE18_QUEST_ID, 'cloud_sea_duel'),
       effects: [
         { type: 'setFlag', flag: 'sl_side18_duel_triggered', value: true },
-        openScene('scene_sls18_09', SHAOLIN_SIDE18_QUEST_ID),
+        openScene('scene_sls18_05', SHAOLIN_SIDE18_QUEST_ID),
       ],
     },
     {
       id: 'spot_sls18_seal',
-      label: '【少林支线】与玄难、玄渡共封《沧海东渡遗图》入藏达摩院',
+      label: '【少林支线】与玄难、玄渡共定《沧海东渡遗图》归处',
       badge: '沧海归藏',
       subtitle: '东侧密禅室',
       tone: 'gold',
@@ -179,7 +179,7 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
       visibleWhen: atStep(SHAOLIN_SIDE18_QUEST_ID, 'seal_chart_damo'),
       effects: [
         { type: 'setFlag', flag: 'sl_side18_seal_triggered', value: true },
-        openScene('scene_sls18_16', SHAOLIN_SIDE18_QUEST_ID),
+        openScene('scene_sls18_08', SHAOLIN_SIDE18_QUEST_ID),
       ],
     },
   ],
@@ -206,7 +206,7 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
     },
     {
       id: 'act_sls18_seal_npc',
-      label: '向玄难、玄渡呈报云海退双尊始末并封藏古卷',
+      label: '向玄难、玄渡呈报云海退双尊始末并定古卷归处',
       badge: '沧海归藏',
       tone: 'gold',
       showInBottomBar: true,
@@ -220,7 +220,7 @@ export const shaolinSideBodhidharmaChartQuest: QuestDefinition = {
       },
       effects: [
         { type: 'setFlag', flag: 'sl_side18_seal_triggered', value: true },
-        openScene('scene_sls18_16', SHAOLIN_SIDE18_QUEST_ID),
+        openScene('scene_sls18_08', SHAOLIN_SIDE18_QUEST_ID),
       ],
     },
   ],
