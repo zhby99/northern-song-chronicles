@@ -23,11 +23,38 @@ function buildYanHengBoss(): NodeNpc {
     sectRankLabel: '西夏悍匪',
     avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
     portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
-    talk: '“哈哈哈哈！老子练就二十载横练铁布衫，寻常刀剑难伤分毫！少林小秃驴竟敢孤身来送死！”',
+    talk: '“哈哈哈哈！老子练就二十载横练铁布衫，寻常刀剑难伤分毫！少林小秃驴竟敢孤身登檐送死！”',
     stats: { hp: 1380, mp: 1040, agi: 46, res: 34 },
     talents: { bone: 80, comprehension: 56, charm: 32 },
     equippedArts: { neigong: 'MA-140', move1: 'MA-144', move2: 'MA-124' },
-    learnedArts: [{ artId: 'MA-140', level: 6 }, { artId: 'MA-144', level: 6 }, { artId: 'MA-124', level: 6 }],
+    learnedArts: [
+      { artId: 'MA-140', level: 6 },
+      { artId: 'MA-144', level: 6 },
+      { artId: 'MA-124', level: 6 },
+    ],
+  })
+}
+
+function buildYanHengAmbushedBoss(): NodeNpc {
+  return makeQuestNpc({
+    id: 'QUEST_SLQ14_YANHENG_AMBUSH',
+    name: '严横',
+    title: '铁罗汉 · 失据惊惶',
+    realm: '二流中品',
+    factionName: '西夏黑道',
+    sectRank: 0,
+    sectRankLabel: '西夏悍匪',
+    avatarUrl: '/assets/characters/templates/tpl_yipintang_av.jpg',
+    portraitUrl: '/assets/characters/templates/tpl_yipintang_fb.jpg',
+    talk: '“小秃驴好毒的眼力！竟摸准了老子藏身暗瓦——不过就凭你，也休想轻易拿下我的铁布衫！”',
+    stats: { hp: 1180, mp: 900, agi: 42, res: 29 },
+    talents: { bone: 80, comprehension: 56, charm: 32 },
+    equippedArts: { neigong: 'MA-140', move1: 'MA-144', move2: 'MA-124' },
+    learnedArts: [
+      { artId: 'MA-140', level: 5 },
+      { artId: 'MA-144', level: 6 },
+      { artId: 'MA-124', level: 5 },
+    ],
   })
 }
 
@@ -38,27 +65,31 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '大雄宝殿方丈院 · 钟鼓禅院演武坪',
     mandatory: true,
     beats: [
-      N('{reignYear}初冬，寒霜铺满钟鼓禅院青石。你自汝州归山已逾一载，潜心研习经义、笔墨与辩才，修为愈发沉凝。这日清晨，玄寂长老神色铁青地召你入廊，掌中紧攥着一封火漆密函。'),
-      S('NPC-0134', '（沉声道）“阿弥陀佛。东京开封府昨夜传来八百里急报：近十日内，汴京城接连有三位富绅在深宅大院中遭人一掌震碎心脉惨死！更骇人的是，凶手每次作案后都在墙上以血书『般若降魔』四字，还故意遗落少林式样的念珠！”'),
-      P('（闻言心头一凛）“竟有人敢在天子脚下连环行凶、公然嫁祸我少林寺？！”'),
-      S('NPC-0134', '“不错！如今汴京市井流言四起，御史台已有言官上疏质问少林纵僧妄杀。方丈师兄已命老衲亲赴开封大相国寺查明真凶——你素来沉稳细心，便随老衲星夜东赴汴京！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq14_02', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_02: {
-    id: 'scene_slq14_02',
-    title: '第二幕 · 东赴东京',
-    subtitle: '钟鼓禅院石阶',
-    mandatory: true,
-    beats: [
-      S('NPC-0134', '“驻守开封大相国寺的禅武僧【慧禅】师侄已暗中走访三处案发现场，正在【资圣八角琉璃宝塔】候咱们汇合。事不宜迟，你整备妥当后即刻赴开封大相国寺与我等会面！”'),
-      P('（合十领命）“弟子遵命！这就动身赶往开封大相国寺资圣宝塔！”'),
+      N('{reignYear}初冬，寒霜铺满钟鼓禅院青石。你自汝州古庙归山以来潜心苦修经义、书法与辩才，气息愈发沉凝。这日清晨，玄寂长老神色铁青地召你入廊，掌中紧攥着一封火漆密函。'),
+      S('NPC-0134', '（目光凝重，提及汝州旧案）“阿弥陀佛。{ifFlagEq:sl_jielv_style=strict|昔日汝州一案，你铁面无私逐出叛僧、令清规震慑四方；|昔日汝州一案，你悲智双运、既折叛僧又不绝孤老生路；}老衲信得过你临大事时的沉稳气度。如今东京开封府出了一桩惊天血案，须得你随老衲星夜东行！”'),
+      S('NPC-0134', '“近十日内，汴京城接连有三位富绅在深宅大院中惨死，凶手每次作案后皆在粉墙血书『般若降魔』四字，更刻意遗落少林式样的念珠嫁祸祖庭！如今御史台已有言官上疏质问少林纵僧妄杀，驻守大相国寺的【慧禅】师侄已在【资圣八角琉璃宝塔】整理好三案验尸卷宗候咱们汇合！”'),
+      P('（闻言神色凛然，合十欠身）“竟有奸徒敢在天子脚下连环行凶、嫁祸少林！弟子愿即刻动身赴开封大相国寺，绝不容祖庭蒙此不白之冤！”'),
     ],
     choices: [
       {
-        id: 'slq14_accept_bianliang',
-        label: '领戒律密谕，星夜启程赴开封大相国寺资圣宝塔缉凶',
+        id: 'slq14_accept_investigate',
+        label: '【验尸勘证】星夜东赴大相国寺，誓凭铁证洗刷少林蒙冤！',
+        subLabel: '前往开封府 · 大相国寺 · 资圣八角琉璃宝塔会合慧禅',
+        tone: 'jade',
+        effects: [
+          { type: 'startQuest', questId: SHAOLIN_Q14_QUEST_ID, stepId: 'bianliang_zisheng_hunt' },
+          setStep(SHAOLIN_Q14_QUEST_ID, 'bianliang_zisheng_hunt'),
+          toast(
+            '已开启《一拍两散 · 汴京缉凶》！请前往【开封府 · 大相国寺 · 资圣八角琉璃宝塔】汇合！',
+            'talk',
+            '汴京缉凶',
+          ),
+        ],
+      },
+      {
+        id: 'slq14_accept_pursue',
+        label: '【雷霆缉凶】星夜疾驰汴京，生擒狂徒以正佛门威名！',
+        subLabel: '前往开封府 · 大相国寺 · 资圣八角琉璃宝塔会合慧禅',
         tone: 'gold',
         effects: [
           { type: 'startQuest', questId: SHAOLIN_Q14_QUEST_ID, stepId: 'bianliang_zisheng_hunt' },
@@ -73,173 +104,201 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq14_03: {
-    id: 'scene_slq14_03',
-    title: '第三幕 · 琉璃宝塔',
-    subtitle: '开封府 · 大相国寺 · 资圣八角琉璃宝塔',
+  scene_slq14_02: {
+    id: 'scene_slq14_02',
+    title: '第二幕 · 宝塔验尸与勘察',
+    subtitle: '开封府 · 大相国寺 · 资圣八角琉璃宝塔（现场推理）',
     mandatory: true,
     beats: [
-      N('东京开封府冬雪初霁，大相国寺内香火鼎盛却暗流涌动。你穿过熙攘人群，循着琉璃飞檐拾级而上，登临八角宝塔高阁。'),
-      N('高阁窗棂半掩，俯瞰汴京万家灯火。玄寂长老早已先一步抵达，身旁立着一名目光炯炯、身披青灰禅衣的壮年武僧，正是常驻汴京的禅武僧【慧禅】。'),
-      S('NPC-0378', '（见你登塔，连忙合十相迎）“阿弥陀佛！师弟一路风尘仆仆辛苦了！贫僧已将开封府三处血案的仵作验尸抄录与墙上血字临摹妥当，请师伯与师弟过目！”'),
+      N('东京开封府冬雪初霁，大相国寺香火鼎盛却暗流汹涌。你登临资圣八角琉璃宝塔高阁，玄寂长老早已在座，身旁青灰禅衣的壮年武僧【慧禅】连忙合十相迎，将三起血案的仵作验尸格目、血字摹本与现场物证尽数摊在长案之上。'),
+      S('NPC-0378', '“师弟请看！三名遇害富绅表面上是京城绸缎粮商，实则皆暗中替朝廷往陕西前线筹措军粮。墙上『般若降魔』四字虽仿中原颜体，勾挑却惯向右下方斜撇，隐隐透着西夏番文笔势！”'),
+      N('你俯身逐一勘查木盘中封存的三处现场线索：其一，仵作格目记「死者胸口留有焦黑掌印却无肋骨碎裂，实乃内腑暗震致死，皮表焦痕疑为死后烟灰熏染掩人耳目」；其二，三户豪宅后院屋檐青瓦之上，俱发现了微弱的「西夏贺兰山红泥靴印与半截沉香绳」；其三，第三户案发巷口茶肆桌脚下，遗落着一枚再寻常不过的「开封皇宋通宝铜钱」。'),
+      S('NPC-0134', '（负手而立，双目如炬考校于你）“凶手身怀硬功、又受雇于西夏军情，此刻仍潜伏在甜水巷一带伺机再行暗杀。案上这三处线索真伪杂陈——依你之见，哪一处才直指凶手真实的藏身规律与破绽？”'),
+    ],
+    choices: [
+      {
+        id: 'slq14_clue_palm',
+        label: '以「死者胸口焦黑掌印却无骨裂」为主线，推演凶手善使阴柔毒掌、必藏身阴湿地窖暗渠',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q14_clue_solved', value: false },
+          openScene('scene_slq14_03', SHAOLIN_Q14_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq14_clue_roof',
+        label: '以「屋檐瓦片残留西夏贺兰山红泥靴印与半截沉香绳」为破绽，直指凶手惯借沉香绳攀伏甜水巷高檐暗阁！',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q14_clue_solved', value: true },
+          openScene('scene_slq14_03', SHAOLIN_Q14_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq14_clue_coin',
+        label: '以「巷口茶肆遗落的开封铜钱」为线索，断定凶手白日扮作京城商贩混迹市井茶坊',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q14_clue_solved', value: false },
+          openScene('scene_slq14_03', SHAOLIN_Q14_QUEST_ID),
+        ],
+      },
+    ],
+  },
+
+  scene_slq14_03: {
+    id: 'scene_slq14_03',
+    title: '第三幕 · 锁定铁罗汉',
+    subtitle: '资圣八角琉璃宝塔高阁',
+    mandatory: true,
+    beats: [
+      N('{ifFlag:sl_q14_clue_solved|玄寂闻言抚掌大赞，慧禅亦拍案称绝！贺兰山红泥绝非汴京所有，沉香绳更专用于夜登高檐悬梁潜伏——你一语便锁死了凶手盘踞甜水巷高檐暗阁的行踪规律！|玄寂微微摇头，拈起木盘中那截沉香绳与红泥瓦屑递到你眼前：“胸口焦痕乃掩盖横练刚劲的障眼法，开封铜钱更随处可见；唯独这贺兰山红泥靴印与沉香绳，方暴露其惯伏高檐暗阁的习气。”}'),
+      S('NPC-0134', '（眼神陡寒，指尖轻叩卷宗）“十年前甘凉道与西夏黑道出了个横行无忌的悍匪，外号『铁罗汉』严横！此人将一门外家硬功铁布衫练至二流中品大成，寻常刀剑难伤分毫，又贪财嗜杀——定是西夏密探重金雇他潜入汴京行刺军粮豪绅，再嫁祸我少林离间朝野！”'),
+      S('NPC-0378', '“玄寂师伯明鉴！那严横既练成铜皮铁骨，寻常拳棍击之如击败革，今夜在甜水巷周府该如何一举生擒而不致走脱？”'),
+      S('NPC-0134', '（望向窗外朔雪纷飞的琉璃塔尖，朗声吩咐）“慧禅，你速去甜水巷暗中盯紧最后一位经手军粮的周家大宅！至于师侄你——随老衲登塔顶！严横倚仗横练铁功横行，老衲偏要传你少林破甲绝艺《一拍两散掌》制他！”'),
     ],
     onFinishEffects: [openScene('scene_slq14_04', SHAOLIN_Q14_QUEST_ID)],
   },
 
   scene_slq14_04: {
     id: 'scene_slq14_04',
-    title: '第四幕 · 笔锋破绽',
-    subtitle: '资圣八角琉璃宝塔高阁',
-    mandatory: true,
-    beats: [
-      N('你接过慧禅递来的卷宗与临摹血字，凝神细看。你素日苦修书法，一眼便觉那「般若降魔」四字笔意古怪异常！'),
-      P('（指着卷宗上「魔」字一捺，眉峰微蹙）“师伯、慧禅师兄请看！这四字虽刻意模仿中原颜体，但起笔顿挫僵硬，勾挑之处惯向右下方斜撇——这绝非中原佛门抄经笔法，倒极似常年书写西夏番文之人的手势习气！”'),
-      S('NPC-0378', '（击掌惊叹）“师弟好眼力！再看那三名遇害富绅的底细——表面上是京城绸缎粮商，实则暗中都曾替朝廷向陕西前线筹措过军粮！凶手杀他们，根本不是什么佛门仇杀，而是冲着大宋西北军饷来的！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq14_05', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_05: {
-    id: 'scene_slq14_05',
-    title: '第五幕 · 铁罗汉严横',
-    subtitle: '资圣八角琉璃宝塔高阁',
-    mandatory: true,
-    beats: [
-      S('NPC-0134', '（接过验尸抄录细看掌印尺寸与肋骨碎裂之状，眼中寒光一闪）“掌印宽厚如蒲扇，劲力外刚内燥，竟还带着几分偷学来的横练硬功余韵……老衲知道是谁了！”'),
-      S('NPC-0134', '“十年前有个横行甘凉道与西夏黑道的悍匪，外号『铁罗汉』严横！此人将一门外家硬功『铁布衫』练至大成，寻常刀剑难伤，又贪财嗜杀。定是西夏密探重金雇他潜入汴京行刺粮商，并嫁祸我少林以离间朝廷与武林！”'),
-      S('NPC-0378', '“玄寂师伯明鉴！那严横既练成横练铁功，又有二流中品修为，寻常拳棍打在他身上如击败革，咱们该如何一举将其擒拿而不致走脱？”'),
-    ],
-    onFinishEffects: [openScene('scene_slq14_06', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_06: {
-    id: 'scene_slq14_06',
-    title: '第六幕 · 绝艺破铁',
-    subtitle: '资圣八角琉璃宝塔顶层',
-    mandatory: true,
-    beats: [
-      S('NPC-0134', '（望向窗外暮色沉沉的琉璃塔尖，缓声开口）“严横倚仗横练外功耀武扬威，老衲偏要以少林正宗内家破甲绝学制他！慧禅，你速去甜水巷暗中盯紧最后一位经手军粮的周家大宅；至于师侄你——随我上塔顶！”'),
-      N('慧禅领命疾步下塔。玄寂引你步上资圣宝塔最顶层露台，朔风卷雪呼啸而来，琉璃风铃铮铮齐鸣。'),
-      S('NPC-0134', '“老衲外号『一拍神僧』，平生最得意的绝艺便是少林七十二绝技之一——《一拍两散掌》！此掌不求花巧连招，只求凝毕生功力于一掌，一拍之下，纵是精钢巨石亦化齑粉！今夜擒拿严横，正需此掌破其铁壁！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq14_07', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_07: {
-    id: 'scene_slq14_07',
-    title: '第七幕 · 塔顶传掌',
+    title: '第四幕 · 塔顶传掌',
     subtitle: '资圣八角琉璃宝塔顶层',
     illustrationUrl: '/assets/quests/sl_14_zisheng_teach.jpg',
     illustrationCaption: '一拍两散 · 资圣宝塔顶层朔风飞雪，玄寂亲演示惊世掌力',
     mandatory: true,
     beats: [
-      N('玄寂深吸一口清冷空气，身形倏然凝定如古佛坐禅。只见他右手缓缓抬起，掌心淡若无物，却令周遭三丈飞雪骤然停滞半空！'),
-      N('下一瞬，玄寂轻描淡写向前虚拍一掌！无声无息间，一股排山倒海的凝练劲风破空而出，十丈外一截被积雪压弯的枯槁老柏枝干竟应声化作漫天细屑，飘散在汴京暮风之中！'),
-      S('NPC-0134', '“看到了么？『一拍两散』，非是拼命蛮力，而是将周身内息收束于劳宫一寸，由静入动、破妄归空！你且闭目凝神，随老衲口诀行气三周天！”'),
+      N('慧禅领命疾步下塔。玄寂引你登临资圣宝塔最高露台，朔风卷雪扑面，八角琉璃风铃铮铮齐鸣。玄寂深吸一口冷气，右手缓缓抬起，掌心淡若无物，周遭三丈飞雪却骤然停滞半空！'),
+      N('下一瞬，玄寂轻描淡写向前虚拍一掌！无声无息间，一股凝练如实质的劲风破空而出，十丈外一截积雪枯柏枝干竟应声化作漫天细屑，飘散在汴京暮风之中！'),
+      S('NPC-0134', '“老衲外号『一拍神僧』，平生最得意者便是这门少林七十二绝技——《一拍两散掌》！此掌不求花巧连招，只求凝周身内息于劳宫一寸，由静入动、破妄归空，纵是精钢铁壁亦化齑粉！你且盘膝闭目，随我口诀引气三周天！”'),
+      N('你依言默诵《金刚经》「应无所住而生其心」，引丹田内息汇于右掌；经玄寂指风轻点肩井穴引导，刹那间真气如百川归海，掌心隐隐发出低沉雷鸣，短短两柱香便已踏入《一拍两散掌》蓄劲门径！'),
     ],
-    onFinishEffects: [openScene('scene_slq14_08', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_08: {
-    id: 'scene_slq14_08',
-    title: '第八幕 · 佛理印心',
-    subtitle: '资圣八角琉璃宝塔顶层',
-    mandatory: true,
-    beats: [
-      N('你盘膝坐于冰凉石砖之上，依玄寂口诀引《罗汉伏虎功》内息汇入右掌，同时默诵《金刚经》「应无所住而生其心」之偈。初时劲力散漫难聚，经玄寂以指风轻点肩井穴引导，刹那间真气如百川归海，掌心隐隐发出低沉雷鸣！'),
-      S('NPC-0134', '（微微颔首，目露赞赏）“悟性颇佳！短短两柱香便已摸到《一拍两散掌》的蓄劲门槛。待今夜实战对敌，以严横的铁布衫作磨刀石，此掌便可彻底融会贯通！”'),
-    ],
-    onFinishEffects: [teachArtNow('MA-083'), 
+    onFinishEffects: [
+      teachArtNow('MA-083'),
       { type: 'setFlag', flag: 'sl_q14_taught_palm', value: true },
-      openScene('scene_slq14_09', SHAOLIN_Q14_QUEST_ID),
+      openScene('scene_slq14_05', SHAOLIN_Q14_QUEST_ID),
     ],
   },
 
-  scene_slq14_09: {
-    id: 'scene_slq14_09',
-    title: '第九幕 · 甜水巷警讯',
+  scene_slq14_05: {
+    id: 'scene_slq14_05',
+    title: '第五幕 · 甜水巷警讯',
     subtitle: '资圣八角琉璃宝塔高阁',
     mandatory: true,
     beats: [
-      N('亥时三刻，一只灰羽信鸽振翅落上宝塔窗台。玄寂解下竹筒密笺展开一看，神色骤紧。'),
-      S('NPC-0134', '“慧禅传讯：甜水巷周府外已发现西夏暗哨踪迹，铁罗汉严横极可能于今夜子时越墙行刺周老爷！且开封府衙已有风声，若大相国寺高僧倾巢而出，恐打草惊蛇，亦防西夏余党趁虚袭寺。”'),
-      P('（起身合十，目光灼灼）“玄寂师伯坐镇相国寺稳住大局即可！弟子愿即刻潜赴甜水巷周府屋脊，会同慧禅师兄埋伏，必将那铁罗汉严横生擒归案！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq14_10', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_10: {
-    id: 'scene_slq14_10',
-    title: '第十幕 · 踏雪伏击',
-    subtitle: '资圣宝塔阶下',
-    mandatory: true,
-    beats: [
-      S('NPC-0134', '“善！你孤身赴敌，切记切不可与严横久耗体力，须寻准他催动横练硬功、气机最盛亦最僵硬的一瞬，以《一拍两散掌》破其门户！去罢！”'),
-      N('你整了整褐色僧衣，借夜色掩护离开大相国寺，踏着汴京屋瓦飞檐悄无声息掠向城南甜水巷。'),
+      N('亥时三刻，一只灰羽信鸽振翅落上宝塔窗台。玄寂解下竹筒密笺展开一看，浓眉骤紧。'),
+      S('NPC-0134', '“慧禅传讯：甜水巷周府外已发现西夏暗哨踪迹，铁罗汉严横极可能于子时越墙行刺周老爷！开封府耳目众多，大相国寺高僧若倾巢而出既恐打草惊蛇，亦防西夏余党趁虚袭寺。”'),
+      P('（起身合十，掌中微温内息流转不息）“玄寂师伯坐镇相国寺稳住大局便是！弟子愿趁雪夜潜赴甜水巷周府屋脊，会同慧禅师兄设伏，必生擒铁罗汉严横以雪祖庭奇冤！”'),
+      S('NPC-0134', '“善！切忌与他久耗蛮力，须寻准他催动铁布衫、气机最盛亦最僵硬的一瞬，以《一拍两散掌》一击破其门户！去罢！”'),
     ],
     choices: [
       {
         id: 'slq14_go_tianshui',
-        label: '子夜潜赴甜水巷周府屋脊，设伏等候「铁罗汉」严横',
+        label: '踏雪离寺，子夜潜赴甜水巷周府屋脊围捕「铁罗汉」严横！',
         tone: 'danger',
-        effects: [openScene('scene_slq14_11', SHAOLIN_Q14_QUEST_ID)],
+        effects: [openScene('scene_slq14_06', SHAOLIN_Q14_QUEST_ID)],
       },
     ],
   },
 
-  scene_slq14_11: {
-    id: 'scene_slq14_11',
-    title: '第十一幕 · 子夜屋脊',
-    subtitle: '开封府 · 甜水巷周府屋脊',
+  scene_slq14_06: {
+    id: 'scene_slq14_06',
+    title: '第六幕 · 子夜甜水巷围捕',
+    subtitle: '开封府 · 甜水巷周府屋脊（围捕战术 · 实战）',
     illustrationUrl: '/assets/quests/sl_14_tianshui_roof.jpg',
     illustrationCaption: '子夜甜水巷 · 飞雪青瓦之上，铁罗汉严横现身周府屋脊',
     mandatory: true,
     beats: [
-      N('三更梆子在寂静雪夜中远远传开。甜水巷青砖黛瓦覆着一层薄雪，周府高墙内灯火皆熄。你屏息敛气伏于歇山顶飞檐阴影之后，双目如鹰紧盯院墙。'),
-      N('忽闻瓦片一声极轻的“咔嚓”脆响！一条铁塔般的魁梧黑影自东北角墙头翻跃而入，稳稳落在主屋屋脊正中。此人光头赤眉、双臂粗壮如铜柱，腰间竟故意挂着一串伪造的粗木佛珠——正是西夏黑道悍匪「铁罗汉」严横！'),
-      P('（长身而起，稳步踏雪而出，朗声喝道）“阿弥陀佛！严横，你假借少林之名在汴京连害三条人命，今夜甜水巷便是你的伏法之地！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq14_12', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_12: {
-    id: 'scene_slq14_12',
-    title: '第十二幕 · 恶匪狂言',
-    subtitle: '甜水巷周府屋脊',
-    mandatory: true,
-    beats: [
-      S(SPEAKER_YAN_HENG, '（先是一怔，旋即看清你只是一名年轻少林僧人，顿时放声狞笑）“嘿嘿嘿，老子当是玄慈还是玄寂亲自来了，原来是个毛还没长齐的小和尚！怎么，一个人跑来送死？”'),
-      S(SPEAKER_YAN_HENG, '（扯下腰间伪造佛珠晃了晃，满脸狰狞）“也好！把你这真少林和尚的脑袋拧下来扔在周老财床前，明日满京城都得相信是少林寺杀人不眨眼！西夏主顾赏的那千两黄金，老子又稳赚一笔！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq14_13', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_13: {
-    id: 'scene_slq14_13',
-    title: '第十三幕 · 诛心破妄',
-    subtitle: '甜水巷周府屋脊',
-    mandatory: true,
-    beats: [
-      P('（神色淡然，字字如剑）“严横，你自以为天衣无缝，殊不知你墙上所留血字笔锋尽带西夏番文习气，三名受害豪绅皆与西北军粮有关，早已暴露你受西夏雇佣之实！大相国寺与开封府早已布下天罗地网，你今日插翅难飞！”'),
-      S(SPEAKER_YAN_HENG, '（脸色骤然一变，杀机暴涨）“好尖利的嘴皮子！留你不得！先吃老子一记铁臂崩拳，看你这小和尚挡不挡得住！”'),
-      N('话音未落，严横浑身骨骼爆响，双臂泛起一层暗沉铁色罡气，踏碎数片青瓦如狂牛般直扑而来！'),
-    ],
-    onFinishEffects: [openScene('scene_slq14_14', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_14: {
-    id: 'scene_slq14_14',
-    title: '第十四幕 · 屋脊死斗',
-    subtitle: '甜水巷周府屋脊（实战擒凶）',
-    mandatory: true,
-    beats: [
-      N('雪夜屋脊狭仄湿滑，严横横练铁布衫护体、招招势大力沉，正是最严峻的生死恶战！'),
+      N('三更梆子在寂静雪夜中远远传开。甜水巷青砖黛瓦覆着一层薄雪，周府高墙内灯火皆熄。忽闻瓦片一声极轻脆响，一条铁塔般的魁梧黑影借半截沉香绳荡过东北墙头，稳稳落在歇山屋脊之上！'),
+      N('此人光头赤眉、双臂粗壮如铜柱，腰间故意挂着一串伪造的粗木佛珠——正是西夏黑道悍匪「铁罗汉」严横！他俯身探视檐下暗阁，嘴角扯起一丝残忍狞笑。'),
+      S(SPEAKER_YAN_HENG, '（觉察屋檐风动，回眸狞笑晃了晃伪造佛珠）“嘿嘿，老子当是玄寂亲至，原来来了个毛还没长齐的少林小秃驴！把你脑袋拧下来扔在周老财床前，西夏主顾那千两黄金又稳入袋中！”'),
+      N('雪夜屋脊狭仄湿滑，屋下便是周府满门老小！瞥见严横脚下松动的檐瓦与巷口暗影中徘徊的市井地保，你心念急转，瞬息定下围捕之策——'),
     ],
     choices: [
       {
-        id: 'slq14_fight_yanheng',
-        label: '稳住下盘，屋脊之上硬撼「铁罗汉」严横！（二流中品 · 实战）',
-        subLabel: '破其横练铁布衫，为少林洗雪奇冤',
+        id: 'slq14_tactic_web',
+        label: '【巧布罗网先断退路】抢占屋脊制高点，一掌震碎暗瓦逼严横失据！',
+        subLabel: '需先前勘破高檐红泥靴印或实战身法 ≥ 48 · 先手制敌 1v1（胜后禅心慈悲 +1）',
+        tone: 'jade',
+        condition: {
+          type: 'any',
+          conditions: [
+            { type: 'flag', flag: 'sl_q14_clue_solved', op: 'truthy' },
+            { type: 'combatStatAtLeast', key: 'agility', min: 48 },
+          ],
+          hint: '需先前勘破红泥靴印与沉香绳线索，或实战身法 ≥ 48',
+        },
+        effects: [
+          toast('你早算准高檐暗阁退路，踏雪抢占飞檐制高点，一掌震碎严横藏身暗瓦令其惊慌失措！', 'success', '巧布罗网'),
+          {
+            type: 'startCombat',
+            questId: SHAOLIN_Q14_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildYanHengAmbushedBoss() },
+            rule: 'story_trial',
+            forbidEscapeReason: '屋下便是周府满门老小，今夜绝不能放严横逃脱行凶！',
+            introText: '【甜水巷屋脊 · 巧布罗网】震碎暗瓦断其退路，1v1 擒拿失据惊惶的【铁罗汉 · 严横】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+              { type: 'setFlag', flag: 'sl_q14_tactic', value: 'web' },
+              openScene('scene_slq14_07', SHAOLIN_Q14_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('严横横练硬功刚猛难挡，暂借飞檐脱身调息后再赴资圣宝塔重整伏击！', 'warn', '汴京缉凶'),
+            ],
+          },
+        ],
+      },
+      {
+        id: 'slq14_tactic_bribe',
+        label: '【出银买通市井眼线】付 25 两银向地保探得严横卸甲换防时辰，突袭落单悍匪！',
+        subLabel: '需 25 两纹银打点地保（已打点重试免复费）· 趁其卸甲落单突袭 1v1',
+        tone: 'gold',
+        condition: {
+          type: 'any',
+          conditions: [
+            { type: 'flag', flag: 'sl_q14_bribed', op: 'truthy' },
+            { type: 'silverAtLeast', min: 25 },
+          ],
+          hint: '需 25 两纹银打点甜水巷地保眼线（已打点则免复费）',
+        },
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q14_bribed', op: 'falsy' },
+            thenEffects: [
+              { type: 'giveSilver', amount: -25, reason: '汴京甜水巷出银买通地保眼线探得严横换防破绽' },
+              { type: 'setFlag', flag: 'sl_q14_bribed', value: true },
+              toast('你付过二十五两纹银，地保悄声报出严横卸甲换防的空档！你趁其落单破绽骤起突袭！', 'success', '市井眼线'),
+            ],
+            elseEffects: [
+              toast('地保眼线早已探明严横换防破绽，无需再费银两，趁其卸甲落单再度突袭！', 'talk', '再袭严横'),
+            ],
+          },
+          {
+            type: 'startCombat',
+            questId: SHAOLIN_Q14_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildYanHengAmbushedBoss() },
+            rule: 'story_trial',
+            forbidEscapeReason: '屋下便是周府满门老小，今夜绝不能放严横逃脱行凶！',
+            introText: '【甜水巷屋脊 · 眼线奇袭】趁其卸甲落单突袭【铁罗汉 · 严横】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              { type: 'setFlag', flag: 'sl_q14_tactic', value: 'bribe' },
+              openScene('scene_slq14_07', SHAOLIN_Q14_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('严横负隅顽抗劲力凶狠，暂借飞檐脱身调息后再袭（眼线线索仍在，无需再付银两）！', 'warn', '汴京缉凶'),
+            ],
+          },
+        ],
+      },
+      {
+        id: 'slq14_tactic_charge',
+        label: '【正面登檐强攻】不借巧计，雪脊之上堂堂正正硬撼全盛「铁罗汉」严横！',
+        subLabel: '无门槛正攻 · 直面全盛二流中品严横（胜后怒目杀业 +1）',
         tone: 'danger',
         effects: [
           {
@@ -248,10 +307,15 @@ export const SCENES: Record<string, StorySceneDef> = {
             opponent: { kind: 'custom', npc: buildYanHengBoss() },
             rule: 'story_trial',
             forbidEscapeReason: '屋下便是周府满门老小，今夜绝不能放严横逃脱行凶！',
-            introText: '【甜水巷屋脊】硬撼西夏黑道悍匪【铁罗汉 · 严横】，一战洗刷少林冤屈！',
-            onWin: [openScene('scene_slq14_15', SHAOLIN_Q14_QUEST_ID)],
+            introText: '【甜水巷屋脊 · 正面硬撼】迎战全盛西夏黑道悍匪【铁罗汉 · 严横】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+              { type: 'setFlag', flag: 'sl_q14_tactic', value: 'charge' },
+              openScene('scene_slq14_07', SHAOLIN_Q14_QUEST_ID),
+            ],
             onLose: [
-              { type: 'healPlayer', hpPct: 80, mpPct: 80 },
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               toast('严横横练硬功刚猛难挡，暂借飞檐腾挪脱身调息后再赴资圣宝塔重整伏击！', 'warn', '汴京缉凶'),
             ],
           },
@@ -260,79 +324,93 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq14_15: {
-    id: 'scene_slq14_15',
-    title: '第十五幕 · 凝气一拍',
-    subtitle: '甜水巷周府屋脊',
-    mandatory: true,
-    beats: [
-      N('屋脊之上拳风呼啸，积雪纷飞！数十合恶战下来，严横仗着横练铁布衫硬受你数记重击仍凶性大发，狞笑着双臂交叉护胸，意欲借浑厚体格强行撞破你的防线！'),
-      S(SPEAKER_YAN_HENG, '“没用的！老子这双铁臂连重刀都劈不开，你那点花拳绣腿是在给老子挠痒痒么！”'),
-      P('（刹那间心境空明，脑中浮现资圣宝塔顶层飞雪停滞的一幕，右掌缓缓收回胸前，周身内息尽聚劳宫一寸）“铁壁虽坚，遇空则碎——接我少林《一拍两散掌》！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq14_16', SHAOLIN_Q14_QUEST_ID)],
-  },
-
-  scene_slq14_16: {
-    id: 'scene_slq14_16',
-    title: '第十六幕 · 碎臂擒魔',
+  scene_slq14_07: {
+    id: 'scene_slq14_07',
+    title: '第七幕 · 一拍碎铁',
     subtitle: '甜水巷周府庭院',
     illustrationUrl: '/assets/quests/sl_14_yanheng_capture.jpg',
     illustrationCaption: '一拍两散 · 凝练掌劲破尽横练铁臂，生擒铁罗汉严横',
     mandatory: true,
     beats: [
-      N('看似平平无奇的一掌轻轻印在严横交叉的双臂之上！刹那间如闷雷炸响，严横引以为傲的铁布衫护体罡气竟如琉璃般寸寸崩裂，刚猛无俦的穿透劲力直透骨髓，当场震断其右臂臂骨！'),
-      S(SPEAKER_YAN_HENG, '（发出一声凄厉惨嚎，口喷鲜血自屋脊倒飞而下，重重砸落周府雪地之中）“啊——！我的铁臂……你……你竟练成了玄寂老贼的一拍两散掌……”'),
-      N('你身形如鹤飘落雪地，反手点封严横周身大穴，以麻绳将其捆作粽子，彻底终结了这场搅动汴京的连环血案！'),
+      N('屋脊之上拳风呼啸，积雪纷飞！严横仗着横练铁布衫硬受数记重击仍凶性大发，狞笑着双臂交叉护胸撞来！刹那间你心境空明，脑中浮现资圣宝塔顶层飞雪停滞的一幕，右掌缓缓收回胸前，内息尽聚劳宫一寸！'),
+      P('（一掌轻印于严横双臂之间，声如春雷破空）“铁壁虽坚，遇空则碎——接我少林《一拍两散掌》！”'),
+      N('闷雷炸响！严横引以为傲的铁布衫护体罡气竟如琉璃般寸寸崩裂，穿透劲力直透骨髓，当场震断其右臂臂骨！严横发出一声凄厉惨嚎，口喷鲜血自屋脊倒飞砸落周府雪地之中！'),
+      S(SPEAKER_YAN_HENG, '（骇然失色，动弹不得）“啊——！我的铁臂……你……你竟练成了玄寂老贼的一拍两散掌……”'),
+      N('你飘落雪地封住其周身大穴、捆作粽子。院墙外火把通明，慧禅率相国寺武僧与开封府巡夜捕快疾步赶到，自严横怀中搜出西夏文密信与一袋未用完的假造少林佛珠，周府上下推门叩谢救命之恩！'),
     ],
-    onFinishEffects: [openScene('scene_slq14_17', SHAOLIN_Q14_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq14_08', SHAOLIN_Q14_QUEST_ID)],
   },
 
-  scene_slq14_17: {
-    id: 'scene_slq14_17',
-    title: '第十七幕 · 铁证如山',
-    subtitle: '甜水巷周府庭院',
+  scene_slq14_08: {
+    id: 'scene_slq14_08',
+    title: '第八幕 · 移交抉择',
+    subtitle: '甜水巷周府庭院 · 审案权衡',
     mandatory: true,
     beats: [
-      N('几乎就在同时，院墙外火把通明，慧禅率领数名相国寺护寺武僧与开封府巡夜捕快疾步赶到！'),
-      S('NPC-0378', '（快步上前搜查严横怀中，取出一卷西夏文密信与一袋未用完的假造少林佛珠，朗声大喜）“阿弥陀佛！师弟神威！西夏密信与假佛珠人赃并获，铁证如山！少林寺蒙受的不白之冤，今日彻底昭雪！”'),
-      N('惊醒的周府上下推门望见雪地中被生擒的悍匪，纷纷合十叩谢少林救命之恩。'),
+      N('火把映照积雪，巡夜捕头大喜过望，当即拱手请将严横连同西夏密信与假佛珠押赴开封府大堂连夜升堂归案，好一举昭告京师、洗清少林冤屈。'),
+      S('NPC-0378', '（却快步贴近你耳畔，压低声音神色凝重）“师弟且慢！贫僧粗通西夏番文，方才扫了一眼密信尾款——严横在汴京城内似乎还有暗中接应的西夏同党与茶马司眼线！若即刻押交开封府公堂公开审理，虽能速雪少林清誉，只怕走漏风声惊跑其背后余党！”'),
+      N('雪地之中，严横咬牙冷笑不语。是将人犯堂堂正正移交开封府公堂受大宋国法明审，还是连夜押回少林戒律院密室依江湖规矩严审追查西夏同党？一切全凭你一言定夺——'),
     ],
-    onFinishEffects: [openScene('scene_slq14_18', SHAOLIN_Q14_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq14_handover_kaifeng',
+        label: '【押交开封府公堂】遵大宋国法公开升堂审断，堂堂正正洗雪少林清誉！（禅心慈悲 +1）',
+        subLabel: '严守国法不越界私刑，朝野共鉴少林坦荡清风',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q14_handover', value: 'kaifeng' },
+          openScene('scene_slq14_09_kaifeng', SHAOLIN_Q14_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq14_handover_shaolin',
+        label: '【押回戒律院严审】暂扣密室依江湖规矩严审追查西夏同党，斩草除根！（怒目杀业 +1）',
+        subLabel: '不惜沾染酷烈之名，誓挖出汴京潜伏的西夏暗桩',
+        tone: 'danger',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q14_handover', value: 'shaolin' },
+          openScene('scene_slq14_09_shaolin', SHAOLIN_Q14_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_slq14_18: {
-    id: 'scene_slq14_18',
-    title: '第十八幕 · 昭雪汴京',
-    subtitle: '开封府大相国寺前',
+  scene_slq14_09_kaifeng: {
+    id: 'scene_slq14_09_kaifeng',
+    title: '第九幕 · 昭雪公堂',
+    subtitle: '开封府大堂前 · 晨光初照',
     mandatory: true,
     beats: [
-      N('天色微明，严横与西夏密信俱已移交开封府升堂审结。不到半日，汴京茶楼酒肆便传遍了「少林戒律高徒一掌破铁臂、生擒西夏悍匪洗冤护民」的佳话，先前针对少林的流言蜚语烟消云散。'),
-      N('你随慧禅返回大相国寺资圣八角琉璃宝塔，向玄寂长老复命。'),
+      P('（合十肃容，将严横与西夏密信、假佛珠当众交付捕头）“阿弥陀佛！天子脚下自有大宋王法，佛门弟子岂可越俎代庖、行私刑密审之事？至于西夏余党，自可抄录密信呈请开封府与枢密院顺藤摸瓜！”'),
+      N('天色微明，开封府升堂公开审结严横一案，假佛珠与西夏雇凶铁证尽数昭示天下。不到半日，东京茶楼酒肆便传遍了「少林戒律高徒一掌破铁臂、生擒西夏悍匪并守法交官」的佳话，先前御史台的质问流言一朝尽散！'),
+      S('NPC-0378', '（随你踏雪返抵大相国寺山门，由衷叹服）“师弟胸襟磊落、不越国法分毫，此番连开封府尹都连赞我少林真乃名门正派！”'),
     ],
-    onFinishEffects: [openScene('scene_slq14_19', SHAOLIN_Q14_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq14_10', SHAOLIN_Q14_QUEST_ID)],
   },
 
-  scene_slq14_19: {
-    id: 'scene_slq14_19',
-    title: '第十九幕 · 塔顶授诀',
-    subtitle: '大相国寺 · 资圣八角琉璃宝塔',
+  scene_slq14_09_shaolin: {
+    id: 'scene_slq14_09_shaolin',
+    title: '第九幕 · 密审追桩',
+    subtitle: '大相国寺戒律偏院密室',
     mandatory: true,
     beats: [
-      S('NPC-0134', '（立于八角宝塔窗前，望着初升旭日，神色欣慰无比）“善哉，善哉！你非但以笔墨辩才勘破西夏奸计，更在甜水巷屋脊生死一瞬悟透《一拍两散掌》真谛、一掌碎铁生擒凶徒，为我少林寺挣足了百年清誉！”'),
-      S('NPC-0134', '“老衲平生衣钵绝学《一拍两散掌》，今日便将全卷秘诀正式传授于你！切记此掌威力过巨，非大奸大恶不可轻用，须常怀戒慎慈悲之心！”'),
-      P('（恭谨伏拜，双手接过玄寂所授掌谱心诀）“弟子定当铭记玄寂师伯教诲，谨守佛门戒律，绝不妄动杀心！”'),
+      P('（目光冷峻，拦住捕头拱手致意）“捕头稍候！此獠涉及西北军粮机密，西夏同党尚匿京城，若今夜便敲锣打鼓升堂，必致大鱼漏网。贫僧先押他回大相国寺偏院问清同党下落，天明前必连同口供一并交割开封府！”'),
+      N('大相国寺密室孤灯摇曳。你以少林分筋错骨点穴手法连夜严审，严横终究扛不住经脉剧痛，咬牙供出了西夏细作在汴京城西茶马货栈与樊楼后巷的两处暗桩接头暗号！'),
+      N('天色微明前，你连同严横与两处暗桩密录一并移交开封府，官军顺势一网打尽，汴京流言亦随血案告破烟消云散；只是步出密室时，你袖间犹沾寒夜霜气，慧禅望向你的眼神亦多了几分敬畏与沉思。'),
     ],
-    onFinishEffects: [openScene('scene_slq14_20', SHAOLIN_Q14_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq14_10', SHAOLIN_Q14_QUEST_ID)],
   },
 
-  scene_slq14_20: {
-    id: 'scene_slq14_20',
-    title: '第二十幕 · 禅心清澄',
+  scene_slq14_10: {
+    id: 'scene_slq14_10',
+    title: '第十幕 · 塔顶授诀',
     subtitle: '大相国寺 · 资圣八角琉璃宝塔（结局）',
     mandatory: true,
     beats: [
-      N('宝塔铜铃在朝阳清风中悦耳长鸣。你合十伫立高阁，回望汴京繁华街市，只觉掌中真气收放自如，经义与武道皆迈入全新境界。'),
+      N('旭日升起，资圣八角琉璃宝塔铜铃在清风中悦耳长鸣。你随慧禅登塔复命，玄寂负手立于高窗之前，回身望向你时目露深沉赞赏。'),
+      S('NPC-0134', '“善哉，善哉！{ifFlag:sl_q14_clue_solved|你先凭红泥靴印与沉香绳一眼勘破凶手高檐行踪，复在甜水巷屋脊以《一拍两散掌》碎铁擒魔，智勇双全！|你虽在宝塔验卷时略错一着，然临危不乱、于甜水巷屋脊悟透《一拍两散掌》真谛一掌碎铁生擒凶徒，为我少林挣足百年清誉！}”'),
+      S('NPC-0134', '“{ifFlagEq:sl_q14_handover=kaifeng|战后你守法交官、坦荡昭雪，极合佛门正道气象；|战后你不惜沾染雷霆酷名、连夜密审拔除西夏暗桩，亦是护国护寺之狠手；}老衲平生衣钵绝学《一拍两散掌》，今日便将全卷秘诀正式传授于你！切记此掌威力过巨，非大奸大恶不可轻用！”'),
+      P('（伏拜领受掌谱心诀，回望汴京万家烟火，掌中真气收放自如）“弟子谨遵玄寂师伯教诲，必常怀戒慎慈悲之心，不堕少林威名！”'),
     ],
     choices: [
       {
@@ -340,10 +418,22 @@ export const SCENES: Record<string, StorySceneDef> = {
         label: '合十谢过玄寂师伯与慧禅师兄，领受《一拍两散掌》（完成《一拍两散 · 汴京缉凶》）',
         tone: 'gold',
         effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q14_handover', op: 'eq', value: 'kaifeng' },
+            thenEffects: [{ type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 }],
+            elseEffects: [{ type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 }],
+          },
           { type: 'teachMartialArt', artId: 'MA-083' },
           { type: 'giveCombatExp', amount: 340, reason: '汴京甜水巷屋脊一拍两散掌生擒铁罗汉严横' },
           { type: 'addSectContribution', amount: 140 },
           { type: 'modifySkill', key: '经义', delta: 2 },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q14_clue_solved', op: 'truthy' },
+            thenEffects: [{ type: 'modifySkill', key: '辩才', delta: 1 }],
+            elseEffects: [],
+          },
           { type: 'modifyRenown', delta: 40, reason: '汴京擒凶洗刷少林冤屈，名动京师' },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0134' }, delta: 15 },
           { type: 'completeQuest', questId: SHAOLIN_Q14_QUEST_ID, outcome: 'completed' },

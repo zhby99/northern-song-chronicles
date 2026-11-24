@@ -27,7 +27,7 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流下品',
     maxOpponentRealm: '二流下品（河洛刀匪首 · 豁口屠夫屠三）',
     recommendedNote:
-      '嵩山少林寺罗汉堂脉 Lv.2 内门首回任务链（全十六幕）。须已剃度归入罗汉堂且经义 ≥ 50。于东庑碑帖武库院随伏魔刀僧玄灭、降魔尊者玄苦受传《慈悲刀法》，旋即随玄灭下山驰赴嵩阳颍阳镇，以刀背卸去胁从饥民朴刀而不伤其命，单骑力挫河洛刀匪首「豁口屠夫」屠三并生擒归案。',
+      '嵩山少林寺罗汉堂脉 Lv.2 内门首回任务链（全十幕）。须已剃度归入罗汉堂且经义 ≥ 50。于东庑碑帖武库院随伏魔刀僧玄灭、降魔尊者玄苦受传《慈悲刀法》，旋即驰赴山脚颍阳镇化解饥民劫粮乱局：可择施银开仓辩理安民、刀背卸兵慈悲阵或金刚震慑硬破匪阵三策破局，擒获河洛刀匪首「豁口屠夫」屠三后，更须裁定其剃发劳役赎罪或押官严惩。',
     startHint:
       '晋升内门并归入罗汉堂（剃度出家）、且经义 ≥ 50 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 东庑碑帖武库院】（或寻玄灭、玄苦师伯）即可开启《慈悲刀法》传功与颍阳度寇之行。',
     startLocation: {
@@ -38,16 +38,16 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q05_START_CONDITION,
     summary:
-      '{reignYear}春寒料峭，你初入少林罗汉堂内门，于【东庑碑帖武库院】拜见伏魔刀僧【玄灭】与降魔尊者【玄苦】。玄灭师伯以钝口铁戒刀拆解《慈悲刀法》「劈而不杀、截而不折」之禅理，亲授三十六路刀意。忽闻山脚颍阳镇遭河洛悍匪「豁口屠夫」【屠三】裹挟灾年饥民劫粮，你随玄灭星夜下山，于镇口义仓前先以慈悲刀背点震卸下两名胁从饥民朴刀、保全性命，再一对一正面硬撼狂暴屠三，一记「回风度厄」震碎其持刀腕骨将其生擒，终以佛门悲智平息颍阳刀劫。',
+      '{reignYear}春寒料峭，你初入少林罗汉堂内门，于【东庑碑帖武库院】拜见伏魔刀僧【玄灭】与降魔尊者【玄苦】，领受少林七十二绝技《慈悲刀法》「劈而不杀、截而不折」之止戈禅意。适逢河洛悍匪「豁口屠夫」【屠三】裹挟灾年饥民逼劫山脚颍阳镇义仓，你随玄灭星夜驰援，于火光乱阵前或施银购粟辩理安民免伤百姓、或以刀背卸兵保全流民再擒屠三、或以金刚威势震散外围连战匪首。生擒屠三后，你还须在设粥棚令其剃发服役赎罪与押交县衙追赃严办之间作出抉择。',
     initialStepId: 'cibei_blade_study',
     steps: {
       cibei_blade_study: {
         id: 'cibei_blade_study',
-        title: '东庑传刀 · 闻讯下山',
+        title: '东庑传刀 · 演刃试锋',
         objective:
-          '你已在东庑碑帖武库院领受玄灭、玄苦二位师伯《慈悲刀法》起手要诀。颍阳镇急报匪患将至，请留守【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】随玄灭师伯演刀试锋、点齐戒刀下山！',
+          '你已在东庑碑帖武库院领命驰援颍阳镇。请留守【十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】，随玄灭师伯演练并正式习得《慈悲刀法》，随后整装下山！',
         nextHint:
-          '在【嵩山少林寺 · 十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】点击「东庑领戒刀 · 随玄灭下山赴颍阳镇」。',
+          '在【嵩山少林寺 · 十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】点击「东庑领戒刀 · 随玄灭演习《慈悲刀法》」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_luohan',
@@ -59,7 +59,7 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
         id: 'yingyang_mercy',
         title: '颍阳度寇 · 生擒屠三',
         objective:
-          '河洛悍匪「豁口屠夫」屠三正率众逼劫颍阳镇义仓，阵前更有被裹挟的饥民持刀乱冲！请由【东庑碑帖武库院（sl_luohan_west）】启程驰赴颍阳镇，以刀背卸饥民朴刀而不伤命，再单挑生擒匪首屠三！',
+          '你已习得《慈悲刀法》！河洛悍匪「豁口屠夫」屠三正驱使饥民逼劫颍阳镇义仓。请由【东庑碑帖武库院（sl_luohan_west）】启程驰赴颍阳镇，择策化解饥民匪众混战之局并生擒屠三！',
         nextHint:
           '在【嵩山少林寺 · 十八铜人罗汉堂 · 东庑碑帖武库院（sl_luohan_west）】点击「驰赴颍阳镇义仓 · 慈悲刀度寇擒匪」。',
         targetLocation: {
@@ -88,7 +88,7 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
         spotId: 'sl_luohan_west',
         onceFlag: 'sl_q05_study_triggered',
         condition: atStep(SHAOLIN_Q05_QUEST_ID, 'cibei_blade_study'),
-        effects: [openScene('scene_slq05_04', SHAOLIN_Q05_QUEST_ID)],
+        effects: [openScene('scene_slq05_02', SHAOLIN_Q05_QUEST_ID)],
       },
     ],
 
@@ -110,9 +110,9 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_slq05_study_west',
-        label: '【罗汉堂脉】东庑领戒刀 · 随玄灭下山赴颍阳镇',
+        label: '【罗汉堂脉】东庑领戒刀 · 随玄灭演习《慈悲刀法》',
         badge: '东庑试刀',
-        subtitle: '演练慈悲刀意 · 驰援山脚颍阳镇',
+        subtitle: '习得慈悲刀法 · 整装驰援颍阳镇',
         tone: 'gold',
         regionId: 'shaolin',
         buildingId: 'sl_luohan',
@@ -120,14 +120,14 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q05_QUEST_ID, 'cibei_blade_study'),
         effects: [
           { type: 'setFlag', flag: 'sl_q05_study_triggered', value: true },
-          openScene('scene_slq05_04', SHAOLIN_Q05_QUEST_ID),
+          openScene('scene_slq05_02', SHAOLIN_Q05_QUEST_ID),
         ],
       },
       {
         id: 'spot_slq05_yingyang_mercy',
         label: '【罗汉堂脉】驰赴颍阳镇义仓 · 慈悲刀度寇擒匪',
         badge: '慈悲度寇',
-        subtitle: '刀背卸饥民朴刀 · 单挑生擒豁口屠夫屠三',
+        subtitle: '三策化解饥民乱局 · 生擒豁口屠夫屠三',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_luohan',
@@ -137,8 +137,8 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q05_peasant_disarmed', op: 'truthy' },
-            thenEffects: [openScene('scene_slq05_12', SHAOLIN_Q05_QUEST_ID)],
-            elseEffects: [openScene('scene_slq05_08', SHAOLIN_Q05_QUEST_ID)],
+            thenEffects: [openScene('scene_slq05_07_tusan', SHAOLIN_Q05_QUEST_ID)],
+            elseEffects: [openScene('scene_slq05_03', SHAOLIN_Q05_QUEST_ID)],
           },
         ],
       },
@@ -166,7 +166,7 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'act_slq05_study_npc',
-        label: '禀请玄灭师伯 · 演练刀意并下山赴颍阳镇',
+        label: '禀请玄灭师伯 · 演练《慈悲刀法》并整装下山',
         badge: '东庑试刀',
         tone: 'gold',
         showInBottomBar: true,
@@ -180,12 +180,12 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q05_study_triggered', value: true },
-          openScene('scene_slq05_04', SHAOLIN_Q05_QUEST_ID),
+          openScene('scene_slq05_02', SHAOLIN_Q05_QUEST_ID),
         ],
       },
       {
         id: 'act_slq05_yingyang_npc',
-        label: '随玄灭师伯赴颍阳镇 · 刀背度饥民擒屠三',
+        label: '随玄灭师伯驰赴颍阳镇 · 破阵度饥民擒屠三',
         badge: '慈悲度寇',
         tone: 'danger',
         showInBottomBar: true,
@@ -201,8 +201,8 @@ export const SHAOLIN_Q05_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q05_peasant_disarmed', op: 'truthy' },
-            thenEffects: [openScene('scene_slq05_12', SHAOLIN_Q05_QUEST_ID)],
-            elseEffects: [openScene('scene_slq05_08', SHAOLIN_Q05_QUEST_ID)],
+            thenEffects: [openScene('scene_slq05_07_tusan', SHAOLIN_Q05_QUEST_ID)],
+            elseEffects: [openScene('scene_slq05_03', SHAOLIN_Q05_QUEST_ID)],
           },
         ],
       },

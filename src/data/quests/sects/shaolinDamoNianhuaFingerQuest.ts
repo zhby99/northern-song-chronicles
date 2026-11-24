@@ -29,7 +29,7 @@ export const SHAOLIN_Q11_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流上品（吐蕃大轮寺护法 · 萨迦铁僧）',
     recommendedNote:
-      '嵩山少林寺达摩院脉 Lv.2 高阶绝学传承任务链（全二十幕）。须完成《洛水飞花 · 散花破幻》、入寺满 210 日且经义 ≥ 62、书 ≥ 45、辩才 ≥ 45。吐蕃大轮寺三护法番僧登嵩山探听七十二绝技虚实、当殿捏碎青玉瓶示威；你先以无声禅机辩经压阵，再领受玄难所授地阶绝学《拈花指》，于钟鼓禅院演武坪以柔劲透穴连破两名番僧铁掌硬功，令大轮寺众僧折服长揖。',
+      '嵩山少林寺达摩院脉 Lv.2 高阶绝学传承任务链（全十二幕）。须完成《洛水飞花 · 散花破幻》、入寺满 210 日且经义 ≥ 62、书 ≥ 45、辩才 ≥ 45。吐蕃大轮寺三护法登嵩山捏碎青玉净瓶示威，先以两道无提示禅宗公案机锋考较佛理——两问俱中即可当殿折服赤铜罗汉巴桑直挑首席护法；随后领受玄难所授地阶绝学《拈花指》，于演武坪以柔劲透穴破雪域铁掌，并决断礼遣番僧之道。',
     startHint:
       '完成《洛水飞花 · 散花破幻》、入寺满 210 日且经义 ≥ 62、书 ≥ 45、辩才 ≥ 45 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团】（或寻玄慈、玄难）开启任务。',
     startLocation: {
@@ -40,14 +40,14 @@ export const SHAOLIN_Q11_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q11_START_CONDITION,
     summary:
-      '{reignYear}吐蕃大轮寺三名护法番僧——【萨迦铁僧】、【赤铜罗汉】与【金刚译师】借礼佛之名登临嵩山，意在探听少林七十二绝技虚实，更于【大雄正殿 · 佛前蒲团】当众以密宗硬功捏碎青玉净瓶示威。面对番僧连环禅辩机锋，你在【玄慈】方丈示意下默然拈起残瓶青莲，以「灵山世尊拈花、迦叶破颜微笑」之无声禅机震慑全场。随后【玄难】首座亲授少林地阶绝学《拈花指》，你移步【钟鼓禅院 · 演武坪】，以拈花柔劲隔空透穴，连破赤铜罗汉与萨迦铁僧两重密宗铁掌硬功。大轮寺三僧骇然叹服、躬身长揖赔礼告辞，你终获《拈花指》真传。',
+      '{reignYear}吐蕃大轮寺三名护法番僧——【萨迦铁僧 · 贡布】、【赤铜罗汉 · 巴桑】与【金刚译师 · 桑杰】借礼佛之名登临嵩山，于【大雄正殿 · 佛前蒲团】徒手捏碎青玉净瓶示威，并抛出「风动幡动」与「佛祖西来意」两重禅宗公案步步紧逼。你在【玄慈】方丈点将下迎锋对辩、拈起碎玉青莲破颜微笑，随后得【玄难】首座亲授少林地阶绝学《拈花指》，移步【钟鼓禅院 · 演武坪】以柔劲透穴折服吐蕃铁掌护法，令大轮寺众僧合十长揖赔礼告辞，终获《拈花指》真传。',
     initialStepId: 'tubo_courtyard_spar',
     steps: {
       tubo_courtyard_spar: {
         id: 'tubo_courtyard_spar',
         title: '拈花透穴 · 演武破番僧',
         objective:
-          '你已于大雄正殿以无声禅机压阵，并得玄难首座传授《拈花指》要旨！请移步【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】，以拈花柔劲连破赤铜罗汉与萨迦铁僧的密宗硬功！',
+          '你已于大雄正殿应答吐蕃辩经，并得玄难首座传授地阶绝学《拈花指》！请移步【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】，以禅辩或拈花柔劲破雪域大轮寺护法！',
         nextHint:
           '前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】，点击「登演武坪 · 以拈花指迎战吐蕃大轮寺护法」。',
         targetLocation: {
@@ -76,7 +76,14 @@ export const SHAOLIN_Q11_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_west',
         onceFlag: 'sl_q11_spar_triggered',
         condition: atStep(SHAOLIN_Q11_QUEST_ID, 'tubo_courtyard_spar'),
-        effects: [openScene('scene_slq11_10', SHAOLIN_Q11_QUEST_ID)],
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q11_basang_cleared', op: 'truthy' },
+            thenEffects: [openScene('scene_slq11_08', SHAOLIN_Q11_QUEST_ID)],
+            elseEffects: [openScene('scene_slq11_06', SHAOLIN_Q11_QUEST_ID)],
+          },
+        ],
       },
     ],
 
@@ -100,7 +107,7 @@ export const SHAOLIN_Q11_QUESTS: QuestDefinition[] = [
         id: 'spot_slq11_courtyard_spar',
         label: '【达摩院脉】登演武坪 · 以拈花指迎战吐蕃大轮寺护法',
         badge: '拈花透穴',
-        subtitle: '钟鼓禅院演武坪 · 连破赤铜罗汉与萨迦铁僧',
+        subtitle: '钟鼓禅院演武坪 · 破吐蕃密宗铁掌护法',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
@@ -111,8 +118,8 @@ export const SHAOLIN_Q11_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q11_basang_cleared', op: 'truthy' },
-            thenEffects: [openScene('scene_slq11_15', SHAOLIN_Q11_QUEST_ID)],
-            elseEffects: [openScene('scene_slq11_10', SHAOLIN_Q11_QUEST_ID)],
+            thenEffects: [openScene('scene_slq11_08', SHAOLIN_Q11_QUEST_ID)],
+            elseEffects: [openScene('scene_slq11_06', SHAOLIN_Q11_QUEST_ID)],
           },
         ],
       },
@@ -157,8 +164,8 @@ export const SHAOLIN_Q11_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q11_basang_cleared', op: 'truthy' },
-            thenEffects: [openScene('scene_slq11_15', SHAOLIN_Q11_QUEST_ID)],
-            elseEffects: [openScene('scene_slq11_10', SHAOLIN_Q11_QUEST_ID)],
+            thenEffects: [openScene('scene_slq11_08', SHAOLIN_Q11_QUEST_ID)],
+            elseEffects: [openScene('scene_slq11_06', SHAOLIN_Q11_QUEST_ID)],
           },
         ],
       },

@@ -31,7 +31,7 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品 ～ 一流下品',
     maxOpponentRealm: '一流下品（铜人阵眼 · 慧轮）',
     recommendedNote:
-      '嵩山少林寺罗汉堂脉 Lv.2 内门晋升 Lv.3 真传弟子终极考阵（全二十二幕）。须入寺满 300 日、完成碎碑擒龙之役，且经义 ≥ 70、书法 ≥ 50、玄慈方丈好感 ≥ 50。于罗汉堂演武正殿单身硬闯慧轮、慧印等十八金漆铜人所布「三才六合大阵」，连破伏魔棍阵、金身刀盾阵与核心阵眼慧轮三关；破阵而出时少林古钟连鸣九响，赴大雄正殿蒙玄慈方丈亲赐袈裟、册封少林派 Lv.3【真传弟子】！',
+      '嵩山少林寺罗汉堂脉 Lv.2 内门晋升 Lv.3 真传弟子终极考阵（全十三幕）。须入寺满 300 日、完成碎碑擒龙之役，且经义 ≥ 70、书法 ≥ 50、玄慈方丈好感 ≥ 50。开考前玄苦总评你的罗汉堂历练履历；闯十八铜人三才六合大阵时，第一波可择观步识阵眼或硬功对撼破阵，第二波须凭「巽风启棍、离火藏刀、坤土守中」口诀无提示判断破阵方位拆解连环攻势，终波正面力挫一流下品阵眼慧轮；破阵后古钟九响，登大雄正殿立下真传誓词并蒙玄慈方丈册封 Lv.3【真传弟子】！',
     startHint:
       '入寺满 300 日、完成【碎碑擒龙 · 少室捉谍】且经义 ≥ 70、书 ≥ 50、玄慈好感 ≥ 50 后，前往【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿】（或寻玄苦、玄痛、慧轮）叩关挑战十八铜人三才六合大阵。',
     startLocation: {
@@ -42,16 +42,16 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q08_START_CONDITION,
     summary:
-      '{reignYear}五载寒暑瞬息而过，你在少林罗汉堂潜修禅武、屡立奇功，终于迎来少林寺传承百年的真传终极试炼——【十八铜人 · 罗汉金身】！在降魔尊者【玄苦】与戒律长老【玄痛】监阵之下，你只身步入【罗汉堂演武正殿】，直面大金刚僧【慧轮】、禅武僧【慧印】等十八名身涂金漆的罗汉堂顶尖武僧所布「三才六合大阵」。你以《慈悲刀法》《韦陀杵》《龙爪手》融会贯通，先破慧印领衔的伏魔棍阵，再撕裂铜墙铁壁般的金身刀盾阵，终在核心阵眼一对一正面力挫一流下品的大金刚僧慧轮！十八铜人合十退让，少室古钟连鸣九响。你步入【大雄正殿 · 佛前蒲团】，蒙伏虎方丈【玄慈】亲授真传紫金袈裟，正式册封为嵩山少林寺【真传弟子】！',
+      '{reignYear}清秋，你历颍阳度寇、白马降魔、少室捉谍三大功勋，终于迎来少林寺百年真传大考——【十八铜人 · 罗汉金身】！在降魔尊者【玄苦】与戒律长老【玄痛】监阵之下，你独步踏入【罗汉堂演武正殿】，直面大金刚僧【慧轮】、禅武僧【慧印】等十八金漆铜人所布「三才六合大阵」。第一波你可观步识阵眼直破阵头或正面硬撼伏魔棍阵；第二波面对「巽风启棍、离火藏刀、坤土守中」连环变幻，识破阵位即可拆解合围；终波更与一流下品阵眼慧轮问答印心、激斗破阵！少室古钟连鸣九响，你登【大雄正殿 · 佛前蒲团】立下真传宏愿，蒙伏虎方丈【玄慈】亲赐紫金袈裟、册封少林派【真传弟子】！',
     initialStepId: 'arhat_array_trial',
     steps: {
       arhat_array_trial: {
         id: 'arhat_array_trial',
         title: '三才六合 · 连破三阵',
         objective:
-          '十八金漆铜人已在【十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】列成「三才六合大阵」！请单身闯阵，依次连破【伏魔棍阵】、【金身刀盾阵】与核心阵眼【大金刚僧 · 慧轮】三关！',
+          '十八金漆铜人已在【十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】列成「三才六合大阵」！请单身闯阵，凭阵法眼力与罗汉绝艺依次连破【金刚伏魔棍阵】、【八卦刀盾连环阵】与核心阵眼【大金刚僧 · 慧轮】三关！',
         nextHint:
-          '在【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】点击「步入十八铜人大阵 · 连破棍阵刀盾阵与慧轮」。',
+          '在【嵩山少林寺 · 十八铜人罗汉堂 · 罗汉堂演武正殿（sl_luohan_main）】点击「步入十八铜人大阵 · 破阵指挥连闯三关」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_luohan',
@@ -63,7 +63,7 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
         id: 'zhenchuan_ceremony',
         title: '钟鸣九响 · 册封真传',
         objective:
-          '你已硬闯十八金漆铜人三才六合大阵，力挫核心阵眼慧轮！少林钟楼古钟九响震彻嵩岳，请速赴【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】受玄慈方丈亲封少林【真传弟子】！',
+          '你已硬闯十八金漆铜人三才六合大阵，力挫一流下品阵眼慧轮！少林钟楼古钟九响震彻嵩岳，请速赴【大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】立誓受封少林【真传弟子】！',
         nextHint:
           '前往【嵩山少林寺 · 大雄宝殿方丈院 · 大雄正殿 · 佛前蒲团（sl_daxiong_main）】，点击「登大雄正殿 · 受玄慈方丈册封真传弟子」。',
         targetLocation: {
@@ -92,7 +92,7 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
         spotId: 'sl_luohan_main',
         onceFlag: 'sl_q08_array_triggered',
         condition: atStep(SHAOLIN_Q08_QUEST_ID, 'arhat_array_trial'),
-        effects: [openScene('scene_slq08_04', SHAOLIN_Q08_QUEST_ID)],
+        effects: [openScene('scene_slq08_02_wave1_plan', SHAOLIN_Q08_QUEST_ID)],
       },
       {
         id: 'trig_slq08_ceremony_daxiong',
@@ -101,7 +101,7 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
         spotId: 'sl_daxiong_main',
         onceFlag: 'sl_q08_ceremony_triggered',
         condition: atStep(SHAOLIN_Q08_QUEST_ID, 'zhenchuan_ceremony'),
-        effects: [openScene('scene_slq08_19', SHAOLIN_Q08_QUEST_ID)],
+        effects: [openScene('scene_slq08_11_daxiong', SHAOLIN_Q08_QUEST_ID)],
       },
     ],
 
@@ -110,7 +110,7 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
         id: 'spot_slq08_start_main',
         label: '【真传大考】叩关罗汉堂正殿 · 挑战十八铜人三才六合大阵',
         badge: '十八铜人',
-        subtitle: '五载苦修圆满 · 罗汉堂演武正殿',
+        subtitle: '罗汉堂巅峰大考 · 罗汉堂演武正殿',
         tone: 'gold',
         regionId: 'shaolin',
         buildingId: 'sl_luohan',
@@ -123,9 +123,9 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_slq08_array_main',
-        label: '【真传大考】步入十八铜人大阵 · 连破棍阵刀盾阵与慧轮',
+        label: '【真传大考】步入十八铜人大阵 · 破阵指挥连闯三关',
         badge: '连破三阵',
-        subtitle: '棍阵 → 刀盾阵 → 阵眼慧轮（一流下品）',
+        subtitle: '伏魔棍阵 → 八卦刀盾阵 → 阵眼慧轮（一流下品）',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_luohan',
@@ -136,13 +136,20 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q08_wave2_cleared', op: 'truthy' },
-            thenEffects: [openScene('scene_slq08_13', SHAOLIN_Q08_QUEST_ID)],
+            thenEffects: [
+              {
+                type: 'branch',
+                condition: { type: 'flag', flag: 'sl_q08_huilun_answer', op: 'truthy' },
+                thenEffects: [openScene('scene_slq08_09_huilun_duel', SHAOLIN_Q08_QUEST_ID)],
+                elseEffects: [openScene('scene_slq08_08_zen_question', SHAOLIN_Q08_QUEST_ID)],
+              },
+            ],
             elseEffects: [
               {
                 type: 'branch',
                 condition: { type: 'flag', flag: 'sl_q08_wave1_cleared', op: 'truthy' },
-                thenEffects: [openScene('scene_slq08_09', SHAOLIN_Q08_QUEST_ID)],
-                elseEffects: [openScene('scene_slq08_04', SHAOLIN_Q08_QUEST_ID)],
+                thenEffects: [openScene('scene_slq08_05_wave2_riddle', SHAOLIN_Q08_QUEST_ID)],
+                elseEffects: [openScene('scene_slq08_02_wave1_plan', SHAOLIN_Q08_QUEST_ID)],
               },
             ],
           },
@@ -160,7 +167,7 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q08_QUEST_ID, 'zhenchuan_ceremony'),
         effects: [
           { type: 'setFlag', flag: 'sl_q08_ceremony_triggered', value: true },
-          openScene('scene_slq08_19', SHAOLIN_Q08_QUEST_ID),
+          openScene('scene_slq08_11_daxiong', SHAOLIN_Q08_QUEST_ID),
         ],
       },
     ],
@@ -204,13 +211,20 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q08_wave2_cleared', op: 'truthy' },
-            thenEffects: [openScene('scene_slq08_13', SHAOLIN_Q08_QUEST_ID)],
+            thenEffects: [
+              {
+                type: 'branch',
+                condition: { type: 'flag', flag: 'sl_q08_huilun_answer', op: 'truthy' },
+                thenEffects: [openScene('scene_slq08_09_huilun_duel', SHAOLIN_Q08_QUEST_ID)],
+                elseEffects: [openScene('scene_slq08_08_zen_question', SHAOLIN_Q08_QUEST_ID)],
+              },
+            ],
             elseEffects: [
               {
                 type: 'branch',
                 condition: { type: 'flag', flag: 'sl_q08_wave1_cleared', op: 'truthy' },
-                thenEffects: [openScene('scene_slq08_09', SHAOLIN_Q08_QUEST_ID)],
-                elseEffects: [openScene('scene_slq08_04', SHAOLIN_Q08_QUEST_ID)],
+                thenEffects: [openScene('scene_slq08_05_wave2_riddle', SHAOLIN_Q08_QUEST_ID)],
+                elseEffects: [openScene('scene_slq08_02_wave1_plan', SHAOLIN_Q08_QUEST_ID)],
               },
             ],
           },
@@ -232,7 +246,7 @@ export const SHAOLIN_Q08_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q08_ceremony_triggered', value: true },
-          openScene('scene_slq08_19', SHAOLIN_Q08_QUEST_ID),
+          openScene('scene_slq08_11_daxiong', SHAOLIN_Q08_QUEST_ID),
         ],
       },
     ],

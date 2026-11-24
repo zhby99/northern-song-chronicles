@@ -28,7 +28,7 @@ export const SHAOLIN_Q10_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品',
     maxOpponentRealm: '二流中品（星宿派妖女 · 毒罗刹）',
     recommendedNote:
-      '嵩山少林寺达摩院脉 Lv.2 中阶历练任务链（全十八幕）。须完成《剑痕绝壁 · 达摩初剑》、入寺满 150 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30。玄难借落英与禅棋步法传授《散花掌》，命你下山赴洛阳酒肆查探牡丹会画舫毒案，夜探洛水画舫以散花掌风卷回星宿毒粉反噬妖人，车轮连战 震晕毒罗刹与星宿护法救出中原名宿。',
+      '嵩山少林寺达摩院脉 Lv.2 中阶历练任务链（全十一幕）。须完成《剑痕绝壁 · 达摩初剑》、入寺满 150 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30。玄难借落英禅棋传授《散花掌》，命你下山赴洛阳查探牡丹会画舫毒案；夜探瑶华舫于丝竹诱饵间鉴伪识毒，择策破功直挑毒罗刹或正面降妖，战后更须决断散药济众之道。',
     startHint:
       '完成《剑痕绝壁 · 达摩初剑》、入寺满 150 日且经义 ≥ 55、书 ≥ 35、棋 ≥ 30 后，前往【嵩山少林寺 · 达摩院 · 绝壁石刻 · 剑痕崖】（或寻玄难首座）开启任务。',
     startLocation: {
@@ -39,7 +39,7 @@ export const SHAOLIN_Q10_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q10_START_CONDITION,
     summary:
-      '{reignYear}暮春洛阳牡丹盛会期间，星宿派妖女【毒罗刹】携护法潜伏洛水画舫，暗施「百花迷魂散」毒倒数名中原武林名宿并劫为人质。达摩院首座【玄难】在剑痕崖借山风落英与石枰禅棋步法，向你传授少林奇门掌法《散花掌》，遣你下山赴洛阳查探破局。你自洛阳酒肆循花灯暗探至洛水画舫，面对毒罗刹漫天洒出的五彩毒粉，双掌翻飞施展《散花掌》卷风回拂，竟将毒粉尽数反噬妖人，随即一对二力挫毒罗刹与星宿护法，震晕二凶救下全部人质，扬少林正道侠名于洛水。',
+      '{reignYear}暮春洛阳牡丹盛会期间，星宿派妖女【毒罗刹 · 柳碧烟】携护法【腐骨子】潜伏洛水画舫，暗布幻毒诱困中原武林名宿。达摩院首座【玄难】在剑痕崖借落英与禅棋步法传授《散花掌》，遣你下山赴洛阳破局。你自洛阳酒肆暗访查明「瑶华舫」泊位，亥时孤身登舟于清茶、无灰莲花香炉与牡丹绘扇之间辨伪破幻，继而以击碎毒炉、棋局护众或正面散花反卷毒粉击溃星宿二凶，救出温老英雄与船客歌姬，扬少林侠名于洛水。',
     initialStepId: 'luoyang_boat_probe',
     steps: {
       luoyang_boat_probe: {
@@ -59,7 +59,7 @@ export const SHAOLIN_Q10_QUESTS: QuestDefinition[] = [
         id: 'luoshui_boat_battle',
         title: '散花破幻 · 画舫擒妖',
         objective:
-          '你已锁定星宿派妖女「毒罗刹」藏身的洛水画舫！请在【洛阳府 · 洛阳酒肆（luoyang_base_tavern）】乘小舟夜袭画舫，以《散花掌》反卷毒粉，车轮连战 震晕毒罗刹与星宿护法救出人质！',
+          '你已识破假扮雅士的星宿妖女「毒罗刹」！请在【洛阳府 · 洛阳酒肆（luoyang_base_tavern）】登舟破局，以《散花掌》降服星宿妖人并救出人质！',
         nextHint:
           '在【洛阳府 · 洛阳酒肆（luoyang_base_tavern）】点击「夜探洛水画舫 · 以散花掌力战星宿妖女」。',
         targetLocation: {
@@ -86,7 +86,7 @@ export const SHAOLIN_Q10_QUESTS: QuestDefinition[] = [
         buildingId: 'luoyang_base_tavern',
         onceFlag: 'sl_q10_tavern_triggered',
         condition: atStep(SHAOLIN_Q10_QUEST_ID, 'luoyang_boat_probe'),
-        effects: [openScene('scene_slq10_07', SHAOLIN_Q10_QUEST_ID)],
+        effects: [openScene('scene_slq10_03', SHAOLIN_Q10_QUEST_ID)],
       },
     ],
 
@@ -117,19 +117,19 @@ export const SHAOLIN_Q10_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q10_QUEST_ID, 'luoyang_boat_probe'),
         effects: [
           { type: 'setFlag', flag: 'sl_q10_tavern_triggered', value: true },
-          openScene('scene_slq10_07', SHAOLIN_Q10_QUEST_ID),
+          openScene('scene_slq10_03', SHAOLIN_Q10_QUEST_ID),
         ],
       },
       {
         id: 'spot_slq10_boat_battle',
         label: '【达摩院脉】夜探洛水画舫 · 以散花掌力战星宿妖女',
         badge: '散花破幻',
-        subtitle: '洛水画舫 车轮连战 实战 · 救出中原名宿',
+        subtitle: '洛水画舫实战 · 破星宿毒局救出名宿',
         tone: 'danger',
         regionId: 'luoyang',
         buildingId: 'luoyang_base_tavern',
         visibleWhen: atStep(SHAOLIN_Q10_QUEST_ID, 'luoshui_boat_battle'),
-        effects: [openScene('scene_slq10_14', SHAOLIN_Q10_QUEST_ID)],
+        effects: [openScene('scene_slq10_06', SHAOLIN_Q10_QUEST_ID)],
       },
     ],
 

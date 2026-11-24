@@ -12,6 +12,15 @@ const SPEAKER_HERB_MERCHANT: StorySpeakerSpec = {
   avatarUrl: '/assets/characters/templates/tpl_peasant_old_male_av.jpg',
 }
 
+const SPEAKER_WAZI_HOST: StorySpeakerSpec = {
+  kind: 'custom',
+  name: '陆掌柜',
+  title: '瓦子说书茶肆东家 · 市井包打听',
+  factionName: '汴京商贾',
+  portraitUrl: '/assets/characters/templates/tpl_sanren_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_sanren_male_av.jpg',
+}
+
 const SPEAKER_TRAITOR_CLERK: StorySpeakerSpec = {
   kind: 'custom',
   name: '刁三',
@@ -119,64 +128,174 @@ export const SCENES: Record<string, StorySceneDef> = {
   scene_slq17_01: {
     id: 'scene_slq17_01',
     title: '第一幕 · 东出汴京',
-    subtitle: '开封府 · 大相国寺山门外',
-    mandatory: true,
-    beats: [
-      N('{reignYear}春深，汴京城柳絮如烟。你既在大雄宝殿择定少林【俗家护法脉】，蓄发束巾、着青布护法劲装，怀揣方丈法谕，奉命东来驻守东京大相国寺。'),
-      N('大相国寺乃大宋皇家敕建巨刹，每月五次开放万姓交易，殿前广场与东西两廊商棚鳞次栉比，飞禽走兽、药材丝绸、古玩字画无所不有，人声鼎沸胜过十里长街。'),
-      P('（按住腰间戒刀，抬眼望向琉璃飞檐与熙攘人潮）“嵩山清静，汴京繁华。方丈常言俗家弟子身在红尘而不染尘垢，方知护法二字之重。先去雅市寻慧照师叔与卫弘龙师兄报到罢。”'),
-    ],
-    onFinishEffects: [openScene('scene_slq17_02', SHAOLIN_Q17_QUEST_ID)],
-  },
-
-  scene_slq17_02: {
-    id: 'scene_slq17_02',
-    title: '第二幕 · 万姓雅市',
-    subtitle: '相国寺万姓交易雅市',
+    subtitle: '开封府 · 大相国寺万姓交易雅市',
     illustrationUrl: '/assets/quests/sl_17_xiangguo_market.jpg',
     illustrationCaption: '大相国寺万姓雅市 · 慧照、卫弘龙与郑刚共议护持寺院商铺',
     mandatory: true,
     beats: [
-      N('穿过熙攘摊棚，只见西廊一株古槐树下，一名面庞刚毅如铁的僧人正双掌合十眺望市集，身旁立着两位佩刀束袖的少林俗家好手——正是金刚僧【慧照】与【卫弘龙】、【郑刚】。'),
-      S('NPC-0273', '（接过你递上的嵩山法谕，微微颔首，声若铜钟）“阿弥陀佛！方丈果真将新晋内门的俗家俊才派来东京了。{gender:师侄|女施主}既入我俗家护法一脉，便先见过卫弘龙与郑刚二位同门。”'),
-      S('NPC-0728', '（抱拳朗笑，眉宇间透着一股爽朗英气）“哈哈！早就听闻嵩山木桩廊出了位了不得的带发俊杰！在下卫弘龙，江湖人送浑号『银枪刀』，在这相国寺外廊巡守已有三载。”'),
-      S('NPC-0570', '（赤发如焰，抱臂微微点头）“郑刚。如今雅市表面太平，暗地里却藏着几条咬人的毒蛇。你来得正好，省得俺和老卫两双眼睛盯不过来。”'),
-    ],
-    onFinishEffects: [openScene('scene_slq17_03', SHAOLIN_Q17_QUEST_ID)],
-  },
-
-  scene_slq17_03: {
-    id: 'scene_slq17_03',
-    title: '第三幕 · 暗影滋生',
-    subtitle: '相国寺万姓交易雅市 · 西廊茶棚',
-    mandatory: true,
-    beats: [
-      S('NPC-0273', '（神色转肃，压低声音）“相国寺与我嵩山少林本是禅宗一脉，寺中东西两廊三百余座商铺的租契香火，多半用来接济汴京孤寡与修缮佛殿。可近两月来，城南瓦子里的地头蛇【青蛇帮】不知从何处买通了寺中一名被逐杂役，竟伪造租契印信，强向药铺与素斋摊加收三成『青蛇平安钱』！”'),
-      S('NPC-0728', '（冷哼一声，按剑柄而立）“那青蛇帮主『毒蛇钱五』奸猾得很，专挑咱们出家师父不便当街动粗的空当，派泼皮砸摊泼粪！若官府差役来查，他们又拿伪造的铺契糊弄过去，倒打一耙说寺院欺客。”'),
-      P('“好卑劣的伎俩！出家师父顾忌佛门清誉与清规戒律，不便与市井无赖厮缠，这等以直报怨的红尘恶仗，正该由咱们俗家护法来打！”'),
-      S('NPC-0570', '（咧嘴一笑）“说得好！俺就爱听这句痛快话！方才线报来说，青蛇帮的『过街鼠老六』正带着打手往西廊孙老掌柜的药铺去了！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq17_04', SHAOLIN_Q17_QUEST_ID)],
-  },
-
-  scene_slq17_04: {
-    id: 'scene_slq17_04',
-    title: '第四幕 · 领命巡市',
-    subtitle: '相国寺万姓交易雅市',
-    mandatory: true,
-    beats: [
-      S('NPC-0273', '“阿弥陀佛。青蛇帮人多势众，切莫轻敌。你先随卫弘龙、郑刚巡查西廊药铺，稳住商贾人心、摸清那内应底细；待击退闹事泼皮后，速来大雄宝殿香云宝鼎前见老衲，老衲另有护法刀杖绝学相授。”'),
-      P('（抱拳行礼）“弟子领命！这就随二位师兄去会一会那青蛇帮的泼皮！”'),
+      N('{reignYear}春深，汴京城柳絮如烟。你既在嵩山择定少林【俗家护法脉】，蓄发束巾、着青布劲装，怀揣方丈法谕东来驻守东京大相国寺。此间每月五开万姓交易雅市，飞禽药材、古玩素斋绵延东西两廊，繁华冠绝十里长街。'),
+      N('西廊古槐下，面庞刚毅如铁的金刚僧【慧照】与佩刀束袖的俗家师兄【卫弘龙】、赤发如焰的【郑刚】正凝眉眺望熙攘摊棚。慧照接过法谕合十赞许，引你与二位同门相见。'),
+      S('NPC-0273', '（神色转肃，压低嗓音）“相国寺与嵩山同出一脉，东西两廊三百余座商铺的租契香火，多半用来接济汴京孤寡。可近两月来，城南瓦子的地头蛇【青蛇帮】买通寺中逐出的败类杂役刁三，伪造朱印租契，强向药铺素斋摊加收三成『青蛇平安钱』！”'),
+      S('NPC-0728', '（按住腰间银枪刀柄冷哼）“那帮主『毒蛇钱五』狡兔三窟，专挑出家师父不便当街厮缠的空当砸摊泼粪；若官府来查，又拿假铺契倒打一耙！这等红尘恶仗，正该由咱们俗家护法来破！”'),
+      S('NPC-0570', '（指向西廊喧哗处）“听说刁三此刻又领人往西廊孙老掌柜药铺去了。你先随咱们巡察西廊、摸清钱五在瓦子的藏身赌坊与换班时辰，查实后速往大雄宝殿香云宝鼎拜见慧照师叔，师叔另有护法刀杖绝学相授！”'),
     ],
     choices: [
       {
         id: 'slq17_accept_quest',
-        label: '领受慧照法谕，动身巡查相国寺万姓雅市西廊',
+        label: '抱拳领命，动身巡查西廊药铺与瓦子市井暗访青蛇帮',
+        subLabel: '开启《相国暗影 · 红尘刀杖》，先往相国寺万姓交易雅市查访',
         tone: 'gold',
         effects: [
           { type: 'startQuest', questId: SHAOLIN_Q17_QUEST_ID, stepId: 'market_patrol' },
           setStep(SHAOLIN_Q17_QUEST_ID, 'market_patrol'),
-          toast('已开启《相国暗影 · 红尘刀杖》！请留在【相国寺万姓交易雅市】巡查西廊药摊！', 'talk', '红尘刀杖'),
+          toast('已开启《相国暗影 · 红尘刀杖》！请在【相国寺万姓交易雅市】查访西廊与瓦子茶棚！', 'talk', '红尘刀杖'),
+        ],
+      },
+    ],
+  },
+
+  scene_slq17_02: {
+    id: 'scene_slq17_02',
+    title: '第二幕 · 瓦子暗访',
+    subtitle: '相国寺西廊与瓦子茶棚（红尘人脉三策）',
+    mandatory: true,
+    beats: [
+      N('你随卫弘龙、郑刚赶至西廊孙记药铺，果见药草撒落满地！被逐杂役刁三踩着药柜晃着假朱印契，逼迫须发花白的老药商孙德顺交出三十两地皮钱。'),
+      S(SPEAKER_HERB_MERCHANT, '（死死抱住药秤老泪纵横）“刁三爷，老汉铺租前日才交清给知客堂，白纸黑字有印信，怎能凭一张假契便拆我半生家业！”'),
+      S(SPEAKER_TRAITOR_CLERK, '（见你大步踏前喝破其偷盗香油被逐旧案，顿时脸色惨白、连滚带爬钻入人潮，临逃还尖叫放狠话）“少林俗家狗腿子等着！五爷今夜在城南瓦子赌坊聚齐死士，叫你们西廊三十家铺子片瓦不存！”'),
+      N('卫弘龙与郑刚连忙扶起孙老掌柜稳住受惊商户。你却转出西廊踏入紧邻相国寺的汴京瓦子——茶肆棋棚里三教九流混杂，既有手眼通天的市井牙人与爱下残局的茶肆陆掌柜，街口亦见青蛇堂香主「过街鼠老六」带着打手耀武扬威。欲摸清毒蛇钱五的赌坊后门暗道与外围换班时辰，你决定——'),
+    ],
+    choices: [
+      {
+        id: 'slq17_intel_silver',
+        label: '【银钱买消息】掷出 20 两纹银打赏瓦子茶棚牙人与说书先生，买通赌坊暗道图！',
+        subLabel: '花费 20 两银探得后门暗道与换班时辰，夜袭时可避开外围死士直擒钱五 1v1',
+        tone: 'gold',
+        condition: { type: 'silverAtLeast', min: 20 },
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q17_intel_paid', op: 'falsy' },
+            thenEffects: [
+              { type: 'giveSilver', amount: -20, reason: '在汴京瓦子茶棚打赏牙人与说书先生购买青蛇帮暗道情报' },
+              { type: 'setFlag', flag: 'sl_q17_intel_paid', value: true },
+            ],
+            elseEffects: [],
+          },
+          { type: 'setFlag', flag: 'sl_q17_wazi_intel', value: true },
+          { type: 'setFlag', flag: 'sl_q17_intel_mode', value: 'silver' },
+          openScene('scene_slq17_03', SHAOLIN_Q17_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq17_intel_wit',
+        label: '【辩才棋艺套话】与瓦子茶肆陆掌柜手谈一局，借棋局话锋套出青蛇帮暗线！',
+        subLabel: '分文不花套出暗道与换班时辰，夜袭可直擒钱五 1v1（禅心慈悲 +1）',
+        tone: 'jade',
+        condition: {
+          type: 'any',
+          hint: '需十艺【辩才】≥ 40 或【棋】≥ 30',
+          conditions: [
+            { type: 'skillAtLeast', key: '辩才', min: 40 },
+            { type: 'skillAtLeast', key: '棋', min: 30 },
+          ],
+        },
+        effects: [
+          { type: 'setFlag', flag: 'sl_q17_wazi_intel', value: true },
+          { type: 'setFlag', flag: 'sl_q17_intel_mode', value: 'wit' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q17_patrol_karma_counted', op: 'falsy' },
+            thenEffects: [
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+              { type: 'setFlag', flag: 'sl_q17_patrol_karma_counted', value: true },
+            ],
+            elseEffects: [],
+          },
+          openScene('scene_slq17_03', SHAOLIN_Q17_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq17_intel_brawl',
+        label: '【仗义直闯瓦子街】懒与市井狐鼠周旋！径直截住巡街的过街鼠老六硬逼下落！',
+        subLabel: '无门槛正攻：当街车轮连战青蛇帮巡街头目逼问巢穴（怒目杀业 +1）',
+        tone: 'danger',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q17_intel_mode', value: 'brawl' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q17_patrol_karma_counted', op: 'falsy' },
+            thenEffects: [
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+              { type: 'setFlag', flag: 'sl_q17_patrol_karma_counted', value: true },
+            ],
+            elseEffects: [],
+          },
+          openScene('scene_slq17_04', SHAOLIN_Q17_QUEST_ID),
+        ],
+      },
+    ],
+  },
+
+  scene_slq17_03: {
+    id: 'scene_slq17_03',
+    title: '第三幕 · 茶棚暗线',
+    subtitle: '汴京瓦子茶肆（市井智探线）',
+    mandatory: true,
+    beats: [
+      N('{ifFlagEq:sl_q17_intel_mode=silver|你将二十两雪花碎银不动声色推过茶案，一旁的说书先生与茶肆牙人眼珠一亮，笑眯眯地替你续上热茶，借着惊堂木掩护悄然递过一张炭笔草图。|你微笑落座，与陆掌柜手谈一局「双龙盘玉」残局，棋子落定间顺势谈及相国寺护法清剿恶帮、开封府严缉假契重罪。早苦于青蛇帮勒索茶税的陆掌柜眸光一闪，借提子之机用茶水在案上画出一条窄巷路线。}'),
+      S(SPEAKER_WAZI_HOST, '（压低嗓音，神色老辣）“{gender:少侠|女侠}听真：毒蛇钱五的老巢就在城南瓦子最深处的『聚宝暗坊』，正门常年守着二流死士独眼豹与十余名打手。唯有后巷柴房藏着一扇运炭矮门，每日二更三刻正是独眼豹换班吃酒的空当——从柴房穿廊直抵内堂，保准能堵钱五一个单人独刀！”'),
+      P('（心头豁然，记牢柴房暗道方位与换班时辰，拱手致谢）“多谢指点迷津！今夜之后，这相国寺西廊与瓦子茶棚必无青蛇横行之忧！”'),
+      S('NPC-0728', '（归来听罢大喜过望，一拍你肩头）“好手段！果然红尘办差不能光靠蛮力！快把假契案情与暗道草图带去【大雄宝殿（香云宝鼎）】面见慧照师叔，领受护法刀杖绝学！”'),
+    ],
+    choices: [
+      {
+        id: 'slq17_intel_to_hall',
+        label: '收妥瓦子暗道情报，前往【大雄宝殿（香云宝鼎）】拜见慧照禅师',
+        tone: 'gold',
+        effects: [
+          setStep(SHAOLIN_Q17_QUEST_ID, 'hall_training'),
+          toast('已探得聚宝暗坊后门暗道与换班时辰！请前往【大雄宝殿（香云宝鼎）】拜见慧照禅师！', 'success', '红尘刀杖'),
+        ],
+      },
+    ],
+  },
+
+  scene_slq17_04: {
+    id: 'scene_slq17_04',
+    title: '第三幕 · 街口逼供',
+    subtitle: '汴京瓦子街口（车轮连战 实战）',
+    mandatory: true,
+    beats: [
+      N('你大步踏出茶棚，迎面截住正勾肩搭背在瓦子街口强收摊税的青蛇堂香主「过街鼠老六」与恶徒「铁棒张」！四周商贩惊呼四散，卫弘龙与郑刚横刀拦住外围喽啰。'),
+      S(SPEAKER_SNAKE_THUG, '（狞笑抽出鬼头短刀，挥手示意铁棒张包抄）“原来是嵩山新派来的俗家小护法！五爷正嫌没个垫刀的，先卸你两条胳膊挂到相国寺山门上！”'),
+      P('（稳扎少林四平马步，目光如炬）“少废话！打服你们两个，自然有人开口交代钱五的狗窝在哪儿！”'),
+    ],
+    choices: [
+      {
+        id: 'slq17_fight_thugs',
+        label: '当街挺身迎战【过街鼠老六】与【铁棒张】！（车轮连战 实战）',
+        subLabel: '击溃巡街恶徒，逼问毒蛇钱五藏身赌坊下落',
+        tone: 'danger',
+        effects: [
+          {
+            type: 'startCombat',
+            format: 'gauntlet',
+            questId: SHAOLIN_Q17_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildSnakeThugA() },
+            extraOpponents: [{ kind: 'custom', npc: buildSnakeThugB() }],
+            rule: 'story_trial',
+            forbidEscapeReason: '满街商贾皆在身后，俗家护法岂能临阵退缩！',
+            introText: '【车轮连战 · 瓦子擒恶】迎战青蛇帮恶徒【铁棒张】与香主【过街鼠老六】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_slq17_05', SHAOLIN_Q17_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('青蛇帮双匪招式阴毒，暂退茶棚调息后再来截住他们！', 'warn', '瓦子擒恶'),
+            ],
+          },
         ],
       },
     ],
@@ -184,62 +303,79 @@ export const SCENES: Record<string, StorySceneDef> = {
 
   scene_slq17_05: {
     id: 'scene_slq17_05',
-    title: '第五幕 · 西廊砸摊',
-    subtitle: '相国寺万姓交易雅市 · 西廊药铺',
+    title: '第四幕 · 蛇尾惊逃',
+    subtitle: '汴京瓦子街口',
     mandatory: true,
     beats: [
-      N('你与卫弘龙、郑刚疾步穿行市集，尚未转过西廊拐角，便听前方一片瓷罐碎裂声与老者哀告声！'),
-      N('只见孙记药铺前药草撒落满地，五六名衣襟绣着青蛇暗纹的泼皮正推搡着须发花白的老药商孙德顺；一名尖嘴猴腮的男子手持一张朱印文书，趾高气扬地踩在药柜木板上。'),
-      S(SPEAKER_HERB_MERCHANT, '（紧紧护住怀里的药秤，急得老泪纵横）“刁三爷！老汉的铺租前日才交清给相国寺知客堂，白纸黑字有凭据！你们青蛇帮凭什么又要收三十两『地皮钱』？”'),
-      S(SPEAKER_TRAITOR_CLERK, '（冷笑一声，晃着手中假印契）“老东西睁大你的狗眼！知客堂的旧印早作废了！如今这西廊三十家铺子，全都归五爷代寺里照看！不交钱？老六哥，替他把这破药铺拆了烧柴！”'),
+      N('十余合激斗，你震飞铁棒张手中钢刀、反手擒拿卸脱过街鼠老六腕骨，将二人双双扫翻青石阶下！'),
+      S(SPEAKER_SNAKE_THUG, '（痛得满头冷汗，哆嗦招认后趁乱钻进暗巷）“别打了！五爷今夜二更在城南瓦子深处的聚宝暗坊备了桐油火把，要烧西廊药铺！独眼豹带死士守着大门，有种你今夜便来送死！”'),
+      S('NPC-0570', '（拾起恶徒落下的假朱印契，神色凝重）“好俊的身手！不过打草惊了蛇，钱五今晚定会把死士全撤回聚宝暗坊死守。速去【大雄宝殿（香云宝鼎）】禀报慧照师叔，领受护法刀杖绝学再破贼巢！”'),
     ],
-    onFinishEffects: [openScene('scene_slq17_06', SHAOLIN_Q17_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq17_brawl_to_hall',
+        label: '携假印契前往【大雄宝殿（香云宝鼎）】禀报慧照禅师',
+        tone: 'gold',
+        effects: [
+          setStep(SHAOLIN_Q17_QUEST_ID, 'hall_training'),
+          toast('已逼问出青蛇帮聚宝暗坊下落！请前往【大雄宝殿（香云宝鼎）】拜见慧照禅师！', 'success', '红尘刀杖'),
+        ],
+      },
+    ],
   },
 
   scene_slq17_06: {
     id: 'scene_slq17_06',
-    title: '第六幕 · 揭穿内鬼',
-    subtitle: '相国寺万姓交易雅市 · 西廊药铺',
+    title: '第五幕 · 香云双授',
+    subtitle: '大相国寺 · 大雄宝殿（香云宝鼎）',
     mandatory: true,
     beats: [
-      P('（大步踏前，一把拨开推搡老药商的泼皮，目光如刃盯住刁三）“住手！你便是上月因偷盗香油钱被相国寺逐出山门的杂役刁三罢？私刻佛寺朱印、勾结青蛇帮讹诈良民，按大宋律例当刺配沙门岛！”'),
-      S(SPEAKER_TRAITOR_CLERK, '（脸色骤变，连退两步，色厉内荏地尖叫）“你……你是哪里冒出来的野小子？老六哥，这是少林寺新派来的俗家狗腿子，别让他坏了五爷的大事！”'),
-      S(SPEAKER_SNAKE_THUG, '（狞笑一声，抽出腰间鬼头短刀，挥手示意铁棒张包抄）“原来是嵩山下来的小护法！卫弘龙和郑刚在后头忙着护别的摊子，倒让你个毛头小子先撞上来送死！弟兄们，先废了这小子两条腿，给相国寺那帮秃驴立个下马威！”'),
-      S('NPC-0728', '（在巷口长刀一横，替你拦住外围杂兵）“{gender:师弟|师妹}放心！这些外围虾兵蟹将交给俺与郑刚挡住，这两个领头的悍匪便交由你当街立威！”'),
+      N('大雄宝殿香云宝鼎檀烟袅袅，金色佛像慈目低垂。慧照禅师听罢禀报，神色赞许：“{ifFlag:sl_q17_wazi_intel|阿弥陀佛！你能善用红尘人脉摸清贼巢暗道，正合俗家护法智勇兼修之道。|阿弥陀佛！你当街挫败青蛇悍党、逼出贼人火烧西廊阴谋，颇显少林护法果决。}”'),
+      N('慧照起身取过殿柱旁熟铜禅杖与一口戒刀，步走莲花，先将熟铜禅杖舞得气浪层叠，挑、拨、扫、压之间护得周身水泼不进，竟将飘落香灰齐齐震偏三尺之外！'),
+      S('NPC-0273', '“毒蛇钱五曾是河朔绿林出身，双刀蘸有寒毒。今日老衲破例双授你少林俗家护法绝学——其一《普门杖法》，取《普门品》『慈眼视众生』之意，『普度慈航』横扫破围、『立地成佛』沉劲封喉，专克暗巷围攻与阴毒暗器！”'),
+      N('禅杖方收，慧照戒刀出鞘如秋水明澈，劈砍之间无半分暴戾，收刀回转处暗藏三叠震劲，竟将两片枯叶齐齐震作两半而不伤叶脉！'),
+      S('NPC-0273', '“其二《慈悲刀法》！讲究『刀背制敌、刀锋断恶』——遇胁从之徒以刀背震晕留其性命，遇穷凶极恶之首则一刀断刃、直取中宫！你且接过刀杖依诀演练，记准运劲法门！”'),
     ],
-    onFinishEffects: [openScene('scene_slq17_07', SHAOLIN_Q17_QUEST_ID)],
+    onFinishEffects: [
+      teachArtNow('MA-117'),
+      teachArtNow('MA-114'),
+      openScene('scene_slq17_07', SHAOLIN_Q17_QUEST_ID),
+    ],
   },
 
   scene_slq17_07: {
     id: 'scene_slq17_07',
-    title: '第七幕 · 雅市截恶',
-    subtitle: '相国寺西廊（车轮连战 实战）',
+    title: '第六幕 · 暮鼓誓心',
+    subtitle: '大雄宝殿檐下 · 战前立意',
     mandatory: true,
     beats: [
-      N('过街鼠老六与铁棒张一左一右扑杀而来，刀风狠辣刁钻，专攻下盘与咽喉！四周商贾纷纷惊呼退避，你沉气凝神，稳扎少林马步迎上！'),
+      N('你在香云宝鼎前反复演练三遍，臂腕沉实、气息浑圆，已将《普门杖法》与《慈悲刀法》起手要诀尽数融通。暮鼓骤沉之际，郑刚急步入殿报称钱五已集结桐油火把，欲于二更天放火烧毁西廊药铺！'),
+      S('NPC-0273', '“卫弘龙、郑刚即刻率护院武僧暗守西廊水缸与商铺门户，防贼调虎离山；你且带发提刀夜赴瓦子聚宝暗坊擒王！只是刀杖既已入手，老衲想先问你一句：身在红尘执利刃，你心中所守的护法之道究为何物？”'),
+      N('檐外华灯初上，汴京夜风吹动你的青布护法衣袂。你按住腰间戒刀与手中禅杖，朗声作答——'),
     ],
     choices: [
       {
-        id: 'slq17_fight_thugs',
-        label: '当街亮剑挺身，迎战过街鼠老六与铁棒张！（车轮连战 实战）',
-        subLabel: '护持西廊药铺，震慑青蛇帮恶党',
-        tone: 'danger',
+        id: 'slq17_vow_mercy',
+        label: '【杖护苍生 · 慈悲留线】刀背制敌不滥杀，唯求相国寺三百商户安稳营生！（禅心慈悲 +1）',
+        subLabel: '怀慈悲心行护法事，动身前往相国寺后巷瓦子',
+        tone: 'jade',
         effects: [
-          {
-            type: 'startCombat',
-            format: 'gauntlet',
-            questId: SHAOLIN_Q17_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildSnakeThugB() },
-            extraOpponents: [{ kind: 'custom', npc: buildSnakeThugA() }],
-            rule: 'story_trial',
-            forbidEscapeReason: '满街商贾皆在身后，俗家护法岂能临阵退缩！',
-            introText: '【车轮连战 · 雅市擒恶】迎战青蛇堂香主【过街鼠老六】与悍徒【铁棒张】！',
-            onWin: [openScene('scene_slq17_08', SHAOLIN_Q17_QUEST_ID)],
-            onLose: [
-              { type: 'healPlayer', hpPct: 80, mpPct: 80 },
-              toast('青蛇帮双匪招式阴毒，暂退茶棚调息后再来截住他们！', 'warn', '雅市擒恶'),
-            ],
-          },
+          { type: 'setFlag', flag: 'sl_q17_vow', value: 'mercy' },
+          { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+          setStep(SHAOLIN_Q17_QUEST_ID, 'wazi_showdown'),
+          toast('已领悟《普门杖法》与《慈悲刀法》！请速返【相国寺万姓交易雅市】夜荡瓦子暗坊！', 'talk', '红尘刀杖'),
+        ],
+      },
+      {
+        id: 'slq17_vow_wrath',
+        label: '【刀断尘恶 · 霹雳降魔】市井恶徒畏威不怀德，当以雷霆刀势立少林俗家威名！（怒目杀业 +1）',
+        subLabel: '以霹雳手段镇红尘宵小，动身前往相国寺后巷瓦子',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q17_vow', value: 'wrath' },
+          { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+          setStep(SHAOLIN_Q17_QUEST_ID, 'wazi_showdown'),
+          toast('已领悟《普门杖法》与《慈悲刀法》！请速返【相国寺万姓交易雅市】夜荡瓦子暗坊！', 'talk', '红尘刀杖'),
         ],
       },
     ],
@@ -247,149 +383,76 @@ export const SCENES: Record<string, StorySceneDef> = {
 
   scene_slq17_08: {
     id: 'scene_slq17_08',
-    title: '第八幕 · 蛇尾惊逃',
-    subtitle: '相国寺西廊药铺前',
-    mandatory: true,
-    beats: [
-      N('十余合激斗，你掌风刚猛沉雄，震飞铁棒张手中鬼头刀，反手一记擒拿卸去过街鼠老六腕力，将二人双双扫翻在青石阶下！'),
-      S(SPEAKER_SNAKE_THUG, '（捂着脱臼的手腕连滚带爬，咬牙切齿）“点子扎手！刁三，快撤！回去禀报五爷，今夜子时瓦子暗巷聚齐人手，非把这少林护法剁成肉泥不可！”'),
-      N('青蛇帮众丢下假印契狼狈逃窜。孙老掌柜与十余位商贾纷纷涌上前拱手拜谢，卫弘龙与郑刚也收刀走近。'),
-      S('NPC-0570', '（拾起地上的假朱印契，神色凝重）“好俊的身手！不过毒蛇钱五睚眦必报，老六逃回去定会搬动瓦子里的全部死士。快去大雄宝殿见慧照师叔，商议今夜破敌之策！”'),
-    ],
-    choices: [
-      {
-        id: 'slq17_go_hall',
-        label: '携假印契前往【大雄宝殿（香云宝鼎）】禀报慧照禅师',
-        tone: 'gold',
-        effects: [
-          setStep(SHAOLIN_Q17_QUEST_ID, 'hall_training'),
-          toast('已击退闹事泼皮！请前往【大雄宝殿（香云宝鼎）】拜见慧照禅师。', 'success', '红尘刀杖'),
-        ],
-      },
-    ],
-  },
-
-  scene_slq17_09: {
-    id: 'scene_slq17_09',
-    title: '第九幕 · 香云论禅',
-    subtitle: '大相国寺 · 大雄宝殿（香云宝鼎）',
-    mandatory: true,
-    beats: [
-      N('步入大雄宝殿，香云宝鼎中檀烟袅袅，金色佛像慈目低垂。慧照禅师接过你呈上的伪造朱印契，长叹一声。'),
-      S('NPC-0273', '“阿弥陀佛。毒蛇钱五曾是河朔绿林出身，一双鬼头刀蘸有寒毒，招招夺命。他既扬言今夜在瓦子暗巷报复，若不将其连根拔起，这雅市百余商户永无宁日。”'),
-      P('“师叔，弟子愿今夜单刀赴瓦子暗巷，会一会那毒蛇钱五！只是弟子初入内门，尚缺一门克制短兵暗器的顺手刀杖法门。”'),
-      S('NPC-0273', '（闻言展颜一笑，起身取过殿柱旁一柄熟铜禅杖与一口戒刀）“善哉！老衲正为此事候你多时！你既已通晓罗汉伏虎功底子，今日便在这香云宝鼎前，受我少林俗家护法双绝——《普门杖法》与《慈悲刀法》！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq17_10', SHAOLIN_Q17_QUEST_ID)],
-  },
-
-  scene_slq17_10: {
-    id: 'scene_slq17_10',
-    title: '第十幕 · 普门杖意',
-    subtitle: '大雄宝殿前庭',
-    mandatory: true,
-    beats: [
-      N('慧照禅师横杖当胸，步走莲花，熟铜禅杖在他手中浑如游龙，挑、拨、扫、压之间竟带出层层浑厚气浪，既护周身不漏半点破绽，又可将敌刃震偏三尺之外。'),
-      S('NPC-0273', '“听真了！《普门杖法》取自《观世音菩萨普门品》『慈眼视众生』之义——杖势大开大阖，专破市井暗巷多人围攻与阴毒暗器！一招『普度慈航』横扫千军，一招『立地成佛』沉劲封喉，守中带攻，稳如磐石！”'),
-      P('（接过禅杖依言演练三遍，顿觉臂腕沉实，周身气机与杖风浑然一体）“原来如此！以长杖护身破围，便不怕青蛇帮在暗巷中耍阴招偷袭！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq17_11', SHAOLIN_Q17_QUEST_ID)],
-  },
-
-  scene_slq17_11: {
-    id: 'scene_slq17_11',
-    title: '第十一幕 · 慈悲刀心',
-    subtitle: '大雄宝殿前庭',
-    mandatory: true,
-    beats: [
-      N('禅杖方收，慧照又拔出戒刀，刀光清亮如秋水，劈砍之际竟无半分戾气，反而在收刀回转处暗藏三叠震劲，将飘落殿前的枯叶齐齐震作两半而不伤叶脉。'),
-      S('NPC-0273', '“此乃《慈悲刀法》！世人皆以为刀乃百兵之霸、只知嗜血杀伐；殊不知我少林慈悲刀，讲究『刀背制敌、刀锋断恶』！遇胁从之徒以刀背震晕留其性命，遇穷凶极恶之首则一刀断其兵刃、直取中宫！”'),
-      S('NPC-0728', '（在殿廊下拍案叫绝）“好一招『刀背留情、刀锋断恶』！师叔这手慈悲刀法，最合咱们俗家弟子在红尘里行侠护法的心境！”'),
-      P('（凝神默记刀杖双谱心诀，心头豁然开朗）“弟子谨记师叔教诲！心存慈悲而不失金刚霹雳手段，今夜定叫毒蛇钱五俯首伏诛！”'),
-    ],
-    onFinishEffects: [teachArtNow('MA-117'), teachArtNow('MA-114'), openScene('scene_slq17_12', SHAOLIN_Q17_QUEST_ID)],
-  },
-
-  scene_slq17_12: {
-    id: 'scene_slq17_12',
-    title: '第十二幕 · 夜色定计',
-    subtitle: '大雄宝殿 · 檐下',
-    mandatory: true,
-    beats: [
-      N('暮鼓声沉，汴京城华灯初上。郑刚快步入殿禀报，青蛇帮主毒蛇钱五已集结三十余名帮众潜伏在雅市后巷瓦子茶肆，正备下桐油火把，欲于二更天火烧西廊药铺！'),
-      S('NPC-0273', '“卫弘龙、郑刚，你二人率寺中护院武僧暗守西廊水缸与商铺门户，以防青蛇帮调虎离山；至于瓦子暗巷中的毒蛇钱五，便由你带发提刀直捣黄龙，擒贼先擒王！”'),
-      P('“正是时候！二位师兄守好寺院药铺，我这就直奔雅市后巷瓦子！”'),
-    ],
-    choices: [
-      {
-        id: 'slq17_head_wazi',
-        label: '整肃刀杖，夜赴【相国寺万姓交易雅市】后巷瓦子决战青蛇帮',
-        tone: 'danger',
-        effects: [
-          setStep(SHAOLIN_Q17_QUEST_ID, 'wazi_showdown'),
-          toast('慧照已点拨刀杖要诀！请速返【相国寺万姓交易雅市】夜入瓦子荡平青蛇帮！', 'talk', '红尘刀杖'),
-        ],
-      },
-    ],
-  },
-
-  scene_slq17_13: {
-    id: 'scene_slq17_13',
-    title: '第十三幕 · 瓦子暗巷',
-    subtitle: '相国寺雅市后巷瓦子 · 二更天',
-    mandatory: true,
-    beats: [
-      N('二更梆子敲响，白日喧嚣的万姓雅市归于沉寂，唯有后巷瓦子茶肆深处透出几盏幽暗灯笼。十余名提着桐油桶与钢刀的青蛇帮众正摩拳擦掌，中央太师椅上端坐一名三角眼、嘴角带疤的阴鸷汉子。'),
-      S(SPEAKER_QIAN_WU, '（慢条斯理地用帕子擦拭鬼头大刀，阴恻恻地笑道）“待会儿一把火烧了西廊药铺，看那帮老和尚还敢不敢跟老子摆架子！那少林俗家小崽子要是敢来——”'),
-      N('“轰”的一声巨响！瓦子木门被你一记禅杖震得粉碎，木屑纷飞中，你青衫束发、一手戒刀一手禅杖大步踏入灯火之中！'),
-      P('“钱五！你不必去西廊找我了——少林俗家护法在此，特来替相国寺与满街商贾讨还公道！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq17_14', SHAOLIN_Q17_QUEST_ID)],
-  },
-
-  scene_slq17_14: {
-    id: 'scene_slq17_14',
-    title: '第十四幕 · 红尘刀杖',
-    subtitle: '瓦子暗巷 · 决战前夕',
+    title: '第七幕 · 红尘刀杖',
+    subtitle: '瓦子聚宝暗坊 · 二更三刻（奇正破局）',
     illustrationUrl: '/assets/quests/sl_17_wazi_brawl.jpg',
     illustrationCaption: '瓦子暗巷 · 带发提刀使出普门杖法与慈悲刀法，力战毒蛇钱五',
     mandatory: true,
     beats: [
-      S(SPEAKER_QIAN_WU, '（瞳孔骤缩，随即狞笑起身，双刀交击迸出火星）“好胆！竟真敢一个人闯进老子的地盘！独眼豹，随我一起上，把这少林小子的脑袋挂到相国寺山门上！”'),
-      N('周围寻常帮众被你方才震碎木门的雄浑内劲吓破了胆，竟无一人敢先上前；唯独毒蛇钱五与其死士护法独眼豹纵身扑出，寒光直逼面门！'),
-      P('（心中澄明如镜，丹田罗汉伏虎功流转周身，慈悲刀与普门杖齐出）“既不肯放下屠刀，便休怪我红尘降魔！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq17_15', SHAOLIN_Q17_QUEST_ID)],
-  },
-
-  scene_slq17_15: {
-    id: 'scene_slq17_15',
-    title: '第十五幕 · 荡平青蛇',
-    subtitle: '瓦子暗巷（车轮连战 首领实战）',
-    mandatory: true,
-    beats: [
-      N('毒蛇钱五刀势狠毒诡谲，独眼豹从旁以八卦游身刀与鹰爪功夹击！你稳守门户，将慧照方才传授的刀杖真意融会贯通，正面迎战！'),
+      N('二更三刻，白日喧嚣的万姓雅市沉入夜幕，唯有后巷瓦子「聚宝暗坊」幽灯摇曳。内堂太师椅上，嘴角带疤的青蛇帮主【毒蛇钱五】正慢条斯理擦拭蘸毒鬼头刀，阴笑着催促帮众备好桐油火把。'),
+      S(SPEAKER_QIAN_WU, '“今夜一把火烧光西廊药铺，看相国寺那帮老和尚还敢不敢跟老子摆谱！独眼豹，盯死正门巷口，谁敢露头直接剁了！”'),
+      N('{ifFlag:sl_q17_wazi_intel|你借瓦子情报绕至后巷柴房，果见运炭矮门虚掩、独眼豹正于外堂饮酒换班，直通内堂之路竟空无一人！|正门巷口火把森严，死士独眼豹横刀立于门侧，与内堂毒蛇钱五互为犄角！}'),
+      P('（左手普门禅杖、右手慈悲戒刀，体内少林内劲如潮涌动）“钱五，你不必去西廊找我了——少林俗家护法在此！”'),
     ],
     choices: [
       {
-        id: 'slq17_fight_boss',
-        label: '刀杖齐施，正面迎战【毒蛇钱五】与【独眼豹】！（二流中品 车轮连战）',
-        subLabel: '荡平青蛇帮，护持大相国寺雅市商道',
+        id: 'slq17_boss_stealth',
+        label: '【暗道奇袭 · 直擒钱五】由后门柴房暗道雷霆突入，跳过外围死士 1v1 独战毒蛇钱五！',
+        subLabel: '依托瓦子暗线情报，避开独眼豹直取二流中品帮主【毒蛇钱五】',
+        tone: 'jade',
+        condition: {
+          type: 'flag',
+          flag: 'sl_q17_wazi_intel',
+          op: 'truthy',
+          label: '已探得瓦子赌坊后门暗道与换班时辰',
+        },
+        effects: [
+          teachArtNow('MA-117'),
+          teachArtNow('MA-114'),
+          { type: 'setFlag', flag: 'sl_q17_boss_tactic', value: 'stealth' },
+          {
+            type: 'startCombat',
+            questId: SHAOLIN_Q17_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildQianWuBoss() },
+            rule: 'story_trial',
+            forbidEscapeReason: '毒蛇钱五近在咫尺，今夜若纵虎归山，西廊药铺必遭火劫！',
+            introText: '【1v1 暗道奇袭】你自柴房暗道雷霆杀入内堂，避开独眼豹独战青蛇帮主【毒蛇钱五】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_slq17_09', SHAOLIN_Q17_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('毒蛇钱五双刀阴毒，暂退柴房暗巷调匀内息后再战！', 'warn', '夜荡青蛇'),
+            ],
+          },
+        ],
+      },
+      {
+        id: 'slq17_boss_frontal',
+        label: '【破门硬闯 · 刀杖降魔】一杖轰碎赌坊木门，车轮连战独眼豹与毒蛇钱五！',
+        subLabel: '无门槛正攻：先破护法【独眼豹】，再擒帮主【毒蛇钱五】（车轮连战）',
         tone: 'danger',
         effects: [
+          teachArtNow('MA-117'),
+          teachArtNow('MA-114'),
+          { type: 'setFlag', flag: 'sl_q17_boss_tactic', value: 'frontal' },
           {
             type: 'startCombat',
             format: 'gauntlet',
             questId: SHAOLIN_Q17_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildQianWuBoss() },
-            extraOpponents: [{ kind: 'custom', npc: buildQianWuGuard() }],
+            opponent: { kind: 'custom', npc: buildQianWuGuard() },
+            extraOpponents: [{ kind: 'custom', npc: buildQianWuBoss() }],
             rule: 'story_trial',
             forbidEscapeReason: '毒蛇钱五近在咫尺，今夜若纵虎归山，西廊药铺必遭火劫！',
-            introText: '【车轮连战 · 瓦子决战】迎战青蛇帮主【毒蛇钱五】与死士护法【独眼豹】！',
-            onWin: [openScene('scene_slq17_16', SHAOLIN_Q17_QUEST_ID)],
+            introText: '【车轮连战 · 瓦子决战】破门直入聚宝暗坊，迎战死士【独眼豹】与帮主【毒蛇钱五】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_slq17_09', SHAOLIN_Q17_QUEST_ID),
+            ],
             onLose: [
-              { type: 'healPlayer', hpPct: 80, mpPct: 80 },
-              toast('毒蛇钱五刀势凶狠，先退回巷口稳住气血，调配招式再战！', 'warn', '夜荡青蛇'),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('青蛇帮双凶夹击凶狠，先退回巷口稳住气血再战！', 'warn', '夜荡青蛇'),
             ],
           },
         ],
@@ -397,41 +460,70 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq17_16: {
-    id: 'scene_slq17_16',
-    title: '第十六幕 · 断刃伏诛',
-    subtitle: '瓦子暗巷',
+  scene_slq17_09: {
+    id: 'scene_slq17_09',
+    title: '第八幕 · 断刃伏诛',
+    subtitle: '瓦子聚宝暗坊内堂',
     mandatory: true,
     beats: [
-      N('酣战二十余合，独眼豹被你一记「普度慈航」横扫震断臂骨、昏死在地；毒蛇钱五见势不妙，虚晃一刀欲撒出毒砂逃遁，却被你抢先一步踏中宫，慈悲刀背重重拍中其手腕麻筋！'),
-      N('“当啷”一声，鬼头大刀脱手坠地，毒蛇钱五惨呼跪倒。你反手点住其周身三处大穴，其余青蛇帮众见帮主被擒，纷纷丢下火把跪地求饶！'),
-      S(SPEAKER_QIAN_WU, '（面如死灰，颤声求饶）“大侠饶命……小的有眼不识泰山，再也不敢打相国寺商铺的主意了……”'),
-      N('此时巷口火把通明，卫弘龙、郑刚已带开封府巡街厢军赶到，将毒蛇钱五、刁三及一干首恶尽数上枷押走！'),
+      N('{ifFlagEq:sl_q17_boss_tactic=stealth|你自后门暗道奇袭暴起，独眼豹尚未回援，毒蛇钱五便已被你《普门杖法》锁死退路、慈悲刀背重拍手腕麻筋，双鬼头刀当啷坠地！|二十余合刀杖齐施，独眼豹被你一式「普度慈航」震断臂骨昏死在地；毒蛇钱五欲撒毒砂逃遁，反被你抢步踏中宫，以慈悲刀背拍麻腕筋、双刀脱手！}'),
+      S(SPEAKER_QIAN_WU, '（面如死灰跪倒青砖，浑身抖如筛糠）“大侠饶命！小的有眼不识泰山，再也不敢打相国寺商铺的主意了……”'),
+      N('巷口火把通明，卫弘龙、郑刚已率开封府巡街厢军赶到，将毒蛇钱五、刁三及一众青蛇首恶尽数上枷押走，满地桐油火把化险为夷。'),
+      N('清点暗坊账房时，郑刚自太师椅后的暗格里拖出一只沉甸甸的樟木铁箱——箱中竟是青蛇帮近两月强征西廊三十余户商贩的一百二十余两「平安钱」赃银，连同逐户勒索账册一应俱全！'),
     ],
-    onFinishEffects: [openScene('scene_slq17_17', SHAOLIN_Q17_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq17_10', SHAOLIN_Q17_QUEST_ID)],
   },
 
-  scene_slq17_17: {
-    id: 'scene_slq17_17',
-    title: '第十七幕 · 晨钟清明',
-    subtitle: '相国寺万姓交易雅市 · 次日清晨',
+  scene_slq17_10: {
+    id: 'scene_slq17_10',
+    title: '第九幕 · 赃银归处',
+    subtitle: '相国寺万姓交易雅市 · 次日清晨（红尘抉择）',
     mandatory: true,
     beats: [
-      N('次日清晨，相国寺万姓雅市再开大集。青蛇帮覆灭的消息一夜传遍汴京城南，西廊三十余家药铺素斋摊张灯结彩，孙老掌柜捧着新沏的清茶与谢银，执意要酬谢少林护法之恩。'),
-      S('NPC-0728', '（哈哈大笑，拍了拍你的肩膀）“好{gender:师弟|师妹}！昨夜你单枪匹马破门擒贼，连开封府巡检都竖大拇指夸我少林俗家弟子有古侠遗风！这八十两护市酬银是商户们联名凑给寺院外务的赏格，慧照师叔说按规矩当归你作盘缠！”'),
-      S('NPC-0570', '（难得露出几分敬佩之色）“昨夜那几手刀杖功夫沉稳大气，留了贼人活口交官发落，既扬了少林威名，又没沾半点血腥官司。俺服你！”'),
+      N('次日清晨，相国寺万姓雅市再开大集。青蛇帮一夜覆灭的消息传遍汴京城南，西廊三十余家药铺素斋摊张灯结彩，孙老掌柜与众商贾捧着清茶涌来拱手拜谢。'),
+      S('NPC-0728', '（抚着那只樟木赃银箱，压低声音笑问）“{gender:师弟|师妹}，这役你是头功。开封府巡检念我少林护市有劳，已把这箱赃银与账册交由咱们自行发落商户。不过说句实在话，咱们俗家护法常年奔走红尘打探线报、置办刀杖，处处都离不得银钱……”'),
+      S('NPC-0570', '（抱臂咧嘴一笑）“按官面规矩或江湖规矩，全看你一句话——是分文不留尽数退还西廊商贩，还是退还一半应急、留一半充作你行走江湖的俗家护法经费？”'),
+      N('晨光洒在熙攘商棚与一张张劫后余生的淳朴面庞上。你看着箱中雪花碎银，心中已有了决断——'),
     ],
-    onFinishEffects: [openScene('scene_slq17_18', SHAOLIN_Q17_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq17_loot_refund',
+        label: '【分文不取 · 悉数退商】按青蛇私账逐户核清，将搜刮的保护费全数退还相国寺市集商户！',
+        subLabel: '商道清明、口碑传遍汴京（禅心慈悲 +2 · 侠义 +25 · 声望 +25）',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q17_market_saved', value: true },
+          { type: 'setFlag', flag: 'sl_q17_loot_choice', value: 'refund' },
+          { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 2 },
+          { type: 'modifyChivalry', delta: 25, reason: '将青蛇帮搜刮的保护费分文不取尽数退还相国寺商户' },
+          { type: 'modifyRenown', delta: 25, reason: '汴京相国寺雅市退赃护商，义名传遍城南' },
+          openScene('scene_slq17_11', SHAOLIN_Q17_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq17_loot_split',
+        label: '【半退商户 · 半充经费】半数退还商贩解燃眉之急，余下半数留作俗家护法打点红尘外务之资！',
+        subLabel: '江湖实用、盘缠充裕（怒目杀业 +1 · 结算额外获 60 两银）',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q17_loot_choice', value: 'split' },
+          { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+          openScene('scene_slq17_11', SHAOLIN_Q17_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_slq17_18: {
-    id: 'scene_slq17_18',
-    title: '第十八幕 · 刀杖传薪',
+  scene_slq17_11: {
+    id: 'scene_slq17_11',
+    title: '第十幕 · 刀杖传薪',
     subtitle: '相国寺万姓交易雅市 · 古槐下',
     mandatory: true,
     beats: [
-      S('NPC-0273', '（微笑递上两卷亲笔校注的线装秘籍）“阿弥陀佛。身在红尘而心守正道，手执利刃而心怀慈悲，你已得我俗家护法三昧。这两卷《普门杖法》与《慈悲刀法》全本，老衲今日正式传你，望你勤加体悟，日后护持苍生与佛门基业。”'),
-      P('（双手接过秘籍，肃然抱拳致礼）“多谢慧照师叔成全！也谢过卫师兄、郑师兄鼎力相助！弟子定当铭记红尘护法之责，不负少林所托！”'),
+      N('{ifFlag:sl_q17_market_saved|孙老掌柜与三十余户商贩领回分文未少的血汗银钱，纷纷焚香敬茶高呼「少林俗家活佛」，连开封府巡检都竖起大拇指赞叹古侠遗风！|商户们领回半数银钱并得雅市永宁亦连连拜谢；郑刚大笑称道「办红尘大事岂能饿着肚子」，将留存的六十两经费装入油布囊递到你手中。}'),
+      S('NPC-0273', '（自古槐阴下缓步走来，微笑递上两卷亲笔校注的线装秘籍）“阿弥陀佛。身在红尘而不昧本心，手执利刃而能止干戈。这两卷《普门杖法》与《慈悲刀法》全本，连同常住拨给外务护法的八十两盘缠酬银，今尽数交你收执。”'),
+      S('NPC-0728', '（重重拍了拍你肩头朗笑）“昨夜一战已叫汴京江湖晓得我少林俗家护法不是吃素的！日后嵩山若有远途护镖或交涉重任，定少不了你的名号！”'),
+      P('（双手接过刀杖全本，肃然抱拳致礼）“多谢慧照师叔成全，也谢过卫师兄、郑师兄鼎力相助！弟子定当铭记红尘护法之责，不负少林所托！”'),
     ],
     choices: [
       {
@@ -444,11 +536,25 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'giveCombatExp', amount: 280, reason: '汴京相国寺雅市夜荡青蛇帮、生擒毒蛇钱五' },
           { type: 'addSectContribution', amount: 110 },
           { type: 'giveSilver', amount: 80, reason: '大相国寺万姓雅市护市酬银' },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q17_loot_choice', op: 'eq', value: 'split' },
+            thenEffects: [{ type: 'giveSilver', amount: 60, reason: '青蛇帮赃银留作俗家护法外务经费' }],
+            elseEffects: [],
+          },
           { type: 'modifySkill', key: '策论', delta: 1 },
           { type: 'modifySkill', key: '经义', delta: 1 },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q17_intel_mode', op: 'eq', value: 'wit' },
+            thenEffects: [{ type: 'modifySkill', key: '辩才', delta: 1 }],
+            elseEffects: [],
+          },
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0273' }, delta: 10 },
+          { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0728' }, delta: 10 },
           { type: 'completeQuest', questId: SHAOLIN_Q17_QUEST_ID, outcome: 'completed' },
           toast(
-            '已完成《相国暗影 · 红尘刀杖》！习得《普门杖法》与《慈悲刀法》，获 80 两银钱与 110 门派贡献！',
+            '已完成《相国暗影 · 红尘刀杖》！习得《普门杖法》与《慈悲刀法》，获护市酬银与 110 门派贡献！',
             'success',
             '红尘刀杖',
           ),

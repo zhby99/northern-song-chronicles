@@ -30,7 +30,7 @@ export const SHAOLIN_Q12_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品 ～ 一流下品',
     maxOpponentRealm: '一流下品（姑苏慕容暗探首 · 燕影客）',
     recommendedNote:
-      '嵩山少林寺达摩院脉 Lv.2 晋升 Lv.3 真传弟子终局大考（全二十二幕）。须完成《迦叶微笑 · 灵山拈花》、入寺满 300 日、经义 ≥ 70、书 ≥ 50 且玄慈方丈好感 ≥ 50。奉命入幽谷石室侍奉瘫痪寒玉榻的少林神僧玄澄，亲闻强练十三门绝技未以慈悲佛法化解戾气致「武学障」的秘辛；当夜姑苏慕容暗探潜入石室盗取手札，你于狭洞血战连破暗探并死战击溃一流下品暗探首「燕影客」，终获玄澄与玄难联袂举荐，晋升少林派【Lv.3 真传弟子】！',
+      '嵩山少林寺达摩院脉 Lv.2 晋升 Lv.3 真传弟子终局大考（全十二幕）。须完成《迦叶微笑 · 灵山拈花》、入寺满 300 日、经义 ≥ 70、书 ≥ 50 且玄慈方丈好感 ≥ 50。入幽谷石室侍奉瘫痪寒玉榻的少林神僧玄澄，亲历寒玉床「七十二绝技心魔」两重禅心破障；三更姑苏慕容暗探偷袭古洞，可凭明心听风先机截杀暗哨或正面护洞，终与一流下品暗探首「燕影客」生死一战，立下达摩真传誓言，晋升少林派【Lv.3 真传弟子】！',
     startHint:
       '完成《迦叶微笑 · 灵山拈花》、入寺满 300 日、经义 ≥ 70、书 ≥ 50 且玄慈好感 ≥ 50 后，前往【嵩山少林寺 · 达摩院 · 幽谷石室 · 寒玉榻】（或寻玄澄、玄难、玄慈）开启晋升真传终章。',
     startLocation: {
@@ -41,14 +41,14 @@ export const SHAOLIN_Q12_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q12_START_CONDITION,
     summary:
-      '{reignYear}你在嵩山潜修已满五载，蒙【玄慈】方丈与【玄难】首座信任，获准步入达摩院最深处的【幽谷石室 · 寒玉榻】，近身侍奉少林两百年来第一武学奇才、却因一夜经脉尽废而卧榻不起的神僧【玄澄】。寒玉微光之下，玄澄亲口向你剖白少林「武学障」秘辛：昔年贪求强练十三门绝技，却未以大慈大悲佛法化解招中戾气，终致真气反噬成障。三更时分，姑苏慕容氏暗探潜入幽谷欲盗玄澄所留绝技心得手札，你寸步不退守卫寒玉榻前，先破双探前锋，再于狭窄石室中死战击溃一流下品暗探首【燕影客】。黎明时分，玄澄与玄难联袂举荐，玄慈方丈当场晋升你为嵩山少林寺【真传弟子】！',
+      '{reignYear}你在嵩山达摩院潜修日久，蒙【玄慈】方丈与【玄难】首座信任，获准步入达摩院最深处的【幽谷石室 · 寒玉榻】，近身侍奉少林两百年来第一武学奇才、却因强练十三门绝技未以慈悲佛法化戾而致筋脉俱废的神僧【玄澄】。你在寒玉榻畔亲历「七十二障」两重心魔幻境的禅心拷问，复于三更风雪中截击潜入石室盗取《十三绝技武学障手札》的姑苏慕容暗探，先破外围暗哨，再于狭洞中死战击溃一流下品暗探首【燕影客】。黎明时分，玄澄与玄难联袂举荐，玄慈方丈当场晋升你为嵩山少林寺【真传弟子】！',
     initialStepId: 'guard_cold_jade_cave',
     steps: {
       guard_cold_jade_cave: {
         id: 'guard_cold_jade_cave',
         title: '守夜寒玉 · 血战慕容暗探',
         objective:
-          '你已于寒玉榻畔聆听神僧玄澄剖析「七十二绝技武学障」秘辛。三更寒雾骤起，请留守【达摩院 · 幽谷石室 · 寒玉榻（sl_damo_main）】，警觉石室异动，死战护卫玄澄师伯与绝技手札！',
+          '你已于寒玉榻畔历经「七十二障」心魔试炼并察觉洞外江南沉水冷香！请留守【达摩院 · 幽谷石室 · 寒玉榻（sl_damo_main）】，截击潜入偷袭的姑苏慕容暗探，死战护卫玄澄师伯与绝技手札！',
         nextHint:
           '在【嵩山少林寺 · 达摩院 · 幽谷石室 · 寒玉榻（sl_damo_main）】点击「三更守夜寒玉榻 · 截杀潜入石室的慕容暗探」。',
         targetLocation: {
@@ -77,7 +77,14 @@ export const SHAOLIN_Q12_QUESTS: QuestDefinition[] = [
         spotId: 'sl_damo_main',
         onceFlag: 'sl_q12_ambush_triggered',
         condition: atStep(SHAOLIN_Q12_QUEST_ID, 'guard_cold_jade_cave'),
-        effects: [openScene('scene_slq12_08', SHAOLIN_Q12_QUEST_ID)],
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q12_scouts_cleared', op: 'truthy' },
+            thenEffects: [openScene('scene_slq12_08', SHAOLIN_Q12_QUEST_ID)],
+            elseEffects: [openScene('scene_slq12_06', SHAOLIN_Q12_QUEST_ID)],
+          },
+        ],
       },
     ],
 
@@ -112,8 +119,8 @@ export const SHAOLIN_Q12_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q12_scouts_cleared', op: 'truthy' },
-            thenEffects: [openScene('scene_slq12_15', SHAOLIN_Q12_QUEST_ID)],
-            elseEffects: [openScene('scene_slq12_08', SHAOLIN_Q12_QUEST_ID)],
+            thenEffects: [openScene('scene_slq12_08', SHAOLIN_Q12_QUEST_ID)],
+            elseEffects: [openScene('scene_slq12_06', SHAOLIN_Q12_QUEST_ID)],
           },
         ],
       },
@@ -158,8 +165,8 @@ export const SHAOLIN_Q12_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q12_scouts_cleared', op: 'truthy' },
-            thenEffects: [openScene('scene_slq12_15', SHAOLIN_Q12_QUEST_ID)],
-            elseEffects: [openScene('scene_slq12_08', SHAOLIN_Q12_QUEST_ID)],
+            thenEffects: [openScene('scene_slq12_08', SHAOLIN_Q12_QUEST_ID)],
+            elseEffects: [openScene('scene_slq12_06', SHAOLIN_Q12_QUEST_ID)],
           },
         ],
       },

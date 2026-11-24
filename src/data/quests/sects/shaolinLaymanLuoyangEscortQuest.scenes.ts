@@ -3,6 +3,15 @@ import type { StorySceneDef, StorySpeakerSpec } from '../../../types/quest'
 import { N, P, S, makeQuestNpc, openScene, setStep, toast, teachArtNow } from '../../../engine/quest/dsl'
 import { SHAOLIN_Q18_QUEST_ID } from './shaolinLaymanLuoyangEscortQuest'
 
+const SPEAKER_MOLE_CARTER: StorySpeakerSpec = {
+  kind: 'custom',
+  name: '刘四',
+  title: '镖队新雇车夫 · 西夏暗桩',
+  factionName: '金刀王家',
+  portraitUrl: '/assets/characters/templates/tpl_jindaomen_male_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_jindaomen_male_av.jpg',
+}
+
 const SPEAKER_WATER_BANDIT: StorySpeakerSpec = {
   kind: 'custom',
   name: '截江水魁 · 翻浪彪',
@@ -113,59 +122,165 @@ export const SCENES: Record<string, StorySceneDef> = {
     subtitle: '洛阳府 · 金刀王家正气大厅',
     mandatory: true,
     beats: [
-      N('{reignYear}深秋，洛阳城桂香弥漫。你奉嵩山少林寺外务总坛飞鸽调令，策马西行三百里抵达西京洛阳，直奔威震河洛的【金刀王家】。'),
-      N('正气大厅之内檀香缭绕，须发如银却目光炯炯的金刀老爷子【王元霸】正与一位身披明黄袈裟、神态威严的少林高僧对坐烹茶——那高僧正是驻锡洛阳白马寺的「大韦陀僧」【玄悲】大师！'),
-      S('NPC-0186', '（见你大步入厅，朗声大笑起身相迎）“哈哈！玄悲大师，你瞧嵩山派来的是何等人物！听说汴京相国寺一夜荡平青蛇帮的俗家少侠，便是这位年轻俊杰罢？”'),
-      S('NPC-0157', '（双掌合十，慈目中透出审视与赞许）“阿弥陀佛。你在东京护持万姓雅市，慧照师侄已飞书禀报方丈。此番洛阳护佛重任，正须既有佛心又通骑战的俗家护法相助。”'),
+      N('{reignYear}深秋，洛阳桂香弥漫。你奉嵩山飞鸽调令策马西行三百里，直奔威震河洛的【金刀王家】。正气大厅檀烟袅袅，须发如银的金刀家主【王元霸】正与白马寺「大韦陀僧」【玄悲】大师对坐烹茶。'),
+      S('NPC-0186', '（起身朗笑相迎）“哈哈！玄悲大师瞧瞧，嵩山派来的是何等人物！{ifFlag:sl_q17_market_saved|汴京相国寺退赃护商、一夜荡平青蛇帮的义举连洛阳茶楼都在传扬！|汴京相国寺单人独刃荡平青蛇帮的威名，早已传到我河洛啦！}”'),
+      S('NPC-0157', '（合十颔首）“阿弥陀佛。十年前少林药王院高僧曾冒雪救下王老施主幼孙，老施主遍采河洛紫金铸成千斤释迦佛像一尊，欲合两家之力护送入嵩山供奉。只是近日伊水风声骤紧——”'),
+      N('话音未落，白马寺武僧【虚净】与【虚慧】疾步入厅禀报：洛水渡口有陌生胡商高价购走数十匹北地骏马与铁蒺藜，行踪直指伊阙龙门石窟，极可能是黄河水匪勾结潜入中原的西夏游骑斥候！'),
+      S('NPC-0186', '（拍案怒喝，复炯炯望向你）“西夏贼子竟敢把手伸到洛阳城脚下！老夫坐镇洛阳防其调虎离山，玄悲大师押阵中车，前锋护镖总调度便交予你与虚净、虚慧！只是开镖之前，老夫倒想听听少林俗家护法的行镖之见——此去龙门，你以为成败最系于何处？”'),
     ],
-    onFinishEffects: [openScene('scene_slq18_02', SHAOLIN_Q18_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq18_creed_wit',
+        label: '【谋定后动 · 避实击虚】走镖重在保全佛宝与弟兄性命，当善用耳目谋略拆解伏兵！（禅心慈悲 +1）',
+        subLabel: '移步【金刀石锁演武中庭】点验镖车、细查暗患',
+        tone: 'jade',
+        effects: [
+          { type: 'startQuest', questId: SHAOLIN_Q18_QUEST_ID, stepId: 'courtyard_muster' },
+          { type: 'setFlag', flag: 'sl_q18_creed', value: 'wit' },
+          { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+          setStep(SHAOLIN_Q18_QUEST_ID, 'courtyard_muster'),
+          toast('已开启《洛阳护镖 · 金刀少林》！请移步【金刀石锁演武中庭】点验镖车定策！', 'talk', '洛阳护镖'),
+        ],
+      },
+      {
+        id: 'slq18_creed_bold',
+        label: '【金刀开路 · 狭路亮剑】佛门重宝堂堂正正入嵩山，谁敢截桥便叫他折戟伊水！（怒目杀业 +1）',
+        subLabel: '移步【金刀石锁演武中庭】整肃骑队、磨刀启程',
+        tone: 'gold',
+        effects: [
+          { type: 'startQuest', questId: SHAOLIN_Q18_QUEST_ID, stepId: 'courtyard_muster' },
+          { type: 'setFlag', flag: 'sl_q18_creed', value: 'bold' },
+          { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+          setStep(SHAOLIN_Q18_QUEST_ID, 'courtyard_muster'),
+          toast('已开启《洛阳护镖 · 金刀少林》！请移步【金刀石锁演武中庭】点验镖车定策！', 'talk', '洛阳护镖'),
+        ],
+      },
+    ],
   },
 
   scene_slq18_02: {
     id: 'scene_slq18_02',
-    title: '第二幕 · 千斤紫金',
-    subtitle: '金刀威震正气大厅',
+    title: '第二幕 · 中庭定策',
+    subtitle: '金刀王家 · 金刀石锁演武中庭（护镖三策）',
+    illustrationUrl: '/assets/quests/sl_18_longmen_escort.jpg',
+    illustrationCaption: '伊阙古道 · 金刀王家镖旗与少林护佛车队并辔南行',
     mandatory: true,
     beats: [
-      S('NPC-0186', '（抚须正色）“实不相瞒，十年前老夫幼孙重病，幸得少林药王院高僧冒雪赠药救回一命。老夫早年许下宏愿，遍采河洛精铜紫金，耗资数万贯延请西京大匠铸成一尊千斤紫金释迦佛像，如今方始开光，欲请少林与我王家联手护送入嵩山大雄宝殿！”'),
-      P('（抱拳肃然）“王老爷子重情守诺，诚乃河洛豪杰表率！只是千斤重器车行缓慢，由洛阳经伊阙龙门入嵩山，沿途水陆交错，不知近日风声可还太平？”'),
-      S('NPC-0157', '（神色微凝，缓缓吐出一口浊气）“你问得极是。佛像鎏金耗费巨万，虽已极力保密，近几日却有白马寺门下探子回报——伊水下游的黄河水匪频频在龙门石窟一带集结，甚至隐约混有操党项口音的西夏游骑！”'),
+      N('金刀石锁演武中庭内，一辆由四匹青骡挽拉的铁木重车覆盖明黄织锦佛幔，二十名佩金背大刀的王家趟子手牵马肃立。玄悲大师手执一柄暗沉古朴的精钢重杵立于车侧，沉稳如山。'),
+      S('NPC-0186', '（拍了拍铁梨木车辕，递过一卷路引舆图与车队草料支应单）“过伊阙龙门石桥时石道收窄，双列马队须变单骑护卫，最易遭伏！好在洛阳至伊阙水陆交错，如何排兵行镖，全凭少侠裁断。”'),
+      N('你绕车检验绳索与支应单，敏锐察觉两处机微：其一，舆图西侧有一条干涸秋水露出的浅滩旧道，若遣空车打大旗走东岸官道，真佛车可趁暮雾轻骑换道；其二，支应单上草料银两竟凭空多出一笔「三斤火油松脂」，而末车旁那名新雇的车夫刘四正频频偷瞥佛幔、指节发白！'),
+      S('NPC-0667', '（策马凑近低声请示）“{gender:师兄|师姐}，辰时三刻将至，咱们这趟金刀少林重镖究竟如何走法？”'),
     ],
-    onFinishEffects: [openScene('scene_slq18_03', SHAOLIN_Q18_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq18_plan_decoy',
+        label: '【明修栈道 · 暗渡陈仓】遣空车高举金刀大旗走官道诱敌，轻骑护真佛像绕浅滩换道！',
+        subLabel: '骑术 ≥ 35 免费亲率轻骑诱敌，否则花 30 两雇老练探马；跳过外围伏兵直战拓跋烈 1v1（禅心慈悲 +1）',
+        tone: 'jade',
+        condition: {
+          type: 'any',
+          hint: '需十艺【骑术】≥ 35 或银钱 ≥ 30 两',
+          conditions: [
+            { type: 'skillAtLeast', key: '骑术', min: 35 },
+            { type: 'silverAtLeast', min: 30 },
+          ],
+        },
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'skillAtLeast', key: '骑术', min: 35 },
+            thenEffects: [
+              toast('你凭精湛骑术亲调王家快马假车诱敌，不费分文便瞒过伊水耳目！', 'success', '暗渡陈仓'),
+            ],
+            elseEffects: [
+              {
+                type: 'branch',
+                condition: { type: 'flag', flag: 'sl_q18_scout_paid', op: 'falsy' },
+                thenEffects: [
+                  { type: 'giveSilver', amount: -30, reason: '洛阳雇佣老练驿路探马假车诱敌、暗渡龙门' },
+                  { type: 'setFlag', flag: 'sl_q18_scout_paid', value: true },
+                ],
+                elseEffects: [],
+              },
+            ],
+          },
+          { type: 'setFlag', flag: 'sl_q18_plan', value: 'decoy' },
+          { type: 'setFlag', flag: 'sl_q18_pirates_cleared', value: true },
+          { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+          openScene('scene_slq18_03', SHAOLIN_Q18_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq18_plan_mole',
+        label: '【算术验单 · 揪出内鬼】核破草料单里三斤火油松脂的账目破绽，当场拿下西夏收买的车夫！',
+        subLabel: '绑走内鬼夺其西夏联络响箭，反误导外围伏兵直战拓跋烈 1v1（禅心慈悲 +1）',
+        tone: 'gold',
+        condition: { type: 'skillAtLeast', key: '算术', min: 40 },
+        effects: [
+          { type: 'setFlag', flag: 'sl_q18_plan', value: 'mole' },
+          { type: 'setFlag', flag: 'sl_q18_mole_caught', value: true },
+          { type: 'setFlag', flag: 'sl_q18_pirates_cleared', value: true },
+          { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+          openScene('scene_slq18_04', SHAOLIN_Q18_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq18_plan_frontal',
+        label: '【金刀少林 · 正面硬闯】堂堂佛宝岂避宵小！金刀大旗开道，直闯伊阙龙门石桥！',
+        subLabel: '无门槛正攻：先后车轮连战黄河水匪与西夏双将（怒目杀业 +1）',
+        tone: 'danger',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q18_plan', value: 'frontal' },
+          { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+          openScene('scene_slq18_05', SHAOLIN_Q18_QUEST_ID),
+        ],
+      },
+    ],
   },
 
   scene_slq18_03: {
     id: 'scene_slq18_03',
-    title: '第三幕 · 暗流伊水',
-    subtitle: '金刀威震正气大厅',
+    title: '第三幕 · 假车诱敌',
+    subtitle: '洛阳南郊 · 浅滩暗道（暗渡陈仓线）',
     mandatory: true,
     beats: [
-      N('正议论间，两道灰袍身影快步入厅合十行礼，正是自白马寺随侍玄悲前来的少林武僧【虚净】与【虚慧】。'),
-      S('NPC-0667', '“禀师叔祖、王老爷子！弟子方才在洛水渡口打探，确有两伙陌生客商高价买走了数十匹北地骏马与铁蒺藜，行踪直指伊阙龙门石桥！”'),
-      S('NPC-0737', '“依弟子看，寻常水匪绝无这等财力与军阵章法，多半是西夏一品堂潜入河洛的游骑斥候，欲借劫夺紫金佛像既充军资，又挫我少林与河洛武林威望！”'),
-      S('NPC-0186', '（拍案怒喝，震得茶盏嗡嗡作响）“岂有此理！西夏贼子竟敢把手伸到我洛阳城脚下！老夫这便点齐金刀门二十名精锐趟子手，与玄悲大师及少林诸位贤侄一同走这一趟镖！”'),
+      S('NPC-0186', '（抚掌大笑，连赞三声好）“兵不厌诈！老夫这就调出两辆空铁木车蒙上明黄佛幔，让十名嗓门最亮的趟子手打着金刀大旗沿东岸官道招摇南下！”'),
+      N('{ifFlag:sl_q18_scout_paid|你散银三十两重金雇来洛阳最老练的驿路探马前出引路，将沿途暗哨摸得一清二楚；|你翻身上马亲率轻骑前出探明西岸浅滩旧道，控缰疾驰如臂使指，连虚净、虚慧亦叹服不已；}真紫金佛车卸去铃铛、裹毡防响，由玄悲大师坐镇中车悄然南赴白马寺汇合！'),
+      S('NPC-0157', '（合十颔首）“善哉！不战而分敌势，免却无数趟子手与水匪无谓伤亡，此乃护法大智。车队先往白马寺大佛宝殿净水洒扫，再借暮霭速过伊阙！”'),
+      N('王元霸递来金刀通行铜牌，叮嘱河洛众趟子手尽听你与玄悲号令。镖车滚滚，径向白马寺古驿而去。'),
     ],
-    onFinishEffects: [openScene('scene_slq18_04', SHAOLIN_Q18_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq18_decoy_to_baima',
+        label: '暗护真佛车前往【白马寺 · 白马大佛宝殿】汇合南下伊阙',
+        tone: 'gold',
+        effects: [
+          setStep(SHAOLIN_Q18_QUEST_ID, 'longmen_ambush'),
+          toast('假车诱敌已布妥！请前往【白马寺 · 白马大佛宝殿】汇合启程南下伊阙！', 'success', '洛阳护镖'),
+        ],
+      },
+    ],
   },
 
   scene_slq18_04: {
     id: 'scene_slq18_04',
-    title: '第四幕 · 领镖立约',
-    subtitle: '金刀威震正气大厅',
+    title: '第三幕 · 验单擒奸',
+    subtitle: '金刀石锁演武中庭（算术查内鬼线）',
     mandatory: true,
     beats: [
-      S('NPC-0157', '“王老施主莫急，金刀府尚须留人坐镇洛阳，以防贼人声东击西。此番护佛，便由王老施主遣精锐趟子手护住侧翼，老衲亲自押阵中车；至于前锋探路、策马破阵之责，便交由这位俗家护法{gender:师侄|女施主}与虚净、虚慧共担！”'),
-      P('（按剑抱拳，意气风发）“请玄悲师叔祖、王老爷子放心！弟子既练得几分骑术与刀杖功夫，定当寸步不离紫金佛车，纵有千军万马亦教贼人有来无回！”'),
+      P('（抖开草料支应单，手指逐行冷笑点算）“四匹青骡、二十匹健马，一日草料折银四两二钱，怎会多出三斤绝非饲马所用的火油松脂？刘四，你袖袋里鼓鼓囊囊藏的，莫非就是烧佛车的火折与西夏联络响箭？”'),
+      N('话音未落，你箭步欺近一把扣住末车车夫刘四脉门、掀开其马褂——火折、两支西夏狼头紫烟响箭与二十两党项碎银叮当滚落青砖！'),
+      S(SPEAKER_MOLE_CARTER, '（双膝发软跪地讨饶）“老爷饶命！小人一时鬼迷心窍收了西夏百夫长拓跋烈的银子，约定车队入龙门峡口便放火惊马、射狼头紫烟箭招黄河水匪与党项游骑两面合围！”'),
+      S('NPC-0186', '（惊怒交加，挥手命家丁将内鬼五花大绑锁入柴房，转而向你深深一揖）“好险！若非少侠心细如发、精于算术，车队在龙门桥头必遭背后放火全军覆没！这支狼头响箭便由少侠收执，待到伊阙反将贼人一军！”'),
     ],
     choices: [
       {
-        id: 'slq18_accept_quest',
-        label: '领受护佛重任，移步【金刀石锁演武中庭】点验镖车车马',
+        id: 'slq18_mole_to_baima',
+        label: '收起狼头响箭，护车前往【白马寺 · 白马大佛宝殿】汇合南下',
         tone: 'gold',
         effects: [
-          { type: 'startQuest', questId: SHAOLIN_Q18_QUEST_ID, stepId: 'courtyard_muster' },
-          setStep(SHAOLIN_Q18_QUEST_ID, 'courtyard_muster'),
-          toast('已开启《洛阳护镖 · 金刀少林》！请前往【金刀石锁演武中庭】点验镖车与骑队！', 'talk', '洛阳护镖'),
+          setStep(SHAOLIN_Q18_QUEST_ID, 'longmen_ambush'),
+          toast('已提前拔除西夏暗桩并缴获联络响箭！请前往【白马寺 · 白马大佛宝殿】汇合启程！', 'success', '洛阳护镖'),
         ],
       },
     ],
@@ -173,102 +288,41 @@ export const SCENES: Record<string, StorySceneDef> = {
 
   scene_slq18_05: {
     id: 'scene_slq18_05',
-    title: '第五幕 · 中庭点镖',
-    subtitle: '金刀王家 · 金刀石锁演武中庭',
+    title: '第三幕 · 刀禅并辔',
+    subtitle: '洛阳南郊官道（正面硬闯线）',
     mandatory: true,
     beats: [
-      N('步入宽阔的金刀石锁演武中庭，只见一辆由四匹健硕青骡挽拉的铁木重车停于中央，车上覆着明黄织锦佛幔，隐约透出庄严厚重的紫金轮廓，两侧十余名佩金背大刀的王家好手牵马肃立。'),
-      S('NPC-0186', '（走近拍了拍铁木车辕，沉声笑道）“这车轴乃是精钢裹铁梨木打造，寻常刀斧砍不断，车轮下还暗藏防陷铁齿。只是过伊阙龙门石桥时路面收窄，马队须由双列变作单骑护卫，正是贼人最易设伏之处！”'),
-      P('（翻身上马试了试马镫与缰绳，顺手检验镖车绳索）“王老爷子考虑周详。过桥之前，弟子愿先领虚净、虚慧两位师兄策马探察石窟两侧崖壁，绝不教伏兵轻易封死桥头。”'),
-    ],
-    onFinishEffects: [openScene('scene_slq18_06', SHAOLIN_Q18_QUEST_ID)],
-  },
-
-  scene_slq18_06: {
-    id: 'scene_slq18_06',
-    title: '第六幕 · 金刀少林',
-    subtitle: '洛阳南郊 · 伊阙古道启程',
-    illustrationUrl: '/assets/quests/sl_18_longmen_escort.jpg',
-    illustrationCaption: '伊阙古道 · 金刀王家镖旗与少林护佛车队并辔南行',
-    mandatory: true,
-    beats: [
-      N('辰时三刻，金刀镖旗猎猎迎风，白马寺诵经钟声遥遥相送。你策马居前，玄悲大师手持一柄暗沉古朴的精钢伏魔杵坐镇中车，虚净、虚慧分守左右，浩浩荡荡出洛阳南门直奔白马寺古驿与伊阙龙门！'),
-      S('NPC-0667', '（策马与你并辔而行，低声赞叹）“师兄骑术沉稳，控缰如臂使指！俺们在寺里光练拳脚，这马背上的护镖本事可远不如你们俗家护法！”'),
-      S('NPC-0737', '（遥指前方烟岚缭绕的伊阙两山夹峙之处）“前方便是白马寺南驿与龙门石窟峡口了。林鸟惊飞、水面无舟，师兄小心，杀气已近！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq18_07', SHAOLIN_Q18_QUEST_ID)],
-  },
-
-  scene_slq18_07: {
-    id: 'scene_slq18_07',
-    title: '第七幕 · 刀禅相契',
-    subtitle: '金刀石锁演武中庭 · 临行叮嘱',
-    mandatory: true,
-    beats: [
-      S('NPC-0186', '（递来一枚金刀王家通行铜牌，眼中满是期许）“少侠，这一路上若是遇到硬点子，王家趟子手皆听你与玄悲大师号令！金刀门与少林寺百年交好，今日便让天下绿林看看『金刀少林』四字的分量！”'),
-      S('NPC-0157', '（微微颔首）“车队先赴白马寺大佛宝殿前净水洒扫、与白马寺护院汇合，再一鼓作气闯过伊阙龙门。走罢！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq18_08', SHAOLIN_Q18_QUEST_ID)],
-  },
-
-  scene_slq18_08: {
-    id: 'scene_slq18_08',
-    title: '第八幕 · 赴驿汇合',
-    subtitle: '洛阳官道',
-    mandatory: true,
-    beats: [
-      N('车轮滚滚碾过青石官道，远方白马寺飞檐已在秋雾中隐约可见。你催马在前开道，暗自调匀内息，准备于白马寺汇合护院后直闯伊阙龙门！'),
+      S('NPC-0186', '（递来金刀王家通行铜牌，豪气干云）“好胆识！金刀门与少林寺百年交好，今日便高举金刀大旗堂堂正正走这一趟，让天下绿林与西夏胡骑看看『金刀少林』四字的分量！”'),
+      N('辰时三刻，金刀镖旗猎猎迎风，白马寺诵经钟声遥遥相送。你策马居前，玄悲大师怀抱古朴乌金重杵坐镇中车，虚净、虚慧分守两翼，浩浩荡荡出洛阳南门直奔白马寺古驿。'),
+      S('NPC-0737', '（遥指前方两山夹峙、林鸟惊飞的伊阙峡口，沉声示警）“{gender:师兄|师姐}留神，水面无舟、芦苇微动，黄河水匪与西夏游骑多半已在伊阙龙门桥头布下杀阵！”'),
     ],
     choices: [
       {
-        id: 'slq18_head_baimasi',
-        label: '护送镖车前往【白马寺 · 白马大佛宝殿】汇合并南下伊阙',
-        tone: 'gold',
+        id: 'slq18_frontal_to_baima',
+        label: '护车前往【白马寺 · 白马大佛宝殿】汇合并直闯伊阙龙门',
+        tone: 'danger',
         effects: [
           setStep(SHAOLIN_Q18_QUEST_ID, 'longmen_ambush'),
-          toast('镖车已整肃完毕！请前往【白马寺 · 白马大佛宝殿】汇合启程，迎战伊阙伏兵！', 'talk', '洛阳护镖'),
+          toast('镖车已整肃完毕！请前往【白马寺 · 白马大佛宝殿】汇合启程，硬闯伊阙龙门！', 'talk', '洛阳护镖'),
         ],
       },
     ],
   },
 
-  scene_slq18_09: {
-    id: 'scene_slq18_09',
-    title: '第九幕 · 伊阙杀机',
-    subtitle: '白马寺南出 · 伊阙龙门石窟峡口',
+  scene_slq18_06: {
+    id: 'scene_slq18_06',
+    title: '第四幕 · 桥头扫匪',
+    subtitle: '伊阙龙门石桥北口（车轮连战 实战）',
     mandatory: true,
     beats: [
-      N('车队自白马大佛宝殿洒净启行，不消半日便驶入两壁悬崖千佛林立的伊阙龙门古道。伊水滔滔奔涌，石桥横跨碧波之上，四周忽然静得只剩风穿石窟的呜咽声。'),
-      N('“嗖！嗖！嗖！”数支响箭骤然自伊水芦苇荡中破空而起！紧接着浪花翻涌，七八条快船靠岸，数十名手持鬼头刀与分水铁篙的黄河水匪嚎叫着杀上官道，将石桥前后团团截住！'),
-      S(SPEAKER_WATER_BANDIT, '（挥舞厚背鬼头大刀立于桥头，狞笑咆哮）“此山是我开，此水是我栽！王元霸那老儿铸的千斤紫金佛，今日归俺黄河水寨了！识相的秃驴滚回白马寺念经，否则统统剁碎喂王八！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq18_10', SHAOLIN_Q18_QUEST_ID)],
-  },
-
-  scene_slq18_10: {
-    id: 'scene_slq18_10',
-    title: '第十幕 · 破浪截寇',
-    subtitle: '伊阙龙门石桥北口',
-    mandatory: true,
-    beats: [
-      S('NPC-0157', '（立于佛车之前稳如泰山，低声喝道）“虚净、虚慧，随金刀门趟子手结圆阵护住佛车马匹，莫教流矢惊了青骡！{gender:师侄|女施主}，这伙水匪乃是前锋诱饵，背后必有西夏劲敌！速斩其首，打开桥路！”'),
-      P('（勒马横刀，朗声清喝）“区区水寇也敢觊觎佛门重宝！翻浪彪，滚过来领死！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq18_11', SHAOLIN_Q18_QUEST_ID)],
-  },
-
-  scene_slq18_11: {
-    id: 'scene_slq18_11',
-    title: '第十一幕 · 桥头扫匪',
-    subtitle: '伊阙龙门石桥（车轮连战 实战）',
-    mandatory: true,
-    beats: [
-      N('翻浪彪与水鬼二当家铁篙陈见你单骑突阵，齐声怪叫，一左一右挥刀抡篙猛扑而来！你催动内力，正面迎击！'),
+      N('车队自白马大佛宝殿洒净启行，方驶入千佛林立的伊阙龙门古道，芦苇荡中骤然响箭破空！七八条快船冲岸，数十名黄河水匪挥鬼头刀与分水铁篙嚎叫杀上石桥北口！'),
+      S(SPEAKER_WATER_BANDIT, '（横刀立于桥头狞笑咆哮）“王元霸老儿铸的千斤紫金佛，熔了够弟兄们吃喝三辈子！秃驴与护镖的统统滚下伊水喂王八！”'),
+      S('NPC-0157', '（立于佛车前稳如泰山）“虚净、虚慧随趟子手结圆阵护住佛车与青骡！{gender:师侄|女施主}，这伙水匪乃是诱饵前锋，背后必有西夏劲敌——速斩其首，打开桥路！”'),
     ],
     choices: [
       {
         id: 'slq18_fight_bandits',
-        label: '策马挺刃，迎战【翻浪彪】与【铁篙陈】！（车轮连战 实战）',
+        label: '策马挺刃，车轮连战【翻浪彪】与【铁篙陈】！（车轮连战 实战）',
         subLabel: '击溃黄河水匪前锋，夺回龙门石桥通道',
         tone: 'danger',
         effects: [
@@ -276,18 +330,19 @@ export const SCENES: Record<string, StorySceneDef> = {
             type: 'startCombat',
             format: 'gauntlet',
             questId: SHAOLIN_Q18_QUEST_ID,
-            opponent: { kind: 'custom', npc: buildWaterBanditLead() },
-            extraOpponents: [{ kind: 'custom', npc: buildWaterBanditMate() }],
+            opponent: { kind: 'custom', npc: buildWaterBanditMate() },
+            extraOpponents: [{ kind: 'custom', npc: buildWaterBanditLead() }],
             rule: 'story_trial',
             forbidEscapeReason: '千斤紫金佛像正在身后石桥之上，半步不可退让！',
-            introText: '【车轮连战 · 桥头扫匪】迎战黄河水匪头目【翻浪彪】与副首【铁篙陈】！',
+            introText: '【车轮连战 · 桥头扫匪】迎战黄河水匪副首【铁篙陈】与头目【翻浪彪】！',
             onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               { type: 'setFlag', flag: 'sl_q18_pirates_cleared', value: true },
-              openScene('scene_slq18_12', SHAOLIN_Q18_QUEST_ID),
+              openScene('scene_slq18_07', SHAOLIN_Q18_QUEST_ID),
             ],
             onLose: [
-              { type: 'healPlayer', hpPct: 80, mpPct: 80 },
-              toast('水匪刀篙凶猛，暂退佛车阵前喘息片刻再战！', 'warn', '龙门血战'),
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('水匪刀篙凶猛，暂退佛车阵前调匀气息再战！', 'warn', '龙门血战'),
             ],
           },
         ],
@@ -295,63 +350,63 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq18_12: {
-    id: 'scene_slq18_12',
-    title: '第十二幕 · 党项铁骑',
-    subtitle: '伊阙龙门石桥南端',
-    mandatory: true,
-    beats: [
-      N('你刀杖齐挥，将翻浪彪震落石桥跌入伊水，铁篙陈亦被震断铁篙抱头鼠窜！然而尚未喘息，石桥南端骤然马蹄如雷、尘沙蔽日——'),
-      N('一队身披黑铁札甲、头戴党项尖笠的精锐游骑自崖畔林中狂飙杀出！为首一员彪悍大将手提丈二蛇矛、腰悬西夏弯刀，煞气腾腾直扑紫金佛车！'),
-      S(SPEAKER_TUOBA_LIE, '（策马逼近桥心，冷笑如狼）“哈哈哈哈！一群没用的中原水耗子，还得劳烦本百夫长拓跋烈亲自出手！野利虎，把这帮少林秃驴连人带马一起剁了，紫金佛像拉回兴庆府献给国主！”'),
-      S(SPEAKER_XIXIA_SCOUT, '（弯刀出鞘，凶光毕露）“遵命！杀！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq18_13', SHAOLIN_Q18_QUEST_ID)],
-  },
-
-  scene_slq18_13: {
-    id: 'scene_slq18_13',
-    title: '第十三幕 · 韦陀抛杵',
+  scene_slq18_07: {
+    id: 'scene_slq18_07',
+    title: '第五幕 · 韦陀抛杵',
     subtitle: '伊阙龙门石桥 · 危局授绝学',
     illustrationUrl: '/assets/quests/sl_18_weituo_bridge.jpg',
     illustrationCaption: '龙门石桥 · 玄悲抛赠少林韦陀伏魔杵，危局破格点拨《韦陀杵》力战拓跋烈',
     mandatory: true,
     beats: [
-      N('西夏游骑阵势森严，十余骑弯弓齐射将王家趟子手与虚净、虚慧死死压制在佛车周围！玄悲大师双袖一振，以浑厚掌力震飞漫天狼牙箭，护住惊马与佛像，却一时分身乏术。'),
-      S('NPC-0157', '（见拓跋烈与野利虎双骑已杀到桥心，当机立断将手中精钢重杵凌空掷向你，声如佛门狮子吼震彻峡谷）“{gender:师侄|女施主}接杵！西夏铁骑长矛弯刀俱重，寻常刀剑难挡其锋——接老衲【少林韦陀伏魔杵】，记准《韦陀杵》『金刚降魔、横扫千军、天龙镇岳』三诀，破他马步，打他中宫！”'),
-      N('你腾身跃起一把接住那柄沉逾四十斤的乌金重杵，只觉杵身微温，隐隐与体内少林内劲共鸣！电光石火间，玄悲大师的法言与佛门护法韦陀降魔之象在脑中轰然贯通！'),
-      P('（横杵立于石桥正中，目射神光，长啸迎敌）“西夏贼将休得猖狂！且尝我少林《韦陀杵》！”'),
+      N('{ifFlagEq:sl_q18_plan=decoy|东岸官道远方隐隐传来喊杀声——黄河水匪与西夏副将野利虎果然尽数扑向了空车诱饵！岂料西夏百夫长【拓跋烈】极为老辣，察觉官道车辙轻浅有异，竟率亲随斜刺杀至龙门石桥截住真佛车！|}{ifFlagEq:sl_q18_plan=mole|车队甫抵龙门峡口，你抢先朝西山荒崖射出缴获的西夏狼头紫烟箭——翻浪彪与野利虎伏兵尽数被引往西麓空扑一场！唯有百夫长【拓跋烈】听出重车实蹄，怒吼着单骑疾冲上龙门石桥！|}{ifFlagEq:sl_q18_plan=frontal|翻浪彪被你震落伊水、铁篙陈断篙抱头鼠窜，然桥南骤然马蹄如雷——西夏百夫长【拓跋烈】与副将【野利虎】率黑铁札甲党项铁骑狂飙杀出，漫天狼牙箭将趟子手压制在佛车旁！|伊阙龙门石桥骤起马蹄惊雷，西夏游骑百夫长【拓跋烈】提丈二蛇矛杀至桥心！}'),
+      S(SPEAKER_TUOBA_LIE, '（提丈二蛇矛策马逼近桥心，冷笑如狼）“哈哈哈哈！好狡猾的宋朝和尚，可惜还是叫本百夫长堵在了龙门桥上！这尊千斤紫金佛像，今日便拉回兴庆府献给国主！”'),
+      N('箭雨呼啸而至，玄悲大师双袖鼓荡，以浑厚大金刚掌力将漫天狼牙箭悉数震落伊水，死死护住惊马与紫金佛像，却一时分身乏术。眼见拓跋烈蛇矛直刺桥心，玄悲长啸一声，将手中四十斤乌金重杵凌空掷向你！'),
+      S('NPC-0157', '（声如佛门狮子吼震彻龙门峡谷）“{gender:师侄|女施主}接老衲【少林韦陀伏魔杵】！西夏铁骑长矛沉猛，寻常轻刃难挡其锋——记准《韦陀杵》『金刚降魔、横扫千军、天龙镇岳』三诀，破他马步，打他中宫！”'),
+      N('你腾身跃起一把稳接乌金重杵，杵身温热竟与体内少林内劲轰然共鸣！电光石火间，韦陀降魔重意贯通百脉，你横杵立于龙门石桥正中，气势如岳迎向党项铁骑！'),
     ],
-    onFinishEffects: [teachArtNow('MA-094'), openScene('scene_slq18_14', SHAOLIN_Q18_QUEST_ID)],
+    onFinishEffects: [
+      { type: 'setFlag', flag: 'sl_q18_pestle_thrown', value: true },
+      teachArtNow('MA-094'),
+      {
+        type: 'branch',
+        condition: { type: 'flag', flag: 'sl_q18_plan', op: 'eq', value: 'frontal' },
+        thenEffects: [openScene('scene_slq18_09', SHAOLIN_Q18_QUEST_ID)],
+        elseEffects: [openScene('scene_slq18_08', SHAOLIN_Q18_QUEST_ID)],
+      },
+    ],
   },
 
-  scene_slq18_14: {
-    id: 'scene_slq18_14',
-    title: '第十四幕 · 韦陀镇桥',
-    subtitle: '伊阙龙门石桥（车轮连战 首领决战）',
+  scene_slq18_08: {
+    id: 'scene_slq18_08',
+    title: '第六幕 · 独杵擒王',
+    subtitle: '伊阙龙门石桥（1v1 独战拓跋烈）',
     mandatory: true,
     beats: [
-      N('拓跋烈催动西夏秘藏玄功，蛇矛如毒龙出海直刺咽喉，副将野利虎挥西夏弯刀斜劈马腹！你手执少林韦陀伏魔杵，步踏金刚，奋起神威死守龙门石桥！'),
+      N('外围水匪与党项前锋斥候早被你的护镖妙计尽数调离！龙门石桥之上，唯有西夏游骑百夫长【拓跋烈】孤军深入、催动秘藏玄功挺蛇矛直扑而来！'),
+      S(SPEAKER_TUOBA_LIE, '（目眦欲裂，蛇矛卷起狂沙）“坏我全盘埋伏，便拿你的命与这尊金佛来偿！受死！”'),
+      P('（横执【少林韦陀伏魔杵】，步踏金刚）“西夏贼将休得猖狂！且尝我少林《韦陀杵》！”'),
     ],
     choices: [
       {
-        id: 'slq18_fight_tuoba',
-        label: '执伏魔杵迎战西夏百夫长【拓跋烈】与【野利虎】！（二流上品 车轮连战）',
-        subLabel: '以《韦陀杵》刚猛重器大破党项铁骑',
+        id: 'slq18_fight_tuoba_solo',
+        label: '执伏魔杵 1v1 独战西夏百夫长【拓跋烈】！（二流上品 单挑）',
+        subLabel: '外围伏兵已被奇策调离，以《韦陀杵》正面对决党项百夫长',
         tone: 'danger',
         effects: [
+          teachArtNow('MA-094'),
           {
             type: 'startCombat',
-            format: 'gauntlet',
             questId: SHAOLIN_Q18_QUEST_ID,
             opponent: { kind: 'custom', npc: buildTuobaLieBoss() },
-            extraOpponents: [{ kind: 'custom', npc: buildXixiaScout() }],
             rule: 'story_trial',
             forbidEscapeReason: '紫金佛像与同门性命皆系于此桥，誓死不退！',
-            introText: '【车轮连战 · 龙门血战】手执韦陀伏魔杵迎战西夏游骑百夫长【拓跋烈】与副将【野利虎】！',
-            onWin: [openScene('scene_slq18_15', SHAOLIN_Q18_QUEST_ID)],
+            introText: '【1v1 龙门独战】手执少林韦陀伏魔杵独战西夏百夫长【拓跋烈】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_slq18_10', SHAOLIN_Q18_QUEST_ID),
+            ],
             onLose: [
-              { type: 'healPlayer', hpPct: 85, mpPct: 85 },
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               toast('拓跋烈马战刚猛，暂退桥栏回气，稳住架势再以韦陀杵破敌！', 'warn', '龙门血战'),
             ],
           },
@@ -360,89 +415,139 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq18_15: {
-    id: 'scene_slq18_15',
-    title: '第十五幕 · 伏魔破阵',
-    subtitle: '伊阙龙门石桥',
+  scene_slq18_09: {
+    id: 'scene_slq18_09',
+    title: '第六幕 · 韦陀镇桥',
+    subtitle: '伊阙龙门石桥（车轮连战 党项双将）',
     mandatory: true,
     beats: [
-      N('“轰——！”你一式「天龙镇岳」自上而下雷霆压落，沉重的韦陀伏魔杵竟将野利虎手中西夏弯刀硬生生砸弯脱手，顺势横扫把这名副将连人带甲扫下桥阶！'),
-      N('拓跋烈见副将折阵，大惊失色，挺蛇矛拼死反扑，却被你沉腰拧胯、一记「金刚降魔」震碎矛杆！拓跋烈虎口崩裂、鲜血直流，骇然勒马倒退。'),
-      S(SPEAKER_TUOBA_LIE, '（目眦欲裂，咬牙切齿）“好生霸道的少林重杵！传令鸣金——撤！这笔账我西夏一品堂记下了！”'),
-      N('此时洛阳府援兵与王元霸亲自率领的金刀马队亦踏尘赶到，漫山喊杀声起，西夏游骑不敢恋战，丢下十余具尸首狼狈遁入西山密林！'),
-    ],
-    onFinishEffects: [openScene('scene_slq18_16', SHAOLIN_Q18_QUEST_ID)],
-  },
-
-  scene_slq18_16: {
-    id: 'scene_slq18_16',
-    title: '第十六幕 · 佛像无恙',
-    subtitle: '伊阙龙门石桥',
-    mandatory: true,
-    beats: [
-      N('硝烟散尽，伊水复归澄澈。王元霸翻身下马大步上前，掀开佛幔查验紫金佛像——但见宝相庄严，竟连一丝箭痕也未曾留下！'),
-      S('NPC-0186', '（抚掌大笑，眼眶微红）“好！好一个少林俗家护法！单人独杵守住龙门石桥，杀得西夏百夫长丢盔弃甲！请玄悲大师与诸位暂回白马寺大佛宝殿歇息，待明晨老夫亲护车队直上嵩山！”'),
-      S('NPC-0157', '（合十微笑，望向你手中仍嗡嗡微鸣的伏魔杵）“阿弥陀佛。回返白马大佛宝殿罢，老衲尚有一番机缘要付与你。”'),
+      N('拓跋烈催动西夏玄功蛇矛如毒龙出海，副将野利虎则挥西夏弯刀自侧翼斜劈马腹！两人前后夹击，杀气铺天盖地！'),
+      S(SPEAKER_XIXIA_SCOUT, '（弯刀寒光暴闪）“百夫长莫与宋人废话，斩了这护法小将，立刻拉走紫金佛车！”'),
+      P('（横执【少林韦陀伏魔杵】死守桥心）“纵是党项铁骑倾巢而来，今日亦休想越过龙门石桥半步！”'),
     ],
     choices: [
       {
-        id: 'slq18_return_baima',
-        label: '护送紫金佛像安抵【白马寺 · 白马大佛宝殿】复命',
-        tone: 'gold',
+        id: 'slq18_fight_tuoba_gauntlet',
+        label: '执伏魔杵车轮连战【野利虎】与【拓跋烈】！（二流上品 车轮连战）',
+        subLabel: '先破副将【野利虎】，再撼百夫长【拓跋烈】',
+        tone: 'danger',
         effects: [
-          setStep(SHAOLIN_Q18_QUEST_ID, 'baima_confer'),
-          toast('已击退水匪与西夏游骑！请在【白马大佛宝殿】拜见玄悲大师与王元霸！', 'success', '洛阳护镖'),
+          teachArtNow('MA-094'),
+          {
+            type: 'startCombat',
+            format: 'gauntlet',
+            questId: SHAOLIN_Q18_QUEST_ID,
+            opponent: { kind: 'custom', npc: buildXixiaScout() },
+            extraOpponents: [{ kind: 'custom', npc: buildTuobaLieBoss() }],
+            rule: 'story_trial',
+            forbidEscapeReason: '紫金佛像与同门性命皆系于此桥，誓死不退！',
+            introText: '【车轮连战 · 龙门血战】迎战西夏副将【野利虎】与百夫长【拓跋烈】！',
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_slq18_10', SHAOLIN_Q18_QUEST_ID),
+            ],
+            onLose: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              toast('西夏双将马战刚猛，暂退桥栏回气再以韦陀杵破敌！', 'warn', '龙门血战'),
+            ],
+          },
         ],
       },
     ],
   },
 
-  scene_slq18_17: {
-    id: 'scene_slq18_17',
-    title: '第十七幕 · 祖庭烛明',
-    subtitle: '洛阳府 · 白马寺 · 白马大佛宝殿',
+  scene_slq18_10: {
+    id: 'scene_slq18_10',
+    title: '第七幕 · 伏魔破阵',
+    subtitle: '伊阙龙门石桥（战后处置抉择）',
     mandatory: true,
     beats: [
-      N('白马寺乃中土释源祖庭，大佛宝殿内千灯齐明。千斤紫金佛像暂奉殿中莲台之上，烛火映照之下熠熠生辉，虚净、虚慧与白马寺众僧齐诵《楞严咒》回向平安。'),
-      S('NPC-0667', '（合十赞叹）“师兄方才在龙门石桥那一记韦陀降魔，真如护法天神下凡，弟子看得热血沸腾！”'),
-      S('NPC-0737', '“若非师兄以一己之力顶住西夏百夫长，单靠咱们几个恐怕真要折损不少弟兄！”'),
+      N('“轰——！”你沉腰拧胯，一式「天龙镇岳」自上而下雷霆压落，四十斤乌金重杵硬生生震碎拓跋烈手中丈二蛇矛！拓跋烈虎口崩裂鲜血直流，恰逢北岸王元霸亲率洛阳府援军马队烟尘滚滚杀到，党项贼将骇然鸣金，丢下十余名坠马伤俘遁入西山密林！'),
+      N('王元霸大步掀开佛幔查验——千斤紫金释迦佛像宝相庄严，连一丝箭痕亦未曾留下！虚净、虚慧则押来数名负伤坠马的党项年轻游骑，请示如何处置。'),
+      S('NPC-0186', '（双目虎威犹炽，按刀冷笑）“西夏贼子深入腹地劫掠佛宝，按河洛镖局铁律，合该斩首示警伊阙官道，教党项胡骑十年不敢窥视中原！”'),
+      S('NPC-0157', '（合十低眉，将目光投向你）“阿弥陀佛。此战是你单杵镇桥之功，这几名坠马伤俘是留活口交洛阳府军法司审出西夏潜哨暗线，还是依王老施主铁血示警，你来定夺罢。”'),
     ],
-    onFinishEffects: [openScene('scene_slq18_18', SHAOLIN_Q18_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq18_captives_mercy',
+        label: '【止杀审奸】包扎伤俘移交洛阳府军法司审问西夏暗线，既显佛门慈悲又利边防！',
+        subLabel: '玄悲合十赞许，护车回返白马大佛宝殿（禅心慈悲 +1 · 侠义 +15）',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q18_captives', value: 'mercy' },
+          { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+          { type: 'modifyChivalry', delta: 15, reason: '伊阙战后止杀留俘、移交官府彻查西夏暗线' },
+          setStep(SHAOLIN_Q18_QUEST_ID, 'baima_confer'),
+          toast('龙门血战大捷！请于【白马寺 · 白马大佛宝殿】拜见玄悲大师与王元霸！', 'success', '洛阳护镖'),
+        ],
+      },
+      {
+        id: 'slq18_captives_execute',
+        label: '【铁血震胡】依江湖镖规斩贼示警龙门驿道，教西夏一品堂知晓中原武林不可轻犯！',
+        subLabel: '金刀王家众趟子手大呼痛快，护车回返白马大佛宝殿（怒目杀业 +1 · 声望 +15）',
+        tone: 'danger',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q18_captives', value: 'execute' },
+          { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+          { type: 'modifyRenown', delta: 15, reason: '龙门石桥铁血示警西夏游骑，威震河洛江湖' },
+          setStep(SHAOLIN_Q18_QUEST_ID, 'baima_confer'),
+          toast('龙门血战大捷！请于【白马寺 · 白马大佛宝殿】拜见玄悲大师与王元霸！', 'success', '洛阳护镖'),
+        ],
+      },
+    ],
   },
 
-  scene_slq18_18: {
-    id: 'scene_slq18_18',
-    title: '第十八幕 · 紫金焕彩',
-    subtitle: '白马大佛宝殿',
+  scene_slq18_11: {
+    id: 'scene_slq18_11',
+    title: '第八幕 · 紫金功德',
+    subtitle: '白马寺 · 白马大佛宝殿（功德与镖酬抉择）',
     illustrationUrl: '/assets/quests/sl_18_golden_buddha.jpg',
     illustrationCaption: '白马大佛宝殿 · 千斤紫金佛像安奉放光，玄悲破格传授《韦陀杵》并赠伏魔宝杵',
     mandatory: true,
     beats: [
-      S('NPC-0186', '（向你郑重抱拳一礼）“少侠今日护佛有功，更保住了我金刀王家的百年声誉！自今日起，但凡少林门下行走河洛，我金刀王家必倾力相助！你这份交情，老夫王元霸记在心里了！”'),
-      P('（连忙还礼，将手中沉甸甸的伏魔宝杵双手奉还玄悲）“王老爷子言重了！护持佛宝、抗击西夏胡骑乃弟子分内之事。玄悲师叔祖，这柄宝杵还请收回。”'),
+      N('白马寺乃中土释源祖庭，大佛宝殿千灯齐明。千斤紫金佛像暂奉莲台之上熠熠生辉，虚净、虚慧与百余僧众齐诵《楞严咒》回向平安。'),
+      S('NPC-0186', '（郑重抱拳一礼，命家人捧上一盘明晃晃的八十两赤金红封）“少侠今日单杵退西夏、{ifFlag:sl_q18_mole_caught|更提前验单揪出西夏内鬼，|保得佛像纤毫未损，}既扬少林佛威，更全了我金刀王家百年信誉！自今日起，金刀王家与少林俗家护法结为莫逆之交！按江湖镖规，这八十两护镖重酬务请收下！”'),
+      S('NPC-0157', '（含笑抚须而不语）“阿弥陀佛。世间法有世间法之义利，出世法有出世法之功德。{gender:师侄|女施主}既为俗家护法，这盘重酬当如何处之，且凭本心。”'),
+      N('烛火映照紫金佛面，满殿白马寺僧众与金刀王家子弟皆含笑静候你的回话——'),
     ],
-    onFinishEffects: [openScene('scene_slq18_19', SHAOLIN_Q18_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq18_reward_donate',
+        label: '【无偿护佛 · 功德祈福】谢绝王家八十两厚礼，悉数转敬白马寺修缮施粥、为河洛苍生祈福！',
+        subLabel: '佛门大义、侠名远播河洛（禅心慈悲 +2 · 声望 +30 · 侠义 +25）',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q18_reward_choice', value: 'donate' },
+          { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 2 },
+          { type: 'modifyRenown', delta: 30, reason: '洛阳护佛谢绝重酬转作白马寺善款，侠名远播河洛' },
+          { type: 'modifyChivalry', delta: 25, reason: '无偿护送千斤紫金佛像并敬献功德济民' },
+          openScene('scene_slq18_12', SHAOLIN_Q18_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq18_reward_fee',
+        label: '【依镖规受酬】江湖走镖、出生入死，依金刀王家镖规坦荡实收八十两护镖重酬！',
+        subLabel: '义利分明、财力充盈（怒目杀业 +1 · 结算获 80 两银）',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q18_reward_choice', value: 'fee' },
+          { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+          openScene('scene_slq18_12', SHAOLIN_Q18_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_slq18_19: {
-    id: 'scene_slq18_19',
-    title: '第十九幕 · 破格传杵',
-    subtitle: '白马大佛宝殿',
+  scene_slq18_12: {
+    id: 'scene_slq18_12',
+    title: '第九幕 · 破格授杵',
+    subtitle: '白马寺 · 白马大佛宝殿',
     mandatory: true,
     beats: [
-      S('NPC-0157', '（摆手含笑，并未接回宝杵，反而自袖中取出一卷密录置入你手）“阿弥陀佛。宝剑赠烈士，伏魔杵自当配护法之人。老衲平生最擅《韦陀杵》，本是少林寺不轻传外人的降魔重器绝学，今日见你临阵一点即通、侠肝义胆，老衲便破例将《韦陀杵》全诀与这柄随身三十年的【少林韦陀伏魔杵】一并赐予你！”'),
-      P('（心头震动，肃然躬身大礼参拜）“玄悲师叔祖厚恩，弟子粉身碎骨难报万一！必当善用此杵降妖伏魔，绝不辱没『大韦陀』威名！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq18_20', SHAOLIN_Q18_QUEST_ID)],
-  },
-
-  scene_slq18_20: {
-    id: 'scene_slq18_20',
-    title: '第二十幕 · 金刀盟约',
-    subtitle: '白马大佛宝殿',
-    mandatory: true,
-    beats: [
-      N('钟声悠扬，大佛宝殿外秋月如洗。翌日紫金佛像在王家与少林精锐护送下安抵嵩山，金刀王家与少林俗家护法一脉从此结下莫逆之交，你的威名亦随龙门一战传遍河洛江湖。'),
+      N('{ifFlagEq:sl_q18_reward_choice=donate|王元霸动容长叹少林俗家护法竟视重金如浮云，当即加捐百石白米入白马寺冬日施粥；|王元霸抚掌大笑，赞你坦荡爽利不作伪态、深合江湖豪杰本色，亲手奉上八十两护镖红封；}你随即双手捧起沉甸甸的乌金重杵，恭敬奉还玄悲大师。'),
+      S('NPC-0157', '（含笑摆手不接，反而自袖中取出一卷密录置入你手）“阿弥陀佛。宝杵自当配护法之人。老衲平生最擅《韦陀杵》，本不轻传外人，今日见你临阵一点即通、智勇兼备，便破例将《韦陀杵》全诀与这柄随身三十年的地阶神兵【少林韦陀伏魔杵】一并赐予你！”'),
+      P('（心头震动，肃然躬身大礼拜谢）“玄悲师叔祖厚恩，弟子没齿难忘！必当善用此杵降妖伏魔，绝不辱没『大韦陀』与『金刀少林』威名！”'),
+      N('次日紫金佛像在两家精锐护送下安抵嵩山大雄宝殿，你的名号亦随龙门独杵破西夏一战传遍河洛江湖。'),
     ],
     choices: [
       {
@@ -454,8 +559,20 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'giveItem', itemId: 'WPN-028', qty: 1 },
           { type: 'giveCombatExp', amount: 360, reason: '伊阙龙门石桥大破黄河水匪与西夏游骑拓跋烈' },
           { type: 'addSectContribution', amount: 150 },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q18_reward_choice', op: 'eq', value: 'fee' },
+            thenEffects: [{ type: 'giveSilver', amount: 80, reason: '洛阳金刀王家护送紫金佛像重酬' }],
+            elseEffects: [],
+          },
           { type: 'modifySkill', key: '骑术', delta: 1 },
           { type: 'modifySkill', key: '经义', delta: 1 },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q18_mole_caught', op: 'truthy' },
+            thenEffects: [{ type: 'modifySkill', key: '算术', delta: 1 }],
+            elseEffects: [],
+          },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0186' }, delta: 15 },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0157' }, delta: 15 },
           { type: 'completeQuest', questId: SHAOLIN_Q18_QUEST_ID, outcome: 'completed' },

@@ -30,6 +30,15 @@ const SPEAKER_YAN_YINGKE: StorySpeakerSpec = {
   avatarUrl: '/assets/characters/templates/tpl_murong_male_av.jpg',
 }
 
+const SPEAKER_INNER_DEMON: StorySpeakerSpec = {
+  kind: 'custom',
+  name: '七十二障 · 心魔幻身',
+  title: '寒玉照心幻象',
+  factionName: '心海魔障',
+  portraitUrl: '/assets/characters/templates/tpl_shaolin_monk_fb.jpg',
+  avatarUrl: '/assets/characters/templates/tpl_shaolin_monk_av.jpg',
+}
+
 function buildMurongScoutA(): NodeNpc {
   return makeQuestNpc({
     id: 'QUEST_SLQ12_SCOUT_A',
@@ -90,95 +99,147 @@ function buildYanYingkeBoss(): NodeNpc {
 export const SCENES: Record<string, StorySceneDef> = {
   scene_slq12_01: {
     id: 'scene_slq12_01',
-    title: '第一幕 · 幽谷石门',
-    subtitle: '达摩院 · 幽谷石室入口',
+    title: '第一幕 · 幽谷寒玉',
+    subtitle: '达摩院 · 幽谷石室寒玉榻',
     mandatory: true,
     beats: [
-      N('{reignYear}冬雪初降，嵩山幽谷寒意彻骨。你在少林寺潜修已满五载，今日奉玄慈方丈与玄难首座密谕，首度获准踏入达摩院最隐秘的禁地——幽谷石室。'),
-      N('穿过一条仅容两人并行的幽深石道，前方豁然开朗。洞顶垂落数盏长明青油灯，石室中央竟陈设着一张散发淡淡白雾的千年寒玉榻。'),
-      S('NPC-0127', '（玄难首座停步轻叹，神色前所未有的肃穆）“阿弥陀佛。此处便是玄澄师兄静养之所。全寺之中，除方丈、老衲与少数玄字辈长老外，从不许外人踏入半步。今日带你前来，乃方丈与老衲共同决意。”'),
-      P('（心中微微一震，合十低声道）“玄澄师伯……便是寺中传闻两百年来武学天资第一、一人连成十三门绝技的少林神僧？”'),
+      N('{reignYear}冬雪初降，嵩山幽谷寒意彻骨。你在少林达摩院潜修日久，今日奉玄慈方丈与玄难首座密谕，首度踏入达摩院最深处的禁地——幽谷石室。狭长石道尽头长明青灯摇曳，石室正中陈设着一张白雾缭绕的千年寒玉榻。'),
+      N('榻上盘坐着一名须发皆白、枯瘦如槁木的老僧，周身经脉寸断、四肢早已瘫痪，唯有一双深邃眸子如寒潭秋水，静静映出洞中灯火——正是少林两百年来第一武学奇才、神僧【玄澄】！'),
+      S('NPC-0127', '（躬身引荐）“玄澄师兄，这便是修成《伏魔剑》《散花掌》《拈花指》的那名达摩院弟子。方丈特命他来此侍奉师兄、誊录经卷，并亲聆师兄教诲。”'),
+      S('NPC-0109', '（声音极轻，却清越如玉磐敲击）“阿弥陀佛……玄难师弟先回殿理事吧。孩子，且近前坐上寒玉石蒲团，让老衲瞧瞧你修习多门绝艺之后，灵台深处可曾积下戾气。”'),
     ],
     onFinishEffects: [openScene('scene_slq12_02', SHAOLIN_Q12_QUEST_ID)],
   },
 
   scene_slq12_02: {
     id: 'scene_slq12_02',
-    title: '第二幕 · 榻上神僧',
+    title: '第二幕 · 七十二障',
     subtitle: '幽谷石室 · 寒玉榻',
+    illustrationUrl: '/assets/quests/sl_12_cold_jade_bed.jpg',
+    illustrationCaption: '寒玉问禅 · 幽谷石室长明灯下，瘫痪神僧玄澄剖白七十二障秘辛',
     mandatory: true,
     beats: [
-      N('走近寒玉榻，只见榻上盘坐着一名须发皆白、枯瘦如槁木的老僧。他周身经脉寸断、双腿与右臂皆已瘫痪不能动弹，唯有一双深邃澄明的眸子，宛如寒潭秋水，静静映出洞中灯火。'),
-      S('NPC-0127', '（躬身行礼）“玄澄师兄，这便是老衲常向你提起的那名达摩院弟子。他已修成《伏魔剑》《散花掌》《拈花指》，经义书法皆已纯熟，方丈特命他来此侍奉师兄、抄录禅卷。”'),
-      S('NPC-0109', '（玄澄声音极轻，却字字清越如玉磐敲击）“阿弥陀佛……难为玄慈师兄与玄难师弟费心。孩子，且近前来，让老衲瞧瞧你眉宇间可有戾气。”'),
-      P('（恭敬趋前，于寒玉榻三步外合十跪拜）“弟子拜见玄澄师伯！”'),
+      S('NPC-0109', '“世人皆惜老衲一夜筋脉尽废，却不知老衲卧此寒玉榻十余载，才真正参透少林七十二绝技最大的忌讳——『武学障』。每一门绝技杀伐皆重，每多练一门，心中便多添一分暴戾！”'),
+      S('NPC-0109', '“昔年老衲恃才傲物，三十年间强练十三门绝技，却轻忽诵经修禅、未以大慈大悲佛法化去招中戾气。那一夜十三股绝技真气同时在膻中百会冲撞炸裂，若非寒玉护住心脉，早已化作枯骨。”'),
+      N('玄澄以眼神示意榻畔一只黑漆木匣——内中静躺着一册蝇头小楷写就的《十三绝技武学障手札》，录尽十三门绝技破绽与化障心法。'),
+      S('NPC-0109', '“今夜替老衲誊完《妙法莲华经》之前，先闭目凝神借寒玉冷气自照识海！你已连修三门达摩绝艺，能否勘破心中潜伏的『贪求绝技之障』，便在此一念之间！”'),
     ],
     onFinishEffects: [openScene('scene_slq12_03', SHAOLIN_Q12_QUEST_ID)],
   },
 
   scene_slq12_03: {
     id: 'scene_slq12_03',
-    title: '第三幕 · 寒玉问禅',
-    subtitle: '幽谷石室 · 寒玉榻',
-    illustrationUrl: '/assets/quests/sl_12_cold_jade_bed.jpg',
-    illustrationCaption: '寒玉问禅 · 幽谷石室长明灯下，瘫痪神僧玄澄剖白七十二障秘辛',
+    title: '第三幕 · 心魔初现 · 绝艺幻影',
+    subtitle: '寒玉问禅 · 破障第一重',
     mandatory: true,
     beats: [
-      N('玄澄静静凝视你半晌，枯槁的嘴角终于露出一丝欣慰笑意，示意玄难先回大雄宝殿处理寺务，独留你在榻畔研磨铺纸。'),
-      S('NPC-0109', '“世人皆惜老衲一夜筋脉俱废、沦为废人，却不知老衲躺在这寒玉榻上十余载，才真正参透了少林七十二绝技最大的忌讳——『武学障』。”'),
-      P('（屏息凝神，提笔待录）“敢问师伯，何谓『武学障』？”'),
-      S('NPC-0109', '“少林七十二绝技，每一门皆是历代祖师呕心沥血所创，杀伐威力极重。每多练一门，心中便多添一分刚猛暴戾之气。昔年老衲恃才傲物，三十年间一口气强练十三门绝技，却轻忽了诵经修禅、未以大慈大悲佛法去化解招中戾气……”'),
+      N('你盘膝坐于寒玉石蒲团之上，刺骨寒流顺涌泉直贯灵台。刹那间长明青灯化作漫天金光，石壁浮现出无数气势滔天的绝技虚影——大金刚拳、无相劫指、般若掌、龙爪手……七十二门无上秘籍如狂潮涌入识海，低语诱惑着「尽纳于身，天下无敌」！'),
+      N('往日历练的因果旧影亦在心海翻涌：{ifFlag:sl_q09_hanli_spared|剑痕崖折剑放生韩厉的那一念慈悲，化作一缕清泉试图平息剑意锋芒；|剑痕崖震腕废敌时的凌厉杀意，瞬间如烈火烹油般窜上心头；} {ifFlag:sl_q11_debate_master|大雄正殿连破两道公案时的澄明禅心，则如一盏古佛孤灯，在绝艺狂澜中稳稳摇曳。|大雄正殿与吐蕃护法争胜时的好强执念，则悄然化作炽热心火，催你再求更高绝艺。}'),
+      N('十三股仿若实质的绝技戾气自四面八方压顶而来，直冲膻中大穴！眼看心神将被贪求神功的幻影吞没，你决意如何应对这第一重心魔？'),
     ],
-    onFinishEffects: [openScene('scene_slq12_04', SHAOLIN_Q12_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq12_trial1_empty',
+        label: '【舍执入空】默诵《法华》慈悲经文，主动散去绝技贪念、借佛法化去戾气',
+        subLabel: '宁舍满壁神功幻影而守本心清明（禅心慈悲 +2）',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q12_trial1_clear', value: true },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q12_trial1_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_q12_trial1_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 2 },
+            ],
+          },
+          openScene('scene_slq12_04', SHAOLIN_Q12_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq12_trial1_force',
+        label: '【以强压魔】运转全身真气强行吞纳绝艺幻影，以傲骨雄心硬压心魔戾气！',
+        subLabel: '威势骤增却心火微炽，种下武学执念（怒目杀业 +2）',
+        tone: 'danger',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q12_trial1_clear', value: false },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q12_trial1_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_q12_trial1_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 2 },
+            ],
+          },
+          openScene('scene_slq12_04', SHAOLIN_Q12_QUEST_ID),
+        ],
+      },
+    ],
   },
 
   scene_slq12_04: {
     id: 'scene_slq12_04',
-    title: '第四幕 · 十三绝技反噬',
-    subtitle: '幽谷石室 · 寒玉榻',
+    title: '第四幕 · 心魔再问 · 渡世之辩',
+    subtitle: '寒玉问禅 · 破障第二重',
     mandatory: true,
     beats: [
-      S('NPC-0109', '（闭目长叹，声音中透出彻骨的苍凉与警醒）“那一夜，十三股互不相容的绝技真气同时在膻中、百会冲撞炸裂！老衲空有一身惊世骇俗的武功，却连自身戾气都压不住，一夜之间筋脉寸断，若非寒玉榻护住心脉，早已化作枯骨。”'),
-      P('（听得脊背发凉，心神震撼莫名）“原来说到底，武功越是高深，越需要慈悲佛法来化其锋芒……难怪玄慈方丈当日授我《拈花指》时，特意叮嘱切莫重蹈覆辙！”'),
-      S('NPC-0109', '“正是！佛法渡人，亦渡己身。你若贪求绝技数量而弃禅心，练得越多，反噬越烈；唯有以《法华经》《金刚经》常涤心尘，方能将七十二绝技融于慈悲一念，永无武学之障。”'),
+      N('{ifFlag:sl_q12_trial1_clear|满壁金色秘籍幻影在柔和梵音中寸寸化作漫天雪尘，然而寒雾深处却骤然凝出一尊与你面容无二、双目却赤红如焰的心魔幻身！|你以强横真气硬生生将绝技幻影吞压入丹田，虽未当场走火，丹田却如吞炭火灼热难安！炽烈心火化作一尊与你面容无二、双目赤红的心魔幻身直逼眼前！}'),
+      S(SPEAKER_INNER_DEMON, '（冷笑震彻识海，字字诛心）“别装什么大慈大悲了！少林七十二绝技本就是天下第一杀伐利器！遇上星宿妖毒、雪域铁掌、江南刺客，靠几卷发黄的经书能保住谁的性命？武道极致，究竟是『无我无执』，还是『唯我独尊』？”'),
+      N('寒玉冷气与心海烈焰在眉心方寸激烈对撞，这一答，将彻底定你能否勘破「七十二障」——'),
     ],
-    onFinishEffects: [openScene('scene_slq12_05', SHAOLIN_Q12_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq12_trial2_zen',
+        label: '“绝技为舟，慈悲为鞘——若无佛法化戾，神功越绝反噬越烈；唯破我执，方得大自在！”',
+        tone: 'default',
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q12_trial1_clear', op: 'truthy' },
+            thenEffects: [{ type: 'setFlag', flag: 'sl_q12_mind_clear', value: true }],
+            elseEffects: [{ type: 'setFlag', flag: 'sl_q12_mind_clear', value: false }],
+          },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q12_trial2_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_q12_trial2_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+            ],
+          },
+          openScene('scene_slq12_05', SHAOLIN_Q12_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq12_trial2_power',
+        label: '“乱世浊恶，慈悲须以绝顶武力为骨——纵负心火，亦当穷尽七十二绝技登峰造极！”',
+        tone: 'default',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q12_mind_clear', value: false },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q12_trial2_scored', op: 'falsy' },
+            thenEffects: [
+              { type: 'setFlag', flag: 'sl_q12_trial2_scored', value: true },
+              { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+            ],
+          },
+          openScene('scene_slq12_05', SHAOLIN_Q12_QUEST_ID),
+        ],
+      },
+    ],
   },
 
   scene_slq12_05: {
     id: 'scene_slq12_05',
-    title: '第五幕 · 手札托付',
+    title: '第五幕 · 三更风异',
     subtitle: '幽谷石室 · 寒玉榻',
     mandatory: true,
     beats: [
-      N('玄澄以微不可察的眼神示意榻畔一只黑漆木匣。你轻轻开启，只见里面静静躺着一册以蝇头小楷密密麻麻写就的《十三绝技武学障手札》，墨迹沉雄却透着一股大彻大悟的平和。'),
-      S('NPC-0109', '“这是老衲口述、玄难师弟代笔录下的十三门绝技运劲破绽与化障心法。今夜你便在此替我补誊末卷《妙法莲华经》解义，顺道细细研读此卷。”'),
-      P('（双手小心捧起手札，只觉重逾千钧）“弟子定当用心抄录体悟，并寸步不离守候师伯！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_06', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_06: {
-    id: 'scene_slq12_06',
-    title: '第六幕 · 秉烛抄经',
-    subtitle: '幽谷石室 · 寒玉榻',
-    mandatory: true,
-    beats: [
-      N('暮色渐沉，洞外风雪渐急。你于石案前秉烛研墨，一笔一画替玄澄誊录禅经，同时将手札中关于「以禅化戾、刚柔互济」的心得与自己所修《伏魔剑》《散花掌》《拈花指》逐一印证。'),
-      N('每落一笔，你便觉丹田内息愈发澄澈圆融，往日隐隐浮躁的一丝锐气竟悄然消融，化作绵长深厚的禅定真力！'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_07', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_07: {
-    id: 'scene_slq12_07',
-    title: '第七幕 · 三更风异',
-    subtitle: '幽谷石室 · 寒玉榻',
-    mandatory: true,
-    beats: [
-      N('转眼已是三更时分。寒玉榻上玄澄已沉沉入睡，呼吸微弱绵长。洞中唯余灯花偶爆的「噼啪」轻响。'),
-      N('忽然，你握笔的右手微微一顿——洞口寒风吹入的节奏，竟比方才短促了半分！风中更夹杂着一丝极淡、却绝不属于嵩山松雪的江南沉水冷香！'),
-      P('（心头警兆骤生，悄然放下狼毫，反手护住案头黑漆木匣，目光如电射向幽暗石道）“有人潜入达摩院禁地了！”'),
+      N('你缓缓睁开双眼，寒玉石室重归寂静，洞外风雪呼啸拍打崖壁。寒玉榻上玄澄神僧静静凝视你眉宇气色，轻轻颔首。'),
+      S('NPC-0109', '{ifFlag:sl_q12_mind_clear|（眼中绽出久违的欣慰清光）“善哉！两重心魔考校而灵台澄明如琉璃，不沾半分贪戾——你今日已摸到了破除『武学障』的门槛！”|（轻叹一声，语调苍凉而温和）“你虽压下心魔幻象，眉间却仍锁着一缕炽烈锐气……老衲当年亦是如此。日后勤诵佛经、切勿自恃武功高强而轻忽修心。”}'),
+      N('你于石案前秉烛替玄澄誊录《妙法莲华经》，转眼已至三更，榻上玄澄呼吸绵长沉沉入睡。忽然你握笔之手微微一顿——洞口寒风吹入的节奏短促了半分，风中更夹杂着一丝绝非嵩山松雪的江南沉水冷香！'),
+      P('（心头警兆骤生，悄然放下狼毫反手护住黑漆木匣，目光如电射向幽暗石道）“有人潜入达摩院禁地了！”'),
     ],
     choices: [
       {
@@ -188,52 +249,46 @@ export const SCENES: Record<string, StorySceneDef> = {
         effects: [
           { type: 'startQuest', questId: SHAOLIN_Q12_QUEST_ID, stepId: 'guard_cold_jade_cave' },
           setStep(SHAOLIN_Q12_QUEST_ID, 'guard_cold_jade_cave'),
-          toast('已开启《寒玉问禅 · 七十二障》！三更异动将至，请死守寒玉榻护卫玄澄师伯！', 'talk', '寒玉问禅'),
+          toast('已开启《寒玉问禅 · 七十二障》！三更慕容暗探将至，请死守寒玉榻！', 'talk', '寒玉问禅'),
         ],
       },
     ],
   },
 
-  scene_slq12_08: {
-    id: 'scene_slq12_08',
-    title: '第八幕 · 烟袭狭洞',
-    subtitle: '幽谷石室 · 三更时分',
+  scene_slq12_06: {
+    id: 'scene_slq12_06',
+    title: '第六幕 · 暗影偷袭',
+    subtitle: '幽谷石室狭道（古洞破袭）',
     mandatory: true,
     beats: [
-      N('“嗤——嗤——”两缕细不可闻的轻烟自石道拐角悄无声息飘入洞中，直奔案头与寒玉榻而来！'),
-      N('你早有防备，袖袍一卷施展《散花掌》柔风，将两股迷香尽数逼回石道！紧接着两道身着夜行黑衣、蒙面持剑的矫健身影如狸猫般翻滚冲入石室！'),
-      S(SPEAKER_MURONG_SCOUT_A, '（低喝一声，剑尖直指你咽喉）“不好，洞里竟还有护卫小僧！燕回，速战速决，拿到玄澄的十三绝技手札立刻撤离！”'),
-      P('（横身死死挡在寒玉榻与黑漆木匣之前，沉声喝道）“何方鼠辈，竟敢深夜闯入少林达摩院禁地行窃！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_09', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_09: {
-    id: 'scene_slq12_09',
-    title: '第九幕 · 江南剑影',
-    subtitle: '幽谷石室 · 寒玉榻前',
-    mandatory: true,
-    beats: [
-      N('两名夜行黑衣人一左一右扑上，剑势轻灵飘逸、变幻莫测，赫然带着江南名门「姑苏慕容氏」的独门家传剑路！'),
-      S(SPEAKER_MURONG_SCOUT_B, '（冷笑一声，左手扬出三枚寒星暗器直袭寒玉榻，意在逼你分神）“废话少说！不交出玄澄手札，连这瘫痪老秃驴一并送去见佛祖！”'),
-      P('（怒目金刚，挥袖扫落暗器，凛然喝道）“卑鄙无耻！有小僧在此，休想越过寒玉榻前半步！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_10', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_10: {
-    id: 'scene_slq12_10',
-    title: '第十幕 · 双探截杀',
-    subtitle: '幽谷石室实战（车轮连战 慕容暗探）',
-    mandatory: true,
-    beats: [
-      N('幽谷石室空间狭小，柳青与燕回仗着身法诡谲、剑招凌厉，左右夹攻直逼寒玉榻！你须在寸步之地护住榻上玄澄，先行击溃这两名夜行死士！'),
+      N('“嗤——嗤——”两缕细不可闻的迷烟自石道拐角悄然飘入，被你袖袍一卷《散花掌》柔风尽数逼回！紧接着石道尽头传来两道极轻的衣袂擦石声——姑苏慕容氏夜行死士柳青、燕回已持剑摸至洞口！'),
+      S(SPEAKER_MURONG_SCOUT_A, '（低喝一声，蒙面下杀意毕露）“洞里竟有守夜小僧！燕回，拖住他正面，取了玄澄的十三绝技手札立刻撤离！”'),
+      N('不仅如此，洞顶石梁幽暗处更隐隐传来一丝令人毛骨悚然的凌厉寒意——显然外围双探之后，还潜伏着更可怕的高手！寒玉榻就在身后半步，狭洞生死一瞬，你决意如何破局？'),
     ],
     choices: [
       {
-        id: 'slq12_fight_scouts',
-        label: '寸步不退护卫寒玉榻，迎战姑苏双探！（车轮连战 实战）',
-        subLabel: '两名二流中品姑苏慕容暗探联手突袭',
+        id: 'slq12_ambush_listen',
+        label: '【禅定听风先机截杀】听辨暗哨吐纳破绽，抢先隔空拈花封穴制住外围双探！',
+        subLabel: '跳过柳青、燕回偷袭，保存真气直面洞顶暗探首燕影客 1v1',
+        tone: 'jade',
+        condition: {
+          type: 'any',
+          hint: '需寒玉问禅彻底破障明心，或先天【悟性】≥ 72',
+          conditions: [
+            { type: 'flag', flag: 'sl_q12_mind_clear', op: 'truthy' },
+            { type: 'talentAtLeast', key: '悟性', min: 72 },
+          ],
+        },
+        effects: [
+          { type: 'setFlag', flag: 'sl_q12_scouts_cleared', value: true },
+          { type: 'setFlag', flag: 'sl_q12_ambush_tactic', value: 'listen' },
+          openScene('scene_slq12_07', SHAOLIN_Q12_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq12_ambush_direct',
+        label: '【剑指齐发正面护洞】寸步不退守在寒玉榻前，车轮连破姑苏双探！',
+        subLabel: '车轮连战姑苏暗探柳青与燕回（二流中品 × 2）',
         tone: 'danger',
         effects: [
           {
@@ -246,12 +301,13 @@ export const SCENES: Record<string, StorySceneDef> = {
             forbidEscapeReason: '玄澄师伯瘫痪榻上，绝不可退后半步！',
             introText: '【车轮连战 · 狭洞护师】迎战潜入石室的姑苏慕容暗探【柳青】与【燕回】！',
             onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               { type: 'setFlag', flag: 'sl_q12_scouts_cleared', value: true },
-              { type: 'healPlayer', hpPct: 65, mpPct: 65 },
-              openScene('scene_slq12_11', SHAOLIN_Q12_QUEST_ID),
+              { type: 'setFlag', flag: 'sl_q12_ambush_tactic', value: 'direct' },
+              openScene('scene_slq12_07', SHAOLIN_Q12_QUEST_ID),
             ],
             onLose: [
-              { type: 'healPlayer', hpPct: 85, mpPct: 85 },
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               toast('狭洞之内双剑夹攻凶险，重整禅息再护寒玉榻！', 'warn', '寒玉问禅'),
             ],
           },
@@ -260,68 +316,33 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq12_11: {
-    id: 'scene_slq12_11',
-    title: '第十一幕 · 破探惊变',
+  scene_slq12_07: {
+    id: 'scene_slq12_07',
+    title: '第七幕 · 燕影现身',
     subtitle: '幽谷石室 · 寒玉榻前',
     mandatory: true,
     beats: [
-      N('狭洞之中拳剑交击声如爆豆！你以《散花掌》卸开柳青剑锋，反手一记《拈花指》凌空点中燕回腕脉，旋即借力将二人双双震飞撞在石壁上，吐血昏死过去！'),
-      N('然而你刚要松一口气，头顶幽暗洞窟石梁之上，却忽传来一声低沉而冰冷的轻笑！'),
-      S(SPEAKER_YAN_YINGKE, '“啪、啪、啪——好俊的少林《散花掌》与《拈花指》！难怪玄慈敢派你独守这幽谷石室。”'),
-      N('一道修长如鬼魅的青灰身影自石梁飘然落下，足尖落地竟无半分声响！此人面覆寒铁半面具，周身散发着令人窒息的一流高手压迫感！'),
+      N('{ifFlagEq:sl_q12_ambush_tactic=listen|你闭目听风，瞬息听辨出石道暗影中两道极细微的换气破绽！身形未动而右指先弹，两缕《拈花指》柔劲穿雾破空，精准封死柳青与燕回肩井、曲池大穴，二探连剑都未及递出便齐齐软倒石道！|狭洞内剑影暗器交织如雨！你寸步不离寒玉榻前，以《散花掌》卸开柳青急剑、挥袖扫落燕回毒镖，反手一记《拈花指》点中燕回腕脉，借力将二探震撞石壁吐血昏死！}'),
+      S(SPEAKER_MURONG_SCOUT_B, '（跌坐石道动弹不得，骇然失声）“怎么可能……连我们的呼吸破绽都被他看穿了……”'),
+      N('话音未落，头顶幽暗石梁忽传来三声低沉冰冷的掌声！一道修长如鬼魅的青灰身影飘然落地竟无半分声响，面覆寒铁半面具，周身散发着令人窒息的一流高手威压！'),
+      S('NPC-0109', '（寒玉榻上玄澄早已惊醒，目光如电盯着黑衣首领）“身法如燕掠寒潭、指间隐含参合剑气……阁下莫非是江南姑苏慕容氏座下暗探首领？”'),
+      S(SPEAKER_YAN_YINGKE, '（微微欠身，语调优雅却杀机四溢）“神僧好眼力。在下燕影客，奉主上之命遍搜天下武学秘录。神僧既已身废，何不将《十三绝技武学障手札》赠予我姑苏还施水阁？小和尚若敢螳臂当车，今夜便让你尝尝『以彼之道，还施彼身』的滋味！”'),
     ],
-    onFinishEffects: [openScene('scene_slq12_12', SHAOLIN_Q12_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq12_08', SHAOLIN_Q12_QUEST_ID)],
   },
 
-  scene_slq12_12: {
-    id: 'scene_slq12_12',
-    title: '第十二幕 · 燕影现身',
-    subtitle: '幽谷石室 · 寒玉榻前',
-    mandatory: true,
-    beats: [
-      S('NPC-0109', '（寒玉榻上玄澄早已惊醒，双目如电盯着黑衣首领，声音沉缓）“阁下身法如燕掠寒潭、指间隐含参合剑气……莫非是江南姑苏慕容氏座下暗探首领？”'),
-      S(SPEAKER_YAN_YINGKE, '（微微欠身，语调优雅却杀机四溢）“玄澄神僧果然好眼力。在下燕影客，奉主上之命遍搜天下武学秘录。少林七十二绝技举世无双，神僧既已身废不能再演武，何不将那卷《十三绝技武学障手札》赠予我姑苏还施水阁，也免得埋没尘埃？”'),
-      P('（稳立榻前，体内真气鼓荡至巅峰，声音斩钉截铁）“少林绝学岂容宵小窃取！燕影客，想要手札，先踏过小僧尸身！”'),
-      S(SPEAKER_YAN_YINGKE, '（面具下冷眸微眯，缓步逼近）“好骨气！可惜区区二流内门弟子，也敢螳臂当车？今日便让你尝尝『以彼之道，还施彼身』的滋味！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_13', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_13: {
-    id: 'scene_slq12_13',
-    title: '第十三幕 · 狭洞危局',
-    subtitle: '幽谷石室 · 寒玉榻前',
+  scene_slq12_08: {
+    id: 'scene_slq12_08',
+    title: '第八幕 · 狭洞死战',
+    subtitle: '幽谷石室终战（1v1 一流下品燕影客）',
     illustrationUrl: '/assets/quests/sl_12_cave_assassin.jpg',
     illustrationCaption: '狭洞死战 · 幽暗石室中独挡一流下品慕容暗探首燕影客，寸步不退',
     mandatory: true,
     beats: [
-      N('话音未落，燕影客身形骤然化作三道虚影！他右手慕容家传长剑如灵蛇吐信，左手食指却悄然弹出凌厉无匹的「参合指」气，竟连少林《拈花指》的柔劲路数都能临场仿出七八分！'),
-      N('一流下品高手的恐怖劲风瞬间充斥整座狭洞，吹得案头长明青灯明灭不定！'),
+      N('燕影客身形骤化三道虚影！右手慕容家传长剑如灵蛇吐信，左手食指悄然弹出凌厉无匹的「参合指」气，竟连你方才施展的少林《拈花指》柔劲都临场仿出七八分！一流下品的恐怖气浪充斥狭洞，吹得青油灯明灭不定！'),
       S('NPC-0109', '（榻上玄澄忽以清越禅音点拨）“孩子莫慌！他虽善借力打力、仿人招式，却只得其形而无佛门慈悲禅心！守住本心，以伏魔之正、散花之圆、拈花之透三势合一，破他借力之隙！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_14', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_14: {
-    id: 'scene_slq12_14',
-    title: '第十四幕 · 三艺合一',
-    subtitle: '幽谷石室 · 寒玉榻前',
-    mandatory: true,
-    beats: [
-      N('玄澄一语如当头棒喝！你脑海中刹那闪过五年来在剑痕崖悟剑、洛水画舫散花、大雄正殿拈花、乃至方才秉烛问禅的全部历程！'),
-      P('（心中再无半丝惧意与杂念，双目澄明如古佛拈花）“原来如此——招式可仿，禅心难偷！燕影客，接招吧！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_15', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_15: {
-    id: 'scene_slq12_15',
-    title: '第十五幕 · 死战燕影',
-    subtitle: '幽谷石室终战（1v1 燕影客）',
-    mandatory: true,
-    beats: [
-      N('一流下品强敌燕影客杀意毕露，慕容剑法与参合指气交织如网，在狭窄石室中步步绝杀！此乃晋升少林真传前的生死大考，唯有全力以赴方能护师破敌！'),
+      N('玄澄一语如当头棒喝！绝壁悟剑、洛水散花、灵山拈花、寒玉破障历历在目——你双目澄明如古佛拈花，心中再无半丝惧意！'),
+      P('（横身死守寒玉榻前，声震石室）“招式可仿，禅心难偷！燕影客，想要玄澄师伯手札，先踏过小僧尸身！”'),
     ],
     choices: [
       {
@@ -337,9 +358,12 @@ export const SCENES: Record<string, StorySceneDef> = {
             rule: 'story_trial',
             forbidEscapeReason: '寒玉榻就在身后半步，死战护师，绝无退路！',
             introText: '【1v1 狭洞生死战】迎战姑苏慕容暗探首【燕影客】（一流下品）！',
-            onWin: [openScene('scene_slq12_16', SHAOLIN_Q12_QUEST_ID)],
+            onWin: [
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
+              openScene('scene_slq12_09', SHAOLIN_Q12_QUEST_ID),
+            ],
             onLose: [
-              { type: 'healPlayer', hpPct: 90, mpPct: 90 },
+              { type: 'healPlayer', hpPct: 100, mpPct: 100 },
               toast('燕影客一流修为诡谲霸道！稳住禅心再思玄澄师伯点拨，重新迎战！', 'warn', '寒玉问禅'),
             ],
           },
@@ -348,94 +372,84 @@ export const SCENES: Record<string, StorySceneDef> = {
     ],
   },
 
-  scene_slq12_16: {
-    id: 'scene_slq12_16',
-    title: '第十六幕 · 破影还禅',
+  scene_slq12_09: {
+    id: 'scene_slq12_09',
+    title: '第九幕 · 破影还禅',
     subtitle: '幽谷石室 · 寒玉榻前',
     mandatory: true,
     beats: [
-      N('狭洞之中劲气激荡、碎石簌簌坠落！激战五十余合，你左臂僧袍已被参合指气划破渗血，却始终牢牢钉在寒玉榻前，寸步未移！'),
-      N('燕影客久战不下，恐惊动少林寺众长老，终于使出杀招「参合剑雨」，剑指齐发直取你心口，同时暗运慕容借力劲气，等着借你反击之力一举震碎你经脉！'),
-      N('你却在生死刹那彻底明悟「无障无执」之境——不发刚猛死力，反以极柔极纯的禅定内息化作《散花掌》圆涡卸去剑锋，随即指尖轻吐《拈花指》透骨柔劲，直入其借力中枢！'),
+      N('狭洞内劲气激荡、碎石簌簌坠落！激战五十余合，你左臂僧袍已被参合指气划破渗血，双足却似生根般牢牢钉在寒玉榻前，寸步未移！'),
+      N('燕影客久战不下，恐惊动寺中长老，猛然使出绝杀「参合剑雨」直取你心口，更暗运慕容家传借力劲气，等着借你反击之刚猛力道一举震碎你心脉！电光火石间你彻底洞彻「无障无执」之境——不发半分刚戾死力，纯以《散花掌》圆涡卸剑，指尖轻吐《拈花指》柔劲直入其借力中枢！'),
+      N('“哇——！”燕影客借力落空反遭柔和禅劲直透膻中，喷出一口鲜血，脸上寒铁面具竟被指风震裂半边，踉跄撞在石壁之上！'),
+      S(SPEAKER_YAN_YINGKE, '（骇然失色，死死盯着浴尘而眼神澄净的你）“怎么可能……我明明算准你的后劲，为何你招中竟无半点刚戾可借？！少林达摩院……竟又出了一个破障奇才！”'),
+      N('此时洞外钟鼓齐鸣、数道凌厉破风声急速逼近！燕影客自知大势已去，咬牙掷出一枚烟雷，抓起昏迷的柳青与燕回化作一缕黑烟仓皇遁入风雪深谷！'),
     ],
-    onFinishEffects: [openScene('scene_slq12_17', SHAOLIN_Q12_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq12_10', SHAOLIN_Q12_QUEST_ID)],
   },
 
-  scene_slq12_17: {
-    id: 'scene_slq12_17',
-    title: '第十七幕 · 暗探遁走',
-    subtitle: '幽谷石室 · 寒玉榻前',
+  scene_slq12_10: {
+    id: 'scene_slq12_10',
+    title: '第十幕 · 联袂举荐',
+    subtitle: '幽谷石室 · 黎明破晓',
     mandatory: true,
     beats: [
-      N('“哇——！”燕影客借力不成反遭柔和禅劲直透膻中，闷哼一声喷出一口鲜血，脸上寒铁面具竟被指风震裂半边，踉跄撞在石道洞壁之上！'),
-      S(SPEAKER_YAN_YINGKE, '（骇然失色，死死盯着浑身浴尘却眼神澄净如初的你）“怎么可能……我明明算准了你的后劲，为何你招中竟无半点刚戾可借？！少林达摩院……竟又出了一个破障奇才！”'),
-      N('此时洞外忽传来嵩山钟鼓齐鸣与数道凌厉破风声——显然少林巡夜武僧已被石室激战惊动！燕影客自知大势已去，咬牙掷出一枚烟雷，一把抓起昏迷的柳青与燕回，化作一缕黑烟仓皇遁入风雪深谷！'),
+      N('硝烟散尽，你强忍左臂隐痛第一时间回身护问玄澄安危与手札无恙。寒玉榻上，这位十余载心如枯井的少林神僧浑浊老眼中竟滚落两行热泪，声音微颤却无比欣慰。'),
+      S('NPC-0109', '“好孩子……老衲无恙。你以二流之躯独抗一流绝世刺客，更在绝境中真正化去招中戾气，令慕容氏无力可借！老衲苦求三十年未破之『武学障』，今夜终于在你身上见到了破障曙光！”'),
+      N('未过片刻，玄慈方丈与玄难首座亲率戒律武僧疾步赶至！见洞中满地碎石、半片寒铁面具与完好无损的木匣手札，两位宗师无不动容，玄难急忙上前为你点穴止血。'),
+      S('NPC-0109', '（目光灼灼望向玄慈方丈，朗声开口）“方丈师兄，此子禅经通明、书棋辩才俱佳，既能文辩退番僧，更能于绝境破障击退一流暗探。老衲愿以残躯之名，与玄难师弟联袂举荐——晋升此子为我嵩山少林寺【真传弟子】！”'),
+      S('NPC-0127', '（玄难首座郑重合十附议）“老衲附议！达摩院一脉，当以此子为真传翘楚！”'),
     ],
-    onFinishEffects: [openScene('scene_slq12_18', SHAOLIN_Q12_QUEST_ID)],
+    onFinishEffects: [openScene('scene_slq12_11', SHAOLIN_Q12_QUEST_ID)],
   },
 
-  scene_slq12_18: {
-    id: 'scene_slq12_18',
-    title: '第十八幕 · 神僧含泪',
-    subtitle: '幽谷石室 · 寒玉榻前',
-    mandatory: true,
-    beats: [
-      N('硝烟散尽，你紧绷的心神方才一松，单膝微屈拄地调息，却第一时间回头望向寒玉榻，急声关切：'),
-      P('“玄澄师伯，您安然无恙否？那《十三绝技武学障手札》也完好无损！”'),
-      S('NPC-0109', '（寒玉榻上，这位十余年来心如枯井的少林神僧，此刻浑浊的老眼中竟缓缓滚落两行热泪，声音微颤却无比欣慰）“好孩子……老衲无恙。方才那一战，你以二流之躯独抗一流下品绝世刺客，更在绝境中真正化去了招中戾气，令慕容氏无力可借……”'),
-      S('NPC-0109', '“老衲当年苦求三十年未破之『武学障』，今夜竟在你身上看到了破障明心的曙光！达摩院后继有人，少林有福啊！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_19', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_19: {
-    id: 'scene_slq12_19',
-    title: '第十九幕 · 黎明双至',
-    subtitle: '幽谷石室 · 晨光破晓',
-    mandatory: true,
-    beats: [
-      N('未过片刻，玄难首座与玄慈方丈亲率戒律院武僧疾步赶至幽谷石室！见洞中满地碎石剑痕、案头手札完好，而你左臂带伤却依旧肃立寒玉榻前，两位宗师无不动容。'),
-      S('NPC-0127', '（上前为你点穴止血，查探过地上残留的剑痕与半片寒铁面具，沉声道）“竟是姑苏慕容氏一流下品暗探首亲自出手！幸得你死战不退，否则玄澄师兄与少林秘录不堪设想！”'),
-      S('NPC-0112', '（玄慈方丈步至寒玉榻前，与玄澄交换了一个深沉的眼神）“玄澄师兄，你意下如何？”'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_20', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_20: {
-    id: 'scene_slq12_20',
-    title: '第二十幕 · 联袂举荐',
-    subtitle: '幽谷石室 · 寒玉榻',
-    mandatory: true,
-    beats: [
-      S('NPC-0109', '（玄澄神僧目光灼灼，朗声开口）“方丈师兄，此子入寺五载，禅经通明、书棋俱佳，既能文辩退番僧，更能于绝境死战一流强敌、护师守道而不染戾气。老衲愿以残躯之名，与玄难师弟联袂举荐——晋升此子为我嵩山少林寺【真传弟子】！”'),
-      S('NPC-0127', '（玄难首座郑重合十）“老衲附议！达摩院一脉，当以此子为真传翘楚！”'),
-      S('NPC-0112', '（玄慈方丈欣然颔首，声震石室）“善哉，善哉！玄澄、玄难二位师弟联袂举荐，老衲岂有不准之理？传法谕：自今日起，晋升尔为嵩山少林寺【Lv.3 真传弟子】，准入藏经阁深院参悟少林无上禅武！”'),
-    ],
-    onFinishEffects: [openScene('scene_slq12_21', SHAOLIN_Q12_QUEST_ID)],
-  },
-
-  scene_slq12_21: {
-    id: 'scene_slq12_21',
-    title: '第二十一幕 · 达摩真传',
-    subtitle: '幽谷石室 · 寒玉榻',
+  scene_slq12_11: {
+    id: 'scene_slq12_11',
+    title: '第十一幕 · 达摩真传',
+    subtitle: '幽谷石室 · 寒玉榻（真传立誓）',
     illustrationUrl: '/assets/quests/sl_12_damo_zhenchuan.jpg',
     illustrationCaption: '达摩真传 · 黎明幽谷石室中，玄慈宣谕晋升少林真传弟子，玄澄玄难欣慰颔首',
     mandatory: true,
     beats: [
-      N('晨光透过幽谷崖隙斜照石室，正落在你带尘却笔挺的僧袍之上。玄慈方丈亲手为你颁授少林真传弟子紫金度牒，玄澄神僧亦命你将那卷《十三绝技武学障手札》的化障总纲铭记于心。'),
-      P('（双手接过真传度牒，面向玄慈、玄难、玄澄三位高僧郑重叩首）“弟子定当永记『武学障』之戒，以慈悲佛法统御少林绝学，护持禅宗千年道统，绝不负三位师长厚望！”'),
+      N('晨光透过幽谷崖隙斜照石室，正落在你带尘却笔挺的僧袍之上。玄慈方丈欣然宣谕，亲手捧出少林真传弟子紫金度牒，玄澄神僧亦将《十三绝技武学障手札》的化障总纲口授于你。'),
+      S('NPC-0112', '（声震石室，慈和而威严）“玄澄、玄难二位师弟联袂举荐，老衲准奏！自今日起，晋升尔为嵩山少林寺【真传弟子】，准入藏经阁深院参悟少林无上禅武！”'),
+      S('NPC-0112', '“既登达摩院真传之位，将来必当直面更深邃的七十二绝技与更险恶的天下风波。在三老之前，请立下你此生的达摩真传誓言——”'),
     ],
-    onFinishEffects: [openScene('scene_slq12_22', SHAOLIN_Q12_QUEST_ID)],
+    choices: [
+      {
+        id: 'slq12_oath_compassion',
+        label: '【以禅化武度众生】永记武学障之戒，以无边慈悲佛法化解兵戈戾气、济度十方！',
+        subLabel: '达摩禅心大乘之道（禅心慈悲 +1）',
+        tone: 'jade',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q12_oath', value: 'compassion' },
+          { type: 'addFlagNumber', flag: 'sl_zen_merit', delta: 1 },
+          openScene('scene_slq12_12', SHAOLIN_Q12_QUEST_ID),
+        ],
+      },
+      {
+        id: 'slq12_oath_guardian',
+        label: '【穷研绝艺护法统】穷究古刹七十二绝艺之极境，以铁肩禅锋护持少林千年法统！',
+        subLabel: '金刚护法大雄之道（怒目杀业 +1）',
+        tone: 'gold',
+        effects: [
+          { type: 'setFlag', flag: 'sl_q12_oath', value: 'guardian' },
+          { type: 'addFlagNumber', flag: 'sl_karma_wrath', delta: 1 },
+          openScene('scene_slq12_12', SHAOLIN_Q12_QUEST_ID),
+        ],
+      },
+    ],
   },
 
-  scene_slq12_22: {
-    id: 'scene_slq12_22',
-    title: '第二十二幕 · 破障新途',
+  scene_slq12_12: {
+    id: 'scene_slq12_12',
+    title: '第十二幕 · 破障新途',
     subtitle: '达摩院 · 嵩山晴雪',
     mandatory: true,
     beats: [
+      S('NPC-0109', '{ifFlagEq:sl_q12_oath=compassion|（含笑合十，神色如释重负）“以禅化武度众生……好！有此一誓，七十二绝技在你手中必成大慈悲法器，绝不再成魔障！”|}{ifFlagEq:sl_q12_oath=guardian|（凝视良久，肃然颔首）“穷研绝艺护法统，壮志可嘉！只是切莫忘今夜寒玉榻前所见——武功愈高，佛法愈须深沉！”|}'),
+      N('你面向玄慈、玄难、玄澄三位玄字辈宗师郑重叩首，双手接过沉甸甸的真传紫金度牒。'),
       N('步出幽谷石室时，嵩山一夜风雪已歇，万峰银装素裹，朝阳正自少室峰东麓喷薄而出。'),
-      N('自初入山门杂役，至外门木桩大考、剑痕崖伏魔、洛水散花、大殿拈花，再到今夜寒玉问禅破障——你已正式跻身嵩山少林寺【真传弟子】之列，江湖更广阔的风云与无上禅武绝学，正于前方徐徐展开！'),
+      N('自初入山门杂役、木桩大考分脉、剑痕崖伏魔、洛水画舫破幻、大雄正殿拈花，再到今夜寒玉问禅破障——你已正式跻身嵩山少林寺【真传弟子】之列，藏经阁的无上禅武与更广阔的江湖风云，正于前方徐徐展开！'),
     ],
     choices: [
       {
@@ -447,8 +461,14 @@ export const SCENES: Record<string, StorySceneDef> = {
           { type: 'giveCombatExp', amount: 550, reason: '寒玉石室问禅破障并死战击溃姑苏慕容暗探首' },
           { type: 'addSectContribution', amount: 220 },
           { type: 'modifyRenown', delta: 80, reason: '护卫神僧玄澄击溃慕容暗探并晋升少林真传弟子' },
-          { type: 'modifySkill', key: '经义', delta: 2 },
+          { type: 'modifySkill', key: '经义', delta: 1 },
           { type: 'modifySkill', key: '书', delta: 1 },
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q12_mind_clear', op: 'truthy' },
+            thenEffects: [{ type: 'modifySkill', key: '经义', delta: 1 }],
+            elseEffects: [],
+          },
           { type: 'modifyNpcFavor', target: { kind: 'npc', npcId: 'NPC-0109' }, delta: 20 },
           { type: 'completeQuest', questId: SHAOLIN_Q12_QUEST_ID, outcome: 'completed' },
           toast('已完成《寒玉问禅 · 七十二障》，正式晋升嵩山少林寺【Lv.3 真传弟子】！', 'success', '达摩真传'),

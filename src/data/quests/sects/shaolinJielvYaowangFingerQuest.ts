@@ -27,7 +27,7 @@ export const SHAOLIN_Q15_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流上品',
     maxOpponentRealm: '二流上品（太行溃匪首 · 独眼狼）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 戒律药王脉第三回核心任务链（全二十幕）。入寺满三载、完成《一拍两散 · 汴京缉凶》且经义 ≥ 62、书 ≥ 45 后，于大雄宝殿东厢碑廊助药王院主玄生整理医典。适逢黄河泛滥郑州流民爆发「锁喉瘴」，玄生以医道传授地阶绝学《拈花指》，令你下山隔衣点穴疏脉救民；太行溃匪首领「独眼狼」趁乱率众劫掠药棚，你指掌齐施封穴破敌，活人无数，获药王院主高度嘉许。',
+      '嵩山少林寺 Lv.2 戒律药王脉第三回核心任务链（全十一幕）。入寺满 210 日、完成《一拍两散 · 汴京缉凶》且经义 ≥ 62、书 ≥ 45 后触发。黄河泛滥郑州流民爆发「锁喉瘴」，药王院主玄生以医道亲授地阶绝学《拈花指》，携你驰赴郑州疫营：先须无提示辨证施治高热瘀毒急症，继而在太行溃匪首「独眼狼」劫掠药棚时于「药烟熏敌破先锋」「掷药囊分银安抚饿匪」「金刚截脉正面血战」三策中破局护民，终得药王真传。',
     startHint:
       '入寺满 210 日、完成《一拍两散 · 汴京缉凶》且经义 ≥ 62、书 ≥ 45 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 东厢碑廊 · 藏经橱】拜见玄生即可触发。',
     startLocation: {
@@ -38,16 +38,16 @@ export const SHAOLIN_Q15_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q15_START_CONDITION,
     summary:
-      '{reignYear}夏末，你在【东厢碑廊 · 藏经橱】协助药王院主【玄生】抄校千年古医典。突闻黄河郑州段决口泛滥，流民聚处爆发剧烈「锁喉瘴」。玄生感念苍生疾苦，破例以医道传你少林七十二绝技之一《拈花指》，命你随行驰赴郑州官道设棚救灾，以柔绵禅劲隔衣点穴疏通病民气脉。未料太行山溃匪首领「独眼狼」趁火打劫、率众直扑药棚！你挺身护民，指掌齐施封穴破敌生擒匪首，保住百余染疫百姓性命，深得药王院「医武同源、济世活人」三昧。',
+      '{reignYear}夏末，你在【东厢碑廊 · 藏经橱】协助药王院主【玄生】抄校古医典。突闻黄河郑州段决口，流民聚处爆发剧烈「锁喉瘴」。玄生破例以医道传你少林七十二绝技《拈花指》，携大黑续命膏与解瘴散星夜驰赴郑州官道疫棚。面对高热神昏、舌绛瘀毒的重症疫患，你亲断方药与穴道截脉之策；黄昏时分太行溃匪首「独眼狼」率众劫掠药营，你或巧施曼陀罗药烟、或分银遣散被裹挟饥民、或正面血战生擒匪首，活人无数，深悟药王院「一指截恶脉，一指渡苍生」之三昧。',
     initialStepId: 'zhengzhou_relief_camp',
     steps: {
       zhengzhou_relief_camp: {
         id: 'zhengzhou_relief_camp',
         title: '郑州施药 · 拈花退匪',
         objective:
-          '黄河泛滥郑州流民爆发锁喉瘴，药王院主玄生正备药箱下山济世。请留在【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】随玄生习《拈花指》救人要诀，并驰赴郑州官道药棚救民抗匪！',
+          '黄河泛滥郑州流民爆发锁喉瘴，药王院主玄生正备药箱下山济世。请留在【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】随玄生习《拈花指》救人要诀，并驰赴郑州官道疫棚辨证治疫、破太行溃匪！',
         nextHint:
-          '在【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】点击「随玄生驰赴郑州药棚 · 拈花救民破溃匪」。',
+          '在【大雄宝殿方丈院 · 东厢碑廊 · 藏经橱（sl_daxiong_east）】点击「随玄生驰赴郑州药棚 · 辨证施药破溃匪」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_daxiong',
@@ -87,9 +87,9 @@ export const SHAOLIN_Q15_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_slq15_relief_camp',
-        label: '【药王院】随玄生驰赴郑州药棚 · 拈花救民破太行溃匪',
+        label: '【药王院】随玄生驰赴郑州药棚 · 辨证施药破太行溃匪',
         badge: '拈花截脉',
-        subtitle: '郑州救灾施药 · 实战破敌独眼狼',
+        subtitle: '郑州疫营辨证施救 · 三策破溃匪独眼狼',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
@@ -99,8 +99,8 @@ export const SHAOLIN_Q15_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q15_at_camp', op: 'truthy' },
-            thenEffects: [openScene('scene_slq15_13', SHAOLIN_Q15_QUEST_ID)],
-            elseEffects: [openScene('scene_slq15_03', SHAOLIN_Q15_QUEST_ID)],
+            thenEffects: [openScene('scene_slq15_06', SHAOLIN_Q15_QUEST_ID)],
+            elseEffects: [openScene('scene_slq15_02', SHAOLIN_Q15_QUEST_ID)],
           },
         ],
       },
@@ -144,8 +144,8 @@ export const SHAOLIN_Q15_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q15_at_camp', op: 'truthy' },
-            thenEffects: [openScene('scene_slq15_13', SHAOLIN_Q15_QUEST_ID)],
-            elseEffects: [openScene('scene_slq15_03', SHAOLIN_Q15_QUEST_ID)],
+            thenEffects: [openScene('scene_slq15_06', SHAOLIN_Q15_QUEST_ID)],
+            elseEffects: [openScene('scene_slq15_02', SHAOLIN_Q15_QUEST_ID)],
           },
         ],
       },

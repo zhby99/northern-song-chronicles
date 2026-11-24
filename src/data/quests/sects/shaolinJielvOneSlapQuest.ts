@@ -29,7 +29,7 @@ export const SHAOLIN_Q14_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品',
     maxOpponentRealm: '二流中品（西夏黑道悍匪 · 铁罗汉严横）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 戒律药王脉第二回核心任务链（全二十幕）。入寺满二载、完成《钟鼓执杖 · 清规如铁》且经义 ≥ 55、书 ≥ 35、辩才 ≥ 30 后，于钟鼓禅院接获汴京血案急报：城内连死三名富绅，凶手竟留佛珠嫁祸少林！随玄寂驰赴开封大相国寺资圣八角琉璃宝塔会见慧禅，于塔顶亲受地阶绝学《一拍两散掌》，子夜甜水巷屋脊硬撼西夏黑道悍匪「铁罗汉」严横，一掌震碎其横练铁臂擒拿洗冤。',
+      '嵩山少林寺 Lv.2 戒律药王脉第二回核心任务链（全十一幕）。入寺满 150 日、完成《钟鼓执杖 · 清规如铁》且经义 ≥ 55、书 ≥ 35、辩才 ≥ 30 后触发。汴京连发富绅血案并留假佛珠嫁祸少林！随玄寂东赴大相国寺资圣八角琉璃宝塔会合慧禅，无提示验尸勘查三处现场线索推理真凶藏身规律，于塔顶亲受地阶绝学《一拍两散掌》；子夜甜水巷屋脊可凭推演/身法巧布罗网、出银买通眼线或正面强攻擒拿西夏悍匪「铁罗汉」严横，并于战后抉择移交开封府国法审断抑或押回戒律院密审追桩。',
     startHint:
       '入寺满 150 日、完成《钟鼓执杖 · 清规如铁》且经义 ≥ 55、书 ≥ 35、辩才 ≥ 30 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】拜见玄寂即可触发。',
     startLocation: {
@@ -40,16 +40,16 @@ export const SHAOLIN_Q14_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q14_START_CONDITION,
     summary:
-      '{reignYear}冬初，东京开封府连发三起灭门血案，三名巨绅皆亡于刚猛掌力，现场竟遗落伪造少林佛珠嫁祸祖庭！你奉戒律院主【玄寂】之命星夜随行东赴汴京，于【大相国寺 · 资圣八角琉璃宝塔】会合禅武僧【慧禅】，凭笔墨与验尸推演锁定凶手乃西夏黑道悍匪「铁罗汉」【严横】。宝塔顶层寒风凛冽，玄寂亲传地阶绝学《一拍两散掌》以破其横练铁功。子夜时分，你孤身截击严横于甜水巷屋脊之上，硬撼铁臂，终以一拍两散掌震碎其护体硬功生擒归案，洗刷少林蒙冤！',
+      '{reignYear}冬初，东京开封府连发三起灭门血案，三名巨绅皆亡于刚猛掌力，现场竟遗落假造少林佛珠嫁祸祖庭！你奉戒律院主【玄寂】之命星夜东赴汴京，于【大相国寺 · 资圣八角琉璃宝塔】会合禅武僧【慧禅】，逐一检验尸伤、屋檐红泥靴印与沉香绳等现场物证，推演锁定西夏黑道悍匪「铁罗汉」【严横】藏身规律。宝塔顶层朔风飞雪中，玄寂亲授地阶绝学《一拍两散掌》破其铁布衫。子夜甜水巷屋脊之上，你择计围捕生擒严横，并在移交开封府公堂与押回戒律院严审之间作出决断。',
     initialStepId: 'bianliang_zisheng_hunt',
     steps: {
       bianliang_zisheng_hunt: {
         id: 'bianliang_zisheng_hunt',
-        title: '资圣宝塔 · 习掌缉凶',
+        title: '资圣宝塔 · 验案缉凶',
         objective:
-          '汴京连发富绅血案嫁祸少林！请前往【开封府 · 大相国寺 · 资圣八角琉璃宝塔（bl_xg_pagoda）】与玄寂长老、慧禅师兄汇合，查明真凶并习得《一拍两散掌》，子夜赴甜水巷屋脊生擒「铁罗汉」严横！',
+          '汴京连发富绅血案嫁祸少林！请前往【开封府 · 大相国寺 · 资圣八角琉璃宝塔（bl_xg_pagoda）】与玄寂长老、慧禅师兄汇合，勘验现场线索并习得《一拍两散掌》，子夜赴甜水巷屋脊围捕「铁罗汉」严横！',
         nextHint:
-          '前往【开封府 · 大相国寺 · 资圣八角琉璃宝塔（bl_xg_pagoda）】点击「登资圣宝塔 · 会慧禅习《一拍两散掌》缉凶」。',
+          '前往【开封府 · 大相国寺 · 资圣八角琉璃宝塔（bl_xg_pagoda）】点击「登资圣宝塔 · 验卷习《一拍两散掌》缉凶」。',
         targetLocation: {
           regionId: 'bianliang',
           buildingId: 'bl_xiangguosi',
@@ -76,7 +76,7 @@ export const SHAOLIN_Q14_QUESTS: QuestDefinition[] = [
         spotId: 'bl_xg_pagoda',
         onceFlag: 'sl_q14_pagoda_triggered',
         condition: atStep(SHAOLIN_Q14_QUEST_ID, 'bianliang_zisheng_hunt'),
-        effects: [openScene('scene_slq14_03', SHAOLIN_Q14_QUEST_ID)],
+        effects: [openScene('scene_slq14_02', SHAOLIN_Q14_QUEST_ID)],
       },
     ],
 
@@ -98,9 +98,9 @@ export const SHAOLIN_Q14_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_slq14_pagoda_hunt',
-        label: '【汴京缉凶】登资圣八角琉璃宝塔 · 会慧禅习《一拍两散掌》',
+        label: '【汴京缉凶】登资圣八角琉璃宝塔 · 验卷习《一拍两散掌》缉凶',
         badge: '一拍两散',
-        subtitle: '资圣宝塔顶层传功 · 甜水巷屋脊生擒严横',
+        subtitle: '刑侦验尸推演 · 塔顶传功 · 甜水巷围捕严横',
         tone: 'danger',
         regionId: 'bianliang',
         buildingId: 'bl_xiangguosi',
@@ -111,8 +111,8 @@ export const SHAOLIN_Q14_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q14_taught_palm', op: 'truthy' },
-            thenEffects: [openScene('scene_slq14_11', SHAOLIN_Q14_QUEST_ID)],
-            elseEffects: [openScene('scene_slq14_03', SHAOLIN_Q14_QUEST_ID)],
+            thenEffects: [openScene('scene_slq14_06', SHAOLIN_Q14_QUEST_ID)],
+            elseEffects: [openScene('scene_slq14_02', SHAOLIN_Q14_QUEST_ID)],
           },
         ],
       },
@@ -157,8 +157,8 @@ export const SHAOLIN_Q14_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: { type: 'flag', flag: 'sl_q14_taught_palm', op: 'truthy' },
-            thenEffects: [openScene('scene_slq14_11', SHAOLIN_Q14_QUEST_ID)],
-            elseEffects: [openScene('scene_slq14_03', SHAOLIN_Q14_QUEST_ID)],
+            thenEffects: [openScene('scene_slq14_06', SHAOLIN_Q14_QUEST_ID)],
+            elseEffects: [openScene('scene_slq14_02', SHAOLIN_Q14_QUEST_ID)],
           },
         ],
       },

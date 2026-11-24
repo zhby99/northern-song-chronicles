@@ -27,7 +27,7 @@ export const SHAOLIN_Q13_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流下品',
     maxOpponentRealm: '二流下品（破戒叛僧 · 慧癞）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 戒律药王脉首回任务链（全十六幕，出家弟子专属）。归入戒律药王院后，于钟鼓禅院演武坪随玄寂长老受授《普门杖法》，奉谕星夜下山至汝州荒野山神庙追拿破戒杖杀巡检之叛僧慧癞。惊闻其杀官实因恶吏强抢俗家幼妹致死后，击败慧癞并于「严惩废功押回」与「安顿亲眷劝其自缚领罪」间抉择戒律执杖之道。',
+      '嵩山少林寺 Lv.2 戒律药王脉首回任务链（全十一幕，出家弟子专属）。归入戒律药王院后，于钟鼓禅院演武坪蒙玄寂亲授《普门杖法》，奉谕驰赴汝州南郊下院古庙查办破戒叛僧慧癞闹事反咬案。动手前可凭算术查账验米仓、辩才当堂质询证人揭穿其私吞香火赌酒铁证，或执杖径直拿人；生擒慧癞后直面其孤老苦情，于「清规如铁 · 逐出山门」与「慈悲度化 · 废功留院劈柴赎罪」间定下执戒之道。',
     startHint:
       '晋升少林内门并归入戒律药王脉（出家弟子）、经义 ≥ 50 后，前往【嵩山少林寺 · 大雄宝殿方丈院 · 钟鼓禅院 · 演武坪】拜见玄寂长老即可触发。',
     startLocation: {
@@ -38,14 +38,14 @@ export const SHAOLIN_Q13_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q13_START_CONDITION,
     summary:
-      '{reignYear}清秋晨钟初歇，你既已剃度晋升内门、归入戒律药王一脉，于【钟鼓禅院 · 演武坪】蒙戒律院主【玄寂】亲授少林执杖正法《普门杖法》。未料汝州公文骤至：原寺中破戒叛僧【慧癞】竟在集镇杖毙巡检，逃匿汝州南郊山神庙。你奉戒律令牌驰赴荒庙擒敌，却骇然听闻那恶吏强抢慧癞俗家幼妹致其投井惨死、官府反诬其老父的血泪冤情。一战以普门杖法制伏慧癞后，你立于铁律与悲心之间，亲手定下此生第一道戒律裁断。',
+      '{reignYear}清秋晨钟初歇，你既已剃度晋升内门、归入戒律药王一脉，于【钟鼓禅院 · 演武坪】蒙戒律院主【玄寂】亲授少林执杖正法《普门杖法》。未料汝州急报骤至：昔日派赴汝州下院的杂役僧【慧癞】破戒伤人，更在古庙院前反咬下院老住持克扣斋粮、挑拨围观乡民。你佩紫铜令牌星夜驰赴汝州下院古庙，或以算术验仓、或以辩才质证揭穿其私吞香火赌钱藏酒的真面目，亦可径直执杖震慑拿人。杖下生擒慧癞、听闻其孤老李老丈血泪实情后，你在逐出山门与废功留院劈柴赎罪之间定下生平第一道戒律裁断。',
     initialStepId: 'pumen_staff_drill',
     steps: {
       pumen_staff_drill: {
         id: 'pumen_staff_drill',
         title: '钟鼓受杖 · 领谕下山',
         objective:
-          '玄寂长老已于【钟鼓禅院 · 演武坪】开讲《普门杖法》要义，并有汝州急报传上山门。请留在【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】听训领命。',
+          '玄寂长老已于【钟鼓禅院 · 演武坪】开讲《普门杖法》要义，并有汝州下院急报传上山门。请留在【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】听训受杖、领令牌下山。',
         nextHint:
           '在【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】点击「听受《普门杖法》 · 领戒律令牌」。',
         targetLocation: {
@@ -57,11 +57,11 @@ export const SHAOLIN_Q13_QUESTS: QuestDefinition[] = [
       },
       ruzhou_temple_verdict: {
         id: 'ruzhou_temple_verdict',
-        title: '汝州荒庙 · 擒拿慧癞',
+        title: '汝州古庙 · 查案擒叛',
         objective:
-          '已领戒律院紫铜令牌，叛僧慧癞正藏身汝州南郊山神庙。请于【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】整装出发，驰赴汝州山神庙查明实情并擒拿慧癞归案！',
+          '已领戒律院紫铜令牌并习得《普门杖法》，破戒叛僧慧癞正于汝州南郊下院古庙反咬老住持、蛊惑乡民。请于【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】出发驰赴汝州现场查证并擒拿慧癞！',
         nextHint:
-          '在【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】点击「驰赴汝州山神庙 · 追拿破戒叛僧慧癞」。',
+          '在【大雄宝殿方丈院 · 钟鼓禅院 · 演武坪（sl_daxiong_west）】点击「驰赴汝州下院古庙 · 现场查案擒拿慧癞」。',
         targetLocation: {
           regionId: 'shaolin',
           buildingId: 'sl_daxiong',
@@ -103,25 +103,25 @@ export const SHAOLIN_Q13_QUESTS: QuestDefinition[] = [
         id: 'spot_slq13_staff_drill',
         label: '【戒律院】演武坪受法 · 参悟《普门杖法》并接汝州急报',
         badge: '普门杖法',
-        subtitle: '第三幕 · 钟鼓禅院演武坪',
+        subtitle: '第二幕 · 钟鼓禅院演武坪',
         tone: 'gold',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
         spotId: 'sl_daxiong_west',
         visibleWhen: atStep(SHAOLIN_Q13_QUEST_ID, 'pumen_staff_drill'),
-        effects: [openScene('scene_slq13_03', SHAOLIN_Q13_QUEST_ID)],
+        effects: [openScene('scene_slq13_02', SHAOLIN_Q13_QUEST_ID)],
       },
       {
         id: 'spot_slq13_ruzhou_chase',
-        label: '【戒律院】驰赴汝州山神庙 · 追拿破戒叛僧慧癞',
-        badge: '荒庙缉叛',
-        subtitle: '第六幕 · 实战擒拿并裁断清规',
+        label: '【戒律院】驰赴汝州下院古庙 · 现场查案擒拿慧癞',
+        badge: '古庙查案',
+        subtitle: '验仓查账、质询证人或执杖立威 · 裁断清规',
         tone: 'danger',
         regionId: 'shaolin',
         buildingId: 'sl_daxiong',
         spotId: 'sl_daxiong_west',
         visibleWhen: atStep(SHAOLIN_Q13_QUEST_ID, 'ruzhou_temple_verdict'),
-        effects: [openScene('scene_slq13_06', SHAOLIN_Q13_QUEST_ID)],
+        effects: [openScene('scene_slq13_03', SHAOLIN_Q13_QUEST_ID)],
       },
     ],
 
@@ -147,7 +147,7 @@ export const SHAOLIN_Q13_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'act_slq13_continue_npc',
-        label: '向玄寂师伯禀告 · 续行汝州缉叛之任',
+        label: '向玄寂师伯禀告 · 续行汝州查案缉叛之任',
         badge: '普门杖法',
         tone: 'gold',
         showInBottomBar: true,
@@ -169,8 +169,8 @@ export const SHAOLIN_Q13_QUESTS: QuestDefinition[] = [
           {
             type: 'branch',
             condition: atStep(SHAOLIN_Q13_QUEST_ID, 'pumen_staff_drill'),
-            thenEffects: [openScene('scene_slq13_03', SHAOLIN_Q13_QUEST_ID)],
-            elseEffects: [openScene('scene_slq13_06', SHAOLIN_Q13_QUEST_ID)],
+            thenEffects: [openScene('scene_slq13_02', SHAOLIN_Q13_QUEST_ID)],
+            elseEffects: [openScene('scene_slq13_03', SHAOLIN_Q13_QUEST_ID)],
           },
         ],
       },

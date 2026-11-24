@@ -27,7 +27,7 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
     recommendedRealm: '二流中品 ～ 二流上品',
     maxOpponentRealm: '二流上品（西夏游骑百夫长 · 拓跋烈）',
     recommendedNote:
-      '嵩山少林寺 Lv.2 俗家护法脉第二回历练（全二十幕）。须入寺满 150 日、完成相国寺雅市历练且经义 ≥ 55、骑术 ≥ 30。奉命赴洛阳金刀王家，携手王元霸、虚净、虚慧与白马寺玄悲大师共护千斤紫金佛像入嵩山；伊阙龙门石窟突遭水匪与西夏游骑联手劫杀，危局中蒙玄悲破格传授《韦陀杵》并赠地阶神兵《少林韦陀伏魔杵》。',
+      '嵩山少林寺 Lv.2 俗家护法脉第二回历练（全十二幕）。须入寺满 150 日、完成相国寺雅市历练且经义 ≥ 55、骑术 ≥ 30。赴洛阳金刀王家携手王元霸、玄悲大师共护千斤紫金佛像入嵩山——启程前可择明修栈道假车诱敌、算术验单揪出车队内鬼，或金刀少林正面硬闯龙门；危局中蒙玄悲破格传授《韦陀杵》并赠地阶神兵《少林韦陀伏魔杵》。',
     startHint:
       '完成《相国暗影 · 红尘刀杖》、入寺满 150 日且经义 ≥ 55、骑术 ≥ 30 后，前往【洛阳府 · 金刀王家 · 金刀威震正气大厅】（或寻王元霸、玄悲）即可共议护镖大计。',
     startLocation: {
@@ -38,16 +38,16 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
     },
     startCondition: SHAOLIN_Q18_START_CONDITION,
     summary:
-      '{reignYear}秋风起于洛水，洛阳【金刀王家】家主【王元霸】感念少林昔年援手，特延请名匠铸成千斤紫金佛像一尊，拟由白马寺大韦陀僧【玄悲】携【虚净】、【虚慧】二僧护送入嵩山供奉。你奉嵩山调令赴【金刀威震正气大厅】协助护镖，点齐车马出白马寺南下伊阙龙门石窟古道。岂料伊水峡口暗伏杀机——黄河水匪竟勾结潜入中原的西夏游骑百夫长【拓跋烈】截桥劫佛！你先破水匪伏兵，复在龙门石桥上接过玄悲抛来的【少林韦陀伏魔杵】，临阵领悟少林降魔重器绝学《韦陀杵》，于千钧一发之际击溃西夏铁骑，护得紫金佛像毫发无损归抵白马大佛宝殿。',
+      '{reignYear}深秋，洛阳【金刀王家】家主【王元霸】感念少林昔年救孙之恩，铸成千斤紫金释迦佛像一尊，拟由白马寺大韦陀僧【玄悲】携【虚净】、【虚慧】护送入嵩山供奉。你奉调赴【金刀威震正气大厅】共议护镖——启程点镖之际，你或凭骑术与探马明修栈道假车诱敌，或凭算术验单揪出西夏重金收买的车夫内鬼，亦或高举金刀大旗正面硬闯伊阙龙门！伊水峡口遭遇西夏游骑百夫长【拓跋烈】截桥劫佛，你凌空接过玄悲抛来的【少林韦陀伏魔杵】，临阵领悟《韦陀杵》重器绝学击溃党项铁骑，安护紫金佛像归抵白马大佛宝殿。',
     initialStepId: 'courtyard_muster',
     steps: {
       courtyard_muster: {
         id: 'courtyard_muster',
-        title: '金刀点镖 · 整肃车马',
+        title: '金刀点镖 · 护镖定策',
         objective:
-          '已于正气大厅与王元霸、玄悲大师定下护佛之约。请移步【金刀王家 · 金刀石锁演武中庭（ly_jd_courtyard）】，点验千斤紫金佛像镖车与马匹鞍具，与虚净、虚慧二师兄合议伊阙防务。',
+          '已于正气大厅与王元霸、玄悲大师定下护佛之约。请移步【金刀王家 · 金刀石锁演武中庭（ly_jd_courtyard）】，点验千斤紫金佛像镖车与草料清单，定下过伊阙龙门之护镖良策！',
         nextHint:
-          '前往【洛阳府 · 金刀王家 · 金刀石锁演武中庭（ly_jd_courtyard）】，点击「点验紫金佛像镖车 · 整肃护佛骑队」。',
+          '前往【洛阳府 · 金刀王家 · 金刀石锁演武中庭（ly_jd_courtyard）】，点击「点验紫金佛像镖车 · 定下伊阙护镖方略」。',
         targetLocation: {
           regionId: 'luoyang',
           buildingId: 'ly_jindao',
@@ -59,9 +59,9 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
         id: 'longmen_ambush',
         title: '伊阙伏击 · 韦陀镇桥',
         objective:
-          '紫金佛像已启程赴白马寺汇合玄悲大师，正待南出伊阙龙门石窟奔赴嵩山！速赴【洛阳府 · 白马寺 · 白马大佛宝殿（ly_bm_main）】护队启行，提防水匪与西夏游骑劫杀！',
+          '护镖方略已定，紫金佛车正待于白马寺汇合护院后南出伊阙龙门奔赴嵩山！速赴【洛阳府 · 白马寺 · 白马大佛宝殿（ly_bm_main）】护队启行，破黄河水匪与西夏游骑劫杀！',
         nextHint:
-          '前往【洛阳府 · 白马寺 · 白马大佛宝殿（ly_bm_main）】，点击「护送紫金佛像南下伊阙 · 迎战水匪与西夏游骑」。',
+          '前往【洛阳府 · 白马寺 · 白马大佛宝殿（ly_bm_main）】，点击「护送紫金佛像南下伊阙 · 龙门桥破西夏伏兵」。',
         targetLocation: {
           regionId: 'luoyang',
           buildingId: 'ly_baimasi',
@@ -73,7 +73,7 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
         id: 'baima_confer',
         title: '紫金安奉 · 伏魔授杵',
         objective:
-          '你已在伊阙龙门石桥击溃黄河水匪与西夏百夫长拓跋烈！请于【洛阳府 · 白马寺 · 白马大佛宝殿（ly_bm_main）】拜见玄悲大师与王元霸老爷子，安奉佛像并领受《韦陀杵》真传与《少林韦陀伏魔杵》。',
+          '你已在伊阙龙门石桥击溃西夏游骑百夫长拓跋烈、保全紫金佛像！请于【洛阳府 · 白马寺 · 白马大佛宝殿（ly_bm_main）】拜见玄悲大师与王元霸老爷子，安奉佛像并领受《韦陀杵》与《少林韦陀伏魔杵》。',
         nextHint:
           '在【洛阳府 · 白马寺 · 白马大佛宝殿（ly_bm_main）】点击「拜见玄悲与王元霸 · 领受《韦陀杵》与伏魔宝杵」。',
         targetLocation: {
@@ -102,7 +102,7 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
         spotId: 'ly_jd_courtyard',
         onceFlag: 'sl_q18_muster_triggered',
         condition: atStep(SHAOLIN_Q18_QUEST_ID, 'courtyard_muster'),
-        effects: [openScene('scene_slq18_05', SHAOLIN_Q18_QUEST_ID)],
+        effects: [openScene('scene_slq18_02', SHAOLIN_Q18_QUEST_ID)],
       },
       {
         id: 'trig_slq18_ambush',
@@ -111,7 +111,28 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
         spotId: 'ly_bm_main',
         onceFlag: 'sl_q18_ambush_triggered',
         condition: atStep(SHAOLIN_Q18_QUEST_ID, 'longmen_ambush'),
-        effects: [openScene('scene_slq18_09', SHAOLIN_Q18_QUEST_ID)],
+        effects: [
+          {
+            type: 'branch',
+            condition: { type: 'flag', flag: 'sl_q18_pestle_thrown', op: 'truthy' },
+            thenEffects: [
+              {
+                type: 'branch',
+                condition: { type: 'flag', flag: 'sl_q18_plan', op: 'eq', value: 'frontal' },
+                thenEffects: [openScene('scene_slq18_09', SHAOLIN_Q18_QUEST_ID)],
+                elseEffects: [openScene('scene_slq18_08', SHAOLIN_Q18_QUEST_ID)],
+              },
+            ],
+            elseEffects: [
+              {
+                type: 'branch',
+                condition: { type: 'flag', flag: 'sl_q18_pirates_cleared', op: 'truthy' },
+                thenEffects: [openScene('scene_slq18_07', SHAOLIN_Q18_QUEST_ID)],
+                elseEffects: [openScene('scene_slq18_06', SHAOLIN_Q18_QUEST_ID)],
+              },
+            ],
+          },
+        ],
       },
       {
         id: 'trig_slq18_confer',
@@ -120,7 +141,7 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
         spotId: 'ly_bm_main',
         onceFlag: 'sl_q18_confer_triggered',
         condition: atStep(SHAOLIN_Q18_QUEST_ID, 'baima_confer'),
-        effects: [openScene('scene_slq18_17', SHAOLIN_Q18_QUEST_ID)],
+        effects: [openScene('scene_slq18_11', SHAOLIN_Q18_QUEST_ID)],
       },
     ],
 
@@ -142,9 +163,9 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
       },
       {
         id: 'spot_slq18_muster',
-        label: '【俗家护法】点验紫金佛像镖车 · 整肃护佛骑队',
-        badge: '整肃车马',
-        subtitle: '第五幕 · 金刀石锁演武中庭合兵启程',
+        label: '【俗家护法】点验紫金佛像镖车 · 定下伊阙护镖方略',
+        badge: '护镖定策',
+        subtitle: '金刀石锁演武中庭 · 假车诱敌、验单擒奸或正面硬闯',
         tone: 'gold',
         regionId: 'luoyang',
         buildingId: 'ly_jindao',
@@ -152,14 +173,14 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q18_QUEST_ID, 'courtyard_muster'),
         effects: [
           { type: 'setFlag', flag: 'sl_q18_muster_triggered', value: true },
-          openScene('scene_slq18_05', SHAOLIN_Q18_QUEST_ID),
+          openScene('scene_slq18_02', SHAOLIN_Q18_QUEST_ID),
         ],
       },
       {
         id: 'spot_slq18_ambush',
-        label: '【俗家护法】护送紫金佛像南下伊阙 · 迎战水匪与西夏游骑',
+        label: '【俗家护法】护送紫金佛像南下伊阙 · 龙门桥破西夏伏兵',
         badge: '龙门血战',
-        subtitle: '第九幕 · 伊阙龙门石窟遭遇水匪西夏联手劫杀',
+        subtitle: '伊阙龙门石桥 · 迎战西夏百夫长拓跋烈',
         tone: 'danger',
         regionId: 'luoyang',
         buildingId: 'ly_baimasi',
@@ -169,9 +190,23 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
           { type: 'setFlag', flag: 'sl_q18_ambush_triggered', value: true },
           {
             type: 'branch',
-            condition: { type: 'flag', flag: 'sl_q18_pirates_cleared', op: 'truthy' },
-            thenEffects: [openScene('scene_slq18_13', SHAOLIN_Q18_QUEST_ID)],
-            elseEffects: [openScene('scene_slq18_09', SHAOLIN_Q18_QUEST_ID)],
+            condition: { type: 'flag', flag: 'sl_q18_pestle_thrown', op: 'truthy' },
+            thenEffects: [
+              {
+                type: 'branch',
+                condition: { type: 'flag', flag: 'sl_q18_plan', op: 'eq', value: 'frontal' },
+                thenEffects: [openScene('scene_slq18_09', SHAOLIN_Q18_QUEST_ID)],
+                elseEffects: [openScene('scene_slq18_08', SHAOLIN_Q18_QUEST_ID)],
+              },
+            ],
+            elseEffects: [
+              {
+                type: 'branch',
+                condition: { type: 'flag', flag: 'sl_q18_pirates_cleared', op: 'truthy' },
+                thenEffects: [openScene('scene_slq18_07', SHAOLIN_Q18_QUEST_ID)],
+                elseEffects: [openScene('scene_slq18_06', SHAOLIN_Q18_QUEST_ID)],
+              },
+            ],
           },
         ],
       },
@@ -179,7 +214,7 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
         id: 'spot_slq18_confer',
         label: '【俗家护法】拜见玄悲与王元霸 · 领受《韦陀杵》与伏魔宝杵',
         badge: '伏魔授杵',
-        subtitle: '第十七幕 · 白马大佛宝殿安奉佛像与破格传艺',
+        subtitle: '白马大佛宝殿 · 安奉佛像与破格传艺',
         tone: 'gold',
         regionId: 'luoyang',
         buildingId: 'ly_baimasi',
@@ -187,7 +222,7 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
         visibleWhen: atStep(SHAOLIN_Q18_QUEST_ID, 'baima_confer'),
         effects: [
           { type: 'setFlag', flag: 'sl_q18_confer_triggered', value: true },
-          openScene('scene_slq18_17', SHAOLIN_Q18_QUEST_ID),
+          openScene('scene_slq18_11', SHAOLIN_Q18_QUEST_ID),
         ],
       },
     ],
@@ -228,7 +263,7 @@ export const SHAOLIN_Q18_QUESTS: QuestDefinition[] = [
         },
         effects: [
           { type: 'setFlag', flag: 'sl_q18_confer_triggered', value: true },
-          openScene('scene_slq18_17', SHAOLIN_Q18_QUEST_ID),
+          openScene('scene_slq18_11', SHAOLIN_Q18_QUEST_ID),
         ],
       },
     ],
